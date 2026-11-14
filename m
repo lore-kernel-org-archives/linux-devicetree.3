@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794654367;
-	b=XoK/kP8qY/ETlPjSP+yULD+rU7iso1Y8c8ZZ/UnDg5JdIRQBaY5T16Hito6czh9jihQD
-	 wva0MGWcuRZGwJvPtSpu5D8gzlO27b/QjrE/WDSxAnzL2YZo6gX1hEg/euo7FuCd6yplI
-	 jabpnLKx8F4nfKjIlzxp6Jc3kf/QyXF8P+a6mvSiQWcq5ese2ifPBEyG7veej8tXu+lK3
-	 U1hEwezO+cazqKoekiXZUx8w662kiqq1Bt/waXF84kEiK7lMnDPDf2ki254TAZJR47Z5M
-	 ROLBoV3NuA1duarDMw0oIGaN5gAkOrlAZrMrWBrtVNK4zVDucban7hcBWAmH1sOhZMw==
+	t=1794654548;
+	b=OZWwLd4uwCwna4yuN8OKlZVQ8QA+TG0aKgpFfUNFExzKNEQvisf1v7o4VuZxdH511eW1
+	 metYqiBteng08kstW70x0sthJ3h10uNhQqHpr/fijni032JlJOLhMi0uR6RYPU2MbQc98
+	 +QbdoVKPJl8nzVkZYS7vdGeXdY7XM8UGTAsYZ0m9lApbMzegpgYVie+/4SBt7m7AF3QuV
+	 yGZRHjrFw/8KxqIdr08JTTog2gpQnP7IaFcU7nPxco3COKGRNhT3JLmYNX38a4TwA1szf
+	 FdTCxy/qt9t5CErwm73/7egGZOVLXL72g1K8kN6QdKV58mI0N/sN9VG3k7SjAWfdtbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794654367;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=swa3pF9JtyfTmztFbkqLeYbkCarbgn53aEG+M5+Ug5A=;
-	b=OslDucUsbqOjkD9a20xyRAURxLQFeowFIVK0xlXdP6s06NloDIAWFtsakO1b3FVjudw2
-	 Gzwb+UN7lqu736cCFgwF2mKSfSPa82DSCxxlfb1yEpaaKk36yl3OwXWLb+nEiQCb8YLwQ
-	 ZnoT5ICwvRqk7dvgAglfO7Yus7CBF/a9CnFM6ksfHwaTjsh/HxNw4L6QPA7pQTFsDKkvh
-	 Z4C9+phiTISs3j2KsVumlwR8hp+fBmUhep6vsdEqx+G0CaWOjim/HZuFXbz3t2ilhTg2d
-	 7YEaodJVvUjaQyp0SmFSFeHL+ljSL/ZNVlBz8GzOACya8799lPX1v+1t6eCfenJEJfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794654548;
+	h=DMARC-Filter:Received:Date:From:To:Subject:Message-ID:MIME-Version:
+	 Content-Type:Content-Disposition;
+	bh=yKa/SJsZoy3L77tACjfE73Ev0l/hJb0jpU91mGNVzAk=;
+	b=m79TxLp65d/EtMqjmj6maZHg6nYBD7+K4yyELC1R64aeBigjy8fGaXwa+sR/v38GtC7A
+	 FKE7ZJsJc/oOMLazySMz4H2QmuOk8Nzwffv+DfwAO0dvjpfTjHOLB89CmcHzRusC2qQ7K
+	 Tp3m/2KTBS6yAx2tnYIKoPQN+Z0MYwr5II/0fkByDr5WtQZMv/Cr2p87go0wn2ZJB4jJJ
+	 R2DIrCymkOYwj+dkHjh/Su9g4eUTecsa2Ht4QO05Tye5CbSrhFbNwE0xrR5msejr1JEKs
+	 wJ4zQqmlKip/F9atNBwJQbZAoKnAyHruWYNK338M4FB27ME6hknRZvzLfuFfqz9CB0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TdNaCl2j;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=makrotopia.org;
+	spf=pass smtp.mailfrom=makrotopia.org;
+	arc=none smtp.remote-ip=185.142.180.65
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C9A606A323;
-	Sat, 14 Nov 2026 11:06:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TdNaCl2j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CAC11F000C5;
-	Sat, 14 Nov 2026 11:06:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794654366;
-	bh=swa3pF9JtyfTmztFbkqLeYbkCarbgn53aEG+M5+Ug5A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TdNaCl2j0wqVSatCa4uaZnk50Ml5qMx3vjtdu+Z+vNJdnty+ih3LaWkzfPzpNxVWq
-	 oZ3Wv9NhoYwSCxKCVRCMCsydg+QIV1yZwDMyHfXKIOJ1tA8PcQ+mek02GBwO/gpAAO
-	 JVConP3talN2jpJgeaqSQWBDwqzLTw1YZ8ZTKxYweHXboHiDCOr+cg40h6cAxX63XK
-	 A1H2Jam0sArLkakH87rBi+F8aZUFG4kQZFoHct+aNPAGeiClHKsSXqg4ETU9oqZh3c
-	 lKkIeHJiGECPIjHtOJPxEsbPkkPRBDnAxyImCTn7mtHJGvi1lJkOoSs73m92sw+jxg
-	 VyDtszXP6JeEQ==
-Message-ID: <sashiko-outbox-214383@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 3/3] net: phy: dap8211r: add led hardware
- control support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Artem Shimko" <a.shimko.dev@gmail.com>, devicetree@vger.kernel.org, linux-leds@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261113110546.173624-4-a.shimko.dev@gmail.com>
-References: <20261113110546.173624-1-a.shimko.dev@gmail.com>
- <20261113110546.173624-4-a.shimko.dev@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 11:06:06 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D479D606A332;
+	Sat, 14 Nov 2026 11:09:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D479D606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xSBct-000000003wW-0j3P;
+	Sat, 14 Nov 2026 11:08:55 +0000
+Date: Sat, 14 Nov 2026 11:08:51 +0000
+From: Daniel Golle <daniel@makrotopia.org>
+To: Detlev Casanova <detlev.casanova@collabora.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	David Heidelberg <david@ixit.cz>,
+	Christian Hewitt <christianshewitt@gmail.com>,
+	Daniel Golle <daniel@makrotopia.org>, Marc Zyngier <maz@kernel.org>,
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/7] media: rockchip: rkvdec: add support for the VDPU346
+ variant
+Message-ID: <cover.1794654074.git.daniel@makrotopia.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,134 +63,115 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] net: phy: dap8211r: link trigger rejected in
-  dap8211r_led_hw_is_supported()
-- [Medium] net: phy: dap8211r: LED register not cleared in
-  dap8211r_led_hw_control_set()
---
+This series adds the VDPU346 decoder of the RK3566 and RK3568 to the
+rkvdec driver, for H.264 and HEVC. It continues Christian Hewitt's v3
+[1], whose three patches are carried unchanged; in the v2 cover letter
+he offered to pass the series on. Patches 3, 4, 6 and 7 are new and
+come out of a comparison of the driver with the vendor kernel driver
+(rockchip-linux/kernel develop-6.6, drivers/video/rockchip/mpp) and
+the Rockchip MPP library, followed by conformance runs on hardware.
 
-commit 7e5f0824bef63e117be29a9ce8d9c67d5c813bfa
-Author: Artem Shimko <a.shimko.dev@gmail.com>
+Fluster on a NanoPi R5C (RK3568B2), GStreamer 1.28.7 v4l2sl decoders:
 
-net: phy: dap8211r: add led hardware control support
+  JCT-VC-HEVC_V1   142/147
+  JVT-AVC_V1       129/135
+  JVT-FR-EXT        65/69
 
-This commit adds hardware LED control support to the DAP8211R PHY driver by
-implementing the led_hw_is_supported(), led_hw_control_set(), and
-led_hw_control_get() callbacks.
+HEVC failures: PICSIZE_A/B/C/D_Bossen_1 are coded at up to 8440 luma
+samples in one dimension, beyond the 4096x2304 limit of the decoder.
+TSUNEQBD_A_MAIN10_Technicolor_2 has unequal luma and chroma bit depth,
+which the driver rejects for every variant.
 
-> diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
-> index 4eb50c26397fb..2e371c231d32c 100644
-> --- a/drivers/net/phy/dap8211r.c
-> +++ b/drivers/net/phy/dap8211r.c
-[ ... ]
-> @@ -57,6 +58,33 @@
->   */
->  #define DAP8211R_DEFAULT_DEL_SEL	0xD
-> =20
-> +#define DAP8211R_LED_ID_0		0
-> +#define DAP8211R_LED_ID_1		1
-> +#define DAP8211R_LED_ID_2		2
-> +#define DAP8211R_LED_0			0xA00C
-> +#define DAP8211R_LED_1			0xA00D
-> +#define DAP8211R_LED_2			0xA00E
-> +#define DAP8211R_LED_ACT_BLINK		BIT(13)
-> +#define DAP8211R_LED_FULL_DUPLEX	BIT(12)
-> +#define DAP8211R_LED_HALF_DUPLEX	BIT(11)
-> +#define DAP8211R_LED_TX			BIT(10)
-> +#define DAP8211R_LED_RX			BIT(9)
-> +#define DAP8211R_LED_LINK_1000		BIT(6)
-> +#define DAP8211R_LED_LINK_100		BIT(5)
-> +#define DAP8211R_LED_LINK_10		BIT(4)
-> +
-> +#define DAP8211R_LED_LINK		(DAP8211R_LED_LINK_10	| \
-> +					DAP8211R_LED_LINK_100	| \
-> +					DAP8211R_LED_LINK_1000)
-> +
-> +#define DAP8211R_LED_SUPPORTED_TRG	(BIT(TRIGGER_NETDEV_LINK_10)	| \
-> +					BIT(TRIGGER_NETDEV_LINK_100)	| \
-> +					BIT(TRIGGER_NETDEV_LINK_1000)	| \
-> +					BIT(TRIGGER_NETDEV_TX)		| \
-> +					BIT(TRIGGER_NETDEV_RX)		| \
-> +					BIT(TRIGGER_NETDEV_HALF_DUPLEX)	| \
-> +					BIT(TRIGGER_NETDEV_FULL_DUPLEX))
+H.264 failures: CVFC1_Sony_C, FM1_BT_B, FM1_FT_E, SP1_BT_A, sp2_bt_b
+and FM2_SVA_C fail in JVT-AVC_V1; the Hantro G1 of the same board
+fails the same six with the same GStreamer. In JVT-FR-EXT
+Hi422FREXT17_SONY_A, Hi422FREXT19_SONY_A, HPCAMOLQ_BRCM_B and
+HPCVMOLQ_BRCM_B fail; the two BRCM vectors fail on the Hantro G1 as
+well, the two Hi422 intra profile vectors are not understood yet.
 
-[Severity: Medium]
-Should DAP8211R_LED_SUPPORTED_TRG include BIT(TRIGGER_NETDEV_LINK)?
+SAODBLK_A/B_MainConcept_4 and FREH10-1/2 are counted as passes: they
+decode correctly and exceed the default 60 s fluster timeout only
+because the checksum is computed from an uncached mapping of the
+capture buffers.
 
-Without it, dap8211r_led_hw_is_supported() returns -EOPNOTSUPP whenever
-TRIGGER_NETDEV_LINK is requested, so enabling the netdev link trigger on a
-DAP8211R LED fails and the TRIGGER_NETDEV_LINK handling in
-dap8211r_led_hw_control_set() is never reached.
+Patch 4 is what makes the score deterministic. With the read caches
+left in their reset state, RAP_B_Bossen_2, WPP_D_ericsson_MAIN_2,
+WPP_D_ericsson_MAIN10_2, WPP_E_ericsson_MAIN_2 (HEVC) and
+CAPM3_Sony_D, MR8_BT_B, MR9_BT_B, NRF_MW_E (H.264) produce wrong
+output in three runs out of three; with the patch they pass in three
+out of three. This is likely the source of the artefacts reported
+against v3. The function is shared with the VDPU381, where the cache
+block is mapped by the binding already; the patch has been run on the
+RK3568 only.
 
-[ ... ]
+Decode rates with the series: HEVC Main 2160p 92 fps, Main10 2160p
+77 fps, Main 1080p 380 fps, H.264 High 1080p 197 fps.
 
-> @@ -142,6 +170,156 @@ static int dap8211r_modify_ext(struct phy_device *p=
-hydev, u16 reg, u16 mask, u16
-[ ... ]
-> +static int dap8211r_led_hw_control_set(struct phy_device *phydev, u8 ind=
-ex, unsigned long rules)
-> +{
-> +	u16 led_mode =3D 0, led_reg;
-> +
-> +	switch (index) {
-> +	case DAP8211R_LED_ID_0:
-> +		led_reg =3D DAP8211R_LED_0;
-> +		break;
-> +	case DAP8211R_LED_ID_1:
-> +		led_reg =3D DAP8211R_LED_1;
-> +		break;
-> +	case DAP8211R_LED_ID_2:
-> +		led_reg =3D DAP8211R_LED_2;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (test_bit(TRIGGER_NETDEV_LINK, &rules))
-> +		led_mode |=3D DAP8211R_LED_LINK;
-> +
-> +	if (test_bit(TRIGGER_NETDEV_LINK_10, &rules))
-> +		led_mode |=3D DAP8211R_LED_LINK_10;
-> +
-> +	if (test_bit(TRIGGER_NETDEV_LINK_100, &rules))
-> +		led_mode |=3D DAP8211R_LED_LINK_100;
-> +
-> +	if (test_bit(TRIGGER_NETDEV_LINK_1000, &rules))
-> +		led_mode |=3D DAP8211R_LED_LINK_1000;
-> +
-> +	if (test_bit(TRIGGER_NETDEV_RX, &rules))
-> +		led_mode |=3D DAP8211R_LED_RX | DAP8211R_LED_ACT_BLINK;
-> +
-> +	if (test_bit(TRIGGER_NETDEV_TX, &rules))
-> +		led_mode |=3D DAP8211R_LED_TX | DAP8211R_LED_ACT_BLINK;
-> +
-> +	if (test_bit(TRIGGER_NETDEV_HALF_DUPLEX, &rules))
-> +		led_mode |=3D DAP8211R_LED_HALF_DUPLEX;
-> +
-> +	if (test_bit(TRIGGER_NETDEV_FULL_DUPLEX, &rules))
-> +		led_mode |=3D DAP8211R_LED_FULL_DUPLEX;
-> +
-> +	if (!led_mode)
-> +		return -EOPNOTSUPP;
-> +
-> +	return dap8211r_write_ext(phydev, led_reg, led_mode);
-> +}
+On the row and column buffer sizes raised in the v3 review [2]: the
+MPP library uses one vdpu34x HAL with one set of size formulas for the
+RK356x and the RK3588, so the variant keeps vdpu381_rcb_sizes.
 
-[Severity: Medium]
-Does returning -EOPNOTSUPP when led_mode is 0 leave the previous trigger bi=
-ts
-enabled in the PHY register when all trigger rules are cleared?
+Known limits, none of them introduced here:
 
-When the last active netdev trigger rule is disabled (rules =3D=3D 0),
-dap8211r_led_hw_is_supported() returns 0, so set_baseline_state() in
-drivers/leds/trigger/ledtrig-netdev.c calls hw_control_set() with mode =3D=
-=3D 0
-to turn off the hardware triggers.  Returning -EOPNOTSUPP here skips
-dap8211r_write_ext(), leaving the old configuration active in led_reg.
+- FFmpeg's v4l2-request hwaccel does not set the HEVC EXT_SPS_ST_RPS
+  and EXT_SPS_LT_RPS controls, so HEVC through FFmpeg decodes wrongly
+  on this decoder as on the VDPU381 ("Long and short term RPS not
+  set").
+- A decode error on such a stream ends in the IOMMU page faults and
+  the oops reported against v3 [3]. The cause is in the error path
+  shared by all variants: the interrupt handler restores the IOMMU
+  while the watchdog is still armed, and the watchdog starts the next
+  job while the IOMMU is detached. "media: rkvdec: Handle interrupts
+  without a current context" [4] covers the oops; the remainder will
+  be addressed separately.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113110546.1736=
-24-1-a.shimko.dev@gmail.com?part=3D3
+Patches 3, 4, 6 and 7 were written with the help of an LLM coding
+assistant, which also performed the comparison with the vendor
+sources. It was asked to review the v3 series against the vendor
+driver and to complete it; the conformance and A/B runs above were
+done on the board with builds of this series on Linux 6.18.
+
+Changes since v3:
+- Add "media: rkvdec: vdpu346: Limit HEVC EXT SPS RPS dimensions"
+- Add "media: rkvdec: vdpu381: Program the read caches"
+- Add "arm64: dts: rockchip: rk356x: Order vdec regs by address"
+- Add "arm64: dts: rockchip: rk356x: Clock the vdec at 400 MHz"
+- Add fluster scores and failure analysis
+- Add Tested-by from Diederik de Haas
+
+v3: https://lore.kernel.org/r/20260110053727.2295260-1-christianshewitt@gmail.com
+v2: https://lore.kernel.org/r/20251226113140.573759-1-christianshewitt@gmail.com
+
+[1] https://lore.kernel.org/r/20260110053727.2295260-1-christianshewitt@gmail.com
+[2] https://lore.kernel.org/r/DFL5TY0QQNMN.1RS04UM9D1V8S@cknow-tech.com
+[3] https://lore.kernel.org/r/DFRU6ODDM71P.3NQGLRK8IVDUY@cknow-tech.com
+[4] https://lore.kernel.org/r/20261026124808.642373-1-a.kazinsky@ideco.ru
+
+Christian Hewitt (3):
+  media: dt-bindings: rockchip: Add RK3568 Video Decoder bindings
+  media: rkvdec: Add support for the VDPU346 variant
+  arm64: dts: rockchip: Add the vdpu346 Video Decoders on RK356X
+
+Daniel Golle (4):
+  media: rkvdec: vdpu346: Limit HEVC EXT SPS RPS dimensions
+  media: rkvdec: vdpu381: Program the read caches
+  arm64: dts: rockchip: rk356x: Order vdec regs by address
+  arm64: dts: rockchip: rk356x: Clock the vdec at 400 MHz
+
+ .../bindings/media/rockchip,vdec.yaml         |   2 +
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi |  49 +++++++
+ .../rockchip/rkvdec/rkvdec-vdpu381-h264.c     |   2 +
+ .../rockchip/rkvdec/rkvdec-vdpu381-hevc.c     |   2 +
+ .../rockchip/rkvdec/rkvdec-vdpu381-regs.h     |   9 ++
+ .../media/platform/rockchip/rkvdec/rkvdec.c   | 121 ++++++++++++++++++
+ .../media/platform/rockchip/rkvdec/rkvdec.h   |   2 +
+ 7 files changed, 187 insertions(+)
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.56.0
