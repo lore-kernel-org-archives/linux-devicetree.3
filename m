@@ -1,57 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794627066;
-	b=roFBv8Io5cnM48RRNQSg57P8G3yWX9P8/AS6tB6g7bNpZNOhTb1Boqzd/mywMWMnhPLJ
-	 cHRbRLJIdp8+oBxTbak7UMKoCKo8ZzWBOz1RCs+yyTdJEPYxhVemZABi0CUHdvv2zar8M
-	 GqAHo+IpeKFdQICH5xjBuxCvAzPvgCErZpImqX7LI1QI5M1wRRZMwrX1MM7JdcTy6afVy
-	 VQQb/1ndpjUCJ7mbC4KFq/BcKtqEMeXs2RnTK22xLbFmaFY1eoPAoYZhVDbldkJIVH0Dw
-	 v31wMI3IBzuXmBI9ECODMqHmn9sh9aan+YwtLQkm0+UGKVhWV5DxrrvJn6Wv0cAy73g==
+	t=1794627093;
+	b=kqZtNgwFcTLBudBiAACmHM5vjg2cDFVh4Yn1hZCd5AiqiBhX1znS/Y8Aj8gt3yPcelCb
+	 7IEb4clG93u1t9SNTf7vnHYpbkSvXftfCd+MqLldrBKwMjww4HbvPn5enmI/t3PBrmacD
+	 CY8vK21e65EWNijdo/z1xzIa2TPV2ivEcwNFLM8hObv/W77l8ZgcZLf6mxogc53mi45zE
+	 LCpUGPJMfjnj7N212+FChH9FqdpQ1fHckMnCh3Aj6fT2vJAPsJoqO5dwo8dHLqMbsuplv
+	 oS6F7MJLuL9NFwipOC3JtHTCHEiKcH3KXzVAUYRk4fAYtEKU4dcovdN/qmWxp21L1Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794627066;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=SeNA25RLTTM6AhK2d0DTC//UL0WeQKsx2DC3v0cqtM8=;
-	b=XM0nv+KwJ5WAcekJOqO/WYYjWeZV44WobnAueupKMUITWDP0VvPigdLOCCrpHbOOr1gz
-	 kXHGzHOiiQEKfSlCNOi5zDIrxCzQlGQmRWGFGTgpsg2LtDidB6qwVFMZKkCavxgcItPag
-	 6Io3xlp5czHajoyUjg6cVs8pue8NPagX0URRduiwG8A1pJaK589Rrq5yoGuv+YbZgnuRU
-	 8PLTqw+o6J6GylWXl3qge2WiORR8RMgFAfKkVD0elm10nZ62StKa01jiic1cxRDEKhiDw
-	 unVlg8tE5WUgYTMMHIUJvM/SuGJtrJ7TVy6Ta9vdGC6q9+a8zHiRo5kf2xCbTgOxxhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794627093;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=nng5DLvgK/63+E7rI8IKFiq7cw48tw1TvpW9VBUURCA=;
+	b=KBqpf9pKMDmxIjf7lpsNpGPkUeuWdbgbQmGQZ/w3wesIpRQUNh5CNl+JizIpL1KSMkU7
+	 Zu//P27Tq+PqsJ2LmdpuHCRx4I3jMqsTQjWmi7wWgm27CFh2pC/US0Ou8bYuXpzF2ocWE
+	 3fyg2ClX3xoS+lAzsGzBvFKcNmBW4D5pBUXnesmNF8dCjSuRGCA857kiWRm6U4DbIQVGW
+	 BreburEkZdATsqjhjh2cGgTXlc58mgYviVz8JIIN4mJZC7udH0wMRC2j0GWUAv2sQRgRG
+	 vhpEJ0HufJ49CkQdiwhjF30z7z2Vl3GGR6eOxq4Kv6QrytSdx2lXBHk0x+im+70NBcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=opnvwktI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=G1a8wPGn;
+	arc=none smtp.remote-ip=209.85.160.225
+Received: from mail-qt1-f225.google.com (mail-qt1-f225.google.com [209.85.160.225])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A4C606A88E
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 03:31:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEDD606A889
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 03:31:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DEDD606A889
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=opnvwktI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A98E1F000C4;
-	Sat, 14 Nov 2026 03:31:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794627065;
-	bh=SeNA25RLTTM6AhK2d0DTC//UL0WeQKsx2DC3v0cqtM8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=opnvwktIFUvJMwHjj3jW2RmfUPb++7CxjuwOtaEWuIyYJbh9Dipo5uvZ9SY/74Osj
-	 4CUiN/3RvLHgUt5jjMBo+TRlQHbf6RDkw15pZtHVC5lnZvVEX+Qt4x+IYSZzHqOq//
-	 o8fMhpcc7e9vaR+7wB0SSXEMKyuUtg8ShmspmNdR9HNTtFrvmUL3meqgf2MVi96F9q
-	 /B2uvaDVY6Wqef+w72yHWS0Hs46uM7ke5/2iKJ40Ro2reFiQry+HiASQ5cixAzHOsr
-	 FVSFqb8+w7AumV9kcWB17qb/rRd4vz3zCSLghDI2t5hnpqyQrRa0VDm5dHz9QzJ7iI
-	 2rsg7XgIVD43w==
-Message-ID: <sashiko-outbox-214115@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 03/12] accel/rocket: wait for a running IRQ handler
- before resetting a core
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <18667b2afdcaae217fa1038f5348ab23ed756bdc.1794615323.git.gahing@gahingwoo.com>
-References: <cover.1794615324.git.gahing@gahingwoo.com>
- <18667b2afdcaae217fa1038f5348ab23ed756bdc.1794615323.git.gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 03:31:05 +0000
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=G1a8wPGn
+Received: by mail-qt1-f225.google.com with SMTP id d75a77b69052e-536717a4d83so22607501cf.2
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 19:31:33 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794627092; x=1795231892;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nng5DLvgK/63+E7rI8IKFiq7cw48tw1TvpW9VBUURCA=;
+        b=HECj1Rt1TiOMUl4e2A0q8QvcEqSUmxuCUoYQvu2JW7BbjLPGamNuoW/S8Tmx8qG9wq
+         WAmAoPoIwOMRhlLR3olzgTSPMoHsK1G4cA33vS0T4ZtWgDO+DVHoK1XJsUaReb5gYkT8
+         wluTj8OgGFp4o0IX4yEi3950cb11GA0k5yzJxg5VAI3kM7mfjQDHabcskIUtK2OblaFU
+         f2SuRItkoiWcNeWtldzNBnpCTy2ptL3x/CcQPSJaZC68OmQC9udRCoEp3jj/eUE0n4Eo
+         1U2BSX/DM7oszvga9wrKgMQQMoaNB997ZYXZV1a4QptcWB4/QSuiJi/DF79e0Iv7OWd1
+         EbPA==
+X-Forwarded-Encrypted: i=1; AL+hErGUNnPxhJkcIKzItkAuTMmzLDUJu6l+4AmxX5Jur6VA2L3W6Lqoa/S7fIMQtWt8WGk1MGB6cP/zRtAL@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KVn+qhmvETbYlpXmz+1yiT5AsLpoacDn+AWMT54aoiTQ+aXCn
+	fVp1hbdsNNd2Simdoh1rzKv6KhUrh9eioUJJIYa8itgPdX0eN1JAh6+1N85d8Ri++nU5SS4ieZE
+	gQ5OfwNpDNk+pEOZ81IyrgN6ssEKA62XrfHl7Wkdh11FN1FKm/JzbXjAPC4FIDQZr9J1eebyBHf
+	3g1zaYIdnJTt2RFT6JYlrxgyL8zNZsnn+iIUYMudZM0RQva/JOEGDhpNYJnArniGHqYZah4b4nd
+	Cluw++WYpSw4+kVGh3rRg==
+X-Gm-Gg: AYBFou2Tt9FmrJ7danaWoNzBjqxnOQ9ePNkmiyvDQTDxQyQUeq5poSySayJmj2cTSw/
+	54WH85OeCioQezvn+3BpPKDMV5eNjIxyMXVxVnG/57imDcD8N6WEULvPdAv/CAAg1x5vQjWqO7b
+	yF9H8xA6F3QrWu/0auAPhKYwY43YhJXub3qB+WYxmL3u5KtLPm8U/QsVnZd2hHnJDL3Z5NBqNyj
+	Iw76iCH0aChTtAgraIs76oCdRFCyIidtjufTHzObVWky6bj+R8OYhVOTCqo61WdaEv5bJnkBwkx
+	CcJ5+rjqn2i97uS6Vb0/c/oHrdItqOa9tO3Bu7e74HFR3j9kdCx3ux+F0lL8fILYs1kov2hkCvP
+	P77HeuojOPm7ZhAIHGcO/KSI+BAAYm1ktUoCMCwnjmEEe0HLz2jl0PSLtgQtk/I8tAkEpcMjUqJ
+	VYSX7Bcw1PTKpOpgiCMkduuQSc7qOZju4lDLAt00FVo04=
+X-Received: by 2002:a05:622a:451:b0:533:3484:c348 with SMTP id d75a77b69052e-55ac8b9064fmr74957901cf.46.1794627092200;
+        Fri, 13 Nov 2026 19:31:32 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-123.dlp.protect.broadcom.com. [144.49.247.123])
+        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-91f23da65edsm941556d6.44.2026.11.13.19.31.31
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 13 Nov 2026 19:31:32 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd5fd34fee0so955812a12.3
+        for <devicetree@vger.kernel.org>; Fri, 13 Nov 2026 19:31:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794627091; x=1795231891; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nng5DLvgK/63+E7rI8IKFiq7cw48tw1TvpW9VBUURCA=;
+        b=G1a8wPGnMSQ3Hv7smYwO0Ypht23EAhgjDOhNcH9AJul+V4vx8enR+NJKjGW0FtglD/
+         4WkzbmXRs3Vj82sF5OlWII3U65rOZNmDeLpzxPgRkumwC7d8PRy+MTtII4gw0PaUIh5i
+         oiS2oFNk5wHfiAagZ90rFOWzynYl58H84FST0=
+X-Forwarded-Encrypted: i=1; AL+hErESnsXmvclSINgoB96tCGgCFmJE6qQPj+/7G3lMFdlEFwTjcjoxjTW8oqYEMj8urFJDYO9oWdmrHyb5@vger.kernel.org
+X-Received: by 2002:a17:90b:48c3:b0:3b0:b36b:66fc with SMTP id 98e67ed59e1d1-3b1b0cac932mr4288832a91.63.1794627090753;
+        Fri, 13 Nov 2026 19:31:30 -0800 (PST)
+X-Received: by 2002:a17:90b:48c3:b0:3b0:b36b:66fc with SMTP id 98e67ed59e1d1-3b1b0cac932mr4288800a91.63.1794627090341;
+        Fri, 13 Nov 2026 19:31:30 -0800 (PST)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aed76745sm7343308a91.16.2026.11.13.19.31.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 19:31:28 -0800 (PST)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: bcm-kernel-feedback-list@broadcom.com,
+	Gregor Herburger <gregor.herburger@linutronix.de>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Eric Anholt <eric@anholt.net>,
+	Stefan Wahren <wahrenst@gmx.net>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v6 4/5] arm64: dts: broadcom: bcm2712: Add reboot modes to firmware node
+Date: Fri, 13 Nov 2026 19:31:27 -0800
+Message-ID: <20261114033127.875742-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110-rpi-tryboot-v6-4-56f680ef4734@linutronix.de>
+References: <20261110-rpi-tryboot-v6-0-56f680ef4734@linutronix.de> <20261110-rpi-tryboot-v6-4-56f680ef4734@linutronix.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,147 +123,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] accel/rocket: raw IRQ status can re-latch before reset in
-  rocket_reset()
-- [High] accel/rocket: race with pm_runtime_force_suspend() in
-  rocket_reset()
-- [Low] accel/rocket: missing Fixes trailer for IRQ race fix in
-  rocket_reset()
+From: Florian Fainelli <f.fainelli@gmail.com>
+
+On Tue, 10 Nov 2026 14:00:14 +0100, Gregor Herburger <gregor.herburger@linutronix.de> wrote:
+> The Raspberry Pi firmware driver allows the tryboot reboot mode. Add
+> this mode and normal boot mode to the node.
+> 
+> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+> ---
+
+Applied to https://github.com/Broadcom/stblinux/commits/devicetree-arm64/next, thanks!
 --
-
-commit 9e5305abf9afea9e1a362f158ce4e7b07f213cce
-Author: Jiaxing Hu <gahing@gahingwoo.com>
-
-> accel/rocket: wait for a running IRQ handler before resetting a core
->
-> drm_sched_stop() does not wait for a threaded IRQ handler that is already
-> running, so call synchronize_irq() after it to make sure the handler has
-> finished before the reset.
->
-> Before synchronize_irq(), mask the interrupt and clear the raw status, so
-> that the NPU core cannot report a completion afterwards.
->
-> Do this under job_lock, because the submit path sets the interrupt mask
-> under the same lock.
->
-> Only touch these registers when the device is powered: check with
-> pm_runtime_get_if_active(), so that a register access with the power
-> domain off cannot raise an SError.
->
-> Suggested-by: Igor Paunovic <royalnet026@gmail.com>
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, i=
-nduced reset, JOB_TIMEOUT_MS=3D2
-
-[Severity: Low]
-This fixes the IRQ race in rocket_reset() introduced with job submission.
-Should this include:
-
-  Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index b61bb4d242ce3..8b4ad028bc9b2 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -402,6 +402,16 @@ rocket_reset(struct rocket_core *core, struct drm_sc=
-hed_job *bad)
-> =20
->  	drm_sched_stop(&core->sched, bad);
-> =20
-> +	scoped_guard(mutex, &core->job_lock) {
-> +		if (pm_runtime_get_if_active(core->dev) > 0) {
-> +			rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
-> +			rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-> +			pm_runtime_put_autosuspend(core->dev);
-> +		}
-> +	}
-
-[Severity: High]
-Can pm_runtime_force_suspend() disable the core clocks while rocket_reset()
-writes INTERRUPT_MASK and INTERRUPT_CLEAR?
-
-core->reset.wq is not WQ_FREEZABLE, and drm_sched_stop() drops
-sched.credit_count to 0, making rocket_job_is_idle() return true while
-rocket_reset() is still running.  Because pm_runtime_force_suspend() ignores
-dev->power.usage_count and rocket_device_runtime_suspend() does not take
-core->job_lock, system suspend can disable the clocks concurrently:
-
-kworker (core->reset.wq)          system suspend
-rocket_reset()
-  drm_sched_stop()
-    credit_count -> 0
-  mutex_lock(&core->job_lock)
-  pm_runtime_get_if_active() > 0
-                                  pm_runtime_force_suspend()
-                                    rocket_device_runtime_suspend()
-                                      rocket_job_is_idle() -> true
-                                      clk_bulk_disable_unprepare()
-  rocket_pc_writel(...)
-    <-- unclocked MMIO access (SError / bus hang)
-
-In addition, in rocket_core_fini(), an in-flight job holds a runtime PM
-reference that keeps the core active across pm_runtime_disable() before
-rocket_job_fini() cancels the reset worker.  pm_runtime_get_if_active() then
-returns -EINVAL and skips masking and clearing interrupts on the active core
-before synchronize_irq().
-
-> +
-> +	synchronize_irq(core->irq);
-
-[Severity: High]
-Can an active DPU task complete after INTERRUPT_CLEAR is written and re-lat=
-ch
-INTERRUPT_RAW_STATUS before rocket_core_reset() stops the hardware?
-
-Unlike rocket_job_handle_irq(), which writes 0x0 to OPERATION_ENABLE before
-writing INTERRUPT_CLEAR, rocket_reset() leaves the core running across
-synchronize_irq() and iommu_detach_group() until rocket_core_reset() asserts
-the reset lines.  And because rocket_job_irq_handler() checks the unmasked
-INTERRUPT_RAW_STATUS register on a shared IRQ line (shared with the IOMMU):
-
-drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
-	u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-...
-	if (!(raw_status & PC_INTERRUPT_RAW_STATUS_DPU_0 ||
-	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1))
-		return IRQ_NONE;
-
-	rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
-
-	return IRQ_WAKE_THREAD;
-}
-
-a task finishing in that window sets PC_INTERRUPT_RAW_STATUS_DPU_0/1 again,
-and a shared IOMMU interrupt on core->irq can wake
-rocket_job_irq_handler_thread() after synchronize_irq() has already returne=
-d:
-
-kworker (core->reset.wq)          <hardirq> / irq thread
-rocket_reset()
-  rocket_pc_writel(INTERRUPT_MASK, 0x0)
-  rocket_pc_writel(INTERRUPT_CLEAR, 0x1ffff)
-  [DPU finishes, re-latches INTERRUPT_RAW_STATUS]
-  synchronize_irq(core->irq)
-                                  [shared IOMMU IRQ fires]
-                                  rocket_job_irq_handler()
-                                    reads INTERRUPT_RAW_STATUS
-                                    returns IRQ_WAKE_THREAD
-  iommu_detach_group()
-  rocket_core_reset()
-                                  rocket_job_irq_handler_thread()
-                                    rocket_job_handle_irq()  <-- races with=
- reset
-
-This also detaches the IOMMU group in iommu_detach_group() while
-OPERATION_ENABLE is still set and the NPU has not yet been reset.  Clearing
-OPERATION_ENABLE before INTERRUPT_CLEAR (or reading the masked
-INTERRUPT_STATUS register in rocket_job_irq_handler()) would prevent the raw
-status from re-triggering the IRQ thread.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794615324.gi=
-t.gahing@gahingwoo.com?part=3D3
+Florian
