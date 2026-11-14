@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794663446;
-	b=M/2iQsfNlxhmY+Y0BAUSB7Cr8Cl1kCS0M0m2nAFbz82OG26j9XHCO722529O00xxYKUF
-	 IThMfjX6s24kwB+foDuN+djHZoDkA5lxPrF4Unx/dg4UjGfOqItQtvnaryc0E3wm3xifN
-	 X++VtTv6o/H1gPUL7j9UrLIp7jt7GHsgsDHVk9ufl+OP+5DLdTwYXFEAb+tSD20tz5aQX
-	 zHTPmsaJqrYM1xoWHFNarUXtwJOnNJbKfSdMSnY7o5EC1Ye37V1mDftI6wVPvWbOQNhdp
-	 aB1oC1bmb34iwt8eCT2GjbNouw9zNBQRtqODmEHNYz5tJnVEF4sL4cSputWL5sU3FIg==
+	t=1794663671;
+	b=akBu/0EySzVntuuk0U9NrRJ3qHUNxukRMfYL/PC3VOZN/zS+WesXzwBHTz9iKUQUJrsf
+	 u6GM38x5ROpNKF+NAsl1rRCmSxrBy5Lmo6lIZVH7+Sxx9ALUcB2uMcZLUAu53hEK2/kZy
+	 djg6aWpI8Uj/68R5U4OyjsdMiPE+sOWDf6Dq5WL0bbnMzr7zLbeF32ou2IDpt8RHFfv2S
+	 qY6/hUpCGHzztw/cIiCDWnPMecceWWdKN4bVsF9oikgcJkXQx/DdHrApOCasIcT1TBWMh
+	 cJE9mlTBhoKp1wO+o3E190S6bIHry7NJjJ7NTU5tVHEq7d74iCwA9FPiENL+m5vOC0w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794663446;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=d1dGGKhX00LCOKp0RTB4V4U0p/3/TPwG7x8i8TvKBao=;
-	b=DPyu1HdMeRayLC03w9vFWTHnGB1q2KU21W1+YB6huZmmuQutIRbFDMYT8v0CXz4gm920
-	 ZcFTTAgG7FlADcJOYRxfuy5fyOq2B5uC+Uf6V4ueAii7kXsHXJDwN2aYcT72qOpWRyXTk
-	 d+u++EGJEU/zz45TrV4BgfnrMBqCfNcjo7hHZnMQ56GHylruryggo2kcjmLC++C9bZEbB
-	 PXxA3yLQtjVXzopM0BNS2CLspHO4Q7N9kqclZVGcLNPNMdqPgxYnAtPY8RusHp3uttwsO
-	 cpMdgzBnyT9R28fOckUDFMDO1XVo5CxXRdwtBO5Rkvm+TClIHSaXUNsTydriiZcv0Bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794663671;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=5mOhZSEvfSMRtf0UHX6LP+8VlSq50fxhb66uYLfcrLU=;
+	b=SroDNkqDETFDZg1ipzXWMS7NjnjKRQdEULG4RWmeGYJ8cYqS6wws5MifQIuJbL8D0Dxe
+	 2JgakovR0Z5V2Y49XDh/tWF5zU64Ec2w+VOs31EH9EzWRiE3xe42DccpoonO6Q7Kr85da
+	 qikWXmS99UNl/UatsGkaBUdiP89avp+Keombpc1C9SkFtX6V1l/HglJ7FE21Q6OCbj/bo
+	 00T7Rqo14SORoWGb/Ge0GLlu27ReJUtGACo9D467bNjapXB5gPg3+uduZ352mahEt3nMw
+	 SA4Gqrgw/X5IhuiSEdkIZRyHzkC6k6TaMq/DvedmjDxIlq1M8qBzLxOT0ZV3pmbY0Kg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V0DVzrQ3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZuycdAd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD239606A88E;
+	Sat, 14 Nov 2026 13:41:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZuycdAd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794663671;
+	b=gsS0b5Cy6Eq/O9Dj8gKWDZ+PsnJFhg6jxQSZeLzJcszaJYfUT43wDsGyp+Ks35ZEqLGf
+	 C/e/tPFn9jizyPV5+O5tQRASq44F5ndsEy9oGMjw3Y/P80IJjLGkMMUqxT9t4fYkRmDJQ
+	 C/LVUS8NXoEDqBszdychQGvwNreMtYxMtq42TweRf+mnukqTb9kDC2nLZ29B6sYTji7yh
+	 X0uQd8HAzZOuDGURk22u+BnwnRhz44QxWOMnMSfIFYhFGinhfVAUZ+61NLsaTK3zgmEZN
+	 sLcwEc07dFjkuITzoe3XH2tm/ObL4MtqhhxCTeQLLyKQ+eGrGqLMbHiEBFDQp0wWX4w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794663671;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=5mOhZSEvfSMRtf0UHX6LP+8VlSq50fxhb66uYLfcrLU=;
+	b=t+beG/WoMkoJ9sCFnGC8/6SxCn+oE93jBr4D/ZFzF3UI3py1Kdi5Sb7CFQP+/dGltbim
+	 sYXGXogH5D8OwXwUY9hrHKMdORAgCmxMHdIAI0zTvdmKfgUkapvUH7f65pzY4/M3gfy6O
+	 wRokJ+IQdtU7lAD1PtuwsKbJdbclYE0HfJw7VCrT4RAIBWR7SbzmFoIMbhoQN5VTEAbjZ
+	 np0qQ8GS4lJvC2oJgY9N/4r7qvArYAQIbLMI1+vtQo77kSSXOjbrEt4eLFyMCeE0iiR28
+	 EOGQBtgnTmvh6EUgWDgoAXb/3ikiwTJVRs2jGlKxOm9D3bJsqkU7ttsrxI9Yn4OqoAw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E06606A331
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 13:37:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1E06606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V0DVzrQ3
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c50a2efbe1dso329041166b.3
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 05:37:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794663444; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WJ+Iwm4Xi+meTYSC6luiMsg9PDmerVsnGu/xTx8WO4TAbfGhoJ1gxj3NxAbdDDjsm6
-         ogZ7VSVWBlGAd8GzDtlLmdO6MC+6a6YKzqclTFbHJThhJr+DMvCwYhJkTwPUfqgbyQf4
-         mtCHVQolLgFFk5dmanbh9dQyDUj153L6+DL99q9snZPsfYjVZGoPpGr3TO3DZ337vPYp
-         F7K79wZK3RS0NlPCojvCTbLkqp722a5tPtQ2BEHn6Ozus14djEdWa24K95pDDQqX38Le
-         vMWM0WY2ErVCwmHgWtrWnuV6AI5DWhlz7MIlLmYj5AnipvLO1vXSSUmmt/xu8yRZdV2s
-         klxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=d1dGGKhX00LCOKp0RTB4V4U0p/3/TPwG7x8i8TvKBao=;
-        fh=owGNIkzOMB6klMkRKKhNjkfJDcfYtgJt0i/YFhHtR8Y=;
-        b=KlqVpFLWMcIwYm4dTQbpTg5HUJRglyfTo0MOBrwVpOdrxX5pMU7RnUBI1DZ3g/YEoT
-         Oqzif9+2SBBk0UGkD//Q+dwbnIF/jie/vff3dP5eOSTnzpSa1MpkAwx061rlyTL5ddTq
-         07thAEZoOdodxQZ4AaknQitiFZsfWk6pvALAQJbPpHDJYrAkG+NYRlSypGSy/WNxsQS+
-         U2MmZSiisWq6rYHdThzi5yH1QG28mfSiCuBdIVbzQUEm1aOkLPXyBFSgsy7QGIsBC5f0
-         C4UrOkMOE0cmrQn8wWSrJOnyWBKuxgboBS9WZV8xZJUduYRc204XLhMIJp7irBKZeqo6
-         51WQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794663444; x=1795268244; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d1dGGKhX00LCOKp0RTB4V4U0p/3/TPwG7x8i8TvKBao=;
-        b=V0DVzrQ3UtNS2CGItTaibnG4J77tS7qMIR3c3C2ZUlh81GURnIp8X/IHvzSGRyT9ls
-         zjvCcMSGfVsCr6PaYL7s/vQfBw5Mif7+7tUD0srSf73nlG5orBcEr38slNFK3s40BEI2
-         7P3tnLj21L2r9iq1fBalGmh9cWBfRaIGzosEYay/i4E+/pcIFFHj2aP00nst0S6qHd6J
-         o/X6UWXAn5i2xjeOmvPTXT6Ku4VxLGqH9IukfZrHdwmQeffXKQ1EEEj4+Y8Ud/51mgzP
-         hYSzzU0nDdx3vWOvn6HCLUOcY6VNwAbS3mh+1q0boLKaBCkOkU/W8ctopAqNAKKW/Jrn
-         WAgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794663444; x=1795268244;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d1dGGKhX00LCOKp0RTB4V4U0p/3/TPwG7x8i8TvKBao=;
-        b=GMcCN8Qe4gJnukLDzRm8rwNK1Yghe91FKNOwLUUY5MXaS0P7Zmf8cPso4Fdnyfl7d7
-         1NRnpTRiPvv+TqPytiPqCanolp/Xxo8wARI+H3WUxeZg7wRbkb/wjWDIFAiyQgp9lqzL
-         ncyx/AhDhEW7tPW+qukbMf5ZaIBxPNIyKZD4n9T8XNoORse6vm4fYjng746qsDieyPMZ
-         2s3wc5dRaJ1BUPOtzbkvtFemofl4x5fqFVHohhp0C8IMkXKyXLTXVoqeK/x6BEskm0pv
-         kQVGe1r54H+PMwnVaqiFptG8pny6tNjd4qxiNHFXad+nD+FTl1bETLwl3P6N5hs6dAbj
-         E1xg==
-X-Forwarded-Encrypted: i=1; AL+hErHD7q7QbLVhYIMwqVWRB6w6BHQhrH3rcGceg8NLvhsqwqwhr0mqeQG3VFsWrEf2dm0amcmypSk36xcE@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ZJn6+JrM1tuCay7YGs0GOnTE2ClhlzeicDBvGFyz9PGHuDcY8
-	o7V4h+yeOnOsXiTM083qj77GZ6+a8dmiyTLMUnZ6LqJTy/PKvJwRQRCJ84C16DZ28DETKjUWzML
-	buJ2Am0lqY+86pBWQ7TiTszF03mO+9hs=
-X-Gm-Gg: AYBFou3AdFrZQOXDzPc/btlO+E0qnBntL227M+rml9ZJHvylg7uZq7Ib2LM/ACu7BTr
-	K1CU0BAq4HX+Dlwaxqp0iB0mq/O2pd3lWxEQFe6D6F3w8HhHtJcKhM6TjZYmnC0CWb6Z9VSqH6m
-	ZpcoxzyWM5oxPpTiCZoZCm9zvvUElEACC8pn6fd+uZjFP768a9kbvLX669knuSFUKAn98Z6Ax2J
-	25orJtt/Oheown6GnsO/NBVaudZU6CJIz+u7U1Lk0Kstc0OtJRbcBgV9woDzn7N+pC5YKAppldq
-	nAIR0sXrw/8r+Uc/jS1h51kPD6E8p2nIWUX4GMW51UR6wslJ0OOE/asmMNee14iAK1d4xbijXpL
-	xdnMSg8Z9JKObhPkDG3RHzet/y9tCwlmCn+3ihQ==
-X-Received: by 2002:a17:907:3e1f:b0:c3e:f39b:2286 with SMTP id
- a640c23a62f3a-c5095db45d8mr475395466b.0.1794663443789; Sat, 14 Nov 2026
- 05:37:23 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id D30281F000CB;
+	Sat, 14 Nov 2026 13:41:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794663671;
+	bh=5mOhZSEvfSMRtf0UHX6LP+8VlSq50fxhb66uYLfcrLU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=GZuycdAdNksVhVkNm5dH7yJeAGQCstuaj9qfPxX05VB1RIdztSNcmTdNZhE0Ax3IF
+	 f9l2omLHJ83m4IUqCIhfHEVq1DnQpXaeqOjAe7K3EFf5bRq9aEZAymm44neyBsZgIx
+	 BSM1EyLP3ra/7eacdge/FQl5AZhVkdvdAQgFzV5JjSj5GdMgR+tJK+kMIuUJfHMUPw
+	 xnfVYK2EFNA/JVY1nDJeDTMCoYIJlP5FG8m3D4ZK7MMu83HzTBMVd8QUxQBZy16l3A
+	 zCCZ9lWfKc0N08DaEK7nJkfuONXRmCCQpYbksI/e/43cHpJsTCJJy5pCe19Ot6cgSz
+	 9ltaX8PNOqlQw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5E56749DCA;
+	Sat, 14 Nov 2026 13:41:09 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Date: Sat, 14 Nov 2026 16:41:09 +0300
+Subject: [PATCH v7 04/10] ARM: goldengate: Add support for the CS75xx SoC
+ family
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,69 +83,214 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113110546.173624-1-a.shimko.dev@gmail.com>
- <20261113110546.173624-4-a.shimko.dev@gmail.com> <8ef5b0a7-58f6-4c62-8153-6a9c8d3703f7@lunn.ch>
-In-Reply-To: <8ef5b0a7-58f6-4c62-8153-6a9c8d3703f7@lunn.ch>
-From: Artem Shimko <a.shimko.dev@gmail.com>
-Date: Sat, 14 Nov 2026 16:37:12 +0300
-X-Gm-Features: AclHuK8XI7bnok_ObDtOfMHWf2vbfB49mnYymQ3JtOPklAmq8NLX7LejygF9N-8
-Message-ID: <CAOPX745=Mx9Q+Wijt9+=Mmjtdk4fsenEeV2h0gPCvNpqc8kN=A@mail.gmail.com>
-Subject: Re: [PATCH net-next 3/3] net: phy: dap8211r: add led hardware control support
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, maxime.chevallier@bootlin.com, 
-	pavel@ucw.cz, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-leds@vger.kernel.org, netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-b4-cs75xx-v7-4-8f17f38821b4@gmail.com>
+References: <20261114-b4-cs75xx-v7-0-8f17f38821b4@gmail.com>
+In-Reply-To: <20261114-b4-cs75xx-v7-0-8f17f38821b4@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Drew Fustini <fustini@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ Jason Li <jason.li@cortina-access.com>, 
+ Fil Dunsky <filipp.dunsky@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794663665; l=6100;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=rWpdHlk3LciKT/N7XptR2+H0C4Am+e/uwLuWsLiX5+M=;
+ b=3tuQG1F6cfsadWuV1Fku6kPlcyjgzeB/DAi55h9GJ3Cq3ROIYmJsns5BUZ9m5KCU1pgSMcKm9
+ OpbO+UDVUicAo+vWNFYvEqB8Y93bifcJE9T3J0+YWjOihBEXHd86Bk3
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi Andrew,
+From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-On Fri, Nov 13, 2026 at 11:32=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote=
-:
->
-> > +#define DAP8211R_LED_ACT_BLINK               BIT(13)
-> > +#define DAP8211R_LED_FULL_DUPLEX     BIT(12)
-> > +#define DAP8211R_LED_HALF_DUPLEX     BIT(11)
-> > +#define DAP8211R_LED_TX                      BIT(10)
-> > +#define DAP8211R_LED_RX                      BIT(9)
-> > +#define DAP8211R_LED_LINK_1000               BIT(6)
-> > +#define DAP8211R_LED_LINK_100                BIT(5)
-> > +#define DAP8211R_LED_LINK_10         BIT(4)
->
-> Do any of these bits allow forced on/off?
+The Cortina Systems CS75xx ("Goldengate G2") are network processors
+with two Cortex-A9 cores, an SCU, GIC, the Cortex-A9 global and private
+timers and a PL310 L2 cache controller. The family includes at least
+the CS7522 and the CS7542; the CS7542 is used, among others, in the
+Securifi Almond+ router.
 
-These bits only control the indication of connection status, speed,
-duplex mode, and activity.
+Apart from the vendor this has little in common with the Cortina
+Systems Gemini (SL3516/CS3516) supported by mach-gemini: Gemini is a
+single ARMv4 FA526 with Faraday peripherals (FTINTC010, FTTMR010,
+FTGPIO010, a 16550 UART) built for ARCH_MULTI_V4, while the CS75xx is
+an ARMv7 MPCore whose UART, GPIO, interrupt controller and NAND
+controller are different blocks. It therefore gets its own directory,
+named after the Goldengate codename like in the vendor kernel. The
+Kconfig symbol, ARCH_CORTINA_ACCESS, covers the whole family and is
+named after Cortina Access, which last sold these chips and also makes
+the newer 64-bit parts.
 
-The LED_COMCON register does include "force-on/force-off" bits,
-but i have intentionally chosen not to use them here.
-To be honest, i=E2=80=99m not yet convinced that they need to be added.
+The generic DT machine is sufficient for the platform, so only the SMP
+bring-up needs code: the bootloader parks the secondary core in a WFI
+loop that polls a global software register, so boot it by writing the
+physical address of secondary_startup to the register named by the
+cpu-release-addr property and sending it a wakeup IPI.
 
-In any case, if you think they are needed, i'll add them.
+The CPU is a Cortex-A9 r2p1, so select the errata workarounds that apply
+to that revision and can be enabled on a multiplatform kernel. The PL310
+is r3p1-50rel0 (CACHE_ID 0x410000c7), select the workaround for its
+erratum 769419 as well.
 
-> > +static int dap8211r_led_hw_is_supported(struct phy_device *phydev, u8 =
-index, unsigned long rules)
-> > +{
-> > +     switch (index) {
-> > +     case DAP8211R_LED_ID_0:
-> > +             fallthrough;
-> > +     case DAP8211R_LED_ID_1:
-> > +             fallthrough;
-> > +     case DAP8211R_LED_ID_2:
-> > +             break;
->
-> You can collapse case statements, without fallthrough, if there is no
-> code.
->
-> It is also possible to do:
->
-> case DAP8211R_LED_ID_0..DAP8211R_LED_ID_2:
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+---
+ arch/arm/Kconfig                   |  2 ++
+ arch/arm/Makefile                  |  1 +
+ arch/arm/mach-goldengate/Kconfig   | 19 ++++++++++
+ arch/arm/mach-goldengate/Makefile  |  2 ++
+ arch/arm/mach-goldengate/platsmp.c | 72 ++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 96 insertions(+)
 
-Agreed =3D)
+diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+index 0cc289a71..87ff65256 100644
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -391,6 +391,8 @@ source "arch/arm/mach-footbridge/Kconfig"
+ 
+ source "arch/arm/mach-gemini/Kconfig"
+ 
++source "arch/arm/mach-goldengate/Kconfig"
++
+ source "arch/arm/mach-highbank/Kconfig"
+ 
+ source "arch/arm/mach-hisi/Kconfig"
+diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+index 573813ef5..21d7a443c 100644
+--- a/arch/arm/Makefile
++++ b/arch/arm/Makefile
+@@ -187,6 +187,7 @@ machine-$(CONFIG_ARCH_DOVE)		+= dove
+ machine-$(CONFIG_ARCH_EXYNOS)		+= exynos
+ machine-$(CONFIG_ARCH_FOOTBRIDGE)	+= footbridge
+ machine-$(CONFIG_ARCH_GEMINI)		+= gemini
++machine-$(CONFIG_ARCH_CORTINA_ACCESS)	+= goldengate
+ machine-$(CONFIG_ARCH_HIGHBANK)		+= highbank
+ machine-$(CONFIG_ARCH_HISI)		+= hisi
+ machine-$(CONFIG_ARCH_IXP4XX)		+= ixp4xx
+diff --git a/arch/arm/mach-goldengate/Kconfig b/arch/arm/mach-goldengate/Kconfig
+new file mode 100644
+index 000000000..302e24841
+--- /dev/null
++++ b/arch/arm/mach-goldengate/Kconfig
+@@ -0,0 +1,19 @@
++# SPDX-License-Identifier: GPL-2.0-only
++config ARCH_CORTINA_ACCESS
++	bool "Cortina Systems CS75xx (Goldengate G2)"
++	depends on ARCH_MULTI_V7
++	select ARM_ERRATA_754322
++	select ARM_ERRATA_764369 if SMP
++	select ARM_GIC
++	select ARM_GLOBAL_TIMER
++	select CACHE_L2X0
++	select CLKSRC_ARM_GLOBAL_TIMER_SCHED_CLOCK
++	select HAVE_ARM_SCU if SMP
++	select HAVE_ARM_TWD if SMP
++	select PL310_ERRATA_769419
++	help
++	  Support for the Cortina Systems CS75xx (Goldengate G2) family of
++	  network processors, such as the CS7542 used in the Securifi
++	  Almond+ router. These SoCs have two Cortex-A9 cores with a PL310
++	  L2 cache controller, a packet processing engine, PCIe, NAND and
++	  the usual low speed peripherals.
+diff --git a/arch/arm/mach-goldengate/Makefile b/arch/arm/mach-goldengate/Makefile
+new file mode 100644
+index 000000000..b839201c9
+--- /dev/null
++++ b/arch/arm/mach-goldengate/Makefile
+@@ -0,0 +1,2 @@
++# SPDX-License-Identifier: GPL-2.0-only
++obj-$(CONFIG_SMP)	+= platsmp.o
+diff --git a/arch/arm/mach-goldengate/platsmp.c b/arch/arm/mach-goldengate/platsmp.c
+new file mode 100644
+index 000000000..d9285297b
+--- /dev/null
++++ b/arch/arm/mach-goldengate/platsmp.c
+@@ -0,0 +1,72 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * SMP support for the Cortina Systems CS75xx SoCs
++ *
++ * The bootloader parks the secondary core in a WFI loop that polls a
++ * global software register and jumps to the address found there once it
++ * becomes non-zero. The register is described by the cpu-release-addr
++ * property of the secondary CPU node.
++ */
++
++#include <linux/io.h>
++#include <linux/of.h>
++#include <linux/of_address.h>
++#include <linux/smp.h>
++#include <asm/smp_plat.h>
++#include <asm/smp_scu.h>
++
++static int cs75xx_boot_secondary(unsigned int cpu, struct task_struct *idle)
++{
++	struct device_node *np;
++	void __iomem *release;
++	u64 addr;
++	int ret;
++
++	np = of_get_cpu_node(cpu, NULL);
++	if (!np)
++		return -ENODEV;
++
++	ret = of_property_read_u64(np, "cpu-release-addr", &addr);
++	of_node_put(np);
++	if (ret) {
++		pr_err("CPU%u: missing cpu-release-addr\n", cpu);
++		return ret;
++	}
++
++	release = ioremap(addr, sizeof(u32));
++	if (!release)
++		return -ENOMEM;
++
++	writel(__pa_symbol(secondary_startup), release);
++	iounmap(release);
++
++	/* The secondary core waits in WFI, wake it up */
++	dsb_sev();
++	arch_send_wakeup_ipi_mask(cpumask_of(cpu));
++
++	return 0;
++}
++
++static void __init cs75xx_smp_prepare_cpus(unsigned int max_cpus)
++{
++	struct device_node *np;
++	void __iomem *scu_base;
++
++	np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
++	scu_base = of_iomap(np, 0);
++	of_node_put(np);
++	if (!scu_base) {
++		pr_err("failed to map SCU\n");
++		return;
++	}
++
++	scu_enable(scu_base);
++	iounmap(scu_base);
++}
++
++static const struct smp_operations cs75xx_smp_ops __initconst = {
++	.smp_prepare_cpus	= cs75xx_smp_prepare_cpus,
++	.smp_boot_secondary	= cs75xx_boot_secondary,
++};
++
++CPU_METHOD_OF_DECLARE(cs7542_smp, "cortina,cs7542-smp", &cs75xx_smp_ops);
 
-Thank you for your review.
+-- 
+2.53.0
 
-Best regards,
-artem
+
