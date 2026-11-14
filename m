@@ -1,70 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794697184;
-	b=3ZPR8xIH/6W+3BI/7IjCOW3uWzgj7qj3UiDdk4YZ+UCnHwhC+Cg0pQNFtucM3VXfjl9f
-	 AtOSEct+k8iO+oOJNFlQXaOcXJJfde+M4733jdsD5hhTEDow//deitwxUV2ot5H9BS/j2
-	 GwVtIoT0Z5QN5obq9gEU0QzzIyJpJcAkYo/+9SkiS1Hjf2rbf3nNvlNh4ZnTd8XgZ6AAP
-	 JruaYGyU40pcE5AwgiA8nMZpzgQcQFaWGF5k9nW1070VNOsR8qMy1I/U4avU3tpynpG1c
-	 THR+0Hx05J2iVRS2W9IloDTQXiORZZL6xS0k0rMtLVBMBTSesFcwgMBke2Kxv3qyJnA==
+	t=1794697205;
+	b=mhS0eRpYc1ZJbYHDE+NZ0umU6lZULl0MeupXncpdvP4GMID7gPMMr5e3aVmnSpNucA9r
+	 ZiP7PR7timIPe0vAxv7OiIMGFDTEqNNL9p9DQ4Ao4xG+1HeB3j0zaXRSOLwVS5/lT1XLC
+	 gPfBbmrjHEeLBk8g+5tq3wTjTagO6bGDSyULfRi68zyqGAnP1HxFenj8qJiS/1c1H+he6
+	 D0tnPG5KzWJC76ROGIbPCAbPyfz1hy4o8/oHy885xZAwQE4Y12JdrBZ6JghD7YEqUdCvH
+	 iNHwUyglnkHE9Q05P5IXFFIt8vQJjveg+LQz+ZyqAoCtQYj0ziRQwqsADqzH157upvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794697184;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1RjSw3udwOeS4kl1fq7ydLZRlJKs8s+Pg2HK9HfkKlc=;
-	b=bGjPKmKzueMVSn+Yi7Va+zR9zdfOzDt7I184mh42pm2Ha7XG9Lg4rntOAYdME09M2MBz
-	 9VzkBIaIcPu2nBegCdBm+U1/PkKJUpOlUX9dNmszrkHKnZzGkeFvB9x0bC+o/GPFH0KO2
-	 EEWY0RtYapdZ02Q00wTKjCps+ERabVHR8RHaU+umnB7E5oh31BgJki2fEkoX9Lq2Wc/Ts
-	 dc8hsgSwLjxVcksu86UAeeyCadqdzgyBlJWRqsrOTlkRtLMl2ioIfPkUXO1DJ5FC/I0cB
-	 PJt7leEj1JWGWX01f6BEfA3opsWIo9Q9lOY0Zz0gsz0n/TGm6mV/1A7I16YuIE51q4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794697205;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=0wa81wjKvq6D81wGQOOKb3vbFn9v2lmkCTbZ586IOGY=;
+	b=GDtlM8sjxAaClnJTMna0bFIVRu/BAw3wcUFoummPbtSrP+gaEBaEmFHAmPwfpjNTMYPS
+	 iXXMhUJGOuNK1lADNKpNTApJLLWK7rUTb2Drnt1sTeA444xMR0o7LpKSwQJw3Z33fUGGK
+	 pAfGQTNYG7OTCp5IgYiEOEsla3QJQKS+Y32SCl3PzK/UU42xVGdwXwiFgevN1kSrHCFDN
+	 xPL+TVRc7QChRF4ad8MbzCecGplVz3rkpK7bCEP3u6cEsfKy4JW29b0L5ZPmWnCM/7E6I
+	 OMk9lU1KsVkK2TDdq6A/aoWKTWw2N90u4hPftQ0/K/T/2MiYqCwXar2vvzBX19VYOQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VlbqojKC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUBFE66J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474D1606A323;
-	Sat, 14 Nov 2026 22:59:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF66606A32D;
+	Sat, 14 Nov 2026 23:00:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VlbqojKC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65F91F000C4;
-	Sat, 14 Nov 2026 22:59:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUBFE66J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51F3D1F000C4;
+	Sat, 14 Nov 2026 23:00:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794697183;
-	bh=1RjSw3udwOeS4kl1fq7ydLZRlJKs8s+Pg2HK9HfkKlc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VlbqojKCq4unXRlhspCIOKhbgHOEd32Kg9g8Wtkh5qqzDw7ZrQ+P1RN5/sGnTWY69
-	 9GhV3SUTmOio6dz7cvltBdz2MDXK1BrLK/QZcycgBg+XRJwXtkwwfDM832GFpY5TjN
-	 2YOpjNsmr9sTFjJgiNSl7WgRzjWFMPlZIibZGteSqqw8b9Qk8qp4LnEQce/lu40loF
-	 H4ukeEMd0d+DOYu1WvAAZX8pebPdN9KQNw8v8HoHoYgrde6t+xH0L16Rfyhs2sAC+v
-	 DdqddnwOiM0+Cfpn0uYdkiadvTKT2w+EJIlXV9YF9G+GUXNfeTisLLMtRZ0/88G7Sr
-	 OUguS3/FYiZuQ==
-Date: Sat, 14 Nov 2026 22:59:34 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, kernel test robot
- <lkp@intel.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Esben Haabendal <esben@geanix.com>,
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
- "Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
- <u.kleine-koenig@baylibre.com>, Pan Chuang <panchuang@vivo.com>, Hemanth
- Selam <hemanth.selam@gmail.com>, Antoniu Miclaus
- <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>,
- oe-kbuild-all@lists.linux.dev, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] iio: light: ltr501: Add support for the
- LTR-659PS-01 proximity sensor
-Message-ID: <20261114225934.396da0ae@jic23-hlaptop>
-In-Reply-To: <CAPVz0n1UG6L8divtcXgg7mfS7C3bO9tKv9d-Xh6VbyayG7p8-w@mail.gmail.com>
-References: <20261108094253.83899-5-clamor95@gmail.com>
-	<202611090518.mm6yt2nO-lkp@intel.com>
-	<avInQ08dVrsc-Rbo@ashevche-desk.local>
-	<CAPVz0n1FqXV-XXyBJpnp1ivd+uk6+zGvngobQZfUXMNBBPyORA@mail.gmail.com>
-	<CAPVz0n1UG6L8divtcXgg7mfS7C3bO9tKv9d-Xh6VbyayG7p8-w@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794697204;
+	bh=0wa81wjKvq6D81wGQOOKb3vbFn9v2lmkCTbZ586IOGY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fUBFE66JQCQ2H9pyKDE5tScOOtu5AnYdMdPPkD7asAyzch/bkLmkGj065bzET/tqc
+	 4DMafBYNevruVdCQRJq3nE6wmxbIqqrqx6jw3ieDDErjs7Ls98p5JBbqVzGbiPxcJ/
+	 5hcodmb4KGLYk7MJvycjZt3UThkXMJXzqvnQMuRCKOJgL4Hn2qFk5g6M7HEZ6APeV8
+	 JuyUyRDQQX4hBuacAhOk3ZsGb4W+t8zgvOLtzqbstb3q8EXI7YaVnAzD9ic4Fwjt8a
+	 BqKWwiv/3GvwssflxowEwU2ZBGOkfautBcUuPr4zh34X9hlo9rOx/Xoo/deXNjc44N
+	 cLxWYJ9D80OJQ==
+Message-ID: <sashiko-outbox-215079@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/4] drivers: leds: aw2013: Leverage C99 for-loops
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Paul Sajna" <sajattack@postmarketos.org>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261114-aw2013-aw20xx-rename-v7-3-ea5a3113a479@postmarketos.org>
+References: <20261114-aw2013-aw20xx-rename-v7-0-ea5a3113a479@postmarketos.org>
+ <20261114-aw2013-aw20xx-rename-v7-3-ea5a3113a479@postmarketos.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 14 Nov 2026 23:00:03 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,56 +59,28 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, 14 Nov 2026 16:45:02 +0200
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] leds: aw2013: commit subject uses drivers: leds: prefix instead
+  of leds:
+--
 
-> =D0=BF=D0=BD, 9 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 22:=
-07 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > =D0=BF=D0=BD, 9 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 2=
-2:04 Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5=
-: =20
-> > >
-> > > On Mon, Nov 09, 2026 at 05:48:09AM +0800, kernel test robot wrote: =20
-> > > >
-> > > > kernel test robot noticed the following build errors: =20
-> > >
-> > > ...
-> > > =20
-> > > > All errors (new ones prefixed by >>, old ones prefixed by <<):
-> > > >
-> > > > WARNING: modpost: vmlinux: section mismatch in reference: trace_ini=
-tcall_level+0x28 (section: .text.unlikely) -> initcall_level_names (section=
-: .init.data)
-> > > > WARNING: modpost: vmlinux: section mismatch in reference: __arch_xp=
-rod_64+0xac (section: .text.unlikely) -> initcall_level_names (section: .in=
-it.data) =20
-> > > > >> ERROR: modpost: drivers/iio/light/ltr501.ko: symbol 'iio_find_ch=
-annel_from_si' undefined! =20
-> > >
-> > > Forgot to import namespace?
-> > > =20
-> >
-> > It is not exported in the core
-> >
-> > https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tre=
-e/drivers/iio/industrialio-core.c?h=3Dnext-20261109#n319
-> > =20
->=20
-> Should I export it? Do you have any suggestions?
+commit dd420770c3e97b4e4988e32c3e735789959ed94e
+Author: Paul Sajna <sajattack@postmarketos.org>
 
-Sure. Export this one.  It is a very simple helper so I have no concerns
-about it being used in drivers rather than opencoding the same loop
-(which I suspect some are doing!)
+drivers: leds: aw2013: Leverage C99 for-loops
 
->=20
-> > > --
-> > > With Best Regards,
-> > > Andy Shevchenko
-> > >
-> > > =20
+This commit moves loop counter declarations into the for-loop headers in
+aw2013_chip_init() and aw2013_chip_in_use().
 
+> drivers: leds: aw2013: Leverage C99 for-loops
+
+[Severity: Low]
+This isn't a bug, but LED subsystem commit subjects use the "leds:
+<driver>: <Capitalized description>" format, so this should use the
+"leds: aw2013:" prefix instead of "drivers: leds: aw2013:".
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114-aw2013-aw2=
+0xx-rename-v7-0-ea5a3113a479@postmarketos.org?part=3D3
