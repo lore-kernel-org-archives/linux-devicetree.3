@@ -1,52 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794662882;
-	b=s/PKIf+WnvQ+hRwfJRtVYKur4I6OTqCOP8cgeZ52mtmr/5YZxQ1zASOuMSormv+NTGNs
-	 iA45udeFF+MgJ+3wZd4heeeNXAzEnED+hnRpnr+4OWTppqmhEMtLHs5D8c7e7TIOG0tXE
-	 KeCESVupF/WyOMtYSM3/Dmtc9RfhwGKFUYx9Y5ihdWTOr4q5Y9+oalIu9q1gLR6PENHDP
-	 6TCseh7w9mxW0xKdWcl41Bet7PE9WAEaCVpVbtc0aeEdEH3h9R1GLYatI8K6M9xt4AuVU
-	 siGJa/9GO5M3gw95q4baGjbPLu+Lv/hMk9Uic40JRzLaBDph1OeT1mkchNxD3PwQ+TQ==
+	t=1794662965;
+	b=gr4s33UT7GUwodBWehpiUz6/Em8dY2PUfhf89LHm6eXtvlUk0IzZBRLFyzL3+r3w1u5z
+	 tzA3CueuPD7R1ZHQ9Bc2KwAAAlEZ7LDUyfZIOlyKbCrULMGitwCIh3YAb3NWCSu3aHfUY
+	 bc0AbPc2Y3+AsoqRows3BtNL7Q8y3WANmbOLOztSo8kjH5DfFjLq7DuaQNLz6EfMyA37x
+	 MQwwOs4R+7NPql93akKO3GsTov2GeQ6xwwHcOG49iF3Xxlxs6Qwmu5a+6msxR8VTX40Fp
+	 SiZMh2st9GlCouEMg+xcUJEIOHpZaK4Ny+yARoJtgYY3qUA019tLU2RZuMoQLJ/4/5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794662882;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:
-	 In-Reply-To:References;
-	bh=gT8R01frXqoIJvl9RGVpwuWi3b4gIIdQyqgCn7ucTZU=;
-	b=R6zl4aRs+rmDSigOHUvUwCNkBpzISyTEUiIzX4Ee2vh5EPNns9qc7va81i1awamKBNT3
-	 m4drAeAKQCFzV9+37T12Nh1iZ/nWEY7sZYSZF9PNLSlZLm0lv/7MrUj5SYe+YAe8uFKx9
-	 wlzEilZwHXgAztGX2ihmmOfhmJ8q5F9Y7tPnKS/Gftm07pxGoBKfn7HPo8EKHiCcmGC3U
-	 i4RdWGGApt/7vhw4J/y72gEXQMMpsTsVSqT7l6HDCbwS8o/dC8VE8uqzWqtfe6ruzOLy4
-	 G1wtF0KsrxkyK4LUlY3PV7qBY40xheFnhTKxg9QzsrPOFnndNV15NMnHGptWCflyeGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794662965;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8PCw2XdXKwdBOKGqs7jdnmPpKrWXHVDdf62xcZoZaEM=;
+	b=5k6jAaFVAMcVXc5vMUUVtkuG0F1s8t6OilLZS93F2psow3uGJ1qPywCa2mS4hVKCYPla
+	 x8tyiCioh9Z5kz+Q95OTmQQcboE6iE7u/X9DnHp2R/rjIVBlnYKvjPgVCyNTJI+cIe5cc
+	 F9dnRSlquEycmts2RRKVlQjhXZBytVyxxvVG+T4evop+jRhQ62zdOzXCwtaQIG5ZaYkeY
+	 mZpepKLGCE82Na/ax/GPqasztJ4TT87NP/wZJkK2I9mHO8uikFP2h13oaJ1Xrsm7NST5t
+	 NKHF2FWAYS3wkW8TC/bnE4Z+Z0JtIpB19pA2MNP5jz7bsxiIzFkRmInav1w0YY3SwGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wBAQqr1U;
-	arc=none smtp.remote-ip=95.215.58.39
-Received: from mta1.migadu.com (out-39.mta1.migadu.com [95.215.58.39])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EnCssEPw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96252606A337
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 13:28:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96252606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519AE606A323
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 13:29:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wBAQqr1U
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gT8R01frXqoIJvl9RGVpwuWi3b4gIIdQyqgCn7ucTZU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794662879; v=1; x=1795267679;
- b=wBAQqr1UDyU3stJVqU9DxG5eszmFIcq3qH+qxe9rHQHOh5WReHXL0sIEpiKTocxXHc/h852W
- Lv3v8ViWLsm8tfk8hsFZHv4fR78V47Jh8u7Es8iS50eMsSSsv83DbT+K8PeMZoV4iX9kMV5i5bk
- mE0u9rxlrzjmKBPSHY2Lj8Pw=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8b8a5b5b05980967;
-	Sat, 14 Nov 2026 13:27:59 +0000
-X-Mizu-Trace-ID: 8b8a5b5b05980967
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EnCssEPw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB061F000D3
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 13:29:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794662965;
+	bh=8PCw2XdXKwdBOKGqs7jdnmPpKrWXHVDdf62xcZoZaEM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EnCssEPw6cov5K9aRkaXKIug9hrEdX7SUkUiCFbnGSp9r5EM7MzYA/v1ySC16+Wq8
+	 xhJw/v4UJgT3fI9+hy98dPofqYTOqcqfFiUYFvqKbG3sUVnJ8js7ecNTxyJTA95j6a
+	 gHn3YsO13Nsz/w2IGgwJ2xTvov+ogJDyVBcGRKcwifXUqmTy/AVqLLk6RFmfp+odf3
+	 qdH8qAe5KkP6byA8F+ntNXj3/YJW3fP52hUWbgzPGAJyMWLYqblHWDCGd4XTuVoeP0
+	 dI/ReNThj1xWEba13epitPGrdJlAghmmgVNNXK+zHleuDzGNpdIjGRtC6v034pgMcL
+	 00Gzu6a7N7NkQ==
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4bb61185057so3979185e9.1
+        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 05:29:24 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFGtCp3iOKXjzUKLeP7dMCKPC6l/DVMKx2bZk8jC6BjYi0pG4fKipWBvIcofzGC0itdFbbWvWGr6A6x@vger.kernel.org
+X-Gm-Message-State: APuU4Z8COBPQvdB4NbcC9BLEGNKeMKaVIhBBEXlc31jqbXiipTA1fHY+
+	pALkXDyPESnZK1Os72sAdlk/kuVU2mWL+dymp/buHEjVBtuUvtFwwKUwJcy4CgyjUczEuwesTJg
+	5KfkILMDTh8RPR+oOB4OcpFJu3Kbx1bU=
+X-Received: by 2002:a05:600c:a10a:b0:4a2:10f9:37ce with SMTP id
+ 5b1f17b1804b1-4bb55a4f1d8mr82881675e9.15.1794662963477; Sat, 14 Nov 2026
+ 05:29:23 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -56,57 +59,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sat, 14 Nov 2026 13:27:58 +0000
-Content-Type: text/plain; charset="utf-8"
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn> <20261114-v861-v1-3-eb71ec3ee523@iscas.ac.cn>
+In-Reply-To: <20261114-v861-v1-3-eb71ec3ee523@iscas.ac.cn>
+From: Guo Ren <guoren@kernel.org>
+Date: Sat, 14 Nov 2026 21:29:10 +0800
+X-Gmail-Original-Message-ID: <CAJF2gTREPzZeBX+HMvXhPfgW_PUaUQRS=beZdUAX_dWdQXQXoQ@mail.gmail.com>
+X-Gm-Features: AclHuK8FYIwK7avJPlBwjKjnw3eVNsp5Aw_49eWaUu--rt0mOUqOqs5zKnvpneU
+Message-ID: <CAJF2gTREPzZeBX+HMvXhPfgW_PUaUQRS=beZdUAX_dWdQXQXoQ@mail.gmail.com>
+Subject: Re: [PATCH 03/19] dt-bindings: interrupt-controller: add the
+ Allwinner V861 PLIC
+To: gaohan@iscas.ac.cn
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Maxime Ripard <mripard@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Andre Przywara <andre.przywara@arm.com>, 
+	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+	Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, 
+	linux-csky@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rtc@vger.kernel.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-From: "Frank Wunderlich" <frank.wunderlich@linux.dev>
-Message-ID: <4427785e421caa5ceba5b64ceb7c7e4cfdb607ec@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH net-next v20 00/15] net: pcs: Introduce support for
- fwnode PCS
-To: "Christian Marangi" <ansuelsmth@gmail.com>, "Maxime Chevallier"
- <maxime.chevallier@bootlin.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, "Eric Dumazet"
- <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni"
- <pabeni@redhat.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Simon Horman" <horms@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>,
- "Shuah Khan" <skhan@linuxfoundation.org>, "Randy Dunlap"
- <rdunlap@infradead.org>, "Lorenzo Bianconi" <lorenzo@kernel.org>, "Heiner
- Kallweit" <hkallweit1@gmail.com>, "Russell King" <linux@armlinux.org.uk>,
- "Philipp Zabel" <p.zabel@pengutronix.de>, "Nathan Chancellor"
- <nathan@kernel.org>, "Nick Desaulniers" <ndesaulniers@google.com>, "Bill
- Wendling" <morbo@google.com>, "Justin Stitt" <justinstitt@google.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- llvm@lists.linux.dev
-In-Reply-To: <20261114104426.235620-1-ansuelsmth@gmail.com>
-References: <20261114104426.235620-1-ansuelsmth@gmail.com>
 
-Am 14. November 2026 um 11:43 schrieb "Christian Marangi":
->=20
->=20This series introduce a most awaited feature that is correctly
-> provide PCS with fwnode without having to use specific export symbol
-> and additional handling of PCS in phylink.
->=20
->=20At times there were 2 different implementation (this and the one
-> from Sean) but Sean agreed that this can be picked and used in favor
-> of his implementation as long as his case with race condition is
-> correctly handled.
-Hi Christian
+On Sat, Nov 14, 2026 at 6:33=E2=80=AFAM Han Gao via B4 Relay
+<devnull+gaohan.iscas.ac.cn@kernel.org> wrote:
+>
+> From: Han Gao <gaohan@iscas.ac.cn>
+>
+> The V861 uses the XuanTie C900 PLIC implementation, like the D1. Add an
+> SoC-specific compatible with "thead,c900-plic" as the fallback.
+>
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> ---
+>  .../devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml     =
+ | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/sifiv=
+e,plic-1.0.0.yaml b/Documentation/devicetree/bindings/interrupt-controller/=
+sifive,plic-1.0.0.yaml
+> index cde4bb691897..6178fea9bbdc 100644
+> --- a/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-=
+1.0.0.yaml
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-=
+1.0.0.yaml
+> @@ -72,6 +72,7 @@ properties:
+>        - items:
+>            - enum:
+>                - allwinner,sun20i-d1-plic
+> +              - allwinner,sun252i-v861-plic
+>                - canaan,k230-plic
+>                - sophgo,cv1800b-plic
+>                - sophgo,cv1812h-plic
+>
+> --
+> 2.55.0
+>
+>
+Oh, my misunderstanding, thead,c900-plic is used by opensbi. Please
+keep this in the commit log.
 
-Thank you very much for taking care of this!
+Reviewed-by: GUO Ren (XuanTie) <guoren@kernel.org>
 
-sorry for html mail (have not found setting to force to text in
-linux.dev webmailer - if someone knows it please tell me).
-
-@netdev maintainers:
-is this now in shape enough to getting merged? or which part needs to be =
-changed?
-
-Some boards (e.g. mt7988a based) are stalled because not having network s=
-upport
-yet in last 2 LTS kernels due to this part is unclear/missing.
-
-regards Frank
+--
+Best Regards
+ Guo Ren
