@@ -1,85 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794674664;
-	b=1uhVoG3OBg2ZhC6+2o1p8EEY197SMo0QzgJFf3DpCdWLS+rNOgoOTOlx+B7f/tFCkD30
-	 IOppEHnlSs/bepFrR9XVG2vPT5rVW2Me+X9k8nATaBKfpQdlKZSBxV9JtPeZEExTYmAVj
-	 HzxMxH+DXzDyYS5Xq5GrQsSnpcHSjdsxZsW61k8aLHFd7yrjV3ePI8C+B79Q0UP2xv1bF
-	 zVBE329/58kHwdFSsGSALUXQW0kRuU2rTliu2q9tjwC/G/8yKIXQaxj0tN4fqhmKQRNyL
-	 9QRVki2mfESD9F6a/0O6AgpadrYnxCzvbq7lBGB2SaXHwMdl5QVUOaJHphd8lA0WZQQ==
+	t=1794674733;
+	b=Bk5b1HBstZ1btnvd8EceoPIq+RVttCbZvQIvw8oLuqQXZ4q0PYm3gVcGDQrqwcwBG07K
+	 1aw4R8lsiUUbp9cV16KIpB3l8VM9B4AIfq1elT/wEJ90Gdigx9d8DMynmEy6eNHFvqtcu
+	 wLNvA0JU+Gh6x130TBlELbyptE3oH6+2W9q+G2UICW0lntjsbavGPAqHSud2jJ0TlCWn7
+	 u0H+d/hYX67iZq0r+vf72YesJewCOa7amJyf7jmRWDWKyOGu0QvCYA+AZNQt0ch+mH4ob
+	 FUDwq/Cfs2RMrbzCcf+iC2M3Dc6R9EY7xnMjijgP66HQp35nOBEVnc/Cl4thBBXUzNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674664;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=B0OC0ZuonTQMXGfSxyDCyL/1ZM45W9+oO4OKZDmsoH0=;
-	b=DxqAHzp2jlyLw4/bCirKQRr9nix3N3IZuts7rHbgQLLr57lAAkK4gfGeufp2LCk9+kj4
-	 j8Qufo4uXtV7oFyhs2vI/8nm78a6iGpvIcK1MUpJy4kGoCwR3TpjuhjOWFw+fUprG3TLi
-	 iDa9ygFIhDNwT/8Evh7SU33cpxKsQ6ncporiFFuLhhUME/1VObM/+rW3bO62dn5jP726S
-	 Sr6yj6sqrayI6ybB3EUROe6YmCtbgwHZuYu/3lS04U+o7GzKpHoWaxEXB2ML6swfQn8ZP
-	 Sk5//xVj91uBaHn2chbqiyJtw0yMhC58T5gzfFhuOAZZ3XyZNSacrtyncc60xSFytUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674733;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=HWjhff4U2bfbc71lpan6VjQI381x45+6j+0ZgY5DOCA=;
+	b=KFaCv6T97iMxG0ZxlK2tftFijWzxxRO14Ar5VhVls6rUguIpTccwno1f+rr3pWc1byCO
+	 3nvZI1N9JqJPJZDynl9t+PmmL4T/N0j+dIUVdMfJmTx48vN7IPX80JSbxAXNLMoNktddX
+	 td8HQVcgH++vM9QkQ6YFbhF9GrBlNp+rGDuhPOnlQZq7/ytZiTCBW+XFMap86uuts6cr4
+	 bNSwnlyzOkQU1OTIjb3DQcN07YwcRLU5Mv8p6VBCRqc8jFX0VYZ/drao6vCSeG88kdZg3
+	 DWWnPvXbVFa2zjB0M+BIygd6KlFMqlTXfALYW/1yMUSADdMoJIJsAJRiGvrTt++e4qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Gj8hRzTn;
-	arc=none smtp.remote-ip=44.202.169.39
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Z1jg6YDn;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D185C606A329
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 16:44:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D185C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60149606A327;
+	Sat, 14 Nov 2026 16:45:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60149606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Gj8hRzTn
-Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
-	by cmsmtp with ESMTPS
-	id SFEaxalU9OOJnSGrWxvCjw; Sat, 14 Nov 2026 16:44:23 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SGrVxbOCDdRrRSGrWxljzq; Sat, 14 Nov 2026 16:44:22 +0000
-X-Authority-Analysis: v=2.4 cv=LOhmQIW9 c=1 sm=1 tr=0 ts=6af88fe6
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=XYAwZIGsAAAA:8
- a=VwQbUJbxAAAA:8 a=kXeqfPWSxjI9BzV32rYA:9 a=CjuIK1q_8ugA:10
- a=E8ToXWR_bxluHZ7gmE-Z:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=B0OC0ZuonTQMXGfSxyDCyL/1ZM45W9+oO4OKZDmsoH0=; b=Gj8hRzTn1Qv0Tn1Cegteb7ykRg
-	3Hr2Vfh7fpwxl20G5C4GVXr8t+0XKtiV7ZqbCd2yHexKZzfWUZYM3R5hHl5XrOW5G9oak497GShdn
-	BBYXj/2UERRK5fN4T8CaUVeZ4++MBC+gttXXZyDqHbjQ7WEQqFhpz7d8NCI1VaYO843flyVufD+xS
-	4HjIoqy84YJX7r4sxJb2ShtqSgnPYLOpZiyaxjnJBuv5T/9/FWDxM46FWzVN0bxaiLjFPBIYPmfj+
-	gVh4BAT53kfZnql1hENZ3zYXsA5OHF/dcat9cJEeMKmLay68bzxmJfUAq9ThWq38wkXQ9e0VJxN3P
-	6ZTS4Rcg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:48162 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSGrV-00000000Kmi-1jrj;
-	Sat, 14 Nov 2026 22:14:21 +0530
-Date: Sat, 14 Nov 2026 08:44:20 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
-	nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, luka.perkov@sartura.hr,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v3 2/4] dt-bindings: hwmon: add Microchip LAN969x fan
- controller
-Message-ID: <db9e90e3-9d06-4b23-b373-9a78e2598ea5@roeck-us.net>
-References: <20261111161619.232141-1-robert.marko@sartura.hr>
- <20261111161619.232141-2-robert.marko@sartura.hr>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Z1jg6YDn
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id CF21AC5845B;
+	Sat, 14 Nov 2026 16:45:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5D504601F0;
+	Sat, 14 Nov 2026 16:45:24 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B413211BC0620;
+	Sat, 14 Nov 2026 17:45:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794674722; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=HWjhff4U2bfbc71lpan6VjQI381x45+6j+0ZgY5DOCA=;
+	b=Z1jg6YDnUBA7PClXCcfYhR7Uf9hJgkLnLFMB21wsFkQhpM70Rlejx/ZOAbvYYdnxaWkBPh
+	Ee0mhP7Cx8pmPI0bZn+XIHUhDfVJheuDyvgueA1ppsONBX0SlcIpyHaZ5sy6RBsKJKRM1Z
+	oB34W/wB8rPoJye4hQgp/cqavMxw+hs9QeQewuE/YFLq+ahRll0CoH4HMQmU+Eo8nQwGYo
+	Sxdc3m/QN1nkN/RAV5uL8gbcepKXhRHL8v/ddK7jozmgn1X59ZJasNvR09lYQpPHe6b8gU
+	JpwDw1q0Bie6dhMYqvaVBcwkmgZT1BabnuKtsXleYLftkzHU+wKk0CU40tEH6w==
+Message-ID: <ebea9af3-5edc-403e-bcd1-de875137d68a@bootlin.com>
+Date: Sat, 14 Nov 2026 17:45:10 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,43 +62,116 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111161619.232141-2-robert.marko@sartura.hr>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSGrV-00000000Kmi-1jrj
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:48162
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 104
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfNqD6DHVHwTDxnpKXgGVHJyf3t1wUhG2r1Rbna0cIxeHMixEMQjI/DIPLSSRnpa4UY0PXCU4LNqEqG/6fNzI5ga1Wzv2040zkU3MG2ioBp6WkbqG7ok4
- daoLrBeoymrNMiQGBfiCceHig1cH4JE1Prm+hAz8EbvMSuz8dXXZB9ehbKoHhNW89OAU2kyZMDpydkq9+Xp2KZuiEA79sPD42RcBT323H+c2ltUNJ+pRou1o
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 10/10] net: stmmac: mediatek: add support for
+ MT8189 SoC
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Biao Huang <biao.huang@mediatek.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Eric Dumazet <edumazet@kernel.org>
+Cc: kernel@collabora.com, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261110-dwmac-mediatek-mt8189-v5-0-7d99d6292962@collabora.com>
+ <20261110-dwmac-mediatek-mt8189-v5-10-7d99d6292962@collabora.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261110-dwmac-mediatek-mt8189-v5-10-7d99d6292962@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Nov 11, 2026 at 05:12:46PM +0100, Robert Marko wrote:
-> The LAN969x fan controller has a PWM output and tachometer input in a
-> register block separate from the Sparx5-compatible temperature sensor.
-> Describe it with its own compatible and binding.
+Hi,
+
+On 11/10/26 13:08, Louis-Alexis Eyraud wrote:
+> Like MT8195 SoC, MT8189 SoC uses the Ethernet control registers from
+> the peripheral configuration (pericfg) but at a different offset.
+> It also has different RX and TX internal delay stage dividers (290ps
+> for MT8195, 180ps for MT8189), and by consequence a reduced value range
+> for these delays. It finally needs additional feature such as the
+> TX clock output enable one.
 > 
-> The optional fan child specifies PWM period and polarity, tachometer
-> pulses per revolution, and thermal cooling levels.
+> Thus, add compatible, clock definitions and specific platform data to
+> support the MT8189 SoC.
 > 
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-Applied.
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-Thanks,
-Guenter
+Maxime
+
+> ---
+>  .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 27 ++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> index 1a0ab95dfbf0..ce232313014d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> @@ -42,8 +42,15 @@
+>  #define MT2712_RGMII_DELAY_MAX		5440 /* 32 x 170ps */
+>  
+>  /* Peri Configuration register for mt8189 */
+> +#define MT8189_PERI_ETH_CTRL_OFFSET	0x270
+> +
+>  #define MT8189_CTRL0_TXC_OUT_OP_EN	BIT(20)
+>  
+> +#define MT8189_MII_DLY_STAGE_DIV	180  /* 180ps per stage */
+> +#define MT8189_MII_DELAY_MAX		5760 /* 32 x 180ps */
+> +#define MT8189_RGMII_DLY_STAGE_DIV	180  /* 180ps per stage */
+> +#define MT8189_RGMII_DELAY_MAX		5760 /* 32 x 180ps */
+> +
+>  /* Peri Configuration register for mt8195 */
+>  #define MT8195_PERI_ETH_CTRL_OFFSET	0xFD0
+>  
+> @@ -124,6 +131,10 @@ static const char * const mt2712_dwmac_clk_l[] = {
+>  	"axi", "apb", "mac_main", "ptp_ref"
+>  };
+>  
+> +static const char * const mt8189_dwmac_clk_l[] = {
+> +	"axi", "apb", "mac_main", "ptp_ref"
+> +};
+> +
+>  static const char * const mt8195_dwmac_clk_l[] = {
+>  	"axi", "apb", "mac_cg", "mac_main", "ptp_ref"
+>  };
+> @@ -440,6 +451,20 @@ static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
+>  	return 0;
+>  }
+>  
+> +static const struct mediatek_dwmac_variant mt8189_gmac_variant = {
+> +	.dwmac_set_phy_interface = mt8195_set_interface,
+> +	.dwmac_set_delay = mt8195_set_delay,
+> +	.clk_list = mt8189_dwmac_clk_l,
+> +	.num_clks = ARRAY_SIZE(mt8189_dwmac_clk_l),
+> +	.dma_bit_mask = 35,
+> +	.mii_delay_max = MT8189_MII_DELAY_MAX,
+> +	.rgmii_delay_max = MT8189_RGMII_DELAY_MAX,
+> +	.mii_delay_stage_div = MT8189_MII_DLY_STAGE_DIV,
+> +	.rgmii_delay_stage_div = MT8189_RGMII_DLY_STAGE_DIV,
+> +	.peri_eth_ctrl_offset = MT8189_PERI_ETH_CTRL_OFFSET,
+> +	.mac_txclk_out_en = true,
+> +};
+> +
+>  static const struct mediatek_dwmac_variant mt8195_gmac_variant = {
+>  	.dwmac_set_phy_interface = mt8195_set_interface,
+>  	.dwmac_set_delay = mt8195_set_delay,
+> @@ -729,6 +754,8 @@ static void mediatek_dwmac_remove(struct platform_device *pdev)
+>  static const struct of_device_id mediatek_dwmac_match[] = {
+>  	{ .compatible = "mediatek,mt2712-gmac",
+>  	  .data = &mt2712_gmac_variant },
+> +	{ .compatible = "mediatek,mt8189-gmac",
+> +	  .data = &mt8189_gmac_variant },
+>  	{ .compatible = "mediatek,mt8195-gmac",
+>  	  .data = &mt8195_gmac_variant },
+>  	{ }
+> 
+
