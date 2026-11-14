@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794655342;
-	b=0P0Q+TlfvyytdR3eHSxS/dBuTWntMSx/zxuVFJlfbhdPnI6VIJPOI+y+9C2bQFL7hA2F
-	 7zkJkHMUWmtyBvZl2WJx5YHJ6dLD73cydrpbpYqagV11YS9bLWEIbfJIRuH6d9j4KqwI3
-	 gcNuVBT94Dty3KPU6xQy6zBjy9DemRFewI/XWBkqI0nWvUeBpOXb2kr5yRRiuI2HpNggV
-	 5S0ED/Tem95aqGSIzJdKMQLhZQb1IVmtU4EvBM6plbmqZNoS2vCekIn3Vz08XaLdAqHh+
-	 PQS0clQAGn7Q/LVTQZk8MHS4VHJvArgE7ygdkZa8zOzJbxFICKblIO+XNBpVu8iJ0rw==
+	t=1794655347;
+	b=SafBRzAeewfQ9Fj82dlJKTm0uHvN8nTOOR6Tcwgy/J5oFOc18p03WGrEjTs64v9YEXXL
+	 ELXi8av0cGEQYCt9OoG7PCeL4YzawwKrepflHLz3UDVyprJTwsuFTPrlDWzU/prv69gHE
+	 7aMlEzQcx63+/r5/HrbiwcBtYxZywZTI+Bsn6wQDzzc+c+zsffx5rslf52jTtXkSbBWmD
+	 jQG7zzIpYl2N6bgXdbqqWyz55tRuseoB8Vc1LU4nZUYalWZkoqpNonB6oSSRYqpo9+gxG
+	 Lx6GehJq2Z8nd9askmFqiOtLbJw/cZFDr63hK20KTCUH0MCgVqcpqD440MSWaHW4w2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794655342;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794655347;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7ce9oQsSpPF80zF9oT7k6J12AxCufApsfMgTJKBfXIs=;
-	b=NYJgMKfIOR2dT7pZSlKKfOzIlrleJK6kJsWoG25zUwFtrwRLkRMmGOhiOCV1fgloiilQ
-	 uj2PafjtHWO0EZXJfmSIvbMEcbytrm60t91cjZ68uKwIieLlVgPmVqjVD7/Jc3cfIeR6Q
-	 6Ql4JxmHTng8i2sKB4yVNHB+KTtx+dT5GC1j9zx+5G14RBMRtJ8a+p1ILm0pytOpntBtQ
-	 S6zuLOQ9qOkGXw64P30eKrdwm7UC+fZCqjeKlPBn9IskzAaVeQTt0/ocpFyO+3ueAEfqa
-	 qUwWsYCPRkz5rv8Uhu9QgW2J7WJmzoGfMW14rO9WIlE8L8HkI0mGsVYeu63yybZ1FDQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3PPbwIXTSfL5INVkpoXipMr1LonhcpwjQNS0NDqz+/s=;
+	b=T1lMUu2PBg+08SeHdw6c4QPJNq9K/h1ygcVpcfSQaQO4DzVUZGu35VLZwG4y7vVYzWRh
+	 ArHhATE291i+gSr/3YgNXUZ6qCe7jY3FXbqnYdc7Ax3O+U7obi97KGsG0/WTzePmJISWQ
+	 9n/hqSkj3QK4+5KjGbOTRhfgs7k20s7e2cCSzbPkvK5On4obUWn0CdDL/Wy8x+qJk2cQI
+	 SprZQ115dFKr5EM3aHZXORveh7ZMKgMj/jJS6mMQOWc6ht6jUg6/+Fs0XYOSNUjmr7jcp
+	 SB7cBPHvPV8BYH6nUMcZFUU67TYU+jeYMO5WeYvpSzDylAAY+T+DW4JU5Fgz3pMy39Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hHscUns5;
-	arc=none smtp.remote-ip=209.85.215.174
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="X/QRd9tY";
+	arc=none smtp.remote-ip=209.85.210.171
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E42B606A323
-	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 11:22:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E42B606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7DA606A88B
+	for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 11:22:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A7DA606A88B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hHscUns5
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cdb9f760337so1408583a12.0
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 03:22:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X/QRd9tY
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8b600fae14dso995326b3a.2
+        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 03:22:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794655341; x=1795260141; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7ce9oQsSpPF80zF9oT7k6J12AxCufApsfMgTJKBfXIs=;
-        b=hHscUns54ZoPTWjJLDTcIIdAlRhRig51j67kstsOM41HSpAVjhH25UPBT4Xs8Lfl8v
-         zF7T9BPu9XcRPlrR4333fUvGcBpBWwiNVgi2/hQRAe7YutjASqT0+RTt9cKqjnE7DbkC
-         SeqCCXVBIFMUyBNRlOIL6aMgr4y1qTQi3Gzk70PK9CZGkl1a5L/hkA/0wzYwOQSDj+pf
-         OOSeQx0SsyqN6MD6GbZMt6S5tM5GJMTITof+crWu+9OUn5IKU6Mqp3RsUPQKnpGFn8TR
-         YPR1YEPH2CwSfxzkG14BizzhPQCeJuOCj6xqQneND4IBCWR9Thx8ONumgxDEaZsG0zQj
-         HZ1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794655341; x=1795260141;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794655346; x=1795260146; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7ce9oQsSpPF80zF9oT7k6J12AxCufApsfMgTJKBfXIs=;
-        b=XRfyz4UQzMB3/RWtymXuhh3qBd9uwpZL2dySBBZQTsj9Lbtaa9LluVkpYaxRPrX4Kw
-         X1PZtPR+1JY5SZWVD7Kqp5NoVwksjCT68OwGNK3w/X0y6mcleHDxBssgH8AwyE8+QNiq
-         EJcfY5hdav6IBarvciAIUC1UzCKsanMjSD5/KKWb34ugMs5cABfq3gPdPWEbJ2JQdIpN
-         Sy44ppelVZHTnPQ6Qvh2eY3Dqyr5ubaiJEL1PE9Xvg6FV4Nj+k/LP1q952gMGD087bTF
-         OxQARU5vsYJzZdQ4IljPJMQnyBeVD0VuTfKaXXR/OzCX0oGkQJjM0/NJHHEqjqm/l71x
-         zMZw==
-X-Forwarded-Encrypted: i=1; AL+hErHqRkZZVhiZ7HzW7WlMhUx1AWS4T+8fT0yKqmY8TyCUijdr5qFCJEpdYOvzQvLOwz0W9Z2OCJl1CMxU@vger.kernel.org
-X-Gm-Message-State: APuU4Z8WsmW5M/QFrz1LzW9J5FMpZ9s2eeQt05Y3likyDCwQzJytsp1z
-	Y1RgJ6c6gWc+A7LJyePP7TVgB4k5PRM0Wy7cxeQK+NOrAVBzZZXbyKUd
-X-Gm-Gg: AYBFou3acxAtrgB6Di9X7Y4sWaZUWP3qrod/AANuEcUafrk6kFx5xaUSw2ADrbd/1hy
-	sUf5++kg7y3LK5GYiJNcFSDLP5Gjj8kWPgiaVsYEE2tztfS97uHy8pf7oZlV2XMAzRuEETggabk
-	BtWLg1vVfag1UD+JbQkUXkL/OTwc/GGxCW91zX/8b58EiPDzRMWnKEID180vVUylwzITagZH/IP
-	oOAq7BafeWP2x7GF8/50UJ3yGWqkEQx34OGD7yY0laeEDwR+siA5QEqqTFT99I595U6qKboKqcx
-	LBqtnicPJJ1YxnG9pDRRY38t+Rs6TJvoqRSBTyMeclA+js9DgsdATipa4dY0ZFPnWF2eScOaxi5
-	56MeTmDIOSGj0gWcLt7oIzVFNdTbDBnOggAO4YeooiK9ea8PXLP4A1sh+kEunF2VWwyG2Y/R/Uf
-	xMHlqYLyx9prs1eEw3t9BUdtov77qXOsOphCEPwniyfD6a0jOFn54pELqvh7/HhPO7mflXUFA7o
-	Qx7G120D8qbASbpGMUIBBBWPOVA/n/MpKEJUfNcu240vSiIcnESI2RDyTtMzGggLCTlxciQxMLW
-	scKW2j/h45nn2Mo3qxHsOtWELKjcOHCd9kVtMIzKx5JeC78WFrSHfZXMSGz0U89LfDgMOEHHvkW
-	d7ZM/CQO9BeR4oU4580daB6NWjg6TSUd7mScJWVShKteT9n9ciXMzmNd50MNGruHKAlXeBpLRZI
-	UTVqZ9rNvBp7vasi4=
-X-Received: by 2002:a17:90a:c88f:b0:3b0:e388:d9c9 with SMTP id 98e67ed59e1d1-3b1b0b5d690mr3501691a91.12.1794655341320;
-        Sat, 14 Nov 2026 03:22:21 -0800 (PST)
+        bh=3PPbwIXTSfL5INVkpoXipMr1LonhcpwjQNS0NDqz+/s=;
+        b=X/QRd9tYzMUrGM9ds4MFgmgnjgzlmMZQUvIuQQBK2gHq2xohb8KhWkuTSwbaJ74Zud
+         UO9hYbk3WsKBa/AlLsZ5050aLkPgC1SNwvlVCpqzMuq6n2k84iJqmjp5Rm1UCcT3op+y
+         RNQWzpZYbLmhwfEu6LcRUSg9ZERYaxvr7r5pPGBbHl8Gtpeq5uVVksUcIfOHDZWPslku
+         7nYUyJ6/UWupvH5mxF7aOntC4A5NmIYdcmBI/AjUtwOM+2P0z9QrWqvVSMTn30+8LVEL
+         sHtHLcNvup3KATG570d3LQ5Moy3R5T6+D2vBEJuTvAUlpEOp5EYSqHZ7DwipYOPn/5mL
+         4MTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794655346; x=1795260146;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3PPbwIXTSfL5INVkpoXipMr1LonhcpwjQNS0NDqz+/s=;
+        b=j7QZ3GcGueDFui/DZwxeiGH79PuxoFbYXM4tyTTqueCv/bfS/1QElA6nRW+zsa/1g+
+         yexTw7PkwPy0j08ifQHHrQQR/eUlyeYvwmS7+lAwlGC6PFQuA+rugdt8VStLIZyeHiYP
+         y/Ih0PYfZ0mgJINLcRI/2pp5OvQMJYSzyO9ns5j8KbVTWoT0UzGD3JykI+UputfRdcrL
+         DDNQ3I5zg0yS0yIDLdupo/eCdd2/gVz1Z6FUbflkUvwRbAfFOvPNglAxGYTPbiziCqYr
+         qhm+Qj+/H36iZf56/bF+MBlo80JCE0rYdIuAkolqhGWunsPceQmNfTZc6A48tZ6EmPh5
+         +R6g==
+X-Forwarded-Encrypted: i=1; AL+hErHCr2910ZxAi4m760+a0fzVnb15t18TuIKjMZjwZyFQPibKjtyMuEAC2EpU+THfuTACgnvuGd5Avxbs@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2FTPNJuch5TClRkCSbD2VLeqycQz6SDzHkLgNtxrS7EVKfTrv
+	Tqu7x0Z9hD9+seEhEEVaD4Q1o9YDzPLuzIZrmwCszMvjMaQWf0eKL9Um
+X-Gm-Gg: AYBFou1W0J4UP7YV0aD17CCdnWZtXrCx1vOXTkXz2feW3uQpMMRHCKLJNxE4wn9vnk3
+	azQiyjXP6Gveic6lqMwujaJhmASP5e6CiLT/OSsJhggYuLE+I03kjKfMfOqfuSr4B/uRefxQrfp
+	7eA4qZJsieBtG2QVblYCY2rlWZUXw/g+FP8632DZDib7oT4XaAL8ZPnCtHiwiF6t0fR3zLw+/qG
+	/mOuZ0x+SX1e84Ya/CqwlITzkSYT1EomJCPSDwc2u9kUtv7dmtdcZ/R79WO6yMFlMCfB+PO0Oui
+	Hk1sbJFjcWVaXpOc30zidBig1gmyp8+uPuLpQBNqNIcOvBfRYcfpyFea/tvcTEO1020Pg3XYdvT
+	ZMm/ck7VvaJJ9KUTVlEAzw3K+lyUTLoR+UuwVgDM+LXWXHXiZyNZd0SjYMSMNduLFTKs46ADi3e
+	scg3vUoi/EN7K0U9Fw25LJqDPct0b/esuYizfFNNyWTtpqNofB/BCZuP++lRx4XpbqvkkIaEDsc
+	g+ogvVM8G8yAcyJZMoyCLbjGqLX+2lPsuk6zMzUw2Fb58FyYWEG5AuvrEaWmkcKZ6Wtrqto4Li+
+	b173+g1yF+Me0qKhd0zXKuAh7khBCIDm23Wfrz7y/+qw/DsWGHjQJa4vBwuzGThUfPvL6KKmZua
+	61b/0A7QTPNi6uijNnuefH+W5E8qGZ8E6KYhCFnjh0Dcy2aDOZGs/zQjX7s8kSiAe9ZZ+AQ==
+X-Received: by 2002:a17:90b:3146:b0:3ab:f38:2b43 with SMTP id 98e67ed59e1d1-3b1b0a4513emr4900156a91.34.1794655345714;
+        Sat, 14 Nov 2026 03:22:25 -0800 (PST)
 Received: from localhost.localdomain ([118.68.25.198])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3b110c0sm3981142a91.3.2026.11.14.03.22.16
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3b110c0sm3981142a91.3.2026.11.14.03.22.21
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 14 Nov 2026 03:22:19 -0800 (PST)
+        Sat, 14 Nov 2026 03:22:25 -0800 (PST)
 From: Adrian Nguyen <thenguyen1024@gmail.com>
 To: Sebastian Reichel <sre@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -89,11 +89,14 @@ Cc: linux-pm@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Casey Connolly <casey.connolly@linaro.org>,
-	Adrian Nguyen <thenguyen1024@gmail.com>
-Subject: [PATCH v3 0/2] power: supply: Add Qualcomm SMB1351 charger driver
-Date: Sat, 14 Nov 2026 18:21:53 +0700
-Message-ID: <20261114112155.85068-1-thenguyen1024@gmail.com>
+	Adrian Nguyen <thenguyen1024@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 1/2] dt-bindings: power: supply: Add Qualcomm SMB1351 charger
+Date: Sat, 14 Nov 2026 18:21:54 +0700
+Message-ID: <20261114112155.85068-2-thenguyen1024@gmail.com>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261114112155.85068-1-thenguyen1024@gmail.com>
+References: <20261114112155.85068-1-thenguyen1024@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,130 +108,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Vsmart Active 1 (SDM660, PM660) has a Qualcomm SMB1351 parallel
-charger at 0x1d on blsp_i2c2, next to the PM660 charger. Its version
-register reads 0xb2, which the downstream driver identifies as an
-SMB1350. Without a driver it runs on its OTP defaults: charging is
-enabled through an active-low pin that the PM660 holds low, with a
-4.5 V float voltage on a 4.4 V battery. It is powered from VBUS alone,
-so it does not answer on I2C without VBUS and starts over from those
-defaults whenever VBUS comes back. As a result, whenever the PM660
-suspends its USB input, the SMB1351 charges the battery on its own.
-Since commit 98d68b74ebb9 ("power: supply: qcom_smbx: allow disabling
-charging"), qcom_smbx does that when user space writes 0 to the status
-property of the PM660 charger to stop charging.
+The Qualcomm SMB1351 is a switch-mode battery charger with an I2C
+interface. Some phones use it as a parallel charger next to the charger
+in their PMIC: both take power from the same USB input and charge the
+same battery. On the Vsmart Active 1 (SDM660, PM660) the SMB1351 is
+powered from that input alone, so it does not respond on I2C while the
+input is absent.
 
-Patch 1 documents the chip with the battery it charges, its STAT output
-as an optional interrupt and, on a parallel charger, the PMIC charger
-that shares its USB input. The SMB1350 gets its own compatible with
-qcom,smb1351 as the fallback. Patch 2 adds a driver that keeps the
-SMB1351 from charging: each time the PMIC charger reports a change, it
-hands the charge enable control to I2C with charging disabled and sets
-the float voltage from the battery. A status or charge_type read that
-finds the chip reset, or not answering, makes it configure the chip
-again. Its power supply reports whether the chip has VBUS, the charging
-status, the charge type and the float voltage set in the chip. Parallel
-charging is left for later, since it also needs the PMIC charger to
-split the current and to drive the enable pin. Patch 2 also explains
-why this is a new driver rather than part of smb347-charger.
+The SMB1350 has the same programming interface, and the two can be told
+apart by their version register, so the SMB1350 gets its own compatible
+with qcom,smb1351 as the fallback. The version register of the chip on
+the Vsmart Active 1 identifies it as an SMB1350.
 
-Making qcom_smbx drive the enable pin high would also keep the chip
-off, but only because of the pin polarity in its OTP, which the
-downstream driver does not rely on: it programs the polarity over I2C.
-A driver that programs the enable control over I2C works whatever the
-PMIC does with the pin, gets the chip described in DT, and gives
-parallel charging something to build on.
+Document the chip with the battery it charges and its STAT output,
+which it can drive as an interrupt line. On a parallel charger,
+power-supplies refers to the PMIC charger whose USB input also powers
+the SMB1351. The SMB1351 can also be the only charger of a board, with
+no PMIC charger to refer to, so that property is optional.
 
-Tested on the Vsmart Active 1 with a 7.2-based kernel from the
-sdm660-mainline tree [1] (its qcom-sdm660-7.2.y branch plus a few
-pending pull requests), with the same driver as this series,
-CONFIG_CHARGER_QCOM_SMB1351=m and a DT node [2] that also passes
-dtbs_check against this binding:
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Adrian Nguyen <thenguyen1024@gmail.com>
+---
 
-- With the PM660 USB input suspended (on that kernel through
-  charge_behaviour=force-discharge, which the sdm660-mainline tree adds
-  to qcom_smbx and which sets the same USBIN_SUSPEND bit as writing 0
-  to status), the battery discharges at 250 to 470 mA and the SMB1351
-  reports "Not charging". Without the driver it charged the battery at
-  about 390 mA in that state.
-- After an unplug, smb1351-charger goes offline 2.35 s after the PM660
-  charger reports the change (2.37 s in a second run), when the
-  driver's retries run out.
-- After a replug, the chip is back on its OTP defaults (0x03 = 0xf2,
-  0x06 = 0x6b) and is configured again (0x03 = 0xed, 0x06 = 0x0b)
-  within about 0.4 s of VBUS settling. This also works while the PM660
-  has its USB input suspended, because the PM660 charger still reports
-  plug events then. In that run nothing read the status, so the PM660
-  events alone were enough.
-- Writing the OTP enable setting (0x06 = 0x6b) behind the driver's back
-  makes the next status read return "Unknown", and the chip is
-  configured again within a second.
-- Probing without VBUS, unbind/bind, and unloading the module inside
-  the retry windows work without warnings.
+Notes:
+    Changes in v3:
+    - Drop the Assisted-by tag: since commit 1e035297ffda ("docs: remove
+      Assisted-by references") the cover letter carries that information.
 
-While the PM660 has its USB input suspended, smb1351-charger still
-reports online = 1, because VBUS is present, so user space such as
-UPower sees external power in that state.
-
-On sre/for-next (7071d4750856), the driver builds without warnings
-with ARCH=arm64 LLVM=1 W=1 (clang 23.1.5), sparse (C=2) and the
-coccinelle report scripts find nothing in it, dt_binding_check and
-dt-check-style --mode=strict pass for the new schema, and
-checkpatch.pl --strict only asks whether MAINTAINERS needs updating
-for the new files.
-
-The Vsmart Active 1 DT is only in the sdm660-mainline tree so far, and
-the SMB1351 node for it is in [2]. sdm630-sony-xperia-nile.dtsi also
-mentions an SMB1351 on blsp_i2c2, and msm8996pro-xiaomi-scorpio.dts
-names a STAT_SMB1351 line, so the binding may find more users.
-
-How this series was made: with an LLM coding assistant over longer
-interactive sessions. I asked it to find out why the battery kept
-charging while the PM660 had its USB input suspended, and later to fix
-that in the kernel. It read the SMB1351 registers over i2c-dev and the
-PM660 registers through regmap debugfs on the phone, compared them with
-the stock DT and the downstream driver, and laid out the options. After
-I chose a separate I2C driver, it wrote the binding, the driver, the
-commit messages and this cover letter, and ran the build checks and the
-device test scripts above. It also ran sparse and the coccinelle report
-scripts on the driver; they found nothing. For v3 it wrote the locking
-fix below and re-ran the checks and the device tests. I did the cable
-tests on the phone and reviewed the result.
-
-[1] https://github.com/sdm660-mainline/linux
-[2] https://github.com/sdm660-mainline/linux/pull/241
-
-Changes in v3:
-- Patch 2: set retry_until and queue the work under a spinlock, so
-  that a status read cannot replace the longer deadline set by
-  external_power_changed() with its shorter one (found by the Sashiko
-  review bot).
-- Drop the Assisted-by tags: since commit 1e035297ffda ("docs: remove
-  Assisted-by references") the tool use is described in this cover
-  letter instead.
-- Rebase onto sre/for-next (7071d4750856, on v7.4-rc1).
-- Link to v2: https://lore.kernel.org/r/20261021082841.79147-1-thenguyen1024@gmail.com
-
-Changes in v2:
-- Patch 1: drop monitored-battery from properties, power-supply.yaml
-  brings it (Krzysztof). Add Krzysztof's Reviewed-by.
-- Patch 2: unchanged.
-- Link to v1: https://lore.kernel.org/r/20261011072135.12757-1-thenguyen1024@gmail.com
-
-Adrian Nguyen (2):
-  dt-bindings: power: supply: Add Qualcomm SMB1351 charger
-  power: supply: Add Qualcomm SMB1351 charger driver
-
- .../bindings/power/supply/qcom,smb1351.yaml   |  69 +++
- drivers/power/supply/Kconfig                  |  14 +
- drivers/power/supply/Makefile                 |   1 +
- drivers/power/supply/qcom_smb1351.c           | 439 ++++++++++++++++++
- 4 files changed, 523 insertions(+)
+ .../bindings/power/supply/qcom,smb1351.yaml   | 69 +++++++++++++++++++
+ 1 file changed, 69 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/power/supply/qcom,smb1351.yaml
- create mode 100644 drivers/power/supply/qcom_smb1351.c
 
-
-base-commit: 7071d4750856abbc68dfe431acc58a1d45dd42e8
+diff --git a/Documentation/devicetree/bindings/power/supply/qcom,smb1351.yaml b/Documentation/devicetree/bindings/power/supply/qcom,smb1351.yaml
+new file mode 100644
+index 000000000000..468899c15fa2
+--- /dev/null
++++ b/Documentation/devicetree/bindings/power/supply/qcom,smb1351.yaml
+@@ -0,0 +1,69 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/power/supply/qcom,smb1351.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm SMB1351 battery charger
++
++maintainers:
++  - Adrian Nguyen <thenguyen1024@gmail.com>
++
++description:
++  The Qualcomm SMB1351 is a switch-mode single-cell battery charger with an
++  I2C interface. Some boards use it as a parallel charger next to the
++  charger in a PMIC, taking power from the same USB input and charging the
++  same battery. On some of them it is powered from that input only, so it
++  does not respond on I2C and loses its configuration while the input is
++  absent. The SMB1350 has the same programming interface, and the two can be
++  told apart by their version register.
++
++allOf:
++  - $ref: power-supply.yaml#
++
++properties:
++  compatible:
++    oneOf:
++      - const: qcom,smb1351
++      - items:
++          - const: qcom,smb1350
++          - const: qcom,smb1351
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    description:
++      The STAT output, which the chip can drive as an interrupt line.
++    maxItems: 1
++
++  power-supplies:
++    description:
++      The PMIC charger whose USB input (VBUS) also powers this charger, on
++      boards that use it as a parallel charger.
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - monitored-battery
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        charger@1d {
++            compatible = "qcom,smb1350", "qcom,smb1351";
++            reg = <0x1d>;
++            interrupts = <61 IRQ_TYPE_LEVEL_LOW>;
++
++            monitored-battery = <&battery>;
++            power-supplies = <&pm660_charger>;
++        };
++    };
 -- 
 2.43.0
 
