@@ -1,60 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794654661;
-	b=Uq//5PE7Vw75qIJKg58+/Yi3bMyX/1+ySVPmzymTvidzS7s2e9tD+B9B5Fjk7pcPT7Sx
-	 bCHKOktuOANdFpwFUvUQwxTB/f9ivq431ezEWL6m2Gnha8Rc7V4DkK0C/XdlzprI7gTbo
-	 A7QynoU62Lb70G4DkEJykS1lL+wSKalp77i7E2nafSWnhNmwdW5WNibYwBfl07EygT8Mo
-	 4sRk8E7qKB27/UdxX9p2CaOazWwDuxCfmnu+p1Q+BUbLJBeJz7hTcbFLcTqSepXgA/Qr/
-	 rRu+s2bL7A+eFDVi0cIsnojkmX+xAOrDZehL1j3A7TCovMq5tEINLMTfqDcaNjWyAYQ==
+	t=1794655036;
+	b=wjzVc1DpvAZS4RDDKik6kSdQXsf1AJpME0h7NN3mXzDVu5Vkz5xQn6F/2tFtMfKkh5Vi
+	 UlTSjmyNyFWpv0mw+k0dGq/boOgV/QSRgc+89MGNODwHszqkEyD0khsSLVbbNBz6RVPhF
+	 1pyPn+eVhTGaJCcONccvwsGAjRwHk5uA0lZoG6BrpgZvPxEJkVB3c4NQtgWAsNWkFtryr
+	 gj03Z+UEBITWQJXq+NBQ5fl5GFpBRXymxSv3J9Lj+TmB2VwaLJLYf6NBuZ5jph2CFcevz
+	 OTrYGm5CrQ8BBl7wY9og1WVPI81erKVnMBjBy8qZe6TO2+3QSswTxHoW65pZj+mjcgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794654661;
-	h=DMARC-Filter:Received:Date:From:To:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nxNur07JedLwdgeoyM/idjM87N/Ou3v+0VvVn90Adw8=;
-	b=LgFv/e64XVkvoSV+tU879NFvCbmZ7S3Op8RDBz8V6BKP0WR3EZyG0ARVTP//rF0wm4Dn
-	 EncKuV2u6Vl+uouuD5ijjBKJ2ZZ11iI9yEkGxKFpEb2O+LVqjX3bTrp+a2P+gAa+bu+xh
-	 ZtS2BHHDPC7EtRVEhAuYkXGM+TBXsCudzZMR9/LZgTk081M6Qd+BB6je+RSMvKDDdhK3t
-	 Sst0VpCHujUikSMX+UwxA89fasAcIlEESxwykGF7CYRw5wOn6j3mWpS9ZAcQgR59nsFR+
-	 yNMjlXOICvs6UaRRYQnJfj2LdjPQsCXJodMboOSxtiHvUI+mlQHkY/tb7xbQyiz2b7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794655036;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:Message-ID:
+	 References:X-Pmail-ID:From:To:Cc:Subject:Content-Transfer-Encoding:
+	 Date:MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
+	bh=CV9YuyTwve6Y8x62zgH3MEcMQ6qnkYv+7s94JQgp7wU=;
+	b=zrwYl7uBCffGMn92bv67tNkw1UTC6MlHIIkLHWRdppDsaC+AE9UdM0EuoTfvcfCv9vcI
+	 UyLpjN1W1fBRq9iqex72TMHg55yK7KlJ1aJkGXMmTtnh0L+FRw1npYXIeJhDql0y7N1uL
+	 fp+bR9/O1M1FEplKdjkWQIGDg20RH4W4sEwQDsGNc5qLKPQBeUBxfgKI8gq8JzM6ZBDTs
+	 Hoc6gDr7SJHHRTnmX/Lrbn8CLAn9/qzjywxCHw426oX9JOixu4Rx34K+gcmbzpbt09IOc
+	 ZSBUET/wLxPu6KrOQ9POsfpM7oCWb0zJUIFT+Y7WTd5dGum8VeOvbq9ZALSXOzqPhPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=makrotopia.org;
-	spf=pass smtp.mailfrom=makrotopia.org;
-	arc=none smtp.remote-ip=185.142.180.65
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=brar.si;
+	spf=pass smtp.mailfrom=rsend.brar.si;
+	dkim=pass header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=hUOv+lsy;
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b="jjCMD/Mu";
+	arc=none smtp.remote-ip=23.251.234.50
+Received: from e234-50.smtp-out.ap-northeast-1.amazonses.com (e234-50.smtp-out.ap-northeast-1.amazonses.com [23.251.234.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BE2606A8AB;
-	Sat, 14 Nov 2026 11:11:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8BE2606A8AB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xSBem-0000000040T-34qQ;
-	Sat, 14 Nov 2026 11:10:52 +0000
-Date: Sat, 14 Nov 2026 11:10:49 +0000
-From: Daniel Golle <daniel@makrotopia.org>
-To: Detlev Casanova <detlev.casanova@collabora.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	David Heidelberg <david@ixit.cz>,
-	Christian Hewitt <christianshewitt@gmail.com>,
-	Daniel Golle <daniel@makrotopia.org>, Marc Zyngier <maz@kernel.org>,
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 7/7] arm64: dts: rockchip: rk356x: Clock the vdec at 400 MHz
-Message-ID: <64aa864c176a6ca898535c12ceb85ee69b89028a.1794654074.git.daniel@makrotopia.org>
-References: <cover.1794654074.git.daniel@makrotopia.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A8E606A884;
+	Sat, 14 Nov 2026 11:17:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29A8E606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=brar.si
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsend.brar.si
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=hUOv+lsy;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=jjCMD/Mu
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=brar.si; t=1794655031;
+	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=CV9YuyTwve6Y8x62zgH3MEcMQ6qnkYv+7s94JQgp7wU=;
+	b=hUOv+lsyfZaVcewrBD2Ok0bzT0GvothMNhxL4jHrdprdr2reWiNXHV4VWJfR5sPF
+	QD7O23vDuHzXvK0J+hA+ljElC+8QdGVhUe8hAidET12hGr/8iZSZte/tFAaCS5SzZS/
+	IBwyPghumlpZgHSdoeWkjENNJe9GdgMo0fUoWBv0=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1794655031;
+	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=CV9YuyTwve6Y8x62zgH3MEcMQ6qnkYv+7s94JQgp7wU=;
+	b=jjCMD/MuzB2rApZsLSqlw4wZmE6JEkfYhpdJI5VUoUS76ufWsrsjXTgGhgIt+aAn
+	uwo5SGurRioPccWsGwnYMs3LW5QuF7TQBPpuuU6xC3LcTm32FwaotBZpC4VScYquxOj
+	MZYUkFFi83jj6F4GT/5WlwWGuWsQzx+Nf09DTYpg=
+In-Reply-To: <20261113-dpu-sm7250-v3-4-30bdec59d204@brar.si>
+Message-ID: <010601a1d9c69050-ccbf5313-4751-4845-9ced-1076e0a55e3d-000000@ap-northeast-1.amazonses.com>
+References: <20261113-dpu-sm7250-v3-0-30bdec59d204@brar.si>
+ <20261113-dpu-sm7250-v3-4-30bdec59d204@brar.si>
+X-Pmail-ID: <1794655030616.c0d97a04fb10@brar.si>
+From: Ishu Brar <patches@brar.si>
+To: krzk@kernel.org
+Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev, 
+	jesszhan0024@gmail.com, sean@poorly.run, 
+	marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch, 
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+	tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 4/6] dt-bindings: display/msm: Add SM7250 MDSS
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 14 Nov 2026 11:17:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,41 +76,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1794654074.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.5YL5VvZ+qZ0e19wo5UdMspzrKjMAjMWs/SlfuwHJq77JVCQWpVGwyETo7FaXf+sztO4bYMxF6WHssrYHSY+K7X2T1EZhOskwm44pQQStdKG0Jdj3d5ybzIXFkMTcPBXllY63oWIrFhJN26LFqLzTuHiXuqj9UCHxIuFhxi7IM0GCfceBHtKocmWdFsR9dK9X:1.ap-northeast-1.TOS0vxEE3Ar6ai29fkp2i/jb+l2iigajCGeLfF7S3sk=:AmazonSES
+X-SES-Outgoing: 2026.11.14-23.251.234.50
 
-The decoder AXI, core and CABAC clocks are assigned 297 MHz, the rate
-the vendor kernel derives as a quarter of its 1188 MHz GPLL. This dtsi
-runs the GPLL at 1200 MHz, from which the closest rate below 297 MHz
-is 240 MHz.
+Hi Krzysztof,
 
-Assign 400 MHz, a third of the GPLL. The vendor kernel clocks the
-decoder at a third of its GPLL for streams above 1920x1088 and lists
-400 MHz at 900 mV as the highest decoder operating point.
+I forgot to carry your Reviewed-by from v2 [1]. Both =
+dsi0_out and
+dsi1_out endpoints are fixed in v3 as you asked, and the tag =
+is in my
+tree for the next revision. Sorry for the noise.
 
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
----
-v4: new patch
+[1] https://lore.kernel.org/all/20261112-gifted-feathered-ermine-443bae@quo=
+ll/
 
----
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index eefcaa2c26ffe..bb30c2939a269 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -666,8 +666,8 @@ vdec: video-codec@fdf80100 {
- 				  <&cru CLK_RKVDEC_CORE>,
- 				  <&cru CLK_RKVDEC_CA>,
- 				  <&cru CLK_RKVDEC_HEVC_CA>;
--		assigned-clock-rates = <297000000>, <297000000>,
--				       <297000000>, <600000000>;
-+		assigned-clock-rates = <400000000>, <400000000>,
-+				       <400000000>, <600000000>;
- 		iommus = <&vdec_mmu>;
- 		power-domains = <&power RK3568_PD_RKVDEC>;
- 		resets = <&cru SRST_A_RKVDEC>, <&cru SRST_H_RKVDEC>,
--- 
-2.56.0
+Thanks,
+Ishu
