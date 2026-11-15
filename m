@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794723086;
-	b=4rHHt1ozf8ylOmgp715ay2Jv5C+Odw9W8AHTYqS0+E9y07qXHr51HsHiUyxauGbDej1a
-	 bMRdLnA5YO/F6us7DOQ2sZNDymQ5TTCLMf2g33Mmh8TyAtTndtCDz1LViCwGIPd4GONoJ
-	 MrAyYqe8j6NBN/c25ZVZ473Prs2mqud7bgqdn/k83S/xil07NJHBj0YHziQn0aF+Z8oxF
-	 8VchAYu0dHvvYdHpNpWxXg7P+CNd3gEbBo8fbrgN7/2Hthei2vPZYuSgXBNdR/BxyiZia
-	 KrlPMSPUEaXPnxiVNkULalRUi4TSARx5Y+OSvifz3lNPHSBadLDeIyMM2svfLW6OF8w==
+	t=1794723088;
+	b=OQFXWGQYsYnjagWVn6Jv8idyOBzDMVSB6u7QTZyHcqQIE5VZnQ/4tLUw4psoy8FhvJFc
+	 PxRQIjCvIDXXn9cVZsA55EzojrXRvpvzRrZkOabBj2NjAsjiuF2NUW3+TE6f0a7r2J0fP
+	 15gBZ2daB/k02hmKBRf+6XxkQ1tobgaypCLJW+aalygZXNnu36NvVjeQWE7oGC2WjZd9b
+	 JMoA63AkLyj6ndvCIzDQ0LVskymxtetarGRII41EIW2lA2gnoYURm3Rpg+CEKKeaiLsmu
+	 3Bvv1qqNEq8OH3CGU40Yk4tN2HFmXcpByICP6IAbbucj7urr3qR3QW3RhhlkQNI/y0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794723086;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794723088;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=TCHhOy28B+0gI7cRQUKEe32H0lL50i1G3WDk1ReHlIc=;
-	b=GVNZsXzEW46IHYSZVYkxX/Fj7FXAPU5RouanyIPiQWmfiRBawhXu2+YYyJ5J9CQssNwr
-	 M1WmnZhWcSTYT5DWIcxJoLjdctIfG4EyLiCIB4BHSSO1nKTdY36imxpIIF0cEyDuQSX3y
-	 ceqhOep64zHI7PvxknOfpRu9S4IDxU+H2Bk7bQaZQhDX3F3af2qdgL7HdwWKsdXwpSGWT
-	 j4Ms5PWQw0xDhu3jTbFqk/wMb1xfv5xpc0jTjbIzv7KvkC9m+5cBO6Kdm6ZS8MSttFByf
-	 6sNJ8y0UeKs/JJ/hXyQpPbqrwObX/0d+1lT8Ks+flM5/b22yd2m0gPIpuIXoSAumBsA==
+	bh=bKP+aWmCnAOyzY6tYN5Sieibvo/NSg7cNkXShke5YqE=;
+	b=c5x5I1fMYSNdASLNGEEXLBUGNtN3yF76nqXW3vqeUc0EMzkJLffopxXB7e+vSLy7gIAo
+	 8TxWC4PlHWrknr3we6gN/sjd/vRZTGJ8ymSYx25z6zAer/sQjZhGXOQ/MTNZV+3u6ZEbr
+	 8z0Npr0li8w720gQMDBkktz/OudypdZ5ForsfMCu1/SO2gEOjdCL41nqMbX4vduf/gHck
+	 JToTIfQQQM0OuKcEzeQ24H0PAn5EWDMwrfqJRrXSo4ZvRcgQdb/O039ewLRgF8/fyuvS0
+	 f6A+eWE1TvWNoN5x0i/jq/FHCfweT94chSnHVGBM2BUbWAFD5m55rYl8ZAt6K6nT1dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ppKaYaec;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b+Lhdg4m;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF89606A8A4
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 06:11:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CF89606A8A4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D8A606A339
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 06:11:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3D8A606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ppKaYaec
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-491aaed7565so1018400f8f.2
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 22:11:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b+Lhdg4m
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49d05d51553so12304985e9.2
+        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 22:11:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794723085; x=1795327885; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794723086; x=1795327886; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TCHhOy28B+0gI7cRQUKEe32H0lL50i1G3WDk1ReHlIc=;
-        b=ppKaYaecUnUwNfedyST7zZsf86RJaPMvRVSELxnTMyR/I1MLubReMWsGZV0dUyKBXp
-         kCo6CvtAr/ZYIlvGUTLv/9O2tDE7dc8LUEOE6UxOZ7hDKwBEyOJYRKd/9VQPVmbDgUDg
-         cfVtckQBo5p9nsk/mQfbbx+3SsAqQmfARoTS9U047vJFuC8w18uFgjqw0tvmtFL65SYw
-         HdeNy4cVbP3ol1AUIMkAGA8B5m29xKuleqLfNBQKbA6WGICAAeVYMqL8Ta6JFPSxe5jK
-         eScBMCV3knABDT7mHr9MUAwLz+S8iqAG00xzGpjVixp/v8OdYJntV68IWDKaBSMnAbFW
-         GjXw==
+        bh=bKP+aWmCnAOyzY6tYN5Sieibvo/NSg7cNkXShke5YqE=;
+        b=b+Lhdg4m/dcMm9HMsUKla5IAwKClyGKG9iG+iiAEbv/eH03xVtF6QnBKP0+p9IObQR
+         j5v/TXJ1h7rRqBVSL+eicw255iAnOIdl++kGNKarPEm5Vua1qOWsZd9X0hTQnA6Yg/MR
+         qcxwWvU2Y3SCQ7Zp4nINUZOt1R9+ETCO5HpaU8TjiXKyEMEQu/l5QSzCliddEmO1FD/b
+         AjaC2V6d7vibg4hoXndn6ZyiKPbZ3GChLe0hU3vLqCLQv1Dwr0Hpg6vXEiBv1HYa3eXK
+         hRWsb5IqVRPqcXFA+fe8/t51JC1mMctaTV0x6+UJXA9oa3TbLWFGP56Y4RStVfnQPMDc
+         bXRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794723085; x=1795327885;
+        d=1e100.net; s=20260707; t=1794723086; x=1795327886;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TCHhOy28B+0gI7cRQUKEe32H0lL50i1G3WDk1ReHlIc=;
-        b=1yYSj+q01Kksp9GZyEnEf4y5mrfqePgxS7VRPt39aY7dpESM3bhB6xOUy85AqwtYX4
-         AF6iRTjHIrZKdhg2ypLkenHesUV1cZHLTiIjZD5DEt1C2C5z5x8TX7vRxS5l0BJumDf5
-         O5RELleDUG5ug39DiarwO20sihq/kfkpimKnUggU4o2W3/3TDxOLNtINW/iWr/dodJrA
-         G3eAnjbDZD7KjUcTbLNdu1VIS6xZyOYQvdwscB1Q3kOdBeljRyDXQuxbAI6zE6BoVFmP
-         22VxWRsHThzy5rvAnIJr2h+VXj1oxswCNvDoG101F17I4QyqJ+puURo6C3RlO1eCiyqu
-         Rg2Q==
-X-Forwarded-Encrypted: i=1; AL+hErEM5hN742wF/jLazJ1EtCRNrH+OGMquo5q7Ffbnx2VHUsMVwv/IXxTlns5aVBE7PR+YTNjg6YGzC3m/@vger.kernel.org
-X-Gm-Message-State: APuU4Z+YJMAS7P9RblCpo/p37rFGb4ans9H78G59xz9q4gQ/HXk+k46P
-	4Axd+YLp/FJY7oBJUmbb4WDO2ivzexo3fYweZgwwVrILFrGnjun12yWc
-X-Gm-Gg: AYBFou3W5lujqKnRi0HE4HSkmZ6KcuKSo+b3zbfgEBxzl6RqAH7apHw0lCASho2Dm94
-	IL/Y2Fo1dVRP5YCihtDhKX8zchEZdByoGmjG2uE/eSNqr3EtH0AHh7jvkBhXSxb46TG4q+AWOeZ
-	8Ti2Jzo33TrqrKHTwZGNE4rK4hUlAIu9LiU/0xEDmip7pBJFUC2gWoOEnJTlvvCT88qLwSMgFDM
-	QhaabLveV1O6P7o8EFbOGVYXLL7AklDNEB8/c8/uH4XlMj9J6in7AY6zwJUtD+7vNjYOr7lsRPg
-	raceRCIi34oidc9HFML2Ka4SGFfc2+z4m/5lnWAJ2vSC+fiUSZoK/e96QIXbQTN5F5e5ljzsZF7
-	T0B2BTpNHE/Y75FO+xG3XZBtfbafYaub1AWR854+sBuhS5qZSlikpP6CGBAKqlhBk5gIAXeUxw3
-	Qt90JH4GBeBwYXqQK1stqmOSze4WW3lcN8ncqqULx4/c0MisWYbM5hQ5wtVLxO3GH7jo86t6GF+
-	HoOmjL8gNhMeSRz6jLxHplYuNlJoD8OHaPcIgr59qdE8HPczSoDQ9lIlmTKDgdLLxigmv9qzX0x
-	elpfQv9gvk2OzrBWAV5LfrvKBEWLJSAUhPNzD7HGyazAbBFOkzVCAiyhHG3Sm3u0ZRRWaNs1AeS
-	6Log9F1RkutZedaqRj2CLS2AkekXaAQJ6Sr4TbEFpW60FMBxEG4Gk4R4FoVnzMATaV9ZqnzpoPY
-	uFawtLUWwXZm8zQ3+12pYZtXXDBLGcpX7ZVIk1Lpn+4GtWn7Bs73P7zktCrl+bUFdRavgBsMxgD
-	FKCu/Yy+oA7Sg==
-X-Received: by 2002:a05:600c:3b98:b0:4b7:6a8b:9df2 with SMTP id 5b1f17b1804b1-4bb55a8c128mr151718065e9.25.1794723084885;
-        Sat, 14 Nov 2026 22:11:24 -0800 (PST)
+        bh=bKP+aWmCnAOyzY6tYN5Sieibvo/NSg7cNkXShke5YqE=;
+        b=K6QoSLJMc2J7au2sw0sPj//PUKc0NpnrYGdOz6xxTBt3Ni3FLicRXd4o/OlQDOH2tu
+         wM0ormWWt3Ci3klWDilPJJZQ+jjwooaaD3K/PEIgolOMoKuK1kinvrax3JdFHF6AZ1FG
+         FCA1fOkDcjQigyjFG6rOzQHGYRgc1m46pxLO8AZre/UNmmzMgLK3eBe3090hCi23YPoq
+         61kTR5Sxr3Dk9RFp4+JuiM9ZSLkE2CO1SXzz6Kkgc5oTA3DddnQYrUi+E1allLYVuXsM
+         gvSXP7t5IhtobRXbJvB+cMtt1WaThFG8Mi2uxh+GICeqPsjViLu1XgDqRoq2A2fzrr/p
+         0SHA==
+X-Forwarded-Encrypted: i=1; AL+hErFVuXFd16UghHbRxEk7V11w/RLsOWNac408JS4IBrGagUr3oh/IumqHTr3TvvyN3WAUg1fS6G6zHB2G@vger.kernel.org
+X-Gm-Message-State: APuU4Z8A1HJ+1hGKepCYx31TVgF0VlWYkysaOnzKZ3i9ry9+bboFVmcS
+	nlcbvqA8yIcr6K/lMXIFuVmDq/Uo57FPfE7I6o8BPAv5rTArUm6FPoBA
+X-Gm-Gg: AYBFou3C8rM/wGWO1dirGJR8gCG53qWow12iHzlsUymwerFBDSuLlW6+5kxiPzvxNcX
+	+RDddivmCFVDjXOX5FqoJhEGy0cYC5puTAfxQ2VyPh0pTBHWQeM/bzaf1kus8yY4OCQQAtDhsH9
+	ReCJLLR7cxPC6D2QT/bqukdtKGxu4OJfDE5F5nxD1Osm2Mgdbvb3Um7Uhqio0jEgq5d4RN5UMhL
+	dPamdJDfXfKUMvbOlBxnbjHPZ8rpwQ/jTj/cLeFDEPH5U9/qJv4A6LNMs1S9K3/Gou902/lk474
+	ZS2rXL/bJ0XTR/YH1w0Z3riLh2xQvwA0wpl5zxj6Aw+Uk7xfePr+vHkHHu41f3Qp5QopdJhV10p
+	rRLMzoLyIaQzf9mPbOsviJzQey8cH1Nznfp+W5jlLV+G9niYKz01B/L2EN94ZF7PfzhZwi2+Qvn
+	YvqzuGDUvmxbB+yc9sVcOy3vlCHIVVxAeINq+upfygftgp8QMQ4CvkIBeBh5OIsjPvt15HAOhdi
+	nnsMdn3sEmBCKLcOtYUSpMUcgVOyjyaZpxjhc7wqH1We9xCeEJC3Yfl9KWSqhkd0sBjeA1kDhL4
+	ZZVgNOL6A5RpX4uV0ehMtd6FAiEH4+nPpkgpzzCfpDiMB0Wm/TT63MoDnc7zXpoMgyVukWtXu9Y
+	v7b3H/0SB3aBV+dHfiBdTxGJXNiQQedXbpLEMSmQN6IHkH7c/679KGszLMtQ9sIxS0Qcj88GSpz
+	wksOU9Zv1t7kblUTI+f5nCLzZJXu/cKcCHdyWUEndyeH8Ch8ZWx4ed2WOatGrl0GlRvoEJtd7t9
+	ZGKspTa+rTgSA==
+X-Received: by 2002:a05:600c:3487:b0:4a2:526b:d410 with SMTP id 5b1f17b1804b1-4bb55a4f1b4mr151025935e9.13.1794723086291;
+        Sat, 14 Nov 2026 22:11:26 -0800 (PST)
 Received: from jernej-laptop ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5ba25b50sm139331075e9.14.2026.11.14.22.11.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5ba25b50sm139331075e9.14.2026.11.14.22.11.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 22:11:24 -0800 (PST)
+        Sat, 14 Nov 2026 22:11:25 -0800 (PST)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: Chen-Yu Tsai <wens@kernel.org>,
 	Samuel Holland <samuel@sholland.org>
@@ -102,9 +102,9 @@ Cc: mripard@kernel.org,
 	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-clk@vger.kernel.org
-Subject: [PATCH v3 3/8] drm/sun4i: Add support for DE33 CSC
-Date: Sun, 15 Nov 2026 07:10:57 +0100
-Message-ID: <20261115061102.229680-4-jernej.skrabec@gmail.com>
+Subject: [PATCH v3 4/8] drm/sun4i: vi_layer: Limit formats for DE33
+Date: Sun, 15 Nov 2026 07:10:58 +0100
+Message-ID: <20261115061102.229680-5-jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261115061102.229680-1-jernej.skrabec@gmail.com>
 References: <20261115061102.229680-1-jernej.skrabec@gmail.com>
@@ -119,124 +119,122 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DE33 has channel CSC units (for each plane separately) so pipeline can
-be configured to output in desired colorspace.
+YUV formats need scaler support due to chroma upscaling, but that's not
+yet supported in the driver. Remove them from supported list until
+DE33 scaler is properly supported.
 
 Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/gpu/drm/sun4i/sun8i_csc.c | 71 +++++++++++++++++++++++++++++++
- drivers/gpu/drm/sun4i/sun8i_csc.h |  5 +++
- 2 files changed, 76 insertions(+)
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 72 ++++++++++++++++++++------
+ 1 file changed, 56 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_csc.c b/drivers/gpu/drm/sun4i/sun8i_csc.c
-index ce81c12f511d..70fc9b017d17 100644
---- a/drivers/gpu/drm/sun4i/sun8i_csc.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_csc.c
-@@ -205,6 +205,72 @@ static void sun8i_de3_ccsc_setup(struct regmap *map, int layer,
- 			   mask, val);
- }
+diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+index 6b19fafd50ad..09d94f7f9977 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
++++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+@@ -380,6 +380,33 @@ static const u32 sun8i_vi_layer_de3_formats[] = {
+ 	DRM_FORMAT_YVU422,
+ };
  
-+/* extract constant from high word and invert sign if necessary */
-+static u32 sun8i_de33_ccsc_get_constant(u32 value)
-+{
-+	value >>= 16;
++static const u32 sun8i_vi_layer_de3_no_yuv_formats[] = {
++	DRM_FORMAT_ABGR1555,
++	DRM_FORMAT_ABGR2101010,
++	DRM_FORMAT_ABGR4444,
++	DRM_FORMAT_ABGR8888,
++	DRM_FORMAT_ARGB1555,
++	DRM_FORMAT_ARGB2101010,
++	DRM_FORMAT_ARGB4444,
++	DRM_FORMAT_ARGB8888,
++	DRM_FORMAT_BGR565,
++	DRM_FORMAT_BGR888,
++	DRM_FORMAT_BGRA1010102,
++	DRM_FORMAT_BGRA5551,
++	DRM_FORMAT_BGRA4444,
++	DRM_FORMAT_BGRA8888,
++	DRM_FORMAT_BGRX8888,
++	DRM_FORMAT_RGB565,
++	DRM_FORMAT_RGB888,
++	DRM_FORMAT_RGBA1010102,
++	DRM_FORMAT_RGBA4444,
++	DRM_FORMAT_RGBA5551,
++	DRM_FORMAT_RGBA8888,
++	DRM_FORMAT_RGBX8888,
++	DRM_FORMAT_XBGR8888,
++	DRM_FORMAT_XRGB8888,
++};
 +
-+	if (value & BIT(15))
-+		return 0x400 - (value & 0x3ff);
-+
-+	return value;
-+}
-+
-+static void sun8i_de33_convert_table(const u32 *src, u32 *dst)
-+{
-+	dst[0] = sun8i_de33_ccsc_get_constant(src[3]);
-+	dst[1] = sun8i_de33_ccsc_get_constant(src[7]);
-+	dst[2] = sun8i_de33_ccsc_get_constant(src[11]);
-+	memcpy(&dst[3], src, sizeof(u32) * 12);
-+	dst[6] &= 0xffff;
-+	dst[10] &= 0xffff;
-+	dst[14] &= 0xffff;
-+}
-+
-+static void sun8i_de33_ccsc_setup(struct regmap *map, int layer,
-+				  enum sun8i_csc_mode mode,
-+				  enum drm_color_encoding encoding,
-+				  enum drm_color_range range)
-+{
-+	u32 addr, val, base, csc[15];
-+	const u32 *table;
-+	int i;
-+
-+	table = yuv2rgb_de3[range][encoding];
-+	base = DE33_CCSC_BASE + layer * DE33_CH_SIZE;
-+
-+	switch (mode) {
-+	case SUN8I_CSC_MODE_OFF:
-+		val = 0;
-+		break;
-+	case SUN8I_CSC_MODE_YUV2RGB:
-+		val = SUN8I_CSC_CTRL_EN;
-+		sun8i_de33_convert_table(table, csc);
-+		regmap_bulk_write(map, SUN50I_CSC_COEFF(base, 0), csc, 15);
-+		break;
-+	case SUN8I_CSC_MODE_YVU2RGB:
-+		val = SUN8I_CSC_CTRL_EN;
-+		sun8i_de33_convert_table(table, csc);
-+		for (i = 0; i < 15; i++) {
-+			addr = SUN50I_CSC_COEFF(base, i);
-+			if (i > 3) {
-+				if (((i - 3) & 3) == 1)
-+					addr = SUN50I_CSC_COEFF(base, i + 1);
-+				else if (((i - 3) & 3) == 2)
-+					addr = SUN50I_CSC_COEFF(base, i - 1);
-+			}
-+			regmap_write(map, addr, csc[i]);
+ static const uint64_t sun8i_layer_modifiers[] = {
+ 	DRM_FORMAT_MOD_LINEAR,
+ 	DRM_FORMAT_MOD_INVALID
+@@ -395,6 +422,7 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
+ 	u32 supported_encodings, supported_ranges;
+ 	unsigned int format_count;
+ 	struct sun8i_layer *layer;
++	bool yuv_support = true;
+ 	const u32 *formats;
+ 	int ret;
+ 
+@@ -410,8 +438,18 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
+ 	layer->cfg = cfg;
+ 
+ 	if (layer->cfg->de_type >= SUN8I_MIXER_DE3) {
+-		formats = sun8i_vi_layer_de3_formats;
+-		format_count = ARRAY_SIZE(sun8i_vi_layer_de3_formats);
++		/*
++		 * TODO: DE33 drivers doesn't support scaling yet, which is a
++		 * requirement for YUV support.
++		 */
++		yuv_support = layer->cfg->scaler_mask & BIT(phy_index);
++		if (yuv_support) {
++			formats = sun8i_vi_layer_de3_formats;
++			format_count = ARRAY_SIZE(sun8i_vi_layer_de3_formats);
++		} else {
++			formats = sun8i_vi_layer_de3_no_yuv_formats;
++			format_count = ARRAY_SIZE(sun8i_vi_layer_de3_no_yuv_formats);
 +		}
-+		break;
-+	default:
-+		val = 0;
-+		DRM_WARN("Wrong CSC mode specified.\n");
-+		return;
-+	}
-+
-+	regmap_write(map, SUN8I_CSC_CTRL(base), val);
-+}
-+
- static u32 sun8i_csc_get_mode(struct drm_plane_state *state)
- {
- 	const struct drm_format_info *format;
-@@ -238,6 +304,11 @@ void sun8i_csc_config(struct sun8i_layer *layer,
- 				     mode, state->color_encoding,
- 				     state->color_range);
- 		return;
-+	} else if (layer->cfg->de_type == SUN8I_MIXER_DE33) {
-+		sun8i_de33_ccsc_setup(layer->regs, layer->channel,
-+				      mode, state->color_encoding,
-+				      state->color_range);
-+		return;
+ 	} else {
+ 		formats = sun8i_vi_layer_formats;
+ 		format_count = ARRAY_SIZE(sun8i_vi_layer_formats);
+@@ -443,22 +481,24 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
+ 		return ERR_PTR(ret);
  	}
  
- 	base = ccsc_base[layer->cfg->ccsc][layer->channel];
-diff --git a/drivers/gpu/drm/sun4i/sun8i_csc.h b/drivers/gpu/drm/sun4i/sun8i_csc.h
-index 2a4b79599610..d2ba5f8611aa 100644
---- a/drivers/gpu/drm/sun4i/sun8i_csc.h
-+++ b/drivers/gpu/drm/sun4i/sun8i_csc.h
-@@ -18,9 +18,14 @@ struct sun8i_layer;
- #define CCSC10_OFFSET 0xA0000
- #define CCSC11_OFFSET 0xF0000
+-	supported_encodings = BIT(DRM_COLOR_YCBCR_BT601) |
+-			      BIT(DRM_COLOR_YCBCR_BT709);
+-	if (layer->cfg->de_type >= SUN8I_MIXER_DE3)
+-		supported_encodings |= BIT(DRM_COLOR_YCBCR_BT2020);
++	if (yuv_support) {
++		supported_encodings = BIT(DRM_COLOR_YCBCR_BT601) |
++				      BIT(DRM_COLOR_YCBCR_BT709);
++		if (layer->cfg->de_type >= SUN8I_MIXER_DE3)
++			supported_encodings |= BIT(DRM_COLOR_YCBCR_BT2020);
  
-+#define DE33_CCSC_BASE 0x800
-+
- #define SUN8I_CSC_CTRL(base)		((base) + 0x0)
- #define SUN8I_CSC_COEFF(base, i)	((base) + 0x10 + 4 * (i))
+-	supported_ranges = BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
+-			   BIT(DRM_COLOR_YCBCR_FULL_RANGE);
++		supported_ranges = BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
++				   BIT(DRM_COLOR_YCBCR_FULL_RANGE);
  
-+#define SUN50I_CSC_COEFF(base, i)	((base) + 0x04 + 4 * (i))
-+#define SUN50I_CSC_ALPHA(base)		((base) + 0x40)
-+
- #define SUN8I_CSC_CTRL_EN		BIT(0)
+-	ret = drm_plane_create_color_properties(&layer->plane,
+-						supported_encodings,
+-						supported_ranges,
+-						DRM_COLOR_YCBCR_BT709,
+-						DRM_COLOR_YCBCR_LIMITED_RANGE);
+-	if (ret) {
+-		dev_err(drm->dev, "Couldn't add encoding and range properties!\n");
+-		return ERR_PTR(ret);
++		ret = drm_plane_create_color_properties(&layer->plane,
++							supported_encodings,
++							supported_ranges,
++							DRM_COLOR_YCBCR_BT709,
++							DRM_COLOR_YCBCR_LIMITED_RANGE);
++		if (ret) {
++			dev_err(drm->dev, "Couldn't add encoding and range properties!\n");
++			return ERR_PTR(ret);
++		}
+ 	}
  
- void sun8i_csc_config(struct sun8i_layer *layer,
+ 	drm_plane_helper_add(&layer->plane, &sun8i_vi_layer_helper_funcs);
 -- 
 2.43.0
 
