@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794742518;
-	b=GBU0n0kZZwaeyr9RI33YqmoRhVUP9dsY62h5RzJ8IfKdTtEgTkf+V3y5ZDYpX++RNmnb
-	 GEm8h3l8pmqc5ByLQzJTOOKLw4BtFJKsHtLDydtNvixEt6rKPXeRO5YQigg6YVBb8r3M0
-	 eqptb6++E15iTTnNVa05qdRkItuqH30vgKYVnRqKyo5RG1eLuvW1H3rtFedp+ipuJgA4R
-	 wFM/QYTX29P0DAGYUwUsNw/qNehOQp7ilQRz46GWeVKaV/6sDiQJRlXdeXIBV9W1tVqCP
-	 QcvxPTw1rpP1cNXWqb1nQ6lqjPhXfCKGQkDHHoXxs01MCLG4s1vx099hwhdmQUALg+w==
+	t=1794742758;
+	b=at5IDAnFx1QPE/P0GgdHbsrqo1P32iSqoE3oZbXoiVTdSNriRlv8DSgyQjdf4RAs/UOd
+	 TFzjiFzRvdPJexldoU23pZotCJAZ0mGIi/PTisHOR5PkuhtqRtZPkBYsgaQp37qaifIuI
+	 wBZ/eTjSnQvh3+7k7vFjPcggj0cpujZgBJPeZSCySns8WKxN9L5ovBee/tFfrFXsgz7Jm
+	 7FiiyWxsoqwgAZoFqWB+Vxtr8HGoBCHbpVJ6oWHt5Ub3p/OslJRNkXccJJXuDq+Hk1ZWk
+	 c6D8t8rOKpjJ4oKNi70G9HlnN3dGiLsWhSvUC4lKQSVoa3Ig6T1yOsj8AE85FAKrTbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794742518;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=UkLWAV1hSmkKAmuwwqothfPZt11tAhXLerlu5PLiFXI=;
-	b=ZsQOtnkZ9dOzh0qp0eFFV3NXnO4PQEn/7/eSZoqV2WtTkN2on+islYAl5iezSl+KN9kF
-	 hTUiWIUwKd7378j2UUZRxEJa6MbwZLZZ7AscrutfZYbjD08aUdJsp3CjPrVFTfAyUJkEE
-	 TVrWuVIBYU5A4JgAtpKGzIF/Eb31ytDbPpOMsMW7IVvJd/nvS//fXmfazZIpf/r0Ors0p
-	 97XQTKg/oGbhXdTxIzAAgXQ5FUZ9yDBx7sU3gxhFuOTojbuItdHp0h/ZbPJxShiPAjUWY
-	 DvA+fCu6D9IfuU5fCoxzGrLB1M5sp2lcmvcmlCqYfLwp2s7JIZYo+P2KV2sA4JLDq2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794742758;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=GAIraa4PzFWLg6UhGswjPe5UPHKE4vtWfL9FAp0+yGY=;
+	b=mI7fEhwp61pSpLOxApcxhFIdv2e9ZLl7M3oG7oSqEJ1L8ILTh1882gy2gJpyDJyomdKt
+	 5uPtd2Pr7FaDB3Ccnp+sTbcBowBtoCb/ep7YgnkYOMIZvJTljRhhZEnAl8uZULoTt0PXn
+	 1c41b82c1vNkeKxZsOESzwKCKSm0W/6RTyUEkTqmQOJ7qhluHl+zTLfZmOvbtOk1rEQmH
+	 T+kHqvyR7WgRTzQJLHHouNTVnHDFU6CznlHylldywO6RwhdHJBRiI9ihPZFloyMYDWH2/
+	 a2WN5E65hJH6158l7YBoPWiWoV7KPY6n+mYc2ZjytnJEkhzzSxG/yeLY8TiMdKQ677A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7WEGIfH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IW7smJ6v;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D12606A337;
-	Sun, 15 Nov 2026 11:35:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75533606A323;
+	Sun, 15 Nov 2026 11:39:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7WEGIfH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89651F000C5;
-	Sun, 15 Nov 2026 11:35:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IW7smJ6v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19DB81F000C4;
+	Sun, 15 Nov 2026 11:39:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794742518;
-	bh=UkLWAV1hSmkKAmuwwqothfPZt11tAhXLerlu5PLiFXI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=h7WEGIfH8FvaqWXLN0d7OMtr/gQbGsGk9acfLe13ANtU20xLLJK1gxR+UiCXMsdyr
-	 ErPTlvjSFCTKpyfVT5Fp+afuCFOMJQzhED8RQQf6V/HOlcTDpihhz03CZYc4n8zLL+
-	 7i4UyA7jqiDtbVybiKkXjgdWsUmfM0w/fPFRzxCAJpCgEHB4NBjLOFaH+FoClGyoK6
-	 x87ZvIsEd1c7LQCraA1DFLAV/OWgIZhfMcVM6/7O2F2mFKfhTFYKYXAJHfrTFISUAW
-	 ku9q4aIK2ufEJr3zJGj5kS4rIpYA4LCAgYc3vajsCWUX300tkx5Nw+tgdy0D9hT+4/
-	 qRUTvOGSO8IgQ==
-From: Chen-Yu Tsai <wens@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261104185148.883318-1-jernej.skrabec@gmail.com>
-References: <20261104185148.883318-1-jernej.skrabec@gmail.com>
-Subject: Re: [PATCH] ARM: dts: sun8i: r40: bananapi-m2-ultra: Limit eMMC
- clock to 37.5 MHz
-Message-Id: <179474251652.3095306.12076464290738502589.b4-ty@kernel.org>
-Date: Sun, 15 Nov 2026 19:35:16 +0800
+	s=k20260515; t=1794742758;
+	bh=GAIraa4PzFWLg6UhGswjPe5UPHKE4vtWfL9FAp0+yGY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IW7smJ6vy0hdpqFnlaE7InL7y154C+zROv72lq4JoVMqMXReLiUSLcf/4Dzk7zNCl
+	 UdWgOG0++6l/1QQNhA+k/UZVxe/JPv84HpgM67UKl0yjAHFF1m7/F7RAgP8WqN44Zo
+	 fk79HADrUK8XL4TFpyNXQq5KuWiHDy86+2PKOXQP0A/yzJfZxdNo6bWdBgnWlpvqOe
+	 6IttZ5l/gmzRQFJbpVyKSBNIsRhq7e908C93E7o6e4fxbq8hgizMohFKgGs0+k0TsY
+	 w7GsxG6H+xpmQlNYF7yP5h0oehwVN10dEHXByLe2d5+/F5xfPVN4GuzhMEZK2pi1wl
+	 XGLIa+pBAQOJQ==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id A7258334D279; Sun, 15 Nov 2026 11:39:15 +0000 (GMT)
+Date: Sun, 15 Nov 2026 11:39:15 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-leds@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v6 1/3] regulator: dt-bindings: maxim,max8907: Document
+ LED support
+Message-ID: <0670d537-0f9a-43dd-9d48-90272f04f1e2@sirena.org.uk>
+References: <20261115090520.102216-1-clamor95@gmail.com>
+ <20261115090520.102216-2-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,27 +66,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OiwUGip2trYydk2B"
+Content-Disposition: inline
+In-Reply-To: <20261115090520.102216-2-clamor95@gmail.com>
+X-Cookie: A watched clock never boils.
 
-On Wed, 04 Nov 2026 19:51:48 +0100, Jernej Skrabec wrote:
-> The Samsung eMMC on Banana Pi M2 Ultra fails with "data error, sending
-> stop command" within a second of sustained reads in DDR52 mode at
-> 50 MHz. At 37.5 MHz the same board survives a long read/write soak.
-> 
-> Limit the eMMC clock to 37.5 MHz. Also enable the hardware reset line,
-> which is routed to the controller (PC24), so the card can be recovered
-> after such errors.
-> 
-> [...]
 
-Applied to sunxi/dt-for-7.5 in sunxi, thanks!
+--OiwUGip2trYydk2B
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-[1/1] ARM: dts: sun8i: r40: bananapi-m2-ultra: Limit eMMC clock to 37.5 MHz
-      https://git.kernel.org/sunxi/linux/c/160738a3721c
+On Sun, Nov 15, 2026 at 11:05:18AM +0200, Svyatoslav Ryhel wrote:
+> The Maxim MAX8907 PMIC supports a single LED; document it.
 
-Best regards,
--- 
-Chen-Yu Tsai <wens@kernel.org>
+Acked-by: Mark Brown <broonie@kernel.org>
 
+--OiwUGip2trYydk2B
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavmZ4wAKCRAv73Ows9A4
+ieqxAP439ipWRWMgyk+tkBafSc5m5DKtVkYKSBxXqRc7DTfp9gD/RPAOD+XfauK3
+RyMNdYLGzSQ/zNSeJYyFYtNZLnSgVAc=
+=d4M/
+-----END PGP SIGNATURE-----
+
+--OiwUGip2trYydk2B--
