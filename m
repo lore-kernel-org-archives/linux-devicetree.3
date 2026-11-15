@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794774013;
-	b=QSgm2tzyXjf0EgT3Eoje74DWkKuI1qeqerhwRVEIx3kP9u+6s7RI9PkvSEG0SW9BsfYN
-	 7JxHGJeni36qIlQ4/vWSPUYHLQvosa9jJ4x4wkqvJFx7wkj4a3Z490F/cX9QCHqtHEaNn
-	 nCEPIoNfPmUm2BU1p9gZsc3pDl4j5Tf1PJhDSRYRopWpzN/Hn1PH5BLzUTsuheFUd3Avq
-	 QFEjPLlWUG7h0m+DVs6jyr71RuPyLyMV5d3oTFls16UiUpTAtV0AkI/vAYsnjR5/EajvB
-	 cjCvXtTjSctOGDVex8OYGzMYGvScX9bNe4AaBJFzPSjcFqOgoMKqzClPsUFr3PLnQnw==
+	t=1794774022;
+	b=IKqg5hfd2o1XQAYGJEE7t4OKGQHShnXc3qIJCGO/KCFL9X+5RNHyOwGrndoSHwCGfKkF
+	 xNhLOMeH3SO5QH5hioFMVmVLmil44m7TnAqAqQR+beyRldkB0Gq6x96/UmJFWSkShXWN/
+	 ks4fWUtTI6Wlpx2IZF2kTFwwmGSfcrTiQXGVxuwCXAsCUwxhTKpQUS1ZqSwaYpQIKAIqJ
+	 df9jxtU6tZho00BEoDsWm06NcPEWI8fnmbLflWymoul5X8IHZf5PEleneOGP089LgW6XT
+	 opGhdw9IxAzzpG0sZUhodqwLq12IcUkJ6BgpjUS17aHNFrsRlL4NrAHBXglMlPeJZmg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794774013;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794774022;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=g3K97sEmGQmx0N2tRmZrilaSVqjc2FRNQycCOBJOnTw=;
-	b=nRCub1L9cZhrI+Q9ZSVgpvsKFwel8eLzmEe4uVZOk8OmrPOXreZPlIFIpRp7qilxUL2A
-	 rix8K1VD/lK2qn2ktsrpZe/nK8ak9kbWZu5rwAQJiJnVERibCWb0h1crpkIZQ1Gbd+KjI
-	 HXsupt90Rdg407ZM/OGp6nWB4HBEWgd9k2jNbbaPfyJvDRvbwG/iom+zUvsu0hZwBSK1Z
-	 Vdr+rDM1f+DB3zS1Odjk4xMKoexgvSdTxyytYzfgo6tMLKZio2ka9X/tvZTgIsDcNelSw
-	 1x8xkJMIUTC48jpna2Ef0QbXtCL0tYtpkYOZNjjDEgRe9Prqtf7lZROAX4YkqDDTyfQ==
+	bh=3CXCMpydwqSfptURogOs1CG7yd8JU7mfoC3YSnzjoGI=;
+	b=pLcPNTHgGEDJNqZAEtYGW7zg5D/l4RAkaSKHLdPoDfdMcCq3KSSRRRPccbrUUZHhOZw5
+	 PH8edzAOFYBsVW7hE6ZIkcmkwM6zwnihNWa1j0h2SqJ2kILQsx0BcFT6CQxdKUSi7URGI
+	 2rlABqkBVxIQK+ceup5H10sDpUf2Wq9h1arGPwU3+4gi75+UhHimvJcMhCLAiwDOBCH/o
+	 V1h4e84LYmcowDW0kXwDRn4RxPym9+DtEJpCDxRihoTC7SOEuJAb7SNK28PhyKDAsZMju
+	 iuyZKkugEwECjwdvN4tFsCkCspYRhy0azBKK9Ac9gcfv36mUmmGmdgHR6L/zTXvjZzw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BANuQbCY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aFsfkRfD;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BF160A2611;
-	Sun, 15 Nov 2026 20:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDCF606A8A5;
+	Sun, 15 Nov 2026 20:20:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BANuQbCY
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aFsfkRfD
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794774013;
-	b=vRmXm3Nh9RhY+EvCxvqCPNqo2SDxa/Vocf+OcR3hSKHr87Bkqdr0eYaoRayiQbJBzVuj
-	 IB7fQLrGbxTR0xb3ix8v95CR2dpNVHch+DlcOL82KOYzSV0Genh8ax4YZaVEFadjk1sb/
-	 KBCihLSpybzpp9FldgE/1ZH6szhlI95kHVThCOROcsu8A0IbEjSk09HNQ/rXHktAHr7+A
-	 3wcAV6qdbO0FkXzHagBr7tsbnRTHHibteWrWsV7xxD2WR3ysLdwV2k6yuvWznTUl3A5Si
-	 S2+/irE/9l+xvbSwGdd4jD6z1+cxfKanJtb9GD/pss1lvsk1kt9RogMZlKDYuip3Jww==
+	t=1794774022;
+	b=V7a82TcnlcwVkxgadnUDIOH3smAMm/OrqAn/XVsJCYu8D4EMob7ceTCMiVJK+pFHilzQ
+	 tDgsj4BJnJTDDhhdKpffpkVH5FY74vRoCfga0Xx7ltOTN6vvhL/UoSe1JVv9HS1UInuq4
+	 AfhB/bcxSlVUn78vHQ+ZuxdASlPP+8SkIda8s0pKBQHGS2+XyHcZisRilG0ub0PhUGBkp
+	 YL7lVOivzPce0m4YNSf6gUPexSA6BMJ1TvhItLmd9VMf3rbjzrYZ4I9MslvOKDE54lKpE
+	 Hyt3V2oyNbzKU63c0hA9s4cb+oeYlyca1jQieU0dkhFsnUxMr2K86Jhryr/G5R0ovJg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794774013;
+	c=relaxed/relaxed; t=1794774022;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=g3K97sEmGQmx0N2tRmZrilaSVqjc2FRNQycCOBJOnTw=;
-	b=YbJ8he/Vv1m+qXxYMHK3FBc1DsBiC3FH7g2s5KiI8qAwKyjO9hQNfg2pxnJO1AEiaWmM
-	 3jQCiEnq5VCWb7lxf+Ek3JnLSkk4xTnoBgG9uX7OL888HJmwQLqDnojQsqoo4D1IHItCj
-	 Nfq0pVdP7LlUsZvtkVVOx8MGsrwW2i37UC+O6J2ysfC58f/foeT/2vhTYf8gTsxfxwQAx
-	 PTem4B8wLv1fHyPD2JW1k12uhPaMfCo7soo8xpylcJ9Gdon32peUOjOIb2gJEZWFTZPYT
-	 4XphTYSKH5pyi1DiTUEQH00q3yKMeIr0jMbo3GXKm4DU0BRCe/6/38T3joP3kPXyp1Q==
+	bh=3CXCMpydwqSfptURogOs1CG7yd8JU7mfoC3YSnzjoGI=;
+	b=atbOCtc6xn4spkQpHQtoxD2yOzOysUYzqXDpqjyevTJ16NvisbpX1dRezeumfSNLfbi2
+	 Iwcp9hzcsu4n6hMXfFKxF0aaf71QVUMXPbcBzkiLpPkYgnoBToTjHLEcqaz0b6rCuMnoT
+	 2a/JLKfwN1g+nog9MUE4bJFi5EekgR04K8hO4ld5WFuWmLzpDoPjtnRs5spfb9E8FYJNG
+	 uhM9y3pupKU5baxIIhpxmscOgs2vrk2jtJTT7FPmIF7iMiEGunIg5LwJJZB17CId3cs/Y
+	 uWX9R08WB4XfwPiR3ksD15w0Jw1zDYBo0Q2tvXmlZT3hbgV47rpsUPwG6z9ChFRI2kQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 82EB51F000CA;
-	Sun, 15 Nov 2026 20:20:12 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 2EDBD1F000C6;
+	Sun, 15 Nov 2026 20:20:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794774013;
-	bh=g3K97sEmGQmx0N2tRmZrilaSVqjc2FRNQycCOBJOnTw=;
+	s=k20260515; t=1794774022;
+	bh=3CXCMpydwqSfptURogOs1CG7yd8JU7mfoC3YSnzjoGI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=BANuQbCYg4ejxjH3CjKsOz2E8y2pCZd/B5pcCJ4peUTiroU4Ez+9+r7Mc9/m0ygMj
-	 Awet3/dUkCYxirhfw7GQHOL5bWfQDchURFqowhmhRFyNTmM9ZDvWxUnfidJ9c0MPcr
-	 46Lqi2u01jye0JqnMTAgqSIPdLtOis6gVblHXtTMBJaHDYBmXn/sI5NM6YqxtqOQ6A
-	 LTPyn+kzgyUTjGTTCv60Jh6hfg/11GK2Mp9d7fEmn0yj5ZbX1/hKwTsAoX6zLbE7O9
-	 BkJH3UCnnAW2khVtzUxW0JjAr4wy/Kof8EALlXWuoHWdmFzZ4zQjgvMX4ULVv8fztk
-	 H5RoSXQBN67SA==
+	b=aFsfkRfDKNkSDGSHfyNikMvXfZUaUSyqS1clQRoSx3cvmXOrBrSfCIQswp37guamv
+	 Iu8XYtSoFP6crBRDiWP/TkCDK/aJw2xuLkTUBCdo1BrE7wAw9vR+IqdIb5ljtA1xSH
+	 qI24SiRx/uH0SbjcEP3x3lm7qqiOe1xXScn8JsjpjwHXcuQiJ8LjXkcJQdHcNCyhLr
+	 jmchKaCk7LOYofuILfpph/jvPy17N6cTZckhQMx3dTQ76kNpzjJGxFCsIpnxsXPfTL
+	 VfcFJgN7QX2iaqEZQsfV5smIxKqWftvYJbSBy0JewXryTh9fHK38YRUketrc4IwBbl
+	 gSlseLOVR6hyQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E876D4A1C7;
-	Sun, 15 Nov 2026 20:20:10 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id B41734A1B7;
+	Sun, 15 Nov 2026 20:20:21 +0000 (UTC)
 From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Date: Mon, 16 Nov 2026 01:50:17 +0530
-Subject: [PATCH 09/11] arm64: dts: qcom: Add Molokai (SM8845) SoC dtsi
+Date: Mon, 16 Nov 2026 01:50:21 +0530
+Subject: [PATCH 1/2] dt-bindings: display: panel: Add Ilitek ILI97680A
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,24 +83,25 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-molokai-soc-v1-9-3b2ee920fa3b@yahoo.com>
-References: <20261116-molokai-soc-v1-0-3b2ee920fa3b@yahoo.com>
-In-Reply-To: <20261116-molokai-soc-v1-0-3b2ee920fa3b@yahoo.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+Message-Id: <20261116-vantage-panel-v1-1-30b95bd49216@yahoo.com>
+References: <20261116-vantage-panel-v1-0-30b95bd49216@yahoo.com>
+In-Reply-To: <20261116-vantage-panel-v1-0-30b95bd49216@yahoo.com>
+To: Venkat Yadlapati <venkat.yadlapati@yahoo.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794774008; l=5077;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794774020; l=2944;
  i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=dN4ehkKmhYmopR/D8W5OecyyWoWfD4UaBoOxVLeHzzI=;
- b=9dKCVynVqyOJlCguxOpqqvHvWzuLNcP4IJkVG4WKs0Md64rVCqAWC1r9aSFpW/gKaAF/SR+dw
- Aa3Fy5XnUroDNwsk3cBz8TPK4IYT496Yj+oLbAQn+SERoA29trYOBUW
+ bh=NHqAvGOGAdVLM5YYlEmL7m/RTijzbvnCh01U3Ae0TvE=;
+ b=uHcNVJY60ykGdCj6sB64Wq24TjIarK94/qHRx3Jx/y57Rv6wnt9VzlIa+9eiUnisRCtYhtdci
+ 3qHek8DkyLSC3q9rYKeuyWMdRhRQdDbrqyEGlp7VnEDb46wFWjmqG+J
 X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
  pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
 X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
@@ -111,233 +112,111 @@ Content-Transfer-Encoding: 7bit
 
 From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
-Molokai is a Kaanapali derivative. Describe it on top of the Kaanapali
-dtsi: it has its own TLMM, with different pins for most serial engines
-and a different GPIO to PDC wakeup map, and a PDC with one more interrupt
-range. It has neither the I2C master hub nor the fourth QUP wrapper, and
-QUP3 SE5 does not exist. Its graphics clock controller is not compatible
-with the Kaanapali one.
+Document the Ilitek ILI97680A based 1264x2780 AMOLED panel by BOE, a
+MIPI DSI command mode panel with DSC 1.2 compression found in the
+Motorola Signature.
 
-The SDC2 lines are muxed on regular GPIOs instead of dedicated pins, so
-the Kaanapali SDC2 pin states are dropped; boards using SDC2 describe
-their own.
+An LLM was used to help write this commit message.
 
-Assisted-by: LLM
 Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 ---
- arch/arm64/boot/dts/qcom/molokai.dtsi | 204 ++++++++++++++++++++++++++++++++++
- 1 file changed, 204 insertions(+)
+ .../bindings/display/panel/ilitek,ili97680a.yaml   | 70 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 ++
+ 2 files changed, 76 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/molokai.dtsi b/arch/arm64/boot/dts/qcom/molokai.dtsi
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili97680a.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili97680a.yaml
 new file mode 100644
-index 000000000000..82fd31bda1d9
+index 000000000000..f3323fbd587f
 --- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/molokai.dtsi
-@@ -0,0 +1,204 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026 Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-+ *
-+ * Molokai (SM8845) is a Kaanapali derivative with its own TLMM: the pins of
-+ * most serial engines and all the GPIO wakeup interrupts are different. It
-+ * has no I2C master hub, no fourth QUP wrapper and no QUP3 SE5, and its PDC
-+ * maps one more interrupt range. The SDC2 lines are muxed on regular GPIOs
-+ * instead of dedicated pins, and the GPU is an Adreno 829 instead of the
-+ * Adreno 840.
-+ */
-+#include "kaanapali.dtsi"
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili97680a.yaml
+@@ -0,0 +1,70 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/ilitek,ili97680a.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+/delete-node/ &gpi_dma4;
-+/delete-node/ &i2c_master_hub;
-+/delete-node/ &qupv3_4;
-+/delete-node/ &uart18;
++title: Ilitek ILI97680A based AMOLED DSI command mode panel
 +
-+/delete-node/ &hub_i2c0_data_clk;
-+/delete-node/ &hub_i2c1_data_clk;
-+/delete-node/ &hub_i2c2_data_clk;
-+/delete-node/ &hub_i2c3_data_clk;
-+/delete-node/ &hub_i2c4_data_clk;
-+/delete-node/ &qup_i2c19_data_clk;
-+/delete-node/ &qup_i2c20_data_clk;
-+/delete-node/ &qup_i2c21_data_clk;
-+/delete-node/ &qup_i2c22_data_clk;
-+/delete-node/ &qup_i2c23_data_clk;
-+/delete-node/ &qup_spi19_cs;
-+/delete-node/ &qup_spi19_data_clk;
-+/delete-node/ &qup_spi20_cs;
-+/delete-node/ &qup_spi20_data_clk;
-+/delete-node/ &qup_spi21_cs;
-+/delete-node/ &qup_spi21_data_clk;
-+/delete-node/ &qup_uart18_cts_rts;
-+/delete-node/ &qup_uart18_default;
-+/delete-node/ &sdc2_default;
-+/delete-node/ &sdc2_sleep;
++maintainers:
++  - Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 +
-+&gpucc {
-+	compatible = "qcom,molokai-gpucc";
-+};
++description:
++  1264x2780 BOE AMOLED panel driven by an Ilitek ILI97680A controller over
++  four MIPI DSI lanes in command mode with DSC 1.2 compression, as found in
++  the Motorola Signature.
 +
-+&pdc {
-+	compatible = "qcom,molokai-pdc", "qcom,pdc";
-+	qcom,pdc-ranges = <0 745 38>,
-+			  <40 785 11>,
-+			  <51 527 4>,
-+			  <58 534 2>,
-+			  <61 537 20>,
-+			  <84 559 14>,
-+			  <98 609 32>,
-+			  <130 717 12>,
-+			  <142 251 5>,
-+			  <147 796 16>,
-+			  <163 783 2>,
-+			  <165 531 2>,
-+			  <167 536 1>,
-+			  <168 557 2>,
-+			  <170 415 1>,
-+			  <171 438 1>,
-+			  <172 579 1>,
-+			  <173 703 1>,
-+			  <174 708 1>,
-+			  <175 714 1>,
-+			  <176 68 1>,
-+			  <177 86 1>,
-+			  <178 96 1>,
-+			  <179 249 1>,
-+			  <180 504 9>;
-+};
++allOf:
++  - $ref: panel-common.yaml#
 +
-+&qup_i2c0_data_clk {
-+	pins = "gpio32", "gpio33";
-+};
++properties:
++  compatible:
++    const: ilitek,ili97680a
 +
-+&qup_i2c1_data_clk {
-+	pins = "gpio36", "gpio37";
-+};
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
 +
-+&qup_i2c4_data_clk {
-+	pins = "gpio48", "gpio49";
-+};
++  vci-supply: true
++  vdd-supply: true
++  vddio-supply: true
++  port: true
++  reset-gpios: true
 +
-+&qup_i2c5_data_clk {
-+	pins = "gpio72", "gpio73";
-+	function = "qup1_se5_mira";
-+};
++required:
++  - compatible
++  - reg
++  - vci-supply
++  - vdd-supply
++  - vddio-supply
++  - port
++  - reset-gpios
 +
-+&qup_i2c10_data_clk {
-+	pins = "gpio8", "gpio9";
-+};
++additionalProperties: false
 +
-+&qup_i2c11_data_clk {
-+	pins = "gpio12", "gpio13";
-+};
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
 +
-+&qup_i2c12_data_clk {
-+	pins = "gpio117", "gpio118";
-+	function = "qup2_se4_mirb";
-+};
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
 +
-+&qup_i2c14_data_clk {
-+	pins = "gpio68", "gpio69";
-+};
++        panel@0 {
++            compatible = "ilitek,ili97680a";
++            reg = <0>;
 +
-+&qup_i2c15_data_clk {
-+	pins = "gpio80", "gpio81";
-+};
++            vci-supply = <&vreg_l13b_3p1>;
++            vdd-supply = <&vreg_l11b_1p2>;
++            vddio-supply = <&vreg_l10b_1p8>;
 +
-+&qup_i2c16_data_clk {
-+	pins = "gpio76", "gpio77";
-+};
++            reset-gpios = <&tlmm 146 GPIO_ACTIVE_LOW>;
 +
-+&qup_i2c17_data_clk {
-+	pins = "gpio52", "gpio53";
-+};
++            port {
++                endpoint {
++                    remote-endpoint = <&mdss_dsi1_out>;
++                };
++            };
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c4f4e48774d0..e2a8093c328a 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13040,6 +13040,12 @@ M:	Stanislaw Gruszka <stf_xl@wp.pl>
+ S:	Maintained
+ F:	drivers/usb/atm/ueagle-atm.c
+ 
++ILITEK ILI97680A PANEL DRIVER
++M:	Venkat Yadlapati <venkat.yadlapati@yahoo.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/panel/ilitek,ili97680a.yaml
++F:	drivers/gpu/drm/panel/panel-ilitek-ili97680a.c
 +
-+&qup_spi0_cs {
-+	pins = "gpio35";
-+};
-+
-+&qup_spi0_data_clk {
-+	pins = "gpio32", "gpio33", "gpio34";
-+};
-+
-+&qup_spi1_cs {
-+	pins = "gpio39";
-+};
-+
-+&qup_spi1_data_clk {
-+	pins = "gpio36", "gpio37", "gpio38";
-+};
-+
-+&qup_spi4_cs {
-+	pins = "gpio51";
-+};
-+
-+&qup_spi4_data_clk {
-+	pins = "gpio48", "gpio49", "gpio50";
-+};
-+
-+&qup_spi5_cs {
-+	pins = "gpio75";
-+	function = "qup1_se5_mira";
-+};
-+
-+&qup_spi5_data_clk {
-+	pins = "gpio72", "gpio73", "gpio74";
-+	function = "qup1_se5_mira";
-+};
-+
-+&qup_spi10_cs {
-+	pins = "gpio11";
-+};
-+
-+&qup_spi10_data_clk {
-+	pins = "gpio8", "gpio9", "gpio10";
-+};
-+
-+&qup_spi11_cs {
-+	pins = "gpio15";
-+};
-+
-+&qup_spi11_data_clk {
-+	pins = "gpio12", "gpio13", "gpio14";
-+};
-+
-+&qup_spi14_cs {
-+	pins = "gpio71";
-+};
-+
-+&qup_spi14_data_clk {
-+	pins = "gpio68", "gpio69", "gpio70";
-+};
-+
-+&qup_spi15_cs {
-+	pins = "gpio83";
-+};
-+
-+&qup_spi15_data_clk {
-+	pins = "gpio80", "gpio81", "gpio82";
-+};
-+
-+&qup_spi16_cs {
-+	pins = "gpio147";
-+};
-+
-+&qup_spi16_data_clk {
-+	pins = "gpio76", "gpio77", "gpio146";
-+};
-+
-+&qup_spi17_cs {
-+	pins = "gpio55";
-+};
-+
-+&qup_spi17_data_clk {
-+	pins = "gpio52", "gpio53", "gpio54";
-+};
-+
-+&tlmm {
-+	compatible = "qcom,molokai-tlmm";
-+	gpio-ranges = <&tlmm 0 0 206>;
-+};
+ IMAGIS TOUCHSCREEN DRIVER
+ M:	Markuss Broks <markuss.broks@gmail.com>
+ S:	Maintained
 
 -- 
 2.56.0
