@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794723275;
-	b=LqLVFOh+OXqQLOhI/ytIqU+ZIi+Xaq/liKKlUyVLpOOJDNh6H2IZydmBhMFTS4gLNcPa
-	 FmV3BdTboHj44JO7vwFsOAb+0FwlMuaXOpsYQhHv0LCfrYpAofh760+pWyZBpsYJBhtmx
-	 wmP0ZCrgHnv5BT1Zfg1am12pFO74sMrp02kuZolb4I91sSPktqYBtSfrmQBO04rP3Oh9F
-	 4w7ZeT5f80ruIeMl474t388N5ZhzDbaLfIfa7IUlPbKrh8PPAxYRehxJ7/X9DS9iiKJw4
-	 aNSCeL8UBXo7EY/CQUSUQ+uMa2ITALtL4NdxfO4U4EEGEOkLxt3dwkSdZxn2SGil4nw==
+	t=1794723988;
+	b=LQ/aN9NhU6YkKeSDfloZ4G/qVUcxOgG1CbX0PlGma2BCYFJCsfoSclAifKYMI53ZA3V4
+	 pBAl7ggwAD0+Xs9WbbKyK20l0kTXR2AgbBz+jRVRUG+BkxaOUHIrPNnUycTGRSxNITlcj
+	 6W4FDsB78s0FTyncrXBopdX0qnA2OP/mt3SyDr7SaAiL+xKzu7J14/XzLuGtLvY4KM7p1
+	 00y6a4o095f71id0XBbToxvH1cPxqtfFGw5Lhn9donghN82MlLG474qUtwO86vhqWa4pP
+	 JSBVcobgwdCqGuX2QaJPGoWbYh9txymFece6vF19dLTcG872bFdlT6+lwvCq+KWXkpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794723275;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794723988;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=1YX6STtWNAq4C0sSHz2BMv4F2a/yIqZSrsv+OW+2uSg=;
-	b=xS4SBQxIvI+hLeQV/hydKSmPG+L6kyCitU+WJkl4tVA1zgH8cS/AgnHL5FXB5IXYJM9V
-	 tSOE+aQ84ZaMgNx+EwjFAzgcrtPrRRQjaAI+KomqYWPXp0l+M1aT8uQBtOXZk/gFxi/b+
-	 XNHqm//dRUyn0yqS4DvQtN05Z/AzMzhex3VlGEEsbx1ngSEYCN3U+QP/IqGfUHZw2r19I
-	 AqWNMZIs3HJMiJpuWrUMWAQ3oGYoi3E5swZmuwW81EykVcrrPDNbY+Ex8W+5I0Y34JAbZ
-	 10GWYabWuR5NHINnF6iQehGHL+i7kVTx3x03AVPaJ/Yjv1UPjuyUx6igITZdJnobRgg==
+	bh=UD/foHw0BvnfH895HUVfxnwnVTVm+H1O95yVqicCrpA=;
+	b=0rRdoORBEteloRzXBKMNSgjym+cu5huvOZ35LvlJ4Ejntfuye7k4Nlr1gTWeYs8qAd07
+	 EkbI3MBMkQ+E69JhfW6XzvPEH82OXKvFHaPO9zdE2ELxnC3r32n1AiE64PGArXCkQZrSX
+	 VNY2oo8o1YQ1yttNEgDO2hQuv9SJ9vUJtO/9zcq+kUHBZXgC/EROZwMJEZdrW4h2XMS97
+	 OJ9INb+PeroI6vOUKXzw/5lpTQFXk4FvQ8RSGKgv8xnbEby1W7Y8IUh9+cp/L+JVbWefl
+	 WJMj9l6/I/UuL7GUnIG1gFGEaU4ojkb9n6yVvnwvkNVrnhQbS/Rl4RAeIKo7ybFk81Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MvpBJc1K;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Qv/KBXKL";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0529C606A327
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 06:14:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF112606A323;
+	Sun, 15 Nov 2026 06:26:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MvpBJc1K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 608791F000C4;
-	Sun, 15 Nov 2026 06:14:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qv/KBXKL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEEF31F000C4;
+	Sun, 15 Nov 2026 06:26:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794723274;
-	bh=1YX6STtWNAq4C0sSHz2BMv4F2a/yIqZSrsv+OW+2uSg=;
+	s=k20260515; t=1794723988;
+	bh=UD/foHw0BvnfH895HUVfxnwnVTVm+H1O95yVqicCrpA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MvpBJc1KWxtc1NT/qbdqKBKbF+zDyq1Cff1a0OHPwYHaYOn+tzmm7S6fOGapNtTI+
-	 zocOyqg9oUrSMXOreBPfK4oOIm8OBaMki5mCcO93GonzA7B81Epb6Q9Zd4vPEghiwQ
-	 uTs0zeizo8f7cj0fGf723dZSkQ6ZmwlWBD1nUtSNlfqWAaJG69NEJH3N0p9+eZ9K2j
-	 EMOksgJ9YjynLJUGd0fhyrrrZ2kZhxNgm+QsOCWobLjIBSbU9D/gMa8xwFsl/zYtj0
-	 c/aH9Nrupgu5Zjntj0Cl00bqWe/y5DvmXnowospsICHVo3NX9DTfVBZnxjIu3gG3cR
-	 3Ju83Q0Xiv3kg==
-Message-ID: <sashiko-outbox-215241@kernel.org>
+	b=Qv/KBXKLZbBoPfwXpoR1RiblbGTfIC1o0cMclDCyVbZcQGXQHbR6BmG/CWPRuNrBZ
+	 fJeIa+dRpylOs2b9hZBcnXV1ArgYPe6neo7OVk2TD6cQXYvKfw2cjo3GDJ4koc9ezI
+	 F0cfEuQ0rNmf5ugmR9YB7UCXMiwH5bUC7T+EJ85EB/TeQJkVtgRjfCosQbkKi0+IQ5
+	 eFXraDiXh5QL8OTblzGrwbp4zG4YL1cJfJh9BX8cM71gUCTQh8qYgWzfHZ1zFLb59j
+	 /xH5CF7SFlB0VlvqmZQOufHE1FyO5XoCy88v/Dy6bAN+CBE4gSBYUqoeGurEJU5R9W
+	 xKJPIl07IA4vw==
+Message-ID: <sashiko-outbox-215248@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: chemical: Add Sensirion SGP41
- binding
+Subject: Re: [PATCH v3 8/8] drm/sun4i: Switch DE33 to split plane bindings
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akshat Chandra" <notmissinge@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261115055941.362185-2-notmissinge@gmail.com>
-References: <20261115055941.362185-1-notmissinge@gmail.com>
- <20261115055941.362185-2-notmissinge@gmail.com>
+To: "Jernej Skrabec" <jernej.skrabec@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261115061102.229680-9-jernej.skrabec@gmail.com>
+References: <20261115061102.229680-1-jernej.skrabec@gmail.com>
+ <20261115061102.229680-9-jernej.skrabec@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 06:14:33 +0000
+Date: Sun, 15 Nov 2026 06:26:27 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,97 +60,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] dt-bindings: iio: chemical: sgp41: missing vddh-supply for
-  heater pin
-- [Low] dt-bindings: iio: chemical: sgp41: 2-space example indent and
-  const reg
-- [Low] dt-bindings: iio: chemical: sgp41: deprecated GPL-2.0 SPDX
-  license tag
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] drm/sun4i: stale @map kernel-doc entry on struct sun8i_mixer_cfg
 --
 
-commit 364f23f4f9b681d905ad97232d6cdcac6d5b17e4
-Author: Akshat Chandra <notmissinge@gmail.com>
+commit 4d9d59875c066497d13ed0e8e40a5cc35799a204
+Author: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-dt-bindings: iio: chemical: Add Sensirion SGP41 binding
+drm/sun4i: Switch DE33 to split plane bindings
 
-This commit adds a Device Tree binding schema for the Sensirion SGP41 VOC
-and NOx I2C gas sensor.
+This commit switches DE33 mixer discovery to use the shared plane driver
+and split register bindings, removing the legacy per-mixer DE33 plane setup.
 
-> diff --git a/Documentation/devicetree/bindings/iio/chemical/sensirion,sgp=
-41.yaml b/Documentation/devicetree/bindings/iio/chemical/sensirion,sgp41.ya=
-ml
-> new file mode 100644
-> index 0000000000000..c2bb6818f4390
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/chemical/sensirion,sgp41.yaml
-> @@ -0,0 +1,43 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-
-[Severity: Low]
-Should this use (GPL-2.0-only OR BSD-2-Clause) instead of the deprecated
-GPL-2.0 identifier, per Documentation/devicetree/bindings/submitting-patche=
-s.rst?
-
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/chemical/sensirion,sgp41.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Sensirion SGP41 VOC and NOx gas sensor
-> +
-> +maintainers:
-> +  - Akshat Chandra <notmissinge@gmail.com>
-> +
-> +description: |
-> +  Sensirion SGP41 indoor air quality sensor measuring raw VOC and NOx
-> +  signals over I2C.
-> +
-> +properties:
-> +  compatible:
-> +    const: sensirion,sgp41
-> +
-> +  reg:
-> +    const: 0x59
-> +
-> +  vdd-supply: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +additionalProperties: false
-
-[Severity: Medium]
-Should the schema also define vddh-supply?
-
-The SGP41 has a dedicated VDDH pin for the hotplate heater supply in
-addition to the logic VDD pin.  Boards that power VDD (for example at
-1.8 V for I2C) and VDDH from separate regulators cannot describe
-vddh-supply in Device Tree when additionalProperties is false without
-failing dtbs_check.
-
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +
-> +      gas-sensor@59 {
-> +        compatible =3D "sensirion,sgp41";
-> +        reg =3D <0x59>;
-> +        vdd-supply =3D <&vdd>;
-> +      };
-> +    };
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_mixer.h b/drivers/gpu/drm/sun4i/=
+sun8i_mixer.h
+> index e2f83301aae8d..7abc88c898d92 100644
+> --- a/drivers/gpu/drm/sun4i/sun8i_mixer.h
+> +++ b/drivers/gpu/drm/sun4i/sun8i_mixer.h
+> @@ -202,7 +202,6 @@ struct sun8i_mixer_cfg {
+>  	int			ui_num;
+>  	unsigned int		de_type;
+>  	unsigned long		mod_rate;
+> -	unsigned int		map[6];
+>  };
 
 [Severity: Low]
-The example uses 2-space indentation instead of 4 spaces per level, which
-triggers an indent-unit-strict warning from scripts/dtc/dt-check-style.
-Also, should reg in properties use maxItems: 1 rather than const: 0x59 to
-follow standard IIO binding conventions and allow I2C address translation?
+Should the @map entry in the kernel-doc comment above struct
+sun8i_mixer_cfg also be removed?  Leaving it causes scripts/kernel-doc
+(and W=3D1 builds) to warn about an excess struct member description.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261115055941.3621=
-85-1-notmissinge@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261115061102.2296=
+80-1-jernej.skrabec@gmail.com?part=3D8
