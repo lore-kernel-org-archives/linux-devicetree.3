@@ -1,32 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794772083;
-	b=rLojAqUZYNOZAVE9271/uPlcO7plbrBMSBFzSMAnaOhzelD3EImq+nO5qo/0PHrUPx07
-	 VNUvnvhSQvRfLTMcY6jdU/iwtwjya2QkBD30x9QlfpbEKI427bpPdlEQq0jg275m8t+bK
-	 dTk8lqtu4XzgflOeE/0LRhmVikvebcK10Wu+E2PuZLyWCHpSZYAiPJpXJTdfF02rJltqJ
-	 3S7xMC9VJu1GiV5Io6PNycobB2HlSV8RjEVteNnu8Xo2IGIzreTza46fRLQ66Vb1wqZ6k
-	 yDc2P5vt7tC2E4wzoGt/CYPcXc1HDuJWqQJfve9gFX32da6Hsb6H1lH499X7jJD4zPA==
+	t=1794772380;
+	b=ABKxPPxramBrUmaAhIuoFwOOqyOqkdfQyL69c96RTWWRVHVJrnIGXroSR5hOETQMQeyS
+	 nWIUHIkkUUGdXQt7ZfIPKTt4CaSLMSA/ZKKU5p0jIM9+E5T699rjBGaAyWCZqWzBDLKbE
+	 ACvBjMtsY37RhWNgUDEs/Ht0FUsYhv4ash1YA8VeJHc/UYaDhg24fEFDDjcr8QsnjB5kH
+	 4ClUIe6XhS2rLOQGVlvaqFAzgcvOdOH6l9HZjMet76O8ygKu+skTAdrPtjDuF7Y3cdS0W
+	 kS4of/7eZyGYvHPaQXBIrv4KsvpxqC8B02l3vr4CXU6X+m9LNPf0zdI+b8RbHovWltw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794772083;
-	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
-	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=J8wfWoRvlptTJKvGQanqlPj/1mz0o6eZhRXF9DHJe7Y=;
-	b=cyDzRCbFh0MMYLnog2BTNs5tFsrsZtqWAre8f4iOm6dwDUL5KvBt/37cOrQkCV6fxVix
-	 N6BgTVz9FlPvumS/k9FexOlNy4QUrxv/fSek7TvtsnI9wyEgZ6xBqPFZ6hHaXMqRhGG0H
-	 mWbjEx3NyW8opFmXXmYCyLDm03ZXB+fih7d9AQubvn93zGoQfSRPEczkKhonXmeFriDBO
-	 fx4335s6hkRYZb8yGixBO0JnD+e/DGB6Aifj0NiCBksRkFCoFtn7HepWTcyP8dOkKrA13
-	 kx0lhRjcOWdFtw6oCwqbl+eQsGQg6jLSKgKAoWX8ynAEkewpAiUICajBMa8CneEc8OQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794772380;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=XE3u2B+pN0Clq+eTAS8Vx72LY4D/+Nfyr3FEdeu11rA=;
+	b=VR3Ln+cIyXrn/KkaR9fMbF8QFD0YeCmDieSeIFvTZ3CAYoozmBqFTRnsp+3kB9GDlNXU
+	 tvLDygcmkCJyfrmf0axqb50MofjASzV6I3j/3xlDMjb/NZpZ8JGhAPBfJLEpPhAfo9hU8
+	 nKTllYvnbBL7vHm7rxaaf+rf1kUvMEo5z3SQ3o8FVBE916x2v5F+UOGq8AzuRT0cglhUv
+	 teoVXVNSUTYWwwkMAsD8Ldh22Vc3pN+77C2w/RpgPm8bApxVT3C6VrVCM6PW1LpEeg7Ue
+	 YCLxW9t8SzCZ9LvgOwjD07k5QDKyLKhfvW9RIBz2Ql+XEKfpTDZZAuykPGWRzM9ligg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=freeshell.de;
+	spf=pass smtp.mailfrom=freeshell.de;
+	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=Qo7L399l;
+	arc=none smtp.remote-ip=116.202.128.144
+Received: from freeshell.de (freeshell.de [116.202.128.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE662606A323
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 19:48:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E601E1F000C4;
-	Sun, 15 Nov 2026 19:47:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DAF606A31F;
+	Sun, 15 Nov 2026 19:52:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3DAF606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=Qo7L399l
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1794772319;
+	bh=XE3u2B+pN0Clq+eTAS8Vx72LY4D/+Nfyr3FEdeu11rA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Qo7L399l9NleUXCjnlQXkzYIlH8zOC8RAfz2zIV7GAeI4Xu9xnbXqPK48kq+nadTM
+	 WvHdHm8lRIuMherfpTsMGpX33q4LXZKgV2fmz4s/NhrLpvAl7H1C6w8Iz14VBmomZ/
+	 8GPkp+Ym0XpN7Lh2+Ypslp5Vil6YKcqY+QlT51ekbBtbBxAO1edNyvTr1qSTeVfoZ2
+	 Hc+f22wkhvJ0aEmgrXKnVLQ1yZV+s31YaCCgJyOOXKK/KVlshSy0WOfBsQeXlxbFnp
+	 frBxiSsPMbHGw9KOSewDiL+F9VbXwHb6DlCZtKhDCx+Vaa3BOloWJ5V6OwxOzgW44v
+	 p00aaLIywnLoA==
+Received: from hay.lan (unknown [IPv6:2605:59ca:364f:d400:6ecf:39ff:fe00:8375])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id 371DEB220212;
+	Sun, 15 Nov 2026 20:51:56 +0100 (CET)
+From: E Shattow <e@freeshell.de>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yixun Lan <dlan@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	E Shattow <e@freeshell.de>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] riscv: dts: spacemit: k3: use com260 8gb memory configuration
+Date: Sun, 15 Nov 2026 11:50:59 -0800
+Message-ID: <20261115195112.32120-2-e@freeshell.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261115195112.32120-1-e@freeshell.de>
+References: <20261115195112.32120-1-e@freeshell.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -36,58 +77,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 2/2] phy: rockchip: snps-pcie3: Load updated PHY
- firmware on RK3568
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: Shawn Lin <shawn.lin@rock-chips.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
- linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org, 
- Samuel Holland <samuel@sholland.org>, Coia Prant <coiaprant@gmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>
-In-Reply-To: <20261102015236.3844843-3-shawn.lin@rock-chips.com>
-References: <20261102015236.3844843-1-shawn.lin@rock-chips.com>
- <20261102015236.3844843-3-shawn.lin@rock-chips.com>
-Date: Sun, 15 Nov 2026 11:47:55 -0800
-Message-Id: <179477207586.132702.13681064910468775977.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=970;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=z/N/KYzBmLjuxTwfXJmOo9VDU3z5rXYJ+jtGgfky3h0=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq+gxut/r6n3u62ciaAfiwxlRF0b6JJ70NZiftb
- LSnxtljYFWJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCavoMbgAKCRBVnxHm/pHO
- 9ezLB/9RZF95g86QTd7xNdk6G43WKTX15whkytnIDCXmLFPMRLeT4K57mh7aOe8/FXyiU3JWpjg
- 1rY0kOVv5tr5H/tGlS6bsLRon6IWvaS/JDPLjSzd7is/0T2kAdS03VztgC/CDyE5zxFScaKx4R3
- ssJ9B+OStoKXIIZp//fSlQeLi7V35NLEHcEbBoTc13PnL7dmAULGUnRrf4vU3MlneWSF9TEoRmn
- WewmI+sVdttKYUnwPfACf9Q6sd0BmR62e2gpP3aYwkikMIHyAbbk3FOJU0XwJVzJr/w30QT2ZIU
- iQpFEeCfMj/0yo1xErbV2pTxuWzGC1jkroOvmtnG4SB8pQt/
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-02 09:52 +0800, Shawn Lin wrote:
-> The RK3568 PCIe3 PHY can load an updated firmware into its internal
-> SRAM during initialization. Without it the PHY may come up with a stale
-> microcode and fail to establish a stable link.
-> 
-> Load the firmware named by the optional firmware-name DT property during
-> probe, so that it is available in the phy_init() context and is not read
-> from the filesystem on every init. During initialization, clear SDRAM
-> load done and bypass, wait for the SRAM to lock, map the SRAM into the
-> register window, write the firmware and finally signal SDRAM load done.
-> 
-> The firmware is optional: when firmware-name is absent (older DTBs) or
-> the file cannot be loaded, the driver keeps the behaviour unchanged and
-> uses the microcode already present in the PHY.
-> 
-> Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
+The boot loader may override this configuration based on stored ID value
+in EEPROM TLV and if it does not then the smallest common sold
+configuration of 8gb is the most compatible option.
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: E Shattow <e@freeshell.de>
+---
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- Mani
-
+diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+index 054bfff7413a..c18680b963a4 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+@@ -14,7 +14,7 @@ / {
+ 
+ 	memory@100000000 {
+ 		device_type = "memory";
+-		reg = <0x1 0x00000000 0x4 0x00000000>;
++		reg = <0x1 0x00000000 0x2 0x00000000>;
+ 	};
+ 
+ 	reg_5v_sys: regulator-5v-sys {
+-- 
+2.53.0
 
