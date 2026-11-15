@@ -1,74 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794741579;
-	b=h5OaNHA2Uv236bp6aCqN9HW0C56ScovIAXz4fEuUtB89OBfDcE0ROxxJ3zk+rezTIkoi
-	 8OD/G+1bU6JqtmXTl/+EOCcW/6pCEKQvWxeBXwamHJN9WDyzzAjLPqT7Qtg+g5CDz7r8M
-	 qwud9TRtGvk2mGy2T0WojvmJ4jDeF8DsrKhjAi0rumkYTyUl62xskkJLlPzTlkaoEp5d1
-	 2wwvegZD11j/rC9luqNvpdeII44ZalkM3QYigNuIbdo2/uwZswdYnYfLxcL3mvgDnYCqI
-	 Nb//fotXdJeCuYnprs17DcQihK8MY3IwuQVyw+FpDQZPQXe6yAvkAbaYHIMM3TnwSWQ==
+	t=1794741814;
+	b=wtp0R/dGbu0QIqHyygXr87SkGz//F0j1uxfBA2BLe/i0WmSStk7ltaGI5/TCiLCytIW6
+	 T3a2h7AmeqohbT1Uni0TAALeWlYXeVQcQdI04I68YgEeYvm8dfi7tv6/9z+PLYxRXaKn5
+	 3ePYAdbI2k98mliwRlcQWXDWspjGmY78RBRWWzVqbJVpVrQ8BLEw/1MkQ5hkKrww8U+Ic
+	 Mmhly4rLuFHXTP7L5KQhsb2i9uIyX5CI/8/7/EhjAKQeYg+ietI9pWWQJKVGhFvgolcy6
+	 nqdMx6lEUe+aPS24xfbc4JbUHxMsH+aftMALbhe9aZSoUHvHS3L3aBAhfRX0ldnr/Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794741579;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=I6M9drfNN7zCNsaSrSObIiphbvQS2j9fYF//SvIIVu0=;
-	b=0CeFJTSL4ePFM7sJiXn3TElcxLlwu4Pq6rS2sGDO/Q1QQK3XjBsmeuSzy4XBuLQhjp+Z
-	 5bs0mQGybkv0e2QF6akeC/0+EWGa824NeAiqlBWVZARiQyFFvBuztW7ZIajBrPhHbf6Hc
-	 eGMfggoHSOLPPCU+BEltq1OIPSq/fNHkY5pl8alsaMimOlEZdT5tulTQp1WBVHbRxQ1nJ
-	 xiWRMKzaHQSc4+TZHYeUl3etwW1N5iMwMhcj12o2/G1zclIT+D87SBDyRnIPMa88tloPX
-	 jfRGAng5Y73stYs07xcquwW7nj/EmrLr1W0UgWPwj1u/eH73uh891sJf8d+8qqi61Pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794741814;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kX53oJXe6zh6Wm0f/NLw/xzJgNuI7GT7tZ/9xrnt5WI=;
+	b=mq1JfA2a+IqJgIwirWWDubxfYK+iqAJ0McG2IVQEj0YkwmHDw9PVMaj9lbpb5oZXL8ew
+	 9cyc5DMgIyjvkSpF5WQvsBbbwOIV5dULTU2y0ISXyY2lLyBeNau6igbB9bvxT4hL5Nl8l
+	 OtPTqJvbkmPKLacjfay4OeeDlRB5P+DjtCb+iWwp8d0mfglFTTgg4mzqkjYPJlTwkHNX/
+	 BUo4U4CYHw//Tpol9qUIE7gf/d1+Ft2j+TjmPEFh+mFpNbnl1eu6YqTt/gB1T3pxqHvVg
+	 1WPi4v9whlVN3ccZtv1stQ/wsMzleL9nVKNnKnYW1BSVZgsfsd/0cxaas1sD9Zk7LuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=ik6dsrXJ;
-	arc=none smtp.remote-ip=212.27.42.1
-Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [212.27.42.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="n03mFvQ/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB8A606A31A;
-	Sun, 15 Nov 2026 11:19:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EB8A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D28606A329
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 11:23:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=ik6dsrXJ
-Received: from L30177.local (unknown [78.242.88.98])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp1-g21.free.fr (Postfix) with ESMTPSA id D792CB0051B;
-	Sun, 15 Nov 2026 12:18:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1794741571;
-	bh=JQD3/EFXCa4lxF1FzAPYk7PWu+NKW3cxCD9tTy0x1cs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ik6dsrXJYrk/VQXyRed2GD1Pp5tDkQSbJ83ictljm1FKfb4Ox8x+nlLt0T2YU9kJR
-	 rvmjalYzY7TiZJfQAbCUy1e2Zt84pL9OLjTa20g1DK2yews6kwKo/vq20kUD9jonZL
-	 C46MPyDT7DhMhbvQOOqe6zl38xuHODDxKCvm8MTp8HuV003/CEC1zxqnvfncFbp4uR
-	 TOIgfbpbbZ1do+E1PYz0KZTcBnbc79rLlddNWRWGBeCMkjN3nAjd7ARCpRdywXrX63
-	 xo/tKnRt+jx2nfY5H7izHPB8sfV3RfaNPrIK0MBzXPHbN/jYZbsEyHnJBMRKnw+v7t
-	 Gn8OC0dkrijwg==
-Date: Sun, 15 Nov 2026 12:18:57 +0100
-From: Vincent Jardin <vjardin@free.fr>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
-Subject: Re: [PATCH v4 3/5] soc: fsl: guts: add the RCW override of any RCWSR
-Message-ID: <avmVIb5-l2DUq75m@L30177.local>
-References: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
- <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-3-eefcea066a55@free.fr>
- <avi9N8P34X5uel7a@skbuf>
- <avjy-lCL2A9gEhcL@L30177.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n03mFvQ/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2FBD1F000CA
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 11:23:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794741813;
+	bh=kX53oJXe6zh6Wm0f/NLw/xzJgNuI7GT7tZ/9xrnt5WI=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=n03mFvQ/1EXrpr5LWQJtiZYHd03TFTWFjfs47QxSHRguTJtgURTEOt8VLNSFJQc7V
+	 8L1ioyNBXKcSCdeXyzO3Zbbq7rjPZUO5cdi/KH5O4/8SmNHFf8+dhb++ZDR9jqF3XN
+	 eQFMiMpw558ksTpnDxbW1Uoyf7SrURXsJJQ0NdakMTHtLX9GYnKsAyAcFTWDVL5PDQ
+	 a/d4B9e/Eyv/g1jr0gu0oHnuMdcm9UInKtOVUPZKT16D06n3S52QgoPjw78i2DiGFZ
+	 vrwsvnDFcXKLM5i39Jx18tUFh+8lkX1DtcjgfTRdaOPBvKEB8tN0IQtjsJEAqkI/0h
+	 pWRFQtnQ60VhA==
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ae22dcfdc3so24429651fa.1
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 03:23:33 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHuKwB8kdIuVzUdiykr/UsQFjuV1ts5TapQbG3VDF3TyPXLEMhQk0MAEGtZgPLhg+Rqr1kCgXyRn8r+@vger.kernel.org
+X-Gm-Message-State: APuU4Z+vsy7NIAkkuyaAW1I+7+Z3tK4OMEYZbwV35x8SD2NFrZcoMDES
+	cGKZcgQqMnimK5MpY2rJr1ehH3BWChn565b9Cs3gfalBWRWEQDTxLRLCcAFG4k/Wc7au8I4To0r
+	CImdQvWDkt4DXAdRshNviLVp1Zo5gDOY=
+X-Received: by 2002:a05:651c:a142:b0:3ab:3bf3:1610 with SMTP id
+ 38308e7fff4ca-3ae2b4cb4a9mr19055231fa.10.1794741811994; Sun, 15 Nov 2026
+ 03:23:31 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,45 +59,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <avjy-lCL2A9gEhcL@L30177.local>
+References: <20261112-h616-zero2-dt-v3-0-1cd2664230c8@gmail.com> <20261112-h616-zero2-dt-v3-3-1cd2664230c8@gmail.com>
+In-Reply-To: <20261112-h616-zero2-dt-v3-3-1cd2664230c8@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 15 Nov 2026 19:23:18 +0800
+X-Gmail-Original-Message-ID: <CAGb2v66AtwrqViwOdwd9SwXAxXKv7U1za72pj2BqcdqegVnYpA@mail.gmail.com>
+X-Gm-Features: AclHuK8ZAVIclElCusS8bGm9wRGMlekW6DfDLlnWFEB8TeBA8l91MdVQ65LV97I
+Message-ID: <CAGb2v66AtwrqViwOdwd9SwXAxXKv7U1za72pj2BqcdqegVnYpA@mail.gmail.com>
+Subject: Re: [PATCH v3 3/7] arm64: dts: allwinner: h616: Add GPU OPP table
+To: aiyengar1990@gmail.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
+	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Vladimir,
+On Thu, Nov 12, 2026 at 5:22=E2=80=AFPM Arun Iyengar via B4 Relay
+<devnull+aiyengar1990.gmail.com@kernel.org> wrote:
+>
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>
+> Add the operating points of the H616/H618 Mali-G31, so that boards can
+> enable GPU DVFS through panfrost devfreq: 306 to 600 MHz at 810 to
+> 950 mV. The table is the one of the vendor images (as recovered from a
+> KickPi K2B image, also carried by Armbian). Like the H6 GPU OPP table,
 
-Le 15/11/26 00:47, Vincent Jardin a écrit :
-> Hi Vladimir,
-> 
-> > I cannot agree with your API proposal. It exports to the rest of the
-> > kernel a blanket API for RCW override of any RCWSR1-RCWSR31 register,
-> > *including* the SerDes fields for which the fsl_guts module already
-> > exposes an API. So with your proposal, what can be done with
-> > fsl_guts_lane_set_mode() can also be (un)done with fsl_guts_rcw_override().
-> > The possibilities of abusing this API design are endless, and I don't
-> > want to have to deal with them when I can avoid them.
-> > 
-> > At a minimum, I would recommend renaming the API as fsl_guts_pmux_override(),
-> > and make guts enforce which register fields it permits overriding via
-> > this API. Example:
-> > 
-> > static const struct fsl_soc_pmux_mask lx2160a_pmux[] = {
-> > 	{ 12, GENMASK(29, 0) }, /* IIC2..SDHC1_DIR */
-> > 	{ 13, GENMASK(29, 0) }, /* SDHC2_DAT74..EVT43 */
-> > 	{ 14, GENMASK(10, 0) }, /* EVT20..IIC1 */
-> > 	{ 27, GENMASK(7, 0) },  /* EC1, EC2, USB_EXT, GTX_CLK, SDHC1_DS <- your series is missing these */
-> > 	{}
-> > };
-> 
+FTR I found https://github.com/armbian/build/commit/3432b23f09c4a3fe74d6760=
+b42ff01cfff8dfe1b
+which probably came from https://github.com/armbian/build/pull/10902.
 
-I did test it on the board and sent the related v5 based on your suggestion.
+It says it was from an KickPi K2B v2.2 image. However the latest source
+tree dump from KickPi doesn't seem to contain a GPU OPP. I can't tell if
+the v2.2 refers to the board revision or the SDK version.
 
-For instance, when I did a forced bus recovery of IIC1, it
-moves only its related field of RCWSR14, and the first override of RCWCR27
-does not touch USB3_CLK_FSEL.
 
-The v5 is here:
-https://lore.kernel.org/all/20261115-for-upstream-lx2160a-rcw-pinmux-v1-v5-0-d246166ea469@free.fr/
+Note that OrangePi seems to use a different table:
 
-thanks for you help,
-  Vincent
+https://github.com/orangepi-xunlong/linux-orangepi/blob/orange-pi-6.1-sun50=
+iw9/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi#L1520
+
+But anyway, if it works, that's fine.
+
+> it uses <target target max> voltage triplets with a common 990 mV
+> maximum: a board whose GPU supply cannot reach an OPP's target voltage
+> loses that OPP, while a board whose supply minimum is above the target
+> of the lower OPPs keeps them, as their [target, max] range still
+> overlaps the supply's range.
+>
+> Like sun50i-h616-cpu-opp.dtsi, the table is in a separate file that
+> boards include once their GPU supply is described.
+>
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  .../boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi    | 62 ++++++++++++++++=
+++++++
+>  1 file changed, 62 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi b/arc=
+h/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
+> new file mode 100644
+> index 000000000000..18989d11c832
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-gpu-opp.dtsi
+> @@ -0,0 +1,62 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +// Copyright (C) 2026 Arun Iyengar <aiyengar1990@gmail.com>
+> +
+> +/ {
+> +       gpu_opp_table: opp-table-gpu {
+> +               compatible =3D "operating-points-v2";
+> +
+> +               opp-306000000 {
+> +                       opp-hz =3D /bits/ 64 <306000000>;
+> +                       opp-microvolt =3D <810000 810000 990000>;
+> +               };
+> +
+> +               opp-336000000 {
+> +                       opp-hz =3D /bits/ 64 <336000000>;
+> +                       opp-microvolt =3D <810000 810000 990000>;
+> +               };
+> +
+> +               opp-360000000 {
+> +                       opp-hz =3D /bits/ 64 <360000000>;
+> +                       opp-microvolt =3D <820000 820000 990000>;
+> +               };
+> +
+> +               opp-384000000 {
+> +                       opp-hz =3D /bits/ 64 <384000000>;
+> +                       opp-microvolt =3D <830000 830000 990000>;
+> +               };
+> +
+> +               opp-420000000 {
+> +                       opp-hz =3D /bits/ 64 <420000000>;
+> +                       opp-microvolt =3D <850000 850000 990000>;
+> +               };
+> +
+> +               opp-456000000 {
+> +                       opp-hz =3D /bits/ 64 <456000000>;
+> +                       opp-microvolt =3D <870000 870000 990000>;
+> +               };
+> +
+> +               opp-504000000 {
+> +                       opp-hz =3D /bits/ 64 <504000000>;
+> +                       opp-microvolt =3D <890000 890000 990000>;
+> +               };
+> +
+> +               opp-540000000 {
+> +                       opp-hz =3D /bits/ 64 <540000000>;
+> +                       opp-microvolt =3D <910000 910000 990000>;
+> +               };
+> +
+> +               opp-576000000 {
+> +                       opp-hz =3D /bits/ 64 <576000000>;
+> +                       opp-microvolt =3D <930000 930000 990000>;
+> +               };
+> +
+> +               opp-600000000 {
+> +                       opp-hz =3D /bits/ 64 <600000000>;
+> +                       opp-microvolt =3D <950000 950000 990000>;
+> +               };
+> +       };
+> +};
+> +
+> +&gpu {
+> +       operating-points-v2 =3D <&gpu_opp_table>;
+> +};
+>
+> --
+> 2.55.0
+>
+>
