@@ -1,67 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.21.61.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794779417;
-	b=Z0KZ9fgK7LtFLGnA8TozGRpnBMA531R3YYQmVxgMhmdVYuO9yAz2cxg3nUy6g+Ss+GUE
-	 lua4raENHBIOw5vkjtZcFn4V17/blZ46BLH/xMUvV0s/c0p5b71kKS8WfDSpel0+09F88
-	 OiX+hG66ZgDwt0SqsrQlXBLOSrQXYclqEM+BPbSsD6gBe5G3pkjbLg19HHEUUXoyx4Qyt
-	 78ZY4zh/JrU/JKkNPgIDTkzj96zj11P8Ur59dY/zctmh0GVqLzrh1PUACOjNbfMsH0y9v
-	 zXo45M7R5mGea8NMXgZIcqk4JxD7h4qR8ArEyR2QqCsbbcKPnyX86CYJICDWL5SHdUg==
+	t=1794779818;
+	b=bxqS4cklzEteFAnXZWksWnUOOcLuzsWquxxfK1hUAwRC8yovzen47bKxJHfeCC+bnFzb
+	 t6swCkoNvzyhQC4sFqOMVoTOK/ruPlgqkRmzCWi42zjHFx9yH5BUnh8cjSqAw40eYfchw
+	 aQ4GZNeLgijhQ0rth7g5V0XZO0feP10FFe6/5vXTc/02AfppoIAFx045QUziHSkv3OGTu
+	 qjFiwDuQDHJS8f2E0JWuK9TvoAgOiJzVMlVq36uhWB18WFEjTkY1y4ItwaCK8fI3iO+GV
+	 I4QFrcMBr2omtifhPibmxzQYBBrm5tQi/E0Z8rjOeib+w1VpIegxc9yOQBgyDEM4RPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794779417;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 User-Agent;
-	bh=6XvkMDi42j7sY0SuX8WsFlM/u5/0v+BfHkwMgWB/hdM=;
-	b=atG5ac1XGQbnUJAx5FTMY4tbXEW1OWpdAXGzHYwBM41MJ1I8DL0/aTSQH2wfnVgPGv0A
-	 dIEy92UNa3cRkCFGWeRW89Y2KY4U/9Y4wusTAk5YjuyDukdsbP1oyOohMBmH5TdIqh1pr
-	 v5YS3G3qO6uCU/nvTzR9vvjroQwDENkCxaRC4mPRUI9SEmfIWDyuguR+Bli+C1aDFhS7c
-	 MqNKn+JPu8HbrdRPyPQJGn7G23koRkC/YeFY/6cSGf7Rm6KMao87KhQ1njpPazeLZ9/oy
-	 nr8APXusiJ9YMNb73BZRqHt6hh8/a0QcWLszGhmRfeo2lCsPM+ZKrRQx2mjhL7ewLLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794779818;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:Date:MIME-Version:User-Agent:
+	 From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=WrHCNL0KXrXk5rA5zdalOrV02Xy8jJVbUwtw3kWjMOM=;
+	b=O3c6UHGkc+ih/qI8Lw2us9VhTzgxP8DVOBxEBdomFu8qSVYCZLlPiU1J5VcCoI+5ehtd
+	 55+KEqT5YR/hLpw/Wv8pWvjubh/cjeiIYqffj+Y/vMi9vNni/9Anyw8TZPNhGCouk7lnV
+	 KbVa5HSjnIRYIV9FexHK3YGHI1aAwZZNh7rfUZVSkIwYIj4+zi/I7NvG1v0peifHUlnTF
+	 hBALwRt6hhrq1oW3qu0gaw6l/yWt6rKNGW7zznqypCWyc0xXwio3jPwGlnuwwxJ2ddBQd
+	 erx7DsT22oqKtMujwvF9Lam18mrlIEbZMBAzq/InZ2CGuIbUlJGYc4yMVdyJwdB0d9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nFEZvwMx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=aliel.fr;
+	spf=pass smtp.mailfrom=aliel.fr;
+	dkim=pass header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=GEv9vjch;
+	arc=none smtp.remote-ip=65.21.61.41
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D670D606A323;
-	Sun, 15 Nov 2026 21:50:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25DAC606A33D;
+	Sun, 15 Nov 2026 21:56:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25DAC606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nFEZvwMx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE831F000C6;
-	Sun, 15 Nov 2026 21:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794779417;
-	bh=6XvkMDi42j7sY0SuX8WsFlM/u5/0v+BfHkwMgWB/hdM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nFEZvwMxQUzhZeELmnZEHAe8BYEEgWRUOfxA44QqBHDNEHKqgSvZInB5g+iW8EEVD
-	 pj76uae/e92fD9oa7MNfKcgyS4hY2nZlIL17HBe7xjGKguIZu4LibMj7CQX65gLdlC
-	 yUo+VjdlP1+vkZAuaIRoxfs1kj5AwLhAQdCo42VQe8nfnuhcZ3hXYN39CpJgvecOuQ
-	 OPbR4u1buCNQRULF38yfpYWseRPD1F7jg8lXJQQJYmcs8oZQa6WkiiLB7B5pkjQTHZ
-	 K+MwzTlKdAZbS9JOeVLV4XkiLpInJkLVuIRCWXH6oroJApZnFqC5JG6gu0J1Vnd/Zo
-	 nMGHujxVcHOZg==
-Date: Sun, 15 Nov 2026 16:50:10 -0500
-From: Brian Masney <masneyb@kernel.org>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Andrew Lunn <andrew@lunn.ch>, Stefan Wahren <wahrenst@gmx.net>,
-	Phil Elwell <phil@raspberrypi.com>, netdev@vger.kernel.org,
-	James Clark <jjc@jclark.com>
-Subject: Re: (subset) [PATCH 0/3] clk: bcm2835: describe the BCM2711 GISB
- clock for the GENET MDIO controller
-Message-ID: <avopEsR4AqMUUKBU@x1g10>
-References: <20261020-devel-bcm2711-gisb-clk-v1-0-a1728724d0f8@tipi-net.de>
- <179358503716.355577.9187303706042543606.b4-ty@b4>
- <2e846fdb-32e9-4ba9-a6e7-ef67d24c4f8d@broadcom.com>
+	dkim=pass (1024-bit key, unprotected) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=GEv9vjch
+Message-ID: <e526e0df-d3e8-4c6b-ab50-e9b4cc9bdd3c@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1794779809;
+	bh=Wsvy++1Jhz31GNLY6mcfL2ulnfXKznpBChaXnW8X7ME=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=GEv9vjchECQHtag1czQFsuwD0vdspJK6CbtnGjHm4SsKXaQjIMKp5blcTP+3hWOmb
+	 morU1X6i1QQuY6BlyafEREoxPdQ2ZcQ57pY+krO6WuGQ2vyP5i+pUlJ6WirubpYM0O
+	 AFn7GDQ8CLgYTUlu1lM7iZg+A1K1SvVSS5ZzgXuE=
+Date: Sun, 15 Nov 2026 22:55:51 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,39 +51,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2e846fdb-32e9-4ba9-a6e7-ef67d24c4f8d@broadcom.com>
-User-Agent: Mutt/2.4.3 (2026-10-09)
+User-Agent: Mozilla Thunderbird
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH v4 0/3] Add T7 PWM bus clock support
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20261001-add-t7-sys-pwm-clk-v4-0-8ed2b1e0cdfe@aliel.fr>
+Content-Language: en-US
+In-Reply-To: <20261001-add-t7-sys-pwm-clk-v4-0-8ed2b1e0cdfe@aliel.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 07:39:42PM -0800, Florian Fainelli wrote:
-> On 11/1/2026 6:03 PM, Brian Masney wrote:
-> > 
-> > On Tue, 20 Oct 2026 16:58:08 +0200, Nicolai Buchwitz wrote:
-> > > clk: bcm2835: describe the BCM2711 GISB clock for the GENET MDIO controller
-> > > 
-> > > The timestamped MDIO write series [1] needs the reference clock the
-> > > GENET MDIO controller divides its MDC from. On BCM2711 that clock is
-> > > not described anywhere, so 5/5 of that series hardcodes 200 MHz behind
-> > > a compatible match, and mdio-bcm-unimac's clock-frequency handling
-> > > assumes the 250 MHz of the STB chips.
-> > > 
-> > > [...]
-> > 
-> > Applied, thanks!
-> > 
-> > [1/3] dt-bindings: clock: bcm2835: add the BCM2711 GISB clock
-> >        https://git.kernel.org/clk/linux/c/af7994af5228
-> > [2/3] clk: bcm2835: register the BCM2711 GISB clock
-> >        https://git.kernel.org/clk/linux/c/ab94dbf30233
+On 10/1/26 18:55, Ronald Claveau via B4 Relay wrote:
+> The PWM controllers on the Amlogic S4 SoC have a system clock that
+> controls access to the controller, in addition to the two input
+> clocks of channels A and B. The A1,C3,T7 which fallback to S4 have
+> this third clock too.
 > 
-> Brian, can you also take patch #3, or you would have create an immutable
-> branch for me to pull from. Patch #3 depends upon the BCM2711_CLOCK_GISB
-> constant being defined.
+> It is currently not described in the device tree, so it is neither
+> referenced nor enabled by the driver.
+> 
 
-It's a bit late to do the immutable branch now and I don't want to have
-to rebase the clk trees.
+Hi Team,
 
-Can you provide an Acked-by for patch 3 so I can take it?
+Do you have any idea on how to move this series forward ?
 
-Brian
+-- 
+Best regards,
+Ronald
