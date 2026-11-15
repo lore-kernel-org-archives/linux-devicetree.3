@@ -1,88 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794748827;
-	b=cn0avJUe1o5HLvX4iOMl+l8PkopCUbSKSkeO7Y+b/SsK5yXFkm4RACWaheJIU+dH7rqx
-	 HwsOJR6Hry4oU3ElPU/O9/TSUSaMfJG+IRJAksZJ63pd7ptCMJbD0gKi8m0SQJQujdGFi
-	 yrio+CA+t1RZbhsfBvr2DJhqL0Dj/LD50hQniAzUoHJrY1AJZ58qpBLhPhGmnRJxuTkhc
-	 1ap4kAzJZVBk2kTM8Poezt+z4+ayRSSmSG5HwdSzFmvYGhAIjjnWtBiZMk9pVn7W5uzlU
-	 U20FAJ2cPUPoxMXnZKdZy4B1q3UfVWGZOwat/BNzA7EQXbWgBqXKfbPUDLrnJOXH/ig==
+	t=1794748945;
+	b=DbPtd7yJ/5Sifaba0mDp92/Srv4JbcClQXirVt1O0qYmsVv69F10kSDUC/mNuIwUZQ3Z
+	 uQo5tOxyhZYd5qhFGhP4B+SMTfLfuFTYr3UJBhL23a8FVT2fNBYRyKgvxYkY1j4Szxzvi
+	 hV5ncfVajZCsd3H2OZtEEkDiIjkY9Vi6dGyj7684cNEeHXF7yG7g24uVcq9gAjGAovtc5
+	 INJaDFes8vkLg/3VWFPX1Gd5WFOCF6U6tDH7Sp9Lc3rSgNpAzhsDwgpZzqBZdX23Ia4N9
+	 1IOR/ByYHO9yPxX5EHrGvImFbKTWAG+RKPbas/okAyPBz7zgOJyLoEt88m9Y/cMTSBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794748827;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794748945;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:
-	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=/rYsyjftvDCPeS9SbbyhKVYUDY9LVQRgCngM6FVnSFQ=;
-	b=FHCF/1RAKByeZyYlLpbbJZxmpaI5rxU4Ehojz3b+hgsmaqM+HuA85TgRALW2LbHJpK91
-	 ZHwojgDyhXG++3pXGZ3fkgNjZnl7e8ONsV4JW2//cye39Dsl+/HYGTRbgWWegtAoS839c
-	 85KstnjkiYR4nmGmipa/abkPJibRChK6lXeb+iVvWk/KLbZR6xL0X9aKhVMM/OfhLcKcq
-	 XDaemmrRa/T7ehvmdXGr8e27UDTygav57uoZwpVzkR/BWYJCtPVq2MqIxphmuApsVyAkb
-	 AJIgvPXAV8SlsiC63a915Mtfm08bPiLSfCDIu/SqP9oYe1LhgAMdR1ty1PeO4Obz9SQ==
+	bh=9h+1AJ5Cc1jYDA1ieTHKnIzzkDI8olveKPVVvRklLn4=;
+	b=VTchR+o75/EOoEY5XZHJdX6BNa8PJiC7R1irmuPpwKEQxO2enHo+iN3Ed6f0i109kaEJ
+	 hvmtI/2ZCXLW7S61c0kcgg76h1EXlJ7i87/plZzmnouxIeluT2uFy5uQSHp+iS5zzqAx9
+	 d9Gg/Mk7gVfOA7R7+u2foqdGD25jAQvLuRAZcRkJMoapLLlIRp/AFSvKEIqJOT1T3FT9b
+	 f1RsBY+oDaWv9kJzvZ+Gkj8KNdGMXjgy0eZ5cuKjaJ/DX+Ukc3yFOoZmBMpe9CMxYtfFn
+	 JZfFKdPHQP3k6dH2qEMOGDMsV3zfjp91zfsLLOSyQXjfP/yTz40pRYi1UOLYqAHU5eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zYyWL4GB;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IgNHwqxX;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D059A606A31F
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 13:20:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D059A606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226DC606A32F
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 13:22:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 226DC606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zYyWL4GB
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so2822082c88.0
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 05:20:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IgNHwqxX
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so19262985e9.1
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 05:22:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794748826; x=1795353626; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:reply-to:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/rYsyjftvDCPeS9SbbyhKVYUDY9LVQRgCngM6FVnSFQ=;
-        b=zYyWL4GBuf0DsAdvhYGsk1HKtQ4dzGXDITV2wnSBhAUnJTmKOesAjxxSywEZ2hHpzq
-         llR+jTI4Z1JZxjB9Zs0fQVKGcq7BQFZZHAXztEp/1F0X6UaDtEtWTPCGHc89IEy566yp
-         KA62XuLoFmxtWbwk/nye62TtvNTJZWospqclUElyMRJjlHq5ON5zlaLp3WAxDHFfiefR
-         xCc5jg/iosd6Uivwmng7ZT2W/KXXSPREMO6aEKpdQDmj6tLVYqjK0ys3pGi9AjM8db0U
-         5fifSAbg1/WkWX0MF0Ed+a6jZRero+oWYiNrPY0Jdu0dBlXkIjwPEWAEbIcliiwPxzni
-         Vp3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794748826; x=1795353626;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:reply-to:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794748943; x=1795353743; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/rYsyjftvDCPeS9SbbyhKVYUDY9LVQRgCngM6FVnSFQ=;
-        b=ORTIY3rDm/hfYEjpULfDC6E0T6Tpslp0OtuyR+7/7Z341uI+nQXpcvcWJkuHlSrcKe
-         SaBN1rbSmBu1D3rrkbT9BTQouDECruBDWJvKKYNSuAQZuDCFqI6G1bYs9GVEiCDM/YuC
-         RjmbbXG5ikd6SAWo6nNIZqknkrrBAbHBHLeglEXEFHJXesRzoH2VXGI2NZrPe2ve/D28
-         wJMbjqLsUZylM9IjpjMd+xJ7kYorXsgrICL5ASoAukpj7+cEOK1vZYLIZK9qPtYUU+/m
-         zGBjWbzFZGD0D0LK1QZWiby51x6RCwTo+ugR7zUp0u0GuKLv6c7omIL8BsoMMQ3D8Dwd
-         cDBA==
-X-Forwarded-Encrypted: i=1; AL+hErF6R/ZxtQyPxOtDklWDoLpzzuLpQ2DN6LLgY8hL0BIt7+ppKE1TV0nMu6CiQBkU2JfdehGaalO/kxya@vger.kernel.org
-X-Gm-Message-State: APuU4Z8yGtDxuWK4qijxwIkBJJ/d9ybJXR31ONjYYC2XV+/16u/QqNlV
-	SEfGbyd8uc4LGjSIvNaHHFzeF6jefn4cM1QUanZ7UEpMLttpL/mXuLFM
-X-Gm-Gg: AYBFou0M74D20cRqGRVHmFHUDpDzt1bww3IM6viFcVs0EQERPLIpTMmuBfZc7Dx+rru
-	9SomSWtr0Fw3liZ/J/Ly5ZwYIlng0JmfU+1R26uojAFaO5jKHoTcnJWoA54T+v6A52p0g1ytlTT
-	pBZqTWzl37g5wtG+qrzKej8YB/uvL0OoxejWbBHmX5gxsMy1YK+jLMUuWFW4THQ8W/bfIIMnsz2
-	eaUjlxjBIW0iZtE7ftwGxOPEA49z1byxWqHScAcEG/dnpRBf2fjmOW9r8dKUhfcaVvTk/ajDiF+
-	MULMuLI+2fbm1QC3tUF8bdzTCaeJNo5+NCwi9EyCkHOIGtI6qpQhoXcQ5EyU4gyPf1IY6UUgAjI
-	jxsTyyBGRuT+mF+ZSD4rGm4A9gI5HrObbsXPJZYweUK2G69bwlGh/bKcfxy8n62hpUfGI45KMGi
-	5R/bYtuOW3i1dfnz3HiTYu+kbWHkheST+be5Hza/gkwWetsmfd1+qeAwytdmPJn+Bi6N1KFqx7M
-	8F/yiyfnhfUaAZGgYRcAn4JNOwEleiWYlr8zRkrdFoIpS+WbrOqaXzN9Pqi2hQIRF/6OkenhdzC
-	3QRVcVGkMDsV4FLih8MpHgG7z0Wbbtf7I6prdudKdzFtWNo+j94odPaPB6betq0TSLsC
-X-Received: by 2002:a05:701a:c9c1:20b0:1ae:e7c4:9a15 with SMTP id a92af1059eb24-1b51828ef74mr4571335c88.3.1794748825692;
-        Sun, 15 Nov 2026 05:20:25 -0800 (PST)
-Received: from [192.168.35.213] ([218.50.238.131])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d3e37sm28084123eec.24.2026.11.15.05.20.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 05:20:25 -0800 (PST)
-Message-ID: <9f85f4a5-ee4a-4c0e-b902-abea050bb204@gmail.com>
-Date: Sun, 15 Nov 2026 22:20:20 +0900
+        bh=9h+1AJ5Cc1jYDA1ieTHKnIzzkDI8olveKPVVvRklLn4=;
+        b=IgNHwqxXvNW1hZYXNfVds9D9p3RTLPCq2K0q2baQ5XL253mblrwn3/3E4jBxqg6Fsx
+         fztMEYxhIGurvuahEMzXuSap0oIcKK8w1btfHGRJ6W2FeNF0ZFjdPQVujWyn7ut8bEFn
+         xieekb3I6/d1FHNpK5I1I6/fF/EdYSbdlseJshnLNABDBYPzh+JoZH4d/5k/8dsXHaOU
+         32Sd5jXkBLljMTScyQRedWGZC5pzJEPr3rIWimSWZlSpF17TTOlWHXBhkOPY9nJqpwup
+         Dh79EfIvKlkkO7trFnwo/EIf82ifoEYefBpTX7yT566DkbaMu1EYGxEziUBeAnEkJ9AL
+         Qjsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794748943; x=1795353743;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9h+1AJ5Cc1jYDA1ieTHKnIzzkDI8olveKPVVvRklLn4=;
+        b=ARUosOA553pyz8tkMoIK39c4e5Xf+/KFqYK5HFeXZtReu+qrLCyi+qEXFe5HhidY9Z
+         EQ0Epi88zsXXh7r+zrN2x3H1NFiLkyN6xP5PICFzNxtYCsgwN0rvELo6dGjH4Qe4e9m3
+         ww9wSwzLyAzjLDU0nbxp6NYtQp+oikMHwyWH/3mEgdRd7w6jbQmUh+YMPgURp799tHSI
+         rdX0eajC5bI6l24L5PrWS7zF9dKpwlj54jAkFvJipszzpSPI48ez1pacRZIf/zRFgMq4
+         FDcF7e/BT2G5CpGIbjKHZvMglj8+wuDztiQ3awBxw1d3vnLZua/6L+wrw9RSa2yOxmlp
+         4uXA==
+X-Gm-Message-State: APuU4Z+zJIXodBDLWzVkDyJXQgI7hLo968z4/OPuon+T9HHMqJ7wCOTl
+	/iuAb5jNW3dSvOq8Cu9cXlKT6TXeodVFfDlYmXz54ZGj+d0vIJEXyMKL
+X-Gm-Gg: AYBFou1TNXogFbZE6cR56Vdz26cPHGP69KkEhKKMTNtMIYRa6zHGdpRmel6wBpQkrXn
+	Ndj8CPdGMXnls6/5O5ygQdis8f8j55aaOj8O6NTy4DXf6WY6jHyll7OqxQH9ubVzRIj+M3XWCF7
+	qMGWjmOlnV2zCaDZ55RixCfJA+kUWa8gsJzoUKhNz+z4nCdbQNFZaeIQgL6va31tos+Z4soH1w3
+	pwvrmWjVBhLn7WRS3NXkcDrVO/zzyJ4fXnQ+0iDuNdqVGTnZ+4FVyS+Kgb9nF+H82Q/yX35ljwc
+	pau12A+mBvG6QqGO4Q3foly79TnJuMz70GRr4HwUupDQJKueimDj/y3bbscbEp6uEbJ2M5XkcsO
+	5xvsoLuTP8cXpO55gdgvdyiPFzUZL8dVqh6IiGY99zw8oqWlhFIgIKgNqnVyPJI4IYr4kgsHYgb
+	J+FuzzVnXC8c7EjAGCMW4ZSmDl73VKtWpm7WyJLPgaE1fCMdVJXmOp5JcH58cn5CUlX9DR//KKd
+	V/EowklrgPKEC+Wt8ncbFUGX3dmY3WLcMscl7rlTjMH8L50ydkMhr8qzsBxQ/Zz9HX7vTpZctWh
+	1HTXLf1Pr6sEqG6ym9ORvo6amlWYDjEcpsGOQ68j9yYFOe4K/ney9spx9G76Kn6kaLvhYBKoe5E
+	Ow57yaGNXpCax3tGvAdQwLnK40BL7uEctZGa8i4fDIYk9vX2BBliJwnmOUlIqqxb/YZUv2ptGjc
+	lFs8L1hV6zoM7NevIlANzlcBPvtZKIkd4ElFRcGU3QjEXODzTpJDkTOjDb4+6y6oslFgHG9Ova9
+	oyiGLK8vlXNGg==
+X-Received: by 2002:a05:600c:2784:b0:4a1:d49e:9ce with SMTP id 5b1f17b1804b1-4bb4e2918b1mr212058835e9.2.1794748943340;
+        Sun, 15 Nov 2026 05:22:23 -0800 (PST)
+Received: from jernej-laptop ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm18406672f8f.1.2026.11.15.05.22.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 05:22:22 -0800 (PST)
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: [PATCH v2 1/3] arm64: dts: allwinner: h6: orangepi: Add regulator ramp delays
+Date: Sun, 15 Nov 2026 14:22:12 +0100
+Message-ID: <20261115132215.289236-2-jernej.skrabec@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261115132215.289236-1-jernej.skrabec@gmail.com>
+References: <20261115132215.289236-1-jernej.skrabec@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,78 +106,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: chanwoo@kernel.org
-Subject: Re: [PATCH v2 0/8] PM / devfreq: rockchip-dfi: cleanups
-Content-Language: ko
-To: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham
- <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, kernel@collabora.com
-References: <20260921-rockchip-dfi-cleanup-v2-0-43ff34ac8599@collabora.com>
-From: Choi Chanwoo <cwchoi00@gmail.com>
-In-Reply-To: <20260921-rockchip-dfi-cleanup-v2-0-43ff34ac8599@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/22/2026 5:32 AM, Sebastian Reichel wrote:
-> This adds proper handling of the RK3588 clocks required for DDR memory
-> monitoring, which involves adding them to the clock driver and the DT
-> bindings first. The change is done in a backwards compatible way by
-> marking them as CLK_IGNORE_UNUSED and using optional clock get in the
-> DFI driver. The series also applies a few cleanups to the DFI driver
-> while at it. This is done in preparation for RK3576 support, which
-> will also come with some DFI specific clocks.
-> 
-> As everything is done backwards compatible, patches do not need to
-> be merged together. So Heiko can take the Rockchip specific patches
-> and Chanwoo Choi can take the DFI driver patches.
-> 
-> Changes in v2:
-> - Link to v1: https://patch.msgid.link/20260917-rockchip-dfi-cleanup-v1-0-4f00a97a69a6@collabora.com
-> - DT binding: Do not specify maxItems in the generic part as it has a list
->   of items
-> - DT binding: Only set minItems/maxItems for specific SoCs
-> 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
-> Nicolas Frattaroli (8):
->       dt-bindings: clock: rk3588: add PCLK_DDR_MON_CH clocks
->       dt-bindings: devfreq: event: rockchip,dfi: add clocks to rk3588
->       PM / devfreq: rockchip-dfi: move to per-variant const structs
->       PM / devfreq: rockchip-dfi: add NO_INTERRUPT perf capability
->       PM / devfreq: rockchip-dfi: use bulk clock APIs
->       clk: rockchip: rk3588: add PCLK_DDR_MON_CH gate branches
->       PM / devfreq: rockchip-dfi: make RK3588 use its clocks
->       arm64: dts: rockchip: add dfi clocks on RK3588
-> 
->  .../bindings/devfreq/event/rockchip,dfi.yaml       |  70 +++++++--
->  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |   4 +
->  drivers/clk/rockchip/clk-rk3588.c                  |   8 ++
->  drivers/devfreq/event/rockchip-dfi.c               | 160 ++++++++++++++-------
->  include/dt-bindings/clock/rockchip,rk3588-cru.h    |   4 +
->  5 files changed, 184 insertions(+), 62 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260917-rockchip-dfi-cleanup-feae6eefae9c
-> 
-> Best regards,
-> --  
-> Sebastian Reichel <sebastian.reichel@collabora.com>
+The vdd-cpu and vdd-gpu regulators on the Orange Pi One Plus and Lite2
+have no ramp delay, and the AXP805 driver provides none either. Once
+DVFS is enabled, the OPP core would raise the clock rate right after
+setting a higher voltage, before the regulator output has settled.
 
+Add the same 2500 uV/us ramp delay that the other AXP805-based H6
+boards use.
 
-When I tried to apply them, there is conflict on devfreq-next branch.
-I'd like you to resend this series on based on devfreq-next and [PATCH v2 0/7] PM / devfreq: rockchip-dfi: RK3576 support.
+Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
+index e34dbb992021..cbe88ee6a487 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
+@@ -202,6 +202,7 @@ reg_dcdca: dcdca {
+ 				regulator-always-on;
+ 				regulator-min-microvolt = <810000>;
+ 				regulator-max-microvolt = <1080000>;
++				regulator-ramp-delay = <2500>;
+ 				regulator-name = "vdd-cpu";
+ 			};
+ 
+@@ -209,6 +210,7 @@ reg_dcdcc: dcdcc {
+ 				regulator-enable-ramp-delay = <32000>;
+ 				regulator-min-microvolt = <810000>;
+ 				regulator-max-microvolt = <1080000>;
++				regulator-ramp-delay = <2500>;
+ 				regulator-name = "vdd-gpu";
+ 			};
+ 
 -- 
-Best Regards,
-Chanwoo Choi
-Principal Engineer, Samsung Electronics
+2.43.0
+
