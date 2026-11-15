@@ -1,60 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794782519;
-	b=YUMIUDzcrQDpFYvJmJqsVQ0w4mf9yvZ6nNkYZ1ftAf+ARC25VxlHdTGvSXri/wNuwtvG
-	 Gz2cdSIpWOuPP353xgMjq11m40Mu9INJ88RxOMj9BrEisqS3y1eurrxb+qZ5EmPO5MQVc
-	 31PRs6PCWU8+d7uCCRVkJZqSB3e77WROn+3kTa+ABCVD6IwVoh8i+wraxDEZj5/M1Nnag
-	 tAffLh0rMaucMupE70L2j52Ig9HGUyQIZ9c2+L2Er1CIEo0WVNPwLv8Ml5TT197XGqqXD
-	 7j8d/gmCOcu6MvAf2YiTFG9bD2CG5fD6ckfrpaKyDUxCPa04rWTXYH1xdqb1ZqeQF2g==
+	t=1794782661;
+	b=KXiTqpm96C7xkFR11VFQOEikB9X8arUcbYVsPIA5AAqC85sKrFcqu+4Y8mzxwzkGn058
+	 h7oO+ZA12oL1DSZe1wzhZZeyzg50wquzka6WnivJZ9/1zcArEOHP3delk5aua+wfcaaep
+	 UI2EkRGnBrhhs3QsHB4i8/VYlULlCLPtaRPKS349gQu85HaQ3INvHNJsUtwPBoedy8YtF
+	 4uucoTEivAuzsGqmOXzvYhnLq7yyO3lN13RQDDxrxki+CkSTsCfQIYSkEUBG+j/3xdUsz
+	 fEJoAwhDmLo2tS+0msP33EU/rq71CMwmwND3Gd/dP8xEmVw+iGDPcJKBn+Lx0aZNGkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794782519;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pYcqPeDBuVWjWd3KEOJ+x52YkWqtkFvpjaJFAxcK0NM=;
-	b=srLyfY4bSmOeu9LXr0uHAGjFwZghn/TzBOF7Cw9UZXOUH7igN4Zzd3uXkYCpLlEfiS5q
-	 i4pYU5mNJYrQWEl/ZQbswYGnduSJe9ASrObHy+sCB1d4+bPfZXXoTs0s2Vk72UarSXfQ+
-	 TA2Tb20G3ZaFwlSvHcQ3gzwPMYQ7RjIarY/Yp+m3fdPZN5otoJ35GwsR9+6HpxwKo3hin
-	 v1RAuVAyP3DUqzNvkOxQ+X3k+WuxLsO+9tsT0mgIYfs4W3pifkGkg6KpV+p+Nqxasc6m9
-	 CiKOjCmKIRDS+daHs9EWHBH6+beZzVvMwX3k7kq8YCFe8d8LD61Iq1N2uUymQGgdWBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794782661;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=NPSmaXP2drwVF8I5eyZGD1a3K2dmfOWrdzBdXuu9fdU=;
+	b=Haa8xHO+uNMC3TClqTVdclT70RRNmR52AA1wwI9LmipjenMRfLHicAdkhKGZQdSQ6JdJ
+	 t19NTuIbxgX1mFhjXyBqqXdOt1zs0IQQAzGax/qZmextAo2n6qIXMJtXfL3cJR5V1YHXJ
+	 y7MEbKDU7foee7KBSINO1bt18d8yR2985QznPthYyr0+7xRpV9M6d2g6+cITZi8Sfwm4f
+	 booVKtbQVWPwWSLQvztppVIPh4VBVJqdTuGMUF1uuSLY6zrUdYflMssFAmJ7j6dgM01hZ
+	 0ggjKokItaD6eTVdNILewbXp/X074Y17b8+tQEL9B57PtecM17xyPZ9oklBvofmyf/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dsg.is;
-	spf=pass smtp.mailfrom=dsg.is;
-	dkim=pass header.d=dsg.is header.i=@dsg.is header.a=rsa-sha256 header.s=protonmail2 header.b="Esx/HXis";
-	arc=none smtp.remote-ip=79.135.106.25
-Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=dOizlCtO;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69933606A32F;
-	Sun, 15 Nov 2026 22:41:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69933606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dsg.is
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dsg.is
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5B1606A329
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 22:44:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F5B1606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dsg.is header.i=@dsg.is header.a=rsa-sha256 header.s=protonmail2 header.b=Esx/HXis
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dsg.is;
-	s=protonmail2; t=1794782514; x=1795041714;
-	bh=pYcqPeDBuVWjWd3KEOJ+x52YkWqtkFvpjaJFAxcK0NM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Esx/HXisvfyXSksv1WSOJeokhT4pTYapRTw1hzW//xrdk4KwkxJl0eEOlDIYuO1O5
-	 gzVVjFUjacud+t49kPpcFkFRUtrFKBYgTl1BALKWF95JvTxLyjObiL8V4h70SYJeDg
-	 M197jZM1fEE+1tDQFl06VvnedVMCrPVmMqL9RfRLv6BpfJ78wdtQ2SVHGa1ZdYV2cN
-	 lZeX/vGBMfgdB8VD7qLlsWcmjV+yufm9j5NPRcyU93p/vYwQfSVQLrp2bR9oX+NdQ7
-	 4Aceg//cKIiQERiepARr/+K0E2wvjZ9M9r7AXQQ+eaiaEXD5g19/y6uEqVwjhAFtlW
-	 5udgCzYswohXA==
-Date: Sun, 15 Nov 2026 22:41:46 +0000
-To: Guenter Roeck <linux@roeck-us.net>
-From: =?utf-8?Q?Dav=C3=AD=C3=B0_Steinn_Geirsson?= <david@dsg.is>
-Cc: Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, linux-pwm@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] hwmon: (adt7475) Convert to hwmon_device_register_with_info()
-Message-ID: <avo1IWkXBQ2fHgKx@dsg.is>
-In-Reply-To: <62350363-b796-4637-a102-c668037bbbdd@roeck-us.net>
-References: <20261114004110.328050-1-david@dsg.is> <20261114004110.328050-3-david@dsg.is> <d28f392e-82ea-44d6-83e5-9593b341a722@roeck-us.net> <avm-tbgWgTJNFTBj@dsg.is> <62350363-b796-4637-a102-c668037bbbdd@roeck-us.net>
-Feedback-ID: 186389362:user:proton
-X-Pm-Message-ID: f1e8768d8913b3bbffb9bd1119eb855bf7159a69
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=dOizlCtO
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4bb64c99d2fso14835635e9.3
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 14:44:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794782659; x=1795387459; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NPSmaXP2drwVF8I5eyZGD1a3K2dmfOWrdzBdXuu9fdU=;
+        b=dOizlCtO8MoaHLoxUAEKLCiSAN8Ai1GP8pQyrqOqYZRbkSgleM8hSVuXKhv0/7KxtG
+         Ohu+GMh+DWnsA0FZVD1bc9Ik+IsFqPhz4P459g0Atbsy99Iw6JisTd4atOzuUiw+xXOh
+         KANSpMKHT7deYcLtP0SB+FU22w+YTRW5IkGV/IjQ2Ph7sO7J1ghe7klQK6l+tYIyFSvF
+         Q5ye7fZBlgL9NI+naXAbKMh4Vg5aNmB84XSF7it3070IfOfAy2N7WN0ufB4a0WmtMNpG
+         qaFQ4mwRsn7zJBkjFR9WBxHrLDojVjF9sLo2PPjCYttI7xBrB5YZkss3fJcq8LZ25ccS
+         4MXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794782659; x=1795387459;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NPSmaXP2drwVF8I5eyZGD1a3K2dmfOWrdzBdXuu9fdU=;
+        b=m1VEtvlZJB+iwVf59kU3U5QkUfXfG2xQRSgOeoBbAVKdHUsIAFHGiKHN5iH2grugoT
+         lQ/aBqrLy6tfWvgpXiEWou/uqRqdxTjJY9uUl9Zrc4TJfbQJotpwhhpTEtywkqyd+HUo
+         TGx4ubV7gtPRAKa4RyZ713+dEthlpn+ZcV6kbozkk57kt09sJ+hmVNllI8uHelxrtE7f
+         ShFHAUJ+9rwGpWwBGr74rptN6VApo6igV1Yona/ASMM+CJLOfXUTDz7uJdkhyOIunLEz
+         d+5PXbXqn8cbsJ/rMH4htuUZeI139rOnJIo1y3F1B/OsIj1GRaaaaDIxCOsuAh9/aHdB
+         rtTg==
+X-Forwarded-Encrypted: i=1; AL+hErGoSTVQUa/FeYVkHWZZXNoI7KD1TNzkT9QX7wwzUvQ+ULaGtRgvMLzWemA440yNtuulgzRtgvBGdid0@vger.kernel.org
+X-Gm-Message-State: APuU4Z+EVN1s3OtY4BpAWaTpDdfKBCUjT2algG2VoU8ydUebVjw13SiJ
+	W0TKM31r1Fb1ZhjGdezJaoy7KRsAZuSAeeRm5Splwd2I86RaZ8eJzKfqW50eVvU6xt8=
+X-Gm-Gg: AYBFou36e6uVG886XAl2mrXD9TnsAhVJeIwbleZW2Bddwqp6SKbAaamrZAkPwt7e+JR
+	SVLaXGBCD2lhjJkYLhOdSQj+ZFbCkzC+LQEEtPTN1iU7LbtJV9R/WHnIt0FNp4uoP3FM6aKTitm
+	IA8S0M3qVZvy6spCB73orVx7OIZa91HphaS8mJyUeBFt/wtVhG7E5EppfCN4FsHchlIA55KXLnn
+	RXVI7xf+ZGX6E7L7NXAHwsEMXm9PDQO01RSdvi5aynGHIt+e3vraYEVvdCvk7XdNbMyHmgJdkyY
+	W18jscakUVXgBXaK/FKqHCfcjZPH4mi//B7jGv6+RpjOI87uIKQy00PPzVV8q5ZcjJZpgkmb/fs
+	CjNVXXBXcDRRhXt7Pj6vugD69eBpIeWXR7ic0SS7Cn+7MHYwluUS5ZUS4fWkkiZ7FsjfJe8s6Ob
+	+ywjRyhhlGD20KNy1lZjZlZ3CRqZufTxpttHliGrLDx/UFwIqKxsewuBTwO30k45JDSGR+bR2j/
+	g5mRlL1a9/eNAIzHX08ctJPwp8/R69IDUx08+PZIFFMVgnoxOqP1Yx+zDZ5pQLv3QGkqXgbq+84
+	dX71JcJsN5xKaVND+iRMXbmfQBSe/3CveOGrB3dUOeKfPfhl
+X-Received: by 2002:a05:600c:6986:b0:4bb:6a2d:b438 with SMTP id 5b1f17b1804b1-4bb6a2db52fmr58944245e9.0.1794782659130;
+        Sun, 15 Nov 2026 14:44:19 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c608c5debsm18052182f8f.42.2026.11.15.14.44.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 14:44:18 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,280 +89,101 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v1 2/2] clk: tegra114: Add CSI pad clock gates
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, 
+ Prashant Gaikwad <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>, 
+ linux-clk@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <CAPVz0n154OuYUG2RObrdh4TmASjRhKF9svF0Z=4iCrPyyNt0pA@mail.gmail.com>
+References: <20261113145708.261530-1-clamor95@gmail.com>
+ <20261113145708.261530-3-clamor95@gmail.com>
+ <179474058020.3790083.7531788945003507652.b4-review@b4>
+ <CAPVz0n154OuYUG2RObrdh4TmASjRhKF9svF0Z=4iCrPyyNt0pA@mail.gmail.com>
+Date: Sun, 15 Nov 2026 23:44:16 +0100
+Message-Id: <179478265643.13037.17097457582246933781.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2792; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=8JbvwUSZk/LfYCAqvF/b9o5uB/ulf6DsCIJ4d3wM/NM=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFm/TA+sawm3OCzy6fbtN7PbOM+eSb2h8/nhk+4530tUZ
+ 8dypTV/7yhlYRDjYpAVU2Sp4a4Wfyep9WXWdJ3bMHNYmUCGMHBxCsBEjm5g+KdxVPJO361Va5co
+ emxyety99+wtq18am+53679Tk+zuXzuFkeF+vJmL9ltTZc3icvNFHXpnX3YZq7vaSUUtPnG3LEJ
+ 8ARMA
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On Sun, Nov 15, 2026 at 01:40:08PM -0800, Guenter Roeck wrote:
-> On 11/15/26 06:16, Dav=C3=AD=C3=B0 Steinn Geirsson wrote:
-> > On Fri, Nov 13, 2026 at 10:07:53PM -0800, Guenter Roeck wrote:
-> >> On 11/13/26 16:41, Dav=C3=AD=C3=B0 Steinn Geirsson wrote:
-> >>> Convert the driver from hwmon_device_register_with_groups() to
-> >>> hwmon_device_register_with_info(). The standard voltage, temperature,
-> >>> fan and PWM attributes move to hwmon_ops. The chip-specific attribute=
-s
-> >>> stay driver-defined and are passed as extra groups: the automatic fan
-> >>> control points, temperature smoothing, PWM stall disable,
-> >>> pwm_use_point2_pwm_at_crit and the VID attributes.
-> >>>
-> >>> The driver keeps data->lock, although the hwmon core serialises the
-> >>> hwmon_ops callbacks. The attributes in the extra groups run outside t=
-hat
-> >>> serialisation, and they share the register cache and its periodic upd=
-ate
-> >>> with the hwmon_ops callbacks. They do not take hwmon_lock() instead, =
-to
-> >>> keep this conversion free of locking changes.
-> >>>
-> >>
-> >> I disagree here. If you don't want to change the locks to use the hwmo=
-n
-> >> subsystem lock in this patch, add another patch to change the code to
-> >> use it. The subsystem lock was not introduced to be ignored.
+On 2026-11-15 13:54 +0200, Svyatoslav Ryhel wrote:
+> нд, 15 лист. 2026 р. о 13:03 Jerome Brunet <jbrunet@baylibre.com> пише:
 > >
-> > Understood. I did notice one issue while planning that change. Patch 4
-> > makes the chip a PWM provider, so its callbacks will also need the
-> > lock. If the consumer is pwm-fan, then when userspace writes pwm-fan's
-> > pwm attribute, the hwmon core holds pwm-fan's lock. pwm-fan then calls
-> > into the PWM core, which calls into adt7475, which then needs to take
-> > its own hwmon lock:
+> > > Tegra114 has CSI pad bits in both PLLD and PLLD2 clocks that are required
+> > > for the correct work of the CSI block. Add CSI pad A and pad B clock gates
+> > > with PLLD/PLLD2 parents, respectively.
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  drivers/clk/tegra/clk-tegra114.c | 10 ++++++++++
+> > >  1 file changed, 10 insertions(+)
+> > >
+> > > diff --git a/drivers/clk/tegra/clk-tegra114.c b/drivers/clk/tegra/clk-tegra114.c
+> > > index ec537efac692..08e425365469 100644
+> > > --- a/drivers/clk/tegra/clk-tegra114.c
+> > > +++ b/drivers/clk/tegra/clk-tegra114.c
+> > > @@ -1041,6 +1041,16 @@ static __init void tegra114_periph_clk_init(void __iomem *clk_base,
+> > >                                            0, 82, periph_clk_enb_refcnt);
+> > >       clks[TEGRA114_CLK_DSIB] = clk;
+> > >
+> > > +     /* csia_pad */
+> > > +     clk = clk_register_gate(NULL, "csia_pad", "pll_d", CLK_SET_RATE_PARENT,
+> > > +                             clk_base + PLLD_BASE, 26, 0, &pll_d_lock);
+> > > +     clks[TEGRA114_CLK_CSIA_PAD] = clk;
+> > > +
+> > > +     /* csib_pad */
+> > > +     clk = clk_register_gate(NULL, "csib_pad", "pll_d2", CLK_SET_RATE_PARENT,
+> > > +                             clk_base + PLLD2_BASE, 26, 0, &pll_d2_lock);
+> > > +     clks[TEGRA114_CLK_CSIB_PAD] = clk;
+> > > +
 > >
-> >    hwmon_attr_store()              takes pwm-fan's hwmon lock
-> >      pwm_fan_write()
-> >        pwm_apply_might_sleep()
-> >          adt7475_pwm_write_waveform()
-> >            hwmon_lock()            takes adt7475's hwmon lock
+> > Change seems ok in itself, just a couple of things I'd like to check with you.
 > >
-> > As far as I can tell no driver does this today. adt7470 and
-> > aspeed-g6-pwm-tach are the other PWM providers I found in drivers/hwmon=
-,
-> > and neither takes the subsystem lock in its PWM callbacks.
+> > Seems both the CSI and DSI can use the PLL D and D2. Can they be used concurrently ?
+> > If yes, are you sure you want to add CLK_SET_RATE_PARENT which the
+> > DSI counter part does not have ?
 > >
->=20
-> Ah, the usual "someone else does (or does not) do it".
+> 
+> CSI pad clocks are used only by CSI and CSI does not change rate of
+> pad clocks. Saying "DSI counter part" would not be correct, DSI mux
+> switched DSI clock parent while csi pad clocks do not touch clock
+> layout of CSI nor DSI.
 
-Apologies if that's how it came off, that was not the intent. I
-understand your earlier guidance that new drivers need to use the hwmon
-subsystem lock for this kind of thing. The reason I mentioned those
-other drivers was to try to explain why I believe this is a novel issue
-other hwmon drivers have not hit before.=20
+Ok but they end up possibly using the same PLL from what I can see here.
 
->=20
-> > I haven't written any code for this yet, so this is based on my read
-> > of the current code only. If correct, I think this would need a hwmon
-> > core change to give each hwmon device its own lockdep class.
+So if the consumer of csiX_pad calls clk_set_rate() on it, while the DSI
+is using it, it won't go well. The rate of the underlying PLL may change
+since you have set CLK_SET_RATE_PARENT. Taken alone, there is no problem
+with this but can't CSI and DSI be active at the same time ?
+
+> 
+> Same layout is used in Tegra30 and Tegra114 inherits it.
+> 
+> > Also the DSI get the PLL through a fixed factor 'out0' but not the CSI ? is it something
+> > you have checked ? it just seems a little odd.
 > >
->=20
-> Hmm, if that is true (I'd like to see a lockddep warning), that will
-> need to be fixed anyway. The situation above will be more common with the
-> pwm subsystem maintainer pushing for that kind of architecture, so it wil=
-l
-> need to be fixed. Introducing / maintaining another layer of locks is not
-> the solution.
+> 
+> Yes, out0 is a fixed div2 of DSI clocks and that is code reflection of
+> hardware. CSI pad clocks do not have this setup in the hardware.
+>
 
-I did prepare a minimal test case for this earlier today with qemu and
-i2c-stub:
-```
-[    2.173321] =3D=3D=3D writing 100 to /sys/bus/platform/devices/pwm-fan.0=
-/hwmon/hwmon1/pwm1
-[    2.173516]=20
-[    2.174872] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[    2.175874] WARNING: possible circular locking dependency detected
-[    2.176802] 7.4.0-rc2-00198-g073ebe4bdeea-dirty #1 Tainted: G           =
-O      =20
-[    2.178136] ------------------------------------------------------
-[    2.179038] init/1 is trying to acquire lock:
-[    2.179707] ffffa10c01f6e2a0 (&ctx->lock){+.+.}-{4:4}, at: pwm_fan_write=
-+0x11e/0x288 [pwm_fan]
-[    2.180942]=20
-[    2.180942] but task is already holding lock:
-[    2.181751] ffffa10c02411538 (&hwdev->lock){+.+.}-{4:4}, at: hwmon_attr_=
-store+0x66/0x1c0
-[    2.182999]=20
-[    2.182999] which lock already depends on the new lock.
-[    2.182999]=20
-[    2.184193]=20
-[    2.184193] the existing dependency chain (in reverse order) is:
-[    2.185191]=20
-[    2.185191] -> #2 (&hwdev->lock){+.+.}-{4:4}:
-[    2.185989]        lock_acquire+0xcf/0x300
-[    2.186532]        __mutex_lock+0xcf/0x1210
-[    2.187149]        adt7475_pwm_write_waveform+0x29/0x90 [adt7475]
-[    2.188046]        __pwm_write_waveform+0x1e/0xf0
-[    2.188928]        __pwm_apply+0x49f/0x940
-[    2.189554]        pwm_apply_might_sleep+0x67/0x100
-[    2.190246]        __set_pwm+0x97/0x1e0 [pwm_fan]
-[    2.191048]        pwm_fan_probe+0x157/0x790 [pwm_fan]
-[    2.191822]        platform_probe+0x68/0xa0
-[    2.192389]        really_probe+0xcd/0x2b0
-[    2.193037]        __driver_probe_device+0x8e/0x180
-[    2.193751]        driver_probe_device+0x1a/0x90
-[    2.194359]        __device_attach_driver+0x7b/0xc0
-[    2.195092]        bus_for_each_drv+0x9e/0x110
-[    2.195741]        __device_attach+0xad/0x1c0
-[    2.196324]        device_initial_probe+0x45/0x70
-[    2.197013]        __bus_probe_device+0x3a/0xc0
-[    2.197712]        device_add+0x6a9/0x8e0
-[    2.198243]        platform_device_add+0x100/0x220
-[    2.198995]        platform_device_register_full+0x191/0x210
-[    2.199790]        0xffffffffc04091c7
-[    2.200454]        do_one_initcall+0x99/0x310
-[    2.201169]        do_init_module+0x65/0x260
-[    2.201759]        init_module_from_file+0xbc/0x130
-[    2.202425]        idempotent_init_module+0x1cb/0x330
-[    2.203151]        __x64_sys_finit_module+0x74/0xe0
-[    2.203851]        do_syscall_64+0x110/0x620
-[    2.204447]        entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[    2.205240]=20
-[    2.205240] -> #1 (&chip->nonatomic_lock){+.+.}-{4:4}:
-[    2.206208]        lock_acquire+0xcf/0x300
-[    2.206794]        __mutex_lock+0xcf/0x1210
-[    2.207382]        pwm_apply_might_sleep+0xad/0x100
-[    2.208143]        __set_pwm+0x97/0x1e0 [pwm_fan]
-[    2.208814]        pwm_fan_probe+0x157/0x790 [pwm_fan]
-[    2.209530]        platform_probe+0x68/0xa0
-[    2.210178]        really_probe+0xcd/0x2b0
-[    2.210724]        __driver_probe_device+0x8e/0x180
-[    2.211368]        driver_probe_device+0x1a/0x90
-[    2.212210]        __device_attach_driver+0x7b/0xc0
-[    2.212896]        bus_for_each_drv+0x9e/0x110
-[    2.213508]        __device_attach+0xad/0x1c0
-[    2.214150]        device_initial_probe+0x45/0x70
-[    2.214844]        __bus_probe_device+0x3a/0xc0
-[    2.215473]        device_add+0x6a9/0x8e0
-[    2.216118]        platform_device_add+0x100/0x220
-[    2.216758]        platform_device_register_full+0x191/0x210
-[    2.217522]        0xffffffffc04091c7
-[    2.218046]        do_one_initcall+0x99/0x310
-[    2.218673]        do_init_module+0x65/0x260
-[    2.219274]        init_module_from_file+0xbc/0x130
-[    2.219988]        idempotent_init_module+0x1cb/0x330
-[    2.220729]        __x64_sys_finit_module+0x74/0xe0
-[    2.221414]        do_syscall_64+0x110/0x620
-[    2.222097]        entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[    2.222870]=20
-[    2.222870] -> #0 (&ctx->lock){+.+.}-{4:4}:
-[    2.223965]        check_prev_add+0xdb/0xee0
-[    2.224558]        __lock_acquire+0xdb9/0x1cf0
-[    2.225218]        lock_acquire+0xcf/0x300
-[    2.225821]        __mutex_lock+0xcf/0x1210
-[    2.226371]        pwm_fan_write+0x11e/0x288 [pwm_fan]
-[    2.227204]        hwmon_attr_store+0x84/0x1c0
-[    2.227870]        kernfs_fop_write_iter+0x185/0x240
-[    2.228551]        vfs_write+0x285/0x6a0
-[    2.229122]        ksys_write+0x7c/0x120
-[    2.229717]        do_syscall_64+0x110/0x620
-[    2.230284]        entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[    2.231138]=20
-[    2.231138] other info that might help us debug this:
-[    2.231138]=20
-[    2.232291] Chain exists of:
-[    2.232291]   &ctx->lock --> &chip->nonatomic_lock --> &hwdev->lock
-[    2.232291]=20
-[    2.233773]  Possible unsafe locking scenario:
-[    2.233773]=20
-[    2.234839]        CPU0                    CPU1
-[    2.235510]        ----                    ----
-[    2.236157]   lock(&hwdev->lock);
-[    2.236717]                                lock(&chip->nonatomic_lock);
-[    2.237633]                                lock(&hwdev->lock);
-[    2.238447]   lock(&ctx->lock);
-[    2.238948]=20
-[    2.238948]  *** DEADLOCK ***
-[    2.238948]=20
-[    2.239970] locks held by init/1: 4, on CPU#0:
-[    2.240582]  #0: ffffa10c01f02450 (sb_writers#3){.+.+}-{0:0}, at: ksys_w=
-rite+0x7c/0x120
-[    2.241746]  #1: ffffa10c01f6fa80 (&of->mutex#2){+.+.}-{4:4}, at: kernfs=
-_fop_write_iter+0x13b/0x240
-[    2.243002]  #2: ffffa10c0246ee78 (kn->active#2){.+.+}-{0:0}, at: kernfs=
-_fop_write_iter+0x150/0x240
-[    2.244300]  #3: ffffa10c02411538 (&hwdev->lock){+.+.}-{4:4}, at: hwmon_=
-attr_store+0x66/0x1c0
-[    2.245444]=20
-[    2.245444] stack backtrace:
-[    2.246031] CPU: 0 UID: 0 PID: 1 Comm: init Tainted: G           O      =
-  7.4.0-rc2-00198-g073ebe4bdeea-dirty #1 PREEMPT(lazy)=20
-[    2.247731] Tainted: [O]=3DOOT_MODULE
-[    2.248194] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS =
-rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
-[    2.249765] Call Trace:
-[    2.250101]  <TASK>
-[    2.250393]  dump_stack_lvl+0x5d/0x90
-[    2.250890]  print_circular_bug.cold+0x18f/0x1f1
-[    2.251570]  check_noncircular+0x180/0x1b0
-[    2.252206]  check_prev_add+0xdb/0xee0
-[    2.252715]  __lock_acquire+0xdb9/0x1cf0
-[    2.253231]  lock_acquire+0xcf/0x300
-[    2.253792]  ? pwm_fan_write+0x11e/0x288 [pwm_fan]
-[    2.254421]  ? hwmon_attr_store+0x66/0x1c0
-[    2.254969]  ? lock_is_held_type+0xac/0x180
-[    2.255584]  __mutex_lock+0xcf/0x1210
-[    2.256081]  ? pwm_fan_write+0x11e/0x288 [pwm_fan]
-[    2.256782]  ? pwm_fan_write+0x11e/0x288 [pwm_fan]
-[    2.257410]  ? __mutex_lock+0x643/0x1210
-[    2.257990]  ? pwm_fan_write+0x11e/0x288 [pwm_fan]
-[    2.258697]  pwm_fan_write+0x11e/0x288 [pwm_fan]
-[    2.259374]  ? __pfx_pwm_fan_write+0x10/0x10 [pwm_fan]
-[    2.260091]  hwmon_attr_store+0x84/0x1c0
-[    2.260656]  ? sysfs_file_kobj+0x6f/0x160
-[    2.261194]  kernfs_fop_write_iter+0x185/0x240
-[    2.261828]  ? __pfx_kernfs_fop_write_iter+0x10/0x10
-[    2.262479]  vfs_write+0x285/0x6a0
-[    2.262980]  ksys_write+0x7c/0x120
-[    2.263474]  do_syscall_64+0x110/0x620
-[    2.264055]  ? __irq_exit_rcu+0x33/0x140
-[    2.264575]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[    2.265281] RIP: 0033:0x4eee8f
-[    2.265736] Code: 31 c0 31 d2 31 c9 31 f6 31 ff 45 31 db c3 55 48 89 f8 =
-4d 89 c2 48 89 f7 4d 89 c8 48 89 d6 48 89 ca 48 89 e5 4c 8b 4d 10 0f 05 <5d=
-> 31 d2 31 c9 31 f6 31 ff 45 31 c0 45 31 c9 45 31 d2 45 31 db c3
-[    2.268303] RSP: 002b:00007ffd0cec3750 EFLAGS: 00000212 ORIG_RAX: 000000=
-0000000001
-[    2.269350] RAX: ffffffffffffffda RBX: 00000000005322ac RCX: 00000000004=
-eee8f
-[    2.270389] RDX: 0000000000000004 RSI: 00007f7d8dd79780 RDI: 00000000000=
-00001
-[    2.271398] RBP: 00007ffd0cec3750 R08: 0000000000000000 R09: 00000000000=
-00000
-[    2.272390] R10: 0000000000000000 R11: 0000000000000212 R12: 00007f7d8dd=
-79780
-[    2.273364] R13: 0000000000000004 R14: 0000000000000000 R15: 00000000000=
-00000
-[    2.274331]  </TASK>
-[    2.275512] =3D=3D=3D write returned 0;  debug_locks:   =20
-```
+Ok 
 
-
->=20
-> Anyway, you want to add the complexity of getting the pwm subsystem and
-> the pwm-fan driver involved, even though this could as well be handled
-> in the adt7475 driver, so you'll have to suffer the consequences.
-
-I have no attachment to this implementation, in truth I just expected an
-adt7475 driver registering cooling devices itself would be rejected. If
-that approach is acceptable, I agree it would be simpler and side-step
-this whole issue.
-
-Thanks again for your time on this,
-Dav=C3=AD=C3=B0
-
-
->=20
-> Thanks,
-> Guenter
->=20
-> > I'm not quite confident enough in my understanding of the core to
-> > commit to implementing such a change. But I'd appreciate your thoughts
-> > on this.
-> >
-> >>
-> >> Thanks,
-> >> Guenter
-> >>
-> >
-> > Thanks again,
-> > Dav=C3=AD=C3=B0
->=20
+-- 
+Jerome
 
