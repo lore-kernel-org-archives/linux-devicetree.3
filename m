@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794781807;
-	b=vn6gNqdBWCYEfJQd3qw4PSYfPM2uVL/cjmV/DypCY/PspQZ6uQj1fh39vvbRaKq3c/Ci
-	 SVW2080QeseJUCxX9knce2y5B5vtmsYaJLJ4rwVSVdY5K7V6G5/0Yrztc6H115LgOBeRV
-	 6XFx8vjia3zMsg253iZodUMp2RLdVVgEgEtgqw2fqoF3CI6mBUK5Glk+fVAvBi/KDnyVs
-	 ezsEbJWbgTuOdANb7t5TAN40rWbvOXWWEQSsZ3kuitQtTmjaxO+Rk9Ok6PT2i27v8cE6H
-	 tvA5OEqIoOaeFK6qjq9AWMsBXFG00PCZZxgI+4h8YngZyPSWu+yf2fderaSnnBy7kfQ==
+	b=fL28BdhR3ae44vZJvMgWdEsZPN2/thAgLDkLBpgGk/FgWebYB7Wcqm4X/Nrw7ObiFU0w
+	 pMWjoZVk6oj5N4vXQR4rKUpzyYkvKOAmB0EADOYwBJie2vU5I4kuID9/6NDMNPN7x5MXm
+	 gIBcCFkz1pD4KV6ozXZicnNWCh7a7cCPzYJmh5gePQH8vXS0cOGLhd7YA3Pjd+x1te2W9
+	 X4G6idm0H9q/NcSA+t2xnujx4sQu98djuMC82HHxDbpfu6c1SFPtLdVpgntIC5zlbAJB+
+	 GLdMqSoBGKhJVm4ckD58t80lB9We1ZllMziON5JDWu87nbMGfy9XbvQfHTlZNhkl1Iw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794781807;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1gLNBYp+ck7xYQnvYM+G+PAF9GWuVTdzo0tmuZTHUOE=;
-	b=mJ6M7znNuYWVZCeV3T5epi4BYc2r0Hez/UEwkfMpydwWxJ228DM6IJzuY/qfofKpScpU
-	 FiSv2oB2yAUMgvFgNNPrvtOd1YVXKV96XmGV42wsVPUIL9iaau8cRzwb0aTMnS6rL8OVD
-	 LxX/VL1wccscH2SF+4HkQHa2wc86HSds1xPN6FkHvdQmkrancBbSz2zT5XJZWExBCIFE5
-	 2C0fzu6oKzS6chWXfDs6k41Ajwn02n/vo/xoT72SEK3dtdozlzf1Bwbb7ZUNy7+MLYixT
-	 QZ+wPyoIvayrtd+jwNEIP2EokHM1eDvlernswqzU5bauQxG8IxhiJgP0IXsV6i1LyAQ==
+	bh=UkiklBSmigTGFwB3QGp5YCKUqwJdvyqJPa3i1ak1MZQ=;
+	b=zPQaRZyHrSwUtKhpA+ivQcveMStUW0QeHQVLJvGtMpW+IxrlOPX/FX7WLCpYZm0VAwP3
+	 rjnBM+tyxyxv8lwBLpJ7JSe0fTE6xcbqJ0LmHeYw3wFpQuXTFQ0tz5UmLB6wpck8U9Qr8
+	 TVV5QHpPUZDRXCjX8xY+YjR2bsl6FO2x3tyYFfpIkjritq3tv2eWzui94Ex5PX4VUnLI0
+	 p1kBes7QlEs9QF6p43aGi8AmY7IHMXd1VnTR0heCCYdvl2gI4rLOoiJJBK6Gy9cS5vlnb
+	 OIsfjBiMcsgzvv0ht3/Y6x5zEcOU5taEzKv9dIjl+Z1hpvItCNKzkF3jKZgTIkEZV2Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFQBAC4M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q1+k/83u";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43540606A336;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F98C606A323;
 	Sun, 15 Nov 2026 22:30:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFQBAC4M
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q1+k/83u
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794781807;
-	b=QBf+bc9vQjW9VzV+sf6qW12TgpSicc90MBBA3TXzgObXbn8E0i12petHtkjvTpemtDOE
-	 e/de4lIhGK0gBcVqA45d0KOwFs+rOTGKpQLono6W2A6UYHsuPoaRI4ZTqh9yq+WAzwvf8
-	 gPg5h5SBowY46R0NvQS8MCmozboooexmnyqjQNkE5dR4uIVtSh2nN7DDSBFX3npIxjRET
-	 BtX3miDMCUpsF83PEJg8vw1MzAO1GJsnOzZeK9ZcwcKSf//CT1oTEVHb+845J9bYTwSMo
-	 Pql1kMqTxcgGG+NvdRWpPgIZwsBZrV4pmBe5NwXpkmzz2IMu62qORjvAsKd44gOCcvw==
+	b=dmf26HyWukgAprFEkSlfsNpgDQXICvdQW/TUfDQgI9lR4QAPa6F38bLN0GeI/XpM2e+o
+	 4nYP4c1Y6knHYve0WOemxi8R0hhY9L5IbmY0KbsVhlU4HGq2CRO/ZxQ5vynghXmJIrtZL
+	 a+lGXVMm2BasHhEmmQpoabRhlM0nm4WKfVg3FF0t3a9OZg+vAE8Ero5sb23eIeB8SiMMJ
+	 UyIYhYvt9WZ1mr7kGSq7FxGUvPpN8O9wBvUHTozo9aum+c8ZF+S4sy2NzBbc7Dfe1+lTf
+	 1Qr71tWrfzq3UzwGd5x4MdmdnRWycMGtwhETVqpeRhYu84ho+yGXDFRQisORdP4lHrw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794781807;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1gLNBYp+ck7xYQnvYM+G+PAF9GWuVTdzo0tmuZTHUOE=;
-	b=ETHWlLfNUphK3IzIHzZ5ZjKYfeUtYyIIdWcMMuXHa8Rf7r7nPRIjPeqmddY2X5GmguRb
-	 XCGy062rzJ293D/xdw7MifYH2X4KHrJ0+EWceRiqwlHm6dtqc6OwV1Ps0igx+i23eZ5C/
-	 0lyuMRYJyfrsWRyV4emdb7OnjHvDTg5Al+qM07y36bMOvKZMkKD4woaCeuVhxSHYinBYs
-	 sUKQatpRC40naydKWGE2FtTrrBO7saofvz+WLTsHi6hkdKYC5qJe9dPGIXutX2FkymhL/
-	 GY0GoCme8fuDjaGxWOlyN6/Mx7f/gMKzMx6zELS+w7TellsNo3CAeDufiOsDyBPQ3bw==
+	bh=UkiklBSmigTGFwB3QGp5YCKUqwJdvyqJPa3i1ak1MZQ=;
+	b=mHIImkop5QdIYtADJA4jCkOJB4yLgdPM6NIuAsS9zHwStduktaS2uwOu/n1S1IaVlEft
+	 zeBJVCdaCTpRC8ba0gP/caPVh0ixiI7Z7gUTQYvBBr9SKzS0eNyDeIIA0bO2IPLZoSFjH
+	 6xfSP1bdBncoU//0vo21umo+jr1T1yWBgv5g9Hl+N6uZFyEQtmwMKhHmNwPBhsi8UsdUd
+	 48m5djhHr+bQVU8vYB7VcdzCnTX4yWK0H2xcU99ScO1t8lJ1wydlbG4sHDeIVYTnSVqEL
+	 8Vcs5D/yFMrDzl1u3CKUw0HzVWkB741JSSYei5WFGkJQIhiXS4mIbgp4Og0Wu5cK2fg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 079711F000C7;
-	Sun, 15 Nov 2026 22:30:06 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id E7D9E1F000C6;
+	Sun, 15 Nov 2026 22:30:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794781807;
-	bh=1gLNBYp+ck7xYQnvYM+G+PAF9GWuVTdzo0tmuZTHUOE=;
+	bh=UkiklBSmigTGFwB3QGp5YCKUqwJdvyqJPa3i1ak1MZQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=iFQBAC4MYpU90/lDAYWGaic2mbW+YCwsliq/idAoNS89ZL5orJIikuLcFyrr2ixSz
-	 NBhJhbjGBDI0CFe3hJBLnQcFxEHKqtdoWSFyCelJfoi3VNQLUnXBBU/GAEAzbM1Bgn
-	 3zTXtplU/yjcFmvNYzdwJwOeI90pvQrL3Egady7vOTvC6hk8+3PqPjT0x2CCwdRzs1
-	 3AuSQzDJQBAzx2Cf49k+CtuvKvzvfa2THng8svpmjZ8DI/4MZFRA2Lf3Otc43eBjD8
-	 1xpO3NgdH4v+QFGJZF2rMQxKc6o21ELcvZzZYqdyp9PICa272hStkXkfZmNDNTqQ72
-	 fs44LUe42qdlg==
+	b=Q1+k/83uIokbGty9IfQqgd6b28ScGGgmrFr4Pxu2GK5UyaLagznW3xG09WYCPFtKS
+	 WGtTx81CLmgpKLtfBWG7P8yqCjCMUiaw0hE7NGpYpwXuDR/gjZrNUtuff/tZYWDGEQ
+	 QH1caldzFK7ANgdCcpQwdt+2/5QowyTy5BNPHn/WuHf/GtbtDOUxYxT8YoQYFGOuOr
+	 w4Ujdn4gTx4CYWkJxncePQ67N8V9mwCaa0K0zQ+zk9FqJQGv6EDw3H83DqNmjXGSF1
+	 s4G/CvffQfaQ0QyooUIjvIE2690JZ5hpol+XL6B5vzaPrs+uZm+Wjl01ZnMKYOslYT
+	 pKd9PNq5HkIOQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8819F4A228;
+	by lkml.kernel.org (Postfix) with ESMTP id 7471D4A224;
 	Sun, 15 Nov 2026 22:30:05 +0000 (UTC)
 From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Sun, 15 Nov 2026 23:29:38 +0100
-Subject: [PATCH 3/7] arm64: dts: amlogic: axg: Add ranges to periphs
- pinctrl node
+Date: Sun, 15 Nov 2026 23:29:37 +0100
+Subject: [PATCH 2/7] arm64: dts: amlogic: a1: Add ranges to periphs pinctrl
+ node
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-fix-amlogic-dt-warnings-v1-3-94cbd67a32ea@aliel.fr>
+Message-Id: <20261115-fix-amlogic-dt-warnings-v1-2-94cbd67a32ea@aliel.fr>
 References: <20261115-fix-amlogic-dt-warnings-v1-0-94cbd67a32ea@aliel.fr>
 In-Reply-To: <20261115-fix-amlogic-dt-warnings-v1-0-94cbd67a32ea@aliel.fr>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -96,13 +96,13 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Ronald Claveau <linux-kernel-dev@aliel.fr>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1603;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1233;
  i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=t3oox1TjzpL1ctm6S+5Ku7TzDmvGbGuVy9dMZYSp6B4=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9Yvo9RuaxaGU1OPHnxSk9zGLPtc4/4xXUeuEBPNCeGOe
- 2xMby/vKGVhEONikBVTZOmfa3ni3eWjZ77uUU+BmcPKBDKEgYtTACZy9zXDP5PlYj9CXxlM9ctY
- n3T17frIsFN3ms5vMHvW3TubgbNSuIDhf/qOHJ6Szru3N04UcvbYrNreemFpS3e+8QyXnnN/tx+
- bxAYA
+ bh=oskDA3lqc2OXkomXgBBue1EJY5c1W7W4Jw8yaVrxwc8=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9Yvo5RVdYkvJ4tUbw67vWqhh93cb+1r5UT47rxjZMpg2
+ T1/5Yt3HaUsDGJcDLJiiiz9cy1PvLt89MzXPeopMHNYmUCGMHBxCsBEDM8xMrxjb5z2kPWilo1Y
+ f3tE0mJ7l2mhck3stosrZJb+utc+k4Hhf+CBy0s3WEb9X5u3ONJ+r9ayk5c2egcd3n5p9rxkmzu
+ SArwA
 X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
  fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
 X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
@@ -113,45 +113,37 @@ Content-Transfer-Encoding: 7bit
 
 From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-  meson-axg.dtsi:360.33-1262.6: Warning (unit_address_vs_reg):
-  /soc/bus@ff634000/pinctrl@480: node has a unit name, but no reg
-  or ranges property
-  meson-axg.dtsi:1609.30-1716.6: Warning (unit_address_vs_reg):
-  /soc/bus@ff800000/pinctrl@14: node has a unit name, but no reg
-  or ranges property
-  meson-axg.dtsi:360.33-1262.6: Warning (simple_bus_reg):
-  /soc/bus@ff634000/pinctrl@480: missing or empty reg/ranges property
-  meson-axg.dtsi:1609.30-1716.6: Warning (simple_bus_reg):
-  /soc/bus@ff800000/pinctrl@14: missing or empty reg/ranges property
+Building the amlogic DTBs with W=1 reports the following warnings
+for the periphs pinctrl node:
+
+  meson-a1.dtsi:131.33-483.6: Warning (unit_address_vs_reg):
+  /soc/bus@fe000000/pinctrl@400: node has a unit name, but no
+  reg or ranges property
+  meson-a1.dtsi:131.33-483.6: Warning (simple_bus_reg):
+  /soc/bus@fe000000/pinctrl@400: missing or empty reg/ranges property
+
+The pinctrl node has no reg property of its own, and its empty
+"ranges;" does not describe which address space is translated to the
+children.
 
 Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
- arch/arm64/boot/dts/amlogic/meson-axg.dtsi | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/amlogic/meson-a1.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
-index 5b8ef98f6d03..dc932629c92c 100644
---- a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
-@@ -361,7 +361,8 @@ pinctrl_periphs: pinctrl@480 {
- 				compatible = "amlogic,meson-axg-periphs-pinctrl";
+diff --git a/arch/arm64/boot/dts/amlogic/meson-a1.dtsi b/arch/arm64/boot/dts/amlogic/meson-a1.dtsi
+index 6f6a6145cba1..f59495c1885a 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-a1.dtsi
++++ b/arch/arm64/boot/dts/amlogic/meson-a1.dtsi
+@@ -132,7 +132,7 @@ periphs_pinctrl: pinctrl@400 {
+ 				compatible = "amlogic,meson-a1-periphs-pinctrl";
  				#address-cells = <2>;
  				#size-cells = <2>;
 -				ranges;
-+				ranges = <0x0 0x480 0x0 0x480 0x0 0xb4>,
-+					 <0x0 0x430 0x0 0x430 0x0 0x3c>;
++				ranges = <0x0 0x400 0x0 0x400 0x0 0x198>;
  
- 				gpio: bank@480 {
- 					reg = <0x0 0x00480 0x0 0x40>,
-@@ -1610,7 +1611,7 @@ pinctrl_aobus: pinctrl@14 {
- 				compatible = "amlogic,meson-axg-aobus-pinctrl";
- 				#address-cells = <2>;
- 				#size-cells = <2>;
--				ranges;
-+				ranges = <0x0 0x14 0x0 0x14 0x0 0x1c>;
- 
- 				gpio_ao: bank@14 {
- 					reg = <0x0 0x00014 0x0 0x8>,
+ 				gpio: bank@400 {
+ 					reg = <0x0 0x0400 0x0 0x003c>,
 
 -- 
 2.43.0
