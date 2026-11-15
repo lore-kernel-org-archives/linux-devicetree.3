@@ -1,101 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794760488;
-	b=ly0S9wmy/3jV0jqPI/rLq7TLEj2k75iRRKoP+eEJepiZ8oUZ2qYgoV9/RpFmo+/q5Imd
-	 sZH7Ir5+RGwrOMcJXxYhIFlCx3mGF/qi3i1HPHm+UyGgaO3tTOCd2wQyIBPXOZbdc5gPb
-	 wIIDMP913UMTs7PvEWvw7Hg6ok6+ISCVDGj61O3+zOSq2pbRGadoDE+byrjdn19/2AIsS
-	 ou6eHYUMj3if7dHeq80aJZllZ9115lSgzHBtskzxbV+OXVDvJjVFvjuqM6N5LU7eZwyAQ
-	 DlGC8m8SKgHm7n96AcZii67kx9JofAHRe9ukHzt1pftRrqB9E3LkuExXU3LSg1J4s+g==
+	t=1794760956;
+	b=Tzhi3wEsWzKKMjDlGtmacIQHr2jtxXGcD/AVvKLcN4p/4hWVtjkVSLmpdWJsyXDK/KyD
+	 Xy6ZmwO7v7IPMe1+DfDGK6k3b9bW2Fo8Ub6tJvb3uXytu7ij+dVKd7Kg4qHpo0FKrJdyX
+	 SZ4xRPtNqSd12lAvuW3m6NESu0UbTIgN8i91xXJGNo/yZnbfom93XbjvvnX9palJWOfYm
+	 nJSpFX26q/tfBQ8fqu/LgiaK8xMQ7XoCvDqMRXCiFUVGYmJQazl2TxGrsBA6xa0JwIWFd
+	 e/9XaDI53yG7+LoB3BWP04+UrAkXuWbkLi0C59FlDF3HCwq8wMlnVMuqD1on2ohlo9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794760488;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=l4MqBiu+6D9UqT2D4Jf42GEvZrA2Lb2vwka2d+l2yW8=;
-	b=TlOTPI4f3coiY1HyVa1ZlpDggT3MAyzPiwSSukeo3RmtsDBX8K47QJKf97HDhyBb7ipT
-	 VpsewyPhMkwOZcEfPNEq6CkvJn6vg7mClDCthZmYCcWf7U9wu+yuPMUGUqetgK1jZYN5H
-	 d7s1gprV9T/ezRNbewX9Anj5zjSJeE6VONFTIjhR+L0IdHG5QLvqJB7C2P2rZW/XQxSjF
-	 uUkt9Y6VhEEH2CS0mQVvG6A5ywMnbgg4NY3FrnYoNFBES/zQ2Fs0GFCNHRPMqcM85hnqK
-	 i15kTPzAsC2y14fOkxwIAsRcFwzwG0nRlBh/PeYKgrfak1xHbSATei9FzE9mRqAoPOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794760956;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=eFPfB38MvkeNGjDVSx4Pv8v8DcKjA8PCK5ZW0XvuVkg=;
+	b=lcM3zCf9D+e2UEOv90uUy4Tz1x1HTkYgHuKivBZQn959nrHJ97uuYDQpKyyrQFunDq5V
+	 PsAPA0oK5W6K8JJ78jlDB/Z1nCk/1EjVyOuRQ0tM9rEzFiZYIeLc5v1D0NGCEplBDVw1Z
+	 ADfbENnX+p+hlTSOgciY0TIR4nW3ERhTFC6YhBage65B1qsA/w9Eclvkgqw/iZs6jbwTD
+	 GWOOqv/wVpXcgY2jVqpXNMLwZlJnKgWi7ELt7pkeaaKOsVI+bXiBtlNQWf+pC5tKJi30q
+	 +kmAyMHgdr2m3FgV/cePZgcicnAmLkewTeDBztBKx3iNz/8gvcsv7F/359UEWZSyRbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=FKcdBx3Q;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ewnJUitb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CEF606A32F
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 16:34:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47CEF606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC08606A31D;
+	Sun, 15 Nov 2026 16:42:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=FKcdBx3Q
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so19742935e9.1
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 08:34:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1794760486; x=1795365286; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l4MqBiu+6D9UqT2D4Jf42GEvZrA2Lb2vwka2d+l2yW8=;
-        b=FKcdBx3Qdi8yNwMxAo83rqPSg9b7Ri9Z/aQqRlU2zJy5m27il0OrqrUT4hzxun4CpU
-         RO/klRpCB4aF9sZrBwQFAldWlJYAt5NoeY8HfkvX13bP874421A1sILxpPcRQf0VjOIN
-         d5+i3gIVrnqjMCD/FDkYNiyzqescKVePrjrsc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794760486; x=1795365286;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l4MqBiu+6D9UqT2D4Jf42GEvZrA2Lb2vwka2d+l2yW8=;
-        b=bwzC+o/J3BuxFzV3Nl6ulH0gSo3eO7+NLknU8zsv+wemvLmmQsreN9BU8hZz89SHWa
-         zTnGWqo+jzubbmaUhhwg9HkvDtzJz3fbba/vfbkztxiUYAtMcakS4qMVd3fgPZO7t235
-         5v38G3JkqYpAo6bTVAJs+/B3XIRIn8tW2U5XSeBUh0+Devyvx2jL/ComdmyPH1mS7s7l
-         GOB492ZQ5CHPyiIxMLDWAeGxPgX7Wffh84qt4K1uQPMiG3jfV4h6L1/mllxdND0rUBxj
-         dkZsWjWfSNYe8tzUI/qlHALDX0w3zOlOf6deq812wcPX/ZTw5HcCjm8L0A/Jope4JrGN
-         IASA==
-X-Forwarded-Encrypted: i=1; AL+hErFRjvUGloMyfv53Ys2SaNnXGfY+Aavrm/u2RMBuArnS7L0YMg2frGqsEmty3H5xbVFz+GuN/lKjaqbs@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mpf3oJtaDXy4kD1lnH7rqb9PStJ6ZcF2bs3McGimqkNZzgz3b
-	Nyui87W1SWLD/RFiuu8DfqQKZtWvy0X/dA0Y4QU4E8hez5Rd282shToyCFtHxE8ooH8=
-X-Gm-Gg: AYBFou2wwbEDyOvWu5615SBqODcpylJexPJj1qbLLgRKCrzvpr6pOviHSX1dw25hPQO
-	60er1nM84dP7kpA838ElGeb8bFYmt8wWk7OXWTuy3n+idJXMKIxiUt7MNVInJ8W1Cn2yiH/xyRq
-	SVSGyFoOdJy7VoCozhgUlgQEGr3yeia0BkLoPOZ+hCKAde3Ndv+u0RQOni0F4tTqk0zxybPYNhH
-	+DIM1G80q5ukMKdvqhogbjljhCmXXSY4AN1dWASSZfTPIWSTxhexLxAj0LXsFbVTDvC0mrUiAw0
-	9CO95EOFUbeNyS9f44zVSa1+hlsnoc1NWDufWs1l6fX66cGmBwGQUJSa5CDlnaXiOvqbtBzfVas
-	1InQBw8jMhc6X39DpsKpqE5r5jk6p3kropqxZZB4BVL64UIOfJvUoR1OnTQeX8L6wUyLtiamypw
-	4VV6ZFJCfviE9c6SwfM95iwWe51MH1TLcFSR2s+AIKwEGGw7BygoYcWcPucQ9jvVvTmVwHAF0CV
-	/W9492oP3nzWm9cePIImg83MnqSO0cUXprzJgdEDYMFAXeKlNHeU6vH+/Ex2Gj9ubRYbo/KeeQN
-	HEDxT4lhSmj/TYv7imeUPXeWe5rjWbLx3EpEHSnNVa9jEJrMt9FA4LcxAxMpCgPuhYGZUM8W/sn
-	mIGVBLgFTNaV7hOFat8nW+tqbeJdhr3dLyhdRut+h32OSDmcVUAReexS2EzZz7QtQz1ZdNZpMsX
-	tweihE2dOYE1RyEHBLINdxjrMZMQ==
-X-Received: by 2002:a05:600c:4343:b0:4bb:5e8a:7c9c with SMTP id 5b1f17b1804b1-4bb5e8a7cc5mr89345295e9.7.1794760486606;
-        Sun, 15 Nov 2026 08:34:46 -0800 (PST)
-Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f782396sm17500021f8f.24.2026.11.15.08.34.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 08:34:46 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH 2/2] arm64: dts: st: add mmc aliases on stm32mp257f-ev1
-Date: Sun, 15 Nov 2026 17:34:30 +0100
-Message-ID: <20261115163432.2601947-2-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261115163432.2601947-1-dario.binacchi@amarulasolutions.com>
-References: <20261115163432.2601947-1-dario.binacchi@amarulasolutions.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ewnJUitb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F1411F000C5;
+	Sun, 15 Nov 2026 16:42:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794760956;
+	bh=eFPfB38MvkeNGjDVSx4Pv8v8DcKjA8PCK5ZW0XvuVkg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ewnJUitbYcRSmeAqXxKMb/EO995fz/VHAl7payGa3yw4ydihc3GYGgvSbkSOwk4ND
+	 /A3yoD1asUdPSricBR5SSiK4yMivD0hhZMfwRv+xLMZItQBEckZ5hw5EF738NX92c+
+	 l6HjqOijS3GcQk/tvQ5WXnhejtcxCgaeeMPm4tHA+8U+N1WPOT3Q494TAuCLydpvzm
+	 vEZvvuPTyRsmUAf/i9iWVuSL7lO8KmQGm7Oah/HcdiVX4OhAfJrKZbn9p8LX/cKUvF
+	 7FpYM6Hqt4JGGydblMQ6QFBygzvEMpkBlQAgW1arQSObRCofhxv3wY8s5Y1zS/xYYI
+	 gfEddFtYiUNTg==
+Subject: Re: [PATCH net-next v17 1/4] net: dsa: add tag driver for LAN9645X
+From: netdev-bot+sashiko@kernel.org
+To: jensemil.schulzostergaard@microchip.com
+Cc: UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ woojung.huh@microchip.com, linux@armlinux.org.uk,
+ Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
+ geert+renesas@glider.be, magnus.damm@gmail.com, edumazet@kernel.org,
+ richardcochran@gmail.com, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Date: Sun, 15 Nov 2026 16:42:34 +0000
+Message-ID: <179476095473.2199510.3725439999561374295@kernel.org>
+In-Reply-To: <20261111-dsa_lan9645x_switch_driver_base-v17-1-83a471c5bddb@microchip.com>
+References: <20261111-dsa_lan9645x_switch_driver_base-v17-1-83a471c5bddb@microchip.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,36 +68,142 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add aliases for the mmc nodes, so that the SD card and eMMC host
-controllers get enumerated in a consistent order on the
-STM32MP257F-EV1.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
----
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 2 ++
- 1 file changed, 2 insertions(+)
+- [Medium] The receive and transmit halves of the LAN9645x tagger
+  disagree about which bridge VLAN protocol they support, and nothing…
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 9c38c4fe0c1f..69e3ff4cecd4 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -22,6 +22,8 @@ / {
- 	aliases {
- 		ethernet0 = &ethernet2;
- 		ethernet1 = &ethernet1;
-+		mmc0 = &sdmmc1;
-+		mmc1 = &sdmmc2;
- 		serial0 = &usart2;
- 		serial1 = &usart6;
- 	};
----
-base-commit: 23c62304dde29abe92013d85910d03a77dada35d
-branch: stm32mp257f-ev1-emmc-aliases
+--
+
+net: dsa: add tag driver for LAN9645X
+
+This adds a DSA tag driver for the Microchip LAN9645x switch, which uses a
+front port as an NPI CPU port. Extraction uses a 16 byte long prefix plus a
+28 byte IFH, and injection uses the IFH only. On receive, VLAN tags popped by
+the hardware are restored as hwaccel tags; on transmit, VLAN tags are moved
+into the IFH.
+
+> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
+> new file mode 100644
+> index 0000000000000..95caf4e0cc663
+> --- /dev/null
+> +++ b/net/dsa/tag_lan9645x.c
+> @@ -0,0 +1,514 @@
+
+[ ... ]
+
+> +static struct sk_buff *lan9645x_xmit_get_vlan_info(struct sk_buff *skb,
+> +						   struct net_device *br,
+> +						   u32 *vlan_tci,
+> +						   u32 *tag_type)
+> +{
+
+[ ... ]
+
+> +	br_vlan_get_proto(br, &proto);
+> +
+> +	*vlan_tci = 0;
+> +	if (skb->len >= VLAN_ETH_HLEN) {
+> +		if (unlikely(!pskb_may_pull(skb, VLAN_ETH_HLEN))) {
+> +			kfree_skb(skb);
+> +			return NULL;
+> +		}
+> +
+> +		hdr = skb_vlan_eth_hdr(skb);
+> +		if (ntohs(hdr->h_vlan_proto) == proto &&
+> +		    ntohs(hdr->h_vlan_TCI) & VLAN_VID_MASK) {
+> +			vlan_remove_tag(skb, &tci);
+> +			*vlan_tci = tci;
+> +		}
+> +	}
+> +
+> +	*tag_type = (proto != ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
+> +					     LAN9645X_IFH_TAG_TYPE_C;
+> +
+> +	return skb;
+> +}
+
+[ ... ]
+
+> +static struct sk_buff *lan9645x_rcv(struct sk_buff *skb,
+> +				    struct net_device *ndev)
+> +{
+
+[ ... ]
+
+> +	if (ifh_gap_len) {
+> +		/* The tag is restored as a C-tag, not as the TAG_TYPE the IFH
+> +		 * reports. The classifier recognizes both TPIDs as VLAN tags,
+> +		 * so an S-tag has already been used for classification by the
+> +		 * time we get here. Restoring it as 802.1AD would make the
+> +		 * bridge push it back into the payload and reclassify the frame
+> +		 * to the port pvid, on a different VID than the one the
+> +		 * hardware forwarded it on.
+> +		 */
+> +		__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), vlan_tci);
+> +	}
+
+[Severity: Medium]
+Do the transmit and receive paths agree on which bridge vlan_protocol is
+supported?
+
+The commit message says:
+
+  This assumes a bridge vlan_protocol of 802.1Q, which is the only
+  protocol the driver offloads.
+
+lan9645x_xmit_get_vlan_info() does three things:
+
+- It reads the bridge protocol with br_vlan_get_proto().
+- It strips a payload tag whose TPID matches that protocol, and the protocol
+  can be 0x88a8.
+- It sets LAN9645X_IFH_TAG_TYPE_S when the protocol is not ETH_P_8021Q.
+
+So the transmit path looks written for 802.1ad bridges. lan9645x_rcv(), on
+the other hand, always restores the popped tag as ETH_P_8021Q.
+
+Does anything enforce the 802.1Q-only assumption?
+
+__br_vlan_set_proto() in net/bridge/br_vlan.c sends
+SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL with SWITCHDEV_F_SKIP_EOPNOTSUPP and
+ignores -EOPNOTSUPP:
+
+	err = switchdev_port_attr_set(br->dev, &attr, extack);
+	if (err && err != -EOPNOTSUPP)
+		return err;
+
+Nothing under net/dsa/ handles that attribute. So it looks like
+"ip link set br0 type bridge vlan_protocol 802.1ad" cannot be vetoed, even
+after lan9645x ports have joined the bridge.
+
+Here is what would happen on such a bridge:
+
+- Every popped S-tag reaches the bridge as a 0x8100 hwaccel tag.
+- br_allowed_ingress() sees that skb->vlan_proto != br->vlan_proto.
+- It pushes the tag back into the payload as a C-tag that was never on the
+  wire.
+- It classifies the frame to the port pvid, not the VID the hardware used.
+
+Meanwhile the transmit path treats S-tags as bridge VLAN tags.
+
+At this point in the series the switch driver has no .port_bridge_join and
+does not program VLAN popping. So dp->bridge is NULL and no tags get popped.
+The problem would only become reachable once VLAN-aware bridge offload is
+added.
+
+Would it make sense to use one model in both directions? One option is to
+drop the LAN9645X_IFH_TAG_TYPE_S handling on xmit and reject 802.1ad. The
+other is to handle the TPID the same way on transmit and receive.
 
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-dsa_lan9645x_switch_driver_base-v17-0-83a471c5bddb%40microchip.com
