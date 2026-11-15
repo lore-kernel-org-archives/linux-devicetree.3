@@ -1,80 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794761741;
-	b=FZmjjaqUN9rw2hPHKBqDvSxEvo7PLrpufeQGgt1LKKPrEXaH7ArD1RmCZugdai8sz7Js
-	 KgW/zSExDTnnMD9d7kXPKgneJldCiqhSxT0xMvXMrzw43Jy396YgH3OeMSyhILoNTDHsN
-	 YLyHr9oRyeW70zVZEp9fIJgmOZPpRuB5pas7M29EsLwFIrGJYOCHxy3SJljtfeAwQoLBP
-	 OItswiNeP+J4bNSxQUtWSA+w9jZqrP2L5r5H5l0W9lJGzFiTJygcZKlwAan5nOSCZtFH2
-	 k0POCgVSCNKCrwa4yjRzvRlMDFVrPcxfngE9mY7WTWxINW9V1nD0pGWREKkJbH+uYxw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794761741;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=jMKnQ7V2+ZIf3c5qP6jPaOt7u2SLPfZMFARUAJHcPtE=;
-	b=rCyh/wBph31xs83fIM1u06e1vXSZHZfD1cSDqDOCGk+h1KHlsKy+chdNOWXgK3c7UXdB
-	 bjJnOWk7FC4qQFoo0IgVFxd1dxeyLoNrsP/DLeNciVZTeim54MaCsGFtCbDhI7Va0KFym
-	 qb/p95X5Hno7SzRvVOH9dCl+9sP+ejaydNTXEg7Il+MaRs6dEOwnKFHtuOeRhEZxXqEWV
-	 OhMle7IiY9X7aJOQCsBpzkMZKAxJsGUJp8S2fQwbf7uJSc0Lt1Z/cEeH7Rme0AYRSdT7H
-	 TgEb9DJB0xIuzi6AKAOp4/nyaBmqyXB0oQQUxIFGgC382kaNn83/YK2hliLnuD2SYYw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QRsAA+UC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AB0606A881;
-	Sun, 15 Nov 2026 16:55:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QRsAA+UC
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794761741;
-	b=zRqGBRcAn886Y+6MyTkMLMmHd0/zZBmB41smDGRzSkpr3pov6wLuqng3c+mPRhSlnaws
-	 dGQZauqFlc5ppdV02IwZyDa1qUyu4/fAkbr2repjOft6ZdcsclYleaQbefmn/JGXg7+wO
-	 S7HJ/Zud/j83Um3Jcs0FTCpxsz6zNXkftwjBDsRHSVG0nDG+PVCD3NSRxfIplJjlLHZ5k
-	 0Gih7sJEEn2jPOEl2+ed/nnS37zcr1uS30Ra3t2S3O6racexavMhwpESyguFTWCowEoCu
-	 1bARvKCP7nNfLPr/dO0PkmN8Y6VIQgORx2enP4x7KvjomvZahVr3fqvq+umlHkS4ZZQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794761741;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=jMKnQ7V2+ZIf3c5qP6jPaOt7u2SLPfZMFARUAJHcPtE=;
-	b=p9gTHYAF+diQRDCUfQCzsNUYje44r+U6cdBS6zL1cXxMisIzXVBSS1ndrYLXLSOapEnc
-	 ZGcLZAfeV8eeLU9WYa5WRsppHOEnz+Z5GyzzSMiXb4UWrFusnpbfdSHs0iF+TrZiOK9H/
-	 49WNBKCIANsooHefOe16x3RXD6h10lvSxoBb73gmW7BGjgRIWMgatYbor412F0/JFAUP6
-	 FFIljMBSinn/UMyPjYumoFpQ/ccG7J/rMysMRdsqt42BJ4OfqMq9TKWivTpQTVV2LMzwn
-	 Ds2hfGs+g9oe4WIbtU0YPUDSjwlnSNp+SQ1Ml6oxxKQgBg1RAgNh7SEXhoTCuyYRLKA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794762098;
+	b=v+6ooAuZ+2y+j5R8t/Db6/OtygjZCf6GkSY14FPqtsXcmb5WFmrAGGBKAeXt6CO5/tF2
+	 V+A1beRGmAGfpc/KbeKsrJWaZy6VJ2PUtCAg1gfQWrLDvG+87Xmh5e0r8yyZYPwtPGbj/
+	 Ck/MWHdAuOMH1DigT7VI6xF5VpBu+4eUEwkvVQCBZiYdjRwQcca6lakO7UtrYeDwZNjdt
+	 Ff1wm1nQWwmaCQrXQ2qzgDYiW/IlzBIy0wmfcWnbFyIT64BNOTGXKGX80x/SbqsJYOws/
+	 cDrr0kEh7JQWqZACXPQkrzBGXLszuBrh+XTf10BnpuAmFImjiCNsbWJVut8oWe+f80Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794762098;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=Y9ebx/NeQHDJ2vvkvIEG+xSfxmCUF1LYcJcgNXG5cuE=;
+	b=17rlj7WG3RxahulwdtDmKge38vOen49uzeCfjjwVQ6xVUFyfec7ku1NpenR0Ier/khE/
+	 AU3aOE5bhaJomFNNU9tv5leJ858SX0wRNQA9KI0FkW4LnjixqgktdCvBsYuL0ifpJIeBj
+	 o0WrOnzzrY2/PO4r9Ozg9BgLACqN99lIfRSYWkumrZvrT8NNEos1gZCx6VcClSwACUINM
+	 6kqgPYGINXTKATrqcGdDTSl1YwPRdR+Ga9f7lbsl0O9u1TJLRbKUd2YSRHNdClJftiJ5o
+	 Jq8Yd+x+u6xSbgw+z4YNTJ2291SoXgm9WU2XMknDZgnIm8Gcn2BxDxa8v32Aj3zKV2A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P0uPOeqg;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 81E551F000C5;
-	Sun, 15 Nov 2026 16:55:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794761741;
-	bh=jMKnQ7V2+ZIf3c5qP6jPaOt7u2SLPfZMFARUAJHcPtE=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=QRsAA+UChRWu4Kfg2pT/q0qjr1d4TgifZ3aUCfW3fqosr/E15as2Con56/1fj6ATq
-	 NnJnY5s72GPULCsvU1Ks0sk19f43XbPRKxyVCnsoQdpLxIwaDyB5VZnT6Sp8iDhwTq
-	 N01sbW1o1qUg6ZQzumcis6ZStDkfWwtlQID/PRgWqQOViOgI8o0lX6vjFq0plYVc5h
-	 SkOb4vbUdboDuIdCgyjdo8WAY28NEpGs5evzbpfAlgBGmW14SlXPOUo7pwTHgrJXZr
-	 3Ke7ET15rjVGPd2WgxLuR+qTRoTG0tFVTmaP6HusvaQOdalTxXkVwnWN6+QgBYi5vj
-	 bL/JPnnQj5DLA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D781D4A117;
-	Sun, 15 Nov 2026 16:55:38 +0000 (UTC)
-From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Subject: [PATCH v4 0/2] i2c: Add Cortina Systems CS75xx I2C controller
- driver
-Date: Sun, 15 Nov 2026 19:55:36 +0300
-Message-Id: <20261115-cs75xx-i2c-v4-0-4b16eea98a78@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C52606A88C
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 17:01:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95C52606A88C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P0uPOeqg
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-491aaed7565so1157049f8f.2
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 09:01:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794762096; x=1795366896; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Y9ebx/NeQHDJ2vvkvIEG+xSfxmCUF1LYcJcgNXG5cuE=;
+        b=P0uPOeqgL+Ozr22vFeYw8xScHK88O15rGxbv8FwzdKQ1nyYB9uluioHIEs1OU2SJDX
+         vvoXbaXRN1/h7HX+g9bsRS9InHpDtO0bStHEJykILzxQH+E+BYPxq7BxULvnFiOMM6b/
+         EACPMneJmTYOZDrPQawB75GstchrzjB4CU3VSMt9GanIAOcMyP561Om1k3txjjG5GoB8
+         WTdnUFOS/SY9NKHS/xmwy56RdSUxsu5o0bl6cl8LFPm9qGyac0DCnxBMRsECx7BWIVbM
+         c6HyNeKAJ8+3vOTKkuyYF0SQGRXFuLFGzc42HntptA0+5WA/jcs2/hTinq/wZ8yHuO0z
+         JOkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794762096; x=1795366896;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y9ebx/NeQHDJ2vvkvIEG+xSfxmCUF1LYcJcgNXG5cuE=;
+        b=jlsleHIdty52NEFjJUuRCM78ZpcYlNDxBErisLIqjtcS8ZmIt1gJhZAPS938ryw3Jh
+         0qviMdrlC4hupgZEqpr2Cjil4Gss4DFa8XpCG8OXa+a9vepjNGi65SMlLQGQ20ZCHNLY
+         G46YWZiM5UqFU9syxfnNDmXeS4ak3rusbMc1Ius0GZN9TTlzk2jE8XFshwvQO1I69wdS
+         vWyHH9k90bHZfksgEJZ0dLkcwuS5jqRIFLd4NI7Vy63hAbZ8sp0bfr79Vnl8GuVkQAkV
+         MQljdjsUkkO28JH4vxTTBCcXOLCzxC4dx6DeWtAMCoBJ32rFeYgeQ4xNzSIGgRy3P50x
+         APBw==
+X-Forwarded-Encrypted: i=1; AL+hErEy68sI+uMSVhs4rKDqnc1SlyZCYhk4n2dEv1VykJrbkvXFSyUelfhwOKZma/0ZAhE1g+jkCrrFR9Vd@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6UCqUuWomtKpdSlkQtAaNwVyoh8r9YCYpIuBn9T2/kr9geJ1C
+	SP4I8tW5xPoGsbvqNgZESnsXaqcdJP1Iw0OfrRbl8LJEUbQ1lw0Amuv9
+X-Gm-Gg: AYBFou0/mYBit6YMhYropoMp+gmyWYsuTBVboUDwLL9n1BFKCiyf5nv5yhkI81V0xDa
+	k8h2TN47L6epjUZRDT3/fKf+4JUTfNmzsJYT/tCiRLI+xejaaL7jm10ommJULYn7E/AKgfAidwx
+	+ZjnkJinNMe+mH/kQugF4AGSj3Ek4WuBAkwCsjXU1gZsta3EsX09Znzf4ZkB32JxSEwcnhugTTA
+	ZJ6eLgtkMkc7S+LBYHIRMrj12TJBWVVz2+7aCebUGswwtxNWFHXiYQAxupaBrqTmHDJ5eY5a5AA
+	5cCavw9ezjgECk3vIg87XYS3TYScOGAwL0rjn1Ej3ctykUI1nCcrrX6ZgUss/EZiPUrLD941/Uz
+	uTRaJxC5eGE8p8SR7Vg9ZR4PJsofkLFquY0R0fveWxkVQNFAEWV7sdri+Kljv6u3oSCaVR77pvj
+	RB+V4g9MMsfpbTLuKexvyzocrjLr+A8MCr0L3BDu69YS9/HUmteTbW0ocOzwnkCLByFJ4s+44R5
+	8xYGTXicuuIji21MXDBbaSnhrmvFcl5jI7xPEyPpopiZ3nwg2rGuQjvNXS27rRDBhmkNJR/8UsC
+	OJbKiEgwdVKPqWIwNIR4Vw+HUrxVPbFPxCVTIm2aeAedcMxNuYuG0DUhoS+e/xBdq7eONJ9HdWw
+	eWpG55PaIC0Lq6tILOBD0sSOftHXIG+2LyqkR5XiITpqRnd7heCEmrLC3Oonypjn7zAGrWX8UVb
+	zSSRDoackZJPU8KpRS7pYH1SFoDjVvrZHvvIwmteWbOxZSLzz195DM+eVFm4DzFsOuEQmH5whDy
+	ZZATfEj3wBLTRC5ahPcEnhETQ==
+X-Received: by 2002:a05:6000:4a1e:b0:48e:61c9:4e32 with SMTP id ffacd0b85a97d-49c72ab0820mr17765285f8f.32.1794762095871;
+        Sun, 15 Nov 2026 09:01:35 -0800 (PST)
+Received: from jernej-laptop.localnet ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49d69c21a17sm12650661f8f.50.2026.11.15.09.01.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 09:01:34 -0800 (PST)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: wens@kernel.org
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v2 3/3] arm64: dts: allwinner: h6: orangepi: Enable CPU frequency
+ scaling
+Date: Sun, 15 Nov 2026 18:01:33 +0100
+Message-ID: <hUUAMPreQkqgr8nLJGKykw@gmail.com>
+In-Reply-To:
+ <CAGb2v66acxKq7HR=p+ky7dhT03fTXct1_82dPXu5ebS-fYgpvA@mail.gmail.com>
+References:
+ <20261115132215.289236-1-jernej.skrabec@gmail.com>
+ <20261115132215.289236-4-jernej.skrabec@gmail.com>
+ <CAGb2v66acxKq7HR=p+ky7dhT03fTXct1_82dPXu5ebS-fYgpvA@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,109 +108,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyTHQUlJIzE
- vPSU3UzU4B8JSMDIzNDA0NT3eRic9OKCt1Mo2RdSxOTFCNzI2PDJJNkJaCGgqLUtMwKsGHRsRB
- +cWlSVmpyCcgEpdpaADPuZP1uAAAA
-X-Change-ID: 20261015-cs75xx-i2c-944d27231b4c
-To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Fil Dunsky <filipp.dunsky@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794761737; l=3602;
- i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=eFQYkfpNPLfFX0ZZ400z9FMiWSI3VJbnU0bEeCAdNpk=;
- b=gtSIudZvDq5W2NJPwUjGeO3EJvA5+gjpec1EgeOlSQQO43CkUH6c0zMaU7rOEaHdHJIpHmB7u
- F6fi0Llq/thCcEKLzCLfmomqiRmST7iDuOyNsM1Nz+Sv01qg49i0kBJ
-X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
- pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
-X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
- auth_id=1085
-X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
-Reply-To: filipp.dunsky@gmail.com
 
-The I2C ("Bi-Wire") controller of the Cortina Systems CS75xx
-("Goldengate G2") SoCs transfers one byte per command, with a command
-register much like the OpenCores one, and raises an interrupt when a
-command has completed. This series adds the binding and a driver for
-plain I2C and emulated SMBus, without quick commands (every message
-carries at least one data byte) and without 10-bit addresses.
+Dne nedelja, 15. november 2026 ob 16:09:23 Srednjeevropski standardni =C4=
+=8Das je Chen-Yu Tsai napisal(a):
+> On Sun, Nov 15, 2026 at 9:22=E2=80=AFPM Jernej Skrabec <jernej.skrabec@gm=
+ail.com> wrote:
+> >
+> > The Orange Pi One Plus and Lite2 lack the CPU OPP table and CPU supply,
+> > so the CPU never scales its frequency. Add both, like on Orange Pi 3.
+> > OPPs above the regulator constraints stay unused.
+>=20
+> My review agent noted that some of the other boards raised the constraints
+> when CPU DVFS was enabled. Do you think it's reasonable to do the same
+> for the OrangePi? Or do you want to be more conservative?
 
-The driver used to be part of a series with the interrupt controller,
-GPIO and watchdog drivers and the device tree changes. That series is
-now split per subsystem: the driver builds with COMPILE_TEST and does
-not depend on the platform series [1], which is under review separately.
-The device tree nodes will follow with the other CS75xx dts changes once
-the platform is merged.
-
-There is no public documentation; the register layout comes from the GPL
-vendor kernels. Tested on a Securifi Almond+ (CS7542) with the SX8650
-touchscreen controller at 0x48: reads are ACKed, an empty address returns
--ENXIO without timeouts. Repeated START between messages has not been
-exercised on the board.
-
-[1] https://lore.kernel.org/all/20261114-b4-cs75xx-v7-0-8f17f38821b4@gmail.com/
-
----
-Changes in v4:
-- rebase on v7.4-rc1
-- split out of "Cortina Systems CS75xx: interrupt controller, GPIO, I2C
-  and TWD watchdog" so that each driver can go through its own tree; no
-  longer based on the platform series
-- binding: limit clock-frequency to 400 kHz instead of listing 100 and
-  400 kHz, which is what the driver accepts; I kept Rob's Reviewed-by
-  from v3 for this one-line change
-- collect Reviewed-by tags
-- use fsleep() and device_set_node(); sort the Kconfig and Makefile
-  entries
-- Link to v3: https://patch.msgid.link/20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com
-
-Changes in v3:
-- rebase on v6 of the platform series
-- reset the controller with its interrupt disabled, check the prescaler
-  against the field width exactly, wait for a bus held by another master
-  up to the adapter timeout (sashiko-bot)
-- Link to v2: https://patch.msgid.link/20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com
-
-Changes in v2:
-- rebase on v5 of the platform series
-- do not include <linux/mod_devicetable.h> (Uwe)
-- complete a failed transfer only once its stop condition is done, so
-  that the stop interrupt cannot race with the next transfer; take the
-  lock over the whole interrupt handler; report a NACK of the last byte
-  of a write; enable the interrupt again after a reset on timeout; fail
-  with -EBUSY when the bus stays busy (sashiko-bot)
-- Link to v1: https://patch.msgid.link/20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com
-
-To: Andi Shyti <andi.shyti@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-i2c@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-
----
-Fil Dunsky (2):
-      dt-bindings: i2c: Add Cortina Systems CS7542 I2C controller
-      i2c: Add Cortina Systems CS75xx I2C controller driver
-
- .../bindings/i2c/cortina,cs7542-i2c.yaml           |  56 +++
- drivers/i2c/busses/Kconfig                         |  11 +
- drivers/i2c/busses/Makefile                        |   1 +
- drivers/i2c/busses/i2c-cs75xx.c                    | 392 +++++++++++++++++++++
- 4 files changed, 460 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261015-cs75xx-i2c-944d27231b4c
+Yes, I'll prepare patches for raising constraints.
 
 Best regards,
---  
-Fil Dunsky <filipp.dunsky@gmail.com>
+Jernej
+
+>=20
+> Note that I already applied this series.
+>=20
+> > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> > ---
+> >  arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi b/ar=
+ch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
+> > index 40c5c42b347e..a2a2e4cb0256 100644
+> > --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
+> > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
+> > @@ -5,6 +5,7 @@
+> >  /dts-v1/;
+> >
+> >  #include "sun50i-h6.dtsi"
+> > +#include "sun50i-h6-cpu-opp.dtsi"
+> >  #include "sun50i-h6-gpu-opp.dtsi"
+> >
+> >  #include <dt-bindings/gpio/gpio.h>
+> > @@ -65,6 +66,10 @@ reg_vcc5v: vcc5v {
+> >         };
+> >  };
+> >
+> > +&cpu0 {
+> > +       cpu-supply =3D <&reg_dcdca>;
+> > +};
+> > +
+> >  &de {
+> >         status =3D "okay";
+> >  };
+> > --
+> > 2.43.0
+> >
+>=20
+
+
 
 
