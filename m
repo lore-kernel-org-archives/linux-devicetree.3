@@ -1,98 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794748944;
-	b=FB0xdkPy+FH40adKsNJwS1GYLxhg0+Ikw7s9EkP/ZiOASg3P7UgL6JO/y+fsLBNRZ/2E
-	 CrUh9TPdj1vhWCBdl/7cmUhHYtpyBx/VnenD1hZveGn8xOXwdJ1NzHIg3OMhFTYIkS0IB
-	 gjkFs0oHZRk36AJ4UHPEC5hp0Hjd+oweh9XsRhJmtDdEJcpnFHqLxPA3oiTOuhJ5vrkla
-	 +oUWiWz+BYg8jaUhS6ZR2ceygIwrIdDj5wSj9SUaANtYMPj2XG4gj5YWBcCTRBDnPv6b/
-	 L2MTR0YGwK1CQh5koPH9cYbFzCLE8CMruh3mV6nEGydLzH7yfjj6i/232C4T4pGnyrg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794748944;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=e+XhTX2eaPWhWUwMyLtivdGIpKoHtQC9s8D9BjgPLlI=;
-	b=NhJaSmsff+Pt1KPSh33X3ZanaaFAQeXxq+Szxtvz4uUgXvLJhvbBD2zzm5JGu0Jsv7zA
-	 8rFyxciNXq3QH4HfsLsUAmhZpJ6zohLo2v0MpRi4r/t20YteIYAW6bUG/BKys/fJQYvYN
-	 VZWADRxuEp3oyf8n2RsxaJ1pWFYhXNhZdXdHkvvAKn9oQtE4ctxymZgFEwLUbm5LDGbyd
-	 +VJJVBtT8W95FvSpsK8CaZ100JZFeLZnf8z9tdqJ2zjweS6wCGiT0Vj+JaRnZbRvv3OZW
-	 hpa30jnOYxAIBLuGqaJIP0Mc0EjBSiM1x21Jlp7h4sP7+3JKkSB2LsO8xJc8fGG0fBw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YwsuDxur;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794749257;
+	b=s8IY9OxzoGFmV2f3Un7TFawWs9CEXCcGSX0/UHWiorkYHEI/wy0joxI7Glby2z+jvU8b
+	 zwnt6letCuvxcqKP5RJ1QO5Uw5LsOk94pnbnSDys0HREsDNu24hxfGFpLTV7wGOngivFu
+	 KRZO6LxEzuZ8TOOGGAul+kNYF6Cm56h4uG6f2J+XbM3g1mcxeqY8jEuCesymZxTUnlJfN
+	 H3AUB8wHg76QWX8hyfzfSgOizdmbQBDzEGzzuA+fukfMlo74KMabp6Lf8QILFQ44R6O69
+	 fgc6IVGX5CewOkNCn90weEiwao9AudIgeSqVzC399/cJl/ICQj3Ha+RLPQztmWPAEEA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794749257;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qxCmilCZAfa92h6cZG6evZorYW89HH9VZP60+AaswCI=;
+	b=GExjNqDdfe5J7nYLjGG9Nd/f2fyGf7wBNRShehYMNuA6lAMAlD4NVV88kAkRAVzGksBB
+	 VkoOlzW7aSwbrP/lfNPLjRoFfo5UwCYWxFq9kKgFYYVK62y0oQJGs4VzxxOAXFSwlfhVi
+	 EREqGdczjowo26h3iqhoq77XP8X6HfSCDqMJv41laoBQNXud53XV5Mx7pcxprGUcBXSMD
+	 c2inBHETpXFqq5hWNYndIRepgaAPiAyCSmKXKcmzseOdPZUj0ZFU+HUqf/LQjeTWEX9/z
+	 2UCJ3fKIG/OdwmVQQ+kA0CEyLWpqCRZGNU+VUYaqxaI0ey7sG/WV7KgrST2v96n5R0A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGYOumrN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB08606A31F
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 13:22:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FB08606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8607A606A33B;
+	Sun, 15 Nov 2026 13:27:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YwsuDxur
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-497614c95f0so1097352f8f.1
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 05:22:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794748942; x=1795353742; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e+XhTX2eaPWhWUwMyLtivdGIpKoHtQC9s8D9BjgPLlI=;
-        b=YwsuDxur1kI1mkhlLa3A/Q4nD1dPZFsvR0Q+FIESHwBbm9ST7VjNZNMlAbHIlX/iK3
-         KcJjmnOYR+t2OL4YS7DP+pUZI+gP3kj2F3iAKtVS9cOgSfT47AK+1Gbegc434VxOXZWo
-         HuTYt8xy/MIoY2U5PgzKf4CFJCiYtzuIUS/M2zN6ADp8v0msyOaMfmTRvPwpFcz1W9LW
-         HbbTUJW5zp7Lr3cYxENnPxuKo2wfXpktiLAxHH7yoQqMRVZZJfdRN82E0Kpgj+hN0tg9
-         NwBXtiLVdQODW/aJ5hahcKv9WhekqsaLI9k6I7JinSwT/O5J6owyOcPJUp9WQ3TcaE0/
-         d2Lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794748942; x=1795353742;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e+XhTX2eaPWhWUwMyLtivdGIpKoHtQC9s8D9BjgPLlI=;
-        b=iGJMDHJ1iG1A0J8BQNbw1wwaxvbodURp5KApPOFhxJkEBztJOefEw1NtANLaIXAyk6
-         kcoTCP3PVhHHHDNt1y21Fu2izF+CnkojaRa7ruoAFVgym3U5Vj1ii7vZZH/W56Q4N6a/
-         MZ/91XkS3I9s6Dyg7Qf6qWQeX5r8gO4OYmeqIbSnajGO3NeSkHj/WY+e2ZM1EOVWf9hA
-         A+/jT+pmFdSW9Tijst9RDTTdMSK8aLsPWnT89/I9z0nR2X6QUSI0lzAtq+bGOUA5M66o
-         jgJCxe1AEDLmapUEi66cM4IbfsiCnQ4yip+UHfQ1lOnXW61Bu9/cqI6zQdQUrUCPrego
-         mt5w==
-X-Gm-Message-State: APuU4Z/lLw7gU/WhHqG2vcd7v2xcGPfyroYJsPlZya3OPTbSjeCwbu8r
-	DXj7OU7TS60nDlIm5gFm4M+KB8H+olT33+Q1+z9xfN0rrjLZ0yzp6m90
-X-Gm-Gg: AYBFou36S8HwfZfpUkgek+IS52up0y830lVh4ai0XQNptERZYXxbUF6xeJduiM561ng
-	JI/aabRnw8XhjntuH+hphlEKonK10haqRhWbO4BJcTxMkFxTdlinbOOn2aBUMyPWJ4Hy9tM2J9L
-	Ztlq6oNHkPcAc5MdazlDMkBG1ogSAM2f3ad22oQH7CJcVxzQsmqftv+n9aurcXC+rDdCDzpPqne
-	Bkd+nronPl658FXXOuDkcbX/n3MylaqQiMlSZvRvofZQUYHnDgbVt8sZAhYOqiRN9rNok5dMwTp
-	onrcczwRj5Jl/ua8eeNjYIjC3O24IwAmnVzWvy9Myv86yZny3LQ1gIBsLxDoR3VItDSEZal7gaY
-	4BWvpluYbyK1OEmneG0hokAEOyj9VuXjH2Vq3kwHe2pCfUKndZkp9+0Wgu79ZiOA0jZsWafgoEN
-	yCY+S898e9Wjw2+LUsgWtVrI/e0os43DMS8Fqs1fy+XlWrxXnPWgEuoLeh5ttrJyFsjL06enu7I
-	EFhPCCYBDp+KG4Y6q3XjXPE6cr7HD+gTjrZZ1TRi4LOYp0g+K0CSyCXR11q2o+lJWQQDJZ7XQ0b
-	ggzqtirg8zH5ibtgKKy+xlUEPdlHsJv0RdXJKffBjUQBdYHkEOe3FZc1wUijcElNr/NZRHKCNNa
-	pfKE2XduQ+b7m29TwpA95sC01vJJaudKgPwUrgW48EnkEp30bHht9UdOukuJDUPQoeqX5ZDCw+R
-	x57cWsC78YGDDpXyJIbJShDMBkxRyo4nvKuRqEMbzJ85kEeHVIW5HwhxEvR9Cz1Q3Y98rbzvXQO
-	4JQz7cOswkHwUL8s3/1JEglBxFHxny2kkA=
-X-Received: by 2002:a05:600c:3b07:b0:4bb:5de1:e912 with SMTP id 5b1f17b1804b1-4bb5de1f216mr129069365e9.1.1794748942112;
-        Sun, 15 Nov 2026 05:22:22 -0800 (PST)
-Received: from jernej-laptop ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm18406672f8f.1.2026.11.15.05.22.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 05:22:21 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH v2 0/3] arm64: dts: allwinner: h6: Enable GPU and CPU DVFS on more boards
-Date: Sun, 15 Nov 2026 14:22:11 +0100
-Message-ID: <20261115132215.289236-1-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGYOumrN
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794749257;
+	b=RVRunVpk9xrPhyVMM6OdPVLmANjA3QeEayxZfCJuPHSdoitS2FC6kdu2X24PsPkui5TS
+	 aGiDKOJH5hd+twfAByRPPNSeiRqf9uF/KJYjfRyfl2f3+l4qV0fjQ9hnfvVH0xsgJzb9I
+	 MvKz6uad4Bq+y2AOoXsaBx4mV+epdCmT5iA80+0w4sBC+Q0DgaTr322KbXZuu3oz+sKB4
+	 3CiU5fjlzPODOvt197Hb0VOKZTc9NMj+DGRfljP6f3RiRuOPCOeniTkayj17Mdbl7YT0o
+	 crvpe533eGUImSZRHTMZIxAue3LUKUGWodKbHJyiJsJte0XPHfpXwk5ZC1c3v7aSfgQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794749257;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qxCmilCZAfa92h6cZG6evZorYW89HH9VZP60+AaswCI=;
+	b=JwevuFBGP1x/aAGEOVlRpXbokMteU/yeEynfNAm0VXU4oB1g6zIYRT6wtcYXuseLHR+/
+	 F3wWxsBw/yfesnl3+BBT2ENZOn+NfzNb7hViqScBp9gDMs9W1xgYqvmg2yOyFyZ9JEmkz
+	 6HS6U1mTt4GFpdQrLnuvjhil8EBWicH5vVIkxy6jUu6GBSkikNwknwcuaXOteO2vwQcJk
+	 LQFiATbrLJJsXd3JKyEf1Gs1SslZmMi2FNts+1vErcWv6PCzcOHdIBEkiIv7MCNWmyM8o
+	 tmPzgwDrzjS430eb3VCEBbe3bxCqpHm2BsdZPr+8wW9hGUSqWnHq8w5WUu8AAcYQmww==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 732371F000C9;
+	Sun, 15 Nov 2026 13:27:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794749257;
+	bh=qxCmilCZAfa92h6cZG6evZorYW89HH9VZP60+AaswCI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=SGYOumrNg83OYrL/6mrzN/pOn19eLy+goLjlD8SUfTMmk33iWxEW63UGo7ZIywpZd
+	 F0AMeBLT0MlLjMX81I0s5xliSS6p6jdNVXZIl5xnNSZ2iHdmbCqeUGaYfpaKLJ0kfU
+	 gMmsYz3lyfyQizpAD5hRXDyk5a0q3mqIgbZZMPXO5/MeMiOSFar08UpTj1a35e6ClX
+	 6Ec2myPSrpVID3NLTHtdRHNlXrez+oZyKVXablooCBnIvRJHVqKOT7FAB5w7YVyRX1
+	 YMzxum/avIQEMQj8SDa7kRimxzaYNDFDrS3tV71nlmpmIPL+KozN2zyn5IihHphtQu
+	 Afa0tjMFWViwA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EE6614A0B7;
+	Sun, 15 Nov 2026 13:27:35 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Sun, 15 Nov 2026 14:27:32 +0100
+Subject: [PATCH v6 2/5] dt-bindings: soc: fsl: layerscape-dcfg: add the
+ LX2160A pad-mux child
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,31 +83,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-2-fbdce4565a5c@free.fr>
+References: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
+In-Reply-To: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
+To: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
+ Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ Vladimir Oltean <vladimir.oltean@nxp.com>, 
+ Ioana Ciornei <ioana.ciornei@nxp.com>, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794749254; l=1675;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=rINtrhuavppUlRpXg6MQkeI27TcZ5wfEkTX3E6hc7Y8=;
+ b=OiWIs6Jpbhy+7yJvjsGKgfipFgGthExM6sYdvd5Shf/MzGz75jknjv63HZ6tuo4IsNb6vl6Uz
+ 79UpTFqEoafB96PnnLmgmu5QHsLfXKL0Vt2StSCy2UUcoEOFsmTE6H7
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 7bit
 
-Most H6 boards don't use the GPU OPP table, and the Orange Pi One Plus
-and Lite2 lack CPU DVFS as well, so their GPU and CPU run at a fixed
-clock rate. This series enables both.
+From: Vincent Jardin <vjardin@free.fr>
 
-Changes in v2:
-- new patch 1: add regulator-ramp-delay to vdd-cpu and vdd-gpu on the
-  Orange Pi One Plus and Lite2, like on the other AXP805-based H6 boards
+On the LX2160A the DCFG node holds the pad mux, overridden through its
+DCSR view. Allow fsl,lx2160a-dcfg with simple-mfd, so that the child is
+populated, and the pinctrl child, on the LX2160A only.
 
-Link to v1: https://lore.kernel.org/linux-sunxi/20261104184940.882833-1-jernej.skrabec@gmail.com/
+Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+ .../bindings/soc/fsl/fsl,layerscape-dcfg.yaml          | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-Jernej Skrabec (3):
-  arm64: dts: allwinner: h6: orangepi: Add regulator ramp delays
-  arm64: dts: allwinner: h6: Add GPU OPP table to all boards
-  arm64: dts: allwinner: h6: orangepi: Enable CPU frequency scaling
+diff --git a/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml b/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
+index fc14fd0bf84b..bb9dbcfec188 100644
+--- a/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
++++ b/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
+@@ -32,6 +32,7 @@ properties:
+       - items:
+           - enum:
+               - fsl,ls1028a-dcfg
++              - fsl,lx2160a-dcfg
+           - const: syscon
+           - const: simple-mfd
+ 
+@@ -66,10 +67,27 @@ patternProperties:
+   "^clock-controller@[0-9a-f]+$":
+     $ref: /schemas/clock/fsl,flexspi-clock.yaml#
+ 
++  "^pinctrl@[0-9a-f]+$":
++    $ref: /schemas/pinctrl/fsl,lx2160a-rcw-pinmux.yaml#
++    description:
++      The pad muxes of the RCW on the LX2160A, at their RCWSR12 to RCWSR14
++      and RCWSR27 windows, overridden through the DCSR view of this block.
++
+ required:
+   - compatible
+   - reg
+ 
++allOf:
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              const: fsl,lx2160a-dcfg
++    then:
++      patternProperties:
++        "^pinctrl@[0-9a-f]+$": false
++
+ additionalProperties: false
+ 
+ examples:
 
- arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts | 1 +
- arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi  | 8 ++++++++
- arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64.dts   | 1 +
- arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi     | 1 +
- 4 files changed, 11 insertions(+)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
 2.43.0
+
 
