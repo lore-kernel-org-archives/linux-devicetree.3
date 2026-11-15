@@ -1,98 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794729594;
-	b=xjyUoP/9a4CyKxx2E/bczPe+DXgWG2wgnKTz9ueKwbeR7BxMul2slaRZ/MLlmQV0XKRq
-	 eLUKpgW9+xiZAAh1kXcJI9Qu8Z9kc0RhL2hvG0dGe3+/Fa+iXOUTECeCmJOLqz+rAAVH4
-	 xb44zDIyNXbDA7N41JWWMQTXup0NjhxnP7DCl1WaxbSsFQ9MMH6EQz5TxoiesBxJiWRri
-	 LIzH/LPEBaVN6URzVYcyEXu54+B13gKGpwpu6I52MMkYuajJA7d41Oyqy+qN5Fb3rK6FJ
-	 fqrTMDL5XFx/cOj/Hn5P4wOyAnN1UT6KE+MKklb7kJP+zP7V1r1gwEQc+tUaWg40NIQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794729594;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=uTDHqE1Lg6G8+bxeAtYf/i35aEgyOGsm68xtWenUwWc=;
-	b=XC4ytkXFAScH0esQ6rUaedsEFTJjVmeRt6gC18xlhEIOCO9b9cbkMQOSvZjsDhIABJzr
-	 Gz7+35NZ5RN4sMT27Uw7Y4M2epfB1o6Czr4USRgbseJ7HsL1oDDiWlBKBIidOFwDv1Rai
-	 xaTk6R4vU+/JX+sJbkOg/AorPaIT+lHbNBYQSXjzyClZFqvMo9jmgPrHtZE/Da6J1OxsJ
-	 qiStbwGDBy26SkmdzN8BH/twx3Ry1eK9e1aDSlO/HwnweuM8Up0/Tz5eoq56HUxjHtvbh
-	 PVW01+Kcf8ybHNDdWFsjovFW5JrO3MTj7oQNOPuDK3u0DjSm0OjEBOS0xnEUTPCCAjw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l3ZsFgXj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.175
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=89.221.237.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794730168;
+	b=sMntO31Zy8iP1lhTQi6FdWAJ3CEVFfasAW2b8D6Fda9D0/utdf2IVTQt+64JwqcKIpe6
+	 eFgGnJG5H+/HP2Zk6VQZA01q/BX4gOSMk4zOYdVV7r7elIRWD/FdzS2vbD2uBqlpVwdAv
+	 4NbGWTrnMVD0hNgpY+yt974fnv/ZoNH2X1E/P8MFOhnDBLRbXo+YM4G2ov+UTAcxwtfnZ
+	 vtse99HcS3xfGgRRPztNqqglaBQeBUu+zThnKmPppbVlUGSRSoDarNSeGPCcAIxNqY46O
+	 gYhFq2uaaSfCW/47kEVNT3o2XPYXa5w0ATPVWHZRR/jl8UwKPbYG341DJJwG36Mi8ow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794730168;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Mailru-Src:X-7564579A:X-77F55803:X-7FA49CB5:X-C1DE0DAB:X-C8649E89:
+	 X-D57D3AED:X-Mailru-Sender:X-Mras;
+	bh=bVTKd2uB1X07Sl8212JOgVG2WhKKXS5Zhpj8Uuhn9FI=;
+	b=noH5DfvBpjnZ9pQjUpDQ4ENUzbxPcjtUO/WW45hCVwNUGQgMAbkcnqGQIHXiYB7BUCE8
+	 qW52W0q0iwIp6vCHJzQL252//DVprgY7c6rVQe0a1o2m5sBvBFkjr4RPzK+Vp73GrFnqA
+	 N1oInBix8BnzuFkXmf76XlmFjlfEAFrWfZFsRxBB/mhOznMNk4++WU3tkRQy/cXW/1VQw
+	 KT5x7Fy2d2fUXrurnWlr5t9KVDw05EV05BRsXL78pzKlBGxBcpnHESzJ05ckLNsgJNUSl
+	 HBDuwfIjlF3uXskzxYv3g0dNhOuumowI0WnfUQnHwfapQZLHrDLOCO5+5hKY+XZ93Jw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mail.ru;
+	spf=pass smtp.mailfrom=mail.ru;
+	dkim=pass header.d=mail.ru header.i=@mail.ru header.a=rsa-sha256 header.s=mail4 header.b=XAIJO3W5;
+	arc=none smtp.remote-ip=89.221.237.177
+Received: from send82.i.mail.ru (send82.i.mail.ru [89.221.237.177])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1488606A31D
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 07:59:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1488606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D08606A31A;
+	Sun, 15 Nov 2026 08:09:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27D08606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l3ZsFgXj
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3ad3ef75223so2861681fa.1
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 23:59:53 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794729592; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qumAItYAqu2d2cuQ526FdrCZ6GgdBc4SktlWt0x21jG9pVPm5DkEJG8R3zfU0tCEOM
-         rPbOnmixC4kbrS3z6H9FR9vr8pIGNDtRraA/ECgwsDQTF639s0DAc4ygt1LxLhmkuZ12
-         cS+b+NmwQ5WuGr5YYTMhxC6EukqB/jYaSPqN78PPur42apPjcOA4LHmLqiSJCQas9b4u
-         dS3I9tIf8RSpjrAzSrK4JBi3b3Zor1jBKwLD1cfDKorXiLl8CawKs1zlijt5HZJ711VA
-         sSuKcGIrZHN06LM8p3Rz5qg6Ec8zzqrdB2uA/tY7j1fVONc5Nfw4fFVzlpnTli5rt47q
-         Bd9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=uTDHqE1Lg6G8+bxeAtYf/i35aEgyOGsm68xtWenUwWc=;
-        fh=COUlEg+NHZ6LSdAIW75AjOlcmWlxiZSIFJbB67Yp8A4=;
-        b=jFoJFEWEQhjhb8/uXHfNTZRMIr4GgjrdcZjkeHh6pVXU8MBQO1YuGP7l7XSa858zgn
-         4Jqq3D04JXz9JFBukcp0Z9N1oYaMLHxiYXpt4VSy5Ri3pnxfXTcB7yg4DKezxK1nI03l
-         S6ZG3O48ZbwoyBAWHpsbWXZbsbEJs3j0HrMdgWhDlaqz0lqjI36dFxhw+76fs24U3+Vq
-         eoIGhE7M5mPBRK+yWjwjzIeCjmj+QioeaaYVpWXndQmD/EIqMRaneHrIhafFKlBzl5Lr
-         oJObhqmELV7lwv6WZDTxwGuli4VczGyZQUfC31pkKanJuiM54KYKyQ9oDf+9ljtnXBjM
-         Vw2w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794729592; x=1795334392; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uTDHqE1Lg6G8+bxeAtYf/i35aEgyOGsm68xtWenUwWc=;
-        b=l3ZsFgXjqQaUHCu/uCWOhjK/dyHAiUzR+hi2m0HmL1j93hV0uGsEBJsWQGdli/PgCR
-         1rv+SVpAaBEzQxHWhcuUuCGzyvRzqYMqQ4/ncvBK6a/61yfT8HUkAn/6C+u4ZI3w16yp
-         oz8palOkMILd5b6Frdbg+kf6ZE5X2l1gv3fbLAwhEIGbfhpEriGaTI9QbMcUl49HiYsP
-         iGpPErs1fUrEv6pRfU2xuOmqNlWQNUCZ5TKgNZmVETnIYRCcL/kCGBw0oxsmKB7XzLhM
-         u7aznga62Ev9fV6nD8R32SRlqRLoIf0DA5HM+QGFAJZXEwYaGbIo0FFbRo6/ysveACVY
-         MjRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794729592; x=1795334392;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uTDHqE1Lg6G8+bxeAtYf/i35aEgyOGsm68xtWenUwWc=;
-        b=11Mjhq7zgsQKOHT4FdHnrwwY5CreO0KybqOszn1PY4EMHf9ZocX7lzTDf5lB8/lm+J
-         M0pPB3GTWDbwUEnMoKpUDXLbOAqnhe4f+N9QUn6XIHIZ1Au2gTEyzKTPQ5W67ZOQnUFs
-         2DywbKCPxcVujSKZxY2rWp7rAiF3j9gjojA/iOUNg4laFKUHun7ndkDP4+IFJO0WUDb2
-         nwc1INXN7ksxsJArUSstbFDKSbZHpTGaIa4/R7Aps/Mplj5JIs7pHAgM88Cg9/LNn+vW
-         O+ZJjmxs1aiBPkL51fH7bPAPcQkrTjT56Z+d//hff6NGPX8n6p7NyEiGIOnyi/vE7lo6
-         RFLg==
-X-Gm-Message-State: APuU4Z+VY8un2PCDq9I0LtXUSDcQnTKIMXFuV1tMc1eYmbCPr9JeeS96
-	JH9i4yKEeN/s6JVa6JbtP6TBof5v/PSuE7LTzgfXsHNmbb6NeDH7trCHBgakRleA1b4gOZnZKDe
-	77Ys/sQJi9ndiL3/iN4mJBkbLxp9ZZA0=
-X-Gm-Gg: AYBFou2jb0OcpXSjjjosIl0hrp8CKofU/J3UEYqc4Mo/6i4VChZh/WXemBJ9PYFLgyf
-	DJ3PsHvyKJzhw8dJaPWew7lQAcQlPa+djNaZUhUtkJl5l0FaNWKaZtpr9UmKD8NsRbKJUoXEQJC
-	eWtKaZlShc2/oxQAmR/mi2mQWuwsnizLbpMQFcgRxEG38uqJGIh65Gu/NCxvnfpsnyl7xVh2hRd
-	OYoK+tJU9619944UYyqBuXV99ege7H5Zd1La6tLHlZqirhey9c9J0oGy3Ltarl9iltMNTM1FFBp
-	2fqE+S3YuKokR+etxzvPL+jiqiZT/9bqFaWfdHRmzyopZqsBm0ZaSYSy+QnkE8u5wPgsCSn7K1w
-	czgKVEeMi/75h9ViIP6Q8k74y+SA6eB0oyBDQ+c39zjIHs7kc6I0xWYTI+//gWikCNKN366c=
-X-Received: by 2002:a05:6512:6c5:b0:5bf:ce24:38c8 with SMTP id
- 2adb3069b0e04-5c1709fc01bmr2810875e87.4.1794729591806; Sat, 14 Nov 2026
- 23:59:51 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=mail.ru header.i=@mail.ru header.a=rsa-sha256 header.s=mail4 header.b=XAIJO3W5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
+	s=mail4; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:
+	To:From:From:Sender:Reply-To:To:Cc:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
+	X-Cloud-Ids:Disposition-Notification-To;
+	bh=bVTKd2uB1X07Sl8212JOgVG2WhKKXS5Zhpj8Uuhn9FI=; t=1794730166; x=1794820166; 
+	b=XAIJO3W5RzdDEuEAMySh2DkAPUcA1MV0ILVgxJxOkCcxGGzkyjR5GDKYt5kNnvcB9CDHJdBaVXW
+	Tuz8l1wigLLJB4OdPRK06J+DmobabA1hovXyiV/UO4WeMNlHCxBJUAYi+44cRx/HHmdAQMEq8ED65
+	z15BXpFPgsUwUeqHtZEwZSwEKIAUE7jUbJlC6yl/xhGWb2nGjBElzRlC/zhuA7mH62OY8Dvh0e/G0
+	a1e1XFHT3hiX6O7Z2GIc+luSLpfiuQrY+U4xrPTwoOKlnqbve7kXvIVnduSKub2WB+y+kVSLQQ7br
+	MntGk+a55OaTdD9jdkWxgfwccY38Z4jOHCcw==;
+Received: by exim-smtp-canary-30-844c8fc8c7-6jd66 with esmtpa (envelope-from <misha.zavertkin@mail.ru>)
+	id 1xSVIa-00000000I1j-42cY; Sun, 15 Nov 2026 11:09:17 +0300
+From: Michael Zavertkin <misha.zavertkin@mail.ru>
+To: linux-i2c@vger.kernel.org
+Cc: Rustam Adilov <adilov@disroot.org>,
+	Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Zavertkin <misha.zavertkin@mail.ru>
+Subject: [PATCH v3 0/2] i2c: rtl9300: remove IO_MODE configuration
+Date: Sun, 15 Nov 2026 15:08:53 +0700
+Message-ID: <cover.1794728344.git.misha.zavertkin@mail.ru>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,24 +73,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113-mmu600-php-v1-0-231196049a3b@gmail.com>
- <20261113-mmu600-php-v1-9-231196049a3b@gmail.com> <sashiko-outbox-214777@kernel.org>
-In-Reply-To: <sashiko-outbox-214777@kernel.org>
-From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Sat, 14 Nov 2026 23:59:40 -0800
-X-Gm-Features: AclHuK-JybsEZ6nSpOrtN4adzzDq3bM7zDeeZmmerdCe2Ul1Cz2qTLFRAuITT4w
-Message-ID: <CAEy9hNVh_DL57=pa4_cEMCVC4j_mLhWCVsfRdqZ1=Pu_QHJakw@mail.gmail.com>
-Subject: Re: [PATCH 9/9] arm64: dts: rockchip: Enable the RK3588 PHP SMMU
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-ide@vger.kernel.org, robh@kernel.org, 
-	conor+dt@kernel.org, dlemoal@kernel.org, cassel@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Authentication-Results: exim-smtp-canary-30-844c8fc8c7-6jd66; auth=pass smtp.auth=misha.zavertkin@mail.ru smtp.mailfrom=misha.zavertkin@mail.ru
+X-Mailru-Src: smtp
+X-7564579A: B8F34718100C35BD
+X-77F55803: 4F1203BC0FB41BD93F98A09C3FD4AFA267E9C197542936F1D72816242C8E930F182A05F538085040788266B2FCE13DE73DE06ABAFEAF6705060D11EBF344DFE12D3D455C7CCA3DF1A5E3C45D6879BF4E
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE7B264C8851FD8E810EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637FE9EFE935CD7C6AE8638F802B75D45FF914D58D5BE9E6BC1A93B80C6DEB9DEE97C6FB206A91F05B247607D0661665F0F2E070BE324C7D3C4D500FB7FFEFF695EBB0A4F435E46E6718B35066C979671628AA50765F79006377C70927E34808485389733CBF5DBD5E9D5E8D9A59859A8B6F7EC8CC465A83DA3CC7F00164DA146DA6F5DAA56C3B73B237318B6A418E8EAB8090A508E0FED6299176DF2183F8FC7C088988B59C992DAD0CD04E86FAF290E2DB606B96278B59C421DD303D21008E29813377AFFFEAFD269A417C69337E82CC2E827F84554CEF50127C277FBC8AE2E8BA83251EDC214901ED5E8D9A59859A8B6463FC9783E6330D7089D37D7C0E48F6C5571747095F342E88FB05168BE4CE3AF
+X-C1DE0DAB: 0D63561A33F958A584D0F4314A0B54FB5002B1117B3ED696E36F58C52888A52ECCE9A60C8CB01D7C823CB91A9FED034534781492E4B8EEAD220496FFA5CD4785C79554A2A72441328621D336A7BC284946AD531847A6065A17B107DEF921CE79BDAD6C7F3747799A
+X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE1918E10F71CB4DF9F9677DD89D51EBB774225B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D659BCC82A82B51B3530185D28D066416E2BB405E3C31290BA89390CCEC15992ECC870B6660B8847369DB8341EE9D5BE9A0AB8E1FF289D759174438C348CF61FFE7FA6D344E22782C04D52EE4E5D9E54FDA427302E973F6434AB8511FE41C8941D68F571C199C4BE91E79E69A34BD5DD98C9F0A6D2C91ED28CB6
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXOcIETfglQORZ0zpDET4ZrlAo0bq3TDyw5v+G6YiroYwrTSeL17PiTE=
+X-Mailru-Sender: FD65D7C492470CAE44AF3B5ACDA31542B549799C38C167E887A35C9C7BBE74BEA0A89D6FBA911447E5E7D33C24B88A05F767ED260C4F5E398B67290C0B8F2C0D0ACA136676B1AD1C82BADC8C81B40964835B6B713A4867D9C77752E0C033A69E3453F38A29522196
+X-Mras: Ok
 
-> Does enabling mmu600_php break deep system suspend and resume while
-> arm_smmu_driver lacks .driver.pm sleep callbacks?
+i2c driver for RTL9607C used to configure IO_MODE register. The register
+is global and responsible for configuring SoC pins, therefore it should
+belong to pinctrl driver.
 
-Yes. That is why the cover letter asks to hold this patch until [1],
-which adds the sleep ops, is merged. With [1], deep suspend passed 3/3.
-v2 will repeat the dependency.
+SoC-specific pinctrl driver is WIP (waiting for these patches in OpenWRT),
+but pinctrl-single could be used instead.
 
-[1] https://lore.kernel.org/r/20260929034510.2023173-1-praan@google.com
+While added compatible realtek,rtl9607c-i2c relies on pinctrl driver,
+old realtek,rtl9607-i2c left for backward compatibility.
+
+Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+---
+Changes in v3:
+- Added Acked-by
+- Link to v2: https://patch.msgid.link/cover.1791611999.git.misha.zavertkin@mail.ru
+---
+Changes in v2:
+- Backward compatibility achieved by adding new compatible value. Old
+  one is marked as deprecated
+- Link to v1: https://patch.msgid.link/cover.1791127538.git.misha.zavertkin@mail.ru
+---
+Michael Zavertkin (2):
+  i2c: rtl9300: add realtek,rtl9607c-i2c compatible
+  dt-bindings: i2c: rtl9300: add 'rtl9607c-i2c'
+
+ .../bindings/i2c/realtek,rtl9301-i2c.yaml     | 20 ++++++++++++++++++-
+ drivers/i2c/busses/i2c-rtl9300.c              | 15 ++++++++++----
+ 2 files changed, 30 insertions(+), 5 deletions(-)
+
+-- 
+2.55.0
+
