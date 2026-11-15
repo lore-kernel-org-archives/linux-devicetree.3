@@ -1,98 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794755144;
-	b=vdghqAWAHChr/HQJlJ8XXRE75txb+LXHf/8rOECAHtKNFJfavSvZ4Zr4F1iVZXhN1T1+
-	 +OZvSMDzsH63wLVmrqrKOu8kKOm7wTkkUQkobtJMAcecP2NXQ/OAJGg8wxk+p7Ql2zDQl
-	 BucbVO2jWBWDXIMZvPC67JAeSz8VooBl5fXF0KSHhiOqUycceXby9g4Cqj5mleVTYUHlK
-	 N1zcTw43rd0Eh3gjMd2qhrlEehx8XoSa1KVU0+PxghCyjmR9c3Fzb20JrhjCbNUzdz7Yn
-	 WIQpwDIj5B67Ou5TV/8tcf2Ct1o3nfiTSfgWKfIi9/KskXPZ1fj1xobX/7qZnphNKaw==
+	t=1794755244;
+	b=a44THCc/eMqFSeE045yfvJAZB2VOBV71nY8eyRfXiC1CJ1CDbvL7EqdQXlrmm4vyB4oE
+	 HS81a6bv8uTVXlwrsVKbTRtmKskTJrC4yDvcTzKP2Z0LDkrL8yME1qO9N3nEQVSKnqsVM
+	 mwUtsZj/gaAw3mdDoY6Mi/XLKChC4uZ5SWz27D5RLLK2J5xIUHtpTEhRkdXD9myxRDgPR
+	 wc/7XxL2jDhPNu/0mqoS3GZivrlT9TiDsxK3qGJaeDyqBeVmriG5CdvMFbab46jTr8NjN
+	 fxlpLCE/UiMrV3mxUF30s0nLNrS9HAxBut4kHLIF2txZjql8vYbIXlAUwuTkAZ0xJTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794755144;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=LNKJPtzHb1J7PqtXpGxzA28qSovY5i1QlYlXq6WtWl8=;
-	b=Dtbz4pNmJyOxK1LqWrhEThGVVVQ7HRC38FEZU2shDWghjxfymG+ezfnhccbRh8B0FOZn
-	 CREOtZJWqNmfZPjFj+8BViXibvTwBYbep0ZG0AQ5exFB53Xa+J78EadyfoShiMiGXaDqF
-	 rIn1/is6ahTMrkaA98za1Ba0xwGzCuFVC+5saxwtwaRzpQVkzD8h85s3cVVIzDt/XC65L
-	 TT9DjFrrYA4vW/KP5Dg84ISdjh0QE0NI9SeQlaUN3ZncKE3lZzaO2Eo0gLhMsPvY7q/2C
-	 FdVgCPy/bMelMZY2Ppei8z1lFv1K/edSC90MN/+a/uQEwDMNA6qQPIgioFyUGuoE9ew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794755244;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=cL09+MG0ZraL2bAaQRxHl7M+d42ISuPbh90WavM9X8A=;
+	b=w8aVAEzttccjT/N/ikQU+h3Y9n1VClTeHlBW03a+UOvX5KDeQXeCFScP1S+IW+yuyFi6
+	 ue9LP1dDVy6On1upDgLDNi3KPLm+zBujIb/ftyUDQ+4kJXslEZQA2nyqcq64JW2iBmMxb
+	 crFsvtmanoz0l/wXw8ioLko6addWHJGkLFiBGL64A1BYKhA0xPoy1DH3YgqpcPRj/1WP9
+	 VOTj4yXTknH9H8Q9o/1FNRqsppXEiksHPgc3fuzKJedg+g9hQEQsk+xLkVyyHLa9Ic/w5
+	 Fgk7qQ8a7GFRMxzy/+h+XkJrv94gQpis5jK19PbdQnsBnh/7IQ/VX4cQyYjN+pN0JWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fca1iXU1;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FXLNTbW+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B078606A323
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 15:05:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B078606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98D4606A32D;
+	Sun, 15 Nov 2026 15:07:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fca1iXU1
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4bb6adaf0f1so2883695e9.0
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 07:05:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794755142; x=1795359942; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LNKJPtzHb1J7PqtXpGxzA28qSovY5i1QlYlXq6WtWl8=;
-        b=fca1iXU1Z15peVjSm+PNEsPgkQf2AEotII2E+OLuHx4uwukngxu6ypGXIW9zTyKHAn
-         /XFKOxq90k0saJagNt/ypJTyVeLaXZ5+9OHqgmnIevW5sKS2GaYvI8k49gDIYxtqau71
-         hdB8Tyu2SaTGVvStSFxP9cPRoF1eNnBxmvelpeNf1D9wSx6HV4XOSuqGSOqSDZnm0XFK
-         7/+Kkczsf8RPXVUDDEU1eLTedkk0eHubWhjEviZ8G3wVbke4LXfcgAx2Ps8ZaSACbhRX
-         o14V1Ee0i3g6YNlYDjQgctQWh00nVh/69pImTODhlcZk5JxVI06+NTPihq9+kOauQTzb
-         4dHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794755142; x=1795359942;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LNKJPtzHb1J7PqtXpGxzA28qSovY5i1QlYlXq6WtWl8=;
-        b=HBphouL3M3XNVhJB3sZwDzKFHKattuZC573a+BimcYbcbV0GsIObaDASFQvmknFg2i
-         qqywXcHnUgUqgebiS/5t5MWKsh4wmbj4EP/+SCSbjLt4j43oHiyXxsfA5jZTNT+JGjMq
-         5LX7mqRJwqo/CofYWFPKAHObwkywURuVVRgRWDKXIgpuPyRCuaVux68Wl5/zBn/iTKJk
-         Xd18B4Qa0Mds/k0gO4d9gg5A7trIsMddTeWW/j+nhEEn0IJfbIIH/R/YkSQHHFgNAOpu
-         y+ikJtV7mC5Tj3uT5n+s5fy5jtADvmpFCmsUZm7zb7vlONIIcsaBsLIaxuZi13ihr/lc
-         2htA==
-X-Gm-Message-State: APuU4Z9UHac1atGruWPLUCw3BU0mp9Lb5/GIqLsPptGq9AmkUCc5rQ6D
-	VpNaTQQkmHie1idMO5dM0PzpBjoAvTUHHS3eS8npDKUSykr8t+bSuFET
-X-Gm-Gg: AYBFou2jjMj9Em3htAWu765bQtMrumWqEe2l8qPGkgFrNTEYh4Dgi3HgIe+k2B89PyE
-	Jp29qCTIbdNR5uOEZYcPR+AztVT46VtcqiSpso7oX1sn8qMWjJZPSbHoyARaOO4A83LkIFmfxgg
-	Ow6EgbE7Rfa2eASQpZSe2o+wtysbAoWsfMlrclFqxqxd51sEP35H4v+qgM7/BKuxbEYDyY+kl9Y
-	GAlmQlyUfMHR6gxInwlrQM+WI5CxquNAGXM7cfefygpwIVnlvG8vAtOSpG6rGCN6MVf69l5N4og
-	r0m37GTwpXeEepcymTQrPHKfchiq/A2JsY2+0DpjSezdoNuxHhakMwuMdmz7rATqqaoyxfqPlDe
-	keBa1+0FqpqpIuWSfk5l8JaAJ//ucbYy/5DOeaCT+AzyBSxVYd5pGA7IBfhVSoylU4MdZi6B51V
-	7ISC4jYDWGqLbDk8NXbGznGC4+vCUNe8hYPdPef4NszcyF+hjxISFAuxEUKqX8NNnIgTDzNw+pz
-	rrRnIVfYRAFRH3xo6EHV7urqZb4sLv+QeotEQD+Whir10kZTGPZoCpwVmv0Boj1MxAgb7p2hJd1
-	+1XSRGzmIh5nM44OfU4zMkGTyqem7161gfTidy7dV/9YJ5zNTl/HUaKKdMVOlJxFmqqbG9RolUD
-	kvzMvB+5UAm6oDU7aIObCXYuDszkeNQQCTHfumERDJrAdp9wdCM38yruMcO5v9ybFtBpy7nYPA5
-	BM6SviHoasnb71C0AKZSJmnF1KjQAMeZCya9b3FbNrT2bjoSoFInxg8hxoKuLB9+T04wuSo4AOf
-	PntrMFNPOsuIg0=
-X-Received: by 2002:a05:600c:3114:b0:4a2:167a:c939 with SMTP id 5b1f17b1804b1-4bb55a5de41mr169387015e9.21.1794755142424;
-        Sun, 15 Nov 2026 07:05:42 -0800 (PST)
-Received: from jernej-laptop ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e293540sm313567485e9.8.2026.11.15.07.05.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 07:05:41 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH] arm64: dts: allwinner: yuzukihd-chameleon: Enable the GPU
-Date: Sun, 15 Nov 2026 16:05:36 +0100
-Message-ID: <20261115150536.16212-1-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FXLNTbW+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 299131F000C5;
+	Sun, 15 Nov 2026 15:07:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794755244;
+	bh=cL09+MG0ZraL2bAaQRxHl7M+d42ISuPbh90WavM9X8A=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=FXLNTbW+iVvDwNWFgM46HGA4NeJHET4qpPgmsZdNpf3ul3N/NchPopYgjVN5FKY3W
+	 RGgnm1XxSGZPLPWfgRRDlPOy7BgdrDlcuY+xpCqdtTwI8jtmi7ZR/34doybpY1/kep
+	 o3MY/VNoqtMryzzFCfTJwWzE9w5y1RoLKaM7ftymTcCqK4a0ixncPLzkOdO56a+8Vd
+	 cw/uffczcLbgIxHEB+adDO0Lj8nCAaeZC8HgAZTVAS6y69q9+d4AetDXasUOVmYubI
+	 OmUBPMIo/CWZHwC+qFd4zS2Mgz/xp6MbqGA97jde2Xk69LpQuMD9uavdkiZzwG4s9Z
+	 t6azmQ2Mpel6w==
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261115132215.289236-1-jernej.skrabec@gmail.com>
+References: <20261115132215.289236-1-jernej.skrabec@gmail.com>
+Subject: Re: [PATCH v2 0/3] arm64: dts: allwinner: h6: Enable GPU and CPU
+ DVFS on more boards
+Message-Id: <179475524292.3273316.2909957727689381668.b4-ty@kernel.org>
+Date: Sun, 15 Nov 2026 23:07:22 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,34 +61,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.2
 
-The Mali GPU is supplied by DCDC1, like on other AXP313A based H618
-boards. Enable it.
+On Sun, 15 Nov 2026 14:22:11 +0100, Jernej Skrabec wrote:
+> Most H6 boards don't use the GPU OPP table, and the Orange Pi One Plus
+> and Lite2 lack CPU DVFS as well, so their GPU and CPU run at a fixed
+> clock rate. This series enables both.
+> 
+> Changes in v2:
+> - new patch 1: add regulator-ramp-delay to vdd-cpu and vdd-gpu on the
+>   Orange Pi One Plus and Lite2, like on the other AXP805-based H6 boards
+> 
+> [...]
 
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
----
- .../boot/dts/allwinner/sun50i-h618-yuzukihd-chameleon.dts    | 5 +++++
- 1 file changed, 5 insertions(+)
+Applied to sunxi/dt-for-7.5 in sunxi, thanks!
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h618-yuzukihd-chameleon.dts b/arch/arm64/boot/dts/allwinner/sun50i-h618-yuzukihd-chameleon.dts
-index eae56908b9b4..9e275f0217ec 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h618-yuzukihd-chameleon.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h618-yuzukihd-chameleon.dts
-@@ -68,6 +68,11 @@ &ehci3 {
- 	status = "okay";
- };
- 
-+&gpu {
-+	mali-supply = <&reg_dcdc1>;
-+	status = "okay";
-+};
-+
- &mmc0 {
- 	bus-width = <4>;
- 	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>;	/* PF6 */
+[1/3] arm64: dts: allwinner: h6: orangepi: Add regulator ramp delays
+      https://git.kernel.org/sunxi/linux/c/6442683b687c
+[2/3] arm64: dts: allwinner: h6: Add GPU OPP table to all boards
+      https://git.kernel.org/sunxi/linux/c/348a4f82f13b
+[3/3] arm64: dts: allwinner: h6: orangepi: Enable CPU frequency scaling
+      https://git.kernel.org/sunxi/linux/c/6527dd6be62e
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+Best regards,
 -- 
-2.43.0
+Chen-Yu Tsai <wens@kernel.org>
 
