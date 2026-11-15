@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.240.192
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794769840;
-	b=FJjQ6ZL7fnYyc+lUpnw/bNzXp+Wnnfgbz56HTJ4gn27m5gBNF5ONyr5GaFal6aqRySSk
-	 19ROmMTQNoDhxp9PzSvEZnAKkWSEnZWpPvTYSNtiVvvCHJCUUFdrH6WAAQ14xXq6Fy4RT
-	 zAPtGrjpb7XZoIgpwUpU87gd271zpLuRFxnpHRu+hVLhTxlHKjzyZq6HIujnJjZH4AOlt
-	 bswTnswglOF/vPFbp+ehfz/wpYLGXvjeW0BXaeKWk6njjXjHwKybYzJu+n7dzfmXu9nWP
-	 VUBWG6p0OpPz0t/X5nPRPJGjE15Fn1Jt9xMWcTZHjz+2ttPNoV8xmDyxjIk9mpnnjQA==
+	t=1794770076;
+	b=OjuWazEZ0MYOICGRfVlGGgVf9jIkwOiWH1kCD8XD07HMm1ul+7Ij8kyifc7AoWYOwewU
+	 lJBvHrIm+pFiJnXduZ91ffUdk3raz7Tj9bXiho7anqvoGc5PZkvQljmqBTLtNpwAp5v+L
+	 0LwaGozhQ7Kxjq1RC4YK7ljbWkqyTFIBu4EcHMbVpuwMwwitK1wjuhEXOt2L7PeizaqAb
+	 2nMnUc1rAa9Dx90BYfqp/GvNzQaTrtnJl42ulMpsgMEFAiqqCPi5Y08mW6kl16EB1+FOx
+	 sVP/uW/UlZuLOHNEREDIDP/SI9G+WZpBKwrFmCsqsQd+DmlD1grSAER1qI3SP68Muxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794769840;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LtF+ZicJDI4fmgfCu+Ij9MY3N9bkIMYd5p+PyPTG2Fk=;
-	b=OICFJPv7QlRQpQ4/qMt4jDo4zx4d2kCKO5j+eW5tNFvAMzpDRkzx7f0hg4x71NZxNO2w
-	 UrXy++jrgtzFokAaUq8UOXbFrskNIO0UrACBqhYDsLACSrBfZMEvHqutrDazfHy2NBncA
-	 75Hzp7wDKkCJEp/5fAC03yvUCH8yefS6zEmyvKknc8ZpvbENrvs9Df3eURglSFAHqVccK
-	 ZV2GN5/VvW+Df6jeblwLy+/BCBmSv0fRtdKKKv5N8TJCAXHzqorq5j0yH0gQWDxffRjuj
-	 ZjTt5y3qFOAYiOqqnCIvQHHqEe0jeb2h/dlmKbo6JEzLjVpflKFqlwPEm2MfZrQjI2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794770076;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=bTYAm4EWSRHx/ZHXwlhFob7m+xxSKwh0NNHvPVL+4a0=;
+	b=VZ2Vj3IVLqLZLsREd17qiC/2xY0QgLPMj6qLoZlolFoD1xMmKrVML+ESq1wWAmGBx1Tu
+	 mZL0xErfTe+5OHnVqxeBtT+wYpDc3agU+/kPXRXVfxbLEQtYqVShYTnCTOjQSNMicA2s5
+	 upNoI7xBxXSLpkcEX9Jaxm5lUFHtOVBY6AFeT0A6OrbNEcciPUTCDmabE48yQzXZi1vTv
+	 SU6r7xnB+BsZBDl0PR5Zg4poVaQZv5FzubZFaKjFVIwt3pgdITKWX9tgdbqh8Nxkjy1/K
+	 DIaXiWsBPtac7oMfvrtQe65TVQkgoObzUjQPi4Sraef/7R9Vp2UtD5Ws0zUCal5fp/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sraa.de;
-	spf=pass smtp.mailfrom=sraa.de;
-	arc=none smtp.remote-ip=85.214.240.192
-Received: from sraa.de (sraa.de [85.214.240.192])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zlr8cphp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DF3606A32C;
-	Sun, 15 Nov 2026 19:10:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56DF3606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sraa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sraa.de
-Received: from [161.142.148.162] (helo=ryzen)
-	by sraa.de with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <basti@sraa.de>)
-	id 1xSfcX-00FyWm-7L; Sun, 15 Nov 2026 20:10:33 +0100
-Date: Mon, 16 Nov 2026 03:10:26 +0800
-From: Sebastian Raase <basti@sraa.de>
-To: Hans de Goede <hansg@kernel.org>
-Cc: Sebastian Raase <linux@sraa.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Helge Deller
- <deller@gmx.de>
-Subject: Re: [PATCH 0/2] Add monochrome framebuffer support to
- simple-framebuffer
-Message-ID: <20261116031026.2afde847@ryzen>
-In-Reply-To: <ae6f7b88-ea9a-49f7-a3ad-ba90185528c2@kernel.org>
-References: <cover.1793758480.git.linux@sraa.de>
-	<ae6f7b88-ea9a-49f7-a3ad-ba90185528c2@kernel.org>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04CFB606A31F;
+	Sun, 15 Nov 2026 19:14:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zlr8cphp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2830B1F000C4;
+	Sun, 15 Nov 2026 19:14:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794770075;
+	bh=bTYAm4EWSRHx/ZHXwlhFob7m+xxSKwh0NNHvPVL+4a0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zlr8cphpaQd3nqY4dD/M8LKmVfhEwBhg/RXnFS8Dbd42j21budIL80Fj83ujynYBi
+	 xrkpXbt/vgXXJ3zbCIgd0vytWH9UFZRo+kWYg6+zk3Dgh5sXkP6sxBNtPVRWMc7kgU
+	 7c0cXcpkCgnk34WxtxAQP15i7VF+f+o9Op3gqEYw8sVFIZUZZKKEE/DiCEBd5NJmBL
+	 eqWix0PI/yHN1v1kle17XH0UgF/k5g+OojdNRy9zlUqHohW/kmiciG1CH3WaxOOynl
+	 GtOjVUG+IaqnqKJMnuActvv+XKVHz8jIHWFruwvUHIhP9DWwGFEUc3P4bbqJVKIINp
+	 h+RZkJC+eVaDQ==
+Date: Sun, 15 Nov 2026 21:14:25 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, akpm@linux-foundation.org,
+	m.szyprowski@samsung.com, jenswi@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, mark.rutland@arm.com,
+	robin.murphy@arm.com, hch@lst.de, ryan.roberts@arm.com,
+	sumit.garg@kernel.org, sudeep.holla@kernel.org, ardb@kernel.org,
+	thierry.reding@kernel.org, david@kernel.org, danielmentz@google.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev, op-tee@lists.trustedfirmware.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/8] memblock: Introduce MEMBLOCK_PTEMAP
+Message-ID: <avoEkRRM3iH70_Am@kernel.org>
+References: <20261111110738.872947-1-vdonnefort@google.com>
+ <20261111110738.872947-2-vdonnefort@google.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,47 +64,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111110738.872947-2-vdonnefort@google.com>
 
-Hi Hans,
-
-On Wed, 11 Nov 2026 12:15:36 +0100
-Hans de Goede <hansg@kernel.org> wrote:
-
-> Hi Sebastian,
+On Wed, Nov 11, 2026 at 11:07:31AM +0000, Vincent Donnefort wrote:
+> Keeping PTE-level mappings is interesting for arm64 as it allows
+> mapping/unmapping pages from the kernel direct map without the risk of
+> splitting blocks which, under the break-before-make rule, may trigger
+> page-faults the kernel can't handle.
 > 
-> On 4-Nov-26 03:34, Sebastian Raase wrote:
-> > This patch series adds support for monochrome framebuffers (1 bpp,
-> > packed-pixel) to simple-framebuffer.
-> > 
-> > Monochrome framebuffers require far less video memory and bandwidth
-> > than 16bpp or 32bpp framebuffers, making them useful for small
-> > devices or FPGA implementations.  
+> However, mapping the entire direct map at PTE-level is costly. So
+> instead, create a new memblock flag MEMBLOCK_PTEMAP to selectively apply
+> a PTE-level mapping.
 > 
-> Thank you for your patch-series and I see that Helge has just
-> applied this to the fbdev tree.
+> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
-This may need a revision because of the DT bindings discussion. I agree
-with Thomas that 'mono' was not a particularly good choice of name.
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-> Have you considered also extending the simpledrm driver to also
-> support these monochrome formats there ?
+> ---
+>  include/linux/memblock.h |  9 +++++++++
+>  mm/memblock.c            | 39 +++++++++++++++++++++++++++++++++++++--
+>  2 files changed, 46 insertions(+), 2 deletions(-)
 
-I have, but my target environment does not support simpledrm (DRM
-doesn't work with CONFIG_NOMMU), so I could not test it.
-
-It's a very basic Busybox-based system, not a full distribution.
-
-> Most Linux distributions now a days have switched from using simplefb
-> to using simpledrm.
-> 
-> But I must admit I've no idea how well the drm subsys / kernel-mode-
-> setting API handles monochrome formats.
-> 
-> Regards,
-> 
-> Hans
-
-Best Regards,
-Sebastian
+-- 
+Sincerely yours,
+Mike.
