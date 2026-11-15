@@ -1,72 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794778811;
-	b=csmkJvPMoefkbOXrB1reiQGfJmVAUa8/dMAOp33JnsUGH/xbdEwB2Nvtoy1Cli/oCvCj
-	 8ALTqIgQWgW3u7gPUvbAh5UWsmz8YPN5NZzoJ7OTkI8fmCsv9giHQpokb1OeHIV6MM4Q4
-	 9iS3UDYFvi8o2+zVzTEgeerY7AgqfAOXON0B5W/XFhY3Q3n9rDJDQ+XngfqIJrjxlt0LI
-	 2y9tGU5FHtAfjdLKdd1i4pYuphaIGwHTP35p41I8uJ08/6gy/1rO9KYGbhLDAJr2STIyy
-	 IPt16UjDPYOhxp7TO7GymNYzcYGdH2XlZ8IzWlY3+ROPnGg33tbkHxeoCAq8eVYAvKQ==
+	t=1794779417;
+	b=Z0KZ9fgK7LtFLGnA8TozGRpnBMA531R3YYQmVxgMhmdVYuO9yAz2cxg3nUy6g+Ss+GUE
+	 lua4raENHBIOw5vkjtZcFn4V17/blZ46BLH/xMUvV0s/c0p5b71kKS8WfDSpel0+09F88
+	 OiX+hG66ZgDwt0SqsrQlXBLOSrQXYclqEM+BPbSsD6gBe5G3pkjbLg19HHEUUXoyx4Qyt
+	 78ZY4zh/JrU/JKkNPgIDTkzj96zj11P8Ur59dY/zctmh0GVqLzrh1PUACOjNbfMsH0y9v
+	 zXo45M7R5mGea8NMXgZIcqk4JxD7h4qR8ArEyR2QqCsbbcKPnyX86CYJICDWL5SHdUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794778811;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=KVX7vPJ9OTeTzfoMFASmwz/gzFZvz1nh0dPEPAyIr0I=;
-	b=sUgJ53N4ToUIk8rWmxPvneF3YNr8+MrRbvuoPAG6BMmNiqHS4jzFT4+at07X6x8PCTl1
-	 xpw8GBTHj55KBTfz224ma9MmeqfsUiuYzyyTSwz923muClpRo5qzjtY4Ig2RT58fIjgFf
-	 nAdgSIWuwz7bGRXsX0cyWlTMNtl6H6sodkjJ3MSc3iWxo9B8BSGbRtZAgdZZYOZD2e4iI
-	 DASBj62ZgctwCFtbB8b311VMyl8l2UeFgl7g1mj9mlYXXS1I6KZ6uPmbEIGBjow+5i2Ir
-	 dnuSFWJtdf901PmNch3VuDx+opb5r3r4Tovohzr31fB7Vw+eico1RRf53t7pREuSRuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794779417;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 User-Agent;
+	bh=6XvkMDi42j7sY0SuX8WsFlM/u5/0v+BfHkwMgWB/hdM=;
+	b=atG5ac1XGQbnUJAx5FTMY4tbXEW1OWpdAXGzHYwBM41MJ1I8DL0/aTSQH2wfnVgPGv0A
+	 dIEy92UNa3cRkCFGWeRW89Y2KY4U/9Y4wusTAk5YjuyDukdsbP1oyOohMBmH5TdIqh1pr
+	 v5YS3G3qO6uCU/nvTzR9vvjroQwDENkCxaRC4mPRUI9SEmfIWDyuguR+Bli+C1aDFhS7c
+	 MqNKn+JPu8HbrdRPyPQJGn7G23koRkC/YeFY/6cSGf7Rm6KMao87KhQ1njpPazeLZ9/oy
+	 nr8APXusiJ9YMNb73BZRqHt6hh8/a0QcWLszGhmRfeo2lCsPM+ZKrRQx2mjhL7ewLLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=YxtgJo2W;
-	arc=none smtp.remote-ip=35.89.44.35
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nFEZvwMx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08966606A32F
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 21:40:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08966606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D670D606A323;
+	Sun, 15 Nov 2026 21:50:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=YxtgJo2W
-Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
-	by cmsmtp with ESMTPS
-	id SfSNxKFRgRiNxShxKxI3SH; Sun, 15 Nov 2026 21:40:10 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id ShxJxtdvOxqjjShxKxlEAr; Sun, 15 Nov 2026 21:40:10 +0000
-X-Authority-Analysis: v=2.4 cv=bZxrUPPB c=1 sm=1 tr=0 ts=6afa26ba
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=T8OswTi7en7Lat6lzKAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=KVX7vPJ9OTeTzfoMFASmwz/gzFZvz1nh0dPEPAyIr0I=; b=YxtgJo2WD6n0
-	WmJugJPeVh5UlVsUmIS8e5Uyd3ctxtWEj5FuNKBl6gdX2sFInUqR3GphGv5cXNZ88vWiD3QE5gs5Z
-	zSQqvxcG3YVBlpPgUch8bEShrjW7PeCAYfSAhQpT6JNlZbPLe69eVO1LzFNWtoYvzZSe1hoTv5Eww
-	rAKxglVx4fEdEbGv1IUMhq42k22kHuPkoh3KUy/0hrHLq2N6ZohmfO2wIf+H3z3sjP9JpedudAF4f
-	6AuyWAnDp82UyMlhSQ9NERocloE+PRFwt3zCNbaSWjTmnwIsfkVBDeROSkwKVO4Znb8+SYuWRb5wF
-	BqVeYesa5vS1sVrvvIqKuA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:50662)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xShxJ-00000000Je9-288q;
-	Mon, 16 Nov 2026 03:10:09 +0530
-Message-ID: <62350363-b796-4637-a102-c668037bbbdd@roeck-us.net>
-Date: Sun, 15 Nov 2026 13:40:08 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nFEZvwMx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE831F000C6;
+	Sun, 15 Nov 2026 21:50:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794779417;
+	bh=6XvkMDi42j7sY0SuX8WsFlM/u5/0v+BfHkwMgWB/hdM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nFEZvwMxQUzhZeELmnZEHAe8BYEEgWRUOfxA44QqBHDNEHKqgSvZInB5g+iW8EEVD
+	 pj76uae/e92fD9oa7MNfKcgyS4hY2nZlIL17HBe7xjGKguIZu4LibMj7CQX65gLdlC
+	 yUo+VjdlP1+vkZAuaIRoxfs1kj5AwLhAQdCo42VQe8nfnuhcZ3hXYN39CpJgvecOuQ
+	 OPbR4u1buCNQRULF38yfpYWseRPD1F7jg8lXJQQJYmcs8oZQa6WkiiLB7B5pkjQTHZ
+	 K+MwzTlKdAZbS9JOeVLV4XkiLpInJkLVuIRCWXH6oroJApZnFqC5JG6gu0J1Vnd/Zo
+	 nMGHujxVcHOZg==
+Date: Sun, 15 Nov 2026 16:50:10 -0500
+From: Brian Masney <masneyb@kernel.org>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew@lunn.ch>, Stefan Wahren <wahrenst@gmx.net>,
+	Phil Elwell <phil@raspberrypi.com>, netdev@vger.kernel.org,
+	James Clark <jjc@jclark.com>
+Subject: Re: (subset) [PATCH 0/3] clk: bcm2835: describe the BCM2711 GISB
+ clock for the GENET MDIO controller
+Message-ID: <avopEsR4AqMUUKBU@x1g10>
+References: <20261020-devel-bcm2711-gisb-clk-v1-0-a1728724d0f8@tipi-net.de>
+ <179358503716.355577.9187303706042543606.b4-ty@b4>
+ <2e846fdb-32e9-4ba9-a6e7-ef67d24c4f8d@broadcom.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,158 +71,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] hwmon: (adt7475) Convert to
- hwmon_device_register_with_info()
-To: =?UTF-8?Q?Dav=C3=AD=C3=B0_Steinn_Geirsson?= <david@dsg.is>
-Cc: Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- linux-pwm@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261114004110.328050-1-david@dsg.is>
- <20261114004110.328050-3-david@dsg.is>
- <d28f392e-82ea-44d6-83e5-9593b341a722@roeck-us.net> <avm-tbgWgTJNFTBj@dsg.is>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <avm-tbgWgTJNFTBj@dsg.is>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xShxJ-00000000Je9-288q
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:50662
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 14
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfDIx7SNLyIHo4jv3ZWfwmem3eY3Nh5r73u2XKJadFNY9Z5MP/YLDk5F/2Rjg0etFolutxVHe1tuQmogWeeDdmYd5Kd6UYVBjgAnuzj24bOIbLhdHSi0V
- j26FpuXu3CuAPRsW6sL91RsSDFwitnCGQdC6VctXYPuSquuua8vr15tb4je5O6KANgX3pBiev0XBNgaW8lCf6F6JfmV1jJ9Zksgf4Dy4ID/mL1GDdeeoOrUr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2e846fdb-32e9-4ba9-a6e7-ef67d24c4f8d@broadcom.com>
+User-Agent: Mutt/2.4.3 (2026-10-09)
 
-On 11/15/26 06:16, Davíð Steinn Geirsson wrote:
-> On Fri, Nov 13, 2026 at 10:07:53PM -0800, Guenter Roeck wrote:
->> On 11/13/26 16:41, Davíð Steinn Geirsson wrote:
->>> Convert the driver from hwmon_device_register_with_groups() to
->>> hwmon_device_register_with_info(). The standard voltage, temperature,
->>> fan and PWM attributes move to hwmon_ops. The chip-specific attributes
->>> stay driver-defined and are passed as extra groups: the automatic fan
->>> control points, temperature smoothing, PWM stall disable,
->>> pwm_use_point2_pwm_at_crit and the VID attributes.
->>>
->>> The driver keeps data->lock, although the hwmon core serialises the
->>> hwmon_ops callbacks. The attributes in the extra groups run outside that
->>> serialisation, and they share the register cache and its periodic update
->>> with the hwmon_ops callbacks. They do not take hwmon_lock() instead, to
->>> keep this conversion free of locking changes.
->>>
->>
->> I disagree here. If you don't want to change the locks to use the hwmon
->> subsystem lock in this patch, add another patch to change the code to
->> use it. The subsystem lock was not introduced to be ignored.
+On Fri, Nov 13, 2026 at 07:39:42PM -0800, Florian Fainelli wrote:
+> On 11/1/2026 6:03 PM, Brian Masney wrote:
+> > 
+> > On Tue, 20 Oct 2026 16:58:08 +0200, Nicolai Buchwitz wrote:
+> > > clk: bcm2835: describe the BCM2711 GISB clock for the GENET MDIO controller
+> > > 
+> > > The timestamped MDIO write series [1] needs the reference clock the
+> > > GENET MDIO controller divides its MDC from. On BCM2711 that clock is
+> > > not described anywhere, so 5/5 of that series hardcodes 200 MHz behind
+> > > a compatible match, and mdio-bcm-unimac's clock-frequency handling
+> > > assumes the 250 MHz of the STB chips.
+> > > 
+> > > [...]
+> > 
+> > Applied, thanks!
+> > 
+> > [1/3] dt-bindings: clock: bcm2835: add the BCM2711 GISB clock
+> >        https://git.kernel.org/clk/linux/c/af7994af5228
+> > [2/3] clk: bcm2835: register the BCM2711 GISB clock
+> >        https://git.kernel.org/clk/linux/c/ab94dbf30233
 > 
-> Understood. I did notice one issue while planning that change. Patch 4
-> makes the chip a PWM provider, so its callbacks will also need the
-> lock. If the consumer is pwm-fan, then when userspace writes pwm-fan's
-> pwm attribute, the hwmon core holds pwm-fan's lock. pwm-fan then calls
-> into the PWM core, which calls into adt7475, which then needs to take
-> its own hwmon lock:
-> 
->    hwmon_attr_store()              takes pwm-fan's hwmon lock
->      pwm_fan_write()
->        pwm_apply_might_sleep()
->          adt7475_pwm_write_waveform()
->            hwmon_lock()            takes adt7475's hwmon lock
-> 
-> As far as I can tell no driver does this today. adt7470 and
-> aspeed-g6-pwm-tach are the other PWM providers I found in drivers/hwmon,
-> and neither takes the subsystem lock in its PWM callbacks.
-> 
+> Brian, can you also take patch #3, or you would have create an immutable
+> branch for me to pull from. Patch #3 depends upon the BCM2711_CLOCK_GISB
+> constant being defined.
 
-Ah, the usual "someone else does (or does not) do it".
+It's a bit late to do the immutable branch now and I don't want to have
+to rebase the clk trees.
 
-> I haven't written any code for this yet, so this is based on my read
-> of the current code only. If correct, I think this would need a hwmon
-> core change to give each hwmon device its own lockdep class.
-> 
+Can you provide an Acked-by for patch 3 so I can take it?
 
-Hmm, if that is true (I'd like to see a lockddep warning), that will
-need to be fixed anyway. The situation above will be more common with the
-pwm subsystem maintainer pushing for that kind of architecture, so it will
-need to be fixed. Introducing / maintaining another layer of locks is not
-the solution.
-
-Anyway, you want to add the complexity of getting the pwm subsystem and
-the pwm-fan driver involved, even though this could as well be handled
-in the adt7475 driver, so you'll have to suffer the consequences.
-
-Thanks,
-Guenter
-
-> I'm not quite confident enough in my understanding of the core to
-> commit to implementing such a change. But I'd appreciate your thoughts
-> on this.
-> 
->>
->> Thanks,
->> Guenter
->>
-> 
-> Thanks again,
-> Davíð
-
+Brian
