@@ -1,56 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794730839;
-	b=fDpt/8KciuJHahBeLqXfkZLkPsy/zdCP7NrDY52VZBeATLrQdDY0VafcJlEcAZ5JigUw
-	 looN604wHAPWd1ZKCO6xuMLfgDE8M2DWcQgi2jDa36bZAfzy8gLg+4KSb4bsXFjXp83bj
-	 jOt1uOIBJUcRr0tBkw11Vf2jv0cDkRdB237MXey42PxyF0mizeXFfXp/1gxJT3YY/h2x5
-	 OQSyj3bc3y5fVb97GczZQV/SrylfNtzVCe1h6p/mDmx8RNG8fImKREJPJl3Saavmoj0wj
-	 rnkxAd1vmOtpoPm0vqKOZBxQhA7+uBvwz5A8wt6pVgrwU1SRXZbyv8re7U0tDe7+tnA==
+	t=1794731876;
+	b=iXMivSLw4wkO2MVbsY1IfhaCOn7ivVZS2dH1Gy0eAI0ocBDhfO+yWnQgb/3LKVHk3yqP
+	 1fXKxtv4oCbo6PqYnDSyRL9PmZ79YpFhETCG31XCJsb6tnl6xjPe8M0QTB/AD1oprt5l7
+	 +ZLbS5WTUB4CjjelK2Zpv+BDjWgmnk+S5vu2NdPP4QkxTGHiPU/QMtinSSXCvfElCIB8H
+	 tSvQFCEGB1wtwl+zenk0iJQ8imOaHky1bOcgr02VBZO7kjbTtXasnxjMlA1y9E+NJ9iuA
+	 MypzmT2FjoLWP9/4hEy1HPuTM0ehSm3y6Mwj47S8SS+DOnEJQhDwqEEWy0Uc5thR19g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794730839;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=AJ1xfee2Csn9VN4fhbIm0y3xwJVteInbog5JyVAqWMQ=;
-	b=GJOcrpAl2S2e9X4MaiZkHqKo/VimbqCmKgCSM0J4XrbkTw1LO4tMi1zoq4EPNtlbTahc
-	 oOPEGN4Wkbu2ojpIKLa2ldOZ8Ti0Bwoh9f5NdoAgQ7PHpzGik32z4nIQgu9v2pHUoRlY4
-	 QpM741MQfZJcHqvWVSMYjAaWBROM1ZL1f+nxVydgzY/9K3XtDFF9j0hmZTdHuBWJ6XODx
-	 2ouMvHs16tmbjxoAiDgZ9PsDw7NKwb10s6a/Ztu4xxBf92Wjy5tRzj+VuJL9Uoy5y4x13
-	 NLEmqNdk0+6eaj1Q/L8dkygQtyJ0FRscmvVUqDe4XW2YuyqVJh1KacR5v23m+YEcdEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794731876;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ux5NGbtqF+gagUInPGtsI7+EDxIceF6FofSlZy2J8g8=;
+	b=R+G/myoXpLplxIE04LPeDust3w8rBeZDNyvXMUfdRVL2v3P2+3k7UAwrLc7OWlhMmRNh
+	 AfrrOTZcg7nhEyDuIK9ISwHPMrbw6L+TrTEe2q7IRQgseJtOYYpsASCftSPE8K6PMzDoU
+	 5kS+Ae0DMLlO30vE2LhgklgD6AbnvpB1GWiZl2oWvV3r/NUcwe5qzN2R4WUC2lPNDwsIE
+	 TXQefCmUOdPs/lbBzR0NnHPE2a6YeU5EGOGKFaB54/cB6+XUhpjKCa+kG2JBbD/Q35ZpJ
+	 XQcByuhKKPYvf3KHh/wmzYSeao2qUaonT0L7XJiBsiBL9uPneqLtCi0wdNOy0umionw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=P8JwMvKM;
-	arc=none smtp.remote-ip=95.215.58.57
-Received: from mta1.migadu.com (out-57.mta1.migadu.com [95.215.58.57])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zB5gkDW1;
+	arc=none smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA60606A31A
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 08:20:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBA60606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CDCE606A31D
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 08:37:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CDCE606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=P8JwMvKM
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6Q2a8Doi+A+WH2MhvcE6/e3oliRLG1FAhetxf+CGFl0=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794730835; v=1; x=1795335635;
- b=P8JwMvKM7F/skTX9h6XCjQAdOAidih/jfip94v06HSKWXrzk3uFWRJiB/BJWhdCk2pGxc03Y
- z8dgHjcorsAzSXLC07n4nwZutGuN1EbUxxDQKbz3nf+IHeAv+1MWB7KcwjY/ia+kBewD08sOhAY
- LlxST8kjAQdgeeo8ibKA/ngJjqnBrlwdkgUx3XxrUv9gqZlzvvKQ4Ce8Pa/sXvpo2rN5Sqpj8/u
- y0NLokh+t8x9BQIVYdWIR0dVkZQAVzIjcYaI9JnueSS2yFKd6zB+MteEyqry9HuNPVgNPWsD03r
- vuTd7VUS6mzOaiuzsTvyJx3yk0dKkc1BbfNQi6yEOu6jw==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9046fc18112be64a;
-	Sun, 15 Nov 2026 08:20:19 +0000
-X-Mizu-Trace-ID: 9046fc18112be64a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4a7e0f27-60b6-46ec-956b-8897812622a2@packett.cool>
-Date: Sun, 15 Nov 2026 05:20:11 -0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zB5gkDW1
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c4d21051042so427870066b.0
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 00:37:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794731874; x=1795336674; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ux5NGbtqF+gagUInPGtsI7+EDxIceF6FofSlZy2J8g8=;
+        b=zB5gkDW1BqXh1JNvLccWrWrGO3i5x3t/XGqujrE9aStiElStX+CTSJLCXROTO01pkX
+         leRQ8gKHYsQUQqYjgcBGYqxVVnmO0t2Eq6WtTqBGFpBMcL0344Xr4SqRkrX0BeHr8p6w
+         V1IKWXxIc4YKyfdS0U4kmaqQovnl9QZN2WWSEl43ISd5+P9aqjEYKV6+aaRCeCzdkM4z
+         4ea/tVNnxTyBzZ8MntZTwqHaY0qdZ7C2L3/7a+VL/zkTIEsS//Q3S2gWY7Yhol/Vwnoc
+         r/EoCDlXpFauYAQLNdoLdb8kG7Suk10lneEhlTKgY8qt+cN2wTGrLw+PRkeQS412oB69
+         v8Mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794731874; x=1795336674;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ux5NGbtqF+gagUInPGtsI7+EDxIceF6FofSlZy2J8g8=;
+        b=p2prYfQwmlWMs02rJYjH4CnPVcgwbZd9qiL3hZhdbk0Ekbu0W9NPw2dGxeo2LYFwyh
+         v0NCK7AdzW2uN9qU+0rUr++zE9EzmBNBJW4XURLOHcNlyIULZBG9o7nbuyoICqY8lBRP
+         Q7yidcI9ymbjp1PY+2M35d/P+IMq83nV08GPjo5Eyrt8ISQ2Jo9KRcLNK6WTKLSXCa0F
+         PzQnxYr/bS+n83aJQYaLRom7ce81oI1WRVubYtd+kiGRIiTkowidJ5+D3zIP0u8rKxuN
+         qWKqrNJxahtdUsXmiHH8cboEjpQxMnPXIC/TY1q6NyNpWcrLH9ijKHBzlolDNwRqIcOE
+         +D6g==
+X-Forwarded-Encrypted: i=1; AL+hErEHPduJaw5kaT9fOpkosoPjiU8e6/vYP/2XMtkKOp/Y3Y+wAv9J2SQHwzkYUEcmebtqnC9Ayx8DxGVX@vger.kernel.org
+X-Gm-Message-State: APuU4Z99UsnO/CkKTh/ILarXyCEdIYURFrcwkyS4/6oxqjJ9qwryFxF3
+	9an2MWdZ/+0sY45RCOeTK79TpKNBOGHxvFCLCxxLDIwUBDNRLep5wZPNJXM3wg==
+X-Gm-Gg: AYBFou3W6R2G7M5BtutpieRaePyK4x7MC7DmNU8SFLeaWxkdPpxihB78DI8+asuJ8em
+	URDRIB2j01PxsOYIT7laFpvKNdK9gZO5vj0spKyoJNp4tkEAAjg6SqVOceHdJcZSBJ/5EKFTwoS
+	ZRHY4aiAUNcqg7ResUG6sXmZ8c3H+0crAmeamHBDnkBxTNaw09NjgatttpPvsJJyJjXudDBDHeN
+	J7WaCVWqQ8eo8NbC49KrX4NvIrV4JbbH5QspOPH/ZKqnWKibkpHERO4Xe3blf4pRx8b/xwjeYUP
+	Sc5LYH3nj0o7Q2D+x6ZU+wLbZ5Q7mBpJvkZfh+30UjVNMGJc9965Q0doo3uVTQE583j4eM5wmg8
+	L6b08DNcVW/MFfi+ddzK+L0UIOlc68ec/jwN62Pe1aGwrM0mHPatnoCyCMeu7uTe3AJPNzZKb+Q
+	q+zmiajfZIEQVgNc6wp/zp/5BHMg1RXTlu10ep5wS3fbWGp4IOrDzH1B1fnGhJ/EnE/AooCGj9X
+	+Eg144syLGO2JUMMPRSbe3DUkBZY3EOjYPYGlMDYfiDovnwrxxKJLZkQqPO8B4ZBXdkAnnezCBX
+	Jpopaeu6BBJjy7qBdDo/71tdzKDnLy8BD1bgS/Q8LEehnA1jvg1SvyZTSICwLngXf+AWj/VLjyC
+	jCAKOjFirw4Fnj17TnP5vSiYnYhN3+ao=
+X-Received: by 2002:a17:906:c14f:b0:c50:5a51:632f with SMTP id a640c23a62f3a-c50963ce147mr624639366b.39.1794731874281;
+        Sun, 15 Nov 2026 00:37:54 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5ad9esm284815666b.2.2026.11.15.00.37.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 00:37:52 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Esben Haabendal <esben@geanix.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Pan Chuang <panchuang@vivo.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Nikita Travkin <nikita@trvn.ru>
+Cc: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/4] iio: light: ltr501: Add LTR-659PS-01 prox sensor support
+Date: Sun, 15 Nov 2026 10:37:37 +0200
+Message-ID: <20261115083741.62140-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,139 +110,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] arm64: dts: qcom: sc8180x: Add Microsoft Surface Pro
- X
-To: Haipeng Lin <jimmie.lin@gmail.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede
- <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org
-References: <20261104070441.74127-1-val@packett.cool>
- <20261104070441.74127-3-val@packett.cool>
- <64e7afd3-50e5-4134-9bf6-92c4aa740bd7@gmail.com>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <64e7afd3-50e5-4134-9bf6-92c4aa740bd7@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Add support for the Lite-On LTR-659PS-01 proximity sensor. This device is
+nearly identical to the LTR-559ALS-01, but omits all elements related to
+ambient light sensing.
 
-On 11/15/26 12:16 AM, Haipeng Lin wrote:
-> On 11/4/26 2:04 AM, Val Packett wrote:
->> From: Maximilian Luz <luzmaximilian@gmail.com>
->>
->> Introduce a device tree for the Surface Pro X tablet in all 3 variants
->> (SQ1 with cellular, SQ1 Wi-Fi only, SQ2 with cellular).
-> [...]
->
-> I believe there is also a Wi-Fi only SQ2 variant. Looking at the WoA
-> drivers for 8180_CAS (Caspar, Wi-Fi only)
-> https://github.com/WOA-Project/Qualcomm-Reference-Drivers/tree/master/Surface/8180_CAS/200.0.31.0
-Huuuh, okay..
-> This variant is the only that has both SurfaceSMF_SQ1.cab and
-> SurfaceSMF_SQ2.cab. Only 8180_CAS MPSS INF maps the no-modem subsystem
-> ID (SUBSYS_MSNM8180 -> qcmpss8180_nm.mbn), the 8180_CAR (Carina) only
-> lists the cellular MSWW/MSJP/MSCN IDs.
->
-> My SQ2 Wi-Fi boots with the caspar dts in this patch fine but the
-> gold cluster is pinned at SQ1's top clocks because the 3.072 / 3.1488
-> GHz OPPs are only in carina.dts.
->
->> diff --git a/arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts
->> new file mode 100644
->> index 000000000000..5d155c69907a
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts
->> @@ -0,0 +1,50 @@
->> +// SPDX-License-Identifier: BSD-3-Clause
->> +
->> +/dts-v1/;
->> +
->> +#include "sc8180x-microsoft-surface-pro-x.dtsi"
->> +
->> +/ {
->> +	model = "Microsoft Surface Pro X (SQ2)";
->> +	compatible = "microsoft,carina", "qcom,sc8180x";
->> +};
->> +
->> +&cpu4_opp_table {
->> +	opp-3072000000 {
->> +		opp-hz = /bits/ 64 <3072000000>;
->> +		opp-peak-kBps = <8368000 51609600>;
->> +	};
->> +
->> +	opp-3148800000 {
->> +		opp-hz = /bits/ 64 <3148800000>;
->> +		opp-peak-kBps = <8368000 51609600>;
->> +	};
->> +};
->> +
-> [...]
->
-> Would it make sense to move opp-3072000000 and opp-3148800000 into the
-> shared sc8180x-microsoft-surface-pro-x.dtsi? qcom-cpufreq-hw disables
-> all DT OPPs first and only re-enables freqs present in the hardware LUT
-> so this would work for SQ1 and caspar.dtb will cover both the SQ1 and
-> SQ2 Wi-Fi models out of the box and carina.dts won't need its own
-> &cpu4_opp_table override.
+---
+Changes in v2:
+- set IIO_PROXIMITY channel to scan_index 2 since driver will not handle other
+  id properly
+- add IIO_CHAN_INFO_SAMP_FREQ for IIO_PROXIMITY channel
+- isolate missed ALS register calls
+- add commit to use read_avail operation
+- convert to use modern chip info match
 
-I'm pretty sure mine *did* complain very loudly about having these OPPs 
-and might've even had broken scaling.
+Changes in v3:
+- LTR501_INTENSITY_CHANNEL macro adjusted to set predefined info_mask_shared_by_type,
+  info_mask_shared_by_type_available and info_mask_shared_by_all_available
+- added info_mask_separate_available and info_mask_shared_by_all_available to
+  proximity channel
+- fixed IIO_CHAN_INFO_SCALE for IIO_INTENSITY since table has -1 entries
+- fixed indio_dev->name asignment
+- dropped ltr501_has_als_support helper
+- fixed channel finding in ltr501_trigger_handler
+- isolated more accesses to ALS registers if no_als_support is enabled
 
-I'll retest again, if it works I'll move it to the shared dtsi (or even 
-the SoC's?)
+Changes in v4:
+- adjusted intensity scale passing
+- int_time and samp_freq converted into 2d arrays
+- for_each_set_bit() + iio_find_channel_from_si() > iio_for_each_active_channel()
+---
 
->> diff --git a/arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi
->> new file mode 100644
->> index 000000000000..17fb01c6b164
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi
-> [...]
->> +&smb2351_2 {
->> +	status = "disabled";
->> +};
->> +
->> +&smb2351_a {
->> +	status = "disabled";
->> +};
-> Confirmed on hardware that labeling pmic@2 and pmic@a in
-> sc8180x-pmics.dtsi fixes the dtc build failure here.
-Yeahh, forgot to include, will be in v2
-> [...]> +&uart13 {
->> +	pinctrl-0 = <&uart13_state>;
->> +	pinctrl-names = "default";
->> +
->> +	status = "okay";
-> [...]
->
-> On linux-surface, ad1bb617a15a from Maximilian Luz had
->
-> &qupv3_id_2 {
->    status = "okay";
-> };
->
-> Would it be helpful to add here? I confirmed on hardware that adding it
-> allows uart13 (WCN3998 Bluetooth) and uart15 (SAM EC) to populate and
-> probe properly.
-Of course; it should've been the _2 in the first place but I made a 
-mistake during last-minute cleanup and left out the wrong ones…
-> Thanks,
-> Haipeng
+Svyatoslav Ryhel (4):
+  iio: light: ltr501: Switch to read_avail() op from manual attribute
+    registration
+  iio: light: ltr501: Switch to modern match mechanism
+  dt-bindings: iio: light: ltr501: Document LTR659 proximity sensor
+  iio: light: ltr501: Add support for the LTR-659PS-01 proximity sensor
 
+ .../bindings/iio/light/liteon,ltr501.yaml     |   1 +
+ drivers/iio/light/ltr501.c                    | 425 +++++++++---------
+ 2 files changed, 209 insertions(+), 217 deletions(-)
 
-BTW, please send me the output of `sudo fwupdtool hwids`, these are 
-needed to add support to dtbloader/systemd-stub/stubble DT auto-selection.
-
-(If anyone with the cellular variants reads this: you too :))
-
-
-Thanks,
-
-~val
+-- 
+2.53.0
 
