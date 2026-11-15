@@ -1,73 +1,32 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794772404;
-	b=uXdSvzdlDd8nLUiJnt3DTH0KhJEOcbC7p8d9IbohJM4M4zslV/Bj6vySlUu/ypxLbsta
-	 UEEWjE5TlJEVjyKA+VQMLoT2gnePRGF/lekM9N1cbu+mJdSie787GheQvgy85mByBvAje
-	 kDE+RZDjQK+c90NK6qkeuYj2gAXJgSaApvbld2FbsyD+hu7+wa1JtrWDTk3CalrVYKd3/
-	 CPVEFBSo/lKPO2zvtxcIgUSU8agmf57LFx+fcP1CBrcs1mlGXDKswrMbNChxi4gqFFo3H
-	 uD20aeGv+BsqUFK4VJuvsIsyKlgjKIt2lZ6ju690KlHAk+ovrJA67EJFRVJO8OjsQpw==
+	t=1794772961;
+	b=mnlhc8lpwWF0eWejJRMBUJU0lUBi+AITZ9CVGH/A5TyKZRW4a7gZOHBTCFA4zjrmjQZI
+	 gKnyTZpzBWoYJV7SGKW5/8tyIWIqWMqi8ZGt+ITqePFUa4jlxoGCq1xi/2CP87Pd8bU/u
+	 jZBjhZdCBfQXxD/GSNnSacfdYYQnfouozKlTKWWYgzQxH2BgTADiEWiKU9uPTD1NFv7oY
+	 KUbMsInobp8Ose034/u7ZIMUCC6K0Z+7ca8Zl34JF/wEyvcC/Yyjp6OMyiVG5a8+I5X04
+	 GaaTJmLSimzBnkplWDW6ZIxS0grLLeWBRkYbcXjr7E5nlFJa7PHNW/JKkkjWy6w1RWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794772404;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=z8Udy+gpKS3X/0jkZQA4Y95ag0ehIFXEGZWv/GeBkw8=;
-	b=ibmp4/mmoYwhML4Sjh3/tNlGHBvfQYWqQ/f/zLz8B3hZ4zDjUQIWe6+AC5FjZkteCGtk
-	 j4/hrSafMX43hoBcS03feu0VqQ0n8iU1SugNzBK/5bO5bbMmBSJ0lV0v/vZyOHVayuo1u
-	 RFWrr6YErNKZDK6wt3ajiJxoi9w21IWaWlDMXGYMXyJX0jjZ3t0yvbq7f8ookDah6jnYF
-	 15UTIXfCobp7z/t2IYoi0Sg2F6ZAOij0OeY1EU4Yg0sy2w+UDTymFwa97Tsd3zGtbJnD+
-	 zWAYoEwSBQX6OzwIlrerIXf/iXa07bTdtu3svuYQL+oQERndCtXtFBO7IP8Th4kNsrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794772961;
+	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=/MMBOiQw6l6mDYjl/NVChHGJRH3wA/AsBJBi6MIn/nI=;
+	b=cCWYbyyLmdoCmMIYBcNQrP6jKlO2xRhfW+Osf0A6gRTrU1wizRFj9DpQqprubejpQjNM
+	 tVC58Cnqvn8hRlNwCB13P+gvHwwrmE4v+rnss7IaCviMDji9JaJHRpTr5LJN8jpwrx+gc
+	 YEucSgCZK/FLSyMUHd3rcI/pXT42wqxrg5yECtLGoT7VsgUOgl3NaGt4kAd9ewdB94WIW
+	 Ah3nWIM56aBqTEuqIfyNi8JaDZPc1dBWRA4cz4gKmMT45CiERLpw83g9auuTYdYRYCY6H
+	 CT4nT/Kdkl2QlDlDIXceCAbaT24yt70Ae1OvN4PvH2yO9IoNAZQ5Pcyk+w6gIP3nOUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=freeshell.de;
-	spf=pass smtp.mailfrom=freeshell.de;
-	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=cZ2PH9iF;
-	arc=none smtp.remote-ip=116.202.128.144
-Received: from freeshell.de (freeshell.de [116.202.128.144])
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B393C606A32F;
-	Sun, 15 Nov 2026 19:53:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B393C606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=cZ2PH9iF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1794772326;
-	bh=z8Udy+gpKS3X/0jkZQA4Y95ag0ehIFXEGZWv/GeBkw8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cZ2PH9iFTQ+VBRORVMazOMTts1QCCspB2vi1ekqjU7ulTotDrWL0V/vxpVwTyazPf
-	 PGGnG1ooq8tKWntpZZsSq+1DfyP0euayW6/VY+pYx1YONH9K7GFlKBMRpZWpse9rmf
-	 4dne2atDuWxKvKPkAQJt2ftQ2s9++5mFD3NsX2leEx0nUYDHiCsOoXA109nQoBNnD2
-	 +WCk+pY6RoOBAw75TuPS/ktgY9skbEL8aByrzTOlKnbTf764Xc7ImcVyhl+dsj48LI
-	 gY4KXZ+aVIBUw94/O+mVKmVppT1vCgBT8Xz5SYhnxPR8osj7pKg/6aYVQSPZUAhrAt
-	 E7oE0KQmU29Qw==
-Received: from hay.lan (unknown [IPv6:2605:59ca:364f:d400:6ecf:39ff:fe00:8375])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id 55773B2202E6;
-	Sun, 15 Nov 2026 20:52:03 +0100 (CET)
-From: E Shattow <e@freeshell.de>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	E Shattow <e@freeshell.de>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] riscv: dts: spacemit: k3: use pico-itx 8gb memory configuration
-Date: Sun, 15 Nov 2026 11:51:00 -0800
-Message-ID: <20261115195112.32120-3-e@freeshell.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261115195112.32120-1-e@freeshell.de>
-References: <20261115195112.32120-1-e@freeshell.de>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5130E606A335;
+	Sun, 15 Nov 2026 20:02:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 651CE1F000C4;
+	Sun, 15 Nov 2026 20:02:38 +0000 (UTC)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,30 +36,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 2/3] phy: cix: Add Sky1 DP PHY driver
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Luo Liu <Luo.Liu@cixtech.com>, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+ vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <sashiko-outbox-192860@kernel.org>
+References: <20261102030425.1957585-1-Luo.Liu@cixtech.com>
+ <20261102030425.1957585-3-Luo.Liu@cixtech.com>
+ <sashiko-outbox-192860@kernel.org>
+Date: Sun, 15 Nov 2026 12:02:35 -0800
+Message-Id: <179477295532.135135.3835475209766065939.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=261;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=/MMBOiQw6l6mDYjl/NVChHGJRH3wA/AsBJBi6MIn/nI=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq+g/dzI6TCUXwkOS4gQPpUvsvWnviIXO6VBbOP
+ +vk0WbFNg6JATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCavoP3QAKCRBVnxHm/pHO
+ 9RyMB/wOQ7nLJIyuKkkwbCNioj33q2hrjNfwq9Kc7YyuXLXzep0kLVUeLkko+Ot6xQmGA6uiY4z
+ 4LH1QLd+D6HURN/2Ith4fa0Ms7kfrobRn6mykL+3I5r9kBY4q5JrzXldIZqww+6LzPoPthgBnpz
+ mLy3t5v3vNng3XA/BiQcoNoDSBCwxkPW9Fwc+2ZFmjUmM4DW+dajUGo0o18KAKlN6fqKPca/dBf
+ LEtc+fJL1u8xJjHhpDTrtGTVOuaq2mLW0JZQOODTOD7P5JNTjSOzZ9rOzBHpuj6uA4v55YJBkhh
+ yQE9CGj+SrTkE4px0wFMX7LoIzsPYl/t/5+bGF/rLfpEifuh
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-The boot loader may override this configuration based on stored ID value
-in EEPROM TLV and if it does not then the smallest common sold
-configuration of 8gb is the most compatible option.
+On 2026-11-02 03:23 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] phy: cix: incomplete hardware reset and state desync in cix_dp_reset()
 
-Signed-off-by: E Shattow <e@freeshell.de>
----
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Looks valid.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index dda420900aa2..8d1cd468cf8c 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -25,7 +25,7 @@ chosen {
- 
- 	memory@100000000 {
- 		device_type = "memory";
--		reg = <0x1 0x00000000 0x4 0x00000000>;
-+		reg = <0x1 0x00000000 0x2 0x00000000>;
- 	};
- 
- 	reg_aux_vcc3v3: regulator-aux-vcc3v3 {
--- 
-2.53.0
+- Mani
 
