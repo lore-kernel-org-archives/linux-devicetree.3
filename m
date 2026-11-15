@@ -1,57 +1,32 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794771685;
-	b=q3n5ivUm1QrkNgRMyWyDqxVRLjC0i4Pjflx56kA35EIEb7WihCG9mYIjkSFA5EBNGV3M
-	 nCjBGgRsl4AVhpvt9CSSdsuhVZJO/oQ221H/FjnM16rM+6u0mES9TShFTgbfioL6WUOre
-	 ppyjJFoTlySJxOdgSSMtVx8l6kRHwIuFDc6F5nBtbCrDWTYU/x/jA2K1ogBik16vst7n9
-	 wOeQ+JSWaJXOcBzYFdfbbSKnNvtlikteUuMWyos0ZB+f1FR9E1Mc7hsGyhyHs0weLkZI7
-	 PUfamZqufcXoghWUycHqI+eU3wO5lVWT9+pLvmiK2/9iW8Isu4XfM+LVnu2WisIf0mg==
+	t=1794772083;
+	b=rLojAqUZYNOZAVE9271/uPlcO7plbrBMSBFzSMAnaOhzelD3EImq+nO5qo/0PHrUPx07
+	 VNUvnvhSQvRfLTMcY6jdU/iwtwjya2QkBD30x9QlfpbEKI427bpPdlEQq0jg275m8t+bK
+	 dTk8lqtu4XzgflOeE/0LRhmVikvebcK10Wu+E2PuZLyWCHpSZYAiPJpXJTdfF02rJltqJ
+	 3S7xMC9VJu1GiV5Io6PNycobB2HlSV8RjEVteNnu8Xo2IGIzreTza46fRLQ66Vb1wqZ6k
+	 yDc2P5vt7tC2E4wzoGt/CYPcXc1HDuJWqQJfve9gFX32da6Hsb6H1lH499X7jJD4zPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794771685;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=51+4K6ggdGph0oXoWgx8ifDeB8Z2Gooyur3QPXcK89A=;
-	b=m/zM99hZxzV2Z8tpQUnJHwdAFPXJcQuW8YRWNe24LWOC1diyprqzrheUJnI/4XhHPVzg
-	 UdmfYMcQVNvzvRwvQIQMR8PT3TogGpoA2rkMTgjNnfPT3DjD4GyMty2MjGhnf+DWfZqH3
-	 BGQwPu+dCE6BHnY6+VYZ6kNEKGenyjXtFuIvCL/JmTZvAI90/HJwucNTDAXipeH8fDPBE
-	 SnnchO9Gy1bbfbX0iG+67Xee1TLk35vcIKMeWbUlKvayEWD25GXdWJUIK1L0GTa1ToNL9
-	 Z3KT+T/cAfnZBBo+b0jPDwV0s7eJe9IW434ZoK2zR3J8AHqetYEZRzLjOTdi72z/jWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794772083;
+	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=J8wfWoRvlptTJKvGQanqlPj/1mz0o6eZhRXF9DHJe7Y=;
+	b=cyDzRCbFh0MMYLnog2BTNs5tFsrsZtqWAre8f4iOm6dwDUL5KvBt/37cOrQkCV6fxVix
+	 N6BgTVz9FlPvumS/k9FexOlNy4QUrxv/fSek7TvtsnI9wyEgZ6xBqPFZ6hHaXMqRhGG0H
+	 mWbjEx3NyW8opFmXXmYCyLDm03ZXB+fih7d9AQubvn93zGoQfSRPEczkKhonXmeFriDBO
+	 fx4335s6hkRYZb8yGixBO0JnD+e/DGB6Aifj0NiCBksRkFCoFtn7HepWTcyP8dOkKrA13
+	 kx0lhRjcOWdFtw6oCwqbl+eQsGQg6jLSKgKAoWX8ynAEkewpAiUICajBMa8CneEc8OQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CEXwocqJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88200606A323
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 19:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CEXwocqJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E51E1F000C4;
-	Sun, 15 Nov 2026 19:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794771685;
-	bh=51+4K6ggdGph0oXoWgx8ifDeB8Z2Gooyur3QPXcK89A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CEXwocqJ9gg9KqAxb8j+ZI1or6imS/XL3HL1jluGCO+/NxiC+2mXs2Ra48K2rrixl
-	 zyvQnLC5yzOkxPCGtkAK9Bt6egJFEDhI3de/LyZu3GXxAeI37j8PB09BZ5VFgARc+j
-	 F/HmLMJjL8P0yu9RSOK9JnYJJOKtDPOZ4ltm/43EeHZyZjhaf52iVpLCIBW1AO3nAf
-	 JfaNk59O6Hb3ay/qBnilK1xgOUyQiH8Xj+SHzEFESfp/6BpCqqtJpskBcQPaxcWv8Q
-	 Qo7rK35VlrhY7hw6OA4WR8aU1g4OGmGoMi23EjJNi/FhCyP0LdHO1Bo7aGLC/m10DU
-	 JrKH+tQJDoIPw==
-Message-ID: <sashiko-outbox-215757@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] irqchip/econet-en751221: Chain the handler to all
- parent interrupts
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akshat Singh" <automobilehacks@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261115-en751221-intc-all-lines-v1-2-dc03a40f47f0@gmail.com>
-References: <20261115-en751221-intc-all-lines-v1-0-dc03a40f47f0@gmail.com>
- <20261115-en751221-intc-all-lines-v1-2-dc03a40f47f0@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 19:41:24 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE662606A323
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 19:48:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E601E1F000C4;
+	Sun, 15 Nov 2026 19:47:58 +0000 (UTC)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,73 +35,59 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 2/2] phy: rockchip: snps-pcie3: Load updated PHY
+ firmware on RK3568
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Shawn Lin <shawn.lin@rock-chips.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
+ linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org, 
+ Samuel Holland <samuel@sholland.org>, Coia Prant <coiaprant@gmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>
+In-Reply-To: <20261102015236.3844843-3-shawn.lin@rock-chips.com>
+References: <20261102015236.3844843-1-shawn.lin@rock-chips.com>
+ <20261102015236.3844843-3-shawn.lin@rock-chips.com>
+Date: Sun, 15 Nov 2026 11:47:55 -0800
+Message-Id: <179477207586.132702.13681064910468775977.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=970;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=z/N/KYzBmLjuxTwfXJmOo9VDU3z5rXYJ+jtGgfky3h0=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq+gxut/r6n3u62ciaAfiwxlRF0b6JJ70NZiftb
+ LSnxtljYFWJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCavoMbgAKCRBVnxHm/pHO
+ 9ezLB/9RZF95g86QTd7xNdk6G43WKTX15whkytnIDCXmLFPMRLeT4K57mh7aOe8/FXyiU3JWpjg
+ 1rY0kOVv5tr5H/tGlS6bsLRon6IWvaS/JDPLjSzd7is/0T2kAdS03VztgC/CDyE5zxFScaKx4R3
+ ssJ9B+OStoKXIIZp//fSlQeLi7V35NLEHcEbBoTc13PnL7dmAULGUnRrf4vU3MlneWSF9TEoRmn
+ WewmI+sVdttKYUnwPfACf9Q6sd0BmR62e2gpP3aYwkikMIHyAbbk3FOJU0XwJVzJr/w30QT2ZIU
+ iQpFEeCfMj/0yo1xErbV2pTxuWzGC1jkroOvmtnG4SB8pQt/
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] irqchip/econet-en751221: local parent variable shadows parameter
-  in econet_intc_of_init()
-- [Low] irqchip/econet-en751221: missing Fixes trailer on non-VEIC IRQ
-  chaining fix
---
+On 2026-11-02 09:52 +0800, Shawn Lin wrote:
+> The RK3568 PCIe3 PHY can load an updated firmware into its internal
+> SRAM during initialization. Without it the PHY may come up with a stale
+> microcode and fail to establish a stable link.
+> 
+> Load the firmware named by the optional firmware-name DT property during
+> probe, so that it is available in the phy_init() context and is not read
+> from the filesystem on every init. During initialization, clear SDRAM
+> load done and bypass, wait for the SRAM to lock, map the SRAM into the
+> register window, write the firmware and finally signal SDRAM load done.
+> 
+> The firmware is optional: when firmware-name is absent (older DTBs) or
+> the file cannot be loaded, the driver keeps the behaviour unchanged and
+> uses the microcode already present in the PHY.
+> 
+> Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
 
-commit 341fd2b16f35f804366b103223f85a72065ed255
-Author: Akshat Singh <automobilehacks@gmail.com>
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-> irqchip/econet-en751221: Chain the handler to all parent interrupts
->
-> The EN751221 interrupt controller does not drive one CPU interrupt line
-> per source. It presents the number of the pending interrupt plus one, in
-> binary, on the CPU interrupt lines IP2-IP7. In VEIC mode the CPU takes
-> that number as the vector, but without VEIC the driver chains its handler
-> to the first parent interrupt only, IP2 in the existing device trees. An
-> odd-numbered interrupt then never interrupts the CPU by itself: it is
-> handled only when an even-numbered one happens to run the handler, which
-> on an idle system is the next timer interrupt. That covers the frame
-> engine's QDMA (21), xHCI (17) and the first PCIe port (23).
->
-> On a Nokia G-140W-C, whose 34Kc does not report VEIC, this delayed
-> received packets by up to 10 ms, and ping round-trip times to the device
-> cycled through 1-11 ms.
->
-> Without VEIC, chain the handler to every parent interrupt listed in the
-> device tree. One interrupt usually raises several lines, so the later
-> runs of the handler find nothing pending; don't count those as spurious.
->
-> VEIC mode is unchanged.
->
-> Signed-off-by: Akshat Singh <automobilehacks@gmail.com>
+- Mani
 
-[Severity: Low]
-This fixes broken delivery of odd-numbered interrupts on non-VEIC systems.
-Should this include:
 
-  Fixes: 1902a59cf5f9 ("irqchip: Add EcoNet EN751221 INTC")
-
-> diff --git a/drivers/irqchip/irq-econet-en751221.c b/drivers/irqchip/irq-=
-econet-en751221.c
-> index 2ca5d901866fe..5930c67c37261 100644
-> --- a/drivers/irqchip/irq-econet-en751221.c
-> +++ b/drivers/irqchip/irq-econet-en751221.c
-
-[ ... ]
-
-> @@ -461,7 +473,22 @@ static int __init econet_intc_of_init(struct device_=
-node *node, struct device_no
->  		if (ret)
->  			return ret;
->  	} else {
-> +		int nr_parents =3D of_irq_count(node);
-> +
->  		irq_set_chained_handler_and_data(irq, econet_intc_from_parent, domain);
-> +
-> +		for (int i =3D 1; i < nr_parents; i++) {
-> +			int parent =3D irq_of_parse_and_map(node, i);
-
-[Severity: Low]
-Does declaring the local variable parent here trigger a -Wshadow warning
-under W=3D2 builds because econet_intc_of_init() already takes a
-struct device_node *parent parameter?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261115-en751221-i=
-ntc-all-lines-v1-0-dc03a40f47f0@gmail.com?part=3D2
