@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794781266;
-	b=sE6Xd6AAKppmEagitZvfAEO2Mwt7FZzqnz3TECI/PK/LH+rJCFQ3GFjeSB7WJ5slaOmr
-	 UqvpXSMRAkHOTymsV9D+FnrBrFad41FHyrXQPVewXo8whepqsjwFuYB4l3BMsNGyL+BUs
-	 t44lRibEWb5+5BtQODcHk2cWnku0D08FhdIFXnQ0TwZRo3umxxtrgbJqsc8QBm4ZgCgt4
-	 QkbviPQFRDKrRZlYt3IXd9oUDY48sU4jv1GJ3E94gbUcIrWogC7Iuh7lVanNhTd/mL7Xl
-	 t9DIVsfCWautzL4ANlz+O+hzLHLOeSTcZo5UBCRs2RfUlvTHU4cf1k7hbgccobN61YQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794781266;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZAFY3cUder3qW+PINYFFGIewRXLP/J/NJFjtZaZIdPQ=;
-	b=tcq+QlwI84asxGkJGjx46uv32orvc2mP7A7gOdyc0q+nlfF3C6d4k8tRGKgNIrnxRakm
-	 Ynt5pmr9nyE231Re59MYnH+c18HQs399a21L9NXOG70crNJpr2ZmDi5uo5QLGVeRLfLiN
-	 GklSy0Dx9SXP5T/1w4MlpcjM0cMvyxIYR9wG3iLxnE+8dg1SeerT/ENHS9zD7LIsShD2J
-	 tmwKGjyhJyEoIvLFiH8IQThR/xKg3/vjmwI2o0ILxxhfzh/ZmlWUM2XrPRM2dKsXhlD+R
-	 fjm0Qi3kKlHlEdqXVooMjbbS9pc7JnJX3g1EZOiZ7x1zjnD9IBc6CGiwwYp/R8xZpUg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=ohRWuzLs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794781692;
+	b=b5bd04n2yJBhLf6E6fyXLlWyVrOgdci1w9Cm5yP7a1wwbrBgAUqQ0fKmiPLJ8htYv5Vq
+	 DJpehfpiZSLKH/aTSBjbXQ8TMrdrrQa3uHwi+fVxEpw/JfJscCKSaVwbLVOXlQ9k4hl/3
+	 xW25fUfCxBhRCaUKF1WGm6dtioLe12z4Kq0RGM0WVx4++cVOM2TZS4rn0X0YeXRC4vo58
+	 S5HqxRMTiSbNT3Cl94arSNFnPgY+FMvT+ivh23SlUlwR8Zty8QFMPAddMBYV26xyeRHIK
+	 1p0OM/1/ucKmjujBs8IPV2BGoNaF5Zh583NQ1vaFnKo0ZNsJ7Ds56vXC0D0Axx9kI4Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794781692;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=TEYwC0yd2Q6rJp4otTipe3rkKTLSLdWxD7WurCB1Zgo=;
+	b=FpxWkULLPGw+HBaoNPR8UBtfHOkWl8Ew+JF2ao3aF0K29ULBTdzbq8qMx7FmgzNBqr3t
+	 ZvmBo8mMK8zHrdeWTaiNwsJTC86zfNTCIxoiBAj3qN0e5Ck8G1tcUmP/dlDXmlIlgUkwW
+	 3wksUkc94Of9b8/U6yIrnPmFuxWXb3zdELpqJr2iZjc91ERdQb56pxAvFLQzRIQ3WxIq8
+	 I+E5sCwXkjrcTL+A0isnJIGoptKeyNfxOzabykN2YOwNdfkO3gZjT6DnYDqxxT/blI5Rh
+	 To7W6KLW8TPes2ZGFLezIX+MaSyYBdWNmdUX83rQgIM29VMw8er0gcntuTF27T775HQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWVzejUX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C87606A329
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 22:21:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94C87606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EAEB606A332
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 22:28:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=ohRWuzLs
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-677d35fd1d2so2673376d50.1
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 14:21:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794781264; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XFBGuPfe/qQpkBdoThskS2/7dOwMPJTuyWnmaguzKpoBUa0Kr5mXtTmaMZDANI+KUA
-         iYfgNWVfuINb8L2fJBiqW6O/I70oV1eBwEne/W0rQXQmNwvNFeKOqaaAC9TXaOsYOYoO
-         TtFDz+dLLMFWs1l6j32cFF1siJ2a2OnvIzg324rLVGDE5hBZzOs2RRKiwKaIDX6gJcCw
-         sqrUhgopyVuVToVueuM1ifIrIacnteX6YkpUK7USCj7gpcoNf6xdGAHkwXb+UT+Vvz1G
-         RoinxPh5gvYadsVJ2lK7ypWhZ7g2r32QJqJtQuVEvmU57l2M9HcDWD3xuVtkbfdy/ExU
-         Bg2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZAFY3cUder3qW+PINYFFGIewRXLP/J/NJFjtZaZIdPQ=;
-        fh=esf0dMLPNrlJsebhpqPgi1YAZ3QGiUvYT8MCbDWWRik=;
-        b=J5I4TeDXfzwWYihzj1RS6pPaMw8wSGc1XA7WWWgqjhJ3L1lizIMQ+zR8eAHggm5yuq
-         VhD1RFzWwq1FzUvdmKSPSKCbzmePvxoEO9ECyHI0RiMIZlmmtKrMtq+Z91kd/Zp0F7vh
-         NvLGQcJnsCrWMhV5dzxBe2D2l3uGj0OcpURpMgffUcRpVm0OQWTmFOfVCu6V7blibpWU
-         vhklt5j+KIFw8fpEUwGk4GnrnCYNf4aVB/GKwIP4PO6k7oJlFx0mSrc/E+ojm02XRXXR
-         FlD1spUVEA2Bs1nHXmRwaOQvxEp/XSppbSvS2jJS7rXF6I79tNc2eVS4RTrp/nh/ofqE
-         Bz3w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794781264; x=1795386064; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZAFY3cUder3qW+PINYFFGIewRXLP/J/NJFjtZaZIdPQ=;
-        b=ohRWuzLskucdZexyQNJ+heplSWXTaJEIIm7suUD2DWYYOw3bnEfYiwHRYTQCmL/v3E
-         xwwWqRiJ+eBb7u6IhQcghQVUllcYPsaVimvlgY2YtViPXRF14a83f8Bjd/3xDRDYBNhN
-         TVIZ8Hr0BlNeaTbuAdwZpKqiPpAAhqBi1bLs/CvCjludvcbtIj9zZ1VdNoUt8W0SJJA3
-         GBkVqjX6DJAHOT7fGd9fRQcmI+yShx/YpUiWjyImkVDlCzoW0hSM/eaJVZIrdq6T5ScQ
-         wMrz5zB4WQX2HfdLQlBr9kqUa12qUbNMbA/VVh59+oT6rDVABxNJxxVOaQZXOMOmQ1h0
-         HrPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794781264; x=1795386064;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZAFY3cUder3qW+PINYFFGIewRXLP/J/NJFjtZaZIdPQ=;
-        b=WBQixkeseYnOhYXF+sSno0DadBzrccsYBOGlT6+jH5MU6v0DqnEyc9yx4181Gac2mF
-         rKAYG0W+ot9FChgY10kYt5ddz2KD8Qp7ZjJ5/UZHP+Sm/TqqSYLLXOJ79qwnA9zcom6q
-         lGFLV4uxZ5k534onVEQyXfp9Fooc3KpJyOSwzaO5ZabMumztWQfz3MOwld41xXF/maW1
-         pFheNNKpCJ/AC065AkA80UBaPTbigEg6Y4HLseTylaspdFIig+zYxhUFPtt2e+c3Evjl
-         B4mkkSQgs5qM/1khIKoWArAWJHK69VUhr1aRgeQjLL3tq/S/5ovpswSQvAPLs78TQDdM
-         EwYA==
-X-Forwarded-Encrypted: i=1; AL+hErGnCnABtEYYKe9fW5xJjY5Cm/J1jAr6SqeKkWoxY2iDpczAacenFgkiClioueIzdo6eZQrNCKyCPosE@vger.kernel.org
-X-Gm-Message-State: APuU4Z++dLE246umIkXEQVC7353EYdyxhNDN07aC98khD9Ya82pA2ouZ
-	sM3davnBCO5xfp+zaBVVYeSVFnR+Zhvh/EcOlklfpth5xzD+WJ33ZF9PPyrDFlHQ/cj2tIyjusg
-	p45jWtc4oa3r45o6cKxl6z80DtDKg1Hw=
-X-Gm-Gg: AZFdTZc2SwZsmAGGBnnttVYMgomeABcPLOXsJPVEGE0oQ+ZutOi2iwLFd+TA1LsUWuU
-	6uIYnyqmyzeKyOySYB3grTcZzSs6Y5G1QGASITKNjXsoG4mduym6P/PuS392N7S1AN9ZD5QCXju
-	hz2Eucujo9pgAbwHKCrfP3MiKUsOAHSjYVBHakqqHu7tlOMknSsvaJgxn52zzf0/oyJTqsYgmrL
-	dTTzzGT8c4eD8tDgq2UO//4HnVEsOvFdpjI26XVB10e1gU6hTObnV3erLXwZek57HRvCwKCXLlL
-	0xoz2PBcYYv78JQNfmMTyq/nVP5mB34EbGRtjap4DiW1H5D7Pbmrc1wqq+ALGBLq5/c/9KX7gkm
-	fIwTlfXDrPQ0m43op5NNtgriW+gg4lI+oB1psj/7A2CrugLQ0e0lfyPYf5dfiF6t2kKX2BfS10C
-	xG1lcmls+M2VElIRo=
-X-Received: by 2002:a05:690e:4086:b0:67d:a3f0:7dac with SMTP id
- 956f58d0204a3-67da3f0917amr1936855d50.14.1794781264626; Sun, 15 Nov 2026
- 14:21:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWVzejUX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCF761F000CE
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 22:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794781691;
+	bh=TEYwC0yd2Q6rJp4otTipe3rkKTLSLdWxD7WurCB1Zgo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NWVzejUX9qF0XoM4VmEyXPZSxIG5Fs6unNadjPRXKBSH+vjBwWuW9IwsP2UD1Jyxh
+	 N4DWmQdek5RNSEdOLJueNW9tvqDthvnNazJBw0TiF7oKW+Ke/20zMucQiLpYLKA5nO
+	 3jDVSQIj1Uzg7SYszycMfFEzP6fakMh9E/SFLUMyyl3Pw1POrN19p3pgZdlMG1hBfl
+	 uDu2Fs2NFFfeBArnwiJLuecqZC8ijTgMvmd4rCgRDyv0DuRa4QKIeDtU1FGrbDm1fT
+	 9x3ewZn0T3RJPSLbtwwWddaebGc7zSZ3YdLKxYfaWHR5eABuub1dS5nx5aZcMg9Q0s
+	 IUuDfWmSm/WOw==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be3ed646a5so4104713e87.1
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 14:28:11 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFFBpofHugwmiZ+2ClvJvPGIhxloaopG4+n5GB/tTfYBVUYTlVDUTQb5Om1wqiP5ob8XdM3jJWDKGMN@vger.kernel.org
+X-Gm-Message-State: APuU4Z8oh3LOxEDaK2sI9eRAFnz8qcO33fL1JFz7Fyjm99VfGMid2GN9
+	xhzPcplRrliQi/TIlUU6I6Ak/CNR5xUFNW0z9IyxK7Sv+LrQ6qwf8j9vut+fQ+h4CRRxpaGphOZ
+	ez+wyzN/PZo3Kft4C05pMbnmV2xyWAIQ=
+X-Received: by 2002:a05:6512:3f04:b0:5c1:4cab:2d03 with SMTP id
+ 2adb3069b0e04-5c170b2ecf5mr3075860e87.63.1794781690375; Sun, 15 Nov 2026
+ 14:28:10 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,42 +59,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261001-add-t7-sys-pwm-clk-v4-0-8ed2b1e0cdfe@aliel.fr> <20261001-add-t7-sys-pwm-clk-v4-3-8ed2b1e0cdfe@aliel.fr>
-In-Reply-To: <20261001-add-t7-sys-pwm-clk-v4-3-8ed2b1e0cdfe@aliel.fr>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 15 Nov 2026 23:20:53 +0100
-X-Gm-Features: AclHuK-51aJAWSj3WTQV4S_5nCaT5gjYIQp2CQlsLrogi8Dpichyl4UfpyRzP20
-Message-ID: <CAFBinCCf2x3Ear_iOg9=KYXd5jbvAh2LdQb3uOME=Lry8Wm4HA@mail.gmail.com>
-Subject: Re: [PATCH v4 3/3] arm64: dts: amlogic: a1-c3-s4-t7: Add bus clock to
- PWM controller nodes
-To: linux-kernel-dev@aliel.fr
-Cc: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, linux-pwm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org
+References: <20261114-b4-cs75xx-v7-0-8f17f38821b4@gmail.com> <20261114-b4-cs75xx-v7-4-8f17f38821b4@gmail.com>
+In-Reply-To: <20261114-b4-cs75xx-v7-4-8f17f38821b4@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sun, 15 Nov 2026 23:27:57 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnu=ycR+_ZXW2K54oeDJMCfybdSUDVOTJ5B=rFTiOnjLQ@mail.gmail.com>
+X-Gm-Features: Aa3M54oN7V3Y8V-EQUC0vRGZ-PhoQTaP6aUjOIuJowZCATlHdfiiGxoj1XFGWNs
+Message-ID: <CAD++jLnu=ycR+_ZXW2K54oeDJMCfybdSUDVOTJ5B=rFTiOnjLQ@mail.gmail.com>
+Subject: Re: [PATCH v7 04/10] ARM: goldengate: Add support for the CS75xx SoC family
+To: filipp.dunsky@gmail.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+	Jason Li <jason.li@cortina-access.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 1, 2026 at 6:56=E2=80=AFPM Ronald Claveau via B4 Relay
-<devnull+linux-kernel-dev.aliel.fr@kernel.org> wrote:
->
-> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
->
-> Describe the system clock of each PWM controller as a third clock,
-> and add the clock-names property expected by the updated binding:
-> "channel-a", "channel-b" and "bus".
->
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+On Sat, Nov 14, 2026 at 2:41=E2=80=AFPM Fil Dunsky via B4 Relay
+<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
 
-> ---
->  arch/arm64/boot/dts/amlogic/amlogic-c3.dtsi | 28 +++++++++++++++++++++--=
------
->  arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 28 +++++++++++++++++++++--=
------
->  arch/arm64/boot/dts/amlogic/meson-a1.dtsi   | 12 +++++++++---
->  arch/arm64/boot/dts/amlogic/meson-s4.dtsi   | 20 +++++++++++++++-----
-note: a single patch per SoC is easier for me to review but we don't
-have a strict rule.
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
+>
+> The Cortina Systems CS75xx ("Goldengate G2") are network processors
+> with two Cortex-A9 cores, an SCU, GIC, the Cortex-A9 global and private
+> timers and a PL310 L2 cache controller. The family includes at least
+> the CS7522 and the CS7542; the CS7542 is used, among others, in the
+> Securifi Almond+ router.
+>
+> Apart from the vendor this has little in common with the Cortina
+> Systems Gemini (SL3516/CS3516) supported by mach-gemini: Gemini is a
+> single ARMv4 FA526 with Faraday peripherals (FTINTC010, FTTMR010,
+> FTGPIO010, a 16550 UART) built for ARCH_MULTI_V4, while the CS75xx is
+> an ARMv7 MPCore whose UART, GPIO, interrupt controller and NAND
+> controller are different blocks. It therefore gets its own directory,
+> named after the Goldengate codename like in the vendor kernel. The
+> Kconfig symbol, ARCH_CORTINA_ACCESS, covers the whole family and is
+> named after Cortina Access, which last sold these chips and also makes
+> the newer 64-bit parts.
+>
+> The generic DT machine is sufficient for the platform, so only the SMP
+> bring-up needs code: the bootloader parks the secondary core in a WFI
+> loop that polls a global software register, so boot it by writing the
+> physical address of secondary_startup to the register named by the
+> cpu-release-addr property and sending it a wakeup IPI.
+>
+> The CPU is a Cortex-A9 r2p1, so select the errata workarounds that apply
+> to that revision and can be enabled on a multiplatform kernel. The PL310
+> is r3p1-50rel0 (CACHE_ID 0x410000c7), select the workaround for its
+> erratum 769419 as well.
+>
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+
+Looks good to me.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Yours,
+Linus Walleij
