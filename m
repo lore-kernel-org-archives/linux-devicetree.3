@@ -1,57 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.54.127.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794741143;
-	b=4c59vBvxxfco/4ssUChbeRp2BOa1e3TI9H8L2LPhhZ0rTFa80cGNJ1kxG7ek86tEavrB
-	 TCDYfw+Jy+nBR9n728J5vOYLKHd2zOxc55kQIMCIW99qh5u6AAppxYfM5KCQuYF4gcpj0
-	 z1Q5jPga5xX3MAjS0btNxznLF6OjPrw/Ek53oLg9BeQYUSkk1N45NwpiQ0h7dxZrYWfjx
-	 GUNG1CxHaZnNsql4qn4pPvhtdTYORyelZaePoR2YG+rESzcxbpDnXEE5clTq1aqzyZqqV
-	 hySnEyVCTp8yLSXs0eDvqo5BYu07H34vmTe584sewqIPkcl1TLtVh5vITYxrlFleaPA==
+	t=1794741176;
+	b=cl/76niihiCnYL/7BhWJi5uA24R4o3lcPqmM59A60z9NkVnPZ9wHXazODEiw+CA3Wq/Z
+	 quMs3mMujn+oMZA3JFtqC95oxjvLia8hkTVdYkZtU3K3qOP/ep8nYZ8AakgdcYRiU+2OL
+	 b3mC2RTfQm2faxyJS5ccCnu3hps40cVccxAQnQRSIG9QCc2jF+EbYBFQpzQiK2b5KSgCQ
+	 CaUkcEz4c/ickMWOcxWBPuGiPAYoMsmIlkKxl1YWPWjg/GfiWgkyXbA74aRfaoQ4BDBeV
+	 Jllmesd3wOhXv0CXTvyQuWQNMQmHOkMNpNw8MVWg5IdNyGO9O5G0xx6Szeafyh6H99Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794741143;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=pklar055obidRqD009+g7WLs9lSKG/2CW40h8YFs1Pw=;
-	b=JKIltlUv+nz8lxi1LqBPm2FRnC3oj/eUnu/laTuYxeXqc0sRXBcrB/8m6s/W3nYbbb2W
-	 uHjBVJZy7bRHjIUSRVWH/5xY6TQEbVqyOCEHdl940xyfKUH4Ato0+iehCONqtnHUmU8qz
-	 xHQZ/XZiO5ATkmX1yE8dwWGf7LCRqWb973Ie/XvjMj60BaBm2OCDa35jSCAmd6d7HR+zg
-	 zcGt6W2eFBMm37FAMQ4fw41Dd13v7TRiA/kOG6foG4PoQVEsPjdi9X4/dHVLWgUoIYLGY
-	 HBF0z2KEdcqJh1zmXvYA415yexSoohJhBi0qCFmS2TcWKq7ECNQ9NedanFnC8s3ylqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794741176;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Envelope-From;
+	bh=Wtgom5SxqHDtHqRwD4u1SexlopRYafHtKihIR5rv3L8=;
+	b=XcnXThJO4RMCq8ZyK980gZzIBwziRWnHtZKzJssrz7aebMkhfnc3KfBBILQc9SbCk5KE
+	 xSOC/EaJx8oalV6a5VsUTTGkHyPne5zr/7R7LwedhR0szbVbmKh6jGksiO3uO/KjFrrBU
+	 ANdzM9FeE9Wd+Mg5YHIJquVn1Wy/GnM3WGAYFN6wl4EHV1WCBBIdZZeuXRPsbDbYxXnfo
+	 vpGUTliDnzl5a73HIu2BKMN+9jw2BHeX70M2RJ7XG2lHFouZvd6BSn/8s9iFUe4+7fa/r
+	 6y/NIftO4ZmyTaQ5qwuUoXAIHYsE6TD136HXp/bYlPU7cUYv0jhni37IAndqA5Q0DYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CNaEysRk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=chrispinetinega.com;
+	spf=pass smtp.mailfrom=chrispinetinega.com;
+	dkim=pass header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=YnOTpAOn;
+	arc=none smtp.remote-ip=198.54.127.131
+Received: from out-2z4y-a131.jellyfish.systems (out-2z4y-a131.jellyfish.systems [198.54.127.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F42606A31A;
-	Sun, 15 Nov 2026 11:12:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C27606A31A
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 11:12:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8C27606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chrispinetinega.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrispinetinega.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CNaEysRk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21E5E1F000C4;
-	Sun, 15 Nov 2026 11:12:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794741142;
-	bh=pklar055obidRqD009+g7WLs9lSKG/2CW40h8YFs1Pw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CNaEysRkURLv4tVuHz5G36R6tNKKXm/D0znBavC923KfL6d9o1V+bvk2blLsQLPgC
-	 8zlXwkgEHPfOQ3UQoxOlhn9+opvkzIyoAqWxAxF+uO8LYlQgfj9SezE7dBVOTFGU/l
-	 8dNWhUOmzWK8i/m4OR11FDFhhFF6GMb/M641aAP3bkYQae13Il6t8w+p6koC9RHbAU
-	 0gygpmv2uGmkNZKNVW+wkaPuIoU/XGBuN9EHJLKxBocHFUOIGqM880GaRMthpHtI5q
-	 wFRc6YETCksFR/fCeI+kxm7w6Vn3zb4Vi5LnyBo1X22PYM4SgvAlS2Tr+cfcAPlJmT
-	 dip7sccsC9hsw==
-Message-ID: <sashiko-outbox-215444@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 07/13] reset: add Synaptics SL2610 reset controller
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jisheng Zhang" <jszhang@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261115102401.3520-8-jszhang@kernel.org>
-References: <20261115102401.3520-1-jszhang@kernel.org>
- <20261115102401.3520-8-jszhang@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 11:12:21 +0000
+	dkim=pass (2048-bit key) header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=YnOTpAOn
+Received: from mail.privateemail.com (unknown [62.8.90.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4jS7cp6Fkdz8sWV;
+	Sun, 15 Nov 2026 11:12:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chrispinetinega.com;
+	s=default; t=1794741153;
+	bh=Wtgom5SxqHDtHqRwD4u1SexlopRYafHtKihIR5rv3L8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=YnOTpAOnG/bKK6ONGaUdDS0OeJWEzHI6Ua48oTmWyJyCOtqQ+dP8MUs9LSuWKu6Jt
+	 mQUpcSq8G1swf37deu91PLjTQMU54LnVNY/8OXWw6l6MElE3sOPeUQRBn81Nh9DrDZ
+	 JIPkdcQNyrJhZo7EmQFPokBWEkZcwNFRtHMqrXSVl56Gbl+Kv2A7ZJNWog1tVMCEDm
+	 mgBNRT8pfpjvWP4SiEZwnyVT7PWyHIKTkZoiVKgMeYWjuoPnTw68p0c8VNOZgOdwlt
+	 GuosHlVZj7MgVR95fIFQIqduV3DufEFYvzO85VStgsXX7NIU39qFHVUQIQpwR9K+5d
+	 LFhaa3X2FqO+g==
+From: Chrispine Tinega <dev@chrispinetinega.com>
+To: broonie@kernel.org
+Cc: lee@kernel.org,
+	lgirdwood@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	aaro.koskinen@iki.fi,
+	andreas@kemnade.info,
+	khilman@baylibre.com,
+	rogerq@kernel.org,
+	tony@atomide.com,
+	jerome.neanne@baylibre.com,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	mfd@lists.linux.dev
+Subject: Re: [PATCH 2/3] regulator: dt-bindings: ti,tps65219: Add ti,no-warm-shutdown
+Date: Sun, 15 Nov 2026 14:12:17 +0300
+Message-ID: <20261115111217.371268-1-dev@chrispinetinega.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cedb08d0-cfa0-452d-b4cd-511d6c852eed@sirena.org.uk>
+References: <cedb08d0-cfa0-452d-b4cd-511d6c852eed@sirena.org.uk>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,82 +80,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: dev@chrispinetinega.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] reset: sl2610: wrong errno in sl2610_reset_assert() and
-  deassert()
---
+On Sat, Nov 14, 2026 at 02:20:01PM +0000, Mark Brown wrote:
+> Reviewed-by: Mark Brown <broonie@kernel.org>
+>
+> though we might still want a runtime override for when the user is more
+> cautious.
 
-commit fd9868407ed20a422bf28d62579da17aa23dc9fc
-Author: Jisheng Zhang <jszhang@kernel.org>
+Thank you for the review.
 
-reset: add Synaptics SL2610 reset controller support
+I agree. Looking at it again, a cautious user also has nothing to act on
+today. With the warm warning masked, the warm interrupt reaches the
+regulator driver with no regulator attached, so it only logs "Error IRQ
+trap warm temperature". Nothing is notified.
 
-This commit adds a reset controller driver for the SoC and MCU system
-control blocks on Synaptics SL2610 SoCs, supporting both pulse and sticky
-reset lines.
+I would rather keep this series to the board default and add the
+override as a follow-up, once there is a user who needs it. I would
+also change the binding text in v2, so it no longer says the operating
+system decides how to react. Does that work for you, or would you like
+the override in this series?
 
-> diff --git a/drivers/reset/reset-sl2610.c b/drivers/reset/reset-sl2610.c
-> new file mode 100644
-> index 0000000000000..1ca58d5a3e713
-> --- /dev/null
-> +++ b/drivers/reset/reset-sl2610.c
-[ ... ]
-> +static int sl2610_reset_assert(struct reset_controller_dev *rcdev,
-> +			       unsigned long id)
-> +{
-> +	struct sl2610_reset_priv *priv =3D to_sl2610_reset_priv(rcdev);
-> +	const struct sl2610_reset_cfg *cfg =3D &priv->cfgs[id];
-> +
-> +	if (!cfg->sticky)
-> +		return -EINVAL;
-> +
-> +	return regmap_clear_bits(priv->regmap, cfg->reg, cfg->bit);
-> +}
-> +
-> +static int sl2610_reset_deassert(struct reset_controller_dev *rcdev,
-> +				 unsigned long id)
-> +{
-> +	struct sl2610_reset_priv *priv =3D to_sl2610_reset_priv(rcdev);
-> +	const struct sl2610_reset_cfg *cfg =3D &priv->cfgs[id];
-> +
-> +	if (!cfg->sticky)
-> +		return -EINVAL;
-> +
-> +	return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
-> +}
-
-[Severity: Medium]
-Should sl2610_reset_assert() and sl2610_reset_deassert() return -ENOTSUPP
-(or 0 in sl2610_reset_deassert()) instead of -EINVAL when !cfg->sticky?
-
-In drivers/reset/core.c, reset_control_deassert() treats self-deasserting
-pulse reset lines as deasserted by default when .deassert() is not
-implemented, and documents that .deassert() should return -ENOTSUPP when
-deassertion cannot be guaranteed:
-
-drivers/reset/core.c:reset_control_deassert() {
-	...
-	/*
-	 * If the reset controller does not implement .deassert(), we assume
-	 * that it handles self-deasserting reset lines via .reset(). In that
-	 * case, the reset lines are deasserted by default. If that is not the
-	 * case, the reset controller driver should implement .deassert() and
-	 * return -ENOTSUPP.
-	 */
-	if (!rcdev->ops->deassert)
-		return 0;
-	...
-}
-
-Because this controller implements .assert() and .deassert() for its
-sticky lines, returning -EINVAL for the 22 pulse reset lines in
-sl2610_reset_cfgs[] causes consumer drivers that call
-reset_control_deassert() during probe (such as 8250_dw) to fail probe, and
-prevents consumers such as stmmac_dvr_probe() from checking for -ENOTSUPP
-on reset_control_assert() and falling back to reset_control_reset().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261115102401.3520=
--1-jszhang@kernel.org?part=3D7
+Chrispine
