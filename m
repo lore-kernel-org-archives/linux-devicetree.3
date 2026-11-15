@@ -1,55 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794755380;
-	b=aK5LScm29xAQnk9V1XNRJmb3SvDiA9eQFNfqlL0ZeQeaiJ1Fnx68IZylCwL2a4AunS5t
-	 Qi3VqFX4mp0b8692/65zlRSk5qYO33SOB/jjFYLqje8S6iUYSqROuHyAV7O7vuMHKiKgt
-	 6YE30XW9xcXyjBmpBXfMSjn32jmYs+kZ05yLpdYa/t7Mii3SOsrgjGmEYinrCxpFL9z/z
-	 3tARXt2tl85sKTTnt5I8Rt8q8WYaSzB9tGfgquBZY70cnTpQYgICv/B3KJ1bvByON1ljM
-	 leepLSHhqXp8+mRHog9V8hIdJkW986GdaodChozvWEKwwsnn65nDnWNkHWyrw2NyPRg==
+	t=1794757266;
+	b=CqOm0CkGr+jvXLMIzzSY15CP5iPxd3i1OZCX+579x8RPuwqQHRJpjAXxjgJE5/REXt1k
+	 wZNTqRcvJJzLzYJHdxHv8lxksxlZjkvKS/2dkwVAx2Q77NUYyCZQLhq8I3CTV2QeokACZ
+	 /cqZ/J+kbJ/KrpQ5tJsJbuqH/BlwqY07eDDskP7onwsTcIOSvFGV/FSipd8kQbc/bOnKX
+	 l3aSB81rpLcaAs0oG3Ij9F00PhJkVb4VxlJ1JipzTyVeKXy10YyCJv9UZLQC0VKicnP3r
+	 rdvMV98Mjgp9FxboN0iWK1TvJRMRcHw2+F4JJkXSLxEGTSKZBiFhZiJlOthRD0koFHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794755380;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Cq6yUQzukHtwhYuWtD3CdG/vzfG7TEB1pVADzBcWgFs=;
-	b=cQFwebeP9L5emul46YucPq/3iAXHE7fKj5effDvnvaHBBdW4YxhOs3RO5n6LMsG+3kZU
-	 RlwODBs8dlXQFRxRtdFN2PLDVmJ0C9T7e/YsbG457/kXbg1Qd8kyoNnyFX9qB5x8MuLNw
-	 ATo8Bm3deetJwvco0KsRAOOUDJZIKH5rCDpGcpCxTvEdY/1jYvkmdRMd5dqY1hzGq+kUJ
-	 yGgBy/JOUFiimwcqoAuk6FwI4fh2KLmmXM7OYLCt6WrZTGLTYkelmG1P7RRZoz2lQqFsJ
-	 ezt6ucgU4auwz63nVICJcs7XfJjQPrTeGazsdjVPUjKYYbLxH+DicpHZJ/bBGFo9ObQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794757266;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=PVuohZ8xLFR5YiCoEYGFhyPTULZBGZj7Wpwh1r3TICY=;
+	b=XmvEQqne8rqQZauL6g2D7nESFvyick6Y+EVDIwXrV6dlwgum7Y92YdhVW8waY6t/SIG7
+	 gSkLxmh6TTBGHmZBPDeMnSSRGBdXdm5iRlSXbDRZZhtyMBIFtbnZ2Lal/HzB59yYRb3wd
+	 rYfaaXjSnqqgtZvrzMDYE0uhTC3U0M+hfm8mwVnqACtxKHEtYUfS57/y6kH0nSi926q5f
+	 JFR7T9PgoF4GKR7xpD7mT6/fMk3NKLwfQf1XaOMrgA+cDA7Hv1PXSxv1OyBTWX6yi3yEC
+	 HVoCnbEwUROM74j465givNbPTl232vdyH3pb/ARV1t/muRrkEQECL5oxAI7I7AeMcLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cANDfa3J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JcnXBjQ6;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35003606A31E
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 15:09:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBBE1606A31D
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 15:41:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBBE1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cANDfa3J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFD641F000C4
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 15:09:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794755379;
-	bh=Cq6yUQzukHtwhYuWtD3CdG/vzfG7TEB1pVADzBcWgFs=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=cANDfa3JG/1VLOyWOyMbLnYziGnzSsHDw0+p48eFEhwqjIqqzBMypnlKn2KIJbBGy
-	 Hq4EETBr2jUy034admevuoevndcXik9C6uGtap6cIMzgHvPoML9laee3OpAmf4sBiB
-	 V6Hi3F0/36Jj6przMu8+XPjSpjPzA85GybC1zU02FANO/I/3EaUryQjljgHh/wI44D
-	 5RYySKRVJXo2SRloVa8du07x2AxdwjTDUjUTJXlLIsql7MWUyVb1o93lvq6ZjrRX/R
-	 dB0ZlpwIe039A6elGxys/Fb3U05iYiO1bsBl4w+OQaWaOFfVK9uQspK5cbriu9IOZv
-	 IE74MzMSJVX0w==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ab3b29a298so27593131fa.3
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 07:09:39 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGr7zzrm2R3onAQ88GZn2oqry/0MDQo7PNFJAe9tpwaRehNnJEUgVpBcGEosAg4fbgEEHTvLAu2CO1h@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XuyOWWFymH+gaewelZ/+02lgTYM56UWAwN5W7qycZbvroOC0Z
-	iFiqAiOqjaDF91x87WlXqpXG8L75Pxwd1mSLwC4K+gSKzYdaZEKyIBw3pv5Ea6FcdiwVnW5rQ9p
-	jy8Kz8LgfUWgwAW2Xsjxx0ulPB1eGSTg=
-X-Received: by 2002:a05:651c:1986:b0:3ae:25c8:dc78 with SMTP id
- 38308e7fff4ca-3ae2b69178cmr25726671fa.22.1794755378199; Sun, 15 Nov 2026
- 07:09:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JcnXBjQ6
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4922523d1afso1243815f8f.0
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 07:41:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794757264; x=1795362064; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PVuohZ8xLFR5YiCoEYGFhyPTULZBGZj7Wpwh1r3TICY=;
+        b=JcnXBjQ6oVs3WO6WxsJjlXF3Srfn+XWnPXlN0yzPpJsvcbjAwiYznR2yVsrq+dIF0J
+         W9K1hDH1dg4Rq7lZSMIhfD3gchU0KLGorPdGJ+zlQeEucdr7nNce45CvydySUCY90PWY
+         Xyu/qB9TRVQV4d6tUrWZIxOCTwwDWe69IsTtjWCZjxdP2vvALjzMAogu8SPoZHkOZyaF
+         zuC9NuaXKcHS/ydQMct1JDP/0pjhpMGbTARWR/YcAz+Qib3t24DwWdP7jNV5O7sXEqo0
+         nlPhnW30vWk79ZmVTGvnuZbrJ2Vgh12vhrZe5Vz+JkN4iiK2dMUW8v2WdxiY8cHNmbsu
+         Y4BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794757264; x=1795362064;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PVuohZ8xLFR5YiCoEYGFhyPTULZBGZj7Wpwh1r3TICY=;
+        b=i/KVEEScz8wqj5/vjAx/+IyO2r896XoDDuSBExLcI0W/yW2KjwLsk7TEvXCTKIQoSa
+         R2DlcED6t/E46tpVvxhzFskVvQK0vOamYC74jCiqLPg6Xqcmnid9YuKnkQC6aSOK0y4J
+         Ag7Naq5vHiXcQQiWzFKAFY+Bzvc3IMzdqKDhMrHZf8E7tf/G46zgEBWsW/Ey0ovP7S7b
+         dd2gGJkGlpJyR1KfcLVHC2CdkYGJsZWNf4b4w51pIWCiGxyxYLM2Zqf/pnzM1Ybokbms
+         JFG/DtJgs7sgb1R/RSSxdnuW7P2jyl7g1Q5jFGkNtViKLz1EtZgvKBg7oKeGvw7Z7UrO
+         rcJg==
+X-Forwarded-Encrypted: i=1; AL+hErEw4wNEZaYfDNzq+GD6kKaqO6P41aRPMrTQUNWYefZuFjv8eqYDFYNuKpXtMUBsqEg+o2Jjs+1tJBw0@vger.kernel.org
+X-Gm-Message-State: APuU4Z9BOC+2BCZEvT79WiUQ0PgGX+2ZI5K1RilS5WxdJ8fxkv0gbAKb
+	xHgh6wY/ulfc/+26SZMu+cIJiJTtvyOReBDDlpsKdX/yUW2HA4W3FA1LKQtw1pZEsuk=
+X-Gm-Gg: AYBFou22iI/OW0sGpHkXU+srpxircx4fl5z0feLUsXx7oj5NluVEddsVOvX+yNGNjco
+	lgk67G5VWW1DmvMvZVcXARHKZN7ZmrrhibHr1GVkKS4VVr5K/xcCnT41nx7zc/m43od8EYy+Y+M
+	3TqSw+Wl9zESkSwE57mAJr5Pq1pBYESNwF8iY8rr4V92eRb7OvHbiyx7M+yOx8L4kEmu1uxsWLN
+	kZ9GuyArfghhWoEBbojb4Jc+OOlaACQf9Qd7QyZHrWat5sCo32xnPzylThlMf43cYo5EUO1qtAL
+	/n5WDKWiPxeN3jQdWpYct6vapf7fNVqlLhPxJN8/so0gJC1HlgwP6IHOuU8OjekBxUFSjuQH5MX
+	5rU60fnkMCx2ZLUnTAq/BsUu2KY+YIPiW93jiW1guBuTZQrMLTHPuhRSVP+5vJKseVyn77njNQ1
+	+m0kquZOuQvilUVdBRWBqKT82BNZRBPuA7lE4/HLD4dZ9lulBd51+7A+bYCb1hFZ2SUL6rf5UPp
+	MefNGtwCQQC8aBFeKIBkB4lMqZryXSoedxwC92aMtudXCI2pLnRWZTv140Uyh3TAR15biEQIL+T
+	J6B70JdsSm3klO7/nnhFo6XNXs05B2Lp3qY=
+X-Received: by 2002:a05:6000:2c04:b0:48e:d36:77 with SMTP id ffacd0b85a97d-49c6fc9db5bmr19465481f8f.4.1794757264141;
+        Sun, 15 Nov 2026 07:41:04 -0800 (PST)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-49c888b90d4sm16462060f8f.9.2026.11.15.07.41.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 07:41:03 -0800 (PST)
+Date: Sun, 15 Nov 2026 16:41:01 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: gaohan@iscas.ac.cn
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Maxime Ripard <mripard@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Andre Przywara <andre.przywara@arm.com>, 
+	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@sifive.com>, 
+	Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, linux-csky@vger.kernel.org, 
+	linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rtc@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 14/19] pinctrl: sunxi: add support for the Allwinner V861
+ PIO
+Message-ID: <avnR67LnZo4Mo0Tf@monoceros>
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
+ <20261114-v861-v1-14-eb71ec3ee523@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,66 +112,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115132215.289236-1-jernej.skrabec@gmail.com> <20261115132215.289236-4-jernej.skrabec@gmail.com>
-In-Reply-To: <20261115132215.289236-4-jernej.skrabec@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 15 Nov 2026 23:09:23 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66acxKq7HR=p+ky7dhT03fTXct1_82dPXu5ebS-fYgpvA@mail.gmail.com>
-X-Gm-Features: AclHuK8SfNxnDatVmiI32N0fkX-YaXg08NGH8ia-Bx19MDfSYUZXv-OL_jNzao8
-Message-ID: <CAGb2v66acxKq7HR=p+ky7dhT03fTXct1_82dPXu5ebS-fYgpvA@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: h6: orangepi: Enable CPU
- frequency scaling
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fgskattfdxvvv7hb"
+Content-Disposition: inline
+In-Reply-To: <20261114-v861-v1-14-eb71ec3ee523@iscas.ac.cn>
 
-On Sun, Nov 15, 2026 at 9:22=E2=80=AFPM Jernej Skrabec <jernej.skrabec@gmai=
-l.com> wrote:
->
-> The Orange Pi One Plus and Lite2 lack the CPU OPP table and CPU supply,
-> so the CPU never scales its frequency. Add both, like on Orange Pi 3.
-> OPPs above the regulator constraints stay unused.
 
-My review agent noted that some of the other boards raised the constraints
-when CPU DVFS was enabled. Do you think it's reasonable to do the same
-for the OrangePi? Or do you want to be more conservative?
+--fgskattfdxvvv7hb
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 14/19] pinctrl: sunxi: add support for the Allwinner V861
+ PIO
+MIME-Version: 1.0
 
-Note that I already applied this series.
+Hello,
 
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> ---
->  arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi b/arch=
-/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
-> index 40c5c42b347e..a2a2e4cb0256 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
-> @@ -5,6 +5,7 @@
->  /dts-v1/;
->
->  #include "sun50i-h6.dtsi"
-> +#include "sun50i-h6-cpu-opp.dtsi"
->  #include "sun50i-h6-gpu-opp.dtsi"
->
->  #include <dt-bindings/gpio/gpio.h>
-> @@ -65,6 +66,10 @@ reg_vcc5v: vcc5v {
->         };
->  };
->
-> +&cpu0 {
-> +       cpu-supply =3D <&reg_dcdca>;
-> +};
+On Sat, Nov 14, 2026 at 06:33:40AM +0800, Han Gao via B4 Relay wrote:
+> new file mode 100644
+> index 000000000000..742465076d86
+> --- /dev/null
+> +++ b/drivers/pinctrl/sunxi/pinctrl-sun252i-v861.c
+> @@ -0,0 +1,49 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Allwinner V861 SoC pinctrl driver.
+> + *
+> + * Copyright (c) 2026 Han Gao <gaohan@iscas.ac.cn>
+> + */
 > +
->  &de {
->         status =3D "okay";
->  };
-> --
-> 2.43.0
->
+> +#include <linux/mod_devicetable.h>
+
+Don't include <linux/mod_devicetable.h>. <linux/platform_device.h>
+already provides of_device_id with less dependencies, so please just
+drop including <linux/mod_devicetable.h>.
+
+> +#include <linux/platform_device.h>
+> +#include <linux/pinctrl/pinctrl.h>
+> +
+> [...]
+> +static const struct of_device_id v861_pinctrl_match[] = {
+> +	{ .compatible = "allwinner,sun252i-v861-pinctrl", },
+> +	{}
+> +};
+
+Please drop the comma before the closing } and add a space in the list
+terminator.
+
+Best regards
+Uwe
+
+--fgskattfdxvvv7hb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr50okACgkQj4D7WH0S
+/k78BwgAggANSfiR3lIax5U5QxcHapAeEwjkuu5kUUd7ThVymu6geBziPkTKM9LN
+kV1vp14gkKuMuThllE6yPhDE+jBai3H2dmZPRAVxRmkHkRXaCGvN2Qy6QvjG7hn+
+pKrIhNm9FD3gtJcf3syW5npYiRAxG/6TkK+Gz1PXPgmg9Yj7puOzJ5ZZsZ+kBOcS
+xiSHHn5ujqEIP4jnBc7Dv7UpeDH4NxdbQ6ssuWEYpdmNKvGpbP4Xi4tlxo4RAMXF
+XWXJcAtussx3dylMOghSQ5VBKABwOqksAb/tX5/oaY13ScR8Lg/M3WzfjwXPwvtR
+yRXJHXEAk7lxYPB9WoXGrz3bVWm0dg==
+=Eo1Y
+-----END PGP SIGNATURE-----
+
+--fgskattfdxvvv7hb--
