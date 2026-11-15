@@ -1,86 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.175
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794729328;
-	b=FnTGQ/gfjYEt+f5zEZXniOZVE83QBC292/xv1JrvCKN3zG5AgPofbvsjQ9KqQjXQOMZl
-	 Bt3HL4gy2e8z1IvjPi8PwdBkcH7mVAC8mVg/oHLcYtQ6ifChO5pl0z8Rzbo0WaWrE9W1s
-	 TkOo7JHTfu4B0XZgcs2RretSLFM6jUapLlRAC/EgTE7qe2wpZJYwPOLA26ZMt7tBY8yGR
-	 yzBBURhh0qafvCGQ/5gmWGgiU21ECGy0C86iO71PX38tBg11QzOzl/eH1vI80rexJfVTx
-	 wkXiJiqridf8Wsujxf8pNFO30el6rQ2EFRGwMz670unJuA74taskO4JDwQHvt4nWrHQ==
+	t=1794729594;
+	b=xjyUoP/9a4CyKxx2E/bczPe+DXgWG2wgnKTz9ueKwbeR7BxMul2slaRZ/MLlmQV0XKRq
+	 eLUKpgW9+xiZAAh1kXcJI9Qu8Z9kc0RhL2hvG0dGe3+/Fa+iXOUTECeCmJOLqz+rAAVH4
+	 xb44zDIyNXbDA7N41JWWMQTXup0NjhxnP7DCl1WaxbSsFQ9MMH6EQz5TxoiesBxJiWRri
+	 LIzH/LPEBaVN6URzVYcyEXu54+B13gKGpwpu6I52MMkYuajJA7d41Oyqy+qN5Fb3rK6FJ
+	 fqrTMDL5XFx/cOj/Hn5P4wOyAnN1UT6KE+MKklb7kJP+zP7V1r1gwEQc+tUaWg40NIQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794729328;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-ZohoMailClient;
-	bh=uLrkbNalekNKLkCB0XNj+22wcuzKD0fuIFqvheTwm3o=;
-	b=SPHoOvqq+OCP/NI/BMqWL1MHq1EFBEQ4SPyA2AQ2+JnUzCK9rQN2qHz4bah196NGjNSU
-	 qqaC9liJZ8f7krhEhs4fdb2ZS37ON7QQifADpF0nv8birfGn2pDD0N0ppCz2ot6xDcc9m
-	 zu0wKvYw+Fyrf/2f34Y7mOXwd15UytotYx6jTxs94TC2W5SYjvJyNe4WT6KJfhRM2O7gC
-	 Jpvsr4P9k8b3hY0PC68q1q6Rg8H0Gt2zkbExKcsDFZngEMxApLkWTt1GmzTd3Nc51H0Z6
-	 Y6mKfYycqoTaxYWB1uXqV4wyrf9fSXCaWklV+y04hhYDHA5MnUW3wyoffNAKbU8Qpig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794729594;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=uTDHqE1Lg6G8+bxeAtYf/i35aEgyOGsm68xtWenUwWc=;
+	b=XC4ytkXFAScH0esQ6rUaedsEFTJjVmeRt6gC18xlhEIOCO9b9cbkMQOSvZjsDhIABJzr
+	 Gz7+35NZ5RN4sMT27Uw7Y4M2epfB1o6Czr4USRgbseJ7HsL1oDDiWlBKBIidOFwDv1Rai
+	 xaTk6R4vU+/JX+sJbkOg/AorPaIT+lHbNBYQSXjzyClZFqvMo9jmgPrHtZE/Da6J1OxsJ
+	 qiStbwGDBy26SkmdzN8BH/twx3Ry1eK9e1aDSlO/HwnweuM8Up0/Tz5eoq56HUxjHtvbh
+	 PVW01+Kcf8ybHNDdWFsjovFW5JrO3MTj7oQNOPuDK3u0DjSm0OjEBOS0xnEUTPCCAjw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icenowy.me;
-	spf=pass smtp.mailfrom=icenowy.me;
-	dkim=pass header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=HXT89uKD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l3ZsFgXj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.175
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0F2606A31A;
-	Sun, 15 Nov 2026 07:55:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E0F2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1488606A31D
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 07:59:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1488606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=HXT89uKD
-ARC-Seal: i=1; a=rsa-sha256; t=1794729276; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=PzpbNvrjLiWmMMQpYIFs6kNtE5aAFPG95KjK5KvlXphkFJSQWxIkxHJ4ewsm4PYP3Mu0PpJusYSynaTno95IPepvJSuojmDTtnqDPrMUmq4G0/DTo6yfAJQOclFVYQvcm8r9jx8WmNHum1iqeQh818u9gkDKzaozdGAAGHtdC0Q=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794729276; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=uLrkbNalekNKLkCB0XNj+22wcuzKD0fuIFqvheTwm3o=; 
-	b=UY3QFzh2y8YKc6dOyLqCWIN0cb0Dg83WZRST7n5TKEVlzHkytkmluI80+r9b3AeVwHbIKNNmnJpUiRGJWOlG6Oq0XE7DX4O/OVg10DOFJm/HQlxdTTmMviT9RldpbxtRZK4bQjwZBY01n70Wg4cSQz26p/LS7DENhlA37eiS7S0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: a=rsa-sha256; b=HXT89uKDo45p/IEIvQZmTbsoA3f6lkwMkgKc83FYWPHSHvSS15qcZRoGwBJLRFlK3r88KFW6epg9hZH4+rukeSGfXRkgyl8GBU8U4o+d67P6qUoaL0v4Yb7iW8sEeP4dCB5mNz08q3mkik23j6b8f3x9/z9Dkdu91sV4nbhUU124g6M50i1ZHcaboD1mp9kVDGqn16XGZ+iuOyT5ZYmtQIVLzVE5ONA+HqL48LJIG0cJqY2hBYAiW7gg5VRq1n3xH9RaU8xdBXCa6d97Jg67wDJu+K4XcnskstUIPVU0vYe8dbOM1UW5DzEoRv1CsSaC6v3iV3GdQZsrqRdYtx57OQ==; c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1; bh=uLrkbNalekNKLkCB0XNj+22wcuzKD0fuIFqvheTwm3o=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794728372584790.9071811696919;
-	Sat, 14 Nov 2026 23:39:32 -0800 (PST)
-Message-ID: <a6b616df57285440326043f5546affe9a64fd1ca.camel@icenowy.me>
-Subject: Re: [PATCH 19/19] MAINTAINERS: add an entry for the Allwinner V861
- SoC
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Jernej =?gb2312?Q?=810=947krabec?= <jernej.skrabec@gmail.com>, 
-	gaohan@iscas.ac.cn, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt	
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti	
- <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Guo Ren	
- <guoren@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec	
- <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>, Daniel
- Lezcano	 <daniel.lezcano@kernel.org>, Anup Patel <anup@brainfault.org>,
- Stephen Boyd	 <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet	 <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland	 <samuel@sholland.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Maxime Ripard <mripard@kernel.org>, Linus
- Walleij	 <linusw@kernel.org>, Andre Przywara <andre.przywara@arm.com>, 
-	linux-sunxi@lists.linux.dev
-Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
- devicetree@vger.kernel.org, 	linux-csky@vger.kernel.org,
- linux-clk@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-rtc@vger.kernel.org, 	linux-gpio@vger.kernel.org
-Date: Sun, 15 Nov 2026 15:39:17 +0800
-In-Reply-To: <G7_h6i47RcuqvaGeHxw_dw@gmail.com>
-References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
-	 <20261114-v861-v1-19-eb71ec3ee523@iscas.ac.cn>
-	 <45f41ca4bcc76a6c5d0b9180c6492308ec3e85c9.camel@icenowy.me>
-	 <G7_h6i47RcuqvaGeHxw_dw@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l3ZsFgXj
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3ad3ef75223so2861681fa.1
+        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 23:59:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794729592; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qumAItYAqu2d2cuQ526FdrCZ6GgdBc4SktlWt0x21jG9pVPm5DkEJG8R3zfU0tCEOM
+         rPbOnmixC4kbrS3z6H9FR9vr8pIGNDtRraA/ECgwsDQTF639s0DAc4ygt1LxLhmkuZ12
+         cS+b+NmwQ5WuGr5YYTMhxC6EukqB/jYaSPqN78PPur42apPjcOA4LHmLqiSJCQas9b4u
+         dS3I9tIf8RSpjrAzSrK4JBi3b3Zor1jBKwLD1cfDKorXiLl8CawKs1zlijt5HZJ711VA
+         sSuKcGIrZHN06LM8p3Rz5qg6Ec8zzqrdB2uA/tY7j1fVONc5Nfw4fFVzlpnTli5rt47q
+         Bd9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=uTDHqE1Lg6G8+bxeAtYf/i35aEgyOGsm68xtWenUwWc=;
+        fh=COUlEg+NHZ6LSdAIW75AjOlcmWlxiZSIFJbB67Yp8A4=;
+        b=jFoJFEWEQhjhb8/uXHfNTZRMIr4GgjrdcZjkeHh6pVXU8MBQO1YuGP7l7XSa858zgn
+         4Jqq3D04JXz9JFBukcp0Z9N1oYaMLHxiYXpt4VSy5Ri3pnxfXTcB7yg4DKezxK1nI03l
+         S6ZG3O48ZbwoyBAWHpsbWXZbsbEJs3j0HrMdgWhDlaqz0lqjI36dFxhw+76fs24U3+Vq
+         eoIGhE7M5mPBRK+yWjwjzIeCjmj+QioeaaYVpWXndQmD/EIqMRaneHrIhafFKlBzl5Lr
+         oJObhqmELV7lwv6WZDTxwGuli4VczGyZQUfC31pkKanJuiM54KYKyQ9oDf+9ljtnXBjM
+         Vw2w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794729592; x=1795334392; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uTDHqE1Lg6G8+bxeAtYf/i35aEgyOGsm68xtWenUwWc=;
+        b=l3ZsFgXjqQaUHCu/uCWOhjK/dyHAiUzR+hi2m0HmL1j93hV0uGsEBJsWQGdli/PgCR
+         1rv+SVpAaBEzQxHWhcuUuCGzyvRzqYMqQ4/ncvBK6a/61yfT8HUkAn/6C+u4ZI3w16yp
+         oz8palOkMILd5b6Frdbg+kf6ZE5X2l1gv3fbLAwhEIGbfhpEriGaTI9QbMcUl49HiYsP
+         iGpPErs1fUrEv6pRfU2xuOmqNlWQNUCZ5TKgNZmVETnIYRCcL/kCGBw0oxsmKB7XzLhM
+         u7aznga62Ev9fV6nD8R32SRlqRLoIf0DA5HM+QGFAJZXEwYaGbIo0FFbRo6/ysveACVY
+         MjRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794729592; x=1795334392;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uTDHqE1Lg6G8+bxeAtYf/i35aEgyOGsm68xtWenUwWc=;
+        b=11Mjhq7zgsQKOHT4FdHnrwwY5CreO0KybqOszn1PY4EMHf9ZocX7lzTDf5lB8/lm+J
+         M0pPB3GTWDbwUEnMoKpUDXLbOAqnhe4f+N9QUn6XIHIZ1Au2gTEyzKTPQ5W67ZOQnUFs
+         2DywbKCPxcVujSKZxY2rWp7rAiF3j9gjojA/iOUNg4laFKUHun7ndkDP4+IFJO0WUDb2
+         nwc1INXN7ksxsJArUSstbFDKSbZHpTGaIa4/R7Aps/Mplj5JIs7pHAgM88Cg9/LNn+vW
+         O+ZJjmxs1aiBPkL51fH7bPAPcQkrTjT56Z+d//hff6NGPX8n6p7NyEiGIOnyi/vE7lo6
+         RFLg==
+X-Gm-Message-State: APuU4Z+VY8un2PCDq9I0LtXUSDcQnTKIMXFuV1tMc1eYmbCPr9JeeS96
+	JH9i4yKEeN/s6JVa6JbtP6TBof5v/PSuE7LTzgfXsHNmbb6NeDH7trCHBgakRleA1b4gOZnZKDe
+	77Ys/sQJi9ndiL3/iN4mJBkbLxp9ZZA0=
+X-Gm-Gg: AYBFou2jb0OcpXSjjjosIl0hrp8CKofU/J3UEYqc4Mo/6i4VChZh/WXemBJ9PYFLgyf
+	DJ3PsHvyKJzhw8dJaPWew7lQAcQlPa+djNaZUhUtkJl5l0FaNWKaZtpr9UmKD8NsRbKJUoXEQJC
+	eWtKaZlShc2/oxQAmR/mi2mQWuwsnizLbpMQFcgRxEG38uqJGIh65Gu/NCxvnfpsnyl7xVh2hRd
+	OYoK+tJU9619944UYyqBuXV99ege7H5Zd1La6tLHlZqirhey9c9J0oGy3Ltarl9iltMNTM1FFBp
+	2fqE+S3YuKokR+etxzvPL+jiqiZT/9bqFaWfdHRmzyopZqsBm0ZaSYSy+QnkE8u5wPgsCSn7K1w
+	czgKVEeMi/75h9ViIP6Q8k74y+SA6eB0oyBDQ+c39zjIHs7kc6I0xWYTI+//gWikCNKN366c=
+X-Received: by 2002:a05:6512:6c5:b0:5bf:ce24:38c8 with SMTP id
+ 2adb3069b0e04-5c1709fc01bmr2810875e87.4.1794729591806; Sat, 14 Nov 2026
+ 23:59:51 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,83 +102,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZohoMailClient: External
+References: <20261113-mmu600-php-v1-0-231196049a3b@gmail.com>
+ <20261113-mmu600-php-v1-9-231196049a3b@gmail.com> <sashiko-outbox-214777@kernel.org>
+In-Reply-To: <sashiko-outbox-214777@kernel.org>
+From: Arun Iyengar <aiyengar1990@gmail.com>
+Date: Sat, 14 Nov 2026 23:59:40 -0800
+X-Gm-Features: AclHuK-JybsEZ6nSpOrtN4adzzDq3bM7zDeeZmmerdCe2Ul1Cz2qTLFRAuITT4w
+Message-ID: <CAEy9hNVh_DL57=pa4_cEMCVC4j_mLhWCVsfRdqZ1=Pu_QHJakw@mail.gmail.com>
+Subject: Re: [PATCH 9/9] arm64: dts: rockchip: Enable the RK3588 PHP SMMU
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-ide@vger.kernel.org, robh@kernel.org, 
+	conor+dt@kernel.org, dlemoal@kernel.org, cassel@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-=E5=9C=A8 2026-11-15=E6=97=A5=E7=9A=84 08:32 +0100=EF=BC=8CJernej =C5=A0kra=
-bec=E5=86=99=E9=81=93=EF=BC=9A
-> Dne nedelja, 15. november 2026 ob 06:11:31 Srednjeevropski standardni
-> =C4=8Das je Icenowy Zheng napisal(a):
-> > =E5=9C=A8 2026-11-14=E5=85=AD=E7=9A=84 06:33 +0800=EF=BC=8CHan Gao via =
-B4 Relay=E5=86=99=E9=81=93=EF=BC=9A
-> > > From: Han Gao <gaohan@iscas.ac.cn>
-> > >=20
-> > > Add myself as maintainer for the V861 bindings, clock and pin
-> > > control
-> > > drivers and device trees.
-> >=20
-> > I think traditionally sunxi do not add maintainers for specific
-> > SoCs.
-> >=20
-> > Maybe you should patch the regexp of "ARM/Allwinner sunXi SoC
-> > support"
-> > item instead.
->=20
-> Usually no entries are added at all.
->=20
+> Does enabling mmu600_php break deep system suspend and resume while
+> arm_smmu_driver lacks .driver.pm sleep callbacks?
 
-The N: clause in "ARM/Allwinner sunXi SoC support" currently only
-contains `sun[25]0i` for two-digit IDs, so I think sun55i/sun60i is
-also not matched yet?
+Yes. That is why the cover letter asks to hold this patch until [1],
+which adds the sleep ops, is merged. With [1], deep suspend passed 3/3.
+v2 will repeat the dependency.
 
-BTW a random thought: should sunXiwN be accepted name now? I found that
-qcom now speaks SoC codenames (e.g. nord, kodiak, etc) instead of
-market names, and this might help pre-launch mainlining (well, if
-Allwinner, or at least some contractor, is going to do it...).
-
-Thanks,
-Icenowy
-
->=20
-> Best regards,
-> Jernej
->=20
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > >=20
-> > > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> > > ---
-> > > =C2=A0MAINTAINERS | 12 ++++++++++++
-> > > =C2=A01 file changed, 12 insertions(+)
-> > >=20
-> > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > index 93abbb315065..dfc300dc1eb2 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -24031,6 +24031,18 @@ F:	drivers/irqchip/irq-riscv-intc.c
-> > > =C2=A0F:	include/linux/irqchip/riscv-aplic.h
-> > > =C2=A0F:	include/linux/irqchip/riscv-imsic.h
-> > > =C2=A0
-> > > +RISC-V ALLWINNER V861 SoC SUPPORT
-> > > +M:	Han Gao <gaohan@iscas.ac.cn>
-> > > +L:	linux-riscv@lists.infradead.org
-> > > +L:	linux-sunxi@lists.linux.dev
-> > > +S:	Maintained
-> > > +F:	Documentation/devicetree/bindings/clock/allwinner,sun252
-> > > i-
-> > > v861-ccu.yaml
-> > > +F:	arch/riscv/boot/dts/allwinner/sun252i-v861*
-> > > +F:	drivers/clk/sunxi-ng/ccu-sun252i-v861*.c
-> > > +F:	drivers/pinctrl/sunxi/pinctrl-sun252i-v861*.c
-> > > +F:	include/dt-bindings/clock/sun252i-v861*.h
-> > > +F:	include/dt-bindings/reset/sun252i-v861*.h
-> > > +
-> > > =C2=A0RISC-V ANDES SoC Support
-> > > =C2=A0M:	Ben Zong-You Xie <ben717@andestech.com>
-> > > =C2=A0S:	Maintained
-> >=20
-> >=20
->=20
->=20
->=20
+[1] https://lore.kernel.org/r/20260929034510.2023173-1-praan@google.com
