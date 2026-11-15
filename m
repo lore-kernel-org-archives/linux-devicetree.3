@@ -1,107 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794708626;
-	b=AgnXK7SpOpMeC/K5FmC2Obtmo2hUwuf/zbBbFe1L24HwdsQTbjK18ZZcGjegFiJRTVF1
-	 3lsCCuxHNHvHna4gS6XwzLhxFV8U+UY7nRdABCAlKhFVANT/Rl+3CPQKo6TyCgy8/JewT
-	 al+aTWvCabOBiYRSWFqCR8zNuu6ibGFlroUcPi9KfrovHKdTrlCq43hD3KUI8fyGGX+y8
-	 Gk3RHMgL1S9TkHEtc+TEBOyGbMMjzcqI31HhkDYsw4CE6WZfhM2m1yYnrlqVb2KZSQ2bj
-	 wDqde9zOSz8atzMOvO7UTEGSPZbz6ACFSLincj97ixswIbhVgnvaoVoDCr4j3K9cwhQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794708626;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Dlr8BYW4D9uRE2kBdvPJxDIlvh4ufcRQvKzhTZs/K1Y=;
-	b=h1eOfjj0Nw8zXNw40FvxUOOV/eAaDiEw3Og7I+0kbtR3hU3q+roz7Ec1Ot6LaUXiEZSW
-	 G4pbQasLfcTb6gbrq6dVXMR++QQ7D3jtzO5+VfbIevfCMJ0q+mdXGi7AjxtC3J2Gg2j9I
-	 x6Ex4oqAhEHx4XGGSi5LZuSbBWhcSxXsIdJJgebspY3f6ywgw8wdRxkYs+w/OndWTlt5a
-	 mncGIw2fbEaedeT1Uw/l0/Q4dolNRXRqh7ccSlUQdYvzS/aVeLU15Nfa5iSSdNc6hJtP0
-	 1Ap1LersORcHWPjTV1BFOI6Hjes7VWoNxUnhs8WKOJO4uAq/BcG+FcaZsQAWnTS5hcA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=txxkvDyO;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.85
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794710447;
+	b=0w05wHF2Vi+2tvKx6tOtlmRCcBmVd9tVKMmtIK/Pp3TuA09zt/RtvYQ/ICl+xSEa0XEG
+	 UOfN77liuNFSvbt17vn0LkdUTzLjpCb9rNPKQH99L5Povg/fXz1o3S8UMu/2sCFdfYnIN
+	 UtN38+13lBkFngpEp1tyVD/7uyhoRJ1QxSzrMC0SotjYu57bjYOEJjX2RPd8qI3MlqQaH
+	 qBwRu7gFVQQSxb4tdwtCF0X1WzQ1MAxxO2vSmqJBMFlJrFYS4TXOxmiwFEljFvRwJVR+T
+	 LkPLxit535Ck10HbhUAMGksts3iIFYeDp6jjia2ZQfmdM/wXIAl6wQnVqOuNLzzv1EA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794710447;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=hy25tSM//gwd9IGLnxKzAwSwOMnuLhLMtqG3viLHR9w=;
+	b=GC6T1ZioOQQ3B27jaRZZqlD4O7fbqeVvc/tJYEcvGYJhwHVEj0XHGQrUFh9lMwEVv5eX
+	 VWoUtczAjzqA3Fe5vujpI6shL1fUBkuEPzHgngmcuj+g7O4siCmEd0VPyng70l0Um8LZd
+	 kcp5EsjR9gXBXeJ9FuU3DxKioBeHe7QtA0erFFVLghjANyX4buEY7CfiqAAs8gUtCRqiY
+	 nPojNELixXepzWLv2bD0v2WD92Z4/DSAY9Iic53fAzwgY/WxD84GdJyxNOf1epcQ+l0px
+	 SAhAfSxBO5WDKvdEjA74xtw2HMV8YoQgVHFkDHnQmWrWArP76KiWzyQKp7pPxXqqXnQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.85
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022085.outbound.protection.outlook.com [52.101.126.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0994C606A323
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 02:10:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0994C606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=txxkvDyO
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4697404c2bso332794866b.2
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 18:10:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794708624; x=1795313424; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Dlr8BYW4D9uRE2kBdvPJxDIlvh4ufcRQvKzhTZs/K1Y=;
-        b=txxkvDyOusSB3/VwzuNOTJgzeLQw9KkCBACEspjdt3MsKzdy9hdSWY85SJ4YE5Wjna
-         /h4bpo/UXO06tEB2cLUjjB/MI8OtA0++yvXfTUcmj+K48YDI17uQGUGCzNcU/3h8daBa
-         6DNisaR0TU58PV6uwD8Yjn/qbhvdiexoVERZJi4nEyo1U/ahQEtYFyaI+A4+tnvZ4Xxr
-         SHHSG7rHXn5UkQrpK/SNmoPSjbcxN0C780tLp4XD/IOvxl0Hq28F8mOCDyLMsYqwoQQL
-         MpFCujzcEfpXMnx/VgnyCZn/FxOK792bWWuhLEOCsfRfUGsNBPuCgVyAVqn8ksxBSNl6
-         A54A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794708624; x=1795313424;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Dlr8BYW4D9uRE2kBdvPJxDIlvh4ufcRQvKzhTZs/K1Y=;
-        b=LVm0LIFQVhpPjZ11+KpmQwyGfu/6x1uFJF++965HauMqVf+LgVZxNVm9LN+nRDUeGQ
-         /FkSu19zdjR3u5RbtiEHS0B/UJ9nVQzZ9zatG50IAHnEvwdl+fr4nklyj3gCw5zx2RpD
-         GLV+5g+8hb0XKgGHBTpmVyw6kfSu+Uroh5/S3C/PGclayDsyk6/vJBe4hbP8y8jyE+Y0
-         1SVZi7Bnd/yN4GQDrSlvhcfHsRHNLm141GS3ODPZpop9ZlB90hxDjJjdHPgqjSYWuxee
-         8dM4mLoR23FHH1X/s6yn//JFt5ilvji6SLTrReL0lIL8EgeTOERxIUBYAtFM/xrg1gvh
-         nbiQ==
-X-Forwarded-Encrypted: i=1; AL+hErH901829oYcZ+7C3dx6v68qF9jvRqxFoAcb3vRJ85m9+zWWIB7Fi0mPrjcimxAkI6GeNp8Cg35+4qTP@vger.kernel.org
-X-Gm-Message-State: APuU4Z8r27SG1JyN9o1HOCP51UWn5iFq+K38Zn8C5Ta74MjSbJvF69jZ
-	T9NYDMSsiNrXMDGBxxFDhGYImWdq5qSeaWiVw62Jnvz+hQ0D8JZkSV4=
-X-Gm-Gg: AYBFou3le0P+v1Zw4w6E+F096Lkrh78Z93l5Tkkpt6auywc7Lc1iMS0wLnGdwt71hBk
-	QoBa/X57Qy/PDlwnChftdYEPORnuosNRSlfOD609E1cQqCCtxupOvhSbwR3ICVYCFUIGiRRvavc
-	gGj240AUVVYOkUf5kckKs5P3Gxq5Af2b2lNpqVXZOA5X/a9Usigxzl+mPrm6076AquO2bQhuRTg
-	Kvb3e4hZQ6MIe4TmcoizxxakWWkryk0yZQmXMOLyAmlwr0xKP7hKyQkeqogBWentiIK0mDnD0oB
-	iWXp1BPNFbRook22GcoRl1faNLXzUvchniHL6QQRSOuYmQq9fkjObpZs2PaV8rnai1eY28+u/dM
-	UL5fJi+NoyadQo+3E6Yy38UikEoNRncjDJFDs3t99d29qh79QtsPYLDi08zaVVBBG4nAT81iDs2
-	C21DMC+c+bWo+ehDAlNAONsiHKe3Q7EsHyEFCRwx5T7JAE/hCqpc3Vy6NkFcNPaUgNDxsHfj738
-	hS0//KIcDF+HEXdZFglg6sCptXeh9PfPesBNXkT2cBBgprYNs0lyMkBG4hjB9ZMsc+LAopgDCnZ
-	opGg8KYiLKS9P1cG+lMwOWo8bPdr1lxHSxGXVlp9LV0maWpfXJwjIh0ASC7BCDzLwqyzvGapek9
-	RAIyoUESwot/S6lr4KCAbfZHSwQ==
-X-Received: by 2002:a17:906:f5a8:b0:c50:5e90:5ea7 with SMTP id a640c23a62f3a-c5096853f0cmr525580166b.49.1794708624326;
-        Sat, 14 Nov 2026 18:10:24 -0800 (PST)
-Received: from sohrab-omarchy.fritz.box (2a02-a44e-4ae7-1-c0e-6d5a-8ae2-915.fixed6.kpn.net. [2a02:a44e:4ae7:1:c0e:6d5a:8ae2:915])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c6a5924bsm2665270a12.18.2026.11.14.18.10.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 18:10:23 -0800 (PST)
-From: Majid Hajiheidari <majidhhdri@gmail.com>
-To: barnabas.czeman@mainlining.org
-Cc: andersson@kernel.org,
-	konradybcio@kernel.org,
-	rafael@kernel.org,
-	viresh.kumar@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	abelvesa@kernel.org,
-	mani@kernel.org,
-	admin@mswin.me,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] arm64: dts: qcom: sm6125: Add cpufreq-hw and CPU idle states
-Date: Sun, 15 Nov 2026 03:10:11 +0100
-Message-ID: <20261115021019.731462-1-majidhhdri@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261115003158.391171-1-majidhhdri@gmail.com>
-References: <20261115003158.391171-1-majidhhdri@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC3B606A323;
+	Sun, 15 Nov 2026 02:40:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDC3B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=s3JkkoA42Shi3EwvCOzvwmJqfRUrJEuoO6XfT1hznbHkXufXku7jeuqrxU53qu4QdNaf5nUEwBvU8YimgQN3F1yerpCna7bwdVGH/dSyhLWg1uVbnlHJEMi3ASfFqWRa+Ut7JETp7SogUXydf9Ug3ogN91Dv9DWWNBIPtx+aCpgYdv5r2ECT7zt5MZjWnCAyL15h15Ps6lw3psDgP+LXaTr4v8Qyzx3Zh/aAo4Zm/u5XwKVA087krIBM1ZsS+xhecAKsvhBJApAAfppFTyUGWBxKNfbDsVzZPuJaUZVPXFeWHn/ToqNMcROxhZYcHkFHsqm/jq1gW38BTFz8wQb2xQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hy25tSM//gwd9IGLnxKzAwSwOMnuLhLMtqG3viLHR9w=;
+ b=UkuRsr/Y5Jxhoblm2ZB0BtjYioRxEm0adO6TawEPVhkuadeMg4OBKf8ysekRRMQpYwIxglbJe+q4joXraXG4DMuax3PN3bO8yzx/S/EvjbaO0AJv7SXWJszobDhC4sHc5Alj5OUt8uFni75JNFPT/qQxzxHIXx/WNT8U9iMmMmHhea9EzWnLYgSUJCcfDtCK0Ek5QA/u2l6u81Bhg5H78WDIJba2gNjLr2Vs90BACIR9mTrECcBqS2NFqKbYOhra672bPF72UQjOq/w2/x3u5S7pcn4zDxE5ROLlRLYRhV3bugFfZTDHBKHwjbK2Irkq/sqwbWHa9KUK/Or1zrU83g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from TY6P301CA0007.JPNP301.PROD.OUTLOOK.COM (2603:1096:405:3be::17)
+ by SEYPR06MB5768.apcprd06.prod.outlook.com (2603:1096:101:b3::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.6; Sun, 15 Nov
+ 2026 02:40:43 +0000
+Received: from TY2PEPF0000AB85.apcprd03.prod.outlook.com
+ (2603:1096:405:3be:cafe::85) by TY6P301CA0007.outlook.office365.com
+ (2603:1096:405:3be::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Sun,
+ 15 Nov 2026 02:40:42 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB85.mail.protection.outlook.com (10.167.253.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Sun, 15 Nov 2026 02:40:42 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id AF5FC427EFC0;
+	Sun, 15 Nov 2026 10:40:40 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Peter Chen <peter.chen@kernel.org>,
+	Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Gary Yang <Gary.Yang@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
+Subject: Re: [PATCH v8 1/2] dt-bindings: usb: Add CIX Sky1 USBSSP controller
+Date: Sun, 15 Nov 2026 10:40:40 +0800
+Message-ID: <20261115024040.4125133-1-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <sashiko-outbox-210199@kernel.org>
+References: <20261112022141.4136099-1-hongliang.yang@cixtech.com> <20261112022141.4136099-2-hongliang.yang@cixtech.com> <sashiko-outbox-210199@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,56 +110,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB85:EE_|SEYPR06MB5768:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 87ec7c50-80ad-4ddb-aa8b-08df42c1d799
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|36860700016|1800799024|82310400026|10067099003|4143699003|5023799004|260925021311599003|260925021911599003|260925022911599003|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	J4BNiECaKEiUhNlp7qjBmcIiiQulnZ2EnHYOazwaPXVbNEyDN26GNyr9AEc6CYJIC5Ji9NKoxrgEiYIl54J2LnCe9zQTE+r+pRQtCe91Z7O3U4JvFxPV4bD4sl3KgKduFPQNlv2oMpecjyrWDRTCr/dmdWjYBKAwIlwqBezwEt/tXEbcU0lyzOJtK2RUcKgc1SO4a7dPPJHkdmHS/p+7dUkBvJc+CRHXFVBWTuwqtUHoBZUmTl9Zj/Q3R/PkpqmZ7gRPiQsodFXYIi/4jD1yCsSSJOEwOfU6AAqMOQfUdQfv2yAA9UU5c7vRW8kWFJzk4ETQHztzSxkoKuYjmFf02lplPu890veN1kBkWHWESUF73lc6d1GfUwQ4e2Ex8xiCt20HkrOujult9NydP+oZIUBrGJyIcel5iNbF5n5mAvuiUMk+iVu7JzZy3X1h4gi6hOVXzLMgtzaSf44vK2ChPvVSaKBEdn0i/3dWQAs2idmCjqxuWYmnxcXsEbQzYmokj/ORweWKdzPinGPhs29b4/dO0fwyzl1d8fcrcZyiYyS3OW5SoduZRVFHerR08kp+r8OZ83l/5VLzG/Xg8KpL8M8GgnQTOMJTumI56Y4A3qNOtOQrdAmG/W51LTFnrtm4Cgm4wa00N1fR6T/fLt7cEURbK+pkPTSoe+zrzpDxOBA2tgjQgRkcKfxitucWeyaRwaS+UlY540fo1j624Q11uw==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(36860700016)(1800799024)(82310400026)(10067099003)(4143699003)(5023799004)(260925021311599003)(260925021911599003)(260925022911599003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Xv//nzu+ZFKfEP/64FggwkPQSv6YyHVYFQQ78WZ7l/YomdDmyNveyXPspZxYC99Htlmbu29jU94gtC5iUV/B+ZEBirxbIbqFX4wQfU6fS5WK8bEHa/x2DhfHPbI6cp59X7gplS6ZBRh90usjLpms5FqbZ0PnbwFcB7TPDzUKDsf9HidMDAKgkEMpRM75Oel6pHq6WOz3CchDizMIHpOL1LD/kr0RKesHoWF5DmhW729gcBVYH+aFgoTn/BPjYp8oeaCXT9P2PuKETi3y/eX+M1z56I/fCLZzC//NrBrwUWBynJvQ1K4y9ZbNszjokutGnYLtGzfTPxF3suqnYMoTz5bCdejgZQi6ts1kXittPp8xJSQqT6rNZDDoEYX0sitTq4/O/1N9oxE5nc2BLNwdrGc1MHQBt4KxUUN5bR1Jnlo4ASkWyJytnVdWapam1SYq
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 02:40:42.0726
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87ec7c50-80ad-4ddb-aa8b-08df42c1d799
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB85.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5768
 
-Hi Barnabás,
+Two points.
 
-I should have put you on Cc of this series, sorry. After sending it I
-looked at your sm61x5 7.3-develop branch and saw that you have cpufreq
-for SM6125 there as well, done differently, so I would like to sort this
-out with you rather than have two versions on the list.
+> [Medium] dt-bindings: usb: cix,sky1-usbssp: overlapping reg windows in
+> RCSU block
 
-The differences as far as I can see:
+The example size is wrong, thank you. The window of one instance ends after
+STRAP_STATUS0 at 0x091c0400, so it is 0xf0 bytes. With 0x100 the example
+reaches 0x091c0413 and includes STRAP_STATUS4 at 0x091c0410, which is the
+status register of the other instance. v9 fixes the example; the arm64 dts
+is not part of this series and gets the same fix when it is posted.
 
-- Your branch gives qcom,sm6125-cpufreq-hw its own soc data in the
-  driver (lut_max_entries = 12) and makes the clocks optional, with
-  19.2 MHz and 300 MHz as defaults. This series uses the generic
-  qcom,cpufreq-hw fallback like SM6115 does, and takes "xo" from rpmcc
-  and "alternate" from GCC GPLL0_OUT_EARLY, so it needs no driver change.
+The -EBUSY does not happen. cdnsp_sky1_probe() maps the range with
+devm_ioremap(), not devm_platform_ioremap_resource(), because the windows
+overlap, and that is why the overlap is written down in the schema.
 
-- I booted your branch (cdcfb1386, plus the laurel-sprout board part
-  for mpss and wifi) on my Mi A3 to compare. Both versions give exactly
-  the same tables:
+Two 4-byte entries, "strap" and "status", as in cix,sky1-pcie-host.yaml,
+would remove the overlap, and the driver would not need the offset of the
+status register inside the window either. That is the shape question the DT
+review already asked, though: v8 keeps the single range that v7 introduced
+in answer to it, and I asked Krzysztof which of the two he wants before
+posting another version (1794391238.309976-1-hongliang.yang@cixtech.com).
+If he prefers two entries, v9 will be that.
 
-    policy0: 300000 614400 864000 1017600 1305600 1420800 1612800 1804800
-    policy4: 300000 652800 902400 1056000 1401600 1536000 1804800 2016000
+> [Medium] dt-bindings: usb: cix,sky1-usbssp: redundant disable
+> properties
 
-  With the generic data the LUT read stops at the first repeated row, so
-  the 40 row limit is never reached on this phone. Did you see it cause
-  a problem on another device, or is the 12 from the downstream
-  max-lut-entries? If some SM6125 board fills all 12 rows I see why the
-  limit matters, and I am happy to rework this series or to drop the
-  cpufreq part in favour of yours, whichever you and the maintainers
-  prefer.
+cix,ssp-disable is not redundant. It clears CFG_3XPORT_SSP_SUPPORT, BIT(31)
+of the 3xPort mode register in the host register set. maximum-speed is read
+only by the gadget paths, through usb_get_maximum_speed() in cdns3-gadget.c
+and cdnsp-gadget.c; nothing in the host path reads it. For a port that runs
+in host mode there is no other way to keep it at Gen1.
 
-Beyond cpufreq: on that boot your mpss and wifi nodes worked on
-laurel-sprout with only the board enablement added (firmware-name and
-the four WCN3990 supplies): the modem came up and wlan0 associated. Two
-things I noticed, in case they are useful:
+cix,u3-port-disable is not redundant either: it writes the integration value
+0xa0031e07 to the 3xPort mode register in both register sets, and
+maximum-speed can neither express nor restore those port mode bits. You are
+right that the device-side register is also updated by cdnsp_run() from the
+child's speed, so a dual-role port could ask for SuperSpeed Plus on an
+integration without SuperSpeed lanes. Every board we ship that sets the
+property uses it on a host-only port (dr_mode = "host"), where the gadget is
+never started, so the two writers do not meet there. v9 states that
+constraint in the property description.
 
-- the modem crashed twice during startup ("fatal error without message"
-  at 103 s and 145 s), recovered both times and then stayed up;
-- ModemManager did not find a modem. On my own tree, which also has the
-  IPA node and a dynamically allocated rmtfs region, it registers and I
-  see no crashes. I have not tried to find out which difference matters.
-
-I have modem, WiFi, ADSP/CDSP, Bluetooth and IPA device tree running on
-this phone on next-20261113, but since you have modem and WiFi in
-progress I will not post those. I can test your patches on laurel-sprout
-and reply with Tested-by, and if it helps I can send the parts you do
-not have yet (for example Bluetooth, ADSP/CDSP or the laurel-sprout
-board enablement). Just tell me what would be useful.
-
-Thanks,
-Majid
+Best regards,
+Hongliang Yang
