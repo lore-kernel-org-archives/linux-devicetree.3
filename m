@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794774029;
-	b=ixPBdz9GheMafvfAc2LrHMwAidUVvQLdQqSyZUbsdXu5vlWztUXE9iUX5EMd/m2xK6ZG
-	 VsRGsqKLmbns+UW04GSjcU0j7KHUw53CgYWY1jqD/aLAhm3CpBMKGeWnNrb63AarN8APW
-	 dNu+iXIxqrwlZkwgPsWvd+P0FbzoXaF0/G9qDQEmjHoGEZphaAMFAmeq93ycKD1ULnq00
-	 5zrlo+cEegiZTb2yFtqyzapVIfwADeh49ALzh4o3oIcyXVfGb9b2/rQSG14dBIZqYJ1V3
-	 FGjIOt0scq5TYWKH0VP2/SlFxFgZRhUjfnhFjIKCfOtjoROR0m9l6xHNMItb+AQHv1Q==
+	t=1794774026;
+	b=qPORJ04e02vxs3fA0OiHMbhp2ib40MAXE6ox0GMHUa5JZmD5+e8qRs9nkBi2fvEABms3
+	 eDO1DPpL8JYd5f2mZDTVbmae5e5xmu7tL0Xn/k8F3Sv4A7LcX4ut7FYsBlWf0Kn7kNfym
+	 4ImHmw3ILF0n02W79agLV3uirhhd0pXsUMv3R56/gexdTZ9VNjpe2AXiALwJDNfYYyLVs
+	 oiNznLrdOeoup5eN3+HCXYcoqVgu5ksSu6jcdjv8S9wLQ9vzzVT3pZqZka4u2ZALH2f6+
+	 rPpCL4Np29Dd/33p3/VqkNZPzm0uIJZUDCCRmdiA7h4uCupEmUIx0CpSNtAzFaI20tA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794774029;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BrOneWWkYW1msZTxiS6i/unWXAYHkcwWmjjLrFEjxDc=;
-	b=rrpjMUiCRmENCNXP0xsosE6qsqL/PMRax4nV70pEVUC6rxzVOWGpgDh0AHPaZhtcC792
-	 1RbjJYNFusedBRCv0XuouDOdACXqjoURViWIdeqzRWl1RPNl7EphX7y00DjKac3i3LwOG
-	 +Xs8SqxpjSZ45JtJ4ZQzaJEGJun1sYUZcwBEj6/aoVMb21/DvIAXVjzp1hLLTOHM+UkUt
-	 LQgewnBmg2j9fklawRYVZBlwUqHq6uRQWkdaoYQVGUrqFMEKA/m+JsafAK0Z2gLocasQi
-	 KC9xJVWExFqHADuf0bk6N//Vh9CmNH+apJENctRQbC0IB7Njgx3jytj+kn2byiISzyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794774026;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=Gv1Nw7Xuguq/FkN6MM8WBDdy5yDo9eZD6qzm3WKY07I=;
+	b=ugAgZyV9OKk4a7bApSVNMWRE1aWv8eLLz9+0TFQgDNHTcqV3yriDziyZplsUgG5PouZN
+	 Gx1v7ivdwfGEGIUTmbaWvp1oeivmwV2Z4niAEUpAYNzY7FAMISG5zuTVgRySCEQdG7krT
+	 7SbVzAF/OIScX4Chhvap5XAzb+tPVnwtta0MMDHcrZJoLnEaX0x+wu+lrbnyjiQnsAgvu
+	 tiuNzRy34bh7eGNb6FYiCs1FKpdvgBMwMyLIgCi4Bditf96hNcr1jGlUwX1yvNMmavvO0
+	 agGcqaM3bbZz7eakT3BQ9LObi6dVb6FweilJA1kdBHGRUTeg6zc+VinVKByynqAditw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8AO9AMA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OMlCczLm;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E59D606BB3E;
-	Sun, 15 Nov 2026 20:20:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA151606BB09;
+	Sun, 15 Nov 2026 20:20:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8AO9AMA
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OMlCczLm
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794774029;
-	b=WX3hKIBEX47ytREEmiC3Y13GofNuJWgdIU3VnOOLagBAceEjbFRjuK7Fm5aZIaBqaUr2
-	 lBC6kB4qpBx0sIuLUm2Y6GCNK6q8q7B+xRoK0ZV2JB1mJz/BmeVydnR1jTKqbuixJWJID
-	 mEfXkoLk9ug/52delrxf2xlIMkLPpxEVyqmRUSDQI3WK9A8uIsCMK1V8n0AVFy78mkmpx
-	 kis0LLvlF8jyeo0ZB+xv8X3asafc+YVBeUPoPvBBn/n3ULMrqsgxYGsfNuv1zsW4nrS2z
-	 LOPdOESA5g0LNVbGAwemU8ZeyL4jEGQ8jHE8h3CRH0GKjbx5zPP6LdfEHMnxAJfp2pA==
+	t=1794774026;
+	b=UYoT58tGCYn7wjX1bJwYTuRjR9usAQPLOYViHYodvKBH6VKjw2CybRKHCv1n3bPYBOyl
+	 mF7RwTQNjUPoEvPEJfeOFxs+t7ihPXbs4mCHZLpKDiHS+MdFnxn4hejSXjiwwZnHAoqin
+	 MVHGRNdDr68aspU1M+vcYOQmj4vQHI94YVfltNTPzyZulEbM1nam2p/cJ8ZBFXnTYZwUK
+	 oWVGIg6g6XGkQ0j5Ga82Eyx+3ANFvjGRR6J7SRq8YOvVzVYS+BmeJ/jMt6tCjUGKaFwjF
+	 be17AoVoV7bVk81rEIHjYgawmNs7qNnOVIPDQyY3NUAscbennBcX7vMTryXiK1bAFaQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794774029;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BrOneWWkYW1msZTxiS6i/unWXAYHkcwWmjjLrFEjxDc=;
-	b=ygPfL0egVFjnrixeAzdGWLck1S5Apm/unHSlNPONBuXhbs1RwqbECjGs/gli1D1LLRlE
-	 GZD0cfQ5pknhko1Ak4IbDbtxjAITlAtGDUJPG9o+LK7z+6+1L85xi37nM+N93Oj1/LvpI
-	 fU+FSfMbJ/eTkyJBd+raNuKIOyJjvUD7Q8G+JRDjUXbqEXUhRJgaBUwXOdPKmFn6pDJ69
-	 3yPVkVP3HWq1/GgwpjmSOO5gLn09pLBiA1U3S2X5Iu+f3MYAWe39dmGJSL1mOvoMqjr4A
-	 1EesOJyT8000R56ziwvDDkHHJxwlK45kPKEVx/x9hIcsFt5uqezMtjq6m3nmAi2Plhw==
+	c=relaxed/relaxed; t=1794774026;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=Gv1Nw7Xuguq/FkN6MM8WBDdy5yDo9eZD6qzm3WKY07I=;
+	b=ACWfqofVjssAMJiD3spAMg+et6aTEUBGrFVWT+pKAEktA7ejgBG10Vtr9+e4v6r4p318
+	 pWxaqmJxgLz8wuj29nRdrZkB8f8TAPSVNs8TSnO8bQwar2ZgxKYwWDjtX/FvSEW2gz4nP
+	 X1ij7DDwQA+oai3CXCli4oyepfbERPmH9dfYLAob711FZU87dJDvBnSelXt8KyW1aejMY
+	 5NJu1jpk4xEr7lwC4dfcCt9T0myyZItTGnI7mXj3O2frS9HertQS8HeefcKyp3Ck02V+Q
+	 7t+XTNfQZ0YatKZSMjNaxhjm2oJ4IjEryNnu+sFGlxQDZx8jvPDcm9cDTe+jvf5wsXA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D3EAE1F0280E;
-	Sun, 15 Nov 2026 20:20:28 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id E4D991F000D4;
+	Sun, 15 Nov 2026 20:20:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794774029;
-	bh=BrOneWWkYW1msZTxiS6i/unWXAYHkcwWmjjLrFEjxDc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=P8AO9AMAhLXpWAWXfva9XSa03cZYyiUGkT2PE2JMR+laagFLvRN3CSQR5EvIvT/UH
-	 W8y0GUw4eCXRw8UYmdk1nJL4Zg3DOk1QUYEQ5Hrgz691AhjMh3KZGkBGzWraDVSsYp
-	 aRmQu4Cgzf2YLWOI54xl+qMhzumUxUglO8rWtptNf6+E/0jGL9XQzNzy663qc3SYmF
-	 hkuPKvuanzkrQuRsH/gxs5jxfgg4szG3VWoOAclRj/ryesCcuzdoE7yRVlC2DNg0qg
-	 bgoEiEwkPkcKAQQJRY/3ipCI39yIxZ3ZmLhZgmB1iXx6PnfrKevx3iCIShZLs+oiPe
-	 if3HLvfTi44Bw==
+	s=k20260515; t=1794774026;
+	bh=Gv1Nw7Xuguq/FkN6MM8WBDdy5yDo9eZD6qzm3WKY07I=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=OMlCczLmPD9A+DnJ1f86VM3HlHu2hts779UywGU0k77UlRuDfU2w7WWYQzhHKffXw
+	 82DVg13VrYGn8ilWkW0PaNVXe7rJVMztU3pt0xcp5FDvNqvOKPwcRjpyydpI8qdUBK
+	 jJQh4c/w/yMsTDSbViga3RC1kS5hcCQr8eGhNah8OxbUdaYybrtyZeByEPoCn8oZ4r
+	 s5sJ1KLehvZuETdrGWvABntaQr4f9BVHR7oKdAx8f9ad16U8JrdLRn6Gn1yZc1JRRl
+	 Vg1aMDUuzAET7u+079dSqwiD4BlVipi6EE9tjZy3T8Wc13v8DfxSs4SxaomMoSXQno
+	 VbCSLRzhzizow==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 31C1F4A1E0;
-	Sun, 15 Nov 2026 20:20:28 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 75CEA4A1A2;
+	Sun, 15 Nov 2026 20:20:25 +0000 (UTC)
 From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Date: Mon, 16 Nov 2026 01:50:28 +0530
-Subject: [PATCH 1/2] ASoC: dt-bindings: qcom,sm8250: Add Motorola Signature
- sound card
+Subject: [PATCH 0/2] ASoC: Add the NXP TFA9865 amplifier
+Date: Mon, 16 Nov 2026 01:50:24 +0530
+Message-Id: <20261116-vantage-tfa9865-v1-0-e88f0dccc427@yahoo.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,57 +84,64 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-vantage-sndcard-v1-1-df69a8759833@yahoo.com>
-References: <20261116-vantage-sndcard-v1-0-df69a8759833@yahoo.com>
-In-Reply-To: <20261116-vantage-sndcard-v1-0-df69a8759833@yahoo.com>
-To: Srinivas Kandagatla <srini@kernel.org>, 
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBCF4VeRWWtiXJrWq4hFMRiLkrZEIt5ds
+ fxOcv4LPDkmD3VygaODPa82AtME+tnYiQQP0ZBnuUREKQ5jg4lzGI1WshJKqSrTSLosC4ivzdH
+ I51ds2t9+7xbqw5uB+34AGIVm9XMAAAA=
+X-Change-ID: 20261116-vantage-tfa9865-8885091e9443
+To: Venkat Yadlapati <venkat.yadlapati@yahoo.com>, 
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
  Takashi Iwai <tiwai@suse.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794774027; l=954;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794774024; l=1492;
  i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=nX9qTnZEW1eY4ue+aHl0y+aU2y03Je7/bL6nIWQuIPg=;
- b=krJygh5DLJPWif5c4HWThx0qoWh3j05sndx4UrP985vfoE3qbBsy6BWta2MAtuJgpERLrjTJJ
- oSUITQ3rwU1CO59kTw7NP+J9q7JFDFCsRYSxB6TYLKlTwS3frPSLzKF
+ bh=at0sHXHf6vK/GlbIqTB90pF1KE2GhXvyxvs5+f1KJLM=;
+ b=17C+9uWBcOPQX3Jz4KyeWp7/S7WBn5zvwnoY9Q5t0wiWlls6ggaBof1fkVNKe5CIHkpehEuNF
+ x9erg3TxVppC602Xh7mGhdSw0ltDWgqgrhNFerJhZwGfcsRxbDxTJaH
 X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
  pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
 X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
  with auth_id=1303
 X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 Reply-To: venkat.yadlapati@yahoo.com
-Content-Transfer-Encoding: 7bit
 
-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+The Motorola Signature has two NXP (now Goodix) TFA9865 mono class-D
+speaker amplifiers. This series adds the devicetree binding and a driver.
 
-Document the sound card of the Motorola Signature (vantage) phone,
-which has its speaker and earpiece amplifiers on an MI2S interface.
+The chip has no DSP and a different register map than the TFA989x parts
+of tfa989x.c. The driver applies the initialization sequence for the
+device revision, selects the I2S slot feeding the amplifier and powers
+the amplifier and its boost converter up and down. The register settings
+come from the NXP tfa98xx driver. Only the B0 revision and the 32-bit I2S
+slots configured at reset are supported for now.
 
-An LLM was used to help write this commit message.
+Tested on a Motorola Signature: with the matching sound card the speaker
+and the earpiece play audio.
 
-Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+I used an LLM (Claude) to help write these patches and their commit
+messages. I reviewed all of them and tested the result on the device.
+
 ---
- Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Venkat Yadlapati (2):
+      ASoC: dt-bindings: Add NXP TFA9865 amplifier
+      ASoC: codecs: Add NXP TFA9865 amplifier driver
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-index e2e3fc99e6d9..7adf0f5ce2f7 100644
---- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-@@ -37,6 +37,7 @@ properties:
-           - fairphone,fp4-sndcard
-           - fairphone,fp5-sndcard
-           - motorola,dubai-sndcard
-+          - motorola,vantage-sndcard
-           - qcom,apq8096-sndcard
-           - qcom,glymur-sndcard
-           - qcom,nord-sndcard
+ .../devicetree/bindings/sound/nxp,tfa9865.yaml     |  65 ++++
+ MAINTAINERS                                        |   7 +
+ sound/soc/codecs/Kconfig                           |  14 +
+ sound/soc/codecs/Makefile                          |   2 +
+ sound/soc/codecs/tfa9865.c                         | 359 +++++++++++++++++++++
+ 5 files changed, 447 insertions(+)
+---
+base-commit: 4e019254b80b70f6fb90d17a50f211de1daf7ffe
+change-id: 20261116-vantage-tfa9865-8885091e9443
 
--- 
-2.56.0
+Best regards,
+--  
+Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
 
