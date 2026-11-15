@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794774866;
-	b=5ALXKj5NEZpeRsVTSGhBE9hFD3BFJAExvXEGi5H0SM6slqCP0jPSCkoFenQU3mlfeWVK
-	 qPtjH/64WYBMLDfLl24aPdLuS2BoZvUk87fxu8G7OmL1MbkWI9K357JCEfGFRDnDhAixD
-	 NUhO7AGS4iONv7H4vNbi+ZtNovSvLxqXT1bvmyaMuBrcI+xRkm/D/ST41EM8Qi/StMV8l
-	 Jy9aj9gmujJgBU9yt4dPIBGKHjR7mLxs9TchLNxX0IPDy3pt7amSuFADU/iW7zg4O7qr3
-	 zqoKD46OZnRCZlyDNBsiE+5TIyDo//8jx/jlMRmKvfvDwCYYWDGLn1pTWBGpZwotdLg==
+	t=1794774878;
+	b=X7Eqr9faaieKJ8afIN+iJkyvkmpOLfcTKfi2WLY90Qybi1fUWxUCEDUIiKtbjzbz6kpm
+	 sTC/cwfaI35zY6ZqRbywWSwq8aEZsX5c0iX/0zIpVfFMMly9uvN7+fjqsFq4Ym6Y5k+/w
+	 q40dwnZqiY1liYT/Q7noyDw0ku0Mic3CWDGcSbRH36mKBPqNbeOvIkK3RYoeefWXa1+X1
+	 hbrrVrenMS9KEontJu+eIJQaXvZ008VVhHU9usbWYGIHGukA42ZqJuo8ASgXLLxibe08v
+	 o2kRdwhhLg+u6VGjHGTEp+EDCmMEa5NUk/5Ah9uw+NYBLqc6rsSz8NfTuTC7taC2AVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794774866;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794774878;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=zjKE1QAme1Pt9AR1gKgwWKqEbtE2dSXtZzIyUtweEsM=;
-	b=sRV8XExUXYNTC/FHdZDGaU9bz8ZD6JKYqOFtaCnWRbdr/IzBx9cFbOfs24DI1HtQc6nT
-	 cIgTFCcme+gXzXuTCV7bxpLe76rY7Y3NVxrYHv/x0uOICsQE7vTJFV/tucxgRbm8zz6y6
-	 1Nrjql7FOGW5vdn9rLuJWLYN/CjeT26dY9wfYNKtPNXvhOXhcvnr6lxzx5MGaOjS4ZXaq
-	 lTO8bsM6we4eyvYU2kVDSnjeiceYJoMsHJbg26esXTW6INIY1EpDSkyX/QxLAtwtZeyfA
-	 drGFClO1GT0jHMeCdYEImjNj2crLNuZZMqbBlRa/JCUJi0g8xa+q3c5iOiVa3Ze7pMA==
+	bh=1UHDhkEqdK++rwLlhl8eLG6Syd3cIRxnrRpxv/dyniQ=;
+	b=CJOh2uoc5HPkREuYXYj746p1lhDcYRyidRNWY+5OX6Y5ZESOxDnlGcI4hxbmIVkYgpy4
+	 5phb/RmeAMDotUXRmAj3bLtD1GHcyw1BawoNV21+PkjNdch+6dAJ1JE1/BSr0hiRsGJre
+	 ro7d9CVoIpCz/PBh7XKszSRIioDlvwb9rDZwkS44WAL2x44cJRZovshvV5xXVoQLWudPZ
+	 DdnKEPDHzdLiUPt+ezfCpvX/ReVbiMlY1+M24BnGfyVp5ndCno5vg9aB92cESTARlv/MR
+	 ZTYt8o3Qy6sHNe/slBGI5UoyjT1viOb15xyw9YRAB8vCxJeK+lo/I3uvfdbis9xcIcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6cn6nwz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L/rlcUep";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0885606A31F;
-	Sun, 15 Nov 2026 20:34:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32F2606A329;
+	Sun, 15 Nov 2026 20:34:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6cn6nwz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28BF51F000C7;
-	Sun, 15 Nov 2026 20:34:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L/rlcUep
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 938C51F000C4;
+	Sun, 15 Nov 2026 20:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794774866;
-	bh=zjKE1QAme1Pt9AR1gKgwWKqEbtE2dSXtZzIyUtweEsM=;
+	s=k20260515; t=1794774877;
+	bh=1UHDhkEqdK++rwLlhl8eLG6Syd3cIRxnrRpxv/dyniQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q6cn6nwzA06PCxkNUBmaM2zstrSMUVa2rIHZes7ZNVzIJBgGoOMIMbnIhpp8Prh24
-	 u8OSoogUqMBxXy+gjHGhG5WE3qtJJj2yU/Aid2yIXtPc6ri+Xe1ASJWb553nq8lUm8
-	 Fr2jX4kH+tW2MgQ72GtgEQ+wy440yjQNFQRYPF+ytR0pZbMt8IMS2vKHBjMKE+XzXN
-	 3mvExwTGinfLsUAkJGL2C5R0X6X1Lgjuf/wM3kJ1FwWz/Mk4BizNzjcWwEGh2KkdJN
-	 Ib0YlS/dODIS7ymbvDmtjVXPOA0ys/VqwHfv9DY+OCfqWhtvVKmuCUnbLuI8V5sWvC
-	 cBoAZhctVFBIw==
-Message-ID: <sashiko-outbox-215837@kernel.org>
+	b=L/rlcUepXYArR011UCz4BoCVDttlX0CEbZOLOt1qomlgjvbX9rSACIqHleoEGSPD9
+	 K6LeUnA7Oe2ykaBUgprFlNvrHLFgiU7moFNbZTLJH59nkoRXhma2BZMShvPya08KBa
+	 iQU6cm/g9twVfz4jGe2TkcfZCJSYWE/xs/FLLZiitZlUvRc47422CXD14z9UBikpiA
+	 SrQuIW7413wQEj7AsIU8GAI6AJHFeV3ZAiS5m5WUTUVogmO+y0M1zg8fn+3006WrOH
+	 drzLDzwuOtBhzX0btvkRfA48Iz8j6wxb/6nmKHoN2cmkUySmw9wJOVdeD3AULDBULO
+	 HjFh8yYkHXSYw==
+Message-ID: <sashiko-outbox-215839@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: Add NXP TFA9865 amplifier
+Subject: Re: [PATCH 2/2] pinctrl: qcom: Add Molokai TLMM driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Venkat Yadlapati" <venkat.yadlapati@yahoo.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261116-vantage-tfa9865-v1-1-e88f0dccc427@yahoo.com>
-References: <20261116-vantage-tfa9865-v1-0-e88f0dccc427@yahoo.com>
- <20261116-vantage-tfa9865-v1-1-e88f0dccc427@yahoo.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116-molokai-tlmm-v1-2-3ba4840002cb@yahoo.com>
+References: <20261116-molokai-tlmm-v1-0-3ba4840002cb@yahoo.com>
+ <20261116-molokai-tlmm-v1-2-3ba4840002cb@yahoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 20:34:25 +0000
+Date: Sun, 15 Nov 2026 20:34:37 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,67 +60,106 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] ASoC: dt-bindings: redundant sound-name-prefix in
-  nxp,tfa9865.yaml
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] pinctrl: qcom: molokai uses MSM_PIN_FUNCTION() for egpio
+- [High] pinctrl: qcom: molokai PINGROUP() omits intr_target_width =3D 4
 --
 
-commit cf7a1e88df6af54e01055454b9dbda2662c5f8d6
+commit e5d14e99015da685768f438aabdb5849901661b6
 Author: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
-ASoC: dt-bindings: Add NXP TFA9865 amplifier
+pinctrl: qcom: Add Molokai TLMM driver
 
-This commit adds the Devicetree binding schema and MAINTAINERS entry for
-the NXP TFA9865 mono class-D speaker amplifier.
+This commit adds the pinctrl, pinmux, pinconf, and gpiolib driver for the
+TLMM block on the Qualcomm Molokai (SM8845) SoC.
 
-> diff --git a/Documentation/devicetree/bindings/sound/nxp,tfa9865.yaml b/D=
-ocumentation/devicetree/bindings/sound/nxp,tfa9865.yaml
+> diff --git a/drivers/pinctrl/qcom/pinctrl-molokai.c b/drivers/pinctrl/qco=
+m/pinctrl-molokai.c
 > new file mode 100644
-> index 0000000000000..955e25abe7494
+> index 0000000000000..80763dce895be
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/nxp,tfa9865.yaml
-> @@ -0,0 +1,65 @@
+> +++ b/drivers/pinctrl/qcom/pinctrl-molokai.c
+> @@ -0,0 +1,1679 @@
+[ ... ]
+> +#define PINGROUP(id, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11)	\
+> +	{					        \
+> +		.grp =3D PINCTRL_PINGROUP("gpio" #id,	\
+> +			gpio##id##_pins,		\
+> +			ARRAY_SIZE(gpio##id##_pins)),	\
+> +		.funcs =3D (int[]){			\
+> +			msm_mux_gpio, /* gpio mode */	\
+> +			msm_mux_##f1,			\
+> +			msm_mux_##f2,			\
+> +			msm_mux_##f3,			\
+> +			msm_mux_##f4,			\
+> +			msm_mux_##f5,			\
+> +			msm_mux_##f6,			\
+> +			msm_mux_##f7,			\
+> +			msm_mux_##f8,			\
+> +			msm_mux_##f9,			\
+> +			msm_mux_##f10,			\
+> +			msm_mux_##f11 /* egpio mode */	\
+> +		},					\
+> +		.nfuncs =3D 12,				\
+> +		.ctl_reg =3D REG_SIZE * id,		\
+> +		.io_reg =3D 0x4 + REG_SIZE * id,		\
+> +		.intr_cfg_reg =3D 0x8 + REG_SIZE * id,	\
+> +		.intr_status_reg =3D 0xc + REG_SIZE * id,	\
+> +		.mux_bit =3D 2,			\
+> +		.pull_bit =3D 0,			\
+> +		.drv_bit =3D 6,			\
+> +		.i2c_pull_bit =3D 13,		\
+> +		.egpio_enable =3D 12,		\
+> +		.egpio_present =3D 11,		\
+> +		.oe_bit =3D 9,			\
+> +		.in_bit =3D 0,			\
+> +		.out_bit =3D 1,			\
+> +		.intr_enable_bit =3D 0,		\
+> +		.intr_status_bit =3D 0,		\
+> +		.intr_wakeup_present_bit =3D 6,	\
+> +		.intr_wakeup_enable_bit =3D 7,	\
+> +		.intr_target_bit =3D 8,		\
+> +		.intr_target_kpss_val =3D 3,	\
+> +		.intr_raw_status_bit =3D 4,	\
+> +		.intr_polarity_bit =3D 1,		\
+> +		.intr_detection_bit =3D 2,	\
+> +		.intr_detection_width =3D 2,	\
+> +	}
+
+[Severity: High]
+Should PINGROUP() set .intr_target_width =3D 4?
+
+Without intr_target_width, msm_gpio_irq_set_type() defaults to a 3-bit mask
+(GENMASK(2, 0)).  In this TLMM register layout, TARGET_PROC occupies bits
+11:8 and resets to 0xf (NONE), so clearing only bits 10:8 leaves bit 11 set
+and writes 0xb instead of 0x3, misrouting all GPIO interrupts handled via
+the TLMM summary interrupt path (the same issue fixed in commits
+68ab4a6a84b9 ("pinctrl: qcom: nord: fix GPIO interrupt target width") and
+1e7b04c12c07 ("pinctrl: qcom: shikra: Fix intr_target_width for summary
+interrupt routing")).
 
 [ ... ]
 
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: nxp,tfa9865
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +
-> +  vddd-supply:
-> +    description: Digital supply (1.8 V)
-> +
-> +  '#sound-dai-cells':
-> +    const: 0
-> +
-> +  sound-name-prefix: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#sound-dai-cells'
-> +
-> +unevaluatedProperties: false
+> +static const struct pinfunction molokai_functions[] =3D {
+> +	MSM_GPIO_PIN_FUNCTION(gpio),
+[ ... ]
+> +	MSM_PIN_FUNCTION(dp_hot),
+> +	MSM_PIN_FUNCTION(egpio),
+> +	MSM_PIN_FUNCTION(gcc_gp1),
 
-[Severity: Low]
-Is sound-name-prefix: true needed here?  dai-common.yaml# references
-component-common.yaml#, which already defines sound-name-prefix, and
-unevaluatedProperties: false permits properties from referenced allOf
-schemas without re-listing them when no extra constraints are added.
+[Severity: High]
+Should egpio in molokai_functions[] use MSM_GPIO_PIN_FUNCTION(egpio) instead
+of MSM_PIN_FUNCTION(egpio)?
+
+msm_pinmux_ops sets .strict =3D true and .function_is_gpio =3D
+pinmux_generic_function_is_gpio.  Because MSM_PIN_FUNCTION() does not set
+PINFUNCTION_FLAG_GPIO, pin_request() rejects any GPIO request on a pin muxed
+to egpio with -EINVAL (as fixed across other Qualcomm TLMM drivers in
+commits 480dc1952404 ("pinctrl: qcom: mark the `gpio` and `egpio` pins
+function as non-strict functions") and e73fda2dcb0b ("pinctrl: qcom: glymur:
+Fix the gpio and egpio pin functions")).
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-vantage-tf=
-a9865-v1-0-e88f0dccc427@yahoo.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-molokai-tl=
+mm-v1-0-3ba4840002cb@yahoo.com?part=3D2
