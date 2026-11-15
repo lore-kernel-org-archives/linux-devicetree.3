@@ -1,48 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794767236;
-	b=3CYA64HNbD9qfJRjvIMI8cELOBMW47crH7DapFV7GCxbPdKWGxg6okcx3MR0C8V0kZnw
-	 r7fWAootES0ta71+KQbarEJIQkCFPSBchSEdsBS+baDZunz+xPbaIEevTaocGW+upw1KC
-	 DfwaOUb8L06qxY5UpizDOUKc0gs4b1cLM15nJRHkpkZYU1PncqljIamyeBqwXoV6emAkQ
-	 gYrBBmS83klNLQMwP5WV8U4NttwnJZTqzSAY6NgchZZHwlkJvB2cj1sZf2VP3RIomw8nu
-	 oiUeiJq03rrlVHlvokolUG05gavHnBUx3PW7OjU+pdTEoV7FstHGZUIUUP1RMKpp5/Q==
+	t=1794767494;
+	b=lDkB7qngraI+jDrpEHCY6VwKzFeU0FYgxxAbmW5dJVrwjC/LWCvCDjV+hcRcY6b5/3Zl
+	 bXEd9JsKSF0Qdx5HI4DbXLb6bKOtC7oKSiHPNftaNU9qK6uHltQlXkSMB+WEOk8zI00eg
+	 ucOy0IURucgnAX5rGGz/YsoisMhHx+U/dPCVr4jw+hTIHlOcaXtBCpIqJjchDUa6yN7zl
+	 l/rimD26Yrkb/UldcC3THcN7HnAxk/MIdU4yqRqoXEXEUbC8MONo7OpajK9BZJGXHv6qA
+	 5uZkVD5OT7A4B4q674jpxi8drafpo96T239en0cBs9uiyYRcMW1cuHCICeelL5bhvYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794767236;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=4v9kEdXT9EbKxbjfyQTCBXpQmQO0tv1S0oBUI2ZRadY=;
-	b=Vzi/5i8vOCxS2FKJB2hbGYKgRf1a7rmYgZi1RR6VIaShjeYpDDc8/Qgsdklnz2ivf77L
-	 jcsLqdTSTvxCpjdZhiT9/MxJA3ww8BtbxAshKPWI+wt2cqOGCRWaWDToSQNF+nKQ3zfLR
-	 k9urju0yBycEHKQxzZMnwWpIx03B/RQMV/GrjnsKZU/7lS/KDsQZtildZxu+CbfjJNugn
-	 KK5gLA7o5PXH6TIf5DXMcEfRMJT3nBsugPZ1PjeIm5GDeW171is8SJoPOwfozv9AhIYzv
-	 g/zuFhpcDAl/oC0yOKU7dWIrmyrwVcppi/ccArKzIlT7sKNuOF/wF4UbVYvN88hEGpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794767494;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=SZKeogZ/aPOO3oEEkscn2RhmF5BM36XBLYCqnHFxnPk=;
+	b=Ean1z+Iuyn8eDycZXanXnISOWelc9smZrl1SuVp+KDBteGbeBqx9bVqQGUHk7E9aP+1u
+	 gpsxNxF3C+KdM741936CLN/cqsi8zI7nfNRaZInpwJnupks7UPHagX3TtiLKos4OfemDS
+	 vtCb9C1Y8c9R4LLsSa1pNzRXSv/3+FVfVspwaKOqUMN3ULZLMEjZYlHebInM/1If69AUy
+	 I9R5aPuy4GDJc8vjM3PsmxGVkGGw5wpAJLMvrpqXZHuo1TRlsWTPkd9UXSDykNhhdq4YQ
+	 rdObKYMDiFyZD7SYFySZnIKyhtQFu14Dm34FvKocC4MDiF2rGZc6r2rLxPtn6rxgUtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hs2wFkU6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ha8nS23m;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B2B606A323;
-	Sun, 15 Nov 2026 18:27:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9753D606A31F
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 18:31:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hs2wFkU6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6721F000C4;
-	Sun, 15 Nov 2026 18:27:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ha8nS23m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9AA1F000C5;
+	Sun, 15 Nov 2026 18:31:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794767236;
-	bh=4v9kEdXT9EbKxbjfyQTCBXpQmQO0tv1S0oBUI2ZRadY=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=Hs2wFkU62DxMVcVeVK/hAY2ufoadWt+Durtr+oAEZEZAHVRiIPzUn8lVsPDt5Gn6A
-	 LCjm667oyvLp/6VsY85AeLD12M/krbIKIgKoosrrjyCH8Bs+p2meRhASbg+kMC2cvM
-	 QzOEgYrkeLy0x/CLwV2gYxtqqx1ssQUFYhJbA8s+gu69qB0zN2CezYt1IxGO1LmOcQ
-	 ChvTkCD2Egs8VWSW4BrQHtHenMBDdDB7z4bhmmoqPKGANygD0zgisrIdYkxydir576
-	 UAuL+0VtHWziRhbhZ1qJB9384CqIX5ydm0HVaLZ2YWAeT6u2+v9nTXAYzi/wxW+YGW
-	 95lD+ddDCxnWw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 4E20633D38DA;
-	Sun, 15 Nov 2026 18:27:01 +0000 (GMT)
+	s=k20260515; t=1794767494;
+	bh=SZKeogZ/aPOO3oEEkscn2RhmF5BM36XBLYCqnHFxnPk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ha8nS23mwUbJt6b02Vp8IAImCQmPZnp0C5RkmZI+Wr4JRETkVSxBwUJd0TwWAp1yS
+	 FD+GKkRdWBx+UKrThpjTU/Woq1diQSInChnUPXRW0zpOI7cFRvGjyr+7RAuBt29JAe
+	 FKTdoiwtbPfMWyBx65ofseaXLE7GLXHz5tywLFjCjk9pux9RfWE1ttczipEOuNKtY5
+	 DrciaH9MQbC9oBoNA5KyIdigtg6WC0y0CIIbAoVpseiat87mLGMfIyWcoWjVsRykcl
+	 QPddN93jU5C9MCfVxZ9aL58OI8zD+bTDW9RQmU4uHUAQW55IEUXwG9HOHrDbJEXcrf
+	 sKV6qXgaPXI3w==
+Message-ID: <sashiko-outbox-215720@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v5 1/6] net: xilinx: axienet: Introduce
+ axienet_config for MAC-specific ops
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Suraj Gupta" <suraj.gupta2@amd.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261114182947.2908628-2-suraj.gupta2@amd.com>
+References: <20261114182947.2908628-1-suraj.gupta2@amd.com>
+ <20261114182947.2908628-2-suraj.gupta2@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 15 Nov 2026 18:31:33 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,51 +60,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v4 00/22] Add speaker and headset jack support for
- Apple Silicon Macs
-From: Mark Brown <broonie@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev, 
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Hector Martin <marcan@marcan.st>, Sasha Finkelstein <k@chaosmail.tech>
-In-Reply-To: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
-References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
-Date: Sun, 15 Nov 2026 18:27:00 +0000
-Message-Id: <179476722024.140154.15587190322612964079.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=317; i=broonie@kernel.org;
- h=from:subject:message-id; bh=ytHYPz0XriWoB7CgG8WB4aH/P5ex9L4TMTkLssWLVm4=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+/iz9N/mHi728XsdGBVdR5aNnVf4dbTT4IdmRdP2n0
- KttyacyOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRD6wM/9S72z3mLK8tSzx9
- 4NSkAKUV6/Z/7dTSuuv6b3nhkq3KnrMZ/uk++dB/R291D1tVuZfLHucp3HoXysLSk7c6Jx4XL/4
- swAwA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> Hi folks,
-> 
-> This series adds the machine driver and related bindings for the
-> primary audio subsystem on Apple Silicon Macs. The macaudio
-> machine driver is based on an RFC sent many years ago
-> by Martin Povišer[1]. 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] net: xilinx: axienet: axienet_probe() fails on software-node
+  devices
+--
 
-This needs a rebase against current code.
+commit 783576cb6315304b083793b1e0a0ea48b15baa81
+Author: Suraj Gupta <suraj.gupta2@amd.com>
 
--- 
-Mark Brown <broonie@kernel.org>
+net: xilinx: axienet: Introduce axienet_config for MAC-specific ops
+
+This commit introduces struct axienet_config to abstract MAC-specific
+capabilities and callbacks, populating it from axienet_of_match and
+converting the shared paths to use it.
+
+> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/=
+net/ethernet/xilinx/xilinx_axienet_main.c
+> index 7e83c4b5f1931..125ad3dbf6aa9 100644
+> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+
+[ ... ]
+
+> @@ -2898,27 +3046,13 @@ static int axienet_probe(struct platform_device *=
+pdev)
+>  	seqcount_mutex_init(&lp->hw_stats_seqcount, &lp->stats_lock);
+>  	INIT_DEFERRABLE_WORK(&lp->stats_work, axienet_refresh_stats);
+> =20
+> -	lp->axi_clk =3D devm_clk_get_optional_enabled(&pdev->dev,
+> -						    "s_axi_lite_clk");
+> -	if (!lp->axi_clk) {
+> -		/* For backward compatibility, if named AXI clock is not present,
+> -		 * treat the first clock specified as the AXI clock.
+> -		 */
+> -		lp->axi_clk =3D devm_clk_get_optional_enabled(&pdev->dev, NULL);
+> -	}
+> -	if (IS_ERR(lp->axi_clk))
+> -		return dev_err_probe(&pdev->dev, PTR_ERR(lp->axi_clk),
+> -				     "could not get AXI clock\n");
+> -
+> -	lp->misc_clks[0].id =3D "axis_clk";
+> -	lp->misc_clks[1].id =3D "ref_clk";
+> -	lp->misc_clks[2].id =3D "mgt_clk";
+> +	lp->axienet_config =3D device_get_match_data(&pdev->dev);
+> +	if (!lp->axienet_config)
+> +		return -ENODEV;
+
+[Severity: High]
+Does this break probing for platform devices matched by driver name and
+backed by a software_node, such as those registered after commits
+f5185ec79dac ("net: axienet: use device_property and fwnode APIs for
+probe-time config") and 418149559ef3 ("net: axienet: add a MODULE_ALIAS
+for platform instantiation")?
+
+software_node_ops does not implement .device_get_match_data and
+axienet_driver has no id_table, so device_get_match_data() returns NULL on
+non-OF platform devices and axienet_probe() now fails with -ENODEV instead
+of defaulting to axienet_1g_config.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114182947.2908=
+628-1-suraj.gupta2@amd.com?part=3D1
