@@ -1,68 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794739521;
-	b=h08pvTYzyJw8hyE2vZvbQiar7oMbRl4GuO2P/lDGjvJhPTCg0evIzy4NYu3b1FyEblaR
-	 AvhzEE9EI9Irkpv0AWjEk7HRToKLLYcTE4nllYoLxWeCKl0d9OXHAXskguhM8ZT+/iNws
-	 bfAud/emLJ83YcMAwJjmTKyfqwvwOWX7HfB1o1nR/F9vUR/ujt5sUkSl0fjo/s7AC/ygn
-	 TxihNHZ+rQYrQgmbAaGQE6s41EM9H2K9ZQayb7rGtPaFyTqRIDiLQO2q1NZLVOQF/V40z
-	 HtqcWkh5pHXQG0t/NEvfGFPGWpLXD4MR+hqNBwmG1jG4bedVIkkplPcPMtB3BhkPDPA==
+	t=1794739886;
+	b=nhQvxOm3ugtwCzEmhD/bm6WLOyu9icVyhwvpSezRegnc/npJysTwVBzqPD/6As8X6wYf
+	 DsqF9IRGsc1O/4kiEbxwfIrOv2js2mLXO+k5HqYenCucexicpuEnxKttym0UBe5Qz3uZM
+	 xvsuZjuPG97Hq1muQnxyXYQEitE+9QGOOTCnX+DW4j+iqA0kKsj0NJYu8XNc/o/m2h2F4
+	 qdMOXAjOPrtAroD4iOuAPMxVogyei+w/Spcyl66A9DLRX9lGhZxxSZGAG7yTV2nP5jAEJ
+	 H3UlW05iyLfOYPmNj5WAYInFMKxLuSrElXXFGkd6LMi7SriKiX7pxAkdxUAGcJ6zFsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794739521;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=62CfwsBmKGKY7Fn9rT9RDvCYZzjZgQypRjRx11DS/CE=;
-	b=nD3YbOn9YncSAplVxgt9FyRsAYaqNS7J0Lb7Z2QRtRZ7wWJKg/2rb4qjHV+YYGwRUxqo
-	 2+PnqUtZSN4f3NIr8WXmNESJJIWX5pxSYShsK3ePU5w1n8xZ8SBX17CE5Yq7cm4hgrU65
-	 p70hxn3OvDEV3DlcLT9IUP7B3PJE+vsPwrWOpRE/kUospN0niHy85HEUCxXYOySfCfuQR
-	 oKtDy2cbkhPZdbnXw//zVZzJs4Vvo2O/PBbDrUsvUK6nPSd7Bf68Ka7aHOiekBnytHb+j
-	 yoZ6oAgGteQ43aUVlDTWbphzgrd4xTMnOel3HGkOOq4m1mg06LWEP0CgxhjILWLV8bA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794739886;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7DTQ+ilab30T+Zv/iDCe98ocWkWdeLKP4PE9a5e/7Dw=;
+	b=mwqtFbDfuSbq535OwFyGd67Njjh1eCtrGkIvy46B5FT8YxUJ0/ImAV96vIrtbkJltke1
+	 Z/84jNCNmFYxb8Z9+9cf07Kwh+hF5RxzmjDTi5AmvV020+6R/D57pbHKX+PUUSOe1/Iyy
+	 QwFqTaGlcVjh1oIDdefHYOZajQKiWJd/1HaeizNGwYjP0TT4rMbZZ+F9BAF53UH9lCmvc
+	 gqkFKsBv/KtvwDIN9DZwL8FhScqV5v0sSHN87bBbjE+YEBHEr052RPcehBY/3d5eZB0wO
+	 LrY6sHwQSG4pRBFcGyB7G3hD8giWn/b54Wcv5fIztmMPcRcTKGFLLUDl9WlT39Otybg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fHYVNZOE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFbrhBwC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F700606A31A;
-	Sun, 15 Nov 2026 10:45:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E217A606A31E
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 10:51:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fHYVNZOE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C34531F0092F;
-	Sun, 15 Nov 2026 10:45:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFbrhBwC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B83BE1F000CB
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 10:51:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794739521;
-	bh=62CfwsBmKGKY7Fn9rT9RDvCYZzjZgQypRjRx11DS/CE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fHYVNZOEBPLRcgAtKvuULYHQjJhuC3nTBjIbD+QdlvSBlnXBm03raYEp8TiBsOpgm
-	 FFSBpCTSayaI0R67EuTfgAYiSuDHU2J6LHKpqhUZOMdH1nH+1496g9oFcfmud/omSk
-	 3LYkxT1bBip5ATI0ihVu6h1ExD6St4bdeO/Gra5Z2kLXVO6E6CV3DWqxCHRtPaYRCp
-	 Ia15IqXEgH6ECyZH9Fel1lLKWMUNtec8Ctlglrpxg1vlbErWolaJcjlIlKPpzOywHV
-	 JzW8P/gmusgcW8oaPpuHNBa1YmWeZSwni4Xv/o/owDV7HOav2pdFbi3xxFCIuTy2uS
-	 BKFQPZbQGTMuA==
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v2 13/13] arm64: dts: synaptics: add SL2610 family RDK boards
-Date: Sun, 15 Nov 2026 18:23:52 +0800
-Message-ID: <20261115102401.3520-14-jszhang@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261115102401.3520-1-jszhang@kernel.org>
-References: <20261115102401.3520-1-jszhang@kernel.org>
+	s=k20260515; t=1794739885;
+	bh=7DTQ+ilab30T+Zv/iDCe98ocWkWdeLKP4PE9a5e/7Dw=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=JFbrhBwCSgbkxt7pujKUY9zMMDpruMpZPoGoVimkLdFTRt+YMaPEQxmHjxjG0+gSw
+	 yFrzjsl8fgqFOYnsTQ7pFT8QAEeXDFeoblGeAMmxN+8jx0naXanE7y2kjubAcJqMo6
+	 1Zq5KpHe1OtMJTK8SObA5BHtEA2AMwPlp/v1Gz/PChsEN3MeOWH2GaAIWBrcJvlPOe
+	 +P7H7cNxSbrX0e4xodkKjkrTrKvHdMRX5a8em6RsoTuoBjUs/4VuYxu7wI1BSRR6Ld
+	 wjHmPIRu9vNB4K2xxOrmE9VPnZVvb24wINjOGKAtoVCt+1O1vHmt98BZ8AFT5tWI3m
+	 yEHbsxKYuD5FA==
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ab3b29a298so26565981fa.3
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 02:51:25 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGj1VubzSjqFI1JwibOouY8psF66UTlYRPCndYzwAqn3PTxiPhvMLe6imDxMkat5NS09m44Wbhd7RAa@vger.kernel.org
+X-Gm-Message-State: APuU4Z+d6cQpzauZl9JLqmNsbXeeRngZMzzPKlHnahqq3Chqg0qSgF45
+	RX2fg5VD1X7p+qjD332mwcefwCOfh+Fuwez5T5qCXwbtJGwgJV5OwiQf8ZlXLz3Uyg7yxLI3haw
+	hrK69Uoz1w0ahoHwTC7WGbIgVDEjA8Mw=
+X-Received: by 2002:a05:651c:1544:b0:3a6:70bf:622e with SMTP id
+ 38308e7fff4ca-3ae2b5373femr23084821fa.4.1794739884136; Sun, 15 Nov 2026
+ 02:51:24 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,294 +59,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261112-h616-zero2-dt-v3-0-1cd2664230c8@gmail.com> <20261112-h616-zero2-dt-v3-2-1cd2664230c8@gmail.com>
+In-Reply-To: <20261112-h616-zero2-dt-v3-2-1cd2664230c8@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 15 Nov 2026 18:51:10 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65Jw5zPWG0HD75_nJQLRD7QJhHRw4Zs3fvFxyOFFUuGew@mail.gmail.com>
+X-Gm-Features: AclHuK8Xtqejh0T-mPLGkGVR4M7UNRwaVG1Eqq6UzreOqahz90WQKJmVFXxqRSg
+Message-ID: <CAGb2v65Jw5zPWG0HD75_nJQLRD7QJhHRw4Zs3fvFxyOFFUuGew@mail.gmail.com>
+Subject: Re: [PATCH v3 2/7] arm64: dts: allwinner: orangepi-zero2: Let the PHY
+ add the RX delay
+To: aiyengar1990@gmail.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Ryan Walklin <ryan@testtoast.com>, 
+	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add device trees for the SL2611, SL2613, SL2615, SL2617 and SL2619
-reference development kits. Share their common console, memory, pin
-configuration and regulator descriptions and enable the populated
-peripherals.
+On Thu, Nov 12, 2026 at 5:22=E2=80=AFPM Arun Iyengar via B4 Relay
+<devnull+aiyengar1990.gmail.com@kernel.org> wrote:
+>
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>
+> The Orange Pi Zero2 describes its RTL8211F link as "rgmii", with the
+> whole RX clock delay (3100 ps, the maximum the H616 EMAC syscon can
+> add) inserted by the MAC. With "rgmii" the Realtek PHY driver also
+> clears the PHY's own RX delay bit, so RX sampling relies on the MAC
+> delay alone and sits at the edge of the window.
+>
+> On the board this shows up as intermittent boots with a dead receive
+> path, after cold and warm resets alike: the link comes up at
+> 1000/full and frames are transmitted and seen by the peer, but nothing
+> is ever received and the EMAC raises no RX interrupt. All EMAC clock,
+> pinmux, drive strength and syscon registers are the same on good and
+> bad boots. On a bad boot, setting the PHY RX delay bit and clearing
+> the syscon RX delay restores reception at once, without a link reset.
+>
+> Use "rgmii-rxid" (RX delay in the PHY, none in the MAC), as the Orange
+> Pi Zero3 with the same PHY already does, and as the vendor BSP does.
 
-Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
----
- arch/arm64/boot/dts/synaptics/Makefile        |   5 +
- arch/arm64/boot/dts/synaptics/sl2611-rdk.dts  |  16 +++
- arch/arm64/boot/dts/synaptics/sl2613-rdk.dts  |  16 +++
- arch/arm64/boot/dts/synaptics/sl2615-rdk.dts  |  16 +++
- arch/arm64/boot/dts/synaptics/sl2617-rdk.dts  |  16 +++
- arch/arm64/boot/dts/synaptics/sl2619-rdk.dts  |  16 +++
- .../boot/dts/synaptics/sl261x-rdk-common.dtsi | 135 ++++++++++++++++++
- 7 files changed, 220 insertions(+)
- create mode 100644 arch/arm64/boot/dts/synaptics/sl2611-rdk.dts
- create mode 100644 arch/arm64/boot/dts/synaptics/sl2613-rdk.dts
- create mode 100644 arch/arm64/boot/dts/synaptics/sl2615-rdk.dts
- create mode 100644 arch/arm64/boot/dts/synaptics/sl2617-rdk.dts
- create mode 100644 arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
- create mode 100644 arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
+Flagged by my review agent, and documents reviewed by me:
 
-diff --git a/arch/arm64/boot/dts/synaptics/Makefile b/arch/arm64/boot/dts/synaptics/Makefile
-index de71ddda6835..810d0d08c2de 100644
---- a/arch/arm64/boot/dts/synaptics/Makefile
-+++ b/arch/arm64/boot/dts/synaptics/Makefile
-@@ -2,3 +2,8 @@
- # Berlin SoC Family
- dtb-$(CONFIG_ARCH_BERLIN) += berlin4ct-dmp.dtb
- dtb-$(CONFIG_ARCH_BERLIN) += berlin4ct-stb.dtb
-+dtb-$(CONFIG_ARCH_BERLIN) += sl2611-rdk.dtb
-+dtb-$(CONFIG_ARCH_BERLIN) += sl2613-rdk.dtb
-+dtb-$(CONFIG_ARCH_BERLIN) += sl2615-rdk.dtb
-+dtb-$(CONFIG_ARCH_BERLIN) += sl2617-rdk.dtb
-+dtb-$(CONFIG_ARCH_BERLIN) += sl2619-rdk.dtb
-diff --git a/arch/arm64/boot/dts/synaptics/sl2611-rdk.dts b/arch/arm64/boot/dts/synaptics/sl2611-rdk.dts
-new file mode 100644
-index 000000000000..585872307834
---- /dev/null
-+++ b/arch/arm64/boot/dts/synaptics/sl2611-rdk.dts
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (C) 2025 Synaptics Incorporated
-+ *
-+ * Author: Jisheng Zhang <jszhang@kernel.org>
-+ */
-+
-+/dts-v1/;
-+
-+#include "sl2611.dtsi"
-+#include "sl261x-rdk-common.dtsi"
-+
-+/ {
-+	model = "Synaptics SL2611 RDK";
-+	compatible = "syna,sl2611-rdk", "syna,sl2611";
-+};
-diff --git a/arch/arm64/boot/dts/synaptics/sl2613-rdk.dts b/arch/arm64/boot/dts/synaptics/sl2613-rdk.dts
-new file mode 100644
-index 000000000000..de75c9fab6a2
---- /dev/null
-+++ b/arch/arm64/boot/dts/synaptics/sl2613-rdk.dts
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (C) 2025 Synaptics Incorporated
-+ *
-+ * Author: Jisheng Zhang <jszhang@kernel.org>
-+ */
-+
-+/dts-v1/;
-+
-+#include "sl2613.dtsi"
-+#include "sl261x-rdk-common.dtsi"
-+
-+/ {
-+	model = "Synaptics SL2613 RDK";
-+	compatible = "syna,sl2613-rdk", "syna,sl2613";
-+};
-diff --git a/arch/arm64/boot/dts/synaptics/sl2615-rdk.dts b/arch/arm64/boot/dts/synaptics/sl2615-rdk.dts
-new file mode 100644
-index 000000000000..ae03638a3a53
---- /dev/null
-+++ b/arch/arm64/boot/dts/synaptics/sl2615-rdk.dts
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (C) 2025 Synaptics Incorporated
-+ *
-+ * Author: Jisheng Zhang <jszhang@kernel.org>
-+ */
-+
-+/dts-v1/;
-+
-+#include "sl2615.dtsi"
-+#include "sl261x-rdk-common.dtsi"
-+
-+/ {
-+	model = "Synaptics SL2615 RDK";
-+	compatible = "syna,sl2615-rdk", "syna,sl2615";
-+};
-diff --git a/arch/arm64/boot/dts/synaptics/sl2617-rdk.dts b/arch/arm64/boot/dts/synaptics/sl2617-rdk.dts
-new file mode 100644
-index 000000000000..ba4ea21ac505
---- /dev/null
-+++ b/arch/arm64/boot/dts/synaptics/sl2617-rdk.dts
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (C) 2025 Synaptics Incorporated
-+ *
-+ * Author: Jisheng Zhang <jszhang@kernel.org>
-+ */
-+
-+/dts-v1/;
-+
-+#include "sl2617.dtsi"
-+#include "sl261x-rdk-common.dtsi"
-+
-+/ {
-+	model = "Synaptics SL2617 RDK";
-+	compatible = "syna,sl2617-rdk", "syna,sl2617";
-+};
-diff --git a/arch/arm64/boot/dts/synaptics/sl2619-rdk.dts b/arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
-new file mode 100644
-index 000000000000..58901ac2a050
---- /dev/null
-+++ b/arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (C) 2025 Synaptics Incorporated
-+ *
-+ * Author: Jisheng Zhang <jszhang@kernel.org>
-+ */
-+
-+/dts-v1/;
-+
-+#include "sl2619.dtsi"
-+#include "sl261x-rdk-common.dtsi"
-+
-+/ {
-+	model = "Synaptics SL2619 RDK";
-+	compatible = "syna,sl2619-rdk", "syna,sl2619";
-+};
-diff --git a/arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi b/arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
-new file mode 100644
-index 000000000000..78a9b28fdf99
---- /dev/null
-+++ b/arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
-@@ -0,0 +1,135 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (C) 2025 Synaptics Incorporated
-+ *
-+ * Author: Jisheng Zhang <jszhang@kernel.org>
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/linux-event-codes.h>
-+
-+/ {
-+	aliases {
-+		serial0 = &sm_uart0;
-+		serial1 = &sm_uart1;
-+		serial2 = &sm_uart2;
-+		serial3 = &sm_uart3;
-+		serial4 = &soc_uart0;
-+		serial5 = &soc_uart1;
-+		serial6 = &soc_uart2;
-+		serial7 = &soc_uart3;
-+		i2c0 = &sm_i2c0;
-+		i2c1 = &sm_i2c1;
-+		i2c2 = &soc_i2c0;
-+		i2c3 = &soc_i2c1;
-+		spi1 = &sm_spi1;
-+		spi2 = &soc_spi0;
-+		spi3 = &soc_spi1;
-+		spi4 = &soc_spi2;
-+		spi5 = &soc_spi3;
-+	};
-+
-+	cpus {
-+		cpu@0 {
-+			cpu0-supply = <&vcore>;
-+		};
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+		bootargs = "earlycon";
-+	};
-+
-+	memory@0 {
-+		device_type = "memory";
-+		reg = <0x0 0x00000000 0x0 0x80000000>;
-+	};
-+};
-+
-+&osc {
-+	clock-frequency = <25000000>;
-+};
-+
-+&pinctrl {
-+	soc_i2c0_pmux: soc_i2c0-pmux {
-+		groups = "GPIO23", "GPIO24";
-+		function = "tw2";
-+		drive-strength = <7>;
-+	};
-+};
-+
-+&sm_pinctrl {
-+	sm_i2c0_pmux: i2c0-pmux {
-+		groups = "SM_GPIO12", "SM_GPIO13";
-+		function = "tw0";
-+		drive-strength = <7>;
-+	};
-+
-+	sm_i2c1_pmux: i2c1-pmux {
-+		groups = "SM_GPIO3", "SM_GPIO4";
-+		function = "tw1";
-+		drive-strength = <7>;
-+	};
-+
-+	vcore_gpio_pmux: vcore-gpio-pmux {
-+		groups = "SM_GPIO5";
-+		function = "gpio";
-+	};
-+};
-+
-+&sm_uart0 {
-+	status = "okay";
-+};
-+
-+&sm_i2c0 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sm_i2c0_pmux>;
-+	clock-frequency = <100000>;
-+
-+	expander0: gpio@43 {
-+		compatible = "fcs,fxl6408";
-+		reg = <0x43>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+	};
-+
-+	expander1: gpio@44 {
-+		compatible = "fcs,fxl6408";
-+		reg = <0x44>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+	};
-+};
-+
-+&sm_i2c1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sm_i2c1_pmux>;
-+	clock-frequency = <100000>;
-+
-+	vcore: regulator@60 {
-+		compatible = "silergy,sy8827n";
-+		reg = <0x60>;
-+		regulator-name = "vcore";
-+		regulator-min-microvolt = <700000>;
-+		regulator-max-microvolt = <987500>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-active-discharge = <0>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&vcore_gpio_pmux>;
-+		enable-gpios = <&portc 5 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&soc_i2c0 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&soc_i2c0_pmux>;
-+	clock-frequency = <100000>;
-+};
-+
-+&sm_uart1 {
-+	status = "okay";
-+};
--- 
-2.55.0
+The Orange Pi Zero3 uses a different PHY, but the pin strapping is the
+same, and has the same meaning: the PHY provides the RX delays, while
+the MAC provides the TX delays.
 
+I can fix up the commit message when applying.
+
+> The 700 ps MAC TX delay is kept. With this change 10 of 10 cold boots
+> had a working receive path.
+>
+> Fixes: 5a378f9f2b15 ("arm64: dts: allwinner: h616: Add OrangePi Zero 2 bo=
+ard support")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts=
+ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+> index f2e3300e078a..1fdf2d3c1a87 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+> @@ -18,9 +18,9 @@ &cpu0 {
+>  };
+>
+>  &emac0 {
+> -       allwinner,rx-delay-ps =3D <3100>;
+>         allwinner,tx-delay-ps =3D <700>;
+> -       phy-mode =3D "rgmii";
+> +       /* RX delay is added by the PHY, TX delay by the EMAC */
+> +       phy-mode =3D "rgmii-rxid";
+>         phy-supply =3D <&reg_dcdce>;
+>  };
+>
+>
+> --
+> 2.55.0
+>
+>
