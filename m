@@ -1,56 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794739520;
-	b=XX0nPzHTj5z7db0Qus6mWVk2tfyh6jHDFMHu6AZqG/jBz4mfKEsfL5V/AnKfzZyUMUff
-	 EcHLdOV64nrbpPlhNLL1oG73W6eX7nyxtbP9z3Gii4wysa8LtyWXj85L2eQuVMUeZdPZ3
-	 8RMUPZHNLxhh/sCPzarzmum3qZh6L8ygVI8jUZJdbv2ScViOqgnSQmQMlOYT5Upus6pGx
-	 ETsc/1FhCTKv73JLmhEo2BPjhQMmE30l4tU1LXB9WLnt4UFpEcEnIgsjpOyKibHoAtDBj
-	 1cMA6s9OC2RjJpvOhlHkOhEcwSefA+ZBDl5dk/RMMivRlJyOl8df+SpcFoAA2JDmmhw==
+	t=1794739521;
+	b=h08pvTYzyJw8hyE2vZvbQiar7oMbRl4GuO2P/lDGjvJhPTCg0evIzy4NYu3b1FyEblaR
+	 AvhzEE9EI9Irkpv0AWjEk7HRToKLLYcTE4nllYoLxWeCKl0d9OXHAXskguhM8ZT+/iNws
+	 bfAud/emLJ83YcMAwJjmTKyfqwvwOWX7HfB1o1nR/F9vUR/ujt5sUkSl0fjo/s7AC/ygn
+	 TxihNHZ+rQYrQgmbAaGQE6s41EM9H2K9ZQayb7rGtPaFyTqRIDiLQO2q1NZLVOQF/V40z
+	 HtqcWkh5pHXQG0t/NEvfGFPGWpLXD4MR+hqNBwmG1jG4bedVIkkplPcPMtB3BhkPDPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794739520;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=fQrZDcMG+3uTlFYy5lqv9p2lLlMEVESXqV9TfMItNcQ=;
-	b=d/YyLdmp1oUFoHF35OEdF6eglt/Yfc6JMmURjq/bROLZ/vigdddmmXHBxmda8zL2aL+c
-	 FJ2tpAIlE6PC4ZBmwze9OEXwazKAWyurASCH2/E6iY80u6hxlr+3g83+1gfNJmmCpoSIn
-	 25bJhHb5S8Gm3Lv2q6uTQlSzSRaORRM0wX5iy/Ae7IKSDwybIEg3N+Lz+caQnqTRNLYXc
-	 iFoQWI4hg9VZAVqFE16Nem2X38cITZOqowyE+cAA55liWf3ng88kzTAUlx+TB+HzwHcTK
-	 PGc3H0el3NJOYCCi3E1Zrte5gEQTnjRmgBTXbJdZ32UOy0arfUj7mPmX/cfl6jcLFLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794739521;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=62CfwsBmKGKY7Fn9rT9RDvCYZzjZgQypRjRx11DS/CE=;
+	b=nD3YbOn9YncSAplVxgt9FyRsAYaqNS7J0Lb7Z2QRtRZ7wWJKg/2rb4qjHV+YYGwRUxqo
+	 2+PnqUtZSN4f3NIr8WXmNESJJIWX5pxSYShsK3ePU5w1n8xZ8SBX17CE5Yq7cm4hgrU65
+	 p70hxn3OvDEV3DlcLT9IUP7B3PJE+vsPwrWOpRE/kUospN0niHy85HEUCxXYOySfCfuQR
+	 oKtDy2cbkhPZdbnXw//zVZzJs4Vvo2O/PBbDrUsvUK6nPSd7Bf68Ka7aHOiekBnytHb+j
+	 yoZ6oAgGteQ43aUVlDTWbphzgrd4xTMnOel3HGkOOq4m1mg06LWEP0CgxhjILWLV8bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UIUjV8ot;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fHYVNZOE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA63606A337
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 10:45:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F700606A31A;
+	Sun, 15 Nov 2026 10:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UIUjV8ot
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 383591F000C6;
-	Sun, 15 Nov 2026 10:45:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fHYVNZOE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C34531F0092F;
+	Sun, 15 Nov 2026 10:45:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794739520;
-	bh=fQrZDcMG+3uTlFYy5lqv9p2lLlMEVESXqV9TfMItNcQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UIUjV8otHZFK4Dk2XfjXZAL7NIpjOdxq6BhEkO/1bq6D4/KLxFO+7cH49E4M/ooaY
-	 FHGNYwlK+BPhmUGr7ZelxqQGjTus0lwuJUBOjfhktf9EiCwsx773L+7pJSi3vsmswZ
-	 Ypw4/PWnOK6jPjQV6B3Q68tZ6POxhpVFeweR74+x3N65X31xZskVU+eoLJEDrTDGDA
-	 5X/0+Fe3Nvf3JdoJFKXtjYKJQ7gq9xN9YuANUtZ4b9eoJVVW7N04Wv3jpsIiPLiFW4
-	 srIbCwT8kiIPv6axfs0yJFTMhPv/yEovKu7928cgX5gVPtuhSxKjsnQTHU5kLy3leJ
-	 E4R6riqAuo1gA==
-Message-ID: <sashiko-outbox-215405@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v20 15/15] net: airoha: add phylink support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261114104426.235620-16-ansuelsmth@gmail.com>
-References: <20261114104426.235620-1-ansuelsmth@gmail.com>
- <20261114104426.235620-16-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 10:45:19 +0000
+	s=k20260515; t=1794739521;
+	bh=62CfwsBmKGKY7Fn9rT9RDvCYZzjZgQypRjRx11DS/CE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fHYVNZOEBPLRcgAtKvuULYHQjJhuC3nTBjIbD+QdlvSBlnXBm03raYEp8TiBsOpgm
+	 FFSBpCTSayaI0R67EuTfgAYiSuDHU2J6LHKpqhUZOMdH1nH+1496g9oFcfmud/omSk
+	 3LYkxT1bBip5ATI0ihVu6h1ExD6St4bdeO/Gra5Z2kLXVO6E6CV3DWqxCHRtPaYRCp
+	 Ia15IqXEgH6ECyZH9Fel1lLKWMUNtec8Ctlglrpxg1vlbErWolaJcjlIlKPpzOywHV
+	 JzW8P/gmusgcW8oaPpuHNBa1YmWeZSwni4Xv/o/owDV7HOav2pdFbi3xxFCIuTy2uS
+	 BKFQPZbQGTMuA==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: [PATCH v2 13/13] arm64: dts: synaptics: add SL2610 family RDK boards
+Date: Sun, 15 Nov 2026 18:23:52 +0800
+Message-ID: <20261115102401.3520-14-jszhang@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261115102401.3520-1-jszhang@kernel.org>
+References: <20261115102401.3520-1-jszhang@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,58 +71,295 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] net: airoha: Kconfig selects hidden PCS_AIROHA symbol in
-  NET_AIROHA
---
+Add device trees for the SL2611, SL2613, SL2615, SL2617 and SL2619
+reference development kits. Share their common console, memory, pin
+configuration and regulator descriptions and enable the populated
+peripherals.
 
-commit 5ff2dca20962cb3dbeba514686627b90b3733e68
-Author: Christian Marangi <ansuelsmth@gmail.com>
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+---
+ arch/arm64/boot/dts/synaptics/Makefile        |   5 +
+ arch/arm64/boot/dts/synaptics/sl2611-rdk.dts  |  16 +++
+ arch/arm64/boot/dts/synaptics/sl2613-rdk.dts  |  16 +++
+ arch/arm64/boot/dts/synaptics/sl2615-rdk.dts  |  16 +++
+ arch/arm64/boot/dts/synaptics/sl2617-rdk.dts  |  16 +++
+ arch/arm64/boot/dts/synaptics/sl2619-rdk.dts  |  16 +++
+ .../boot/dts/synaptics/sl261x-rdk-common.dtsi | 135 ++++++++++++++++++
+ 7 files changed, 220 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/synaptics/sl2611-rdk.dts
+ create mode 100644 arch/arm64/boot/dts/synaptics/sl2613-rdk.dts
+ create mode 100644 arch/arm64/boot/dts/synaptics/sl2615-rdk.dts
+ create mode 100644 arch/arm64/boot/dts/synaptics/sl2617-rdk.dts
+ create mode 100644 arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
+ create mode 100644 arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
 
-net: airoha: add phylink support
+diff --git a/arch/arm64/boot/dts/synaptics/Makefile b/arch/arm64/boot/dts/synaptics/Makefile
+index de71ddda6835..810d0d08c2de 100644
+--- a/arch/arm64/boot/dts/synaptics/Makefile
++++ b/arch/arm64/boot/dts/synaptics/Makefile
+@@ -2,3 +2,8 @@
+ # Berlin SoC Family
+ dtb-$(CONFIG_ARCH_BERLIN) += berlin4ct-dmp.dtb
+ dtb-$(CONFIG_ARCH_BERLIN) += berlin4ct-stb.dtb
++dtb-$(CONFIG_ARCH_BERLIN) += sl2611-rdk.dtb
++dtb-$(CONFIG_ARCH_BERLIN) += sl2613-rdk.dtb
++dtb-$(CONFIG_ARCH_BERLIN) += sl2615-rdk.dtb
++dtb-$(CONFIG_ARCH_BERLIN) += sl2617-rdk.dtb
++dtb-$(CONFIG_ARCH_BERLIN) += sl2619-rdk.dtb
+diff --git a/arch/arm64/boot/dts/synaptics/sl2611-rdk.dts b/arch/arm64/boot/dts/synaptics/sl2611-rdk.dts
+new file mode 100644
+index 000000000000..585872307834
+--- /dev/null
++++ b/arch/arm64/boot/dts/synaptics/sl2611-rdk.dts
+@@ -0,0 +1,16 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (C) 2025 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ */
++
++/dts-v1/;
++
++#include "sl2611.dtsi"
++#include "sl261x-rdk-common.dtsi"
++
++/ {
++	model = "Synaptics SL2611 RDK";
++	compatible = "syna,sl2611-rdk", "syna,sl2611";
++};
+diff --git a/arch/arm64/boot/dts/synaptics/sl2613-rdk.dts b/arch/arm64/boot/dts/synaptics/sl2613-rdk.dts
+new file mode 100644
+index 000000000000..de75c9fab6a2
+--- /dev/null
++++ b/arch/arm64/boot/dts/synaptics/sl2613-rdk.dts
+@@ -0,0 +1,16 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (C) 2025 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ */
++
++/dts-v1/;
++
++#include "sl2613.dtsi"
++#include "sl261x-rdk-common.dtsi"
++
++/ {
++	model = "Synaptics SL2613 RDK";
++	compatible = "syna,sl2613-rdk", "syna,sl2613";
++};
+diff --git a/arch/arm64/boot/dts/synaptics/sl2615-rdk.dts b/arch/arm64/boot/dts/synaptics/sl2615-rdk.dts
+new file mode 100644
+index 000000000000..ae03638a3a53
+--- /dev/null
++++ b/arch/arm64/boot/dts/synaptics/sl2615-rdk.dts
+@@ -0,0 +1,16 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (C) 2025 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ */
++
++/dts-v1/;
++
++#include "sl2615.dtsi"
++#include "sl261x-rdk-common.dtsi"
++
++/ {
++	model = "Synaptics SL2615 RDK";
++	compatible = "syna,sl2615-rdk", "syna,sl2615";
++};
+diff --git a/arch/arm64/boot/dts/synaptics/sl2617-rdk.dts b/arch/arm64/boot/dts/synaptics/sl2617-rdk.dts
+new file mode 100644
+index 000000000000..ba4ea21ac505
+--- /dev/null
++++ b/arch/arm64/boot/dts/synaptics/sl2617-rdk.dts
+@@ -0,0 +1,16 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (C) 2025 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ */
++
++/dts-v1/;
++
++#include "sl2617.dtsi"
++#include "sl261x-rdk-common.dtsi"
++
++/ {
++	model = "Synaptics SL2617 RDK";
++	compatible = "syna,sl2617-rdk", "syna,sl2617";
++};
+diff --git a/arch/arm64/boot/dts/synaptics/sl2619-rdk.dts b/arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
+new file mode 100644
+index 000000000000..58901ac2a050
+--- /dev/null
++++ b/arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
+@@ -0,0 +1,16 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (C) 2025 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ */
++
++/dts-v1/;
++
++#include "sl2619.dtsi"
++#include "sl261x-rdk-common.dtsi"
++
++/ {
++	model = "Synaptics SL2619 RDK";
++	compatible = "syna,sl2619-rdk", "syna,sl2619";
++};
+diff --git a/arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi b/arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
+new file mode 100644
+index 000000000000..78a9b28fdf99
+--- /dev/null
++++ b/arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
+@@ -0,0 +1,135 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (C) 2025 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ */
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/linux-event-codes.h>
++
++/ {
++	aliases {
++		serial0 = &sm_uart0;
++		serial1 = &sm_uart1;
++		serial2 = &sm_uart2;
++		serial3 = &sm_uart3;
++		serial4 = &soc_uart0;
++		serial5 = &soc_uart1;
++		serial6 = &soc_uart2;
++		serial7 = &soc_uart3;
++		i2c0 = &sm_i2c0;
++		i2c1 = &sm_i2c1;
++		i2c2 = &soc_i2c0;
++		i2c3 = &soc_i2c1;
++		spi1 = &sm_spi1;
++		spi2 = &soc_spi0;
++		spi3 = &soc_spi1;
++		spi4 = &soc_spi2;
++		spi5 = &soc_spi3;
++	};
++
++	cpus {
++		cpu@0 {
++			cpu0-supply = <&vcore>;
++		};
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++		bootargs = "earlycon";
++	};
++
++	memory@0 {
++		device_type = "memory";
++		reg = <0x0 0x00000000 0x0 0x80000000>;
++	};
++};
++
++&osc {
++	clock-frequency = <25000000>;
++};
++
++&pinctrl {
++	soc_i2c0_pmux: soc_i2c0-pmux {
++		groups = "GPIO23", "GPIO24";
++		function = "tw2";
++		drive-strength = <7>;
++	};
++};
++
++&sm_pinctrl {
++	sm_i2c0_pmux: i2c0-pmux {
++		groups = "SM_GPIO12", "SM_GPIO13";
++		function = "tw0";
++		drive-strength = <7>;
++	};
++
++	sm_i2c1_pmux: i2c1-pmux {
++		groups = "SM_GPIO3", "SM_GPIO4";
++		function = "tw1";
++		drive-strength = <7>;
++	};
++
++	vcore_gpio_pmux: vcore-gpio-pmux {
++		groups = "SM_GPIO5";
++		function = "gpio";
++	};
++};
++
++&sm_uart0 {
++	status = "okay";
++};
++
++&sm_i2c0 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&sm_i2c0_pmux>;
++	clock-frequency = <100000>;
++
++	expander0: gpio@43 {
++		compatible = "fcs,fxl6408";
++		reg = <0x43>;
++		gpio-controller;
++		#gpio-cells = <2>;
++	};
++
++	expander1: gpio@44 {
++		compatible = "fcs,fxl6408";
++		reg = <0x44>;
++		gpio-controller;
++		#gpio-cells = <2>;
++	};
++};
++
++&sm_i2c1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&sm_i2c1_pmux>;
++	clock-frequency = <100000>;
++
++	vcore: regulator@60 {
++		compatible = "silergy,sy8827n";
++		reg = <0x60>;
++		regulator-name = "vcore";
++		regulator-min-microvolt = <700000>;
++		regulator-max-microvolt = <987500>;
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-active-discharge = <0>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&vcore_gpio_pmux>;
++		enable-gpios = <&portc 5 GPIO_ACTIVE_LOW>;
++	};
++};
++
++&soc_i2c0 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&soc_i2c0_pmux>;
++	clock-frequency = <100000>;
++};
++
++&sm_uart1 {
++	status = "okay";
++};
+-- 
+2.55.0
 
-This commit adds phylink support for the GDM ports in the Airoha Ethernet
-driver, including PCS attachment for GDM2/3/4 and phylink-backed ethtool
-link ksettings callbacks.
-
-> diff --git a/drivers/net/ethernet/airoha/Kconfig b/drivers/net/ethernet/a=
-iroha/Kconfig
-> index 1f6640a15fc94..5c54a07d2a768 100644
-> --- a/drivers/net/ethernet/airoha/Kconfig
-> +++ b/drivers/net/ethernet/airoha/Kconfig
-> @@ -20,6 +20,8 @@ config NET_AIROHA
->  	depends on NET_DSA || !NET_DSA
->  	select NET_AIROHA_NPU
->  	select PAGE_POOL
-> +	select PCS_AIROHA
-> +	select PHYLINK
-
-[Severity: Medium]
-Should NET_AIROHA select FWNODE_PCS (or PCS_AIROHA_AN7581) instead of the
-hidden PCS_AIROHA symbol?
-
-PCS_AIROHA only builds pcs-airoha-common.o, while pcs-an7581.o is gated on
-CONFIG_PCS_AIROHA_AN7581:
-
-drivers/net/pcs/airoha/Makefile:
-	obj-$(CONFIG_PCS_AIROHA)	:=3D pcs-airoha.o
-	pcs-airoha-objs			:=3D pcs-airoha-common.o
-	ifdef CONFIG_PCS_AIROHA_AN7581
-	pcs-airoha-objs			+=3D pcs-an7581.o
-	endif
-
-When CONFIG_PCS_AIROHA_AN7581 is not enabled, selecting PCS_AIROHA builds
-pcs-airoha without pcs-an7581.o, so the AN7581 PCS callbacks fall back to
-inline stubs in pcs-airoha.h that return -EOPNOTSUPP during probe.
-Conversely, if CONFIG_NET_AIROHA=3Dy and CONFIG_PCS_AIROHA_AN7581=3Dm,
-selecting PCS_AIROHA forces CONFIG_PCS_AIROHA=3Dy and builds pcs-an7581.o
-into vmlinux instead of as a module.
-
-airoha_eth.c only calls fwnode_phylink_pcs_count() and
-fwnode_phylink_pcs_parse(), which are provided by CONFIG_FWNODE_PCS.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114104426.2356=
-20-1-ansuelsmth@gmail.com?part=3D15
