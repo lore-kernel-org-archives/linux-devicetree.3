@@ -1,65 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794760960;
-	b=Pf+DVRIHlBw8z5lLGv4H6Gd6YGcZWlCaNUUO4D/KRhhpB1b1IX0OrZ+zsEnuFL3muP5j
-	 NkRYgvGYAJc2r+gALjZ44ltdiW7wU1E9S3xHEIfy20M1sB834SaF5SE/P9NlTac58FpNQ
-	 uS7OTzRQxfEF6sz4+jIc1djoyGi9n/LaxRERIqNne0O8PG8qIeTP7+eddETJFx3bm1MeS
-	 NtVjJODvy4obr/sPEeXaiP3wDiTT+emm2KyIGR1kfsSOYlaijoiy66wJRmkxbWfs4k2ol
-	 H4QcfkPialMzp0DlJ7/LVgvt9pBcAMB3Ptm5HK+ca/x2nMEsWbz4Z3RXGhdNZd0SaPw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794760960;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=gWeY517Ke0uGVHUv0TVgDQAs3UNrX8FLyLwTiu4EloA=;
-	b=1Mm/AGrlqBAK1kjSedPWwC8KlnmYdCWxyZFt55OHHkxi0ZkXMIDE8cxX+CX10deH6yZR
-	 0ACAqg9WxYoCNoZJhRJxZFEhk5I7bxGtObVh2Q4Dk2XA5piqu8psWgJLSuF4NzVNPpyQi
-	 3RQtPzAFubiCFODgdErr9qGimeX9dSGqx5hMbgsb3jjI7BpdFU3Y/jcOblCZLuTxj9FS9
-	 KglX4Lknsar1EVEZLVCc6eer3QliW9+elcP8tBUhV+SvmeHFOxjIGlRYiq8k4wxz0MkNY
-	 XeUbWjZT8R+Y2VrBKdfNoL5BTdrLrQ2Qea/waZSILuqhfItbS8AdDCZUdePDW6TcKVw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jeQahA+l;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794761022;
+	b=qr4CWFH9kHHNVmhxBHpjgyEmvqegBROv9IQYQBuZJ9gyLZJ2Phzhf+/s5wNl+UHPoPys
+	 UNVu3jyyB5MoyxCXDRAb+6zGrfdvsQjJNa2EnN0cBQCVdGS3W96nve6aM9VmMVN+L9mI3
+	 JDaIDGHVyRmcrmQreWaaJAJgptMPmED2MwQ2EyphNI9vRsWsIsjDguTNolV1t9JOvUzp5
+	 ZUMQPJFZiqp+FN/XK8s5FQUMnoaAWE5qliAycVv9ynjcA6ZHGqSYxnp/wuQtxLcR9H9xD
+	 rvJ7D8fRtWBSfHuwa71wOOMI7k/L7AKCtgHQaTVtES7SdlAIojBG71pNF7p1iKHC0Yg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794761022;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=eAXXrvsjRFMO0n68EN7RdSjVlW+SNmR/BRQ8PtICMfY=;
+	b=PxeMv+QD8+Do7WRllhAq0YuOfBIpB7G4MTZBQ0Ls4ftoKOk/G2GISE6hrsd5Jb/qBghS
+	 vtDUmzduDMee3EzGbocghP06nz0IDJkab+cG09bYwEaJBN+cNM8/dICZDq3A4B6xAbg+y
+	 kROe7Ha2eHV3rAloANL57rvrXfaSEJi0ZCM82TEnlMfee2HZc6VwNHjiEocYpRjsE7QLF
+	 wszrl64KDwvOr829e0DLjnwbSbXZ6pAwMTXs5BqhOpMZTCeD6kxwWiCxKQvu+r8M7y//B
+	 EbMc9nNYRYD++vqTBJpl81dN0SydDGHpuTWHFlrTVlYxFwy/yoqbvje5qjXmuhKmNTQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="idvliN+/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFF7606A337;
-	Sun, 15 Nov 2026 16:42:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1708B606A335
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 16:43:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1708B606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jeQahA+l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80331F000C8;
-	Sun, 15 Nov 2026 16:42:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794760960;
-	bh=gWeY517Ke0uGVHUv0TVgDQAs3UNrX8FLyLwTiu4EloA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jeQahA+lxYYyOfLeiHudF2Q59ebsIsygaAoe87xAPFPiR8y9ZQdQ4HvmHKwUUGeUe
-	 eXXApPZ0heuigybhyIeqcel8MWbbiYvI6QEkFuGwCAGEr4jDOlx6DQww8iFLbnkQxr
-	 +s8S1NjPV9lxz7p4hAbtNt88ijBC/odZvvQSQG9Y84XfCOHTOiwc6XusT9OGi4F1bj
-	 SCIGCKB0sL7L2AeCin55wPaktjzXmTzWp3q8zF0EIyDalfaINgmvtktKwVGcrx7sOw
-	 433t4XXH9SiO21XqE3yxXAWeUgdO8AiDWY3QRBUdDGFyPujVvD8WbWJ2InYKOwnAJG
-	 ltZ4kagFLcjQA==
-Subject: Re: [PATCH net-next v17 4/4] net: dsa: lan9645x: add basic dsa driver
- for LAN9645X
-From: netdev-bot+sashiko@kernel.org
-To: jensemil.schulzostergaard@microchip.com
-Cc: UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- woojung.huh@microchip.com, linux@armlinux.org.uk,
- Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
- geert+renesas@glider.be, magnus.damm@gmail.com, edumazet@kernel.org,
- richardcochran@gmail.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-Date: Sun, 15 Nov 2026 16:42:38 +0000
-Message-ID: <179476095835.2199510.1283236817441472762@kernel.org>
-In-Reply-To: <20261111-dsa_lan9645x_switch_driver_base-v17-4-83a471c5bddb@microchip.com>
-References: <20261111-dsa_lan9645x_switch_driver_base-v17-4-83a471c5bddb@microchip.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=idvliN+/
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-55c7445cf85so193511cf.1
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 08:43:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794761020; cv=none;
+        d=google.com; s=arc-20260327;
+        b=c1e07lW6PUOmXHnv+IxuZrPyNOnen+C3CXoLeCQgZR1t3+IKoWEtQXh+YqtdIhgHus
+         8DRdlIkcah4+ARQ3C5SlLy1hfxoODgGSiw1Lbzq2zxPutoKMyxIgnyeJEvMfX51vT26C
+         JrsdBZH3YiXqFvsgHV1VCq7B7OAbJ7WS3HwsPSLEeiIkrqNJNUY+6JuZ5wKlO9pG8n9m
+         Vvp9czTOnFirEQBcxsOclsHIVZ8RQUKuse/4zAYNrl+SBeAMJEkRYzXfoQNAyQ8VFUda
+         xohtvEtVitFZoboqa3ScET/4ltkuXUp8t3THb/ZTlj2gFRKbSWwaiB5OaYrqSm4YyNSD
+         jg7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eAXXrvsjRFMO0n68EN7RdSjVlW+SNmR/BRQ8PtICMfY=;
+        fh=GGU3M7KecvSwXDkkoHHp0a0xMIauEflA7XkqU3KCl5A=;
+        b=EK1xXphDS+M+SXu4h4TjjXXGn91yn7ged5lqVlPn+9rX8UGMMu1d75NRMRxrpPbcxb
+         3SQbRigfS8fNOCmP8lA9/yjTRPzRw7CphJFiyhBWcXWZIGhx6EIir9j/nscVYdozfOvL
+         WgCR4YYDh5YTALysQ0be2hVkNLejk4oXzlKNSt+I2nqEHOzGtkwMIZJ3EDfGYNkWg0Ue
+         ot4OhjIV7UFjEy4km3KibP1eQfahLcsQGcylJ5glNFsv0eLZ0RviubFSIkyi+D8yndnK
+         pLWRQdELhHISvvQ2LlcS1ZnyvwRnSMkwx7kGbPVDWv3DJgs6yoSMuUzRT7Ub0p1rqBFT
+         Xaaw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794761020; x=1795365820; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eAXXrvsjRFMO0n68EN7RdSjVlW+SNmR/BRQ8PtICMfY=;
+        b=idvliN+/PvmGbeRJsCPli1Y9URCCgOOt9Ys2ZYavWyaS8DgBzjigXYCUKC/iU4AwoU
+         VHSr0FwbkvTot8fmdnuI4y1H/mDr3+QNzbM22P+7zzGQNrT+r1T/YNigZqjAJKzwfhnL
+         7Y2COlvvnNIad1SDllueZd+28NZ0YGALgfWG/SFZc4XR8SvW2BDFVWeZmqDv6KDQQETA
+         ZWzXpm+TXsrfPJ4Rkn+dasO0s52PSVE1x48tBGN4EGkcG3KPe8x7Y89CAADLWUV8s8t+
+         6WqxiSd9AlZOonnHp4S8SbOuYlXSHfP7iVPclHzhFAYSCu9m1DyQK6lpmtoqAdSD71d2
+         lDTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794761020; x=1795365820;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eAXXrvsjRFMO0n68EN7RdSjVlW+SNmR/BRQ8PtICMfY=;
+        b=wi+3eopqSvCE6wwPOrpY0itFNN+krIo5NplfrbzmKBNlu2wMfRLAyAmcUhnqYu65Ud
+         FAeaInPZseboliTglgkJIHQjFycGAA1n2YHO0XvB7UMTB/0SIEBPpmWf4Y8YHIS3mpTe
+         k9VABwk5wC+YgIbKg55Xun0Fr+/trKaLtnfeTqx+sgfCC0JVkXqmgdTzdAvx6kbpjT4G
+         nPhWAxamKwK9xxfwGC2cOMIpj1bp3PxeUwqJZIDc7LCUJl01eYkd+wrqHzdMmRldLin8
+         QHilfFL5CBv1N0Tx8PR6sYJELez8A9HuDId0ysEeXsSeDt1Fz9eKk3ESG/D4u9nBnjHC
+         OvkQ==
+X-Forwarded-Encrypted: i=1; AL+hErG71cAZD/mZPY3xNVxQmeNt0VdS7OwswhGJyLpZDw6isrVdIpKtO72d1uuptwISVveBhzGkfKpRbTQO@vger.kernel.org
+X-Gm-Message-State: APuU4Z9lVXzM7BPWaZvcONJVUESunc+urRmAsi8hWiLsVdy6Zyvgko1j
+	D+J8LDqkpzrg8thHid+CGYUto/LnmL+SyUyRFP3RTn6t3CyaJ+iPtZCD67WPT84yqQWQSApTaHe
+	yawuyvsM2BR6473xqQZyuL66AdmU8x0n6Kr3HwSQO
+X-Gm-Gg: AYBFou0QsBohpCLdA2AQCQeInYli3FSXUmsdPNWLXwzAMXUGU2nwp7HsXfyStC0BBiY
+	D81kUl76qKP13a7N0nqbpIX94rIH3aMBT2bAQJW8F7PJHW6uPlROC2K1zVdLf+ATc4bCsOkFt0Q
+	Vttxz92UCL9g1heXQylj5s5ia7X3aLJP3eHCRfK+TaMeqdHDLbHVo6EOWYjTXZWYuotIbXL1L0S
+	+v5uJTeJv4CsoLIxU8/VQamhzO4obdGGNW6OBwiTdW1bzmuD4QQLXDpkHzCU0aIfxjDmxAzb9Dd
+	38gb30xVx3wxbqdFEYiem52Xt3cO/RFMdW/dfi234K01NTHPuc3Hy9jHcQGTOdO9GIUBEbqg1f/
+	bikAxsoiwi4Tvu8HHRLIFv/gEf9Teovku/o2JPLZLnU9huiZzaXd5sqr2i6bXY0Hg+fJ17IonKL
+	ako0uhb8A6O2Sl05V0j8CZGo9L
+X-Received: by 2002:a05:622a:230f:b0:55b:ab4a:6fad with SMTP id
+ d75a77b69052e-55c67104981mr23175511cf.9.1794761019198; Sun, 15 Nov 2026
+ 08:43:39 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,268 +105,229 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 1 · Low: 3
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The driver never explicitly initializes the analyzer MAC table
-  or VLAN table.
-- [Low] Several comments and register writes in this patch describe
-  features the driver does not have.
-- [Low] In lan9645x_phylink_mac_link_up() (lan9645x_phylink.c), the
-  comment above the DEV_CLOCK_CFG write gives the…
-- [Low] For the NPI port, lan9645x_port_set_maxlen() (lan9645x_port.c)
-  adds both LAN9645X_IFH_LEN_BYTES (28) and LAN9645X_LONG_PREFIX_LEN…
-
---
-
-net: dsa: lan9645x: add basic dsa driver for LAN9645X
-
-This adds a basic DSA driver for the Microchip LAN9645x switch. The driver
-gets named regmaps from a parent device. All ports run as standalone ports,
-with phylink integration for the internal CuPHYs on ports 0-4 and RGMII on
-ports 7-8. SerDes modes are left for follow-up patches.
-
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> new file mode 100644
-> index 0000000000000..0eee05034458b
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> @@ -0,0 +1,464 @@
-
-[ ... ]
-
-> +static int lan9645x_reset_switch(struct lan9645x *lan9645x)
-> +{
-> +	u32 rst_cfg, val = 0;
-> +	int err;
-> +
-> +	/* The parent must reset the whole chip before instantiating its
-> +	 * children, so the switch core is disabled when we get here. The
-> +	 * sequence below must not run more than once: initializing the
-> +	 * memories on a running core corrupts pointers inside the queue
-> +	 * system, which eventually fills up and stops passing traffic. If the
-> +	 * core is already enabled the chip was not reset, so skip it.
-> +	 */
-> +	err = regmap_read(lan_rmap(lan9645x, SYS_RESET_CFG),
-> +			  lan_rel_addr(SYS_RESET_CFG), &rst_cfg);
-> +	if (err)
-> +		return err;
-> +
-> +	if (SYS_RESET_CFG_CORE_ENA_GET(rst_cfg))
-> +		return 0;
-
-[Severity: Medium]
-
-If CORE_ENA is already set, this returns before SYS_RAM_INIT. That is the
-only memory or table initialization in the driver. On this path, is anything
-clearing the analyzer MAC table and the VLAN table?
-
-ANA_MACACCESS and ANA_VLANACCESS are defined in lan9645x_regs.h, but no
-driver file uses them. lan966x runs the same RAM_INIT sequence and then
-issues MACACCESS_CMD_INIT (lan966x_mac.c) and VLANACCESS_CMD_INIT
-(lan966x_vlan.c) as separate steps.
-
-This path can be reached after kexec, because lan9645x_shutdown() only
-calls dsa_switch_shutdown() and leaves the core enabled with the tables
-populated. It can also be reached with a bootloader that leaves the switch
-running.
-
-The driver depends on flooding to deliver host traffic: learning is
-disabled, PGID_SRC + p is 0, and PGID_UC/MC/BC include the CPU port
-module. Suppose the analyzer behaves like ocelot and lan966x, and a stale
-unicast entry points at another front port. Would DEST resolve to that
-port, PGID_SRC then mask it to nothing, and the frame be dropped before
-the CPU sees it?
-
-Dynamic entries would age out through ANA_AUTOAGE after about 300 seconds.
-Static entries would never age out.
-
-lan9645x_setup() also sets ANA_PGID_CFG.OBEY_VLAN on every destination
-PGID. Does the CPU copy then depend on inherited VLAN table contents, such
-as VLAN_PGID_CPU_DIS, that the driver never programs?
-
-[ ... ]
-
-> +static int lan9645x_setup(struct dsa_switch *ds)
-> +{
-
-[ ... ]
-
-> +	/* Link Aggregation Mode: NETDEV_LAG_HASH_L2 */
-> +	lan_wr(ANA_AGGR_CFG_AC_SMAC_ENA |
-> +	       ANA_AGGR_CFG_AC_DMAC_ENA,
-> +	       lan9645x, ANA_AGGR_CFG);
-
-[ ... ]
-
-> +	/* Disable learning for frames discarded by VLAN ingress filtering */
-> +	lan_rmw(ANA_ADVLEARN_VLAN_CHK_SET(1),
-> +		ANA_ADVLEARN_VLAN_CHK,
-> +		lan9645x, ANA_ADVLEARN);
-
-[ ... ]
-
-> +	/* Setup flooding PGIDs for IPv4/IPv6 multicast. Control and dataplane
-> +	 * use the same masks. Control frames are redirected to CPU, and
-> +	 * the network stack is responsible for forwarding these.
-> +	 * The dataplane is forwarding according to the offloaded MDB entries.
-> +	 */
-
-[Severity: Low]
-
-This isn't a bug, but this comment says control frames are redirected to
-the CPU and the dataplane forwards according to offloaded MDB entries. Does
-the driver set up either of these in this patch?
-
-Nothing sets ANA_CPU_FWD_CFG_IGMP_REDIR_ENA or
-ANA_CPU_FWD_CFG_MLD_REDIR_ENA. lan9645x_switch_ops also has no port_mdb_add
-or port_mdb_del.
-
-Some other writes look left over from functionality the v16 changelog
-says was dropped:
-
-  - The ANA_AGGR_CFG write under "Link Aggregation Mode:
-    NETDEV_LAG_HASH_L2". There are no LAG ops.
-
-  - The ANA_ADVLEARN VLAN_CHK write. lan9645x_port_setup() disables
-    learning on every port with ANA_PORT_CFG_LEARN_ENA_SET(0).
-
-  - ANA_PGID(PGID_CPU) in lan9645x_port_cpu_init(). It is written once and
-    never used as a destination.
-
-The comment in include/linux/dsa/lan9645x.h, added by the tag driver patch
-earlier in this series, has the same mismatch:
-
-  /* Chip has 8 cpu queues. The cpu queues used by a frame are passed as a mask in
-   * the IFH on extraction. We use this to avoid classifying BPDU, IGMP and MLD
-   * frames in the tag driver.
-   */
-
-The switch driver only programs LAN9645X_CPUQ_TRAP, for BPDUs through
-ANA_CPUQ_8021_CFG. LAN9645X_CPUQ_COPY and the IGMP/MLD queues in
-ANA_CPUQ_CFG are never configured.
-
-Could these comments and writes be dropped or changed to match what the
-driver does now?
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c
-> new file mode 100644
-> index 0000000000000..7ca4a67d154e9
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c
-> @@ -0,0 +1,315 @@
-
-[ ... ]
-
-> +static void lan9645x_phylink_mac_link_up(struct phylink_config *config,
-> +					 struct phy_device *phydev,
-> +					 unsigned int link_an_mode,
-> +					 phy_interface_t interface, int speed,
-> +					 int duplex, bool tx_pause,
-> +					 bool rx_pause)
-> +{
-
-[ ... ]
-
-> +	fc_spd = lan9645x_speed_fc_enc(gspeed);
-
-[ ... ]
-
-> +	/* Take out the clock from reset. Note this write will set all these
-> +	 * fields to zero:
-
-[ ... ]
-
-> +	 * This linkspeed field has a slightly different encoding from others:
-> +	 *
-> +	 * - 0 is no-link
-> +	 * - 1 is both 2500/1000
-> +	 * - 2 is 100mbit
-> +	 * - 3 is 10mbit
-> +	 *
-> +	 */
-> +	lan_wr(DEV_CLOCK_CFG_LINK_SPEED_SET(fc_spd),
-> +	       lan9645x,
-> +	       DEV_CLOCK_CFG(p->chip_port));
-
-[Severity: Low]
-
-fc_spd comes from lan9645x_speed_fc_enc(). That helper is documented as
-the PFC_CFG.FC_LINK_SPEED encoding, and it maps 2500 to 0:
-
-lan9645x_main.h:lan9645x_speed_fc_enc() {
-	...
-	case LAN9645X_SPEED_2500:
-		return 0;
-	...
-}
-
-The comment just above says this field uses a different encoding, where
-0 means no-link. Should DEV_CLOCK_CFG.LINK_SPEED have its own encoding
-instead of reusing fc_spd?
-
-For 10/100/1000 the two encodings agree. SPEED_2500 cannot reach this code
-today, because lan9645x_phylink_get_caps() does not advertise MAC_2500FD
-and the speed switch returns early for anything else.
-
-When 2500BASE-X support is added, would DEV_CLOCK_CFG be programmed as
-no-link? For reference, lan966x uses one encoding for both registers, with
-2500 mapped to 1.
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
-> new file mode 100644
-> index 0000000000000..4d2d922bacba6
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
-> @@ -0,0 +1,166 @@
-
-[ ... ]
-
-> +/* VLAN tag overhead is handled by DEV_MAC_TAGS_CFG */
-> +int lan9645x_port_set_maxlen(struct lan9645x *lan9645x, int port, size_t sdu)
-> +{
-> +	struct lan9645x_port *p = lan9645x_to_port(lan9645x, port);
-> +	int maxlen = sdu + ETH_HLEN + ETH_FCS_LEN;
-> +
-> +	if (port == lan9645x->npi) {
-> +		maxlen += LAN9645X_IFH_LEN_BYTES;
-> +		maxlen += LAN9645X_LONG_PREFIX_LEN;
-> +	}
-
-[Severity: Low]
-
-Is LAN9645X_LONG_PREFIX_LEN needed here? lan9645x_npi_port_init()
-configures injection with no prefix:
-
-	lan_rmw(SYS_PORT_MODE_INCL_XTR_HDR_SET(LAN9645X_TAG_PREFIX_LONG) |
-		SYS_PORT_MODE_INCL_INJ_HDR_SET(LAN9645X_TAG_PREFIX_NONE),
-
-lan9645x_xmit() in the tag driver only pushes the 28-byte IFH. The long
-prefix is only used on extraction.
-
-ocelot_port_set_maxlen() sizes the NPI MAXLEN from the injection prefix
-(npi_inj_prefix). If DEV_MAC_MAXLEN_CFG works the same way on this chip,
-the NPI port accepts frames 16 bytes longer than needed. The pause
-watermarks derived from 4 * maxlen and 6 * maxlen would also be slightly
-larger than intended.
-
-If MAXLEN here also limits frames sent with the extraction header, could a
-comment say why the extraction prefix is counted?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-dsa_lan9645x_switch_driver_base-v17-0-83a471c5bddb%40microchip.com
+References: <20261103042608.387626-1-vamshigajjela@google.com>
+ <20261103042608.387626-3-vamshigajjela@google.com> <20261103-handiwork-replace-25efd6b3d8be@spud>
+In-Reply-To: <20261103-handiwork-replace-25efd6b3d8be@spud>
+From: VAMSHI GAJJELA <vamshigajjela@google.com>
+Date: Sun, 15 Nov 2026 22:13:27 +0530
+X-Gm-Features: AclHuK8MvtFT0aS_Uz-6An9GgpSrSIomZQrTNYNRlPO6FZypoZaZtmFLqNrb5IA
+Message-ID: <CAMTSyjrYSzb57w9G6a+JVaZzRHBBV6zaW_Br_UcM7C5REWLgVw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] dt-bindings: spmi: Add SmartDV SPMI controller
+To: Conor Dooley <conor@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Peter Griffin <peter.griffin@linaro.org>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Jim Wylder <jwylder@google.com>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Nov 3, 2026 at 11:47=E2=80=AFPM Conor Dooley <conor@kernel.org> wro=
+te:
+>
+> On Tue, Nov 03, 2026 at 09:56:06AM +0530, vamshi gajjela wrote:
+> > From: Vamshi Gajjela <vamshigajjela@google.com>
+> >
+> > Document the device tree bindings for the SmartDV IP Solutions MIPI SPM=
+I
+> > master controller ("smartdv,spmi").
+> >
+> > This controller IP is integrated in Google Tensor SoCs starting with th=
+e
+> > G5 generation (codename: laguna, canonically written as "lga"), so add
+> > "google,lga-spmi" with a fallback to "smartdv,spmi".
+> >
+> > Signed-off-by: Vamshi Gajjela <vamshigajjela@google.com>
+> > ---
+> >  .../bindings/spmi/smartdv,spmi.yaml           | 126 ++++++++++++++++++
+> >  MAINTAINERS                                   |   6 +
+> >  2 files changed, 132 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/spmi/smartdv,spmi=
+.yaml
+> >
+> > diff --git a/Documentation/devicetree/bindings/spmi/smartdv,spmi.yaml b=
+/Documentation/devicetree/bindings/spmi/smartdv,spmi.yaml
+> > new file mode 100644
+> > index 000000000000..e0512e60d932
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/spmi/smartdv,spmi.yaml
+> > @@ -0,0 +1,126 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/spmi/smartdv,spmi.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: SmartDV IP Solutions SPMI Controller
+> > +
+> > +maintainers:
+> > +  - Vamshi Gajjela <vamshigajjela@google.com>
+> > +
+> > +description:
+> > +  SmartDV IP Solutions MIPI System Power Management Interface (SPMI) m=
+aster
+> > +  controller supporting MIPI SPMI Specification versions 1.0 and 2.0.
+> > +
+> > +allOf:
+> > +  - $ref: spmi.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    oneOf:
+> > +      - items:
+> > +          - const: google,lga-spmi
+>
+> > +          - const: smartdv,spmi
+> > +      - const: smartdv,spmi
+>
+> I hate compatibles for purchasable IP like this, particularly when
+> unversioned as they maybe become effectively useless when a new revision
+> releases. The standalone smartdv,spmi compatible has to go at least,
+> soc-specific compatibles are mandatory.
+
+Agreed. In v2 I will drop "smartdv,spmi" (both standalone and as a
+fallback) and use only the SoC-specific "google,lga-spmi" compatible,
+renaming the binding to google,lga-spmi.yaml and dropping patch 1/3.
+
+>
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  clocks:
+> > +    description:
+> > +      Core clock to the controller from which SPMI SCL is derived. Opt=
+ional if
+> > +      the controller uses a free-running clock and clock-frequency is =
+specified.
+> > +    maxItems: 1
+> > +
+> > +  resets:
+> > +    maxItems: 1
+> > +
+> > +  clock-frequency:
+> > +    description:
+> > +      Input core clock frequency in Hz when the controller uses a free=
+-running
+> > +      clock not described in clocks.
+> > +
+> > +  smartdv,master-arb-enable:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    enum: [0, 1]
+> > +    default: 0
+> > +    description:
+> > +      Enable master bus arbitration phase (0 =3D disable, 1 =3D enable=
+).
+>
+> What aspect of board design governs the decision here?
+> Why can it not be determined from the soc specific compatible?
+
+These parameters do not vary between boards on LGA (this applies
+to all smartdv,* properties below). In v2 I will drop all
+of them from the binding and move the LGA controller configuration into
+of_device_id match data in the driver keyed off "google,lga-spmi"
+
+>
+> > +
+> > +  smartdv,master-id:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    minimum: 0
+> > +    maximum: 3
+> > +    default: 0
+> > +    description:
+> > +      Master ID for the controller on the SPMI bus.
+>
+> What aspect of board design governs the decision here?
+> Why can it not be determined from the soc specific compatible?
+>
+>
+> > +
+> > +  smartdv,spmi-version:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    enum: [0, 1]
+> > +    default: 0
+> > +    description:
+> > +      MIPI SPMI specification version used for transfers (0 for MIPI S=
+PMI v1.0,
+> > +      1 for MIPI SPMI v2.0).
+>
+> What aspect of board design governs the decision here?
+> Why can it not be determined from the soc specific compatible?
+>
+>
+> > +
+> > +  smartdv,arb-retry-limit:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    minimum: 0
+> > +    maximum: 255
+> > +    default: 32
+> > +    description:
+> > +      Maximum number of times the master retries a command when losing=
+ bus
+> > +      arbitration.
+>
+> What aspect of board design governs the decision here?
+> Why can it not be determined from the soc specific compatible?
+>
+>
+> > +
+> > +  smartdv,prescaler:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    minimum: 0
+> > +    maximum: 255
+> > +    default: 0
+> > +    description:
+> > +      Clock divider value to generate SPMI SCL from the input core clo=
+ck. Writing
+> > +      1 divides the system clock by 2; more generally, a non-zero valu=
+e n
+> > +      divides the system clock by 2 * n.
+>
+> What aspect of board design governs the decision here?
+> Why can it not be determined from the soc specific compatible?
+>
+>
+> > +
+> > +  smartdv,read-latency:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    minimum: 0
+> > +    maximum: 255
+> > +    default: 32
+> > +    description:
+> > +      Number of SPMI SCL clock cycles to pause during bus turnaround o=
+n read
+> > +      commands to allow the target device to fetch data.
+>
+> What aspect of board design governs the decision here?
+> Why can it not be determined from the soc specific compatible?
+>
+>
+> > +
+> > +  smartdv,arb-scl-delay:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    minimum: 0
+> > +    maximum: 3
+> > +    default: 0
+> > +    description:
+> > +      Delay between arbitration and Sequence Start Condition (SSC) whe=
+n the
+> > +      controller is the Bus Owner Master (BOM).
+>
+> What aspect of board design governs the decision here?
+> Why can it not be determined from the soc specific compatible?
+>
+>
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+>
+> I find it hard to believe that this is the set of required properties.
+
+Agreed. In v2 I will make clocks and resets required alongside compatible
+and reg, and drop the remaining optional properties.
+
+Thanks,
+Vamshi Gajjela
