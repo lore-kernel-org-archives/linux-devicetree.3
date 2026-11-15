@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794776067;
-	b=AycqMdZkKks4nqK8OBOY5MZcsk38MRxmKqC7YzUiWW/H5jjvMuXLOXvnSB6Zr2dLuQVw
-	 oNafHiM4JPQFP4R9VVfjFY38PrnodcMfRbyCzdM4aP2ips/ytn1Apr3WtwgZE1LcwcHdH
-	 CpUGESkyBvHQvTMrM4QTd/sRcPpiB91DQuiT7LWCtdLnF2BsdzFU2CG2H7iQd4jWIyuDa
-	 /NA9JODtrPHytJuBkOWrqCkDu9M7Z/gmroxlU1kQcYqUzPIBfem/XCT8SuFgHvRhCvUpa
-	 dIEMcPlZ6vYs+lgP7MBohu9C0FwAO3IuB1DsdYCbdVDjS8ZSkEEq2Z+5+WkneuBztBQ==
+	t=1794776383;
+	b=BlbrvwszrjAgDVAmn6kqe021MrTPZmSlKFGt6kj2F4wTcJQ4qrJS6btwuyqolFkxsVYr
+	 CBCBIj9xoBqTXOuJ53Xc3cqlAuwcxDfAGhM5h/GB0NB46+yQGZkqf+lPzas/NWQgH9TaC
+	 vbDjcjUw2hShpt5QeyiC/nQ1kccTIOHlXcvMkSh61TqJbhrNcU0qZIEQnM+RriZUVtLrQ
+	 AErKIJUY3DJ+RMRLro3beHJB4dPGAmG6stzazQGeFiTu32+xpQfqfH/JGSqitTHLr4Mpo
+	 +R6I7fBEKkFgXPk1VufNqKjq4cnuSyNy/qU4ESB+E8g0Q2P/vydtREqlnph3//PzuNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794776067;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=jXhaLXquA9loUJOqhB/y1cXw9xzKtlm/aTwwjqsAYLo=;
-	b=Xa2eJ7V8xeo0iFxQkFzxFgdVj4BWpasi3cSEtHv0hHr8w/9uesOjKxq+S8gsgVmRBAyF
-	 tRooqzDJdafiBd1CPpdqYg8dlDxy54Z5btzUq75QJRAi6fgYL6g1x/f743Pc+/GuP0jKs
-	 Up1csT8f8NOgkvy3DPDYzDjk+tc2jW+9vWRWw+AvaYFpfG2WBbb/DBKoPj23gpWfNODKL
-	 NqKpBWkCe113LxKfmAt9iHhOtaYerOK/uFSqhSeaydpfMj32GNtxNKRdKDDXmx2zA2tx0
-	 heSDAsW31TbrgzwOHsi5zLIs42J/uELIfe/jsWE41GzDHBeSBNjksT5Q0Qtj4SN8cdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794776383;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=ZaEc514ihvfvk9V5+VuMh0ehlrDQX81AXtOUhrkge+A=;
+	b=vs1zyiOkz/XJ/cls2kipnH6+B2x8MPA8bUWYgD0q6M5RhtNRV2dOHc5I0UxboXVwKSWb
+	 mowPguJHaVDajsjqxCaQMOJZyP81BtjnkrA9v8oB8bDE07zcntVM8+C01/YwoUN9bkBFz
+	 acZvCE4oH4AyqDJ3UdXtLEqhKsKvXh0DUPqdO1xsz/lgqTXPUyoELMFYGJhNhTvazZKG8
+	 +fHZVDMtOgDuCcP/WHOTDdVBM7zJ+iy6JnmElkYS+3B64eULgJPBTLOwCifzYqXLoNS1j
+	 XAtTtxSxbxfHxjICRSPpsZBMMlBDfiteAfWO0W4l7wbBUWM/4M+uGqdJ7p6VlGvAb6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dhj09hqP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ChaNsDt+;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F23606A330
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 20:54:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825F2606A323;
+	Sun, 15 Nov 2026 20:59:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 825F2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dhj09hqP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC4131F000C7;
-	Sun, 15 Nov 2026 20:54:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794776067;
-	bh=jXhaLXquA9loUJOqhB/y1cXw9xzKtlm/aTwwjqsAYLo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Dhj09hqPyfQDYJwNclIEqoDrn1eSDkN9z2oUXQCdbnaY0Ul+FmSiTkE9fZuYnEwZY
-	 g2XcYxIFwxN6VCz5++5Mhqjz3jlrzM8rT6BZPdLwaookGdedTfsDmixWu4lcrAvUqc
-	 tgZFs2nw6yKuhkcILw0HWvt5fFlhcBmQwT97N0jV5U57/zoQli/2wVIFinZ/dwnbMn
-	 KzMaUhZHCd0RxGNSQFLZ+/L3xVnUKfKMo0r5a9V0XhNzcIcvLiqnXzRy9tnjQBptB7
-	 a/Q04wY+gPOU0vp/7BrFK8hzHG6WTXkRrQvvVjfEN+mM5dQRoHWDncFLpPdPyP0nFt
-	 lMAndOgeavpDA==
-Message-ID: <sashiko-outbox-215855@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: i2c: Add Tegra20 I2C target
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marc Dietrich" <marvin24@gmx.de>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261115204522.360063-2-marvin24@gmx.de>
-References: <20261115204522.360063-1-marvin24@gmx.de>
- <20261115204522.360063-2-marvin24@gmx.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 20:54:26 +0000
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ChaNsDt+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=ZaEc514ihvfvk9V5+VuMh0ehlrDQX81AXtOUhrkge+A=; b=ChaNsDt+/6WNmwdhBfZyPGeAHN
+	lvqWX4m45CErxVseqoveA3sj9SQrqB9sUihwEWp0recnzzHJL2US2uukHEkt+hgcZGbvYGx83utaO
+	EtClqeg9GWiZy63DcFKfFTR0ZqONpOK2oYXqvebBsX4m7jErRs1B/JbW2Wrn1W8xVe5d9vTX8YZw1
+	xdCXfvaDACX47G/5PvBBhV+ij9Luh11fnYvyXgBVptACMEjU8RQhQBBAy7HR01M0mC7/ZBG/aQCli
+	LguNJ4RG/48wZZzGFujY1c5IcaOdph6hUi8Z1y1ObRgWeWCDo8eH+WjeAp5DFHWaAUVkc+7ML75k6
+	CaO8zQNA==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ Igor Paunovic <royalnet026@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Sidong Yang <sidong.yang@furiosa.ai>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Jiaxing Hu <gahing@gahingwoo.com>, Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Jonas Karlman <jonas@kwiboo.se>, Guangshuo Li <lgs201920130244@gmail.com>,
+ =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
+Subject:
+ Re: [PATCH v2 02/11] accel/rocket: number the cores by devicetree position,
+ not bind order
+Date: Sun, 15 Nov 2026 21:59:24 +0100
+Message-ID: <8bRsvcNcRhepz3nNzmBZVw@sntech.de>
+In-Reply-To: <20260922080114.44662-3-royalnet026@gmail.com>
+References:
+ <20260922080114.44662-1-royalnet026@gmail.com>
+ <20260922080114.44662-3-royalnet026@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,108 +73,149 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] dt-bindings: i2c: tegra20: driver-specific compatible for
-  target mode
-- [Low] dt-bindings: i2c: tegra20: missing clock constraints for target
-  compatible
---
+Am Dienstag, 22. September 2026, 10:01:05 Mitteleurop=C3=A4ische Normalzeit=
+ schrieb Igor Paunovic:
+> rocket_job_hw_submit() programs the S_POINTER registers of a core with an
+> extra bit derived from core->index, the way the vendor driver derives it
+> from the hardware number of the core. rocket_probe() sets core->index to
+> the slot the core takes in rdev->cores[], which is the order the cores
+> bind in.
+>=20
+> The two agree only while the cores that bind are a prefix of the core
+> nodes in the devicetree, in devicetree order. Unbind them and bind them
+> back with a different core first, have one core's probe deferred behind a
+> sibling's, or disable a core other than the last one, and every task
+> submitted to a core whose slot is not its hardware number times out after
+> 500 ms. The reset that follows does not help, and the inference finishes
+> with wrong output.
+>=20
+> Observed on an Orange Pi 5 Plus with a KASAN build, over all six bind
+> orders of the three cores: only the devicetree order ran clean. The other
+> five produced 27 to 141 "NPU job timed out". In four of them no output
+> tensor changed with the input, and the harness gave up before its first
+> measured round; the fifth got through a six-second run with 27 timeouts
+> and a wrong top-1 class. All but one of the timeouts land on the cores
+> whose slot is not their hardware number, in proportion to the tasks the
+> scheduler hands them, and in both directions of the mismatch.
+>=20
+> Number the cores by their position among the core nodes in the devicetree
+> instead, which is what the hardware number is.
+>=20
+> The wrong value has been assigned since the driver was added, but it only
+> reached the hardware once the extra bit was introduced, hence the Fixes
+> tag below.
+>=20
+> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM sparse checkpatch
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 
-commit 6d4b197a67e97b02efd062ed9f1c49931c4c0fce
-Author: Marc Dietrich <marvin24@gmx.de>
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-dt-bindings: i2c: Add Tegra20 I2C target controller
+nits: both the commit message, as well as the comment blocks are
+excessivly long, and could be shortened a lot, if a future version is neede=
+d.
 
-This commit adds the "nvidia,tegra20-i2c-target" compatible string and an
-example for the Tegra20 I2C target controller to the Tegra I2C binding
-schema.
 
-> diff --git a/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yam=
-l b/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
-> index 51241c1293e3e..2d7ee8e8750d4 100644
-> --- a/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
-> +++ b/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
-> @@ -13,11 +13,15 @@ title: NVIDIA Tegra I2C controller driver
->  properties:
->    compatible:
->      oneOf:
-> -      - description: Tegra20 has 4 generic I2C controller. This can supp=
-ort
-> -          master and slave mode of I2C communication. The i2c-tegra driv=
-er
-> -          only support master mode of I2C communication. Driver of I2C
-> -          controller is only compatible with "nvidia,tegra20-i2c".
-> +      - description: Tegra20 has 3 instances of a generic I2C controller.
-> +          It supports controller and target mode of I2C communication.
-> +          The i2c-tegra driver only supports master mode of I2C communic=
-ation.
-> +          Driver of I2C controller is only compatible with "nvidia,tegra=
-20-i2c".
->          const: nvidia,tegra20-i2c
-> +      - description: The i2c-tegra-target driver supports the target mod=
-e of
-> +          the generic Tegra20 I2C controller. Driver of the I2C target
-> +          controller is only compatible with "nvidia,tegra20-i2c-target".
-> +        const: nvidia,tegra20-i2c-target
+Heiko
 
-[Severity: Medium]
-Should target mode use the existing "nvidia,tegra20-i2c" compatible rather
-than introducing a separate driver-specific compatible string?
-
-The three generic Tegra20 I2C instances are identical hardware blocks that
-include both master and target registers within the same 0x100 register
-aperture, and are already described by "nvidia,tegra20-i2c".  Defining
-"nvidia,tegra20-i2c-target" encodes Linux driver partitioning and operating
-mode selection into the Devicetree ABI, whereas standard I2C bindings keep
-the hardware compatible string and select target mode via child nodes using
-I2C_OWN_SLAVE_ADDRESS in their reg property.
-
-[ ... ]
-
-> @@ -222,3 +226,18 @@ examples:
->          #address-cells =3D <1>;
->          #size-cells =3D <0>;
->      };
+> ---
+> Supersedes the standalone posting:
+> https://lore.kernel.org/r/20260905135612.7324-1-royalnet026@gmail.com
+> Same diff. The message now says the numbers come from a KASAN build,
+> corrects the timeout range to 27-141 against the raw log (it said 140),
+> says what the four failed orders showed (the output did not change with
+> the input; it said an oracle rejected the output), notes the one timeout
+> that landed on a matching core, and drops the throughput figure, which
+> was measured under KASAN.
+>=20
+>  drivers/accel/rocket/rocket_core.h |  5 +++++
+>  drivers/accel/rocket/rocket_drv.c  | 31 +++++++++++++++++++++++++++++-
+>  2 files changed, 35 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/ro=
+cket_core.h
+> index f6d7382854ca9..46ed8352a79d2 100644
+> --- a/drivers/accel/rocket/rocket_core.h
+> +++ b/drivers/accel/rocket/rocket_core.h
+> @@ -30,6 +30,11 @@
+>  struct rocket_core {
+>  	struct device *dev;
+>  	struct rocket_device *rdev;
+> +	/*
+> +	 * Hardware number of the core: its position among the core nodes in
+> +	 * the devicetree. Not an index into rdev->cores[] - that slot is what
+> +	 * find_core_for_dev() returns.
+> +	 */
+>  	unsigned int index;
+> =20
+>  	int irq;
+> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
+ket_drv.c
+> index 2bcfe4ab3c68f..7d927bb6b322d 100644
+> --- a/drivers/accel/rocket/rocket_drv.c
+> +++ b/drivers/accel/rocket/rocket_drv.c
+> @@ -157,10 +157,39 @@ static const struct drm_driver rocket_drm_driver =
+=3D {
+>  	.desc			=3D "rocket DRM",
+>  };
+> =20
+> +/*
+> + * The extra bit that rocket_job_hw_submit() sets in the S_POINTER regis=
+ters
+> + * is the hardware number of the core, which is its position among the c=
+ore
+> + * nodes in the devicetree: a disabled core keeps its number. The slot a=
+ core
+> + * takes in rdev->cores[] is the order the cores happened to bind in, an=
+d the
+> + * two only agree while the cores that bind are a prefix of those nodes,=
+ in
+> + * devicetree order. Every task submitted to a core whose slot is not its
+> + * hardware number then times out.
+> + */
+> +static int rocket_core_hw_index(struct device *dev)
+> +{
+> +	struct device_node *np;
+> +	int index =3D 0;
 > +
-> +  - |
-> +    i2c@7000c500 {
-> +        compatible =3D "nvidia,tegra20-i2c-target";
-> +        reg =3D <0x7000c500 0x100>;
-> +        interrupts =3D <0 92 0x04>;
-> +        clocks =3D <&tegra_car 67>, <&tegra_car 124>;
-> +        clock-names =3D "div-clk", "fast-clk";
+> +	for_each_matching_node(np, dev->driver->of_match_table) {
+> +		if (np =3D=3D dev->of_node) {
+> +			of_node_put(np);
+> +			return index;
+> +		}
+> +		index++;
+> +	}
+> +
+> +	return -ENODEV;
+> +}
+> +
+>  static int rocket_probe(struct platform_device *pdev)
+>  {
+> +	int index =3D rocket_core_hw_index(&pdev->dev);
+>  	int ret;
+> =20
+> +	if (index < 0)
+> +		return index;
+> +
+>  	if (rdev =3D=3D NULL) {
+>  		/* First core probing, initialize DRM device. */
+>  		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
+> @@ -176,7 +205,7 @@ static int rocket_probe(struct platform_device *pdev)
+> =20
+>  	rdev->cores[core].rdev =3D rdev;
+>  	rdev->cores[core].dev =3D &pdev->dev;
+> -	rdev->cores[core].index =3D core;
+> +	rdev->cores[core].index =3D index;
+> =20
+>  	rdev->num_cores++;
+> =20
+>=20
 
-[Severity: Low]
-Does the allOf conditional for Tegra20 and Tegra30 clocks also need to
-match "nvidia,tegra20-i2c-target"?
 
-The top-level clocks and clock-names properties only require minItems: 1
-without constraining the names, and the allOf rule requiring two clocks
-named "div-clk" and "fast-clk" only checks for "nvidia,tegra20-i2c" and
-"nvidia,tegra30-i2c":
 
-Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml:
-  - if:
-      properties:
-        compatible:
-          contains:
-            enum:
-              - nvidia,tegra20-i2c
-              - nvidia,tegra30-i2c
-    then:
-      properties:
-        clocks:
-          minItems: 2
-        clock-names:
-          items:
-            - const: div-clk
-            - const: fast-clk
 
-Nodes using "nvidia,tegra20-i2c-target" bypass this check, allowing wrong
-clock counts or names to pass dtbs_check.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261115204522.3600=
-63-1-marvin24@gmx.de?part=3D1
