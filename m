@@ -1,61 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794748639;
-	b=zUWspokvIWCcd+4JYYHIwwG6VxyLJk2FvLq59lQrfYnCx4HXJVHzxlqx+XAtE1kvwfY1
-	 0/1I2/VoOIay+25PNdv0nI1lz74gRrPFdPSnxFLoY2hfUQTVM19d0J+p98kNlaLJYxI4q
-	 G+jeK59/zBk/uN5HuMGKs1umKgvA7cVLDeXrcviU4WXa17rCy7/qUZiXSv1n7HwWk0IX4
-	 Q3gZJxcJgUmE2EazEv0sWX/hA7FZ1Nxt6HQD/XKOQNfon4uSh2iirYe7I4tgqlUB77klN
-	 x8B6zBS91c59QyT4w7Li00T5y227YpodXaHzqdyHZR/r1ncOdd4PZxhq6Yiof6yzKdQ==
+	t=1794748827;
+	b=cn0avJUe1o5HLvX4iOMl+l8PkopCUbSKSkeO7Y+b/SsK5yXFkm4RACWaheJIU+dH7rqx
+	 HwsOJR6Hry4oU3ElPU/O9/TSUSaMfJG+IRJAksZJ63pd7ptCMJbD0gKi8m0SQJQujdGFi
+	 yrio+CA+t1RZbhsfBvr2DJhqL0Dj/LD50hQniAzUoHJrY1AJZ58qpBLhPhGmnRJxuTkhc
+	 1ap4kAzJZVBk2kTM8Poezt+z4+ayRSSmSG5HwdSzFmvYGhAIjjnWtBiZMk9pVn7W5uzlU
+	 U20FAJ2cPUPoxMXnZKdZy4B1q3UfVWGZOwat/BNzA7EQXbWgBqXKfbPUDLrnJOXH/ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794748639;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=GT9juIqv0pzA+7++xLfOlfDk3lBSzfT0CueDtSl1TI4=;
-	b=uHyxJzaibrDRYM6N98p9XebtERUdmYDfh+0KVyK2dipWS/DzxZNf5h3ord7quD1bJWrl
-	 FC4XuIFjxxmUkDaIjQzEA3Xg1zwwWOfhittaBE53+bhsy44kYK5kqYCM08tUrPkdCtZE0
-	 C3cLD2XHDgg82DqTojA8pzNtCrfoIIpMAk/ZZcngK7dLYdKUeAiKVr+VH62RXO3BsqDt9
-	 tKbZDll1HBV+B4Xl+itV737nl6npXq6DhQZrqpNh4m3guhGtUBn2N7r1KGZZe0QH8xodj
-	 s9Qdq++nzZHke9SvpulzAcNyYgucl7MwHeTHW32bfi2Wr/P3u1kJ9v/BhjD+fTK4Sxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794748827;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:
+	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/rYsyjftvDCPeS9SbbyhKVYUDY9LVQRgCngM6FVnSFQ=;
+	b=FHCF/1RAKByeZyYlLpbbJZxmpaI5rxU4Ehojz3b+hgsmaqM+HuA85TgRALW2LbHJpK91
+	 ZHwojgDyhXG++3pXGZ3fkgNjZnl7e8ONsV4JW2//cye39Dsl+/HYGTRbgWWegtAoS839c
+	 85KstnjkiYR4nmGmipa/abkPJibRChK6lXeb+iVvWk/KLbZR6xL0X9aKhVMM/OfhLcKcq
+	 XDaemmrRa/T7ehvmdXGr8e27UDTygav57uoZwpVzkR/BWYJCtPVq2MqIxphmuApsVyAkb
+	 AJIgvPXAV8SlsiC63a915Mtfm08bPiLSfCDIu/SqP9oYe1LhgAMdR1ty1PeO4Obz9SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oi1NyMa1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zYyWL4GB;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E62606A31E;
-	Sun, 15 Nov 2026 13:17:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D059A606A31F
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 13:20:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D059A606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oi1NyMa1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C3801F000C4;
-	Sun, 15 Nov 2026 13:17:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794748639;
-	bh=GT9juIqv0pzA+7++xLfOlfDk3lBSzfT0CueDtSl1TI4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Oi1NyMa1ImCkzjV/KowU5IExRVeANozsA7ovlygQTlijUpDhp7poK3rGM7PjJTtnb
-	 6dNa/p9OHbOD8VPUbnoOQWJ0v1dbxBJdcC5jRST7EqzaVSMqCE5gb6dP7QXfm2NY4U
-	 UWqYfNj+5pvAq2Z3HPwzGaVwLSoBtLCbDI26uXtLiMfABamHsTF65Cwije3keGcOil
-	 pEuCvTMyfz5G9t+NZ5VOpd3J9HQ4Cm4vxWH3aGKxNnvkxnPunmgG45Z6CD0JTZoVby
-	 HRp6pfsL3BimXqQnzN9SbNm4WdBSr3Io58a68ehXuabQv6WRV74qeytJuCj1T1QnOm
-	 ttdiLRYFUXFyg==
-Subject: Re: [PATCH v7 2/2] arm64: dts: imx95: Add support for Data Modul
- i.MX95 eDM SBC
-From: netdev-bot+sashiko@kernel.org
-To: marex@nabladev.com
-Cc: linux-arm-kernel@lists.infradead.org, a-govindraju@ti.com,
- conor+dt@kernel.org, festevam@gmail.com, Frank.Li@nxp.com, krzk+dt@kernel.org,
- mkl@pengutronix.de, robh@kernel.org, vkoul@kernel.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Sun, 15 Nov 2026 13:17:18 +0000
-Message-ID: <179474863800.488853.15317058153273620821@kernel.org>
-In-Reply-To: <20261114001844.30606-2-marex@nabladev.com>
-References: <20261114001844.30606-2-marex@nabladev.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zYyWL4GB
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so2822082c88.0
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 05:20:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794748826; x=1795353626; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:reply-to:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/rYsyjftvDCPeS9SbbyhKVYUDY9LVQRgCngM6FVnSFQ=;
+        b=zYyWL4GBuf0DsAdvhYGsk1HKtQ4dzGXDITV2wnSBhAUnJTmKOesAjxxSywEZ2hHpzq
+         llR+jTI4Z1JZxjB9Zs0fQVKGcq7BQFZZHAXztEp/1F0X6UaDtEtWTPCGHc89IEy566yp
+         KA62XuLoFmxtWbwk/nye62TtvNTJZWospqclUElyMRJjlHq5ON5zlaLp3WAxDHFfiefR
+         xCc5jg/iosd6Uivwmng7ZT2W/KXXSPREMO6aEKpdQDmj6tLVYqjK0ys3pGi9AjM8db0U
+         5fifSAbg1/WkWX0MF0Ed+a6jZRero+oWYiNrPY0Jdu0dBlXkIjwPEWAEbIcliiwPxzni
+         Vp3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794748826; x=1795353626;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:reply-to:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/rYsyjftvDCPeS9SbbyhKVYUDY9LVQRgCngM6FVnSFQ=;
+        b=ORTIY3rDm/hfYEjpULfDC6E0T6Tpslp0OtuyR+7/7Z341uI+nQXpcvcWJkuHlSrcKe
+         SaBN1rbSmBu1D3rrkbT9BTQouDECruBDWJvKKYNSuAQZuDCFqI6G1bYs9GVEiCDM/YuC
+         RjmbbXG5ikd6SAWo6nNIZqknkrrBAbHBHLeglEXEFHJXesRzoH2VXGI2NZrPe2ve/D28
+         wJMbjqLsUZylM9IjpjMd+xJ7kYorXsgrICL5ASoAukpj7+cEOK1vZYLIZK9qPtYUU+/m
+         zGBjWbzFZGD0D0LK1QZWiby51x6RCwTo+ugR7zUp0u0GuKLv6c7omIL8BsoMMQ3D8Dwd
+         cDBA==
+X-Forwarded-Encrypted: i=1; AL+hErF6R/ZxtQyPxOtDklWDoLpzzuLpQ2DN6LLgY8hL0BIt7+ppKE1TV0nMu6CiQBkU2JfdehGaalO/kxya@vger.kernel.org
+X-Gm-Message-State: APuU4Z8yGtDxuWK4qijxwIkBJJ/d9ybJXR31ONjYYC2XV+/16u/QqNlV
+	SEfGbyd8uc4LGjSIvNaHHFzeF6jefn4cM1QUanZ7UEpMLttpL/mXuLFM
+X-Gm-Gg: AYBFou0M74D20cRqGRVHmFHUDpDzt1bww3IM6viFcVs0EQERPLIpTMmuBfZc7Dx+rru
+	9SomSWtr0Fw3liZ/J/Ly5ZwYIlng0JmfU+1R26uojAFaO5jKHoTcnJWoA54T+v6A52p0g1ytlTT
+	pBZqTWzl37g5wtG+qrzKej8YB/uvL0OoxejWbBHmX5gxsMy1YK+jLMUuWFW4THQ8W/bfIIMnsz2
+	eaUjlxjBIW0iZtE7ftwGxOPEA49z1byxWqHScAcEG/dnpRBf2fjmOW9r8dKUhfcaVvTk/ajDiF+
+	MULMuLI+2fbm1QC3tUF8bdzTCaeJNo5+NCwi9EyCkHOIGtI6qpQhoXcQ5EyU4gyPf1IY6UUgAjI
+	jxsTyyBGRuT+mF+ZSD4rGm4A9gI5HrObbsXPJZYweUK2G69bwlGh/bKcfxy8n62hpUfGI45KMGi
+	5R/bYtuOW3i1dfnz3HiTYu+kbWHkheST+be5Hza/gkwWetsmfd1+qeAwytdmPJn+Bi6N1KFqx7M
+	8F/yiyfnhfUaAZGgYRcAn4JNOwEleiWYlr8zRkrdFoIpS+WbrOqaXzN9Pqi2hQIRF/6OkenhdzC
+	3QRVcVGkMDsV4FLih8MpHgG7z0Wbbtf7I6prdudKdzFtWNo+j94odPaPB6betq0TSLsC
+X-Received: by 2002:a05:701a:c9c1:20b0:1ae:e7c4:9a15 with SMTP id a92af1059eb24-1b51828ef74mr4571335c88.3.1794748825692;
+        Sun, 15 Nov 2026 05:20:25 -0800 (PST)
+Received: from [192.168.35.213] ([218.50.238.131])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d3e37sm28084123eec.24.2026.11.15.05.20.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 05:20:25 -0800 (PST)
+Message-ID: <9f85f4a5-ee4a-4c0e-b902-abea050bb204@gmail.com>
+Date: Sun, 15 Nov 2026 22:20:20 +0900
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,304 +92,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 3 · Low: 4
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] All three PCAL6524 expanders, U12 (gpio@20), U14 (gpio@21) and
-  U13 (gpio@22), share the IO_XPNDR_INT_1V8 line on gpio5 11 and each…
-- [Medium] Both KSZ9131 PHYs (ethphy0 at line 493, ethphy1 at line 503)
-  take their interrupt from `<&gpio1 10 IRQ_TYPE_LEVEL_LOW>`.
-- [Medium] The &usdhc3 (M.2 Key-E SDIO) node is enabled, but the slot's
-  power enable VDD_3V3_M2-E_EN (U12 pin 5) and its reset M2-E_SDIO_RESET…
-- [Low] The new board puts PERST# and slot power on the host-bridge nodes
-  (`&pcie0 { reset-gpios = <&gpio5 13 ...>; vpcie-supply = <&reg_pcie0>;…
-- [Low] The comment on &lpuart8 says "M7 Debug", but the node is `status
-  = "okay"` with `uart-has-rtscts` and RTS/CTS pins muxed, so Linux owns…
-- [Low] The V6 changelog says "Remove backlight supply nodes", but the
-  `pinctrl_panel_backlight_lvds: backlightlvdsgrp` group…
-- [Low] The commit message says "Currently supported are serial console,
-  ethernet, eMMC, SD, SPI NOR, USB host and PCIe".
-
---
-
-arm64: dts: imx95: Add support for Data Modul i.MX95 eDM SBC
-
-This commit adds a device tree for the Data Modul i.MX95 eDM SBC, an
-evaluation board for custom display units. It also adds the new dtb to
-the freescale Makefile.
-
-> Add support for Data Modul i.MX95 eDM SBC board. This is an
-> evaluation board for various custom display units. Currently
-> supported are serial console, ethernet, eMMC, SD, SPI NOR,
-> USB host and PCIe.
-
-[Severity: Low]
-This isn't a bug, but the list above covers less than the DTS enables.
-
-Beyond the listed items, the DTS also enables:
-
-  - FlexCAN3/FlexCAN5 with ATA6563 PHYs
-  - three sound cards (BT-SCO on SAI5, MICFIL, TAS2552 on SAI3)
-  - SAI4
-  - an EMC2301 fan controller and a TMP110 sensor
-  - PMIC thermal zones, including a 140C passive trip on pf53arm that
-    throttles all six A55 cores
-  - GPIO LEDs, I3C2 and TPM3/TPM4
-  - wdog3 with fsl,ext-reset-output
-
-Could the commit message mention these too?
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts b/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
-> new file mode 100644
-> index 0000000000000..5ca26c6ab665f
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
-> @@ -0,0 +1,1079 @@
-
-[ ... ]
-
-> +&lpi2c2 {
-> +	clock-frequency = <400000>;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_lpi2c2>;
-> +	status = "okay";
-> +
-> +	i2c2_gpio_expander_20: gpio@20 {	/* U12 */
-> +		compatible = "nxp,pcal6524";
-> +		reg = <0x20>;
-> +		#gpio-cells = <2>;
-> +		gpio-controller;
-> +		#interrupt-cells = <2>;
-> +		interrupt-controller;
-> +		interrupts-extended = <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-
-[Severity: Medium]
-Is IRQ_TYPE_LEVEL_HIGH the right polarity for the shared
-IO_XPNDR_INT_1V8 line?
-
-All three PCAL6524 expanders (U12 gpio@20, U14 gpio@21 and U13 gpio@22)
-share gpio5 11, and all three use IRQ_TYPE_LEVEL_HIGH. The other in-tree
-PCAL6524 users (imx91-11x11-evk, imx91-11x11-frdm, imx91-9x9-qsb and
-imx93-11x11-evk-common) use active-low, for example:
-
-arch/arm64/boot/dts/freescale/imx93-11x11-evk-common.dtsi:
-	interrupts = <27 IRQ_TYPE_LEVEL_LOW>;
-
-In pinctrl_hog, the pad for this line has the same setting as the
-open-drain, pulled-up LPI2C pads, so the line idles high:
-
-	IMX95_PAD_XSPI1_SS1_B__GPIO5_IO_BIT11			0x40000b9e
-
-pca953x_irq_setup() in drivers/gpio/gpio-pca953x.c requests the parent
-IRQ at probe without overriding the trigger:
-
-	ret = devm_request_threaded_irq(dev, client->irq, NULL, pca953x_irq_handler,
-					IRQF_ONESHOT | IRQF_SHARED, dev_name(dev),
-					chip);
-
-So gpio5 is programmed with the LEVEL_HIGH type from DT.
-
-With the line idling high, would this IRQ fire nonstop, with each
-handler returning IRQ_NONE, until the spurious IRQ detector disables
-gpio5 11? After that, no expander interrupt (V_12V0_PG, USB2_PWR_OC#,
-TOUCH_INT, WDOG_IRQ#, TPM_IRQ, FAN_ALERT, ...) would be delivered.
-
-This happens on every boot with CONFIG_GPIO_PCA953X_IRQ, even with no
-consumers, because interrupt-controller and interrupts-extended are
-present.
-
-LEVEL_HIGH is only correct if the 3.3V to 1.8V translation on this line
-inverts the signal. Does the board have an inverting stage there? If
-so, could a comment say so?
-
-> +		vcc-supply = <&reg_3p3v>;
-
-[ ... ]
-
-> +&lpuart2 {	/* M33 Debug */
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_uart2>;
-> +	status = "reserved";
-> +};
-
-[ ... ]
-
-> +&lpuart8 {	/* M7 Debug */
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_uart8>;
-> +	uart-has-rtscts;
-> +	status = "okay";
-> +};
-
-[Severity: Low]
-The comment says this is the M7 debug port, but Linux owns the node:
-it is enabled with uart-has-rtscts and the RTS/CTS pins are muxed. The
-M33 debug port (&lpuart2 above) uses status = "reserved".
-
-Expander U12 also names "UART8_RS232-485_MODE0/1",
-"UART8_RS232-485_Term_TX/RX" and "UART8_RS232-485_EN". That looks like
-a user RS232/RS485 port.
-
-Is the comment stale? Or should this node be status = "reserved", so
-that Linux and the M7 firmware don't both drive LPUART8?
-
-[ ... ]
-
-> +&netc_emdio {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_emdio>;
-> +	status = "okay";
-> +
-> +	ethphy0: ethernet-phy@1 {	/* KSZ9131RNXI U20 */
-> +		compatible = "ethernet-phy-id0022.1640";
-> +		reg = <1>;
-> +		interrupts-extended = <&gpio1 10 IRQ_TYPE_LEVEL_LOW>;
-
-[ ... ]
-
-> +	ethphy1: ethernet-phy@2 {	/* KSZ9131RNXI U22 */
-> +		compatible = "ethernet-phy-id0022.1640";
-> +		reg = <2>;
-> +		interrupts-extended = <&gpio1 10 IRQ_TYPE_LEVEL_LOW>;
-
-[Severity: Medium]
-Is the GPIO1_IO10 pad muxed to GPIO anywhere?
-
-GPIO1_IO10 is ALT5 on the PDM_BIT_STREAM1 pad; ALT0 there is
-PDM_BIT_STREAM_BIT1. From imx95-pinfunc.h:
-
-#define IMX95_PAD_PDM_BIT_STREAM1__AONMIX_TOP_GPIO1_IO_BIT10          0x01E8 0x03EC 0x0000 0x05 0x00
-
-None of the fsl,pins entries in this file select that function:
-
-  - pinctrl_hog muxes the neighbouring GPIO1_IO11 (BOOT_MODE2) but not
-    GPIO1_IO10.
-  - The ethphy nodes have no pinctrl of their own.
-  - pinctrl_pdm uses GPIO_IO05/06, not this pad.
-
-Unless the System Manager or bootloader happens to set this pad to
-ALT5, does the KSZ9131 INT_N signal ever reach gpio1? An IRQ is
-declared, so phylib won't poll. Link up/down changes on both ENETC ports
-could then go unnoticed.
-
-The pad also gets no pull-up, which a shared active-low IRQ line would
-need.
-
-Every other GPIO this board uses (LEDs, SPI CS, SD CD, PCIe PERST#,
-expander INT/RST, PEWAKE) is muxed explicitly in this file.
-
-[ ... ]
-
-> +&pcie0 {	/* M.2 Key-B */
-> +	pinctrl-0 = <&pinctrl_pcie0>;
-> +	pinctrl-names = "default";
-> +	reset-gpios = <&gpio5 13 GPIO_ACTIVE_LOW>;
-> +	vpcie-supply = <&reg_pcie0>;
-> +	status = "okay";
-> +};
-> +
-> +&pcie1 {	/* M.2 Key-M */
-> +	pinctrl-0 = <&pinctrl_pcie1>;
-> +	pinctrl-names = "default";
-> +	reset-gpios = <&gpio5 16 GPIO_ACTIVE_LOW>;
-> +	vpcie-supply = <&reg_pcie1>;
-> +	status = "okay";
-> +};
-
-[Severity: Low]
-This isn't a bug, but should PERST# and the slot supply go on the root
-port nodes instead of the host bridge?
-
-imx95.dtsi provides pcie0_port0 and pcie1_port0 (pcie@0,
-"pciclass,0604"). fsl,imx6q-pcie.yaml says:
-
-  This property is deprecated, instead of referencing this property from the
-  host bridge node, use the reset-gpios property from the root port node.
-
-In pci-imx6.c, imx_pcie_host_init() parses the host-level reset only as
-a fallback:
-
-	/* Fall back to legacy binding for DT backwards compatibility */
-	if (!imx_pcie_perst_found(bridge)) {
-		ret = imx_pcie_parse_legacy_binding(imx_pcie);
-
-The vpcie supply is also handled under "Legacy regulator handling for
-DT backward compatibility".
-
-The other i.MX95 boards (imx95-15x15-evk, imx95-15x15-frdm,
-imx95-19x19-evk, imx95-19x19-frdm-pro) use this form instead:
-
-	&pcie0_port0 {
-		reset-gpios = <...>;
-		vpcie3v3-supply = <...>;
-	};
-
-[ ... ]
-
-> +&usdhc3 {	/* M.2 Key-E */
-> +	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-> +	pinctrl-0 = <&pinctrl_usdhc3>;
-> +	pinctrl-1 = <&pinctrl_usdhc3_100mhz>;
-> +	pinctrl-2 = <&pinctrl_usdhc3_200mhz>;
-> +	pinctrl-3 = <&pinctrl_usdhc3>;
-> +	bus-width = <4>;
-> +	status = "okay";
-> +};
-
-[Severity: Medium]
-How does the M.2 Key-E slot get powered and released from reset?
-
-The slot's power enable and SDIO reset are U12 pins, but they appear
-only in gpio-line-names:
-
-	"UART8_RS232-485_EN", "VDD_3V3_M2-E_EN",
-	...
-	"M2-E_SDIO_RESET", "CAN3_STBY",
-
-&usdhc3 has no vmmc-supply, mmc-pwrseq, non-removable or cd-gpios.
-
-The Key-B and Key-M slots are different: their VDD_3V3_M2-x_EN pins are
-wrapped in reg_pcie0 and reg_pcie1. Nothing references VDD_3V3_M2-E_EN
-or M2-E_SDIO_RESET.
-
-After the expander comes out of reset with all pins as inputs, Linux
-never drives these two pins. Does the Key-E 3.3V rail and SDIO reset
-then depend only on pull resistors or bootloader setup? It also seems
-the MMC core could not power-cycle or reset the module during
-suspend/resume or error recovery.
-
-Boards such as imx91-11x11-evk and imx91-11x11-frdm describe this kind
-of slot with a reg_usdhc3_vmmc regulator on an expander GPIO, plus
-mmc-pwrseq-simple with reset-gpios. Would something similar work here?
-
-[ ... ]
-
-> +	pinctrl_panel_backlight_lvds: backlightlvdsgrp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO27__GPIO2_IO_BIT27			0x31e
-> +		>;
-> +	};
-
-[Severity: Low]
-This isn't a bug, but the v6 changelog says "Remove backlight supply
-nodes", and this group is still defined with nothing referencing it.
-Can it be dropped?
-
-Similarly, &sai4 is enabled with pinctrl and assigned audio PLL clocks,
-but no sound card uses it. sound-bt-sco uses &sai5, sound-micfil uses
-&micfil and sound-tas2552 uses &sai3. Is &sai4 meant to be in this
-patch?
-
-[ ... ]
+User-Agent: Mozilla Thunderbird
+Reply-To: chanwoo@kernel.org
+Subject: Re: [PATCH v2 0/8] PM / devfreq: rockchip-dfi: cleanups
+Content-Language: ko
+To: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham
+ <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, kernel@collabora.com
+References: <20260921-rockchip-dfi-cleanup-v2-0-43ff34ac8599@collabora.com>
+From: Choi Chanwoo <cwchoi00@gmail.com>
+In-Reply-To: <20260921-rockchip-dfi-cleanup-v2-0-43ff34ac8599@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 9/22/2026 5:32 AM, Sebastian Reichel wrote:
+> This adds proper handling of the RK3588 clocks required for DDR memory
+> monitoring, which involves adding them to the clock driver and the DT
+> bindings first. The change is done in a backwards compatible way by
+> marking them as CLK_IGNORE_UNUSED and using optional clock get in the
+> DFI driver. The series also applies a few cleanups to the DFI driver
+> while at it. This is done in preparation for RK3576 support, which
+> will also come with some DFI specific clocks.
+> 
+> As everything is done backwards compatible, patches do not need to
+> be merged together. So Heiko can take the Rockchip specific patches
+> and Chanwoo Choi can take the DFI driver patches.
+> 
+> Changes in v2:
+> - Link to v1: https://patch.msgid.link/20260917-rockchip-dfi-cleanup-v1-0-4f00a97a69a6@collabora.com
+> - DT binding: Do not specify maxItems in the generic part as it has a list
+>   of items
+> - DT binding: Only set minItems/maxItems for specific SoCs
+> 
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> ---
+> Nicolas Frattaroli (8):
+>       dt-bindings: clock: rk3588: add PCLK_DDR_MON_CH clocks
+>       dt-bindings: devfreq: event: rockchip,dfi: add clocks to rk3588
+>       PM / devfreq: rockchip-dfi: move to per-variant const structs
+>       PM / devfreq: rockchip-dfi: add NO_INTERRUPT perf capability
+>       PM / devfreq: rockchip-dfi: use bulk clock APIs
+>       clk: rockchip: rk3588: add PCLK_DDR_MON_CH gate branches
+>       PM / devfreq: rockchip-dfi: make RK3588 use its clocks
+>       arm64: dts: rockchip: add dfi clocks on RK3588
+> 
+>  .../bindings/devfreq/event/rockchip,dfi.yaml       |  70 +++++++--
+>  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |   4 +
+>  drivers/clk/rockchip/clk-rk3588.c                  |   8 ++
+>  drivers/devfreq/event/rockchip-dfi.c               | 160 ++++++++++++++-------
+>  include/dt-bindings/clock/rockchip,rk3588-cru.h    |   4 +
+>  5 files changed, 184 insertions(+), 62 deletions(-)
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260917-rockchip-dfi-cleanup-feae6eefae9c
+> 
+> Best regards,
+> --  
+> Sebastian Reichel <sebastian.reichel@collabora.com>
+
+
+When I tried to apply them, there is conflict on devfreq-next branch.
+I'd like you to resend this series on based on devfreq-next and [PATCH v2 0/7] PM / devfreq: rockchip-dfi: RK3576 support.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114001844.30606-1-marex%40nabladev.com
+Best Regards,
+Chanwoo Choi
+Principal Engineer, Samsung Electronics
