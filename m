@@ -1,106 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.85
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794710447;
-	b=0w05wHF2Vi+2tvKx6tOtlmRCcBmVd9tVKMmtIK/Pp3TuA09zt/RtvYQ/ICl+xSEa0XEG
-	 UOfN77liuNFSvbt17vn0LkdUTzLjpCb9rNPKQH99L5Povg/fXz1o3S8UMu/2sCFdfYnIN
-	 UtN38+13lBkFngpEp1tyVD/7uyhoRJ1QxSzrMC0SotjYu57bjYOEJjX2RPd8qI3MlqQaH
-	 qBwRu7gFVQQSxb4tdwtCF0X1WzQ1MAxxO2vSmqJBMFlJrFYS4TXOxmiwFEljFvRwJVR+T
-	 LkPLxit535Ck10HbhUAMGksts3iIFYeDp6jjia2ZQfmdM/wXIAl6wQnVqOuNLzzv1EA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794710447;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=hy25tSM//gwd9IGLnxKzAwSwOMnuLhLMtqG3viLHR9w=;
-	b=GC6T1ZioOQQ3B27jaRZZqlD4O7fbqeVvc/tJYEcvGYJhwHVEj0XHGQrUFh9lMwEVv5eX
-	 VWoUtczAjzqA3Fe5vujpI6shL1fUBkuEPzHgngmcuj+g7O4siCmEd0VPyng70l0Um8LZd
-	 kcp5EsjR9gXBXeJ9FuU3DxKioBeHe7QtA0erFFVLghjANyX4buEY7CfiqAAs8gUtCRqiY
-	 nPojNELixXepzWLv2bD0v2WD92Z4/DSAY9Iic53fAzwgY/WxD84GdJyxNOf1epcQ+l0px
-	 SAhAfSxBO5WDKvdEjA74xtw2HMV8YoQgVHFkDHnQmWrWArP76KiWzyQKp7pPxXqqXnQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.85
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022085.outbound.protection.outlook.com [52.101.126.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794711196;
+	b=V8oPjS3azXfKFvk+GAZT4E97EIL71Cr+eVTin+91y4ReGPkVrazLQF2i499qZL9tmgTK
+	 ItM1TiG45HSy0RVmjojtFKxwDRq04zEr0mfP4KzZAaMmzq07+UQ7uCg+RaBNt8ESyBeRZ
+	 pNoyWVxD0VKNBh4j+8ZVfXefzvfqtZ4jpXDpryJBm0WdOiwjxcXZTSXZMOnVLCoXB0dRr
+	 mPGkDqnrHzEz1+ERkSK6I6aVJL+3FbkLSTQwFTCf2I8zP4H+2+HxpSoUHUtFi239FaPlH
+	 ky+pCOWI36nTNVD2UojNv3NWgSZwQ0WNRxCu60Al+HhDFQRZ8H+EmV73lQUaiDMgj3A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794711196;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FEFqR+LrcVL3DPo39+xuQCQE0txVSiEwhPQ2lR4VeeI=;
+	b=MFb5fbJ1mqofR9XjAXHRdQ4UR0j6H2fLhTeuFWzPz52vR/kelvEgOrouZ7a+4IMyWagM
+	 eeLLTul9Kpu2+aEAs1njRJwEZ03ihApTjLx12yvfeiejrRxpofr9uNrZPvhRBOQJaUG2a
+	 1gkryDCXiactqZTrzwLCCb75WxlfccG4Bhq9t39plwzOJnPc5Sh1TsC9UkyOMsHdxxwO0
+	 otcRoVtlXIT/2748/wAC8s+noCG2UmaZlSv5w8iCM7XRaAZ4wIruZglposvYV4dN6omXl
+	 okU0oWfWg75e9pP2uFxaYy4vFXbouDhb7IFn1Gw2WLqhjpb19nIaYJv4/Prij9M9i7Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qcrn69dz;
+	arc=none smtp.remote-ip=209.85.222.182
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC3B606A323;
-	Sun, 15 Nov 2026 02:40:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDC3B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s3JkkoA42Shi3EwvCOzvwmJqfRUrJEuoO6XfT1hznbHkXufXku7jeuqrxU53qu4QdNaf5nUEwBvU8YimgQN3F1yerpCna7bwdVGH/dSyhLWg1uVbnlHJEMi3ASfFqWRa+Ut7JETp7SogUXydf9Ug3ogN91Dv9DWWNBIPtx+aCpgYdv5r2ECT7zt5MZjWnCAyL15h15Ps6lw3psDgP+LXaTr4v8Qyzx3Zh/aAo4Zm/u5XwKVA087krIBM1ZsS+xhecAKsvhBJApAAfppFTyUGWBxKNfbDsVzZPuJaUZVPXFeWHn/ToqNMcROxhZYcHkFHsqm/jq1gW38BTFz8wQb2xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hy25tSM//gwd9IGLnxKzAwSwOMnuLhLMtqG3viLHR9w=;
- b=UkuRsr/Y5Jxhoblm2ZB0BtjYioRxEm0adO6TawEPVhkuadeMg4OBKf8ysekRRMQpYwIxglbJe+q4joXraXG4DMuax3PN3bO8yzx/S/EvjbaO0AJv7SXWJszobDhC4sHc5Alj5OUt8uFni75JNFPT/qQxzxHIXx/WNT8U9iMmMmHhea9EzWnLYgSUJCcfDtCK0Ek5QA/u2l6u81Bhg5H78WDIJba2gNjLr2Vs90BACIR9mTrECcBqS2NFqKbYOhra672bPF72UQjOq/w2/x3u5S7pcn4zDxE5ROLlRLYRhV3bugFfZTDHBKHwjbK2Irkq/sqwbWHa9KUK/Or1zrU83g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from TY6P301CA0007.JPNP301.PROD.OUTLOOK.COM (2603:1096:405:3be::17)
- by SEYPR06MB5768.apcprd06.prod.outlook.com (2603:1096:101:b3::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.6; Sun, 15 Nov
- 2026 02:40:43 +0000
-Received: from TY2PEPF0000AB85.apcprd03.prod.outlook.com
- (2603:1096:405:3be:cafe::85) by TY6P301CA0007.outlook.office365.com
- (2603:1096:405:3be::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Sun,
- 15 Nov 2026 02:40:42 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB85.mail.protection.outlook.com (10.167.253.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Sun, 15 Nov 2026 02:40:42 +0000
-Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id AF5FC427EFC0;
-	Sun, 15 Nov 2026 10:40:40 +0800 (CST)
-From: Hongliang Yang <hongliang.yang@cixtech.com>
-To: linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Peter Chen <peter.chen@kernel.org>,
-	Pawel Laszczak <pawell@cadence.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Gary Yang <Gary.Yang@cixtech.com>,
-	Fugang Duan <fugang.duan@cixtech.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
-Subject: Re: [PATCH v8 1/2] dt-bindings: usb: Add CIX Sky1 USBSSP controller
-Date: Sun, 15 Nov 2026 10:40:40 +0800
-Message-ID: <20261115024040.4125133-1-hongliang.yang@cixtech.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <sashiko-outbox-210199@kernel.org>
-References: <20261112022141.4136099-1-hongliang.yang@cixtech.com> <20261112022141.4136099-2-hongliang.yang@cixtech.com> <sashiko-outbox-210199@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE16F606A323
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 02:53:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE16F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qcrn69dz
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-930c0f9c1b1so321463685a.1
+        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 18:53:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794711195; x=1795315995; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FEFqR+LrcVL3DPo39+xuQCQE0txVSiEwhPQ2lR4VeeI=;
+        b=qcrn69dzmQolEs+h5yEiGzVJHu4bLX1DKf+xYNeVJXaDRLsor4tZEhx0QaAMSct2Tz
+         LN798TXybSwRmQRtctyWLyEz+Jjw8D1neNJ9la9K39X0ZbxWbPtEJbREdwkj+ZY/dozn
+         G1DTejOIXmlYRFDHgnWyoT1JygHcZjaH+ZjvOSwRZsh5R1u0YEkp88Aiq61QignskC1k
+         DXDZ2yAK595kXGwUTtrSzpqB22ijBdfQrZMXI/vKtcw2O6umgX92Z2Ke6L1QcxCwAo8k
+         UGtwfpzn5iCUd9ae//G54GJeHk8wUvPcwBEOmVUPzBikroIQJN8ai85vc7c5qVW1oyML
+         ypUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794711195; x=1795315995;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FEFqR+LrcVL3DPo39+xuQCQE0txVSiEwhPQ2lR4VeeI=;
+        b=e+mF3O+Xk8GCWhepeXeRRNxKISCUvG/8WC2H9TzDkXROrLyGf7BBghlpdSlPAJRWRl
+         Pgujg4Lp6wr9Li5XlrU6HOnb/8u77Wf9mzxLgBOA5+ROePJ0e5RQ6TVOG84/I0Lre0uU
+         3E9JNTpVW/PFng/llJaWEpKGDXzgpoyhYMhsxw9dhZQinY2EsDnzG4gNhfSq7WARGXv6
+         6Ha2IYFU6WaKwYyi1M9MsoSs4T8B5hDg8Gd/aSYOr1wgKi9DyIHS0Nrodji7oolufJWr
+         fRYNlo2Vpzh4jgdXRjK1aj+vWlqf5HhDCncnulUOVkl4D6ZCFeG/7/IsvBMIT6WmOPoU
+         0IMQ==
+X-Forwarded-Encrypted: i=1; AL+hErEmdwjOkK9PXy0/Dm5cNqM5B6qYxcrfB4mTkxfyrpp2Nu6+F4beIgaFyhi03dTMXF2zO0Ft6D6jwUmZ@vger.kernel.org
+X-Gm-Message-State: APuU4Z9j7P3jHkLpSjqDXYYBzJ4skvVyrk0F8jRsX7wfAa1uDlSMmCd3
+	sH54+5oMzmAitT2mMYYuKfbKKwV/Ndfvs2Wybcav6In8Cyy0+CtTzvGQ
+X-Gm-Gg: AYBFou26a1B2bRVudHZHi46TsJ/b182yRgtncSYDwA2eoluaV6uMtwGZp86+X2ne5U9
+	PmagoiqJOqETmX4RPlDr4PMa2XM/5dWppKIUSEtCwnLXKBehI6Vg2155VjEIseFhzWJOAJf545K
+	ri3DLK9CjMHw8G+gE0L43BNId9/umGrToNlEr+lK+yYEnCeJ99iyMSghCurz8wrrS1WItSYC/TP
+	juAB6KShWd7HdNL4zV6H4BabvccYsWDAuP3bEJ/UorNdog3+gdu7co6xaBuieO3Pl/ksGLo5PF3
+	AVjcwm/jCuNRA4lpc1Y9YrEFqeFaHICddX12HTDv/E93JwbgRA8GBfeekeV1iyPMFurz35YBeyJ
+	6OabhVAOjiO0udaTfHm+BDVQEeuZ2vmQuZxTrg+Zpm8f9f+nSPd1vFZjTa5K95vf1xaHovQI1kB
+	cORPbQQOex2M4h9DRIqq4M4afoAArnKHoCkf+iEjR76biihWE5OTxDOopbPcTm5SuE/Oiy6TpHL
+	4E03xm3/0brfZ/HNRPNINHM9gsZC9dJ6F2dHgr1bP+tuu/kJddF8qfT/L0c7pCd0fsnAudF489Q
+	Nbi5SZLKUqoQa/Gi4cy8XHPqFfVR6yiTjqYhwAweccXCaKxi1i9jR8c4wSwbAZQVyYEnk/vj4EY
+	SZyEVRqAehkcf15nW60oQXOLEqoyBj/6AQCWm6rE1sKtDCA6hhwY20hRKO86X4ciOG4vvyVR8do
+	g=
+X-Received: by 2002:a05:620a:2614:b0:939:fde0:a71b with SMTP id af79cd13be357-9494b86e99fmr1082857185a.0.1794711194579;
+        Sat, 14 Nov 2026 18:53:14 -0800 (PST)
+Received: from ?IPV6:2600:4040:5abf:f200::9dd? ([2600:4040:5abf:f200::9dd])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c836156sm531348285a.19.2026.11.14.18.53.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 14 Nov 2026 18:53:14 -0800 (PST)
+Message-ID: <9c17de44-8c69-432a-a196-90a4765be871@gmail.com>
+Date: Sat, 14 Nov 2026 21:53:13 -0500
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,76 +94,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB85:EE_|SEYPR06MB5768:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 87ec7c50-80ad-4ddb-aa8b-08df42c1d799
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|36860700016|1800799024|82310400026|10067099003|4143699003|5023799004|260925021311599003|260925021911599003|260925022911599003|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	J4BNiECaKEiUhNlp7qjBmcIiiQulnZ2EnHYOazwaPXVbNEyDN26GNyr9AEc6CYJIC5Ji9NKoxrgEiYIl54J2LnCe9zQTE+r+pRQtCe91Z7O3U4JvFxPV4bD4sl3KgKduFPQNlv2oMpecjyrWDRTCr/dmdWjYBKAwIlwqBezwEt/tXEbcU0lyzOJtK2RUcKgc1SO4a7dPPJHkdmHS/p+7dUkBvJc+CRHXFVBWTuwqtUHoBZUmTl9Zj/Q3R/PkpqmZ7gRPiQsodFXYIi/4jD1yCsSSJOEwOfU6AAqMOQfUdQfv2yAA9UU5c7vRW8kWFJzk4ETQHztzSxkoKuYjmFf02lplPu890veN1kBkWHWESUF73lc6d1GfUwQ4e2Ex8xiCt20HkrOujult9NydP+oZIUBrGJyIcel5iNbF5n5mAvuiUMk+iVu7JzZy3X1h4gi6hOVXzLMgtzaSf44vK2ChPvVSaKBEdn0i/3dWQAs2idmCjqxuWYmnxcXsEbQzYmokj/ORweWKdzPinGPhs29b4/dO0fwyzl1d8fcrcZyiYyS3OW5SoduZRVFHerR08kp+r8OZ83l/5VLzG/Xg8KpL8M8GgnQTOMJTumI56Y4A3qNOtOQrdAmG/W51LTFnrtm4Cgm4wa00N1fR6T/fLt7cEURbK+pkPTSoe+zrzpDxOBA2tgjQgRkcKfxitucWeyaRwaS+UlY540fo1j624Q11uw==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(36860700016)(1800799024)(82310400026)(10067099003)(4143699003)(5023799004)(260925021311599003)(260925021911599003)(260925022911599003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Xv//nzu+ZFKfEP/64FggwkPQSv6YyHVYFQQ78WZ7l/YomdDmyNveyXPspZxYC99Htlmbu29jU94gtC5iUV/B+ZEBirxbIbqFX4wQfU6fS5WK8bEHa/x2DhfHPbI6cp59X7gplS6ZBRh90usjLpms5FqbZ0PnbwFcB7TPDzUKDsf9HidMDAKgkEMpRM75Oel6pHq6WOz3CchDizMIHpOL1LD/kr0RKesHoWF5DmhW729gcBVYH+aFgoTn/BPjYp8oeaCXT9P2PuKETi3y/eX+M1z56I/fCLZzC//NrBrwUWBynJvQ1K4y9ZbNszjokutGnYLtGzfTPxF3suqnYMoTz5bCdejgZQi6ts1kXittPp8xJSQqT6rNZDDoEYX0sitTq4/O/1N9oxE5nc2BLNwdrGc1MHQBt4KxUUN5bR1Jnlo4ASkWyJytnVdWapam1SYq
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 02:40:42.0726
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87ec7c50-80ad-4ddb-aa8b-08df42c1d799
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB85.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5768
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] Add support for the Microsoft Surface Pro X
+To: Val Packett <val@packett.cool>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Maximilian Luz
+ <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org
+References: <20261104070441.74127-1-val@packett.cool>
+Content-Language: en-US
+From: Haipeng Lin <jimmie.lin@gmail.com>
+In-Reply-To: <20261104070441.74127-1-val@packett.cool>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Two points.
+On 11/4/26 2:04 AM, Val Packett wrote:
+> The Surface Pro X is a 2019-era tablet powered by the Qualcomm SC8180X SoC,
+> released in three variants (SQ1, Wi-Fi, SQ2).
+> 
+> Patches to support it have been around in a downstream tree at
+> https://github.com/linux-surface/kernel for a while. Let's upstream it!
+> 
+> I have permission from Maximilian Luz to use his From/S-o-b with modified
+> (squashed, stripped down and split by model variant) patches:
+> https://github.com/linux-surface/surface-pro-x/issues/7#issuecomment-6597291831
+> [...]
 
-> [Medium] dt-bindings: usb: cix,sky1-usbssp: overlapping reg windows in
-> RCSU block
+Hi Val,
 
-The example size is wrong, thank you. The window of one instance ends after
-STRAP_STATUS0 at 0x091c0400, so it is 0xf0 bytes. With 0x100 the example
-reaches 0x091c0413 and includes STRAP_STATUS4 at 0x091c0410, which is the
-status register of the other instance. v9 fixes the example; the arm64 dts
-is not part of this series and gets the same fix when it is posted.
+Thanks for your work upstreaming this. I've been running the 
+linux-surface SPX patches on my Surface Pro X Wi-Fi SQ2
+(Surface_Pro_X_2010) for a while and tested this series on it (v7.4-rc1
++ your SLPI + this series) plus a few fixups needed to get it working:
 
-The -EBUSY does not happen. cdnsp_sky1_probe() maps the range with
-devm_ioremap(), not devm_platform_ioremap_resource(), because the windows
-overlap, and that is why the overlap is written down in the schema.
+1. Labels for smb2351_2 (pmic@2) and smb2351_a (pmic@a) in
+   sc8180x-pmics.dtsi so the board DTS files build.
 
-Two 4-byte entries, "strap" and "status", as in cix,sky1-pcie-host.yaml,
-would remove the overlap, and the driver would not need the offset of the
-status register inside the window either. That is the shape question the DT
-review already asked, though: v8 keeps the single range that v7 introduced
-in answer to it, and I asked Krzysztof which of the two he wants before
-posting another version (1794391238.309976-1-hongliang.yang@cixtech.com).
-If he prefers two entries, v9 will be that.
+2. &qupv3_id_2 { status = "okay"; } in the SPX dtsi so uart13 (BT) and
+   uart15 (SAM EC) are populated.
 
-> [Medium] dt-bindings: usb: cix,sky1-usbssp: redundant disable
-> properties
+3. Tested caspar.dtb as-is but this will cap CPU4 at 2.995 GHz (SQ1
+   clocks). Added carina's two SQ2 CPU4 OPPs to reach 3.15 GHz on my
+   SQ2 Wi-Fi. Please see reply to 2/5.
 
-cix,ssp-disable is not redundant. It clears CFG_3XPORT_SSP_SUPPORT, BIT(31)
-of the 3xPort mode register in the host register set. maximum-speed is read
-only by the gadget paths, through usb_get_maximum_speed() in cdns3-gadget.c
-and cdnsp-gadget.c; nothing in the host path reads it. For a port that runs
-in host mode there is no other way to keep it at Gen1.
+4. Wi-Fi: I had to revert v7.4-rc1 544d85de4dc2 ("net: qrtr: Send HELLO
+   message on endpoint registration") otherwise MPSS hits a fatal error
+   ~40s after every start and crash-loops. Wi-Fi associates but never 
+   passes traffic.
+   After reverting it the modem starts up so this may be a regression
+   unrelated to this series.
 
-cix,u3-port-disable is not redundant either: it writes the integration value
-0xa0031e07 to the 3xPort mode register in both register sets, and
-maximum-speed can neither express nor restore those port mode bits. You are
-right that the device-side register is also updated by cdnsp_run() from the
-child's speed, so a dual-role port could ask for SuperSpeed Plus on an
-integration without SuperSpeed lanes. Every board we ship that sets the
-property uses it on a host-only port (dr_mode = "host"), where the gadget is
-never started, so the two writers do not meet there. v9 states that
-constraint in the property description.
+With the fixups noted above, for
+- Surface Pro X Wi-Fi SQ2 (Surface_Pro_X_2010)
 
-Best regards,
-Hongliang Yang
+Tested-by: Haipeng Lin <jimmie.lin@gmail.com>
+
+Happy to re-test v2 on this unit if needed.
+
+Thanks,
+Haipeng
