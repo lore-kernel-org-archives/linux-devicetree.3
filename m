@@ -1,104 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794762717;
-	b=YVAYX4aXDdTP9B/bpfIdPsEjZehNmZ5fTpTdpXaxkbSMNtiuQEuMv4ISP917K6Ch0Qop
-	 9dNtJRZYxJ5wmsWCUhXzFjXuwLw0zQeUJKJog0X1yMDEkBxGxLWZVxdeopL0+ZEiTKzba
-	 C4Kj0S61BJ788IuiO7ihBO81wNccDhc0MJNLq9O7zn5QK3Cd7lQWjJVv7q0IjqtH9O0Rk
-	 HCC6Xp608k/i3Iq44MPW3pTMt3cF7CtSVjWf7JGqJqFeoaCVRD0lYHxxbUqoT34QKDzTs
-	 ygPu3aftcgZJ7R4VWVU/EUGM4B+0A5tHV5GYJZG6/G2ZLhrCarJWJdvbdaAFGFwXgrQ==
+	b=XNKEnSBgKIXbj3iD7HWhUXs/yd72p+ovorI1zMe/nO8QuWOQY1eAeZ4n7uEnDS4BqZXu
+	 9iD4VQgXjfsBZ/nM00kGXZi/ifGrY8IoEdss+b3ihpfdy6IidMYFjw2Yd0e7ChtvT8LSb
+	 FcR2IVm31Be0JevcLuMxyDi+mnyyptbxEY/xVWhwwFYLl2zJPcLnImZu/3YKIwM/jQF4v
+	 qtEhFvKhEPNwfE23g24CJHkzFSrURiZJEmPVYFb5++Vhb+d1kY/g1pVmGVqhaxI1w+rTB
+	 aCnThcKVGZ70X4CikPFrR83ldYa7AiwgnZ1YxNPWNZlLO4fVfT2hF/v7/hUp5tTKrsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794762717;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=I8oI0tJ5P964EKpbze+zNelHoKVoVfC9/uaM3xB8TdE=;
-	b=TKYeRqXJQ6yGx/LiU6s7AlC786URMUcbT2EgIGlx8OeA8UxS7D96Se2QPcIhg7vjur3H
-	 C0p4MNVArQHDopXFeArryc50eww9pASBo8rgWCVCe7vnumubNdr/8Wgbr0x8vpdjpIT6X
-	 z6MTVZwL5YUu6ItZ/x2QOH/ixlGwMPWTSCMgTSJ9r1V0J621ZQw58OfUCvWEDOPP+YS4l
-	 2BUZ+qmFc02Ag9Nsey1WksK3UrRQsJ2vWcwyNv1dm2EE+Giuk2dzno0LfsP5qjnMCcIy+
-	 PXoH+3hXCMo9J76zqkq9uBLsK/eBX0jl1Kl+inSxl/vPI0fueSdsuoZ/O7NzSsFBMNw==
+	bh=9RWAF1oftI93lc29ycNPKrjj2FPFv1qc0l+KG0PO8Bg=;
+	b=JNbuXYNNywNn/217aSAuMCXfZcNf731dTaoTLKAXR6DDA8TlmVqmlRQZjbgZ4oYex4QX
+	 rQg39AGB3yJXeACthMsXgirjwp1qQWql7Ngd5WRnEdI3KAFS/qG4rLqoCJhDaMH+jKqNd
+	 hHYKr7cEhXxhev71AF8M0WoWD9vEdblTTZqQsY688A98FTOkWMFozed/LwO4cpeeKeb/5
+	 p8RR1PykzeQv8tPRKZODzG/4h28dohnakW1bPQ9eAtURS+QzADYuSn7ZidD1ksCIKCJEx
+	 fIn7/nZPjgTOQ4kUG2GFOvwI9J0UGh2o5Nx35axl1nyq1qL1ltmxSsRwgITur70QUIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="iLu/u/Oc";
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dmarc=pass header.from=mgcrea.io;
+	spf=pass smtp.mailfrom=mg-crea.com;
+	dkim=pass header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=wQG4Lgwn;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E609F60A2617
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60BF60A2618
 	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 17:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E609F60A2617
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E60BF60A2618
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgcrea.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iLu/u/Oc
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so26560365e9.1
+	dkim=pass (2048-bit key) header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=wQG4Lgwn
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso30593325e9.1
         for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 09:11:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794762715; x=1795367515; darn=vger.kernel.org;
+        d=mgcrea.io; s=google; t=1794762715; x=1795367515; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=I8oI0tJ5P964EKpbze+zNelHoKVoVfC9/uaM3xB8TdE=;
-        b=iLu/u/Ocdy7uhlfbDWXL+IB3I0snvaovLpYg0pTcJm/H7IaRQaGPQlfsZvTkHjsJP+
-         lVudbYO1rHvTY2zeJi/A6MLyFhOmlLfXcu0Guk5vVeVtCwgScZprwqbpxTlT9rYcdief
-         bw0Vu4EqsTaSktrDyTOq0oIynr14snJ/z/1lfWkgncDcUIVf54rp+fLcWOOeuyMQmOaL
-         hX+fB+ODF49UDWlRNm8o4JBumiXHSEXrozbdwbjQHnDMdgO/pbetdkwIzvJdqeFmqen1
-         InjtYSd4kRof+leQY/F18TrIrC9Hrl7NaqJCVChrYKPOWLcDwwK1FuQj+8ZediI3LUfM
-         DAOA==
+        bh=9RWAF1oftI93lc29ycNPKrjj2FPFv1qc0l+KG0PO8Bg=;
+        b=wQG4LgwnhzHEMVFNFqIAFCh4ieei6Jjq+uMiSAV7Cqo9m/VbI/po3ETct3qEodVq5D
+         oR1GyDi9JCZ1ftpzspqj3A9OHoJOUX0dQhJ66KITiAQUKNGil/6Lqw8rxdINaIoRsXAa
+         OMBvj4XkL67qTdBSTgbcFY2EqOlUAWU81SRAJ4snrrb5qe0qDl1PUAuLVxe1kPt5NO7/
+         3v2Ne6ChpPq8VtW42ffwPk8TTKGc/ewkUeItQgsRFVQbVPEurBUllMVypBzmfHgS8EWr
+         aET1APTLU7SKuGdMxWxZK6zN+9/oyLfpOwCipndmP21Q7AFSvbzaTmHHZkV0wWr/2iH2
+         dFOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794762715; x=1795367515;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I8oI0tJ5P964EKpbze+zNelHoKVoVfC9/uaM3xB8TdE=;
-        b=No6z2KFT8EapSFhN+3FmfR0MLTcMzxpL0TqRlcLz+tfNqx4belFLJpLaqO7czp8ZQb
-         231qgK+X+E4FNuylZimp+8TLdrWnexlO434CypzeWfYhAEMfShyBmUInV/RTqChVn6GB
-         FeV8+ZrPbztzZhNRTob/BtUERIf66NY8bViSjxWCpUlvprF7cj1u3HD2SW618EN6Zi0V
-         PdPrNdxGysC+fvQzRb+rcq3104RL/chws8sVP1jpmPFyR2N3ETMqc9sG5TLpyvvZ+p6O
-         UuaY8v2lAmyxLvnomv8i6691FzlQ+4hp5GJ66+ImwdJacbJp4wWGCOX9qYv/ilamb4o0
-         9Z/g==
-X-Forwarded-Encrypted: i=1; AL+hErEkFlg6sezkeSkcrOM2GZyDenUg8z4pNVNZw3y7CLyYgllp563k1yhPafVjy80EOAiEoNLbfw8YBmsP@vger.kernel.org
-X-Gm-Message-State: APuU4Z++YBZWfgdrnyKF6AEWiDfpNV4/03Zr3yXFtC/IU2wt+BXN49AX
-	pn1cN8zynff4faiVgahE5TtVBUvbYrS6i6PNk61C6/uO+y8POk9xuXJP
-X-Gm-Gg: AYBFou3G8/smJo2s64eaI3nNIeq4A5SKDLIKApFhHDwjFQeahm3np/0phXFwwAJicaY
-	nyi+P8oXVaq+c9d3Ck0IKDwwBicnkF+1YCauMQ4jgr0TRG6YFSh09lRbXw27dT8oMQ02WIsDokW
-	psgnggDjTrwUbWBrI4FkdYauin2PhHyphO1hIPLh0idkCUe7iiouQbpwjhORKPCe0OTlYZYk0YG
-	my3Gx7x4H8WI4AksiovTcC1/eHAhDPyYltoeIzp28O/4PQ5NlCn69pNpdyw267SltPzpXycCisz
-	NFXZ5GNnLuXXHcFp33goLfSzqj7TmPIk65Pidd41Zw0ZymSz6LLXIIIcZ6P4m3K/+3BONyIY6OL
-	kKI4Zd49ZctFSjp9gLBM74z/Jyp/p8TeFysm2D3saYKvhAUvHTWZ94M5mo0aJaiyLz8syTOpGvF
-	4T3nP3NVF/hxIpuSuCJ7XlOJ3aoYow5y9/gbvRDwVi6lhA5H6LQyIGrIiIE++y5hcfahUIKyTNu
-	wotlCjhXVSPp5v8/iZTiRPQG/BauFXbt6dubbvFX7sXx6E+mUgKkXiuF/ThP9dLbcugOJ7e4bFl
-	6dMHLZ9x2sDwx88Squo37rx7N4kYGz7//TeD0nrXHLiyPWMaR11Gmj6Vz3ePWiE4v7oPq7q+qfk
-	kka1jmR9GXcup7GL2pRQuEKD3rll6hsIVXVzzXRH4rNHmPRwNb+Bgm4giAJWknw4TfA7tDiGqQE
-	y9JS6sQIv/jxJ7wzKJW9dEIMpOXiLRspWKdtbWJmBr3lKY1vCaB2O+HYOKfK4zjG6eu+hcgV7UD
-	gXQv04anYx2/w==
-X-Received: by 2002:a05:600c:8b38:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4bb55a7b45bmr192615255e9.10.1794762715336;
+        bh=9RWAF1oftI93lc29ycNPKrjj2FPFv1qc0l+KG0PO8Bg=;
+        b=ENj7+stDMzKfh8jaXFBYvEFMOOqAxlYl0EcH32Akok4PffTAWv+pd9tVDpqa5aV+3x
+         pUcOaY4Nck/XFDR5UYEHqRuoc5VyOL1WkC6Z7ASW+Ftml/jnuWuuWqnonxKN1eGvctd1
+         Gm9qy1jsVYm74kQF5t68PIofFukObQ4/lWoUe+XAFVbSAYrT+H0vFR/wx4mOM3Xj6nss
+         q3Pn3Im7kYmUsVN0BY3cHJIt5KlCFxwTrnbnB1XZXPXu31li/H//WCFK/vKrEiBDNXg0
+         QdyV4xtRehOjbTeGj7WC2uBbZsHRjWRc1TSRBJd1sAisTXsVE7/8pw/sHyML7FDxItiq
+         g6jQ==
+X-Forwarded-Encrypted: i=1; AL+hErE6c0ULlzMmncIvj/jthbXo0R2uqNAJSHJ4iRQsZe2z2DKnGweBbUW+bVFTpOukZZsI0tp6il8Xv/sl@vger.kernel.org
+X-Gm-Message-State: APuU4Z/5QhBN9mwj2kNKRqaDaaGcDS5B0t9Beeznb7CTTq0AdWxahnwD
+	cZ7mYcjTjzDDMswc04mLPMhJjY0IPQM7ekOHC/o+QNtGgdt9OhdrQFkRSdjxkZHuXsQ=
+X-Gm-Gg: AYBFou2IxoaEtleFraIQKZMxQ8umGNJYsMDTreCiIEhs3fFviFfBA8ny0w+43n8zohv
+	T4RS76Gxmd1dBaJ1jur0Fl4E0rtBxyfhz3aIFMU2V/opjXPWBifwhgbsVl8FFiivChHBrRcRMBa
+	h4M90Yc4Xa2DCKiUVTYRrYjic5oaIcapykpaFxF1ljoYP4IcXUYWaURG4qm1ygMYBeVgT1wyeKI
+	fYMI18mzxQfHBalhYv0W7gVT/eRRDXO/qdSyn6GvDIn8wVgjPzZS8FYIz6S9Rh1SSBDq1cQrAeS
+	JDzNledruKTVGeedseoEdEsLqeFkCRBNzt3tipVPDdXkdEvPSjq5y/WwbmwPtEbXHgHlUWOPl3K
+	rwdLBWbHhYmRVFMgY5TcRPlxoNg86LTEregecq6s2L8Im3/aID8HAWS1XusaOG5iic2+ICQlQ02
+	aed576znb802qB27CIiBjG5L7jSHwcq2IvVxNLdRe0UW620iXNCHl2xNi7L6zOFL69bgdYJQHNe
+	DmVlwjP/MAqihmuu7D+BVTMfwpQjZxEA0qGnAa95kIkXuCXDFdCx2mRb1Ya8gVVBOKEIs0AdNpo
+	qI4Rre8z02J0FXi1kV5NXkaW2jIn9bGjQSbW4JqELqousXzbM3x0AaQnSfDCzW7IG/DLgfF6R1N
+	1rxehqLo=
+X-Received: by 2002:a05:600d:82c6:b0:4a7:9006:b176 with SMTP id 5b1f17b1804b1-4bb55c5f5f5mr209711325e9.7.1794762715464;
         Sun, 15 Nov 2026 09:11:55 -0800 (PST)
-Received: from jernej-laptop ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2538b9sm501415845e9.1.2026.11.15.09.11.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 09:11:54 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Rob Herring <robh@kernel.org>,
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:b9ad:41d3:c29c:11b4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ac0e1esm205418705e9.3.2026.11.15.09.11.54
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 15 Nov 2026 09:11:55 -0800 (PST)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: Lee Jones <lee@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>
+Cc: Olivier Louvignes <olivier@mgcrea.io>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	James Hilliard <james.hilliard1@gmail.com>,
+	linux-pm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH 2/2] arm64: dts: allwinner: tanix: Enable Ethernet
-Date: Sun, 15 Nov 2026 18:11:48 +0100
-Message-ID: <20261115171148.37784-3-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261115171148.37784-1-jernej.skrabec@gmail.com>
-References: <20261115171148.37784-1-jernej.skrabec@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 6/7] dt-bindings: power: supply: axp20x-battery: Add the AXP2101
+Date: Sun, 15 Nov 2026 18:11:49 +0100
+Message-ID: <20261115171150.64431-7-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261115171150.64431-1-olivier@mgcrea.io>
+References: <20261115171150.64431-1-olivier@mgcrea.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,98 +108,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Tanix TX6 and TX6 mini have a 100 Mbit Ethernet port connected to
-the PHY in the AC200 companion chip that is co-packaged with the H6.
+The AXP2101's charger is programmed from the monitored battery and its
+registers differ from the other models', so it gets its own compatible.
 
-Enable the PWM controller and the pwm-clock it drives as the AC200
-reference clock, enable the I2C bus to the AC200, and describe the
-AC200 Ethernet PHY package on the EMAC MDIO bus, so that the EMAC can
-use it over RMII.
-
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- .../boot/dts/allwinner/sun50i-h6-tanix.dtsi   | 40 +++++++++++++++++++
- 1 file changed, 40 insertions(+)
+ .../power/supply/x-powers,axp20x-battery-power-supply.yaml       | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi
-index f08077175549..d101001b6f70 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi
-@@ -11,6 +11,7 @@
- 
- / {
- 	aliases {
-+		ethernet0 = &emac;
- 		serial0 = &uart0;
- 	};
- 
-@@ -85,6 +86,10 @@ wifi_pwrseq: wifi-pwrseq {
- 	};
- };
- 
-+&ac200_clk {
-+	status = "okay";
-+};
-+
- &cpu0 {
- 	cpu-supply = <&reg_vdd_cpu_gpu>;
- };
-@@ -105,6 +110,14 @@ &ehci3 {
- 	status = "okay";
- };
- 
-+&emac {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&rmii_pins>;
-+	phy-mode = "rmii";
-+	phy-handle = <&ac200_ephy>;
-+	status = "okay";
-+};
-+
- &gpu {
- 	mali-supply = <&reg_vdd_cpu_gpu>;
- 	status = "okay";
-@@ -120,6 +133,29 @@ hdmi_out_con: endpoint {
- 	};
- };
- 
-+&i2c3 {
-+	status = "okay";
-+};
-+
-+&mdio {
-+	ethernet-phy-package@1 {
-+		compatible = "x-powers,ac200-ephy-package";
-+		reg = <1>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		vcc-supply = <&reg_vcc3v3>;
-+		nvmem-cells = <&ephy_calibration>;
-+		nvmem-cell-names = "configuration";
-+		x-powers,ac200 = <&ac200>;
-+		x-powers,xmii-rx-clock-inverted;
-+
-+		ac200_ephy: ethernet-phy@1 {
-+			compatible = "ethernet-phy-id0044.1400";
-+			reg = <1>;
-+		};
-+	};
-+};
-+
- &mmc0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&mmc0_pins>;
-@@ -163,6 +199,10 @@ &pio {
- 	vcc-pg-supply = <&reg_vcc1v8>;
- };
- 
-+&pwm {
-+	status = "okay";
-+};
-+
- &r_ir {
- 	status = "okay";
- };
+diff --git a/Documentation/devicetree/bindings/power/supply/x-powers,axp20x-battery-power-supply.yaml b/Documentation/devicetree/bindings/power/supply/x-powers,axp20x-battery-power-supply.yaml
+index a90d558e7f86..6a0a0c3f052b 100644
+--- a/Documentation/devicetree/bindings/power/supply/x-powers,axp20x-battery-power-supply.yaml
++++ b/Documentation/devicetree/bindings/power/supply/x-powers,axp20x-battery-power-supply.yaml
+@@ -21,6 +21,7 @@ properties:
+       - const: x-powers,axp209-battery-power-supply
+       - const: x-powers,axp221-battery-power-supply
+       - const: x-powers,axp717-battery-power-supply
++      - const: x-powers,axp2101-battery-power-supply
+       - items:
+           - const: x-powers,axp803-battery-power-supply
+           - const: x-powers,axp813-battery-power-supply
 -- 
-2.43.0
+2.39.5
 
