@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794712587;
-	b=uRIz+5PVn9VcxYDWWW2FqVBJJuaEx4K6/3N8pWrjlcBA9x/NEx6oy/jR8ZPx2JpBVZSs
-	 Yli6flOBbzo7PEEaNaalOHEY66pC8U1RUqwfInKYhQeB1SzERF1W2I8fedFo350p4OA5M
-	 df5a8TNyuGL2RwUMUSylnwKdJokvs+120vV5NSFvmAzK3z0imnyVP3JveyY8LNoWOn/wp
-	 Yu7oCHHK/QTAhb6mWKM/RmsxKjkpSuTthf6/WkF/6RUsOCtqWPzKQPPiP1ZzWgdrAVFLT
-	 2FVqbae6bshssaa4RF+D5KlLkc1PoqOMQBYER/RYEi1MdDQGII91guwFfRbfca1dftg==
+	t=1794713108;
+	b=aGDPWBqJ2WqsNE6uain+lFSAO6fi4gM2VXFPFdgusg7iQdImDoB8Sw4OMaZDXmgbHZ5O
+	 u175NjWbCq8wHblxb9mBiqI9pjfE3ugGFzdN/cYNkvVOOTvKow5Y/vMCzUYIf4xsu/rT+
+	 7ymS9WG2FBtCLTUEs/DRS2VNQLC5b8HdD5MYJ/PK9GuD22VoqNw4KtrbBPCj7HHeEd128
+	 nkj+okd979uocpcQ/WpLouCMS73EZ6dauVAmwn+WVsLoEzXSNAogRtF9FWvG+CEPkco54
+	 CS3HNrmg9zCm8CObyI8wLLFfJRxlBXm4vLH8cTJevPXAuF6EQNrfsdHkKvGlOPOGxlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794712587;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794713108;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=CcJ012d98pXUSkoe1frivs9auTK2SIP4GqFrJm7lBB0=;
-	b=5qmLJnAlqrg4D5/c+pV2MCUnFoZMtomHOnc40kQYcqG/5N6vPpmc0pVshPJxiK1m64zA
-	 oV3wU0NuMxZxAiXbI7Lsj/y/SS44cnYGpAILcCPcduzvPWJOq0EtjbK1UMOd8j6i++i0I
-	 iBeOClWjkrqaAn+5R+B0TP3uX8wI7sjMxA5+qJkukmGtxRozhNIeeDACYIhQjZh+hkWw+
-	 BtpFAH1I8DWZUj5GOb4hp3pj8og2JFL83SV8h37zsvYQw93dQks6qPz9lwph3Eda0LwjL
-	 IE4FJ+GoeSOGBOHmvouCg2BtaI94clA19+7ym2KzqmBAIJO1PhB0+NWmK7goazelNzA==
+	bh=+jVTqA8bBEUloDFP/osFHIzevEsOMQXn438BieV9inY=;
+	b=CeQc6scL1EjBQEhBRF5qZlIMU7Z/5SCZfHOy8UZqloJCmQgVDJCP2rhzB9CnxA/DwMgT
+	 9m3I7amR6k+4fOjroGXIpspp+MNd2cwfz+ABP952mcoWAUEUZ0I4KA/+VtKBHLA5fz7Gh
+	 l0zHbnoM10WhOrIl1SQ2fTBIcR4e09l2tDOfWC4LpYHYMM3X/FVKNUS1/ACrlqRZGqEPD
+	 V5oadxfj+yvAG0zhmgNLP0vpLu48vhZa7rHVY23o3lL1vXpd/dRdAfhbWLN10i+7bmO/J
+	 BgDtPL2eFO4zh4QC2veJHY2xlpPZ33yU7D1v18EmcFVFYF3MMMLIm3oWUNzkwFNzmLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nDn0QXj2;
-	arc=none smtp.remote-ip=209.85.160.180
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MhbsYhlf;
+	arc=none smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E706606A32C
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 03:16:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E706606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E0C606A329
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 03:25:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7E0C606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nDn0QXj2
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-537548b811aso15205861cf.3
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 19:16:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MhbsYhlf
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5495d549924so33794041cf.1
+        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 19:25:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794712586; x=1795317386; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794713106; x=1795317906; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CcJ012d98pXUSkoe1frivs9auTK2SIP4GqFrJm7lBB0=;
-        b=nDn0QXj28VQiPE4K98zv5Xh4Yjwm7t62UjfcLenYcqhOo5h0hOqiS5xRcIA+4og9N2
-         RQnaKdJY7YvgPODxmsSwlcrY5e5hmYdGYAcDU3VLp8O2fanyyBW03GWvOAseg3YKVdur
-         kJfGd1SrZPthJUpnDRewkGPwhaYIaPPNTbbS56apxaAVCCfxkUMWfqQHbKpJT8YqXfv5
-         Mcyw0FRhIlWfUUIL+x+uCTrj/JwnpVeszdWxBl+iAw38yG/4doOmbb0ThJSXidy1DVyR
-         TYVJLU/lLzVbaP8O7bmJVWScaD1ks1j524vQgyhJAKOpZjMA3R6pnDA3WPVQyVZEngmE
-         gcQA==
+        bh=+jVTqA8bBEUloDFP/osFHIzevEsOMQXn438BieV9inY=;
+        b=MhbsYhlfIboDlJO0nr8sWHoWk4QYWrxgr1DjannNHaSkkSgGBBcYSs3djiqkqFC1/6
+         m0ZUne9cIuREQdr+58Uva+zsdg7kB5jgVKFXT6YY5hMIQlk7C9QTgBmy54+Hsr1PeRq2
+         2XOw+re1SXRO4deRkyfpCKCg9/tFNYIwb1FHKXZIa8tBcGgxkRV+CABQxMzK11Ij9vXa
+         SJMpOs4QIBCCiBaHDKjfNDYhy9HIsKamrxfvjAbVPx35B15vgPxKu6Gx0VOqpzzktnT5
+         3CYJZ8VOssDKKYsXLUo5CP3y6tt+shDW+HAXFmMdCBoh8/v5nTcNrF2sm8DK9wyREbNj
+         MrpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794712586; x=1795317386;
+        d=1e100.net; s=20260707; t=1794713106; x=1795317906;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CcJ012d98pXUSkoe1frivs9auTK2SIP4GqFrJm7lBB0=;
-        b=fzD2vWlU3X6vCgc+o/zw/VNhff/tSIrDXA6vmdXuCxXKu2wP0nlr2iKg6KRyuJabHH
-         7mUsmSCsfP0cByqC3AEydHidreLtnOXctLWVFrxbaJhI62Df/T+ujfX9AyCUkw0Jv5wI
-         6YncdWS2M/dN+nLNHEMbw2AggK2c9IjE35e08pAwQL5wvrabpp+JrBA5jKNnZ8cB3EpU
-         N3D4mHseabAq2RTjUijPYl8qHHYe8epYLANaf2xCbbG+8cVUeoF6+AwpLG/8aPCToz34
-         j5Kfo4zyk90m4AboUVPn20Q2TQxJyQq4uEE4/JjUvi0Kgu5cD4Ml2qu/E3zI7kwEpkND
-         22Pg==
-X-Forwarded-Encrypted: i=1; AL+hErGQ+2KBkaBsz5ios7IHCqPFxR8sSI8WlAPDGuAwuPvGQ8c64g7yNDE/MYRrJTXD6z8TTJByh+njWIVb@vger.kernel.org
-X-Gm-Message-State: APuU4Z968lV/04/6rVjUD8abt5ZJOkRxsNKjUMswFhXR7wLNk2CBvEN6
-	RKMx9Sw4rcI/lTKySRiEtnnfybVYbeAV/oYt1WlLs8f57poYXsrsTQMU
-X-Gm-Gg: AYBFou39pwWt4qFleiC6nZfTUBv02UZWlsOdc4znqAff9m4pEY3l20i1cTU8HtbJUYX
-	Z9Ry/Yh1aXMqavEfzlO0cU8b3HMEpsu0ruPEBZYtC+rA0tqm1XOyO71YXyerr7uPUVZC5dtuuZT
-	4e3tmGNQEAixj5OW+uOuYxGrFGBqOljEfhoZqCjXW7RHhiWRRS0WJBQRZVID00z6LqCxSrdlopw
-	fYoaqwQGADyzdL6crsdX5xS2dzfofleb1X0qeE44DcDVq8Y490md8z3+YbImomr3ZypQRnbDIjU
-	McwEIfJJGYy9DT2Jq10OYDmQwYJPkmerGGDRxeVRHL8F7kF7bMsKyaWjKC4s0c42GSPF3TfPP2p
-	NNJRh5w9Bs5mP+fqGcXPIGguS8vCcmd7TZHye98jpA9eCBlZ+yw8JabNqUeMt+ecRELJ7F2YWtQ
-	8ZPeGWItWTHGiYRBH7wIMTXHxjaeMeGBJ0qPLM3/JEtsd4v4ypiRkjJ/xWWePRZlv6gwyu9N0SH
-	aLsp27ADGoY/P9rL0u1GcrA9Oy/burWKOCIy9BntBrJAjMSZuBDiU26quaeGCfdAgB3URzQJmJa
-	3mcWYYrtphSrTSz/nXovj2MqKOQDOHsPE57R7zOe9FzqeRl63mr5ydwGh70gApv9SsYDC9B4doA
-	XPF/eKigb7+TQnlt0PjxeiZhtmVZV3sUuGHJtRk9XEwn6yOOvQAv3WA==
-X-Received: by 2002:a05:622a:451:b0:55d:13c7:c232 with SMTP id d75a77b69052e-55d13c7c737mr38400571cf.51.1794712585934;
-        Sat, 14 Nov 2026 19:16:25 -0800 (PST)
+        bh=+jVTqA8bBEUloDFP/osFHIzevEsOMQXn438BieV9inY=;
+        b=pZQbBaZOwWsdZHIkBERrHBQxLLLPgbJu9XNCHORfkvllwCi/15x+UsGxk9dVADYO0N
+         57WZFVbWjT0F17n+LRZ4XcbnzXUIJfWZNCNUGyH+rc66Bndou9BHRp78muIO4+vyyMkZ
+         95BiYx0IO9/k2h0COiHQ4iWA0bls0JHMbYB2e1toQoUL99YaIAry2cLpomiJbDU/Aw3K
+         80FrFyKXwGJz4EVJX+tDajfKdeFYPC58cEtTpAbs8Mgghw0eb08Cd4OjXaIbcRoGhGoY
+         PhAGLxi7jaHUycseTMtC0TpNacoRlv1z9k8WoqdEiBID1+v95GUoG8qm16tDpZzpkQeZ
+         aC9Q==
+X-Forwarded-Encrypted: i=1; AL+hErE3BGnWS1FyFadUdD/xbGl4i7AXbIjPK6sddFphVejeNjpYM9dxBInmD92KFpRYoPNRU8PcvMCmesRB@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Rc7zTOv+PEzIh93fCiZ3XyAEdkAW5Oixhrit8KGyu7cebkx6m
+	mAbE6eSz274O2Nb7nZJRAYR9RzFxDFiABNrxxmyr1ItXKTYLQ0xhQfaU
+X-Gm-Gg: AYBFou11MNXYRjD0SgbfFOcgCe+odZS9Vcoe8+ipZxR6rftmLfbKtabkqBY3H6wkD09
+	udUvSb2XC3l8twEvItG8mBI0tFUtbwA7rRmYQkNzYAA7QGyzLFui6vUsbgx5ROU6825rWDXYWR6
+	7m7x144k67OTDwAHDWMQheIYcsy8nuMq6UWJcO0a5J5IGhk7uPcHKJ+jYjFRw5br21o98F5FCcG
+	e3XOw9kPS+cSly8+zpDOZt2iY9pSbYtl0OrbqSY+OITYwE2wNEAJfkGEkOHJGfsM/Hg62nsJYfz
+	MtL/xU63ZfLQY6qvEM/F4Qh3yN/vGIAG0XvfgPFE8hvXyofhoJkZSE8u/FvUy5LejwffsrhBA2n
+	JDDi9/sDs1pAD166YqS6Ln6ZBS08J8NcF5iCXLpzRwI0kOu79/mUQdvUdjqIrhro6ifcWO2sf8V
+	iJczC19Lk8qzweMdzVtZTnmhN3hDJEb9bDxq43iorcTlmOp/+FItEH2Fz7qi4R3FZWtjHX8SRsc
+	jVG/knmPxvztbNMgtem/rRZwIBz09f2qN8VBDcUoAeuAvWLeOgf2VwrGFIs0uoLh7vrbxsM5vq6
+	N/+ppH6rNetxxuQ//Qn7PpJe+o+72UTFmDnPNwydVysGFT0yfZYw07BqCphJ3hbkYuXy/dP7wfr
+	AYBNX2d1yKpzoXpuqik+/wwVsF6lzWy/fnnKkIV9jOjvtQRCjChNN
+X-Received: by 2002:a05:622a:228a:b0:54a:6b3:488d with SMTP id d75a77b69052e-55ac7172abamr111430891cf.21.1794713106562;
+        Sat, 14 Nov 2026 19:25:06 -0800 (PST)
 Received: from ?IPV6:2600:4040:5abf:f200::9dd? ([2600:4040:5abf:f200::9dd])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad1b13917sm52366751cf.29.2026.11.14.19.16.24
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d6193esm55747396d6.19.2026.11.14.19.25.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 19:16:24 -0800 (PST)
-Message-ID: <64e7afd3-50e5-4134-9bf6-92c4aa740bd7@gmail.com>
-Date: Sat, 14 Nov 2026 22:16:23 -0500
+        Sat, 14 Nov 2026 19:25:06 -0800 (PST)
+Message-ID: <81ac592f-18a2-4715-a34a-1f639ff7a454@gmail.com>
+Date: Sat, 14 Nov 2026 22:25:04 -0500
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,8 +94,8 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] arm64: dts: qcom: sc8180x: Add Microsoft Surface Pro
- X
+Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
+ Pro X
 To: Val Packett <val@packett.cool>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -107,104 +107,25 @@ Cc: Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org
 References: <20261104070441.74127-1-val@packett.cool>
- <20261104070441.74127-3-val@packett.cool>
+ <20261104070441.74127-2-val@packett.cool>
 Content-Language: en-US
 From: Haipeng Lin <jimmie.lin@gmail.com>
-In-Reply-To: <20261104070441.74127-3-val@packett.cool>
+In-Reply-To: <20261104070441.74127-2-val@packett.cool>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11/4/26 2:04 AM, Val Packett wrote:
-> From: Maximilian Luz <luzmaximilian@gmail.com>
+> The Surface Pro X tablet was listed as a single generic compatible in
+> dt-bindings, but a device tree using it has not landed upstream.
 > 
-> Introduce a device tree for the Surface Pro X tablet in all 3 variants
-> (SQ1 with cellular, SQ1 Wi-Fi only, SQ2 with cellular).
-[...]
+> Replace it with three model-specific compatibles:
+> * microsoft,cambria for the orginal SQ1 model (with cellular)
+Nit: "orginal" -> "original"
 
-I believe there is also a Wi-Fi only SQ2 variant. Looking at the WoA
-drivers for 8180_CAS (Caspar, Wi-Fi only)
-https://github.com/WOA-Project/Qualcomm-Reference-Drivers/tree/master/Surface/8180_CAS/200.0.31.0
+> * microsoft,carina for the Wi-Fi-only (SQ1) model[...]
+Nit: ,carina -> ,caspar
 
-This variant is the only that has both SurfaceSMF_SQ1.cab and 
-SurfaceSMF_SQ2.cab. Only 8180_CAS MPSS INF maps the no-modem subsystem
-ID (SUBSYS_MSNM8180 -> qcmpss8180_nm.mbn), the 8180_CAR (Carina) only
-lists the cellular MSWW/MSJP/MSCN IDs.
-
-My SQ2 Wi-Fi boots with the caspar dts in this patch fine but the
-gold cluster is pinned at SQ1's top clocks because the 3.072 / 3.1488
-GHz OPPs are only in carina.dts.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts
-> new file mode 100644
-> index 000000000000..5d155c69907a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts
-> @@ -0,0 +1,50 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +
-> +/dts-v1/;
-> +
-> +#include "sc8180x-microsoft-surface-pro-x.dtsi"
-> +
-> +/ {
-> +	model = "Microsoft Surface Pro X (SQ2)";
-> +	compatible = "microsoft,carina", "qcom,sc8180x";
-> +};
-> +
-> +&cpu4_opp_table {
-> +	opp-3072000000 {
-> +		opp-hz = /bits/ 64 <3072000000>;
-> +		opp-peak-kBps = <8368000 51609600>;
-> +	};
-> +
-> +	opp-3148800000 {
-> +		opp-hz = /bits/ 64 <3148800000>;
-> +		opp-peak-kBps = <8368000 51609600>;
-> +	};
-> +};
-> +
-[...]
-
-Would it make sense to move opp-3072000000 and opp-3148800000 into the
-shared sc8180x-microsoft-surface-pro-x.dtsi? qcom-cpufreq-hw disables
-all DT OPPs first and only re-enables freqs present in the hardware LUT
-so this would work for SQ1 and caspar.dtb will cover both the SQ1 and
-SQ2 Wi-Fi models out of the box and carina.dts won't need its own
-&cpu4_opp_table override.
-> diff --git a/arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi
-> new file mode 100644
-> index 000000000000..17fb01c6b164
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi
-[...]
-> +&smb2351_2 {
-> +	status = "disabled";
-> +};
-> +
-> +&smb2351_a {
-> +	status = "disabled";
-> +};
-
-Confirmed on hardware that labeling pmic@2 and pmic@a in
-sc8180x-pmics.dtsi fixes the dtc build failure here.
-
-[...]> +&uart13 {
-> +	pinctrl-0 = <&uart13_state>;
-> +	pinctrl-names = "default";
-> +
-> +	status = "okay";
-[...]
-
-On linux-surface, ad1bb617a15a from Maximilian Luz had
-
-&qupv3_id_2 {
-  status = "okay";
-};
-
-Would it be helpful to add here? I confirmed on hardware that adding it
-allows uart13 (WCN3998 Bluetooth) and uart15 (SAM EC) to populate and
-probe properly.
+Wi-Fi-only has both SQ1 and SQ2, please see reply to 2/2 in series.
 
 Thanks,
 Haipeng
-
