@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794739491;
-	b=cUB6IoVMNzpFiZwrtFN1LsvAYYEvbVJ7pnd6JlMGbZ1E+eXf5VOFA+D3eBT5o7wziH+E
-	 gkmyi50YMwfsExsERVuqxdPFyMGfUTZIsEF+BFJAdo85SzYh0jNP1QEA5MoqBoKD8ndeQ
-	 W85sv9uVuPk8fL1yQfWBbgjRsDfuKfJP5mV1aLs0yR/4OKBAju3ZZHSZMjOEwq2daww5n
-	 KSclrpxnrh4y/L2CtZYxTz1YGHnqIOPsf2RttJ6c2DW2gEkQ/vShwAOZXVvbQFf+jiS/N
-	 RQhYmCQI0m/LLhh2YY58/kevgYY0kc6wGMb18ffBSCrW8ISePqOVVXaCzWuIkYtgmCg==
+	t=1794739501;
+	b=Gyn38nYJKacjPn40DpXMX8dwD6M2Mh9MK6Ok7YAj/JC4z3i90zn/2yYh7i5ENHsmnND1
+	 xTLz8aBWQ4UTkIGz46f7zROfhBBGMwt0FDpa3h1+JqOO5TqH17RLkxhzgTjC8vnAFf+s2
+	 nnOsQaYOcZyz8mr5RqVEyiQ2NoFFw3d8ZE65Nzqa8Y5jYtFw/5sFcZbA37xPzhrv3gIeQ
+	 A4BpbI3SJ7xB1dQFJ+H2C7foH8Ijenzj24yWu7DU9JD/QdIDwlk5W5eY6q8UlMXcGhsjF
+	 CEdXbQZKjasjJps5NEcP0THNTyrLuMBQ3pfSlRv/XmlOikkI4G2GaF93t6mufJy6qvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794739491;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794739501;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=C9M1DffKSXo+cVMHY8IX2PaDpfQFRcHP/xAm1rjzLbw=;
-	b=e+iE9qvtmXW3Oe0X19dkzZtny3GWubRgYGHJSRY2bxwYm2PpWU9keUG1gY9WfmHNE8Ly
-	 FcYW7JAT5tKpC/4wV2b5ko1NUEFKrmlBd3uUsy6q2Q+oapvrlV5j16IiXAEBEf+uAjaFX
-	 4Zukgsypq1BcgWUNcbr2ThWfcUv1IBR5BoPgmjm5yNx3wUeIRgjCsZAak79TmpVjz/fr4
-	 pdq3WHzlfbuG211bThPTDXzMw1F6FtPP2diRDicWBBYFKuIli6RAg93rG24eKXlGvdpx+
-	 hE563vzirsjUey84bMqb21lAPZPG6JQXr3t94qNwVDCbHV6TGrWLz7fruhMqC9bN4Mw==
+	bh=ojA5QYObotvHggyDV7mTRyLzlC+JStQRmcC9FxoWI2k=;
+	b=Ie1KwywV+bW7uYiD7Ytff6nuM4tv5wj8Zzf0uHxrPPx/EJAat39lgQQSFbBgYFcFgBtF
+	 M+OpC7+sk3q2z+XRl2EbXpBtClmjLyAwEAlN2f/CGwmpNI395XjuC13WKRGnpFmufx5QL
+	 sfJa3g+JuJtU7Y5FA0h74QS9XddKR9AANsSJFkOMzM1+e0Ifgz9tvsEkrWVjG5g7gFsx6
+	 PXS3CCwK9rHxBSm8vFVTJelip0oUaIX/pNyAtdyiqXvsHyEbmc4pnTD9S+XMzqcYAXTUq
+	 RQ6VlxJbauv6xTbGoAOvcwgz7MNTTNXMV6BgJ2Xi5X9Fp51/0EOAtUVY2INmWH7cPvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oEqs71I7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TVRQ/M3b";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C927606A31A;
-	Sun, 15 Nov 2026 10:44:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C5D606A334;
+	Sun, 15 Nov 2026 10:45:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oEqs71I7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74F641F000CD;
-	Sun, 15 Nov 2026 10:44:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TVRQ/M3b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E089D1F000C6;
+	Sun, 15 Nov 2026 10:44:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794739490;
-	bh=C9M1DffKSXo+cVMHY8IX2PaDpfQFRcHP/xAm1rjzLbw=;
+	s=k20260515; t=1794739501;
+	bh=ojA5QYObotvHggyDV7mTRyLzlC+JStQRmcC9FxoWI2k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oEqs71I7kKhkrtSiRbgcsRgiClvJ5jVx2SHi8Z5rocg4NWYRyy2l9VRKoMpNKOZBB
-	 2Zjf8G+zvQThkxRXAAwNI9qyU7QNGynH/18yMhakjNLiV7lEertR43oczutjMq3vbB
-	 x6afRZWudFap9q9hbzD6J6fnA6P5KFxw1kUFZYOaMhBPVVGZjJb2Lud5e7qb2ywguy
-	 6UK5/lihgQZUGWdCZSB2rOllNF2BBmf4tZpPy9VxarnmRp3JIMbfq1TI4JATpxrkfE
-	 PZGP6kSVw+uBMv0UIcx1iCC/0FquHo2ktRIotf8+WwwVi9xvIfEv2QYdELzoSa6iei
-	 5IY+ZuL4QcaVQ==
+	b=TVRQ/M3bN5JkQoN3aLkpIzDPqsy1LDQGe3qF99zIYrqDH/8YtlG5XJaRg9qK1TKN9
+	 J9STfQGKYq2teajnLS1hOJkJ60aIi8m5UC8Rnium5QXS5RILpkHZdZy81CbveTvVDo
+	 5uLvYifbgPOm15Uty4bhmRonpQsiKdpBShUbX9iTA3m0Xg1fnrG0PQY42jKfjzRJbO
+	 J3JFHbdWTPpFGeuSTeIEJDyINDgu/SJOR5vt70HTs9Y8wcnlyg2fc2vT7VKLlusfGB
+	 6fWBThe+yl3edmLJRENcE9Cv3qAW5bIaOQAUGX1GWmKBgrXjUA85o63gBvlftjQWlV
+	 yXHUkgK5NBbkQ==
 From: Jisheng Zhang <jszhang@kernel.org>
 To: Rob Herring <robh@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
@@ -57,9 +57,9 @@ Cc: devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-clk@vger.kernel.org,
 	linux-gpio@vger.kernel.org
-Subject: [PATCH v2 07/13] reset: add Synaptics SL2610 reset controller support
-Date: Sun, 15 Nov 2026 18:23:46 +0800
-Message-ID: <20261115102401.3520-8-jszhang@kernel.org>
+Subject: [PATCH v2 09/13] clk: berlin: add Synaptics clock controller helpers
+Date: Sun, 15 Nov 2026 18:23:48 +0800
+Message-ID: <20261115102401.3520-10-jszhang@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261115102401.3520-1-jszhang@kernel.org>
 References: <20261115102401.3520-1-jszhang@kernel.org>
@@ -74,299 +74,696 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Support the SoC and MCU reset controls exposed by the SL2610 system
-controllers. Match the MFD-created platform devices, use the parent
-syscon regmap and register each reset provider against the parent DT node.
+Add the configurable divider and gate clock implementation shared by
+Synaptics system controllers. Provide the MCU system manager helper for
+registering its fixed clocks, gates and peripheral dividers.
 
-Handle both pulse resets and sticky resets with assert/deassert controls.
+Keep clock resources managed by the MFD clock device and obtain the
+register range and provider node from its parent.
 
 Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 ---
- MAINTAINERS                  |   1 +
- drivers/reset/Kconfig        |  13 ++
- drivers/reset/Makefile       |   1 +
- drivers/reset/reset-sl2610.c | 224 +++++++++++++++++++++++++++++++++++
- 4 files changed, 239 insertions(+)
- create mode 100644 drivers/reset/reset-sl2610.c
+ MAINTAINERS                        |   1 +
+ drivers/clk/Kconfig                |   1 +
+ drivers/clk/berlin/Kconfig         |   7 +
+ drivers/clk/berlin/Makefile        |   2 +
+ drivers/clk/berlin/sl-clk.c        | 279 +++++++++++++++++++++++++++++
+ drivers/clk/berlin/sl-clk.h        |  31 ++++
+ drivers/clk/berlin/sl-sysmgr-clk.c | 241 +++++++++++++++++++++++++
+ drivers/clk/berlin/sl-sysmgr-clk.h |  44 +++++
+ 8 files changed, 606 insertions(+)
+ create mode 100644 drivers/clk/berlin/Kconfig
+ create mode 100644 drivers/clk/berlin/sl-clk.c
+ create mode 100644 drivers/clk/berlin/sl-clk.h
+ create mode 100644 drivers/clk/berlin/sl-sysmgr-clk.c
+ create mode 100644 drivers/clk/berlin/sl-sysmgr-clk.h
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index eae1493485ee..1bd3b2f39865 100644
+index b5bc76062771..f3067f71d54c 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -3812,6 +3812,7 @@ F:	Documentation/devicetree/bindings/soc/synaptics/
  F:	arch/arm/boot/dts/synaptics/
  F:	arch/arm/mach-berlin/
  F:	arch/arm64/boot/dts/synaptics/
-+F:	drivers/reset/reset-sl2610.c
++F:	drivers/clk/berlin/sl-*
+ F:	drivers/pinctrl/berlin/pinctrl-sl2610.c
+ F:	drivers/reset/reset-sl2610.c
  F:	drivers/soc/synaptics/
- F:	include/dt-bindings/clock/syna,sl2610.h
- F:	include/dt-bindings/reset/syna,sl2610-reset.h
-diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-index eda9c698a95f..98e973a8798c 100644
---- a/drivers/reset/Kconfig
-+++ b/drivers/reset/Kconfig
-@@ -358,6 +358,19 @@ config RESET_SUNXI
- 	help
- 	  This enables the reset driver for Allwinner SoCs.
- 
-+config RESET_SL2610
-+	tristate "Synaptics SL2610 Reset Driver"
-+	depends on ARCH_BERLIN || COMPILE_TEST
-+	depends on OF && HAS_IOMEM
-+	select SOC_SL2610_SYSCON
-+	help
-+	  Support the reset controllers in the SoC and MCU system control
-+	  blocks of Synaptics SL2610 SoCs. Both pulse and sticky reset lines
-+	  are supported.
-+
-+	  To compile this driver as a module, choose M here. The module will
-+	  be called reset-sl2610.
-+
- config RESET_TENSTORRENT_ATLANTIS
- 	tristate "Tenstorrent atlantis reset driver"
- 	depends on ARCH_TENSTORRENT || COMPILE_TEST
-diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
-index 489fafd6bbe3..d28276a4f2ea 100644
---- a/drivers/reset/Makefile
-+++ b/drivers/reset/Makefile
-@@ -42,6 +42,7 @@ obj-$(CONFIG_RESET_SCMI) += reset-scmi.o
- obj-$(CONFIG_RESET_SIMPLE) += reset-simple.o
- obj-$(CONFIG_RESET_SKY1) += reset-sky1.o
- obj-$(CONFIG_RESET_SKY1_AUDSS) += reset-sky1-audss.o
-+obj-$(CONFIG_RESET_SL2610) += reset-sl2610.o
- obj-$(CONFIG_RESET_SOCFPGA) += reset-socfpga.o
- obj-$(CONFIG_RESET_SUNPLUS) += reset-sunplus.o
- obj-$(CONFIG_RESET_SUNXI) += reset-sunxi.o
-diff --git a/drivers/reset/reset-sl2610.c b/drivers/reset/reset-sl2610.c
+diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
+index 37a8e35d4178..906fabfe0d33 100644
+--- a/drivers/clk/Kconfig
++++ b/drivers/clk/Kconfig
+@@ -514,6 +514,7 @@ source "drivers/clk/analogbits/Kconfig"
+ source "drivers/clk/anlogic/Kconfig"
+ source "drivers/clk/aspeed/Kconfig"
+ source "drivers/clk/bcm/Kconfig"
++source "drivers/clk/berlin/Kconfig"
+ source "drivers/clk/cix/Kconfig"
+ source "drivers/clk/davinci/Kconfig"
+ source "drivers/clk/eswin/Kconfig"
+diff --git a/drivers/clk/berlin/Kconfig b/drivers/clk/berlin/Kconfig
 new file mode 100644
-index 000000000000..1ca58d5a3e71
+index 000000000000..8f71d4c7a478
 --- /dev/null
-+++ b/drivers/reset/reset-sl2610.c
-@@ -0,0 +1,224 @@
++++ b/drivers/clk/berlin/Kconfig
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0
++
++config SL_COMMON_CLK
++	bool
++
++config SL_SYSMGR_CLK
++	bool
+diff --git a/drivers/clk/berlin/Makefile b/drivers/clk/berlin/Makefile
+index 3733733a4806..5dbd0fd264ad 100644
+--- a/drivers/clk/berlin/Makefile
++++ b/drivers/clk/berlin/Makefile
+@@ -3,3 +3,5 @@ obj-y += berlin2-avpll.o berlin2-pll.o berlin2-div.o
+ obj-$(CONFIG_MACH_BERLIN_BG2)	+= bg2.o
+ obj-$(CONFIG_MACH_BERLIN_BG2CD)	+= bg2.o
+ obj-$(CONFIG_MACH_BERLIN_BG2Q)	+= bg2q.o
++obj-$(CONFIG_SL_COMMON_CLK)	+= sl-clk.o
++obj-$(CONFIG_SL_SYSMGR_CLK)	+= sl-sysmgr-clk.o
+diff --git a/drivers/clk/berlin/sl-clk.c b/drivers/clk/berlin/sl-clk.c
+new file mode 100644
+index 000000000000..e212320a0637
+--- /dev/null
++++ b/drivers/clk/berlin/sl-clk.c
+@@ -0,0 +1,279 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Copyright (C) 2026 Synaptics Incorporated
-+ *
-+ * Synaptics SL2610 reset driver
++ * Copyright (C) 2018 Synaptics Incorporated
++ * Copyright (c) 2015 Marvell Technology Group Ltd.
 + *
 + * Author: Jisheng Zhang <jszhang@kernel.org>
 + */
 +
-+#include <dt-bindings/reset/syna,sl2610-reset.h>
-+#include <linux/delay.h>
++#include <linux/bitfield.h>
++#include <linux/bitops.h>
++#include <linux/clk-provider.h>
++#include <linux/device.h>
++#include <linux/err.h>
 +#include <linux/io.h>
-+#include <linux/mfd/syscon.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++
++#include "sl-clk.h"
++
++#define SL_CLK_EN		BIT(0)
++#define SL_CLK_PLL_SEL		GENMASK(3, 1)
++#define SL_CLK_PLL_SWITCH	BIT(4)
++#define SL_CLK_DIV_SWITCH	BIT(5)
++#define SL_CLK_DIV3_SWITCH	BIT(6)
++#define SL_CLK_DIV_SEL		GENMASK(9, 7)
++#define SL_MAX_PARENTS	6
++
++struct sl_clk {
++	struct clk_hw hw;
++	void __iomem *reg;
++	spinlock_t *lock;
++	struct device *dev;
++};
++
++#define to_sl_clk(_hw) container_of(_hw, struct sl_clk, hw)
++
++static const unsigned int sl_clk_values[] = { 1, 2, 3, 4, 6, 8, 12 };
++
++static unsigned int sl_clk_value(u32 val)
++{
++	static const u8 div_table[] = { 0, 2, 4, 6, 8, 12, 0, 0 };
++
++	if (val & SL_CLK_DIV3_SWITCH)
++		return 3;
++	if (!(val & SL_CLK_DIV_SWITCH))
++		return 1;
++
++	return div_table[FIELD_GET(SL_CLK_DIV_SEL, val)];
++}
++
++static unsigned long sl_clk_recalc_rate(struct clk_hw *hw,
++					unsigned long parent_rate)
++{
++	struct sl_clk *clk = to_sl_clk(hw);
++	unsigned int divisor = sl_clk_value(readl_relaxed(clk->reg));
++
++	if (WARN_ON_ONCE(!divisor))
++		return 0;
++
++	return parent_rate / divisor;
++}
++
++static unsigned int sl_clk_best(unsigned long parent_rate,
++				unsigned long rate)
++{
++	unsigned long best_diff = ULONG_MAX;
++	unsigned int best = 1, i;
++
++	for (i = 0; i < ARRAY_SIZE(sl_clk_values); i++) {
++		unsigned long candidate = parent_rate / sl_clk_values[i];
++		unsigned long diff = candidate > rate ? candidate - rate :
++							     rate - candidate;
++
++		if (diff < best_diff) {
++			best_diff = diff;
++			best = sl_clk_values[i];
++		}
++	}
++
++	return best;
++}
++
++static int sl_clk_determine_rate(struct clk_hw *hw,
++				 struct clk_rate_request *req)
++{
++	struct clk_hw *parent = clk_hw_get_parent(hw);
++
++	if (!parent)
++		return -EINVAL;
++
++	req->best_parent_hw = parent;
++	req->best_parent_rate = clk_hw_get_rate(parent);
++	req->rate = req->best_parent_rate /
++		    sl_clk_best(req->best_parent_rate, req->rate);
++
++	return 0;
++}
++
++static int sl_clk_set_rate(struct clk_hw *hw, unsigned long rate,
++			   unsigned long parent_rate)
++{
++	struct sl_clk *clk = to_sl_clk(hw);
++	unsigned int divisor, select;
++	unsigned long flags;
++	u32 val;
++
++	divisor = sl_clk_best(parent_rate, rate);
++	if (parent_rate / divisor != rate)
++		return -EINVAL;
++
++	spin_lock_irqsave(clk->lock, flags);
++	val = readl_relaxed(clk->reg);
++	val &= ~(SL_CLK_DIV3_SWITCH | SL_CLK_DIV_SWITCH |
++		 SL_CLK_DIV_SEL);
++	if (divisor == 3) {
++		val |= SL_CLK_DIV3_SWITCH;
++	} else if (divisor != 1) {
++		switch (divisor) {
++		case 2:
++			select = 1;
++			break;
++		case 4:
++			select = 2;
++			break;
++		case 6:
++			select = 3;
++			break;
++		case 8:
++			select = 4;
++			break;
++		case 12:
++			select = 5;
++			break;
++		default:
++			spin_unlock_irqrestore(clk->lock, flags);
++			return -EINVAL;
++		}
++		val |= SL_CLK_DIV_SWITCH |
++			FIELD_PREP(SL_CLK_DIV_SEL, select);
++	}
++	writel_relaxed(val, clk->reg);
++	spin_unlock_irqrestore(clk->lock, flags);
++
++	return 0;
++}
++
++static u8 sl_clk_get_parent(struct clk_hw *hw)
++{
++	struct sl_clk *clk = to_sl_clk(hw);
++	u32 val = readl_relaxed(clk->reg);
++	u8 selector;
++	unsigned int index;
++
++	if (!(val & SL_CLK_PLL_SWITCH))
++		return 0;
++
++	selector = FIELD_GET(SL_CLK_PLL_SEL, val);
++	index = selector + 1;
++	if (index < clk_hw_get_num_parents(hw))
++		return index;
++
++	dev_warn(clk->dev, "%s: unsupported parent selector %u\n",
++		 clk_hw_get_name(hw), selector);
++	return 0;
++}
++
++static int sl_clk_set_parent(struct clk_hw *hw, u8 index)
++{
++	struct sl_clk *clk = to_sl_clk(hw);
++	unsigned long flags;
++	u32 val;
++
++	if (index >= clk_hw_get_num_parents(hw) || index >= SL_MAX_PARENTS)
++		return -EINVAL;
++
++	spin_lock_irqsave(clk->lock, flags);
++	val = readl_relaxed(clk->reg);
++	if (!index) {
++		val &= ~SL_CLK_PLL_SWITCH;
++	} else {
++		val &= ~SL_CLK_PLL_SEL;
++		val |= SL_CLK_PLL_SWITCH |
++			FIELD_PREP(SL_CLK_PLL_SEL, index - 1);
++	}
++	writel_relaxed(val, clk->reg);
++	spin_unlock_irqrestore(clk->lock, flags);
++
++	return 0;
++}
++
++static int sl_clk_enable(struct clk_hw *hw)
++{
++	struct sl_clk *clk = to_sl_clk(hw);
++	unsigned long flags;
++	u32 val;
++
++	spin_lock_irqsave(clk->lock, flags);
++	val = readl_relaxed(clk->reg);
++	writel_relaxed(val | SL_CLK_EN, clk->reg);
++	spin_unlock_irqrestore(clk->lock, flags);
++
++	return 0;
++}
++
++static void sl_clk_disable(struct clk_hw *hw)
++{
++	struct sl_clk *clk = to_sl_clk(hw);
++	unsigned long flags;
++	u32 val;
++
++	spin_lock_irqsave(clk->lock, flags);
++	val = readl_relaxed(clk->reg);
++	writel_relaxed(val & ~SL_CLK_EN, clk->reg);
++	spin_unlock_irqrestore(clk->lock, flags);
++}
++
++static int sl_clk_is_enabled(struct clk_hw *hw)
++{
++	struct sl_clk *clk = to_sl_clk(hw);
++
++	return !!(readl_relaxed(clk->reg) & SL_CLK_EN);
++}
++
++static const struct clk_ops sl_clk_ops = {
++	.get_parent = sl_clk_get_parent,
++	.set_parent = sl_clk_set_parent,
++	.recalc_rate = sl_clk_recalc_rate,
++	.determine_rate = sl_clk_determine_rate,
++	.set_rate = sl_clk_set_rate,
++	.enable = sl_clk_enable,
++	.disable = sl_clk_disable,
++	.is_enabled = sl_clk_is_enabled,
++};
++
++struct clk_hw *sl_clk_register(struct device *dev, void __iomem *reg,
++			       const char *name, const char * const *parent_names,
++			       unsigned int num_parents, unsigned long flags,
++			       spinlock_t *lock)
++{
++	struct clk_init_data init = {};
++	struct sl_clk *clk;
++	unsigned int i;
++	int ret;
++
++	if (!dev || !reg || !name || !parent_names || !num_parents ||
++	    num_parents > SL_MAX_PARENTS || !lock)
++		return ERR_PTR(-EINVAL);
++
++	for (i = 0; i < num_parents; i++)
++		if (!parent_names[i])
++			return ERR_PTR(-EINVAL);
++
++	clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
++	if (!clk)
++		return ERR_PTR(-ENOMEM);
++
++	clk->dev = dev;
++	clk->reg = reg;
++	clk->lock = lock;
++
++	init.name = name;
++	init.ops = &sl_clk_ops;
++	init.parent_names = parent_names;
++	init.num_parents = num_parents;
++	init.flags = flags;
++	clk->hw.init = &init;
++
++	ret = devm_clk_hw_register(dev, &clk->hw);
++	if (ret)
++		return ERR_PTR(ret);
++
++	return &clk->hw;
++}
++EXPORT_SYMBOL_GPL(sl_clk_register);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Synaptics SL261x clock divider support");
+diff --git a/drivers/clk/berlin/sl-clk.h b/drivers/clk/berlin/sl-clk.h
+new file mode 100644
+index 000000000000..7489b26a5e8d
+--- /dev/null
++++ b/drivers/clk/berlin/sl-clk.h
+@@ -0,0 +1,31 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __SL_CLK_H
++#define __SL_CLK_H
++
++#include <linux/compiler_types.h>
++#include <linux/spinlock_types.h>
++
++struct clk_hw;
++struct device;
++
++struct sl_clk_desc {
++	const char	*name;
++	u32		id;
++	u32		offset;
++	unsigned long	flags;
++};
++
++struct sl_gateclk_desc {
++	const char	*name;
++	const char	*parent_name;
++	u32		id;
++	u8		bit_idx;
++	unsigned long	flags;
++};
++
++struct clk_hw *sl_clk_register(struct device *dev, void __iomem *reg,
++			       const char *name, const char * const *parent_names,
++			       unsigned int num_parents, unsigned long flags,
++			       spinlock_t *lock);
++
++#endif /* __SL_CLK_H */
+diff --git a/drivers/clk/berlin/sl-sysmgr-clk.c b/drivers/clk/berlin/sl-sysmgr-clk.c
+new file mode 100644
+index 000000000000..f3cf921fc3c1
+--- /dev/null
++++ b/drivers/clk/berlin/sl-sysmgr-clk.c
+@@ -0,0 +1,241 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ *
++ */
++
++#include <linux/clk-provider.h>
 +#include <linux/module.h>
 +#include <linux/of.h>
 +#include <linux/of_address.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/reset-controller.h>
 +#include <linux/slab.h>
-+#include <linux/types.h>
++#include <linux/platform_device.h>
++#include <linux/version.h>
 +
-+/* SL2610 ACPU subsystem */
-+#define SL2610_GBL_PERIFRESET			0x350
-+#define SL2610_GBL_PERIFSTICKYRESET		0x360
-+#define SL2610_GBL_APBPERIFRESET		0x370
-+#define SL2610_GBL_TOPSTICKYRESET		0x378
-+#define SL2610_GBL_AVIOSTICKYRESET		0x37c
++#include "sl-sysmgr-clk.h"
 +
-+/* SL2610 system subsystem */
-+#define SL2610_SMGBL_STICKYRST0			0x400
++#define CLK_EN		BIT(0)
++#define DIV_CHNG_EN	BIT(1)
 +
-+#define to_sl2610_reset_priv(p)	container_of((p), struct sl2610_reset_priv, rcdev)
-+
-+#define SL2610_RESET(id, reg, bit, sticky)[id] = { reg, BIT(bit), sticky }
-+
-+struct sl2610_reset_cfg {
-+	u32 reg;
-+	u32 bit;
-+	bool sticky;
++struct sl_sysmgr_gateclk {
++	struct clk_hw hw;
++	void __iomem *base;
++	u8 bit_idx;
 +};
 +
-+struct sl2610_reset_data {
-+	const struct sl2610_reset_cfg *cfgs;
-+	size_t num;
++struct sl_sysmgr_clk {
++	struct clk_hw hw;
++	void __iomem *base;
++	u8 div_bits;
 +};
 +
-+struct sl2610_reset_priv {
-+	struct regmap *regmap;
-+	const struct sl2610_reset_cfg *cfgs;
-+	struct reset_controller_dev rcdev;
++struct sl_sysmgr_clk_priv {
++	struct sl_sysmgr_gateclk *gclks;
++	struct sl_sysmgr_clk *clks;
 +};
 +
-+static const struct sl2610_reset_cfg sl2610_reset_cfgs[] = {
-+	SL2610_RESET(RST_SOC_SDIO0, SL2610_GBL_PERIFRESET, 2, false),
-+	SL2610_RESET(RST_SOC_USB0, SL2610_GBL_PERIFRESET, 4, false),
-+	SL2610_RESET(RST_SOC_EMMC, SL2610_GBL_PERIFRESET, 5, false),
-+	SL2610_RESET(RST_SOC_GETH0, SL2610_GBL_PERIFRESET, 6, false),
-+	SL2610_RESET(RST_SOC_SDIO1, SL2610_GBL_PERIFRESET, 7, false),
-+	SL2610_RESET(RST_SOC_USB1, SL2610_GBL_PERIFRESET, 8, false),
-+	SL2610_RESET(RST_SOC_GETH1, SL2610_GBL_PERIFRESET, 9, false),
-+	SL2610_RESET(RST_SOC_USB0PHY, SL2610_GBL_PERIFSTICKYRESET, 0, true),
-+	SL2610_RESET(RST_SOC_USB0CORE, SL2610_GBL_PERIFSTICKYRESET, 1, true),
-+	SL2610_RESET(RST_SOC_USB0MAHB, SL2610_GBL_PERIFSTICKYRESET, 2, true),
-+	SL2610_RESET(RST_SOC_USB1PHY, SL2610_GBL_PERIFSTICKYRESET, 3, true),
-+	SL2610_RESET(RST_SOC_USB1CORE, SL2610_GBL_PERIFSTICKYRESET, 4, true),
-+	SL2610_RESET(RST_SOC_USB1MAHB, SL2610_GBL_PERIFSTICKYRESET, 5, true),
-+	SL2610_RESET(RST_SOC_UART0, SL2610_GBL_APBPERIFRESET, 0, false),
-+	SL2610_RESET(RST_SOC_UART1, SL2610_GBL_APBPERIFRESET, 1, false),
-+	SL2610_RESET(RST_SOC_UART2, SL2610_GBL_APBPERIFRESET, 2, false),
-+	SL2610_RESET(RST_SOC_UART3, SL2610_GBL_APBPERIFRESET, 3, false),
-+	SL2610_RESET(RST_SOC_I2C0, SL2610_GBL_APBPERIFRESET, 4, false),
-+	SL2610_RESET(RST_SOC_I2C1, SL2610_GBL_APBPERIFRESET, 5, false),
-+	SL2610_RESET(RST_SOC_SPI0, SL2610_GBL_APBPERIFRESET, 6, false),
-+	SL2610_RESET(RST_SOC_SPI1, SL2610_GBL_APBPERIFRESET, 7, false),
-+	SL2610_RESET(RST_SOC_SPI2, SL2610_GBL_APBPERIFRESET, 8, false),
-+	SL2610_RESET(RST_SOC_SPI3, SL2610_GBL_APBPERIFRESET, 9, false),
-+	SL2610_RESET(RST_SOC_APBTIMERS, SL2610_GBL_APBPERIFRESET, 10, false),
-+	SL2610_RESET(RST_SOC_APBSYSCNT, SL2610_GBL_APBPERIFRESET, 11, false),
-+	SL2610_RESET(RST_SOC_APBWDT, SL2610_GBL_APBPERIFRESET, 12, false),
-+	SL2610_RESET(RST_SOC_APBGPIO, SL2610_GBL_APBPERIFRESET, 13, false),
-+	SL2610_RESET(RST_SOC_APBDMA, SL2610_GBL_APBPERIFRESET, 14, false),
-+	SL2610_RESET(RST_SOC_GPUCORE, SL2610_GBL_TOPSTICKYRESET, 0, true),
-+	SL2610_RESET(RST_SOC_NPUCORE, SL2610_GBL_TOPSTICKYRESET, 1, true),
-+	SL2610_RESET(RST_SOC_AVIOAIOG, SL2610_GBL_AVIOSTICKYRESET, 0, true),
-+	SL2610_RESET(RST_SOC_AVIOVPPG, SL2610_GBL_AVIOSTICKYRESET, 1, true),
-+	SL2610_RESET(RST_SOC_AVIOVIPG, SL2610_GBL_AVIOSTICKYRESET, 2, true),
-+};
++static DEFINE_SPINLOCK(sl_sysmgr_gateclk_lock);
 +
-+static const struct sl2610_reset_cfg sl2610_system_reset_cfgs[] = {
-+	SL2610_RESET(RST_SM_ADCCORE, SL2610_SMGBL_STICKYRST0, 0, true),
-+	SL2610_RESET(RST_SM_ADCPRST, SL2610_SMGBL_STICKYRST0, 1, true),
-+	SL2610_RESET(RST_SM_CAN0PRST, SL2610_SMGBL_STICKYRST0, 2, true),
-+	SL2610_RESET(RST_SM_CAN0SRST, SL2610_SMGBL_STICKYRST0, 3, true),
-+	SL2610_RESET(RST_SM_CAN1PRST, SL2610_SMGBL_STICKYRST0, 4, true),
-+	SL2610_RESET(RST_SM_CAN1SRST, SL2610_SMGBL_STICKYRST0, 5, true),
-+	SL2610_RESET(RST_SM_GPIOPRST, SL2610_SMGBL_STICKYRST0, 6, true),
-+	SL2610_RESET(RST_SM_GPIOSRST, SL2610_SMGBL_STICKYRST0, 7, true),
-+	SL2610_RESET(RST_SM_I2CM0PRST, SL2610_SMGBL_STICKYRST0, 8, true),
-+	SL2610_RESET(RST_SM_I2CM0SRST, SL2610_SMGBL_STICKYRST0, 9, true),
-+	SL2610_RESET(RST_SM_I2CM1PRST, SL2610_SMGBL_STICKYRST0, 10, true),
-+	SL2610_RESET(RST_SM_I2CM1SRST, SL2610_SMGBL_STICKYRST0, 11, true),
-+	SL2610_RESET(RST_SM_I3CPRST, SL2610_SMGBL_STICKYRST0, 12, true),
-+	SL2610_RESET(RST_SM_I3CSRST, SL2610_SMGBL_STICKYRST0, 13, true),
-+	SL2610_RESET(RST_SM_PDMPRST, SL2610_SMGBL_STICKYRST0, 14, true),
-+	SL2610_RESET(RST_SM_PDMSRST, SL2610_SMGBL_STICKYRST0, 15, true),
-+	SL2610_RESET(RST_SM_PVTHSRST, SL2610_SMGBL_STICKYRST0, 16, true),
-+	SL2610_RESET(RST_SM_PVTPRST, SL2610_SMGBL_STICKYRST0, 17, true),
-+	SL2610_RESET(RST_SM_PWMPERIRST, SL2610_SMGBL_STICKYRST0, 18, true),
-+	SL2610_RESET(RST_SM_PWMPRST, SL2610_SMGBL_STICKYRST0, 19, true),
-+	SL2610_RESET(RST_SM_SPIMPRST, SL2610_SMGBL_STICKYRST0, 20, true),
-+	SL2610_RESET(RST_SM_SPIMSRST, SL2610_SMGBL_STICKYRST0, 21, true),
-+	SL2610_RESET(RST_SM_SPISPRST, SL2610_SMGBL_STICKYRST0, 22, true),
-+	SL2610_RESET(RST_SM_SPISSRST, SL2610_SMGBL_STICKYRST0, 23, true),
-+	SL2610_RESET(RST_SM_UART0PRST, SL2610_SMGBL_STICKYRST0, 24, true),
-+	SL2610_RESET(RST_SM_UART0SRST, SL2610_SMGBL_STICKYRST0, 25, true),
-+	SL2610_RESET(RST_SM_UART1PRST, SL2610_SMGBL_STICKYRST0, 26, true),
-+	SL2610_RESET(RST_SM_UART1SRST, SL2610_SMGBL_STICKYRST0, 27, true),
-+	SL2610_RESET(RST_SM_UART2PRST, SL2610_SMGBL_STICKYRST0, 28, true),
-+	SL2610_RESET(RST_SM_UART2SRST, SL2610_SMGBL_STICKYRST0, 29, true),
-+	SL2610_RESET(RST_SM_UART3PRST, SL2610_SMGBL_STICKYRST0, 30, true),
-+	SL2610_RESET(RST_SM_UART3SRST, SL2610_SMGBL_STICKYRST0, 31, true),
-+};
++#define to_sl_sysmgr_gateclk(hw)	container_of(hw, struct sl_sysmgr_gateclk, hw)
++#define to_sl_sysmgr_clk(hw)		container_of(hw, struct sl_sysmgr_clk, hw)
 +
-+static const struct sl2610_reset_data sl2610_reset_data = {
-+	.cfgs = sl2610_reset_cfgs,
-+	.num = ARRAY_SIZE(sl2610_reset_cfgs),
-+};
-+
-+static const struct sl2610_reset_data sl2610_system_reset_data = {
-+	.cfgs = sl2610_system_reset_cfgs,
-+	.num = ARRAY_SIZE(sl2610_system_reset_cfgs),
-+};
-+
-+static int sl2610_reset_assert(struct reset_controller_dev *rcdev,
-+			       unsigned long id)
++static int sl_sysmgr_gateclk_enable(struct clk_hw *hw)
 +{
-+	struct sl2610_reset_priv *priv = to_sl2610_reset_priv(rcdev);
-+	const struct sl2610_reset_cfg *cfg = &priv->cfgs[id];
++	u32 val;
++	struct sl_sysmgr_gateclk *clk = to_sl_sysmgr_gateclk(hw);
 +
-+	if (!cfg->sticky)
-+		return -EINVAL;
++	guard(spinlock)(&sl_sysmgr_gateclk_lock);
 +
-+	return regmap_clear_bits(priv->regmap, cfg->reg, cfg->bit);
-+}
-+
-+static int sl2610_reset_deassert(struct reset_controller_dev *rcdev,
-+				 unsigned long id)
-+{
-+	struct sl2610_reset_priv *priv = to_sl2610_reset_priv(rcdev);
-+	const struct sl2610_reset_cfg *cfg = &priv->cfgs[id];
-+
-+	if (!cfg->sticky)
-+		return -EINVAL;
-+
-+	return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
-+}
-+
-+static int sl2610_reset_reset(struct reset_controller_dev *rcdev,
-+			      unsigned long id)
-+{
-+	struct sl2610_reset_priv *priv = to_sl2610_reset_priv(rcdev);
-+	const struct sl2610_reset_cfg *cfg = &priv->cfgs[id];
-+
-+	if (cfg->sticky) {
-+		regmap_clear_bits(priv->regmap, cfg->reg, cfg->bit);
-+		usleep_range(10, 15);
-+		return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
++	val = readl_relaxed(clk->base);
++	if (!(val & BIT(clk->bit_idx))) {
++		val |= BIT(clk->bit_idx);
++		writel_relaxed(val, clk->base);
 +	}
 +
-+	return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
++	return 0;
 +}
 +
-+static const struct reset_control_ops sl2610_reset_ops = {
-+	.reset	= sl2610_reset_reset,
-+	.assert = sl2610_reset_assert,
-+	.deassert = sl2610_reset_deassert,
++static int sl_sysmgr_gateclk_is_enabled(struct clk_hw *hw)
++{
++	u32 val;
++	struct sl_sysmgr_gateclk *clk = to_sl_sysmgr_gateclk(hw);
++
++	guard(spinlock)(&sl_sysmgr_gateclk_lock);
++
++	val = readl_relaxed(clk->base);
++	val &= BIT(clk->bit_idx);
++
++	return val ? 1 : 0;
++}
++
++static const struct clk_ops sl_sysmgr_gateclk_ops = {
++	.enable		= sl_sysmgr_gateclk_enable,
++	.is_enabled	= sl_sysmgr_gateclk_is_enabled,
 +};
 +
-+static int sl2610_reset_probe(struct platform_device *pdev)
++static int
++sl_sysmgr_gateclk_register(struct device *dev, struct sl_sysmgr_gateclk *gclk,
++			   const char *name, const char *parent_names,
++			   u8 bit_idx, void __iomem *base)
++{
++	struct clk_init_data init;
++
++	init.name = name;
++	init.ops = &sl_sysmgr_gateclk_ops;
++	init.parent_names = &parent_names;
++	init.num_parents = 1;
++	init.flags = 0;
++
++	gclk->bit_idx = bit_idx;
++	gclk->base = base;
++	gclk->hw.init = &init;
++
++	return devm_clk_hw_register(dev, &gclk->hw);
++}
++
++static unsigned long
++sl_sysmgr_clk_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
++{
++	u32 val, div;
++	struct sl_sysmgr_clk *clk = to_sl_sysmgr_clk(hw);
++
++	val = readl_relaxed(clk->base);
++	div = (val >> 2) & ((1 << clk->div_bits) - 1);
++	++div;
++
++	return parent_rate / div;
++}
++
++static int sl_sysmgr_clk_enable(struct clk_hw *hw)
++{
++	u32 val;
++	struct sl_sysmgr_clk *clk = to_sl_sysmgr_clk(hw);
++
++	val = readl_relaxed(clk->base);
++	if (!(val & CLK_EN)) {
++		val |= CLK_EN;
++		writel_relaxed(val, clk->base);
++	}
++
++	return 0;
++}
++
++static int sl_sysmgr_clk_is_enabled(struct clk_hw *hw)
++{
++	u32 val;
++	struct sl_sysmgr_clk *clk = to_sl_sysmgr_clk(hw);
++
++	val = readl_relaxed(clk->base);
++	val &= CLK_EN;
++
++	return val ? 1 : 0;
++}
++
++static const struct clk_ops sl_sysmgr_clk_ops = {
++	.recalc_rate	= sl_sysmgr_clk_recalc_rate,
++	.enable		= sl_sysmgr_clk_enable,
++	.is_enabled	= sl_sysmgr_clk_is_enabled,
++};
++
++static int
++sl_sysmgr_clk_register(struct device *dev, struct sl_sysmgr_clk *sclk,
++		       const char *name, const char *parent_names,
++		       u8 div_bits, void __iomem *base)
++{
++	struct clk_init_data init;
++
++	init.name = name;
++	init.ops = &sl_sysmgr_clk_ops;
++	init.parent_names = &parent_names;
++	init.num_parents = 1;
++	init.flags = 0;
++
++	sclk->div_bits = div_bits;
++	sclk->base = base;
++	sclk->hw.init = &init;
++
++	return devm_clk_hw_register(dev, &sclk->hw);
++}
++
++int sl_sysmgr_clk_setup(struct platform_device *pdev,
++			const struct sl_sysmgr_fixedclk_desc *fdescs,
++			int fclk_n,
++			const struct sl_sysmgr_gateclk_desc *gdescs,
++			int gclk_n,
++			u32 gclk_offset,
++			const struct sl_sysmgr_clk_desc *descs,
++			int clk_n)
 +{
 +	struct device_node *parent_np = pdev->dev.parent->of_node;
-+	struct sl2610_reset_priv *priv;
-+	const struct sl2610_reset_data *data =
-+		(void *)platform_get_device_id(pdev)->driver_data;
++	int i, ret, num = fclk_n + gclk_n + clk_n;
++	struct clk_hw_onecell_data *clk_data;
++	struct sl_sysmgr_clk_priv *priv;
++	struct clk_hw *clk_hw;
++	void __iomem *base;
++	u32 id;
++
++	clk_data = devm_kzalloc(&pdev->dev, struct_size(clk_data, hws, num), GFP_KERNEL);
++	if (!clk_data)
++		return -ENOMEM;
++	clk_data->num = num;
 +
 +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
 +	if (!priv)
 +		return -ENOMEM;
 +
-+	priv->regmap = syscon_node_to_regmap(parent_np);
-+	if (IS_ERR(priv->regmap))
-+		return PTR_ERR(priv->regmap);
++	priv->gclks = devm_kcalloc(&pdev->dev, gclk_n, sizeof(*priv->gclks), GFP_KERNEL);
++	if (!priv->gclks)
++		return -ENOMEM;
 +
-+	priv->rcdev.owner = THIS_MODULE;
-+	priv->rcdev.ops = &sl2610_reset_ops;
-+	priv->rcdev.dev = &pdev->dev;
-+	priv->rcdev.of_node = parent_np;
-+	priv->rcdev.of_reset_n_cells = 1;
-+	priv->rcdev.nr_resets = data->num;
-+	priv->cfgs = data->cfgs;
++	priv->clks = devm_kcalloc(&pdev->dev, clk_n, sizeof(*priv->clks), GFP_KERNEL);
++	if (!priv->clks)
++		return -ENOMEM;
 +
-+	return devm_reset_controller_register(&pdev->dev, &priv->rcdev);
++	base = devm_of_iomap(&pdev->dev, parent_np, 0, NULL);
++	if (IS_ERR(base))
++		return PTR_ERR(base);
++
++	for (i = 0; i < fclk_n; i++) {
++		clk_hw = devm_clk_hw_register_fixed_rate(&pdev->dev, fdescs[i].name,
++							 NULL, 0,
++							 fdescs[i].rate);
++		if (IS_ERR(clk_hw))
++			return PTR_ERR(clk_hw);
++
++		id = fdescs[i].id;
++		clk_data->hws[id] = clk_hw;
++	}
++
++	for (i = 0; i < gclk_n; i++) {
++		ret = sl_sysmgr_gateclk_register(&pdev->dev, &priv->gclks[i],
++						 gdescs[i].name, gdescs[i].parent_name,
++						 gdescs[i].bit_idx, base + gclk_offset);
++		if (ret)
++			return ret;
++
++		id = gdescs[i].id;
++		clk_data->hws[id] = &priv->gclks[i].hw;
++	}
++
++	for (i = 0; i < clk_n; i++) {
++		ret = sl_sysmgr_clk_register(&pdev->dev, &priv->clks[i],
++					     descs[i].name, descs[i].parent_name,
++					     descs[i].div_bits, base + descs[i].offset);
++		if (ret)
++			return ret;
++
++		id = descs[i].id;
++		clk_data->hws[id] = &priv->clks[i].hw;
++	}
++
++	platform_set_drvdata(pdev, priv);
++
++	return devm_of_clk_add_hw_provider(&pdev->dev, of_clk_hw_onecell_get, clk_data);
 +}
++EXPORT_SYMBOL_GPL(sl_sysmgr_clk_setup);
 +
-+static const struct platform_device_id sl2610_reset_ids[] = {
-+	{ "sl2610-soc-reset", (kernel_ulong_t)&sl2610_reset_data },
-+	{ "sl2610-mcu-reset", (kernel_ulong_t)&sl2610_system_reset_data },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(platform, sl2610_reset_ids);
-+
-+static struct platform_driver sl2610_reset_driver = {
-+	.probe = sl2610_reset_probe,
-+	.id_table = sl2610_reset_ids,
-+	.driver = {
-+		.name = "sl2610-reset",
-+	},
-+};
-+module_platform_driver(sl2610_reset_driver);
-+
-+MODULE_AUTHOR("Jisheng Zhang <jszhang@kernel.org>");
-+MODULE_DESCRIPTION("Synaptics SL2610 reset controller");
 +MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Jisheng Zhang <jszhang@kernel.org>");
++MODULE_DESCRIPTION("SysMgr domain clk driver for Synaptics SL SoCs");
+diff --git a/drivers/clk/berlin/sl-sysmgr-clk.h b/drivers/clk/berlin/sl-sysmgr-clk.h
+new file mode 100644
+index 000000000000..5ccf388bcccb
+--- /dev/null
++++ b/drivers/clk/berlin/sl-sysmgr-clk.h
+@@ -0,0 +1,44 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (C) 2026 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ *
++ */
++
++#ifndef __SL_SYSMGR_CLK_H
++#define __SL_SYSMGR_CLK_H
++
++struct sl_sysmgr_clk_desc {
++	const char	*name;
++	const char	*parent_name;
++	u32		id;
++	u32		offset;
++	u8		div_bits;
++	unsigned long	flags;
++};
++
++struct sl_sysmgr_gateclk_desc {
++	const char	*name;
++	const char	*parent_name;
++	u32		id;
++	u8		bit_idx;
++	unsigned long	flags;
++};
++
++struct sl_sysmgr_fixedclk_desc {
++	const char	*name;
++	u32		id;
++	unsigned long	rate;
++};
++
++int sl_sysmgr_clk_setup(struct platform_device *pdev,
++			const struct sl_sysmgr_fixedclk_desc *fdescs,
++			int fclk_n,
++			const struct sl_sysmgr_gateclk_desc *gdescs,
++			int gclk_n,
++			u32 gclk_offset,
++			const struct sl_sysmgr_clk_desc *descs,
++			int clk_n);
++
++#endif
 -- 
 2.55.0
 
