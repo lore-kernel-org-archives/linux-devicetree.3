@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794781807;
-	b=n7xZOAguvAnqjpVFRPwFs9Xaf9fHofC7qRE17a1X7O8PamYY78kjjs/lScLHcUpa9cnw
-	 F4mtJdXuc/IPVS5qCTSJRvNgwVwi5aCEbYEBlDEF9KtJ8Iz8bHCIqJyAxMnb1wS5u3YBq
-	 OSFQ6TBySIpjuPgnmBYvuFNEScJL9fG3OmGd6xCtP88reQQYUSKFDqS37vFPNLWK3UNEg
-	 civbcMoRBt6iJxWri3oeMYf8KjsKEUbJ3Wz6mliH9WLaqGqIbw+kOxKGawUncQ6gUXJ4A
-	 fD1TLw8K7symMhVB70M4SpjXNtafyHbSTdVv/IntChJrqKES8aMzl3lgk/kh4Q41jQA==
+	t=1794782035;
+	b=DG/mdg/Fys5oGh9APgga7GDe+1aiGRatDwhBjsfco5/tH57DodoIbGj9dSEEkE6ifyx2
+	 jsLXr3w+0FKw/mVjthZRajQok61t6bX/LeBMwLuaugzvZIkcpSDJAE/uBcDY+5IYtNJNB
+	 x+oEBITq1bxDORxYG32V9fnojIHgwn7N48A8ZnRuuZdJSE9r0udP4xsqp13e46pGep7vs
+	 AeklFx5Yw1up1sPy06EXkWPZruyUM4Xc7taA+bNOkMjlGIcoI6AMrDq6J2ZhivIr/xt/m
+	 gGUFyJ9D2b3hF0xjwMI0tqLzYwOsyawJfU25FVjngx16BMtXxBg2PQ0QSUrXPPUyhbQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794781807;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794782035;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=b0GCcLLpnu5HRN3gNzYk2YRBIqJJI/7GK4gyMuexx2w=;
-	b=cskpaSXdNsw7wHB6RdMtDz+qRv43S0ocJqdixBuGJlfKoI+eI23TziU8i/dOTDaCvrQD
-	 M/xCN5kzFqene8bgnAuC+ctIQg+cgvAufNIGzr/+PitZjBwpYadjV3cVss8xzv36evQ7s
-	 ZOv/0gQyQ4CdHsr6guT1qE253BPKVDjqo9YpnhlfZuMSjkc3Zdf1XhAl/s2Wt1ePl7KUn
-	 3wWvs2ZiijhdxM2zSVgKOTxBgAvNk9/7Nyh45WLdqhlHrIzKqZ4cbnOSPvWaUbTrWO4l7
-	 Wrg1N7bdGEiYDKqz5iW/mfsqVsr7Z2w+d4yQPs0CsxgW7CSk7EJIEM1oCkgwUKPQXwg==
+	bh=Puf+AwKlK/UoaD94UU9LY8C6D1KGt2kJdgn/b7m046U=;
+	b=zqK307bBb0Q+hvmPqIF9I4sCMNy6oYa+VtrUX4U5gfdmejKsLwEx2L2YZWb7cO8imsLM
+	 Sdh+f1ZSg6rypGd9R7Jxx1hgR590uchEHnr1gMC2VhXbgXN4YmMF7fHFeCd8im9M+bCCD
+	 eYl6mSLzC20B9Q8lvW3SaEMmCGPB4RHLZVbRCM4aPS8sfxfA2av13SgRQUTKtKOpVuccJ
+	 GMq3eYi8/E7S/OjDBg9qO6q4Hwz0kA2lDa/uZ+bkZo3Od06ecse1XucsWzCfjPnuvsWkK
+	 Jb88bYJeTG391zpzTY1ofcuG2Lg0T/2wOns7Xgj5KPUJHXWBReRiPLz2B+7JBDZx3tQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bH62kWwI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SBCkEjl6;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B72606A88A;
-	Sun, 15 Nov 2026 22:30:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61D0606A31F;
+	Sun, 15 Nov 2026 22:33:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bH62kWwI
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SBCkEjl6
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794781807;
-	b=Sy7cS2pRRdtaYDIdjFphYflyJFZX1fJ6JWvAju8OsEwKfxV0CsOzFHjsJ3Hst8winG0/
-	 AiEGNKkHTn153RmGLPR+9AWpDX+SF8OtSrcTugBBQfXBDwQAyJQxrkoITVJNIDAeiz5EK
-	 q0wH7tLILU1J4NkN4EMUhk3s/fnVNq1SYFPlPc87fLDAXw4LDu9HTduFypcysr6pokgEV
-	 ULI6gGHTqQHoNV87F0xulfYCpW3isFTS6QDOBhARi9pb9LpzU0oJP1Vlr1FTHJ7m8cD+I
-	 kWbDI6bx5Dx92k6YIfEkw0l6SBnCVWXuAPWeFj3AObOB1acCtKEquBu+8rndU5hp/sg==
+	t=1794782034;
+	b=jBgPhXvuyJVOjO4arss6uORcSlpRM9bKiFP/RP3GaRcqyXg/iTOc339GK+SOtG1Wxwwx
+	 E9y39R6RYA2coQRJ2ca3PFOe5h2sWywywwHijwel+rEwyoxMeuZShC7P0wIRbra/Jh+P7
+	 SA7qBLsiw/f/MwZAk3cFtF3DzkIKWBdUdOQrpAhJ2ABQfT2UdLHlJcUM2tiAQx0V3bLS3
+	 UJ9gd55AkA/xEdFZwmLvOcfXPxaipLHThf0MaQatOiX/1zNu7VNhQtK3eif/uGHKbJe2Y
+	 ugU6TkQfQSPzX3h3m7WoyfHrbvep/AT7eDGo09XyiBEZYVRDUmsbRJuUkIntT/oZRsw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794781807;
+	c=relaxed/relaxed; t=1794782034;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=b0GCcLLpnu5HRN3gNzYk2YRBIqJJI/7GK4gyMuexx2w=;
-	b=GetrdkwtdjSQZkPH2tmvYIso8xOvxD7Z7YZWx8HULFXdJaS1LtPQ09ptdnZOBOq1ERTz
-	 liuUKE5v9dWL7MGkwXS88KWEUgCe+RlIY0O5I//qmcOBLOJNnZp/6CG9jeuBD/QhAsJru
-	 O9xJkoJKXJYJMyrvt2DFicRYQXJzw23oBQU9Z7ar2U81OcnmmUsT45J00lflDd8qALK8N
-	 7wy5yk1+nw6IQEQITyFKKr73DM2gHqVZVw23uO9ua0UE5tyQVyNJv4UCWSbbVMm1cMq0k
-	 F10RvRQvxUwY66QmCEEYyUhiAsBaYkr4FX7kEmodd9WQaITTJThqAS/Duk1k8T3iZ6g==
+	bh=Puf+AwKlK/UoaD94UU9LY8C6D1KGt2kJdgn/b7m046U=;
+	b=h/VekXOyx2NxgUyOqmZKfRQBVwjJBprbKfUhxISAnDB9gu2pqDQFsacI3fsEJf5RAVYD
+	 O9GwIr9eELv0xfBnzBEsDSaxLvRIheM3wGGwCa/Sr2Tzxg/qJugotRHgniswC24WpK/xt
+	 +mspy/yDe9gZa9e50HfPrIZohiuBBmJPAvewSi0Bxol934mv3Qtfu+IlCtdp3k9xjrb5R
+	 wSCEMUa4QfFHHXKYCgHZDF0+wYpGx98Yzx0NrQzew5kyykDUzag7QafqdBnTIPYawfnSy
+	 KBm4fhV5EsoiomH5c4MNdSnOlEcE6CWZWOgdeZ2Y63v3cbIKCXWoBHh/P+Pv6H3lvQw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1BFB81F000CA;
-	Sun, 15 Nov 2026 22:30:07 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 434641F000C5;
+	Sun, 15 Nov 2026 22:33:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794781807;
-	bh=b0GCcLLpnu5HRN3gNzYk2YRBIqJJI/7GK4gyMuexx2w=;
+	s=k20260515; t=1794782034;
+	bh=Puf+AwKlK/UoaD94UU9LY8C6D1KGt2kJdgn/b7m046U=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=bH62kWwIBk+b0uvu/tqck1rDQiWWeucsTAosCcM3a0Oq0Thm3KdOypvVNcjsX5CFy
-	 npei4pt53rW+JSyNqq0zCa0K2xVM4E4YytZnMuGAXPjMJEJtutxbFfAJPwCeodeKfq
-	 /G+uRlXfmqA9BMbUOcFBVfvTWX7DqEPQFiwhi5yzujjEpMLL18Kr6bN6wqiSmd2sRY
-	 JD30ZcERXeymI0yMVW3tEMMH8cgL7GRGp8UAoYyTJwRL2NoYKGHPrx/WFlNt5gJbNu
-	 BXwVKChV34KqOuT2v36D3k1OHxxzFlzGDpRRvK0ZzzroaRbM9dDo3DRs+Ma9WRtS0Z
-	 ISmDPz4kO/FIA==
+	b=SBCkEjl6vyo1/AoXpcXHxlSJl3bHD2jvAMvkmMuF/aPhIvYEX3/bF8sQMWToSrRko
+	 GdgUDmbIgahnyqzCAjHR7YbIDyypJJCAqGZZBbTn5MwVX3voZpZjsdV1EupTHvShtC
+	 0CWUmBMUFHYj99Q6iN0YBMnIM+VS8Fas2N4pMghrQ+sNKjJQZirX1iK1fOVz+reaqW
+	 XV1lvRXeK/oa8ykDDJ5elam+G0pRjsIAYMOtFx6BdKPmzBK/r8l3KOkHs1eb6Hwgvw
+	 ATWANPpqqihqsve4L4xxL9JXPDX+9XskGLxPpCOx0qbGzAB+M/dxxqE079iBkxa8AI
+	 qiFxs204dD6Kg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C6E904A234;
-	Sun, 15 Nov 2026 22:30:05 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Sun, 15 Nov 2026 23:29:41 +0100
-Subject: [PATCH 6/7] arm64: dts: amlogic: gxl: Add ranges to periphs
- pinctrl node
+	by lkml.kernel.org (Postfix) with ESMTP id B1B0A4A230;
+	Sun, 15 Nov 2026 22:33:53 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Date: Sun, 15 Nov 2026 17:33:45 -0500
+Subject: [PATCH net-next v4 1/2] dt-bindings: net: dsa: lantiq,gswip: add
+ reset-gpios
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,83 +84,95 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-fix-amlogic-dt-warnings-v1-6-94cbd67a32ea@aliel.fr>
-References: <20261115-fix-amlogic-dt-warnings-v1-0-94cbd67a32ea@aliel.fr>
-In-Reply-To: <20261115-fix-amlogic-dt-warnings-v1-0-94cbd67a32ea@aliel.fr>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+Message-Id: <20261115-mxl-gsw1xx-reset-v4-1-4ecd18c922e2@telaak.dev>
+References: <20261115-mxl-gsw1xx-reset-v4-0-4ecd18c922e2@telaak.dev>
+In-Reply-To: <20261115-mxl-gsw1xx-reset-v4-0-4ecd18c922e2@telaak.dev>
+To: Hauke Mehrtens <hauke@hauke-m.de>, Andrew Lunn <andrew@lunn.ch>, 
+ Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+Cc: Daniel Golle <daniel@makrotopia.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1812;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=1hMI3ZXJw3qfNf1tTeBSR9kUdcutW51GZCtHSwjf9SI=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9Yvo0xZy8cBK9KEZj/pL7pT1KdnLffd+XwC3yq9aRxzf
- t/Y19nTUcrCIMbFICumyNI/1/LEu8tHz3zdo54CM4eVCWQIAxenAExkjicjwx2XdhnDY4m5366F
- bW77sPHi9jCNni8u0wKvVi0otb+ebsvwP+jUB1d2Fi2FDZdNMyPdH2/0Xtc2ZcnZRstD5omeSuz
- GjAA=
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
+ Joseph Telaak <joseph@telaak.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794782033; l=2157;
+ i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
+ bh=4FEhgpkbRSKonFfieQreIMKCdNlc7jHkKu3BjReGMyw=;
+ b=wf+IED07LZ4coNs5einWhK0QYYS/vCAJYlBpDQ7Ol3L8GyadA8wsF6sg22m28V6hVUq129D81
+ YNJaKeJAtT9ATDub8r3TKD89ASXbjf0UIkCPqxpHc7a01RdMCpkoaVp
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
+ auth_id=1404
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
 Content-Transfer-Encoding: 7bit
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+From: Joseph Telaak <joseph@telaak.dev>
 
-Building the amlogic DTBs with W=1 reports the following warnings
-for the periphs pinctrl node:
+The standalone GSW1xx switches have a hardware reset input, and boards
+wire it to a SoC GPIO. Allow describing it. The SoC-integrated GSWIP
+variants have no such pin.
 
-  meson-gxl.dtsi:146.28-300.4: Warning (unit_address_vs_reg):
-  /soc/bus@c8100000/pinctrl@14: node has a unit name, but no reg
-  or ranges property
-  meson-gxl.dtsi:369.31-780.4: Warning (unit_address_vs_reg):
-  /soc/bus@c8834000/pinctrl@4b0: node has a unit name, but no reg
-  or ranges property
-  meson-gxl.dtsi:146.28-300.4: Warning (simple_bus_reg):
-  /soc/bus@c8100000/pinctrl@14: missing or empty reg/ranges property
-  meson-gxl.dtsi:369.31-780.4: Warning (simple_bus_reg):
-  /soc/bus@c8834000/pinctrl@4b0: missing or empty reg/ranges property
+A reset through it returns the RGMII slew rates to their power-on
+defaults, so say so where the slew-rate properties say that the
+bootloader's configuration is otherwise preserved.
 
-The pinctrl node has no reg property of its own, and its empty
-"ranges;" does not describe which address space is translated to the
-children.
-
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- arch/arm64/boot/dts/amlogic/meson-gxl.dtsi | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi b/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
-index f257fe3860f7..59e7c6bb31e5 100644
---- a/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
-@@ -147,7 +147,7 @@ pinctrl_aobus: pinctrl@14 {
- 		compatible = "amlogic,meson-gxl-aobus-pinctrl";
- 		#address-cells = <2>;
- 		#size-cells = <2>;
--		ranges;
-+		ranges = <0x0 0x14 0x0 0x14 0x0 0x1c>;
+diff --git a/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml b/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
+index 49af5573e4..89f78a1bc1 100644
+--- a/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
++++ b/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
+@@ -40,6 +40,11 @@ properties:
+       - const: mdio
+       - const: mii
  
- 		gpio_ao: bank@14 {
- 			reg = <0x0 0x00014 0x0 0x8>,
-@@ -370,7 +370,8 @@ pinctrl_periphs: pinctrl@4b0 {
- 		compatible = "amlogic,meson-gxl-periphs-pinctrl";
- 		#address-cells = <2>;
- 		#size-cells = <2>;
--		ranges;
-+		ranges = <0x0 0x4b0 0x0 0x4b0 0x0 0x84>,
-+			 <0x0 0x430 0x0 0x430 0x0 0x40>;
++  reset-gpios:
++    maxItems: 1
++    description:
++      GPIO connected to the hardware reset input of a standalone switch.
++
+   mdio:
+     $ref: /schemas/net/mdio.yaml#
+     unevaluatedProperties: false
+@@ -120,7 +125,8 @@ patternProperties:
+                 1: Slow
  
- 		gpio: bank@4b0 {
- 			reg = <0x0 0x004b0 0x0 0x28>,
+               If not present, the configuration made by the switch bootloader is
+-              preserved.
++              preserved, or the power-on default after a reset through
++              reset-gpios.
+           maxlinear,slew-rate-txd:
+             $ref: /schemas/types.yaml#/definitions/uint32
+             enum: [0, 1]
+@@ -131,7 +137,8 @@ patternProperties:
+                 1: Slow
+ 
+               If not present, the configuration made by the switch bootloader is
+-              preserved.
++              preserved, or the power-on default after a reset through
++              reset-gpios.
+           maxlinear,rmii-refclk-out:
+             type: boolean
+             description:
+@@ -173,6 +180,7 @@ allOf:
+         mdio:
+           required:
+             - compatible
++        reset-gpios: false
+     else:
+       properties:
+         reg:
 
 -- 
-2.43.0
+Git-155)
 
 
