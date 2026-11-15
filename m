@@ -1,59 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.240.192
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794769253;
-	b=ZyUHQbaQ6oXvmZCczeoBqVu0VeSltq5ISENwVSB255PE+9+kzZ59Y9fBI9Z4gtDRPbu2
-	 dx750ubX9zk/fPcW1k/4SAGkUz2IeC9kAXHNr4mC3KW1fcHBOWxiUSWKMF1cpgPHP2fTX
-	 dL1nD8FX4MO2OGCpVASTNVSUQZ79plvWFl+BeeFwHcihfeVhBubTOyifPjNan04BrKNSF
-	 XfMqGzTMtF4XZOPfL0qqcCYitn6SWChCBSngmQC8EFSf4/Dj5N19S/YPCqaPbNNF6RonH
-	 I7unAMgVWpDpKA9SQCMZ798DVnvJFB0h+FDvyXD5+Ciqgd4LMz59f4j5KULosGpt4VA==
+	t=1794769347;
+	b=FoRx2bsW2HeWuNHwnKTnb2HqKouytc3dqvNO0/EsX17xjitwmZBblGYziCqTHOdj66vl
+	 FnJ1+H/UDt+D0IgShAaXcgZil5Onzj7HbQGUdKRVQIST/4FZuFCOqpjrqao248khEkrnL
+	 7oH0tf450vs4oJozwKGGCz/SxXn/1+n64mKa+KLPJgUBx8eX7BWV0c/QIgIb6opwFT5vj
+	 XChlj0NexUMbcV+5WEUREcySXd4Y0/0223kHOG4DmkIJZsPvZVEpdyCT5Ap45v0FCNrxF
+	 s3GsODn2TguofYQToPUss31Tcz3KsWfQvsm+VaySb/5xYHAZnNxOb7ne3mxC3HxwEWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794769253;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=R6szs5w9Uz9ymZ3V+5ITu+1dXPrkQ566vnE3nCeyQ5A=;
-	b=OJ/vpoxyV1ojlnrLepWLWPfiu14W0zkTrwM3xkcXQy8m9yxhWYx+hZFPDOE3ecqX6CQj
-	 HK6ot6fVVb9z8hEUjAPx1+9Lg7jseXOUVIPlZxCmi+fw3/+MGi4y+fHdxCZZ7SpJ0rPVC
-	 Rq/eAKvdUZS04LvLSB3by/YYJFq0MWehPFRfsIjmsNJEZCaImIeNOygx9Fom1hHT0EG7H
-	 14smhUmLao6qoqwMuE8E1kugo3oY4l+QKmy1hFBafFd28AWMS4u0fM5b2xq6Uq/HJvLXv
-	 ETVGPVEQvcAWB5++juwMg3MnGJidb1gmdaM+9Hdmb2md1+NMv2OQjzCtrbx7uRI8+fA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794769347;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=1cTMD6rpl21Vb6HPpVL+YKvnpPXKBaj6/RS9XazGUt4=;
+	b=kNCkny8+v/opt9g090/VYp3ontxmUAACdi0vMOnQ7TQoHBQfOXl9E4Z3pgFxVBo5nCTp
+	 0YIroiY4nz5/wfGW7grPP8aKheqKh0KpnneDwqrnTAhWk8MB71G2CtACJ1tzevPwdsDxj
+	 CRp7w98Pq7Miip4Qq5QfLTk+LI853asMD93Wda5Ovh1thYtpBh3Sq4EJ1BfuwRSaqXlL9
+	 Yu+46LWREgwkIBFEbrcP6aYIJJYuveMu+grJ+shVdNg7B+ZwDhuxr0L6y3nvEi/DArQXh
+	 7wP2iFyje/IGUqDSFZizjsAsK413CZALC5jdOcRQhNMUYJj7NWYq6vFEAnRzakwQsoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sraa.de;
-	spf=pass smtp.mailfrom=sraa.de;
-	arc=none smtp.remote-ip=85.214.240.192
-Received: from sraa.de (sraa.de [85.214.240.192])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4h8+GeT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD24606A32C;
-	Sun, 15 Nov 2026 19:00:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFD24606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sraa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sraa.de
-Received: from [161.142.148.162] (helo=ryzen)
-	by sraa.de with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <basti@sraa.de>)
-	id 1xSfSt-00Fxrp-Mz; Sun, 15 Nov 2026 20:00:36 +0100
-Date: Mon, 16 Nov 2026 03:00:28 +0800
-From: Sebastian Raase <basti@sraa.de>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Sebastian Raase <linux@sraa.de>, Hans de Goede <hansg@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Helge Deller
- <deller@gmx.de>
-Subject: Re: [PATCH 2/2] dt-bindings: display: simple-framebuffer: Document
- mono format
-Message-ID: <20261116030028.32753ba3@ryzen>
-In-Reply-To: <8a697d14-18c3-454c-979b-7042f16c66ba@suse.de>
-References: <cover.1793758480.git.linux@sraa.de>
-	<258a1228601ab9b5dbb8f077dacf61121b641f15.1793758480.git.linux@sraa.de>
-	<8a697d14-18c3-454c-979b-7042f16c66ba@suse.de>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716B1606A31E;
+	Sun, 15 Nov 2026 19:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4h8+GeT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C003B1F000C6;
+	Sun, 15 Nov 2026 19:02:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794769347;
+	bh=1cTMD6rpl21Vb6HPpVL+YKvnpPXKBaj6/RS9XazGUt4=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=A4h8+GeTpGoICj8LAusJY7fyz799M81c/p6+2bXpg65MYiGpWPUSzD9EPd4OgGC+y
+	 4y+vI2Ye5CFirDmrG4iuoJyfTBS/4NJ4u+YiU+X/nzh1JDr9loQ9KqkYaF7Bn8ggVO
+	 MsiOPSGMrMAeH+Dij+bEla8pnhO1SuOT71bJiJVleYsohxs26zlxLfkl1mQKn/nbh2
+	 g7q14odkpGRsBP8Mej4Bw7W3ScUmht/p4qn9K95HxvTIumxjT5iRk3MjM1Y4jxc0Ov
+	 oxploRytu7zwflW442B10wYsQ62Nx+UTAvtItE8PBEsMtmpfqmDjMhAS6+KuPFW+W6
+	 9Apaai/zJYAWQ==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 489283438C03;
+	Sun, 15 Nov 2026 19:02:22 +0000 (GMT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,98 +52,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v11 11/19] spi: cadence-quadspi: enable PHY for direct
+ reads
+From: Mark Brown <broonie@kernel.org>
+To: Santhosh Kumar K <s-k6@ti.com>
+Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, miquel.raynal@bootlin.com, richard@nod.at, 
+ vigneshr@ti.com, pratyush@kernel.org, mwalle@kernel.org, 
+ takahiro.kuwano@infineon.com, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, praneeth@ti.com, sebin.francis@ti.com, 
+ u-kumar1@ti.com, srikanth.boyapally@amd.com, m-shah@ti.com
+In-Reply-To: <20261105105832.2134313-12-s-k6@ti.com>
+References: <20261105105832.2134313-1-s-k6@ti.com>
+ <20261105105832.2134313-12-s-k6@ti.com>
+Date: Sun, 15 Nov 2026 19:02:20 +0000
+Message-Id: <179476934046.140154.3805598097732218794.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1849; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=fwy4hjtJ5n4yoEaGTYcqUt3ywO3A0Q78K+izyy35w7s=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+Me7b4vec11V8Q8r03GluPex6cTdeTmVh2T8hxtrwr
+ 2TXKWWhjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAExkcwbDP6uGA3Yr7ZWEAhZ8
+ +/b373XZSVO3pUzfZltu7JD64BE/3yuG/wlu/x7MWdqkJvFmd6bIydclPnVzjuT2LpO4LJfk3Wz
+ Axg4A
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi,
+> Add cqspi_tune_phy_read() to toggle PHY mode around a direct-mode DMA
+> read. On enable: reprogram the DLL from the per-CS calibration result
+> when the hardware values differ (handles alternating PHY reads across
+> chip selects with different calibration), configure read-capture for
+> the tuned delay, assert PHY_EN and PHY_PIPELINE in CONFIG, and reduce
+> the dummy cycle count by one since the PHY data-capture pipeline
+> absorbs that latency. The controller is confirmed idle before CONFIG
+> or RD_INSTR is touched in either direction -- including on disable,
+> since the preceding read may still be draining.
 
-On Thu, 12 Nov 2026 08:35:59 +0100
-Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> +static int cqspi_tune_phy_read(struct cqspi_flash_pdata *f_pdata, bool enable)
+> +{
 
-> Hi
->=20
-> Am 04.11.26 um 03:34 schrieb Sebastian Raase:
-> > This is a 1 bit-per-pixel monochrome format, with 8 pixels/byte.
-> >
-> > Signed-off-by: Sebastian Raase <linux@sraa.de>
-> > ---
-> >   .../devicetree/bindings/display/simple-framebuffer.yaml         |
-> > 2 ++ 1 file changed, 2 insertions(+)
-> >
-> > diff --git
-> > a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
-> > b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
-> > index 45ffdebc9d86..c627ec088434 100644 ---
-> > a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
-> > +++
-> > b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
-> > @@ -94,6 +94,7 @@ properties: format: description: > Format of the
-> > framebuffer:
-> > +        * `mono` - 1-bit packed pixels, 8 pixels/byte =20
->=20
-> I don't object the change, but I really object the naming.
+> +	ret = cqspi_phy_reprogram_dll(f_pdata);
 
-I fully agree, but could not think of a better name at the time.
+If we fail here should we just give up on using tuned mode?
 
-As Sashiko pointed out, "mono" neither describes the endianness nor the
-polarity.
+> +	cqspi_readdata_capture(cqspi, !f_pdata->use_dqs, f_pdata->use_dqs,
 
-> Mono is not a good name because it doesn't describe the format's
-> pixel layout. For example, RGB with only 2 colors is also mono in
-> some sense.
+Calibration runs the capture with CQSPI_REG_READCAPTURE_EDGE_LSB but
+that's not set for actual transfers - is that not going to be an issue
+for SDR?
 
-A two-color RGB format sounds like a contradiction, although bi-color
-LEDs are very common.
+> +static int cqspi_direct_read_fallback(struct cqspi_flash_pdata *f_pdata,
+> +				      const struct spi_mem_op *op,
+> +				      unsigned long max_speed_hz,
+> +				      u32 post_config_max_speed_hz)
+> +{
+> +	struct cqspi_st *cqspi = f_pdata->cqspi;
+> +	loff_t from = op->addr.val;
+> +	size_t len = op->data.nbytes;
+> +	u_char *buf = op->data.buf.in;
+> +	unsigned long configured_sclk = cqspi->sclk;
+> +	bool reclock = op->max_freq == post_config_max_speed_hz &&
+> +		       configured_sclk != max_speed_hz;
+> +	int ret = 0;
+> +
+> +	/* Drop to the safe rate for this untuned transfer; PHY isn't used. */
+> +	if (reclock)
+> +		cqspi_configure(f_pdata, max_speed_hz);
 
-> The common names used in the Linux kernel for this type of color
-> format are C1 and R1. More generally speaking,
->=20
->  =C2=A0- Cn describes an n-bit format with a palette. The pixel bits inde=
-x=20
-> into the palette.=C2=A0 Pixels are packed.
->  =C2=A0- Rn describes an n-bit format with a single color channel. The=20
-> channel has linear color gradient. Pixels are packed.
->=20
-> In your case, you'd define 'r1'. While at it, we can also define r2,
-> r4, and r8.=C2=A0 The terminal supports up to 16 colors, so implementing
-> r4 might be of interest to some simple hardware.
+Does this DTRT when we get here from cqspi_phy_check_pattern()?
 
-Sounds like a good idea; I can test those for simplefb (not simpledrm).
-Do you have a suggestion on endianness and polarity in the name?
-
-Today, we have grayscale/color in mind, so the obvious polarity is
-0=3Ddark and 1=3Dbright. But the other approach uses 0=3Dpaper (white) and
-1=3Dink (black), which leads to reverse video hardware. It's uncommon, so
-we can probably ignore this.
-
-Endianness is basically the same difference as RGBA vs. ABGR in 32-bit
-color formats.
-
-So far, I have only tried stride values which were multiples of 8, to
-align them with byte boundaries. Any restriction would apply to r1, r2
-and r4 formats.
-
-If I send a v2 patch, should that be a follow-up of this email thread,
-or a completely new thread?
-
-> Best regards
-> Thomas
->=20
->=20
-> >           * `a1r5g5b5` - 16-bit pixels, d[15]=3Da, d[14:10]=3Dr,
-> > d[9:5]=3Dg, d[4:0]=3Db
-> >           * `a2r10g10b10` - 32-bit pixels, d[31:30]=3Da, d[29:20]=3Dr,
-> > d[19:10]=3Dg, d[9:0]=3Db
-> >           * `a8b8g8r8` - 32-bit pixels, d[31:24]=3Da, d[23:16]=3Db,
-> > d[15:8]=3Dg, d[7:0]=3Dr @@ -106,6 +107,7 @@ properties:
-> >           * `x8r8g8b8` - 32-bit pixels, d[23:16]=3Dr, d[15:8]=3Dg,
-> > d[7:0]=3Db
-> >           * `x8b8g8r8` - 32-bit pixels, d[23:16]=3Db, d[15:8]=3Dg,
-> > d[7:0]=3Dr enum:
-> > +      - mono
-> >         - a1r5g5b5
-> >         - a2r10g10b10
-> >         - a8b8g8r8 =20
-
-Best Regards,
-Sebastian
+-- 
+Mark Brown <broonie@kernel.org>
