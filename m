@@ -1,104 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794733536;
-	b=GopaAMWe0BOj68CilIZi2cpxJqUugnfcxLE9N0eCBiIOBiUaHZzxgfs/8XSJZq5vhti2
-	 MQF8gY5SXw99QfGKGyeWK4hjtBAQ4AfOdq8kM/X6ymAmmj0nRxTcfY8Mbm/RVpm8pT5TS
-	 ijlJFddHrCywUCMFeaFUa18ctYkv8WtUayMzu7ZzDjUIhtatO3TcMgPDSRfiqI1aTKBN1
-	 NIgKmKBM17Napm0lDq3Dntu/6vCCXr1F4mU6R7c7tAJHD+YlVrrkiTrZQfWcR0hPUtG6H
-	 7E+TiYyTZ/LFm/bw6BUzSO4sf2pN+K+sR3UWsrYypsDZiN9d+kXY48KE12CXjj9anIw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794733536;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=OXs965iTfMNugiuDlC2HCgJXfc/BaB4gTTxdzfucgUU=;
-	b=5HWvKNwqasVyZKvRPofvAkp66duzPrjtOjGpy8cMDrNrOokXzMj3g3YtHYmaoh7so3Cu
-	 l6uJ42O7lCIeXL9JWiCMqNvNrb2nChLYetntewMoT66nWrOJxTEW0u3O9t2+WJ82Atq10
-	 ON0A9n0jasQ0P1vk910NH1FzmcuSOczNerR7MMFmPv7/v8WObnpzps//6ZYiq/g2Czxne
-	 SKh7gkY6mszzrKwnT5lVySxx4RFWF28CYd+37kipXd641egxmTH/vhBaYj+hqP5+9YYyn
-	 9J2L6xFDETDESPrue5UPJ4idqKqMrCkqudqI0f7B4o7ESu/I/6fvUpbSKEbDBG3GMug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HWozHVA9;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.36
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794733544;
+	b=BjVPWm78gcFCNwZ/j8QtT1j1Lk8AWJlPE/zh4bQwfWqEgROrabvYCpmMALYpi/eIdVkb
+	 aTqTY9ouXxa54NzWY3MsuA3lNzFSPgGHMO0kzmBFYxP8+fg3/h4ACVwDLnus+PlPMIsFv
+	 Rfsj86CbIVwQQkfiaLnXmXuV4DB3kYtwQvgAWsSp238UHZL8N9f/gJthVxDpTZdypeTdU
+	 xmWEeV/eHZg9HDJ3R5y8iGhTbeGWxG0TB3UcgNrWCkz0hd3gDiF3mhSvrx5kSZgpAvKys
+	 CDjd0kPbGXbok7uoLkmAQQC2SZ/rR05B2c+cm3hfroQ0iptX6Kf4d2Hbu3TfStk+Q2g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794733544;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=07WOKYUWzc5l6SRYMycvBjujniheSXKsXpF0DlJErRc=;
+	b=H61yXSXloU6UDb3Somrxn2d7Ah1SelkZff2CHc7WOnL0/5xrVctQMjAXYjebTl8dh0D1
+	 B5nfBkaIb5vBtuGas4gVt/P4AfrLUwpsNMQa3mYvZShYGhNliK9GzhEAjv5d6+/+b6OTn
+	 /qD0jR3z9VJbf0/sXpS+JzIJPJt3+ORncRiANcKQewrqA0VC9lFQBlMOJld2ic9QtoSIE
+	 MoLqHkPl9BozujOagR5a3cB8+IIsmel1CzxEFN38TbsnQ9/OE5PsLyxsazR8OtKQ3ebv0
+	 16Mhr0b2EBdYC51jQbjREkz12qdSMZAmQn6R6A52jgdHfl+Pg/a0aRN9Q1SZIpZeZug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b="lCCe/zC0";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.36
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013036.outbound.protection.outlook.com [52.101.83.36])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C28606A897
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 09:05:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23C28606A897
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BBD606A887;
+	Sun, 15 Nov 2026 09:05:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91BBD606A887
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HWozHVA9
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c40f29667e6so454473066b.0
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 01:05:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794733534; x=1795338334; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OXs965iTfMNugiuDlC2HCgJXfc/BaB4gTTxdzfucgUU=;
-        b=HWozHVA9ZhvKtYEM0wXep5L4zlMbocaTIkQCafkjgriab51605UKWIq7ERLfGUGmH8
-         vRFrjswJ/i8hvTJ34Ijde9r6lPdhSrGpxx4JNGWV4dLe1ege7fMUS/pqqW2vVHxaZd8d
-         0J6h4N3WuEE7xgKmhChi7lgJLTAW5bm+JC+gVmNlf7dLjja/cZEhUUhTpt098Cw4KLQP
-         17FebpggtVtZF+CptCi3jBTnda94y4jrmwzmXERX7poMHd3NmD3tvatMBhFa07tixUjL
-         o7H3tLb+AOVpPZdy81dVqd6qoeoMWOYJa4Gz90ZZANTUZjREDOb5W9GRFLGniNNjYzJ6
-         4fVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794733534; x=1795338334;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OXs965iTfMNugiuDlC2HCgJXfc/BaB4gTTxdzfucgUU=;
-        b=J9vzJYdeCBGtpGtLe6aXV6+Y8jaKQi3Yzr7gKbP2KQzS3vQ8QdGhfxzrXmquU0wiou
-         4iSYxc8jfW58nFPTk7roglE4mzm5r7w3Gn720KHkg/NUGvkhHTnR6lLCJkTg9ublk32C
-         QYjNlvXIZOJ2Tqlgnlz6qy8/zpAI3Nky/tYvCCyu8Jr81F75fA596DFem022kQLw+KGo
-         UuIM95DociFYb4nS8g+vQtUzY0v0JWSDfjwvVV+8vbgroa5fIN/bWJVVK6rV/xjslxSm
-         VAes4qUd0MVuPcafQe7gO75WcbpqI1ED7Tb9UPP4GvcrdaSaaEpt5Kwj4w9KVug8Fpsg
-         y/OQ==
-X-Forwarded-Encrypted: i=1; AL+hErEfYN7cl7SdNtNp5LEY4l1nAqeFXN8Ce1RerqLtc2GXF49xZu3Kjya+Dj5hUowqaLdYd8pispBG5Z0y@vger.kernel.org
-X-Gm-Message-State: APuU4Z9DB0a5bBZjk71pjc5fVIhGFVj3nxQHGkHYU49HFAALqDA85sFP
-	9ZC9dUtdr7lME8I3+GPebUcuEb32702Zt3Mwi+vUG+cJ0TS0X4ncL1MP
-X-Gm-Gg: AYBFou2vHxGj0W4i24NJx/k7vKkXzzmpFTWfgGD0zdj38zU41wJlbHXd/z3BU7hcYDt
-	gNitJ1m3t1WYhCrn2jGIEsjE4F2qxsPdfJv6EVNu+5AYkAgHKA0p/5l90X9TS3tLBZwdWY/gdK5
-	K5v76+zVZzbDQS/IJi9YWdyPiWRR4V7badbTJpDOyVaxbhdjsOXvRpwASApxuL7hf5HkEMlilRg
-	0khYK/3XDegZWfMycDnaLj13HYiGeFXzz9ERyBx+m2XsarIlK33og8OrGk5s3vWzG1JGM0YsUc5
-	s2c7+qOmbmEptRZXUAZjZ+wJFPfu8U8GUBh0qd2bO8mFoChsGbfWrZwZx/Ima99trUfWeKaTwIA
-	8P2+BxZcvaXe2Bi+iG8zv0UksacbRBQiMHcU3jlcqDmnM27a3YwN1I+sYYBo7rcHXx4Sa95/RJw
-	MktJrO/sWZbc7Ha2peOPw31Bh5qVrQ/OdsGhnwmDbVtRhVmu4L1Zw/B41PhqkhfXUEPc+pY56oL
-	ylfkHXPc8JAyxPLN7M6STxE0TmJfbMDioYAAbTy9nfW1ywZMsDQZpJgGil5yw3OI9vA5JHbs7Z2
-	y7m7mHkYofftSxLiCaQlHEIs3kWkXzrU0K+ZXeYNPBTPNMwt64OnEXZf38Nhc88nDCDPHpOOx2p
-	TN2tzIX2Trw==
-X-Received: by 2002:a17:907:6d07:b0:c4c:b4fe:ca01 with SMTP id a640c23a62f3a-c509642cc7bmr553111866b.37.1794733534433;
-        Sun, 15 Nov 2026 01:05:34 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5c4b7sm288103466b.1.2026.11.15.01.05.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 01:05:33 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: [PATCH v6 2/3] leds: Add driver for MAX8907 LED cell
-Date: Sun, 15 Nov 2026 11:05:19 +0200
-Message-ID: <20261115090520.102216-3-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261115090520.102216-1-clamor95@gmail.com>
-References: <20261115090520.102216-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=lCCe/zC0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BI2ML/2GV+lsbfV8Il5uJCijrPpZn1O1Xxg+i30MqcAQLIwltSuDjskSeMGEfBaDDZLkAlBgkNSXIDr3qRlTa7hFfc1qTbZTDAGw/EJFNwvgnhW/zGq1fv1+xOaJhlScxSxhAbgzAs14jPJfw2ZchJoHg9Wfom9TOgM0lERWF23Yb/Fx9tI1PR5EPIwKYtRTtgbJEul1j32j5OEAzU6elrPY4VRPMnMsypbe4n42JtgG9bZff9ZP/oKXZDjKjm73NUEwav3xqZRsTETxwe3rVsgBv7jYCMtPP74EiKtM7jFEfWLIHr8X9iI5r15NuSXMFzsidkF9TrpaGqZLYP07jQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=07WOKYUWzc5l6SRYMycvBjujniheSXKsXpF0DlJErRc=;
+ b=tbKVMtGv/v7ch2cOBriH3FIjtEcwi3ghPqDTfY874ikt7TU8QCCaKux+Ceos9bcI7lvUEY25Kyea87UBHi1EmPmLtf8jhY6jZ+XKJxSeffsWfe5E0xa5/QFEqwm9vNcV6e8xF/cBblPI+M131JMsuC1XZ2fQFAJOllJt9ZWl5XeWav111rjz9ftAEqYj61HbiVfTxMXvOxWFS3yRrKEzwT9B9PwX0ib9w9uNu8IBWkvqyqg9OM1Ox6tY0QR2YAHVO+65pMK0HSelztqU/R4KndzB9C2pbi4ssEr/DXr5c5NPsk/UfOKVD4gDSklEhhSRfxoZvtDYgLRyNQSzPG3VLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=07WOKYUWzc5l6SRYMycvBjujniheSXKsXpF0DlJErRc=;
+ b=lCCe/zC0q8M1BMfQ8wOoowEINuz+BkMGFVYGzzM0YuK5+fPGSQnSk0RV0CdYT2MQSDziVWvZP0SYBESuakn9dsJDCSQ54M447yM9wfQUdRMl/5aq3H1yquek1Y5ju82RMkwYAO8z+0jnQWE4qO2QagRbA6deJD1yyAMtiuwr16sfPglrEDhMxhgAsvGFhixKmWEZiRzAD69hQwdAYYAsTCiDeEawl/uFEw6lU2PgdxhhfTVMTkxvw2envlIdMsrMoR/CHGNe9rMzdcS6zZ/nm+f0KzJ8mig4AbOwFRPfrgVLw1ju3E0o7W3dxJH9JH17RKyIenvDZzplUA2u1r2ONQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by DB9PR04MB8446.eurprd04.prod.outlook.com (2603:10a6:10:2ce::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Sun, 15 Nov
+ 2026 09:05:40 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0615.012; Sun, 15 Nov 2026
+ 09:05:39 +0000
+Date: Sun, 15 Nov 2026 11:05:35 +0200
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: vjardin@free.fr
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, 
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, 
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
+Subject: Re: [PATCH v4 4/5] pinctrl: freescale: add the LX2160A RCW pad-mux
+ driver
+Message-ID: <avjaK3cOj3iQ6G6w@skbuf>
+References: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
+ <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
+ <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-4-eefcea066a55@free.fr>
+ <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-4-eefcea066a55@free.fr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-4-eefcea066a55@free.fr>
+ <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-4-eefcea066a55@free.fr>
+X-ClientProxiedBy: WA0P291CA0016.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1::28) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,171 +107,149 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|DB9PR04MB8446:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9758e83-962e-4103-7fb1-08df42f79eaa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|10070799003|23010399003|19092799006|10067099003|11063799006|4143699003|56012099006|261022105027099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003|3023799007|41080700001|15866825006;
+X-Microsoft-Antispam-Message-Info:
+	XDIrN0D2pHLSQxl0uOMAvnEcSTebakSzkQw6nU5frKdmdB31sjmaoDN+EeTEAqwlVIa+/J3vkBvm+ER8IUTMZNoyi2Fi4wUTH6gbv/m2ttTr7FRFB6HcIkV3FpykYC14gzfKHu/X9MY+f824hQqoxauVxSRVp8TBDVw2RI+m1G2PkwUXNgLPox0JLe86+PmXJfJLKo6TkKEYYJ0ohkthwRAYYYYgf9y+0tjI7K14mmQzLcoz9o4j2Mg5M0kbXHMvzvorsBqngVq9qBKqMm6EHVMbIrUhYmwwlz3uiVOs+tDxrvUUhcWE214XyAq9fW+SNozhupGUNRnj3mPG9h32792SB1IOwRPv3mNu5EN1Mm9Uu8V+bwFZKqBkzpdAQWwJzGCXVyRgTaQKcUH3Bt6JmISHtPCMBS7Q6QniowJdkVyIMy945czP+P6ePzI9Qa3X/xiNFQTVZD1qkEy2m+wuJIaZvjETw+XMFFzU0uIAWCQ5fFIfGhgZ8rRi9/1YRO244IiVthCpGxy2bHpAdxtoMs+15HENROQRKWuvUtmPlz6owiEEmL2Gruv7JTDDdG37huS4uuJInjQjQh8Gz2uAsHMgzIbG1guDm+PsZph9x7RiTD5y15oQ57V7A5gpafJ9DIjXaDWYwD7keUiLR6SFEO2bo2sxmcswgUDkrzUyQiZ/fCmPEvEKAdiLR4AtPvoXalqqnjuZxqRGzJGGgDE0btlOCpN63b/+dygoj75HN3VIYuPH0IKfZSzsyYgF/Ihd
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(10070799003)(23010399003)(19092799006)(10067099003)(11063799006)(4143699003)(56012099006)(261022105027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007)(41080700001)(15866825006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?so3WQjPWcmwII292CZo/EAYB4KR6dIV+MfPdNQfY/WnvR/cVKRpQrRwhPLiM?=
+ =?us-ascii?Q?SpTvmt6IBHCdsoY3IXZ3EUWsyrPcaGHZMzEars3hzMBVFt3JurM2uqqjBo0s?=
+ =?us-ascii?Q?1CwPUsaWPTVjoBSnqvABoQVroT5DHwXwvlTtQMXNJXjcSY3ftI3RKFIV/8nC?=
+ =?us-ascii?Q?BLOhJ7Sbq4Qm5eCdGWQ5Ui6GzJyIYl04sqmZrJLxzCYXYZWqXRTCNq+6evUX?=
+ =?us-ascii?Q?SrkDZrv5WmLgX32Fnh4iHfCmgy4OcgYXqoDtoOJrvqZdZSCgnp4oswNFAjos?=
+ =?us-ascii?Q?at0DAzz5ow2gyvAaXem0SeqvfBKRJC/FoBpXeKYfhbcDmKmsNfpTAKvbjmA8?=
+ =?us-ascii?Q?oYfp922qLZeWBNOjFUUlL2p5jrTMkpDdEJfk90iYsL7bvwigudsUzPwFXNPG?=
+ =?us-ascii?Q?9DQLlmcrb/OMmTY5BDUyrSudiBTq1dNhaCygXtBcizKNMTfkpzB/MrCowmle?=
+ =?us-ascii?Q?HDGweRqr7/gWr/pzvHnzn2cwAOcToFoOq3L/hy7OvSskAnJhj2HEweIvXXey?=
+ =?us-ascii?Q?vEcg8buzF3LSrxqWxdxnsSiSmjVbjkmF3rr5TrOaQXgB7SE934arl2ZklQXu?=
+ =?us-ascii?Q?fyjhZcXWmTuZzCm7h9fXkjKY1SnnZWreBk6RVYQu0N+alx/fZnwYNsVrFqiQ?=
+ =?us-ascii?Q?EXSP2mDMU8C0mjagT80BHNAPuPSp1FUGUyvLoht5EDMhrZ+c6YBLONQv8wbl?=
+ =?us-ascii?Q?uosrXYHfKTsOKxNlV24ghQJBSaCOd0pox9/x4w2ZRO2u5rtINKGgPHLW8tOC?=
+ =?us-ascii?Q?GzCx6DE5PfGRdpy77yJa4ilDPsfcLuwM4JY3yfdW8ooHKjownFUPN5x0WsJH?=
+ =?us-ascii?Q?6auuoUnAQ959MJVsLJsqMXTLprF82ADTr1/ugETrMBz3JgPIt/gZCnCbLbA0?=
+ =?us-ascii?Q?ZEIiYz/os4H7mgLyWDVE0CG+bZHp11M+CxJz6qe5LpgsklaQsHgxX4Hku05q?=
+ =?us-ascii?Q?GYQzjtzT2GUWHF/QJgworp9TbxiXQXvxLP7OfTdHlcgcuaRjickrp254+P+h?=
+ =?us-ascii?Q?/R8iK3UUD08Wr46gwAMp1d6+GZX9THJMG8vGqEKadEOR0sRNF91tqvxYa3wz?=
+ =?us-ascii?Q?u7Yn1058HyCAwSYKHXREqHcNCBkuZUg2UPIurizgjKJ1BcpIJtRMExWOxxcI?=
+ =?us-ascii?Q?AEB5caV1AY1QZvkxIa6I1upXmKhybcqyv7EXGpaLQhlsJK2kuHhkq9Rwcrr7?=
+ =?us-ascii?Q?QA1tp7O1ZMPg1JvXFcDvynZCf2OYmSJmJFyOsH49h56b0VNjGaQ0SAyc6Fqn?=
+ =?us-ascii?Q?mwNuDFYAGpO+DWVDQOOf0iTCynNOYt3wkvwM0e2d2x8pCBc60K7epEkPELYh?=
+ =?us-ascii?Q?ogv6sjk6UzifN+yYPbtHjtKIhBYLFpzpjFiw5+AQwr7sLI0nWhkBGJFbtw71?=
+ =?us-ascii?Q?hRJ54y1tS+38RVT2l6laA5/T59co/e0fOQQVDLoOo/XKK8enmTksGlsSlh8U?=
+ =?us-ascii?Q?tj/K/y9N2UyGB/0AU3w45xQ6sTFjHgyCZoTDhygj/FyoWl5aHGvKi0hjfvM7?=
+ =?us-ascii?Q?95LxlbAVREtZFK6QIePaZ2C4QpMJzgC0mGoxmnRUm6Gr3nrxyBiMEbNfQHFG?=
+ =?us-ascii?Q?/wL/3mAoTS0XdM9kZB0gzV/M5XpBs+tvBWIeiRNPBShmrETaiotvPSlJeB72?=
+ =?us-ascii?Q?bFDWClbuUvojJUsKhW5yJnUUBrf9WDEIUlcvy7oSlaFKyCxVeRbSo1ykwpEj?=
+ =?us-ascii?Q?Bvllys0v69dsfdP5ermvYhfEx9Dyg8Cm+/YaM4fg4xvf0yJiZk7lV4grJL2j?=
+ =?us-ascii?Q?bHZ0aad4vti1kJvOlR60zTJnyisgWjj62tAbFP+rIWwBrBr9HZZBlB+GxHHE?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4nNRGeLfM8jOEei3DzE8y14+Sl6VcY+C06E=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9758e83-962e-4103-7fb1-08df42f79eaa
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 09:05:39.7843
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yGlyP9vtN1+NGbtW82T+SKSCNl6ea5y7iFcnlAP5DMPNZyfeQHkUNJ5crYFnNnmx2ALU19lqYuDq7MqLUIIRVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8446
 
-Add a small driver to control the LED cell provided by the MAX8907 PMIC.
-The LED node is a child of the PMIC node.
+On Sat, Nov 14, 2026 at 10:12:31AM +0100, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
+> 
+> The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
+> fields of the RCW, read-only in RCWSR12..14 of DCFG and changed at
+> runtime through the same fields of the override registers in its DCSR
+> view, which read 0 until written.
+> 
+> Since commit 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c
+> gpio to support bus recovery") Linux drives them with pinctrl-single on
+> the override registers, so its first pin state clears every other field
+> of the word: a board whose RCW programs a non-zero pad mux loses those
+> pads at the first I2C probe.
+> 
+> Add a driver for the pad mux as a child of the DCFG node: the fields
+> of RCWSR12..14 and their encoding.
+> Then pin states select them with the generic function and groups
+> properties, and every change goes through the RCW override
+> of fsl-guts, which reads the status register, writes the override and
+> waits for the status register to follow.
+> 
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+> ---
+>  MAINTAINERS                                 |   8 +
+>  drivers/pinctrl/freescale/Kconfig           |  15 ++
+>  drivers/pinctrl/freescale/Makefile          |   1 +
+>  drivers/pinctrl/freescale/pinctrl-lx2160a.c | 368 ++++++++++++++++++++++++++++
+>  4 files changed, 392 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315065..106a0cc7f25c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -20207,6 +20207,14 @@ F:	Documentation/devicetree/bindings/clock/*imx*
+>  F:	drivers/clk/imx/
+>  F:	include/dt-bindings/clock/*imx*
+>  
+> +NXP LX2160A RCW PAD-MUX DRIVER
+> +M:	Vincent Jardin <vjardin@free.fr>
+> +L:	linux-gpio@vger.kernel.org
+> +L:	imx@lists.linux.dev
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
+> +F:	drivers/pinctrl/freescale/pinctrl-lx2160a.c
+> +
+>  NXP NETC ETHERNET SWITCH DRIVER
+>  M:	Wei Fang <wei.fang@nxp.com>
+>  R:	Clark Wang <xiaoning.wang@nxp.com>
+> diff --git a/drivers/pinctrl/freescale/Kconfig b/drivers/pinctrl/freescale/Kconfig
+> index fd53cf5bb843..a3222714c970 100644
+> --- a/drivers/pinctrl/freescale/Kconfig
+> +++ b/drivers/pinctrl/freescale/Kconfig
+> @@ -283,3 +283,18 @@ config PINCTRL_IMXRT1170
+>  	select PINCTRL_IMX
+>  	help
+>  	  Say Y here to enable the imxrt1170 pinctrl driver
+> +
+> +config PINCTRL_LX2160A
+> +	bool "NXP LX2160A RCW pad-mux driver"
+> +	depends on OF
+> +	depends on ARCH_LAYERSCAPE || COMPILE_TEST
+> +	default ARCH_LAYERSCAPE
+> +	select FSL_GUTS
+> +	select GENERIC_PINCTRL_GROUPS
+> +	select GENERIC_PINMUX_FUNCTIONS
+> +	select GENERIC_PINCONF
+> +	help
+> +	  Say Y here to mux the IIC, XSPI, SDHC, UART, IRQ and EVT pads of the
+> +	  LX2160A at runtime. The pads are muxed by fields of the RCW:
+> +	  the driver changes it in the DCSR view of the DCFG that fsl-guts
+> +	  drives, and is what the I2C bus recovery of the LX2160A needs.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/leds/Kconfig        | 10 ++++
- drivers/leds/Makefile       |  1 +
- drivers/leds/leds-max8907.c | 99 +++++++++++++++++++++++++++++++++++++
- include/linux/mfd/max8907.h |  2 +-
- 4 files changed, 111 insertions(+), 1 deletion(-)
- create mode 100644 drivers/leds/leds-max8907.c
+I'm sorry if this was discussed before, but did you consider targeting a
+wider range of Layerscape SoCs with this driver? It's pretty generic
+apart from the pinmux functions and groups, which are all data, not code.
 
-diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-index 788e689fe875c..d4e0f514bd667 100644
---- a/drivers/leds/Kconfig
-+++ b/drivers/leds/Kconfig
-@@ -813,6 +813,16 @@ config LEDS_MAX77705
- 	help
- 	  LED driver for MAX77705 PMIC from Maxim Integrated.
- 
-+config LEDS_MAX8907
-+	tristate "LED support for MAX8907 PMIC"
-+	depends on LEDS_CLASS && MFD_MAX8907
-+	help
-+	  This option enables support for on-chip LED drivers on
-+	  MAXIM MAX8907 PMIC.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called leds-max8907.
-+
- config LEDS_MAX8997
- 	tristate "LED support for MAX8997 PMIC"
- 	depends on LEDS_CLASS && MFD_MAX8997
-diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-index 3da746279bb81..24efda3fbaa44 100644
---- a/drivers/leds/Makefile
-+++ b/drivers/leds/Makefile
-@@ -67,6 +67,7 @@ obj-$(CONFIG_LEDS_LTC3220)		+= leds-ltc3220.o
- obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
- obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
- obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
-+obj-$(CONFIG_LEDS_MAX8907)		+= leds-max8907.o
- obj-$(CONFIG_LEDS_MAX8997)		+= leds-max8997.o
- obj-$(CONFIG_LEDS_MC13783)		+= leds-mc13783.o
- obj-$(CONFIG_LEDS_MENF21BMC)		+= leds-menf21bmc.o
-diff --git a/drivers/leds/leds-max8907.c b/drivers/leds/leds-max8907.c
-new file mode 100644
-index 0000000000000..46c60fde4ee39
---- /dev/null
-+++ b/drivers/leds/leds-max8907.c
-@@ -0,0 +1,99 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include <linux/cleanup.h>
-+#include <linux/err.h>
-+#include <linux/leds.h>
-+#include <linux/mfd/max8907.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+
-+#define MAX8907_REG_WLED_MODE_ON	BIT(0)
-+
-+struct max8907_led_data {
-+	struct regmap *regmap;
-+	struct led_classdev cdev;
-+};
-+
-+static enum led_brightness max8907_led_get_brightness(struct led_classdev *cdev)
-+{
-+	struct max8907_led_data *ddata = container_of(cdev, struct max8907_led_data, cdev);
-+	unsigned int brightness_lvl;
-+	int ret;
-+
-+	ret = regmap_read(ddata->regmap, MAX8907_REG_WLED_MODE_CNTL, &brightness_lvl);
-+	if (ret || !(brightness_lvl & MAX8907_REG_WLED_MODE_ON))
-+		return LED_OFF;
-+
-+	ret = regmap_read(ddata->regmap, MAX8907_REG_WLED_CNTL, &brightness_lvl);
-+	if (ret)
-+		return LED_OFF;
-+
-+	return brightness_lvl;
-+}
-+
-+static int max8907_led_set_brightness(struct led_classdev *cdev,
-+				      enum led_brightness brightness)
-+{
-+	struct max8907_led_data *ddata = container_of(cdev, struct max8907_led_data, cdev);
-+	int brightness_lvl, ret;
-+
-+	brightness_lvl = clamp(brightness, LED_OFF, LED_FULL);
-+
-+	if (brightness_lvl) {
-+		ret = regmap_write(ddata->regmap, MAX8907_REG_WLED_CNTL, brightness_lvl);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return regmap_update_bits(ddata->regmap, MAX8907_REG_WLED_MODE_CNTL,
-+				  MAX8907_REG_WLED_MODE_ON,
-+				  brightness_lvl ? MAX8907_REG_WLED_MODE_ON : 0);
-+}
-+
-+static int max8907_led_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *led_np __free(device_node) =
-+		of_get_available_child_by_name(dev_of_node(dev->parent), "led");
-+	struct max8907 *max8907 = dev_get_drvdata(dev->parent);
-+	struct led_init_data init_data = { };
-+	struct max8907_led_data *ddata;
-+
-+	if (!led_np)
-+		return -ENODEV;
-+
-+	ddata = devm_kzalloc_obj(dev, struct max8907_led_data);
-+	if (!ddata)
-+		return -ENOMEM;
-+
-+	ddata->regmap = max8907->regmap_gen;
-+
-+	init_data.fwnode = of_fwnode_handle(led_np);
-+	init_data.devicename = "max8907";
-+	init_data.default_label = ":wled";
-+
-+	ddata->cdev.brightness = LED_OFF;
-+	ddata->cdev.flags = LED_CORE_SUSPENDRESUME;
-+	ddata->cdev.max_brightness = LED_FULL;
-+
-+	ddata->cdev.brightness_get = max8907_led_get_brightness;
-+	ddata->cdev.brightness_set_blocking = max8907_led_set_brightness;
-+
-+	return devm_led_classdev_register_ext(dev, &ddata->cdev, &init_data);
-+}
-+
-+static struct platform_driver max8907_led_driver = {
-+	.driver = {
-+		.name = "max8907-leds",
-+	},
-+	.probe = max8907_led_probe,
-+};
-+module_platform_driver(max8907_led_driver);
-+
-+MODULE_ALIAS("platform:max8907-leds");
-+MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-+MODULE_DESCRIPTION("MAX8907 LED driver");
-+MODULE_LICENSE("GPL");
-diff --git a/include/linux/mfd/max8907.h b/include/linux/mfd/max8907.h
-index 025874e5f8808..9865ae52877fd 100644
---- a/include/linux/mfd/max8907.h
-+++ b/include/linux/mfd/max8907.h
-@@ -112,7 +112,7 @@
- #define MAX8907_REG_CHG_IRQ2_MASK	0x81
- #define MAX8907_REG_CHG_STAT		0x82
- #define MAX8907_REG_WLED_MODE_CNTL	0x84
--#define MAX8907_REG_ILED_CNTL		0x84
-+#define MAX8907_REG_WLED_CNTL		0x85
- #define MAX8907_REG_II1RR		0x8E
- #define MAX8907_REG_II2RR		0x8F
- #define MAX8907_REG_LDOCTL20		0x9C
--- 
-2.53.0
+For example LS1028A, which is part of the same chassis 3.2 as LX2160A,
+has a pretty similar pinmux group layout (subset of LX2160A except for
+SoC-specific pinmuxing in RCWSR27). The functions are a superset of
+LX2160A though (for example IIC3_PMUX and IIC4_PMUX can also take the
+values of 3 and 4).
 
+The older chassis have a dissimilar layout to LX2160A/LS1028A, but
+similar among themselves (they have a two-level I2C_EXT + I2C_BASE
+system), and their core mechanism remains through the same RCW override
+API.
+
+I'm not saying to add driver support for those other platforms, but to
+have them in mind and to leave some space so that they could be added to
+the same driver without having to rename it and most of the code.
