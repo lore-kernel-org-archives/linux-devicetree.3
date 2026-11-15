@@ -1,100 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794776624;
-	b=ZDb0WEl8nIGkEoU+Sagts2AtcgGJduGU0vmmnYWdvoV4/sy0SaHURIxDsbNmWPgJdOJ8
-	 gtusoSiCeEq0AUdvHRVuXfzHqm5tw1Mzshjs7kxIo3Jyy+lulwTyINxm8l4b3TWVmCTz2
-	 47ME2h7ZoIxAuDVXq3PPN+D/o79IxAdKz0sdydlRwvFfOhMmnEv+cjWn0mxWpLpsDryNU
-	 /tzqQ/uYIrkcxmb9nhvFXcUS7XGV1PQ4Uo2K2TaQc8bIhcGSP0xi2iIGNuDmXAXi662JD
-	 DROszRJDTKSQOqXcjwz9Z6xJBbkIuHLLodJxzRdkxZYZGycWKAhhsCStemxu+EdLumg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794776624;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=JeZW25rG3PtAzFodSzRAtiRusay7Hp/q+l2Vzy5PdOM=;
-	b=E5a/7q+rCVUyh6WJZPwfjzeMMeWujFuw7yEWOeAaeP0MXwBrOeVOiXaP3sZys3IF81tI
-	 2Afpse5N3a3YGx+gdu7QfxHlfJq+8MMD/ZXNWTrMBK81sMN4fYsQ1XdGshbPRIvG9f6Zx
-	 aI0LF4a8rmjbH/5V5Ad2jMMjZDX7dKktTXNXPBn+yPKQPsvcwpNIi5Nd5olkFXRYtc6lR
-	 6fOSjUgVPov5l28JpXA4bQqJZYyuouNmmt2XFslFDwWLYgkV5PdZy9jfhm14hpRCZaBkG
-	 eSGC8e89fPwy94rWIQXcSYZppxYzuzo3ofPoGAzFpP9ILWiqfijhcd7YCEp3VYS45Zw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=Ngk2DVgv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794776630;
+	b=lMbl3+uPLrFAXgtIXyVO2MGA4HXuGVX/nJbIpvwHne1Bht4jzH2Kwg9V+XnVcZ63NKio
+	 8qnAcYGMSnhILcj0UJx7LvzgSQsJzeFWPZZcHgexSkWIXXXlSd8Opx/AC42II/+6fy7Rv
+	 ykKOv5LHrfWBLLdgnfvkJJiXPXXyIUS13PyxVFzt1hPbwxCle24BCQ/0HmKpNOgq7cDvs
+	 BxJ8byVpLUUJK58eOKkaNPd8ODBqLXr7QvS3DDMGMLjC9eJOrswg+IcgZcBeG1g9VrsMo
+	 T6I7qnbMtr6whSKBlFuY+5Av51FroSPBZ1FZblq46r+xdKlQFpRRKtOW5jjanl9Mlwg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794776630;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=+93V4N6Lq0YxOVjH6mwP1Fn2op2t3h1wY2olnwPC/y0=;
+	b=rRgsBfjibEPQv/Ec9mILpUCKdjaiGaODYF1ZjfYM7CMMr6T0m/fQoIoxaNSSVbBzhVlo
+	 7wRPBpYU5lyvVU0PZsvRHEH7p8U9LhfhZc9SqarIhYwmu/I/UXJXNTqn/dGG+d8O2+OuB
+	 +5DzhxmUDveXVZJgTRXyQ5E6DQlCrQhKHdBlJMr0LftWj3ikgNT8i96mYV2/friIKhvzt
+	 +4pHK5EhBLk13yhis4RJcLsE2tV+dSVtYWTLlmjQ7YL/e927eQFksg0CLbNeWdGEKR4Ty
+	 ELtN2iS2H426WSIYExQ3uR3HWCTfdW1+NSoNnKkgh//2jAn1I4I34jCxqZHXEAb0bkg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=agbTALtS;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iPxwGchk;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28C9606A31F
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 21:03:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D28C9606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A259606A339
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 21:03:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A259606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=Ngk2DVgv
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-67db763cec7so267821d50.1
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 13:03:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794776623; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AHPyC3lflTbOjSNIeVx2qxAgalj/2SRlkOj1T8qMRHTEeQiYzKS2kUKs9HK6Ki/O6U
-         Xl1vRxYNekYnimAllbb/zpoH1IENuURsjo0b6Xk35aAsD55TOlC45RTEmHihoT6KiDr1
-         vMHfxNsLh4PH0WBWtzjrMWCh09U9K6xEp8sUYzsZz73FD1i7LM4KohjwdnmVwIH299XN
-         LrRlL2Gpo8WMog30kiMHDfsJJgQ0tkjp44R4krnc/PkEq2SEp1yitiQhTKVr8glWWFvW
-         /tUHEym8Dz2EOi14KNsmvKz86DiSd0JyMfmUnRqwCAYc8Frq0D5sVjvUwRICVkXboGYd
-         Whug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JeZW25rG3PtAzFodSzRAtiRusay7Hp/q+l2Vzy5PdOM=;
-        fh=XGW77AQkNXgCasqzmlBuV3xp4qj5gC2ii/DusI+xUoE=;
-        b=V7KGhsFdNfvnCXMWJ4nslDY4BYHliOnsdlyGEdC9t3jqHvXaD2f1+PnJYpRJanBUJB
-         ZXZ/ewf9quSJ2UCVy/EpONClBFCOSut0UiJIvLOvjfdexFm2ZIrYzZ+RuWGZ54g2y9SU
-         J2ju5XgOUgy6IGazftqA6B3zJCC2n0PZ5ziot53mmiujW15GkxFTNFm5MwA1LhNL6uX6
-         gisCmOYV/FBoIOLNPXy7ZorU55w3fHcMKkS8GdBKmOOexIoBDLqWZR2bZLacJviFlXQY
-         HEw0NKlJLj9Gh2fSvsEaqNdTW5O+66P2X91Kvo22GVV1xlifgLXcd/0tQV2T0kMG98l3
-         wnBQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=agbTALtS;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iPxwGchk
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AFIS35h1518421
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 21:03:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+93V4N6Lq0YxOVjH6mwP1Fn2op2t3h1wY2olnwPC/y0=; b=agbTALtSR3gbxxEc
+	VRvNU4DCIKPvGpMO7CugpH6Uadyx5npRYj8FJv9vBKO3NQTl5CvPYcXjWOUWbMtn
+	Axq//AERbURr5exipw8deW1dUK01/D42GkdVxJS2Nkny28LtZ/iUX2aGPbBe8bh5
+	Qc3z7A61AmHeExvu24i9LhT76E3P2XSEn7fvlGqNphWMFnSJlJZxR1bOa3ueo5/y
+	mqaBgVCB1XM+jyxY8d+ZCvsX3uMQjKQc5aUlSUqnfXdYbQORz4AhR4vDn633F8v1
+	Di9+nyS3qXAOiDfm+1q+7TEhvVQfqqp/xC1mQCkjYzV3PxH0izjh5Fwp2peOwvuK
+	/ZmTEA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhj43t0g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 21:03:48 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f5844cb60so541608185a.0
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 13:03:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794776623; x=1795381423; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JeZW25rG3PtAzFodSzRAtiRusay7Hp/q+l2Vzy5PdOM=;
-        b=Ngk2DVgv3r28OnfOZXzmGqPF9KIldZV4siYG2jnY/eLZA0Q+HpDh3boP93A6PrRNM5
-         YXgDavVLkjCRWFSMTn67aArDtygf4xnZWCxAyChn3AGBrUOTNT1Ekq5Qvz8RI8ahGili
-         uQcvSDz7PYWGlY4pHvXQhl5hhSzGPpisrAjiSyYbXIEt7QMlt1KVAuPbhmZN6ke/I1Uk
-         yzh7X6lzGwWLI0eIB7KgpFK4h4Y3JOt7MQrUiNMwQOQmLnApkCi0OA6cMgPx8rawEyZJ
-         iMCbrdjBwyERqd26SjQ8ml6K+OcBQJjIQUN7Gw+1j8fcHoCb1o4wTmqDv+t/gkdi/Afj
-         T4rA==
+        d=oss.qualcomm.com; s=google; t=1794776628; x=1795381428; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+93V4N6Lq0YxOVjH6mwP1Fn2op2t3h1wY2olnwPC/y0=;
+        b=iPxwGchkict8FNXwwuxijS6mEqQTHVXY6RJbzUuKeRhQsgIRnuf+Q8z1Ps0ehae76F
+         2WrKMbo5XE2Zk5TFmWPqsWR1/sbQoyEpMxyKJlByUZbegFzbcs01l4Oet32guZuoAeGS
+         wc5UQgf2NIt/0tHqSoBBxFusNDaqBcJ1bEKmRmziHSFb3LDD6Pv9sl9TSCfOqLsjjiWz
+         ALY6KiCTV+U+ZJEOjnmKjWknc8EvwHcR1+CpSU4uCv+KtvBU2Y1hlqdxBu30ivZ2N6JD
+         rQheTgYrTIu3HFLjypxROjQ7unNiz1wrWw4BqUKJg/dxo5yvK0f8URn8aIt+hSmfiJev
+         enaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794776623; x=1795381423;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JeZW25rG3PtAzFodSzRAtiRusay7Hp/q+l2Vzy5PdOM=;
-        b=zCfW7busFNW96znNeXlUPy5FjNTjH6LTCc9Ra5yjIMI2ed/kZw8l1MHjThKjK5U3i3
-         ffiBsg/utxGcHGpROhWNOfyNi2vi9uFQTX1JErwXsWCUqx7+ZosPnz0Aw3ejOGoXOx+B
-         sW+//y+y95tAyCp0oSQOlDpFplTAS/ujNnCcgv825wDFA3EJVigDK6w/1wQYaac2N/hx
-         Sygo9hqzKU80B4MHDGOsq2XL1DAroKl+Ko+w66KeA6EHLI48GIP8SLB36jycKTdbL/nl
-         Rt5dk5gLMIOar1EF7tqbkkgNV1Q6sd4LqqDvRR50vO1nm293mU/DZcLulSlNcWH1PZih
-         Gjzg==
-X-Forwarded-Encrypted: i=1; AL+hErFn/ntmuXYOdc91d/ZzvotlqVo0j4ZIpjUYwvLHOq/fHmyhk6ei1tLVu+mWt39ZFaYQ4wpkW6bmfMAD@vger.kernel.org
-X-Gm-Message-State: APuU4Z8DuoqQO3lowDKsXosdz6h5RZX5NX213WGE+6cem98MiEwmoLpp
-	NbDDDACoY8plSnQjexignn4mGzpvAxgHCeL63ALS/JXLx6ncZbV5Ud7blJI1z+kV6cs4WVHiUD3
-	SGFO4k2vnfPv5Li9yejxMg5SLSO5cQ8Q=
-X-Gm-Gg: AYBFou0ASSgiO898M9OUkh/RrXjo2OPCwYcoageH8/krg/8XQFSKhgR74DTwduEIzqq
-	XUm70WQF/l8FhFVykGkrBgNGNLPGGVwoX0fuGe/ID45McDthrN7pSgELBaCgAm2RHdjIWyfTZaX
-	3JtQeiIaSFbLsRU0U4qRf2/Gb32/0iQIJMc8fc4FFIDeB+lcGZ7I0gMi02FaRlbeZUq5UH6Qley
-	9MOnJYvp8wXMoHSZ5Pc93bGp4Svh2rCpBpha3kP00C9ND/6pxj03QRsU9JXNB7iqSvxq9jxc+Bv
-	0ylJuYFBijNsod5PBB5Cgruou9YbNXoTXymnyAM8yG3JMlfIQYviAP3VXYEz6/4hqV/naJcPc3P
-	BbVejvOq4f2+SQD4w83EFHZ0ZHV4hEOWa726eFrjwhAYn1B+NvcNfUO6/GZfR0mnB+tH/2ow=
-X-Received: by 2002:a05:690e:134b:b0:67d:a747:37cb with SMTP id
- 956f58d0204a3-67da7473984mr1788570d50.80.1794776622877; Sun, 15 Nov 2026
- 13:03:42 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794776628; x=1795381428;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+93V4N6Lq0YxOVjH6mwP1Fn2op2t3h1wY2olnwPC/y0=;
+        b=duLCnl6gRm9c8a0crpD+651D2ql+ANHZibCPRZHzQ03qxZ0r8efopp+Yz39OgBq+ry
+         AYoN42Z5KyQV0gMFiLl6iLvaGe94eIxIMzWMvCc1HFbCmkPu1Aa4Be3Bv64XlJ0+JI5Z
+         Db9Qrzp4o1X3HGw47SOOe85OUaKhdUAvhGM0LRrm7pfgtuiFEpiZeWvdBglnZRL2RPya
+         uvmeNltVTFCFM9v4ckqZvAoKH2Z5KZsB42d5gJTPCWZ1JUy3cBVy7wnRcoReeZClLxBi
+         b5O7/wingiQaQMlHDguqgPG1Fm0fhAPRihNT4ipioynqFZgccAEDXyfroHNfx7Tq2YOj
+         2/Qw==
+X-Forwarded-Encrypted: i=1; AL+hErHRoz/d6opBDvQugahb50GRTPz+l/zNPLpumG28q1SZ0qCN59YhcoBabRCP2QIbDo7d04kc0yeww9Aq@vger.kernel.org
+X-Gm-Message-State: APuU4Z9NOJv+iV7JP/GS9vjdGLGNfeqYDUC2cbFAUfg1xG5Ok7iHQLlo
+	Q/GcDqQDknU5Z9F3PAoQ44eJRfAAxWJrVJ3M7pLt/j15whw6wWAMaUjqp13JE0w4nZoNPE9YsRN
+	6saDflaLMOl6PxQKk8lFL/23/jfOy4Y538Yxxg5ZxFhzdFvL8QTHi8WbIf2PNAmbW
+X-Gm-Gg: AYBFou0yDgkpYV0hCnLBLJ221Zz2kSf+BiVY5nihoP9HH57ZIxaJSEXzezL2xNoKpLf
+	9juvJYd7hxc8k976J8UXxUtDl+dD/EOvuoCSmfB7tKHKO5qKK2Il1e4tC7g4dfJCA4xg0DNpGoU
+	j5vaTyQ4Ve/5LxLD4aXYLA0FPj8mjIlk0O3Y1q5/7yFAWTEksFNP9+0fFp3I2X26703FN+x7NPP
+	ubDsk2a99lbbBSDlr6Cttw9qh2Zx9ohSPn3rM7UHPcJHC5ycjBynt3twtBJvBHlxpoe3Sp6o5Zv
+	c+Ybrmfxu0hQgCgbTc0eUwOyaL5txcbLhI/CaUWjXG5Ys2jFL7uMx4JkjbMibyZo9UxU4rQHqTb
+	1O8oEPNcGwFvssfno/RdZ6TjhCY4wzxNcklN/wZgAK6Rqs5YrZOEYdejoSl1uI9lnBAnkKrNtQR
+	dT
+X-Received: by 2002:a05:620a:40d2:b0:949:671a:cc77 with SMTP id af79cd13be357-949671ace50mr733615185a.1.1794776628055;
+        Sun, 15 Nov 2026 13:03:48 -0800 (PST)
+X-Received: by 2002:a05:620a:40d2:b0:949:671a:cc77 with SMTP id af79cd13be357-949671ace50mr733611885a.1.1794776627637;
+        Sun, 15 Nov 2026 13:03:47 -0800 (PST)
+Received: from [172.22.9.204] ([217.110.90.56])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-49c5d03b104sm18917479f8f.6.2026.11.15.13.03.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 13:03:46 -0800 (PST)
+Message-ID: <ea0f1a60-b2d4-4d3a-a7a0-767f4132f8be@oss.qualcomm.com>
+Date: Sun, 15 Nov 2026 21:03:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,110 +114,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com> <20261018-audin-v5-1-4b8cc13a1b22@baylibre.com>
-In-Reply-To: <20261018-audin-v5-1-4b8cc13a1b22@baylibre.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 15 Nov 2026 22:03:32 +0100
-X-Gm-Features: AclHuK8RZRddO7WOnvwxzgFddHhyLeT9NtqQThzXqpKNCFZiOf6pqJWI8MgY6vE
-Message-ID: <CAFBinCC+-N8LvoXZwMhoxjOzXgoYUfDKCcvmD7Uuph5=hTSg7g@mail.gmail.com>
-Subject: Re: [PATCH v5 1/7] ASoC: dt-bindings: add amlogic,gxbb-audin
-To: Valerio Setti <vsetti@baylibre.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 20/23] ASoC: qcom: x1e80100: carry WSA VI feedback on
+ the WSA Playback BE link
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Alexey Klimov <alexey.klimov@linaro.org>,
+        Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261023171433.820092-21-srinivas.kandagatla@oss.qualcomm.com>
+ <179476416983.140154.148298781294201106.b4-review@b4>
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <179476416983.140154.148298781294201106.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE1MDA4MyBTYWx0ZWRfX+/WfT3dzBvQM
+ yZuznv7AX04GGJuq5TwT2EXHIEnuyZVJcLUph8J8hZWpuL1tNZ8cnIIwPc2NdN5QXpibDQMqLKQ
+ sVcKobXIBjw7OhG6JN/J+MWLbEWcqBh8Y+ISTe2dlgPp5niOeOm6rHBD/pu4wbQLrMddZqpaBra
+ U8aiDh2P+j0Y9WRQKgBwXQGdQcWBORyixZujPMqeBzzhU6Q52GlUcw0Fu8k+emCxFHfvBw/MDFj
+ uunD5VZYTQEzc89pLT+viMovJGyxUaCDpl9nqhmjE5g6ENk079jwYhzR7l24xIn22uyv0qJ5u5T
+ oMwWYQZS/NSsR8twxSM3aEyh3zF9HcC0BkzdRoCakrIeog/ZSb1y8lnsgGFn2wMVTv/d8QLOWUd
+ Yb0E8VB23BRG6gJSKFLS8SHT+eoxEKhkDfZdfsxebntFbzYfCc5LoggnVohQj1PL2ZOlKmqt36e
+ pIB0cBqUQHelNjvpE2A==
+X-Authority-Analysis: v=2.4 cv=av0nmiZV c=1 sm=1 tr=0 ts=6afa1e34 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=hzUeyGCwRGS7WCfWEAyTKw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=eRThcyuUgiMSaGfv38QA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: JLn6OK5hUucV10XTHqPbhJWvFCNJttVQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE1MDA4MyBTYWx0ZWRfXxLTbmCch3OrP
+ l4QGibXPKTqlewwIfy4jr28wcYH29QEOBp9rwE737hBFADEZaKOJaDe/qqr//FBLoUxUhQPBREK
+ z0TD12Jqlg1A4EBClUi5WXpQfGC1gqY=
+X-Proofpoint-ORIG-GUID: JLn6OK5hUucV10XTHqPbhJWvFCNJttVQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-15_06,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0
+ impostorscore=0 clxscore=1015 spamscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611150083
 
-Hi Valerio,
+On 11/15/26 5:36 PM, Mark Brown wrote:
+>> Speaker protection needs the WSA V/I sense capture running whenever the
+>> speakers play.
+>>
+>> Set multi_direction_codecs on the WSA Playback link so it can carry the
+>> VI codec DAIs, with a params fixup for their 8 kHz, 32-bit format. The
+>> core's capture stream events for such links power the VI widgets.
+>> Nothing changes until the DT adds the VI DAIs to the link.
+> 
+>> +/* VI codec DAIs on the WSA playback link run at 8 kHz, S32_LE */
+>> +static int x1e80100_wsa_vi_params_fixup(struct snd_soc_pcm_runtime *rtd,
+>> +					struct snd_pcm_hw_params *params,
+>> +					int stream)
+>> +{
+>> +	struct snd_interval *rate =
+>> +		hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE);
+>> +	struct snd_mask *fmt =
+>> +		hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
+>> +
+>> +	if (stream != SNDRV_PCM_STREAM_CAPTURE)
+>> +		return 0;
+>> +
+>> +	rate->min = rate->max = 8000;
+>> +	snd_mask_none(fmt);
+>> +	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S32_LE);
+>> +	return 0;
+>> +}
+> 
+> Shouldn't this also limit channels so we don't get something wider from
+> playback?
+vi has min max of 2 channels, so its fixed in v2.
 
-On Sun, Oct 18, 2026 at 12:18=E2=80=AFPM Valerio Setti <vsetti@baylibre.com=
-> wrote:
->
-> AUDIN provides I2S audio input support to the Meson GXBB and GXL SoCs.
->
-> The AUDIN block on GXL is identical to the GXBB one, so "amlogic,gxl-audi=
-n"
-> uses "amlogic,gxbb-audin" as fallback; the SoC-specific compatible is
-> added so that differences can be handled later if any are found.
->
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Valerio Setti <vsetti@baylibre.com>
-> ---
->  .../bindings/sound/amlogic,gxbb-audin.yaml         | 69 ++++++++++++++++=
-++++++
->  1 file changed, 69 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/sound/amlogic,gxbb-audin.y=
-aml b/Documentation/devicetree/bindings/sound/amlogic,gxbb-audin.yaml
-> new file mode 100644
-> index 000000000000..4df4796623ed
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/amlogic,gxbb-audin.yaml
-> @@ -0,0 +1,69 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/amlogic,gxbb-audin.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Amlogic GXBB AUDIN audio input controller
-> +
-> +maintainers:
-> +  - Valerio Setti <vsetti@baylibre.com>
-> +
-> +description:
-> +  AUDIN is the audio input block of the Amlogic GXBB/GXL SoCs. It suppor=
-ts
-> +  various input formatters (I2S, SPDIF, PCM, HDMI) feeding three FIFOs t=
-hat
-> +  transfer captured samples to memory. The sound-dai cell selects the FI=
-FO.
-> +
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: amlogic,gxbb-audin
-> +      - items:
-> +          - const: amlogic,gxl-audin
-> +          - const: amlogic,gxbb-audin
-From what I can tell it's even amlogic,meson8-audin compatible.
-Although I didn't have the time to test in on hardware yet.
+--srini
+> 
 
-[...]
-> +    audio-controller@a000 {
-> +      compatible =3D "amlogic,gxbb-audin";
-> +      reg =3D <0xa000 0x148>;
-I believe the audin registers are 0x300 wide.
-Both, GXL datasheet [0] page 43 and GXM datasheet [1] page 48 claim
-that the register area is 0x100 wide.
-The last documented register with AUDIN_ prefix is AUDIN_FIFO2_PIO_RDH
-=3D 0xb8. The datasheet [0] (page 395) lists register numbers divided by
-4, so to get the actual address in the memory map we need to multiply
-it by 4, which gives 0x2e0.
-The 32-bit SoC vendor kernel [2] has a header that states: #define
-AUDIN_ADDR_END 0x28bf (same as in datasheet, we need to multiply this
-by 4).
-
-I'm bringing this up because dt-bindings are supposed to be complete.
-So even if the driver doesn't use a resource yet we're supposed to
-still describe it.
-I don't see any additional resources that we'd need to describe and
-#sound-dai-cells allows adding the additional SPDIF input later.
-From what I saw in the registers there's also the possibility to send
-the input signal to AUDIN but I couldn't find any additional resources
-we'd need to describe in the dt-bindings for this.
-
-
-
-[0] https://dl.khadas.com/products/vim1/datasheet/s905x-datasheet-v0.3.pdf
-[1] https://dl.khadas.com/products/vim2/datasheet/s912-datasheet.pdf
-[2] https://github.com/endlessm/linux-meson/blob/d6e13c220931110fe676ede6da=
-69fc61a7cb04b6/arch/arm/mach-meson8/include/mach/register.h#L2274
