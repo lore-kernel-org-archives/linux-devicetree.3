@@ -1,57 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794739515;
-	b=RmsoAykV97tBnO6EtwMitxHII7+iI3v906BopXPoRxMzEzWTro6Tlcdtvhbb08fH/6Ex
-	 u3ga6Nu2EhDj6aQhqBSrYEQTWP5NWZtt0vaCcR0i29IteNyNAuFqQHxXQzBnM3Sgmzwju
-	 N52kPvOOARRU+2B+lXDh1wXaQnohryzjSE4G9R+zjH0OG1ivnbeq7qYk++XtrqeR+n0Bz
-	 qkmLYUH0tNFtYSc/6LwfCW29F61Zsr8OFNfoc4AddA6QCEM3rpsGLEsLuyX+9VlaqTVBC
-	 +MYB8liOcn3Eig8x+ePDR4vFPsYaBSvDZmwumcsjDqye+qKu2kvsRCwaOYHpoIofu0g==
+	t=1794739516;
+	b=vmIVenkegAR3w5nquT1/Dot4ZtuC2M9ZUtBXmx764LdBurl+Gcm7ThM16Hahv5pNsAp8
+	 YGmQAHXfX/Th4vw1Rh4az3iwYyjR8FO78u3gcCvEKneqO2OvqCDQRi55uAwP6zCoEaNXF
+	 YSnfjYZa6TIJaAlQaKNWVZwixVPWUmfTIv4EWBhCwUcGT/h64y4uS1zobKTE2hjm7nqB4
+	 48kZ8o8V7S1AuFqzIzV/G/l7H1Mi8oog1QFCqan6cRQORLgaTGvFhQyTDWl9NwRUgQbHw
+	 k2EC5Zo/wPaZk6uVoNF4BrSJxqAa0/yo8TGGy5Lmdye5uDd19dW2M1Hc+kDFv5VhYZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794739515;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=YCYk00gP2fAWKaN/JvC8ee6SoIY3q6TGA0CXVRXdrHM=;
-	b=m0zh7MXxeDZDUHRL+7Wfo0GC2VXb5Aff4mGx0Z/fYZKA9V+s4+Wkhu3rV05rw2tT4L/6
-	 zUNpfoNSieukhQk237JtK4XpUVhFv+0TKVB3f3m3uI2vDd6T4Nnt34E069AddVAEAzHt5
-	 dXHbBSc2meRUjP+NgTQRmluGVegzM1nNSsFKm2BCujimL76yj9QAY421EmbGdDcktNovr
-	 zjZEgrkOuZgb1pbvHpDGNzOqBZPaMEIwe2Gwk7Ud27PRnaxj7GRtz70jRoXhlWgbLpyqs
-	 bzJFPNarPl2HiyQcoJTFlp0PHl2tx7J6bmAygAXeVacdetADORMOI6Dp28fE3uDqTUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794739516;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=5uo/8JWKiktnTJAVi7eZ1RA0ug1j3vdnO8lLDK/Mx7M=;
+	b=is6REzgwEgYoyR+Nu8qmrJgaL7+UaoJMHUBCMZcJwJe+rLZ/W9GrXm/LEd9xQmGaWbvk
+	 oc1VvHFzzCfavQpKhQmM7lUQgjH8gtafeccrHfk+5WfzSXJcKt5wA4mOxbAczwF6xUlei
+	 5fVvWA6Xm83GLg6FWmwTcur2QIsVDG1/z+nJvnAPhNIuim5enRtx6NSx0JX5IhqDZ6wVB
+	 3Db2qkS92ZemBS3/z+WuMcwO9eULmxgdjtEkVX1uoTxWfyLWb3/azZdYFDsoCYx8Ixtgo
+	 AZrKgJ7jA5shGv/jZjxHFDWQzgJ8UcBkXtf3bnAy6+H+1Y1N4T4+NadahDEGb/xx+Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eM5LuvE9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Cq/fBV6D";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93066606A338
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 10:45:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E748606A33F;
+	Sun, 15 Nov 2026 10:45:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eM5LuvE9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CE061F000D1;
-	Sun, 15 Nov 2026 10:45:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cq/fBV6D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1762E1F000C4;
+	Sun, 15 Nov 2026 10:45:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794739515;
-	bh=YCYk00gP2fAWKaN/JvC8ee6SoIY3q6TGA0CXVRXdrHM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eM5LuvE9MkvBCsXM+8t7SAdjjS3ygoXB0T8xD8rTfjFzLtVaSUzFVSLwT0Xa/qiht
-	 ahvQWgNocPkWqiFCCu2gWxQPayJSyTm7V2JVnxgVzUmfmcXPM0ICOLXyyW0H5/Eh1U
-	 dn0CSDu8i9A5U1idmXtQvcHWs7EIdZFhc20VGbEA/5HHriDix4RbiNqgbq957lo8jQ
-	 ApZbiLQ8KXuubrYT2JhkOhhgtkXbYzSSLNerqhbyS1prUawNtE944lDBgJT6m+pmOK
-	 dld0jCloFw05dgIpghigPH6NjZvgD2DDCau/CYEQh58FFs0r/smSPSCMZu4DNOx/xL
-	 sc+RfBF245Plg==
-Message-ID: <sashiko-outbox-215395@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v20 04/15] net: pcs: implement Firmware node
- support for PCS driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261114104426.235620-5-ansuelsmth@gmail.com>
-References: <20261114104426.235620-1-ansuelsmth@gmail.com>
- <20261114104426.235620-5-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 10:45:14 +0000
+	s=k20260515; t=1794739516;
+	bh=5uo/8JWKiktnTJAVi7eZ1RA0ug1j3vdnO8lLDK/Mx7M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Cq/fBV6DO28TdOkve7xeW0TnNfam72jxw66JkzDrcU8hHdZtfGE2nLC1HxsM0fFxT
+	 yWSprfOjr8AEQknXXG8nr5XbRu+roJHpNfkIHfiXcJyeCuonrz3AkwfohHuOw2cTzi
+	 Xe6eGhtP5iE2+B88s+Ppdo7N6llE40TMJL/8xSqTfiXVDRj+DelavEHmtaXMdZgzmG
+	 9GqI03ud6SU3U32oZZEOjZwyVCxm07+rEu299HFZwSRJEehs0+z2gcEpWW7aQcQrAa
+	 X28xEqsU5ze8JWks4EvX7/eiyAsXkgE8xj0cVOrk17ndnah4Ehkdb+vc3hohKwtVEN
+	 LUW5WJqqahpeQ==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: [PATCH v2 12/13] arm64: dts: synaptics: add SL2610 family SoCs
+Date: Sun, 15 Nov 2026 18:23:51 +0800
+Message-ID: <20261115102401.3520-13-jszhang@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261115102401.3520-1-jszhang@kernel.org>
+References: <20261115102401.3520-1-jszhang@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,102 +71,665 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] net: pcs: fwnode_pcs_get_from_pcsspec() clobbers
-  fwnode_xlate() error codes
-- [Low] net: pcs: dead name lookup in fwnode_parse_pcsspec() uses
-  pcs-names
---
+Describe the CPUs, interrupt controller, system controllers and supported
+serial, I2C, I3C, SPI and GPIO peripherals for the SL2610 family.
 
-commit 523a51dc25f7a5757d1f8012e38a5161ca8187b6
-Author: Christian Marangi <ansuelsmth@gmail.com>
+Use the SL2610 peripheral compatibles already documented in the upstream
+bindings and share clock, reset and pin configuration providers through
+the system controller nodes.
 
-net: pcs: implement Firmware node support for PCS driver
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+---
+ arch/arm64/boot/dts/synaptics/sl2611.dtsi | 457 ++++++++++++++++++++++
+ arch/arm64/boot/dts/synaptics/sl2613.dtsi |  12 +
+ arch/arm64/boot/dts/synaptics/sl2615.dtsi |  46 +++
+ arch/arm64/boot/dts/synaptics/sl2617.dtsi |  46 +++
+ arch/arm64/boot/dts/synaptics/sl2619.dtsi |  44 +++
+ 5 files changed, 605 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/synaptics/sl2611.dtsi
+ create mode 100644 arch/arm64/boot/dts/synaptics/sl2613.dtsi
+ create mode 100644 arch/arm64/boot/dts/synaptics/sl2615.dtsi
+ create mode 100644 arch/arm64/boot/dts/synaptics/sl2617.dtsi
+ create mode 100644 arch/arm64/boot/dts/synaptics/sl2619.dtsi
 
-This commit introduces firmware node provider and consumer helpers for PCS
-drivers, allowing MAC drivers to look up and parse PCS instances referenced
-by "pcs-handle" properties.
+diff --git a/arch/arm64/boot/dts/synaptics/sl2611.dtsi b/arch/arm64/boot/dts/synaptics/sl2611.dtsi
+new file mode 100644
+index 000000000000..663fe6034ba0
+--- /dev/null
++++ b/arch/arm64/boot/dts/synaptics/sl2611.dtsi
+@@ -0,0 +1,457 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (C) 2024 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ */
++
++#include <dt-bindings/clock/syna,sl2610.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/reset/syna,sl2610-reset.h>
++
++/ {
++	compatible = "syna,sl2611";
++	interrupt-parent = <&gic>;
++	#address-cells = <2>;
++	#size-cells = <2>;
++
++	psci {
++		compatible = "arm,psci-1.0";
++		method = "smc";
++	};
++
++	optee {
++		compatible = "linaro,optee-tz";
++		method = "smc";
++	};
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		cpu0: cpu@0 {
++			compatible = "arm,cortex-a55";
++			device_type = "cpu";
++			reg = <0x0>;
++			enable-method = "psci";
++			cpu-idle-states = <&CPU_SLEEP_0>;
++			i-cache-size = <32768>;
++			i-cache-line-size = <64>;
++			i-cache-sets = <128>;
++			d-cache-size = <32768>;
++			d-cache-line-size = <64>;
++			d-cache-sets = <128>;
++			next-level-cache = <&L2_0>;
++
++			L2_0: l2-cache {
++				compatible = "cache";
++				cache-size = <65536>;
++				cache-line-size = <64>;
++				cache-sets = <256>;
++				cache-level = <2>;
++				cache-unified;
++				next-level-cache = <&L3>;
++			};
++		};
++
++		L3: l3-cache0 {
++			compatible = "cache";
++			cache-level = <3>;
++			cache-unified;
++			cache-size = <262144>;
++			cache-line-size = <64>;
++			cache-sets = <256>;
++		};
++
++		idle-states {
++			entry-method = "psci";
++			CPU_SLEEP_0: cpu-sleep-0 {
++				compatible = "arm,idle-state";
++				local-timer-stop;
++				arm,psci-suspend-param = <0x0010000>;
++				entry-latency-us = <75>;
++				exit-latency-us = <155>;
++				min-residency-us = <50000>;
++			};
++		};
++	};
++
++	osc: osc {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++	};
++
++	pmu {
++		compatible = "arm,cortex-a55-pmu";
++		interrupts = <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-affinity = <&cpu0>;
++	};
++
++	timer {
++		compatible = "arm,armv8-timer";
++		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
++			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
++			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
++			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
++	};
++
++	soc {
++		compatible = "simple-bus";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges = <0 0 0 0xffffffff>;
++
++		sm-bus {
++			compatible = "simple-bus";
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges;
++			dma-ranges = <0xa0000000 0x00000000 0x10000000>;
++
++			sm_clk: sm_pinctrl: sm_rst: sm_chip: syscon@e5025000 {
++				compatible = "syna,sl2610-mcu-syscon", "syscon";
++				reg = <0xe5025000 0x1000>;
++				#clock-cells = <1>;
++				#reset-cells = <1>;
++				clocks = <&osc>;
++			};
++
++			sm_uart0: serial@e5030000 {
++				compatible = "syna,sl2610-uart", "snps,dw-apb-uart";
++				reg = <0xe5030000 0x100>;
++				interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&sm_clk CLK_SER_UART0>, <&sm_clk CLK_CFG_UART0>;
++				clock-names = "baudclk", "apb_pclk";
++				reg-shift = <2>;
++				status = "disabled";
++			};
++
++			sm_uart1: serial@e5031000 {
++				compatible = "syna,sl2610-uart", "snps,dw-apb-uart";
++				reg = <0xe5031000 0x100>;
++				interrupts = <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&sm_clk CLK_SER_UART1>, <&sm_clk CLK_CFG_UART1>;
++				clock-names = "baudclk", "apb_pclk";
++				reg-shift = <2>;
++				status = "disabled";
++			};
++
++			sm_uart2: serial@e5032000 {
++				compatible = "syna,sl2610-uart", "snps,dw-apb-uart";
++				reg = <0xe5032000 0x100>;
++				interrupts = <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&sm_clk CLK_SER_UART2>, <&sm_clk CLK_CFG_UART2>;
++				clock-names = "baudclk", "apb_pclk";
++				reg-shift = <2>;
++				status = "disabled";
++			};
++
++			sm_uart3: serial@e5033000 {
++				compatible = "syna,sl2610-uart", "snps,dw-apb-uart";
++				reg = <0xe5033000 0x100>;
++				interrupts = <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&sm_clk CLK_SER_UART3>, <&sm_clk CLK_CFG_UART3>;
++				clock-names = "baudclk", "apb_pclk";
++				reg-shift = <2>;
++				status = "disabled";
++			};
++
++			sm_spi1: spi@e5034000 {
++				compatible = "syna,sl2610-spi", "snps,dw-apb-ssi";
++				reg = <0xe5034000 0x100>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				num-cs = <4>;
++				clocks = <&sm_clk CLK_SER_SPIM>, <&sm_clk CLK_CFG_SPIM>;
++				clock-names = "ssi_clk", "pclk";
++				interrupts = <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>;
++				status = "disabled";
++			};
++
++			sm_i2c0: i2c@e5035000 {
++				compatible = "syna,sl2610-i2c", "snps,designware-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				reg = <0xe5035000 0x100>;
++				clocks = <&sm_clk CLK_SER_I2CM0>, <&sm_clk CLK_CFG_I2CM0>;
++				clock-names = "ref", "pclk";
++				i2c-sda-falling-time-ns = <510>;
++				i2c-scl-falling-time-ns = <510>;
++				interrupts = <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>;
++				status = "disabled";
++			};
++
++			sm_i2c1: i2c@e5036000 {
++				compatible = "syna,sl2610-i2c", "snps,designware-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				reg = <0xe5036000 0x100>;
++				clocks = <&sm_clk CLK_SER_I2CM1>, <&sm_clk CLK_CFG_I2CM1>;
++				clock-names = "ref", "pclk";
++				i2c-sda-falling-time-ns = <510>;
++				i2c-scl-falling-time-ns = <510>;
++				interrupts = <GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>;
++				status = "disabled";
++			};
++
++			sm_i3c0: i3c@e5037000 {
++				compatible = "syna,sl2610-i3c", "snps,dw-i3c-master-1.00a";
++				#address-cells = <3>;
++				#size-cells = <0>;
++				reg = <0xe5037000 0x1000>;
++				interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>;
++				resets = <&sm_rst RST_SM_I3CSRST>, <&sm_rst RST_SM_I3CPRST>;
++				clocks = <&sm_clk CLK_SER_I3C>, <&sm_clk CLK_CFG_I3C>;
++				clock-names = "core", "apb";
++				status = "disabled";
++			};
++
++			sm_gpio0: gpio@e5038000 {
++				compatible = "snps,dw-apb-gpio";
++				reg = <0xe5038000 0x400>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks = <&sm_clk CLK_CFG_GPIO>, <&sm_clk CLK_DEB_GPIO>;
++				clock-names = "bus", "db";
++
++				portc: gpio-port@0 {
++					compatible = "snps,dw-apb-gpio-port";
++					gpio-controller;
++					#gpio-cells = <2>;
++					ngpios = <16>;
++					reg = <0>;
++				};
++			};
++
++			sm_gpio1: gpio@e5039000 {
++				compatible = "snps,dw-apb-gpio";
++				reg = <0xe5039000 0x400>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks = <&sm_clk CLK_CFG_GPIO>, <&sm_clk CLK_DEB_GPIO>;
++				clock-names = "bus", "db";
++
++				portd: gpio-port@0 {
++					compatible = "snps,dw-apb-gpio-port";
++					gpio-controller;
++					#gpio-cells = <2>;
++					ngpios = <8>;
++					reg = <0>;
++				};
++			};
++
++			sm_gpio2: gpio@e503a000 {
++				compatible = "snps,dw-apb-gpio";
++				reg = <0xe503a000 0x400>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks = <&sm_clk CLK_CFG_GPIO>, <&sm_clk CLK_DEB_GPIO>;
++				clock-names = "bus", "db";
++
++				porte: gpio-port@0 {
++					compatible = "snps,dw-apb-gpio-port";
++					gpio-controller;
++					#gpio-cells = <2>;
++					ngpios = <8>;
++					reg = <0>;
++				};
++			};
++
++			sm_gpio3: gpio@e503b000 {
++				compatible = "snps,dw-apb-gpio";
++				reg = <0xe503b000 0x400>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks = <&sm_clk CLK_CFG_GPIO>, <&sm_clk CLK_DEB_GPIO>;
++				clock-names = "bus", "db";
++
++				portf: gpio-port@0 {
++					compatible = "snps,dw-apb-gpio-port";
++					gpio-controller;
++					#gpio-cells = <2>;
++					ngpios = <8>;
++					reg = <0>;
++				};
++			};
++		};
++
++		aioclk: aviogbl: syscon@f7490000 {
++			compatible = "syna,sl2610-avio-syscon", "syscon";
++			reg = <0xf7490000 0x4000>;
++			clocks = <&osc>;
++		};
++
++		clk: pinctrl: rst: chip: syscon@f7e10000 {
++			compatible = "syna,sl2610-soc-syscon", "syscon";
++			reg = <0xf7e10000 0x10000>;
++			#clock-cells = <1>;
++			#reset-cells = <1>;
++			clocks = <&osc>;
++		};
++
++		cpuclk: cpu_wrap: syscon@f7e30000 {
++			compatible = "syna,sl2610-cpu-syscon", "syscon";
++			reg = <0xf7e30000 0x4000>;
++			#clock-cells = <1>;
++			clocks = <&osc>;
++			syna,gbl-syscon = <&chip>;
++		};
++
++		gic: interrupt-controller@f7e59000 {
++			compatible = "arm,gic-400";
++			#interrupt-cells = <3>;
++			interrupt-controller;
++			reg = <0xf7e59000 0x1000>,
++			      <0xf7e5a000 0x2000>,
++			      <0xf7e5c000 0x2000>,
++			      <0xf7e5e000 0x2000>;
++			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIGH)>;
++		};
++
++		soc_uart0: serial@f7f00000 {
++			compatible = "syna,sl2610-uart", "snps,dw-apb-uart";
++			reg = <0xf7f00000 0x100>;
++			interrupts = <GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk CLK_APBUART0>;
++			reg-shift = <2>;
++			status = "disabled";
++		};
++
++		soc_uart1: serial@f7f01000 {
++			compatible = "syna,sl2610-uart", "snps,dw-apb-uart";
++			reg = <0xf7f01000 0x100>;
++			interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk CLK_APBUART1>;
++			reg-shift = <2>;
++			status = "disabled";
++		};
++
++		soc_uart2: serial@f7f02000 {
++			compatible = "syna,sl2610-uart", "snps,dw-apb-uart";
++			reg = <0xf7f02000 0x100>;
++			interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk CLK_APBUART2>;
++			reg-shift = <2>;
++			status = "disabled";
++		};
++
++		soc_uart3: serial@f7f03000 {
++			compatible = "syna,sl2610-uart", "snps,dw-apb-uart";
++			reg = <0xf7f03000 0x100>;
++			interrupts = <GIC_SPI 22 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk CLK_APBUART3>;
++			reg-shift = <2>;
++			status = "disabled";
++		};
++
++		soc_spi0: spi@f7f04000 {
++			compatible = "syna,sl2610-spi", "snps,dw-apb-ssi";
++			reg = <0xf7f04000 0x100>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			num-cs = <4>;
++			clocks = <&clk CLK_APBSPI0>;
++			interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
++			status = "disabled";
++		};
++
++		soc_i2c0: i2c@f7f05000 {
++			compatible = "syna,sl2610-i2c", "snps,designware-i2c";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0xf7f05000 0x100>;
++			clocks = <&clk CLK_APBI2C0>;
++			i2c-sda-hold-time-ns = <449>;
++			i2c-sda-falling-time-ns = <425>;
++			i2c-scl-falling-time-ns = <205>;
++			interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
++			status = "disabled";
++		};
++
++		soc_i2c1: i2c@f7f06000 {
++			compatible = "syna,sl2610-i2c", "snps,designware-i2c";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0xf7f06000 0x100>;
++			clocks = <&clk CLK_APBI2C1>;
++			i2c-sda-hold-time-ns = <449>;
++			i2c-sda-falling-time-ns = <425>;
++			i2c-scl-falling-time-ns = <205>;
++			interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
++			status = "disabled";
++		};
++
++		soc_gpio0: gpio@f7f07000 {
++			compatible = "snps,dw-apb-gpio";
++			reg = <0xf7f07000 0x400>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			clocks = <&clk CLK_APBGPIO>;
++			clock-names = "bus";
++
++			porta: gpio-port@0 {
++				compatible = "snps,dw-apb-gpio-port";
++				gpio-controller;
++				#gpio-cells = <2>;
++				ngpios = <32>;
++				reg = <0>;
++				interrupt-controller;
++				#interrupt-cells = <2>;
++				interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
++			};
++		};
++
++		soc_spi1: spi@f7f0b000 {
++			compatible = "syna,sl2610-spi", "snps,dw-apb-ssi";
++			reg = <0xf7f0b000 0x100>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			num-cs = <4>;
++			clocks = <&clk CLK_APBSPI1>;
++			interrupts = <GIC_SPI 199 IRQ_TYPE_LEVEL_HIGH>;
++			status = "disabled";
++		};
++
++		soc_spi2: spi@f7f0c000 {
++			compatible = "syna,sl2610-spi", "snps,dw-apb-ssi";
++			reg = <0xf7f0c000 0x100>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			num-cs = <4>;
++			clocks = <&clk CLK_APBSPI2>;
++			interrupts = <GIC_SPI 200 IRQ_TYPE_LEVEL_HIGH>;
++			status = "disabled";
++		};
++
++		soc_spi3: spi@f7f0d000 {
++			compatible = "syna,sl2610-spi", "snps,dw-apb-ssi";
++			reg = <0xf7f0d000 0x100>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			num-cs = <4>;
++			clocks = <&clk CLK_APBSPI3>;
++			interrupts = <GIC_SPI 201 IRQ_TYPE_LEVEL_HIGH>;
++			status = "disabled";
++		};
++
++		soc_gpio1: gpio@f7f0e000 {
++			compatible = "snps,dw-apb-gpio";
++			reg = <0xf7f0e000 0x400>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			clocks = <&clk CLK_APBGPIO>;
++			clock-names = "bus";
++
++			portb: gpio-port@0 {
++				compatible = "snps,dw-apb-gpio-port";
++				gpio-controller;
++				#gpio-cells = <2>;
++				ngpios = <32>;
++				reg = <0>;
++				interrupt-controller;
++				#interrupt-cells = <2>;
++				interrupts = <GIC_SPI 206 IRQ_TYPE_LEVEL_HIGH>;
++			};
++		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/synaptics/sl2613.dtsi b/arch/arm64/boot/dts/synaptics/sl2613.dtsi
+new file mode 100644
+index 000000000000..379809901677
+--- /dev/null
++++ b/arch/arm64/boot/dts/synaptics/sl2613.dtsi
+@@ -0,0 +1,12 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (C) 2025 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ */
++
++#include "sl2611.dtsi"
++
++/ {
++	compatible = "syna,sl2613";
++};
+diff --git a/arch/arm64/boot/dts/synaptics/sl2615.dtsi b/arch/arm64/boot/dts/synaptics/sl2615.dtsi
+new file mode 100644
+index 000000000000..11b1fe316aa6
+--- /dev/null
++++ b/arch/arm64/boot/dts/synaptics/sl2615.dtsi
+@@ -0,0 +1,46 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (C) 2025 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ */
++
++#include "sl2613.dtsi"
++
++/ {
++	compatible = "syna,sl2615";
++
++	cpus {
++		cpu1: cpu@100 {
++			compatible = "arm,cortex-a55";
++			device_type = "cpu";
++			reg = <0x100>;
++			enable-method = "psci";
++			cpu-idle-states = <&CPU_SLEEP_0>;
++			i-cache-size = <32768>;
++			i-cache-line-size = <64>;
++			i-cache-sets = <128>;
++			d-cache-size = <32768>;
++			d-cache-line-size = <64>;
++			d-cache-sets = <128>;
++			next-level-cache = <&L2_1>;
++
++			L2_1: l2-cache {
++				compatible = "cache";
++				cache-size = <65536>;
++				cache-line-size = <64>;
++				cache-sets = <256>;
++				cache-level = <2>;
++				cache-unified;
++				next-level-cache = <&L3>;
++			};
++		};
++	};
++
++	pmu {
++		interrupts = <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-affinity = <&cpu0>,
++				     <&cpu1>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/synaptics/sl2617.dtsi b/arch/arm64/boot/dts/synaptics/sl2617.dtsi
+new file mode 100644
+index 000000000000..a0de686d1fae
+--- /dev/null
++++ b/arch/arm64/boot/dts/synaptics/sl2617.dtsi
+@@ -0,0 +1,46 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (C) 2025 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ */
++
++#include "sl2613.dtsi"
++
++/ {
++	compatible = "syna,sl2617";
++
++	cpus {
++		cpu1: cpu@100 {
++			compatible = "arm,cortex-a55";
++			device_type = "cpu";
++			reg = <0x100>;
++			enable-method = "psci";
++			cpu-idle-states = <&CPU_SLEEP_0>;
++			i-cache-size = <32768>;
++			i-cache-line-size = <64>;
++			i-cache-sets = <128>;
++			d-cache-size = <32768>;
++			d-cache-line-size = <64>;
++			d-cache-sets = <128>;
++			next-level-cache = <&L2_1>;
++
++			L2_1: l2-cache {
++				compatible = "cache";
++				cache-size = <65536>;
++				cache-line-size = <64>;
++				cache-sets = <256>;
++				cache-level = <2>;
++				cache-unified;
++				next-level-cache = <&L3>;
++			};
++		};
++	};
++
++	pmu {
++		interrupts = <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-affinity = <&cpu0>,
++				     <&cpu1>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/synaptics/sl2619.dtsi b/arch/arm64/boot/dts/synaptics/sl2619.dtsi
+new file mode 100644
+index 000000000000..96bd58bbed3e
+--- /dev/null
++++ b/arch/arm64/boot/dts/synaptics/sl2619.dtsi
+@@ -0,0 +1,44 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (C) 2025 Synaptics Incorporated
++ *
++ * Author: Jisheng Zhang <jszhang@kernel.org>
++ */
++
++#include "sl2613.dtsi"
++
++/ {
++	cpus {
++		cpu1: cpu@100 {
++			compatible = "arm,cortex-a55";
++			device_type = "cpu";
++			reg = <0x100>;
++			enable-method = "psci";
++			cpu-idle-states = <&CPU_SLEEP_0>;
++			i-cache-size = <32768>;
++			i-cache-line-size = <64>;
++			i-cache-sets = <128>;
++			d-cache-size = <32768>;
++			d-cache-line-size = <64>;
++			d-cache-sets = <128>;
++			next-level-cache = <&L2_1>;
++
++			L2_1: l2-cache {
++				compatible = "cache";
++				cache-size = <65536>;
++				cache-line-size = <64>;
++				cache-sets = <256>;
++				cache-level = <2>;
++				cache-unified;
++				next-level-cache = <&L3>;
++			};
++		};
++	};
++
++	pmu {
++		interrupts = <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-affinity = <&cpu0>,
++				     <&cpu1>;
++	};
++};
+-- 
+2.55.0
 
-> diff --git a/drivers/net/pcs/pcs.c b/drivers/net/pcs/pcs.c
-> new file mode 100644
-> index 0000000000000..39550d9a12a2a
-> --- /dev/null
-> +++ b/drivers/net/pcs/pcs.c
-[ ... ]
-> +static int fwnode_parse_pcsspec(const struct fwnode_handle *fwnode,
-> +				int index, const char *name,
-> +				struct fwnode_reference_args *out_args)
-> +{
-> +	if (!fwnode)
-> +		return -EINVAL;
-> +
-> +	if (name) {
-> +		index =3D fwnode_property_match_string(fwnode, "pcs-names",
-> +						     name);
-> +		if (index < 0)
-> +			return index;
-> +	}
-> +
-> +	return fwnode_property_get_reference_args(fwnode, "pcs-handle",
-> +						  "#pcs-cells", 0, index,
-> +						  out_args);
-> +}
-
-[Severity: Low]
-Should this match "pcs-handle-names" (as defined in
-Documentation/devicetree/bindings/net/ethernet-controller.yaml) instead of
-"pcs-names", or can the name lookup be dropped since __fwnode_pcs_get() is
-only called with con_id set to NULL?
-
-> +
-> +static struct phylink_pcs *
-> +__fwnode_pcs_get_from_pcsspec_provider(struct fwnode_reference_args *pcs=
-spec,
-> +				       struct fwnode_pcs_provider *provider)
-> +{
-> +	if (provider->fwnode !=3D pcsspec->fwnode)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	return provider->fwnode_xlate(pcsspec, provider->data);
-> +}
-> +
-> +static struct phylink_pcs *
-> +fwnode_pcs_get_from_pcsspec(struct fwnode_reference_args *pcsspec)
-> +{
-> +	struct fwnode_pcs_provider *provider;
-> +	struct phylink_pcs *pcs =3D NULL;
-> +
-> +	if (!pcsspec)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	mutex_lock(&fwnode_pcs_mutex);
-> +	list_for_each_entry(provider, &fwnode_pcs_providers, link) {
-> +		pcs =3D __fwnode_pcs_get_from_pcsspec_provider(pcsspec, provider);
-> +		if (!IS_ERR(pcs))
-> +			break;
-> +	}
-> +	mutex_unlock(&fwnode_pcs_mutex);
-> +
-> +	return !IS_ERR_OR_NULL(pcs) ? pcs : ERR_PTR(-ENODEV);
-> +}
-
-[Severity: Medium]
-Does fwnode_pcs_get_from_pcsspec() overwrite errors returned by
-provider->fwnode_xlate() with ERR_PTR(-ENODEV)?
-
-When the matching provider's fwnode_xlate() returns an error pointer (for
-example ERR_PTR(-EINVAL) on invalid #pcs-cells arguments), !IS_ERR(pcs) is
-false so the loop keeps iterating, and the return statement turns any
-ERR_PTR(pcs) into ERR_PTR(-ENODEV).  Because fwnode_phylink_pcs_parse()
-treats -ENODEV as an unprobed provider and skips it via continue, invalid
-PCS specifiers are silently ignored instead of failing parsing.
-
-Checking provider->fwnode =3D=3D pcsspec->fwnode directly in the loop and
-returning provider->fwnode_xlate(pcsspec, provider->data) (or
-ERR_PTR(-ENODEV) if no provider matched) would preserve the error code.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114104426.2356=
-20-1-ansuelsmth@gmail.com?part=3D4
