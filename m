@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794733118;
-	b=cERbaIpTFa+PtHSQ1KEhq33Z54uvKMAVjcyiuTN0ssexSxBBwpv8iRKnWWww+8qkb9Bh
-	 90lTSZIF/WE1NF65rwykZ9vJCn7rQVQs1WDHPassO1qqUzIlufeB4ESYJWUlDsXyrBXS3
-	 qISBzEQGUNx6VuG3yPbo4X3LIOj2gAH+lRUNaBZAPg9jwcoz6aJP78rulreLKLVKh1HJl
-	 XDwlfRrJa8dhB3OxWiKrfmIxv4/qHlb0vG4cXCkfnpwwv2EyFZYBQ3rRfCTn6RGOKQLa/
-	 lmwZa1oviW/Oul1jVVnVtOw0/4ALG173mUXjR1mz15E938J0iTpLaam1lq9K9g7ud3g==
+	t=1794733120;
+	b=Iq1Zkajr2/uwbVX+MnYnlJwAe4fLhphojbJr4h5Vja8XCO6r2dzQIZlP1Ou7rUDVs/AF
+	 ohHkayzEhu5T0yFvBlY9r+S7FtW0WUoOp28R2ErdQ9tdQNP3sV/UGRn/mNmwlbxRYFMDS
+	 vrfHNsd/DbSevCor+HhhJ8StZlXcucJBulUBXuJqldNf7XQJqW1O9Cm6xdMZTyAZHFV6H
+	 neHY1/glLrdnBN+XkcEGg3aKj38Nwtoi8u4dsQxaLzvn/6fOlrFk0yjHvCMwEUbjQa5WQ
+	 818lGYsNYEoeoeuaXe/81FnnSanCAkZOHM8nwxFPWSZ4EMWG/9S8P3NbXVDtK7BXNbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794733118;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794733120;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BfQ1qFkKsmGaWDuAf4U5BrZ/SIHnw5d+W2dmVSm0AgU=;
-	b=wT3deYPEpjPp/+t/ael+6ziZgkTjw2Z5IeJV3aFVEYI+3225RsjP7PZ39vaNBxomTnq1
-	 I8/n35p952OZpBR+1tzABoDLbJSinrUEQjkwfZZb0No73lWtmxaguS9cOId2BSeJXt8MJ
-	 Na0UAeNsUP+luCCHN9z6eXo1GpgXMMwo0ICuR6v0fbasRy/9/qAstJa8SNs2oBEp7mG75
-	 NwEzZRM+ICk1KqZ1CAQH5r8x5uIuz0ES03zHpVHd8kl5Fch1iO4kq5xdNUo72uDllqZRh
-	 K2pJsknglunGccnWzFKW3/KlCoiIXKQVRHmOQ2IPfuCiKKctHZCE7CR80D9/fT7OegQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=o49Az/X7nnRMbCTvuIgrTpIjxf+w39CY1NNO3CjBfDA=;
+	b=Gyo3KvNHM79reo8/a4qhOH15IvT81b3Oc4V7NqpRh8w39m3bveFzCZdm4FqQWHcRCo7T
+	 FN4zFgADCWnigXresEsdRzY1W3EjI51kgg+FjkOyffj0aK4SQGOK7FojoGMXPIveVHN0H
+	 4ZZE6KTelvaKJgADWshSzrQgyRsT3FJUmo6Vn4QiGUTXjWb3PYSVQSUgOoXWeP/fqGeUo
+	 x77DiuCysIntaYIM6miaCQAvWNXVK6j+8YSIQDvd/WARyuoEHpttbLJddP6/6GN1kOHKy
+	 Ml1ZF8mEhFxyLjGnCjZah0NDO8lxmX8O8m86F4VY+0P7wa96WKQr6Y9jyMx8SbWtVpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cxDgOdPI;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sPsUUrm6;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55363606A31D
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 08:58:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55363606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4673D606A331
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 08:58:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4673D606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cxDgOdPI
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c50a4a2132cso299244966b.3
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 00:58:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sPsUUrm6
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c247f6687dcso471552266b.2
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 00:58:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794733117; x=1795337917; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BfQ1qFkKsmGaWDuAf4U5BrZ/SIHnw5d+W2dmVSm0AgU=;
-        b=cxDgOdPIXVmH57Fd68NwsdJOuUZP8P8vdJ6d5BdqZUabe+Ute9wkApOR93dPGFzm54
-         TyCDW/GZUTprEszT/0jdMNrLPbr7AU4aZgtO+07t7eykMSJSKemC19TNIVqoPM9rEXLC
-         gn8ylbQm2QbrJUNsUwtL1lfFPvRliu8uarTjaHtoiuggbfwP01ziLWyIQp/KumpG2wJH
-         +OLv6HnZB76Y7uBnDgVT8rMHUvGjPE57UXDrrWnPqK240DsCVAH9LdO48xRJkxxgQ8Iq
-         SIgPAr6IdJMeddfYGaOsMGA5oxxy5pnE7+8fLwCqsQcLQyXlrq38AtinDEHaOJ8RMwoG
-         qNUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794733117; x=1795337917;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794733119; x=1795337919; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BfQ1qFkKsmGaWDuAf4U5BrZ/SIHnw5d+W2dmVSm0AgU=;
-        b=M1IaKUJILNMbD+Ad8fzjeJ4/2qFhzh/DOcrIenE8BhKBm8zvGjitNAh+quk7W5ZuTh
-         tDZyLq8v1wh2hJOnk+zyHW5wQCHj2ZMWz+grsoSrtiWCwobmPaiAHSR7E9hRBcOqVewE
-         XUVy6KZEx2RkAVfI419ciaqQ0A7045vUqQ8/qyc33FWZXzltGdGKumVZQ9jaVYCBz48Z
-         6chYknVstRmSMtvA+R/nIz47NU5hGmhuImcDeMIp8fzlEc/UcQdwohXCNEAGd+EtvDFx
-         MWgDVDxckXcztqyS7qBArqVlHBs6MsSNoHSBGcDL9KZOolMM8hvVTJrXHGMKEJ8E43cd
-         CwIA==
-X-Forwarded-Encrypted: i=1; AL+hErEzxpuZ38Xl2Gi/hbwscO3kfld8nOlHce3qbLaP4DfCiXQt7wiuehaapKM1rS1DD6mrMOE1jFxXstnR@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xXY4rfBdA4nKcqTwiKvzuNSXF+jDPlAlqefRJR/per4kBWNLd
-	p++A7Bv7UaYM8Ry7gIZdznxS7dBGxshCBqu6T9/9GdXwhqMRNbDVBtCC
-X-Gm-Gg: AYBFou2pYDayVC3kW+hJYkCyWOCY6PEY/3/aa7PsIZsVhqVZhGBfeF5i9uBypSmtMo1
-	S9gtzjaR9YANLuvu5Mz9mckzoaJA+TbDwvPFIrpGj21b6pzcTni5qsaQLX4/LMLNRyjSFWC3BKX
-	2C6BEoolty+tpFT/PWeIp3gbFUyP2F0R0pLkoDNCdZWOdkWVb9MiPjlivbLpuMXRW1EmODPb6M2
-	6lJGWTPqCAWP0Y5yhEbblkX/3kCtvePd+hLN6nIqfIo2Sb1KSdwQV1QzzepLhRqKlpjHdJCDW+i
-	r+PVhg8cqDxXFeDGf2oEktZFdmGg4zygpu3+M0MtypKeoroYZFT9mvA/sEP7Fp9gjqLAEY03LrV
-	c8twoWuvF2n8KYTU06x4wrGskk/mzYDI4+5jHQRs40143qlgq4rLp7aS6BbdCvsYo+pdFYL9h8B
-	72GTXKIVPjYJlQvZGZpJNdWnppu2KdekgM0V2QECLpLT+E9NghXqwYPMQqcEoLmzOVyndM951om
-	Xu/XqM/ceekbG9zUvX7A3J49wv13ggBAL+Nv1dp6XUIuXqAbo1E1iF6sa5yboaAtdGVf2hNRnF2
-	O4EfdLqAADekvlZBq8LaZptX3fvv8TTxwfBKg6LXM38ObhikH3Hdhn+h2mJCI8dcB7JeJDg6UUl
-	jo1mgzBKkCQ==
-X-Received: by 2002:a17:907:3ccc:b0:c49:a235:8e0c with SMTP id a640c23a62f3a-c509637e31dmr585009166b.22.1794733116617;
-        Sun, 15 Nov 2026 00:58:36 -0800 (PST)
+        bh=o49Az/X7nnRMbCTvuIgrTpIjxf+w39CY1NNO3CjBfDA=;
+        b=sPsUUrm635yddSdvTL7IG5cX2QAsw0XXrkPv6Pn/50HxLhpopLxnB9woE8SMJdkzPQ
+         ZyVD8w+AHewcn3a1c93CucFI0Mq7zRsKJF3bldMV6CmQ7PmZYthmcnDhoE7sLD1fnnvs
+         dIIsDTtaffiPVjVGvOEBHgEPuR21kH9N+mID9RNJnNk8Da0GEbDNj7iJDNF0bqtwyFAv
+         BUVyH0xeSCizRcmsccXEMu4YUe057/v/rwPf3CF5G4ETita+V5S8Tubdlkd76sQwxDpD
+         cQkaQ24toV68rPjAkXeG0zSt84eDQUSER3+3fu8KgxhsR7aNQpY8L/sJE1ymtU8my4g7
+         7MYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794733119; x=1795337919;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o49Az/X7nnRMbCTvuIgrTpIjxf+w39CY1NNO3CjBfDA=;
+        b=KKjcDjROlYGv7csxd2DBUuPMlHTY3VuWFzZS1KrEtJ2l1++DqBehAlaEUlLAUYtAvU
+         WeN6G9gHB8y+Xlmifdn4PRMx4HRM46oZEryrB9immT7W5I3obd8Pv+I51PM+PUcC6u5p
+         50e0l4+3dgfnHihnN+A5d5IqdkDoDG4lVvCFf0Ep45HcrpDKvQzdiSaEk42UWUbb72sL
+         aJJxmsc7k7RBqsueUg5o85N5tn2C6xK9974HUdr+vWQrklTQlObssoNDhUz9Et41CLNq
+         e4DAWaPuXpdU9+JxgLybVUn+9wI+EBvfQhIc5brPe04BRabS3zVrCYcdGeMpxikFnk0U
+         hcgw==
+X-Forwarded-Encrypted: i=1; AL+hErHm5ElkQKr6Y9erAmRINhu9ql2qqUrJBads/COpX3leE8M+79I3G0KQJTz1Q+PG9WVLvPhP3uRIlZjp@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Le13bh8DNuRO/4cvcW8+6GK236EADW0u/uKCuiGtywSZY6B4l
+	j0Jt/a5a3gigbms2fx79S0tJHyTB7bvhsyxaVwlaALk72NLt/KWAdHvf
+X-Gm-Gg: AYBFou3bMXaEx0oTdNulvCrG9t2UZV24YsKS8UpL5586F0wUrnAiQcn1/6OE2Y9adkp
+	poPrPMP+ZL9iyWbCvFq8Hv6r6Da8Bq+aXQgRrzVm40/RlHpH/dBpXIAhe9PyR1dKqI35mxXiHz/
+	yRq/WG/1LvoHLB4DSAzaC+anToTWLtVdy38Q0/KblVKn1WcfHJnO7wYEaR31JXL7K4lRwnx2zcz
+	DzmxYpRDjNvUIQlHzjTaS+6kj4EN/WfddZuhz6V5RnFxxYq+GGqYaAcrsV7esEtC0vGnUAXwA80
+	loVbXNm822mbJ+SdR2IkV1MeQhKUnZtrlsc+s8BRAwWYuAHLF4230vYUZ2Oe+2m/OsweClB4D4Y
+	SWjnXWoI4l1BVFJLW3zKOtoZP/cV0xCl7/UafYAa6qK6SqpuPbL+rMjBwlFSyseIitslLKEvAT/
+	Ul5//Vhk9jtIQJJIB9RDovBLfDv8gy1NmGSUSqYhRZz3RuhbamAvozb/pMdP/5r9K3s1mBBtCDy
+	lO33ckUqkD9h+qkzo39zkJZDFOjh+xq4rWSIRhC3X8jgg1axRR9j7PWlDyIjyehBwVEHXafIXfi
+	SCa+lr1LWlunR0HMOrVwpFiJGrqa4mczrad1BPYeLrhrITib9HV6nU8teNoXi8nKw/6cfVzGfAt
+	GQuRp2gwoyQ==
+X-Received: by 2002:a17:907:9448:b0:c41:8e21:4d58 with SMTP id a640c23a62f3a-c5096199393mr579973966b.5.1794733118390;
+        Sun, 15 Nov 2026 00:58:38 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5c4b7sm287613266b.1.2026.11.15.00.58.34
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5c4b7sm287613266b.1.2026.11.15.00.58.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 00:58:35 -0800 (PST)
+        Sun, 15 Nov 2026 00:58:37 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Lee Jones <lee@kernel.org>,
 	Pavel Machek <pavel@kernel.org>,
@@ -95,10 +96,12 @@ Cc: linux-leds@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	mfd@lists.linux.dev,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH v7 0/4] mfd: aat2870: Convert to use OF bindings
-Date: Sun, 15 Nov 2026 10:58:21 +0200
-Message-ID: <20261115085826.89641-1-clamor95@gmail.com>
+Subject: [PATCH v7 1/4] dt-bindings: leds: Document Skyworks AAT2870
+Date: Sun, 15 Nov 2026 10:58:22 +0200
+Message-ID: <20261115085826.89641-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261115085826.89641-1-clamor95@gmail.com>
+References: <20261115085826.89641-1-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,56 +113,147 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document Skyworks AAT2870 into schema, convert existing driver to
-use OF bindings and remove platform data, add support for
-in-supplies.
+Document Skyworks AAT2870 LED Backlight Driver and Multiple LDO Lighting
+Management Unit.
 
+Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org> # for backlight
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
-Changes in v2:
-- fixed led-max-microamp scaling
-- fixed max_brightness parsing
-- fixed regulator init_data and of_node passing
-- of_platform_populate > devm_of_platform_populate
-
-Changes in v3:
-- removed max-brightness property
-- switched from dedicated max_brightness property to dynamically
-  calculating brightness steps
-- update regulator registration to use mostly core regulator framework
-
-Changes in v4:
-- set max_brightness form aat2870_bl->max_current instead pdata->max_current
-- switch gpiod_set_value() > gpiod_set_value_cansleep()
-- constify aat2870_regulators
-- max_current in bl switched from int to u32
-
-Changes in v5:
-- drop max_current from aat2870_bl_driver_data entirely
-- remove legacy gpio and mfd core headers
-- headers in aat2870 sorted alphabetically
-
-Changes in v6:
-- led current set to default matching driver behavior
-- max_current initialized with same default value as pre conversion
-
-Changes in v7:
-- rebased to be applicable on top of devm_kzalloc_obj conversion
----
-
-Svyatoslav Ryhel (4):
-  dt-bindings: leds: Document Skyworks AAT2870
-  backlight: aat2870: Derive brightness steps from max current
-  mfd: aat2870: Convert to use OF bindings
-  mfd: aat2870: Add support for VIN and IN-LDO power supplies
-
- .../bindings/leds/skyworks,aat2870.yaml       | 124 ++++++++++++++
- drivers/mfd/aat2870-core.c                    | 133 ++++-----------
- drivers/regulator/aat2870-regulator.c         | 160 ++++++++----------
- drivers/video/backlight/aat2870_bl.c          |  78 ++++-----
- include/linux/mfd/aat2870.h                   |  95 +----------
- 5 files changed, 264 insertions(+), 326 deletions(-)
+ .../bindings/leds/skyworks,aat2870.yaml       | 124 ++++++++++++++++++
+ 1 file changed, 124 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
 
+diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
+new file mode 100644
+index 0000000000000..3f3f3058af52d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
+@@ -0,0 +1,124 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/skyworks,aat2870.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: AAT2870 LED Backlight Driver and Multiple LDO Lighting Management Unit
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++properties:
++  compatible:
++    const: skyworks,aat2870
++
++  reg:
++    maxItems: 1
++
++  enable-gpios:
++    description: GPIO connected to EN pin.
++    maxItems: 1
++
++  vin-supply:
++    description: Regulator providing power to the "IN" pin.
++
++  backlight:
++    $ref: /schemas/leds/backlight/common.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      compatible:
++        const: skyworks,aat2870-backlight
++
++      led-max-microamp:
++        minimum: 450
++        maximum: 27900
++        default: 27900
++
++      skyworks,channels:
++        description: layout of active channels, where each bit represents
++          one of 8 channels.
++        $ref: /schemas/types.yaml#/definitions/uint8
++        default: 0xff
++
++    required:
++      - compatible
++
++  regulators:
++    type: object
++    additionalProperties: false
++
++    properties:
++      compatible:
++        const: skyworks,aat2870-regulator
++
++      in-ldo-supply:
++        description: Phandle to parent supply of regulators populated under
++          regulators node. They all share same parent.
++
++    patternProperties:
++      "^ldo-(a|b|c|d)$":
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++    required:
++      - compatible
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        led-controller@60 {
++            compatible = "skyworks,aat2870";
++            reg = <0x60>;
++
++            enable-gpios = <&gpio 139 GPIO_ACTIVE_HIGH>;
++            vin-supply = <&vdd_3v3_vbat>;
++
++            backlight {
++                compatible = "skyworks,aat2870-backlight";
++
++                skyworks,channels = /bits/ 8 <0xff>;
++                led-max-microamp = <27900>;
++            };
++
++            regulators {
++                compatible = "skyworks,aat2870-regulator";
++
++                in-ldo-supply = <&vdd_3v3_vbat>;
++
++                ldo-a {
++                    regulator-min-microvolt = <1200000>;
++                    regulator-max-microvolt = <1200000>;
++                };
++
++                ldo-b {
++                    regulator-min-microvolt = <3300000>;
++                    regulator-max-microvolt = <3300000>;
++                    regulator-always-on;
++                };
++
++                ldo-c {
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <3300000>;
++                    regulator-boot-on;
++                };
++
++                ldo-d {
++                    regulator-min-microvolt = <2700000>;
++                    regulator-max-microvolt = <2800000>;
++                };
++            };
++        };
++    };
 -- 
 2.53.0
 
