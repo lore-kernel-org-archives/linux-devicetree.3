@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794781692;
-	b=b5bd04n2yJBhLf6E6fyXLlWyVrOgdci1w9Cm5yP7a1wwbrBgAUqQ0fKmiPLJ8htYv5Vq
-	 DJpehfpiZSLKH/aTSBjbXQ8TMrdrrQa3uHwi+fVxEpw/JfJscCKSaVwbLVOXlQ9k4hl/3
-	 xW25fUfCxBhRCaUKF1WGm6dtioLe12z4Kq0RGM0WVx4++cVOM2TZS4rn0X0YeXRC4vo58
-	 S5HqxRMTiSbNT3Cl94arSNFnPgY+FMvT+ivh23SlUlwR8Zty8QFMPAddMBYV26xyeRHIK
-	 1p0OM/1/ucKmjujBs8IPV2BGoNaF5Zh583NQ1vaFnKo0ZNsJ7Ds56vXC0D0Axx9kI4Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794781692;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=TEYwC0yd2Q6rJp4otTipe3rkKTLSLdWxD7WurCB1Zgo=;
-	b=FpxWkULLPGw+HBaoNPR8UBtfHOkWl8Ew+JF2ao3aF0K29ULBTdzbq8qMx7FmgzNBqr3t
-	 ZvmBo8mMK8zHrdeWTaiNwsJTC86zfNTCIxoiBAj3qN0e5Ck8G1tcUmP/dlDXmlIlgUkwW
-	 3wksUkc94Of9b8/U6yIrnPmFuxWXb3zdELpqJr2iZjc91ERdQb56pxAvFLQzRIQ3WxIq8
-	 I+E5sCwXkjrcTL+A0isnJIGoptKeyNfxOzabykN2YOwNdfkO3gZjT6DnYDqxxT/blI5Rh
-	 To7W6KLW8TPes2ZGFLezIX+MaSyYBdWNmdUX83rQgIM29VMw8er0gcntuTF27T775HQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWVzejUX;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794781807;
+	b=vn6gNqdBWCYEfJQd3qw4PSYfPM2uVL/cjmV/DypCY/PspQZ6uQj1fh39vvbRaKq3c/Ci
+	 SVW2080QeseJUCxX9knce2y5B5vtmsYaJLJ4rwVSVdY5K7V6G5/0Yrztc6H115LgOBeRV
+	 6XFx8vjia3zMsg253iZodUMp2RLdVVgEgEtgqw2fqoF3CI6mBUK5Glk+fVAvBi/KDnyVs
+	 ezsEbJWbgTuOdANb7t5TAN40rWbvOXWWEQSsZ3kuitQtTmjaxO+Rk9Ok6PT2i27v8cE6H
+	 tvA5OEqIoOaeFK6qjq9AWMsBXFG00PCZZxgI+4h8YngZyPSWu+yf2fderaSnnBy7kfQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794781807;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1gLNBYp+ck7xYQnvYM+G+PAF9GWuVTdzo0tmuZTHUOE=;
+	b=mJ6M7znNuYWVZCeV3T5epi4BYc2r0Hez/UEwkfMpydwWxJ228DM6IJzuY/qfofKpScpU
+	 FiSv2oB2yAUMgvFgNNPrvtOd1YVXKV96XmGV42wsVPUIL9iaau8cRzwb0aTMnS6rL8OVD
+	 LxX/VL1wccscH2SF+4HkQHa2wc86HSds1xPN6FkHvdQmkrancBbSz2zT5XJZWExBCIFE5
+	 2C0fzu6oKzS6chWXfDs6k41Ajwn02n/vo/xoT72SEK3dtdozlzf1Bwbb7ZUNy7+MLYixT
+	 QZ+wPyoIvayrtd+jwNEIP2EokHM1eDvlernswqzU5bauQxG8IxhiJgP0IXsV6i1LyAQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFQBAC4M;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EAEB606A332
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 22:28:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43540606A336;
+	Sun, 15 Nov 2026 22:30:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWVzejUX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCF761F000CE
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 22:28:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFQBAC4M
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794781807;
+	b=QBf+bc9vQjW9VzV+sf6qW12TgpSicc90MBBA3TXzgObXbn8E0i12petHtkjvTpemtDOE
+	 e/de4lIhGK0gBcVqA45d0KOwFs+rOTGKpQLono6W2A6UYHsuPoaRI4ZTqh9yq+WAzwvf8
+	 gPg5h5SBowY46R0NvQS8MCmozboooexmnyqjQNkE5dR4uIVtSh2nN7DDSBFX3npIxjRET
+	 BtX3miDMCUpsF83PEJg8vw1MzAO1GJsnOzZeK9ZcwcKSf//CT1oTEVHb+845J9bYTwSMo
+	 Pql1kMqTxcgGG+NvdRWpPgIZwsBZrV4pmBe5NwXpkmzz2IMu62qORjvAsKd44gOCcvw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794781807;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1gLNBYp+ck7xYQnvYM+G+PAF9GWuVTdzo0tmuZTHUOE=;
+	b=ETHWlLfNUphK3IzIHzZ5ZjKYfeUtYyIIdWcMMuXHa8Rf7r7nPRIjPeqmddY2X5GmguRb
+	 XCGy062rzJ293D/xdw7MifYH2X4KHrJ0+EWceRiqwlHm6dtqc6OwV1Ps0igx+i23eZ5C/
+	 0lyuMRYJyfrsWRyV4emdb7OnjHvDTg5Al+qM07y36bMOvKZMkKD4woaCeuVhxSHYinBYs
+	 sUKQatpRC40naydKWGE2FtTrrBO7saofvz+WLTsHi6hkdKYC5qJe9dPGIXutX2FkymhL/
+	 GY0GoCme8fuDjaGxWOlyN6/Mx7f/gMKzMx6zELS+w7TellsNo3CAeDufiOsDyBPQ3bw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 079711F000C7;
+	Sun, 15 Nov 2026 22:30:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794781691;
-	bh=TEYwC0yd2Q6rJp4otTipe3rkKTLSLdWxD7WurCB1Zgo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NWVzejUX9qF0XoM4VmEyXPZSxIG5Fs6unNadjPRXKBSH+vjBwWuW9IwsP2UD1Jyxh
-	 N4DWmQdek5RNSEdOLJueNW9tvqDthvnNazJBw0TiF7oKW+Ke/20zMucQiLpYLKA5nO
-	 3jDVSQIj1Uzg7SYszycMfFEzP6fakMh9E/SFLUMyyl3Pw1POrN19p3pgZdlMG1hBfl
-	 uDu2Fs2NFFfeBArnwiJLuecqZC8ijTgMvmd4rCgRDyv0DuRa4QKIeDtU1FGrbDm1fT
-	 9x3ewZn0T3RJPSLbtwwWddaebGc7zSZ3YdLKxYfaWHR5eABuub1dS5nx5aZcMg9Q0s
-	 IUuDfWmSm/WOw==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be3ed646a5so4104713e87.1
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 14:28:11 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFFBpofHugwmiZ+2ClvJvPGIhxloaopG4+n5GB/tTfYBVUYTlVDUTQb5Om1wqiP5ob8XdM3jJWDKGMN@vger.kernel.org
-X-Gm-Message-State: APuU4Z8oh3LOxEDaK2sI9eRAFnz8qcO33fL1JFz7Fyjm99VfGMid2GN9
-	xhzPcplRrliQi/TIlUU6I6Ak/CNR5xUFNW0z9IyxK7Sv+LrQ6qwf8j9vut+fQ+h4CRRxpaGphOZ
-	ez+wyzN/PZo3Kft4C05pMbnmV2xyWAIQ=
-X-Received: by 2002:a05:6512:3f04:b0:5c1:4cab:2d03 with SMTP id
- 2adb3069b0e04-5c170b2ecf5mr3075860e87.63.1794781690375; Sun, 15 Nov 2026
- 14:28:10 -0800 (PST)
+	s=k20260515; t=1794781807;
+	bh=1gLNBYp+ck7xYQnvYM+G+PAF9GWuVTdzo0tmuZTHUOE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=iFQBAC4MYpU90/lDAYWGaic2mbW+YCwsliq/idAoNS89ZL5orJIikuLcFyrr2ixSz
+	 NBhJhbjGBDI0CFe3hJBLnQcFxEHKqtdoWSFyCelJfoi3VNQLUnXBBU/GAEAzbM1Bgn
+	 3zTXtplU/yjcFmvNYzdwJwOeI90pvQrL3Egady7vOTvC6hk8+3PqPjT0x2CCwdRzs1
+	 3AuSQzDJQBAzx2Cf49k+CtuvKvzvfa2THng8svpmjZ8DI/4MZFRA2Lf3Otc43eBjD8
+	 1xpO3NgdH4v+QFGJZF2rMQxKc6o21ELcvZzZYqdyp9PICa272hStkXkfZmNDNTqQ72
+	 fs44LUe42qdlg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8819F4A228;
+	Sun, 15 Nov 2026 22:30:05 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Sun, 15 Nov 2026 23:29:38 +0100
+Subject: [PATCH 3/7] arm64: dts: amlogic: axg: Add ranges to periphs
+ pinctrl node
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,63 +83,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261114-b4-cs75xx-v7-0-8f17f38821b4@gmail.com> <20261114-b4-cs75xx-v7-4-8f17f38821b4@gmail.com>
-In-Reply-To: <20261114-b4-cs75xx-v7-4-8f17f38821b4@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 15 Nov 2026 23:27:57 +0100
-X-Gmail-Original-Message-ID: <CAD++jLnu=ycR+_ZXW2K54oeDJMCfybdSUDVOTJ5B=rFTiOnjLQ@mail.gmail.com>
-X-Gm-Features: Aa3M54oN7V3Y8V-EQUC0vRGZ-PhoQTaP6aUjOIuJowZCATlHdfiiGxoj1XFGWNs
-Message-ID: <CAD++jLnu=ycR+_ZXW2K54oeDJMCfybdSUDVOTJ5B=rFTiOnjLQ@mail.gmail.com>
-Subject: Re: [PATCH v7 04/10] ARM: goldengate: Add support for the CS75xx SoC family
-To: filipp.dunsky@gmail.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Russell King <linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
-	Jason Li <jason.li@cortina-access.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261115-fix-amlogic-dt-warnings-v1-3-94cbd67a32ea@aliel.fr>
+References: <20261115-fix-amlogic-dt-warnings-v1-0-94cbd67a32ea@aliel.fr>
+In-Reply-To: <20261115-fix-amlogic-dt-warnings-v1-0-94cbd67a32ea@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1603;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=t3oox1TjzpL1ctm6S+5Ku7TzDmvGbGuVy9dMZYSp6B4=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9Yvo9RuaxaGU1OPHnxSk9zGLPtc4/4xXUeuEBPNCeGOe
+ 2xMby/vKGVhEONikBVTZOmfa3ni3eWjZ77uUU+BmcPKBDKEgYtTACZy9zXDP5PlYj9CXxlM9ctY
+ n3T17frIsFN3ms5vMHvW3TubgbNSuIDhf/qOHJ6Szru3N04UcvbYrNreemFpS3e+8QyXnnN/tx+
+ bxAYA
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
+Content-Transfer-Encoding: 7bit
 
-On Sat, Nov 14, 2026 at 2:41=E2=80=AFPM Fil Dunsky via B4 Relay
-<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
->
-> The Cortina Systems CS75xx ("Goldengate G2") are network processors
-> with two Cortex-A9 cores, an SCU, GIC, the Cortex-A9 global and private
-> timers and a PL310 L2 cache controller. The family includes at least
-> the CS7522 and the CS7542; the CS7542 is used, among others, in the
-> Securifi Almond+ router.
->
-> Apart from the vendor this has little in common with the Cortina
-> Systems Gemini (SL3516/CS3516) supported by mach-gemini: Gemini is a
-> single ARMv4 FA526 with Faraday peripherals (FTINTC010, FTTMR010,
-> FTGPIO010, a 16550 UART) built for ARCH_MULTI_V4, while the CS75xx is
-> an ARMv7 MPCore whose UART, GPIO, interrupt controller and NAND
-> controller are different blocks. It therefore gets its own directory,
-> named after the Goldengate codename like in the vendor kernel. The
-> Kconfig symbol, ARCH_CORTINA_ACCESS, covers the whole family and is
-> named after Cortina Access, which last sold these chips and also makes
-> the newer 64-bit parts.
->
-> The generic DT machine is sufficient for the platform, so only the SMP
-> bring-up needs code: the bootloader parks the secondary core in a WFI
-> loop that polls a global software register, so boot it by writing the
-> physical address of secondary_startup to the register named by the
-> cpu-release-addr property and sending it a wakeup IPI.
->
-> The CPU is a Cortex-A9 r2p1, so select the errata workarounds that apply
-> to that revision and can be enabled on a multiplatform kernel. The PL310
-> is r3p1-50rel0 (CACHE_ID 0x410000c7), select the workaround for its
-> erratum 769419 as well.
->
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+  meson-axg.dtsi:360.33-1262.6: Warning (unit_address_vs_reg):
+  /soc/bus@ff634000/pinctrl@480: node has a unit name, but no reg
+  or ranges property
+  meson-axg.dtsi:1609.30-1716.6: Warning (unit_address_vs_reg):
+  /soc/bus@ff800000/pinctrl@14: node has a unit name, but no reg
+  or ranges property
+  meson-axg.dtsi:360.33-1262.6: Warning (simple_bus_reg):
+  /soc/bus@ff634000/pinctrl@480: missing or empty reg/ranges property
+  meson-axg.dtsi:1609.30-1716.6: Warning (simple_bus_reg):
+  /soc/bus@ff800000/pinctrl@14: missing or empty reg/ranges property
 
-Looks good to me.
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ arch/arm64/boot/dts/amlogic/meson-axg.dtsi | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Yours,
-Linus Walleij
+diff --git a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
+index 5b8ef98f6d03..dc932629c92c 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
++++ b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
+@@ -361,7 +361,8 @@ pinctrl_periphs: pinctrl@480 {
+ 				compatible = "amlogic,meson-axg-periphs-pinctrl";
+ 				#address-cells = <2>;
+ 				#size-cells = <2>;
+-				ranges;
++				ranges = <0x0 0x480 0x0 0x480 0x0 0xb4>,
++					 <0x0 0x430 0x0 0x430 0x0 0x3c>;
+ 
+ 				gpio: bank@480 {
+ 					reg = <0x0 0x00480 0x0 0x40>,
+@@ -1610,7 +1611,7 @@ pinctrl_aobus: pinctrl@14 {
+ 				compatible = "amlogic,meson-axg-aobus-pinctrl";
+ 				#address-cells = <2>;
+ 				#size-cells = <2>;
+-				ranges;
++				ranges = <0x0 0x14 0x0 0x14 0x0 0x1c>;
+ 
+ 				gpio_ao: bank@14 {
+ 					reg = <0x0 0x00014 0x0 0x8>,
+
+-- 
+2.43.0
+
+
