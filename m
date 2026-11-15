@@ -1,57 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794740729;
-	b=AfirtTy7onBEXZJIR8lhf1W4+5KuCsXoSgBbJEh7DPefgAaXxVatrut1lrHmsc2tSn2g
-	 RtE/hxK04y+plbjaAtNybkk0h15rqgbY/wSb18pYTE8dhP9K4Jrt9sEw/1PqaixheEKM1
-	 gVC9pI02XQ0bLWtALwjtbjjMmMTOfac4C59Nt1snATJf/MYd4QJ/WppbUR2ka4fFq68YE
-	 vPZmCq6AZyHB3FO5QiGm1OuG+tuyX+S9H7WUCOKeEsdgt3WQoWa6EzyPwE4yWvpEx0iN2
-	 r7uV2Omb2PNPfJIaGSxlzaS0JmuuxRkyfSdxVjHsqctbSfqeH8QDngVew4+n55sqswA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794740729;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=QArUHYLf9L/U2NYw1vy2o+lKGGFsWVtZNi4VVFga1WY=;
-	b=vXwXJJLHIKG2xR4B4MO6nnSwkxVFHrnsxbg/d81Ol/mXdz9JGw5ICP1LocZ1VjOlHxhh
-	 KNJ5sqqjNwvcr//ECx+aQ/SEuHYdviIePLMYm0iepBHcVX/Xu76cSuV2kNGnRv7lXsy2/
-	 pgMfqQ9JVlrSgah5inXKih0CtwVlF6IuKbUJxKQ8GCqal0/0Ug8/eILZrS8utNc7zJvwz
-	 X6dutiuqlXcZW03ii1WVnSgt7kbUZ9yLjednjLJJDuuqaLMb2TTFDaPMJiM7uRDptsYPX
-	 WUJhdgP89OHAId3DG0WD4P1GCVBrDBgU8sG9ngfR4P8MSG+cqrXUAl8tUypKhoEtXFw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eaFncKf4;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794740748;
+	b=h8fa5Ztsw3hgvur+CthLFRuI9QLPGEwfhUwzt6allW24NPvEd6MCI66PrXYMomb7ehyB
+	 5OLnhVvUzKZVbTuQpaXYH6AvJFmFxim9zKDrE1dDXPLDx9u3BMo7h40CAhJyvjIKIIM0c
+	 xk6IaYoF8dYlcvp/a62RShrhfcW6Gt0/GpAT48xes1szS8fk/FhO7cMHqQVlphigYpLLG
+	 QMjqcq48bpibhqDlpaMT0QeN3j/6ZqaQ29FNmW8ytrA9hh3+/d5/46IQS5Mv5qk52t7AX
+	 fABeIBcAfQT9wgqAMQLxhUjdj0hlJCFmTG8ha1W+JtUUlu13r0dkIOlOOubenlGyEJw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794740748;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=hK+5XJC+lJT4Jur6NS/UQqYwsuEPNviAHyqonVulBXs=;
+	b=X2mle+GURDSo+rJWYeKaq7LmjKrY98aAn8xWHAh5eNyKkuAIpL0/O1zOGkY/ePrbkiNi
+	 U5QirB2Dw+bS0Cgtl0WYwMfhLagCtOQvydM/za4BxGM/AKGSEqX8kmG4K+THDNI24Hm2T
+	 U8iAMgpUlQY7weXvc1DmHf3t5KfRJfD3IYo8FZKD8xIEtOD8HASB8h28UoCkX+Fc2yZ7F
+	 ScQcjwGQqQH6s86wWpyXdmCf+CBwrey4HTOPFwN+sdFaK9kk0zNPyL9/9Ogkdu6M3aLrz
+	 ZgsTmQD3QVBzL9YQXUjTWFQdEQPCRgLryDz2xake9SW6XjWuG/vuodmZFmbSX25pVmg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Zom/TGJl";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC5D606A31A;
-	Sun, 15 Nov 2026 11:05:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6165606A32F;
+	Sun, 15 Nov 2026 11:05:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eaFncKf4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FB5B1F000C4;
-	Sun, 15 Nov 2026 11:05:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zom/TGJl
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794740748;
+	b=KTx01X199Tg9dUC3Svn7u7nL6y/XRPdznm8VqEpnIDt17T6ygsgBlMW2ANlcnZbZ0nDK
+	 KTZmn1gPcYTxSjigx7+XBVDs8PxZya3iZyPL7SFak7Vg8zbmKEy69spZyJ2aawXGEOnjZ
+	 G5+ycqHVXrRHzHI/O5IRNR2IewClktR/OgVGBGWMIxPCqyLJgVGGoORD/4RGkv3x5720G
+	 ztRSL9rIMTvnhw1MlfoTcXzbCS4xVRpkDJMTqnSJOTTvkxkHhdiBcyvaHVJycci5qb25Y
+	 B6KnsLYN81QyRAcBiA7n8UvOK6Bo6V1Ax7P1kZ7rCKUQXpI1NoCkNcNQBk/CF6DIuLw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794740748;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=hK+5XJC+lJT4Jur6NS/UQqYwsuEPNviAHyqonVulBXs=;
+	b=aizfoc7rLzEp6ta5u25fCGe+odkReifAXMYn41Jw8oJdxJyyAb0ZZRzx9dq/Qrb8lMw6
+	 OoUsNqkWkppSF5yw4f7nLv8QRH/jxYZ2h2hcPWfKzh5cYXfbPyuSmnImDj/49GqGKTI3+
+	 NQnM3P7l4AWi7U+sNKLRUlnoofYLv7w039Bs3oQXBIF8qrJ4KLFhWyN10S5qmdAjKs1bN
+	 5iOkNNj3KA//650G/bVh3N9pCqaTIlHhkM4++Db7zaRu+SmpwatBiuKZcpNB0d3YX8cW/
+	 KRhY//TgHYtrt+qQ0XgU25ZDGatbtaVJNtfuW60xvPI3QkKFD1NxqGc/xFtduuXLeDA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8BAAF1F000C9;
+	Sun, 15 Nov 2026 11:05:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794740728;
-	bh=QArUHYLf9L/U2NYw1vy2o+lKGGFsWVtZNi4VVFga1WY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eaFncKf4wWRODWaHGhgs3igls61PHECBfoS5HHawovAxp9FaxB4w0P7p/RUVudvHj
-	 Mds9cJjaEH9OAm6thAqS5qhStI/kRJYq2lSP7o2QljI3+05JHi3u6uW5XABXfkukif
-	 Dnldr+8wKAS5hrCjVlIDVwIefoMPufHhk+yGXZ7BU266KBnhdiEVuJlzFVr9nRgupp
-	 y9I9gZIoMpBwzZJWMdAgLw8CNLoM0X9Mj+KmJJd75+izMjfqIGddhcq59miShug+6M
-	 98vySNLMnvucxqDS8nqJl96lEVrK+A91DFkzw1+0PcQY6VgIZMh78BSspQsrgid1S9
-	 VurZnO6YnFggQ==
-Message-ID: <sashiko-outbox-215437@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/13] clk: berlin: add Synaptics clock controller
- helpers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jisheng Zhang" <jszhang@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261115102401.3520-10-jszhang@kernel.org>
-References: <20261115102401.3520-1-jszhang@kernel.org>
- <20261115102401.3520-10-jszhang@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 11:05:28 +0000
+	s=k20260515; t=1794740748;
+	bh=hK+5XJC+lJT4Jur6NS/UQqYwsuEPNviAHyqonVulBXs=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=Zom/TGJl2jglCmDeusfRnuGd4oiUCCVG1lpBRkERosDaygzvKbyIjbGQk+dihpAV1
+	 BFiNXLyxKIXtx7tlGd4bGN8B/mGsOT7efbkbYsEgccKyNSAhikntNqXOr37PyyGw6v
+	 xw7MQLZ0WdyF+bUQOGvaV5CgUZMjlwWS6jpy6On+ndr7Fpt1ys315HmWprCta51ba3
+	 Jmf1lMCE1OpGkhuHGXqlWuywCAPKKzd6AsYlnAaveS0dcqKLEGyAnDJLgwEDOlWHI3
+	 nmoPUZc1BzyJP/1922Q8A4IpC+UGwAhVVRaX1ySB0fasWlvPpX2AQa6xcpxDku9ozk
+	 5lhRdhXFaT80A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DFC874A05B;
+	Sun, 15 Nov 2026 11:05:46 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Subject: [PATCH v5 0/5] lx2160a: change the pad muxes through the RCW
+ override
+Date: Sun, 15 Nov 2026 12:05:36 +0100
+Message-Id: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v5-0-d246166ea469@free.fr>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,231 +83,151 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAACS+WoC/5XNsW7CMBDG8VdBnmt0ZzuOzdT3qBiu8blYKklkQ
+ 0iF8u4YFqATSLf8b/h9Z1E4Jy5iszqLzFMqaehrNB8r0e2o/2GZQm2hQFlE0DIOWR7HcshMe/k
+ 7K7RAMncnOaZ+f5zlhFJj9BR8GzpnRYXGzDHNt5Gvbe1dKoch/902J7x+3+LrgQSySN7ptjXmM
+ 2bmdcziik/qfVBVUBMFcBa+vfsH6kfQvQTqCjYEYHXEQJ6fQfMAonkJNBVkjh0TWEtNcweXZbk
+ AFtQmkcUBAAA=
+To: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
+ Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ Vladimir Oltean <vladimir.oltean@nxp.com>, 
+ Ioana Ciornei <ioana.ciornei@nxp.com>, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794740742; l=5609;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=v9zbbzSmM/69ewSbqBsLJz3u1dtfiSOwvumEGtAxm40=;
+ b=GqByQYVV98x6n4nGkn0NfyLAeNioHLP8BT3zIxMzjmxdxn25CXDCJ/e8JYMpNjWAebS3xsOrJ
+ zf4cC9UANfcAHuWvpY3BziHEdejlm32rxxQSgD0oZGrvfXi6qIJ253x
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] clk: berlin: non-irqsave spinlock in sl_sysmgr_gateclk_ops
-- [Medium] clk: berlin: uninitialized clk_init_data in sl-sysmgr-clk.c
-- [Medium] clk: berlin: sl_sysmgr_clk_setup() ignores descriptor flags
-- [Medium] clk: berlin: missing .disable callbacks and duplicated gate
-  clock in sl-sysmgr-clk
-- [Low] clk: berlin: non-self-contained header sl-sysmgr-clk.h and
-  unused macros
---
+The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
+fields of the RCW. They are read-only in RCWSR12..14 of DCFG, and are
+changed at runtime through the override registers in the DCSR view of
+DCFG, which read 0 until written.
 
-commit a40ea8003017371f6f9b098c53eae5c758e872e4
-Author: Jisheng Zhang <jszhang@kernel.org>
+Since commit 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c
+gpio to support bus recovery"), fsl-lx216x.dtsi drives the override
+registers with pinctrl-single for the I2C bus recovery. Its first pin
+state clears every other field of the word: a board whose RCW programs
+a non-zero pad mux loses those pads at the first I2C probe.
 
-clk: berlin: add Synaptics clock controller helpers
+This series reads the fields in effect from RCWSR and writes RCWCR, as
+fsl_guts_rcw_rmw() already does for the SerDes protocols:
 
-This commit adds configurable divider and gate clock helpers for Synaptics
-system controllers along with an MCU system manager clock setup helper.
+- patches 1 and 2 describe the pad mux as a child of the DCFG node,
+  which gains its DCSR view
+- patch 3 exports the RCW override of fsl-guts for the pad-mux fields
+  only
+- patch 4 adds the pinctrl driver: one group per RCW field, one
+  function per encoding
+- patch 5 moves the pad muxes of fsl-lx216x.dtsi under DCFG. Labels
+  and pin node names stay, so no board file changes, and the
+  pinctrl-single node goes
 
-> diff --git a/drivers/clk/berlin/sl-sysmgr-clk.c b/drivers/clk/berlin/sl-s=
-ysmgr-clk.c
-> new file mode 100644
-> index 0000000000000..f3cf921fc3c1a
-> --- /dev/null
-> +++ b/drivers/clk/berlin/sl-sysmgr-clk.c
-> @@ -0,0 +1,241 @@
+Patch 4 uses the exports of patch 3, so it cannot be applied alone:
+patches 1 to 4 could be for the the pinctrl tree with an Ack of
+the soc/fsl maintainer on patch 3,
+and patch 5 through the i.MX tree once the driver is in,
+since the I2C pin states of fsl-lx216x.dtsi then belong to it.
 
-[ ... ]
+DTBs built before patch 5 keep their pinctrl-single node and behave as
+before. There is no Fixes: tag, since patch 5 depends on a new driver.
+I did not believe it should be backported then.
 
-> +#include <linux/platform_device.h>
-> +#include <linux/version.h>
-> +
-> +#include "sl-sysmgr-clk.h"
-> +
-> +#define CLK_EN		BIT(0)
-> +#define DIV_CHNG_EN	BIT(1)
+Tested on a Nodebox v3 (LX2160A) whose RCW muxes XSPI1_A_DATA[7:4],
+SDHC1 and IIC5 are not set with the defaults, so I could confirm:
+ - with pinctrl-single the first I2C probe cleared those fields
+ - with this series RCWSR12..14 read after boot exactly what the RCW and
+   the board's pin states select
+ - all I2C controllers come up with their recovery states and a
+   forced bus recovery on IIC1 (multi-master enabled for the test)
+   changes only that field
 
-[ ... ]
+Thanks to Vladimir Oltean for pointing at fsl_guts_rcw_rmw() when I
+tried to prime the override registers from the RCW instead:
+https://github.com/nxp-qoriq/rcw/pull/8
 
-> +static int sl_sysmgr_gateclk_enable(struct clk_hw *hw)
-> +{
-> +	u32 val;
-> +	struct sl_sysmgr_gateclk *clk =3D to_sl_sysmgr_gateclk(hw);
-> +
-> +	guard(spinlock)(&sl_sysmgr_gateclk_lock);
-> +
-> +	val =3D readl_relaxed(clk->base);
-> +	if (!(val & BIT(clk->bit_idx))) {
-> +		val |=3D BIT(clk->bit_idx);
-> +		writel_relaxed(val, clk->base);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int sl_sysmgr_gateclk_is_enabled(struct clk_hw *hw)
-> +{
-> +	u32 val;
-> +	struct sl_sysmgr_gateclk *clk =3D to_sl_sysmgr_gateclk(hw);
-> +
-> +	guard(spinlock)(&sl_sysmgr_gateclk_lock);
-> +
-> +	val =3D readl_relaxed(clk->base);
-> +	val &=3D BIT(clk->bit_idx);
-> +
-> +	return val ? 1 : 0;
-> +}
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+Changes in v5:
+- soc: fsl: guts: the exports become fsl_guts_pmux_read(),
+  fsl_guts_pmux_override() and fsl_guts_pmux_override_supported(). guts
+  lists the pad-mux fields of the LX2160A and refuses any other field
+  or register, so the serdes fields cannot be changed (Vladimir Oltean)
+- dt-bindings, pinctrl, dts: add the EC1, EC2, USB_EXT, GTX_CLK and
+  SDHC1_DS pad muxes of RCWSR27, the second reg of the node (Vladimir Oltean)
+- Patch 3 is reworked: drop the review tags, new round of review is
+  needed (TBC, from Christophe Leroy and Frank Li)
+- Patch 1 gets a reg, 5 groups and 4 functions:
+  same drop the the Reviewed-by of Rob Herring and Frank Li
+- Patch 2: its description names RCWSR27 too, I assume the
+  Reviewed-by of Rob Herring can remain
+- Link to v4: https://lore.kernel.org/r/20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr
 
-[Severity: High]
-Can taking sl_sysmgr_gateclk_lock with guard(spinlock) instead of
-spinlock_irqsave deadlock?
+Changes in v4:
+- pinctrl: MAINTAINERS with imx@lists.linux.dev
+  FUNC and GROUP macros with LX2160A_PMUX_ prefix (Frank Li)
+- Add the Reviewed and Ack tags of Rob Herring and Frank Li
+- Patches 1, 2, 3 and 5 are not changed
+- Link to v3: https://lore.kernel.org/r/20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-0-5a0063f1da9e@free.fr
 
-clk_core_is_enabled() calls .is_enabled from process context without
-holding enable_lock and with local interrupts enabled (for example via
-clk_summary_show_one() or __clk_is_enabled()), while clk_enable() can be
-called from hardirq context:
+Changes in v3:
+- dt-bindings, dts: the pad-mux child is bus-addressed like the
+  clock-controller child of the LS1028A dcfg: its reg is the RCWSR12
+  to RCWSR14 window, under #address-cells, #size-cells and ranges on
+  the dcfg node, the override registers stay the DCSR view of the
+  parent (Krzysztof Kozlowski)
+- cover letter: patch 4 cannot be applied without patch 3 (Linus Walleij)
+- Patches 3 and 4 are unchanged
+- Link to v2: https://lore.kernel.org/r/20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-0-3aad0860b984@free.fr
 
-clk_summary_show_one()
-  ...
-    sl_sysmgr_gateclk_is_enabled()
-      spin_lock(&sl_sysmgr_gateclk_lock)
-      <hardirq>
-        clk_enable()
-          ...
-            sl_sysmgr_gateclk_enable()
-              spin_lock(&sl_sysmgr_gateclk_lock)  <-- spins forever
+Changes in v2:
+- dt-bindings: list, for each function, the groups, so the
+  schema refuses the associations the driver refuses (Frank Li)
+- Patches 2 to 5 are unchanged
+- Link to v1: https://lore.kernel.org/r/20261103-for-upstream-lx2160a-rcw-pinmux-v1-v1-0-0a61a9837744@free.fr
 
-sl_sysmgr_gateclk_enable() needs guard(spinlock_irqsave), while
-sl_sysmgr_gateclk_is_enabled() only performs a single readl_relaxed() and
-does not need the lock.
+---
+Vincent Jardin (5):
+      dt-bindings: pinctrl: add the NXP LX2160A RCW pad mux
+      dt-bindings: soc: fsl: layerscape-dcfg: add the LX2160A pad-mux child
+      soc: fsl: guts: add the RCW override of the pad muxes
+      pinctrl: freescale: add the LX2160A RCW pad-mux driver
+      arm64: dts: lx2160a: describe the pad muxes as the DCFG RCW override
 
-> +static const struct clk_ops sl_sysmgr_gateclk_ops =3D {
-> +	.enable		=3D sl_sysmgr_gateclk_enable,
-> +	.is_enabled	=3D sl_sysmgr_gateclk_is_enabled,
-> +};
-> +
-> +static int
-> +sl_sysmgr_gateclk_register(struct device *dev, struct sl_sysmgr_gateclk =
-*gclk,
-> +			   const char *name, const char *parent_names,
-> +			   u8 bit_idx, void __iomem *base)
-> +{
-> +	struct clk_init_data init;
-> +
-> +	init.name =3D name;
-> +	init.ops =3D &sl_sysmgr_gateclk_ops;
-> +	init.parent_names =3D &parent_names;
-> +	init.num_parents =3D 1;
-> +	init.flags =3D 0;
+ .../bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml   | 309 ++++++++++++++++
+ .../bindings/soc/fsl/fsl,layerscape-dcfg.yaml      |  18 +
+ MAINTAINERS                                        |   8 +
+ arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi      | 377 ++++++++++---------
+ drivers/pinctrl/freescale/Kconfig                  |  15 +
+ drivers/pinctrl/freescale/Makefile                 |   1 +
+ drivers/pinctrl/freescale/pinctrl-lx2160a.c        | 401 +++++++++++++++++++++
+ drivers/soc/fsl/guts.c                             | 122 ++++++-
+ include/linux/fsl/guts.h                           |   3 +
+ 9 files changed, 1078 insertions(+), 176 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261103-for-upstream-lx2160a-rcw-pinmux-v1-31f9ad97dc86
 
-[ ... ]
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
 
-> +static const struct clk_ops sl_sysmgr_clk_ops =3D {
-> +	.recalc_rate	=3D sl_sysmgr_clk_recalc_rate,
-> +	.enable		=3D sl_sysmgr_clk_enable,
-> +	.is_enabled	=3D sl_sysmgr_clk_is_enabled,
-> +};
 
-[Severity: Medium]
-Should sl_sysmgr_gateclk_ops and sl_sysmgr_clk_ops implement .disable
-callbacks?
-
-Without .disable, consumer calls to clk_disable() and late boot's
-clk_disable_unused() cannot gate these clocks in hardware, and
-clk_is_enabled_when_prepared() treats them as enabled by .prepare even
-though .prepare is not implemented.  In addition, struct sl_sysmgr_gateclk
-and struct sl_sysmgr_gateclk_desc duplicate devm_clk_hw_register_gate()
-and struct sl_gateclk_desc in drivers/clk/berlin/sl-clk.h.
-
-> +static int
-> +sl_sysmgr_clk_register(struct device *dev, struct sl_sysmgr_clk *sclk,
-> +		       const char *name, const char *parent_names,
-> +		       u8 div_bits, void __iomem *base)
-> +{
-> +	struct clk_init_data init;
-> +
-> +	init.name =3D name;
-> +	init.ops =3D &sl_sysmgr_clk_ops;
-> +	init.parent_names =3D &parent_names;
-> +	init.num_parents =3D 1;
-> +	init.flags =3D 0;
-
-[Severity: Medium]
-Does leaving struct clk_init_data init uninitialized on the stack in
-sl_sysmgr_gateclk_register() and sl_sysmgr_clk_register() pass garbage
-init.parent_data and init.parent_hws pointers into devm_clk_hw_register()?
-
-clk_core_populate_parent_map() reads init->parent_hws and
-init->parent_data unconditionally when registering the clock.
-
-[ ... ]
-
-> +	for (i =3D 0; i < gclk_n; i++) {
-> +		ret =3D sl_sysmgr_gateclk_register(&pdev->dev, &priv->gclks[i],
-> +						 gdescs[i].name, gdescs[i].parent_name,
-> +						 gdescs[i].bit_idx, base + gclk_offset);
-> +		if (ret)
-> +			return ret;
-> +
-> +		id =3D gdescs[i].id;
-> +		clk_data->hws[id] =3D &priv->gclks[i].hw;
-> +	}
-> +
-> +	for (i =3D 0; i < clk_n; i++) {
-> +		ret =3D sl_sysmgr_clk_register(&pdev->dev, &priv->clks[i],
-> +					     descs[i].name, descs[i].parent_name,
-> +					     descs[i].div_bits, base + descs[i].offset);
-> +		if (ret)
-> +			return ret;
-
-[Severity: Medium]
-Does sl_sysmgr_clk_setup() drop the flags field from gdescs[i] and
-descs[i]?
-
-struct sl_sysmgr_gateclk_desc and struct sl_sysmgr_clk_desc both define an
-unsigned long flags member, but sl_sysmgr_clk_setup() never passes them to
-sl_sysmgr_gateclk_register() or sl_sysmgr_clk_register(), which hardcode
-init.flags =3D 0 and ignore flags such as CLK_IS_CRITICAL or
-CLK_IGNORE_UNUSED.
-
-[ ... ]
-
-> diff --git a/drivers/clk/berlin/sl-sysmgr-clk.h b/drivers/clk/berlin/sl-s=
-ysmgr-clk.h
-> new file mode 100644
-> index 0000000000000..5ccf388bcccbd
-> --- /dev/null
-> +++ b/drivers/clk/berlin/sl-sysmgr-clk.h
-> @@ -0,0 +1,44 @@
-
-[ ... ]
-
-> +#ifndef __SL_SYSMGR_CLK_H
-> +#define __SL_SYSMGR_CLK_H
-> +
-> +struct sl_sysmgr_clk_desc {
-> +	const char	*name;
-> +	const char	*parent_name;
-> +	u32		id;
-> +	u32		offset;
-> +	u8		div_bits;
-> +	unsigned long	flags;
-> +};
-
-[ ... ]
-
-> +int sl_sysmgr_clk_setup(struct platform_device *pdev,
-> +			const struct sl_sysmgr_fixedclk_desc *fdescs,
-> +			int fclk_n,
-> +			const struct sl_sysmgr_gateclk_desc *gdescs,
-> +			int gclk_n,
-> +			u32 gclk_offset,
-> +			const struct sl_sysmgr_clk_desc *descs,
-> +			int clk_n);
-> +
-> +#endif
-
-[Severity: Low]
-Does sl-sysmgr-clk.h need #include <linux/types.h> and a forward
-declaration of struct platform_device so it is self-contained when
-included before other headers?  Also, <linux/version.h> and DIV_CHNG_EN in
-sl-sysmgr-clk.c are unused, and sl-clk.h uses u32 and u8 without directly
-including <linux/types.h>.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261115102401.3520=
--1-jszhang@kernel.org?part=3D9
