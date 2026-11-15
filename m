@@ -1,75 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794765722;
-	b=boyK3RlEw4UpKaYyaTNzLkLB+xIhBjc+q/u8KKhHcvihao9TTXU0naTX0h9uePTfM3rx
-	 qhhWXtsxwMTmYpFd/bZvhjPOqW0SkFwf2Hcwni2nF+NS0Pp06KgBLgwZStiyb006H5U10
-	 i2iohz2RisFaJdhFVEFzST8aBeLBe+4OJuJLpSEL04DsoRCQqTiESITNugiqNjIjqs0RM
-	 YiQhqd0pBN1RFKD2jV6IzXR45Ni/ezMNGACXCslcOiEJAcaiJaJiH/TzZZQGsuLCbZDvH
-	 2hqXBQOFvLLUhXBY0Wd/UztLG9oiMs/mVaQkiHBriMV6th6kKtY8KcdWq4P1ttXJHoA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794765722;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794765740;
+	b=DKht9xib7HHqvhCx6auY6BZDyTUcESyngVC6ID5s1jq7JB6v7oKVt4TYxeYdNXzr4R1h
+	 xX4IvuFUplZ8szgqfLDXoFDWNrfMG/dewG9Cn0uId8N3UL9jK/9cJrV6+0DojQ8ia7snH
+	 2IIKee9rCXlcnfgWKgBPzQmvnrp2XyzlkgCPVQlnxQYgvasVqPpH/8f7hy3j2b3qc0ZWJ
+	 Le16JF0zrJ2M2MHaaJvf7HzbniVcaZ2Oa+O+77l9CXZhy0MGsoYGuEAkhPrhLZyd2QUHG
+	 Kc1enMXos8OlOIIw+h8tHAglpN2hKLgsqcurHx571wokd+GA4vfy7+5mVp9onHNlCTg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794765740;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=S8oxBCeA8Oghldt3N0nXLd2NY/itD3Apvq3baor7tNU=;
-	b=w/ZOOqRyzQwoCxOx400ak3xAlLXW0ayUoL+u0lfxT14aEgvPsOxybZPIEB3OxD0S5hvf
-	 ancbkQpYT4z5DbzyrEo41zz/znHVrgxt4+fdd+IWMMfmNdzyn3h5X28TdgirmphVKsQNN
-	 hvfe2O6SGoW9oxPrfFVMsoCne/myEfuez+3plDNGRYeX1NWluHzyqoumPZ76LV6kHMTp2
-	 2Ez7pM94SfSdT7w2r+2R2DJWC2tdxFEwgsksHjPPUUdjGuUEXMKXFSqCcE1DUWZedrHBi
-	 CanRgoaXEA6ddoL4lIyRcU+RagxfVeQ0tLEod4CrJsoIN0acoOvsEgE2xT0AfUJLBag==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="W/XKfAcm";
-	arc=none smtp.remote-ip=74.125.82.72
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hLexbnWyTvjn94KDBFaQzivLM34q5OtBuqgOMwsa1pM=;
+	b=1cOuFAf5FDWtnRPGY0DjJ0Y3WAgsl9Ri7yCUz+e+RyFrNrF49EMaEhh7sDW3ZQgV2yRh
+	 1cxDKO0kSagilq0UGBKYuzs9n3ToRYPeVVl4sWB7EAGb1wbYw+Q0pheUVUMkKgBZFN63Z
+	 p32BmN5/7bvJD2kMFipjtUEIiDzkTQfPp62scxnnyfyvibslK3eWkpKjD8WbpzDfXDKdy
+	 zWET9xS1ZckJ6DY1r4GQN7OSmlB6dzzKHRm/GXVntIFAi1slCp+LjWTxSsr7jnAK2x/fd
+	 v89Dnj9ZrucUXzi+qNn98sQIy5wD9brV4TLhfdT/dTKVEejTnsRy4jviGrruTfOOEmw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=trcjy1Js;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86C9606A332
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 18:02:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C86C9606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD3B606A31E
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 18:02:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BD3B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=W/XKfAcm
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1383723dfddso2662772c88.0
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 10:02:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=trcjy1Js
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-67583c777abso2735213d50.1
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 10:02:19 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794765739; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dgwAZnwAgUrssbaivxwv7Im8Y9CJ7NSWTuzBDOlXeauhtzk2D7ayVGDQtzQeeVQH+t
+         yVZvi6Avrq/ay5l/4sFiGuqVhhKQwm/k4QK3C+KnJFHNgVIlYPrrKZCo7n6hwmX941c1
+         ZY/b5q02Dx6uLtxIl0UKt+4/336tLhISuy5bOj2nGiMVVt3ohf1BMLWAQUZ1gZIj1hFq
+         tkpMq3a0q6nW/mzCLHNmsDbAdbkHRitBaP1Fblw3SoiOLhTDSmcd3Xyc7+e0aq5KzDFU
+         uyLihMOJhj96eK+WoyeCrc+2Ub0h7tfB1vh7HDo37N+/k/E5yLOwjnlfDZNBSZRFUOLs
+         8Haw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hLexbnWyTvjn94KDBFaQzivLM34q5OtBuqgOMwsa1pM=;
+        fh=uRfTLLd/ibQgAbUh2h0PWVRaxz0Ynf192VoHGYtvlYM=;
+        b=J+ywsOMHuAXIf+o7IMEZhgiLFJcfufw7d2UMyFaqW2rlfCANSOj0luuBx7Vq64aPzt
+         qf7BUqT1WR4TgZLeQFPW0RhOa6KvcibxVARJY3RKUw/8dlvb3EkWsYRJ0jxdicTOoc7W
+         3LuhBqa38jHq7kXachW8wdlV7zyZ1ZzW7cFDvniEXKsUhqXIpo4mGLg8X56D0kdjMIJ2
+         FU7Y4OHeb/mxopvOM/wSeOzuIqXWYAou8VQqYNsN80w/hzsUXxdGL7J5ZI5ASQXrxUX2
+         RVGMVbitk5NCQHeoNrNG/x0xRl0LpTIsvzLEycsJu/KP140ifOSkbUIMnHbYF86kMrHg
+         o7pw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794765721; x=1795370521; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S8oxBCeA8Oghldt3N0nXLd2NY/itD3Apvq3baor7tNU=;
-        b=W/XKfAcmtKe0aWMFfca0cQLCJV7lt0oDz6mFeGXMXKbItE3eVE2f8rtLTKZOds+d5b
-         Vq4PHa+RBjVkAufR75puDP4MDIyo2yp0N35tpihkZBOGNoD+yymITWDu9DCM9mldQX1T
-         R4CcHL/BE1fNULNO7mcM7wJ8uiS8O96MXRBEvFBtVFD5P3NlFfyngULdjPdU5g9CMIyk
-         cC9GZS7gKiXCVC6Po04dBorVIUjdzc5NkTSLQEF5u99pxvoK1Gdc/U2rxLl62ZzuAPFj
-         Yf1C/RWTGR6p0uHCiTK+X5D0m1QE6hIglgFChVwUiKjI3YS/Zlh1kt+10zG6lw4+mrgJ
-         pT5Q==
+        d=googlemail.com; s=20260707; t=1794765739; x=1795370539; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hLexbnWyTvjn94KDBFaQzivLM34q5OtBuqgOMwsa1pM=;
+        b=trcjy1Jsu6uraAxeRq1k2El7wn6wlXZF2ZLBh9CCWP5wataRKIvera4oeEeA9Z1su2
+         s9rEizFFkNLrERo4aaXhfnjn9AWhTpvcK1Yv9W0dwusaSCKr1DmtYB4pptoKFiiVgmtB
+         7hGbZtwRP+sl5/0vR4DNalGHry3ANAx1LFtAl7jvxdJbXSEuMHW8hiy13yP8hv9Xt/Cv
+         CPD6SmiUfnDj9w2N5G5lbCdciKToWR/8X2PQEb2Hc/GXJJ4Yxrt8NzSvaMVaXY9adj0r
+         kQLWGvZTOyb6rns6/kjEKSUdPkshaXES9quCICOwsSJfLfP+Gk90Je4Ts65VttVf4grr
+         oFMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794765721; x=1795370521;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S8oxBCeA8Oghldt3N0nXLd2NY/itD3Apvq3baor7tNU=;
-        b=xiL/EnJd/wMN7s0PMI7nYHCRk8mOXSq6wA/wGICZS/oKLVyf3NqNNd1JxXNXEwRd/5
-         m3111moxsANKBFFsbXGOAODlv3g/7DRNDE0ulKqngqmDXg0/9ud7A6VW9KNJkwzSu3X0
-         iW6L5BagODEL9kozyidGJFCp1jXdnt/13CtIMLYJf6N0PI2QmhpHW/zrpZowCOb3L1Es
-         8Bx5FZlW9E3BgmnesXBSId4T5wu+pe64hDnSYCtBmeG3ICTFbsoJ4ZkUOG2rS/eAWVgN
-         0MK0ivAAi14qY1a/Jc0NKEFA6ZyvsdOQsvlR2+gXT8Er3AVPJ6AF8ekkrEp29n5J91lg
-         PRGQ==
-X-Forwarded-Encrypted: i=1; AL+hErEWyPXpogvULqbhGP7eB67C916x4AlXY+XxTxBAF7Vfdxm4x9ckzxCYYkip6v4hzEZe7/GxYPhaHFjj@vger.kernel.org
-X-Gm-Message-State: APuU4Z/z0W42MvkVDk1cDAc+b2PtMkS3fkK8OkTbxs2pnSgXqal8U+mU
-	IN72z0n9H0ezO3SpLnd6uWDOkkpo8P7RXMtGBrZi5x7zlEGmkelDHKQOZ8NiBJ3t0dVjjMkaIun
-	4O30rLrwiOorI0lPIDYjf7Quh//wq3G+ZnQ==
-X-Received: from dlam9-n1.prod.google.com ([2002:a05:701b:2089:10b0:184:b43a:63ac])
- (user=vamshigajjela job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701a:8148:20b0:143:8860:afa1 with SMTP id a92af1059eb24-1b50316df64mr8677061c88.46.1794765720321;
- Sun, 15 Nov 2026 10:02:00 -0800 (PST)
-Date: Sun, 15 Nov 2026 23:31:47 +0530
-In-Reply-To: <20261115180147.1208082-1-vamshigajjela@google.com>
+        d=1e100.net; s=20260707; t=1794765739; x=1795370539;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hLexbnWyTvjn94KDBFaQzivLM34q5OtBuqgOMwsa1pM=;
+        b=NrGzU1sjTV7wo6txceB3w6R/ggd7qirw/tB/GlAGtKLEE93KEo2dD4rvkcRGcI0Yr3
+         wbUmln/F2ii47ZSyBL2oZjwvTDFNfmHItULR3vfinqR7BDr5Jc7+YKkYmmaRivP3iGsN
+         hAYXT8dC9vRfK/dYX4s986EyVVA0uCoAF/xMs83bMw9tD3TC94kQ4L+/R7219hTGm9g6
+         qoJdPVyEEr4dRyjDDDf7VrTz0AvbMIRkby2TWV0U0x5D3EUR7ymR52dXTKDEw1pik0ZI
+         4+WKeB3aBxWQ0JpfHYlh4d/TFrQd+BU4yxYdpQinCtvNbMelyk8QIDZ53UFtFrjPwX+y
+         bhmg==
+X-Forwarded-Encrypted: i=1; AL+hErGixYbEC0RqqroUOqvxn9pWKO6Aq2QSbmTxUuedXEsHllBf8Pe9YS4gMUJszi9i/c0C5XRcaOwE84OL@vger.kernel.org
+X-Gm-Message-State: APuU4Z85/FLPbc781TMpldE3hTJ6uA7HDLRA4m71Fn6ymYo+k+evfskM
+	epfSQ4xbEsrxuDBDpsTaNly6Svsu99gPXfV9NGAjFOETIcD/0UT2CPBCDpjp6MXjDUuGPrLMeiq
+	R+5hhKCdTfiion/kAWTl3CxiZFceOq9w=
+X-Gm-Gg: AYBFou1UDn4DBpJRlh+I2L1KxBlrZEUwbw71bkkXxHHBSHz2CLFu6pj5pUMrcLL6sOc
+	em1V2Sog2DPzBa7DA6mXskwldsMRVCa9EoYIdP/yEpI3UpIGClA91W6FpujgxtUTz2Iz/082BHm
+	OfBQNs+UslQ6t21/gUwPGdwADzMgYNxLp2NhAnjWv5htfAzmUgCOThdM31Vd2ZyD0xUvtYGQLwc
+	P2QTgpIFgyySI5HN6c/HD9kt/mKcExZ3D7VlIG8iF8kcL1yZT0JS8tqtQuhe9iBHknGb15I0a/m
+	n3/eMrC084+06aBE8mjRSV/4ke3DKQrZ/1dmTUs2stk5ZwtqbR1X3GIa14t9FcGmQJIVxDRNcy1
+	2DMXgK8xJz5ReJvoQ42/wHV7d4m+KJJJWEdPywRelX3EOLewfaeB74jG84h+ckN9G27eu4Q==
+X-Received: by 2002:a05:690e:c8b:b0:67d:9fef:d62e with SMTP id
+ 956f58d0204a3-67d9fefe0ebmr2566936d50.6.1794765738737; Sun, 15 Nov 2026
+ 10:02:18 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,575 +103,35 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261115180147.1208082-1-vamshigajjela@google.com>
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261115180147.1208082-3-vamshigajjela@google.com>
-Subject: [PATCH v2 2/2] spmi: Add SmartDV SPMI controller driver
-From: vamshi gajjela <vamshigajjela@google.com>
-To: Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: "=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?=" <u.kleine-koenig@baylibre.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Peter Griffin <peter.griffin@linaro.org>, 
-	"=?UTF-8?q?Andr=C3=A9=20Draszik?=" <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	Jim Wylder <jwylder@google.com>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Vamshi Gajjela <vamshigajjela@google.com>
+MIME-Version: 1.0
+References: <20261113121852.334604-1-tanure@linux.com> <20261113121852.334604-7-tanure@linux.com>
+In-Reply-To: <20261113121852.334604-7-tanure@linux.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 15 Nov 2026 19:02:07 +0100
+X-Gm-Features: AclHuK982JSfMQyLz3Nt-omny5MSefKP7dqRCWJKkI82T-Lx69OJ3UT6uTKWWOc
+Message-ID: <CAFBinCBFfs85ZgYLq0Hbx-E22twLYMZztk3inRuRLaBB+MXsOg@mail.gmail.com>
+Subject: Re: [PATCH v7 6/7] arm64: dts: amlogic: t7: add the ethernet controller
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Vamshi Gajjela <vamshigajjela@google.com>
+On Fri, Nov 13, 2026 at 1:18=E2=80=AFPM Lucas Tanure <tanure@linux.com> wro=
+te:
+[...]
+> +                       eth_phy: mdio-multiplexer@28000 {
+> +                               compatible =3D "amlogic,g12a-mdio-mux";
+I think this has to get a T7 specific compatible string (dt-bindings
+only, no driver change needed):
+  compatible =3D "amlogic,t7-mdio-mux", "amlogic,g12a-mdio-mux";
 
-Add support for the SmartDV Technologies MIPI SPMI master controller,
-starting with the Google Tensor G5 ("google,lga-spmi") integration.
-The controller supports standard MIPI SPMI v1.0 and v2.0 bus commands
-(RESET, SLEEP, SHUTDOWN, WAKEUP), register read/write, extended register
-read/write, and extended register read/write long transfers.
-
-Per-SoC controller parameters are supplied via of_device_id match data.
-
-Signed-off-by: Vamshi Gajjela <vamshigajjela@google.com>
----
- MAINTAINERS                 |   1 +
- drivers/spmi/Kconfig        |  10 +
- drivers/spmi/Makefile       |   1 +
- drivers/spmi/spmi-smartdv.c | 488 ++++++++++++++++++++++++++++++++++++
- 4 files changed, 500 insertions(+)
- create mode 100644 drivers/spmi/spmi-smartdv.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cd5ae89b4f03..aa9b65d931fa 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25248,6 +25248,7 @@ M:	Vamshi Gajjela <vamshigajjela@google.com>
- L:	linux-kernel@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/spmi/google,lga-spmi.yaml
-+F:	drivers/spmi/spmi-smartdv.c
- 
- SMBDIRECT (RDMA Stream Transport with Read/Write-Offload, MS-SMBD)
- M:	Steve French <smfrench@gmail.com>
-diff --git a/drivers/spmi/Kconfig b/drivers/spmi/Kconfig
-index a80cf4047b86..e20fcc9f2c68 100644
---- a/drivers/spmi/Kconfig
-+++ b/drivers/spmi/Kconfig
-@@ -54,4 +54,14 @@ config SPMI_MTK_PMIF
- 	  This is required for communicating with Mediatek PMICs and
- 	  other devices that have the SPMI interface.
- 
-+config SPMI_SMARTDV
-+	tristate "SmartDV Technologies SPMI Controller"
-+	depends on HAS_IOMEM
-+	help
-+	  If you say yes to this option, support will be included for the
-+	  SmartDV Technologies MIPI SPMI master controller.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called spmi-smartdv.
-+
- endif
-diff --git a/drivers/spmi/Makefile b/drivers/spmi/Makefile
-index 38ac635645ba..34f6d6487604 100644
---- a/drivers/spmi/Makefile
-+++ b/drivers/spmi/Makefile
-@@ -8,3 +8,4 @@ obj-$(CONFIG_SPMI_APPLE)	+= spmi-apple-controller.o
- obj-$(CONFIG_SPMI_HISI3670)	+= hisi-spmi-controller.o
- obj-$(CONFIG_SPMI_MSM_PMIC_ARB)	+= spmi-pmic-arb.o
- obj-$(CONFIG_SPMI_MTK_PMIF)	+= spmi-mtk-pmif.o
-+obj-$(CONFIG_SPMI_SMARTDV)	+= spmi-smartdv.o
-diff --git a/drivers/spmi/spmi-smartdv.c b/drivers/spmi/spmi-smartdv.c
-new file mode 100644
-index 000000000000..d4671667596e
---- /dev/null
-+++ b/drivers/spmi/spmi-smartdv.c
-@@ -0,0 +1,488 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * SmartDV Technologies SPMI controller driver
-+ *
-+ * Copyright 2026 Google LLC
-+ * Author: Vamshi Gajjela <vamshigajjela@google.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/minmax.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/reset.h>
-+#include <linux/spinlock.h>
-+#include <linux/spmi.h>
-+#include <linux/string.h>
-+#include <linux/types.h>
-+#include <linux/units.h>
-+
-+/* SPMI controller register address offsets */
-+#define CONTROL			0x0
-+#define IRQ_STATUS		0x8
-+#define REQ_COMMAND		0x10
-+#define REQ_DATA0		0x14
-+#define REQ_DATA1		0x18
-+#define REQ_DATA2		0x1c
-+#define REQ_DATA3		0x20
-+#define REQ_RD_STATUS		0x24
-+#define RD_ERR_INDEX		0x28
-+
-+/* SPMI controller CONTROL register bit masks */
-+#define SPMI_CONTROL_MASTER_EN			BIT(0)
-+#define SPMI_CONTROL_ARB_ENABLE_MASK		BIT(1)
-+#define SPMI_CONTROL_MID_MASK			GENMASK(3, 2)
-+#define SPMI_CONTROL_VERSION_MASK		GENMASK(5, 4)
-+#define SPMI_CONTROL_ARB_RETRY_LIMIT_MASK	GENMASK(13, 6)
-+#define SPMI_CONTROL_PRESCALER_MASK		GENMASK(21, 14)
-+#define SPMI_CONTROL_RD_LATENCY_MASK		GENMASK(29, 22)
-+#define SPMI_CONTROL_ARB_SSC_DELAY_MASK		GENMASK(31, 30)
-+
-+#define SPMI_CONTROL_VERSION_1_0		0
-+#define SPMI_CONTROL_VERSION_2_0		1
-+
-+/* SPMI irq status bit position */
-+#define SPMI_IRQ_REQ_CMD_DONE		BIT(0)
-+#define SPMI_IRQ_RSP_NEW_CMD		BIT(1)
-+#define SPMI_IRQ_ABORT_MST_CMD		BIT(2)
-+#define SPMI_IRQ_READ_DATA_PAR_ERR	BIT(3)
-+#define SPMI_IRQ_READ_NO_RESP_ERR	BIT(4)
-+#define SPMI_IRQ_CMD_NACK_ERR		BIT(5)
-+#define SPMI_IRQ_BUS_TIMEOUT		BIT(6)
-+#define SPMI_IRQ_NO_BOM_CMD_PAR_ERR	BIT(7)
-+#define SPMI_IRQ_NO_BOM_ADDR_LO_PAR_ERR	BIT(8)
-+#define SPMI_IRQ_NO_BOM_WR_DATA_PAR_ERR	BIT(9)
-+#define SPMI_IRQ_ARB_REQ_TIMER_TIMEOUT	BIT(10)
-+#define SPMI_IRQ_IS_BOM			BIT(11)
-+#define SPMI_IRQ_CONNECTED		BIT(12)
-+
-+#define SPMI_ANY_ERROR_IRQ_FLAG			\
-+	(					\
-+	SPMI_IRQ_ABORT_MST_CMD |		\
-+	SPMI_IRQ_READ_DATA_PAR_ERR |		\
-+	SPMI_IRQ_READ_NO_RESP_ERR |		\
-+	SPMI_IRQ_CMD_NACK_ERR |			\
-+	SPMI_IRQ_BUS_TIMEOUT |			\
-+	SPMI_IRQ_NO_BOM_CMD_PAR_ERR |		\
-+	SPMI_IRQ_NO_BOM_ADDR_LO_PAR_ERR |	\
-+	SPMI_IRQ_NO_BOM_WR_DATA_PAR_ERR		\
-+	)
-+
-+/* REQ_COMMAND register fields mask */
-+#define SPMI_REQ_COMMAND_NEW_CMD_MASK		BIT(0)
-+#define SPMI_REQ_COMMAND_PRIMARY_ARB_MASK	BIT(1)
-+#define SPMI_REQ_COMMAND_OPCODE_MASK		GENMASK(6, 2)
-+#define SPMI_REQ_COMMAND_ADDR_MASK		GENMASK(10, 7)
-+#define SPMI_REQ_COMMAND_BYTE_CNT_MASK		GENMASK(14, 11)
-+#define SPMI_REQ_COMMAND_REQ_ADDR_MASK		GENMASK(30, 15)
-+
-+#define REQ_COMMAND_TIMEOUT_MS	100
-+#define REQ_COMMAND_TIMEOUT_US	(REQ_COMMAND_TIMEOUT_MS * USEC_PER_MSEC)
-+#define REQ_COMMAND_POLL_US	1
-+
-+enum smartdv_spmi_xfer_type {
-+	SMARTDV_SPMI_XFER_CMD = 0,
-+	SMARTDV_SPMI_XFER_WRITE = 1,
-+	SMARTDV_SPMI_XFER_READ = 2,
-+};
-+
-+/* SmartDV REQ_COMMAND register opcode values (bits [6:2]) */
-+enum smartdv_spmi_hc_cmd_op_code {
-+	SMARTDV_SPMI_CMD_REG_WRITE = 0,
-+	SMARTDV_SPMI_CMD_REG_READ = 1,
-+	SMARTDV_SPMI_CMD_EXT_REG_WRITE = 2,
-+	SMARTDV_SPMI_CMD_EXT_REG_READ = 3,
-+	SMARTDV_SPMI_CMD_EXT_REG_WRITE_L = 4,
-+	SMARTDV_SPMI_CMD_EXT_REG_READ_L = 5,
-+	SMARTDV_SPMI_CMD_REG_WRITE_0 = 6,
-+	SMARTDV_SPMI_CMD_RESET = 10,
-+	SMARTDV_SPMI_CMD_SLEEP = 11,
-+	SMARTDV_SPMI_CMD_SHUTDOWN = 12,
-+	SMARTDV_SPMI_CMD_WAKEUP = 13,
-+};
-+
-+/**
-+ * struct smartdv_spmi_config - Per-SoC SmartDV SPMI controller configuration
-+ * @spmi_version: MIPI SPMI specification version (0 = v1.0, 1 = v2.0)
-+ * @prescaler: Clock divider applied to i_clk to generate SPMI SCL
-+ */
-+struct smartdv_spmi_config {
-+	u8	spmi_version;
-+	u8	prescaler;
-+};
-+
-+/**
-+ * struct smartdv_spmi - SmartDV SPMI driver instance
-+ * @ctrl: Pointer to spmi_controller structure
-+ * @dev: Pointer to device structure
-+ * @base: Virtual address of the SPMI controller registers
-+ * @lock: Spinlock to serialize bus access
-+ * @i_clk: Hardware clock feeding the controller
-+ * @rst: Hardware reset to controller
-+ * @clk_freq: Core clock frequency in Hz (i_clk)
-+ * @ctrl_reg: Cached control register value from last write
-+ */
-+struct smartdv_spmi {
-+	struct spmi_controller	*ctrl;
-+	struct device		*dev;
-+	void __iomem		*base;
-+	spinlock_t		lock; /* Serialize bus access */
-+	struct clk		*i_clk;
-+	struct reset_control	*rst;
-+	unsigned long		clk_freq;
-+	u32			ctrl_reg;
-+};
-+
-+static inline u32 smartdv_spmi_readl(struct smartdv_spmi *sdrv, u32 offset)
-+{
-+	return readl(sdrv->base + offset);
-+}
-+
-+static inline void smartdv_spmi_writel(struct smartdv_spmi *sdrv, u32 offset, u32 val)
-+{
-+	writel(val, sdrv->base + offset);
-+}
-+
-+static void smartdv_spmi_read_err_status_dump(struct smartdv_spmi *sdrv)
-+{
-+	dev_dbg(sdrv->dev, "No response frame & parity error: %#x\n",
-+		smartdv_spmi_readl(sdrv, REQ_RD_STATUS));
-+	dev_dbg(sdrv->dev, "Read data frame error: %#x\n",
-+		smartdv_spmi_readl(sdrv, RD_ERR_INDEX));
-+}
-+
-+static void smartdv_spmi_clear_req_data_reg(struct smartdv_spmi *sdrv)
-+{
-+	smartdv_spmi_writel(sdrv, REQ_DATA0, 0x0);
-+	smartdv_spmi_writel(sdrv, REQ_DATA1, 0x0);
-+	smartdv_spmi_writel(sdrv, REQ_DATA2, 0x0);
-+	smartdv_spmi_writel(sdrv, REQ_DATA3, 0x0);
-+}
-+
-+static int smartdv_spmi_wait_for_done(struct smartdv_spmi *sdrv, u32 *irq_status)
-+{
-+	int ret;
-+
-+	/* wait for cmd done status */
-+	ret = readl_poll_timeout_atomic(sdrv->base + IRQ_STATUS, *irq_status,
-+					(*irq_status & SPMI_IRQ_REQ_CMD_DONE) != 0,
-+					REQ_COMMAND_POLL_US, REQ_COMMAND_TIMEOUT_US);
-+	/* clear all interrupts */
-+	smartdv_spmi_writel(sdrv, IRQ_STATUS, *irq_status);
-+
-+	return ret;
-+}
-+
-+static int smartdv_spmi_xfer(struct smartdv_spmi *sdrv,
-+			     enum smartdv_spmi_xfer_type xfer_type,
-+			     u8 opc, u8 sid, u16 saddr, size_t bc)
-+{
-+	u32 irq_status;
-+	u32 cmd = 0;
-+	int ret;
-+
-+	/* program control register, master enable */
-+	smartdv_spmi_writel(sdrv, CONTROL, sdrv->ctrl_reg | SPMI_CONTROL_MASTER_EN);
-+
-+	/* prepare req_command register */
-+	cmd |= SPMI_REQ_COMMAND_NEW_CMD_MASK;
-+	cmd |= SPMI_REQ_COMMAND_PRIMARY_ARB_MASK;
-+	cmd |= FIELD_PREP(SPMI_REQ_COMMAND_OPCODE_MASK, opc);
-+	cmd |= FIELD_PREP(SPMI_REQ_COMMAND_ADDR_MASK, sid);
-+
-+	if (xfer_type != SMARTDV_SPMI_XFER_CMD) {
-+		cmd |= FIELD_PREP(SPMI_REQ_COMMAND_BYTE_CNT_MASK, bc - 1);
-+		cmd |= FIELD_PREP(SPMI_REQ_COMMAND_REQ_ADDR_MASK, saddr);
-+	}
-+
-+	/* request new command */
-+	smartdv_spmi_writel(sdrv, REQ_COMMAND, cmd);
-+
-+	ret = smartdv_spmi_wait_for_done(sdrv, &irq_status);
-+	if (ret) {
-+		dev_err(sdrv->dev, "request timeout.\n");
-+		goto out;
-+	}
-+
-+	/* check interrupt status for any error(s) */
-+	if (irq_status & SPMI_ANY_ERROR_IRQ_FLAG) {
-+		ret = -EIO;
-+		dev_err(sdrv->dev,
-+			"sid %#x opc %#x addr %#x len %#zx irq_status: %#x\n",
-+			sid, opc, saddr, bc, irq_status);
-+
-+		if (xfer_type == SMARTDV_SPMI_XFER_READ)
-+			smartdv_spmi_read_err_status_dump(sdrv);
-+	}
-+
-+out:
-+	/* program control register, with master disable */
-+	smartdv_spmi_writel(sdrv, CONTROL, sdrv->ctrl_reg);
-+
-+	return ret;
-+}
-+
-+static void smartdv_spmi_read_req_data(struct smartdv_spmi *sdrv, u8 *buf, size_t bc)
-+{
-+	u32 addr = REQ_DATA0;
-+	size_t len;
-+	u32 reg;
-+
-+	while (bc) {
-+		len = min(bc, sizeof(reg));
-+		reg = smartdv_spmi_readl(sdrv, addr);
-+		memcpy(buf, &reg, len);
-+		buf += len;
-+		bc -= len;
-+		addr += sizeof(reg);
-+	}
-+}
-+
-+static int smartdv_spmi_read_cmd(struct spmi_controller *ctrl,
-+				 u8 opcode, u8 sid, u16 saddr, u8 *__buf, size_t bc)
-+{
-+	struct smartdv_spmi *sdrv = spmi_controller_get_drvdata(ctrl);
-+	unsigned long flags;
-+	int ret;
-+	u8 opc;
-+
-+	switch (opcode) {
-+	case SPMI_CMD_READ:
-+		opc = SMARTDV_SPMI_CMD_REG_READ;
-+		break;
-+	case SPMI_CMD_EXT_READ:
-+		opc = SMARTDV_SPMI_CMD_EXT_REG_READ;
-+		break;
-+	case SPMI_CMD_EXT_READL:
-+		opc = SMARTDV_SPMI_CMD_EXT_REG_READ_L;
-+		break;
-+	default:
-+		dev_err(&ctrl->dev, "invalid cmd %#x\n", opcode);
-+		return -EINVAL;
-+	}
-+
-+	spin_lock_irqsave(&sdrv->lock, flags);
-+
-+	/* clear req_data registers by writing zeros */
-+	smartdv_spmi_clear_req_data_reg(sdrv);
-+
-+	/* clear read status register */
-+	smartdv_spmi_writel(sdrv, REQ_RD_STATUS, 0x0);
-+
-+	/* initiate transfer on the bus */
-+	ret = smartdv_spmi_xfer(sdrv, SMARTDV_SPMI_XFER_READ, opc, sid, saddr, bc);
-+	if (!ret)
-+		/* read received data */
-+		smartdv_spmi_read_req_data(sdrv, __buf, bc);
-+
-+	spin_unlock_irqrestore(&sdrv->lock, flags);
-+
-+	return ret;
-+}
-+
-+static void smartdv_spmi_write_req_data(struct smartdv_spmi *sdrv, const u8 *buf, size_t bc)
-+{
-+	u32 addr = REQ_DATA0;
-+	size_t len;
-+	u32 data;
-+
-+	while (bc) {
-+		data = 0;
-+		len = min(bc, sizeof(data));
-+		memcpy(&data, buf, len);
-+		smartdv_spmi_writel(sdrv, addr, data);
-+		buf += len;
-+		bc -= len;
-+		addr += sizeof(data);
-+	}
-+}
-+
-+static int smartdv_spmi_write_cmd(struct spmi_controller *ctrl,
-+				  u8 opcode, u8 sid, u16 saddr, const u8 *__buf, size_t bc)
-+{
-+	struct smartdv_spmi *sdrv = spmi_controller_get_drvdata(ctrl);
-+	unsigned long flags;
-+	u8 opc;
-+	int ret;
-+
-+	switch (opcode) {
-+	case SPMI_CMD_ZERO_WRITE:
-+		opc = SMARTDV_SPMI_CMD_REG_WRITE_0;
-+		break;
-+	case SPMI_CMD_WRITE:
-+		opc = SMARTDV_SPMI_CMD_REG_WRITE;
-+		break;
-+	case SPMI_CMD_EXT_WRITE:
-+		opc = SMARTDV_SPMI_CMD_EXT_REG_WRITE;
-+		break;
-+	case SPMI_CMD_EXT_WRITEL:
-+		opc = SMARTDV_SPMI_CMD_EXT_REG_WRITE_L;
-+		break;
-+	default:
-+		dev_err(&ctrl->dev, "invalid write cmd %#x\n", opcode);
-+		return -EINVAL;
-+	}
-+
-+	spin_lock_irqsave(&sdrv->lock, flags);
-+
-+	/* fill data */
-+	smartdv_spmi_write_req_data(sdrv, __buf, bc);
-+
-+	/* initiate transfer on the bus */
-+	ret = smartdv_spmi_xfer(sdrv, SMARTDV_SPMI_XFER_WRITE, opc, sid, saddr, bc);
-+
-+	spin_unlock_irqrestore(&sdrv->lock, flags);
-+
-+	return ret;
-+}
-+
-+static int smartdv_spmi_cmd(struct spmi_controller *ctrl, u8 opcode, u8 sid)
-+{
-+	struct smartdv_spmi *sdrv = spmi_controller_get_drvdata(ctrl);
-+	unsigned long flags;
-+	int ret;
-+	u8 opc;
-+
-+	switch (opcode) {
-+	case SPMI_CMD_RESET:
-+		opc = SMARTDV_SPMI_CMD_RESET;
-+		break;
-+	case SPMI_CMD_SLEEP:
-+		opc = SMARTDV_SPMI_CMD_SLEEP;
-+		break;
-+	case SPMI_CMD_SHUTDOWN:
-+		opc = SMARTDV_SPMI_CMD_SHUTDOWN;
-+		break;
-+	case SPMI_CMD_WAKEUP:
-+		opc = SMARTDV_SPMI_CMD_WAKEUP;
-+		break;
-+	default:
-+		dev_err(&ctrl->dev, "invalid cmd %#x\n", opcode);
-+		return -EINVAL;
-+	}
-+
-+	spin_lock_irqsave(&sdrv->lock, flags);
-+
-+	/* initiate transfer on the bus */
-+	ret = smartdv_spmi_xfer(sdrv, SMARTDV_SPMI_XFER_CMD, opc, sid, 0, 0);
-+
-+	spin_unlock_irqrestore(&sdrv->lock, flags);
-+
-+	return ret;
-+}
-+
-+static int smartdv_spmi_init_clk_reset(struct smartdv_spmi *sdrv)
-+{
-+	struct device *dev = sdrv->dev;
-+
-+	sdrv->i_clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(sdrv->i_clk))
-+		return dev_err_probe(dev, PTR_ERR(sdrv->i_clk), "could not get i_clk\n");
-+
-+	sdrv->clk_freq = clk_get_rate(sdrv->i_clk);
-+	if (!sdrv->clk_freq)
-+		return dev_err_probe(dev, -EINVAL, "i_clk rate not defined\n");
-+
-+	sdrv->rst = devm_reset_control_get_exclusive_deasserted(dev, NULL);
-+	if (IS_ERR(sdrv->rst))
-+		return dev_err_probe(dev, PTR_ERR(sdrv->rst),
-+				     "could not get and deassert reset\n");
-+
-+	return 0;
-+}
-+
-+static u32 smartdv_spmi_build_ctrl_reg(const struct smartdv_spmi_config *cfg)
-+{
-+	return FIELD_PREP(SPMI_CONTROL_VERSION_MASK, cfg->spmi_version) |
-+	       FIELD_PREP(SPMI_CONTROL_PRESCALER_MASK, cfg->prescaler);
-+}
-+
-+static void smartdv_spmi_pr_info(struct smartdv_spmi *sdrv)
-+{
-+	u32 prescaler = FIELD_GET(SPMI_CONTROL_PRESCALER_MASK, sdrv->ctrl_reg);
-+
-+	dev_dbg(sdrv->dev, "clk %lu kHz, scl %lu kHz (ctrl_reg: %#x)\n",
-+		sdrv->clk_freq / HZ_PER_KHZ,
-+		sdrv->clk_freq / ((prescaler ? prescaler * 2 : 1) * HZ_PER_KHZ),
-+		sdrv->ctrl_reg);
-+}
-+
-+static int smartdv_spmi_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	const struct smartdv_spmi_config *cfg;
-+	struct smartdv_spmi *sdrv;
-+	struct spmi_controller *ctrl;
-+	int ret;
-+
-+	cfg = device_get_match_data(dev);
-+	if (!cfg)
-+		return -EINVAL;
-+
-+	ctrl = devm_spmi_controller_alloc(dev, sizeof(*sdrv));
-+	if (IS_ERR(ctrl))
-+		return PTR_ERR(ctrl);
-+
-+	sdrv = spmi_controller_get_drvdata(ctrl);
-+	sdrv->ctrl = ctrl;
-+	sdrv->dev = dev;
-+
-+	sdrv->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(sdrv->base))
-+		return PTR_ERR(sdrv->base);
-+
-+	platform_set_drvdata(pdev, sdrv);
-+
-+	sdrv->ctrl_reg = smartdv_spmi_build_ctrl_reg(cfg);
-+
-+	ret = smartdv_spmi_init_clk_reset(sdrv);
-+	if (ret)
-+		return ret;
-+
-+	spin_lock_init(&sdrv->lock);
-+
-+	/* Callbacks */
-+	ctrl->cmd = smartdv_spmi_cmd;
-+	ctrl->read_cmd = smartdv_spmi_read_cmd;
-+	ctrl->write_cmd = smartdv_spmi_write_cmd;
-+
-+	ret = devm_spmi_controller_add(dev, ctrl);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "spmi_controller_add failed\n");
-+
-+	smartdv_spmi_pr_info(sdrv);
-+
-+	return 0;
-+}
-+
-+static const struct smartdv_spmi_config google_lga_spmi_cfg = {
-+	.spmi_version = SPMI_CONTROL_VERSION_2_0,
-+	.prescaler = 4,
-+};
-+
-+static const struct of_device_id smartdv_spmi_of_match[] = {
-+	{ .compatible = "google,lga-spmi", .data = &google_lga_spmi_cfg },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, smartdv_spmi_of_match);
-+
-+static struct platform_driver smartdv_spmi_platform_driver = {
-+	.probe = smartdv_spmi_probe,
-+	.driver = {
-+		.name = "smartdv-spmi",
-+		.of_match_table = smartdv_spmi_of_match,
-+	},
-+};
-+
-+module_platform_driver(smartdv_spmi_platform_driver);
-+
-+MODULE_AUTHOR("Vamshi Gajjela <vamshigajjela@google.com>");
-+MODULE_DESCRIPTION("SmartDV Technologies SPMI controller driver");
-+MODULE_LICENSE("GPL");
--- 
-2.56.0.611.g1030f0b940-goog
-
+If we find differences in T7's mdio-mux compared to G12A then we'll be
+able to manage them.
