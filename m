@@ -1,55 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794751333;
-	b=nAccK/9k8p9IBOjOvl2ucSwrblVGle3J7mtng/rCn0xpv+T/Ind5Jm4PQsPve5Fty5DX
-	 wfD7AfRgYEmSw9VzGOs9Qk5gwigqkAgkjGLXoTYJa8A5xWENM0fDDHkzuG5JsU4tXohrg
-	 HrLnt21KfILI0/3AD/Rwb65cgyV/sO4y0a8QeKRY4nrLP7syPeCXl2vtQJDodZR3pBooF
-	 sfhbOZhYESUTImtbm9iqS/3FaYY08UoOXcUyu0s+l4X20tMpion+Uuby6LE+s7KGoUYDO
-	 fTqXBNzTL7nMm+LQ03dZbatJuBDj6EDQgZGGWCzZ/8BrIg9tmZtbpg2GzGuOBqDydxA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794751333;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=z2MWIKnJJ/fCIM3N2m1iMGulOZFzm+PJBkPqJtMbyaA=;
-	b=fVMDPa5rpa3ECnC9IApYOn4NXS5rbk19SS7cIAz4hYR+oFuTbumMcRK22pfH85pe1452
-	 4YkKvn/1jORjiBsMSK5xdakOELEeLZFSRrL3IrS7ma4ckEJDBpXRHZq+6up+rmnRMBq4H
-	 lXWeBXeqInhUYsNMB8IpKWK4TO8YVxEEpiIYzyHpwUTHBXo30CGAXpTQ1gdqgVdbYCGpp
-	 5Jr08Gy/QTiQF//RIkZ9RWQmw6QWQkjpxRPEZOyqNKZmmF78IMci5XuBh48Y5of+9tpNM
-	 ZvOM5cm2IgfS/82eglb0+iIsrfyv2hlNftqmL4IyIDPyuHPQA1Ow/LbyNH+ZEUacG7w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LawYJ4Tw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.77
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794751339;
+	b=5k7SF3yEs+KNG8M/oopuFVHW7sNSjPubBzr0MdEktxGUwe7Es6dtHBwXthfnM3JHjzKi
+	 UZRztdvtzOdS373GTsx9enZjw+uchZ70w0Gkh/Y9CTqoYv6KC9oxlU+JqSTY3PU0eYLeZ
+	 FCplzx6V1ypjGfLSZdxXM0SN11+zgqc/yBfTFw2S6wj6ATAYlf13rNajq1FdSYZbU9lrc
+	 UnoLLBAjmg6mGm1BC2a2193BBI3hEitJRMDL6ddBVYlOCOfXJGYUPPojZxSgXw0/F1sqR
+	 HtfnW8WDq9EznEzDTkVnQwpvFk3zx+3q90Wvl1uF5S9AVdBDRAZq89C3IJ7JH7wlzDQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794751339;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=PeuwGqfK6/Zp2pjIJ+3WFnudkM91oIUGx1KkPsRVrIM=;
+	b=Lui0cRzspq9/XaEfwQGul/eOJJaePr49xKWTrYin3j85YwkFYwkNJWe3IB4PdbVFtpi0
+	 34PlG29okVL2PLgRqj0ucGbiv7uSRxPU7V3cEXruxUovgdI/idDrmuwzO65BytXJG4hV6
+	 hmae1OyeMNob3jYzZBhHcCjrKYKQvMhKdHVF3YaA2CPKqWesYb6sAEY3TLjysdPi4c4vd
+	 ZelitU/t2OadbcWd327uKXST4QkesXcRdNRSRJcge8gk5m8cbywAnT5oE7/Siec59LCyD
+	 40lWCTz+fZ9XnUp5NnDkHnZlmqh1Xdr6tMpsBeNGLlIevueeQl2rOSQ5cwpRJs7rzQw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=iopsys.eu;
+	spf=pass smtp.mailfrom=genexis.eu;
+	dkim=pass header.d=iopsys.eu header.i=@iopsys.eu header.a=rsa-sha256 header.s=selector1 header.b=nN3FydFg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.77
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020077.outbound.protection.outlook.com [52.101.69.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F3C606A333
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 14:02:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3AE606A32E;
+	Sun, 15 Nov 2026 14:02:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA3AE606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iopsys.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genexis.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LawYJ4Tw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B71D1F000C6
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 14:02:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794751333;
-	bh=z2MWIKnJJ/fCIM3N2m1iMGulOZFzm+PJBkPqJtMbyaA=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=LawYJ4TwvGqTNp8ftm33rlEmgQF3Qu6fFx3HWWsA9SN0Im34MzTtzf+j+A1wyPCvh
-	 Xls3Csqza885jSb8m5SaSsvHhLX7T7R9cY1ePWG8q88y/y4SrvOpjryA/Pzfzv2QDq
-	 SvUyiZGySPrGLe81mdDVZ4xavICgQm/qLcFzSLMwzUzdE9MOe58Y/11qdqmAo7bbBo
-	 5pJFIn4m0CD+T0u20JZE8hf3jFa0rZ5mVRd+8kPDRNevX/5z2h/8KYif0rQzxhhPJT
-	 wv5qsH7JSwFoacej9r/wLZ4I/mrxC8tYnaEUIZAn8FW7a6vzb57KGFtlWXlVo34iOZ
-	 dxCJqkKh44ApQ==
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3ace304021eso25996271fa.2
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 06:02:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH9zTiXn++kubYnYLG0cQtg1t0GhrLKIjcOWgcNcUYkitHYhxJ5IklWF//VF7zCau1HgeUosWsqpyM/@vger.kernel.org
-X-Gm-Message-State: APuU4Z/moCusGFq04PnowGfp9Dv4f2XP3PL3rYwfrnyPrXT8DfTCOjqp
-	mNvxgvgRKztfZ69+S86tfPhqgVd5aiA99IjhuDR/n4oRnkRSE7D2LtSzndMU04z9vcWesG2k8On
-	/5Zg/bcznxLjR8r9YZjQRnFcrGHpyY0U=
-X-Received: by 2002:a05:651c:a150:b0:3a9:d70c:f75e with SMTP id
- 38308e7fff4ca-3ae2b4a1dd7mr26302241fa.7.1794751332015; Sun, 15 Nov 2026
- 06:02:12 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=iopsys.eu header.i=@iopsys.eu header.a=rsa-sha256 header.s=selector1 header.b=nN3FydFg
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ktxakIz0Zr6ADxeH9ki/Em/d2e05vmlG1B3iYtkJnquXJqdghluTJg3kZq2fxIZ+1tlcOHigmgj0vOE0bTyHJdLdZ8wm7J4vVfrFQBhelvTnHTBU/LAt/vWmbL4aJscWPaRujoCAbEuB6yxyUP6yah1HhxLHG/ctkcZb1Trw2h1LmOzHRqv08DsDEs6NQ50bRTtYwVOxFDwydtp2uGM4N6d09Kqt6qxoNYa0rwbUN14sIeIrMEY3PlbaG3ZIOvAGoqUYNrETFHWvh1QMjk9UOm4OxQNL28a9LPAWTvWCYtOSZVCzDxgkIy0dGPWDVgjE5Wqy9cKRXsfA2ObtkI5+Sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PeuwGqfK6/Zp2pjIJ+3WFnudkM91oIUGx1KkPsRVrIM=;
+ b=WR0Yz22YuR8YH51WLq+L6N1SXR7Y4Dz42PZpCYp3lEiOQ6oqqmjJdtk7RaZ4aL2w94Ptz0rvCLPRpoNBHRxM1g9QVNTFkQ2hEpbJxUub0qUyDN5aDqqA4Ze+wVbgHkfK+DFn6dE85Y9Pxbny4sLs2ZU1CF99o/OXpFRkztNXliIv4LJUUKZkZolfM2zcrqGpgN5a05swYNchgXtzeEDPjhjep8PDcFmitMOmtloAEzaSWBnHnkrBHeIS47CSxlSSPhXjUcXLncQBkegjgBML1/JsCHKtBI7iT92INQo3pr9yqxWAVO9WwpDtTvSFeoxNZfVq85vj/ktYS/w2OLG3PQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=genexis.eu; dmarc=pass action=none header.from=iopsys.eu;
+ dkim=pass header.d=iopsys.eu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iopsys.eu;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PeuwGqfK6/Zp2pjIJ+3WFnudkM91oIUGx1KkPsRVrIM=;
+ b=nN3FydFgNCpMM7HhzAhDVkWxA6xt514TW2XuKV+/k1JS8Wwsb1UqjAT/B24a4U3XxgIcR45VTnZiBUDLxPicJG+Yz3kRZl4cM9suiERSJK2IRbB/Knm4Vst5f4JGHz4RcKvvNQJM/tD793z4GfGJFulo0o7JpkGiv+W9cszO0l5zWPZvn3j7RFUfNc7egBmx5P4RnrAAlCHtOOiDEXqT1TSxASEcDZtSaRFYHvDR/8XkNX32AdFcaYtddg9XN64rNvEEWXZhCRiT0AgYxetMwNLfT5lw7xGg+Iv+QvG5LRdd3hyeXvzOmQbELjMWsERvFvatdBx+7qLyvF/09PA2yA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=iopsys.eu;
+Received: from DU2PR08MB10037.eurprd08.prod.outlook.com (2603:10a6:10:49a::20)
+ by PAWPR08MB8791.eurprd08.prod.outlook.com (2603:10a6:102:334::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Sun, 15 Nov
+ 2026 14:02:15 +0000
+Received: from DU2PR08MB10037.eurprd08.prod.outlook.com
+ ([fe80::3c7:6d2e:8afe:e4dc]) by DU2PR08MB10037.eurprd08.prod.outlook.com
+ ([fe80::3c7:6d2e:8afe:e4dc%3]) with mapi id 15.21.0615.012; Sun, 15 Nov 2026
+ 14:02:15 +0000
+Message-ID: <5e681d92-9772-42e3-aae8-47faacf6d850@iopsys.eu>
+Date: Sun, 15 Nov 2026 17:02:12 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/12] pinctrl: airoha: an7581: fix PHY LED GPIO group
+ assignments
+To: Zhengping Zhang <zhengping.zhang@airoha.com>, linusw@kernel.org,
+ lorenzo@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ brgl@kernel.org, naseefkm@gmail.com, benjamin.larsson@genexis.eu,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ lei.dong@airoha.com, ansuelsmth@gmail.com
+References: <20261110094339.749110-1-zhengping.zhang@airoha.com>
+ <20261110094339.749110-5-zhengping.zhang@airoha.com>
+From: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Content-Language: en-US, ru-RU
+In-Reply-To: <20261110094339.749110-5-zhengping.zhang@airoha.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: GV3PEPF0001DC2A.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:400::107) To DU2PR08MB10037.eurprd08.prod.outlook.com
+ (2603:10a6:10:49a::20)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,384 +103,266 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115061102.229680-1-jernej.skrabec@gmail.com> <20261115061102.229680-7-jernej.skrabec@gmail.com>
-In-Reply-To: <20261115061102.229680-7-jernej.skrabec@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 15 Nov 2026 22:01:58 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64X2hbU4wjv7C4NNkQ6W=0PW5C0xSUp1bzdDiAGrJF+ww@mail.gmail.com>
-X-Gm-Features: AclHuK8-o_bvwblkCzsTqNM8KJ9djH1Jg7AEAEwZv4SuwLt3JJu8d-EKluowQT0
-Message-ID: <CAGb2v64X2hbU4wjv7C4NNkQ6W=0PW5C0xSUp1bzdDiAGrJF+ww@mail.gmail.com>
-Subject: Re: [PATCH v3 6/8] drm/sun4i: Add DE33 shared plane driver
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Samuel Holland <samuel@sholland.org>, mripard@kernel.org, 
-	maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com, 
-	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, sboyd@kernel.org, 
-	Andre Przywara <andre.przywara@arm.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR08MB10037:EE_|PAWPR08MB8791:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2cb0fea9-71c2-42d2-9991-08df43210da5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10067099003|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261009221227099003|261009223027099003|261102123227099003|261026140227099003|261022105027099003|261026121527099003|261028144727099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	5nUeNOT4N/l9F2sbxnaKO5mYCOeJZ6p8UZGcPDPiZMODEfShktYXZFE9n6vzSb2yW1PVW7x6xt9XAoulJGojV35cHjP2k9OTu1C6k8I94oQWCbm4V2hxjhhSKo4yrXnJLEl1JppcFDqyDraA6ALdiXU4D5q/Q8NI6G4VBowwVy9jqBh+pWT/f3amRoHNY51IIAqzU0mSGMZ/OR0l0TV1c4My3FAt8jDGLuNJ+QaDDQNoSzvWwNC6DWrEa4ZT+EdOn3/Zo2WYQLor1OAIiHON73e4D3noI/gUqy8lhIToMF06vZ3QDyqvJys+lEquE37GMx4f6wmW+wg5feK2Xw6WD/ssuzouk3MX4L5ulowy02EOTpZg09YHgCW1Oa04sXMeARKir0Gf3+20zTkDZJavO39yBu0y/+qK4+pRBI+wbYwjS5oN3jsQwDTSPpN/5Zf9NA3KEHIK6mJNluzHNNMPUJtW2ajZWyZxJkC6YK2wBvnvxB6TXtkA3G3Y6lZL9c/eO1bmZnm2W5kHt6lCYEwV75VO4CJEjRp/BfIOMMjSJzRIW7MBKwUnZKDJhLF3FikjRN2l0BjZYNbLKjHPgTxnqp5dXpojwD8JLPP8aDuY57J/BiENv3jCi5Ru5MP5fALglfx1wcvIl581v1wdHjsoFc93B26LvtLa6jUGfWmj4iM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB10037.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261009221227099003)(261009223027099003)(261102123227099003)(261026140227099003)(261022105027099003)(261026121527099003)(261028144727099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UGQ3UFFFcW53aEdzQXZEdC9ONjUyRk5ka2NZaFdMaHlKczFzeW43a05TdHRU?=
+ =?utf-8?B?cVBNWnFGU2s0d1NtQWYrWVBsY0hZb2RObVhWeVJTbTFZMnBJSzBXdGRHbzhQ?=
+ =?utf-8?B?SENxK1N3d0NlTDZIcHdaTERGNTdXZkRKbWtSVjZSbVNqOGZSTTRkSjZtOVov?=
+ =?utf-8?B?TXNMMUdZdUZPa3F0eE9CdXg4RTgyTWV6RHhDMUxxMVQ0eW5KRDltc0E2Y1E0?=
+ =?utf-8?B?WkZuR2NpZVppWHo1RTZ2VkZ1L2ZiR2p4MzNEU29aQU8yL3EvWXVPb0wxbzlX?=
+ =?utf-8?B?dTZlSjdhcGZPZzFNZzRTdE4wYUFuU2RrRWVpbUxSTXcwenFCN0JKT29HYVFT?=
+ =?utf-8?B?K0E0eTN1YUYyeVY5aEVubldjL0NTTkcvRFgvRVdlV0hXSzdaSlpXeFVJUDVh?=
+ =?utf-8?B?amxtRzFYMlVRdEFXVFBCaVZHdHNZb2EzU3ZRZXhPcjVoUFFBMlhTc2ViMG5k?=
+ =?utf-8?B?emc0WVNkS1pWOGdzZ2I4VE51VU0zdEgwdnRzNnIzb0xxNjB0QjBoM1dtN2Fz?=
+ =?utf-8?B?VW1mWjNmYVBpNUlvbWFFMkF3SWpoTEc0ZmdZMlFyQzZEWTNZeDZ0eFlHRDdK?=
+ =?utf-8?B?RnhsanJ5dnpqalNUQkxVRm9GOE5kRjZZTW45RmhyVXhhbVpNdEw5Z2lNaUU3?=
+ =?utf-8?B?STZXM0NQWUJqQ3NiZkNneGp5MTU1VmF3SmlqWXdZMEpiUUVjdVlzVGxhODFO?=
+ =?utf-8?B?dlhOWHJHM0V6MExKcmNNUTZNTWRnT21yV1hVUGtJeTR0bkkrcUJzaGIwMnlv?=
+ =?utf-8?B?bUhKcHlyODVSUTBxVWYyV3ZpVmZnYXJaU0lVVGthaEpkU05qazh0OXFGNWwy?=
+ =?utf-8?B?MXh6YXIvUHNESGZZejVBZCtRWExtT1ZteW94L0VaR0dWQ3h3TnJvd3JVTlFW?=
+ =?utf-8?B?dStWMURsUFpHaFpQWWhkWEo2WUNaS2k2Mi9QWEF5eUlwVTREV3RJcThMbUVt?=
+ =?utf-8?B?amxxU0pRUGtJcGJlaTd4Q1crMXN0b0luSkJDSDZqSStNZUIrZjRnc2dQOWpi?=
+ =?utf-8?B?MU5TMEV5d3VCZ3pYeGRsTFZKam9HTWhsV2VkSkd1WkMxeWp3RStzcFkxWUJi?=
+ =?utf-8?B?dWszOVdZRmEzME9nVjc1OG1ldXplSnJjaWRPRzdkaVNRNkxrYnF0cmYwSzlS?=
+ =?utf-8?B?RFJrNXI5d3I3Vy9UVW1yNzcza2tPMFNTYlVTbnVKQzI2THRXNGlMekFCS1pK?=
+ =?utf-8?B?dEpabndyNkVHRjNScllVbmlERk5qbWRtby96dWtWUWhPbFcvemlTMzN3RnBO?=
+ =?utf-8?B?cmQ0bjhnei9IOEVPVVplUjhHTFQ3UHNVWHRudFZUbml0bVlJZ0dwMWxRQitk?=
+ =?utf-8?B?RWRMUllFVk1Gcmp1VDBvcU1MVGdod2JMcWFydDhacktCZFNXb2ZueUhOeDRy?=
+ =?utf-8?B?MTA0VDZVZFd1T1pGSkJMTHZ1eG1Hb1FvL3Y0WHpXeUdjODFPNyswVThONEpJ?=
+ =?utf-8?B?Q0dWN2VIYzExUCs3Y0JUS0FRc0pCK0dzOVZKaHUxdW5zdS9EV1g5YW4rcHJj?=
+ =?utf-8?B?RkN5bkM2OVE4ZjBhaGE5QlppV1BHbnFjU3BFZExyL01TSklwRVdObkVhNFJm?=
+ =?utf-8?B?R045dWVsSUdsWUtYbE1EVUI4czRDcDNEUGFBOFYzVTljdWJmZlNFb1VzeDRa?=
+ =?utf-8?B?OHF1bldaTk94QWVUQTFMMVlob1Y1V1NJV3RoYU52ZG93M1gvSCtvSThldXI0?=
+ =?utf-8?B?amRpb2lQRSs3ZXZJZm5QcittWWpFeTJJcTBzeURyb3c1a0V6bFVBMUpYSnRa?=
+ =?utf-8?B?ckEzSWk5T0hwOEVHVm1MWGdqVCtRNUFDMGpRaTB6Nyt0cmNUeWptY3lOMXRj?=
+ =?utf-8?B?RTJMeU5HNFV2NzBLL3N3cWM5UWJVeHd1RG5vR29tTVdrUVcyMTBXNlc3MlVo?=
+ =?utf-8?B?cm1ndkFQRjVZNm5GYjdwczNPdE91Y1B5NXVqRUh2Z1Z0SzVZZEVGaE5LczlC?=
+ =?utf-8?B?bE13Qk5GTlZxWnVpYmtRS2hrVXVGd1R2ejMxOWpxZXVsSUtaaW9XNm5ScVdL?=
+ =?utf-8?B?dlduRUE4d2tiRUI0VXk2a1k4VERrNHlmVUZqSjJiU2FYb0lVMklzS1JWMTRZ?=
+ =?utf-8?B?WGl2dXp4NENTWmwwcnA3dFFBcldnYkdBRng5TURkU2ppaUM0RjJtWEVsdVkz?=
+ =?utf-8?B?Y3ZrU3h3UGQycUVqdEVKdDhoMU9XVWpVZXh6ZkNIanZqZGtIM3NMdHNGa3NF?=
+ =?utf-8?B?aUlvY3A3L2dZRWUxUTIxUVMrNjkzaThEeDRtZmdwMXE0bzNHclF0SGk1eGJ4?=
+ =?utf-8?B?QnVZdnloa29XdXJFOEQ2Z3hiREptU2VvOTQ5T2t5dlhNQ1lNUmxYVUtzRmlX?=
+ =?utf-8?B?L0VmbldZNHFnZ3lmL2JXdXhVd0NGY1VrK3I5bjVTWlZVYXU4d1kyUzU3aDBv?=
+ =?utf-8?Q?xqtWOHds8eTm71+0=3D?=
+X-OriginatorOrg: iopsys.eu
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cb0fea9-71c2-42d2-9991-08df43210da5
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR08MB10037.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 14:02:15.3667
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8d891be1-7bce-4216-9a99-bee9de02ba58
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UIgi1GEdFURh4sVUM2rj4G5kkPtX+A22X16LU7yVwT8C3w9YA8whg5ScK3J5JzqJ0xLCIiuHLrtx7gbVrJjbRd61WJLDGPhMBRJdvopES1w=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB8791
 
-On Sun, Nov 15, 2026 at 2:11=E2=80=AFPM Jernej Skrabec <jernej.skrabec@gmai=
-l.com> wrote:
+according to an7581 datasheet
+* LED0 uses GPIO33-35 and GPIO42 * LED1 uses GPIO43-46 so patch is not
+needed
+
+On 11/10/26 12:43, Zhengping Zhang wrote:
+> [You don't often get email from zhengping.zhang@airoha.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 >
-> DE33 makes its plane channels shared resources that mixers select through
-> routing registers in the display clock block. The existing mixer-local
-> plane initialization cannot represent that topology.
+> The PHY LED function tables associate LED0 mux bits with the GPIO pads
+> used by LED1, and vice versa. Selecting an LED function therefore
+> programs the mux bit for a different pad from the requested group.
 >
-> Add a component that owns the shared plane register space, programs the
-> default channel-to-mixer mapping and creates each mixer's DRM planes
-> from that mapping.
-
-Just some nits.
-
-This should mention that this driver only gets hooked up in the last
-patch of the series. This patch alone doesn't register the driver.
-
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> The LED mux bits in SCU register 0x214 correspond to these GPIO pads:
+>
+>                   LAN0    LAN1    LAN2    LAN3
+>   LED0 mux bit       3       5       7       9
+>   LED0 GPIO         43      44      45      46
+>   LED1 mux bit       4       6       8      10
+>   LED1 GPIO         33      34      35      42
+>
+> Correct both the advertised groups and the function-group entries to
+> match these assignments. This ensures that the pin claimed by pinctrl
+> matches the pad controlled by the selected LED mux bit.
+>
+> Keep the existing mux masks and PHY source selections in the LED0/1
+> mapping registers unchanged.
+>
+> Signed-off-by: Zhengping Zhang <zhengping.zhang@airoha.com>
 > ---
->  drivers/gpu/drm/sun4i/Makefile        |   3 +-
->  drivers/gpu/drm/sun4i/sun50i_planes.c | 215 ++++++++++++++++++++++++++
->  drivers/gpu/drm/sun4i/sun50i_planes.h |  43 ++++++
->  3 files changed, 260 insertions(+), 1 deletion(-)
->  create mode 100644 drivers/gpu/drm/sun4i/sun50i_planes.c
->  create mode 100644 drivers/gpu/drm/sun4i/sun50i_planes.h
+>  drivers/pinctrl/airoha/pinctrl-an7581.c | 80 ++++++++++++-------------
+>  1 file changed, 40 insertions(+), 40 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/sun4i/Makefile b/drivers/gpu/drm/sun4i/Makef=
-ile
-> index bad7497a0d11..501e3d867918 100644
-> --- a/drivers/gpu/drm/sun4i/Makefile
-> +++ b/drivers/gpu/drm/sun4i/Makefile
-> @@ -16,7 +16,8 @@ sun8i-drm-hdmi-y              +=3D sun8i_hdmi_phy_clk.o
+> diff --git a/drivers/pinctrl/airoha/pinctrl-an7581.c b/drivers/pinctrl/airoha/pinctrl-an7581.c
+> index bfb777594811b..3cbdfc31e97e5 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-an7581.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-an7581.c
+> @@ -594,28 +594,28 @@ static const char *const pwm_groups[] = {
+>         "gpio46", "gpio47", "gpio48", "gpio49"
+>  };
+>  static const char *const phy1_led0_groups[] = {
+> -       "gpio33", "gpio34", "gpio35", "gpio42"
+> +       "gpio43", "gpio44", "gpio45", "gpio46"
+>  };
+>  static const char *const phy2_led0_groups[] = {
+> -       "gpio33", "gpio34", "gpio35", "gpio42"
+> +       "gpio43", "gpio44", "gpio45", "gpio46"
+>  };
+>  static const char *const phy3_led0_groups[] = {
+> -       "gpio33", "gpio34", "gpio35", "gpio42"
+> +       "gpio43", "gpio44", "gpio45", "gpio46"
+>  };
+>  static const char *const phy4_led0_groups[] = {
+> -       "gpio33", "gpio34", "gpio35", "gpio42"
+> +       "gpio43", "gpio44", "gpio45", "gpio46"
+>  };
+>  static const char *const phy1_led1_groups[] = {
+> -       "gpio43", "gpio44", "gpio45", "gpio46"
+> +       "gpio33", "gpio34", "gpio35", "gpio42"
+>  };
+>  static const char *const phy2_led1_groups[] = {
+> -       "gpio43", "gpio44", "gpio45", "gpio46"
+> +       "gpio33", "gpio34", "gpio35", "gpio42"
+>  };
+>  static const char *const phy3_led1_groups[] = {
+> -       "gpio43", "gpio44", "gpio45", "gpio46"
+> +       "gpio33", "gpio34", "gpio35", "gpio42"
+>  };
+>  static const char *const phy4_led1_groups[] = {
+> -       "gpio43", "gpio44", "gpio45", "gpio46"
+> +       "gpio33", "gpio34", "gpio35", "gpio42"
+>  };
 >
->  sun8i-mixer-y                  +=3D sun8i_mixer.o sun8i_ui_layer.o \
->                                    sun8i_vi_layer.o sun8i_ui_scaler.o \
-> -                                  sun8i_vi_scaler.o sun8i_csc.o
-> +                                  sun8i_vi_scaler.o sun8i_csc.o \
-> +                                  sun50i_planes.o
+>  static const struct airoha_pinctrl_func_group pon_func_group[] = {
+> @@ -1067,90 +1067,90 @@ static const struct airoha_pinctrl_func_group pwm_func_group[] = {
+>  };
 >
->  sun4i-tcon-y                   +=3D sun4i_crtc.o
->  sun4i-tcon-y                   +=3D sun4i_tcon_dclk.o
-> diff --git a/drivers/gpu/drm/sun4i/sun50i_planes.c b/drivers/gpu/drm/sun4=
-i/sun50i_planes.c
-> new file mode 100644
-> index 000000000000..22b9f104a391
-> --- /dev/null
-> +++ b/drivers/gpu/drm/sun4i/sun50i_planes.c
-> @@ -0,0 +1,215 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/* Copyright (c) 2025 Jernej Skrabec <jernej.skrabec@gmail.com> */
-
-Need to update the year.
-
-> +
-> +#include <drm/drm_device.h>
-> +
-> +#include <linux/device.h>
-> +#include <linux/io.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-
-> +#include <linux/of_graph.h>
-
-This is unused. Leftover from an older version?
-
-> +#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +
-> +#include "sun50i_planes.h"
-> +#include "sun8i_ui_layer.h"
-> +#include "sun8i_vi_layer.h"
-> +
-> +static const struct sun50i_planes_quirks sun50i_h616_planes_quirks =3D {
-> +       .def_map =3D {
-> +               {
-> +                       .map =3D {0, 6, 7},
-> +                       .num_ch =3D 3,
-> +               },
-> +               {
-> +                       .map =3D {1, 2, 8},
-> +                       .num_ch =3D 3,
-> +               },
-> +       },
-> +       .cfg =3D {
-> +               .de_type        =3D SUN8I_MIXER_DE33,
-> +               /*
-> +                * TODO: All planes support scaling, but driver needs
-> +                * improvements to properly support it.
-> +                */
-> +               .scaler_mask    =3D 0,
-> +               .scanline_yuv   =3D 4096,
-> +       },
-> +};
-> +
-> +static const struct of_device_id sun50i_planes_of_table[] =3D {
-> +       {
-> +               .compatible =3D "allwinner,sun50i-h616-de33-planes",
-> +               .data =3D &sun50i_h616_planes_quirks
-> +       },
-> +       { }
-> +};
-> +MODULE_DEVICE_TABLE(of, sun50i_planes_of_table);
-> +
-> +struct drm_plane **
-> +sun50i_planes_setup(struct device *dev, struct drm_device *drm,
-> +                   unsigned int mixer)
-> +{
-> +       struct sun50i_planes *planes =3D dev_get_drvdata(dev);
-> +       const struct sun50i_planes_quirks *quirks;
-> +       struct drm_plane **drm_planes;
-> +       const struct default_map *map;
-> +       unsigned int i;
-> +
-> +       if (!of_match_node(sun50i_planes_of_table, dev->of_node)) {
-> +               dev_err(dev, "Device is not planes driver!\n");
-> +               return ERR_PTR(-EINVAL);
-
-return dev_err_probe();
-
-> +       }
-> +
-> +       if (!planes) {
-> +               dev_err(dev, "Planes driver is not loaded yet!\n");
-> +               return ERR_PTR(-EINVAL);
-
-return dev_err_probe();
-
-> +       }
-> +
-> +       if (mixer > 1) {
-
-Use ">=3D MAX_DISP" or  "!(mixer < MAX_DISP)" here?
-
-> +               dev_err(dev, "Mixer index is too high!\n");
-> +               return ERR_PTR(-EINVAL);
-
-return dev_err_probe();
-
-
-> +       }
-> +
-> +       quirks =3D planes->quirks;
-> +       map =3D &quirks->def_map[mixer];
-> +
-> +       drm_planes =3D devm_kcalloc(drm->dev, map->num_ch + 1,
-> +                                 sizeof(*drm_planes), GFP_KERNEL);
-> +       if (!drm_planes)
-> +               return ERR_PTR(-ENOMEM);
-> +
-> +       for (i =3D 0; i < map->num_ch; i++) {
-> +               unsigned int phy_ch =3D map->map[i];
-> +               struct sun8i_layer *layer;
-> +               enum drm_plane_type type;
-> +
-> +               if ((i =3D=3D 0 && map->num_ch =3D=3D 1) || i =3D=3D 1)
-> +                       type =3D DRM_PLANE_TYPE_PRIMARY;
-> +               else
-> +                       type =3D DRM_PLANE_TYPE_OVERLAY;
-> +
-> +               if (phy_ch < UI_PLANE_OFFSET)
-> +                       layer =3D sun8i_vi_layer_init_one(drm, type, plan=
-es->regs,
-> +                                                       i, phy_ch, map->n=
-um_ch,
-> +                                                       &quirks->cfg);
-> +               else
-> +                       layer =3D sun8i_ui_layer_init_one(drm, type, plan=
-es->regs,
-> +                                                       i, phy_ch, map->n=
-um_ch,
-> +                                                       &quirks->cfg);
-> +
-> +               if (IS_ERR(layer)) {
-> +                       dev_err(drm->dev,
-> +                               "Couldn't initialize DRM plane\n");
-> +                       return ERR_CAST(layer);
-
-return dev_err_probe();
-
-
-Otherwise,
-
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-
-> +               }
-> +
-> +               drm_planes[i] =3D &layer->plane;
-> +       }
-> +
-> +       return drm_planes;
-> +}
-> +
-> +static void sun50i_planes_init_mapping(struct sun50i_planes *planes)
-> +{
-> +       const struct sun50i_planes_quirks *quirks =3D planes->quirks;
-> +       unsigned int i, j;
-> +       u32 mapping;
-> +
-> +       mapping =3D 0;
-> +       for (j =3D 0; j < MAX_DISP; j++)
-> +               for (i =3D 0; i < quirks->def_map[j].num_ch; i++) {
-> +                       unsigned int ch =3D quirks->def_map[j].map[i];
-> +
-> +                       if (ch < UI_PLANE_OFFSET)
-> +                               mapping |=3D j << (ch * 2);
-> +                       else
-> +                               mapping |=3D j << ((ch - UI_PLANE_OFFSET)=
- * 2 + 16);
-> +               }
-> +       regmap_write(planes->mapping, SUNXI_DE33_DE_CHN2CORE_MUX_REG, map=
-ping);
-> +
-> +       for (j =3D 0; j < MAX_DISP; j++) {
-> +               mapping =3D 0;
-> +               for (i =3D 0; i < quirks->def_map[j].num_ch; i++) {
-> +                       unsigned int ch =3D quirks->def_map[j].map[i];
-> +
-> +                       if (ch >=3D UI_PLANE_OFFSET)
-> +                               ch +=3D 2;
-> +
-> +                       mapping |=3D ch << (i * 4);
-> +               }
-> +               regmap_write(planes->mapping, SUNXI_DE33_DE_PORT02CHN_MUX=
-_REG + j * 4, mapping);
-> +       }
-> +}
-> +
-> +static const struct regmap_config sun50i_planes_regmap_config =3D {
-> +       .name           =3D "planes",
-> +       .reg_bits       =3D 32,
-> +       .val_bits       =3D 32,
-> +       .reg_stride     =3D 4,
-> +       .max_register   =3D 0x17fffc,
-> +};
-> +
-> +static int sun50i_planes_probe(struct platform_device *pdev)
-> +{
-> +       struct platform_device *clk_pdev;
-> +       struct device *dev =3D &pdev->dev;
-> +       struct sun50i_planes *planes;
-> +       struct device_node *np;
-> +       void __iomem *regs;
-> +
-> +       planes =3D devm_kzalloc(dev, sizeof(*planes), GFP_KERNEL);
-> +       if (!planes)
-> +               return -ENOMEM;
-> +
-> +       planes->quirks =3D of_device_get_match_data(dev);
-> +       if (!planes->quirks)
-> +               return dev_err_probe(dev, -EINVAL, "Unable to get quirks\=
-n");
-> +
-> +       np =3D of_parse_phandle(dev->of_node,
-> +                             "allwinner,plane-mapping", 0);
-> +       if (!np)
-> +               return dev_err_probe(dev, -EINVAL, "Missing mapping phand=
-le\n");
-> +
-> +       clk_pdev =3D of_find_device_by_node(np);
-> +       of_node_put(np);
-> +       if (!clk_pdev)
-> +               return dev_err_probe(dev, -EPROBE_DEFER, "Unable to get m=
-apping\n");
-> +
-> +       /* Regmap is registered by display clocks driver during its probe=
-. */
-> +       planes->mapping =3D dev_get_regmap(&clk_pdev->dev, NULL);
-> +       if (!planes->mapping) {
-> +               platform_device_put(clk_pdev);
-> +               return dev_err_probe(dev, -EPROBE_DEFER, "Unable to get r=
-egmap\n");
-> +       }
-> +
-> +       if (!device_link_add(dev, &clk_pdev->dev,
-> +                            DL_FLAG_AUTOREMOVE_CONSUMER)) {
-> +               platform_device_put(clk_pdev);
-> +               return dev_err_probe(dev, -EINVAL, "Failed to create link=
-\n");
-> +       }
-> +       platform_device_put(clk_pdev);
-> +
-> +       regs =3D devm_platform_ioremap_resource(pdev, 0);
-> +       if (IS_ERR(regs))
-> +               return PTR_ERR(regs);
-> +
-> +       planes->regs =3D devm_regmap_init_mmio(dev, regs, &sun50i_planes_=
-regmap_config);
-> +       if (IS_ERR(planes->regs))
-> +               return PTR_ERR(planes->regs);
-> +
-> +       sun50i_planes_init_mapping(planes);
-> +
-> +       dev_set_drvdata(dev, planes);
-> +
-> +       return 0;
-> +}
-> +
-> +struct platform_driver sun50i_planes_platform_driver =3D {
-> +       .probe          =3D sun50i_planes_probe,
-> +       .driver         =3D {
-> +               .name           =3D "sun50i-planes",
-> +               .of_match_table =3D sun50i_planes_of_table,
-> +       },
-> +};
-> diff --git a/drivers/gpu/drm/sun4i/sun50i_planes.h b/drivers/gpu/drm/sun4=
-i/sun50i_planes.h
-> new file mode 100644
-> index 000000000000..7be969491f9c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/sun4i/sun50i_planes.h
-> @@ -0,0 +1,43 @@
-> +/* SPDX-License-Identifier: GPL-2.0+ */
-> +/* Copyright (c) 2025 Jernej Skrabec <jernej.skrabec@gmail.com> */
-
-2026 now (and almost over ...)
-
-> +
-> +#ifndef _SUN50I_PLANES_H_
-> +#define _SUN50I_PLANES_H_
-> +
-> +#include "sun8i_mixer.h"
-> +
-> +/* mapping registers, located in clock register space */
-> +#define SUNXI_DE33_DE_CHN2CORE_MUX_REG 0x24
-> +#define SUNXI_DE33_DE_PORT02CHN_MUX_REG        0x28
-> +#define SUNXI_DE33_DE_PORT12CHN_MUX_REG        0x2c
-> +
-> +#define MAX_DISP       2
-> +#define MAX_CHANNELS   8
-> +#define UI_PLANE_OFFSET        6
-> +
-> +struct regmap;
-> +struct drm_device;
-> +
-> +struct default_map {
-> +       unsigned int map[MAX_CHANNELS];
-> +       unsigned int num_ch;
-> +};
-> +
-> +struct sun50i_planes_quirks {
-> +       struct default_map      def_map[MAX_DISP];
-> +       struct sun8i_layer_cfg  cfg;
-> +};
-> +
-> +struct sun50i_planes {
-> +       struct regmap                           *regs;
-> +       struct regmap                           *mapping;
-> +       const struct sun50i_planes_quirks       *quirks;
-> +};
-> +
-> +struct drm_plane **
-> +sun50i_planes_setup(struct device *dev, struct drm_device *drm,
-> +                   unsigned int mixer);
-> +
-> +extern struct platform_driver sun50i_planes_platform_driver;
-> +
-> +#endif /* _SUN50I_PLANES_H_ */
+>  static const struct airoha_pinctrl_func_group phy1_led0_func_group[] = {
+> -       AIROHA_PINCTRL_PHY_LED0("gpio33", GPIO_LAN0_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio43", GPIO_LAN0_LED0_MODE_MASK,
+>                                 LAN0_LED_MAPPING_MASK, LAN0_PHY_LED_MAP(0)),
+> -       AIROHA_PINCTRL_PHY_LED0("gpio34", GPIO_LAN1_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio44", GPIO_LAN1_LED0_MODE_MASK,
+>                                 LAN1_LED_MAPPING_MASK, LAN1_PHY_LED_MAP(0)),
+> -       AIROHA_PINCTRL_PHY_LED0("gpio35", GPIO_LAN2_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio45", GPIO_LAN2_LED0_MODE_MASK,
+>                                 LAN2_LED_MAPPING_MASK, LAN2_PHY_LED_MAP(0)),
+> -       AIROHA_PINCTRL_PHY_LED0("gpio42", GPIO_LAN3_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio46", GPIO_LAN3_LED0_MODE_MASK,
+>                                 LAN3_LED_MAPPING_MASK, LAN3_PHY_LED_MAP(0)),
+>  };
+>
+>  static const struct airoha_pinctrl_func_group phy2_led0_func_group[] = {
+> -       AIROHA_PINCTRL_PHY_LED0("gpio33", GPIO_LAN0_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio43", GPIO_LAN0_LED0_MODE_MASK,
+>                                 LAN0_LED_MAPPING_MASK, LAN0_PHY_LED_MAP(1)),
+> -       AIROHA_PINCTRL_PHY_LED0("gpio34", GPIO_LAN1_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio44", GPIO_LAN1_LED0_MODE_MASK,
+>                                 LAN1_LED_MAPPING_MASK, LAN1_PHY_LED_MAP(1)),
+> -       AIROHA_PINCTRL_PHY_LED0("gpio35", GPIO_LAN2_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio45", GPIO_LAN2_LED0_MODE_MASK,
+>                                 LAN2_LED_MAPPING_MASK, LAN2_PHY_LED_MAP(1)),
+> -       AIROHA_PINCTRL_PHY_LED0("gpio42", GPIO_LAN3_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio46", GPIO_LAN3_LED0_MODE_MASK,
+>                                 LAN3_LED_MAPPING_MASK, LAN3_PHY_LED_MAP(1)),
+>  };
+>
+>  static const struct airoha_pinctrl_func_group phy3_led0_func_group[] = {
+> -       AIROHA_PINCTRL_PHY_LED0("gpio33", GPIO_LAN0_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio43", GPIO_LAN0_LED0_MODE_MASK,
+>                                 LAN0_LED_MAPPING_MASK, LAN0_PHY_LED_MAP(2)),
+> -       AIROHA_PINCTRL_PHY_LED0("gpio34", GPIO_LAN1_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio44", GPIO_LAN1_LED0_MODE_MASK,
+>                                 LAN1_LED_MAPPING_MASK, LAN1_PHY_LED_MAP(2)),
+> -       AIROHA_PINCTRL_PHY_LED0("gpio35", GPIO_LAN2_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio45", GPIO_LAN2_LED0_MODE_MASK,
+>                                 LAN2_LED_MAPPING_MASK, LAN2_PHY_LED_MAP(2)),
+> -       AIROHA_PINCTRL_PHY_LED0("gpio42", GPIO_LAN3_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio46", GPIO_LAN3_LED0_MODE_MASK,
+>                                 LAN3_LED_MAPPING_MASK, LAN3_PHY_LED_MAP(2)),
+>  };
+>
+>  static const struct airoha_pinctrl_func_group phy4_led0_func_group[] = {
+> -       AIROHA_PINCTRL_PHY_LED0("gpio33", GPIO_LAN0_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio43", GPIO_LAN0_LED0_MODE_MASK,
+>                                 LAN0_LED_MAPPING_MASK, LAN0_PHY_LED_MAP(3)),
+> -       AIROHA_PINCTRL_PHY_LED0("gpio34", GPIO_LAN1_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio44", GPIO_LAN1_LED0_MODE_MASK,
+>                                 LAN1_LED_MAPPING_MASK, LAN1_PHY_LED_MAP(3)),
+> -       AIROHA_PINCTRL_PHY_LED0("gpio35", GPIO_LAN2_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio45", GPIO_LAN2_LED0_MODE_MASK,
+>                                 LAN2_LED_MAPPING_MASK, LAN2_PHY_LED_MAP(3)),
+> -       AIROHA_PINCTRL_PHY_LED0("gpio42", GPIO_LAN3_LED0_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED0("gpio46", GPIO_LAN3_LED0_MODE_MASK,
+>                                 LAN3_LED_MAPPING_MASK, LAN3_PHY_LED_MAP(3)),
+>  };
+>
+>  static const struct airoha_pinctrl_func_group phy1_led1_func_group[] = {
+> -       AIROHA_PINCTRL_PHY_LED1("gpio43", GPIO_LAN0_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio33", GPIO_LAN0_LED1_MODE_MASK,
+>                                 LAN0_LED_MAPPING_MASK, LAN0_PHY_LED_MAP(0)),
+> -       AIROHA_PINCTRL_PHY_LED1("gpio44", GPIO_LAN1_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio34", GPIO_LAN1_LED1_MODE_MASK,
+>                                 LAN1_LED_MAPPING_MASK, LAN1_PHY_LED_MAP(0)),
+> -       AIROHA_PINCTRL_PHY_LED1("gpio45", GPIO_LAN2_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio35", GPIO_LAN2_LED1_MODE_MASK,
+>                                 LAN2_LED_MAPPING_MASK, LAN2_PHY_LED_MAP(0)),
+> -       AIROHA_PINCTRL_PHY_LED1("gpio46", GPIO_LAN3_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio42", GPIO_LAN3_LED1_MODE_MASK,
+>                                 LAN3_LED_MAPPING_MASK, LAN3_PHY_LED_MAP(0)),
+>  };
+>
+>  static const struct airoha_pinctrl_func_group phy2_led1_func_group[] = {
+> -       AIROHA_PINCTRL_PHY_LED1("gpio43", GPIO_LAN0_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio33", GPIO_LAN0_LED1_MODE_MASK,
+>                                 LAN0_LED_MAPPING_MASK, LAN0_PHY_LED_MAP(1)),
+> -       AIROHA_PINCTRL_PHY_LED1("gpio44", GPIO_LAN1_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio34", GPIO_LAN1_LED1_MODE_MASK,
+>                                 LAN1_LED_MAPPING_MASK, LAN1_PHY_LED_MAP(1)),
+> -       AIROHA_PINCTRL_PHY_LED1("gpio45", GPIO_LAN2_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio35", GPIO_LAN2_LED1_MODE_MASK,
+>                                 LAN2_LED_MAPPING_MASK, LAN2_PHY_LED_MAP(1)),
+> -       AIROHA_PINCTRL_PHY_LED1("gpio46", GPIO_LAN3_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio42", GPIO_LAN3_LED1_MODE_MASK,
+>                                 LAN3_LED_MAPPING_MASK, LAN3_PHY_LED_MAP(1)),
+>  };
+>
+>  static const struct airoha_pinctrl_func_group phy3_led1_func_group[] = {
+> -       AIROHA_PINCTRL_PHY_LED1("gpio43", GPIO_LAN0_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio33", GPIO_LAN0_LED1_MODE_MASK,
+>                                 LAN0_LED_MAPPING_MASK, LAN0_PHY_LED_MAP(2)),
+> -       AIROHA_PINCTRL_PHY_LED1("gpio44", GPIO_LAN1_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio34", GPIO_LAN1_LED1_MODE_MASK,
+>                                 LAN1_LED_MAPPING_MASK, LAN1_PHY_LED_MAP(2)),
+> -       AIROHA_PINCTRL_PHY_LED1("gpio45", GPIO_LAN2_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio35", GPIO_LAN2_LED1_MODE_MASK,
+>                                 LAN2_LED_MAPPING_MASK, LAN2_PHY_LED_MAP(2)),
+> -       AIROHA_PINCTRL_PHY_LED1("gpio46", GPIO_LAN3_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio42", GPIO_LAN3_LED1_MODE_MASK,
+>                                 LAN3_LED_MAPPING_MASK, LAN3_PHY_LED_MAP(2)),
+>  };
+>
+>  static const struct airoha_pinctrl_func_group phy4_led1_func_group[] = {
+> -       AIROHA_PINCTRL_PHY_LED1("gpio43", GPIO_LAN0_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio33", GPIO_LAN0_LED1_MODE_MASK,
+>                                 LAN0_LED_MAPPING_MASK, LAN0_PHY_LED_MAP(3)),
+> -       AIROHA_PINCTRL_PHY_LED1("gpio44", GPIO_LAN1_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio34", GPIO_LAN1_LED1_MODE_MASK,
+>                                 LAN1_LED_MAPPING_MASK, LAN1_PHY_LED_MAP(3)),
+> -       AIROHA_PINCTRL_PHY_LED1("gpio45", GPIO_LAN2_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio35", GPIO_LAN2_LED1_MODE_MASK,
+>                                 LAN2_LED_MAPPING_MASK, LAN2_PHY_LED_MAP(3)),
+> -       AIROHA_PINCTRL_PHY_LED1("gpio46", GPIO_LAN3_LED1_MODE_MASK,
+> +       AIROHA_PINCTRL_PHY_LED1("gpio42", GPIO_LAN3_LED1_MODE_MASK,
+>                                 LAN3_LED_MAPPING_MASK, LAN3_PHY_LED_MAP(3)),
+>  };
+>
 > --
 > 2.43.0
 >
