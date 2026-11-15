@@ -1,89 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794713108;
-	b=aGDPWBqJ2WqsNE6uain+lFSAO6fi4gM2VXFPFdgusg7iQdImDoB8Sw4OMaZDXmgbHZ5O
-	 u175NjWbCq8wHblxb9mBiqI9pjfE3ugGFzdN/cYNkvVOOTvKow5Y/vMCzUYIf4xsu/rT+
-	 7ymS9WG2FBtCLTUEs/DRS2VNQLC5b8HdD5MYJ/PK9GuD22VoqNw4KtrbBPCj7HHeEd128
-	 nkj+okd979uocpcQ/WpLouCMS73EZ6dauVAmwn+WVsLoEzXSNAogRtF9FWvG+CEPkco54
-	 CS3HNrmg9zCm8CObyI8wLLFfJRxlBXm4vLH8cTJevPXAuF6EQNrfsdHkKvGlOPOGxlA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794713108;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+jVTqA8bBEUloDFP/osFHIzevEsOMQXn438BieV9inY=;
-	b=CeQc6scL1EjBQEhBRF5qZlIMU7Z/5SCZfHOy8UZqloJCmQgVDJCP2rhzB9CnxA/DwMgT
-	 9m3I7amR6k+4fOjroGXIpspp+MNd2cwfz+ABP952mcoWAUEUZ0I4KA/+VtKBHLA5fz7Gh
-	 l0zHbnoM10WhOrIl1SQ2fTBIcR4e09l2tDOfWC4LpYHYMM3X/FVKNUS1/ACrlqRZGqEPD
-	 V5oadxfj+yvAG0zhmgNLP0vpLu48vhZa7rHVY23o3lL1vXpd/dRdAfhbWLN10i+7bmO/J
-	 BgDtPL2eFO4zh4QC2veJHY2xlpPZ33yU7D1v18EmcFVFYF3MMMLIm3oWUNzkwFNzmLg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MhbsYhlf;
-	arc=none smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794719572;
+	b=iea8wqVsIAYEA1lh5H/7xdrcq+LNlfEqQTWG3+iMDrZqKyhnVUH/NcxCOM/t7nKsCsQe
+	 VVd7pXUDdoGPxg/9vdQ2q2iwPEVhQv+f9U/0csyIAGPR0ZXxDjFy+94BhQdcuqmg4Tnmq
+	 iQKP3X0wLebPxHJN9TtBZ249hPObmk/EY0ULKQHgkHDseIAb8LMk2gRKNcjzuFHKOxnjM
+	 7jp8UaLTbbxlVkb72dc9yqHMRdqs5G7mCeDsfipFtdDta4c5t2PS8R6orFcpkpXfls6eq
+	 RNv4cqUTDNPZ9hI0WIyO+FI4JzqEGPTUkTaFKHa+6DJcE/J5S6crQoTd3ILjO7LWoRQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794719572;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-ZohoMailClient;
+	bh=sxOBPrCyzV/VX68JlD+bnzHrsOO/mwcMVPnkr3sQCJE=;
+	b=JtHWsqX+mQMvkh4CSw8zDxUv5ez9FrU6qVP8L/5ns6Itje+lu4UEME8YqcbDkv2i5+MF
+	 iuc+jQ/ar0JdJypb1fhPO9zQ+IOO2RHZxfhY0q3hXLqIoLf6HTNIizAwlN8u5wjUXhxmf
+	 ng9uSG+q6CLF54yQXJ8s1a86TIqPGqlgp/3roGkWufdATplBFa4si8yNQGCWGjh1+1q/N
+	 LlXF+mk8RlBg+CnelcVRaUpY82s/74jD6Umt4rPB8gaE9pPT93ehnZCDqLrFzL+ROxvtI
+	 Zbk/JE9Jc7dLv5R+CWssp1PXMASe9uK/fxs4MCBHLy4rLV/0dE5E1ieOmYUC33u8p6g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=icenowy.me;
+	spf=pass smtp.mailfrom=icenowy.me;
+	dkim=pass header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=Shf9I945;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.15
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E0C606A329
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 03:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7E0C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F19606A323;
+	Sun, 15 Nov 2026 05:12:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F19606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MhbsYhlf
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5495d549924so33794041cf.1
-        for <devicetree@vger.kernel.org>; Sat, 14 Nov 2026 19:25:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794713106; x=1795317906; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+jVTqA8bBEUloDFP/osFHIzevEsOMQXn438BieV9inY=;
-        b=MhbsYhlfIboDlJO0nr8sWHoWk4QYWrxgr1DjannNHaSkkSgGBBcYSs3djiqkqFC1/6
-         m0ZUne9cIuREQdr+58Uva+zsdg7kB5jgVKFXT6YY5hMIQlk7C9QTgBmy54+Hsr1PeRq2
-         2XOw+re1SXRO4deRkyfpCKCg9/tFNYIwb1FHKXZIa8tBcGgxkRV+CABQxMzK11Ij9vXa
-         SJMpOs4QIBCCiBaHDKjfNDYhy9HIsKamrxfvjAbVPx35B15vgPxKu6Gx0VOqpzzktnT5
-         3CYJZ8VOssDKKYsXLUo5CP3y6tt+shDW+HAXFmMdCBoh8/v5nTcNrF2sm8DK9wyREbNj
-         MrpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794713106; x=1795317906;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+jVTqA8bBEUloDFP/osFHIzevEsOMQXn438BieV9inY=;
-        b=pZQbBaZOwWsdZHIkBERrHBQxLLLPgbJu9XNCHORfkvllwCi/15x+UsGxk9dVADYO0N
-         57WZFVbWjT0F17n+LRZ4XcbnzXUIJfWZNCNUGyH+rc66Bndou9BHRp78muIO4+vyyMkZ
-         95BiYx0IO9/k2h0COiHQ4iWA0bls0JHMbYB2e1toQoUL99YaIAry2cLpomiJbDU/Aw3K
-         80FrFyKXwGJz4EVJX+tDajfKdeFYPC58cEtTpAbs8Mgghw0eb08Cd4OjXaIbcRoGhGoY
-         PhAGLxi7jaHUycseTMtC0TpNacoRlv1z9k8WoqdEiBID1+v95GUoG8qm16tDpZzpkQeZ
-         aC9Q==
-X-Forwarded-Encrypted: i=1; AL+hErE3BGnWS1FyFadUdD/xbGl4i7AXbIjPK6sddFphVejeNjpYM9dxBInmD92KFpRYoPNRU8PcvMCmesRB@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Rc7zTOv+PEzIh93fCiZ3XyAEdkAW5Oixhrit8KGyu7cebkx6m
-	mAbE6eSz274O2Nb7nZJRAYR9RzFxDFiABNrxxmyr1ItXKTYLQ0xhQfaU
-X-Gm-Gg: AYBFou11MNXYRjD0SgbfFOcgCe+odZS9Vcoe8+ipZxR6rftmLfbKtabkqBY3H6wkD09
-	udUvSb2XC3l8twEvItG8mBI0tFUtbwA7rRmYQkNzYAA7QGyzLFui6vUsbgx5ROU6825rWDXYWR6
-	7m7x144k67OTDwAHDWMQheIYcsy8nuMq6UWJcO0a5J5IGhk7uPcHKJ+jYjFRw5br21o98F5FCcG
-	e3XOw9kPS+cSly8+zpDOZt2iY9pSbYtl0OrbqSY+OITYwE2wNEAJfkGEkOHJGfsM/Hg62nsJYfz
-	MtL/xU63ZfLQY6qvEM/F4Qh3yN/vGIAG0XvfgPFE8hvXyofhoJkZSE8u/FvUy5LejwffsrhBA2n
-	JDDi9/sDs1pAD166YqS6Ln6ZBS08J8NcF5iCXLpzRwI0kOu79/mUQdvUdjqIrhro6ifcWO2sf8V
-	iJczC19Lk8qzweMdzVtZTnmhN3hDJEb9bDxq43iorcTlmOp/+FItEH2Fz7qi4R3FZWtjHX8SRsc
-	jVG/knmPxvztbNMgtem/rRZwIBz09f2qN8VBDcUoAeuAvWLeOgf2VwrGFIs0uoLh7vrbxsM5vq6
-	N/+ppH6rNetxxuQ//Qn7PpJe+o+72UTFmDnPNwydVysGFT0yfZYw07BqCphJ3hbkYuXy/dP7wfr
-	AYBNX2d1yKpzoXpuqik+/wwVsF6lzWy/fnnKkIV9jOjvtQRCjChNN
-X-Received: by 2002:a05:622a:228a:b0:54a:6b3:488d with SMTP id d75a77b69052e-55ac7172abamr111430891cf.21.1794713106562;
-        Sat, 14 Nov 2026 19:25:06 -0800 (PST)
-Received: from ?IPV6:2600:4040:5abf:f200::9dd? ([2600:4040:5abf:f200::9dd])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d6193esm55747396d6.19.2026.11.14.19.25.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 19:25:06 -0800 (PST)
-Message-ID: <81ac592f-18a2-4715-a34a-1f639ff7a454@gmail.com>
-Date: Sat, 14 Nov 2026 22:25:04 -0500
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=Shf9I945
+ARC-Seal: i=1; a=rsa-sha256; t=1794719509; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=JOGlxjHP0/DLspL53khKYZ0SgtKL6wuFzI00xEcjsX2X0naxDeDwG+mN0JTsz+5zf0ZCsFsBMFVqrfaYnQkAUR3t8lbRG8f1BqRhvEj48tV95ZrVQTmeVdXAt/QIi6mKdxRQO4HSe+Y2wYyGGmY5++jbPgiD+NxssVDB9aWoBjQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794719509; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=sxOBPrCyzV/VX68JlD+bnzHrsOO/mwcMVPnkr3sQCJE=; 
+	b=JTenAkqIMAIIKYfr7QF4ukYjfy4yNh7djxPijM5gJBR3O9VQkxjSsfcuEF+p9XA5MdQEuNgbt7oMj340d21QTX0xU1gbejcKMOP0wnSw4pDSpshTztxX0p8eRsiJSxdrfO19Rmjh226WJc5Bx5ELVWdzILkLoI3UZafzszEw3oM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: a=rsa-sha256; b=Shf9I945a9oA67J+8Ds7UcvmrKj5kNlbGheeRhdtymi+TrNqZRK6TwdNA0v0w0R1b75OQzmI+Pyn/9GuzyrrZRQfM0JQGmkR68MafrCHVXz++GT9O2md5umoQoi44aXHOxbY6STIXDFBFIAEQXgeWQUE//D0QAsCIq6o9b5zNPUZt+5+wuziXnY35ZuNhZHvxU7OHkjnTNRyt2a3mSonSL2WllJDuNrDRkoqTTG0IN5p2Lc+cTSCHPlIF9dSfOHF+TkdKAJJrJV1uxIjEm7+Zqpjmq88uP2UTLimDIQ3QB1f6xrpwLEoaunTnY0SDU7qEWPeTq0v3mNjL5iZ6ia4tA==; c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1; bh=sxOBPrCyzV/VX68JlD+bnzHrsOO/mwcMVPnkr3sQCJE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794719506138787.2843822660936;
+	Sat, 14 Nov 2026 21:11:46 -0800 (PST)
+Message-ID: <45f41ca4bcc76a6c5d0b9180c6492308ec3e85c9.camel@icenowy.me>
+Subject: Re: [PATCH 19/19] MAINTAINERS: add an entry for the Allwinner V861
+ SoC
+From: Icenowy Zheng <uwu@icenowy.me>
+To: gaohan@iscas.ac.cn, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt	
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti	
+ <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Guo Ren	
+ <guoren@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec	
+ <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>, Daniel
+ Lezcano	 <daniel.lezcano@kernel.org>, Anup Patel <anup@brainfault.org>,
+ Stephen Boyd	 <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet	 <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec	 <jernej.skrabec@gmail.com>, Samuel Holland
+ <samuel@sholland.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Alexandre
+ Belloni <alexandre.belloni@bootlin.com>,  Maxime Ripard
+ <mripard@kernel.org>, Linus Walleij <linusw@kernel.org>, Andre Przywara
+ <andre.przywara@arm.com>
+Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
+ devicetree@vger.kernel.org, 	linux-csky@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, 	linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, 	linux-rtc@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+Date: Sun, 15 Nov 2026 13:11:31 +0800
+In-Reply-To: <20261114-v861-v1-19-eb71ec3ee523@iscas.ac.cn>
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
+	 <20261114-v861-v1-19-eb71ec3ee523@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,39 +88,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
- Pro X
-To: Val Packett <val@packett.cool>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede
- <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org
-References: <20261104070441.74127-1-val@packett.cool>
- <20261104070441.74127-2-val@packett.cool>
-Content-Language: en-US
-From: Haipeng Lin <jimmie.lin@gmail.com>
-In-Reply-To: <20261104070441.74127-2-val@packett.cool>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 11/4/26 2:04 AM, Val Packett wrote:
-> The Surface Pro X tablet was listed as a single generic compatible in
-> dt-bindings, but a device tree using it has not landed upstream.
-> 
-> Replace it with three model-specific compatibles:
-> * microsoft,cambria for the orginal SQ1 model (with cellular)
-Nit: "orginal" -> "original"
+=E5=9C=A8 2026-11-14=E5=85=AD=E7=9A=84 06:33 +0800=EF=BC=8CHan Gao via B4 R=
+elay=E5=86=99=E9=81=93=EF=BC=9A
+> From: Han Gao <gaohan@iscas.ac.cn>
+>=20
+> Add myself as maintainer for the V861 bindings, clock and pin control
+> drivers and device trees.
 
-> * microsoft,carina for the Wi-Fi-only (SQ1) model[...]
-Nit: ,carina -> ,caspar
+I think traditionally sunxi do not add maintainers for specific SoCs.
 
-Wi-Fi-only has both SQ1 and SQ2, please see reply to 2/2 in series.
+Maybe you should patch the regexp of "ARM/Allwinner sunXi SoC support"
+item instead.
 
 Thanks,
-Haipeng
+Icenowy
+
+>=20
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> ---
+> =C2=A0MAINTAINERS | 12 ++++++++++++
+> =C2=A01 file changed, 12 insertions(+)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315065..dfc300dc1eb2 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -24031,6 +24031,18 @@ F:	drivers/irqchip/irq-riscv-intc.c
+> =C2=A0F:	include/linux/irqchip/riscv-aplic.h
+> =C2=A0F:	include/linux/irqchip/riscv-imsic.h
+> =C2=A0
+> +RISC-V ALLWINNER V861 SoC SUPPORT
+> +M:	Han Gao <gaohan@iscas.ac.cn>
+> +L:	linux-riscv@lists.infradead.org
+> +L:	linux-sunxi@lists.linux.dev
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/clock/allwinner,sun252i-
+> v861-ccu.yaml
+> +F:	arch/riscv/boot/dts/allwinner/sun252i-v861*
+> +F:	drivers/clk/sunxi-ng/ccu-sun252i-v861*.c
+> +F:	drivers/pinctrl/sunxi/pinctrl-sun252i-v861*.c
+> +F:	include/dt-bindings/clock/sun252i-v861*.h
+> +F:	include/dt-bindings/reset/sun252i-v861*.h
+> +
+> =C2=A0RISC-V ANDES SoC Support
+> =C2=A0M:	Ben Zong-You Xie <ben717@andestech.com>
+> =C2=A0S:	Maintained
