@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794733325;
-	b=HXhmgj0JLEEk4QiTtMl9j6d4hMc8AUo3Lf+/r98WEHOR5OYNpgh7df3UDsWTGmLQb6Wz
-	 RShzuoTlA8RgTGSeoBnp3BHX3Qe6h2WFPd3X9ZM19NMLCnY1+WNweU5B5rSn2K48+ZkY7
-	 HXsy6xyTJt3tCESgk0aMtXa9W8mF4LXUEl4nvRxIUOJBaG3B3ZRU48umAvIUm3RM1cIiu
-	 C62AlOSYLJdhe+O2guNyo6wffZ2PZI+QnrhJJen3XbV4AJe2jx/vMWiMWZ/ALoBa7i80v
-	 ax662EmDHrs5p4vc638nY/iKuzrFQnkqVarEPP2cJgXY6pSPexpfkm+T+ny3gDWfuWw==
+	t=1794733533;
+	b=UeUfsf4s0UfVLrtcwO+QxzblocFGiCJR+NWgB+dqoNem36n5xwbsKQbDz1xvenx1xvq3
+	 epB03Xjk3M6qmvSi9/yVvAKE0ZhcaAjRUZI63zOnu9JCeG2l9mq8FLiYpqJyfExPKy3Y5
+	 Xw0eOK4+mqe2/KCwDF5hGVfQnyiTuruDd2wtpv0wkigOX7r0d/Z1XmgQmOXCVd1RNrjCJ
+	 9TgiBD8XJqeJjXw7O0wqnXw9pR08yjxG/od9iR+2Ui4au2xIOoNWDzUlwILy3rxCP6N7y
+	 tRxC4PH4M3VlA0wNoGqA/a2ruzFy+AdO4kSX3Rc+Y+RpcRq36EGc8Vdi+a42yDUQqfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794733325;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794733533;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=JyM31cGx8Sg4l+C801TiUlTl53Lt9FfHftI5A2bsynM=;
-	b=HwPJH6jspfko7jHJC1VQi8U+MsBA7HsciLhT11X2aYIIkOlxMMAP68zWm1bAGvhRf4hB
-	 TsOWjF9boDVN47pJDSg6+PTlpMzltd8EVcPgLxPsU/qn29oxX0DrzyDwwDDMpSw7mPS4y
-	 qTuwNQEPb7A+skyJLaHLon1vFX30qvrwYyJm4qusa/Pi0qtYxQqcQMeeirDYbAwfZdUpQ
-	 b/QfZXQHypYkUzWZkkyFyVp2UZdUmdPdQBidUSrKEshVtQok+Dxef6he/nZjR/dcH6QNm
-	 tjqpkUjxLjaUTf4rmWgfGhFu4WpnzksGKqyFddsxKlvAziy6H2+MrPFohYHhHvLV85A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZMg/nSjUq9iJR0S1fUdGtC09hfJyYX8pLkJgw5gz5Go=;
+	b=yMrPJnvTsw+EcETV0ePBxlVi2zLj2XiLnzwDTmcGAk4B6mHtgM+J6ImLglLZcO3vsRGQ
+	 Don/i3Hce54L8rcbuTiDr02NjdyqQBDbFZprr1J80mUISpqHhurdgjhxCxANKCr8wzRU7
+	 Gww0EgqdP8Cn6HKsJVaqrrpRvwfLgOBtmC9Eow05AiyCj6zqEkdcGvVXxyiiM3Hsn43Sx
+	 PJuBhLjorZfocAbMoBIXBgKP6QyBIUaojitLiteoHlvWY30egsPE+1R+uFfAGlTEH2rU3
+	 ynW3vEwqkGCuThftTVLdThmA+/E7L+9UnCpzXCcki3t9ueGizLVfbwvuFhpabTh9lag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wQCdfKgR;
-	arc=none smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WZEzl23J;
+	arc=none smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88810606A330
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 09:02:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88810606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA9F606A31F
+	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 09:05:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDA9F606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wQCdfKgR
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so446990166b.3
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 01:02:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WZEzl23J
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso5653138a12.0
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 01:05:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794733324; x=1795338124; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JyM31cGx8Sg4l+C801TiUlTl53Lt9FfHftI5A2bsynM=;
-        b=wQCdfKgRjSDN5un7cIV5u/eVKfHrhGXf38UEdfx/2tMsnkOf4bSZ5KcELOtnSXb5oL
-         0tGvC0lS9lmQpyuvLAaABKnxB3l+RNeKAR1l34OUpt/oEiX6PzIWH6udcdgOafJk5ivB
-         QoOo7uV8fnjGpBIuu9aCKPrkYi4Kka3TMnitG2I8Ve0hXGyhb1X145QLcOI3Ds401dGB
-         aGigjOzS096fxuRybJYYOBRr9WapmXhXvfi427cUq8fpTYnO/jlV3+S6TofwNPkgEZ1J
-         7p+7XcHsrJEtfN28qKBNLO2cmbar/eZpfPZ0aXksY6UbNQ87HpNE99ONCPG78335llAS
-         4e6w==
+        d=gmail.com; s=20260707; t=1794733531; x=1795338331; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZMg/nSjUq9iJR0S1fUdGtC09hfJyYX8pLkJgw5gz5Go=;
+        b=WZEzl23JKiuZ8TYYH80BBF0tEbF1rQKXBSe9ergk6FRLlwVUxhjaAu8Sd7fv1rI5Bu
+         g1Jk/4uI2sfBGIHJ8bC345/3JtGxR0nxfSEjQBTV1eWTL21v7nZ7ELikOz9iuuKPONz3
+         U8RBLhoizcLWzPrRTlXam38C7HdCSP41810emOm7SKRqwJMpWgG4Q466Wa3ASyLsX4Qk
+         e8sHi+I2hF8xKBSacQBGS1HFrmERP/1eGDso2s2+Zfihb3XERt4PW6y8mlJzLj94udY7
+         v56S+e2QyXgXPiPcfaj+QNqcTTVawANp7PC9RBNLTQtoZfZ4EIZhoSUnXjt64OYKfCAq
+         xHfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794733324; x=1795338124;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JyM31cGx8Sg4l+C801TiUlTl53Lt9FfHftI5A2bsynM=;
-        b=cJZy+ZPAB+MYZIAf7iPPm/D1UybEjF7vZUNJTy8OnJTTzPqaWqnjF97qPxAJk+eAog
-         POv9lydJ68tZUN1hNT9HeteaHrdUxq/hmg3L4CrGV5mgwrHAv8K4zyjHft4DAAJBcKF1
-         VxyrERgs3Sqr+km99hTAH0pCqQVQx3m5CH2Wg9IquLVDrkWqWXtL5Pw2CpTFm/SO4Q1b
-         CE5mwEz2Mq83pbm+73ovl/c2DgMeQTgSd1Mw8EEphR+ynx0ImW90c0MXd2TXqli5ce0C
-         Ok6W5mkevMMDsBECKVoyb70/KSK97WPbzNXlws5sKTUnx3wesT0uVFtaBTJmFqZmyNKP
-         xH5Q==
-X-Forwarded-Encrypted: i=1; AL+hErFA/DndPMRkXHdWrqYVuOwyfDEApQVvuO8S3eEffNpYJPr10RrEmOyzz4fF96agsMKviNoOz/3nkD9w@vger.kernel.org
-X-Gm-Message-State: APuU4Z8VpOiSYNJzw5pdbepRXbJIZI/c7DPRPzj52kSrg7rJX/YJrbSa
-	16UzpejJ9vIVr1+pZaiyAwM7B9PqlYJIGh60XnQ4NK26NDVFTnvSARWu
-X-Gm-Gg: AYBFou15UP6ipAk5s3AqH8B+mv9RqzU9b3SoX5HSWrIZ4qAVkK4J99v2eafM97/KANp
-	Q0vX2RKpH5hInNmVARHlkJhVQ7pE4f8FJnkymCjh+G7grlR7f9kN/SMlbtOv9z/TYaL1kFQs3Dd
-	SS6kgcAziFks1R1CGqbf+SZyMvbOiJbah74D63FOrRMv+L/v/xNAIq4kKDNg/WVdDxXqdI5Zjyl
-	ThakDZAQOa8YwtFH/RVDfPLx3ufDEtorEi0bQtynaXIHJ+2Qy1KvYE6r099RbNYqDWT6u/Rw4B4
-	VdoogsCwvia254fihEFe8+hTjnGkFT2jkVrwKP1VmU8xLQFfqA0DYAEZrnrkrqKVb08lWJLaxoQ
-	JQjek4Yltjd6wrapexkaYe/oKBgngn5K3QdAX6nLpiDK4jXTEAoeuwve+Ip+DR0IfaIsv/yZXOu
-	8Dqb0lLyUM8f/2nYU9LGEeryx2XbLJkBTLjiqscaoFdtQTvzMbU39tQS1KX1UilLOR+6lhHv2U/
-	9jE3+lJKFPAjVqD7gkpB7Mf90TKXpvDV3oCZKo/iFnCqSJQJa6QlDicT85lkaoI8qi3x/Hc9U6E
-	UecUvDgvMxC/Q3qV3KsWVgyQeaPfCRkKuU80ZNcqYeaEZ7i8vAN5CvC2NTR9Yzvi0GL/4thqMSU
-	hVkJSfpV7zQ==
-X-Received: by 2002:a17:906:f595:b0:c50:94be:22ab with SMTP id a640c23a62f3a-c509633e68cmr632454066b.18.1794733323864;
-        Sun, 15 Nov 2026 01:02:03 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794733531; x=1795338331;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZMg/nSjUq9iJR0S1fUdGtC09hfJyYX8pLkJgw5gz5Go=;
+        b=KAeLjiVHeHT1WmpnHiidM543H0uHjK90x34XfK8FxA7lTHoBv45W5rAFMa/IcJj0mk
+         ntJxnWWwMftqqdRrHJmPNPr9eLtaZf8MVTW5VDmY5aFxfYYspioKH5BoePsfPiHB7sbv
+         Wm2HyBzY2lcOqI7FLkREY0LId3t2ycjvgFl+cLWfycSnKGn1lBeiZ9qhHJ4sfnVpdz9l
+         ne5dFEonmO+skvwM7WiivDg7HYxQ81M4YlgpOnzBRB4foV2u1EbwL789IiPcFQSEb3Vz
+         yc0iI68TxMlAJ87y2UZO8cHvvj7ZF8jhcZwUT9MFM81xzXbxVErIF/4CmY6yflDn/V3H
+         W4ZQ==
+X-Forwarded-Encrypted: i=1; AL+hErEZ0dpri+qYbKxLrPHx/b/KkkOe2pSbmnQnTX6DPOixZhZE7BxrmkuoOm1WTycb3IRZvTFtMFCcik2d@vger.kernel.org
+X-Gm-Message-State: APuU4Z8US5fFzlLjOlgRJjQ5+52ID0fsn4E2qzV9rMe4TgHVNQvWN3On
+	LX7G55hzDYfSyBjSXw1nZiGKBxiPCI7CutuX78+TIedFPvOEYqvaqWzK
+X-Gm-Gg: AYBFou1LgM7tELAW2I7pW6HYX68vGJah1vvTA1UnxF2eUg89qu8T4TDwn6GVvR7Yb7c
+	PUwSI+jGfZN9V7Fa8CS73n+3pYhC/xr1SHOdY4YwpVNgkMzwGpz2DW7fQDfNPLGN6iGvVYoOxl3
+	OUJTpPGtOYKTvIZRXS4BcVzLo9A6sJKQZZep3IM7fuEDO3Y0R0ghPlDM+JpC31Hfe52bgE3QdjD
+	xCPevOGRNwGps8Q99G4c9hx8Y1QS9pTvi1+0QXkwlrT35Y6UmjZ1FEw5XYgsWWHj1QXAcP1EsQQ
+	Bxn+d3BCL4Ap3C/y79ap/bUeMZ7ky0lSAA0nU4LkHVFYMiD8i4xzbMnKaMGgh9BFo2/jhuZly/O
+	KmKCMYbew9x1fdDedHReVZoP2S6+e31ysopaA8hP66QbzeENLwE6UsRt7UPKf8EU5hnN7NE6Mi8
+	S0SSDFtCePnYT0z1SN23FmYrF4Uu6rQoN9OlmSdXH1CbXrME7wxOEzF3Wh32oRzFymcpsoT5qiY
+	h88VePcmO3r4F9ibpCSwZ7KgoyHPakGZcwZjLfGte6kmzXicnaIqeZ6DhoeX/X2D4NyIy8bT5cg
+	XrqEoXf3Bzu/FmdKPSWVgMzQIROsYXqKomI2uTU8i22lYqT8e7qdSV6Kf45LifJraXj8bQlMX7M
+	Ojfy4i+p5PA==
+X-Received: by 2002:a17:906:9fce:b0:c26:19de:9126 with SMTP id a640c23a62f3a-c5096342a7dmr672105166b.25.1794733531152;
+        Sun, 15 Nov 2026 01:05:31 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b8651bsm291440966b.78.2026.11.15.01.02.02
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5c4b7sm288103466b.1.2026.11.15.01.05.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 01:02:03 -0800 (PST)
+        Sun, 15 Nov 2026 01:05:30 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -86,16 +85,17 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
 	Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
+	linux-leds@vger.kernel.org,
 	mfd@lists.linux.dev
-Subject: [PATCH v5 5/5] mfd: max8907: Add restart handler
-Date: Sun, 15 Nov 2026 11:01:47 +0200
-Message-ID: <20261115090147.95337-6-clamor95@gmail.com>
+Subject: [PATCH v6 0/3] leds: Add driver for MAX8907 LED cell
+Date: Sun, 15 Nov 2026 11:05:17 +0200
+Message-ID: <20261115090520.102216-1-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261115090147.95337-1-clamor95@gmail.com>
-References: <20261115090147.95337-1-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,61 +107,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add restart handler to reset hardware properly on system reboot.
+Add a small driver to control the LED cell provided by the MAX8907 PMIC.
+The LED does not require any specific configuration and is folded into the
+PMIC's node.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Patch 1 of the series requires this patch:
+("regulator: dt-bindings: maxim,max8907: Convert to DT schema")
+https://lore.kernel.org/lkml/20261027114634.79706-2-clamor95@gmail.com/
+
 ---
- drivers/mfd/max8907.c       | 17 +++++++++++++++++
- include/linux/mfd/max8907.h |  1 +
- 2 files changed, 18 insertions(+)
+Changes in v2:
+- rebased so patch is now applicable to linux/next
 
-diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
-index 8412dab2133e3..b57c497334ea6 100644
---- a/drivers/mfd/max8907.c
-+++ b/drivers/mfd/max8907.c
-@@ -187,6 +187,19 @@ static int max8907_power_off(struct sys_off_data *data)
- 	return NOTIFY_DONE;
- }
- 
-+static int max8907_restart(struct sys_off_data *data)
-+{
-+	struct max8907 *max8907 = data->cb_data;
-+	int ret;
-+
-+	ret = regmap_update_bits(max8907->regmap_gen, MAX8907_REG_RESET_CNFG,
-+				 MAX8907_MASK_SOFT_RESET, MAX8907_MASK_SOFT_RESET);
-+	if (ret)
-+		dev_err(max8907->dev, "failed to reset the device!\n");
-+
-+	return NOTIFY_DONE;
-+}
-+
- static int max8907_i2c_probe(struct i2c_client *i2c)
- {
- 	struct device *dev = &i2c->dev;
-@@ -246,6 +259,10 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
- 		ret = devm_register_power_off_handler(dev, max8907_power_off, max8907);
- 		if (ret)
- 			return dev_err_probe(dev, ret, "failed to register power-off handler\n");
-+
-+		ret = devm_register_restart_handler(dev, max8907_restart, max8907);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to register restart handler\n");
- 	}
- 
- 	return 0;
-diff --git a/include/linux/mfd/max8907.h b/include/linux/mfd/max8907.h
-index e222250f0cc1e..025874e5f8808 100644
---- a/include/linux/mfd/max8907.h
-+++ b/include/linux/mfd/max8907.h
-@@ -164,6 +164,7 @@
- #define MAX8907_MASK_OUT5V_VINEN	0x10
- #define MAX8907_MASK_OUT5V_ENSRC	0x0E
- #define MAX8907_MASK_OUT5V_EN		0x01
-+#define MAX8907_MASK_SOFT_RESET		0x20
- #define MAX8907_MASK_POWER_OFF		0x40
- 
- /* Regulator IDs */
+Changes in v3:
+- added check if led is off for get callback
+- added dedicated MAX8907_REG_WLED_MODE_ON mask
+- switched to devm_led_classdev_register_ext
+
+Changes in v4:
+- platform_set_drvdata dropped
+- init_data.devicename dropped
+- added MODULE_ALIAS
+
+Changes in v5:
+- add and document a dedicated node for LED
+- split adding led cell to mfd into separate commit
+- expand Kconfig description
+- populate devicename and default_label of init_data
+- unfold platform_driver->driver
+
+Changes in v6:
+- converted to devm_kzalloc_obj
+---
+
+Svyatoslav Ryhel (3):
+  regulator: dt-bindings: maxim,max8907: Document LED support
+  leds: Add driver for MAX8907 LED cell
+  mfd: max8907: Add LED cell
+
+ .../bindings/regulator/maxim,max8907.yaml     |  4 +
+ drivers/leds/Kconfig                          | 10 ++
+ drivers/leds/Makefile                         |  1 +
+ drivers/leds/leds-max8907.c                   | 99 +++++++++++++++++++
+ drivers/mfd/max8907.c                         |  1 +
+ include/linux/mfd/max8907.h                   |  2 +-
+ 6 files changed, 116 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/leds/leds-max8907.c
+
 -- 
 2.53.0
 
