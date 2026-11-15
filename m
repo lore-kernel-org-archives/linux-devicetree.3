@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794774766;
-	b=EwLqCW30+y5tSVu/8lUsjkJkU87KUwP5qmR/dPKzW4afYmAaVFbzqRnBg5G8Dg9Bwcox
-	 AFCOJ82k4q+wuRE52epId+upc8uNvxlc7FRZzUNw807xAzYzGAypEKkF7j7VgFZfD1A1p
-	 xjX/X8i6C9tNIrvITBP+3H/1xxchAQ+JTo5eiTiRU7aQ5nxW7xynhceFM3QoCJsIarmWr
-	 ++QLtdsajvtTc3rib5TSBuzyC04J2fa9n3RB97pySBDOdAqw8QdZ3eHYnBBkLcVsCmwMW
-	 L8u1xOtRWLE3WHGWVH9qDbbDbGABQTNPsOQNMp063OwBpX1Q9t2gb2Bk22MBBFwG8fg==
+	t=1794774866;
+	b=5ALXKj5NEZpeRsVTSGhBE9hFD3BFJAExvXEGi5H0SM6slqCP0jPSCkoFenQU3mlfeWVK
+	 qPtjH/64WYBMLDfLl24aPdLuS2BoZvUk87fxu8G7OmL1MbkWI9K357JCEfGFRDnDhAixD
+	 NUhO7AGS4iONv7H4vNbi+ZtNovSvLxqXT1bvmyaMuBrcI+xRkm/D/ST41EM8Qi/StMV8l
+	 Jy9aj9gmujJgBU9yt4dPIBGKHjR7mLxs9TchLNxX0IPDy3pt7amSuFADU/iW7zg4O7qr3
+	 zqoKD46OZnRCZlyDNBsiE+5TIyDo//8jx/jlMRmKvfvDwCYYWDGLn1pTWBGpZwotdLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794774766;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794774866;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Zdmt3jaBqypK+XeCbxAWVFpPyKwA95vmyKO52U+w3qc=;
-	b=4jD9zw7/PvkA7OXkUV3KURZUyuClp2qY/FF2KFW3MytrBDXPJMnkkwClfZJ77YJbWG8n
-	 OMFWk25SgG1UxrLI2Ds9w+8AMPm8Jqr9JCue2xMxMyql0qaJgn9PPRiKhbnMa/6UP9muL
-	 28o3GIk/q7zrx6xgBCukQxM6HMYSmQdi4mnUi0e62Rpgs7vcGRDY8gm154fRFczSGUQTN
-	 /UwPcRWTjXk4ULUpESWO8ec5UB+ya3XXpIHOuZ4BeAimLmevKZqSiRTWeF5zZ2t+CpA1j
-	 oOT/o5rr2qeZt61fYjLpX9DmFGXy1UN95Jnx1KN3fGjO3e1MNavp3k0a9++EsjgUhQA==
+	bh=zjKE1QAme1Pt9AR1gKgwWKqEbtE2dSXtZzIyUtweEsM=;
+	b=sRV8XExUXYNTC/FHdZDGaU9bz8ZD6JKYqOFtaCnWRbdr/IzBx9cFbOfs24DI1HtQc6nT
+	 cIgTFCcme+gXzXuTCV7bxpLe76rY7Y3NVxrYHv/x0uOICsQE7vTJFV/tucxgRbm8zz6y6
+	 1Nrjql7FOGW5vdn9rLuJWLYN/CjeT26dY9wfYNKtPNXvhOXhcvnr6lxzx5MGaOjS4ZXaq
+	 lTO8bsM6we4eyvYU2kVDSnjeiceYJoMsHJbg26esXTW6INIY1EpDSkyX/QxLAtwtZeyfA
+	 drGFClO1GT0jHMeCdYEImjNj2crLNuZZMqbBlRa/JCUJi0g8xa+q3c5iOiVa3Ze7pMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lq+2rEsF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6cn6nwz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071E4606A329
-	for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 20:32:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0885606A31F;
+	Sun, 15 Nov 2026 20:34:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lq+2rEsF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999721F000C4;
-	Sun, 15 Nov 2026 20:32:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6cn6nwz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28BF51F000C7;
+	Sun, 15 Nov 2026 20:34:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794774765;
-	bh=Zdmt3jaBqypK+XeCbxAWVFpPyKwA95vmyKO52U+w3qc=;
+	s=k20260515; t=1794774866;
+	bh=zjKE1QAme1Pt9AR1gKgwWKqEbtE2dSXtZzIyUtweEsM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lq+2rEsF6iMpDb1IwoD2+0cgSyLADGlnTXGAu0NOg3cYSd++1gq98o94hulthCOT2
-	 frDkvHtptfzf1K5CX1f87oErJanLj3TraoJhU2oNk3gSOlrT+JpIc9rp0xVnocUCqc
-	 846qtgDsGtScwFDSNaZbG+2wP7eLH2weVIbtYPO/W0hG7QvcGuLNHbHWkBm5z7BmDs
-	 LqRMbnCptKqDxbAWgublLrK1g+91QuYFMf+z8nWpq7S+qsOZxSe0qhhwI02E3HNAgk
-	 9bA8k+TSgblWGX9bci1282J8z5RCuDlcSNPwSbmyslI/i6j7n17/S5iN/CyIBOi8ur
-	 R2u5kvaVN5KOw==
-Message-ID: <sashiko-outbox-215828@kernel.org>
+	b=Q6cn6nwzA06PCxkNUBmaM2zstrSMUVa2rIHZes7ZNVzIJBgGoOMIMbnIhpp8Prh24
+	 u8OSoogUqMBxXy+gjHGhG5WE3qtJJj2yU/Aid2yIXtPc6ri+Xe1ASJWb553nq8lUm8
+	 Fr2jX4kH+tW2MgQ72GtgEQ+wy440yjQNFQRYPF+ytR0pZbMt8IMS2vKHBjMKE+XzXN
+	 3mvExwTGinfLsUAkJGL2C5R0X6X1Lgjuf/wM3kJ1FwWz/Mk4BizNzjcWwEGh2KkdJN
+	 Ib0YlS/dODIS7ymbvDmtjVXPOA0ys/VqwHfv9DY+OCfqWhtvVKmuCUnbLuI8V5sWvC
+	 cBoAZhctVFBIw==
+Message-ID: <sashiko-outbox-215837@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add Ilitek ILI97680A
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: Add NXP TFA9865 amplifier
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Venkat Yadlapati" <venkat.yadlapati@yahoo.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261116-vantage-panel-v1-1-30b95bd49216@yahoo.com>
-References: <20261116-vantage-panel-v1-0-30b95bd49216@yahoo.com>
- <20261116-vantage-panel-v1-1-30b95bd49216@yahoo.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116-vantage-tfa9865-v1-1-e88f0dccc427@yahoo.com>
+References: <20261116-vantage-tfa9865-v1-0-e88f0dccc427@yahoo.com>
+ <20261116-vantage-tfa9865-v1-1-e88f0dccc427@yahoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 20:32:45 +0000
+Date: Sun, 15 Nov 2026 20:34:25 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,57 +62,65 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] dt-bindings: display: panel: missing panel-specific
-  compatible string
+- [Low] ASoC: dt-bindings: redundant sound-name-prefix in
+  nxp,tfa9865.yaml
 --
 
-commit 7841ad6a366c1d68596c6fd31270d044bd848d2b
+commit cf7a1e88df6af54e01055454b9dbda2662c5f8d6
 Author: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
-dt-bindings: display: panel: Add Ilitek ILI97680A
+ASoC: dt-bindings: Add NXP TFA9865 amplifier
 
-This commit adds a Devicetree binding schema and MAINTAINERS entry for the
-Ilitek ILI97680A-based 1264x2780 BOE AMOLED panel found in the Motorola
-Signature.
+This commit adds the Devicetree binding schema and MAINTAINERS entry for
+the NXP TFA9865 mono class-D speaker amplifier.
 
-> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili97=
-680a.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili97680=
-a.yaml
+> diff --git a/Documentation/devicetree/bindings/sound/nxp,tfa9865.yaml b/D=
+ocumentation/devicetree/bindings/sound/nxp,tfa9865.yaml
 > new file mode 100644
-> index 0000000000000..f3323fbd587f6
+> index 0000000000000..955e25abe7494
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili97680a.ya=
-ml
-> @@ -0,0 +1,70 @@
+> +++ b/Documentation/devicetree/bindings/sound/nxp,tfa9865.yaml
+> @@ -0,0 +1,65 @@
 
 [ ... ]
 
-> +description:
-> +  1264x2780 BOE AMOLED panel driven by an Ilitek ILI97680A controller ov=
-er
-> +  four MIPI DSI lanes in command mode with DSC 1.2 compression, as found=
- in
-> +  the Motorola Signature.
-> +
 > +allOf:
-> +  - $ref: panel-common.yaml#
+> +  - $ref: dai-common.yaml#
 > +
 > +properties:
 > +  compatible:
-> +    const: ilitek,ili97680a
+> +    const: nxp,tfa9865
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +
+> +  vddd-supply:
+> +    description: Digital supply (1.8 V)
+> +
+> +  '#sound-dai-cells':
+> +    const: 0
+> +
+> +  sound-name-prefix: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - '#sound-dai-cells'
+> +
+> +unevaluatedProperties: false
 
-[Severity: Medium]
-Should compatible require a specific panel compatible string (such as
-boe,<panel-model> or motorola,signature-panel) followed by ilitek,ili97680a
-as a fallback?
-
-ILI97680A is the display controller IC driving a specific 1264x2780 BOE
-AMOLED panel.  Other panels built around the same controller can have
-different resolutions, dimensions, DSC settings, and initialization
-sequences, so using the bare controller compatible alone prevents
-distinguishing them in future Devicetrees without breaking ABI compatibilit=
-y.
+[Severity: Low]
+Is sound-name-prefix: true needed here?  dai-common.yaml# references
+component-common.yaml#, which already defines sound-name-prefix, and
+unevaluatedProperties: false permits properties from referenced allOf
+schemas without re-listing them when no extra constraints are added.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-vantage-pa=
-nel-v1-0-30b95bd49216@yahoo.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-vantage-tf=
+a9865-v1-0-e88f0dccc427@yahoo.com?part=3D1
