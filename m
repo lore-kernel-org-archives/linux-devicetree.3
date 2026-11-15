@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794774013;
-	b=ApnW6c3bges9K2aNLYIBX1EtrUlmlmRrhGtU9J2uZ2YT1g2vA6hLDLBSeBNMcb0wePnB
-	 K+DskWn54ylviEV9ROsBLbiscvCrwrMS27ILkTav7jtRa2R3OiaWQGcoWjzvikC6u4pFS
-	 Yfkk5gZ12pWimKTKQqrxt2QLxyO2TQBax3tNnrReqC1O/DCZ5CVVwPIv0kRSF8K/JeQPI
-	 THwbx7oWsNxMEdNTJ26vr4/dzJ1k3wUXzUOeDaFnOPh4gAzmBpJonoVRclJAcxZ2qDndG
-	 uekNbE+9rzOvp1ogKRY0mRaYo00gWopYcgXsUMqglOE8lbxDH3hZYYP28sUV+OrhERQ==
+	b=CXdLSrD8DTPXH6BTqpxey1VnnvLQyXQ0z9v+i1IR+dxhyu7eznTGOKlVzo85sm0DzV3i
+	 RJMYC0Xc6LLS3HiD0K5kFGbuI/iPG2WCn8kbfFCK4gZODUCcQqtacxiiS5WwHLpmLicaH
+	 lT/0brnPowcwMeDxoB3fQKvep/iXy+J7AavQgWHSzSAa+OsWZoNdJ25QHOkucFrLNnjnY
+	 0gcvt1+LWKbRlYnWNI0zqbV9407163KkF/9Afs7TatbxUlCNT6LqWZCKGC3iigwqNXTz4
+	 bMyGhg6PvRvVgXsksiAYPiZKvDaPz1xrN1oSOxGbpghtAQsnHB0cvJcIUMYdDOeWapg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794774013;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=szeO4VeAdWkCCLjacsOb9qnHlxTo+SxJLNWdu8R2EX4=;
-	b=FsAV8yTUOd55DKpkcWIkqkTApaBohy/9dNw1NrmvNejCXCfLVhSRSGh+kIe7rI481ljZ
-	 6UXdeWBA//BuGhrRWGYq/S8N+DooBrlnVuR0QWQu/8jBMSkGsXO8UN0BYrsnBC2ME5SOX
-	 7GQT3UoHdp3uUYRSV4CxPOeYLyC+H2Mzmg1FjJJGQ8jWW1EmdON9z8CEYeQpifxsp/ssX
-	 rVFkaCMKFaiyHbSqTJ2FaopRycEtnZCRn0D5FDkNk8CthXdpr9MN/7KfORnMJ+CBU8maq
-	 aE7Xxi1A3lscNGEcWqc9+DorSgzm+6SlBezw7Q4WFe4IR1+wIqgZRYyqs8IobDU3oEg==
+	bh=Q18YCbfu544Crn/GSSjIVVbcg8KNU2EannQ1gWTLWJ8=;
+	b=gvCa0KI3QO9qP0lYty030V5zuvYVXTT3SBs5fWovoftKAKfsbRkp/iTBKaTaTx8Cs47D
+	 rqXM1JK35Hir2dOv0e+dB7DnyLwqR4YLgkoq7YG43XoVmClXM+1evdk4qVnqnCHR5phzW
+	 E0YhjqUq6Oyc7M0DteJYbxV3srv7Ak1IuRSAW/MjmHQFIsOxuUe6XN8HDvQD2fGzyvswO
+	 8ZDtoSX5ClfIlNU9BhRGuMILWiOAwYD7f0mJTC+0oqbEKfVsXlcW2d460K3ylqA0OBfym
+	 8bzwMJI7RwHCBc27kFn039kI//VRceBb3+gfKuGY0S0H4M7Gn99hxotOamVpGMv99ZA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvfV8uQI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RTUiwliS;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B8C606A8B6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC4C606A8B9;
 	Sun, 15 Nov 2026 20:20:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvfV8uQI
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RTUiwliS
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794774013;
-	b=mMNxE3P8fePkLvp8ozqnTu8vlYWrSUDDtUSnLXetaY6YWl0EqKYzT66rhg4rjbV952W9
-	 05s/4CpAAlvp3uI5bSLFaalGTdMzKoFidJ9lKmTcJv7fh0yaN488S7JFTI84qdzGTknGF
-	 I/lXE3GSCoP0xoy3IEbVLOtwNpnR9+eppEgKC1G2qAOF9BahuhBDEc17Gr5GVuRqHjMzc
-	 gfWoDa4prGCsxhKlvv2/51RpWtmAl6M/Tjm1ofh6hmS+KYhIVAVPZapWFxu+onEZFngL3
-	 92D1TlQ4kNYOx85wEYOkw0LsESXlfvw7TIcuoAq1VVl1+DBngYElUaXK28bTLeaXC5A==
+	b=AwgM054Bm2YP/N5asmx595W19nCxPGBRk6/YbLXqSdnkmeyRF9z8Y1Gi1vysNgEnqQez
+	 99Ie9Bs/QHh1zlq/tVszfMzoVBKow/PKeua+SEgHiTSXPzV5sIpcbHt9mmXcq9Six6Mz4
+	 hikS+ZYnXbj/HDMBO4TCLydCexHt2WVgJ0xrEerw2hBmNOdZm2bTZV3RSpmZnNVgK7aUE
+	 WCdm0G55OUwrAoXUi/CQi0xG5HhCHbHquFNXTTasn1+i8WMPbZledgTNfJ98sk+x1MA5v
+	 Ni4VGvzZgVyPCqGIippFATFutkgcH5DXQ3HGCwbMv3DhR9KPhK54EBeUT1FWUuWhXYg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794774013;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=szeO4VeAdWkCCLjacsOb9qnHlxTo+SxJLNWdu8R2EX4=;
-	b=TklTog/pYYnnjJsgr04uGlUSnPFHK4E8AyPMuB8p/aNgBp7X+WWbkH8Tyg+kgqaVqB3M
-	 uHvaJ57eWXkTMqJxrIYDi4r39E22LO8QZz1OM4TgquWNnZMo0IqCUvA6zqqn67WQGye3+
-	 ZP7l2jROox1hEBKvfIZSpDUDpwdIKxizNCExLZKpjLAersyeuslLYCdkvlMExF7z8a+7C
-	 alJX1W7aX0AZrIXctowCpDQi1xP/oeYaRfqtt3ISZtS3kFMSDLpGXyhjGsQ/BRUPI6kSh
-	 SFcrv0lqz3w7Gcp5oqH+qWG3w4fCZeg7wkoz11lc0OP84U5p4aKiQHv+aEgmKq0tdRg==
+	bh=Q18YCbfu544Crn/GSSjIVVbcg8KNU2EannQ1gWTLWJ8=;
+	b=kGgK7SargDEnE4nWV25F9eIaauB+bN+2FRCZgmxXcQ89+mnfUpk+msq31iE4btRG0xRf
+	 WLmQjX7zy4LQeXvSceZXt/JNkAcD2tLMkpTM/YRvS4wHHOsn3UBzoz/Bluu0NhSRV9BQ9
+	 CXMZ0IRpVuHP3oyjpjPe8DUVIY2AtXeGfIYjvIiJ8kEF96mqYQEDfK3Ae/ZXTQ9jbZfjC
+	 4t+5QNfMbC39SqqMcWh4qW1xizrKtIMl28zhJOnSyF5vR8ymvlyEzuV3GQx5xY8fjEJV/
+	 fjvfHXOnQPXBJ8lYbwRvS7FxPChFYSj7Jn+KmqCvUTVbQC/9CCAUnoeI+6NuNLl0Qbw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5C63E1F00925;
-	Sun, 15 Nov 2026 20:20:12 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id CE7541F000C9;
+	Sun, 15 Nov 2026 20:20:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794774012;
-	bh=szeO4VeAdWkCCLjacsOb9qnHlxTo+SxJLNWdu8R2EX4=;
+	s=k20260515; t=1794774013;
+	bh=Q18YCbfu544Crn/GSSjIVVbcg8KNU2EannQ1gWTLWJ8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=fvfV8uQI31Bjsb7GxsjhovBdqrs9rZEoU8dMDHih0zwDBM/RvUli0oqLq2JmuL/fn
-	 Vy/XoXGDuvO0xwK056+LAJJQO3WEBnkiWtnrWG/0DgAlfT5cIPLcL8Slr+tcT4699x
-	 Cw++FOMHoLaCjoDimthmK4oHrf9Lmazj2r7UrlzwU14gIzY/dwgw3JlrJFq+Q5P2Aa
-	 1YELUKlNCTX1SmfaLy+yOkzn9xrfosFHxI/aiK9GGc6ul4TMy39G3t4UB0jhzM7PZl
-	 V66uFvYx7s0pGCGiR90EHjdp6NbMbffUP9RddBtidCpXqgwYjBsHPKnY6uHN70lKpE
-	 mOGZgWrHt4+HA==
+	b=RTUiwliSXwT9i4U1drgAAvbUO0rjyFp5t/mFcTP9WtgjOOFeNzhjKQT6IVNYst5zf
+	 xId/DW604JbuZykXJW30QZdQAsa/0ozSm9pQAc2U/EtE8gAEzSjtecLb4ZPFlq56FM
+	 6xRIntvJfVnwe9qxq3Ak/hKy1duq1BagvE9Wnu4Enh9++3ji0pgvpoRXsi3tdTA/z1
+	 QldOkTIJQmkf2R6IUJiyWiGwpB/OzgVNe+4MYGYKL1W0v8rYHEiA9QHIB93l0ED9+e
+	 Pyol2juDfACVY4O09Ae1rlck/grlrFjrxyIHu+hBHes45qo2dSpdmW5IlVGlUfHim6
+	 BC76BKFhqmtwA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BC0A34A1BF;
+	by lkml.kernel.org (Postfix) with ESMTP id A81EB4A1BB;
 	Sun, 15 Nov 2026 20:20:10 +0000 (UTC)
 From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Date: Mon, 16 Nov 2026 01:50:15 +0530
-Subject: [PATCH 07/11] dt-bindings: arm: qcom: Document Molokai and the
- Motorola Signature
+Date: Mon, 16 Nov 2026 01:50:14 +0530
+Subject: [PATCH 06/11] dt-bindings: arm: qcom-soc: Extend pattern for
+ Molokai
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-molokai-soc-v1-7-3b2ee920fa3b@yahoo.com>
+Message-Id: <20261116-molokai-soc-v1-6-3b2ee920fa3b@yahoo.com>
 References: <20261116-molokai-soc-v1-0-3b2ee920fa3b@yahoo.com>
 In-Reply-To: <20261116-molokai-soc-v1-0-3b2ee920fa3b@yahoo.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -97,11 +97,11 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794774008; l=885;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794774008; l=1603;
  i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=GYfXo+CXYC3o0Pr/nDNcwG1FYQjn+4S2Xg+okvclwzA=;
- b=c7/9CXS+d+MpenZOq01sku6PSpUF7YnH77IMKmILs4kbzzI1bL2ePAsnZz9EW92zx3h4QNpLR
- 3LlVoFmpZy2DJHXGyVu2oaww7nWmM278i5wbnE1j50RnEFG8xdkgUvM
+ bh=QHvLPvLiJ1Dqr/RV/17J5wVpaE4qTvD/h/kXrfk+9/c=;
+ b=qcFtbPr0LZVm38jgETflYyLc/JSyVzqpiy+8mn0jMu08dxhHCudmcE1gHA5c6CnwqbRmQMg7P
+ gbGmxQd8leKBscC/s4eDzXOk/pmgOUj+Gku6GiyQDOMnZiV2Y/ZgoOg
 X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
  pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
 X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
@@ -112,32 +112,37 @@ Content-Transfer-Encoding: 7bit
 
 From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
-Document the Qualcomm Molokai (SM8845) SoC and the Motorola Signature
-(vantage) phone based on it.
+Add the Molokai (SM8845) codename to the patterns of SoC compatibles.
 
 An LLM was used to help write this commit message.
 
 Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 ---
- Documentation/devicetree/bindings/arm/qcom.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ Documentation/devicetree/bindings/arm/qcom-soc.yaml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index 7ffa4f69987f..6993bbffef9e 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -241,6 +241,11 @@ properties:
-               - nothing,asteroids
-           - const: qcom,milos
+diff --git a/Documentation/devicetree/bindings/arm/qcom-soc.yaml b/Documentation/devicetree/bindings/arm/qcom-soc.yaml
+index 179aadc86a9f..19904e5bc947 100644
+--- a/Documentation/devicetree/bindings/arm/qcom-soc.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom-soc.yaml
+@@ -30,7 +30,7 @@ select:
+       contains:
+         oneOf:
+           - pattern: "^qcom,.*(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sar|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
+-          - pattern: "^qcom,.*(eliza|kaanapali|kuno|glymur|hawi|mahua|maili|milos|nord|shikra).*$"
++          - pattern: "^qcom,.*(eliza|kaanapali|kuno|glymur|hawi|mahua|maili|milos|molokai|nord|shikra).*$"
+   required:
+     - compatible
  
-+      - items:
-+          - enum:
-+              - motorola,vantage
-+          - const: qcom,molokai
-+
-       - items:
-           - enum:
-               - microsoft,dempsey
+@@ -42,7 +42,7 @@ properties:
+         - pattern: "^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+(pro)?-.*$"
+         - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
+         - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
+-        - pattern: "^qcom,(eliza|kaanapali|kuno|glymur|hawi|mahua|maili|milos|nord|shikra)-.+$"
++        - pattern: "^qcom,(eliza|kaanapali|kuno|glymur|hawi|mahua|maili|milos|molokai|nord|shikra)-.+$"
+ 
+         # Legacy namings - variations of existing patterns/compatibles are OK,
+         # but do not add completely new entries to these:
 
 -- 
 2.56.0
