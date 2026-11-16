@@ -1,112 +1,43 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794857424;
-	b=O2Vft7nJdE50xiroBVoOEJ3tRpv95gDgpiKowE4LqUoW/Fp9m5/K6sDx01eBpsX/zwir
-	 WuNRqXVDHhW+4bOsmaEqfxZDMv1jI2uAAOXIqDD03JD9XRIfD5+Pue0E2BWQCreoDas06
-	 OXunCPfRmwsylKNricE9flI7eRvjj0yDF/PgDWLrTa+IuNWJi62W/6yP2Z4iY7VxNXtGQ
-	 9B+SIOOLYwa/Pk2ZEQVQ7ZBuUgEjFyDKeLN+9i1qKRyFBZ52KERBGGtgHodhX3R/3Io7u
-	 lH5Vls706d90hSB2wcf9MH3g3IrZVYD3iXZOidx1NwpnwyelL1cL/+EkIbJFLVhW+rg==
+	t=1794857969;
+	b=JNmwXEVS4RlNs/k1qgKsR9NMirBnxbMq9SpATrt33rUIhmvoSpHNQNq7rzF5QLjJtv2e
+	 wL0IhlJTOlY/G1T0Iblp0sLNugs+Pnu9hMuVKOr/aPMTHZ3bjVG392OXIVYdnhM9ePBSH
+	 Vmhmnpo3e5TBaF77hzY8JIejrOWpQ4I6lfS3wyL6lIik8UDjOtdkrc9/h8ivjqemIoq4q
+	 pihfNSUv9CgrDdbPPQixO7hvOdhNfVONA/wBddf7BB8HLIkgetG4fBIf3Kep2FmA1+VC4
+	 RuB41W/D32VpjYtAxfhuU+28KJvIQvvGgZnA9zV+KcFJEkNhwKwMU0bhvRKMzwyvQGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794857424;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=8Y8Yw9LOdvyV/HcUuJyObmf9/gu6aH92RylQl5nKXvI=;
-	b=SByM9O2yU/vzlJjBnsetHTw90d68EM0oO2tAbHqqz00UVG1fc5Ho3NvmsaoonrSCdjpA
-	 FR6cWrw/Q1+k4dkaH9RiZUlaKoLiEvA0QWsI2LyN23QDOidBOquqlg22HIC3F81y4HyGl
-	 Ax8GjIJXEA76WPLbidKBPsI2YR9qJZ5t1PCsKdMzJjiQQKMjDW487Pdi3+kBLrb4clzV+
-	 1d+2SX8+FmSVkwoHl1+LK+Od4Jt9lPtBqH9VzLuGBRkHu+hS584uUs9+mNVtdPtlHKRLP
-	 I9A8FkFwd1dfScuLEaUaNDd2WExGaRLcNDF9pvlCYJfWtJbYhmag2H5FH8xYhc8KHRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857969;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=tb0Yt+co2HSyPMP/gmGUN3MHhQtM2v+tCYbEj1zzeMQ=;
+	b=0uvd5fxog53pqEfwPJeJTCpw3ti/V8UDwecB+F0deaWsCoa7Kztb6PrRt3itzMSkShGu
+	 clExX3u/8FJBOFtq1mzqtushDYlc6cLo8Giz4JLWGtwMDplDlfBMzyCsOprxG3YQjDBpU
+	 OKGCNSU2Op5WVKFMfMa78Q2BfnXA1A8+7cHtwNAlK8YxmxKchaqv1o6yQR51xBIl5zeF0
+	 Jhr9np2l2M8ct/3n09PErQF5Pv06akRGsZx6WrwwWLRoJ6gjjd3/vWqNGHjFEoKGA+m+k
+	 Y1qRTWkGzF0XrITBNL0tGB6hcIK5HdrhJRhl/8m4+0q+XcEXmpcLbigYW3SRyItzm0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=E96WAHkT;
-	arc=none smtp.remote-ip=209.85.222.176
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=phrozen.org;
+	spf=pass smtp.mailfrom=phrozen.org;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36541606A32A
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 19:30:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36541606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=E96WAHkT
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-9496473b511so23634285a.0
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 11:30:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794857423; x=1795462223; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8Y8Yw9LOdvyV/HcUuJyObmf9/gu6aH92RylQl5nKXvI=;
-        b=E96WAHkT+sP92lQq8lfU7rpYkYmClz1BkPu1iXTnY8MIB//GemYHc5QdBt1ld40Smy
-         acUqrFGAqUxCszfVw+pzy4SnJCfUKiX/A4Q+0gJXedFRj+sYatxoMGnyXMoUK+xgqxjR
-         s4wgXwYNtTus15EIP5/qVjorQQoKK/mBth3DTSneehjsfS+0679AFf3GT8wrrI+TLrTG
-         S67lGTnC4/NuArZMxsujuqU9DVFtqdgciQWqSBdOrH62D7p7LY8rnKE/kpe2Uczm3HkT
-         7VhnHMuAAjm5NWwm6eproW22AIWHmXSjkJumB6jc+PP/hWJaqbaadKSgQjgzEdlnANOm
-         VH6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794857423; x=1795462223;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8Y8Yw9LOdvyV/HcUuJyObmf9/gu6aH92RylQl5nKXvI=;
-        b=2fzkiV6iy0EpnkJJ8uV2I2NzY7I7loCMwohjbnfyTof1ZL9JhThmkZNVeTHP62QlVK
-         tztfSKNysoPVqLTxcAGpQG/6eJ6aBtSapBI+A3CJrUSe9eqIiiz1/SAP+7uFT2BaHjrE
-         IhqouoMInoy7WH7vLfy8/XhyB9hZn7L01wTGbDn8HKapP67haXxvOG/wLO6JqDE0Fsdx
-         QGerohUmQ/IlLHM4a80r78tJcuClRMncdKU0mRCq4mBNG6nUlh7MHiSFGtcgCknxloWZ
-         ANvvoOhXIhZaJFoftIAZXQuOr++scdoD8QGXtvq7cWdqoFUW6LTb4XJDh0KNxi657529
-         iWTA==
-X-Forwarded-Encrypted: i=1; AL+hErFW9Ct2joz4BQwY2EY4WSjrdLvpmx6whV+eozDM0nwQ66oiQh754NfFxlPrKlv10UE7W28LON3/MNbq@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LET8GqM1GzvOwF+UR3WrkZ0ZWyNH/0pgYP38e90N5Lpi//bqE
-	jls1GIdLHpyj6lWmu7rIWCg+E7lHxOKGJehV6H/vtY0k3fkMIiW+tBLj9OGqGQI072A=
-X-Gm-Gg: AYBFou0vz3gbjyjipbiWTaMDIgnccmftc2Ps8d3thXW/qO6RWESvSn43u3/dk3DO03W
-	99x9VNbZTh1hJWuXSXyy/I9OFNr2EamB8lhmmc8o0sSNVo+bz7W1IloR12W0/fcIO2aevWH/M24
-	j8iKmarPQpRQ4zbem8BF+0hfsRVYiDeVBUqHRUNw2ApHvAsW5UIUyOritzGR3UWivagzSW0IHE1
-	K0qsX3En9BRZf+/iQywl24AycQ3lTuiyKFM2hoRPeqZ8GGsXANELN5YlDNTqF3T+mS+tBdpq0Dd
-	RT0CljSHwuwHxF2vY4fRHOmv0KX4V4f2D8/oX5veN6NJpXHeIUNm8KiUDROCkqHZZBLUsg4bB9M
-	0tl/KCMq7GEa7xZXhqdpXGamiGnecT7zR44yjdUMab01hGDHoAMRGfH6WbgP1Se3hSld6RZA60o
-	WWGMx0yjsp4f+JBeSisrRYUeTpGgXLMTB+0EGlKGk/AUZQYCxnZxTRRRTeuwzpSbrzokJDlMlRe
-	a3IYLTBzQxYd3qikjLXIEjdFM/I1dDkakM2bhXeaTZ6QsZZp+Bj1p5a5hUJRNo+d+E+zvO1vkLM
-	0BAEvA==
-X-Received: by 2002:a05:620a:4406:b0:949:7058:dbcb with SMTP id af79cd13be357-9498b875510mr84935385a.14.1794857422999;
-        Mon, 16 Nov 2026 11:30:22 -0800 (PST)
-Received: from ziepe.ca ([142.166.156.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94978ae5483sm390417085a.12.2026.11.16.11.30.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 11:30:22 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xT2PF-0000000AJAU-3HLU;
-	Mon, 16 Nov 2026 15:30:21 -0400
-Date: Mon, 16 Nov 2026 15:30:21 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v6 0/9] dmaengine: add DMA channel bus and fsl-edma
- per-channel IOMMU support
-Message-ID: <20261116193021.GB2452510@ziepe.ca>
-References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19789606A323;
+	Mon, 16 Nov 2026 19:39:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19789606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
+Received: from [2a04:4540:1403:e6fc:39d9:16d5:775d:5525]
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <john@phrozen.org>)
+	id 1xT2Xy-004L5b-1e;
+	Mon, 16 Nov 2026 20:39:22 +0100
+Message-ID: <e20f708f-ebfe-4dc0-a64c-1590fdf608f3@phrozen.org>
+Date: Mon, 16 Nov 2026 20:39:21 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,33 +47,144 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/7] dt-bindings: pinctrl: airoha: add AN7589
+To: Conor Dooley <conor@kernel.org>
+Cc: Lorenzo Bianconi <lorenzo@kernel.org>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Ahmed Naseef <naseefkm@gmail.com>,
+ Benjamin Larsson <benjamin.larsson@genexis.eu>,
+ Christian Marangi <ansuelsmth@gmail.com>, devicetree@vger.kernel.org,
+ lei.dong@airoha.com, Linqi.zhang@airoha.com, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ mfd@lists.linux.dev, Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+ Rajeev.kumar@airoha.com, upstream@airoha.com, Weifeng.xu@airoha.com,
+ zhengping.zhang@airoha.com
+References: <20261112185941.1316112-1-john@phrozen.org>
+ <20261112185941.1316112-6-john@phrozen.org>
+ <20261113-fame-smock-6ea3b8fadcd0@spud>
+ <b94ed5e4-cb80-4e05-9964-bb08a61aa1fd@phrozen.org>
+ <20261116-resolved-riot-c6a310bb2d8c@spud>
+Content-Language: en-GB
+From: John Crispin <john@phrozen.org>
+In-Reply-To: <20261116-resolved-riot-c6a310bb2d8c@spud>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 03:53:03PM +0800, Peng Fan (OSS) wrote:
-> I used iommu-map for eDMA, but iommu experts rejected it:
-> "Using iommu-map to describe synthetic dma_chan_dev devices that the
-> kernel creates is the same kind of DT abuse from over here:"
-> More info: https://lore.kernel.org/all/20260917144804.GI3196566@ziepe.ca/
+Hi Conor,
+
+The largest users are EN7523 pcm_spi 14, AN7563 pnand 17, AN7583
+pnand 17, EN7528 pnand 17, EN7581 pnand 17 and AN7589 emmc 12 (these
+numbers are based on a hackish "grep foo | bar", so they might be
+slightly off).
+
+I copied and modified what the other AN/EN bindings do. These set the
+limit to the pin count of the SoC: EN7523 38, AN7563 38, AN7583 53,
+EN7528 50, EN7581 58. Your call really, I do not mind either way. I can
+send a v4 and then a follow up series cleaning up the existing bindings
+as well.
+
+        John
+
+On 16.11.26 19:15, Conor Dooley wrote:
+> On Mon, Nov 16, 2026 at 06:47:27PM +0100, John Crispin wrote:
+>> On Fri, Nov 13, 2026 at 05:40:42PM +0000, Conor Dooley wrote:
+>>> As Lee requested, please split this out. Two patches, maybe even three.
+>>
+>> Agreed. v3 splits it into three patches.
+>>
+>>> Do we even need a child node here? If all this node does is
+>>> gpio/pinctrl, why can the driver not bind directly to this node?
+>>>
+>>> What else does it do that warrants being a syscon?
+>>
+>> The block also holds the PWM controller. Its registers interleave with
+>> the GPIO ones. The PWM series adds it as a second child, as on the
+>> EN7581. That series has a depency on this one so I have not posted it yet.
+>>
+>>> Otherwise, there should only be one. uart1 and uart2 should have
+>>> different nodes.
+>>
+>> Agreed. v3 sets maxItems to 1. Only pcm_spi and pcie keep more, as
+>> their groups carry different signals of one device.
+>>
+>>> So here, maxItems should be 1 for similar reasons.
+>>
+>> Agreed, v3 does this for i2c too.
+>>
+>>> I'm also curious about why this goes up to 74. None of the functions
+>>> have 74 pins, surely?
+>>
+>> A conf node can set the same config on any set of pins. 74 is all the
+>> pins. The EN7581 binding does the same with 58.
 > 
-> So I followed here [2] as Krzysztof wrote for QCOM VPU:
-> "Thanks Jason for context and detailed arguments. Robin did not chime in
-> yet, but from what I understood the DT-child-node approach will be the
-> way we should go here.
+> A difference in philosophy I guess - I would be grouping the pins in the
+> config node by user. So that there would be something like
 > 
-> I accept above point of view and I am fine with this, thus Vishnu and
-> Vikash - please go ahead with DT-child-node solution we had some time ago."
-> [2] https://lore.kernel.org/linux-iommu/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
+> spi1-stuff {
+> 	spi1-function {
+> 		function = spi
+> 		group = spi1
+> 	}
 > 
-> This series adds per-channel DT child node support to fsl-edma and, as a
-> prerequisite, introduces a proper bus for DMA channel devices.
+> 	spi1-config1 {
+> 		pins = 1, 2
+> 		config1
+> 		config2
+> 	}
+> 
+> 	spi2-config2 {
+> 		pins = 3
+> 		config1
+> 	}
+> }
+> 
+> spi {
+> 	pinctrl-0 = spi1-function, spi-config1, spi-config2
+> }
+> 
+> or
+> 
+> spi {
+> 	pinctrl-0 = spi1-stuff
+> }
+> 
+> IMO, having config nodes covering more than one "feature" doesn't really
+> make sense, as you'd end up with something like:
+> 
+> spi1-function {
+> 	function = spi
+> 	group = spi1
+> }
+> 
+> all-config1-config2 {
+> 	pins = 1, 2, 4, 5
+> 	config1
+> 	config2
+> }
+> 
+> all-config1 {
+> 	pins = 3
+> 	config1
+> }
+> 
+> which kinda falls apart I think when a node can request a setting for
+> pins that are not part of it (in this case, that's pins 4 and 5)
+> 
+> spi {
+> 	pinctrl-0 = spi1-function, all-config1, all-config1-config2
+> }
+> 
+> So my opinion is that the max number of items should be the size of the
+> largest peripheral.
+> 
+> What's the largest actual user on the 7581?
+> 		
+>>
+>> v3 will follow shortly.
+>>
+>>         John
+>>
+>>
 
-To be fair this is discouraged too, now that I've seen 3-4 people
-trying to do exactly the same thing I'm not as positive about the
-DT-child-node hack.
-
-Can all of you come up with a proposal that doesn't involve hacking up
-DT just to unbundle the SIDs?
-
-Jason
