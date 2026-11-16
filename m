@@ -1,80 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862418;
-	b=avTs7EoLBaplL3lTHb3PnoJV0RbJSEWtuV8JrG2AmVD67AjXxBOCTVzCLcrgJKexU9Yg
-	 4JwHT0sRWWXp1Q39XL5Ee8U3CmnHI+/W54847h4Oozdg1S7SqEIwNdHle9ZOOjIDe/wyU
-	 UFOu9P1AWBF5L7ibwguQ4WgtyARK7lZB4VhWwBhWy6WYSZvk0ss9KH756tY9EcFt95MrR
-	 l7MqX+d2aODoTSPCdVjOuwp/7bn8xjghN5g4dVCiR+tWZw9FdJ2+ka1Ly1Kipx8kITaxB
-	 uzNrbozVEE9zA+552yT7twvtEVkJDk78NHA8oKQh1GtQcdSVmqMBVj6/NmxgJqbVuRg==
+	t=1794862421;
+	b=UlzEwZJNvXJmNwy9sCLZbVPxnlhLbNFvJ6FZEfR7oSd8RtpHsE22wWIkmU6WMDIErQwI
+	 Zidi/eJH2VoewxAL7wgES6v+3JT18ef7Ak9LPKtuqksRFSr2mEE5hpGtyUXtn/cSf7La/
+	 v/gNO0fMB37lzwGRy4pnF0lBRQ2p4MG5UriIjuNzaek34hnrsXl9o4U9/QW8BdjeHXYdE
+	 Dv1CveKiwOqjXbdxUmLYiY5L6oxv+KsGLoqhK2gWxkTzjPXzsmrCX9WJq6u2tbl07I7QD
+	 9JdxjuAwPu6FXJS7RO2g5Dy65hDXYApeeiwvEcyRKpPYPh32yylhtjwVSG5PpfHTlYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862418;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862421;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=JBnzKQZzBT4WyH0+pQkXtO3eXK3ZrINhKYQbrALuTEY=;
-	b=gdSmNBb9PExW0YH7eMLqaePcvhczKmjsGvX0SGPYVE9/0GtiWcvWKbHppLCpGLIbio9d
-	 NYnjkfRw+79k5qo9P2SUBG1/L/CwZTuwnja1syQbzB0+MMChCbQPE22tlOwxZYwzlOe1f
-	 S6NUKq8hMtQeM0esVLhKg9OcktMe9T1/j4wtfnwpncHQPzWh5wDrfhn8WQI9lDZghIG4C
-	 EX+j6SnAErBNNwdWUbl837g1azWSeTaHIUhp5vhC20Vblbq8jhhx12kPULZwQ0kZ+C0yq
-	 gCJpmSFcwILv5zeRneNkBKdFCsUKMZDuezzoM4hcqBIEqgXkU4tEDpD64tOtcCFB2ew==
+	bh=jvVNvu1S6dbncJSuthsRoeoeI4Q+KNIALnJGA2kItSE=;
+	b=23XxrF8wn2XhZxeiQGGqSHrW9Mub/khv4JRotaIFZdl0Kw+CD8ONiSQ/LUo5eRdoLMu5
+	 +tdIYCVbytKQHB/pj+PTX7etezwXGp36kCW77w4ZzNSRyBiuvNeJWxQn1YpdhwYwdWOW2
+	 0SGRIoltQbMwGAg3kYqknYQ/jo7AhurfyJOwBwsZH4TJEy1G9LaplLKGFIalnYkP8WTb0
+	 RvJKnz4LgOWbVt+sybNdt+1cfFJUShf+9225lahxg6aZvRTNSaxtEsaOSBDZrSdwHXKRF
+	 dPQC/CJAQQYJDVsTPnzJj7dT3bpFgxVhU3EfmQDMw/T+QS6BzeWU0dUA1qfxJ+SNvuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=deEhDzMw;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=guJzdrk7;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04B6606A88B
-	for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 20:53:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A04B6606A88B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ACC2606A322
+	for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 20:53:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ACC2606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=deEhDzMw
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33fb4680717so10193650eec.1
-        for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 12:53:37 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=guJzdrk7
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36e795af1d4so190793eec.1
+        for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 12:53:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794862417; x=1795467217; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794862420; x=1795467220; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JBnzKQZzBT4WyH0+pQkXtO3eXK3ZrINhKYQbrALuTEY=;
-        b=deEhDzMw8mkqzMDHotoO7tdUq4HM4qpNrY2H/iDB8iqRi99H7InpKzckbLq1QOHbkP
-         ajOxMhcqfpvUAvx8qCi1/1oJ1A9WODrejNe6gQQhmK4i41WLluJXigQR6D9FrPB0G+X2
-         eHYEgosAh/dTUUDqhqCu8ae6b7e5hlJf/kr8Y=
+        bh=jvVNvu1S6dbncJSuthsRoeoeI4Q+KNIALnJGA2kItSE=;
+        b=guJzdrk7VmvoXy4eRvWyqWXKP6t5/9dN94YSAHbzWYcmW+bS1TUFisS4TWEUTJw2Uf
+         8vi81Cupj7meIi04/HsZgrorewGhpJ90tRztofu3vFKrg2iAUXr4SEasGJMvyZyzrtqO
+         fXRn76HH2M+gcq2QT9Ht7q5p49QmMm9g8eUaI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794862417; x=1795467217;
+        d=1e100.net; s=20260707; t=1794862420; x=1795467220;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JBnzKQZzBT4WyH0+pQkXtO3eXK3ZrINhKYQbrALuTEY=;
-        b=ibLOIUU0E9AFzI14DkcbSl4Ry6bQwQ+HASFv/x8Iiptg7u4RLnw8wnB/TFMh25OLVt
-         I0sJ+gvbne34Gl0mjuXzvWOPacNjm/6y4CBBge0mU6nXYk+rD2e0fyCi1HMlFXaG68qw
-         Bz5UIlKJo+CgN//YW/Ylf3KQhX0zg/B22591gVMBNT7k9/1F6PE5XtQfRFDAGydAwNv4
-         1QDekZnnTSRC3T9I81x9GkMBvayOT5/c8BqCI20MfJjL9N2xbyIqHtJ/dkqpe1lq4qac
-         LIDdjcpL75VQjpF3apCadmeX1rBmf3Y2oRxxSGiR32hEdmSkZt8bj5gwGQTe1kISNU7g
-         9r8g==
-X-Gm-Message-State: APuU4Z+Mkxb+loAXJlUNnex3JLCBTc21uf/Wo1gYqmaPFcB8fcvTu/HW
-	HojpCpQLx/jELcuCgKqzhw6rnllIWKeR/WrKZ7WopQkgdDZKwKMeiGlha8GeszQpvg==
-X-Gm-Gg: AZFdTZeS4K3wzLlcp+6fWjEzxe3C/K87n3A9PKgtiqgGqokqoSDof8bifILIfsIqfan
-	Qd3Kq9p39OIjUmstq5aVygzz0Uv8GBkpXxMpHThMQuSs4K7IKlALwGZpNl3u1EMsOGmenZswAaW
-	Ho6wqImBpX1ZG0sho7OisjSy7+eHDFmQ+Gh97W4s0JfaVNZiftyLxF8b9EjQ4wJ5CfE1oN/p1Xy
-	vMNS2n1LJOTATCbO3mpbTbbdUWrCPb7sqjU5Jmyi96W0GFhFlwWlIHEPd8dBQsO23uV9QEYs28v
-	OYwAgNsaucSVkW8tTCU/ZRaPOLVckx0ZMrOHZyx+1t6qt7317TqqpaKHZ4jP92fQPmorsmaJxjW
-	7gyDTsfjzfSr83IfIocFvrhccmIsmmcGqPYn9vGvFpqiWWimA1MQ/qi3aCRWE+c32qL48JjNP7a
-	M5yZ0iKB0QCeff+zBhyNpbNZm6QO/TtjJb5AMryVG2naTyioWLhYauVYXGdfoa2aZHMQTHU4D3M
-	I1FvgtYm5ejuqVMocLs0sY7JbXAL9cLxgHnr5BiZ15qnGwhtCL0Qzff6mJXqu7PtcaVh+mfgu5z
-	7uY0zuYpJcNchTS0OG/A1uoTL+DFWOedZ/q8MewX3GDKbThNOvQjU/EWlgf9cqL3Syzg4NvCSV6
-	v7Oscp8wkXHK+0g==
-X-Received: by 2002:a05:7301:a4:b0:378:b1be:2d3e with SMTP id 5a478bee46e88-37967ae558emr12079086eec.32.1794862416514;
-        Mon, 16 Nov 2026 12:53:36 -0800 (PST)
+        bh=jvVNvu1S6dbncJSuthsRoeoeI4Q+KNIALnJGA2kItSE=;
+        b=KxcA+UPnmRuOYRrBtqfx5SRCk4lp1rfHQgEFbaRlufcM9FIjVmfcKuqTo19dM5DQY8
+         KSGngxUo3f6wcwZoWzj8faLWBTzt5IgYXrZw9XF0KgldeiEF3Kfkx6SazD+HCtj32z2Y
+         ITr9JaOLrGvvo/T4TXkJmypcmRYe2QWC7FPX9MIclttqmDdR8fR34D2SM4bZBJNGB93m
+         0BrttZ5wadoaidsdnQZZ4NCjXOr80z7N+4nFBKZX7EeODE+ckjaL9jUdPAGammpRd4oW
+         f2XLnx53tkxNf22T/T+cS5zho+qzyulia9k5YVy+lKO43ZESfm3ARamf3BTY36cQ3Yek
+         /iSg==
+X-Gm-Message-State: APuU4Z8a81f+XUt1xlifoDm38CUVu7+WDz1prBImc5/pAPfaqzqRMOqL
+	PvYpjyCdfWBOveJdqQo9vkVb9RikXQc8USUVmw9AYbIcG5PYPNi4mU4UqzlefhoSbw==
+X-Gm-Gg: AZFdTZf6QI56ZW7DoiduGR45N39aa9zYr1VGpsVm77Q0Nf+Qbx52YS+gxiLnw/tgVfO
+	H+0VKGK6MZAKhwbTaUpH/ZkTKE89jZj9MnkKOtJ88XM7BD6mUjt5P9pQRPIne521z6FATTkJE5i
+	jnzY7PTU53VKAgLGy6wq5oi/BzApnHei11dklRn/fxiWq4MYrJwURbyP6Tni0h4WqZgK36EW4O7
+	mW3Kqf5S8SVS7eKkYPoeNkOxcORLaszWq+6a6Sa+SdnmP3xaIMFsFFrpSebrqx9G8+xxwimo+ao
+	j6/Apl1NYhybfUAQvYSXXsSRJrww/LKZr5xtbg5NjuVNK5z1iI9A4R7y5JAoiRUtwmi3mQdqdr+
+	dcV6t7QnN5DHOAC6L8UscJndzW4SQCHrC9aHJLtoYU2tMyKr3S1PIXgssUl1OajxiQ4ErOVEYOh
+	FZYgycTwBqbfxOjv8UukV2kWFpwiE/wZYM1ZbDFMBm6JPI+hoJWuMiPb/L3TWPJNtnnQ1Z69jab
+	Y9Eh/l8o/FKFWxUBh05Zfu53ypP4DQa9cbKCbO9DdPO3FNtfREcl4PCNCwsKDwAuSUjIjwQoLwU
+	U/sY4v2++GBTKf6F2VadG+ksCDWM8wK6edDY0VTwpiNq2AdpqGRGWnVoDZccMWIOnn0HnI4662P
+	OlGXuXJVzxw60IA==
+X-Received: by 2002:a05:7300:1895:b0:358:c5c9:2661 with SMTP id 5a478bee46e88-3810cd4c1bdmr660553eec.10.1794862420309;
+        Mon, 16 Nov 2026 12:53:40 -0800 (PST)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:40c8:6e27:a2df:3321])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.53.33
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.53.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 12:53:35 -0800 (PST)
+        Mon, 16 Nov 2026 12:53:37 -0800 (PST)
 From: Douglas Anderson <dianders@chromium.org>
 To: Devicetree-compiler@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
@@ -93,9 +93,9 @@ Cc: Devicetree@vger.kernel.org,
 	Peter Griffin <peter.griffin@linaro.org>,
 	Julius Werner <jwerner@chromium.org>,
 	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v4 02/14] pylibfdt: Make Property a subclass of bytes instead of bytearray
-Date: Mon, 16 Nov 2026 12:52:59 -0800
-Message-ID: <20261116205320.1621386-3-dianders@chromium.org>
+Subject: [PATCH v4 03/14] pylibfdt: Trim Fdt bytearray to totalsize() in FdtSw.as_fdt()
+Date: Mon, 16 Nov 2026 12:53:00 -0800
+Message-ID: <20261116205320.1621386-4-dianders@chromium.org>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
 In-Reply-To: <20261116205320.1621386-1-dianders@chromium.org>
 References: <20261116205320.1621386-1-dianders@chromium.org>
@@ -110,99 +110,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-`Property` represents a snapshot of a property's name and value read
-from a flattened device tree. Making `Property` a subclass of the
-immutable `bytes` type instead of mutable `bytearray` prevents callers
-from accidentally mutating a `Property` instance in place when sharing
-it across data structures (such as `DeviceTree`), makes `Property`
-hashable, and allows `Property` instances to be passed directly to
-`Fdt.setprop()` without converting to `bytes` first.
+`fdt_finish()` relocates the string table directly after the structure
+block and updates the FDT header `totalsize` to the packed size, but
+`FdtSw.as_fdt()` left the backing Python `bytearray` at the
+pre-allocated `FdtSw` buffer size (with trailing zero bytes beyond
+`totalsize()`), forcing callers that serialize `fdt.as_bytearray()` to
+call `fdt.pack()` just to truncate `_fdt`.
 
-Also return `bytes` instead of `bytearray` from the
-`fdt_get_property_by_offset()` SWIG typemap and drop the redundant
-`bytearray()` conversion in `FdtRo.getprop()`.
+Truncate `fdtsw` to `fdt_totalsize(fdtsw)` in `FdtSw.as_fdt()` (matching
+`Fdt.pack()`) so the returned `Fdt`'s `as_bytearray()` length matches
+its `totalsize()` immediately.
 
 Assisted-by: Gemini:gemini-pro-prerelease
 Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
 
 Changes in v4:
-- New patch making Property a subclass of bytes instead of bytearray
-  (David Gibson)
+- New patch trimming the returned Fdt bytearray in FdtSw.as_fdt() so
+  DeviceTree.flatten() does not need to call fdt.pack() (David Gibson)
 
- pylibfdt/libfdt.i       | 17 +++++++++--------
- tests/pylibfdt_tests.py |  1 +
- 2 files changed, 10 insertions(+), 8 deletions(-)
+ pylibfdt/libfdt.i       | 1 +
+ tests/pylibfdt_tests.py | 2 ++
+ 2 files changed, 3 insertions(+)
 
 diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
-index fa5f499ed96d..8a7dfed85f15 100644
+index 8a7dfed85f15..68f22e316ece 100644
 --- a/pylibfdt/libfdt.i
 +++ b/pylibfdt/libfdt.i
-@@ -492,7 +492,7 @@ class FdtRo(object):
+@@ -1026,6 +1026,7 @@ class FdtSw(FdtRo):
+         fdtsw = bytearray(self._fdt)
+         while self.check_space(fdt_finish(fdtsw)):
+             fdtsw = bytearray(self._fdt)
++        del fdtsw[fdt_totalsize(fdtsw):]
+         return Fdt(fdtsw)
  
-         Returns:
-             Value of property as a Property object (which can be used as a
--               bytearray/string), or -ve error number. On failure, returns an
-+               bytes/string), or -ve error number. On failure, returns an
-                integer error
- 
-         Raises:
-@@ -502,7 +502,7 @@ class FdtRo(object):
-                                quiet)
-         if pdata[0] is None:
-             return pdata[1]
--        return Property(prop_name, bytearray(pdata[0]))
-+        return Property(prop_name, pdata[0])
- 
-     def hasprop(self, nodeoffset, prop_name, quiet=()):
-         """Check if a node has a property
-@@ -893,7 +893,7 @@ class Fdt(FdtRo):
-         return check_err(fdt_del_node(self._fdt, nodeoffset), quiet)
- 
- 
--class Property(bytearray):
-+class Property(bytes):
-     """Holds a device tree property name and value.
- 
-     This holds a copy of a property taken from the device tree. It does not
-@@ -902,11 +902,12 @@ class Property(bytearray):
- 
-     Properties:
-         name: Property name
--        value: Property value as a bytearray
-+        value: Property value as bytes
-     """
--    def __init__(self, name, value):
--        bytearray.__init__(self, value)
--        self.name = name
-+    def __new__(cls, name, value):
-+        obj = super().__new__(cls, value)
-+        obj.name = name
-+        return obj
- 
-     def __copy__(self):
-         return type(self)(self.name, self)
-@@ -1275,7 +1276,7 @@ typedef uint32_t fdt32_t;
- 	if ($1) {
- 		resultobj = PyUnicode_FromString(
- 			fdt_string(fdt1, fdt32_to_cpu($1->nameoff)));
--		buff = PyByteArray_FromStringAndSize(
-+		buff = PyBytes_FromStringAndSize(
- 			(const char *)($1 + 1), fdt32_to_cpu($1->len));
- 		resultobj = SWIG_AppendOutput(resultobj, buff);
- 	}
+     def check_space(self, val):
 diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
-index ae46b29a8f5c..78d8976c0cf3 100644
+index 78d8976c0cf3..26915a015ccb 100644
 --- a/tests/pylibfdt_tests.py
 +++ b/tests/pylibfdt_tests.py
-@@ -191,6 +191,7 @@ class PyLibfdtBasicTests(unittest.TestCase):
-         root = 0
-         poffset = self.fdt.first_property_offset(root)
-         prop = self.fdt.get_property_by_offset(poffset)
-+        self.assertIsInstance(prop, bytes)
-         self.assertEqual(prop.name, 'compatible')
-         self.assertEqual(prop, b'test_tree1\0')
-         for copied in (copy.copy(prop), copy.deepcopy(prop)):
+@@ -684,6 +684,7 @@ class PyLibfdtSwTests(unittest.TestCase):
+ 
+         # Make sure we did at least two resizes
+         self.assertTrue(len(fdt.as_bytearray()) > FdtSw.INC_SIZE * 2)
++        self.assertEqual(fdt.totalsize(), len(fdt.as_bytearray()))
+ 
+         # Check that as_fdt() resizes when fewer than 4 bytes remain for FDT_END
+         sw_exact = FdtSw(76)
+@@ -692,6 +693,7 @@ class PyLibfdtSwTests(unittest.TestCase):
+         sw_exact.end_node()
+         fdt_exact = sw_exact.as_fdt()
+         self.assertEqual(80, fdt_exact.totalsize())
++        self.assertEqual(80, len(fdt_exact.as_bytearray()))
+ 
+ 
+ class PyLibfdtRoTests(unittest.TestCase):
 -- 
 2.56.0.679.gc527c65306-goog
 
