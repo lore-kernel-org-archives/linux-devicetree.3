@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823217;
-	b=aeG3RcxDsjR0nmrG7aPcB3Y8eytz1MQpe6OT92P595PjpXkQ1/Y/fwpSwVdEgIrscn89
-	 1iE5u8VtrlI2vgnkezDU0PLbUi4Fqo0Yqpeg9TY8yIoI3phEEmDFhPgiKdeKf1XwFHYhz
-	 8PhNZtldVLMFxMTBWnXkblvZw5IYMdg2AOnRfoN2C/QZdbhUb7nDV1kYm3cS/TNJtojK4
-	 mpUxyL2y9Q5nqm4ZNWWW9n07Ki/zG0r/CfbGCuTAfxJ9IbEnVNcgwS2pgPl+ojsm4t3Ku
-	 2Mv+t74IZD8t3FG2lXdwYodyHFkDpxnvN5mVuMeOpFgZvz915tOgRlWdwJETRCeUnpw==
+	t=1794823224;
+	b=gHGOVutAH9/ZpfM8PWMUirW+BmCaqlG9pY2r/xZ4EcXrT+w/i4dGI5at0F6k1l16LaHR
+	 qlKgXf637myvHHZF9dJjkFW975Fu5HwquZS5uYg8mi32RKjUX27Ci2chWPMERXTZUcMzt
+	 /nfz5QX+jKjuwWkO3FoHH0vEo0YXTu47s6HCvNfVZWMkYqrh877G3/VPFr1A6zTYcrrce
+	 haoiW9rbv+CAyilz2J2OyKBOW4VGMdagBw1q1gSzrKegxa0byD0K6zTUcNX0OHvrdg8gs
+	 InW+qnOXX7u/KEw2lWrPtvwfkL+p3Rxrz7dG92F44ZMA1K59QoRbS01kpiHqsVtYmkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823217;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823224;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
 	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=mS0n0VCms4eHAxEd2Xq6Bm0DUZuN+p1NF5Q118cCuJU=;
-	b=fyqrHZRAu0mJHLajpQNkap08qatYr+/hkf+buqxEtV4zIgOrmq22FSOOOPwPJyHRPJZz
-	 kxe0XXF/fp0mAa6rqbCu8ov3SC+XUAvNOph5d/LBuSkEsvlpF76nbSlw7tYT4rn1jrndw
-	 N8XsUQ77UjMbImmPSRaaM6RgF6txeEIn5JY0sV+bFuF5OVqn7p8EeVENnhdDT6EbgO+D6
-	 HJiati6ryTtcfcDBqGnpbkdBJoOAZHmh5yppl6NYu0oG55m7Ny2Up9Maal1ZPKCbHaphz
-	 HR8K3gTYqPKCgSMtC9Ln0+uvN8DCNI3OTf4IgwDs9CKZ3F7jYfq4FciMJ+OQP5kXscQ==
+	bh=CEc6t0VeUS80Ev6G3pIRJFObgJcYoN6XXEJ5BLbIEVo=;
+	b=fKr3mXYB1ukeze96o56Ipqa7aKuYiJRQXJmu630CtWmzZLSRujVTyQV/pOtipmb+P43o
+	 YsX7C3Xtl2FC+eND6NgqqIe69ywxhok7mIhcfRmCryTK+Y+HPRZCD9UVgM5u4owtsIt++
+	 GQ9F3Rfgi5P4SMCMFhCYVrVLPEL99t3OJAP3Mrs6c6OHd5K7ZTALMLZ/xtjFoHLzSgvDz
+	 OirIZkJ6k4Kep0UVHMh9cYtT+V+T63OYDDOozj/CsZphQsfmPKXuO5ObqaIVTfVz2SvrM
+	 Olgp2PAcTjBLntG9hFzMDOhBvP/2q/abQtkb3KBJMi+9x4LUldov/vMgJ/uKYyclq7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vEimE56H;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=QPTiA5Jt;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3D2606A332
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 10:00:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D3D2606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F39606A32F
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 10:00:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8F39606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vEimE56H
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4bb666304fdso10186125e9.0
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:00:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=QPTiA5Jt
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb6c7b6dbdso11624625e9.0
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:00:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794823214; x=1795428014; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794823222; x=1795428022; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mS0n0VCms4eHAxEd2Xq6Bm0DUZuN+p1NF5Q118cCuJU=;
-        b=vEimE56H43Jg55t7HgEB/LzIS/rLakfMKe/pp0cuoCTuDwuPtYYUg4Mtvvh6nja5Fy
-         TkNa3lt5+UyT643R4VzR2wBPKBUelTxRkfcWMtdAl8SGUujuqWVA6tHq0H39p98mM51x
-         FEOtn3lBVqR+0qtSKDsSc8OGeXZE00fbpoGSJ9KD/Dxw7kCipkV3xlPSUNMOWPqEHJId
-         ugUxulcTrtVMfugXrNv3CTh8rSqPfOpaCezGWvAur02ITF6g6iNaNPvDfx1y7ca4sTtW
-         KgM8D4NdMsSdEhb95kYQ1VJX8VqLDJupoCQxikYEENQNeQ6qyeLb38svOTc9IwAV6IdP
-         Rzug==
+        bh=CEc6t0VeUS80Ev6G3pIRJFObgJcYoN6XXEJ5BLbIEVo=;
+        b=QPTiA5JtYMrbsMl0z8iJz6Z1kuNtOsLW8HHjgERJXiH0wb+LeyunHKf9R9M2HNk2II
+         ikL42CGjtFQ4HGfxK4hv4TxHo9NIb0nOLjwT5EBK3NtTEdDmoyjzSOPFMXbm+/UCMVkT
+         QCdxmRISD1pOOzkwFv8CzKsRJJ1Z2wBB+AtfFTu3Jtfr3dLv1RpB4rkc9schgefJ3Xrj
+         +dlu9mwwMZUdyrtRogYv6qxhwLFuuCLyzb6kMTiOkdQ1uPH850eMPDut72jt+NXSzWuN
+         /ab4+oBXb3+cgDHO3gIZ5eEfZeSJ398PLzQsPYaw9lnFGMCfxT4xxDn/9zx9NncIFGCa
+         UwXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794823214; x=1795428014;
+        d=1e100.net; s=20260707; t=1794823222; x=1795428022;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mS0n0VCms4eHAxEd2Xq6Bm0DUZuN+p1NF5Q118cCuJU=;
-        b=sphur5ASo94zwD/Xr60YKjEYc/0JSqD5Cov49jtF55F9IhYv8+kY/Z5mqVpPi+YJKC
-         8S2F8uzFv9skg/8V2sPaRjN5nJcnWRBb1aEea62qFoarEi2TMkhm3u48taZqAHxOnmNV
-         h9W5ffyzzObh2wqMyf9Ny8eChYSlDvVJN+3Yks+wA1jM256yLu0G3ENMEPiSlgvX/zMq
-         97sIjRjr1xcOwmPYJhrWhVM9a02c1l47vQPIXMkUmhcqOuKxUSBBOEwTG4t/tPowManp
-         kwGBebHDDkgPR9AdiQaW7QIvpWm4Latv7LI+nfHVSsKvK0UrZYr0yP2CHE/JK3ERyWli
-         OuqQ==
-X-Forwarded-Encrypted: i=1; AL+hErFoOtIygQ2NPYxtgA+TkG+yij3qxkDELOkyGtz05C6Mqvuhn4XUclAfnlbIIoc30s3kPohl4+dxERW4@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cCaeTUxGCyY7YDOELYaFwI96SXR3LOjsJpOEBBTw8+WqFQjzy
-	9+4ZZqBPKMim8bpR89icfqIw1AwlohsJuh3s2W2e+fExUBa1qfIdlsOldPvaVYS8rpM=
-X-Gm-Gg: AYBFou0acidVioS6A3MKJxzndKlrA8kYF1pqyceiImxLdtd/Zag/nhWXegXXIk0MLmv
-	mttoop6MWnHNJn1WAePsKo4PUL09Mbok2jgkXF6BueOilCxgkGFNHCc0lBaHHQn5d2ky2Gce5o8
-	f5T8Sz/dMYxhC9Cu4lcuG5SGGbKkcCdbq14KBARwtxaRKTc6aN0x3TXHg+BKMBOSH/IMay3asD/
-	731w597nh8Hvlm3SkLp9NwaWUkTNvxnTH6cmJzsOaZKRyj7ezxuOqWlaljvJ1AG1sTfGdsVsujm
-	KtFgd2zsyDrJJjy8xpTa5ZZSEBccU/BezXbiDgAZbnviEplSJvTdiyye/mOK2bIHMHwWlA0nnr0
-	SJunfyp6IS5YB48crYnhJ0B8S8zivUV9BHqp1uj3320tryqVSZ+6riCYuK+DBRq2Nq2bkmdJ35L
-	MT9wYc06Oa4PDr1ANCOJ1XPbDYFmnfNNgV12uETw/gUFS7Ca0avE8ZgIC/mm8DEX8xH9g4M+K3e
-	8ZmQedwiPY5S4Nu6als5uKZy6L1aAotV+K/qCL2PV61R6+Uua/AgJ3PjSpNBsvDRlgftv7ugpVz
-	iebax1y/NVz3KmM94pJ7e9botaDzAmcDDH1WZkDgFpKXsWHIevsMqY+3LIQ4ZyGqh/7MA6SUlUv
-	s0iLFlqoQ
-X-Received: by 2002:a05:600c:3b16:b0:4a2:1960:6fa with SMTP id 5b1f17b1804b1-4bb55a6116bmr218070545e9.4.1794823213643;
-        Mon, 16 Nov 2026 02:00:13 -0800 (PST)
+        bh=CEc6t0VeUS80Ev6G3pIRJFObgJcYoN6XXEJ5BLbIEVo=;
+        b=Lj9t5pExGJDb0OQXnJ59r2qWfBuCu5vJwb5HkdFQupQtHBhr7jHve9ONp+RznZ1lDj
+         0o3Tc62JMSedr7/IYutBrFUJEr20jDjf9xRiudoPEN9DqN9IupSS1NEVFe8+WVBFSZHi
+         zBYtfdkMGLwEIgbbX4elfme53xQrEAvfUYtxXUeEJxaaICjXVfp+kDc3cWyhTSl0agby
+         C5njEAaYc+0aB0hpcg4haMAQGlMsd60Qu551+Iksm+YcNawbWKn7Z0Wl3nPk/XN/F8l3
+         Vv2Vg0U5kf7alcL+K9qJcHsazZN2NG/aWiQGBw27zjD+ne+rCNafNeaHtP5qNVBM7yjI
+         JGWg==
+X-Forwarded-Encrypted: i=1; AL+hErEGgfk+VMH22b9GfyBuF10LrblrNBzAWrhCHhutBo/pavm2+2UtJFBY/0xPU+FoaGmus99uCuHMgFSp@vger.kernel.org
+X-Gm-Message-State: APuU4Z8zzZmEQHsN42uIuIAXwFExi9sObMmdPztd3lPu8+blJD6UYqlR
+	0WXxy2DIRyWjvn+/oQS4mDZlRDlL6SbZfUTk0nmjO0YIb9EIA4rn30g61+6511wMjUQ=
+X-Gm-Gg: AYBFou2Wl8GC75d3E7q+WQa253AaDHeOauN05JoWmVg7AvpBnBjNfBmmiSWtVrLT72J
+	90516s9KG2amoLlkS6PhBX/5GC8/z1HMaafhNhnmizoJNj89nl3AxTyJDSLHci5AnQSme1mqikP
+	8deK49bMAvbsSnvmaM26eQnbNWe1xClPJ/Hzd6CIw3Ld4vgoGCmYsGaxBiFCGbxhx6sZzy8xI4/
+	KohaNfCwC62I63SJ14bYZKFm0gQ8GUeVZqy9e4Wuq8pUgvphvJwREWBoU8ZL9J5Qtqq8zV8f/El
+	jibp+Vd3/fzNzq/7ax3OLr6gm/Y/QT20V6BpJPRQ3GNlylj2oiox5dPTOWkUty8VE18tK4laJBb
+	LUPvGxnzooBqs3QPpnYZwMrwRx8Y+kXij/45Ke3pYc1HYz+g5AEZ9YL4wnFjN0GqOZKxJcdI9jl
+	iLsVm8Z1+Y9vxPg/iWb1B3FFOS6rtMokUVS0ZTxbLcBt1RY3jVN9HreBWw1VizfSm123p5gpEiC
+	F5CjFzk2W/Az/Ev6sSOsoZt8mJ+kLaWZQb7bHf5U2AXBM8o5gRlD/oj1Affo8ZbSeL7z3ZbYvOA
+	zxLNIvtY/kaskNzsvsauOtjqqWWYnXzyhUwyyHqmOG59RDZDfMzYpuWvGic9Emnmcuu5ZWnhk47
+	oH3Sa4wjp
+X-Received: by 2002:a05:600c:a012:b0:4a3:5aee:2c25 with SMTP id 5b1f17b1804b1-4bb55a907cfmr204744635e9.31.1794823221901;
+        Mon, 16 Nov 2026 02:00:21 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:106d:1080:575d:8fcf:e30d:5aed? ([2a01:e0a:106d:1080:575d:8fcf:e30d:5aed])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e28c882sm375110715e9.6.2026.11.16.02.00.12
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ae4414sm282702355e9.9.2026.11.16.02.00.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 02:00:13 -0800 (PST)
-Message-ID: <c458eba8-553e-4c5d-a280-918bec25b041@linaro.org>
-Date: Mon, 16 Nov 2026 11:00:12 +0100
+        Mon, 16 Nov 2026 02:00:21 -0800 (PST)
+Message-ID: <0498194e-6428-4424-82b6-c6e52ba25adb@linaro.org>
+Date: Mon, 16 Nov 2026 11:00:20 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,8 +96,8 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v12 1/6] firmware: meson: sm: video firmware loading via
- secure monitor
+Subject: Re: [PATCH v12 2/6] firmware: meson: sm: Add video firmware loading
+ SMC call
 To: zhentao.guo@amlogic.com, Nicolas Dufresne
  <nicolas.dufresne@collabora.com>, Kevin Hilman <khilman@baylibre.com>,
  Jerome Brunet <jbrunet@baylibre.com>,
@@ -108,7 +108,7 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  devicetree@vger.kernel.org
 References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
- <20261022-b4-s4-vdec-upstream-v12-1-616240978792@amlogic.com>
+ <20261022-b4-s4-vdec-upstream-v12-2-616240978792@amlogic.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -135,34 +135,33 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-1-616240978792@amlogic.com>
+In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-2-616240978792@amlogic.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/22/26 07:26, Zhentao Guo via B4 Relay wrote:
+On 10/22/26 07:27, Zhentao Guo via B4 Relay wrote:
 > From: Zhentao Guo <zhentao.guo@amlogic.com>
 > 
-> Add SM_LOAD_VIDEO_FW to the secure monitor command enum
-> to allow decoder drivers to load firmware through the meson_sm
-> interface.
+> Add SM_LOAD_VIDEO_FW at SMC ID 0xb200000f in the command
+> table to load video firmware.
 > 
 > Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
 > ---
->   include/linux/firmware/meson/meson_sm.h | 1 +
+>   drivers/firmware/meson/meson_sm.c | 1 +
 >   1 file changed, 1 insertion(+)
 > 
-> diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firmware/meson/meson_sm.h
-> index 3ebc2bd9a976..3b90b49d0552 100644
-> --- a/include/linux/firmware/meson/meson_sm.h
-> +++ b/include/linux/firmware/meson/meson_sm.h
-> @@ -15,6 +15,7 @@ enum {
->   	SM_THERMAL_CALIB_READ,
->   	SM_A1_PWRC_SET,
->   	SM_A1_PWRC_GET,
-> +	SM_LOAD_VIDEO_FW,
+> diff --git a/drivers/firmware/meson/meson_sm.c b/drivers/firmware/meson/meson_sm.c
+> index ab9751a59b55..887caa5c625d 100644
+> --- a/drivers/firmware/meson/meson_sm.c
+> +++ b/drivers/firmware/meson/meson_sm.c
+> @@ -48,6 +48,7 @@ static const struct meson_sm_chip gxbb_chip = {
+>   		CMD(SM_THERMAL_CALIB_READ,	0x82000047),
+>   		CMD(SM_A1_PWRC_SET,		0x82000093),
+>   		CMD(SM_A1_PWRC_GET,		0x82000095),
+> +		CMD(SM_LOAD_VIDEO_FW,		0xb200000f),
+>   		{ /* sentinel */ },
+>   	},
 >   };
->   
->   struct meson_sm_firmware;
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
