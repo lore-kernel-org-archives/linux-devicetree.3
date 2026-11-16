@@ -1,126 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794870442;
-	b=TbjKwLV6MJxubkhd/B9bU4+kr2cfITRmodV9Ai+/Ixvb41qYB2ncJnsKSYZaqodPlekv
-	 kILElXDgL80CZKIq5My89Q+jojbiVfm5VfpR8i+lm7IeIfKCKDyyvmLpRNbNcxZitYUuP
-	 USJcmVIA0PA19M1UAAbKI6aofQrvJvtjSl8ESPLIkGTuBhiorEHiBv8U3nKPpbB/q1Da5
-	 FQn3iUfR23s1Nds5f6GdOZ928wshKr464APqqASkFLzL+xA8K6KQTvlAhlHQgLySFg/tW
-	 /NJyMo8p6x+oPXLR2MLzgSpJ+MbvQfXZAxlxZSJ/cNP+gAP6t/m/pj7accz2JzGrGFw==
+	b=Mm3FTRVQ3oiUzoqNTTsL7ED/PgFpZPTGOpvcQjLJwz8S/nTfBMcUPiUou/WV4IblaeBt
+	 8u4TGFHjkLXPZcGoJz6lyxfWwKNB/TeCaAzyx726zry1P6l1acFGnEg6o9HSqg4eYnph9
+	 uxR5ZY1YLvwQLV1762EAPQHbEtRP8ZTBsLd0rJMKYk1g+c2qMSjc9R+vsFIiEmZovMAsf
+	 OkrrtwVuLK7B3mRWGeQ+z9rKWVIbXwXFCJG8BhFQWmfXEhgW9eIslGFsllOegV5KU/2Yj
+	 9PIgDMhPnQCYWYAQkvVDOphI1pkv5D/VzFAbfhPVQqgB+TX2HkbCuPCiMpAmKr9DNxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794870442;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=d7QIkQGcuhgCwpwukZfMYl/m0eNiW9yDpQCv/4z6USA=;
-	b=LD7qpZV0IwxOMBjaXMqnJz6yN/ud5DNv9Ofs9s4ugdhaYXiqU953q7hZnYrhSS3PZIGj
-	 CuAW9O4U2buDpy3wiWKEv0eOlEzFxMA7qIp7aSe3dPTwNyda5F0MzJygoX96VD2R1JjG3
-	 NwFivEtlqItFTJfgBzLDi44B0KgYEnj2slosFqdfK2AjAqu+mH0kHabilx7XHxZp0WmDg
-	 Qxe/oLbbWZh4yTHqqyk9Qnf80RQ1fH3AVputDTHSW7wCYubl2WSNW6tNPlfmPrXPQMvHX
-	 4IEFcwAhKbUrghnkpunz0Xix+xW1plqc6Q9h9pneVI50VfrzasMtPAB1dYHtzOK414g==
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:Autocrypt:In-Reply-To:Content-Type;
+	bh=4+P1fCiW4RYiVUwbtG7d1XDUQaST497qdIZJ/BlhnEE=;
+	b=NxIAe/8+Gb6+SIWCUMGnJXMr3XWPMp2K+pXcQ9FxJuX+0G/oRTgbgbI47T0JWVcA0kRU
+	 gQ3PHX/WbK13Wkm7yWyiW9LrLw2icbqI4PTQcjaoLbH6bFbOyx2a8Q1ckZ3e/DyV8gPW1
+	 R6V7mXDhiIY0Ynj1HJ2YuhVXCnmhRoGda3IuvGRG5BOZxS/xdtsYKZm+v2pI9DAeaEwcu
+	 yvLLoLN9jd/Jhk1MY6WbfRUxDRVTOBxd/VR2wNO4RQZi29W/UucXXu6JuWF9Ei2/VCThd
+	 DVSefjKf3obf6VGligSam55jbXKfLq7Xcpczr8PKz5aEMcPW8p0JqI3Eqq0uCivTj5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=VaeBDszm;
-	arc=none smtp.remote-ip=209.85.219.99
-Received: from mail-qv1-f99.google.com (mail-qv1-f99.google.com [209.85.219.99])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=erebion.eu;
+	spf=pass smtp.mailfrom=erebion.eu;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=xKGVSKxR;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=awW91TEd;
+	arc=none smtp.remote-ip=142.132.183.134
+Received: from erebion.eu (erebion.eu [142.132.183.134])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EC660A263B
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 23:07:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7EC660A263B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2198C60A380C
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 23:07:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2198C60A380C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=VaeBDszm
-Received: by mail-qv1-f99.google.com with SMTP id 6a1803df08f44-91f0ab17747so47829966d6.1
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 15:07:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794870441; x=1795475241;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d7QIkQGcuhgCwpwukZfMYl/m0eNiW9yDpQCv/4z6USA=;
-        b=1JoQlRGbHHZgHttGKwCEZwvqkn17nh6JF1Gajv4fUbTX9l3ywoILt2RLX04st+whVv
-         1KnekJcPCRMetL1ZjN29858Fe35k4AE5YIidNKmsjoL9MEEiBPenBx7h8NOTmWQZwYrF
-         IlEk0EjFLHvPeSyWz4omouBle47iqkxc5otBM2GWeiLY+CGdyQIIJNm1apa2cLymoS8H
-         xEh3s4zqxDCaPZ+B+wTeC1092HLFDXWvt087ly+I+r7zxhnygZx+lvnrER0QmMRTNIrG
-         sowvS0naUAV7F1kuGmS+sz/B9xu1j6Vd3PFn9/41v1tlBzdC6+58cZUS7/ZiYWuztx+C
-         O1dg==
-X-Forwarded-Encrypted: i=1; AL+hErFWDv7KJ/JZJDpuEsNglBzrPy6RfUUgyRdvIeWaBhhFu2w2OEbX2Tg9pY0iSDHhKSg3VeDPZ4G2ppo8@vger.kernel.org
-X-Gm-Message-State: APuU4Z8s0dIuPvVh54THhYiEJoBWQxEPa9WgP6371xKFRlnACucEC5kr
-	Bxp9FqieNTMbUSOOoI7hQ4xvIUARom8QgglQuYFEB85gfQ5bs6craFtGNOuikEYqUTQF5go6Da8
-	JShKFbQRJsbLAnZLVfh97aHd0q7CaV0/WTuvPFos19ZDrnkqo3pmH4yLfeTq/8ShIRGo2Do1RL7
-	4TIX2EeGTsA/rcm5hj2veZUq7FuGbLwvaO381MHtL2NPmb4JYReQsU/MG720eO5FmWjyIDZ81QY
-	dzWoVd7czX5AmSkKjf+EQ==
-X-Gm-Gg: AZFdTZcyK2f0MuUpCJO7oyHLCgSqM5W9o4c6JAUuKwE2SZWL0elRUgh0iEa+PhVUKa+
-	Jfr6VTKcEod4jbH6qFAi9QOekIKCjFvzUeYIXrn1Zm73LyO42VStiHNZflYSx8oI0QWp9zuWeBc
-	k2dQJyqUKNMccz2Q6VwCQz24KY61x585ortJpF9LowRkWaRdwsTh0bP/N2U13G9484JGc3hCinV
-	cDO1Gyn8k4zLgEjSXduTvrHcbyqEfJsMB5NEgkXAu6MOIhuqjxP5b3m9fdx33SZoaj2M8XCya1K
-	Kd+CIFp1HrI3Z59lHqMOz7aIF3DrAuNtrbO1xst00eFSrOC0UAzjhTy3b9KXZKku4dCVl8mHZaU
-	4mI6yjfPtWS5vZYiZ48ih+wrpvKLQ9QCJdpWxE9WCDCeg+4E9VZyiIpwhWWBtwOd9qWDY3lbJff
-	8MMoXcaps/gIE7Zs7RwoyI1++O/rfEUXpH2k4ogb8F
-X-Received: by 2002:a05:6214:246f:b0:91f:30f8:73a1 with SMTP id 6a1803df08f44-91f30f8753cmr144178726d6.14.1794870440706;
-        Mon, 16 Nov 2026 15:07:20 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
-        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-920fed6f2d2sm38416d6.45.2026.11.16.15.07.19
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 16 Nov 2026 15:07:20 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1b238436265so2206890c88.1
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 15:07:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794870439; x=1795475239; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d7QIkQGcuhgCwpwukZfMYl/m0eNiW9yDpQCv/4z6USA=;
-        b=VaeBDszmKHnDGk/R7SIAlVzIe1CwFTI9g1YhyDFwB38Ltud2DWD/tmVEPlcnj7gASe
-         qxAqxciVVs4SXBKHt0SNl7h+oDdu/WV+ODf2bkd5biR1stNy+FZvaLSH7yDuBLcViTol
-         3eDG7iAP7ru1wX21Ti/DrLRLEcg37bP6BGA3I=
-X-Forwarded-Encrypted: i=1; AL+hErGZCM11JNldNiqmdBZqD+TnOQ5AAggq9Bmbs2Qv9iPQSUbV6K38xb9f8/V/2/l1MneY+7tlnVvWOSuL@vger.kernel.org
-X-Received: by 2002:a05:701a:8458:10b0:1b5:22fb:848d with SMTP id a92af1059eb24-1b522fb84d4mr6306500c88.16.1794870438532;
-        Mon, 16 Nov 2026 15:07:18 -0800 (PST)
-X-Received: by 2002:a05:701a:8458:10b0:1b5:22fb:848d with SMTP id a92af1059eb24-1b522fb84d4mr6306480c88.16.1794870437878;
-        Mon, 16 Nov 2026 15:07:17 -0800 (PST)
-Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031918c7sm50516401c88.9.2026.11.16.15.07.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 15:07:17 -0800 (PST)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: bcm-kernel-feedback-list@broadcom.com,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	linux-kernel@vger.kernel.org
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
-	"open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)" <linux-ide@vger.kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"moderated list:BROADCOM IPROC ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
-	"open list:GENERIC PHY FRAMEWORK" <linux-phy@lists.infradead.org>
-Subject: Re: [PATCH v4 4/6] ARM: dts: broadcom: Add the NSP SATA IDM registers
-Date: Mon, 16 Nov 2026 15:07:15 -0800
-Message-ID: <20261116230715.1489712-1-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261029212513.4126083-5-florian.fainelli@broadcom.com>
-References: <20261029212513.4126083-1-florian.fainelli@broadcom.com> <20261029212513.4126083-5-florian.fainelli@broadcom.com>
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=xKGVSKxR;
+	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=awW91TEd
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=From:To:Subject:Date:Message-ID; t=1794870436; bh=4+P1fCiW4RYiVUwbtG7d1XD
+	UQaST497qdIZJ/BlhnEE=; b=xKGVSKxR8ANxO2WmriB6uXmscUPPAGTueQ7hOSoEctiq7eFRm0
+	GVDVSxWpxKSGCIbYyT7U4g52TsMMBRxR4oDw==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=From:To:Subject:Date:Message-ID; t=1794870436; bh=4+P1fCiW4RYiVUwbtG7d1XD
+	UQaST497qdIZJ/BlhnEE=; b=awW91TEdMAGVQbce3nISYLWtRZClMxo+SaWCy+1z/HialtRCGU
+	Un3kVqVqWOPloORUEHaL9YoiFoFNS6LrxnIZOQxOb3tMZbSdgWFrJ5cMrr7g1HTiksYWxsC82F1
+	AEmacI0wT9ozvuuU/BFd4Qz8HBtPlGkjojuIQGNyaQWKQB1+urN+fOeGV7g0WaKYv6rf4GSewYq
+	0Q2wbmRTYCvYy0sw3dqxNx4SwKeyzgum77sp/UzY4oNjJerC8I3pAlL/Ktv3iOjHv8YwNIIpM5W
+	bt/EDuhADpHXeLWuliSLhqGnF7+QGL+DvOQWxTJR6DvTw/BnKty0r/ZZMUzTDpbP++A==;
+Message-ID: <0effd796-807c-418d-9b1b-3471380af291@erebion.eu>
+Date: Tue, 17 Nov 2026 00:07:15 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -130,23 +57,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 08/12] arm64: dts: qcom: sm6350-lena: Enable PMK8350
+Content-Language: en-GB
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-8-7318a19806eb@erebion.eu>
+ <sashiko-outbox-217835@kernel.org>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <sashiko-outbox-217835@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------ANJ2KaS3l4Q5K8oMWnaeS9ti"
 
-From: Florian Fainelli <f.fainelli@gmail.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------ANJ2KaS3l4Q5K8oMWnaeS9ti
+Content-Type: multipart/mixed; boundary="------------WyLB3blXW0OC278RUK1o37OX";
+ protected-headers="v1"; hp="clear"
+Message-ID: <0effd796-807c-418d-9b1b-3471380af291@erebion.eu>
+Date: Tue, 17 Nov 2026 00:07:15 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 08/12] arm64: dts: qcom: sm6350-lena: Enable PMK8350
+Content-Language: en-GB
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-8-7318a19806eb@erebion.eu>
+ <sashiko-outbox-217835@kernel.org>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <sashiko-outbox-217835@kernel.org>
 
-On Thu, 29 Oct 2026 14:25:11 -0700, Florian Fainelli <florian.fainelli@broadcom.com> wrote:
-> The NSP SATA description omits the IDM block at 0x1811e000, leaving the
-> interface clock and core reset dependent on firmware initialization.
-> 
-> Supply the IDM as the third controller register region so ahci_brcm can
-> perform the downstream clock/reset sequence. Extend the AXI bus range to
-> cover the complete IDM aperture.
-> 
-> Fixes: 8dbcad020f2e ("ARM: dts: nsp: Add sata device tree entry")
-> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
-> ---
+--------------WyLB3blXW0OC278RUK1o37OX
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Applied to https://github.com/Broadcom/stblinux/commits/devicetree/next, thanks!
---
-Florian
+T24gMTEvMTcvMjYgMDA6MDEsIHNhc2hpa28tYm90QGtlcm5lbC5vcmcgd3JvdGU6DQo+IFRo
+YW5rIHlvdSBmb3IgeW91ciBjb250cmlidXRpb24hIFNhc2hpa28gQUkgcmV2aWV3IGZvdW5k
+IDEgcG90ZW50aWFsDQo+IGlzc3VlIHRvIGNvbnNpZGVyOg0KPiAtIFtIaWdoXSBhcm02NDog
+ZHRzOiBxY29tOiBpbnZhbGlkIGhhbmRsZSBpbiBTaWduZWQtb2ZmLWJ5IHRyYWlsZXINClRo
+YXQgd2FzIGFscmVhZHkgZGlzY3Vzc2VkIGluIHYyIG9mIHRoaXMgcGF0Y2ggc2VyaWVzLg0K
+DQotLSANCmVyZWJpb24NCg0KWE1QUDogZXJlYmlvbkBlcmViaW9uLmV1DQoNCkFjY2VwdGVk
+IGxhbmd1YWdlczogR2VybWFuLCBFbmdsaXNoLCBTd2VkaXNoLCBOb3J3ZWdpYW4sIERhbmlz
+aA0KDQo=
+
+--------------WyLB3blXW0OC278RUK1o37OX--
+
+--------------ANJ2KaS3l4Q5K8oMWnaeS9ti
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCavuMowUDAAAAAAAKCRCOr0AybgKufV6P
+AP4ymyYJp9rHLINthT7+WBvPh09sPTh1M+z8QJ3i6NHdhwEA7eeANfQIgYn/+fInBbQ0w6JuoxJs
+7km2P2DFhM/KBwU=
+=VycR
+-----END PGP SIGNATURE-----
+
+--------------ANJ2KaS3l4Q5K8oMWnaeS9ti--
