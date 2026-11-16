@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802352;
-	b=BFLZjlj2lIB/3/DUGAkJN8Z3DG1+JnWd5WeSgnWXgtFZCuwzeuQ25WuxjCpwvIzA2yxz
-	 PnZSj/MaKwajRM7MLGD4o3SNj/g0USyEtgxuAekWuMdobE44Ce9umZUUmFjyHmrplkhoP
-	 yG7NUXP6+hEUVv/bJ6RjlP8zQuBxSsL10VESeOpxsxBinw3htEo63EoMQUxEWM7XyPaFR
-	 eRhx1On6Zpe+Ylbce6dvZTgB6JzCVGZb3BsomYjy37UEbcl9pJE49X+AsPcA8QKO6thKi
-	 2vv59Y1E/Yp6arPxujIntW3hQgjfa0Tf6M+k0IssZXa2PbmNuHhERUV4wajt4+oj1nA==
+	t=1794802354;
+	b=OAEPZ/OlYnMcMb8gSmho+ARX/UX51TRCr7y3uw6wXW0ozW0vzORKjKqXh5M3fQD/JVRN
+	 wV+FvxjTWN4luzRvqCQe7efv0R4Sm+Kc9ZWDzAom7id6r/gctToF42HpIsxtNon4bBTth
+	 o3lgEa4H4Es0JVE28gIQsgX8onJjBroGTecyReCeVesu5JlhYbZbNpeIdXpx9D3Hndylb
+	 WjwJrr/DrDm8f3xTRi0laztJz7oiC/PrZ3V/kEvfwuib8160y+RPzEA/9k8ifwYfLyYQG
+	 P+EtKoas1E4+kAa0ZUbLawO14Mc6DS16GPHHHYO/QDYbx+GJMtzbGbBnPdffB/xn1Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802352;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802354;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=8oYOY2NTfu9tj/qa/VJPJPG8PtiGkUvPv1hgkWBpXVo=;
-	b=WYfQn33y70MC/pL5awoRMdaPfp6sEIpme3ZxyR19LKNjsAvpBP7WzhfFkZSUFTqriFhF
-	 NF8f4JZKV1HRWhHoTJ89HkvgS70z1t7xqwPSoKaZJon41xU66g0vBww1iEQ6/AwOkyhuN
-	 vXodEOH0bHN5q66iFRj5qfOmUJ8qyqGAwlDl+egMKXxNzCiebIzr5PLMZcCmutFhsMwOR
-	 L89WKRUAAeq5Cj69LmfQdbZzQyNzZTuCS/hWgs8cAVzvfQ/dpvm/1uF4wEhDIik8aOwET
-	 LPcO3U4jlYsW9TW9AbgouqI2c75E1WdV8/oUvx5BOYAZ8jdk7ZQkXa83XiGOUCoIciw==
+	bh=OgoZIslZ8ASBJ7r2dv1Kt/IA3qoVmwzLgsguUAZyJYk=;
+	b=ynnaEN6kV574HDJz4qg6ZBqRQhXA+wZrEe+sQd1iUdGHuPyZojYFFlszJUXKZ85AEllc
+	 a91kGKaxvJpLbpt5yU6B5rvnHoufIXSiQqinvZ2ziPqWfbZ9FCgzLhE5CTx/jMXhY9oPH
+	 ao3Ks9pzHuzoAfffnwUWQ3yWrXeyP3Pv8zA2kT81mhitYuUcQs22p8yPl1qjKM3nQIKHo
+	 9cFjJtsRncBsrCHEoG1DmjKGRBmONpXiKFeIE4N4xwxqeNXkadhXocA9s6HpdP9pIcUYV
+	 M7Tl3p8RLTzumHk9EM0m0HVpJo36oj0byYP1GwtUa+49xzEsoo0YMlsqhhsaSCDegqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxbPub6O;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vw7NLOXA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64529606A89C;
-	Mon, 16 Nov 2026 04:12:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED752606A882;
+	Mon, 16 Nov 2026 04:12:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxbPub6O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488EE1F000D3;
-	Mon, 16 Nov 2026 04:12:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vw7NLOXA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA5041F000CF;
+	Mon, 16 Nov 2026 04:12:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794802352;
-	bh=8oYOY2NTfu9tj/qa/VJPJPG8PtiGkUvPv1hgkWBpXVo=;
+	s=k20260515; t=1794802353;
+	bh=OgoZIslZ8ASBJ7r2dv1Kt/IA3qoVmwzLgsguUAZyJYk=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fxbPub6Oq5pwAmxc9yexlpIHNy7YnWpTd04/yXPEKnnfC3Rl1gzb8CISsUoPJK/4Q
-	 /aE+aUiniwgzMuNFEHSHuLjU+EjNGQHwu5ZUZ7fqUCmzaUcw8zeDEXd4rVZE15sbJS
-	 6NXFO7KpjoS3Ln2t4iTp59zP95K7CaqBuPbmNrbzMo+gtVorawjMMVRX9xOdG6PYLj
-	 4Bi6EAqjKqiWW5+OiFIs6ILQo+2a5w0JZmfOpK/2evBIX/BHYKcuByH5afC7uc7tF4
-	 ToqNjbj80tlP2y9/89VQAfxiqfobHEm06aCJ02J+P+8ax97uOAVv9lhU51eAgKElMe
-	 SdrqeUOWh/Aug==
-Subject: Re: [PATCH net-next v5 4/6] net: xilinx: axienet: Add 10G/25G (XXV)
- ethernet support
+	b=Vw7NLOXAtbzx8pDVFwY5rq+UBMkeNrcDELgejJQDzgoa1s0Bb6daVuR6UVKntmG7v
+	 QTx8sZ5AAMz0ZsnAcRYTK3ccAqXhHIsqG/dmTlLa+SXegljTffYEUQAb5Muqa4tPKZ
+	 LVIOv2JJWXJnzLWBQzUfM4StH5OjMH9jcpXbWAEMqWBk6EAqPAuMDHHDTDrzdEasIJ
+	 SrTHPbo7eNx9/e40JHMR/xu9OFSH5Cya4JGsq4uOOboGjHdHDJjni4+TImZYYaAcxe
+	 j92uGzce95p7h3HEneQH1CtEq07gUcQV+3AA60lmIjvw9qbHqoQM49Eh0cSTLlw7tK
+	 uK/tTl/R010hw==
+Subject: Re: [PATCH net-next v5 6/6] net: xilinx: axienet: Add statistics
+ support for XXV ethernet
 From: netdev-bot+sashiko@kernel.org
 To: suraj.gupta2@amd.com
 Cc: radhey.shyam.pandey@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
@@ -49,11 +49,11 @@ Cc: radhey.shyam.pandey@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
  krzk+dt@kernel.org, conor+dt@kernel.org, michal.simek@amd.com,
  linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 04:12:30 +0000
-Message-ID: <179480235080.3136.8103502035761762075@kernel.org>
-In-Reply-To: <20261114182947.2908628-5-suraj.gupta2@amd.com>
-References: <20261114182947.2908628-5-suraj.gupta2@amd.com>
-X-sashiko-severity: High
+Date: Mon, 16 Nov 2026 04:12:32 +0000
+Message-ID: <179480235240.3136.10661182266349624826@kernel.org>
+In-Reply-To: <20261114182947.2908628-7-suraj.gupta2@amd.com>
+References: <20261114182947.2908628-7-suraj.gupta2@amd.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -66,10 +66,10 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 7 potential
+Thank you for your contribution! Sashiko AI review found 6 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 4
+Critical: 0 · High: 0 · Medium: 2 · Low: 4
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,297 +77,299 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] XXV receive is routed through the shared dmaengine RX callback,
-  axienet_dma_rx_cb()…
-- [Medium] axienet_mac_select_pcs() is shared by all MAC types.
-- [Medium] PG210's XXV MAC flags bad-FCS, oversize/length-error and
-  truncated frames only through rx_axis_tuser at end of packet, and…
-- [Low] axienet_xxv_get_regs() reads every STAT_* status register on each
-  'ethtool -d'.
-- [Low] axienet_ethtools_get_regs() always sets regs->version = 0 and
-  regs->len = sizeof(u32) * regs_n, then dispatches to…
-- [Low] The patch builds xilinx_axienet_xxv.o into xilinx_emac under
-  CONFIG_XILINX_AXI_EMAC, adding 10G/25G XXV support to that option, but…
-- [Low] In axienet_open(), axienet_device_reset() runs first.
+- [Medium] None of the XXV statistics readers in
+  drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c latch the clear-on-…
+- [Medium] The new XXV ndo_get_stats64 reader, axienet_xxv_get_stats64(),
+  runs read_seqcount_begin()/read_seqcount_retry() on…
+- [Low] The kernel-doc of axienet_xxv_get_rmon_stats() (xxv.c:585-586)
+  says "XXV exposes aggregate RMON counters only, not per-bin histogram…
+- [Low] axienet_xxv_get_stats64() treats XXV_STAT_RX_OVERSIZE as an IEEE
+  802.3 frame-too-long error and folds it into rx_length_errors.
+- [Low] The patch updates the @hw_stats_seqcount kernel-doc in struct
+  axienet_local for XXV but leaves @stats_work saying "Work for reading…
+- [Low] axienet_stop() writes TICK_REG for the final XXV statistics
+  snapshot (via axienet_xxv_stats_update) right after…
 
 --
 
-net: xilinx: axienet: Add 10G/25G (XXV) ethernet support
+net: xilinx: axienet: Add statistics support for XXV ethernet
 
-This commit adds support for the Xilinx XXV 10G/25G Ethernet MAC to the
-axienet driver. The XXV-specific code goes into new xilinx_axienet_xxv.c/.h
-files and is described by an axienet_10g25g_config. The shared paths use
-the callbacks from that config, and axienet_mac_select_pcs() now also
-handles 10GBASER and 25GBASER.
+This patch adds support for the clear-on-tick XXV (PG210) statistics
+block. The counters are accumulated in software by the periodic stats
+work and by a final snapshot in axienet_stop(). The result feeds
+ndo_get_stats64() and the ethtool -S, pause, MAC and RMON callbacks,
+gated on the "xlnx,has-statistics-counters" devicetree property.
 
-> diff --git a/drivers/net/ethernet/xilinx/Makefile b/drivers/net/ethernet/xilinx/Makefile
-> index 7d7dc1771423e..db90e691fec58 100644
-> --- a/drivers/net/ethernet/xilinx/Makefile
-> +++ b/drivers/net/ethernet/xilinx/Makefile
-> @@ -6,5 +6,6 @@
->  ll_temac-objs := ll_temac_main.o ll_temac_mdio.o
->  obj-$(CONFIG_XILINX_LL_TEMAC) += ll_temac.o
->  obj-$(CONFIG_XILINX_EMACLITE) += xilinx_emaclite.o
-> -xilinx_emac-objs := xilinx_axienet_main.o xilinx_axienet_mdio.o
-> +xilinx_emac-objs := xilinx_axienet_main.o xilinx_axienet_mdio.o \
-> +		    xilinx_axienet_xxv.o
->  obj-$(CONFIG_XILINX_AXI_EMAC) += xilinx_emac.o
+> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet.h b/drivers/net/ethernet/xilinx/xilinx_axienet.h
+> index 7468fed1416ef..10cb73bc460d2 100644
+> --- a/drivers/net/ethernet/xilinx/xilinx_axienet.h
+> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet.h
+> @@ -520,7 +520,7 @@ struct skbuf_dma_descriptor {
+>   * @reset_in_progress: Set while we are performing a reset and statistics
+>   *                     counters may be invalid
+>   * @hw_stats_seqcount: Sequence counter for @hw_stat_base, @hw_last_counter,
+> - *                     and @reset_in_progress.
+> + *                     @reset_in_progress and, on XXV, @xxv_stat_base.
+>   * @stats_lock: Lock for @hw_stats_seqcount
+>   * @stats_work: Work for reading the hardware statistics counters often enough
+>   *              to catch overflows.
 
 [Severity: Low]
-This isn't a bug, but should the XILINX_AXI_EMAC Kconfig entry be updated
-too? XXV support now builds under this option, but the prompt still reads:
+This isn't a bug, but should the @stats_work description be updated as
+well? On XXV this work is now the only latch for the clear-on-tick
+counters. The new comment in axienet_refresh_stats() says:
 
-    tristate "Xilinx 10/100/1000 AXI Ethernet support"
+    This work is
+    what latches them between queries.
 
-The help text also still says "This driver supports the 10/100/1000
-Ethernet from Xilinx...". It is unchanged at the end of the series, so
-nothing points someone configuring an XXV-based board at this option.
+The @stats_update kernel-doc in struct axienet_config has not changed
+either:
+
+ * @stats_update: Callback to latch/accumulate the periodic MAC counters, or
+ *		  NULL if the MAC has no periodic statistics counters
+
+The new comments in axienet_refresh_stats() and axienet_stop() say
+something different: a config installs the hook unconditionally, and
+XAE_FEATURE_STATS decides whether the counters exist.
+
+Could these two descriptions be updated to match?
+
+[ ... ]
 
 > diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> index a553150faa89b..47c84014921c8 100644
+> index 260755fbe465c..a046290522f4d 100644
 > --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
 > +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> @@ -801,6 +801,12 @@ static int axienet_1g_mac_init(struct net_device *ndev)
->   * Ethernet core. No separate hardware reset is done for the Axi Ethernet
->   * core.
->   *
-> + * It also recomputes @max_frm_size from the current MTU and runs the
-> + * MAC-specific mac_init() callback, so it is the point at which length-related
-> + * MAC configuration (such as the XXV RX max-packet-length) is reprogrammed.
-> + * Because it is reached from the open path, a new MTU takes effect on the next
-> + * interface up.
-> + *
->   * Return: 0 on success or a negative error number otherwise.
->   */
->  static int axienet_device_reset(struct net_device *ndev)
+
+[ ... ]
+
+> @@ -1884,6 +1903,17 @@ static int axienet_stop(struct net_device *ndev)
+>  	axienet_setoptions(ndev, lp->options &
+>  			   ~(XAE_OPTION_TXEN | XAE_OPTION_RXEN));
+>  
+> +	/* Final snapshot after RX/TX is disabled, so no frames are missed.
+> +	 * Gate on XAE_FEATURE_STATS rather than the stats_update hook: a config
+> +	 * always installs the hook, but the counters are optional in both MACs,
+> +	 * so only probe_init() knows whether they are there.
+> +	 */
+> +	if (lp->features & XAE_FEATURE_STATS && lp->axienet_config->stats_update) {
+> +		mutex_lock(&lp->stats_lock);
+> +		lp->axienet_config->stats_update(lp);
+> +		mutex_unlock(&lp->stats_lock);
+> +	}
 
 [Severity: Low]
-Is the ordering in axienet_open() safe for XXV? The XXV receiver is
-enabled before any RX DMA buffer is posted:
+Is "no frames are missed" guaranteed here? axienet_setoptions() only
+does a few posted read-modify-write MMIO accesses to clear ctl_tx_enable
+and ctl_rx_enable. Nothing waits for the MAC to go idle before
+axienet_xxv_stats_update() writes TICK_REG.
 
-axienet_open()
-    axienet_device_reset()
-        axienet_setoptions(ndev, lp->options)   <- sets XXV_RCW1_RX_MASK
-    phylink_start()
-    axienet_init_dmaengine()                    <- RX channel and buffers
+Suppose the MAC finishes a frame that is already in flight after the
+enable is cleared. A jumbo frame takes about 7.7 us at 10G and about
+3 us at 25G. Could that frame be counted into the internal accumulator
+after this final tick?
 
-PG210 describes the XXV RX AXI4-Stream as having no tready backpressure.
-If a frame arrives before the S2MM channel accepts data, could the first
-RX buffer capture only the tail of that frame (ending at tlast) and pass
-it up as a frame?
+On the next open, axienet_xxv_mac_init() does:
 
-On the 1G core, its internal RX FIFO made this ordering safe. With XXV it
-depends on the FPGA logic between the MAC and the DMA.
+	if (lp->features & XAE_FEATURE_STATS)
+		axienet_iow(lp, XXV_TICKREG_OFFSET, XXV_TICKREG_STATEN_MASK);
 
-[ ... ]
+This latches the late count into the readable registers. The first
+stats_update tick then overwrites those registers without reading them.
 
-> @@ -2788,7 +2789,9 @@ static struct phylink_pcs *axienet_mac_select_pcs(struct phylink_config *config,
->  	struct axienet_local *lp = netdev_priv(ndev);
->  
->  	if (interface == PHY_INTERFACE_MODE_1000BASEX ||
-> -	    interface ==  PHY_INTERFACE_MODE_SGMII)
-> +	    interface == PHY_INTERFACE_MODE_SGMII ||
-> +	    interface == PHY_INTERFACE_MODE_10GBASER ||
-> +	    interface == PHY_INTERFACE_MODE_25GBASER)
->  		return &lp->pcs;
->  
->  	return NULL;
+Would up to one frame per direction per stop then never reach
+xxv_stat_base?
 
-[Severity: Medium]
-Can this hand phylink a PCS with NULL ops on a 1G MAC?
-
-axienet_mac_select_pcs() is shared by all MAC types. On the 1G config,
-axienet_probe() sets lp->pcs.ops only for SGMII/1000BASEX, and
-axienet_1g_config has no internal_pcs.
-
-axienet_1g_phylink_set_caps() still does this for any phy_mode:
-
-    __set_bit(lp->phy_mode, config->supported_interfaces);
-
-So a 1G compatible node with phy-mode = "10gbase-r" or "25gbase-r" is not
-rejected at probe.
-
-With fixed-link, probe still succeeds. phylink_validate() prints
-"uninitialised PCS" with a dump_stack() and returns -EINVAL, but both
-phylink_create() and phylink_parse_fixedlink() ignore that result. Then
-on ifup:
-
-axienet_open()
-    phylink_start()
-        phylink_major_config()
-            pl->pcs = &lp->pcs;
-            phylink_pcs_pre_config(pl->pcs, ...)
-                if (pcs && pcs->ops->pcs_pre_config)   <- pcs->ops is NULL
-
-Before this patch, these modes returned NULL here. Should &lp->pcs only be
-returned when lp->pcs.ops is set?
-
-[ ... ]
+This depends on how PG210 behaves when the enable is deasserted, which
+could not be checked from the tree.
 
 > diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c b/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c
-> new file mode 100644
-> index 0000000000000..3c204dbbf6aec
-> --- /dev/null
+> index 3c204dbbf6aec..83782bfbce4ce 100644
+> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c
 > +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c
-> @@ -0,0 +1,351 @@
 
 [ ... ]
 
-> +static int axienet_xxv_mac_init(struct net_device *ndev)
+> @@ -335,6 +411,204 @@ static int axienet_10g25g_clk_init(struct axienet_local *lp)
+>  	return 0;
+>  }
+>  
+> +/**
+> + * axienet_xxv_stats_update - Latch and accumulate XXV hardware counters
+
+[ ... ]
+
+> + * Readers copy @xxv_stat_base and do not tick. ndo_get_stats64() may run in
+> + * atomic context, so it cannot take @stats_lock and tick itself. The periodic
+> + * statistics work, and the final snapshot in axienet_stop(), are the latches.
+> + */
+> +static void axienet_xxv_stats_update(struct axienet_local *lp)
 > +{
-> +	struct axienet_local *lp = netdev_priv(ndev);
-> +	int ret;
+
+[ ... ]
+
+> +	write_seqcount_begin(&lp->hw_stats_seqcount);
+> +	for (stat = 0; stat < XXV_STAT_COUNT; stat++)
+> +		lp->xxv_stat_base[stat] += counter[stat];
+> +	write_seqcount_end(&lp->hw_stats_seqcount);
+> +}
 > +
-> +	ret = axienet_xxv_poll_link_ready(ndev);
-> +	if (ret)
-> +		return ret;
+> +/**
+> + * axienet_xxv_get_stats64 - Fill rtnl_link_stats64 from XXV counters
+> + * @lp: Pointer to the axienet_local structure
+> + * @stats: Output rtnl_link_stats64 structure to populate
+> + */
+> +static void axienet_xxv_get_stats64(struct axienet_local *lp,
+> +				    struct rtnl_link_stats64 *stats)
+> +{
+> +	unsigned int start;
+> +	u64 tx_hw_errors;
 > +
-> +	/* Bound the MAC's RX max packet length to the posted buffer size so an
-> +	 * oversized frame is truncated to a single buffer instead of spilling
-> +	 * across several DMA descriptors (PG210 CONFIGURATION_RX_MTU).
-> +	 */
-> +	axienet_iow(lp, XXV_JUM_OFFSET,
-> +		    FIELD_PREP(XXV_RX_MAX_LEN_MASK, lp->max_frm_size) |
-> +		    XXV_RX_MIN_LEN_DEFAULT);
+> +	do {
+> +		start = read_seqcount_begin(&lp->hw_stats_seqcount);
 
-[Severity: High]
-Where does XXV get the RX frame length from? axienet_10g25g_config does
-not set non_dmaengine, so every XXV RX completion goes through the shared
-dmaengine callback:
+[Severity: Medium]
+Can this reader sleep on PREEMPT_RT? hw_stats_seqcount is a
+seqcount_mutex_t bound to stats_lock in axienet_probe():
 
-drivers/net/ethernet/xilinx/xilinx_axienet_main.c:axienet_dma_rx_cb() {
-    ...
-	if (IS_ERR(app_metadata)) {
-		if (net_ratelimit())
-			netdev_err(lp->ndev, "Failed to get RX metadata pointer\n");
-		dev_kfree_skb_any(skb);
-		lp->ndev->stats.rx_dropped++;
-		goto rx_submit;
-	}
+	seqcount_mutex_init(&lp->hw_stats_seqcount, &lp->stats_lock);
 
-	/* TODO: Derive app word index programmatically */
-	rx_len = (app_metadata[LEN_APP] & 0xFFFF);
-	skb_put(skb, rx_len);
-    ...
-}
+With CONFIG_PREEMPT_RT, read_seqcount_begin() on a seqcount_mutex_t
+calls mutex_lock(s->lock) and then mutex_unlock() when it sees an odd
+sequence. On RT the writer also stays preemptible between
+write_seqcount_begin() and write_seqcount_end().
 
-app_metadata[LEN_APP] is APP4. Only the 1G AXI Ethernet IP fills that
-word, through its RX status stream. The PG210 MAC has no status stream,
-and nothing in the XXV config or binding provides one.
+The write section in axienet_xxv_stats_update() runs with stats_lock
+held, from the stats work or from axienet_stop(). A reader that
+overlaps it would block on stats_lock. ndo_get_stats64 can be called
+under rcu_read_lock(), for example from /proc/net/dev, where
+dev_seq_start() takes rcu_read_lock():
 
-In xilinx_dma.c, software never writes the S2MM app words: hw->app is
-copied only for DMA_MEM_TO_DEV, and segments are zeroed. For MCDMA, which
-the XXV binding example uses, xilinx_dma_get_metadata_ptr() returns
-&seg->hw.s2mm_status for DEV_TO_MEM, so index 4 lands on app[2] and not
-on a length field.
+dev_seq_show()
+  dev_seq_printf_stats()
+    dev_get_stats()
+      axienet_get_stats64()
+        axienet_xxv_get_stats64()
+          read_seqcount_begin()
+            mutex_lock(&lp->stats_lock)
 
-What happens then depends on the DMA setup:
+Bonding also calls it under its stats spinlock plus RCU.
 
-- Without xlnx,axistream-connected on the DMA, no metadata_ops are
-  attached. Every frame is dropped with "Failed to get RX metadata
-  pointer".
+Would this trigger a "sleeping function called from invalid context"
+splat on RT kernels? The kernel-doc above says ndo_get_stats64() cannot
+take @stats_lock, but on RT the seqcount takes it anyway.
 
-- With it, rx_len comes from a zeroed or unrelated word. Each frame
-  becomes a zero-length skb and rx_bytes stays at 0.
+The 1G reader axienet_1g_get_stats64() already uses the same pattern.
+This patch adds a new atomic-context reader whose design assumes that
+readers never take stats_lock.
 
-- If that word ever holds a stale non-zero value, rx_len is not checked
-  against lp->max_frm_size. Anything above the skb tailroom (up to
-  0xFFFF) reaches skb_put() and hits skb_over_panic().
+[ ... ]
 
-The DMA does report the real transfer count, via
-xilinx_dma_get_residue() into result->residue, but the callback ignores
-it.
-
-The comment above says CONFIGURATION_RX_MTU keeps frames within one
-buffer. However, the length passed to skb_put() never comes from the MAC.
-
-The last patch in the series ("net: xilinx: axienet: Add statistics
-support for XXV ethernet") does not change axienet_dma_rx_cb() either.
-Does XXV receive work on any of the documented DMA configurations?
-
+> +static void axienet_xxv_get_ethtool_stats(struct axienet_local *lp, u64 *data)
+> +{
+> +	unsigned int i, start;
 > +
-> +	lp->options |= XAE_OPTION_FCS_STRIP;
-> +	lp->options |= XAE_OPTION_FCS_INSERT;
-> +
-> +	return 0;
+> +	do {
+> +		start = read_seqcount_begin(&lp->hw_stats_seqcount);
+> +		for (i = 0; i < ARRAY_SIZE(axienet_xxv_priv_stats); i++)
+> +			data[i] = lp->xxv_stat_base[axienet_xxv_priv_stats[i]];
+> +	} while (read_seqcount_retry(&lp->hw_stats_seqcount, start));
 > +}
 
 [Severity: Medium]
-How are errored frames dropped on XXV? Per PG210, the XXV MAC reports
-bad-FCS, length-error and truncated frames only through rx_axis_tuser at
-end of packet. It still forwards those frames on the stream.
+Will ethtool -S on XXV return values that are at least one work
+interval old? This reader only copies lp->xxv_stat_base. So do
+axienet_xxv_get_pause_stats(), axienet_xxv_get_eth_mac_stats(),
+axienet_xxv_get_rmon_stats() and axienet_xxv_get_stats64().
 
-AXI DMA S2MM does not record tuser. axienet_dma_rx_cb() also checks no
-per-frame error status before it calls __netif_rx().
+The base only changes in axienet_xxv_stats_update(), which is called
+from axienet_refresh_stats() and axienet_stop(). The work is set up
+with INIT_DEFERRABLE_WORK() and re-armed every 13 * HZ, so on an idle
+CPU the lag can go well past 13 seconds. After a traffic burst, the
+ethtool -S totals and the pause, eth-mac and RMON groups would not
+change until the work runs.
 
-With XAE_OPTION_FCS_STRIP set here, the FCS is gone before software
-could check it. The oversized frames that ctl_rx_max_packet_len
-truncates, per the comment above, would also go up as valid packets.
+The commit message explains why ndo_get_stats64() cannot tick. The
+ethtool callbacks, though, run in process context under RTNL.
 
-The 1G core drops errored frames in its own RX FIFO and raises
-XAE_INT_RXRJECT, so the shared datapath never needed this check.
+Could they take stats_lock and call stats_update so they return
+current values?
 
-Does the FPGA design need a tuser-aware drop stage between the MAC and
-the DMA? If so, should that be documented or detected?
+For comparison, the 1G readers go through axienet_stat(), which adds
+the live register to the software base:
+
+	counter = axienet_ior(lp, XAE_STATS_OFFSET + stat * 8);
+	return lp->hw_stat_base[stat] + (counter - lp->hw_last_counter[stat]);
+
+so the 1G ethtool and stats64 values are current.
+
+In ndo_get_stats64 the software rx/tx packet and byte counters are live,
+while the XXV hardware error and multicast counters come from the
+cached base. A single snapshot therefore mixes values from different
+points in time.
 
 [ ... ]
 
-> +static void axienet_xxv_get_regs(struct axienet_local *lp, u32 *data)
-> +{
-> +	bool has_gt_status = axienet_xxv_ip_has_gt_status(lp->xxv_ip_version);
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(axienet_xxv_reg_dump_offsets); i++) {
-> +		u32 off = axienet_xxv_reg_dump_offsets[i];
-> +
-> +		/* The GT registers only exist on the IP versions that report
-> +		 * reset-done. Leave their slots zero on the others so the
-> +		 * dump keeps a fixed layout.
-> +		 */
-> +		if (!has_gt_status && (off == XXV_GT_CTRL_OFFSET ||
-> +				       off == XXV_STAT_GT_OFFSET))
-> +			continue;
-> +
-> +		data[i] = axienet_ior(lp, off);
-
-[Severity: Low]
-Can an ethtool -d dump interfere with link reporting? This reads every
-STAT_* register, including XXV_STAT_RX_STATUS_OFFSET. PG210 describes
-that register's bit 0 as latched and cleared on read.
-axienet_xxv_pcs_get_state() uses the same bit for the link:
-
-	state->link = axienet_ior(lp, XXV_STAT_RX_STATUS_OFFSET) &
-		      XXV_STAT_RX_STATUS_MASK;
-
-lp->pcs.poll is true for internal_pcs. A dump taken between two phylink
-polls could therefore clear a latched link-down event, and phylink would
-never see the flap. STAT_RX_BLOCK_LOCK, STAT_TX_STATUS and the AN/LT/FEC
-status registers are read the same way.
-
-The skip logic is also uneven. GT_CTRL/STAT_GT are skipped on IP older
-than v3.2. But STAT_CORE_SPEED is read unconditionally, and the commit
-message says it exists only on 64-bit AXI4-Stream builds. The same goes
-for the build-optional RS-FEC/AN/LT/1588 registers.
-
-> +	}
+> +		mac_stats->InRangeLengthErrors =
+> +			lp->xxv_stat_base[XXV_STAT_RX_INRANGEERR];
+> +	} while (read_seqcount_retry(&lp->hw_stats_seqcount, start));
 > +}
 
 [Severity: Low]
-Should the dump version tell the two layouts apart? The caller reports
-version 0 for every MAC type:
+Should FrameTooLongErrors be filled in here too? axienet_xxv_get_stats64()
+treats XXV_STAT_RX_OVERSIZE as a frame-too-long error and folds it into
+rx_length_errors:
 
-drivers/net/ethernet/xilinx/xilinx_axienet_main.c:axienet_ethtools_get_regs() {
-    ...
-	len = sizeof(u32) * lp->axienet_config->regs_n;
-	regs->version = 0;
-	regs->len = len;
-    ...
-}
+		/* Both in-range length errors and frame-too-long (oversize)
+		 * frames are IEEE 802.3 length errors, so fold them together
 
-After this patch, the driver produces both the 1G layout (AXIENET_REGS_N
-words with the DMA registers at fixed indices) and this 46-word PG210
-layout, both under version 0. That leaves userspace decoders no way to
-tell which format they have.
+axienet_xxv_get_rmon_stats() also reports it as oversize_pkts.
+
+struct ethtool_eth_mac_stats has a FrameTooLongErrors field, but it is
+never set here. As a result, ethtool -S <dev> --groups eth-mac shows it
+as unsupported, even though the driver already accumulates the counter.
+
+> +
+> +/**
+> + * axienet_xxv_get_rmon_stats - Fill RMON statistics and histogram ranges
+> + * @lp: Pointer to the axienet_local structure
+> + * @rmon_stats: Output ethtool_rmon_stats structure to populate
+> + * @ranges: Set to NULL; XXV exposes aggregate RMON counters only, not
+> + *          per-bin histogram ranges.
+> + */
+
+[ ... ]
+
+> +	/* XXV currently exposes only aggregate RMON counters, not per-bin
+> +	 * histogram buckets. Keep ranges NULL until histogram bins are wired.
+> +	 */
+> +	*ranges = NULL;
+> +}
+
+[Severity: Low]
+Is the kernel-doc accurate about the hardware? The register map this
+patch adds in xilinx_axienet_xxv.h has a gap here:
+
+#define XXV_STAT_RX_TOTAL_GOOD_BYTES_OFFSET	0x00000820
+#define XXV_STAT_RX_UNDERSIZE_OFFSET		0x00000898
+
+That gap is 14 skipped 8-byte counter slots, 0x828 to 0x890. There is a
+similar gap here:
+
+#define XXV_STAT_TX_TOTAL_GOOD_BYTES_OFFSET	0x00000718
+#define XXV_STAT_TX_BAD_FCS_OFFSET		0x000007B8
+
+These look like the PG210 per-size-bin packet counters (64, 65-127, ...
+8192-9215 bytes, plus large and small). This could not be checked
+against the PG210 datasheet from the tree. The inline comment
+("currently ... until histogram bins are wired") reads like a driver
+limitation rather than missing hardware.
+
+The commit message says the RMON statistics come from this path. It
+does not mention that the RX and TX histograms are left out.
+
+Could the kernel-doc and the commit message say that the histogram
+counters exist but are not wired up yet?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114182947.2908628-1-suraj.gupta2%40amd.com
