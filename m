@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832700;
-	b=dgPj7p6mS3fgg9hb6UlfIO7sJ4f2L0wsdjT/QSpWWenOGDgWWFu7qy20pnyutduuBEiP
-	 h4rG6gQyeqT9voocwelU0F0AAz+R8pULQ4LdOxo7vEgq6ET838BoNBz7UJXEWe/2OxGL/
-	 CFSLVM6zcbtrimlgwws9MXIvaXgc7cdQdQIp8NBwtHfJSPhH9X+4vW9oQ35g0TlubApm2
-	 aPMlyzn8V8NOJOAFEMiqJYQhcRY14qz5F6Foh2BZQ/RnOJYhSWSrweQ6NdL/t3RHM4Pgs
-	 QIKlpvb0Gcy/AmZlcvIxh6OZ6PGnnXjKEzQw9YGhvXBo9Xd+TSuSCG4c6LvK38iVZSw==
+	t=1794832718;
+	b=foeC6bWsjDykmgpxzhtdQkZ/SzW4vBZ9/KcM6SgSEgyXeWNadIf7g8M4wOIucRDcRzvY
+	 cr+MzfFgC/49G/ZyIpC0PLd/WC3wK9LaUszVGKWgVrVBLYGCowJHpT84oHJppc8tyyPNd
+	 fYo4X7qQTui1GDmLqqohhjG538HBl1iB2n93/cOoiOAeIN/2lvJFIjre3o0QWek6n6o1g
+	 FmmKhZE6363kM1yNik91kizt4RzA4g34Tlx8B7rGG+ATQgQzN5Q1tu/XqWj8h2YJfCpg5
+	 PF/Jx01r/MKLViPYBRHPTwblGQ6pm/IitiDHn7XmzpJieF5TRICokuIQTiBMeuSrDZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832700;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832718;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mma1p3Olxpcr1uyRLTYWQ4yU5K7NKi279XVuRQPWbaI=;
-	b=U3ju5hhzw6UZt3/eu9AnMEnpOaothJhPvkEaZxJkB12UbEJCIZp7oXtY24K1Y/JF0VY0
-	 VW82tagaVLqCnMAxe995DXNOsPhWNJbzv8572Yxr0ytybVkM8zytuK0NPXO+UlFj7LGJm
-	 VZl5zMME27tesOgfCBovmGlnmn+Aqaw5MdL9DH478qcwnZhWtLmUZg7jSNh2788r/gbOH
-	 v+1s6kszQVEbTukPRQF44VEJskNI9lIPKVuNRPes57jE28cOA3RE/WmConHXHw+MlroZf
-	 Rqgcqm84gQtCd1eCXD9lB1onc0H0DexPLNKb3LyiCCiQbdQWJngxQEAZ0EiS3lw9Dww==
+	bh=chRPPZEtkQsZpGPK+GYVVc3scG1OO897Sopq3GeE2eU=;
+	b=liV60Kqs50SAigJqxP/JUfnWaTc+uAane8p1u1JB3m2E13OSDgz5fRymKUHWmeOMVtfb
+	 tOvQmBdKb+eWbLAfATfweJjNtoe+0wI7XcVxS03J2M4RcOqFpsamWVSBdmqJ7UiHFm88P
+	 3UYUvbS4zWjoELRX+H9M35Uq3VA4kVN1DUlQR9PYyAZXsRIU2Vr0vFCe17PQPnxA4+alR
+	 PsJnyPvWnaLG+OIrPA2zN5+wPitDs51R1XcPYv6jHuYiGUB875kqGQ7zdez5hICcYY3ru
+	 czH5P+qe596Dl77Y7HoX/5PtpmGRM51SsSerFVJoeauoFVmn+YURgRVkOYVCqN34LGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAH8iWXm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvpSMzdE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A159606A323;
-	Mon, 16 Nov 2026 12:38:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B0C606A31C;
+	Mon, 16 Nov 2026 12:38:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAH8iWXm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB0F51F000C4;
-	Mon, 16 Nov 2026 12:38:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvpSMzdE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B281F000C4;
+	Mon, 16 Nov 2026 12:38:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794832699;
-	bh=mma1p3Olxpcr1uyRLTYWQ4yU5K7NKi279XVuRQPWbaI=;
+	s=k20260515; t=1794832718;
+	bh=chRPPZEtkQsZpGPK+GYVVc3scG1OO897Sopq3GeE2eU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HAH8iWXmLrujVJdakpe7xbu48T+MrfY6/JXWiO+R746WS+eDCVyrgQQ1uRt0rXkYI
-	 Ba2SyeSMM2LdZQf/Git1nC3uGcWrPnfwoxe3xsL1p8oOd8pSVedXFuTFxMjvb9ZFTj
-	 acvBLlyKH/ThnbGez+q9MaYzQ0cg6cxeMke2QRGHfWePJCgbxzz+KaE0/pJwVlzQgz
-	 XzYMuiCEPMkNF/SGowGMdJR5AjhpfHg1U/qS2I28ugWUxrugfY0P3UrTweE+rHNcen
-	 HQKxRtN9d9bw75qjGkYzSEW47KKz8BcyOJEgdwu73XdX1Fy6TN4S9s7v7bjNuTDWHa
-	 1xjFgYpnAf4bQ==
-Date: Mon, 16 Nov 2026 13:38:14 +0100
+	b=WvpSMzdEdd7vZEMxfqXvIxzXkzgXh+I/KiPyNEts7rqi2MOKm0mI/KKJzdv2d84GU
+	 t/2LWzMADvkf9z375s9YTyA1jUxkkRX3fcWijHZVAoV3c0z+binSYsnZvEFJkoYhwK
+	 WJDQj96gdvmLFa3FzxNHRR2aPVG8GLMlKP4iTGfyEWkervIKoA0O7Q9Fe+ZaPh0FuL
+	 TIPb4ZKZ40WvqKqA+gsjVNTcvfZxuisjlzzNrnHBoDpmZIcWtWAGQa7wi5020GeNyJ
+	 6Q8lnWJvj5wfYjvCcORMzL70C0qXhSPyepj87pdinW7H3ZmB1Tj854QV9BCM/wHVEl
+	 UAMJdY6YzVPMA==
+Date: Mon, 16 Nov 2026 13:38:33 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Olivier Louvignes <olivier@mgcrea.io>
 Cc: Lee Jones <lee@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/7] dt-bindings: mfd: x-powers,axp152: Add the AXP2101
-Message-ID: <20261116-foamy-honorable-loon-d441c4@quoll>
+	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/7] dt-bindings: power: supply: axp20x-usb-power: Add
+ the AXP2101
+Message-ID: <20261116-furious-cheerful-ferret-cbc7cb@quoll>
 References: <20261115171150.64431-1-olivier@mgcrea.io>
- <20261115171150.64431-2-olivier@mgcrea.io>
+ <20261115171150.64431-5-olivier@mgcrea.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,17 +62,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261115171150.64431-2-olivier@mgcrea.io>
+In-Reply-To: <20261115171150.64431-5-olivier@mgcrea.io>
 
-On Sun, Nov 15, 2026 at 06:11:44PM +0100, Olivier Louvignes wrote:
-> The AXP2101's interrupt line is optional, as for the AXP313A and the
-> AXP15060: the driver then registers only the regulators. It has no DCDC
-> frequency setting.
+On Sun, Nov 15, 2026 at 06:11:47PM +0100, Olivier Louvignes wrote:
+> The AXP2101's USB power supply reports whether VBUS is present and the
+> input current limit, like the AXP717's; its registers differ, so it gets
+> its own compatible.
 > 
 > Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
 > ---
->  Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+>  .../supply/x-powers,axp20x-usb-power-supply.yaml     | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
