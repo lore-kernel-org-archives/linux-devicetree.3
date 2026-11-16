@@ -1,47 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823363;
-	b=PaMAjko7PIFNgODlv2anlc1WKSZ7ph+1lAJekdSS4pejkv1bx2caRZWlEDGLl4xMwP75
-	 oxnSjpTm3rkbdlhsNQqfVo8ifjkwbwdzqo99yBdK4DX1PN/rR+nNCC2aCWsmQ/XUGRfOB
-	 u/64pgmz7fyesKaKjUgAZZhlwBxvNpQo9sn3sTf8MEqHHudmuq6bl8aQ78izMxi1kNt5a
-	 5zRHne/rQjlf/MQoxP4fraFbr1Gq2Qpi/UzQTpQo3mIepe7NXu+x9zCoP0YO7QwhMcFpV
-	 yF0HZP4cfwGMYp/xMXlmMZt2Jaw4PZiY+AWhMuRYeSnGyvUckm4Dnv4nVYX3j+bkz7A==
+	t=1794823494;
+	b=mhxqlzs2PU6912vfBXd5YYH3e520F79yWycXw9Cb6eoveXzqU/CzVWd/CSfbXr2FB85P
+	 iGx6RncqsiJUF3UqOcM/95non3677d0GdhmWmER5VaPVD5IWjGyY/Bgj5fxoJ47XT5GjA
+	 lG+xaak0y+L+RlkHLYaleaTrNTeU68Q90Qw9RwhVkrjJdvo2Xejznv6slBDlS4dXDFpH5
+	 OaYa2eyCoVRx6IAGMHL05uPoKztPkeHumMAoFF7xHTNNPO2EdkRQrY7mrIniDiaf51v67
+	 Z5ryvc40arCqwixk1fbrS12DOr4JtkV2SruWChddlFkAdR7DfQjxB3jcNRgC3QJozWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823363;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=g9A9fFKt4hlWoNBSd/lO5sei5PNXw6/JL7Ov0jCEcNA=;
-	b=h9nt2PuUrUzSwWmbJyyWDOvExTaECERR8qfYdL3GoivX6gC4VHW9ZLyh/kRbVkLYhtqp
-	 3UmNxZhfOPL04FlBDqDkBCUEMqnXZMKtrIxQr/g9mpriEuspg4hLli5XoQFnBwL/d+p5d
-	 fgZLVCHP2eIwdrIkiaNUwWLQMQGGSlLmOGEn/gK8PanZYOQEzgxiexVfCm963S/YW1bIV
-	 xTtdmLkQ2wMhRQQ0sLMJLswC5/+rTnUKvmUP1V51E8TlMTIT5sizSoKoerU8HkuTCPOXb
-	 mYCFQYslEsVdUG6u5XCB7amxvv3FYii2c9TTAaUNOP+H6kaA4PYV9Sm6TpWXpMjS2TQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823494;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=nWbqV/2GgvrCv1bHqZ+LVKd/sYtL0RqidrX2JSrXj94=;
+	b=oAawlL0aX7kcQhUjECZWSae9FdgA5m6gR06YuOXNcuvT+RhBTXrX4g12kD2snm8ljJqZ
+	 cVy6VlATuvW8lYbOODlQLSqNTnbpOFJJdXfwo1jraXLLhjMRd08g7JBA5er0jsSxp1bCd
+	 q7HR46ByyBd/+/OLR+932PBXS4Wu661e1Oqy/w8Cw40rFrtDPP8wDKlrj1LHKL7cLkklI
+	 89PwTXM0h49ctRPABtWFOGIt78QcLSOCb68lvYdx34M6g5D8O6E907Oq6pjTxeeRNCaeK
+	 no0mFNUDJBF2fyoWv8hPoufnYzdQBXzrVo7YjTiUOjQ843wFbpTFqK5OQyGNVOyT30w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fsOOclRg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmGCEJUf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A924606A329;
-	Mon, 16 Nov 2026 10:02:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49F7606A32F;
+	Mon, 16 Nov 2026 10:04:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fsOOclRg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ECBE1F000C4;
-	Mon, 16 Nov 2026 10:02:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmGCEJUf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E36011F000C5;
+	Mon, 16 Nov 2026 10:04:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794823362;
-	bh=g9A9fFKt4hlWoNBSd/lO5sei5PNXw6/JL7Ov0jCEcNA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fsOOclRgqdbSvK5I6e05waMcwSkG0Jx7cumK6ZecpYv/QhpTZ+NJmn7LrJb4H1cad
-	 YaExsxw/zaIMLvKWeSOTNm0T6EHq6cnePN6UY4bCzeVRsdnYislTv/NpFAIOEnVwbg
-	 0Rk5JyEPV966Wx9T2nUZ9Fh135KXVcT22L9FqUPrK1azvSXcYizS11ggehi3w94tZO
-	 h3CE8WYANvxuP1yzQ1zRZ6YDUyluve39j0OlXxm6oXXgLZO8jzKOE3kTd3VDAj4/Es
-	 t5UWz4vGvY2h+txmbVXWjgH7GgVFQRbXM4tLVOHFYPTLoBh0PyuADosgv1xCnzN/6A
-	 wxXVPezwKq6Kg==
-Message-ID: <a7b901f4-59d1-4671-bfed-0d11f9e505e2@kernel.org>
-Date: Mon, 16 Nov 2026 11:02:31 +0100
+	s=k20260515; t=1794823493;
+	bh=nWbqV/2GgvrCv1bHqZ+LVKd/sYtL0RqidrX2JSrXj94=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=SmGCEJUfFitU+d0elvKkqVrw54HlBbcB29j78bP0CsUwsAbWRPluoXK30w+hamf1Z
+	 02iKBkoP1WFXp1jrAkpJzv4jLBiLuaArvLeoKfbySw2ab9PG6uFjPCwc5Rmhn21Eyq
+	 sDctT6Ct086veH0ivfHZSjabY7totIx8CNqZr/IXMR0SRWZex9lqDFQTfpqr3+Axkc
+	 7+fbaM/FJYJpvx5jH802a3RoZdU6SOU9+fQCDdVDmpn+ToYavESLd4RsuU8TdEkvpJ
+	 hgbB911M+qmNDO4+x4xpOHuPqEm+WgGRIP+zWX8Vpe42SfuMPTW1ZdUIZ7hHMpVPdk
+	 aquj6h/KexujQ==
+From: Srinivas Kandagatla <srini@kernel.org>
+To: Amol Maheshwari <amahesh@qti.qualcomm.com>, 
+ Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
+ Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>, 
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>, devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261102-dup-sessions-v7-0-03f06c014e78@oss.qualcomm.com>
+References: <20261102-dup-sessions-v7-0-03f06c014e78@oss.qualcomm.com>
+Subject: Re: [PATCH v7 0/3] misc: fastrpc: fix ADSP duplicate session
+ creation
+Message-Id: <179482349066.14925.18435181444934097603.b4-ty@kernel.org>
+Date: Mon, 16 Nov 2026 10:04:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,82 +67,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/14 RESEND] Add clock support for Exynos8855 SoC
-To: Raghav Sharma <raghav.s@samsung.com>, s.nawrocki@samsung.com,
- cw00.choi@samsung.com, peter.griffin@linaro.org, alim.akhtar@samsung.com,
- sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, conor+dt@kernel.org
-Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
- pokala.reddy@samsung.com
-References: <CGME20261113104829epcas5p13695795bc337b89816b05eec610a0dba@epcas5p1.samsung.com>
- <20261113110612.3265841-1-raghav.s@samsung.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261113110612.3265841-1-raghav.s@samsung.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-
-On 13/11/2026 12:05, Raghav Sharma wrote:
-> This patch series adds clock support for below blocks
-> found in Exynos8855 SoC
-> TOP & PERIC
-> PERIS
-> HSI
-> USB
-> There are many other blocks, for which the support will be
-> added in a forthcoming patch series.
-> Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
-> ---
+X-Mailer: b4 0.14.3
 
 
-Thanks, entire set applied (even if b4 thank-you letters show partial).
-for-next will be updated later today after builds.
+On Mon, 02 Nov 2026 14:01:01 +0530, Vinayak Katoch wrote:
+> For ADSP, only a limited number of FastRPC context banks (CBs) are
+> available. Each CB supports a single session, which means only a few
+> processes can run on ADSP simultaneously. If all sessions are consumed
+> by fastrpc daemons, no session remains available when a user application
+> starts, causing the application to fail.
+> 
+> To work around this, some DT set:
+>   qcom,nsessions = <5>;
+> which duplicated sessions inline during context bank initialisation.
+> Upstream feedback indicated that this policy does not belong in DT and
+> should be handled at the driver level instead.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/3] misc: fastrpc: iterate CB nodes manually instead of of_platform_populate
+      commit: 81b3908cf7b9b19a8a47521a18281399c55db889
+[2/3] misc: fastrpc: move ADSP duplicate session creation to the driver
+      commit: 112dc91edd51e964351513d876c2e5a63cbe980a
+[3/3] dt-bindings: misc: qcom,fastrpc: deprecate qcom,nsessions
+      commit: 641dd7dd0f68dacb8e972aded126887c17d6cf37
 
 Best regards,
-Krzysztof
+-- 
+Srinivas Kandagatla <srini@kernel.org>
+
