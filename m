@@ -1,62 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794866218;
-	b=hum1PSt8O7RhubOn1sHb6eTZ1OgeyXsqkFW5eO2oRw4VhW9fK+M+Ui9MT226uM38707F
-	 JYkGpc/Oe3BgaSxfxYr7+UB713NU00qk3z8apc/No23FAYSwmLypsYH7RHP+NV5dxo2Q+
-	 ZdQhSSSN9cphlhyCUQxb0yCZjpd7P50YAy5ReATtl9nA1fmdlVq/LPLt3CcDG9gFDkq5U
-	 vULeEzTFnOECdutP4dwO73bQPJvvzKkPy8JLy5M1UrnlMqNshK9nX2WtGrVApbNKFtA3D
-	 n9P28WQn43a59riH9I3AbRdBkjaWPKP9KVq8A+Kb4oMRrVvge9xx5oo8OG4RSbsbVWA==
+	t=1794866434;
+	b=gf2+a7mPxnxTd/ORFlA0VFD2Bwj6NvENH1q78Z0XoxfzW2KqSaG76zlkrN12LyhqhAY9
+	 S5+VlVEUNVOXTvOLi8Zwu6qjaR90r4joL90u5VKuSBX88SBFPp0gCQnBs6eSDkkd8WW2y
+	 JySg+wXQRtRrCDbrFPKjVacaDcnrBXBF/MZNCNgD8WfpJE+z5dex3fr4ARgAGnQPNpjh9
+	 8cHynR3oPeG7HB8W9SQj5KufGXk74QHGbz7aieAbq5bNs64c2/nDX26rj8rainnzTI9Z1
+	 8Ze27Nu7eYHZOlAXao8cJpebK001I4LwM3JDwf4bocxa+CN4KAd1hEiUgqva12Y16Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866218;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=O+Af/O1KOS+3yVT+ztxCO4Vlx6y9GiaWxCfrUb0JAjg=;
-	b=Ka6WQlrJU/lRwSkPm65tAgAHMIAONQJNT/k833eGrwbPWv6CgnpmtcaCWD5EscIFmnrf
-	 IhRbBZZG5j3DKZp3/7VzzTETgkAJdXGyvsbUzCWqD4aod87Oca35uUxWopro+ZbxE6PUD
-	 +qunWA85rEZZAZ/AeF5XDJm/KYay9aOc2z4Vt726ZOkdGW+wnQX6jbA1NK+GTJajwVH3h
-	 TFb+1ByBhS+r7UUNMlDogeGnyRJNZ08x6p9KQZx+pN/CNFjcI2v6tV11nRjE3V9jLh0lW
-	 EunIeYQLCpT2TXIybUhnr6pZG/zdBWN3CVM7YCBwip65i0hNPYlXJtRVM/YeFm5pWhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866434;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZqVAm41tblC8KUx+ymwmm9M7gFeW83F6GB1B3bf8apc=;
+	b=dVQkGy8GpfyffwbNUipTEjrwZ8s/glz4OVuL1SbWA6RsOoToI3qeGgOKyC/uRoii5pDQ
+	 k4lzKyTSbQoT9Qi9a4mLKo/erp9b2x6Fa/CZHz1RJ4PjMz9cwvZ5QFrpu7cH1GCzKpkzy
+	 8H5A6iTKynmEIVOMz/zxCz82sZnupxo4UTW86Ez8n131M/LeRqjeRlL9+x7Q1wvsBxq6c
+	 +m8ME6LtwKvW1f0GLwQUvPTiCcxaZdjn8Tz0HkABnk+FUIheUiiP1Jlnqb3W98WqkxEmG
+	 42wGpuMRQGLy2uuLosB7McsImUYm+Z4P5xIwbeXzMqjvGKbeH6+TRzy6AXFtTI9q3gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dds2rHjx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=irxqm7Hg;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF20F606A31C;
-	Mon, 16 Nov 2026 21:56:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA9A606A33B
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 22:00:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EA9A606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dds2rHjx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29EE41F000C4;
-	Mon, 16 Nov 2026 21:56:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794866217;
-	bh=O+Af/O1KOS+3yVT+ztxCO4Vlx6y9GiaWxCfrUb0JAjg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dds2rHjxOJshfzf88zP+wXAMH865aEz0gH9Dv2+/Pm7lD7NjXKocWXlz148tY5D+Q
-	 R6lPZona4Kf3mTDMPvr8+lx2zr+NUnViBQLP4MOWUOEzHhsvkqXKXcRbtE8W5w3bTA
-	 ktvSZd5WkkpDO/+Hy3Tw9wj+IjDNduKaGkA9jwuvxKxHhOt3r9rJt62kyh7NU4kFq8
-	 jnLmiCVh2E4NdLx42CAHiFcYa+S1dHNelphRxgzU2cXaKN7wN1jYzibJY9tdLt8RV1
-	 Vp0TRvVenEVPvJfTfK+F8dhCBF/e20cg1t0K5b7jUdHBMPspCiOSpRJzcNkiCozDoG
-	 nfdITYqRlskKw==
-Date: Mon, 16 Nov 2026 15:56:52 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Cc: Anvesh Jain P <anvesh.p@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: glymur: Add EC thermal zones
-Message-ID: <avt6-driUZyXA_9N@zenbook>
-References: <20260928-ec_thermistor_support-v1-0-d9c1bae4cd0d@oss.qualcomm.com>
- <20260928-ec_thermistor_support-v1-3-d9c1bae4cd0d@oss.qualcomm.com>
- <e77c0255-6299-4718-aaa6-04f4366fe749@oss.qualcomm.com>
- <5d84ee1b-a765-4d6c-ab01-ca1a06a0e3d0@oss.qualcomm.com>
- <c3de7659-726c-4fbe-989e-148bcd13bc49@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=irxqm7Hg
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso25619565e9.0
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:00:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794866431; x=1795471231; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZqVAm41tblC8KUx+ymwmm9M7gFeW83F6GB1B3bf8apc=;
+        b=irxqm7HgplpcN+02tbKqEnRQeFtC7Ge5/DIoxIwH4O6Ve1jM9FFI3qn/zjcV6Xm7jC
+         t4R5mH8o1QhJITlPinuIUXzYvTsoQXhJZD+9qelXZLRkj4IXjV2s0vvLW2ClB7B8jce7
+         eQdnaIli8BZcvDSYFXYD0SRcmL6OgJBYVjzY/FNJFmNPpyOmdNa/oXvxKAhqIPyedeKq
+         o8xqMGBvyQnA+hDSEbzI4zpb3KWHK2gaTQ2NxA1jQGhZXHFY9b2sHFqdnOkwK2t+/DC4
+         t9yavAvb3b9Nksi+6KeBKJa5TAypibfDXyjG9Z8F6IaHAhZMf/rmDFyoB5ngTdjH2dHl
+         d1Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794866431; x=1795471231;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZqVAm41tblC8KUx+ymwmm9M7gFeW83F6GB1B3bf8apc=;
+        b=KdttyRggebGXvBwJhhFCOHgfa9eg5Um9XdUOjqzlgCLPJ7+2jM5plkMCkr/E3PAWDR
+         HRY6F1Q/JVtj1SzuCgCyFEOZ2DmGrO3IpzX0L73YTEaU1PzCihC6A5MS6sWbIpz66O54
+         7aTjmCJZqaDVPE7VO3nTdvnNR3wgxZzwvnH66NEudt/Kff7G+ymd7GOCJKWhjXJBDF7y
+         f41IhMrXvW5DmFUzF0jRwjGGSgctxAlx8b0HUUjDS81n+J27p9IsX6AdSrdOxWIvv3vE
+         3nalaI1f6GFA52DlrYdkAAAn4MFwMl3jQqar+RHs4doahaRvoXJ03P9TYfFys4zA9FPC
+         TfKg==
+X-Forwarded-Encrypted: i=1; AL+hErHEurS9R0DduP5/gkPZKACMzuXiJamT2GPZevC/WWvVq+P8NlVXx6uADVpguCe51ci1fBSUZ9ZqOHA4@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rNLUb5Lh6cpQgW7gfSQ7PZ848OniG1OjB9VCHucso5X1xuPFF
+	LKSp/VhiK+WZDV4z2bpYdPfK+Ttr4L/Cr3RsQDb4xqYYJxgCPT/G9pbi
+X-Gm-Gg: AYBFou3EUY34Bnia95vAK86Xkz6cQIG/ZVHs92PYBtDrDTX4H27IE6+e/93CrNAZysM
+	NQXIFrYiEUVBfb8TJJfkYykEet5+41Q7DwCVMepM0o1Ug92witHrI4gVsgL+OHeEB6jlVD5igLX
+	YGp/orBdUZkQqe7G/6AO4xmutAQSGWv4NON0G++Gk8yvQoNbCjQGlY2qDQeSpzufBQcLCA7ZBax
+	j0eKp5ejLdiFYZpnYeUMjD+0qIP9anqidgWjo2n/bMyjhanSzAmAFgjyY//9b1xTVDhRSsX5rqz
+	P016cZ6qUDYbBoa81IpfbEOHCSjIe2jcR/ngTj1XPrc8OhgSfD6iLUKmFSeBOpB5iUBOWiTjPF4
+	KGnDcAaDKw02KDsOvOOFPQjWLtEXIn5hDo5lzCh27O5R8EceWPfGtZnTZ0+C/+scagGrbP5j00C
+	E3aTDGkoyUhY+xqC5KSnRCop0NlDwVb2SZj5rJnIDQ+5z3ceZDiO2YojuoTADrzR2RrWX7r1VaO
+	Ou9znGOjEK57wF8O2FuJ9XLYEox+seXmAkisfcCUVg825VSgDpz7cATrwpsdqJBg+tX0peO7ozG
+	3Pxm0d6x6Z6Pw8WunpciQ0Gxr54=
+X-Received: by 2002:a05:600c:8b34:b0:4a2:1364:252a with SMTP id 5b1f17b1804b1-4bb559f7039mr250487985e9.3.1794866431031;
+        Mon, 16 Nov 2026 14:00:31 -0800 (PST)
+Received: from flare5 ([212.58.121.92])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7813fa23sm25960175e9.2.2026.11.16.14.00.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 14:00:30 -0800 (PST)
+From: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v2 16/16] arm64: dts: qcom: Add Samsung Galaxy XR
+Date: Mon, 16 Nov 2026 21:59:55 +0000
+Message-ID: <20261116215955.3784340-1-lightofmysoul@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <sashiko-outbox-217738@kernel.org>
+References: <sashiko-outbox-217738@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,99 +102,12 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c3de7659-726c-4fbe-989e-148bcd13bc49@oss.qualcomm.com>
 
-On Mon, Nov 02, 2026 at 04:36:16PM +0530, Manaf Meethalavalappu Pallikunhi wrote:
-> Hi Konrad,
-> 
-> On 10/29/2026 2:38 PM, Anvesh Jain P wrote:
-> > 
-> > 
-> > On 10/20/2026 1:33 PM, Konrad Dybcio wrote:
-> > > > Add support for back cover, keyboard, and SoC thermal zones through
-> > > > temperature sensors hosted on the EC for Glymur and Mahua CRDs.
-> > > > 
-> > > > Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-> > > > ---
-> > > >   arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 45 +++++++++++++++++++++++++++++++-
-> > > >   1 file changed, 44 insertions(+), 1 deletion(-)
-> > > > 
-> > > > diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> > > > index e27c697e3170..571c98124a40 100644
-> > > > --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> > > > +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> > > > @@ -594,10 +594,12 @@ &i2c9 {
-> > > >   	status = "okay";
-> > > > -	embedded-controller@76 {
-> > > > +	ec: embedded-controller@76 {
-> > > "ec" is a super short label, perhaps let's spell out
-> > > embedded_controller
-> > > 
-> > 
-> > Thanks for you review, I will rename the label to embedded_controller.
-> > > [...]
-> > > 
-> > > > +&thermal_zones {
-> > > > +	ec-back-cover {
-> > > > +		polling-delay = <10000>;
-> > > > +		thermal-sensors = <&ec 2>;
-> > > > +
-> > > > +		trips {
-> > > > +			trip-point0 {
-> > > > +				temperature = <90000>;
-> > > This is *really* hot!
-> > > 
-> > 
-> > The 90°C trip value was suggested by thermal team(Manaf Meethalavalappu
-> > Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>). We are open to using a
-> > lower value if this is too high for the keyboard and back-cover sensors.
-> 
-> These sensors are intended to be controlled primarily from userspace by the
-> thermal governor in thermald, through the powercap sysfs interface [1]. We
-> do not plan to add cooling bindings for these thermal zones.
-> 
+On 16/11/2026 21:40, sashiko-bot@kernel.org wrote:
+> Does chassis-type = "headset" fail dtbs_check validation?
 
-I don't plan to merge settings that will cause physical harm to people
-who for some reason doesn't run your userspace tool.
+"headset" was added to dt-schema recently:
+https://github.com/devicetree-org/dt-schema/commit/bcb597bbb0c988b490fdd6ed08d023d6ddc538b9
 
-> Based on discussions with the tuning team, we agreed on a hot-trip threshold
-> of 90°C for these sensors.
-> 
-
-Please make tuning team that the user might/will bring their own
-userspace, with or without this configuration.
-
-E.g. on my system there doesn't seem to be anything called "thermald":
-
-$ pacman -Ss thermald |wc -l
-0
-
-Thanks,
-Bjorn
-
-> [1] https://github.com/intel/thermal_daemon/pull/614/commits/7f3dd62353e039957e52eeb40c67ec388d543ebe
-> 
-> Thanks,
-> Manaf
-> 
-> > > > +				hysteresis = <5000>;
-> > > > +				type = "hot";
-> > > > +			};
-> > > > +		};
-> > > > +	};
-> > > > +
-> > > > +	ec-keyboard {
-> > > > +		polling-delay = <10000>;
-> > > > +		thermal-sensors = <&ec 1>;
-> > > > +
-> > > > +		trips {
-> > > > +			trip-point0 {
-> > > > +				temperature = <90000>;
-> > > Likewise
-> > > 
-> > > Konrad
-> > 
-> 
+Stanislav
