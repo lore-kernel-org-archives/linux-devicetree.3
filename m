@@ -1,108 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794848159;
-	b=pJQCmmsHsJkah6j0S5NxPMmLYAqzimCOixa+Pr1KV0LkzVtgMJQDvhSXSLF4DWoJNkf9
-	 0epinkDsQRSUeFp5GicJZveuhg74T2hCuNFxpc4Bf6MUqGGLRsJWR6zClT8By2HhD3tK0
-	 JG4b3oHbgtI1Q/uhfYVkdOa/xpuATdCFPtkk51SxW2n5tr7mqIo9snXm+BVvWSfn0pXys
-	 KegjaH4Wzo5Ox3jz2AH1mTT8SkCGs0bp80w1amflcq7E1Bd/y2zCDSTo6MYgxluWFuY5W
-	 oig6+yINscP61tvyd2cV/lhV/Mmprn4aO9NcrnJ3JR+UhmnJhRPdyVkg7nqQo6uKFsw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848159;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=b5jmQ+tC0YavRr54vIVtQOf5BBZ6aEk4FcFpuCpy7PQ=;
-	b=yeXNpVNOvqKEL67iTUw+DxBnljmOh1bXK4NA5Tv4rfuqvsNSDYHGHSYMCCD/nuySd+/t
-	 N94kllF3hXYbnngeBp5slDsOjw+UN9YLlGRlIv7OSErDRkCvZiTeP8u0oEZ67KQXUNbrR
-	 NyBUIGBsAcs58qlU4BvL6Fjor3UeB+K+ikKo5p+nsnO0BmbZtsqWt9uPbKcC2rk5rfAvR
-	 ZMbbDqQYZyZ89hPSDBgj3WSZnCDtlLevi8dFp76UtIILeB3SKrSIYdkMmjT7aCbTZELKx
-	 eOF7n5E2E88CK46Ov9/R8CL4ZbkjegNJRVHOcfXawRRPVfv/c7rYQbUcrOM1wPjH+6g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Q4A7PA8H;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.7
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010007.outbound.protection.outlook.com [52.101.69.7])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794848229;
+	b=0P2eraCKUBahqu5FiGG9bLNAbmM+y+xlpN6kjWOvndmo3D9ecE6IsPAhIbJS0JTdjiF4
+	 oHaliyHrGfrHNFggU8fs9cmTN8Ed5lPqC0VuI6A7ETjd0/kQR44hCrtILug6bY/z4uH39
+	 lRquOV56scC/FDn9fKRfjHG+DVyEEJR8DWPnOtu8GLrCFX8Pka1j3NOj6TbYrEvNqWwxT
+	 nG8xkpPeM59uTPd451yA4JbJh9pkI5tUkqV95jA+h2uiLPO3jE5q0SajAM1UvX/Sn9/Ss
+	 bQIzcsquvxhVQ4BYLTA8H7PIECfImWGpdzEfSof5jvDpTyE7h8XmThpi9jQlRAi75cw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848229;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ihPcbJ+Vb6nHbO8tsEJQxsCuMD2idQvF3dKfV9eNT3k=;
+	b=ipi3dwg8TpvwT2zQCXo+3UDVamzezCEAyX48iMIecpA8QQY9HiU4qB2/iav+HG03dKly
+	 CQdYsM86S3euAjcqadXFYqnKrNMNzw5C/I+0u/XEQ/DlyZXnLg7WXWqSxcrQAe+N9qj/n
+	 Rggwrgc7Jp5jsvUyrNMRL92DKH8Mk3E7RxkgPw/2SztQRYfDQMc6zpGJkixQHwpae9OOM
+	 yb/WWcQKHW7cP0FK/1q9Hgnvt8KcQsOXS3avYaqyWKr1txJRCZzHOJyEAFgQ5v3Ga7W2S
+	 ZcfrqJmJYZd8hXOrFX13AcNUICEkzg4kQpm0NxI+6NQWJ61mXTW99WnzH3t3FUCAmrQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Yqt/tYi5";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B317606A32A;
-	Mon, 16 Nov 2026 16:55:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B317606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81500606A338
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 16:57:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Q4A7PA8H
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RhO0wnRNJ3sDlFUG3wKMIMUlZivkMRvjmWXQyOKYJ4ibcaiFXYUq/3nm5Q75eeGeLsFg+jg2A1CvKt7GCtH6flpVo/bcbGXRhFSCDcn3STyzpbU2ef4Ctpux7fAqPt60itePriGeDPQe0Am7uVWAp3pOMcpTLQ1mBCR2wCdho173Eo1H2aWtxLXSubUw8p2T4rD6kulnueaX2j04jWOk8QJYrxa3VQx83UdPUIW5GxfBJhqdEBiGkyLtpLE9iDpTZyyjb0YK3fEAA9+vrnB/7sU5KiklZY63WDTcVf5fhNEaOIWvhMSp19jMkY1BH0UVZq7DpyDffj/5DpYenLr7gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b5jmQ+tC0YavRr54vIVtQOf5BBZ6aEk4FcFpuCpy7PQ=;
- b=tXSFoRJlqBhUBuORwj0fLXeh743Snzp8UZomoe/yqRo0iq83GxIw/0qsRXWbpSuABBDVeC4ltYmpHPs6Z0j3eqVMtpu6WL6Z3TKB+xRIQBIK9RUcgceqtyjaaciY3P3DUBJp3VXsidF6OqfNwflK9AnDfJXC06LmjJcnjxZzgRNBlT9wSRB8NSe2sHK7P+l+f6W3VZ6qqZUoiXJR0LD3pN2MrEv6kDQbUt+WEC8xBRFSY8wURCvkP+CzRNjs6+NBNVJ/1f9NaUsgeMj89ytWTzlAFOkixu3xrvkCgNe08mHGtAsV2hlZGN4WACW3aTwKbcoLScSt4Od83dXJPzpWGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b5jmQ+tC0YavRr54vIVtQOf5BBZ6aEk4FcFpuCpy7PQ=;
- b=Q4A7PA8HR/071GfIxTnB3Clh5NpgF/ZOlAtE8XmP+Z7ueY7SyE0YrqAQGUWAaWVcYsLa3J0FAZTf+fBvupbkKbR0sq5Dhh4LpPWq/3KH3EV+R4kyMfdFmwbfI0+pUn2JOwE1kHM0FO4gGoKSDfsq3ESW83yQErj8hXqPSq9qID4gYVsOmbel7e/NokXWldevgtXSzNhj7a0Ui0tshvgcPUlWmTu+S66SXGZA91rgtdx/lVanlXEyXZVi6hlN1lEWAnHcbO7SUYCMUTj4IK8bUQC1Z2J9Wv767vMvDhzhcmYRVQKC+mFe1J/BbSQZ5ASLPCAShbHH3LXTECOylkOeVQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PAXPR04MB8349.eurprd04.prod.outlook.com (2603:10a6:102:1bd::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 16:55:55 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 16:55:55 +0000
-Date: Mon, 16 Nov 2026 10:55:42 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v7 3/9] iommu: register the DMA channel bus for IOMMU
- notifications
-Message-ID: <avs1jnMrYjHkQss3@SMW015318>
-References: <20261116-edma-iommu-v3-v7-0-32794ba8efbf@nxp.com>
- <20261116-edma-iommu-v3-v7-3-32794ba8efbf@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116-edma-iommu-v3-v7-3-32794ba8efbf@nxp.com>
-X-ClientProxiedBy: PH5P220CA0008.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:34a::6) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yqt/tYi5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1747C1F000CD
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 16:57:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794848229;
+	bh=ihPcbJ+Vb6nHbO8tsEJQxsCuMD2idQvF3dKfV9eNT3k=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=Yqt/tYi5+ZGwIQFMIV16w9kVWjuuv8MPq2gLuQQHHz864LGcDoIK5AnvfxWMjI1a3
+	 AIZmsae9+ORpJ6HXG/NF/pI6pZTpqaKqyJnkwCcWmRhoifXFzHDQcBz+tJB9jFPDB3
+	 S6VzaZtLFYnY2b5cVZTOeYK9Uj9QBUpxivUnW+S+OCYG1iJAkHL4NuMcP9eiS5UWG0
+	 53YFJk2W+922LiKMEfWkvd8yQBj8w4b2HKEyzBONpFiz4MwQIxD3JGwnEO41NLHSsx
+	 ae9RiOUadY8rIXNciX2tpx6qgr6N4dZvIZqlnl+7hVyvOyH+lWMYqqy3gcxXZhfisw
+	 1XyI1A0ZYESiQ==
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3ad5529ae64so35499341fa.2
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 08:57:09 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEuINk6Q7HOuIF8sOvxqc/fGZQkeAgWYr+h7BhOsJG+z3OaYKbhMSHF5GsWsQPsV35GVvUPQ9PGJoC9@vger.kernel.org
+X-Gm-Message-State: APuU4Z+HwNh3gGuyvwuZLnfXMIxrj8HVhVbZqsvhQg3Sr5JC2zhJylp0
+	kV/Bz8yAGI/KYTXfrH0ZVSj2szishUmUHturHdqkFmpqYifCsZFVfePPBu1fDp17ShO8b9Migku
+	tplrML9D3PvEZOhvIVRIznlrmTGOcIq0=
+X-Received: by 2002:a2e:ac0b:0:b0:3a9:abd6:1acd with SMTP id
+ 38308e7fff4ca-3ae2b4b5d4bmr33782431fa.6.1794848227241; Mon, 16 Nov 2026
+ 08:57:07 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,110 +59,200 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB8349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 119da20d-6b64-4518-0c92-08df44027a9d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|376014|7416014|23010399003|366016|22082099003|18002099003|261009223027099003|4143699003|56012099006|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	lAS3hJTm0k+U9BC9qfaDDoOM5w4ciN0A1Gs4bh0RttiouLeDPk0QJWJrO+yvyGacHR/gaKyNWLELeyVRO/YAO7H1YBOiIAbVT00cd2riolj1W0b1RdZ0VkIwsFjGKy6cB52yIkRw+KlHpcHxMbA1S5472R+HT4M4VSPYwb7m6UcJ9Ml5Iqk6iq+uxXtMSNxWhosJPTNEHUrM49aNq8GRON+fbHW8zyEyXW6ICply4n6A0ksrylaJdKeUdtm/BUYwx0QZ9P/agvtkQZHKYcSv2fNoWF7/uPqTNluYet45p48zQJkadBCoCluHR5u1XbDjdhn+BMw5ZtcbKoQdHIqnjWOBYvxRY1BTkcZG28mp4LgDL9MvTSdlH2kL9G2jM+wMG1blfzwGz0WtVXG2Wr9LnHlxgYkWtzu3JWk1ONwYpFUg6EFfoCCbiy9mRdMJSWf3X2wpOoXYn5NCAM/MpGhPLqqCkHq45VuZZbcQyhGhpSvmgMEQpVLL/CLOvU39h3nYD2xjSX6+f2PrAy5LCkUsBpJxuSdCmP7XzuWuLr9EIexEY1ZCBhYonuIIjS1rcmlHEjUzm4qKBpL7D79Idb0/GUbcIQ59BYZgBIRmGVR8dLYZbKwmZZtOUjP4V9gHR7M5CdLHOD4/Ov928KzizmxnzucXhn/g9Rug9J2BTdmM0Xc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(7416014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(4143699003)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?JGgEbNQbgvQ81CtOmRcJ9ORJpgnTNh0aIpVwgSid8NerR1xuXR3e8hO1SRvA?=
- =?us-ascii?Q?XfSeOdrS/q6IeEbv3NP2T3zx8LNtrf9mS6jArOQj/uD5LZImhFIYIHmpJBON?=
- =?us-ascii?Q?JFdpg54DCiFHSmWe/yvplTA8RZ1RzjfNfuWLATbFckdohJxuM3lfSM3hTfPC?=
- =?us-ascii?Q?DwwVJNaw5XSVy1/h3KTfOMofzahjfCJ/iemWgHcAQ6mPmggMRUQ/j/UDbk27?=
- =?us-ascii?Q?ZbS38N21j18ClpEkWOpUdbv04aQut2HCPg+258bJi1tpyvzqaD0d4JeYS1i+?=
- =?us-ascii?Q?2cDaKhli5DCv8Arn8j9WCyQ3j4ty5uYEXuorV9E7PsUFuf1130oBPkZoupKM?=
- =?us-ascii?Q?zx8uQmV+0hy+FBVhOAKWpDOzkgJvpic6RPNq8Bd89RULgUw/VreaDijL9U1V?=
- =?us-ascii?Q?AJHFhlzIzU2XqAHnvWdM2JRgZtXjke8kJl1ny/2RnkDA2Yzb/E/YW0lCB72h?=
- =?us-ascii?Q?0dWqyMZcp6R6y3ydqM65m+RYAsRfHETFH8PbAj8e+nB4QEaqLg+dmN+uzAul?=
- =?us-ascii?Q?AS8rcIMaxxGKJErBnT/+uCA793fvBf/MUhdqGTdJ6bwAQoGNnOB2Fw5CcZGv?=
- =?us-ascii?Q?Vvh1jzdAAoJsHY31riC3ZMQu9BdGzs8NsOa1bU+8kOVTTLzTqPB4z7rX7OTi?=
- =?us-ascii?Q?duNN3rOEf7ZVHz8fbbKSah2LYbqlN09x4T4Tiq9EAJ1Gk5G1QyBYmOCOVbA4?=
- =?us-ascii?Q?t5ccvx4xZ9Lp4hm3nisJF5iPEnE96dLhywEftbj6dnTCID3txUuSUCFQ0ok3?=
- =?us-ascii?Q?H3Ty4u4M6WaeANJpj7ZXwmfbQOpwmOiHXrIC7IvdMWgLA/jNwaEogGaRk0Al?=
- =?us-ascii?Q?eLkU2iVQEQ3dsfta5gzRtvwodoruogw46qOhO76WXwmifwBdQd5Caduw59It?=
- =?us-ascii?Q?9xFCn980v8rTMr3yS1U9HpmNCH41jBb9PNy/+hzgLB5Mv6RKWSLppDP5YD75?=
- =?us-ascii?Q?qYcEZtO53gj67UGVzoVs138dS3SW+K+d6IydJUi4muRFM/ehPsp5mAz4w3c0?=
- =?us-ascii?Q?CNHKV4WHXbAoiiVLbjAvuIpeh50EComq6QOaDnMuJ3zXySgqcCTzYUem/hkg?=
- =?us-ascii?Q?UBh5Dj6LxbQWyH2fGtZXYC9kGJO8HxEeqJpIze34IrTf4oG7okO8Mubo/T8X?=
- =?us-ascii?Q?Pqe8XusxSjtnfU0yc50w07ZBP5ZNpqgjDsMCOjPuLtzviixQCpgQ7+19zYZH?=
- =?us-ascii?Q?AB/oIQWAIwRFu+vVuuSjfEiSA5DUc/XpcdTznD76RvprKxK3+lyceNPT2OBR?=
- =?us-ascii?Q?U/jRoj0Y1Bvg///+EOJl8wKlLmxRE/BcVtCGm0zRAYVY23bgrP7oAuGTDH/p?=
- =?us-ascii?Q?Sdvobiv/pOLUtO3AUU0HhwrgAnWNDUe3HRT1oArOFNhRFHqBTDcIN3ZS33R7?=
- =?us-ascii?Q?RlFrNuSmeG6kltGMTSQYduKCdWnUBV4IZ+lkMf3f5gZyLbAJhB6ZiWqOHlHX?=
- =?us-ascii?Q?EeydZjWgvgtAfZheLl5CkS7mf158Xk5AIiEURvGXkRFCne1PXleiZoQZCI2Z?=
- =?us-ascii?Q?sQ8a9FRvOSdvG1Nue1VnLo4uP2ufi0wSWDHbZgPAI9F1C3FWV3fr/kWY6ef8?=
- =?us-ascii?Q?3gvNNHpQJZQvy/QomcP4bXnWrnhsDyEClJcr5O1pJapjQ0/GFnmXjw9DJzUX?=
- =?us-ascii?Q?5nfI1KkBUrL2mQs87Wx4Jh62vSXt3TS9mp7A2AhO7Fu+K4Z8vMDmuYlaNZCm?=
- =?us-ascii?Q?nh97KmlOmf+fcPhOGEPjS7aBe6Rhtngx4xoqQ/74SF7s+bfqBxVatxdDJ3Yr?=
- =?us-ascii?Q?Y6mJ1XyYsFAIB/X6uGFRzCsLwMte9aZZF1qTF1Jh9KwSOWkL3vO8?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 119da20d-6b64-4518-0c92-08df44027a9d
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:55:54.9741
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4x7HfUm0jNGmjbLNC12fBqhhp1nx53ooSQD6xkbP/Ru0tco060G73bnYocr7oxXOr4f04VCX+nu6SguhnpJl3zCwd9xVXpNasxBWZpl0uEDL16zSbKVF38Fub50Ohe6k
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8349
+References: <20261026-sunxi-orangepi-3-lts-v3-0-98fef4f75184@gmail.com>
+ <20261026-sunxi-orangepi-3-lts-v3-2-98fef4f75184@gmail.com>
+ <CAGb2v65eCotQPfnFsj6XfExs=ybE+xPWMFUhC9DFJRehfv7XAQ@mail.gmail.com>
+ <CAH87RzSWDuiA9w8-ZkZXjVmQ_3EbRGKu8dKUzBf=KhNJHZFgjA@mail.gmail.com>
+ <CAGb2v64Fd4ZN7fbTwcz45wK4Sc=hD10gjaVCYgW+HDa8O7W7_w@mail.gmail.com> <CAH87RzSJsk8ypdw0cDZzopeUxgPR1VdyiF_sHDLjKYR4AfzWXQ@mail.gmail.com>
+In-Reply-To: <CAH87RzSJsk8ypdw0cDZzopeUxgPR1VdyiF_sHDLjKYR4AfzWXQ@mail.gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Tue, 17 Nov 2026 00:56:53 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65VY0OFaUuE9qX2JGRcGjEMGCKMjUUvurx7UBxDm+81rw@mail.gmail.com>
+X-Gm-Features: AclHuK9eCzsnkZ4gGUBVKhOaPUkWgSy2T84SmEfd_eoJadqeR2ggIDq1fX6dZNU
+Message-ID: <CAGb2v65VY0OFaUuE9qX2JGRcGjEMGCKMjUUvurx7UBxDm+81rw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
+To: Cristian Filipescu <filipescu.cristian@gmail.com>
+Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Andre Przywara <andre.przywara@arm.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 16, 2026 at 11:05:24AM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
+On Tue, Nov 17, 2026 at 12:44=E2=80=AFAM Cristian Filipescu
+<filipescu.cristian@gmail.com> wrote:
 >
-> DMA channel devices are about to be registered on a dedicated DMA channel
-> bus so that they get a properly balanced bus association before
-> device_register().
+> On Mon, Nov 16, 2026 at 7:38=E2=80=AFAM Chen-Yu Tsai <wens@kernel.org> wr=
+ote:
+> >
+> > On Mon, Nov 16, 2026 at 7:47=E2=80=AFAM Cristian Filipescu
+> > <filipescu.cristian@gmail.com> wrote:
+> > >
+> > > Hi Chen-Yu,
+> > >
+> > > On Sun, Nov 15, 2026 at 3:14=E2=80=AFAM Chen-Yu Tsai <wens@kernel.org=
+> wrote:
+> > > >
+> > > > On Tue, Oct 27, 2026 at 7:34=E2=80=AFAM Cristian Filipescu via B4 R=
+elay
+> > > > <devnull+filipescu.cristian.gmail.com@kernel.org> wrote:
+> > > > >
+> > > > > From: Jernej Skrabec <jernej.skrabec@gmail.com>
+> > > > >
+> > > > > Add the board description for the Allwinner H6-based Orange Pi 3 =
+LTS,
+> > > > > including its regulators, storage, Ethernet PHY, LEDs and USB por=
+ts.
+> > > > >
+> > > > > Specify the Motorcomm YT8531C PHY ID to avoid early ID autodetect=
+ion,
+> > > > > which failed on MAC driver rebind. Reset the sole PHY at MDIO bus
+> > > > > registration and keep reset outside interface detach so its confi=
+gured
+> > > > > 125 MHz clock output is retained. Use PHY-internal RGMII delays.
+> > > > >
+> > > > > Select the weakest GPIO drive level for both LEDs. Enable 1.8 V e=
+MMC
+> > > > > DDR52 and HS200 modes; retain the H6 maximum frequency of 150 MHz=
+.
+> > > > >
+> > > > > Link: https://lore.kernel.org/linux-sunxi/20250413134318.66681-3-=
+jernej.skrabec@gmail.com/
+> > > > > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> > > > > Signed-off-by: Cristian Filipescu <filipescu.cristian@gmail.com>
+> > > > > ---
+> > > > >  arch/arm64/boot/dts/allwinner/Makefile             |   1 +
+> > > > >  .../dts/allwinner/sun50i-h6-orangepi-3-lts.dts     | 379 +++++++=
+++++++++++++++
+> > > > >  2 files changed, 380 insertions(+)
+> > > > >
+> > > > > diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/=
+boot/dts/allwinner/Makefile
+> > > > > index aa21f58a4..7ea136380 100644
+> > > > > --- a/arch/arm64/boot/dts/allwinner/Makefile
+> > > > > +++ b/arch/arm64/boot/dts/allwinner/Makefile
+> > > > > @@ -41,6 +41,7 @@ dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangep=
+i-zero-plus.dtb
+> > > > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-zero-plus2.dtb
+> > > > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-beelink-gs1.dtb
+> > > > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3.dtb
+> > > > > +dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3-lts.dtb
+> > > > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-lite2.dtb
+> > > > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-one-plus.dtb
+> > > > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-pine-h64.dtb
+> > > > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-l=
+ts.dts b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
+> > > > > new file mode 100644
+> > > > > index 000000000..e2ca41b94
+> > > > > --- /dev/null
+> > > > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
+> > > > > @@ -0,0 +1,379 @@
+> > > > > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> > > > > +// Copyright (C) 2025 Jernej Skrabec <jernej.skrabec@gmail.com>
+> > > > > +// Based on sun50i-h6-orangepi-3.dts, which is:
+> > > > > +// Copyright (C) 2019 Ond=C5=99ej Jirman <megous@megous.com>
+> > > >
+> > > > We now have a common sun50i-h6-orangepi.dtsi file. You really shoul=
+d
+> > > > rewrite this patch to just use that as a base.  It is mostly the sa=
+me
+> > > > across all the OrangePi H6 boards.
+> > >
+> > > v4 now uses that include and keeps the LTS-specific additions
+> > > and overrides. I compared the resolved DTBs to check the inherited
+> > > properties and preserved the LTS electrical settings, except for the
+> > > review changes described below. Common naming cleanups are deferred.
+> >
+> > [...]
+> >
+> > > > Set the supply on all cores.
+> > >
+> > > Done. All four running CPU nodes reference DCDCA, and all four CPUs a=
+re
+> > > online with the shared cpufreq policy.
+> >
+> > I should've mentioned that since this is already enabled at the .dtsi
+> > level, you shouldn't add it anymore. If anything, it's the .dtsi file
+> > that should have all cores referencing the regulator.
 >
-> Add that bus to iommu_buses[] so the IOMMU core installs its bus notifier
-> for it. This allows of_dma_configure() to probe a per-channel IOMMU and,
-> more importantly, lets BUS_NOTIFY_REMOVED_DEVICE release the IOMMU group
-> and domain when the channel device is unregistered.
+> Understood on the CPU supply. I have rebased onto sunxi/dt-for-7.5 at
+> 098728144545 and removed the board-local CPU0-CPU3 supply declarations
+> and CPU/GPU OPP includes. These are now inherited from the common
+> Orange Pi H6 description. I also removed the redundant ramp-delay and
+> CPU maximum-voltage overrides, keeping the existing LTS 800 mV minimum.
+> Any all-core supply cleanup belongs in the common include.
 >
-> The dmaengine bus is registered from a core_initcall, before any IOMMU
-> driver can call iommu_device_register(), which iterates iommu_buses[] and
-> fails if a bus has not been registered yet. Guard the entry with
-> CONFIG_DMA_ENGINE because the bus does not exist when the DMA engine core
-> is not built.
+> >
+> > [...]
+> >
+> > > > > +&mmc1 {
+> > > > > +       vmmc-supply =3D <&reg_wifi_3v3>;
+> > > > > +       vqmmc-supply =3D <&reg_bldo3>;
+> > > >
+> > > > Something is fishy here. The schematic also shows vcc-wifi-io (on t=
+he aw859
+> > > > side) directly derived from vcc-wifi (reg_wifi_3v3). I suggest at l=
+east
+> > > > checking with a multimeter to confirm what the voltage is on the VD=
+DIO
+> > > > pin of the module.
+> > > >
+> > >
+> > > Regarding the AW859A I/O supply, I traced U60 pin 22 (VDDIO) to
+> > > VCC-WIFI-IO, which is connected to BLDO3 in the schematic. I measured
+> > > 1.8 V at an RW1 pad relative to board ground. This supports keeping t=
+he
+> > > existing BLDO3 vqmmc assignment; I have left it unchanged.
+> >
+> > You traced it on the board or on the schematic?
+> >
+> > Can you test at U60? The schematic has two options for I/O voltage from
+> > the LDOs, and then another from VCC-WIFI, hence I would like to be
+> > certain. I imagine the SMT components aren't labeled on the board, so
+> > it would be somewhat hard / eye-hurting to trace the board directly.
+> >
 >
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
+> The Wi-Fi connection trace was from the schematic. Initially I was worrie=
+d I
+> would short some pin, but I see pin 22 is at the edge. I have now measure=
+d
+> 1.8 V directly at U60/AW859A pin 22 (VDDIO), relative to board ground aft=
+er
+> the kernel boots.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Cool! Thanks for confirming.
 
->  drivers/iommu/iommu.c | 4 ++++
->  1 file changed, 4 insertions(+)
+
+ChenYu
+
+> > [...]
+> >
+> > > > > +&usb2otg {
+> > > > > +       dr_mode =3D "host";
+> > > > > +       status =3D "okay";
+> > > > > +};
+> > > > > +
+> > > > > +&usb2phy {
+> > > > > +       usb0_id_det-gpios =3D <&pio 2 15 GPIO_ACTIVE_HIGH>; /* PC=
+15 */
+> > > >
+> > > > This isn't connected to anything but a pull-up. And you already spe=
+cified
+> > > > host mode only above.
+> > >
+> > > Removed usb0_id_det-gpios with /delete-property/ so the common includ=
+e's
+> > > PC6 setting is removed too. USB0 remains fixed to host mode. The runn=
+ing
+> > > DT confirms the ID GPIO property is absent and dr_mode is host.
+> >
+> > Thanks!
+> > ChenYu
 >
-> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-> index b486b8bbd1fc..ab31cd15d1d5 100644
-> --- a/drivers/iommu/iommu.c
-> +++ b/drivers/iommu/iommu.c
-> @@ -8,6 +8,7 @@
 >
->  #include <linux/amba/bus.h>
->  #include <linux/device.h>
-> +#include <linux/dmaengine.h>
->  #include <linux/kernel.h>
->  #include <linux/bits.h>
->  #include <linux/bug.h>
-> @@ -191,6 +192,9 @@ static const struct bus_type * const iommu_buses[] = {
->  #ifdef CONFIG_ARM_AMBA
->  	&amba_bustype,
->  #endif
-> +#ifdef CONFIG_DMA_ENGINE
-> +	&dmaengine_chan_bus_type,
-> +#endif
->  #ifdef CONFIG_FSL_MC_BUS
->  	&fsl_mc_bus_type,
->  #endif
->
-> --
-> 2.34.1
->
+> Regards,
+> Cristian Filipescu
+> ------------------------------------
