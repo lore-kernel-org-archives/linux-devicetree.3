@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794871954;
-	b=bO5gFWtGJ19eYjnHTooR/biyH4TSNmNGp96GE7HpF+fmcaOmG/sZBmMrcccIMpm7gA1H
-	 bJr6liXPODfqvTuPo/yy6dN+PpzVZiDaK1e3BwfNsEGYqAHy9wvQQ9ncUS1RguO6Cz8KH
-	 /RK+0EVsQfromdCPQKT5uHdHQ7a7Ju1mIOCVQkWdgIetbq5pulaiNoBmTLpGhQ91xy6NQ
-	 4I/CwsMoS3N6telBcYPyd2Zzk2vEYJdPr8l+BxA5RylwJRgf8cAoq0+8XEnWR9lAlUCji
-	 EKcr1BBRBCTT4SKf8t2AwQrjNXjRfw9E09ZjK/bv75Q7/VzdzD11X11asf6jJ8FVWKw==
+	t=1794872623;
+	b=Qd1MPcKsU23LQtkk5DcoSCf6lw6Zg2lFsylRnQNFYuroUOjbhpznCjqRto+dzWHeI/NS
+	 K5urxAkdKtRLh6sckZbdf7ZPlBpKdkmt+zUxtdobhPF8q2AAJGu+HTbrFI7zUA2fnz2un
+	 cSuzsPnljEE6CH+rX1AQGzDvBbuR+Ea1++l8oRKW2/Epuf/GX6xnZ+UZBRhVJQzKGQHDy
+	 yRLANSr7B+XxyIZXmf+D99S/3+esOGIt077+T42Q3cj4M9usqhzAmE4a3qAl1mO/2JayE
+	 EGfmZuwjUmWbLc+0zIugQunxY1fvYOFg/kQVPrtp2P6q8/pcHLeQKmTbmnkFGzkZB8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794871954;
-	h=Received:DKIM-Signature:From:To:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=axD6JuqYYkHzHzkkogAs5CL/17/Z9QAyU95DACYygPA=;
-	b=eO3LzKAqa8fd7MEpyP0c7+iYlqaELmq3w3UJLHG1AadwTRjdlYb/8qzjBSNuyAXOCEzh
-	 D0uJV7MrZZb9eTFeHFgRUIgDhNjdpGSFTAgdIWACsu0Xm+rDsDBJn2D/WySJiehaTAxAC
-	 DMQa4sVrCnldAEgegYXl3hwUjro9amzDfqX6Qsf0euExPtej6vxJnPea/s8GNKtxVjnGK
-	 f/9ffKccSm9EZlAHkbhPrbVR1b3MGdRgl5VTLbHvpRAv9q15UZXzTNT5A4AR138gKZP1+
-	 E4kXd3EUyk2yXTok2Aw3FXN4xffLdfe3F1MUERTlPOuNcC0Xf2Fdh0x8d5S4R4qm/ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794872623;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tE566DE9NL2ilRzS1obPqo6X//TjT5jTgHN8mNvDPfI=;
+	b=pvSJfHXxcpy2kkw6PaUZJo1pF1POb+5F8AZOT4eoVI/eN/iAbmGjsPlBTN7xJmx7J/h+
+	 vdnohicXqfHIj+AwH8guRguLsPmx95jDYy4XNQSpErjroOYCoCWbePfGWXq6sIN4dU8vM
+	 dwGtujP5+Mvhe3uQc+oYyB2DzaCRByQSrQlFPaP5jLaNdzb6F/XaQhY/HgKopSDBn0L7D
+	 4NMPAx5OSGru/KGKOTGlYqEY7GVpSKfRavSmd8EI7CrMFYJ3ySTbFr4nP5MMUl5NXa1Bx
+	 ewxqZhhcCTP9CPRRXQHl01+Pq0Kesq/WPIH5gmdX+CtIFYsICoRc3a5XSM6eAVkUNFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmrF1IRU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eqrb+u8R;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932C9606A31C;
-	Mon, 16 Nov 2026 23:32:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E50F606A329
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 23:43:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmrF1IRU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B29491F000C4;
-	Mon, 16 Nov 2026 23:32:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eqrb+u8R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D0701F000C5
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 23:43:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794871954;
-	bh=axD6JuqYYkHzHzkkogAs5CL/17/Z9QAyU95DACYygPA=;
-	h=From:To:In-Reply-To:References:Subject:Date;
-	b=SmrF1IRUbYwqe1+x6yB4Ez/4EaMOqP05/mxdGLEnNuvKAKoOsYGtm0z75f3Bqs+hk
-	 VM/l8fit9ynw9XP8rVSnF4YncYEakYzNUK3XeXFV4fYqyV1oXh6hx7Z4403cRJUecd
-	 eV2wA+zUzOWmTfr/hPBWVY/bYEZYf7V9qOPy5/irD0ABiejdGDKHs3eJToxh3ySwVc
-	 NwhmdqFRLM7oUHC3MuUr3YdZ/durabFO9HQTzwPqjnnmeIKwizF7N0nVrsLvzDolRc
-	 YTmsXB8rREUDdzlX3+UYgWC+ThWcwmcXXNbYA88NWmhLduMpTD9RMHU8bIQR+TXoU6
-	 LsZlbrsgbQZIQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Christian Marangi <ansuelsmth@gmail.com>
-In-Reply-To: <20261026101026.34318-1-ansuelsmth@gmail.com>
-References: <20261026101026.34318-1-ansuelsmth@gmail.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: an7581-afe: add support for reset
- and secondary IRQ conf
-Message-Id: <179486030880.2504946.8819617613005483492.b4-ty@b4>
-Date: Mon, 16 Nov 2026 20:18:28 +0000
+	s=k20260515; t=1794872623;
+	bh=tE566DE9NL2ilRzS1obPqo6X//TjT5jTgHN8mNvDPfI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eqrb+u8R2mS56LFGL+Cm5IYMMCqz4vxyGTiDfq5C+hwS4Ji93k/va2STXI8l5AY/d
+	 IcGT8FaIj9mV8mPdZAdP9a5re9B2DkM54Ot7+mVdC3m5xGt53/m0olioKd2LIIPdDS
+	 SEC/gh/8COtAbm/2iEikhVadaOuGod/abpf6WvYaHe0REL0UaDnUEhuB8kJBqeSn86
+	 b4U+Ohj0exE8NGGaI9FTe5RcVCsV0oOuusb4wrObn9vycHVZ31OMh2IDBuMal9dBpl
+	 mko3DcG3vVVtO+lyjNLaFG4Ve3UIjv8zIx5G3GQt3xM2g/ya/dvZFu181rVwl32+3E
+	 RbvI+4z4NcCvw==
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ac97e45a79so36619241fa.3
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 15:43:43 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErElKeMwuPKunMigXGVevLnXVUkootCJ3v8mit6Ze75uLaTwp70b2DMvK9LLkc0Fmm6zZR2p3opV1zGm@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Z5/Ulv6+PB5Iaeyh+HgS2PDJZ51rnzjAX5R4El0siyZkxB/o7
+	2fwgf6Dg/lFtR2IYvcCnUa0JA+PuG8XkPiQHe726TnXZpetPJR1TwzxvwnxDwVOB9b1/s8aT801
+	wgNXI3jkvvivnsrWrQaohJwDOM2b7z5Q=
+X-Received: by 2002:a05:6512:2385:b0:5c1:4a64:ca0f with SMTP id
+ 2adb3069b0e04-5c170795cc7mr4062399e87.31.1794872621897; Mon, 16 Nov 2026
+ 15:43:41 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,46 +59,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1173; i=broonie@kernel.org;
- h=from:subject:message-id; bh=aGoCOZP/Q4l/zUrAd/k8dCC8y4drCbim83cX8HAtjrI=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+T+oL67Sf+a67bvIDOUHrhpW7AuRWngtX2Ppq8qIV1
- vYp/ktudpSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiJrcY/orFTpRtaG7pLt30
- o3cGs67hiq/Gq3wcwn6XB9qsyda7a8XwP8rqQoyFBLdQBHNos2Hw1lyNx3sXiCy9cOmwfPxKj6c
- 7eQE=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+References: <20261111-xg6846b-bcmbca-xrdp-reset-v4-0-17035a5e8ad2@kernel.org> <CAPx+jO9GW7e0ai2o4Ycc4BKBywTaP=7NiWk68=c2kqcD_VrgRQ@mail.gmail.com>
+In-Reply-To: <CAPx+jO9GW7e0ai2o4Ycc4BKBywTaP=7NiWk68=c2kqcD_VrgRQ@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 17 Nov 2026 00:43:28 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=rqD1G5vR1onTRXJ64n6O2CoiQWFO7Y6Qpctzd8wjrFg@mail.gmail.com>
+X-Gm-Features: Aa3M54ruCJqK0lxxieASqF1PArkor0hKv2Ilo3qPfjVfiTQ9FllSEn7zR_xIKUE
+Message-ID: <CAD++jL=rqD1G5vR1onTRXJ64n6O2CoiQWFO7Y6Qpctzd8wjrFg@mail.gmail.com>
+Subject: Re: [PATCH v4 0/7] BCMBCA PMB power, clock, reset and hardware
+ monitoring support
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	William Zhang <william.zhang@broadcom.com>, Anand Gore <anand.gore@broadcom.com>, 
+	Kursad Oney <kursad.oney@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Guenter Roeck <linux@roeck-us.net>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, Ulf Hansson <ulfh@kernel.org>, 
+	Benjamin Larsson <benjamin.larsson@genexis.eu>, mfd@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-clk@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 26 Oct 2026 11:10:24 +0100, Christian Marangi wrote:
-> ASoC: dt-bindings: an7581-afe: add support for reset and secondary IRQ conf
+On Sat, Nov 14, 2026 at 12:25=E2=80=AFPM Ulf Hansson
+<ulf.hansson@oss.qualcomm.com> wrote:
 
-Applied to
+> > Through an MFD immutable branch once everyone ACKs the subdrivers,
+> > it will take time I guess. Queue the bindings and drivers in MFD.
+>
+>  I assume you are referring to patch1, 2 and 3?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+tt will be 1 and 2 in the next iteration after feedback from Rob H
+but yes.
 
-Thanks!
+> In regards to the power domain driver (patch4) at quick review it
+> looks good to me.
 
-[1/1] ASoC: dt-bindings: an7581-afe: add support for reset and secondary IRQ conf
-      https://git.kernel.org/broonie/sound/c/2efe1bb1edd3
+Can I record this as Acked-by?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> If Lee decides to host an immutable branch, just let me know so I call
+> pull it in to apply patch4.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+I think the usual way is to apply the lot to MFD on a branch and then
+you can pull in that to get all of the changes lock stock and barrel.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+But I'm open to Lee just queueing the MFD core and bindings
+(patches 1+2) and then offer that as pull request to other subsystems
+so they pull that in and apply each one patch on top, it's a bit
+elegant like that.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Lee, what works best for you?
 
-Thanks,
-Mark
-
+Yours,
+Linus Walleij
