@@ -1,107 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826578;
-	b=NMqlCQRtlk9RQEXTHoEoz5bv9XD6+gJpx+X1tZCZ6neW1aGh7ooxI3DCYFqtGhS+P4x1
-	 tBfMaQpahWGBWpE1Feh92/3gchk9m5gAihDWiNh4ngr3RgZtRDV/z67cQ36Bza0CN7IgO
-	 2z6nTwBMeCY1ETkObuVBrqMujzDu8h2pAoMG/XLUygkJmSRNHPhT35HQEn0WksRoNGJlF
-	 AVDX6eGwevfMKB9vmqVwNHTjkd9fb2MPoDg+hjM3I/f8qGw4VnnLgDYHQbge8I4Zu6GXr
-	 yj8WvMr/+B4QZ8caoDtTpVJf93ilyeM2crMIoMLwePJ+8LNaW7xUufe4m38qHF5MOXw==
+	t=1794826706;
+	b=btVMfXvlpULVHtD0YGVtoY+aiI6nxZ4QFtK6Pc8Au36BGQQAco2zCXny6enpZ70jk8HW
+	 pS4jQRS78IQHnlYElO8BnMdA/mKZf2D71qi40x6Hjxalo0fNB8d21/F/yU7pnhpcTHFST
+	 2QTKN0RjPtv772EizwK6exlHrEGVVh92rYBqgDZHPjTofEl1x+jrBZYCY5ZyuoZctmRuJ
+	 hFTx2jIiYaObJv5xQJypC6szc+SGdc3VYQEkYzB7oQflXb/ZFM8lS+S3Vpm6cTB4HR469
+	 Uyucm1dMnA4n96yJLl7Rgh50yq1W7M4BxRoLnxqgCpi2LVnWQKoM0z6aysPdeo7bLFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826578;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mXHs4M+7tfkoIg4sYbiMPquQrDZ3R0cBJAsjaurMG7I=;
-	b=QEJR/YXfC0byQ+xX7pvHGCwFk1ptxV12SLXM5gEkeJRYjMIc9j5QJgrlw3l66D/wiAFo
-	 isJCeO7xnZ3X/vXNV/7J8gQ+SJDq/AN4ux/7KMGEiPfm0QnXqmMtTTJrGo8WtSizPte4R
-	 tNL+9JvcooxKgQgnJup2jpKG6cV2cTEDGiMiMy0PjGe678LzsfZZ2L9tM6bJhR3UKUIQz
-	 1atT1PiWgjPG4APqu+6NArtGKOwqjzFWJGHIC6p4J7d1qv40CMeXXpJw+YDgxZI+13GKQ
-	 lr4cj55Gh+2kSQcMvByYzaEZjTTrmQItSWUQ08pjyXQxu16GoZZI31Hiar1BXhN3OPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826706;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LZNMzre3syHSnWp1Fvv61BL07p1gxzjeqm4GJqL8cS4=;
+	b=1IHkllZnXn9QzaagrNgGilwz8frNJVhu+jNuEugnXAiRwR8fMCDlvCRe/1Q5l03GYFrf
+	 6FqbPuZNAqeZ1EfHn9KAXXYADy+ys1ZiLSZpu7EYNd12Pqo2DN1pjBcMYRUAwZsf14n8w
+	 1RIMBeuV+TZ22inaMiHImaOzviTdDBoBy3ix31jAUgpN4aCla4kQMq5HGrOqo1r6h7Ne+
+	 tzsBgfSxZvPOI2iJqMRaTLsCcVyg70KgtpN2wcOQ0L/MuP31cRtS1VmMVWoq+hSOaMPNn
+	 M/B3OpH36cZOPXrub2p+z3MAjWjHM1qHexlf4ID17hkTadOSsjfAQwUJJphzn6JCbsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iMB+0as2;
-	arc=none smtp.remote-ip=209.85.128.177
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zetoz1Gq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4F5606A31C
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 10:56:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B4F5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4EF606A31C;
+	Mon, 16 Nov 2026 10:58:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iMB+0as2
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b4c685c751so10979577b3.1
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:56:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794826577; x=1795431377; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mXHs4M+7tfkoIg4sYbiMPquQrDZ3R0cBJAsjaurMG7I=;
-        b=iMB+0as2h7GqLJWDT7oD7BLV/X/QQbIXv/B8vOgZP/FB0ocZ/c7UKq3CNnQp/2iWg8
-         /UVg47d+oqbcSK19aA8oeu3m1OWoFNSXNKtGiKRr6W7OXYYXIX4FmAfnjqZdLdhmERHD
-         IkmaAoTaNfot9iXM1XQsP/U82MLOMrYxx3TeubyVKcPsZV9z5k2TULVlkTDWEr0ouhMs
-         x4Rn4e/PL8QTJgmxLJc2ETR4kWO/oc+Dp8Up2oTvbbRZqI8LoqHo0t2BmQlvYUiFm5H4
-         aLgrmfXUaDQVkPFbJ4nTT5HPJqLix+3YXba9K/q8ySO8xym3rHg49nQIHnvZYIieBx3w
-         zFbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794826577; x=1795431377;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mXHs4M+7tfkoIg4sYbiMPquQrDZ3R0cBJAsjaurMG7I=;
-        b=OGw4dfObJx9Uv+NNoTJdbftOA5QAN7+1VWPJN7NRhc2uZL/Pq7Wm0z0o7AAKNE3elF
-         HssarY+zMLM9LmPwvpp7DkzjM1S8Hrs2J25tWY/xkR+AaH+mwMmyc0C8rxW37q18FAgb
-         1Ezzeoy4Ns5sI7QPjGOGZsWRVximtxVzURWTIKwo4R2dbcK+aqjtatWED8G3LtkPzMQw
-         Pgi8XvUrnV07hAuxaCO1yB4YpbLb0c6jw1TWtxXPtzaiAd5mUmwB8CFi3N/nPWjuvAvU
-         64i5NZsZSBsk37cUSNrGO6HL2FuXdjfQfzCEOzG/qP6pECxwN/CD9PM7cLV5OvI8SC+1
-         bOCg==
-X-Forwarded-Encrypted: i=1; AL+hErHO6DDB30WklOlUgiJyqSedCdwn5YkVVq4Veby1js+0XoeOxahK50SMslKiHtcj3OX+cRvG+qai8uZr@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zKLYinOUD1xCoDbGiWH4bJ5rnfH2qufvY5TKAEnkqXC94L3tZ
-	Lq/+tiFWYEmrgogQ6usrMCanR0s6xgw6ttd3RBDcKmhxyB8Jq/N9KRuc
-X-Gm-Gg: AZFdTZewnvhgIczo8zH7cwqf3fKMs0jYHUK0ZhvmEd+9rEUAw1Ih5e0ogSGwm1lWgO3
-	kPh3yK7IBDvYwi31+Vd5XXCV/mZN3OfCyv8lfwhmvV+wMRZtDnjumXwOrM6Na0NvRN1JqG1hnqR
-	fLcOKVglk6n9uTUGj15ZYMHOLuQiFL1wnVZr0Izd4wx5yO/dWO3SfwVJoZrM77AA6c74ms2faCN
-	L4MZ7kw8k2jYGtSJxOTJ7TBA5Fjoq20Wh76Kk5EtRM88RQe9ygOAI1Hnc61kOvjZDEveQHPsZ2J
-	r4PYs6jR9lxulOIetAqFEtqwln9D1JUQzaqkA+OzFJn4NbUusmpZ0XNjuYfS4rJf3JHpZglbfD1
-	m+QyHScM/SmTktGCaxTVI4m17++UcrDvscWJHzdykUCbIVAEC2Tua0qQ+TUR3gzE7RQuzzolBx9
-	Kb6+RaWsrHOrw6w8gHLCqMb8qYccx2QfKIlLodimee4iNvVdInX3nSjjHW1cwSKxFWVca00JgJE
-	lJ/1OwUdpOjhADf7NNdTDGPMnzxe2dc1JoX1YoG1GT3IF0SZaLoUQzaQP99fpgI6A90jVS6tFMf
-	oQyQkxfpCyQRNFIuVnhsJ/3EOtmmhJdOUgWOYgjVWI2LqyZZ3Wn3IeFlfOS2nUMTMZcaOa4J9e9
-	Vf0RAxI12ypDFWyNBRN6k7SFnA+1hdeJZ+yB8
-X-Received: by 2002:a05:690c:fcd:b0:8b4:cc58:7901 with SMTP id 00721157ae682-8b4cc5882e4mr22480827b3.8.1794826577207;
-        Mon, 16 Nov 2026 02:56:17 -0800 (PST)
-Received: from MaquinaLab.. ([2804:1b2:aa41:8a69:2b8b:32cb:351d:f30d])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa7f1a0dsm82274987b3.1.2026.11.16.02.56.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 02:56:16 -0800 (PST)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Xu Rao <raoxu@uniontech.com>,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] phy: sun4i-usb: clear SIDDQ before the PHY reset on A733
-Date: Mon, 16 Nov 2026 07:55:44 -0300
-Message-ID: <20261116105544.669029-3-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116105544.669029-1-vinicius.eduardo.pedrosa@gmail.com>
-References: <20261116105544.669029-1-vinicius.eduardo.pedrosa@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zetoz1Gq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E0D51F000C4;
+	Mon, 16 Nov 2026 10:58:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794826706;
+	bh=LZNMzre3syHSnWp1Fvv61BL07p1gxzjeqm4GJqL8cS4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zetoz1Gql1cc3g7uElb4W8Rc98kKVfYYXhtEtiH4ZJ4XdurD38KoPwtyEioy3vSsj
+	 Q8Q2ZJIvig0qFm62ep1xlI/wuUudsJ3BdEppKFloGOqakDo4wGLOTRIvv1kqHABpEZ
+	 lnhR2e7dmGuho9E/WTIJF+okvlWtqBxtc0PHUER/+ySTfn8sJfz3P7hLIDxqKJLVEr
+	 8QvDfyK+VArzrr209JwwENosVk5wvCWK2bAAIVG7Um+y2UyWqLC6cJoMz9Xuz6uW3S
+	 Jgu+4TpAsi3Z5yPk0BxBvhGRCw5KfXijIDYwSD3lhmKdMHLpDoQcdENVUq1Iliqo0e
+	 vuUgtVMEtgc8g==
+Date: Mon, 16 Nov 2026 11:58:20 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Kumar Patro <bibek.patro@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH v5 1/3] dt-bindings: remoteproc: Move iommus constraint
+ to SoC-specific bindings
+Message-ID: <20261116-boisterous-ancient-macaw-8cc00e@quoll>
+References: <20261113-shikra-el2-v5-0-8aca743de97f@oss.qualcomm.com>
+ <20261113-shikra-el2-v5-1-8aca743de97f@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,115 +63,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261113-shikra-el2-v5-1-8aca743de97f@oss.qualcomm.com>
 
-sun4i_usb_phy_init() deasserts the PHY reset first and clears SIDDQ in
-the PMU HCI_PHY_CTL register afterwards. The order comes from the H3
-support and the reason for it isn't documented.
+On Fri, Nov 13, 2026 at 08:02:20PM +0530, Komal Bajaj wrote:
+> qcom,pas-common.yaml limits iommus to a single entry for every PAS
+> remoteproc, which is too restrictive for SoCs whose firmware uses
+> multiple IOMMU streams.
+> 
+> Drop iommus from common binding and let each SoC-specific binding declare
+> it with its own limits. These bindings set unevaluatedProperties: false,
+> so a compatible that does not declare iommus rejects it. Declare it for
 
-On a Cubie A7Z (A733), the Wi-Fi module on USB1 sometimes came up
-at full speed on the OHCI companion and failed enumeration with -62.
-This happened in 3 of 40 warm boots with a separate local PHY tuning
-change applied.
+I do not understand this sentence. Compatible cannot declare iommus, but
+anyway the bindings do not reject it.
 
-With that tuning disabled, the current order failed once in 31 warm
-boots. Clearing SIDDQ before releasing reset had no failures in 60
-warm boots in the same interleaved run, or in 10 cold boots.
-Why the order matters is not understood.
+> every compatible whose nodes use it.
+> 
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/remoteproc/qcom,pas-common.yaml   |  3 ---
+>  .../devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml  |  4 ++++
+>  .../devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml   | 12 ++++++++++++
+>  .../devicetree/bindings/remoteproc/qcom,sm8150-pas.yaml   | 13 +++++++++++++
+>  .../devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml   | 15 +++++++++++++++
+>  5 files changed, 44 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+> index f75cab6b4ed9..4662fe4cff62 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+> @@ -32,9 +32,6 @@ properties:
+>      minItems: 5
+>      maxItems: 6
+>  
+> -  iommus:
+> -    maxItems: 1
+> -
+>    power-domains:
+>      minItems: 1
+>      maxItems: 3
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml
+> index dda2d144b720..3c35da52204d 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml
+> @@ -38,6 +38,10 @@ properties:
+>    reg:
+>      maxItems: 1
+>  
+> +  iommus:
+> +    maxItems: 1
+> +    description: Firmware Stream
+> +
+>    clocks:
+>      items:
+>        - description: XO clock
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml
+> index b20780e5e26b..8aebc785f212 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sc7180-pas.yaml
+> @@ -169,6 +169,18 @@ allOf:
+>              - const: cx
+>              - const: mx
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - qcom,sc7280-adsp-pas
+> +            - qcom,sc7280-cdsp-pas
+> +    then:
+> +      properties:
+> +        iommus:
+> +          maxItems: 1
 
-The vendor BSP clears SIDDQ while the PHY is still in reset, in its
-common host path.
+Same comments as before - missing property definition. Properties should
+not be defined in conditional blocks. If you remove property from common
+schema, then you remove it from every device referencing it. Nothing in
+commit msg explains such intention and reason why.
 
-Add a config flag for the early clear and set it only for the A733,
-whose config is otherwise the D1 one. The other SoCs keep the current
-order: the manuals don't specify one and they weren't tested.
+Either iommus is valid or is not. If it is not, then need mentioning in
+commit msg for example and then you drop it from common schema and add
+it to the bindings where it is valid.
 
-Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
----
- drivers/phy/allwinner/phy-sun4i-usb.c | 35 +++++++++++++++++++++++----
- 1 file changed, 30 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/phy/allwinner/phy-sun4i-usb.c b/drivers/phy/allwinner/phy-sun4i-usb.c
-index e2fbf8ccf99e..c918085a9281 100644
---- a/drivers/phy/allwinner/phy-sun4i-usb.c
-+++ b/drivers/phy/allwinner/phy-sun4i-usb.c
-@@ -105,6 +105,7 @@ struct sun4i_usb_phy_cfg {
- 	bool phy0_dual_route;
- 	bool needs_phy2_siddq;
- 	bool siddq_in_base;
-+	bool siddq_before_reset;
- 	bool poll_vbusen;
- 	int missing_phys;
- };
-@@ -253,6 +254,19 @@ static void sun4i_usb_phy_passby(struct sun4i_usb_phy *phy, int enable)
- 	writel(reg_value, phy->pmu);
- }
- 
-+static void sun4i_usb_phy_clear_hci_phy_ctl(struct sun4i_usb_phy *phy)
-+{
-+	struct sun4i_usb_phy_data *data = to_sun4i_usb_phy_data(phy);
-+	u32 val;
-+
-+	if (!phy->pmu || !data->cfg->hci_phy_ctl_clear)
-+		return;
-+
-+	val = readl(phy->pmu + REG_HCI_PHY_CTL);
-+	val &= ~data->cfg->hci_phy_ctl_clear;
-+	writel(val, phy->pmu + REG_HCI_PHY_CTL);
-+}
-+
- static int sun4i_usb_phy_init(struct phy *_phy)
- {
- 	struct sun4i_usb_phy *phy = phy_get_drvdata(_phy);
-@@ -270,6 +284,10 @@ static int sun4i_usb_phy_init(struct phy *_phy)
- 		return ret;
- 	}
- 
-+	/* Some SoCs want SIDDQ cleared while the PHY is still in reset. */
-+	if (data->cfg->siddq_before_reset)
-+		sun4i_usb_phy_clear_hci_phy_ctl(phy);
-+
- 	ret = reset_control_deassert(phy->reset);
- 	if (ret) {
- 		clk_disable_unprepare(phy->clk2);
-@@ -321,11 +339,8 @@ static int sun4i_usb_phy_init(struct phy *_phy)
- 		clk_disable_unprepare(phy->clk2);
- 	}
- 
--	if (phy->pmu && data->cfg->hci_phy_ctl_clear) {
--		val = readl(phy->pmu + REG_HCI_PHY_CTL);
--		val &= ~data->cfg->hci_phy_ctl_clear;
--		writel(val, phy->pmu + REG_HCI_PHY_CTL);
--	}
-+	if (!data->cfg->siddq_before_reset)
-+		sun4i_usb_phy_clear_hci_phy_ctl(phy);
- 
- 	if (data->cfg->siddq_in_base) {
- 		if (phy->index == 0) {
-@@ -1013,6 +1028,15 @@ static const struct sun4i_usb_phy_cfg sun50i_h616_cfg = {
- 	.siddq_in_base = true,
- };
- 
-+static const struct sun4i_usb_phy_cfg sun60i_a733_cfg = {
-+	.phyctl_offset = REG_PHYCTL_A33,
-+	.dedicated_clocks = true,
-+	.hci_phy_ctl_clear = PHY_CTL_SIDDQ,
-+	.phy0_dual_route = true,
-+	.siddq_in_base = true,
-+	.siddq_before_reset = true,
-+};
-+
- static const struct of_device_id sun4i_usb_phy_of_match[] = {
- 	{ .compatible = "allwinner,sun4i-a10-usb-phy", .data = &sun4i_a10_cfg },
- 	{ .compatible = "allwinner,sun5i-a13-usb-phy", .data = &sun5i_a13_cfg },
-@@ -1029,6 +1053,7 @@ static const struct of_device_id sun4i_usb_phy_of_match[] = {
- 	  .data = &sun50i_a64_cfg},
- 	{ .compatible = "allwinner,sun50i-h6-usb-phy", .data = &sun50i_h6_cfg },
- 	{ .compatible = "allwinner,sun50i-h616-usb-phy", .data = &sun50i_h616_cfg },
-+	{ .compatible = "allwinner,sun60i-a733-usb-phy", .data = &sun60i_a733_cfg },
- 	{ .compatible = "allwinner,suniv-f1c100s-usb-phy",
- 	  .data = &suniv_f1c100s_cfg },
- 	{ },
--- 
-2.43.0
+Best regards,
+Krzysztof
 
