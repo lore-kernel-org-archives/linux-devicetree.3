@@ -1,122 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.135.77
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794839189;
-	b=Ms13IrcI8bzQ+xjvBxvg1z35BvRkrikVaBL4H/NN5ZET+1y/hhNnzBMzOYgnJzEzldIl
-	 52I9rR7TBZEpUL2DZGM1hGO3OSJLvxpI8/Q0fRpqT7O6q0M/9RyOGG91KAPGGdGFGCj5v
-	 BkIPMjhDS/p0rEuFs5vBiRwP8I1DapQM5sRfIiXykKsmIkhqcQKpDHvmmPUOhQVcVBRX6
-	 gykkwMRajHSbk0gu+LFxht8NyRxLe0YgyifWK7GHlP8ch9Qwkm6YhywHDXdeYVColSyzw
-	 bbP5yjWOXNOLoKhaS4hJBkDNFL122sfThzX/CyjXe05pfLHH3b7LUVGIZeRLGHJoC3g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839189;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794839192;
+	b=vb2uhWfFBatYtLB8Pntjappwk8IGS/w02fdAap5Z3TyCj9LVgsSDPeBdm42AokNtYcNe
+	 LV9E3kyzjkjUd5+KSPYIFzWBZk47O6yovqcXUSLreiD9tfzR7vqGNTVpDKf/F5Ri7gerh
+	 NInnAlB6avSdR9MPTycW9iSN65y5J603rNaOGhKXwg4WsPi1hITndtsLFLPXV9RiBBhfd
+	 s9VToVLY79BLGeYminLeLqKjZethz+ra5Wg4O50DuAG3bDGTfTYvddpHZocSsJbyrU+LX
+	 n80usPBr5nLGuVlwvIRE5nV5/niI5zXIv/RgGjv7R9C+Dn0ORiC0SwJ/yEmirKjMxgA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839192;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
 	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=WJ+5hKazhHQAkZk7VG4SMsooI8kg0LZlEUi1zqCeV9E=;
-	b=3wZ4knE8NlPS4Hpdi2L2Tm2lN0WPAcBY8r8M51pDJ7iKMuUfLBk6IIRIWQjkWEETbp9r
-	 iBUKKnejvz+sx1dTmQI9f4aBiCL8uKK3sd0NNy+2rGRUD0+Hgr17cwUaFFQ5tMRhwdM+B
-	 7u/Oeh+aB0HH+cZ7eORnlQsYqOwVFTaW2WzH6yYW4VaVj7gMhAIWDwdvDp7G4B0kiG4cT
-	 3KBF//VhCcSHKF11NNc9jFbTFsb6MKym7lt/KLX0MEzZB+hZ5iOwVQXPvRMel2zHF9Tlm
-	 ZquJ6Uw5OBlfP5Q5qZtHQXKZQcgVj3jHPKYSZlNFQ7yG1/uHo/uAjSqEMoNP5Zr56HQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=HszPkyCh;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=GTvqLh+c;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	bh=CNb+j4oVVMwkfoxuwNJmCWfjQ0Uyx4DdnWG9IhMbGRA=;
+	b=LVd/SV2KSoMlkPhjFN7TferJBQECErV7OLNs1QtPOQzdyA4nIDMDOmKK8b20rCwycqZ6
+	 xuyVhvn1E4HVDIcshjDTe6VT4ntEnI9o1lk4qe7n8jIvTGFfgDNfQm2GZWgTtP04W2qQk
+	 jXLr2Z8oNDO60Ca/+521GSQX5D113WcjvikhWpKZqxrRN1gXxyDVzXC7WBXmld81/TPDW
+	 Kqb6N9cpUT60Jz0KMjRqZkKDtgqY03H7diYRslG11mHas/woiCmfC/JHF6Zc0WwkGLX/0
+	 D3YpdJE7JFKWpbI6OPvXEzVMmjjaq3BVqiPS3vgECQdZbNzuA9hQKrLM9gCVCxk6zzw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gFhWPDvg;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JYO8Q7yS;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A37C606A31C;
-	Mon, 16 Nov 2026 14:26:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A37C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8312606A330
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:26:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8312606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=HszPkyCh;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=GTvqLh+c
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGC1Qnd1129001;
-	Mon, 16 Nov 2026 09:26:11 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=WJ+5hKazhHQAkZk7VG4SMsooI8kg0LZlEUi1zqCeV9E=; b=HszPkyC
-	hk4ND8Z9XCTDtedYZsuPIDC223dUJXhP0usO2b/dqKWOq4tS1PvmyJoT6pF2Ak0X
-	3AkY3Y67rz52AmuhuJW2WW2T1ElPYJyatcKACT/qsx6MD4m7LujO1/Uo8rRiusGA
-	w4ey8K6MbOoSALCu01mke6/uP6ITRih8xt00UuEq+JOxk4R1ahSG7wV8PY78+iOt
-	5xIY5hDZKMETvFkO0EEHG2/JM5g7tRDDppp48f6700a8HdNHgxhK+BF6swPHkJGR
-	Zj/+DYlRcXL7ExwIY2h4QG4TzRGaIE0kg3DcqPyUovOgXRpvG+DmNvts+SAobrPH
-	YnYEOnoF2cRMrqw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=WJ+5h
-	KazhHQAkZk7VG4SMsooI8kg0LZlEUi1zqCeV9E=; b=GTvqLh+cDKJHE8835qIGI
-	sHZKPc6e4gyyHJR36uBBZMPEefiv9NOA3+DyH45z5oCkWDHXx1syLFeMv3DNL6id
-	2M1VPtXAwYEFregMCwa9GZEizXEfZojiL8r+ICiGHpScbbLYYwTfhJuP9WewLGAi
-	YDUtGfGYpUFlUOMmj6vet9+lDEA7iHdWY9hdOVB6M2fvv0wqYm/k007dqwrgG0Vr
-	lsNMTjOWJteE72DocrGJAzW8Kok9SYK0IM0VqpQxVHPP85AtDU/YuJ5nwwO3EP49
-	5oDiLu7jmefYRVhnNR7kHfMzJBv5utWvy268UGPTVhyvQWvoOTbWTDZmMH8npJCa
-	A==
-Received: from bn8pr05cu002.outbound.protection.outlook.com (mail-eastus2azon11011022.outbound.protection.outlook.com [52.101.57.22])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hy9umengj-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 16 Nov 2026 09:26:11 -0500 (EST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yVm8MiTO6lFPoErhGlOyx9OelMbEdMSHzSTgJbX1zP8hnps9O8JzaN7H2msIdLhNA5Fx5oL7VQ33zkOBWjyRAgZPIPoZ3OmMb4TCNPNGzdjkpOojjzi8umyL8oeLZIouFSMu85ETwhemPIJXmxzK2WJgT0P3mMHW0HV5CfL7VMIJGxyFh0dMEzSEvzUNorNuUuh3609sfF8sMwD/Ca29D9Q37SkWdcgdr9YRrii4dOW7FkHWTfi9YiSQ0WN797yqvEpp108XARo4Xm7LkNp3TBDag5ISqfrCCQU5w3MDbv6HHPDO8Yqk7XjENLXvM/0ncInPxQQqbGUKDXifXXNWtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WJ+5hKazhHQAkZk7VG4SMsooI8kg0LZlEUi1zqCeV9E=;
- b=psajKMYLfmZsLtfSPUTgYBmOU5ufzzxtA3RaAq+8qym8XytMk3Sb4hZRG6t6/XfuZOMyzFS2hY85z8PB7S2nB9DA49CZZTzb8rrtmP6lj22SzQhmVFnVPlvT//f7Q+GYH001fWe7Hrbrd6yAMloTb3UM4gIxZYmHb1nj8ApFd1LsPIUAKxVHocraY4wHtLU+icFLdNX1ln6JDHm0tsxL3NTD1tUMMWiM19IElfym1U2M4En8ecjSC6pLA/D9kDeilrL5nj3w36jYhG/rOdETbO8u8yechOIGLderpQG/A8qYQ/z+gHo+qRFFzFdIjUw1RLT+fUQlGqJ38m1BbYpz8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=analog.com;
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
- by BLAPR03MB5523.namprd03.prod.outlook.com (2603:10b6:208:29e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 14:25:08 +0000
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 14:25:07 +0000
-Date: Mon, 16 Nov 2026 14:26:33 +0000
-From: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-spi@vger.kernel.org,
-        devicetree@vger.kernel.org, Fei Xie <fei.xie@horizon.auto>
-Subject: Re: [PATCH 0/3] spi: cadence-xspi: add DMA support
-Message-ID: <avsRgCbjzFVdS9GI@nsa>
-References: <20261107072044.17574-1-jszhang@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261107072044.17574-1-jszhang@kernel.org>
-X-ClientProxiedBy: ZR0P278CA0111.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:20::8) To SJ0PR03MB5469.namprd03.prod.outlook.com
- (2603:10b6:a03:28a::17)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gFhWPDvg;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JYO8Q7yS
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGDrV4f782431
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:26:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	CNb+j4oVVMwkfoxuwNJmCWfjQ0Uyx4DdnWG9IhMbGRA=; b=gFhWPDvgZE5L1ZJ8
+	dCvasLOUp7Ek/wpE+DHc/tgdKhf/0ZdBhvkHiZ3/9Q6XTIYyxDFeH+jZiDWrwTX2
+	tfTr/Qvr9bNOvcYH6RmXoG73CQIwjcZM2G8Qc625z4i3PTeScglEGFyDPLILNgvq
+	Hf8AUPRiIdIgtwMgGrAj0TnTAgLI+oY4lF6sIr20m8qEolgpvhhscAYOrd50klJX
+	N24J/nLSRwwcGyHElZET0CWzT2jLWFEeRyNeIIMdg5OO67KoS3IhjlOD3QNtOr75
+	Z+epdSD1nVIhPoNxpeH04WtF+P8XcNOIJJ3vrlskoJxc5KXdSjkIf5MF4ZTOqSWW
+	QEvcHg==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hyyqggx3k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:26:30 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7cc450e6dc2so2750284137.2
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 06:26:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794839190; x=1795443990; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CNb+j4oVVMwkfoxuwNJmCWfjQ0Uyx4DdnWG9IhMbGRA=;
+        b=JYO8Q7ySYsG02xu77zg/0bxzBHNxXqBF9UP6TnhXatU59R9g5h8hmzU929wKujrV0+
+         qtz9m/7HeJr8FIRMo9atTFAikNtAd6DcQ4r9eCpS3MvkpWV0Biq1+nypkSRL/dfCQgi2
+         gIRnxzXcQdqabKasGsm2YpCrBy5DNOxEuu6zZYIL4rqW4JQQZqNLEYKGdLXewP9ADz7X
+         FK0X46AESzI3O/kNiigtKwq/aGWhXp6EBYsEjxfwHzsNL2X4lbBsdb64r1ClM9L5zlaN
+         LarPsEpO8RHDGTLA3nTGa/F+LuTt+kankDXzciofohDMegyxiXzop0qocYdlTePqa0Mv
+         PucQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794839190; x=1795443990;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CNb+j4oVVMwkfoxuwNJmCWfjQ0Uyx4DdnWG9IhMbGRA=;
+        b=rOoa5DRm/k4HtbFFxSrbkPCZzKz5vpRl05OLmkh2cThuSEOuGCrkfyi66+Ri+KEsnY
+         p8UiixbIgXp1pOfG0t1LMJ/AUNhLa1ieXrzEZAJtSFbR8l5kKyKgfSO9CwiQeSNSyLTl
+         j7lo/5ajB7h2DdlNTsmVropwh9YvYQxG0zo5OOLU/8MZxSm4Vb59BWNcHzVEMO3wTA7f
+         RrALSthvFfJZjlYhcearzmpiWYAcfzdeu/blHWb7BI295MrFMIaZc2Pp0OP/Fz98JUzK
+         d7x00qBa4Fg52ZinrjZwg9xMJikpL36Q00qvM733b67mD5kP8uewVh/nA0/4TPvMZLo5
+         oC9Q==
+X-Forwarded-Encrypted: i=1; AL+hErHXfHeP4F5RA4FBLNXTOM5H6ps26CWxtpgg28YwLhgD8noKHLFUR4RUETsm/IO6hiKLHonwe48G1lPd@vger.kernel.org
+X-Gm-Message-State: APuU4Z9zcQm7QK1QpVCJwRB6ZVpl3hjIt4/6Fe4ZEr501wYulxT06GfG
+	nVHR1SCiVKO/SEcAhDp3x0jedWKP0QbX8ChQupS3O+B5fqN3peNu/1pHhfx621pmExtC+VVvV8r
+	om62vnFOIIVu6sHLm4EF3ZGVgR4aVyGUnHcl6nE25NRYdDxYYYqDDGm5aDNvqObJr
+X-Gm-Gg: AYBFou1LmrVw+8WniamyDp1FAKwzAVQmQ/iiTq3MxjyGiNx2B25BVHh3Wj8POvYWv9w
+	bKwJ14tO6PNaUz5EP6LgdfjjdFB3YBpNlBsn5vNbtSYGlmhZcAE4fxJfM6KsgX4A7EK9YIibak4
+	yoEd8NjceahDbo3EijmIGYefugDWyG3tD7oeCOEJi5EAVi8wnNkP56m7lJO1zIc6pdig8BPcoFK
+	CdT+bxcioBdpc/64BqPbwqmGIaLn9RJUznUJ8ZR8qNRD0xuFCHTXNSt3gd0CadebAccNiX2rW5E
+	ugUgqnGKLsgARVsvEgyhDdbqSGd7LRgUnOFWc3k6qrrUkF2k/QDamOcvJohmjgC1qlmQ3hVOEf9
+	o/XRZenWMMBsaBMokvwyFOpTVv9yemvrpeU1g/lUJqOxR4iBwVsgVbSVuW2iaFwQ/FhsFL7jKNS
+	EN
+X-Received: by 2002:a05:6102:14a3:b0:7d0:6cf3:d8f3 with SMTP id ada2fe7eead31-7d64d77c0f0mr3812111137.18.1794839189671;
+        Mon, 16 Nov 2026 06:26:29 -0800 (PST)
+X-Received: by 2002:a05:6102:14a3:b0:7d0:6cf3:d8f3 with SMTP id ada2fe7eead31-7d64d77c0f0mr3812086137.18.1794839189120;
+        Mon, 16 Nov 2026 06:26:29 -0800 (PST)
+Received: from [172.20.97.26] ([195.50.164.66])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb4e29daa5sm405943255e9.12.2026.11.16.06.26.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 06:26:27 -0800 (PST)
+Message-ID: <655212ed-4812-4747-ba5a-f0093bf05411@oss.qualcomm.com>
+Date: Mon, 16 Nov 2026 14:26:20 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -126,169 +114,420 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|BLAPR03MB5523:EE_
-X-MS-Office365-Filtering-Correlation-Id: b33725fb-f9da-4a46-b978-08df43ed698f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|10067099003|56012099006|11063799006|261026130827099003|261026135527099003|261026121527099003|261026140227099003|261028144727099003|261022115727099003|261021135927099003|261021130227099003|261021133027099003|261022113327099003|261021121427099003|261022075727099003|261021123027099003|261022105027099003|261102123227099003|261009220027099003|261009223027099003|261009223327099003|261009221727099003|261009221227099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	SXYSNbce7Rf3Lq9clRhy8IjF/Htt0VenOhqjHemLzPrZHikZR++PeQIgopAD/XTkj5iw760L6YGjZlpHgb6jGKvTgRCLgnaq/lK6bf/IJZe/5h9qOVi0QBudj+r708TgTp5LeX0VsmLumJqTzztd6C3i3354iVUmAJ6geGa+iC7Iq8AkUJtPESGGG+CZYCBW8slwx3WddnY1o1P3A2oTUhNITXmemkM30rQEbBRFmeqI2jTz120p//rLNughirPrqnWmrvOOHWuDCXWn3iyFdO2gD0BpTIU0YWExS1FHQ65vCnoznX4vivjhgAkPXCxPp8PkPmMNY0oZeHVYaWF8HzLsbjsjWzclUXr3f6T9GseYmUrLsCDvNJR5WjLsVbmxAc4E2mXdDtk2hwM0jB1n+1kBG0IFluNLCC2EyTFbfGdMrQewWr+3+GBPMwaKlXhPmeUIypY/CmmnQnfesAoDXoSscMXNtXfIcLmosva34adbldNEMu12xOkA0ABYeZEMkYrgY7LPEuWD8xdkINqXCEFq/dbMLKctINVieL1pKjy/ofmed0f5hkQXg3Odt3Tq8kfZ8RAjbUL9nCJEG+VpxjtdOyAedOlE9wwM0UBw5el7uiKMPQarhBVnjdC64tFPvyq4904O2M8VdJkWbDZAC35/MaQzHrppL8vEmMxMq80=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(261026130827099003)(261026135527099003)(261026121527099003)(261026140227099003)(261028144727099003)(261022115727099003)(261021135927099003)(261021130227099003)(261021133027099003)(261022113327099003)(261021121427099003)(261022075727099003)(261021123027099003)(261022105027099003)(261102123227099003)(261009220027099003)(261009223027099003)(261009223327099003)(261009221727099003)(261009221227099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dU5yamJwNDVQVHlZV21iYm9kL0tNODR1eW9wcjZuaFMvZWFCSFcyaGgwVDN3?=
- =?utf-8?B?UTNEZG5KbkI2TmxvR05tdHR0aXZrSG11UW80ZmFscEcveEtvQmRkVlpYYXdL?=
- =?utf-8?B?dXlVdEFlLzVRbUlQS3N2bG5mSzBGSDRVVWE3c1lhc2U3eE5uNWJQS0hJQUw1?=
- =?utf-8?B?Nks0Wmx4S1ZmVDRjZFcwRlRKN3grUE84U2tubkZTcDlNS0FVZVpJN0ZiNi85?=
- =?utf-8?B?T1VYaHp0cFErc3NLMXZXSS9mUSsreitCZllsK1ZYZld2Q0hTUTd4SmMvRzdK?=
- =?utf-8?B?RlUzeTNsRGd0M0JGKytRY0drdE9DUDFmaFp1SEFFRGY2TFR6SmxRUld4YnN1?=
- =?utf-8?B?UkFjUGsyWm9lb0JIRVBtY0N4NnBUS3FSNEVvZXBrRXJXc3VZKzNKOWJ6eVdM?=
- =?utf-8?B?RlNaTWFXdkRjdlViRndrWTFkZzlVemMwbzF1UW1pWUJ6U2VPWTZtcnBQUS92?=
- =?utf-8?B?UTF6UWZQVnpJMk1sQVZMbGpGUGlNN0t2N3FrcnNCWW1pKzcxVUFMbndXNCtl?=
- =?utf-8?B?RHNDY0VxSElSZ2tRSTBmdFRrMi8rWkk3SmJTRWlzRk56cVlUWUtYOE5IZWZ2?=
- =?utf-8?B?NGNFR2RHT1NERmgrUkNXbTM2NE40U09jUjZYcVpWZWtWZGkwMnpzaTZsbmEw?=
- =?utf-8?B?ajlUVGdUWEs5aEo4T1lvdTJVSkx1UVVnMGRzMU9KcElLV3J1eFE4RDJVdzY4?=
- =?utf-8?B?QmZIbkc4Zk5pRWNVTk90eGc5NWRjaWE1U1hNNWN6bkdqeFhKTUVEWTgvWEVq?=
- =?utf-8?B?L05aZUd2RzFVWDNXSjFFLzNMWUFSZDlJVTJFVFVJNDh3TTQ2RDdlMW9oSWYv?=
- =?utf-8?B?TmllMTgvcjUra095M29STk9Sbk1TdGQ1bG93NDJVYUJpWTJ6Sys1ZTQ2YWEy?=
- =?utf-8?B?TzRDbVhWYnNVajZRTlllaFJtaGlPQVlQZjlNaDhTM1locWRwYzVXYmJsNDBV?=
- =?utf-8?B?enJxdDU3MUxLdDE1VjV2WlQ0eUs3SDdjbGI4b2FhN3ZpZm9CNkVIN09TWUt0?=
- =?utf-8?B?WXFLVmRyNEptamJua28vTlMzdVlmWHRadWVucHY5eHBIdm54ODhEMzFJZEp5?=
- =?utf-8?B?Y0FEVExXQXVtYWgveGpVczVqRCtRSFR5TEhGRFFsV2RNbGxjdFowYSszUm4y?=
- =?utf-8?B?WFo2VEQrbzNJVFFjc29RaDhibi92ejhrS1VGcGdRSWR3L2ZIYnVkV0JCZmJp?=
- =?utf-8?B?V0RGMm5jTDM1UGN6aldQSVh1S3g5ZEZMbU9TbEcwdEhKWEdVT2lvZUwzWTd6?=
- =?utf-8?B?Wjk1OFlsMmJKSGlmTWgwZWR6UFVrcVBZU3RXaDBVUFZJTE9yNThUQTUrK1h6?=
- =?utf-8?B?bmN2UHVXVmkyeGVxWWxUU3dIREVPOHAzWlVDSWkwYjlSTlNBRUVud1NjZWpR?=
- =?utf-8?B?QUhqYXd3clZvTHpOYVEybjVmcWdNOHBwaU1Ec3I2T2E0ZEJIQnFFRmdNSTVh?=
- =?utf-8?B?TWFOdWJxRitXK05nRnBHUWk2dWRWcDU3U0RjWUNXYVNIbnRnUGtTY0hvL2hK?=
- =?utf-8?B?NlBydCtMOWRRTjFuUWxqTVFsanZ5aEFueWQyMzZkZ0xGUksxUjVUU3hRZ1ZE?=
- =?utf-8?B?dHhnaHlnblpxem5SWEhGVEYyVUgyLzVkcHpWQng2aHBzRnF4VHZJZXNFQmxH?=
- =?utf-8?B?Y2xYVzA4K1FFeE15dUhNUlZLNU04bVozcEJBQ0ROeXp0RnV6Vm9CQnNZZlgz?=
- =?utf-8?B?NGxQQjRQNm9zeTdpOHAvVDFlYTVJYlVrdllYTWFxam04QnU1V0ZMMVJnTGQz?=
- =?utf-8?B?QXJ4U3JBV3ZNOG9STVdrV016NkJOL3hLc29iZWJNUDJPbENtRVFIcm9VNC9J?=
- =?utf-8?B?WmtLNjZ6NHlRVjE5QUwvL1NsNk4zYmhvd3dPVEZRZFlaR3RidEFIdXBVbS9m?=
- =?utf-8?B?aGpjQlEzclY1NWh2WEhibGRTYjdFS1BoV1UwUFdyOXdLK0FwQjF1RERISHVB?=
- =?utf-8?B?N1Z6cHE1aWhFQWhOUGVDR3Q3K2IyblpFczVjakJlTjZXNlYyQithRENzUHhq?=
- =?utf-8?B?dDNQdTRCbzZSSnkyM0NnSlVDdkJwb25jSWc1MlRJcTVVZ0FqSXpzdk5HNE1Y?=
- =?utf-8?B?YXRtUDZ5N3ZsUjZncnFPRGhPNkNjS1VEY3o0a2J4NmpuNjR6V0FBTW4yUjNs?=
- =?utf-8?B?LytEZUU0NTFNcDlFd3djYXhjRzRWNWhzQ3ZzSWNwcUxodk9mN0xBNCtpYjVD?=
- =?utf-8?B?c1FScE1aWHk3UXdEb0I1KzROaGY4a0dXbG9DNTR3Y0lCbGxEazVZamxORk0r?=
- =?utf-8?B?TlpNQWV5YlFaeHVaNWhGSXJEOTArRThJTUdBSjN4RmIrd2RXakVybXF2Y0JB?=
- =?utf-8?B?NnE3Q20rVzdUVkVsaVFMN3pyaG5zc0lQUzVqM2J2VHEwVjUzNFBGdz09?=
-X-Exchange-RoutingPolicyChecked:
-	GjbEAZaPqFpXENxAZh/Chw9Z0nkQYDWDVfWvZUAvKQYNB6iO32E5O3lGsi11o0FUDqRXN82XLTi0HV+VSkNDD0ZEKcm8cl1c46uSNK41IHZ2JZnKOW9N4wRlaPOv9EkIFcWbs4xjWKDhvAMMFY+Slzkon3KQwyDnODR8Zw3s7Bud1ra9CDkv6VWSFt/VeHuMfdV4mp668XIKfLmTAaGwAuI2QZ8bYlL9PQRofDqEuxgBt+8HuZUJpMVjGfFXOcwW0LnYJCivbQLJNGWuLlKHmLvCGQipNF4mqMQ9X5+iv1w9tnZrL0KQm161fA7gubysi92p4uUNF94fWrT598prTA==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b33725fb-f9da-4a46-b978-08df43ed698f
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 14:25:07.2356
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1RofnYNJzqqiThzqsqx7W0C0Bvw/DAph/WNA3V7Xjt5ZtPEucP1o5NxYvJTP8hpsIvJQQ8msTXqtrAn8gBKzEQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5523
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA1NyBTYWx0ZWRfX1HS1brxAg07r
- xsXgHSgCzp24MfxPbhIR+JfAcLoDVkVE5KnCO+hDJgszqRRr+M/U9MGmD9kBzfh3u9wWqL2rOEE
- lE3xLQJfa/25+740OenKW5g3IhyudpWqBf9vtz/9JBXwViY02FlO
-X-Authority-Analysis: v=2.4 cv=DYaCOftW c=1 sm=1 tr=0 ts=6afb1283 cx=c_pps
- a=EBeQSdYSX+IxWZlepev2gw==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=OmVn7CZJonkx5R5zMQLL:22
- a=Z-YWsG-BSzkDv-yCXVQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: ZrDWiuRuD0_H0Cwppla-pT71ksLwmWRG
-X-Proofpoint-GUID: ZrDWiuRuD0_H0Cwppla-pT71ksLwmWRG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA1NyBTYWx0ZWRfX+Z3iUkB1ufeJ
- nkRjRPYelZN2UCnkHlS8Vu7J4yW3xnsxO/dpHcWF6cu4YDMfKO0Pt+cbwx/h3HXZi2y++ErlBDL
- 2sIPrSd1bSdDYI1p5JMkNftrwW7WOO5hJGM7OPwQx78GsViSkWE06V3dEmrogX9KzlLYhYmIh2A
- xItGt2Iu70LNmyC9eFumYGUC/vmTXfdHgFS8nf0rP4SQDEJql1ich1doccuIT+UOqWID0WIiRyW
- Ov6IgurzBBuj8XA7OxtaWzr87AJDtN5/tM9X4a3MbBjWmUytw2QMBfm3F7xowfY2RTKudKSqqUd
- 3lA9MqyH4PDzr+zqGDCEMOXH2zDjRGYEyhxSvames5e5yunaW/rS3V9QzsXzghR8Gvrx4TPQ2xF
- 8VeUQYy/ZnTr49bX9BvajowjzQ5qgG/JM0/jSESObxqgBmFoAB0oVU572H4b5VrTBxQiDLn+YG0
- E/pvTG5XYMGSrf1Pyww==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: arduino-imola: probe the sound
+ frontends first
+To: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261114-imola-sound-link-order-v1-1-71d8bf1129b4@oss.qualcomm.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261114-imola-sound-link-order-v1-1-71d8bf1129b4@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA1NyBTYWx0ZWRfX7wL+5AtLMz71
+ /8lfvT9XSupHsAIxbJ3vGjhjVnT3TS5N/aUzu1a8Rbfejg4sEcIJQn0fu8F4kv1VqmzXKifoJUA
+ /yVLhEOXmUJNfLDUUk0yevkWIZh3opQ=
+X-Authority-Analysis: v=2.4 cv=epRKXYpX c=1 sm=1 tr=0 ts=6afb1296 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=vPr22jHWFOI-Apf3nKYA:9 a=QEXdDO2ut3YA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-ORIG-GUID: wbbbr1D4_k1uJqUrlTOT9wIzJM2jauJ9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA1NyBTYWx0ZWRfX8zr933dChoU8
+ cWnsqapN5rUQI4iKLve8StqVHHd9NO4xNzlWh2WUV9mPeq3rkmrrXoTD2ZTItA4KQiFXSuI/bkE
+ W4WTqwkNc3qttWKPrxFAG98C29MOw6urtRwYapK6Tpc54gkheglC57R3vLHxrDDdFB+ER0E9M1d
+ ch7+eUx0NG3rZ5UnysBSoK2K0bVeDa5Ow6eIpeuYWIg0IsrKb2NYM2G3aEMufY7gn0yY6SRbNUG
+ vVNbv98EfohUGfqna+jzwb/8SQvHbGC7ZSXfl470/TsYly48xF6YQ24tnJJFUq9Ldzba6l7GhnY
+ D8ZLEMtuIf7IRv/Q/LAiZ37oxcpIA8f6EqCE8FwJpOTsiKEtpMeYPfmbT0JX/wapM5TE219pFpJ
+ rE79A107d3lMu0sRnuJPL4idk6n5fSrh3IZwDmznUVglRHv4VcjNDXGXv+Iiomv+tFCvaIzpiQt
+ 8HkDTen2xlTpKjDH/6w==
+X-Proofpoint-GUID: wbbbr1D4_k1uJqUrlTOT9wIzJM2jauJ9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-16_04,2026-11-16_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 adultscore=0 phishscore=0 spamscore=0
- suspectscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611160057
+ lowpriorityscore=0 malwarescore=0 bulkscore=0 phishscore=0 adultscore=0
+ priorityscore=1501 suspectscore=0 spamscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160057
 
-On Sat, Nov 07, 2026 at 03:20:41PM +0800, Jisheng Zhang wrote:
-> This series tries to improve the cadence-xspi cpu usage and potential
-> performance if the allocated dmaengine is powerful.
+On 11/14/26 12:57 PM, Igor Opaniuk wrote:
+> The card probes its components in DAI link order. With the codec DMA
+> backends listed first, q6routing is probed before q6asm-dai, so its
+> routes from the MM_DL and MM_UL widgets (created by q6asm-dai) cannot
+> be added, the component probe fails and the card is not registered:
 > 
-> But no matter the dmaengine performance is powerful or not, the cpu
-> usage is reduced a lot.
+>   q6routing ...: ASoC: Failed to add route MM_DL1(*) -> [MultiMedia1] -> HDMI Mixer
+>   ...
+>   snd-sm8250 sound: ASoC: failed to instantiate card -19
 > 
-> For example, on a dual CA55 platform, test with looping the following
-> cmd:
-> dd if=/dev/mtd0 of=/dev/null bs=8192
+> List the MultiMedia frontend links first, as the other qcom sound card
+> device trees (RB5, RB2) do.
 > 
-> Before the patch:
-> cpu usage is nearly 50%, which means one CA55 is full loaded with
-> the sdma io copy.
+> Tested on the Arduino UNO Q: the card registers and a tone plays on
+> the headphone path (all 11 DAPM widgets powered).
 > 
-> After the patch:
-> cpu usage is between 0 ~ 1%
+> Fixes: 61a95870e0f3 ("arm64: dts: qcom: arduino-imola: add support for sound")
+> Signed-off-by: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
+> ---
+> The UNO Q sound card from 61a95870e0f3 does not register as merged in
+> arm64-for-7.5 (snd-sm8250 "failed to instantiate card -19"); with the
+> MultiMedia links first it does.
 > 
-> patch1 documents the dt-binding
-> patch2 adds the memcpy dmaengine support 
-> patch3 uses writel_relaxed for cmd regs.
-> 
-> Jisheng Zhang (3):
->   spi: dt-bindings: cdns,xspi: Add DMA properties
->   spi: cadence-xspi: Support dmaengine for sdma io copy
->   spi: cadence-xspi: Use writel_relaxed() for cmd regs
-> 
->  .../devicetree/bindings/spi/cdns,xspi.yaml    |  13 ++
->  drivers/spi/spi-cadence-xspi.c                | 149 +++++++++++++++++-
->  2 files changed, 155 insertions(+), 7 deletions(-)
-> 
-> -- 
-> 2.55.0
-> 
+> The DTB differs from the current one only in the order of the dai-link
+> nodes (and the phandle numbering that follows from it); dtbs_check is
+> clean before and after.
+> ---
 
-Hi Jisheng,
+Thanks Igor for the patch, but this is just start of the problem, Once
+we apply overlays the nodes will be sorted once again and we are going
+to hit the same issue.
 
-I could run some tests on my platform. Here is the dump:
+can you please try this patch:
 
-MTD=mtd4 SZ=$((16*1024*1024)) RUNS=5 sh xspi-dma-bench.sh
-mtd4: mtd4: 08000000 00020000 "xspi0-nor", testing 16777216 bytes at offset 117440512, 1 cpus
-=== STIG + CPU (use_dma=0)
+------------------------>cut<-----------------------------
+From f9c336d90f1689c02ecd751c40e3f37379b6a690 Mon Sep 17 00:00:00 2001
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 22:21:22 +0100
+Subject: [PATCH] ASoC: qcom: common: setup fe dais before be dais
 
-  write                   14.32 s     1.17 MB/s  cpu 100.0% (1.00 of 1 cores)
-  write (read back via other path): data OK
-  read #1                  0.35 s    47.93 MB/s  cpu 100.0% (1.00 of 1 cores)
-  read #2                  0.35 s    47.93 MB/s  cpu 100.0% (1.00 of 1 cores)
-  read #3                  0.34 s    49.34 MB/s  cpu 100.0% (1.00 of 1 cores)
-  read #4                  0.34 s    49.34 MB/s  cpu 100.0% (1.00 of 1 cores)
-  read #5                  0.34 s    49.34 MB/s  cpu 100.0% (1.00 of 1 cores)
-  read: data OK
-=== STIG + MDMA (use_dma=1)
-  write                   14.39 s     1.17 MB/s  cpu 100.0% (1.00 of 1 cores)
-  write (read back via other path): data OK
-  read #1                  0.37 s    45.34 MB/s  cpu  70.3% (0.70 of 1 cores)
-  read #2                  0.37 s    45.34 MB/s  cpu  68.6% (0.69 of 1 cores)
-  read #3                  0.37 s    45.34 MB/s  cpu  69.7% (0.70 of 1 cores)
-  read #4                  0.36 s    46.60 MB/s  cpu  70.3% (0.70 of 1 cores)
-  read #5                  0.36 s    46.60 MB/s  cpu  66.7% (0.67 of 1 cores)
-  read: data OK
+qcom_snd_parse_of() registers DAI links in the devicetree order of
+the sound{} child nodes. q6routing wires static routes such as
 
-The script is a LLM based one :). Might have some slop but given the
-results are more or less what I expected (the data performance also goes
-in line with flash_test), did not bother too much in
-checking it in much detail.
+    "MM_DL1" -> "MultiMedia1" -> "HDMI Mixer"
 
-So, cpu load is where we have the actual win.
+which need the frontend (MultiMediaN) widgets to exist before the
+backend widgets that reference them. This is a latent ordering
+bug: any devicetree or overlay that lists a backend node before
+its matching frontend trips it with
 
-The test ran on an octal spi-nor
+  q6routing ...routing: ASoC: Failed to add route MM_DL1(*) ->
+[MultiMedia1] -> HDMI Mixer
+  q6routing ...routing: ASoC: Failed to add route MM_DL2(*) ->
+[MultiMedia2] -> HDMI Mixer
+  ...
 
-- Nuno Sá
+and today it is easily triggered just by reordering the sound{}
+children, or by an overlay that appends a backend link.
+
+Iterate the children twice, frontends (no codec child) first and
+backends (codec child) after, so frontend PCM DAIs are always
+registered before the backends. Per-node setup is moved into a
+new qcom_snd_setup_dai_link() helper so both passes are identical;
+cards where every child has a codec child (non-DPCM) hit only the
+second pass and see no change.
+
+Fixes: c25e295cd77b ("ASoC: qcom: Add support to parse common audio
+device nodes")
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+---
+ sound/soc/qcom/common.c | 182 ++++++++++++++++++++++++----------------
+ 1 file changed, 109 insertions(+), 73 deletions(-)
+
+diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
+index 83b745f617a8..4e0541c3db42 100644
+--- a/sound/soc/qcom/common.c
++++ b/sound/soc/qcom/common.c
+@@ -178,12 +178,104 @@ int qcom_snd_apply_dai_tdm_slots(struct
+snd_soc_pcm_runtime *rtd)
+ }
+ EXPORT_SYMBOL_GPL(qcom_snd_apply_dai_tdm_slots);
+
++static int qcom_snd_setup_dai_link(struct snd_soc_card *card,
++				   struct snd_soc_dai_link *link,
++				   struct device_node *np)
++{
++	struct device *dev = card->dev;
++	struct snd_soc_dai_link_component *dlc;
++	struct of_phandle_args args;
++	int ret;
++
++	dlc = devm_kcalloc(dev, 2, sizeof(*dlc), GFP_KERNEL);
++	if (!dlc)
++		return -ENOMEM;
++
++	link->cpus	= &dlc[0];
++	link->platforms	= &dlc[1];
++
++	link->num_cpus		= 1;
++	link->num_platforms	= 1;
++
++	ret = of_property_read_string(np, "link-name", &link->name);
++	if (ret) {
++		dev_err(dev, "error getting codec dai_link name\n");
++		return ret;
++	}
++
++	struct device_node *cpu __free(device_node) =
++		of_get_child_by_name(np, "cpu");
++	struct device_node *platform __free(device_node) =
++		of_get_child_by_name(np, "platform");
++	struct device_node *codec __free(device_node) =
++		of_get_child_by_name(np, "codec");
++
++	if (!cpu) {
++		dev_err(dev, "%s: Can't find cpu DT node\n", link->name);
++		return -EINVAL;
++	}
++
++	ret = snd_soc_of_get_dlc(cpu, &args, link->cpus, 0);
++	if (ret) {
++		dev_err_probe(dev, ret,
++			      "%s: error getting cpu dai name\n", link->name);
++		return ret;
++	}
++
++	link->id = args.args[0];
++
++	if (link->id >= LPASS_MAX_PORT) {
++		dev_err(dev, "%s: Invalid cpu dai id %d\n", link->name, link->id);
++		return -EINVAL;
++	}
++
++	if (platform) {
++		link->platforms->of_node = of_parse_phandle(platform,
++				"sound-dai",
++				0);
++		if (!link->platforms->of_node) {
++			dev_err(dev, "%s: platform dai not found\n", link->name);
++			return -EINVAL;
++		}
++	} else {
++		link->platforms->of_node = link->cpus->of_node;
++	}
++
++	if (codec) {
++		ret = snd_soc_of_get_dai_link_codecs(dev, codec, link);
++		if (ret < 0) {
++			dev_err_probe(dev, ret,
++				      "%s: codec dai not found\n", link->name);
++			return ret;
++		}
++
++		if (platform) {
++			/* DPCM backend */
++			link->no_pcm = 1;
++			link->ignore_pmdown_time = 1;
++		}
++	} else {
++		/* DPCM frontend */
++		link->codecs	 = &snd_soc_dummy_dlc;
++		link->num_codecs = 1;
++		link->dynamic = 1;
++	}
++
++	if (platform || !codec) {
++		/* DPCM */
++		link->ignore_suspend = 1;
++		link->nonatomic = 1;
++	}
++
++	link->stream_name = link->name;
++
++	return 0;
++}
++
+ int qcom_snd_parse_of(struct snd_soc_card *card)
+ {
+ 	struct device *dev = card->dev;
+ 	struct snd_soc_dai_link *link;
+-	struct of_phandle_args args;
+-	struct snd_soc_dai_link_component *dlc;
+ 	int ret, num_links;
+
+ 	ret = snd_soc_of_parse_card_name(card, "model");
+@@ -233,88 +325,32 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 	card->num_links = num_links;
+ 	link = card->dai_link;
+
++	/* Register frontends first so q6routing can resolve BE targets. */
+ 	for_each_available_child_of_node_scoped(dev->of_node, np) {
+-		dlc = devm_kcalloc(dev, 2, sizeof(*dlc), GFP_KERNEL);
+-		if (!dlc)
+-			return -ENOMEM;
+-
+-		link->cpus	= &dlc[0];
+-		link->platforms	= &dlc[1];
+-
+-		link->num_cpus		= 1;
+-		link->num_platforms	= 1;
+-
+-		ret = of_property_read_string(np, "link-name", &link->name);
+-		if (ret) {
+-			dev_err(dev, "error getting codec dai_link name\n");
+-			return ret;
+-		}
+-
+-		struct device_node *cpu __free(device_node) =
+-			of_get_child_by_name(np, "cpu");
+-		struct device_node *platform __free(device_node) =
+-			of_get_child_by_name(np, "platform");
+ 		struct device_node *codec __free(device_node) =
+ 			of_get_child_by_name(np, "codec");
+
+-		if (!cpu) {
+-			dev_err(dev, "%s: Can't find cpu DT node\n", link->name);
+-			return -EINVAL;
+-		}
++		if (codec)
++			continue;
+
+-		ret = snd_soc_of_get_dlc(cpu, &args, link->cpus, 0);
+-		if (ret) {
+-			dev_err_probe(dev, ret,
+-				      "%s: error getting cpu dai name\n", link->name);
++		ret = qcom_snd_setup_dai_link(card, link, np);
++		if (ret)
+ 			return ret;
+-		}
+
+-		link->id = args.args[0];
+-
+-		if (link->id >= LPASS_MAX_PORT) {
+-			dev_err(dev, "%s: Invalid cpu dai id %d\n", link->name, link->id);
+-			return -EINVAL;
+-		}
+-
+-		if (platform) {
+-			link->platforms->of_node = of_parse_phandle(platform,
+-					"sound-dai",
+-					0);
+-			if (!link->platforms->of_node) {
+-				dev_err(dev, "%s: platform dai not found\n", link->name);
+-				return -EINVAL;
+-			}
+-		} else {
+-			link->platforms->of_node = link->cpus->of_node;
+-		}
++		link++;
++	}
+
+-		if (codec) {
+-			ret = snd_soc_of_get_dai_link_codecs(dev, codec, link);
+-			if (ret < 0) {
+-				dev_err_probe(dev, ret,
+-					      "%s: codec dai not found\n", link->name);
+-				return ret;
+-			}
++	for_each_available_child_of_node_scoped(dev->of_node, np) {
++		struct device_node *codec __free(device_node) =
++			of_get_child_by_name(np, "codec");
+
+-			if (platform) {
+-				/* DPCM backend */
+-				link->no_pcm = 1;
+-				link->ignore_pmdown_time = 1;
+-			}
+-		} else {
+-			/* DPCM frontend */
+-			link->codecs	 = &snd_soc_dummy_dlc;
+-			link->num_codecs = 1;
+-			link->dynamic = 1;
+-		}
++		if (!codec)
++			continue;
+
+-		if (platform || !codec) {
+-			/* DPCM */
+-			link->ignore_suspend = 1;
+-			link->nonatomic = 1;
+-		}
++		ret = qcom_snd_setup_dai_link(card, link, np);
++		if (ret)
++			return ret;
+
+-		link->stream_name = link->name;
+ 		link++;
+ 	}
+
+-- 
+2.53.0
+
+------------------------------->cut<--------------------------------
+
+
+>  arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts | 47 +++++++++++-----------
+>  1 file changed, 24 insertions(+), 23 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
+> index e99d2a56dc28..3efd80f36c6c 100644
+> --- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
+> +++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
+> @@ -117,6 +117,30 @@ sound {
+>  				"IN2_HPHR", "HPHR_OUT",
+>  				"AMIC2", "MIC BIAS2";
+>  
+> +		mm1-dai-link {
+> +			link-name = "MultiMedia1";
+> +
+> +			cpu {
+> +				sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
+> +			};
+> +		};
+> +
+> +		mm2-dai-link {
+> +			link-name = "MultiMedia2";
+> +
+> +			cpu {
+> +				sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA2>;
+> +			};
+> +		};
+> +
+> +		mm3-dai-link {
+> +			link-name = "MultiMedia3";
+> +
+> +			cpu {
+> +				sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA3>;
+> +			};
+> +		};
+> +
+>  		ear-playback-dai-link {
+>  			link-name = "Ear Out Playback";
+>  
+> @@ -181,29 +205,6 @@ platform {
+>  			};
+>  		};
+>  
+> -		mm1-dai-link {
+> -			link-name = "MultiMedia1";
+> -
+> -			cpu {
+> -				sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
+> -			};
+> -		};
+> -
+> -		mm2-dai-link {
+> -			link-name = "MultiMedia2";
+> -
+> -			cpu {
+> -				sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA2>;
+> -			};
+> -		};
+> -
+> -		mm3-dai-link {
+> -			link-name = "MultiMedia3";
+> -
+> -			cpu {
+> -				sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA3>;
+> -			};
+> -		};
+>  	};
+>  
+>  	vreg_anx_30: regulator-anx-30 {
+> 
+> ---
+> base-commit: eac8f0411262ea7d156407da4baf260291cbfe32
+> change-id: 20261114-imola-sound-link-order-15de4692e7ef
+> 
+> Best regards,
 
