@@ -1,57 +1,158 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802599;
-	b=GgeH3PU+pYgw9GBytwnEbUfD8EJ4kPtT60UiP3UwrbDs9debSyVsIwvzv6zE59Dl0Z+D
-	 kmGHbEvIaNI8jy1CJ8fzGGn3VzwjgcAg8MLDnazisMA5EmNXX4tOKCvbV9KgDKIboPErB
-	 euue4W7G8fEn80obKXqFn9LATLrey+tbSin62Ol5LxmqkuCaXP/41FX/OLv8qpf0KhwPs
-	 Zy1/lpPclY25O4bhLJrzxFbone7mYrLH87tAXKKMlJgFO5VcyekcDaVQ4QQH/3800hBzd
-	 i8KsoWZfWkRn93rv+e5PV6sSUhTtKFynzNXa+/PEcZ9/pypd6H/G81MLkLxG/3d/kwg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802599;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=uzbrnHdlZO/Nl75AkoaBKnFpLs1p4dTsORcxzJmfA0w=;
-	b=lwKOyrhWOwkyyFKlk4zl5I1aYb4VAw9esgabJEiSZeQpCKccfTGPX0E1HBwHRqjMvKgy
-	 tsKxRBGdJ77hn82q+Ypv5NeX8/8VzIRnhpOQy9lWLMuDTVFtD6TGkTlpdsY0x4U1BmQ/N
-	 pgdkQNNUtU9siTwwTJ71I7ZZADLuHHwjTlphfrZsGpf04HGojkKaKkAiWlcK9dv/oYGAf
-	 YGwMsXfLIPi0yoTdLZDj7ZisgZmbwr5SOrBXSEVvNeApvPsCId5GCiWRkTZMu1x37GeeQ
-	 Tpc4CqFBJHdUrHxQ+bbVn3LB04K3UIr3s2SFe7XEZ5om2ywdUtXTyN2DE0p761RBlGQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1kpMp96;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.30
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794802792;
+	b=jB18zjkHwG8gKrlUnT83Cvhr6nTTlnskSkn8G8Hxa0UMMjcsrU8j6D9UoG1hzkkPmeLC
+	 GD7kSfJHAIghDhupHHUwKIz+8tjpCLkHeBJi5pVrRo3OQPdqik5uusXsbssZ7rjEyIxIk
+	 zVbU7DZvc7xnrDik+Ms4v0UetwhLknYDO3ycGhl7uthjlOdzViQX/CaV/tLYZyu9KEc5W
+	 U2632bAKTwqNMs8UQl86hXKzJj4feQQX2s+vaYZbRXESCE7J2goaN5hzNM8WBanh8BVFo
+	 0/lBRarIWzibIdkg4QDzUADQDqt13IOrxzCemN6EZU3Ttu4LXbvQ2rcKJWdh1/yupMw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802792;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=j5ROke81fNTiqyIhGa3NeDrAJOClSD8rcXH1P9AmY0M=;
+	b=pOdecrGzJLRpLmh/rvQgltYGc3REU23CMvbIq+OsCy7El4sTVev8WddUXSyWkc6JSKTB
+	 /Sm12I/m7H8LYqiIdbFbAqkPFWPiiA4tJYmritLtem2SIL5mm8QUiIBotwUWzlMpgUPNK
+	 eakEIBi6OHY4ukZNgXOwpDNR0FYE237wBT7zQ/+JzRqrUE8c7A4RTd8VYefcKlhFgF/7W
+	 2XtWrXkHqWGlG1ibZwt5RYnCoR/zpe2wxuapCZPRcFCtd5RIlCvD3TfXoAoeDSZOk/50C
+	 oqhCMcZvJ1oBbHtdT3nA6wMTJR9blaeJCVzxKEcvVJzOqrFeDFTxZh9P+Ce3al4BDVw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ee66kmlp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.30
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013030.outbound.protection.outlook.com [40.93.196.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814BF606A31C;
-	Mon, 16 Nov 2026 04:16:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086A2606A880;
+	Mon, 16 Nov 2026 04:19:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 086A2606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1kpMp96
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5AA91F000C4;
-	Mon, 16 Nov 2026 04:16:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794802599;
-	bh=uzbrnHdlZO/Nl75AkoaBKnFpLs1p4dTsORcxzJmfA0w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=S1kpMp96kMjmpCpi8Upj93cDAKYOtDvNRyFuT0u26t+nUF4rYluB01Pu484KU8kit
-	 r0SNf2I58IEC0cmM43KDcV0KpPQCnX8EOFqDClgFf+A74zWxDIsqeGo6BeL9AfCI0X
-	 QsWg6FUdtFMdG7CC5Z2qmsV4gqHjhTtdVC0RJe2N5VJnx4tXP/q/O2WqgUcLHvcCtj
-	 fysxBKKspnimTip2pFvX9CUsCPq6pbru3hUhbeVMx1AKIYGhSPQPz8ibcCwFPMPX5P
-	 8ouZagWqte9NJWPupjHWkbO2yBDRu0++QmEOzgxG6RWLrP0+Ui7TlMQ4SfuLsySc6S
-	 qgLA53UZMpJ2Q==
-Message-ID: <sashiko-outbox-216168@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/2] scsi: ufs: spacemit: k3: Add UFS Host Controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yixun Lan" <dlan@kernel.org>
-Cc: linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261116-08-k3-ufs-support-v8-2-e3b256972dd4@kernel.org>
-References: <20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org>
- <20261116-08-k3-ufs-support-v8-2-e3b256972dd4@kernel.org>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ee66kmlp
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UbzF7A+X6NmfvZWTwrWJt6q6mzgLfJSQt80fSNor5JNM3r2K4ACnqA3p1+QjHMrAxvRmtal6WTJkK1Pxx/l2ftpnecwoeN+G5pzvZzhJHHD1+qHn+evN59WRjIAkescxA35c2NS6iYNPJrqMykEUGq8+MB98ol4i2ceDKK5oaHSlFcUZZrA0roxWxKKblEocdldOUUkQPjZbdgo/WqxPLNOI0A1ZWHPLkVBlRyt9rcWwGgJRWdsZlhJ5nrfJKyvjfPOsmpBIHSKBIH08DhTp8muTlf4iCG5VPGilKZwfsPqOoqJXUpt8u1J05W6gcbV7cvjXOw49tKpq+yYeg4ZlXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j5ROke81fNTiqyIhGa3NeDrAJOClSD8rcXH1P9AmY0M=;
+ b=f6JiUnPuIMG/foeXxxZf4pqzh1aztEME57oSXDJ4M0ke/FHaDVUlhqnaM11cHIa7bcziivSnCHGAMM/0pI3/yFE0wNvsg7B93fuXkrCqC/jwreb8YLRLnKGjjqIE/DTU7BHNuL4v4/sYbY8Cy9whYfxU+JPR7uPfJbR6Qn2LnxPR9GkGlWnerTm/GkovE0QTllSU6/O+3ic+tCuiD4AW6lF9qnFKAuE3wbrhYePiPTxLdj9NxaGsYP2D/r53tqWODG3Jnh/E8yb0Xbon2Ig+PawXgPpqkwY+0mXYC2+KW+RIZUwuftjTC0mR6uPrtI7jnfE/qdh5uDMGGw/335vrAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j5ROke81fNTiqyIhGa3NeDrAJOClSD8rcXH1P9AmY0M=;
+ b=Ee66kmlpUgzXx8qHsMvmWEdhe7PKxV8KPtCYlyPGMHHom/RAwaGwhHIOlsgTCtSfK032Y5wig++h44PJ6xmPbrkVEt4BFAkN98pZIHhgjFg5hnrFTJJr8r6rSs4XTAGASdscEDWtKNS7hM9kUZ6QdH49phs2p3QPFgoXrpHzL3M=
+Received: from DS7PR12MB9503.namprd12.prod.outlook.com (2603:10b6:8:251::15)
+ by SJ0PR12MB6709.namprd12.prod.outlook.com (2603:10b6:a03:44a::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 04:19:47 +0000
+Received: from DS7PR12MB9503.namprd12.prod.outlook.com
+ ([fe80::62c0:6aa0:897c:44d9]) by DS7PR12MB9503.namprd12.prod.outlook.com
+ ([fe80::62c0:6aa0:897c:44d9%6]) with mapi id 15.21.0592.010; Mon, 16 Nov 2026
+ 04:19:47 +0000
+From: "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+CC: Jonathan Cameron <jic23@kernel.org>, "Simek, Michal"
+	<michal.simek@amd.com>, "Potthuri, Sai Krishna"
+	<sai.krishna.potthuri@amd.com>, David Lechner <dlechner@baylibre.com>,
+	=?iso-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
+	<andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "amitrkcian2002@gmail.com"
+	<amitrkcian2002@gmail.com>
+Subject: RE: [PATCH 2/6] iio: adc: versal-sysmon: validate temperature
+ hysteresis
+Thread-Topic: [PATCH 2/6] iio: adc: versal-sysmon: validate temperature
+ hysteresis
+Thread-Index: AQHdasS1tSYdaUNTakOTVjECb6koGbccIRWAgATNUJCABUHRAIAFvADw
+Date: Mon, 16 Nov 2026 04:19:46 +0000
+Message-ID:
+ <DS7PR12MB95039DF1B995E46FFB63D404DC7C2@DS7PR12MB9503.namprd12.prod.outlook.com>
+References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
+ <20261102122112.1723130-3-amit.kumar-mahapatra@amd.com>
+ <aumyreagvU6zewKI@ashevche-desk.local>
+ <DS7PR12MB9503E787CBD5E9292B5637CEDC762@DS7PR12MB9503.namprd12.prod.outlook.com>
+ <avIi2pDCcaKDx3Ro@ashevche-desk.local>
+In-Reply-To: <avIi2pDCcaKDx3Ro@ashevche-desk.local>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-13T11:19:39.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General
+ v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB9503:EE_|SJ0PR12MB6709:EE_
+x-ms-office365-filtering-correlation-id: 711aed1f-86da-449b-e8ee-08df4398d948
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|366016|376014|1800799024|23010399003|38070700021|10067099003|5023799004|11063799006|4143699003|56012099006|261022105027099003|261026121527099003|261028144727099003|261026140227099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ 5lZOSqF8d/G09DIR2zJFB98LfxG5fe2/L/NPPzOnj77t6+GCYbU7SuDqcS4Wh15VOJLxDZPoShUc3GXK+sWiv5jcITWUpjCf5HMcaR1HHUdfMsjRBWb31E5c4I2F3HzNVCUwcI6Xvtwtkg9JVy4GF4Luin71quY2+yRBcxHpLIKOV1c3K28bcliTNUOZ4nbFI4wuKCxBA8yM3SNH1xQPDXA811d4qpgL8owdKKA42FPYdtI3NaH5KmHahbomCKziyezTzCn/X7ecjWUXvCbSQoRfQ9eYe3k1AXT2xCdEWEEG5cUVMYbu6hh/LgQMom6VJGchgSl7Q60/iB9pd+eVSeRqHnXq1nULPqVmLQivCiYpOzjfZDloV9d4g3373DgtNuflKbQkWYyEphFLEOo4r+sd/6w1U0G/1kT8yLVkf91fT2O7TIr8EuRWzgs/0Bf+HtpN4VqwrhhmdOFLV3cSuOauPaJyACgTPB6O8mJUs1tKGySkEdYB7AKdVpznIbccn+uNgQ9siiIUne8LstpX38k1jde314CuIoixCDlrbRwuDwxrMJgls6tOwDqdH4C5yg54EssyRDpHTI2uH4l/77wDnD/ZjhGPw1wUEhuW8teExXTLAlVGwv52mQGVFzscBuq+BZG37GLrSbrO6qRCQZHLBfsrTTabRxkzawk/40A5OCKylmzdpOBU0PytyvXXRamUwX2S7wi5svKCZdc6fFPcddVPvxtMH2M2atkT1xY=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9503.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(38070700021)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(261022105027099003)(261026121527099003)(261028144727099003)(261026140227099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?NvSATli6SG2tfe+1/90u4EUoASBQdSJJRpM9wJMMjd1vP0tZjdS4yJAYGc?=
+ =?iso-8859-1?Q?v10Moub3duui5qAHpXtO+4Ljvp8FVtbowB3o54+KrqMzy93Aza52jyej6Z?=
+ =?iso-8859-1?Q?LpEADypULXioLZTgQdUG8ChYlzCip87ZN9AfuYfu7w6UU+UGZOiI/xh/0Q?=
+ =?iso-8859-1?Q?7Jr4i/3J7xeFWbw3dqP20pLkqx7PYnONEgo909HVV5w2uet6S2mU28EKDY?=
+ =?iso-8859-1?Q?cAT6kJfs3yluGavW3Fqowma6FsXavBBftJ44n9qvPQFvth1EZtDbkAGJS1?=
+ =?iso-8859-1?Q?aflev8pK+6yB33JaDa0FYFnIN4hKVFQuqRkFCZkgv/JyenhWYkdCb4WHJ4?=
+ =?iso-8859-1?Q?U6lBD3qClRpN9RuDf9EWuqyS+KD3neAwxr3gDKAqFE/k6GYRA0bdVX8K+X?=
+ =?iso-8859-1?Q?GdoE3t5VPUNiq9I/RoXM736h1hHZXz0Iozd3bosdWXOcWwlp8kRnfuxf87?=
+ =?iso-8859-1?Q?YP3D+GkXnrPQWysZhY7D9rag9TxqkN35wB6qKv1hfPSAGN5hXp0mp4HJox?=
+ =?iso-8859-1?Q?PMlbGLITyFQ0ZchmdgB0AXNsPGKDwYKdaOZdhaOHKgU9qYV0onejRXvtPU?=
+ =?iso-8859-1?Q?3a+Qy21hOfEwpEzoA+rY/rmRloir7QXZHrG61sXGIBTq4QuwYg7v0QA9aA?=
+ =?iso-8859-1?Q?/Ty0lXkvcnA1tzhVYjnrPEz82I91iMnn0n/MRekxTY524H4Z2KXxWhxAT8?=
+ =?iso-8859-1?Q?QN/I7QJzJbTsaD/GN6mKR/r9a6CdOzr1Hekx7DTRC+kZTNjrEBDaRKrPW1?=
+ =?iso-8859-1?Q?KgfHGz/azHPivrDrmW7TjEsimkB5lZIsdewKHuLRyiwPfkoixQPYMYEkCK?=
+ =?iso-8859-1?Q?TweQQUHt5jPYdCZDP7Ls4zfBme4nD2Aa/C5HwrXP9KGXOtzKEg8P9MkjsS?=
+ =?iso-8859-1?Q?J9Pv5vB+o3jtzZMV1IGIH5BX0Sz8uL0QWHvCJnLNaRpq2veQwSK/KdP0Ez?=
+ =?iso-8859-1?Q?BKhPr2bxKAXpGcjhp/6QMmi/YRj8W/QMaVvbEAPHuyTxoP4naY8l004iU5?=
+ =?iso-8859-1?Q?yh7VoZ/h/sIIvJlHg2zSBiKxO6RRQBj+ni4C+/Qrzqpi7QbvDm78GUGs+Y?=
+ =?iso-8859-1?Q?n+4dhe06Th+3pOPQJxvuHkof6YKnjV6O4SGJk1UfujlEr3WQimG5f0amSZ?=
+ =?iso-8859-1?Q?PfFeMsamMe++gnxEIeGMQwaw5/W8VPtpiOD9Cz7lZguVA4Zn882ADcn2qM?=
+ =?iso-8859-1?Q?M34A6OpB9XnOj9fRs++R5ejTcv3IC7RktLQQscsS8jrlZGt5yROmN/TjiC?=
+ =?iso-8859-1?Q?GqBYc7H8IxY5BRmW0zxI15nmOm0I6jhQlVO22YjjpDgVpxjCpBJGFQdqCt?=
+ =?iso-8859-1?Q?wkqaBq9FT4hOqvgvfkJyawF6C1ok2yeTcSBDy3QEgbpbCiZaQ9gWiA8y6R?=
+ =?iso-8859-1?Q?ub6xdU7PNUDB6FfQGgdbg4quVuHGeu1o5iznV7GGv5sSmJyBNcqArBom/+?=
+ =?iso-8859-1?Q?aaAH/GuL5ZXb0JJsvM/ZMEcldWbxcl9uEYzclIiMLPSSfMqbUwPRpdTsrt?=
+ =?iso-8859-1?Q?4OeHa4Sv6KO2YVJC0jQz5W1vX+Qvzxcd3m3yQZbC5dU1d/IUUDs0xM5+SV?=
+ =?iso-8859-1?Q?ao88nJQhdtu65igH+FRjqNApS+kLXtNVoF8PNXhHHP9hfORW8M9oRCagSg?=
+ =?iso-8859-1?Q?gxxkKKQWcVvtjwRyCMLVMZknEKdM/GzaEICfLJQakEwgEcIOzNCQ9LcpXq?=
+ =?iso-8859-1?Q?AUSd04sxf/5ZKwHbAVuHMcu3Bi7AKyED9nMEjpun40r/t60UqhpXuVyQ7F?=
+ =?iso-8859-1?Q?TAAvIx6ZErp/P6rzHOXBt9pkIbT9hJ8Qv/RZSQb33p80Lw?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 04:16:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,266 +161,77 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9503.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 711aed1f-86da-449b-e8ee-08df4398d948
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 04:19:46.9047
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gudbI1oI5IZmD5zwt/Uj6bKWX3E60gQLOUgnLCNrhuSg+TVHOHb8OqTCcxQ+JZ0jRDANUjDZZ2FhnAGMM8SUdA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6709
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] scsi: ufs: spacemit: clocks not enabled and sys1clk rate always
-  0 without OPP/freq-table
-- [Medium] scsi: ufs: spacemit: zero ref_clk gating delay in
-  ufs_spacemit_post_hibern8() on UFS 2.x
-- [Low] scsi: ufs: spacemit: ufs_spacemit_event_notify() logs cleared
-  hba->errors on UFS_EVT_ABORT
-- [Low] scsi: ufs: spacemit: duplicated ufshcd_init_host_params() and
-  unused definitions
-- [Low] scsi: ufs: spacemit: positive UIC error codes ignored in DME
-  error checks
---
+AMD General
 
-commit 893661ab0d45a5f00a091213a0890aea0386b457
-Author: Yixun Lan <dlan@kernel.org>
+Hello Andy,
 
-scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+> -----Original Message-----
+> From: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Sent: Tuesday, November 10, 2026 1:16 AM
+> To: Mahapatra, Amit Kumar <amit.kumar-mahapatra@amd.com>
+> Cc: Jonathan Cameron <jic23@kernel.org>; Simek, Michal
+> <michal.simek@amd.com>; Potthuri, Sai Krishna <sai.krishna.potthuri@amd.c=
+om>;
+> David Lechner <dlechner@baylibre.com>; Nuno S=E1 <nuno.sa@analog.com>; An=
+dy
+> Shevchenko <andy@kernel.org>; Rob Herring <robh@kernel.org>; Krzysztof
+> Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; linux=
+-
+> iio@vger.kernel.org; devicetree@vger.kernel.org; linux-arm-
+> kernel@lists.infradead.org; linux-kernel@vger.kernel.org;
+> amitrkcian2002@gmail.com
+> Subject: Re: [PATCH 2/6] iio: adc: versal-sysmon: validate temperature hy=
+steresis
+>
+> On Fri, Nov 06, 2026 at 11:35:00AM +0000, Mahapatra, Amit Kumar wrote:
+> > > -----Original Message-----
+> > > From: Andy Shevchenko <andriy.shevchenko@intel.com>
+> > > Sent: Tuesday, November 3, 2026 3:39 PM On Mon, Nov 02, 2026 at
+> > > 05:51:08PM +0530, Amit Kumar Mahapatra wrote:
+>
+> ...
+>
+> > > >     sysmon_q8p7_to_millicelsius(upper_reg, &upper_mc);
+> > > >     sysmon_q8p7_to_millicelsius(lower_reg, &lower_mc);
+> > > > -   *hysteresis =3D upper_mc - lower_mc;
+> > > > +   *hysteresis =3D max(upper_mc - lower_mc, 0);
+> > >
+> > > But you can use abs_diff() and let it make the problem of the supplie=
+r.
+> >
+> > I went with max() because an inverted pair (lower above upper) doesn't
+> > really describe a hysteresis, so treating it as zero seemed the safest
+> > reading. With abs_diff(), an inverted 80/90 pair would be read as
+> > 10 degrees, and the next threshold write would then set the lower
+> > threshold to 70.
+>
+> Bu where did it come from? HW or DT? If the latter, we may just reject th=
+e wrong
+> values at probe time, no?
 
-This commit adds a UFS host controller platform driver for the SpacemiT K3
-SoC, supporting JEDEC UFS 2.2, MIPI UniPro v1.61, and M-PHY v3.0.
+It comes from the hardware, not DT. sysmon_init_hysteresis() reads the two
+threshold registers. There is no DT property for them, so there's nothing t=
+o reject
+when parsing DT.
 
-> diff --git a/drivers/ufs/host/ufs-spacemit.c b/drivers/ufs/host/ufs-space=
-mit.c
-> new file mode 100644
-> index 0000000000000..eb2ad50826997
-> --- /dev/null
-> +++ b/drivers/ufs/host/ufs-spacemit.c
-[ ... ]
-> +static u32 ufs_spacemit_get_sys1clk_1us(struct ufs_hba *hba)
-> +{
-> +	struct ufs_clk_info *clki, *clka =3D NULL;
-> +	struct list_head *head =3D &hba->clk_list_head;
-> +	unsigned long rate_hz =3D 0;
-> +
-> +	if (!list_empty(head)) {
-> +		list_for_each_entry(clki, head, list) {
-> +			if (clki->name && !strcmp(clki->name, "axi") && clki->clk) {
-> +				clka =3D clki;
-> +				break;
-> +			}
-> +		}
-> +	}
-> +
-> +	if (clka && clka->clk)
-> +		rate_hz =3D clk_get_rate(clka->clk);
-> +
-> +	if (!rate_hz)
-> +		return 0;
-> +
-> +	return DIV_ROUND_CLOSEST(rate_hz, 1000000);
-> +}
+Regards,
+Amit
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
 
-[Severity: High]
-Does hba->clk_list_head remain empty when the Device Tree node has neither
-freq-table-hz nor operating-points-v2?
-
-ufshcd_parse_clock_info() returns early without parsing clock-names when
-freq-table-hz is absent, and ufshcd_parse_operating_points() does the same
-when operating-points-v2 is absent:
-
-drivers/ufs/host/ufshcd-pltfrm.c:ufshcd_parse_clock_info() {
-    ...
-	sz =3D of_property_count_u32_elems(np, "freq-table-hz");
-	if (sz <=3D 0) {
-		dev_info(dev, "freq-table-hz property not specified\n");
-		goto out;
-	}
-    ...
-}
-
-Since the spacemit,k3-ufshc binding omits both properties and
-ufs_spacemit_init() does not populate hba->clk_list_head or acquire the
-clocks itself, ufshcd_init_clocks() and ufshcd_setup_clocks() never enable
-the axi or ref_clk clocks (leaving them subject to clk_disable_unused or
-unclocked MMIO access if not enabled by firmware), hba->dev_ref_clk_freq is
-never parsed from ref_clk, and ufs_spacemit_get_sys1clk_1us() always returns
-0 so ufs_spacemit_link_startup_pre_change() always falls back to
-UFS_AXI_CLK_LOW_FREQ_HZ (409.6 MHz).
-
-[ ... ]
-
-> +static void ufs_spacemit_set_dev_cap(struct ufs_host_params *host_params=
-, u32 pwr_hs)
-> +{
-> +	if (!host_params)
-> +		return;
-> +
-> +	memset(host_params, 0, sizeof(struct ufs_host_params));
-> +	host_params->tx_lanes =3D UFS_SPACEMIT_K3_LIMIT_NUM_LANES_TX;
-> +	host_params->rx_lanes =3D UFS_SPACEMIT_K3_LIMIT_NUM_LANES_RX;
-> +	host_params->hs_rx_gear =3D UFS_SPACEMIT_K3_LIMIT_HSGEAR_RX;
-> +	host_params->hs_tx_gear =3D UFS_SPACEMIT_K3_LIMIT_HSGEAR_TX;
-> +	host_params->pwm_rx_gear =3D UFS_SPACEMIT_K3_LIMIT_PWMGEAR_RX;
-> +	host_params->pwm_tx_gear =3D UFS_SPACEMIT_K3_LIMIT_PWMGEAR_TX;
-> +	host_params->rx_pwr_pwm =3D UFS_SPACEMIT_K3_LIMIT_RX_PWR_PWM;
-> +	host_params->tx_pwr_pwm =3D UFS_SPACEMIT_K3_LIMIT_TX_PWR_PWM;
-> +	host_params->rx_pwr_hs =3D pwr_hs;
-> +	host_params->tx_pwr_hs =3D pwr_hs;
-> +	host_params->hs_rate =3D UFS_SPACEMIT_K3_LIMIT_HS_RATE;
-> +	host_params->desired_working_mode =3D UFS_HS_MODE;
-> +}
-
-[Severity: Low]
-This isn't a bug, but ufs_spacemit_set_dev_cap() and the
-UFS_SPACEMIT_K3_LIMIT_* macros set the exact same defaults as the exported
-ufshcd_init_host_params() helper in drivers/ufs/host/ufshcd-pltfrm.c.
-
-In addition, ufs_spacemit_init() allocates struct ufs_spacemit_host and
-stores it with ufshcd_set_variant(), but the variant pointer is never
-retrieved anywhere in the driver.  MPHY_TX_FSM_STATE is also defined in both
-ufs-spacemit.h and ufs-spacemit.c, ANA_EQ_CTRL_REG_ATTR and
-MPHY_PU_WITH_HB8_RESET are defined in ufs-spacemit.c while raw literals
-0x00CD and 0xb7f are still used in ufs_spacemit_uniprov1p6_init() and
-ufs_spacemit_mphy_init(), and MPHY_RX_FSM_STATE along with several headers
-and macros in ufs-spacemit.h are unused.
-
-> +
-> +static int ufs_spacemit_link_startup_pre_change(struct ufs_hba *hba)
-> +{
-> +	u32 value, sys1clk_1us;
-> +	int err;
-> +
-> +	err =3D ufs_spacemit_mphy_init(hba);
-> +	if (err < 0)
-> +		return err;
-> +
-> +	err =3D ufs_spacemit_uniprov1p6_init(hba);
-> +	if (err < 0)
-> +		return err;
-[ ... ]
-> +static int ufs_spacemit_apply_dev_quirks(struct ufs_hba *hba)
-> +{
-> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
-> +		/* LCC_DISABLE */
-> +		{ UIC_ARG_MIB_SEL(TX_LCC_ENABLE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0 =
-},
-> +		{ UIC_ARG_MIB_SEL(TX_LCC_ENABLE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1)), 0 =
-},
-> +		/* TX_Min_ActivateTime */
-> +		{ UIC_ARG_MIB_SEL(TX_MIN_ACTIVATETIME, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0=
-)), 0x0 },
-> +		{ UIC_ARG_MIB_SEL(TX_MIN_ACTIVATETIME, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1=
-)), 0x0 },
-> +		{ UIC_ARG_MIB(ANA_HSGEAR_CTRL_ATTR), 0x25 },
-> +	};
-> +	int err;
-> +
-> +	if (hba->dev_quirks & UFS_DEVICE_QUIRK_HOST_PA_SAVECONFIGTIME) {
-> +		err =3D ufs_spacemit_quirk_host_pa_saveconfigtime(hba);
-> +		if (err < 0)
-> +			return err;
-> +	}
-> +
-> +	if (hba->dev_info.wmanufacturerid =3D=3D UFS_VENDOR_WDC)
-> +		hba->dev_quirks |=3D UFS_DEVICE_QUIRK_HOST_PA_TACTIVATE;
-> +
-> +	err =3D ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
-> +	if (err < 0)
-> +		return err;
-> +
-> +	return ufs_spacemit_wait_mphy_pll_lock(hba);
-> +}
-
-[Severity: Low]
-As reported by Troy Mitchell on v6 [1], can positive UIC error codes bypass
-the "if (err < 0)" checks in ufs_spacemit_link_startup_pre_change() and
-ufs_spacemit_apply_dev_quirks()?
-
-ufshcd_dme_get() and ufshcd_dme_set() return positive 8-bit UIC command
-result codes (0x01..0xFF) when a DME command fails at the UniPro layer.
-Checking "if (err < 0)" misses those positive error codes and allows both
-functions to continue past failed DME operations instead of aborting early.
-
-[ ... ]
-
-> +static void ufs_spacemit_event_notify(struct ufs_hba *hba, enum ufs_even=
-t_type evt, void *data)
-> +{
-> +	switch (evt) {
-> +	case UFS_EVT_PA_ERR:
-> +		if (data)
-> +			dev_warn(hba->dev, "PA error event, INT errors:0x%x, PA_ERR_CODE:0x%x=
-\n",
-> +				 hba->errors, *(u32 *)data);
-> +
-> +		break;
-> +	case UFS_EVT_DL_ERR:
-> +		if (data)
-> +			dev_warn(hba->dev, "DL error event, INT errors:0x%x, DL_ERR:0x%x\n",
-> +				 hba->errors, *(u32 *)data);
-> +
-> +		break;
-> +	case UFS_EVT_ABORT:
-> +		dev_warn(hba->dev, "Abort event, INT errors:0x%x\n", hba->errors);
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +}
-
-[Severity: Low]
-Does the UFS_EVT_ABORT case in ufs_spacemit_event_notify() always log
-hba->errors as 0x0?
-
-ufshcd_check_errors() clears hba->errors back to 0 before the interrupt
-handler returns (saving sticky bits in hba->saved_err), while UFS_EVT_ABORT
-is only emitted later from ufshcd_abort() in SCSI error-handler context with
-the aborted tag or LUN passed via data.
-
-[ ... ]
-
-> +static void ufs_spacemit_post_hibern8(struct ufs_hba *hba, enum uic_cmd_=
-dme cmd)
-> +{
-> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
-> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x84 },
-> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x84 },
-> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x80 },
-> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x80 },
-> +		{ UIC_ARG_MIB(0xdd), 0x57 },
-> +		{ UIC_ARG_MIB(0xdd), 0xd7 },
-> +		{ UIC_ARG_MIB(0xe8), 0x57 },
-> +		{ UIC_ARG_MIB(0xe8), 0xd7 },
-> +	};
-> +	int err;
-> +
-> +	if (cmd =3D=3D UIC_CMD_DME_HIBER_ENTER) {
-> +		err =3D ufs_spacemit_check_hibern8(hba);
-> +		if (err)
-> +			dev_err(hba->dev, "ufs_spacemit_check_hibern8 error\n");
-> +
-> +		ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
-> +
-> +		/* Power down M-PHY */
-> +		ufshcd_writel(hba, 0x0, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
-> +
-> +		fsleep(hba->dev_info.clk_gating_wait_us);
-> +
-> +		/* Disable reference clock, keep device reset deasserted */
-> +		ufshcd_writel(hba, MPHY_DEVICE_HW_RESET,
-> +			      UFS_PHY_MNG_BASE + UFS_DEVICE_IO_CTRL);
-> +	}
-> +}
-
-[Severity: Medium]
-Does fsleep(hba->dev_info.clk_gating_wait_us) gate the device reference
-clock with zero delay on UFS 2.x devices?
-
-ufshcd_get_ref_clk_gating_wait() only reads bRefClkGatingWaitTime and sets
-hba->dev_info.clk_gating_wait_us when hba->dev_info.wspecversion >=3D 0x300.
-On UFS 2.x devices (or if Hibern8 is entered before
-ufshcd_device_params_init() runs), clk_gating_wait_us remains 0, so
-ufs_spacemit_post_hibern8() calls fsleep(0) and disables
-MPHY_DEVICE_REFCLK_OE immediately after powering down the M-PHY without
-satisfying the reference clock hold time.
-
-[1] https://lore.kernel.org/r/DLLQJDEA91FU.18Q1TSX09AUR3@linux.spacemit.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-08-k3-ufs-=
-support-v8-0-e3b256972dd4@kernel.org?part=3D2
