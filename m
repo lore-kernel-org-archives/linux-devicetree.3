@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794847200;
-	b=VbiH6y0JntNt9suC9CaQNEFE81ramgN9sfvUc5a72RFQV+k+LSw2OqQNXu/lK3wCc83c
-	 JSovq0mS+HSGpe0eTE7P4dYNHrhHsM9YOgX0MO3ebTOG8wUoXIBvP49VqmQK7VZNNn/kv
-	 2vAgUd590uphYUPa93u8TnUWCuT5jVjlzFvMsdle2ZGsqLDwvvdAywNaJuh3lCty2mgAJ
-	 fM4DjNcZIDQV8O5mrdYpwctQHSBFgIjfUlEDH7km/mmeSSTFlI5oSbjW7iTJ5WIsja05R
-	 fAlwkdfSRHk19HOXkjwaq/E3z+V9n+Rt5o0kpEmGKO2wOXGg4/4IPpXt3V/aVxo58Xw==
+	t=1794847201;
+	b=C+mB9m1sE9clBo6g0q8ezIPq/hh9+uNNfWDRKxPBNd0bfqRzG44H+LV0U5PasjKFndr3
+	 Psik95BPN+BllMGw6zKg+FCYFtV0CQLxOwHQyyKEI0dg5+9gDIjPyYHmp5J8UyjZ17nAh
+	 eQ77hRDg1yPda1JPSV0c5LuM/Th0cRI1BMGGAGlxnzQqCZhpLuUFcsl2u+i+VQkH/IdGm
+	 tnzwImN6WzU/RsQtHqPToTO6dy4j6T4X9fdovqQvkR4Mowvdacm6WF9akrM1Di2saxWup
+	 L5IhtxVR3ZroYcn1DcF+VLsntDE8f4/TXX1/Av5yVQSaE7dMWDdZxD74ngrXn6pcWfQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794847200;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794847201;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NLxSLGAlbxw7z0m7lP8HQ1a5F0qjVvjKFvItA58evvg=;
-	b=GfBhxq67oaR8KpNafU3QAhnEpW+0cPLF8Ca4GbTelM/1lWxH7uOnGFSBOQFtqCNgZTHt
-	 PjawbUC7EBigA2WtaAqRgO5cfGbm+xIAZPI4F9JY6Q4szEH1+ypFaMxzam+YX9cSRgOR3
-	 NIux00AuCDh3jpkbzTrlk1HUHsambkZq3j9PApu94DRLOUbv8hSqUYwYAB3G6/jCzdv8j
-	 Z2X+g5ZPw8PehokecJVVyLxqG04ZYBLMUnCG/gGgfBJloEaJJiF7E21iYDUwylr/USo+Q
-	 QEjmsYZ3KPNQqTnj604pzDCZ8URsR2DyQkyCSNRt6CVlXxLZqAEFWOFqxK2GhdNKkow==
+	bh=fvStjk2P5Y/1Jdt3vgXWKnB8BBjsKIf7mXeprvth/xQ=;
+	b=LJKHVp6FK5ccPN0xuNVyf5sGpv5Hjtj34bRz3WqlXN8R2BPkWFClInb59XQrRbtUxnLn
+	 RkT3i2GFJvtiB6MRBgAxzXeDAh6evy6QgulByKoFVi/DAHaCiS//OB4FQTSFinZY19COC
+	 PB5E4b94ERJq1Os0xhzDpIdWSObUGNNIUSna/yB/q4U19CnWXfPKrpfWUPm54qpyUDDFB
+	 hmVytDrrz59hMUyogeIbTsGayodEE84ToFnRYnRcLnO6fgiSnUTe+lB96G4A0tzrsVQXA
+	 ByvjUoKtzSDEMgF/p3rJ1pnlVtwM4xf/xsaRcvlB75400dUb3MTsc0fubt6Ik1QNTMA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UV70e/pJ";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CTLG/u35";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B927606A331;
-	Mon, 16 Nov 2026 16:40:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636F1606A88C;
+	Mon, 16 Nov 2026 16:40:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UV70e/pJ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTLG/u35
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794847200;
-	b=byAKPIslIZ8j3MAyPLwMX4zKiniu2v/dU6r3v/DYYP8wS4lOh1En0Tr1kWcBz6ZJWmIU
-	 8pAqtHxlALl8i7Q/OZnXJqDtLiS/dgYOYjjeZLCEH9Ur1maVGwShxpfhKHd5mcvzGM2d4
-	 bqbuFxAyImnSNtPgg0Kb5xmt6lNeMCHwnZoxcs+c4NzkdxqW73BWwLBOs5MDOwUarclvj
-	 Or4uT1odAi8bpHWf5WG20Qw/KZ1mOlrtuYeOd60BuTIWk8tdd6PTuNnTpgdTfn1WylEPb
-	 HE58ItxfaSqUWSO94A3RPTZXZfyq9dTz9Mdi4P2ZxDgEp08tJiGrb+sZD7EOCTyojXA==
+	t=1794847201;
+	b=UfUN8T5yxJOn6WCTD17P903MnUTOjRm0BtF57lahoba7AKBveqUCLMCbxXF41hu0ubHS
+	 d6Rr5qXwZZQpWA5iuzc44l4u0H5S5HEc6+FKY7U7XvjCaj5gPCI4Knz74X2RbsuuldLLT
+	 jhH6JCPNcZB1Gq8s28quPCQFHcpkekSBsdLEGyiu9IRfM51Fkul43yagkfbTP7CPXxC4X
+	 35TeliRKA/UPBF+zgTz+TCkFv2xOEqOjxgdrmSjh6lCvkn/WqsAUHO6c5c6HT/kH7cVQG
+	 yKS4yQDzJchqT/NXO+OhhHtEpSZFSxrCQT31rJYNiSWVK+9Qc2Okj75nnAQUH1xml/w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794847200;
+	c=relaxed/relaxed; t=1794847201;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NLxSLGAlbxw7z0m7lP8HQ1a5F0qjVvjKFvItA58evvg=;
-	b=Hhc5ET0bihN+QV1Obyu+CjWDdlt3v1QkFRHrZP8nySU6j9/LZMjc65Sd0r4NLHc8vxM6
-	 ZzgT+YmCD8ZG/57ZhIRNCEd4wapDr+rcVK80No+h0E9jqsDYw39FwqC2Jy60S0DBDU5Y4
-	 ko39fzB0sOx0Kcc7cPRTV6ozlirgrCMnd6pD/gO6iDP51XyABEZxgJLvPgAmr9AfgpsHr
-	 yAW2+C8kDN0OskDznQVixQRXIbvVlPxyor6mq7nqk1C1qoOpY9z5zVC7S24i1z8dAiEfq
-	 0PGiJK7fsAN9CIaAAO8cNP84ENhvjLf/t99Tz0gejMBxrbKmN24pV+nkmd255tlkwQA==
+	bh=fvStjk2P5Y/1Jdt3vgXWKnB8BBjsKIf7mXeprvth/xQ=;
+	b=bWBxT5MJhv8NfKWUvs9mV3GrNITgsv/UlnDiH+QA2LT9FzPklIoTd/yhZVpIUff1jqda
+	 IxuNrVIx0oLw0kLWYs+PNW3344O+TwGCQFTmPLk0cyTbVhsb0uSujtDZdRVmhNlexJFof
+	 vVHw9cc9Rwa4dW9Gc/Ct1UJfowNpeKTWsS6OdPJscCYtKakNNs4JiBI2JfIciGTleb45v
+	 hWxP9aqBAL3LJo1ZcaGbnEBXgRgxmH6C8PKJlM8uLgfhHOxDyk1U+rokJ5koYnRXSz9W5
+	 ZI/wIau2Sxw68zsa619BPUveXe8uJdFUUXjA4lbpTtgoudXlpGqGIQSHdn9zuC81/EQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 70FF41F000CB;
+	by smtp.kernel.org (Postfix) with ESMTPS id 57BBB1F000C9;
 	Mon, 16 Nov 2026 16:39:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794847200;
-	bh=NLxSLGAlbxw7z0m7lP8HQ1a5F0qjVvjKFvItA58evvg=;
+	s=k20260515; t=1794847201;
+	bh=fvStjk2P5Y/1Jdt3vgXWKnB8BBjsKIf7mXeprvth/xQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=UV70e/pJcmpdUo0QxZlNbBh3519ENtvJmm+mzsLwXRqWjqHMZzCbMixHa8wuvcUgw
-	 o/cuc1n2RyckTfAeoy4iwrzwTXFCYh3qCZRa8fydEoRVVIi5z7NouvMdyCJHGXA86M
-	 bD2uCW1+xYa5HN9L4iUZSwT70sx0szcufQlin9KJV7Q16jNbbp4jQR9+NlD01orfvM
-	 y+nsvEIuf0+qu3TkbNMIlba5t8bbBa2Hk+xLNm9Ne512PtjtcPqCP4wUMeO8Crk5KJ
-	 /7YTrcCL/uKFz5lQ1EbnsC2Kdx7GlmiM8RGvB9Z4VSveoUD9NfiMbDs+cJFUoxOVCq
-	 WLRiSCgKzaRZA==
+	b=CTLG/u35f7GbQcxV85LyFc4nqbudA05FnjKHr0CQT77LHTIkQ48E+ugntb+neA9iz
+	 Ok2hvkWS38mN5k85DZ0F6klOFKt7OYaXa8K+pvaZbZwzCQtlYApqmR64vgL7jAeE1A
+	 FT4/RDcuvoIA8TXGvWfVrIAUpsiJpg9rL/6bgir0Cbeah1pvNjtzQ/a/AR2K8OYQrc
+	 sjWjMx2oChpi1PHyi3prp67aE+pU9UW5a6MHGeannb+VWG0qwCV1ANiGE+8HgjDd0X
+	 /val58WOihYEjXJsPxRpHb1HlyxrPplX7jvb9H1Ay/TheD6yWX9Ae8TNiXxZJvVf4e
+	 xr0oG3VfNkrOQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F12344A522;
+	by lkml.kernel.org (Postfix) with ESMTP id C66634A514;
 	Mon, 16 Nov 2026 16:39:58 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Mon, 16 Nov 2026 16:39:55 +0000
-Subject: [PATCH v4 03/12] iio: backend: use the consumer fwnode for named
- lookups
+Date: Mon, 16 Nov 2026 16:39:53 +0000
+Subject: [PATCH v4 01/12] iio: frequency: ad9910: powerdown fix
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-ad9910-backend-support-v4-3-fcf1ad364ed5@analog.com>
+Message-Id: <20261116-ad9910-backend-support-v4-1-fcf1ad364ed5@analog.com>
 References: <20261116-ad9910-backend-support-v4-0-fcf1ad364ed5@analog.com>
 In-Reply-To: <20261116-ad9910-backend-support-v4-0-fcf1ad364ed5@analog.com>
 To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -102,54 +101,75 @@ Cc: Olivier Moysan <olivier.moysan@foss.st.com>,
  Randy Dunlap <rdunlap@infradead.org>, 
  Rodrigo Alencar <rodrigo.alencar@analog.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794847197; l=1465;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794847197; l=2077;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=Aqd7cXKBKNmzoZvZz6wBTgwNO0tV9BfSYFDnK0IgmaA=;
- b=zQO3o3/r28xNjDjGsijCE1stfX+0fyvRhA4KM0FaJOxu0c5VtuhGhr+72tRNA3JVXtMfzxknS
- BJyNc2KPSg7BrMkuYzkQPWBKlF0lG1MAYBi6+6NuEO1+WL+NbVX6DP+
+ bh=aJtPIXmw5LGBhO6Ijl0bIJNuEuTO3aFnvbkzsDyxwGs=;
+ b=PDWdSJZWoWSgoSwHFEEXlGEpAYdyxW4OMSAOoqXHqnkwEuP7NLpqOYvCfx8NWEkf2uHW4tFk6
+ e2GXp1wbv2ZDiQPyzVNt78xjgGk3AzCcL02xA+kSvXeLZVI7OK6B/mk
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
  with auth_id=561
 X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 Reply-To: rodrigo.alencar@analog.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-__devm_iio_backend_fwnode_get() receives the consumer fwnode, which is
-used to resolve the io-backends reference. However, for a named lookup,
-the index is obtained from the io-backend-names property of the device
-instead. When devm_iio_backend_fwnode_get() is called with a fwnode other
-than the device one, such as a child node, the name is then matched
-against the wrong node, either failing or returning the index of a
-different backend.
+Enable the software powerdown on all the applicable CFR1 register bits at
+once with an IO update.
 
-Look up io-backend-names in the given fwnode, so that both properties
-are read from the same node.
+It turns out that DIGITAL and REFCLK_INPUT powerdown do need an IO update
+when enabling the powerdown, but that is not the case when powering it up
+again. It is an asymmetric behavior, which was observed while profiling
+power consumption in the lab.
 
-The only current user of devm_iio_backend_fwnode_get() does not provide
-a name, so it is not affected.
-
-Fixes: c464cc610f51 ("iio: add child nodes support in iio backend framework")
+Fixes: 22452fe6cd08 ("iio: frequency: ad9910: initial driver implementation")
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
- drivers/iio/industrialio-backend.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iio/frequency/ad9910.c | 26 ++++++++------------------
+ 1 file changed, 8 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/iio/industrialio-backend.c b/drivers/iio/industrialio-backend.c
-index fbf5c39d7655..9a1072b39815 100644
---- a/drivers/iio/industrialio-backend.c
-+++ b/drivers/iio/industrialio-backend.c
-@@ -1034,7 +1034,7 @@ static struct iio_backend *__devm_iio_backend_fwnode_get(struct device *dev, con
- 	int ret;
+diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
+index 04a4e184b873..8bc24d0b7442 100644
+--- a/drivers/iio/frequency/ad9910.c
++++ b/drivers/iio/frequency/ad9910.c
+@@ -621,26 +621,16 @@ static int ad9910_sw_powerdown_set(struct ad9910_state *st, bool enable)
+ 	if (ad9910_sw_powerdown_get(st) == enable)
+ 		return 0;
  
- 	if (name) {
--		ret = device_property_match_string(dev, "io-backend-names", name);
-+		ret = fwnode_property_match_string(fwnode, "io-backend-names", name);
- 		if (ret < 0)
- 			return ERR_PTR(ret);
- 		index = ret;
+-	/*
+-	 * When powering down, the DAC and AUX_DAC (SW1) must be powered down
+-	 * first, as they require an I/O update to take effect. The opposite is
+-	 * true when powering up, the DAC and AUX_DAC must be powered up last,
+-	 * i.e., after the DIGITAL and REFCLK_INPUT (SW0) power up.
+-	 */
+-	if (enable) {
+-		ret = ad9910_reg32_update(st, AD9910_REG_CFR1,
+-					  AD9910_CFR1_SW1_POWER_DOWN_MSK,
+-					  AD9910_CFR1_SW1_POWER_DOWN_MSK,
+-					  true);
+-		if (ret)
+-			return ret;
+-
++	if (enable)
+ 		return ad9910_reg32_update(st, AD9910_REG_CFR1,
+-					   AD9910_CFR1_SW0_POWER_DOWN_MSK,
+-					   AD9910_CFR1_SW0_POWER_DOWN_MSK,
+-					   false);
+-	}
++					   AD9910_CFR1_SW_POWER_DOWN_MSK,
++					   AD9910_CFR1_SW_POWER_DOWN_MSK,
++					   true);
+ 
++	/*
++	 * When powering up, the DIGITAL and REFCLK_INPUT (SW0) must be powered
++	 * up first, as they do not require an I/O update to take effect.
++	 */
+ 	ret = ad9910_reg32_update(st, AD9910_REG_CFR1,
+ 				  AD9910_CFR1_SW0_POWER_DOWN_MSK, 0, false);
+ 	if (ret)
 
 -- 
 2.43.0
