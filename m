@@ -1,93 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794830085;
-	b=ohfh72luAkDWSz5XVrCGcIAF6tHD1Q+LGfcJ2bYuJHa55qJuNQkFo238FdAER6dwAMic
-	 R4dyZA0WDVprg5WLRLabkdZI/Rs8NC8p7tGFa3YSiJYHAFE52b68FavSgHXhTNFbnb60e
-	 tJITamlLl0f0gV8JNx6u8+xicGRztxb4Vq8nSl/Eb1zjiUCsaQPgaE7mPWTdQHs6TCs8z
-	 I5GHLgSzmE7SBevsJgAFQG2kO89f3mF+C7ZDVymv/H5G2WIaO0FidIC/I//vyvWoj1vUd
-	 dTop6sahkju9W0vD4f62aqpqQ2v6cQiwu6iovvPtD5VCRyJMqNG61fGz25TlG/VwWlg==
+	t=1794830132;
+	b=jxIdxowrb0Gkttyf5xlHrchsOyA14Zj+hok+uKWcWgXu1VNM3tX7Jn763hugctq41YlR
+	 nFaYhtqyuP79zum5uiQUZwfDhd9XUFa3SgvJwh+KUGR6x0N083lycjOcmd9Zs2Ph8xVpK
+	 KDESP33RRrtXku6QmBUHjKEq9bZRCel4QfxuYdlCDMPiXvLlIqmPO4aG2VY7gKG5hAP5T
+	 MbOe6rXOUNzdsU3sMDBEPA8gt2w3vWe2pGPNWHi/goRJWSp2cCeXpIdLg7IyxJsXMIQiA
+	 lTeiNznXp5I3Umj10f2PSRDo6NWO9bEWOIL29ojHbQZFji7xKj6hY7tjqrUWcfvqQaw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830085;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=hlKdAuKU6/zlzy78gLmAnVvUOZiQT/RfQGf8vqVj9/4=;
-	b=zdfuEtAlBacYM2h5KY9V3FicIze6vnlepBnsdPLi4PD5azjGKpe5zuFDeWmTihbNLiBF
-	 hQ8MKDx+5UpVnCxlc1wp/2TGA4I5tayf36Yj0dhYYy64GeMKynt4eYDBhgtewNACmlrvF
-	 3jPdhSP01eJbRPL8zpsT6TJkl43ypVOKjf1pyjgJpskiau0nesK3yulihkIF4ohQVQITq
-	 h9jscSI/qyzi4zD2nnvWuMLF40VXwFTfPgIoa/iR1fGjq2VLKuizMB74dq7dOVIzKEXpB
-	 BFPUnj35+BI1C/PEJ04rGrve87TjF3aB8HIb8p2rKlfVzxzEiOxKpEz8h30nHDkhShw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830132;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hV/k/f5fbJcjPJ2ZODj4J4biesErKEozmiKxvry9Ils=;
+	b=zQqD+iCWorBzrgO3hRtQe4+gT2jEl4oc9MaGHWEHyI+X8tsLAauIHcQ7kO+iNIThwkSq
+	 EG0a4LhBYck+Ficv2Uc3Kvi1nns5Nvi6voTppKpdxUexfuXYkK5CMyzxAGjnsFVMuq3oa
+	 KpBs35SGn7KQUn7HEo/rknTsDyKrSO4AOtsOr+83z+pxoLupkK2Y5xkI2wntYY2YUYqum
+	 yp0CspJ0PyPsdsDMDevoMFc9HRimg7Iul7xy8CUI6qdXJTIqHfRk9eLvYMQBooB8FB8fB
+	 WlSC05mEekUp8J82TmwHIcbQAkurF0ytgRN3jfVX83zOjMbaeQQL85P/HRDhXfP72ug==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=F8t3kHBv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cSXZtWT/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B1A606A32F;
-	Mon, 16 Nov 2026 11:54:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2B1A606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AAA1606A31C;
+	Mon, 16 Nov 2026 11:55:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=F8t3kHBv
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 16D3F202929;
-	Mon, 16 Nov 2026 12:54:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794830083;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hlKdAuKU6/zlzy78gLmAnVvUOZiQT/RfQGf8vqVj9/4=;
-	b=F8t3kHBvYsxFxiojpYcaaEO8yZNbDqfUZERwscJ7clfA3vc3UGoWxoRKgurki2oUASVnY6
-	4SC5dgmiGXD7TOOfjHuNJ98HnET3RbY3UtrAOZF+KVeEehyJbpyJg5XqmyOiK83XJLqsuU
-	/klh/bDYmypg0l/SKOD8t+kLXBSgI2XuyyiEgfFz6CQyubqXy3t6YxYVf2MoVrdZobf75Y
-	lt7+0p+kcBN2hW+XaoduqZ5qQ1kcdzZKb1wAYo011YqngA8G1QHWUj5n00uktU5b+1Wifj
-	XPtqMI8sympbe6++lo7ilkgxWQGF2UDqOXORjcn/BSihErC7bnnipPqzrurBbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794830083;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hlKdAuKU6/zlzy78gLmAnVvUOZiQT/RfQGf8vqVj9/4=;
-	b=E189z2N24A32vezLb2jV8FGurUV6OKE3Jroj3WDbY2h+i5w4TfbruF0Nn2Diw+mDDGzqG0
-	9TjxwuRQt6BX6dv3IZaXORTHz6BT0+k5xJb2J58b8psu3zKCaj38pFeR4d4Z+rBgNg1Q3x
-	4iM7ctQEdFbxCY+yKX18b7sK6AhNTdyfoWsIfZLZqJl8EJtj5M29UJuozqPpVkuJhEbR6W
-	Uh4ZW6qkLcn63fbi40ZuNnyTY1jhXzs83+PNAMwShOSenhSk4iRkhvUuIDxszYmqMqsRnO
-	75fUFWC2qTTrE7BkOqSiGtLWHA/4WmiFVJh4J6Ae//0fTh28h47ilCTRyhbdRA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794830083; a=rsa-sha256;
-	cv=none;
-	b=Y6aaFE3qrHdo3IorAfip8dGqpTrhQTAmWbv/iKn1Kqt2bCXFlO8PW+mhk2zY46GJ/9sSzb
-	ABLtgqW4cCza/WSHEg1olQ7Hzm4fzpyPDgmEgc7tpE93qUU66gff1CrGavGxtj4Em/mWbw
-	w90x+26TSghd/X0jX07lLyzut+14FjeOt0YJdb2eqV1zFl1M412HjqvqbJsDLIYrWU76GZ
-	l1GnutQv+I98I66jd/VWhhIAMlz3s/zQdpk5/bV4HPtrBk6X9/JZXe1sTbp/XwWJctbcNj
-	PTmSdXuEnXA+IdpZ9B4aXztLlCsJA8xGbqdl7MPSgARBcKa45jDHdSndUzQ3Cw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <65f843b0a46f14df575d998acceb40b68fe64a62.camel@pengutronix.de>
-Subject: Re: [PATCH v2 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Jiayu Du <duge1256@gmail.com>, srini@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- dlan@kernel.org, 	troy.mitchell@linux.spacemit.com, me@ziyao.cc,
- aurelien@aurel32.net, 	pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, 	devicetree@vger.kernel.org,
- linux-riscv@lists.infradead.org, 	spacemit@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 12:54:42 +0100
-In-Reply-To: <20261116075423.1519438-3-duge1256@gmail.com>
-References: <20261116075423.1519438-1-duge1256@gmail.com>
-	 <20261116075423.1519438-3-duge1256@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cSXZtWT/
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794830131;
+	b=ndVY2WGEphCPSRcu0QNGMoZhOhAl8PdW8JJlHQWJReeCOEosT46t0ecufw9f8kG898+i
+	 Z4i03D6OUV0T2gKF36Tx/cMQayg1QIjjOGCu4Xl9I35SFWp+bJHL1ff7dPm3ccq33+SR9
+	 6ys+Szdet+jjTuX7+9cFP/JsoTVObZUdjZgB65US8uwWc81KTmYomQacjZHH0YFpSg5lt
+	 YJqjYYHBa4niKbukpWimlxJdfN0MbWLXprYQWn/7YbO2DB+HTxF6TYDj8kiLG/QMHp4PR
+	 BBXbVoWftVuyqUW+pzSXmHlmHiFDcX8J4lPziL2mcZwUfR7XHGLfd+j2HV3+vQgHbWQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794830131;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hV/k/f5fbJcjPJ2ZODj4J4biesErKEozmiKxvry9Ils=;
+	b=0iZNw8mc/cG47cib2XpiHwS0LOSwBe+BhVGUSnhJOYXJGna1hBijFRiGUmzBGhIA9ZXP
+	 wrYiugQleDTF4oMuVcU7VIcBAduWnTgnRQHpMaFW8MmAScbov3eUbvsoTv7ZjiGli46An
+	 tu6LDBlhWpAuVUceOr62klIq9r17rVxoShapcHCFBTcQfoEgJpkPuUrLvb4/FEBOV3Cyi
+	 DYSdLG+Hl7VuMioTapYMdi2vg9CsJjnNkWeBzOalz0mPRelDaC8tItne7xIUe+XY/VohK
+	 HjIDpzjT4Ocji6x5HS9w4CZn/UjGqKP94L6D6A7bX7dzlD9ufXvt9boGQheb9SQlTJQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 43BA31F000C5;
+	Mon, 16 Nov 2026 11:55:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794830131;
+	bh=hV/k/f5fbJcjPJ2ZODj4J4biesErKEozmiKxvry9Ils=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=cSXZtWT/CVs7hiKyLCra57wCqzeWiCdlfmUJUxov/+0wHYo9lcLjcghaNlrXtB2ZN
+	 9xnP7LoE8ahuEc2qn2xC5uw4gTo8RLhpMpgeftdaZ1k+I+NJgQoCUMJuIjX3PkTCSF
+	 atFndwx/pFjV4GEMQr9duASAplrVUlHr7MQ9Alb3TLb4Bm3rUTzFaJO5G/FfDzDIBW
+	 bya9iMoXZlhvrf6xQLZUvFOH7QMj3D6LMgWXYMPYjl1F//oBA4loUEJGKSRcmO65oU
+	 iQACjOCKDiqL/IWLLxW134/p0SMj6RJ0TvG5qaIiUfuYS3+K5c8/UFSfXTn4jBoK0j
+	 DND6u3s7bLhvQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C96424A44A;
+	Mon, 16 Nov 2026 11:55:30 +0000 (UTC)
+From: Aleksa Paunovic via B4 Relay <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
+Date: Mon, 16 Nov 2026 12:55:08 +0100
+Subject: [PATCH v3 1/8] dt-bindings: riscv: cpus: add mips,p8700
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,31 +82,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-p8700-dts-v3-1-ec5d4b7de39f@htecgroup.com>
+References: <20261116-p8700-dts-v3-0-ec5d4b7de39f@htecgroup.com>
+In-Reply-To: <20261116-p8700-dts-v3-0-ec5d4b7de39f@htecgroup.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, 
+ Djordje Todorovic <djordje.todorovic@htecgroup.com>, 
+ Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Inochi Amaoto <inochiama@outlook.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Conor Dooley <conor@kernel.org>, linux-riscv@lists.infradead.org, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Joel Stanley <joel@jms.id.au>, 
+ Aleksa Paunovic <aleksa.paunovic@htecgroup.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794830124; l=841;
+ i=aleksa.paunovic@htecgroup.com; s=20250806; h=from:subject:message-id;
+ bh=lv7fN/1sfes4OW73tQF/sEOIFoYV8Fh2hXDbsngJw9E=;
+ b=kN62qoyjoQ10HEK4mKnCJ3zptssPyJYyrOZaHxCayLaCKBKUW2G7Gtc3b3tu0uTnLgLJJJOSN
+ FO+e8nK0ujCDdTEEcW1aGXL4NeGlcId8F2C9tnu2HXP6XrvNKnmp2kR
+X-Developer-Key: i=aleksa.paunovic@htecgroup.com; a=ed25519;
+ pk=Dn4KMnDdgyhlXJNspQQrlHJ04i7/irG29p2H27Avd+8=
+X-Endpoint-Received: by B4 Relay for aleksa.paunovic@htecgroup.com/20250806
+ with auth_id=476
+X-Original-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+Reply-To: aleksa.paunovic@htecgroup.com
+Content-Transfer-Encoding: 7bit
 
-On Mo, 2026-11-16 at 15:54 +0800, Jiayu Du wrote:
-> Add read-only NVMEM access to bank 0 and bank 7 of the SpacemiT K3 eFuse
-> controller. These banks contain temperature calibration parameters and
-> other configuration data.
->=20
-> Keep the root key and SSK registers outside the exposed bank ranges.
->=20
-> FUSE_READY reports completion of a software-triggered reload. Trigger a
-> reload through GEU_CONFIG bit 22 with a 1 us reset pulse, then poll
-> FUSE_READY at a 1 us interval with a 10 ms timeout before taking the
-> snapshot. Fail probe if the reload times out.
->=20
-> Snapshot the shadow registers with aligned 32-bit reads and expose the
-> data in little-endian order at controller-relative offsets. Serve reads
-> from the snapshot and use keepouts for the remaining register ranges.
->=20
-> Enable the AES_WTM clock only while accessing the hardware. Leave its
-> shared reset deasserted on teardown because WTM_RST resets the entire GEU=
-.
+From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 
-I don't understand this, possibly because I don't know what GEU is.
+Document the MIPS P8700 compatible.
 
-What is this reset shared with, and why exactly does the reset need to
-stay deasserted?
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+---
+ Documentation/devicetree/bindings/riscv/cpus.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-regards
-Philipp
+diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Documentation/devicetree/bindings/riscv/cpus.yaml
+index 0da219ae6769767a9b7f41f179a3559ae7160d69..3e7016687fb67c53856310f97f4ba587ba6b89e0 100644
+--- a/Documentation/devicetree/bindings/riscv/cpus.yaml
++++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
+@@ -48,6 +48,7 @@ properties:
+               - amd,mbv64
+               - andestech,ax45mp
+               - canaan,k210
++              - mips,p8700
+               - nuclei,ux900
+               - sifive,bullet0
+               - sifive,e5
+
+-- 
+2.43.0
+
+
