@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794836855;
-	b=1VwfK4c21LqMjj8UfEfPQLTZiIhx6e33aPo4XnPEcvnLLfUhGOLoJgiF71YN4LDOGhC5
-	 0fpFyXj++CCW+DQwbgKolxiG0dhP//RspooxJB9daBZps3n/ClfIETdvO9zN2Oq9woLwD
-	 au0nqM2Xn/Yfqj72wtQM62UZB5DY5uC5RGOWbbNzDPynw5kKELf7Q39a+TXwpj53LFtom
-	 lDZG4ht0t24Uhihs8D2ftbB96fN+UjEGQmozW37zwsFOEtG3i+cNcmeb3W3tomujRaQfv
-	 ZPMsULAsoouQWJl05hweiMx7eqFOqKmkDLjAtjBfQRT+PyzXfF0z+wQSjacXi9nWk8A==
+	t=1794837257;
+	b=1O0PRMqqk2sLzUi9imQOa69KptmgmxeA8oSdVeIutJH2SJeI0ZuJ1nQMZfivGYZJQQ4O
+	 OAJfshSBO8bzhfl0nKhvwHZpR9PkEQD6q1AsxfTmCoVk3nSw4qs2zodP0MRQ6BQr17DoS
+	 WEz+0qidmwVjC3eQ09pKV0+ZV9X17gtKoAtBhaDhIkaqZo2DVnFw2eHmNe74UBFWBRklJ
+	 uuckS+G4GOwoit6tbNDMUn+RY+yaZ4keEom6UzoczY5RIzQw69LXVG5e5e/QlIDNq6Hze
+	 v2lzaH/4EgLKhmk2IfuU7h2ib/1w4UqUjPVQBZZyjJSSVmVFQIe3vYI0LoTB9qGjF9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794836855;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=2winabVpaM77ETlKEcvhcxQYA9iyVxIX98gUumohxek=;
-	b=v7gGDKv8Ew93Rnn4c6P4sc4X9d+PUcvO/ohv5CPa1Ol63Bb093t4/XMuNWISL4tLLrQC
-	 xR9eAPXVSblqNHQrusoqiHM6rSx1OJrqMrun+UoQ1sSt5XcLaerGZMdd/pQqb/hqdB5Z1
-	 tjuJwOM//lP6exQVmic7UozfCEYJkopsMKu+fBSBF86J8tYG0v8j7bXQmzbUHnV/Slvgv
-	 +qcYYfGmKrkfCIrpg2Xf67lrzFWg+0BQuwMvMCdDd2dGok0StB892xgXmACVuW1FHrvcI
-	 T+X4/5VU2OgChrnTomdlzsEF/px++NXVVzzBKU+HKj/ebno6Y7TnABGa0rkTJRhEZJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837257;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=/IkU5tW0YII2MEyQTcF8gz9ioztuqMFX7WFdUsByRRI=;
+	b=iQ6t4FRr8bVuMXC0ws+TJCE9CKGHVSmkA8yFm1v5gJkAOXCcy6jRe+X1mRtB862ua/u8
+	 hbA57y1AsNSAyZopZXLKJQTPpziH4k68s/rSi6bJbVJaZZJxtvhrashRxH61JwDQlWTlU
+	 tyhoRLG0c2JtrCdThOqXnfErP1KI1UoNdFez1B1eAi5mygLAnbN4CFNQeiKYCWj0Yq4Ni
+	 4a051yztyKrkaVRn9+16fYU1sKTqhvedvzQLoR/6MySplnsJcQc+a34BouicXbD4saCX0
+	 9kHrNMjSg0+eFIneFfyaQcXbbwaJuxplsUHTZUEHdzcCnvlhIlU6YrnZdzw4P4Y5bHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9I352bd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UjKw0yGx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9AB606A330
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 13:47:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA05606A88B;
+	Mon, 16 Nov 2026 13:54:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9I352bd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 565381F000C9;
-	Mon, 16 Nov 2026 13:47:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UjKw0yGx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 092F91F000C9;
+	Mon, 16 Nov 2026 13:54:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794836854;
-	bh=2winabVpaM77ETlKEcvhcxQYA9iyVxIX98gUumohxek=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=E9I352bdxOVGz1bbCSomh0jG1MPe2WyunjGCj/dqH5fLaRu4sJ2ebF1oWpDF1HBSo
-	 ybDaYXhniwOrLFGc4w0x+pvwo6zjzCgaMaVSIjkxsKZu0gvRtDZg/r9cttPJUnGpVq
-	 xGVZR/aU7i0HGAxnOeFdQwqBxc3zSr75OLOfhm4exw4CBbHmt2KUIV4oPlRb5P2eL+
-	 7T2v65oqKnpYMOFk+21Ko7rihtda0ppBK5gmyRCC6PM76+jSrXvkmOzKMSC4G9YoWp
-	 hN7a//mzblHnjVyrO19v2SFk0SdSSZKUWl6Ba0mbk4QRQoLRTyaboQN8sjtIbDfNtJ
-	 fS6fEjMCdWrFQ==
-Message-ID: <sashiko-outbox-217109@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 05/11] drm/msm/dpu: Add support for DPU 12.1 on Nord
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261116-nord-drv-dt-v3-5-e3d3bf0e2c49@oss.qualcomm.com>
-References: <20261116-nord-drv-dt-v3-0-e3d3bf0e2c49@oss.qualcomm.com>
- <20261116-nord-drv-dt-v3-5-e3d3bf0e2c49@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 13:47:33 +0000
+	s=k20260515; t=1794837256;
+	bh=/IkU5tW0YII2MEyQTcF8gz9ioztuqMFX7WFdUsByRRI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UjKw0yGxV5vw0AqGxEO9d8ErsVtalvGoYT9Tw8yCMKwHVui0rcTxUTC7EvkOQEN1f
+	 LQ4bkWhN4eAz7l34gpNvlkh+8lOw6P5WPbZqbQUTrJ2Lz8FUXvyVa6KnK0gzWMkWAo
+	 UF0OdcnQShhImSWJ50CHnvMfZwt2BLNyNR/OFcBxShaSZSfvcU0mDc5haaHeN5R1ur
+	 GQRcy1HL+l6GKRlNKqm8uJQjVo9adafjbLJoj9JV4VcW8mcYv0fvmOZ5e6nFiFxML8
+	 ZwZou5fWcR/K83SQp6OrgjD4R0j+F/Ij8nBJbnCC7UCXjCHQL1Niy3FE4srxLThLJ+
+	 uggWx/kV/ALxg==
+Subject: Re: [PATCH net-next v6 2/7] dt-bindings: net: ftgmac100: Add AST2700
+ compatible
+From: netdev-bot+sashiko@kernel.org
+To: jacky_chou@aspeedtech.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew@lunn.ch
+Date: Mon, 16 Nov 2026 13:54:15 +0000
+Message-ID: <179483725554.3136.8359940788845125105@kernel.org>
+In-Reply-To: <20261112-support_ast2700-v6-2-238020bf46cf@aspeedtech.com>
+References: <20261112-support_ast2700-v6-2-238020bf46cf@aspeedtech.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,135 +64,174 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] drm/msm/dpu: undeclared INTF_9 and INTF_10 in nord_intf break
-  build
-- [Medium] drm/msm/dpu: wrong interrupt bit assignments for
-  intf_6..intf_10 on Nord
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] In
+  Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml,…
+- [Medium] dt-bindings: net: ftgmac100: requiring phy-mode on AST2700
+  breaks use-ncsi
+- [Low] This commit adds a new allOf block (faraday,ftgmac100.yaml lines
+  90-97) that makes `phy-mode` mandatory for `aspeed,ast2700-mac`.
+
 --
 
-commit 26c8821f9a7d74ed713c34eb7d82f28a0037edd5
-Author: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+dt-bindings: net: ftgmac100: Add AST2700 compatible
 
-drm/msm/dpu: Add support for DPU 12.1 on Nord
+This commit adds aspeed,ast2700-mac to the FTGMAC100 binding as a
+standalone compatible. It extends the resets and clocks conditionals to
+cover AST2700, and it makes phy-mode a required property for AST2700.
 
-This commit adds the DPU 12.1 hardware catalog configuration and device tree
-match entry for the Qualcomm Nord SoC.
+> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> index 9d352e3686aaf..613d4f1caa4fa 100644
+> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> @@ -16,6 +16,7 @@ properties:
+>        - aspeed,ast2400-mac
+>        - aspeed,ast2500-mac
+>        - aspeed,ast2600-mac
+> +      - aspeed,ast2700-mac
+>  
+>    reg:
+>      maxItems: 1
 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h b/driv=
-ers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h
-> new file mode 100644
-> index 0000000000000..333eccb5c603a
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h
-> @@ -0,0 +1,544 @@
+[Severity: Medium]
+An earlier patch in this series ("dt-bindings: net: ftgmac100: Make Aspeed
+compatibles standalone") turned properties:compatible into a flat enum.
+That enum accepts only a single string:
+
+  compatible:
+    enum:
+      - faraday,ftgmac100
+      - aspeed,ast2400-mac
+      - aspeed,ast2500-mac
+      - aspeed,ast2600-mac
+      - aspeed,ast2700-mac
+
+dt-schema expands this into a list that holds one item. A compatible with
+two entries then fails with "is too long".
+
+Do the in-tree Aspeed MAC nodes still validate? At the end of the series
+they all still use the two-string form:
+
+arch/arm/boot/dts/aspeed/aspeed-g4.dtsi:
+    compatible = "aspeed,ast2400-mac", "faraday,ftgmac100";
+
+arch/arm/boot/dts/aspeed/aspeed-g5.dtsi:
+    compatible = "aspeed,ast2500-mac", "faraday,ftgmac100";
+
+arch/arm/boot/dts/aspeed/aspeed-g6.dtsi:
+    compatible = "aspeed,ast2600-mac", "faraday,ftgmac100";
+
+No patch in the series updates these nodes. If that is right, dtbs_check
+fails for every AST2400/AST2500/AST2600 board.
+
+The binding also seems to contradict itself. This patch extends the
+if/contains blocks for resets, phy-mode and clocks. Those blocks are
+written for compatible lists with more than one entry, but the top-level
+enum never lets such a list validate.
+
+Could the binding use a oneOf that accepts both the standalone form and
+the legacy pair of aspeed,*-mac plus faraday,ftgmac100? The other option
+is to convert the in-tree DTS files in the same series.
 
 [ ... ]
 
-> +static const struct dpu_intf_cfg nord_intf[] =3D {
-> +	{
-> +		.name =3D "intf_0", .id =3D INTF_0,
-> +		.base =3D 0x34000, .len =3D 0x4bc,
-> +		.type =3D INTF_DP,
-> +		.controller_id =3D MSM_DP_CONTROLLER_0,
-> +		.prog_fetch_lines_worst_case =3D 24,
-> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
-> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25),
-> +	}, {
-> +		.name =3D "intf_3", .id =3D INTF_3,
-> +		.base =3D 0x37000, .len =3D 0x4bc,
-> +		.type =3D INTF_DP,
-> +		.controller_id =3D MSM_DP_CONTROLLER_0,
-> +		.prog_fetch_lines_worst_case =3D 24,
-> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
-> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31),
-> +	}, {
-> +		.name =3D "intf_4", .id =3D INTF_4,
-> +		.base =3D 0x38000, .len =3D 0x4bc,
-> +		.type =3D INTF_DP,
-> +		.controller_id =3D MSM_DP_CONTROLLER_1,
-> +		.prog_fetch_lines_worst_case =3D 24,
-> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 20),
-> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 21),
-> +	}, {
-> +		.name =3D "intf_6", .id =3D INTF_6,
-> +		.base =3D 0x3a000, .len =3D 0x4bc,
-> +		.type =3D INTF_DP,
-> +		.controller_id =3D MSM_DP_CONTROLLER_0,
-> +		.prog_fetch_lines_worst_case =3D 24,
-> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 22),
-> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 23),
-> +	}, {
-> +		.name =3D "intf_7", .id =3D INTF_7,
-> +		.base =3D 0x3b000, .len =3D 0x4bc,
-> +		.type =3D INTF_DP,
-> +		.controller_id =3D MSM_DP_CONTROLLER_0,
-> +		.prog_fetch_lines_worst_case =3D 24,
-> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 0),
-> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 1),
-> +	}, {
-> +		.name =3D "intf_8", .id =3D INTF_8,
-> +		.base =3D 0x3c000, .len =3D 0x4bc,
-> +		.type =3D INTF_DP,
-> +		.controller_id =3D MSM_DP_CONTROLLER_1,
-> +		.prog_fetch_lines_worst_case =3D 24,
-> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 2),
-> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 3),
-> +	}, {
-> +		.name =3D "intf_9", .id =3D INTF_9,
-> +		.base =3D 0x3d000, .len =3D 0x4bc,
-> +		.type =3D INTF_DP,
-> +		.controller_id =3D MSM_DP_CONTROLLER_1,
-> +		.prog_fetch_lines_worst_case =3D 24,
-> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 4),
-> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 5),
-> +	}, {
-> +		.name =3D "intf_10", .id =3D INTF_10,
-> +		.base =3D 0x3e000, .len =3D 0x4bc,
-> +		.type =3D INTF_DP,
-> +		.controller_id =3D MSM_DP_CONTROLLER_1,
-> +		.prog_fetch_lines_worst_case =3D 24,
-> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 6),
-> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 7),
-> +	},
-> +};
-
-[Severity: High]
-As reported by Dmitry Baryshkov on v1 [1], does referencing INTF_9 and INTF=
-_10
-in nord_intf break the build at this commit?
-
-At this point in the series, enum dpu_intf only defines INTF_0 through INTF=
-_8,
-and enum dpu_hw_intr_reg and dpu_intr_set_7xxx lack MDP_INTF9_INTR and
-MDP_INTF10_INTR, so MDP_INTFn_INTR(intf->id) in dpu_hw_intr_init() also
-aliases MDP_INTF1_TEAR_INTR and MDP_INTF2_TEAR_INTR.  These definitions are
-added later in the series by commit "drm/msm/dpu: Fix DSI tear interrupts
-broken by adding INTF_9 and INTF_10", which should be ordered before this
-patch to keep the series bisectable.
+> @@ -79,12 +80,21 @@ allOf:
+>            contains:
+>              enum:
+>                - aspeed,ast2600-mac
+> +              - aspeed,ast2700-mac
+>      then:
+>        properties:
+>          resets: true
+>      else:
+>        properties:
+>          resets: false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: aspeed,ast2700-mac
+> +    then:
+> +      required:
+> +        - phy-mode
 
 [Severity: Medium]
-Are the intr_underrun and intr_vsync bit indices for intf_6 through intf_10=
- in
-nord_intf shifted onto the wrong interrupt bits?
+Is phy-mode really mandatory for every AST2700 MAC node? The binding
+also documents the use-ncsi boolean. That mode runs the NC-SI stack
+over RMII instead of talking to an MDIO PHY. The first example in this
+file sets use-ncsi and has no phy-mode property, and that is a valid
+setup on the earlier Aspeed parts.
 
-On DPU 12.x (such as glymur_intf in dpu_12_2_glymur.h), MDP_SSPP_TOP0_INTR
-bits 22 and 23 belong to INTF_5, while INTF_6 uses bits 16 and 17, INTF_7 u=
-ses
-bits 18 and 19, and INTF_8 uses bits 12 and 13.  Because INTF_5 is omitted =
-on
-Nord, intf_6 appears to have been assigned INTF_5's bits (22 and 23) and
-intf_7 through intf_10 were sequentially assigned bits 0 through 7 in
-MDP_SSPP_TOP0_INTR2, which will cause vblank and underrun interrupts to nev=
-er
-fire and dpu_encoder_phys_vid_wait_for_tx_complete() to time out when any of
-these interfaces are used.
+With this rule, an aspeed,ast2700-mac node that uses use-ncsi fails
+dtbs_check unless it also carries a redundant phy-mode.
 
-[1] https://lore.kernel.org/r/bqoezyuyrjiawudbwxybvjpdun5f3fmhhzukdeg2holuc=
-2mykq@oa5mhoylopz7
+The driver does not seem to need phy-mode in that case either.
+ftgmac100_probe_dt() checks use-ncsi first and calls
+ftgmac100_probe_ncsi(). That path registers a fixed PHY and connects
+it with PHY_INTERFACE_MODE_RMII without ever reading phy-mode.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-nord-drv-d=
-t-v3-0-e3d3bf0e2c49@oss.qualcomm.com?part=3D5
+The commit message says the rule matches the driver's probe-time
+requirement. However, the check added later in this series ("net:
+ftgmac100: Require phy-mode for AST2700") sits in ftgmac100_mii_probe().
+That function only runs for the legacy MDIO bus scan, which happens
+only when there is no use-ncsi, fixed-link, phy-handle or mdio child
+node. On AST2600 and AST2700 that path returns -ENODEV anyway, because
+ftgmac100_setup_mdio() is only called for Faraday, AST2400 and
+AST2500.
+
+A binding should also describe hardware constraints rather than what
+one version of the Linux driver checks at probe time.
+
+Should the requirement be dropped? Or should it apply only to nodes
+without use-ncsi, for example by adding a not/required use-ncsi
+condition to the if clause?
+
+[Severity: Low]
+Can every AST2700 MAC instance meet this new requirement? The local
+phy-mode enum allows only RGMII and RMII modes:
+
+  phy-mode:
+    enum:
+      - rgmii
+      - rgmii-id
+      - rgmii-rxid
+      - rgmii-txid
+      - rmii
+
+AST2700 SoC1 appears to have three MACs. There are three resets
+(SCU1_RESET_MAC0/1/2) and three gate clocks (SCU1_CLK_GATE_MAC0CLK,
+MAC1CLK and MAC2CLK).
+
+However, there are only two RMII reference clocks (SCU1_CLK_MAC0RCLK and
+SCU1_CLK_MAC1RCLK). The only RGMII/RMII pin groups are RGMII0, RGMII1,
+RMII0 and RMII1. There is also an SGMII group in
+arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi:
+
+	pinctrl_sgmii_default: sgmii-default-state {
+		function = "SGMII";
+		groups = "SGMII";
+
+This suggests the third MAC supports only SGMII. That is an inference
+from the pinctrl, clock and reset headers, not from a datasheet.
+
+If so, a node for that MAC fails validation either way. Without phy-mode
+it breaks the new required rule, and phy-mode = "sgmii" is rejected by
+the enum.
+
+Should sgmii be allowed for aspeed,ast2700-mac, so the binding describes
+every instance of the hardware even before the driver supports SGMII?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-support_ast2700-v6-0-238020bf46cf%40aspeedtech.com
