@@ -1,64 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814202;
-	b=JvrCd33qmylZS78c9Ugp7GAGUh2mlI5ahuntJEWpu16qGUmV07z/bQGbI3aemHfiIPZX
-	 ILS8Yn9KGF2DfLPbMuVLuLzsLSHn3Zmzm8xE8kjb90NkmLtN6sTGEKixC5wCdHbSGpbLR
-	 hf2dj6a8jSC0EAgkvdoTXKG7/viFUsY8aMflp7orMyLw7j+UU19T1jjq5TA90Fsa5fnSG
-	 y9Bxbb0Y6Zp2rQA74PbXTBIaN1L1SWb5XKOzCa93QN0TpBFlG7a06ku4av7yuJJiDMdVp
-	 6dVKqgut34F4ZVq+ZlU+p9ELDINy40k+jxdP0Z0P/ca7O1fDaIeFw+wIC8+Py6VWjTQ==
+	t=1794814330;
+	b=r9eT8/X5TLUP2yLVddQt6Hq23WqzTfiMMtFdpqfjifF7XIv6o0H15viIQSB2lXN+8TfN
+	 HwVfcGJnBPAl5wVUzHlT/s0w9bSB0caixVdzaS7q0OmNrbST2LQXFwwbz3xIJNeASFcGK
+	 dcxUqx/dQwimjZfB6dgx21ThYBzLBqFO6Zgvbph1txr/gwY4A3dY0QW82PxeFBnk3z+O9
+	 50QBHwQMClxaD43kEeQI6RzTROnKU8vYL3SlbrTPAJkhJ5YaAGgtT7wwxGaP+QhO4IY6g
+	 fx3pF9J0YBA4p1RHKeLeu3ldhT0fKUXBc0SiIS5naBf9eNJ10b2D9pSEYk/W5WUrWTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814202;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=cpKxpc6WsFeeIjPOouIAutKYzzXcNv+Zda+j40xqrT4=;
-	b=HZnTGMb7ZnEFz2FXV2NlIwVkUorvMuYGN7UNrYeBgujQpS+nqJmeU/y8JVnuve2tQCMe
-	 ERsgsiqzEQDiw41jQ9s9baWGsjganhPhj0ytfU8lJD7kWx/m8mL8iaCcLHPi4TPjfYcFW
-	 ocwYtmfgZxXHN93iRlJxiLxsf3+ZIBV/D8XRIsrWIkumsu1/g3RmjPA3RLMqFsxtySCKF
-	 PJa+1HdHuysj823JCvfg3L0P+iItltLBCvp06LjxGqUiUstfNuPOQheBJr7SzAuBkpNx5
-	 +CwPTMDeza/IKe9MXFV950KpVd1Mu8avUReYpwWc2MAwduwWeEE+cfKrlpIlYZz4y6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814330;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=oXHDKPwoUSDTOaiRBQ2jabh2zXkESxsmhOkMMuNr4kE=;
+	b=i+Z9Yy4GVBiMVE3WtR02jOtqz6cTloKEuqmtvuXzLpDWCyEXXlPcuJJPMZ2y1Fl8JRFb
+	 m9ENV6xorK5zCQLEm9gTNKmkstBzXjE2L5/odCRal5IL/Xn/uB2tfF4ujtcLUg4IZhiTG
+	 S62EuS4xPz+t5X0Q/hAf8vyK0JkKbcFcJHqf1IUq00kxpqE7P/4twTgnD8RN4tvBgD8N4
+	 tQHbVrBPqGv97z7uB/DmbGDIM3Yg3ixkvwcv8CVB7NrnmL+YS5fRDqpbLdBzKQzB7PP6x
+	 nDojtXEF0mjzHDn/3dCh/p/QsdqGGGCJz5d8wUUmkMSt6qvzmRzXURETPjbQ01OS19A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=ZaDDPzsc;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=My+89gGZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F9A606A31C;
-	Mon, 16 Nov 2026 07:29:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1F9A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FC0606A323
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:32:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=ZaDDPzsc
-Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
-	by mail11.truemail.it (Postfix) with ESMTPA id 2276B1F8CC;
-	Mon, 16 Nov 2026 08:29:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794814191;
-	bh=cpKxpc6WsFeeIjPOouIAutKYzzXcNv+Zda+j40xqrT4=; h=From:To:Subject;
-	b=ZaDDPzscN1ltEbMVzyLxLzy6ReDNSpiilgbf3In3Ed36NMvylO0xTU6O01WzZA2Mh
-	 rHctIcdBPAPpR80jH9vBnniG0FaigUtxWemjau0MNzGqQcjf4xnECf6gPTG3bM9Z48
-	 LSG58aLaCVa0/djiHJpH4W+WG9AJvYn5YJA9FlauHtU0B41LMFzd8TmDzlqf7XnWWl
-	 wh7Qy4grV0kfim9yxSAEAIOgiSlqZ2/upRHqPZIY1WdiAAmzQgfImcqmm6DAC8p76m
-	 StCGLsx2sKthKr8XUxUMawKMzs8CDzo1u21rPoiN2e9yEt2Nl0K+r9hPdx65WGcvry
-	 3tT8/c4txjCXA==
-Date: Mon, 16 Nov 2026 08:29:47 +0100
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 0/3] Add Lotus Carrier Board with Aquila iMX95
-Message-ID: <20261116072947.GA16341@francesco-nb>
-References: <20261112-b4-v1-aquila-lotus-dtbs-v1-0-ca150bb4b0f9@toradex.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=My+89gGZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56ECE1F000C4;
+	Mon, 16 Nov 2026 07:32:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794814330;
+	bh=oXHDKPwoUSDTOaiRBQ2jabh2zXkESxsmhOkMMuNr4kE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=My+89gGZxK0whs6QumD4k2A4zzsf8Hvw1T0KCJRmT27MAh6iiMwBeo4+oHszGu7I1
+	 GBZZj3u0025Ike20wsBJ2RiWpEmzuNn+tQNr1o/+mqcRnNOece8tT1qABgtzmcak1O
+	 mmjpYiOMODCjxoJC8gpB6Tm+9K4hLA0hxoqTz+DGU/EoPnBfgmqGvknnUxlRVxLfT+
+	 XFWZXs63xYifOdWrj2MjF0U/+LZR1aR6Mdr3ExUSvV+hQkBSp/QwimbcQTSJlhoCJL
+	 nB0gSXczS5L7wFnpT8AZLAFcxOjo5usnJr6wSkBt5A4bzM8FUv+NShxfH44eoad9/h
+	 DpqvvCpIAXAbw==
+Message-ID: <sashiko-outbox-216434@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: add Shikra PWM controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Taniya Das" <taniya.das@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116-pwm_qcom_shikra-v1-3-67ee4553adc5@oss.qualcomm.com>
+References: <20261116-pwm_qcom_shikra-v1-0-67ee4553adc5@oss.qualcomm.com>
+ <20261116-pwm_qcom_shikra-v1-3-67ee4553adc5@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 07:32:09 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,39 +59,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-b4-v1-aquila-lotus-dtbs-v1-0-ca150bb4b0f9@toradex.com>
 
-On Thu, Nov 12, 2026 at 11:37:32AM -0300, Leonardo Costa wrote:
-> This patch series adds support for the Lotus Carrier Board with the
-> Toradex Aquila iMX95 SoM. Lotus is a carrier board for the Aquila family
-> featuring a small form factor (Nano-ITX 120mm x 120mm) and built for
-> volume production.
-> 
-> The board features:
-> 
-> - 1x 1Gbit/s Ethernet
-> - 1x 10Gbit/s SFP+ cage
-> - 2x RS-485 (Isolated and Non-Isolated)
-> - 4x CAN (3x Non-Isolated, 1x Isolated)
-> - 3x isolated digital I/O
-> - 1x CSI
-> - 1x DSI
-> - 1x TPM 2.0 chip
-> - 1x microSD slot
-> - 1x USB-C DRP
-> - 1x USB 3 hub
-> - DisplayPort through a Mini DP connector
-> - A mini PCIe slot with USB / SIM card connector for a modem
-> 
-> Additionally, this series adds pinctrl groups to the Aquila iMX95 SoM
-> dtsi, muxing the I2S_1 and PWM_4_DP pins to their GPIO functions. On
-> Lotus, these pins carry the SFP+ low-speed control and status signals
-> and the isolated digital I/O readback signals.
-> 
-> Link: https://www.toradex.com/products/carrier-board/lotus
-> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: qcom: shikra: pwm@4700000 left enabled by default in
+  SoC dtsi
+--
 
-Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+commit eea458c9d44a72e60937665a306393bd7a4b77fd
+Author: Taniya Das <taniya.das@oss.qualcomm.com>
+
+arm64: dts: qcom: add Shikra PWM controller
+
+This commit adds the PWM controller node and its ten frame child nodes
+to the Shikra SoC DTSI.
+
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
+com/shikra.dtsi
+> index 0a95ad5a5582c..d8a3de38382bd 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+> @@ -1303,6 +1303,69 @@ sram@4690000 {
+>  			reg =3D <0x0 0x04690000 0x0 0x14000>;
+>  		};
+> =20
+> +		pwm: pwm@4700000 {
+> +			compatible =3D "qcom,shikra-pwm";
+> +			reg =3D <0x0 0x04700000 0x0 0x10>;
+> +			clocks =3D <&gcc GCC_PDM_AHB_CLK>, <&gcc GCC_PWM0_XO512_CLK>;
+> +			clock-names =3D "ahb", "core";
+> +			assigned-clocks =3D <&gcc GCC_PWM0_XO512_CLK>;
+> +			assigned-clock-rates =3D <9600000>;
+> +			#pwm-cells =3D <3>;
+> +			#address-cells =3D <2>;
+> +			#size-cells =3D <2>;
+> +			ranges;
+> +
+> +			pwm@4701000 {
+> +				reg =3D <0x0 0x04701000 0x0 0x1c>;
+> +				qcom,frame-index =3D <0>;
+> +			};
+
+[Severity: Low]
+Should pwm@4700000 and its frame child nodes default to status =3D "disable=
+d"
+(with labels on the child nodes)?
+
+Leaving them enabled in the SoC DTSI causes qcom_pwm_probe() to run on
+every Shikra board, mapping all ten frames, enabling the PWM clocks, and
+clearing all ten channel enable bits in PWM_TOPCTL0 even on boards that do
+not wire up PWM.  Without labels and status =3D "disabled" on the frame chi=
+ld
+nodes, board files also cannot selectively enable only the frames they use,
+which qcom_pwm_parse_dt() checks via for_each_available_child_of_node().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-pwm_qcom_s=
+hikra-v1-0-67ee4553adc5@oss.qualcomm.com?part=3D3
