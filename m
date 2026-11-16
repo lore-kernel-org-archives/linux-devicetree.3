@@ -1,57 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862069;
-	b=Kzx+vSsC0JX1PkkHLsq9HouDFM/QPEF3iuh3MrlY7mHDWyZ0wqvpJwdOXAAUybkyOt3+
-	 RHCx13WKDK3U7D/ZxUVTaqVCNv9UKxQ4L65WI/ldWy1Qswb5Ajy9fGapo8Qt6En0suyHJ
-	 u+EicbngFyWMF+WCGXi217yvz6JIak4loeVUVo405sDxjos6eVI0bB8t0YcT91Hw23iQ0
-	 4GPKSRwjkvHceroB36ehHmSV9R0+p16nT3WVuQjZZG2aqvIfy/iTzT6e4fgOxDp7yJWBQ
-	 KmpYxTvjdeEL9835w9ZRa201rGK3QiaySC+T7SF8IKun1gxp2DJAQOcS3YO6cXJxz6g==
+	t=1794862411;
+	b=H5RgaPQ2lq5QRT+dv5f53twEeEe2BXuNd8QRX/X72rnunbDZOm0gM0023axbNdWpmZda
+	 dyVgAJHbz+DjsHjY9HEkGuaVScnv78Awyhvj8za3YwwF0+p7pzysWkLB3z38K4edzEhfs
+	 mc5P7jz8w1lChYW9AbnQ7ZRUl1StnKgIFnXF0bWYV+oAQEVjC0jmHaAvSc/1nhfXFyZIY
+	 OXUzpsMLjqKiY/QhFgE+bSoDXN1c4viJLL7JQj2bapAHbP22VX5dZuVJqQKLYDU0QRdm+
+	 TCBCohwUfAY8bOCImQQNXbMZh4M3qipkMAEIlC80fXSTTT38NTEM576tIkmFL0mGZNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862069;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=KzAiNNNZWkPvhsY/VDDzZumTdRJxDnYqHWzC0/PtNTc=;
-	b=yiAZgXwWhK8WE6YrKxVOTQ0xFLdBZu9h8hfQ+yEvW/KVYkvQYz1GrrtceZVzPuk7vxpI
-	 8swxG+HRy3KUfi6ye8YtS1QoygImkfD4PhBcmo6MaYQi1jbAgdlX9tx/kvP8kV47qK4ET
-	 1kT+E64M7PwVWWaUokNGPvrjzWw/9hFmojALK6uxF8sTV8lb0BnDkrMF4xVW9tj89z6VW
-	 puIioI6uC8TpqjWs5C7jQwrz2n7qYRhVcd1+9GLCNYFFiYHX8/PqUKiI/53MAYtXF9IJD
-	 eDKJKkyySafllZ/NI7Tk/R32ZPlSiGOQvIe0bWCxszCcoo4n4lvZ+ZOZB3kPJ1C1FiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862411;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=TN7GgaQjbiXrJ1Dkp7uLNXNpjZ+U4N8o/5liCViDKuo=;
+	b=RY2f8TuOpEX/O8Sn8BEONpfBnt0dC7yJgzF7E0kanx1lW63Yr1CTl1qv/jV/b5xWH5bW
+	 QR8BDduw+VJj+mjF8lEELTWBiRogT25gwH3O2b5I4psjOKoY4x63NIVDI25il6rrubMNQ
+	 Ouj6ISMehCi7u8LapDqDm/64eVT7KhfpikG91ibK5LvtXVkXfeZgGuSPbIeRhZJmPTgCc
+	 ncbIs7Igf6HAcSLQE+sNvO8ab/ngIRRx4TTXlvI9H1ZC4PMhCMYE4AHOKmZpoHUpdMJYL
+	 RPcABM/qMI2mqglRz0wfktiF41R2zkpn+hnm3bYi/evIwAT/iMM2fuCkfyNqpwY/0Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjzdfrYg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=BvsPebGJ;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AAB606A322;
-	Mon, 16 Nov 2026 20:47:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3012C606A332
+	for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 20:53:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3012C606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjzdfrYg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024681F000C4;
-	Mon, 16 Nov 2026 20:47:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794862069;
-	bh=KzAiNNNZWkPvhsY/VDDzZumTdRJxDnYqHWzC0/PtNTc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PjzdfrYgfIe+H4Lu5wLDY65/pdRpjtPvUnyrbDrfjuzJW0I/NYDMhKqER9M7M65aI
-	 m+xATfcUPtuAfVLF5Z9hF5DS/HUI8tYoNOJ+FJ1VrK/4C+OdTcbivhNc1XPPDM0iYp
-	 Si2Ro/2XYdNZpahB9nL8O+yi3lwkooeniheGOY40A6Q0NugFfVxUqMg1VfHXlYWVg1
-	 5L9lqYyyy1jeM6XP8KFNr0g4hFGA5gh3ZnN8SnHiH/XKLKEGlPuJAEJPaisZLcFJz9
-	 rFhpAjC3yYy1c9FnHVIUEQj9Vbq9LhuWPK3WLWkwHtYY9chUr+09FrPOmL/OO/h2sH
-	 s9WYHPvxYH7WA==
-Message-ID: <sashiko-outbox-217676@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/6] usb: gadget: udc: crg: Add gadget and endpoint
- operations
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petar Stepanovic" <pstepanovic@axiado.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261116-axiado-ax3000-usb-device-controller-v5-5-49271ed5c793@axiado.com>
-References: <20261116-axiado-ax3000-usb-device-controller-v5-0-49271ed5c793@axiado.com>
- <20261116-axiado-ax3000-usb-device-controller-v5-5-49271ed5c793@axiado.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 20:47:48 +0000
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=BvsPebGJ
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3791619605cso7362765eec.0
+        for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 12:53:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794862409; x=1795467209; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TN7GgaQjbiXrJ1Dkp7uLNXNpjZ+U4N8o/5liCViDKuo=;
+        b=BvsPebGJDoAlKpcCJF2+mrxScvtJO748AWDDP7xFPqakEA3L4P3ut7SiZ+Jl+kENs7
+         gX3o6gc+iaCv+RAv03b/5nw8EHbXX9erCeLxQkPtTQ9OA7SjJ4X6Xwm+w0VssMJktpBy
+         B/8xIL7wrBIB5jyWYfquWILBCXyRs3oAGwWss=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794862409; x=1795467209;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TN7GgaQjbiXrJ1Dkp7uLNXNpjZ+U4N8o/5liCViDKuo=;
+        b=mNPBgXJ94JYw+R/QQob7c8xpxh3GfDmVhCP2zgpSC/H+j6evXZeHtXJfHx31FfmA6W
+         Z0P5zlWC0q2UjLAXPuv5vcQj5dM7ZNoNB8K3ZkUfrSHcY3npwJ/MuXBZrMt+8XgvbgpV
+         976Oa0PF+VciSTSTOtzzl1SmBabw/3mSdMhUAIJ8CaYbFjdS2G+MmiN/VI6ep/1LsoUh
+         FQlX1AUDs15VZSGgEVR61f3K1wz4wmwG79zltphm1AJ/h1Ypkwtr3Z6/rNXndQ8EL3Us
+         xMLcsTbrsy95EQrWwM7H3xiTs79XWr8sBa8LcwzFM4atib/LUFfDvu73jQsZt34jUGxx
+         f2GA==
+X-Gm-Message-State: APuU4Z+Spp3r+pGosmts6qy4tR+pXcrgCyxGarI+rpt2bNpZfzX7o2+X
+	9Ta4xbjXFgRc5R7tqegelwTNlX0JWqQmT1poZ5q5O9PRqLfS0H0jY2VMitIbHQPWJxLt6pjx1wY
+	W7ENI+g==
+X-Gm-Gg: AZFdTZciPmTQWefL8ChczK9sujyRQhSIHi33jAg+JA+KhJNomDwS9BXROxjalqgfvK7
+	ygSn7wlxuo7k6BHv7FqwYJJMsQw/AuPiUtcwVzIkKYjuALi2Wg1h5c3OMYRcqxy3h2ulg4qT0Kw
+	xwYy/wazQ3UC/8D3P1Ku/DgU6UzZzBRGPdP5i/JnURAY1oY6XAhtr7oaBjGj7a4oZG7DbogUbSj
+	6vh1aSJIOeWXc/6a/NeVzIecjUosmEG5Rv5rYw+iUkjjM8sYI9mGXHBo4t5w/oWz+M5atMR5xea
+	m4kwCKhvoaQr/WIlbKX9F+BrJyg21Qi8KNz564Yk/0y4tzFM0WbMeraRm4KUIv0nVUMiE1t1AY3
+	Ztzmk5s5UVPttuhWOhVCAO0yfvXbxFlKjKzmlKp1Ur+4nB3L6fl8qstM2XsQQ2fKjGg053y/ZzQ
+	XHjGiTCJ7oeLdgyzDu+KXq/4Ou1SD3sBkY74TZHuwaaHvXwhdl3o0CAkBRQWGQD9BFZ2nD+qRwN
+	5z/llAyU0WD4qsWpXR9W4wqbqdmr6U9wio2Ly1gHhjyI1/7wglOxSkhkt10VPNsHhoG3WeGp4gq
+	IZhV94UsHZvKVtYGoWAQxkXSwG00m95TFAnOTLQsQvk3KXCg2YIlvjtNvCZgzDAdtrsylEct6wY
+	bHH43zxloPkVeFDGEoiDe21ZaQxHNgqqKf/U=
+X-Received: by 2002:a05:7300:5356:b0:381:db2:9772 with SMTP id 5a478bee46e88-3810db29d7bmr861273eec.29.1794862408963;
+        Mon, 16 Nov 2026 12:53:28 -0800 (PST)
+Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:40c8:6e27:a2df:3321])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.53.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 12:53:27 -0800 (PST)
+From: Douglas Anderson <dianders@chromium.org>
+To: Devicetree-compiler@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+	Simon Glass <sjg@chromium.org>,
+	linux-kernel@vger.kernel.org,
+	Brian Norris <briannorris@chromium.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Douglas Anderson <dianders@chromium.org>
+Subject: [PATCH v4 00/14] fdtfactor: Introduce fdtfactor to auto-factor overlays
+Date: Mon, 16 Nov 2026 12:52:57 -0800
+Message-ID: <20261116205320.1621386-1-dianders@chromium.org>
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,491 +106,439 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+
+Devicetree overlays exist at both the source level (via `/include/` and
+`.dtsi` files) and the binary level (where a compiled `.dtbo` overlay is
+applied to a "base" `.dtb` at runtime to add or modify nodes).
+
+Binary `.dtbo` overlays were created by transcribing source-level
+overlay semantics to `.dtb` blobs to serve two main use cases:
+
+1. Supporting add-on boards (like "hats" on a dev board), where a base
+   board's `.dtb` is combined with an add-on board's `.dtbo` at boot or
+   runtime (a use case that Hervé Codina's upcoming "addons" work aims
+   to model more cleanly).
+
+2. Allowing constrained bootloaders or firmware images to support a
+   "family" of similar boards in a space-efficient way without shipping
+   a full `.dtb` for every variant. In upstream Linux, for example,
+   there are 47 distinct sc7180-trogdor boards supported. At the source
+   level these boards share common `.dtsi` files, but we still compile
+   (and ship) 47 separate full `.dtb` blobs. Binary devicetree overlays
+   can make this much more efficient by factoring the common bits into a
+   single base `.dtb` and representing each of the 47 boards as a small
+   `.dtbo` overlay.
+
+Even though `.dtbo` overlay semantics are a natural fit for case #2
+(since they derive from source-level `.dts` overlays, which were
+designed for board/SoC families), upstream Linux has mostly reserved
+compiled `.dtso` -> `.dtbo` overlays for case #1. Many Android phones
+attempt to use `.dtso` overlays for case #2 by describing the SoC as the
+base devicetree and describing boards in `.dtso` overlays, but forcing
+the binary base/overlay split into the source files has drawbacks: there
+is still lots of duplication between board overlays, and upstream
+reception towards structuring board source files this way has been
+lukewarm [1].
+
+This patch series introduces a tool to decouple binary `.dtbo`
+generation from `.dts` source structure. The idea (suggested by Konrad
+Dybcio at LPC) is to continue to represent all the boards in a family as
+normal standalone device trees in source code (using `.dtsi` includes as
+makes sense for human readability). Then, after building the full `.dtb`
+blobs, `fdtfactor` automatically factors them into a common base `.dtb`
+and a set of per-board `.dtbo` overlays.
+
+This tool has quite a few advantages over other solutions:
+1. No change to the way device trees are stored / arranged upstream.
+2. No need to deal with some of the awkwardness / limitations of
+   overlays.
+3. Better savings than just a simple partitioning, like between SoC and
+   boards.
+
+I've used `fdtfactor -S` to reduce sc7180-trogdor device tree files
+(which are stored lz4 compressed) from 1.08 MB (built without `-@ -L`)
+to 214 KB, an 80.2% savings.
+
+To compare against the manual SoC-base + board-overlay split used by
+downstream Android kernels, I also tested `fdtfactor -S` on the
+downstream Pixel 10 family device trees (29 physical hardware board
+variants: 27 phone variants across Pixel 10, Pixel 10 Pro, and Pixel 10
+Pro XL plus 2 socketed dev board variants) by combining the downstream
+base + overlays into full board DTBs and re-factoring them with
+`fdtfactor -S`:
+
+* Just B0 silicon (29 boards):
+  - Full unfactored DTBs (29 `.dtb`s): 26.30 MB uncompressed (5.28 MB
+    lz4)
+  - Downstream manual SoC base (`lga-b0.dtb`) + 29 board `.dtbo`s:
+    8.06 MB uncompressed (1.66 MB lz4)
+  - Auto-factored with `fdtfactor -S` (1 `base.dtb` + 29 `.dtbo`s):
+    3.27 MB uncompressed (668 KB lz4) -- 2.48x smaller than the manual
+    SoC split (and 3.68x smaller across the 27 phone boards alone, where
+    average overlay size drops from 252 KB to 44 KB uncompressed, or
+    52 KB to 9.1 KB lz4).
+
+* Both A0 and B0 SoC steppings:
+  In practice, phone Proto boards (8 variants) only ever use A0 silicon,
+  phone EVT1.1+ boards (15 variants) only ever use B0 silicon, and only
+  phone EVT1 boards (4 variants) and the socketed dev boards (2
+  variants) can have either A0 or B0 silicon -- giving 35 realistic
+  (board, stepping) combinations (14 A0 + 21 B0), compared to 58 for a
+  naive 29 x 2 cross-product:
+  - Full unfactored DTBs (35 `.dtb`s): 31.71 MB uncompressed (6.37 MB
+    lz4)
+  - Downstream manual split (2 SoC bases `lga-a0.dtb` + `lga-b0.dtb` +
+    29 board `.dtbo`s): 8.78 MB uncompressed (1.79 MB lz4)
+  - Auto-factored with `fdtfactor -S` (1 shared `base.dtb` + 35
+    `.dtbo`s): 4.00 MB uncompressed (855 KB lz4). This could likely be
+    improved more with multiple levels of overlays, but we're already
+    2x smaller than what downstream is doing today.
+
+NOTE: on Chromebooks like sc7180-trogdor, using overlays like this is
+an optimization. On Android phones like Pixel 10, the bootloader logic
+bakes in the need for overlays. Specifically, if we want to be able to
+build a single image that supports multiple boards and have the
+bootloader auto-construct the right devicetree, we need the boards to be
+represented by overlays. This fdtfactor tool can make that a reality.
+
+The fdtfactor tool can either work directly on a set of compiled
+devicetree files or it can work on a FIT (flattened image tree) file.
+The idea is that you'd create the FIT file containing all of the
+duplicated devicetree files and then fdtfactor would "optimize" them.
+
+To test multi-SoC FIT factoring, I also built an upstream Linux
+`arch/arm64` `image.fit` containing all 438 Qualcomm device trees (367
+standalone `.dtb`s plus 71 composite `.dtb`s built from 30 add-on
+`.dtbo`s; gzip-compressed). Comparing the embedded FDT blob totals (with
+non-factored cases built without `-@ -L`, and factored cases using
+`fdtfactor -S`):
+
+* Plain FIT (438 full `.dtb`s): 49.13 MB uncompressed (9.27 MB gzip)
+* `FIT_DECOMPOSE_DTBS=1` alone (deduplicating the 71 composite `.dtb`s
+  into 367 `.dtb`s + 30 add-on `.dtbo`s): 36.23 MB uncompressed (6.94 MB
+  gzip)
+* `fdtfactor` alone (41 `fdt-base-*` groups, 426 board `.dtbo`s, 12
+  single-board SoCs): 18.26 MB uncompressed (3.59 MB gzip -- 61.3%
+  compressed savings vs. plain)
+* `FIT_DECOMPOSE_DTBS=1` + `fdtfactor` (41 `fdt-base-*` groups, 355
+  board `.dtbo`s, 30 add-on `.dtbo`s, 12 single-board SoCs): 15.28 MB
+  uncompressed (3.03 MB gzip -- 67.3% compressed savings vs. plain,
+  56.3% vs. `FIT_DECOMPOSE_DTBS=1` alone)
+
+Before introducing `fdtfactor` itself, the series starts with a few
+preparatory patches: documenting the existing tools in `README.md`,
+adding a `DeviceTree` live-tree abstraction in `pylibfdt/libpydt.py`
+(with supporting `Property`, `FdtRo`, and `FdtSw` enhancements),
+speeding up `libfdt` string-table lookups with `memchr()`, and teaching
+`libfdt`'s `fdt_overlay_apply()` to update `/__local_fixups__` on the
+base tree so merged trees retain complete and accurate phandle location
+metadata (for runtime consumers, composite `.dtb`s built by `fdtoverlay`
+that are later fed into `fdtfactor`, and round-trip verification against
+`dtc -L`).
+
+I'll freely admit that the patches in this series were pretty heavily
+vibe coded. I'll not pretend that I have a deep understanding of the
+intricacies of how overlays are implemented. That being said:
+* I've spent quite a bit of time reviewing the code from a high-level
+  perspective: confirming that functions are well documented, well
+  structured, and make sense.
+* I believe that what the tool is doing and how the tool is used make
+  sense.
+* I have had quite a number of internal "the AI reviews the AI" rounds
+  to the point of diminishing returns.
+At this point, I'm not embarrassed to put my name behind this. While I
+won't promise that there are zero cases of the AI doing something really
+stupid, I'd be willing to bet that the end result is better (and cleaner
+/ better structured) than what I would have coded up if I had spent a
+few weeks doing this on my own.
+
+[1] https://lore.kernel.org/all/20251114-elite-refined-yak-bf9e64@kuoka/
+
+v1: https://lore.kernel.org/r/20261015182221.2931742-1-dianders@chromium.org
+v2: https://lore.kernel.org/r/20261028215600.1713475-1-dianders@chromium.org
+v3: https://lore.kernel.org/r/20261101220224.1436242-1-dianders@chromium.org
+
+Changes in v4:
+- New patch adding README.md blurbs for dtc and ancillary tools (David
+  Gibson)
+- New patch making Property a subclass of bytes instead of bytearray
+  (David Gibson)
+- New patch trimming the returned Fdt bytearray in FdtSw.as_fdt() so
+  DeviceTree.flatten() does not need to call fdt.pack() (David Gibson)
+- New patch adding Property.from_*() creation classmethods so
+  DeviceTree does not need its own get_*/set_* wrapper methods (David
+  Gibson)
+- New patch speeding up Property.as_list() with a single struct.unpack()
+  call
+- New patch speeding up FdtRo.properties() with a C helper
+- Start the commit message with the motivation for a live tree and
+  condense the summary (Simon Glass)
+- Rename devicetree.py to libpydt.py (under pylibfdt/) to avoid
+  colliding with PyPI's python-devicetree package, and move its unit
+  tests into a separate tests/libpydt_tests.py file (Simon Glass, David
+  Gibson)
+- Unflatten the tree in a single O(n) pass using fdt.next_node() instead
+  of recursive O(d * n) fdt.subnodes() traversal, raising FdtException
+  on corrupt/truncated trees, and add a unit test (David Gibson, Simon
+  Glass)
+- Implement DeviceTree.walk() iteratively with an explicit stack instead
+  of recursive yield from, and populate node.props directly in
+  unflatten()
+- Drop redundant fdt.pack() call from DeviceTree.flatten() (David
+  Gibson)
+- Drop get_*/set_* typed wrapper methods from DeviceTree in favor of
+  Property.as_*() and Property.from_*() plus DeviceTree.set_prop()
+  (David Gibson)
+- Drop unnecessary copy.deepcopy() and compare unordered node/child sets
+  instead of ordered lists in round-trip test (David Gibson)
+- New patch speeding up fdt_find_string_len_() with memchr()
+- Split out internal helper fdt_add_empty_subnode_() so
+  overlay_fragment_local_fixups() avoids passing an in-blob pointer to
+  fdt_add_subnode_namelen() or casting fdt_get_name() (Simon Glass)
+- Add test cases in tests/overlay.c where the overlay target has no
+  existing subnode under /__local_fixups__, with /__local_fixups__ both
+  before and after the target in the blob (Simon Glass)
+- Pass OVERLAY_LOCAL_FIXUPS to tests/run_tests.sh, adjust
+  fdtoverlay_tests for all three modes, and use 4-space indentation
+  (Simon Glass, David Gibson)
+- Rename -o/--outdir to -o/--output so standalone DTB mode and FIT mode
+  share the same output option, and use 4-space indentation in
+  tests/run_tests.sh (David Gibson)
+- Update for libpydt rename, use Property.as_*(), Property.from_*(), and
+  DeviceTree.set_prop() instead of DeviceTree get_*/set_* wrapper
+  methods, and drop redundant bytes() copies on Property instances
+  (David Gibson, Simon Glass)
+- Replace ParsedDtb.raw_bytes with uncompressed_size, use early continue
+  to reduce loop nesting, drop redundant set() before sorted() on local
+  fixup offsets, and clarify pre-order walk and phandle comments (David
+  Gibson)
+- Allow dtc -@ -L inputs with no phandles (where dtc omits /__symbols__
+  and /__local_fixups__)
+- Check _is_dtbo_overlay() on the unflattened DeviceTree, index
+  ParsedDtb.nodes and base_nodes by path, and skip unchanged base nodes
+  in _build_board_dtbo() to avoid repeated O(depth) traversals and
+  per-property comparisons
+- Handle OVERLAY_LOCAL_FIXUPS != 2 in fdtfactor_tests (Simon Glass)
+- Use 4-space indentation instead of mixed tabs and spaces in
+  tests/run_tests.sh, and update context for -o/--output (David Gibson)
+- Replace magic-byte/extension auto-detection and --base-compression
+  with a single explicit -C/--compression option controlling both input
+  and output compression (David Gibson)
+- Drop unnecessary --stats documentation/help changes and use 4-space
+  indentation in tests/run_tests.sh (David Gibson)
+- Use check_factored_dtb in fdtfactor_tests so tests pass when
+  OVERLAY_LOCAL_FIXUPS != 2 (Simon Glass)
+- Unify --outfile into -o/--output, and split standalone DTB vs. FIT
+  options into separate README.md subsections and --help groups (David
+  Gibson)
+- Check _is_dtbo_overlay() directly in _extract_fit_fdt_entries()
+  instead of adding OverlayBlobError to ParsedDtb (David Gibson)
+- Map standard FIT hash algorithm names explicitly via FIT_HASH_ALGOS
+  instead of passing raw names to hashlib.new() (David Gibson)
+- Remove compression and entry from FIT grouping, document load, expose
+  --min-overlap, and compute FIT group overlap using normalized property
+  byte costs via _prop_byte_cost() instead of unweighted node paths
+  (David Gibson)
+- Strip /__local_fixups__ from unfactored single-board FIT flat_dt
+  entries when -S/--strip-local-fixups is passed, and pick the next
+  unused fdt-base-N node name instead of rejecting FITs that already
+  contain fdt-base-* nodes
+- Pass already-unflattened FactoredTree into ParsedDtb and intern
+  normalized properties to integer IDs in group_fit_dtbs() to speed up
+  multi-SoC FIT factoring
+- Preserve whether input FIT FDT descriptions include a compression
+  extension instead of unconditionally appending one
+- Update for libpydt rename, use Property.as_*(), Property.from_*(), and
+  DeviceTree.set_prop() instead of DeviceTree get_*/set_* wrapper
+  methods, and drop redundant bytes() copies on Property instances
+  (David Gibson, Simon Glass)
+- Use check_factored_dtb and 4-space indentation in tests/run_tests.sh
+  (Simon Glass, David Gibson)
+- Drop patches 1-6 and 8-10 from v3 (applied upstream by David Gibson)
+- Add preparatory README.md patch documenting dtc and ancillary tools
+  (David Gibson)
+- Add pylibfdt preparatory patches making Property a subclass of bytes,
+  trimming FdtSw.as_fdt() to totalsize(), adding Property.from_*()
+  creation helpers (David Gibson), and speeding up Property.as_list()
+  and FdtRo.properties()
+- Rename devicetree.py to pylibfdt/libpydt.py and address v3 review
+  feedback on DeviceTree (Simon Glass, David Gibson)
+- Add preparatory libfdt patch speeding up fdt_find_string_len_() with
+  memchr()
+- Update cover letter motivation for fdt_overlay_apply()
+  /__local_fixups__ handling (Simon Glass)
+- Replace compression auto-detection with explicit -C/--compression,
+  unify -o/--output across DTB and FIT modes, and group FIT FDTs by
+  configurable --min-overlap shared normalized property byte cost
+  instead of a hardcoded 50% node-path heuristic (David Gibson)
+- Speed up multi-SoC FIT factoring, parallelize blob
+  compression/decompression, and add Qualcomm FIT space-savings numbers
+  (and non-`-@ -L` sc7180-trogdor baseline) to cover letter
+- New patch parallelizing blob compression and decompression across
+  worker threads
+
+Changes in v3:
+- Move NodeTree out of pylibfdt/libfdt.i into a new devicetree.py module
+  and rename it to DeviceTree (David Gibson)
+- Store libfdt.Property objects in self.props instead of raw bytes
+  (David Gibson)
+- Return a packed libfdt.Fdt object from flatten() instead of raw bytes
+  and use fdt.set_boot_cpuid_phys() (David Gibson, Simon Glass)
+- Raise ValueError in unflatten() on duplicate property or sibling
+  subnode names (Simon Glass)
+- Move constifying fdto in overlay_apply_node() into a standalone
+  preparatory patch (David Gibson)
+- Gate `/__local_fixups__` handling behind a 3-state compile-time
+  `FDT_OVERLAY_LOCAL_FIXUPS` flag (`0=ignore`, `1=strip`, `2=update`),
+  defaulting to `0` (`IGNORE`) in `libfdt_internal.h` for embedded
+  builds and `2` (`UPDATE`) in Meson/Make desktop builds (Simon Glass,
+  David Gibson)
+- Rewrite commit message in the present tense with motivation up front,
+  and update `fdt_overlay_apply()` documentation in `libfdt/libfdt.h`
+  (Simon Glass)
+- Require a strict relative path in `overlay_create_path()` and return
+  `-FDT_ERR_BADOVERLAY` on empty path components or trailing `'/'`
+  (David Gibson)
+- Eliminate the 256-byte `namebuf` limit in
+  `overlay_fragment_local_fixups()` by re-reading the node name from the
+  shifted ancestor offset after `fdt_add_subnode_namelen()` (David
+  Gibson, Simon Glass)
+- Return `-FDT_ERR_BADVALUE` instead of `-FDT_ERR_BADSTRUCTURE` in
+  `overlay_add_local_fixup_offset()` when an existing
+  `/__local_fixups__` property length is not a multiple of 4 (David
+  Gibson, Simon Glass)
+- Drop redundant `overlay_validate_local_fixups()` pre-pass and inline
+  single-use helpers (Simon Glass)
+- Update fdtfactor to use devicetree.DeviceTree and a FactoredTree
+  subclass initializing self.phandle and self.fixups in __init__()
+  (David Gibson, Simon Glass)
+- Rename -b/--base-dtb to --output-base-dtb to avoid confusion with an
+  input base DTB (David Gibson)
+- Move the test rejecting input DTBs lacking /__local_fixups__ from the
+  -S patch into this base patch (Simon Glass)
+- Include both non--S (932 KB) and -S (634 KB) Trogdor size numbers in
+  the commit message to show the savings of -S itself (Simon Glass)
+- Pass -S to the negative test verifying that inputs lacking
+  /__local_fixups__ are still rejected when -S is used, and move the
+  non--S rejection test to the base fdtfactor patch (Simon Glass)
+- Update for -b/--base-dtb rename to --output-base-dtb (David Gibson)
+- Use "FIT" instead of "FIT image" in documentation, comments, and
+  commit messages (Simon Glass)
+- Update for DeviceTree and --output-base-dtb (Simon Glass, David
+  Gibson)
+- Drop "pylibfdt: Fix FdtSw.as_fdt() when buffer is nearly full" and
+  "pylibfdt: Add subnode/property iterators and get_mem_rsv_list()"
+  (applied upstream by David Gibson)
+- Split fixup offset overflow fix, redundant memchr() check cleanup,
+  iterator docstring/test follow-up, Property.as_str()/as_stringlist()
+  empty-property handling, Fdt.set_boot_cpuid_phys(),
+  Property.__copy__()/__deepcopy__(), and overlay_apply_node() const
+  fdto into standalone patches (David Gibson, Simon Glass)
+- Move NodeTree into a new devicetree.py module as DeviceTree (David
+  Gibson)
+- Gate fdt_overlay_apply() /__local_fixups__ handling behind a 3-state
+  compile-time FDT_OVERLAY_LOCAL_FIXUPS option (Simon Glass, David
+  Gibson)
+
+Changes in v2:
+- Split live tree representation out of fdtfactor (David Gibson)
+- New patch updating base /__local_fixups__ in libfdt
+  fdt_overlay_apply() instead of stripping /__local_fixups__ by default
+  (David Gibson)
+- Preserve /__local_fixups__ on base.dtb by default (David Gibson)
+- Store parsed trees directly in NodeTree with node.phandle and
+  node.fixups attributes instead of parallel dicts (David Gibson)
+- Extract phandles in a separate pass after unflattening and reject
+  legacy linux,phandle properties (David Gibson)
+- Exclude non-root common phandle nodes lacking a common symbol from
+  base.dtb instead of synthesizing __fdtfactor_ph_* symbols (David
+  Gibson)
+- Drop -q/--quiet, rename -v/--verbose to -s/--stats, and move tests to
+  a dedicated fdtfactor test suite (David Gibson)
+- Split -S/--strip-local-fixups into a separate opt-in patch (David
+  Gibson)
+- Add --base-compression to explicitly control base.dtb compression
+  while documenting auto-detection from --base-dtb's filename suffix
+  (David Gibson)
+- Support legacy LZ4 frames (lz4 -l) and use CRC32 check for XZ outputs
+  (Simon Glass)
+- Rename -f/--fit and -F/--fit-out to -F/--fit and --outfile and clarify
+  FIT mode in the --help description (David Gibson, Simon Glass)
+- Reject signed FIT images with signature* subnodes (Simon Glass)
+- Use '<base-node-name>.dtb' for FIT base FDT descriptions instead of
+  common-prefix heuristics (Simon Glass)
+- Compare FIT group node overlap against the group's common node set
+  instead of only the first entry (Simon Glass)
+- Document in README.md that U-Boot's boot_get_fdt_fit() currently
+  requires FIT overlays to be uncompressed (Simon Glass)
+- Drop "tests: Fix Python test environment setup in meson.build"
+  (applied upstream by David Gibson)
+- Clarify source-level (.dts/.dtsi) vs. binary-level (.dtb/.dtbo)
+  overlay history in cover letter (David Gibson)
+- Add Pixel 10 (Tensor G5) base + overlay comparison numbers to cover
+  letter (Simon Glass)
+
+Douglas Anderson (14):
+  README: Add overview blurbs for dtc and ancillary tools
+  pylibfdt: Make Property a subclass of bytes instead of bytearray
+  pylibfdt: Trim Fdt bytearray to totalsize() in FdtSw.as_fdt()
+  pylibfdt: Add Property.from_*() creation methods
+  pylibfdt: Unpack Property.as_list() in a single struct.unpack() call
+  pylibfdt: Speed up FdtRo.properties() with a C helper
+  libpydt: Add DeviceTree live tree representation
+  libfdt: Speed up fdt_find_string_len_() with memchr()
+  libfdt: overlay: Update base /__local_fixups__ on apply
+  fdtfactor: Add tool to split DTBs into a base DTB and overlays
+  fdtfactor: Add -S/--strip-local-fixups option
+  fdtfactor: Support compressed DTB inputs and outputs
+  fdtfactor: Add compiled FIT factoring support
+  fdtfactor: Parallelize blob compression and decompression
+
+ Makefile                           |    8 +-
+ README.md                          |  189 +++
+ fdtfactor                          | 1852 ++++++++++++++++++++++++++++
+ libfdt/fdt.c                       |   14 +-
+ libfdt/fdt_overlay.c               |  525 +++++++-
+ libfdt/fdt_rw.c                    |   37 +-
+ libfdt/libfdt.h                    |    7 +
+ libfdt/libfdt_internal.h           |   23 +
+ meson.build                        |    6 +
+ meson_options.txt                  |    2 +
+ pylibfdt/libfdt.i                  |  141 ++-
+ pylibfdt/libpydt.py                |  184 +++
+ pylibfdt/meson.build               |    2 +
+ tests/Makefile.tests               |   13 +-
+ tests/fdtfactor_board1.dts         |   72 ++
+ tests/fdtfactor_board2.dts         |   70 ++
+ tests/fdtfactor_board3.dts         |   68 +
+ tests/fdtfactor_board3_shifted.dts |   68 +
+ tests/fdtfactor_lz4.its            |  109 ++
+ tests/fdtfactor_other1.dts         |   67 +
+ tests/fdtfactor_other2.dts         |   67 +
+ tests/fdtfactor_test.its           |  109 ++
+ tests/libpydt_tests.py             |  106 ++
+ tests/meson.build                  |    5 +-
+ tests/overlay.c                    |  154 +++
+ tests/pylibfdt_tests.py            |   55 +
+ tests/run_tests.sh                 |  446 ++++++-
+ tests/testutils.sh                 |    1 +
+ 28 files changed, 4354 insertions(+), 46 deletions(-)
+ create mode 100755 fdtfactor
+ create mode 100644 pylibfdt/libpydt.py
+ create mode 100644 tests/fdtfactor_board1.dts
+ create mode 100644 tests/fdtfactor_board2.dts
+ create mode 100644 tests/fdtfactor_board3.dts
+ create mode 100644 tests/fdtfactor_board3_shifted.dts
+ create mode 100644 tests/fdtfactor_lz4.its
+ create mode 100644 tests/fdtfactor_other1.dts
+ create mode 100644 tests/fdtfactor_other2.dts
+ create mode 100644 tests/fdtfactor_test.its
+ create mode 100644 tests/libpydt_tests.py
+
+-- 
+2.56.0.679.gc527c65306-goog
 
-Thank you for your contribution! Sashiko AI review found 10 potential
-issues to consider:
-- [High] usb: gadget: crg: stale deq_pt in crg_udc_ep_dequeue() when
-  pause_pt passed TD
-- [High] usb: gadget: crg: stuck USB_STATE_RECONNECTING in worker
-  port-status paths
-- [High] usb: gadget: crg: isoc endpoints wedged in EP_STATE_STOPPED on
-  xfer error
-- [Medium] usb: gadget: crg: broken EP0 USB_ENDPOINT_HALT handling in
-  crg_udc_ep_halt()
-- [Medium] usb: gadget: crg: request rejected on ring-full in
-  crg_udc_ep_queue()
-- [Medium] usb: gadget: crg: premature USB_STATE_ADDRESS in
-  crg_udc_ep_disable()
-- [Medium] usb: gadget: udc: crg: lost port reset poll in
-  crg_udc_port_retry_work()
-- [Medium] usb: gadget: udc: crg: controller reset on nested
-  crg_udc_ep_dequeue()
-- [Medium] usb: gadget: udc: crg: dequeue pointer rewind in
-  crg_udc_ep_halt()
-- [Low] usb: gadget: crg: incomplete cleanup in crg_udc_ep_disable()
-  when disabled
---
-
-commit 4ce545406bad41a031bcbc10a89cb66370b3d324
-Author: Petar Stepanovic <pstepanovic@axiado.com>
-
-usb: gadget: udc: crg: Add gadget and endpoint operations
-
-This commit adds the USB gadget and endpoint operations, transfer ring
-management, port status handling, and error recovery for the Axiado
-AX3000/AX3005 UDC driver.
-
-> diff --git a/drivers/usb/gadget/udc/crg/crg-udc-gadget.c b/drivers/usb/ga=
-dget/udc/crg-udc-gadget.c
-> new file mode 100644
-> index 0000000000000..dddfc5cf3d3ec
-> --- /dev/null
-> +++ b/drivers/usb/gadget/udc/crg/crg-udc-gadget.c
-
-[ ... ]
-
-> +static int crg_udc_ep_dequeue(struct usb_ep *_ep, struct usb_request *_r=
-eq)
-> +{
-
-[ ... ]
-
-> +	/* A stopped ring may still contain published requests. */
-> +	if (old_ep_state =3D=3D EP_STATE_STOPPED) {
-> +		ret =3D -EBUSY;
-> +		goto recover;
-> +	}
-> +
-> +	if (old_ep_state =3D=3D EP_STATE_RUNNING) {
-> +		ret =3D crg_udc_issue_command(crg_udc, CRG_CMD_STOP_EP,
-> +						BIT(dci), 0);
-> +
-> +		if (ret)
-> +			goto recover;
-> +		ret =3D readl_poll_timeout_atomic(&uccr->ep_running, tmp,
-> +					       !(tmp & BIT(dci)), 10, 10000);
-> +		if (ret)
-> +			goto recover;
-> +		udc_ep_ptr->ep_state =3D EP_STATE_STOPPED;
-> +		udc_ep_ptr->dequeue_paused =3D true;
-> +	}
-
-[Severity: Medium]
-Does a nested or concurrent crg_udc_ep_dequeue() trigger a full controller
-recovery reset when a second request with live TRBs is dequeued during
-giveback?
-
-crg_udc_ep_dequeue(ep, req1)
-  ep->ep_state =3D EP_STATE_STOPPED
-  ep->dequeue_paused =3D true
-  crg_udc_req_done(ep, req1, -ECONNRESET)
-    spin_unlock(&crg_udc->udc_lock)
-    usb_gadget_giveback_request()
-      req1->complete()
-        usb_ep_dequeue(ep, req2)
-          crg_udc_ep_dequeue(ep, req2)
-            old_ep_state =3D=3D EP_STATE_STOPPED
-            goto recover  <-- schedules controller reset
-
-When req2 already has first_trb set on the stopped ring, the inner
-crg_udc_ep_dequeue() sees old_ep_state =3D=3D EP_STATE_STOPPED without chec=
-king
-udc_ep_ptr->dequeue_paused, marks halt_failed =3D true, and schedules a full
-controller reset that drops the USB connection.
-
-> +	p_ep_cx =3D &crg_udc->p_epcx[dci - 2];
-> +	deq_pt_lo =3D le32_to_cpu(p_ep_cx->dw2) & EP_CX_TR_DQPT_LO_MASK;
-> +	deq_pt_hi =3D le32_to_cpu(p_ep_cx->dw3);
-> +	dq_pt_addr =3D (u64)deq_pt_lo | ((u64)deq_pt_hi << 32);
-> +	pause_pt =3D crg_udc_tran_trb_dma_to_virt(udc_ep_ptr, dq_pt_addr);
-> +	if (!pause_pt) {
-> +		ret =3D -EIO;
-> +		goto recover;
-> +	}
-> +
-> +	if (crg_udc_is_pointer_less_than(pause_pt, udc_req->first_trb,
-> +					 udc_ep_ptr)) {
-> +		crg_udc_squeeze_xfer_ring(udc_ep_ptr, udc_req);
-> +		/* Give back the cancelled request BEFORE scheduling the tail:
-> +		 * its callback may add/remove requests, and dropping udc_lock
-> +		 * while traversing the old list is unsafe.
-> +		 */
-> +		crg_udc_req_done(udc_ep_ptr, udc_req, -ECONNRESET);
-> +	} else if (udc_req->last_trb &&
-> +		   crg_udc_is_pointer_less_than(udc_req->last_trb, pause_pt,
-> +						udc_ep_ptr)) {
-> +		crg_udc_req_done(udc_ep_ptr, udc_req, -ECONNRESET);
-> +	} else {
-
-[Severity: High]
-Does the else-if branch leave udc_ep_ptr->deq_pt stuck at udc_req->first_trb
-when pause_pt has already advanced past udc_req->last_trb?
-
-When hardware has consumed the TD's TRBs and its Transfer Event is still
-pending on the event ring, crg_udc_req_done() unlinks udc_req from
-udc_ep_ptr->queue and unmaps udc_req->bounce with usb_req.actual still 0
-(discarding received OUT data).  When crg_udc_handle_xfer_event() later
-processes the pending event, is_request_dequeued() sees that udc_req is no
-longer on the queue and returns before calling crg_udc_update_dequeue_pt().
-That leaks the request's TRB slots in crg_udc_room_on_ring(), and if the
-endpoint is later halted and unhalted at High or Full Speed,
-crg_udc_ep_halt() calls crg_udc_epcx_update_dqptr() and reprograms the
-hardware dequeue pointer back to the unmapped TRBs.
-
-[ ... ]
-
-> +static int crg_udc_ep_disable(struct usb_ep *ep)
-> +{
-
-[ ... ]
-
-> +	if (udc_ep->ep_state =3D=3D EP_STATE_DISABLED) {
-> +		/*
-> +		 * A reset can mark this endpoint disabled before reaching its
-> +		 * queue. A callback from another endpoint may disable it now.
-> +		 * Give back its requests before returning success.
-> +		 */
-> +		crg_udc_ep_nuke(udc_ep, -ESHUTDOWN);
-> +		udc_ep->desc =3D NULL;
-> +		udc_ep->comp_desc =3D NULL;
-> +		udc_ep->usb_ep.enabled =3D false;
-> +		ret =3D 0;
-> +		goto out;
-> +	}
-
-[Severity: Low]
-Should this path clear udc_ep->desc, udc_ep->comp_desc, and
-crg_udc->p_epcx[udc_ep->dci - 2] before calling crg_udc_ep_nuke()?
-
-When crg_udc_reinit() disables endpoints for a bus reset with notify_reset
-set, it preserves desc, comp_desc, usb_ep.enabled, and p_epcx for the
-gadget's usb_ep_disable() call.  Taking this early branch leaves p_epcx
-unzeroed (since crg_udc_reset_work() skips endpoints once usb_ep.enabled is
-false) and exposes non-NULL descriptors while crg_udc_ep_nuke() drops
-udc_lock for request givebacks.
-
-[ ... ]
-
-> +	if (!crg_udc->num_enabled_eps &&
-> +	    crg_udc->device_state =3D=3D USB_STATE_CONFIGURED)
-> +		crg_udc->device_state =3D USB_STATE_ADDRESS;
-
-[Severity: Medium]
-Should disabling the last non-EP0 endpoint downgrade crg_udc->device_state
-to USB_STATE_ADDRESS when the USB configuration is still active?
-
-If a configured gadget disables all data endpoints (for example, when
-switching an interface to alternate setting 0), the device is still in the
-Configured state until SET_CONFIGURATION(0) or a bus reset occurs.
-Setting USB_STATE_ADDRESS here causes getstatusrequest() and
-setfeaturesrequest() to stall valid Configured-state control requests, and
-causes crg_udc_handle_port_status() to see was_configured =3D=3D false on a
-subsequent bus reset and skip usb_gadget_udc_reset().
-
-[ ... ]
-
-> +static int crg_udc_ep_queue(struct usb_ep *_ep, struct usb_request *_req,
-> +			    gfp_t gfp_flags)
-> +{
-
-[ ... ]
-
-> +	if (udc_ep_ptr->ep_state !=3D EP_STATE_RUNNING) {
-> +		status =3D 0;
-> +	} else if (!list_empty(&udc_ep_ptr->queue)) {
-> +		struct crg_udc_request *tail;
-> +
-> +		tail =3D list_last_entry(&udc_ep_ptr->queue,
-> +				       struct crg_udc_request, queue);
-> +		status =3D (!tail->all_trbs_queued ||
-> +			  udc_ep_ptr->tran_ring_full) ? 0 :
-> +			 crg_udc_build_td(udc_ep_ptr, udc_req_ptr);
-> +	} else if (udc_ep_ptr->tran_ring_full) {
-> +		status =3D 0;
-> +	} else {
-> +		status =3D crg_udc_build_td(udc_ep_ptr, udc_req_ptr);
-> +	}
-> +
-> +	if (!status) {
-> +		list_add_tail(&udc_req_ptr->queue, &udc_ep_ptr->queue);
-> +		goto out_locked;
-> +	}
-> +	spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
-> +
-> +unmap:
-> +	crg_udc_unmap_request(udc_ep_ptr, udc_req_ptr, 0);
-
-[Severity: Medium]
-When crg_udc_build_td() returns -EBUSY or -ENOSPC, should crg_udc_ep_queue()
-set tran_ring_full =3D true and keep the request on udc_ep_ptr->queue inste=
-ad
-of unmapping and failing it?
-
-On an isochronous endpoint with fewer free ring slots than td_trbs,
-crg_udc_queue_trbs() returns -EBUSY without setting tran_ring_full.
-Similarly, crg_udc_ep_dequeue() clears tran_ring_full =3D false before call=
-ing
-crg_udc_queue_pending_trbs(), which returns 0 without calling
-crg_udc_build_td() if all queued requests already have all_trbs_queued or
-td_pending set; the next crg_udc_ep_queue() call on that full ring then
-invokes crg_udc_build_td() and fails with -ENOSPC.  All other callers of
-crg_udc_build_td() treat -ENOSPC and -EBUSY as ring-full conditions that
-defer the request.
-
-[ ... ]
-
-> +void crg_udc_port_retry_work(struct work_struct *work)
-> +{
-> +	struct crg_gadget_dev *crg_udc =3D
-> +		container_of(to_delayed_work(work), struct crg_gadget_dev,
-> +			     port_retry_work);
-> +	unsigned long flags;
-> +	int ret;
-> +
-> +	spin_lock_irqsave(&crg_udc->udc_lock, flags);
-> +	if (!crg_udc->port_reset_pending && !crg_udc->deferred_port_events)
-> +		goto out;
-> +	if (crg_udc->resetting || crg_udc->suspended ||
-> +	    crg_udc->shutting_down || !crg_udc->pullup_on ||
-> +	    !crg_udc->gadget_driver || !crg_udc->async_callbacks)
-> +		goto out;
-> +	/* Reset work replays deferred events after the callback. A controller
-> +	 * reconstruction is different: retry once its register state is stable.
-> +	 */
-> +	if (crg_udc->controller_recovering) {
-> +		mod_delayed_work(system_wq, &crg_udc->port_retry_work,
-> +				 msecs_to_jiffies(CRG_PORT_RESET_RETRY_MS));
-> +		goto out;
-> +	}
-> +	if (crg_udc->port_reset_pending &&
-> +	    crg_udc->port_reset_retry_count++ >=3D CRG_PORT_RESET_MAX_RETRIES) {
-> +		bool notify_reset =3D crg_udc->device_state =3D=3D USB_STATE_CONFIGURE=
-D;
-> +
-> +		dev_err(crg_udc->dev,
-> +			"port reset did not become ready; resetting controller\n");
-> +		ret =3D crg_udc_recover_port_failure(crg_udc, &flags,
-> +						   notify_reset);
-> +		if (ret !=3D -ECONNRESET)
-> +			dev_err(crg_udc->dev,
-> +				"port-reset recovery returned %d\n", ret);
-> +		goto out;
-> +	}
-> +	ret =3D crg_udc_handle_port_status(crg_udc, &flags);
-> +	if (ret && ret !=3D -ECONNRESET)
-> +		dev_dbg(crg_udc->dev, "port reset poll: %d\n", ret);
-> +out:
-> +	spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
-> +}
-
-[Severity: Medium]
-Can a port reset poll be permanently lost if crg_udc_port_retry_work() runs
-while crg_udc->reset_callback_active is true?
-
-kworker (udc_reset_work)          kworker (port_retry_work)
-crg_udc_reset_work()
-  reset_callback_active =3D true
-  spin_unlock(&udc_lock)
-  usb_gadget_udc_reset()
-                                  crg_udc_port_retry_work()
-                                    crg_udc_handle_port_status()
-                                      portsc_val & W1C_MASK =3D=3D 0
-                                      if (reset_callback_active)
-                                        deferred_port_events |=3D 0
-                                        return 0
-  spin_lock(&udc_lock)
-  reset_callback_active =3D false
-  if (deferred_port_events)  <-- false; port_reset_pending stays true
-
-Because CRG_U3DC_PORTSC_PRC was already W1C-cleared when port_reset_pending
-was first set, crg_udc_handle_port_status() sees no new W1C bits during
-reset_callback_active and returns early without rescheduling
-port_retry_work.  crg_udc_reset_work() then only checks
-deferred_port_events, leaving port_reset_pending stuck true and blocking EP0
-setup handling, endpoint enablement, and request queueing.  In addition, if
-port_reset_retry_count reaches CRG_PORT_RESET_MAX_RETRIES while
-reset_callback_active is true, crg_udc_port_retry_work() runs
-crg_udc_recover_port_failure() concurrently with usb_gadget_udc_reset().
-
-[ ... ]
-
-> +int crg_udc_handle_port_status(struct crg_gadget_dev *crg_udc,
-> +			       unsigned long *flags)
-> +{
-
-[ ... ]
-
-> +			if (crg_udc->device_state >=3D USB_STATE_DEFAULT) {
-
-[ ... ]
-
-> +				reinit_ret =3D crg_udc_reinit(crg_udc, notify_reset);
-
-[ ... ]
-
-> +			}
-> +
-> +			crg_udc->gadget.speed =3D speed;
-> +
-> +			ret =3D crg_udc_update_ep0_maxpacketsize(crg_udc);
-> +			if (ret) {
-> +				dev_err(crg_udc->dev,
-> +					"failed to configure EP0 maxpacket: %d\n", ret);
-> +				return crg_udc_recover_port_failure(
-> +					crg_udc, flags,
-> +					crg_udc->bus_reset_pending ||
-> +					crg_udc->device_state =3D=3D USB_STATE_CONFIGURED);
-> +			}
-> +
-> +			crg_udc->connected =3D 1;
-> +
-> +			if (crg_udc->device_state < USB_STATE_RECONNECTING)
-> +				crg_udc_enable_setup(crg_udc);
-> +		}
-> +	}
-
-[Severity: High]
-Does crg_udc->device_state remain stuck in USB_STATE_RECONNECTING when a
-port reset completes via crg_udc_port_retry_work() or crg_udc_reset_work(),
-or after a link drop with VBUS present?
-
-When device_state >=3D USB_STATE_DEFAULT, crg_udc_reinit() sets device_state
-to USB_STATE_RECONNECTING, so crg_udc_handle_port_status() skips
-crg_udc_enable_setup() expecting the caller to drain the event ring and call
-crg_udc_prepare_for_setup().  Neither crg_udc_port_retry_work() nor
-crg_udc_reset_work() calls crg_udc_prepare_for_setup() after
-crg_udc_handle_port_status(), and the link-drop path (cable_connected &&
-!ccs_drop_ignore) also calls crg_udc_reinit() with connected =3D 0 so a lat=
-er
-CSC/PEC/PPC reconnect skips crg_udc_enable_setup() as well.
-
-Also, while port_reset_pending is true before crg_udc_reinit() runs,
-device_state is not yet USB_STATE_RECONNECTING; if a new SETUP event arrives
-before port_retry_work polls PED, crg_udc_handle_event() dispatches it to
-crg_udc_handle_setup_pkt(), which sets ep0_state =3D EP0_STATE_ABORTING and
-returns early on port_reset_pending, dropping the SETUP packet and wedging
-EP0.
-
-[ ... ]
-
-> +int crg_udc_ep_halt(struct crg_udc_ep *udc_ep_ptr, int halt, int ignore_=
-wedge,
-> +		    unsigned long *flags)
-> +{
-
-[ ... ]
-
-> +	if (udc_ep_ptr->dci =3D=3D 0) {
-> +		/* EP0 stalls with a STATUS-stage TRB, not SET_HALT. */
-> +		if (!halt)
-> +			return -EOPNOTSUPP;
-> +
-> +		return crg_udc_set_ep0_halt(crg_udc);
-> +	}
-
-[Severity: Medium]
-Does this break USB_REQ_SET_FEATURE and USB_REQ_CLEAR_FEATURE(ENDPOINT_HALT)
-targeting EP0 in setfeaturesrequest()?
-
-drivers/usb/gadget/udc/crg/crg-udc-ep0.c:setfeaturesrequest() {
-    ...
-		udc_ep_ptr =3D &crg_udc->udc_ep[dci];
-		status =3D crg_udc_ep_halt(
-			udc_ep_ptr, (b_request =3D=3D USB_REQ_SET_FEATURE) ? 1 : 0,
-			0, flags);
-
-		if (status < 0)
-			goto set_feature_error;
-    ...
-	crg_udc->setup_status =3D STATUS_STAGE_XFER;
-	crg_udc_submit_ep0_status(crg_udc, status, 0);
-}
-
-On CLEAR_FEATURE(USB_ENDPOINT_HALT) for EP0, returning -EOPNOTSUPP causes
-setfeaturesrequest() to stall EP0 instead of completing the status stage.
-On SET_FEATURE(USB_ENDPOINT_HALT) for EP0, crg_udc_set_ep0_halt() queues a
-STALL status TRB using crg_udc->status_req, sets ep_state =3D EP_STATE_HALT=
-ED,
-and returns 0; setfeaturesrequest() then calls crg_udc_submit_ep0_status() a
-second time, which fails on the halted endpoint and sets ep0_state =3D
-EP0_STATE_ERROR so crg_udc_handle_xfer_event() ignores the STALL completion.
-
-[ ... ]
-
-> +		if (recovering || crg_udc->gadget.speed >=3D USB_SPEED_SUPER) {
-> +			udc_ep_ptr->deq_pt =3D udc_ep_ptr->enq_pt;
-> +			udc_ep_ptr->tran_ring_full =3D false;
-> +		}
-> +		udc_ep_ptr->ep_state =3D EP_STATE_HALTED;
-> +		/*
-> +		 * A failed stop retained old DMA mappings even at HS/FS.
-> +		 * After a confirmed retry, all those requests can be given back.
-> +		 */
-> +		if (recovering || crg_udc->gadget.speed >=3D USB_SPEED_SUPER)
-> +			crg_udc_ep_nuke(udc_ep_ptr, -ECONNRESET);
-> +	} else if (do_halt =3D=3D 0) {
-> +		/* clearing ep halt state */
-> +		/* reset sequence number */
-> +		if (crg_udc_issue_command(crg_udc, CRG_CMD_RESET_SEQNUM, param0,
-> +					  0))
-> +			return -EIO;
-> +
-> +		if (!reset_seq_only) {
-> +			/* Clear halt for a halted EP. */
-> +			/* NOTE: we must CLEAR_HALT first,
-> +			 * then SET_TR_DQPTR
-> +			 */
-> +			ret =3D crg_udc_issue_command(crg_udc,
-> +						    CRG_CMD_CLEAR_HALT, param0, 0);
-> +			if (ret)
-> +				goto clear_halt_failed;
-> +			ret =3D crg_udc_epcx_update_dqptr(udc_ep_ptr);
-> +			if (ret)
-> +				goto clear_halt_failed;
-> +		}
-
-[Severity: Medium]
-Can clearing a halt at High or Full Speed rewind the hardware dequeue
-pointer to the start of a partially completed multi-TRB request?
-
-Chained TRBs before the final TRB of a TD have ioc =3D false, so hardware
-advances TR_DQPT in p_epcx as each TRB completes while udc_ep_ptr->deq_pt
-remains at first_trb.  At High or Full Speed, halting the endpoint retains
-the in-flight request without updating udc_ep_ptr->deq_pt, and clearing the
-halt then calls crg_udc_epcx_update_dqptr(), overwriting the hardware
-dequeue pointer with udc_ep_ptr->deq_pt and re-transferring the already
-completed TRBs.
-
-[ ... ]
-
-> +static int crg_udc_stop_error_ep(struct crg_gadget_dev *crg_udc, u8 dci)
-> +{
-
-[ ... ]
-
-> +	/* The controller is no longer reading request buffers. */
-> +	udc_ep_ptr->halt_failed =3D false;
-> +	udc_ep_ptr->deq_pt =3D udc_ep_ptr->enq_pt;
-> +	udc_ep_ptr->tran_ring_full =3D false;
-> +	udc_ep_ptr->ep_state =3D isoc ? EP_STATE_STOPPED : EP_STATE_HALTED;
-> +
-> +	crg_udc_ep_nuke(udc_ep_ptr, -ECONNRESET);
-> +
-> +	return 0;
-
-[Severity: High]
-Does setting ep_state =3D EP_STATE_STOPPED here permanently wedge isochrono=
-us
-endpoints after any transfer error event?
-
-With ep_state =3D=3D EP_STATE_STOPPED and dequeue_paused =3D=3D false,
-crg_udc_ep_can_queue() returns false and crg_udc_ep_queue() rejects all
-subsequent requests with -ESHUTDOWN.  Unlike bulk and interrupt endpoints,
-crg_udc_ep_halt() rejects isochronous endpoints with -EOPNOTSUPP, and
-udc_ep_ptr->deq_pt is advanced to enq_pt in software without calling
-crg_udc_epcx_update_dqptr(), leaving no way for the gadget to resume the
-isochronous stream without disabling and re-enabling the endpoint.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-axiado-ax3=
-000-usb-device-controller-v5-0-49271ed5c793@axiado.com?part=3D5
