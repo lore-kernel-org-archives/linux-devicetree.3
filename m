@@ -1,89 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794816111;
-	b=i6EsrCaefUkYV5/XGODTZkRmK9eo0zgt7a0ZMaRh2u7H3C4tF84/H5g0FRH6JihzYZP1
-	 c/U6Np/X0yXlIAD2Xz73twfckuMRUHG9dxxZ/xBeTXlIZ6cZhf9GAi8GY81eXTWqCKXD/
-	 Lt2GehmBaIhHAT/ipwgW0woB2GW7ltMX/j0laF6UqvkUxZxgfxMmkVLad44R2AVJrQ/gx
-	 LUxckmniqPeCcTn1QdCWQ9jF0dpZ+amf2fSbyjPz5tF6PDsy3PmiDpzDcEZ5LDe/SHjPy
-	 4o74rs3M3NUDBt/aT7GoxOnlLkQrABKDHsVAnHPDo1pvsmBicPHrfL9v00XLgYenP4w==
+	t=1794816137;
+	b=pJ2miSzV/jh1dLCrxZa90YtgtrmHNXrMVXzJwSZ+WpncEK7ZFdye6nqhJf1v0lZnTTst
+	 2GrqpLCa9eMotAmMBHm6c3EOHsvgI8Wa7LfRSEtzE7h7B1V8Big4+iP0hUFCWIDzn4rsC
+	 wN7McjVzAVzU1UfL5NmslL+7LeT69eE1w+gHnA++RVcZuZDa99mtFZvcedjnpUJJcEN0c
+	 tv4K6ggd43En7QRtMKZdDAFyi3hIw3jcT7ye+uANI/O+1mCHhXflDL/Tb4jHOBNoJmH8F
+	 b6IlzZBU90pp4nNSxBYUQot65xTzi4JJq5MbiPZmUXAfMNQ2+5KZZ4RzXJUYTrABu+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794816111;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794816137;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gmlMhyIvZekkIo8rGz6gqK3nrauj87h21DSx+oPeX2o=;
-	b=hH8dNsEwPvD19ekUVd2HOrLZQgUkmrVCDxQbX1YmDG2esyGJ/YT4y1xyKe/XOERmZQEY
-	 4mmSHJhEFuL/SsL6x9a4ouzNDBOocrQQEJcSZW36h764H2fMeZ946H2vCKYWHY18C7bFo
-	 2mUY/yXs6hKpdsRIIrIDeVCGnYnsCYeplx8ub8RB64ydTQ1CzY/T8PNaku7bDXQn424y+
-	 OxlAsUlB4/cTUZS8uOdYSFCJUEEOvSCwzAYRh9Yv46QyRM02RP0o4T83ctzU8QhPOz/Nr
-	 2A0uBy0tjuSCPFNR4OqB+bJqzBfVM00QmwWDJ0QO+3QxRnmm0tMCB/wC26TcHfindzw==
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 From:To:Cc:Subject:X-Mailer:References:In-Reply-To;
+	bh=ZyK7/PztODOd9Q5CVGcTP8UYa9FIHfRTvvxAFMt+8YU=;
+	b=amqGtM3YUIuB/uLlgI85s5IsybQy4Nt7SvUzgwO8Iv9TaP+qEGnbQz866MhpS4EDbtVR
+	 NxV3576HxHyQjuKUZzGDMpDSMr4sCtPtbi0h2HBJl6L5Pe5BYRli63IuoQCMjyHS0yfHd
+	 ETkMeieiK7G2nGi3KUeSLCNGPnQzCASoPgOwAudD8za8JQIl1lglWP0+NurxGdCkBFao7
+	 vz4G2ZDdUtGzpTNX8TvNxr/uOZjTHqbrIRAbt5eGvgfp/URBlI5HO2g+a9NxALkRXmGaM
+	 fUVZ+4+rqmllyM4k2lGgJlv2x12H+00ltV0x5BL2+A24gMgKP2XxmWPUUwO3vGs21Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=JOIkFkaK;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=NIsF+uDH;
+	arc=none smtp.remote-ip=74.125.228.74
+Received: from mail-ed2-f10.google.com (mail-ed2-f10.google.com [74.125.228.74])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F23D606A335
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 08:01:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F23D606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F38F606A339
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 08:02:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F38F606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=JOIkFkaK
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c50715c2757so380001366b.3
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 00:01:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=NIsF+uDH
+Received: by mail-ed2-f10.google.com with SMTP id 4fb4d7f45d1cf-6b7e67f651cso946880a12.1
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 00:02:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794816109; x=1795420909; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gmlMhyIvZekkIo8rGz6gqK3nrauj87h21DSx+oPeX2o=;
-        b=JOIkFkaKtGVEWHk8W0HBbsvSExYtwp/lsENBt8NXe4Y87YrqQIYmWOWYDuu36qumUm
-         iv6XP8o2CqAPHE2sBROrnA8+5lUs0OVZe1gveUAS8cQHfVFDu1q9WNmHNrAnlfBuLnNs
-         bDJvYgDh6veoVr4aiKuqTRjrPOlpEiDADx/DdQ1iA/y804SISLqXij9JzzE1GHqyDm0O
-         QiJPP6l8nr83YZfdbZLE+4HG9U37CcJmLM4LKPih1PYiwFjUEQ19P4KlsJ+KoyKS1u60
-         BayvtYPDHQlapSBUVkfuUob4uKeU2cSC0RZs135h1i+53Z6R1v0xBrfZitQveRYOv1N0
-         lowA==
+        d=fairphone.com; s=fair; t=1794816134; x=1795420934; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZyK7/PztODOd9Q5CVGcTP8UYa9FIHfRTvvxAFMt+8YU=;
+        b=NIsF+uDHDmPTfADfQhpj6r1fyuJAuD1caSpBsd+mCKdzTNO4k/YUXY4WwfhsgEu1CP
+         7GmcJQANvfcXjV0osFh7yKq6fnyzvIMfxrU3LkWziN/vtLkRibFPJAdKNxdgp6+pPJtK
+         SbUotDugzsnA+IB2Tr4Ee1SoJ1lwvCRPyLRwUrFpibxL32XemZV3OfgpCfmKkh4233/d
+         cKm0WW+N6zBMekAvmPv1hUhUMvoStHcLLFoJZrWpmFuRSWHxdHzTAv+kxrYu/narMqUS
+         9XL3V7v2gZ/kN8v83ZGg7sCpBpXn6XCLx28HXnfAkBonAXIaZqmAc8AFxLHUPYP2taJB
+         MmHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794816109; x=1795420909;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gmlMhyIvZekkIo8rGz6gqK3nrauj87h21DSx+oPeX2o=;
-        b=B48pSHTJhOkyWrecajviQj3FYtW8a3+i4SEuYgxUoUk50mCrIYxnD8KRIbv5WyE8VK
-         ODspwmwAuEnqHXfiRGqhRS6JAiACzahf15OGWJ8F8PmNHkoZlhjplM/61WMhIHuQBkGZ
-         TT09ed4c8cqIDPn0rIvj+ahgLQVZORjZB1OZUioVtJgd1Ma0XOJzF3HnucH0zWdoqGeJ
-         0abSktiPIiNIbj+WZHMZ27HBAPDoKrC7DW00R99ZLf7SmvzUVpoE0U++UKzPh3JYxUb4
-         kshT5z8E3oJ3eZQqK5Bh8zoZwCCNV5Dodugyou2w+kB1Yx64claGuX5JZRmIg9lr4Ejc
-         JEhg==
-X-Forwarded-Encrypted: i=1; AL+hErEgekgjfG2zLvejKHoI7gmpzGr6Zsawk0yevVeUwGJCkC0JyJXjtiYnQhj78KkiAGQ9OCrADVLB7+4O@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qa5q4TMAmJY2+xVm4bRGP6SyHEYvwf2Wtp896ALIdT7zBEvaR
-	0X32X3wlUUcHro5sLY14rrBE1XY8Qx3XYsur50PkVtaXw4zuT9Zt/FEyvCmLzTyj2zw=
-X-Gm-Gg: AYBFou2gBMm8kyb6wHimv1QWxJFA0cAZSvr9HG2MLDCdK89Lk6RQrqWGna0g4/tqaEt
-	wHBTKAKPgXO3Qk2EojZhEDgPDc/xPOFCFlzQ2zVKvwVkXUQ/gSR+qTHSYT8scfXdw3MIgIdmYqP
-	E2ZoFMeZ8vb5iU1P1rC9N3lgkWnowk7l9jDDVGkivH+g846E2rJ3ufjXoF2Mjteo904MFvsRZhf
-	J/GaU/z5n1D4i5Ml/M4lcauSUe5zSG6RyiyPs9tKioZLsJa3pRD41HCs+fY9OOjbD9qw2OCuDfI
-	3DOGP3paID1LAThPySYIx0NcXDRxlJSyn8zzuvmNtK1SvRebZmypCBCvIBTJD6nBOvlLxeNFAlc
-	1NymoKv0Mr9A2YA2mHCQSHl/wLHqQemgR0lZ76Fls2bQIkSxnh9Y+iHvdnIuAF+xURkLMdInjxS
-	SjLCkj++N6RR+L90dW7ubf/aPi0lquECcyuoBKDI4H4fZjbdkMdjPukMyaNkbDfweXIH3dZWWN6
-	kbfFX1FETloguXQSTtY+egDnJC9gdvS0EYj5hzt0j4Yov0sKdSyvZY0SsHbYhq8Jou39ZM7MZq5
-	xA2xF4JByItwntdH/z/qCxBUexQ/Pn5Y2mGFb0tvsW1x/sNbqRENVn0OSEl9uzhzEhP1UbPUm/3
-	7difLX8mcSw==
-X-Received: by 2002:a17:907:868f:b0:c50:475d:980e with SMTP id a640c23a62f3a-c50963ced7cmr772967366b.38.1794816108385;
-        Mon, 16 Nov 2026 00:01:48 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:575d:8fcf:e30d:5aed? ([2a01:e0a:106d:1080:575d:8fcf:e30d:5aed])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5ff2cd05sm18650883f8f.31.2026.11.16.00.01.47
+        d=1e100.net; s=20260707; t=1794816134; x=1795420934;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZyK7/PztODOd9Q5CVGcTP8UYa9FIHfRTvvxAFMt+8YU=;
+        b=i+VrBAL/2kwQIMKiJuadYIWVd9G3/T4JFwR4Ga7h4O/wB9HOGDwflzsxrmUvSXCw8U
+         LxKM1ocIlziLdLMPTOw90RVo00GcVjQZyhXAhrXWUwjgZWD2pYU4jW5B0YR29AIKqQjS
+         tfI5z1ZO5Dz4CfTQZhelGLiJtK2qtkB4hTBIW4XfgR04KiWk4p5gSUpcTiAVWdbHzw3Z
+         nYNZp+SiUsSK3TogBVFAenePDl4BehRc4hdOnlcXQB+HD0XeeZAFQBUgI8HNRap9uW9u
+         /R4xl3bAlKDEcJ+enPksL5hggb9Vh8XV0TtlLfqsKtQi+R6ooJesxc9A8jA6OSjoCA73
+         MljQ==
+X-Forwarded-Encrypted: i=1; AL+hErE9jU7ZiAkuMO2cHoSkM5rpqkWv1gsd839tjDYC6NLU8swn36H6Ej3ql7Yp1yAkUorvcKiL83Qakxxu@vger.kernel.org
+X-Gm-Message-State: APuU4Z/l7ssXAULRV0SjlrI66f002+CnFf39CMpKFBml6GZogvzUc/lt
+	zOeUmtod/jA1hrhXjxX8ptfTB/x/nYAyXriEVSASjsB/bJyLRJ58ZmfC74bnEO/t/dA=
+X-Gm-Gg: AYBFou2yU7KffHMPhILDsESRK5MU6ycj2Vom8HC+eblv5CQeYYlmyTo0HUA6HotFlfl
+	rULAEj0B1Q2++r3mSrIozQBCVmHQcPcq8hriDcvCSwFoadTHdYh85aHTAFiogNyv3FNQyxos1gH
+	AlRl4fmpQfPIJW+zkz0CeaAKdp0fok03R7oKtejhkEqvEobx1+Lox8k4IS+/HZb7I4isHcoriOg
+	mpJxV8Khmc2SyZwZOX2UEpTSg9LyTRafMTq/czAkQ+A0C0uSMTF3lrPUtQdv2l+kr2WdfaT08B4
+	oqxBc8EmeY3sgqSrBnf+QanrLHtSR3JuZlDJYm6RiYOC4sI1xyCFAG03uCoba7UpEKpge0cGgHJ
+	TY0uF75CTL+utpjgCihsoraISMdxA3vcxUbSp1QNuaLcPTnA9We6OmxpqzKTtYXPtLgUslLPVyv
+	gnVyZtrzYEc+7gkOIrxWslDq4VLTIe8hvz754YRH+XonSE3AcijWg9YLZdzhdtWUVkbpS2GyFRB
+	Ra4PeUDhh5zZoQAFmHR0Px5S0CI6a2aSTdxcr1qrcWeY89mPqa+oJKedtqr1BapNuZf6HByFG5Q
+	qEWkYAxAk3ATgQ1xIT8Kmo5hpe/ttlMiHbD4p5lBiEPjRQ3XJLvBei7yzi8sGaIOn9eDUUhLQg=
+	=
+X-Received: by 2002:a05:6402:11cd:b0:6b6:fa19:41c1 with SMTP id 4fb4d7f45d1cf-6b7c09580e6mr6535428a12.8.1794816132167;
+        Mon, 16 Nov 2026 00:02:12 -0800 (PST)
+Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c264d99csm4159399a12.36.2026.11.16.00.02.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 00:01:47 -0800 (PST)
-Message-ID: <4810f117-3003-45dd-9b57-d7e400c50560@linaro.org>
-Date: Mon, 16 Nov 2026 09:01:47 +0100
+        Mon, 16 Nov 2026 00:02:11 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,182 +88,125 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH RFC 19/23] ASoC: qcom: sc8280xp: allow using the sc8280xp
- card with lpass-cpu
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
- <20261113-topic-sm8650-el2-v1-19-5183f6aab9fc@linaro.org>
- <sashiko-outbox-213522@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <sashiko-outbox-213522@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Nov 2026 09:02:10 +0100
+Message-Id: <DMWH7VNNWDQG.1BM1P88WUJZT9@fairphone.com>
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Jonathan Cameron" <jic23@kernel.org>, "Luca Weiss"
+ <luca.weiss@fairphone.com>
+Cc: "David Lechner" <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, "Zhang Rui" <rui.zhang@intel.com>, "Lukasz
+ Luba" <lukasz.luba@arm.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Laxman Dewangan" <ldewangan@nvidia.com>, "Bjorn Andersson"
+ <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Hans de
+ Goede" <hansg@kernel.org>, "Jens Reidel" <adrian@mainlining.org>, "Casey
+ Connolly" <casey.connolly@linaro.org>, "Val Packett" <val@packett.cool>,
+ "Daniel Lezcano" <daniel.lezcano@kernel.org>,
+ <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v3 3/5] thermal/drivers/generic-adc: Allow probe without
+ TZ registration
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20261113-bat-temp-adc-v3-0-743979a8fd90@fairphone.com>
+ <20261113-bat-temp-adc-v3-3-743979a8fd90@fairphone.com>
+ <20261114001552.3ae8f05e@jic23-hlaptop>
+In-Reply-To: <20261114001552.3ae8f05e@jic23-hlaptop>
 
-On 11/13/26 20:12, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issues to consider:
-> - [High] ASoC: qcom: sc8280xp: DAI ID collision in
->    sc8280xp_snd_hw_params()
-> - [Medium] ASoC: qcom: sc8280xp: DAI ID collision in
->    sc8280xp_be_hw_params_fixup()
-> - [Medium] ASoC: qcom: sc8280xp: missing lpass-cpu jack DAI IDs in
->    sc8280xp_snd_init()
-> --
-> 
-> commit 3e03c7d28b8733d89a72bc91c60e7c4086af115e
-> Author: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> ASoC: qcom: sc8280xp: allow using the sc8280xp card with lpass-cpu
-> 
-> This commit adds LPASS Codec DMA DAI IDs and attaches DAI link callbacks
-> unconditionally so the sc8280xp machine driver can be used with
-> lpass-cpu DAI links.
-> 
->> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
->> index 8cc75a7ad866d..ff57fb9051a26 100644
->> --- a/sound/soc/qcom/sc8280xp.c
->> +++ b/sound/soc/qcom/sc8280xp.c
-> 
-> [ ... ]
-> 
->> @@ -242,6 +243,8 @@ static int sc8280xp_snd_init(struct snd_soc_pcm_runtime *rtd)
->>   	switch (cpu_dai->id) {
->>   	case WSA_CODEC_DMA_RX_0:
->>   	case WSA_CODEC_DMA_RX_1:
->> +	case LPASS_CDC_DMA_WSA_RX0:
->> +	case LPASS_CDC_DMA_WSA_RX1:
->>   		/*
->>   		 * Set limit of -3 dB on Digital Volume and 0 dB on PA Volume
->>   		 * to reduce the risk of speaker damage until we have active
-> 
-> [Severity: Medium]
-> Does switching on cpu_dai->id here without checking rtd->dai_link->no_pcm
-> collide with Q6DSP TDM DAI IDs, while leaving DisplayPort and WCD headset
-> jack setup broken on lpass-cpu links?
-> 
-> LPASS_CDC_DMA_WSA_RX0 and LPASS_CDC_DMA_WSA_RX1 (36 and 37) have the same
-> values as PRIMARY_TDM_RX_6 and PRIMARY_TDM_TX_6 on AudioReach DPCM links.
-> Meanwhile, for lpass-cpu links, LPASS_DP_RX is missing from the
-> DisplayPort cases below (skipping qcom_snd_dp_jack_setup()), and
-> qcom_snd_wcd_jack_setup() only attaches the jack to the codec component
-> for LPI_MI2S_RX_0 and TX_CODEC_DMA_TX_0..3, ignoring
-> LPASS_CDC_DMA_TX0..3.
+Hi Jonathan,
 
-Thanks for the analysys, will try to fix it
+On Sat Nov 14, 2026 at 1:15 AM CET, Jonathan Cameron wrote:
+> On Fri, 13 Nov 2026 16:56:44 +0100
+> Luca Weiss <luca.weiss@fairphone.com> wrote:
+>
+>> If the devicetree node is not referenced in a zone under /thermal-zones,
+>> devm_thermal_of_zone_register() will fail with -ENODEV.
+>>=20
+>> Since the driver is now also registering as an IIO device[0], allow the
+>> probe to continue without the thermal zone.
+>
+> Papering over problems, or expected path for some devices?  If it's
+> expected path we probably don't want to print a message with the
+> word failed in it.
 
-> 
->> @@ -323,6 +326,10 @@ static int sc8280xp_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
->>   		}
->>   		break;
->>   	}
->> +	case LPASS_CDC_DMA_TX0:
->> +	case LPASS_CDC_DMA_TX1:
->> +	case LPASS_CDC_DMA_TX2:
->> +	case LPASS_CDC_DMA_TX3:
->>   	case TX_CODEC_DMA_TX_0:
->>   	case TX_CODEC_DMA_TX_1:
->>   	case TX_CODEC_DMA_TX_2:
-> 
-> [Severity: Medium]
-> Does adding LPASS_CDC_DMA_TX0..LPASS_CDC_DMA_TX3 to
-> sc8280xp_be_hw_params_fixup() alter PRIMARY_MI2S and SECONDARY_MI2S DPCM
-> backends instead of affecting lpass-cpu links?
-> 
-> In sc8280xp_add_be_ops(), sc8280xp_be_hw_params_fixup() is only wired up
-> when link->no_pcm == 1 (AudioReach DPCM backend links), so it never runs
-> on non-DPCM lpass-cpu links.  On DPCM links where it does run,
-> LPASS_CDC_DMA_TX0..LPASS_CDC_DMA_TX3 (16..19) alias PRIMARY_MI2S_RX,
-> PRIMARY_MI2S_TX, SECONDARY_MI2S_RX and SECONDARY_MI2S_TX (16..19),
-> changing their minimum channel constraint from 2 to 1.
-> 
+Expected path for some devices. Should I make this into dev_dbg then or
+remove the print completely?
 
-Right, I'll try to fix that properly
+>
+>>=20
+>> We also can't use gadc_thermal_get_temp() anymore because we haven't
+>> necessarily initialized tz_dev.
+>>=20
+>> Link: https://git.kernel.org/torvalds/c/3762f5851ac5 [0]
+>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>> ---
+>>  drivers/thermal/thermal-generic-adc.c | 20 +++++++++++---------
+>>  1 file changed, 11 insertions(+), 9 deletions(-)
+>>=20
+>> diff --git a/drivers/thermal/thermal-generic-adc.c b/drivers/thermal/the=
+rmal-generic-adc.c
+>> index c6a7a65aa6a6..40a34e97a515 100644
+>> --- a/drivers/thermal/thermal-generic-adc.c
+>> +++ b/drivers/thermal/thermal-generic-adc.c
+>> @@ -86,14 +86,16 @@ static int gadc_thermal_read_raw(struct iio_dev *ind=
+io_dev,
+>>  				 int *val, int *val2, long mask)
+>>  {
+>>  	struct gadc_thermal_info *gtinfo =3D iio_priv(indio_dev);
+>> +	int iio_val;
+>>  	int ret;
+>> =20
+>>  	switch (mask) {
+>>  	case IIO_CHAN_INFO_PROCESSED:
+>> -		ret =3D gadc_thermal_get_temp(gtinfo->tz_dev, val);
+>> -		if (ret)
+>> +		ret =3D iio_read_channel_processed(gtinfo->channel, &iio_val);
+>> +		if (ret < 0)
+>>  			return ret;
+>> =20
+>> +		*val =3D gadc_thermal_adc_to_temp(gtinfo, iio_val);
+>
+> Maybe spin a helper that is used both in adc_thermal_get_get_temp()
+> and here?  Whilst it won't save much code (may actually be a touch longer=
+)
+> it will put the two relevant steps in one place.
 
->> @@ -533,12 +540,11 @@ static void sc8280xp_add_be_ops(struct snd_soc_card *card)
->>   	int i;
->>   
->>   	for_each_card_prelinks(card, i, link) {
->> -		if (link->no_pcm == 1) {
->> -			link->init = sc8280xp_snd_init;
->> -			link->exit = sc8280xp_snd_exit;
->> +		link->init = sc8280xp_snd_init;
->> +		link->exit = sc8280xp_snd_exit;
->> +		link->ops = &sc8280xp_be_ops;
->> +		if (link->no_pcm == 1)
->>   			link->be_hw_params_fixup = sc8280xp_be_hw_params_fixup;
->> -			link->ops = &sc8280xp_be_ops;
->> -		}
->>   	}
->>   }
-> 
-> [Severity: High]
-> When sc8280xp_be_ops is attached to non-DPCM lpass-cpu links, does
-> sc8280xp_snd_hw_params() misidentify LPASS_CDC_DMA_TX0..7 as MI2S DAIs
-> and fail stream setup with -ENOTSUPP?
-> 
-> sound/soc/qcom/sc8280xp.c:sc8280xp_snd_hw_params() {
->      ...
-> 	switch (cpu_dai->id) {
-> 	case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
->      ...
-> 		if (mi2s_mclk_enable) {
-> 			ret = snd_soc_dai_set_sysclk(cpu_dai,
-> 						     LPAIF_MI2S_MCLK, mclk_freq,
-> 						     SND_SOC_CLOCK_OUT);
-> 			if (ret)
-> 				return ret;
-> 		}
->      ...
-> 	case PRIMARY_TDM_RX_0 ... QUINARY_TDM_TX_7:
-> 	case AIF_TDM_RX_0 ... AIF_TDM_TX_12:
-> 		return sc8280xp_tdm_hw_params(substream, params);
->      ...
-> }
-> 
-> LPASS_CDC_DMA_TX0..LPASS_CDC_DMA_TX7 (16..23) share the same numeric IDs
-> as PRIMARY_MI2S_RX..QUATERNARY_MI2S_TX (16..23).  On platforms such as
-> sm8650 where mi2s_mclk_enable and mi2s_bclk_enable are set in
-> sm8650_priv_data, starting a capture stream on LPASS_CDC_DMA_TX0..7 calls
-> snd_soc_dai_set_sysclk() on the LPASS Codec DMA DAI, which does not
-> implement .set_sysclk and returns -ENOTSUPP.
-> 
-> Conversely, actual lpass-cpu MI2S DAI IDs do not match the Q6DSP MI2S
-> ranges: MI2S_PRIMARY..MI2S_QUINARY (0..4) hit the default case and skip
-> format and clock setup, while MI2S_SENARY..MI2S_SEPTENARY (34..35) fall
-> into PRIMARY_TDM_RX_0..QUINARY_TDM_TX_7 (24..103) and are routed to
-> sc8280xp_tdm_hw_params().
-> 
+Sure, can do that.
 
-Hmm, yeah this is quite a regression, I'll try fix it
+Regards
+Luca
+
+>>  		return IIO_VAL_INT;
+>> =20
+>>  	default:
+>> @@ -195,14 +197,14 @@ static int gadc_thermal_probe(struct platform_devi=
+ce *pdev)
+>>  						    &gadc_thermal_ops);
+>>  	if (IS_ERR(gti->tz_dev)) {
+>>  		ret =3D PTR_ERR(gti->tz_dev);
+>> -		if (ret !=3D -EPROBE_DEFER)
+>> -			dev_err(dev,
+>> -				"Thermal zone sensor register failed: %d\n",
+>> -				ret);
+>> -		return ret;
+>> -	}
+>> +		if (ret !=3D -ENODEV)
+>> +			return ret;
+>> =20
+>> -	devm_thermal_add_hwmon_sysfs(dev, gti->tz_dev);
+>> +		dev_info(dev, "Thermal zone sensor register failed: %d\n",
+>> +			 ret);
+>> +	} else {
+>> +		devm_thermal_add_hwmon_sysfs(dev, gti->tz_dev);
+>> +	}
+>> =20
+>>  	return gadc_iio_register(&pdev->dev, gti);
+>>  }
+>>=20
+
+
