@@ -1,79 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794794898;
-	b=Lwcf/t9TcC377mdbJ+5OP88wGkLaQuE6xiQFg0ogTJVAmoH9rGRW866bhrBmiZX4w/2E
-	 v8ZDBQRt4Je59BggDzhvJCdsN2XLpTW+d4C0Q5O4UJ5aMU7GgamVN1nL1XQUrcH+lr/lh
-	 r6TZhrq2+XseTVuvkuC8Q+IobQ+M5Y2EhU7N1UciWlFa+Vl46EQhhYqeKuokZMcMRQ9+v
-	 MNr6BxozoMUum/9d1/ypM+xZrMAn51+n0QkKdNJEX+YqVnlXDsaRJhFYkZGCrkNMV3A1E
-	 ay0W8FCen7rU9oa+CcQZFxzKLD2AjT4pXNZcBCupvwWZnfJzt6ulhVY8o0c40Oz1o6A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794794898;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=aNbeHIOxMQPLepxSce2mbuC+TYH2Z2cBB/5NjFX2Su0=;
-	b=Z5G0vK0sFGbdo6qC7PauPxwKixXEtVhqII1l0nPm0kjxgysnbrYbyLDIIxYfLKMjHFDt
-	 SMA3EGZfqvMjY1REK3kYj6BGbKLr3O3yxb0PdpdoTxgg10N63ictrYpPX1cYExNTcFIW2
-	 QRkgfnXtmJ5OH/IzqG9ZfTLNE6CZKbs+MiFbrsjBLuHTye9s0gBMt7S2IlDu65yU+zhL8
-	 xbB2QRApQ8/rfZXa8+OI8ZIsyLl6Ss9hplqBcNriL8vEQlLYhZk6JdGbx6ORWpNtsa+W8
-	 I+PcVTZhSIoEVF6Mu0Xcf8LNSYIIocn4FTjduJT8fvAqjy/pAn/cV7vpw4CTYLRjneQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nDE4tuuk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C401E606A32F;
-	Mon, 16 Nov 2026 02:08:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nDE4tuuk
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794794898;
-	b=N8teNYoetKOTFmpv9Dz9hGm6xesH/u9nuPOP5Le6rRiEo+KJHAo9jTBy8I/NIslnsUhu
-	 II6pCLblERHF97Nn8VSWa4vy1+Z7YtVdFZPjnTXM22iaft/PGJwpIynLCqs1vtgYbRRsd
-	 +F+7WmgRsYkE9t/3zyT6Yugyx/vSZISzClKB/xMyfzIpWMXOu1BxWihVJNQ1Qz1KxdyPQ
-	 jSKkjOPatRVE/AybOAq4j3JN57KagwzZO7ZN75YaoioCgXw/i1oGap0ayJm8QWD3WQe9u
-	 euZpJOa9rzqSe51yaRjwjXKTxcoXbs1ilElig44k1eyRiBM7YJ2HhnMTnY6g1GVmzYg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794794898;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=aNbeHIOxMQPLepxSce2mbuC+TYH2Z2cBB/5NjFX2Su0=;
-	b=US8D/HGVybjrrlt+IxZBPK3xZ4Tz35/PZngw3EN1pq2ZI7zGX9dYiV9zfy3XFVz112HZ
-	 UhT5dyRAs1v0Vir84FIMx+G9n3Hj5nd4yE8nU9LhBdCtD6QIhD93EU7/YjAKVkl2Bt5z1
-	 t9sfqiPywI1PU7tSZy7akrYzJ+q83aL3eUx4tdplMqOu1jWO2ER5no2qagzOAB7hfeizw
-	 XjimsyOb/PdJS0mpou1c/08cMoKArwOnZrEpzJ9XWuE7mrH0PB/i9JqKPRAFxwQFVBbB7
-	 +aod+ON7MtO5HwoWbCfEmiDIh3AK98OGyW6/zOd7SpaLF+KHzotB3KOmWu+Ricta8nQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794796700;
+	b=kmpCVcrge9fJzkkj98HLGT42LJlCJBANAj4wSKIH5MAQxdAUCm85gSZdnLQmL5N3iaHP
+	 +2TgXP92cLio6g8G25oxoYzEHltzyMXESeSF3JLAMLqGJ5sZDreyAkZvGVqqc2SBohBEO
+	 BnZFADQqVDuyu3DcIA1GAOdUlyZui4Z9gukwKDJReVTDeNNIBTEy3ypmxyY7VmqTTBW4t
+	 y/Gh60IHn/x9s4+8TjCxVHJCm9DkOOVxEkdHEOco3cngbJz44fejbxtUM+R5HzwDRC6S9
+	 TsXJnnEWQJBEYjSE7uXtU6TTtn2stfcKPUdES3NTQR9bVPBRR2jciDmoBaHKl6zp6cQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794796700;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=TPjyQUk+vMBvodq2mBZyZe6FH5D4rzEe4fEpLwevuWA=;
+	b=i0OUNa9Zf/gaVb0z8XO/RBCVHSbu5pZA3Plz9xdVva82ztprvnWWjVNj1uEQuHPsVFg+
+	 my353ApZcCzl1M5sQTB25Q5zpCjGVG/gUprGinDaNMUagrlEnITwMIICB11XZyN/xIn4c
+	 X2QwGsW+TMUb9fttNcDoQ9Oki/FFNzR31hxBZfu+eGCIVR+t+qZ8ayW4yjES66abcp7Vh
+	 8wsvRyKfZ42uFo4LP+Uc5LQYwgzyIx8ujoEudQ+8izfUsIkDIdDFZzkdPoPn4Cl87rq+Q
+	 4xpj27s1xdx5CXHQ/2oyjla7Y1KSHqY/rZiV4DZ/QtVu/aieIFf89mCqTDrmShI6OwA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WJrJOScF;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L2MJ+PvC;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id ACFC61F000C5;
-	Mon, 16 Nov 2026 02:08:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794794898;
-	bh=aNbeHIOxMQPLepxSce2mbuC+TYH2Z2cBB/5NjFX2Su0=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=nDE4tuukZQ7TEpW4xLMYshXpqkKNoBgR6zzOfc5zBx3C0nHhVsKzdvaB/y3crM1yM
-	 bvT+BmXjMZKi/TPRYyDaHtxND08ahxe4jS/LjmdtEkDA3RsWbNjsyDgUI4W0Q5pWyZ
-	 Q17pRWQzEFSWURdFgUha/d492h2P4UFmLqspz5lQd6ZidyKIAA+4vwOCNdjD5/BaIQ
-	 YVeSSTiSVJ+QErao6xgq4qpztLzWuzipb/rv/KA8nx5jfikNDU4kVe1myfAbBq4+32
-	 xwV4LxAFpyFwuXb19SZH+z3v4KpKuvCXZye8pk93XAHMJuagzhLXyWK3/oX0tDKFwV
-	 1gHQrMaJDx2UA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0D8EE4A2B3;
-	Mon, 16 Nov 2026 02:08:17 +0000 (UTC)
-From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Subject: [PATCH v4 0/2] gpio: Add Cortina Systems CS75xx GPIO driver
-Date: Mon, 16 Nov 2026 05:08:15 +0300
-Message-Id: <20261116-cs75xx-gpio-v4-0-ad80a944e966@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F33606A321
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:38:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02F33606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WJrJOScF;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L2MJ+PvC
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AG1L22a136946
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:38:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TPjyQUk+vMBvodq2mBZyZe6FH5D4rzEe4fEpLwevuWA=; b=WJrJOScFWbmhsj6y
+	AXFvn9SBm43IzYWGZMwIAmxaGxjIXxdlt9wkxfaTSbQ7E07Q0BxLROlUAfuguA80
+	EmRTzEg/vKjuBQwh6zpA3hekDlZWsN4v97sul0/C/d3k+hiHtr6ZpjPb5W7rnR9h
+	cnJr2qP0IUs0zf5SZEytlzqfqrfUp5LKlRQXplO16NMFIyoV72mI7tBcyJ+9Kzsh
+	XCez1LSHjOKwOQr/TscCiudCBtJdt903ne639VG+gBHMZ4Z2RAuB4fmBINzLHpvQ
+	ivVLHIJWMnuTCc+nVuR4SNNNoosywSJYae8TVupwaAtor8SM22VnlQjRgUUtsf+1
+	OH+qUw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhk24dus-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:38:18 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9493e89d4f9so556870285a.2
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 18:38:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794796698; x=1795401498; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TPjyQUk+vMBvodq2mBZyZe6FH5D4rzEe4fEpLwevuWA=;
+        b=L2MJ+PvCZq5kFb18qBpX7JTf0iQ8hVlYPEUP3yAq2FqFXfkLwDPiclDCRp6/QN6zhv
+         ZEUK0xDimgat9/EIfD91bkycRHWIboTNAspoit94Oyrb3aWc3UTfVXQvZ623C4ywwLCr
+         Q+ESN0ac8BwAafWDY6zl+TUr0PZ3Bz7FcGjs2yi6WnYGyzvMi0OMa3K3XP8SCv2MctlS
+         yyGmsPxn3HBJVR90AvfjECN9HgIooxR2mqDHg1JORqCX3z3s1RNFP8XTNjIr1Bkvqk4z
+         B3c4IXsVnuHIMiU2K256jDt6IRChLUxFFD0Edjxi/RHx3SnNN3oVsh60CY9jfpXzfD/J
+         VL2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794796698; x=1795401498;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TPjyQUk+vMBvodq2mBZyZe6FH5D4rzEe4fEpLwevuWA=;
+        b=dUzpqG2BZFmW67mKqVHKZjUv2wSE4/6H1ZobeLiB8VxglvHvhzN0KXvT2OpbeqH6/G
+         ZsQPLOnKgAle5/eNsN3GLLubJ71iVVWrJznh36yH86wREhvonrXuVImXmOO6LhtXhQNW
+         SLPb2dOWVv9+EqrIZoCBgkmxQRlpY7mha8RqVzkM+/qFOnCWZCPmFpM0+qgeRNIy595N
+         8UMAw+lVCuRBdQhahYsG/5Tta1VERZ3gGGwwjMTYdTQtw6Q8WJs4JHUlg7CeBgstCpLL
+         TMJdk3rbHLpZIsKstwZUSvb7ZJ16vakRarYm7cD7sMX1iwxOMWuCd+CeGnoRxos9dtTm
+         Pgcg==
+X-Forwarded-Encrypted: i=1; AL+hErHkDImJBhYFv4JWend9Fz5ff6hrOHczJ2uVeTyhN6mFMfJNLRHBoihAd504UocZM7OBcOXlGyqG+bud@vger.kernel.org
+X-Gm-Message-State: APuU4Z+62+RsLXwjcC6OQzT7p76r+eYgsTN1AljOsxE2c3hwjsQKo/hU
+	1BT5FtEjMWpdXIbba7pC66PksJrM2ueoaZcJE4x5tpkjj5wwaYfbIO2RC782VfCBZ1vv9IiiDyl
+	v60xjdVG3c181wKrXGIdPXUBfQQzJ8fAceBQk++a5FzbSNkBEkKygFxLKOQHz2h3b
+X-Gm-Gg: AYBFou0QghXKlgbdi98RP/C38LvbYL2haPrpmodtYjsSKc+KTRg/o0hzQZHOCjfrgP+
+	GMTmlC2tjtqI8qIWDENuMiCahRSx5Dv5RQ53UIKhylNV01EeRR+GlmgzD7CIExOUU8rX+jjmRW1
+	lFe+E642mOT23NQfqKS5vDdjTeUvdOjtTnlnpOQuEK3lZaciu9Sr9gCrN/IPQEa8S3LqPLK5wVv
+	vvhRJtVQ75UXokHOBcbMfGfn25eiRaIAmFvTvDHY7lMDHKCX8cS0FKnrHBH7m5qHKV9PNcqZSZW
+	BbGyVfwz/dqU/Hm2oRUNBcGytmCeg1aoKpmucSotPHuozkPgMaHyBhU9OdxCKX3pCZ/IQbAJsGI
+	Q9I5stVaI1jXB9fHuOy9+pTQhoJiVAR4+U7RT94Z3XzxIZ3PqXjQmGWCEb+4UFwCnJ7d+71jQmh
+	ghVrJWvuVM7cANNSeNZElxpp8ThRM7cHP/JA==
+X-Received: by 2002:a05:620a:370e:b0:949:7502:6a8 with SMTP id af79cd13be357-94975020921mr471816585a.56.1794796698177;
+        Sun, 15 Nov 2026 18:38:18 -0800 (PST)
+X-Received: by 2002:a05:620a:370e:b0:949:7502:6a8 with SMTP id af79cd13be357-94975020921mr471814785a.56.1794796697746;
+        Sun, 15 Nov 2026 18:38:17 -0800 (PST)
+Received: from [10.38.240.54] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9497a4f1bccsm186560185a.36.2026.11.15.18.38.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 18:38:16 -0800 (PST)
+Message-ID: <d784b5e9-af98-40a2-8670-6c12208983dd@oss.qualcomm.com>
+Date: Mon, 16 Nov 2026 10:38:07 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,114 +115,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 01/23] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
+ SM8750 CSI2 PHY
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+References: <20261114-add-support-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com>
+ <20261114-add-support-for-camss-on-sm8750-v7-1-8ff2a11835f6@oss.qualcomm.com>
+ <20261114-voracious-capable-guan-99cacf@quoll>
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+In-Reply-To: <20261114-voracious-capable-guan-99cacf@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyTHQUlJIzE
- vPSU3UzU4B8JSMDIzNDA0NT3eRic9OKCt30gsx83dQUg0Rj89RUk0QzCyWgjoKi1LTMCrBp0bE
- QfnFpUlZqcgnICKXaWgBrK2ZdbwAAAA==
-X-Change-ID: 20261015-cs75xx-gpio-ed0a37ee4a68
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Fil Dunsky <filipp.dunsky@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794794896; l=3868;
- i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=4cLtFIrRgarbcVyxItPiz+PrfRuS8IJeSDoXQqO9BOU=;
- b=lCyCsg+aC1jJMKeUwe+oxSY0gsvieaHuJyyc+SOKTHg0meMmqful9Ah0rFPDY2OJ0o7JQL8mr
- 401NpSq44meDZh7GhL7U9igOsvBMjcyDDDgxBNdYp0KQOl3upby3SRQ
-X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
- pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
-X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
- auth_id=1085
-X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
-Reply-To: filipp.dunsky@gmail.com
+X-Proofpoint-ORIG-GUID: Kr0bLLg2g1c6cHrOH4wljYad5yC-HI5L
+X-Authority-Analysis: v=2.4 cv=QanzLcbv c=1 sm=1 tr=0 ts=6afa6c9a cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=4xkCrKK1q9XhPcYNJToA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDAxMCBTYWx0ZWRfXx8hDJlczc3XB
+ eFmNVO5bjTsb8oIa9MpVMbQu27zWteoLGmUgkhJ8tzgFQv1T6HoVhjhoRs4RiV0FcYjy4OhU8dj
+ OfIbTdXM4R+1JrDh0uXK+81pm1e7+nVxIqXrk/sU04L7mE7AsevHPgGkr8W7pa5raYbcwxFDeNS
+ bT+YX/bFT8pdA+w7CjVpf/80euvpMiN7Ykommx/XuAT8fcVW4pVqxlqfulOkW2IqnDCQkW54tzm
+ 00bqsWKEIqr7LhlmCTXCq3pjiDd1e/CSHMb9uCEwkwWJ4jIlcIlh38j9iZpZFLNYPDlO0rCtdR8
+ a5r3t+/trR/pqo5RABLq2yyJQzLEsQOv35pXrvmQNkPNmk3n7I7Dt/cIBbA3kIJNcwvoAh0Jw7h
+ Nm4VVsEVqY9zHBVcHmzAHmOpytOccirZ0BCvRyen/WCaXQgRP6hnkURSwDtVcfoHJ9W66OH0XJo
+ TCSS7CFM6NGwdftnutw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDAxMCBTYWx0ZWRfXwemeM1+0H5Mp
+ OcazKinFaHl+b4hXGuFUHnIcDgWJ3P1z9Tv00UH/XvOTn0gXkqFpaKhXH8NEAzEG7DIGteRabpQ
+ zXnktm4vPaKv4QdmwrHaxG5p2jYsCmM=
+X-Proofpoint-GUID: Kr0bLLg2g1c6cHrOH4wljYad5yC-HI5L
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+ bulkscore=0 priorityscore=1501 suspectscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160010
 
-The Cortina Systems CS75xx ("Goldengate G2") SoCs have five banks of 32
-GPIO lines, each bank with its own interrupt. This series adds the
-binding and a driver based on gpio-mmio; level and edge triggers are
-supported, both edges are emulated by flipping the polarity.
+Hi Krzysztof,
 
-Each pin is either a GPIO line or belongs to a peripheral (NAND,
-Ethernet, UART, I2C, ...). That choice is made in the global control
-block, which is not part of the GPIO controller: as discussed on v1 [1],
-the driver does not touch the pin mux and leaves it as the boot loader
-set it up, until there is a pin controller driver for that block. On the
-Securifi Almond+ the boot loader already leaves the reset button and the
-touchscreen interrupt lines in the GPIO function.
+On 11/15/2026 2:11 AM, Krzysztof Kozlowski wrote:
+> On Sat, Nov 14, 2026 at 07:29:18PM +0800, Wenmeng Liu wrote:
+>> From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+>>
+>> The SM8750 camera subsystem has six CSI2 D-PHY blocks. Describe them
+>> with a standalone "qcom,sm8750-csi2-phy" compatible, so the CAMSS
+>> binding can instantiate the CSIPHY nodes as separate phy devices.
+>>
+>> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+>> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+>> ---
+>>   Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml | 1 +
+>>   1 file changed, 1 insertion(+)
+> 
+> Does not apply, so should be squashed with dependency. Why having it
+> separate?
 
-The driver used to be part of a series with the interrupt controller,
-I2C and watchdog drivers and the device tree changes. That series is now
-split per subsystem: the driver builds with COMPILE_TEST and does not
-depend on the platform series [2], which is under review separately. The
-device tree nodes will follow with the other CS75xx dts changes once the
-platform is merged.
+Since Bryan is about to apply the dependent bindings and driver changes, 
+I kept them separate rather than squashing them into this series. I'll 
+rebase this series once the KNP series has been applied.
 
-There is no public documentation; the register layout comes from the GPL
-vendor kernels. Tested on a Securifi Almond+ (CS7542): the reset button
-(GPIO 37) works as an active-low gpio-keys input, and the SX8650
-touchscreen uses a level-triggered GPIO interrupt.
+Thanks,
+Wenmeng
 
-[1] https://lore.kernel.org/all/20261012-dreamlike-hazily-19bb60326f0a@spud/
-[2] https://lore.kernel.org/all/20261114-b4-cs75xx-v7-0-8f17f38821b4@gmail.com/
+> 
+> Best regards,
+> Krzysztof
 
----
-Changes in v4:
-- rebase on v7.4-rc1
-- split out of "Cortina Systems CS75xx: interrupt controller, GPIO, I2C
-  and TWD watchdog" so that each driver can go through its own tree; no
-  longer based on the platform series
-- the pin mux registers are not part of the GPIO controller (Conor): the
-  binding has a single reg entry and the driver no longer switches the
-  pin mux when a line is requested
-  (Rob, your Reviewed-by on v3 is not carried because of this change)
-- switch a line to input for an interrupt only when it is not requested;
-  flip the polarity of a both-edges line after the ack, so that an edge
-  in between is not lost (sashiko-bot)
-- drop the gpio_chip owner, gpiolib sets it; sort the Makefile entry
-- Link to v3: https://patch.msgid.link/20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com
-
-Changes in v3:
-- rebase on v6 of the platform series
-- Link to v2: https://patch.msgid.link/20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com
-
-Changes in v2:
-- rebase on v5 of the platform series
-- do not include <linux/mod_devicetable.h> (Uwe)
-- update the both-edges mask only for a valid trigger type and test it
-  under the lock in the interrupt handler; refuse more than 32 lines
-  (sashiko-bot)
-- Link to v1: https://patch.msgid.link/20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com
-
-To: Linus Walleij <linusw@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-gpio@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-
----
-Fil Dunsky (2):
-      dt-bindings: gpio: Add Cortina Systems CS7542 GPIO controller
-      gpio: Add Cortina Systems CS75xx GPIO driver
-
- .../bindings/gpio/cortina,cs7542-gpio.yaml         |  65 +++++
- drivers/gpio/Kconfig                               |  12 +
- drivers/gpio/Makefile                              |   1 +
- drivers/gpio/gpio-cs75xx.c                         | 281 +++++++++++++++++++++
- 4 files changed, 359 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261015-cs75xx-gpio-ed0a37ee4a68
-
-Best regards,
---  
-Fil Dunsky <filipp.dunsky@gmail.com>
 
 
