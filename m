@@ -1,49 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794829408;
-	b=uMNi1n/5z0bwswoZi7/EbE6fWw2LBj/NByPXZc27OfY28Av7JbWydxFXDghZ/LA9KeYq
-	 f9OmT9VzwvLI0UEOjJonortFq5Kr8k0QtTUZwbDIBBPlqmdheqfZvJN5GoGsyy+lE/BSL
-	 Rfz4GiteFqI2J0Mpz1h8KEW+yqu94ZcAb725bVv4VgzITOHn9MB2A6xHcN7ueSqK+Z4aH
-	 scJ1FXYVX7BCtDwlIlt/utHqjtw3PFEA6M2XlgKZEY2RcoKaEzxeHcciV+nUzNBYrdgDH
-	 1Pn1p4htiPeu13MsrWOWV7yaTgjdjJiu9BnwEq6TtRBbSweW6jf23DM14nWILrYswbg==
+	t=1794829460;
+	b=f7wmipYpjE29OCyxjSAmOB5nHb6rSsixL9kfH6YB/2be1VXS7LB8Wz40S/8ELRK4i8pj
+	 cDDnRWVKmoZIegDGHVbt5quKYvH+jEU9xS4GISVex9Z5Rrd5CderjTBQ0LcJISBj87zRj
+	 mS4+zPVIYf9QxNKQGpkgiRQEPVWbwpvrsUNBrdkCSg+IRkaS+xV+WjfynyLlREGkPcDoK
+	 X0jEG2sV0pFCNsKHhDnFhl/knPQsxJjxA3FeKFJSVyjFXso1zT3tgXcMBwTYqTPoF/jyB
+	 nDUC0A2SjbzE52UFIbJ87XbReKHpgcKmbJ6U86bK4vEDP7qVQyHDrtReEr+PxYr6rug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829408;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=UNxB/MAdt+gBiYZi9+h90GfQPjbz1uTEcNanTmhdqdE=;
-	b=1hfJC0I0b9nUlkmSpSGHYzoQdcV8A6ZT9eExk1AcE1dXgnKdiuA8W/Cgh2OwgRO97UCK
-	 b5TcCm+rTvTIhLPFJse4t9DUdNRqJg70keIGG8EucWAkz+uUqal5OcBsS/j7XoGFgDZ1S
-	 QWvCMkZwAZunrNrCGYTo71wJcJWCCkLFhkfzFBvjdL2pnpTQvxGkDLNkqQz6Re6JOBzou
-	 xsG6nT0U17T02BjS6r+gupmtqtFSwM5FxT9JCVF/BLLG2dnk+ndPf/QkQeLfBgdc7Rgvv
-	 gP/MZhbausURDDFZJY3GQhKO8GYBc+TDml7S1MI4q4iX0aBys3veEMfHVvt5idPgvtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794829460;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=LsuRMF8I3UTLsNP00lfbzXKTPj+7G1u/hh/W8WvJjKw=;
+	b=5DVsHOfRbV9tMbBdh/gi0ncgQnn09hVry2kbHabi9YFGRxMKIWrTAUYfsfydTwFOxkwS
+	 Ggzq0weVOSb9reDWr5mNHCJXg/rufptxCag+32+rwZcaEn00RiLbXHZUR32FqRUIGsTE2
+	 2PFmLXtqzXwK9R5LyROoZ4H4ePhnuOL4hS2URhQHqBLOnuVi1H5KM1QoBQXZcdbwNhy0M
+	 SiHQ3pFc2YACMTo65bVMwxZlQ8OfAjHw76ivE5sWAUz/4A0KsLAsSsNIoLK5qh9WwBDPY
+	 1r+K7vgCM6Z0e7G1eBhZZjHRkUdDSyiPnLV9uc4OOgffAZ/x/FYT17QMQdYxFPzX7XA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=m84TdWAv;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B2478606A31C;
-	Mon, 16 Nov 2026 11:43:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2478606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Dol/fOlm";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fEZFj6Vl;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829B9606A31C
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 11:44:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 829B9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=m84TdWAv
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 06E321713;
-	Mon, 16 Nov 2026 03:43:24 -0800 (PST)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 19B573F632;
-	Mon, 16 Nov 2026 03:43:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794829407; bh=2dyLKEkAWPNPtKzCqr1huVrQGEVlKrXOa1GPJW7iyfg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=m84TdWAvepZygknD58SVmSIjo9SB9pJmQGTt8FEz7wVT920JL2MMhtA+0GXuDWJ0V
-	 lmOmfsbH9OFahhY8mUlFV7TuCeDEIRUsA5KLAxVub01U89PBCmp9PDPJ+rAOlANWCh
-	 0HbYRTNYuoy8kSyzsZVmB5kMk252B2SN/+eebnPI=
-Message-ID: <e621c3a7-5633-4d03-9494-a6fa45daea02@arm.com>
-Date: Mon, 16 Nov 2026 11:43:23 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Dol/fOlm;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fEZFj6Vl
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGBLcXm2388081
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 11:44:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=LsuRMF8I3UTLsNP00lfbzXKTPj+7G1u/hh/
+	W8WvJjKw=; b=Dol/fOlmqtFTlwG38Eoj03cAsBANyF3zU5yerqX8RZU/ISPd2o9
+	+eLzOTaY0AzeLgQ1vksuOPfpd5ac6ZFM8ffWXYeUVcd2/QIftE205P/Uz47z0jDD
+	8hsGAn0NQEbPa0IW5q0fHsX6XQARAaqVlyEFfn9lxaPugACT3oVpYfBLRDte/ssF
+	flfX4IvuEAmHhz4O0Ch6d+/LbylQTbkZ1Se1hLI410oqVopwwidguyKrStI4kBA4
+	QVBfHv6MoOiVmzP28U8GtwhVAD+MuWmw2VXn89W2NqXJZSdaoKc0X6md2shkG7qc
+	C+tGtDdMJcu9/Lim9K6TKaG6EY9OSEyVnuQ==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhhdx793-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 11:44:19 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36a3451ea93so3427693eec.1
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 03:44:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794829459; x=1795434259; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LsuRMF8I3UTLsNP00lfbzXKTPj+7G1u/hh/W8WvJjKw=;
+        b=fEZFj6VlLBDG3NefQ6ZJEC/X8f9ZlkmiknefqJn/39PVzu18+xAyPesTvneGbCsSuN
+         ABJEf5ugs4MLj5UD5ps+axU/pJwaCw0hnfzuHLMxnZ45JaiAeX0D3m5bDGRPmhGYO1Pw
+         npD9ztDSKZfFWKzN/UnfE8EtCpHGwZWJuoBBT28aNSTh0KHWmf3lOFGEbArJ5g/Y0xsD
+         3nPSAGcF/OLRd09/wScbBVctsEdnDcS+/WjPiysgFkMBnHznjElmnaQnSRxJ4SYBXxZl
+         N74q6RHTsMBNn7EcShDkK4cXMuNhqPRNhHZ7/JayFFmczrBJcs7RiqfpGq4PWkIeoJp2
+         GeUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794829459; x=1795434259;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LsuRMF8I3UTLsNP00lfbzXKTPj+7G1u/hh/W8WvJjKw=;
+        b=tkF76anLKtf9xq/rGhqz+8OaRgxNckICYx87b0TVyXoEvqT78RaVYh2vdHdoYvGdjQ
+         WFh6zLHqCcuCnusX/Hi57UukxH47Fzu76dtbtyyY6xeeLxHZ3ft6Jm9ex3x5BoFC1fnw
+         MKrOoMI23zNzFj5n6/xIFc2WAnGkxmE7ErMMQ+JasICQTY9MXh4COLblU7l81aStBa0h
+         oDN13sgZ58zbgK4BeQTOYJE1f2uFB0sbU/UGI32IwFYwtXq+C62b5ONhv7PaTYWkUyyu
+         GzoEHxElzDhmQ42D/y7IMmVVJPWCdc/t6y25K/JwuP8/UU+8ZjVzUoS/PW9+j+kCBnYl
+         w4KQ==
+X-Forwarded-Encrypted: i=1; AL+hErFq+eR4ZVrQBN84cPO8AkQFoUkoZuNf4Os0tA48JDaBmDmqXI3kpF7+sBxXkEqD0a21VeDdhGgyHUSa@vger.kernel.org
+X-Gm-Message-State: APuU4Z+lCdt2qLd33DD9D1/5t2I6rRbMWebsyXtNc8TpUykUDivs5Qn3
+	Lx4DGIV7M/4pQMuG9o7E7ORWoG10tD6cnZYyHE4sgHmqiihFaXjzsTNwjuThnwHEbxHVcbPTLXp
+	Ybv4AJTGOE2rfpKJyVrzhmJHJS/0acG2InLqrPy9/J/y3GJBH/+ySwmMCLglQJkh1
+X-Gm-Gg: AYBFou1PdToKq9gJByruTWearN70UkF7h7T+PhQBy+nziZwctfmS664bRes1WubKDOj
+	dBnEB0wvd2Bzjk8VxrLbu1a3w+SXgi0xWRPQ4GbJy7sFxrkHSteISvr1y9Y+GAD2cML4y+O2BVQ
+	tgAkuVwTXs6bFTsmTgi5ttvsf25lvNY1x+lG4lDWTHH2NIUuNYMgC+yLWBTGoE2osjB8qM/S1S4
+	Ii4GPe3Pfwely6R0gQiPelMMaCk9ZiIZVACC446z+2qa7iV+OsBuDTlyoLAFKuagviQ1WBPg/tX
+	B6MARRkhi2DnCCVjpVMuHM5HC5Nzc5CSwU/a2osFmMv6ZZIccH5IykhyH4RjQXc+XQvFRVTQUbA
+	ImM2bQ5TQR799Aivrp8dO5fPRme7XNVeNBlMkPfA1p6zP7O5JpB1lDT+jdQJWpYKURo/vwC2LMX
+	jlZA==
+X-Received: by 2002:a05:693c:8806:10b0:370:121a:b2f with SMTP id 5a478bee46e88-37965f9dce1mr10323743eec.11.1794829458479;
+        Mon, 16 Nov 2026 03:44:18 -0800 (PST)
+X-Received: by 2002:a05:693c:8806:10b0:370:121a:b2f with SMTP id 5a478bee46e88-37965f9dce1mr10323717eec.11.1794829457576;
+        Mon, 16 Nov 2026 03:44:17 -0800 (PST)
+Received: from hu-akakum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379560f5e06sm45612670eec.19.2026.11.16.03.44.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 03:44:17 -0800 (PST)
+From: Akash Kumar <akash.kumar@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: [PATCH v2 1/2] arm64: dts: qcom: talos: Add graph port placeholders for USB Type-C muxing
+Date: Mon, 16 Nov 2026 17:13:09 +0530
+Message-ID: <20261116114411.1700153-1-akash.kumar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,237 +122,109 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 5/8] qcom-tgu: Add TGU decode support
-To: Songwei Chai <songwei.chai@oss.qualcomm.com>, andersson@kernel.org,
- alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
- konrad.dybcio@oss.qualcomm.com, james.clark@arm.com, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
- devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
- songchai@qti.qualcomm.com, Jie Gan <jie.gan@oss.qualcomm.com>
-References: <20261116074118.822731-1-songwei.chai@oss.qualcomm.com>
- <20261116074118.822731-6-songwei.chai@oss.qualcomm.com>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261116074118.822731-6-songwei.chai@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=VOVIDNPX c=1 sm=1 tr=0 ts=6afaec93 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=DSWJuU78OHK9oOt2xpEA:9 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA0NiBTYWx0ZWRfX2nVzvTPCgP/O
+ zRDqN/2yBHmYMJnKJ1W8H6FuleOWvK8GJNxlqtvQqsKpWiJsUG1KJPwauDF/kY59bgZEMSLVxnT
+ mpBqLnCKxBFT/7cL2TgwtQOcxa/UqJQ=
+X-Proofpoint-ORIG-GUID: FeysO45bJmt-vORFsw63LqVd8iy5hLTc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA0NiBTYWx0ZWRfXycxoVaJLPLzr
+ a/ZQ2gtiCu224e7zJNFYMfGwvRo/wkJo8Mm9JqjKVMdAMlrVGv1I6eSAzD4rRCuIGCCVQ35pEER
+ EL0RkoDBvsUZGQCLm8IrLvLQn5+jk8AzzWrJQqPeO+x4E13ckqQ1m+V76Gii5FvEKpdtHY/IEhz
+ wATL/pIarUCWpvA6Oa77dwjhxYKcvdi//bCDC2akyDL2C9T0CI7gstHu1kGqxPa1EMdO8fpdTqD
+ G+hDt8YqfLhWYH3n2XfwzVGO6KnEqcHLd/dTHRT7NcqcNPc3yrX9yGlIpRhpc0f637cWw2YaBDO
+ Cn8ub/w6hNnuzqcha7+GWgRpavRPRt3D6L2fw2THIljmxeGgItpC2ZQVJ8F7AFIWBp/MbkDMVNm
+ zGgbW2mKXwBGFEqe/v2a0OuTp+fZp7vY54cfSBh4mLfKNB2728G9TdYMssOwzxGwgTnPYNJXR6f
+ Se9kqUmpR04qPZPmUXQ==
+X-Proofpoint-GUID: FeysO45bJmt-vORFsw63LqVd8iy5hLTc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_04,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 priorityscore=1501 malwarescore=0 adultscore=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160046
 
-On 16/11/2026 07:41, Songwei Chai wrote:
-> Decoding is when all the potential pieces for creating a trigger
-> are brought together for a given step. Example - there may be a
-> counter keeping track of some occurrences and a priority-group that
-> is being used to detect a pattern on the sense inputs. These 2
-> inputs to condition_decode must be programmed, for a given step,
-> to establish the condition for the trigger, or movement to another
-> steps.
-> 
-> Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
-> Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
-> ---
->   .../ABI/testing/sysfs-bus-amba-devices-tgu    |   7 +
->   drivers/hwtracing/qcom/tgu.c                  | 200 +++++++++++++++---
->   drivers/hwtracing/qcom/tgu.h                  |  35 ++-
->   3 files changed, 214 insertions(+), 28 deletions(-)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-> index 3be0b912c937..c7e6f13da83d 100644
-> --- a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-> +++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-> @@ -14,3 +14,10 @@ KernelVersion:	7.5
->   Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
->   Description:
->   		(RW) Set/Get the sensed signal with specific step and priority for TGU.
-> +
-> +What:		/sys/bus/amba/devices/<tgu-name>/step[0:7]_condition_decode/reg[0:3]
-> +Date:		November 2026
-> +KernelVersion:	7.5
-> +Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
-> +Description:
-> +		(RW) Set/Get the decode mode with specific step for TGU.
-> diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
-> index 917d506cddf9..1809cca4a94f 100644
-> --- a/drivers/hwtracing/qcom/tgu.c
-> +++ b/drivers/hwtracing/qcom/tgu.c
-> @@ -18,8 +18,8 @@
->   
->   struct tgu_attribute {
->   	struct device_attribute attr;
-> +	enum operation_index operation_index;
->   	u8 step_index;
-> -	u8 priority;
->   	u8 reg_num;
->   };
->   
-> @@ -27,11 +27,36 @@ struct tgu_attribute {
->    * drvdata->priority is a flat [priority][step][reg] array.
->    */
->   static int calculate_array_location(struct tgu_drvdata *drvdata,
-> -				    int step_index, int priority,
-> +				    int step_index, int operation_index,
->   				    int reg_index)
->   {
-> -	return priority * (drvdata->num_step) * (drvdata->num_reg) +
-> -		step_index * (drvdata->num_reg) + reg_index;
-> +	switch (operation_index) {
-> +	case TGU_PRIORITY0:
-> +	case TGU_PRIORITY1:
-> +	case TGU_PRIORITY2:
-> +	case TGU_PRIORITY3:
-> +		return operation_index * (drvdata->num_step) *
-> +			(drvdata->num_reg) +
-> +			step_index * (drvdata->num_reg) + reg_index;
-> +	case TGU_CONDITION_DECODE:
-> +		return step_index * (drvdata->num_condition_decode) +
-> +			reg_index;
-> +	default:
-> +		break;
-> +	}
+Add empty port/endpoint nodes on the primary USB QMP PHY (usb_qmpphy)
+and the usb_1/usb_2 dwc3 controllers, along with orientation-switch on
+the PHY. These placeholders let board files wire up a USB-C PD
+controller's HS/SS endpoints directly via
+&label { remote-endpoint = <...>; }; instead of redeclaring the
+port/ports structure on the shared nodes.
 
- > +
- > +	if (result == -EINVAL)
- > +		dev_err(drvdata->dev, "check array location - Fail\n");
+Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/talos.dtsi | 35 +++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-see more below
-
-> +
-> +	return -EINVAL;
-> +}
-> +
-> +static int check_array_location(struct tgu_drvdata *drvdata, int step,
-> +				int ops, int reg)
-> +{
-> +	int result = calculate_array_location(drvdata, step, ops, reg);
-> +
-> +	if (result == -EINVAL)
-> +		dev_err(drvdata->dev, "check array location - Fail\n");
-> +
-> +	return result;
-
-Could we not fold this check in to calculate_array_location as shown
-above ?
-
-
-
-...
-
-
-> index d769379b8421..7d88ad8e730f 100644
-> --- a/drivers/hwtracing/qcom/tgu.h
-> +++ b/drivers/hwtracing/qcom/tgu.h
-> @@ -16,7 +16,8 @@
->   	((int)FIELD_GET(GENMASK(17, 10), devid_val))
->   #define TGU_DEVID_STEPS(devid_val) \
->   	((int)FIELD_GET(GENMASK(6, 3), devid_val))
-> -
-> +#define TGU_DEVID_CONDITIONS(devid_val) \
-> +	((int)FIELD_GET(GENMASK(2, 0), devid_val))
->   #define TGU_BITS_PER_SIGNAL	4
->   #define LENGTH_REGISTER		32
->   
-> @@ -44,6 +45,7 @@
->    */
->   #define STEP_SIZE		0x1D8
->   #define PRIORITY0_OFFSET	0x0074
-> +#define CONDITION_DECODE_OFFSET	0x0050
-
-nit: s/CONDITION_DECODE_BASE	0x50
-
->   #define PRIORITY_STRIDE		0x0060
->   #define REG_SIZE		0x4
->   
-> @@ -54,6 +56,7 @@
->    *
->    *   TGU_MAX_STEPS         matches the static step0..step7 sysfs tables.
->    *   TGU_MAX_PRIORITY_REGS matches the static reg0..reg23 sysfs tables.
-> + *   TGU_MAX_CONDITION_DECODE decode region 0x50..0x5F holds 4 u32 registers
->    *
->    * Each priority level's block spans a full PRIORITY_STRIDE (0x60 bytes),
->    * i.e. PRIORITY_STRIDE / REG_SIZE = 24 registers, all of them implemented.
-> @@ -61,15 +64,40 @@
->   
->   #define TGU_MAX_STEPS                  8
->   #define TGU_MAX_PRIORITY_REGS          24
-> +#define TGU_MAX_CONDITION_DECODE       4
->   
->   /* Maximum priority that TGU supports */
->   #define MAX_PRIORITY                   4
->   
-> +/*
-> + * Values for struct tgu_attribute.operation_index: TGU_PRIORITY0..
-> + * TGU_PRIORITY3 select a priority level, TGU_CONDITION_DECODE selects the
-> + * condition decode registers instead.
-> + */
-> +enum operation_index {
-> +	TGU_PRIORITY0,
-> +	TGU_PRIORITY1,
-> +	TGU_PRIORITY2,
-> +	TGU_PRIORITY3,
-> +	TGU_CONDITION_DECODE,
-> +};
-> +
->   /* Calculate compare step addresses */
->   #define PRIORITY_REG_STEP(step, priority, reg)\
->   	(PRIORITY0_OFFSET + PRIORITY_STRIDE * priority +\
->   	 REG_SIZE * reg + STEP_SIZE * step)
->   
-> +#define CONDITION_DECODE_STEP(step, decode) \
-> +	(CONDITION_DECODE_OFFSET + REG_SIZE * decode + STEP_SIZE * step)
-
-Please
-
-#define CONDITION_DECODE_OFFSET(step, reg)		\
-	(STEP_OFFSET(step) + CONDITIION_DECODE_BASE + REG_SIZE * reg)
-
-
-> +
-> +/*
-> + * Neutral ('NOT') value for the condition decode registers. This is the
-> + * driver's default so that, before userspace programs a real decode, an
-> + * enabled step does not spuriously match. Used both when seeding the shadow
-> + * table at probe and when clearing it via reset_tgu.
-> + */
-> +#define TGU_CONDITION_DECODE_NOT 0x1000000
-
-minor nit: TGU_CONDITION_DECODE_DEFAULT 0x1000000 ?
-
-
-
-> +
->   /**
->    * struct tgu_drvdata - Data structure for a TGU (Trigger Generation Unit)
->    * @base: Memory-mapped base address of the TGU device
-> @@ -79,8 +107,11 @@
->    * @enabled: Flag indicating whether the TGU device is enabled
->    * @priority: Per-step, per-priority-level, per-register values staged by
->    *            sysfs writes and flushed to hardware by tgu_enable()
-> + * @condition_decode: Per-step, per-register decode values staged by sysfs
-> + *                     writes and flushed to hardware by tgu_enable()
-
-
->    * @num_reg: Number of priority registers implemented per priority level
-
-This now looks awkwardly generic with other registers coming in. Should
-we name it num_prio_regs from the beginning ?
-
-Suzuki
-
->    * @num_step: Number of steps implemented
-> + * @num_condition_decode: Maximum number of condition_decode
->    *
->    * This structure defines the data associated with a TGU device,
->    * including its base address, device pointer, the lock serialising
-> @@ -92,8 +123,10 @@ struct tgu_drvdata {
->   	struct mutex lock;
->   	bool enabled;
->   	unsigned int priority[TGU_MAX_STEPS * MAX_PRIORITY * TGU_MAX_PRIORITY_REGS];
-> +	unsigned int condition_decode[TGU_MAX_STEPS * TGU_MAX_CONDITION_DECODE];
->   	int num_reg;
->   	int num_step;
-> +	int num_condition_decode;
->   };
->   
->   #endif
+diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
+index 1d74e459f892..04636fd88807 100644
+--- a/arch/arm64/boot/dts/qcom/talos.dtsi
++++ b/arch/arm64/boot/dts/qcom/talos.dtsi
+@@ -5078,7 +5078,21 @@ usb_qmpphy: phy@88e6000 {
+ 
+ 			#phy-cells = <0>;
+ 
++			orientation-switch;
++
+ 			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					usb_qmpphy_out: endpoint {
++					};
++				};
++			};
+ 		};
+ 
+ 		usb_qmpphy_2: phy@88e8000 {
+@@ -5163,7 +5177,21 @@ usb_1: usb@a600000 {
+ 			wakeup-source;
+ 			dma-coherent;
+ 
++			usb-role-switch;
++
+ 			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					usb_1_dwc3_hs: endpoint {
++					};
++				};
++			};
+ 		};
+ 
+ 		usb_2: usb@a800000 {
+@@ -5220,7 +5248,14 @@ usb_2: usb@a800000 {
+ 			wakeup-source;
+ 			dma-coherent;
+ 
++			usb-role-switch;
++
+ 			status = "disabled";
++
++			port {
++				usb_2_dwc3_hs: endpoint {
++				};
++			};
+ 		};
+ 
+ 		tsens0: thermal-sensor@c263000 {
+-- 
+2.43.0
 
