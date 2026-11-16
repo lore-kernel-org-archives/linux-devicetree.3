@@ -1,85 +1,147 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823640;
-	b=zPjAtq5y/aype1qXnNcsojyM6yMUaXm7ackEBImPlu4oqhs/LiNkLYxDQdfbUlLkAQeL
-	 3VSkc2hpo9/KeHbm695I5BUhC9QSYjO3c7uV/6kXBUVc9nxT5/0b+RTUuevsl6lUVMKVV
-	 uKXOvQG9lqaHnyoGzv9yCUqvPlHbjC+M7AWHupMxp7YS2HN9OdCZ91/ObqNcBApbBzKFF
-	 50zoU+G7lOrkfCq2hfOhYy05zSpE/i/i+OTACfjEszUujU6SQpkE6kflQ8V+ryIIQW4TK
-	 N9b5PMiGForrs+1orW6Gg0oYw8dXX3p7ECeqSdKnIP2b83ZiUsGWj3eKLqmrImTRdpQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823640;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=jiIzLjcyhaAEDOaVVjH5VECO9F+nQCzI1T/v9+EoYaM=;
-	b=dLXlu8V4NVWMxMU4hU4GcZwJ6nWjR0v5fUPY4reYIiSmm6bX0U8tQtK/H1SLXxIB9m/I
-	 mlY2cZ/QbzCCceNzYq1pZwrZo088j84A1gcptCU4GEUl3G9/OdOWqdd8Txo/4VAX4639+
-	 nvbj48CSN/JKKnbbsyvx+ePfRt8/doFJiJS5gRYHLbzZi3kJjjRkRLZnbrFOyj1bOypqm
-	 ZbgDvJfbdkYUWHe5FxmdUJGao62sfNJzW98M7vXNbdAFlSpwxioGvI/65cfmMj/oeQNqd
-	 i21eZfarz+bbosv0GtypZsuTe4+FXugPF6UHwhGTu0Nf7jY/Tga6Tjo+AP74Rpa241w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=d5SpOIA8;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.7
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794823760;
+	b=byX0+xKRH6WreASEnjjaXV5Q375jjYYoCvNCnIj8nfx9t33uJJV3URK3tX6y6MR0zySg
+	 4zALDp9Kd09Fzk7sHcfwGp9y9vaSMz67p3kJaRAQLrsL2Ozg9hstDmhD0Icd2w6q/nlft
+	 QEZgENaBvrcdxyGd0RmLiMKoGXtY4ibSFDZ/48NWXjRN9a/fMNMtsFKMhCRfiwPlxJBBd
+	 xlh9R024CTl2QeszRcJgZMsIG6FOHYvALBYCWvX169LdoM/GuVf4fXVN3QOhBtSNeLzHI
+	 JYkxmLukS3NaSykDyzTeRsqVb/z5jyVarZ15TVzBkouUVAoUShmAwvyEIwMPyd/p0iA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823760;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ld-processed:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=3YYJRMetFhB2HYky+OCQhqaBO6XybzVgOAZbfy7YyjM=;
+	b=T70nfVq3GuoWeIIMjwM6kVSMjQIcEukZak+1ATqJ78Gf3RnY3gc7SZPEYf6F3YIZUjvf
+	 vnUsEiwFFCyhvoL4I+kK9tguO3AIDAWGlLfR+D+baqOMtjM9HrNW7AlD/aH+ccejGiO+8
+	 8yfAOZnVVtoQ9xAsd3O4MI77dVZyNYP8BBLyhRjAhUf8jVUEv3C30vrsSRQ0wka98txi6
+	 EpDjwBrzePw0z1NIFIMoskfbYhx2YYCCoqB44BWGCwAs0gzNz4nc6Izqlto0URjnydt9W
+	 f+GiNMy3G4x3kq5cXFWN6zvk7GWsJyoFpzRXwrtUH986IuV6sQ+5zPLxaC6ACQ/SgRA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bp.renesas.com;
+	spf=pass smtp.mailfrom=bp.renesas.com;
+	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=IwCfvqwp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.7
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010007.outbound.protection.outlook.com [52.101.228.7])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC9E606A329
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 10:07:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DC9E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABE5606A323;
+	Mon, 16 Nov 2026 10:09:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ABE5606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=d5SpOIA8
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-492690dd5daso3113074f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:07:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794823638; x=1795428438; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jiIzLjcyhaAEDOaVVjH5VECO9F+nQCzI1T/v9+EoYaM=;
-        b=d5SpOIA885YJysxfb0kGqgAYfTmUHo1oj/KWBQH2yWjLJcr/ad4YAMyYWe4FxDSJYS
-         UrPyEcVOzvi9Ojgw5IK1osCk2hQ7yXW8l2qP1eDZOEcp+oUTqcf3P0yGYX2RssIpJVEh
-         YUMeZ76KUcXcnm8wD19EjXgQyFgUMRCLfW5ZLOwwY8TE01fgPIU+QuzhcStXE5mOjPQu
-         yrWwptPkzYlA18Zp4syMMCMJvPwn4zkGKz3CA+et1ZeHWsFtuWPWTWskDVgHplL64L8O
-         U2Gp0oiUMWSwMDso1aVB+KFeJjxav1ekcmRS/dly6jvNY8poyYyl+ilPLR1J2bpE5ql6
-         42kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794823638; x=1795428438;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jiIzLjcyhaAEDOaVVjH5VECO9F+nQCzI1T/v9+EoYaM=;
-        b=w3bSwzM2JIbHmGBoToAFyX2G7EFiLrcF70Ky0K4P5JAujFpB29dLLjggCbqF//Bvpv
-         9jHANIm+cc4gn7ZLb/ku6OkaVd32tFjQbu7fHnI41Im4KqFwaDdTnlHzs/KdAX93JfcN
-         /c+xj6lntHtGBywNbbZnBcYXabE1s+0AGA2dQhFkNzS6zqIVKwqGa7r56AbeU8kaWlPM
-         bZ/h695ykvFxrKH5NxyjzF5Fd+Xkkv2MmYiWqLUIHQ2F91S/yNU2hOjwIhoalTWHIVVZ
-         RXZ4fQ1Ga6JwmgSSIZyoLjjKfhaWhcp30iJfFN9EbPIKe62PEzXiOf+oBuievV7E3ExA
-         Wtlw==
-X-Forwarded-Encrypted: i=1; AL+hErHwmUV80l7+UtLUVMC3hVdKNyvXFnBejI5tyjQF7YJCM8AiaX//htZsw7u8arIxC4wja7aje3nprZ/Y@vger.kernel.org
-X-Gm-Message-State: APuU4Z9WjwqMlnHCc/Dgvk7mtboT8QVxfaQl9tZ0DPOVp2qPjoZmz8MQ
-	6sgpLpK5G0llmCJzmGCb/G8F31jd+C6vlH+eZqO34eOVBrJvCWiSczyzQxX3o1F3ppA=
-X-Gm-Gg: AZFdTZdhvNK5tyEKdXhzkFHYh4C4IiFBp12uuNUUIhye1qA61/v1ZsdWX+X22M91jTg
-	3YQLVLhOVgL3sMd6w8JbObgY0p+ZU4RFqcySoIkiksLhc2k3lXsP2ZAxpwWPU9N7Ytkw3Yrq7xD
-	HCSh1TF8zmbh399c2LhSKty4jwHIfUBXRtV6hYx67rq/Ubis6agpMRrVw69tSp3FQMH4aOamjcO
-	L3mmxupK6o5SwJVbCxV6Z137VBavj4PL8EVKjEniKpRWTWGzJ07kAdLxmSXx/Lu4A8kQlNgbGkp
-	kNUQQ1c8x7RSL0Wr9cp8dBJczLouWnQyKC6sLj9CvE3TZW0dZLMv4De/aIrRr/b6/OsjXS8kcef
-	xtgWK+I03lfC9oM7T5K8Mgl9NDJGqeq0v4TiclAz2tSqofTIbXvxARsK6lwmrUQOa2COQWhc7dt
-	ESDOJ5+OK3erJnLWurNxZT7E2aieSu93pkfMjnLNIWAb5ebpCtBUsJR2zQuU8fRD8JhuTt4cdgD
-	5wMJ04gYrTZsUhIWDtLW8742jlSPB6g1LjZ1Y3lq3KDHlwIvELID6GjLXsCbEq1a/K7ixfkh3Xy
-	jp1bqQXJ+ou2MY32KAOwbx0ATbaRMENLEejuJfFqF34BAIFz
-X-Received: by 2002:a05:6000:220e:b0:48a:fbcf:6f43 with SMTP id ffacd0b85a97d-49c71f334b0mr23205262f8f.54.1794823638011;
-        Mon, 16 Nov 2026 02:07:18 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c0e0dsm20589292f8f.15.2026.11.16.02.07.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 02:07:17 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=IwCfvqwp
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PATUK4UdKZPWJZVg7bol6ll6A3+Di/C+t2DEPQA6zeavIgLNpt2tuJFOt/HtYWHz22eYybUvWbwGKO6ZJff+PPPxUawZfoSmKlbLVuxkkdmEEiL35YD/YMbXeyXTDbCQygU+VANK81xQuMvjcRfCHsmYwjan9CSHjRrNpYVcpQ3j5L4XYdAaPXHNOceem9f43TUb8viAWfQXVm70uTcyoKBXfGFyYHV4M6wPuRLvTtcKQEeydAwtUGmzLhmyop+imYVJXvNalYzpMGOanRO9yJWFsxZGeDXG6C4T5XpHdZG0I3WLG50QXPeVPxY91cKeXwTYhBbIEVw4SfmNeUCyeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3YYJRMetFhB2HYky+OCQhqaBO6XybzVgOAZbfy7YyjM=;
+ b=ScLWtFS8stVStWytcrveILa2yF4gEVUkRXMKm2q042ZUtUs8hTL+ha8b2dUR7f56T5IVmD1L+G7dNnn0c7XBDku5creKR3whkJEqQMYfUtU4eOsJANJ3BU4S13ZzgwhtqKBy8ClS4geXx34rM/9AfCY7vsG5gSD3dn6CJQfh52HbCj/4ypAs0mSldqVfD9ODNArtJkos/DIbksBtWGTpE83sZrf9bQ7/8rgtIC1h9eJ8b4Gx4taCD4ex6QsMdcVE847qGOiMS0SN/BtmLWwEjKvRq1kGRNh6/i9YQs+8zemDl9WHiAEmWP1iNYm+Ly4hKMQ8KV1iVS3nQSZDPK/GRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3YYJRMetFhB2HYky+OCQhqaBO6XybzVgOAZbfy7YyjM=;
+ b=IwCfvqwpki4aoWch4ysdTUP7eGZnFJnkNs6UKb6lXP6In7JwSavyZrwzO0mK0YwourIcb7jimjSn0XwoR07rsUHnbMzJYPKBjYQVBJLGp3Dnq2YAMqEPE1rFpZ0QjaOki4wh2H0i9vHYX7i6SOq+itzC+ju7Qn9m53G2lXyy9aQ=
+Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
+ by TYCPR01MB18376.jpnprd01.prod.outlook.com (2603:1096:405:3f1::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 10:09:16 +0000
+Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
+ ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
+ ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 10:09:16 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: wsa+renesas <wsa+renesas@sang-engineering.com>, "biju.das.au"
+	<biju.das.au@gmail.com>
+CC: Geert Uytterhoeven <geert+renesas@glider.be>, "magnus.damm"
+	<magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 0/3] Enable RZ/G3L SDHI
+Thread-Topic: [PATCH 0/3] Enable RZ/G3L SDHI
+Thread-Index: AQHdctfrGrtgDYWCyUexWrA6qF34pbcwfj0AgAABB4A=
+Date: Mon, 16 Nov 2026 10:09:15 +0000
+Message-ID:
+ <TYYPR01MB6603EA94E4500584DEC57AE8867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+References: <20261112-sdhi_rzg3l-v1-0-ca30b209615d@bp.renesas.com>
+ <avrVVjHY4Pp1hFvt@ninjato>
+In-Reply-To: <avrVVjHY4Pp1hFvt@ninjato>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|TYCPR01MB18376:EE_
+x-ms-office365-filtering-correlation-id: e11b9d74-4840-4ad9-9873-08df43c9abd9
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|38070700021|10067099003|56012099006|11063799006|4143699003|261009223027099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ vu2aFUlJxXhfe1XUoRUXsjNzaRDo2PLTk4dAGPDqwV3TsN3nxG24smetx9Mf92AVEPrg2XR7ZenwD42+YH6xLp+2zJ09TUlD8VBSG+/AaXoFhjAyHANvZFFZqObXl7mYYsRPTPmrRpK/tsC0lNOu/mPWeEP14hvUsKfPzPWold6hWI3gDGLB+3HC8lrrxtQz/rhic7/bb3Th4Px6mMD6xX/bCOUy2ibCOTQgiFPBiDfU93mrsgVcUehyEXnmJA3zLx+v5RQwKV/L4UWVtVnCJNq4UDmvmffXrNELl/dXsyV0tzdtZF63BIICZiyrW0I3B9KD2zBndjwdBx+wrA0Qh0CUHnIjo1XoRP08bbnVRHM/J31+GW8fV0mfwk+ymicBn7LgVTYsO9QBCRjtNDiwe3wJ+VCLVkJO+/eotm8HclHivmu5pvHzmu/FjzVAE66ZgAC3es6SJGh0krs+NG0vkhtBiReF6lnI23PcsMZc+Yj9gTMOLOzTrR85+Z6/9gaQ6pjHKDfUMu6RkJ6ifEEmhruUsoPmXAQTq/kwkpwWcD9Rl3Jx8PXVH+cZPd6k1yqQv0WS5adN7RWa0kagWWvObiMTK2BjkudJMD/Qmtys59AI9FNXfgNYo6cnZ7lz15NbIUHvvzXNLErQdEKaadi3GwZmM4wAJmJ7WY+wSMe2XBo=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB6603.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(38070700021)(10067099003)(56012099006)(11063799006)(4143699003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Hqg01IKMHXu3jcBbVHJewoMKJCaa1mpOumenWZU3zHUK3yhJqBVwqJOCj53D?=
+ =?us-ascii?Q?N4TN5n0OSSCkFv44NjehThzGiNzvK1Cb+JQp6fMoqYFwVI6TkepqiiTaH7DX?=
+ =?us-ascii?Q?4KhknpqhlZisw5nDOwcSztjEV24bn9i0mqh5UuI6SiJd2TfDLacbU70Ad7OA?=
+ =?us-ascii?Q?Ai4InrX/jbtly1ZgI82kM/0+uhRkJHPSCIOBU05KFLM3EMlR+M6S1XqWvxm5?=
+ =?us-ascii?Q?0oCgxEYA6DwG6YjglRBK7kqYdLho+NCH9CP2k0LLIYdqhpfvw9W/oyQ+FipG?=
+ =?us-ascii?Q?yPSwliGNo+IhrM6k4pPkFeN99rMKie8rcPei/AdMx2UxQkVDI5RXzJim+sbK?=
+ =?us-ascii?Q?tnbhVcz2IodH5DjlwSUwC/Qv12v7bu4lklxebssUXZf01YlN9MHHVfaQSJAt?=
+ =?us-ascii?Q?JPG74xVg1LaHDsHtaP/FYckC/KS7f3tTtsGbsoUwhJZriwLwiOm26gEUPc7R?=
+ =?us-ascii?Q?2cpEDy5zZGu/cvhqTLoEMLV060j2L6asu7lbmBVfMkSOKYd+3GxM+Gb4ASiE?=
+ =?us-ascii?Q?fiSIeIgsxNLfFurnQ12euLxlP+bxibTxWiWrXL3st7pJdepjxVseid9qKygl?=
+ =?us-ascii?Q?p/TgfGXxvoUQSDNMscAneJ14z6fgbg1SMua1BTLywwIRWDx6cikJKwYV6hCi?=
+ =?us-ascii?Q?LU6fcptM6MSC3K+5XKQ+F7HM1AmUf3F4mncR4+qZRF38+FLXmEI5wcijDxGm?=
+ =?us-ascii?Q?DnKkguZGSCWSE4NmTROnzSr9chqBY/ffFK3Ag0jEWjYuZ8jjRqrHLJIZ/GUI?=
+ =?us-ascii?Q?FCfBmlPaO49JzKakBkOshDBl27uM6Q8jM+FvvfrtrZ3bEiHUb25c74OjFN8v?=
+ =?us-ascii?Q?HZ0FfrtDPWXrQyKImIFQKFse0yh+cJIg6Az68a6qs2ErAkCJgKIJ+YWg+gML?=
+ =?us-ascii?Q?0s9pqmCVdDBnFZ7DiS92kHLkfVYbuBu/O9buMtxvQf4FukglepJN42zgIzmu?=
+ =?us-ascii?Q?V+IX5zwGwHROV/Bw4z8dj+KVtNGwWEegDhumB/dnbitnC8j2smHCZ5SRFBKg?=
+ =?us-ascii?Q?rl92deooiIlAJzovi79uEUEDoTthrJAoo/7wyuF8DLPZMEJwFHjrBmJ84S15?=
+ =?us-ascii?Q?/Gt9YUbob1z5+jFGGwWRP+auoRWu+F6b7jnVagw7fGk97w/KTqhrImrPFHEL?=
+ =?us-ascii?Q?dmwQdIsbiqsGRu7laYOsNqHC3rhlGNfwE7dxyqs4SPOr8J4m0Jh5iChpmUQK?=
+ =?us-ascii?Q?DhoRGy5NBAkfxHMxYS+kZ03qI66HVglXkLJ0kbe9MctgK+aBgLfulohEjBGT?=
+ =?us-ascii?Q?gAj9D5swaZcRilkvoAbaorou0P4uDjflEW6gEpLEaGJXIYX/gaWbYANxEQyt?=
+ =?us-ascii?Q?frlV+ERNPoW/Ykv68RCkCudpzOn82Q8wlG5AhXChG4LNkvAJe6K+ccJQUl36?=
+ =?us-ascii?Q?qiCs9qB1C4ijbEGqDCsR09+27HhEIr0jkrXzhMGmQQoGVvf6N1FdqPJ3XOfn?=
+ =?us-ascii?Q?6VKtb4VpKuKvhcDBP5q+Z03VSJMXCm5LinkCOBlLxu8hBLtfRoo0CEaiy9Os?=
+ =?us-ascii?Q?0yAOpLy16ZCXSGiccZOjqWxKrDOdvcjexYRKgWFZ3da5agH27DmLgUQdgZez?=
+ =?us-ascii?Q?2Y3XoBp3oTlPvd3XqTMliPpdJ36RXqHPsx23qz3Dv06O5anNPM+qe0E4PbQ7?=
+ =?us-ascii?Q?9g7kutgfzVu0T6m6VQ/lfb+6KZ6/XahL02VCcGDwZSVxZ27GiJ4UcAIzODMz?=
+ =?us-ascii?Q?4C9MW0/YDd0EqO/usAfK4H6KwdDbUA+xEfp/b6UHN0KjtmJqbFDr8bw+Nork?=
+ =?us-ascii?Q?aGWEYqir2w=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,114 +151,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v1 2/2] clk: tegra114: Add CSI pad clock gates
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, 
- Prashant Gaikwad <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>, 
- linux-clk@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <CAPVz0n21-_+G3cEVg98MwcYqhcaGi9nBa42YebNWiqUdo+vqjg@mail.gmail.com>
-References: <20261113145708.261530-1-clamor95@gmail.com>
- <20261113145708.261530-3-clamor95@gmail.com>
- <179474058020.3790083.7531788945003507652.b4-review@b4>
- <CAPVz0n154OuYUG2RObrdh4TmASjRhKF9svF0Z=4iCrPyyNt0pA@mail.gmail.com>
- <179478265643.13037.17097457582246933781.b4-reply@b4>
- <CAPVz0n21-_+G3cEVg98MwcYqhcaGi9nBa42YebNWiqUdo+vqjg@mail.gmail.com>
-Date: Mon, 16 Nov 2026 11:07:16 +0100
-Message-Id: <179482363653.13037.14387881069650442772.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3779; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=QVGLd4p/I26D1hizjjIbLHLqTX6+X9Rw38Hjb1db+Lc=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFm/rl6Jq3JltrR3vh/VudFFaNI3o0pXtYBD3Gndqz7/9
- /X3cJ3UUcrCIMbFICumyFLDXS3+TlLry6zpOrdh5rAygQxh4OIUgInkaTEyHH62YF5r5oYiCa3M
- 3usG4kKRQmdUd5bdkLsgd5OjnKutj+F/yrwF8c/0Na483OR8dp2c3VxzP8nw7ROqdF7djpi5aVI
- qBwA=
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e11b9d74-4840-4ad9-9873-08df43c9abd9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 10:09:15.9914
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jQIn5bKaP0x+hSVJfBCX1VVh+UH1/xrsaceOSlCv9kumgbnKi5zsFyXd8OraM7R++RLAelmvReD80jrLsrW33yyRKwwSWYVb6ihD8HsOyOo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB18376
 
-On 2026-11-16 10:43 +0200, Svyatoslav Ryhel wrote:
-> пн, 16 лист. 2026 р. о 00:44 Jerome Brunet <jbrunet@baylibre.com> пише:
+Hi Wolfram,
+
+> -----Original Message-----
+> From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Sent: 16 November 2026 10:05
+> Subject: Re: [PATCH 0/3] Enable RZ/G3L SDHI
+>=20
+> Hi Biju,
+>=20
+> On Thu, Nov 12, 2026 at 06:48:49PM +0000, Biju Das wrote:
+> > This patch series enable eMMC on SDHI0 and SDHI1 on SDHI2
 > >
-> > On 2026-11-15 13:54 +0200, Svyatoslav Ryhel wrote:
-> > > нд, 15 лист. 2026 р. о 13:03 Jerome Brunet <jbrunet@baylibre.com> пише:
-> > > >
-> > > > > Tegra114 has CSI pad bits in both PLLD and PLLD2 clocks that are required
-> > > > > for the correct work of the CSI block. Add CSI pad A and pad B clock gates
-> > > > > with PLLD/PLLD2 parents, respectively.
-> > > > >
-> > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > ---
-> > > > >  drivers/clk/tegra/clk-tegra114.c | 10 ++++++++++
-> > > > >  1 file changed, 10 insertions(+)
-> > > > >
-> > > > > diff --git a/drivers/clk/tegra/clk-tegra114.c b/drivers/clk/tegra/clk-tegra114.c
-> > > > > index ec537efac692..08e425365469 100644
-> > > > > --- a/drivers/clk/tegra/clk-tegra114.c
-> > > > > +++ b/drivers/clk/tegra/clk-tegra114.c
-> > > > > @@ -1041,6 +1041,16 @@ static __init void tegra114_periph_clk_init(void __iomem *clk_base,
-> > > > >                                            0, 82, periph_clk_enb_refcnt);
-> > > > >       clks[TEGRA114_CLK_DSIB] = clk;
-> > > > >
-> > > > > +     /* csia_pad */
-> > > > > +     clk = clk_register_gate(NULL, "csia_pad", "pll_d", CLK_SET_RATE_PARENT,
-> > > > > +                             clk_base + PLLD_BASE, 26, 0, &pll_d_lock);
-> > > > > +     clks[TEGRA114_CLK_CSIA_PAD] = clk;
-> > > > > +
-> > > > > +     /* csib_pad */
-> > > > > +     clk = clk_register_gate(NULL, "csib_pad", "pll_d2", CLK_SET_RATE_PARENT,
-> > > > > +                             clk_base + PLLD2_BASE, 26, 0, &pll_d2_lock);
-> > > > > +     clks[TEGRA114_CLK_CSIB_PAD] = clk;
-> > > > > +
-> > > >
-> > > > Change seems ok in itself, just a couple of things I'd like to check with you.
-> > > >
-> > > > Seems both the CSI and DSI can use the PLL D and D2. Can they be used concurrently ?
-> > > > If yes, are you sure you want to add CLK_SET_RATE_PARENT which the
-> > > > DSI counter part does not have ?
-> > > >
-> > >
-> > > CSI pad clocks are used only by CSI and CSI does not change rate of
-> > > pad clocks. Saying "DSI counter part" would not be correct, DSI mux
-> > > switched DSI clock parent while csi pad clocks do not touch clock
-> > > layout of CSI nor DSI.
+> > This patch series is depend upon [1]
+> > [1] https://lore.kernel.org/all/20261104-usb_rzg3l-v8-0-ab109c4bd108@bp=
+.renesas.com/
 > >
-> > Ok but they end up possibly using the same PLL from what I can see here.
-> >
-> > So if the consumer of csiX_pad calls clk_set_rate() on it, while the DSI
-> > is using it, it won't go well. The rate of the underlying PLL may change
-> > since you have set CLK_SET_RATE_PARENT. Taken alone, there is no problem
-> > with this but can't CSI and DSI be active at the same time ?
-> >
-> 
-> The clk_set_rate() call for csi pad and csi cil clocks for dynamic
-> adjustments is not possible. These clocks are used only by CSI block
-> and among 6 clocks CSI uses it can change clock rate only for its own
-> clock (TEGRA114_CLK_CSI) PAD and CIL clocks must remain fixed  by CSI
-> design and are not touched by any other driver.
+> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> could you comment shortly on the Sashiko reports, please?
 
-This is not my point, and you are not really answering my question AFAICT.
+Sure.
 
-Right now you have 2 CSIs clock each linked to a PLL, with CLK_SET_RATE_PARENT.
-So a call to clk_set_rate() may change the PLL rate.
-
-At the same time, I'm seeing 2 DSI clocks linked to the same PLL, without
-CLK_SET_RATE_PARENT, so those clock will use the PLL as it is.
-
-The difference in the model used is odd. If it needs to stay that way, it requires
-an explanation. If adjustements "are not possible", then why set CLK_SET_RATE_PARENT ?
-
-If the PLL is fixed by design, then you should not set CLK_SET_RATE_PARENT here,
-and possibly use assigned-rate to setup the PLL, as designed.
-
--- 
-Jerome
-
+Cheers,
+Biju
