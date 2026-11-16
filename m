@@ -1,58 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824005;
-	b=lwzhPwntZeloVotR3bq6/SD4XVmGpPIOp6oSifIp+4+gWvF8cr0RhD6t6iID/PpSQk/P
-	 bpdcX0y7EJl20OztF1a2bfKpiInwd+mVOh8j64dx/t/Byrq75Xv2Vx686yJaEgz4XcS1d
-	 r+bc7rMELZouhh/Kg4Yx4FO82880C/FBg44OcnU0J+XInRuKtjtADOaD9PgDqE/aLvEoZ
-	 IZawyfnseVEfv887vori2VAnMB2CTtqFnZAQ8wNG0QlAFX/UxLcuJ2PKwgYCgpww2WvKF
-	 OMwtAaACPlZMgqWPpNvd3y4ADPTWolo8FlwFbSBv4D8OysSG6EAsttf6m6JEQBjU3bw==
+	t=1794824088;
+	b=opxFeJFnI3WLbooKaMNQ6bt+TQFAc1qjTyF3hzG7HRGdaQThEfhFNjCR1PfUWq3rDCqG
+	 xnttqqhF2ANH0P7qATG404YjywDoiL8cTGpB6PUPNF0dYK1Cd5OTI0oYLoFaNNxR+4BDh
+	 r5uyFKCWSA2Cyt1i9N/qkevixM5up97ibm4FwTD03sCR0GBYyhpWHrlEN9hQvcqLeGR0q
+	 VceVkz8uo2yOBTAuOY+8m7FSxFT58z36ecTcQdoZXDtYhZ8B01Dr1Gp3cnWMGEW/wjuux
+	 TuhsYuuYmgGw16sgckLOqtXwieMJb0ok4D8+fUo1rWD9E87v9U4PnhPDNeOC3KlLVZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824005;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824088;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=XY2rmJ8885nktXMitJAyrE5uwC457rZep4K4ylZxzgo=;
-	b=tEXqgiir+GlF5ZLl7eNxFbKIgSUwFADD73w+ZCkAvVo1GWuy44hpqqwyVj3kXdnFAbMK
-	 IoxY4DZfDNsi5fV2YGroy7Ytq/0oDnFIVT2DDIjpLfZ9OaW2WnFMpFzVE1WqBvS+Ex8bF
-	 VF6yZmSrLhnlY5CJc3ToYfm3tDTP6zUR/b1MBHVuCbp4Gr16JSe+WtlPU6vVjKprMYkQx
-	 5MbM3TXA8nFM/z+MHCKzKkeCL6FQAcdMNEHBgicBu3bZnX30YGXs/Xy+Q0t7Mh1t8KG5x
-	 M/dSQfHKGJrEXt3X5FyGZnZbFjIJs/np2ps0vx64Y9AIAcREVw8KRFDxXZ8KqwYJLSA==
+	bh=T030N8s2iM3qCbFH6IrWtzoTyw/pZ1cXkifyK3pJJbg=;
+	b=xuonhMki2SHRA11k+Q359sZy3gk2YN8KIf6KkF+93hOxJYZ2eXsoU7FhMDCbCtzAcjyH
+	 boHKjY2lgmCIFMRl0bic/lY/HLJqTIdWsX82/6j8/opAN9njZd3B8KKvB5KEPO+FK82eb
+	 sprKEoM/ShSbIVIp0QyNQglU0cqBxVXqk8ZS9EbvSfEI4sUNr1B9FcPUg1ZYGw65tRVm8
+	 +tD0ZEopMcOCoo25ezf7gaDReXgiCc3lvPao3WbAtpRRo9OSs6LKucfzmC7wf5Enc3rtW
+	 v6TSxbSWBZsVSI0UIC+IyWIv11zUUwbjAmfxe9Qt0UDJtqNo4Uvh5Jd1RhaN09i+yVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8ZgRc0d;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jcm3NmAW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90A4606A339;
-	Mon, 16 Nov 2026 10:13:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F70606A31C;
+	Mon, 16 Nov 2026 10:14:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8ZgRc0d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31F561F000C4;
-	Mon, 16 Nov 2026 10:13:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jcm3NmAW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C9651F000C5;
+	Mon, 16 Nov 2026 10:14:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794824005;
-	bh=XY2rmJ8885nktXMitJAyrE5uwC457rZep4K4ylZxzgo=;
+	s=k20260515; t=1794824088;
+	bh=T030N8s2iM3qCbFH6IrWtzoTyw/pZ1cXkifyK3pJJbg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V8ZgRc0dKkYGKJB28RMQ5keuZd5FDYeRsqoYI8P9/++ykBfxePEIlCurHc3/Q12Hx
-	 qntbB8bxSFLpfDyTP3ZaiInUffBjwl6AFUc8kDQPhMvd/uaRucvEekW2imOwI9WAjS
-	 WYdy1qhrjMBbjHGB9VBUQgo+4DGtboec1lYRGlsjsM+hSQlpdot1uTkezb4vRgaL7a
-	 Lo/+Q+zI6rtpVtjn83pqQkOVFDxMequOJ1WfagioxAk8ye5398D75YA0ZR48C1Huuv
-	 nSAXMz5qOe2uYuLFAY+RWPYDC7+I5WWb/jfmlxB8LifNOZGKopnbgiapFlcjUkWxuw
-	 qk/f5mOHYUVOA==
-Date: Mon, 16 Nov 2026 11:13:21 +0100
+	b=jcm3NmAWyKfMuUe2fQ9WMjsdJGzI8zu9Be35CHYChSzGxxcV0eZlryDP7s/Fd5CS/
+	 L4CSVHTZDH312gV3xC8UvRkuTMUsq/i1WcZYrEvWNezLhtXH49DwDE65pCNTBi+eu7
+	 kiLTzooUmcwNxhQiQmu52Tnilu1lS2YjH0rqqmz3+kt987bHLicuz3bXLyIPk/iT2x
+	 7MhfiSSDo+Fio2FGmbD6BOZKzNk8tJGEXujR9hZBcmpOy7D6M7byeww0LVv6ykXBJ4
+	 kFKN0tgc2aPsC7E4DCNX9KmJv8CDiX+89+Ohd6t7GrMQ7Yrv8zMe8yFWlqKYK0iFXO
+	 BL3X3VCXWhDfA==
+Date: Mon, 16 Nov 2026 11:14:43 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Hongliang Yang <hongliang.yang@cixtech.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>, 
-	Roger Quadros <rogerq@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Gary Yang <Gary.Yang@cixtech.com>, 
-	Fugang Duan <fugang.duan@cixtech.com>, linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com
-Subject: Re: [PATCH v8 1/2] dt-bindings: usb: Add CIX Sky1 USBSSP controller
-Message-ID: <20261116-hypersonic-purring-shoebill-5bbfa9@quoll>
-References: <20261112022141.4136099-1-hongliang.yang@cixtech.com>
- <20261112022141.4136099-2-hongliang.yang@cixtech.com>
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Frank Li <Frank.Li@nxp.com>, linux-phy@lists.infradead.org, 
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+Subject: Re: [PATCH v7 03/23] dt-bindings: media: qcom,sm8750-camss: Add
+ SM8750 CAMSS
+Message-ID: <20261116-dangerous-nano-caterpillar-7052a6@quoll>
+References: <20261114-add-support-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com>
+ <20261114-add-support-for-camss-on-sm8750-v7-3-8ff2a11835f6@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,85 +69,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261112022141.4136099-2-hongliang.yang@cixtech.com>
+In-Reply-To: <20261114-add-support-for-camss-on-sm8750-v7-3-8ff2a11835f6@oss.qualcomm.com>
 
-On Thu, Nov 12, 2026 at 10:21:40AM +0800, Hongliang Yang wrote:
-> +required:
-> +  - compatible
-> +  - reg
-> +  - ranges
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - reset-names
-> +  - cix,usb-syscon
-> +
-> +patternProperties:
-> +  "^usb@[0-9a-f]+$":
-> +    $ref: cdns,usb3.yaml#
-
-Please move patternProperties before "required:" block.
-
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/cix,sky1.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
-> +
-> +    soc {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        usb@91c0314 {
-> +            compatible = "cix,sky1-usbssp";
-> +            reg = <0x00 0x91c0314 0x00 0x100>;
-> +            ranges;
-> +            #address-cells = <2>;
-> +            #size-cells = <2>;
-> +
-> +            clocks = <&scmi_clk CLK_TREE_USB3A_H0_CLK_SOF>,
-> +                     <&scmi_clk CLK_TREE_USB3A_0_AXI_GATE>,
-> +                     <&scmi_clk CLK_TREE_USB3A_H0_CLK_LPM>,
-> +                     <&scmi_clk CLK_TREE_USB3A_0_APB_GATE>;
-> +            clock-names = "sof", "axi", "lpm", "apb";
-> +            resets = <&src SKY1_USBC_SS2_PRST_N>,
-> +                     <&src SKY1_USBC_SS2_RST_N>;
-> +            reset-names = "apb", "core";
-> +            cix,usb-syscon = <&src 0x424 8>;
-> +
-> +            usb@91d0000 {
-> +                compatible = "cdns,usb3";
-> +                reg = <0x00 0x91d0000 0x00 0x4000>,
-> +                      <0x00 0x91d8000 0x00 0x8000>,
-> +                      <0x00 0x91d4000 0x00 0x4000>;
-> +                reg-names = "otg", "xhci", "dev";
-> +                dr_mode = "otg";
-> +
-> +                interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
-> +                             <GIC_SPI 169 IRQ_TYPE_LEVEL_HIGH>,
-> +                             <GIC_SPI 170 IRQ_TYPE_LEVEL_HIGH>,
-> +                             <GIC_SPI 171 IRQ_TYPE_LEVEL_HIGH>;
-> +                interrupt-names = "host", "peripheral", "otg", "wakeup";
-> +                maximum-speed = "super-speed-plus";
-> +
-> +                phys = <&usb3_phy4>, <&usb2_phy4>;
-> +                phy-names = "cdns3,usb3-phy", "cdns3,usb2-phy";
-> +            };
-> +        };
-> +
-> +        usb2_phy4: usb-phy {
-> +            compatible = "usb-nop-xceiv";
-> +            #phy-cells = <0>;
-> +        };
-
-And drop usb-phy
-
-With these two:
+On Sat, Nov 14, 2026 at 07:29:20PM +0800, Wenmeng Liu wrote:
+> From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> 
+> Add bindings for Camera Subsystem (CAMSS) on the Qualcomm SM8750 platform.
+> 
+> The SM8750 platform provides:
+> - 6 x CSIPHY (CSI Physical Layer)
+> - 3 x TPG (Test Pattern Generator)
+> - 3 x CSID (CSI Decoder)
+> - 2 x CSID Lite
+> - 3 x VFE (Video Front End), 5 RDI per VFE
+> - 2 x VFE Lite, 4 RDI per VFE Lite
+> 
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> ---
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
