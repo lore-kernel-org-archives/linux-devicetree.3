@@ -1,67 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794861866;
-	b=K2jGZCsQ1EEYy1qHRLk76pURI4eXOVShEQ4eUVT+/LWZfcyzynIhPyN2dIMZ24NgsvPd
-	 liM9EIk2pDkpwK2IkjFTQX60SdKrHUpVxA+Dxbp1XjRH+HNqphRN/u8TZrL0BHaZvnki8
-	 ZWvrue/wzWobp4Al2v27H6JxhSgjiXPyGCrgiYmRTzyX3FF4PxBGnOtQrMuCbdJfoKDUJ
-	 8SZWigiix5pzVoGLAyqDoERRodx7ZgMVUFhnlRph5wnn2Mcgydu/Vh5YFp42XRFG51MkX
-	 T92iCEZHGtZdWwusodCyq23TcqCnqw6QvfLQ3Md68rXpisDzNSKQxhC+0Zg0/SXn+hg==
+	t=1794861942;
+	b=JlOHbT76/wUhcLAHr+Yqc+a2pIpwoAIHiOsBSOlEQYstySReFW9DNlb8nzfW7RSGCR64
+	 uQlfhM8dewN8RnxrOvIFfSg8NgxJ7ishKkP6899FyB5nbXjhcAOpMINDyQNJNziujiSwi
+	 dzXp8/gsNDoT6mqjAj76vQjEPp443MdEfKUcX6NET1qBoumIzMZ0uh0+c/TYRy+VWY/77
+	 gW2kPySKFqfeyCz81LsxnBhbXTYBUuBzlvOx2VJBVuEqUjMfelhUy3WrLtB7gQEu6lE+b
+	 0GomQDQEj+IGADMZ9EoE0XRl/bC+Tk65PKMHWwNEoF7hGO6RfNCje9yRMtdg/Hi/sAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794861866;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=8ZLa+7DixPZsMtzBQZucbhsuqAMh4j+ECRbrPmUuh0s=;
-	b=ON07la2CcMPFbWtmCuOq7JdOJ2aVAFycwBAKt1/C5QnZNPRZ9mcVPqur+mw1R62apRVK
-	 xqpdWbrCTebe+Y+qUYl/PbBC+sJX9eS2cZYcEiHP1hTmSbyEMq/bFm3nBKovYW6a5r3xP
-	 cAmMYURqOl13ciXNzWP7FSFx3Mmt/kfuyiLK/AFyiKfVQKDN87tzc3axMDCbnjY6Hb3n3
-	 xPbZV/eIWtehplzoDHipyVAIMx/URI9nL2cfeIpPKDnpklk8dPcjS/LlHVFln0SkSJcvu
-	 No0HhwA5AaDeKiyqa5FkCnC+XwohhY9iANcCdI39bUWmyKk0zpAZOXEy99+39QWiLcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794861942;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=4oSlJewN/kNoUqYUlEdd/3T3JGFzI+Y7BfuLan/yWT4=;
+	b=LzPEYMOEDrs7WGggSx+1TKeq3q4+z4gfBHaH66ZtOKgPXrNYHiu+e9TmNS9nG1TOgUAb
+	 UB60Zb1DRoRl6OYecNs830RrfAM8GrrRbPX5/2Zeww/54sp8EUE9Fj1nkdAWRCSag40l5
+	 Swd7MTD6eFHIxZQESlmdElujj7XlWbMstGzq/pluXC+0qgKBjzBFiuVacPgFRzUrK/rvL
+	 0Wfe9ZZzKHveh706jRu+85TzUuMICzWgRxyDM4viVtz+KBtOiYZjy+tZmGRcGdt3OpZ/b
+	 DmZOIWAPyGxGQ5clCWKMuQ1wfBH66X71gGbQHq0LVD0baj2OOqa0rf1nrjjptm1ONUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z+hqEBHM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TawFYq8k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF40606A33E;
-	Mon, 16 Nov 2026 20:44:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F430606A332
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 20:45:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z+hqEBHM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843141F000C4;
-	Mon, 16 Nov 2026 20:44:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TawFYq8k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B065F1F000C4;
+	Mon, 16 Nov 2026 20:45:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794861865;
-	bh=8ZLa+7DixPZsMtzBQZucbhsuqAMh4j+ECRbrPmUuh0s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z+hqEBHMuEAt+OlmOhJhC5O4BxYiujssFXSyA9CXOReAF0QpxVCFDT7qjV7PaH2TA
-	 OKrl+Y6lrZJrqXSnN20ym9NE9R9p8ZOC4RWSoT2t0CJoHMh2npMHJEg4H0kI6fAp7Q
-	 EVqAkAsyYB3rjOAuYq6fO+upwAFQMGtd/ZcLWT6YGaGxTfl+e8/PG7OfOaffUSALPl
-	 D+pZzPOOjbj9ALizEofXt67fEDJevqJliYFTIS8uaX2PSvVg/s846aDoDPRVDE5dzX
-	 Qrb70qlPlfFr0LbIFNxOrMLfXBElJBhe8rWgrp5ULXG/djDOVa9sSDg9CzGrAJCbZ5
-	 O67nsQGkMmcgQ==
-Date: Mon, 16 Nov 2026 20:44:20 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Hyun-Uk Son <hyunuk.son@irondevice.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Ki-Seok Jo <kiseok.jo@irondevice.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] ASoC: codecs: Add driver for Iron Device MA5311
-Message-ID: <435b0669-1870-42c2-a1ac-d2e9a409ac7d@sirena.org.uk>
-References: <20261027093232.859755-1-hyunuk.son@irondevice.com>
- <20261027093232.859755-3-hyunuk.son@irondevice.com>
- <179318672062.199157.7461931531075403104.b4-review@b4>
- <SE2P216MB24230E7B98CD3F438E23E869FF722@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
- <40646ae6-f6be-4408-aefe-521fb0ea9bee@sirena.org.uk>
- <SE2P216MB24238E5F5EEA95FCEABCDAF4FF702@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
- <2c7d503c-935b-4408-a5b6-bfdf5ba86933@sirena.org.uk>
- <SE2P216MB24235412B165FEA906C3D24FFF7C2@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
+	s=k20260515; t=1794861942;
+	bh=4oSlJewN/kNoUqYUlEdd/3T3JGFzI+Y7BfuLan/yWT4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TawFYq8kWSrFSPNg/POlXnjOttKhWZPLyoDfNSKzxdC9FI3m7Q09zT3C33lPKhnb3
+	 /ogm+rwrGzub0KjaWx6PokOPHKlrxAQMMFuhgJMnXySOtr3CHiFVvA1WjmuzyjBjLx
+	 vQUzGZeDfWG33RjtoN203tHX9nfOWcYkGbzLS5MoCc16rp3G+8WgOR42zmEC2MovQa
+	 GM9hPszhMV5UbIClhs56Lga1CNH4MoN/STHMZDX0hxx+lKKkq9wfdwcTw7Gi/Pmnh4
+	 9zaRrzrBLoKORUWVhxfu5O8gvnyfA7njpNKZMByKPKoYrSg9VKEC+HL0YQRTrzHXXU
+	 ML+bEKGkwivWQ==
+Message-ID: <sashiko-outbox-217674@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCHv4 4/4] arm64: dts: socfpga: agilex5: add support for the
+ ECC manager
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dinh Nguyen" <dinguyen@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116202854.3087673-4-dinguyen@kernel.org>
+References: <20261116202854.3087673-1-dinguyen@kernel.org>
+ <20261116202854.3087673-4-dinguyen@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 20:45:41 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,64 +60,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nsnXqCTjIuMfmRcY"
-Content-Disposition: inline
-In-Reply-To: <SE2P216MB24235412B165FEA906C3D24FFF7C2@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
-X-Cookie: Madness takes its toll.
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] arm64: dts: agilex5: eccmgr node violates
+  altr,socfpga-ecc-manager.yaml schema
+- [Low] arm64: dts: agilex5: dtc W=3D1 unit_address_vs_reg warning on
+  eccmgr node
+--
 
---nsnXqCTjIuMfmRcY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit 80980c0e21089f61a20d6226bf0f7f5a1d6f7334
+Author: Dinh Nguyen <dinguyen@kernel.org>
 
-On Mon, Nov 16, 2026 at 04:57:11AM +0000, Hyun-Uk Son wrote:
+arm64: dts: socfpga: agilex5: add support for the ECC manager
 
-> > > The values of these parameters in reg_defaults match the hardware
-> > factory defaults.
+This commit adds the eccmgr node to the Agilex5 base dtsi along with child
+nodes for OCRAM ECC and EMAC0/1/2 RX and TX ECC.
 
-> > Right, those are what the driver should nromally use.
+> diff --git a/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi b/arch/arm64=
+/boot/dts/altera/socfpga_agilex5.dtsi
+> index 161f3d4bbefe8..12d623d4b892e 100644
+> --- a/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
+> +++ b/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
+> @@ -160,6 +160,75 @@ qspi_clk: qspi-clk {
+>  		};
+>  	};
+> =20
+> +	eccmgr {
+> +		compatible =3D "altr,socfpga-agilex5-ecc-manager",
+> +			     "altr,socfpga-a10-ecc-manager";
+> +		altr,sysmgr-syscon =3D <&sysmgr>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +		interrupt-parent =3D <&intc>;
+> +		interrupts =3D <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <GIC_SPI 241 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <GIC_SPI 95 IRQ_TYPE_EDGE_RISING>,
+> +			     <GIC_SPI 120 IRQ_TYPE_EDGE_RISING>,
+> +			     <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
+> +		interrupt-names =3D "global_sbe", "global_dbe", "io96b0" , "io96b1",
+> +				  "sdm_qspi_sbe", "sdm_qspi_dbe", "sdm_seu";
 
-> When you say "these parameters", are you referring specifically to=20
-> gain-related settings, such as speaker volume, ADC gain, and PGA gain,
-> or does this also include data path and output format settings?
+[Severity: Low]
+Does the eccmgr node pass make dtbs_check against
+Documentation/devicetree/bindings/edac/altr,socfpga-ecc-manager.yaml?
 
-Data path yes normally, but see below.  Output format I guess so, though
-that will essentially always be overwritten by the machine driver in the
-normal course of affairs so it's rare to actually get the default
-register values in practice.
+Matching "altr,socfpga-a10-ecc-manager" selects that schema, which does not
+document "altr,socfpga-agilex5-ecc-manager", limits interrupts to at most 2
+items instead of 7, and rejects interrupt-names because additionalProperties
+is false.
 
-> To make sure I understand your recommendation correctly, should=20
-> the driver leave the data path and output format settings at their=20
-> factory defaults as well?
+> +		interrupt-controller;
+> +		#interrupt-cells =3D <2>;
+> +		ranges =3D <0 0 0 0xffffffff>;
 
-> Or would it be acceptable to initialize the data path and output=20
-> format settings while keeping sensitive parameters, such as speaker
-> volume and ADC/PGA gain, at their factory defaults?
+[Severity: Low]
+Does a non-empty ranges property on eccmgr without a unit address trigger a
+dtc unit_address_vs_reg warning ("/eccmgr: node has a reg or ranges
+property, but no unit name") when building DTBs with W=3D1?
 
-For the output format it's probably fine to change it, though like I say
-I'm not sure that the setting would actually end up getting used.  For
-the data path usually we'd go with the hardware default unless there is
-a very strong reason - for example drivers with DSP support might adjust
-routing to/from the DSP as part of integrate handling for the DSP.  If
-it's just basic routing of the DAC to an ouput or whatever that's
-usually left under user control.
-
---nsnXqCTjIuMfmRcY
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr7ayQACgkQJNaLcl1U
-h9Al6Af/TWPkoQ4ZJTj4wfpUEbP69aK5kO/xRmq4MbXlDI/B8cKlbgEWcUYeUX2A
-IMkS/Fde9HVvUQgPAVtXIxRJ52xHsEha7CHbcXgalq5axDW2uqKu5EmqB7UvSFVY
-nu2THHN3GtPFMpRxhtCq0crpP1jxxm9PIq9aRyX1qmvzmExflDprHF2atsakstKj
-fcIgQu68Z0HPVFz5sPwEIRKtMKDMC5ybuuR8cKdJQd/LrIvzwrLdu9YGoVoDS1yS
-81UNRbkf2ac0FwnMGMdg2dDbVjwLV4t6ZYMTKEGSujzkY3xRgfuIt4a54FYGWjmL
-Znq502Gm0as1yFI3cpb+Q1CkdlgBFw==
-=DHDD
------END PGP SIGNATURE-----
-
---nsnXqCTjIuMfmRcY--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116202854.3087=
+673-4-dinguyen@kernel.org?part=3D1
