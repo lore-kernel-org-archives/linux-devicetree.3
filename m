@@ -1,123 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814933;
-	b=n1FITaCxlJuFNDdPawsr3qL6k4ZEoodmn9juDTf/uskSGonHhOq05q35R6j1wYL2tTdQ
-	 9oQutAY+mqhfY8Db05UbcOVOlyxIhVWnALAAn4e2V/jtbf1zYEYlG6Mx1NMDq2sLzNf8B
-	 dRIEYQL05BzaXQvifPyV6DPZmCpVnrQtoB8qxIsqy+Bq1z1JtJxwBffAGYFAfbF+YvWne
-	 j+b7P952p14up34Q0wy3evIas2b7mVx3SiNQo2juuLRSZawkwlDh0UcVhQcBz0XryrQkW
-	 QUKNMuN0vV2VVHkAzXsAgdAybaFxgZAMiTLVjPiQQ0ICMphtin/heRGUsTWtH16QBSw==
+	t=1794815087;
+	b=j1DM62b6Er8kAirHOZ1id5ow+98e4qRtZHmxeAR+sDYCT13dasezMe+psQpQPnNhyLDe
+	 MU7ZGdsZOgIqxKEbZ2wGvWcsh4hvn3UU6e7T/WxHDPYqe7p12R9/J7Ft4tbwqeqDG7itO
+	 dIogr1FjLE4yVl0vKIDAySfWE3RwE449cpARM673P46zJx3nab2X5eSWRvQdXLE3hT6MX
+	 RSKzZ3ryJeqrvoit/WZ7EBRxVgVxv+hTXDT3S8NYVYFLvI79uz2HG0ZQ98Ov4QmIqZvcd
+	 +02FMsdm1+YX9kY95U5HyQRersYEoFTgLnldbQJqZSh+pm0nN8qJ0CCoVVl2qzhbamw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814933;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=eWCyBzOYdStcG81vSg5ZBEf9+pK1C4x4t0+1pPY3m2w=;
-	b=PsHM/11cpn4l4WaG6ugSMcX79/katqJarYY+ShNk9EDsCQYYDRMU0EvhyOpV7M+ni+rL
-	 HicLg9PhUmEfTrsEr+JkBtAE1TqWSQeQ/Nsrj8HP/1K1nuJpWGTUOLhjQ7AEE6wK8f1Oq
-	 M2ESSWWiKIeJ+/yF3Vg6N91ZOrulc1IC9z9MXkosNeSobK71ztV7ce4MPA1z5priBcwkf
-	 bME3TkVIVrWuPJzBzpWOnlOevV894LL5jM7ygvO02/QDkpRpn7tfbD61I/SVQQ8ZIYIJr
-	 QgOKil1KwyeRDY4fEyRS1VFgnIxEmdyC49OFZx4owk+8mRrr4clr58kLdyWc+H6q9rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815087;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=koh32cUIrtew3rQaspH6qQBq7QxbIkEWNYbNzJo79jE=;
+	b=SD4HiU+KGtidSwlAsmu6h2aEPid5Gnpoj8gHr6HdKh+ZOowPuwidWh/SakKjnfN1cBsv
+	 CICWHaW+UkVhsPpkzaKv3nOfDJJKtVYB1ei2SRJtg+SxSS4PgDQhGvJQ6j5gelMi2ARnn
+	 2r0kQCjCo65Aq69b7TJ/PyRGD+Vhe1cMvxaJRwyXavrTf4lY3r89bybe9WUwR2MkFw+pd
+	 8J1vF5vZiBL9Vil9WSnf7AlgdfmehqKs9NnBgvXiI9BDKLpS39s5hqqP367YtpPh8tYNp
+	 C/RgL0k7bNP/Fm/oDUfgojWkIG6VKPOd1CGJkPAcRm+IlRgibhhGHiRo83NJUAWJ8pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OJSyCS6Z;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RtstEKea;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Bt1i5pzI;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F706606A329
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:42:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F706606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2003606A31C
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:44:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2003606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OJSyCS6Z;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RtstEKea
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AG7fN4U3490159
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:42:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=eWCyBzOYdSt
-	cG81vSg5ZBEf9+pK1C4x4t0+1pPY3m2w=; b=OJSyCS6ZIk1LAcZ6YXwzEbiOnWV
-	lWgAZwllEtsVjacTfHpBO0ER+CA0GH1Srxg1uCy/QkKsBPtiVU5dhw/CofqigE0m
-	KZ4N/Y5NrAUeh5whhZiU80cWr4jJgmZZ3aNVZwAZd4mpYUCAaFbg+bGRsajV8sSG
-	T20+TWL51dWMcpgC+KvRRRaCsVyB6VIczZXeYgkiLa0hQjixKKKIX+ddt4ETB2FV
-	DeHkZ+4nKzkZMIlPL70Po/I3VnhBQpBu09rVNmtP3elkAyTGhJMj+v1Yawm3RPuZ
-	6kW2c4IZi5kJQrqRBiprWAtHwHzdMxEFO4E0Iid0JZOgDgljqoVcIqPWS0A==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhmcdb77-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:42:12 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-37628596fc9so8607900eec.0
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 23:42:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Bt1i5pzI
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so3364377f8f.0
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 23:44:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794814932; x=1795419732; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1794815085; x=1795419885; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eWCyBzOYdStcG81vSg5ZBEf9+pK1C4x4t0+1pPY3m2w=;
-        b=RtstEKeazqaVecfAjJrVmrjZQXe0ZzxUXQxwNEmUy2te0FaeNNsID6U8L6xgDUXMrb
-         VIf3qSZ/4dNoUBr5ejIewZojgreyUCUGZmgvelz7hv0CDawGvQrXylh8R9W8GHeqYa40
-         JOrP9vf+hIP00g3vVoirYP9Ekc/vy1jHcTxM5XJtPOxvs43YklpTEn1URypvJSBaog7G
-         /3Hd88KewTlVFzRswnhneFsieZ0n/Q7pnIZGdg+FbeCXVj8uVWq718te5komtU9KfgC/
-         LtQiXtNuOtzcE8ifZMPJeWrDDu4DXXVCc8/QegzmD3BVQ2VSkVdR+E/3cvGy3nfc1VDP
-         IRMQ==
+        bh=koh32cUIrtew3rQaspH6qQBq7QxbIkEWNYbNzJo79jE=;
+        b=Bt1i5pzINhDkBuOc7F4P+/bv8w65pEMO+kByL8f+l9sIqK+zjkDTlYHK2dLWXQNsER
+         YicPzGglqWPB7yjtwDzbviIr8FmCPLA2P1dgw0WaGQd1A3QH7Wt+JuLvlIr5IXUwfMCs
+         47jptj4udH4A7i7OSTKkODZ/nS9tUK6hGIxpfVwpWX90XXbYbO7LPSra/HulJ896X8TM
+         Chs2NUN/aiGZqpqXX01iTMDN7SqBIO5NJ0M07fj1XEJATX3/8T6lrnJT64Jc3705083s
+         rfGeYN/gbEbxPGnTY4ZHLPoPrR+R14f6sZ+3tlZS6JP07JGF013gdUGMGeGphRXcLiHJ
+         IHwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794814932; x=1795419732;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eWCyBzOYdStcG81vSg5ZBEf9+pK1C4x4t0+1pPY3m2w=;
-        b=xQlHoe54WKXH6dl6P+gaap9X9a6iebJBi55F+7ql81NBKWY5kiGwn/LqVJcTe1XeMv
-         KgFm56TJi5zNcgI07c3zoagQxNFowtypYyE6EzBFsn7/aWnr8lyu376HLzWmj7mKb86S
-         MJ+ARVChkXIUge6QYa4sgTintlRtMO/Wq7kFDVFRwZ+hgLhiOTSQoVyqkfIfbhy9pV1o
-         2/HOYo8gGuLz+cz23/gLjfRvUaB9B4oXSEC1iq47cbiaEgU3pXBnXYYjyhfymw+uQhP1
-         0SVDWPZWZTG+Pph/M8UGehEm7qrX8NQnjqR2VvqmPz8658ASVTRDm0t59wVjGF+y6a6K
-         k/3g==
-X-Forwarded-Encrypted: i=1; AL+hErG29zRlMQrLWzX3qEyYVOXPt5BiVdXk1HgxYT07k9RUbtBjNtJ+D+xw69+n8e6ovNOM7r61KCwfxJSK@vger.kernel.org
-X-Gm-Message-State: APuU4Z8g9unUm06q3ABJrTFhHfpcEiEA25/Jzj0NEPczsBoPEKQpIsgM
-	VGwfGBXV+TiJZjwXpjkDMscm/TsRHg6C/NEtfwEs8lwsWlhzlizCKBDRmTBXsyukTIxh02FQFmz
-	+X54oezVjdVv4SLcwdNWTxWdxtL07rV7mFPRU7dTub9sIgn7Nq/jcGZhWEWql/PY8n8gMv3uoeB
-	A=
-X-Gm-Gg: AYBFou16Goe2zLWGXEy8C8nnDRRuXPjsM263t7+W4/qkmaoA/rFGDtxUYWY4f0CTF96
-	GhE2A4Sw3Vo05e7q5NYh5ZsRm8WT3IX/L6IRR6gqhIn7q7X3urpDjHhzeCKRAlHaRHpK6LlfxfK
-	G2xmgtheVp8WI4Nc0Hhqe/lhHF6c3MNbozmDeDyL9Y96u9GheBk7xGx8Xom/QjGaQaH2hjhocEF
-	RkKCBR2QJQ+Sn9oOjaLkZ8dv5qVWSSgIDUoWKYB8ZXrOiKqpCCO1F1x9weh5W6gWkN6THnyw2yC
-	IcuQLJB1986Uimy6Jb+qj7JbBNuPqIbjFu80D6ZVL4i1ulKhPHOVJyOxIuy+I5x7dS0ApdfC+t/
-	thxkt5UMVkbN+4QJoqqGvZ5an1NsziI+hm7GVExBhr3AIHURWzJx5wxxzju5U92AyQ1f9nfi7/o
-	xBFQAciDTBtMsgSv3EF+VQ8W5J8b/nkxM+Dw==
-X-Received: by 2002:a05:693c:805c:b0:376:9323:22b8 with SMTP id 5a478bee46e88-37965da96e5mr11689164eec.10.1794814931408;
-        Sun, 15 Nov 2026 23:42:11 -0800 (PST)
-X-Received: by 2002:a05:693c:805c:b0:376:9323:22b8 with SMTP id 5a478bee46e88-37965da96e5mr11689124eec.10.1794814930711;
-        Sun, 15 Nov 2026 23:42:10 -0800 (PST)
-Received: from ap-cloud-sh02-lnx.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379569b8389sm52137536eec.25.2026.11.15.23.42.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 23:42:10 -0800 (PST)
-From: Songwei Chai <songwei.chai@oss.qualcomm.com>
-To: andersson@kernel.org, alexander.shishkin@linux.intel.com,
-        mike.leach@linaro.org, konrad.dybcio@oss.qualcomm.com,
-        suzuki.poulose@arm.com, james.clark@arm.com, krzk+dt@kernel.org,
-        conor+dt@kernel.org
-Cc: Songwei Chai <songwei.chai@oss.qualcomm.com>, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        coresight@lists.linaro.org, devicetree@vger.kernel.org,
-        gregkh@linuxfoundation.org, songchai@qti.qualcomm.com,
-        Jie Gan <jie.gan@oss.qualcomm.com>
-Subject: [PATCH v18 8/8] qcom-tgu: Add reset node to initialize
-Date: Mon, 16 Nov 2026 15:41:18 +0800
-Message-Id: <20261116074118.822731-9-songwei.chai@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116074118.822731-1-songwei.chai@oss.qualcomm.com>
-References: <20261116074118.822731-1-songwei.chai@oss.qualcomm.com>
+        d=1e100.net; s=20260707; t=1794815085; x=1795419885;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=koh32cUIrtew3rQaspH6qQBq7QxbIkEWNYbNzJo79jE=;
+        b=HBylfiCMQ2MQcopvj4C2hDi6bDcimVgr6UxsfBWf6kohgMgV4We4zLOlpLGTroZ/8/
+         Xg2HWL/365n5p7n6bIuOb2m+HOiPgmHy2wOELpTilxbywHRNykgx/Dh/lnmbCJQgvu1+
+         Es8McBVKAp6C7RmDzEcjC5nV7jUHKQ2+roGdNt+i+GwV5p/Bd52817u5H6rNC5rS8/kC
+         1P2mp0aznX9vcw1mjPiWsTJkLplb/vJfAm6RKmKdthsiYOA6nxgWH3Fe0M1JkqolbDSO
+         s7vhsEFzixqH6O5viNGHZUxazBwrpt0PD1t1ADzdSAQed+JH2Di5q85wZUwxjjUGuUtr
+         8NVw==
+X-Forwarded-Encrypted: i=1; AL+hErF6EoHlaDjKZ1eZFkip6K9Xb9XGrZ4EeZA6nimzFvK+qEssLrC5HPoXnXtNeEA3IxEW5qTsTguzKqGs@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ityC7jgh7E/6+2Yx2VL+WadNypkwF+T8Q9SfNFhrjMN1PcE8L
+	Ba+tpMJXcBsVJmOz9T2VFsraIOBziHj2SJR6G47pnbFk5pn6ai30UEn1tObjsVWLIdk=
+X-Gm-Gg: AYBFou1SUn/s6r8qMT2Z7vvK4ncTdrLV7ZNjC1aqHSQvPJq1/j12uM8nyuhk2/+W3uD
+	mTwdYXX6dSjcyols7lBiSQJ8UyuhGiKN9Kb47IyOnsipMTk8QYyc7vHC2a1euqoJuHmyx64J+aN
+	TwNYGeqL/TkuNC1JqDuJAjOZwgBKkR5hAWqKRSyF9TgveMXMLSzys1jeHhR1oJ8KeONBnSiRRns
+	vRcKB/6O8QKLNw/XpVy72w1G1Hn4nYzfC1tph2DmRxxlP8P0U7Re5j4hZYS+u2Cg8b4TPXssEal
+	vtENiweOkl2kOLM8pDxHSBc3oMaL96Z495YPRTSbUqGkgGwycldmC850KT2s/AIXXQItUT/l9Jc
+	qsekk1Q+n1Gdbt1CY730gY5f6eCRfPhNQBEJFqjr1vo0EI22Vl8rR946GNxl3IkqzKi8DEfhXXV
+	17i0k1Bk9JVbFpOnbbJxNKpZ9Jo9xcuC3H7Hue5yHBPB1LASvcoIDRnReQmV7wdiYb4tk1r40Yj
+	UWGbTMX16MNIG35uZjk3NGbLgb3YFR2rtjxjoRAUZDrJuL6yan9zM+iofKaIwcvrqBewONE5rjY
+	4NhlH0FP0zuzp2B7Fq2GaW01Qx0t2ZBG+Eazo2OAVtyG59ivPovK2ApVwBJfnf9r8qXs5Mib44x
+	ZadFcbJOqfA==
+X-Received: by 2002:a05:6000:470b:b0:492:8dd4:baf8 with SMTP id ffacd0b85a97d-49c6d453907mr20718771f8f.6.1794815084882;
+        Sun, 15 Nov 2026 23:44:44 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:575d:8fcf:e30d:5aed? ([2a01:e0a:106d:1080:575d:8fcf:e30d:5aed])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5fe370f8sm18538106f8f.27.2026.11.15.23.44.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 23:44:44 -0800 (PST)
+Message-ID: <708d758b-14ee-4a00-a9c6-6bd8bae8063f@linaro.org>
+Date: Mon, 16 Nov 2026 08:44:44 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -127,164 +93,292 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDAzMCBTYWx0ZWRfXyG/dMrla/PcT
- ohCsyWTeBZeD63Er3K7+1TlPtAeztiEC0k7j7vAkSE762cT7o5dL7OBkND68Mj574OuE1+n+k3X
- 5+OCZPdOA0QtrE8xbisDu1iHGaA2EWI=
-X-Proofpoint-ORIG-GUID: tHy0kXBzTOlNWu2EevlQuSdqkzJgpphm
-X-Proofpoint-GUID: tHy0kXBzTOlNWu2EevlQuSdqkzJgpphm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDAzMCBTYWx0ZWRfX+3blkH4pvPNE
- MsxLyYzv7oUi4tjTX84OEEk1V2PEvAfna8NsReSk38S5LP0KZdlluyk6FVVUR9secFUbYzAWxsh
- TzsaNs1+WKe5Qr5Uu6os/aRFGa+mBFEoHSkYcPB3LsF7yIEJtETb4QfyXuOeIjI8YPaW8EI7qpc
- VQNNxBQOFjV1Xdve+6YxdiMZJhGrPsh2RuLlyO6k/GnhCFGkOr8f/3Irp5jYwoIKLp9oB3U7eVa
- wzgvEv6gNxmas9oiOhr/ktgy7KJBuMZ3qTdT5uogMrNRdeoWRQ8ZvSEJ0vpAljnwVs22YhOdo6Q
- S8HlF4coUAN7pT286DatCPg8lc4UEyFIwxq7o3Vfdaw7/Gf4YsWd8uTdgJ2USwOYmfoojkdspzt
- 2nlGEkm+Cn6zJAUiT6iWYmImDq36snjVD++yZR8W4JIXAEnZlIb/HAuplatrJtW0fG/QWF+9pJ1
- IAhC+1ndTfcG0QLhdqg==
-X-Authority-Analysis: v=2.4 cv=Vpy2kO2n c=1 sm=1 tr=0 ts=6afab3d4 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=u6OCHy2KTxjFLSf8iyQA:9 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-16_03,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 malwarescore=0
- phishscore=0 priorityscore=1501 bulkscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160030
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH RFC 02/23] clk: qcom: add SM8650 LPASS core & audio clock
+ controllers
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org
+References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
+ <20261113-topic-sm8650-el2-v1-2-5183f6aab9fc@linaro.org>
+ <sashiko-outbox-213528@kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <sashiko-outbox-213528@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add reset node to initialize the value of
-priority/condition_decode/condition_select/timer/counter nodes.
+On 11/13/26 20:14, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issues to consider:
+> - [High] clk: qcom: missing pm_clk setup for iface clock in
+>    lpass_hm_core_probe()
+> - [High] clk: qcom: wrong DT clock index for BI_TCXO in
+>    lpass_core_cc_parent_data_ao_2
+> - [Medium] clk: qcom: missing driver unregister on error in SM8650 LPASS
+>    init functions
+> - [Medium] clk: qcom: wrong postdiv clk_ops and user_ctl_val for
+>    lpass_core_cc_dig_pll
+> - [Low] clk: qcom: dead code, unused declaration, and unwrapped pm_ops
+>    in SM8650 LPASS
+> --
+> 
+> commit b45bde29cb5ec941ad6de37d77c22a656fbda080
+> Author: Neil Armstrong <neil.armstrong@linaro.org>
+> 
+> clk: qcom: add SM8650 LPASS core & audio clock controllers
+> 
+> This commit adds clock and power domain controller drivers for the SM8650
+> LPASS HM, core, audio, and AON blocks when running without ADSP firmware.
+> 
+>> diff --git a/drivers/clk/qcom/lpassaudiocc-sm8650.c b/drivers/clk/qcom/lpassaudiocc-sm8650.c
+>> new file mode 100644
+>> index 0000000000000..636ce9a1b3451
+>> --- /dev/null
+>> +++ b/drivers/clk/qcom/lpassaudiocc-sm8650.c
+> [ ... ]
+>> +static struct clk_rcg2 lpass_aon_cc_ext_if1_clk_src = {
+>> +	.cmd_rcgr = 0xb004,
+>> +	.mnd_width = 16,
+>> +	.hid_width = 5,
+>> +	.parent_map = lpass_audio_cc_parent_map_0,
+>> +	.freq_tbl = ftbl_lpass_cc_ext_clk_src,
+>> +	.clkr.hw.init = &(const struct clk_init_data){
+>> +		.name = "lpass_aon_cc_ext_if1_clk_src",
+>> +		.parent_data = lpass_aon_cc_parent_data_0,
+>> +		.num_parents = ARRAY_SIZE(lpass_aon_cc_parent_data_0),
+>> +		.ops = &clk_rcg2_ops,
+>> +	},
+>> +};
+> [ ... ]
+>> +static struct clk_rcg2 lpass_aon_cc_tx_mclk_clk_src = {
+>> +	.cmd_rcgr = 0x1b004,
+>> +	.mnd_width = 0,
+>> +	.hid_width = 5,
+>> +	.parent_map = lpass_aon_cc_parent_map_0,
+>> +	.freq_tbl = ftbl_lpass_mclk_clk_src,
+>> +	.clkr.hw.init = &(const struct clk_init_data){
+>> +		.name = "lpass_aon_cc_tx_mclk_clk_src",
+>> +		.parent_data = lpass_aon_cc_parent_data_0,
+>> +		.num_parents = ARRAY_SIZE(lpass_aon_cc_parent_data_0),
+>> +		//.flags = CLK_OPS_PARENT_ENABLE,
+>> +		.ops = &clk_rcg2_ops,
+>> +	},
+>> +};
+> [ ... ]
+>> +static struct clk_branch lpass_aon_cc_tx_mclk_clk;
+> [ ... ]
+>> +static const struct dev_pm_ops lpass_audio_cc_sm8650_pm_ops = {
+>> +	SET_RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
+>> +};
+>> +
+>> +static struct platform_driver lpass_audio_cc_sm8650_driver = {
+>> +	.probe = lpass_audio_cc_sm8650_probe,
+>> +	.driver = {
+>> +		.name = "lpass_audio_cc-sm8650",
+>> +		.of_match_table = lpass_audio_cc_sm8650_match_table,
+>> +		.pm = &lpass_audio_cc_sm8650_pm_ops,
+>> +	},
+>> +};
+> 
+> [Severity: Low]
+> This isn't a bug, but the `.pm` assignments in `lpass_audio_cc_sm8650_driver`,
+> `lpass_aon_cc_sm8650_driver`, and `lpass_hm_sm8650_driver` do not use
+> `pm_ptr()` (with `RUNTIME_PM_OPS()`), so the `dev_pm_ops` structures are not
+> dropped when PM is disabled.
 
-Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
-Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
----
- .../ABI/testing/sysfs-bus-amba-devices-tgu    |  7 ++
- drivers/hwtracing/qcom/tgu.c                  | 85 +++++++++++++++++++
- 2 files changed, 92 insertions(+)
+Will fix
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-index 71187071cbc8..b3a2fb9cba6e 100644
---- a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-+++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-@@ -51,3 +51,10 @@ KernelVersion:	7.5
- Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
- Description:
- 		(RW) Set/Get the counter value with specific step for TGU.
-+
-+What:		/sys/bus/amba/devices/<tgu-name>/reset_tgu
-+Date:		November 2026
-+KernelVersion:	7.5
-+Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
-+Description:
-+		(Write) Write 1 to reset the dataset for TGU.
-diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
-index aa7eaed0e738..6f76d4f83cc3 100644
---- a/drivers/hwtracing/qcom/tgu.c
-+++ b/drivers/hwtracing/qcom/tgu.c
-@@ -251,6 +251,18 @@ static ssize_t tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
- 	int i, j, k, index = 0;
- 
- 	CS_UNLOCK(drvdata->base);
-+
-+	/*
-+	 * Quiesce the detection engine before mutating any comparison input.
-+	 * This function is also reached from reset_tgu_store() while the TGU is
-+	 * already running (TGU_CONTROL == 1); rewriting the priority/condition/
-+	 * timer/counter registers register-by-register on a live engine could
-+	 * feed a transient, half-updated match into CTI/interrupt consumers.
-+	 * Programming with CONTROL == 0 and only re-enabling at the end keeps the
-+	 * program-then-enable ordering for every caller.
-+	 */
-+	writel(0, drvdata->base + TGU_CONTROL);
-+
- 	for (i = 0; i < drvdata->num_step; i++) {
- 		for (j = 0; j < MAX_PRIORITY; j++) {
- 			for (k = 0; k < drvdata->num_reg; k++) {
-@@ -470,8 +482,81 @@ static ssize_t tgu_enable_store(struct device *dev,
- }
- static DEVICE_ATTR(enable, 0644, tgu_enable_show, tgu_enable_store);
- 
-+/*
-+ * Element counts for drvdata's shadow tables, shared so the reset path
-+ * below can't drift from how each array is actually sized/indexed.
-+ */
-+#define TGU_PRIORITY_COUNT(drvdata) \
-+	(MAX_PRIORITY * (drvdata)->num_step * (drvdata)->num_reg)
-+#define TGU_CONDITION_DECODE_COUNT(drvdata) \
-+	((drvdata)->num_step * (drvdata)->num_condition_decode)
-+#define TGU_CONDITION_SELECT_COUNT(drvdata) \
-+	((drvdata)->num_step * (drvdata)->num_condition_select)
-+#define TGU_TIMER_COUNT(drvdata) \
-+	((drvdata)->num_step * (drvdata)->num_timer)
-+#define TGU_COUNTER_COUNT(drvdata) \
-+	((drvdata)->num_step * (drvdata)->num_counter)
-+
-+static ssize_t reset_tgu_store(struct device *dev,
-+			       struct device_attribute *attr, const char *buf,
-+			       size_t size)
-+{
-+	struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
-+	unsigned long value;
-+	int i, ret;
-+
-+	if (kstrtoul(buf, 0, &value) || value != 1)
-+		return -EINVAL;
-+
-+	/*
-+	 * Hold the mutex across the whole sequence so it cannot race with
-+	 * enable_tgu_store()/tgu_dataset_store(): the enabled check and the
-+	 * hardware access stay consistent. No PM reference is taken or dropped
-+	 * here - the shadow tables are plain memory, and the hardware is only
-+	 * touched when the device is already resumed via the enable reference.
-+	 */
-+	guard(mutex)(&drvdata->lock);
-+
-+	memset(drvdata->priority, 0,
-+	       TGU_PRIORITY_COUNT(drvdata) * sizeof(*drvdata->priority));
-+
-+	/*
-+	 * Every decode register is about to be overwritten with the neutral
-+	 * 'NOT' value below, so there is nothing for a prior memset to zero;
-+	 * calculate_array_location()'s step/reg indices for TGU_CONDITION_DECODE
-+	 * densely cover the whole 0..TGU_CONDITION_DECODE_COUNT(drvdata)-1 range
-+	 * with no gaps, so a flat loop over that range reaches every decode
-+	 * register.
-+	 */
-+	for (i = 0; i < TGU_CONDITION_DECODE_COUNT(drvdata); i++)
-+		drvdata->condition_decode[i] = TGU_CONDITION_DECODE_NOT;
-+
-+	memset(drvdata->condition_select, 0,
-+	       TGU_CONDITION_SELECT_COUNT(drvdata) *
-+		       sizeof(*drvdata->condition_select));
-+
-+	memset(drvdata->timer, 0,
-+	       TGU_TIMER_COUNT(drvdata) * sizeof(*drvdata->timer));
-+
-+	memset(drvdata->counter, 0,
-+	       TGU_COUNTER_COUNT(drvdata) * sizeof(*drvdata->counter));
-+
-+	/* If the TGU is running, apply the cleared configuration immediately. */
-+	if (drvdata->enabled) {
-+		ret = tgu_write_all_hw_regs(drvdata);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	dev_dbg(dev, "Qualcomm-TGU reset complete\n");
-+
-+	return size;
-+}
-+static DEVICE_ATTR_WO(reset_tgu);
-+
- static struct attribute *tgu_common_attrs[] = {
- 	&dev_attr_enable.attr,
-+	&dev_attr_reset_tgu.attr,
- 	NULL,
- };
- 
--- 
-2.34.1
+> 
+> Also, `lpass_aon_cc_tx_mclk_clk_src` has a commented-out `.flags` line, the
+> forward declaration of `lpass_aon_cc_tx_mclk_clk` is unused because the
+> following clocks reference `lpass_aon_cc_tx_mclk_clk_src`,
+> `lpass_aon_cc_ext_if1_clk_src` uses `lpass_audio_cc_parent_map_0` instead of
+> `lpass_aon_cc_parent_map_0`, and `lpass_audio_cc_sm8650_probe()` and
+> `lpass_aon_cc_sm8650_probe()` duplicate the same `pm_clk` setup.
+
+Will fix
+
+> 
+> [ ... ]
+>> +static int __init lpass_audio_cc_sm8650_init(void)
+>> +{
+>> +	int ret;
+>> +
+>> +	ret = platform_driver_register(&lpass_aon_cc_sm8650_driver);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	return platform_driver_register(&lpass_audio_cc_sm8650_driver);
+>> +}
+>> +subsys_initcall(lpass_audio_cc_sm8650_init);
+> 
+> [Severity: Medium]
+> Does `lpass_audio_cc_sm8650_init()` leave `lpass_aon_cc_sm8650_driver`
+> registered if registering `lpass_audio_cc_sm8650_driver` fails?  When built as
+> a module, failing module init without calling
+> `platform_driver_unregister(&lpass_aon_cc_sm8650_driver)` leaves a freed
+> `platform_driver` structure linked on the platform bus list, causing a
+> use-after-free.  `lpass_core_cc_sm8650_init()` in `lpasscorecc-sm8650.c` has
+> the same issue with `lpass_hm_sm8650_driver`.
+
+Will fix
+
+> 
+>> diff --git a/drivers/clk/qcom/lpasscorecc-sm8650.c b/drivers/clk/qcom/lpasscorecc-sm8650.c
+>> new file mode 100644
+>> index 0000000000000..4f91ab0d772ec
+>> --- /dev/null
+>> +++ b/drivers/clk/qcom/lpasscorecc-sm8650.c
+>> @@ -0,0 +1,509 @@
+> [ ... ]
+>> +static const struct alpha_pll_config lpass_core_cc_dig_pll_config = {
+>> +	/* 614.4 MHz */
+>> +	.l = 0x20,
+>> +	.alpha = 0x0,
+>> +	.config_ctl_val = 0x20485699,
+>> +	.config_ctl_hi_val = 0x00182261,
+>> +	.config_ctl_hi1_val = 0x82aa299c,
+>> +	.test_ctl_val = 0x00000000,
+>> +	.test_ctl_hi_val = 0x00000003,
+>> +	.test_ctl_hi1_val = 0x00009000,
+>> +	.test_ctl_hi2_val = 0x00000034,
+>> +	.user_ctl_val = 0x00000000,
+>> +	.user_ctl_hi_val = 0x00000005,
+>> +};
+> [ ... ]
+>> +static struct clk_alpha_pll_postdiv lpass_core_cc_dig_pll_out_odd = {
+>> +	.offset = 0x0,
+>> +	.post_div_shift = 14,
+>> +	.post_div_table = post_div_table_lpass_core_cc_dig_pll_out_odd,
+>> +	.num_post_div = ARRAY_SIZE(post_div_table_lpass_core_cc_dig_pll_out_odd),
+>> +	.width = 4,
+>> +	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID_OLE],
+>> +	.clkr.hw.init = &(struct clk_init_data){
+>> +		.name = "lpass_core_cc_dig_pll_out_odd",
+>> +		.parent_hws = (const struct clk_hw*[]){
+>> +			&lpass_core_cc_dig_pll.clkr.hw,
+>> +		},
+>> +		.num_parents = 1,
+>> +		.flags = CLK_SET_RATE_PARENT,
+>> +		.ops = &clk_alpha_pll_postdiv_lucid_ops,
+>> +	},
+>> +};
+> 
+> [Severity: Medium]
+> Should `lpass_core_cc_dig_pll_out_odd` use `clk_alpha_pll_postdiv_lucid_ole_ops`
+> instead of `clk_alpha_pll_postdiv_lucid_ops`?
+> 
+> `lpass_core_cc_dig_pll` is a Lucid OLE PLL, where the FSM vote bit lives at
+> bit 25 of `user_ctl` (`clk_lucid_evo_pll_postdiv_set_rate()`), whereas
+> `clk_alpha_pll_postdiv_lucid_ops` checks bit 20 of `mode`
+> (`clk_alpha_pll_postdiv_fabia_set_rate()`).  In addition,
+> `lpass_core_cc_dig_pll_config` sets `.user_ctl_val = 0x00000000`, so
+> `clk_alpha_pll_write_config()` skips writing `user_ctl` and never programs the
+> odd post-divider or output enable bits during PLL configuration.
+
+Will fix
+
+> 
+> [ ... ]
+>> +static const struct parent_map lpass_core_cc_parent_map_2[] = {
+>> +	{ P_BI_TCXO, 0 },
+>> +	{ P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN, 1 },
+>> +	{ P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN_DIV_CLK_SRC, 2 },
+>> +};
+>> +
+>> +static const struct clk_parent_data lpass_core_cc_parent_data_ao_2[] = {
+>> +	{ .index = 1 },
+>> +	{ .hw = &lpass_core_cc_dig_pll.clkr.hw },
+>> +	{ .hw = &lpass_core_cc_dig_pll_out_main_div_clk_src.clkr.hw },
+>> +};
+>> +
+>> +static const struct freq_tbl ftbl_lpass_core_cc_core_clk_src[] = {
+>> +	F(19200000, P_BI_TCXO, 1, 0, 0),
+>> +	F(51200000, P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN_DIV_CLK_SRC, 6, 0, 0),
+>> +	F(102400000, P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN_DIV_CLK_SRC, 3, 0, 0),
+>> +	F(204800000, P_LPASS_CORE_CC_DIG_PLL_OUT_MAIN, 3, 0, 0),
+>> +	{ }
+>> +};
+>> +
+>> +static struct clk_rcg2 lpass_core_cc_core_clk_src = {
+>> +	.cmd_rcgr = 0x25000,
+>> +	.mnd_width = 8,
+>> +	.hid_width = 5,
+>> +	.parent_map = lpass_core_cc_parent_map_2,
+>> +	.freq_tbl = ftbl_lpass_core_cc_core_clk_src,
+>> +	.clkr.hw.init = &(const struct clk_init_data){
+>> +		.name = "lpass_core_cc_core_clk_src",
+>> +		.parent_data = lpass_core_cc_parent_data_ao_2,
+>> +		.num_parents = ARRAY_SIZE(lpass_core_cc_parent_data_ao_2),
+>> +		.ops = &clk_rcg2_shared_ops,
+>> +	},
+>> +};
+> 
+> [Severity: High]
+> Should `lpass_core_cc_parent_data_ao_2[0]` use `.index = 0` instead of
+> `.index = 1`?
+> 
+> `qcom,sm8650-lpasscorecc` only has a single DT input clock (`bi_tcxo` at index
+> 0), as used by `lpass_core_cc_dig_pll` and `lpass_core_cc_parent_data_0`.
+> With `.index = 1`, parent 0 of `lpass_core_cc_core_clk_src` cannot be
+> resolved, so `lpass_core_cc_core_clk_src` and its child branches report rate 0
+> when parked on `bi_tcxo` via `clk_rcg2_shared_ops`, and requesting 19.2 MHz
+> fails with `-EINVAL` in `_freq_tbl_determine_rate()`.
+
+Will fix
+
+> 
+> [ ... ]
+>> +static int lpass_hm_core_probe(struct platform_device *pdev)
+>> +{
+>> +	return qcom_cc_probe(pdev, &lpass_core_hm_sm8650_desc);
+>> +}
+>> +
+>> +static const struct dev_pm_ops lpass_hm_sm8650_pm_ops = {
+>> +	SET_RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
+>> +};
+> 
+> [Severity: High]
+> Does `lpass_hm_core_probe()` need to set up `pm_clk` and add the `"iface"`
+> clock before calling `qcom_cc_probe()`, like `lpass_audio_cc_sm8650_probe()`
+> and `lpass_aon_cc_sm8650_probe()` do?
+> 
+> `qcom_cc_really_probe()` with `.use_rpm = true` only calls
+> `devm_pm_runtime_enable()` and `pm_runtime_resume_and_get()`; it does not call
+> `devm_pm_clk_create()` or `pm_clk_add(&pdev->dev, "iface")`.  Without that
+> setup, `pm_clk_resume()` and `pm_clk_suspend()` in `lpass_hm_sm8650_pm_ops` do
+> nothing, leaving the LPASS HM interface clock unacquired and potentially gated
+> when `qcom_cc_really_probe()` and `gdsc_register()` access the HM registers.
+> 
+
+Will drop PM
+
 
