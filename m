@@ -1,152 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.76
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794869360;
-	b=sFx+6sEg0xNcPvjvjgfcLLeiS2nwh/JhDTJZHGVWmNLtt66JjLRCj7mVDGDIbMenwfxg
-	 Nj4kGa/JXjeuL7ZKkKgVcSRMYnE+zXuRRq2Apl7QmqRO/K0FHE8cgyTaFBVjbv5+JtS4D
-	 1UUZDC/VBkr85PVeC+EX3qYrLAmiJLBfcE0IiL1m/E7PFcqEPNWEkXffD3GAFq8UyBjzR
-	 b9sW5hBq1jIc1tVxdIDWapqmwwnQZQijkEG72MkaGDrvX+8+P6VgRTPOEOUZxqH1/64no
-	 1AXLQd103mTLu4TmQ5S3meFYPETbW6xVQhD7ThlTQYP3KOWMmKk3Q6lmKiXQ9qEfBrw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794869360;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 dlp-product:dlp-version:dlp-reaction:x-ms-publictraffictype:
-	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=vYo3nIcaGZhFCp0i5S6AFVRcgjtEPLPeJWhFKSkVk/M=;
-	b=XAZEPlMIdc5Q7qgMXWA6HVZSfipp99shJadO/sV304CM4AUo4U+sbYwK0JCsQmIyIzU+
-	 +dbmSDaY/IzFwRpFSfurvOP6p0bvexat8AefbaOpwBGeXyjTPNaGQq944wWWpljrO1+Rw
-	 HQXJuaff9v8XqPdSj8nAEeKdlUO7bzmNU1gJltL9OkLY0bQjaz1tMttHfJDwe5f9THBIC
-	 AT9Ra7NjbbqIcQhpkNnUX+maNNj0LOiplkoAS/bwYVFq4zR7DwlAwgVl3l7McbmYxLXuc
-	 fQruo1cZELrPhtGE2XChE5lub8lb7BgWxbqPzqo8wK2kBiiN52SJ1yE3CCi1G/JoAQw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rambus.com;
-	spf=fail smtp.mailfrom=rambus.com;
-	dkim=pass header.d=rambus.com header.i=@rambus.com header.a=rsa-sha256 header.s=selector1 header.b=i16zDRG6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.76
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11021076.outbound.protection.outlook.com [52.101.62.76])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794869435;
+	b=fO//W5EQt5CfvAMG5p8Ivky97DDKpeuyZTuScpntEVi/SKRCLUmkM/qRmkAvwN4qeuZD
+	 EhYhVmz4HGq8FFhJ8uK/nzQeTy4DapV0f8QVueD/lbepJXmQ5a+hjcGGzl7//7g1y4MuS
+	 XLnFj06i8/BTYmCuoW8GEEFTJU5baeI9+q40SeT0stbVdPaCgT59sUt7UOnkT6HQ5GIJi
+	 JpVbbpJLq1qqyiAmRcJqKl9WgsbmE7eh8TaeWSSnjZ2jvG+AsVXCya46CYYs8//lPB4wO
+	 2xHlqhWmQzzns8SQhPbAVe/Ec4ai0+A6O93QxKnexIzBjM3seImtNA6PEU6ZgHJ243A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794869435;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=FRTZ0UZ+O5UMbm2peSSpDUxiOixTmh4Ad8SIaAVLsT8=;
+	b=Krj2QblP+57w+9GoYtO84R6A/89Q3xVIs8Rg9EWpzFneyl4y7/xxVBKyJ0mXjPmEV5sj
+	 ZzAQdbjOzmPsSIwI2DrDS7meNXNLAuM7n4dXUNaL4YZUKPtpv2q5g5Pf/rJS0Z5tqVBTX
+	 YZOAF8Whnv5SVXa5x4O9sBhOeXdCu69UfX38yMnWDTD5v1sn1yD1y6puW6kpGTA4aocyl
+	 tG3wf95I60DUBI05CG7sl4w4QdsBz3ZCqBfw9VlZPF/kLZqPyKc1MbvvZ+sW6hMSXXHHW
+	 UtkpdJIuznJD8Ii2/cn7gYlETwYUdRTSS2vmSrYZf6sMiw410ABHg/j0p/slEhtc6iQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=erebion.eu;
+	spf=pass smtp.mailfrom=erebion.eu;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b="Sm77vU/r";
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b="NoaC/YnX";
+	arc=none smtp.remote-ip=142.132.183.134
+Received: from erebion.eu (erebion.eu [142.132.183.134])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1A2606A31C;
-	Mon, 16 Nov 2026 22:49:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C1A2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4958606A31C;
+	Mon, 16 Nov 2026 22:50:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4958606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rambus.com header.i=@rambus.com header.a=rsa-sha256 header.s=selector1 header.b=i16zDRG6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SK9dI0SfB3yGMiCbmBDatqq2E/81Kx7cjvLdN/ry3fgQoBwKLuz0Yg4nxwwL9rtC8+wStV5O2qyl2++aSIfQ677Q0sWbiWZZkGFg8JJcg7gSD2DIufoc/fgcMCqZ5afATKeN+dUORuWw435qugy71XzokPKlcevrm1lg/Bd8hmkd3FheF2p28gET02MGTJQiUjzzaH4x6cvZhGydczwVrVj+aiDuCtPXgw0nFHmM1LtbUX6TJ7mtkBjAHKnqiKefYUvqUEqizf/dDMbDxYX11OC+vxGGpUPHe+EmYBwesACMA683GNxE0dNoGZ3JF7IsCi/94K8J8p8S11e5Vj01AA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vYo3nIcaGZhFCp0i5S6AFVRcgjtEPLPeJWhFKSkVk/M=;
- b=dOC7pye9OMd2Ayyjm9/+RcY55weUVWgTZ0YdRVF2COURN0TbtdaCMMqAfP0Kxdq/5acm8Eil9EAct+pGTVzs1Rl8EgKMYl2Ea6gvQ6QW3Y8gjV5cx1pB7TFV/0/fqEsa5eepeoJY60HPNhJVWynDiYI1z5pdTolAWUyzT79lVMgL/EyU89NYc8uhH3HBulOCw8LKv5h2K+71Ruzotq9xpRNEPS1DTZKsmf/GggO74mu5CsBM3khzW9Hsq8qfTGRcz2FCKqUJe8Z9pBxBv3ga6sOgd/JczhrL5WBvkDeSWVxhet3sLEg51drFQleK3ydr/++WII7djRDaN+sB88D4tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=rambus.com; dmarc=pass action=none header.from=rambus.com;
- dkim=pass header.d=rambus.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vYo3nIcaGZhFCp0i5S6AFVRcgjtEPLPeJWhFKSkVk/M=;
- b=i16zDRG6HbhORYn7SPgy0CU/3hsOGKQH2Csv54vuJnFvecPnHY3820Ar+yRp/lkcDEOEESK+fXXVqsXHYDh7gloK5jFjt9P4H5tQzPMwIYXeqWMvkDWK5hHsOw10JO7iQL0mqAVjAQSuOTpLAhq7ZzH+11HJyYPYvEBFkc1/ljmA/fv/kNikwI6Q09dq3j1vLWcE23l9JxS3fPnnLLJOuMys0g9ij3ASdJxG/Gq06ZtfdMUZLbR7q8zYyj50V2GKQ0RYe0qJpp08um5gE1tjI8AyxOaOoVQ+6gq330F4WyeFgcoV+YwK3oDKu+ZrZay8twAGLeKf0WyTo4sA+l0Z0Q==
-Received: from SJ0PR04MB8406.namprd04.prod.outlook.com (2603:10b6:a03:3d3::14)
- by PH0PR04MB7415.namprd04.prod.outlook.com (2603:10b6:510:18::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 22:48:58 +0000
-Received: from SJ0PR04MB8406.namprd04.prod.outlook.com
- ([fe80::cbad:dfcc:82:7dbf]) by SJ0PR04MB8406.namprd04.prod.outlook.com
- ([fe80::cbad:dfcc:82:7dbf%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 22:48:57 +0000
-From: "Ousherovitch, Alex" <aousherovitch@rambus.com>
-To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>,
-	"Krishnamoorthy, Saravanakrishnan" <skrishnamoorthy@rambus.com>, "Wittenauer,
- Joel" <Joel.Wittenauer@cryptography.com>, "Nguyen, Thi" <thin@rambus.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller"
-	<davem@davemloft.net>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet
-	<corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
-	<rdunlap@infradead.org>
-CC: "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: RE: [PATCH v8 4/5] crypto: cmh - add AES skcipher/aead/cmac
-Thread-Topic: [PATCH v8 4/5] crypto: cmh - add AES skcipher/aead/cmac
-Thread-Index: AQHdcTPqNFe/xeHG9k+5MlgfGFK287cnnXqAgAm5S2A=
-Date: Mon, 16 Nov 2026 22:48:56 +0000
-Message-ID:
- <SJ0PR04MB8406B9447401F28535E76C10D77C2@SJ0PR04MB8406.namprd04.prod.outlook.com>
-References: <20261110-cmh-b4-a-v8-v8-0-4cea8ebc1d40@rambus.com>
- <20261110-cmh-b4-a-v8-v8-4-4cea8ebc1d40@rambus.com>
- <sashiko-outbox-207570@kernel.org>
-In-Reply-To: <sashiko-outbox-207570@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-dlp-product: dlpe-windows
-dlp-version: 11.14.1.396
-dlp-reaction: no-action
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=rambus.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR04MB8406:EE_|PH0PR04MB7415:EE_
-x-ms-office365-filtering-correlation-id: e9daf613-8b63-4a2c-45d0-08df4433cc3d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|18002099003|22082099003|921020|11063799006|56012099006|10067099003|4143699003|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261022105027099003|5023799004|38070700021;
-x-microsoft-antispam-message-info:
- wjFe95P5YzoMq3TI0/Y1Ze2SYpQxjDivNBdp0XaXGQtQNex+hUiF0DQ6IHcAnyCsIJka5uCuUPzq+poAbqbPrxbP5RE6hLrbodKr4a0uZDcj0hZfwAiB1b8CFGt2LiW8fl0+o8oWOfKoglJ6DWR97FLrH0wbcsRs41bWhQXzkN3ZeOTFfHCHa9CjOapetMgh+9zbnBKg9DG0RCNmno04oEQBl2xfhlbebllasuiRleAbi3CIDDIPw+0FWwgphOE46Kd3BjC73divME5z/XnAU+fJlorCI7RpAQ13z5mPOJxnJQXV+Hi3wkXG9JejPDQ+Pgbm2y0rLaYGqSqR2p8MVJroMXezBpqCnWz0vRKhUp9NkNZe9DuGKkh9T7Bjulk8/ZU0XcQv0rsOHDy3DynhEQCu+sVjhirOEAKRFgRc2b47TaAmZrq6kfwmRBsoGFNTbF5ul3woPBNfKC/ihpJqNCXVJDX+aVvsGM/VU0XUHrGX2PxggVAdFR2D8MUilG5IPPiV0F1MYWk2poDe7KM0VQTbNQJOgSzBsb6CXED8vANnqzimi6kL83XLNyEou5UCXqfigmtGgQPd7RClXVQBS2J3xBUaxAWhUeWFEY/YRwS/uqjyRTaXpIxMKqoxeTfAkJT3JgcEQJxlrryL9D7vGPBTn1Wjx0pd/LPEwTtJCshbOGBNK4/ivxX88z+o3rq70vXMXkqSKHWJqWSdxRBaBOqJ+NfumzQ6iFknegGqxcN4iuah6USEeauh1t/PPpZs
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR04MB8406.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(18002099003)(22082099003)(921020)(11063799006)(56012099006)(10067099003)(4143699003)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261022105027099003)(5023799004)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?UY4Gjkas0HpF5Mi9jkI71P5TfdzN6i4wudW2I7SXNXR5CDyzT4YtChtpyEMj?=
- =?us-ascii?Q?EzujPLokcxLnFdAY77JlsU5LG2eGkPSvKeDkZO5unq1dd1yBv4K+eIQMR1SG?=
- =?us-ascii?Q?l1HoE37KgJBomsCMg4J5/ASpBbl3An9TaWl9TsiNwKmrpo9+saEA36AMH4Dy?=
- =?us-ascii?Q?9G+Tk2XKc3Nr63zgHgpLWTWvvse6zYknLH8oGq5Yt1c37LsPLNu/aEHpRoBy?=
- =?us-ascii?Q?pGICbnfZqwG+NdySvahgnxFXpQMjj1ittZqRN17IhBL40LTE8hNotILaF/s5?=
- =?us-ascii?Q?OTnS6TO1VBU9kZSqWNaVX0w68oXiCMpCs/uDE6xqyc8BwS7OzNB1li2KHtIU?=
- =?us-ascii?Q?aC7GBTV/rZkvadXJTqKxFld9ILiO5dny28MIXBlHLk1ZbjJR+IEG2EVzPOBt?=
- =?us-ascii?Q?QrKK2fM5ealE7CjWCRKBfF1T3gGofUMU/Kn2AK4IzdJlx8l3HIaiBR3qUcRp?=
- =?us-ascii?Q?kqt59qGq3AYwrKoSHx72gZsdJ6FdpXerIBVCxLNDMw7+A4RosIQ9+dsclVZr?=
- =?us-ascii?Q?zJihcfOTYMFs8I/O1lirtTHf5mqWF0gF3TVgk3bCaZMc9b0Xuy4ZhEfoAeXI?=
- =?us-ascii?Q?R2fPlcdH8tD9s66pI76J+QH+iAxjwu+UeAJjugx/usl5pfUsIa90nZjj1MWz?=
- =?us-ascii?Q?ks8xc6gmthpYJ69AF8Ng/Du5Cuxqix+y6IWrK1chmFF32afHYWmpmT3q+V61?=
- =?us-ascii?Q?hDUdZeKqWNL1ZFvR4DL0agmUV9pdBswcr9NmzRRZ9kg1XrzZwlmOgnDP4shC?=
- =?us-ascii?Q?aq9f1HGts/e2TYIj983r1oW4iTO4C49OzZTQvA773i3WstyzmBZJX81UGhn5?=
- =?us-ascii?Q?VF9gzxW2qT83UYf4qE88UP4OBgVBnNxnDsa9FTb/PtAyfAR95F2Lhhq5bz+N?=
- =?us-ascii?Q?bAl/O/gKQw3J9ewi32/gb2wvR6xb2Bo26RLjrzjdmQ+OuJF/Lg9N22RU0WT+?=
- =?us-ascii?Q?9Dl0ScW4n0pSUaUjcNMijotVMORBbWaiiYHg/HfWA/oAGiVIM+0WvUOqYFNC?=
- =?us-ascii?Q?Jj/3BZCSzi/QKo4qKzTjxaGSnAzeZuRUamCDWVsPXVvoYyWLMdJ0yjaYWIZh?=
- =?us-ascii?Q?2S4z99wG8weqooxyrLi55/XeEN7zi7+5FodQ8cuBdS+WTIRNOg07lolqbyrV?=
- =?us-ascii?Q?cueBasQxBkLPL7FH/XzSziLw8IhmO6OuQnzHIzSzavegD5WN2PVGuos6yRqm?=
- =?us-ascii?Q?W8dul/o6cs/SEZchKuWE7xe/HZ7dSt8C876hQHfRHcNHuXyBbZcP7ghyppN7?=
- =?us-ascii?Q?7tLipC8sg8rWM3TWO9M7Qux2UxmmxHp4/M23qVUlSy1k7nZwZjnRvHHtxJ0K?=
- =?us-ascii?Q?c1NUbC1R3slMKBmYf1prg62t4dvC+uPuvOqbySaT77fBoBpbyr4Wryc9wc9g?=
- =?us-ascii?Q?1X0lkCkgmSm4zzenrSJ8fjiXCbIUz7HhDKYzvkLqTK9NH+6JyLF1408S0jgn?=
- =?us-ascii?Q?FlhdK4jnF5zIbZ2xhBQt2XRV7EGvYsQJeYC2k1rXsDk+lm27ktBZf+bb5j/y?=
- =?us-ascii?Q?yIvKT6+a2edtMiBTz9cn/gKD2x0uE+7Egl9i2pdqzJb83t2qDADWgC55AyJg?=
- =?us-ascii?Q?DoVINUXDM0n+iBcnXUvlROu3SejFg38HnyqIMLBNZXoTngW7eMzkNO6NP870?=
- =?us-ascii?Q?mCJm2NI6p75YQm/eJjKbNclvtOQIqNIqbPhRcrxiLSRUPL5W+P17TNSIC18h?=
- =?us-ascii?Q?zICKubQ2Bll+0NK4KM8XXCJP4b4ljFIII1Mud8f71Tn2YrxXba5Wc4PaJti1?=
- =?us-ascii?Q?DmPJb7FpIg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=Sm77vU/r;
+	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=NoaC/YnX
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=To:Message-Id:Date:Subject:From; t=1794869432; bh=FRTZ0UZ+O5UMbm2peSSpDUx
+	iOixTmh4Ad8SIaAVLsT8=; b=Sm77vU/r7NfX+5HnVXq1nuqVkjmtScptK3wHFoEULPZxXDB0Cc
+	n6RVdeMggm29fJWwtFCPz70nN8goey/qhaBA==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=To:Message-Id:Date:Subject:From; t=1794869432; bh=FRTZ0UZ+O5UMbm2peSSpDUx
+	iOixTmh4Ad8SIaAVLsT8=; b=NoaC/YnX38nou3GqsnFmEyfLDFVgDaZ8p4gkesAUrSctYCi7a4
+	cDn0WmO1qnSKYJNOELvtlcEC4AKFHv32ZA9znHVuEbaeHFIvCURWmxWQNMeSSokOEWPaIYE8k4U
+	CmLi6cQdKUGZfx/L28icGGIsB3MsE7M9zaUlArehzdrMHvKqBhB/SWmIVvTvEaUI2IPVqKONY8u
+	8UxwCc7A0m71j/XOjqS4Qf3BLZs83iLABmuqc6wvMJZmCOfyJTCL2WFvL/cJIGGv129HKV4FwZv
+	1Lq8i+r19TvUnhHjM+ZhYCaucZJ8RQzk74b7VRfLUYMGMsNHtttVLfQI45rnGTtoZfw==;
+From: erebion <erebion@erebion.eu>
+Subject: [PATCH v5 00/12] Enable more nodes for the Xperia 10 III
+Date: Mon, 16 Nov 2026 23:50:30 +0100
+Message-Id: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -156,34 +60,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: rambus.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR04MB8406.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9daf613-8b63-4a2c-45d0-08df4433cc3d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 22:48:57.0414
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: g0SCV4C9IYO0WPpFJy85oPW5pUO7OIeyY3358NnrxTa2BYFOO/SII6K6OfjyVFwnWhcwpYbPcf3c8QVI0l3MJtChORqFRHZdCt9G7BW1DYA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR04MB7415
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XP3U7DMAwF4FeZck2m2Gn6syveA3FRJx4LUteSt
+ NXQ1HfH6xACrRKXVo4/n1xV5hQ5q8PuqhLPMcf+LIN72il/as9vrGOQWaHB0tTY6CFcEKyehjw
+ mbjttdTBUm2NVNORIyd6Q+Bgvq/nyep/zRO/sxxv0nUj8Mcmx8R5T1GbWvu+6OB52c7W3OnlQt
+ +1TzGOfPteCM6zhtUuD5UaXGbTRIK8eanIewrNcIvnTnqeVm/FfAoWgogRky+Rs+UDYHwLA4BZ
+ hhfDBW+KmDOiqB6L4RcjuBlEIUZAB70xbI/g/xLIsX2e5Rbi6AQAA
+X-Change-ID: 20260829-pdx213-upstream-3-d0b80f749b5b
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ phone-devel@vger.kernel.org, erebion <erebion@erebion.eu>, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794869432; l=4197;
+ i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
+ bh=B6kkZUwaP6FohDG2oMa6B64oG+I7IHAtHRL6P3bj/+E=;
+ b=WlJVwIV1K2qaE4D/gTcTEsiShpIVngO8dbB221L0mtm2FAyaXH+5OLZhYs25r1UuoMO2wlZ0T
+ OoxHBlLfH7DBn+3RR0miXE8Jzxo9L4uNNIrfr2LV1qYcmbwJds88RrS
+X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
+ pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
-On 10/11/2026 18:18, sashiko-bot@kernel.org wrote:
-> - [Critical] crypto: cmh: stack overflow in ahash_request_zero() via
->   missing tfm->fb
-> - [Medium] crypto: cmh: missing CRYPTO_ALG_ASYNC mask in
->   cmh_aes_aead_init_tfm()
+Enable some more nodes for the Xperia 10 III.
 
-The ccm(aes) fallback mask is fixed for v9.
+Signed-off-by: erebion <erebion@erebion.eu>
+---
+Changes in v5:
+- sort some nodes alphabetically
+- fix firmware paths to use codename "lena" instead of "pdx213" for consistency with other device trees
+- PM6150L thermals: fix commit message after removing RFC_CAM_THERM in v4
+- Link to v4: https://patch.msgid.link/20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu
 
-The overrun needs a caller to pass this cmac(aes) transform to
-crypto_hash_digest() or put a request for it on the stack, and nothing
-in-tree does: the only caller of crypto_hash_digest() is testmgr, on the
-generic implementation it compares against; the HASH_FBREQ_ON_STACK()
-users (aspeed, qce) use their own transforms; and the hmac template
-rejects a keyed inner hash such as cmac.
+Changes in v4:
+- &pm6150l_flash: fix extra zero for led-max-microamp value accidentally added in v3 (this was setting the max value 10x to high), remove Lua's Reviewed-by
+- rename touch-en-regulator patch: fix rebase mishap and remove a regulator that's not part of this patch series, remove Konrad's Reviewed-by
+- IPA: remove redundant properties that are now set in sm6350-lena board DTS, remove Luca's Reviewed-by
+- fix pm7250b thermals after a rebase mishap
+- pm8350: disable PON, as pm6350 already has it enabled, remove Konrad's Reviewed-by
+- rear_cam_sensor: fix gpio to use correct one
+- remove includes that aren't actually used
+- re-order alphabetically: &pm6150l_adc before &pm6150l_gpios
+- remove a superfluous tab at the closing brace of rear-cam-flash-therm@2
+- enable remaining i2c busses: fix rebase mishap
+- fix firmware paths to use upper-case "Sony" instead of lower-case "sony" for consistency with other DTs, reset Luca's Reviewed-by
+- remove rear_cam_sensor, as it does not work and I haven't found the issue, will submit later when I get it actually working
+- Link to v3: https://patch.msgid.link/20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu
 
-Setting ->fb from the driver, as proposed, would have the driver manage
-state the crypto core owns, so v9 keeps the driver-allocated fallback.
+Changes in v3:
+- re-order some properties, generic properties first, then qcom,*
+- &pm6150l_flash: fix led-max-microamp value
+- rename touch-en-regulator to regulator-touch-en (to keep any future fixed-regulator sorted together as well)
+- Bluetooth: remove incorrect property that does not exist
+- Bluetooth, &qup_uart1_cts: do not overwrite a bias-disable with bias-bus-hold as it is not necessary
+- &pm7250b_vbus: fix regulator-max-microamp value
+- Remove comment from reserved-memory as suggested by Konrad Dybcio
+- Squashed the patch enabling IPA into the one enabling ADSP, CDSP & MPSS, as suggested by Luca Weiss (therefore not adding the Reviewed-by from Konrad Dybcio)
+- Configure thermals for PMK8350, PM7250B, PM650L as used in pdx213
+- Enable remaining i2c busses
+- Link to v2: https://patch.msgid.link/20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu
 
-Alex
+Changes in v2:
+- Remove panel_reset_pin that shouldn't be part of this patch series
+- Remove incorrect reg from mpss
+- Fix conflicting bias pinctrl, as pinctrl nodes from sm6350.dtsi already contain a bias-* property
+- Fix incorrect unit name in &pmk8350_vadc
+- Link to v1: https://patch.msgid.link/20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+erebion (12):
+      arm64: dts: qcom: sm6350-lena: Add flash LED
+      arm64: dts: qcom: sm6350-lena: rename touch-en-regulator
+      arm64: dts: qcom: sm6350-lena: Add qcom,rmtfs-mem node
+      arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP, IPA & MPSS
+      arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+      arm64: dts: qcom: sm6350-lena: Enable wifi
+      arm64: dts: qcom: sm6350-lena: Enable PM7250B
+      arm64: dts: qcom: sm6350-lena: Enable PMK8350
+      arm64: dts: qcom: sm6350-lena: Add PM7250B thermals
+      arm64: dts: qcom: sm6350-lena: Add PMK8350 thermals
+      arm64: dts: qcom: sm6350-lena: Add PM6150L thermals
+      arm64: dts: qcom: sm6350-lena: enable remaining i2c busses
+
+ .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 457 ++++++++++++++++++++-
+ 1 file changed, 456 insertions(+), 1 deletion(-)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20260829-pdx213-upstream-3-d0b80f749b5b
+
+Best regards,
+--  
+erebion <erebion@erebion.eu>
+
