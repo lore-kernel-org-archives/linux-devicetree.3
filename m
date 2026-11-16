@@ -1,55 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794841555;
-	b=vXAfvmR2ZXVFkhUgob1wbB2sBW8dZxPEYZVNyys89a26rwVKiOU3Ou/nAgttadiBtx5+
-	 k6W+/3tc85fe9P8tbdOcf+7vx+RFlZhv0Q6JeGlkRWfW05QAu3JbumxYRzAsr1E6OpCMe
-	 5VrRAlWzNemehIM/B7Eww/FQeNaHr+cSdo/DR2WgcZpqB5haNAtN9W6gsKKXKeiRygs0p
-	 9sZ4v9Tl+lB8vqzrv38O+0NBy5yiAd7bsIYo4LCsrTkm7GTqMeRmQhDJIqU9yCG7y4WCK
-	 vVuAuU47qTyfl9S6IHrxGeL4Z/jPKQVj/TTTUfLoKVU6o0IiB3WYWIYZ/DGK/EH8brA==
+	t=1794841602;
+	b=jejx8QJ3Qx5Ybm8UDI0tyhwswvl5MWSqQokEOu1yus+JZ/V94LqtmHYY5t4wWlUmMCAI
+	 21au9P1zMYoOHZSm/yKzETktl8cY4A7PH53UVFi2DHZzjXZDcDvfWGgaaiUvxFUBf40lW
+	 3tSECsdf9D0WAWOiAsdch80mY1b+7wpmdHJTq+YAXlzF+XeAST92+331bRJp0n8ERwImE
+	 +BrLZhommxjarddfAr2FkV6CkWq6QgaQQHIX1vTZLXShI0KJBiUHH6GxyJ+7M5IyD6hdO
+	 NKRIIW5zRETHp2izk5464jxT9eQQnKjMbS5Y4hqUNvGHfYQgoKFyL0qBBAApADF0u5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841555;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=OLWrs6wHPjIfz7q4sqV0vSP15dB9qR0xZiDxNkgRnPs=;
-	b=j9Ik0D/z3IAhv8/LXIb6TFVBKMFKI1FajDEQSn34DzrHOEumWiCIpBb8Ysg9ubgkLAeM
-	 /VbhfgrbBSTz3C7XZck7YTRFKK5fJWZvecH/YzOt3KgUaFIQ4rpP5Id/loerqRmIsZnDJ
-	 Fgm+5I8Z4/OvDfJO7TARzOgq4HrhJ+j9ISYG6r0t4oE7Nj8KvuDziMrPFN/ckwz/81yfk
-	 fWw5lq5wwW9pwPqkhQHP68lVrCTtaRpRM7I+I96lHDpj5igUpAqi8SFW3bQ8fTyN0MSkt
-	 qmrYQ6ecdvS61YtXasDv6qSey2ZXlj22VaVGYy61Q71ilrSoJ4+NSjhFs3iiDhu6bpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841602;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=PcrkZrIiBXHxrgXY/IdmAR4Eo2KV+jR7a2aL3fB5faE=;
+	b=BVrHgMkQxFHy1L99dAto2UNwdwGpVKJHQGwlrMf8Ki8tZ1EdGSenbTUdFwUFRpbGGh4t
+	 TiQ+paqfSMNskvFEUzAb/n4po1o0WOQoH9ex6YVGjc6ueYbWSF4pfBxwCjY+Rw3GULTpP
+	 gSk57T8S8a5bPTxdVwowXoA+Hh9ESkSCYOBGewVRSW2Ki2yg7ooZnmgCAsl7l06okQnoM
+	 5U+Dl73kU4n4JxOySHoW2eLN7Sd8qd6ziJqvpbzZRJrVJUtN9GbJkZ9rqKsZRzVzci4+t
+	 TQK2gQrT+mBWR3HySs9m4dXtnu27Xj/b8HiaGN3aR1Au1DJUWFOTgkwGAqSEfrbE7Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFWU1dbh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ZRvd1OQ2;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C1C606A333
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 15:05:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754DF606A31C;
+	Mon, 16 Nov 2026 15:06:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 754DF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFWU1dbh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F111F000CF
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 15:05:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794841555;
-	bh=OLWrs6wHPjIfz7q4sqV0vSP15dB9qR0xZiDxNkgRnPs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FFWU1dbhaoZvQa91GRdHI8OMpKROvy42/LGrcfuQXbdf73zihIiGdYVwNZODlPIbV
-	 Q5czS1aAFUldNovu3EQYEfoc8NHu+qSDhm6v6a8eCG4NjUp76kfyw8lV9DsKKVk32O
-	 CcIoLaAkJxaGHLILcqeNkWcM46hNELFAqOhyLM6uSFD20cXkC38iqTJWOeahtcSyYd
-	 gl0YXDYAHTXv1NBld07Xow1K8b2g7I8++GShq7P5vme83fnO0wDP07J8foPfiJr0EU
-	 +rycpV7xKfNuwSFM0D1jd7RIE4w+CF+RlYtMpdD4VUI53TH4XpcHTY33zunLN8yGxa
-	 pKvVYF2ayle9Q==
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-170135e43c7so5639085c88.0
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:05:54 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGN1JmdlsxDBJbiwtdVNgF2826UZp4FGraGdqmuZ7NNTypkuqUR6Rix2dH06PZ67LxqDMuf7qRPMSXq@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xGBtG80dQyzOFxTl93XNzJSD8IQR18vmu0yDkC72nF0/ZMzFE
-	GzsNIoCR+0qER/4iTzBZ+yfuLB3ajJlZU9/V9w2YO+qPFEToh/pr1erYIzHQ0H/vtBe9X3Ab8x6
-	YGQDDt6aXA/BbQ0qE0DSmJgZwheJ5uw==
-X-Received: by 2002:a05:7022:170a:b0:1b3:b3de:9232 with SMTP id
- a92af1059eb24-1b503115668mr9409313c88.9.1794841554483; Mon, 16 Nov 2026
- 07:05:54 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ZRvd1OQ2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=PcrkZrIiBXHxrgXY/IdmAR4Eo2KV+jR7a2aL3fB5faE=; b=ZRvd1OQ2dIKEtcE9W7VWS/zCgW
+	WEbntPHrnnXHvvbSJHIRA0ymOuIloYJXtRh/JIVWhFT3uA68TKL3rInhRhN3ZfJRz3x9QVF52NsFO
+	nTmu4+n67qv+Di4GFsOIHmBQ1XDONzzPHaYT2s6d6mkrCJ32+TLOM27KZnsrFLLkniNY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xSyHp-00GwqG-RY; Mon, 16 Nov 2026 16:06:25 +0100
+Date: Mon, 16 Nov 2026 16:06:25 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/8] dt-bindings: net: Add MDIO demultiplexer
+Message-ID: <16ecb3ac-7876-4db5-9168-5ac9bf31d4b7@lunn.ch>
+References: <20261116135442.4827-1-jszhang@kernel.org>
+ <20261116135442.4827-2-jszhang@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,48 +74,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260921113914.779393-1-l.scorcia@gmail.com> <20260921113914.779393-3-l.scorcia@gmail.com>
-In-Reply-To: <20260921113914.779393-3-l.scorcia@gmail.com>
-From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Date: Mon, 16 Nov 2026 15:05:41 +0000
-X-Gmail-Original-Message-ID: <CAAOTY_8o7CQQ=GiRX9hiPOjWs=DMP_XSqhpz21d0cN_w3E5LdA@mail.gmail.com>
-X-Gm-Features: AclHuK__YOxqBRiQVL1fHhE6d4s71_dwL_BIXyQUunv6tKh3Bya6r5Lxps8nc8A
-Message-ID: <CAAOTY_8o7CQQ=GiRX9hiPOjWs=DMP_XSqhpz21d0cN_w3E5LdA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/4] drm/mediatek: Add support for mt8167 Digital
- Parallel Interface
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>, 
-	Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116135442.4827-2-jszhang@kernel.org>
 
-Luca Leonardo Scorcia <l.scorcia@gmail.com> =E6=96=BC 2026=E5=B9=B49=E6=9C=
-=8821=E6=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8A=E5=8D=8811:39=E5=AF=AB=E9=81=93=
-=EF=BC=9A
->
-> Add support for the two DPI blocks found in the mt8167 SoCs. One of them
-> can be routed to a DPI connector and another is directly connected to the
-> HDMI IP.
+On Mon, Nov 16, 2026 at 09:54:35PM +0800, Jisheng Zhang wrote:
+> Assume we have the following implementation:
+>           ----------
+>           |mmio reg|
+> 	  ----------
+>              |
+>  --------    |      -------
+>  | MAC0 |--MDIO-----| PHY |
+>  -------- |     |   -------
+>           |     |
+>  -------- |     |   -------
+>  | MAC1 |--     ----| PHY |
+>  --------           -------
+> 
+> Both MAC0 and MAC1 have MDIO bus masters, and tie together to
+> a single set of clock and data lines, which go to some PHYs. While
+> there's a mmio reg to control which MAC mdio master can operate
+> the single mdio clock and data lines, so only one MAC can operate
+> the mdio clock and data lines.
 
-Applied to mediatek-drm-next [1], thanks.
+How does this differ from pinmux?
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
-log/?h=3Dmediatek-drm-next
-
-Regards,
-Chun-Kuang.
-
->
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
-ora.com>
-> ---
+    Andrew
