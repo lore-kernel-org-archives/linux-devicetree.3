@@ -1,63 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794852050;
-	b=kPp8B5KDD3DGpobmoxtd/XkBvyo6ZiA5cxsYVxfdOSdgA6R0Xr8wqEG/RRzu1eIShYTO
-	 GHsArt7402wGZ+Qhk1+P+769I9HTuBw42tTKLZDbCz3xKAi5oU16oE1TPgZOTf27pVbpm
-	 7fqqr2Lz8E1TVDuUjOuOBwwGP2Iu9E52kHABsPXbfjfUxvKvTGuYk2dkjnyVudYhqCbuN
-	 Azh3BeXc9pPSUck+i/85XdEK43EPsM24FgHmEeCbDABxzaGfpbdSSCI5PwuQongvScFo2
-	 Fruh7WqMmKy9S50N7ZO1ipsFej29PZd1elB368Oqia/Ycs7Kg5E1RsM8PeN5itC2gcw==
+	t=1794852065;
+	b=WZXrdi6gjdIAGJymT+3OBEvuCn8UNZTdZQIUTX4odHjoe5wiPJuA9TaTt1c96keElvIc
+	 k1kr1uKY9Q+/2/kltxUbPjyZfF4MBWLP4h+bHpbF5CpTbGz50BY7riO+kRYpk3et99X7T
+	 /fUUdcbhNlMAaXRMj793dAUx1qCN3R8kwP4Rca5ikNi7I0ARujMERhEPbqBwc6vYkEagm
+	 uGtPJKawmWqNTmNeb7EqRZaiMgsZiV14MaGHl3CJXE/ninP5RvxU/oyiUmQxkhkGOqsIO
+	 b1cB6Nzl9mUk1lTFVXWgYNshFQpr38pyTm6MDJkTayJFA7yWuuPg2zjmblhMPS0YVDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794852050;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/zjGa4vftK22+4ZgrHy8l4SQJaqBEhraQH3lTrIqopY=;
-	b=qHMZgUzQFygSC7ujAc++PD9dLQdPr0tYBw3yeV79e81NtK5qfwjkfgZ3Ksvk7YWsno6a
-	 82dQZ/6d/babAv1hxY1tbCZCmxBJBpm+78gr1EtwmjMWrV7YrCIvbLBr4tZ/6PEv2QL+L
-	 Z8ND2tkHD0Xeha8c8QSpFIp4rGdlsQUGVysgDMWiBKhsdY+E3emSN8NfAOo/fo+JwaKd9
-	 NCl+2fv5EpNU+/+f6InF7UbKMans41FMahWv8zw4xeuHfrYtJmx+IzAmPCfBeYe4QxI8h
-	 IbA9SyQElYb6tUMRlpnCp+DdfpVzCaeBmpVic32eVsNNetCZ/H/h6djgALoYgalMVHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794852065;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=Ltq0pQI/ZMNBgnaD/q0Y2ypyV3mBPASt3xgWnkZCEc8=;
+	b=yZJg6zo/EvOzt+LavI//KUQ/VplfHEDU0allsjWMkubZslcbBowj6St2VKiqAhamDmE+
+	 Tb6N6qK6uMJvDBEXUMAxg3HhWPC4uv0Wef+7R5dfxiFqGz7qp9D5dQ8rNgELj8z9lHpBc
+	 38NcYAUCcjbmqRdv/y8uOtT/Q6sgbQmggeTCdr/zKa3oKk41hbSiWH5neUe0V41n9j66H
+	 LxrMb8DlcpK2hiOjw8QF6kXu9tuqgjydUDY5ZvSo1vV7Cvr+l0Uih5pNfFUIQwOxDzZFM
+	 VkYJnsMB/zm33HUMO+mUp/jIPi82U5OcnBurUROGxukaUzxE3lhGnQNEl/oGsgkGu4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQZXYBNC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ckt3u3FU;
+	arc=none smtp.remote-ip=35.89.44.35
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39D1606A33E;
-	Mon, 16 Nov 2026 18:00:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC32606A88A
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 18:01:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABC32606A88A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQZXYBNC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37751F000CC;
-	Mon, 16 Nov 2026 18:00:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794852049;
-	bh=/zjGa4vftK22+4ZgrHy8l4SQJaqBEhraQH3lTrIqopY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VQZXYBNCgDxZbME4v+OnHbx25Z8RhlKG494y+pte8zX6Dm1SiTZEfzITRRljf0Ovo
-	 3j3vqbw9ZhWSbSKQMg+2jTc0h94/5qeeXAq8B0Du4RqASjJoleorgylrO0YSRnXlQ1
-	 aO61v804YcbLMM7uAQ1xDBdxJ2jTNxY0n1WAMNdHPfBy6Xd1O/Of2iaJ6p8LOiq3JG
-	 0uUMDxsRVwjqkHgOS0XiQDUx1PoofEnD4gfSz+YobhcFLLqA7EsDNQhhdDbA0fs7lx
-	 R5gA3LcnJRjO13+KidknV6u1qbgZTNrW4hAopnoPh/mKHuAJ53GS1cr5ZV0ZMVMcQj
-	 lhqHXIRIU50Kg==
-Date: Mon, 16 Nov 2026 18:00:43 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Mina Hui-Min Chou <minachou@andestech.com>, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	randolph@andestech.com, cyyang772@andestech.com,
-	tim609@andestech.com, az70021@gmail.com
-Subject: Re: [PATCH v2 12/19] dt-bindings: cache: andestech: update schema
- for generic LLC support
-Message-ID: <20261116-deduct-emphasize-b2482186cfcb@spud>
-References: <20261113071143.1446167-1-minachou@andestech.com>
- <20261113071143.1446167-13-minachou@andestech.com>
- <20261113-emporium-provolone-0e7b0e39c97a@spud>
- <20261116-crazy-adventurous-cockatrice-61c62b@quoll>
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ckt3u3FU
+Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
+	by cmsmtp with ESMTPS
+	id T0zrxOLYKRiNxT10pxPgO3; Mon, 16 Nov 2026 18:01:04 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id T10kxTEWMxqjjT10kxHTfe; Mon, 16 Nov 2026 18:00:58 +0000
+X-Authority-Analysis: v=2.4 cv=bZxrUPPB c=1 sm=1 tr=0 ts=6afb44df
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=FXjISBkA9uUpg2xqjyUA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=Ltq0pQI/ZMNBgnaD/q0Y2ypyV3mBPASt3xgWnkZCEc8=; b=ckt3u3FU8wfb
+	UNReXeL/yWpvxp7Gv6a4+GlHAJ9RgpyZIpwyNK9ihajCUsUQLoO2m0quk7/C13G8VFQQ6XGVwP+9v
+	GIjU7fKqx9AUxKMmKJ1cCO+oX0RQVh2qRWXMie0yJmWYsMxTGfB5mYGgvLj9UI0Xilufq0CHPZoXW
+	YHusOg/Ax/r2ast6ujL+5I7DoMQwHX0Ssx8VaD6mWqSx7uENfgBlb/mJlptUN7j3r0s581rRLxgNx
+	8TZuFBuqVPjzOGL1BXsDLeBJp5JIP89BLlBj5rTYki+S6sqKp5hCv4zK+JwHK5XvltARfThKmpvnn
+	syQmznHJBO+/yNwkdDUEoA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:58046)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xT10i-00000001Aes-1XM0;
+	Mon, 16 Nov 2026 23:30:56 +0530
+Message-ID: <53492f71-9a31-4093-8c61-fb410cf44d5a@roeck-us.net>
+Date: Mon, 16 Nov 2026 10:00:54 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,176 +75,153 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZgC/w/fRk9AwVDqJ"
-Content-Disposition: inline
-In-Reply-To: <20261116-crazy-adventurous-cockatrice-61c62b@quoll>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 06/15] ARM: stm32: enable arm smc watchdog on
+ stm32mp1xx
+To: Antonio Borneo <antonio.borneo@foss.st.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: linux-watchdog@vger.kernel.org,
+ =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
+ Amelie Delaunay <amelie.delaunay@foss.st.com>,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261116132416.1184447-1-antonio.borneo@foss.st.com>
+ <20261116132416.1184447-7-antonio.borneo@foss.st.com>
+ <32157be8-28c1-403d-8485-96c1fe4543ef@roeck-us.net>
+ <2628f6e623996cda73a8cad46d451a629e749462.camel@foss.st.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <2628f6e623996cda73a8cad46d451a629e749462.camel@foss.st.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xT10i-00000001Aes-1XM0
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:58046
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 8
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfFkyNZsXtf3GutROY1Vzv+qaWm8piGMEiQKw2T7wEJQeKtRE1jfE2k8qqyQPXJXj8lxpxeHnEVFLdvskdCchR2cshii2Nl6YZNdDWv8vEjhjxLFEbOGH
+ fGXNTLRrRkvGF0COt/BEyFF6hphmZv8EWyroHDD49Esy/GqMBJboK8GM+IZgOjJLRcJzQM0lRZOnNOxCfOyEE6T5uXkFBTVYuGIor6b/obUOXX54r0s1+NRZ
 
---ZgC/w/fRk9AwVDqJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 11/16/26 08:45, Antonio Borneo wrote:
+> On Mon, 2026-11-16 at 06:33 -0800, Guenter Roeck wrote:
+>> On 11/16/26 05:24, Antonio Borneo wrote:
+>>> The watchdog IWDG1 is secure by default on STM32MP1xx SoCs.
+>>> On boards that keep it secure, Linux must use the arm,smc-wdt
+>>> driver to ping it.
+>>>
+>>> Enable the driver for mach-stm32 when ARCH_MULTI_V7 is enabled.
+>>>
+>>
+>> As mentioned before, that doesn't just enable it for STM32MP1xx SoCs,
+>> it force-enables it for all boards running ARCH_MULTI_V7. It also
+>> goes well beyond the current scope of "if ARCH_MULTI_V7" configurations.
+>> I would suggest NACK for that reason, but that isn't my call to make.
+>>
+>> Guenter
+> 
+> Hi Guenter,
+> 
+> sorry if I take more of your time on this, but I haven't got your comments on
+> my reply to this patch as v3 04/13.
+> 
+> On platforms STM32MP1xx the trusted firmware starts the watchdog.
+> Since on such platforms the defconfig is multi_v7_defconfig, the upstream kernel
+> configured with multi_v7_defconfig would need ARM_SMC_WATCHDOG to prevent a reset
+> during kernel boot.
+> 
+> Clearly, my wish is to have an upstream kernel booting properly with defconfig.
+> 
+> arch/arm/mach-stm32/Kconfig handles two series of ARCH_STM32:
+> - the deprecated ARMv7M platforms that use stm32_defconfig;
+> - the ARMv7A platforms that use multi_v7_defconfig.
+> 
+> In this patch the condition 'if ARCH_MULTI_V7' is to enable the watchdog only
+> on ARMv7A, not on ARMv7M.
+> 
+> Clearly any driver enabled for ARCH_STM32 will automatically be enabled for
+> the other SoC that rely on the same defconfig.
+> 
+> Also reworking this patch by moving the change in drivers/watchdog/Kconfig as
+> 
+>   config ARM_SMC_WATCHDOG
+> +	default y if (ARCH_STM32 && ARCH_MULTI_V7)
+> 
+> would still result in the arm SMC watchdog enabled for all the SoC that use
+> multi_v7_defconfig.
+> 
+> What would be your suggestion to progress on this topic?
+> 
 
-On Mon, Nov 16, 2026 at 01:05:52PM +0100, Krzysztof Kozlowski wrote:
-> On Fri, Nov 13, 2026 at 02:05:29PM +0000, Conor Dooley wrote:
-> > On Fri, Nov 13, 2026 at 03:11:36PM +0800, Mina Hui-Min Chou wrote:
-> > > The last level cache controller of Andes cores is not specific to
-> > > AX45MP. Other Andes cores, such as the A27L2, use the same controller
-> > > with the same register interface, but the binding only accepts
-> > > andestech,ax45mp-cache. Add andestech,llcache for them, and describe
-> > > the binding as an Andes last level cache rather than an AX45MP L2
-> > > cache.
-> > >=20
-> > > The cache-level, cache-sets and cache-size constraints describe the
-> > > AX45MP L2 cache, so apply them to andestech,ax45mp-cache only. The LLC
-> > > of other Andes cores can be level 3 and have other geometries, so
-> > > allow cache-level 3 and require cache-sets only for AX45MP. Match
-> > > renesas,r9a07g043f-ax45mp-cache explicitly instead of through the else
-> > > branch, which would otherwise also apply to andestech,llcache.
-> > >=20
-> > > Also add an example for andestech,llcache, and add myself as a
-> > > maintainer of the binding.
-> > >=20
-> > > Signed-off-by: Mina Hui-Min Chou <minachou@andestech.com>
-> > > ---
-> > >  .../cache/andestech,ax45mp-cache.yaml         | 71 ++++++++++++++---=
---
-> > >  1 file changed, 54 insertions(+), 17 deletions(-)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/cache/andestech,ax45mp=
--cache.yaml b/Documentation/devicetree/bindings/cache/andestech,ax45mp-cach=
-e.yaml
-> > > index b135ffa4ab6b..da9688cc95f7 100644
-> > > --- a/Documentation/devicetree/bindings/cache/andestech,ax45mp-cache.=
-yaml
-> > > +++ b/Documentation/devicetree/bindings/cache/andestech,ax45mp-cache.=
-yaml
-> > > @@ -5,14 +5,15 @@
-> > >  $id: http://devicetree.org/schemas/cache/andestech,ax45mp-cache.yaml#
-> > >  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > =20
-> > > -title: Andestech AX45MP L2 Cache Controller
-> > > +title: Andestech Last Level Cache Controller
-> > > =20
-> > >  maintainers:
-> > >    - Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > > +  - Mina Hui-Min Chou <minachou@andestech.com>
-> > > =20
-> > >  description:
-> > > -  A level-2 cache (L2C) is used to improve the system performance by=
- providing
-> > > -  a large amount of cache line entries and reasonable access delays.=
- The L2C
-> > > +  A last level cache (LLC) is used to improve the system performance=
- by providing
-> > > +  a large amount of cache line entries and reasonable access delays.=
- The LLC
-> > >    is shared between cores, and a non-inclusive non-exclusive policy =
-is used.
-> > > =20
-> > >  select:
-> > > @@ -21,18 +22,23 @@ select:
-> > >        contains:
-> > >          enum:
-> > >            - andestech,ax45mp-cache
-> > > +          - andestech,llcache
-> > > =20
-> > >    required:
-> > >      - compatible
-> > > =20
-> > >  properties:
-> > >    compatible:
-> > > -    items:
-> > > -      - enum:
-> > > -          - andestech,qilai-ax45mp-cache
-> > > -          - renesas,r9a07g043f-ax45mp-cache
-> > > -      - const: andestech,ax45mp-cache
-> > > -      - const: cache
-> > > +    oneOf:
-> > > +      - items:
-> > > +          - enum:
-> > > +              - andestech,qilai-ax45mp-cache
-> > > +              - renesas,r9a07g043f-ax45mp-cache
-> > > +          - const: andestech,ax45mp-cache
-> > > +          - const: cache
->=20
-> Illogical split of patches. If this was to stay, then THIS commit is the
-> reason to rename so rename would happen here, not in some time in the
-> future. Same for everything you do.
->=20
-> Organize your patches correctly, not doing things half-baked... but
-> anyway do not rename files just because you added one compatible.
->=20
->=20
-> > > +      - items:
-> > > +          - const: andestech,llcache
-> > > +          - const: cache
-> >=20
-> > Device specific compatibles are mandatory. I would accept this patch
-> > with a
-> >           - not: {}
-> >             description: Need a SoC specific compatible
-> > like the safexcel eip binding.
->=20
-> But why all others cannot use ax45mp as fallback? Is this really a
-> generic block among multiple generations of SoCs?
+No. As you say yourself above, "the upstream kernel configured with
+multi_v7_defconfig would need ARM_SMC_WATCHDOG to prevent a reset during
+kernel boot". I fail to understand why you don't just add
+"CONFIG_ARM_SMC_WATCHDOG=m" to multi_v7_defconfig and instead want to
+force every single platform using multi_v7_defconfig to build this driver
+into the kernel even though almost all of them won't need (or want) it.
 
-I think it's fairly likely that it is.
-I do like having constraints that restrict cache-sets etc to what the
-device can actually do, but using ax45mp as a fallback doesn't prevent
-that, since the constraints are really set by the soc.
->=20
-> What sort of arguments from contributors are to support that?
->=20
->=20
-> >=20
-> > pw-bot: changes-requested
-> >=20
-> > Thanks,
-> > Conor.
-> >=20
-> >=20
-> > > =20
-> > >    reg:
-> > >      maxItems: 1
-> > > @@ -44,13 +50,11 @@ properties:
-> > >      const: 64
-> > > =20
-> > >    cache-level:
-> > > -    const: 2
-> > > +    enum: [2, 3]
-> > > =20
-> > > -  cache-sets:
-> > > -    enum: [1024, 2048]
-> > > +  cache-sets: true
-> > > =20
-> > > -  cache-size:
-> > > -    enum: [131072, 262144, 524288, 1048576, 2097152]
-> > > +  cache-size: true
->=20
->=20
-> See writing bindings. Widest constraints stay here.
+Guenter
 
-I think how this should be done probably depends on just how much
-variance there is intended to be. How many more configurations do you
-envisage here Mina, and do they follow a similar scheme of being
-multiples of 128 KiB?
-
-
->=20
-> Best regards,
-> Krzysztof
->=20
-
---ZgC/w/fRk9AwVDqJ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavtEywAKCRB4tDGHoIJi
-0gsoAP9cJXD82VhaI9dfpcUpcm/x197IG+YoD5kkHOlZoagMmAEArDNq7L49yZ7v
-jRBGmhrDCdVo05rVz+7tQnUfm4nQugk=
-=GWzB
------END PGP SIGNATURE-----
-
---ZgC/w/fRk9AwVDqJ--
