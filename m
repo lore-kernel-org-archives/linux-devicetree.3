@@ -1,55 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839625;
-	b=4iORwD/tNg4RAhaTHJoNBR4NQgb5W+77+BK9evJPMJ26XQuzyhPmXj7ha8/NfbAW4yAQ
-	 67+Sd5l8CirhsGrYTuXD66vCuw/i4cxBT1uFHrvz8g13pjG7IyRP9dtQev++oSafLvZMv
-	 J8IBONv2h8cjWOx8Zvho2pEgmToCMweP/mHjkH4Ks+hL11sBG1tuISsuNWEtj3thGxX2k
-	 /SlMC3yMDd0P4dwZnAIwEL0OJ1nfhZIP9mGZb2JFrI7mt7dVN3hmh6GvgQjPBBxe6Kjx6
-	 XrYOZ78LtAaTL2OYhIjy9kyQbP8XZIsnSLlmNtYyh7PaEpl5VyIWk5E7jipz7ZY4h2Q==
+	t=1794839837;
+	b=rm9BFW0TCxpVfK/YMQMRawuwVj+qmM7XDgAIH6D8FBwqtu8hX6Bas+WRRo5h2pGOWnJj
+	 QhRKkHBsF2NlxkAClRDDJUzpjOKoSrviMA8wvuGXW+aCqKnCAHY/1MjS0PCbePHD4sbZx
+	 RKagDXLxEc9vedxkWkJFp7Cf6pSwiqA+yMBJNHgiAlzPIFK35WGO6v4LOe5W8GlGBeHhI
+	 YyOz9awT1JDHVsBB7qZXM1q3N8jHiogIhCnQPAfgN0fMa/6ExUb2SSVDCkOH0fmSD7nEW
+	 zPWBRro8zopx4MV3dJR6mof+NK5kZ6/P7FdzzLF2GbFUVsEQ26YmBG/BQIH4lcMQFLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839625;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=gK7mnV0K5J5AZlPsKO/qnVm94znB+xyRhSHaNfoCvBE=;
-	b=nSGGLOxkCC/enD9CQ8Yzj6ylMZCspv1rQLqCltWBLLxLrvpYSCcrJ2uWAtRo4sWqiLS9
-	 mqskuuj6kHwIYc6j9f0o3ndqe+QmlrcJzWJWH8lSZwZOOe1ikfzglfR0+a0+GOrchE3cW
-	 lrxBHdBpgVi933m0QJD+vA/vHUvOPvjLwSB1U87sNaZiWBB2s1ly/Q+aqUNCafkgjdbYn
-	 P3J+D4mdBJBdx0zkpY4P/G6YmUbc7LjCBiENUWdOXLkl2H5MPyIzIQNgyg7cNECXUVuh7
-	 Twdfo9uVUpcRmlKYbIGFFRLDT8vX5aJmAcEIzc0K+5EVQZC1wVeGlQ8Y1r0dTZiVdeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839837;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=7hSHlaQM1lE+i4LuhiemUki7VOefUOHjVjA72bigLyU=;
+	b=3hicvBVAEIu3vZjKb0xGAklRk2g6Kbr0P+GkUq3Ha6+1G6ofFFF15lA5A5jlGr1vemiT
+	 qCezoBfqsGw6gs54siYpOcUSy2IkCn71s/iwFHeC5dy8lrYKEnM5U0GRY2ghIJTmHZl4c
+	 EaY8l4NnuueYPjLqem9VN0oohsCQAAkpQTF0iMhHkeN9RkK5dkQPY8Vmq68WFIb6M/6BE
+	 /3PsyXB0UeoXLlqLwAFvRdzbIaTGS7HnY5/+LObthRLqGAao3pUeMP+oAPSoJXlzwYqVx
+	 FZU6EpW7XOMTYUkh5OOnK52dhuDdR9l0LTISvhCCHc7dAXS1JnNX0+6ff7shX9/Y94g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oUQWunDC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=VCMEJvEX;
+	arc=none smtp.remote-ip=44.202.169.35
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A138A606A32C
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:33:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6267606A881
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:37:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6267606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oUQWunDC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36DB81F000C4
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:33:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794839625;
-	bh=gK7mnV0K5J5AZlPsKO/qnVm94znB+xyRhSHaNfoCvBE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=oUQWunDCwyheDaHGiEVDZgcG4hWfvsWBs2QCkprHpw8MX67IaQUh2iYSe01vKYcAH
-	 EiRQNzEtK5tKIf6j8E4MlHfl3jf8dNN03Hc5lbVcGvnw4Jda8WVhVo1oNXwJqApcpX
-	 RpflSVlxikJEz+X+bPL3IK4vT/rAhmByDUcNfqz8ZRFSXPaUjxmkPJ1lrSk8VVXwtt
-	 q1RnPDMxR7G+ThyE+k2pFnJPuXnU9O1vGElAalCLXPIyy4wsDXwd5ZEigUML0BDXjj
-	 qVLD+Sy9Pt/E4BE2q/MsnLjD03qq2T1D99uUJcaNHKDE8I25RHxUEMZBZf0IZjafkf
-	 Vdu56iSZ33gYQ==
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-7190d9bdb2cso2882447eaf.0
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 06:33:45 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErF1UmMuG617NX4DqMyTiTsI6zL8hpz0saGDJBRx3jj2x6jpsFMmjH8OGqClhs6ZiHVTw7ftzrj2k3Ht@vger.kernel.org
-X-Gm-Message-State: APuU4Z+gLMjd/k49QkB54J206WM2N7u/RPP/hzpQonScHZiQeGrIKggj
-	ukGd020HguzpspUaeFrV7PVPRI5aJPhjZjhJF6N8zD/PHPNWyRjP7R2sK1fiThlKycMf6tAd9aE
-	zePAoTzNMZbP1b8Y7OuRb0cO9Dj7mURM=
-X-Received: by 2002:a05:6820:c2c2:10b0:71a:facc:5a37 with SMTP id
- 006d021491bc7-71afacc602amr779012eaf.63.1794839624591; Mon, 16 Nov 2026
- 06:33:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=VCMEJvEX
+Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
+	by cmsmtp with ESMTPS
+	id Sx0lxO66L4vCDSxpbxBoYW; Mon, 16 Nov 2026 14:37:15 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Sxpax8JIDxmi7SxpbxEaBR; Mon, 16 Nov 2026 14:37:15 +0000
+X-Authority-Analysis: v=2.4 cv=KuFN2XWN c=1 sm=1 tr=0 ts=6afb151b
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=K-vJ0q7JDzK1tjjCEHQA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=7hSHlaQM1lE+i4LuhiemUki7VOefUOHjVjA72bigLyU=; b=VCMEJvEXEmxO
+	4lb+xiR/cupcXfpnF7Kng96OOxsR1PaDSsOJWf12RN+rM0PwJ3paXLe4172J6u8yUJNt+35kyqWhM
+	VN6k8AHVQcaSAXGhCbplwkLFIqLZMMwdXk3tp6H8E7Z+/JLEQaOh5kz6/H0YhqqW6xI6/ApztBZ7j
+	a3ljMJ5j+LDSMADSX+03RfHuijSUJOo2+jLoJcHuaePi1695VPrMJ9QkcBMZoqQxjGJF3FxJSwW8A
+	YT7UFQDsUCwnoAL0+NzEslFJOA4GHWBrQccKBxG6qVy46KAGwB6J6pFbGvVmMmKYTEtcD04IvLobQ
+	l5JKWXhQJET2YPh11JpPlg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:36996)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xSxpZ-00000003vvt-2Nii;
+	Mon, 16 Nov 2026 20:07:13 +0530
+Message-ID: <65280967-46b2-4c72-b9b4-0308ad8887eb@roeck-us.net>
+Date: Mon, 16 Nov 2026 06:37:11 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,40 +75,111 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-cs75xx-gpio-v4-0-ad80a944e966@gmail.com> <20261116-cs75xx-gpio-v4-2-ad80a944e966@gmail.com>
-In-Reply-To: <20261116-cs75xx-gpio-v4-2-ad80a944e966@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 16 Nov 2026 15:33:23 +0100
-X-Gmail-Original-Message-ID: <CAD++jLnkP2MHE5MTggjqti2qxMvm=KCs+XeoNsrUtXbRSZfhFg@mail.gmail.com>
-X-Gm-Features: Aa3M54rzZJA3A38fzb3Px9Gx86UMNQxM77NnKlrXCliGaLoeMKhrWBrxmYmn9Sg
-Message-ID: <CAD++jLnkP2MHE5MTggjqti2qxMvm=KCs+XeoNsrUtXbRSZfhFg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] gpio: Add Cortina Systems CS75xx GPIO driver
-To: filipp.dunsky@gmail.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/15] Update watchdogs support on STM32MP platforms
+To: Antonio Borneo <antonio.borneo@foss.st.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: linux-watchdog@vger.kernel.org,
+ =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
+ Amelie Delaunay <amelie.delaunay@foss.st.com>,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261116132416.1184447-1-antonio.borneo@foss.st.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261116132416.1184447-1-antonio.borneo@foss.st.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xSxpZ-00000003vvt-2Nii
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:36996
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 103
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfHT4MMrs2hUq9tV9Zh+wN+TSvUo+44wWXnf/gw4kLUtypuoH/84xQPQSNZGCLXsAw+CnPVUzz4702Z5GXfOUm6afnyc9xVisMAHmSGwj2qu/UxeTlSsz
+ l8JXrmxPdsJF0EoFB4ycFXoikrassnDTfsgtHRIAVnfgXwSz1M0BfzS/j9VChughWvHdfZHnsY0YLCZfLm4OTeV7JT2oxkKwo/id+DNbxAAdvgaTpj3fxydK
 
-On Mon, Nov 16, 2026 at 3:08=E2=80=AFAM Fil Dunsky via B4 Relay
-<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
+On 11/16/26 05:24, Antonio Borneo wrote:
+> This series allows the stm32_iwdg watchdog driver to determine
+> whether the watchdog is already running and adds support for
+> STM32MP2xx devices.
+> 
+> It also completes and rationalizes the configuration of secure and
+> non-secure watchdogs across STM32MP devices and ST boards.
+> 
+> For STM32MP1xx devices, it enables the ARM SMC watchdog driver in
+> the machine Kconfig.
+> 
 
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
->
-> Add a driver for the GPIO banks of the Cortina Systems CS75xx SoCs. The
-> data and direction registers are handled by gpio-mmio; each bank has its
-> own interrupt with level and edge triggers, both edges are emulated by
-> flipping the polarity.
->
-> A pin only works as a GPIO when the pin mux in the global control block
-> selects the GPIO function. That is not part of the GPIO controller and
-> is left to the boot loader until there is a pin controller driver.
->
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+Applied: watchdog: stm32_iwdg: set driver data before requesting interrupt
+Applied: watchdog: stm32_iwdg: serialize accesses to EWCR register
+Applied: watchdog: stm32_iwdg: get hardware version during probe
+Applied: watchdog: stm32_iwdg: detect whether the watchdog is running
+Applied: watchdog: stm32_iwdg: add pretimeout support for iwdg v4.0
 
-Looks good, use nice helpers and all.
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Thanks,
+Guenter
 
-Yours,
-Linus Walleij
