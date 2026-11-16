@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815121;
-	b=HhV/ildsmNGbKWpwNUt5M3zApdpj8GrwdUhpeJnB6DWwrfRsG1A+xqdBdzo6ypfaPUMh
-	 icQsQ++Nus7N6NMGyQnZyQwvgwZNDV4AX3wfoUwSwxMmotPoBrt+DR89PI7FtnGbixTmp
-	 zgQuwvYD7Ffs1zcrf3lHUUkOYxH/bZRyZQ25TCIQFR7M3G4nChvw5mvoScNXy5g5fwPi2
-	 8cUpBz90i/znLXpsmPS38XxV6FVkZsH4CdawI2utBh+RO3s9DEqMlWlxAKk5QF8zdnn6E
-	 +qvxzu/HWAQdzDN9dOa8tmodsU9IE2i9GT1xwK3IrPc0DwWbt3fIE2izZcwWr0H5LTg==
+	t=1794815155;
+	b=nIte2KYlmil2eD36PHmqkZekJj8riVQCWZW7yUy8xB2xaC/5PWkqRWbHeZwAed7FveBL
+	 RYGSPDGBHRDjJ+77Vfkk7ofJ4QFiaE1m7Y/zZdhDUToRmmXosdr7FOsBwZ0w8xh7yQhjt
+	 kvetoWzgIabqlaX0RBCsoQyeBFVd+PztJL80TcPRDJ8U1Lbbt8I8WjcdDed+Btn8KOL+4
+	 5saFfEbBoVsf+ut/kewNFEK5M1Mk1WoQ+KdE9x35Hdfl4B9FJ8ux836o8B5bOEHGSTGzq
+	 YhJ/O+YIAQ1McQzPwGsearTyRRA8PyTtW0QtC+4JAAkDXuxq322kKzO/EKkFr0QPwyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815121;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815155;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
 	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=Hmm2pR6aFCenUcCKosKBbhm7/p1v3WTAnxJNhw15gtQ=;
-	b=2Jv2OzniHyWQu63BHZZSKH+hI0QVi1vPuWc16AHS0Jh42mH6g/5FNY81kqYNNtaAQAz0
-	 oub3jJh20QYOaCyeMKq+VDlMwKUvnPiEYRDCbn8DkoNw4IlWIIJgT9ybcNegkOAwQlvmD
-	 +HYGeL6thUIyaWBKHY7/AJj07XduY/BT5sbeYxJGKPdWyh7DvHTPscFr2kwg1JEPW5/F2
-	 ZvYLyb0zfYc/qeEe/YYpDSrdfNrGxANJT+6k81y9T4IdxsiWMYKalXMxnQdydcQrtclZS
-	 UvaLWLYKg2w8sY5azNYG2aigY1TKJJLLlIc26my55jGwcihwdLNU9cIRmnqpSTQf9aQ==
+	bh=UnB58VtwIqHbFAiwQpoPWYvPypnxq/uodwoMm6+SFKg=;
+	b=MmFXqd87R4R1xrYipOkx4qbYHGLtJypbOwVqQOjLNWtVG17KTZ1OwUXk9M/2PGdhFsqv
+	 pYYf4Br8Z1Bpnufg9b3qcEOdZ6m3fQIeoL4Zf1QhpXm0hiP810n2vprH1RyMs+WTvm0QY
+	 ugRgCabNo2ChTRJDPF3q2k4LlC6GvdfSouEYujtLTW8UxuavdCFmWHIbDweGyV57Cfoqm
+	 cY76rLuf/u25Ze08vZqqEXonKPEAqOzONI2nUZbwDe+t2lCG4HzybZtROpzsomebwMBjG
+	 hlLobL+QDhxeSVW89OOofl08ZQnkIqePjrEnaeMnjSpgjDuTtfwBVxFyxbA2WyPV2Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=JWs6vy6T;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tsGsewOr;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F812606A888
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:45:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F812606A888
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA2560A260E
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:45:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FA2560A260E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=JWs6vy6T
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-491846221ffso2778234f8f.3
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 23:45:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tsGsewOr
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so6842635e9.3
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 23:45:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794815120; x=1795419920; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794815154; x=1795419954; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Hmm2pR6aFCenUcCKosKBbhm7/p1v3WTAnxJNhw15gtQ=;
-        b=JWs6vy6TMMIsDRVSnv3QauUtvNIGyUnrJHjyD00p4NY8uCkqSIoqzJZIUkMBFUogNo
-         u+Zs1/CnTQRGeFMiW7bmLvY3N6yo13drRKvXNnl6WcfWk7yoeko+TefFLGrNvxO+BaZ+
-         XIihgGquU/ejG+wq5fKaH2uokS9qRmEWoM/YMcFoRKlay2hZiSl314PzNVa1xZFl5CFn
-         KS+HO26bDwjcatUMnaF/8r0cevjW2bSrdwnT+0ki9PdoKsbbm2t/e4WAQKO7PxLZsuml
-         qdx3TmnmaMjvWzRtuGdhQDKznd7JSXldhwavrB3Th2J21PyMbmikrn5fM7fHbiXGXZEV
-         Pj+A==
+        bh=UnB58VtwIqHbFAiwQpoPWYvPypnxq/uodwoMm6+SFKg=;
+        b=tsGsewOrcoJBgq7S+QyVV2G0HcMbQnFblDZIomH6rD25rkyy3A8Z++qJ2xKmbeUCip
+         iHXWoT7zTLSM1DHzRgzQRbHKfLxoIvONXRNhgwDB81U02qfVsznSXGYVlR5xf/H7F+Wx
+         ZEeX+qoqiOqJLZR8O7IB6yQ+fBDrPpBkq50kArgRG7OO7bM9rUhxRqnGJl1rY2ATBC4K
+         eNhpNDTImPu8TPTASGL95LHU/SUtDVrRIY0cmlGiW088w03PTEh+buLVHOINCVoyfbsa
+         WMVBRZiGwRLYJlFilDuWjy14IGkahPmTZyx674TreUmG2AvVWqLBFoGO8IdHPDVRFp9l
+         S+Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794815120; x=1795419920;
+        d=1e100.net; s=20260707; t=1794815154; x=1795419954;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hmm2pR6aFCenUcCKosKBbhm7/p1v3WTAnxJNhw15gtQ=;
-        b=o8j6Ps0OSO5GWk4QL8uo0cE8PeOFKf5JSVVOh62+SUUvnJCrxzKhm17jaK8ivEqJSV
-         ATkxi4fpzo7Y9G1tDr9r9yI28AUpRigAPwTUSFMDbuDjjhYyJqLGOQB8PrkYZjsqJxUd
-         1PFNmkbDBO5mx7rcLQRaNail23+tgHiNSvnuAdAM6ZKePQxa0Qvol/mL6gOrzHmp1ZgL
-         qe3GeVcXQC7GK8wYOwPI3ds/IrPBTMhex5/WdJLJwRz2P+P9ls5QtezvO7RZbEihws7V
-         g+J/xl122vckXg6nqpTcerleSBUJXfWDTFcyd0x23qdCruXkuZXOC4zMHDr35jXZ1cTD
-         /5EA==
-X-Forwarded-Encrypted: i=1; AL+hErEnL1FtbDrOedzK0IUhoeU+5WSSXBk4l3cCJzHWzxdKTuLYI0yRjqKhdflut86atO7lManTb71KR0Ju@vger.kernel.org
-X-Gm-Message-State: APuU4Z8rnHdTdFNYTo8msbGd0vkBKj28ngVtI82PNG5Yf3W6uMTtkUx2
-	fLnhE4+y3Y984u7CXkgOz4EQwAgvLy7qUxkZE8qHm7GEyQPb0CQD37V1ITItK1CTWeo=
-X-Gm-Gg: AYBFou3Ew1kfOqa5zMo9uu1olc+0YAW0TItgAUh9w7wohRTYQtgajf6s3gp/p7Rw+bC
-	8fPvD5n4cLi/DoLHBEDWjZHBgN1D/A/IsW/LCtN3fi6HD1vLnU2fORNtb3MrOUKX99QZmQjbGGf
-	FcNVXB5anW4cIOp76NlBsOnal1gbFS/Mcoe+T4+X+BoXuqTYARK/jHynhwO/N9295KgUKF/rhJT
-	+jExGDMjT1nSZtBn662jP1REioaRdmWamB46LXnU7byOxDDo8arjfY79Q0ky3o5bowOusiiaIQb
-	F7Rp4u3eqPM6VDr76AYVPap350ntSOrc9tgjtElEbR6F4YivHGDDh3OIkgCYEd78lRuCc0vIPk7
-	Ar2TVhvSjLln3SXLcMPQ3TzSdI28amg48xR5Ste/V0fgKoGNBdWsduVtENQaVuGcJrwjjnkTxlx
-	0f2BWRlW4fdlGn98j7qN1KB+YxxP5ZJUNiirfGUPm2QxBIffgKfKHKENkVYe0H1xIEtQ2GW67pW
-	AwLB+6Fd5Y5Np82p7c/qpmCXjX8kSMIF+9SAwtmEuOW1Wks87mWVeoYJLqWV88KcaQ4wh7s5o8/
-	HKmJstPioqJUyqWvvpO4bx5W2xqb689SqgFbRGQYTQddeoMWs9F6EQCRrhHMVqg0OkuNZb70czi
-	FXT+WmrR3
-X-Received: by 2002:a05:6000:2407:b0:491:6a7:b4ac with SMTP id ffacd0b85a97d-49c73351512mr19406434f8f.56.1794815119670;
-        Sun, 15 Nov 2026 23:45:19 -0800 (PST)
+        bh=UnB58VtwIqHbFAiwQpoPWYvPypnxq/uodwoMm6+SFKg=;
+        b=k5+8JyS03LIKVL1AsNO6WBeZ4zp4C/LeRPdYSdUPorGZJG8g6PQc1+Mut6Bo1Vkw3z
+         Z5oByYckY1oUJ7pm3RXiuZ/NeTW4YLtDyhLn0V+hiQxaBib+4Zl0cE3PkBZ1L+GmGwTX
+         eeZyZm1i1HszfflguOMTaL0jM+kw3D3WmdfKMpcpwWC4s/TmLEsFOPIvHcIoe0cWeZey
+         AaZav88M1rKONe9Q4Pk2Gi36d9i/rSfyh9qbIJMwJAfPWU7uBxlUR3jLg/1CxUw11L7n
+         b3+tetedA9rbvFunrzEVI5YymE186SglD43LdRfd3DMQmNJyaIrhuSBSvy/n5f8+pT3L
+         SRhQ==
+X-Forwarded-Encrypted: i=1; AL+hErE9hqeCIPIzGbKyqAYOkNo/e+fEo9eBMsEHm/GjGLoll6vaXD0I0uPW2GYAnKYeLJrNEDHFPG7JMpjC@vger.kernel.org
+X-Gm-Message-State: APuU4Z9fv0n89sLlHC8EfW1X+Jm5ca///dKukqe0iB8wG4iDm+qVOon2
+	UgxKzbmbk/F5BK3FgGsplmIZ8If5sKA6Pa5XhGRAYhrV4KlTtS1WRvDb9DIH8i7q9/4=
+X-Gm-Gg: AYBFou0EhA6feQ+ke6hzCWiB2WHTz2ELau46xf/Zy7FZircmcLdjBUcuaj4ZmH4Iaif
+	bnhl4HbmcBhUfB1PXcmwihf/l+V9yZAfgOvegmZqycrmfFnWZwOYMj6U9Ws5QPhpwinZQvgy/nd
+	pEC6s1+DaNdRcaG+HYm0Sf3zI+saSy4CrVugjrnzJf/OYIh+EiwjdFhBDGDOlSzIxztO/o+CuS4
+	NqEy3ic4CAwGS2f7ZuztfdmXkJJNgqcSYpyw8NvOUHPTL5UCgMxT1IIE50ruPPdCVZCWcXmDP7a
+	uvjSnH27SDUbHxMrL2iB3InyiLEGKg1ug01Ql/9Dw45mODjK5FJH30rc5skG6yfpFbzn0O/rKLV
+	4ETjkNYDVLwLJLJBfLoCZoNBJlijoGzwrWfB9D/zIoz5wB8C3de7vSfj57lAE4GNRAsnQAm5WOB
+	QQJRP+DE6ySON3AXFtyBWgc6U37/qgZ8C033kIovb/MjzqtepXzqssz9/HB0r/T8RVkZXe+GMiv
+	jFl9hb1e8vudBCxI/7VjQDxq0ENDEAgs0RogloSQRZjKdr4SOAPWgn7b/TDbK75Zgn6XWDC6w1d
+	mTNLZvvTirzD7mWDh8AE/zODIQl6PmEmG7BxorBTohXEfnZMpZtptw6ckfpiwcr6sALPlh2aV7r
+	Xv3J+FRtXAw==
+X-Received: by 2002:a05:600c:a44:b0:4a2:a6e:80f5 with SMTP id 5b1f17b1804b1-4bb55a45045mr214478045e9.11.1794815149872;
+        Sun, 15 Nov 2026 23:45:49 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:106d:1080:575d:8fcf:e30d:5aed? ([2a01:e0a:106d:1080:575d:8fcf:e30d:5aed])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8d615sm21048578f8f.56.2026.11.15.23.45.19
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb6caae30csm89916945e9.2.2026.11.15.23.45.49
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 23:45:19 -0800 (PST)
-Message-ID: <d27f1aa7-9765-4a22-ac78-e6dfc0c97556@linaro.org>
-Date: Mon, 16 Nov 2026 08:45:18 +0100
+        Sun, 15 Nov 2026 23:45:49 -0800 (PST)
+Message-ID: <04b0fbb4-6083-4321-a907-f3b23a4c90f1@linaro.org>
+Date: Mon, 16 Nov 2026 08:45:49 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,16 +96,15 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH RFC 03/23] dt-bindings: pinctrl:
- qcom,sm8650-lpass-lpi-pinctrl: document clocks and power domaines when ADSP
- is not used
+Subject: Re: [PATCH RFC 07/23] ASoC: dt-bindings: qcom,lpass-cpu: document the
+ SM8650 LPASS
 To: sashiko-reviews@lists.linux.dev
 Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
  linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org,
  conor+dt@kernel.org
 References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
- <20261113-topic-sm8650-el2-v1-3-5183f6aab9fc@linaro.org>
- <sashiko-outbox-213493@kernel.org>
+ <20261113-topic-sm8650-el2-v1-7-5183f6aab9fc@linaro.org>
+ <sashiko-outbox-213486@kernel.org>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -132,57 +131,106 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <sashiko-outbox-213493@kernel.org>
+In-Reply-To: <sashiko-outbox-213486@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/13/26 20:02, sashiko-bot@kernel.org wrote:
+On 11/13/26 19:57, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 1 potential
 > issue to consider:
-> - [Low] dt-bindings: pinctrl: qcom,sm8650-lpass-lpi-pinctrl: redundant
->    oneOf in clocks
+> - [Low] ASoC: dt-bindings: qcom,lpass-cpu: split unwieldy per-compatible
+>    schema
 > --
 > 
-> commit d8422bb265d6e088cce5d6024805eb9ced00d38a
+> commit f17c7c8f20845c2d15f821f60a13b5f93656ae8d
 > Author: Neil Armstrong <neil.armstrong@linaro.org>
 > 
-> dt-bindings: pinctrl: qcom,sm8650-lpass-lpi-pinctrl: document clocks and power domaines when ADSP is not used
+> ASoC: dt-bindings: qcom,lpass-cpu: document the SM8650 LPASS
 > 
-> This commit updates the SM8650 LPASS LPI pinctrl DT binding schema to
-> allow a single core clock and add power-domains properties for platforms
-> where the ADSP is bypassed.
+> This commit adds the qcom,sm8650-lpass-cpu compatible string and its
+> register, clock, and interrupt definitions to the qcom,lpass-cpu binding
+> schema.
 > 
->> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sm8650-lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sm8650-lpass-lpi-pinctrl.yaml
->> index 1bf08860a4baf..4c54f873199cc 100644
->> --- a/Documentation/devicetree/bindings/pinctrl/qcom,sm8650-lpass-lpi-pinctrl.yaml
->> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,sm8650-lpass-lpi-pinctrl.yaml
->> @@ -29,11 +29,25 @@ properties:
->>         - description: LPASS LPI TLMM Control and Status registers
+>> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+>> index 3a559bd07a79b..f431173a0e880 100644
+>> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+>> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+>> @@ -23,32 +23,33 @@ properties:
+>>         - qcom,apq8016-lpass-cpu
+>>         - qcom,sc7180-lpass-cpu
+>>         - qcom,sc7280-lpass-cpu
+>> +      - qcom,sm8650-lpass-cpu
+>>   
+>>     reg:
+>>       minItems: 1
+>> -    maxItems: 6
+>> +    maxItems: 8
+>>       description: LPAIF core registers
+>>   
+>>     reg-names:
+>>       minItems: 1
+>> -    maxItems: 6
+>> +    maxItems: 8
 >>   
 >>     clocks:
->> -    items:
->> -      - description: LPASS Core voting clock
->> -      - description: LPASS Audio voting clock
->> +    oneOf:
->> +      - items:   # for ADSP based platforms
->> +          - description: LPASS Core voting clock
->> +          - description: LPASS Audio voting clock
->> +      - items:   # for ADSP bypass based platforms
->> +          - description: LPASS Core voting clock
+>>       minItems: 3
+>> -    maxItems: 10
+>> +    maxItems: 16
 >>   
 >>     clock-names:
->> +    oneOf:
->> +      - items:   # for ADSP based platforms
->> +          - const: core
->> +          - const: audio
->> +      - items:   # for ADSP bypass based platforms
->> +          - const: core
+>>       minItems: 1
+>> -    maxItems: 10
+>> +    maxItems: 16
+>>   
+>>     interrupts:
+>>       minItems: 1
+>> -    maxItems: 4
+>> +    maxItems: 6
+>>       description: LPAIF DMA buffer interrupt
+>>   
+>>     interrupt-names:
+>>       minItems: 1
+>> -    maxItems: 4
+>> +    maxItems: 6
+>>   
+>>     qcom,adsp:
+>>       $ref: /schemas/types.yaml#/definitions/phandle
+>> @@ -59,6 +60,8 @@ properties:
+>>       maxItems: 3
+>>       description: Phandle to apps_smmu node with sid mask
+>>   
+>> +  dma-coherent: true
+>> +
+>>     power-domains:
+>>       maxItems: 1
+>>   
+>> @@ -241,6 +244,65 @@ allOf:
+>>           - iommus
+>>           - power-domains
+>>   
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: qcom,sm8650-lpass-cpu
+>> +
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          minItems: 16
+>> +          maxItems: 16
 > 
 > [Severity: Low]
-> Could clocks and clock-names set minItems: 1 alongside the two-entry
-> items list instead of using oneOf?  Because the single-entry ADSP bypass
-> list is a strict prefix of the two-entry list, minItems: 1 avoids
-> duplicating the first item in both properties.
+> Should this binding be split into separate schema files (sharing common DAI
+> definitions via a common schema ref if needed) instead of adding another
+> large per-compatible if-then block to qcom,lpass-cpu.yaml?
+> 
+> Each SoC variant here has substantially different reg, clock, and interrupt
+> counts and names.  Fitting qcom,sm8650-lpass-cpu into the same schema also
+> widens the top-level maxItems limits and enables dma-coherent at the top
+> level, which relaxes validation for older compatibles like qcom,lpass-cpu
+> and qcom,apq8016-lpass-cpu whose if-then blocks only constrain clocks and
+> clock-names.
 > 
 
-Will switch to that
+Will follow maintainers preference here
