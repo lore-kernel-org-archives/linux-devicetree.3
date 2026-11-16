@@ -1,96 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.23
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794863676;
-	b=aQsLtFAv/2IOpZR7yYeRv00+e/AsuNf8tWsbhEeXBvtHTqUtu7iI9QYuGMReMtwMX0Q7
-	 hKEkbgvdqN597hcgFl1mXXUjYaaDpbfaYw5zC1iiaSGHqfPEqCRy2G2JHxmMV+EMQbLBZ
-	 pzfdiRfz8XEd3iEGTjVW/fJOLbEvTmSu2kZt+B34B5kJ6w0S16qf4TvHk/DEKf/rwtOrz
-	 RgSYgpI/5ob4K04Zn2zIs98zkjmyPwKZbS9l8d0RVAX2eNuYy4O/2z6bmnRVyYw/oq39r
-	 yjikKheITprk8BfIo+DXe/sQqN5GXO04f/ONP9EQM1UIv1k3xiMkNMM0vBcgd2vLhiw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794863676;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=lSszd0nYRFZOgKb7t5YDnIAB9n7g67/DxqvGBvTv9zI=;
-	b=Fh2XmzNnZO1iWHu6Bzvl7RCRw70b0Hx8eBSBf0tgJBG97LsdNd1cRjxhX0Bo3w3bnFaJ
-	 Ugz0htpiNilzPQ7w1Z68fx8fkpqzmtTRN35C9BS+vYfa+6hv/Dd3b+WfFYoMa1eXj9Opu
-	 lKYzhbCljP3y0XakAKZynynp5/XZLrpKS0QJZRanQTu3rW/MpEYd6PwKR4efcI+vdlgfF
-	 1gHmCPyQvS/bRn0e53Up8R+Mq5qoWDX6JotqsrLSUxWBmMLkMZmnObyhpa7jHvlfF3uOP
-	 E7r7E1OL3+V0vVFpGCKJy9z86fZGsZu15R9qXj3YX0zLt0JqoO5v7cL4mVRMMmJr4Cw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=BbupSrli;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.23
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011023.outbound.protection.outlook.com [40.107.130.23])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794863706;
+	b=NrwjaoEYWiMpPOwSW4XR26UKbilYu5ZX0DieoUXP1O2+a/5W9N6J5GcXIGExe1PNqXVO
+	 P0pRil2qw4O9QNrF+0WH0tSvUCx9D8vAqkjJYWJKjhDsqcIbXEMXuBVqaa3ZhJXDuigO6
+	 xCdXigJcSJ88j+j6TZ6HS2ZpQZ5kWwRPQMOPZe7rUzIMfqbLMfoWYTqINMMcCrCPkS1Lr
+	 B4SWrPIW/UkQiLTFhUp3/LPyhG6aLj3aIXJgJcYNp3oIsukydrlGIjwBQJl9l3XQbV1JZ
+	 2hhMRyb8l0Nxg6eezCOT3yAjMXTVAe5ggJHWGY+uuEE+B64J6UXj510NShD02J/lNnA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794863706;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=uDqZ7wzsp15o8TvM1seElC4dLO4eVjLTe7FriFkbbuA=;
+	b=SkAeIDsHk9Ogh6n4dusRc6zjSHPiROPZzrvSiOxjd/omJQFfOnzu6O+QNT+jk8IKg7RR
+	 7UjozqIfDygfoAORZU0SwkS9DIoYv9RbA4ojawg7fE3l0DaoMAQrP2eccJE/FGBFQMmJK
+	 BfbEsd1ttx1a2vWQM7j2KrkCwCVeZfHA9of8LogExAmnHJt8LiWiR0y7Rlma0ypGjJiGb
+	 VdgJVNq1oM+iexE1Oo2KMoKDEhp9BYnc675XIYEEylQp25gF18xGNo1oIZ+9yHoP9Gygw
+	 fAKEvmN/BiEnqU5VPyG6ZTOiMmT7nUkCQLmn5f55vNj32QCXY9bK6NQWLdU68TpSzVQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DLS/5HS3";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C767606A322;
-	Mon, 16 Nov 2026 21:14:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C767606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454A6606A333;
+	Mon, 16 Nov 2026 21:15:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=BbupSrli
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SbzaTM2g3vFNIQ1Gf44YwnYRxmu8g6+gxeFQEMWOhd109QMrRIj8icQyrp1dzzKdZqCD0agqPSghJgbP4LoiF0n/t0uWL95v1LEav6rCQkQqzY34pD4ZD80sKV2gEz+/14BThFlvOdLI9Id0TkuEXuo7qxCq0Zey1hZtn2Fin3iW2hBGRowuTm2VkpH7/TA7HYIALy8aMI0z2x120VO8BsxQ9hPfgmaj7Z52kcWX+FPli8WYhNCVtMgRUL+LCHQpg+dKKXuTnWY7SKDj/+o/AKBOes5szXfT5iuWVIH+tKvqz46B2JAdtILxDVo6hH2GTzWqAdCKdm1D1Nsqh03gEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lSszd0nYRFZOgKb7t5YDnIAB9n7g67/DxqvGBvTv9zI=;
- b=p5HNLjY+fS8tNHiasYRSSpMs0kFYiwOzTZ8s4xlVU4JF6fMXMSH31CYmVFeVsy3uXNzlN8YG0vt8ioZNEx5g08qin6GeQu0WQq+69/AeSdsHHRUy55IEi4porqt5gIKagbvLZ5BRxDbPZStY8DudG0NgN3q++1MQHoWp//UBBciGEH4+doY48oxcBsXTYs8NOOYfk6I9V4glGDAOJ6bnU9ml12W18uqPQ6jUvXt9jmYBgzZ5C8hd89fskIM0VYKe18kMV03HHvfFo9zN7/sIRTjS8SYmZsZwkG/vG6rxhKWDdE82T+FjzfU0Gta1pFjE65ULfPqGLDl9H3C1wUMPHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lSszd0nYRFZOgKb7t5YDnIAB9n7g67/DxqvGBvTv9zI=;
- b=BbupSrliTm1hUBRj0ZD5jLpCwbGE9qqtwArdckToKUTYnyUheGRgDtD0azzJWBlHRB1HN84YKLllLj0gHqYcvVlVKALIBW7ek2B32GVxpd+oU7Tpur5Wz5VkoodpudJBziHdIyGBjso+B1MFDx9DZWLOxk2akTbyo9lufp8iDAeiTn8opoI+fR+ISBys1nvSNmsWWdhCMWASSVaGMRauRabKMftA3QYP8OU/5iwOoFy4ORkqv+4k50BC+jQfYq705LEQmRB19NEoCaloI+XwQ56Ifp522cTsqN/7NOkHQsVKQm8u/2aXzM2BtZ0KTfJqEYOd0sEQFgX7h06xfxjlzA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by BR2PPFA055FEBBE.eurprd04.prod.outlook.com (2603:10a6:2d0::cf) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 21:14:32 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 21:14:32 +0000
-Date: Mon, 16 Nov 2026 15:14:20 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Shan-Chun Hung <shanchun1218@gmail.com>
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org,
-	Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, kees@kernel.org, gustavoars@kernel.org,
-	linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
-Message-ID: <avtyLPRZB3uC5G_A@SMW015318>
-References: <20261109052900.2960473-1-shanchun1218@gmail.com>
- <20261109052900.2960473-3-shanchun1218@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109052900.2960473-3-shanchun1218@gmail.com>
-X-ClientProxiedBy: PH7P220CA0123.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:327::26) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLS/5HS3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40EEE1F000C4;
+	Mon, 16 Nov 2026 21:15:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794863705;
+	bh=uDqZ7wzsp15o8TvM1seElC4dLO4eVjLTe7FriFkbbuA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DLS/5HS3D18v1wDT/ZwGvayXOWIDdkoUB02E/UHB0nTIzQXvD+KmWC/DRKRhQYvz0
+	 556lahEyT2+dAckBmaJBXR/H5rd1AOqyeMcqYCt3I+fhE4L/Okunu5jsW2HMGhFtj2
+	 5syG9ZTq0tqeSwrUn+EYlXZmCabfnnTCUA1yZZvJJhE5cXLWn5tF2RmP6WmUK52zr9
+	 vGTEitNRq0JHdWQT7VNoaJpP7cjtDBFvPXBqoAWlYABxUtsd+FPC4ouyEK3QCot0Vg
+	 Ts6Jc68zxUB1mOE+W9STuDTCLAK0m7cNVUJJ2SWNvw+K3d+s5YupP+Ns7bG4VRLurd
+	 oQVTr5vLauuLg==
+Message-ID: <sashiko-outbox-217695@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 6/6] usb: gadget: udc: crg: Add core driver and build
+ integration
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Petar Stepanovic" <pstepanovic@axiado.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116-axiado-ax3000-usb-device-controller-v5-6-49271ed5c793@axiado.com>
+References: <20261116-axiado-ax3000-usb-device-controller-v5-0-49271ed5c793@axiado.com>
+ <20261116-axiado-ax3000-usb-device-controller-v5-6-49271ed5c793@axiado.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 21:15:04 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,559 +60,505 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|BR2PPFA055FEBBE:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6df796e-8538-4a1f-8d3f-08df44269b7d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|19092799006|10067099003|4143699003|11063799006|56012099006|261026135527099003|261026130827099003|261026121527099003|261026140227099003|261028144727099003|261022115727099003|261021135927099003|261021130227099003|261021133027099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261022113327099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	k/VC64rHOoZM2oYTalg2NL+GVVzYTPgGorE8Kuc8+BfVffZ4M2+MF/pBXYY9h8Xxjirpq8/mA9w75FNriixDiEkWwe1nbHZ0xVQOVOI72EKlgR+cBkw2UAfZJWdeTsQz2sK3e/12d39O7fs3iX/Vezp247KUn7tYurF6KRVZ5OmHTCMbjIfHmOoJyx0izdV1K8siCwFWGYZr7T9CJnsatdn/G0KEKtplnHFzrDpVWb3Bo5FuoEvlc0XQf0cVQXCly2pQesOIK2xdnyNytWmT9OxOcCKP8hB2c9dxER6kSgysfrCOSEuXodkuJBbI+NMGhJqNqhds3t/ma1AQjl8VV8SdI0skK6e4PCAadjJbKZm2LPQfqvNyvlEZ5ZIAUSxdQqQDPMUmdryxlS/s1u3KZuA3erZWm4jhNsQDJF4uTwvXch/GPRkkzW54bt/hHYdWgqx3TivgnEVee7nB9ro1IVZMjjGtnUANWMj9xtMoyCyjjyxMxLRzvjgwLMiwvQb07wrQCBMooU6YfLubwEWRTZWHoDirxh4eAyVQlz8AJc1U69qdZy29j1J4aG7MBFYNxSHnUKKhm2Erbykok2XsOk8lBEnPerW/bdBeww2GyceQr2euHyDMgtPCXyQtaE/F2HgK+1g1VHkmnn62sQ2VJN4SJCHEWpNASC/YwBWH6ls=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(19092799006)(10067099003)(4143699003)(11063799006)(56012099006)(261026135527099003)(261026130827099003)(261026121527099003)(261026140227099003)(261028144727099003)(261022115727099003)(261021135927099003)(261021130227099003)(261021133027099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261022113327099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?jl6yvsazcI9zIeG12513MGRP9vlO/UVMCZ+p9EhH3EuULiHFr18jt13LIyaB?=
- =?us-ascii?Q?EOfep7L3NrcxIp0Dd7b5rKwxw8ZC+IXRM6prjVbn1CtIYYuYdTMRmKe8/LAO?=
- =?us-ascii?Q?ozVTGRpdfjAQREpqGWsRrFX50u1muJlIqfc9/4cbUm8HKUTK3epN76rUFrFK?=
- =?us-ascii?Q?QEc8TP4lzYOvPTDzs7ftM6kHa4YPH5cZbkV9Ojd5gqMu4q0QdtU5RMMQ7zsj?=
- =?us-ascii?Q?AOGp8A8LIY9Wtpxrpe0GN1QaWr0ERa0g0Uedib0wFCTjRp6Od16xZbkHHlIo?=
- =?us-ascii?Q?3a1mWWNgNGHDnJ7RDJFBaAXAt/CzUVmMDbted6vLwl6YK4oDJbGeunmXzZkn?=
- =?us-ascii?Q?8yaCJAh6dKRS8xec+2rm8fTITadh5PwCzqCjY6B24J4D07gn9A4ld8pgRWos?=
- =?us-ascii?Q?mmIeZb5cP0wYKQOD3D6GhauWD1FqDq4GyhRzDiiKFXZkl6HkWa9ZvOME7KOJ?=
- =?us-ascii?Q?z3DEjkdQRwca381vwYwkSbAhLzPa/0XL20xgtWhDfUq0WhsTxRJa6FEdG5gt?=
- =?us-ascii?Q?0w3jGVRAqpMqOGXfbNKTAaGuTDZi3IAhQZpwegSxlor2E8l8L580FHJ0OUI3?=
- =?us-ascii?Q?Op2o0QgvGD2OgzOWdz0u6myhcLD8vRbDCY0s7uKR18lH62Yqo5MG3EkMmDbr?=
- =?us-ascii?Q?0UApoOYVKbYbJyuwxvGgw/K6+q7Is5CuZpA1RZ39kSNg0Hk3gKUGWtNQZS/m?=
- =?us-ascii?Q?IFANV/xLCeWEa1TMx7MaHASQ8A3sOs2rFquaIW4wGaCyyhIj2StocKLXlMEV?=
- =?us-ascii?Q?3T/o6n2ojxS7Wo5fR/9brTiOAqegM+kH9nymvXuAEUSW62RmIHWaIZAMEoof?=
- =?us-ascii?Q?+3QTyAaDQAxhbwEOTewbw9VBxnP7o0446jgEsBNeqW5HFLv5IcrD8Tt7KnVx?=
- =?us-ascii?Q?mXvxoBZ8Vtg/uzU2nbxsMg9QnWgc+LZ44m3Kx9bu3LhwNnSxA2h+lRewlZoS?=
- =?us-ascii?Q?pIael54eqp8gU8IOCeAqnUDlEY4Vz3ZwlLyvltp+ll2SdQQHRtib+DQscwEb?=
- =?us-ascii?Q?UTTV7NrKLnzsrIo2jPptCXCj+uHEHOm7VOVen3jnXQCEpxUhbCVHXrr5ub5Z?=
- =?us-ascii?Q?uSuj5qODlRcxcNV/7eXzsxLF0JKmWllGJ3pzmYCUUG9zCtqbvCNQAQIBUBM1?=
- =?us-ascii?Q?rgKXDkd1x/p7188SV0soK8KRnlouF0I8qPjbKIXY8Zy/BZbXwqDndYiWPnDt?=
- =?us-ascii?Q?vFYDTqmR86HgFZsAM2yffHMdAkUpWEfyN7Xr8tIbDZmPr3HOUzSRBXbObBqU?=
- =?us-ascii?Q?cRF5WkMUhuZZtSfYS5yC5L/lVlFn5uTr1xewXe3twa+pisB9HgDwHRqZo9pj?=
- =?us-ascii?Q?FvGBkl+kUHSDLwmHEsKot/BRl0ja/bYM30hAjHQgAMgTsTO/KBPcZXlo9cNx?=
- =?us-ascii?Q?/yxrSwKPzAc0qSGFms8ijSaNId/KKTskk+yGKnaMLPO0LzqhXcCYJ0HmKfzD?=
- =?us-ascii?Q?W4DzDZ9/+WgxncMeEXhGdaz9ZMQq1NGcpwgGCks9xqsZgNnLm1KFFR/gdjgH?=
- =?us-ascii?Q?pDpxIL3rASKyU3cAUh7rncTf+tlztRTLwPSGfqB0sBwjpF1oef43e+w8+j0E?=
- =?us-ascii?Q?j/vKai3gBdqJOmbXqSqA9znBKSfBXFRCgia/Al+TjJeWU4b6g//W4hvv3Gvg?=
- =?us-ascii?Q?GzVTYZnGFmQ28XQLL55T+DIU/cJCpTkDsEdWRciBu2b3uN4QuqSlQAswulV5?=
- =?us-ascii?Q?18zQWr7eJwt3ZqtkXCiIE4s24tkoAX5IxZ9fyT7fix2HNogGqQVfYbU7P4f+?=
- =?us-ascii?Q?hJqAOY5bBKIquJGTgO7A0Cfw/fys0JM06UUFKr4eL96SwsVhu78y?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6df796e-8538-4a1f-8d3f-08df44269b7d
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 21:14:31.9898
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kd47N0ucrp6wGP8jODtdWV+6FcfGFlff5nV2EG2S6f8T5/TrPhTZ0m2J30MRiE69vUAdBwG+y7RWoX/vHZzhk/k8vuB47lnGD/aqoE+SW+whD0ibhDjvI3Ul8ZnLvDBg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR2PPFA055FEBBE
 
-On Mon, Nov 09, 2026 at 01:29:00PM +0800, Shan-Chun Hung wrote:
-> Add a driver for the PDMA controller found in the Nuvoton MA35D1 SoC.
-> It supports up to 10 channels with memory-to-memory, slave scatter-gather
-> and cyclic transfers.
->
-> Signed-off-by: Shan-Chun Hung <shanchun1218@gmail.com>
-> ---
-...
-> +
-> +static struct ma35d1_desc *ma35d1_desc_alloc(struct ma35d1_chan *ch, u32 sg_len)
-> +{
-> +	struct ma35d1_desc *d;
-> +
-> +	d = kzalloc(struct_size(d, sg, sg_len), GFP_ATOMIC);
-> +	if (!d)
-> +		return NULL;
+Thank you for your contribution! Sashiko AI review found 10 potential
+issues to consider:
+- [High] usb: gadget: crg: unhandled level IRQ storm in
+  crg_udc_common_irq()
+- [High] usb: gadget: crg: broken endpoint teardown and UAF in
+  crg_udc_suspend()
+- [Medium] usb: gadget: crg: missing crg_udc_prepare_for_setup() in port
+  reset workers
+- [Medium] usb: gadget: crg: unscheduled external reset on
+  crg_udc_recover() timeout
+- [Medium] usb: gadget: crg: lost link restart in crg_udc_restart_link()
+  during reset
+- [Medium] usb: gadget: crg: lost disconnect on SYS_ERR when
+  bus_reset_pending is set
+- [Medium] usb: gadget: crg: uncancelled work items on probe error and
+  remove
+- [Medium] usb: gadget: crg: uncleared connected flag before disconnect
+  on SYS_ERR
+- [Medium] usb: gadget: crg: missing DMA quiescence wait in
+  crg_udc_shutdown()
+- [Medium] usb: gadget: udc: crg: lost reset notification in
+  crg_udc_handle_port_status()
+--
 
-Generally, we use dma_alloc_coherence() or dma pool for desc. There are
-extra complex if use kzalloc and dma_map_single(), which will cause second
-bounce buffer at swiotlb.
+commit 808e1b308d74053a13eba452fa900f8bf2bf60a5
+Author: Petar Stepanovic <pstepanovic@axiado.com>
 
-> +
-> +	d->sg_len = sg_len;
-> +	d->dma_len = sizeof(*d->sg) * sg_len;
-> +	d->dma_addr = dma_map_single(ch->dev, d->sg, d->dma_len, DMA_TO_DEVICE);
-> +	if (dma_mapping_error(ch->dev, d->dma_addr)) {
-> +		dev_err(ch->dev, "dma mapping error for channel\n");
-> +		kfree(d);
-> +		return NULL;
-> +	}
-> +
-> +	return d;
-> +}
-> +
-> +static struct dma_async_tx_descriptor *
-> +ma35d1_desc_submit(struct ma35d1_chan *ch, struct ma35d1_desc *d, bool cyclic,
-> +		   unsigned long tx_flags)
-> +{
-> +	dma_sync_single_for_device(ch->dev, d->dma_addr, d->dma_len, DMA_TO_DEVICE);
-> +	d->cyclic = cyclic;
-> +	d->ch = ch;
-> +
-> +	return vchan_tx_prep(&ch->vc, &d->vd, tx_flags);
-> +}
-> +
-> +static struct dma_async_tx_descriptor *
-> +ma35d1_prep_dma_memcpy(struct dma_chan *chan, dma_addr_t dst, dma_addr_t src,
-> +		       size_t len, unsigned long tx_flags)
-> +{
-> +	int i;
-> +	size_t tlen, max_chunk;
-> +	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
-> +	struct ma35d1_desc *d;
-> +	u32 sg_len, width = 1;
-> +
-> +	if (ch->request != 0) {
-> +		dev_err(ch->dev, "%s: channel is bound to a peripheral request\n", __func__);
-> +		return NULL;
-> +	}
-> +
-> +	if (!len) {
-> +		dev_err(ch->dev, "invalid memcpy length\n");
-> +		return NULL;
-> +	}
-> +
-> +	if (IS_ALIGNED(src, 4) && IS_ALIGNED(dst, 4) && IS_ALIGNED(len, 4))
-> +		width = 4;
+usb: gadget: udc: crg: Add core driver and build integration
 
-where are field copy_align, you check it here.
+This patch adds the core platform driver, interrupt handling, reset and
+recovery logic, and Kconfig/Makefile integration for the Corigine/Axiado
+AX3000/AX3005 USB Device Controller.
 
+> diff --git a/drivers/usb/gadget/udc/crg/crg-udc-core.c b/drivers/usb/gadg=
+et/udc/crg/crg-udc-core.c
+> new file mode 100644
+> index 0000000000000..e508dbd45339f
+> --- /dev/null
+> +++ b/drivers/usb/gadget/udc/crg/crg-udc-core.c
+[ ... ]
+> +	crg_udc->resetting =3D false;
 > +
-> +	max_chunk = (size_t)PDMA_MAX_CHAN_BEATS * width;
-> +
-> +	sg_len = DIV_ROUND_UP_ULL(len, max_chunk);
-> +	d = ma35d1_desc_alloc(ch, sg_len);
-> +	if (!d)
-> +		return NULL;
-> +
-> +	for (i = 0; i < sg_len; i++) {
-> +		tlen = min_t(size_t, len, max_chunk);
-> +		d->sg[i].src = src;
-> +		d->sg[i].dst = dst;
-> +		d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_TXCNT(tlen / width) | PDMA_TBINTDIS |
-> +				PDMA_OP_SCATTER;
-> +		d->sg[i].next = d->dma_addr + PDMA_CH_OFFSET(i + 1);
-> +		src += tlen;
-> +		dst += tlen;
-> +		len -= tlen;
-> +	}
-> +	d->sg[sg_len - 1].ctl &= ~(PDMA_OP_MSK | PDMA_TBINTDIS);
-> +	d->sg[sg_len - 1].ctl |= PDMA_OP_BASIC;
-> +
-> +	return ma35d1_desc_submit(ch, d, false, tx_flags);
-
-Prep() don't submit request, dmaengine_submit() do it, move it submit()
-call back.
-
-> +}
-> +
-> +static struct dma_async_tx_descriptor *
-> +ma35d1_prep_slave_sg(struct dma_chan *chan, struct scatterlist *sgl,
-> +		     u32 sg_len, enum dma_transfer_direction dir,
-> +		     unsigned long tx_flags, void *context)
-> +{
-> +	int i, width;
-> +	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
-> +	struct ma35d1_desc *d;
-> +	struct scatterlist *sgent;
-> +
-> +	width = ma35d1_slave_width(ch, dir);
-> +	if (width < 0)
-> +		return NULL;
-> +
-> +	if (!sg_len) {
-> +		dev_err(ch->dev, "SG entry length is zero\n");
-> +		return NULL;
-> +	}
-> +
-> +	for_each_sg(sgl, sgent, sg_len, i) {
-> +		unsigned int len = sg_dma_len(sgent);
-> +
-> +		if (!len || len % width || len / width > PDMA_MAX_CHAN_BEATS) {
-> +			dev_err(ch->dev, "invalid SG segment length %u\n", len);
-> +			return NULL;
-> +		}
-> +
-> +		if (!IS_ALIGNED(sg_dma_address(sgent), width)) {
-> +			dev_err(ch->dev, "SG address not aligned to DMA width\n");
-> +			return NULL;
-> +		}
-> +	}
-> +
-> +	d = ma35d1_desc_alloc(ch, sg_len);
-> +	if (!d)
-> +		return NULL;
-> +
-> +	for_each_sg(sgl, sgent, sg_len, i) {
-> +		if (dir == DMA_MEM_TO_DEV) {
-> +			d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_DAFIX;
-> +			d->sg[i].src = sg_dma_address(sgent);
-> +			d->sg[i].dst = ch->cfg.dst_addr;
-> +		} else {
-> +			d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_SAFIX;
-> +			d->sg[i].src = ch->cfg.src_addr;
-> +			d->sg[i].dst = sg_dma_address(sgent);
-> +		}
-> +		d->sg[i].ctl |= PDMA_TXCNT(sg_dma_len(sgent) / width) | PDMA_TBINTDIS |
-> +				PDMA_TXTYPE | PDMA_OP_SCATTER;
-> +		d->sg[i].next = d->dma_addr + PDMA_CH_OFFSET(i + 1);
-> +	}
-> +
-> +	d->sg[sg_len - 1].ctl &= ~(PDMA_OP_MSK | PDMA_TBINTDIS);
-> +	d->sg[sg_len - 1].ctl |= PDMA_OP_BASIC;
-> +
-> +	return ma35d1_desc_submit(ch, d, false, tx_flags);
-> +}
-> +
-> +static struct dma_async_tx_descriptor *
-> +ma35d1_prep_dma_cyclic(struct dma_chan *chan, dma_addr_t dma_addr, size_t buf_len,
-> +		       size_t period_len, enum dma_transfer_direction dir,
-> +		       unsigned long flags)
-> +{
-> +	int i, sg_len, width;
-> +	size_t offset = 0;
-> +	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
-> +	struct ma35d1_desc *d;
-> +
-> +	width = ma35d1_slave_width(ch, dir);
-> +	if (width < 0)
-> +		return NULL;
-> +
-> +	if (!buf_len || !period_len || period_len / width > PDMA_MAX_CHAN_BEATS) {
-> +		dev_err(ch->dev, "Invalid buffer/period length\n");
-> +		return NULL;
-> +	}
-> +
-> +	if (buf_len % period_len) {
-> +		dev_err(ch->dev, "Buffer length not multiple of period length\n");
-> +		return NULL;
-> +	}
-> +
-> +	if (period_len % width) {
-> +		dev_err(ch->dev, "Period length must be a multiple of DMA width\n");
-> +		return NULL;
-> +	}
-> +
-> +	if (!IS_ALIGNED(dma_addr, width)) {
-> +		dev_err(ch->dev, "Buffer address not aligned to DMA width\n");
-> +		return NULL;
-> +	}
-> +
-> +	sg_len = buf_len / period_len;
-> +	d = ma35d1_desc_alloc(ch, sg_len);
-> +	if (!d)
-> +		return NULL;
-> +
-> +	/* Split the buffer into period size chunks. */
-> +	for (offset = 0, i = 0; offset < buf_len; offset += period_len, i++) {
-> +		if (dir == DMA_MEM_TO_DEV) {
-> +			d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_TXCNT(period_len / width) |
-> +					PDMA_DAFIX;
-> +			d->sg[i].src = dma_addr + offset;
-> +			d->sg[i].dst = ch->cfg.dst_addr;
-> +		} else {
-> +			d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_TXCNT(period_len / width) |
-> +					PDMA_SAFIX;
-> +			d->sg[i].src = ch->cfg.src_addr;
-> +			d->sg[i].dst = dma_addr + offset;
-> +		}
-> +		d->sg[i].ctl |= PDMA_TXTYPE | PDMA_OP_SCATTER;
-> +		d->sg[i].next = d->dma_addr + PDMA_CH_OFFSET(i + 1);
-> +	}
-> +	d->sg[sg_len - 1].next = d->dma_addr;
-> +
-> +	return ma35d1_desc_submit(ch, d, true, flags);
-> +}
-> +
-> +static struct dma_chan *ma35d1_of_xlate(struct of_phandle_args *dma_spec, struct of_dma *of)
-> +{
-> +	struct ma35d1_pdmadev *pdmadev = of->of_dma_data;
-> +	struct dma_chan *chan;
-> +	unsigned int chan_id, reqsel;
-> +
-> +	if (dma_spec->args_count != 2)
-> +		return NULL;
-> +
-> +	chan_id = dma_spec->args[0];
-> +	reqsel = dma_spec->args[1];
-> +	if (chan_id >= PDMA_MAX_CHANS || reqsel > GENMASK(7, 0))
-> +		return NULL;
-> +
-> +	chan = dma_get_slave_channel(&pdmadev->channels[chan_id].vc.chan);
-> +	if (chan)
-> +		pdmadev->channels[chan_id].request = reqsel;
-> +
-> +	return chan;
-> +}
-> +
-> +static void ma35d1_free_chan_resources(struct dma_chan *chan)
-> +{
-> +	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
-> +
-> +	ma35d1_terminate_all(chan);
-> +	vchan_free_chan_resources(&ch->vc);
-> +	ch->request = 0;
-> +	memset(&ch->cfg, 0, sizeof(ch->cfg));
-> +}
-> +
-> +static void ma35d1_pdma_start(struct ma35d1_chan *ch)
-> +{
-> +	struct ma35d1_desc *d = ch->desc;
-> +
-> +	if (d->sg_len == 1 && !d->cyclic) {
-> +		writel(d->sg[0].src, ch->base + PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_SA);
-> +		writel(d->sg[0].dst, ch->base + PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_DA);
-> +		writel(d->sg[0].ctl, ch->base + PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_CTL);
-> +	} else {
-> +		writel(d->dma_addr, ch->base + PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_NEXT);
-> +		ma35d1_pdma_reg_clear(ch, PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_CTL, PDMA_OP_MSK);
-> +		ma35d1_pdma_reg_set(ch, PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_CTL, PDMA_OP_SCATTER);
-> +	}
-> +
-> +	/* Memory-to-memory has no peripheral request, so trigger it by software. */
-> +	if (ch->request == 0)
-> +		writel(BIT(ch->id), ch->base + PDMA_SWREQ);
-> +}
-> +
-> +static void ma35d1_pdma_start_desc(struct dma_chan *chan)
-> +{
-> +	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
-> +	struct virt_dma_desc *vd;
-> +
-> +	vd = vchan_next_desc(&ch->vc);
-> +	if (!vd) {
-> +		ch->desc = NULL;
-> +		return;
-> +	}
-> +
-> +	list_del(&vd->node);
-> +	ch->desc = to_ma35d1_pdma_desc(vd);
-> +	ma35d1_pdma_setup_channel(ch);
-> +	ma35d1_pdma_start(ch);
-> +}
-> +
-> +static void ma35d1_issue_pending(struct dma_chan *chan)
-> +{
-> +	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&ch->vc.lock, flags);
-> +
-> +	if (vchan_issue_pending(&ch->vc) && !ch->desc)
-> +		ma35d1_pdma_start_desc(chan);
-> +
-> +	spin_unlock_irqrestore(&ch->vc.lock, flags);
-> +}
-> +
-> +static void ma35d1_pdma_complete(struct ma35d1_chan *ch)
-> +{
-> +	if (!ch->desc)
-> +		return;
-> +
-> +	vchan_cookie_complete(&ch->desc->vd);
-> +	ma35d1_pdma_start_desc(&ch->vc.chan);
-> +}
-> +
-> +static irqreturn_t ma35d1_pdma_interrupt(int irq, void *devid)
-> +{
-> +	int i;
-> +	bool handled = false;
-> +	struct ma35d1_pdmadev *pdmadev = devid;
-> +	struct ma35d1_chan *ch;
-> +
-> +	for (i = 0; i < PDMA_MAX_CHANS; i++) {
-> +		unsigned long flags;
-> +		bool done, abort;
-> +
-> +		ch = &pdmadev->channels[i];
-> +
-> +		spin_lock_irqsave(&ch->vc.lock, flags);
-> +
-> +		done = readl(ch->base + PDMA_TDSTS) & BIT(i);
-> +		abort = readl(ch->base + PDMA_ABTSTS) & BIT(i);
-> +
-> +		if (done || abort) {
-> +			handled = true;
-> +
-> +			/* Ack both flags first so a new descriptor is not completed twice. */
-> +			writel(BIT(i), ch->base + PDMA_TDSTS);
-> +			writel(BIT(i), ch->base + PDMA_ABTSTS);
-
-
-done = readl(ch->base + PDMA_TDSTS);
-abort = readl(ch->base + PDMA_ABTSTS);
-writel(done, ch->base + PDMA_TDSTS);
-writel(abort, ch->base + PDMA_ABTSTS);
-
-for_each_bit(done | abort) {
-	...
-}
-
-> +
-> +			if (ch->desc) {
-> +				if (abort) {
-> +					ch->desc->vd.tx_result.result = DMA_TRANS_ABORTED;
-> +					ma35d1_pdma_complete(ch);
-> +				} else if (ch->desc->cyclic) {
-> +					vchan_cyclic_callback(&ch->desc->vd);
-> +				} else {
-> +					ma35d1_pdma_complete(ch);
-> +				}
-> +			}
-> +		}
-> +
-> +		spin_unlock_irqrestore(&ch->vc.lock, flags);
-> +	}
-> +
-> +	return handled ? IRQ_HANDLED : IRQ_NONE;
-> +}
-> +
-> +static int ma35d1_pdma_probe(struct platform_device *pdev)
-> +{
-> +	int i, ret;
-> +	struct clk *pdma_clk;
-> +	struct reset_control *rst;
-> +	struct device *dev = &pdev->dev;
-> +	struct device_node *node = dev->of_node;
-> +	struct ma35d1_chan *ch;
-> +	struct ma35d1_pdmadev *pdmadev;
-> +	void __iomem *reg_base;
-> +
-> +	pdma_clk = devm_clk_get_enabled(dev, NULL);
-> +	if (IS_ERR(pdma_clk))
-> +		return dev_err_probe(dev, PTR_ERR(pdma_clk), "Failed to get clk\n");
-> +
-> +	rst = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
-> +	if (IS_ERR(rst))
-> +		return dev_err_probe(dev, PTR_ERR(rst), "Failed to get reset\n");
-> +
-> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+> +	ret =3D crg_gadget_irq_init(pdev, crg_udc);
 > +	if (ret)
-> +		return ret;
+> +		goto err_free_resources;
 > +
-> +	pdmadev = devm_kzalloc(dev, sizeof(*pdmadev), GFP_KERNEL);
-> +	if (!pdmadev)
-> +		return -ENOMEM;
-> +
-> +	pdmadev->irq = platform_get_irq(pdev, 0);
-> +	if (pdmadev->irq < 0)
-> +		return pdmadev->irq;
-> +
-> +	reg_base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(reg_base))
-> +		return dev_err_probe(dev, PTR_ERR(reg_base),
-> +				     "Failed to map pdma global registers\n");
-> +
-> +	dma_cap_zero(pdmadev->ddev.cap_mask);
-> +	dma_cap_set(DMA_SLAVE, pdmadev->ddev.cap_mask);
-> +	dma_cap_set(DMA_PRIVATE, pdmadev->ddev.cap_mask);
-> +	dma_cap_set(DMA_MEMCPY, pdmadev->ddev.cap_mask);
-> +	dma_cap_set(DMA_CYCLIC, pdmadev->ddev.cap_mask);
-> +
-> +	pdmadev->ddev.dev = dev;
-> +	pdmadev->ddev.src_addr_widths = PDMA_SLAVE_BUSWIDTHS;
-> +	pdmadev->ddev.dst_addr_widths = PDMA_SLAVE_BUSWIDTHS;
-> +	pdmadev->ddev.directions = BIT(DMA_MEM_TO_DEV) | BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_MEM);
-> +	pdmadev->ddev.device_prep_dma_memcpy = ma35d1_prep_dma_memcpy;
-> +	pdmadev->ddev.device_prep_slave_sg = ma35d1_prep_slave_sg;
-> +	pdmadev->ddev.device_prep_dma_cyclic = ma35d1_prep_dma_cyclic;
-> +	pdmadev->ddev.device_free_chan_resources = ma35d1_free_chan_resources;
-> +	pdmadev->ddev.device_issue_pending = ma35d1_issue_pending;
-> +	pdmadev->ddev.device_tx_status = dma_cookie_status;
-> +	pdmadev->ddev.device_config = ma35d1_slave_config;
-> +	pdmadev->ddev.device_terminate_all = ma35d1_terminate_all;
-> +	pdmadev->ddev.device_synchronize = ma35d1_synchronize;
-> +
-> +	spin_lock_init(&pdmadev->lock);
-> +	INIT_LIST_HEAD(&pdmadev->ddev.channels);
-> +	for (i = 0; i < PDMA_MAX_CHANS; i++) {
-> +		ch = &pdmadev->channels[i];
-> +		ch->dev = dev;
-> +		ch->pdmadev = pdmadev;
-> +		ch->id = i;
-> +		ch->base = reg_base;
-> +		ch->vc.desc_free = ma35d1_pdma_desc_free;
-> +		vchan_init(&ch->vc, &pdmadev->ddev);
-> +	}
-> +
-> +	ret = devm_request_irq(dev, pdmadev->irq, ma35d1_pdma_interrupt, 0, pdev->name, pdmadev);
+> +	ret =3D usb_add_gadget(&crg_udc->gadget);
 > +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
-
-Move irq request after register device()
-
-> +
-> +	platform_set_drvdata(pdev, pdmadev);
-> +
-> +	ret = dma_async_device_register(&pdmadev->ddev);
-
-dmaenginem_async_device_register();
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = of_dma_controller_register(node, ma35d1_of_xlate, pdmadev);
-
-devm_of_dma_controller_register();
-
-Frank
-
-> +	if (ret) {
-> +		dma_async_device_unregister(&pdmadev->ddev);
-> +		for (i = 0; i < PDMA_MAX_CHANS; i++)
-> +			tasklet_kill(&pdmadev->channels[i].vc.task);
-> +		return dev_err_probe(dev, ret, "of_dma_controller_register failed\n");
-> +	}
+> +		goto err_free_resources;
 > +
 > +	return 0;
+> +
+> +err_free_resources:
+> +	crg_udc_free_resources(crg_udc);
+> +err_put_gadget:
+> +	usb_put_gadget(&crg_udc->gadget);
+> +	return ret;
 > +}
 > +
-> +static void ma35d1_pdma_remove(struct platform_device *pdev)
+> +static void crg_udc_remove(struct platform_device *pdev)
 > +{
-> +	struct ma35d1_pdmadev *pdmadev = platform_get_drvdata(pdev);
-> +	void __iomem *base = pdmadev->channels[0].base;
-> +	int i;
+> +	struct crg_gadget_dev *crg_udc =3D platform_get_drvdata(pdev);
+> +	unsigned long flags;
+> +	u32 tmp;
 > +
-> +	/* Stop new requests before the hardware is quiesced. */
-> +	of_dma_controller_free(pdev->dev.of_node);
-> +	dma_async_device_unregister(&pdmadev->ddev);
+> +	spin_lock_irqsave(&crg_udc->udc_lock, flags);
+> +	crg_udc->shutting_down =3D true;
+> +	spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
 > +
-> +	writel(0, base + PDMA_CHCTL);
-> +	writel(0, base + PDMA_INTEN);
-> +	synchronize_irq(pdmadev->irq);
+> +	/* The gadget core calls pullup(0) before the disconnect callback. */
+> +	usb_del_gadget(&crg_udc->gadget);
+> +	cancel_delayed_work_sync(&crg_udc->port_retry_work);
+> +	cancel_work_sync(&crg_udc->recovery_work);
+> +	cancel_work_sync(&crg_udc->udc_reset_work);
+> +	crg_udc_free_resources(crg_udc);
+
+[Severity: Medium]
+Can an interrupt scheduled between crg_gadget_irq_init() and a failing
+usb_add_gadget() leave port_retry_work, recovery_work, or udc_reset_work
+queued after crg_udc is freed?
+
+crg_udc_free_resources() synchronizes and frees the IRQ, then frees the DMA
+rings, without cancelling those three work items before usb_put_gadget()
+frees crg_udc.  In crg_udc_remove(), the work items are also cancelled
+before crg_udc_free_resources() synchronizes and frees the IRQ rather than
+after.
+
 > +
-> +	for (i = 0; i < PDMA_MAX_CHANS; i++)
-> +		tasklet_kill(&pdmadev->channels[i].vc.task);
+> +	/* Do not access registers while the external reset is asserted. */
+> +	if (!crg_udc->hw_reset_asserted && !crg_udc->dma_quiesce_failed) {
+> +		tmp =3D readl(crg_udc->mmio_virt_base + CRG_UDC_MODE_REG) & ~0x1;
+> +		writel(tmp, crg_udc->mmio_virt_base + CRG_UDC_MODE_REG);
+> +	}
+> +
+> +	platform_set_drvdata(pdev, NULL);
+> +	usb_put_gadget(&crg_udc->gadget);
 > +}
 > +
-> +static const struct of_device_id ma35d1_pdma_match[] = {
-> +	{ .compatible = "nuvoton,ma35d1-pdma" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, ma35d1_pdma_match);
+> +static void crg_udc_shutdown(struct platform_device *pdev)
+> +{
+> +	struct crg_gadget_dev *crg_udc =3D platform_get_drvdata(pdev);
+> +	unsigned long flags;
 > +
-> +static struct platform_driver ma35d1_pdma_driver = {
-> +	.probe = ma35d1_pdma_probe,
-> +	.remove = ma35d1_pdma_remove,
-> +	.driver = {
-> +		.name = "ma35d1-pdma",
-> +		.of_match_table = ma35d1_pdma_match,
-> +	},
-> +};
-> +module_platform_driver(ma35d1_pdma_driver);
+> +	spin_lock_irqsave(&crg_udc->udc_lock, flags);
+> +	crg_udc->pullup_on =3D false;
+> +	crg_udc->shutting_down =3D true;
+> +	crg_udc->resetting =3D true;
+> +	crg_udc->device_state =3D USB_STATE_ATTACHED;
+> +	spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
+> +	if (crg_udc->irq >=3D 0)
+> +		synchronize_irq(crg_udc->irq);
+> +	cancel_delayed_work_sync(&crg_udc->port_retry_work);
+> +	cancel_work_sync(&crg_udc->recovery_work);
+> +	cancel_work_sync(&crg_udc->udc_reset_work);
 > +
-> +MODULE_DESCRIPTION("PDMA controller driver for Nuvoton MA35D1");
-> +MODULE_AUTHOR("Shan-Chun Hung <shanchun1218@gmail.com>");
-> +MODULE_LICENSE("GPL");
-> --
-> 2.25.1
->
+> +	/* Reset and gadget stop may own the registers across a lock drop. */
+> +	spin_lock_irq(&crg_udc->udc_lock);
+> +	wait_event_lock_irq(crg_udc->teardown_wait,
+> +			    !crg_udc->controller_recovering, crg_udc->udc_lock);
+> +	if (crg_udc->uccr && !crg_udc->hw_reset_asserted) {
+> +		u32 val =3D readl(&crg_udc->uccr->control);
+> +
+> +		crg_udc_set_vbus_detect(crg_udc, false);
+> +		val &=3D ~(CRG_U3DC_CTRL_INT_EN | CRG_U3DC_CTRL_RUN |
+> +			 CRG_U3DC_CTRL_SYSERR_EN);
+> +		writel(val, &crg_udc->uccr->control);
+> +	}
+> +	spin_unlock_irq(&crg_udc->udc_lock);
+> +}
+
+[Severity: Medium]
+Does crg_udc_shutdown() return before bus-master DMA has actually stopped?
+
+As noted in crg_udc_soft_reset(), clearing CRG_U3DC_CTRL_RUN does not halt
+DMA or pending event-ring writes until CRG_U3DC_STATUS_DEV_CTRL_HALT
+asserts.  Returning without waiting for halt or calling crg_udc_quiesce_hw()
+leaves DMA active across shutdown or kexec.
+
+> +
+> +static int crg_udc_suspend(struct device *dev)
+> +{
+> +	struct crg_gadget_dev *crg_udc =3D dev_get_drvdata(dev);
+> +	unsigned long flags;
+> +	u32 val;
+> +	int ret;
+> +
+> +	spin_lock_irqsave(&crg_udc->udc_lock, flags);
+> +	if (crg_udc->controller_recovering || crg_udc->shutting_down ||
+> +	    crg_udc->external_reset_pending ||
+> +	    crg_udc->endpoint_recovery_pending ||
+> +	    (crg_udc->hw_reset_asserted && !crg_udc->gadget_stopping)) {
+> +		spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
+> +		return -EBUSY;
+> +	}
+> +	crg_udc->suspended =3D true;
+> +	if (crg_udc->gadget_stopping) {
+> +		if (crg_udc->hw_dma_armed) {
+> +			crg_udc->suspended =3D false;
+> +			ret =3D -EBUSY;
+> +		} else {
+> +			ret =3D 0;
+> +		}
+> +		spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
+> +		return ret;
+> +	}
+> +	crg_udc_set_pullup(crg_udc, false);
+> +	val =3D readl(&crg_udc->uccr->control);
+> +	val &=3D ~CRG_U3DC_CTRL_INT_EN;
+> +	writel(val, &crg_udc->uccr->control);
+> +	spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
+> +
+> +	if (crg_udc->irq >=3D 0)
+> +		synchronize_irq(crg_udc->irq);
+> +	cancel_delayed_work_sync(&crg_udc->port_retry_work);
+> +	cancel_work_sync(&crg_udc->recovery_work);
+> +	cancel_work_sync(&crg_udc->udc_reset_work);
+> +
+> +	spin_lock_irqsave(&crg_udc->udc_lock, flags);
+> +	if (crg_udc->gadget_stopping || crg_udc->shutting_down ||
+> +	    crg_udc->controller_recovering || crg_udc->external_reset_pending ||
+> +	    crg_udc->endpoint_recovery_pending) {
+> +		ret =3D -EBUSY;
+> +		goto out;
+> +	}
+> +	/*
+> +	 * A reset may already have marked the link disconnected while its
+> +	 * gadget notification was still pending. Deliver disconnect before
+> +	 * resetting the software state, including that cancelled work.
+> +	 */
+> +	if (crg_udc->connected || crg_udc->bus_reset_pending)
+> +		crg_udc_notify_disconnect(crg_udc, &flags);
+> +	crg_udc->connected =3D false;
+> +	crg_udc->gadget.speed =3D USB_SPEED_UNKNOWN;
+> +	if (crg_udc->external_reset_pending || crg_udc->endpoint_recovery_pendi=
+ng) {
+> +		ret =3D -EBUSY;
+> +		goto out;
+> +	}
+> +	ret =3D crg_udc_recover(crg_udc, &flags);
+> +	if (ret)
+> +		dev_err(crg_udc->dev, "suspend controller reset failed: %d\n", ret);
+> +out:
+> +	if (ret) {
+> +		crg_udc->suspended =3D false;
+> +		crg_udc_kick_reset_work(crg_udc);
+> +	}
+> +	spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
+> +	return ret;
+> +}
+
+[Severity: High]
+Can crg_udc_suspend() cause a use-after-free on queued usb_requests when
+crg_udc_notify_disconnect() disables endpoints?
+
+crg_udc_suspend() sets crg_udc->suspended =3D true and clears CRG_U3DC_CTRL=
+_RUN
+via crg_udc_set_pullup(crg_udc, false) before calling
+crg_udc_notify_disconnect() and crg_udc_recover().  When the gadget driver's
+->disconnect() callback invokes usb_ep_disable() -> crg_udc_ep_disable() on
+an active endpoint, polling uccr->ep_enable or uccr->ep_running can time out
+with RUN cleared and call crg_udc_recover_endpoints() ->
+crg_udc_recover_link().  Because crg_udc_recover_link() rejects
+crg_udc->suspended with -EBUSY, usb_ep_disable() returns without stopping D=
+MA
+or draining udc_ep->queue, and the function driver frees its usb_requests
+before crg_udc_recover() -> crg_udc_reset_queues() -> crg_udc_ep_nuke() giv=
+es
+them back.
+
+In addition, if usb_ep_dequeue() runs during that window,
+crg_udc_abort_ep0_for_setup() or CRG_CMD_STOP_EP fails because suspended is
+set and RUN is clear, setting endpoint_recovery_pending =3D true and causing
+crg_udc_suspend() to abort with -EBUSY instead of running crg_udc_recover().
+And if crg_udc_suspend() takes the early goto out before crg_udc_recover(),
+CRG_U3DC_CTRL_RUN and CRG_U3DC_CTRL_INT_EN remain cleared while
+crg_udc->suspended is reset to false.
+
+[ ... ]
+> +	if (tmp_status & CRG_U3DC_STATUS_SYS_ERR) {
+> +		bool was_connected =3D crg_udc->connected;
+> +		u32 generation =3D crg_udc->udc_event[0].generation;
+> +
+> +		/* A controller reset must not overlap composite's ->reset(). */
+> +		if (crg_udc->reset_callback_active) {
+> +			writel(CRG_U3DC_STATUS_SYS_ERR, &uccr->status);
+> +			crg_udc->deferred_system_error =3D true;
+> +			spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
+> +			return;
+> +		}
+> +
+> +		dev_err(crg_udc->dev, "controller system error\n");
+> +		writel(CRG_U3DC_STATUS_SYS_ERR, &uccr->status);
+> +		/* Function drivers must see enabled endpoints on disconnect. */
+> +		if (was_connected)
+> +			crg_udc_notify_disconnect(crg_udc, &flags);
+
+[Severity: Medium]
+If CRG_U3DC_STATUS_SYS_ERR fires after a bus reset has already cleared
+crg_udc->connected while crg_udc->bus_reset_pending is still true, does this
+drop the gadget reset/disconnect notification?
+
+Unlike crg_udc_suspend(), which checks crg_udc->connected ||
+crg_udc->bus_reset_pending, this path only checks crg_udc->connected and
+then calls crg_udc_recover_link(crg_udc, &flags, false), which clears
+bus_reset_pending and marks all endpoints disabled without notifying the
+gadget driver.
+
+> +		/*
+> +		 * The disconnect callback drops udc_lock: another CPU may be
+> +		 * resetting now, or may have reset and rebuilt the rings
+> +		 * already, in which case this error has been recovered.
+> +		 */
+> +		if (crg_udc->resetting || crg_udc->suspended ||
+> +		    crg_udc->shutting_down ||
+> +		    generation !=3D crg_udc->udc_event[0].generation) {
+> +			spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
+> +			return;
+> +		}
+> +		crg_udc_recover_link(crg_udc, &flags, false);
+
+[Severity: Medium]
+Should crg_udc->connected (and device_state) be cleared before calling
+crg_udc_notify_disconnect() here?
+
+Because crg_udc_notify_disconnect() drops udc_lock while crg_udc->connected
+is still true and crg_udc->device_state is still USB_STATE_CONFIGURED, a
+concurrent crg_udc_suspend() or port status handler can deliver a second
+disconnect notification.  Also, if usb_ep_disable() inside ->disconnect()
+times out on the faulted controller and calls crg_udc_recover_endpoints(),
+notify_reset evaluates to true (via device_state =3D=3D USB_STATE_CONFIGURE=
+D and
+gadget_callbacks_active) and queues a bus reset on top of the disconnect.
+
+[ ... ]
+> +	if (crg_udc->device_state =3D=3D USB_STATE_RECONNECTING &&
+> +	    crg_udc->portsc_on_reconnecting =3D=3D 1 &&
+> +	    crg_udc_is_event_rings_empty(crg_udc)) {
+> +		crg_udc->portsc_on_reconnecting =3D 0;
+> +		crg_udc_handle_port_status(crg_udc, &flags);
+> +		/* The port handler drops udc_lock. */
+> +		if (crg_udc->resetting) {
+> +			spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
+> +			return;
+> +		}
+> +	}
+
+[Severity: Medium]
+Can a second port event while crg_udc->bus_reset_pending is true clear
+bus_reset_pending without notifying the gadget driver?
+
+When an initial bus reset on a configured gadget runs crg_udc_reinit(crg_ud=
+c,
+true), crg_udc->device_state becomes USB_STATE_RECONNECTING and
+crg_udc->bus_reset_pending is set to true until udc_reset_work runs.  If a
+second port reset, a port-reset timeout in crg_udc_port_retry_work(), or a
+CCS drop with VBUS present arrives before udc_reset_work runs, those paths
+only check crg_udc->device_state =3D=3D USB_STATE_CONFIGURED (or pass false=
+ to
+crg_udc_reinit()):
+
+drivers/usb/gadget/udc/crg/crg-udc-gadget.c:crg_udc_handle_port_status() {
+    ...
+				bool was_configured =3D crg_udc->device_state =3D=3D
+						       USB_STATE_CONFIGURED;
+				bool notify_reset =3D was_configured &&
+					crg_udc->async_callbacks &&
+					crg_udc->gadget_driver;
+				int reinit_ret;
+
+				reinit_ret =3D crg_udc_reinit(crg_udc, notify_reset);
+    ...
+}
+
+crg_udc_reinit(crg_udc, false) then overwrites crg_udc->bus_reset_pending
+with false and clears usb_ep.enabled on all endpoints without running
+usb_gadget_udc_reset().
+
+> +
+> +	if (crg_udc->device_state =3D=3D USB_STATE_RECONNECTING &&
+> +	    crg_udc->connected =3D=3D 1) {
+> +		ret =3D crg_udc_prepare_for_setup(crg_udc);
+> +		if (!ret && crg_udc->pending_setup_valid &&
+> +		    !crg_udc->resetting && crg_udc->connected &&
+> +		    crg_udc->device_state =3D=3D USB_STATE_DEFAULT) {
+> +			struct usb_ctrlrequest setup =3D crg_udc->pending_setup;
+> +			u8 tag =3D crg_udc->pending_setup_tag;
+> +
+> +			crg_udc->pending_setup_valid =3D false;
+> +			crg_udc_dispatch_setup(crg_udc, &setup, tag, &flags);
+> +		} else if (ret && ret !=3D -EBUSY) {
+> +			dev_err(crg_udc->dev,
+> +				"failed to prepare EP0 after reset: %d\n", ret);
+> +		}
+> +	}
+
+[Severity: Medium]
+What prepares EP0 and transitions device_state out of USB_STATE_RECONNECTING
+when crg_udc_handle_port_status() is called from crg_udc_port_retry_work() =
+or
+crg_udc_reset_work()?
+
+When a port reset on a session with device_state >=3D USB_STATE_DEFAULT
+completes inside crg_udc_handle_port_status(), crg_udc_reinit() sets
+device_state =3D USB_STATE_RECONNECTING and crg_udc_handle_port_status() se=
+ts
+connected =3D 1 without calling crg_udc_enable_setup().  Only
+crg_gadget_handle_interrupt() runs the USB_STATE_RECONNECTING block above to
+call crg_udc_prepare_for_setup() and dispatch pending_setup; the two worker
+callers of crg_udc_handle_port_status() return with the controller stuck in
+USB_STATE_RECONNECTING.
+
+> +
+> +	spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
+> +}
+> +
+> +/*
+> + * Primary handler only checks whether the shared interrupt belongs to t=
+he
+> + * controller. All controller work, including reset polling, runs in the
+> + * threaded handler and therefore never busy-waits in hard IRQ context.
+> + */
+> +static irqreturn_t crg_udc_common_irq(int irq, void *dev)
+> +{
+> +	struct crg_gadget_dev *crg_udc =3D dev;
+> +	struct crg_uccr __iomem *uccr =3D crg_udc->uccr;
+> +	u32 status;
+> +
+> +	if (READ_ONCE(crg_udc->gadget_stopping) ||
+> +	    READ_ONCE(crg_udc->shutting_down) ||
+> +	    READ_ONCE(crg_udc->resetting))
+> +		return IRQ_NONE;
+> +
+> +	status =3D readl(&uccr->status);
+> +	if (!(status & (CRG_U3DC_STATUS_EINT | CRG_U3DC_STATUS_SYS_ERR)))
+> +		return IRQ_NONE;
+> +
+> +	return IRQ_WAKE_THREAD;
+> +}
+
+[Severity: High]
+Can returning IRQ_NONE here while the level-triggered interrupt is still
+asserted cause a hard-IRQ storm that disables the shared IRQ line?
+
+The IRQ is registered with IRQF_SHARED | IRQF_ONESHOT, so the line is only
+masked when crg_udc_common_irq() returns IRQ_WAKE_THREAD.  Several paths set
+resetting, shutting_down, or gadget_stopping and re-enable local interrupts
+before CRG_U3DC_CTRL_INT_EN and CRG_U3DC_CTRL_SYSERR_EN are cleared in
+uccr->control:
+
+crg_udc_reset()
+  crg_udc_reset_session()
+    crg_udc->resetting =3D true;
+  spin_unlock_irqrestore(&crg_udc->udc_lock, *flags)
+  <hardirq>
+    crg_udc_common_irq()
+      if (READ_ONCE(crg_udc->resetting))
+        return IRQ_NONE;  <-- level IRQ still asserted; storms
+
+The same window exists in crg_udc_remove() during usb_del_gadget(), in
+crg_udc_shutdown() before synchronize_irq(), and in crg_udc_stop_gadget()
+when controller_recovering is true.  Similarly, when suspended or
+controller_recovering is true while resetting is false (such as during
+crg_udc_reinit()), crg_udc_common_irq() wakes crg_udc_irq_thread(), which
+returns early in crg_gadget_handle_interrupt() without clearing
+uccr->status and unmasks the still-asserted level interrupt in a tight loop.
+
+[ ... ]
+> +static void crg_udc_restart_link(struct crg_gadget_dev *crg_udc,
+> +				 bool notify_reset)
+> +{
+> +	if (!crg_udc->async_callbacks || !crg_udc->gadget_driver ||
+> +	    crg_udc->reset_callback_active)
+> +		return;
+> +
+> +	if (notify_reset) {
+> +		crg_udc->bus_reset_pending =3D true;
+> +		crg_udc->restart_after_reset =3D true;
+> +		crg_udc_kick_reset_work(crg_udc);
+> +	} else if (!crg_udc->suspended && crg_udc->pullup_on) {
+> +		crg_udc_set_pullup(crg_udc, true);
+> +	}
+> +}
+
+[Severity: Medium]
+If crg_udc_recover_endpoints() runs while crg_udc->reset_callback_active is
+true, does this lose the post-reset pullup restart?
+
+When usb_ep_disable() times out inside usb_gadget_udc_reset() and calls
+crg_udc_recover_endpoints() -> crg_udc_recover_link(), crg_udc_reset() clea=
+rs
+crg_udc->restart_after_reset =3D false and resets the controller (clearing
+CRG_U3DC_CTRL_RUN).  crg_udc_restart_link() then returns early because
+reset_callback_active is true, leaving restart_after_reset false when
+crg_udc_reset_work() finishes.
+
+[ ... ]
+> +int crg_udc_recover(struct crg_gadget_dev *crg_udc, unsigned long *flags)
+> +{
+> +	int ret;
+> +
+> +	if (crg_udc->controller_recovering || crg_udc->shutting_down ||
+> +	    crg_udc->gadget_stopping || crg_udc->hw_reset_asserted)
+> +		return -EBUSY;
+> +
+> +	crg_udc_recovery_begin(crg_udc);
+> +	ret =3D crg_udc_reset(crg_udc, flags);
+> +	if (ret) {
+> +		crg_udc->controller_faulted =3D true;
+> +		crg_udc->dma_quiesce_failed =3D crg_udc->hw_dma_armed;
+> +		crg_udc_reset_queues(crg_udc, crg_udc->preserve_ep_enabled_on_reset);
+> +	}
+> +	if (!ret && !crg_udc->shutting_down && !crg_udc->gadget_stopping)
+> +		ret =3D crg_udc_reset_data_struct(crg_udc);
+> +	if (!ret && !crg_udc->shutting_down && !crg_udc->gadget_stopping)
+> +		ret =3D crg_udc_init_ep0(crg_udc);
+> +	if (!ret && (crg_udc->shutting_down || crg_udc->gadget_stopping))
+> +		ret =3D -ESHUTDOWN;
+> +
+> +	crg_udc->controller_faulted =3D !!ret;
+> +	crg_udc->resetting =3D !!ret;
+> +	if (!ret)
+> +		crg_udc->stopped_needs_reset =3D false;
+> +	crg_udc_recovery_end(crg_udc);
+> +	return ret;
+> +}
+
+[Severity: Medium]
+When crg_udc_reset() times out in crg_udc_recover(), should this set
+crg_udc->external_reset_pending when crg_udc->dma_quiesce_failed &&
+crg_udc->rst, like crg_udc_recover_link() does?
+
+crg_udc_reset_session() clears external_reset_pending, and on timeout
+crg_udc_reset_queues() quarantines any active DMA bounce buffers into
+crg_udc->dma_quarantine.  When crg_udc_recover() is called directly from
+crg_udc_suspend() or crg_gadget_pullup(), external_reset_pending is never
+set, so crg_udc_kick_reset_work() does not schedule recovery_work to assert
+the external reset and release the quarantined buffers.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-axiado-ax3=
+000-usb-device-controller-v5-0-49271ed5c793@axiado.com?part=3D6
