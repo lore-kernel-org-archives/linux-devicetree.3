@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837264;
-	b=DXVyW39oPS5+DifFp01t1XcyW8IiRkPQ5hUcNYbEArzq/ZCrev0IofvgpBxiMwFqjqAe
-	 uQ8cem4g4Ozo2orklWQ/8QYxtd1ALZt9UwMw8HlfzSItwkzqW1SzCAkDJkBBWbB0S1UFF
-	 rd/iFyE7IXYFHwrxv129ZBWDnPYuEhLJKVCQ+rdTO+bvjlqf88DOz2mdAfihvLHf/MDBM
-	 0Ge1tW545Zpr+NKRCdVAPVRl5FRZ4fPqAplc2N4G+TlWvCrjCRNTgf1DAySYzdSe4auuF
-	 EjDqSsoAO5QjIWq/+mZeRhchQCTPRiryzfik5I7lSA5jXTp6blbqvZvIOTnbBC7K0XA==
+	t=1794837272;
+	b=AdUNGqLYDuuUvmCCy8cFLJJN6dPJ2mU6u7gJv2sxbGMOc/OQAuHgwZSdunnFRLRR0J06
+	 2TX6SFQM/XYtvrEjkpR0q1rxVMhXU2oymR5ZYQ+i62jFxhMJJFPjLjVjIT+IlBpIkcF2l
+	 /ULyPo/vKkwcv/13pA4dtRGYaXNoAzzUTFKaLH0MAqMagw1WcTV1R7jf+SjyX4pl8xTlh
+	 LkiSRVF19rEiGTedx/tJz6bFqPt5f3I28bEvr8iFcYHtk9LA18d0QgcITFBsOwidvL+G6
+	 GAMGCwABO1MZt1wt3c3Anl7BEdd4OL2A6oFoXSP0KWaw8++v9+CUeGAnvWwi0xnZ5MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837264;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837272;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=k4jv5NdXLu0P7F88Sc8qj9yaEW3bOEGqP7oXpHPJc/g=;
-	b=l/YK30XbrcFExsGJosiPPUd0+IPba+Ty9Fd53Bce0EGbeliayU8ROcvgik/7ZSSzFPpt
-	 7phKUL0E6eD6t1XwieLckSZzU4narPF+NAwNNtSksI88kIm4WPHG7i18jTBa3a70jixYc
-	 aKVLzDuSqS2QWciXOi9sTx06H86dELlM5ftO1lZi4X9sNFjyNdc4HhCoGlm21g9BFlVEt
-	 Het2LJkZteVczZmCgMxafLrLJXuDW1qZR5/nzBWmMCZsxU34A4YbTeavB/zrsN0o7OMyk
-	 Ydp77+aUj/PgpFK7mSOYQC4IEEIdEMRHJjYABrQwJHBL2818UqZwfckQga6zFUCU8Og==
+	bh=f2Q5INHps8CgWYe8Z/tRA0v/mRlLliNxSIPqAqP1nD4=;
+	b=14yWhX0ZUc9CrZ9wwR8Lti9bCogj702fVzi3d8ZECsfFgrN2TiEXqqTYeAVD6VZboZMZ
+	 PTrL6VbhPgufaNHoNa+pHouc3ezFn2XcV61s8tWiy5FiZ5LHohsvGyA1bbY1UCiHxIuij
+	 yiMz6LqZaYbXMwaBhqGfQx8zx6IOZwsJLE710HvxtOLlvO/iHHaqqXOgSocyeZE10dcOv
+	 lvem1tF5yc9rPQcH84DJFJF8Yo1SQdsGWEa5B2pJRlrxAL23y/bMQqCHbhx8kAYC4cEe/
+	 uzwkv6Da8gCu3Kas0g364pFbS5r1vi6k1ul3m8JWRbzFRyCr5j+9VGRPlhZiaxE0qRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIAkH6oC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YsmekRUP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8FB606A8B3;
-	Mon, 16 Nov 2026 13:54:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9EA60A2636;
+	Mon, 16 Nov 2026 13:54:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIAkH6oC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55B01F000CD;
-	Mon, 16 Nov 2026 13:54:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YsmekRUP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D921F000CB;
+	Mon, 16 Nov 2026 13:54:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837264;
-	bh=k4jv5NdXLu0P7F88Sc8qj9yaEW3bOEGqP7oXpHPJc/g=;
+	s=k20260515; t=1794837272;
+	bh=f2Q5INHps8CgWYe8Z/tRA0v/mRlLliNxSIPqAqP1nD4=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FIAkH6oCSL8DS1A/rXBXqFBTRyPxbJb05dfnhSdkZJYJKCiah6fSPUPjaUDkNERux
-	 STY3g9tkWp58vqA700LSI1JkQy0IPlZhKrmudwdMEdDeJbX/v9E7mk3ooFOSi9eouz
-	 Xld3bF67DFQxLMqyVcAe5y857wr/Sr9/wiyLa1hkSqa8IvkYCCUcLzmKWRJd192HQl
-	 Ef6zN7bYCF7P0TiRzf9ENaItubav3YqaX1XD80HDgfZ/qFxy7zVik31VUmHXpdksY2
-	 yIiQiLkIoAajU6kX90eyCW5QetNMsBv5nrc3qd5Ju1XgbnAa9VZZMSYSXaXtuYhCIf
-	 8Xe9D92ISHC1w==
-Subject: Re: [PATCH net-next v6 7/7] net: ftgmac100: Allow building on ARM64
+	b=YsmekRUPgihP5LeFNecvW6m74jLjk5PIhw5udNGkh2Oaf2qildpkCuaSODBjLpFLC
+	 oHAz1Mq/nbbTIRtqC13OkJxpOrFca93eq45v7wx+nZtqYciNxBt529deGV5aQQyEN6
+	 0+XiV2gKb5cdcwxmWL30xRgPJB4qVF+6QoSOHHwW2RostqSquJQrEIqoXqS+kCjoVS
+	 j5dm//w5UWgrlMcMty7pBlUNXjklhV0+EPl6xsGQ6jluEPhp38VCjRdG4uCnQbjZnk
+	 J9E6SmAHjvXK+btwqO6wtFMAMv6I+qkFLw8toSE/FQ+sbnf2949H00L7ljCzyAQOSG
+	 TGVLRiQfStibQ==
+Subject: Re: [PATCH net-next v6 1/2] dt-bindings: net: qcom,bam-dmux: Add
+ memory-region and qcom,vmid properties
 From: netdev-bot+sashiko@kernel.org
-To: jacky_chou@aspeedtech.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
- linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew@lunn.ch
-Date: Mon, 16 Nov 2026 13:54:23 +0000
-Message-ID: <179483726335.3136.9821414113172154468@kernel.org>
-In-Reply-To: <20261112-support_ast2700-v6-7-238020bf46cf@aspeedtech.com>
-References: <20261112-support_ast2700-v6-7-238020bf46cf@aspeedtech.com>
-X-sashiko-severity: Medium
+To: vishnu.santhosh@oss.qualcomm.com
+Cc: stephan@gerhold.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
+ johannes@sipsolutions.net, edumazet@kernel.org, linux-arm-msm@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, deepak.singh@oss.qualcomm.com
+Date: Mon, 16 Nov 2026 13:54:30 +0000
+Message-ID: <179483727050.3136.1539014411037771065@kernel.org>
+In-Reply-To: <20261112-qcom-bam-dmux-vmid-ext-v6-1-7a16bd3dff18@oss.qualcomm.com>
+References: <20261112-qcom-bam-dmux-vmid-ext-v6-1-7a16bd3dff18@oss.qualcomm.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -65,10 +67,10 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -76,160 +78,128 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] On AST2700 (FTGMAC100_QUIRK_DMA_35BIT) the driver keeps no
-  software copy of buffer DMA addresses.
-- [Low] The commit message gives the wrong reason for dropping `depends
-  on !64BIT || BROKEN` from FTGMAC100…
-- [Low] The new MDIO_ASPEED help text in drivers/net/mdio/Kconfig (lines
-  58-62) reads like a changelog, not like help text that stays in the…
+- [High] The series confines only the BAM-DMUX client's own DMA mappings
+  to the restricted-dma-pool.
+- [Low] The patch adds the Shikra-specific compatible `qcom,shikra-bam-
+  dmux`, but the only placement the driver supports cannot pass schema…
 
 --
 
-net: ftgmac100: Allow building on ARM64
+dt-bindings: net: qcom,bam-dmux: Add memory-region and qcom,vmid properties
 
-This commit lets the Faraday vendor menu and the FTGMAC100 driver be
-selected on ARM64 for AST2700, and drops the !64BIT || BROKEN restriction.
-It also changes the MDIO_ASPEED select condition from MACH_ASPEED_G6 to
-ARCH_ASPEED and updates the MDIO_ASPEED help text.
+This patch adds optional memory-region and qcom,vmid properties to the
+BAM-DMUX binding. With them, DMA mappings can be confined to a restricted
+DMA pool that is shared with the modem through SCM. It also adds the
+qcom,shikra-bam-dmux compatible, with qcom,bam-dmux as fallback, and
+requires both new properties for it.
 
-> diff --git a/drivers/net/ethernet/faraday/Kconfig b/drivers/net/ethernet/faraday/Kconfig
-> index 474073c7f94d7..9acc2d260c1f9 100644
-> --- a/drivers/net/ethernet/faraday/Kconfig
-> +++ b/drivers/net/ethernet/faraday/Kconfig
+> diff --git a/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml b/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
+> index 33746c238513d..f7388d24c8612 100644
+> --- a/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
+> @@ -22,7 +22,11 @@ description: |
+>  
+>  properties:
+>    compatible:
+> -    const: qcom,bam-dmux
+> +    oneOf:
+> +      - const: qcom,bam-dmux
+> +      - items:
+> +          - const: qcom,shikra-bam-dmux
+> +          - const: qcom,bam-dmux
+
+[Severity: Low]
+Will a Shikra DT that uses this compatible pass dtbs_check?
+
+The bam-dmux device is only created from a child of the PAS remoteproc
+node:
+
+drivers/remoteproc/qcom_q6v5_pas.c:qcom_pas_probe() {
+    ...
+	node = of_get_compatible_child(pdev->dev.of_node, "qcom,bam-dmux");
+	pas->bam_dmux = of_platform_device_create(node, NULL, &pdev->dev);
+    ...
+}
+
+So on Shikra the node has to sit under the qcom,shikra-mpss-pas node.
+
+Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml does not
+define a bam-dmux child and ends with unevaluatedProperties: false. The
+qcom,pas-common.yaml schema it references does not define one either.
+
+Should the series also update the Shikra PAS binding to allow the
+bam-dmux child node?
 
 [ ... ]
 
-> @@ -28,11 +28,10 @@ config FTMAC100
+> @@ -72,6 +76,22 @@ properties:
+>        - const: tx
+>        - const: rx
 >  
->  config FTGMAC100
->  	tristate "Faraday FTGMAC100 Gigabit Ethernet support"
-> -	depends on ARM || COMPILE_TEST
-> -	depends on !64BIT || BROKEN
-> +	depends on ARM || ARM64 || COMPILE_TEST
+> +  memory-region:
+> +    maxItems: 1
+> +    description:
+> +      Phandle to a reserved-memory node compatible with restricted-dma-pool.
+> +      The BAM-DMUX device uses the pool for DMA mappings.
+> +
+> +  qcom,vmid:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    maxItems: 1
+> +    items:
+> +      minimum: 1
+> +      maximum: 63
+> +    description:
+> +      VMID of the remote execution environment that is granted access to the
+> +      restricted DMA pool through SCM.
+> +
 
-[Severity: Low]
+[Severity: High]
+Does this also cover the BAM descriptor FIFOs, or only the bam-dmux
+buffers?
 
-The commit message says:
+Only the bam-dmux node gets the restricted pool. qcom_bam_dmux.c maps the
+skb buffers with dmux->dev, so only the payload buffers go through the
+pool. The descriptor FIFO is allocated on the BAM DMA controller device
+instead:
 
-  The driver now programs the upper DMA address fields, so it no longer
-  needs to be marked BROKEN for 64-bit builds.
+drivers/dma/qcom/bam_dma.c:bam_alloc_chan() {
+    ...
+	bchan->fifo_virt = dma_alloc_wc(bdev->dev, BAM_DESC_FIFO_SIZE,
+					&bchan->fifo_phys, GFP_KERNEL);
+    ...
+}
 
-Is that why the restriction was there in the first place? The
-!64BIT || BROKEN dependency arrived in eac8173e7b99 ("net: faraday add
-nds32 support."), together with COMPILE_TEST, on both FTMAC100 and
-FTGMAC100. It looks like a general "not 64-bit clean" marker and has
-nothing to do with DMA address width.
+That address is then programmed into the hardware:
 
-The upper address programming is also only done under
-FTGMAC100_QUIRK_DMA_35BIT, and only the AST2700 match data sets that
-quirk. For example, ftgmac100_init_hw():
+drivers/dma/qcom/bam_dma.c:bam_chan_init_hw() {
+    ...
+	writel_relaxed(ALIGN(bchan->fifo_phys, sizeof(struct bam_desc_hw)),
+			bam_addr(bdev, bchan->id, BAM_P_DESC_FIFO_ADDR));
+    ...
+}
 
-	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-		iowrite32(upper_32_bits(priv->rxdes_dma),
-			  priv->base + FTGMAC100_OFFSET_RXR_BADDR_HIGH);
+The follow-up commit "net: wwan: qcom_bam_dmux: Assign restricted DMA pool
+to remote processor" says "BAM-DMUX DMA mappings and BAM descriptor FIFOs
+must therefore be constrained to a designated memory region", and that
+accesses outside the region can trigger an XPU violation. It relies on
+"When the BAM DMA controller references the same pool, its descriptor
+FIFOs are covered by the assignment as well."
 
-and ftgmac100_probe():
+However, Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml does not
+define memory-region and has additionalProperties: false. The
+dma-controller.yaml and dma-common.yaml schemas it references do not
+define it either.
 
-	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT) {
-		err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(35));
+With a schema-valid Shikra DT, wouldn't bam_alloc_chan() allocate the
+FIFO from ordinary memory outside the SCM-assigned region? The BAM
+descriptor fetches would then land outside the shared region.
 
-The other compatibles never program the high fields. They work on a
-64-bit kernel only because they keep the default 32-bit DMA mask.
+Should the series also extend qcom,bam-dma.yaml to accept memory-region?
+It may also need to check how iommus interacts with
+of_dma_set_restricted_buffer(). Failing that, could one of the bindings
+document where the descriptor FIFO has to live?
 
-Also, with no 64BIT restriction left, this line lets the driver build on
-every 64-bit architecture under COMPILE_TEST (x86_64, riscv64, and so on),
-not only on ARM64 as the subject says.
-
-Could the commit message describe both of these points?
-
-[Severity: Medium]
-
-This change makes the 35-bit DMA path reachable on real AST2700 hardware.
-On that path the driver keeps no software copy of the buffer DMA
-addresses. It stores the upper bits only in the device-owned descriptor,
-in ftgmac100_alloc_rx_buf():
-
-	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-		rxdes->rxdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_RXDES2_RXBUF_BADR_HI,
-						       upper_32_bits(map)));
-	rxdes->rxdes3 = cpu_to_le32(lower_32_bits(map));
-
-After the MAC completes the descriptor, ftgmac100_rx_packet() rebuilds
-the handle from rxdes2 and passes it to dma_unmap_single():
-
-	map = le32_to_cpu(rxdes->rxdes3);
-	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-		map |= (u64)FIELD_GET(FTGMAC100_RXDES2_RXBUF_BADR_HI,
-				     le32_to_cpu(rxdes->rxdes2)) << 32;
-
-ftgmac100_free_buffers() rebuilds it the same way. ftgmac100_free_tx_packet()
-does the same with txdes2.
-
-The header describes rxdes2 as a word the device writes:
-
-	__le32	rxdes2; /* length/type on AST2500 */
-
-Does the AST2700 MAC leave bits 18:16 of rxdes2 (and txdes2) untouched
-when it writes the descriptor back?
-
-If it rewrites the whole word, every buffer mapped above 4 GiB would be
-unmapped with the wrong DMA address. With dma-direct on arm64 that means
-cache maintenance on the wrong physical range. With swiotlb or an IOMMU it
-means the wrong bounce buffer or IOVA.
-
-Neither the code nor the commit message says whether these bits are
-preserved. If that is not guaranteed, would it be safer to keep the DMA
-handles in a software array next to rx_skbs and tx_skbs?
-
->  	select PHYLIB
->  	select FIXED_PHY
-> -	select MDIO_ASPEED if MACH_ASPEED_G6
-> +	select MDIO_ASPEED if ARCH_ASPEED
->  	select CRC32
->  	help
->  	  This driver supports the FTGMAC100 Gigabit Ethernet controller
-> diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
-> index 6f272fae4bb55..ec1794cc64b09 100644
-> --- a/drivers/net/mdio/Kconfig
-> +++ b/drivers/net/mdio/Kconfig
-> @@ -50,12 +50,16 @@ config MDIO_ASPEED
->  	depends on OF_MDIO && HAS_IOMEM
->  	help
->  	  This module provides a driver for the independent MDIO bus
-> -	  controllers found in the ASPEED AST2600 SoC. This is a driver for the
-> -	  third revision of the ASPEED MDIO register interface - the first two
-> -	  revisions are the "old" and "new" interfaces found in the AST2400 and
-> -	  AST2500, embedded in the MAC. For legacy reasons, FTGMAC100 driver
-> -	  continues to drive the embedded MDIO controller for the AST2400 and
-> -	  AST2500 SoCs, so say N if AST2600 support is not required.
-> +	  controllers found in the ASPEED AST2600 and AST2700 SoCs. This is a
-> +	  driver for the third revision of the ASPEED MDIO register interface -
-> +	  the first two revisions are the "old" and "new" interfaces found in
-> +	  the AST2400 and AST2500, embedded in the MAC. For legacy reasons,
-> +	  FTGMAC100 driver continues to drive the embedded MDIO controller for
-> +	  the AST2400 and AST2500 SoCs. AST2700 has no dedicated MACH_ASPEED_G7
-> +	  symbol and is only gated by ARCH_ASPEED, so FTGMAC100 now
-> +	  unconditionally selects this driver on every ARCH_ASPEED platform,
-> +	  including the older AST2400/AST2500 SoCs where it has no MDIO node to
-> +	  bind to.
-
-[Severity: Low]
-
-This isn't a bug, but this help text reads like a changelog. The word
-"now" only makes sense relative to this patch, and the sentence is about
-Kconfig internals rather than what the option does.
-
-"unconditionally" is also not quite accurate. The select is:
-
-	select MDIO_ASPEED if ARCH_ASPEED
-
-inside config FTGMAC100, so it only applies when FTGMAC100 is enabled on
-an ARCH_ASPEED kernel.
-
-The old advice ("say N if AST2600 support is not required") is removed and
-nothing replaces it, even though the prompt is still visible to users.
-Could the text say instead that saying N has no effect when FTGMAC100 is
-enabled on ARCH_ASPEED, and when N is a sensible answer?
+[ ... ]
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-support_ast2700-v6-0-238020bf46cf%40aspeedtech.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-qcom-bam-dmux-vmid-ext-v6-0-7a16bd3dff18%40oss.qualcomm.com
