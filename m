@@ -1,72 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794827903;
-	b=VwyIGaNpeCwX+x5jbnY3wCvOfvOgpt+lGEmC8ctmSxCydKLf20Bs5lyi1mcjJ1kOG6U+
-	 ny+XVZ+/GkEr71iwgMQs48UtXJPShWB7kkPpL+7GQxoG4YqUm2fFoSBxCRKeZsQQVieS2
-	 f0kCqstDg0tfxJXFBD7QjKPhmO31cSJVVSO5myYLgiv2Yu8DyfcBSBJc3xFRaDEXWsvtU
-	 5fqYCGnSDMl/nJ6SEUDqdkUW9JFJpXRsmAecGntMoCAEqhgbAJhSK40MYtwt8ELlsrnuf
-	 kdBTsZOc538Gx5gShOtRXvguMtn8xSBmx6l2vaF+L4hbq0envxMXwk7YS7bVxi0MX9w==
+	t=1794828183;
+	b=ceHoUfOu2sQSnSyhMbDQe6CScVCuDfsICCSYd870frJzCgKmzwYdKxIPVdqGXLJN36WA
+	 vcCww6xdcPgC/sKbC5uc44F5u2GnVmQKcq5CGb3j5QYHAyLdXKAJi6u0gJovv4dDt1+hh
+	 tngqVE5QwFyrwnCR3WF08sQ1QwGxbPRs25+nG1vEOSYl+9CrMtTd7FnwhDRiUHKAKn0ry
+	 5ALMFx7lk4w/ULROrNCtoP0Y3e3jNDZlAL8mKP66Jx7LwWC+CWcRK6NHGFaATJx7UhJ3v
+	 /EWct+QOlxzoNsL0Lfq2+lTJA7gAmtCUSCfvuq7F6OeeRb6ShbCv5Wo/Surt9ZmlL+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794827903;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=+JlK0mtszYWRRKfDiYEk9P3BPm80IkDrur7UQ8yKQdg=;
-	b=FqV7bXwN3+sNe3FHGfx7HzsjvNoZifuvs2MObfh5SaLJKoGp2858M9sGLDIRyoBzGW5H
-	 hwQE0ELPoMgTPqZvp+SinayKk0kt6ULLjPlRyGSHEfjSNdLUiZri69Ux1hZH+7mDNvjDr
-	 b2VKe/H9ak+LZjHNsN7Ua0PntlUfmxZV3I4ahfjUwk/RQ9yq4pdSK0WSZ9i7lmiMh2hm0
-	 oIzEJEU2q0cCrE1nBLBiLYmx6PzWYDm8+LQgVcoNmPSBX5fu2K7OFyHqHAQz+2Bg0NSNG
-	 oXt22HW3dzsSUYtiHV1z+w0qHxT64D9jAMffmsUYisLy9KHRYf+YsPEl+RqT8AloCeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828183;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=buCi/l2S7wNdD5Gx93ceNLd1RVCUo3nM3HyTS/pW7FE=;
+	b=qcehzL+SDAqEdFI1XU/NDvJGjT1R6vfkiue8ezqq2gV2hjM1TDJ/COPx7AcQD9yTQC43
+	 Sfq+7Dxb3Bchu6oSeH2QWfkXXw9rKbkdJsQYjtM/a5EcXmhQUNcHYsBjHebCBi+ryZJfb
+	 yH8SM8G1hSCF+rX01NiBQaZ98EstT4CRcW7TRTUkPeNceDV73ShQTav+YjGW4fXMOiJAm
+	 pKxwgAWzyFwY/LaYKf+s2wvekismD+fQz3+mzvftNjUPrrf8ON1PW3nKmzAiT1z6NFrVA
+	 cNuPFbEmVYerU8sZG5+N91t1PH5Ebxz8SLjZ+P20RxdlXeFcRYOe4yfMfMC9sV0mpog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b="KH5xeVG/";
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="e2/KIk2p";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6578A606FDA9;
-	Mon, 16 Nov 2026 11:18:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6578A606FDA9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8507C606A332;
+	Mon, 16 Nov 2026 11:23:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=KH5xeVG/
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 68A4310D4AA;
-	Mon, 16 Nov 2026 12:18:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794827900; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+JlK0mtszYWRRKfDiYEk9P3BPm80IkDrur7UQ8yKQdg=;
-	b=KH5xeVG/E58RAX/zSh4vS5tNTmWAeE1ql0F+N64O1BeVpDbUu53dwBfeEZBBiFDvGkKqP+
-	0u9GyGU43z0QEDp8rQwm2hmTdh2+x5gX8BT7Y4Rws7InqJ0eppienkypexgjCEn31VlQ7v
-	Nmg6QdZ0gPzTJqcdQbZygE4dYdE/VdSDpqxyVIkuEAx5Ke/A1tvpvDMJllzasKEMznxMD4
-	qWEHHG2sqLYmhzhKXLJFoWPfUpafxeh+C0L8SgecSpHDiUNX1sYQv63xdxEry0+m2KcX4e
-	8sM654DKaivzgpqZfMWwhV97o3xNxVTlldAtkqld3atFKjWWXckD4PHE8ZW7CA==
-From: Lukasz Majewski <lukma@nabladev.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Lukasz Majewski <lukma@nabladev.com>
-Subject: [PATCH v3 3/3] arm64: dts: freescale: Add device tree definition for Cloos CBASE with i.MX8MM
-Date: Mon, 16 Nov 2026 12:18:02 +0100
-Message-ID: <20261116111802.2442456-3-lukma@nabladev.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261116111802.2442456-1-lukma@nabladev.com>
-References: <20261116111802.2442456-1-lukma@nabladev.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e2/KIk2p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B94881F000C4;
+	Mon, 16 Nov 2026 11:23:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794828183;
+	bh=buCi/l2S7wNdD5Gx93ceNLd1RVCUo3nM3HyTS/pW7FE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e2/KIk2piJcTnCueKuj2crc+cyighqDYHfk7ZFPSLqp7cvbgpXqBlQYEGKDudORBS
+	 kzRZ/nCbxSeYd/M7+WwGV6IUxsfSuOJKUfL0sTBn5ZrCjORONhYvQ17/mzvnhQy8oB
+	 pNhlR6bYwGdciEByE6VMXhlm1Ff5m/i8dmogZDCb0VGQo0i8+0QU3LsIsQh46cxAGa
+	 Rbeub/Io6hX9UCCpq5avJUc6Ld1shIekA9s64/K5G9X26banjja5Qmaqtp5Z1IbEsU
+	 ghRmcUgKnKlsaUv6+GKNwTWQi4JuFbbqm45zxm1EnJGBOC8YKGzktWzWN1ZM7bU+uT
+	 wTteYySRqHUnQ==
+Date: Mon, 16 Nov 2026 12:22:57 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Yanli Yang <yanli.yang@bedmex.com>
+Cc: linux-wireless@vger.kernel.org, 
+	Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Zhirun Liu <zhirunliu@aicsemi.com>, 
+	Dijia Xu <dijiaxu@aicsemi.com>, Chunqiu Liu <chunqiuliu@aicsemi.com>, 
+	Liheng Wei <liheng.wei@bedmex.com>
+Subject: Re: [PATCH wireless-next v5 2/4] wifi: aic: Add firmware protocol
+ and SDIO chip support
+Message-ID: <20261116-whispering-camouflaged-capybara-6ac813@quoll>
+References: <179481380235.4.7388336477392853157@bedmex.com>
+ <179481380237.4.13158213034346823800@bedmex.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,623 +62,522 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <179481380237.4.13158213034346823800@bedmex.com>
 
-This commit adds support for CBASE board, which incorporates the TQMa8MQML
-module.
+On Mon, Nov 16, 2026 at 03:23:22PM +0800, Yanli Yang wrote:
+> +/***************************************************************************
+> + * Messages from SM task
+> + **************************************************************************/
+> +#ifdef CONFIG_AICWF_FULLMAC
+> +static inline int aicwf_rx_sm_connect_ind(struct aicwf_hw *aicwf_hw,
+> +					  struct aicwf_cmd *cmd,
+> +					  struct ipc_e2a_msg *msg)
+> +{
+> +	struct sm_connect_ind *ind = (struct sm_connect_ind *)msg->param;
+> +	struct aicwf_vif *aicwf_vif = aicwf_hw->vif_table[ind->vif_idx];
+> +	struct net_device *dev = aicwf_vif->ndev;
+> +	const u8 *req_ie, *rsp_ie;
+> +	const struct element *extcap;
+> +	struct ieee80211_channel *chan;
+> +	const u8 *ht_ie = NULL;
+> +	const u8 *vht_ie = NULL;
+> +
+> +	/* Retrieve IE addresses and lengths */
+> +	req_ie = (const u8 *)ind->assoc_ie_buf;
+> +	rsp_ie = req_ie + ind->assoc_req_ie_len;
+> +
+> +	// Fill-in the AP information
+> +	dev_dbg(aicwf_hw->dev, "ind->status_code:%d\n",
+> +		ind->status_code);
+> +
+> +	if (ind->status_code == 0) {
+> +		struct aicwf_sta *sta = &aicwf_hw->sta_table[ind->ap_idx];
+> +		u8 txq_status;
+> +		struct cfg80211_chan_def chandef;
+> +
+> +		sta->valid = true;
+> +		sta->sta_idx = ind->ap_idx;
+> +		sta->ch_idx = ind->ch_idx;
+> +		sta->vif_idx = ind->vif_idx;
+> +		sta->vlan_idx = sta->vif_idx;
+> +		sta->qos = ind->qos;
+> +		sta->acm = ind->acm;
+> +		sta->ps.active = false;
+> +		sta->aid = ind->aid;
+> +		sta->band = ind->band;                 // ind->chan.band;
+> +		sta->width = ind->width;               // ind->chan.type;
+> +		sta->center_freq = ind->center_freq;   // ind->chan.prim20_freq;
+> +		sta->center_freq1 = ind->center_freq1; // ind->chan.center1_freq;
+> +		sta->center_freq2 = ind->center_freq2; // ind->chan.center2_freq;
+> +		aicwf_vif->sta.ap = sta;
+> +		// ind->chan.prim20_freq);
+> +		chan = ieee80211_get_channel(aicwf_hw->wiphy, ind->center_freq);
+> +		cfg80211_chandef_create(&chandef, chan, NL80211_CHAN_NO_HT);
+> +		if (!aicwf_hw->mod_params->ht_on)
+> +			chandef.width = NL80211_CHAN_WIDTH_20_NOHT;
+> +		else
+> +			chandef.width = chnl2bw[ind->width];  //[ind->chan.type];
+> +		chandef.center_freq1 = ind->center_freq1; // ind->chan.center1_freq;
+> +		chandef.center_freq2 = ind->center_freq2; // ind->chan.center2_freq;
+> +		aicwf_chanctx_link(aicwf_vif, ind->ch_idx, &chandef);
+> +		memcpy(sta->mac_addr, ind->bssid.array, ETH_ALEN);
+> +		if (ind->ch_idx == aicwf_hw->cur_chanctx)
+> +			txq_status = 0;
+> +		else
+> +			txq_status = AICWF_TXQ_STOP_CHAN;
+> +		memcpy(sta->ac_param, ind->ac_param, sizeof(sta->ac_param));
+> +		aicwf_txq_sta_init(aicwf_hw, sta, txq_status);
+> +		aicwf_txq_tdls_vif_init(aicwf_vif);
+> +		aicwf_mu_group_sta_init(sta, NULL);
+> +		/* Look for TDLS Channel Switch Prohibited flag in the Extended
+> +		 * Capability Information Element
+> +		 */
+> +		extcap = cfg80211_find_elem(WLAN_EID_EXT_CAPABILITY, rsp_ie,
+> +					    ind->assoc_rsp_ie_len);
+> +		if (extcap && extcap->datalen >= 5) {
+> +			aicwf_vif->tdls_chsw_prohibited =
+> +				extcap->data[4] & WLAN_EXT_CAPA5_TDLS_CH_SW_PROHIBITED;
+> +		}
+> +
+> +		if (aicwf_vif->wep_enabled)
+> +			aicwf_vif->wep_auth_err = false;
+> +
+> +#ifdef CONFIG_AICWF_BFMER
 
-Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
----
-Changes for v2:
-- Fix the DTS according to the sashiko bot review (gemini/gemini-4-argon)
-Changes for v3:
-- None
----
- arch/arm64/boot/dts/freescale/Makefile        |   1 +
- .../arm64/boot/dts/freescale/imx8mm-cbase.dts | 581 ++++++++++++++++++
- 2 files changed, 582 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mm-cbase.dts
+Heh? What is this?
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index a80cccf34eb5..c14e5ae2e4a0 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -121,6 +121,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8dxl-hummingboard-telematics.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8dxp-tqma8xdp-mba8xx.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8dxp-tqma8xdps-mb-smarc-2.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-beacon-kit.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-cbase.dtb
+> +		/* If Beamformer feature is activated, check if features can be used
+> +		 * with the new peer device
+> +		 */
+> +		if (aicwf_hw->mod_params->bfmer) {
+> +			const u8 *vht_capa_ie;
+> +			const struct ieee80211_vht_cap *vht_cap;
+> +
+> +			do {
+> +				/* Look for VHT Capability Information Element */
+> +				vht_capa_ie = cfg80211_find_ie(WLAN_EID_VHT_CAPABILITY, rsp_ie,
+> +							       ind->assoc_rsp_ie_len);
+> +
+> +				/* Stop here if peer device does not support VHT */
+> +				if (!vht_capa_ie)
+> +					break;
+> +
+> +				vht_cap = (const struct ieee80211_vht_cap *)(vht_capa_ie + 2);
+> +
+> +				/* Send MM_BFMER_ENABLE_REQ message if needed */
+> +				aicwf_send_bfmer_enable(aicwf_hw, sta, vht_cap);
+> +			} while (0);
+> +		}
+> +#endif //(CONFIG_AICWF_BFMER)
+> +
+> +		ht_ie = cfg80211_find_ie(WLAN_EID_HT_CAPABILITY, rsp_ie,
+> +					 ind->assoc_rsp_ie_len);
+> +		if (ht_ie)
+> +			aicwf_vif->sta.ap->ht = true;
+> +		vht_ie = cfg80211_find_ie(WLAN_EID_VHT_CAPABILITY, rsp_ie,
+> +					  ind->assoc_rsp_ie_len);
+> +		if (vht_ie)
+> +			aicwf_vif->sta.ap->vht = true;
+> +
+> +#ifdef CONFIG_AICWF_MON_DATA
+> +		// If there are 1 sta and 1 monitor interface active at the same time
+> +		// then monitor interface channel context is always the same as the STA
+> +		// interface. This doesn't work with 2 STA interfaces but we don't want
+> +		// to support it.
+> +		if (aicwf_hw->monitor_vif != AICWF_INVALID_VIF) {
+> +			struct aicwf_vif *aicwf_mon_vif =
+> +				aicwf_hw->vif_table[aicwf_hw->monitor_vif];
+> +			aicwf_chanctx_unlink(aicwf_mon_vif);
+> +			aicwf_chanctx_link(aicwf_mon_vif, ind->ch_idx, NULL);
+> +		}
+> +#endif
+> +		// atomic_set(&aicwf_vif->drv_conn_state,
+> +		// (int)AICWF_DRV_STATUS_CONNECTED);
+
+What?
+
+This is junk. You send us dead code.
+
+...
+
+
+> +int aicwf_send_tdls_peer_traffic_ind_req(struct aicwf_hw *aicwf_hw,
+> +					 struct aicwf_vif *aicwf_vif)
+> +{
+> +	struct tdls_peer_traffic_ind_req *tdls_peer_traffic_ind_req;
+> +
+> +	if (!aicwf_vif->sta.tdls_sta)
+> +		return -ENOLINK;
+> +
+> +	/* Build the TDLS_PEER_TRAFFIC_IND_REQ message */
+> +	tdls_peer_traffic_ind_req =
+> +		aicwf_msg_zalloc(aicwf_hw, TDLS_PEER_TRAFFIC_IND_REQ, TASK_TDLS, DRV_TASK_ID,
+> +				 sizeof(struct tdls_peer_traffic_ind_req));
+> +
+> +	if (!tdls_peer_traffic_ind_req)
+> +		return -ENOMEM;
  
- imx8mm-data-modul-edm-sbc-overlay-cm4-dtbs := \
- 	imx8mm-data-modul-edm-sbc.dtb \
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-cbase.dts b/arch/arm64/boot/dts/freescale/imx8mm-cbase.dts
-new file mode 100644
-index 000000000000..029a637c9530
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-cbase.dts
-@@ -0,0 +1,581 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2022 Fabio Estevam <festevam@denx.de>
-+ * Copyright 2026 Lukasz Majewski <lukma@nabladev.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx8mm-tqma8mqml.dtsi"
-+
-+/ {
-+	model = "Cloos i.MX8MM CBASE board";
-+	compatible = "cloos,imx8mm-cbase", "tq,imx8mm-tqma8mqml", "fsl,imx8mm";
-+
-+	aliases {
-+		mmc0 = &usdhc3;
-+		mmc1 = &usdhc2;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart2;
-+	};
-+
-+	clk_xtal40: clk-xtal40 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <40000000>;
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_gpio_led>;
-+
-+		led-0 {
-+			label = "status1";
-+			gpios = <&gpio2 5 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-1 {
-+			label = "status2";
-+			gpios = <&gpio2 6 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-2 {
-+			label = "status3";
-+			gpios = <&gpio2 3 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-3 {
-+			label = "status4";
-+			gpios = <&gpio2 4 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-4 {
-+			label = "error";
-+			gpios = <&gpio2 1 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-5 {
-+			label = "run";
-+			gpios = <&gpio2 0 GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+
-+	reg_usb_otg_vbus: regulator-usb-otg-vbus {
-+		compatible = "regulator-fixed";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_otg_vbus_ctrl>;
-+		regulator-name = "usb_otg_vbus";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&gpio2 2 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	reg_usdhc2_vmmc: regulator-vmmc {
-+		compatible = "regulator-fixed";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_reg_usdhc2_vmmc>;
-+		regulator-name = "VSD_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&gpio2 19 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		startup-delay-us = <100>;
-+		off-on-delay-us = <12000>;
-+	};
-+
-+	sfp_bot: sfp-bot {
-+		compatible = "sff,sfp";
-+		i2c-bus = <&i2c_sfp_bot>;
-+		tx-fault-gpios = <&sfp_gpio 4 GPIO_ACTIVE_HIGH>;
-+		tx-disable-gpios = <&sfp_gpio 5 GPIO_ACTIVE_HIGH>;
-+		mod-def0-gpios = <&sfp_gpio 6 GPIO_ACTIVE_LOW>;
-+		los-gpios = <&sfp_gpio 7 GPIO_ACTIVE_HIGH>;
-+		maximum-power-milliwatt = <1000>;
-+	};
-+
-+	sfp_top: sfp-top {
-+		compatible = "sff,sfp";
-+		i2c-bus = <&i2c_sfp_top>;
-+		tx-fault-gpios = <&sfp_gpio 0 GPIO_ACTIVE_HIGH>;
-+		tx-disable-gpios = <&sfp_gpio 1 GPIO_ACTIVE_HIGH>;
-+		mod-def0-gpios = <&sfp_gpio 2 GPIO_ACTIVE_LOW>;
-+		los-gpios = <&sfp_gpio 3 GPIO_ACTIVE_HIGH>;
-+		maximum-power-milliwatt = <1000>;
-+	};
-+};
-+
-+&ddrc {
-+	operating-points-v2 = <&ddrc_opp_table>;
-+
-+	ddrc_opp_table: opp-table {
-+		compatible = "operating-points-v2";
-+
-+		opp-25000000 {
-+			opp-hz = /bits/ 64 <25000000>;
-+		};
-+
-+		opp-100000000 {
-+			opp-hz = /bits/ 64 <100000000>;
-+		};
-+
-+		opp-750000000 {
-+			opp-hz = /bits/ 64 <750000000>;
-+		};
-+	};
-+};
-+
-+&ecspi1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_ecspi1>;
-+	cs-gpios = <&gpio5 9 GPIO_ACTIVE_LOW>,
-+		   <&gpio1 1 GPIO_ACTIVE_LOW>,
-+		   <&gpio1 12 GPIO_ACTIVE_LOW>,
-+		   <&gpio1 13 GPIO_ACTIVE_LOW>;
-+	status = "okay";
-+
-+	can@0 {
-+		compatible = "microchip,mcp2518fd";
-+		reg = <0>;
-+		clocks = <&clk_xtal40>;
-+		interrupt-parent = <&gpio1>;
-+		interrupts = <3 IRQ_TYPE_EDGE_FALLING>;
-+		spi-max-frequency = <4000000>;
-+	};
-+
-+	can@1 {
-+		compatible = "microchip,mcp2518fd";
-+		reg = <1>;
-+		clocks = <&clk_xtal40>;
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <20 IRQ_TYPE_EDGE_FALLING>;
-+		spi-max-frequency = <4000000>;
-+	};
-+};
-+
-+&ecspi2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_ecspi2>;
-+	cs-gpios = <&gpio5 13 GPIO_ACTIVE_LOW>;
-+	status = "okay";
-+};
-+
-+&fec1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_fec1>;
-+	fsl,magic-packet;
-+	phy-mode = "rgmii-id";
-+	status = "okay";
-+
-+	fixed-link {
-+		full-duplex;
-+		pause;
-+		speed = <1000>;
-+	};
-+
-+	mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		managed_switch: switch@0  {
-+			compatible = "marvell,mv88e6190";
-+			#interrupt-cells = <2>;
-+			interrupt-controller;
-+			interrupt-parent = <&gpio1>;
-+			interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
-+			pinctrl-0 = <&pinctrl_switch_interrupt>;
-+			pinctrl-names = "default";
-+			reg = <0>;
-+			status = "okay";
-+
-+			mdio {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				switch0phy1: ethernet-phy@1 {
-+					reg = <0x1>;
-+				};
-+
-+				switch0phy2: ethernet-phy@2 {
-+					reg = <0x2>;
-+				};
-+
-+				switch0phy3: ethernet-phy@3 {
-+					reg = <0x3>;
-+				};
-+
-+				switch0phy4: ethernet-phy@4 {
-+					reg = <0x4>;
-+				};
-+
-+				switch0phy5: ethernet-phy@5 {
-+					reg = <0x5>;
-+				};
-+
-+				switch0phy6: ethernet-phy@6 {
-+					reg = <0x6>;
-+				};
-+
-+				switch0phy7: ethernet-phy@7 {
-+					reg = <0x7>;
-+				};
-+
-+				switch0phy8: ethernet-phy@8 {
-+					reg = <0x8>;
-+				};
-+			};
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					ethernet = <&fec1>;
-+					phy-mode = "rgmii-id";
-+					reg = <0>;
-+
-+					fixed-link {
-+						full-duplex;
-+						pause;
-+						speed = <1000>;
-+					};
-+				};
-+
-+				port@1 {
-+					label = "lan1";
-+					phy-handle = <&switch0phy1>;
-+					phy-mode = "internal";
-+					reg = <1>;
-+				};
-+
-+				port@2 {
-+					label = "lan2";
-+					phy-handle = <&switch0phy2>;
-+					phy-mode = "internal";
-+					reg = <2>;
-+				};
-+
-+				port@3 {
-+					label = "lan3";
-+					phy-handle = <&switch0phy3>;
-+					phy-mode = "internal";
-+					reg = <3>;
-+				};
-+
-+				port@4 {
-+					label = "lan4";
-+					phy-handle = <&switch0phy4>;
-+					phy-mode = "internal";
-+					reg = <4>;
-+				};
-+
-+				port@5 {
-+					label = "lan5";
-+					phy-handle = <&switch0phy5>;
-+					phy-mode = "internal";
-+					reg = <5>;
-+				};
-+
-+				port@6 {
-+					label = "lan6";
-+					phy-handle = <&switch0phy6>;
-+					phy-mode = "internal";
-+					reg = <6>;
-+				};
-+
-+				port@7 {
-+					label = "lan7";
-+					phy-handle = <&switch0phy7>;
-+					phy-mode = "internal";
-+					reg = <7>;
-+				};
-+
-+				port@8 {
-+					label = "lan8";
-+					phy-handle = <&switch0phy8>;
-+					phy-mode = "internal";
-+					reg = <8>;
-+				};
-+
-+				port@9 {
-+					reg = <9>;
-+					label = "lan-sfp1";
-+					phy-mode = "sgmii";
-+					sfp = <&sfp_top>;
-+					managed = "in-band-status";
-+				};
-+
-+				port@a {
-+					reg = <10>;
-+					label = "lan-sfp2";
-+					phy-mode = "sgmii";
-+					sfp = <&sfp_bot>;
-+					managed = "in-band-status";
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&flexspi {
-+	status = "disabled";
-+};
-+
-+&i2c2 {
-+	clock-frequency = <100000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_i2c2>;
-+	status = "okay";
-+
-+	onewire@18 {
-+		compatible = "maxim,ds2484";
-+		reg = <0x18>;
-+	};
-+
-+	temperature-sensor@49 {
-+		compatible = "national,lm77";
-+		reg = <0x49>;
-+	};
-+};
-+
-+&i2c3 {
-+	clock-frequency = <100000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_i2c3>;
-+	status = "okay";
-+
-+	i2c-mux@70 {
-+		compatible = "nxp,pca9543";
-+		reg = <0x70>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		i2c_sfp_top: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+		i2c_sfp_bot: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+		};
-+	};
-+
-+	sfp_gpio: gpio@38 {
-+		compatible = "nxp,pca9554";
-+		reg = <0x38>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		gpio-line-names = "SFP_TXFI_T", "SFP_TXDIS_T",
-+				  "SFP_MODPRES_T", "SFP_LOS_T",
-+				  "SFP_TXFI_L", "SFP_TXDIS_L",
-+				  "SFP_MODPRES_L", "SFP_LOS_L";
-+	};
-+};
-+
-+&reg_usdhc2_vqmmc {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart1>;
-+	status = "okay";
-+};
-+
-+&uart2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart2>;
-+	status = "okay";
-+};
-+
-+&uart3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart3>;
-+	status = "okay";
-+};
-+
-+&usbotg1 {
-+	dr_mode = "host";
-+	vbus-supply = <&reg_usb_otg_vbus>;
-+	status = "okay";
-+};
-+
-+&usbotg2 {
-+	dr_mode = "host";
-+	status = "okay";
-+};
-+
-+&usbphynop1 {
-+	power-domains = <&pgc_otg1>;
-+};
-+
-+&usbphynop2 {
-+	power-domains = <&pgc_otg2>;
-+};
-+
-+&usdhc2 {
-+	assigned-clocks = <&clk IMX8MM_CLK_USDHC2>;
-+	assigned-clock-rates = <400000000>;
-+	assigned-clock-parents = <&clk IMX8MM_SYS_PLL1_400M>;
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz";
-+	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-1 = <&pinctrl_usdhc2_100mhz>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
-+	bus-width = <4>;
-+	cd-gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
-+	disable-wp;
-+	no-mmc;
-+	no-sdio;
-+	sd-uhs-sdr104;
-+	sd-uhs-ddr50;
-+	vmmc-supply = <&reg_usdhc2_vmmc>;
-+	status = "okay";
-+};
-+
-+&iomuxc {
-+	pinctrl_ecspi1: ecspi1grp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_ECSPI1_MISO_ECSPI1_MISO		0x82
-+			MX8MM_IOMUXC_ECSPI1_MOSI_ECSPI1_MOSI		0x82
-+			MX8MM_IOMUXC_ECSPI1_SCLK_ECSPI1_SCLK		0x82
-+			MX8MM_IOMUXC_ECSPI1_SS0_GPIO5_IO9		0x19
-+			MX8MM_IOMUXC_GPIO1_IO01_GPIO1_IO1		0x19
-+			MX8MM_IOMUXC_GPIO1_IO03_GPIO1_IO3		0x19
-+			MX8MM_IOMUXC_GPIO1_IO12_GPIO1_IO12		0x19
-+			MX8MM_IOMUXC_GPIO1_IO13_GPIO1_IO13		0x19
-+			MX8MM_IOMUXC_SAI1_MCLK_GPIO4_IO20		0x19
-+		>;
-+	};
-+
-+	pinctrl_ecspi2: ecspi2grp {
-+		fsl,pins = <MX8MM_IOMUXC_ECSPI2_SCLK_ECSPI2_SCLK	0x00000006>,
-+			   <MX8MM_IOMUXC_ECSPI2_MOSI_ECSPI2_MOSI	0x00000006>,
-+			   <MX8MM_IOMUXC_ECSPI2_MISO_ECSPI2_MISO	0x00000006>,
-+			   <MX8MM_IOMUXC_ECSPI2_SS0_GPIO5_IO13		0x00000006>;
-+	};
-+
-+	pinctrl_fec1: fec1grp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_ENET_MDC_ENET1_MDC		0x40000002
-+			MX8MM_IOMUXC_ENET_MDIO_ENET1_MDIO		0x40000002
-+			MX8MM_IOMUXC_ENET_TD3_ENET1_RGMII_TD3		0x14
-+			MX8MM_IOMUXC_ENET_TD2_ENET1_RGMII_TD2		0x14
-+			MX8MM_IOMUXC_ENET_TD1_ENET1_RGMII_TD1		0x14
-+			MX8MM_IOMUXC_ENET_TD0_ENET1_RGMII_TD0		0x14
-+			MX8MM_IOMUXC_ENET_RD3_ENET1_RGMII_RD3		0x90
-+			MX8MM_IOMUXC_ENET_RD2_ENET1_RGMII_RD2		0x90
-+			MX8MM_IOMUXC_ENET_RD1_ENET1_RGMII_RD1		0x90
-+			MX8MM_IOMUXC_ENET_RD0_ENET1_RGMII_RD0		0x90
-+			MX8MM_IOMUXC_ENET_TXC_ENET1_RGMII_TXC		0x14
-+			MX8MM_IOMUXC_ENET_RXC_ENET1_RGMII_RXC		0x90
-+			MX8MM_IOMUXC_ENET_RX_CTL_ENET1_RGMII_RX_CTL	0x90
-+			MX8MM_IOMUXC_ENET_TX_CTL_ENET1_RGMII_TX_CTL	0x14
-+			MX8MM_IOMUXC_SAI2_RXC_GPIO4_IO22		0x10
-+		>;
-+	};
-+
-+	pinctrl_gpio_led: gpioledgrp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_SD1_CLK_GPIO2_IO0			0x19
-+			MX8MM_IOMUXC_SD1_CMD_GPIO2_IO1			0x19
-+			MX8MM_IOMUXC_SD1_DATA1_GPIO2_IO3		0x19
-+			MX8MM_IOMUXC_SD1_DATA2_GPIO2_IO4		0x19
-+			MX8MM_IOMUXC_SD1_DATA3_GPIO2_IO5		0x19
-+			MX8MM_IOMUXC_SD1_DATA4_GPIO2_IO6		0x19
-+		>;
-+	};
-+
-+	pinctrl_i2c2: i2c2grp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_I2C2_SCL_I2C2_SCL		0x400001c3
-+			MX8MM_IOMUXC_I2C2_SDA_I2C2_SDA		0x400001c3
-+		>;
-+	};
-+
-+	pinctrl_i2c3: i2c3grp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_I2C3_SCL_I2C3_SCL		0x400001c3
-+			MX8MM_IOMUXC_I2C3_SDA_I2C3_SDA		0x400001c3
-+		>;
-+	};
-+
-+	pinctrl_otg_vbus_ctrl: otgvbusctrlgrp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_SD1_DATA0_GPIO2_IO2		0x119
-+		>;
-+	};
-+
-+	pinctrl_switch_interrupt: switchinterruptgrp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_GPIO1_IO00_GPIO1_IO0		0x19
-+		>;
-+	};
-+
-+	pinctrl_uart1: uart1grp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_UART1_RXD_UART1_DCE_RX		0x140
-+			MX8MM_IOMUXC_UART1_TXD_UART1_DCE_TX		0x140
-+		>;
-+	};
-+
-+	pinctrl_uart2: uart2grp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_UART2_RXD_UART2_DCE_RX		0x140
-+			MX8MM_IOMUXC_UART2_TXD_UART2_DCE_TX		0x140
-+		>;
-+	};
-+
-+	pinctrl_uart3: uart3grp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_UART3_RXD_UART3_DCE_RX		0x140
-+			MX8MM_IOMUXC_UART3_TXD_UART3_DCE_TX		0x140
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_gpio: usdhc2grpgpiogrp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_SD2_CD_B_GPIO2_IO12		0x1c4
-+		>;
-+	};
-+
-+	pinctrl_usdhc2: usdhc2grp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_SD2_CLK_USDHC2_CLK		0x190
-+			MX8MM_IOMUXC_SD2_CMD_USDHC2_CMD		0x1d0
-+			MX8MM_IOMUXC_SD2_DATA0_USDHC2_DATA0		0x1d0
-+			MX8MM_IOMUXC_SD2_DATA1_USDHC2_DATA1		0x1d0
-+			MX8MM_IOMUXC_SD2_DATA2_USDHC2_DATA2		0x1d0
-+			MX8MM_IOMUXC_SD2_DATA3_USDHC2_DATA3		0x1d0
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_SD2_CLK_USDHC2_CLK		0x194
-+			MX8MM_IOMUXC_SD2_CMD_USDHC2_CMD		0x1d4
-+			MX8MM_IOMUXC_SD2_DATA0_USDHC2_DATA0		0x1d4
-+			MX8MM_IOMUXC_SD2_DATA1_USDHC2_DATA1		0x1d4
-+			MX8MM_IOMUXC_SD2_DATA2_USDHC2_DATA2		0x1d4
-+			MX8MM_IOMUXC_SD2_DATA3_USDHC2_DATA3		0x1d4
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
-+		fsl,pins = <
-+			MX8MM_IOMUXC_SD2_CLK_USDHC2_CLK		0x196
-+			MX8MM_IOMUXC_SD2_CMD_USDHC2_CMD		0x1d6
-+			MX8MM_IOMUXC_SD2_DATA0_USDHC2_DATA0		0x1d6
-+			MX8MM_IOMUXC_SD2_DATA1_USDHC2_DATA1		0x1d6
-+			MX8MM_IOMUXC_SD2_DATA2_USDHC2_DATA2		0x1d6
-+			MX8MM_IOMUXC_SD2_DATA3_USDHC2_DATA3		0x1d6
-+		>;
-+	};
-+};
-+
-+/* SPI-NOR memory is not mounted on the used SoM */
-+/delete-node/ &flash0;
--- 
-2.39.5
+
+ ...
+ > +static inline void aicwf_radar_start_cac(struct aicwf_radar *radar,
+> +					 u32 cac_time_ms, struct aicwf_vif *vif)
+> +{
+> +}
+> +
+> +static inline void aicwf_radar_cancel_cac(struct aicwf_radar *radar)
+> +{
+> +}
+> +
+> +static inline void
+> +aicwf_radar_detection_enable_on_cur_channel(struct aicwf_hw *aicwf_hw)
+> +{
+> +}
+> +
+> +static inline int aicwf_radar_dump_pattern_detector(char *buf, size_t len,
+> +						    struct aicwf_radar *radar,
+> +						    u8 chain)
+> +{
+> +	return 0;
+> +}
+> +
+> +static inline int aicwf_radar_dump_radar_detected(char *buf, size_t len,
+> +						  struct aicwf_radar *radar,
+> +						  u8 chain)
+> +{
+> +	return 0;
+> +}
+> +
+> +#endif /* CONFIG_AICWF_RADAR */
+> +
+> +#endif // _AICWF_RADAR_H_
+> diff --git a/drivers/net/wireless/aic/aic8800_fdrv/aicwf_resv_mem.h b/drivers/net/wireless/aic/aic8800_fdrv/aicwf_resv_mem.h
+> new file mode 100644
+> index 000000000000..aeae5f1ac833
+> --- /dev/null
+> +++ b/drivers/net/wireless/aic/aic8800_fdrv/aicwf_resv_mem.h
+> @@ -0,0 +1,54 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2020 AIC semiconductor.
+> + */
+> +
+> +#ifndef _AICWF_RESV_MEM_H_
+> +#define _AICWF_RESV_MEM_H_
+> +
+> +#include <linux/types.h>
+> +
+> +struct sk_buff;
+> +
+> +enum aicwf_resv_mem_id {
+> +	AIC_RESV_MEM_TXDATA,
+> +	AIC_RESV_MEM_NUM,
+> +};
+> +
+> +/**
+> + * struct aicwf_resv_mem_entry - one reserved buffer
+> + * @used: Whether the buffer is currently handed out
+> + * @skb: The reserved buffer, %NULL until it could be allocated
+> + */
+> +struct aicwf_resv_mem_entry {
+> +	bool used;
+> +	struct sk_buff *skb;
+> +};
+> +
+> +/**
+> + * struct aicwf_resv_mem - buffers reserved for the lifetime of a device
+> + * @entry: One entry per &enum aicwf_resv_mem_id
+> + */
+> +struct aicwf_resv_mem {
+> +	struct aicwf_resv_mem_entry entry[AIC_RESV_MEM_NUM];
+> +};
+> +
+> +#ifdef CONFIG_RESV_MEM_SUPPORT
+
+What the hell is this?
+
+What are you sending to the lists? Windows code? 10 year old fork of
+kernel? What is the point of such code?
+
+> +void aicwf_resv_mem_init(struct aicwf_resv_mem *pool);
+> +void aicwf_resv_mem_deinit(struct aicwf_resv_mem *pool);
+> +struct sk_buff *aicwf_resv_mem_alloc_skb(struct aicwf_resv_mem *pool,
+> +					 unsigned int length,
+> +					 enum aicwf_resv_mem_id id);
+> +void aicwf_resv_mem_kfree_skb(struct aicwf_resv_mem *pool, struct sk_buff *skb,
+> +			      enum aicwf_resv_mem_id id);
+> +#else
+> +static inline void aicwf_resv_mem_init(struct aicwf_resv_mem *pool)
+> +{
+> +}
+> +
+> +static inline void aicwf_resv_mem_deinit(struct aicwf_resv_mem *pool)
+> +{
+> +}
+> +#endif
+
+
+...
++
+> +int aicwf_sdio_flow_ctrl(struct aic_sdio_dev *sdiodev)
+> +{
+> +	int ret = -1;
+> +	u8 fc_reg = 0;
+> +	u32 count = 0;
+> +
+> +	while (true) {
+> +		ret =
+> +			aicwf_sdio_readb(sdiodev, sdiodev->sdio_reg.flow_ctrl_reg, &fc_reg);
+> +		if (ret)
+> +			return -1;
+> +
+> +		if (sdiodev->chip_hw->need_flowctrl_mask)
+> +			fc_reg &= SDIOWIFI_FLOWCTRL_MASK_REG;
+> +
+> +		if (fc_reg > DATA_FLOW_CTRL_THRESH) {
+> +			ret = fc_reg;
+> +			if (ret > AICWF_SDIO_TX_AGGR_MAX)
+> +				ret = AICWF_SDIO_TX_AGGR_MAX;
+> +			return ret;
+> +		}
+> +		if (count >= FLOW_CTRL_RETRY_COUNT) {
+> +			ret = -fc_reg;
+> +			break;
+> +		}
+> +		count++;
+> +		if (count < 30)
+> +			usleep_range(50, 50);
+> +		else if (count < 40)
+> +			usleep_range(2000, 2500);
+> +		else
+> +			usleep_range(10000, 12000);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +int aicwf_sdio_send_pkt(struct aic_sdio_dev *sdiodev, u8 *buf, uint count)
+> +{
+> +	int ret = 0;
+> +
+> +	if (!sdiodev->func) {
+> +		dev_warn(sdiodev->dev, "null sdio func\n");
+> +		return 0;
+> +	}
+> +
+> +	sdio_claim_host(sdiodev->func);
+> +	ret =
+> +		sdio_writesb(sdiodev->func, sdiodev->sdio_reg.wr_fifo_addr, buf, count);
+> +	sdio_release_host(sdiodev->func);
+> +
+> +	return ret;
+> +}
+> +
+> +#ifdef CONFIG_PREALLOC_RX_SKB
+
+What is this?
+
+> +int aicwf_sdio_recv_pkt(struct aic_sdio_dev *sdiodev, struct rx_buff *rxbuff,
+> +			u32 size)
+> +{
+> +	int ret;
+> +
+> +	if (!rxbuff->data || !size || size > AICWF_RXBUFF_SIZE)
+> +		return -EINVAL;
+> +	if (!sdiodev->func) {
+> +		dev_warn(sdiodev->dev, "null sdio func\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	sdio_claim_host(sdiodev->func);
+> +	ret = sdio_readsb(sdiodev->func, rxbuff->data,
+> +			  sdiodev->sdio_reg.rd_fifo_addr, size);
+> +	sdio_release_host(sdiodev->func);
+> +
+> +	if (ret < 0)
+> +		return ret;
+> +	rxbuff->len = size;
+> +
+> +	return ret;
+> +}
+
+
+...
+
+
+> +static int aicwf_sdio_suspend(struct device *dev)
+> +{
+> +	int ret = 0;
+> +	struct aicwf_bus *bus_if = dev_get_drvdata(dev);
+> +	struct aic_sdio_dev *sdiodev = bus_if->sdiodev;
+> +	mmc_pm_flag_t sdio_flags;
+> +	struct aicwf_vif *aicwf_vif, *tmp;
+> +#ifdef CONFIG_AIC8800_NO_WAKE_COUNT
+> +	int cnt = 0;
+> +#endif
+
+no, that's some bogus downstream code. Your driver must not have ifdefs
+in general. Variables declarations depending on ifdef is... not close to
+kernel at all.
+
+> +	int sus_abort = 0;
+> +
+> +	/* Check host PM support before changing network or chip state. */
+> +	sdio_flags = sdio_get_host_pm_caps(sdiodev->func);
+> +	if (!(sdio_flags & MMC_PM_KEEP_POWER))
+> +		return -EINVAL;
+> +	ret = sdio_set_host_pm_flags(sdiodev->func, MMC_PM_KEEP_POWER);
+> +	if (ret)
+> +		return ret;
+> +
+> +	list_for_each_entry_safe(aicwf_vif, tmp, &sdiodev->aicwf_hw->vifs, list) {
+> +		if (aicwf_vif->ndev)
+> +			netif_device_detach(aicwf_vif->ndev);
+> +	}
+> +
+> +	if (sdiodev->aicwf_hw->testmode == 1)
+> +		dev_err(dev, "sleep cmd is not supported in RF test mode\n");
+> +#ifdef CONFIG_AIC8800_NO_WAKE_COUNT //move to when set supend is received
+> +	else
+> +		aicwf_send_me_set_lp_level(sdiodev->aicwf_hw, 1, 0); //dynamic switch
+> +#endif
+> +
+> +#if (defined(CONFIG_AIC8800_AUTO_POWERSAVE) && defined(CONFIG_AIC8800_SDIO_PWRCTRL))
+
+You need to stop inventing stuff.
+
+Where is AIC8800_SDIO_PWRCTRL defined?
+
+where are any of these bogus configs defined?
+
+> +	aicwf_sdio_pwr_stctl(sdiodev, SDIO_ACTIVE_ST);
+> +	if (sdiodev->chip_hw->auto_ps_support) {
+> +		dev_dbg(dev, "auto_ps enter\n");
+> +		ret = aicwf_sdio_writeb(sdiodev, sdiodev->sdio_reg.wakeup_reg, 0x8);
+> +		if (ret)
+> +			dev_err(dev, "sdio enter auto_ps fail\n");
+> +	}
+> +#endif
+> +
+> +#ifdef CONFIG_AIC8800_NO_WAKE_COUNT
+> +	while (&sdiodev->aicwf_hw->scan_request && aicwf_hw->scanning) {
+> +		/* move to when set supend is received, the theory does not enforce this condition,
+> +		 * and the code is retained for now
+> +		 */
+> +		dev_dbg(dev, "wait scan_cfm\n");
+> +		if (cnt == 0) {
+> +			aicwf_send_scanu_cancel_req(sdiodev->aicwf_hw, NULL);
+> +			continue;
+> +		}
+> +		msleep(20);
+> +		cnt += 1;
+> +		if (cnt >= 40)
+> +			break;
+> +	}
+> +#endif
+> +
+> +#ifdef CONFIG_AIC8800_TEMP_CONTROL
+> +	timer_delete_sync(&sdiodev->tp_ctrl.tp_ctrl_timer);
+> +	cancel_work_sync(&sdiodev->tp_ctrl.tp_ctrl_work);
+> +#endif
+> +
+> +	atomic_set(&sdiodev->suspending, 1);
+> +	/* Publish the suspend gate before checking outstanding activity. */
+> +	smp_mb__after_atomic();
+> +	if (!wait_event_timeout(sdiodev->activity_waitq,
+> +				atomic_read(&sdiodev->activity_count) == 0,
+> +				msecs_to_jiffies(600)))
+> +		sus_abort = 1;
+> +	if (sus_abort) {
+> +		atomic_set(&sdiodev->suspending, 0);
+> +#ifdef CONFIG_AIC8800_TEMP_CONTROL
+> +		mod_timer(&sdiodev->tp_ctrl.tp_ctrl_timer,
+> +			  jiffies + msecs_to_jiffies(TEMP_GET_INTERVAL));
+> +#endif
+> +		dev_dbg(dev, "ws active dont suspend\n");
+> +
+> +#if defined(CONFIG_AIC8800_AUTO_POWERSAVE)
+> +		aicwf_sdio_pwr_stctl(sdiodev, SDIO_ACTIVE_ST);
+> +		if (sdiodev->chip_hw->auto_ps_support) {
+> +			dev_dbg(dev, "auto_ps abort\n");
+> +			ret = aicwf_sdio_writeb(sdiodev, sdiodev->sdio_reg.wakeup_reg, 0x8);
+> +			if (ret)
+> +				dev_err(dev, "sdio exit auto_ps fail\n");
+> +		}
+> +#elif defined(CONFIG_AIC8800_NO_WAKE_COUNT)
+> +		if (sdiodev->aicwf_hw->testmode == 0)
+> +			aicwf_send_me_set_lp_level(sdiodev->aicwf_hw, 0, 1); //dynamic switch
+> +#endif
+> +		list_for_each_entry_safe(aicwf_vif, tmp, &sdiodev->aicwf_hw->vifs, list) {
+> +			if (aicwf_vif->ndev) {
+> +				dev_dbg(dev, "suspend restore\n");
+> +				netif_device_attach(aicwf_vif->ndev);
+> +			}
+> +		}
+> +		return -EBUSY;
+> +	}
+> +
+> +#ifdef CONFIG_AIC8800_TEMP_CONTROL
+> +	timer_delete_sync(&sdiodev->tp_ctrl.netif_timer);
+> +	cancel_work_sync(&sdiodev->tp_ctrl.netif_work);
+> +#endif
+> +
+> +#ifndef CONFIG_AIC8800_AUTO_POWERSAVE
+> +	while (sdiodev->state == SDIO_ACTIVE_ST) {
+> +		if (down_interruptible(&sdiodev->tx_priv->txctl_sema))
+> +			continue;
+> +#if defined(CONFIG_AIC8800_SDIO_PWRCTRL)
+> +		aicwf_sdio_pwr_stctl(sdiodev, SDIO_SLEEP_ST);
+> +#endif
+> +		up(&sdiodev->tx_priv->txctl_sema);
+> +		break;
+> +	}
+> +#else
+> +#if defined(CONFIG_AIC8800_SDIO_PWRCTRL)
+> +	aicwf_sdio_pwr_stctl(sdiodev, SDIO_SLEEP_ST);
+> +#endif
+> +#endif
+> +
+> +	atomic_set(&sdiodev->is_bus_suspend, 1);
+
+
+> +
+> +	return 0;
+> +}
+
+
+
++
+> +/*
+> + * TYPE and STRUCT DEFINITIONS
+> + ****************************************************************************************
+> + */
+> +
+> +// IRQs from app to emb
+> +/// Interrupts bits used for the TX descriptors of the AC queues
+> +#ifdef CONFIG_AICWF_MUMIMO_TX
+> +/// Interrupts bits used
+> +#if NX_USER_MAX > 3
+> +#define IPC_IRQ_A2E_USER_MSK 0xF
+> +#elif NX_USER_MAX > 2
+> +#define IPC_IRQ_A2E_USER_MSK 0x7
+> +#else
+> +#define IPC_IRQ_A2E_USER_MSK 0x3
+> +#endif
+> +
+> +/// Offset of the interrupts for AC0
+
+
+What sort of comment style is this? Windows? Doxygen? Certainly not
+kernel style.
+
+This is like 30k lines of unreviewable downstream junk. Last time you
+send clearly undocumented ABI, now you send downstream build options.
+
+Go back to the drawing board and clean up all this from such downstream
+code.
+
+Best regards,
+Krzysztof
 
