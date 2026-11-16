@@ -1,144 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.42.104
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794805036;
-	b=eZbtQwSO1fXgPU1FBbrQmxQD2FRPPGu/WjKomUnenbHtjVPmxQNyIlb5jrCkAEzgK45v
-	 ylFBhP85gbmOi4AapMJo9frgVVy2mj9mPgMmotJFZWUowoB8f5k2iXrYa+EDcaFgI/ojg
-	 /ASYa+G3c4I2scvwpsDSBd+/jFSDtb9SX/arcc1/Ryj6nkRj9D7brQCk07Qv93MHAGzr7
-	 KpGQRHhFWGmw5e4Qrzw+Ok/lpYTDffqNCxYTxDGPXIcRT1WMekFs4eTe+wS6fq69EFmH/
-	 fIuHyIhmjieVwCqqkmeqJx8aa3MiOn8PwL1JnOgEWhQkP9Vnok9EuAIGeWGyUNf1CGg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794805036;
-	h=DMARC-Filter:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=wAoyum5BJKgjIclY3xjZzTvNLv27GQG/taB3wfmTg2Y=;
-	b=zE8aXugM/he8383I90A7Lfiqn1qWZpwf1vtgkty/iG1TaUx+q0Sguwk7QL4FKQY/L553
-	 NQa1wmxxISl09RRWy33/VaeanJvoZcLSozcEl/JferP0HYVrM39tsb3gS2fRt0CVHuXG4
-	 gqFZatLgGOV7l/x3GwQFSVxecGZ1jyIVmbyLNOGGxY21Z1H7J6+oUM23G8nt0fG4GFLBD
-	 CF0lVS2x1hUnUfMV2pIy0GgGocewtFyF0IeBNeAmcoEi7LbaRsgCJN/6wPa6xB1Er1gtx
-	 W6AInc7Yyhd+MdYTd1o87OKDd6X3d2UQN+6iYg93s89v9Ge6VjpeTWajuGeJTUwNZcg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=irondevice.com;
-	spf=pass smtp.mailfrom=irondevice.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.42.104
-Received: from SLXP216CU001.outbound.protection.outlook.com (mail-koreacentralazon11021104.outbound.protection.outlook.com [40.107.42.104])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794805494;
+	b=filFFgrJ7xHaoNM1UkX+AR1+Fz4rnvSu7S0TebFxpcgLTLC+y9r69SfIezxnjU7lxP9a
+	 Ys0I0IJJ+uTSAAGqG5WfYI58RcPdk9XM6S8Ky/TbU3moPJ3ncggA+lsuo4/x29JwgCIrJ
+	 kAlNplNZvERx/C+PYfIJJMlcDuPsY9FjvWLwyz9Ql0w2WfPD3ROx2r1TS40M8AhJDfK0E
+	 IdmR21AF71QT0rNg8QONrZksWXOaycwP43cCqvgQxCauQdQ4WABBGsq6yIDXPjvpk96ut
+	 q+pe3HsDMaaxC0w0xQaJRBxcizlcrM+OrA17VGdWIIHF4+kx/GF82dsIEoF8TfhFDFQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794805494;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ryPRF0HdNf6rgI2MrobrFyqzSxq0mqoFC9JGQuvWcFA=;
+	b=TeLe7O0XxAzmgKYnCjpbpKgdbu4rKj4bvxTU7brNUkUUvbiVkSkKiqJTrg35PINVAlsk
+	 7v0QLfNWw3EE95m+ZgesW94tg8Kk5jmD/NiMtEX6nUtIJ7T3/1E3tL7/3dgXGx1tAzDxY
+	 hRvXSa959OdtD3Uk35yc4QYtB+IY0WpI82XeoABH1GEoZq2eubqW/4NEDvvQDTJ2g30Ne
+	 arEOwgwTZdXVJVscHJ/2pN//iqiDz9zG83Df6/0DBokbxBweY7h6e/T0eSmfoxnrJfSJH
+	 1ULCJedxFmamDjqd4WTFtv7n8PvnnxHElhkizBPjcPXNnKgN5ws/ffCy46tl19Pq0iw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mdfEK7jt;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="P/t1rFgS";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12615606A31C;
-	Mon, 16 Nov 2026 04:57:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12615606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=irondevice.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irondevice.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DIn5ZClThZHukC/cU/TSkLTcBj0y1c2bog7rJD4pGMKvieO6943bBhAM7wlj4O9DtaH8kGjc2hD5PsujXufVuDUXNDVZ4Itf47kvEm0VYfAlbn0HAzMEDPnm2BFpSlti9FVAzPKUBJMSKg4tnfA0CABf3u+slTu8PhwGcH9OtBElP+yzQLvO7QJOSKBaj8r4M6wyS/yvCpu6buGjggzWbuzQMoqfDYCqAam2sU68dAk9zwIg6+HtgTVCQnqSG7JvhWixHYwSkYvUJ8ghUKwANbTlAvDYJwvMTqpWxV5Jpixnm/IW++gLxCEycP+MAn4Y8awACQh7kdmP/xgb1lC72w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wAoyum5BJKgjIclY3xjZzTvNLv27GQG/taB3wfmTg2Y=;
- b=G3fEYB8YmmtA/nH2dQTKAPPzsmvpt7rssMmoFBpt56grKKXtwhaqtAm8RL2No+m+TOXVxw2zybPXmI0m4PrGe1DuAJJZE+9lN2yNZWGiWDmlbsgORorIsI2Ts3amhRAvmx9UB6xjDw3C9hvXIAwLUuA8wCBfb6dytpLP/Xhok4vg/oCoUoxkeiRax0t3gigG4omnJOP1akQrZ+VBu0rTzllhnG0GvPr+H0zQ8MvkGJcB6RWoOzRhBXrGRvKpJu6HeUEEof4jYESnsqT7p2hGtH0FyH+5sCJYu3zqTNLLMg5HaqRArD/RA0IMf2g8KFpk8Bzc7dkATTskwJEc0w3Uqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=irondevice.com; dmarc=pass action=none
- header.from=irondevice.com; dkim=pass header.d=irondevice.com; arc=none
-Received: from SE2P216MB2423.KORP216.PROD.OUTLOOK.COM (2603:1096:101:1c6::14)
- by SE2P216MB290365.KORP216.PROD.OUTLOOK.COM (2603:1096:101:30e::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 04:57:11 +0000
-Received: from SE2P216MB2423.KORP216.PROD.OUTLOOK.COM
- ([fe80::98a8:f50c:a9f8:3073]) by SE2P216MB2423.KORP216.PROD.OUTLOOK.COM
- ([fe80::98a8:f50c:a9f8:3073%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 04:57:11 +0000
-From: Hyun-Uk Son <hyunuk.son@irondevice.com>
-To: Mark Brown <broonie@kernel.org>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Ki-Seok Jo
-	<kiseok.jo@irondevice.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jaroslav
- Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2 2/2] ASoC: codecs: Add driver for Iron Device MA5311
-Thread-Topic: [PATCH v2 2/2] ASoC: codecs: Add driver for Iron Device MA5311
-Thread-Index:
- AQHdZfYyQ2ir7g3zC0ypZRNyOeIsW7cS0hsAgBJsJ0CAAiq/gIACQcBAgAFD4QCABSkPQA==
-Date: Mon, 16 Nov 2026 04:57:11 +0000
-Message-ID:
- <SE2P216MB24235412B165FEA906C3D24FFF7C2@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
-References: <20261027093232.859755-1-hyunuk.son@irondevice.com>
- <20261027093232.859755-3-hyunuk.son@irondevice.com>
- <179318672062.199157.7461931531075403104.b4-review@b4>
- <SE2P216MB24230E7B98CD3F438E23E869FF722@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
- <40646ae6-f6be-4408-aefe-521fb0ea9bee@sirena.org.uk>
- <SE2P216MB24238E5F5EEA95FCEABCDAF4FF702@SE2P216MB2423.KORP216.PROD.OUTLOOK.COM>
- <2c7d503c-935b-4408-a5b6-bfdf5ba86933@sirena.org.uk>
-In-Reply-To: <2c7d503c-935b-4408-a5b6-bfdf5ba86933@sirena.org.uk>
-Accept-Language: ko-KR, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=irondevice.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SE2P216MB2423:EE_|SE2P216MB290365:EE_
-x-ms-office365-filtering-correlation-id: 8e729aa6-91f8-4d8f-fcdf-08df439e12e3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|38070700021|10067099003|4143699003|56012099006|261026121527099003|261026140227099003|261028144727099003|261021123027099003|261022105027099003|261021121427099003|261102123227099003|18002099003|22082099003|6133799003|3023799007;
-x-microsoft-antispam-message-info:
- r48b4EpcMnZ+aDtx3J9Bwel31bqwQh9o1u4Fx8c+ygfrflGOAYntIkzIUAbTxC0jsiCvykcodKvfHV4W3Bw///O8/EpmAbJRpz+F4MGRuTdZp6AJK337K9Da5VSkTTznCoibxEmptfoTJvDLBkhE+imUx0FOSD3cpdM45k/N3dpgeIreGiC+0AuMnE1veiWloL7Qp7iLCGYDoGfvHLdwc6SzfQSbd/Xk7mgR5ELUHx6cng7HvbRcKKGu220WT2wfzhDMy/MmJA+aEwc9dWnCNYP5VR87vCBkpJwWrUc4Zy+WoadVrTIVvZXgr4RE2t+Oi8VmiuyfUDCLdPeGQB2ukuaeT7V2mIf95oTw2B75WHtuIcRrW9f85kmJneS9OJfUCUxbkiMM2LDuUxW+3zUE2k/YAmk2VjS5laKhfXArpNX8oDWTz5RTso4xxoh/ggdjMaT/3syUkFyIRnb881BtJukuvaoCaLXVpiI27nPLxyUpdFTyyks+Pd9SEU/uLvykurBiV2vsmbVZh8PmJ0d6TwV4UYOT7ayMSdNakCMOu9eDAzM0hwQJD2ZGLUTQKH0L0y+fFdV9sdrsJ4N5jAG1eSFROvgevEz77sZXcPhax0ijcyYVB86eYqVPtLrJkI5W1ULVo4vNiPGVl5yD5GcSgJl1w7E6Rsgb/Z9xmFLKNf0yVfnwaKQuxfcvPaZgs/MWs+X8Ja+ZYUIgmwiYQAgzEs2KzKAprsO+7s9e2zF2LPo=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SE2P216MB2423.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(38070700021)(10067099003)(4143699003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261021123027099003)(261022105027099003)(261021121427099003)(261102123227099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?vP6AngLvGQYPIMqyeksUr6rK8ZsmUJHRYy8f5ruTlTUOA7XeZoycyvKk1T?=
- =?iso-8859-1?Q?BmKvqd9PP0FtVYR+xZCjAmncc2ZFkv2lqMuevcDuEAwEfpRY2VXw5cDtGE?=
- =?iso-8859-1?Q?ECy9dZ3lmzdBcZv5KM7pt1+3YnVEWHWpRkQhjFp35b5yfVTl/9rZxqoVMX?=
- =?iso-8859-1?Q?r2rzcmViZFJtNucvVP5w58EpHdYiyM4u7VDpVQug5Dc0NFkylf2tK5e9LY?=
- =?iso-8859-1?Q?QvwuU85ek9FItKqdSOTOds6kkKRoykqs8UG0uogL6NbvRV2sGufOoUyQlL?=
- =?iso-8859-1?Q?r2tGYQCrqBWXsn8ypBUwoRm+B35bP/McI9Wug/VNwgybp7CAmQpMqcgegG?=
- =?iso-8859-1?Q?aeWaJ48hEXBP9UHPQRVFj1uw+miR1Hw1tH/UUxHUY6ilUSMdwNbjL2W8/c?=
- =?iso-8859-1?Q?S1/WqXk7TCL3CqV3LASmIF/6eI37VzQWV0Mnl6WlXp7XzSsiUsQZUgFvAw?=
- =?iso-8859-1?Q?GtplRSgJk1uyOT9y9aXu8B4qARwOzNIEE+LeWDDmBFvNhRxgpuQuKn+ISq?=
- =?iso-8859-1?Q?AEjdbzHCkGOylkaqKvbjm87cdQzYB7g2CNY0FfCrpsXcG5HfximCgSHwii?=
- =?iso-8859-1?Q?Wi3ew9vPR32vKqBpSYK31/2hmjwiHVuI0bOTCE/go1AtIZg4KseBiu+Px8?=
- =?iso-8859-1?Q?iw8kbMxFqalpXGzd1Yd200ief7kekHaTLZMTkSjSKh4vS4lCZzFeL2ui/J?=
- =?iso-8859-1?Q?/F3IA50MVI2gFSWPw4nCZPpV+qpXTORUrc9NAp2mqhd8irq55gFDhluZGP?=
- =?iso-8859-1?Q?5pjqhM6kDAwiLhczd17aK7ebKfO6f5Iy9ZIGWKKwAZrDuKz/j3+/3WB2kE?=
- =?iso-8859-1?Q?JRsN0Imc0c+3dcv82v+ntYS84ldeTOdU3DrnnJpGu1JVxw3VSeMsCVpbFE?=
- =?iso-8859-1?Q?fuKGfP3fzhGDFQuDsSraOPnPdCJ3D8VLeM3kQrau1GuPnRIcQd281DKzBl?=
- =?iso-8859-1?Q?cwrjWflCLCZE8KBXGg1qJ+LkEMmhY4m7XjeBkPTL4GeQ0RTcvRBsQWsn7H?=
- =?iso-8859-1?Q?QCODl31jABD4GBtplZij+lDFFBn5WcbyusJH0TUyM4K3OumuVto1RQKiNJ?=
- =?iso-8859-1?Q?2NvUPFVbeiQaf1BIsfoOh9S3HDX+CLsh6ysHKAvzsCp99jABxL8Y6KVuZg?=
- =?iso-8859-1?Q?yzyh8lb9f0/Alu9YcNB/eWiec4Bn0fd3ywkokVNOSY6tQQT4utpwn/4w90?=
- =?iso-8859-1?Q?K3wdz4pVbSjFZ7XubbIKwuHjIGPbS2WeNBMqCLeRULN4/0xgUc5pKWq9o3?=
- =?iso-8859-1?Q?hrqslAdvnTtVw3c5mZBTEXcK81//4NeT13tn9IqMYbHrhQkDFBaVoXLJva?=
- =?iso-8859-1?Q?Wy0YWW/4OxTkiiyVdp57QPlG6SDbk7RKVmn1eLX93Z2VxERwxzGES2cJJr?=
- =?iso-8859-1?Q?DjxUCVee+99VjwvMM8KchPKVrwamaw1zqoAEMrpFB+5oDMefImC0Lf5aHq?=
- =?iso-8859-1?Q?pV8e1Nzf3squ6tL3q3GEA8khVyGf5+U1PLpCIuzeunIXvvKXl5Z4aY7tg3?=
- =?iso-8859-1?Q?VWocEjci2/Wn9nyiqDxEeei6i0qvk3lujkAiN90L7n8jLb9T+IdFnATHLO?=
- =?iso-8859-1?Q?2/CMrKIxHts91culK2X2crkKtV/W8iqv0JQdw+OWtkhXttgtaYgyKi9KKe?=
- =?iso-8859-1?Q?YLjJ4qw9XiE+oU4pBV79ygvTADHyD/XWcmFognzbdI9J6N+eznUNYYuUmc?=
- =?iso-8859-1?Q?gaVDKgCMwx473qsZzS5aBbdpNrsHJgryTvUSkR/rcueUGQTj3o+4LiFpiP?=
- =?iso-8859-1?Q?KW9ByrBe/3k8TR9FD/MEZqLqrrLSzpKOegAHa4qLn9TgpIIAPXuLBW6Nhu?=
- =?iso-8859-1?Q?2ioYMM7z0A=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D401606A31C
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 05:04:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D401606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mdfEK7jt;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P/t1rFgS
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AG4R1tn095408
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 05:04:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ryPRF0HdNf6rgI2MrobrFyqzSxq0mqoFC9JGQuvWcFA=; b=mdfEK7jtVp1wweF8
+	do9r/uilJDDcS2RIC4uMDN1Pv0THRYmLr08kde4N/55LEmS8Tu8X0+xMqbcf5usU
+	tGYPS8IAtLR6gkP1vysiP3aCyTYVptkILrs20ZCa024aBa9z69Tc0WyVt9OPFPmL
+	osu213cxB5fCh5XXi05FZxIf2FQZ3l2ORM+fwCESgCcXSoKeqX78hJse4zbZ9fn4
+	A2pVNF/eG9T2X9523+0lMZUuZUcSX1wToyC14F4IFudxW46dqEqWzVBcNFLB2a3J
+	Ev6Qcl3/c4tDf0JXXw81tf8wDfih3vPQH+gDQmVk0uLNsxH/bYiZMwOaKOSK9Cwr
+	VXlkQA==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhjqmxrc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 05:04:52 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cddf34086c8so551480a12.3
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 21:04:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794805491; x=1795410291; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ryPRF0HdNf6rgI2MrobrFyqzSxq0mqoFC9JGQuvWcFA=;
+        b=P/t1rFgSIjDlzEjR3rNdHGpqittVnIAaHccboy3+uKDOGIaWdUL4/UTylAq4TBVwsI
+         xPgUwg0LIigr/7ftL812QAjNrOHjjkD5tNuOpWBTr/nzBWvB43gd29u67k1c61xQQyHd
+         +zN/+bSUzK9G0+YHPbBA9K0QAmHyO7zFP3Nd+4IUxMKpUkEGouud9/56u2cm6M2csamR
+         EdimkCMsMe4T98rN3MNgquRZxPakxA8rAEQUQFfaNzS0dfohsZDe1xYaGy5TshdFYwis
+         SciC8Mjsq1PdVqqFOIt1uF9cSK/Tbywc+MB/A30nDH48zfFAle6hK3wFSx/YZZS13iJD
+         lh6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794805491; x=1795410291;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ryPRF0HdNf6rgI2MrobrFyqzSxq0mqoFC9JGQuvWcFA=;
+        b=QUEYTDbX+deL9ZL3adaxZJkO0x6MjinQ5ytChIFCDbVTGUPxTuIzAvVdKA1QO8iDk0
+         kgmRmEON3L2xsM7AK9KZqjpMyvqOse7aULStDK1zlFNNGh5/aTCbPanCizVRhoYcS8h+
+         E/saF/6JKbaoo/kyWQ+mZhplnjmklOP1ciV3Rq9CWRZFq0e/we/N6ZWZQOtMV0lP9BMI
+         2c+GNfuIsqZJSNIKXfwSHRmvZDloCCBtGPv8YPYOI78iJQlM2UX7ffi9KXivx9Hn+jXq
+         rz8BMPB1XNrUcdAXPZmqlmh9RAhqGrXTtbND08hbzbedbfELlrqEr9yQsR4lxKHZgQu+
+         Z+5Q==
+X-Gm-Message-State: APuU4Z8ES5ahkhzpH8WpY7/pElN26boIKo7uZBTlqjVJujUpFTv1TQRa
+	ifPdSoEO8NDz+mmMvbiS9JeK/kMic/hALjeed8QuhXyXa5Ociabz0EWOYufk8naoyiedLp7Dtll
+	iOUn/a5rf5nnhwLjbxQseI8gS5R5Ar1GRRPfhPrRL6CrzFN2cgkn9NcwhAYArc5By
+X-Gm-Gg: AYBFou31stUdCzrmxDhfJULi94GRJ18kq2VRD9CZsAuX1a76zmYp+CeU5OECCcucz1x
+	GPz5fgh/NBEXKCceZYM0Z1Ewtmbh8F7g71B0Fbsfu/UmQV7467+WfO2x62LtHJXbhmlcnURhgtG
+	s6lKpoV6qFouF48YW0g4kclrEGko2KNbsDh3TU5Phyx/584d3ovLwU/QdBBjL3FSGZsnl34jeK6
+	4kP4CfP49VFQIzBj2JSvrs+kxXwIMJAufIt8ApIradRRMc9BxIUk2tsb2c7bxmm9xn67+zNLKRP
+	cvG8ue8pfQdEYJc0oqX5ZOjINwV0MeLJcAbec5sU+h9Jk4u0LrVsaCu10yIq17onjKCUGctDg8/
+	MsGx3eN/bQfl/X3NwtUrf34dVu9dp+RhqE1NxhjFhQ1NqMsEdbrS1AZcHD04ORaFLhgVkAiMwcQ
+	1cp6LuuQ==
+X-Received: by 2002:a05:6a20:6a08:b0:3dd:85a8:4c5d with SMTP id adf61e73a8af0-3f7a7ac81c0mr9042093637.36.1794805491082;
+        Sun, 15 Nov 2026 21:04:51 -0800 (PST)
+X-Received: by 2002:a05:6a20:6a08:b0:3dd:85a8:4c5d with SMTP id adf61e73a8af0-3f7a7ac81c0mr9042071637.36.1794805490539;
+        Sun, 15 Nov 2026 21:04:50 -0800 (PST)
+Received: from [10.218.31.237] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1a6db53sm3176286b3a.21.2026.11.15.21.04.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 21:04:50 -0800 (PST)
+Message-ID: <e60fc1f0-b920-4b40-85c0-e7af1ccba98d@oss.qualcomm.com>
+Date: Mon, 16 Nov 2026 10:34:46 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -148,103 +114,136 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: irondevice.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SE2P216MB2423.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e729aa6-91f8-4d8f-fcdf-08df439e12e3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 04:57:11.0394
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b4849faa-3337-494e-a76a-cb25a3b3d7d1
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eIWb0cSq3LB3iAaEp5xv7Um7Q1dde+Tb+fRA+/nmx/zGPt1HNHb4lZaKxZC2cXe6f4a1/rCUA9ctIKsYpmcyUsMlxVITpJA4X6gYSJV1LTo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE2P216MB290365
-
-Dear Mark,
-
-I'd like to clarify one point in your feedback.
-
-
-> > The purpose of this initialization is to configure the data path and
-> > output format for practical use, rather than to change sensitive
-> > parameters such as speaker volume, ADC gain, or PGA gain.
->=20
-> The trouble is that these parameters tend to be both sensitive and
-> platform specific - they'll depend on plastics, or the components in a
-> given system.
->=20
-> > The values of these parameters in reg_defaults match the hardware
-> factory defaults.
->=20
-> Right, those are what the driver should nromally use.
-
-
-When you say "these parameters", are you referring specifically to=20
-gain-related settings, such as speaker volume, ADC gain, and PGA gain,
-or does this also include data path and output format settings?
-
-To make sure I understand your recommendation correctly, should=20
-the driver leave the data path and output format settings at their=20
-factory defaults as well?
-
-Or would it be acceptable to initialize the data path and output=20
-format settings while keeping sensitive parameters, such as speaker
-volume and ADC/PGA gain, at their factory defaults?
-
-I apologize for following up again, as I may not have fully understood
-your recommended approach. I appreciate your patience and guidance.
-
-Best Regards,
-Hyunuk Son=A0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v6 2/2] net: wwan: qcom_bam_dmux: Assign
+ restricted DMA pool to remote processor
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261112-qcom-bam-dmux-vmid-ext-v6-0-7a16bd3dff18@oss.qualcomm.com>
+ <20261112-qcom-bam-dmux-vmid-ext-v6-2-7a16bd3dff18@oss.qualcomm.com>
+ <sashiko-outbox-212526@kernel.org>
+Content-Language: en-US
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+In-Reply-To: <sashiko-outbox-212526@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=KelHIgYD c=1 sm=1 tr=0 ts=6afa8ef4 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pMX85SVGjE-Xmla17LoA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDAxOSBTYWx0ZWRfX41Jy3fsqaMKP
+ 64y3zQPZYsqCWsfL84qQ2GVMC1YH8IrgaSXJt5vi7o+q8phDsc3jf6DRg7buxUApOqZGyuFuQZV
+ DA9tw6sYxXEtZ+3ogqjovQf8z1CptTQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDAxOSBTYWx0ZWRfXwEg5Ef2CGZkL
+ fdv5tXJzsSUym7qzMP8aPU6JvBGifxPfRRT+q1AVKEyMIkydmAiCNXQ3ENpuzga37/UzRYDwOuc
+ xA6RilqsJcs3H1PiBf96U2jTyiU7RcwRjJtjUI6vVLfLT9MbbsQKkOl8EOGGVW8IyJj8zyR1kBZ
+ Aw2VDHN4g45Hy95Y0BHIjxnlTDs14RIi+Ej9kakmBCII7P5SBojltCJUGgJTOuaMf3YmMuI53s5
+ +W1/NU4E8Ufx50LC9fRy9rmp8An/eNsuz00cvtOrQ4ZwD+P3T+nbKQ7ePQJpq0TmXh5wmjTXzOl
+ sPfva3uGua8r2xWcqGj3KP2Fz0am4GjRNrhg+EHSvHCyJwwNDrHqxlG5VYx9eyB+zQ3RLg6CKkt
+ exe+aNoKdwQjuIYQkWFjSdzEz7q3rB+tgW4RoDFxJmImw9bqcjrCKovvhtqhh0uebxAmPu19LB4
+ 8xJm5xvFpn7SjwV2Q3g==
+X-Proofpoint-GUID: 2uNkQxImBQLqzgXjH79-UAjsU-V-oSGz
+X-Proofpoint-ORIG-GUID: 2uNkQxImBQLqzgXjH79-UAjsU-V-oSGz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_02,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
+ clxscore=1015 spamscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160019
 
 
+On 13-11-2026 02:44 pm, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Medium] net: wwan: qcom_bam_dmux: lost PC edge in bam_dmux_probe()
+>    with IRQF_NO_AUTOEN
+> --
+>
+> commit 4515119c8a0e425457d7366d017600d0d4e872df
+> Author: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>
+> net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
+>
+> This commit assigns a restricted DMA pool to both the local and remote
+> execution environments via SCM when qcom,vmid is present, reclaims the
+> pool on teardown, and defers enabling pc_irq until the end of probe.
+>
+>> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
+>> index 1479f8362e04e..04f3d46d4c3f3 100644
+>> --- a/drivers/net/wwan/qcom_bam_dmux.c
+>> +++ b/drivers/net/wwan/qcom_bam_dmux.c
+> [ ... ]
+>> @@ -821,7 +913,7 @@ static int bam_dmux_probe(struct platform_device *pdev)
+>>   		goto err_disable_pm;
+>>   
+>>   	ret = devm_request_threaded_irq(dev, dmux->pc_irq, NULL, bam_dmux_pc_irq,
+>> -					IRQF_ONESHOT, NULL, dmux);
+>> +					IRQF_ONESHOT | IRQF_NO_AUTOEN, NULL, dmux);
+>>   	if (ret)
+>>   		goto err_disable_pm;
+>>   
+>> @@ -838,11 +930,14 @@ static int bam_dmux_probe(struct platform_device *pdev)
+>>   			bam_dmux_power_off(dmux);
+>>   	}
+>>   
+>> +	enable_irq(dmux->pc_irq);
+>> +
+>>   	return 0;
+> [Severity: Medium]
+> Can requesting dmux->pc_irq with IRQF_NO_AUTOEN drop a power-control edge
+> between irq_get_irqchip_state() and enable_irq(), permanently inverting
+> dmux->pc_state?
+>
+> CPU0                              Remote modem
+> bam_dmux_probe()
+>    devm_request_threaded_irq(...,
+>      IRQF_NO_AUTOEN, ...)
+>    irq_get_irqchip_state(...,
+>      &dmux->pc_state) -> false
+>                                    toggles pc line (0 -> 1)
+>    enable_irq(dmux->pc_irq)
+>      smsm_unmask_irq() / smp2p
+>        caches remote_state = 1     <-- edge lost, pc_state stays false
+>
+> With IRQF_NO_AUTOEN, dmux->pc_irq stays unstarted in the underlying
+> Qualcomm shared-memory irqchip (qcom,smsm or qcom,smp2p) while
+> bam_dmux_probe() samples the initial line level and handles initial power
+> on.  Neither irqchip latches transitions that happen before enable_irq():
+>
+> drivers/soc/qcom/smsm.c:smsm_unmask_irq() {
+> 	...
+> 	/* Make sure our last cached state is up-to-date */
+> 	assign_bit(irq, &entry->last_value,
+> 		   readl(entry->remote_state) & BIT(irq));
+>
+> 	set_bit(irq, entry->irq_enabled);
+> 	...
+> }
+>
+> drivers/soc/qcom/smp2p.c:qcom_smp2p_notify_in() similarly updates
+> entry->last_value for all bits while only delivering interrupts for bits
+> already set in entry->irq_enabled.
+>
+> Because bam_dmux_pc_irq() tracks state by toggling
+> new_state = !dmux->pc_state on each edge rather than reading the line
+> level, missing an edge before enable_irq() leaves dmux->pc_state inverted
+> for the lifetime of the driver, breaking power control and DMA pool
+> reclaim on remove.
 
-The information in this email and any attachment is confidential and may be=
- legally protected. It is intended solely for the addressee. Access to this=
- email by anyone else is unauthorised. If you are not the intended recipien=
-t, any disclosure or actions taken
- as a result of the information in this email is prohibited and may be unla=
-wful. If you are not the intended recipient, please notify us immediately a=
-nd then delete this e-mail and any attachment.=A0Thank you.=A0
+Yes, a PC transition in this window is not seen, since the SMSM irqchip
+resynchronizes its cached state on enable_irq(). This was a known trade
+off when moving to IRQF_NO_AUTOEN.
 
+Making bam_dmux_pc_irq() derive the state from the line level instead of
+toggling, and re-checking it after enable_irq(), would close this window.
+This changes the PC handshake on all BAM-DMUX platforms and can be
+addressed in a separate patch if needed.
 
-> -----Original Message-----
-> From: Mark Brown <broonie@kernel.org>
-> Sent: Friday, November 13, 2026 4:38 AM
-> To: Hyun-Uk Son <hyunuk.son@irondevice.com>
-> Cc: Liam Girdwood <lgirdwood@gmail.com>; Ki-Seok Jo
-> <kiseok.jo@irondevice.com>; Rob Herring <robh@kernel.org>; Krzysztof
-> Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>;
-> Jaroslav Kysela <perex@perex.cz>; Takashi Iwai <tiwai@suse.com>; linux-
-> sound@vger.kernel.org; devicetree@vger.kernel.org; linux-
-> kernel@vger.kernel.org
-> Subject: Re: [PATCH v2 2/2] ASoC: codecs: Add driver for Iron Device
-> MA5311
->=20
-> On Thu, Nov 12, 2026 at 12:40:57AM +0000, Hyun-Uk Son wrote:
->=20
-> > > They rarely are, but they tend to be safe and what is suitable for
-> > > practical use will vary depending on the system.  A gain that makes
-> > > sense for a line output will be unsuitable for headphones, and vice
-> versa.
-> > > There are a few things, like zero cross for example, which are
-> > > pretty much universally sensible and we do change those but for
-> > > things that are likely to vary with use case we just go with what's
-> > > in the hardware since that gives us consistency without us making
-> > > decisions that might favour some users over others.
->=20
-> > I'd like to provide some additional context regarding the rationale
-> > behind the initialization values defined in reg_defaults.
->=20
-> > The purpose of this initialization is to configure the data path and
-> > output format for practical use, rather than to change sensitive
-> > parameters such as speaker volume, ADC gain, or PGA gain.
->=20
-> The trouble is that these parameters tend to be both sensitive and
-> platform specific - they'll depend on plastics, or the components in a
-> given system.
->=20
-> > The values of these parameters in reg_defaults match the hardware
-> factory defaults.
->=20
-> Right, those are what the driver should nromally use.
+Thanks,
+Vishnu
+
+>
