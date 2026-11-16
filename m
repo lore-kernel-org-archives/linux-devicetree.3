@@ -1,88 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794836733;
-	b=wh87rOHQ0NVGjIzcRAkd40+U7+kfP+dQmg67gflu3KvWX0q4IbZZZbQ8JCGSTs7EVXvU
-	 RRiywI/Lw9yPeOdfjggonerWI5rPxBOvtYFLDCQSfJuIjZ28mWO6l9iJnesu2SbJub75h
-	 QIYlzBT+le6ncaPs3Nzu+KeB7Zk8+yMlhRRt3RN319xiV0qxgK7cg+hVfOsQas7UvA65m
-	 SMFv0jNPuw2jA7pNMk/iegfkikk6mLill2vhFCjHwYGtUfakfo1IS6EYVDVUUYi03Gap7
-	 bkGwBXC8fxlzD6Gn22j934tdvWiPjxWXb7k+xaE4h//yqpNiOcLRpFPEAWFTyjG2dyw==
+	t=1794836855;
+	b=1VwfK4c21LqMjj8UfEfPQLTZiIhx6e33aPo4XnPEcvnLLfUhGOLoJgiF71YN4LDOGhC5
+	 0fpFyXj++CCW+DQwbgKolxiG0dhP//RspooxJB9daBZps3n/ClfIETdvO9zN2Oq9woLwD
+	 au0nqM2Xn/Yfqj72wtQM62UZB5DY5uC5RGOWbbNzDPynw5kKELf7Q39a+TXwpj53LFtom
+	 lDZG4ht0t24Uhihs8D2ftbB96fN+UjEGQmozW37zwsFOEtG3i+cNcmeb3W3tomujRaQfv
+	 ZPMsULAsoouQWJl05hweiMx7eqFOqKmkDLjAtjBfQRT+PyzXfF0z+wQSjacXi9nWk8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794836733;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:
-	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=HHhT6Qo81+qqfHiAP1aXCUEzb0E+3rfD32/ByjPjT00=;
-	b=Ls4hLXVsBjQgLh1fOS6lKIqQmKX5tldGiIaxj5uZRbsyZL5lpxGiIEsjKDUbDfi07FM5
-	 vgv6EcN3k2mKVN/+l3tqawY6GYQx8GncGh1bxtvIHrNNQiFS9TNFFffKtLqZcA2rxHHKM
-	 YvP1Bxqj2LhRfLW4CgBHnaSPWwyd8p0H/TA6bSVcBmFRDFmYoYSF67vWrJuSCbqLEvtFi
-	 daIkDwEBtkG39ug5RkXHcrIxmOGSE7tMaTi7OtC9jv6iWMHfdxM5wVleP8ATexP6XirYU
-	 YkscNWXqakfrdeWeuEIDymEorHmX4NKCuD6xi+hA5HhNOsoQfBanz6qhT2R3OdEDx7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794836855;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=2winabVpaM77ETlKEcvhcxQYA9iyVxIX98gUumohxek=;
+	b=v7gGDKv8Ew93Rnn4c6P4sc4X9d+PUcvO/ohv5CPa1Ol63Bb093t4/XMuNWISL4tLLrQC
+	 xR9eAPXVSblqNHQrusoqiHM6rSx1OJrqMrun+UoQ1sSt5XcLaerGZMdd/pQqb/hqdB5Z1
+	 tjuJwOM//lP6exQVmic7UozfCEYJkopsMKu+fBSBF86J8tYG0v8j7bXQmzbUHnV/Slvgv
+	 +qcYYfGmKrkfCIrpg2Xf67lrzFWg+0BQuwMvMCdDd2dGok0StB892xgXmACVuW1FHrvcI
+	 T+X4/5VU2OgChrnTomdlzsEF/px++NXVVzzBKU+HKj/ebno6Y7TnABGa0rkTJRhEZJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s4f+gDhB;
-	arc=none smtp.remote-ip=209.85.214.181
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9I352bd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869E0606A330
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 13:45:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 869E0606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9AB606A330
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 13:47:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s4f+gDhB
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ed06b725fdso30763125ad.0
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 05:45:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794836733; x=1795441533; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:reply-to:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HHhT6Qo81+qqfHiAP1aXCUEzb0E+3rfD32/ByjPjT00=;
-        b=s4f+gDhBscXhRooJhch5qxUAkSkZypQ1goeVJZx+HOFbJYpHs8fPkyx92QifmChYgj
-         s5WBjf+4JvxkQFmcPHnpAMpEu1obLMXSYIcrcWhmGpOYeQa7ZeWd8jje0esSFl7GiBhd
-         pgjKIW23MhZM76HZ0nUOrlTr/C2nfdOuFbZQuN6lGPgn7iEIH83PTPi2sYzbMiyaRg1N
-         9EtdOnjVB8cuKpFHmojQxmSOgS32yaXZZDaK49mUobqsi+Awk5duYQ5VswQH2NNvty9l
-         N4MfNqz8hYXYG642iytGPbEVl4czycrL6yAHfypNNR6ieZk1j/AegJUeGqzMbfGoiBv2
-         DVyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794836733; x=1795441533;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:reply-to:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HHhT6Qo81+qqfHiAP1aXCUEzb0E+3rfD32/ByjPjT00=;
-        b=rxSJDHTP6ApjFLw/V/IppH298UwxmC96Njd8TfwURjn+N/Jr08z6aTPrlbpdvF1zj5
-         AztpP4DpINDY45AKjAp+7/3se0IG7Gg05HtVLIebn1E4T4TtzWYdDhJ/00hkzfJh9CYI
-         /WUa0TtFAn0lxnOb0WVSpFzHNNu5GOlHZuweYdeSZExGXRhgsPjlgcQpiblre60BIYfE
-         IlGQvKiyJgNkRYbFreqIe4lLYnn0AGlKW1EfJkfEC7qUojaKNfzqb6l0TzsuEQHLH6da
-         bt0HHgmD3/CyuJw8EV86fBgMksHSvU94iJrfIcWP3jdt8A+ZM60AP5WZ1vCzWYayUku0
-         3K2w==
-X-Forwarded-Encrypted: i=1; AL+hErF5k1si/pUSWvFuDYXUVu7fRUnHQimTG3pcpTwUIYy1DtgpEPG7nass5Zt67wOJ7C2A0HM15P+NTNN2@vger.kernel.org
-X-Gm-Message-State: APuU4Z83J8qrVCkSjHHmF1rEhZCvkuJ53ugjzfpAuLYMoAOBOsjOTGCF
-	i+mKy1j27K05feIssCHZy5wICGbO9Ey7JSV4IAMgtUgd3pjhqAH/pXJe
-X-Gm-Gg: AZFdTZdqcfW06FU5lnAGc6QjZMkV2+6ZSPX6EU6SXWB9XfYDN8TJjxzT3tAzFk2d6qz
-	EjGOEUPQMzDiGZjyzIjoLn0JU6ZxZ1naAd3X1+tKKizpFo+zcyQ5Z8r+PJSbsXUlGNiK6mXkh+o
-	+KhgwhfXx+ne5tBMYSix1r4UhsIxYTSmcMXuPwhzr9Jx3N+0X0lqyrYDlQP+2bRehX1cYwdcTpF
-	zdCM++cNAMO21FsKRsr6qYH3C644U1pgcWyfm6Q3oQ4UDadhlDHHnqcjZy68TwUKuNP5ZmqVy6M
-	kBfVgt+gI4NWPHY2NLin8crExs1BgipMlLFT+4PjWXQTGT9e/HFhJDwHlv7WcmebRJjCCrCj/J/
-	x0GvWPl4Ib9GcNE4brufeGL2VX6i1ZEbq5DUZTu80XcF2F2E2xuzFX7br3O2wyw/1tgBNManMuj
-	Li5l/7xokck1IJxIDnjXM9vDn/ny+DLLeGiHTEgKhvwInz6JthvcU8VWLp9pmmJ7lRC1yoVPncG
-	DmIboPeLYqkL+NQp1jQgOzATW9gIiP6uZzoyAnC4sQ3E9Y7HsfrVKfAox2lRUVezM/IiBxtzKd1
-	g2YayMOB8/OLJzeIURwMKal0olc5f6N7ZKcsOxS8Y0U48xnXdepOE9wzT6cVqWdNi98=
-X-Received: by 2002:a17:903:1c9:b0:2ed:238b:7db1 with SMTP id d9443c01a7336-2ee0dd2a2admr72241505ad.13.1794836732598;
-        Mon, 16 Nov 2026 05:45:32 -0800 (PST)
-Received: from [192.168.35.99] ([218.50.238.131])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f868203sm37637585ad.49.2026.11.16.05.45.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 05:45:32 -0800 (PST)
-Message-ID: <9fbd4a2a-d28a-4dc0-a4e3-0e91e7c160f7@gmail.com>
-Date: Mon, 16 Nov 2026 22:45:25 +0900
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9I352bd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 565381F000C9;
+	Mon, 16 Nov 2026 13:47:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794836854;
+	bh=2winabVpaM77ETlKEcvhcxQYA9iyVxIX98gUumohxek=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=E9I352bdxOVGz1bbCSomh0jG1MPe2WyunjGCj/dqH5fLaRu4sJ2ebF1oWpDF1HBSo
+	 ybDaYXhniwOrLFGc4w0x+pvwo6zjzCgaMaVSIjkxsKZu0gvRtDZg/r9cttPJUnGpVq
+	 xGVZR/aU7i0HGAxnOeFdQwqBxc3zSr75OLOfhm4exw4CBbHmt2KUIV4oPlRb5P2eL+
+	 7T2v65oqKnpYMOFk+21Ko7rihtda0ppBK5gmyRCC6PM76+jSrXvkmOzKMSC4G9YoWp
+	 hN7a//mzblHnjVyrO19v2SFk0SdSSZKUWl6Ba0mbk4QRQoLRTyaboQN8sjtIbDfNtJ
+	 fS6fEjMCdWrFQ==
+Message-ID: <sashiko-outbox-217109@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 05/11] drm/msm/dpu: Add support for DPU 12.1 on Nord
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261116-nord-drv-dt-v3-5-e3d3bf0e2c49@oss.qualcomm.com>
+References: <20261116-nord-drv-dt-v3-0-e3d3bf0e2c49@oss.qualcomm.com>
+ <20261116-nord-drv-dt-v3-5-e3d3bf0e2c49@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 13:47:33 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,216 +59,135 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: chanwoo@kernel.org
-Subject: Re: [PATCH RFC v7 4/9] PM / devfreq: Add new target_freq attribute
- flag for governors
-Content-Language: ko
-To: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Dmitry Osipenko <digetx@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
- Pankaj Patil <pankaj.patil@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, arm-scmi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org
-References: <20260610-rfc_v7_scmi_memlat-v7-0-f3f68c608f25@oss.qualcomm.com>
- <20260610-rfc_v7_scmi_memlat-v7-4-f3f68c608f25@oss.qualcomm.com>
-From: Chanwoo Choi <cwchoi00@gmail.com>
-In-Reply-To: <20260610-rfc_v7_scmi_memlat-v7-4-f3f68c608f25@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 6/10/2026 5:51 PM, Pragnesh Papaniya wrote:
-> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-> 
-> The target_freq sysfs attribute exposes a governor's predicted next
-> target frequency. Not every devfreq governor has a meaningful value
-> to report there; some merely observe an externally-driven device.
-> 
-> Add a DEVFREQ_GOV_ATTR_TARGET_FREQ attribute flag that governors with
-> a meaningful target frequency must opt in to. Gate the existing
-> target_freq sysfs read on the flag and return -EINVAL when the active
-> governor does not advertise it.
-> 
-> Tag all in-tree governors that already populate previous_freq via
-> get_target_freq() so visible behaviour stays unchanged for in-tree
-> users. Out-of-tree governors that drive frequency updates and want
-> to keep target_freq readable need to set the new flag.
-> 
-> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-> Signed-off-by: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>
-> ---
->  Documentation/ABI/testing/sysfs-class-devfreq | 8 ++++++++
->  drivers/devfreq/devfreq.c                     | 6 ++++++
->  drivers/devfreq/governor_passive.c            | 1 +
->  drivers/devfreq/governor_performance.c        | 1 +
->  drivers/devfreq/governor_powersave.c          | 1 +
->  drivers/devfreq/governor_simpleondemand.c     | 1 +
->  drivers/devfreq/governor_userspace.c          | 1 +
->  drivers/devfreq/hisi_uncore_freq.c            | 1 +
->  drivers/devfreq/tegra30-devfreq.c             | 3 ++-
->  include/linux/devfreq-governor.h              | 3 +++
->  10 files changed, 25 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-class-devfreq b/Documentation/ABI/testing/sysfs-class-devfreq
-> index df8ba88b9f6a..5be9940a5853 100644
-> --- a/Documentation/ABI/testing/sysfs-class-devfreq
-> +++ b/Documentation/ABI/testing/sysfs-class-devfreq
-> @@ -37,6 +37,14 @@ Description:
->  		The /sys/class/devfreq/.../target_freq shows the next governor
->  		predicted target frequency of the corresponding devfreq object.
->  
-> +		Reading this attribute returns -EINVAL when the active
-> +		governor does not advertise DEVFREQ_GOV_ATTR_TARGET_FREQ.
-> +		All in-tree governors that drive frequency transitions tag
-> +		this attribute, so existing in-tree behaviour is unchanged.
-> +		Out-of-tree governors that previously relied on the
-> +		unconditional read of df->previous_freq must opt in by
-> +		setting DEVFREQ_GOV_ATTR_TARGET_FREQ in their attrs field.
-> +
->  What:		/sys/class/devfreq/.../trans_stat
->  Date:		October 2012
->  Contact:	MyungJoo Ham <myungjoo.ham@samsung.com>
-> diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
-> index f08fc6966eae..2f27a239e34a 100644
-> --- a/drivers/devfreq/devfreq.c
-> +++ b/drivers/devfreq/devfreq.c
-> @@ -1530,6 +1530,12 @@ static ssize_t target_freq_show(struct device *dev,
->  {
->  	struct devfreq *df = to_devfreq(dev);
->  
-> +	guard(mutex)(&devfreq_list_lock);
-> +
-> +	if (!df->profile || !df->governor ||
-> +	    !IS_SUPPORTED_ATTR(df->governor->attrs, TARGET_FREQ))
-> +		return -EINVAL;
-> +
->  	return sprintf(buf, "%lu\n", df->previous_freq);
->  }
->  static DEVICE_ATTR_RO(target_freq);
-> diff --git a/drivers/devfreq/governor_passive.c b/drivers/devfreq/governor_passive.c
-> index d7feecd900f1..b75e4bbee4b1 100644
-> --- a/drivers/devfreq/governor_passive.c
-> +++ b/drivers/devfreq/governor_passive.c
-> @@ -448,6 +448,7 @@ static int devfreq_passive_event_handler(struct devfreq *devfreq,
->  
->  static struct devfreq_governor devfreq_passive = {
->  	.name = DEVFREQ_GOV_PASSIVE,
-> +	.attrs = DEVFREQ_GOV_ATTR_TARGET_FREQ,
->  	.flags = DEVFREQ_GOV_FLAG_IMMUTABLE,
->  	.get_target_freq = devfreq_passive_get_target_freq,
->  	.event_handler = devfreq_passive_event_handler,
-> diff --git a/drivers/devfreq/governor_performance.c b/drivers/devfreq/governor_performance.c
-> index fdb22bf512cf..b9ec587f582c 100644
-> --- a/drivers/devfreq/governor_performance.c
-> +++ b/drivers/devfreq/governor_performance.c
-> @@ -37,6 +37,7 @@ static int devfreq_performance_handler(struct devfreq *devfreq,
->  
->  static struct devfreq_governor devfreq_performance = {
->  	.name = DEVFREQ_GOV_PERFORMANCE,
-> +	.attrs = DEVFREQ_GOV_ATTR_TARGET_FREQ,
->  	.get_target_freq = devfreq_performance_func,
->  	.event_handler = devfreq_performance_handler,
->  };
-> diff --git a/drivers/devfreq/governor_powersave.c b/drivers/devfreq/governor_powersave.c
-> index ee2d6ec8a512..69eab1d0a7fc 100644
-> --- a/drivers/devfreq/governor_powersave.c
-> +++ b/drivers/devfreq/governor_powersave.c
-> @@ -37,6 +37,7 @@ static int devfreq_powersave_handler(struct devfreq *devfreq,
->  
->  static struct devfreq_governor devfreq_powersave = {
->  	.name = DEVFREQ_GOV_POWERSAVE,
-> +	.attrs = DEVFREQ_GOV_ATTR_TARGET_FREQ,
->  	.get_target_freq = devfreq_powersave_func,
->  	.event_handler = devfreq_powersave_handler,
->  };
-> diff --git a/drivers/devfreq/governor_simpleondemand.c b/drivers/devfreq/governor_simpleondemand.c
-> index ac9c5e9e51a4..65ff9d912ef9 100644
-> --- a/drivers/devfreq/governor_simpleondemand.c
-> +++ b/drivers/devfreq/governor_simpleondemand.c
-> @@ -118,6 +118,7 @@ static int devfreq_simple_ondemand_handler(struct devfreq *devfreq,
->  static struct devfreq_governor devfreq_simple_ondemand = {
->  	.name = DEVFREQ_GOV_SIMPLE_ONDEMAND,
->  	.attrs = DEVFREQ_GOV_ATTR_POLLING_INTERVAL
-> +		| DEVFREQ_GOV_ATTR_TARGET_FREQ
->  		| DEVFREQ_GOV_ATTR_TIMER,
->  	.get_target_freq = devfreq_simple_ondemand_func,
->  	.event_handler = devfreq_simple_ondemand_handler,
-> diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
-> index 3906ebedbae8..d1b765a7b8e5 100644
-> --- a/drivers/devfreq/governor_userspace.c
-> +++ b/drivers/devfreq/governor_userspace.c
-> @@ -135,6 +135,7 @@ static int devfreq_userspace_handler(struct devfreq *devfreq,
->  
->  static struct devfreq_governor devfreq_userspace = {
->  	.name = DEVFREQ_GOV_USERSPACE,
-> +	.attrs = DEVFREQ_GOV_ATTR_TARGET_FREQ,
->  	.get_target_freq = devfreq_userspace_func,
->  	.event_handler = devfreq_userspace_handler,
->  };
-> diff --git a/drivers/devfreq/hisi_uncore_freq.c b/drivers/devfreq/hisi_uncore_freq.c
-> index 4d00d813c8ac..0800116e3334 100644
-> --- a/drivers/devfreq/hisi_uncore_freq.c
-> +++ b/drivers/devfreq/hisi_uncore_freq.c
-> @@ -399,6 +399,7 @@ static struct devfreq_governor hisi_platform_governor = {
->  	 * Set interrupt_driven to skip the devfreq monitor mechanism, though
->  	 * this governor is not interrupt-driven.
->  	 */
-> +	.attrs = DEVFREQ_GOV_ATTR_TARGET_FREQ,
->  	.flags = DEVFREQ_GOV_FLAG_IRQ_DRIVEN,
->  	.get_target_freq = hisi_platform_gov_func,
->  	.event_handler = hisi_platform_gov_handler,
-> diff --git a/drivers/devfreq/tegra30-devfreq.c b/drivers/devfreq/tegra30-devfreq.c
-> index 401aac6a9f07..fcb278c4a74c 100644
-> --- a/drivers/devfreq/tegra30-devfreq.c
-> +++ b/drivers/devfreq/tegra30-devfreq.c
-> @@ -776,7 +776,8 @@ static int tegra_governor_event_handler(struct devfreq *devfreq,
->  
->  static struct devfreq_governor tegra_devfreq_governor = {
->  	.name = "tegra_actmon",
-> -	.attrs = DEVFREQ_GOV_ATTR_POLLING_INTERVAL,
-> +	.attrs = DEVFREQ_GOV_ATTR_POLLING_INTERVAL
-> +		| DEVFREQ_GOV_ATTR_TARGET_FREQ,
->  	.flags = DEVFREQ_GOV_FLAG_IMMUTABLE
->  		| DEVFREQ_GOV_FLAG_IRQ_DRIVEN,
->  	.get_target_freq = tegra_governor_get_target,
-> diff --git a/include/linux/devfreq-governor.h b/include/linux/devfreq-governor.h
-> index dfdd0160a29f..2853f571dfdf 100644
-> --- a/include/linux/devfreq-governor.h
-> +++ b/include/linux/devfreq-governor.h
-> @@ -43,9 +43,12 @@
->   *   : Indicate polling_interval sysfs attribute
->   * - DEVFREQ_GOV_ATTR_TIMER
->   *   : Indicate timer sysfs attribute
-> + * - DEVFREQ_GOV_ATTR_TARGET_FREQ
-> + *   : Indicate the target freq sysfs attribute
->   */
->  #define DEVFREQ_GOV_ATTR_POLLING_INTERVAL		BIT(0)
->  #define DEVFREQ_GOV_ATTR_TIMER				BIT(1)
-> +#define DEVFREQ_GOV_ATTR_TARGET_FREQ			BIT(2)
->  
->  /**
->   * struct devfreq_governor - Devfreq policy governor
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/msm/dpu: undeclared INTF_9 and INTF_10 in nord_intf break
+  build
+- [Medium] drm/msm/dpu: wrong interrupt bit assignments for
+  intf_6..intf_10 on Nord
+--
 
-Hi,
+commit 26c8821f9a7d74ed713c34eb7d82f28a0037edd5
+Author: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 
-I agree this approach. But, this patches doesn't include devicetree binding for device
-and driver has included OPP information. It might be not acceptable for dt maintainer on device binding side.
-And are there no problem with short polling period?
+drm/msm/dpu: Add support for DPU 12.1 on Nord
 
--- 
-Best Regards,
-Chanwoo Choi
-Principal Engineer, Samsung Electronics
+This commit adds the DPU 12.1 hardware catalog configuration and device tree
+match entry for the Qualcomm Nord SoC.
+
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h b/driv=
+ers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h
+> new file mode 100644
+> index 0000000000000..333eccb5c603a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h
+> @@ -0,0 +1,544 @@
+
+[ ... ]
+
+> +static const struct dpu_intf_cfg nord_intf[] =3D {
+> +	{
+> +		.name =3D "intf_0", .id =3D INTF_0,
+> +		.base =3D 0x34000, .len =3D 0x4bc,
+> +		.type =3D INTF_DP,
+> +		.controller_id =3D MSM_DP_CONTROLLER_0,
+> +		.prog_fetch_lines_worst_case =3D 24,
+> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
+> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25),
+> +	}, {
+> +		.name =3D "intf_3", .id =3D INTF_3,
+> +		.base =3D 0x37000, .len =3D 0x4bc,
+> +		.type =3D INTF_DP,
+> +		.controller_id =3D MSM_DP_CONTROLLER_0,
+> +		.prog_fetch_lines_worst_case =3D 24,
+> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
+> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31),
+> +	}, {
+> +		.name =3D "intf_4", .id =3D INTF_4,
+> +		.base =3D 0x38000, .len =3D 0x4bc,
+> +		.type =3D INTF_DP,
+> +		.controller_id =3D MSM_DP_CONTROLLER_1,
+> +		.prog_fetch_lines_worst_case =3D 24,
+> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 20),
+> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 21),
+> +	}, {
+> +		.name =3D "intf_6", .id =3D INTF_6,
+> +		.base =3D 0x3a000, .len =3D 0x4bc,
+> +		.type =3D INTF_DP,
+> +		.controller_id =3D MSM_DP_CONTROLLER_0,
+> +		.prog_fetch_lines_worst_case =3D 24,
+> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 22),
+> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 23),
+> +	}, {
+> +		.name =3D "intf_7", .id =3D INTF_7,
+> +		.base =3D 0x3b000, .len =3D 0x4bc,
+> +		.type =3D INTF_DP,
+> +		.controller_id =3D MSM_DP_CONTROLLER_0,
+> +		.prog_fetch_lines_worst_case =3D 24,
+> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 0),
+> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 1),
+> +	}, {
+> +		.name =3D "intf_8", .id =3D INTF_8,
+> +		.base =3D 0x3c000, .len =3D 0x4bc,
+> +		.type =3D INTF_DP,
+> +		.controller_id =3D MSM_DP_CONTROLLER_1,
+> +		.prog_fetch_lines_worst_case =3D 24,
+> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 2),
+> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 3),
+> +	}, {
+> +		.name =3D "intf_9", .id =3D INTF_9,
+> +		.base =3D 0x3d000, .len =3D 0x4bc,
+> +		.type =3D INTF_DP,
+> +		.controller_id =3D MSM_DP_CONTROLLER_1,
+> +		.prog_fetch_lines_worst_case =3D 24,
+> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 4),
+> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 5),
+> +	}, {
+> +		.name =3D "intf_10", .id =3D INTF_10,
+> +		.base =3D 0x3e000, .len =3D 0x4bc,
+> +		.type =3D INTF_DP,
+> +		.controller_id =3D MSM_DP_CONTROLLER_1,
+> +		.prog_fetch_lines_worst_case =3D 24,
+> +		.intr_underrun =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 6),
+> +		.intr_vsync =3D DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 7),
+> +	},
+> +};
+
+[Severity: High]
+As reported by Dmitry Baryshkov on v1 [1], does referencing INTF_9 and INTF=
+_10
+in nord_intf break the build at this commit?
+
+At this point in the series, enum dpu_intf only defines INTF_0 through INTF=
+_8,
+and enum dpu_hw_intr_reg and dpu_intr_set_7xxx lack MDP_INTF9_INTR and
+MDP_INTF10_INTR, so MDP_INTFn_INTR(intf->id) in dpu_hw_intr_init() also
+aliases MDP_INTF1_TEAR_INTR and MDP_INTF2_TEAR_INTR.  These definitions are
+added later in the series by commit "drm/msm/dpu: Fix DSI tear interrupts
+broken by adding INTF_9 and INTF_10", which should be ordered before this
+patch to keep the series bisectable.
+
+[Severity: Medium]
+Are the intr_underrun and intr_vsync bit indices for intf_6 through intf_10=
+ in
+nord_intf shifted onto the wrong interrupt bits?
+
+On DPU 12.x (such as glymur_intf in dpu_12_2_glymur.h), MDP_SSPP_TOP0_INTR
+bits 22 and 23 belong to INTF_5, while INTF_6 uses bits 16 and 17, INTF_7 u=
+ses
+bits 18 and 19, and INTF_8 uses bits 12 and 13.  Because INTF_5 is omitted =
+on
+Nord, intf_6 appears to have been assigned INTF_5's bits (22 and 23) and
+intf_7 through intf_10 were sequentially assigned bits 0 through 7 in
+MDP_SSPP_TOP0_INTR2, which will cause vblank and underrun interrupts to nev=
+er
+fire and dpu_encoder_phys_vid_wait_for_tx_complete() to time out when any of
+these interfaces are used.
+
+[1] https://lore.kernel.org/r/bqoezyuyrjiawudbwxybvjpdun5f3fmhhzukdeg2holuc=
+2mykq@oa5mhoylopz7
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-nord-drv-d=
+t-v3-0-e3d3bf0e2c49@oss.qualcomm.com?part=3D5
