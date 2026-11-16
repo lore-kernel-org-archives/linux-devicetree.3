@@ -1,101 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.99
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794865285;
-	b=f9L9AYkwhZkFUV4A9E2WGXLL6EikSgYcTlezY771+5XKZsEN8MEhcWeNDebhZFBovwJc
-	 NFK9dV6B02lklBLe/OqhyMwDgP/n+zxcrisU3rewokvNzoDn2KdNToRzrq9jvL4Wjtc8k
-	 MlVaLM2/Ws91TgtDhRYkyo3DzQ/UKC2CA//oPW6ud33E8ygLPjrJ0crabMMsOF4H5P9Hg
-	 BXPNc00nVWFyKsBo/rjXhOOCgXioLDrgj5SPxM2fX53lQ83COEMby0GMzV+FCITCYawwm
-	 Z9h0os3+dQXv2cPsnlRNfLCuQaOqcsiz5sR1W+EzdVGGYfu+tLUr9lFiAb+UIqGSmRA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794865285;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=4BGP9FiDK2o3CLxzHZ/o5Td/ntUGZkgqnokg4At2AbM=;
-	b=qyYZG9QT9ZV8SMoNF+mDeXtonLmMHmISpU8K6O/hHnGqY03pTJnyIEYQxhAt5geRUiCg
-	 ochQtwD7zwOaQq6IqSK3GO8jyeaKu8DWqRZU/NlAA+pHppWWk2R2psniMwbVAO3Qv4Q5H
-	 IP9AFSDdp+xB/oUv+OBfsP3ZVBIBwT+3qLdUafWvWPw0Peddwp1eTZZ+bRIORe3yef+4K
-	 h8U8i3r5ufZ9l5imqVPPtRFHnS9MT21+ZbmDZfq5yrO3JO80YPA6zY8oj844ZFlKQX+C9
-	 jfN6oneZhL+5MLZ/IA+SiuhegHJBX71V5M/ZTXSsjfZDvkCBNGl9Dvey80qHYwyuJyw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=phytec.com;
-	spf=pass smtp.mailfrom=phytec.com;
-	dkim=pass header.d=phytec.com header.i=@phytec.com header.a=rsa-sha256 header.s=selector1 header.b=md+8MrXH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.99
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021099.outbound.protection.outlook.com [40.107.130.99])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794866218;
+	b=hum1PSt8O7RhubOn1sHb6eTZ1OgeyXsqkFW5eO2oRw4VhW9fK+M+Ui9MT226uM38707F
+	 JYkGpc/Oe3BgaSxfxYr7+UB713NU00qk3z8apc/No23FAYSwmLypsYH7RHP+NV5dxo2Q+
+	 ZdQhSSSN9cphlhyCUQxb0yCZjpd7P50YAy5ReATtl9nA1fmdlVq/LPLt3CcDG9gFDkq5U
+	 vULeEzTFnOECdutP4dwO73bQPJvvzKkPy8JLy5M1UrnlMqNshK9nX2WtGrVApbNKFtA3D
+	 n9P28WQn43a59riH9I3AbRdBkjaWPKP9KVq8A+Kb4oMRrVvge9xx5oo8OG4RSbsbVWA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866218;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=O+Af/O1KOS+3yVT+ztxCO4Vlx6y9GiaWxCfrUb0JAjg=;
+	b=Ka6WQlrJU/lRwSkPm65tAgAHMIAONQJNT/k833eGrwbPWv6CgnpmtcaCWD5EscIFmnrf
+	 IhRbBZZG5j3DKZp3/7VzzTETgkAJdXGyvsbUzCWqD4aod87Oca35uUxWopro+ZbxE6PUD
+	 +qunWA85rEZZAZ/AeF5XDJm/KYay9aOc2z4Vt726ZOkdGW+wnQX6jbA1NK+GTJajwVH3h
+	 TFb+1ByBhS+r7UUNMlDogeGnyRJNZ08x6p9KQZx+pN/CNFjcI2v6tV11nRjE3V9jLh0lW
+	 EunIeYQLCpT2TXIybUhnr6pZG/zdBWN3CVM7YCBwip65i0hNPYlXJtRVM/YeFm5pWhQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dds2rHjx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D81B606A31C
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 21:41:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D81B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF20F606A31C;
+	Mon, 16 Nov 2026 21:56:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=phytec.com header.i=@phytec.com header.a=rsa-sha256 header.s=selector1 header.b=md+8MrXH
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bWetSSZn7pv/Q12YqCKDv/EXc2+qgNfRwoAF91TBz3JCX152BvPXbuIRZQoYGpQ8eD/8ypUT1J2ZdzMrGuMCmme0SYH4Yn8/S2i8M59cVrwMdOJv+51l46MxLeI01YL8yFfd3od6pFx9Vakey+4MBDioAv6LgtNGyY9yssK/QnzjUGxg3VjCmAIcDpWsSQ19pzTP7B34TQ+wh4d9VdIoYe7rz+DvnF7bWWoq4lRXLFthNT66/BFJxqnsKAx/2aG6e0yRJzsBfGxnM9RP/Y386ZnprHYbfJTU/db67IP19S+iP5lE1f6vOkwpJbZl8kOQJG5iY9EWpLYU9aOSVCqUdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4BGP9FiDK2o3CLxzHZ/o5Td/ntUGZkgqnokg4At2AbM=;
- b=AuKvMOfiVb0qMmXw3kZWCSeZZDMc1o/pBhR2Cmv48h5ZHpxGKxM4sZR+qaHy00ODnd/Jqj/nLFftlhu6qB3zucZXkXmDnTUdrJ4TNEdJ3vhDW4D85PLExyOLaPN2028BwfFaOfIFDP/RJxYCLJLo066ZQuo2H1nLZO/Y8lVWHjMynG7H0Uhaebqfl8rfOR4Fuhiz1Ugq1YgMad+e9o8qywk0F5RFt3QXYa10YFPJaXv3OHTyEpGaObi3KIU5kVqcXoAp6CY+IVFb0MccnwBw2T38MiLbpG7Zvyh/l+UNvWbNQ/uj85lJkSO9y3hg6JcDaMlcBAKQt1S2WJZ/n1wgxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 91.26.50.189) smtp.rcpttodomain=ti.com smtp.mailfrom=phytec.com;
- dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
- header.from=phytec.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4BGP9FiDK2o3CLxzHZ/o5Td/ntUGZkgqnokg4At2AbM=;
- b=md+8MrXHIPB8idxycIFRX0euxUElrWLhuJkz4wbbREZHEO9mWxLWwtm/TuTY3uzAYw7/sB332oD8hr/79FP5c3F/FUN32YNYxG4MZPIhvmJbGGZoe1NGXB/8lyL1yUpNe7jI5OtMdw0JMvLNn51BFgzQIpDen0w+5pXdEWodR5JUpg4D+o1yPFRZR06tt7sxqXvBNZMGd3EFnRsnCG7Wa5tCe1OnK7wTuYMbIhQQAR+vzPbFMG0dBQ+KDX1kwEex8qzSwicV61VY1XRevYObkQai29tnX0nC6roexZSnlFB1HLssURhp/BN4vvhSFifun3GvrFbigrrx3vNocXyySQ==
-Received: from DUZPR01CA0055.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:469::19) by PA2P195MB2584.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:102:425::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 21:41:19 +0000
-Received: from DB1PEPF000509F1.eurprd03.prod.outlook.com
- (2603:10a6:10:469:cafe::14) by DUZPR01CA0055.outlook.office365.com
- (2603:10a6:10:469::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Mon,
- 16 Nov 2026 21:41:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 91.26.50.189) smtp.mailfrom=phytec.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=phytec.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- phytec.com discourages use of 91.26.50.189 as permitted sender)
-Received: from Postix.phytec.de (91.26.50.189) by
- DB1PEPF000509F1.mail.protection.outlook.com (10.167.242.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 21:41:18 +0000
-Received: from phytec.com (172.25.39.17) by Postix.phytec.de (172.25.0.11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 16 Nov
- 2026 22:41:16 +0100
-From: Garrett Giordano <ggiordano@phytec.com>
-To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<upstream@lists.phytec.de>
-Subject: [PATCH] arm64: dts: ti: k3-am642-phyboard-electra: Add gpio-poweroff
-Date: Mon, 16 Nov 2026 13:41:06 -0800
-Message-ID: <20261116214106.185918-1-ggiordano@phytec.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dds2rHjx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29EE41F000C4;
+	Mon, 16 Nov 2026 21:56:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794866217;
+	bh=O+Af/O1KOS+3yVT+ztxCO4Vlx6y9GiaWxCfrUb0JAjg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dds2rHjxOJshfzf88zP+wXAMH865aEz0gH9Dv2+/Pm7lD7NjXKocWXlz148tY5D+Q
+	 R6lPZona4Kf3mTDMPvr8+lx2zr+NUnViBQLP4MOWUOEzHhsvkqXKXcRbtE8W5w3bTA
+	 ktvSZd5WkkpDO/+Hy3Tw9wj+IjDNduKaGkA9jwuvxKxHhOt3r9rJt62kyh7NU4kFq8
+	 jnLmiCVh2E4NdLx42CAHiFcYa+S1dHNelphRxgzU2cXaKN7wN1jYzibJY9tdLt8RV1
+	 Vp0TRvVenEVPvJfTfK+F8dhCBF/e20cg1t0K5b7jUdHBMPspCiOSpRJzcNkiCozDoG
+	 nfdITYqRlskKw==
+Date: Mon, 16 Nov 2026 15:56:52 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Cc: Anvesh Jain P <anvesh.p@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: glymur: Add EC thermal zones
+Message-ID: <avt6-driUZyXA_9N@zenbook>
+References: <20260928-ec_thermistor_support-v1-0-d9c1bae4cd0d@oss.qualcomm.com>
+ <20260928-ec_thermistor_support-v1-3-d9c1bae4cd0d@oss.qualcomm.com>
+ <e77c0255-6299-4718-aaa6-04f4366fe749@oss.qualcomm.com>
+ <5d84ee1b-a765-4d6c-ab01-ca1a06a0e3d0@oss.qualcomm.com>
+ <c3de7659-726c-4fbe-989e-148bcd13bc49@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,82 +66,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: Postix.phytec.de (172.25.0.11) To Postix.phytec.de
- (172.25.0.11)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509F1:EE_|PA2P195MB2584:EE_
-X-MS-Office365-Filtering-Correlation-Id: 521bb281-bc44-40b1-5dd3-08df442a5931
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|376014|36860700016|1800799024|18002099003|261009223027099003|3023799007|11063799006|56012099006|261102123227099003|10067099003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	DA1HwrxAiO332j0s4elNG5X43t6e+d80aAaInRBnaAAN9HDsNaVPHhq459ufWEMJeNu+96qVloR4c3bFSGkUoRD3AvvDz8491kBlNoJVQk5n5ystxD+Krf0ro4i17ww8GnZr4X+E7GV4jhywtXJdhbFOWks89ultirkeQlwnqgY0TMJ4harRCSSzKpH0d4+inksCoxcYAdUE44eNWn5K+qEnINe9cQzkK2RkfgucKGq4yJ8x7gVwzH/T5OZ5Qbng/V2YSV/MbPug7jVj5BCDvTYDOAid7PSTO+iVocAfvr7g2y1Za0SsTUCmqGHHoTSZ4jGHtfWZSPxSbiQXjDwwUWyT+DM6V7jyfOPFm4Znh7xp5bvjC1uwZycU0DkybKL1g2rysWu/Us6ybJstQDHtee3+PhOky4eeZyXARZ9t9Cls1F76XRN37pSoA44MtD3ZOIqXLaM3FuwSDOSffBJe7AW9qRKs+43JXNiVDuNWwKowhBZvAb+GVVyHi5duwAQ4vnKPNuc9Nd+HR9wN/CAMAzX7iSttDpG3hl8oOJVqd1zx+KP5l9+CQkIdBQhDlLIfJ2N7Z1hm1961nbgPCLUsnOfhh4W+19xu2Rj27UXke8tMPp2fjljSuwNvWkG+gQQBIOar7mWytCD+ocQ9jU0vRFzW3IkuJekxA86VHQ24yR9BQT/Iy7XfnMi1aKOxo0vYmJjXYTH/Nz8pmCuD4dBDyg==
-X-Forefront-Antispam-Report:
-	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(376014)(36860700016)(1800799024)(18002099003)(261009223027099003)(3023799007)(11063799006)(56012099006)(261102123227099003)(10067099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(261028144727099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	TFpcpGE5CXJlpmRdsFAAxHYqVDzXtgijNXf06AYPwpmQNf3UjiQDnrdLV/KfqDkQlSUOijepR7TByaj6RKpu+LyJ3rNFua8giTuBoxJB3warjOADVKYk/YXH8VnBIjXB34Lnvq3XqyJpwI0r015yhfMfIKiamoeJ2OnvLPCxUbml/VIK19E3S9I32QgwG6vVm6dPKCS+weDQ6QtPx2tQGWhZ+Y1rkr74srX7QXkEeyQQ9a8x+etnbYasxNTx8B2FZMxEB0y9d6/GU6rM6HhA6O1KeLWEKIamR4VUjWo/INV9D4+HQjT72iF4pBerSbXEM5FGkfuEiSRbSe8a1SQz9wv4bb6lib/fZsedUNu4Mmc+MMnjuIThIvBOqBv6jQ/rJFajDVP2y9ybKwmlWbM0k/1TLDxHUDwlSgypbLI+artCA/cIi681Y30Bz+caDm9u
-X-OriginatorOrg: phytec.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 21:41:18.4949
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 521bb281-bc44-40b1-5dd3-08df442a5931
-X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29;Ip=[91.26.50.189];Helo=[Postix.phytec.de]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509F1.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2P195MB2584
+In-Reply-To: <c3de7659-726c-4fbe-989e-148bcd13bc49@oss.qualcomm.com>
 
-"poweroff" currently only halts the board, and the RTI watchdog resets
-it about a minute later.
+On Mon, Nov 02, 2026 at 04:36:16PM +0530, Manaf Meethalavalappu Pallikunhi wrote:
+> Hi Konrad,
+> 
+> On 10/29/2026 2:38 PM, Anvesh Jain P wrote:
+> > 
+> > 
+> > On 10/20/2026 1:33 PM, Konrad Dybcio wrote:
+> > > > Add support for back cover, keyboard, and SoC thermal zones through
+> > > > temperature sensors hosted on the EC for Glymur and Mahua CRDs.
+> > > > 
+> > > > Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> > > > ---
+> > > >   arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 45 +++++++++++++++++++++++++++++++-
+> > > >   1 file changed, 44 insertions(+), 1 deletion(-)
+> > > > 
+> > > > diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> > > > index e27c697e3170..571c98124a40 100644
+> > > > --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> > > > +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> > > > @@ -594,10 +594,12 @@ &i2c9 {
+> > > >   	status = "okay";
+> > > > -	embedded-controller@76 {
+> > > > +	ec: embedded-controller@76 {
+> > > "ec" is a super short label, perhaps let's spell out
+> > > embedded_controller
+> > > 
+> > 
+> > Thanks for you review, I will rename the label to embedded_controller.
+> > > [...]
+> > > 
+> > > > +&thermal_zones {
+> > > > +	ec-back-cover {
+> > > > +		polling-delay = <10000>;
+> > > > +		thermal-sensors = <&ec 2>;
+> > > > +
+> > > > +		trips {
+> > > > +			trip-point0 {
+> > > > +				temperature = <90000>;
+> > > This is *really* hot!
+> > > 
+> > 
+> > The 90°C trip value was suggested by thermal team(Manaf Meethalavalappu
+> > Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>). We are open to using a
+> > lower value if this is too high for the keyboard and back-cover sensors.
+> 
+> These sensors are intended to be controlled primarily from userspace by the
+> thermal governor in thermald, through the powercap sysfs interface [1]. We
+> do not plan to add cooling bindings for these thermal zones.
+> 
 
-Use GPIO0_41 (GPMC0_CSn0) to drive PBC_nKILL low, turning off
-VCC_5V0_MAIN.
+I don't plan to merge settings that will cause physical harm to people
+who for some reason doesn't run your userspace tool.
 
-Pushing S9 brings the board back up.
+> Based on discussions with the tuning team, we agreed on a hot-trip threshold
+> of 90°C for these sensors.
+> 
 
-Signed-off-by: Garrett Giordano <ggiordano@phytec.com>
----
- .../boot/dts/ti/k3-am642-phyboard-electra-rdk.dts  | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Please make tuning team that the user might/will bring their own
+userspace, with or without this configuration.
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts b/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
-index e4afa8c0a8ca..4663dfdec036 100644
---- a/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
-@@ -164,6 +164,14 @@ led-2 {
- 		};
- 	};
- 
-+	poweroff {
-+		compatible = "gpio-poweroff";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pbc_kill_pins_default>;
-+		/* PBC_nKILL: driving it low turns off VCC_5V0_MAIN */
-+		gpios = <&main_gpio0 41 GPIO_ACTIVE_LOW>;
-+	};
-+
- 	vcc_3v3_mmc: regulator-sd {
- 		/* TPS22963C */
- 		compatible = "regulator-fixed";
-@@ -312,6 +320,12 @@ AM64X_IOPAD(0x02a8, PIN_OUTPUT, 0)	/* (E19) USB0_DRVVBUS */
- 		>;
- 	};
- 
-+	pbc_kill_pins_default: pbc-kill-default-pins {
-+		pinctrl-single,pins = <
-+			AM64X_IOPAD(0x00a8, PIN_OUTPUT, 7)	/* (R19) GPMC0_CSn0.GPIO0_41 */
-+		>;
-+	};
-+
- 	user_leds_pins_default: user-leds-default-pins {
- 		pinctrl-single,pins = <
- 			AM64X_IOPAD(0x003c, PIN_OUTPUT, 7)	/* (T20) GPMC0_AD0.GPIO0_15 */
--- 
-2.47.3
+E.g. on my system there doesn't seem to be anything called "thermald":
 
+$ pacman -Ss thermald |wc -l
+0
+
+Thanks,
+Bjorn
+
+> [1] https://github.com/intel/thermal_daemon/pull/614/commits/7f3dd62353e039957e52eeb40c67ec388d543ebe
+> 
+> Thanks,
+> Manaf
+> 
+> > > > +				hysteresis = <5000>;
+> > > > +				type = "hot";
+> > > > +			};
+> > > > +		};
+> > > > +	};
+> > > > +
+> > > > +	ec-keyboard {
+> > > > +		polling-delay = <10000>;
+> > > > +		thermal-sensors = <&ec 1>;
+> > > > +
+> > > > +		trips {
+> > > > +			trip-point0 {
+> > > > +				temperature = <90000>;
+> > > Likewise
+> > > 
+> > > Konrad
+> > 
+> 
