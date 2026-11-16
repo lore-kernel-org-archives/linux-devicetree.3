@@ -1,106 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.65
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794830704;
-	b=RvqiB71ZorDYK6SLsCSvlKuhlUSixZLxH7M/b1zXx9J1O8CNbJJfGfKOf+vPWuZ7F25W
-	 /PQ4cHr4xlRAWP2aV6O8nmqhLmdwG9Hw4t12zLofWY46oUeGp9F90+rEpfLyFpEoHCWbA
-	 9X+RMWZ7IRxAQ/H/9ohl9dNM1s5Jh8u8xA0/49oLdtT4BVeobadcjxY6czMBKHoMPM8c8
-	 QYiynIq4KpUa/FnrdSKGfE/Mj15BLiAHKmZvgHj1j561zFpCWcKSKdZCtoE70KH4OAodH
-	 YuMhj/fdxrV6u7WrdxmDq/P0LyfUo7J60EKI6xGpYqLbhxcxOCoyT/fLlzKAzW+2ihQ==
+	t=1794830723;
+	b=UOkRt85+XYChrW13uJj2auZ7pWob29ZuV6nR7N7r7AzUhL00hN5PEiTqhmqSKmz906yV
+	 6+L248xjahvL7F0RuxUFYPg5hI1rqnLHRQrR6rmba7NGTOL2nHuvCIMT1RJyB/qBkLWi1
+	 wUksw4B41zfoYc+VtLyffMJVzNyAGzFWKV5GLGsTfPXCql4fhAIlgw+Q3+AQD+mFVAwgD
+	 bl0prtqRYHKfQuX9NDwpDsV/s19/GriSCjjHOJZX9Q3wWxrYAliQMDUNJXdEUQ0/HaaID
+	 Vq8iF/ol3qabVIjiQTXsUc+UpKROrOiGyjGs4De65fHSNQMKURjI9VOfsdPWDAJ0XEw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830704;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Ni10bld/X+4JFp5OUCcg7wDsdhnR6bTiDFXGeVwcpMA=;
-	b=x/fdBVGj8K1pWixlzprbW0q+/AgnHsG2tbQDoafniDMNm4vK+pcV9kxWNWLmGnnCpf7M
-	 K+O0ZGHoz8NscC+SZ1Ycq7Ban2tYs9wBdSEi89up7XbbsdHusfZdXCNPVdsLvaJlkDEZe
-	 7xykzhn5SeVJOYBL26CmQh+ZmI/bvsBknuu9xdhMWmIQ6NlAdqLzGexuNPV4M88DgVLyo
-	 lnr3DpGQr2inhrZRE9uzDwOkedJ9O8fsapjEXTDaxxz5H/jJoLCPnlhqR0lC/0WIjH1dH
-	 q6KQlNFao2tjhyP4VjTJ83CsY0rkFHj/YEaL+Pqpn9U+B094ewKCUgjfKT/WBvz95bQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830723;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=myLB4OwHBzyw4fpYYsjbE0atdhucZNjAIWIIh+XxrN4=;
+	b=PHAJ2B7HFn98khjcqP56hTgs+0PJUjdPjUsoYSYhI54c+lxpiwND+XyFFZ2/Z/fX2Kn3
+	 aH5fi7pN67l9OHs8Vj79A03zt2kgXBprJa7uQRS6V5xWos7lxI1FbyQ8ZyYmw2XweMp/y
+	 oAnYk+O1bNv94V1A7EyYH60wDa1QF4VMvTJukFOQPgh1PbpRFsi4dRVsIS9aE2kbEDTHy
+	 hqImzCUpfHSRonEveQC8wceo1xxb0MR4hQh0P8xrn5KZRXw6ruKZhxYSHCJ8dr0fcr5IN
+	 WKS2FlZ5GfDDVK4NHLYQPGMxSpndAryvht6S9HpDhsHZSFxjmvHxCzyACUFLbFnkefA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=P2uJdYVF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.65
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010065.outbound.protection.outlook.com [52.101.201.65])
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Ce6XbNuH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8319606A888;
-	Mon, 16 Nov 2026 12:05:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8319606A888
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B7E606A31C;
+	Mon, 16 Nov 2026 12:05:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23B7E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=P2uJdYVF
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HZ4i3rQe/xKDJMai+1nkUvWR0kIHWqjRhpr9wC4IL6qrqmJSIErjksalr6BpjkZo1B3esA3cMC+Lb26RZEYW+h77E1KqVXCM0dpMHHeejG2RJ3M+gslkekCg2N1UK+UiPqnSUcxqBeHuogh63I/KWi/18svD46n1egGvwNnVRLpJ+tajILQ6VVG9KOK5R0ZTw91+ObpoNpzBe6ZKsewz9n0xKt9+ac2GQkl3PdII5+SA0A4lYgi3TsWiM4nVRQHdO4EJWr5HZ2IFMEAjjtatqYVXe3npVO2dec0Cagw2ulfxKX7ywuL/LwH5Vmz8vIwI//hpVTDv+WV6+hg7agZb1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ni10bld/X+4JFp5OUCcg7wDsdhnR6bTiDFXGeVwcpMA=;
- b=CgnqTHJPk5nU6kFsm/N0Sq6vNQ0rqMGlyhsHjr/aX/DJovmJF0LQgJqJdKlVBniV2yCwPmvyw5Y2XiEm4RldlCryG3KTRJbtE62p4fN9ZBoqqc3Q28SwgiBHKMMtmULX3Wcc1+N2dvX9VGqX3obYgNdDceqwW2yoiGddziIrp4L+rfGcyre2mH0mXQUqLS67DtYR1netIVDXeEsl6+CjZsa4K1yfv50IF9mirBeCw6zeps8f02GJL6B1lNoGggKE5DbldtyIiRUBcpO6PMOjY591mQrIhfXAMdykvpG60feRGHC/IUchb5UOBxftDmwGDqGFV4zQxWqBbp2Vx4l8Hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ni10bld/X+4JFp5OUCcg7wDsdhnR6bTiDFXGeVwcpMA=;
- b=P2uJdYVF3mBTJLfVnt4I6WXdtvWPRjhzkVUTMHlv+r+4KKPz64rucih92MCwE6PL4gwA2RL2NgQ7PBQSvlEldzPM8RmKTA+i6epeBDvbWE+tqDVxN1MvD7aHSet+JMeuUYiDxdMkcd9U/CcOmwWKJr85nwBqENNxpdLSp7rieQw=
-Received: from CY8PR11CA0027.namprd11.prod.outlook.com (2603:10b6:930:4a::20)
- by SA3PR12MB118222.namprd12.prod.outlook.com (2603:10b6:806:53b::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 12:03:00 +0000
-Received: from CY5PEPF00000E78.namprd02.prod.outlook.com
- (2603:10b6:930:4a:cafe::17) by CY8PR11CA0027.outlook.office365.com
- (2603:10b6:930:4a::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Mon, 16
- Nov 2026 12:03:00 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY5PEPF00000E78.mail.protection.outlook.com (10.167.247.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 12:03:00 +0000
-Received: from dcsm-trdripper1.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
- 2026 06:02:55 -0600
-From: Akshay Gupta <Akshay.Gupta@amd.com>
-To: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
-CC: <linux@roeck-us.net>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<rdunlap@infradead.org>, <arnd@arndb.de>, <gregkh@linuxfoundation.org>,
-	<naveenkrishna.chatradhi@amd.com>, <Anand.Umarji@amd.com>, Prathima Lk
-	<Prathima.Lk@amd.com>, Akshay Gupta <Akshay.Gupta@amd.com>
-Subject: [PATCH v1 2/4] dt-bindings: hwmon: add DIMM thermal sensor properties
-Date: Mon, 16 Nov 2026 17:32:26 +0530
-Message-ID: <20261116120228.865196-3-Akshay.Gupta@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116120228.865196-1-Akshay.Gupta@amd.com>
-References: <20261116120228.865196-1-Akshay.Gupta@amd.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Ce6XbNuH
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 53F71200563;
+	Mon, 16 Nov 2026 13:05:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794830720;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=myLB4OwHBzyw4fpYYsjbE0atdhucZNjAIWIIh+XxrN4=;
+	b=Ce6XbNuH5brNZhdbUzFVfiOQWZuIors5ZDiGHZbq0H7heC+CJAV03821lq6MmKMKV9XoZD
+	BTyf9IhZYlJxqCbCfj9XlRAWZ25crA3wkkrruTuzS45AeOipgjY5dQtNIRhtYHeVgoV/7n
+	XnI5zPCkBK/VI/AbcJkZm2uNVq7BbbJWYKiLFyKWmuh4wkYKksrl86rP+pQTceQgZiykWj
+	7DpmecXjt1ilPM8a816IguIp1drfqcEEUmQgGsBR2OZTXDZsCJvBotLDRGz//ie1/p8ktC
+	Fqu2BM+hQ/dp7KTph2vh5zncXCsFO7V9mfK9M9j3N2ObQh+xQLR/SsqZzXnq3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794830720;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=myLB4OwHBzyw4fpYYsjbE0atdhucZNjAIWIIh+XxrN4=;
+	b=SMy3PkaQYVUKR3rltjraWfns01w0zxrh9UgoUXYbVER4fulioewJUvI9H7vYBvbQXRz133
+	h8OLDsjkvu8BUAsQq5pQ526HlxcQ3eH+Ii4QcIq8wUwH8PlHSHnr6NTzaL9UBqpaecEGwg
+	cYFaelKZmN1RSfbtxG0axVPYwDTz3Vgl9Whds07omSbRVx8uojIljS2lfukkqrd+6TtTb1
+	IgtoLxJP9UNJIey3UyZmjSC2IQh/RcqkNcVcBfU+8EjNTQAHQAOrNbjCxyQazF0A66JvrE
+	7YtIVB7xsnF0TsMZpxdrzNEjix/6/X49PdJcA+Vbj4Q1wMosFZ0vxEz7EjtkxA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794830720; a=rsa-sha256;
+	cv=none;
+	b=d631/ZkM9Ikmiwd4yVTINxrLF6GTwIFVHvDISAG5stxcDBhx3DcAIr4AojkGqcqbZcKHmd
+	ICnxsKWCkTPL1FbddoK8od4Gd+MTDwER6NEHyPxDpxIlS7egWdkCQxSoo+VvSsXAavRymC
+	lJSxacXKlycJhl0KgiRrP5VmA/2yjMYTHmOKcbANRhCB5asKesMZiiwjt/E7JvBw7rz1yy
+	/Js0i3NVVdlqGwqDOIKMBiMLBDaU2m2yx5hNobeKGGJs9MzxqTa+Egj8bMwle+yWUzZNJW
+	4Q2GyXcj6h69uwhjChMx14tONM5vda/T21KFVM79pE7cHpDRLBlIjYGRRuomvw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <782e5c69196cd5618841abeadb1563d67f6e93a7.camel@pengutronix.de>
+Subject: Re: [PATCH v2 07/13] reset: add Synaptics SL2610 reset controller
+ support
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Jisheng Zhang <jszhang@kernel.org>, Rob Herring <robh@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Catalin Marinas	 <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland	 <mark.rutland@arm.com>, Sebastian Hesselbarth
+ <sebastian.hesselbarth@gmail.com>,  Stephen Boyd <sboyd@kernel.org>, Brian
+ Masney <bmasney+clk@redhat.com>, Jerome Brunet	 <jbrunet+clk@baylibre.com>,
+ Linus Walleij <linusw@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Date: Mon, 16 Nov 2026 13:05:20 +0100
+In-Reply-To: <20261115102401.3520-8-jszhang@kernel.org>
+References: <20261115102401.3520-1-jszhang@kernel.org>
+	 <20261115102401.3520-8-jszhang@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,163 +101,298 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PEPF00000E78:EE_|SA3PR12MB118222:EE_
-X-MS-Office365-Filtering-Correlation-Id: 360b0e41-fc7a-45f5-cc6d-08df43d98f63
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|7416014|376014|22082099003|18002099003|261009223027099003|3023799007|13003099007|11063799006|56012099006|261028144727099003|261102123227099003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|261021123027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	fuwbkZYqXzJgkRKpEr5RT1kI6DQvazMtUNnP1uodtzNLO+NpgIoe8NyLciFM1WPK+59swMsPS24A1A/Eff3w232n3azyJnU6zCOalhza82uryPW52jcfUtyrZ8pd1wkDQlCvLyR0ExPOTi7Se0zawM4GB2fypYqM0ZmZjwU8Vr0kjugxnJzhZnUy2hQsDvIC4z3S4kk7bY4DtCX2dgZeRs/nm0zUpodKLsgOQ85O7CgW46BgoK3UWHOk255n1aAugxHeHIuowyI1XNTcW88idVZDpc5w6DkCISYXUibU3hJwscMc3o+1EsZGcEwrbucO2+m1MsGdKhddc0WTaLfLWRHP6xiacJ1yzbmjiMxf6NjeY+24OsGmQOVdwqG5lKhdQ57Wgw+4oWY9Sjf2WuOtDKNNXGT+D9vuAYbisxVD5hKTlOKFEB0t8XionY9G7pQfDod89A2za//Ekjb3ltOvir/Y1hQy+dcFmqeHGBcIEGM3jnisJ8iD+EJm0B1Z99ZCe/4OJgMsOJ+EtAchPCf7dnBCnvAcM4ETcyiHmsOWjfkrmIJi57ARvI5UeonXXAbMcAfmPnFh6pLKQRG9cRuliKg9CHM99d+8rn4jwZPFsY4mOVLNcAO8IBTlhp2dOSjfIBD19UldWWxOOYdQhscq+g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(7416014)(376014)(22082099003)(18002099003)(261009223027099003)(3023799007)(13003099007)(11063799006)(56012099006)(261028144727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dhUspuzbzk+SReDjn+hY2gnbyY7IhJXBEnRD4eeRVpX2fmOiDjpxAQLsYUqE4AzaETIUI38FYrb2SW9+PwKfJ0RY98BqrgMX5A02wnxZIQVacFG6Hf/QmlapO79S4Ks64g9vd5DAB+kHsAC7r71xXUIdsj0DHMUu00QUKnPycYk+Bvz7LZT3E5jWX0SFGfOJ5pyr8cgXeUv8oBvOOT9nzxBgstVw/ylDLfp5XwTY4CC3r+r+HluGmnJDxmhoEcdD2FAL7QSJbytwmAH43UmiGZOEF7PMvxNV07ItKJzh7MRdSPAx86hWr25lbDOhMLGHpwtZxu2M5cz6Ux4N+xQzr/ryvFN3bLgD8d7Tx2OS7O6vwHTx9U4DpMowFw8fw552KjPL29JunHIpqxzpn1yq44Q3uxZv5SgjWbZj0id6c/ehawO37pLN+yTPynoerbVV
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:03:00.1933
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 360b0e41-fc7a-45f5-cc6d-08df43d98f63
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY5PEPF00000E78.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB118222
 
-From: Prathima Lk <Prathima.Lk@amd.com>
+On So, 2026-11-15 at 18:23 +0800, Jisheng Zhang wrote:
+> Support the SoC and MCU reset controls exposed by the SL2610 system
+> controllers. Match the MFD-created platform devices, use the parent
+> syscon regmap and register each reset provider against the parent DT node=
+.
+>=20
+> Handle both pulse resets and sticky resets with assert/deassert controls.
+>=20
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> ---
+>  MAINTAINERS                  |   1 +
+>  drivers/reset/Kconfig        |  13 ++
+>  drivers/reset/Makefile       |   1 +
+>  drivers/reset/reset-sl2610.c | 224 +++++++++++++++++++++++++++++++++++
+>  4 files changed, 239 insertions(+)
+>  create mode 100644 drivers/reset/reset-sl2610.c
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index eae1493485ee..1bd3b2f39865 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3812,6 +3812,7 @@ F:	Documentation/devicetree/bindings/soc/synaptics/
+>  F:	arch/arm/boot/dts/synaptics/
+>  F:	arch/arm/mach-berlin/
+>  F:	arch/arm64/boot/dts/synaptics/
+> +F:	drivers/reset/reset-sl2610.c
+>  F:	drivers/soc/synaptics/
+>  F:	include/dt-bindings/clock/syna,sl2610.h
+>  F:	include/dt-bindings/reset/syna,sl2610-reset.h
+> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+> index eda9c698a95f..98e973a8798c 100644
+> --- a/drivers/reset/Kconfig
+> +++ b/drivers/reset/Kconfig
+> @@ -358,6 +358,19 @@ config RESET_SUNXI
+>  	help
+>  	  This enables the reset driver for Allwinner SoCs.
+> =20
+> +config RESET_SL2610
+> +	tristate "Synaptics SL2610 Reset Driver"
+> +	depends on ARCH_BERLIN || COMPILE_TEST
+> +	depends on OF && HAS_IOMEM
+> +	select SOC_SL2610_SYSCON
 
-The SB-RMI mailbox also reports the temperature of the TS0/TS1 thermal
-sensors on each DIMM (command 0x48, Mode 1 DIMM_ADDRESS). Boards differ
-in how many DIMMs are fitted per memory channel and which sensors are
-populated, so describe both in the binding.
+Why is this select needed?
 
-Add two optional properties:
+> +	help
+> +	  Support the reset controllers in the SoC and MCU system control
+> +	  blocks of Synaptics SL2610 SoCs. Both pulse and sticky reset lines
+> +	  are supported.
+> +
+> +	  To compile this driver as a module, choose M here. The module will
+> +	  be called reset-sl2610.
+> +
+>  config RESET_TENSTORRENT_ATLANTIS
+>  	tristate "Tenstorrent atlantis reset driver"
+>  	depends on ARCH_TENSTORRENT || COMPILE_TEST
+> diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+> index 489fafd6bbe3..d28276a4f2ea 100644
+> --- a/drivers/reset/Makefile
+> +++ b/drivers/reset/Makefile
+> @@ -42,6 +42,7 @@ obj-$(CONFIG_RESET_SCMI) +=3D reset-scmi.o
+>  obj-$(CONFIG_RESET_SIMPLE) +=3D reset-simple.o
+>  obj-$(CONFIG_RESET_SKY1) +=3D reset-sky1.o
+>  obj-$(CONFIG_RESET_SKY1_AUDSS) +=3D reset-sky1-audss.o
+> +obj-$(CONFIG_RESET_SL2610) +=3D reset-sl2610.o
+>  obj-$(CONFIG_RESET_SOCFPGA) +=3D reset-socfpga.o
+>  obj-$(CONFIG_RESET_SUNPLUS) +=3D reset-sunplus.o
+>  obj-$(CONFIG_RESET_SUNXI) +=3D reset-sunxi.o
+> diff --git a/drivers/reset/reset-sl2610.c b/drivers/reset/reset-sl2610.c
+> new file mode 100644
+> index 000000000000..1ca58d5a3e71
+> --- /dev/null
+> +++ b/drivers/reset/reset-sl2610.c
+> @@ -0,0 +1,224 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2026 Synaptics Incorporated
+> + *
+> + * Synaptics SL2610 reset driver
+> + *
+> + * Author: Jisheng Zhang <jszhang@kernel.org>
+> + */
+> +
+> +#include <dt-bindings/reset/syna,sl2610-reset.h>
+> +#include <linux/delay.h>
+> +#include <linux/io.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_address.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset-controller.h>
+> +#include <linux/slab.h>
+> +#include <linux/types.h>
+> +
+> +/* SL2610 ACPU subsystem */
+> +#define SL2610_GBL_PERIFRESET			0x350
+> +#define SL2610_GBL_PERIFSTICKYRESET		0x360
+> +#define SL2610_GBL_APBPERIFRESET		0x370
+> +#define SL2610_GBL_TOPSTICKYRESET		0x378
+> +#define SL2610_GBL_AVIOSTICKYRESET		0x37c
+> +
+> +/* SL2610 system subsystem */
+> +#define SL2610_SMGBL_STICKYRST0			0x400
+> +
+> +#define to_sl2610_reset_priv(p)	container_of((p), struct sl2610_reset_pr=
+iv, rcdev)
 
- - amd,dpc: uint8, DIMMs per channel, 1 or 2 (default 1).
+Turn this into an inline function, please.
 
- - amd,dimm-ids: uint8 array of 1 to 32 unique Mode 1 DIMM_ADDRESS
-   values, one per sensor to report. Encoding: bit[7]=1 (Mode 1),
-   bit[6] sensor (0=TS0, 1=TS1), bit[5] reserved, bit[4] DIMM slot,
-   bit[3:0] memory channel. When absent, the TS0 and TS1 sensors of
-   all 16 DIMMs are reported.
+> +
+> +#define SL2610_RESET(id, reg, bit, sticky)[id] =3D { reg, BIT(bit), stic=
+ky }
+> +
+> +struct sl2610_reset_cfg {
+> +	u32 reg;
+> +	u32 bit;
+> +	bool sticky;
+> +};
+> +
+> +struct sl2610_reset_data {
+> +	const struct sl2610_reset_cfg *cfgs;
+> +	size_t num;
+> +};
+> +
+> +struct sl2610_reset_priv {
+> +	struct regmap *regmap;
+> +	const struct sl2610_reset_cfg *cfgs;
+> +	struct reset_controller_dev rcdev;
+> +};
+> +
+> +static const struct sl2610_reset_cfg sl2610_reset_cfgs[] =3D {
+> +	SL2610_RESET(RST_SOC_SDIO0, SL2610_GBL_PERIFRESET, 2, false),
+> +	SL2610_RESET(RST_SOC_USB0, SL2610_GBL_PERIFRESET, 4, false),
+> +	SL2610_RESET(RST_SOC_EMMC, SL2610_GBL_PERIFRESET, 5, false),
+> +	SL2610_RESET(RST_SOC_GETH0, SL2610_GBL_PERIFRESET, 6, false),
+> +	SL2610_RESET(RST_SOC_SDIO1, SL2610_GBL_PERIFRESET, 7, false),
+> +	SL2610_RESET(RST_SOC_USB1, SL2610_GBL_PERIFRESET, 8, false),
+> +	SL2610_RESET(RST_SOC_GETH1, SL2610_GBL_PERIFRESET, 9, false),
+> +	SL2610_RESET(RST_SOC_USB0PHY, SL2610_GBL_PERIFSTICKYRESET, 0, true),
+> +	SL2610_RESET(RST_SOC_USB0CORE, SL2610_GBL_PERIFSTICKYRESET, 1, true),
+> +	SL2610_RESET(RST_SOC_USB0MAHB, SL2610_GBL_PERIFSTICKYRESET, 2, true),
+> +	SL2610_RESET(RST_SOC_USB1PHY, SL2610_GBL_PERIFSTICKYRESET, 3, true),
+> +	SL2610_RESET(RST_SOC_USB1CORE, SL2610_GBL_PERIFSTICKYRESET, 4, true),
+> +	SL2610_RESET(RST_SOC_USB1MAHB, SL2610_GBL_PERIFSTICKYRESET, 5, true),
+> +	SL2610_RESET(RST_SOC_UART0, SL2610_GBL_APBPERIFRESET, 0, false),
+> +	SL2610_RESET(RST_SOC_UART1, SL2610_GBL_APBPERIFRESET, 1, false),
+> +	SL2610_RESET(RST_SOC_UART2, SL2610_GBL_APBPERIFRESET, 2, false),
+> +	SL2610_RESET(RST_SOC_UART3, SL2610_GBL_APBPERIFRESET, 3, false),
+> +	SL2610_RESET(RST_SOC_I2C0, SL2610_GBL_APBPERIFRESET, 4, false),
+> +	SL2610_RESET(RST_SOC_I2C1, SL2610_GBL_APBPERIFRESET, 5, false),
+> +	SL2610_RESET(RST_SOC_SPI0, SL2610_GBL_APBPERIFRESET, 6, false),
+> +	SL2610_RESET(RST_SOC_SPI1, SL2610_GBL_APBPERIFRESET, 7, false),
+> +	SL2610_RESET(RST_SOC_SPI2, SL2610_GBL_APBPERIFRESET, 8, false),
+> +	SL2610_RESET(RST_SOC_SPI3, SL2610_GBL_APBPERIFRESET, 9, false),
+> +	SL2610_RESET(RST_SOC_APBTIMERS, SL2610_GBL_APBPERIFRESET, 10, false),
+> +	SL2610_RESET(RST_SOC_APBSYSCNT, SL2610_GBL_APBPERIFRESET, 11, false),
+> +	SL2610_RESET(RST_SOC_APBWDT, SL2610_GBL_APBPERIFRESET, 12, false),
+> +	SL2610_RESET(RST_SOC_APBGPIO, SL2610_GBL_APBPERIFRESET, 13, false),
+> +	SL2610_RESET(RST_SOC_APBDMA, SL2610_GBL_APBPERIFRESET, 14, false),
+> +	SL2610_RESET(RST_SOC_GPUCORE, SL2610_GBL_TOPSTICKYRESET, 0, true),
+> +	SL2610_RESET(RST_SOC_NPUCORE, SL2610_GBL_TOPSTICKYRESET, 1, true),
+> +	SL2610_RESET(RST_SOC_AVIOAIOG, SL2610_GBL_AVIOSTICKYRESET, 0, true),
+> +	SL2610_RESET(RST_SOC_AVIOVPPG, SL2610_GBL_AVIOSTICKYRESET, 1, true),
+> +	SL2610_RESET(RST_SOC_AVIOVIPG, SL2610_GBL_AVIOSTICKYRESET, 2, true),
+> +};
+> +
+> +static const struct sl2610_reset_cfg sl2610_system_reset_cfgs[] =3D {
+> +	SL2610_RESET(RST_SM_ADCCORE, SL2610_SMGBL_STICKYRST0, 0, true),
+> +	SL2610_RESET(RST_SM_ADCPRST, SL2610_SMGBL_STICKYRST0, 1, true),
+> +	SL2610_RESET(RST_SM_CAN0PRST, SL2610_SMGBL_STICKYRST0, 2, true),
+> +	SL2610_RESET(RST_SM_CAN0SRST, SL2610_SMGBL_STICKYRST0, 3, true),
+> +	SL2610_RESET(RST_SM_CAN1PRST, SL2610_SMGBL_STICKYRST0, 4, true),
+> +	SL2610_RESET(RST_SM_CAN1SRST, SL2610_SMGBL_STICKYRST0, 5, true),
+> +	SL2610_RESET(RST_SM_GPIOPRST, SL2610_SMGBL_STICKYRST0, 6, true),
+> +	SL2610_RESET(RST_SM_GPIOSRST, SL2610_SMGBL_STICKYRST0, 7, true),
+> +	SL2610_RESET(RST_SM_I2CM0PRST, SL2610_SMGBL_STICKYRST0, 8, true),
+> +	SL2610_RESET(RST_SM_I2CM0SRST, SL2610_SMGBL_STICKYRST0, 9, true),
+> +	SL2610_RESET(RST_SM_I2CM1PRST, SL2610_SMGBL_STICKYRST0, 10, true),
+> +	SL2610_RESET(RST_SM_I2CM1SRST, SL2610_SMGBL_STICKYRST0, 11, true),
+> +	SL2610_RESET(RST_SM_I3CPRST, SL2610_SMGBL_STICKYRST0, 12, true),
+> +	SL2610_RESET(RST_SM_I3CSRST, SL2610_SMGBL_STICKYRST0, 13, true),
+> +	SL2610_RESET(RST_SM_PDMPRST, SL2610_SMGBL_STICKYRST0, 14, true),
+> +	SL2610_RESET(RST_SM_PDMSRST, SL2610_SMGBL_STICKYRST0, 15, true),
+> +	SL2610_RESET(RST_SM_PVTHSRST, SL2610_SMGBL_STICKYRST0, 16, true),
+> +	SL2610_RESET(RST_SM_PVTPRST, SL2610_SMGBL_STICKYRST0, 17, true),
+> +	SL2610_RESET(RST_SM_PWMPERIRST, SL2610_SMGBL_STICKYRST0, 18, true),
+> +	SL2610_RESET(RST_SM_PWMPRST, SL2610_SMGBL_STICKYRST0, 19, true),
+> +	SL2610_RESET(RST_SM_SPIMPRST, SL2610_SMGBL_STICKYRST0, 20, true),
+> +	SL2610_RESET(RST_SM_SPIMSRST, SL2610_SMGBL_STICKYRST0, 21, true),
+> +	SL2610_RESET(RST_SM_SPISPRST, SL2610_SMGBL_STICKYRST0, 22, true),
+> +	SL2610_RESET(RST_SM_SPISSRST, SL2610_SMGBL_STICKYRST0, 23, true),
+> +	SL2610_RESET(RST_SM_UART0PRST, SL2610_SMGBL_STICKYRST0, 24, true),
+> +	SL2610_RESET(RST_SM_UART0SRST, SL2610_SMGBL_STICKYRST0, 25, true),
+> +	SL2610_RESET(RST_SM_UART1PRST, SL2610_SMGBL_STICKYRST0, 26, true),
+> +	SL2610_RESET(RST_SM_UART1SRST, SL2610_SMGBL_STICKYRST0, 27, true),
+> +	SL2610_RESET(RST_SM_UART2PRST, SL2610_SMGBL_STICKYRST0, 28, true),
+> +	SL2610_RESET(RST_SM_UART2SRST, SL2610_SMGBL_STICKYRST0, 29, true),
+> +	SL2610_RESET(RST_SM_UART3PRST, SL2610_SMGBL_STICKYRST0, 30, true),
+> +	SL2610_RESET(RST_SM_UART3SRST, SL2610_SMGBL_STICKYRST0, 31, true),
+> +};
+> +
+> +static const struct sl2610_reset_data sl2610_reset_data =3D {
+> +	.cfgs =3D sl2610_reset_cfgs,
+> +	.num =3D ARRAY_SIZE(sl2610_reset_cfgs),
+> +};
+> +
+> +static const struct sl2610_reset_data sl2610_system_reset_data =3D {
+> +	.cfgs =3D sl2610_system_reset_cfgs,
+> +	.num =3D ARRAY_SIZE(sl2610_system_reset_cfgs),
+> +};
+> +
+> +static int sl2610_reset_assert(struct reset_controller_dev *rcdev,
+> +			       unsigned long id)
+> +{
+> +	struct sl2610_reset_priv *priv =3D to_sl2610_reset_priv(rcdev);
+> +	const struct sl2610_reset_cfg *cfg =3D &priv->cfgs[id];
+> +
+> +	if (!cfg->sticky)
+> +		return -EINVAL;
 
-The allowed amd,dimm-ids values depend on amd,dpc: with one DIMM per
-channel 0x80-0x8f and 0xc0-0xcf; with two, 0x80-0x87, 0x90-0x97,
-0xc0-0xc7 and 0xd0-0xd7. This rejects the reserved bit, a slot bit
-without a second DIMM, and channels above 7 with two DIMMs per channel.
+The core uses -ENOTSUPP for this.
 
-Also mention the DIMM sensors in the title and description and extend
-the example.
+> +
+> +	return regmap_clear_bits(priv->regmap, cfg->reg, cfg->bit);
+> +}
+> +
+> +static int sl2610_reset_deassert(struct reset_controller_dev *rcdev,
+> +				 unsigned long id)
+> +{
+> +	struct sl2610_reset_priv *priv =3D to_sl2610_reset_priv(rcdev);
+> +	const struct sl2610_reset_cfg *cfg =3D &priv->cfgs[id];
+> +
+> +	if (!cfg->sticky)
+> +		return -EINVAL;
 
-Signed-off-by: Prathima Lk <Prathima.Lk@amd.com>
-Signed-off-by: Akshay Gupta <Akshay.Gupta@amd.com>
----
- .../devicetree/bindings/hwmon/amd,sbrmi.yaml  | 59 +++++++++++++++++--
- 1 file changed, 55 insertions(+), 4 deletions(-)
+This could just return 0.
 
-diff --git a/Documentation/devicetree/bindings/hwmon/amd,sbrmi.yaml b/Documentation/devicetree/bindings/hwmon/amd,sbrmi.yaml
-index 353d81d89bf5..f08b62133996 100644
---- a/Documentation/devicetree/bindings/hwmon/amd,sbrmi.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/amd,sbrmi.yaml
-@@ -4,9 +4,7 @@
- $id: http://devicetree.org/schemas/hwmon/amd,sbrmi.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: >
--  Sideband Remote Management Interface (SB-RMI) compliant
--  AMD SoC power device.
-+title: AMD SoC SB-RMI power and DIMM thermal sensor
- 
- maintainers:
-   - Akshay Gupta <Akshay.Gupta@amd.com>
-@@ -16,7 +14,8 @@ description: |
-   interface that reports AMD SoC's Power (normalized Power) using,
-   Mailbox Service Request and resembles a typical 8-pin remote power
-   sensor's I2C interface to BMC. The power attributes in hwmon
--  reports power in microwatts.
-+  reports power in microwatts. The same mailbox also reports the
-+  temperature of the TS0/TS1 thermal sensors on each populated DIMM.
- 
- properties:
-   compatible:
-@@ -33,10 +32,60 @@ properties:
-       \[open source SoC register reference\]
-         https://www.amd.com/en/support/tech-docs?keyword=55898
- 
-+  amd,dpc:
-+    $ref: /schemas/types.yaml#/definitions/uint8
-+    enum: [1, 2]
-+    default: 1
-+    description:
-+      DIMMs per channel (dimms-per-channel), the number of DIMM slots per
-+      memory channel.
-+
-+  amd,dimm-ids:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    minItems: 1
-+    maxItems: 32
-+    uniqueItems: true
-+    description: |
-+      Mode 1 SB-RMI DIMM_ADDRESS of each DIMM thermal sensor to report.
-+      Encoding: bit[7]=1 (Mode 1), bit[6] sensor (0=TS0, 1=TS1), bit[5]
-+      reserved, bit[4] DIMM slot, bit[3:0] memory channel ID. With one DIMM
-+      per channel bit[4] is 0; with two, the memory channel ID is 0-7.
-+      When absent, the TS0 and TS1 sensors of all 16 DIMMs are reported.
-+
- required:
-   - compatible
-   - reg
- 
-+allOf:
-+  - if:
-+      required:
-+        - amd,dpc
-+      properties:
-+        amd,dpc:
-+          const: 2
-+    then:
-+      properties:
-+        amd,dimm-ids:
-+          items:
-+            anyOf:
-+              - minimum: 0x80
-+                maximum: 0x87
-+              - minimum: 0x90
-+                maximum: 0x97
-+              - minimum: 0xc0
-+                maximum: 0xc7
-+              - minimum: 0xd0
-+                maximum: 0xd7
-+    else:
-+      properties:
-+        amd,dimm-ids:
-+          items:
-+            anyOf:
-+              - minimum: 0x80
-+                maximum: 0x8f
-+              - minimum: 0xc0
-+                maximum: 0xcf
-+
- additionalProperties: false
- 
- examples:
-@@ -48,6 +97,8 @@ examples:
-         sbrmi@3c {
-             compatible = "amd,sbrmi";
-             reg = <0x3c>;
-+            /* TS0 sensors of the DIMMs on memory channels 0-7 */
-+            amd,dimm-ids = /bits/ 8 <0x80 0x81 0x82 0x83 0x84 0x85 0x86 0x87>;
-         };
-     };
- ...
--- 
-2.34.1
+> +
+> +	return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
+> +}
+> +
+> +static int sl2610_reset_reset(struct reset_controller_dev *rcdev,
+> +			      unsigned long id)
+> +{
+> +	struct sl2610_reset_priv *priv =3D to_sl2610_reset_priv(rcdev);
+> +	const struct sl2610_reset_cfg *cfg =3D &priv->cfgs[id];
+> +
+> +	if (cfg->sticky) {
+> +		regmap_clear_bits(priv->regmap, cfg->reg, cfg->bit);
+> +		usleep_range(10, 15);
+> +		return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
+> +	}
 
+Why is this needed? Could you just return -ENOTSUPP?
+
+> +
+> +	return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
+> +}
+> +
+> +static const struct reset_control_ops sl2610_reset_ops =3D {
+> +	.reset	=3D sl2610_reset_reset,
+> +	.assert =3D sl2610_reset_assert,
+> +	.deassert =3D sl2610_reset_deassert,
+> +};
+> +
+> +static int sl2610_reset_probe(struct platform_device *pdev)
+> +{
+> +	struct device_node *parent_np =3D pdev->dev.parent->of_node;
+> +	struct sl2610_reset_priv *priv;
+> +	const struct sl2610_reset_data *data =3D
+> +		(void *)platform_get_device_id(pdev)->driver_data;
+> +
+> +	priv =3D devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->regmap =3D syscon_node_to_regmap(parent_np);
+> +	if (IS_ERR(priv->regmap))
+> +		return PTR_ERR(priv->regmap);
+> +
+> +	priv->rcdev.owner =3D THIS_MODULE;
+> +	priv->rcdev.ops =3D &sl2610_reset_ops;
+> +	priv->rcdev.dev =3D &pdev->dev;
+> +	priv->rcdev.of_node =3D parent_np;
+> +	priv->rcdev.of_reset_n_cells =3D 1;
+
+Please don't set of_reset_n_cells. This is ignored since of_xlate is
+not set. reset_controller_register() already sets fwnode_reset_n_cells
+to 1 by default.
+
+regards
+Philipp
