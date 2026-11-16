@@ -1,113 +1,112 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794835070;
-	b=BGq6Tn9kGs4AA/pRojFcebEn7AHa7m+7gLyvyqL+mqppvYc0NcGZMOwSLAQPj/LrpRgQ
-	 nXEsjiQmghJXYFNPDBmpO/JPshHr4qZfbwMSWt5JubSdvJsSuuB/HNFdsVko4XVjCoicq
-	 gGMoLovEJ19yoscPJWy1SYyyJ2X6CCCUa2qHmDExoN+IVvG9tgtjo7U4ZGv6u34zNFSb4
-	 +PIRhg4TqYyJGGpyurn77HzM6rI5hMPXwmPFyu3O+H/6ozypj6RsVZPt0fpOPp+bld3Yp
-	 0PjiGsZTqRKwPOczMsfBriB08aGRwAoKDsba+VgCYhcCH8tIgUc7BZXH3ByGL38JY6Q==
+	t=1794835081;
+	b=DchIrye2g0ypBDlrRLnimDIii5y8wPT+tW8YPtKHS9eWwWMxaBIVg99WTMgesJ/pDv5V
+	 8xY5YWu3blcURF122zgsnXcf64oQNxyoX+ZPiY3e4j+0W2kTVQoY01ZOBrh5qFDMuoDfS
+	 VHrqyn/jMKrisgZEHhjLe+IpmHu8+PN+hSZV7wCQ6XoPaRvTBEOYxAGMAsRBA6Nm5KF9L
+	 2jcOQf72dW13O3Aml5Wygp2Yin/+qxVVvVamhW8DFDm+YxChXJ/Bw6LiHEoeqNWDX2yNW
+	 IShgpBr242OXOFJT1RkUynakBS5rngwUZI0yS9trFfxdHXPBB/MaGQ1HwulMQrdUEcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794835070;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794835081;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=m1nTZ+XmUM2edjkyIuwrtLsiCwHaExrIO3F3ymxsXr4=;
-	b=16+9MJJBQMs3V2vbOUXg0K4fmpsm6S+NAAHWoA4Au1SnARiJh9E3jmIVioqVTzjGudaO
-	 1/N69kEFkmZ0f2uD3E07AV/TBe2M4/YIZ1JipS5AEWI39IBVNcGKlylsQXB4QQqr9qaUw
-	 pqe4wi22lPrP57tLJMtPRRGoG7bxAPT8rlSxP5WUtiFcL6OP2rFPNZc4JPDi+AtcIZDC2
-	 43YQL3AjtzB7GLrkhQ1jH2yZvYIP9bj+knB8fiS4XcXKHab13sj1HPls0GaFJWPIPjPex
-	 U8BKXE+OdWmzmx6sW/KLU3ZCrVUGboH8+8aYe/KWzLrYpdWGFdCB15zzqUC+IfNa5iw==
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=n4Q/siT+lVi5ZLfpMiWYbrkm4JZ5GDjhlSlQuApJCXA=;
+	b=ARZEb9+Sw/6Nu/zx0r735GGZr6IDbAlYqDf5VS+5NMD/rXX1eKgYInmpuzFNUhE/ay6H
+	 9DyORysFAZ7zu+tJNJzMdYXtc5UMn+RfErvTU9/oQseTN7cNjPgnASkWoGphBRqJSv9Y4
+	 ZYgNL2IYfxUcn6+X0ZWQ5n4RQq1LrAXNjiRviLA/qC5lEzvLeS4q+09XzMAl4ijgKKMmS
+	 VdAy74LMRhw2c3ZMp5Ul1ODOAbwIN3yLswmKZYcN/pDDClY/K79SkgxGIbfH3zHwLteVs
+	 LGMhFKD/umUbriHroI13h5Pjvp+ArnrUaDLVg+5LdMtFrNqRXFyuAsQV2XntNcbKvIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=csSPYgpv;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DcxBHJZS;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=esHr3lx6;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JcjxtyA7;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81165606A339
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 13:17:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81165606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BFB4606A323
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 13:18:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BFB4606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=csSPYgpv;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DcxBHJZS
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGC0op53770442
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 13:17:48 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=esHr3lx6;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JcjxtyA7
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGC1IiE1103036
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 13:17:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	m1nTZ+XmUM2edjkyIuwrtLsiCwHaExrIO3F3ymxsXr4=; b=csSPYgpv+XU+65Vi
-	3IwiCvKaI4srMZSOpGLCdepiYGV24awTPbgW8urs9f96NvoL8wnL6bSO1Z+b3yev
-	1vWzgxnu2B9usVFO7sguTQnWHV7xkwiUYzwPFHy3MZLc2a3Uu7SKJn45zfNqJyaP
-	wKAmAnuTTbLpRFs4aMviuUpdZ+AG38+6EHPBP2y9PmICIZsZhsu6GzowcUUvmH/g
-	3oMMrLeslKeULrqxLoAfNYbzf5qrgh/cIyG7p2uizVLnqMplCkalN4/q3TJD3MBV
-	vkDkMLC26E5xLVw7cObJz+hqTdMkz5FA17UCZHegzO8G22/bzOXgpiy1eMFZ/xvF
-	pyhL2A==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hyy6ggsuj-1
+	n4Q/siT+lVi5ZLfpMiWYbrkm4JZ5GDjhlSlQuApJCXA=; b=esHr3lx6oH7cGRyb
+	GemgnzAOG3RvP+jOuGUNIwY0uE18TgItWUL02+9ynEyBsIkzFBRnJ0qECrd8/z1r
+	9j6O0NuKXzEgCN0YNbJ1p8x/79fBsDspi/JBs6j/NXTYLHivlTHGC4sA101ZWHRE
+	EViurW2wA9w1FABv5EDy5tMZwOBjdgY8sCam/+Os9JOOGy2HKPVmkY+fz/bMBTBG
+	qG9zpwD74bRmMcNyrWTjAMX/mvqy5UvRQtB9oBcY2xkS3d3XvjHBkN9viWP4cP14
+	FVnvKHT5ZheSe8eMO2tZTozAtlhSdMZjLx6GhIwjHGvGlYvjX3CIMeGlIj91DekX
+	nZ1CKQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0003gkjf-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 13:17:48 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93e92aad34aso694425785a.0
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 05:17:48 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 13:17:59 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-94960131b4eso361699585a.3
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 05:17:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794835068; x=1795439868; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794835079; x=1795439879; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m1nTZ+XmUM2edjkyIuwrtLsiCwHaExrIO3F3ymxsXr4=;
-        b=DcxBHJZSjmJFYnzJEUUxY91wS2Xcb0rOtHBLRWvJGhdTgfWhwqVIh3zL2U0EJpMMsm
-         w6AkCEJZe7pyQ8pIiPA9OL49oC1jJWe5xc9A8JC/oNgovPJaZNo3nrL3F6OLzZSWrBih
-         HLhdslG47MF5ooRAmFhSWIieiKDcyONwmNrPpd3vI1NBbK64G7/ANJbV0inx0IDuOkdL
-         25iWn94XLtSy1fMMiki2d6uLja3l5SDiDI+7hpFZx4hW1Y7S1aM3Q1AI1i7HlCEVBzsm
-         O55KshDEVb9Suxku8UO5UGxZFByoDRRbWVYtZ5IaJnypafxQw0mpSrHv6Q9Iz5vJ2uRB
-         AMng==
+        bh=n4Q/siT+lVi5ZLfpMiWYbrkm4JZ5GDjhlSlQuApJCXA=;
+        b=JcjxtyA75WobsX9F/0zcgJorGrKtuqRdV1MDuPFs/tW+XeJsfjqvWn2nlCHcxsefbr
+         y/b3h6yf8TmuWOOXbZ9HwdHi+fPgmAD96XKuDO9U1FbLDd50vkOTwgrklCfPBVlV6RJe
+         ljlAvv1+wR/m6arYQWccIItoh1ACBPDZl4KbapySIC/PoQ2ruGackZUZpVL2kGdwCL94
+         wgN7Y+OWj7ZgTZ8pt90Dbu1sYNRWSFuYZIQCpmWPncaa5VZA6KOZ2I39vYwY/AP5BmzA
+         p43KFvBKXWrRBrjpaLDwt7gfsdhIT4UyoPdLA4HACxky9UGu5FtW8o0Va0j9LJ7Ikhhr
+         3wig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794835068; x=1795439868;
+        d=1e100.net; s=20260707; t=1794835079; x=1795439879;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=m1nTZ+XmUM2edjkyIuwrtLsiCwHaExrIO3F3ymxsXr4=;
-        b=JFpFvGdda3Ce2yVOEEIOcrEi9ujaKV/Z2ClcJf+QApKd8Wg5OzCZBIa4HOltLDbB01
-         Rjwkq59ULrSH9/4vylbBPHAZbbdNhHmI/Bf58CZi85+jlze0uUGYafUrKtshmCLESYKc
-         H2+QXi/6HlHzTQLVcMemWNlizSZkIfe6s20tXhAVYvs5tzxQuIhViGLQ9IQFL3o9ZhW9
-         M/5bfEuvnv6tmznam9AamsMbLnGrV8Jdp86JF+NbRlVU70v/fTDy+lhOkQnX3Ckd99Ul
-         QJ8AYcxd0WTfEZhgC7gEIjIDPdgOV0pPJ2luoZlTwEkBQpa0zq4BeY4OZ6bvNZGt3M+v
-         TNow==
-X-Forwarded-Encrypted: i=1; AL+hErGiUZGZO/apky96B+j/hfHwrx/fmpr7kAzxC5cjWBy9QiOuAdXbI32LBoUP0KG2Zrs0wpOjXw9z/1bO@vger.kernel.org
-X-Gm-Message-State: APuU4Z+heb8j2rgOMGQVYpvWbEsUqUjdLSsCAWBTJe/1jvy8nIjviTWF
-	/lDqGIvnVVQXJAUgoeRRrqTv5x9oqXtRaKhIvxk1o5qHykQDg8IcAuEaXPPHaTw09TJbeJdcCeL
-	pHfpPVz915QeCm40b99J0uAbv6VYD3SLjJ3HYHPQ2jnjZ7yuU+Rh6M5HFyClrj2Ra
-X-Gm-Gg: AYBFou1Qwbg9SO3h4eWhZTIbRyk88IuTuZKLYpOmNg6Eapab+ojRdt00PGVsMeN+0zO
-	85stLghxKhSMNwpTWGlUfCU+IChe8Gb76p/J72b8fGOQshKUI7/UtyrAHDodXKift84Bczmgv9d
-	2cyLFmd3Qosx8egRxkmiifnXgskSvhsy0EXocp73EkPDRmExgWOPSbcvwc0wW7GxHsMVNhqDdTF
-	fKryGejjHy5NU9afC7+Eh2z5z0nt8Y3mfJmzkcx908hjT2XBFC6IhuJmNPiO019P9mQphRqnS5n
-	0ARMAbva22kpaZ7KZhwk/Bka+hirTYe+MJYnutfOPiqNRLPI9mUko24gCYT7hiMQhrn/SmtEYli
-	LAQKC0rtWWxMfOS3h/pbLLuSFslk5xMKqwXlf4MKMYWn6P0fG99ES27drrObOrDW/Rszao5UZb6
-	3Q
-X-Received: by 2002:a05:620a:4448:b0:93e:c12c:43f9 with SMTP id af79cd13be357-9494bc91605mr1621094785a.70.1794835067702;
-        Mon, 16 Nov 2026 05:17:47 -0800 (PST)
-X-Received: by 2002:a05:620a:4448:b0:93e:c12c:43f9 with SMTP id af79cd13be357-9494bc91605mr1621088985a.70.1794835067193;
-        Mon, 16 Nov 2026 05:17:47 -0800 (PST)
+        bh=n4Q/siT+lVi5ZLfpMiWYbrkm4JZ5GDjhlSlQuApJCXA=;
+        b=KZFhizNdkvbu2JP8woRu+W1c+0LD5si1rruF7PpRcBljbiZSDYUazso680ZBWnOW3p
+         vgxNNXt0gNqiZczl583s5to8EWDbTCgP0FjkHRkkoTfeiRyiEMAs4DVYNFRPvXJhgvxY
+         W2uSy/ST/xgTCylPnCBfO0JXJLRJAtBYYHZ/rTW1NvkHhjvAgzmNrkdXQ8POCfo7ef60
+         whY0fkZGzbtpCEHNCBoR2R4DCGIZJ1K+i9Ht2dm/w8hQQNPOR2gVZq4LoI8TTHGpf8/I
+         dN4EOHBDOOLie1Q3+a8Gtfkpp6AO0FDSGL1oERYojU7AgAUtCw3rkxQpQbS8653KH3CG
+         m2cw==
+X-Forwarded-Encrypted: i=1; AL+hErH9pdc5Ugd+yK2fKb9znoqfr0HUefRm72Lxaym2rNjZsuWqGSacl7Wmdm8/BMadiaIz64GadQKR5FGh@vger.kernel.org
+X-Gm-Message-State: APuU4Z+F2CGhAfxjfwldiOF/943y6BjXuMqa3phmNpWQNqzDv1XPaf5A
+	CSqqn9zElIZqgyLlvDErkqah5SWSICM0gaoI/erj4lxQKJYPYI20xmlh0Y2fUPurZRdPOVh+u8/
+	Yec7MOlilgS5fkGIIGHDdpDnwUvY/HjrCBcgLwNhzh7bU0bHeFU5rFuDpJNar62vF
+X-Gm-Gg: AYBFou2r+pBRHtDqvX3tejchem6EbAt0gq4hVX/fk0nOkL5I0359a+PQ+aGnjsSJ41V
+	43cbRLerqJouRmq7o4t4AfeyxL1BTX7yyFo77lue2v0KnvUIiitGZQXqxT5hrgNbX7yuA5ZuPzk
+	eo43znBymHQMVSgzfnF8Wee9JDprza/81S8UZn6bwIevK3ReBik3vUaKqqUz9EW4uA+nvJuE3Q3
+	GlDvhIBfR0XBYUejOC1W/eATALF1fwIse69KgCf04gdTCMIkj7WQSJroZacY5U+PWhbpQphmSS7
+	SAlcErz0crgAj6qaNCTx0rm3E69mPauKzBJHM2BeYYX5yS9n6+O34+QlW6KgdCXLLlPpVe0q3Wm
+	ry1u8unykdX6sUq1JSWE5dPFEpUo4dMTlFKO8bJMl2W5vPX+ng9UCA5++xsaeR2oF4IK3UrJ6iQ
+	lI
+X-Received: by 2002:a05:620a:2b99:b0:940:ed45:c8ea with SMTP id af79cd13be357-9494bbeefd3mr1711510685a.70.1794835078437;
+        Mon, 16 Nov 2026 05:17:58 -0800 (PST)
+X-Received: by 2002:a05:620a:2b99:b0:940:ed45:c8ea with SMTP id af79cd13be357-9494bbeefd3mr1711503785a.70.1794835077672;
+        Mon, 16 Nov 2026 05:17:57 -0800 (PST)
 Received: from hu-naala-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8e1c94sm843927285a.39.2026.11.16.05.17.37
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8e1c94sm843927285a.39.2026.11.16.05.17.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 05:17:46 -0800 (PST)
+        Mon, 16 Nov 2026 05:17:57 -0800 (PST)
 From: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Date: Mon, 16 Nov 2026 18:46:43 +0530
-Subject: [PATCH v3 04/11] dt-bindings: display/msm: qcom,sm8650-dpu: Add
- Qualcomm Nord Soc
+Date: Mon, 16 Nov 2026 18:46:44 +0530
+Subject: [PATCH v3 05/11] drm/msm/dpu: Add support for DPU 12.1 on Nord
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-nord-drv-dt-v3-4-e3d3bf0e2c49@oss.qualcomm.com>
+Message-Id: <20261116-nord-drv-dt-v3-5-e3d3bf0e2c49@oss.qualcomm.com>
 References: <20261116-nord-drv-dt-v3-0-e3d3bf0e2c49@oss.qualcomm.com>
 In-Reply-To: <20261116-nord-drv-dt-v3-0-e3d3bf0e2c49@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -145,64 +144,644 @@ Cc: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794835013; l=969;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794835013; l=18488;
  i=nabige.aala@oss.qualcomm.com; s=20260520; h=from:subject:message-id;
- bh=3jZf2Pti83jqOcW2mSkjBOHEd4vR1NpTAkKkAceccnE=;
- b=JjgDh559AufDCmhLwnJspcdf6rZkZsuIPjkvbejQcaG64aoXPfcwej5CPmjCOrjOYXoKXwFkP
- LswwhwR6HLsDF60zELZb+9MpHsV5oGl+iM1+LaX96Y33/amGM4Ei+JS
+ bh=25Hh4hN/JcEQ8IMFGXTVebuL7HaiJrijH4+sCa8+WMk=;
+ b=8fh6ebgQoyMzKCYCbKBVnbdi+k9qegEqzra1OGGYnwD8h0jAUxI8BgF6dxUo3Nd91PsAyYh+E
+ noNfmrNyMvQBh9EKv7lCDPJ9+Pz+vLBcOVhL5aQ1ZKR/+wpQOvOVu4d
 X-Developer-Key: i=nabige.aala@oss.qualcomm.com; a=ed25519;
  pk=PYHJom8sPos1IGkrbCCsWiE7XTBQrQZd9jzAo051tgw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA1MiBTYWx0ZWRfX8qvtBEKOZg+d
- hE7GsFASJGo+ekTSp4+hqnQMgbfSMmJoMAYa7gKehXANhVpHn0Uk02KsGY7Lzz+nezhlxsD1tZj
- s5Q2H5dyI7Slikzyfe5RiyDRgPGicMlDRdXN7HLPu2LqbTXFo2ymuhJ7mbVwneMl5dav4fR7LmU
- 3cHhrF0Szz8sQrgje1gtNGlbitP55VJ1zMvrF6mOCkt1sAhC5T+2fxCxwTV2NCJU4vb+CHtupw+
- Ps/kV/V1/b9xbMecfF8i4X1Fs6GRkY9+y1LqSm/G4QYNb0XlJDk/L9uuYvGSAMIEV8vs/ptzWFl
- Rv/Qn+F/LHhOm8D2u+F6L9zpX4f3b1WV93oXQW6/zVEQXouePzNcL/Syz9vK2KvlkdKFrGCN7W2
- 5md8WYoISLZdvWDpjmq7zvqfWI5WsX/csyMc4vhxb1ceOoN4vVvMiD5dt6muIboC9IrVitfFDgj
- lg0fuU2mi1kk/7mErVQ==
-X-Proofpoint-GUID: ZDe90GcNMi0RXbAe6kb4lzNse35JRyuv
-X-Proofpoint-ORIG-GUID: ZDe90GcNMi0RXbAe6kb4lzNse35JRyuv
-X-Authority-Analysis: v=2.4 cv=D/DSufRj c=1 sm=1 tr=0 ts=6afb027c cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: kwta1ZKOcTv_EtSSyGl_WCV31c_WStF2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA1MiBTYWx0ZWRfX/h+F3/XjH4r5
+ 0OS3YW2MyxinvOk/gKan2vg+p4P468e/Bt4Kq6wFmlO396oNbc8hmUFpoGf3CJyuAdsXgd2dzIo
+ UlrO5uzOOXbRzvQlKCuTUdmLqsVtTUQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA1MiBTYWx0ZWRfX9nFsu8jY99sv
+ /vnqcrqjz/ITHrD7y6QUy0zcFq9uRrhTo4NhaGohm4QUtxjIcs/jwjKWHhciSevWcEEkuKFhT+u
+ QjAeWpPtUm2L4by7nXQkXmTXzXh8U5Y3g6dOanu1aDqw1gFm2KSXvmIbFOTjH6b7X7SszdJWwrD
+ gbdwx4OocgtbmBFt+ES++RKhA/MkpF6sypFkmJIRFe2r2Q9slSW7V4JEKp6YKE5UvM4teQdhVfn
+ czCD8HIeFfxx6G8me1XZVpFDime1Up85q1NMspDvH0YmBwt+M1aP2bYRKvql9QwJSP14l8TiIUr
+ YznlfNCgkL3jgUfU6YgjG5zZwcQXGqBjLiX4QsZ/38DflvkhfZASbGQOJHYzK1Uukk90BQBOQ3L
+ Yv92GtzmpjYFLRcORmTgyNuChARBLMuO8liyEVfH0MWf6Rt/CHnsKOaDdZt1ebhBzWGvn6z5wgb
+ 1bM/ci5wQG3eOCg8vow==
+X-Authority-Analysis: v=2.4 cv=Z4N5j3RA c=1 sm=1 tr=0 ts=6afb0287 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=lCWEfuFUYIIHy-HYLagA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA1MiBTYWx0ZWRfX841ax7VoAxhH
- UZGPMNkiaL7rrcXoxnZZyO1b9Wb72w61D/wskOqfpmc2lDVzShn7Sb7Y08laOkkKLo6WP+PWfzb
- dCJiyrJuV1bjttz6XEnh45vA1y+WElg=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=Zeg3rTkf4wEOCPwkaXYA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: kwta1ZKOcTv_EtSSyGl_WCV31c_WStF2
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-16_04,2026-11-16_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
- clxscore=1015 adultscore=0 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160052
+ suspectscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611160052
 
-Add DPU (v12.1) for Qualcomm Nord SoC which has noticeable
-differences against SM8750 (v12.0):
- - Added DSPP blocks
- - Added INTF6-INTF10 and removed INTF1,INTF2 and INF5
- - Added one more DP
+From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 
+Add the DPU catalog entry for the Qualcomm Nord SoC (MDSS 12.1, DPU
+1499A). Nord is DP-only with no DSI, and provides 8 DSPP blocks, 2
+writeback blocks, 8 interfaces and 2 DP controllers.
+
+Assisted-by: LLM
+Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h  | 544 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ 4 files changed, 547 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-index aa0cf0ec5b93..430fa02d18a7 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-@@ -19,6 +19,7 @@ properties:
-           - qcom,glymur-dpu
-           - qcom,kaanapali-dpu
-           - qcom,milos-dpu
-+          - qcom,nord-dpu
-           - qcom,sa8775p-dpu
-           - qcom,sm8650-dpu
-           - qcom,sm8750-dpu
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h
+new file mode 100644
+index 000000000000..333eccb5c603
+--- /dev/null
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h
+@@ -0,0 +1,544 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved.
++ */
++
++#ifndef _DPU_12_1_NORD_H
++#define _DPU_12_1_NORD_H
++
++
++static const struct dpu_caps nord_dpu_caps = {
++	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
++	.max_mixer_blendstages = 0xb,
++	.has_src_split = true,
++	.has_dim_layer = true,
++	.has_idle_pc = true,
++	.has_3d_merge = true,
++	.max_linewidth = 8192,
++	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
++};
++
++static const struct dpu_mdp_cfg nord_mdp = {
++	.name = "top_0",
++	.base = 0, .len = 0x494,
++	.clk_ctrls = {
++		[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
++	},
++};
++
++static const struct dpu_ctl_cfg nord_ctl[] = {
++	{
++		.name = "ctl_0", .id = CTL_0,
++		.base = 0x15000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
++	}, {
++		.name = "ctl_1", .id = CTL_1,
++		.base = 0x16000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
++	}, {
++		.name = "ctl_2", .id = CTL_2,
++		.base = 0x17000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
++	}, {
++		.name = "ctl_3", .id = CTL_3,
++		.base = 0x18000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
++	}, {
++		.name = "ctl_4", .id = CTL_4,
++		.base = 0x19000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
++	}, {
++		.name = "ctl_5", .id = CTL_5,
++		.base = 0x1a000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
++	},
++};
++
++static const struct dpu_sspp_cfg nord_sspp[] = {
++	{
++		.name = "sspp_0", .id = SSPP_VIG0,
++		.base = 0x4000, .len = 0x344,
++		.features = VIG_SDM845_MASK_SDMA,
++		.sblk = &dpu_vig_sblk_qseed3_3_4,
++		.xin_id = 0,
++		.type = SSPP_TYPE_VIG,
++	}, {
++		.name = "sspp_1", .id = SSPP_VIG1,
++		.base = 0x6000, .len = 0x344,
++		.features = VIG_SDM845_MASK_SDMA,
++		.sblk = &dpu_vig_sblk_qseed3_3_4,
++		.xin_id = 4,
++		.type = SSPP_TYPE_VIG,
++	}, {
++		.name = "sspp_2", .id = SSPP_VIG2,
++		.base = 0x8000, .len = 0x344,
++		.features = VIG_SDM845_MASK_SDMA,
++		.sblk = &dpu_vig_sblk_qseed3_3_4,
++		.xin_id = 8,
++		.type = SSPP_TYPE_VIG,
++	}, {
++		.name = "sspp_3", .id = SSPP_VIG3,
++		.base = 0xa000, .len = 0x344,
++		.features = VIG_SDM845_MASK_SDMA,
++		.sblk = &dpu_vig_sblk_qseed3_3_4,
++		.xin_id = 12,
++		.type = SSPP_TYPE_VIG,
++	}, {
++		.name = "sspp_8", .id = SSPP_DMA0,
++		.base = 0x24000, .len = 0x344,
++		.features = DMA_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 1,
++		.type = SSPP_TYPE_DMA,
++	}, {
++		.name = "sspp_9", .id = SSPP_DMA1,
++		.base = 0x26000, .len = 0x344,
++		.features = DMA_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 5,
++		.type = SSPP_TYPE_DMA,
++	}, {
++		.name = "sspp_10", .id = SSPP_DMA2,
++		.base = 0x28000, .len = 0x344,
++		.features = DMA_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 9,
++		.type = SSPP_TYPE_DMA,
++	}, {
++		.name = "sspp_11", .id = SSPP_DMA3,
++		.base = 0x2a000, .len = 0x344,
++		.features = DMA_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 13,
++		.type = SSPP_TYPE_DMA,
++	}, {
++		.name = "sspp_12", .id = SSPP_DMA4,
++		.base = 0x2c000, .len = 0x344,
++		.features = DMA_CURSOR_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 14,
++		.type = SSPP_TYPE_DMA,
++	}, {
++		.name = "sspp_13", .id = SSPP_DMA5,
++		.base = 0x2e000, .len = 0x344,
++		.features = DMA_CURSOR_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 15,
++		.type = SSPP_TYPE_DMA,
++	},
++};
++
++static const struct dpu_lm_cfg nord_lm[] = {
++	{
++		.name = "lm_0", .id = LM_0,
++		.base = 0x44000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_1,
++		.pingpong = PINGPONG_0,
++		.dspp = DSPP_0,
++	}, {
++		.name = "lm_1", .id = LM_1,
++		.base = 0x45000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_0,
++		.pingpong = PINGPONG_1,
++		.dspp = DSPP_1,
++	}, {
++		.name = "lm_2", .id = LM_2,
++		.base = 0x46000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_3,
++		.pingpong = PINGPONG_2,
++		.dspp = DSPP_2,
++	}, {
++		.name = "lm_3", .id = LM_3,
++		.base = 0x47000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_2,
++		.pingpong = PINGPONG_3,
++		.dspp = DSPP_3,
++	}, {
++		.name = "lm_4", .id = LM_4,
++		.base = 0x48000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_5,
++		.pingpong = PINGPONG_4,
++		.dspp = DSPP_4,
++	}, {
++		.name = "lm_5", .id = LM_5,
++		.base = 0x49000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_4,
++		.pingpong = PINGPONG_5,
++		.dspp = DSPP_5,
++	}, {
++		.name = "lm_6", .id = LM_6,
++		.base = 0x4a000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_7,
++		.pingpong = PINGPONG_6,
++		.dspp = DSPP_6,
++	}, {
++		.name = "lm_7", .id = LM_7,
++		.base = 0x4b000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_6,
++		.pingpong = PINGPONG_7,
++		.dspp = DSPP_7,
++	},
++};
++
++static const struct dpu_dspp_cfg nord_dspp[] = {
++	{
++		.name = "dspp_0", .id = DSPP_0,
++		.base = 0x54000, .len = 0x1800,
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_1", .id = DSPP_1,
++		.base = 0x56000, .len = 0x1800,
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_2", .id = DSPP_2,
++		.base = 0x58000, .len = 0x1800,
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_3", .id = DSPP_3,
++		.base = 0x5a000, .len = 0x1800,
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_4", .id = DSPP_4,
++		.base = 0x5c000, .len = 0x1800,
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_5", .id = DSPP_5,
++		.base = 0x5e000, .len = 0x1800,
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_6", .id = DSPP_6,
++		.base = 0x60000, .len = 0x1800,
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_7", .id = DSPP_7,
++		.base = 0x62000, .len = 0x1800,
++		.sblk = &sm8750_dspp_sblk,
++	},
++};
++
++static const struct dpu_pingpong_cfg nord_pp[] = {
++	{
++		.name = "pingpong_0", .id = PINGPONG_0,
++		.base = 0x69000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_0,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
++	}, {
++		.name = "pingpong_1", .id = PINGPONG_1,
++		.base = 0x6a000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_0,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
++	}, {
++		.name = "pingpong_2", .id = PINGPONG_2,
++		.base = 0x6b000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_1,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
++	}, {
++		.name = "pingpong_3", .id = PINGPONG_3,
++		.base = 0x6c000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_1,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
++	}, {
++		.name = "pingpong_4", .id = PINGPONG_4,
++		.base = 0x6d000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_2,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
++	}, {
++		.name = "pingpong_5", .id = PINGPONG_5,
++		.base = 0x6e000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_2,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31),
++	}, {
++		.name = "pingpong_6", .id = PINGPONG_6,
++		.base = 0x6f000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_3,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 20),
++	}, {
++		.name = "pingpong_7", .id = PINGPONG_7,
++		.base = 0x70000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_3,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 21),
++	}, {
++		.name = "pingpong_cwb_0", .id = PINGPONG_CWB_0,
++		.base = 0x66000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_4,
++	}, {
++		.name = "pingpong_cwb_1", .id = PINGPONG_CWB_1,
++		.base = 0x66400, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_4,
++	}, {
++		.name = "pingpong_cwb_2", .id = PINGPONG_CWB_2,
++		.base = 0x7e000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_5,
++	}, {
++		.name = "pingpong_cwb_3", .id = PINGPONG_CWB_3,
++		.base = 0x7e400, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_5,
++	},
++};
++
++static const struct dpu_merge_3d_cfg nord_merge_3d[] = {
++	{
++		.name = "merge_3d_0", .id = MERGE_3D_0,
++		.base = 0x4e000, .len = 0x1c,
++	}, {
++		.name = "merge_3d_1", .id = MERGE_3D_1,
++		.base = 0x4f000, .len = 0x1c,
++	}, {
++		.name = "merge_3d_2", .id = MERGE_3D_2,
++		.base = 0x50000, .len = 0x1c,
++	}, {
++		.name = "merge_3d_3", .id = MERGE_3D_3,
++		.base = 0x51000, .len = 0x1c,
++	}, {
++		.name = "merge_3d_4", .id = MERGE_3D_4,
++		.base = 0x66700, .len = 0x1c,
++	}, {
++		.name = "merge_3d_5", .id = MERGE_3D_5,
++		.base = 0x7e700, .len = 0x1c,
++	},
++};
++
++static const struct dpu_dsc_cfg nord_dsc[] = {
++	{
++		.name = "dce_0_0", .id = DSC_0,
++		.base = 0x80000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_0,
++	}, {
++		.name = "dce_0_1", .id = DSC_1,
++		.base = 0x80000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_1,
++	}, {
++		.name = "dce_1_0", .id = DSC_2,
++		.base = 0x81000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_0,
++	}, {
++		.name = "dce_1_1", .id = DSC_3,
++		.base = 0x81000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_1,
++	}, {
++		.name = "dce_2_0", .id = DSC_4,
++		.base = 0x82000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_0,
++	}, {
++		.name = "dce_2_1", .id = DSC_5,
++		.base = 0x82000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_1,
++	}, {
++		.name = "dce_3_0", .id = DSC_6,
++		.base = 0x83000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_0,
++	}, {
++		.name = "dce_3_1", .id = DSC_7,
++		.base = 0x83000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_1,
++	},
++};
++
++static const struct dpu_wb_cfg nord_wb[] = {
++	{
++		.name = "wb_1", .id = WB_1,
++		.base = 0x64800, .len = 0x2c8,
++		.features = WB_SDM845_MASK,
++		.format_list = wb2_formats_rgb_yuv,
++		.num_formats = ARRAY_SIZE(wb2_formats_rgb_yuv),
++		.xin_id = 7,
++		.maxlinewidth = 4096,
++		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 3),
++	}, {
++		.name = "wb_2", .id = WB_2,
++		.base = 0x65000, .len = 0x2c8,
++		.features = WB_SDM845_MASK,
++		.format_list = wb2_formats_rgb_yuv,
++		.num_formats = ARRAY_SIZE(wb2_formats_rgb_yuv),
++		.xin_id = 6,
++		.maxlinewidth = 4096,
++		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
++	},
++};
++
++static const struct dpu_cwb_cfg nord_cwb[] = {
++	{
++		.name = "cwb_0", .id = CWB_0,
++		.base = 0x66200, .len = 0x20,
++	},
++	{
++		.name = "cwb_1", .id = CWB_1,
++		.base = 0x66600, .len = 0x20,
++	},
++	{
++		.name = "cwb_2", .id = CWB_2,
++		.base = 0x7e200, .len = 0x20,
++	},
++	{
++		.name = "cwb_3", .id = CWB_3,
++		.base = 0x7e600, .len = 0x20,
++	},
++};
++
++static const struct dpu_intf_cfg nord_intf[] = {
++	{
++		.name = "intf_0", .id = INTF_0,
++		.base = 0x34000, .len = 0x4bc,
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_0,
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25),
++	}, {
++		.name = "intf_3", .id = INTF_3,
++		.base = 0x37000, .len = 0x4bc,
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_0,
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31),
++	}, {
++		.name = "intf_4", .id = INTF_4,
++		.base = 0x38000, .len = 0x4bc,
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_1,
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 20),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 21),
++	}, {
++		.name = "intf_6", .id = INTF_6,
++		.base = 0x3a000, .len = 0x4bc,
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_0,
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 22),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 23),
++	}, {
++		.name = "intf_7", .id = INTF_7,
++		.base = 0x3b000, .len = 0x4bc,
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_0,
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 0),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 1),
++	}, {
++		.name = "intf_8", .id = INTF_8,
++		.base = 0x3c000, .len = 0x4bc,
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_1,
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 2),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 3),
++	}, {
++		.name = "intf_9", .id = INTF_9,
++		.base = 0x3d000, .len = 0x4bc,
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_1,
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 4),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 5),
++	}, {
++		.name = "intf_10", .id = INTF_10,
++		.base = 0x3e000, .len = 0x4bc,
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_1,
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 6),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 7),
++	},
++};
++
++static const struct dpu_perf_cfg nord_perf_data = {
++	.max_bw_low = 18900000,
++	.max_bw_high = 28500000,
++	.min_core_ib = 2500000,
++	.min_llcc_ib = 0,
++	.min_dram_ib = 800000,
++	.min_prefill_lines = 35,
++	.danger_lut_tbl = {0x3ffff, 0x3ffff, 0x0},
++	.safe_lut_tbl = {0xfe00, 0xfe00, 0xffff},
++	.qos_lut_tbl = {
++		{.nentry = ARRAY_SIZE(sc7180_qos_linear),
++		.entries = sc7180_qos_linear
++		},
++		{.nentry = ARRAY_SIZE(sc7180_qos_macrotile),
++		.entries = sc7180_qos_macrotile
++		},
++		{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
++		.entries = sc7180_qos_nrt
++		},
++	},
++	.cdp_cfg = {
++		{.rd_enable = 1, .wr_enable = 1},
++		{.rd_enable = 1, .wr_enable = 0}
++	},
++	.clk_inefficiency_factor = 105,
++	.bw_inefficiency_factor = 120,
++};
++
++static const struct dpu_mdss_version nord_mdss_ver = {
++	.core_major_ver = 12,
++	.core_minor_ver = 1,
++};
++
++const struct dpu_mdss_cfg dpu_nord_cfg = {
++	.mdss_ver = &nord_mdss_ver,
++	.caps = &nord_dpu_caps,
++	.mdp = &nord_mdp,
++	.cdm = &dpu_cdm_5_x,
++	.ctl_count = ARRAY_SIZE(nord_ctl),
++	.ctl = nord_ctl,
++	.sspp_count = ARRAY_SIZE(nord_sspp),
++	.sspp = nord_sspp,
++	.mixer_count = ARRAY_SIZE(nord_lm),
++	.mixer = nord_lm,
++	.dspp_count = ARRAY_SIZE(nord_dspp),
++	.dspp = nord_dspp,
++	.pingpong_count = ARRAY_SIZE(nord_pp),
++	.pingpong = nord_pp,
++	.dsc_count = ARRAY_SIZE(nord_dsc),
++	.dsc = nord_dsc,
++	.merge_3d_count = ARRAY_SIZE(nord_merge_3d),
++	.merge_3d = nord_merge_3d,
++	.wb_count = ARRAY_SIZE(nord_wb),
++	.wb = nord_wb,
++	.cwb_count = ARRAY_SIZE(nord_cwb),
++	.cwb = nord_cwb,
++	.intf_count = ARRAY_SIZE(nord_intf),
++	.intf = nord_intf,
++	.vbif = &sm8650_vbif,
++	.perf = &nord_perf_data,
++};
++
++#endif
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 9a993cdfab85..63f3029d09fa 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -796,6 +796,7 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
+ #include "catalog/dpu_10_2_milos.h"
+ 
+ #include "catalog/dpu_12_0_sm8750.h"
++#include "catalog/dpu_12_1_nord.h"
+ #include "catalog/dpu_12_2_glymur.h"
+ #include "catalog/dpu_12_4_eliza.h"
+ #include "catalog/dpu_13_0_kaanapali.h"
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index f45faf87333e..bfbc8207ad9a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -772,6 +772,7 @@ extern const struct dpu_mdss_cfg dpu_msm8937_cfg;
+ extern const struct dpu_mdss_cfg dpu_msm8953_cfg;
+ extern const struct dpu_mdss_cfg dpu_msm8996_cfg;
+ extern const struct dpu_mdss_cfg dpu_msm8998_cfg;
++extern const struct dpu_mdss_cfg dpu_nord_cfg;
+ extern const struct dpu_mdss_cfg dpu_sar2130p_cfg;
+ extern const struct dpu_mdss_cfg dpu_sdm630_cfg;
+ extern const struct dpu_mdss_cfg dpu_sdm660_cfg;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index da3556eb6ecc..a91d4a1af94e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1489,6 +1489,7 @@ static const struct of_device_id dpu_dt_match[] = {
+ 	{ .compatible = "qcom,msm8953-mdp5", .data = &dpu_msm8953_cfg, },
+ 	{ .compatible = "qcom,msm8996-mdp5", .data = &dpu_msm8996_cfg, },
+ 	{ .compatible = "qcom,msm8998-dpu", .data = &dpu_msm8998_cfg, },
++	{ .compatible = "qcom,nord-dpu", .data = &dpu_nord_cfg, },
+ 	{ .compatible = "qcom,qcm2290-dpu", .data = &dpu_qcm2290_cfg, },
+ 	{ .compatible = "qcom,sa8775p-dpu", .data = &dpu_sa8775p_cfg, },
+ 	{ .compatible = "qcom,sar2130p-dpu", .data = &dpu_sar2130p_cfg, },
 
 -- 
 2.34.1
