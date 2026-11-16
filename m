@@ -1,67 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821770;
-	b=DFZd5Ow40hsksk660+rkQ7jq02IsgljbMQ2r0ewgD2V/ABKvxy5KLdNfSDpgbB72MLvo
-	 14QZsuVlHk8Av6uKhz2rd6740derq3GoHsRdhgK8hc7tYL3qGLQFkPM2GqZJV/vc8kN5h
-	 IQisgTV5zHp1foyV2ftTNg/+kh5DLkR56ZyrGDwD8fUgqXcr7y94MEUyzbkUPMObbHx0+
-	 itRcKxamzN7+si19qBsu97SM+JdNkKirBAMUOAH4dQ0ATW7vtW/gizHaK9gTiZ/F9hNri
-	 4MDVj9kN8LZRHQABBDFQ9aJJxAyj0MnY3Cm6PtT6VlVAT46IH5mC0e+39WaBZ1VkKfg==
+	t=1794822215;
+	b=U5UCeraD7epH43GDSwQDi0Td6mnSeHagkoPseO42A7f5/hcmVBDQbeHzWoyO0QqCkcLg
+	 dpusWlY4znwmroH6t0Yrb5t0g3IvcukUCDD2/u1Oy3yDtd1V3E7ESBAPp6KHC6kd4GoKb
+	 9O+shaCf954vULRvFeq5TVufF/cPdM5iCvU9RnWIU4ms0jweLvHsaRRO/6oDaQDk61k84
+	 Aolohhrp87puJxNtJe67d/HN62HDQV+Bx0sM/ghUApT1fK9kzgfyAFTXmlPVl4CS8eCbz
+	 3cy+51l8+gFbwT54BxHqQVgOxKNHK0oK/ZtTkZ0KwM/1BtKfni6PZc3J8wh6JDlm3jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821770;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822215;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-ID:Subject:CC:
-	 From:To:X-Mailer:References:In-Reply-To;
-	bh=XGWDzPmrRFtYz0Rk+jLBbKfebGbe0QpqmWhn6I7BZ+E=;
-	b=Bd9StPuN3GZ1UcKTRDB5uz6DSA7BWLxLwZnqOcalHW39oX/6h0LqJaoaRxwNf526lm5b
-	 PUNjIg3ZSnwI7/QKyGdPOZRklpUKGAIfhzeH2Y070W9eYdeVWxtQqW28c1pY38OXXGaCh
-	 RO08TS80IPCPcAJJ9owEC02aeVS25tiF45KgKqDhhznYhv/9XM9F6l+5uhkxtqRg8YpfE
-	 Z/hv/NNUm/i5+ShTvd3n1eL+lsvfxzcgZblgQaV8szJOvAbQAWefx1cFq+0uw36N2yV3F
-	 KTzyTiUxfon8Gq6G1SAY0f6grmEKv5aK8bppGOmqbU3O4I1hWS+D8EeoUQJYZCHtg0A==
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=r1AFOpbsqxX3uo9toBA+mdQLGQJc8KzZTyPjj6RARv8=;
+	b=MzIBoCI8avURNs1tUnkMUXtVQs2I+ydOsa3heXiFW/xAvwXG2WphTNEkwv+GOiUCpdOy
+	 atCZYrQYOmIrjYHz5G6e52LjBa8mAbbWRWqekQyC7enFYp4a4WngJxz8pI/0E3I4oOS0K
+	 eGSWGKbFNr4ikixMbtix05L2TMwWyNqRIfL/b6TLOqy/EElscoal999ayOQ2XTojuYofi
+	 9swLbL/QlWgtSeQ141isjA4/t5KSRJpd1cRDpgtwqiy/gGAbASjNDSbgRAQItMbm6R8Xm
+	 4KvcDDUy4UJT5BZ8VWkXx1A3eMPX9VLbqSnOGcF49AwRpbq5ADdIpYQ00mtTZsxD+lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=iWXC4Zyt;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="b/tck9XR";
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A8F606A31C;
-	Mon, 16 Nov 2026 09:36:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6A8F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042A0606A32C;
+	Mon, 16 Nov 2026 09:43:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 042A0606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=iWXC4Zyt
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b/tck9XR
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794821769; x=1826357769;
-  h=mime-version:content-transfer-encoding:date:message-id:
-   subject:cc:from:to:references:in-reply-to;
-  bh=+O30TlIoCYNymfrKAG+gBXYSd1V7nuvDSHuPho77g00=;
-  b=iWXC4ZytP0AdMfcrBEbovjZn6mTDMIkF2ww0qAJYrtyUKirb1sx7vS/C
-   gCm+FaulKG1hFyK7+9Na2tAprZGaoty/Ago7G1cFqiHsTTl6mQ/Cg8hk3
-   SD7RUVyByLjDG7nmlu4kYKYLu0EWuYI+e+0reOiU5EnGWIicYw2RmqbQw
-   DIgA+1vV56hL7X8k9B8vzprIXx8wWrdy+E451TLZ4kdvjAuRIU0olcIbU
-   +fmoKs9511ek44mMwc1gnIMQNoQ6uBPylVHYJGmKUxrq6YQ7ye5TxD66E
-   XfOoyzCv+LY0orBMsCyNXSuuldFyiJy0Ee2abBj1bKI/elXxolEW4I61U
-   w==;
-X-CSE-ConnectionGUID: Xh9x2pdoSCeGQIeWx8L6Pw==
-X-CSE-MsgGUID: Rjqhjs9zQl+frN/VW3jdsg==
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794822214; x=1826358214;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZLXdMjZSdnPw4vZYqATM3k2jfuyeh2FfD2QSdsLjbkc=;
+  b=b/tck9XR27OfdXzCxEHBaTiVpnwBMZLjZmGw0GwAchwsdfLAz8+kcIpg
+   XayfDdK4jLxqnjp3tChVFDRnEd3vDntqN+p/Z4mpW09G2NsATZqWdSNwp
+   Wp3ZU9DnDsggT8JpgbpncVtlWR+JPspm42UPtaEEgrNJkFNFSpPI8Ig54
+   bxWeJoPcYNAlcfgLOSjwsnQUdYSh+LQvxcMGxPr9OdvbAj722uM+oNtZb
+   R2KejArcjC6PFqAGAIysHGxPTI1wRvmkywSeUwwAOcSulguOaM/WVZcF+
+   MCIRS+vZZqJ0tfcZamM49ib2I0RaRPiQWdqCMNZwDWx+b7DB9uDK04jcW
+   g==;
+X-CSE-ConnectionGUID: RlvhuL14T52TVU9Z6V9rYw==
+X-CSE-MsgGUID: hu6D5KkfQliTjlgXhpG5Tw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3444682"
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="77267494"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:36:02 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Mon, 16 Nov 2026 02:36:01 -0700
-Received: from localhost (10.10.85.11) by chn-vm-ex01.mchp-main.com
- (10.10.85.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Mon, 16 Nov 2026 02:36:01 -0700
+   d="scan'208";a="3444682"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:43:15 -0800
+X-CSE-ConnectionGUID: OSRgF9FqSTCaD1fLpmkP0w==
+X-CSE-MsgGUID: N1z6ttoJQAqeqqk9GVw/7w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9644707"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:43:11 -0800
+Date: Mon, 16 Nov 2026 11:43:09 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: admin@tsv-stahl-riesa.de
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Kevin Tsai <ktsai@capellamicro.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: light: Add Capella CM3217 ambient light
+ sensor driver
+Message-ID: <avrQLQyTPODd4gcZ@ashevche-desk.local>
+References: <20261113-upstream-iio-cm3217-v3-0-c4d5b2485dff@tsv-stahl-riesa.de>
+ <20261113-upstream-iio-cm3217-v3-2-c4d5b2485dff@tsv-stahl-riesa.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,320 +88,167 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 16 Nov 2026 10:35:59 +0100
-Message-ID: <DMWJ7PNJ7PLP.3A0E5USGLOV59@microchip.com>
-Subject: Re: [PATCH net-next v17 4/4] net: dsa: lan9645x: add basic dsa
- driver for LAN9645X
-CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
-	<davem@davemloft.net>, <kuba@kernel.org>, <pabeni@redhat.com>,
-	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
-	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
-	<geert+renesas@glider.be>, <magnus.damm@gmail.com>, <edumazet@kernel.org>,
-	<richardcochran@gmail.com>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-renesas-soc@vger.kernel.org>
-From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
-	<jensemil.schulzostergaard@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>, <jensemil.schulzostergaard@microchip.com>
-X-Mailer: aerc 0.21.0
-References: <20261111-dsa_lan9645x_switch_driver_base-v17-4-83a471c5bddb@microchip.com> <179476095835.2199510.1283236817441472762@kernel.org>
-In-Reply-To: <179476095835.2199510.1283236817441472762@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-upstream-iio-cm3217-v3-2-c4d5b2485dff@tsv-stahl-riesa.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun Nov 15, 2026 at 5:42 PM CET, netdev-bot+sashiko wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 3
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] The driver never explicitly initializes the analyzer MAC table
->   or VLAN table.
-> - [Low] Several comments and register writes in this patch describe
->   features the driver does not have.
-> - [Low] In lan9645x_phylink_mac_link_up() (lan9645x_phylink.c), the
->   comment above the DEV_CLOCK_CFG write gives the=E2=80=A6
-> - [Low] For the NPI port, lan9645x_port_set_maxlen() (lan9645x_port.c)
->   adds both LAN9645X_IFH_LEN_BYTES (28) and LAN9645X_LONG_PREFIX_LEN=E2=
-=80=A6
->
-> --
->
-> net: dsa: lan9645x: add basic dsa driver for LAN9645X
->
-> This adds a basic DSA driver for the Microchip LAN9645x switch. The drive=
-r
-> gets named regmaps from a parent device. All ports run as standalone port=
-s,
-> with phylink integration for the internal CuPHYs on ports 0-4 and RGMII o=
-n
-> ports 7-8. SerDes modes are left for follow-up patches.
->
->> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/driver=
-s/net/dsa/microchip/lan9645x/lan9645x_main.c
->> new file mode 100644
->> index 0000000000000..0eee05034458b
->> --- /dev/null
->> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
->> @@ -0,0 +1,464 @@
->
-> [ ... ]
->
->> +static int lan9645x_reset_switch(struct lan9645x *lan9645x)
->> +{
->> +	u32 rst_cfg, val =3D 0;
->> +	int err;
->> +
->> +	/* The parent must reset the whole chip before instantiating its
->> +	 * children, so the switch core is disabled when we get here. The
->> +	 * sequence below must not run more than once: initializing the
->> +	 * memories on a running core corrupts pointers inside the queue
->> +	 * system, which eventually fills up and stops passing traffic. If the
->> +	 * core is already enabled the chip was not reset, so skip it.
->> +	 */
->> +	err =3D regmap_read(lan_rmap(lan9645x, SYS_RESET_CFG),
->> +			  lan_rel_addr(SYS_RESET_CFG), &rst_cfg);
->> +	if (err)
->> +		return err;
->> +
->> +	if (SYS_RESET_CFG_CORE_ENA_GET(rst_cfg))
->> +		return 0;
->
-> [Severity: Medium]
->
-> If CORE_ENA is already set, this returns before SYS_RAM_INIT. That is the
-> only memory or table initialization in the driver. On this path, is anyth=
-ing
-> clearing the analyzer MAC table and the VLAN table?
->
-> ANA_MACACCESS and ANA_VLANACCESS are defined in lan9645x_regs.h, but no
-> driver file uses them. lan966x runs the same RAM_INIT sequence and then
-> issues MACACCESS_CMD_INIT (lan966x_mac.c) and VLANACCESS_CMD_INIT
-> (lan966x_vlan.c) as separate steps.
->
-> This path can be reached after kexec, because lan9645x_shutdown() only
-> calls dsa_switch_shutdown() and leaves the core enabled with the tables
-> populated. It can also be reached with a bootloader that leaves the switc=
-h
-> running.
->
-> The driver depends on flooding to deliver host traffic: learning is
-> disabled, PGID_SRC + p is 0, and PGID_UC/MC/BC include the CPU port
-> module. Suppose the analyzer behaves like ocelot and lan966x, and a stale
-> unicast entry points at another front port. Would DEST resolve to that
-> port, PGID_SRC then mask it to nothing, and the frame be dropped before
-> the CPU sees it?
->
-> Dynamic entries would age out through ANA_AUTOAGE after about 300 seconds=
-.
-> Static entries would never age out.
->
-> lan9645x_setup() also sets ANA_PGID_CFG.OBEY_VLAN on every destination
-> PGID. Does the CPU copy then depend on inherited VLAN table contents, suc=
-h
-> as VLAN_PGID_CPU_DIS, that the driver never programs?
->
+On Fri, Nov 13, 2026 at 08:59:00PM +0100, Patrick Fischer via B4 Relay wrote:
 
-This is a false positive. These patches only support standalone ports.
-Nothing writes the MAC table or the VLAN table. Learning is disabled and
-there are no FDB, MDB or VLAN operations. VLAN_PGID_CPU_DIS has the
-correct value out of reset.
+> The CM3217 has no registers and no ID. Writing a byte to address 0x10
+> or 0x11 sets command byte 1 or 2, reading a byte from 0x10 or 0x11
+> returns the high or low byte of the 16-bit light count. The driver
+> takes the second address from the second reg entry and falls back to
+> 0x11 when there is no firmware node, as with new_device.
+> 
+> Command byte 1 holds the shutdown bit and the IT_T field (1/2 T, 1 T,
+> 2 T or 4 T), command byte 2 the FD_IT field (800 ms down to 66 ms). The
+> count scales linearly with both. The driver exposes FD_IT as the
+> integration time and IT_T through the scale, so the scale list offers
+> four ranges for each integration time.
+> 
+> The datasheet is not public. The bit fields, the reserved bits that are
+> written as 1 and the startup setting of 2 T and 100 ms come from NVIDIA's
+> downstream drivers (drivers/staging/iio/light/cm3217.c in the 3.4 kernel
+> rel-tegranote-r8 and the 3.10 kernel
+> android-tegra-flounder-3.10-nougat-mr1.1). One value differs: the vendor
+> header defines 4 T as 4 << 2, which is outside the two-bit field. On a
+> Tegra Note 7 field value 3 gave four times the 1 T count, so the driver
+> uses that. For the resolution, Capella
+> gives a range of 0.01875 to 119156 lux. The driver takes 0.01875 lux
+> per count at 4 T and 800 ms. This matches both the upper end (65535
+> counts at 1/2 T and 66 ms) and the 0.3 lux per count that the NVIDIA
+> 3.4 driver uses at 2 T and 100 ms.
+> 
+> The sensor has no data-ready flag, and a new setting only takes effect
+> when the conversion in progress ends. A conversion takes IT_T times
+> FD_IT, up to 3.2 s. Leaving shutdown starts a new one at once, so the
+> driver passes through shutdown on every change and waits one conversion
+> period plus a margin before it reads the count. The timing was measured
+> on a Tegra Note 7.
 
-The later patches that use the tables will initialize them in
-lan9645x_setup(), whether or not the core was reset.
+There are a few nit-picks below. But in general looks very good.
 
-> [ ... ]
->
->> +static int lan9645x_setup(struct dsa_switch *ds)
->> +{
->
-> [ ... ]
->
->> +	/* Link Aggregation Mode: NETDEV_LAG_HASH_L2 */
->> +	lan_wr(ANA_AGGR_CFG_AC_SMAC_ENA |
->> +	       ANA_AGGR_CFG_AC_DMAC_ENA,
->> +	       lan9645x, ANA_AGGR_CFG);
->
-> [ ... ]
->
->> +	/* Disable learning for frames discarded by VLAN ingress filtering */
->> +	lan_rmw(ANA_ADVLEARN_VLAN_CHK_SET(1),
->> +		ANA_ADVLEARN_VLAN_CHK,
->> +		lan9645x, ANA_ADVLEARN);
->
-> [ ... ]
->
->> +	/* Setup flooding PGIDs for IPv4/IPv6 multicast. Control and dataplane
->> +	 * use the same masks. Control frames are redirected to CPU, and
->> +	 * the network stack is responsible for forwarding these.
->> +	 * The dataplane is forwarding according to the offloaded MDB entries.
->> +	 */
->
-> [Severity: Low]
->
-> This isn't a bug, but this comment says control frames are redirected to
-> the CPU and the dataplane forwards according to offloaded MDB entries. Do=
-es
-> the driver set up either of these in this patch?
->
-> Nothing sets ANA_CPU_FWD_CFG_IGMP_REDIR_ENA or
-> ANA_CPU_FWD_CFG_MLD_REDIR_ENA. lan9645x_switch_ops also has no port_mdb_a=
-dd
-> or port_mdb_del.
->
-> Some other writes look left over from functionality the v16 changelog
-> says was dropped:
->
->   - The ANA_AGGR_CFG write under "Link Aggregation Mode:
->     NETDEV_LAG_HASH_L2". There are no LAG ops.
->
->   - The ANA_ADVLEARN VLAN_CHK write. lan9645x_port_setup() disables
->     learning on every port with ANA_PORT_CFG_LEARN_ENA_SET(0).
->
->   - ANA_PGID(PGID_CPU) in lan9645x_port_cpu_init(). It is written once an=
-d
->     never used as a destination.
->
-> The comment in include/linux/dsa/lan9645x.h, added by the tag driver patc=
-h
-> earlier in this series, has the same mismatch:
->
->   /* Chip has 8 cpu queues. The cpu queues used by a frame are passed as =
-a mask in
->    * the IFH on extraction. We use this to avoid classifying BPDU, IGMP a=
-nd MLD
->    * frames in the tag driver.
->    */
->
-> The switch driver only programs LAN9645X_CPUQ_TRAP, for BPDUs through
-> ANA_CPUQ_8021_CFG. LAN9645X_CPUQ_COPY and the IGMP/MLD queues in
-> ANA_CPUQ_CFG are never configured.
->
-> Could these comments and writes be dropped or changed to match what the
-> driver does now?
->
-> [ ... ]
->
->> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c b/dri=
-vers/net/dsa/microchip/lan9645x/lan9645x_phylink.c
->> new file mode 100644
->> index 0000000000000..7ca4a67d154e9
->> --- /dev/null
->> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c
->> @@ -0,0 +1,315 @@
->
-> [ ... ]
->
->> +static void lan9645x_phylink_mac_link_up(struct phylink_config *config,
->> +					 struct phy_device *phydev,
->> +					 unsigned int link_an_mode,
->> +					 phy_interface_t interface, int speed,
->> +					 int duplex, bool tx_pause,
->> +					 bool rx_pause)
->> +{
->
-> [ ... ]
->
->> +	fc_spd =3D lan9645x_speed_fc_enc(gspeed);
->
-> [ ... ]
->
->> +	/* Take out the clock from reset. Note this write will set all these
->> +	 * fields to zero:
->
-> [ ... ]
->
->> +	 * This linkspeed field has a slightly different encoding from others:
->> +	 *
->> +	 * - 0 is no-link
->> +	 * - 1 is both 2500/1000
->> +	 * - 2 is 100mbit
->> +	 * - 3 is 10mbit
->> +	 *
->> +	 */
->> +	lan_wr(DEV_CLOCK_CFG_LINK_SPEED_SET(fc_spd),
->> +	       lan9645x,
->> +	       DEV_CLOCK_CFG(p->chip_port));
->
-> [Severity: Low]
->
-> fc_spd comes from lan9645x_speed_fc_enc(). That helper is documented as
-> the PFC_CFG.FC_LINK_SPEED encoding, and it maps 2500 to 0:
->
-> lan9645x_main.h:lan9645x_speed_fc_enc() {
-> 	...
-> 	case LAN9645X_SPEED_2500:
-> 		return 0;
-> 	...
-> }
->
-> The comment just above says this field uses a different encoding, where
-> 0 means no-link. Should DEV_CLOCK_CFG.LINK_SPEED have its own encoding
-> instead of reusing fc_spd?
->
-> For 10/100/1000 the two encodings agree. SPEED_2500 cannot reach this cod=
-e
-> today, because lan9645x_phylink_get_caps() does not advertise MAC_2500FD
-> and the speed switch returns early for anything else.
->
-> When 2500BASE-X support is added, would DEV_CLOCK_CFG be programmed as
-> no-link? For reference, lan966x uses one encoding for both registers, wit=
-h
-> 2500 mapped to 1.
->
-> [ ... ]
->
->> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c b/driver=
-s/net/dsa/microchip/lan9645x/lan9645x_port.c
->> new file mode 100644
->> index 0000000000000..4d2d922bacba6
->> --- /dev/null
->> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
->> @@ -0,0 +1,166 @@
->
-> [ ... ]
->
->> +/* VLAN tag overhead is handled by DEV_MAC_TAGS_CFG */
->> +int lan9645x_port_set_maxlen(struct lan9645x *lan9645x, int port, size_=
-t sdu)
->> +{
->> +	struct lan9645x_port *p =3D lan9645x_to_port(lan9645x, port);
->> +	int maxlen =3D sdu + ETH_HLEN + ETH_FCS_LEN;
->> +
->> +	if (port =3D=3D lan9645x->npi) {
->> +		maxlen +=3D LAN9645X_IFH_LEN_BYTES;
->> +		maxlen +=3D LAN9645X_LONG_PREFIX_LEN;
->> +	}
->
-> [Severity: Low]
->
-> Is LAN9645X_LONG_PREFIX_LEN needed here? lan9645x_npi_port_init()
-> configures injection with no prefix:
->
-> 	lan_rmw(SYS_PORT_MODE_INCL_XTR_HDR_SET(LAN9645X_TAG_PREFIX_LONG) |
-> 		SYS_PORT_MODE_INCL_INJ_HDR_SET(LAN9645X_TAG_PREFIX_NONE),
->
-> lan9645x_xmit() in the tag driver only pushes the 28-byte IFH. The long
-> prefix is only used on extraction.
->
-> ocelot_port_set_maxlen() sizes the NPI MAXLEN from the injection prefix
-> (npi_inj_prefix). If DEV_MAC_MAXLEN_CFG works the same way on this chip,
-> the NPI port accepts frames 16 bytes longer than needed. The pause
-> watermarks derived from 4 * maxlen and 6 * maxlen would also be slightly
-> larger than intended.
->
-> If MAXLEN here also limits frames sent with the extraction header, could =
-a
-> comment say why the extraction prefix is counted?
->
-> [ ... ]
+...
+
+> +static int cm3217_read_count(struct cm3217_data *data, int *val)
+> +	__must_hold(&data->lock)
+> +{
+> +	s64 wait_ms;
+> +	int lsb, msb;
+
+Reversed xmas tree order.
+
+> +	wait_ms = ktime_ms_delta(data->ready, ktime_get());
+> +	if (wait_ms > 0)
+> +		msleep(wait_ms);
+> +
+> +	lsb = i2c_smbus_read_byte(data->client_lsb);
+> +	if (lsb < 0)
+> +		return lsb;
+> +
+> +	msb = i2c_smbus_read_byte(data->client);
+> +	if (msb < 0)
+> +		return msb;
+> +
+> +	*val = msb << 8 | lsb;
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int cm3217_find_avail(const int (*avail)[2], unsigned int len,
+
+This parameter is weird as we don't use at_least or so. It might be that
+compiler can test it with the static const parameters supplied, but better
+not to rely on that.
+
+> +			     int val, int val2)
+> +{
+> +	for (unsigned int i = 0; i < len; i++) {
+> +		if (avail[i][0] == val && avail[i][1] == val2)
+> +			return i;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+
+With all complexity this gives, I would rather make one helper per each case.
+
+static int cm3217_find_scale_avail(unsigned int fd_it, int val, int val2)
+{
+	for (unsigned int i = 0; i < ARRAY_SIZE(cm3217_scale_avail[idx]); i++) {
+		if (cm3217_scale_avail[fd_it][i][0] == val &&
+		    cm3217_scale_avail[fd_it][i][1] == val2)
+			return i;
+	}
+
+	return -EINVAL;
+}
+
+> +static int cm3217_write_raw(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan,
+> +			    int val, int val2, long mask)
+> +{
+> +	struct cm3217_data *data = iio_priv(indio_dev);
+> +	unsigned int fd_it;
+> +	u8 cmd1, cmd2;
+> +	int i;
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+
+> +		fd_it = FIELD_GET(CM3217_CMD2_FD_IT, data->cmd2);
+> +		i = cm3217_find_avail(cm3217_scale_avail[fd_it],
+> +				      ARRAY_SIZE(cm3217_scale_avail[0]),
+> +				      val, val2);
+> +		if (i < 0)
+> +			return i;
+
+		fd_it = FIELD_GET(CM3217_CMD2_FD_IT, data->cmd2);
+		i = cm3217_find_scale_avail(fd_it, val, val2);
+		if (i < 0)
+			return i;
+
+> +		cmd1 = data->cmd1;
+> +		FIELD_MODIFY(CM3217_CMD1_IT_T, &cmd1, i);
+> +
+> +		return cm3217_write_cmd(data, cmd1, data->cmd2);
+> +	case IIO_CHAN_INFO_INT_TIME:
+> +		i = cm3217_find_avail(cm3217_int_time_avail,
+> +				      ARRAY_SIZE(cm3217_int_time_avail),
+> +				      val, val2);
+> +		if (i < 0)
+> +			return i;
+
+In the similar way here. I think it it even grown in LoC, it will be not too
+many,
+
+> +		cmd2 = FIELD_PREP(CM3217_CMD2_FD_IT, i);
+> +
+> +		return cm3217_write_cmd(data, data->cmd1, cmd2);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +	data->client_lsb = devm_i2c_new_dummy_device(dev, client->adapter,
+> +						     addr_lsb);
+
+I would make it one line.
+
+> +	if (IS_ERR(data->client_lsb))
+> +		return dev_err_probe(dev, PTR_ERR(data->client_lsb),
+> +				     "failed to register second address\n");
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
