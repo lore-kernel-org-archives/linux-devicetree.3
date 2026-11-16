@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830507;
-	b=Fg3+Q5lifBvNI38xrNhP3ygfsCTuucwHfp0fTRg1RiHW1NoquTBH/J86046T8a/xA4Eu
-	 rltIfVJhDfLSjQYf1lLjJpYdQ2PCjU4iMCY3nbCMBK147HCE+iCaut2l6nfIVDcZJy2M1
-	 LGjVLIJOwMiGdCsvFueQLp22a2wrUhqJ2gzsouEuWCCJ/a3fQ1Ppjt1EWdg608xq6iGwi
-	 BzfRis+Jn+vc7uJM/izgMv4xoSaWAMjwn+5WtHNS7tq4MU4+8cuZCyVXzzT9ZzG4uPEeX
-	 max5Cnli2/ObTJ+OHLNqkcHjASI0j3z/HCi6pkTyyp2GP80kdDErvB69BGbmcp2Xs4w==
+	t=1794830535;
+	b=Osf8KXDjNnB5+OGcAZO4gOvPgk1Ym61ChakdQagr5LmI75Dqmz9FXh9YvUkHqWcpXSFS
+	 z5lLxIy0NYsuFYXXfz6Ftl9Wm2MXsIJ6LQ7M9dx3MUqH/yG4p/XWdPrRbqmkLCCZJ2Jqc
+	 37yPsH1k5boBw4Q0nwvZq8AktIbBjgoEGqFPO+shx+k4+GuDsMjNj+gSRhHLRZFA2VBv1
+	 LO/CL3crNn+rGRFm6KdceiddJCe1OPEhGJ7Cg/K2SSgFaIY4KhxWEIGzF81Inp+T2/zJg
+	 smcBrJmkHxz2F72sI3k+iwXbifrq/GymB5zQwDLlc4PTrDwBBN0amlQpaSFuAOA2nuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830507;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qeFPCLy9FkRqwFrmv1PRC8oZpfkhe5BgMOQRIthVTYg=;
-	b=jgPx52OVInvBzAsoX5h1+FhiQzj9nR3bXlQAJtDLUAU4KD04a9685EkJAi0kF5wHb8n7
-	 0myJBVnG7J1H75/pIWWTtcMszVDqPbRuz42QQm0mK/ifSpNBVuoX22FfR8yH1ADHoOypX
-	 gRslDXTN2mf68hcJlR1vUIjzTj0eOhAj4ou6S3KuufLj9XoLxhbr4jh8kA0jNaQTRPbNr
-	 wXNR+WmDSfx6mKt0tmBmm2SnJIe1hNtIFq25XmpZ0gabbhsL1vXMi2T5c8xQQe0au2thu
-	 vKR5zGHqJ9qaEUOQznzHuSS8Q1wrLx1Cn+epub4G3SUrMQUzIGsQsgvvekY0iwcTZFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830535;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=SFdwpx+v1pyqeGum9kg7HRiy72iXwPjbsbDIR9DUzS4=;
+	b=HrvEfYT94dQHObYtlaYmJ/T0afZxQ7TpBZde4zk08T075o82+Zdsqu6hc7lsBYg6ws5Q
+	 ZcWOtxhxW+S7Ve+OiT8foAnLFSHpMrafgTkhbk79VFFxsIBYRG8AAefpNtXs5LlamX/SM
+	 R2pTM9We0Wt9uivYxgq2+05UlcgCumQwo5DjSaRyUp+Pkzv4br5a8ssg6kQLEtRk4d4f8
+	 nsx+pGcMimy1fsRKM2sp56qSTA1AVXpqE10lpj+9klA9Gf0+2lZZNLGRDbL8ku1mjR1VI
+	 SPUU18QWcdWmJss1RqNhTcJInNGBJ1JYnRqaFpfiXkUDDHuUqX6H/6cAqg1RkeGL7mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6t7bW8c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TY8dC7dl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4946E606A31C;
-	Mon, 16 Nov 2026 12:01:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9AAA606A329;
+	Mon, 16 Nov 2026 12:02:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6t7bW8c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104F11F000C5;
-	Mon, 16 Nov 2026 12:01:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TY8dC7dl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03DB71F000C4;
+	Mon, 16 Nov 2026 12:02:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794830506;
-	bh=qeFPCLy9FkRqwFrmv1PRC8oZpfkhe5BgMOQRIthVTYg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F6t7bW8c7r5RIcsepWJBIgP7SkeVG6VMdwcRRMjEKOH9EG9EwOkT8SSoQABLeHnwJ
-	 33qgxfwpjPkUDG61iTeiEZR1bQZ6jdgRHthOOT2j1WBIB+AQAIW+qwT+FlvwxI2YWw
-	 YYch3YSeTe5L8+4P+gzPh1l2Qdn3tPpZK9rIWotUVXHON8WWbbjcetSDBpg+z2c2gB
-	 eT6okVPwSw7drEJ2kLPIIvnv35S6JUnSX9oCTXGEPbICi4eRAwrZZRzK7VlMrq7+kv
-	 cakp32dzGBuHbVWv6CGe4e4CZyRmc/c5NEAR41Gw3INyFLTvxiI8ZAxGN8OhbAaQRU
-	 tUmj8WxBZN73g==
-Date: Mon, 16 Nov 2026 13:01:41 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mina Hui-Min Chou <minachou@andestech.com>
-Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, 
-	alex@ghiti.fr, conor@kernel.org, jic23@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be, 
-	magnus.damm@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, randolph@andestech.com, cyyang772@andestech.com, 
-	tim609@andestech.com, az70021@gmail.com
-Subject: Re: [PATCH v2 13/19] dt-bindings: cache: rename
- andestech,ax45mp-cache to andestech,llcache
-Message-ID: <20261116-victorious-mutant-grebe-aefaae@quoll>
-References: <20261113071143.1446167-1-minachou@andestech.com>
- <20261113071143.1446167-14-minachou@andestech.com>
+	s=k20260515; t=1794830535;
+	bh=SFdwpx+v1pyqeGum9kg7HRiy72iXwPjbsbDIR9DUzS4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TY8dC7dluQBXunFU/5WndixWS2DCSmnJBKBVOvYPb7cqaks8vtTEAsTtL7XZw5Vmm
+	 DupGwv7eZDc+X3OpIw8PF16breDJz3ioGpCZ9Yv+5vCHLpGukmlEA/h1uvXsVn8/z5
+	 oTWe3rn4udLmtEa+elYqogiXOccC4mc652+fKWQy8i8/D7DFtN6cTMJkDlDlIgVx9O
+	 xlJ/afKSf5fZ8IltSWnhOajG7BmnD7sRkKuCX23LNxFxe9VehZn+Q4qlCqY3KvQrw2
+	 zIvEEdp0I9uGnH6oT1s3MCI1IAjfnl7bmesjvgEVJHk2FdbwYQ5v1BN/70hefF55Ae
+	 Xdli2wwFyfqVQ==
+Message-ID: <sashiko-outbox-216974@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/5] dt-bindings: fsl: remove phyCORE-i.MX 8M Plus FPSC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yannic Moog" <y.moog@phytec.de>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261116-imx8mp-phyflex-v1-5-4adcf8b4d373@phytec.de>
+References: <20261116-imx8mp-phyflex-v1-0-4adcf8b4d373@phytec.de>
+ <20261116-imx8mp-phyflex-v1-5-4adcf8b4d373@phytec.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 12:02:14 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,20 +59,52 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261113071143.1446167-14-minachou@andestech.com>
 
-On Fri, Nov 13, 2026 at 03:11:37PM +0800, Mina Hui-Min Chou wrote:
-> The binding now covers Andes last level caches beyond AX45MP and uses
-> andestech,llcache as the generic compatible. Rename the file to match
-> it.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: fsl: redundant single-entry oneOf and yamllint
+  indent error
+--
 
-No, it doesn't. At least not in next. Anyway not reason to rename the
-file.
-> 
+commit f303b3d397f1c2b535993718e5b16c7dfc14c6a7
+Author: Yannic Moog <y.moog@phytec.de>
 
-Best regards,
-Krzysztof
+dt-bindings: fsl: remove phyCORE-i.MX 8M Plus FPSC
 
+This commit removes the compatible entries for the prototype
+phyCORE-i.MX 8M Plus FPSC SoM and its Libra RDK board from fsl.yaml.
+
+> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentati=
+on/devicetree/bindings/arm/fsl.yaml
+> index 2d21a1949d949..ae823a7670b02 100644
+> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
+> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+> @@ -1227,11 +1227,6 @@ properties:
+> =20
+>        - description: PHYTEC i.MX8MP FPSC based boards
+>          oneOf:
+> -          - items:
+> -            - enum:
+> -                - phytec,imx8mp-libra-rdk-fpsc  # i.MX 8M Plus Libra RDK
+> -            - const: phytec,imx8mp-phycore-fpsc # phyCORE-i.MX 8M Plus F=
+PSC
+> -            - const: fsl,imx8mp
+>            - items:
+>              - enum:
+>                  - phytec,imx8mp-phyflex-libra-rdk # phyFLEX-Libra i.MX 8=
+M Plus RDK
+
+[Severity: Low]
+Should the oneOf wrapper also be removed now that only a single items list
+remains under PHYTEC i.MX8MP FPSC based boards?
+
+In addition to leaving a single-entry oneOf, the remaining "- enum:" and
+"- const:" sequence entries are indented at the same column as "items:",
+which fails yamllint (indent-sequences: true in
+Documentation/devicetree/bindings/.yamllint) during make dt_binding_check.
+Dropping oneOf and placing items directly under description avoids both
+issues.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-imx8mp-phy=
+flex-v1-0-4adcf8b4d373@phytec.de?part=3D5
