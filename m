@@ -1,100 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794852657;
-	b=SbT4TG9tKqkKP4FVjQB6kJNnFzK5xQimFpFXgppP2PAHrXrk0XhNZpBfJWMZIpQmDNFk
-	 Dr0utz2NpmyqK8V/VSOUGvQnnIYxzacSGwMdLjEIMszMW/DcTzMQMCC5ovx+IzTZBKPY6
-	 ukGQ3/YRhxGtRgu+BPJdlZXUcV6DVZQMfV+R/JuBmXUcA0COauC6bIUxOW27hZ5mzT+Ba
-	 OLeWrMHH0BUyhzODnRLruXNZBczS9xzyZfEn+fhMWfkdghESFjn2T76GG6Y872XKctmqd
-	 g8xn8E55pA6ud778JKAttollWODwcX8v/ECZ682P9J67JqeIoNhHIKKYlJE0xz2hadg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794852657;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=EyOoLldgRLmAoMhpZj0u97Q7A7Xp363HqnTUmstKrFM=;
-	b=Bn7u8IJzXVeALgZaEZ4bg2O36c9K4bkIvbBo86jv4NZzWI+wU55jn4RvYhhPxpegAdSC
-	 ToBspw3MrOFmvxUiVEFHa/y7T/uWuuxNMZFBusAG6yO3j+7WcD0dZvuMiXU+lpXHgWugy
-	 8W9wDVokywuoylEli2IBrv6CZzez5Cy4LfzXwNPfJjOxgpMcfN6kZXPK85YU6X1DVMsOd
-	 H12afZNiGWVf9eLS6bGjbqbLwyN4Tor4gjSSshEdqx3+tXcfYL18gRSpKj1XZVMDuLruo
-	 9HRhs/oSpkuYXRdj0IvCl3UMXCzCj+t6EIgQxnsyTisNFssUXJRoKyv2nOlBYQE4EAQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CAWJE+r0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.174
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794852966;
+	b=lE/8/KXsHRmwVhskCMddowrfPyiVi5AScTM0VNTFWG9LP74ExIn002epZ6nWCvWeG1P2
+	 k/tS1p+D8Io7WfTmDqRT587CDkWwBTn5aumB4fYSBrwSopzu+33NMkeqOzP110ZI6Q79H
+	 7qk6qPMe35H1iAoiYuE7UJDXXJ1NmrVmNBfqIxgoeExnjPQULlPgF/v5giI9CHOmW3JXW
+	 5ViAfYE5Mvl7FvAr0YlaHz5r4SSCDRU9V+ZMbh4q+SO3mdV2u8bGGvwluOv8KUIBsn3+I
+	 7AMmCggNbEzBcfwgFLzUNgpTcg22+K1Ii/Uc8fuxYf21JbYqBa1HcFCwf7iJbRLy3Zg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794852966;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Pv6Z2msONZOMn5X5XcAinXRtg1l0bwQ6c+ZoL0wLzd8=;
+	b=YZBWQr34smuALVLV5DiKTvyFDeHHwE7yNxVqpAkQirmXomh+fdzX9621sACqwZscvuDU
+	 IM0w4ovUQOOz36ZFUaWHaFIg5mZ7z+GD2GD+xMTWlWqduERqf8sAISFYHZNXsvvWJ8hnl
+	 WrkzPbdr81cf+LdIVLBgXTNsJOc0kBlrBrR4EccMf28bEAAoTOR8nsEvNZVVCEUagZ3C4
+	 IpqSk0GcccVnNq1UuG3AFr1bMPmLPZ5gxegNBFB2Ahe9kDIuciluP1RvE9YBcTnOWjwzL
+	 X4zG2OGrLeWqbTmfh/Q8O+ls+aTrus9ez2KaSrMkdwEeuMPBv+pssOzvFFa3FEmlmqw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5ovi0ah;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB48606A322
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 18:10:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FB48606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B198606A335;
+	Mon, 16 Nov 2026 18:16:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CAWJE+r0
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5eaf169fe3dso1160519e0c.3
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 10:10:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794852655; cv=none;
-        d=google.com; s=arc-20260327;
-        b=afGDCOs5tyQxsu08xkKmDiPnQsGT5JPlZBa7Vx69yyBrRFkNR0pTa95IsjaLN4oAxR
-         J/cYngUrqX07kj2XTQuZjYSVnt4Ant7yXEBVEc/DoL3bLa0MCPwl0qI17j5qxj3asxXc
-         Alor1UsLN0b6MLBXU3FiOXpmgUrPPEja07RM8dw6QmyTEY9ZhriuDIp4138XnqBR3e4s
-         LzRjbFXuyWALYwRKVAk2aNEBD1Di0m7QTyW2Op4XPPG2HUs4kJ40m74m1kMVgCuYN9PT
-         P/eJ4Y+sLoES+tc5i7qs+tP/EaxPVPZlexlAX2EjkONwmDbon+7xdIT3X3DWGt2b8K6i
-         OfIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EyOoLldgRLmAoMhpZj0u97Q7A7Xp363HqnTUmstKrFM=;
-        fh=gzVbZ0ODwuh0QBYPVVC+Luhc2zh0pSJoR70v2a/2xJ8=;
-        b=gbm5WHE5CeUL/3cePVXokMXgwRVhpsfStRXF8iuHrxEvKYDFx1INs8bhsyVYN4ACFq
-         /urtPt0UKmg8B0IalkBdf2du0UObqM478XIcp6MKc4gMTXdsG9u1Qug12vEdgMXFK+Y/
-         GcfrW8j0oDn54suJb3NDdy97m1DdWBeZfk4thDg5p5Rk+L1ocYXDEAfJdtfXJquK58+q
-         vsYdWDYPFlhBwVceHE7EaeAdvGZPNmENUFZUTLoMgVhMdO5cV2HwTpsi04nbaiSG0wYy
-         vjmAk2oZH2kkhf7zmAEIVabZKT9fvGSUSlv86eEfUlKMlORZTLq7DDRp7pCMuiLrN0Q1
-         DPMA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794852655; x=1795457455; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EyOoLldgRLmAoMhpZj0u97Q7A7Xp363HqnTUmstKrFM=;
-        b=CAWJE+r0w0YEIIqqTqO72+PmfPHdnyhqxI3yHt9FiyzzJLzOnEy6gUZC5LGuTblhEH
-         3PzVKOrwiMWV5kBO28dJNngGSaYEnqIgI9q4Huq/rUMjz+Cv6F22LGPPzCGdvv1D6FLd
-         ybb3AX1+WGGYQBCbKFpQrJVtmpFngMJyYU1+n6BRo9rpJPBB6wYialBA24CD326m0uxZ
-         xsXogS6Sp5FuUn+cZStcb2T6eRN6PcmnIxRwY+CH5rvPqMAeQ4AWMklsjEE2/YxZ01y0
-         icOOSPxnZRFdtpqGvKoAi3a5KRamfgaG2fh3mhztZM4A4jUA60L33Lm4fhZM/guUde6V
-         9Ogw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794852655; x=1795457455;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EyOoLldgRLmAoMhpZj0u97Q7A7Xp363HqnTUmstKrFM=;
-        b=At5e9hIm/tYpZMwEi6afZwhswQNraWwrN+NvKSWRiAcFHm6F0gglKjKzVqM9g2H6JY
-         tnsC5U1SRF5wsHTw9c0KOKKhovcjBiYCh5t8LiXbEX4IROERe9fPQUe5hPrjDwuX07Z2
-         wSmeonK60LKNCZxSjyZEVb1jFV/4dWWZmwJWkRy0NQDRBs4xhA8h4Uh5LFvY5XVOUgrk
-         wdl4V6jQcTwDcgCeUvn335tn/3G6x6rVLCyP/9vBl8ITA8al+OoaDK3Z0jYBiy94lX5V
-         B90FdxzC4ikIPyV1WkGZeC94emLEkRp4QPkg+7l+3nyTkGBwuSaioorrsG3v+q0lkOcO
-         INJw==
-X-Forwarded-Encrypted: i=1; AL+hErGSB/79dVajOpADob8gZFmulhnAEEsInBReyLlyfQHnzHoPTKNsc38HohmHyOOm87M4Ri572U/K/Ybw@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kQwSzXtHMB9Afttg69mf3nRrWKYd/Dw/ykgfD7HslYC527O76
-	1fbgKtgA0tlpAugVFbL8+4R+MdkRgAf+UBpwlfK3wZOTWNrQOpLyWlFPl8sYX5YsocVD8M9qtvL
-	dxbutHOeKCXiyA7+d3nQPdfAJ/wa4FzE=
-X-Gm-Gg: AYBFou1fqTa6rjEp4DIbbNY2n08+Iyf3ubbx7Yr518Z8CDqtVUzeopWQD5J1VUVqiYh
-	HnW2Tmrc2SgaK3EFROIcpIfhpffP7vu2i4rkpaU17d8RhkkUcLorR/DpdnteBx41h0VelBB10Bn
-	Xoz4mzeOF08QqGhOLFMCOU/fHeoCM1lXe9jhqVntwau3HpIlkqFxOEUD1d9MueXVyvxH+Oed7iQ
-	sn4Ih3pH+6mgpwPBUtS2ScKLindyKnTyrFEsn0/XKGR46VPskizLf9rRwP2vnPKLvAJnOrm5cM8
-	d1Ey/AkBZJ33S1oKcjxfHQfud8wLxoIUTGsujK5LXBslP4z++bfYHo8h2nuYc7Hff+6RpoMhKz3
-	ukZDSfnjjMGlZ4jepr7DAA/Sype1EGz2oQE4E2VlIRoQj4JPyATjeiiN82Z95i5FLGuAxVQ==
-X-Received: by 2002:a05:6122:1792:b0:5ec:d5e1:ee27 with SMTP id
- 71dfb90a1353d-5ee34aebcd3mr3588477e0c.20.1794852655533; Mon, 16 Nov 2026
- 10:10:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5ovi0ah
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6CA01F000C4;
+	Mon, 16 Nov 2026 18:16:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794852965;
+	bh=Pv6Z2msONZOMn5X5XcAinXRtg1l0bwQ6c+ZoL0wLzd8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=V5ovi0ahBoGhG3oLNCEMv0ZweRhbmg263fiz5Z3OEaOEe1EmkWwElr4NjaV0pBusZ
+	 U+67Z1pdlYuquNsjEp0NPddWduHHqKo+LKkPrpsT2q7gHKgpvpIvuEkDDf1/Qay2RB
+	 AI8/0Kj6NWQ08mCT8nfZX/qhbwcvRwIaVQWavWv4KxVlOo28ErPhEbHkzh/Z9b6jJi
+	 KD7qK09dM/wMxPYpOkFlNsSfsr6eq07XSEHf7AhNj3J6NX4eMhDoGASxEqAt2Q/PCH
+	 ECfBizh/XSlQuSbazX7YpvTKulAspE/JWhpc8rQiYbtQ1XCzQLvrhl6hTvTdLdKLjg
+	 tSR2LkGrA3UsQ==
+Date: Mon, 16 Nov 2026 18:15:59 +0000
+From: Conor Dooley <conor@kernel.org>
+To: John Crispin <john@phrozen.org>
+Cc: Lorenzo Bianconi <lorenzo@kernel.org>, Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Ahmed Naseef <naseefkm@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	devicetree@vger.kernel.org, lei.dong@airoha.com,
+	Linqi.zhang@airoha.com, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	mfd@lists.linux.dev,
+	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+	Rajeev.kumar@airoha.com, upstream@airoha.com, Weifeng.xu@airoha.com,
+	zhengping.zhang@airoha.com
+Subject: Re: [PATCH v2 5/7] dt-bindings: pinctrl: airoha: add AN7589
+Message-ID: <20261116-resolved-riot-c6a310bb2d8c@spud>
+References: <20261112185941.1316112-1-john@phrozen.org>
+ <20261112185941.1316112-6-john@phrozen.org>
+ <20261113-fame-smock-6ea3b8fadcd0@spud>
+ <b94ed5e4-cb80-4e05-9964-bb08a61aa1fd@phrozen.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,52 +73,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-sunxi-orangepi-3-lts-v5-0-979cf5474913@gmail.com> <179485210124.3689664.6903721866612808429.b4-ty@kernel.org>
-In-Reply-To: <179485210124.3689664.6903721866612808429.b4-ty@kernel.org>
-From: Cristian Filipescu <filipescu.cristian@gmail.com>
-Date: Mon, 16 Nov 2026 11:10:44 -0700
-X-Gm-Features: AclHuK8Q7HwxDEIcfyXjUFUI9dASw3q3swCNJxLwvpsAisQFiqmZU_r7ygT_THk
-Message-ID: <CAH87RzQpJ3Nu31cDMqWJ_v_2SRm4mhKmf22nWXf4=c9CA75hAQ@mail.gmail.com>
-Subject: Re: [PATCH v5 0/2] arm64: dts: allwinner: Support Orange Pi 3 LTS
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Andre Przywara <andre.przywara@arm.com>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1NzTVWXoeJIha+mg"
+Content-Disposition: inline
+In-Reply-To: <b94ed5e4-cb80-4e05-9964-bb08a61aa1fd@phrozen.org>
+
+--1NzTVWXoeJIha+mg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Awesome thanks.
-
-Regards,
-Cristian Filipescu
-------------------------------------
-
-On Mon, Nov 16, 2026 at 11:01=E2=80=AFAM Chen-Yu Tsai <wens@kernel.org> wro=
-te:
->
-> On Mon, 16 Nov 2026 16:44:29 +0000, Cristian Filipescu wrote:
-> > Continue Jernej Skrabec's April 2025 series, adding the board compatibl=
-e
-> > and device tree for the Allwinner H6-based Orange Pi 3 LTS.
+On Mon, Nov 16, 2026 at 06:47:27PM +0100, John Crispin wrote:
+> On Fri, Nov 13, 2026 at 05:40:42PM +0000, Conor Dooley wrote:
+> > As Lee requested, please split this out. Two patches, maybe even three.
+>=20
+> Agreed. v3 splits it into three patches.
+>=20
+> > Do we even need a child node here? If all this node does is
+> > gpio/pinctrl, why can the driver not bind directly to this node?
 > >
-> > Use the common Orange Pi H6 include and describe the LTS differences.
-> > Follow the schematic's LED roles, remove unused USB ID detection, and
-> > use generic PHY discovery with bus-level reset. The binding patch is
-> > unchanged apart from rebasing.
-> >
-> > [...]
->
-> Applied to sunxi/dt-for-7.5 in sunxi, thanks!
->
-> [1/2] dt-bindings: arm: sunxi: Add Orange Pi 3 LTS board
->       https://git.kernel.org/sunxi/linux/c/903a676a19ab
-> [2/2] arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
->       https://git.kernel.org/sunxi/linux/c/a203a4bac331
->
-> Best regards,
-> --
-> Chen-Yu Tsai <wens@kernel.org>
->
+> > What else does it do that warrants being a syscon?
+>=20
+> The block also holds the PWM controller. Its registers interleave with
+> the GPIO ones. The PWM series adds it as a second child, as on the
+> EN7581. That series has a depency on this one so I have not posted it yet.
+>=20
+> > Otherwise, there should only be one. uart1 and uart2 should have
+> > different nodes.
+>=20
+> Agreed. v3 sets maxItems to 1. Only pcm_spi and pcie keep more, as
+> their groups carry different signals of one device.
+>=20
+> > So here, maxItems should be 1 for similar reasons.
+>=20
+> Agreed, v3 does this for i2c too.
+>=20
+> > I'm also curious about why this goes up to 74. None of the functions
+> > have 74 pins, surely?
+>=20
+> A conf node can set the same config on any set of pins. 74 is all the
+> pins. The EN7581 binding does the same with 58.
+
+A difference in philosophy I guess - I would be grouping the pins in the
+config node by user. So that there would be something like
+
+spi1-stuff {
+	spi1-function {
+		function =3D spi
+		group =3D spi1
+	}
+
+	spi1-config1 {
+		pins =3D 1, 2
+		config1
+		config2
+	}
+
+	spi2-config2 {
+		pins =3D 3
+		config1
+	}
+}
+
+spi {
+	pinctrl-0 =3D spi1-function, spi-config1, spi-config2
+}
+
+or
+
+spi {
+	pinctrl-0 =3D spi1-stuff
+}
+
+IMO, having config nodes covering more than one "feature" doesn't really
+make sense, as you'd end up with something like:
+
+spi1-function {
+	function =3D spi
+	group =3D spi1
+}
+
+all-config1-config2 {
+	pins =3D 1, 2, 4, 5
+	config1
+	config2
+}
+
+all-config1 {
+	pins =3D 3
+	config1
+}
+
+which kinda falls apart I think when a node can request a setting for
+pins that are not part of it (in this case, that's pins 4 and 5)
+
+spi {
+	pinctrl-0 =3D spi1-function, all-config1, all-config1-config2
+}
+
+So my opinion is that the max number of items should be the size of the
+largest peripheral.
+
+What's the largest actual user on the 7581?
+	=09
+>=20
+> v3 will follow shortly.
+>=20
+>         John
+>=20
+>=20
+
+--1NzTVWXoeJIha+mg
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavtIXwAKCRB4tDGHoIJi
+0oxXAP9igIK0RsOLK/pxL71ixgfrLAYNjRe+ecNILh7URWV9CwEAvJFQWB0vwtGw
+/lVvbbCWDcLaRjkTti8imdts7RQIMA8=
+=DA3U
+-----END PGP SIGNATURE-----
+
+--1NzTVWXoeJIha+mg--
