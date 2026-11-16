@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794841834;
-	b=AnQPmh7y/tBMt99Y0U2jWZzCdHjPhqcFBn7/+ZJzoozH8CsITtluJR4av7Rps/MdvEaI
-	 q3Immpd26/4oq0pNTxqbxw1Gi5OWSUE1+9N9trQHkhqukBK/VeLs0/wEtKHKOT6X7h0+5
-	 vSftnmexTvz+CWxnrRNbPGCj1CawfT9E+IHSt3JdBQsaudteRb3DPj38y+QwGn/u32XkM
-	 0pRdbZ1NNT3JE7re12eDwUY/QGNGNBgP9sMXzqSucen4KZlCGDVt2OlsBk6+5Nl4NkmvI
-	 2tCC2fxnnVUL99JmlqjPpuuMwKXQFUpPQ/Rx2zK4PQ6jaWrT4BzPHajC+xnnpN8MkjQ==
+	t=1794841836;
+	b=OTFCq0q4cy76lKAV0qXtcechPRit/jT2AysRseGAn8U+fDjGHMAwEGI4zlQxtZY8DHMF
+	 3rtWIvqKlKwzpWm78U5gT+vaSOY8KSJ0HnU0liKM3B9HWg+e0cr4VtbqoqWonHaZsyjOT
+	 cQQIKsT0DS5SHbwfB+t0PbzisbWAbOB4R3/5C85ynjFH58aR+O+rh/0agbSNo9UpXrtyw
+	 l01D68WUlmP4tS5knHvl7CA6WOs20NkOHCMKebvO2zRLR/5yy5jjgaHEtx8YaSv/d9Ioa
+	 O8BKz9MujGpibbpt/Fc4Si0uC3m1s63pgQ47dbDAl9xHp601FWe4wF/Neu+hgFypKCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841834;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841836;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LbqgOhVybNkMwnYCeynnQ6YccVR5nx8I+2FxMfh6a2M=;
-	b=AxXxNXx93CFubRJq9PcuBu7elZh/WLGbP1l61EdBRmOYGOBM6T3/IJenhZ5mLi/4v990
-	 fgSjLjXVXxt9hVKZpEiU+o8esd9tDVOJaavSqoCeKuBUpFfiNAyl/BjN/ZGfIGL66gxxe
-	 H0zMOWzoii7Ok8HKy4+HsHGzhBZPED7byJil8B/daPd+7T9nAvWInpYu1bWeZSTRlNM6W
-	 XJrGrakF1wGvCl0RVXd2xlH4ZhscqHpTcqppYfOg+0YPiQ01Zi6wWkqnlWvIyoN5/bcn7
-	 c11msi6p66XsdAeBSGIQd+HlUvxjpu/D61CdUGAcKMQoK8RITTTWgIilmVy9LggKDeA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Q3yyEOX4PTNhScPxIGzl170lewq9VZJENU/JVMlpYRE=;
+	b=fsMmNyeT4bVq/dQLf0ZVESAOJK7oqlJSVHr4YPpIdjXci+XeJqtNnrY8FZ6rtJk43iyO
+	 pbxqq4oKffokWgi6CD0xDihO4xKl5jNXEYy7jS7PONQmPbUr0+BUMMEAWZBrLQNOYgTzN
+	 5KomYjkCdmx8MCnYXdp4GFnafkTZGGOaJgOd8v+HUYcKF1wZprVBRAIgFcO4jzfj9wB18
+	 8N7L1DK6aheh4a0W4plLV/Ciai1hYA/6cjYkaySQOn1NHulZpmMNQGgZ1Qf1QHbvhaMXc
+	 s6fLdeWhdqe4TOKq54qu4eHS918JmpRgPzNpAOiXMlMNaQjJfkcx1hSy3oHCXyBnddQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f6DGU+Hc;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Da36E70n;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864B2606A323
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 15:10:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 864B2606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805E1606A334
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 15:10:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 805E1606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f6DGU+Hc
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c50cc7540b7so210610766b.0
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:10:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Da36E70n
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4322d310e7so656247766b.0
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:10:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794841833; x=1795446633; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LbqgOhVybNkMwnYCeynnQ6YccVR5nx8I+2FxMfh6a2M=;
-        b=f6DGU+HcSxlHxYv5Tm4Nl1Odjt+hIGzC88yrqlY4HniHll+xVJWSCo5ibVxCXygR7g
-         7dXQin42WLyZikwYMyKQ5JlyBCM6Cqe0o6bPET5NSFp49FeNcQ6QPLCbq5EBSD7+2Aik
-         ZlyTx5dJMHCbtogOS3Y3i0n9XU53WZDCs7ePncUMBa0uAAoX8EJWM/VVIsoZDWxu+ibD
-         NVchlnyNt0J02JAw1fxPzzhgJ3TpiYF6j4zlpGg/ET3esZXqmkw3WfR0O2AjwrxUp6XS
-         2SQcZAmMsLMuy7VRo38S7BfLHAEKKN/N6hRIN1jx5o8p47vp0HcBxXLxl3HD3AAyceIQ
-         WCxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794841833; x=1795446633;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794841834; x=1795446634; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LbqgOhVybNkMwnYCeynnQ6YccVR5nx8I+2FxMfh6a2M=;
-        b=Kmu9/c9e1DVKQLQmEdj7KqEDMxusXRVX+SQ1s4AeN9RdifsXZWobJHJdQQiXMZ8kWQ
-         xvXazhDt23/sqHBlldgMehgqlo4XX7lBfCR6hVTFASU4QSbexi1eWLPmvqI+BbgfXLWx
-         O/ORcy9t7wDS6PJlU3Yd43gghgRekN7c41VGKr2y2qzdj5f58oCObBjZXV4uw15ScxoB
-         mMe0mJFCfrVflDmTCpdK5A/g6UnXY4yY4oaX+vkdqr97IBEhxXKDwQYiHvzcM8KYnHyy
-         V92e8hQKcnY0MTOiDZIfKA5F2Ktt6qeW0X0Nl00Q1YnL3KqAeIdDbifpIYGIj6vR6EDN
-         rBdg==
-X-Forwarded-Encrypted: i=1; AL+hErFG4xu5udLsm/jktbHkqEWwh5E1Ny0BawkL8JZ/EU0wsyTFacbRyCdLYfPlhPyyMvhE0Ci/1w53GqI/@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5Dot3WtOvFk5OpMt2QXs92PUOzDaMniO6v1P7uh4hcmNCGBSB
-	xVriA01pqnV0XfxhUy3rDSQicoP7GxmdS+2E9Ipm92EzEWAYU0+jtWnR
-X-Gm-Gg: AYBFou3R6fJ/6XDef1FRK3NBy3bV92uFLtf7RLR5yR92AHtOUuNlG9loY93tKvuC4/0
-	4FO/96KGQ0UvlFmVTT5zWBkprPp5er8/+8lR+eDJwUtNhf0RTe1SukhN+QgLXvb8yJ0yJjZKLKN
-	H880RSYPTcg8dzaF5D2otB5m/WgbI662HLV17qepk4sY2fD0kjjcJ5difr9ZKpW63UpJpAuVsQq
-	kbN7a3lg/vAW77GUQPawL6p7dRRiKCnobqED/9f79bRYVX57IUELAQXzTDvlklDy5ucWC5qfWEJ
-	YQ8/w/s/w0SRoeONpsfL5PolSNwP9Gw3EgNHYf3EvOqxwbM2AM3eTV+dWkWusMhzKtTrFmh8aX9
-	gwzNkC2OvKZ6Ivux9DAa8/zu2m1UFErc0Yhgt2DKYrMwA/VIwk5kBadQge+ZkRp1jqGSJb9hsVD
-	nAJ7UjEt89xFPV8fwXh+NsrRk3IBXqPQ9cA4PoiWjupuz5mA0G1UdhNmvpSuMSBtaiBy5aRrGpl
-	IwhGo+pTpLMfleDXHchmyGU62cPzFaEINQQVY/0uzJA/0u31ZTJm4zgb6WtJUT2gO2SGGpu/MIw
-	gKqjVAD/9mAieGsHs1i4S218CfgKRQMCMNBxXNBTYd5+s9xDEuW6scQreT92cRfdW+lQnC7KBc5
-	W8qTrRRdhfQ==
-X-Received: by 2002:a17:907:3e8c:b0:c3e:ee86:d2c with SMTP id a640c23a62f3a-c5096343b6cmr963645466b.27.1794841831798;
-        Mon, 16 Nov 2026 07:10:31 -0800 (PST)
+        bh=Q3yyEOX4PTNhScPxIGzl170lewq9VZJENU/JVMlpYRE=;
+        b=Da36E70nI/1UFJ/4ZTOpnFSb1GFcnlgbApY63N3rqmEfrKkg0CZe7NCW2gHTZ5jNAt
+         ify/Cm5azc2ujgf62d2geS7Kd/DAlSgT+OVcEBZGn5EsMQAtJc6Yi5k2NLt+/a4B2QbD
+         ts19km3VPPZkoqoT85agLBhzZlWHhyxdrMbn+/EeLvnvniscGfI4ONoGvHzES5zEov55
+         sxV0bYixrNbdAj6p/xIQmmxPMq9FLnsR7MvAg+GZm9cl4rHSmnfuJGYGeBbk3hGjWMhi
+         fRqOShoJyy3RJQEqOaYdYloSpOtJdrFqTuvFT3Reb/bwah9Ed6f4PWSWBCxv6SBN7cmX
+         7idQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794841834; x=1795446634;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q3yyEOX4PTNhScPxIGzl170lewq9VZJENU/JVMlpYRE=;
+        b=pKY/Mxfvx9vNatdRDnef4wicxRVwnvc0GCf+3U2KV61QEJ0NtI1J9dtpV4vhs6g5a1
+         2s+MtrFf+ZYgbNVDNfkj5355RohE8SLWxUXsnSjpqO/i6kYTTbpPiw1ioQawFBUobcjm
+         P0EMjOVeRj8n1ETQUSAkKKlf2NjqmrTmGFABS0rlnmCZl19kGhmHH5/Iqn80S7A+DWAx
+         btBgAIYqBl7bVtfOiVH7b4HMjk4gCHM9kTzRCqycfq1MpM8VToPWZHr1clNqCmWgxIaH
+         UCzPb1VbDZPkASVlt6aeynkA7qiy/48DkqaotYDZAQNtT0T+XYj3gZh+j/COd8CN+s79
+         J1lw==
+X-Forwarded-Encrypted: i=1; AL+hErHXY3SCZprX4RMgzs8Z/kHIYA8O7lFi/zo/GFF76fbnTuSPK3v5ztD73AKvYya2I3PqCDw7DAWtLZnf@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cNxjySVp/YyI1TZmPF9aod1pQdJpUxDceoeH9Y32r2ggB+Xk7
+	i3E1evvXjYrMvNE+Gl60mEQCQxCkgBKXhM7xJxdPBANANwiRwIdzn55L
+X-Gm-Gg: AYBFou0VuvWjBGgxfHb0haRvIyKUobTiJK5DdN/UT0Kl45rQ9gX072WXi+W5sh2xu1W
+	kUoSgcRe/oeg7xnAwYsyn8HrjONApJGpwGuDupIAhpDB9FCW2xST32QJnTKoLAYumpPh6WiPN8X
+	Q6gNfZmf9wxJRlg+MN3V6LQifoubErXmMbBGwSdxHfwii6hEi5rOaXPSYmYeURyafiBABMLh/em
+	Vp+h3ykB7CNf72Y/FQwvpp431VdtpGOZQ3KZkkOva7S3Ug7r7DbxlIKJ1BhC42LJSZ69oy0f8tV
+	9Hy39tQGaEkdRnZxHrRVRddm+aSn/F95SGBIcnmCvVL+gH9Bub/nAvDWyRF7AjNKB1OvtVZXS5q
+	pgX59XExZn+Kua6zxFh/zr+lT+OgCinGwIW26MRWOv8A7a4oX7XBcWplGiqv71PHwd69SXPxWhL
+	wws5nKfUfJjv0e7TOfXtNSxgjzIwiTJYTDa88R+2/hGtJ1PD7NpRMeSjXnkKZUy2ducgJpqxc4L
+	5CBeszs1Ekke8tUTv4EALg5RkabLxLh+l+io1CGjvJnAW48eoob3Yxm3V8/lPEvbM0NNQSh+FEz
+	mSRmTNbOrtA9I7nLLo9FLovFn8nu7pR6bz+wvfZzjck9cmM8NeQZmK8Wox0zfHyRDNIlBV0OklA
+	3Epi6oyQN/+k=
+X-Received: by 2002:a17:907:608f:b0:c50:95a4:d2d9 with SMTP id a640c23a62f3a-c50963bba18mr894423866b.49.1794841833866;
+        Mon, 16 Nov 2026 07:10:33 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b93a85sm420868466b.84.2026.11.16.07.10.29
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b93a85sm420868466b.84.2026.11.16.07.10.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 07:10:30 -0800 (PST)
+        Mon, 16 Nov 2026 07:10:32 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -97,10 +98,12 @@ Cc: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 00/12] drm/tegra: Add support for Tegra20/Tegra30 8-bit CPU interface
-Date: Mon, 16 Nov 2026 17:10:05 +0200
-Message-ID: <20261116151017.274764-1-clamor95@gmail.com>
+Subject: [PATCH v7 01/12] drm: Add MIPI DBI bus support for MIPI DBI Type A and B
+Date: Mon, 16 Nov 2026 17:10:06 +0200
+Message-ID: <20261116151017.274764-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116151017.274764-1-clamor95@gmail.com>
+References: <20261116151017.274764-1-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,154 +115,425 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
-that closely resembles the MIPI DBI Type B protocol and is referred to as
-'8-bit CPU'.
+The MIPI DBI bus allows modeling DBI hosts and peripherals using the Linux
+driver model. DBI hosts are registered by their respective drivers. During
+registration, DBI peripherals are created from the device tree nodes
+provided by the host.
 
-Add MIPI DBI bus support along with 2 DBI Type B panels used in
-LG Optimus 2X which work with the 8-bit CPU interface.
+DBI hosts expose operations that can be used by peripheral drivers to
+access associated devices.
 
-Convert rgb, dsi, hdmi and sor to use atomic versions of
-drm_encoder_helper_funcs needed for bridge state requesting.
-Refactor and expand DC header. Add DC parametrization options
-needed for fine tuning by bridges. Make panel parsing by
-tegra_output_probe() optional and document optional DSI port. 
-Add 8-bit CPU interface in form of a bridge linking to RGB port.
+This implementation adds support for MIPI DBI Type A and Type B only.
+Type C support existing in drm_mipi_dbi.c was not altered. The framework
+is modeled to closely resemble the existing MIPI DSI setup for seamless
+integration.
 
+Suggested-by: Mikko Perttunen <mperttunen@nvidia.com> # preliminary sketch
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
-Changes in v2:
-- convert enums in the dc header into definitions list
-- add check in RGB if bridge_state is not NULL, if yes, use default flags
-- inverted FLAG_PIXDATA_SAMPLE flag setup logic since default value is set to
-  be on NEGEDGE while v1 set default to be on POSEDGE
-- 8bit-cpu schema renamed to dbi, removed compaible and set as DC child
-- expanded list of required properties
-- 8bit-cpu bridge remodelled into dbi interface as DC child
-- improve gpio handling
-- rework attach to get drvdata from parent
-- add panel supplies description
-- split panel driver into per-panel drivers
-- get DBI interface from the patent directly
-
-I have deliberately left GPIO parsing from device tree since it seems to
-be the most convenient and mainstream method of working with GPIOs.
-
-Changes in v3:
-- rgb: fix default bus_flags to match original behavior
-- dbi-schema: remove compatible from required props
-  remove dc@54200000 wrapper from example
-  restrict dbi nodes for tegra20/tegra30 only
-- dbi: remove unused idx from tegra_dbi_priv
-  wrap dbi registration in dc with devm_add_action_or_reset()
-  separate dbi into separate object
-  export tegra_dc_commit() and trace_dc_readl()/dc_readl()
-
-Changes in v4:
-- reorder patches to avoid errors on checking dbi schema
-- dbi schema renamed to nvidia,tegra20-dbi for consistency
-- fix DC_DISP_V_PULSE0_POSITION_* > DC_DISP_V_PULSE1_POSITION_*
-- add MODULE_ALIAS
-- swap width and height in panels
-- dropped use of init-sequence and gpios
-- dbi driver reworked to use only DC to operate pins
-
-Changes in v5:
-- added commit modelling DBI bus (suggested by Mikko Perttunen)
-- hitachi and lg panels converted to mipi_dbi_driver
-- dc header refactored and completed
-- added commit documenting DSI controller port
-- added commit which converts drm_encoder_helper_funcs to use atomic
-  enable/disable
-- added commit which makes panel parsing in tegra_output_probe() optional
-- dbi command/data converted to enum
-- dc com pins are now backed up into drivers private structure
-- magic numbers replaced with pin defines
-- dropped tegra_dc_readl() from tegra_dbi_pin_set
-- tegra_dbi_pin_set() accepts boolean third argument
-- tegra_dbi_write() second argument converted to use tegra_dbi_dc_signal enum
-- used field_get() to extract pin value
-- extended comment regarding init sequence
-- nvidia,index > generic reg property
-- adjusted tegra_dbi_atomic_enable() to properly handle shadowed registers
-- switched to use of_drm_get_bridge_by_endpoint() since panels are auto-wrapped
-  into bridge now
-- added support for mipi_dbi_host_ops
-- added resource managed helper to register DBI device and provided to DC via
-  header
-- dbi.o built with all other tegra drm files
-
-Changes in v6:
-- improved descriptions of new framework
-- mipi dbi bus commit authorship was changed with Mikko's permission
-- panel commits swapped with mipi dbi panel conversion commits
-- fixed tegra_output_probe() for hdmi
-- added CONFIG_DRM_MIPI_DBI select into CONFIG_DRM_TEGRA
-- devm_drm_bridge_add() moved into bridge probe to avoid possible issues with
-  deferred panel probing
-- setting LDC pin to V Pulse 1 moved before GPIO pin reconfiguration
-- DC_CMD_STATE_ACCESS is set to read and write in tegra_dbi_atomic_disable()
-- platform_driver_register() does not error out if driver is registered
-
-Changes in v7:
-- reduce changes in the panels when converting to mipi dbi
-- dropped of_node_get() in devm_mipi_dbi_device_register
-- remove enable()/disable() operations and add prep prev bridge flag
-- drop add DC header changes, add only strictly needed by the dbi
-- dropped tegra_dbi_iface and reg_entry enums
-- dropped reg from struct tegra_dbi_priv, com_pin_backup converted to u32
-- interface dropped from struct tegra_dbi_interface and init call added
-- BIT macro converted to PIN_UNMASK in the tegra_dbi_pin_set()
-- init functions and tegra_dbi_interface structure moved before probe
-- tegra_dbi_atomic_enable() split into pre_enable() and enable() phases
-  to squeeze interface into existing framework
-- DC_CMD_STATE_ACCESS and setting active true moved into init functions
-- reg reading moved before bridge allocation
-- reg renamed to nvidia,interface
-
-Please, keep in mind that this series must be applied on top of
-https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
----
-
-Svyatoslav Ryhel (12):
-  drm: Add MIPI DBI bus support for MIPI DBI Type A and B
-  drm/panel: panel-hitachi-tx10d07vm0baa: Convert to use MIPI DBI bus
-  drm/panel: panel-hitachi-tx10d07vm0baa: Drop redundant disable()
-    operation
-  drm/panel: panel-lg-lh400wv3: Convert to use MIPI DBI bus
-  drm/panel: panel-lg-lh400wv3: Drop redundant disable() operation
-  drm/tegra: dc: Add elements required by Tegra MIPI DBI
-  dt-bindings: display: tegra: Document Tegra20 DSI port
-  drm/tegra: output: Make panel parsing configurable
-  drm/tegra: Convert to use atomic versions of drm_encoder_helper_funcs
-  drm/tegra: rgb: Parameterize configuration based on bus flags
-  dt-bindings: display: tegra: Document 8-bit CPU parallel interface
-  drm/tegra: Add support for 8-bit CPU interface
-
- .../display/tegra/nvidia,tegra20-dbi.yaml     | 108 ++++
- .../display/tegra/nvidia,tegra20-dc.yaml      |  15 +
- .../display/tegra/nvidia,tegra20-dsi.yaml     |   6 +
- drivers/gpu/drm/Makefile                      |   2 +-
- drivers/gpu/drm/drm_mipi_dbi_bus.c            | 258 ++++++++
- .../drm/panel/panel-hitachi-tx10d07vm0baa.c   |  35 +-
- drivers/gpu/drm/panel/panel-lg-lh400wv3.c     |  35 +-
- drivers/gpu/drm/tegra/Kconfig                 |   1 +
- drivers/gpu/drm/tegra/Makefile                |   1 +
- drivers/gpu/drm/tegra/dbi.c                   | 551 ++++++++++++++++++
- drivers/gpu/drm/tegra/dc.c                    |   4 +
- drivers/gpu/drm/tegra/dc.h                    | 197 ++++++-
- drivers/gpu/drm/tegra/drm.h                   |   2 +-
- drivers/gpu/drm/tegra/dsi.c                   |  22 +-
- drivers/gpu/drm/tegra/hdmi.c                  |  22 +-
- drivers/gpu/drm/tegra/output.c                |  52 +-
- drivers/gpu/drm/tegra/rgb.c                   |  64 +-
- drivers/gpu/drm/tegra/sor.c                   |  20 +-
- include/drm/drm_mipi_dbi_bus.h                | 113 ++++
- 19 files changed, 1397 insertions(+), 111 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.yaml
+ drivers/gpu/drm/Makefile           |   2 +-
+ drivers/gpu/drm/drm_mipi_dbi_bus.c | 258 +++++++++++++++++++++++++++++
+ include/drm/drm_mipi_dbi_bus.h     | 113 +++++++++++++
+ 3 files changed, 372 insertions(+), 1 deletion(-)
  create mode 100644 drivers/gpu/drm/drm_mipi_dbi_bus.c
- create mode 100644 drivers/gpu/drm/tegra/dbi.c
  create mode 100644 include/drm/drm_mipi_dbi_bus.h
 
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 2c6bc093a923a..880f0dc930b85 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -166,7 +166,7 @@ obj-$(CONFIG_DRM_KMS_HELPER) += drm_kms_helper.o
+ 
+ obj-y			+= tests/
+ 
+-obj-$(CONFIG_DRM_MIPI_DBI) += drm_mipi_dbi.o
++obj-$(CONFIG_DRM_MIPI_DBI) += drm_mipi_dbi.o drm_mipi_dbi_bus.o
+ obj-$(CONFIG_DRM_MIPI_DSI) += drm_mipi_dsi.o
+ obj-y			+= arm/
+ obj-y			+= clients/
+diff --git a/drivers/gpu/drm/drm_mipi_dbi_bus.c b/drivers/gpu/drm/drm_mipi_dbi_bus.c
+new file mode 100644
+index 0000000000000..fa8cd748d7b3c
+--- /dev/null
++++ b/drivers/gpu/drm/drm_mipi_dbi_bus.c
+@@ -0,0 +1,258 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * MIPI DBI devices with command transport through parallel interface
++ *
++ * Copyright 2026 Mikko Perttunen <mperttunen@nvidia.com>
++ * Copyright 2026 Svyatoslav Ryhel <clamor95@gmail.com>
++ */
++
++#include <linux/err.h>
++#include <linux/init.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/slab.h>
++
++#include <drm/drm_mipi_dbi.h>
++#include <drm/drm_mipi_dbi_bus.h>
++
++/**
++ * DOC: overview
++ *
++ * There are three MIPI DBI implementation types:
++ *
++ * A. Motorola 6800-type parallel bus
++ *
++ * B. Intel 8080-type parallel bus
++ *
++ * C. SPI-type with three options:
++ *
++ *    1. 9-bit with the Data/Command signal as the ninth bit
++ *    2. Same as above, except it is sent as 16 bits
++ *    3. 8-bit with the Data/Command signal as a separate D/CX pin
++ *
++ * This library provides a framework for MIPI Display Bus Interface (DBI)
++ * compatible display controllers using Type A and Type B. This
++ * implementation closely matches existing DSI framework behavior to
++ * allow seamless integration.
++ *
++ * Type C options 1 and 3 are covered by drm_mipi_dbi.c with
++ * mipi_dbi_spi_init().
++ */
++
++static int mipi_dbi_match(struct device *dev, const struct device_driver *driver)
++{
++	return of_driver_match_device(dev, driver);
++}
++
++static int mipi_dbi_uevent(const struct device *dev, struct kobj_uevent_env *env)
++{
++	return of_device_uevent_modalias(dev, env);
++}
++
++static const struct dev_pm_ops mipi_dbi_device_pm_ops = {
++	.runtime_suspend = pm_generic_runtime_suspend,
++	.runtime_resume = pm_generic_runtime_resume,
++	.suspend = pm_generic_suspend,
++	.resume = pm_generic_resume,
++	.freeze = pm_generic_freeze,
++	.thaw = pm_generic_thaw,
++	.poweroff = pm_generic_poweroff,
++	.restore = pm_generic_restore,
++};
++
++static const struct bus_type mipi_dbi_bus_type = {
++	.name = "mipi-dbi",
++	.match = mipi_dbi_match,
++	.uevent = mipi_dbi_uevent,
++	.pm = &mipi_dbi_device_pm_ops,
++};
++
++static void mipi_dbi_device_release(struct device *dev)
++{
++	of_node_put(dev->of_node);
++	kfree(to_mipi_dbi_device(dev));
++}
++
++static void mipi_dbi_device_unregister(void *data)
++{
++	struct device *dev = data;
++
++	of_node_clear_flag(dev->of_node, OF_POPULATED);
++	device_unregister(dev);
++}
++
++/**
++ * devm_mipi_dbi_device_register() - create a managed peripheral MIPI DBI
++ *				     Type A or B device.
++ * @dev: device to tie the MIPI-DBI device lifetime to
++ * @host: DBI host to which this device is connected
++ * @np: device tree node associated with the panel MIPI DBI device
++ *
++ * This function is called by DBI host driver to create panel device.
++ * It automatically calls mipi_dbi_device_unregister() when @dev is
++ * unbound. It does not automatically free passed device node pointer,
++ * it must be put manually.
++ *
++ * Returns:
++ * A pointer to the newly created MIPI DBI device, or, a pointer encoded
++ * with an error.
++ */
++struct mipi_dbi_device *
++devm_mipi_dbi_device_register(struct device *dev, struct mipi_dbi_host *host,
++			      struct device_node *np)
++{
++	struct mipi_dbi_device *dbidev;
++	int ret;
++
++	if (!host || !host->dev || !host->dbi || !host->dbi->command ||
++	    !host->ops || !host->ops->attach || !host->ops->detach || !np)
++		return ERR_PTR(-EINVAL);
++
++	if (!of_device_is_available(np))
++		return ERR_PTR(-ENODEV);
++
++	dbidev = kzalloc_obj(*dbidev);
++	if (!dbidev)
++		return ERR_PTR(-ENOMEM);
++
++	if (of_node_test_and_set_flag(np, OF_POPULATED)) {
++		kfree(dbidev);
++		return ERR_PTR(-EBUSY);
++	}
++
++	dbidev->host = host;
++	dbidev->dbi = host->dbi;
++	device_initialize(&dbidev->dev);
++	dbidev->dev.parent = host->dev;
++	dbidev->dev.bus = &mipi_dbi_bus_type;
++	dbidev->dev.release = mipi_dbi_device_release;
++	device_set_node(&dbidev->dev, of_fwnode_handle(np));
++
++	ret = dev_set_name(&dbidev->dev, "%s:%s", dev_name(host->dev), np->full_name);
++	if (ret)
++		goto put_device;
++
++	ret = device_add(&dbidev->dev);
++	if (ret)
++		goto put_device;
++
++	ret = devm_add_action_or_reset(dev, mipi_dbi_device_unregister,
++				       &dbidev->dev);
++	if (ret)
++		return ERR_PTR(ret);
++
++	return dbidev;
++
++put_device:
++	of_node_clear_flag(np, OF_POPULATED);
++	put_device(&dbidev->dev);
++	return ERR_PTR(ret);
++}
++EXPORT_SYMBOL_GPL(devm_mipi_dbi_device_register);
++
++static void mipi_dbi_detach(void *data)
++{
++	struct mipi_dbi_device *dbidev = data;
++
++	dbidev->host->ops->detach(dbidev->host, dbidev);
++	dbidev->attached = false;
++}
++
++/**
++ * devm_mipi_dbi_attach() - managed attach of peripheral DBI device to its MIPI
++ *			    DBI Type A or B devices.
++ * @dev: device to tie the MIPI-DBI device lifetime to
++ * @dbidev: DBI peripheral
++ */
++int devm_mipi_dbi_attach(struct device *dev, struct mipi_dbi_device *dbidev)
++{
++	int ret;
++
++	if (dbidev->attached)
++		return -EBUSY;
++
++	ret = dbidev->host->ops->attach(dbidev->host, dbidev);
++	if (ret)
++		return ret;
++
++	dbidev->attached = true;
++	return devm_add_action_or_reset(dev, mipi_dbi_detach, dbidev);
++}
++EXPORT_SYMBOL_GPL(devm_mipi_dbi_attach);
++
++static int mipi_dbi_drv_probe(struct device *dev)
++{
++	struct mipi_dbi_driver *drv = to_mipi_dbi_driver(dev->driver);
++	struct mipi_dbi_device *dbidev = to_mipi_dbi_device(dev);
++
++	return drv->probe(dbidev);
++}
++
++static int mipi_dbi_drv_remove(struct device *dev)
++{
++	struct mipi_dbi_driver *drv = to_mipi_dbi_driver(dev->driver);
++	struct mipi_dbi_device *dbidev = to_mipi_dbi_device(dev);
++
++	drv->remove(dbidev);
++
++	return 0;
++}
++
++static void mipi_dbi_drv_shutdown(struct device *dev)
++{
++	struct mipi_dbi_driver *drv = to_mipi_dbi_driver(dev->driver);
++	struct mipi_dbi_device *dbidev = to_mipi_dbi_device(dev);
++
++	drv->shutdown(dbidev);
++}
++
++/**
++ * __mipi_dbi_driver_register() - register a driver for MIPI DBI Type A or B devices.
++ * @drv: DBI driver structure
++ * @owner: owner module
++ *
++ * Return: 0 on success or a negative error code on failure.
++ */
++int __mipi_dbi_driver_register(struct mipi_dbi_driver *drv, struct module *owner)
++{
++	drv->driver.bus = &mipi_dbi_bus_type;
++	drv->driver.owner = owner;
++
++	if (drv->probe)
++		drv->driver.probe = mipi_dbi_drv_probe;
++	if (drv->remove)
++		drv->driver.remove = mipi_dbi_drv_remove;
++	if (drv->shutdown)
++		drv->driver.shutdown = mipi_dbi_drv_shutdown;
++
++	return driver_register(&drv->driver);
++}
++EXPORT_SYMBOL_GPL(__mipi_dbi_driver_register);
++
++/**
++ * mipi_dbi_driver_unregister() - unregister a driver for MIPI DBI Type A or B devices.
++ * @drv: DBI driver structure
++ *
++ * Return: 0 on success or a negative error code on failure.
++ */
++void mipi_dbi_driver_unregister(struct mipi_dbi_driver *drv)
++{
++	driver_unregister(&drv->driver);
++}
++EXPORT_SYMBOL_GPL(mipi_dbi_driver_unregister);
++
++static int __init mipi_dbi_bus_init(void)
++{
++	return bus_register(&mipi_dbi_bus_type);
++}
++subsys_initcall(mipi_dbi_bus_init);
++
++static void __exit mipi_dbi_bus_exit(void)
++{
++	bus_unregister(&mipi_dbi_bus_type);
++}
++module_exit(mipi_dbi_bus_exit);
++
++MODULE_DESCRIPTION("MIPI DBI devices with command transport through parallel interface");
++MODULE_LICENSE("GPL");
+diff --git a/include/drm/drm_mipi_dbi_bus.h b/include/drm/drm_mipi_dbi_bus.h
+new file mode 100644
+index 0000000000000..886f175a80cb9
+--- /dev/null
++++ b/include/drm/drm_mipi_dbi_bus.h
+@@ -0,0 +1,113 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * MIPI DBI devices with command transport through parallel interface
++ *
++ * Copyright 2026 Mikko Perttunen <mperttunen@nvidia.com>
++ * Copyright 2026 Svyatoslav Ryhel <clamor95@gmail.com>
++ */
++
++#ifndef __DRM_MIPI_DBI_BUS_H__
++#define __DRM_MIPI_DBI_BUS_H__
++
++#include <linux/device.h>
++#include <linux/module.h>
++
++struct device_node;
++struct mipi_dbi;
++struct mipi_dbi_device;
++struct mipi_dbi_host;
++
++/**
++ * struct mipi_dbi_host_ops - DBI bus operations for MIPI DBI Type A and B.
++ * @attach: attach DBI device to DBI host
++ * @detach: detach DBI device from DBI host
++ */
++struct mipi_dbi_host_ops {
++	int (*attach)(struct mipi_dbi_host *host, struct mipi_dbi_device *dev);
++	void (*detach)(struct mipi_dbi_host *host, struct mipi_dbi_device *dev);
++};
++
++/**
++ * struct mipi_dbi_host - DBI host device for MIPI DBI Type A and B.
++ * @dev: driver model device node for this DBI host
++ * @dbi: MIPI DBI interface
++ * @ops: DBI host operations
++ */
++struct mipi_dbi_host {
++	struct device *dev;
++	struct mipi_dbi *dbi;
++	const struct mipi_dbi_host_ops *ops;
++};
++
++/**
++ * struct mipi_dbi_device - DBI peripheral device for MIPI DBI Type A and B.
++ *			    This structure describes a peripheral DBI device,
++ *			    an endpoint for DSC commands and video data, and must
++ *			    be paired with a DBI host device for MIPI DBI Type A
++ *			    and B. This layout is built to closely resemble
++ *			    the DSI framework.
++ *
++ *			    If your device is MIPI DBI Type C (with an SPI
++ *			    control bus) and incorporates DBI within, you
++ *			    should use the mipi_dbi_dev structure and Type C
++ *			    framework from drm_mipi_dbi.c.
++ * @dev: driver model device node for this peripheral
++ * @dbi: MIPI DBI interface
++ * @host: DBI host for this peripheral
++ * @attached: the DBI device has been successfully attached
++ */
++struct mipi_dbi_device {
++	struct device dev;
++	struct mipi_dbi *dbi;
++	struct mipi_dbi_host *host;
++	bool attached;
++};
++
++#define to_mipi_dbi_device(__dev)	container_of_const(__dev, struct mipi_dbi_device, dev)
++
++struct mipi_dbi_device *
++devm_mipi_dbi_device_register(struct device *dev, struct mipi_dbi_host *host,
++			      struct device_node *np);
++int devm_mipi_dbi_attach(struct device *dev, struct mipi_dbi_device *dbidev);
++
++/**
++ * struct mipi_dbi_driver - DBI driver for MIPI DBI Type A and B.
++ * @driver: device driver model driver
++ * @probe: callback for device binding
++ * @remove: callback for device unbinding
++ * @shutdown: called at shutdown time to quiesce the device
++ */
++struct mipi_dbi_driver {
++	struct device_driver driver;
++	int (*probe)(struct mipi_dbi_device *dbi);
++	void (*remove)(struct mipi_dbi_device *dbi);
++	void (*shutdown)(struct mipi_dbi_device *dbi);
++};
++
++static inline struct mipi_dbi_driver *
++to_mipi_dbi_driver(struct device_driver *driver)
++{
++	return container_of(driver, struct mipi_dbi_driver, driver);
++}
++
++static inline void *mipi_dbi_get_drvdata(const struct mipi_dbi_device *dbi)
++{
++	return dev_get_drvdata(&dbi->dev);
++}
++
++static inline void mipi_dbi_set_drvdata(struct mipi_dbi_device *dbi, void *data)
++{
++	dev_set_drvdata(&dbi->dev, data);
++}
++
++int __mipi_dbi_driver_register(struct mipi_dbi_driver *drv, struct module *owner);
++void mipi_dbi_driver_unregister(struct mipi_dbi_driver *drv);
++
++#define mipi_dbi_driver_register(driver) \
++	__mipi_dbi_driver_register(driver, THIS_MODULE)
++
++#define module_mipi_dbi_driver(__mipi_dbi_driver) \
++	module_driver(__mipi_dbi_driver, mipi_dbi_driver_register, \
++			mipi_dbi_driver_unregister)
++
++#endif /* __DRM_MIPI_DBI_BUS__ */
 -- 
 2.53.0
 
