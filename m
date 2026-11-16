@@ -1,112 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794797929;
-	b=IYOsleKbuf1Eo2xTpPh1Qw2j5sp8m0Y/2Fquvy+A7ml2pVEuyLu1KeOEB7tvwvbf9ESN
-	 X6iodMbt997GXih6dqvlU2n7/kQ1OFvcoL6V6D79OoZEhgFLSpUbHxm/IYvc9pp9Y5UtU
-	 dvKmShfR3HcQMWHzG8hVvX1TBPNBNQhIV1pSnuVmqK6Oa84oeeJaltJ2Xv6UniTFIeJ3d
-	 /FPGtUHLv4hr8r3VImZAqW4ADYPSOb8rEsS39jxzL6WWNhjEGUld5DBp0OiMjwZOnfJK5
-	 921xzmKpGyH0chNWI5Pb5FIvYCXVAy2MVPbsIqA7hgqKj77RjBKEqVn94Bim77bUCEA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794797929;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Va7rdmKo621e+pyyR1Bp19VL2VMBHcbaUbEEWyBa/S4=;
-	b=qa785NA3cIBj/lD39Bfmb4HOjH5zIjoBLBUQkMYLbER948SHviKSj5m6Q1orqCqg60vg
-	 7SdkyfRmEoeO5vDO7S8cVu6TnGbqnHKs25VA3U8uaXaFvx1WamjJq6f9qQyOun2jthle+
-	 X5ydVLjbraBLy3+RXyPBvWPKIbIjkfR6ZqFxVn2C3AQ6XzPAzAqU4aglv4bgkqLDOFL3e
-	 WiFNTNAfPK4O2h16VCFFUbEiOGKZjlezZvhREXveprU7wjaq1/xjowCd71BMcJptAm10v
-	 6QalwyFlIHK5isNuNvTpnJO+qaZl6TmbpabbHJR80B8yyWtZpV3jl7dB0DhcAl3q+uQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="pv/fTsZX";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IsasEBbH;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.61
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794798035;
+	b=nBW4e9zbYgap+DEw7Ob3NDbsfC3XQD1GB5et+47RCXcFaQxaGOpiaItzhe4GEbxwV7Ey
+	 Vo3hJmOJDR/HMzegHnJan/+mlB8LjF6iG9syNai+/6umOPQeSkZC3YRFY8kttLA5W9Wpz
+	 BddofvwwgTkVsgTHesyBOkYhO++gxii8pRXqGbsHxzxThz+qxDz6oqXd/BURBh9PSPwno
+	 6zyisPSTRxJUNUHNO5a1Iaoj8Z7PttuKtonk8Gxr8V41M5As00dMNLiH2267/7eV+ClFJ
+	 yehEG5rZJexCv2gwOJgpksr3OGmlDN1rRIPdHOvHdbFcKEkB3YOuhAQKXfH/d/IPBcA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794798035;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
+	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=qZxuOMJlS99jMJY8/NJ9eY2uVqvvmrpsOu0oaCbRvCc=;
+	b=uMdic4BzeDoM0P9c94Z0Y8jso3IE7X+o0IvV/G48RFzqImTuw5tXQPOnD2ogQnlh2jlh
+	 Qta+imINgCqxlHfXGET9u7TDHJfc2cnFExLm74xhhHiEFIY3GN9dKsLAKN9jgvixed2tg
+	 a+pxQx5pKEm8g3viFFNwsNdcVw9UGUE/pCcUuUH8unKF52HQCZTbu8aVmNf4PZPK0aEHs
+	 A1ku3p6iE1JvBxtH/IStTir9e1yVCCaq7T/TMO085aoiFMZ3LDcriCTSmfwisM9dp6azd
+	 bBEZS4KFJ3e1QyATQnzAvvRpkE6X39nOGDQelCpZ5w7zKic68TDa9ih2KxV0kO0jJ1w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="L/EU/bo/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.61
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011061.outbound.protection.outlook.com [52.101.65.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9E7606A330
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:58:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B9E7606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4199C606A321;
+	Mon, 16 Nov 2026 03:00:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4199C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pv/fTsZX;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IsasEBbH
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AG1LCik1714645
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:58:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Va7rdmKo621e+pyyR1Bp19VL2VMBHcbaUbEEWyBa/S4=; b=pv/fTsZXf7ionkHh
-	Nt1Kmr90OHCMI3E27TWuRPKcnjAKo0FlTsc26Yj81y0hZ6tRavMG5Pde1pcu0hPn
-	f4ReIi5eyZHMBPFc7oavJlW5UxNtNVfw6Kb55cuPrz7uu8k/V1VGNh9wgcMuuxHJ
-	X23Xrc+o8oniT+SaOl+H0SUBBcea9tzMfzPIJALpn1QxwIKBLDAzOkuPWDew6/4I
-	4bbbP+u1nuarTc77CRJzRYFp+Lf+g1oHaZKEEoOd3ph4WVTFE90TgB3vfsfbhZsx
-	yO8Xb/zwhXaUji6f9N4FeZ8Bcpc1RRVykxURDqrZ1+vwYRoCgWRp+ezH6bNEpbhm
-	8ltyFA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhm8vc0j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:58:46 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30c0d568830so3864450eec.1
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 18:58:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794797926; x=1795402726; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Va7rdmKo621e+pyyR1Bp19VL2VMBHcbaUbEEWyBa/S4=;
-        b=IsasEBbHWiAcuL3SLI5ofPO7m3AJtHLJfAW6ym0bt3dWf8rLtDnNRN9FMexZnwA6dP
-         JjwsD8FXn04zZGp3TAA3gRnouaMv88mOQ7BfONVkGY0mE6CE17/7j8rSinA56yAmQdLN
-         1CBCewgLfNzxX8taeoaj/JZyzDg+tqsYyzuRYzFY00eVNqjiKnw2s8G4eHpWXqG+HaAc
-         ft39Tq4m3KU9MapKxwDTW940ugCjETlvkDw0G7+OqQQYfcR9E4/1Q7+V13+3hkk0GXhv
-         tifHUkJZeKqv2arbNGGfunVTUgXJUiezbm6rBH0C1G+ixhEmVZsYKv0FdbIbLnALFlqc
-         R/pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794797926; x=1795402726;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Va7rdmKo621e+pyyR1Bp19VL2VMBHcbaUbEEWyBa/S4=;
-        b=ytWfEymOfxIZ5SIjZJZmmjQ4H7BQscOpP0w5qiEhUxJZhtGSVdPgY9/CDS8Eq36V/t
-         1HRebueLRktPa4DGCWADc1zGqCaZCGAQX53vRrqS5U3Uq0L7qbzxo/xMam//X3yDv7jk
-         uZWg3z8zMVyrQCKLLrBSYrs0O8MP4z8mQCIH8VmuhGyu/M+Shb+A8Ii2riLDqRyGx+xt
-         js7dT25pKuPTcKfp3urbcCIqLDanOjJ9HhoXu/moQCHH6sOSVVzu/4D0sbWbRao9SLrK
-         S4KWh0aq77OzBTYE/t0d1ej0XP5jd7FM97RulzIuGIvu2JUgwy7Ad/1JsC55RraAdWfv
-         GcIg==
-X-Gm-Message-State: APuU4Z+/UEQbq1bAdBsQDWpBNVstFUly+a7kU+scWUvdKNimVZfMfWfq
-	PzAzHeD0WUk2KfCShC47nd2OmQIC0fM91fa9wcSZ8VraHJPzSeOJkEWb5z/GzmCq26d0+0RGD5e
-	alfmDU6JZAKIVLEQWr12ywpDKeremGAii/wY1W1G/K89GYiYpdAQbslmVwPASeNAO
-X-Gm-Gg: AYBFou1Im1S/zrqXSi9oH3bEyhPPK57ML2Jnp24R/mZI3ZwHjR5C5Tzb279stSidpn2
-	9frYsI4E7u9Qsyezi6mnQ8vpJ5V54cIUEwLdFzO4FXq1cJ+ehaUwZA2SxnPz9dxDLx0Yz1WgOR2
-	IDz5rQLeB86E029PTC46dTESu4YUIIuH+oCMbb+0CUmZxpSQYzRgbUqOz9bsRpomuaPPK/cmM0M
-	N7we+I0qZy7/mdRe41cEHosbq0amjRNsEdqh++otk+lHwAe0XP9aJfA3jNG7Hb3SwPmHrD2Zmu8
-	VhK8Geps3K3QSPtdxsW/YuG03w2a9ii8bAUNjnJP8ckNcfAFY4waTEEsoxaYcWPvgB38rxAtznZ
-	eZKY1x6V58GVID6Ax1l6qWPG9fa9XjrlZ1J09SEGnOmaFInAIGDjeCgGnDdgDfoaH1nPADs0YUS
-	f2no03uvzOqxAa3oYsIS6X18kD+NMeugpk
-X-Received: by 2002:a05:7300:231c:b0:36f:3c7e:3c13 with SMTP id 5a478bee46e88-37967ae7f85mr13837076eec.22.1794797925651;
-        Sun, 15 Nov 2026 18:58:45 -0800 (PST)
-X-Received: by 2002:a05:7300:231c:b0:36f:3c7e:3c13 with SMTP id 5a478bee46e88-37967ae7f85mr13837039eec.22.1794797925038;
-        Sun, 15 Nov 2026 18:58:45 -0800 (PST)
-Received: from alfred-sh01-lnx.ap.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955a1c5c2sm30469991eec.14.2026.11.15.18.58.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 18:58:44 -0800 (PST)
-From: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-Date: Mon, 16 Nov 2026 10:58:35 +0800
-Subject: [PATCH v2 2/2] nvmem: core: add byte-mask support for
- non-contiguous cell bytes
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=L/EU/bo/
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ntI9f64CGX8jmOrGVFemmKQptEGurC/KLJRAg+58EP/SPMamtQk1i7HeqDmEqTJQq+gPCFdwusfH6QXJrNRiNyssXSJwfOxh8xidoqaC0go5qY2BVZ3O/9NuysH6s+YoShDtBkLpT+wQkF8e2W3lsDQwtOW1Wu7KN342ZVAdWzqEQ6IsQI42Uv+u18i4u3RjkKELtd07CShn/Xi+Wv/LOJQieUV4o/cAoG/ohLrCV6ixQ93avIlpvIF6GlqTHaxBLnfULcx11k59EZ3vMNjYGUYTJQgPMWs9hC7VZo6WLlhnQ+HZj7kL+Z8YaWbdj+2Ef9fNAvqbQ0ixkffKj5p8Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qZxuOMJlS99jMJY8/NJ9eY2uVqvvmrpsOu0oaCbRvCc=;
+ b=PXkQGopfG5PrQgxg9fhdEA1OJpmuDFRupU6BwlIICjASuibZChCGOkwoJOw3lbIC5PSuNcAAfFcc9Tz9Ft5/BSd1poC3XuYfJyVQP7YsUATVIDjdb3ijgM2KHuW+cWqLGCv+Sm5/tnU9C/pcua/2XMk/R4yDrRu0q60ESmFF8kUycHqrDCy5Mp3b0MaRcRRW0QX+OQVSv3FYb/YK05rlixLwLbWVHBakFlxAy3baO1dMiL3p0UbhTv74TbXgSwj1V90+N4TcP3swTdv3tBEZbgejYiTKSm17eIFaPlDRnpGehQQxF+Qy7dGudW9g07RuHiy8CUTpepsZCCzGNUM9VQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qZxuOMJlS99jMJY8/NJ9eY2uVqvvmrpsOu0oaCbRvCc=;
+ b=L/EU/bo/SWdXVXC1CHi1UWaL6DWe8YuRIEQZEmKnPJLMLBctFnhGMHoXD1PxNMG791s6e5ITmGY9GPYXANwQLy6CtWPpL/bOzy7YSLDJb/5Y1+ZFY+YiLn0t5c7QbHChgL1aXfdZDpLoqAfkGCQE76nj5DOXM+QIHHBlT+hMtEvfFCet6iZhD4ysVoY5r2PHRasy2ozZCqQWUq+GLRrO4Ssvhot+Z1a//mUY0jeHeoCr6k6CMoxlJWHx3NzuC0zfpmdXZ7qPKwgoHjoRBOftCG7WZSCrMnbwxUE7xBsyGXeW9atVna3ldrjufwu2JtvycfdRF7GW7EsxLTPHljvz+g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by PA6PR04MB11778.eurprd04.prod.outlook.com (2603:10a6:102:525::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 03:00:30 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 03:00:30 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Subject: [PATCH v7 0/9] dmaengine: add DMA channel bus and fsl-edma
+ per-channel IOMMU support
+Date: Mon, 16 Nov 2026 11:05:21 +0800
+Message-Id: <20261116-edma-iommu-v3-v7-0-32794ba8efbf@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPFy+moC/3WNUQuDIBRG/8rweUZaKu0pGPsVYw9qt+WYGVnSi
+ P77tL2MweC+HPjOuSvyMBrw6HRY0QjBeOP6COJ4QLqT/R2waSIjmlNOSE4xNFZi46ydcSgwpYq
+ LQhCh2xJFZxihNcveu94+7Gf1AD2lSFp0xk9ufO0PQ5F2/9rxclw1OXAqK1aCqi+LtMMTsrOzK
+ NUD+/IJ+fVZ9CkrhAYFXEta98uQ6eRu2/YGmgCfD/oAAAA=
+X-Change-ID: 20261102-edma-iommu-v3-22b673717cf4
+To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
+ Jon Hunter <jonathanh@nvidia.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>, 
+ Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev, 
+ dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ iommu@lists.linux.dev, linux-tegra@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.16-dev-7bc12
+X-ClientProxiedBy: SG2P153CA0016.APCP153.PROD.OUTLOOK.COM (2603:1096::26) To
+ AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,293 +111,250 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-nvmem-byte-mask-for-split-macaddr-v2-2-96f4a0c08264@oss.qualcomm.com>
-References: <20261116-nvmem-byte-mask-for-split-macaddr-v2-0-96f4a0c08264@oss.qualcomm.com>
-In-Reply-To: <20261116-nvmem-byte-mask-for-split-macaddr-v2-0-96f4a0c08264@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794797917; l=7666;
- i=hongmei.xu@oss.qualcomm.com; s=20260917; h=from:subject:message-id;
- bh=vbRtmFtXmMIqsNIBcPeGrbg7gcHrGqgrIkzXS4nzL+0=;
- b=d5Z3n9M80wTHuDRCx5wdZD0wND/NI7bsadjnlROxRQ/3Psn+r/OdebUxn599GdSv9yCNCNlH9
- CYeW5F0QfVRDr06jICxirQhAihRg8WOIkoDjUR+O3dyMhgZq0C7Vgkd
-X-Developer-Key: i=hongmei.xu@oss.qualcomm.com; a=ed25519;
- pk=8J3IzbyuOOHSwLvktng8AEQIdStEQDAGNCSOlkASmk4=
-X-Authority-Analysis: v=2.4 cv=ItKL47/g c=1 sm=1 tr=0 ts=6afa7166 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=2v3GwsEA9jBGmIuPRc0A:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDAxMSBTYWx0ZWRfXzFXUb8kJ+Efu
- Fua7WDswp+lJpJWzu8SUHOXa/qnWzC8BNJt2he6gkEe5FdMuIeTKYaWPW1WUB/cIe6+djG4CqkX
- loWv8MgwIFVi+gzJuQ55VtjRrXoDqoI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDAxMSBTYWx0ZWRfXzTUq+FqsTSqj
- I0/AibQGavjlOCH/0e4CI/DNHybtcdGA6aYjX1b2Ma4rJ/AW/9HSVz8k0EMRu/0G9w0HUar8Zbv
- bbhEa7x9Yb7rnmkoOxtpIjU54G5s0xk0GIQXV+8IklleP+bzQQfiWDN7seJrVGgY4T+4cpfzmmZ
- zpD/tZ4F6rN3OMm5QsZEeW/e9tKLd50GBcVbU8h20sJ2En2eGfPtTc7Fii2kbRK7IHGqFZqKVTC
- KPdDWxCciAVPfVd9Lj8ktuTDx9d2FuXktkjGib9ZQ8wv0TLz6zXAuyAjghpb0HVsrJMmP4GReQ4
- AWOCOlEeMeW/Tz4mshyoXMLJ34j33M5TFUD8lb1fDTZDIB83uOp0Rk5T7bXuxLTBwJjDTmFOlt6
- 4uhSIO21bA4MCtKhwfhJ8W7UFIOa02ydfdNpslnOIqEifxrzIAxu9+tAKWoquXSUQ9ATcP7Y9rf
- imHexGSfDPlqMR8Lghw==
-X-Proofpoint-ORIG-GUID: S5p2yNy8flCdcXiqjgJyNsQQIJAr9Csh
-X-Proofpoint-GUID: S5p2yNy8flCdcXiqjgJyNsQQIJAr9Csh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-16_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 adultscore=0 malwarescore=0 suspectscore=0
- priorityscore=1501 lowpriorityscore=0 phishscore=0 impostorscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611160011
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|PA6PR04MB11778:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c7b23ae-bf63-4b18-4fae-08df438dc621
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|19092799006|921020|10067099003|5023799004|11063799006|56012099006|260925022911599003|260925021911599003|260925021311599003|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261102124527099003|261102123227099003|261009223027099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	wfL+PpEh4wA/Nxm/SRQulC3gKB5KZzC5bUISeeNfA/apHssf7gqEw1jxaBtjwGe+2z1QkJDqy/7HmZD117fsotf+5h95Js2y6pmL0Shh6H8J8BwFspof0Z2bKFeqIQA8Oebkvke6M6/Om0B7nB0AbkVTL9qEK08ukhz1FVXxe5ZXN/aL1mhUdsBb//YTQMtL8zeso8Ghflv69QjYN1tAkYjjdalNxIBR+iEN330BDd0pQ7YYqYXXLLf5I0jDT7BBBC3nIYw+JEcJgeZE6J3NHlF0YSw4AriDeBh28IkwhNLf/wVkfgqE9iL6fl6IPGqkRlB4wGJHDcH0Fzhw1a+LVkF6kdRiNnMCYN6ssd1MMaPszgJXpmA2eaz30SyoeBfvglXaFhPqBlrdwkMbWuF7kOynAPSpRHHKGtTGb7mrrFPVDzvBsPuvYz5uWU9Jd9p2/STePkBvYTocFSeg2TgYXRnZC/BjXSpXnfG6pm4LuwVbyBTkcy40nhi4xpHXcXhny6hteZnUxUmqJgWK7TbJRr+Iu0q50ibVoYm0N+7+iGE8fEl3YMKBEzDpCSc/0JZaUimzozLM5v045F0mdbq0PxHym6lJ1zqyQTltEtX9mkFgILphRzdUmRQFJjT/MbfGzbl2H4fWXCGj8zljTHpaZ4Egh2svcKq86uS70aeVOJQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(19092799006)(921020)(10067099003)(5023799004)(11063799006)(56012099006)(260925022911599003)(260925021911599003)(260925021311599003)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261102124527099003)(261102123227099003)(261009223027099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bENRVHNlQXBMZ2lFMWZlQ0gvOHpCK250V2xsWmNFNHhQUGRGUXUyeUpyMW5r?=
+ =?utf-8?B?OENIM1NYbTdaL3F6c1RCMGt3Y2QzN21DTWUrcFpselJVK2ZhYmkzRndKOHdN?=
+ =?utf-8?B?ME1FTUoxWFBUV2JaWlhqWlRWcjUxK21VVFdVS0pjMHBUTEdYdWRpWDJXNlZ1?=
+ =?utf-8?B?eEx5V3pCVVRvSXUrQzYyZ2gyMXQ2Um43V2FhMFNHU1VqRTVtS2xEdFZuVHJC?=
+ =?utf-8?B?Q0lnVEVuaXRkaDBKZzlpdHRTQWQwMHZqRVl4cVJGRW96YmROTVNRU2dFVEYr?=
+ =?utf-8?B?OFFiaVQ4UzdRZE5vUUplWjZWS1o1VGFXK2JQMGpMZDFTMGFtNUptT2IveHRl?=
+ =?utf-8?B?ZFgyUVRoWlZkTDVXbnloUGZsUVV2M2pBN3Nycm96ZGt4VzJ4NUlvdkM3dFhE?=
+ =?utf-8?B?a1hOaVJLUmp4ZVBJdGFiTjdRZXZKREFLOVd6T3dXZ29pa2l4dW9YZzVrNnZ4?=
+ =?utf-8?B?elpFNEdiU1QraXZJVlRzQ3hqMmV3eEhvWnlmd2U4dTV0UEtBN2FFejlKeHpR?=
+ =?utf-8?B?M2pWejBBNkZLc3RJN0RvQzZHN2Q4NjBSaEZVSkVvQ1FvcjBjWmVEZzRsOE9w?=
+ =?utf-8?B?U20zNGt4MmdkK3M0RE5qUFBBVHUwUXhTUVcyMjdtZ1lacExnWnRIalRacmgw?=
+ =?utf-8?B?cjRHOFVvcUNWV3pWdlZ1dG0xTENWcTFiK240SXJDRXVzWDdnR1FCNEZ4NEQw?=
+ =?utf-8?B?dUlGMmhpSmwwTUR5TFVhRGNLRjNZa25adGcycDBSYWhCMEdvcmdxSS83OHRi?=
+ =?utf-8?B?NUxHZDhEbENEQlMzZlY2ZUdrcjU3WXkvMFlXeEU2RTE0OG1RaVdiOSs4d2tV?=
+ =?utf-8?B?UVFhRGxTb1E5a2cwVjYzZ2NHM1JEU2s4ME9mZFFrSXgzemRPNk1EUkxhQVEy?=
+ =?utf-8?B?eXJEY3BBYitVKy9qNmlvRVB0MmlYUVRWQlVnczFsQmxqcHBQTUVRbUtRNURW?=
+ =?utf-8?B?V0ZKSFlNa1d2b3FRZXZ3aVFlV3JEcml1UmllWGdHR0dZK2NXYjdxRjFsUm05?=
+ =?utf-8?B?OG9NaWNHQkFaMkNMZWF2cFNjS2hyQ09oYzZvMFJ2dGQvUXZjSWczOTAweWNr?=
+ =?utf-8?B?MWdXTW9FeU94aE5PdlZIMjF6dklYQ3FLUGdzOUFma29BaDV2TmlyTlhsU0FH?=
+ =?utf-8?B?QWhIaFlJN2ZHdkhtOGNWcGMzY29rUTBEOWdxVVNISWtVRW5zcE00eTFZNXY1?=
+ =?utf-8?B?S09NUUg2QWh1ZUVYOFkwYmcrZVJqVS9kOVNaZ2lKeFBzTU54Zjd4dFVhSGtS?=
+ =?utf-8?B?aDR1VmY2Y1FabXVGaGI1aTV0OExYNkRzNHFpdmVKczlRa2dDYkhXZUo4WktB?=
+ =?utf-8?B?ano2UStUUG90NGtmY3hUc1lzT0RXVFBMc0xjRnJQQ2MwT3FjWjE4U0gxYW02?=
+ =?utf-8?B?Z0JTV0dnZkR3UTVCTXRZT1Y1SVprNlQxeHJHd01xbk9MMXVqRytlMXhUNDli?=
+ =?utf-8?B?NEwxdzRMaEV5dEt6S1hBYlAreDJ3bDRsY0Q2Rnd0aitXZWwzVys1TVlTUC8y?=
+ =?utf-8?B?SzA3RzZvU1JPNERRWnU3UHRMN2NPV2FwMGpRN3ZzNXo3SmEvcGlTeUhQQVY2?=
+ =?utf-8?B?eWFRMklpNFYvK2pRVXZ2Zk80RUhrTHR3MkNIWkFiWEYrV0VpQnVRM2dicHMz?=
+ =?utf-8?B?dFFHeW0zekJFQnBZVFJaNkQzKzZrMklvdEViV2hZbmhzSUNYUTJwbHB5RStJ?=
+ =?utf-8?B?VDdzdDRCWm8zQW9tdXBvblVrZDMyUGlGYWN5UllLaVY4c2EyT0tBTWIzV3U3?=
+ =?utf-8?B?TmkyUWhUMk01SUpreE90QVNKOExCOXJCdWZvTm1jcG91aVV6RHdvcVo4S3hz?=
+ =?utf-8?B?d29xTE9hNkRnN2xVaXl5RmZWUFc2bXVzS1o0Qjl4NHozbEQ2R0RKb04yVjZI?=
+ =?utf-8?B?VGlpZk5kTS9oaUcrc2Y0VXZ2YjQ5U2R4TSt3aUpzU2NrM3d5NFpuSlFQWDd2?=
+ =?utf-8?B?bktwVUFEbC9jbmgzUVFVVnFkWVVQMUV0NkF0YlBEelhNbWU4eGgxTEtGZThy?=
+ =?utf-8?B?VGRYRTI4bmt2L0VaM1pRcTFjaC91VTJWa2JNWXZ5a2hMMXFKd3lpV21RNjJW?=
+ =?utf-8?B?UjdxMWZkT0dkVk9UczdkQ3o4c08zejBHRnIvNTRLSW42UHdWY1BGZ1oxZFor?=
+ =?utf-8?B?WWpUODg2M3FKVXdrSUU1alhtOXgxZ1NRUzhsTVVkSkNXZGh0TkYzbDAzcWl6?=
+ =?utf-8?B?eUxYNndYSUp2eGM4VkxOTnBZak1RMy84T1ZFbmFTcTZtK3V3RTdGYUU3VEVV?=
+ =?utf-8?B?VnB3bUJsTk13QW9oanF5ZHptU1dRaXFGZGlaK1FEQVRSUEpQSjIxOGQ0N1No?=
+ =?utf-8?B?K0FaU0hkMi9qWjFHZjJOWlFiQk45WkxDRnE5WldmZXhuQlpadU4wVUpSNElF?=
+ =?utf-8?Q?6BKIiZl2aW2tuaTb8LMpbGgw27G1dieA4IGhQ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c7b23ae-bf63-4b18-4fae-08df438dc621
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 03:00:30.5072
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cgJDaXnAodgKsRn5KP8uN9rLBI0gK6wCoPNaJfHqdcLFHwIGNnUfjUQQlj5OlYnZt9ul15cjMmVyvhd6bArax63Awo3RwAIW8mkISLeHSYytRWfKO2LMMzRiXQzyk0+n
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR04MB11778
 
-Add support for a byte-mask cell property that selects non-contiguous
-physical bytes from an NVMEM device region to form a logical cell value.
+I used iommu-map for eDMA, but iommu experts rejected it:
+"Using iommu-map to describe synthetic dma_chan_dev devices that the
+kernel creates is the same kind of DT abuse from over here:"
+More info: https://lore.kernel.org/all/20260917144804.GI3196566@ziepe.ca/
 
-When byte-mask is set, bit N set in the mask means physical byte N is
-included; selected bytes are packed into the output buffer in ascending
-byte order. If fewer bytes are selected than the cell's logical size
-given by reg, the remaining output bytes are zero-filled.
+So I followed here [2] as Krzysztof wrote for QCOM VPU:
+"Thanks Jason for context and detailed arguments. Robin did not chime in
+yet, but from what I understood the DT-child-node approach will be the
+way we should go here.
 
-Four checks are performed at cell registration:
-- byte-mask and bits/bit-offset are mutually exclusive.
-- The cell offset must not exceed the device size.
-- The number of set bits must not exceed the cell's logical size (reg),
-  to prevent output buffer overflow.
-- The highest set bit must not reference a byte beyond the NVMEM device
-  size.
+I accept above point of view and I am fine with this, thus Vishnu and
+Vikash - please go ahead with DT-child-node solution we had some time ago."
+[2] https://lore.kernel.org/linux-iommu/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
 
-Signed-off-by: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
+This series adds per-channel DT child node support to fsl-edma and, as a
+prerequisite, introduces a proper bus for DMA channel devices.
+
+The fsl-edma change allows each channel to carry its own reg, interrupts
+and iommus properties.  Power domains remain attached at the parent level.
+Parsing the child nodes is straightforward, but per-channel IOMMU
+configuration is not: the DMA engine currently creates struct dma_chan_dev
+as a class device without any bus, so of_dma_configure() has no bus to probe
+the IOMMU with, and the IOMMU core does not have a bus notifier for DMA
+channel devices.
+
+Drivers that need per-channel IOMMU support currently work around this by
+assigning dev->bus after dmaenginem_async_device_register().  That is unsafe
+because bus_add_device() already ran with bus == NULL and did not take a bus
+subsystem reference.  When the channel device is later unregistered,
+bus_remove_device() drops a reference that was never acquired, leading to a
+reference count underflow and a potential use-after-free.  Using
+platform_bus_type is also wrong: platform_match() and platform_uevent()
+expect the device to be embedded in a struct platform_device.
+
+A dedicated bus for DMA channel devices solves this.  The channel devices are
+converted from class devices to bus devices:
+
+  - the bus is registered early, before iommu_subsys_init() consumes
+    iommu_buses[];
+  - the match callback always reports no match, so no driver binds to a
+    channel device;
+  - channel devices are registered on the bus before device_register(), so
+    bus_add_device() and bus_remove_device() are balanced;
+  - the bus is added to iommu_buses[], so the existing IOMMU notifier
+    handles per-channel IOMMU probe and release.
+
+The existing /sys/class/dma interface is preserved with class_compat, the
+mechanism provided by the driver core for converting a class device family to
+bus devices. A compatibility class named "dma" keeps
+/sys/class/dma/dmaNchanM available, while the devices themselves live on the
+DMA bus. The bus is named "dmaengine-chan" to avoid colliding with the SuperH DMA
+bus, which is also named "dma". The uevent SUBSYSTEM and "subsystem" link
+therefore use "dmaengine-chan", while /sys/class/dma is unchanged. dma_dev_groups
+moves from the old class to the bus, and chan_dev_release is installed
+directly as the device release callback.
+
+While testing controller unbind, a pre-existing fsl-edma ordering bug was
+found: fsl_edma_remove() removed all channels from dma_dev.channels before the
+managed dma_async_device_unregister() action ran, so the channel devices and
+their IOMMU groups were never released. Patch 1 fixes that ordering, which is
+needed to make the bind/unbind lifecycle test meaningful.
+
+Runtime-tested on i.MX95: repeated controller bind/unbind cycles with a
+local DT based on the child-node conversion removed and recreated the
+channel devices as expected, with no refcount, BUG, WARNING or suspicious
+kobject diagnostics.  The per-channel IOMMU path was exercised with a local
+DT adding iommus; that DT update is not part of this series.
+
+The binding and driver support per-channel iommus, but patch 9 does not add
+them to the i.MX95 DTS yet. That DT update will be sent separately when the
+shared stream ID support are finalized.
+
+I put all the patches in one patchset to give people a full picture.
+If need to separate patches into multiple patchsets, I could do that
+in next version.
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- drivers/nvmem/core.c           | 105 ++++++++++++++++++++++++++++++++++++++---
- include/linux/nvmem-provider.h |   8 ++++
- 2 files changed, 106 insertions(+), 7 deletions(-)
+Changes in v7:
+- Collect R-b for patch 2,4,6,7 (Frank)
+- Patch 8:
+  Remove uneeded common sense sentence in commit log. (Frank)
+  Simplify IRQ error handling with dev_err_probe. (Frank)
+  Use a bitmask instead of a per-channel loop. (Frank)
+  Merge the duplicated IRQ and IOMMU child parsing. (Frank)
 
-diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-index 7d4cce8e2742..7e96b84bc4e2 100644
---- a/drivers/nvmem/core.c
-+++ b/drivers/nvmem/core.c
-@@ -33,6 +33,7 @@ struct nvmem_cell_entry {
- 	int			bytes;
- 	int			bit_offset;
- 	int			nbits;
-+	u32			byte_mask;
- 	nvmem_cell_post_process_t read_post_process;
- 	void			*priv;
- 	struct device_node	*np;
-@@ -589,6 +590,47 @@ static void nvmem_cell_entry_add(struct nvmem_cell_entry *cell)
- 	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_CELL_ADD, cell);
- }
- 
-+static int nvmem_validate_byte_mask(struct nvmem_device *nvmem,
-+				    const struct nvmem_cell_info *info)
-+{
-+	int out_bytes;
-+
-+	if (!info->byte_mask)
-+		return 0;
-+
-+	if (info->nbits || info->bit_offset) {
-+		dev_err(&nvmem->dev,
-+			"cell %s byte-mask and bits are mutually exclusive\n",
-+			info->name ?: "<unknown>");
-+		return -EINVAL;
-+	}
-+
-+	if (info->offset >= nvmem->size) {
-+		dev_err(&nvmem->dev,
-+			"cell %s offset %u exceeds device size %zu\n",
-+			info->name ?: "<unknown>", info->offset, nvmem->size);
-+		return -EINVAL;
-+	}
-+
-+	out_bytes = hweight32(info->byte_mask);
-+	if (out_bytes > info->bytes) {
-+		dev_err(&nvmem->dev,
-+			"cell %s byte-mask set-bit count %d exceeds reg size %d\n",
-+			info->name ?: "<unknown>", out_bytes, info->bytes);
-+		return -EINVAL;
-+	}
-+
-+	if (ALIGN(fls(info->byte_mask), nvmem->word_size) > nvmem->size - info->offset) {
-+		dev_err(&nvmem->dev,
-+			"cell %s byte-mask bit %d exceeds device size %zu\n",
-+			info->name ?: "<unknown>",
-+			fls(info->byte_mask) - 1, nvmem->size);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static int nvmem_cell_info_to_nvmem_cell_entry_nodup(struct nvmem_device *nvmem,
- 						     const struct nvmem_cell_info *info,
- 						     struct nvmem_cell_entry *cell)
-@@ -603,12 +645,22 @@ static int nvmem_cell_info_to_nvmem_cell_entry_nodup(struct nvmem_device *nvmem,
- 
- 	cell->bit_offset = info->bit_offset;
- 	cell->nbits = info->nbits;
-+	cell->byte_mask = info->byte_mask;
- 	cell->np = info->np;
- 
-+	if (cell->byte_mask) {
-+		int rc = nvmem_validate_byte_mask(nvmem, info);
-+
-+		if (rc)
-+			return rc;
-+	}
-+
- 	if (cell->nbits) {
- 		cell->bytes = DIV_ROUND_UP(cell->nbits + cell->bit_offset,
- 					   BITS_PER_BYTE);
- 		cell->raw_len = ALIGN(cell->bytes, nvmem->word_size);
-+	} else if (cell->byte_mask) {
-+		cell->raw_len = fls(info->byte_mask);
- 	}
- 
- 	if (!IS_ALIGNED(cell->offset, nvmem->stride)) {
-@@ -804,7 +856,7 @@ int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
- {
- 	struct device *dev = &nvmem->dev;
- 	const __be32 *addr;
--	int len, ret;
-+	int len, ret = 0;
- 
- 	for_each_child_of_node_scoped(np, child) {
- 		struct nvmem_cell_info info = {0};
-@@ -829,16 +881,27 @@ int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
- 			    info.nbits < 1 ||
- 			    info.bit_offset + info.nbits > BITS_PER_BYTE * info.bytes) {
- 				dev_err(dev, "nvmem: invalid bits on %pOF\n", child);
--				return -EINVAL;
-+				ret = -EINVAL;
-+				goto err_free_name;
- 			}
- 		}
- 
-+		of_property_read_u32(child, "byte-mask", &info.byte_mask);
-+
- 		info.np = of_node_get(child);
- 
- 		if (nvmem->fixup_dt_cell_info)
- 			nvmem->fixup_dt_cell_info(nvmem, &info);
- 
-+		if (info.byte_mask) {
-+			ret = nvmem_validate_byte_mask(nvmem, &info);
-+			if (ret)
-+				goto err_free_name;
-+		}
-+
- 		ret = nvmem_add_one_cell(nvmem, &info);
-+
-+err_free_name:
- 		kfree(info.name);
- 		if (ret) {
- 			of_node_put(info.np);
-@@ -1648,28 +1711,52 @@ static int __nvmem_cell_read(struct nvmem_device *nvmem,
- 			     struct nvmem_cell_entry *cell,
- 			     void *buf, size_t *len, const char *id, int index)
- {
-+	u8 *rawbuf = NULL;
-+	void *readbuf = buf;
- 	int rc;
- 
--	rc = nvmem_reg_read(nvmem, cell->offset, buf, cell->raw_len);
-+	if (cell->byte_mask) {
-+		rawbuf = kzalloc(cell->raw_len, GFP_KERNEL);
-+		if (!rawbuf)
-+			return -ENOMEM;
-+		readbuf = rawbuf;
-+	}
-+
-+	rc = nvmem_reg_read(nvmem, cell->offset, readbuf, cell->raw_len);
- 
- 	if (rc)
--		return rc;
-+		goto err_exit;
- 
- 	/* shift bits in-place */
- 	if (cell->bit_offset || cell->nbits)
- 		nvmem_shift_read_buffer_in_place(cell, buf);
- 
-+	/* compact non-contiguous bytes selected by byte_mask */
-+	if (cell->byte_mask) {
-+		int out_idx = 0;
-+		int i;
-+
-+		for (i = 0; i < cell->raw_len; i++) {
-+			if (cell->byte_mask & BIT(i))
-+				((u8 *)buf)[out_idx++] = rawbuf[i];
-+		}
-+		memset((u8 *)buf + out_idx, 0, cell->bytes - out_idx);
-+	}
-+
- 	if (cell->read_post_process) {
- 		rc = cell->read_post_process(cell->priv, id, index,
--					     cell->offset, buf, cell->raw_len);
-+					     cell->offset, buf,
-+					     cell->byte_mask ? cell->bytes : cell->raw_len);
- 		if (rc)
--			return rc;
-+			goto err_exit;
- 	}
- 
- 	if (len)
- 		*len = cell->bytes;
- 
--	return 0;
-+err_exit:
-+	kfree(rawbuf);
-+	return rc;
- }
- 
- /**
-@@ -1776,6 +1863,10 @@ static int __nvmem_cell_entry_write(struct nvmem_cell_entry *cell, void *buf, si
- 	if (cell->read_post_process)
- 		return -EINVAL;
- 
-+	/* byte-mask cells have no scatter-write implementation yet */
-+	if (cell->byte_mask)
-+		return -EINVAL;
-+
- 	if (cell->bit_offset || cell->nbits) {
- 		if (len != BITS_TO_BYTES(cell->nbits) && len != cell->bytes)
- 			return -EINVAL;
-diff --git a/include/linux/nvmem-provider.h b/include/linux/nvmem-provider.h
-index 6063fe5b7784..066d27bb4284 100644
---- a/include/linux/nvmem-provider.h
-+++ b/include/linux/nvmem-provider.h
-@@ -57,6 +57,13 @@ struct nvmem_keepout {
-  * @bytes:	Length of the cell.
-  * @bit_offset:	Bit offset if cell is smaller than a byte.
-  * @nbits:	Number of bits.
-+ * @byte_mask:   Bitmask selecting physical bytes to include in the output.
-+ *               Bit N=1 means physical byte N relative to the cell's base
-+ *               offset is packed into the output buffer; bit N=0 means skip.
-+ *               The physical read window extends to the highest set bit,
-+ *               aligned to the device word size. The number of set bits must
-+ *               not exceed the cell's logical size (bytes). Unselected output
-+ *               positions are zero-filled. Zero means no masking.
-  * @np:		Optional device_node pointer.
-  * @read_post_process:	Callback for optional post processing of cell data
-  *			on reads.
-@@ -69,6 +76,7 @@ struct nvmem_cell_info {
- 	unsigned int		bytes;
- 	unsigned int		bit_offset;
- 	unsigned int		nbits;
-+	u32			byte_mask;
- 	struct device_node	*np;
- 	nvmem_cell_post_process_t read_post_process;
- 	void			*priv;
+Changes in v6:
+- Patch 2:
+    Update commit message include more info regarding bus introduction. (Frank)
+    name the DMA channel bus "dmaengine-chan" instead of "dma-chan" (Frank).
+- Patch 6: new prep patch converting chan_masked tests from BIT() to
+  BIT_ULL() for channels 32-63 (Frank).
+- Patch 7: new prep patch converting fsl-edma to dmaengine_get_dma_device() (Frank).
+- Patch 8: Use scoped api, avoid scan channel twice. (Frank)
+- Link to v5: https://patch.msgid.link/20261111-edma-iommu-v3-v5-0-2537cebe6ca2@nxp.com
 
--- 
-2.34.1
+Changes in v5:
+- Patch 2: Rename bus name to dma-chan per report from Sashiko.
+- Patch 6: Address the issue reported by kernel bot:
+  symbol '__udivdi3' undefined, using div_u64_rem
+- Rebased to next-20261110
+- Link to v4: https://lore.kernel.org/all/20261103-edma-iommu-v3-v4-0-470415d418c5@Example.Com/
+
+Changes in v4:
+- Patch 1, patch 4 and patch 5 are unchanged.
+- Patch 2:
+  Register the DMA channel bus from core_initcall so it exists before any
+  IOMMU driver can call iommu_device_register(), which iterates
+  iommu_buses[].
+  Clean up the DMA unmap pools if dmaengine initialisation fails.
+  Clarify that the bus match callback always reports no match.
+- Patch 3:
+  Update the ordering rationale for IOMMU drivers that register before
+  arch_initcall. No functional change beyond patch 2's initcall move.
+- Patch 6:
+  - Validate child register resources: require them to be contained in the
+    controller resource and aligned to chreg_space_sz.
+  - Use div_u64() for the channel index calculation and reject values that
+    do not fit in an int, avoiding 32-bit __aeabi_uldivmod/__udivdi3 issues.
+  - Ignore child nodes beyond dma-channels, so imx95-navq.dts with
+    dma-channels = <30> still probes.
+  - Use BIT_ULL() for the 64-bit chan_masked bitmap, including channels
+    32-63 on 32-bit builds.
+  - Set chdev->dma_parms to the controller dma_parms so the per-channel
+    device keeps the 0x7fff segment size limit.
+  - Use dev_err_probe() for of_dma_configure() failures.
+  - Reject channels for which iommus did not result in an IOMMU mapping
+    instead of setting chan_dma_dev = true silently.
+  - If child nodes are used, require every unmasked channel to have an
+    available child node with a valid interrupt; otherwise fail probe with
+    an error asking for dma-channel-mask.
+  - Do not fall back to the parent flat interrupt array in child-node mode.
+  - Keep the shared error IRQ on the parent node.
+  - Clarify that child power-domains are not handled by this patch.
+- Patch 7:
+  - No functional change. The out-of-range child nodes used by
+    imx95-navq.dts are handled by patch 6.
+- The i.MX95 DTS still does not add per-channel iommus; that update will be
+  submitted separately.
+- Board test overlays are kept out of the upstream series.
+- Link to v3: https://patch.msgid.link/20261102-edma-iommu-v3-v3-0-9d0e62a954eb@Example.Com
+
+Changes in V3:
+- Patch [1-4] are new patches
+- Add R-b for patch 5
+- Patch 6: handle of_irq_get() -EPROBE_DEFER, drop the explicit bus
+  assignment to "chdev->bus" which is resolved by patch [2-4].
+- Rebased to linus/master v7.4-rc1
+Changes in V2:
+- Switch to add child node for dma channel.
+- Link to V1: https://lore.kernel.org/dmaengine/20260916-edma-iommu-v1-0-e1731968081e@nxp.com/
+
+---
+Peng Fan (9):
+      dmaengine: fsl-edma: unregister channels before vchan cleanup
+      dmaengine: add a bus for DMA channel devices
+      iommu: register the DMA channel bus for IOMMU notifications
+      dmaengine: move channel devices to the DMA channel bus
+      dt-bindings: dma: fsl,edma: add per-channel child node support
+      dmaengine: fsl-edma: use BIT_ULL for 64-bit channel mask
+      dmaengine: fsl-edma: use dmaengine_get_dma_device()
+      dmaengine: fsl-edma: support per-channel DT child nodes
+      arm64: dts: imx95: convert eDMA to per-channel child nodes
+
+ .../devicetree/bindings/dma/fsl,edma.yaml          |  70 +-
+ arch/arm64/boot/dts/freescale/imx95.dtsi           | 774 +++++++++++++++++----
+ drivers/dma/dmaengine.c                            |  49 +-
+ drivers/dma/fsl-edma-common.c                      |  10 +-
+ drivers/dma/fsl-edma-common.h                      |   1 +
+ drivers/dma/fsl-edma-main.c                        | 185 ++++-
+ drivers/dma/tegra186-gpc-dma.c                     |   1 -
+ drivers/iommu/iommu.c                              |   4 +
+ include/linux/dmaengine.h                          |   4 +
+ 9 files changed, 935 insertions(+), 163 deletions(-)
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+change-id: 20261102-edma-iommu-v3-22b673717cf4
+
+Best regards,
+--  
+Peng Fan <peng.fan@nxp.com>
 
