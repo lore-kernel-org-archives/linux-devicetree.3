@@ -1,120 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830800;
-	b=bqp4Lf2mARJ/TAWiZpq1YU7EJZnlTBGq0mUM/7Pg63ORgKF1wuKSiw9m5/CKDOeT3Hls
-	 7/CcH7M9S+Qljb/e2o+HddXkk9kWpuagvS0akb29cXQASvgXnzPspDKyfFXPxZnAUNbDG
-	 6N5UsIJrlTJiocyUcEDJdk1rPTF4drIyXtMDpCND6Ak95yvmvOs/KYSMtXpvS5uNZmf4k
-	 3zwpBWGCaHJ14vD7JIPlIeQFStStOtHpDRsrSBJaqhZPAn9rRZnQsOlZDEryI2kLsyGHd
-	 LzxZ8gw74NJSojuyD5xvHrWXxoR8w5URGoMjMBt90vBRR1n6MD8sazGum/k0oLM52xg==
+	t=1794830954;
+	b=hJYI6IOFPwnYLlvBk4/MNVmYrz/gcwUKikju4o4uXiIPHUtL4WfDQMr5NYhI9xw8j6Cv
+	 M4FVmfNDOOinBI9HJ77nymSsTB2qLL8tIFPk0BpdlTmPINpOfScFxRBam/3ewYXqkd213
+	 DZdlDQSr1r4HekVUD1k5vq7ITrS2Hvyq4cGH17crkQR+lVD+TztQv8ytrGb+e8tjAW7ED
+	 l9dw6yPH7r0fyck1hGDlXnAvYDX2MdpMGZ4BsqGY/pnyYxzfYy3/8WKXm8U799qtF9e4W
+	 +jY6Xk2opFlG5oysfu7NLIRcyLdB7IHIai3i9X66Zr0waObVMdpvk1eXctrTuxGkvpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830800;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ibqxhW40RmBjwpc8i50dBPwS/b2wJRBsVzM6V99AbQ8=;
-	b=Ywv5qwp38kMFyx35e6C2h6u+72mxvRTYOsUCLJZVmYoTzfuoaTMwvDPQPEj/EPvYOvin
-	 8+RWBGlueIcFT9OKZSzhBkLIGyZUUF4vQnUt9M4KugiHZGIRZyOXg3do8+UvwQQ7Ct1rO
-	 MjVJNSNCNuE04mUscStZy4zRxoAIJHWhcMrSkth4l7GDwcY+mrjHs6c/ODD4yCF+/ZVhJ
-	 9CDpZChWtDbOzv4gka6UkP6shmqSP9RkHYgzZI7E4NDIA0WPyZuSNy9UmxqDZmcL+n+YG
-	 opsp6mYWxOvvhlJlba2zgragyN04Ev3qQEX85qecIgoFXMlmuta+O3zWFmvOhRMoYIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830954;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DQKq9lPCCId726jGcee566wmkBRqcENP2m1ZlEIDRRI=;
+	b=HaRf7yXupmLxwb0PAc/c4/qGhHYjUFUWWLFrSOBk5Al10JSVNKn0i/HE2IHN+pgVsPFK
+	 gJn7MXtEVEWdYxR8Ey62QSqzBbQIrgFsaozlXjRBKkJC4ZGL/Eh+lgUlricOF99jWB3VL
+	 HoYoNyUioSQ0uBJ07/y6LS2o1Goez1yXccXRupDFxDXoTAR8ufXt0HBr+nRymBwwc+GCe
+	 7I8+fll14euaKnDnjaODeMqdZ2/hNEFkrTVtGDlpQy8rHe06mU4pVP6rS4zy9/kPNumHt
+	 9fAy18cYPgxQkLkwABvAkaCqIklEbLGx0SBdrEeQmQYArPvLOUkg0PpVZocY03jAUhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DEbobxGC;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gqOF2EXL;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LO/lEcBX";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D102C606A894
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 12:06:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D102C606A894
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788B6606A31C;
+	Mon, 16 Nov 2026 12:09:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DEbobxGC;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gqOF2EXL
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGC0qII536274
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 12:06:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=ibqxhW40RmB
-	jwpc8i50dBPwS/b2wJRBsVzM6V99AbQ8=; b=DEbobxGCOkZPluIAsqaon59Dm76
-	pWtR7jWWe4usdOdXYgMda3SHHSMYKfff76hvjWq/vT0Tzv7PfA85dfi02SmFyaF8
-	zjvlwXdEWRC8tzUTbYRxTJeII8yL5OdtOZPs2dFPXVndnnyQSzj7nkNjiFpZW90d
-	UAwtM5vBr1WgqPgHRax4CQfgTIL/nsUhfVRGdJBICKjtzwLXhmINZEouPSa5ctUl
-	JGL+xT1CxFko0rlOYAb1zeKz/oIta1yi2gnSxxk5Bii6tSgaw2GvLigXVCN0kSM3
-	tYk+HcuW+hvOx0FF2oTDQo4tn4J2EalqZVJ2SafZ7gSZwM91JHTlO5Los2g==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hyyqgge5f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 12:06:39 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so5328863eec.1
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 04:06:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794830798; x=1795435598; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ibqxhW40RmBjwpc8i50dBPwS/b2wJRBsVzM6V99AbQ8=;
-        b=gqOF2EXLeivKZ9KInLuWojugS6GDiAtMWcuibs8xc2YEwCkQtrwDVlq2qdazjgVfM6
-         rbiLOC9Zq26upobVz9JoAhIkHwWIgx7wFWQJdzdjoT5NrQeGCH5A7GQJGrAtW6dWFlxZ
-         B448pdU7iTtPqjk4b4uT+MDdO/ESYmp9k693tBlMfY3MUHrQfyAnIT7ef5yRHsXOUKY5
-         zjcyF7tcjtMCHidgiAm1hYpV4OKm+cGIOJ/W0KF71fDqqhMwD6gLMJ5+g5Uiatl5uuUv
-         r1tEwzZCLYX6UZLjo8mWWq2OVJAxThq5ovJnJBTTatdwbbpgbcOXxDYYQH1mVxsTu19A
-         F6wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794830798; x=1795435598;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ibqxhW40RmBjwpc8i50dBPwS/b2wJRBsVzM6V99AbQ8=;
-        b=M7pgU5SOStllqou2bQzps30I38rXzwo7fhbcPvbMXmOvSjF+30FVmUYq32B5l2uKaI
-         45OHDRA19RSOLRQUEuyZdBEm4LUzVA6tlRZpiMxd0jcDZRWPCqRe8Y0miAnOgHrMfKFD
-         zYB7tRc5zwZD89Vl3o7/L+A2JuxZTxNWdKCxfKtq9sNuu51AOQjEs30TKLDtKZqwrYnD
-         60C/8ZwBZW2sRxMZYNiG+YZUcM1M7X5XD5R1lsq2Um+N3ekoOEmkJg4uKvxEcJk8e5Ue
-         sSdFco/u03nfHey7vPFHUS6Q2dLjDVbW8B7Rou6fVdnsFYH6Dwj812KlR7Z0e+mgc9sj
-         4otQ==
-X-Forwarded-Encrypted: i=1; AL+hErGHY8Bb2vkfNrx8Xup0GAk9opE6FV+FMfpGiQa0N5yNG8kPAz07J3jZliPH5lS6HZMJ2JP90dATuyNW@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XIAr2NrM/Qtm88wErpvaUwyruNHjJlUvnQDq0VYETSsLqpwoS
-	d6xvU3hYhLFie4DtG2v98nEDwx5+xD2/ch6NI5Bc4kw0e573oUaAqy8dw3F9cIB5enXzkMNPPzx
-	NzXY3mAc1jaqZ8mR5G81K9kLjl1qn8FcMl73kewSBj69ft6NFzoxHWJCMYtVmaioD
-X-Gm-Gg: AYBFou3l9hO/I1PJ+yJlwwII6A22Iz7mVMJ1TU8v965JkdBX+PKXER9gYmJ4D2LNqgr
-	G86/opSnZglP5gkra2jggvBx6Y4cHsxMzOGmwsD+7voZXFfbNYLIsvNas0Jt8qwdfLWV4dvJ0F3
-	jnxv3lTliOy9YlnzSW/EkicSMlOMfuZD07P0ZCWz6zab9B1mfK7xtomestq2tFA3ppGguiTQrso
-	3DHeP6ayHCVlL+7vbxEYQip9GUgWTBvXvoYp8wHjMO5tW4g0r1ybYgxuDgckeawSd2/D/4GF38K
-	7Wc6GFcdQI/F26PRbFTTEbeZM8Mp2hpsfDYXF7JAg33FA7KOdpyjtTS5aeQh93rCq61fZaF6xIc
-	XtjUy0wq+UYpIwVhwtENKokOzFIJsGxMPt4+G5x9pNE5stD5qMirFZ8EdI05t3kHv6/IAOEKgbB
-	ssag==
-X-Received: by 2002:a05:7022:3c81:b0:187:c940:21b9 with SMTP id a92af1059eb24-1b5031217d2mr8629510c88.30.1794830798185;
-        Mon, 16 Nov 2026 04:06:38 -0800 (PST)
-X-Received: by 2002:a05:7022:3c81:b0:187:c940:21b9 with SMTP id a92af1059eb24-1b5031217d2mr8629483c88.30.1794830797574;
-        Mon, 16 Nov 2026 04:06:37 -0800 (PST)
-Received: from hu-akakum-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm36961530c88.5.2026.11.16.04.06.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 04:06:37 -0800 (PST)
-From: Akash Kumar <akash.kumar@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] arm64: dts: qcom: talos-lyra-evk: Wire up CYPD6129 USB Type-C ports
-Date: Mon, 16 Nov 2026 17:36:23 +0530
-Message-ID: <20261116120623.1726089-3-akash.kumar@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116120623.1726089-1-akash.kumar@oss.qualcomm.com>
-References: <20261116120623.1726089-1-akash.kumar@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LO/lEcBX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81EE91F000C5;
+	Mon, 16 Nov 2026 12:09:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794830953;
+	bh=DQKq9lPCCId726jGcee566wmkBRqcENP2m1ZlEIDRRI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LO/lEcBX3lG7Ap1r7tIt8PLK9da8Xr9mc8E0uq8Lc5jzEQ26whxR8ijBIakoLZ1Pe
+	 ArInzvClG9kXwFIzsQB4HiqeXguS0HYLw+Hr0dOFE1mfyprfuxdEeOA7zWmP0uu7qB
+	 zPliXtw7xnzdpc0egZeA48qFm6b4d1bb72AVlfHqXbTyUG7Qhotdr3RBKw3Rvc1muC
+	 LwWQKgEdOD9c2qI5HrRgGnZS4UyuayEkmTrAUKG4nvVpWYXyGgmCrOTRrbj2RvoarZ
+	 PG9TXUiGpovcBx2y8nCNfm71gH5dw76EC/sNbPPg7a67FovFtpa/pH2VHqjPC70TlC
+	 vm6en5UGMhfeg==
+Date: Mon, 16 Nov 2026 13:09:04 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Suresh Vankadara <svankada@qti.qualcomm.com>, Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: media: qcom,glymur-camss: Drop port@3
+Message-ID: <20261116-vegan-amphibian-muskox-3c8a55@quoll>
+References: <20261113-glymur_camss-v2-0-b1b76509c744@oss.qualcomm.com>
+ <20261113-glymur_camss-v2-1-b1b76509c744@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -124,290 +62,17 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA0OCBTYWx0ZWRfX9Q/TKAPFUcOD
- TYvJZoFNbrLEG7dsXkx9rvXP4PGL7U0Jmc+QdD4J0Twt6hzUVkcNBxB69QBCk6clZmu+e04LvoE
- WG52CzS1WrVPwonCMuDtovOkKuF2H9E=
-X-Authority-Analysis: v=2.4 cv=epRKXYpX c=1 sm=1 tr=0 ts=6afaf1cf cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=1-dFLm9VQVe0kl0r4fgA:9 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: jzH_zAhTpuPRJkCn94tFT34FOEo8X06q
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA0OCBTYWx0ZWRfXwHHgPjpEYhHe
- rtG3/SQ1GQ2Eq6//dL36C4qD32ceKvkVFuVyYcB2cNnADpmdZbMCCR/BK1uxtsjGoVd2oRXzoiG
- K8PzB6IopQOVPGNFhAJf5tm5Q4Kd/DL2ekPoQv/EsvCEx0VaDOd+YrX80gK/kM7HlokqI1Dz7xN
- erX6PG/C/Eo7th8oFqd8M5WRObFCmxfbMo0DG+7gWca6ppeG6TFS9IeUcTWYch7G0YT23ldQrAe
- esnFSND8k/f+MWP/2XyYk6qqVQiCli5fR8ytmkuNlYWWLxCleAi59KLWanSu5uZOcueQDXy5dJT
- /ObhO+5IZ6N57puvmDk9v7e9QiY6Y91En42zhKbPeZ/Yq5geI0dLB1dEjG42zNQS7LMnN9LZYsU
- glJPB1KWUwjlF5c3rn0RSl0bA74CcgMhSKhsg64jsdfOCfiI49NabiVvQFXpYGViQQdt+SxJu6s
- 57kEgF+V/FgWsL+smiA==
-X-Proofpoint-GUID: jzH_zAhTpuPRJkCn94tFT34FOEo8X06q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-16_04,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 bulkscore=0 phishscore=0 adultscore=0
- priorityscore=1501 suspectscore=0 spamscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160048
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261113-glymur_camss-v2-1-b1b76509c744@oss.qualcomm.com>
 
-From: Akash Kumar <akakum@qti.qualcomm.com>
+On Fri, Nov 13, 2026 at 01:50:22PM +0530, Nihal Kumar Gupta wrote:
+> Glymur has only three CSI2 PHYs, so there is no port@3 in the CAMSS
+> binding.
 
-Add the CYPD6129 UCSI PD controller (typec@40) on i2c5 with its two
-USB-C connectors, and route their HS/SS endpoints to usb_1/usb_2's
-dwc3 controllers and the USB QMP PHY. The PD controller, its GPIO86
-interrupt line, and the PM8150 GPIO10 VBUS-enable control are on the
-SoC/SoM card, so they are added to talos-lyra-evk-som.dtsi.
+... so this was never working? Or was working but you change something?
 
-connector@1 additionally routes its SBU lines through a GPIO-controlled
-SBU mux (onnn,fsusb43l10x) selected by expander0, since connector@1's
-physical Type-C port carries SuperSpeed and SBU while connector@0's
-port is USB-HS-only by hardware design. The SBU mux and its GPIO
-expanders live on the carrier board, so they are added to
-talos-lyra-evk.dts along with the TLMM GPIO64 VBUS boost enable fixed
-regulator that supplies the USB daughter-card connector's VBUS.
 
-Switch usb_1/usb_2 to dr_mode = "otg" with usb-role-switch so role
-switching is driven by the PD controller, and add the supporting
-USB1_VBUS regulator and pinctrl entries needed by this routing.
-
-Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
----
- .../boot/dts/qcom/talos-lyra-evk-som.dtsi     | 121 ++++++++++++++++++
- arch/arm64/boot/dts/qcom/talos-lyra-evk.dts   |  42 ++++--
- 2 files changed, 152 insertions(+), 11 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
-index 7d9a08471906..ed3a369dac02 100644
---- a/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
-+++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
-@@ -31,6 +31,16 @@ xo_board_clk: xo-board-clk {
- 			#clock-cells = <0>;
- 		};
- 	};
-+
-+	regulator-usb1-vbus {
-+		compatible = "regulator-fixed";
-+		regulator-name = "USB1_VBUS";
-+		gpio = <&pm8150_gpios 10 GPIO_ACTIVE_HIGH>;
-+		pinctrl-0 = <&usb1_en>;
-+		pinctrl-names = "default";
-+		enable-active-high;
-+		regulator-always-on;
-+	};
- };
- 
- &apps_rsc {
-@@ -179,6 +189,87 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/qcs615/a612_zap.mbn";
- };
- 
-+&i2c5 {
-+	typec@40 {
-+		compatible = "cypress,cypd6129";
-+		reg = <0x40>;
-+		interrupts-extended = <&tlmm 86 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-0 = <&usb0_intr_state>;
-+		pinctrl-names = "default";
-+		wakeup-source;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		connector@0 {
-+			compatible = "usb-c-connector";
-+			reg = <0>;
-+			label = "USB-C";
-+			data-role = "dual";
-+			power-role = "dual";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ucsi_ccg_port_0_hs: endpoint {
-+						remote-endpoint = <&usb_2_dwc3_hs>;
-+					};
-+				};
-+			};
-+		};
-+
-+		connector@1 {
-+			compatible = "usb-c-connector";
-+			reg = <1>;
-+			label = "USB-C";
-+			data-role = "dual";
-+			power-role = "dual";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ucsi_ccg_port_1_hs: endpoint {
-+						remote-endpoint = <&usb_1_dwc3_hs>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ccg_typec_con1_ss: endpoint {
-+						remote-endpoint = <&usb_qmpphy_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ccg_typec_con1_sbu: endpoint {
-+						remote-endpoint = <&sbu_mux_in>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&pm8150_gpios {
-+	usb1_en: usb1-en-state {
-+		pins = "gpio10";
-+		function = "normal";
-+		output-enable;
-+		power-source = <0>;
-+	};
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
-@@ -229,6 +320,15 @@ &sdhc_2 {
- 	status = "okay";
- };
- 
-+&tlmm {
-+	usb0_intr_state: usb0-intr-state {
-+		pins = "gpio86";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+};
-+
- &uart0 {
- 	status = "okay";
- };
-@@ -250,6 +350,14 @@ &ufs_mem_phy {
- 	status = "okay";
- };
- 
-+&usb_1 {
-+	status = "okay";
-+};
-+
-+&usb_1_dwc3_hs {
-+	remote-endpoint = <&ucsi_ccg_port_1_hs>;
-+};
-+
- &usb_1_hsphy {
- 	vdd-supply = <&vreg_l5a>;
- 	vdda-pll-supply = <&vreg_l12a>;
-@@ -258,6 +366,15 @@ &usb_1_hsphy {
- 	status = "okay";
- };
- 
-+&usb_2 {
-+	status = "okay";
-+};
-+
-+/* HS only */
-+&usb_2_dwc3_hs {
-+	remote-endpoint = <&ucsi_ccg_port_0_hs>;
-+};
-+
- &usb_2_hsphy {
- 	vdd-supply = <&vreg_l5a>;
- 	vdda-pll-supply = <&vreg_l12a>;
-@@ -279,3 +396,7 @@ &usb_qmpphy_2 {
- 
- 	status = "okay";
- };
-+
-+&usb_qmpphy_out {
-+	remote-endpoint = <&ccg_typec_con1_ss>;
-+};
-diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-index d4468e609911..020ce7db4241 100644
---- a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-@@ -4,6 +4,7 @@
-  */
- /dts-v1/;
- 
-+#include <dt-bindings/gpio/gpio.h>
- #include "talos-lyra-evk-som.dtsi"
- 
- / {
-@@ -22,6 +23,30 @@ dp0_connector_in: endpoint {
- 			};
- 		};
- 	};
-+
-+	regulator-vbus-boost-5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_vbus_boost_5v";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&tlmm 64 GPIO_ACTIVE_HIGH>;
-+		pinctrl-0 = <&vbus_boost_en>;
-+		pinctrl-names = "default";
-+		enable-active-high;
-+		regulator-always-on;
-+	};
-+
-+	sbu-mux {
-+		compatible = "onnn,fsusb43l10x", "gpio-sbu-mux";
-+		select-gpios = <&expander0 12 GPIO_ACTIVE_LOW>;
-+		orientation-switch;
-+
-+		port {
-+			sbu_mux_in: endpoint {
-+				remote-endpoint = <&ccg_typec_con1_sbu>;
-+			};
-+		};
-+	};
- };
- 
- &i2c5 {
-@@ -100,16 +125,11 @@ dp_hot_plug_det: dp-hot-plug-det-state {
- 		function = "dp_hot";
- 		bias-disable;
- 	};
--};
- 
--&usb_1 {
--	dr_mode = "peripheral";
--
--	status = "okay";
--};
--
--&usb_2 {
--	dr_mode = "host";
--
--	status = "okay";
-+	vbus_boost_en: vbus-boost-en-state {
-+		pins = "gpio64";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
- };
--- 
-2.43.0
+Best regards,
+Krzysztof
 
