@@ -1,80 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862426;
-	b=cG1E7zfiXXkeNgmmtva2KtTUoqMYIpRRoTi8xVLUHPIsn49UJn4ptFpd62vwh70CE0wO
-	 Zg9ZgTZyQHij5vhEyvc65au9QsJ97Zgn0vDzJgD40JD9J6ZuFzhDOzL0+LUSoSQC80DYd
-	 0wlSZvILm/GL/uzUusjWX8kHBP7ciILJaGgWXyRF+kUTsKv7samhBmhyYoJb31tkZExqF
-	 8G8yuzK2+N1Shc1AW4NJ/akS2CPvIsFMbCSKCXTUA57bls3Xgah8/7SbXJxZ45iwoiD4Q
-	 A+Xfxa7HWyaLSBJm0/yL0W+2cdGNjxREZpeDG2sxhB5cNTRaCqHDzsjdXavjQpCpoCg==
+	t=1794862430;
+	b=IiX+TLdkK053S/sYON+PyU0DTjYlp7DZPnk+/LgFnelmanRa1TGb7UzPR7VIKj9vjUzE
+	 BmmTIJvPjD5D2+L43qW6DPCDhiZsJBI4o9njIswfl2wKMsZK+CasTYHp09m4gn5E7If7M
+	 rOiapuDlnJ2aSCAP0A2ZM1jYCWkLo7QCyDVGXuRYX3qRwzUwgZHcAi1EGaNyH1yFAHG3Q
+	 I16iTfd0vAnde7lnR8YKZcweGREdg42810OBsHlZNWcr/ZBLqmnoTkKSNTrP7qOb2gsvo
+	 9HsPSdgvK0oWFTztwCEnJzaOgZO9nZugWP1oRmH1J1eksHBrCgP/Yau1WEILjZo7E0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862426;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862430;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=zKhcQqCObW2np3+GZxG/Vi/lnV5TvzNl3cN+yw2JRFw=;
-	b=PRe+eJCmY/K1W0e1ZAgOnO1swYPagRkPRkfra4DE3LiA3qLsYHGaVxy8cEqqll0bkmpm
-	 vI8r741OCYMK5Yt40UqSWvo0+QqUvlbzUxG7USgCwSXE1dtDveWSpZzJMABAfboXkacjR
-	 QZdXu8Ka7/wwng5ONbaQEVMexs09fOUz9gUj3e/Bbn4gbEH9ZMKVbxcPyM4VFFrRgihIw
-	 j1FapgmrlAPuK1CrEhi38FLiHgJ22K1qDuXr1K4EJPCqOoFX97LQ5ltbAt0tf+LZOaM06
-	 Gz57q5W90MIYihW16fkicFc2QeCgtmUf6aROr9WKoXuWvljzO4U8gjdZux0ElEcejMw==
+	bh=GqET4a1eR1Im9QVhPOdJb3YbweTmn7DPOs/OXRIvsBI=;
+	b=Awl6BVgn2cc68rL8a/nPP+3E89EFmd1Hq57TcN9YYQjDwdvQzYs3O5KPILCYGOgI5QwX
+	 iwRdwdJ/tCMGxEkgrsE3pLpa55Uk5H89grkwnALApEy8xQqvDmN/B6vkU2zaf7Ib2Y+V4
+	 OCYYuTQ367GbYbiIp5/5gvYkb46t2nJWxPMnNBcvGbM7S2PLWhl9Arq4M3D2x6vi5iSc3
+	 lpsE9doy8awRRepiMa14EDFz0aZh1rG/6Zy7v8DUiKQfvOgxqU+KC/t2COGl5dyiGYh3Z
+	 eyLE0nP9VSX/5+DphyhDG5N1wGX3om0ZI+Y6krkF77I1VBBnZB/rz2SIy4/+IPj2sHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Wy3lwnyD;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=HY2u0o0Z;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4FF606A338
-	for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 20:53:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D4FF606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04F1606A89F
+	for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 20:53:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E04F1606A89F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Wy3lwnyD
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33fb4680717so10193869eec.1
-        for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 12:53:45 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=HY2u0o0Z
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3704d30b84fso4672948eec.1
+        for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 12:53:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794862425; x=1795467225; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794862429; x=1795467229; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zKhcQqCObW2np3+GZxG/Vi/lnV5TvzNl3cN+yw2JRFw=;
-        b=Wy3lwnyDZ6zg6JvnqVw+Q/KYJREuy2Q3beiqnUTSYCrndQpeCc8rH221h4OKOy2ROo
-         Pdg2opaFsrwFCCzWU6FuOLum2O/Pjbn8L5vFnhCK8eMS87eJlGHP47DcwyPy1EMJa77/
-         9TXaubiHuLlXfwDME7+tGH2EVSAU5IQ/NowgA=
+        bh=GqET4a1eR1Im9QVhPOdJb3YbweTmn7DPOs/OXRIvsBI=;
+        b=HY2u0o0Z8H3Yq7PlPIizj7S0ypgGnAL7reX/xHU7bT9irZqhQd/73nLumJhnzk9U7q
+         tlzHPtaXOoZHTfpvgZerKtGtvx37zqg4rFJrOio47uV3UNZ6lWx4wZ+sN/pKDXFQ0qer
+         ECkQqCNQhFSJbw41UPznMmFjeSXSzO1duG6eg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794862425; x=1795467225;
+        d=1e100.net; s=20260707; t=1794862429; x=1795467229;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zKhcQqCObW2np3+GZxG/Vi/lnV5TvzNl3cN+yw2JRFw=;
-        b=1c9+Wi3uEiWhmujyYSjpzLTowzPql32Bkpqy8cTJnlo7BUV5/r2TNfLK0zUxuJdTyK
-         9g/FmLRcG1cjSf7/2aonNhlIg4XsLnul+m2/SpxVQDeupdQcxBLltkiPTGu1s2b4/+9c
-         78cmTo16+/MzvF/zJ7KhVqSzd/VpocbswZJCDOjGDtjhZTIW4xlrbwBYgGfgpodRdhvt
-         k+DeWopo+LrRyI01A/VHdCE7P+RAZ1CGJbOCfMlEk+I5LZWXpGGM1+w+FSImB+hTHv/1
-         SiwnuO+0FXdJufdd5Vt4HSltdvO3gnCtlX9Dn88Hq9inFJ+N0LKIXkmQ6fe1ScLhk8Sd
-         Ue9g==
-X-Gm-Message-State: APuU4Z/DsVHubbcrQmXJ2CJq5B13jdSu7vBDbbwcprXWKLz4BZkNPyBa
-	2zAxiH39F2ZmizW/7QCK9F2/YxYaAxpF9fiTwXRF7IkBNrnvmcfvNGkjF84GGft32A==
-X-Gm-Gg: AZFdTZc2dGEBRmvgVOHYo1p+lnfkfvkOvZzYgpYlJeagVK2lA6cyE0RxGFzJxCqMYHq
-	GEjVU4ll+wIdlcAhm7/LZT7Ad7N1IhWrVMx419MAPWONoJS6P7SeITKJGtEczKvoAEK505ee0nw
-	6E0tDfzy0MocqYySdy3XLcYSSc02LSmA0iR9x3Y3/JJGDFjmzRJ35/VWmNxLIj4BH99x7SBpTjx
-	V5sTbzQtJAzMfV1PSo6THSJpPIy/i9hBe4jmTp3WQEKGzGVzCjong2/40MdqXJZbBTjXbnnA7e5
-	JCaW8XvesLmR/ggpkwuJwL5CYqiFstDW8s/iR6dkFbkwqlMGAMDQD2W0kxrxnXy3BVS/qnupj/Z
-	zzbzuOVAq2V8P4nk9E3xAAbtat22GjtZRLDqeLDLqifotKsQD7nh8BYDoaFNFrHPiVPU2ospV38
-	63kfcoVPwqefJMTlPQf4uh9rbh1l4oK0cMLG4zUpcIEb1m7ZhwMuumpd/ZRlTFRiybUiZ/SlmPM
-	9XNL7Qygm/xJOF2mTGmrSL+f8M1TxYKPcWVGh7CT0hAAM6HRoHxudbT08jhde7vyn2SOR6F8bjg
-	RhrXRl5xW7lugPKnGl8WVoRKXec0JpF2ocMhDNvwSyeC6j++yWvq2jRYQaI3aqtELT6GpMQccOH
-	WhRClJc0JLGZpQQ==
-X-Received: by 2002:a05:7301:a4:b0:378:b1be:2d3e with SMTP id 5a478bee46e88-37967ae558emr12079365eec.32.1794862424700;
-        Mon, 16 Nov 2026 12:53:44 -0800 (PST)
+        bh=GqET4a1eR1Im9QVhPOdJb3YbweTmn7DPOs/OXRIvsBI=;
+        b=i+PWaFLFIXtDSI30sVWyGT9yR29oLY89cWK4VfqlRwoaXguv/Ak5bUWGjKMVPcPKys
+         GC2CvyqsNqSSht0IW0/4mkU8Z1LOj2575iYP9A0PjuvbZ0cq7aNCYu+0vsCS7iyj0jQK
+         ogbUw726ZE+mVMji9Z/va76cLELVbtimAaK89pyEdpGIpF+YMyZVNfCoLVPomGK1KJKi
+         ue8cQqsw87OnzHkK//kTxjoU0T4cuBOIKd5pF3UvEpVxGGovTUL+DV7B3EcPhZp9tQRd
+         PrjAAICr5IECC2a5SEdVOstGnsZKWto0OeKEmtludd/p5gcXM7TC78ORRgAT5qvJpf70
+         k3FQ==
+X-Gm-Message-State: APuU4Z82et2eh3Mc+M6s5o/lvmI85jRwKbkv2Fo2pS+IEUrVyk5qkmlU
+	saqRxiqqbP2ry/YSCyVpAX/PsO5JEKucC19s8VwNAOPhqR/0LDrbbeBywShsfN3o4g==
+X-Gm-Gg: AZFdTZeU7pMTJ4fHCQv8aH4mcT8sdqxWZcL1pnP0YZ7oIIpVmP97Lz5TCCu8nCNV+xc
+	LowIhLK+2ec9Jgd6PVhcqW8Hsl1BbBiyxDnXbgfbmyBBEd+x2Dy6MwiEhipz1BTDZRrk/TN50VQ
+	Yk60uRDfFEsDpMEJqsBZ/gsRyeoFtLc+G8wwaaoSZLj7v3fVseiGt6N8gHWwzaphG9ri00zWNtV
+	bVTlU8U+oYtaBSNbUA7+YpnzYa4FUmWFG1/7RUt1lDCI9qtE/YoteSNmBDZ8sUP/DRDaqoGGxTU
+	okVdN4EDniSjY/Ju3VUfNvqM1NXh1jaTQe5gXFR8CwbvcNMIrI1EuiQH0fIEE3Wqa3xQqMZivUl
+	Z4WwceX3ExhfNioBGQ8JUJ1KJnPzochs0rnMoKR7wGV1PDzmTJTRzeukgiVwiDYJ7QbGiAngdfB
+	tittfbKEcdyAuGy9XBiWKCeWMt8dmylodDtjBcZc+1AGt5oSEa/dxeyGtRSZuV9MxoEktcKbScM
+	WxL8KZyOd5qiGmS5sss4QCOgC5PIMmof/VEN+4hhmg3TeaN8PV3KnGnbpRyUPvWZsNfhpAGG88t
+	in7FoIMmD9f6Xloqg2ykREmxSY4WgQ/e5k8kqLBtHx1YgEGUjUB8BWvP31VeN25k01kYG1ScQXQ
+	HZOONx7/aS0lEpw==
+X-Received: by 2002:a05:7301:2a9c:b0:372:79a0:e8a3 with SMTP id 5a478bee46e88-37963374fdemr11690960eec.1.1794862428808;
+        Mon, 16 Nov 2026 12:53:48 -0800 (PST)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:40c8:6e27:a2df:3321])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.53.40
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.53.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 12:53:42 -0800 (PST)
+        Mon, 16 Nov 2026 12:53:46 -0800 (PST)
 From: Douglas Anderson <dianders@chromium.org>
 To: Devicetree-compiler@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
@@ -93,9 +93,9 @@ Cc: Devicetree@vger.kernel.org,
 	Peter Griffin <peter.griffin@linaro.org>,
 	Julius Werner <jwerner@chromium.org>,
 	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v4 04/14] pylibfdt: Add Property.from_*() creation methods
-Date: Mon, 16 Nov 2026 12:53:01 -0800
-Message-ID: <20261116205320.1621386-5-dianders@chromium.org>
+Subject: [PATCH v4 05/14] pylibfdt: Unpack Property.as_list() in a single struct.unpack() call
+Date: Mon, 16 Nov 2026 12:53:02 -0800
+Message-ID: <20261116205320.1621386-6-dianders@chromium.org>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
 In-Reply-To: <20261116205320.1621386-1-dianders@chromium.org>
 References: <20261116205320.1621386-1-dianders@chromium.org>
@@ -110,178 +110,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-`libfdt.Property` provides `as_*()` methods (`as_cell`, `as_uint32`,
-`as_int32`, `as_uint64`, `as_int64`, `as_list`, `as_uint32_list`,
-`as_int32_list`, `as_uint64_list`, `as_int64_list`, `as_str`, and
-`as_stringlist`) to decode typed values from a `Property`, but lacks the
-corresponding creation methods to construct a `Property` from typed
-values.
+`Property.as_list()` currently decodes multi-cell properties via
+`list(map(lambda x: x[0], struct.iter_unpack('>' + fmt, self)))`, which
+constructs an iterator and `map` wrapper and invokes a Python `lambda`
+for every cell.
 
-Add `from_*()` classmethods mirroring each `as_*()` method so callers
-(such as `DeviceTree` users) can construct typed `Property` instances
-directly without duplicating encoding helpers on `DeviceTree`.
+Compute the element size via `struct.calcsize('>' + fmt)` and unpack all
+elements in a single C `struct.unpack()` call instead.
+
+On one stress test (decoding ~301k `/__local_fixups__` cell lists across
+438 arm64 Qualcomm DTBs) this reduced `Property.as_list()` time by
+~2.1x.
 
 Assisted-by: Gemini:gemini-pro-prerelease
 Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
+Found this speedup while benchmarking fdtfactor. It's not critical to
+functionality, but seems like a nice win.
 
 Changes in v4:
-- New patch adding Property.from_*() creation classmethods so
-  DeviceTree does not need its own get_*/set_* wrapper methods (David
-  Gibson)
+- New patch speeding up Property.as_list() with a single struct.unpack()
+  call
 
- pylibfdt/libfdt.i       | 56 +++++++++++++++++++++++++++++++++++++++++
- tests/pylibfdt_tests.py | 49 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 105 insertions(+)
+ pylibfdt/libfdt.i | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
-index 68f22e316ece..ff9210d123cb 100644
+index ff9210d123cb..e4a9357d278a 100644
 --- a/pylibfdt/libfdt.i
 +++ b/pylibfdt/libfdt.i
-@@ -962,6 +962,62 @@ class Property(bytes):
-         parts = self[:-1].split(b'\x00')
-         return list(map(lambda x: x.decode('utf-8'), parts))
+@@ -931,7 +931,8 @@ class Property(bytes):
+         return self.as_cell('q')
  
-+    @classmethod
-+    def from_cell(cls, name, fmt, val):
-+        return cls(name, struct.pack('>' + fmt, val))
-+
-+    @classmethod
-+    def from_uint32(cls, name, val):
-+        return cls.from_cell(name, 'L', val)
-+
-+    @classmethod
-+    def from_int32(cls, name, val):
-+        return cls.from_cell(name, 'l', val)
-+
-+    @classmethod
-+    def from_uint64(cls, name, val):
-+        return cls.from_cell(name, 'Q', val)
-+
-+    @classmethod
-+    def from_int64(cls, name, val):
-+        return cls.from_cell(name, 'q', val)
-+
-+    @classmethod
-+    def from_list(cls, name, fmt, vals):
-+        vals = list(vals)
-+        return cls(name, struct.pack(f'>{len(vals)}{fmt}', *vals))
-+
-+    @classmethod
-+    def from_uint32_list(cls, name, vals):
-+        return cls.from_list(name, 'L', vals)
-+
-+    @classmethod
-+    def from_int32_list(cls, name, vals):
-+        return cls.from_list(name, 'l', vals)
-+
-+    @classmethod
-+    def from_uint64_list(cls, name, vals):
-+        return cls.from_list(name, 'Q', vals)
-+
-+    @classmethod
-+    def from_int64_list(cls, name, vals):
-+        return cls.from_list(name, 'q', vals)
-+
-+    @classmethod
-+    def from_str(cls, name, val):
-+        """Unicode is supported by encoding to UTF-8"""
-+        if '\x00' in val:
-+            raise ValueError('String value contains embedded nul characters')
-+        return cls(name, val.encode('utf-8') + b'\x00')
-+
-+    @classmethod
-+    def from_stringlist(cls, name, vals):
-+        """Unicode is supported by encoding to UTF-8"""
-+        vals = list(vals)
-+        if any('\x00' in v for v in vals):
-+            raise ValueError('String value contains embedded nul characters')
-+        return cls(name, b''.join(v.encode('utf-8') + b'\x00' for v in vals))
-+
+     def as_list(self, fmt):
+-        return list(map(lambda x: x[0], struct.iter_unpack('>' + fmt, self)))
++        size = struct.calcsize('>' + fmt)
++        return list(struct.unpack(f'>{len(self) // size}{fmt}', self))
  
- class FdtSw(FdtRo):
-     """Software interface to create a device tree from scratch
-diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
-index 26915a015ccb..e2f9c6d5afe4 100644
---- a/tests/pylibfdt_tests.py
-+++ b/tests/pylibfdt_tests.py
-@@ -414,6 +414,16 @@ class PyLibfdtBasicTests(unittest.TestCase):
-         self.assertEqual(9223372036854775807,
-                           self.get_prop("prop-uint64").as_uint64())
-         self.assertEqual(-2, self.get_prop("prop-int64").as_int64())
-+        self.assertEqual(self.get_prop("prop-hex32"),
-+                          libfdt.Property.from_uint32("prop-hex32", 0xdeadbeef))
-+        self.assertEqual(self.get_prop("prop-int32"),
-+                          libfdt.Property.from_int32("prop-int32", -2))
-+        self.assertEqual(
-+            self.get_prop("prop-uint64"),
-+            libfdt.Property.from_uint64("prop-uint64", 9223372036854775807),
-+        )
-+        self.assertEqual(self.get_prop("prop-int64"),
-+                          libfdt.Property.from_int64("prop-int64", -2))
- 
-     def testGetIntListProperties(self):
-         """Test that we can access properties as integer lists"""
-@@ -425,6 +435,28 @@ class PyLibfdtBasicTests(unittest.TestCase):
-                          self.get_prop("prop-int64-array").as_int64_list())
-         self.assertEqual([0x100000000, 0x1],
-                          self.get_prop("prop-uint64-array").as_uint64_list())
-+        self.assertEqual(
-+            self.get_prop("prop-int32-array"),
-+            libfdt.Property.from_int32_list("prop-int32-array", [128, -16, -2]),
-+        )
-+        self.assertEqual(
-+            self.get_prop("prop-uint32-array"),
-+            libfdt.Property.from_uint32_list(
-+                "prop-uint32-array", [0x1, 0x98765432, 0xdeadbeef]
-+            ),
-+        )
-+        self.assertEqual(
-+            self.get_prop("prop-int64-array"),
-+            libfdt.Property.from_int64_list(
-+                "prop-int64-array", [0x100000000, -2]
-+            ),
-+        )
-+        self.assertEqual(
-+            self.get_prop("prop-uint64-array"),
-+            libfdt.Property.from_uint64_list(
-+                "prop-uint64-array", [0x100000000, 0x1]
-+            ),
-+        )
- 
-     def testGetStringlistProperties(self):
-         """Test that we can access properties as string list"""
-@@ -434,6 +466,17 @@ class PyLibfdtBasicTests(unittest.TestCase):
-         self.assertEqual(["this is a placeholder string", "string2"],
-                          self.fdt.getprop(node, "placeholder").as_stringlist())
-         self.assertEqual([], libfdt.Property('empty', b'').as_stringlist())
-+        self.assertEqual(
-+            self.fdt.getprop(node, "compatible"),
-+            libfdt.Property.from_stringlist(
-+                "compatible", ["subsubnode1", "subsubnode"]
-+            ),
-+        )
-+        self.assertEqual(
-+            b'', libfdt.Property.from_stringlist("empty", [])
-+        )
-+        with self.assertRaises(ValueError):
-+            libfdt.Property.from_stringlist("bad", ["embedded\x00nul"])
-         with self.assertRaises(ValueError) as e:
-             libfdt.Property('bad', b'no-nul').as_stringlist()
-         self.assertIn('lacks nul termination', str(e.exception))
-@@ -552,6 +595,12 @@ class PyLibfdtBasicTests(unittest.TestCase):
-         self.fdt.setprop_str(node, prop, TEST_STRING_3)
-         self.assertEqual(TEST_STRING_3,
-                           self.fdt.getprop(node, prop).as_str())
-+        self.assertEqual(
-+            self.fdt.getprop(node, prop),
-+            libfdt.Property.from_str(prop, TEST_STRING_3),
-+        )
-+        with self.assertRaises(ValueError):
-+            libfdt.Property.from_str(prop, 'embedded\x00nul')
- 
-     def testHasProp(self):
-         """Test that we can check if a node has a property"""
+     def as_uint32_list(self):
+         return self.as_list('L')
 -- 
 2.56.0.679.gc527c65306-goog
 
