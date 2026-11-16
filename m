@@ -1,57 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.128.198.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794789296;
-	b=eiFtfTsfX1pB/UQZAeSzNkhPs1SyLeif7ewQuWU+MS3mHsDmr2kJ8cNehF5NwhWilkBZ
-	 7w3llNmF8FsuxGta/XyXcssjlgOcBHZFiXM09X+a/tVdzoZMz8OeP1mexItxr1tiWyKxW
-	 X4WC+ePqmRBCK9dG11UrLdbaRWYwRGy6JCRrIwFeOEdSHTzkEz/MbkZo2imB3b2x/ANIM
-	 8bobRHUb5emxZq6xxcY0IcgZrXVXgXneu+nx7/sYZwBgwc0sJPIqTw6Puk6cf/F0verWB
-	 Fewzw0eRvs17WOLpQmtMXJRjbb8Kc5Qtx0SEpnBwurJI4qrW8E836euCNWvKSxTBqRQ==
+	t=1794789644;
+	b=1/szYW/SlYi6VKxEiyIUIxJoyMwI+FAD7FplDUVPlyL5ygMtdRo8ImJOAia2elNujaBA
+	 Z508JcE8txwYz6si8jDSAHb6+LJmqgqgpoHiU8KS74wiFz2lK/n2iNf2CLWvCM8o7Yq0B
+	 Ivolv1nRDaCyI0VXa9+5DmY4ielgPxFmQh5Z3NGiRnEjJDMDW+mnWsfqZAPhBp0P6JtbU
+	 yNhIewZFju8I9qkjrKV88OIV+S8oyqJDUhAPGvUT76JiH+Q/jtP5hksu3dmNmb2Kurn60
+	 hrQ4UX2EXdwT1DOXyGXSOt3umWMrVmYuM7UKyTkVCJ5KLiRaW7Tx4UCF0HHCK8Ay8+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794789296;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ZQ5s77pt7WuhcJMDWqyrTloAIFM7HridzheIVDA1k58=;
-	b=OPH4dSti3l9cBmNdWZYoQhzZCnhw2nAhVJm+cKmyGn396gvpsb/FbHQdYKqVuFqj29LE
-	 FTg7TK9ug2hC7okbyM9KHxAPUWIVBAQftg/tYNsuHgUYgcf7uu09OJyIygOp73121uFgX
-	 6QC4tcQcJiFB8w2Am415nFArrb3t120imiT0S8DOYW/kGkhQBq77gh2oEzZgPTTR8p+q1
-	 GtXvlBOfRyq4RtRyoagyRKxOLtIHaaX+guz3g554KSS7xGHIEdCCUWy6DFJHBX0beEuL/
-	 jLKisSd1ragDrU9WmJCwV136qT0VWAA7nMef+jzCoaNe0J04R0KSd1MJjy3+KUQygfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794789644;
+	h=DMARC-Filter:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy:X-DKIM-Results:
+	 X-DNSRBL:X-SPAM-SOURCE-CHECK:X-MAIL;
+	bh=whNMgs1wCgGpnJ/g10qabo68iz/frxBjrO4c1CzVz2w=;
+	b=YbjnONuV3mWdtGH8xP5pQufazR2mhG2bWaGdZFOsJ5k6do6YhuXHNV4HbxwxCNMnB+x/
+	 ASgLbDXRjsvxVCyiphmjMl9ouhRnrIiDLlNjoVMGl/audqJIaMrZ+kroY01AQy613epFE
+	 73nV911qlKWGJ8E6qtZxiXMhYPcK07Q0hObEnYr9ehLmjldXehy9jx/uSdEljmX8vSrL1
+	 /4Vyub2hx1sX32IcuGA8u7c+Rlj3Gl9j2p0yLBxx/JLjdKSBY12/K5a36BBudsEtNV0if
+	 zzv3yZR5Ki3AEPQ6TehZrUizJKNXuh9yr+rM7wgHlFGX+sJ3aO9WEbMSxM1e/2Zshuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJwZzzTy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=andestech.com;
+	spf=pass smtp.mailfrom=andestech.com;
+	arc=none smtp.remote-ip=220.128.198.184
+Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D062E606A329;
-	Mon, 16 Nov 2026 00:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJwZzzTy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 508C31F000C4;
-	Mon, 16 Nov 2026 00:34:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794789296;
-	bh=ZQ5s77pt7WuhcJMDWqyrTloAIFM7HridzheIVDA1k58=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nJwZzzTyNB66BirWxEE1oKdQIhm54SYu6xYMbQlMdJ3NBYiE03VdBGWwxDpGJ5yJM
-	 2r6DPGz262tpLViy4FmOg1esO04NCuu7s2kPCmGpRR/woVF5Z8ZuB4ICBOY7T0UnWn
-	 ZZKOc+tDEcFFKH9+sHtk//sjIG8oRHop/PRcMknD70B3OiCJvS9tNt0+DED0BGr6Kt
-	 HR8qitmtH87475dH4RgWfTwWoKWSHoz2hs4N4b2m2GF3IJJZf9dWM7RY4Bi8MsGqS4
-	 9DNBZC35yiYA8lnon7jO+R1kcHHnDBAk83AVg7uNwH/qeGAhmjR47e1fhQgORznl6V
-	 HybfHQAyU/hFQ==
-Message-ID: <sashiko-outbox-215957@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/8] dt-bindings: rtc: Add linux,wakeup-states
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Igor Velkov" <iav@iav.lv>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20261116-b4-alarmtimer-rtc-priority-v2-6-b2c69721e489@iav.lv>
-References: <20261116-b4-alarmtimer-rtc-priority-v2-0-b2c69721e489@iav.lv>
- <20261116-b4-alarmtimer-rtc-priority-v2-6-b2c69721e489@iav.lv>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 00:34:55 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531C0606A31F;
+	Mon, 16 Nov 2026 00:40:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 531C0606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
+Received: from mail.andestech.com (atcpcs55.andestech.com [10.0.1.155])
+	by Atcsqr.andestech.com with ESMTPS id 6AG0dje8074721
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 16 Nov 2026 08:39:45 +0800 (+08)
+	(envelope-from minachou@andestech.com)
+Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs55.andestech.com
+ (10.0.1.155) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Mon, 16 Nov
+ 2026 08:39:45 +0800
+Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
+ (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 16 Nov
+ 2026 08:39:44 +0800
+From: Mina Hui-Min Chou <minachou@andestech.com>
+To: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
+        <alex@ghiti.fr>, <conor@kernel.org>, <jic23@kernel.org>,
+        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <geert+renesas@glider.be>, <magnus.damm@gmail.com>,
+        <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+        <linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <randolph@andestech.com>, <cyyang772@andestech.com>,
+        <tim609@andestech.com>, <minachou@andestech.com>, <az70021@gmail.com>
+Subject: [PATCH v2 19/19] dt-bindings: riscv: add Andes A27L2 CPU compatible
+Date: Mon, 16 Nov 2026 08:39:37 +0800
+Message-ID: <20261116003937.1776888-1-minachou@andestech.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,97 +66,37 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
+ ATCPCS34.andestech.com (10.0.1.134)
+X-DKIM-Results: atcpcs55.andestech.com; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:Atcsqr.andestech.com 6AG0dje8074721
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] dt-bindings: rtc: OS-specific mem_sleep states in
-  linux,wakeup-states
---
+Add the compatible string for the Andes A27L2 CPU core, which is used
+in the Allwinner V821 sun300i SoC. The V821 devicetree will be submitted
+separately by Allwinner.
 
-commit 37e39721822efb2f3ac3e76aaec271ff0edbe18b
-Author: Igor Velkov <iav@iav.lv>
+Signed-off-by: Mina Hui-Min Chou <minachou@andestech.com>
+---
+ Documentation/devicetree/bindings/riscv/cpus.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-dt-bindings: rtc: Add linux,wakeup-states
+diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Documentation/devicetree/bindings/riscv/cpus.yaml
+index 0da219ae6769..fbe8f0625e76 100644
+--- a/Documentation/devicetree/bindings/riscv/cpus.yaml
++++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
+@@ -46,6 +46,7 @@ properties:
+           - enum:
+               - amd,mbv32
+               - amd,mbv64
++              - andestech,a27l2
+               - andestech,ax45mp
+               - canaan,k210
+               - nuclei,ux900
+-- 
+2.34.1
 
-This commit adds a linux,wakeup-states property to the generic RTC binding
-schema to specify which suspend states an RTC alarm can wake the system
-from, and allows the property in the Amlogic Meson VRTC and NXP PCF8563
-bindings.
-
-> diff --git a/Documentation/devicetree/bindings/rtc/amlogic,meson-vrtc.yam=
-l b/Documentation/devicetree/bindings/rtc/amlogic,meson-vrtc.yaml
-> index a89865fa676a6..51cce4b2a7ff3 100644
-> --- a/Documentation/devicetree/bindings/rtc/amlogic,meson-vrtc.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/amlogic,meson-vrtc.yaml
-> @@ -30,6 +30,8 @@ properties:
->    reg:
->      maxItems: 1
-> =20
-> +  linux,wakeup-states: true
-> +
->  required:
->    - compatible
->    - reg
-> diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf8563.yaml b/Doc=
-umentation/devicetree/bindings/rtc/nxp,pcf8563.yaml
-> index 22909a96123e5..e464432e4690f 100644
-> --- a/Documentation/devicetree/bindings/rtc/nxp,pcf8563.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/nxp,pcf8563.yaml
-> @@ -32,6 +32,8 @@ properties:
->    interrupts:
->      maxItems: 1
-> =20
-> +  linux,wakeup-states: true
-> +
->    start-year: true
->    wakeup-source: true
-> =20
-> diff --git a/Documentation/devicetree/bindings/rtc/rtc.yaml b/Documentati=
-on/devicetree/bindings/rtc/rtc.yaml
-> index e46d50b1063e4..54f41858dda47 100644
-> --- a/Documentation/devicetree/bindings/rtc/rtc.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/rtc.yaml
-> @@ -26,6 +26,23 @@ properties:
->        0: not chargeable
->        1: chargeable
-> =20
-> +  linux,wakeup-states:
-> +    $ref: /schemas/types.yaml#/definitions/string-array
-> +    description:
-> +      Suspend states an alarm of this RTC wakes the system from, given
-> +      the board and its firmware, named as in /sys/power/mem_sleep. none,
-> +      given alone, means the alarm wakes the system from no suspend
-> +      state. An RTC without this property is taken to wake the system
-> +      from every suspend state.
-> +    oneOf:
-> +      - items:
-> +          enum:
-> +            - s2idle
-> +            - shallow
-> +            - deep
-> +      - items:
-> +          - const: none
-> +
->    quartz-load-femtofarads:
->      description:
->        The capacitive load of the quartz(x-tal), expressed in femto
-
-[Severity: Medium]
-Does linux,wakeup-states encode Linux-specific /sys/power/mem_sleep labels
-and information already deducible from the hardware description into the
-Devicetree ABI?
-
-In particular, s2idle is a Linux software freeze state where wakeup
-capability is determined by whether the RTC has an OS interrupt wired via
-interrupts, rather than a list of sysfs state names. For
-amlogic,meson-vrtc, waking the system only from platform suspend is
-inherent to the compatible string because the device is a scratch register
-written during meson_vrtc_suspend() for the SCP firmware and has no OS
-interrupt line. Finally, allowing none duplicates the absence of the
-standard wakeup-source property and permits contradictory combinations such
-as setting both wakeup-source and linux,wakeup-states =3D "none" on the same
-node.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-b4-alarmti=
-mer-rtc-priority-v2-0-b2c69721e489@iav.lv?part=3D6
