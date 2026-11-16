@@ -1,88 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794870405;
-	b=ZApLXQaotDhqZBgcKNwmqpkc215TyGFLSN8I4orXEfRV0NvaOCvCLnRMiXNX1MV2wHnE
-	 fnQB6UePUesYyM8EbQBmSWwqi002yOtXD/lDdOwsYVdVNOczMU06b9Q7C+KeZuisUaOV8
-	 uLikr5AulhGv39RNLsRkaF6HV+OdxFKhWL4mpcVMjyNa0dcUf1n95eikxJDNTNUbkr38a
-	 Dpu3RIRvhMcz6ZUVTMxrvQCb2DcWuWGFm2N7KSpUIly/NmL71zn8BlRCZqlYjDMJN2uMK
-	 nOhpI4SmWTe0LSENfp1hT9hWL58wNwg0rJaxRuvgmEpRE517UZkJsiGqoW7wUnI4Ozg==
+	t=1794870421;
+	b=AoO0nSliKTOMWBIzfJa0zvyoLRHI8TRs0S6dnILumjQtpiOxzE8sNlYBoy7DMKMIiOWA
+	 1CkBs3EagsBCz77IRmYCVWPzAywlvDqIR/ciUAupH6kWQGuXiJK6PRvJmzWvEH0M9zPqx
+	 4NtULe7julfPebtY5N7Ya7z+FcPsH1PYirlhLcPBP6cmekTwdP/sHpLAhEAcDJurlRiuL
+	 NRuWszD6JWzMAiMtJ6+RKrdBlSTsIJGWMdkbH/QVxjN8gaDYTaox99uwlVvHpvt5Bk2A6
+	 6f2yM+YLRhEJKSxSI1H97Q9haV0mXGdj9+BeG/pny5nA3oseCJYApM3tHJF4pRGEksA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794870405;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=yMRabWLMCSHEq9av7y6ywR85Ullm7taZPfMTAVGFuHY=;
-	b=hPpBZx9a+JRl2QV5uFCNT2k4mCIUDma61g/BZzGBz/ZxJfthFXe9Ls32D+VFHKO1yCQB
-	 psLvBhqmis/OpRmoyZ7oH9GGzB38SsnsPyw+jDm3SUvjywB4+fNd0aiiJj10GENMTjVH0
-	 2LaOWr74HljXF+0UbHjw3mRGR+O5nszKaq6s0dhF1hRH9/UT6Ktv6OcuoJ08+d4eITjGb
-	 Q18FuuCka3N7hL3QCj3MCROZK93kNqGC8gALfKs4dUJP9JxW2Lv4eY4iVjvxcGRJ6Ty+G
-	 CZs593I1hzzIoP/hm1goGwM+rLxSRPCt++OYCqDlcOiJb297MBPvWHXqSdkSWVM0FgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794870421;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:Autocrypt:In-Reply-To:Content-Type;
+	bh=1zG5seXGoYlvBJzHn/0HbYBl3NQWQveVdHCEOzhGHtA=;
+	b=hqnSnd22Z05NEzEhE8tnPkTh81dqdCqXHWBTeXh3wVsudOjyRMFuruPGsTdqg0tarDFR
+	 HONLJ/pm6brRb2vEdQgSRZQA/qfXzOqo3qsnvlVnOlu0qWjuwFL9K7bIAjD6NPXJcn5uF
+	 0FQ/d/fMaq/RCPuLKq2vQKW7fH7PTB1xo4SFV7Z0HgHx5gPdV6/+lJyBvOLaEgZFP3+rY
+	 kKHsraghOuPNMU0W5bF0R+cw+Mce5jaXgzI0JxED2RkFDWcrTyUW3HoTiUL1Hi3ZHw3pf
+	 wIi2OBaS3uX6MMMEczcEZgwImTMp19o7Pawt7WNqxF5oU7kS2WWevKi/N6heyu9AJfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nUPwfzc0;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=erebion.eu;
+	spf=pass smtp.mailfrom=erebion.eu;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=O9ewXwZy;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=H6wVSQ21;
+	arc=none smtp.remote-ip=142.132.183.134
+Received: from erebion.eu (erebion.eu [142.132.183.134])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25971606A323
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 23:06:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25971606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9641360A382B
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 23:07:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9641360A382B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nUPwfzc0
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4a33359c1b3so325404f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 15:06:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794870402; x=1795475202; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yMRabWLMCSHEq9av7y6ywR85Ullm7taZPfMTAVGFuHY=;
-        b=nUPwfzc0SJy2NglXAMZADWXP3O5XbEar5kuQ3ZaYgCEL9BAo9fYukYwP3StBnAf8AO
-         zLsw2M5YP1aDg0Tm7JVz6VjqXm6NM7cJdngFa4ZpLYB7Gr8rv8yt9NBOWvIqBxn2BWgM
-         ACXx/XnBEa6oBhTILZAPLYtCUBYhnVlNiKjdZct9HzpMg4wkDKQJdA7gWNc59NY/X0xE
-         FOPLomTGmQdUgXh0st7q+ycak/5Xr+kiEofhqJrrex1EhPXFYwGcpaVFnx6jW5ul8Y5A
-         t/LB127BgKZw6eSCvIbfCtvh19aubqbrjS6Fvb7pPKdZbjf3CuGwYi+LwoMX4RbQjlqj
-         02Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794870402; x=1795475202;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yMRabWLMCSHEq9av7y6ywR85Ullm7taZPfMTAVGFuHY=;
-        b=wHK9teQnYURuAkAniwqdyoy+n6eM3ODmCw64BL5YJjrUHLAGYrbkVUQMnApr1nR+tu
-         rKqHPV4XkcAvnGN5+ulpsQriQvvGx7gEpdTirqdRYiqDbRRjjDPbF4BAG3q9jHIdn7UP
-         Lhk3UArfKi88r/8Xx5ExthlzblOuTbA6RRv1qJQfaLJbDWPo+8IWZ9outSOTjHBkjYYD
-         W2rQFuV1pMdzSSR3SRSPozg6Y02+9728zury5o3KVFadwiSsEZvVoqcmoDaCvdj3Oh+B
-         5urLPW7eWRLQJmp44zFUX1mrLg2ntfvA6I32u7NFTuFLjm/2B5Wa1XvAJfjKNQZK2psG
-         Zd9w==
-X-Forwarded-Encrypted: i=1; AL+hErHbpDHksnAM9O1IwZQsfH9Eua5CilZSeQIJQH3VPPwqEY0lLkB5q1eULK8zXVFaZLkdVEKVBiOfq7xW@vger.kernel.org
-X-Gm-Message-State: APuU4Z85v026ombqdiG3l04jWp0teNUeabLK7qhnlnVwhGwRNk7VVDyU
-	CFDJNk401bpS5rX3mlXFdLjmK6ry/oEGPAUjhLffbkLRpZGsCtKtknHN4gpkZOrf1mg=
-X-Gm-Gg: AZFdTZe9vEwCqWtih7DIcbYa5DyqXett3gffweqCrSXwl1ViMsEvCD7DzgUQ2c+n3Lz
-	XSS4qO0Goj4UNERFcb8Ztc1nJ1tvjCJTMXptrHOMnf3QtnkLA3t/UHtq+OXbRXhaHCYKBD4lz5O
-	OlgLPbFCjroXeWuRCncthN7mK1xx1mRk7hlPbj2qoChgYgPYcrAL9CILwHIoEtv5lUfiKNeILmg
-	CinGSndPhoTbT7Q+g4yhiZdmBGJbrq7+k01ccgkjNu/QJERi/Ghe1S019E2HZyzO2uXm+eYnPNH
-	q7YAjbk73YfmqaVHKIoKRFkls2UolftHLvZYgWc4yU/aXWJgAd1OcCslu0D9fAShSar1skCT99T
-	awYAib/qUhJopbE6NxeNSi1h3Xke8ccuQMFnFcYKbwBe7NzvSg6pDmbeH++ZQJVZgFYTRZzUTrx
-	0ChRUMiWOczq/vZUiVcpMVrhDFZ1bmOmXioElZUdpaDv02bPeAZ3ea/gb3ZkFhw0EWuR/DFsGHu
-	Vld0NIKt6tuKNm9PiwE6A3P77VcnBUqfZ8QKlDKkXjl+QrC0oGbROPN94IAUtMXP00g44c/Z2Ng
-	5rbyDJKrqPBqhnMoUHccmlrW9C8O51ua
-X-Received: by 2002:a05:6000:2288:b0:49c:6a45:ca33 with SMTP id ffacd0b85a97d-49c70ed923amr27070236f8f.9.1794870402452;
-        Mon, 16 Nov 2026 15:06:42 -0800 (PST)
-Received: from [192.168.3.100] ([151.61.248.197])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c77393700sm24359908f8f.18.2026.11.16.15.06.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 15:06:42 -0800 (PST)
-Message-ID: <0949591a-63cb-4bb3-a7de-cf59ddbaafb7@baylibre.com>
-Date: Tue, 17 Nov 2026 00:06:40 +0100
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=O9ewXwZy;
+	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=H6wVSQ21
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=From:To:Subject:Date:Message-ID; t=1794870407; bh=1zG5seXGoYlvBJzHn/0HbYB
+	l3NQWQveVdHCEOzhGHtA=; b=O9ewXwZy2+/LvZVw5WpYLZv3gaqMOnrpFtC9ETVCXpqJskR2m4
+	mWgx9IsKuUNWG5KSvRYbWeNbxEnHLUPcK5CA==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=From:To:Subject:Date:Message-ID; t=1794870407; bh=1zG5seXGoYlvBJzHn/0HbYB
+	l3NQWQveVdHCEOzhGHtA=; b=H6wVSQ21WHy4mA0yhRSRl2H7LJHhMwmQFYbH38PIVwu837UfR1
+	fDHcwSPkNbfStN4oYTN881EvxFv5d91nhzotq2PkM2wbzEUGnyol45aYwKqe72+KXvZIS8RaSuW
+	jevT8HG6L2WecgqUlRBXXpw/wufEvCLIpb4D1qLzcQNdiCf8YABVecegSFHTC9ayYmYKonLcaeC
+	q4NENRxAW1xUGC40LPs57aATuaGlHOAThrn+QIOrPiEKDxvgeas2F/ZPlzToQfCwqGE4t79vS9L
+	Y6w0EveJL2zk7ULdVUvWxIir4FYoNvJjpYLj2PQBdvIC8Xx4s4MWjZ+r8fyOxLfzjXw==;
+Message-ID: <01f936dc-20d7-4b63-b3b7-c1e9c841fd11@erebion.eu>
+Date: Tue, 17 Nov 2026 00:06:47 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,42 +58,83 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 6/7] ASoC: meson: gx-card: add support for audin FIFO
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com>
- <20261018-audin-v5-6-4b8cc13a1b22@baylibre.com>
- <CAFBinCA12FvOi=9gB1xj3MDvNWstx1N4TtyyrrndJ_JT5eLX=Q@mail.gmail.com>
-Content-Language: en-US
-From: Valerio Setti <vsetti@baylibre.com>
-In-Reply-To: <CAFBinCA12FvOi=9gB1xj3MDvNWstx1N4TtyyrrndJ_JT5eLX=Q@mail.gmail.com>
+Subject: Re: [PATCH v5 06/12] arm64: dts: qcom: sm6350-lena: Enable wifi
+Content-Language: en-GB
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-6-7318a19806eb@erebion.eu>
+ <sashiko-outbox-217825@kernel.org>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <sashiko-outbox-217825@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------pWh7rxlbKNUN3h1nSLgB0TyK"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------pWh7rxlbKNUN3h1nSLgB0TyK
+Content-Type: multipart/mixed; boundary="------------ftwDOvZB3FQ6fHFfbCDAPZAD";
+ protected-headers="v1"; hp="clear"
+Message-ID: <01f936dc-20d7-4b63-b3b7-c1e9c841fd11@erebion.eu>
+Date: Tue, 17 Nov 2026 00:06:47 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 06/12] arm64: dts: qcom: sm6350-lena: Enable wifi
+Content-Language: en-GB
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-6-7318a19806eb@erebion.eu>
+ <sashiko-outbox-217825@kernel.org>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <sashiko-outbox-217825@kernel.org>
+
+--------------ftwDOvZB3FQ6fHFfbCDAPZAD
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 
-On 11/15/26 10:28 PM, Martin Blumenstingl wrote:
-> On Sun, Oct 18, 2026 at 12:18 PM Valerio Setti <vsetti@baylibre.com> wrote:
-> [...]
->> +       if (gx_card_cpu_identify(dai_link->cpus, DT_PREFIX "gxbb-audin", "FIFO"))
->> +               return meson_card_set_fe_link(card, dai_link, np, false);
-> I suggest using the "audin" prefix. AIU / audin seem close enough on
-> all supported SoCs that we don't need a SoC generation prefix  in
-> there to handle this differently.
+T24gMTEvMTYvMjYgMjM6NTYsIHNhc2hpa28tYm90QGtlcm5lbC5vcmcgd3JvdGU6DQo+IFRo
+YW5rIHlvdSBmb3IgeW91ciBjb250cmlidXRpb24hIFNhc2hpa28gQUkgcmV2aWV3IGZvdW5k
+IDEgcG90ZW50aWFsDQo+IGlzc3VlIHRvIGNvbnNpZGVyOg0KPiAtIFtIaWdoXSBhcm02NDog
+ZHRzOiBxY29tOiBTaWduZWQtb2ZmLWJ5IGFuZCBBdXRob3IgdXNlIGhhbmRsZSBpbnN0ZWFk
+DQo+ICAgIG9mIHJlYWwgbmFtZQ0KDQpUaGF0IHdhcyBhbHJlYWR5IGRpc2N1c3NlZCBpbiB2
+MiBvZiB0aGlzIHBhdGNoIHNlcmllcy4NCg0KLS0gDQplcmViaW9uDQoNClhNUFA6IGVyZWJp
+b25AZXJlYmlvbi5ldQ0KDQpBY2NlcHRlZCBsYW5ndWFnZXM6IEdlcm1hbiwgRW5nbGlzaCwg
+U3dlZGlzaCwgTm9yd2VnaWFuLCBEYW5pc2gNCg0K
 
-Do you mean using "meson,audin" instead of "meson,gxbb-audin" for the 
-compatible?
-If so I'm not sure this is allowed nowadays. As far as I understood 
-"meson,aiu" is a sort of legacy naming. 'writing-binidings.rst' says
+--------------ftwDOvZB3FQ6fHFfbCDAPZAD--
 
-   "DO use a SoC-specific compatible for all SoC devices [...]"
+--------------pWh7rxlbKNUN3h1nSLgB0TyK
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
--- 
-Valerio
+-----BEGIN PGP SIGNATURE-----
 
+wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCavuMhwUDAAAAAAAKCRCOr0AybgKufVDl
+AP9bdsGivDZ+5ZFbswLaeKvB4ixNiCxlnuyaWRGIhA/21wD+PGChG8OLRjLlsi07HgWmxqedE9qi
+LYBhIfRgfzyd+QY=
+=s4wk
+-----END PGP SIGNATURE-----
+
+--------------pWh7rxlbKNUN3h1nSLgB0TyK--
