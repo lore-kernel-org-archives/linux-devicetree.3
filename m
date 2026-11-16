@@ -1,73 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794829517;
-	b=n/3In4iros9R9CjBYctKTu6ua300XTv5wE2DmwS7xI0hW6NBHKHZiPk7WTkY1ED0yZVL
-	 VtQz+1Cue1Wfsu6HZT6jScFqoLzfldg5YCn2jhJ3pF2+8xWJLKYfAOxB2P3Bf2iySLdEM
-	 /AEuteUj7/Rj3A80hDRpHqG0ohDfFIr9t905lUHXTX8/o5FU98sJdZ3KZOXKJH1PnINNx
-	 IBn/1XzMAtwHNOvLFd+792Jgn5tSQSPx+ZPiuMlNJrgmrEnP8/fyo4g3J7rC7s+SuUI0Y
-	 7L+VGd060JbmWYrDHea1GxhSFrvd32wgqdqRGj5ewqUwJr3TL8f85pekfpi4WPZJwTQ==
+	t=1794829661;
+	b=QGOgRdgbkfAhcDP82oSBrLSgNbNFQrBn7PLyNqTDBtmzuukBs9UW48E5NCJ7xTHTjA+m
+	 vyzQXoVbzTtCLc8M7SbP/A8VCAJe2i3ETkW4dDayxFprNz9BxryzA1XF1vkbMNXQSsrt6
+	 fymI8NTTiunWjYhnoRxbFTXjVKS8QE/AEuZWxbz4NV5MPaDJ9VwyPUCLX9m1eLQKZO5aw
+	 1yCoxEtpmwZIE7jQROKJdgKqb+BucXLYrM0AubTLDoOZ01GeKfZeOEsT5D8HMkvUdvkgK
+	 DFQ8KqR6j6HtJvw0kDX6rhWH+vFbO0avuJIKYslLG//OPpJkIATS7a3ZgLUd3qCXhZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829517;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=FGTx4VY/SL5BPbWdA4BlE3iQgAacAgZlBWd1emO5adI=;
-	b=ZYgfb0oa+/kVoNqr+SqbfqQkDmKq8tiy0KJBeTmk8TWnLm2x8V9G7vYhCnxgdGeW59pk
-	 Cv8J0WtATjRSoQ/m8ujU5kquk9mE//cUAC8I7W7ADIkXZGCw/csiR7a8VXb8rZsr0jWbu
-	 sdkH7igBTjOwam3nmrVkfsVw7oZJGLj5+qgUApHSoAvc9ElpyVMTjkrF34ZEXOtlyH7TV
-	 ZytyIlV/wUECS3qkMVOW0U6uGH1OiRzK8B0c83vBgzUUsf0G2cPziYhQg6/9/hksOfETc
-	 prGXdoNku2YtX8hA+JwTnb6Te6Fvm8e73yy7enaSuzdfF7HqYOO7S4noUEvb+bsnmXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794829661;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fawrS/3ssONFT5J61BoyKpRzvTv/DunyIOYxlv8HJm0=;
+	b=4vvpu4egNaHA2Sgl7VQEyGec3w2s07+17BXIWF6+JIn0Dga0SvIABv0QnclyEAzXmU3M
+	 RwPtxAqFzWwzvfcyQJtqKNmlMcbRbcXT8Bv0lvNu3wtDuQdbbOI83b7PINO+fvLv5EF9/
+	 iB5bCkg4zaiLvXrjQSyo7xwYYQT9AJNmF2qYcnUM3JXwQ9KyoU70wG0r/BC9TGc6EHLAl
+	 D84KnkosqTIWe+Q4lAxUAMDbAofPp2huEIDdQvxZdwKuYAQnmO5gRhRzfsysa8v/rlC9N
+	 rMO9rRZaX+3gihi7nTJ7wtYvF61OL9NjJ4RoxCP3n+nreY8XQ/QDiLbMKy86D2gN6yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=VYNVj83v;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rsw5+En3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62FF606A32C;
-	Mon, 16 Nov 2026 11:45:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E62FF606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965FB606A31C;
+	Mon, 16 Nov 2026 11:47:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=VYNVj83v
-Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
-	by mail11.truemail.it (Postfix) with ESMTPA id 2B59B1F901;
-	Mon, 16 Nov 2026 12:45:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794829513;
-	bh=FGTx4VY/SL5BPbWdA4BlE3iQgAacAgZlBWd1emO5adI=; h=From:To:Subject;
-	b=VYNVj83v4dL2FQUMVnOsJ1z1WEOIiBqsywF1kNt2PnHYe+TDOVilBKC+fiVqTEiBA
-	 y8Nbx007C/J6aR5klH7FPYMfU7paIcSsBuOgvw0+UEKOuapQhGpE3TTDElFm+amFD1
-	 DLKTKlOJT4Hsg0D3J34XILqb+NzxPpQIR2tUmQT+POfeOORyN366S2qbuBirDVUcna
-	 92ewQk+iE8xkMiJ6QEc9yor/K5PWT6EpTWErRV7DlcBeR1pgFLa3Z1gI+mbmGtKfeV
-	 2K05aBx12VhhrUB+yN4P3P+8bovpQKXPmJTxaAuFrYjcHyhP39xJIoKFVy0gDkPlA+
-	 RB+zYX8iC2yiw==
-Date: Mon, 16 Nov 2026 12:45:09 +0100
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-bsp@toradex.com,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 01/11] arm64: dts: freescale: imx8mm-verdin: Add SPI
- alias
-Message-ID: <20261116114509.GA101185@francesco-nb>
-References: <20261112150236.164850-1-francesco@dolcini.it>
- <20261112150236.164850-2-francesco@dolcini.it>
- <avXeK-IRXbKqI-pc@SMW015318>
- <20261113073135.GA8515@francesco-nb>
- <avc2nzql-JV7a-JH@SMW015318>
- <20261113171927.GA762258@francesco-nb>
- <aveChu8WqYM2JZcN@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rsw5+En3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 481051F000C4;
+	Mon, 16 Nov 2026 11:47:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794829661;
+	bh=fawrS/3ssONFT5J61BoyKpRzvTv/DunyIOYxlv8HJm0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Rsw5+En3+9wrQKzmbmtFGi8MVW112ImjuZZC4tc3VB0P6R4WR2aAo9XonN9s3vSG1
+	 z+Mv61pulx2NsWwq879gwfSqoZjziMhEbwuoBO2py/jmxqCKJeY3JZ8Audt/3rP2ik
+	 rK0R1RCSx/qUTBqZKJe2joy7y4L1rhXCcBE2g7o8Ql3SHNnb18NnIKL3hKcY96xexB
+	 ne7KMyzfCTP9YWC4mOhtgvymbapz9NWR/Ea0/NP1FSgkGp8f+0+yCnNUfVYgWaGh3+
+	 IBndu8EV0BA+sxc+KLKzA0xiIlzQdQZnO/bEKmEm9AGnBpAgvtVvRfECgM3P87xeZq
+	 ukv0T+kV6tXHw==
+Date: Mon, 16 Nov 2026 12:47:32 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, =?utf-8?Q?Beno=C3=AEt?= Monin <benoit.monin@bootlin.com>, 
+	Gregory CLEMENT <gregory.clement@bootlin.com>, =?utf-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>, 
+	Fu Chao-Ying <chao-ying.fu@globalfoundries.com>, linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 4/6] dt-bindings: mips: mti,mips-cm: add performance
+ counter interrupt
+Message-ID: <20261116-inescapable-dangerous-hummingbird-0faed6@quoll>
+References: <20261112-i6500-cm3-pmu-v2-0-cd2569571819@mobileye.com>
+ <20261112-i6500-cm3-pmu-v2-4-cd2569571819@mobileye.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,96 +69,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aveChu8WqYM2JZcN@SMW015318>
+In-Reply-To: <20261112-i6500-cm3-pmu-v2-4-cd2569571819@mobileye.com>
 
-Hello Frank,
-
-
-On Fri, Nov 13, 2026 at 03:35:02PM -0600, Frank Li wrote:
-> On Fri, Nov 13, 2026 at 06:19:27PM +0100, Francesco Dolcini wrote:
-> > On Fri, Nov 13, 2026 at 10:11:11AM -0600, Frank Li wrote:
-> > > On Fri, Nov 13, 2026 at 08:31:35AM +0100, Francesco Dolcini wrote:
-> > > > Hello Frank,
-> > > >
-> > > > On Thu, Nov 12, 2026 at 09:41:31AM -0600, Frank Li wrote:
-> > > > > On Thu, Nov 12, 2026 at 04:02:23PM +0100, Francesco Dolcini wrote:
-> > > > > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > > > >
-> > > > > > The Verdin family pinout defines the SoM interfaces and their
-> > > > > > numbering, SPI_1 being the SPI bus available to the carrier board,
-> > > > > > implemented by ecspi2 on Verdin iMX8MM.
-> > > > > >
-> > > > > > imx8mm.dtsi numbers ecspi2 as spi1, so the Linux bus number in sysfs
-> > > > > > and the spidev name do not match the Verdin interface. Add a spi0
-> > > > > > alias in the SoM dtsi and delete the inherited spi1, so ecspi2 is
-> > > > > > bus 0, zero-based with SPI_1 being spi0, and carries a single alias.
-> > > > > > ecspi3, internal to the SoM with the CAN controller and the TPM, keeps
-> > > > > > the spi2 alias inherited from the SoC.
-> > > > > >
-> > > > > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > > > > ---
-> > > > > >  arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi | 2 ++
-> > > > > >  1 file changed, 2 insertions(+)
-> > > > > >
-> > > > > > diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > > > index 1ac9d000d415..0369803a4d46 100644
-> > > > > > --- a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > > > +++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > > > @@ -16,6 +16,8 @@ chosen {
-> > > > > >  	aliases {
-> > > > > >  		rtc0 = &rtc_i2c;
-> > > > > >  		rtc1 = &snvs_rtc;
-> > > > > > +		spi0 = &ecspi2;
-> > > > > > +		/delete-property/ spi1;
-> > > > >
-> > > > > Can you avoid delete property for new platform?
-> > > >
-> > > > Unfortunately this is needed.
-> > > >
-> > > > The included imx8mm.dtsi has
-> > > >
-> > > >   spi1 = &ecspi2;
-> > >
-> > > Create patch move aliase to each boards' dts from imx8mm.dtsi, which is
-> > > board feature, not soc features.
-> >
-> > Please see the linked thread [0][1]. It's not a viable option.
+On Thu, Nov 12, 2026 at 02:29:01PM +0200, Vladimir Kondratiev wrote:
+> The CM3 asserts so_cm_perf_cnt_int when one of its performance counters
+> overflows. Whether that output is connected to an interrupt controller
+> input is up to the SoC integrator, so describe it as an optional
+> 'interrupts' property of the coherency-manager node. When absent, the
+> counters have to be polled by software.
 > 
-> where [0] and [1]
+> Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+> ---
+>  Documentation/devicetree/bindings/mips/mti,mips-cm.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-Please see my previous email, 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-https://lore.kernel.org/all/20261113073135.GA8515@francesco-nb/
-
-in which I tried to explain the issue.
-
-
-> > In addition, I can do this for my boards (Toradex), how do I know what I
-> > have to move for boards I do not know? I can't do that. The only way
-> > would be to duplicate the whole aliases on *every* board.
-> 
-> at imx9, already move aliase to each boards, dupicate it and just make
-> sure build finial results the same.
-> 
-> i.mx8 is still not too old yet.
-
-Do you want me to duplicate the whole aliases block on every board? I
-cannot do anything better then just duplicating everything, given I do
-not know what aliases make sense for each board. I can do better for my
-boards (Toradex), but for the others I can't.
-
-And this will likely break out-of-tree users (and to be clear, I think
-that out-of-tree users of Linux DT files is a fact, see U-Boot, barebox,
-... and more), as I discussed in the previously linked discussion.
-
-To me this is not the correct thing to do, it will work for my boards,
-but I do not think this is the right decision for the whole i.MX
-ecosystem.
-
-And it's not about being old or not, it's about not introducing
-regressions and caring about the users.
-
-Francesco
+Best regards,
+Krzysztof
 
