@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826749;
-	b=Q0xQtAOtmjGjeEJlMqzkx2NGZw6INiaYQwkVVNDApmx4ga0RQsXG2DfY3nCYmg8RdlsE
-	 5wuADDB3YVxgd7OOAjPvFFjSTSh8xCRjBSjUEw0iBpE5AWjwbt50Ju5cQZDwfmsUPEdSg
-	 0HO2sLSoJUDy+ZbfopPtUG3WA7dxtRYFsF1h1kqanYDH8Tk/6d9T65hw/g2gYvvrb+4MQ
-	 S1GsHv2bJT5TXcxdX8J/der1+sE6tCfeGuhH4cbDCRm1nuYD/ORXablwEP6okL2WKHPNX
-	 zgVfXSA/XFRtI1BM6VSHCSM3vLhLOai/fgZm+pwOl6X4BpHLRXgKXqPpv+hH0xVG9RA==
+	t=1794826842;
+	b=eWOyl4E6B5BLv+7FiI2lq5CTYsTJrZP54gvI0ccNDZrSZW3MC6riMgH09mbFMp6K8Lkl
+	 erokrJUY8L84Z8xQsALocWF9MUw2BWJvuCjTX3ph8I4QRgxZZc5Swql9pi0fbWVNITxRS
+	 UcilffAFwi/AnY0skV/kVIyQ2DidxR96o2dv51z3KZGjKxsHcY6upSqgs7btdABBb6nv9
+	 JEIYR9ylTb/+3f9I8wt9PYqG6KhHvIRSxbv3kxwFh1hoA9y4k2n4b4ZiJQ8fZSKyfFZqw
+	 OBeyC/VQUHmQRw3kiDSDOtWvMkd6Zb8R03UzIcd8gB/fOd/p9zNgC34KVH7Mlfkr/Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826749;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pje+88yqsnjPb4v7G49STbO4mSfuR97yw3dHecwwfXY=;
-	b=KgUoKorJF8+tkgy7YqwPa/l+7ehyLTE9KpjPuLj6TTjFTfd0jqwava+yeQLYB5Lo0pqg
-	 8YujDs/DufuXVP62bViunDOOhYd6/DYAMewtvzccbBJgmWQ94QpQ/fm7DQ+DxmTn6kjR/
-	 Gganba89z2cIwwglNw08U4QJfi2LRTccpIvJ8pDU6CsNMcJegAu1lAtQFVuLnr7G6sjIX
-	 82akwN4ueVCthVQqIor4hyjJEcGrDvFtEQWNpFHn65uzwjts7hYbMYNikTY/MvQzd3OZG
-	 nqs05zKQcBk7D1Yi2tKF51xLS2lC0EUMq2zeOktCpiBI82DBmUv9QVvILX5TTUvpAWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826842;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=q+XKeteplK1QAM0q8mQGCIWBTuExNUI4WhBG5cj2vL4=;
+	b=ZqvOAmlDgCetcQRW/+Gcax0LOJ2mxGkXKVzypsYNdYm1tPMCbfq1CilX8uEwcfkbeF+8
+	 Zs7hvSXO/C0vbGtqUS5WUZr9kuaufmEnuE+6GpiUkS0KOnIPAsG5Bs4mHp6euMEULf2/R
+	 R8TaclWAX6ke7hpuAzI6g+uP6ZtRzQM/8K97OsLDcDai4kG42L0jE+GjsvmDJe/g3bZUY
+	 6pFOaTNLANAPaJX8i9BMyNOCTb/6lDf732uFvp48thne11w4e6G+R9KpgAGbVdl4Mhnsq
+	 MXCRVh8t4N4qqDWf6BEdPLE+ugC9uXLkVdAbvkbUxuSrn9JCccG0F4NkagUzDMkfDuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AtQvQERE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVILch4N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67858606A31C;
-	Mon, 16 Nov 2026 10:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27F4606A32F;
+	Mon, 16 Nov 2026 11:00:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AtQvQERE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E39F21F000C4;
-	Mon, 16 Nov 2026 10:59:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVILch4N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B3A1F000C8;
+	Mon, 16 Nov 2026 11:00:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794826749;
-	bh=pje+88yqsnjPb4v7G49STbO4mSfuR97yw3dHecwwfXY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AtQvQERE+b55MeBku+xrTjmH56HN3KDTa04NkqtqUxzp1Yd8yCGDlprpwX89MfcAW
-	 Vnf8GSCNu2u/MPZiua6KYUtwhW7XYVIHFn2zDxQfs8q5wmBfKnA5fs3ioXqmoDc2Mn
-	 W719H6qO1gEvPjV9jzNagus8VKqTkGmr6xP068ErFkHPgNSvSfeWBPJF5vbra3Enmv
-	 3SwWxVbNfB3jqFxRcOMUl8xiga/JoRtCoUDffTCzmSbe3CXaHGHXV5xuDhejwNiqBF
-	 JULIBGpJQ+kGO2C5NSm6kOH5jmxpgzWthjH/csfYhJ9hKnqlJ9Y8yx5vkg4FZnXhNc
-	 H9xvc7/6tH+QQ==
-Date: Mon, 16 Nov 2026 11:59:02 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Kumar Patro <bibek.patro@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] dt-bindings: remoteproc: qcom,shikra-pas: Add
- iommus constraints
-Message-ID: <20261116-thankful-educational-bullmastiff-9a9beb@quoll>
-References: <20261113-shikra-el2-v5-0-8aca743de97f@oss.qualcomm.com>
- <20261113-shikra-el2-v5-2-8aca743de97f@oss.qualcomm.com>
+	s=k20260515; t=1794826841;
+	bh=q+XKeteplK1QAM0q8mQGCIWBTuExNUI4WhBG5cj2vL4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UVILch4Nem2cA9YybFl3BS6qtbmpqV9xesf1KgsHK3LzklRF81ccA/RW0280lkaPd
+	 gLF3s1ycPFIerBhTjIEj1jP08m5d67h3BlvPLdraP69mQiW5mEcZmSZ70nhEDqvFlD
+	 PV0Ek+wGLuqme1VHFRFrVUDikuyil55o0ekuXUa7ydWoBPLuSxUPEzvijrKwbiCH5l
+	 2Rcb7/lfgts9C4RqdmxftVGUomR7ouJKrTCItf4pbNo47eehOxshYPbmxQjJGQPeN7
+	 UoERM/oO9eSoU53X8xxMHMq+rZMWl3oCmqk9qtj5CB6gNlBEzrJvi6gdiNZVybsyBP
+	 CMKHUZB2y4zEQ==
+Message-ID: <sashiko-outbox-216820@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: i3c: silvaco,i3c-master: Add
+ Amlogic A9 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Junyi Zhao" <junyi.zhao@amlogic.com>
+Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, neil.armstrong@linaro.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20261116-a9_i3c-v4-1-3d3222b7128d@amlogic.com>
+References: <20261116-a9_i3c-v4-0-3d3222b7128d@amlogic.com>
+ <20261116-a9_i3c-v4-1-3d3222b7128d@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 11:00:40 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,24 +61,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261113-shikra-el2-v5-2-8aca743de97f@oss.qualcomm.com>
 
-On Fri, Nov 13, 2026 at 08:02:21PM +0530, Komal Bajaj wrote:
-> Describe the iommus streams of the Shikra PAS remoteprocs, needed when
-> Linux boots at EL2 without the hypervisor: CDSP uses a single stream,
-> while LPAICP firmware uses three.
-> 
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/remoteproc/qcom,shikra-pas.yaml  | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
->
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: i3c: silvaco: unwieldy per-compatible clock
+  conditionals
+--
 
-Same problems as in review of previous version.
+commit 251ed23fe4de97f3ef90597eebd6c64d8acd188a
+Author: Junyi Zhao <junyi.zhao@amlogic.com>
 
-Best regards,
-Krzysztof
+dt-bindings: i3c: silvaco,i3c-master: Add Amlogic A9 support
 
+This commit adds the amlogic,a9-i3c and amlogic,a9-ao-i3c compatibles and
+their per-compatible clock constraints to the Silvaco I3C master device tree
+binding schema.
+
+> diff --git a/Documentation/devicetree/bindings/i3c/silvaco,i3c-master.yam=
+l b/Documentation/devicetree/bindings/i3c/silvaco,i3c-master.yaml
+> index 853092f7522d3..d892d42bee65c 100644
+> --- a/Documentation/devicetree/bindings/i3c/silvaco,i3c-master.yaml
+> +++ b/Documentation/devicetree/bindings/i3c/silvaco,i3c-master.yaml
+> @@ -13,6 +13,8 @@ properties:
+>    compatible:
+>      oneOf:
+>        - enum:
+> +          - amlogic,a9-i3c
+> +          - amlogic,a9-ao-i3c
+>            - nuvoton,npcm845-i3c
+>            - silvaco,i3c-master-v1
+>        - items:
+> @@ -28,14 +30,14 @@ properties:
+>      maxItems: 1
+> =20
+>    clocks:
+> -    minItems: 2
+> +    minItems: 1
+>      items:
+>        - description: system clock
+>        - description: bus clock
+>        - description: other (slower) events clock
+> =20
+>    clock-names:
+> -    minItems: 2
+> +    minItems: 1
+>      items:
+>        - const: pclk
+>        - const: fast_clk
+> @@ -70,15 +72,35 @@ allOf:
+>          compatible:
+>            contains:
+>              enum:
+> +              - amlogic,a9-i3c
+>                - nxp,imx94-i3c
+>                - nxp,imx95-i3c
+>      then:
+>        properties:
+>          clocks:
+> +          minItems: 2
+>            maxItems: 2
+>          clock-names:
+> +          minItems: 2
+>            maxItems: 2
+> =20
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - amlogic,a9-ao-i3c
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 1
+> +          description:
+> +            The "ao" variant is the controller instance in the Always-On=
+ (AO)
+> +            domain, which has no separate bus clock and derives the
+> +            bus clock from an internal divider.
+> +        clock-names:
+> +          maxItems: 1
+
+[Severity: Low]
+Should the Amlogic variants be split into a separate binding schema instead
+of adding more per-compatible if/then clock conditionals here?
+
+Neither amlogic,a9-i3c nor amlogic,a9-ao-i3c uses the silvaco,i3c-master-v1
+fallback, and accommodating the single-clock AO variant weakens the
+top-level clocks and clock-names minItems to 1 so that 1-clock, 2-clock, and
+3-clock integrations all have to be constrained through separate if/then
+blocks in allOf (including a variant-specific clocks description inside a
+conditional block).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-a9_i3c-v4-=
+0-3d3222b7128d@amlogic.com?part=3D1
