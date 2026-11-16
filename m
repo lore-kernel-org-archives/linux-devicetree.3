@@ -1,95 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839220;
-	b=a1Cmt9dnsIcmo/BP8sIQQ9D9dt8kDyknMhcyKKQEuW6ixb9GTq9VNp0xkBEaSHaSNV2q
-	 P4IGVhElskWMVhKYh/tITVqtYZsDy0vRnKhXlQ9QyTp4blzFpn3JBGSWjxr/CUd3/CPV8
-	 wOjYQixalCr2mHDv5ST6RG2s/hW4lS6c62UCiIBmdFiDNC6qOhaNk3Bdp9tKZfgD2AWOB
-	 GDyorAwu/4UPkqWK5EuQhGqTSy1SF440LGU2JrZGj1j7runk5F8gF7iKJjBqWmWnOQm29
-	 z73YKDdMJW2vws7BBbthzJ594qGKKt49wtD1iHu7MIDmHxNRFLbI22wBLeWx5iRwIWw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839220;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=REYPW0V0Hw8OeT1V1MVJj6gyXDEMPTMuQhc+KEFGz8g=;
-	b=cgDig8ubGWD3xDq5b3WXPsvq/5Q7D+5kSJkoKDvCanZS0lv6vhRlhO7fFyrD5NFjRTmM
-	 CSyUG6mVnPtU+F8E2aAjjbTVEuYoOr5nXrmtpjqI2J99FgrNrPH7y6ctDoey0dhH/qCnz
-	 7f7Xa4QPASp8/nBNOBHTmLD29UlxHorHcYlXpEsxj25SG4ILo+80v32XEKSb+xGurPhO4
-	 oZhB8dgx8nEsY2d52tI1R6u5wflehw6WH/3jt46gv5ovSWKtI9mhm2UP+sOYJd8cveo1X
-	 MB5x08WBtlROjtNBSu2DJYIFOknlL26dgDIS4MuZOb1RyESlVjPL35VsDsrIld291Mw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ti39duon;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794839409;
+	b=H3usTF6Z1kYwxXI/5Asx17kc1cWH2ORAxiIvKv9kkJLqGHcV+piU88KwbC+GgWvw594F
+	 DxjInHB16s3l8xScBg0rsqpKA2tbD1zgPnoH6F4vFnKFPItfwDmI0rOXO6St7kvdFy7Od
+	 FJbj+rUnsT6ioasT+47uUMcfXjFg7IZ6Pc75RjK9uJDxZmYwj5/Im5khvlPyMiyXfpdhv
+	 MMfLlWY7q4xI9u5sIoFUyx1gVaA+SJXybcsXAjVsbw0mE5KcWHDzgk7Qlq6ThElkD4z3P
+	 iEIs9ulDEAMvXzMZdNsF8glQe5v6udDj3QX4jmE8OEL8L9dBZ2Dx87ZbdUHQRXtZ46g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839409;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=oElFm/yj2o3LRHDrA9VBkjg9/gf3iwVC8tnrYXPGEtY=;
+	b=EVBfNgk1BEiOG2ZC9JI+sGWGpx/LeMeijeg/hIPQDSibnNoSyj/6LnRu6hr9bFnZSssZ
+	 IUqvDP90CI1qJuvJTriurKpL9jWAVlC36dC2tSXm93E52Tg+JpXjCCIoDXwQWrkrdqhjW
+	 d/O2HeeE5zFLP/i5hl5n6DsCUReQpdChLfdOm9XfmaVVcdh+emzh9PkQ9ZS6+LPnPwthy
+	 xXQeZ6MFyyrltABsyhi6OxulJt5xasrFvbiJe9G07XrsnbvV+Hqu2uUdN/9i0/ARup3rw
+	 oiVIZ1gHemYdVe9YQLl92K2QJc2A0nukULCYFN1USYkS41nyhp5h71l+DHUy7Vx+lRw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bM2egM1P;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7693A606A323
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:27:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7693A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A08606A89B;
+	Mon, 16 Nov 2026 14:30:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13A08606A89B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ti39duon
-Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
-	by cmsmtp with ESMTPS
-	id SwNjxx6PFAR1iSxfgxZU73; Mon, 16 Nov 2026 14:27:00 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SxffxvX31Gh2BSxffxtfeA; Mon, 16 Nov 2026 14:27:00 +0000
-X-Authority-Analysis: v=2.4 cv=Aszu3P9P c=1 sm=1 tr=0 ts=6afb12b4
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=QcAV74sXaHvaKY3IglgA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=REYPW0V0Hw8OeT1V1MVJj6gyXDEMPTMuQhc+KEFGz8g=; b=ti39duonapH/OckZv4V65mFYnf
-	zWs7h8UMwiLZo2J345Xd1MIc1V2i/uT11BD6YIUFmVrEqZCXsO9fQ1jvtAMaO25lWzhppbx2yF+4u
-	ruqcZar0Loo0GHdG2gXsWh00FxIPx//KLYx+ZSiejT9Qi/DGXN7R6mXNzw9gYS4vTQNJ/10Ab/vel
-	6UzeNg8+YQpL9dna+rPlI4tCX/xCL97vCOg7jIrOKSBgj3i/jUU+LqBtA+4YXaBSiWjNtWS11PqA5
-	m+DBvkQP0aGuSlKhPgzQtbh2iK4SnicdvXrN7+1See3aaD7idxTocydr4+J8Q01Dmh/veAdatWoae
-	3zPs4Pug==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:49322 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSxfd-00000003oF6-04lF;
-	Mon, 16 Nov 2026 19:56:57 +0530
-Date: Mon, 16 Nov 2026 06:26:56 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Alexander Letuchiy <asalde.le1@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bM2egM1P
+Received: from dude04.red.stw.pengutronix.de (dude04.red.stw.pengutronix.de [IPv6:2a0a:edc0:0:1101:1d::ac])
+	(Authenticated sender: relay-from-dude04.red.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2382720059B;
+	Mon, 16 Nov 2026 15:30:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794839402;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oElFm/yj2o3LRHDrA9VBkjg9/gf3iwVC8tnrYXPGEtY=;
+	b=bM2egM1PsJ6ui+EYrbwMd/MGeBJQrXZMVba9q4erp8UXUAkyuKuF/R+vRZONyam4Rtyfmy
+	39SXrCn00xVz8fzfBSkOkTK8GPAjUjSCzEsVM3YbbvUzPZY0k8jcFlSBwGuETIbN5OL9/F
+	IjgaPxmhn7hvtY2j7DadlA80JvkUQeG3jvOvJifeZjAaqIVGJw0xOTy2Z5nHMJ/IJDnPGb
+	SQivj4RQTVKt5O+ieLj/77ZzrzjjhC3MWPFX3CX71xtHmCkDaGS8RyhLKTMfeX5yZMdy/9
+	UZAfEC3p/YlLUrMep5dp5Z68KAmuYVCvW/87OQ8b2L29lNF70DuYUaS99k9WlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794839402;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oElFm/yj2o3LRHDrA9VBkjg9/gf3iwVC8tnrYXPGEtY=;
+	b=eIQ9LwT4ieKpgMveJnSzLLGvXbyTn2kfSNuOt7ZPLfH6LUMLEeXcRYIed4kk9RpraTOpa6
+	Cgd3QVvx9XVwdi98oAa0EFA/ptyoUzJREkJz5c31DSslYI02lZzHdPR11SzOojS2JdPw0z
+	pGCpDH7e8FS3WWeYIBj/UlsoCFD4+Ztb51SKbtwA57bCEiINy6iPkd+9gwjVj8wZWd+Saj
+	aBTCyMTiGPPdTvNBvChxMl+N6x1si7y8EYFbzeacJGwijlggjxypa1GgcwyuxHsb3HfHZZ
+	9lqss8IhrsqdOs/aL5/u1dGz6ndQ/crdjnI/AvG88/ryIx/6efl4cW/bebMoOg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794839402; a=rsa-sha256;
+	cv=none;
+	b=CiCNMn6J9bOGe2ECG93EpnChs2AHhFZHCJ+N3GdC4ng485kr69z8sIPDJIhnNnJUFMVh5I
+	NQbCkdAFbQW50yq/0IHkXWh7TdbURVHTFTtBtLbTLw6aLY12iNRtvvolzJ+dhjTOY4Q5RF
+	gfP8jH+ACg1TUb/3VvvPfOyG0Lpg41C3ZxW4h9vb+SUxEhFfYMDZeRa0duHhlE0O3zrs2S
+	NbT32RDx1MtTr4XaJ2fyw8Yo6mdCYbh9e0YS/qEWOEtEU0MnVNlwLAmgmBlRRNdJ214Il+
+	LgnAPMd4nxRrIywjRuzPsYyQc+YcQKUVGJylfDUcPSy8GgsbrdVDBlX7xvjA0Q==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-dude04.red.stw.pengutronix.de smtp.mailfrom=rhi@pengutronix.de
+Received: by dude04.red.stw.pengutronix.de (Postfix, from userid 1059)
+	id 17688380329; Mon, 16 Nov 2026 15:30:02 +0100 (CET)
+From: Roland Hieber <rhi@pengutronix.de>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-serial@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, linux-input@vger.kernel.org,
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 4/9] watchdog: mediatek: Add support for MT6895
-Message-ID: <eaaa1e62-ad8c-4cd7-9855-f8efca36cb70@roeck-us.net>
-References: <20261113-initial-mt6895-v2-0-4ab0aa9fa391@gmail.com>
- <20261113-initial-mt6895-v2-4-4ab0aa9fa391@gmail.com>
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	imx@lists.linux.dev (open list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Cc: Roland Hieber <rhi@pengutronix.de>,
+	Ahmad Fatoum <a.fatoum@pengutronix.de>
+Subject: [PATCH] arm64: dts: imx8mp-skov: fix input supply properties
+Date: Mon, 16 Nov 2026 15:29:09 +0100
+Message-ID: <20261116142912.3011357-2-rhi@pengutronix.de>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,41 +97,98 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113-initial-mt6895-v2-4-4ab0aa9fa391@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSxfd-00000003oF6-04lF
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:49322
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 58
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfBaBDrSpohrs8jBrYZCP7Kc4SGxDilHXIcHIOrgqPc6rVIYjqmHOTpT4sjbzSNbvJyF0FYVZaJfBxZe01ET9t1Zo8+btKXfep/MbOhdWLJ8hF5sd+Wd1
- IxmFzJLVXXT3IlC7jOA5aX9CzU/Lk3k7AtMlQHyekYTRtaIfU+ceXn7OvwOhtK4y9wrW8d1PqqfGtz91QhTR8ij4/G8uIGiz0b9fkwK6v28mtl1T8grSaTRG
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 10:05:00PM +0300, Alexander Letuchiy wrote:
-> Add the compatible for the watchdog of the MediaTek MT6895 (Dimensity
-> 8000/8100) SoC. Its watchdog registers are the same as on the other
-> supported SoCs.
-> 
-> The TOPRGU reset layout of MT6895 is not known yet, so the entry has no
-> match data and no reset controller is registered.
-> 
-> Signed-off-by: Alexander Letuchiy <asalde.le1@gmail.com>
+The nxp,pca9450c node used the non-standard 'vin-supply' binding until now.
+Upstream commit 4c33cef58965eb655a0a ("regulator: pca9450: link regulator
+inputs to supply groups") added support for 'in*-supply' bindings, so move
+to this standardized binding to fix errors on boot:
 
-Applied.
+  nxp-pca9450 0-0025: Failed to create device link (0x180) with supplier
+    regulator-5v-p for
+    /soc@0/bus@30800000/i2c@30a20000/pmic@25/regulators/LDO1
 
-Thanks,
-Guenter
+Suggested-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Signed-off-by: Roland Hieber <rhi@pengutronix.de>
+---
+ arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi
+index 5453e590f64f..1c97f2c2873a 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-reva.dtsi
+@@ -275,13 +275,16 @@ pmic@25 {
+ 		pinctrl-0 = <&pinctrl_pmic>;
+ 		interrupts-extended = <&gpio1 3 IRQ_TYPE_EDGE_RISING>;
+ 		priority = <200>;
++		inl1-supply = <&reg_5v_p>;
++		inb13-supply = <&reg_5v_p>;
++		inb26-supply = <&reg_5v_p>;
++		inb45-supply = <&reg_5v_p>;
+ 
+ 		regulators {
+ 			reg_vdd_soc: BUCK1 {
+ 				regulator-name = "VDD_SOC";
+ 				regulator-min-microvolt = <850000>;
+ 				regulator-max-microvolt = <850000>;
+-				vin-supply = <&reg_5v_p>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 				regulator-ramp-delay = <3125>;
+@@ -291,7 +294,6 @@ reg_vdd_arm: BUCK2 {
+ 				regulator-name = "VDD_ARM";
+ 				regulator-min-microvolt = <850000>;
+ 				regulator-max-microvolt = <1000000>;
+-				vin-supply = <&reg_5v_p>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 				regulator-ramp-delay = <3125>;
+@@ -303,7 +305,6 @@ reg_vdd_3v3: BUCK4 {
+ 				regulator-name = "VDD_3V3";
+ 				regulator-min-microvolt = <3300000>;
+ 				regulator-max-microvolt = <3300000>;
+-				vin-supply = <&reg_5v_p>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+@@ -312,7 +313,6 @@ reg_vdd_1v8: BUCK5 {
+ 				regulator-name = "VDD_1V8";
+ 				regulator-min-microvolt = <1800000>;
+ 				regulator-max-microvolt = <1800000>;
+-				vin-supply = <&reg_5v_p>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+@@ -321,7 +321,6 @@ reg_nvcc_dram_1v1: BUCK6 {
+ 				regulator-name = "NVCC_DRAM_1V1";
+ 				regulator-min-microvolt = <1100000>;
+ 				regulator-max-microvolt = <1100000>;
+-				vin-supply = <&reg_5v_p>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+@@ -330,7 +329,6 @@ reg_nvcc_snvs_1v8: LDO1 {
+ 				regulator-name = "NVCC_SNVS_1V8";
+ 				regulator-min-microvolt = <1800000>;
+ 				regulator-max-microvolt = <1800000>;
+-				vin-supply = <&reg_5v_p>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+@@ -339,7 +337,6 @@ reg_vdda_1v8: LDO3 {
+ 				regulator-name = "VDDA_1V8";
+ 				regulator-min-microvolt = <1800000>;
+ 				regulator-max-microvolt = <1800000>;
+-				vin-supply = <&reg_5v_p>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+@@ -348,7 +345,6 @@ reg_nvcc_sd2: LDO5 {
+ 				regulator-name = "NVCC_SD2";
+ 				regulator-min-microvolt = <1800000>;
+ 				regulator-max-microvolt = <3300000>;
+-				vin-supply = <&reg_5v_p>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
