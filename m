@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853336;
-	b=M53VkQ6UtH3ssicV1S6oWbwp5TWPFDjheJPV9F0FYI7TtXqMmjK0LYMbKMWt7j0PW5CV
-	 R7TtSJ31lz0agUejI7yK25J3cqx3jLnKsPxE3Y9OhF972xpptCPb+Hi1wOdyl9pb0+kV4
-	 IMj10yYLkMiHmqcbUXLpPF2BDmS2Zp6cQ0yZrFW0m1+s5uXb3WzBto30Ws0EZuo7uAfq1
-	 gQ5yFGHNQ9Gy5oX6RysBjfypt2D5Gf2o6Xufym6RpLPeYVRFcEIXDOacB9r/PxFF3q3lv
-	 19WYWLAf8KQtZVVDWP2Kr2AeW2EyTcuaFF5ONY5bu4DdqyPdwECFO6kLsRiaBMKljNA==
+	t=1794853345;
+	b=DOxuYu4fpq0D2jRbQpaNUWdZi24E0mnlkWjUKTmay3uFdaS/u4wfLqffYxUHvp06k1cm
+	 eaUc7pgziJs0MbQfMSYgKgWWjoTkkHbTzDPWGOv50hqqzpm7RAbkPIsUlmcwUixzwlnxZ
+	 Z9ANimj05Zan4YI6dUZTEkgUH1wpkPH1YrfLahCHw67xz74E2JB4Q0VYARzdhfAgF8by1
+	 G3QmyDCGN/56+TAfRVI55v+8knplkEf1ydhltrpHdkzYM96FNRJxK8TGnhq1l7NiQykUM
+	 iCZFJJdUeXavv6bFpQNwAdV6zSumQ6dvhpRAF78tqaNoNtCQBGdACPUf6Bm96h3Y5rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853336;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853345;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=qgJtD7k0pYtF6kLtArBNu5iinKiZ8C5Hb7dGhNEKYS0=;
-	b=II9/EPsXZk8frqDQKeqoRFHS0rEpthsw1XWGeN/VCYGxERA0z1X9+xON6JAOmCIkTytU
-	 Yd9gCcVnUN8aO0HSkWAzsRfvmDz0ANOe/Ik5AUUdeMgnMICe4FEjqfQ79zAysXxr9rNTY
-	 85aIsASXIzzfFLJW6cqKsY3kipmp18+TPi0MG2dhjWHRCF/s1uY8bcqGZpVtb6j91woxA
-	 LRl+n/0KjGVPg5AYEOi6yVtOp5Y3VPlmvMWcS3R3QPJbNugpUm/9pz1PHf26O59wjtR96
-	 FMxwpmyecsM1+dRAbIXS8KhwPOTEasq/IUZ7vYlknvqiD2KnupvMSpLK0rZhWxLK+rA==
+	bh=Y3aLM1H7iEvnRApaJAI01zW5jN8Rckd1vOMeNTAd9H0=;
+	b=Ll1BTNbeOVXqfBAVOOdjYxsIZzRFsxWbvXPe2VSXL57pZR/5cxnFX8Yu8fYtC7ZaDeUo
+	 6dDJU2v59MwesXUEJ9qpnCnDy9q8U2ClV07HjZn2jBMGmbSeEW53k0Tce+aebXi3WAz4o
+	 8D3hvhTm75NGr0MPVkhindqoZlNOPTqfU/QaeIs2B0df1kaa4ZFT7+T/X0HoVnhQ5mi5C
+	 hh8cduC06hmjQiKHLXZBhyY1iB6f60PqYWubShwEO/zIw621XAeno142cZ+nXUSMbIuHX
+	 qhvrW9bT3Grc/q5TNVZs+yKqE50m9iwkm8EYa8JFuUV7HFBgJYwYBbfjAgzt/+WQHug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HZQxEtRh;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vbYuXuIp;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5A281606A31C;
-	Mon, 16 Nov 2026 18:22:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A281606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2118C606A32C;
+	Mon, 16 Nov 2026 18:22:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2118C606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HZQxEtRh
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vbYuXuIp
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E87D51A25;
-	Mon, 16 Nov 2026 10:22:12 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 883321684;
+	Mon, 16 Nov 2026 10:22:21 -0800 (PST)
 Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DBE803F632;
-	Mon, 16 Nov 2026 10:22:11 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7A7CD3F632;
+	Mon, 16 Nov 2026 10:22:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794853335; bh=LE3lHzxkAxNsqvYPhRB4V4ZgUQLoc0JigYQ9w7GJjIY=;
+	t=1794853344; bh=xi1MhXmlAloJUYWXyD9PbM2BTAQZZcpVmn8NG9atlD8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=HZQxEtRhIVKsZTGe9dxcJMHfUG9J5xXunM5HnAip9s9e1mocJq9un0lyxkxoUdGxw
-	 V80/JBBvD62zB2+26kWFbr+vVGYMtS2A0NaDHVtwcrtuAacbZGf3smh3wO3qYezxJy
-	 XaIS5ouqcsPTtMe1miU3HPe/0Du7PdeD5ee54Plg=
+	b=vbYuXuIpnYEcXG7zbNgG7YLXdzAELVIWYn62/r7cQ+m7UIlbYjCxKGF6UynnxZHYI
+	 dYW02xOr/1Z6HKsnPo7S4g/9itWHYdeHtCvwV8EnjgUEc4Um8WFqsIHQZLclkqT81F
+	 cem/XjXHzgDLGFKfu3fNggXXWYiNihiYgogN4CaA=
 From: Leo Yan <leo.yan@arm.com>
-Date: Mon, 16 Nov 2026 18:21:28 +0000
-Subject: [PATCH 1/8] device property: Add firmware node IRQ affinity
- callbacks
+Date: Mon, 16 Nov 2026 18:21:30 +0000
+Subject: [PATCH 3/8] perf/arm_pmu: Register ACPI SPE and TRBE devices with
+ software nodes
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-acpi_arm_pmu_registration_hmp-v1-1-0371d4eca626@arm.com>
+Message-Id: <20261116-acpi_arm_pmu_registration_hmp-v1-3-0371d4eca626@arm.com>
 References: <20261116-acpi_arm_pmu_registration_hmp-v1-0-0371d4eca626@arm.com>
 In-Reply-To: <20261116-acpi_arm_pmu_registration_hmp-v1-0-0371d4eca626@arm.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
@@ -84,168 +84,463 @@ Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-perf-users@vger.kernel.org, Leo Yan <leo.yan@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794853327; l=6475;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794853327; l=12374;
  i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=LE3lHzxkAxNsqvYPhRB4V4ZgUQLoc0JigYQ9w7GJjIY=;
- b=HlcHbMLjXrzwmD8GtjKwIedLgekz+Q6fr4lHVcPl1qBjwFqVFTYVmUVMWV2n9PSBzTzz1eTsZ
- HY3o1VLbDL2A0vpKccjSxjolrv81ha47g0v2reTJHzdTJZICgEhGJEF
+ bh=RhPdV6oYh3rD01IAOheylAh2b5QHOZHX8TkzYtK9v1M=;
+ b=8jj84FuQbFyT19dBbuoO2CngSuyagqrl/6PhWutvc2zYjkE7+YlslbQNfd/Nmn1wnyA0UfWFa
+ IdwJlsJzieTDBTOmoFutwIrIcAymBITR5Olr+ahcUz0ibgscN2SEZV8
 X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
  pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-Platform IRQ affinity lookup currently selects the OF or ACPI helper
-directly. Add fwnode_irq_get_affinity() and an irq_get_affinity operation
-implemented by both firmware types.
+From: "Johnny.Fan" <johnny.fan@cixtech.com>
 
-Use the new helper for platform devices, preserving the existing fallback
-to cpu_possible_mask when affinity information is unavailable.
+The MADT describes SPE and TRBE interrupts per CPU, without providing an
+ACPI namespace device for each group of compatible CPUs. The existing
+registration only supports a homogeneous system.
 
+Group initialized CPUs by MIDR and register one platform device per
+group through a common descriptor-based entry point. Keep each CPU's GSI
+and CPU number in a mapping record until IRQ resource setup. Deduplicate
+shared GSIs and use arm_acpi_pmu_irq_matches() to require the same
+mapped IRQ within each group. Warn and exclude CPUs with inconsistent
+PPIs.
+
+Associate a software node containing the group's IRQ affinity so drivers
+can obtain the CPU mask through platform_get_irq_affinity() without
+ACPI-specific handling or a processor-container companion. Create IRQ
+resources first, then use arm_acpi_register_sw_node_irq_affinity() to
+store the filtered group's PPI affinity at index zero.
+
+Although SPE and TRBE need only one shared PPI per group, introduce
+nr_irqs and the irq_maps[] array now to simplify adding CPU PMU support
+with per-CPU SPIs in a later patch.
+
+Signed-off-by: Johnny.Fan <johnny.fan@cixtech.com>
+Co-developed-by: Leo Yan <leo.yan@arm.com>
 Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
- drivers/acpi/property.c  |  8 ++++++++
- drivers/base/platform.c  |  7 +------
- drivers/base/property.c  | 15 +++++++++++++++
- drivers/of/property.c    |  7 +++++++
- include/linux/fwnode.h   |  5 +++++
- include/linux/property.h |  2 ++
- 6 files changed, 38 insertions(+), 6 deletions(-)
+ drivers/perf/arm_pmu_acpi.c | 350 ++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 274 insertions(+), 76 deletions(-)
 
-diff --git a/drivers/acpi/property.c b/drivers/acpi/property.c
-index 8ee5a1f0eb4869114c5d282f5808974687d46f5c..558de77bd4442fd7c85797f41b84c13f8fc27c67 100644
---- a/drivers/acpi/property.c
-+++ b/drivers/acpi/property.c
-@@ -1735,6 +1735,13 @@ static int acpi_fwnode_irq_get(const struct fwnode_handle *fwnode,
- 	return res.start;
+diff --git a/drivers/perf/arm_pmu_acpi.c b/drivers/perf/arm_pmu_acpi.c
+index ca6bf8f86cfe9be0dc351e41bd620d1d37028dfa..7ae291acb04526d820bdfb9640aaa8352449be54 100644
+--- a/drivers/perf/arm_pmu_acpi.c
++++ b/drivers/perf/arm_pmu_acpi.c
+@@ -7,11 +7,15 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/cpumask.h>
++#include <linux/err.h>
+ #include <linux/init.h>
+ #include <linux/irq.h>
+ #include <linux/irqdesc.h>
+ #include <linux/percpu.h>
+ #include <linux/perf/arm_pmu.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++#include <linux/slab.h>
+ 
+ #include <asm/cpu.h>
+ #include <asm/cputype.h>
+@@ -68,92 +72,297 @@ static void arm_pmu_acpi_unregister_irq(int cpu)
+ 		acpi_unregister_gsi(gsi);
  }
  
-+static const struct cpumask *
-+acpi_fwnode_irq_get_affinity(const struct fwnode_handle *fwnode,
-+			     unsigned int index)
-+{
-+	return acpi_irq_get_affinity(ACPI_HANDLE_FWNODE(fwnode), index);
+-static int __maybe_unused
+-arm_acpi_register_pmu_device(struct platform_device *pdev, u8 len,
+-			     u16 (*parse_gsi)(struct acpi_madt_generic_interrupt *))
++struct arm_pmu_acpi_device_info {
++	const char *name;
++	u8 len;
++	u32 (*parse_gsi)(struct acpi_madt_generic_interrupt *gicc);
++};
++
++struct arm_pmu_acpi_irq_map {
++	u32 gsi;
++	int cpu;
++	int irq;	/* Nonzero only for mappings created by this group */
++};
++
++struct arm_pmu_acpi_group {
++	struct cpumask cpus;
++	int nr_irqs;
++	struct arm_pmu_acpi_irq_map irq_maps[];
++};
++
++static struct arm_pmu_acpi_group *
++arm_acpi_alloc_pmu_group(struct arm_pmu_acpi_group **groups, int *nr_groups,
++			 int cpu)
+ {
+-	int cpu, this_hetid, hetid, irq, ret;
+-	u16 this_gsi = 0, gsi = 0;
++	struct arm_pmu_acpi_group *group;
++	unsigned long midr;
++	int i;
+ 
+-	/*
+-	 * Ensure that platform device must have IORESOURCE_IRQ
+-	 * resource to hold gsi interrupt.
+-	 */
+-	if (pdev->num_resources != 1)
+-		return -ENXIO;
++	midr = per_cpu(cpu_data, cpu).reg_midr;
+ 
+-	if (pdev->resource[0].flags != IORESOURCE_IRQ)
+-		return -ENXIO;
++	for (i = 0; i < *nr_groups; i++) {
++		int other;
++
++		group = groups[i];
++		other = cpumask_first(&group->cpus);
++		if (midr != per_cpu(cpu_data, other).reg_midr)
++			continue;
++
++		return group;
++	}
++
++	group = kzalloc_flex(*group, irq_maps, nr_cpu_ids, GFP_KERNEL);
++	if (!group)
++		return ERR_PTR(-ENOMEM);
++	groups[(*nr_groups)++] = group;
++
++	return group;
 +}
 +
- #define DECLARE_ACPI_FWNODE_OPS(ops) \
- 	const struct fwnode_operations ops = {				\
- 		.device_is_available = acpi_fwnode_device_is_available, \
-@@ -1761,6 +1768,7 @@ static int acpi_fwnode_irq_get(const struct fwnode_handle *fwnode,
- 		.graph_get_port_parent = acpi_fwnode_get_parent,	\
- 		.graph_parse_endpoint = acpi_fwnode_graph_parse_endpoint, \
- 		.irq_get = acpi_fwnode_irq_get,				\
-+		.irq_get_affinity = acpi_fwnode_irq_get_affinity,		\
- 	};								\
- 	EXPORT_SYMBOL_GPL(ops)
++static void arm_acpi_free_pmu_groups(struct arm_pmu_acpi_group **groups,
++				     int nr_groups)
++{
++	int i;
++
++	for (i = 0; i < nr_groups; i++)
++		kfree(groups[i]);
++
++	kfree(groups);
++}
++
++static struct arm_pmu_acpi_group **
++arm_acpi_alloc_pmu_groups(const struct arm_pmu_acpi_device_info *info,
++			 int *nr_groups_out)
++{
++	struct arm_pmu_acpi_group **groups;
++	int cpu, nr_groups = 0;
++
++	*nr_groups_out = 0;
++
++	groups = kcalloc(num_possible_cpus(), sizeof(*groups), GFP_KERNEL);
++	if (!groups)
++		return NULL;
  
-diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-index 3593d45f4a7ae8207286a7ce0671419c6de556d1..e6352ef63a20cb818d958e7e2a0a9c37170c1769 100644
---- a/drivers/base/platform.c
-+++ b/drivers/base/platform.c
-@@ -155,12 +155,7 @@ static const struct cpumask *get_irq_affinity(struct platform_device *dev,
- {
- 	const struct cpumask *mask = NULL;
- #ifndef CONFIG_SPARC
--	struct fwnode_handle *fwnode = dev_fwnode(&dev->dev);
+-	/*
+-	 * Sanity check all the GICC tables for the same interrupt
+-	 * number. For now, only support homogeneous ACPI machines.
+-	 */
+ 	for_each_possible_cpu(cpu) {
+ 		struct acpi_madt_generic_interrupt *gicc;
++		struct arm_pmu_acpi_group *group;
++		u32 gsi;
++
++		/* CPUs that have never booted have no saved MIDR */
++		if (!per_cpu(cpu_data, cpu).reg_midr)
++			continue;
+ 
+ 		gicc = acpi_cpu_get_madt_gicc(cpu);
+-		if (gicc->header.length < len)
+-			return gsi ? -ENXIO : 0;
 -
--	if (is_of_node(fwnode))
--		mask = of_irq_get_affinity(to_of_node(fwnode), num);
--	else if (is_acpi_device_node(fwnode))
--		mask = acpi_irq_get_affinity(ACPI_HANDLE_FWNODE(fwnode), num);
-+	mask = fwnode_irq_get_affinity(dev_fwnode(&dev->dev), num);
- #endif
- 
- 	return mask ?: cpu_possible_mask;
-diff --git a/drivers/base/property.c b/drivers/base/property.c
-index 51109794d7275ddaf4571584d0e77d8573ebb475..b6d9fd3c5bdeec9636e49d2319d2b43a55758a85 100644
---- a/drivers/base/property.c
-+++ b/drivers/base/property.c
-@@ -1109,6 +1109,21 @@ int fwnode_irq_get_byname(const struct fwnode_handle *fwnode, const char *name)
- }
- EXPORT_SYMBOL(fwnode_irq_get_byname);
- 
-+/**
-+ * fwnode_irq_get_affinity - Get the CPU affinity of an IRQ from a fwnode
-+ * @fwnode:	Pointer to the firmware node
-+ * @index:	Zero-based index of the IRQ
-+ *
-+ * Return: A borrowed CPU mask, valid while @fwnode lives, or NULL if no affinity
-+ * information is available.
-+ */
-+const struct cpumask *fwnode_irq_get_affinity(const struct fwnode_handle *fwnode,
-+					      unsigned int index)
-+{
-+	return fwnode_call_ptr_op(fwnode, irq_get_affinity, index);
-+}
-+EXPORT_SYMBOL_GPL(fwnode_irq_get_affinity);
+-		this_gsi = parse_gsi(gicc);
+-		this_hetid = find_acpi_cpu_topology_hetero_id(cpu);
+-		if (!gsi) {
+-			hetid = this_hetid;
+-			gsi = this_gsi;
+-		} else if (hetid != this_hetid || gsi != this_gsi) {
+-			pr_warn("ACPI: %s: must be homogeneous\n", pdev->name);
+-			return -ENXIO;
++		if (gicc->header.length < info->len) {
++			pr_warn("ACPI: %s: miss GICC entries\n", info->name);
++			goto out_free;
+ 		}
++		gsi = info->parse_gsi(gicc);
++		if (!gsi)
++			continue;
 +
- /**
-  * fwnode_graph_get_next_endpoint - Get next endpoint firmware node
-  * @fwnode: Pointer to the parent firmware node
-diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 45e55f61848801ed497702c6cfe501009904c49d..f1426533e7ec0dfdfaef5d1cbb2b6e6acc87a1d2 100644
---- a/drivers/of/property.c
-+++ b/drivers/of/property.c
-@@ -1660,6 +1660,12 @@ static int of_fwnode_irq_get(const struct fwnode_handle *fwnode,
- 	return of_irq_get(to_of_node(fwnode), index);
- }
++		group = arm_acpi_alloc_pmu_group(groups, &nr_groups, cpu);
++		if (IS_ERR(group))
++			goto out_free;
++
++		if (gsi) {
++			struct arm_pmu_acpi_irq_map *map =
++				&group->irq_maps[group->nr_irqs++];
++
++			map->gsi = gsi;
++			map->cpu = cpu;
++		}
++		cpumask_set_cpu(cpu, &group->cpus);
+ 	}
  
-+static const struct cpumask *
-+of_fwnode_irq_get_affinity(const struct fwnode_handle *fwnode, unsigned int index)
-+{
-+	return of_irq_get_affinity(to_of_node(fwnode), index);
+-	if (!this_gsi)
++	*nr_groups_out = nr_groups;
++	return groups;
++
++out_free:
++	arm_acpi_free_pmu_groups(groups, nr_groups);
++	return NULL;
 +}
 +
- static int match_property_by_path(const char *node_path, const char *prop_name,
- 				  const char *value)
++static void arm_acpi_unregister_irq_resource(struct arm_pmu_acpi_group *group)
++{
++	int i;
++
++	/* Leave mappings reused from another group or device intact */
++	for (i = 0; i < group->nr_irqs; i++) {
++		struct arm_pmu_acpi_irq_map *map = &group->irq_maps[i];
++
++		if (!map->irq)
++			continue;
++
++		acpi_unregister_gsi(map->gsi);
++		map->irq = 0;
++	}
++}
++
++static bool arm_acpi_pmu_irq_matches(unsigned int irq, unsigned int other_irq)
++{
++	return irq == other_irq;
++}
++
++static int arm_acpi_map_gsi_irq(u32 gsi, int *irq)
++{
++	unsigned int existing_irq;
++
++	if (!acpi_gsi_to_irq(gsi, &existing_irq)) {
++		*irq = existing_irq;
++		return 0;
++	}
++
++	/* PMU overflow is level-sensitive; ignore the MADT edge flag */
++	*irq = acpi_register_gsi(NULL, gsi, ACPI_LEVEL_SENSITIVE, ACPI_ACTIVE_HIGH);
++	return *irq;
++}
++
++static int arm_acpi_register_irq_resource(struct platform_device *pdev,
++					  struct arm_pmu_acpi_group *group)
++{
++	struct resource *res;
++	int i, j, nr_irqs = group->nr_irqs, ret;
++
++	if (!nr_irqs)
+ 		return 0;
+ 
+-	irq = acpi_register_gsi(NULL, gsi, ACPI_LEVEL_SENSITIVE, ACPI_ACTIVE_HIGH);
+-	if (irq < 0) {
+-		pr_warn("ACPI: %s Unable to register interrupt: %d\n", pdev->name, gsi);
+-		return -ENXIO;
++	res = kcalloc(nr_irqs, sizeof(*res), GFP_KERNEL);
++	if (!res)
++		return -ENOMEM;
++
++	group->nr_irqs = 0;
++	for (i = 0; i < nr_irqs; i++) {
++		struct arm_pmu_acpi_irq_map map = group->irq_maps[i];
++		int irq;
++
++		/* Shared GSIs need one resource */
++		for (j = 0; j < group->nr_irqs; j++) {
++			if (group->irq_maps[j].gsi == map.gsi)
++				break;
++		}
++		if (j < group->nr_irqs)
++			continue;
++
++		/*
++		 * On success, irq contains the mapped IRQ, whether new or
++		 * existing. The return value is positive for a new mapping
++		 * and zero for reuse.
++		 */
++		ret = arm_acpi_map_gsi_irq(map.gsi, &irq);
++		if (ret < 0)
++			goto out_free;
++
++		/* A group must use the same PPI */
++		if (group->nr_irqs && !arm_acpi_pmu_irq_matches(irq, res[0].start)) {
++			pr_warn("ACPI: %s: CPU%d has inconsistent PPI in group, ignoring CPU\n",
++				pdev->name, map.cpu);
++			cpumask_clear_cpu(map.cpu, &group->cpus);
++			/* Leave reused mappings intact */
++			if (ret > 0)
++				acpi_unregister_gsi(map.gsi);
++			continue;
++		}
++
++		map.irq = ret;
++		group->irq_maps[group->nr_irqs] = map;
++		res[group->nr_irqs++] = DEFINE_RES_IRQ(irq);
+ 	}
+ 
+-	pdev->resource[0].start = irq;
+-	ret = platform_device_register(pdev);
++	ret = platform_device_add_resources(pdev, res, group->nr_irqs);
++
++out_free:
++	kfree(res);
++	return ret;
++}
++
++static int arm_acpi_register_sw_node_irq_affinity(struct platform_device *pdev,
++						 struct arm_pmu_acpi_group *group)
++{
++	int ret;
++
++	/* A MIDR group may span several processor containers */
++	ret = device_create_managed_software_node(&pdev->dev, NULL, NULL);
+ 	if (ret)
+-		acpi_unregister_gsi(gsi);
++		return ret;
++
++	return software_node_add_irq_affinity(dev_fwnode(&pdev->dev), 0,
++					      &group->cpus);
++}
++
++static int arm_acpi_register_pmu_device(struct arm_pmu_acpi_group *group,
++					const char *name, int id)
++{
++	struct platform_device *pdev;
++	int ret;
++
++	pdev = platform_device_alloc(name, id);
++	if (!pdev)
++		return -ENOMEM;
++
++	ret = arm_acpi_register_irq_resource(pdev, group);
++	if (ret)
++		goto out_put;
++
++	ret = arm_acpi_register_sw_node_irq_affinity(pdev, group);
++	if (ret)
++		goto out_put;
+ 
++	ret = platform_device_add(pdev);
++	if (ret)
++		goto out_put;
++
++	return 0;
++
++out_put:
++	platform_device_put(pdev);
++	arm_acpi_unregister_irq_resource(group);
+ 	return ret;
+ }
+ 
+-#if IS_ENABLED(CONFIG_ARM_SPE_PMU)
+-static struct resource spe_resources[] = {
+-	{
+-		/* irq */
+-		.flags          = IORESOURCE_IRQ,
++static int __maybe_unused
++arm_acpi_register_pmu_devices(const struct arm_pmu_acpi_device_info *info)
++{
++	struct arm_pmu_acpi_group **groups;
++	int i, nr_groups, nr_devices = 0, last_err = 0, ret;
++
++	groups = arm_acpi_alloc_pmu_groups(info, &nr_groups);
++	if (!groups)
++		return -ENOMEM;
++
++	for (i = 0; i < nr_groups; i++) {
++		if (!groups[i])
++			continue;
++
++		ret = arm_acpi_register_pmu_device(groups[i], info->name, i);
++		if (ret) {
++			pr_warn("ACPI: %s: %*pbl: add device failed (%d)\n",
++				info->name, cpumask_pr_args(&groups[i]->cpus), ret);
++			last_err = ret;
++		} else {
++			nr_devices++;
++		}
+ 	}
+-};
+ 
+-static struct platform_device spe_dev = {
+-	.name = ARMV8_SPE_PDEV_NAME,
+-	.id = -1,
+-	.resource = spe_resources,
+-	.num_resources = ARRAY_SIZE(spe_resources)
+-};
++	arm_acpi_free_pmu_groups(groups, nr_groups);
++	return nr_devices ? 0 : last_err;
++}
+ 
+-static u16 arm_spe_parse_gsi(struct acpi_madt_generic_interrupt *gicc)
++#if IS_ENABLED(CONFIG_ARM_SPE_PMU)
++static u32 arm_spe_parse_gsi(struct acpi_madt_generic_interrupt *gicc)
  {
-@@ -1724,6 +1730,7 @@ const struct fwnode_operations of_fwnode_ops = {
- 	.graph_parse_endpoint = of_fwnode_graph_parse_endpoint,
- 	.iomap = of_fwnode_iomap,
- 	.irq_get = of_fwnode_irq_get,
-+	.irq_get_affinity = of_fwnode_irq_get_affinity,
- 	.add_links = of_fwnode_add_links,
- };
- EXPORT_SYMBOL_GPL(of_fwnode_ops);
-diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
-index a9dcaf7e70765637a0c33af2ae0ac541e15752ad..9f45a58fda6802b924cd67585e51e8f537e6d625 100644
---- a/include/linux/fwnode.h
-+++ b/include/linux/fwnode.h
-@@ -28,6 +28,7 @@ enum dev_dma_attr {
+ 	return gicc->spe_interrupt;
+ }
  
- struct fwnode_operations;
- struct device;
-+struct cpumask;
+-/*
+- * For lack of a better place, hook the normal PMU MADT walk
+- * and create a SPE device if we detect a recent MADT with
+- * a homogeneous PPI mapping.
+- */
+ static void arm_spe_acpi_register_device(void)
+ {
+-	int ret = arm_acpi_register_pmu_device(&spe_dev, ACPI_MADT_GICC_SPE,
+-					       arm_spe_parse_gsi);
+-	if (ret)
++	static const struct arm_pmu_acpi_device_info info = {
++		.name = ARMV8_SPE_PDEV_NAME,
++		.len = ACPI_MADT_GICC_SPE,
++		.parse_gsi = arm_spe_parse_gsi,
++	};
++
++	if (arm_acpi_register_pmu_devices(&info))
+ 		pr_warn("ACPI: SPE: Unable to register device\n");
+ }
+ #else
+@@ -163,36 +372,25 @@ static inline void arm_spe_acpi_register_device(void)
+ #endif /* CONFIG_ARM_SPE_PMU */
  
- /*
-  * fwnode flags
-@@ -138,6 +139,8 @@ struct fwnode_reference_args {
-  * @graph_parse_endpoint: Parse endpoint for port and endpoint id.
-  * @iomap: Map the I/O memory of a given index for a fwnode.
-  * @irq_get: Get the IRQ of a given index for a fwnode.
-+ * @irq_get_affinity: Get the CPU affinity of a given IRQ index, or NULL if
-+ *		   unavailable. The returned mask is valid while the fwnode lives.
-  * @add_links:	Create fwnode links to all the suppliers of the fwnode. Return
-  *		zero on success, a negative error code otherwise.
-  */
-@@ -186,6 +189,8 @@ struct fwnode_operations {
- 				    struct fwnode_endpoint *endpoint);
- 	void __iomem *(*iomap)(struct fwnode_handle *fwnode, int index);
- 	int (*irq_get)(const struct fwnode_handle *fwnode, unsigned int index);
-+	const struct cpumask *(*irq_get_affinity)(const struct fwnode_handle *fwnode,
-+						  unsigned int index);
- 	int (*add_links)(struct fwnode_handle *fwnode);
- };
+ #if IS_ENABLED(CONFIG_CORESIGHT_TRBE)
+-static struct resource trbe_resources[] = {
+-	{
+-		/* irq */
+-		.flags          = IORESOURCE_IRQ,
+-	}
+-};
+-
+-static struct platform_device trbe_dev = {
+-	.name = ARMV8_TRBE_PDEV_NAME,
+-	.id = -1,
+-	.resource = trbe_resources,
+-	.num_resources = ARRAY_SIZE(trbe_resources)
+-};
+-
+-static u16 arm_trbe_parse_gsi(struct acpi_madt_generic_interrupt *gicc)
++static u32 arm_trbe_parse_gsi(struct acpi_madt_generic_interrupt *gicc)
+ {
+ 	return gicc->trbe_interrupt;
+ }
  
-diff --git a/include/linux/property.h b/include/linux/property.h
-index 9143fe4f5c05179e595ba875aafbcb006a740824..08c901015a9ea4b9223a29d07749f88a5d672ea7 100644
---- a/include/linux/property.h
-+++ b/include/linux/property.h
-@@ -230,6 +230,8 @@ DEFINE_FREE(fwnode_handle, struct fwnode_handle *, fwnode_handle_put(_T))
- 
- int fwnode_irq_get(const struct fwnode_handle *fwnode, unsigned int index);
- int fwnode_irq_get_byname(const struct fwnode_handle *fwnode, const char *name);
-+const struct cpumask *fwnode_irq_get_affinity(const struct fwnode_handle *fwnode,
-+					      unsigned int index);
- 
- unsigned int fwnode_get_child_node_count(const struct fwnode_handle *fwnode);
+ static void arm_trbe_acpi_register_device(void)
+ {
+-	int ret = arm_acpi_register_pmu_device(&trbe_dev, ACPI_MADT_GICC_TRBE,
+-					       arm_trbe_parse_gsi);
+-	if (ret)
++	static const struct arm_pmu_acpi_device_info info = {
++		.name = ARMV8_TRBE_PDEV_NAME,
++		.len = ACPI_MADT_GICC_TRBE,
++		.parse_gsi = arm_trbe_parse_gsi,
++	};
++
++	if (arm_acpi_register_pmu_devices(&info))
+ 		pr_warn("ACPI: TRBE: Unable to register device\n");
+ }
+ #else
+ static inline void arm_trbe_acpi_register_device(void)
+ {
+-
+ }
+ #endif /* CONFIG_CORESIGHT_TRBE */
  
 
 -- 
