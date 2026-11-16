@@ -1,68 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.38
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822676;
-	b=2twxzMosc4LPS7eRJhfWsRkzNaXq4LEi9TWcR13L7/sjQa8qmDLI4zWgV0qmeSK7FGQd
-	 wRjJbHMCeGXFSB7XZ9Z17VKkzBYsF9hAE+EFo0dF1eujdK3M/gJCL4wHf3G8xXVOOEZFK
-	 MqXi9Dl/DyD5dgT9BipzTiifakEZ1Fz5/wx1UoTmSQabt5G83gqN8oYHTq9uFmFDztnhC
-	 GuvjDRIriwS4s2L07EVgrvnoM2gwGnSS0pMEsV4CWQmcF0pHQXWakzhxD11ms1xFbU/5+
-	 RIB2UQhFP0tJSWgCVFL9fo1vMNG5F1dDMMQKUbF8fhY1a3ynIrO7cNAuHJ/5uxKHNKw==
+	t=1794822738;
+	b=htjjBWJ2BxwFiPwuPlQx8Gwa4sAes4Tmclvb6I3IssQO+sNMplii6T9H2p8Gzv05quGD
+	 JuZyTQFCgWcYvSRVviG3hV53CFkUEKDf7802JUrAvtPTt7BpAEjkqZJvmQUDb3QcZn4m4
+	 3+XmjstuRa3oGLkCohDWm7FAAvcPvgY4fwvX9hUc0i7VoxgbkyXv3wN1B2R2gUH0YAQAl
+	 OqXYgrF/d03y54WxXGok3l04sITNVDVSu07OGXFR7tMOX8x/Bz3Dn/Pp161cLfUtC9urM
+	 yyg7fhzJ2w+BNf4/lz/cCZHC2CNXg3CAVR9Opld4t2Hf5JBw0witMCNZf+XFwOPQP0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822676;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=JgdiOWBAP1/nIji7HgxFrYPJWlr5o/OvklSC1x3arJE=;
-	b=HVOVkyEKsYvgjtdp2EnhxrNaradohOaQYre9sUuSZmA0BBg0G0XcO3OAcDV1SrQPHCVE
-	 awXSWfoYk32kCdygtF7uWltVfP+oRFIS1FjSA7as3sgjHPI9hMRNLuQ90SfcFmeLd3ejS
-	 pA5YXxOSYc8pzu4aHRgUnPQut4fDv1CP2wYpZauD5KAWYb8S3Lf5B7crJhBWkXvR1u4oE
-	 JtuFqMR+NgpD6CjgZepuSpwr1BuY5yuu0omEeiP/DSd61T0mJd3BxlLZJJRsrUKFelqRa
-	 TEkZAaV6RFwDT2MV/+QpMpkHHYct/E9MZJiUE1gATPB4GWXq6VC/bJIj8Do48HRjGpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822738;
+	h=DMARC-Filter:DKIM-Signature:Content-Transfer-Encoding:Date:
+	 Message-Id:To:In-Reply-To:References:X-Lms-Return-Path:Content-Type:
+	 Cc:Subject:From:Mime-Version;
+	bh=2iklAlBcpFJxRr/HPLPp4nje7OoKOirn0CCaVROWVsk=;
+	b=EfWywVVviFVC6TTw/yK0lWzqD8aHdRmHBb4f7F++RrJR64JpbY7q+Yha4vGBs/mZXlVf
+	 ltcHQd3B07JKsaOTOQ5/aotUfGSD+OiHzZeXRyuNM9guz5o2j+g/lrZAASE1Rd3QjhPnH
+	 Rt5RphZlWjTnu4MMD/h7DWSUCl4WxVMh+XwI1haUJfR2O+J3bf5SyZHY90Rg9CzxuJErC
+	 ojnzDq8Vqkxt6TFYAnofS4BKSUL/sHwqN0WfnhYgeil+VKHM3m3czKVT/b1+NqxEo+AqV
+	 uoygyjXASCJNfeg7uvRvz+anWdVp2QvJo2UqKEU0AFb4UUDmvrUBQk/Mri6QJcgai7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gigmzPiC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=deepcomputing.io;
+	spf=pass smtp.mailfrom=deepcomputing.io;
+	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=j1R36lNw;
+	arc=none smtp.remote-ip=209.127.231.38
+Received: from va-2-38.ptr.blmpb.com (va-2-38.ptr.blmpb.com [209.127.231.38])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F279606A893;
-	Mon, 16 Nov 2026 09:51:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9D9606A883
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 09:52:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA9D9606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gigmzPiC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C02031F000CE;
-	Mon, 16 Nov 2026 09:51:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794822676;
-	bh=JgdiOWBAP1/nIji7HgxFrYPJWlr5o/OvklSC1x3arJE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=gigmzPiCqtr8URfsrCJl4vkcs05v6/AEdg68SwNTNsranfvU8IZZ1wnH2l+aeT2DI
-	 HcvXlTmZWCH+hz1LVM2Ip4jt4PMn/jbhJ814nW4dkLZ37nhpGxl9he+CGi9JY/hwo6
-	 RO38BOaqOrBhqMy7+2bftUddnIs25FlmPdCLrqm8GOsUf871VpOmtxR/ep2Gsrlm6X
-	 flhYE5VNkgYVhKFlntkiEc6DQzlYd4OhNLUeCRGfXtCC/WPf54L6GUXyZzY0/pYBH5
-	 WH9SUgmvLC0NLSiKzqm37MEAW3eMkcMfhmziktJHaMSBOa0DXm3fclQblG4WTBS3N7
-	 4zGS+Zfw9sZsw==
-From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-To: Alexander Letuchiy <asalde.le1@gmail.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean
- Wang <sean.wang@mediatek.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Wim Van
- Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner
- <tglx@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, Kees Cook
- <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-serial@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-input@vger.kernel.org, phone-devel@vger.kernel.org, Alexander
- Letuchiy <asalde.le1@gmail.com>
-Subject: Re: [PATCH v2 6/9] dt-bindings: input: mediatek,mt6779-keypad: Add
- compatible for MT6895
-In-Reply-To: <20261113-initial-mt6895-v2-6-4ab0aa9fa391@gmail.com>
-References: <20261113-initial-mt6895-v2-0-4ab0aa9fa391@gmail.com>
- <20261113-initial-mt6895-v2-6-4ab0aa9fa391@gmail.com>
-Date: Mon, 16 Nov 2026 10:51:14 +0100
-Message-ID: <xhkdbo6bpqf3h.fsf@mkorpers-koolstof.csb>
+	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=j1R36lNw
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794822731;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=2iklAlBcpFJxRr/HPLPp4nje7OoKOirn0CCaVROWVsk=;
+ b=j1R36lNwjUJ2addpgThY4YRKGX9vowt87a0A16L4g8HECGOeaVFtirnSJnzZYO2T/lctba
+ bMW5tENiSmXuy4dRDwDsno+bvZOjZfcv1T3TAfvaUpkQ9k6nmwp9+8Fs92F2rx7cfNnEdU
+ i+/wkUrokfrUfeV5JRwqYr/PY2StxwlNDvmVodmBE8wFnSWzi5CVEX9YYLbZ/wu1TrpSzp
+ rsQG4ceW44HekJQLvFCkgM8BXG5DfH1Meurmf3gmzSpke/y5/oySyD+RoeaQ8WTm3tv5qq
+ P7tsZPQFMHHFmqEFcbD32PCALoBReuKOReej/ov+48ydzegHN6EjoJIe29uAcg==
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 17:52:08 +0800
+Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.63da97eb.e7e5.488f.8751.a4a1c53db9df@feishu.cn>
+To: "Yixun Lan" <dlan@kernel.org>
+In-Reply-To: <20261116082350-GKB100890@kernel.org>
+References: <20261109033154.361399-1-sandie.cao@deepcomputing.io> <20261109033348.361452-1-sandie.cao@deepcomputing.io> <20261114075506-GKB100523@kernel.org> <407ce3d77416bb2522b7906b0df3d5adf02c27ee.efc7f10c.ccd0.4025.9bef.e587b1e9e4e8@feishu.cn>
+	<20261116082350-GKB100890@kernel.org>
+X-Lms-Return-Path: <lba+16afad249+646179+vger.kernel.org+sandie.cao@deepcomputing.io>
+Content-Type: text/plain; charset=UTF-8
+Cc: "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
+	"devicetree" <devicetree@vger.kernel.org>, 
+	"linux-riscv" <linux-riscv@lists.infradead.org>, 
+	"spacemit" <spacemit@lists.linux.dev>, 
+	"linux-kernel" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card support
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,20 +70,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
 
-Hi Alexander,
+Hi, Yixun:
 
-Thank you for the patch.
+> From: "Yixun Lan"<dlan@kernel.org>
+> Date:=C2=A0 Mon, Nov 16, 2026, 16:24
 
-On Fri, Nov 13, 2026 at 22:05, Alexander Letuchiy <asalde.le1@gmail.com> wrote:
+> >=C2=A0
+> > In version 1 [1],=C2=A0 the patch is cd-gpios =3D <&gpio K3_GPIO(88) GP=
+IO_ACTIVE_LOW>;
+> > but K3_GPIO(88) is fake cd-gpio, it's tied low on board.
+> So, there is gpio cd pin, but didn't work? it's hard to say without
+> the schematic, but can you check with hardware people, if it
+> can be fixed with SoC's internal GPIO BIAS pullup or pulldown?
+> So, gpio pin is able to reflect card insert status
+>=C2=A0
+>=C2=A0
 
-> Add a compatible string for the keypad of the MediaTek MT6895 (Dimensity
-> 8000/8100) SoC. Its registers are the same as on MT6779, so it works
-> with the existing driver through the mediatek,mt6779-keypad fallback.
->
-> Signed-off-by: Alexander Letuchiy <asalde.le1@gmail.com>
+I did check with our hardware team, and the answer is:=C2=A0
+there is a CD net on the slot, routed to K3_GPIO(88), but it is hard-tied
+=C2=A0to GND on the board. (v1 of this series used=C2=A0
+cd-gpios =3D <&gpio K3_GPIO(88) GPIO_ACTIVE_LOW>, which of course
+always reports "card present".) It is a direct connection to GND, not a
+strap resistor, so the SoC's internal bias cannot pull it up.
 
-Reviewed-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+> > So In version2 [2], the patch changes to non-removable.
+> > And In version3 [3], add comment.=C2=A0
+> >=C2=A0
+> > The options: cd-gpio, non-removable, broken-cd=C2=A0 all work on this b=
+oard.
+> >=C2=A0
+> it works, but does not reflect the hardware status
+>=C2=A0
+> > We just need to detect the SD card when bootup, don't need the driver=
+=C2=A0
+> > to detect hot-plug event , non-removable should be suitable and faster,=
+=C2=A0
+> > we recomment to use non-removable.
+> >=C2=A0
+> No, this isn't a valid reason, it's use case should have nothing to do
+> with the property.
+>=C2=A0
+> My point is: if the gpio cd pin still doesn't work, and the SD card is
+> actually physical plugable, then should use "broken-cd".
 
+The SD card slot is onboard [1],=C2=A0 put the board into casing, there is =
+no
+way to plugin/ plugout the card. So there is no card-detect event that can
+ever happen at runtime.
+
+If you still prefer broken-cd,=C2=A0 I will follow in next version.=C2=A0
+
+[1]: https://deepcomputing.io/dc-roma-risc-v-mainboard-iii-unveiled-at-fosd=
+em-powered-by-spacemit-k3-for-framework-laptop-13/
+
+Best regards
+Sandie
