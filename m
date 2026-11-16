@@ -1,147 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794823760;
-	b=byX0+xKRH6WreASEnjjaXV5Q375jjYYoCvNCnIj8nfx9t33uJJV3URK3tX6y6MR0zySg
-	 4zALDp9Kd09Fzk7sHcfwGp9y9vaSMz67p3kJaRAQLrsL2Ozg9hstDmhD0Icd2w6q/nlft
-	 QEZgENaBvrcdxyGd0RmLiMKoGXtY4ibSFDZ/48NWXjRN9a/fMNMtsFKMhCRfiwPlxJBBd
-	 xlh9R024CTl2QeszRcJgZMsIG6FOHYvALBYCWvX169LdoM/GuVf4fXVN3QOhBtSNeLzHI
-	 JYkxmLukS3NaSykDyzTeRsqVb/z5jyVarZ15TVzBkouUVAoUShmAwvyEIwMPyd/p0iA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823760;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=3YYJRMetFhB2HYky+OCQhqaBO6XybzVgOAZbfy7YyjM=;
-	b=T70nfVq3GuoWeIIMjwM6kVSMjQIcEukZak+1ATqJ78Gf3RnY3gc7SZPEYf6F3YIZUjvf
-	 vnUsEiwFFCyhvoL4I+kK9tguO3AIDAWGlLfR+D+baqOMtjM9HrNW7AlD/aH+ccejGiO+8
-	 8yfAOZnVVtoQ9xAsd3O4MI77dVZyNYP8BBLyhRjAhUf8jVUEv3C30vrsSRQ0wka98txi6
-	 EpDjwBrzePw0z1NIFIMoskfbYhx2YYCCoqB44BWGCwAs0gzNz4nc6Izqlto0URjnydt9W
-	 f+GiNMy3G4x3kq5cXFWN6zvk7GWsJyoFpzRXwrtUH986IuV6sQ+5zPLxaC6ACQ/SgRA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=IwCfvqwp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.7
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010007.outbound.protection.outlook.com [52.101.228.7])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794823853;
+	b=s7E6VP7V5gckmjGk6ftWebRD/UFIBAyfmL5Fw3TrDH5MsnoccKgJGyagQ+kQEFroSkaw
+	 SfT81HBX3hK18ycIOErh021EvbEQnLhEn5ObJo0w/QFPmso2QSq/PVA6XPmH5smaufu1o
+	 R78cNwHIa66Zh0ttzlKbFj1hNscpTma7oujgBgcBZeCH6GZawYg509tBdlr8BV1aEVT2q
+	 utF5e6EffcofxAL+8U+pPO21UiT+uwoyMWVKuSCBNLwKq2ocRo947v8uUcUf9Qscx+EhO
+	 wF15o1TsP+h4xHlEu37IogkZ9dRSG+OdWOJDDeq2hKlpvUN0K5kGUkHA/AAUkq7v/Tg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823853;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=zJI5ISYs5FVPLf6JtLTWvwRuZzcFAzkLLTbosQMoqaI=;
+	b=o1oPuP4RORMFZtrQdgOSZfcDK9x4FcoJWq9RS0Ytca8h1GbnuVCfPQ66ujxj98Airaa9
+	 kl8i4Qa1gwBcyhnKuOygBvDh3/WeUVmP3q97wT/Y/g8imHnOU7tmGDr++j0WCXyozb0hz
+	 msoRu0I7z67Fg4sm2+yrOVaa1B86ZEO4kemdrooG1rfW9KQKmsuasPh0HYAtH/fATNWAu
+	 mRbhevzK7npUSNX4Tk1hDK52xkHkZttiIyP0/bMH/flLMDYQNin6dU/lQtsD4FCJvBZjI
+	 Lcon3EFKEkkAiUBXTy7UtPwtAwiN54r7Cfk/7dtO/R2QPhzrHeH3uAdhaTKa46NRPVQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=eYvfScX1;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=COGS2wei;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABE5606A323;
-	Mon, 16 Nov 2026 10:09:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ABE5606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF10606A323;
+	Mon, 16 Nov 2026 10:10:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBF10606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=IwCfvqwp
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PATUK4UdKZPWJZVg7bol6ll6A3+Di/C+t2DEPQA6zeavIgLNpt2tuJFOt/HtYWHz22eYybUvWbwGKO6ZJff+PPPxUawZfoSmKlbLVuxkkdmEEiL35YD/YMbXeyXTDbCQygU+VANK81xQuMvjcRfCHsmYwjan9CSHjRrNpYVcpQ3j5L4XYdAaPXHNOceem9f43TUb8viAWfQXVm70uTcyoKBXfGFyYHV4M6wPuRLvTtcKQEeydAwtUGmzLhmyop+imYVJXvNalYzpMGOanRO9yJWFsxZGeDXG6C4T5XpHdZG0I3WLG50QXPeVPxY91cKeXwTYhBbIEVw4SfmNeUCyeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3YYJRMetFhB2HYky+OCQhqaBO6XybzVgOAZbfy7YyjM=;
- b=ScLWtFS8stVStWytcrveILa2yF4gEVUkRXMKm2q042ZUtUs8hTL+ha8b2dUR7f56T5IVmD1L+G7dNnn0c7XBDku5creKR3whkJEqQMYfUtU4eOsJANJ3BU4S13ZzgwhtqKBy8ClS4geXx34rM/9AfCY7vsG5gSD3dn6CJQfh52HbCj/4ypAs0mSldqVfD9ODNArtJkos/DIbksBtWGTpE83sZrf9bQ7/8rgtIC1h9eJ8b4Gx4taCD4ex6QsMdcVE847qGOiMS0SN/BtmLWwEjKvRq1kGRNh6/i9YQs+8zemDl9WHiAEmWP1iNYm+Ly4hKMQ8KV1iVS3nQSZDPK/GRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3YYJRMetFhB2HYky+OCQhqaBO6XybzVgOAZbfy7YyjM=;
- b=IwCfvqwpki4aoWch4ysdTUP7eGZnFJnkNs6UKb6lXP6In7JwSavyZrwzO0mK0YwourIcb7jimjSn0XwoR07rsUHnbMzJYPKBjYQVBJLGp3Dnq2YAMqEPE1rFpZ0QjaOki4wh2H0i9vHYX7i6SOq+itzC+ju7Qn9m53G2lXyy9aQ=
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
- by TYCPR01MB18376.jpnprd01.prod.outlook.com (2603:1096:405:3f1::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 10:09:16 +0000
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 10:09:16 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: wsa+renesas <wsa+renesas@sang-engineering.com>, "biju.das.au"
-	<biju.das.au@gmail.com>
-CC: Geert Uytterhoeven <geert+renesas@glider.be>, "magnus.damm"
-	<magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 0/3] Enable RZ/G3L SDHI
-Thread-Topic: [PATCH 0/3] Enable RZ/G3L SDHI
-Thread-Index: AQHdctfrGrtgDYWCyUexWrA6qF34pbcwfj0AgAABB4A=
-Date: Mon, 16 Nov 2026 10:09:15 +0000
-Message-ID:
- <TYYPR01MB6603EA94E4500584DEC57AE8867C2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-References: <20261112-sdhi_rzg3l-v1-0-ca30b209615d@bp.renesas.com>
- <avrVVjHY4Pp1hFvt@ninjato>
-In-Reply-To: <avrVVjHY4Pp1hFvt@ninjato>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|TYCPR01MB18376:EE_
-x-ms-office365-filtering-correlation-id: e11b9d74-4840-4ad9-9873-08df43c9abd9
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|38070700021|10067099003|56012099006|11063799006|4143699003|261009223027099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- vu2aFUlJxXhfe1XUoRUXsjNzaRDo2PLTk4dAGPDqwV3TsN3nxG24smetx9Mf92AVEPrg2XR7ZenwD42+YH6xLp+2zJ09TUlD8VBSG+/AaXoFhjAyHANvZFFZqObXl7mYYsRPTPmrRpK/tsC0lNOu/mPWeEP14hvUsKfPzPWold6hWI3gDGLB+3HC8lrrxtQz/rhic7/bb3Th4Px6mMD6xX/bCOUy2ibCOTQgiFPBiDfU93mrsgVcUehyEXnmJA3zLx+v5RQwKV/L4UWVtVnCJNq4UDmvmffXrNELl/dXsyV0tzdtZF63BIICZiyrW0I3B9KD2zBndjwdBx+wrA0Qh0CUHnIjo1XoRP08bbnVRHM/J31+GW8fV0mfwk+ymicBn7LgVTYsO9QBCRjtNDiwe3wJ+VCLVkJO+/eotm8HclHivmu5pvHzmu/FjzVAE66ZgAC3es6SJGh0krs+NG0vkhtBiReF6lnI23PcsMZc+Yj9gTMOLOzTrR85+Z6/9gaQ6pjHKDfUMu6RkJ6ifEEmhruUsoPmXAQTq/kwkpwWcD9Rl3Jx8PXVH+cZPd6k1yqQv0WS5adN7RWa0kagWWvObiMTK2BjkudJMD/Qmtys59AI9FNXfgNYo6cnZ7lz15NbIUHvvzXNLErQdEKaadi3GwZmM4wAJmJ7WY+wSMe2XBo=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB6603.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(38070700021)(10067099003)(56012099006)(11063799006)(4143699003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?Hqg01IKMHXu3jcBbVHJewoMKJCaa1mpOumenWZU3zHUK3yhJqBVwqJOCj53D?=
- =?us-ascii?Q?N4TN5n0OSSCkFv44NjehThzGiNzvK1Cb+JQp6fMoqYFwVI6TkepqiiTaH7DX?=
- =?us-ascii?Q?4KhknpqhlZisw5nDOwcSztjEV24bn9i0mqh5UuI6SiJd2TfDLacbU70Ad7OA?=
- =?us-ascii?Q?Ai4InrX/jbtly1ZgI82kM/0+uhRkJHPSCIOBU05KFLM3EMlR+M6S1XqWvxm5?=
- =?us-ascii?Q?0oCgxEYA6DwG6YjglRBK7kqYdLho+NCH9CP2k0LLIYdqhpfvw9W/oyQ+FipG?=
- =?us-ascii?Q?yPSwliGNo+IhrM6k4pPkFeN99rMKie8rcPei/AdMx2UxQkVDI5RXzJim+sbK?=
- =?us-ascii?Q?tnbhVcz2IodH5DjlwSUwC/Qv12v7bu4lklxebssUXZf01YlN9MHHVfaQSJAt?=
- =?us-ascii?Q?JPG74xVg1LaHDsHtaP/FYckC/KS7f3tTtsGbsoUwhJZriwLwiOm26gEUPc7R?=
- =?us-ascii?Q?2cpEDy5zZGu/cvhqTLoEMLV060j2L6asu7lbmBVfMkSOKYd+3GxM+Gb4ASiE?=
- =?us-ascii?Q?fiSIeIgsxNLfFurnQ12euLxlP+bxibTxWiWrXL3st7pJdepjxVseid9qKygl?=
- =?us-ascii?Q?p/TgfGXxvoUQSDNMscAneJ14z6fgbg1SMua1BTLywwIRWDx6cikJKwYV6hCi?=
- =?us-ascii?Q?LU6fcptM6MSC3K+5XKQ+F7HM1AmUf3F4mncR4+qZRF38+FLXmEI5wcijDxGm?=
- =?us-ascii?Q?DnKkguZGSCWSE4NmTROnzSr9chqBY/ffFK3Ag0jEWjYuZ8jjRqrHLJIZ/GUI?=
- =?us-ascii?Q?FCfBmlPaO49JzKakBkOshDBl27uM6Q8jM+FvvfrtrZ3bEiHUb25c74OjFN8v?=
- =?us-ascii?Q?HZ0FfrtDPWXrQyKImIFQKFse0yh+cJIg6Az68a6qs2ErAkCJgKIJ+YWg+gML?=
- =?us-ascii?Q?0s9pqmCVdDBnFZ7DiS92kHLkfVYbuBu/O9buMtxvQf4FukglepJN42zgIzmu?=
- =?us-ascii?Q?V+IX5zwGwHROV/Bw4z8dj+KVtNGwWEegDhumB/dnbitnC8j2smHCZ5SRFBKg?=
- =?us-ascii?Q?rl92deooiIlAJzovi79uEUEDoTthrJAoo/7wyuF8DLPZMEJwFHjrBmJ84S15?=
- =?us-ascii?Q?/Gt9YUbob1z5+jFGGwWRP+auoRWu+F6b7jnVagw7fGk97w/KTqhrImrPFHEL?=
- =?us-ascii?Q?dmwQdIsbiqsGRu7laYOsNqHC3rhlGNfwE7dxyqs4SPOr8J4m0Jh5iChpmUQK?=
- =?us-ascii?Q?DhoRGy5NBAkfxHMxYS+kZ03qI66HVglXkLJ0kbe9MctgK+aBgLfulohEjBGT?=
- =?us-ascii?Q?gAj9D5swaZcRilkvoAbaorou0P4uDjflEW6gEpLEaGJXIYX/gaWbYANxEQyt?=
- =?us-ascii?Q?frlV+ERNPoW/Ykv68RCkCudpzOn82Q8wlG5AhXChG4LNkvAJe6K+ccJQUl36?=
- =?us-ascii?Q?qiCs9qB1C4ijbEGqDCsR09+27HhEIr0jkrXzhMGmQQoGVvf6N1FdqPJ3XOfn?=
- =?us-ascii?Q?6VKtb4VpKuKvhcDBP5q+Z03VSJMXCm5LinkCOBlLxu8hBLtfRoo0CEaiy9Os?=
- =?us-ascii?Q?0yAOpLy16ZCXSGiccZOjqWxKrDOdvcjexYRKgWFZ3da5agH27DmLgUQdgZez?=
- =?us-ascii?Q?2Y3XoBp3oTlPvd3XqTMliPpdJ36RXqHPsx23qz3Dv06O5anNPM+qe0E4PbQ7?=
- =?us-ascii?Q?9g7kutgfzVu0T6m6VQ/lfb+6KZ6/XahL02VCcGDwZSVxZ27GiJ4UcAIzODMz?=
- =?us-ascii?Q?4C9MW0/YDd0EqO/usAfK4H6KwdDbUA+xEfp/b6UHN0KjtmJqbFDr8bw+Nork?=
- =?us-ascii?Q?aGWEYqir2w=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=eYvfScX1;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=COGS2wei
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794823848;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=zJI5ISYs5FVPLf6JtLTWvwRuZzcFAzkLLTbosQMoqaI=;
+	b=eYvfScX1z+xoSRjgPDrJ619PXHGQw5/dBm5H6sqsSZg0R28sQXFbuTMHwmNxplBAG4fRCF
+	kuPVvhUM577qQfTqBHWHOJQR5j+IciWi4lvHrQuBsnZWtE2YtyFqaz7XMqmgK0vbUXOAsn
+	r/DPMeGOL/yKQJGR0Gk+fm4jF1JbhuyjYw+PnjY/7ALS8wfq1IUV4gu9HUuu6Vah5IWtap
+	haDIp25iCMZooQ8o4fJZ0XzKoWTJGZeJAypNvMo82q+Q/yvR9pjK+kXh+4dy24LxUSz9mp
+	4ccxDtPuF0V12TYYUL9vZuQ91c9rq2jgWC2TsObvWbyR4vuLfga190R8w9Bgwg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794823848;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=zJI5ISYs5FVPLf6JtLTWvwRuZzcFAzkLLTbosQMoqaI=;
+	b=COGS2weimoGDz+0aZVO7RsvX7Pv81HqRRXoBuo0UvH8h0oFZinjr3IlDV+33rp5D+1K9k6
+	jy50Puoyc3fEotBw==
+Subject: [PATCH v10 00/12] nvmem: Add Raspberry Pi OTP nvmem driver
+Date: Mon, 16 Nov 2026 11:10:24 +0100
+Message-Id: <20261116-rpi-otp-driver-v10-0-15302dcfd5e1@linutronix.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -151,39 +68,139 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e11b9d74-4840-4ad9-9873-08df43c9abd9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 10:09:15.9914
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jQIn5bKaP0x+hSVJfBCX1VVh+UH1/xrsaceOSlCv9kumgbnKi5zsFyXd8OraM7R++RLAelmvReD80jrLsrW33yyRKwwSWYVb6ihD8HsOyOo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB18376
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJHW+moC/33QzU7EIBAA4FfZ9CxmmAIDnnwP46GFqYsx7YZ2m
+ zWbfXdhTbQJ1eP8fQNzbWZOkefm6XBtEq9xjtOYAwkPh8Yfu/GNRQw50SCgAQVWpFMU03ISIcW
+ VkyA9eJbBDwOFJg+dEg/xchdfXr/j+dy/s1+KUjqOcV6m9HlfucrS9ye+SgGCAYMMPRsA+/wRx
+ /OSpjFeHgM3ZcGKv4QGXRFYCCfJsCe0Le0R7ZYwFdFmAp0yuW5a4/QeobZE/RGVCT/YQKiDtSj
+ 3CL0hECpCZ6JHw9qBZe78HmG2BFaEKQTkWUdBKtw9J/0QUsr6FVRu0SodgNnoAfYI+z9hM0GOG
+ DRRUFLtEW5LyIpwmYCO0GFHne4r4na7fQHX77+j2wIAAA==
+X-Change-ID: 20260408-rpi-otp-driver-75fce1dcff7d
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Ray Jui <ray.jui@broadcom.com>, Scott Branden <scott.branden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+ Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+ Russell King <linux@armlinux.org.uk>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, 
+ Gregor Herburger <gregor.herburger@linutronix.de>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794823848; l=4454;
+ i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
+ bh=GxOAvaOR2DK9AOVKVLa8PTRDOHEf803qMJPQcfGZs5Q=;
+ b=IaIjfkGNEWZNp7NqzEeT1C519KcvCQj0h3ObmYbZVJ7UbQQOtrHha+35Ja1EUkD8DBrWB1QR2
+ pK83s/LHsxpDkLnUU0HOvJ0RdHHOJo0mSEPU+qbIas9H42p5k4HYkbd
+X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
+ pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-Hi Wolfram,
+Hi,
 
-> -----Original Message-----
-> From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Sent: 16 November 2026 10:05
-> Subject: Re: [PATCH 0/3] Enable RZ/G3L SDHI
->=20
-> Hi Biju,
->=20
-> On Thu, Nov 12, 2026 at 06:48:49PM +0000, Biju Das wrote:
-> > This patch series enable eMMC on SDHI0 and SDHI1 on SDHI2
-> >
-> > This patch series is depend upon [1]
-> > [1] https://lore.kernel.org/all/20261104-usb_rzg3l-v8-0-ab109c4bd108@bp=
-.renesas.com/
-> >
-> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> could you comment shortly on the Sashiko reports, please?
+This series adds support for the Raspberry Pis OTP registers. The
+Raspberry Pi has one or more OTP regions. These registers are accessible
+through the firmware. Add a driver for it and add updates the devicetree
+for the Raspberry Pi 5.
 
-Sure.
+---
+Changes in v10:
+- Validate returned count in rpi_otp_read() before memcpy to avoid
+  fortify panic
+- Drop linux/mod_devicetable.h and fix inconsistent whitespaces as
+  suggested by Uwe
+- Link to v9: https://patch.msgid.link/20261111-rpi-otp-driver-v9-0-0a7292a7a5b4@linutronix.de
 
-Cheers,
-Biju
+Changes in v9:
+- Fix sashiko comment and use fwbuf->count instead of bytes in memcpy
+- Link to v8: https://patch.msgid.link/20261110-rpi-otp-driver-v8-0-797e0577d414@linutronix.de
+
+Changes in v8:
+- Really rebase to v7.4-rc2
+- Add a patch to reorder rpi_firmware_property_tag enum
+- Link to v7: https://patch.msgid.link/20261110-rpi-otp-driver-v7-0-2345d0ee65f0@linutronix.de
+
+Changes in v7:
+- Rebase to v7.4-rc2
+- Added Patch to register rtc driver by soc enum from drvdata
+- Link to v6: https://patch.msgid.link/20260522-rpi-otp-driver-v6-0-b0eac97d1428@linutronix.de
+
+Changes in v6:
+- Use %pe in dev_err
+- Include <linux/slab.h> to fix build on arm
+- Add arm defconfigs: multi_v7_defconfig and bcm2835_defconfig
+- Reword commit messages
+- Link to v5: https://patch.msgid.link/20260520-rpi-otp-driver-v5-0-b26e5908eeac@linutronix.de
+
+Changes in v5:
+- Move alignment check to nvmem core
+- Use IS_REACHABLE to simplify Kconfig
+- use root_only for private driver
+- Add driver as module to arch64 defconfig
+- Use MODULE_DEVICE_TABLE
+- Remove some unused attributes, fix typos, minor fixups
+- Link to v4: https://patch.msgid.link/20260508-rpi-otp-driver-v4-0-cf8d725d8821@linutronix.de
+
+Changes in v4:
+- Additional patch to drop unnecessary select schema
+- fix dt-bindings
+- use __counted_by_le
+- additional alignment check in read/write callbacks
+- Link to v3: https://patch.msgid.link/20260506-rpi-otp-driver-v3-0-294602663695@linutronix.de
+
+Changes in v3:
+- dts: add "raspberrypi,bcm2835-firmware" as fallback and fix dt-bindings
+- Fix Kconfig depends
+- Changed firmware data fields to __le32
+- Add MODULE_ALIAS
+- Link to v2: https://patch.msgid.link/20260505-rpi-otp-driver-v2-0-e9176ec72837@linutronix.de
+
+Changes in v2:
+- register nvmem driver from firmware driver and drop firmware sub nodes
+- Use struct_size and __counted_by for dynamic array
+- Drop unneeded comment in Kconfig
+- Use NVMEM_DEVID_NONE
+- Use kzalloc
+- Update module description
+- Link to v1: https://patch.msgid.link/20260408-rpi-otp-driver-v1-0-e02d1dbe6008@linutronix.de
+
+---
+Gregor Herburger (12):
+      firmware: raspberrypi: reorder rpi_firmware_property_tag enum
+      soc: bcm2835: Use IS_REACHABLE for function declaration
+      nvmem: core: Enforce stride and alignment checks for nvmem_device functions
+      dt-bindings: raspberrypi,bcm2835-firmware: Add bcm2712-firmware compatible
+      nvmem: Add the Raspberry Pi OTP driver
+      firmware: raspberrypi: register nvmem driver
+      arm64: dts: broadcom: bcm2712: add raspberrypi,bcm2712-firmware compatible
+      dt-bindings: raspberrypi,bcm2835-firmware: Drop unnecessary select
+      arm64: defconfig: Enable the raspberrypi otp driver as module
+      ARM: bcm2835_defconfig: Enable the raspberrypi otp driver as module
+      ARM: multi_v7_defconfig: Enable the raspberrypi otp driver as module
+      firmware: raspberrypi: use drvdata to register rtc driver
+
+ .../arm/bcm/raspberrypi,bcm2835-firmware.yaml      |  20 ++-
+ arch/arm/configs/bcm2835_defconfig                 |   2 +
+ arch/arm/configs/multi_v7_defconfig                |   1 +
+ .../boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |   4 +-
+ arch/arm64/configs/defconfig                       |   1 +
+ drivers/firmware/raspberrypi.c                     |  62 +++++++++-
+ drivers/nvmem/Kconfig                              |  11 ++
+ drivers/nvmem/Makefile                             |   1 +
+ drivers/nvmem/core.c                               |  12 ++
+ drivers/nvmem/raspberrypi-otp.c                    | 135 +++++++++++++++++++++
+ include/soc/bcm2835/raspberrypi-firmware.h         |  37 ++++--
+ 11 files changed, 260 insertions(+), 26 deletions(-)
+---
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+change-id: 20260408-rpi-otp-driver-75fce1dcff7d
+
+Best regards,
+--  
+Gregor Herburger <gregor.herburger@linutronix.de>
+
