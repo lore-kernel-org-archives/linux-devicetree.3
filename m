@@ -1,79 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.102
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794810111;
-	b=zaFufjc7hnhhZxy7QBl6Tfek7xnsoKDxLqLYQcrTIZ6jPr1YovRtEt4z+dp7FuWjl/w5
-	 PFdQX8QQFr/ZPE8xN31P6N2mfBVqdGx2csHkT7s2ZkjwXiUKaQHto9rk4qb+1sonf6KrO
-	 dCBs6MBM/YNxMTsVC95jFCatNx8TmQblPr08xvDUWgP4de5bQJdLfzQ5j3pya5Zc/rvwz
-	 J6beo7xguNtXdJnDqC1C6VWeNvVICRADlIZxJySJ169jjqqtyd+5+GN3mt5EbEajsx1oQ
-	 p9CC9NuwAWonQ/CnichcRs6iZf0LzkVzDxlgvDjCYL8tjrwVETsfVgIxwopNrWG2h3Q==
+	t=1794810168;
+	b=RhPfTzXtbHS6ynJcAthg+CpLjnqbBA55JwLX+Boim65RWbw9b6X9BjQBNNWB1POGbqMr
+	 jrFo/wgpBTqeoMnFj4vZMWKtpVLPaX9qmq21FylIzfKZ5Fu5RLiHO/Bpp5wNFO2C74w2G
+	 FJIOZ1mO/SyJ4pvwEPferfKr6evbnxhOa2iI1nd3rA2fiMz0T14SHOlJI+8U44PRsY71p
+	 +5Fk8IVyOotVQbjheYCrlOs0/zqHGvJabzOr4BjglBv7GCq9umrYxNCnMHJ8UZ615FwC6
+	 bYODv2IK5vcG+MTMs0tgJYue+Pu4OHLWpPFIGqA/0IJ99zCayAX5nHJXmFdnJIPaDYg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794810111;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=K1iD1cRNoIchz7YibK6Xjd37LHFtddkJTve0pYIktac=;
-	b=Q1P2P59L9dZMleIvwUR6R5CKLd6S6dheY3x183ehkrgIb95ON1v5UKDCWai10NMlu+dB
-	 Wf3adcEPLtVt6/7nAA2ZjzdP+Cd5+i11A+USILM2ISyF0Mq8o8UIkuzY5WA+YIKZY6fHx
-	 iW/l3U7ACzRA63PWKSrFoxn9LvKbhmTqCgkGaiB8Ais9XfsVl0Z6nshavTDZgFxY3wlyt
-	 2Bl/ZrCo7UhH4KxJ1loWwQOkMMjTkIbJdfU0WyhIKlMwr8WSoWFYJGoryghW8ta1CLKm7
-	 VFm5SsM2W0pFdevdegxk8LmWsICyoHfLgMLxhtJirMxkKphiTh1slEt8ZCxkcAOP4BA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794810168;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=I66VCwB8U6KqMZqm/jOYZ89MwWUFsrGxIloB6REqzFg=;
+	b=IS3PKDruTk6LObfGQxzvV5h7ev73wh7HLiqd8a8rU+LV2aWngjLvx+EojtLSiPKanM3F
+	 WJG8aoHMEFZ5XU1S2QpjMqN+9dRoUJKDbU3OPNgBfFlWAGC1tbgDHXY0bJg4Ki/7RvOMA
+	 0gklH0BfPbzooNulsOI72DkiALmpyIlmlsZTZYhLG019mHEaxegDGQyJJOyMckxxYorQ4
+	 ABwKC4yHBTFJumpJRffaWHzHWPHcJzYd1AQXUlIzbeLb2RBcDkNOlk1Dy4eum82GCu8KP
+	 9CsapFb32ZZFHznl7CZGd4oz0LolrVArzekhjWIAr/LrsaWZwJkzn0dJGXqUQLodZrg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkMhmPQQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=axiado.com;
+	spf=pass smtp.mailfrom=axiado.com;
+	dkim=pass header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=gDfCVlne;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.102
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11020102.outbound.protection.outlook.com [52.101.61.102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA503606A33E;
-	Mon, 16 Nov 2026 06:21:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D9E606A323;
+	Mon, 16 Nov 2026 06:22:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01D9E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkMhmPQQ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794810110;
-	b=Mj0YhQGvpUwRGU0AtPi/3jnRVC9I4o8FZh1bMvURxqrvO1zNSsVoc1jvKLCspnc/FRXp
-	 HYYGDgrvYgRaXeTyNyQWx+7+dTqPo5+5JMsxbDJdJpTVmesdDISR1h0w4faLOHfH1L1jt
-	 LD8bNocf7qGHAoIg+YfTEvg8pbAnlx5ZN3ddTwOY5yBW9x+iEuGPzDvaZRmsT8ngw4LoG
-	 crJveTK+aD1KvlfFRiyiI6rjboQMIrVI/50LWrCSTdcuaMUKgxQwcNz+Tg77mRTJsLV4X
-	 D7xOoVJHzALPtohVG/Zm9AgA7XaZJvzifendqzrtWdqVuMkkwbDrY4UZI8xdtrKIOvQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794810110;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=K1iD1cRNoIchz7YibK6Xjd37LHFtddkJTve0pYIktac=;
-	b=WhXqO8eDGGS+CY4QVjtm29oY/IXO2TIHmFtJvlYuJ+OYg/vhPfbqBFebbQT3s5iFSuLM
-	 P1f1+VwHDMVGDlck7JnmEt1LsqUhpVtcFab0BNBU6ysi4WOkVcztt62x4Hkv0OuYV9cJf
-	 zW7XGj3bZStbaKz7Fs1h4scl65kKzonPK1QoLMJ7W6P7vNPbHCkP1O81C5c80kT5CETwt
-	 QGsjc86ON9wALUik4D9RDYv7u8aeeVtbBpYd1BTNN4Lrat4VQz7dvrP91lwFRZUkp5fCy
-	 LDVa3WIYaWav1/cHaMhraZlBB81VlcXTw1zcH6rTjletPX9rkRLC94BhenDgIgB5BZQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 937481F000C6;
-	Mon, 16 Nov 2026 06:21:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794810110;
-	bh=K1iD1cRNoIchz7YibK6Xjd37LHFtddkJTve0pYIktac=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=TkMhmPQQQSX7gS9l+nHaHbI4azpYNpaGD+KO2tA8ZjnT5KzpvWnIT9+9+boO//GY7
-	 Uj3gA80hTOPQreZ8bUa1sdPSYr4AtKoJMcxE76GnpvV/BSw1KdScTlaoxMRhNyx+MN
-	 QFTh5ptPghTHlgVHZHXKJIedIAI1ehM04CTLv7k3Pgi4nlDNQ4LbJ3HAJ9EzTcDxuD
-	 RAHTtFQdBvCnhEpSV7uaSjfl+f3kR1rIHlpi9FU6QBYfECi12CRZ+YiAICTSS/QTJ1
-	 FMm/VQP7ba4HbC3p7IfkwuUIlicVDRzaYrJ4mi7YeU3kBmcZYj0oobAL3kstHPWruA
-	 XUG8uZSAhBocg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2400B4A34E;
-	Mon, 16 Nov 2026 06:21:49 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Mon, 16 Nov 2026 11:51:33 +0530
-Subject: [PATCH RESEND v3 2/2] clk: qcom: Add SM7250 graphics clock
- controller driver
+	dkim=pass (2048-bit key, unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=gDfCVlne
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ciw3xGxwS9VWwBwyjQEYyHEEY1qvYOXlHfstUk1hy5m8ks96oyk0JTwqg/7aiTcCWPdYTV77HucmMicM328ofs87TPqkMfsyXb1R3obcEsFf5Dj5cIqBMrn4xq486sAsT1EnfNmByApC0ksrlQt0iAFt3xF/aLiNcH9gzjpAIMLM4ST1NM63dCWeZDgfx57ZkhI1vQWSRW8h3EqfziuPpSW83PsvCMSmo74eqtvQhYXm+21o4Bvt0DBuSxbHlsfGEIxRiPupujbLXMNFY/k3BOwDczhpDsWmvgX8Pcp0aYaH1egB1eww63Hk4QRZE/t4nvay9KtvkRZl6G6hky6dOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I66VCwB8U6KqMZqm/jOYZ89MwWUFsrGxIloB6REqzFg=;
+ b=w/V4hRQdsQ1i4Zsd5zbJWMtawoME2wMS98btopkF5haaomsTIxegRDOxcfx9nb0shlUtLFXdY4PPm4tOKa1GL3tpamqc8mgQo6ElFeGmYrdqyCotP4Dpe0kl7xkeQSd4+KI46b+yWN/fm9/xnqjF51vUClDM5+kwFBomzaC4SUNmfR7XRGvbosL/oIBbj64TSLkLA6qXG1IWM8pfvBrVSFTQ0seBioOmoqL3ugrSbnLVM2hGbp4eHKVEghlPGOTDYEGW39y9NrXkNOjTPJopddxeOxDyMUWqY82WJdde1gYWsM/Ej8yiAb4/KhEpatBveyjYQ2WKgH/VQe2qgSvQJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I66VCwB8U6KqMZqm/jOYZ89MwWUFsrGxIloB6REqzFg=;
+ b=gDfCVlneglpkenvumjIUvBtLqH/sXS/r1iVipglRNqmmMCQQFz/c+NHpFDRTpMuJ11Pq+3XZnI8x0ngDT/nU259hxhfSqZDFy4nSUt6bEonsO7ndwpIuWe2e1eJaEkPDx3UzjP8AWupSWjQAfC4k+C9nVH9fZU0vHQMxz1nd/WRfudPZmdvVVtMYUljbRQu6pUVuST1OXkhzlgSBK4DGOP3vRSjHbiYewzm4Nh58GJ/zxpEYMj7SEqvPDDkwyjLqPg8GjBlFqlfMBxbnVmDjnHzIx2Xsy9KyZSeg15Jp2gGAeVDlbNJj0XXmYdvC0kn4gA09VHyX0W0S0rBxLRcJGw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from CH3PR18MB5671.namprd18.prod.outlook.com (2603:10b6:610:1a3::11)
+ by LV3PR18MB6132.namprd18.prod.outlook.com (2603:10b6:408:275::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 06:22:09 +0000
+Received: from CH3PR18MB5671.namprd18.prod.outlook.com
+ ([fe80::d361:9d9c:4a15:4b84]) by CH3PR18MB5671.namprd18.prod.outlook.com
+ ([fe80::d361:9d9c:4a15:4b84%3]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 06:22:08 +0000
+Message-ID: <f752d203-8239-4203-aa04-884b4d7e5d80@axiado.com>
+Date: Mon, 16 Nov 2026 11:52:12 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 0/2] net: mctp: Add MCTP transport for the Axiado
+ AX3005 IRoT
+To: Jeremy Kerr <jk@codeconstruct.com.au>,
+ Sammai Chakravarthy <schakravarthy@axiado.com>,
+ Prasad Bolisetty <pbolisetty@axiado.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>,
+ Karthikeyan Mitran <kmitran@axiado.com>,
+ Matt Johnston <matt@codeconstruct.com.au>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Adam Young <admiyo@amperemail.onmicrosoft.com>
+References: <20261101-mctp-transport-irot-ax3005-v1-0-36ceb822f01e@axiado.com>
+ <4102c20ece135c4d94e94af4441a01425ad159fc.camel@codeconstruct.com.au>
+Content-Language: en-US
+From: Akhila Kavi <akavi@axiado.com>
+In-Reply-To: <4102c20ece135c4d94e94af4441a01425ad159fc.camel@codeconstruct.com.au>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0359.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:219::10) To CH3PR18MB5671.namprd18.prod.outlook.com
+ (2603:10b6:610:1a3::11)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,473 +109,146 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-gpucc-sm7250-v3-2-df68449f0e36@brar.si>
-References: <20261116-gpucc-sm7250-v3-0-df68449f0e36@brar.si>
-In-Reply-To: <20261116-gpucc-sm7250-v3-0-df68449f0e36@brar.si>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Taniya Das <taniya.das@oss.qualcomm.com>, 
- Imran Shaik <quic_imrashai@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ishu Brar <patches@brar.si>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794810107; l=12422;
- i=patches@brar.si; h=from:subject:message-id;
- bh=ckhgizjQwGlEVMzW3DWXfG30a/SEFDgI20VGz+xSEiY=;
- b=MrYfej/xd8lwPxooFcGnqUHeCf5+Rgu+ReDQxG9+MtRWpuoL0oGoVRL8sjrKzc0/4CeRs/Pj2
- Z4HQCv5K/jIB/D6TVWIlKF0c9KGqz8l7fUw3WmLoq18+GQP/cl+Uc/3
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR18MB5671:EE_|LV3PR18MB6132:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75e66229-d74d-4727-60e5-08df43a9f124
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|921020|10067099003|5023799004|4143699003|56012099006|261021135927099003|261022105027099003|261021123027099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	VVXsywo5e2hbNcWp8+5eUXjDTVAkWvDOr1CB3uJ2ogoMmmrVWMSYAIYES0IAzTaVxJ5Fd5ngapOcnwVwDMv3IvkNToWDcmJkNZwJl2oM7czVoNt5F+bxuLuwZbAVLhf/Uw+ICFUQ2EUF5sRH4DRtFrkpAkgKLZ1zDvFTIndQO/9/u29JHPbxpza+WYxfSV4+hM53xNjErLGBde1y0ZcxkrwZYrsojoIOpjvLqbMpB+NzrjB4bNC3M9KOvBwHvVTnn9aZ6juDPOSDJevnSP+QbRCPH6RY6QpcHy4rWSefJWWK4FWDDYw7dUy7f2+v07fBz117ykuwbalsPDtRNVViquQ/CuFalncyEI70fJ5rRUYslI8x4Pc3Pm9A4w0dDlUmFj73M1H9G23+Ha1EWJ8FXMiHr7sX32rgdDuruHIzJidHiB90pAN3R5FoyYDv8UrYDGvZE/CNDBW/vGlC1K8UU23dLMhi92jwRtY+081qraYZXiK2Qjqt1NVOIs2TazzdJwEqlmT7qGBDlO0uFkKluKh965iG50hbyCSxz8hycac5u/0OmwxdO7Gv0auuZ4xvXZoG7L0iHVLLFPB29FaeKdAi7aQP7iKBLIDIO9f88NHBNJYjJAHzFmcHY4y5AVNhjvsF90vS1zeWJK3dvgyZYhS2SVtcwGBMDPXur4WvHozZPdfN6a0QdYYbvqyxwDlXKvgKr73pxS3MtVMl89ah3Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR18MB5671.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(921020)(10067099003)(5023799004)(4143699003)(56012099006)(261021135927099003)(261022105027099003)(261021123027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L1k1Tkc4TzQ3K0hvRjJ5M3d2a3dQM0VRSkFwWXVuc204NFN6VUViaEMwWXRQ?=
+ =?utf-8?B?RURVaXdMRVo3ZlBGTDlDRGlHOHh2N0tFQXdxeWNUTlo5a3JOUjR6dC9pUDhP?=
+ =?utf-8?B?VVdzNEdQWDZ0V3VobWNLS1cvSDBEbXBwT1h4aXVRYlA1aFdNSzJqSVR1NnVX?=
+ =?utf-8?B?cDFqb1ZrMjFLNy9FdlUvVkwyMjJIWWFaY2tmM2tTSFlnQll0TWd1WHp3d1Vw?=
+ =?utf-8?B?dzlsRlBpSWt0V0FZY0h5Z0RnQ1R1WWRYUXdKZ2QrZWkrdFdMaFgzTVp0TzFL?=
+ =?utf-8?B?Nml1L3V0Qnh0ZURNamF6OGtucUlFbllIbXBZRkZkWUdjOVhiOXpFNjZNZmJI?=
+ =?utf-8?B?UmFqT2RvM3VzOHhFTVNidVYyeEhBVXJGVXJQaHBibXQ0ZW92eGphRjlDY1Rx?=
+ =?utf-8?B?UitNZ3Q0Nks5ZFZLdzZ4WEsvdUkwTDRwWW1Kei9oNlJRWDQzUHptM1BINUpD?=
+ =?utf-8?B?M1ZRSXFoWk5XaVozM0JMODJwNXM0ZStOVTJCZ3V1dlhScHBBSHhYUytLY1VT?=
+ =?utf-8?B?SGYrM0cyVExGRUF4OFpKWFJnR3RkSFluTXhic3NjemJtNlhTLzdPaHltSUp1?=
+ =?utf-8?B?QllJOUVUS0tZRld2Um9WN0YzMitBb2NTQTlMY01QMVFnVkhjN2k4S0V0dW8w?=
+ =?utf-8?B?dVFQLzlCMjQwMmlsNGNHUVZhWWZYZjBpYzZzY090Z0hvMDBSL2xiZ2EyaEl4?=
+ =?utf-8?B?Z2o5NEtMMlZleVFkdHVOdjUvSlhKcitCZlZTcTFUSjh2bFFHQVRQUHUxMmUr?=
+ =?utf-8?B?eG1sbG9oMEV0dWZNVlJxcmpjcXU3NVo3Q2FNZHJBV2t6MDJnMUFXa1VCT3FB?=
+ =?utf-8?B?NFA0ZHZkajcwVVFJM2hITXJVbW5RZ1J0NklLWXFIWjJ3MjFVMHlqN2VjNlRw?=
+ =?utf-8?B?Qk13UDB3TEE0S1cvVHVYVDdaMGEwMFhMb2tJNURJS0hidURpSXpCaWJJVGZI?=
+ =?utf-8?B?NkVtYlVhOStuY1E0aEZmekpCZkdDd0hITHRUcXB3YjJMV0NhU1djTWtmN2Fw?=
+ =?utf-8?B?NzRDYURsM1JCV2ZHYTc2ZmxFUUEwMmhPeTRyWXJnMjg0THFzWVFyR3VZZ2w1?=
+ =?utf-8?B?MldscW9pNVZDWHRuSU1HRzBPcjZCbVptdHdEUlg5eFVYTzVjdjQ1d1hJK05h?=
+ =?utf-8?B?UGpFT1cveFFMV0k1Z1EyZElUb3RZVzJpbkNJWWc1ZkU4VkxQUWN3R1pCVXFC?=
+ =?utf-8?B?aFdPc2ZLclY2Q2VmNHhIY3VFbVJ1TmwvVlI4amlhamNVVzA0em4yclc3MFUy?=
+ =?utf-8?B?SzBKbS9IVnZkdVNhV05VbHRxVC8zUWIwbWZ1TjgvYUd2cmo3aDJncU5tSFJo?=
+ =?utf-8?B?UWN6a1lESnJVbFQ5UDN0UkFyZlJLZThkMDJ2emF1eWIrR1pXN3hNNGVkNjh0?=
+ =?utf-8?B?L1d0b0gxNVJkUjgvZnN4TFBkWWtvSklEOE4rQnNQRkZnNUh4N280Tlhsano2?=
+ =?utf-8?B?UjBhSllWME8zcTVuV1dWb0J6cUo5dWZpZ2xFZytud1Z3N3NKbkZicGg5SW8z?=
+ =?utf-8?B?NDk0b2I1aXcyMVBUVjJ2SGhSVTV6Qmc5VHROVGpPMVgzajA1Q1p3N0pwaXJX?=
+ =?utf-8?B?RHlSblRCVFNkZm1KRVZHb1VrNDNGeEp4RkhaeVRWdXlhSlNuSFNlWHd5TVFi?=
+ =?utf-8?B?U0hIOHpUb2FPVzJDRGsyZmNwQmtUR0t1VVV1eUJObVErZ3IwTWZ6Wk1pTHpH?=
+ =?utf-8?B?M3lwLzhpMnAxYk54bm1qWE11U2FFemZCVnlXbjRla3ZFMnlnS29BcUFDTWV2?=
+ =?utf-8?B?Vk5UTGZUemV4YjlyK1M5QmwzTDh4OTJjb0E1WlR6VXNJQWQ4elNrSHR2RkhM?=
+ =?utf-8?B?SkJrZkIzVnZXQ2w5a3dVYis3UFB3dGI3NklJbEQza0Y0VHJFMEhpOVBuVVhT?=
+ =?utf-8?B?elovTFNCOVdSem1pVEFkY1NMOXJaMlpPNWxrUFdzd1orc1Q5R2MrYmFOMHJl?=
+ =?utf-8?B?alpaZmJzWjhsN0svQzZFSjBKRTBYL1NVQjJ6aEJDbVVFWlM5blRtM0xROHhI?=
+ =?utf-8?B?bHIya3JONGNUeXhoOWMzTE9obVhlRzl6U3pNRk9tT25sRnN3WVFOb1lQNGhP?=
+ =?utf-8?B?Q3F2a3VoOTFtWWc2eTdJZ0RuTlVLNzY4ZGFHM3lSZWhZd3dpVjBqTzllWU9B?=
+ =?utf-8?B?TnpOWldlc0FwS09SL1Q3bVlLS1VITEN1QzJnV3BzM0VycXlKWDlHdFZ1aXpO?=
+ =?utf-8?B?aEUvclUyZ0YzOFpYMWYyYmk3elFMaVB0aFA0b2hYYUhNb1R0U3cyWFF0VlBP?=
+ =?utf-8?B?RnY0aEdEcFVVbzBidERoK3FWOURKd1NjeTJtNG5SWWczM25hRE5lRG1wT2R2?=
+ =?utf-8?B?Vmd1dWRibktyNTVscC95b0tZd3RTSDJTanVHVTRxWDcvd3ZmdmhUQT09?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75e66229-d74d-4727-60e5-08df43a9f124
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR18MB5671.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 06:22:08.6940
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iVJ0tSVh+satdHZwB/NrShB+LJ7edRfE2Df8GBZWDcpzDbDog2cjecX6qUNLMVPreSqW+spoB5N8jcQ2p8ZA3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR18MB6132
 
-From: Ishu Brar <patches@brar.si>
 
-Add a driver for the graphics clock controller of the Qualcomm SM7250
-SoC (Snapdragon 765/765G/768G). It provides the GMU clock and its PLL,
-the GPU CX and GX power domains, and the GPU SMMU vote clock. The layout
-follows the SM8250 driver, since both use a Lucid PLL and the same GMU
-clock setup; the PLL settings, frequency table, register offsets and
-GDSC data come from the downstream driver of the platform.
+On 02-11-2026 08:25, Jeremy Kerr wrote:
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.
+>
+>
+> Hi Akhila,
+>
+>> The Axiado AX3005 SoC has an integrated root-of-trust (IRoT)
+>> co-processor next to the application processor. Security protocols such
+>> as SPDM and PLDM run between the two over MCTP. This series adds a
+>> transport for that link, so the host side uses ordinary AF_MCTP
+>> sockets.
+> One overall thing: why not use the MCTP MMBI (DSP0284) transport spec
+> for this? Sounds like this would be an exact match for the MMBI
+> use-case.
 
-Tested on a OnePlus Nord: the controller probes and provides the clocks and
-power domains for the Adreno 620 GPU.
+Thanks for the review. To give some context first:
+this link is entirely internal to the AX3005, and not for host communication.
+The IRoT's MCTP endpoint is only reachable from the application subsystem on
+the same die, through the mailbox and the shared-memory carve-out.
+There is no hardware path to it from outside the chip:
+no PCIe, SMBus/I2C, I3C or USB connection reaches the IRoT.
+So this is strictly one point-to-point link between two fixed endpoints
+on the same SoC.
 
-Signed-off-by: Ishu Brar <patches@brar.si>
----
- drivers/clk/qcom/Kconfig        |  10 ++
- drivers/clk/qcom/Makefile       |   1 +
- drivers/clk/qcom/gpucc-sm7250.c | 379 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 390 insertions(+)
+You're right that the mechanism is close to MMBI: shared memory plus a doorbell.
+We looked at DSP0282/DSP0284 and decided to keep the existing protocol,
+for the reason: Interoperability, which is the main benefit of a standard binding,
+doesn't apply here. Both ends are fixed on the same die, and no third-party MCTP
+device can ever be on the other end of this link, so carrying it as MMBI would
+add nothing.For that reason the driver stays a narrow vendor binding:
+It uses MCTP_PHYS_BINDING_VENDOR and matches only the axiado,ax3005-mctp-irot compatible.
+It isn't meant as a general shared-memory transport, and it doesn't claim to be one.
 
-diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
-index 27d0ab24d50a..2df28d213246 100644
---- a/drivers/clk/qcom/Kconfig
-+++ b/drivers/clk/qcom/Kconfig
-@@ -1878,6 +1878,16 @@ config SM_GPUCC_6350
- 	  Say Y if you want to support graphics controller devices and
- 	  functionality such as 3D graphics.
- 
-+config SM_GPUCC_7250
-+	tristate "SM7250 Graphics Clock Controller"
-+	depends on ARM64 || COMPILE_TEST
-+	select SM_GCC_7250
-+	default m if ARCH_QCOM
-+	help
-+	  Support for the graphics clock controller on SM7250 devices.
-+	  Say Y if you want to support graphics controller devices and
-+	  functionality such as 3D graphics.
-+
- config SM_GPUCC_MILOS
- 	tristate "Milos Graphics Clock Controller"
- 	depends on ARM64 || COMPILE_TEST
-diff --git a/drivers/clk/qcom/Makefile b/drivers/clk/qcom/Makefile
-index 6affb5073f26..421a9e5053c0 100644
---- a/drivers/clk/qcom/Makefile
-+++ b/drivers/clk/qcom/Makefile
-@@ -205,6 +205,7 @@ obj-$(CONFIG_SM_GPUCC_6115) += gpucc-sm6115.o
- obj-$(CONFIG_SM_GPUCC_6125) += gpucc-sm6125.o
- obj-$(CONFIG_SM_GPUCC_6350) += gpucc-sm6350.o
- obj-$(CONFIG_SM_GPUCC_6375) += gpucc-sm6375.o
-+obj-$(CONFIG_SM_GPUCC_7250) += gpucc-sm7250.o
- obj-$(CONFIG_SM_GPUCC_8150) += gpucc-sm8150.o
- obj-$(CONFIG_SM_GPUCC_8250) += gpucc-sm8250.o
- obj-$(CONFIG_SM_GPUCC_8350) += gpucc-sm8350.o
-diff --git a/drivers/clk/qcom/gpucc-sm7250.c b/drivers/clk/qcom/gpucc-sm7250.c
-new file mode 100644
-index 000000000000..6cdb50c3cca7
---- /dev/null
-+++ b/drivers/clk/qcom/gpucc-sm7250.c
-@@ -0,0 +1,379 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk-provider.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
-+#include <dt-bindings/clock/qcom,sm7250-gpucc.h>
-+
-+#include "clk-alpha-pll.h"
-+#include "clk-branch.h"
-+#include "clk-rcg.h"
-+#include "clk-regmap.h"
-+#include "common.h"
-+#include "gdsc.h"
-+#include "reset.h"
-+
-+#define CX_GMU_CBCR_SLEEP_MASK		GENMASK(7, 4)
-+#define CX_GMU_CBCR_WAKE_MASK		GENMASK(11, 8)
-+
-+enum {
-+	DT_BI_TCXO,
-+	DT_GPLL0_OUT_MAIN,
-+	DT_GPLL0_OUT_MAIN_DIV,
-+};
-+
-+enum {
-+	P_BI_TCXO,
-+	P_GPLL0_OUT_MAIN,
-+	P_GPLL0_OUT_MAIN_DIV,
-+	P_GPU_CC_PLL0_OUT_MAIN,
-+	P_GPU_CC_PLL1_OUT_MAIN,
-+};
-+
-+static const struct pll_vco lucid_vco[] = {
-+	{ 249600000, 2000000000, 0 },
-+};
-+
-+static const struct alpha_pll_config gpu_cc_pll1_config = {
-+	.l = 0x1a,
-+	.alpha = 0xaaa,
-+	.config_ctl_val = 0x20485699,
-+	.config_ctl_hi_val = 0x00002261,
-+	.config_ctl_hi1_val = 0x329a699c,
-+	.user_ctl_val = 0x00000001,
-+	.user_ctl_hi_val = 0x00000805,
-+	.user_ctl_hi1_val = 0x00000000,
-+	.test_ctl_hi1_val = 0x01800000,
-+};
-+
-+static struct clk_alpha_pll gpu_cc_pll1 = {
-+	.offset = 0x100,
-+	.config = &gpu_cc_pll1_config,
-+	.vco_table = lucid_vco,
-+	.num_vco = ARRAY_SIZE(lucid_vco),
-+	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID],
-+	.clkr = {
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "gpu_cc_pll1",
-+			.parent_data = &(const struct clk_parent_data) {
-+				.index = DT_BI_TCXO,
-+			},
-+			.num_parents = 1,
-+			.ops = &clk_alpha_pll_lucid_ops,
-+		},
-+	},
-+};
-+
-+static const struct parent_map gpu_cc_parent_map_0[] = {
-+	{ P_BI_TCXO, 0 },
-+	{ P_GPU_CC_PLL1_OUT_MAIN, 3 },
-+	{ P_GPLL0_OUT_MAIN, 5 },
-+	{ P_GPLL0_OUT_MAIN_DIV, 6 },
-+};
-+
-+static const struct clk_parent_data gpu_cc_parent_data_0[] = {
-+	{ .index = DT_BI_TCXO },
-+	{ .hw = &gpu_cc_pll1.clkr.hw },
-+	{ .index = DT_GPLL0_OUT_MAIN },
-+	{ .index = DT_GPLL0_OUT_MAIN_DIV },
-+};
-+
-+static const struct freq_tbl ftbl_gpu_cc_gmu_clk_src[] = {
-+	F(19200000, P_BI_TCXO, 1, 0, 0),
-+	F(200000000, P_GPLL0_OUT_MAIN_DIV, 1.5, 0, 0),
-+	F(500000000, P_GPU_CC_PLL1_OUT_MAIN, 1, 0, 0),
-+	{ }
-+};
-+
-+static struct clk_rcg2 gpu_cc_gmu_clk_src = {
-+	.cmd_rcgr = 0x1120,
-+	.mnd_width = 0,
-+	.hid_width = 5,
-+	.parent_map = gpu_cc_parent_map_0,
-+	.freq_tbl = ftbl_gpu_cc_gmu_clk_src,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "gpu_cc_gmu_clk_src",
-+		.parent_data = gpu_cc_parent_data_0,
-+		.num_parents = ARRAY_SIZE(gpu_cc_parent_data_0),
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_rcg2_ops,
-+	},
-+};
-+
-+static struct clk_branch gpu_cc_ahb_clk = {
-+	.halt_reg = 0x1078,
-+	.halt_check = BRANCH_HALT_DELAY,
-+	.clkr = {
-+		.enable_reg = 0x1078,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "gpu_cc_ahb_clk",
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch gpu_cc_crc_ahb_clk = {
-+	.halt_reg = 0x107c,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.clkr = {
-+		.enable_reg = 0x107c,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "gpu_cc_crc_ahb_clk",
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch gpu_cc_cx_apb_clk = {
-+	.halt_reg = 0x1088,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.clkr = {
-+		.enable_reg = 0x1088,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "gpu_cc_cx_apb_clk",
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch gpu_cc_cx_gmu_clk = {
-+	.halt_reg = 0x1098,
-+	.halt_check = BRANCH_HALT,
-+	.clkr = {
-+		.enable_reg = 0x1098,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "gpu_cc_cx_gmu_clk",
-+			.parent_hws = (const struct clk_hw *[]) {
-+				&gpu_cc_gmu_clk_src.clkr.hw,
-+			},
-+			.num_parents = 1,
-+			.flags = CLK_SET_RATE_PARENT,
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch gpu_cc_cx_snoc_dvm_clk = {
-+	.halt_reg = 0x108c,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.clkr = {
-+		.enable_reg = 0x108c,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "gpu_cc_cx_snoc_dvm_clk",
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch gpu_cc_cxo_aon_clk = {
-+	.halt_reg = 0x1004,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.clkr = {
-+		.enable_reg = 0x1004,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "gpu_cc_cxo_aon_clk",
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch gpu_cc_cxo_clk = {
-+	.halt_reg = 0x109c,
-+	.halt_check = BRANCH_HALT,
-+	.clkr = {
-+		.enable_reg = 0x109c,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "gpu_cc_cxo_clk",
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch gpu_cc_gx_gmu_clk = {
-+	.halt_reg = 0x1064,
-+	.halt_check = BRANCH_HALT,
-+	.clkr = {
-+		.enable_reg = 0x1064,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "gpu_cc_gx_gmu_clk",
-+			.parent_hws = (const struct clk_hw *[]) {
-+				&gpu_cc_gmu_clk_src.clkr.hw,
-+			},
-+			.num_parents = 1,
-+			.flags = CLK_SET_RATE_PARENT,
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch gpu_cc_gx_vsense_clk = {
-+	.halt_reg = 0x1058,
-+	.halt_check = BRANCH_HALT_DELAY,
-+	.clkr = {
-+		.enable_reg = 0x1058,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "gpu_cc_gx_vsense_clk",
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch gpu_cc_sleep_clk = {
-+	.halt_reg = 0x1090,
-+	.halt_check = BRANCH_HALT_DELAY,
-+	.clkr = {
-+		.enable_reg = 0x1090,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "gpu_cc_sleep_clk",
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch gpu_cc_hlos1_vote_gpu_smmu_clk = {
-+	.halt_reg = 0x5000,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.clkr = {
-+		.enable_reg = 0x5000,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "gpu_cc_hlos1_vote_gpu_smmu_clk",
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct gdsc gpu_cx_gdsc = {
-+	.gdscr = 0x106c,
-+	.gds_hw_ctrl = 0x1540,
-+	.pd = {
-+		.name = "gpu_cx_gdsc",
-+	},
-+	.pwrsts = PWRSTS_OFF_ON,
-+	.flags = VOTABLE,
-+};
-+
-+static struct gdsc gpu_gx_gdsc = {
-+	.gdscr = 0x100c,
-+	.clamp_io_ctrl = 0x1508,
-+	.pd = {
-+		.name = "gpu_gx_gdsc",
-+		.power_on = gdsc_gx_do_nothing_enable,
-+	},
-+	.pwrsts = PWRSTS_OFF_ON,
-+	.flags = CLAMP_IO | AON_RESET | POLL_CFG_GDSCR,
-+};
-+
-+static struct clk_regmap *gpu_cc_sm7250_clocks[] = {
-+	[GPU_CC_AHB_CLK] = &gpu_cc_ahb_clk.clkr,
-+	[GPU_CC_CRC_AHB_CLK] = &gpu_cc_crc_ahb_clk.clkr,
-+	[GPU_CC_CX_APB_CLK] = &gpu_cc_cx_apb_clk.clkr,
-+	[GPU_CC_CX_GMU_CLK] = &gpu_cc_cx_gmu_clk.clkr,
-+	[GPU_CC_CX_SNOC_DVM_CLK] = &gpu_cc_cx_snoc_dvm_clk.clkr,
-+	[GPU_CC_CXO_AON_CLK] = &gpu_cc_cxo_aon_clk.clkr,
-+	[GPU_CC_CXO_CLK] = &gpu_cc_cxo_clk.clkr,
-+	[GPU_CC_GMU_CLK_SRC] = &gpu_cc_gmu_clk_src.clkr,
-+	[GPU_CC_GX_GMU_CLK] = &gpu_cc_gx_gmu_clk.clkr,
-+	[GPU_CC_GX_VSENSE_CLK] = &gpu_cc_gx_vsense_clk.clkr,
-+	[GPU_CC_PLL1] = &gpu_cc_pll1.clkr,
-+	[GPU_CC_SLEEP_CLK] = &gpu_cc_sleep_clk.clkr,
-+	[GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK] = &gpu_cc_hlos1_vote_gpu_smmu_clk.clkr,
-+};
-+
-+static const struct qcom_reset_map gpu_cc_sm7250_resets[] = {
-+	[GPUCC_GPU_CC_ACD_BCR] = { 0x1160 },
-+	[GPUCC_GPU_CC_CX_BCR] = { 0x1068 },
-+	[GPUCC_GPU_CC_GFX3D_AON_BCR] = { 0x10a0 },
-+	[GPUCC_GPU_CC_GMU_BCR] = { 0x111c },
-+	[GPUCC_GPU_CC_GX_BCR] = { 0x1008 },
-+	[GPUCC_GPU_CC_XO_BCR] = { 0x1000 },
-+};
-+
-+static struct gdsc *gpu_cc_sm7250_gdscs[] = {
-+	[GPU_CX_GDSC] = &gpu_cx_gdsc,
-+	[GPU_GX_GDSC] = &gpu_gx_gdsc,
-+};
-+
-+static struct clk_alpha_pll *gpu_cc_sm7250_plls[] = {
-+	&gpu_cc_pll1,
-+};
-+
-+static const struct regmap_config gpu_cc_sm7250_regmap_config = {
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.val_bits = 32,
-+	.max_register = 0x8008,
-+	.fast_io = true,
-+};
-+
-+static void gpu_cc_sm7250_regs_configure(struct device *dev, struct regmap *regmap)
-+{
-+	unsigned int value, mask;
-+
-+	/*
-+	 * Configure gpu_cc_cx_gmu_clk with recommended
-+	 * wakeup/sleep settings
-+	 */
-+	mask = CX_GMU_CBCR_WAKE_MASK | CX_GMU_CBCR_SLEEP_MASK;
-+	value = FIELD_PREP(CX_GMU_CBCR_WAKE_MASK, 0xf) |
-+		FIELD_PREP(CX_GMU_CBCR_SLEEP_MASK, 0xf);
-+	regmap_update_bits(regmap, 0x1098, mask, value);
-+}
-+
-+static const struct qcom_cc_driver_data gpu_cc_sm7250_driver_data = {
-+	.alpha_plls = gpu_cc_sm7250_plls,
-+	.num_alpha_plls = ARRAY_SIZE(gpu_cc_sm7250_plls),
-+	.clk_regs_configure = gpu_cc_sm7250_regs_configure,
-+};
-+
-+static const struct qcom_cc_desc gpu_cc_sm7250_desc = {
-+	.config = &gpu_cc_sm7250_regmap_config,
-+	.clks = gpu_cc_sm7250_clocks,
-+	.num_clks = ARRAY_SIZE(gpu_cc_sm7250_clocks),
-+	.resets = gpu_cc_sm7250_resets,
-+	.num_resets = ARRAY_SIZE(gpu_cc_sm7250_resets),
-+	.gdscs = gpu_cc_sm7250_gdscs,
-+	.num_gdscs = ARRAY_SIZE(gpu_cc_sm7250_gdscs),
-+	.use_rpm = true,
-+	.driver_data = &gpu_cc_sm7250_driver_data,
-+};
-+
-+static const struct of_device_id gpu_cc_sm7250_match_table[] = {
-+	{ .compatible = "qcom,sm7250-gpucc" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, gpu_cc_sm7250_match_table);
-+
-+static int gpu_cc_sm7250_probe(struct platform_device *pdev)
-+{
-+	return qcom_cc_probe(pdev, &gpu_cc_sm7250_desc);
-+}
-+
-+static struct platform_driver gpu_cc_sm7250_driver = {
-+	.probe = gpu_cc_sm7250_probe,
-+	.driver = {
-+		.name = "sm7250-gpucc",
-+		.of_match_table = gpu_cc_sm7250_match_table,
-+	},
-+};
-+module_platform_driver(gpu_cc_sm7250_driver);
-+
-+MODULE_DESCRIPTION("QTI GPU_CC SM7250 Driver");
-+MODULE_LICENSE("GPL");
+>
+> [Also: CCing Adam who is working on PCC, which may have some overlap
+> with the mailbox protocol used here]
 
--- 
-2.56.1
+Thanks. The two look alike: one shared-memory window per direction, a doorbell,
+and a completion before the window is reused. The differences:
 
+AX3005 is a DT platform with no ACPI, so PCC itself isn't an option here.
+Discovery is in-band. At probe the IRoT replies to a mailbox message with its window
+addresses and MTU limit.
+Each packet carries a counter, so a resent doorbell is ACKed again without the packet
+being delivered twice.
+
+Adam, if you see something both drivers could share, I'm happy to look at it.
+
+>
+> And finally: how confident are you that the peer will never be able to
+> reassemble? Even if the peer's own MCTP stack may not reassemble,
+> there's no chance of it bridging to other endpoints in future?
+>
+> I have a few (minor) comments on the implementation, but would like to
+> sort out the overall protocol usage first.
+
+The IRoT can't bridge anything to this link. As above, nothing outside the chip has a
+hardware path to the IRoT's MCTP endpoint, so the application processor is its only MCTP peer.
+
+Defaulting the netdev MTU to the negotiated limit only makes sure that today's peer gets
+each message in a single packet. It isn't meant to stop anyone from using a smaller MTU.
+min_mtu stays at 68, so if the peer later reassembles or bridges,userspace can lower the link
+MTU, or set a per-route MTU for any EID behind it, without changing the driver.
+
+If you would prefer, v2 can default mtu to the 68-byte baseline and leave max_mtu at the
+negotiated limit, so the platform config raises it explicitly. I'm fine with either option.
+
+Please send the implementation comments when you're ready; I'll fold them into v2.
+
+>
+> Cheers,
+>
+>
+> Jeremy
+
+Regards,
+Akhila Kavi
 
