@@ -1,82 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826398;
-	b=xFu49GAAfF9OM8/07ReDdJ1oXmJrg0JdmupzYIb63uBlVIdT6NjBqcNt1nBwYzwhqnBG
-	 RtLO9dYE4zcPfSE5CHalKcsB6omdZtlP/ut2HcAzbRnAQ3WMVF8VqggdS+eSDbwdu4rry
-	 NPlbdk27y0ty1MxsQZbA202vhU89LzkPg6SBkK69nh682P2rYuF7j6lG7WtssePyQ+yi0
-	 dNX3fu/30h995g6oXAwrJM/QK19twMXz61xp/nMdUFaNsD+03WZjElR1xtCJND4yKbaEa
-	 2KnOasjN4w403e6m68nAWkwRCNES7CbcFN9dq0wyRijPmwr9dcI5E6Un5Zyglaof1bA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826398;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=8JNO3jIP8ubuMUWYxInJDGmVrvGcsBEC3HKKFdaVcMs=;
-	b=VL30cA3Rjcban1Z9unLZsY2jt+IkZaNPC2A7NllTNK3PKFl9oIGq38Ef+MBYlLpTQ0+l
-	 0vR2CJgTSdeyyFzB5V5uWw7Z+Af0LGnh5tltAItIWwovr1M3lc8tU5oIbXRhZZEm0QTYH
-	 80yB6o2fCKDduz4mUGUe4OD07H8xtvGD6Q6k79JGqmnzrgxGeExs5aODH3rdShDgoD+Cs
-	 WZbavPKqHl2Tb7nDSNizRym3suJ/kF488ZlGyY+h1Twzkioagh0sbz7dExUhhBoJNcmXP
-	 PUnTyFdKt4he/ZzBSAF9pE2ijPeYL9vaV4cmOgq/mZudev7ESZ4l0r0uMYl1thrBiMQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EgXsrd0O;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.128
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794826534;
+	b=fnc4f3vP5eW4BlJUikViTruitsiejFPDCWtVUZD6LJFPvC8F++MDt5cQBu0bzSEkbHlv
+	 siWYb1lNWpfbAsGZsl3aAncVcvT+7PtAKrMtGn/u5ODJH9e/hq1eAiwdvV/S6AzI6lL0i
+	 7iGv/0Bau6SHMqVaflWCuU/TXYD9KWwKx+QmNK5JOYkDrMVk30mp7pLag9Pq8bxortu7K
+	 SlGrkGtkclaXX2gTh2awgxoeSLW/6aeY1ZlcT9J/hhcy0nODUauQeHXvYhoTYkEc6/E9M
+	 wPuvtr0AM1JX+nm/Ylk7hRQsdr27mTxUiJXpRW5Vd5E8AYIHewYhmY0egUbloSKJs1w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826534;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+NW7jNn2z12LtFGxl4p5ejnSak6/3pgC36FJPzKecKs=;
+	b=EEGCzGSRA9QhvmecXceDSUg9ue3qe2Yqe3FfI8M4aCkz4L1tUa/eeV5hJ9KNxxbMLvlm
+	 vj2ezNHgs++8y5Tz6f9J+UC3HgfZ8iYbaQeQczHsxy6K20AjVlqAUtHPBPJsnGeY86c2s
+	 oTblEfAdD3UrRUtON3NK0MBsrT2Dc2BQ3IgMXCgs1p0eo4jfkGPhrIzIIxpQ0MlfEJR9U
+	 cduEtwdOKkSjhGbLPo6n2T2emn7KpeQss+hnB5Eqte0JZTVKxDQbvyJ/sjhNhXq4VqLtk
+	 exV+c9dEb5hplH8uY0QQ+X/Rjj5GULhKlnPFTO2M28G6SCZyvSgXD/iqhQIngTUMBrA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=phytec.de;
+	spf=pass smtp.mailfrom=phytec.de;
+	dkim=pass header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b="Ha69/s+C";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.128
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020128.outbound.protection.outlook.com [52.101.69.128])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33EE0606A338;
-	Mon, 16 Nov 2026 10:53:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33EE0606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9B3606A31C;
+	Mon, 16 Nov 2026 10:55:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F9B3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EgXsrd0O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794826399; x=1826362399;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=elMYf75p47axVkuHQr1fRg10imF3Fueinq9fdu1mc78=;
-  b=EgXsrd0O3ggm1vAkK/abOg6govcbcNUHdSk+Li0/JW784eljta+hOVcv
-   UzQoZP+9864M+bB7WIHUeHkj2DmtVXaPbP4ikcanwWT2mytW/xdEyU6bh
-   yKMdKeem0DhmCLcCFIjb+HmTo47XLzEqX/FwX6KpN2tbpad4z/sI5R/HX
-   /4VhEVB4AwRv/7DqzfS/q6MW8Nnp9Ua+sgqOJff6UiICuM6TOxj8b1hJS
-   5BkpPGcm2PEnDt4AeZcE/nPZxSlcun1LCL3eZkpyfsJ/6H5ddp0bIoqTL
-   gh44RU/iXnjXi4JhEhRPbq2/mcNN8IRqrUU6lPV50WakusZmuNKLhh/vk
-   g==;
-X-CSE-ConnectionGUID: JU0Me+cdTDqGKdCQGgLgtA==
-X-CSE-MsgGUID: 7v6uT3MKSf+8aavIvYwryA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3546162"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3546162"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:53:18 -0800
-X-CSE-ConnectionGUID: 80Oi81awQ/WfXfRCSSBQEg==
-X-CSE-MsgGUID: U8+P76kGQGO3qpIEOOZsdQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9356809"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:53:15 -0800
-Date: Mon, 16 Nov 2026 12:53:12 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Adil =?iso-8859-1?Q?H=FCsrev?= Tepe <tadilhusrev@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] iio: proximity: add Imagis ISG5320A SAR sensor
- driver
-Message-ID: <avrgmAFpY7hvuwNh@ashevche-desk.local>
-References: <20261116074013.355363-1-tadilhusrev@gmail.com>
- <20261116074013.355363-3-tadilhusrev@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=Ha69/s+C
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eGmkwkXOIQCCm3TXnomNwejnxiPUme9XyRVqSJbXmDSL90y9Fmo3JNRrytUpXnAF+ZyWQ5bRZ4sbUesok8L/jMXHiYX3QJVp6BAE+Rp8xs9ziHs3tX4hFSQgeyZi4TBBJTlxQiax9nOXIqlpZOz9Lx3vZPfCbsl7AfPAcr0EX+mLA2YnaGaAfE9gyRBlUYQjQJZNobiZUE3hiOoNPnOhgp3JtpSjZekoX25fb2+qbIlHuaZu4fAIaaMccMVdXDZGlHueLr/h3dAxJ3W0PkF43weXqEuNIF1anuURK/ZbPCyCz7BcCcsasTaut6JJrEoCJrYer25x9n8g5X10alPZ5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+NW7jNn2z12LtFGxl4p5ejnSak6/3pgC36FJPzKecKs=;
+ b=R+etQQsXldxx+w1k1o9eyBrKjCg2/sXYb7aT3ALXSyQ6IUfmyvvZoBlS4YhQV6vrGLTH391BpG0f3ZPrlm9SHxsqkSwwQuLKy+CZ/wrtSjv5RclpgN9Z3K68Wy8YP83fIK+ph7kYMnq0rGVFkrV+FfBRCc/wGfMcVS2MxEjkjapZmPUsxjAvfPiiQ2Q3Rsqkd0j9toQE9Ry1QmX2rsmSUoFgQ9N73qIUKd6BbMY2DHyoRzHp5etIqQpWAg0smuFQJG85ws+kZLtQ0Oz0nqZ6UEzliwzRytsn6vT1vPakxCYJUYLIAebfMeqMRMAjacrMMJt06DqPofXs1yY+FhSfUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 91.26.50.189) smtp.rcpttodomain=pengutronix.de smtp.mailfrom=phytec.de;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=phytec.de; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+NW7jNn2z12LtFGxl4p5ejnSak6/3pgC36FJPzKecKs=;
+ b=Ha69/s+CjWOW8IIFa9am/WevYzJdICQKOURtaTkp3aszXYLP0V7PDYYvTQEK2TFK84uVXWMVmUlbWupw8jKYc+0S/FAR1jAWdxvzH50XVndEq16q0ubTe9P1YVCN4K9Zr8tcjJ9TOC6HSn/USQXFWGCHhZNHoVcMtauMEW0PPngQoG9zQ8O+RzbdORFk9vB/XsalWQZwPJkYgiYjZIKt64otxr8ZHpgp5wJT30GNM4X/dN9E/kBdx78y/7unipwPBposgX6t8ZzNhCu0nYznwf+ZWO/tKGnzRXGNBQNG7K/jKBaKfMv2W+MpesnwBXEbIPbDdlzo6A4DtpHsOTmjjg==
+Received: from DUZPR01CA0235.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b5::19) by VI0P195MB3207.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:800:2ec::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 10:55:28 +0000
+Received: from DB1PEPF000509F0.eurprd03.prod.outlook.com
+ (2603:10a6:10:4b5:cafe::6c) by DUZPR01CA0235.outlook.office365.com
+ (2603:10a6:10:4b5::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Mon,
+ 16 Nov 2026 10:55:28 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 91.26.50.189) smtp.mailfrom=phytec.de; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=phytec.de;
+Received-SPF: Fail (protection.outlook.com: domain of phytec.de does not
+ designate 91.26.50.189 as permitted sender) receiver=protection.outlook.com;
+ client-ip=91.26.50.189; helo=Postix.phytec.de;
+Received: from Postix.phytec.de (91.26.50.189) by
+ DB1PEPF000509F0.mail.protection.outlook.com (10.167.242.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 10:55:27 +0000
+Received: from [192.168.2.225] (172.25.39.168) by Postix.phytec.de
+ (172.25.0.11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 16 Nov
+ 2026 11:55:27 +0100
+From: Yannic Moog <y.moog@phytec.de>
+Subject: [PATCH 0/5] arm64: add new phyFLEX-Libra i.MX 8M Plus FPSC
+ hardware.
+Date: Mon, 16 Nov 2026 11:54:39 +0100
+Message-ID: <20261116-imx8mp-phyflex-v1-0-4adcf8b4d373@phytec.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,80 +103,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261116074013.355363-3-tadilhusrev@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAO/g+moC/x3MQQqAIBBA0avErBMmibKuEi2iZnIgTRTCiO6et
+ HyL/x9IFIUSjNUDkS5JcvqCpq5gtYvfSclWDBp1h1qjEpeNCyrYmw/KqmXCjRkHgz2UKERiyf9
+ wmt/3A8YgOcFgAAAA
+X-Change-ID: 20260220-imx8mp-phyflex-4fe0dff09807
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Frank Li
+	<Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>
+CC: Benjamin Hahn <b.hahn@phytec.de>, Christian Hemp <C.Hemp@phytec.de>, "Jan
+ Remmet" <j.remmet@phytec.de>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
+	<linux-arm-kernel@lists.infradead.org>, <upstream@lists.phytec.de>, "Yannic
+ Moog" <y.moog@phytec.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794826527; l=1726;
+ i=y.moog@phytec.de; s=20250509; h=from:subject:message-id;
+ bh=6x4VYTBknYXKTYFzIWisNybqIZ1TfyDKo0Ff3611zJw=;
+ b=2x3vb1WNSQ3faGsPKCU0drTPeYqnpfRjtIwafHuTS2K1xN6mrv8xb/faP2cFQzeFchnUDPJp6
+ G6LuPh83nSlB12Ez9BCuwyoozdyI7klrAvw82PGB0KytJ7J7yEMn9oD
+X-Developer-Key: i=y.moog@phytec.de; a=ed25519;
+ pk=rpKoEJ4E7nD9qsrU/rfKVwMTWNWYaTBylZuJUXUiFr8=
+X-ClientProxiedBy: Postix.phytec.de (172.25.0.11) To Postix.phytec.de
+ (172.25.0.11)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509F0:EE_|VI0P195MB3207:EE_
+X-MS-Office365-Filtering-Correlation-Id: f855f8b3-9fd6-4310-3816-08df43d02003
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700016|1800799024|23010399003|82310400026|10067099003|11063799006|56012099006|261021121427099003|261021135927099003|261021123027099003|261009223027099003|261102123227099003|261026121527099003|261022075727099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Kfq5thE+m6C/8/LlVZzN5913AyiUSKasup/rMLNrXfAPCFzJ2zSIbzKhjDMx1m/Wv+XoQBwjpGQQ0WJs54bm7135HnFm5OZ3gFUNtzNcamy19IXPrcXJDZBH5WPSfI0Jkj8cTWh4GQdJYU9rxvCdN00OxO5RlT0OBqTASXJEWMiIPCnqkQ3sexASyA0wfiYG3+Vh7qVTZK2KbSIkQ8sY/y5Bhii0DKaGoZR6AP/d6ixVBxL+/u9D+TV7xUMsJVFSbMlFbVvk1bNpFqCLdatj+BXSNDXCxN7IL+L/O3ccTFinJSNkmAcsSkp6pxsXFQWXqm0QBudIVwdUBI6cfJPEmJBCO2kONGxuzl3CJYBcDy56ab+pGRZLxpDEIC/pKKv0DCrkwgZs6dp5K72jihV0QbNYdw0k016iMzn4NV86EpsoBzjrAjI+xJJ6SdI2dHjvPeW98Xfa/meNnq+CTdXK6ztu8wOwq5h2UAYHnlK3Fa1aUzPRzIbD8a1b7kOzx2h6SI/evrV4WjrgcsdBdPVxjRuoiEPOMnPEFNecKlwoDfULKqeSkxQVkD0HCSaCQLDnZl0HUexvoNcDKykxKbbeHBWj+3i7wruM8fW+SHiahOlRy48bmHr65IYc1EtAlHR/f27vA5/IM3WUYmeMUf9iaKRdpkDqnzchoaLPMB6p+zSpyf67bF6SkWjZzgyb4D92pVOK62M6JDJWkq9pKArivw==
+X-Forefront-Antispam-Report:
+	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(10067099003)(11063799006)(56012099006)(261021121427099003)(261021135927099003)(261021123027099003)(261009223027099003)(261102123227099003)(261026121527099003)(261022075727099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	STeQBLJzGiINnmeI5+sVCSnHWQe8HrwDeU9VCrorwkRf5ACSwq6HlR6iVrQHsBqFPqHOmwJkZFu4vOyYGBp1WcM+pKIqBiGQSqM10eXHdxqr12pPj9CSWzeruKEo7SFJ5Dox7UxxyGbTF/GMuQqYov9+JL8PPCTuPB4mfghcwC6bPhOWH/U4N6XkJOdqZ7l1/X60J1M9RffvMNiGE0n31WOucXcJZD4Fx9H2bU5b4qKAIaThISo4aL28aEE1JDo0D40B+rTCmFUe9fOPalbVnVnTYIaT7f29F3czUWpblsv+9xcFCl4QTO7B9K/ASK4Vjkb4Kj9mC3XiO+upPKCAeAJ8+G9XsfAzihThBrq7tS/lyZuyZOXUp2++V+FaVP4UtXxI6pMRzZ/eo7epYk/2t/PbLXkIDa1zzsApWMvSPXdPrQNAFBS32YPnulLXpIGK
+X-OriginatorOrg: phytec.de
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 10:55:27.8574
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f855f8b3-9fd6-4310-3816-08df43d02003
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29;Ip=[91.26.50.189];Helo=[Postix.phytec.de]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509F0.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0P195MB3207
 
-On Mon, Nov 16, 2026 at 10:40:13AM +0300, Adil Hüsrev Tepe wrote:
-> Add an IIO driver for the Imagis ISG5320A capacitive SAR/grip sensor
-> (I2C), as fitted on the Samsung Galaxy XCover5. It exposes one
-> IIO_PROXIMITY channel (the B-channel signal minus its baseline) and a
-> rising/falling threshold proximity event.
-> 
-> The driver was derived from the Samsung vendor driver during XCover5
-> mainline bring-up with the help of an AI coding assistant (Claude Code,
-> Anthropic), which drafted the mainline IIO driver; I reviewed every line
-> and tested it on hardware.
+This series replaces the existing phyCORE-i.MX 8M Plus FPSC with a newer
+revision. With the new hardware revision also comes a new product name
+(phyFLEX i.MX 8M Plus FPSC).
+The SoM hardware description largely stays untouched, exception being
+new name. Most of the changes are in the carrier board due to a
+redesign. To separate both the changes, this series introduces the
+phyFLEX-Libra variant as a new binding and set of device trees and then
+removes the "old" phyCORE based bindings as well as device trees.
+There has only been prototype hardware of the early "phyCORE" revision.
 
-...
+---
+Yannic Moog (5):
+      dt-bindings: fsl: add phyFLEX-Libra i.MX 8M Plus FPSC
+      arm64: dts: Add phyFLEX-Libra i.MX 8M Plus FPSC
+      arm64: dts: imx8mp-phyflex-libra: add display overlays
+      arm64: dts: remove Libra phyCORE-i.MX 8M Plus FPSC
+      dt-bindings: fsl: remove phyCORE-i.MX 8M Plus FPSC
 
-> +config ISG5320A
-> +	tristate "Imagis ISG5320A SAR proximity sensor"
+ Documentation/devicetree/bindings/arm/fsl.yaml     |  13 +-
+ arch/arm64/boot/dts/freescale/Makefile             |  20 +-
+ .../boot/dts/freescale/imx8mp-libra-rdk-fpsc.dts   | 290 ----------
+ ...re-fpsc.dtsi => imx8mp-phyflex-fpsc-g-som.dtsi} | 256 +++++----
+ ...phyflex-libra-rdk-lvds-ph128800t006-zhc01.dtso} |   6 +-
+ ...-phyflex-libra-rdk-peb-av-10-ph128800t006.dtso} |  25 +-
+ ...tsi => imx8mp-phyflex-libra-rdk-peb-av-10.dtsi} |  88 +--
+ ...tso => imx8mp-phyflex-libra-rdk-peb-av-10.dtso} |   2 +-
+ .../dts/freescale/imx8mp-phyflex-libra-rdk.dts     | 604 +++++++++++++++++++++
+ 9 files changed, 819 insertions(+), 485 deletions(-)
+---
+base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+change-id: 20260220-imx8mp-phyflex-4fe0dff09807
 
-Make sure this, top level comment and MODULE_DESCRIPTION() have the same or
-quite similar text.
-
-
-> +	depends on I2C
-> +	select REGMAP_I2C
-> +	help
-> +	  Say Y here to build a driver for the Imagis ISG5320A capacitive
-> +	  SAR/grip proximity sensor.
-> +
-> +	  To compile this driver as a module, choose M here: the module will
-> +	  be called isg5320a.
-
-...
-
-> +#include <linux/bits.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/irq.h>
-
-> +#include <linux/kernel.h>
-
-Definitely no.
-Also, please follow IWYU principle.
-
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/pm.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/pm_wakeup.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-
-...
-
-Also, take in use *ACQUIRE*() macros, in particular for runtime PM where it
-makes sense.
-
-...
-
-I stopped here. You can now go via mailing list archive (linux-iio@) and check
-what are the usual comments against new drier. You have many small things to
-improve, I believe.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+--  
+Yannic Moog <y.moog@phytec.de>
 
