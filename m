@@ -1,64 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794825878;
-	b=ZGWgZmhGg/ZQm0krel4lJv0+9gzCrlpqRS+Il3x6XSjWxRRtQD6YY1I0tPlAmyM0PBYs
-	 VFoI8YMGUIicLvMQKRGetZAa+WERM9IR7kEWKIEkVnM/iD/H4N4jWrzNCjwoCK86bA3di
-	 auCTCbBc3m+QOk9o3p1yQ2jV7Eg8Va7/TlUd3U7/5vGo7JyyFlOaKTJBgAFAIehSHirr2
-	 mH16WmBDzExag8LRwt64SnvqksqkcWccWRWWyrja7pmj6lqKVtVRtKHlbqrzmAK74H7f1
-	 GZXlvOwk0uMi1nTIz6zUsC3QPjtG4nnIeR/is4ZfvOfv5fkpW5McIOoZWsffLNJ4dbA==
+	t=1794826109;
+	b=G9VgE/QPNTfah1VDMgpRi6WEugrdvzA5Mcxm0i1vZeJJMDTV+Rs5oVQ7w5dlSwvrwxGG
+	 /mlo8Mz1GMfk4OR6GS9CafoasBppRWATeA7zqnRKVj+lUXw+ivFe9pmV4cIFV89f6WmUY
+	 nQAYqqEoNgRiuWfmUDdNdeu0fztCFtSRP9r27YDGrJ/i4BmwECZXJqFEXswMky4WWa0HH
+	 ne49SnaZxEWnSqYTuqVzYnnA08qJYMDsnoKftZgpEwqSuzdm8ze1KLwc3LadV47uFTC/M
+	 w8heB3tVxshGTWm5Zc9Zn+pQA1zIk7yPeRpYMxdUDlGmp1cVD05KpTH4Nd9KdGq7x3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825878;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=tYiEVJEZ2AghwsHtNRWK9DsQq7KNpBbOGj70o9+wqtc=;
-	b=HeLEhLK/lki9VOyak7PAYqXUH2lrd0g80PzRYIV5/spbLtP3v+GTOFD1bWpPVRIsopQt
-	 v7uzrWz0qQv9696WyVocgJ/6R3DMWEYfiSwcF0oHhAgh6jLG1vBXtQAH0Pv7itByyutuj
-	 1pA3yI5FHhQnpHuDzjPdFn3WVe4ekYLxhTbO4u/PBLMbDmON67HMvFCYMYdAOAqh3XNNS
-	 hfk6e5vTJnlh3HEY9NdmqXuk2oFdvMhdi5RpUZULdJNGofLmxny4BqiKcC+jiJWfRKXVo
-	 +7mSO5mI5pX7YmlB3aPTP1DrFMhOEm2d3WUCRiDTfrnXntM0c/OY5KwzYJxep6cCsog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826109;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=8RXywwsZ9AZmLU1zClqzYGdbInCCuXneMgvMDOLwy/M=;
+	b=mAX1awtrxdOTESU9bH5gApQACMaxdQa3PYroEJGemHaGCj8RvvopOGzU5GmQDS/nOR7R
+	 2hGWsUZPNW7b17mvc3Kzankynkhv4EK5PkPNR6iyNPHNZ626Vh4bFGLcBs+LhloM5Ywfn
+	 y6+LwSH0iUWWOnQvGdxfEoYxxbPaig8loVi0VRlD1WT6Z5iDbLkOZobkKY8VJF7yX1ide
+	 6QAYQ/5MeEhuf8d+6DbwhoGWskjSNnoj2HZqWkXEmFhV4mPIwiHxmOfx2SXd5ham/LNvW
+	 IU92UMR5IUJm9p4bQGRLPdq8TUlycowJXnrcXOgDKDKoo4IofxVqSa+9QPEoaCwnfgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=Gk87Zfms;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="L+Q/deRn";
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B54B606A323
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 10:44:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B54B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32D0606A32A;
+	Mon, 16 Nov 2026 10:48:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E32D0606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=Gk87Zfms
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=from:to:cc:subject:date:message-id
-	:mime-version:content-transfer-encoding; s=k1; bh=tYiEVJEZ2Aghws
-	HtNRWK9DsQq7KNpBbOGj70o9+wqtc=; b=Gk87ZfmsIypjph4pG7/FpEgpn3acOy
-	iT8hgMIDS8bEeORuOzzVq9D1E+ZnwX0DMUEMl9sVMedj1bfMB4XWk+66wA13HASd
-	RP6Jf/cNH1SZ9n4k2xUnie/Fi3uO4Zy9BdEPqSzpZxefUlOJ+u4SAq1HJSMZhzAX
-	IF7C/CCH7ZGq6AsmazrSO4DbHE4rYhgrUVp3RyYitWm0uH8MI3mHRIV2RHMyaw1p
-	qpD3OJi9BvFbEsfx1TaupJ2uSg90OC+NmOk0HyUdJIOgFt85hBYnN/CmZx70v6Pm
-	J757NaJb0lipj+Bht+W0isvwg1YeERqt2OpYBD3QmNDavN8wCvWHU56Q==
-Received: (qmail 1243494 invoked from network); 16 Nov 2026 11:44:35 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Nov 2026 11:44:35 +0100
-X-UD-Smtp-Session: l3s3148p1@B9W3dmJgbs8ujnv5
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-renesas-soc@vger.kernel.org
-Cc: Adam Ford <aford173@gmail.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L+Q/deRn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794826108; x=1826362108;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=+qqV1FaPOgpA/CAWwvnFgJPa0wgo6U3qzrnbn+rslMI=;
+  b=L+Q/deRn8Lx9cEuH7tIucRhA/OpFM1SgYOs6OP5spw1Dnq35S4oRtGCW
+   q/tRLuaxFADtnlkVvzeZWyQYCzEXN+DM6my6OuuMPE/c7yrv8w6yS8xmD
+   Ne0TF6YUg0JdSAdtofwa44Nb+XzvoJanN44xNV3llJtOtt0gty2GR7ir0
+   oVxJUh8e0cAMUeY6AnIPpsbidh1sCGTL0SZXvZJzTHcBkqKdRzZ8hrnBX
+   XFjf5phbgZVcUqDuuembLc+pClPePUI6S6g0zb5hLNLewAS2LPcgX+9OO
+   XoqSNZjCf2ZG3nR/zPObtT8GcyAVUZit1+WgKAiU8t8hQu8QbLPqmF+eD
+   g==;
+X-CSE-ConnectionGUID: dd0wGUeWSl6M/HHhGo2Xdw==
+X-CSE-MsgGUID: 7Iuq3/v7QSqDDB72nwZI2A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3474479"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3474479"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:48:26 -0800
+X-CSE-ConnectionGUID: aOaSJUSOT6euyHcLWqrl7A==
+X-CSE-MsgGUID: 5LFiVV7hQ6ygTvGIAcj/KQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="11228579"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 02:48:21 -0800
+Date: Mon, 16 Nov 2026 12:48:18 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Adil =?iso-8859-1?Q?H=FCsrev?= Tepe <tadilhusrev@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH] arm64: dts: renesas: beacon: Increase sdhi speeds
-Date: Mon, 16 Nov 2026 11:41:28 +0100
-Message-ID: <20261116104427.5152-2-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.53.0
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/2] iio: proximity: add Imagis ISG5320A (Samsung
+ Galaxy XCover5)
+Message-ID: <avrfcgqyASTtaVhu@ashevche-desk.local>
+References: <20261116074013.355363-1-tadilhusrev@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,59 +85,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261116074013.355363-1-tadilhusrev@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Adam Ford <aford173@gmail.com>
+On Mon, Nov 16, 2026 at 10:40:11AM +0300, Adil Hüsrev Tepe wrote:
+> This series adds an IIO driver and its binding for the Imagis ISG5320A
+> capacitive SAR/grip proximity sensor, as fitted on the Samsung Galaxy
+> XCover5 (Exynos850).
+> 
+>   1  dt-bindings: add imagis,isg5320a
+>   2  the IIO proximity driver
+> 
+> The driver exposes one IIO_PROXIMITY channel (the B-channel signal minus
+> its baseline) and a rising/falling threshold event. Tested on an XCover5:
+> it probes, registers the IIO device and reads a stable baseline value.
+> 
+> Based on v7.4-rc1.
+> 
+> Tool usage
+> ----------
+> Derived from the Samsung vendor driver during XCover5 mainline bring-up
+> with an AI coding assistant (Claude Code, Anthropic), which drafted the
+> mainline IIO driver and the binding. I reviewed every line and tested
+> probe and read-back on hardware. Review comments are welcome and I will
+> answer them myself.
 
-The eMMC can run at hs400 and the WiFi chip can run at sdr104.
-Set the respective flags to push the sdhi faster.
+Why a brand new driver?
 
-Signed-off-by: Adam Ford <aford173@gmail.com>
-[wsa: rebased, add HS400 flag instead of replacing the HS200 one]
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
-
-Okay, the original patch is really old, from around 2021 [1]. I found it
-while looking for SDHI improvements and it is still easy enough to do
-the requested changes and add these additional capabilities, so why not?
-
-[1] https://patchwork.kernel.org/project/linux-renesas-soc/patch/20201224170502.2254683-9-aford173@gmail.com/
-
- arch/arm64/boot/dts/renesas/beacon-renesom-som.dtsi | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/renesas/beacon-renesom-som.dtsi b/arch/arm64/boot/dts/renesas/beacon-renesom-som.dtsi
-index 882513149042..8af2edaa690a 100644
---- a/arch/arm64/boot/dts/renesas/beacon-renesom-som.dtsi
-+++ b/arch/arm64/boot/dts/renesas/beacon-renesom-som.dtsi
-@@ -288,8 +288,9 @@ &scif2 {
- };
- 
- &sdhi2 {
--	pinctrl-names = "default";
- 	pinctrl-0 = <&sdhi2_pins>;
-+	pinctrl-1 = <&sdhi2_pins>;
-+	pinctrl-names = "default", "state_uhs";
- 	bus-width = <4>;
- 	vmmc-supply = <&reg_3p3v>;
- 	vqmmc-supply = <&reg_1p8v>;
-@@ -297,6 +298,8 @@ &sdhi2 {
- 	cap-power-off-card;
- 	keep-power-in-suspend;
- 	mmc-pwrseq = <&wlan_pwrseq>;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
- 	status = "okay";
- 	#address-cells = <1>;
- 	#size-cells = <0>;
-@@ -317,6 +320,7 @@ &sdhi3 {
- 	vqmmc-supply = <&reg_1p8v>;
- 	bus-width = <8>;
- 	mmc-hs200-1_8v;
-+	mmc-hs400-1_8v;
- 	no-sd;
- 	no-sdio;
- 	non-removable;
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
