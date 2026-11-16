@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794852222;
-	b=csGF1vvnhrol/Fo7raAAqVVicw/wAH/y7pzND/+pF9TcSbrshSW8qGKy4Vn53EFKOggG
-	 ZjbkqQcO3yhE4hGmu5rttfS9o+Pnt1SrXfWVzpK8YQafeZ03UZ4+efXMR6vpwSYH1P9I9
-	 nDPBl0cTcYrsWJ21vT5PkAPUaaI8N8AlS3NxqBP9bNEx1L8Oav5qPdcjrljdYqeRmJr6R
-	 wMf4+qDfv/yNQVvtx4oPLgE6FeGOJPlAOgIESToy7Zf2yqda+galpUHAMGdWx505jRAyg
-	 ThixL7U73A5LWBboKZabn7rl8dewL5ohioiq6803hgk8nGswr31cNv/hy8c+TgZjAEA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794852222;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794852398;
+	b=gx65+e2VSIjZg//U7A3sx1ngIkytDigfRnDPKJtDfA5Anxm5SEdaDTHLW5s3w4O6kacc
+	 TnKvF1g1sSqRSrcAq2Z9VZX2otXWRijC5+L9iuIb1/j7oa6rW7uoUuFgrb1kV70aKXz1P
+	 qdn8fPjC732NQ9/NCZpaIJSso05qfsANsCoAiRVXhTusvci3T0c3FUTvXzCbmoKGK7xdM
+	 B31zEZ72FS9ndbsGJ87wlvQ3eoPx3oQANEyWFPBjKxcUJRE6wXKpX+UCWxiPOiXfC5dxt
+	 lmVev6UQU6af/k9GNHY+UELibfaHPxJZEZD+cFZkT3i3EXuL/cxL1i4aXPdRivy1DGA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794852398;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qdwVpDmUyX6+miopugFQ74zvWKqlDoa5kHuLWgelFRU=;
-	b=OgI9J6Qm8p0uilgmXQTMVodh0ULraEP8EO+KKUpqRIn7viR42TNtSQ49F5NUvXK1YzE2
-	 VtT5n71ka05LlZ716Fxg5mu5a5ai2dCgZA0ODs8qeSNArkkyNwNb8KbOmdP2uD5jjeHHp
-	 rjJWlL7kZsbcNCF242XWEB4u8+tKMniUwC7vk9RiwFQ710YcijEPQxu7kaWYv7cOxzUvO
-	 POenfcqKmY6kAOWqw0XyFEQyrKVEFr5qIZ2fzFoL0cpZ+1qGpF5N08SIGh3K01AxjMh0+
-	 M6sIYGP0BWT0p0PPjyNVVsIHoK4iQAwkDHWY1W9HV6+bAjuvC+yQO3Hv+0h2ViOMAcw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Czu8QGyZ;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=MVQsk47kw1zX3SrceBrKkf0gFD1EshqJX1nVwLz5v/w=;
+	b=g8oepjB/AQMtngCjxwV68JtTSepmTla9bs54KBKQ1EVsIpuS8dQw5GMYfzO1FZS/lI96
+	 4/3yTBG7F9Zv1dYCHqsiLuvHSyYYZYqcdfeZqFCspYRht81y9CcvTxKW1MWXQUhLMosR6
+	 9IVbmFwrF/ctVdnKptqpG+rGGGY3nrtdhxdQgarXqDbXNwxo0r64cw/pBg9Ugq5jnWtK5
+	 mWMAzV7/JVJ/AlTYC/F3lTrplJw1o+jddKc3phHxqOXnhY/fNXopUVij7xmmmSPCsGwIZ
+	 p3K1rZClYF8wv+4RyRvuVnKapLgqX2hv1mj9zdtE3NxHgpC1PyZwJINV8adGlG4h3Xw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kmfEtmJS;
+	arc=fail smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDDA8606A329
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 18:03:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDDA8606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98FA1606A322
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 18:06:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98FA1606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Czu8QGyZ
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb5b8ef642so23752935e9.1
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 10:03:41 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kmfEtmJS
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b75712fb57so4819913a12.2
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 10:06:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794852396; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WFy60SB5oxRjYMRsK0Aaavdhh/JW5MGeWEozM5KUuhtj9FIZNULU6dsY1QXrkeMQ9g
+         AXCvVpGZRojSCxEXbb066otOQuVO8/UjfhRKyaUJCu3JCK4dxMlOBVGgpXIHsVwA5NgI
+         fseFxTKi1fM9TW60uKquL6X2x6NT/uhlYGm8LmEH3kZcdigwVyci8Lstq1BJENs2xsW6
+         tsPpeawC/lihZlQCsRr56n8mxbnTgkj7zzVbG41E3SK01YxkhmpQGKqWd0oRbZdCItft
+         YRUc1J37MTOTxn6egfYZ7tuAOiAcqPn5FzSt2amM0GBiVEwZ3HUU31/zFQHkJl/mbk0c
+         uqqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=MVQsk47kw1zX3SrceBrKkf0gFD1EshqJX1nVwLz5v/w=;
+        fh=iRTqkH4eyoyAJj8kEFo/0pxR8L5C8ouwbHbevjHkmuU=;
+        b=HawW+Igl3VM1MlZyGS5uifDz+zq/1ja3+8x6hrZB/52BV9/lVpn87HDsBvE4LF9NQZ
+         IKjEq8xbR+90WUH/3uiVq4D12CLaJdZmfhYEZhMooqx8/WBi1t9JfkMFw/b5kpJ3fcUa
+         ffYqRorOptooZtLNp35zUOOjki2rcUNACnz8Ew7xPcE+8ubIgk1xzF9KdkLXyzHT5O7C
+         P01WHI4oSsSVVG+CtK2II97XXMgtiRGIwFj++Lntu9mrP6zk68NDtxX3lYouALkuMkHx
+         1U7r9tn0u38AiHsy2b9YSuTTsi+Od+QN/VzT6t+E1k9iZx9E5DeBgFprhf3kQWEIdntx
+         y6sA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794852220; x=1795457020; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qdwVpDmUyX6+miopugFQ74zvWKqlDoa5kHuLWgelFRU=;
-        b=Czu8QGyZXTeH+BM9fYzjSN3b+Fh5w8Mp2jj0bC03jjr+wUJ1N1/sD4l8idtAkqb8e7
-         UQGbrnphsMPfy9O2B+EulzworGT7D4m8uF/FqxBVXJTZ9Gq/SjoeJ+FREG0UV3Ejw+ZK
-         nTV7mH8Lh8c0dj7MJJtfpZcnsaY1BT91B3golLrb6jQa4hzfqSG0Krxo7ZSIDhgNeLwy
-         E0QYPUepeNHk0LBycG2IuHaTOq/Dc+BdzmHXIwhhiFQBd66R1V6fXeq6UotJpRv4dY27
-         5DeYskGmh2OE8t2s6PSLEwID5hWOwfteluJGhEJnQ1yjJMvY0kWvIn8EfX6mLTPW1LJw
-         n+GA==
+        d=linaro.org; s=google; t=1794852396; x=1795457196; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MVQsk47kw1zX3SrceBrKkf0gFD1EshqJX1nVwLz5v/w=;
+        b=kmfEtmJSUQOj12O65RS6VbY1Mw683v1ljPvF36Xaq8xyWwxLcE7Rgpv+P0xUSOOzWS
+         CBohX4JEJNdoeAcC6jydgpFDt1yU41+HXutDjQAdyI8vLLYBoI/h4Emm3DiFQfqcNQUR
+         ypxdcXFHdYJd6ZaX146We7oygm0fSjC2yeM8PoUbco8QbD2GyNZxH/fdgbsFR/SwJvJ0
+         YDxEGIMYJYTUooX4Xp5OmSdS+fQ41EkMyu65zgulLxKykbDLEkMOPCpoBmrMKZQrTqxO
+         KU7rr9M7eUtWKa9Fv0ia4lwZPdGN45eJodeXwq8zBsEC1Ei5SPQXIPFCGxuJR4mijPDa
+         g54w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794852220; x=1795457020;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qdwVpDmUyX6+miopugFQ74zvWKqlDoa5kHuLWgelFRU=;
-        b=hFx019UsL9zC/Afv9OCxSpkroFY0aVw4GTOnOv0N01S75OKaGaNPquptaqhhUXyQYw
-         Jq1M6O/RGbpF1UxUqx3A+sAe3Q5OetF8229FqITOuDcgJoxOykIu6Eslw+0TXfrAFAgc
-         l+2C/ao36jNtBHIKFZRJH1udVlQap6CBZLjY+gNjETKlb8DG9nVhkfabzTmVWPw2kWo9
-         JSd+Y9yJXgkHlxbfDX+zMEBdX0MrnRs+B0JONupc/CuDkRTUDX0u7UIpFPiQpHB/2hM5
-         /0ts5Nws0dAwzhQg0Ptc1frhB05Uk+elcLGs6enNODo8J9Gw4MPUyM2ZUITF7RIrOEh7
-         /stA==
-X-Forwarded-Encrypted: i=1; AL+hErH3Hcl46AhCFx0/8H5mZiF9PilS8D43Yq27pINd7volEKjwVA2yZW0hzbeApyRU8tGQLpHSFM2QSWeP@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Qq3kNbJB8LGUjH7yhXGlhR3/nLxs5K4KBIP/ZeM8QP/Ndapui
-	AEpEwZ89rrQZpH6ooNHMz3YhtQkMtrcvEJRkpc/w2D31+PASkWkDeGJO
-X-Gm-Gg: AYBFou1SCjhnkqMX5N3gi5bUJq/uinhgWPk5TAIWGdNY5yTfmuBfULfDV0a/yjo9Wcp
-	OMIKnrDQ4cyv3GIBxTrIJXRu9L3xVTHoOpwMNKSsLP7vh7yEOrO/0NX5LaM02Dri6+vAlO0H3lO
-	uWTcxtcBqmiFP4PWxRTAAE4T577eI88ipuzCU8ZFEPiFQ434Y5Ikm8+mIFgujQiMr7HL4rlIgmY
-	YAKX84qV1CduEJPVmULPtylGFdDgh9zucKXx5A+4lcKS3Jei1EvHdNvHzMaXZyrO57WJM9YK1LE
-	oe+67/n7QMaWRuv6RglgCa1LmqUL5ZUCPy09SrhuQ0uaY28Y7lKqhfEywOKuYY12/4CN/0N9yql
-	w8HjmLJ8Ra+36tWvNeTKZcT+xrNap5cCctbwsA3nKcxiwgiz3c0tFnDwApzIoyfAr5ACD92Wnpi
-	2Fxdw3ieEwSZ6hcnqHtQwcRmbeTw+pceWuub/2/BeZUVP/qJu9uZxcgkoSuw+SxxG7lon9lAnEy
-	TUMnl7rlRvz+Z26rNAYpdVShqqyikkKvnlOYUkR1rx0ZFHgC3wKZCDA2tRpXUjEnxeKlVA1Fl1Z
-	8b/7jLoWRO2qBJxQQ4JSPTL+/MxKrNkDlbItoIlM7NDdprkHsUHu3TejXzRQGHE0H4A4+woHR4E
-	QCg4ioNfq2sBQYIIqJuF76r+nrezcD/RiBfzElOJgkJS0ijPBIWQ2IHw=
-X-Received: by 2002:a05:600c:c167:b0:4bb:6a75:d04f with SMTP id 5b1f17b1804b1-4bb6a75defamr97842195e9.8.1794852219973;
-        Mon, 16 Nov 2026 10:03:39 -0800 (PST)
-Received: from Lord-Beerus.station ([93.146.104.162])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c1968sm23904692f8f.10.2026.11.16.10.03.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:03:38 -0800 (PST)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: [PATCH v2 1/1] arm64: dts: imx8mm-var: Add Cortex-M4 support
-Date: Mon, 16 Nov 2026 19:03:33 +0100
-Message-ID: <20261116180333.43440-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20260707; t=1794852396; x=1795457196;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MVQsk47kw1zX3SrceBrKkf0gFD1EshqJX1nVwLz5v/w=;
+        b=bmt6Wu6e+59UlLcbBwm7g6CL0wk/EGCUgm6ORx+F4SNElN5fZDqPa4QHXEh5/abBh3
+         17aVP9AaukAEixQ+hH3FcyZ1WedlZwOsjfQ83HUKkTbkewW/jKkUSSlDP1+I9mVOOzgc
+         p/nRgnxB1K1m1V4rSUwq0Bab8e95N1FwQSzQsgQ/KOpocgC/Ug4O1DwWf9aufCw3dHyT
+         tZS6btzLKyJQyIPZ3+QiJYSkPk+PGKpWB9TCuI/EexGaXG2XyYuuTrmQHBKeEqVoxDuU
+         vwF9pt1moHuE5X/47Fp9EqaB/v9ZdbdTYbPBzx0qsrj+QVNtsNdCj2kRUqpHdsAE2a+Y
+         W3OQ==
+X-Forwarded-Encrypted: i=1; AL+hErEgSiIzRuIzEJwmAMfBUr53jXXNFkeK0Z8ZsSfUvmc6qGWPYNK2fWihsIEOgt6tYd4XAKq5FQnd+aAz@vger.kernel.org
+X-Gm-Message-State: APuU4Z+GRq7BccfyyPtJ/WOZxvYLrPvMVUnuAT5tju9bg+DlYgOgG1LJ
+	VOJ/DOw8WGs3hf+l7bmOKzNmdN1AH1Tc4iMwvSZf8bbbTqDPs3maegA95VKrpX3Fn3/6JgrBOwR
+	oZdT978RkX2kk2aCjHa49IJM2PC36jgU9n9vC3yeA1g==
+X-Gm-Gg: AYBFou0Vp5xPJIHKrrdAEvhsJEKaXIwBvWIOdbyYpgWKC0sJFtY9K+2Wi94+jIX0TCe
+	Fr+HSo0zAdiQQujJCh3sX8Uz7bBUOeFuIz9YaVaGspDC2ju5eRw5ZUV4LC95nqsydOKtWpyBgd0
+	EM9PBeIgEkzArhyw3qOzqN1nKiglGFSPB6u4UWqVMEME4IhgZR8YvX8JB8YNq5kWxOD51SwcEOg
+	APmkMUzCsvoi+UxIbqGcV3nUHeE9xc0DugXfvYCn2+7QUMcmHEd88c9yOlmwpwVU5IAlkqwyvsb
+	/jpbkuaJnKOW+9ONbar2a2kJHOw0wyZAxinNYHNUC86leBaU20ohxMPOowXVOlAn5YaZOs4IXod
+	jtlZw3jENL54Nv4EGCOmmEw98l5erkfETV8WxyiN2QHWhrzm6DZd6zgydG6BEfloi411fFWSf
+X-Received: by 2002:a05:6402:1389:b0:6b7:d672:7834 with SMTP id
+ 4fb4d7f45d1cf-6b7d6727942mr5514347a12.36.1794852396101; Mon, 16 Nov 2026
+ 10:06:36 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,225 +103,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CGME20261113104829epcas5p13695795bc337b89816b05eec610a0dba@epcas5p1.samsung.com>
+ <20261113110612.3265841-1-raghav.s@samsung.com> <a7b901f4-59d1-4671-bfed-0d11f9e505e2@kernel.org>
+In-Reply-To: <a7b901f4-59d1-4671-bfed-0d11f9e505e2@kernel.org>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Mon, 16 Nov 2026 18:06:24 +0000
+X-Gm-Features: AclHuK-FFknY5syd2Sq_iB3mSD9v2WzoQZ6qZmiqFZ7TfMDgzML0F8GxXx83h_c
+Message-ID: <CADrjBPpecGbRo2PhH_zqGfNf3L=bNf81q3SMXnSvD2n0Lx-cbA@mail.gmail.com>
+Subject: Re: [PATCH v3 00/14 RESEND] Add clock support for Exynos8855 SoC
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Raghav Sharma <raghav.s@samsung.com>, s.nawrocki@samsung.com, cw00.choi@samsung.com, 
+	alim.akhtar@samsung.com, sboyd@kernel.org, bmasney+clk@redhat.com, 
+	jbrunet+clk@baylibre.com, robh@kernel.org, conor+dt@kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com, 
+	pokala.reddy@samsung.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+Hi Krzysztof,
 
-Add Cortex-M4 configurations for DART-MX8M-MINI on Sonata and
-VAR-SOM-MX8M-MINI on Symphony.
+On Mon, 16 Nov 2026 at 10:02, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On 13/11/2026 12:05, Raghav Sharma wrote:
+> > This patch series adds clock support for below blocks
+> > found in Exynos8855 SoC
+> > TOP & PERIC
+> > PERIS
+> > HSI
+> > USB
+> > There are many other blocks, for which the support will be
+> > added in a forthcoming patch series.
+> > Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
+> > ---
+>
+>
+> Thanks, entire set applied (even if b4 thank-you letters show partial).
+> for-next will be updated later today after builds.
+>
 
-Share the reserved memory and remoteproc configuration through a common
-include, and add overlays and combined -m4 DTBs for remoteproc and RPMsg
-support.
+Just FYI, there were a couple of outstanding review points on this series.
+https://lore.kernel.org/lkml/CADrjBPoR7_LDZmxC_bOFigvqDaagVihmybfX5AdvSPr9-FVb8w@mail.gmail.com/
+https://lore.kernel.org/lkml/CADrjBPrzHP_97OgAYacJKKqeCcp9FURoi6=Dmopk6nisTdEbdA@mail.gmail.com/
+https://lore.kernel.org/lkml/CADrjBPoAVMdxgU4P+shh+9O5rGJp+m3sRQMDd2c-7zbJ8qhiBQ@mail.gmail.com/
 
-Reserve ECSPI1, I2C4, PWM3 and UART3 for the Cortex-M4 firmware. On Sonata,
-also disable the buttons and PCIe, which depend on GPIO expanders on
-I2C4.
+I guess the main thing that would be intrusive to fix in a follow up
+patch was introducing a slightly different naming scheme (compared to
+most existing Exynos SoCs). The clock names being
+"gout_<IP-clock_name>-<block-name>" as opposed to
+"gout_<block-name>_<IP-clock-name>" that we have for many SoCs. That
+also applies to the dt-bindings header "CLK_GOUT_WDT0_PERIS" not
+"CLK_GOUT_PERIS_WDT0" etc.
 
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
-This patch depends on commit ebb21cc5d1c0
-("dt-bindings: remoteproc: imx_rproc: Document memory-region-names to avoid implicit ABI")
-for validation of the new memory-region-names property:
-https://lore.kernel.org/r/20261023-memory-region-name-v9-1-ad597887dfe9@nxp.com
+Thanks,
 
-v1->v2:
- - Add memory-region-names as requested by Frank Li.
- - Convert the Sonata M4 configuration to an overlay, so both boards use
-   the same approach and the overlays can be reused across board variants.
-
- arch/arm64/boot/dts/freescale/Makefile        |  9 +++
- .../dts/freescale/imx8mm-var-common-m4.dtsi   | 62 +++++++++++++++++++
- .../freescale/imx8mm-var-dart-sonata-m4.dtso  | 49 +++++++++++++++
- .../freescale/imx8mm-var-som-symphony-m4.dtso | 31 ++++++++++
- 4 files changed, 151 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mm-var-common-m4.dtsi
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata-m4.dtso
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony-m4.dtso
-
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index cfd548284358..c542613ed3ea 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -245,9 +245,18 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mm-prt8mm.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-tqma8mqml-mba8mx.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-tx8m-1610-moduline-iv-306-d.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-tx8m-1610-moduline-mini-111.dtb
-+
-+imx8mm-var-dart-sonata-m4-dtbs := imx8mm-var-dart-sonata.dtb imx8mm-var-dart-sonata-m4.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-dart-sonata.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-dart-sonata-m4.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-dart-sonata-m4.dtbo
-+
-+imx8mm-var-som-symphony-m4-dtbs := imx8mm-var-som-symphony.dtb imx8mm-var-som-symphony-m4.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-som-symphony.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-som-symphony-legacy.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-som-symphony-m4.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-som-symphony-m4.dtbo
-+
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-venice-gw71xx-0x.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-venice-gw72xx-0x.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-venice-gw73xx-0x.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-common-m4.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-var-common-m4.dtsi
-new file mode 100644
-index 000000000000..ba2457d0ec91
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-var-common-m4.dtsi
-@@ -0,0 +1,62 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Common Cortex-M4 configuration for Variscite i.MX8M Mini modules
-+ *
-+ * Link: https://www.variscite.com/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+#include <dt-bindings/clock/imx8mm-clock.h>
-+
-+&{/} {
-+	#address-cells = <2>;
-+	#size-cells = <2>;
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		vdev0vring0: vdev0vring0@40000000 {
-+			reg = <0 0x40000000 0 0x8000>;
-+			no-map;
-+		};
-+
-+		vdev0vring1: vdev0vring1@40008000 {
-+			reg = <0 0x40008000 0 0x8000>;
-+			no-map;
-+		};
-+
-+		rsc_table: rsc-table@400ff000 {
-+			reg = <0 0x400ff000 0 0x1000>;
-+			no-map;
-+		};
-+
-+		vdev0buffer: vdev0buffer@40400000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0 0x40400000 0 0x100000>;
-+			no-map;
-+		};
-+
-+		m4_reserved: m4@7e000000 {
-+			reg = <0 0x7e000000 0 0x1000000>;
-+			no-map;
-+		};
-+	};
-+
-+	imx8mm-cm4 {
-+		compatible = "fsl,imx8mm-cm4";
-+		clocks = <&clk IMX8MM_CLK_M4_CORE>;
-+		mbox-names = "tx", "rx", "rxdb";
-+		mboxes = <&mu 0 1
-+			  &mu 1 1
-+			  &mu 3 1>;
-+		memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>,
-+				<&m4_reserved>, <&rsc_table>;
-+		memory-region-names = "vdev0buffer", "vdev0vring0", "vdev0vring1",
-+				      "m4-reserved-ddr", "rsc-table";
-+		syscon = <&src>;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata-m4.dtso b/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata-m4.dtso
-new file mode 100644
-index 000000000000..dacc845e53ec
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata-m4.dtso
-@@ -0,0 +1,49 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Cortex-M4 support for Variscite DART-MX8M-MINI on Sonata-Board
-+ *
-+ * Link: https://variscite.com/carrier-boards/sonata-board/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include "imx8mm-var-common-m4.dtsi"
-+
-+/* The buttons use a GPIO expander on I2C4. */
-+&{/gpio-keys} {
-+	status = "disabled";
-+};
-+
-+/* Reserve the peripherals used by the Cortex-M4 firmware. */
-+&ecspi1 {
-+	status = "disabled";
-+};
-+
-+/*
-+ * Keep the touchscreen enabled without its optional reset GPIO, since the
-+ * GPIO expander on I2C4 is unavailable to Linux.
-+ */
-+&ft5x06_ts {
-+	reset-gpios = <0>;
-+};
-+
-+&i2c4 {
-+	status = "disabled";
-+};
-+
-+/* The PCIe reset uses a GPIO expander on I2C4. */
-+&pcie0 {
-+	status = "disabled";
-+};
-+
-+&pwm3 {
-+	status = "disabled";
-+};
-+
-+&uart3 {
-+	status = "disabled";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony-m4.dtso b/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony-m4.dtso
-new file mode 100644
-index 000000000000..f2a1618edcf5
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony-m4.dtso
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Cortex-M4 support for Variscite VAR-SOM-MX8M-MINI on Symphony-Board
-+ *
-+ * Link: https://variscite.com/carrier-boards/symphony-board/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include "imx8mm-var-common-m4.dtsi"
-+
-+/* Reserve the peripherals used by the Cortex-M4 firmware. */
-+&ecspi1 {
-+	status = "disabled";
-+};
-+
-+&i2c4 {
-+	status = "disabled";
-+};
-+
-+&pwm3 {
-+	status = "disabled";
-+};
-+
-+&uart3 {
-+	status = "disabled";
-+};
--- 
-2.47.3
-
+Peter
