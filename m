@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832538;
-	b=O5ZNYTTxJheWrfcFWcJYHzJsM00Lh86iL/I71TXX2Z44RMJHiR4FN5wq/JtqTSrYgKWa
-	 EzXM3Un2u9vrH8/w+EVfrFr5he/lBt2xVl97+TpRXq4sC5g8N6opSW+goUnD3vnenhMG4
-	 Rwg+AT5C6z6yQ2H7g6RGvbQMJHOG3KZkym3Ufd8xrdb0SNfRJebvlGUiqQLtZQRPFWwDa
-	 ROwp+sBVfcJoDObFfY39rJJf61t4QV8tFXVNAOvrC0J7Ov8dHBr0VSPqR5mJNygv3rsnU
-	 x3hnVo3+yESgHhYHTCU1q0r4klpsDEL5+rEsly0hOYsgJ5mDXbKvMVZWulmmGW4WGpA==
+	t=1794832700;
+	b=dgPj7p6mS3fgg9hb6UlfIO7sJ4f2L0wsdjT/QSpWWenOGDgWWFu7qy20pnyutduuBEiP
+	 h4rG6gQyeqT9voocwelU0F0AAz+R8pULQ4LdOxo7vEgq6ET838BoNBz7UJXEWe/2OxGL/
+	 CFSLVM6zcbtrimlgwws9MXIvaXgc7cdQdQIp8NBwtHfJSPhH9X+4vW9oQ35g0TlubApm2
+	 aPMlyzn8V8NOJOAFEMiqJYQhcRY14qz5F6Foh2BZQ/RnOJYhSWSrweQ6NdL/t3RHM4Pgs
+	 QIKlpvb0Gcy/AmZlcvIxh6OZ6PGnnXjKEzQw9YGhvXBo9Xd+TSuSCG4c6LvK38iVZSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832538;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832700;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=PAmxK55nV/QL+FKDcHCHX22w2WLTULcavrMAwSZf6kE=;
-	b=hjjhGee2AhhjoviIHcRlTgEVNuRI5V6PBWvVGRh5ZqU3l72rLW8jY3VyIYrz85mYX3mp
-	 7zf/8KNDXc/VhlcR70GrTJ65/a1faCTc9yw0PynpCSxl3mJteTxfVnp+PDrawG7VkeNvZ
-	 PO2Orx20dotNxz1NhizBhFHnFyTsYtK1ivJtY13ndwudhVuaZq75gUzadsUSX0FGRV0aq
-	 XFeusckjIZUuOpThGTICDq7dKfNuz+ghtgDxfQgsTS9nB3tghD3bW0Ho0z1ah4mkCecAl
-	 UOD6T9dJ9PZMPsezvWg0oJ8QAvNGnda3+m10To7mDHhw34HFHHkYUbjQ+yvyoJM6Zxw==
+	bh=mma1p3Olxpcr1uyRLTYWQ4yU5K7NKi279XVuRQPWbaI=;
+	b=U3ju5hhzw6UZt3/eu9AnMEnpOaothJhPvkEaZxJkB12UbEJCIZp7oXtY24K1Y/JF0VY0
+	 VW82tagaVLqCnMAxe995DXNOsPhWNJbzv8572Yxr0ytybVkM8zytuK0NPXO+UlFj7LGJm
+	 VZl5zMME27tesOgfCBovmGlnmn+Aqaw5MdL9DH478qcwnZhWtLmUZg7jSNh2788r/gbOH
+	 v+1s6kszQVEbTukPRQF44VEJskNI9lIPKVuNRPes57jE28cOA3RE/WmConHXHw+MlroZf
+	 Rqgcqm84gQtCd1eCXD9lB1onc0H0DexPLNKb3LyiCCiQbdQWJngxQEAZ0EiS3lw9Dww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aif0HiR8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAH8iWXm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18AFF606A31C;
-	Mon, 16 Nov 2026 12:35:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A159606A323;
+	Mon, 16 Nov 2026 12:38:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aif0HiR8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7316E1F000C4;
-	Mon, 16 Nov 2026 12:35:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAH8iWXm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB0F51F000C4;
+	Mon, 16 Nov 2026 12:38:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794832537;
-	bh=PAmxK55nV/QL+FKDcHCHX22w2WLTULcavrMAwSZf6kE=;
+	s=k20260515; t=1794832699;
+	bh=mma1p3Olxpcr1uyRLTYWQ4yU5K7NKi279XVuRQPWbaI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aif0HiR8+u/Jqq69F213yU66p0fFhvPNVJ2ZryYbKD7PAEV1DY50f9ewSRPV+eYiA
-	 83MpfLb/kf6FemdTNtF15Kh6p9Uve/91zn7FdniYd5K7oZvfXD9hObyelYqqNEmkBF
-	 zPeaOfGL1QA6JMZ6mC4C3rCI/YVa+TuJiHAs92PjJ2W3tbbanCQDRWYgEnR2kXm4sB
-	 yGOVTofWCkla4lsbNzdR4uwbiYRqyPP1kQ14hWV577a5ofhtyOpxERuod4LHKn3DgQ
-	 8umOTHyiCu2nYo5T7+FYYzhrYdkBzlY9oNtL6V6cOWV9Zes3XFJDfTCSLNuMPgSq4q
-	 THAhT2ccMreIw==
-Date: Mon, 16 Nov 2026 13:35:28 +0100
+	b=HAH8iWXmLrujVJdakpe7xbu48T+MrfY6/JXWiO+R746WS+eDCVyrgQQ1uRt0rXkYI
+	 Ba2SyeSMM2LdZQf/Git1nC3uGcWrPnfwoxe3xsL1p8oOd8pSVedXFuTFxMjvb9ZFTj
+	 acvBLlyKH/ThnbGez+q9MaYzQ0cg6cxeMke2QRGHfWePJCgbxzz+KaE0/pJwVlzQgz
+	 XzYMuiCEPMkNF/SGowGMdJR5AjhpfHg1U/qS2I28ugWUxrugfY0P3UrTweE+rHNcen
+	 HQKxRtN9d9bw75qjGkYzSEW47KKz8BcyOJEgdwu73XdX1Fy6TN4S9s7v7bjNuTDWHa
+	 1xjFgYpnAf4bQ==
+Date: Mon, 16 Nov 2026 13:38:14 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Arun Iyengar <aiyengar1990@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Lee Jones <lee@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, 
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Alex Bee <knaerzche@gmail.com>
-Subject: Re: [PATCH v2 3/3] arm64: dts: rockchip: Add IEP2 deinterlacer to
- RK3588
-Message-ID: <20261116-luminous-heavenly-guan-b20f2e@quoll>
-References: <20261115-iep2-v2-0-3d8798cd9a55@gmail.com>
- <20261115-iep2-v2-3-3d8798cd9a55@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/7] dt-bindings: mfd: x-powers,axp152: Add the AXP2101
+Message-ID: <20261116-foamy-honorable-loon-d441c4@quoll>
+References: <20261115171150.64431-1-olivier@mgcrea.io>
+ <20261115171150.64431-2-olivier@mgcrea.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,33 +61,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261115-iep2-v2-3-3d8798cd9a55@gmail.com>
+In-Reply-To: <20261115171150.64431-2-olivier@mgcrea.io>
 
-On Sun, Nov 15, 2026 at 08:47:44AM +0000, Arun Iyengar wrote:
-> Add the IEP2 deinterlacer and its IOMMU to the RK3588 base dtsi. Both
-> share GIC SPI 117 and sit in the VDPU power domain.
+On Sun, Nov 15, 2026 at 06:11:44PM +0100, Olivier Louvignes wrote:
+> The AXP2101's interrupt line is optional, as for the AXP313A and the
+> AXP15060: the driver then registers only the regulators. It has no DCDC
+> frequency setting.
 > 
-> Addresses, clocks, resets and the interrupt are taken from the Rockchip
-> BSP rk3588s.dtsi (develop-6.1).
-> 
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
 > ---
->  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> index aa69fd3793fd..5297519bd251 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> @@ -1397,6 +1397,28 @@ vepu121_3_mmu: iommu@fdbac800 {
->  		#iommu-cells = <0>;
->  	};
->  
-> +	iep: deinterlace@fdbb0000 {
+>  Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 
-Why all these are outside soc node? That's more of a question to
-existing code...
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
