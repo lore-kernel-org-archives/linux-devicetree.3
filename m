@@ -1,102 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794823035;
-	b=okjUXAWbI5kWEdpIdv0MxkRA8WY7TeOy2rS2G8h+o8qlEhcS3L/8zQD12zC3+B/z/0Bj
-	 XcYemc3dEuPZmBs1kbyTUXtrbeRCt55eKdGCQ1t+PC5bHjUr2Wlbp3sDHIju4u0FNuVYJ
-	 sTidNyU3oPHJUTrI2yjwrx8wDvW7W1CrB8Zz5YSehC+yt1eniEKGvMHPcK99dLHTesxH5
-	 gePWNaueUlENHJuTBQVX8IHtUwq5dw8C6ADEz/r3yIosMPPIhea1wT7aqVI/kzRHf1Txw
-	 aTiixuJzgXCBS1ywS7V/7P84swDsXSUVQ01fb/lgt9MyXS10m54A8CgF3wFe3XcfxcA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823035;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=BKwH/iPsGpBgdjotukbv47/XMRavn61B5PvO9PeiRxY=;
-	b=q4sxxGboYwA4uikzlqA4T+DzQDFo7Zzz2sG/K9ClRkSz78N8VvVETwmP6yjN4HhfBSoP
-	 8+vuFuPhzKUYkj65a/BIgBAK8hPsJcnMg4KN1ITGXuOQr5IJQe2gWJncKPfSPLUwJ3UUg
-	 6oqYp6R0NhmNHljA1nBYSYgAAAzAzUIU1xZpuV/YwjfJU10awmfyemi6cwlIiItaFjS01
-	 LfoMvKtBV3pAXb7RanfvZHAyABfxpbjdSJ8Lw86sN8wRCdc6c6fJ8UE1bA5EJ5YmY4bRY
-	 Q1Gm6X40WRi+eOueHYJtgzumSGgeU/dfp7Z6KKNcwfIn3xfbJa+bQMr14JSOvS0MEoA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=e77DMDMx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794823104;
+	b=poxIwFKzUGfaQZwbFWKUr2YHHTYjYO9uVsVTJ/VXO6EvhRkaZzEJ5aQ6XKB0KXeXn6cz
+	 xdDyWOPoI8mqY0kS0QBckXxrQYOT8XVnl503smAYgayFeFBvMuRR5i6CQlYZ0FK4O3Kco
+	 8SbqIbHsFSk8BLRjMQOois0DpknSlqbUN+jff6Lvw6r39C2PDYgsvuAki4PmyDeDlEEaT
+	 19jt3YFwTL8uuyGk3XQIoGv8tTJxiEK1WwPyEe+lLX+xf8oJR3pP8DOzEBNR0PKQB4LKS
+	 Lv6Y6jAjTvmphQoLoAj7PX4YSXm8GKRE8s1PrIm+9R/MQHspfv8auj6pwTdTSxcCikg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823104;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=1IKEWtPTLjM1XYaZ0STp/scHGqJtVbGIZgdMjNsrQOo=;
+	b=33f4SmDlcq0tIPmiWrahmn4jBzrnG2B8Q732ucMmtqdA2zXaYa/pyCJsm4nBHlgHS0DE
+	 yFBbZszs67u2Ws0CCuL0yWGYObwhNTruGWCkFOls06Qn72lRDVUkCBFBSRVH5nwVlCfGo
+	 m0srMbU9x1USQCAAnnfd++FuliWxyhbaf0sGUC5MbaK/fTwmrW9TyrFV3bYcp+huTnyUo
+	 n2+AG5KrE8K7OdKZmj+zg/Rh4ZtSGGO3E0sOVR1bqfrsvHPqOG06QkgpDFh5lmrtH1iXA
+	 5/CKlGg6TMoh/DGYSMYmmhLW8PzTmBAwsWRxxnxKPskfclw5NZCZfKZyjsykx+jSKzg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R9bDlyFv;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94934606A33D;
-	Mon, 16 Nov 2026 09:57:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94934606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB3C606A330
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 09:58:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CB3C606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=e77DMDMx
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C930720059B;
-	Mon, 16 Nov 2026 10:57:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794823032;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BKwH/iPsGpBgdjotukbv47/XMRavn61B5PvO9PeiRxY=;
-	b=e77DMDMxYre+lT0XsCkBPm6hniRa/0AKlIuy3d+048vtiK7EOeN76xZGEXQV1xWz/LsEpd
-	+Oq4JRLLrMpOXGo9Kay5U6gtFdYh4/MbSoL+uT/R8dBcQ4omhoWI04Uc0rxHrfxjgOvsGA
-	MYDII28WbWKFPbgqpsmtF+ruObzviCmsJmyHManqwfsZbjxqzQZfsz+Qdxbixn+C6tgpsE
-	nm/tY+hGooOvQV9Ib0TrB57BdQdMafeqeBr2DxEBZpX+iMMPSpWlg/z4HoaZuSGWvn4RBZ
-	p1yO8mUBhURyaMmuXUo6rOj66b1oYq/kYCo1tEehZQXBugBW/JsE4l1S2QuOEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794823032;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BKwH/iPsGpBgdjotukbv47/XMRavn61B5PvO9PeiRxY=;
-	b=ZUruFCBkOh5XjH83QYSicDz/2wzBRnfd7CBdbuBGh03CddG9P4OMOam+bFujPXK1aUv/59
-	0qcxKSIq1rSWr3KEms3Mhvx5F9K8lq96lnovSKWJVzgTbFbvcQeP0y6FiqUTjTU42wPdiu
-	iozyjJ2zUgyfNfHgloQgH5DW1Y95yKdJy6HLNVkt060faWQoAx3iNj7AxWq9a+sU9Xut8i
-	blQsULChDYFSfe52iuHM6GpfpZ83vhV9aNXf0LfzJk9NpT6NWGYuj9R8Qy5DO3JATSNVuM
-	yHHPgoifue+MhG14SkNOV921ONcYGIaha7D/2uFgiUlIpz1wZY6SsUyR1bgUvg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794823032; a=rsa-sha256;
-	cv=none;
-	b=Sh4oh/QqUDxHSdEQodkdsbc4tb0Wo9LbXyM4Wgk32fnwZiAha1ikyFBqAhePPO9lDvN1kC
-	AOUR2KKCfaS4lsd70Ss/g0NuEymuJlBuyeXaULg4S0IJCGSHa78xqRO+CrsL12FR6I4NzZ
-	EYehOABDF594URR48QRRv6TIMkziWwjvHIBd+ldUqBwB2Md6ArbxNdImPEiwYp+aXi9tjT
-	T8rIieD4Tkv56eOyd1gIeRmTykg26BzV4P5Ha2NzN5PRpTynmMLcrLymGO1i9JWzWdOtJq
-	w4fZrI9USOQqyUBYy4JAkWVdC/pV+DeujrCMA99faBOZ2MWFX6KXaAwiW2ilLQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <2bf193a0353fe74cd2d2faf48528e40df00d36bc.camel@pengutronix.de>
-Subject: Re: [PATCH v4 5/7] reset: Add BCMBCA block resets through the PMB
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Linus Walleij <linusw@kernel.org>, Lee Jones <lee@kernel.org>, Rob
- Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley	 <conor+dt@kernel.org>, William Zhang <william.zhang@broadcom.com>,
- Anand Gore	 <anand.gore@broadcom.com>, Kursad Oney
- <kursad.oney@broadcom.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>, =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?=
- <rafal@milecki.pl>,  Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, Guenter Roeck	 <linux@roeck-us.net>, Jonathan
- Corbet <corbet@lwn.net>, Randy Dunlap	 <rdunlap@infradead.org>, Ulf Hansson
- <ulfh@kernel.org>, Benjamin Larsson	 <benjamin.larsson@genexis.eu>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, linux-pm@vger.kernel.org
-Date: Mon, 16 Nov 2026 10:57:12 +0100
-In-Reply-To: <20261111-xg6846b-bcmbca-xrdp-reset-v4-5-17035a5e8ad2@kernel.org>
-References: 
-	<20261111-xg6846b-bcmbca-xrdp-reset-v4-0-17035a5e8ad2@kernel.org>
-	 <20261111-xg6846b-bcmbca-xrdp-reset-v4-5-17035a5e8ad2@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R9bDlyFv
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so15131485e9.1
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 01:58:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794823102; x=1795427902; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=1IKEWtPTLjM1XYaZ0STp/scHGqJtVbGIZgdMjNsrQOo=;
+        b=R9bDlyFvVr0S4yMshgYnycii6CBT5Zvs6pnEe98MdhHkMGIBb39vwWS9x8wTIZjPPZ
+         fRvzjBiWuzuQJ5uG8SNRNjkSIOeQT+H1rqYVW+YXbf+C0jHrPtPM3JOXY3KYNjdhUN14
+         KUD0JqAFnDh8EPcXFC4Xa043JM7tMq1VwdvTFEcC1YtOgmoFGE1WlUllJXqpwM7jIEYc
+         4sCDpV2iNjKih2iRfbfx0QMq5c5qn3DliQ2Cx81JomfYOa3VaBKgH2yqdSKElb2F5XB5
+         +Jd0zOou5xhgnSYnrZLzww6IR+q/+cSTUfJkwAfthznbtWObTTPK1iqcCGYR3l7ygAnz
+         QR2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794823102; x=1795427902;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1IKEWtPTLjM1XYaZ0STp/scHGqJtVbGIZgdMjNsrQOo=;
+        b=Wskyz+7PqF/efNazHFFjW6C71cDcBDKhBdsOn9tvy+INpQuUMIk/PQo39XiYseJkpu
+         LuxGFLSv/JA9NzKhkysLdFoc4WxI+exRVNJ1f4Jj5QmFBANoojgzwZAjx0Y3/AmrjxhM
+         Vr7UjNCMWUC4yvwEE5uRK2Nw1m1cRlABB6AoFc3c/Wzn3hjbOjGfUaGVui+lMcAUoZoj
+         Lng1f0gZO6KFo8pTNrCF5NYGryjVS2EaI9jzyHS9ZfufGv06xqKYbFsLP3IC6TCK2uUh
+         CLIfY1ieMRAgd0Qu7bhA22qt/EF+nFDSIfficpRtZ4XPnsjqQH6lB+NazL2gmwG65NEm
+         zhfQ==
+X-Forwarded-Encrypted: i=1; AL+hErEmmXTZ7t/u3pVjDXsjitQ8aHOfxiih8ytnAeJvXLOALt8or95xup32GfwelhHDkEUHIgN8vijb3gnB@vger.kernel.org
+X-Gm-Message-State: APuU4Z8oqNSuzpMYOJVpAtlL9PoBFqVY0tNoGzqaEZgdWTmDIEaNSxzy
+	R7tnJrCMAzOJbwqzPTMNZnEpfpIoQhyMgpocVSGtqf5fk5RdHoEnW43m
+X-Gm-Gg: AYBFou3vGT/4iisHd+jfqCwA04dlGkEHOOknd10X+3fbIxRPBxd5/OgwOHnVMfMZFVu
+	rGwiDMJpNUTzywBrFhVpMHxHJZGGQk/RmHbDmWVdSmjrKdUiMNnCYAo3u9ZAon42LRcQjJIvDca
+	oj9j0k+s2PQSidqzq3mvRWoXuY3ROdI/G+1IFwEf5r2rEuErTslJbZdKeK5tddgI7FgC0nMpRBV
+	NLX5AQogxpqd/4I7sURdxrGi8E11RcFPqmVP76WQquxnOEXrNtGG04iPFEpfLJ8NeTJyM6hkb/W
+	DbhtH/L2sfBIvMxkbdf5F8Unulgr9A5zIRQs/fvbdpCYuKCEavyWh6DaoXPLIvQy/09DgK8P/09
+	wrDKyjQQRTeL6ISYwipp0UeKBzLHjv2hjsLL+Ibr3NKifl9NhNuNrLNXxLyOtxDDxzYkrvNjvIh
+	dHaB4bkayokfdgWC2PbxUE9X/EoDyAE4Rv+TvHHrVUsLIIYE0ucq6yJG0jSH6dWJNYAjGHjXGYX
+	2qdm8j9gCU+gEVKcC5xJzhksDTIM0mex4CWn+xUAwWOxU7IkM9tRRLUMRSNwcnaqEqxB8d9kxPV
+	e1qTjcK1ks+WiLCkg+yXM23Z5Jmy5qDZgPXBnZfCDycZDX8xEDaYjgaMaCUuWroVxydUyLVu
+X-Received: by 2002:a05:600c:8483:b0:4bb:605d:8e92 with SMTP id 5b1f17b1804b1-4bb605d90f1mr145813425e9.32.1794823101861;
+        Mon, 16 Nov 2026 01:58:21 -0800 (PST)
+Received: from ?IPv6:2001:8a0:c4c6:f00:1399:6f7e:7235:850f? ([2001:8a0:c4c6:f00:1399:6f7e:7235:850f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb56719391sm112615705e9.1.2026.11.16.01.58.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 01:58:19 -0800 (PST)
+Message-ID: <4c5562a2d384fc530be2773a49b7380f3b009e61.camel@gmail.com>
+Subject: Re: [PATCH v1 0/2] dt-bindings: display: panel: Add LG LP156WF1
+ dual-LVDS panel
+From: Vitor Soares <ivitro@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang	
+ <jesszhan0024@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Nishanth Menon	
+ <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo	
+ <kristo@kernel.org>, Francesco Dolcini <francesco@dolcini.it>, Lad
+ Prabhakar	 <prabhakar.mahadev-lad.rj@bp.renesas.com>, Thierry Reding	
+ <thierry.reding@gmail.com>
+Cc: Vitor Soares <vitor.soares@toradex.com>,
+ dri-devel@lists.freedesktop.org, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org
+Date: Mon, 16 Nov 2026 09:58:17 +0000
+In-Reply-To: <20260529110518.624454-4-ivitro@gmail.com>
+References: <20260529110518.624454-4-ivitro@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,22 +113,57 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-On Mi, 2026-11-11 at 12:00 +0100, Linus Walleij wrote:
-> Implement the BCM6846 XRDP reset group through the shared PMB regmap.
-> Assert all blocks before releasing any of them, preserving the vendor
-> reset masks and ordering. Provide the independent PVTMON acquisition
-> reset as well. Serialize complete sequences and hold blocks in reset
-> on failure.
->=20
-> Consumers must enable their power domains before triggering a reset
-> pulse (i.e. the cycle of asserting/deasserting reset).
->=20
-> Suppress bind attributes: it's not good to be able to unbind the
-> reset driver for the SoC manually.
->=20
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+Hi all,
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+On Fri, 2026-05-29 at 12:05 +0100, Vitor Soares wrote:
+> From: Vitor Soares <vitor.soares@toradex.com>
+>=20
+> Add support for the LG LP156WF1 15.6" Full-HD dual-link LVDS panel and
+> a Verdin AM62 overlay for using it through the Verdin Development Board
+> with the Verdin AM62 Mezzanine LVDS interface.
+>=20
+> This is a follow-up to an earlier attempt [1], where panel-lvds.yaml
+> was incorrectly extended to describe dual-link panels. Back in 2023,
+> when a generic dual-channel LVDS binding was proposed, Rob Herring [2]
+> pointed out that dual-link panels should follow the existing
+> advantech,idk-2121wr pattern instead of introducing a new generic
+> compatible.
+>=20
+> Following that approach, this series adds a dedicated binding for
+> lg,lp156wf1, with the dual-link LVDS ports described by
+> lvds-dual-ports.yaml, and excludes it from the generic panel-lvds
+> schema selection.
+> The second patch adds the Verdin AM62 overlay for the LG LP156WF1 panel
+> on the Mezzanine LVDS connector.
+>=20
+> This series should be applied on top of [3] to avoid conflicts in the TI
+> device-tree Makefile with the other overlay additions.
+>=20
+> [1] https://lore.kernel.org/all/20260521150038.103538-17-ivitro@gmail.com=
+/
+> [2] https://lore.kernel.org/all/20230130170441.GA2796575-robh@kernel.org/
+> [3] https://lore.kernel.org/all/20260522161105.277519-13-ivitro@gmail.com=
+/
+>=20
+> Vitor Soares (2):
+>   dt-bindings: display: panel: Add LG LP156WF1
+>   arm64: dts: ti: k3-am62-verdin: Add Mezzanine with LG LP156WF1 LVDS
+>     panel
+>=20
+>  .../bindings/display/panel/lg,lp156wf1.yaml   | 105 ++++++++++++++
+>  .../bindings/display/panel/panel-lvds.yaml    |   1 +
+>  arch/arm64/boot/dts/ti/Makefile               |   5 +
+>  ...verdin-dev-mezzanine-lvds-lg-lp156wf1.dtso | 131 ++++++++++++++++++
+>  4 files changed, 242 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/panel/lg,lp=
+156wf1.yaml
+>  create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-=
+lvds-lg-lp156wf1.dtso
 
-regards
-Philipp
+Gentle ping on this series. The binding has a Reviewed-by from Conor,
+and as far as I can see nothing is pending on my side.
+
+Let me know if a rebase or a resend would help.
+
+Thanks,
+Vitor
