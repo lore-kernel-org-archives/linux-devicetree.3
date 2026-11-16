@@ -1,88 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794867861;
-	b=SP7qsBIJyo5pnOCP3FdkXXYN4YxVYJRoLxBDvTK+7i7Ai6rq0cvd/k/FEXdPR3cpaCt+
-	 UouAPj+jyeFmacjFa3CFEmdluKmALxRy5UQ3IoY8yVNoXMv1A0evYJZ+xKmJPheL3VIjG
-	 PvI8SiDyS8aNbzLvieXtzJ/7jkMprXJOje7I9Txvs8+htRIiIAKucq9pUNlC74meJk/Ky
-	 3N+h1zkI8jKsB6HMJ5NWSzm0qatEQP0lp/WcNEj/KrSGblQA26M1omVcY4g/2Zm+gbBks
-	 w6Fb/h49G9E+xey3fzKUHR+kYd7TbDdazPRTIh2tgh2pnogFTTMf+vDwbCM8L0Bkojg==
+	t=1794867988;
+	b=i2JeyKsn6KYwDdgGe7mJOKMWBEFBMHHjmnpKoK5fgFqiNgJTYbLvZeaVn5FvNuKWfR/q
+	 bJHYnt+G2BJVcq5yzL+vx6a/VZhIlA4KcH6ShXG9Ie+M2CckvBhNDlvXx4Dcz1P7FyVn0
+	 w840AmLrqGNN3SO6PFcjhzElfFXaN31d53tKG+HSSKHKuLI9vPxdp+JhMV3tTm112+O3s
+	 67lL8t1Tt7mVrGkXN2SkyKh229DRmehyCxySUh0F88oQ3eajYIKzoTDL3JEwJjRMUjqaK
+	 04oYKm9iocM9sH13SgEj0Ekhjz6hNzpMZ0Hq1amNbfjaB9QadA5Oeuty25GnLpAqcXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794867861;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Ln1EVdAGOFluUL+4qX0wySLdavyI3EeHq5qaZG2vFtM=;
-	b=02GRfWkkjW9k59NfPj/MPoZbxuEQKyJB4J8iSGSyfHVSzXfn+FjZU/hcPfqWFKSZoazq
-	 hSsyx3PloKt8GhPFMwLdfhO5pRIYruVDgOioa3NZzsoMdXyflGgn8jhiNMooOiUf6210I
-	 Rm1LA6+Hcs5dT6tCJfVJWkkq1tvRO5JWt4KRjNiCO00T55XWHb8r0fhIJ/784ByDHPggn
-	 HTKE6yh7X0onSxcwvbQXcnuNGbcTgIdDnLWA1nsMo8qnu4k++0HgnHm3L+Dzj7vZHhYLI
-	 DKVvSVM2OlbJNkTQ8SlOnBH6hpJWvhhdTFKSv6HGNnD4VRlitlkUM1nbYK+tENQ2iRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794867988;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=WsVmZB0UH8bgbSx0D+T0vzINQcKZFGUzB4qEYlW4WKE=;
+	b=ZljTqDyQtYo6gJ+Z4WRLTsUKx8bkpLTJoZMWSIZ3nd8ZXWzQu7HFsS8Hksk4ZHfrskHu
+	 EoLFkjL3I7siMyVs+7ddiE+Mt/lDNZgSWsRRf6dCQaDrSYafKuPiZtMvQTrES4fM3UL0u
+	 UIQnmoXxaRx4JCHLhlhHdXr8qnBv2fzCI3ZrWFPxnr83eC8yyF/FcjV7QBzEw+mfj9TCu
+	 QbtOAMi88dxKwrG7IvlrtSbKDlCKYzVCbNcMpyAXllArB6AMDYsERkZdo1BWlRwiWudz0
+	 oA2eyE7LoyY4hbmowXUnJumNK42WTg9P07Wc6btJEfGe+7pHM4lNfXroer5A1aTUI+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Q1s6mids;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=hIr7GbNK;
+	arc=none smtp.remote-ip=209.85.215.226
+Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD6D606A323
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 22:24:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DD6D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72881606A32F
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 22:26:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72881606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Q1s6mids
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb702a7548so14789085e9.1
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:24:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794867859; x=1795472659; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ln1EVdAGOFluUL+4qX0wySLdavyI3EeHq5qaZG2vFtM=;
-        b=Q1s6midsB7ZFJORzCZaZh3TxN39wkIbhmHp6yuaENENa8omgWUE+8KGUkKgKRaDEtv
-         ryiYQqlAHbHlsrSZhQRNmwzpD0EsRJROmgZESb3ZesTR2fSqcTeC7O4Tb4RvzQtoYoKb
-         hCzqE9qv7+lAcUwrgd/aywp39omeKHhusrKSDHf9VEtOClJVuolTG+3DIKtlH29C6Nm6
-         gdTGSkBz4HmfneHJe0H5E9Csrxs4U89QNtf4CHB32pAcpUzpD9MLuCL7/1ZNjyHoMdiL
-         8E/eFU5NPkUgLELB01/AqlhH5MCZhuOscN1HjOlFSswTHH+GaswPdKeYY2M9LZCGcbHY
-         cz5w==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=hIr7GbNK
+Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cdb2893531bso2870260a12.1
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:26:28 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794867859; x=1795472659;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794867987; x=1795472787;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WsVmZB0UH8bgbSx0D+T0vzINQcKZFGUzB4qEYlW4WKE=;
+        b=J6gDHwMzfTbQflWoKebK73RXKqh7XhJYoAVR00E2Xzvpdfxva49leV+OkCo5lbMKSl
+         HM7oc7oMvhE9quuosnzeORkLBc9DReDxcq/9I29+R8DX9DEkyqjjBepls6EG4xglq7RC
+         bPyki5n/dme5RJMLaHp+MfQqLe2GKQ+LSfeo5elOQV1RlNCjwEEbc3Kz3NG3tyX3+nrc
+         6Di9TOOT3WVT7uk/EBAs/waSsgeKw64aTOjnZLdmO47AigWmhgKaCWM01dEQD866PFcz
+         gxCd7A8V9YXsWIowUeYK91dtINxBMet2wG0lmEQwwymSjscBzIKzdx160kb2bFAw1tsH
+         kRig==
+X-Forwarded-Encrypted: i=1; AL+hErHIqbMZ4AxIHGBY3Isxls4AXD77QIJacFm7qNx9CBOybsvOsIIyz+KKLJ/W0hdjRVQX82Sw/4uN37TV@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nQ9QTFQjynJ/Jin6tteDKMc/hIsvhHf1jGRFBRA8lbZQjSeYQ
+	gZNrcl11rowOP5rZ+3tagrQuMMKep9hi4lRWQIDMTA4JU9OKHJbSpnY/nmDDWMH8M1fSinCvtqf
+	94N4dglTBoW4GHH569lkdTQC0RbRfeQYNXv9ArAOmpKWy73O+MN5FmNZVLPfYPpw7dsKTDR4U4o
+	rzPewiaHF+8c/QW2Qp6E6jJsTlXj3zfJbwFzdFsQWkM46fKhy6G1SdCh4b8yjV91dcYkke8gLqJ
+	mzoowl7ixgNSu3SAWXGlg==
+X-Gm-Gg: AZFdTZeBd1CjxYW+NF7/jfbmIZH5qaJJlgM3Vwu9toPJwR3m/o16zkZKgW3VxmvYAax
+	MgXadYyaV+zlhfnTmcbO10b5Rj4yVFKxtZilI2iyiOjL2obmzZlOO/fnIbrjZmxpjCi8W42Yt1H
+	R8Db+0C4Num6zMevycmAt94HHi06EmJKydq9pQd787dFTBp+3W+vGGvOuJ+GS60fk9w5IvhdsqJ
+	87grZIi5aOhWgqecnPeQZciawfdNidTUm0W6sToU9i/7JLs1dWtMtuzPFnDSPlUSXGAnkh/hdIY
+	IalEaR1nIh5lywdhgcxXTj9BcChFXntf3DgchCHoiQ7vWU0j6lRzL5U1v2tOjlghLieqybjQQlG
+	HjoZ/CGe8I7OQSk2Q1sJC9HoBcG8phbIWuDv91OIq/THB72wnyXw9/IOe0ckd6CYuQQO5njGasy
+	acyPBAiy12VSHsYIL6Iv63RrFuCNotyhpHKBGRCnVV
+X-Received: by 2002:a17:90b:2548:b0:3ac:a521:959 with SMTP id 98e67ed59e1d1-3b1b0ba3583mr10651179a91.29.1794867987583;
+        Mon, 16 Nov 2026 14:26:27 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1b335bdacsm6255638a91.1.2026.11.16.14.26.27
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 16 Nov 2026 14:26:27 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso5701574eec.1
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:26:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794867986; x=1795472786; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ln1EVdAGOFluUL+4qX0wySLdavyI3EeHq5qaZG2vFtM=;
-        b=I1Nxhba8rucjgImQ0OucBtfb67Tu8H6yQdrTqD8DgZt8osOEbxO+QaIAMXcHRQ44GT
-         j9Q+k8t3ezyuqZQkzhW9tguzJQ3CCBZgVBsA/pZ3SK4/a4w3eBtyj8UCVFZz8wf2Y+VU
-         Z2ahawpIz1IEf3Ax6E1ElunLItqaLW4msZgB6xaiPxNt+XoC4TKEyNfEffeH8fTcGmcE
-         m5kNfGQSKW4Duu3FEWn6fzSzarrEV4Jd1h0YeD6BZ0NB2eGCGzngYqzzZf0s4WDbwLyv
-         0elq6NhpnrR3pYHz9d83bi08PT5s/mmU/o9YzHhNos6YBnPqRaGNQDSaDG1Z0qqAVuan
-         Bwzg==
-X-Forwarded-Encrypted: i=1; AL+hErEUDn0x+3RLTdDpxVHZjLcXFINlw9I7UsrH/38Rn3nLqLZMr79DVqiH9rwvYR0l1YD6Aawr+4aoLrML@vger.kernel.org
-X-Gm-Message-State: APuU4Z+iHEtAs+jXTzi/wLl8P8v4tj9TUSq1vBpVqoqskskYmtBNcSjn
-	hcmrCeEYoocuhRaXV57aNGF/ASVJ+7aIrnU7u5FdnTf/Nbd+yuEgtgUyX4EVCMFTCdw=
-X-Gm-Gg: AYBFou3Z9ZPO1Uqc6FMQVw/MD9X+YRJp0LTEEEdADu9N48drnNdb+cVH+CvgfrrVEdu
-	OCSXN9wYXeRHmGpBP0NG7W9k4uR5/iA0VgNlv/hReEgGpHDOdVzkElyTa3u8dPYggqKiHFRpySs
-	BWlkcfwAN25HOE4AHs9UwRpRQqjhD6mleJPrlaoC3roDXm/iZ89fieSs5Bcarcc6yT1xTKWuVKP
-	vGnKRMFbDsHQwfT/ghmVEDcnOZrWoX4ZMFD4k9A9mkB+esVmKBcFo73uH/ZMPCjN4RioXOhXBBH
-	7qwnSOQhjLPCInPnjVDNB1TLuJqcR/WMjwsVZMBeCEWhjsvNAfNHU3mC3KKYRPQaWv4jPYt3maP
-	Sd4Ykev9U6M2PXFCk0KPAGvretOEUPzCfmkRyjbg34WpRZdJ4jkQc2Da6QOqWIpM1PtCb23wvMO
-	16972xuS/Yk3SxjgkhGSInnvNHrAbFFSepezd8b9zPCaMkPgdQRR4MHu0AEHnxjGjLRJy2ypTao
-	QVk+LFdKwT1PNSev1gj4/pVQ9HDz2qDevfSJziTykZKMFN45KB6OHJYs0WUgz6c7iuQvjgYepEU
-	wFH0dSJdnLnZesfIpRFkfGKKnGj8L6jy/mJGqjkY43feDEOfQ7Exnw==
-X-Received: by 2002:a05:600c:4e43:b0:4a7:c366:d791 with SMTP id 5b1f17b1804b1-4bb559f24ffmr251632055e9.1.1794867858617;
-        Mon, 16 Nov 2026 14:24:18 -0800 (PST)
-Received: from [192.168.3.100] ([151.61.248.197])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb784231basm18143055e9.11.2026.11.16.14.24.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 14:24:18 -0800 (PST)
-Message-ID: <71ede0e6-7f8f-4594-ae56-5be10f9159a3@baylibre.com>
-Date: Mon, 16 Nov 2026 23:24:16 +0100
+        bh=WsVmZB0UH8bgbSx0D+T0vzINQcKZFGUzB4qEYlW4WKE=;
+        b=hIr7GbNKjnkH64q1lev2y9rJOLQcydbwnhEJDdjupN7FrF65IFq5tz989yBs8FlD9d
+         AabbxRwDuxspnkmJ8wZT712jZAvhMJC8PhTpx31Cxka+9lU6PftW3I5RpQOlxIOvtezQ
+         FwSfVad6aXjf8Aj2VEO2p21k+taX1sctFnZz0=
+X-Forwarded-Encrypted: i=1; AL+hErH47rOz2t/sFTN3a7Nusd255HUDfhBr2A+b657awNvskA90NX7/JtJ9ofUovSReujNmpt7z1W5OFBga@vger.kernel.org
+X-Received: by 2002:a05:7301:d185:b0:36b:fca0:80b3 with SMTP id 5a478bee46e88-37966961040mr12994353eec.22.1794867985479;
+        Mon, 16 Nov 2026 14:26:25 -0800 (PST)
+X-Received: by 2002:a05:7301:d185:b0:36b:fca0:80b3 with SMTP id 5a478bee46e88-37966961040mr12994310eec.22.1794867984774;
+        Mon, 16 Nov 2026 14:26:24 -0800 (PST)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379560f5e06sm50176624eec.19.2026.11.16.14.26.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 14:26:24 -0800 (PST)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list),
+	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
+	netfilter-devel@vger.kernel.org (open list:NETFILTER),
+	coreteam@netfilter.org (open list:NETFILTER)
+Subject: [PATCH net-next 1/9] net: ethernet: bgmac: validate RX length against the DMA packet capacity
+Date: Mon, 16 Nov 2026 14:25:11 -0800
+Message-ID: <20261116222519.1416501-2-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116222519.1416501-1-florian.fainelli@broadcom.com>
+References: <20261116222519.1416501-1-florian.fainelli@broadcom.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,114 +133,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/7] ASoC: dt-bindings: add amlogic,gxbb-audin
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com>
- <20261018-audin-v5-1-4b8cc13a1b22@baylibre.com>
- <CAFBinCC+-N8LvoXZwMhoxjOzXgoYUfDKCcvmD7Uuph5=hTSg7g@mail.gmail.com>
-Content-Language: en-US
-From: Valerio Setti <vsetti@baylibre.com>
-In-Reply-To: <CAFBinCC+-N8LvoXZwMhoxjOzXgoYUfDKCcvmD7Uuph5=hTSg7g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi Martin
+BGMAC_RX_ALLOC_SIZE includes skb_shared_info and alignment space beyond
+the DMA receive buffer. An invalid completion length can pass that check
+and reach skb_put() with more data than the skb tailroom permits.
 
- >> +properties:
- >> +  compatible:
- >> +    oneOf:
- >> +      - const: amlogic,gxbb-audin
- >> +      - items:
- >> +          - const: amlogic,gxl-audin
- >> +          - const: amlogic,gxbb-audin
- >  From what I can tell it's even amlogic,meson8-audin compatible.
- > Although I didn't have the time to test in on hardware yet.
- >
+Limit received frames to BGMAC_RX_MAX_FRAME_SIZE and reject lengths too
+short for the FCS subtraction. Keep invalid DMA completions visible
+through rate-limited diagnostics and RX error counters.
 
-Thanks for catching it!
-Any testing is more than welcome. I don't have that board at home and, 
-based on my quick search, it seems not super easy to find one these days.
+Fixes: 6a6c708469c9 ("bgmac: add check for oversized packets")
 
- > [...]
- >> +    audio-controller@a000 {
- >> +      compatible = "amlogic,gxbb-audin";
- >> +      reg = <0xa000 0x148>;
- > I believe the audin registers are 0x300 wide.
- > Both, GXL datasheet [0] page 43 and GXM datasheet [1] page 48 claim
- > that the register area is 0x100 wide.
- > The last documented register with AUDIN_ prefix is AUDIN_FIFO2_PIO_RDH
- > = 0xb8. The datasheet [0] (page 395) lists register numbers divided by
- > 4, so to get the actual address in the memory map we need to multiply
- > it by 4, which gives 0x2e0.
- > The 32-bit SoC vendor kernel [2] has a header that states: #define
- > AUDIN_ADDR_END 0x28bf (same as in datasheet, we need to multiply this
- > by 4).
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+---
+ drivers/net/ethernet/broadcom/bgmac.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-I know that the register layout in these SoC is a bit messy, so let me 
-explain how I got to the 0x148 that I wrote above.
-
-When working at this driver I used the S095 and S905X manuals that I 
-found online, but based on the link you shared for the S912, I would say 
-it's the same when it comes to AUDIN.
-
-Using [0] as reference, the highest register being mentioned in the 
-AUDIN chapter is AUD_RESAMPLE_STATUS whose offset is 0x304 (i.e. 0xc1 * 
-4). However I noticed that before that there are a lot of registers 
-whose name doesn't start with AUDIN_, but rather with AUDOUT_, PCMOUT_, 
-PCMIN_.
-The first contiguous block of AUDIN_ stops at AUDIN_FIFO_INT which is 
-0x148 (= 0x52 * 4). The other AUDIN_ block you mentioned is between 
-AUDIN_FIFO0_PIO_STS (at 0x2c0) and AUDIN_FIFO2_PIO_RDH (at 0x2e0).
-
- > I'm bringing this up because dt-bindings are supposed to be complete.
- > So even if the driver doesn't use a resource yet we're supposed to
- > still describe it.
-
-I perfectly agree with this, but at the same time I thought that 
-including registers which potentially do not belong to AUDIN was 
-dangerous in the other direction, i.e. we cover a too large area that 
-will be hard to use in the future if/when we want to use it and we 
-realize it's really not part of AUDIN.
-
- > I don't see any additional resources that we'd need to describe and
- > #sound-dai-cells allows adding the additional SPDIF input later.
-
-That's exactly why I cut the range at 0x148: that seems to be enough to 
-implement what we need for I2S/SPDIF audio input.
-
-Honestly I don't understand what the second range 0x2c0-0x2e0 stands for 
-as it's not described in the manual. For sake of curiosity I just tried 
-looking into the Hardkernel kernel for Odroid C2 [0] but I didn't find 
-any usage of AUDIN_FIFO0_PIO_xxx registers.
-So my question is: are we sure we really need them?
-
-[0] https://github.com/hardkernel/linux.git - branch 'odroidc2-3.14.y'
-
- >  From what I saw in the registers there's also the possibility to send
- > the input signal to AUDIN but I couldn't find any additional resources
- > we'd need to describe in the dt-bindings for this.
- >
- >
- >
- > [0] 
-https://dl.khadas.com/products/vim1/datasheet/s905x-datasheet-v0.3.pdf
- > [1] https://dl.khadas.com/products/vim2/datasheet/s912-datasheet.pdf
- > [2] 
-https://github.com/endlessm/linux-meson/blob/d6e13c220931110fe676ede6da69fc61a7cb04b6/arch/arm/mach-meson8/include/mach/register.h#L2274
-
-Best regards,
-
+diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
+index 9ef239bc487d..1c502bd64d7d 100644
+--- a/drivers/net/ethernet/broadcom/bgmac.c
++++ b/drivers/net/ethernet/broadcom/bgmac.c
+@@ -457,10 +457,14 @@ static int bgmac_dma_rx_read(struct bgmac *bgmac, struct bgmac_dma_ring *ring,
+ 				break;
+ 			}
+ 
+-			if (len > BGMAC_RX_ALLOC_SIZE) {
++			/* The allocation also contains headroom and skb_shared_info;
++			 * only the mapped packet area may be supplied by the DMA.
++			 */
++			if (unlikely(len > BGMAC_RX_MAX_FRAME_SIZE || len < ETH_FCS_LEN)) {
+ 				if (net_ratelimit())
+-					netdev_err(bgmac->net_dev, "Found oversized packet at slot %d, DMA issue!\n",
+-						   ring->start);
++					netdev_err(bgmac->net_dev,
++						   "Invalid RX length %u at slot %d (flags %#x)\n",
++						   len, ring->start, flags);
+ 				put_page(virt_to_head_page(buf));
+ 				bgmac->net_dev->stats.rx_length_errors++;
+ 				bgmac->net_dev->stats.rx_errors++;
 -- 
-Valerio
+2.53.0
 
