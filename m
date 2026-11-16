@@ -1,71 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839837;
-	b=rm9BFW0TCxpVfK/YMQMRawuwVj+qmM7XDgAIH6D8FBwqtu8hX6Bas+WRRo5h2pGOWnJj
-	 QhRKkHBsF2NlxkAClRDDJUzpjOKoSrviMA8wvuGXW+aCqKnCAHY/1MjS0PCbePHD4sbZx
-	 RKagDXLxEc9vedxkWkJFp7Cf6pSwiqA+yMBJNHgiAlzPIFK35WGO6v4LOe5W8GlGBeHhI
-	 YyOz9awT1JDHVsBB7qZXM1q3N8jHiogIhCnQPAfgN0fMa/6ExUb2SSVDCkOH0fmSD7nEW
-	 zPWBRro8zopx4MV3dJR6mof+NK5kZ6/P7FdzzLF2GbFUVsEQ26YmBG/BQIH4lcMQFLg==
+	t=1794839911;
+	b=uNIr80hwP4monjM4wWf/1wLcdhIDs84pkntJK7hNS4kRrcskLUryqA51mc0p1aFRN0N2
+	 89zLyA/vZhShkcVO1BDNZUU/+X4Ut5dAAY79uTZg+DpLAyvBw/Ml8P2OTfucDSavb/575
+	 pVlJalPQUjhlYKuV2qBHSwFl/nV8fLCIEhxwcsaLYIS4QVEBnbtPV4vq5WtuqiQ+LHrYd
+	 gVCJp/7jvGTnqZyyEM4H/KqM1062mzQr/9hfZOESpOqrdvwyEX44lkDFHa2+c2sYR0aKt
+	 rq3mMUNx1Zqt78+6udXrHvu4eQDUfkQ67DMcmzn9yuNSh4tnW4LwKO4dyrEtKo5bHfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839837;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=7hSHlaQM1lE+i4LuhiemUki7VOefUOHjVjA72bigLyU=;
-	b=3hicvBVAEIu3vZjKb0xGAklRk2g6Kbr0P+GkUq3Ha6+1G6ofFFF15lA5A5jlGr1vemiT
-	 qCezoBfqsGw6gs54siYpOcUSy2IkCn71s/iwFHeC5dy8lrYKEnM5U0GRY2ghIJTmHZl4c
-	 EaY8l4NnuueYPjLqem9VN0oohsCQAAkpQTF0iMhHkeN9RkK5dkQPY8Vmq68WFIb6M/6BE
-	 /3PsyXB0UeoXLlqLwAFvRdzbIaTGS7HnY5/+LObthRLqGAao3pUeMP+oAPSoJXlzwYqVx
-	 FZU6EpW7XOMTYUkh5OOnK52dhuDdR9l0LTISvhCCHc7dAXS1JnNX0+6ff7shX9/Y94g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839911;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=AB+oE85rBz3kYmqVCq+Wu2uFRwaOKmFVZVyN/Ci/tK8=;
+	b=3HNlb/yL661OXOmsQ+eN91oepK2VLxzHx1tcRYI/VwxGyrK5lN1Zw07IvICAoJ4LeEzb
+	 KeouJzRGKY6nsKHsbvv2WUQgSbwv+Ko26R70085wh3c9lkzRz6UUs8ZPSVf3R4n4Ukpj/
+	 b1SvwVuOg7172RVqJmff7YEXWLoRo1WcwFKcyRSBSdQ/WOTwSiPeITTWjyEmhQcX7nPNQ
+	 EBrw1HMY3MIoU0Cv5DmX1rDe2LhzvVnGB1bUBNX08OD3mSnQvy79xeo5FjNPohzFGDTIK
+	 hUTQNFOL+Q6m7XqqfkazmTe4oOjiM6Fe17aGsA7BN8ZfUjl9Thj0PfhV+eXc4M2QgRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=VCMEJvEX;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="H/vP6umn";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6267606A881
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:37:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6267606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A62606A32F
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:38:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=VCMEJvEX
-Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
-	by cmsmtp with ESMTPS
-	id Sx0lxO66L4vCDSxpbxBoYW; Mon, 16 Nov 2026 14:37:15 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Sxpax8JIDxmi7SxpbxEaBR; Mon, 16 Nov 2026 14:37:15 +0000
-X-Authority-Analysis: v=2.4 cv=KuFN2XWN c=1 sm=1 tr=0 ts=6afb151b
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=K-vJ0q7JDzK1tjjCEHQA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=7hSHlaQM1lE+i4LuhiemUki7VOefUOHjVjA72bigLyU=; b=VCMEJvEXEmxO
-	4lb+xiR/cupcXfpnF7Kng96OOxsR1PaDSsOJWf12RN+rM0PwJ3paXLe4172J6u8yUJNt+35kyqWhM
-	VN6k8AHVQcaSAXGhCbplwkLFIqLZMMwdXk3tp6H8E7Z+/JLEQaOh5kz6/H0YhqqW6xI6/ApztBZ7j
-	a3ljMJ5j+LDSMADSX+03RfHuijSUJOo2+jLoJcHuaePi1695VPrMJ9QkcBMZoqQxjGJF3FxJSwW8A
-	YT7UFQDsUCwnoAL0+NzEslFJOA4GHWBrQccKBxG6qVy46KAGwB6J6pFbGvVmMmKYTEtcD04IvLobQ
-	l5JKWXhQJET2YPh11JpPlg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:36996)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSxpZ-00000003vvt-2Nii;
-	Mon, 16 Nov 2026 20:07:13 +0530
-Message-ID: <65280967-46b2-4c72-b9b4-0308ad8887eb@roeck-us.net>
-Date: Mon, 16 Nov 2026 06:37:11 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H/vP6umn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30A71F000D0
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:38:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794839910;
+	bh=AB+oE85rBz3kYmqVCq+Wu2uFRwaOKmFVZVyN/Ci/tK8=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=H/vP6umnpg8doI5lkkWefq+xXfyvGElZk8fQLWEIscLnlwSeBgmYHRXZxcPyPbakk
+	 K4h/NnosT92GjGhxzcv1UGNmTNRlgHog2mDzmAqP4h+FL7Bka3t3W2pP9wWnS9B/k/
+	 3/UXDvz9qLBS8asJOU1YAmNtDJAOXtSlqJ1CK7ocsdl6blwRi78YtUfGmofT/EE/ET
+	 UM5SEV+m91UMb478Z8XVpg0MJFfpLcWetufctlmvhOVW8lpW4zjNfgpksVpUtS3Eu1
+	 U236iqOy/gQKIyH5MMwVCkj5XDreYY+zRQhf9wSJuWxMwAiBQwJfeldLqsPTe+OkXk
+	 oT1aPMz5L8RhQ==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5c14470729eso2961302e87.2
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 06:38:30 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGxgKO+HJLzFnoMAUohfGuJWC7UUosv/y0pvTTPsgkwR2CLUpCN/OV1X7ucWkiHVseDl5iu4O8PZVyC@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WIWrGRQM1tZamDvgT3uRFLPo4zSoKC9GPoVyVYndwMxkTS13W
+	4NbpF+0xsAjWLevj93xPMaqoorn+cFu1bZeprZzR0jeOFz3Abtznkz5dhw13uxITRpGcs+c7Alq
+	Z6nSogNKthM7jaMIMPLN2aBxWdRGYVxs=
+X-Received: by 2002:a05:6512:2204:b0:5c1:5984:a67e with SMTP id
+ 2adb3069b0e04-5c170b7e0bbmr4090987e87.56.1794839909219; Mon, 16 Nov 2026
+ 06:38:29 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,111 +59,151 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/15] Update watchdogs support on STM32MP platforms
-To: Antonio Borneo <antonio.borneo@foss.st.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: linux-watchdog@vger.kernel.org,
- =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
- Amelie Delaunay <amelie.delaunay@foss.st.com>,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261116132416.1184447-1-antonio.borneo@foss.st.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261116132416.1184447-1-antonio.borneo@foss.st.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSxpZ-00000003vvt-2Nii
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:36996
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 103
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfHT4MMrs2hUq9tV9Zh+wN+TSvUo+44wWXnf/gw4kLUtypuoH/84xQPQSNZGCLXsAw+CnPVUzz4702Z5GXfOUm6afnyc9xVisMAHmSGwj2qu/UxeTlSsz
- l8JXrmxPdsJF0EoFB4ycFXoikrassnDTfsgtHRIAVnfgXwSz1M0BfzS/j9VChughWvHdfZHnsY0YLCZfLm4OTeV7JT2oxkKwo/id+DNbxAAdvgaTpj3fxydK
+References: <20261026-sunxi-orangepi-3-lts-v3-0-98fef4f75184@gmail.com>
+ <20261026-sunxi-orangepi-3-lts-v3-2-98fef4f75184@gmail.com>
+ <CAGb2v65eCotQPfnFsj6XfExs=ybE+xPWMFUhC9DFJRehfv7XAQ@mail.gmail.com> <CAH87RzSWDuiA9w8-ZkZXjVmQ_3EbRGKu8dKUzBf=KhNJHZFgjA@mail.gmail.com>
+In-Reply-To: <CAH87RzSWDuiA9w8-ZkZXjVmQ_3EbRGKu8dKUzBf=KhNJHZFgjA@mail.gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Mon, 16 Nov 2026 22:38:15 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64Fd4ZN7fbTwcz45wK4Sc=hD10gjaVCYgW+HDa8O7W7_w@mail.gmail.com>
+X-Gm-Features: AclHuK96KoHqco8_GcNqfELYX9slSpaQgkQilXtuce9_buWQRgFm-Lbh0tQJI6I
+Message-ID: <CAGb2v64Fd4ZN7fbTwcz45wK4Sc=hD10gjaVCYgW+HDa8O7W7_w@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
+To: Cristian Filipescu <filipescu.cristian@gmail.com>
+Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Andre Przywara <andre.przywara@arm.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/16/26 05:24, Antonio Borneo wrote:
-> This series allows the stm32_iwdg watchdog driver to determine
-> whether the watchdog is already running and adds support for
-> STM32MP2xx devices.
-> 
-> It also completes and rationalizes the configuration of secure and
-> non-secure watchdogs across STM32MP devices and ST boards.
-> 
-> For STM32MP1xx devices, it enables the ARM SMC watchdog driver in
-> the machine Kconfig.
-> 
+On Mon, Nov 16, 2026 at 7:47=E2=80=AFAM Cristian Filipescu
+<filipescu.cristian@gmail.com> wrote:
+>
+> Hi Chen-Yu,
+>
+> On Sun, Nov 15, 2026 at 3:14=E2=80=AFAM Chen-Yu Tsai <wens@kernel.org> wr=
+ote:
+> >
+> > On Tue, Oct 27, 2026 at 7:34=E2=80=AFAM Cristian Filipescu via B4 Relay
+> > <devnull+filipescu.cristian.gmail.com@kernel.org> wrote:
+> > >
+> > > From: Jernej Skrabec <jernej.skrabec@gmail.com>
+> > >
+> > > Add the board description for the Allwinner H6-based Orange Pi 3 LTS,
+> > > including its regulators, storage, Ethernet PHY, LEDs and USB ports.
+> > >
+> > > Specify the Motorcomm YT8531C PHY ID to avoid early ID autodetection,
+> > > which failed on MAC driver rebind. Reset the sole PHY at MDIO bus
+> > > registration and keep reset outside interface detach so its configure=
+d
+> > > 125 MHz clock output is retained. Use PHY-internal RGMII delays.
+> > >
+> > > Select the weakest GPIO drive level for both LEDs. Enable 1.8 V eMMC
+> > > DDR52 and HS200 modes; retain the H6 maximum frequency of 150 MHz.
+> > >
+> > > Link: https://lore.kernel.org/linux-sunxi/20250413134318.66681-3-jern=
+ej.skrabec@gmail.com/
+> > > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> > > Signed-off-by: Cristian Filipescu <filipescu.cristian@gmail.com>
+> > > ---
+> > >  arch/arm64/boot/dts/allwinner/Makefile             |   1 +
+> > >  .../dts/allwinner/sun50i-h6-orangepi-3-lts.dts     | 379 +++++++++++=
+++++++++++
+> > >  2 files changed, 380 insertions(+)
+> > >
+> > > diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot=
+/dts/allwinner/Makefile
+> > > index aa21f58a4..7ea136380 100644
+> > > --- a/arch/arm64/boot/dts/allwinner/Makefile
+> > > +++ b/arch/arm64/boot/dts/allwinner/Makefile
+> > > @@ -41,6 +41,7 @@ dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-ze=
+ro-plus.dtb
+> > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-zero-plus2.dtb
+> > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-beelink-gs1.dtb
+> > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3.dtb
+> > > +dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3-lts.dtb
+> > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-lite2.dtb
+> > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-one-plus.dtb
+> > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-pine-h64.dtb
+> > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.d=
+ts b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
+> > > new file mode 100644
+> > > index 000000000..e2ca41b94
+> > > --- /dev/null
+> > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
+> > > @@ -0,0 +1,379 @@
+> > > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> > > +// Copyright (C) 2025 Jernej Skrabec <jernej.skrabec@gmail.com>
+> > > +// Based on sun50i-h6-orangepi-3.dts, which is:
+> > > +// Copyright (C) 2019 Ond=C5=99ej Jirman <megous@megous.com>
+> >
+> > We now have a common sun50i-h6-orangepi.dtsi file. You really should
+> > rewrite this patch to just use that as a base.  It is mostly the same
+> > across all the OrangePi H6 boards.
+>
+> v4 now uses that include and keeps the LTS-specific additions
+> and overrides. I compared the resolved DTBs to check the inherited
+> properties and preserved the LTS electrical settings, except for the
+> review changes described below. Common naming cleanups are deferred.
 
-Applied: watchdog: stm32_iwdg: set driver data before requesting interrupt
-Applied: watchdog: stm32_iwdg: serialize accesses to EWCR register
-Applied: watchdog: stm32_iwdg: get hardware version during probe
-Applied: watchdog: stm32_iwdg: detect whether the watchdog is running
-Applied: watchdog: stm32_iwdg: add pretimeout support for iwdg v4.0
+[...]
 
-Thanks,
-Guenter
+> > Set the supply on all cores.
+>
+> Done. All four running CPU nodes reference DCDCA, and all four CPUs are
+> online with the shared cpufreq policy.
 
+I should've mentioned that since this is already enabled at the .dtsi
+level, you shouldn't add it anymore. If anything, it's the .dtsi file
+that should have all cores referencing the regulator.
+
+[...]
+
+> > > +&mmc1 {
+> > > +       vmmc-supply =3D <&reg_wifi_3v3>;
+> > > +       vqmmc-supply =3D <&reg_bldo3>;
+> >
+> > Something is fishy here. The schematic also shows vcc-wifi-io (on the a=
+w859
+> > side) directly derived from vcc-wifi (reg_wifi_3v3). I suggest at least
+> > checking with a multimeter to confirm what the voltage is on the VDDIO
+> > pin of the module.
+> >
+>
+> Regarding the AW859A I/O supply, I traced U60 pin 22 (VDDIO) to
+> VCC-WIFI-IO, which is connected to BLDO3 in the schematic. I measured
+> 1.8 V at an RW1 pad relative to board ground. This supports keeping the
+> existing BLDO3 vqmmc assignment; I have left it unchanged.
+
+You traced it on the board or on the schematic?
+
+Can you test at U60? The schematic has two options for I/O voltage from
+the LDOs, and then another from VCC-WIFI, hence I would like to be
+certain. I imagine the SMT components aren't labeled on the board, so
+it would be somewhat hard / eye-hurting to trace the board directly.
+
+[...]
+
+> > > +&usb2otg {
+> > > +       dr_mode =3D "host";
+> > > +       status =3D "okay";
+> > > +};
+> > > +
+> > > +&usb2phy {
+> > > +       usb0_id_det-gpios =3D <&pio 2 15 GPIO_ACTIVE_HIGH>; /* PC15 *=
+/
+> >
+> > This isn't connected to anything but a pull-up. And you already specifi=
+ed
+> > host mode only above.
+>
+> Removed usb0_id_det-gpios with /delete-property/ so the common include's
+> PC6 setting is removed too. USB0 remains fixed to host mode. The running
+> DT confirms the ID GPIO property is absent and dr_mode is host.
+
+Thanks!
+ChenYu
