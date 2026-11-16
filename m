@@ -1,63 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.128.198.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802192;
-	b=tk3othJZE+6eR3p4M72oPnn0G1G/lsTaajl7TzPjfFxS5niWHpLiwwwNploL/L8pQtS8
-	 V3RJdekPv179jWY6mO+W0MQQ+25cJd9HIjr9LW+dQR7K4TFxfm+lCB79tay7IFR3/qNN2
-	 tnZN+1ZY/upXlZWzUMy+1c/ZvfWqHijeiShfRYw4F56d8RsZU0VyK4d1/fE/hrPhHMMQt
-	 nQX58jLSAaHBtKz6lBTCWCo9JAsSIVhdwy2o0UxIbL4r1vA+bR5t/qoI7QUNM5AF9Sipq
-	 grZN5mO2Ylv9nuNg76UMr0gKGttgKsjp9uFtFYli6ydPlBERtVbwRdVDLvAc4b9qIcA==
+	t=1794802347;
+	b=o2rEg3OT9DOjeLOCqyJCLvfvcKk5iLmChrs7sBAgYm/vVRelSWSP6ClCOdzyNUR04ZW0
+	 9I+WEHQBd6VYChB8rccFOVolu6CAuxfx/WUuuaHyWugIgB9lw36azomtsstZcVFDzvaKW
+	 mNM7iim/jDVTbYFFgM5BSRGGNbdXrLJrSAV2+/30jxyoLEjYT/Nq6V3PqYIGIE/jUFsyk
+	 WWaqEvA2iIVcaY213zKcR7ATcO3PHL32Y1MGqIEVEeKC9NzBfo9FHmEXhvx7HHwcvsmQ9
+	 kZ+hscRR+T7wZ7XjjBsYMkLsEjPIujVHZJ7VewBhGk2gb71HZVFEAF4JuUz+wEOi9Qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802192;
-	h=DMARC-Filter:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-DKIM-Results:X-DNSRBL:X-SPAM-SOURCE-CHECK:X-MAIL;
-	bh=pZZX6BmLi6Dauf64Y3wJVPnB5bVdPUDvzyAyi7x0gjI=;
-	b=juXstPl5iESpB7s6VzJNCNw17Nsrg0O5WydUr1C2ZOj0129pOIIv53OM0I4xIlgmJ8gr
-	 UMt07+/SA9JrFbNRXU61rPJLVkzvGs2/EibCznAKbvKXVHKTHf9V7jZy0Pv/nP2QKUByv
-	 ANDnjCzGISfbuwOhnpRw2EJmXxPWOA1p88dyZkEkcIYn2g1ajanSrpfTreg2O4UphGEXL
-	 MSrULimMY660TbRhr9oJq4oC7ibj0nWfGijSHwJXt82nSO6oRzWIv+Wxz5pDsszzp8cOo
-	 0HwqVv7QOqNygnwHQIQ6Ciyv8BmTxBX9CI4tggkgdhz37z9PJrGCpK9becuTafUv3rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802347;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=P6MXyLorrEi2Q6poZtanQJsUY+XSMKVdKruJnDJpfew=;
+	b=BusAeQDGo68q4A+IvjyT08eL68HzoGDSy4L40Fzh2ktrkR2KrGv0mirQNcZLCs6P6Nir
+	 WTWAodSYNkYZDr/fgDSTK5v6qK0BPCIFa7Ue+di23bAJycsCTrRlFXCgEeYMYtP07PScy
+	 Yv7ZWAXElEF+i65wYQITXZukgqdZvRUu/T4JPdFfol7fgwC8AIRY2NgTMKtWJbqA2SrzZ
+	 D8NHjBeEFdhxUu9IAr5CwF4ILdoAI5CPygydTGZ15EUGo0TreErrMrIz+4fzmQGuMFN40
+	 HYtiZN8MbqIJfLk8XaBsYY3vzuqS6XPPLfxwsQ7pjtFo++jzFsgT2v+Ai6wh9zerPJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=andestech.com;
-	spf=pass smtp.mailfrom=andestech.com;
-	arc=none smtp.remote-ip=220.128.198.184
-Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sq32BQPw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679BF606A323
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 04:09:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 679BF606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
-Received: from mail.andestech.com (atcpcs53.andestech.com [10.0.1.153])
-	by Atcsqr.andestech.com with ESMTPS id 6AG49cbq084379
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 16 Nov 2026 12:09:38 +0800 (+08)
-	(envelope-from cl634@andestech.com)
-Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs53.andestech.com
- (10.0.1.153) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Mon, 16 Nov
- 2026 12:09:38 +0800
-Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
- (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 16 Nov
- 2026 12:09:38 +0800
-From: CL Wang <cl634@andestech.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-CC: CL Wang <cl634@andestech.com>, <linux-gpio@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <tim609@andestech.com>
-Subject: [PATCH 3/3] MAINTAINERS: Add entry for Andes ATCGPIO100 GPIO
-Date: Mon, 16 Nov 2026 12:09:14 +0800
-Message-ID: <20261116040914.368298-4-cl634@andestech.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116040914.368298-1-cl634@andestech.com>
-References: <20261116040914.368298-1-cl634@andestech.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDEC606A31C;
+	Mon, 16 Nov 2026 04:12:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sq32BQPw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A0B1F000C4;
+	Mon, 16 Nov 2026 04:12:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794802347;
+	bh=P6MXyLorrEi2Q6poZtanQJsUY+XSMKVdKruJnDJpfew=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Sq32BQPw4RrZOevkYexKbQFHBwyonASywftHViXVbbXPXczpj3lp3xN6jwNdn9NI7
+	 KsZ78/YodpQkXSuyZbrbgfL0ek4SKzBI2WMTe9zS8FmZG/XIpNtxu1Yj1cOXQz8HCp
+	 1iyQxWBVHDyZktkJR/g0DVZCTPToggHpavQGKrleaXS1GbJbA4q+GM0pIErB1Er17Z
+	 LN+mp4SMbUaLJr0aNK+GFcIPbXt/vH2za8HvaFP3oC+mE4PTL5lzNIEhI4PnOe7rJG
+	 n3puxhsjA1sJoLICYh5/Nc4Xr9AzYxUayeGgTMrzYMxYtYDGz4bDti/DN2e1Y8NdTW
+	 xmTFtuVGFRQuw==
+Subject: Re: [PATCH net-next v5 1/6] net: xilinx: axienet: Introduce
+ axienet_config for MAC-specific ops
+From: netdev-bot+sashiko@kernel.org
+To: suraj.gupta2@amd.com
+Cc: radhey.shyam.pandey@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, michal.simek@amd.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 04:12:26 +0000
+Message-ID: <179480234612.3136.14924278307079342368@kernel.org>
+In-Reply-To: <20261114182947.2908628-2-suraj.gupta2@amd.com>
+References: <20261114182947.2908628-2-suraj.gupta2@amd.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,39 +65,172 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
- ATCPCS34.andestech.com (10.0.1.134)
-X-DKIM-Results: atcpcs53.andestech.com; dkim=none;
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:Atcsqr.andestech.com 6AG49cbq084379
 
-Add MAINTAINERS entry for the Andes ATCGPIO100 GPIO controller driver.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Signed-off-by: CL Wang <cl634@andestech.com>
----
- MAINTAINERS | 6 ++++++
- 1 file changed, 6 insertions(+)
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 222b7fc2c3aa..ba1930a37596 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2042,6 +2042,12 @@ S:	Supported
- F:	drivers/clk/analogbits/*
- F:	include/linux/clk/analogbits*
- 
-+ANDES ATCGPIO100 GPIO DRIVER
-+M:	CL Wang <cl634@andestech.com>
-+S:	Supported
-+F:	Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml
-+F:	drivers/gpio/gpio-atcgpio100.c
-+
- ANDES ATCSPI200 SPI DRIVER
- M:	CL Wang <cl634@andestech.com>
- S:	Supported
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] net: xilinx: axienet: axienet_probe() fails on software-node
+  devices
+- [Medium] This commit is presented as a no-functional-change refactor,
+  but it also contains a real fix for a NULL pointer dereference.
+
+--
+
+net: xilinx: axienet: Introduce axienet_config for MAC-specific ops
+
+This commit adds struct axienet_config, which holds MAC capability flags
+and MAC-specific callbacks. It is filled in from the OF match table, and
+the shared 1G code paths now use it. It also puts a NULL check on
+lp->mii_bus around the MDIO teardown in axienet_remove().
+
+> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> index 7e83c4b5f1931..125ad3dbf6aa9 100644
+> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+
+[ ... ]
+
+> @@ -3149,10 +3297,12 @@ static int axienet_probe(struct platform_device *pdev)
+>  	lp->tx_dma_cr = axienet_calc_cr(lp, XAXIDMA_DFT_TX_THRESHOLD,
+>  					XAXIDMA_DFT_TX_USEC);
+>  
+> -	ret = axienet_mdio_setup(lp);
+> -	if (ret)
+> -		dev_warn(&pdev->dev,
+> -			 "error registering MDIO bus: %d\n", ret);
+> +	if (lp->axienet_config->mdio) {
+> +		ret = axienet_mdio_setup(lp);
+> +		if (ret)
+> +			dev_warn(&pdev->dev,
+> +				 "error registering MDIO bus: %d\n", ret);
+> +	}
+>  
+>  	if (lp->phy_mode == PHY_INTERFACE_MODE_SGMII ||
+>  	    lp->phy_mode == PHY_INTERFACE_MODE_1000BASEX) {
+
+[ ... ]
+
+> @@ -3235,7 +3383,8 @@ static void axienet_remove(struct platform_device *pdev)
+>  	if (lp->pcs_phy)
+>  		put_device(&lp->pcs_phy->dev);
+>  
+> -	axienet_mdio_teardown(lp);
+> +	if (lp->mii_bus)
+> +		axienet_mdio_teardown(lp);
+>  }
+
+[Severity: Medium]
+Could this NULL check go to net as its own fix, with a Fixes: tag and
+Cc: stable, and this refactor then be based on it?
+
+Without the guard, the current 1G driver can oops on unbind. Every
+failure path in axienet_mdio_setup() frees the bus and sets lp->mii_bus
+to NULL. The failure paths are an MDC divisor overflow, a timeout in
+axienet_mdio_wait_until_ready(), and a failed of_mdiobus_register():
+
+drivers/net/ethernet/xilinx/xilinx_axienet_mdio.c:axienet_mdio_setup() {
+    ...
+unregister:
+	of_node_put(mdio_node);
+	mdiobus_free(bus);
+	lp->mii_bus = NULL;
+	return ret;
+}
+
+axienet_probe() only warns and continues, so the device binds with
+lp->mii_bus == NULL. Then, on unbind or remove:
+
+axienet_remove()
+  axienet_mdio_teardown(lp)
+    mdiobus_unregister(lp->mii_bus)
+      reads bus->state on a NULL bus
+
+The commit message already describes this:
+
+  It also hardens the existing 1G path: a failed
+  axienet_mdio_setup() already left lp->mii_bus NULL while probe only warns
+  and continues (e.g. a 1G device using a fixed-link), so unbinding such a
+  device would dereference NULL in mdiobus_unregister().
+
+The fix is part of a large refactor and has no Fixes: tag, so stable and
+LTS kernels can't backport it. No other patch in the series carries it
+on its own. Two candidates for the Fixes: tag are the commit that made
+MDIO setup failure non-fatal in probe and the commit that clears
+lp->mii_bus on failure.
+
+[ ... ]
+
+> @@ -2894,27 +3042,13 @@ static int axienet_probe(struct platform_device *pdev)
+>  	seqcount_mutex_init(&lp->hw_stats_seqcount, &lp->stats_lock);
+>  	INIT_DEFERRABLE_WORK(&lp->stats_work, axienet_refresh_stats);
+>  
+> -	lp->axi_clk = devm_clk_get_optional_enabled(&pdev->dev,
+> -						    "s_axi_lite_clk");
+> -	if (!lp->axi_clk) {
+> -		/* For backward compatibility, if named AXI clock is not present,
+> -		 * treat the first clock specified as the AXI clock.
+> -		 */
+> -		lp->axi_clk = devm_clk_get_optional_enabled(&pdev->dev, NULL);
+> -	}
+> -	if (IS_ERR(lp->axi_clk))
+> -		return dev_err_probe(&pdev->dev, PTR_ERR(lp->axi_clk),
+> -				     "could not get AXI clock\n");
+> -
+> -	lp->misc_clks[0].id = "axis_clk";
+> -	lp->misc_clks[1].id = "ref_clk";
+> -	lp->misc_clks[2].id = "mgt_clk";
+> +	lp->axienet_config = device_get_match_data(&pdev->dev);
+> +	if (!lp->axienet_config)
+> +		return -ENODEV;
+>  
+> -	ret = devm_clk_bulk_get_optional_enable(&pdev->dev, XAE_NUM_MISC_CLOCKS,
+> -						lp->misc_clks);
+> +	ret = lp->axienet_config->clk_init(lp);
+>  	if (ret)
+> -		return dev_err_probe(&pdev->dev, ret,
+> -				     "could not get/enable misc. clocks\n");
+> +		return ret;
+>  
+>  	/* Map device registers */
+>  	lp->regs = devm_platform_get_and_ioremap_resource(pdev, 0, &ethres);
+
+[Severity: High]
+This makes missing match data a hard probe failure. Doesn't that
+break devices that are not instantiated from DT?
+
+device_get_match_data() only asks the device's fwnode, through
+fwnode_call_ptr_op(dev_fwnode(dev), device_get_match_data, dev). For
+an OF node that resolves through axienet_of_match. software_node_ops
+does not implement .device_get_match_data, though, and axienet_driver
+has no id_table either.
+
+The driver still carries MODULE_ALIAS("platform:" AXIENET_DRIVER_NAME).
+Probe also reads its configuration through device_property_read_u32()
+and the fwnode helpers, so a parent driver can create the AXI Ethernet
+device by name with a software_node attached. The ptp_ocp TimeCard
+child device is one example. Such a device has no OF match, so
+device_get_match_data() returns NULL. axienet_probe() then returns
+-ENODEV before it touches the hardware. Before this patch the same
+device probed fine as a 1G MAC.
+
+The commit message says no functional change is intended for the
+existing 1G path, and this is one. As far as I can see the later
+patches in the series keep this lookup as is, so the regression is
+still there at the end of the series.
+
+Since every device bound by name today is a 1G MAC, would it be enough
+to fall back to &axienet_1g_config when device_get_match_data() returns
+NULL? Or would you rather add a platform_device_id table whose
+driver_data points at axienet_1g_config, and have probe use
+platform_get_device_id() when there is no fwnode match data?
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114182947.2908628-1-suraj.gupta2%40amd.com
