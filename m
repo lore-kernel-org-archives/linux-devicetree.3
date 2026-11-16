@@ -1,53 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794871081;
-	b=xNepE5gxKiE1lpds0C8CWm6+kpItgzpVCOK9cE+5u8VX+RxSM7vdbfkyXnmSruDisGeP
-	 Xilr3n163lcobwel7BN64wtNm+RhiCf7XaINQp8Tk+9lOko00cjsCED+gKk8DF14RmY+V
-	 sdql8U8h6lnhB8ECwz+WOsZiXjgU9OXAToK7uAzw7s/KWyhokg0zZUkXAVBUqAHHvV3Lk
-	 sOBBHWVrQFZfKMNyv3di0pkWS4gj0yftkrBn4bE7PdiSKojBn8QvER9L4G2uet9uqVVXH
-	 zfrFp8a7qNy0CtGZvPpXKiXUQOTlCZr40hwlbzvnqqVg3hwsn7Egn+ZElHnpPtL/kQg==
+	t=1794871954;
+	b=bO5gFWtGJ19eYjnHTooR/biyH4TSNmNGp96GE7HpF+fmcaOmG/sZBmMrcccIMpm7gA1H
+	 bJr6liXPODfqvTuPo/yy6dN+PpzVZiDaK1e3BwfNsEGYqAHy9wvQQ9ncUS1RguO6Cz8KH
+	 /RK+0EVsQfromdCPQKT5uHdHQ7a7Ju1mIOCVQkWdgIetbq5pulaiNoBmTLpGhQ91xy6NQ
+	 4I/CwsMoS3N6telBcYPyd2Zzk2vEYJdPr8l+BxA5RylwJRgf8cAoq0+8XEnWR9lAlUCji
+	 EKcr1BBRBCTT4SKf8t2AwQrjNXjRfw9E09ZjK/bv75Q7/VzdzD11X11asf6jJ8FVWKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794871081;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:Autocrypt:In-Reply-To:Content-Type;
-	bh=4/nuy4QglgrM0BuUt/UjkZOK+tfyppGGlKpZpa4QVN8=;
-	b=4m2N2ljjR8cZYKmNwN84aHZk67uGXVwmOhv89WIjgAddY1nLaDjxwwhvs7LmeaQUYNRT
-	 5K86FkWmeI61fNuwt2kF7hI9yZ6HKy+TuZg3KQ19SY880a4ar7MwQP3WCKkMqR69AiBiW
-	 ilh9TwxAMe0cYVGYQSQwU73AJrzNHwEex3RepcWaAxX8EPyGakvCsinD3gChN9DtOwccL
-	 ItIP7474taV8Nebm8sl5tBxvRpX8Zn+Iyf7GBYxYuJuIHxTrnKQjXx84LzNbyir7WdyI0
-	 de0Zkt7MiNRUSU7N5PVC2zjRxtgLz4feG34vNFQKAWXHsUvf+u0JoTL383LLFYkjvIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794871954;
+	h=Received:DKIM-Signature:From:To:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=axD6JuqYYkHzHzkkogAs5CL/17/Z9QAyU95DACYygPA=;
+	b=eO3LzKAqa8fd7MEpyP0c7+iYlqaELmq3w3UJLHG1AadwTRjdlYb/8qzjBSNuyAXOCEzh
+	 D0uJV7MrZZb9eTFeHFgRUIgDhNjdpGSFTAgdIWACsu0Xm+rDsDBJn2D/WySJiehaTAxAC
+	 DMQa4sVrCnldAEgegYXl3hwUjro9amzDfqX6Qsf0euExPtej6vxJnPea/s8GNKtxVjnGK
+	 f/9ffKccSm9EZlAHkbhPrbVR1b3MGdRgl5VTLbHvpRAv9q15UZXzTNT5A4AR138gKZP1+
+	 E4kXd3EUyk2yXTok2Aw3FXN4xffLdfe3F1MUERTlPOuNcC0Xf2Fdh0x8d5S4R4qm/ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=erebion.eu;
-	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b="5b/oyWaa";
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=VrGFOKpP;
-	arc=none smtp.remote-ip=142.132.183.134
-Received: from erebion.eu (erebion.eu [142.132.183.134])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmrF1IRU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6812606A323
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 23:18:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6812606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932C9606A31C;
+	Mon, 16 Nov 2026 23:32:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=5b/oyWaa;
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=VrGFOKpP
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1794871079; bh=4/nuy4QglgrM0BuUt/UjkZO
-	K+tfyppGGlKpZpa4QVN8=; b=5b/oyWaawPhz2OCaX82yN+RXBcTgWyGG0jAnOuWkvocioJQR7P
-	18uhC0WjZ94cmF96pMajDz0eYtziJS3lOFAA==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1794871079; bh=4/nuy4QglgrM0BuUt/UjkZO
-	K+tfyppGGlKpZpa4QVN8=; b=VrGFOKpPzJ0nHAqQRcbNSfi5bIWa4IwtOSfaKlUPckV/LFUq+A
-	nlKp0AHxVBgbi9hFj3gB7xSScOnOi2QSFSgG+Rj3SrjtI+L+MZzpYgslCGRG8nksOIua5mcnj5t
-	julvVmnrHiymKrf6ZIYlVnPPWbX51R6eIsZdzJtSSxsA7gfY0wYNScedmlqlVcD5+b45QkyN8u6
-	pBcjrKG0bn47QuDIMlBkU98b67H5ybZ8rf/I3kXtzsLRtnbtJNvsBeSY7HflkC3Fgch0XBuNpJT
-	sIh8t0eLZnMtDT7gsMBCAsNsCFnUMNi6WI04mza4nuLsqk+2cQkmUzu0xFtVfnyrT1Q==;
-Message-ID: <164d15e2-0716-42b2-a0cf-24c01920c3d3@erebion.eu>
-Date: Tue, 17 Nov 2026 00:17:58 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmrF1IRU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B29491F000C4;
+	Mon, 16 Nov 2026 23:32:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794871954;
+	bh=axD6JuqYYkHzHzkkogAs5CL/17/Z9QAyU95DACYygPA=;
+	h=From:To:In-Reply-To:References:Subject:Date;
+	b=SmrF1IRUbYwqe1+x6yB4Ez/4EaMOqP05/mxdGLEnNuvKAKoOsYGtm0z75f3Bqs+hk
+	 VM/l8fit9ynw9XP8rVSnF4YncYEakYzNUK3XeXFV4fYqyV1oXh6hx7Z4403cRJUecd
+	 eV2wA+zUzOWmTfr/hPBWVY/bYEZYf7V9qOPy5/irD0ABiejdGDKHs3eJToxh3ySwVc
+	 NwhmdqFRLM7oUHC3MuUr3YdZ/durabFO9HQTzwPqjnnmeIKwizF7N0nVrsLvzDolRc
+	 YTmsXB8rREUDdzlX3+UYgWC+ThWcwmcXXNbYA88NWmhLduMpTD9RMHU8bIQR+TXoU6
+	 LsZlbrsgbQZIQ==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Christian Marangi <ansuelsmth@gmail.com>
+In-Reply-To: <20261026101026.34318-1-ansuelsmth@gmail.com>
+References: <20261026101026.34318-1-ansuelsmth@gmail.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: an7581-afe: add support for reset
+ and secondary IRQ conf
+Message-Id: <179486030880.2504946.8819617613005483492.b4-ty@b4>
+Date: Mon, 16 Nov 2026 20:18:28 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,84 +61,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 05/12] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
- <20261116-pdx213-upstream-3-v5-5-7318a19806eb@erebion.eu>
- <sashiko-outbox-217853@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-217853@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------t6p4sJ0DekhsS7Y0qI4CcHYM"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1173; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=aGoCOZP/Q4l/zUrAd/k8dCC8y4drCbim83cX8HAtjrI=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+T+oL67Sf+a67bvIDOUHrhpW7AuRWngtX2Ppq8qIV1
+ vYp/ktudpSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiJrcY/orFTpRtaG7pLt30
+ o3cGs67hiq/Gq3wcwn6XB9qsyda7a8XwP8rqQoyFBLdQBHNos2Hw1lyNx3sXiCy9cOmwfPxKj6c
+ 7eQE=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------t6p4sJ0DekhsS7Y0qI4CcHYM
-Content-Type: multipart/mixed; boundary="------------0tZPo4lL8CnTFVY8TU3dQkrO";
- protected-headers="v1"; hp="clear"
-Message-ID: <164d15e2-0716-42b2-a0cf-24c01920c3d3@erebion.eu>
-Date: Tue, 17 Nov 2026 00:17:58 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 05/12] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
- <20261116-pdx213-upstream-3-v5-5-7318a19806eb@erebion.eu>
- <sashiko-outbox-217853@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-217853@kernel.org>
+On Mon, 26 Oct 2026 11:10:24 +0100, Christian Marangi wrote:
+> ASoC: dt-bindings: an7581-afe: add support for reset and secondary IRQ conf
 
---------------0tZPo4lL8CnTFVY8TU3dQkrO
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Applied to
 
-DQpPbiAxMS8xNy8yNiAwMDoxMSwgc2FzaGlrby1ib3RAa2VybmVsLm9yZyB3cm90ZToNCj4g
-VGhhbmsgeW91IGZvciB5b3VyIGNvbnRyaWJ1dGlvbiEgU2FzaGlrbyBBSSByZXZpZXcgZm91
-bmQgMSBwb3RlbnRpYWwNCj4gaXNzdWUgdG8gY29uc2lkZXI6DQo+IC0gW0hpZ2hdIGFybTY0
-OiBkdHM6IHFjb206IFNpZ25lZC1vZmYtYnkgYW5kIEF1dGhvciB1c2UgaGFuZGxlIGluc3Rl
-YWQNCj4gICAgb2YgcmVhbCBuYW1lDQpUaGF0IHdhcyBhbHJlYWR5IGRpc2N1c3NlZCBpbiB2
-MiBvZiB0aGlzIHBhdGNoIHNlcmllcy4NCg0KLS0gDQplcmViaW9uDQoNClhNUFA6IGVyZWJp
-b25AZXJlYmlvbi5ldQ0KDQpBY2NlcHRlZCBsYW5ndWFnZXM6IEdlcm1hbiwgRW5nbGlzaCwg
-U3dlZGlzaCwgTm9yd2VnaWFuLCBEYW5pc2gNCg0K
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
---------------0tZPo4lL8CnTFVY8TU3dQkrO--
+Thanks!
 
---------------t6p4sJ0DekhsS7Y0qI4CcHYM
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+[1/1] ASoC: dt-bindings: an7581-afe: add support for reset and secondary IRQ conf
+      https://git.kernel.org/broonie/sound/c/2efe1bb1edd3
 
------BEGIN PGP SIGNATURE-----
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCavuPJgUDAAAAAAAKCRCOr0AybgKufZkm
-AP9tgOKyWc8RQ71BtYVkEtcfvOh48aXD5lW0M7yQ0k27bwD+K05Tukdd8+tnQNcbd7p7yYs7Ba5F
-iNgokZsJVqEfwQg=
-=uLia
------END PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---------------t6p4sJ0DekhsS7Y0qI4CcHYM--
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
