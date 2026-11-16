@@ -1,89 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815453;
-	b=4eppqR0PFIAELzwBetJZxdzx0iel7ylkFenZU32735DIImMP5WoRMnkhaKpO3Yzr87dg
-	 5g1VO5xteFIL70zaqhyhCSMJ6CW7qH2hEkLd1ymOiSlzo/poI8aKfPcfbpIJaLMY+DQes
-	 MUwOvtykI1qzPax7+kCYVAUhynRZaohpxVyUv8vv8pBcG0eYE5J3ItPa/q3XJkFFzPia1
-	 CMEy+MHutTABDco8FjCOGeEZZ7V+zaxUS4TjJXknMzDtLWtWx3C+ABxY58IDJ8DfKS0tz
-	 YS5ZdRWmxuWXP7dtfRmMwIETCpB+Zq+N0BSIhjcIa6yuA/lW1y1HHNolw9Flrx2HU2Q==
+	t=1794815514;
+	b=Dde0UlONwXInrD7FpE8IYAjf2Pw6Kr9RFfQfqYzt5ncKFqUZSKexSCCbS2udIbcCxZiK
+	 nmqSmEl3Dn3hc77hVqm4an1dIdBOxuITnJxxoKYUoDZZ9moX7forj+Oenp7r4tCshtFcp
+	 55sHU5DH2IMyeqqzxRDzrrme06wiwrTaf9cIG85nD3ngQTHkNiWwYWqwO7vR74EYHdx7n
+	 yjYm774PjWuUDZ0JdQj3FXZMbKYdFbgD/c4kG9/q7aT3Jcm+YkbGBNRZeJp2Wng/Lh5lF
+	 M/tXohe9RVbkcj1y52gTuF1dwfQ/oGwO7ppI7V5OBc4MQi4+JbN0jx+gHXWZsCubiGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815453;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gBevyYkB+KqpxLupXF92krJAbcbx52iOwb7rRaPzSaU=;
-	b=EPUiJglEyLz6djDCytri8SW/OzNEbOghm4X2SNGG4qRKJrn7+8/3VsoDgl6Cfk6hcRM2
-	 lajH8b/XNM3Nlfg5eojieczewVS5CxlbTVt028jeObvuX6QQUPFHBoc2mYWSAdz1w2pu2
-	 OrUsFG5nRuKAS0Z6GKClXSvZO3EHOXkgCd5TzJ+Kez4HmfnhOh9Z5KA+F2aXJ6aE+O5cS
-	 wxUM5vIjjdI7Sb5F+AEU26MuJisM4g/8AozI1eXGrSam98MVOx9TgYLdbPqZ5eSAUY9hj
-	 J3h/b1uNFCNnQzlJTKGkuIcw/plnoz7fhFXTk7RlTuLGn64l4n0xYVNsbp39GVWwm6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794815514;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=a9/7nO64WjDLJVHdVVqjnU49C0kmZkm1LAp+YvEDPlo=;
+	b=i0fGXJ10mapdOr/W+5NgNJOJdJMrMDv/PHZHra7wzB3wnv9twvFbQIcAep5fOVCgzT7S
+	 6/ypCdSrUslLfqSXIn5e4DgGuh+sHgPE7qRK8LT/RTs+I7Y/h7DovCdNwWEj7lPA54/Wy
+	 rMS8+wiTVZ4nPplOekTyV+CdABx3cJPuPQ+iPNSpr/zygCfXTPqqSTMjQo9gf2BWcJAjm
+	 SuCojM6x9Ygax4imG8OCQdFjqDfZDIJH0H3NCXJltUdcM0sVVwJdJIVtWT6Ma+S5c4L98
+	 Do2aKtPWiir1LK9RKoRvPCLGO7yv/vJOlnnek37NFQ4/STli0UqZ7nzbs1a0QktWIAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=p3t64VCH;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="agfw/qAG";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C32D5606A32A
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:50:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C32D5606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4221606A31C
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:51:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=p3t64VCH
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4918c2d727fso1645592f8f.3
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 23:50:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794815451; x=1795420251; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gBevyYkB+KqpxLupXF92krJAbcbx52iOwb7rRaPzSaU=;
-        b=p3t64VCHuH0CfExDvDQNLTUnA8yJcL7hr2Su/honJPU3WAwc0Il6KYqHeHKAC6yBMU
-         KfyzitKrykfz2YNIXm77E/vj8iJ9e3AEEzgCStiYMfxV5tBBEh3XmE3CmTDH6jjgO9lx
-         1hHbHiKFJy8D+Zxa7X1X1RuYdYxDepNMWieAQAjYLv5cV4RtzpxvY/DLauQvOSKiOfZb
-         Tnky9PKiBOJccIsSjDsdtIQNWpo8BHyjw96wlDYE71UV+gCtACUwnhhnYUfsRjBhr2SD
-         YuX2Wt6A6tU+9PphYPz2oqzM7jGNZMvGCDMLTnlACJZsCruFSlim6C4qwpuGUYn6dinT
-         9vmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794815451; x=1795420251;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gBevyYkB+KqpxLupXF92krJAbcbx52iOwb7rRaPzSaU=;
-        b=iyixrNtnIOlU4oHzEv6i1+/z+CH4rvNGGDcyjQ9CUuIMu1kHwF++7XM0JVGOCruyOZ
-         U5OfVVtXqqcvV7hrfvX//IVf4rZVktWSzql6SjOKlf8NuH6Aphx2l0QXN+td7nYzsEHn
-         ylSNf6EKyTX0vP9X9jVLkNoIBaK3COxRsK7q5YSycFetgUKEGP6KjZIhxgiCK3Xy1DH5
-         AK/MAFwMOgJ7M23/hdjF5MmB+xDCsAgQe4LZQ7iwv7yjUm2HnHfDsPVuAJbSerj5YCW2
-         8mYrPjmGEVQfalA78kRX2i6I6MAdS1IrmszqzM3uZET8UfU3x/LNQEG9mav41/mvzcSd
-         Ug0A==
-X-Forwarded-Encrypted: i=1; AL+hErFUu65d2Uvpp9rizllefklRKr6x0pqKhAAFoo/on54Qr1mpv09rhnVtX8RO+IJLnWEVk2ulVuqN3Q1v@vger.kernel.org
-X-Gm-Message-State: APuU4Z86ZZZdWXm6YLiAZ/Jkq33DBv3lghqgeOoIQ5h+qCIv0vr9bwx8
-	wHjyWFvTLDlgShPumGAmzHcwQu0s8+NeIoUUpWkT95olxIpKf29XEvVa5ex6O/Qzows=
-X-Gm-Gg: AYBFou2Lmk8nE5VDwzPlGgd3aiXlAx/jBKhax02qrDi3RlwcY+m5LU84eNI2O9vdall
-	fcj9i5EKcNrd8+RXMI/cr3U4qbvaPPev2WhbXv8OsPnrkUkbev/aM6dL/IOxlDrfzIA7T+/lLZR
-	xdOS4UrHxnO2PYLS/69aGwXFiVsNhbUoKbaW10nScGNG5tyGV3s09ZIgUAgZievefMo0q9+I1hn
-	SdBYGQs204hm2zZljxtsJ3LKzjOj7NIdOUCa9q2eCEemyM0oSGr6rcb3XuPqgjGi8X8kv4+53cM
-	qECrGbX09AreJPBABP2YWg259yKhd5kBBaFWBk1rD7AhXjYG8Z1n498FfsJ2wrucio5fhhUEgK+
-	ZZXIQQiHkQMDBhk3BEYjR1YzSiMA44xSBIkMm6jlMTvyk0gwu6cDY33ecFr3kKojX8ZtaYDB5B2
-	lmxHTlFhNAbRotOLQCVulSNqe+c5GniBNxK2DCsAAc5wn6sYjKIe8JWpcStSUM+Cj27LBf/ZH/c
-	VrcE1DLR78DTGpNQAFSKUVP1o9b21zcfpGsFI4NYKcUdkFVsdQ3PL434L1RwoUm6tUFOSqoLuUr
-	Y4D02xJJ6vxgxVTnBEnl5pjyu6SNWgBB2AyBmA0WOcoFh2pjcU/hfput9VoN9lShYkh5mr3vscd
-	Z5fi3xTzU
-X-Received: by 2002:a05:6000:4582:b0:48e:44c7:bf0f with SMTP id ffacd0b85a97d-49c714a352fmr16250325f8f.25.1794815450969;
-        Sun, 15 Nov 2026 23:50:50 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:575d:8fcf:e30d:5aed? ([2a01:e0a:106d:1080:575d:8fcf:e30d:5aed])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c1797sm22775989f8f.11.2026.11.15.23.50.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 23:50:50 -0800 (PST)
-Message-ID: <402595f8-0aec-405d-bcce-eb54981fcbb9@linaro.org>
-Date: Mon, 16 Nov 2026 08:50:50 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=agfw/qAG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 012671F000C4;
+	Mon, 16 Nov 2026 07:51:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794815514;
+	bh=a9/7nO64WjDLJVHdVVqjnU49C0kmZkm1LAp+YvEDPlo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=agfw/qAGAQp3J1Z+hQ9SbsEZ6G9Ij4Ux0XzItzbm9kp2oEWVH31eKh4YmRZTWYT+m
+	 7L/YGs4tuOK+L9ug+KAuyThBOHHwnXGwZ26GdxHkGvjHATW0HU3ykpj8jBNUTIRHOO
+	 PN8xQLcb2wxhP/HETHPOL2Hv5THohtZXlUXb7URVKpK1Fi5vAEUmTmHh92+ldvnpcO
+	 M9mAv+65Ua5Q9r7fJxXNXnhopKGolkxfP3lVxbeXre90tI50eOZNc+hEX9PL2jvA8c
+	 bCFLynxK/0cCZtWrFRUF/Uht3WXUFmczdChkzLcXITN6MjoIO6P4B8SxbwlY03DpwN
+	 LhcwEqafla2SA==
+Message-ID: <sashiko-outbox-216474@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 1/2] dt-bindings: iio: proximity: add Imagis ISG5320A
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?QWRpbCBIw7xzcmV2IFRlcGU=?= <tadilhusrev@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116074013.355363-2-tadilhusrev@gmail.com>
+References: <20261116074013.355363-1-tadilhusrev@gmail.com>
+ <20261116074013.355363-2-tadilhusrev@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 07:51:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,169 +59,97 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH RFC 10/23] ASoC: qcom: lpass-cdc-dma: add support for WSA
- codec DMA
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
- <20261113-topic-sm8650-el2-v1-10-5183f6aab9fc@linaro.org>
- <sashiko-outbox-213505@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <sashiko-outbox-213505@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/13/26 20:07, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issues to consider:
-> - [Medium] ASoC: qcom: missing WSA_TX4 case in
->    __lpass_get_codec_dma_intf_type()
-> - [Medium] ASoC: qcom: unchecked clk_prepare_enable() in
->    lpass_cdc_dma_daiops_startup()
-> --
-> 
-> commit fe9e37da583fba7a4cfa98118783d3ccffae7524
-> Author: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> ASoC: qcom: lpass-cdc-dma: add support for WSA codec DMA
-> 
-> This commit adds WSA codec DMA interface plumbing and clock handling to
-> the LPASS codec DMA driver.
-> 
->> diff --git a/sound/soc/qcom/lpass-cdc-dma.c b/sound/soc/qcom/lpass-cdc-dma.c
->> index 2dc8c75c4bf08..903055e3188d8 100644
->> --- a/sound/soc/qcom/lpass-cdc-dma.c
->> +++ b/sound/soc/qcom/lpass-cdc-dma.c
-> 
-> [ ... ]
-> 
->> @@ -68,49 +76,67 @@ static int __lpass_get_codec_dma_intf_type(int dai_id)
->>   	case LPASS_CDC_DMA_RX0:
->>   	case LPASS_CDC_DMA_TX0:
->>   	case LPASS_CDC_DMA_VA_TX0:
->> +	case LPASS_CDC_DMA_WSA_TX0:
->> +	case LPASS_CDC_DMA_WSA_RX0:
->>   		ret = LPASS_CDC_DMA_INTERFACE1;
->>   		break;
->>   	case LPASS_CDC_DMA_RX1:
->>   	case LPASS_CDC_DMA_TX1:
->>   	case LPASS_CDC_DMA_VA_TX1:
->> +	case LPASS_CDC_DMA_WSA_RX1:
->> +	case LPASS_CDC_DMA_WSA_TX1:
->>   		ret = LPASS_CDC_DMA_INTERFACE2;
->>   		break;
->>   	case LPASS_CDC_DMA_RX2:
->>   	case LPASS_CDC_DMA_TX2:
->>   	case LPASS_CDC_DMA_VA_TX2:
->> +	case LPASS_CDC_DMA_WSA_RX2:
->> +	case LPASS_CDC_DMA_WSA_TX2:
->>   		ret = LPASS_CDC_DMA_INTERFACE3;
->>   		break;
->>   	case LPASS_CDC_DMA_RX3:
->>   	case LPASS_CDC_DMA_TX3:
->>   	case LPASS_CDC_DMA_VA_TX3:
->> +	case LPASS_CDC_DMA_WSA_RX3:
->> +	case LPASS_CDC_DMA_WSA_TX3:
->>   		ret = LPASS_CDC_DMA_INTERFACE4;
->>   		break;
->>   	case LPASS_CDC_DMA_RX4:
->>   	case LPASS_CDC_DMA_TX4:
->>   	case LPASS_CDC_DMA_VA_TX4:
->> +	case LPASS_CDC_DMA_WSA_RX4:
->>   		ret = LPASS_CDC_DMA_INTERFACE5;
->>   		break;
-> 
-> [Severity: Medium]
-> Should LPASS_CDC_DMA_WSA_TX4 also be included in the
-> LPASS_CDC_DMA_INTERFACE5 case?
-> 
-> __lpass_get_dmactl_handle(), lpass_cdc_dma_daiops_startup(), and
-> lpass_cdc_dma_daiops_shutdown() all handle the full
-> LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8 range, but omitting
-> LPASS_CDC_DMA_WSA_TX4 here causes __lpass_get_codec_dma_intf_type() to
-> return -EINVAL and __lpass_platform_codec_intf_init() to abort without
-> configuring or enabling the DMA interface.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] dt-bindings: iio: proximity: imagis,isg5320a: style and example
+  issues
+- [Low] dt-bindings: iio: proximity: imagis,isg5320a: OS-specific
+  description
+--
 
-Typo, will fix
+commit e012fe4a93b96b30e3eac1a75009b8703a8aa96e
+Author: Adil H=C3=BCsrev Tepe <tadilhusrev@gmail.com>
 
-> 
-> [ ... ]
-> 
->> @@ -184,6 +210,17 @@ static int lpass_cdc_dma_daiops_startup(struct snd_pcm_substream *substream,
->>   		clk_set_rate(drvdata->va_mem0, CODEC_MEM_HZ_NORMAL);
->>   		clk_prepare_enable(drvdata->va_mem0);
->>   		break;
->> +	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
->> +	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
->> +		clk_set_rate(drvdata->codec_mem0, CODEC_MEM_HZ_NORMAL);	//??
->> +		clk_set_rate(drvdata->codec_mem1, CODEC_MEM_HZ_NORMAL);	//??
->> +		clk_set_rate(drvdata->codec_mem2, CODEC_MEM_HZ_NORMAL);	//??
->> +		clk_set_rate(drvdata->codec_mem3, CODEC_MEM_HZ_NORMAL);	//??
->> +		clk_prepare_enable(drvdata->codec_mem0);		//??
->> +		clk_prepare_enable(drvdata->codec_mem1);		//??
->> +		clk_prepare_enable(drvdata->codec_mem2);		//??
->> +		clk_prepare_enable(drvdata->codec_mem3);		//??
->> +		break;
->>   	default:
->>   		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, dai->id);
->>   		break;
->> @@ -205,6 +242,13 @@ static void lpass_cdc_dma_daiops_shutdown(struct snd_pcm_substream *substream,
->>   	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX0:
->>   		clk_disable_unprepare(drvdata->va_mem0);
->>   		break;
->> +	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
->> +	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
->> +		clk_disable_unprepare(drvdata->codec_mem3);
->> +		clk_disable_unprepare(drvdata->codec_mem2);
->> +		clk_disable_unprepare(drvdata->codec_mem1);
->> +		clk_disable_unprepare(drvdata->codec_mem0);
->> +		break;
-> 
-> [Severity: Medium]
-> What happens if clk_set_rate() or clk_prepare_enable() fails in
-> lpass_cdc_dma_daiops_startup()?
-> 
-> Ignoring errors here lets the stream proceed with unclocked LPM memory,
-> leaves any earlier codec_mem clocks enabled on partial failure, and
-> causes lpass_cdc_dma_daiops_shutdown() to call clk_disable_unprepare()
-> on clocks whose enable failed.  Later commit "ASoC: qcom: lpass: enable
-> the right codec_mem clock when usin LPM memory" removes the "//??"
-> comments and selects a single clock via lpass_cdc_dma_mem_clk(), but
-> still leaves clk_set_rate() and clk_prepare_enable() unchecked.
-> 
+dt-bindings: iio: proximity: add Imagis ISG5320A
 
-Will fix the comments, the code uses the same schema as RXTX and VA, not checking
-the ret. If the clcok set fail, audio won't output but it wont cause any crashes.
+This commit adds a Devicetree binding schema for the Imagis ISG5320A I2C
+capacitive SAR/grip proximity sensor.
 
-Neil
+> diff --git a/Documentation/devicetree/bindings/iio/proximity/imagis,isg53=
+20a.yaml b/Documentation/devicetree/bindings/iio/proximity/imagis,isg5320a.=
+yaml
+> new file mode 100644
+> index 0000000000000..b23d6bafd39e3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/proximity/imagis,isg5320a.yaml
+> @@ -0,0 +1,56 @@
+
+[ ... ]
+
+> +description:
+> +  Imagis ISG5320A capacitive SAR/grip sensor (I2C), exposed as one IIO
+> +  proximity channel (B-channel diff =3D CDC16_T - BSL16_B). As fitted on=
+ the
+> +  Samsung Galaxy XCover5.
+> +
+> +properties:
+> +  compatible:
+> +    const: imagis,isg5320a
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description: active-low data-ready / proximity interrupt
+> +
+> +  vdd-supply:
+> +    description: sensor supply
+> +
+> +  wakeup-source: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+
+[Severity: Low]
+Could the description focus on the hardware characteristics of the ISG5320A
+rather than how the Linux IIO driver exposes a single channel or which
+board uses it?
+
+Also, vdd-supply can simply be "vdd-supply: true" and should be listed
+under required since the sensor needs its VDD rail to operate.
+
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +        grip@28 {
+> +            compatible =3D "imagis,isg5320a";
+> +            reg =3D <0x28>;
+> +            interrupt-parent =3D <&gpa2>;
+> +            interrupts =3D <0 IRQ_TYPE_LEVEL_LOW>;
+> +            vdd-supply =3D <&grip_vdd>;
+> +            wakeup-source;
+> +        };
+> +    };
+
+[Severity: Low]
+Does the example need a blank line between "#size-cells =3D <0>;" and the
+child node?  Without it, "scripts/dtc/dt-check-style --mode=3Dstrict" warns
+on required-blank-lines.
+
+Also, the unused <dt-bindings/gpio/gpio.h> include can be dropped, and the
+node name should use the generic "proximity@28" instead of "grip@28".
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116074013.3553=
+63-1-tadilhusrev@gmail.com?part=3D1
