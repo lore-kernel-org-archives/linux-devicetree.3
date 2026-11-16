@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794870153;
-	b=nSVespSDSohbtfRaSF+mxw2LAUyVQZpbUwJRpEOnfWDCEXKRRXUe0Ik8b9exPWWXyLLH
-	 m2+GcvQ0acxXrZy3vROcXl4w7em3VPM66zjE/qgsw1BEqi34mr4VL/qOJe3hdUVAaBdww
-	 1Ph/09b/OSslYQ3iE98XaZuOdJBAvPXDO6g5ag9m8hwIXHm49ke1YNnwJHhL7OUm46qbJ
-	 VWlm9O43SShxtFsY3t3JXPEAkE8dvXtjmEhxnI02099RBCqeqkA5HGfdoL2H6+luSf9Qz
-	 7dk79oR9uSHmsAZEm1/tzW11GwpIf9Ctn5n79a8udy9qi8uBlVFNACXIVsHR8Gg3MMg==
+	t=1794870182;
+	b=YF3e+76oF4e+ghnowOFzR4zkCKAwbajU19sjSn1WaCNfHWAQu4tVHT23J7Z4GlQckXa+
+	 wYQ4Gu5maGXq/m7Fcm0/c6zrHb2wXY2TUifIPjcGCVWdME+PiOap+Tn66wmSEjsySpVQ9
+	 SXm5xkDeU3lnj/oqcKaTyfYx26uJ1pooGv5uCtRWM7ilS8WPYORIM7Wl/roPiUt4vOwKC
+	 WT5kMf+tuLn+S5f9AOO1Eb6g+OhVjjOdu9jw/77yOsxMLm6U9zXE5PE0JBHtZq5fhABB2
+	 ELQ4lqzM9bp48HyqbZ8U2QDIvRzyrkjILID1y3A5RpUDbxEo+uyfn6LU8VH98rQuT6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794870153;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794870182;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=f3o26bIzfyne16hL8JnKeMhCi5MH3p/6srBSWEJzAhg=;
-	b=48Jpxt68CpBMVNk96EBn6qN5RUIQFTibPGs8Uyt+4dOtv+jMfzPA1kBBwDyGnSttQFue
-	 qioASHJGtE6AUpjZrThfmtN2wzoEPwfTpwkmsiNCgFuhUVp8L4sWgobscXJ+YCD9gU3rq
-	 iuB57Z5xJx1HJBEmSzAiIQNLQZVNsDuErMaqbyPMw8S8uPyKYx1InKjppolXxT5PsOOH9
-	 UWyFkf1SRTnJvYBT+o7fXPzx6wCUHTqPs8u7MbCRPMGoIxMGOcWQGmsYv8EuS71MAX6Vk
-	 SpJoEAdVoxds+DkxUfPel6uW5VL/Dfc11Y3oTQTAnvDohlRgyQJ4kQz0HOQjOeaIPfw==
+	bh=wpk3Ypurmggg9iK2k6sIEmjNtTljWEYjQF8mHG4sbMY=;
+	b=0wvQUVwhmoldoA5P/pNaXAgsaVPPBIuWjYulS+h9ViRo02CllHP5tq0iHxFBA2PNbvpG
+	 vhX3SXhLgzcSbGx5cQ/ujUVhLZ5RE7OSaGNPv7VnnGaej24zCgT4TUHvAcSpzElmb8NgL
+	 ffQbcnjFQOm5x4n40NZZMDVYScdmTE+iqYV69eUXV8mVAhSU7zelfravLNsLEMgx67dF1
+	 7dCoqmHNlaxK12Ah+8SM4vImGcjy50zZg85A+ewf+42os4lpJgJU81Cabs9KYWA8nQbjY
+	 6Y9gnvzIeBPabQnwtIIEz9TXlFH9RGg0dHPUy8Y2F9CXvvXzhmH5wJaYj1gdvBlnKQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RPijFNvz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lgpy95vn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C7E606A882
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 23:02:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274A8606A33F
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 23:03:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RPijFNvz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0E421F000C4;
-	Mon, 16 Nov 2026 23:02:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lgpy95vn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 809951F000C5;
+	Mon, 16 Nov 2026 23:03:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794870153;
-	bh=f3o26bIzfyne16hL8JnKeMhCi5MH3p/6srBSWEJzAhg=;
+	s=k20260515; t=1794870181;
+	bh=wpk3Ypurmggg9iK2k6sIEmjNtTljWEYjQF8mHG4sbMY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RPijFNvz1K2MUzLKGrPdRh0Fe0yA4j0QJdazTblb2lHDwZVh/bPVNCW+V/YEWSzRj
-	 uID6jUEgLOi+bovlXyus0RYTYLqFROesu6dNnl6Jm/+nHY0MiLc9YsJfZS6uabqFg3
-	 7/aTOLSYzV1Mn8SF1WNKu/rCRUg+O+pryNE7E/3nEyj+ko2ji/58pNceudTS6hABIJ
-	 h8lJrqcEQeu7ogTvFJaK3AHTB2iK8fo6yLk2JosWyKjx0v/oQrmXzKwMS5fF9IXM2G
-	 M9x+apwoUH7wANTtmkx5mexKY3iW6Cmx9mCkBJPQsLiPjDQlPAW0XNK7SSIYB9FHHL
-	 1UWxMlnKblB5A==
-Message-ID: <sashiko-outbox-217837@kernel.org>
+	b=lgpy95vnlFf7Mbye8LpOyA5jYF+ZFrHaWYRHrwfcCvhH3vNfqj4s4VlwraS2rNXph
+	 taKnb9/I8oUpN9bolMqgHyXeLSyDjGTkO3N653sWI0VQ2xvut3tWs+06JNJ+NyDUbU
+	 BLu9wi/y+bUdKgVs/5VQuKrnliKWjid38qNS1W00MddZ07hJSPzyFNSJjWhdkNPzYz
+	 TS/jfoKOEKR7o7oH3oONwht6ci8g5p+mxy6aeOkmcnzQkhEy3qOq3B5gq1TkB3hR2f
+	 jdqHv55nWDOKTfUFyCHkFMcaiDRfzH/ROvZl2TAiw4K1Mv1UCgIr4O4B991Z8dUH83
+	 OEYI6hFF6/3sA==
+Message-ID: <sashiko-outbox-217839@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 11/12] arm64: dts: qcom: sm6350-lena: Add PM6150L
+Subject: Re: [PATCH v5 09/12] arm64: dts: qcom: sm6350-lena: Add PM7250B
  thermals
 Reply-To: sashiko-reviews@lists.linux.dev
 To: erebion <erebion@erebion.eu>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261116-pdx213-upstream-3-v5-11-7318a19806eb@erebion.eu>
+In-Reply-To: <20261116-pdx213-upstream-3-v5-9-7318a19806eb@erebion.eu>
 References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
- <20261116-pdx213-upstream-3-v5-11-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-9-7318a19806eb@erebion.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 23:02:32 +0000
+Date: Mon, 16 Nov 2026 23:03:01 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,24 +63,18 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [High] arm64: dts: qcom: sm6350-lena: handle used in Author and
-  Signed-off-by
+- [High] arm64: dts: qcom: handle used instead of real name in
+  Signed-off-by trailer
 --
 
-commit d20fc6eadec7147c231c438c85d32c1e09b43db8
+commit cb7d77f20d3e8fe16d92844a1db347a543c4c968
 Author: erebion <erebion@erebion.eu>
 
-> arm64: dts: qcom: sm6350-lena: Add PM6150L thermals
+> arm64: dts: qcom: sm6350-lena: Add PM7250B thermals
 >
-> Configure the thermals for the PA_THERM1, MSM_THERM, PA_THERM0,
-> CAM_FLASH_THERM and QUIET_THERM thermistors connected to
-> PM6150L.
->
-> Due to hardware constraints we can only register 4 zones with
-> pm6150l_adc_tm, the other 2 we can register via generic-adc-thermal.
->
-> RFC_CAM_THERM is intentionally omitted for now and will have to be
-> added once it is clear how it should be added.
+> Configure the thermals for the chg-skin-thermal and conn-therm thermistor=
+s connected to
+> PM7250B.
 >
 > The trip points can really only be considered as placeholders, more
 > configuration with cooling etc. can be added later.
@@ -88,11 +82,11 @@ Author: erebion <erebion@erebion.eu>
 > Signed-off-by: erebion <erebion@erebion.eu>
 
 [Severity: High]
-Both the commit Author and the Signed-off-by trailer use the handle
-"erebion" instead of a real human name, which does not meet the
-Developer's Certificate of Origin requirements in
-Documentation/process/submitting-patches.rst.
+The Author header and Signed-off-by trailer use a handle ("erebion")
+instead of a full real name.  Under the Developer's Certificate of Origin
+in Documentation/process/submitting-patches.rst, patches must be signed
+off using a known identity (a real name, not a pseudonym or handle).
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-pdx213-ups=
-tream-3-v5-0-7318a19806eb@erebion.eu?part=3D11
+tream-3-v5-0-7318a19806eb@erebion.eu?part=3D9
