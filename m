@@ -1,56 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794841855;
-	b=lWwd4QMRPUfFgO4gSDrzPP07Hw6BWXm4EeI6E9+d+sIXDVvRQAzA9o0FE5t/RXsBVZRQ
-	 Q59vuW1nOaeLGFLgWaOiT/2cYO+St8cjqPSQfqOy3fQoZq8XvyCeqNpkyLhjuzh4IDzlO
-	 w98nvDGe4bn1NTsjFqOh9cOcpVMJByKBzGfUqCTnQiMRtcLVxYwxDOGe6HiMl1ci9KlNW
-	 IfiUXAYRUzB+Y514qXQPflVmnVa9nzyImMs+HYr66XsmZu5UgLGZ3BNyzCtcMewEJ9q2A
-	 sE4BYUSV6s3MLw635kJS7SqyYIFikQ3DdrcBYThVdjhStX+b6kPLbhCZhzmtGUvpleQ==
+	t=1794841910;
+	b=4o8YmAzT3PboFoWr1+1sXOkacQGgBTKvPqrHgNbpdAW8m8+zsf+mGFEezxsMoclV1o/u
+	 kH22FLEubo118j9PQCAdN/Kfsks7xVHuUZM31aPouONGxigkLJIV7vjqLCArBUm8ZmwPe
+	 /amtZfvQqtUjnsXW5vjwIXRCaKLR4MbOHErAwvzuCMAhN3PnZMdwSFB4I+mjjHsNCiMJx
+	 fNbXzioY1RVSOPFpU6JvH/4jdObCcODcJnTUNJ3cridTfpx+DHw60aR4hhhTvXMQlU5F6
+	 9rRxJXp9BzJuuhlZF+nDmZjvKacjEyFZ4fh9y8mO5qMDC9OdydnU9AxG2mLvk1JfmHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841855;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dLO2RA1iYm7aDG8/TPyvu9KtYf5vA2gWKRW9QlcTI34=;
-	b=Git0KsQI88SgUpG5iVXCOJsda/JE/ipVQ6Ubx2N24b0cBuTTuZtTuhWzGNoXByF5QNJj
-	 c5KsQqExDWMFkP5R/x560WMrthoZd9h/ERR1kKtZvvUqcojmYZNjO9yD4aKkB2egxOjuB
-	 WpRPTbLgNJkEe8ejNc+zsrwOteSTnXPv0xdGcZJJTy7pKzl4+lUv59NXECSFKVLYbv59a
-	 bazINRJ6edVggP+mqmH425jdmY10iHEO9Dr+j2zJWtz3GRv7HJi8lSR3X9uGl8DhgCzEV
-	 lfQRgHFssQyA4VJsqaxYo09t8Yub/ecgzoviZ9GlMFr3cZTiNsPl59guvxzU8N2+gzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841910;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=k3wjoXPfdYoH26BVWO3+cw76m8FT5NmjFkdWFdobGv4=;
+	b=0PhHwRF3jcSShETCMGDEMYb/WD2SAhM2OJkrAqg75HpzRUHsWS4OfOScVn5JqnvglgLh
+	 0wjMQYc4w54uJkO7xxeBedkW8bz5lvHOsN/ck+VKJI6YFVw+MENeTx7PJbgIcfGbQhBxJ
+	 GQn24FFhA5KcDIFKF0SzW73wOzD/UUomz4eO0ZmEXzZSIrh08nN7waG9JtwHMKEuiEiSA
+	 XzhZ+aJ6F09fxk1yoWfWFrNcsk3MT2TySRH2w5/lcOu844n+GeCXcLZ51kqo0cNg6BJ6e
+	 qe68s1MesvFwE3QKYWqH2VF1rMqjxylDC47Iq6z8fJ2u4HqroPllI/O6IrdBat1SrZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8gLEj86;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=P6es5K0B;
+	arc=none smtp.remote-ip=162.62.58.211
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85936606A88B;
-	Mon, 16 Nov 2026 15:10:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6ACB606A31C;
+	Mon, 16 Nov 2026 15:11:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6ACB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8gLEj86
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B7991F000CE;
-	Mon, 16 Nov 2026 15:10:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794841855;
-	bh=dLO2RA1iYm7aDG8/TPyvu9KtYf5vA2gWKRW9QlcTI34=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m8gLEj86xjqHFEfOoRI4Klz0nHbUnqwC7L7jiV1Qcxg2xlnIzL7Pc0WfDx3lMysf4
-	 gNNI5SBH3s9NhRhzpynt3c4zC7+pqV+cLaKEOxrEtAAH9uLyq+6LLvxcMrAYUX8kG+
-	 loQvnZDenHcDG09FWLIpgjZgdyppYSfvsgqAgoxgMpibYLKNpoctomt4p1EDVn43o/
-	 loWIwHXP7CBnTsJHQZbO6BcnbIvwvWnE7gjtWPE5HvS4+jRYEALX/jyBf46dW1CF2U
-	 kaAmaeggySuhW3rJtzP58UWQKj2kKpHJ+VkGt9qz7P/5C/hKwVEc2Tu1OMSJhNDHTS
-	 tkpVbTG9eBs6A==
-Date: Mon, 16 Nov 2026 09:10:52 -0600
-From: Rob Herring <robh@kernel.org>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v11 1/2] regulator: dt-bindings: willsemi,wl2868c: add
- the WL2868C camera PMIC
-Message-ID: <20261116151052.GA1449968-robh@kernel.org>
-References: <cover.1794557667.git.xiaqinghuan@mail.ustc.edu.cn>
- <9ab5e5937264bb408be43986acb8553464e44a49.1794557667.git.xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=P6es5K0B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794841905; bh=k3wjoXPfdYoH26BVWO3+cw76m8FT5NmjFkdWFdobGv4=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=P6es5K0BZwtv8hMmKItvJ6Bm0mQIhFLeCzPZyRREgDgLMdOH0P+i/M03fp8zfsnS+
+	 eNGr3Z/nFkjoIGTSJKXfHAw4U/YdBFNDhGKtW6UojbRp4x+P4RnOJ91EkbOnDkcDZR
+	 Wu9+0g5WeXubLQNVsUeM2KBpLofZCn8wvAQq2dwM=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-XMAILINFO: N55iztL8edgQvN0v5JGUgkPqXum1H/JEX8chapWGgvcpkKr/b21ELtNOyEdmlM
+	 t2Ss/HHlHdNl09w2GkccrfHlVek5Hr327J2k5O2pfKE0e3jieSFBKD9ATUn4wF3IH/yb2Rntu7TFp
+	 WXm5k0hlGYKwxl1uL9czFZFsGSjq/0nI5xfRoqexTLgEzt5+vRcbMBJCAv0jwWeRskC/qHUaFD2om
+	 giLcX0UafcBok9fRKpWypOekoGvYlbISbOu0Y1rEtSf6GQ88i2qx1DycCNNAU9fRch3pP7jVWT1lI
+	 AXczut/A/6blFfthX49WeF0Eku9mA2NKjvG+fVc+u3v325NZb635H60VBFXAwRmuzD1X4Ewtn89T7
+	 eSRinH6r+1lnCc/s3HTjxSGosXICIGZsdA/c2NsLbdFRaq13z1J8jOSfX3XIxt9gaHOvPHE7MrowT
+	 R/7vQV+R1TJCj68QHoopG6fwdQIO7DaLceTq9QM3CxqCN0PIdSDxbD3lfiXaNlIcjcwlPtBHhmTaK
+	 0bUxCd+1OwXG9BACryzD3tt7jVRenVmqVAz9pGfEIln9qoBZZyKhTh0zNFmELXf34LKDl5+wWP1EA
+	 jg6VTKx1Qof9JczdcZ3ceoWV/kZ5yefg8UriRIoweWbOxdzIViLK96hpSWyCDCxCSAPJg+ahpZnhV
+	 aFZvGr+wjPNK2unDlIsAGnp+hf+X1VIe1Yn9AasJ5zIhwNnFSxt1Vdbea+gHFVK2RRm8zIVlnP4tx
+	 aJXIeCUWwlVmS5hoba83KO5O/0UQcjEK5f6D08xhQUpM8W3ACZGbgMOasj5v9i5/BDh5u26DBFWVQ
+	 Zq/MryA/TfMrEMkV+Q8Eu6SO7nPAXa00pOVy/QMrybrCGwV86vV3Aatf69lW1rX31yZOiNkqRDdOW
+	 aUgMzU6Sv8AWEHYxPbXpgSa4srkwhoS8FKMojcBvCFYVh1o5OzFLBroxc920eFp/cXn6meUo+MCKE
+	 EMkyKcI++AVByQxb+h3oR4+dtvJLHI82V5EkozsjeyMLRb6EUnZ6ysgJxbMX9jol4LrAujVYffWoM
+	 RnUWUfu+qhoZXC+/qPy1u5iXmJJPd+1GfAKz71UTZRFgrykU=
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?QW5kcmV3IEx1bm4=?=" <andrew@lunn.ch>
+Cc: "=?utf-8?B?QW5kcmV3IEx1bm4=?=" <andrew+netdev@lunn.ch>, "=?utf-8?B?RGF2aWQgUy4gTWlsbGVy?=" <davem@davemloft.net>, "=?utf-8?B?RXJpYyBEdW1hemV0?=" <edumazet@kernel.org>, "=?utf-8?B?SmFrdWIgS2ljaW5za2k=?=" <kuba@kernel.org>, "=?utf-8?B?UGFvbG8gQWJlbmk=?=" <pabeni@redhat.com>, "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?RGF2aWQgV3U=?=" <david.wu@rock-chips.com>, "=?utf-8?B?QWxleGFuZHJlIFRvcmd1ZQ==?=" <alexandre.torgue@foss.st.com>, "=?utf-8?B?R2l1c2VwcGUgQ2F2YWxsYXJv?=" <peppe.cavallaro@st.com>, "=?utf-8?B?Sm9zZSBBYnJldQ==?=" <joabreu@synopsys.com>, 
+	"=?utf-8?B?TWF4aW1lIENoZXZhbGxpZXI=?=" <maxime.chevallier@bootlin.com>, "=?utf-8?B?TWF4aW1lIENvcXVlbGlu?=" <mcoquelin.stm32@gmail.com>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtc3RtMzI=?=" <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [PATCH net-next v3 2/2] net: stmmac: dwmac-rk: Add RK3572 support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,33 +68,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9ab5e5937264bb408be43986acb8553464e44a49.1794557667.git.xiaqinghuan@mail.ustc.edu.cn>
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Mon, 16 Nov 2026 23:11:42 +0800
+X-Priority: 3
+Message-ID: <tencent_273206094323A701D688217E3A4D72341C08@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261116-add-board-ok3572-c-net-v3-0-a957fdcd9c7a@qq.com>
+ <20261116-add-board-ok3572-c-net-v3-2-a957fdcd9c7a@qq.com>
+	<f8d4b637-1818-419c-ac51-fb2ded1f9b3e@lunn.ch>
+In-Reply-To: <f8d4b637-1818-419c-ac51-fb2ded1f9b3e@lunn.ch>
+X-QQ-mid: xmsezb41-0t1794841902tc50bzb2f
 
-On Fri, Nov 13, 2026 at 04:19:13PM +0800, Qianhui Xu wrote:
-> The WL2868C is an I2C-controlled camera power management IC from Will
-> Semiconductor. It provides seven programmable LDOs: LDO1 and LDO2 are fed
-> from a shared VIN12 input and cover 0.496 V to 1.512 V, LDO3 and LDO4 share
-> VIN34, and LDO5 to LDO7 each have their own input, covering 1.504 V to
-> 3.544 V. All outputs are programmable in 8 mV steps and are gated by
-> per-output enable bits with a chip-wide SYS_EN master. The chip also
-> exposes an optional active-low RST_N input.
-> 
-> VIN7 and VSYS are both inputs of the internal control logic, which is
-> powered from the higher of the two voltages, so a device tree has to
-> describe at least one of them. The remaining inputs only feed LDOs, so
-> they stay optional: an input can be left unconnected when the outputs it
-> feeds are unused on a given board.
-> 
-> The example enables ldo1, which is fed from VIN12, so it also describes
-> vin12-supply; the binding says an input may only be left out when the
-> outputs it feeds are unused on a given board.
-> 
-> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+SGksCgo+IFsuLi5dCj4gPiArIC5yZWdzX3ZhbGlkID0gdHJ1ZSwKPiA+ICsgLnJlZ3MgPSB7
+IDB4MjlkMjAwMDAsIDB4MmEwNDAwMDAsIDAgfSwKPiA+ICt9Owo+Cj4gSnVzdCBsb29raW5n
+IGF0IHRoaXMsIGl0IGlzIG5vdCBvYnZpb3VzIHRoYXQgcnhfZGVsYXkgYW5kIHR4X2RlbGF5
+IGFyZQo+IGFjdHVhbGx5IG5vdCB1c2VkLgoKTXkgYm9hcmQgY3VycmVudGx5IHVzZXMgcmdt
+aWktaWQsIHdoZXJlIGJvdGggTUFDIFRYIGFuZCBSWCBkZWxheXMKYXJlIGRpc2FibGVkLiBJ
+IGtlcHQgdGhlIGRlbGF5IGhhbmRsaW5nIHRvIHN1cHBvcnQgcmdtaWktcnhpZCwKcmdtaWkt
+dHhpZCBhbmQgcmdtaWksIHVzaW5nIHRoZSBkZWZhdWx0IHZhbHVlcyBmb3IgdGhlIE1BQyBk
+ZWxheXMKZW5hYmxlZCBpbiB0aG9zZSBtb2Rlcy4gVGhlIGxlZ2FjeSB0eF9kZWxheSBhbmQg
+cnhfZGVsYXkgcHJvcGVydGllcwphcmUgbm93IGRpc2FsbG93ZWQgZm9yIFJLMzU3MiBpbiB0
+aGUgYmluZGluZy4KCkkgY3VycmVudGx5IGhhdmUgb25seSBvbmUgb3NjaWxsb3Njb3BlLCB3
+aXRoIGEgbWF4aW11bSBiYW5kd2lkdGggb2YKMjAwIE1Iei4gV2l0aCB0aGlzIGVxdWlwbWVu
+dCwgSSBjYW5ub3QgYWNjdXJhdGVseSBkZXRlcm1pbmUgaG93IHRoZQpUWCBhbmQgUlggZGVs
+YXkgcmVnaXN0ZXIgdmFsdWVzIHRyYW5zbGF0ZSB0byBwaWNvc2Vjb25kcywgc28gSSBhbQpu
+b3QgcGxhbm5pbmcgdG8gYWRkIHN1cHBvcnQgZm9yIHR4LWludGVybmFsLWRlbGF5LXBzIGFu
+ZApyeC1pbnRlcm5hbC1kZWxheS1wcyBpbiB0aGlzIHNlcmllcyBmb3Igbm93LgoKV291bGQg
+aXQgYmUgYWNjZXB0YWJsZSB0byBzdXBwb3J0IG9ubHkgcmdtaWktaWQgZm9yIFJHTUlJIGlu
+IHRoZSBuZXh0CnZlcnNpb24sIGFuZCByZWplY3QgcmdtaWksIHJnbWlpLXJ4aWQgYW5kIHJn
+bWlpLXR4aWQ/IFRoaXMgd291bGQgbGV0IG1lCnN0b3AgdXNpbmcgdHhfZGVsYXkgYW5kIHJ4
+X2RlbGF5IGluIHRoZSBSSzM1NzIgZHJpdmVyIHBhdGggYXMgd2VsbC4KCkJlc3QgcmVnYXJk
+cywKQ3VuaGFvIEx1
 
-Missing my Reviewed-by tag. It's your responsibility to add tags when 
-sending new versions.
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
