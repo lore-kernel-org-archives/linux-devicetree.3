@@ -1,57 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794825499;
-	b=d3SLFwjJbx4sFMGWpAEj4Wqe/IRNdsedTlhPrsJbgANUzeZCPhnjy8qH4yuVl7B84uA+
-	 vALbAKCEuYVKaO9W98w9FxyVqE8qCYLzt7k7djkeqXrQ/0/eMlDP62C7hwuCo8+ry565K
-	 sZauWUuUot94MMgkZlvs2b2WsAPbY95QsXh6LYPeq6aSJpx8fd/R4Rlob939etY/COZ4E
-	 rGfY2TqRftbDFhMHZFolDOszBaCoycEE+V/CGIgJMyY5xrW45GEqYCMkdI3gzIYas6/1p
-	 QPH6nJmjBW5EAhhtkzBQW2jWj6R2Uvro43+wZQeuCHGNcFi/2hCBw5Jv0tbZOwF5gcw==
+	t=1794825570;
+	b=2CV0wXnGXTwr/xcM+MBumDfONJCNXaNzBZmaWXvv1XYHCMq0zIpNXv1YC7gunFQBXyF6
+	 9TmSBD882w+dMh5S9SBqhhIhIm1ZnbZOq/6kiGDDnQOTkiUktCVxBZUFX0gT6agQozZfp
+	 7j0Rc5JmdtM+o9w6wHNsWdORtM3XPJOs+cwgOulP9riEJDbeeMaS6DrgjYrG0fyUkKwwl
+	 5KsOEbEZailXGdSVL02yi6Fyznb9i2KLgzAjVkGvvvphcZCFaOnEQT1/zv6z0A1zSNvld
+	 SAvDEwRPAHuibTbE4Soe6ex6cqDEGvpU1fcBKfI+YL/z5psl57EDpBA+r5jGg2yfqNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825499;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=WxkiKQHJ5NbsJuzjwynQls+2+1CD8ddKlOpaqZEHrOk=;
-	b=gEpnkNOgmW77NtOZQl47HZGqzJH+zPUIdRTushScC4wH3+x6jJMN07+GnACWq6QRy2CE
-	 UySf+hWT4B2vjI8zeWCOqegc1OglPXZZU0DzOx7DUwGjnARRUHcZpBwOlp1XmN+F3dooy
-	 5OTOh8+7pMuaKc/FRstWB3tXz+Z1A7SXQs4Olm/vvE1luHTGOk97cE+udxBTNB98dhl19
-	 p5l8uDwFwSyjf9o2twh+cyTMLDOWUCHxM+9uUcjqyRApDDDgs1VEJId6ttBBmOfv1mfP4
-	 BsuS44ZRTwQAfvV09sB1WIHMMUHE3bNxdkbw4DPCjjAz082TVvCqP9ICvBb3ExNXkkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825570;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TMelqXmuFWpq266Nr/pmiKLHwnbkJ+vOhcI3eV5hwDA=;
+	b=jVtCLN/QNjhie8oB6Q/rGNJvJvqb3Av1oXrDQZ4h9BLyNMUgBRb0nlOYLHtjs8rhIlS0
+	 QoYjufPYL2cg8naojquJAvtDmAsS44DRBLneBWwj4zqXcSzzFGUBHJllI8jD5MldHFNoz
+	 2g1JqsRR1+3YsdlF5K3IE8KT06zzdW+WmmrZZy/Ddu1LlDIwhHyI5T7v/5uSbmhoFeIrg
+	 aB42YFVTbIV6OoxCM7clGzMwfzqxY4OTouWgdcZAuKJGs4hruCyrATaCDteCh/xuTYZka
+	 YTRHoiS9CvZvvENA2upRmbOclxpNGXuGaAwFSO/nSBnPE0z3nG2b1xEVVLtPCwu5KIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYdG+rUt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfPaonkH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96003606A323
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 10:38:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9792B606A31C;
+	Mon, 16 Nov 2026 10:39:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYdG+rUt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E22FE1F000C4;
-	Mon, 16 Nov 2026 10:38:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfPaonkH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7A2B1F000C4;
+	Mon, 16 Nov 2026 10:39:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794825499;
-	bh=WxkiKQHJ5NbsJuzjwynQls+2+1CD8ddKlOpaqZEHrOk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dYdG+rUtwtSxRmFdwBC2FJ+NxUV9eH5bSmfMh9r11Yy2Wnxw5py0HbiX5kzHh71kS
-	 o1TfO7SlALVGayE62ywXGKgvXf++SLYwbAsTIRdvG9ooB+t5BvqG3WJA0F4rQl8DRD
-	 qbuoEGqcFLUsiAIlfkeV2CPAiHtUoW52wEEfvfLIb+sUFNowHSWxkbwlq1CBNbisKE
-	 cHQLfHu3MeRzCWRZ6LSTIDpLbpjkJsvGljBlOSRMJZ1G0A+Fd/08XLUS/QC0KvFFjg
-	 NtlM3+uj28FVCmlWncIqNS0yhN+IdkaS1rBJO9vLT75uIuef94T90U1yZ8SaL0qUy6
-	 pXj7I+raJEHEw==
-Message-ID: <sashiko-outbox-216748@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: st: add delay on imx335 reset gpio on
- stm32mp235f-dk
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alain Volmat" <alain.volmat@foss.st.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261116-stm32mp-imx335-fix-v1-3-01f538260f00@foss.st.com>
-References: <20261116-stm32mp-imx335-fix-v1-0-01f538260f00@foss.st.com>
- <20261116-stm32mp-imx335-fix-v1-3-01f538260f00@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 10:38:18 +0000
+	s=k20260515; t=1794825570;
+	bh=TMelqXmuFWpq266Nr/pmiKLHwnbkJ+vOhcI3eV5hwDA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jfPaonkHOoYzcERjBg2syjUH1ZjbOZW510AZoG3aEu9g6XfzbK7P33m9ATRC31esW
+	 Xdy9/p9SL1vp5YScPnoZkhd8sVwgcnULVsMki3bbR4zQefs8PpiDZuz0ZqhCOt6RWp
+	 ENGj+45YyD6EKciWwBHU0oBFk9rPTStNk4HVH9AirjxPTr0eor9hBctsI1seXZ2+Zu
+	 4/mfcU4KVWiVz273BitBNYXa7+D314Sy8pztPLGBhohMUyVcesjgCXt9TlGh1Wzrwk
+	 Dn8KStfHUrWAEq6iE0wEG8R/m9M+PT2AOFE6fVlIk7R74aliyfOqErZCgZ0efGghdr
+	 fWDFAvIqvWOTw==
+Date: Mon, 16 Nov 2026 11:39:25 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+	Abel Vesa <abelvesa@kernel.org>, Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Del Regno <angelogioacchino.delregno@somainline.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Danila Tikhonov <danila@mainlining.org>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/3] dt-bindings: display: msm: Add INT2 GDSC to
+ Kaanapali DPU
+Message-ID: <20261116-flexible-uppish-uakari-3f1b07@quoll>
+References: <20261113-msm_gdsc2-v6-0-17adbce47220@oss.qualcomm.com>
+ <20261113-msm_gdsc2-v6-1-17adbce47220@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,34 +69,33 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261113-msm_gdsc2-v6-1-17adbce47220@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] arm64: dts: st: missing Fixes trailer for stm32mp235f-dk imx335
-  reset fix
---
+On Fri, Nov 13, 2026 at 04:28:51PM +0800, Yongxing Mou wrote:
+> Kaanapali (SM8850) has two display GDSCs. CORE_GDSC supplies shared
+> MDSS hardware and most of the DPU, while INT2 GDSC supplies the
+> VIG2/VIG3/DMA5 source pipes. Without INT2 GDSC, these source pipes
+> remain inaccessible.
+> 
+> Describe CORE and INT2 as power domains of the DPU device, matching
+> the hardware partitioning. INT2 only supplies DPU-local source pipes,
+> while CORE also remains attached to the parent MDSS device because it
+> supplies shared MDSS hardware. DPU performance-state votes on CORE are
+> propagated through the genpd hierarchy to its parent MMCX domain.
+> 
+> Keep the widest valid constraints in dpu-common.yaml, including the
+> power-domain-names definition, and narrow them in the platform-specific
+> bindings. Require two domains and their names for Kaanapali, while
+> retaining the existing single-domain constraint for all other DPU
+> platforms.
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-commit e39cf6eb1245597509df9656ea0556ed7e9c75ba
-Author: Alain Volmat <alain.volmat@foss.st.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> arm64: dts: st: add delay on imx335 reset gpio on stm32mp235f-dk
->
-> The imx335 reset gpio is connected to the sensor reset via an RC hence
-> a delay is needed in order to take into account the time needed to
-> reach the level for which the sensor sees the correct level.
-> This prevent having imx335 power-on issues due to the fact that the
-> driver is trying to access to the sensor while the reset hasn't been
-> yet properly handled.
->
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+Best regards,
+Krzysztof
 
-[Severity: Low]
-Since this fixes imx335 camera sensor power-on failures on stm32mp235f-dk,
-should the commit message include:
-
-  Fixes: ed9056f9a042 ("arm64: dts: st: add imx335/csi/dcmipp nodes on stm3=
-2mp235f-dk")
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-stm32mp-im=
-x335-fix-v1-0-01f538260f00@foss.st.com?part=3D3
