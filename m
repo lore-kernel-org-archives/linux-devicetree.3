@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837549;
-	b=CDgSshSJaz335mQfAbNhLJwSOpeDwtzjOZkAd3USw045wX2vp2hBEmR2c8AiD4x11kPr
-	 ZMwXFYzHUhOx0Xat1xesJxxfIwuQRzTCMJkFMgT+F5R28qOWas2p0X2/sQPCMp4Kuv5cB
-	 UkghbSUnmzF3k0lCky7TGDBUl/zvmuDyDsPd0WsL14MjMXACRNwJ3iYG0jhI25/ikebyL
-	 A5gsYNxpP7XMwAOhu31rpRYbIiBvAA3oxLD3zLR3csmFjM5hD5+C0HxS9WiluUkikTn07
-	 YhiNT1OCh99EDzSQWLEG+bRfHKNw4aFFA7GJPpNpfwnYvGLrCVwd3pT10zNR0Qz/y6A==
+	t=1794837554;
+	b=SLmssRApmZZ/xKG6NJHz5q273RBbB3NasSOnQF6jE+f/5koXYkPV5JkSQ0JG+7/QXQur
+	 a3gE5UEH6+fBhtS2F+HUwZBaFkkJCBWTOh962i0xv/WmzQnY3DPvPpfb45zNvRWZhNibe
+	 O4snwQM695Hov3D7Ccv4zZd0/K0MV/MxCyf75epbd/IglLv4v4hg+wX2RNQbr97kwYJ+2
+	 12cE63vssrkF7xXfMQPTckLMXH01haQ5/0Vf6CAImC3kItM8UAZVdfBj3OLsw4tUyxthP
+	 nDKTl/y7g7Tl6TMSIaJjtiRqt/zmsqqG1J6/cJZzq404rSX/L9F7BJlKTcekh4NoBBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837554;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Last-TLS-Session-Version;
-	bh=uL8zUdscsuzLSxH3TIBRtn5i906XKgs83xavzgt4D5c=;
-	b=CGPzmYZ4IRycZWDt/dW1h7ma0P7j6DUH7LXFB97Orp+BxNjfxRmIHMShDajlLivZyZkf
-	 86bNN5YUWpLMASaGoBuj9kqbiIsQXhTr4QoJuFTcRtM3HL/mdfHpR0iFXhcMMMEx6lZrf
-	 zLIP9g9ELtBe/BNSIEk/9lYi4n2dC/CYQ2/jo4/LtQFIX2IG7EtrLDQYYmXcpIw7agX8u
-	 V12i7iaksYLLUGCNGgGBK9I8a0AAv/yqX9VYowRtCUxOG1STWJj5+/pW8FTqV/OOf/yNp
-	 3cftJrELDlRflLmk4UiSVbOC3/TM47ux2dzjHKcifd8sUCW6Nw3T2yokiKzU4rQtTIg==
+	bh=+c+7QLIr/6xnjzeRbgVMydkl5tX7ycl5LcLTqkY0J/0=;
+	b=vKeK5qeZzko5tMrQqxxH8ozRVdjtRdaEzQA6zKwNgbHGEg80fBJnQk8QmHdTqYbrc0Yt
+	 xXlLB+Q3n2QHVPUsczBYx1LjaDkmYzq9FHP2wQRvxNrOUP+oNefXolaAFmOXeofwfJVW4
+	 0j8ic3ukMVDXuM++ePwxWLQ1EYjae6Noi8+ommnyhmlRO87OCu57tst6C5Q848EVoHZOG
+	 62krQtdPf4bt+iQaMcfa5utK4GeMzMoZZzrzQHVkG5mIO0AsXTTA+TK1emfjdZHS/40bv
+	 QNBe0j+G/x9luiochNfvIZ5ZJsrhQEvzVVF8ctRgAm1x1/CEUs89CWCMiW/ZyROE0dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=OLl1ZdQX;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Oqr06SAB;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1A2606A323;
-	Mon, 16 Nov 2026 13:59:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E1A2606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99DA6606A893
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 13:59:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99DA6606A893
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=OLl1ZdQX
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Oqr06SAB
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 4B7BF1A168D;
-	Mon, 16 Nov 2026 13:59:07 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 5BB194E41600;
+	Mon, 16 Nov 2026 13:59:12 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1F15F6023F;
-	Mon, 16 Nov 2026 13:59:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 27B7B11BC0298;
-	Mon, 16 Nov 2026 14:59:03 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2B5396023F;
+	Mon, 16 Nov 2026 13:59:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E9B5111BC0477;
+	Mon, 16 Nov 2026 14:59:08 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794837545; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1794837551; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=uL8zUdscsuzLSxH3TIBRtn5i906XKgs83xavzgt4D5c=;
-	b=OLl1ZdQXh/X5RGyMHBr9xp0gi8R+pBfLzc+V5rLDz7XxGva7FFlaGkBZsc7tfQWRQz7Si2
-	Ev3QLmhTxNR7LQrBMj8ttIUmkHZJ5oK16kH3IQoIzOk6/bxkqz/T96tWN75RdUAdQf4nXM
-	uzmVyz7jtVUSn9xT+cSgOJv90oFsEXYDqcC+APkzKbXq7UAHnh20Q/y62u5ulItANF34Oj
-	DZNZhCWeHElIQAJ80Ha63w+Hc/Nlhi+4uwU094F0HAShvKnb35WTOivZ7SrscEBktGb0BT
-	yYtOHndQBGlDxOiHeHvjAx8XeDzUrm7977vJC/ISX+HndbtWkAJKtBIhxpFkFw==
+	bh=+c+7QLIr/6xnjzeRbgVMydkl5tX7ycl5LcLTqkY0J/0=;
+	b=Oqr06SABkTCcLuKn9GstcTXG0gpKEzHE3UWJFl40TGAJCKpvRpKUucQ9506Eflw9CC0w5a
+	1tI7a04edAe9z/3N9aQA4IsohieZ3OtIoowX5JQMeFxJesE2i2Amnnft8SURcYSJfOp5Us
+	uq56fkN5grKmyXIUDCMghLb20Mp7cJ3/ubN11vEKI3paExn+3pIAWF/CJrTvpMfvYqp9h6
+	he7rQTHhyJB/Kv5AHiYC0miEyV8p3a0/7i4bWfO4oprKoiz1FUti5A3zubqhKhG4EpxOBT
+	YrSaZlbd3LUorpkFrQml0gpbBg7HxXMVScuLYwEjb8H3gPrcVGQ8zkrK51odRg==
 From: Gregory CLEMENT <gregory.clement@bootlin.com>
-Date: Mon, 16 Nov 2026 14:58:37 +0100
-Subject: [PATCH v4 1/5] dt-bindings: interrupt-controller: add Mobileye
- EyeQ5 PCIe MSI controller
+Date: Mon, 16 Nov 2026 14:58:39 +0100
+Subject: [PATCH v4 3/5] MIPS: eyeq: select the EyeQ5 MSI controller
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-eyeq5_msi-v4-1-2e1233b014b0@bootlin.com>
+Message-Id: <20261116-eyeq5_msi-v4-3-2e1233b014b0@bootlin.com>
 References: <20261116-eyeq5_msi-v4-0-2e1233b014b0@bootlin.com>
 In-Reply-To: <20261116-eyeq5_msi-v4-0-2e1233b014b0@bootlin.com>
 To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
@@ -82,96 +81,26 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-Add binding for the Mobileye EyeQ5 PCIe MSI controller.
+The MSI controller is part of the EyeQ SoC. This change selects it by
+default.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
 ---
- .../interrupt-controller/mobileye,eyeq5-msi.yaml   | 76 ++++++++++++++++++++++
- 1 file changed, 76 insertions(+)
+ arch/mips/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/mobileye,eyeq5-msi.yaml b/Documentation/devicetree/bindings/interrupt-controller/mobileye,eyeq5-msi.yaml
-new file mode 100644
-index 0000000000000..e41a92aec3b8e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/interrupt-controller/mobileye,eyeq5-msi.yaml
-@@ -0,0 +1,76 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/interrupt-controller/mobileye,eyeq5-msi.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Mobileye EyeQ5 PCIe MSI controller
-+
-+maintainers:
-+  - Gregory CLEMENT <gregory.clement@bootlin.com>
-+
-+description: |
-+  The Mobileye EyeQ5 PCIe MSI controller snoops the MSI write TLPs of a
-+  PCIe port. The controller signals the parent interrupt controller when a
-+  vector is pending. The memory-region property gives the base address of
-+  the doorbell window. A port supports a maximum of 4 MSI vectors.
-+
-+  This node is an MSI parent for the PCIe port. The driver chains the
-+  controller interrupt to the parent interrupt controller.
-+
-+allOf:
-+  - $ref: /schemas/interrupt-controller/msi-controller.yaml#
-+
-+properties:
-+  compatible:
-+    const: mobileye,eyeq5-msi
-+
-+  reg:
-+    items:
-+      - description: GCSR block of the PCIe port
-+      - description: MSI vector control block
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  msi-controller: true
-+
-+  '#msi-cells':
-+    const: 0
-+
-+  memory-region:
-+    maxItems: 1
-+    description:
-+      Reserved-memory region. The hardware uses its base address as the MSI
-+      doorbell window.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - msi-controller
-+  - '#msi-cells'
-+  - memory-region
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/mips-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        msi-controller@5840000 {
-+            compatible = "mobileye,eyeq5-msi";
-+            reg = <0x0 0x05840000 0x0 0x10>,
-+                  <0x0 0x05840040 0x0 0x20>;
-+            interrupt-parent = <&gic>;
-+            interrupts = <GIC_SHARED 7 IRQ_TYPE_LEVEL_HIGH>;
-+            msi-controller;
-+            #msi-cells = <0>;
-+            memory-region = <&pci0_msi_reserved>;
-+        };
-+    };
+diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
+index ed17c9b1624ca..19dbf24684b23 100644
+--- a/arch/mips/Kconfig
++++ b/arch/mips/Kconfig
+@@ -632,6 +632,7 @@ config EYEQ
+ 	select CPU_MIPSR2_IRQ_VI
+ 	select CSRC_R4K
+ 	select DMA_NONCOHERENT
++	select EYEQ5_MSI
+ 	select HAVE_PCI
+ 	select IRQ_MIPS_CPU
+ 	select MIPS_AUTO_PFN_OFFSET
 
 -- 
 2.53.0
