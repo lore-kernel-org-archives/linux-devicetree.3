@@ -1,89 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823224;
-	b=gHGOVutAH9/ZpfM8PWMUirW+BmCaqlG9pY2r/xZ4EcXrT+w/i4dGI5at0F6k1l16LaHR
-	 qlKgXf637myvHHZF9dJjkFW975Fu5HwquZS5uYg8mi32RKjUX27Ci2chWPMERXTZUcMzt
-	 /nfz5QX+jKjuwWkO3FoHH0vEo0YXTu47s6HCvNfVZWMkYqrh877G3/VPFr1A6zTYcrrce
-	 haoiW9rbv+CAyilz2J2OyKBOW4VGMdagBw1q1gSzrKegxa0byD0K6zTUcNX0OHvrdg8gs
-	 InW+qnOXX7u/KEw2lWrPtvwfkL+p3Rxrz7dG92F44ZMA1K59QoRbS01kpiHqsVtYmkg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823224;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=CEc6t0VeUS80Ev6G3pIRJFObgJcYoN6XXEJ5BLbIEVo=;
-	b=fKr3mXYB1ukeze96o56Ipqa7aKuYiJRQXJmu630CtWmzZLSRujVTyQV/pOtipmb+P43o
-	 YsX7C3Xtl2FC+eND6NgqqIe69ywxhok7mIhcfRmCryTK+Y+HPRZCD9UVgM5u4owtsIt++
-	 GQ9F3Rfgi5P4SMCMFhCYVrVLPEL99t3OJAP3Mrs6c6OHd5K7ZTALMLZ/xtjFoHLzSgvDz
-	 OirIZkJ6k4Kep0UVHMh9cYtT+V+T63OYDDOozj/CsZphQsfmPKXuO5ObqaIVTfVz2SvrM
-	 Olgp2PAcTjBLntG9hFzMDOhBvP/2q/abQtkb3KBJMi+9x4LUldov/vMgJ/uKYyclq7A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=QPTiA5Jt;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794823287;
+	b=a3K8Q0LVJ5369vbge6QrtRUnfcg3yfakO5yuOITF7+CLsTQObnsCtsSrfY8eIG56comf
+	 L1ci4MH5wmh+yNpWZnRnSGsc/XoBuNoBeW/3P8hVwUVSaVZJLZWRLCLnFCGo9WyaXfGjF
+	 0NRw2c7dBMloCjeM+LT5bRA2C90cv3k6UTwD3uAgoVRJoiJw5GigDGx0FA63vTe1nsrWC
+	 YH/7eI8XeV40ZVL+69fYEiiD/xhdrboz9K4TwsOcaqwocQ/lDh3BxH+5WRSs0yhSzxwzk
+	 u2l4O2ZzkWV1XQpa8xaIFMGivJ73WH40A3BvzeNu6XNeVSBiLSlL89OymvzzENGEWHg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823287;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=+RGkjd/Qfb4Dw3SBbE+1NagLSuw1G0THfq1R7Ey/gug=;
+	b=QKZDPAIjgR5Pvom04drUP8/PPwnB+qGcjpt+Hs4/CpS0Y5kBeLsaO1XWWP7eJ1A6KMSQ
+	 voxVffXewuqbePjAbVv6HSSJC3lpfARoPHhd9k1hpLZ48wKYUtLVQTbl7cjSZQPAL8K4e
+	 UFZBtzHJ1QHqSGbjRtd1zITRSGMQVBChf2zp4vJ9qf1KyTKVFJ1uc3xpejxxq0iOI70TB
+	 6/ie/VqCbmWdbB7rp9NQ7d62ZzAOcVO1pNvxD6am0/E/oHygH2csNbtnoFAleL4TmIr0o
+	 099aj6cqAvF0yXDOUBqs4u9BKkvuPdwyhmusR0Uo4wXmJ5lDHa0J9B3fECe3pej4mYw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b="V/YBkTvq";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F39606A32F
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 10:00:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8F39606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41462606A323;
+	Mon, 16 Nov 2026 10:01:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41462606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=QPTiA5Jt
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb6c7b6dbdso11624625e9.0
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:00:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794823222; x=1795428022; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CEc6t0VeUS80Ev6G3pIRJFObgJcYoN6XXEJ5BLbIEVo=;
-        b=QPTiA5JtYMrbsMl0z8iJz6Z1kuNtOsLW8HHjgERJXiH0wb+LeyunHKf9R9M2HNk2II
-         ikL42CGjtFQ4HGfxK4hv4TxHo9NIb0nOLjwT5EBK3NtTEdDmoyjzSOPFMXbm+/UCMVkT
-         QCdxmRISD1pOOzkwFv8CzKsRJJ1Z2wBB+AtfFTu3Jtfr3dLv1RpB4rkc9schgefJ3Xrj
-         +dlu9mwwMZUdyrtRogYv6qxhwLFuuCLyzb6kMTiOkdQ1uPH850eMPDut72jt+NXSzWuN
-         /ab4+oBXb3+cgDHO3gIZ5eEfZeSJ398PLzQsPYaw9lnFGMCfxT4xxDn/9zx9NncIFGCa
-         UwXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794823222; x=1795428022;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CEc6t0VeUS80Ev6G3pIRJFObgJcYoN6XXEJ5BLbIEVo=;
-        b=Lj9t5pExGJDb0OQXnJ59r2qWfBuCu5vJwb5HkdFQupQtHBhr7jHve9ONp+RznZ1lDj
-         0o3Tc62JMSedr7/IYutBrFUJEr20jDjf9xRiudoPEN9DqN9IupSS1NEVFe8+WVBFSZHi
-         zBYtfdkMGLwEIgbbX4elfme53xQrEAvfUYtxXUeEJxaaICjXVfp+kDc3cWyhTSl0agby
-         C5njEAaYc+0aB0hpcg4haMAQGlMsd60Qu551+Iksm+YcNawbWKn7Z0Wl3nPk/XN/F8l3
-         Vv2Vg0U5kf7alcL+K9qJcHsazZN2NG/aWiQGBw27zjD+ne+rCNafNeaHtP5qNVBM7yjI
-         JGWg==
-X-Forwarded-Encrypted: i=1; AL+hErEGgfk+VMH22b9GfyBuF10LrblrNBzAWrhCHhutBo/pavm2+2UtJFBY/0xPU+FoaGmus99uCuHMgFSp@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zzZmEQHsN42uIuIAXwFExi9sObMmdPztd3lPu8+blJD6UYqlR
-	0WXxy2DIRyWjvn+/oQS4mDZlRDlL6SbZfUTk0nmjO0YIb9EIA4rn30g61+6511wMjUQ=
-X-Gm-Gg: AYBFou2Wl8GC75d3E7q+WQa253AaDHeOauN05JoWmVg7AvpBnBjNfBmmiSWtVrLT72J
-	90516s9KG2amoLlkS6PhBX/5GC8/z1HMaafhNhnmizoJNj89nl3AxTyJDSLHci5AnQSme1mqikP
-	8deK49bMAvbsSnvmaM26eQnbNWe1xClPJ/Hzd6CIw3Ld4vgoGCmYsGaxBiFCGbxhx6sZzy8xI4/
-	KohaNfCwC62I63SJ14bYZKFm0gQ8GUeVZqy9e4Wuq8pUgvphvJwREWBoU8ZL9J5Qtqq8zV8f/El
-	jibp+Vd3/fzNzq/7ax3OLr6gm/Y/QT20V6BpJPRQ3GNlylj2oiox5dPTOWkUty8VE18tK4laJBb
-	LUPvGxnzooBqs3QPpnYZwMrwRx8Y+kXij/45Ke3pYc1HYz+g5AEZ9YL4wnFjN0GqOZKxJcdI9jl
-	iLsVm8Z1+Y9vxPg/iWb1B3FFOS6rtMokUVS0ZTxbLcBt1RY3jVN9HreBWw1VizfSm123p5gpEiC
-	F5CjFzk2W/Az/Ev6sSOsoZt8mJ+kLaWZQb7bHf5U2AXBM8o5gRlD/oj1Affo8ZbSeL7z3ZbYvOA
-	zxLNIvtY/kaskNzsvsauOtjqqWWYnXzyhUwyyHqmOG59RDZDfMzYpuWvGic9Emnmcuu5ZWnhk47
-	oH3Sa4wjp
-X-Received: by 2002:a05:600c:a012:b0:4a3:5aee:2c25 with SMTP id 5b1f17b1804b1-4bb55a907cfmr204744635e9.31.1794823221901;
-        Mon, 16 Nov 2026 02:00:21 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:575d:8fcf:e30d:5aed? ([2a01:e0a:106d:1080:575d:8fcf:e30d:5aed])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ae4414sm282702355e9.9.2026.11.16.02.00.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 02:00:21 -0800 (PST)
-Message-ID: <0498194e-6428-4424-82b6-c6e52ba25adb@linaro.org>
-Date: Mon, 16 Nov 2026 11:00:20 +0100
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=V/YBkTvq
+ARC-Seal: i=1; a=rsa-sha256; t=1794823239; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=CUf5+UwYhRfnn8buxQ8wPL6o5V1CqkFUd02zBuF3/3wUjfGTYXwyWaeMpZePi+Yb13asn+2aEkj1FffAl9A5YC+pYc33h7F0LdpND24zoOIOxoKBBHV38O5qFZkDnVNvbkLsaH58sCYbOCgqP9R3C0dl53LPZjJKeOdNeU3/7HY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794823239; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=+RGkjd/Qfb4Dw3SBbE+1NagLSuw1G0THfq1R7Ey/gug=; 
+	b=A84ZmGMlEkDQWkyxVnHmRSVcSvfABnfX5ksXn7JUP7RmXdhjWkMqV0qe6kB1Foe2XU6M8N+NiiDNRsbXjzgEFGXswvhifdhyozwBEcvMyyniZxJHOnEgs6fXXBhpFk/fjJX5ENoLNn7OImzQUTBYdegNJO5t+Aoz4xn4t3GSV3g=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=V/YBkTvq+AuWstlhlVzFK5LywsMcAB/lZUIDwgs66uK9j1v+qq3XqmX1RpQ7E36zCdf+5chq5/7sn1lm/i/0zJY9JjWvCWsh6JWRB6y8wP2e3D9qsM52I7O7T3DiK8eKQbSuono0eD8yej7CQtNF6bYfpFSOIsGFaA4dUmB/GOw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=+RGkjd/Qfb4Dw3SBbE+1NagLSuw1G0THfq1R7Ey/gug=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794823237050288.840830608097;
+	Mon, 16 Nov 2026 02:00:37 -0800 (PST)
+Message-ID: <0d837fe2-e192-4fc6-a2e5-c23df40684ab@collabora.com>
+Date: Mon, 16 Nov 2026 11:00:22 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,77 +59,83 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v12 2/6] firmware: meson: sm: Add video firmware loading
- SMC call
-To: zhentao.guo@amlogic.com, Nicolas Dufresne
- <nicolas.dufresne@collabora.com>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
- <20261022-b4-s4-vdec-upstream-v12-2-616240978792@amlogic.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-2-616240978792@amlogic.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 3/9] phy: rockchip-samsung-dcphy: Unwind power-on on
+ PLL lock failure
+To: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+References: <20261110-dcphy-rx-v1-v6-0-d681ba20b36a@gmail.com>
+ <20261110-dcphy-rx-v1-v6-3-d681ba20b36a@gmail.com>
+ <3ab93996-7e37-4143-aa4c-b4b4b0e025d8@collabora.com>
+ <CAPwA33JHxsd=nr9F9_KFKWPx+HGaR8P3ee7hxMc8XCS6QY46gw@mail.gmail.com>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <CAPwA33JHxsd=nr9F9_KFKWPx+HGaR8P3ee7hxMc8XCS6QY46gw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On 10/22/26 07:27, Zhentao Guo via B4 Relay wrote:
-> From: Zhentao Guo <zhentao.guo@amlogic.com>
-> 
-> Add SM_LOAD_VIDEO_FW at SMC ID 0xb200000f in the command
-> table to load video firmware.
-> 
-> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
-> ---
->   drivers/firmware/meson/meson_sm.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/firmware/meson/meson_sm.c b/drivers/firmware/meson/meson_sm.c
-> index ab9751a59b55..887caa5c625d 100644
-> --- a/drivers/firmware/meson/meson_sm.c
-> +++ b/drivers/firmware/meson/meson_sm.c
-> @@ -48,6 +48,7 @@ static const struct meson_sm_chip gxbb_chip = {
->   		CMD(SM_THERMAL_CALIB_READ,	0x82000047),
->   		CMD(SM_A1_PWRC_SET,		0x82000093),
->   		CMD(SM_A1_PWRC_GET,		0x82000095),
-> +		CMD(SM_LOAD_VIDEO_FW,		0xb200000f),
->   		{ /* sentinel */ },
->   	},
->   };
-> 
+Hi Jason,
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+On 11/16/26 04:01, 楊智成 wrote:
+> Hi Michael,
+> 
+> On 11/11/26 14:02, Michael Riesch wrote:
+>> I wonder whether this should be here in the first place. Only judging by
+>> the name, samsung_mipi_dcphy_pll_enable is something that affects the
+>> complete logic block and probably should be kept in runtime resume to
+>> begin with.
+>>
+>> However, since _dphy_rx_power_on does not call this funcion, it seems to
+>> be something related only to the TX side of the logic block, but for
+>> D-PHY and C-PHY. In this case, it probably should go into
+>> samsung_mipi_dcphy_tx_power_on.
+>>
+>> On the off chance that this is actually for the D-PHY TX operation, the
+>> function should be renamed "*_dcphy_pll_*" -> "*_dphy_pll_*" or
+>> "*_dphy_tx_pll_*".
+>>
+>> What do you think?
+> 
+> The settings in this function are indeed only for TX, for both D-PHY
+> and C-PHY, so I will rename the PLL helpers to
+> samsung_mipi_dcphy_tx_pll_* in the renaming patch (6/9).
+> 
+> samsung_mipi_dcphy_tx_power_on does look like a more suitable place.
+> However, I do not have a C-PHY board, and I only have one panel with
+> mainline support, so I may not be able to test the DC-PHY TX side
+> thoroughly. For now I am trying to leave the TX code unchanged unless
+> my series affects that code.
+> 
+> Should I move the PLL enable to samsung_mipi_dcphy_tx_power_on, or keep
+> this error cleanup path and the renaming change for now?
 
-Thanks,
-Neil
+Thanks for the clarification.
+
+I take it that the patch is only here because sashiko complained about
+some existing bug. Your patch fixes this as-is, therefore
+
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+
+Still what we discussed makes sense, so let us do some refactoring in a
+later series. I don't have any board with display either, but I think
+Heiko and Quentin might have one for testing.
+
+But again, let's focus on getting your patch series merged first.
+
+Best regards,
+Michael
+
+
+> Thanks,
+> Jason
+
