@@ -1,55 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794869454;
-	b=vt+4r+4u4cg+uv4rOhYa9S749f/D8ATLycdxIpjo78WQwebnnLXlR0wT7o+vJQ/2P1tr
-	 ouILo4jbDCRlufhBqpZub3UFep7SfnXnkliHOOQEXmqIDLHhjWOislhMg6q58RrFHsjgp
-	 g1nK214xycShbhp1XFyS7Pi3MctU3OTGabzqgaNu6l+y4wYRBui2TcsbFCHMTN4rz6lRA
-	 7laXOU+4WNynJBjl88mKhf6aPP3a2JPj7T9qTNa+FpCjv74Fc9s1ICiiFZLD5Z3TFc9PP
-	 XXY3NmLSgU78KO1y0cSCV1WriQLVN9ZChs53vR6tcmPWKaRqY5SgVCXpC3GqTcADisw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794869454;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=HdzBusJ2m2oIJwvG8r/gIEsWxjBy4zz4R3lKt0q2ErQ=;
-	b=e1ZCdvAsrNjhiJVjAzvcOwxzm3ERty7lqo0yw//5b2BKv7VM0FDHJRQJCDqxGaae4pkM
-	 g7nPAXLPtYGgTbXuKx2Mwprdu80m/UdrIxDLX0GOkPvi3ae1BEfzEyUrRxa2yHbQ5A2D1
-	 gyf6DQY+OagUvKHMSxgJTs3QMsuEYPcD7oq3FocXU7zoMWAHZv0RwMLgW+SZEd652UAFP
-	 rS/a3dievoTeAiQdBqB2G9/Dxt1O+SRvlJ84y77NOvlYdbiEZzrXbXgL30r4iMuBdusWS
-	 2PQQVNiOM3VhyqfV4TePXcY6YYg7Twm2r5tBy+mMvfwgU1AAO/4VeCFKInDZweOLMAw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=erebion.eu;
-	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=NOdUCWXf;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=liaGC5tB;
-	arc=none smtp.remote-ip=142.132.183.134
-Received: from erebion.eu (erebion.eu [142.132.183.134])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794869477;
+	b=AxpctawvQNK+EOu9jWxXRVXYZtQfMDSqzz578srVeACuveUP7ZU0kLSHUrW+5RK7x/bM
+	 UC+WcRCnwpNeDXiISLyoTa8qut+MQFIvdkApyQKoV3lcUaBMviNiAsSk8K4qXKg/pbM6f
+	 yRQINteqMqEZQ6WSB0P+jMNz6CrXiWglyDlfjp6n3xIueNRkBoY8JeTzBoA2mrNx9Z+w/
+	 PwagNvFIihXdleQMBP5el8ciU9mlunrVt+YtiuhZme+wbkAaBOfC7RJmV+Rbb/wnWWQvo
+	 Nfc0XiqAgN7O1MRdbfXUh/fpd9qLevfGo82kL4NAbDMsgL9NuUDiGpCzu9fXcGfBtuA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794869477;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=4R6GMf+N1WSGNe7ynv/fMp2cLGWJ15ixMnxyfrCx9Yw=;
+	b=4Dzzo/jm3X0AQksqdQkFEwC1/JYgrf9v706vmFb9oFZfr+za1/D2lMfw/MU3Hqvtyz6S
+	 YC7TH40ydK1l2fRo7Dp5HVs0vqtiGyz7XT9xUDW8RlAc0ZnnoZKKUsEHUHhe0BTV0Rp7Q
+	 vNnCeAPWqAvwFvLCksxEps6e3g9fDKlpRy2f3NsZhGAZxfducGfUrpFz1DmTZc63XsbOf
+	 6g8emEc3nXFq3k85dhkRsE36HAqWuvgE58afAqHZ+7Yxufa0NkVGt/Rji/mA3tPCq9/ZS
+	 1X9JikX5kuI/GW64fveSLhADPKFMR5K0CIbGMXuNv0ng0sHfjetUE5PZg9HzzgoB1Vw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="kk/p/EUZ";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.48
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1BE60A260E;
-	Mon, 16 Nov 2026 22:50:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF1BE60A260E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A8B606A31C
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 22:51:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8A8B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=NOdUCWXf;
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=liaGC5tB
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1794869435; bh=HdzBusJ2m2oIJwvG8r/gIEs
-	WxjBy4zz4R3lKt0q2ErQ=; b=NOdUCWXfzdCJHm+7KNssXMRDeL/Xk4GG8IXcnK7CDSNcnETx0B
-	gpon7j+UT5saKCKqeNrAy0pSNH5hyYysUbAQ==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1794869435; bh=HdzBusJ2m2oIJwvG8r/gIEs
-	WxjBy4zz4R3lKt0q2ErQ=; b=liaGC5tBTg7Kpfieyi9cLjekgvF4EFXZarGiWSGo26nhb460Ky
-	SDkAIl6aZJZxNw+TmkUVnoDST1hMMFX7NgGzSHQU5AEh1EFeSu4RdF2PgTnOg2jPAldU9Ej+Q+S
-	3abfjTEF+XRT4HjxAdbrEtiXf4cCaR1m2UXzb6ECJ+blNUqxK/fwXShm5I5o3Ii47oNOsowVKTG
-	QiLCUYZpRgg1FBkCqaNMSGzTMjUjFobdHuy5JW3ylLe9I7qUsb1temtIVEsIZ5wbXDCo7jh7jV4
-	hdKM9leOQp5IuyO0qMd17DZa+fb67hrYVI5UfKrdvUZaJxf5EUujMLQGDQdkzf6aYIQ==;
-From: erebion <erebion@erebion.eu>
-Date: Mon, 16 Nov 2026 23:50:35 +0100
-Subject: [PATCH v5 05/12] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kk/p/EUZ
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bfa7c09c9eso3260366e87.2
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:51:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794869475; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AYqVBznkrgeeMbwiIQpY7KmgAFNuuujeg9vKHQNRSBVC4diZsRF5sNoO8aPfwtO2cr
+         te60K6TquDU1mrhXnsZR9xyVXAbyOHKsPLafO+KhS4FkrtTQJlxFGcyvFUCH0edGM1Z1
+         Cpu8lqKPVmbhklW2NGscC0piYLZIidnyvpmgGBrbIxogfWRysuwhORT1Xsgqfhx7PJfx
+         w9Cl4qa+36PozrYQ2YCnPpfb3nTD1Rq58dsVMpShRyU8oPn0hBAOkECPT/d0I2SE58bj
+         R23YXfb3cA27XIYNrc8gkPcSLZcNhWJ3k6LvQ2M0QCP/BgnAFfYTunhmp7QlVBAidi8/
+         hpWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4R6GMf+N1WSGNe7ynv/fMp2cLGWJ15ixMnxyfrCx9Yw=;
+        fh=Ez4q3yBndYZxYoTSEqa8k671Iv8+vhRJLVZaFO4e+tE=;
+        b=a/hB+/foUuSEWjuEeFA+407B99pupZ5BFgs9GDONkNwX/YS6c5NEaUvaZcUYn5xVW+
+         5f1eARVA56ZZoMqf4K4HCx7RYtS9xGZkRNoapz93xPrr9UWEaszP7xuhO1ZArN3MMpQ6
+         KOtsiHXgSbQboXAp/LeZGHMUD7FRSPov6708L1Re6hULnVJalw3vFSqHRERStWPi1v2p
+         jn4I82tcFbilzfNVHY/8XwYUlD1x1OG92GZb8W8JdjVJk6OYroJ97rd2Pj3bRDFEzO2X
+         Af4FFAgQBFNt/22gX6uEBmDwpoZN4Sl2k2pXVkkFxQZQbSSbU6ot7vaeNNs+yz7fZWOq
+         FB8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794869475; x=1795474275; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4R6GMf+N1WSGNe7ynv/fMp2cLGWJ15ixMnxyfrCx9Yw=;
+        b=kk/p/EUZ42VJ5YgKv1Wn3i+cPwj2SErCTRW7L793OJ0KFsNhCm9BuTgxw25M436hxE
+         V+gWlsQN7/eDt/WsiMaip+OKOnsd8INibpn5VjqY0nM8LEycYyq8fhFtSzsxtVa09VYI
+         mX1qReotK4FksPWQDUjL98HvDzHNaBfLnKgBYWSR17ox+RhuSN+LMYvEsxJvXJH2IUHW
+         BHmkCG2FVqHRuiswoAB0HnlpuNtJsPDeRalmZzkIGnNMdhEtE/lVhJyBu2SepnE9Dqzb
+         wC2kJSVYH3Y1/rbV6xzEoYbWB7cHhGoewD2w7T2axTp0Mv+VXe4PGlgaLvzVgchabuwg
+         wldQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794869475; x=1795474275;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4R6GMf+N1WSGNe7ynv/fMp2cLGWJ15ixMnxyfrCx9Yw=;
+        b=hJJ1WjbuMsUzw57vIuhyZE6xZNAwbhWu6gyrpmEjQkvM1elqQawoW8BDjWJKSwYEa2
+         tNUKUVAYM612J8qvpXTdYLFG6zF78VcIHsxpIqpSQXGsYtE3XFeFm5a2eIESPwa8SSIu
+         Hb9uNoRlni7nfB+CU/GAm3MnF4hLou/1cq9WRkouThqnJg5QD0U/y8p7UlJWd9lo8v0L
+         GcENQDrKmiG/TYGjZZ6pFjoe6QTMP0CkYF4F8KU7QC94715pbv+YmBxJHHBqvBD1iQdO
+         DEDImvub2bcOdZhft1lFup6bQAJXYtsLtBjp1aDWz/BHRd0RAXkc3gtURbtE9an2Txtu
+         lzKA==
+X-Forwarded-Encrypted: i=1; AL+hErGW0YTp9jj15d67MSTTTH/F5p+NZV/3R19kYwh+69ply2DO/vlDdwlhIR2Yq/QAgtIm/jH5UugVQQs0@vger.kernel.org
+X-Gm-Message-State: APuU4Z9upzwlUl3jLJsjkpZ45nUCNFtzFGs9L/aGkguYbtB/WBLdgHLd
+	m9PvyByWroennZWj7dxHCfZmZfB6AYrfdMC0G6bbJISDsa/8D8XfIIjuU0OzSWzytt4SkfBjI4b
+	iT7y9byigk5lAz2emYUQSbbGsldQc2K0=
+X-Gm-Gg: AYBFou3uwoNAvoh9sP+WGjyqh3myessG5Ifahpidjtq8gTong5COI94G8Us5UKNdJZz
+	hjjqLZ8uo1UOUYFWBjhEpHA0iodAXsrJOVwUbcMpJzhO+xmnELzwttYWJ6mebJO71yrVEN4RKN+
+	Y0ZHe0bk4JQffqvMutX7lamc4L1OZj1qUx49ZuFbQSW+n45Y1wghPGI5U3Et0TpgR/VjGFGV5jF
+	ftdPa/3LrSX701voZNGuF8v63praMxVOz5EwBq1cqIcqm+/EbmbxBpQxt9SGDzPJJo74OOi2s2V
+	o9gg3B7knLYwpD9GR7vZRV2RYol/lpxa5GA8OF/E1W9wX1zPcWk2Nwdu2QAH7ljyRe8Ib8LOca5
+	Mkzz/u9UXvETZNtG488ICUNBoytVvwPP0L3nw8oonnulxXzU3VnX1vLgNX777iG4RCcNVn21z6k
+	Gq5NrJxyEjzFvORvpXCWPDgmEknw==
+X-Received: by 2002:a05:6512:31c3:b0:5c1:4f6f:564c with SMTP id
+ 2adb3069b0e04-5c1709c5b64mr4475988e87.39.1794869474886; Mon, 16 Nov 2026
+ 14:51:14 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,162 +105,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-pdx213-upstream-3-v5-5-7318a19806eb@erebion.eu>
-References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
-In-Reply-To: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- phone-devel@vger.kernel.org, erebion <erebion@erebion.eu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794869432; l=3560;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=9i1AK5BOSgoKjgzyzIvOIdNUt//20/4Ya8X1h1Kh+Tc=;
- b=1G2aGckki85dghvVOGe/Y0Ra2AWsT9XQpp1oUQoKqnS1q93uzSxgcutgbSHDIwVdrg3lZ1Vm/
- hv63uXDxbpzD7riDzvlUZ3gHf+Yk+2grjSI+MxMRUGr1sYbcAjhKyct
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
+References: <20261116224803.61154-1-festevam@gmail.com> <20261116224803.61154-3-festevam@gmail.com>
+In-Reply-To: <20261116224803.61154-3-festevam@gmail.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Mon, 16 Nov 2026 19:51:01 -0300
+X-Gm-Features: Aa3M54oXe-IAn7x15degHvby6uCIkABaEwDsnl3MJEDi4r1Iu6Ak5t9VY_ssJ7s
+Message-ID: <CAOMZO5CPym+AYFLv7D-mAH+OQXL_83yForV3GaSk4ReT_x1HrQ@mail.gmail.com>
+Subject: Re: [PATCH v4 3/4] mfd: mxs-lradc: Pass parent IRQs to child drivers
+To: lee@kernel.org
+Cc: maz@kernel.org, andy@kernel.org, jic23@kernel.org, 
+	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-iio@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	stable@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Configure the required regulators for Bluetooth and enable it on the
-Xperia 10 III.
+On Mon, Nov 16, 2026 at 7:48=E2=80=AFPM Fabio Estevam <festevam@gmail.com> =
+wrote:
 
-Signed-off-by: erebion <erebion@erebion.eu>
----
- .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 96 ++++++++++++++++++++++
- 1 file changed, 96 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index e8808865bf6fa..12bf5420530d3 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -19,6 +19,10 @@ / {
- 	qcom,msm-id = <434 0x10000>, <459 0x10000>;
- 	qcom,board-id = <0x1000b 0>;
- 
-+	aliases {
-+		serial1 = &uart1;
-+	};
-+
- 	chosen {
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-@@ -376,6 +380,32 @@ &qupv3_id_1 {
- 	status = "okay";
- };
- 
-+/* UART1: HS UART for Bluetooth */
-+&qup_uart1_rts {
-+	/* We'll drive RTS, so no pull */
-+	drive-strength = <2>;
-+	/delete-property/ bias-pull-down;
-+	bias-disable;
-+};
-+
-+&qup_uart1_rx {
-+	/*
-+	 * Configure a pull-up on RX. This is needed to avoid
-+	 * garbage data when the TX pin of the Bluetooth module is
-+	 * in tri-state (module powered off or not driving the
-+	 * signal yet).
-+	 */
-+	/delete-property/ bias-disable;
-+	bias-pull-up;
-+};
-+
-+&qup_uart1_tx {
-+	/* We'll drive TX, so no pull */
-+	drive-strength = <2>;
-+	/delete-property/ bias-pull-up;
-+	bias-disable;
-+};
-+
- &sdc2_off_state {
- 	sd-cd-pins {
- 		pins = "gpio94";
-@@ -419,6 +449,72 @@ ts_int_default: ts-int-default-state {
- 		drive-strength = <2>;
- 		bias-disable;
- 	};
-+
-+	qup_uart1_sleep_cts: qup-uart1-sleep-cts-state {
-+		pins = "gpio61";
-+		function = "gpio";
-+		/*
-+		 * Configure a bias-bus-hold on CTS to lower power
-+		 * usage when Bluetooth is turned off. Bus hold will
-+		 * maintain a low power state regardless of whether
-+		 * the Bluetooth module drives the pin in either
-+		 * direction or leaves the pin fully unpowered.
-+		 */
-+		bias-bus-hold;
-+	};
-+
-+	qup_uart1_sleep_rts: qup-uart1-sleep-rts-state {
-+		pins = "gpio62";
-+		function = "gpio";
-+		/*
-+		 * Configure pull-down on RTS. As RTS is active low
-+		 * signal, pull it low to indicate the BT SoC that it
-+		 * can wakeup the system anytime from suspend state by
-+		 * pulling RX low (by sending wakeup bytes).
-+		 */
-+		bias-pull-down;
-+	};
-+
-+	qup_uart1_sleep_rx: qup-uart1-sleep-rx-state {
-+		pins = "gpio64";
-+		function = "gpio";
-+		/*
-+		 * Configure a pull-up on RX. This is needed to avoid
-+		 * garbage data when the TX pin of the Bluetooth module
-+		 * is floating which may cause spurious wakeups.
-+		 */
-+		bias-pull-up;
-+	};
-+
-+	qup_uart1_sleep_tx: qup-uart1-sleep-tx-state {
-+		pins = "gpio63";
-+		function = "gpio";
-+		/*
-+		 * Configure pull-up on TX when it isn't actively driven
-+		 * to prevent BT SoC from receiving garbage during sleep.
-+		 */
-+		bias-pull-up;
-+	};
-+};
-+
-+&uart1 {
-+	/delete-property/ interrupts;
-+	interrupts-extended = <&intc GIC_SPI 602 IRQ_TYPE_LEVEL_HIGH>,
-+			     <&tlmm 64 IRQ_TYPE_EDGE_FALLING>;
-+
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-1 = <&qup_uart1_sleep_cts>, <&qup_uart1_sleep_rts>, <&qup_uart1_sleep_tx>, <&qup_uart1_sleep_rx>;
-+
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "qcom,wcn3991-bt";
-+		vddio-supply = <&pm6350_l11>;
-+		vddxo-supply = <&pm6350_l7>;
-+		vddrf-supply = <&pm6150l_l2>;
-+		vddch0-supply = <&pm6150l_l10>;
-+		firmware-name = "crnv32u.bin";
-+	};
- };
- 
- &usb_1 {
+> Changes since v4:
+> - Map the LRADC MMIO range once in the parent.
+> - Share lradc->base with both children.
+> - Remove duplicate child memory resources, preventing the unbind use-afte=
+r-free,
+> as reported by Sashiko:
+> https://sashiko.dev/#/patchset/20261110141934.42490-1-festevam@gmail.com?=
+part=3D2
 
--- 
-2.53.0
+Sorry, the correct URL is:
 
+https://sashiko.dev/#/patchset/20261113013212.470981-1-festevam@gmail.com?p=
+art=3D2
