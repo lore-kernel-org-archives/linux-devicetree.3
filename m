@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794847200;
-	b=GoLQw99olQ9/DW3g+tXmkbZdlvtvStL74CsLyxs191YKtDdlPIavN8Ut69VJKJGpckFX
-	 kQxOx3t1T6lqLOtDSolKbECAhaUCLRdDUbhu1BbUDJjj89luwM1DPuaIUG38w+4mlOBRx
-	 otaJc/YrwrYHQ3e0DwDAVExCVTOcqgU6QHsdrpSGLiYP3zEabk5a7FGEQb7WD+bfNq7k3
-	 +mkmZtAMJqYL2fctY+o04QTfG8OZ0ozjB2uifvfcjYfjC2LLLEBf5XGtP5I/eeA8T1F4h
-	 HsS0IAeoZ6AwTjTKD0ua14KdRyhDFItUzTkLUPkzDqbgdn9yl0A6Xct+HevJ+C7eWDg==
+	b=VbiH6y0JntNt9suC9CaQNEFE81ramgN9sfvUc5a72RFQV+k+LSw2OqQNXu/lK3wCc83c
+	 JSovq0mS+HSGpe0eTE7P4dYNHrhHsM9YOgX0MO3ebTOG8wUoXIBvP49VqmQK7VZNNn/kv
+	 2vAgUd590uphYUPa93u8TnUWCuT5jVjlzFvMsdle2ZGsqLDwvvdAywNaJuh3lCty2mgAJ
+	 fM4DjNcZIDQV8O5mrdYpwctQHSBFgIjfUlEDH7km/mmeSSTFlI5oSbjW7iTJ5WIsja05R
+	 fAlwkdfSRHk19HOXkjwaq/E3z+V9n+Rt5o0kpEmGKO2wOXGg4/4IPpXt3V/aVxo58Xw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794847200;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MPTcW4Z9vo4Z7/XoesrWIOcgvVRF9TyWF+1Cfqk7Xng=;
-	b=LDzx9AVZP8s/+ASmAZhhuVe63lT6IpvaG0lmIOP58IE9UMW/qAqZuvgm1g7n0OoCoMAP
-	 6ycsLGx6rwwZA4iABIc1UeDFnII4eNGdWivYVXgjERSysnVPCzAgv/Qp2FwKSrGurXTdb
-	 6OkeG7iPmIk7xfO89hzVvR/1+RjqJpT9r8mNQxVzDA8UL40AO8lj9m9+4+gAGJLcnx92h
-	 2aWokO1J5u5VH7TqrDw5YMj8aHeGUSpkAKXS0SxzAv+uXayHEOMiF1ntWcR076TaVxZnr
-	 N5ReNGc3xf8Dd+QY8M/0XJBw8pbtjkaGdmxsmyZFpVkAzpLYka/Gppr93FgZCrwyusw==
+	bh=NLxSLGAlbxw7z0m7lP8HQ1a5F0qjVvjKFvItA58evvg=;
+	b=GfBhxq67oaR8KpNafU3QAhnEpW+0cPLF8Ca4GbTelM/1lWxH7uOnGFSBOQFtqCNgZTHt
+	 PjawbUC7EBigA2WtaAqRgO5cfGbm+xIAZPI4F9JY6Q4szEH1+ypFaMxzam+YX9cSRgOR3
+	 NIux00AuCDh3jpkbzTrlk1HUHsambkZq3j9PApu94DRLOUbv8hSqUYwYAB3G6/jCzdv8j
+	 Z2X+g5ZPw8PehokecJVVyLxqG04ZYBLMUnCG/gGgfBJloEaJJiF7E21iYDUwylr/USo+Q
+	 QEjmsYZ3KPNQqTnj604pzDCZ8URsR2DyQkyCSNRt6CVlXxLZqAEFWOFqxK2GhdNKkow==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gd1WoPMC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UV70e/pJ";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472BE606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B927606A331;
 	Mon, 16 Nov 2026 16:40:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gd1WoPMC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UV70e/pJ
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794847199;
-	b=Ko0blIUgbpIDckIuyKWlxrSy4hn1FKadJD0pFFV9KPZMQGZrmpddUyqbLsQ6BIyXyKVx
-	 wusoJsxDo7QG3q3b/z1OuCUcxVoYKbGN6gwiRu9GucftIATZk7SBNRC0FAvEMXxVd/7SB
-	 nJsb/qo7rEtdThyqbBRQhijnv+/yLmkJk47dxI2UKx3AeQWYtUVKjZJmdD8iEHKXw1AXt
-	 WHFnlV8iDq6lzTIvfY8ZxhYuTZt4FFTgZyOaXDPzhh5j351I3PKrjqWKPr4EXG3wuUEPa
-	 AOUvgmGW+sy7rwoRqqIhJBo9msCXJV4JOtCcrioS6WTLs3ZYm6Tcu0IGJNa3gc2EqEQ==
+	t=1794847200;
+	b=byAKPIslIZ8j3MAyPLwMX4zKiniu2v/dU6r3v/DYYP8wS4lOh1En0Tr1kWcBz6ZJWmIU
+	 8pAqtHxlALl8i7Q/OZnXJqDtLiS/dgYOYjjeZLCEH9Ur1maVGwShxpfhKHd5mcvzGM2d4
+	 bqbuFxAyImnSNtPgg0Kb5xmt6lNeMCHwnZoxcs+c4NzkdxqW73BWwLBOs5MDOwUarclvj
+	 Or4uT1odAi8bpHWf5WG20Qw/KZ1mOlrtuYeOd60BuTIWk8tdd6PTuNnTpgdTfn1WylEPb
+	 HE58ItxfaSqUWSO94A3RPTZXZfyq9dTz9Mdi4P2ZxDgEp08tJiGrb+sZD7EOCTyojXA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794847199;
+	c=relaxed/relaxed; t=1794847200;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MPTcW4Z9vo4Z7/XoesrWIOcgvVRF9TyWF+1Cfqk7Xng=;
-	b=kEYIitbjpXUc1iu2VJeYoxpIVoWrqFl+g/fE/cm0y45r28oO/+d0CPtGu/7/jWURhckf
-	 l2hwCbHV514v41IOZ31jD5a00TY6uVBC9PO77leFBQTSfof+YSKundq7Qdz6LH8lOw+RV
-	 XaybEvV0WKqkurDKP+4/7JXg+dHGpkpY3Twv/y00onLhgIoFKW/sb4/OzJBVXoWofjunk
-	 HtPwyAX2hAwn5MwsHXN2XRhKmVgw36Kkg6Ww8ZEGNMVcKhMPyQVxTYfUlthcMngfGDwHJ
-	 9+Fbvr6TF6T7aWJyuZ++/mEiMvJSOPo/VoUAKYtt/P/qPEU/NCiTUHPu2fGzJyAYXsw==
+	bh=NLxSLGAlbxw7z0m7lP8HQ1a5F0qjVvjKFvItA58evvg=;
+	b=Hhc5ET0bihN+QV1Obyu+CjWDdlt3v1QkFRHrZP8nySU6j9/LZMjc65Sd0r4NLHc8vxM6
+	 ZzgT+YmCD8ZG/57ZhIRNCEd4wapDr+rcVK80No+h0E9jqsDYw39FwqC2Jy60S0DBDU5Y4
+	 ko39fzB0sOx0Kcc7cPRTV6ozlirgrCMnd6pD/gO6iDP51XyABEZxgJLvPgAmr9AfgpsHr
+	 yAW2+C8kDN0OskDznQVixQRXIbvVlPxyor6mq7nqk1C1qoOpY9z5zVC7S24i1z8dAiEfq
+	 0PGiJK7fsAN9CIaAAO8cNP84ENhvjLf/t99Tz0gejMBxrbKmN24pV+nkmd255tlkwQA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5A45D1F000CA;
+	by smtp.kernel.org (Postfix) with ESMTPS id 70FF41F000CB;
 	Mon, 16 Nov 2026 16:39:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794847199;
-	bh=MPTcW4Z9vo4Z7/XoesrWIOcgvVRF9TyWF+1Cfqk7Xng=;
+	s=k20260515; t=1794847200;
+	bh=NLxSLGAlbxw7z0m7lP8HQ1a5F0qjVvjKFvItA58evvg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=gd1WoPMCWPLLTy6axzCbTiUrp8gf5uDKwUO7mWfZOy52LMpwwG+o57zdqFfbbGPRa
-	 6sOwZN/huzrWfqJ1FU4ppfLEc+I+mpZuV4oyrColy0KZtckdIeFN7+3h2osVaSG5so
-	 aag0TUBbMUVX2G3FXa0TZ14FC1gl9EjckLQtwtyYxLUjMPI1KjvE0gk+yUnbdVkCuK
-	 weHdfERPkimq6D3wK6mYNsNxuJ8Zu+HghLAmGCvshqATpjB3x3mth+OdS8pZ56Qu/r
-	 2M1c120cMhezOH1QGAka3pjALUxwkPpJkIJTNtXHFYfZmBDiSkX7eCgJVciIQQ3yuH
-	 oVWJngVZjLuCw==
+	b=UV70e/pJcmpdUo0QxZlNbBh3519ENtvJmm+mzsLwXRqWjqHMZzCbMixHa8wuvcUgw
+	 o/cuc1n2RyckTfAeoy4iwrzwTXFCYh3qCZRa8fydEoRVVIi5z7NouvMdyCJHGXA86M
+	 bD2uCW1+xYa5HN9L4iUZSwT70sx0szcufQlin9KJV7Q16jNbbp4jQR9+NlD01orfvM
+	 y+nsvEIuf0+qu3TkbNMIlba5t8bbBa2Hk+xLNm9Ne512PtjtcPqCP4wUMeO8Crk5KJ
+	 /7YTrcCL/uKFz5lQ1EbnsC2Kdx7GlmiM8RGvB9Z4VSveoUD9NfiMbDs+cJFUoxOVCq
+	 WLRiSCgKzaRZA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DB7954A51E;
+	by lkml.kernel.org (Postfix) with ESMTP id F12344A522;
 	Mon, 16 Nov 2026 16:39:58 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Mon, 16 Nov 2026 16:39:54 +0000
-Subject: [PATCH v4 02/12] iio: frequency: ad9910: round up FM gain scale
+Date: Mon, 16 Nov 2026 16:39:55 +0000
+Subject: [PATCH v4 03/12] iio: backend: use the consumer fwnode for named
+ lookups
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-ad9910-backend-support-v4-2-fcf1ad364ed5@analog.com>
+Message-Id: <20261116-ad9910-backend-support-v4-3-fcf1ad364ed5@analog.com>
 References: <20261116-ad9910-backend-support-v4-0-fcf1ad364ed5@analog.com>
 In-Reply-To: <20261116-ad9910-backend-support-v4-0-fcf1ad364ed5@analog.com>
 To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -101,11 +102,11 @@ Cc: Olivier Moysan <olivier.moysan@foss.st.com>,
  Randy Dunlap <rdunlap@infradead.org>, 
  Rodrigo Alencar <rodrigo.alencar@analog.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794847197; l=1744;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794847197; l=1465;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=G3vGlTj0BTKaDzZ4Lm3Cx3xNScaDzjERpmIMz76p3fM=;
- b=GSaqdVOSuAVl7j4TvPugi/LuIchKI1Dl5DPs2/303nhlWA1MJL5JtxmLCAqK8n92XLHkfvbMH
- VLafIbN1bMaAqsOBepY3wRZ2UV2O3cbLi1KItETCO/wG/Fu//V7CthN
+ bh=Aqd7cXKBKNmzoZvZz6wBTgwNO0tV9BfSYFDnK0IgmaA=;
+ b=zQO3o3/r28xNjDjGsijCE1stfX+0fyvRhA4KM0FaJOxu0c5VtuhGhr+72tRNA3JVXtMfzxknS
+ BJyNc2KPSg7BrMkuYzkQPWBKlF0lG1MAYBi6+6NuEO1+WL+NbVX6DP+
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
@@ -116,41 +117,39 @@ Content-Transfer-Encoding: 7bit
 
 From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-The parallel port frequency scale is set through the CFR2 FM gain field,
-which selects a power of two multiplier. The requested scale is converted
-into a ratio against the frequency tuning word LSB and then rounded up to
-a power of two, so that the resulting scale is the smallest one that is
-not below the requested value.
+__devm_iio_backend_fwnode_get() receives the consumer fwnode, which is
+used to resolve the io-backends reference. However, for a named lookup,
+the index is obtained from the io-backend-names property of the device
+instead. When devm_iio_backend_fwnode_get() is called with a fwnode other
+than the device one, such as a child node, the name is then matched
+against the wrong node, either failing or returning the index of a
+different backend.
 
-However, the ratio itself was computed with closest rounding, so when its
-fractional part is below one half, it gets rounded down before
-roundup_pow_of_two() is applied. For instance, a ratio of 1.3 becomes 1,
-selecting a gain of 0 instead of 1, and the applied scale ends up smaller
-than the requested one.
+Look up io-backend-names in the given fwnode, so that both properties
+are read from the same node.
 
-Use mul_u64_u64_div_u64_roundup() so that the ratio is rounded up as well.
+The only current user of devm_iio_backend_fwnode_get() does not provide
+a name, so it is not affected.
 
-Fixes: 3647f9fe3488 ("iio: frequency: ad9910: add basic parallel port support")
+Fixes: c464cc610f51 ("iio: add child nodes support in iio backend framework")
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
- drivers/iio/frequency/ad9910.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/iio/industrialio-backend.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
-index 8bc24d0b7442..680415b37b0d 100644
---- a/drivers/iio/frequency/ad9910.c
-+++ b/drivers/iio/frequency/ad9910.c
-@@ -1626,8 +1626,8 @@ static int ad9910_write_raw(struct iio_dev *indio_dev,
- 			if (val < 0 || val2 < 0)
- 				return -EINVAL;
+diff --git a/drivers/iio/industrialio-backend.c b/drivers/iio/industrialio-backend.c
+index fbf5c39d7655..9a1072b39815 100644
+--- a/drivers/iio/industrialio-backend.c
++++ b/drivers/iio/industrialio-backend.c
+@@ -1034,7 +1034,7 @@ static struct iio_backend *__devm_iio_backend_fwnode_get(struct device *dev, con
+ 	int ret;
  
--			tmp64 = ad9910_rational_scale((u64)val * NANO + val2, BIT_ULL(32),
--						      (u64)st->data.sysclk_freq_hz * NANO);
-+			tmp64 = mul_u64_u64_div_u64_roundup((u64)val * NANO + val2, BIT_ULL(32),
-+							    (u64)st->data.sysclk_freq_hz * NANO);
- 			tmp64 = roundup_pow_of_two(clamp(tmp64, 1ULL, BIT_ULL(15)));
- 			tmp32 = FIELD_PREP(AD9910_CFR2_FM_GAIN_MSK, ilog2(tmp64));
- 			return ad9910_reg32_update(st, AD9910_REG_CFR2,
+ 	if (name) {
+-		ret = device_property_match_string(dev, "io-backend-names", name);
++		ret = fwnode_property_match_string(fwnode, "io-backend-names", name);
+ 		if (ret < 0)
+ 			return ERR_PTR(ret);
+ 		index = ret;
 
 -- 
 2.43.0
