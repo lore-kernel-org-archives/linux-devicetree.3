@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813735;
-	b=xJ6kluaXfZd3+yRM3MgwC5YjY8sHJxxeXs76vykiy8BbYH6LNWuU3cqdv3yQQOotB8Zr
-	 NyuOWNDzqRHv8wGfEyQtYjXr4RXjxXblO9s/rDgauATWCbh+cBGK2dq3zUFmOP+G3JpAj
-	 atKaIG378IIIHUTeMLDvJZ3kvS4U1nLylXgKaBU8WXjLeD35rLlNv3joOWceytXUsSI72
-	 D4imbQLDYR7NqO809BWeSq6tSMHCH8Vfajg7cDlxxNXqMy0qCoiecwpTdvK6Ldr4+cRag
-	 973egXzxX7EpfBEHoQ7wTh3WKtHqnVUZrc3hz2O11hr4/CwI9mJ5I1PHFPiVpErTjeg==
+	t=1794813751;
+	b=VXIFQVRPHoTDRQKIy0xxKuNbyjnLiAaIXjfNVMlXOc0hdBFdz6avRXmhNvB4NrBHtd/U
+	 EdrVpHRYOu850QfN3Exn6lhg89P9TJBV6Cts5zsUrDvuw5XjIJJRnzUYTfXayMtuuj3S4
+	 JpA+XKVQzya7H5sPLaEpjV9RqCFewZofI3y35FVDaiG/n16MkIwqvFzbaZ/1e98dhZ/Fp
+	 svb8Ve84OmrHCuapbeQI7jabPsIPr88wbsD/OAE9MkcLJpiCXf7srrG+LjgW81OBOwz5w
+	 anCsjJBv7H6JM15N1gmT6AAnp+knS+BjqPOZ9UT42tLDee05mfcPsgiKwS+wApcC+mQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813735;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813751;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=YnsYeCfgaO6EuP0JlYCStruLhUqi1QlIM5TD3uEJgVo=;
-	b=g57k4rDzsVew1x+HrTlznd5U67NXSppieNfd+5RfOvIziCWeOFnBdq0/AO+5WdsP34je
-	 1BMQMeUnsewfEjJtdT1g73/9wxwQWa7jnHduxYx/71QWdX1wEh8cve49+7aNdxVX8OU5g
-	 7qIk9XvZc+YhNoSny8SnKMtJ4ubfrDS+Elgy0BhAzcO4wXPSiQABqCNv+pETg9vfaV8ka
-	 kMx5KeJdZURoq777pSlwQWvw8eZVvM0BjG3AcVxoxXj0X7oQ5x1cVXs8c76ceR1pNy6Oz
-	 9wDGwsJO5u9HFbRCBhJlAwGrZluTLp9SsoAXBbjD6+YrrHXXhsRxOmusAoNCi1CjyRA==
+	bh=Mc9EBMDCDJ9VNqZ83ASIkMZqJSi46IHtmvxnjNrJYjc=;
+	b=VU2MjwMt8vhbZcwGFSGKOgmujbgHwX1N8Vfj4O1IRLw4+CwCGzRQTj6K/9R0C+hWEKM6
+	 zBd+djnq3f+ZpayYYM3yYEQGaI08wr9CTQG2HfkFx4xiv7z/iPnhbgy/ta/lW/g3W+ZtP
+	 ptJQ0Q6zzgIS20Dym5iApdO6ZdRfbIvhg0G2SbAoaWmzmSB7H79MzRan0S32gc8DMuZFZ
+	 n9Ff9QzNC5Pknx0RRbgMOdK695Qi9ur5ZUgFB3B2MMxnIOzjJXM9xBnzRAYtjQ1+5Zzaf
+	 PtDKfWMKxp4vkKi5Er4HdnfW3CReHIHszdoJdJsp+Lk5w4s1tdI7yON3FTb3f0efeiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBOSL3l1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H3RK3RlM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C9F606A31C
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:22:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A15606A31C
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:22:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBOSL3l1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000EF1F000C4;
-	Mon, 16 Nov 2026 07:22:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H3RK3RlM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D27651F000C4;
+	Mon, 16 Nov 2026 07:22:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794813735;
-	bh=YnsYeCfgaO6EuP0JlYCStruLhUqi1QlIM5TD3uEJgVo=;
+	s=k20260515; t=1794813751;
+	bh=Mc9EBMDCDJ9VNqZ83ASIkMZqJSi46IHtmvxnjNrJYjc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jBOSL3l1r2/zIoU2H+Z78xOKgrrvNyTAst7qsGmBr3UdrsqGqWhmyi9Ukmj09D7mi
-	 9PaAAkYv5ZM09Qa5A02f8TDIFm5+5YO3AIwsV/dM5Q9ZjQx4AiRcPcu4GZfBprznb/
-	 H31es+PM0ROU/LYgJo/NbxFNEFBjXESkP8pcCvuHVK6mKcgrO8D7WayQzMctpSLdSk
-	 aKBYn1fswPChybcpv6kWiXqEYhyOO0N6oLNImm62v9LZRE2NIElNJMHfF0eUWnCIpe
-	 xhQpCe4Ys9qSR1FI6LIY7YTwkcD+qR8vz0KZmmt9MmtAPVgwQbAJOW7hZ052VguOrg
-	 WCV1Bv92T6GLw==
-Message-ID: <sashiko-outbox-216406@kernel.org>
+	b=H3RK3RlMOAifvHq2lW3NydkjTNlfzMyWMGcqPczk3eKsmUzwgv1cgOOwcxzYMl3L8
+	 Vv7bo3MptivgwBnjJ/ZZKjezESvgiVDyKsZl0fITI3NI+IU1yKnFI25HHjwCLRTJgj
+	 7O5VPS3sJHOOxwnRgDTweWV5kkVxzH5g/vXVbvwbbDa7o+tyjzBOhtdLdMk8RMl8Mj
+	 IswKwP9+b/0s7P/DFg4nTN/5zzxzzQBJLJ6G2zf4i9UMw7qfi7pQcYm32Jfhr1tcPd
+	 KlEmxzkMgVQ5nyDR0cbqNF8nGNYAwVBcbXkD0WaV2hw4EILtapLfDkiPr6KP98OfIw
+	 t5VAMFLFDSeWw==
+Message-ID: <sashiko-outbox-216407@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: pwm: qcom: add Shikra PWM controller
+Subject: Re: [PATCH v1 2/2] drm/panel: add Novatek NT36525 panel driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261116-pwm_qcom_shikra-v1-1-67ee4553adc5@oss.qualcomm.com>
-References: <20261116-pwm_qcom_shikra-v1-0-67ee4553adc5@oss.qualcomm.com>
- <20261116-pwm_qcom_shikra-v1-1-67ee4553adc5@oss.qualcomm.com>
+To: =?utf-8?b?QWRpbCBIw7xzcmV2IFRlcGU=?= <tadilhusrev@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116070212.314228-3-tadilhusrev@gmail.com>
+References: <20261116070212.314228-1-tadilhusrev@gmail.com>
+ <20261116070212.314228-3-tadilhusrev@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 07:22:14 +0000
+Date: Mon, 16 Nov 2026 07:22:30 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,104 +60,206 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issues to consider:
-- [Low] dt-bindings: pwm: qcom: ranges property out of canonical order
-- [Low] dt-bindings: pwm: qcom: unused pwm node label in binding example
+- [High] drm/panel: missing prepare_prev_first =3D true in nt36525_probe()
+- [Medium] drm/panel: vpos, vneg, and backlight in nt36525_probe()
+  mismatch DT binding
+- [Medium] drm/panel: inverted gpiod logical polarity for reset_gpio in
+  nt36525
+- [Low] drm/panel: negative return and open-coded helper in
+  nt36525_get_modes()
 --
 
-commit e6638c1381c339afe2578e824d79ad21eb5519c9
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+commit bba87e5acae9fff577a4366212e7273dead1f8e4
+Author: Adil H=C3=BCsrev Tepe <tadilhusrev@gmail.com>
 
-dt-bindings: pwm: qcom: add Shikra PWM controller
+drm/panel: add Novatek NT36525 panel driver
 
-This commit adds the Device Tree binding schema for the Qualcomm Shikra
-PWM controller and its per-frame channel child nodes.
+This commit adds a DRM panel driver for Novatek NT36525-based MIPI-DSI
+video-mode panels used in the Samsung Galaxy XCover5.
 
-> diff --git a/Documentation/devicetree/bindings/pwm/qcom,shikra-pwm.yaml b=
-/Documentation/devicetree/bindings/pwm/qcom,shikra-pwm.yaml
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36525.c b/drivers/gpu/=
+drm/panel/panel-novatek-nt36525.c
 > new file mode 100644
-> index 0000000000000..d7f2bdab68f68
+> index 0000000000000..246476af49b15
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pwm/qcom,shikra-pwm.yaml
-
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36525.c
 [ ... ]
+> +static int nt36525_prepare(struct drm_panel *panel)
+> +{
+> +	struct nt36525 *p =3D panel_to_nt36525(panel);
+> +	int ret;
+> +
+> +	/* Power-up sequence from Samsung decon_board_nt36525 panel_power_enabl=
+e */
+> +	ret =3D regulator_enable(p->vdd);
+> +	if (ret)
+> +		return ret;
+> +	usleep_range(1000, 1500);
+> +	ret =3D regulator_enable(p->vpos);
+> +	if (ret)
+> +		goto disable_vdd;
+> +	usleep_range(1000, 1500);
+> +	ret =3D regulator_enable(p->vneg);
+> +	if (ret)
+> +		goto disable_vpos;
+> +	usleep_range(1000, 1500);
+> +
+> +	/* Reset pulse, Samsung sequence from panel_reset */
+> +	usleep_range(10000, 11000);
+> +	gpiod_set_value_cansleep(p->reset_gpio, 1);
+> +	usleep_range(1000, 1500);
+> +	gpiod_set_value_cansleep(p->reset_gpio, 0);
+> +	usleep_range(3500, 4000);
+> +	gpiod_set_value_cansleep(p->reset_gpio, 1);
+> +	usleep_range(10000, 11000);
+> +
+> +	ret =3D nt36525_on(p);
+> +	if (ret)
+> +		goto fail;
+> +
+> +	return 0;
+> +
+> +fail:
+> +	gpiod_set_value_cansleep(p->reset_gpio, 0);
+> +	regulator_disable(p->vneg);
+> +	usleep_range(1000, 1500);
+> +disable_vpos:
+> +	regulator_disable(p->vpos);
+> +	usleep_range(5000, 5500);
+> +disable_vdd:
+> +	regulator_disable(p->vdd);
+> +	return ret;
+> +}
+> +
+> +static int nt36525_unprepare(struct drm_panel *panel)
+> +{
+> +	struct nt36525 *p =3D panel_to_nt36525(panel);
+> +	struct mipi_dsi_multi_context ctx =3D { .dsi =3D p->dsi };
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&ctx);
+> +	mipi_dsi_msleep(&ctx, 20);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
+> +	mipi_dsi_msleep(&ctx, 60);
+> +
+> +	usleep_range(3000, 3500);
+> +	regulator_disable(p->vneg);
+> +	usleep_range(1000, 1500);
+> +	regulator_disable(p->vpos);
+> +	usleep_range(5000, 5500);
+> +	regulator_disable(p->vdd);
+> +	msleep(30);
+> +	gpiod_set_value_cansleep(p->reset_gpio, 0);
+> +	return 0;
+> +}
 
-> +properties:
-> +  compatible:
-> +    const: qcom,shikra-pwm
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: AHB bus clock for the PWM block.
-> +      - description: Gate clock shared by every frame (pwm_core).
-> +
-> +  clock-names:
-> +    items:
-> +      - const: ahb
-> +      - const: core
-> +
-> +  "#pwm-cells":
-> +    const: 3
-> +
-> +  "#address-cells":
-> +    const: 2
-> +
-> +  "#size-cells":
-> +    const: 2
-> +
-> +  ranges: true
+[Severity: Medium]
+Are the gpiod logical states for p->reset_gpio inverted across
+nt36525_prepare(), nt36525_unprepare(), and nt36525_probe()?
 
-[ ... ]
+As noted in the comment in nt36525_probe() ("Request RESX released (high)
+rather than asserting it here"), the hardware RESX pin is active-low
+(physical 0 asserts reset, physical 1 releases it).  Under the gpiod API
+and panel-common.yaml, logical 1 (GPIOD_OUT_HIGH) means reset asserted and
+logical 0 (GPIOD_OUT_LOW) means reset deasserted, with the physical
+inversion described via GPIO_ACTIVE_LOW in Device Tree.
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - "#pwm-cells"
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +  - ranges
+Passing physical levels directly means a Device Tree using standard
+GPIO_ACTIVE_LOW polarity holds the panel in reset during nt36525_on() and
+releases reset when powering off, or else has to misdeclare the active-low
+pin as GPIO_ACTIVE_HIGH.
+
+> +static int nt36525_get_modes(struct drm_panel *panel, struct drm_connect=
+or *conn)
+> +{
+> +	struct drm_display_mode *m;
 > +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/qcom,shikra-gcc.h>
-> +
-> +    / {
-> +        #address-cells =3D <2>;
-> +        #size-cells =3D <2>;
-> +
-> +        pwm: pwm@4700000 {
+> +	m =3D drm_mode_duplicate(conn->dev, &nt36525_xcover5_mode);
+> +	if (!m)
+> +		return -ENOMEM;
+> +	drm_mode_set_name(m);
+> +	drm_mode_probed_add(conn, m);
+> +	conn->display_info.width_mm =3D m->width_mm;
+> +	conn->display_info.height_mm =3D m->height_mm;
+> +	return 1;
+> +}
 
 [Severity: Low]
-Should the unused pwm label on pwm@4700000 be dropped?  Because &pwm is
-never referenced in the example, scripts/dtc/dt-check-style --mode=3Dstrict
-reports an [unused-labels] warning.
+Can nt36525_get_modes() use drm_connector_helper_get_modes_fixed(conn,
+&nt36525_xcover5_mode) instead of open-coding mode duplication?
 
-> +            compatible =3D "qcom,shikra-pwm";
-> +            reg =3D <0x0 0x04700000 0x0 0x10>;
-> +            clocks =3D <&gcc GCC_PDM_AHB_CLK>, <&gcc GCC_PWM0_XO512_CLK>;
-> +            clock-names =3D "ahb", "core";
-> +            assigned-clocks =3D <&gcc GCC_PWM0_XO512_CLK>;
-> +            assigned-clock-rates =3D <9600000>;
-> +            #pwm-cells =3D <3>;
-> +            #address-cells =3D <2>;
-> +            #size-cells =3D <2>;
-> +            ranges;
+drm_helper_probe_get_modes() expects .get_modes() callbacks to return the
+number of modes (0 on failure) and logs a drm_err() if a negative error
+code such as -ENOMEM is returned.  drm_connector_helper_get_modes_fixed()
+handles duplicating the mode, setting its name, updating display_info
+dimensions, and returning 0 on failure.
 
-[Severity: Low]
-Should ranges be placed immediately after reg in the pwm@4700000 example
-node, properties, and required?  Putting ranges after #size-cells
-deviates from the canonical DT property ordering and causes
-scripts/dtc/dt-check-style --mode=3Dstrict to report a [property-order]
-warning.
+[ ... ]
+> +static int nt36525_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev =3D &dsi->dev;
+> +	struct nt36525 *p;
+> +	int ret;
+> +
+> +	p =3D devm_drm_panel_alloc(dev, struct nt36525, panel, &nt36525_funcs,
+> +				 DRM_MODE_CONNECTOR_DSI);
+> +	if (IS_ERR(p))
+> +		return PTR_ERR(p);
+> +
+> +	p->dsi =3D dsi;
+> +	ret =3D drm_panel_of_backlight(&p->panel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	p->vdd =3D devm_regulator_get(dev, "vdd");
+> +	if (IS_ERR(p->vdd))
+> +		return dev_err_probe(dev, PTR_ERR(p->vdd), "vdd supply\n");
+> +
+> +	p->vpos =3D devm_regulator_get(dev, "vpos");
+> +	if (IS_ERR(p->vpos))
+> +		return dev_err_probe(dev, PTR_ERR(p->vpos), "vpos supply\n");
+> +
+> +	p->vneg =3D devm_regulator_get(dev, "vneg");
+> +	if (IS_ERR(p->vneg))
+> +		return dev_err_probe(dev, PTR_ERR(p->vneg), "vneg supply\n");
+
+[Severity: Medium]
+Do the vpos, vneg, and backlight properties requested here match the DT
+binding in Documentation/devicetree/bindings/display/panel/novatek,nt36525.=
+yaml?
+
+The binding schema only defines compatible, reg, reset-gpios, vdd-supply,
+and port with additionalProperties: false.  A Device Tree conforming to
+that schema will lack vpos-supply, vneg-supply, and backlight, causing
+devm_regulator_get() to fall back to dummy regulators with a warning
+(leaving the positive and negative LCD bias supplies unswitched) and
+drm_panel_of_backlight() to find no backlight, while a Device Tree that
+includes them will fail dtbs_check.
+
+[ ... ]
+> +	dsi->mode_flags	 =3D MIPI_DSI_MODE_VIDEO		/* video (non-burst) */
+> +			 | MIPI_DSI_MODE_VIDEO_SYNC_PULSE
+> +			 | MIPI_DSI_MODE_LPM		/* force LP for all transfers */
+> +			 | MIPI_DSI_CLOCK_NON_CONTINUOUS;
+> +
+> +	drm_panel_add(&p->panel);
+
+[Severity: High]
+Should p->panel.prepare_prev_first =3D true be set before calling
+drm_panel_add(&p->panel)?
+
+drm_panel_add() copies panel->prepare_prev_first into
+panel->bridge.pre_enable_prev_first.  Because it is left false,
+drm_atomic_bridge_chain_pre_enable() calls nt36525_prepare() ->
+nt36525_on() before the upstream DSI host bridge's atomic_pre_enable()
+callback, and drm_atomic_bridge_chain_post_disable() disables the upstream
+DSI host bridge before nt36525_unprepare() sends display-off and sleep-in
+commands.  On bridge-based DSI hosts such as samsung-dsim, transfers sent
+while DSIM_STATE_ENABLED is cleared are rejected by
+samsung_dsim_host_transfer() with -EINVAL, causing panel bring-up and
+power-down to fail.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-pwm_qcom_s=
-hikra-v1-0-67ee4553adc5@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116070212.3142=
+28-1-tadilhusrev@gmail.com?part=3D2
