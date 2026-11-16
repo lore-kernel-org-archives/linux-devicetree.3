@@ -1,61 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802354;
-	b=OAEPZ/OlYnMcMb8gSmho+ARX/UX51TRCr7y3uw6wXW0ozW0vzORKjKqXh5M3fQD/JVRN
-	 wV+FvxjTWN4luzRvqCQe7efv0R4Sm+Kc9ZWDzAom7id6r/gctToF42HpIsxtNon4bBTth
-	 o3lgEa4H4Es0JVE28gIQsgX8onJjBroGTecyReCeVesu5JlhYbZbNpeIdXpx9D3Hndylb
-	 WjwJrr/DrDm8f3xTRi0laztJz7oiC/PrZ3V/kEvfwuib8160y+RPzEA/9k8ifwYfLyYQG
-	 P+EtKoas1E4+kAa0ZUbLawO14Mc6DS16GPHHHYO/QDYbx+GJMtzbGbBnPdffB/xn1Hg==
+	t=1794802599;
+	b=GgeH3PU+pYgw9GBytwnEbUfD8EJ4kPtT60UiP3UwrbDs9debSyVsIwvzv6zE59Dl0Z+D
+	 kmGHbEvIaNI8jy1CJ8fzGGn3VzwjgcAg8MLDnazisMA5EmNXX4tOKCvbV9KgDKIboPErB
+	 euue4W7G8fEn80obKXqFn9LATLrey+tbSin62Ol5LxmqkuCaXP/41FX/OLv8qpf0KhwPs
+	 Zy1/lpPclY25O4bhLJrzxFbone7mYrLH87tAXKKMlJgFO5VcyekcDaVQ4QQH/3800hBzd
+	 i8KsoWZfWkRn93rv+e5PV6sSUhTtKFynzNXa+/PEcZ9/pypd6H/G81MLkLxG/3d/kwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802354;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=OgoZIslZ8ASBJ7r2dv1Kt/IA3qoVmwzLgsguUAZyJYk=;
-	b=ynnaEN6kV574HDJz4qg6ZBqRQhXA+wZrEe+sQd1iUdGHuPyZojYFFlszJUXKZ85AEllc
-	 a91kGKaxvJpLbpt5yU6B5rvnHoufIXSiQqinvZ2ziPqWfbZ9FCgzLhE5CTx/jMXhY9oPH
-	 ao3Ks9pzHuzoAfffnwUWQ3yWrXeyP3Pv8zA2kT81mhitYuUcQs22p8yPl1qjKM3nQIKHo
-	 9cFjJtsRncBsrCHEoG1DmjKGRBmONpXiKFeIE4N4xwxqeNXkadhXocA9s6HpdP9pIcUYV
-	 M7Tl3p8RLTzumHk9EM0m0HVpJo36oj0byYP1GwtUa+49xzEsoo0YMlsqhhsaSCDegqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802599;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=uzbrnHdlZO/Nl75AkoaBKnFpLs1p4dTsORcxzJmfA0w=;
+	b=lwKOyrhWOwkyyFKlk4zl5I1aYb4VAw9esgabJEiSZeQpCKccfTGPX0E1HBwHRqjMvKgy
+	 tsKxRBGdJ77hn82q+Ypv5NeX8/8VzIRnhpOQy9lWLMuDTVFtD6TGkTlpdsY0x4U1BmQ/N
+	 pgdkQNNUtU9siTwwTJ71I7ZZADLuHHwjTlphfrZsGpf04HGojkKaKkAiWlcK9dv/oYGAf
+	 YGwMsXfLIPi0yoTdLZDj7ZisgZmbwr5SOrBXSEVvNeApvPsCId5GCiWRkTZMu1x37GeeQ
+	 Tpc4CqFBJHdUrHxQ+bbVn3LB04K3UIr3s2SFe7XEZ5om2ywdUtXTyN2DE0p761RBlGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vw7NLOXA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1kpMp96;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED752606A882;
-	Mon, 16 Nov 2026 04:12:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814BF606A31C;
+	Mon, 16 Nov 2026 04:16:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vw7NLOXA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA5041F000CF;
-	Mon, 16 Nov 2026 04:12:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1kpMp96
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5AA91F000C4;
+	Mon, 16 Nov 2026 04:16:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794802353;
-	bh=OgoZIslZ8ASBJ7r2dv1Kt/IA3qoVmwzLgsguUAZyJYk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Vw7NLOXAtbzx8pDVFwY5rq+UBMkeNrcDELgejJQDzgoa1s0Bb6daVuR6UVKntmG7v
-	 QTx8sZ5AAMz0ZsnAcRYTK3ccAqXhHIsqG/dmTlLa+SXegljTffYEUQAb5Muqa4tPKZ
-	 LVIOv2JJWXJnzLWBQzUfM4StH5OjMH9jcpXbWAEMqWBk6EAqPAuMDHHDTDrzdEasIJ
-	 SrTHPbo7eNx9/e40JHMR/xu9OFSH5Cya4JGsq4uOOboGjHdHDJjni4+TImZYYaAcxe
-	 j92uGzce95p7h3HEneQH1CtEq07gUcQV+3AA60lmIjvw9qbHqoQM49Eh0cSTLlw7tK
-	 uK/tTl/R010hw==
-Subject: Re: [PATCH net-next v5 6/6] net: xilinx: axienet: Add statistics
- support for XXV ethernet
-From: netdev-bot+sashiko@kernel.org
-To: suraj.gupta2@amd.com
-Cc: radhey.shyam.pandey@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, michal.simek@amd.com,
- linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 04:12:32 +0000
-Message-ID: <179480235240.3136.10661182266349624826@kernel.org>
-In-Reply-To: <20261114182947.2908628-7-suraj.gupta2@amd.com>
-References: <20261114182947.2908628-7-suraj.gupta2@amd.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794802599;
+	bh=uzbrnHdlZO/Nl75AkoaBKnFpLs1p4dTsORcxzJmfA0w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=S1kpMp96kMjmpCpi8Upj93cDAKYOtDvNRyFuT0u26t+nUF4rYluB01Pu484KU8kit
+	 r0SNf2I58IEC0cmM43KDcV0KpPQCnX8EOFqDClgFf+A74zWxDIsqeGo6BeL9AfCI0X
+	 QsWg6FUdtFMdG7CC5Z2qmsV4gqHjhTtdVC0RJe2N5VJnx4tXP/q/O2WqgUcLHvcCtj
+	 fysxBKKspnimTip2pFvX9CUsCPq6pbru3hUhbeVMx1AKIYGhSPQPz8ibcCwFPMPX5P
+	 8ouZagWqte9NJWPupjHWkbO2yBDRu0++QmEOzgxG6RWLrP0+Ui7TlMQ4SfuLsySc6S
+	 qgLA53UZMpJ2Q==
+Message-ID: <sashiko-outbox-216168@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/2] scsi: ufs: spacemit: k3: Add UFS Host Controller
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yixun Lan" <dlan@kernel.org>
+Cc: linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116-08-k3-ufs-support-v8-2-e3b256972dd4@kernel.org>
+References: <20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org>
+ <20261116-08-k3-ufs-support-v8-2-e3b256972dd4@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 04:16:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,312 +60,266 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 2 · Low: 4
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] None of the XXV statistics readers in
-  drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c latch the clear-on-…
-- [Medium] The new XXV ndo_get_stats64 reader, axienet_xxv_get_stats64(),
-  runs read_seqcount_begin()/read_seqcount_retry() on…
-- [Low] The kernel-doc of axienet_xxv_get_rmon_stats() (xxv.c:585-586)
-  says "XXV exposes aggregate RMON counters only, not per-bin histogram…
-- [Low] axienet_xxv_get_stats64() treats XXV_STAT_RX_OVERSIZE as an IEEE
-  802.3 frame-too-long error and folds it into rx_length_errors.
-- [Low] The patch updates the @hw_stats_seqcount kernel-doc in struct
-  axienet_local for XXV but leaves @stats_work saying "Work for reading…
-- [Low] axienet_stop() writes TICK_REG for the final XXV statistics
-  snapshot (via axienet_xxv_stats_update) right after…
-
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] scsi: ufs: spacemit: clocks not enabled and sys1clk rate always
+  0 without OPP/freq-table
+- [Medium] scsi: ufs: spacemit: zero ref_clk gating delay in
+  ufs_spacemit_post_hibern8() on UFS 2.x
+- [Low] scsi: ufs: spacemit: ufs_spacemit_event_notify() logs cleared
+  hba->errors on UFS_EVT_ABORT
+- [Low] scsi: ufs: spacemit: duplicated ufshcd_init_host_params() and
+  unused definitions
+- [Low] scsi: ufs: spacemit: positive UIC error codes ignored in DME
+  error checks
 --
 
-net: xilinx: axienet: Add statistics support for XXV ethernet
+commit 893661ab0d45a5f00a091213a0890aea0386b457
+Author: Yixun Lan <dlan@kernel.org>
 
-This patch adds support for the clear-on-tick XXV (PG210) statistics
-block. The counters are accumulated in software by the periodic stats
-work and by a final snapshot in axienet_stop(). The result feeds
-ndo_get_stats64() and the ethtool -S, pause, MAC and RMON callbacks,
-gated on the "xlnx,has-statistics-counters" devicetree property.
+scsi: ufs: spacemit: k3: Add UFS Host Controller driver
 
-> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet.h b/drivers/net/ethernet/xilinx/xilinx_axienet.h
-> index 7468fed1416ef..10cb73bc460d2 100644
-> --- a/drivers/net/ethernet/xilinx/xilinx_axienet.h
-> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet.h
-> @@ -520,7 +520,7 @@ struct skbuf_dma_descriptor {
->   * @reset_in_progress: Set while we are performing a reset and statistics
->   *                     counters may be invalid
->   * @hw_stats_seqcount: Sequence counter for @hw_stat_base, @hw_last_counter,
-> - *                     and @reset_in_progress.
-> + *                     @reset_in_progress and, on XXV, @xxv_stat_base.
->   * @stats_lock: Lock for @hw_stats_seqcount
->   * @stats_work: Work for reading the hardware statistics counters often enough
->   *              to catch overflows.
+This commit adds a UFS host controller platform driver for the SpacemiT K3
+SoC, supporting JEDEC UFS 2.2, MIPI UniPro v1.61, and M-PHY v3.0.
 
-[Severity: Low]
-This isn't a bug, but should the @stats_work description be updated as
-well? On XXV this work is now the only latch for the clear-on-tick
-counters. The new comment in axienet_refresh_stats() says:
-
-    This work is
-    what latches them between queries.
-
-The @stats_update kernel-doc in struct axienet_config has not changed
-either:
-
- * @stats_update: Callback to latch/accumulate the periodic MAC counters, or
- *		  NULL if the MAC has no periodic statistics counters
-
-The new comments in axienet_refresh_stats() and axienet_stop() say
-something different: a config installs the hook unconditionally, and
-XAE_FEATURE_STATS decides whether the counters exist.
-
-Could these two descriptions be updated to match?
-
+> diff --git a/drivers/ufs/host/ufs-spacemit.c b/drivers/ufs/host/ufs-space=
+mit.c
+> new file mode 100644
+> index 0000000000000..eb2ad50826997
+> --- /dev/null
+> +++ b/drivers/ufs/host/ufs-spacemit.c
 [ ... ]
-
-> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> index 260755fbe465c..a046290522f4d 100644
-> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-
-[ ... ]
-
-> @@ -1884,6 +1903,17 @@ static int axienet_stop(struct net_device *ndev)
->  	axienet_setoptions(ndev, lp->options &
->  			   ~(XAE_OPTION_TXEN | XAE_OPTION_RXEN));
->  
-> +	/* Final snapshot after RX/TX is disabled, so no frames are missed.
-> +	 * Gate on XAE_FEATURE_STATS rather than the stats_update hook: a config
-> +	 * always installs the hook, but the counters are optional in both MACs,
-> +	 * so only probe_init() knows whether they are there.
-> +	 */
-> +	if (lp->features & XAE_FEATURE_STATS && lp->axienet_config->stats_update) {
-> +		mutex_lock(&lp->stats_lock);
-> +		lp->axienet_config->stats_update(lp);
-> +		mutex_unlock(&lp->stats_lock);
+> +static u32 ufs_spacemit_get_sys1clk_1us(struct ufs_hba *hba)
+> +{
+> +	struct ufs_clk_info *clki, *clka =3D NULL;
+> +	struct list_head *head =3D &hba->clk_list_head;
+> +	unsigned long rate_hz =3D 0;
+> +
+> +	if (!list_empty(head)) {
+> +		list_for_each_entry(clki, head, list) {
+> +			if (clki->name && !strcmp(clki->name, "axi") && clki->clk) {
+> +				clka =3D clki;
+> +				break;
+> +			}
+> +		}
 > +	}
+> +
+> +	if (clka && clka->clk)
+> +		rate_hz =3D clk_get_rate(clka->clk);
+> +
+> +	if (!rate_hz)
+> +		return 0;
+> +
+> +	return DIV_ROUND_CLOSEST(rate_hz, 1000000);
+> +}
+
+[Severity: High]
+Does hba->clk_list_head remain empty when the Device Tree node has neither
+freq-table-hz nor operating-points-v2?
+
+ufshcd_parse_clock_info() returns early without parsing clock-names when
+freq-table-hz is absent, and ufshcd_parse_operating_points() does the same
+when operating-points-v2 is absent:
+
+drivers/ufs/host/ufshcd-pltfrm.c:ufshcd_parse_clock_info() {
+    ...
+	sz =3D of_property_count_u32_elems(np, "freq-table-hz");
+	if (sz <=3D 0) {
+		dev_info(dev, "freq-table-hz property not specified\n");
+		goto out;
+	}
+    ...
+}
+
+Since the spacemit,k3-ufshc binding omits both properties and
+ufs_spacemit_init() does not populate hba->clk_list_head or acquire the
+clocks itself, ufshcd_init_clocks() and ufshcd_setup_clocks() never enable
+the axi or ref_clk clocks (leaving them subject to clk_disable_unused or
+unclocked MMIO access if not enabled by firmware), hba->dev_ref_clk_freq is
+never parsed from ref_clk, and ufs_spacemit_get_sys1clk_1us() always returns
+0 so ufs_spacemit_link_startup_pre_change() always falls back to
+UFS_AXI_CLK_LOW_FREQ_HZ (409.6 MHz).
+
+[ ... ]
+
+> +static void ufs_spacemit_set_dev_cap(struct ufs_host_params *host_params=
+, u32 pwr_hs)
+> +{
+> +	if (!host_params)
+> +		return;
+> +
+> +	memset(host_params, 0, sizeof(struct ufs_host_params));
+> +	host_params->tx_lanes =3D UFS_SPACEMIT_K3_LIMIT_NUM_LANES_TX;
+> +	host_params->rx_lanes =3D UFS_SPACEMIT_K3_LIMIT_NUM_LANES_RX;
+> +	host_params->hs_rx_gear =3D UFS_SPACEMIT_K3_LIMIT_HSGEAR_RX;
+> +	host_params->hs_tx_gear =3D UFS_SPACEMIT_K3_LIMIT_HSGEAR_TX;
+> +	host_params->pwm_rx_gear =3D UFS_SPACEMIT_K3_LIMIT_PWMGEAR_RX;
+> +	host_params->pwm_tx_gear =3D UFS_SPACEMIT_K3_LIMIT_PWMGEAR_TX;
+> +	host_params->rx_pwr_pwm =3D UFS_SPACEMIT_K3_LIMIT_RX_PWR_PWM;
+> +	host_params->tx_pwr_pwm =3D UFS_SPACEMIT_K3_LIMIT_TX_PWR_PWM;
+> +	host_params->rx_pwr_hs =3D pwr_hs;
+> +	host_params->tx_pwr_hs =3D pwr_hs;
+> +	host_params->hs_rate =3D UFS_SPACEMIT_K3_LIMIT_HS_RATE;
+> +	host_params->desired_working_mode =3D UFS_HS_MODE;
+> +}
 
 [Severity: Low]
-Is "no frames are missed" guaranteed here? axienet_setoptions() only
-does a few posted read-modify-write MMIO accesses to clear ctl_tx_enable
-and ctl_rx_enable. Nothing waits for the MAC to go idle before
-axienet_xxv_stats_update() writes TICK_REG.
+This isn't a bug, but ufs_spacemit_set_dev_cap() and the
+UFS_SPACEMIT_K3_LIMIT_* macros set the exact same defaults as the exported
+ufshcd_init_host_params() helper in drivers/ufs/host/ufshcd-pltfrm.c.
 
-Suppose the MAC finishes a frame that is already in flight after the
-enable is cleared. A jumbo frame takes about 7.7 us at 10G and about
-3 us at 25G. Could that frame be counted into the internal accumulator
-after this final tick?
+In addition, ufs_spacemit_init() allocates struct ufs_spacemit_host and
+stores it with ufshcd_set_variant(), but the variant pointer is never
+retrieved anywhere in the driver.  MPHY_TX_FSM_STATE is also defined in both
+ufs-spacemit.h and ufs-spacemit.c, ANA_EQ_CTRL_REG_ATTR and
+MPHY_PU_WITH_HB8_RESET are defined in ufs-spacemit.c while raw literals
+0x00CD and 0xb7f are still used in ufs_spacemit_uniprov1p6_init() and
+ufs_spacemit_mphy_init(), and MPHY_RX_FSM_STATE along with several headers
+and macros in ufs-spacemit.h are unused.
 
-On the next open, axienet_xxv_mac_init() does:
-
-	if (lp->features & XAE_FEATURE_STATS)
-		axienet_iow(lp, XXV_TICKREG_OFFSET, XXV_TICKREG_STATEN_MASK);
-
-This latches the late count into the readable registers. The first
-stats_update tick then overwrites those registers without reading them.
-
-Would up to one frame per direction per stop then never reach
-xxv_stat_base?
-
-This depends on how PG210 behaves when the enable is deasserted, which
-could not be checked from the tree.
-
-> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c b/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c
-> index 3c204dbbf6aec..83782bfbce4ce 100644
-> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c
-> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c
-
-[ ... ]
-
-> @@ -335,6 +411,204 @@ static int axienet_10g25g_clk_init(struct axienet_local *lp)
->  	return 0;
->  }
->  
-> +/**
-> + * axienet_xxv_stats_update - Latch and accumulate XXV hardware counters
-
-[ ... ]
-
-> + * Readers copy @xxv_stat_base and do not tick. ndo_get_stats64() may run in
-> + * atomic context, so it cannot take @stats_lock and tick itself. The periodic
-> + * statistics work, and the final snapshot in axienet_stop(), are the latches.
-> + */
-> +static void axienet_xxv_stats_update(struct axienet_local *lp)
+> +
+> +static int ufs_spacemit_link_startup_pre_change(struct ufs_hba *hba)
 > +{
-
+> +	u32 value, sys1clk_1us;
+> +	int err;
+> +
+> +	err =3D ufs_spacemit_mphy_init(hba);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	err =3D ufs_spacemit_uniprov1p6_init(hba);
+> +	if (err < 0)
+> +		return err;
 [ ... ]
-
-> +	write_seqcount_begin(&lp->hw_stats_seqcount);
-> +	for (stat = 0; stat < XXV_STAT_COUNT; stat++)
-> +		lp->xxv_stat_base[stat] += counter[stat];
-> +	write_seqcount_end(&lp->hw_stats_seqcount);
+> +static int ufs_spacemit_apply_dev_quirks(struct ufs_hba *hba)
+> +{
+> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
+> +		/* LCC_DISABLE */
+> +		{ UIC_ARG_MIB_SEL(TX_LCC_ENABLE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0 =
+},
+> +		{ UIC_ARG_MIB_SEL(TX_LCC_ENABLE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1)), 0 =
+},
+> +		/* TX_Min_ActivateTime */
+> +		{ UIC_ARG_MIB_SEL(TX_MIN_ACTIVATETIME, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0=
+)), 0x0 },
+> +		{ UIC_ARG_MIB_SEL(TX_MIN_ACTIVATETIME, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1=
+)), 0x0 },
+> +		{ UIC_ARG_MIB(ANA_HSGEAR_CTRL_ATTR), 0x25 },
+> +	};
+> +	int err;
+> +
+> +	if (hba->dev_quirks & UFS_DEVICE_QUIRK_HOST_PA_SAVECONFIGTIME) {
+> +		err =3D ufs_spacemit_quirk_host_pa_saveconfigtime(hba);
+> +		if (err < 0)
+> +			return err;
+> +	}
+> +
+> +	if (hba->dev_info.wmanufacturerid =3D=3D UFS_VENDOR_WDC)
+> +		hba->dev_quirks |=3D UFS_DEVICE_QUIRK_HOST_PA_TACTIVATE;
+> +
+> +	err =3D ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
+> +	if (err < 0)
+> +		return err;
+> +
+> +	return ufs_spacemit_wait_mphy_pll_lock(hba);
 > +}
-> +
-> +/**
-> + * axienet_xxv_get_stats64 - Fill rtnl_link_stats64 from XXV counters
-> + * @lp: Pointer to the axienet_local structure
-> + * @stats: Output rtnl_link_stats64 structure to populate
-> + */
-> +static void axienet_xxv_get_stats64(struct axienet_local *lp,
-> +				    struct rtnl_link_stats64 *stats)
+
+[Severity: Low]
+As reported by Troy Mitchell on v6 [1], can positive UIC error codes bypass
+the "if (err < 0)" checks in ufs_spacemit_link_startup_pre_change() and
+ufs_spacemit_apply_dev_quirks()?
+
+ufshcd_dme_get() and ufshcd_dme_set() return positive 8-bit UIC command
+result codes (0x01..0xFF) when a DME command fails at the UniPro layer.
+Checking "if (err < 0)" misses those positive error codes and allows both
+functions to continue past failed DME operations instead of aborting early.
+
+[ ... ]
+
+> +static void ufs_spacemit_event_notify(struct ufs_hba *hba, enum ufs_even=
+t_type evt, void *data)
 > +{
-> +	unsigned int start;
-> +	u64 tx_hw_errors;
+> +	switch (evt) {
+> +	case UFS_EVT_PA_ERR:
+> +		if (data)
+> +			dev_warn(hba->dev, "PA error event, INT errors:0x%x, PA_ERR_CODE:0x%x=
+\n",
+> +				 hba->errors, *(u32 *)data);
 > +
-> +	do {
-> +		start = read_seqcount_begin(&lp->hw_stats_seqcount);
+> +		break;
+> +	case UFS_EVT_DL_ERR:
+> +		if (data)
+> +			dev_warn(hba->dev, "DL error event, INT errors:0x%x, DL_ERR:0x%x\n",
+> +				 hba->errors, *(u32 *)data);
+> +
+> +		break;
+> +	case UFS_EVT_ABORT:
+> +		dev_warn(hba->dev, "Abort event, INT errors:0x%x\n", hba->errors);
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +}
+
+[Severity: Low]
+Does the UFS_EVT_ABORT case in ufs_spacemit_event_notify() always log
+hba->errors as 0x0?
+
+ufshcd_check_errors() clears hba->errors back to 0 before the interrupt
+handler returns (saving sticky bits in hba->saved_err), while UFS_EVT_ABORT
+is only emitted later from ufshcd_abort() in SCSI error-handler context with
+the aborted tag or LUN passed via data.
+
+[ ... ]
+
+> +static void ufs_spacemit_post_hibern8(struct ufs_hba *hba, enum uic_cmd_=
+dme cmd)
+> +{
+> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
+> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x84 },
+> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x84 },
+> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x80 },
+> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x80 },
+> +		{ UIC_ARG_MIB(0xdd), 0x57 },
+> +		{ UIC_ARG_MIB(0xdd), 0xd7 },
+> +		{ UIC_ARG_MIB(0xe8), 0x57 },
+> +		{ UIC_ARG_MIB(0xe8), 0xd7 },
+> +	};
+> +	int err;
+> +
+> +	if (cmd =3D=3D UIC_CMD_DME_HIBER_ENTER) {
+> +		err =3D ufs_spacemit_check_hibern8(hba);
+> +		if (err)
+> +			dev_err(hba->dev, "ufs_spacemit_check_hibern8 error\n");
+> +
+> +		ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
+> +
+> +		/* Power down M-PHY */
+> +		ufshcd_writel(hba, 0x0, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> +
+> +		fsleep(hba->dev_info.clk_gating_wait_us);
+> +
+> +		/* Disable reference clock, keep device reset deasserted */
+> +		ufshcd_writel(hba, MPHY_DEVICE_HW_RESET,
+> +			      UFS_PHY_MNG_BASE + UFS_DEVICE_IO_CTRL);
+> +	}
+> +}
 
 [Severity: Medium]
-Can this reader sleep on PREEMPT_RT? hw_stats_seqcount is a
-seqcount_mutex_t bound to stats_lock in axienet_probe():
+Does fsleep(hba->dev_info.clk_gating_wait_us) gate the device reference
+clock with zero delay on UFS 2.x devices?
 
-	seqcount_mutex_init(&lp->hw_stats_seqcount, &lp->stats_lock);
+ufshcd_get_ref_clk_gating_wait() only reads bRefClkGatingWaitTime and sets
+hba->dev_info.clk_gating_wait_us when hba->dev_info.wspecversion >=3D 0x300.
+On UFS 2.x devices (or if Hibern8 is entered before
+ufshcd_device_params_init() runs), clk_gating_wait_us remains 0, so
+ufs_spacemit_post_hibern8() calls fsleep(0) and disables
+MPHY_DEVICE_REFCLK_OE immediately after powering down the M-PHY without
+satisfying the reference clock hold time.
 
-With CONFIG_PREEMPT_RT, read_seqcount_begin() on a seqcount_mutex_t
-calls mutex_lock(s->lock) and then mutex_unlock() when it sees an odd
-sequence. On RT the writer also stays preemptible between
-write_seqcount_begin() and write_seqcount_end().
+[1] https://lore.kernel.org/r/DLLQJDEA91FU.18Q1TSX09AUR3@linux.spacemit.com
 
-The write section in axienet_xxv_stats_update() runs with stats_lock
-held, from the stats work or from axienet_stop(). A reader that
-overlaps it would block on stats_lock. ndo_get_stats64 can be called
-under rcu_read_lock(), for example from /proc/net/dev, where
-dev_seq_start() takes rcu_read_lock():
-
-dev_seq_show()
-  dev_seq_printf_stats()
-    dev_get_stats()
-      axienet_get_stats64()
-        axienet_xxv_get_stats64()
-          read_seqcount_begin()
-            mutex_lock(&lp->stats_lock)
-
-Bonding also calls it under its stats spinlock plus RCU.
-
-Would this trigger a "sleeping function called from invalid context"
-splat on RT kernels? The kernel-doc above says ndo_get_stats64() cannot
-take @stats_lock, but on RT the seqcount takes it anyway.
-
-The 1G reader axienet_1g_get_stats64() already uses the same pattern.
-This patch adds a new atomic-context reader whose design assumes that
-readers never take stats_lock.
-
-[ ... ]
-
-> +static void axienet_xxv_get_ethtool_stats(struct axienet_local *lp, u64 *data)
-> +{
-> +	unsigned int i, start;
-> +
-> +	do {
-> +		start = read_seqcount_begin(&lp->hw_stats_seqcount);
-> +		for (i = 0; i < ARRAY_SIZE(axienet_xxv_priv_stats); i++)
-> +			data[i] = lp->xxv_stat_base[axienet_xxv_priv_stats[i]];
-> +	} while (read_seqcount_retry(&lp->hw_stats_seqcount, start));
-> +}
-
-[Severity: Medium]
-Will ethtool -S on XXV return values that are at least one work
-interval old? This reader only copies lp->xxv_stat_base. So do
-axienet_xxv_get_pause_stats(), axienet_xxv_get_eth_mac_stats(),
-axienet_xxv_get_rmon_stats() and axienet_xxv_get_stats64().
-
-The base only changes in axienet_xxv_stats_update(), which is called
-from axienet_refresh_stats() and axienet_stop(). The work is set up
-with INIT_DEFERRABLE_WORK() and re-armed every 13 * HZ, so on an idle
-CPU the lag can go well past 13 seconds. After a traffic burst, the
-ethtool -S totals and the pause, eth-mac and RMON groups would not
-change until the work runs.
-
-The commit message explains why ndo_get_stats64() cannot tick. The
-ethtool callbacks, though, run in process context under RTNL.
-
-Could they take stats_lock and call stats_update so they return
-current values?
-
-For comparison, the 1G readers go through axienet_stat(), which adds
-the live register to the software base:
-
-	counter = axienet_ior(lp, XAE_STATS_OFFSET + stat * 8);
-	return lp->hw_stat_base[stat] + (counter - lp->hw_last_counter[stat]);
-
-so the 1G ethtool and stats64 values are current.
-
-In ndo_get_stats64 the software rx/tx packet and byte counters are live,
-while the XXV hardware error and multicast counters come from the
-cached base. A single snapshot therefore mixes values from different
-points in time.
-
-[ ... ]
-
-> +		mac_stats->InRangeLengthErrors =
-> +			lp->xxv_stat_base[XXV_STAT_RX_INRANGEERR];
-> +	} while (read_seqcount_retry(&lp->hw_stats_seqcount, start));
-> +}
-
-[Severity: Low]
-Should FrameTooLongErrors be filled in here too? axienet_xxv_get_stats64()
-treats XXV_STAT_RX_OVERSIZE as a frame-too-long error and folds it into
-rx_length_errors:
-
-		/* Both in-range length errors and frame-too-long (oversize)
-		 * frames are IEEE 802.3 length errors, so fold them together
-
-axienet_xxv_get_rmon_stats() also reports it as oversize_pkts.
-
-struct ethtool_eth_mac_stats has a FrameTooLongErrors field, but it is
-never set here. As a result, ethtool -S <dev> --groups eth-mac shows it
-as unsupported, even though the driver already accumulates the counter.
-
-> +
-> +/**
-> + * axienet_xxv_get_rmon_stats - Fill RMON statistics and histogram ranges
-> + * @lp: Pointer to the axienet_local structure
-> + * @rmon_stats: Output ethtool_rmon_stats structure to populate
-> + * @ranges: Set to NULL; XXV exposes aggregate RMON counters only, not
-> + *          per-bin histogram ranges.
-> + */
-
-[ ... ]
-
-> +	/* XXV currently exposes only aggregate RMON counters, not per-bin
-> +	 * histogram buckets. Keep ranges NULL until histogram bins are wired.
-> +	 */
-> +	*ranges = NULL;
-> +}
-
-[Severity: Low]
-Is the kernel-doc accurate about the hardware? The register map this
-patch adds in xilinx_axienet_xxv.h has a gap here:
-
-#define XXV_STAT_RX_TOTAL_GOOD_BYTES_OFFSET	0x00000820
-#define XXV_STAT_RX_UNDERSIZE_OFFSET		0x00000898
-
-That gap is 14 skipped 8-byte counter slots, 0x828 to 0x890. There is a
-similar gap here:
-
-#define XXV_STAT_TX_TOTAL_GOOD_BYTES_OFFSET	0x00000718
-#define XXV_STAT_TX_BAD_FCS_OFFSET		0x000007B8
-
-These look like the PG210 per-size-bin packet counters (64, 65-127, ...
-8192-9215 bytes, plus large and small). This could not be checked
-against the PG210 datasheet from the tree. The inline comment
-("currently ... until histogram bins are wired") reads like a driver
-limitation rather than missing hardware.
-
-The commit message says the RMON statistics come from this path. It
-does not mention that the RX and TX histograms are left out.
-
-Could the kernel-doc and the commit message say that the histogram
-counters exist but are not wired up yet?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114182947.2908628-1-suraj.gupta2%40amd.com
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-08-k3-ufs-=
+support-v8-0-e3b256972dd4@kernel.org?part=3D2
