@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.128.198.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802181;
-	b=bXss31npZSGiet57k2Hx+zS65INyFr5nSvem7ZjlIKfJqXBZG0dR+H5zaMLkVv6e5p3K
-	 JkAdRccycWjqro3JdEALat2N5nWC/5IGOY1Jv/GZxia6yS8jLMMD9HGfm23CCTAFvXcLx
-	 WtiD7JhXjKdo2PXe4uIHi2xqj+9E6MWgHeytK7/1bGwXysvwhy10sMkkOSSncU3NxGK+r
-	 EVbMZwqDOfbhkTcK/XInUIkNp1OYccxVSGKaCpYFAZ8DrYc6MncWGhKhB2mx5nT5dx1CX
-	 NsVAX67QtpyEXEYXaRsrQeS8UCxraFNDVIjyuPcJ1sH9Ge0GDOoWhNN8TbjH8Fu7ZEA==
+	t=1794802182;
+	b=TyMlv8vWzt/fLYl7AWXi28iUWBwsIEVEP1bZlpJjV5v1WcGNOVsoRK/FQkfT78RVL/vV
+	 OmOqVt2FA8ub6taZ/52WYiumt7R/BIC9d/TMSqUeh+rWCUGDMgOwQXsQW4RpRfCHt7tJN
+	 qXreVpUjzhGOIuYQYoaX+Nqb7jDcJI7N8vx+6SSLcVvmXQ4nWhfoWQ3Q4ccBWdQufFN6/
+	 25jklBjg99BlwqVJI7y8DVQ//SNFYWLFUY5M1FKKD22Xn9i568fUzF9aYrqh4rRpGCbL3
+	 12uUv39piua8b/7QvJbWsW9yg5UUZh2ZjOQzObYBfojJ//TAGT2Csmjfr/utoTv0YpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802181;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802182;
 	h=DMARC-Filter:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy:X-DKIM-Results:
-	 X-DNSRBL:X-SPAM-SOURCE-CHECK:X-MAIL;
-	bh=9qJRGK8FBzw3qsx6BCksBJ7d8jSqTZwCkoSlKjJtisA=;
-	b=pLjrZRiPbTU4hOysXb6a5iP+nUJby76wLHQDcqD8bYInNcMl18yB/jegqdMbW9Af3UU7
-	 uiUX+YFjdF/z10bRkEWWcRmCNsGehcj2WVxlsLnFk5CazOk+KFDTpPKkysZ7KdVn7nClP
-	 fIW1WtisdyCamld/dUHb/sNq9CXNXz3eQBSzLcW8RPIcmoSMxAj1oaif53Io2X6HM7uH2
-	 zbM1y8dLswqG1V06wHMRITQRpRBAZwOUbMBbqW4WfVUoMLoVp7Y0D6Kh7RqSxhoPkR2A5
-	 1cXNOvsJnONY1G5/nMgMZvWruBnqgNZWvnFwHUSJ8j3Tu0jv+Ko8eXHqZP0QbIKTzBQ==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-DKIM-Results:X-DNSRBL:X-SPAM-SOURCE-CHECK:X-MAIL;
+	bh=9laODPVsYIvfRtRp3n9an29q85ZUKSux2XuPz+/hiII=;
+	b=zD6cYQT0k4H4bnC4Hp9zsMDaKVgwd0yNN2n+4JycGmubalyk54PaQL/MuN2FcA6jd9bx
+	 vfmmzeYf2t91wuW0tKtQdLeAMUOdHP23ESZ0uWaSM0zlnBlq7bvfu/z/05C4hnEgA1AkW
+	 TsMtzCN+BpIy4BGM4uxJn0J/x1CcVFNTVOS874BegAXBXglhKr9soAw7tgc86Yexj61sZ
+	 3HJMJZHCbP3K5/0a3LZQcjVrpYmlAJ1qEftrs5taOcM9gBcl+n2QlZCHzMH2dre5JxEau
+	 bCJgpGpKxm0FeluaDYt13+qqCkkIjMTSC+Itmb2WXr9DFdzG8uj+ke3VxHSzRp6nf7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=andestech.com;
 	spf=pass smtp.mailfrom=andestech.com;
@@ -26,24 +26,24 @@ Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38282606A88D
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 04:09:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38282606A88D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE14606A88B
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 04:09:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FE14606A88B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
-Received: from mail.andestech.com (atcpcs53.andestech.com [10.0.1.153])
-	by Atcsqr.andestech.com with ESMTPS id 6AG49Tpo084334
+Received: from mail.andestech.com (atcpcs55.andestech.com [10.0.1.155])
+	by Atcsqr.andestech.com with ESMTPS id 6AG49WK7084335
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 16 Nov 2026 12:09:29 +0800 (+08)
+	Mon, 16 Nov 2026 12:09:32 +0800 (+08)
 	(envelope-from cl634@andestech.com)
-Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs53.andestech.com
- (10.0.1.153) with Microsoft SMTP Server (version=TLS1_2,
+Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs55.andestech.com
+ (10.0.1.155) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Mon, 16 Nov
- 2026 12:09:29 +0800
+ 2026 12:09:32 +0800
 Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
  (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 16 Nov
- 2026 12:09:28 +0800
+ 2026 12:09:32 +0800
 From: CL Wang <cl634@andestech.com>
 To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
         Rob Herring <robh@kernel.org>,
@@ -52,10 +52,12 @@ To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
 CC: CL Wang <cl634@andestech.com>, <linux-gpio@vger.kernel.org>,
         <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
         <tim609@andestech.com>
-Subject: [PATCH 0/3] gpio: Add support for Andes ATCGPIO100 GPIO controller
-Date: Mon, 16 Nov 2026 12:09:11 +0800
-Message-ID: <20261116040914.368298-1-cl634@andestech.com>
+Subject: [PATCH 1/3] dt-bindings: gpio: Add support for ATCGPIO100 GPIO controller
+Date: Mon, 16 Nov 2026 12:09:12 +0800
+Message-ID: <20261116040914.368298-2-cl634@andestech.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261116040914.368298-1-cl634@andestech.com>
+References: <20261116040914.368298-1-cl634@andestech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,40 +71,131 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
  ATCPCS34.andestech.com (10.0.1.134)
-X-DKIM-Results: atcpcs53.andestech.com; dkim=none;
+X-DKIM-Results: atcpcs55.andestech.com; dkim=none;
 X-DNSRBL: 
 X-SPAM-SOURCE-CHECK: pass
-X-MAIL:Atcsqr.andestech.com 6AG49Tpo084334
+X-MAIL:Atcsqr.andestech.com 6AG49WK7084335
 
-This series adds support for the Andes ATCGPIO100 GPIO controller, an
-IP integrated in the Andes AE350 platform and in SoCs such as Qilai.
+Document devicetree bindings for the Andes ATCGPIO100 GPIO controller.
 
-The controller provides up to 32 lines with optional pull, interrupt
-and debounce features, all reported by its configuration register.
-The driver builds the data path on the generic MMIO GPIO library and
-adds:
- - Pull-up and pull-down bias
- - Edge (rising, falling, both) and level (high, low) interrupts
- - Hardware input debounce, clocked from pclk or an optional extclk
- - Wakeup through the parent interrupt
- - System suspend and resume
+ATCGPIO100 is the name of the IP, which is integrated in the Andes AE350
+platform and in SoCs such as Qilai. As in the ATCSPI200 SPI controller
+binding, the compatibles follow the platform and SoC rather than the IP
+name: andestech,ae350-gpio is the fallback, and an SoC that integrates
+the IP adds its own compatible, such as andestech,qilai-gpio, in front
+of it. Drivers can then match on the fallback and still add SoC-specific
+handling later.
 
-CL Wang (3):
-  dt-bindings: gpio: Add support for ATCGPIO100 GPIO controller
-  gpio: atcgpio100: Add ATCGPIO100 GPIO driver
-  MAINTAINERS: Add entry for Andes ATCGPIO100 GPIO
+The controller has up to 32 lines, and ngpios gives the number of lines
+implemented. The debounce logic can run from either of two clocks: pclk,
+the APB bus clock, which is required, or extclk, an optional external
+clock that allows longer debounce periods. The interrupt is optional, as
+the controller also works as a plain GPIO controller without it.
 
- .../bindings/gpio/andestech,ae350-gpio.yaml   |  92 +++
- MAINTAINERS                                   |   6 +
- drivers/gpio/Kconfig                          |  16 +
- drivers/gpio/Makefile                         |   1 +
- drivers/gpio/gpio-atcgpio100.c                | 641 ++++++++++++++++++
- 5 files changed, 756 insertions(+)
+Signed-off-by: CL Wang <cl634@andestech.com>
+---
+ .../bindings/gpio/andestech,ae350-gpio.yaml   | 92 +++++++++++++++++++
+ 1 file changed, 92 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml
- create mode 100644 drivers/gpio/gpio-atcgpio100.c
 
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+diff --git a/Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml b/Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml
+new file mode 100644
+index 000000000000..01badd2a1342
+--- /dev/null
++++ b/Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml
+@@ -0,0 +1,92 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/gpio/andestech,ae350-gpio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Andes ATCGPIO100 GPIO controller on AE350 platform
++
++maintainers:
++  - CL Wang <cl634@andestech.com>
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - andestech,qilai-gpio
++          - const: andestech,ae350-gpio
++      - const: andestech,ae350-gpio
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-controller: true
++
++  "#interrupt-cells":
++    const: 2
++
++  gpio-controller: true
++
++  "#gpio-cells":
++    const: 2
++
++  ngpios:
++    minimum: 1
++    maximum: 32
++
++  gpio-line-names:
++    minItems: 1
++    maxItems: 32
++
++  clocks:
++    minItems: 1
++    items:
++      - description: APB bus clock
++      - description: External clock for debounce
++
++  clock-names:
++    minItems: 1
++    items:
++      - const: pclk
++      - const: extclk
++
++patternProperties:
++  "^.+-hog(-[0-9]+)?$":
++    type: object
++    required:
++      - gpio-hog
++
++required:
++  - compatible
++  - reg
++  - gpio-controller
++  - "#gpio-cells"
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++dependencies:
++  interrupt-controller: [ interrupts, "#interrupt-cells" ]
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    gpio@f0700000 {
++        compatible = "andestech,ae350-gpio";
++        reg = <0xf0700000 0x100>;
++        interrupts = <7 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-parent = <&plic>;
++        interrupt-controller;
++        #interrupt-cells = <2>;
++        gpio-controller;
++        #gpio-cells = <2>;
++        ngpios = <32>;
++        clocks = <&pclk>, <&extclk>;
++        clock-names = "pclk", "extclk";
++    };
 -- 
 2.34.1
 
