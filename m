@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830954;
-	b=hJYI6IOFPwnYLlvBk4/MNVmYrz/gcwUKikju4o4uXiIPHUtL4WfDQMr5NYhI9xw8j6Cv
-	 M4FVmfNDOOinBI9HJ77nymSsTB2qLL8tIFPk0BpdlTmPINpOfScFxRBam/3ewYXqkd213
-	 DZdlDQSr1r4HekVUD1k5vq7ITrS2Hvyq4cGH17crkQR+lVD+TztQv8ytrGb+e8tjAW7ED
-	 l9dw6yPH7r0fyck1hGDlXnAvYDX2MdpMGZ4BsqGY/pnyYxzfYy3/8WKXm8U799qtF9e4W
-	 +jY6Xk2opFlG5oysfu7NLIRcyLdB7IHIai3i9X66Zr0waObVMdpvk1eXctrTuxGkvpQ==
+	t=1794831081;
+	b=w41ZfURgfR9JgeMYWPvyWYynzxDU26iIs1py3Qzb1sdqPlmdLrRpbPwWyq0nRsTMEBBk
+	 x3wJ4BAUwow5WzKolkSSMyCk7Idp/A6Hgu3F4N19MC6CJ8tNNT/0LNaxHKXXGIDM1gcOJ
+	 39EakWjn7lSVlmErTCyHgoBoRyyUfNcVHY1trZLsHmnVt228mG5k+IUr8ieHOtsx1fBih
+	 feqb8FY1s4jYTiVuBm466gZnK7eJXqG6mt2Yg7EgwkjLTg00W6+8GmhPlJkHe4YeVkZmP
+	 QYy6uUpFa2FIeVwl03/jP+XNZYsN+Keh9ToI6CLpzBu0bwlpRFDNPXtIMs62SJD0pOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830954;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831081;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DQKq9lPCCId726jGcee566wmkBRqcENP2m1ZlEIDRRI=;
-	b=HaRf7yXupmLxwb0PAc/c4/qGhHYjUFUWWLFrSOBk5Al10JSVNKn0i/HE2IHN+pgVsPFK
-	 gJn7MXtEVEWdYxR8Ey62QSqzBbQIrgFsaozlXjRBKkJC4ZGL/Eh+lgUlricOF99jWB3VL
-	 HoYoNyUioSQ0uBJ07/y6LS2o1Goez1yXccXRupDFxDXoTAR8ufXt0HBr+nRymBwwc+GCe
-	 7I8+fll14euaKnDnjaODeMqdZ2/hNEFkrTVtGDlpQy8rHe06mU4pVP6rS4zy9/kPNumHt
-	 9fAy18cYPgxQkLkwABvAkaCqIklEbLGx0SBdrEeQmQYArPvLOUkg0PpVZocY03jAUhw==
+	bh=MCrIfPa5jM55YGKgTWMhmNBiGurKE2IC0Lgd6Ge7QLE=;
+	b=f1BwxGBaBfn4Sc8HUdUz+uuhwjmfTRfkHQI8mvWtpRIV9pt3lCl266npYbrjhNyZj26c
+	 blQWTzYWb5ovDRP6GWxQOBuePuPqD4wEPcK4SYLq+brRr0ns0RVmKuNePhjfVzd/Hlql6
+	 G2JbgSfbk6nV6E3SG8ifgQp/3EWj+UIyw6GHup6BTGIzJ/xPb41tasIEbEE8hlCPiLS8o
+	 VTLS/Uk/4KMPDc178pFk8LB1tuqnWYmGx98BzGMYTvcCBHGyGFPBaNNmVc72Y5sToKJ1x
+	 210IDa8jAHq7wPDX/NJFlw4GyPNYzZHLTdxZZ34wdsUVJGjhlL2FVtCdtnfHZBrsm+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LO/lEcBX";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kf0ZpNba;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788B6606A31C;
-	Mon, 16 Nov 2026 12:09:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A881606A323;
+	Mon, 16 Nov 2026 12:11:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LO/lEcBX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81EE91F000C5;
-	Mon, 16 Nov 2026 12:09:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kf0ZpNba
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86ADE1F000C9;
+	Mon, 16 Nov 2026 12:11:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794830953;
-	bh=DQKq9lPCCId726jGcee566wmkBRqcENP2m1ZlEIDRRI=;
+	s=k20260515; t=1794831080;
+	bh=MCrIfPa5jM55YGKgTWMhmNBiGurKE2IC0Lgd6Ge7QLE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LO/lEcBX3lG7Ap1r7tIt8PLK9da8Xr9mc8E0uq8Lc5jzEQ26whxR8ijBIakoLZ1Pe
-	 ArInzvClG9kXwFIzsQB4HiqeXguS0HYLw+Hr0dOFE1mfyprfuxdEeOA7zWmP0uu7qB
-	 zPliXtw7xnzdpc0egZeA48qFm6b4d1bb72AVlfHqXbTyUG7Qhotdr3RBKw3Rvc1muC
-	 LwWQKgEdOD9c2qI5HrRgGnZS4UyuayEkmTrAUKG4nvVpWYXyGgmCrOTRrbj2RvoarZ
-	 PG9TXUiGpovcBx2y8nCNfm71gH5dw76EC/sNbPPg7a67FovFtpa/pH2VHqjPC70TlC
-	 vm6en5UGMhfeg==
-Date: Mon, 16 Nov 2026 13:09:04 +0100
+	b=Kf0ZpNbay3/botVgk4uLQ6lKN1Dp/8U4U1a6BPgJEQ/jmkeMAZbVWA5Vx8J7OvYAa
+	 Xx5YPpICA9XnQj1ry5M/iOi+KIfi9KXZoyXKVQFVEVxhxK+lj7kk8SbbZ3WL3C/ZZz
+	 MFQSeMyiRtDb0+SjvTTRTCZ34BLbJJ+kvZybx6NmeN4dihm06im1nh7lgxjG57iKwX
+	 87jwP61h6nYg/jwz0RPzOecRR3TPF3/vD+gFmTVK3encLn5J/mOno0FiPh0NFjP86K
+	 yWN5joya90STmAJqt9QUvReUNO4HPra5yhh1k2UMZMQKxVzfq7VSa3zF1yArbgl9vC
+	 91rNvWminUUyw==
+Date: Mon, 16 Nov 2026 13:11:15 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Gopikishan Thawre <gopikishan.thawre@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Suresh Vankadara <svankada@qti.qualcomm.com>, Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: media: qcom,glymur-camss: Drop port@3
-Message-ID: <20261116-vegan-amphibian-muskox-3c8a55@quoll>
-References: <20261113-glymur_camss-v2-0-b1b76509c744@oss.qualcomm.com>
- <20261113-glymur_camss-v2-1-b1b76509c744@oss.qualcomm.com>
+	Richard Cochran <richardcochran@gmail.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: arm: qcom: Add LeMans Draco EVK board
+Message-ID: <20261116-colorful-cormorant-of-snow-cde6a0@quoll>
+References: <20261113-lemans-draco-final-changes-bringup-v2-0-3ae8cd1c9932@oss.qualcomm.com>
+ <20261113-lemans-draco-final-changes-bringup-v2-1-3ae8cd1c9932@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,14 +62,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261113-glymur_camss-v2-1-b1b76509c744@oss.qualcomm.com>
+In-Reply-To: <20261113-lemans-draco-final-changes-bringup-v2-1-3ae8cd1c9932@oss.qualcomm.com>
 
-On Fri, Nov 13, 2026 at 01:50:22PM +0530, Nihal Kumar Gupta wrote:
-> Glymur has only three CSI2 PHYs, so there is no port@3 in the CAMSS
-> binding.
+On Fri, Nov 13, 2026 at 04:58:57PM +0530, Gopikishan Thawre wrote:
+> Add compatible strings for the LeMans Draco EVK, an evaluation board
+> based on the SA8775P/QCS9100 SoC family.
+> 
+> The platform uses a two-board design: the LeMans Draco SoM carrying
+> the SA8775P/QCS9100 SoC and core connectivity, paired with the Draco
+> carrier board providing application-specific peripherals.
+> 
+> Add two compatibles to model this hierarchy:
+>   - qcom,lemans-draco-som: identifies the SoM layer, allowing the
+>     SoM device tree to be shared with a common carrier board.
+>   - qcom,lemans-draco-evk: identifies the complete board (SoM + Draco
+>     carrier), used in the board DTS.
 
-... so this was never working? Or was working but you change something?
+Drop entire parapgraph. I asked to explain oddities, not standard and
+expected way how System on Modules are used.
 
+There is no point to explain the obvious.
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
