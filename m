@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826571;
-	b=ZMjQOuGwwy+9+tX0zJQ2JUSKXE8ZfQFFdc0xJdi7f2VmDXuKDuCnT2ak23JoKSqYhPXH
-	 EcDRcX6nlkvsNfsPdEOOydtUQA7/2AHw4apGk8PdRTCHOOy37BjqzEeZoxYFLz2HQMyey
-	 nLJayoBKQSg5gnxQp1RziXNR5zB+XtwyWtaoET4/fKOQFOqTG30G3cF7xaFQDComEsjbe
-	 cz5LYcaavwWKsQSWymgD2DtDkWf1qZ+02kP94BlcenMgbskQOunuJKu5/I4DGa7rxzfdc
-	 vulL49oVoCUCTkIbv8n3Uywleilqx1HMCdYReKyGv64o2U1fGAe+2WIs6NplXQn1ZNQ==
+	t=1794826578;
+	b=NMqlCQRtlk9RQEXTHoEoz5bv9XD6+gJpx+X1tZCZ6neW1aGh7ooxI3DCYFqtGhS+P4x1
+	 tBfMaQpahWGBWpE1Feh92/3gchk9m5gAihDWiNh4ngr3RgZtRDV/z67cQ36Bza0CN7IgO
+	 2z6nTwBMeCY1ETkObuVBrqMujzDu8h2pAoMG/XLUygkJmSRNHPhT35HQEn0WksRoNGJlF
+	 AVDX6eGwevfMKB9vmqVwNHTjkd9fb2MPoDg+hjM3I/f8qGw4VnnLgDYHQbge8I4Zu6GXr
+	 yj8WvMr/+B4QZ8caoDtTpVJf93ilyeM2crMIoMLwePJ+8LNaW7xUufe4m38qHF5MOXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826571;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826578;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Uuenm5c7uLenhEpnUWoxIYDWfrao2MY0rp9vEXUhv6c=;
-	b=vvgSJGlaaAGsLT6HhoCZXY9Lk4egMEjASFx/LCFamvqvPAs3qMbkd/B34wEV/0rvhtN3
-	 RCHa07dgJQrd8iYDQD2p3fioGq7ESQ+d/qt82rgWw8u6q8xeyZOwVDvV4tzDxNVwvx1cp
-	 2ItWkRhANNvv3DmUn1/5bOmABL81AETxnSiciJhCC63kmZdLzPJmWvztMAWCgSFHbJGwI
-	 RrXg3w5ebJbBYUJGjr2YheSFNUteJLWGyyHilM9lHDyRtRc16F4tJohU1KvJ4ws3GoqS1
-	 Q3/OwRb5xSL3Put4UIlHKcEMviSDmN9TvPIRdRtInPZxDnv07rfaF5G7FQFDfzYSPuA==
+	bh=mXHs4M+7tfkoIg4sYbiMPquQrDZ3R0cBJAsjaurMG7I=;
+	b=QEJR/YXfC0byQ+xX7pvHGCwFk1ptxV12SLXM5gEkeJRYjMIc9j5QJgrlw3l66D/wiAFo
+	 isJCeO7xnZ3X/vXNV/7J8gQ+SJDq/AN4ux/7KMGEiPfm0QnXqmMtTTJrGo8WtSizPte4R
+	 tNL+9JvcooxKgQgnJup2jpKG6cV2cTEDGiMiMy0PjGe678LzsfZZ2L9tM6bJhR3UKUIQz
+	 1atT1PiWgjPG4APqu+6NArtGKOwqjzFWJGHIC6p4J7d1qv40CMeXXpJw+YDgxZI+13GKQ
+	 lr4cj55Gh+2kSQcMvByYzaEZjTTrmQItSWUQ08pjyXQxu16GoZZI31Hiar1BXhN3OPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=me5ihzqy;
-	arc=none smtp.remote-ip=209.85.128.171
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iMB+0as2;
+	arc=none smtp.remote-ip=209.85.128.177
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F596606A32F
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 10:56:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F596606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4F5606A31C
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 10:56:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B4F5606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=me5ihzqy
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b360828905so29712887b3.2
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:56:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iMB+0as2
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b4c685c751so10979577b3.1
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:56:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794826570; x=1795431370; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794826577; x=1795431377; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Uuenm5c7uLenhEpnUWoxIYDWfrao2MY0rp9vEXUhv6c=;
-        b=me5ihzqyzMngZ33PKeWakS+9H/wF+BrDnb3sNRskbLAS7FAfWcXRA/+3MHA1+x0PwA
-         yL1Zw3c2vxCKQnpDLoeE6EY0HFmer37j43SgHK+jZx1oWwpW+BvKNEXLGfKvJ8aoC7n4
-         wBmAO7eLNAqnaTTBFMaY+OBsLJ6K+UMOVn4N4wMqwqdv/IzbfGYB8SIU4gusKnmPNbUx
-         ChpnbkAS8s8A5QB37c9ze7VDbl3/KBWfes0LOHtweXot4ggaIy05zP9JVi/ErSOySF8h
-         s6v9DhRPV73KeQYKmt1L6rQtyY4Q6No0+o5X9gLIiQX7UG1k6rWYlkjcT+5n8UEpeQ+D
-         seNg==
+        bh=mXHs4M+7tfkoIg4sYbiMPquQrDZ3R0cBJAsjaurMG7I=;
+        b=iMB+0as2h7GqLJWDT7oD7BLV/X/QQbIXv/B8vOgZP/FB0ocZ/c7UKq3CNnQp/2iWg8
+         /UVg47d+oqbcSK19aA8oeu3m1OWoFNSXNKtGiKRr6W7OXYYXIX4FmAfnjqZdLdhmERHD
+         IkmaAoTaNfot9iXM1XQsP/U82MLOMrYxx3TeubyVKcPsZV9z5k2TULVlkTDWEr0ouhMs
+         x4Rn4e/PL8QTJgmxLJc2ETR4kWO/oc+Dp8Up2oTvbbRZqI8LoqHo0t2BmQlvYUiFm5H4
+         aLgrmfXUaDQVkPFbJ4nTT5HPJqLix+3YXba9K/q8ySO8xym3rHg49nQIHnvZYIieBx3w
+         zFbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794826570; x=1795431370;
+        d=1e100.net; s=20260707; t=1794826577; x=1795431377;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uuenm5c7uLenhEpnUWoxIYDWfrao2MY0rp9vEXUhv6c=;
-        b=ZwU+PneAxWK4Ph0LxwDtijrWQSz8JqxgeyNEyRB9F6cT0sRL+IAxupM0C5u/W4U9a/
-         JFJCSSZ8ta+MvCExuSiwcUtRlNVtG1QOG8iut9YtSdgSofidODZHGKJq0KCF/06h202A
-         TZ9iifTRSxuBYCxk3/rTRCJvPiVaFOgynKJFEg93OXWAFEJLFnampdO78jP6CogTkPBP
-         IJuBDbyJuI9NZKwNTeRtg2DucJrrXo+BgWRONa3UhKsqddmy8ZIFpMdQaxKfPJWmnQSJ
-         a34TDQOPHdokcP4FvVviGjhde1d5VRyBXTrE4r1iIVumOMMnsvDmk4g9R2tA9WZRSZjc
-         8ODw==
-X-Forwarded-Encrypted: i=1; AL+hErG7hKReQj9QVoPyfttgLebNfSy3TV4UGa5KlQgLVt9pEWXseKeSssV8MWoPmmHlM4tAmv4sW6/UaKDb@vger.kernel.org
-X-Gm-Message-State: APuU4Z8k50swHqIbEeezXIhaQ6mk2kcZjdxBF0fENeZ4ovDeN/CNJP6m
-	9Y7/zA6rMPaZQwewWPgEUnzbnnPvbrcFVv2kTD41Taaodnj/EhgyL+k3
-X-Gm-Gg: AZFdTZc/NTGhQ+EAe+AwdZiR6OiPCXJ95ADbrMN8Z6Ic23fmh4Z/FRVTZUaUumYmJS6
-	d20aIHi9A5vWO82PKOSjkFo+7as9qHEGeK01Gyk0R2luXbvfG8q2m/6WUEsWqFh3eN/d9yp0R1u
-	uv8mW71hxdygfJFfKyfsIcrUdtf9d0jKttVDqiGxWIyK6OcxsNsavTaFKXPvbEV/FUuwkx0LhZH
-	SYPUqaCKPGRR7suqnobs04LIlpK/vEdXx1cE+zwvcrUotZ9sTCtSvAUTrcixX555GCX2zuRIo5i
-	AQ16gfBwAFjjpuOEr9pIcKrqTdy07gyVn9lFWzlwzbnqaNBtBuNkPDUZbQYroSo2tKy+sQ7wAvb
-	nh6mByvUUTDkUgNDACAeSM7euzY2W3NskrdhVW98W4rWtVDshI+Tpoh5GeXSwidY5jCEkkXVjIP
-	31wxewhF4xb9js31GgeUra/H+pBd0/t3FPqVZNIpbNqE2gKAwuvCYgCbLAuVmWIeqcNnqE0huSA
-	JPh1OZOXahAVhE68aLdy0prf36T0C5dNtl/DR/ThbvssDVITUkvNYGeJBxlSP1qn4VgyHoBeOC2
-	jpW6681jAfuRBJJJv4mjkCF5B6Q7zTyvzQA+DunI4viQq9M8AFisQ6Pu6ZJD/kF3oFXNkUt4y+y
-	xNedpgcUuIm4P3P3cg+FOfa4rgdGSW3Ly7/Zo
-X-Received: by 2002:a05:690c:389:b0:8b3:2445:889b with SMTP id 00721157ae682-8b4aa2eb92bmr50305027b3.91.1794826570279;
-        Mon, 16 Nov 2026 02:56:10 -0800 (PST)
+        bh=mXHs4M+7tfkoIg4sYbiMPquQrDZ3R0cBJAsjaurMG7I=;
+        b=OGw4dfObJx9Uv+NNoTJdbftOA5QAN7+1VWPJN7NRhc2uZL/Pq7Wm0z0o7AAKNE3elF
+         HssarY+zMLM9LmPwvpp7DkzjM1S8Hrs2J25tWY/xkR+AaH+mwMmyc0C8rxW37q18FAgb
+         1Ezzeoy4Ns5sI7QPjGOGZsWRVximtxVzURWTIKwo4R2dbcK+aqjtatWED8G3LtkPzMQw
+         Pgi8XvUrnV07hAuxaCO1yB4YpbLb0c6jw1TWtxXPtzaiAd5mUmwB8CFi3N/nPWjuvAvU
+         64i5NZsZSBsk37cUSNrGO6HL2FuXdjfQfzCEOzG/qP6pECxwN/CD9PM7cLV5OvI8SC+1
+         bOCg==
+X-Forwarded-Encrypted: i=1; AL+hErHO6DDB30WklOlUgiJyqSedCdwn5YkVVq4Veby1js+0XoeOxahK50SMslKiHtcj3OX+cRvG+qai8uZr@vger.kernel.org
+X-Gm-Message-State: APuU4Z9zKLYinOUD1xCoDbGiWH4bJ5rnfH2qufvY5TKAEnkqXC94L3tZ
+	Lq/+tiFWYEmrgogQ6usrMCanR0s6xgw6ttd3RBDcKmhxyB8Jq/N9KRuc
+X-Gm-Gg: AZFdTZewnvhgIczo8zH7cwqf3fKMs0jYHUK0ZhvmEd+9rEUAw1Ih5e0ogSGwm1lWgO3
+	kPh3yK7IBDvYwi31+Vd5XXCV/mZN3OfCyv8lfwhmvV+wMRZtDnjumXwOrM6Na0NvRN1JqG1hnqR
+	fLcOKVglk6n9uTUGj15ZYMHOLuQiFL1wnVZr0Izd4wx5yO/dWO3SfwVJoZrM77AA6c74ms2faCN
+	L4MZ7kw8k2jYGtSJxOTJ7TBA5Fjoq20Wh76Kk5EtRM88RQe9ygOAI1Hnc61kOvjZDEveQHPsZ2J
+	r4PYs6jR9lxulOIetAqFEtqwln9D1JUQzaqkA+OzFJn4NbUusmpZ0XNjuYfS4rJf3JHpZglbfD1
+	m+QyHScM/SmTktGCaxTVI4m17++UcrDvscWJHzdykUCbIVAEC2Tua0qQ+TUR3gzE7RQuzzolBx9
+	Kb6+RaWsrHOrw6w8gHLCqMb8qYccx2QfKIlLodimee4iNvVdInX3nSjjHW1cwSKxFWVca00JgJE
+	lJ/1OwUdpOjhADf7NNdTDGPMnzxe2dc1JoX1YoG1GT3IF0SZaLoUQzaQP99fpgI6A90jVS6tFMf
+	oQyQkxfpCyQRNFIuVnhsJ/3EOtmmhJdOUgWOYgjVWI2LqyZZ3Wn3IeFlfOS2nUMTMZcaOa4J9e9
+	Vf0RAxI12ypDFWyNBRN6k7SFnA+1hdeJZ+yB8
+X-Received: by 2002:a05:690c:fcd:b0:8b4:cc58:7901 with SMTP id 00721157ae682-8b4cc5882e4mr22480827b3.8.1794826577207;
+        Mon, 16 Nov 2026 02:56:17 -0800 (PST)
 Received: from MaquinaLab.. ([2804:1b2:aa41:8a69:2b8b:32cb:351d:f30d])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa7f1a0dsm82274987b3.1.2026.11.16.02.56.04
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa7f1a0dsm82274987b3.1.2026.11.16.02.56.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 02:56:09 -0800 (PST)
+        Mon, 16 Nov 2026 02:56:16 -0800 (PST)
 From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
@@ -96,9 +96,9 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: phy: document Allwinner A733 USB-2.0 PHY
-Date: Mon, 16 Nov 2026 07:55:43 -0300
-Message-ID: <20261116105544.669029-2-vinicius.eduardo.pedrosa@gmail.com>
+Subject: [PATCH v2 2/2] phy: sun4i-usb: clear SIDDQ before the PHY reset on A733
+Date: Mon, 16 Nov 2026 07:55:44 -0300
+Message-ID: <20261116105544.669029-3-vinicius.eduardo.pedrosa@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261116105544.669029-1-vinicius.eduardo.pedrosa@gmail.com>
 References: <20261116105544.669029-1-vinicius.eduardo.pedrosa@gmail.com>
@@ -113,28 +113,113 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Allwinner A733 USB 2.0 PHY uses the same configuration as the D1,
-so add its compatible with the D1 fallback. The A733-specific
-compatible lets the driver clear SIDDQ before releasing the PHY reset,
-without changing the PHY configuration.
+sun4i_usb_phy_init() deasserts the PHY reset first and clears SIDDQ in
+the PMU HCI_PHY_CTL register afterwards. The order comes from the H3
+support and the reason for it isn't documented.
+
+On a Cubie A7Z (A733), the Wi-Fi module on USB1 sometimes came up
+at full speed on the OHCI companion and failed enumeration with -62.
+This happened in 3 of 40 warm boots with a separate local PHY tuning
+change applied.
+
+With that tuning disabled, the current order failed once in 31 warm
+boots. Clearing SIDDQ before releasing reset had no failures in 60
+warm boots in the same interleaved run, or in 10 cold boots.
+Why the order matters is not understood.
+
+The vendor BSP clears SIDDQ while the PHY is still in reset, in its
+common host path.
+
+Add a config flag for the early clear and set it only for the A733,
+whose config is otherwise the D1 one. The other SoCs keep the current
+order: the manuals don't specify one and they weren't tested.
 
 Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
 ---
- .../devicetree/bindings/phy/allwinner,sun50i-a64-usb-phy.yaml    | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/phy/allwinner/phy-sun4i-usb.c | 35 +++++++++++++++++++++++----
+ 1 file changed, 30 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/phy/allwinner,sun50i-a64-usb-phy.yaml b/Documentation/devicetree/bindings/phy/allwinner,sun50i-a64-usb-phy.yaml
-index 580c3296a18d..da4ad6fb3531 100644
---- a/Documentation/devicetree/bindings/phy/allwinner,sun50i-a64-usb-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/allwinner,sun50i-a64-usb-phy.yaml
-@@ -23,6 +23,7 @@ properties:
-           - enum:
-               - allwinner,sun50i-a100-usb-phy
-               - allwinner,sun55i-a523-usb-phy
-+              - allwinner,sun60i-a733-usb-phy
-           - const: allwinner,sun20i-d1-usb-phy
+diff --git a/drivers/phy/allwinner/phy-sun4i-usb.c b/drivers/phy/allwinner/phy-sun4i-usb.c
+index e2fbf8ccf99e..c918085a9281 100644
+--- a/drivers/phy/allwinner/phy-sun4i-usb.c
++++ b/drivers/phy/allwinner/phy-sun4i-usb.c
+@@ -105,6 +105,7 @@ struct sun4i_usb_phy_cfg {
+ 	bool phy0_dual_route;
+ 	bool needs_phy2_siddq;
+ 	bool siddq_in_base;
++	bool siddq_before_reset;
+ 	bool poll_vbusen;
+ 	int missing_phys;
+ };
+@@ -253,6 +254,19 @@ static void sun4i_usb_phy_passby(struct sun4i_usb_phy *phy, int enable)
+ 	writel(reg_value, phy->pmu);
+ }
  
-   reg:
++static void sun4i_usb_phy_clear_hci_phy_ctl(struct sun4i_usb_phy *phy)
++{
++	struct sun4i_usb_phy_data *data = to_sun4i_usb_phy_data(phy);
++	u32 val;
++
++	if (!phy->pmu || !data->cfg->hci_phy_ctl_clear)
++		return;
++
++	val = readl(phy->pmu + REG_HCI_PHY_CTL);
++	val &= ~data->cfg->hci_phy_ctl_clear;
++	writel(val, phy->pmu + REG_HCI_PHY_CTL);
++}
++
+ static int sun4i_usb_phy_init(struct phy *_phy)
+ {
+ 	struct sun4i_usb_phy *phy = phy_get_drvdata(_phy);
+@@ -270,6 +284,10 @@ static int sun4i_usb_phy_init(struct phy *_phy)
+ 		return ret;
+ 	}
+ 
++	/* Some SoCs want SIDDQ cleared while the PHY is still in reset. */
++	if (data->cfg->siddq_before_reset)
++		sun4i_usb_phy_clear_hci_phy_ctl(phy);
++
+ 	ret = reset_control_deassert(phy->reset);
+ 	if (ret) {
+ 		clk_disable_unprepare(phy->clk2);
+@@ -321,11 +339,8 @@ static int sun4i_usb_phy_init(struct phy *_phy)
+ 		clk_disable_unprepare(phy->clk2);
+ 	}
+ 
+-	if (phy->pmu && data->cfg->hci_phy_ctl_clear) {
+-		val = readl(phy->pmu + REG_HCI_PHY_CTL);
+-		val &= ~data->cfg->hci_phy_ctl_clear;
+-		writel(val, phy->pmu + REG_HCI_PHY_CTL);
+-	}
++	if (!data->cfg->siddq_before_reset)
++		sun4i_usb_phy_clear_hci_phy_ctl(phy);
+ 
+ 	if (data->cfg->siddq_in_base) {
+ 		if (phy->index == 0) {
+@@ -1013,6 +1028,15 @@ static const struct sun4i_usb_phy_cfg sun50i_h616_cfg = {
+ 	.siddq_in_base = true,
+ };
+ 
++static const struct sun4i_usb_phy_cfg sun60i_a733_cfg = {
++	.phyctl_offset = REG_PHYCTL_A33,
++	.dedicated_clocks = true,
++	.hci_phy_ctl_clear = PHY_CTL_SIDDQ,
++	.phy0_dual_route = true,
++	.siddq_in_base = true,
++	.siddq_before_reset = true,
++};
++
+ static const struct of_device_id sun4i_usb_phy_of_match[] = {
+ 	{ .compatible = "allwinner,sun4i-a10-usb-phy", .data = &sun4i_a10_cfg },
+ 	{ .compatible = "allwinner,sun5i-a13-usb-phy", .data = &sun5i_a13_cfg },
+@@ -1029,6 +1053,7 @@ static const struct of_device_id sun4i_usb_phy_of_match[] = {
+ 	  .data = &sun50i_a64_cfg},
+ 	{ .compatible = "allwinner,sun50i-h6-usb-phy", .data = &sun50i_h6_cfg },
+ 	{ .compatible = "allwinner,sun50i-h616-usb-phy", .data = &sun50i_h616_cfg },
++	{ .compatible = "allwinner,sun60i-a733-usb-phy", .data = &sun60i_a733_cfg },
+ 	{ .compatible = "allwinner,suniv-f1c100s-usb-phy",
+ 	  .data = &suniv_f1c100s_cfg },
+ 	{ },
 -- 
 2.43.0
 
