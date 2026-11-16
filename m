@@ -1,56 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794796981;
-	b=hir8DHlExUuC6qbU00quQih1xptQHXRqJpxkLcgOe6i4wncDV4aT7JK23dUMQDC3ag+U
-	 u3c+CpSWeShv2VZOT3LapT0hg15quPGnbiX5KV9Jlr1Wc23U2/oquZNSTsxkJWS0eXqAj
-	 EHuzNvLufBYzjoLUPHhK6J7EjjKGSctTu4Xgs+1NjbnS1qGDTs/BBwqFcfNqeK0BJjb29
-	 OZmkB5SHrpxkbby+VJpQLNA+j5EQQEcvG3SBDmrfr3T48qtDiSGsme1yosGDOelQ+9ax8
-	 /GRN1lEGVlyL3vevbST9ogDW/S1Q4y2vDSmdrfnKFjZSt/VIXPz7ZhZYtpu/x1ZKsqw==
+	t=1794797700;
+	b=nAOPw77Z7QlZ67G2n7DOxIygOMkoiPqZshCZkwKtFxjCvpY4UV9wA+snAbYE6/RpposH
+	 ZpOwM0HE8Bpv9Wpe/ekkHw7MPwsxMDalF8h6PISkC0mNFXKu4RHgcroaOf8V5ZgiF/06L
+	 0JaRjkj2Pem+14bdeB4hyyj2nI/njOUgijEJnUB2SWojIb++l37tJNzJicv91l3tL5/7j
+	 bipdCML2xZShzzK8qA1NruAkNipawFMoPsAXEvcb6cI6j4qhzed9miRUuuwgqzaQj0jew
+	 OW2hImeedmSTjWxFrOBWH9wfaKA34JFyBLX3OxwUhpmTRgQinrsC+zXhOm8s+8cAX3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794796981;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=AfiX1LtZbX0E1uziKkl2GJIrE2SnNKZV+JRZHjDKL0g=;
-	b=nkCLPHF7TKZH8RqZPyPE38b60rKyr5UCegbPUpK4bJo7t5vesCdmwfBKf46jDHTGkFDR
-	 NedzlbbgfBl2eumvT91JNeONP0ntzFlct1T6Vnl3zRmghARlNFnVAx8PrifRagrEUvwHE
-	 /NRfDlIhI3kjMxJed8Iayl2cPydc/Rz2ac89ej3JZJOo+C7EUKvYu//4ZyR9nmqLzYP5B
-	 FDErEOqPavtx22TC65MFi1RUR5AB0vUfHmJPc76im40878Pvj5lS9IywpQfC3vpBBu3N8
-	 Ahnc8JHY/prnVKDnPj/RDD3xX613Kyw0c/m1yrKik93usUj+06u8Ipunr6eiuXQ2oVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794797700;
+	h=DMARC-Filter:DKIM-Signature:Content-Transfer-Encoding:Cc:
+	 X-Lms-Return-Path:To:Subject:From:Mime-Version:References:In-Reply-To:
+	 Date:Message-Id:Content-Type;
+	bh=LFNkNbE/BJjMMZVJ30Nnj44+C1fdsFY5EBU4BEDDicQ=;
+	b=0hQ0bvDr4oO0fhLTzde0wR+MEMevSN/y6maxeDsD0z/C6QjPwObnwk6LuBiyoDq34VUp
+	 ulgh/A+K+54p5bnB+E15daX1890PglaA/nl+SW7aXCgi7RsvWCMw9A4BzWApW0o1Pi+NO
+	 1643AbvLK4D0c+IuPN39dfJ6Sjoz+zTe7WJ5mFXfKMHPVs+WpI2OwGzs/xjTxY+THpLlJ
+	 MpRAw1vAS+NSIV7pCH30sz04Z14y4WS/4IPH2Fgkuu4m80osGWf6TGW2xZeDlVqYHzF/6
+	 SFd9sJQ1KW1mW4IArfduSaNmr2D/kkqHP270URAkvveHaz84VNNpIIqAtemgUlrlhYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ju/NHVvW";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=deepcomputing.io;
+	spf=pass smtp.mailfrom=deepcomputing.io;
+	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=16YLyYfQ;
+	arc=none smtp.remote-ip=209.127.231.28
+Received: from va-2-28.ptr.blmpb.com (va-2-28.ptr.blmpb.com [209.127.231.28])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F481606A31C;
-	Mon, 16 Nov 2026 02:43:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F2C606A323
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:54:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84F2C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ju/NHVvW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 644C51F000C4;
-	Mon, 16 Nov 2026 02:43:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794796980;
-	bh=AfiX1LtZbX0E1uziKkl2GJIrE2SnNKZV+JRZHjDKL0g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ju/NHVvWub19j14oVUaGJ7mfOimUoXokEvQjAIwAR912AJFN1kV+3O+c+J/uLdV0+
-	 fQ3VC8MKvGITenFExtJ0ASEIGhO+CQ9mFm3fB7Ipa+CKunkGwbchOlstwAQMpwxUOe
-	 XLifzAAtF0KFKhLYvtpIssv691b2mBnbHiQ0GzIWtblQDtyep1RBDQPg6t4VNqOmS6
-	 jDnYYAUVf6h8IP59x8jJyhDsAoErZpL0vkfKXpALtRCmS2WaCRWAVlr76KiM6cHdcN
-	 92XvMkHH5+ZO3QvWodAPeOib8RTYFfh/sEAG5z+Wl2UCGsirA2h/jGtBKz2O0is6G2
-	 M0rQqkP5Aosfw==
-Message-ID: <sashiko-outbox-216086@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] gpio: Add Cortina Systems CS75xx GPIO driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261116-cs75xx-gpio-v4-2-ad80a944e966@gmail.com>
-References: <20261116-cs75xx-gpio-v4-0-ad80a944e966@gmail.com>
- <20261116-cs75xx-gpio-v4-2-ad80a944e966@gmail.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=16YLyYfQ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794797682;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=LFNkNbE/BJjMMZVJ30Nnj44+C1fdsFY5EBU4BEDDicQ=;
+ b=16YLyYfQbcyz3cZNUAjyKBpGujVF7ypjPj8iR9/eaz7hjdUx8OZ5ZjEKnowaNINjZBtUl7
+ 90/5zh8XeyB4QE3S/1fBfRxqb35JLHitd307jfJcuDaOkYsjZnXcGTpKOHCNshptNS0AW1
+ 1nyY9anLM55fPLVeWkCCvBWdirSH4j8JKMqhxl4fO9/o9oNEaCvp+yFlWAS+xZ4OYrp24G
+ aJ1Mo7ht+71askjNKTQKMQps6NbnkxHCNoZvv7a+BtUUyIDerRXbirUEc+Bh3iQEa8/SU8
+ 8Yed2XoDZ+rqXz0qkCrRqnUDdQlQR9Tcg0ciK/70kHS+qwc4N5F4uhf46dTKtg==
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 02:42:59 +0000
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
+	<devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
+	<spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+X-Lms-Return-Path: <lba+16afa7070+a5d044+vger.kernel.org+sandie.cao@deepcomputing.io>
+To: "Yixun Lan" <dlan@kernel.org>
+Subject: Re: [PATCH v4 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller and USB phy support
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,130 +63,51 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+References: <20261109033154.361399-1-sandie.cao@deepcomputing.io> <20261109033310.361435-1-sandie.cao@deepcomputing.io>
+	<20261114073025-GKA100523@kernel.org>
+In-Reply-To: <20261114073025-GKA100523@kernel.org>
+Date: Mon, 16 Nov 2026 10:54:38 +0800
+Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.c24fe633.1394.4ffc.88d5.f9ade9d7763c@feishu.cn>
+Content-Type: text/plain; charset=UTF-8
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] gpio: cs75xx: spurious interrupt when enabling edge-triggered
-  IRQs
-- [Low] gpio: cs75xx: Kconfig depends on undefined symbol
-  ARCH_CORTINA_ACCESS
---
+Hi, Yixun:
 
-commit 6e394706938fa0fbfbaaa8045989b5a4c049c014
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+> From: "Yixun Lan"<dlan@kernel.org>
+> Date:=C2=A0 Sat, Nov 14, 2026, 15:30
+> Hi Sandie,
+>=C2=A0
+> On 11:33 Mon 09 Nov =C2=A0 =C2=A0 , Sandie Cao wrote:
+> > Add USB device node (b, c, d) to DeepComputing FML13V05 board.
+> ..
+> > USB A works on otg mode, it isn't configured currently.
+> Drop it, not really useful to mention there, irrelevant to this patch.
+>=C2=A0
+> Currently, No USB A port support is merged in mainline code.
+> FYI, Chunyan submitted a patch for adding peripheral support of USB A.
+> https://lore.kernel.org/all/20261105103125.2727341-1-chunyan.zhang@linux.=
+spacemit.com/
+>=C2=A0
 
-gpio: Add Cortina Systems CS75xx GPIO driver
+Ok, I will drop USB A in next version.
+I prefer to=C2=A0 submit a new patch for USB A separately.
 
-This commit adds a GPIO and interrupt controller driver for the Cortina
-Systems CS75xx SoCs using gpio-mmio.
+>=C2=A0
+> > - 4 USB-C Ports
+> =C2=A0 =C2=A0 =C2=A0 ~~~~~ USB Type-C? less confusing
+> > =C2=A0 =C2=A0 =C2=A0- Port 1: PD 3.0 (65W Max), USB 3.2 Gen 1
+> > =C2=A0 =C2=A0 =C2=A0- Port 2: PD 3.0 (65W Max), USB 3.2 Gen 1, DP 1.4 (=
+4K@60Hz)
+> > =C2=A0 =C2=A0 =C2=A0- Port 3 & 4: USB 3.2 Gen 1
+>=C2=A0
+> For "Port X" here, is it a naming from FML13V05's schematic?
+> would be great to mention which specific USB 3.0 controller (Port B, C, D=
+)
+> =C2=A0of the SoC it connect to..
+>=C2=A0
+> >=C2=A0
 
-> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-> index 55e4280029d86..cc00cfe48d941 100644
-> --- a/drivers/gpio/Kconfig
-> +++ b/drivers/gpio/Kconfig
-> @@ -300,6 +300,18 @@ config GPIO_CLPS711X
->  	help
->  	  Say yes here to support GPIO on CLPS711X SoCs.
-> =20
-> +config GPIO_CS75XX
-> +	tristate "Cortina Systems CS75xx GPIO support"
-> +	depends on ARCH_CORTINA_ACCESS || COMPILE_TEST
+I will correct above to Port B, C, D.
 
-[Severity: Low]
-Is ARCH_CORTINA_ACCESS defined anywhere in the tree?  Without that Kconfig
-symbol, GPIO_CS75XX can only be enabled when COMPILE_TEST is set, and
-scripts/checkkconfigsymbols.py will report an undefined symbol.
-
-[ ... ]
-
-> diff --git a/drivers/gpio/gpio-cs75xx.c b/drivers/gpio/gpio-cs75xx.c
-> new file mode 100644
-> index 0000000000000..b4f2889103311
-> --- /dev/null
-> +++ b/drivers/gpio/gpio-cs75xx.c
-
-[ ... ]
-
-> +static void cs75xx_gpio_irq_unmask(struct irq_data *d)
-> +{
-> +	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(d);
-> +	struct cs75xx_gpio *g =3D gpiochip_get_data(gc);
-> +	irq_hw_number_t hwirq =3D irqd_to_hwirq(d);
-> +	u32 ie;
-> +
-> +	gpiochip_enable_irq(gc, hwirq);
-> +
-> +	guard(gpio_generic_lock_irqsave)(&g->chip);
-> +	/*
-> +	 * The status of a level interrupt is latched while the line is
-> +	 * asserted, also after the ack, so it may be stale by now. Clear it,
-> +	 * it is set again right away if the line is still asserted.
-> +	 */
-> +	if (irqd_is_level_type(d))
-> +		writel(BIT(hwirq), g->base + CS75XX_GPIO_INT);
-> +	ie =3D readl(g->base + CS75XX_GPIO_IE);
-> +	writel(ie | BIT(hwirq), g->base + CS75XX_GPIO_IE);
-> +}
-> +
-> +static int cs75xx_gpio_irq_set_type(struct irq_data *d, unsigned int typ=
-e)
-> +{
-> +	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(d);
-> +	struct cs75xx_gpio *g =3D gpiochip_get_data(gc);
-> +	u32 mask =3D BIT(irqd_to_hwirq(d));
-> +	u32 lvl, edge, both_edges;
-> +
-> +	guard(gpio_generic_lock_irqsave)(&g->chip);
-> +
-> +	lvl =3D readl(g->base + CS75XX_GPIO_LVL);
-> +	edge =3D readl(g->base + CS75XX_GPIO_EDGE);
-> +	both_edges =3D g->both_edges & ~mask;
-> +
-> +	switch (type & IRQ_TYPE_SENSE_MASK) {
-> +	case IRQ_TYPE_LEVEL_LOW:
-> +		lvl &=3D ~mask;
-> +		edge &=3D ~mask;
-> +		break;
-> +	case IRQ_TYPE_LEVEL_HIGH:
-> +		lvl |=3D mask;
-> +		edge &=3D ~mask;
-> +		break;
-> +	case IRQ_TYPE_EDGE_FALLING:
-> +		lvl &=3D ~mask;
-> +		edge |=3D mask;
-> +		break;
-> +	case IRQ_TYPE_EDGE_RISING:
-> +		lvl |=3D mask;
-> +		edge |=3D mask;
-> +		break;
-> +	case IRQ_TYPE_EDGE_BOTH:
-> +		both_edges |=3D mask;
-> +		edge |=3D mask;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	g->both_edges =3D both_edges;
-> +	writel(lvl, g->base + CS75XX_GPIO_LVL);
-> +	writel(edge, g->base + CS75XX_GPIO_EDGE);
-> +	if (g->both_edges & mask)
-> +		cs75xx_gpio_set_polarity(g, mask);
-
-[Severity: Medium]
-Can configuring and unmasking an edge-triggered interrupt fire an immediate
-spurious interrupt?
-
-cs75xx_gpio_probe() leaves CS75XX_GPIO_EDGE and CS75XX_GPIO_LVL at their
-reset or boot loader state, so any line initially in level mode will
-re-latch its bit in CS75XX_GPIO_INT whenever the input matches
-CS75XX_GPIO_LVL.  In addition, cs75xx_gpio_irq_set_type() writes
-CS75XX_GPIO_LVL before switching CS75XX_GPIO_EDGE to edge mode, which
-latches CS75XX_GPIO_INT if the pin already matches the new lvl bit.
-Because neither cs75xx_gpio_irq_set_type() nor cs75xx_gpio_irq_unmask()
-clears CS75XX_GPIO_INT for edge interrupts, unmasking the line in
-CS75XX_GPIO_IE immediately triggers a spurious interrupt.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-cs75xx-gpi=
-o-v4-0-ad80a944e966@gmail.com?part=3D2
+Best regards
+Sandie
