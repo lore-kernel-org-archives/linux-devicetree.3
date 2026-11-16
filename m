@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.169
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794847456;
-	b=seBhQYnxVKGjiH6VBme+ueuuutuZVlH32/WjFOZR8/1NI2B03RV/U9HVPyxdPxrrxeWI
-	 EqbUzzeaojoL39bCOMtMacYQ33YbcSwbv5QuilvmxiKrPI0f2Vh5SKCbuT2AsPka+5pnS
-	 d35F+N0UZjUzgAzLTgUYLWminxvaWWnRpZZS+nBJwE3vPhjB8SX7yHenw8JSvBFVK5jCu
-	 qESMu5xV5YVxM5vKCE88Ki9ikqp9Nue97UDinRlDSGkX5bYZR+koOc+R/ufkpPtBX3e58
-	 3/tMVPOr/aj+mQdXPOk/r5YHNRmg38D2D2Hnqb87DMwkdFRxJBhDilFfplrkBUhOHSQ==
+	t=1794847471;
+	b=nsc44vfI7p94SXSutjEIszTDaYmtrH64rFI93nARM3tvEEUrBTKmAIgOPG0QkY9jxpX/
+	 Ix0woSg4T1SzqHDVwVSFlccjEQJ0sqpwhjlpvnoIjhRJvZIlKs1gV7WuE0Xa5cyxdQLfw
+	 i9iXUJEd8c/nrkfJ3+nhqi/agg7OZkllWTmmSlimnZQis5xtX4lGrTQIh0vIqXHUZDkNV
+	 Ktf71Ov/bSf5FnZUffNNpaJcUgvCTWti3CGVDyOA/tzpp653yidvbf+H4hbXkl1PSLKJG
+	 tf8ij3pa8L3ukzxrJSP/R3aaoDXj6bjxWb3vhk4VXt8DPicrLfbAfkabi7d/8VPdd2Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794847456;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=8dvRea7RkLNWOZktMsIshQYmOR+oUMa2n+1hk9YTFeo=;
-	b=lypBYtzzar6mnbW7pPQJvZD9xLB0zwfyyVln7iIdyB1Q0Y0jNb601qVV/d1kUEMRGZ9b
-	 IoImkZq/k4iTW+GEa5DIACH7elGun/xs0XhqoC9Ps0L8ZE2j5VTJzBwyX4XGmMSGwBOCq
-	 2oOfUyUnBa77BYSjZiYL0Ppo+44kf4ejcUZh0zz8LaMc8R5s4XIShuMKj9dIJ4i2W76B2
-	 GmJParEdZDg5lnTI2DcPKvgRmLef1qEphSeqy0MkxIlUVuHZ17EYvja1pNvUasQFrnggW
-	 +StLS3oEMthiIzwNV7n/VgPppyvj9DY2g8XDsOAm5ZDGVGModvsqBealFfjzW5mSZRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794847471;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=NuJNpyzWNAiJDac6VccZBImKZIpijp2CTpFH/1eZ/NY=;
+	b=c3/ozK/HXWkgOG6QXAzxJWEfLFuGBWOyiwC9z8/sY2WtskmTfx+NaHP8dxPdDtAyp4Lh
+	 tmc1qxANaaeYKOAhoa3HwyDIk5XmW92XOlOjnr75AMi8VdRmL73t8mwUzotMnAPN6HdnG
+	 y4rzYkdPRML/J0Kj5elFWCxRuKZXjRexJlB2Ksfo0RoIpAf0bshVSbz3w3l2f/00emYRt
+	 0HWgooLpfkXHFvCOreU5hgQt54lqEqKGb+6Z6C8eG+PM969+K3ZERZSufLsPBIF+awuhD
+	 VhqXID6/A8xKewHAAOYCmiAx9cgd3prw+UIH4UCJGV1lwT27CuRVLMdmKMA2SELrQsw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iTtDBo6K;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.169
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6Xrs8iv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479DF606A32A;
+	Mon, 16 Nov 2026 16:44:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6Xrs8iv
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794847471;
+	b=mx7u4P2IhTPvVuquB600Ja5NVej+h4cn97vo4Jvc0IDqeDYJ/8cG9ERr8o7rs1fizVc3
+	 UJjfJHkzDGwbewbtSK6LpybDP7SGaVCDctTpgfjGxw+MQPUdSkDJ3GyuSufcbeAAx/7Yp
+	 Mo8rMHt785bVjVoqm/q99FflOzP2HsmunpcwqdDnJ8FHd/LFcIBIwlaj2CDK4eV9agFzR
+	 EwWu8vkeZNnUeMiFs/E1ENFKOMwHSFMKQBjNocCPkxz5iMg5bAGfSAE2h54ZKEsuvKHAw
+	 pD3beOFMfc8Rh4px8TAVo3dmH8gKTKwcSN2tIai31HDq2l56nwdUF+WSBlRjo9qgMwQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794847471;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=NuJNpyzWNAiJDac6VccZBImKZIpijp2CTpFH/1eZ/NY=;
+	b=PiJ8wb7q67UvVr6qZRp1+zPkiMb1r0x+eEzNNBHseC2otI8/UqheVUn6DW0bEqszjiqS
+	 wV1lmRlmp5CJhc7L/bdFCD6f63s4A6rnwb64CUSio9DpcgaXWGdUxwvHM5OTLnuLhMvxY
+	 iRlZDFkmWmdd7EOtdJ456VuOPGJYiP6F31V1vvA98ymApnjBZVZOYB9EaNSgYg93dCFb9
+	 k6L9BDnf/Tjd3qno0oRtgvz/an2LQSrO7KsxZG+ZQ1jCPdTIkQPcWvs9ThG5bq71hRtH1
+	 EfK9PlW93U35qTvBQjKwQ4NM13ktckoA0XDfTtwBH+LAht6plcUNw7N71AgefP10skg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B857606A883
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 16:44:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B857606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iTtDBo6K
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5eae1276409so1339494e0c.3
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 08:44:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794847455; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HUa85IR7Kphe6YHWS+inGVYQxhezy1j8B+45/gSZd6ZDjKEWO/EVdPOb5orMNGbk7L
-         M9ozdPnMb9xMix/JQbPDz3rCYS5ydy4pcHA4h3Q3VHs+O0ftphKCfXUNcgks4iAIoaf4
-         YjJ350/SgEoct24RVni5hnaChhDNHaK7RX77emPBn+Qq47+2f74DZSckV3VtimjISaux
-         jy3FtSKQVQM0Pp7PJA7rnlDuy8TyB/uJ3AJGmbIko2MOmD7gQrM3yIWyL2NTVrCzV5VC
-         QGduCK07lisbRit8f8zJXmiP/Ew0zIb4CCm7UpZ44kBl6Dx/vhWprefCWsJ7RtiT0Zfj
-         zVfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8dvRea7RkLNWOZktMsIshQYmOR+oUMa2n+1hk9YTFeo=;
-        fh=TSCxzc6QckJ9BP4GapBeDr5AOvtEavxlFu8Ze5gN5Oo=;
-        b=m9fFfkKBSZw7CPTZeWUY8fDViL0mQwxAXnxLFEULxeuheN+5FY8cx18tyAnTl/QZVh
-         8KQ57NRK7hs9v94i8x3PBkoHJQYmW5iMXKGmOaHpao3UIxagpc0+jazw/Tx+L57LRfwd
-         8E4gi2pVueNDxiGN4lT/rf0jLkVwNerW8w1ILmXXIJ05d9olUM3XbbSVr1VIPw5Ii3SF
-         r4Qm/Tf+ZIu4VVbg7MLIjZtCTzO00bJux5dGqWOwbGy0nOJCSk/Z64zEj9WfG7pBabFk
-         3ee0bdlnXMetmR+a2pJZwHApcDbuWE3+TmfwHxHfJgYMWXMc5SUq9RE1bMbWGBgwqNnF
-         Tn3g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794847455; x=1795452255; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8dvRea7RkLNWOZktMsIshQYmOR+oUMa2n+1hk9YTFeo=;
-        b=iTtDBo6Kk2Q4CljPkycU6qu+JfrYwUurrLMJEv7e7BJcRsJfeLg0v5BzqjWQzcJQps
-         +GAkNNhCOtKxve9dKSG8tPUVWxFmc5/gj22YaH/U72/n0AjTXNtgfFbEcgzaVnbreVnF
-         /9qoNFm/W/xondSZ6QoFjc9OkKqh8UyAQ910226Ed0BtQ67DAq3Ud7mJ2bGPHTAO7/4o
-         9wqPmohwLy/Jzey5Uf0Bk/6m+GWwDOge/l5z8jKMF803BLtMLVKZFJIYyyVk4l7fTBWO
-         U6CeYQQGKNWXImLLLe/9VELwb9bNU8iTw1le0s0XQDBPxonOMnZ7zw/7Rqm0Q83cthf1
-         WZZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794847455; x=1795452255;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8dvRea7RkLNWOZktMsIshQYmOR+oUMa2n+1hk9YTFeo=;
-        b=KniDfnamfq2m85WIwrxMNPx6B6TNTrmVRsOybYPEK04ENvV318p4xmPmXsBRMgEZyi
-         a0YHosRS2849hJEgzWxh24Rdb+vJngUM54cT5EbA/vADsmlr55LwmQYy25wz5RIX4XAL
-         hRerecy5rCbdLsXMNdf8n4ywkVwaed0SpH1d8ESNQ9xGAM23PZeo8ezWeNkMqX8fdyDI
-         ZkkqCpkeTNMcKZRZte8N7rd3HOybiEwRN3j+awCCdrpu2fFJAZFvu3Wqu9+xts9l72kT
-         VzrPz73UPcfb4/9LpyalcyYxyTkhDVnM9B5AL5gKXr5DOCT5baJsH8tMWdCyDqhDeOwh
-         bd3g==
-X-Forwarded-Encrypted: i=1; AL+hErGldPUZjXwOEWYWWMN3/PGd9nCnGNtekRLoqaOQLZc9uEX8WPsKTggxgoet8V27qXIymjhKQ+iPbJDV@vger.kernel.org
-X-Gm-Message-State: APuU4Z84KIiFL1Zb3Cd6/DdIBoal23kV353Ia2cM9/QSxH4TQCfyA/S5
-	3PjgUOUc3fgEsibgJSGbBokFXQz9if9UO2DCeE6oK+VwRPeC/Xt2KMkheNkPoQLuM8HBkSM4sxN
-	ma7xtA5XsiqAImnT46yWrR/kFQn3Nd5U=
-X-Gm-Gg: AYBFou0DC//RPrXzjEDcnzdbnsTY1N/Xm/WKwzeW2bbZUh03Mneyzo2Jpzw7xGD4+EM
-	ugqEhcAlLM+Wqt5Du7WpxxaRCehqlp/vxr+rB1yIumZOQVLi3a2XuAxNTQdYtbUlfxQZaPNDyjb
-	rvzaC6XGqBbyeHvCCfUgWtYe3Ui7YVaYdVwIZub/aj9QLBMNTv082TtWUdiFdoDVvdU3yvpUtRa
-	+wLBUAqgTyWrPKCqb5JUWiAibd70e96Av9FpqN87qXJ5WVRrN6J8d0PIR3o91VbfIri4mhZumI4
-	cdvDmXkhC6TA7F13ZvMfgGnr4VU1QMbPOydw0C3poYqwVVfiSFduPjxwx4RagG5hejPTaO41kX5
-	fdRGweVNBcVW27ExuRnj6/YtqaGoqmXoBiFMOkdI62onvvkvJ8efD6TGs8JPZa+/Wo6Gzew==
-X-Received: by 2002:a05:6122:1d15:b0:5ea:b294:f0ab with SMTP id
- 71dfb90a1353d-5ee3465027cmr4058583e0c.2.1794847455049; Mon, 16 Nov 2026
- 08:44:15 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8598D1F000C4;
+	Mon, 16 Nov 2026 16:44:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794847471;
+	bh=NuJNpyzWNAiJDac6VccZBImKZIpijp2CTpFH/1eZ/NY=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=f6Xrs8iv1Z+KL4ovXkaQkd0O7evk5WPWdtkHhMSUhjHgOOEOIsoGRlR5DXxDH0Vnk
+	 KE6KryS2KoZPv+4SByrmX5nRAXoyXkwIHW+aLH6o+8mxZMXdX6w7bGQuID6qB0dSdh
+	 e7MonUbg8HDph6abKO1sfGa9VFNrnbS2uBMWFle1yfJE+TyROR4wu6vDNRkEp3zUGa
+	 7z1GUbMOE6n/fIEY7nK37EmVwdy/bFZPI7ygkVdZPtpuSPSeGpTVMu8b6IcYrTNWwF
+	 K14lAkyKaflPPWlrZavHusQPZNF763fZRyCbJ5BGuPqlJYD3Zd5lNAtw63r/naNQwo
+	 soKO03dorvE5Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DA8C64A519;
+	Mon, 16 Nov 2026 16:44:29 +0000 (UTC)
+From: Cristian Filipescu via B4 Relay <devnull+filipescu.cristian.gmail.com@kernel.org>
+Subject: [PATCH v5 0/2] arm64: dts: allwinner: Support Orange Pi 3 LTS
+Date: Mon, 16 Nov 2026 16:44:29 +0000
+Message-Id: <20261116-sunxi-orangepi-3-lts-v5-0-979cf5474913@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,182 +83,126 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026-sunxi-orangepi-3-lts-v3-0-98fef4f75184@gmail.com>
- <20261026-sunxi-orangepi-3-lts-v3-2-98fef4f75184@gmail.com>
- <CAGb2v65eCotQPfnFsj6XfExs=ybE+xPWMFUhC9DFJRehfv7XAQ@mail.gmail.com>
- <CAH87RzSWDuiA9w8-ZkZXjVmQ_3EbRGKu8dKUzBf=KhNJHZFgjA@mail.gmail.com> <CAGb2v64Fd4ZN7fbTwcz45wK4Sc=hD10gjaVCYgW+HDa8O7W7_w@mail.gmail.com>
-In-Reply-To: <CAGb2v64Fd4ZN7fbTwcz45wK4Sc=hD10gjaVCYgW+HDa8O7W7_w@mail.gmail.com>
-From: Cristian Filipescu <filipescu.cristian@gmail.com>
-Date: Mon, 16 Nov 2026 09:44:04 -0700
-X-Gm-Features: AclHuK8dnGWqOScVe0Mt4jfgEl7XJ4HJYdFbZQ9_mRCIbIF03B9UBE-gzV7FCFI
-Message-ID: <CAH87RzSJsk8ypdw0cDZzopeUxgPR1VdyiF_sHDLjKYR4AfzWXQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
-To: wens@kernel.org
-Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Andre Przywara <andre.przywara@arm.com>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAO0y+2oC/4XOzY6CMBAH8FcxPTsbGAZoPfkexkNbioxBMC0Qj
+ OHdt3UPazYxe/zPx2/mKYLz7II47J7Cu4UDj0MM5X4nbKeHiwNuYhaYYZVniBDmYWUYferdGQr
+ opwBUGIVIlZauEXH17l3L64s9nX9ymM3V2SlZacLo4MBExXap1PMwr5CKqdlxmEb/eD21YEL+u
+ b8gZFBnRiqFJdpKHy83zf2XHW8i3V+Kd6T6gBQRUbJ1LbV1mUv6i9AvkuflB4TSJzUpQyQ1Nc0
+ 7sm3bN+CxQalxAQAA
+X-Change-ID: 20261022-sunxi-orangepi-3-lts-43b92246a8ed
+To: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Andre Przywara <andre.przywara@arm.com>, linux-kernel@vger.kernel.org, 
+ Cristian Filipescu <filipescu.cristian@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794847469; l=4684;
+ i=filipescu.cristian@gmail.com; s=uboot-20261021;
+ h=from:subject:message-id;
+ bh=yvbbvDA0lpxvYsV9tvrk9UhEBzJNM75uNkRtwsHky1E=;
+ b=pEXRpO2C8ZUCd2NuLcdZ/mwWYqmMVp+vidTtr7CVR3gtCg23IbQ8bt05ZXB51N35XDQaDV3ZZ
+ n94jCQShLKhA/scD/5Y/WrM1SEQ6Ey5v5l2zjhp1nIJDFtaD8b5kZck
+X-Developer-Key: i=filipescu.cristian@gmail.com; a=ed25519;
+ pk=o7Ui0tU3x+X/6Pq6PZHmd2KFtOdPWttoPuNFOvdD8t0=
+X-Endpoint-Received: by B4 Relay for
+ filipescu.cristian@gmail.com/uboot-20261021 with auth_id=1255
+X-Original-From: Cristian Filipescu <filipescu.cristian@gmail.com>
+Reply-To: filipescu.cristian@gmail.com
 
-On Mon, Nov 16, 2026 at 7:38=E2=80=AFAM Chen-Yu Tsai <wens@kernel.org> wrot=
-e:
->
-> On Mon, Nov 16, 2026 at 7:47=E2=80=AFAM Cristian Filipescu
-> <filipescu.cristian@gmail.com> wrote:
-> >
-> > Hi Chen-Yu,
-> >
-> > On Sun, Nov 15, 2026 at 3:14=E2=80=AFAM Chen-Yu Tsai <wens@kernel.org> =
-wrote:
-> > >
-> > > On Tue, Oct 27, 2026 at 7:34=E2=80=AFAM Cristian Filipescu via B4 Rel=
-ay
-> > > <devnull+filipescu.cristian.gmail.com@kernel.org> wrote:
-> > > >
-> > > > From: Jernej Skrabec <jernej.skrabec@gmail.com>
-> > > >
-> > > > Add the board description for the Allwinner H6-based Orange Pi 3 LT=
-S,
-> > > > including its regulators, storage, Ethernet PHY, LEDs and USB ports=
-.
-> > > >
-> > > > Specify the Motorcomm YT8531C PHY ID to avoid early ID autodetectio=
-n,
-> > > > which failed on MAC driver rebind. Reset the sole PHY at MDIO bus
-> > > > registration and keep reset outside interface detach so its configu=
-red
-> > > > 125 MHz clock output is retained. Use PHY-internal RGMII delays.
-> > > >
-> > > > Select the weakest GPIO drive level for both LEDs. Enable 1.8 V eMM=
-C
-> > > > DDR52 and HS200 modes; retain the H6 maximum frequency of 150 MHz.
-> > > >
-> > > > Link: https://lore.kernel.org/linux-sunxi/20250413134318.66681-3-je=
-rnej.skrabec@gmail.com/
-> > > > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> > > > Signed-off-by: Cristian Filipescu <filipescu.cristian@gmail.com>
-> > > > ---
-> > > >  arch/arm64/boot/dts/allwinner/Makefile             |   1 +
-> > > >  .../dts/allwinner/sun50i-h6-orangepi-3-lts.dts     | 379 +++++++++=
-++++++++++++
-> > > >  2 files changed, 380 insertions(+)
-> > > >
-> > > > diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/bo=
-ot/dts/allwinner/Makefile
-> > > > index aa21f58a4..7ea136380 100644
-> > > > --- a/arch/arm64/boot/dts/allwinner/Makefile
-> > > > +++ b/arch/arm64/boot/dts/allwinner/Makefile
-> > > > @@ -41,6 +41,7 @@ dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-=
-zero-plus.dtb
-> > > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-zero-plus2.dtb
-> > > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-beelink-gs1.dtb
-> > > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3.dtb
-> > > > +dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3-lts.dtb
-> > > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-lite2.dtb
-> > > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-one-plus.dtb
-> > > >  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-pine-h64.dtb
-> > > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts=
-.dts b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
-> > > > new file mode 100644
-> > > > index 000000000..e2ca41b94
-> > > > --- /dev/null
-> > > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
-> > > > @@ -0,0 +1,379 @@
-> > > > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> > > > +// Copyright (C) 2025 Jernej Skrabec <jernej.skrabec@gmail.com>
-> > > > +// Based on sun50i-h6-orangepi-3.dts, which is:
-> > > > +// Copyright (C) 2019 Ond=C5=99ej Jirman <megous@megous.com>
-> > >
-> > > We now have a common sun50i-h6-orangepi.dtsi file. You really should
-> > > rewrite this patch to just use that as a base.  It is mostly the same
-> > > across all the OrangePi H6 boards.
-> >
-> > v4 now uses that include and keeps the LTS-specific additions
-> > and overrides. I compared the resolved DTBs to check the inherited
-> > properties and preserved the LTS electrical settings, except for the
-> > review changes described below. Common naming cleanups are deferred.
->
-> [...]
->
-> > > Set the supply on all cores.
-> >
-> > Done. All four running CPU nodes reference DCDCA, and all four CPUs are
-> > online with the shared cpufreq policy.
->
-> I should've mentioned that since this is already enabled at the .dtsi
-> level, you shouldn't add it anymore. If anything, it's the .dtsi file
-> that should have all cores referencing the regulator.
+Continue Jernej Skrabec's April 2025 series, adding the board compatible
+and device tree for the Allwinner H6-based Orange Pi 3 LTS.
 
-Understood on the CPU supply. I have rebased onto sunxi/dt-for-7.5 at
-098728144545 and removed the board-local CPU0-CPU3 supply declarations
-and CPU/GPU OPP includes. These are now inherited from the common
-Orange Pi H6 description. I also removed the redundant ramp-delay and
-CPU maximum-voltage overrides, keeping the existing LTS 800 mV minimum.
-Any all-core supply cleanup belongs in the common include.
+Use the common Orange Pi H6 include and describe the LTS differences.
+Follow the schematic's LED roles, remove unused USB ID detection, and
+use generic PHY discovery with bus-level reset. The binding patch is
+unchanged apart from rebasing.
 
->
-> [...]
->
-> > > > +&mmc1 {
-> > > > +       vmmc-supply =3D <&reg_wifi_3v3>;
-> > > > +       vqmmc-supply =3D <&reg_bldo3>;
-> > >
-> > > Something is fishy here. The schematic also shows vcc-wifi-io (on the=
- aw859
-> > > side) directly derived from vcc-wifi (reg_wifi_3v3). I suggest at lea=
-st
-> > > checking with a multimeter to confirm what the voltage is on the VDDI=
-O
-> > > pin of the module.
-> > >
-> >
-> > Regarding the AW859A I/O supply, I traced U60 pin 22 (VDDIO) to
-> > VCC-WIFI-IO, which is connected to BLDO3 in the schematic. I measured
-> > 1.8 V at an RW1 pad relative to board ground. This supports keeping the
-> > existing BLDO3 vqmmc assignment; I have left it unchanged.
->
-> You traced it on the board or on the schematic?
->
-> Can you test at U60? The schematic has two options for I/O voltage from
-> the LDOs, and then another from VCC-WIFI, hence I would like to be
-> certain. I imagine the SMT components aren't labeled on the board, so
-> it would be somewhat hard / eye-hurting to trace the board directly.
->
+Rebase onto sunxi/dt-for-7.5 at 098728144545. Inherit the common CPU/GPU
+OPP tables, CPU0 supply, regulator ramp delays and CPU maximum voltage.
+Remove the LTS CPU0-CPU3 supply blocks and redundant regulator overrides;
+retain the LTS CPU minimum of 800 mV. The resolved OPP tables, voltage
+limits and ramp delays match the tested v4 description. The new base
+also carries the H6 video-codec SRAM/IOMMU changes.
 
-The Wi-Fi connection trace was from the schematic. Initially I was worried =
-I
-would short some pin, but I see pin 22 is at the edge. I have now measured
-1.8 V directly at U60/AW859A pin 22 (VDDIO), relative to board ground after
-the kernel boots.
+Hardware results reported for v4 remain historical: LED names/defaults
+and drive strength 10, shared cpufreq policy, BLDO2 enabled at 1.8 V,
+768 MiB of matching eMMC HS200 reads at 150 MHz/8-bit/1.8 V with zero
+reported MMC errors, and generic PHY discovery passing five interface
+cycles and three MAC rebinds both with and without PHY-ID logging.
+Each Ethernet run obtained eight DHCP leases and 24/24 ping replies at
+1 Gbps/full duplex with PHY ID and 125 MHz clock configuration read back.
+The rebased v5 description has not been boot-tested.
 
-> [...]
->
-> > > > +&usb2otg {
-> > > > +       dr_mode =3D "host";
-> > > > +       status =3D "okay";
-> > > > +};
-> > > > +
-> > > > +&usb2phy {
-> > > > +       usb0_id_det-gpios =3D <&pio 2 15 GPIO_ACTIVE_HIGH>; /* PC15=
- */
-> > >
-> > > This isn't connected to anything but a pull-up. And you already speci=
-fied
-> > > host mode only above.
-> >
-> > Removed usb0_id_det-gpios with /delete-property/ so the common include'=
-s
-> > PC6 setting is removed too. USB0 remains fixed to host mode. The runnin=
-g
-> > DT confirms the ID GPIO property is absent and dr_mode is host.
->
-> Thanks!
-> ChenYu
+Following review, Cristian measured 1.8 V directly at U60/AW859A pin 22
+(VDDIO) relative to board ground. The earlier connection trace was from
+the schematic; the module-pin result is separate from the earlier RW1
+reading. It is consistent with retaining BLDO3 as the I/O supply.
+Functional onboard Wi-Fi support is not claimed.
+
+The LTS, Orange Pi 3, Lite2 and One Plus DTBs build with W=1 and pass
+validation against freshly generated schemas. The board binding and
+strict patch checks pass. Diagnostic kernel instrumentation is outside
+the patch series.
+
+Codex assisted with DTS updates, review analysis and build checks;
+Cristian performed the v4 board tests and the direct VDDIO measurement.
+
+---
+Changes in v5:
+- Rebase onto the latest sunxi/dt-for-7.5 (098728144545).
+- Inherit CPU/GPU OPP tables and CPU supply from the common include;
+  remove the board-local CPU0-CPU3 supply declarations.
+- Inherit regulator ramp delays and the CPU maximum voltage; retain
+  the existing LTS CPU minimum of 800 mV.
+- Keep any shared all-core CPU-supply cleanup outside this board addition.
+- Report the requested direct U60 pin-22 VDDIO measurement of 1.8 V;
+  retain the existing BLDO3 assignment.
+- Distinguish v4 board results from v5 static validation.
+- Link to v4: https://lore.kernel.org/all/20261115-sunxi-orangepi-3-lts-v4-0-7749b448a4dd@gmail.com/
+
+Changes in v4:
+- Base the LTS description on sun50i-h6-orangepi.dtsi.
+- Inherit red PL4 as power/on and green PL7 as status/off, keeping the
+  existing H6 labels and drive strength 10.
+- Describe the shared CPU supply on all four cores.
+- Delete inherited USB ID detection for the fixed host-mode controller.
+- Drop the explicit PHY ID after generic discovery passes interface and
+  MAC rebind tests with and without temporary PHY-ID logging.
+- Inherit BLDO2's common always-on policy.
+- Keep common regulator/clock names; defer naming cleanups.
+- Update the validation results and explanations in the review replies.
+- Link to v3: https://lore.kernel.org/all/20261026-sunxi-orangepi-3-lts-v3-0-98fef4f75184@gmail.com/
+
+Changes in v3:
+- Keep green as power and red as status, matching Armbian LTS roles;
+  default green on and red off without a boot-stage sequence.
+- Select drive strength 10 on PL4 and PL7 with per-LED pinctrl states.
+- Move PHY reset to the MDIO bus, before discovery and outside detach.
+- Specify the YT8531C PHY ID; MAC rebind fails with early autodetection.
+- Enable 1.8 V eMMC DDR52 and HS200 after board testing; retain the
+  existing H6 maximum frequency of 150 MHz.
+- Shorten the descriptions and update validation status.
+- Link to v2: https://lore.kernel.org/all/20261022-sunxi-orangepi-3-lts-v2-0-70b899252c6a@gmail.com/
+
+---
+Jernej Skrabec (2):
+      dt-bindings: arm: sunxi: Add Orange Pi 3 LTS board
+      arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
+
+ Documentation/devicetree/bindings/arm/sunxi.yaml   |   5 +
+ arch/arm64/boot/dts/allwinner/Makefile             |   1 +
+ .../dts/allwinner/sun50i-h6-orangepi-3-lts.dts     | 164 +++++++++++++++++++++
+ 3 files changed, 170 insertions(+)
+---
+base-commit: 09872814454580dad9f04fb194a7befe0fd6e94f
+change-id: 20261022-sunxi-orangepi-3-lts-43b92246a8ed
+
+Best regards,
+--  
+Cristian Filipescu <filipescu.cristian@gmail.com>
 
 
-Regards,
-Cristian Filipescu
-------------------------------------
