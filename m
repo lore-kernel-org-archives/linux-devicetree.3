@@ -1,57 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794870258;
-	b=GTJXrrZO0vEzowjj+lcHoQXdMnvRFEDmKkkwD34OpbRXI1Q3qAflgJ+QpRvGmK7vEq5k
-	 W2lS56qZ1fCBfhPb65ZWP/uRVs+LmNiUnipL+3LvfaMptYWx4oJDh6i3Lo4Z6x8jiNXNh
-	 N61OuJamOqg4xWHQnPM6FcPshPLf9/ujlYQF/aqxepkGPa3iYNNjVmDoBs4FbQBjoZ479
-	 x6evH6ifZ6EG7eQcAH9kNEZj/rG1ycNl0QZqMSr5wvvyW8Pxs+pmDY844w+2GdU2cZMjD
-	 m0sX+cJNdIYbbaKFYH3id0LSfyhxwNiv7W/Abq1qHoT7T9TC50cLlsENeO7fVVXqwxw==
+	t=1794870267;
+	b=ZT878kRXsbtDWFssamV+SXHz+zaf5cdKgJd/ixpmoOJZueUJlRh1EQNF/7WXCCJKAZCW
+	 cDvyVwxeOpId30ruN8E8TfW9qdf+2UGodRKbY0fOu4MdVAKNUTbFtymB2TJH+AtZ6mP7y
+	 WJ4IVKP/q0/QFBLmJwMk6DQm0Mu3FRpYkaWxxI4kQNAFx1rSD2fcMUZ0SXw1dXx8K/LCY
+	 kZg1Ez4HSn9h5eB2PYPBPBYNTBy8pjMX9IahwtKOG7mkvf3Fv9b8W4Ep6reMfzbmpzSnw
+	 c6HYNXU33enmOGhSwYxmr/HSMjp9/uIfSQu4EzeecIfQt8sVWVXn9rxx+sDqJO6bccQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794870258;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=S0acPnlP0iV4l14pkqFont0JxRMUVVKJeDeW8DxDcNc=;
-	b=stYoUpYC96m3c4euSfzxfqT0ikr6FF+jxnKSba5oEsT/acB5h0FVp87LaSrlRvq86g8n
-	 ky313DZ9/antdktpazMXIXJr2+GVYmr/uIEB6dc9RkLwemUR7dZX4XCgnWYL+fIERGhkM
-	 r5CzOgwPRIdZbCF5xcgUHnkfGlfyRkP1MMo7MRhXjnvbl2L+jjSpITkvL56HODNuT3wGw
-	 7qAI10z3TeglzoQuSP/nRHHSZo6y75iQMQP8GVm2nF7XUsc541pnUK1ZrFkHfmX9eahDI
-	 P5YetOGTYUL4PJ5Akjz54FZs3N+eI+lEo0ZvqiN413ilwM0s/sluUsapzcYEP4rLb8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794870267;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:Autocrypt:In-Reply-To:Content-Type;
+	bh=j2x8Tpvx8WYIy+3bXYn17np56lLBZUPkigXsxBhPbXU=;
+	b=vtihkBNmywZwdCDrg4tlRi9Vrnc7ssO8Mxd6yyVhmJNQkIgxs4xZFdaHAx8uRnAZuZ6G
+	 dIi148HylUexIFKoHZK70sKavFPB9aVGZ/m/kKJiWDj02QGjX/en2msjqpG6D75bb3gsB
+	 GNoUbEbwUJYBZNjpr6ZlWpDkJ498Y5WcayxK5FZywzDfJMoGF6Mo3/SykBFZwLX6F4K5W
+	 BwQTHVKdT/CQg8exOsg9EOIJqwDAtEV5rewnUqarzfb5iZYeIyp1N5LzsE4fuHRWQ90eE
+	 4pxCxYB7aiSgs2rDCYm3VJi3j4vclJPBl/8jpLJg989ijq4BsUK4R0WgJ8tHdj3LOIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TFWGzYyx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=erebion.eu;
+	spf=pass smtp.mailfrom=erebion.eu;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=RwkeM2rr;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b="O8Wt/F+K";
+	arc=none smtp.remote-ip=142.132.183.134
+Received: from erebion.eu (erebion.eu [142.132.183.134])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC73606A323;
-	Mon, 16 Nov 2026 23:04:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AAA606A329
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 23:04:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42AAA606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TFWGzYyx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 574741F000C5;
-	Mon, 16 Nov 2026 23:04:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794870257;
-	bh=S0acPnlP0iV4l14pkqFont0JxRMUVVKJeDeW8DxDcNc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TFWGzYyxvGEgfi/6lnZ/VLb1khT131zO9GI+vShC6DPINblSIjN4nb6UN/1TjKxvn
-	 E8OXYzShUMq4u6eGOktjoGvTIvV594e56+lDVjrCRMLWODC7rawt90CsbcIf7Deoua
-	 1uz5m0VZ7QfG2BTcgbfho5oD3NZoL1ZqTgWS04Xg4Rn+pDAmvKk9QDp/ep8GC9uiH7
-	 lIG3oazl0jiAx3RqbdMiQ8xJ+TMTso93EDWhDj9/P9id8yJr5lIScCYFLJ7WCGxcoM
-	 JHPtYnKPWd+AmgYc+wo/k+WB8ANju9KA31t9elBF1ldXB5NXRaimyEc7XdF8T2A4Yk
-	 QoGylNVtuYwWA==
-Message-ID: <sashiko-outbox-217846@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/4] mfd: mxs-lradc: Pass parent IRQs to child
- drivers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fabio Estevam" <festevam@gmail.com>
-Cc: linux-input@vger.kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, dmitry.torokhov@gmail.com, lee@kernel.org
-In-Reply-To: <20261116224803.61154-3-festevam@gmail.com>
-References: <20261116224803.61154-1-festevam@gmail.com>
- <20261116224803.61154-3-festevam@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 23:04:16 +0000
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=RwkeM2rr;
+	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=O8Wt/F+K
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=From:To:Subject:Date:Message-ID; t=1794870263; bh=j2x8Tpvx8WYIy+3bXYn17np
+	56lLBZUPkigXsxBhPbXU=; b=RwkeM2rrRXVsxVJAo1KQtXnQKR8g6iiL2CQiM45eJ2p5vH79Kf
+	WNwznqlYRd1aTvxv+6xXF+4Tok6jKZQunhCQ==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=From:To:Subject:Date:Message-ID; t=1794870263; bh=j2x8Tpvx8WYIy+3bXYn17np
+	56lLBZUPkigXsxBhPbXU=; b=O8Wt/F+K54x0eImL8PZCL9X50PA2vfGMxCkKta5PaJ7ArHxpif
+	OzqUxZnkYrlsY6IAU5Gddd9wCnQklD7Y3gRNVow9pjZyKnjuZlVle/KpiYPaO2vKNtCvPDE/JD5
+	DDDPg07nOzU5rIxQWmHoPqQLniRwDcMtsdDjg5p6j39+6pC5Xb78FPAAA5gQKvg+kA9BlnODhXP
+	hf6tpHPl9RiiKuPiiouYawSRfA8SIZKlu1Knfy2WEFBNlN52bLWorWfj3RUypLKagGY9ElsihcN
+	qPpIQhXT+cwkEyQ1t7IzkIdO92T8Qfhfkg4H/xnCQp8Cs/0YLcsw9TXoSHNqCX25eCw==;
+Message-ID: <e11455d3-3c31-49f3-a07d-fcd16e07d7c7@erebion.eu>
+Date: Tue, 17 Nov 2026 00:04:22 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,36 +56,89 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 01/12] arm64: dts: qcom: sm6350-lena: Add flash LED
+Content-Language: en-GB
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-1-7318a19806eb@erebion.eu>
+ <sashiko-outbox-217820@kernel.org>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <sashiko-outbox-217820@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------04ETg4ij6ZexJR73S0kW9FHD"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] mfd: mxs-lradc: commit message mismatches MMIO mapping in
-  mxs_lradc_probe()
---
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------04ETg4ij6ZexJR73S0kW9FHD
+Content-Type: multipart/mixed; boundary="------------RfL70zXn0lhzzKbf2jtM0TQG";
+ protected-headers="v1"; hp="clear"
+Message-ID: <e11455d3-3c31-49f3-a07d-fcd16e07d7c7@erebion.eu>
+Date: Tue, 17 Nov 2026 00:04:22 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 01/12] arm64: dts: qcom: sm6350-lena: Add flash LED
+Content-Language: en-GB
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-1-7318a19806eb@erebion.eu>
+ <sashiko-outbox-217820@kernel.org>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <sashiko-outbox-217820@kernel.org>
 
-commit 7eada64ceb6fbaa203e6af701a0c04cb0afc5c33
-Author: Fabio Estevam <festevam@gmail.com>
+--------------RfL70zXn0lhzzKbf2jtM0TQG
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-mfd: mxs-lradc: Pass parent IRQs to child drivers
+PiBbU2V2ZXJpdHk6IEhpZ2hdDQo+IEFzIHJlcG9ydGVkIGJ5IEJqb3JuIEFuZGVyc3NvbiBv
+biB2MiBbMV0sIHRoZSBBdXRob3IgYW5kIFNpZ25lZC1vZmYtYnkNCj4gZmllbGRzIHVzZSB0
+aGUgc2luZ2xlLXdvcmQgaGFuZGxlICJlcmViaW9uIiBpbnN0ZWFkIG9mIGEgcmVhbCBodW1h
+biBuYW1lLA0KPiB3aGljaCBkb2VzIG5vdCBzYXRpc2Z5IHRoZSBEZXZlbG9wZXIncyBDZXJ0
+aWZpY2F0ZSBvZiBPcmlnaW4gcmVxdWlyZW1lbnRzDQo+IGluIERvY3VtZW50YXRpb24vcHJv
+Y2Vzcy9zdWJtaXR0aW5nLXBhdGNoZXMucnN0Lg0KPiANCj4gWzFdIGh0dHBzOi8vbG9yZS5r
+ZXJuZWwub3JnL3IvYXJuRjB1MkY5aXBmbk5QLUB6ZW5ib29rDQo+IA0KDQpBbmQgYXMgTHVj
+YSBXZWlzcyBwb2ludGVkIG91dCwgdGhlcmUgaXMgbm8gaXNzdWUuDQoNClBsZWFzZSwgY2Fu
+IHNvbWVvbmUgZmluYWxseSBzdG9wIHRoZSBib3QgZnJvbSBzYXlpbmcgdGhlIHNhbWUgZm9y
+IGV2ZXJ5IA0Kc2luZ2xlIGNvbW1pdC4uPw0KDQotLSANCmVyZWJpb24NCg0KWE1QUDogZXJl
+YmlvbkBlcmViaW9uLmV1DQoNCkFjY2VwdGVkIGxhbmd1YWdlczogR2VybWFuLCBFbmdsaXNo
+LCBTd2VkaXNoLCBOb3J3ZWdpYW4sIERhbmlzaA0KDQo=
 
-This commit resolves LRADC interrupts and maps the MMIO region in the MFD
-parent driver, sharing them with the ADC and touchscreen child drivers via
-struct mxs_lradc instead of passing child platform resources.
+--------------RfL70zXn0lhzzKbf2jtM0TQG--
 
-> Resolve the interrupts with platform_get_irq() in the MFD parent and
-> store the mapped IRQs in the shared LRADC data. Drop the child IRQ
-> resources and duplicated name arrays, and have both child drivers
-> request the mapped IRQs directly. Use the MFD memory base support to
-> translate a single relative memory resource shared by both cells.
+--------------04ETg4ij6ZexJR73S0kW9FHD
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-[Severity: Low]
-Does the last sentence of this paragraph still match the code?
+-----BEGIN PGP SIGNATURE-----
 
-mxs_lradc_probe() maps the MMIO region once into lradc->base via
-devm_platform_ioremap_resource() and passes NULL for mem_base to
-devm_mfd_add_devices(), while both child drivers use lradc->base directly
-without any IORESOURCE_MEM resources in mxs_lradc_cells[].
+wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCavuL9gUDAAAAAAAKCRCOr0AybgKufTKB
+AP9/r3ZBRES9r+taE1xnjkcRYctw5SrDZ0NYkh3wgf5l5AEAnlggjbe9+aU5Hd3YjuLJPQ2kJcvr
+y6/nZD7DswIgPwc=
+=GYgI
+-----END PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116224803.6115=
-4-1-festevam@gmail.com?part=3D3
+--------------04ETg4ij6ZexJR73S0kW9FHD--
