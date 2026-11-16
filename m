@@ -1,96 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794841836;
-	b=gJcAVD0ET2zd4YTdwS0ev0RCw0yqyrB1Cr1/dOIdckg7Yx3iiURmaLBAguVz7F4IBSfv
-	 /LIrHi1Q4pdbJDSlNqyDQRoZFI8fAloEspIdkjKYSkA5yu+qG0ymP+o+MdlMXO2JBKfef
-	 bCgGg385MKvdAcwp7671DpndWjvc6X4SeRw1CJajWzt+k54E3uAw6/nXAzmaiWBytll1/
-	 JQehNVfIV9uS5kdnRlMgTU6ddMgTpfzYQ5zm7Wa4oYn98Vus+B6+FkIaII25zA+53l8ZB
-	 YDenSz5z0W2KRP8/dgSL0PZTaPk3tjse2P/vgGIDp4wJqXjz1vqTCkTl1+aUsTzSTMA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841836;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Lkf3suh1JASFBRSRTOSUlKBZiwkP7oME3ElDlkGHcBM=;
-	b=bTITISOeYUyGVihwFt+Jrtcdxa0JII2AQ+fsHekjmBbtIDqbjrom8RbXvJQfBIGU2zOI
-	 bcpnsxtigw531Oh+Qztr8sjyBHKyzfmcG2JwepXRe0oOGHsxodsVmFTBVnW9mzG8gqp6V
-	 We+sKQKASi1nP6t3aG4NgxMkFeDolaGbw+1RWNSDjkQziKpCRJjP9U1+Dn1zZ8QD0c1/a
-	 3pa0f/c+0eT4itO0YM/QuvkOYl0qsHxOdTLrEPjJwF5DXk27pxAaf6pZigo2Qsfk0Xui7
-	 PY7UtwvdiVxpWAQlu3QrosoDUfT13q3gaKNIYcRnxy/cpI7HBo8YbIkz87qnh91ooTw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=AkhsafWW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794841843;
+	b=P3j+QSX80Yc6g8RXc/WLB/PTgbguGvWbmdjOdO0JzaJ0b4GyeuwNOC75Rre4EytW4idW
+	 POOY6Vq1UK2SC98j1VvbBTwCKBT6+oOSLSpvDffNBuljsXuq1z2XUVKWCtoJD9dlBULQf
+	 vwInzsEH9CYeIX1vGw8aPL7xR3veI9f10bzHE5qgO7BjPRuhf9xaQSNNY0VMpH5vOq6Yf
+	 B9lC3KG+AIn5n65gQcgrocMHqISsF4RHIBcM7IRAq7MPSgJReIDsEPDikvWR6ki+8oN5S
+	 mHvMdbwVnwv+pxgObSHzp0LG7LZl6BhBkiKONN0DKf/rjPLFa3+e8+oqYTNRCr5bL6g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841843;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=p3WSfUrzAFZ6C8avlWVorHXjO1aUqVAyT5MLm+GUqW8=;
+	b=q2/XDSnHjmKsxfAcqa4FLq2WphFhviheB2pd4UwrK//K/qA5su6mETDzHkb/Fd3dwMFZ
+	 3GSKl1bzJKbsH7y/JZkQXQR/B9SH3yWk0U4lYbkjvJrAYKErYP419RXTaaayhnXZ9kjJT
+	 X4BrxblBzN7+GvK7LduxZFsvNRyG03YkAPkENsOJiE2iO6GRlc0JBfeHi2binnlpv0n3e
+	 ljlC/zoox0iC1I78edq3qbdePAJYzqQ0gp5aBuTwURsITGHuQILJmewt4G4Y5+DAEtjxX
+	 Yz5rqedGeG/bxEI6d/A2+Ze1vWn6uLgqxm/l2jQGXPZynDddnrVVbaJ00iewQz0Vdlw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ISHujfWx;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54759606A331;
-	Mon, 16 Nov 2026 15:10:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54759606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BDE606A895
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 15:10:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0BDE606A895
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=AkhsafWW
-Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5d79:c700:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 587B62058D6;
-	Mon, 16 Nov 2026 16:10:29 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794841829;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lkf3suh1JASFBRSRTOSUlKBZiwkP7oME3ElDlkGHcBM=;
-	b=AkhsafWWX1Qe9DGyBsGNgOKu0EKo/B+dKqnYoXyIMJSQhfrcgvDiHKsOXvWFMDR0g3WvPa
-	AMyl/e8WD7hHl214nN366txUVoNEl73z+WI7sYbMTQf0DTA785kkXQrpt0DCDU8aPJiY0V
-	hORa6KaLvSL7xTI2TVvMmaPDM133lCgDMF9Vy5fg8mcQIyajBM8f/sGRmcSTB0q3kfA8X+
-	K+/2L5nsLAzXCVPoZL2zmBfWB2M0IGCRGUpTWQ0aJ+EtC5JecMmIYgpU1XRtJavCFcKOpn
-	c4Ol83fFehRFEualYE8aKGSgkrxtgkdKvzOGSj+7dTuJMQNB6xbk77LVDKQEnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794841829;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lkf3suh1JASFBRSRTOSUlKBZiwkP7oME3ElDlkGHcBM=;
-	b=SBcQdXwN+rPjwsF6ULrmdYUqU6z5gYME5JZsWsrW21P34zAhgruDurVi58QiuO7wP3riI7
-	YvBEyFYxIBczcA9f2y4TNp/fMjr4i5QHrgRrGHK8+rRn7tGv6NullkvsDP7Yn3m9HJ53xt
-	tdAVFLPfFLUsDubGaE0WtUsRIlwx1dy/M7UZlVhrRDZw9KJTZMq9c8YQUdN+LC34m2cCTQ
-	WojlMt6Hs9fqAsbs7HFmw2eEcZNUZ1Rvs3otCNH7DqPgJlwTDCgDJm/aIaOoa0BErYCTrE
-	udCFetBwiEjxKK0WdrKpO1CSnRrSVvYr0XU+pYoXBGNPDpttqWHSyf7SHsLAWQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794841829; a=rsa-sha256;
-	cv=none;
-	b=eUUz1nN7/hw1E5Sxn7sW/zQB93v2TSJbe6ctil0rdYIXctiP9b0Ug+40tmrZmhMIZ5EBfe
-	HTODOkjB7gdc0BTAKXf99TvoHXAIiYnPKfmqTpui7dz9TbvvZlJFodMXswLLN1KrVXPmNh
-	8ztsLvi0/Ebfi2nNG9zH1q1ZxRBww+teL5U3OhgnxuaVVF1Ch5+C/+WwgfsXamN1W+NNuu
-	lzU7XE84qb7TTC0wzMhgPF+/uhJ7+J3NC/f5NS3BhxLAqvxHni4wWluKyC7WzDPQZ4vo9v
-	V7MxBLVSzVDtcXLpyasutKMrhMNmT+s0t/M11IITwuCdlURU1nnU87kpozYgTw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-Message-ID: <1fd9f5b2-6a4d-4335-940b-44ac7a65cac9@pengutronix.de>
-From: "Sascha Hauer" <s.hauer@pengutronix.de>
-Subject: Re: [PATCH v3 01/10] media: synopsys: hdmirx: free the driver data
- when the last user is gone
-To: "Hans Verkuil" <hverkuil+cisco@kernel.org>
-Cc: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Mauro
- Carvalho Chehab" <mchehab@kernel.org>, "Hans Verkuil" <hverkuil@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Dingxian Wen" <shawn.wen@rock-chips.com>, "Shreeya
- Patel" <shreeya.patel@collabora.com>, "Gerald Loacker" <gerald.loacker@wolfvision.net>, "Lucas
- Sinn" <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, kernel@collabora.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <717863c4-4654-493d-821e-a7bdda0a3453@kernel.org>
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
- <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
- <647b6128-2bd1-40cb-86bb-d36e84378d93@collabora.com>
- <5b3592b1-74b4-43e6-96e8-a600b6fa991c@pengutronix.de>
- <17cb2a11-9c9d-43c9-889e-8581522c7a74@collabora.com>
- <717863c4-4654-493d-821e-a7bdda0a3453@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 15:10:28 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ISHujfWx
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so574907466b.2
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:10:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794841841; x=1795446641; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p3WSfUrzAFZ6C8avlWVorHXjO1aUqVAyT5MLm+GUqW8=;
+        b=ISHujfWxChiC7AbQ1qkRWzaVsdz0aoKzaTEL/eJjn5CNVAWxWoycBjni4G/oWBXeq+
+         q0tPd36ecYI+tWR/sKoiLjhfRPSV5Awa3tzxtMsrofblVldGlOqDy5RUF4h38zm2//aF
+         gdR1ASZWg7jHH5LDGoSVVVpAMdkucT98caGO2zWxNPOgtkckfupJ+KkAgATcpNjkfi0C
+         goDZ7jKzf6tODPF8Kwfg7lCRKX7LF5rGY+DT+CzY2PXKwP93mjHweNQF70xr27WUPhAb
+         0ZIUWX0w2vpLkZhRRb52ppmhqyYa57LXqaec7jZCEEXeK0hhzAIV8KgiEtZXNH4vNHP5
+         ZJ4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794841841; x=1795446641;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p3WSfUrzAFZ6C8avlWVorHXjO1aUqVAyT5MLm+GUqW8=;
+        b=LvCHHTMtCU1zEO6o9GGZdzTh3BWvbGIdb+XifInU0dtF5gh+QlLW9276u2+z/peZ7k
+         /tioVuEiGq6vh/r4a0tbMnaQEMS7zw8307/DW8JUu071EyrmAnchWa8WToDALQnNw5s4
+         Q3pRvH0slmkVfPWn8SdylpRP+HYu9WOFpWncktSyw3LZfWOy+yKu0sB8aeHE/lH4Amik
+         AqC6/BepUM4Ia/27NftwUAriQk/wowUy0oPHLYc0MxlqjSCOI1kaMXJYtileQ9cdpqXy
+         DT8AKniWkH6PjdVrRcmzDsC5uD5rzGDRFdshX5Nw+iaszTlxKoJ3jo2QcsNvlU0MUa2x
+         sxYQ==
+X-Forwarded-Encrypted: i=1; AL+hErFV55XhfYju9pQrtOICJRF9K8RE47HDqLOwx/be6CYWKUYyHuPwj08vj1ifDL0wmvGvpduy0J0ojzhE@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ek3zrWOcZFTa3VfwEpSgdEneW0u2uAPf9Bh68Xl7SkjWrcGyZ
+	z/z5G6V/oqKPG2HSwNi6gE9UuCj0vyHNdftnqdg+OGdZ8b4+1FzvJXE9
+X-Gm-Gg: AYBFou1ee2PZRGYXyja/hzTczbYcpnYSTP+cBejMsmgD7WK/TUIQqBUZo1cm4IduE3/
+	d1UdeFgQQnj7vrUIcwRfoQaQM8kNmS9GnCQsdV9FSlzAYuEK4YCODw4a0iHaSKOS9Gpwn+M3wS/
+	DhrgwSPcRjwpRUtlPGstamJdHmJ7c07iN2oYDi/E2njTD1XtyEk+G0BzQdm5lnWyxqJ1/GNBUhg
+	LaZgDvmSY/M/s0G0SCVY5Vyrr8eWM3MFQE2SGzgKWa7bTp/TKZeKAhBolTlwjfonS1YxquI7hBO
+	x+cKqJxJAm8gutWhulnJMkOFnIDIR9luWQl7vUWNQGjXH4KVnqaXqJ4SLJtagad5Q2cYnDYCycW
+	tSN8/qdxVs7HPec7a0l1pNzoDYvDzrcg6oEoeGnpesdZ6tQAN4j1OSBe3is4J+TdnrHRQQpd665
+	8q9R2UBcQjsEX6E1pH3vkCS3RSFvHf0ol8zW8902QiQ/qMo1NzlBhu+upOG+rTF5P/6NHlortUw
+	Ht5CH2FdUlpeJXo7ZsHRzS7OgzjjLWx0BmvK5fDuAzONZDfYPe9O9jM7g17YjRzEjGdjXG7gt3Z
+	J3Whv/Xx3ffblEhB7ZmZvuYRSrTA5+YCtLqWqWoS6bNU/qWVoQhMTaJ0/t4dmPJ7TWdq7CiKDfC
+	kStZ1ZSKiK3Q=
+X-Received: by 2002:a17:906:9c93:b0:c50:5186:a428 with SMTP id a640c23a62f3a-c50963b3380mr940379266b.27.1794841840334;
+        Mon, 16 Nov 2026 07:10:40 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b93a85sm420868466b.84.2026.11.16.07.10.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 07:10:39 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 04/12] drm/panel: panel-lg-lh400wv3: Convert to use MIPI DBI bus
+Date: Mon, 16 Nov 2026 17:10:09 +0200
+Message-ID: <20261116151017.274764-5-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116151017.274764-1-clamor95@gmail.com>
+References: <20261116151017.274764-1-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,62 +112,120 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Hans,
+Switch from a generic platform driver to a dedicated MIPI DBI Type B
+driver.
 
-On 2026-11-13 09:44, Hans Verkuil wrote:
-> >> This is a long standing problem. See [1] for example for an attempt to
-> >> fix it in the core. It seems consencsus at that time was that it must =
-be
-> >> fixed in the drivers which is what this patch does for the hdmirx.
-> >>
-> >> [1] https://lore.kernel.org/all/20240610100530.1107771-1-sakari.ailus@=
-linux.intel.com/
-> >>
-> >>>
-> >>> What is the user-visible or sanitizer-visible problem? How to reprodu=
-ce it?
-> >>
-> >> It can be reproduced with Kasan on affected drivers, below on the hdmi=
-rx
-> >> driver, but it should be reproducible like this on hantro and others as
-> >> well.
-> >> ...
-> > Thanks, the patches are good to me (tested on 5b with no problems found=
-)=20
-> > apart from this one that feels like it's not a proper solution.
-> >=20
-> > Will be good to have input from the v4l core maintainers, or have this=
-=20
-> > fix made separately from the series to not hold rest of the patches.
-> >=20
->=20
-> There are two possible options a driver can use: if the driver has just a=
- single
-> video device that it registers, then it can use the release callback of t=
-he
-> video_device to do the cleanup. If there are multiple video_device struct=
-s, then
-> the release callback of v4l2_device can be used.
->=20
-> Using the release callback of v4l2_device is the more generic option, so =
-this
-> is fine.
->=20
-> Many older v4l2 drivers do this wrong, mostly due to a poor understanding=
- of
-> how this worked among media developers at the time.
->=20
-> In any case, I'll take this patch. It's good.
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ drivers/gpu/drm/panel/panel-lg-lh400wv3.c | 27 +++++++++++------------
+ 1 file changed, 13 insertions(+), 14 deletions(-)
 
-I just realized this patches a Use after free. I just sent a patch
-fixing it to the list.
-
-Sascha
-
---=20
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+diff --git a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
+index 557bcb6f2ca70..63efeb434be13 100644
+--- a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
++++ b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
+@@ -14,6 +14,7 @@
+ #include <video/mipi_display.h>
+ 
+ #include <drm/drm_mipi_dbi.h>
++#include <drm/drm_mipi_dbi_bus.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+@@ -25,7 +26,7 @@ static const struct regulator_bulk_data lg_lh400wv3_supplies[] = {
+ 
+ struct lg_lh400wv3 {
+ 	struct drm_panel panel;
+-	struct mipi_dbi *dbi;
++	struct mipi_dbi_device *dbidev;
+ 
+ 	struct regulator_bulk_data *supplies;
+ 	struct gpio_desc *reset_gpio;
+@@ -40,9 +41,10 @@ static inline struct lg_lh400wv3 *to_lg_lh400wv3(struct drm_panel *panel)
+ ({ \
+ 	const u8 d[] = { seq }; \
+ 	struct drm_panel *panel = &(priv)->panel; \
++	struct mipi_dbi_device *dbidev = (priv)->dbidev; \
+ 	struct device *dev = panel->dev; \
+ 	int ret; \
+-	ret = mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE(d)); \
++	ret = mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_SIZE(d)); \
+ 	if (ret) \
+ 		dev_err_ratelimited(dev, "error %d when sending command %#02x\n", ret, cmd); \
+ 	ret; \
+@@ -54,10 +56,6 @@ static int lg_lh400wv3_prepare(struct drm_panel *panel)
+ 	struct device *dev = panel->dev;
+ 	int ret;
+ 
+-	priv->dbi = dev_get_drvdata(dev->parent);
+-	if (!priv->dbi)
+-		return -ENODEV;
+-
+ 	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+ 
+ 	ret = regulator_bulk_enable(ARRAY_SIZE(lg_lh400wv3_supplies), priv->supplies);
+@@ -129,7 +127,7 @@ static int lg_lh400wv3_disable(struct drm_panel *panel)
+ 	usleep_range(10000, 11000);
+ 
+ 	return 0;
+-};
++}
+ 
+ static int lg_lh400wv3_unprepare(struct drm_panel *panel)
+ {
+@@ -182,9 +180,9 @@ static const struct drm_panel_funcs lg_lh400wv3_panel_funcs = {
+ 	.get_modes = lg_lh400wv3_get_modes,
+ };
+ 
+-static int lg_lh400wv3_probe(struct platform_device *pdev)
++static int lg_lh400wv3_probe(struct mipi_dbi_device *dbidev)
+ {
+-	struct device *dev = &pdev->dev;
++	struct device *dev = &dbidev->dev;
+ 	struct lg_lh400wv3 *priv;
+ 	int ret;
+ 
+@@ -203,6 +201,9 @@ static int lg_lh400wv3_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
+ 				     "Failed to get reset gpio\n");
+ 
++	priv->dbidev = dbidev;
++	mipi_dbi_set_drvdata(dbidev, priv);
++
+ 	ret = drm_panel_of_backlight(&priv->panel);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+@@ -211,9 +212,7 @@ static int lg_lh400wv3_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to add panel\n");
+ 
+-	platform_set_drvdata(pdev, priv);
+-
+-	return 0;
++	return devm_mipi_dbi_attach(dev, dbidev);
+ }
+ 
+ static const struct of_device_id lg_lh400wv3_of_match[] = {
+@@ -222,14 +221,14 @@ static const struct of_device_id lg_lh400wv3_of_match[] = {
+ };
+ MODULE_DEVICE_TABLE(of, lg_lh400wv3_of_match);
+ 
+-static struct platform_driver lg_lh400wv3_driver = {
++static struct mipi_dbi_driver lg_lh400wv3_driver = {
+ 	.driver = {
+ 		.name = "panel-lg-lh400wv3",
+ 		.of_match_table = lg_lh400wv3_of_match,
+ 	},
+ 	.probe = lg_lh400wv3_probe,
+ };
+-module_platform_driver(lg_lh400wv3_driver);
++module_mipi_dbi_driver(lg_lh400wv3_driver);
+ 
+ MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
+ MODULE_DESCRIPTION("LG LH400WV3-SD04 MIPI DBI Type B panel driver");
+-- 
+2.53.0
 
