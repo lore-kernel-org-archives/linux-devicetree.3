@@ -1,57 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820600;
-	b=ypI9ESIjeshLrT4EdlvuMNVSqBzb/pWVGhzhH4mTFnbGPuZsiRZIfVuOr5WlmKrfmVyr
-	 P3eVaHrs383RtEdx+OkQnT9gOOHZL4MSpzcQtw6icmV7kOF4vwpYbXmHpHw04KCupbpQy
-	 zIevEzXR8zgvSmIKByF2oxV1Y+qk3460QT6b5hS6YdfClLIueoPyxlXPHoBS1Lawdw05A
-	 x51ghaWsyprt4OfZUiTUrTbiIxiwA4o6CO+jh56Gp1ZA90V1MV07SOElelo5yg1tyjjB5
-	 fDAuqpHRtPfIeCYVyT20alOKd9RlAFkA7ZO4GlpKXqidt3/BcxcOjbIhz0kWwY1myqA==
+	t=1794820787;
+	b=dHeJ6KGdAKTfVLPh1n44ShLjpeEtYi0PzPTK65IJEJnkTRXzmMQ7tvSHrhyomm5tlYCm
+	 VvF9cw1HOIs7L6j1gagwKRV2nvgyRl7Gtg1zlucDiNgmey7zxji5kdJfWag8Fapr2QKyy
+	 3C7uj1qPG5qcKhrKVMV23h7uVbFwFtHKGhHBvNmMf02B2XUM1v00ZW8IV5VnSq/aLlrGL
+	 2G1QNKZ9tfcC7Ew9WVtPMwO/ZAHzF2WFnCF2wut+O3ErWAjeP8B1XFomFRbt83pyodh8o
+	 ZmTbPpA9jmnrP4M124Bmfk231w07JWYlgw7yu9kkNxqtNtIoL/O/uJ2Xk18D+5sOA/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820600;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=gvGIvCmlhaHK5VTvge++qqXPDRtL1BbEPEiPXK07rUk=;
-	b=Zd3UQ0V58aTHo1oHR3ZV6GIXeX4cNgYleJgoxnvFNIpDwFw9iDqsZtAhvpDs5qa5b9IY
-	 2rWtBhJVDmmGAj26LN6gvSd2gNu3ESO0ruGgoccCrcXXxOOlmEVZNrizTh21bpt0Ace12
-	 FAOE3+KLbIlVPmc5rCUZ1J1/eg+f++rcJRh+xHUuWzsARKs7W7cLPD3UNWbl6LkoJljkD
-	 Pef9lmnsRu48lZnzq2zah47/4+iSbcyOfaRb1mudC25+crtm6RZfFaSJOovUjqWEY/E6m
-	 Kye1TaiTMvwMjBs55ZEvwYg9IkaVQ+I0+va2r2NRNsEAoW61XLiC1Zzm/KxxW2nbiIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820787;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=CZnwncXttnoeDTUcItONMH1HUxzaUc0HeWzS8YajeZo=;
+	b=ICe4Qd3XWWkQQpt1Qna1M2K7fmZZEMZU67dFZkl2Mu5CgIiMxle0wnlunR3df930WgBI
+	 6aqssyqJK6OjTee/Td08q36wBE8V8XCuL286qM56obLIS4+JRVA4vTunIMf9FMSjlXBdo
+	 6sJpT3wKghFfrgyple40Abgg8PkxqhwJHSbKDkjIaGSuK8rV5pQklvh0EbopEErH8TTck
+	 0LZuN4S4FMBUqICC7YpTZ+Zoy0QO9drzUaqwjU305Ty1LK3s3eXeZRhRxJgHvHp4Gzl5D
+	 NVuNAasE2N2ihvMZZ4Yp3vVk8QGw5lRUHIfGp02RX+prRk6KP3lPtWXqFY+KHOZV9SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZCuanzq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDCF9606A32C
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 09:16:39 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MDYQ3pcg;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2391C606A334;
+	Mon, 16 Nov 2026 09:19:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2391C606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZCuanzq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E021F000C5;
-	Mon, 16 Nov 2026 09:16:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794820599;
-	bh=gvGIvCmlhaHK5VTvge++qqXPDRtL1BbEPEiPXK07rUk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MZCuanzqH/XeF5lI7Iy2oS0Xx/TVWfiYngE+Cf7HQF6F7Xz/QsymZL8utfjDtk/Tl
-	 CK0qbRMCgl8Bm+V2u5zJqUhB5wuap/vVM64h2Bg8xnMvgf7fUdeWvggYsZXFgjBgJK
-	 h3HJ15K1JE6nbKgRXnt38kwquxh5wQw7L7HvNxal/hsCFQMTRb1F24ovCtf4lFaZVZ
-	 n0TALyellAy+NueQA5UVToCVgbqmeVCDWw3CXkNzr1AliiIefac30j67mrnMHqp2+7
-	 bbMVW/u05AHwfw0Uen9NXxIrYTbaZfosirJSwXkLtMEgkRvMruY84lUkt9PSJ90aHj
-	 YQWNgPp9VGL8A==
-Message-ID: <sashiko-outbox-216598@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 11/11] arm64: dts: qcom: Add Motorola Signature
- (vantage)
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Venkat Yadlapati" <venkat.yadlapati@yahoo.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261116-molokai-soc-v2-11-9dc4dddc4e96@yahoo.com>
-References: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
- <20261116-molokai-soc-v2-11-9dc4dddc4e96@yahoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 09:16:38 +0000
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MDYQ3pcg
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 437321476;
+	Mon, 16 Nov 2026 01:19:43 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BCAB23F763;
+	Mon, 16 Nov 2026 01:19:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794820786; bh=x48MGglr2CAwjlYCBk5Uk7nESxpqLnVRRwqaJD9EKQQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=MDYQ3pcgq/fyazZWav1V8GCbaXniG47/MsXdi+L8kJg/9MnJZQMg0rd30s8dNGend
+	 f74CGwzElmESwFiQFd/98nrfKDbHv7OvYnk8N0T7X/E7Epm8s30n6ECITioJzXdOOK
+	 UkxLipbRfhTxaer6gx/Mmr1orXbV/YSFH8ZAp4WY=
+Message-ID: <3bb22604-1850-44d7-9388-3bcb06813eff@arm.com>
+Date: Mon, 16 Nov 2026 09:19:41 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,103 +52,77 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/5] Fix traceNoC probe issue on multiple QCOM
+ platforms
+To: Jie Gan <jie.gan@oss.qualcomm.com>, Leo Yan <leo.yan@arm.com>,
+ Rob Herring <robh@kernel.org>
+Cc: Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+ Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Jingyi Wang <jingyi.wang@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261110-fix-trace-noc-probe-issue-v7-0-2f06905c77fe@oss.qualcomm.com>
+ <20261110154643.GA4159803-robh@kernel.org>
+ <20261111204322.GH9176@e132581.arm.com>
+ <e0e07848-361d-4977-a585-a0810452e150@oss.qualcomm.com>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <e0e07848-361d-4977-a585-a0810452e150@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] arm64: dts: qcom: vantage simple-framebuffer lacks clocks and
-  power domains
-- [Low] arm64: dts: qcom: gpio@b800 out of unit-address order in pmic@0
---
+On 16/11/2026 02:03, Jie Gan wrote:
+> 
+> 
+> On 11/12/2026 4:43 AM, Leo Yan wrote:
+>> On Tue, Nov 10, 2026 at 09:46:43AM -0600, Rob Herring wrote:
+>>> On Tue, Nov 10, 2026 at 09:21:13AM +0800, Jie Gan wrote:
+>>>> The CoreSight TNOC (Trace Network-On-Chip) binding so far only 
+>>>> allowed the
+>>>> two-string AMBA form "qcom,coresight-tnoc", "arm,primecell". That form
+>>>> forces the device onto the AMBA bus, where the driver must read the
+>>>> peripheral ID from the device registers during probe. On several QCOM
+>>>> platforms this AMBA peripheral-ID probing fails, so the traceNoC device
+>>>> never probes and its trace path is unavailable.
+>>>
+>>> But it works fine on some platforms? We have a property to override the
+>>> peripheral-ID which would solve your issue. That would be much simpler
+>>> and avoid the ABI break on any of the working platforms.
+>>
+>> Looking back at the earlier discussion [1], Jie in v2 already proposed
+>> "arm,primecell-periphid". Questions about AMBA IDs and ATID handling got
+>> mixed together. The series later moved towards platform-device probing,
+>> then became current shape.
+>>
+>> Hope we make the right decision on arm,primecell-periphid this time.
+>>
+>> Anyway, I'd like to apologise to Jie for all the back and forth.
+>>
+> 
+> Never mind.
+> 
+> Hi Suzuki, Rob,
+> 
+> The "arm,primecell-periphid" override is the simplest fix for the issue. 
+> Which fix are your preferring for the issue? If we want fix it with DT 
+> property, we can revert the patch series and I will post a new one to 
+> fix it.
+> 
+> As Leo mentioned, the AMBA probe is not affecting by the series.
 
-commit 06a3bd9d7180afacf80e722fa6af997381342626
-Author: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Alright, I will remove it from the coresight next, please send the DT
+fix.
 
-arm64: dts: qcom: Add Motorola Signature (vantage)
+Cheers
+Suzuki
 
-This commit adds the devicetree for the Motorola Signature (vantage)
-smartphone based on the Qualcomm Molokai (SM8845) SoC.
 
-> diff --git a/arch/arm64/boot/dts/qcom/molokai-motorola-vantage.dts b/arch=
-/arm64/boot/dts/qcom/molokai-motorola-vantage.dts
-> new file mode 100644
-> index 0000000000000..6d6648b8cddc6
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/molokai-motorola-vantage.dts
-> @@ -0,0 +1,784 @@
-
-[ ... ]
-
-> +	chosen {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +		ranges;
-> +
-> +		framebuffer0: framebuffer@fc800000 {
-> +			compatible =3D "simple-framebuffer";
-> +			reg =3D <0x0 0xfc800000 0x0 0x2b00000>;
-> +			width =3D <1264>;
-> +			height =3D <2780>;
-> +			stride =3D <(1264 * 4)>;
-> +			format =3D "a8r8g8b8";
-> +		};
-> +	};
-
-[Severity: Medium]
-Does framebuffer0 need clocks and power-domains properties (or dispcc
-disabled) to keep the bootloader-initialized display pipeline running?
-
-In kaanapali.dtsi, gcc and dispcc are enabled by default while mdss is
-disabled.  Without a consumer claiming GCC_DISP_HF_AXI_CLK, the dispcc
-MDSS clocks, and DISP_CC_MDSS_CORE_GDSC, clk_disable_unused() and
-genpd_power_off_unused() will gate the display clocks and collapse the
-MDSS core GDSC during late initcalls, breaking simple-framebuffer
-scanout.
-
-[ ... ]
-
-> +&spmi_bus0 {
-> +	pmic@0 {
-> +		compatible =3D "qcom,pmk8550", "qcom,spmi-pmic";
-> +		reg =3D <0x0 SPMI_USID>;
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		pmk8550_pon: pon@1300 {
-> +			compatible =3D "qcom,pmk8350-pon";
-> +			reg =3D <0x1300>,
-> +			      <0x800>;
-> +			reg-names =3D "hlos",
-> +				    "pbs";
-> +
-> +			pon_pwrkey: pwrkey {
-> +				compatible =3D "qcom,pmk8350-pwrkey";
-> +				interrupts =3D <0x0 0x13 0x7 IRQ_TYPE_EDGE_BOTH>;
-> +				linux,code =3D <KEY_POWER>;
-> +			};
-> +
-> +			pon_resin: resin {
-> +				compatible =3D "qcom,pmk8350-resin";
-> +				interrupts =3D <0x0 0x13 0x6 IRQ_TYPE_EDGE_BOTH>;
-> +				linux,code =3D <KEY_VOLUMEDOWN>;
-> +			};
-> +		};
-> +
-> +		pmk8550_gpios: gpio@b800 {
-> +			compatible =3D "qcom,pmk8550-gpio", "qcom,spmi-gpio";
-> +			reg =3D <0xb800>;
-> +			gpio-controller;
-> +			gpio-ranges =3D <&pmk8550_gpios 0 0 6>;
-> +			#gpio-cells =3D <2>;
-> +			interrupt-controller;
-> +			#interrupt-cells =3D <2>;
-> +		};
-> +
-> +		pmk8550_rtc: rtc@6100 {
-
-[Severity: Low]
-This isn't a bug, but gpio@b800 is out of ascending unit-address order
-within pmic@0 and should be placed after nvram@7100.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-molokai-so=
-c-v2-0-9dc4dddc4e96@yahoo.com?part=3D11
