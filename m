@@ -1,117 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.71
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794835500;
-	b=Gr5iwxr+q8MF7xINrT9vDEFTXD04XRyyddOEOaCNUb6vqZn0rVVN+/KkbnRbS+dBPimj
-	 jFlNSnYo8W6/RMWuqYUSHEusFHKpS4xk+W+LmVmIJVS1Juh7iLMqvcZPCrA+S1mLb8vwX
-	 FhWe/DRu4Tgi/0khKlajIlINHBVbLyp88bAhTn3M9CqJzxRWwFFnfulJ6TEL1ycBFbpoD
-	 AbLtdpwWbzqxS7vuAfeIZMbQRbgN4xcvCsngCVg5/K2/ILAFfw/sjRXjlzn78uIELRBRn
-	 lEsK5pex433q1MkmiJaC+FQ6sBTOYIsXgAwJt5bkb2E7bxyFWTPG/xijWx0rbSuUeoA==
+	t=1794835504;
+	b=bKsPjDPgtvWOQsEKnM6w0k1HKjznDPfef6KE3p+NeO0RZ+dWsprmQ4j+IccXKuBS72/K
+	 jFcDFBav9sXAke9OGQIjG6hsRzK9R8k5EC9oyIR99ei54s9AqArgUOuwArWHn7fyjSXOJ
+	 Y0qYcKeDbjseHphoGcWausY93FmXP6ZrJYJ0VmoTNV26pS1a8TN2rDVoN4WiuGN8Ggdu6
+	 cyQb84LVfEwzci67orRmDQc7GQ22wvQE6DNmGCcNuqcvKPCmkcsLj3fHgxqaIpUWYzDqM
+	 hLL2hvozGGX+797hbm7Px0JI7g8mHy1Stlb0NR/TNQbvqefrXet8P14EHED7IaWzxtA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794835500;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=w4/pr0ohBm/UjCMDMzro9naeXUbdCOIsAhZ0wx56tI4=;
-	b=spo/jqd7dyICZ2AzHRHU8kpZDoUXNP5dsWPx/OraxqwzmTdWTPdGX256eDz0e1JT2plp
-	 lxCOlFUYTJNt/bBNfPpbj5546/lTBK1Bzq7MqCTU+ayosSa40lv9NIMAe9uRnAGGLTCQS
-	 9WCRQNDm3O/Wwe1cRLXB257c8Fc8lEtYJnjDbK/CKBad8Qh4dcdZ1MOPxTXzpSLc+iczJ
-	 ifiz16Dy2Iai8H/P6PMwAs5dDHoGHAbat66/sE2kdtIxPT8lMxMJq0ZrOg8d9HsXlyy+f
-	 wwp9nJWSEJ0N0lNXUAsM/cSe0jxhYv735Zy6SGUKa+RaCuLj5SKapS3ZiPH8tuYZegA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794835504;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=P0or60iH8KD6aVVIkNBvUiUCGLvpK7LSLC/zGWPxXoI=;
+	b=yalz6lJnqJH9+dvbkAPcSpmjtV5OGTcVy77BynOXigmQlrDt+vtFFPwjf0Ycu9Esdxzq
+	 ax3Ii6wW6a8yucExacUpfaE0GOTsEcCHs96PwjjsTJa5IJPpc+rv7peQMt5N7UmUBif5O
+	 9OFd6hdmD8o642c4Bj3tWXm4HfV67ME24/lkCauCmwVVHkuhzsbf6RPwRP3rd7n/A8icL
+	 isDLFNiFQBGcs57SP+1HXTbSHlsta00v5rXlsHL+yAfvn+e3p7ckwzOYv1lyte9aAPvsa
+	 1wlOol9BioDXHF9vryrX94zLuw9NuY62HBt9F7pnzLLHf9SNLSQvvQbqEGKVgH8unsg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=ixmAIKKS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.71
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010071.outbound.protection.outlook.com [52.101.84.71])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OplHaKuG;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=sWJnNv6U;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E9A606A336;
-	Mon, 16 Nov 2026 13:24:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2E9A606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B29606A336
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 13:25:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54B29606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=ixmAIKKS
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rg0FKDmHsz6Qk0uu1aYI31ABpito6wDqosmi85sGZcLtY7kkyYFJxGi2QX9WuK8VJF24x2Dq2U9f9/lza3fRc2b8GCleTecnt+fkyr44JIZ/1EiZKO9zAL88HxT3orGXOq/mZAOAcN4RhAX0+7JLz6iX6XeiOz1cio7kzGMriMYnhkGGQzaz/xigs3jKaGL8oCfmDn3RoKAc4vfcMdV/BjBysdpan79YSygiEfWTtVD3UqjhJ4iK+PS1h3wGdaIlUSkFIq9eaxfbdZv+E4ZLMGFoa2Jfb/OWwfiingevC6EkW5uc+HRmzxzDMl1X76CaZvNVz4JruSqDfGob3RNrxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w4/pr0ohBm/UjCMDMzro9naeXUbdCOIsAhZ0wx56tI4=;
- b=cpZ9J52eoLflRtPY0K7JG4ALqDLW6IU+XtyZY3r1nRK+NZDV5qJoklmOqhBp5JDgAXuJ/a6/+UYJtyDDy8ObZEsbjTjU+4JL6ptIMn3I8d2/fO+/RmhU70UFXWmuFyH71Qk4bhaDJN9ozF0nwg0z60Q2LjBFyEbiTQK34YRZn4uX+ZCeL9CLNwUE3CS5n3OJLqAAVfyzPaDhzvOm5358nIGWxyrjC8o2pXwqdzfXIeHFcG34bYVNTj0EZfVeSP8Zx1pFlxHPXnGPpV3XamrYqWxZDCyT5JqpIEQoCab0rjtq8dFDA9uly5yDf1PhgtbkO70Bbwa45cBQyixgEQhJoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w4/pr0ohBm/UjCMDMzro9naeXUbdCOIsAhZ0wx56tI4=;
- b=ixmAIKKSppa3nlpZDpQwiUEbhyM6odqC1yPkkZtextx9XONE2VcJOmhog5Dw2d1VV6mYSI3+k+HghM9zUS3ShLFBwWVXwPPrV1PlGHCmqDABG6gBZ0RutK/hQG0uliBMEvsyEteQtsA1RpzbryWNnAxPSXVK+t6C1HVjTnRZ66Ha7LPXFwlJ1ukylCmHQtlontCxBxNAFQF6F+H9BQTkJXMa35go/i8ggD6jMFA3GoPH2+i/D4Qfg759a5+fxDv+gDA8a1VCqUo603eXr7fRJouoy1ksV+nN0yEq2U2PhgUnRMTkIMVEOE6++qdOHYRNQnfzMwO7UuseALJ6V4TXSA==
-Received: from PA7P264CA0180.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:36f::6)
- by DU0PR10MB7286.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:446::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.0; Mon, 16 Nov
- 2026 13:24:55 +0000
-Received: from MI3PEPF0000855F.eurprd05.prod.outlook.com
- (2603:10a6:102:36f:cafe::49) by PA7P264CA0180.outlook.office365.com
- (2603:10a6:102:36f::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Mon,
- 16 Nov 2026 13:24:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MI3PEPF0000855F.mail.protection.outlook.com (10.167.240.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 13:24:54 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
- 2026 14:25:21 +0100
-Received: from localhost (10.48.87.124) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 16 Nov
- 2026 14:24:20 +0100
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Russell King <linux@armlinux.org.uk>, Wim Van Sebroeck
-	<wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, Yannick Fertre
-	<yannick.fertre@foss.st.com>, Christophe Roullier
-	<christophe.roullier@foss.st.com>, <devicetree@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-CC: Antonio Borneo <antonio.borneo@foss.st.com>,
-	<linux-watchdog@vger.kernel.org>, =?UTF-8?q?Cl=C3=A9ment=20Le=20Goffic?=
-	<clement.legoffic@foss.st.com>, Amelie Delaunay
-	<amelie.delaunay@foss.st.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v4 03/15] watchdog: stm32_iwdg: get hardware version during probe
-Date: Mon, 16 Nov 2026 14:24:04 +0100
-Message-ID: <20261116132416.1184447-4-antonio.borneo@foss.st.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116132416.1184447-1-antonio.borneo@foss.st.com>
-References: <20261116132416.1184447-1-antonio.borneo@foss.st.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OplHaKuG;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=sWJnNv6U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794835502;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P0or60iH8KD6aVVIkNBvUiUCGLvpK7LSLC/zGWPxXoI=;
+	b=OplHaKuGoD8QOQXnZKl7UBvEKqqd+0nAZaHjM0rX/6fclEUbNSlsHB1i9t1AhmTCcM1TZr
+	kmjyp0MTUewEqJAg/jrh4M5xLZLhOX2gTBRvy/UyjLu3wQQ+KJ7wtLMAfC6o3Wv6eHSah+
+	Iv2WEAaQ8LGM4VU+7xUCjFtpwhl6bAU=
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-308-2fZnfoYCPFe4tHzNred9BA-1; Mon, 16 Nov 2026 08:25:00 -0500
+X-MC-Unique: 2fZnfoYCPFe4tHzNred9BA-1
+X-Mimecast-MFC-AGG-ID: 2fZnfoYCPFe4tHzNred9BA_1794835499
+Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-3adefa0d4fcso2238331fa.1
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 05:25:00 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794835499; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Slj12ZROHBOuPKy7c+8mAq3aAZgvNomYrSpiMsPuEXXkZfwIYb9OQKDzpfuhkICyeX
+         vmaw7oXZv/wbw8BIQTZZllVkpPk6IILrGZ1h1bf2xX5cnKfMm9jD5rNGZm7xLNrrfpjb
+         qCVlJCnX0g7rxBw4lmeLAkpWcRWm4R1fTPnnlQOePnLFF3jr3TL1RmHqkOryB21I6bnB
+         A+WkeMv/mhGk6/ksNMGFVnrbv/OUbj+Xd3Z4eNtapvW4o3OAzlmwsfbpTRM1BgAqomQL
+         NilCiKXsyD+2XWsAXxZzQDqBuLXWVO3wENGNzhYqe/8B4ErGtuWNofCSSN52eNfs4owM
+         xInQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=P0or60iH8KD6aVVIkNBvUiUCGLvpK7LSLC/zGWPxXoI=;
+        fh=LfpSG7EO/ymL54g6aKmS7/C2ot6kpcdO6n2UhCL7VCY=;
+        b=g0tNtKTOlfAIuELAFJVSyybA2ZRxHmjxDf7uDZKlIayA9qRYp9sUoo9Mc31qNDxeMO
+         KnB26XD07lmZiCkAaSDOyyElyKqPWMLZTC8gRq4akDj4Vm4jmu88Lu6wGEAHgZSa/22Q
+         UR1yjpATlgCRQ55rzs+wbyzqRh3+rkMjQ6HVk13oxYJRrnFjOsRb5RIv5TkhXDomiHvA
+         Yj4AMWJpkMQyK6vluuaRLtV6ucRUs+RZsWz6PxG4PQ3eeVu6OyhMpIlXbqnMRGPxO1cN
+         rAbc4zvOfxHdZx/qyLw30Vz13+Mk3/971Gzc9lwTRKJAr6ImfHcN+lYV8tFgMIgrfM56
+         CMlw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794835499; x=1795440299; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P0or60iH8KD6aVVIkNBvUiUCGLvpK7LSLC/zGWPxXoI=;
+        b=sWJnNv6UfjQFEyBlH6VYih/dysn6z3uGY8/Iv0ob6XOYc1gc5jdYgWVtcj47Am6FL+
+         vwOHJgvOgqJ9B0m7DWY/bJGY6fZjlFEdfKOPqO06PMikk3INSLiAwck8T4WVjSlhCCjZ
+         JMrKRJGPWMxoZ1aVRDJ0o5aB9HJ84ChGkN/iCq0R7JVqJx2DtuYqzB3CHLGagbnLOm/v
+         Nj58/A99ZlnFDnSKzVTCwB4Ut4qnvmjbGeFsM1k0qOi798QMr/bayWUPR38zvfUW5X7D
+         Lu4/7bvmxt6My3jRqWupBKvM9XiMcnyJljplIiM3j33dTI+mvP8okZ+CQHP8jC2DL7Bq
+         NoOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794835499; x=1795440299;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P0or60iH8KD6aVVIkNBvUiUCGLvpK7LSLC/zGWPxXoI=;
+        b=Wxs7wFmN969Rpc4AXmhysIQyTZAghCncPke5SFsaEnuDOXl0XZs40VtLX4K+XZqdlP
+         yNshKx2yroS+/Ygu3zhZ5ZGOAXa2k+IIxXZUiHOzsXGXu8TOgy2K+mFFpiKDuwo03siu
+         EWZbSi+BlAWhfF+UdxvV5QNmhoFieJCkHXagDEnhWdCdLxtE6hDsDq8Ph53EZ+Z4uBE6
+         TIjD+JyNMezfKwp8v+d0pUYUlMs+Enlp6A2/X0MkAukQDJoPAQsTGC33ag0ZIK2CptvX
+         /FqPhu49ILlKohdptUsnTITsR/+dzRgvqcfkNV8+jJ/xVSxpkDUscoETRJy9TKd4/9iH
+         zXHg==
+X-Forwarded-Encrypted: i=1; AL+hErEuvSB0x+4N+XUTHNAf0L0q+A0PYvCtYorvsVljM/9rR23gusyHbj/NPcB7QV7Qv/sXfXWXah3/vyYj@vger.kernel.org
+X-Gm-Message-State: APuU4Z8urqVqJyra31rIGZOh6ky6TNfKwK+OUdOwQ5JwU+R3Jlk2z5S1
+	AjU3XOVDWac8hRDGQT4+ScsTGQwl+TzhCqSzjJJj+TaHqKJDSqJQK0PFBtD04WuWaGCtcZs69ML
+	Por2B5WytnCTxc5+jOA52Cyuw7ooW0TSqV5vQR4GtDaRtXKspDKOWF+xuuuWlNQCq4tq0FfPb8w
+	qpwc/qLpE4eoyKuhr9weJqRKwXjTAveD3uClby+Q==
+X-Gm-Gg: AYBFou3IpQfuuLYkHPyO5CK0xYu6XMftQEx2WE9vrWYXheusSoEgnNcyp8MZ6LSH+++
+	OAddb8c/lCOzWxD6Hu4Wv8szdyXb4KSKemQoiYSBAKmKIKeyUhyEiwitPWQfRwsZv2CBafiRFk5
+	k1znsnoH7f9K/tY+W+nLp4MJI4ujzXPilS+yR7sWGTZFGassHQ+n5IJcrT
+X-Received: by 2002:a05:651c:e112:20b0:3ab:1d67:caf with SMTP id 38308e7fff4ca-3ae2b394355mr26666171fa.0.1794835498850;
+        Mon, 16 Nov 2026 05:24:58 -0800 (PST)
+X-Received: by 2002:a05:651c:e112:20b0:3ab:1d67:caf with SMTP id
+ 38308e7fff4ca-3ae2b394355mr26665691fa.0.1794835498182; Mon, 16 Nov 2026
+ 05:24:58 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -121,86 +124,488 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
+In-Reply-To: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
+From: Enric Balletbo i Serra <eballetb@redhat.com>
+Date: Mon, 16 Nov 2026 14:24:45 +0100
+X-Gm-Features: AclHuK8HnePhPDPUHuce7pVJV7FFzGqggvZufNxDNXFt_WHCsNiK_-bsjhSBvsE
+Message-ID: <CALE0LRseQXtrDG3=QgXBgB33O+BBfyeSeKcHdDzL++VT6ocFXg@mail.gmail.com>
+Subject: Re: [PATCH v11 00/14] Add S32N79RDB UFS support
+To: larisa.grigore@oss.nxp.com
+Cc: "Martin K. Petersen" <mkp@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, devicetree@vger.kernel.org, 
+	Ajay Neeli <ajay.neeli@amd.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	linux-arm-msm@vger.kernel.org, Peter Wang <peter.wang@mediatek.com>, 
+	linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>, 
+	Asutosh Das <quic_asutoshd@quicinc.com>, linux-arm-kernel@lists.infradead.org, 
+	Stanley Jhu <stanleyjhu@google.com>, Frank Li <Frank.Li@nxp.com>, imx@lists.linux.dev, 
+	linux-scsi@vger.kernel.org, Bean Huo <beanhuo@micron.com>, 
+	linux-mediatek@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+	Pedro Sousa <pedrom.sousa@synopsys.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Peter Griffin <peter.griffin@linaro.org>, echanude@redhat.com, 
+	Chaotian Jing <chaotian.jing@mediatek.com>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+	linux-rockchip@lists.infradead.org, Krzysztof Kozlowski <krzk@kernel.org>, clizzi@redhat.com, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Heiko Stuebner <heiko@sntech.de>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, Chunyan Zhang <zhang.lyra@gmail.com>, 
+	Can Guo <can.guo@oss.qualcomm.com>, Orson Zhai <orsonzhai@gmail.com>, aruizrui@redhat.com, 
+	linux-renesas-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF0000855F:EE_|DU0PR10MB7286:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c844035-f817-451b-0b01-08df43e5005f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700016|23010399003|1800799024|921020|261026121527099003|56012099006|10067099003|261009223027099003|261102123227099003|11063799006|261021121427099003|261022075727099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	liz2Gcb/JgqzdENwJhlqF5y80m3KsvmpEWRD61jZxLaJsTcffUruuPDdHTjEOSd94QagkuzJjK2S9PzBs/19esI/AUzh7GH44jPgzNrPIiZPJtfbrHOmWgwcbo5krJkqeT74R21xA94e7L7ofIamSC7jkjyQc8UCWY6DeD8w7FqhWyWjxycMg7YNjrepmMPqtgCe6QnfByeRenj4PYRbOg3Nik9ZxsC962/T8BzOBPBVM50JRLQ/notU7phbRwlF5yqI1q28UfGDebXtlugXQ+bl0XxSp4cmHrhxl1L66BTnGnImiGgI+cQQq60PIXVRkuv3Ove1i2z8AEzKX8ZDJTY4tC+GVpFlDSv6E2Dv6bJ/eSsdOAk9t12Qw7bE/Wgwue/jeeiUrXGxdFSQ1Xy6GT4ARHpFJzwhiGYBDtCd5wjNFoyDaHsrXXY4mzu4UeZM+NkLzsb4MODmW1PODbfQcQ/yDP5tcLTX71z8GflgkELbskr/H7H0A+VdOe3xJnJoC/txrbnYGWWQEuPTwf9u+ZZpkBUfeHt1wMn9rGpWRr4cPFe0EUXw67TDMXA4MCctctACbMLKuSGOlU/K2P89GTZ5ZQ0VyCC9pt+wPkuLRmz3Jh2s33AFQ/abF8yk+UyPyWkfUW+VwGcPPwKKpnwsUiEK3+nH8MXS6lOLi5nOy8C7TMiIcAvps3kNrsD97NGgliOFfhk6gwr3/+UNoqNNg1zvKr2e3tUMiUytlFGGiW0hN9FirqGkPeYbU2G+qn7m
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700016)(23010399003)(1800799024)(921020)(261026121527099003)(56012099006)(10067099003)(261009223027099003)(261102123227099003)(11063799006)(261021121427099003)(261022075727099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	s8Ws5F3BzKQhb3A+MSgiaaShys3cHsA3GBYUQ5UepLGbq2l7kGwB9ORi5pSJQx/fRrXqB7aDQjfw/D33P74FieYat0gdmG8Ox4ObCqPNkpdxLdkUOPSxuxGgx5h5siCC55PL/I05R1WLFMMSfx8Kmt3x9GNj0Tadr2cj6lLTn55UN0D6ASWKsGQzsPsqf2QVqhXcqnGYyPScHL6cDSQlajgX0GJjPV81mz7haNQ42V7xy8yYz4XdmHwaHB2Bz3OQgY7F7FDFU5r2h7/Aj2Bd3vY0BCAQ8qCDmTbMIKkmQv2Ch1MNUJXecQKzE5tANrfbRTIJgYyjGKj9jG3hCnsu351vlamA62Cosktj4TRBcSmGjA5FXpkhqNnn1l2VYED3Lvt6YN1FevCkN+UtYgBHmACfftN0L475GbKnqyrp3BrSfawIuhgAxMGh4vb1pthg
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 13:24:54.2244
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c844035-f817-451b-0b01-08df43e5005f
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF0000855F.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB7286
+Content-Transfer-Encoding: quoted-printable
 
-From: Clément Le Goffic <clement.legoffic@foss.st.com>
+Hi Larisa,
 
-Get the hardware version of the IWDG peripheral during probe.
+Thank you for taking care of this
 
-Signed-off-by: Clément Le Goffic <clement.legoffic@foss.st.com>
-Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
----
- drivers/watchdog/stm32_iwdg.c | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-index 487764b51667c..9a0dc52a96bc7 100644
---- a/drivers/watchdog/stm32_iwdg.c
-+++ b/drivers/watchdog/stm32_iwdg.c
-@@ -31,6 +31,7 @@
- #define IWDG_SR		0x0C /* Status Register */
- #define IWDG_WINR	0x10 /* Windows Register */
- #define IWDG_EWCR	0x14 /* Early Wake-up Register */
-+#define IWDG_VERR	0x3F4 /* Version Register */
- 
- /* IWDG_KR register bit mask */
- #define KR_KEY_RELOAD	0xAAAA /* reload counter enable */
-@@ -54,6 +55,9 @@
- #define EWCR_EWIC	BIT(14) /* Watchdog early interrupt acknowledge */
- #define EWCR_EWIE	BIT(15) /* Watchdog early interrupt enable */
- 
-+/* IWDG_VERR register mask */
-+#define VERR_MASK	GENMASK(7, 0)
-+
- /* set timeout to 100000 us */
- #define TIMEOUT_US	100000
- #define SLEEP_US	1000
-@@ -83,6 +87,7 @@ struct stm32_iwdg {
- 	struct clk		*clk_lsi;
- 	struct clk		*clk_pclk;
- 	unsigned int		rate;
-+	unsigned int		hw_version;
- 	spinlock_t		lock; /* serialize IWDG_EWCR register access */
- };
- 
-@@ -359,6 +364,8 @@ static int stm32_iwdg_probe(struct platform_device *pdev)
- 	wdd->max_hw_heartbeat_ms = ((RLR_MAX + 1) * wdt->data->max_prescaler *
- 				    1000) / wdt->rate;
- 
-+	wdt->hw_version = reg_read(wdt->regs, IWDG_VERR) & VERR_MASK;
-+
- 	watchdog_set_drvdata(wdd, wdt);
- 	watchdog_set_nowayout(wdd, WATCHDOG_NOWAYOUT);
- 	watchdog_init_timeout(wdd, 0, dev);
--- 
-2.34.1
+
+On Sat, Nov 14, 2026 at 12:57=E2=80=AFPM Larisa Grigore via B4 Relay
+<devnull+larisa.grigore.oss.nxp.com@kernel.org> wrote:
+>
+> This series adds support for the UFS host controller found on the NXP S32=
+N79
+> platform. The controller is based on the Synopsys DesignWare (DWC) UFS ho=
+st
+> architecture and requires S32N79-specific M-PHY initialization/calibratio=
+n
+> sequence. It is compliant with JESD-223D "Universal Flash Storage Host
+> Controller Interface" v3.0, and supports up to HS-Gear 4 speed grade. It =
+is
+> compatible with UFS 2.1, 3.0 and 3.1 devices. The MIPI UniPro is complian=
+t with
+> "MIPI Alliance Specification for Unified Protocol", v1.8. The MIPI M-PHY =
+is
+> compliant to version 4.1.
+>
+> In order to keep the S32N79 platform driver small and avoid duplicating c=
+ommon
+> DWC code across platform glue drivers, the series also refactors and expo=
+rts a
+> few reusable DWC helpers. In particular, M-PHY CREG (CBCREG*) register ac=
+cess
+> helpers and the shared M-PHY CR bitfield definitions are moved from the
+> existing AMD Versal2 glue driver into the common ufshcd-dwc layer, and ar=
+e then
+> used by the platform drivers. The series also introduces a generic Hibern=
+8
+> TX-FSM polling helper so that multiple platforms can reuse the same pre-l=
+ink
+> checks.
+>
+> Device tree binding documentation for the S32N79 UFS controller is includ=
+ed.
+> The SoC and board DTS updates that instantiate and enable the controller =
+are
+> no longer part of this series and will be posted separately.
+>
+> Changes in v11:
+>
+> ufs: dwc: Move shared M-PHY CR bitfield macros to ufshcd-dwc.h:
+> - New patch. Move the FAST_FLAGS, FW_CALIB_CCFG, RX_OVRD_IN_1 and RX_PCS_=
+OUT
+>   bitfield macros from the AMD Versal2 driver to ufshcd-dwc.h, so the S32=
+N7
+>   driver can use them instead of raw values.
+>
+> ufs: pltfrm: Add a flags argument to ufshcd_pltfrm_init():
+> - New patch. Let glue drivers request optional behavior from the common
+>   platform code. All existing callers pass 0, no functional change.
+>
+> ufs: pltfrm: Add a flag to manage fixed rate clocks:
+> - New patch. Add UFSHCD_PLTFRM_FIXED_RATE_CLKS. When it is set and neithe=
+r
+>   freq-table-hz nor operating-points-v2 is present, register the clocks
+>   listed in clock-names with a 0 Hz min/max rate, so the UFS core enables
+>   and gates them without scaling. This replaces the dummy single 0 Hz
+>   operating-points-v2 table used in v10.
+>
+> dt-bindings: ufs: Add NXP S32N79 UFS host controller:
+> - Dropped operating-points-v2 from the required properties and the OPP
+>   table from the example, the fixed rate core clock is now handled by
+>   UFSHCD_PLTFRM_FIXED_RATE_CLKS.
+> - Reworded the commit message accordingly.
+>
+> ufs: s32n7: Add NXP S32N79 UFS host controller driver:
+> - Pass UFSHCD_PLTFRM_FIXED_RATE_CLKS to ufshcd_pltfrm_init() so the UFS
+>   core manages the fixed rate "core" clock without an OPP table.
+> - Also clear the DWC BUSTHRTL clock gating enable (CGE) after each HCE
+>   enable, as clock gating is not supported on this platform. Added the
+>   DWC_UFS_BUSTHRTL_CGE definition to ufshci-dwc.h.
+> - Moved the local N_DeviceID programming from the link startup POST_CHANG=
+E
+>   to the PRE_CHANGE hook, before DME_LINKSTARTUP, as in the recommended
+>   sequence. Kept the local-only CPort 0 setup instead of
+>   ufshcd_dwc_connection_setup(), which programs different settings (it
+>   clears the host N_DeviceID_valid and sets the device T_PeerDeviceID
+>   to 1). This additional context is provided here rather than in the comm=
+it
+>   message, as it explains why the suggested alternative was not used rath=
+er
+>   than the change itself.
+> - Defined the CBREFCLKCTRL2 ref_clk_en_unipro and ref_clk_en_app override
+>   enable bits in ufshcd-dwc.h, next to the existing ref_clk_gating_suppor=
+t
+>   one.
+> - Embedded the variant ops in struct s32n7_soc_data and recovered the SoC=
+ data
+>   in init() with container_of_const(), so device_get_match_data() is only
+>   called once, in probe().
+> - Documented why SCM_STATUS is first written back to its reset value: eac=
+h
+>   M-PHY start-up sequence must start with the PHY in reset, and the PHY m=
+ay
+>   still be running on the host reset / error recovery paths.
+> - Replaced the raw M-PHY values with the shared bitfield macros, includin=
+g
+>   the CBREFCLKCTRL2 override enable bits.
+> - Updated the commit message for the CGE and fixed rate clock changes.
+> - Dropped the Reviewed-by tag of Frank Li.
+>
+> - Link to v10: https://lore.kernel.org/all/20261103133215.1385823-1-laris=
+a.grigore@oss.nxp.com/
+>
+> Changes in v10:
+>
+> All patches:
+> - Dropped the "scsi:" subject prefix.
+>
+> ufs: core: Return a negative errno from WLUN suspend/resume:
+> - New patch. __ufshcd_wl_suspend() and __ufshcd_wl_resume() may return a
+>   positive result code, e.g. from ufshcd_link_startup(). The runtime PM c=
+ore
+>   treats it as a failure, but rpm_get_suppliers() only checks for a negat=
+ive
+>   value, so the LUs consuming the WLUN are reported as resumed while the =
+host
+>   is in the error state. Convert positive values to -EIO at the WLUN PM
+>   callback boundary, as ufshcd_init() already does. This replaces the
+>   Fixes: rationale previously carried by the dwc link_is_up() patch and
+>   covers every source of positive values, not only the DWC glue.
+>
+> ufs: dwc: Return a negative error if the link is down:
+> - Dropped the Fixes: tag. The PM-boundary issue is now fixed in the core;
+>   this patch is a cleanup so the helper returns an errno before it is
+>   exported.
+>
+> ufs: unipro: Add TX/RX FSM state attributes:
+> - Fixed the commit message: AMD Versal2 has no header with these
+>   definitions, only users in the .c file.
+>
+> ufs: core: Add common Hibern8 TX FSM polling helper:
+> - Changed the subject prefix from "ufs: host:" to "ufs: core:".
+> - Fixed the helper name in the commit message.
+> - Renamed the internal per-lane poller from ufshcd_poll_tx_hibern8_lanes(=
+)
+>   to ufshcd_tx_lanes_in_hibern8().
+> - Log the TX_FSM_STATE of each lane that did not reach Hibern8 on timeout=
+.
+> - Moved the prototype to the non-extern declarations and dropped "extern"=
+.
+> - Report a positive UIC result from DME_GET as -EIO, so the helper really
+>   returns a negative errno as documented.
+> - Fixed checkpatch --strict alignment checks.
+> - Dropped the Reviewed-by tags of Frank Li and Stanley Jhu, as the patch
+>   changed significantly.
+>
+> ufs: dwc: Move Versal2 M-PHY CREG access helpers into ufshcd-dwc:
+> - Reworded the commit message and explained the static array race.
+> - Use the "name() - description" kernel-doc style like the rest of the
+>   file.
+>
+> dt-bindings: ufs: Add NXP S32N79 UFS host controller:
+> - Restricted lanes-per-direction to 2, matching the driver.
+> - Explained in the commit message why clock-names and the single 0 Hz
+>   operating-points-v2 entry are required.
+>
+> ufs: s32n7: Add NXP S32N79 UFS host controller driver:
+> - Changed the subject prefix to "ufs: s32n7:".
+> - Added <linux/bitfield.h> and <linux/bits.h>.
+> - Reject lanes-per-direction other than 2.
+> - Dropped redundant error messages and the remove() wrapper.
+> - Used u32 for the ufshcd_dme_get() result, aligned register offset style=
+,
+>   clarified the SCM_STATUS comments.
+> - Documented the PERFORM_LINK_STARTUP_ONCE quirk and spm_lvl in the commi=
+t
+>   message, and updated the HS rate-select bullet.
+> - Documented in the commit message that the DWC BUSTHRTL power gating is
+>   disabled because it is not supported on this platform.
+>
+> Changes in v9:
+>
+> ufs: unipro: Move Tx/Rx FSM state definitions to unipro.h:
+> - Prefixed the RX_STATE_* and TX_STATE_* enum constants with UFS_ to avoi=
+d
+>   polluting the global namespace, and updated the existing users
+>   (AMD Versal2, HiSilicon, Qualcomm).
+>
+> ufs: host: Add common Hibern8 TX FSM polling helper:
+> - Use the renamed UFS_TX_STATE_HIBERN8 constant.
+>
+> dt-bindings: ufs: Add NXP S32N79 UFS host controller:
+> - Added Reviewed-by: Frank Li.
+>
+> MAINTAINERS: Add NXP S32N7 UFS host controller entry:
+> - Added the imx@lists.linux.dev mailing list.
+>
+> arm64: dts: freescale: s32n79: Add UFS host controller:
+> arm64: dts: freescale: s32n79-rdb: Enable UFS:
+> - Dropped from this series, as requested; they will be sent separately.
+>
+> Changes in v8:
+>
+> ufs: host: Add common Hibern8 TX FSM polling helper:
+> - Added Reviewed-by: Stanley Jhu.
+>
+> scsi: ufs: Add NXP S32N79 UFS host controller driver:
+> - Let the UFS core manage the core reference clock: declare it in DT via
+>   clock-names/operating-points-v2 so the core adds it to hba->clk_list_he=
+ad
+>   and gates it across system suspend and runtime idle. Dropped the manual
+>   devm_clk_get_enabled() and the struct s32n7_ufs core_clk member, and no=
+w
+>   read the clock rate from the core clock list.
+> - Dropped the ufs_s32n7_calculate_us_tick() wrapper and inlined the divis=
+ion.
+> - Dropped the unused struct s32n7_ufs hba member.
+>
+> dt-bindings: ufs: Add NXP S32N79 UFS host controller:
+> - Added the required clock-names and operating-points-v2 properties.
+> - Dropped the Reviewed-by and Acked-by tags.
+>
+> arm64: dts: freescale: s32n79: Add UFS host controller:
+> - Added clock-names =3D "core" and an operating-points-v2 table with
+>   opp-hz =3D <0> (fixed-rate clock) so the UFS core manages (and gates) t=
+he
+>   core reference clock.
+>
+> Changes in v7:
+>
+> scsi: ufs: Add NXP S32N79 UFS host controller driver:
+> - Wrapped .prepare/.complete in pm_sleep_ptr() instead of pm_ptr().
+> - Fixed code alignment issues.
+>
+> Changes in v6:
+>
+> scsi: ufs: dwc: Return a negative error if the link is down:
+> - Translate a positive UIC command result from ufshcd_dme_get() into -EIO=
+.
+> - Declare dme_result as u32 to match the ufshcd_dme_get() parameter type.
+>
+> scsi: ufs: dwc: Sort CBCRCTRL and CBREFCLKCTRL2 by offset:
+> - Added Reviewed-by: Frank Li.
+>
+> scsi: ufs: Add NXP S32N79 UFS host controller driver:
+> - Added Reviewed-by: Frank Li.
+>
+> Changes in v5:
+>
+> scsi: ufs: dwc: Sort CBCRCTRL and CBREFCLKCTRL2 by offset:
+> - New patch. Split the macro reorder into its own cleanup.
+>
+> ufs: host: Add common Hibern8 TX FSM polling helper:
+> - Return the real poller error on timeout, not a forced -ETIMEDOUT.
+>
+> dt-bindings: ufs: Add NXP S32N79 UFS host controller:
+> - Dropped the jedec,ufs-2.0 fallback.
+> - Removed the select: block and the clocks description.
+>
+> scsi: ufs: Add NXP S32N79 UFS host controller driver:
+> - Documented the timeout values as driver-defined bounds.
+> - Wrapped .prepare/.complete in pm_ptr().
+>
+> arm64: dts: freescale: s32n79: Add UFS host controller:
+> - Dropped the jedec,ufs-2.0 fallback.
+>
+> Changes in v4:
+>
+> scsi: ufs: dwc: Return a negative error if the link is down:
+> - New patch. ufshcd_dwc_link_is_up() now returns a negative errno on fail=
+ure
+>   instead of a positive value.
+>
+> ufs: unipro: Move Tx/Rx FSM state definitions to unipro.h
+> - Added Reviewed-by: Frank Li.
+>
+> ufs: host: Add common Hibern8 TX FSM polling helper:
+> - Refactored ufshcd_dme_check_tx_hibern8() to use read_poll_timeout().
+>
+> scsi: ufs: Move Versal2 M-PHY CREG access helpers into ufshcd-dwc:
+> - Added Reviewed-by: Frank Li.
+>
+> dt-bindings: ufs: Add NXP S32N79 UFS host controller:
+> - Added Reviewed-by: Frank Li.
+>
+> Changes in v3:
+>
+> ufs: host: Add common Hibern8 TX FSM polling helper:
+> - Use -EAGAIN while polling and only normalize to -ETIMEDOUT on timeout, =
+so
+>   real attribute-read errors are returned instead of masked.
+> - Drop the stray delay.h include in ufshcd-pltfrm.c; the helper lives in
+>   ufshcd.c.
+> - Drop the now-redundant dev_err() after the check in the HiSilicon drive=
+r.
+>
+> scsi: ufs: Add NXP S32N79 UFS host controller driver:
+> - Use devm_clk_get_enabled() to enable the core reference clock.
+> - Rename the family-level identifiers from the s32n_ prefix to s32n7_
+>   (structs and functions), keeping the s32n79_ prefix only for the
+>   chip-specific data.
+>
+> Changes in v2:
+>
+> ufs: unipro: Move Tx/Rx FSM state definitions to unipro.h:
+> - Improved the enum comments. They now cite the MIPI M-PHY v6.0 tables.
+>
+> ufs: unipro: Add TX/RX FSM state attributes:
+> - Added Reviewed-by: Frank Li.
+>
+> ufs: host: Add common Hibern8 TX FSM polling helper:
+> - Moved the helper into the UFS core (ufshcd.c).
+> - Split out an inner per-lane poller, ufshcd_poll_tx_hibern8_lanes().
+> - Expanded the commit message to document the -ETIMEDOUT normalization do=
+ne
+>   when converting the qcom/hisi checks to the helper. No code behaviour c=
+hange.
+>
+> scsi: ufs: Move Versal2 M-PHY CREG access helpers into ufshcd-dwc:
+> - Made the DME attribute arrays const. They are now initialized inline in=
+stead
+>   of by later field assignments.
+>
+> scsi: ufs: dwc: Export common clock divider and link status helpers:
+> - Added Reviewed-by: Frank Li.
+>
+> dt-bindings: ufs: Add NXP S32N79 UFS host controller:
+> - Renamed the patch subject and simplified the commit message.
+> - Renamed the binding file to nxp,s32n79-ufshc.yaml so it matches the
+>   nxp,s32n79-ufshc compatible string.
+> - Removed the nxp,mphy-boot-mode property.
+> - Made reg-names and clocks required.
+> - Removed the conditional if/then/else schema.
+> - Removed clock-names.
+> - Changed the compatible from jedec,ufs-3.0 to jedec,ufs-2.0.
+> - Updated the example clocks to <&clks 0x92>.
+>
+> scsi: ufs: Add NXP S32N79 UFS host controller driver:
+> - Removed the nxp,mphy-boot-mode handling and the mphy_boot_mode enum. Th=
+e
+>   M-PHY firmware always runs from ROM now.
+> - Added a struct s32n_soc_data for SoC match data.
+> - Moved the calibration writes out to static const tables.
+> - Renamed struct phy_reg_cfg to s32n_phy_reg.
+> - Moved the rate-select sequence out of link_startup_post_change() into a=
+ new
+>   pwr_change_notify() pre-change path.
+> - Used devm_clk_get(dev, NULL) and dropped the redundant core_clk NULL ch=
+eck.
+> - Switched to *_PM_OPS() macros and pm_ptr() for the PM ops.
+> - Clarified the Hibern8 poll timeout comment.
+> - Enabled Auto-Hibern8 instead of setting UFSHCD_QUIRK_BROKEN_AUTO_HIBERN=
+8.
+> - Reworked and improved the M-PHY initialization sequence.
+>
+> arm64: dts: freescale: s32n79: Add UFS host controller:
+> - Changed the compatible from jedec,ufs-3.0 to jedec,ufs-2.0.
+> - Removed clock-names.
+>
+> arm64: dts: freescale: s32n79-rdb: Enable UFS:
+> - Removed the nxp,mphy-boot-mode property.
+>
+> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+
+During testing, I found the following error, which **seems totally
+unrelated** to this series.
+
+ [   10.730295] ufs-s32n7 4ac80000.ufs: ufshcd_query_attr: opcode 0x04
+for idn 15 failed, index 0, err =3D 15
+ [   10.730304] ufs-s32n7 4ac80000.ufs: ufshcd_update_rtc: Failed to
+update rtc 15
+
+Using the query_retry variant, which every single caller in the
+codebase seems to use, get rid of the error. I'll send a follow up
+patch for this.
+
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index ca8329052cbc..4dfa50e67542 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -8739,8 +8739,8 @@ static void ufshcd_update_rtc(struct ufs_hba *hba)
+        if (ufshcd_rpm_get_if_active(hba) <=3D 0)
+                return;
+
+-       err =3D ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_WRITE_ATTR,
+QUERY_ATTR_IDN_SECONDS_PASSED,
+-                               0, 0, &val);
++       err =3D ufshcd_query_attr_retry(hba, UPIU_QUERY_OPCODE_WRITE_ATTR,
++                                    QUERY_ATTR_IDN_SECONDS_PASSED, 0, 0, &=
+val);
+        ufshcd_rpm_put(hba);
+
+        if (err)
+
+
+In any case, tested on an NXP S32N79-RDB board. UFS I/O works normally.
+
+Tested-by: Enric Balletbo i Serra <eballetb@redhat.com>
+
+
+> ---
+> Larisa Grigore (14):
+>       ufs: core: Return a negative errno from WLUN suspend/resume
+>       ufs: dwc: Return a negative error if the link is down
+>       ufs: unipro: Move Tx/Rx FSM state definitions to unipro.h
+>       ufs: unipro: Add TX/RX FSM state attributes
+>       ufs: core: Add common Hibern8 TX FSM polling helper
+>       ufs: dwc: Move Versal2 M-PHY CREG access helpers into ufshcd-dwc
+>       ufs: dwc: Export common clock divider and link status helpers
+>       ufs: dwc: Sort CBCRCTRL and CBREFCLKCTRL2 by offset
+>       ufs: dwc: Move shared M-PHY CR bitfield macros to ufshcd-dwc.h
+>       ufs: pltfrm: Add a flags argument to ufshcd_pltfrm_init()
+>       ufs: pltfrm: Add a flag to manage fixed rate clocks
+>       dt-bindings: ufs: Add NXP S32N79 UFS host controller
+>       ufs: s32n7: Add NXP S32N79 UFS host controller driver
+>       MAINTAINERS: Add NXP S32N7 UFS host controller entry
+>
+>  .../devicetree/bindings/ufs/nxp,s32n79-ufshc.yaml  |  58 +++
+>  MAINTAINERS                                        |   9 +
+>  drivers/ufs/core/ufshcd.c                          | 101 +++-
+>  drivers/ufs/host/Kconfig                           |  12 +
+>  drivers/ufs/host/Makefile                          |   1 +
+>  drivers/ufs/host/cdns-pltfrm.c                     |   2 +-
+>  drivers/ufs/host/tc-dwc-g210-pltfrm.c              |   2 +-
+>  drivers/ufs/host/ufs-amd-versal2.c                 | 106 +---
+>  drivers/ufs/host/ufs-exynos.c                      |   2 +-
+>  drivers/ufs/host/ufs-hisi.c                        |  50 +-
+>  drivers/ufs/host/ufs-hisi.h                        |   6 -
+>  drivers/ufs/host/ufs-mediatek.c                    |   2 +-
+>  drivers/ufs/host/ufs-nxp-s32n7.c                   | 546 +++++++++++++++=
+++++++
+>  drivers/ufs/host/ufs-qcom.c                        |  44 +-
+>  drivers/ufs/host/ufs-qcom.h                        |   2 -
+>  drivers/ufs/host/ufs-renesas.c                     |   2 +-
+>  drivers/ufs/host/ufs-rockchip.c                    |   2 +-
+>  drivers/ufs/host/ufs-sprd.c                        |   2 +-
+>  drivers/ufs/host/ufshcd-dwc.c                      |  86 +++-
+>  drivers/ufs/host/ufshcd-dwc.h                      |  50 +-
+>  drivers/ufs/host/ufshcd-pltfrm.c                   |  61 ++-
+>  drivers/ufs/host/ufshcd-pltfrm.h                   |  12 +-
+>  drivers/ufs/host/ufshci-dwc.h                      |   8 +
+>  include/ufs/ufshcd.h                               |   2 +
+>  include/ufs/unipro.h                               |  22 +
+>  25 files changed, 949 insertions(+), 241 deletions(-)
+> ---
+> base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
+> change-id: 20261114-b4-ufs-s32n7-b8763256eaa7
+>
+> Best regards,
+> --
+> Larisa Grigore <larisa.grigore@oss.nxp.com>
+>
+>
+>
 
