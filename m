@@ -1,85 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794843833;
-	b=rjexdxOWIZRO5jtRX5XCVUmqzUAlOrxR/3HU6/Ga0eGT/Bak+tv1sxyhAu0qythRfNwy
-	 YV7+88tOzigUqsHZSHjBrX9gnijEwlQCzXhOjxL/vq13IgKdb1g69JT73SK6LLsVpc6a+
-	 HGJh0LHa3qyfdOUxi8aQIV2vB4YoVWgJjHohEqDEuIY/JVMqf0tTO8zoiHO19fbBx+pmI
-	 iZ/UupEGf/Dqg1Otae24yASRuJAgMZF5I1XlaJ0R8Xg8fqZKWcliQ0B1RkIWdS7w7b1J5
-	 shBqMtr7OAvP/+hnwi2XiXnEcTCXPt2jMO/xV1OUDIXkxc3O0QMOmsgaXthpO5QYnfg==
+	t=1794843943;
+	b=gGOb3eNCM23W7mvVQBSw9shvrphMYnIwUYdxOTVNjHm1SEbTJHDH65JoHQvWDLHkLJze
+	 NwVSexYJ+OahAILu+Bz68T73EoDk/XtcrEiv3VriHmTs1gx6TNK40SxN36xDjAKlcmN0Z
+	 m0wnomZgaN9zBXnis5BFwWnpSu+oZcDoCuIYMUu5olDLawbnMgFOpBbPxDdndxXlIMlO6
+	 Ixipa7rZExiWciew/hS0//Zj6wGX1LB7/1x7ep1rJJWd2f7QpeQZzkHsjVG3TvPo6PTjJ
+	 SV5S8j/Eko1dowS9+orAvIz5+u9wJhaVW8Wncm2yphMC+aL6nKvTg4xoIOvCteiwckQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794843833;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=1bL8r5cuvqq5fGscdKSHB0SmDxdHtxTFoTFxEiXAMqo=;
-	b=YSM9fu35YDaG5zh6hS0ZgUgoSyVjhzbCP2sF2oYwUBghuijSOBu5h5QDzrTm52OnL90H
-	 O8ZCJkfCnlyMij9a8PER/UddAjqKJYO0QpRbDxwFrGeBYTxV3oQB7ih1nNQXa+Qaf5OnE
-	 16ONNYg6rgcC1ZothjNPmqPO3jzAoV3dh9ylj66Nu2H8d+bD+sKQ80mBAz9UqiK6dRFRP
-	 MEShvc5XFXHmIJ/iiSx1pzYrq9nivqlzfrpBvgdr9p8NIOpY5KNrSiSge8Hvrh4dstlCd
-	 3oR0DKBDu83PXGn6v7WKPjSoCLyERikOoeNs3pmWY8wuEZsM+TvsfjYuCrXS7IdzpQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794843943;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=01d72rU72jpJUH9kDy6vqeWai86JF2Ta6ELfzrX1GeI=;
+	b=gAwGEFZWIDsLZZX0lGhSBcvzfdyXaI10+oHvb+78Om5qDh0NqY2I5glYkpNxJKoExgoy
+	 C+DE5UYn8bTysg5p5RyY/mNenmHBM8NptipT+g6mzIEovtpDv+hN6KkDxJ80ds0T5lNKS
+	 KzXFxfPxn31gtJfn0plfxtwJTiEU4wiE9TGWUjF2I+LToGlNIym9WaEloh5bdW9TjqmyY
+	 oWvo3KhIbVp3Cj6/QMEq0a2lguAh071l/ncrMpY60RGsooAzgW6fXVV/1y+cEjws3o72e
+	 h5al2zsSNUUdDlwknb+3kAQmEaD+pOEdpTZC8fv1vkJyrw/VOrygzy3mlfZfHz5ZiDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=l5yFnpD8;
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IpxnSV3L;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lwyv2BHk;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688AF606A329
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 15:43:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 688AF606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6872D606A329
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 15:45:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6872D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=l5yFnpD8
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b6f42095bcso5101960a12.3
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:43:52 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IpxnSV3L;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lwyv2BHk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794843941;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=01d72rU72jpJUH9kDy6vqeWai86JF2Ta6ELfzrX1GeI=;
+	b=IpxnSV3LeyhKw43OXzojC97bBiBsgfWDFXHwvur6D75GzEn5hsBPO5xgssq8GbDBaGZOSf
+	lwUBkiMJAU6Zvx622pwtFvT10P814IKst92PANBQAPnPHiqm5rCTORzbh1Ky21I0fk53Wx
+	IPtSQ2g/gRjsbtF3kRG18U6MwWoh74Y=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-67-nxQQTrLXNfm5lBbfbN_wUA-1; Mon, 16 Nov 2026 10:45:40 -0500
+X-MC-Unique: nxQQTrLXNfm5lBbfbN_wUA-1
+X-Mimecast-MFC-AGG-ID: nxQQTrLXNfm5lBbfbN_wUA_1794843939
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-944138ed63fso554693685a.3
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:45:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1794843831; x=1795448631; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1bL8r5cuvqq5fGscdKSHB0SmDxdHtxTFoTFxEiXAMqo=;
-        b=l5yFnpD8es3PZ8hErhgAyB6jNHgRJQL2UrqaB+35VDA03JWtWhtFRjub4w8iKrO77e
-         FcXuh9bolv6SYa88Apk3Cj+9S5ZwpsJlBdiFSEej53nktGjQ0LAsYndjgYq4DB2bD0yl
-         Nyiy5scYIfhVrAS4QNSBaNJydK3icLZBN4M0F1B1L6Waj2/CbMjaV0UG6L7lgr8aVaGD
-         pXTH8mr0Uek6+QgkGZxJY+7f0zkWMqOFQHSdN9vHIUiEuWSmJok/yRbEEZJRUESbTGNj
-         3zjw9jYFXIMQVSV2tbewdyiO4fsAHVQXDakxoF3J1EzoW4EzlIXY/FZ/rBxt0ZFpDLkw
-         9Hbw==
+        d=redhat.com; s=google; t=1794843939; x=1795448739; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=01d72rU72jpJUH9kDy6vqeWai86JF2Ta6ELfzrX1GeI=;
+        b=lwyv2BHkJDRcrulWpVLiVLdbXNrOfPaxcoojzKppTrWyoMAP1x/WR+D6xPHIFU8EYN
+         z8nmEKR8LySCIgHn5shMxFCbBfELHm4ZaGzMtOqxCAOyU62c0QBEh3YWd1tltWSt67pP
+         RQ1DNe5hVYlvjAsgbMTTUSdIW+FVZ450bqUkvC6mqdw8iPW0hPn1auvoho5fJnAvlbUJ
+         7kib0qIL6GW5PXAqBbmPlaxmGaM/LQ+ceas5BoprGV1ptDjIDxQ3uRp5hEy/8rdTeKcO
+         DPbudWuw9Dn5ByKtiKNYHLRjHwFs+uWgt6FXq2/Y5xtJtJ94nSdE+elo8H024yZ1WcGW
+         AltA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794843831; x=1795448631;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794843939; x=1795448739;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1bL8r5cuvqq5fGscdKSHB0SmDxdHtxTFoTFxEiXAMqo=;
-        b=zoOnaF+Vqf1H67wkX0SdswbpJlhb1ZWvDgu+2DFdRvpPwRU1HQCoi3jUhfkax90Alq
-         eRDr2N2yCGM7wX+/TTcLe4/F2c57E5zZwDY+lcmX7pR64wV79/4Pdr51XyfkbRYMpQM8
-         uQvrPEQagpsdT9Xo14ZVhoIg2A1p+1y4WEw8ZOtpz30r1OvwaAKGixRyCn+SC4yKFQ9p
-         h+/R5qZdUrXi1nQhQWQgVDNv3C8MbMeKGPO6OJydDqKTuqfezj+SGOIalyrRRnoRquCX
-         D5b4vj8xqfNoX8k4Ain6P6xpYJE8UcghVKcjgpBQdRs9gq7C+cznhiNKT52m488/8sDN
-         Ov8A==
-X-Forwarded-Encrypted: i=1; AL+hErGVD4I93sLVh7VFF+/uMnbZQakEcir4A5GwZM6/SsXEAjltQ4LSgEqO40tYTGE1a8IlgDQu8ByGJi74@vger.kernel.org
-X-Gm-Message-State: APuU4Z/S2G0Cr1SX5sBXV8VIbcgObUxOxetWIcJD8L4+1hFZ1FwLilaM
-	lQ3/3VHQ/tnRbNbeBDK/Lm8pM+mxtD7fnV4joNX64uZml7zO8QQ78HHmlcuysJEUE4g=
-X-Gm-Gg: AYBFou0n7och6rn3GQZmGzKxgmqSCdJ906lFuzfbWV8Ct1O2MXURLJVFC4M3MkxTCGE
-	ufVe1cTnBXq5A6SrlQuCvWsMI4/pwZ0odN2RYjifpB2O97VFSfEn7XgJfbLEWcpQvs0J3UX9q6b
-	CsWTkbFyQNXpthG24bbumsQE7RG3Pefm0kdvymNn++dsBQ6sqoNQFDRqTVxGrFsvm0wOrwL3Kv1
-	ro56fYrwbV0pxcADjwfJVV71++Eb/dh6YF+dYZgU599oW/G+Oo+s1Bwy+adq7NKrXkmdTdsIH6z
-	kknTHtDYu76AddBVGjlGEhCU373pciDE/9rrpUozA5W3Q6zxptMMGd9MbNjyN2BaKdu2PdCPe32
-	Sa/Y7SFkpqDPu8Fh0VFQM72FthgVN0kEnsLZsHMFz7kUotangQCRCmmzlPmNbkr965anCyIWg1W
-	SlPRxpBg36eBHTfOB9Mhn4uGKIIdfwFxQv+xGolksN5NUut6vc/z5P/F1fHmX4zkmaaVa3zyhxQ
-	8rsiATnymhMtAcC9znfG++/Em5lbtxDX70R5SNahWQcUnVJlhbTguZ8oVSzYDIigj7MJkBuvgSL
-	wZnBIytssFkp/YHSMt9MOEgRYUFTL8Korl8/PYFGoOyHuoTMSy4ZA2WjotuQvKuHn0ZTkUAIhw=
-	=
-X-Received: by 2002:a17:907:9305:b0:c2e:4e08:19ab with SMTP id a640c23a62f3a-c50963d50e5mr844840566b.16.1794843830845;
-        Mon, 16 Nov 2026 07:43:50 -0800 (PST)
-Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b40918sm439294866b.39.2026.11.16.07.43.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 07:43:50 -0800 (PST)
+        bh=01d72rU72jpJUH9kDy6vqeWai86JF2Ta6ELfzrX1GeI=;
+        b=o/cK8VbDB50YCJMsRp8lU2Xt/1Illa7s734zTp3EO85PlvWCtzAHCxfWS1VRA7/TiQ
+         XmE4QgfIl9TVKxx7fYD3coosxL2qKbsWtSZruGeeNIWF5s40rR51zr+IF99W+bPn4yid
+         t/yQdKH5Fw1Luc1uU/3ZRpG0rO+g7JNDJjVSFUGj3jMsm1v8nZRXbu84QaLwN8ahnqwW
+         Z0GsMCj+1xHXDvs+AQY31cLEJZEO87Sl8xzJ1Q8iaKYHHByoTtr2PRANBwn6kFU7niLV
+         9pqXVk3bePgmRvQGE+vfBAP8Oghj2aQHZRFvTiZfaU2tqTD6cIV/wv+mWGgcKQrjhr+d
+         772Q==
+X-Forwarded-Encrypted: i=1; AL+hErHFsQuNVXcJl23G87+RYmBebrJkHcJiJ7jsQUl6goCqRg2qxPK4O3xWIraGSRFtMQSErbMgpTIBXLs2@vger.kernel.org
+X-Gm-Message-State: APuU4Z/H7qzdcXCtiwDumnFuU6x15d5A9/HTNDdj22uj3+8zgj1QRnTW
+	Dlz36zCzuM2G0Ei/i+Agfzs2/7pzEYo4NayEIxztIBdudcczdH5Ure2ERIe4Rmdk14ReVbKiz9S
+	jlbqph7Oa0Bc7CRmuO3UO4B3foFhTtcrOFJM/TJU9OSBjHVs+wQ3uypgLZ7f4Gf4=
+X-Gm-Gg: AYBFou3kLD8E4E/YLp9aijijhQqP7Tde5ytLNDgEcYp3QVLlEsDzGEq23sodWyhmjrL
+	dCBm4rYrKeHK0kgOsehaZXk7NLrizqqxCnVJmX6bDJZ0qHzDR9AZEqgv0Q3UxAGNqnkoQEQCJ6k
+	eoQTk1p6DtyEloyFFFYM/tghUP4r2H1EiT06USaC4powg34LQq+8MZfnjSg6flDupp8t/Q3qbUR
+	v8FbpZm1FOSZ3mQqTr2UW2NGaZVGjm+bRBoCeHVsAdDBPzycl4Hcthw9UAz7Pt6n9PMS4O8hAlQ
+	LufCx6gjp4N50mYJRL62xxBvvs1iEFPdO1dU7dT9/bIwjxf+QQzJLPNIrV4pZhGJ1DDuw5y/ffB
+	6cugC2H6uCrG1r9rVc+PkvYK2LwZJKIETubDsISO/sy/qsZPGg0AvuRp4SvrMnOUe4by51k0zIa
+	Mh9zUngt11UyIY/m0XxS6Su5SmEHzqGKfB0NTzXZ1q
+X-Received: by 2002:a05:620a:2805:b0:93f:1ed3:a9cc with SMTP id af79cd13be357-9494bbdd1e6mr1849349585a.17.1794843939004;
+        Mon, 16 Nov 2026 07:45:39 -0800 (PST)
+X-Received: by 2002:a05:620a:2805:b0:93f:1ed3:a9cc with SMTP id af79cd13be357-9494bbdd1e6mr1849341285a.17.1794843938440;
+        Mon, 16 Nov 2026 07:45:38 -0800 (PST)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8b889csm877596085a.32.2026.11.16.07.45.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 07:45:37 -0800 (PST)
+Date: Mon, 16 Nov 2026 10:45:35 -0500
+From: Brian Masney <bmasney@redhat.com>
+To: zl020895 <zl020895@163.com>, Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Brian Masney <masneyb@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Long Zhao <longzhao@ambarella.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Jerome Brunet <jbrunet@baylibre.com>, linux-clk@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
+Subject: Re: Re: [PATCH v11 0/5] arm64: add Ambarella CV75 SoC support
+Message-ID: <avslH10GRqkVT9fU@redhat.com>
+References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
+ <179427375370.1061670.4050288038934218487.b4-review@b4>
+ <20261110-interesting-hilarious-shark-2dbfc0@quoll>
+ <7eeaf54d-2d7d-420c-a34e-eebc6dd0effe@app.fastmail.com>
+ <bbc16906-45e2-4d81-ae81-ad93e87b13be@kernel.org>
+ <c67939c7-9725-459e-97dd-e104f3b14022@app.fastmail.com>
+ <avMM8z-LYncKS8ip@x1g10>
+ <avMmKJpczepWTRdc@ashevche-desk.local>
+ <avReozTC_GEmfIxG@x1g10>
+ <2b30e92.3c75.1a1e2828c3a.Coremail.zl020895@163.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,89 +137,35 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Nov 2026 16:43:49 +0100
-Message-Id: <DMWR1CJJRHMF.33YRRRDXPMBDW@fairphone.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>, "David Lechner"
- <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "Zhang Rui" <rui.zhang@intel.com>, "Lukasz Luba"
- <lukasz.luba@arm.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Laxman Dewangan" <ldewangan@nvidia.com>, "Bjorn Andersson"
- <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Hans de
- Goede" <hansg@kernel.org>, "Jens Reidel" <adrian@mainlining.org>, "Casey
- Connolly" <casey.connolly@linaro.org>, "Val Packett" <val@packett.cool>,
- "Daniel Lezcano" <daniel.lezcano@kernel.org>,
- <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-iio@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v3 1/5] iio: adc: qcom-spmi-adc5: Add battery thermal
- channels
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20261113-bat-temp-adc-v3-0-743979a8fd90@fairphone.com>
- <20261113-bat-temp-adc-v3-1-743979a8fd90@fairphone.com>
- <avc5rnvIAEmZbyE1@ashevche-desk.local>
-In-Reply-To: <avc5rnvIAEmZbyE1@ashevche-desk.local>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2b30e92.3c75.1a1e2828c3a.Coremail.zl020895@163.com>
+User-Agent: Mutt/2.4.3 (2026-10-09)
 
-Hi Andy,
+Hi Long (and Arnd/Krzysztof),
 
-On Fri Nov 13, 2026 at 5:24 PM CET, Andy Shevchenko wrote:
-> On Fri, Nov 13, 2026 at 04:56:42PM +0100, Luca Weiss wrote:
->> Add the BAT_THERM channels with millivolt as output, which can then be
->> used along with information regarding the NTC in the battery, to get the
->> actual battery temperature.
->>=20
->> A static lookup table in the ADC driver won't work since different
->> devices have different Ohm and Beta values in their battery NTCs, for
->> example a NTC can be 10kOhm & B=3D3435K.
->
-> ...
->
->> +static int qcom_vadc_scale_hw_calib_therm_volt(
->
-> This is broken indentation. Was `clang-format` being used to achieve that=
-?
+On Mon, Nov 16, 2026 at 11:59:28AM +0800, zl020895 wrote:
+> At 2026-11-11 20:25:07, "Brian Masney" <masneyb@kernel.org> wrote:
+> >So how about this:
+> >
+> >- Have Long post a new version that splits out the creation of the new
+> >  Kconfig symbol ARCH_AMBARELLA into it's own patch. I assume Arnd could
+> >  provide an ACK on this?
+> >
+> >- I create an immutable branch that contains that the two dt-binding
+> >  patches, plus the ARCH_AMBARELLA Kconfig patch.
+> 
+> Just checking in -- there hasn't been further feedback from
+> Arnd/Krzysztof on the plan yet.
+> 
+> Should I go ahead and prepare that split for v12, or hold
+> off until Arnd/Krzysztof chime in?
 
-This is how the rest of the file is formatted, I didn't deviate from
-that.
+I haven't heard back from Arnd/Krzysztof yet. How about wait 48 hours to
+see if they respond, and if they don't respond within that timeframe,
+then go ahead about post a v12 with the ARCH_AMBARELLA split out into
+it's own patch. I think that's a good change to make anyways.
 
->
->> +				const struct u32_fract *prescale,
->> +				const struct adc5_data *data,
->> +				u16 adc_code, int *result_uv)
->
-> result_uV
-
-As Sashiko pointed out, this is labelled wrong, the result is millivolt.
-
-The rest of the driver consistently uses "mv" for that, should I deviate
-and use result_mV?
-
->
->> +{
->> +	*result_uv =3D qcom_vadc_scale_code_voltage_factor(adc_code,
->> +				prescale, data, 1000);
->
-> 1000 is odd, can you use something from units.h or combination of those
-> to show what this multiplier is for?
-
-This is converting microvolt to millivolt.
-
-Shall I use "(MICRO / MILLI)" as used in plenty other drivers? Two
-drivers in the tree also have "#define MILLI_TO_MICRO 1000"
-
-Regards
-Luca
-
->
->> +	return 0;
->> +}
-
+Brian
 
