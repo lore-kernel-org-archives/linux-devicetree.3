@@ -1,80 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862437;
-	b=Jt5PyPAnBLGhBbqvTqcBLkZoU6DbIZviNiuJhKcha0qBjfrw/3jiddG7ecpgCDtHKoKl
-	 1NNhnRLijcEDvCurNZkvY8JBr9cE18sLuWUZiOm0cvMf+jJx7Xr3q0lPSzaq6eGzzBanY
-	 qxrHMmtIq9dEBn265c0SjwH67XASX6n247dBnG92XTrn6/1n40x53NQdkbLTaQBCltyAN
-	 nhcBSpmqycTxB7yG5yZ5ZsB/AeT4oIaknCHOqwpP/zgqhsUJA6ns4MO9X1BM0qUnE5XHM
-	 mTd+fPI8qrAem0nCApyXx47htTv1awBEE2jwbyhX4U+6JkAF4bbb59lYqnIb6RGrlSw==
+	t=1794862441;
+	b=Pm6UZAI9nM61SpGPAfJTZCbx2O9eQgWwM/5yNCCClSr6kf9JNLaiqMWzcVo+X8AeK0RT
+	 23uIsxFPI5Z6Pv5/Ywt0jdX3wO+Zfp5OzRlywl5H6k5sRN0GFy9S031ZchHd0S7b6PzSq
+	 bY0HIMaq3EGgs1j9LBzYyubh8grjR2+JajaqJZLt9uNxgs3IEGU7fmOmLpm+yfve1MLiP
+	 Cf8vEy2yCy6PvlEe5pKdO1yis4GOuyWpt8bCF20H858FfNYm+RvNR5TTAtS7kEc0savJJ
+	 zslzzzr5eRFFqEejN0MgntIxm3iBWZdzh0raHvtTSQpC0+0nZacsZbaAzxfQbz8iqVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862437;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862441;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Q+QUWqvrIVjaMeuZ4ZqY5JN03z7777uEi3uSGsQGof0=;
-	b=yoZrXLMxbhNyP79YXtOpaR+tvZb6bbw2WDz8KnxQst5WbK0xjYlyU2DBqDoyui3xZez1
-	 76RCFm/dfoUT6fuPHjKXXqSK+ySBGgErxiNk5sr1Rqi6m5Wzk9iPOnDNzg8JBw3Wush5m
-	 7vgjlbnkMzNJ63q4bnvxckwZ+r3HTtURUAA73yZAH0b8NLXf+D3KfweBknOdyw6P8TIAu
-	 xejeQm9qX8l410FQjywi8rG053n0AVvY9+5cjnxXw0IZF8V2omkfIaVoC6QiM84NzWuK3
-	 pLr0xcCMArLHUY4vVv1z5u4wh7RyyRIT1J+fRzFNyumW9mRBOomP8nPRCCfyYfOBpdQ==
+	bh=rEU3wqeOzNiSYTryYSCT989FnGz9Q5wgICHvgeAsaoQ=;
+	b=jj9/jQtvMy/X7VAFKTaBWpXZE9nm7b52X7cB7ybDQT41WSPi3sRuz6B3P/yoQGOYJIzk
+	 U4YXFWrAUm3x7Kk9DpKULN1m29kBwHwwlbO/mcWehLaMxFgpdUciSmvo/LbCkdCQ2GXuQ
+	 rayo+kYwVlwsvFHsU6eCLwVELRhw0xWdfb6GyjjrpslhOk5ENoCSc+14uk7UTUvQ0S/26
+	 MTDhWGhJGzUFm/4tslqhfwvNoLBFUBDtIVYUm/h0+QK6HCrUbCp5YPH2vAILYQHLkIW82
+	 1k3YmDzf0ORfEUZ1LCtHgns+ZiqIFY4AF+dWgyfCK//pgHF+9U6YWVNnrgpt6UVVHdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=kXMg5cD4;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="V/WQ14Z5";
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8505606A338
-	for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 20:53:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8505606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1E2606A8BF
+	for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 20:54:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E1E2606A8BF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=kXMg5cD4
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33fb4680717so10194178eec.1
-        for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 12:53:56 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=V/WQ14Z5
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3791619605cso7363294eec.0
+        for <Devicetree@vger.kernel.org>; Mon, 16 Nov 2026 12:54:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794862436; x=1795467236; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794862439; x=1795467239; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Q+QUWqvrIVjaMeuZ4ZqY5JN03z7777uEi3uSGsQGof0=;
-        b=kXMg5cD4Sq051gT9LulxY577/KtweL/0eUWZ4mxo4oDyslhOpNPedOaxHOLExlgOc4
-         +tIVgjSSeLb9sG/ik7q626meW6TmP4eTonhMfy+UlorrF2eFEgAh3jX5CIBIe6XvwGGy
-         qO7WuGEUQ7BHl0gnrQl7/eOHoO/q9n+1KIXkw=
+        bh=rEU3wqeOzNiSYTryYSCT989FnGz9Q5wgICHvgeAsaoQ=;
+        b=V/WQ14Z5JsS299GMVO38nLTCesW0lZD2nRskeGbbhT6RTJz/XsPAzhwpwkvVmvVjSS
+         l5OxNg1HaYGVQrA9bJeY4mXPTZVTSZHNUYMyFCxIbkas13W86sKNbEsiA6qzSBiH+vQd
+         jBw9vYYYOoUOFDhvmirgTPn/SH21BNtQ3OBVg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794862436; x=1795467236;
+        d=1e100.net; s=20260707; t=1794862439; x=1795467239;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q+QUWqvrIVjaMeuZ4ZqY5JN03z7777uEi3uSGsQGof0=;
-        b=QHkz83WyWVKQ/+LD730mnetUk6dQhqbmyIVG5X6lTdyQ+ZpVrrhWNsV0tF92Fg/wIV
-         w5H5cCNa4ZEG4bvM/sg/DRjwy2edpSIYYaravVpzl2pXL9OFvKcQy7cRaEaP/PrSDMx7
-         ESaA0OengJzMcT6yeJfFgQ6DlANoLQ0Z2NJe1Et9xTN+LMDnupw7r4hHI9RhAmP+wFTq
-         E71zGgTKfdA50rWpcb+YTr21ELdWQXJg9c0YBxyaHblbTQzwTJI+EBP9DgHEqgQf6Eyf
-         yFcENKgADTvtPz3BKij4iolTZYoNB7NMQoYmJ51QvovrU41nU5IbjUI9MyLLXxGodGaZ
-         oELw==
-X-Gm-Message-State: APuU4Z/AGvXElhXHQPM7aHepuhBtmz0Lhv/mEt/6faIFUcpTZWsEeyEc
-	AJyJPsyNDFbHiOzC6YCkGaL4x8VQWHSiT/e7eFRyL1Nh7GH6Ei5gx4oLY/xxN1rENA==
-X-Gm-Gg: AZFdTZcos/m0d8ICZLj/evUeKifTW39yEaJhoH1gkB0dvoFvEH5hY7++lzux7Gr8Qh8
-	ofG+j8LE7Xee29S2z1+6q9U4nm93X3T9pDoCp1nwv6LUsFU1XKX4VSRF84cPeYgW4JZR/3cBKo3
-	up43FRf3W10mpvOhPidO1cnHtRmximlgoZnUhPg4QxEGUqOi0nu462nax6lMEAu+RKqf4ViOSYm
-	hJSE/xfS7OjGF/yDXHLH5xup8R+ELKG5Bx7Cc3rNC12KbFpWJuq0lxnsJhSo07yWC+Pbwdl/219
-	Y/8t3lUc/HOW2vigxnEsPHee5WfHA7zm3vbRdZ0dgIEYklQLq2aMuGJ1fk/pNpJBQDzJJg2zgXf
-	ANbyqt0S0+p+nRJkqH3SjhXKEpHjlYy8C2xswMuX7A/t89dlMxyOgkVxKAl2RTs4rUguBw/u7lN
-	bJGvPhFJNKAkQrk7tt4aYquygp7xwsh39xBfuWAGTR1ltxnzPDx3VasZxUbeJuj8yrG+A2xcr7c
-	qAJW28mNoHvIoCkNAC+DQjf0e0eJS3mVRJbiJ5q+vH6MgbYGyYtFHE+xoOb0zSFJTZtQPhcYaqp
-	+9k9ryhhwCNErJE0nD9lk96OFQUOpsHw8DM8PD3LFXBmI2TN0OAupl4lIT+gAFw3tJGIF4tnsoR
-	zqjTuNVJzE2kjcQ==
-X-Received: by 2002:a05:7301:11b:b0:36d:2b50:4eb9 with SMTP id 5a478bee46e88-37967316395mr13173754eec.25.1794862435662;
-        Mon, 16 Nov 2026 12:53:55 -0800 (PST)
+        bh=rEU3wqeOzNiSYTryYSCT989FnGz9Q5wgICHvgeAsaoQ=;
+        b=tMenX7v2KiAWPQGRna362cmf6G9uuLMeegGcEnIsKv0l9yKPurVBOZrz292ftSh4l7
+         1jJA6on5JvRNPR9UWc48V7KHJvjDWfmcDg3hg+6LxokwxhzJZLEXkF4lXdRPKkaaVzT/
+         lKtMEEx75DRmGN3ivwGYk4ZK+oyFT7tHj2dmjM2tj1sJVAM+Z5u07dOfV88IQTOKfMDX
+         Z5v1EiAp7sjFWkeqQDDIbcxPFb/PUFCS8zvd086BHWrkDqTFIs4goQbHHgA+es7wIL+n
+         /RhhX+xYqMqJvkZWGysCLXLo0jA8UuUC6f6MhQ7nkRWnja4Ht2ApF6gFf/1jjEK+oTYX
+         Ufmw==
+X-Gm-Message-State: APuU4Z9YY22FYEw1N17sh81RiqFufWbmWPADbgdSnF1vcoulhKqcCRCR
+	Buz0rGoIEV5sPjPGBX3niL/gPhHmF07ThPtHqo2gfAkkOeDbS5Qg4rDt8sq4J7AL+g==
+X-Gm-Gg: AYBFou1wBHCNEslnDyj5r7KzJOEVCGg9mbLP5Igaui3YFqnP0EZsmxu40teE22Ofe6H
+	KJVLgyxOBCLUyZwp6Vu6da48KHk2cduQtszGdygrCRPk8sfui6IAQED7QcZcsYh9SHgJZOPzCnC
+	C0lQIcQIs53OouKtaWim78/v1s6BGlmoCDkA5zzVIvdJmWNYXj3FQ1bbHZyG6m6oBVBsBz1bSAz
+	jg6fpw4Fj8VuQllCpJ0XVgP7rhGX3/Awj6BA1lienIkmdcJ7bhzRnDR5s6eHo2FPaHeokV8pfYw
+	sa1UfTMpU4TWTjh684GFULEWMoiSKs3mPz4MYgiBpUWU8os0krqdX01XKPeUtsV81xRybuYis3/
+	ToVT6g2cv6lWr49vHHhGHzk6H2vIJwEx539ilz65ZzEe0brdKtQT8C3NwA07ILnLX/e5Sd+EmtI
+	ogRSIy1WrgRmFqGbNagI/70U0YboSKnM458HxLgx3y6ql6fwWqv8U+z2r6mdnJwSnFA0ZAMYw9k
+	6uN8SIyWWj8FU/XOH8ndpDI0O4hjia9Q2wpa80eYY3PCoUzXhcqK2/9lgQL38DZdH5ypoVKU/1i
+	60tNADuNXwUnI21y2enAiBSghCgIaX3sp7SHv/Ml1t4F/ACe/sgvnxT8is+GCLqspMSP/hOFs3B
+	Tuc6vKjC3ZmYZFA==
+X-Received: by 2002:a05:693c:4146:20b0:36f:551:2bd5 with SMTP id 5a478bee46e88-379e16d093cmr11060171eec.32.1794862439198;
+        Mon, 16 Nov 2026 12:53:59 -0800 (PST)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:40c8:6e27:a2df:3321])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.53.52
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm67120390eec.21.2026.11.16.12.53.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 12:53:53 -0800 (PST)
+        Mon, 16 Nov 2026 12:53:57 -0800 (PST)
 From: Douglas Anderson <dianders@chromium.org>
 To: Devicetree-compiler@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
@@ -93,9 +93,9 @@ Cc: Devicetree@vger.kernel.org,
 	Peter Griffin <peter.griffin@linaro.org>,
 	Julius Werner <jwerner@chromium.org>,
 	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v4 07/14] libpydt: Add DeviceTree live tree representation
-Date: Mon, 16 Nov 2026 12:53:04 -0800
-Message-ID: <20261116205320.1621386-8-dianders@chromium.org>
+Subject: [PATCH v4 08/14] libfdt: Speed up fdt_find_string_len_() with memchr()
+Date: Mon, 16 Nov 2026 12:53:05 -0800
+Message-ID: <20261116205320.1621386-9-dianders@chromium.org>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
 In-Reply-To: <20261116205320.1621386-1-dianders@chromium.org>
 References: <20261116205320.1621386-1-dianders@chromium.org>
@@ -110,435 +110,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-`pylibfdt`'s `Fdt` and `FdtRo` classes operate directly on flattened
-device tree blobs, where inserting or deleting nodes and properties
-shifts subsequent node offsets. That works well for in-place queries and
-localized edits, but makes multi-tree comparison, structural diffing,
-and bottom-up tree construction (as needed by the upcoming `fdtfactor`
-tool) awkward and error-prone.
+`fdt_find_string_len_()` currently calls `memcmp()` at every byte offset
+across the string table (`for (p = strtab; p <= last; p++)`). When
+building or modifying trees with large string tables (such as DTBs and
+overlays with hundreds of `/__symbols__` or `/__fixups__` labels via
+`fdt_sw` or `fdt_rw`), scanning multi-kilobyte string tables byte by
+byte dominates serialization time.
 
-Add `pylibfdt/libpydt.py` providing `DeviceTree`, an in-memory live tree
-representation where each node holds `props` (a dict mapping property
-name to `libfdt.Property`) and `children` (a dict mapping child node
-name to child `DeviceTree`), along with `unflatten()` and `flatten()` to
-convert between `FdtRo`/`Fdt` blobs and live trees, and helpers for path
-lookup, node creation, and pre-order traversal.
+Advance `p` between candidate first-byte matches using `memchr()` (with
+an explicit `slen == 0` check for empty property names and a `tabsize <
+slen + 1` bounds check before computing `last`), preserving identical
+suffix-sharing behavior.
 
-Add unit tests in `tests/libpydt_tests.py` covering `DeviceTree`
-round-tripping, subtree unflattening, duplicate-name and corrupt-tree
-rejection, and navigation helpers.
+On one stress test (running the fdtfactor tool across 438 arm64 Qualcomm
+DTBs) this reduced `fdt_property()` time by ~5.6x.
 
 Assisted-by: Gemini:gemini-pro-prerelease
 Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
+Found this speedup while benchmarking fdtfactor. It's not critical to
+functionality, but seems like a nice win.
 
 Changes in v4:
-- Start the commit message with the motivation for a live tree and
-  condense the summary (Simon Glass)
-- Rename devicetree.py to libpydt.py (under pylibfdt/) to avoid
-  colliding with PyPI's python-devicetree package, and move its unit
-  tests into a separate tests/libpydt_tests.py file (Simon Glass, David
-  Gibson)
-- Unflatten the tree in a single O(n) pass using fdt.next_node() instead
-  of recursive O(d * n) fdt.subnodes() traversal, raising FdtException
-  on corrupt/truncated trees, and add a unit test (David Gibson, Simon
-  Glass)
-- Implement DeviceTree.walk() iteratively with an explicit stack instead
-  of recursive yield from, and populate node.props directly in
-  unflatten()
-- Drop redundant fdt.pack() call from DeviceTree.flatten() (David
-  Gibson)
-- Drop get_*/set_* typed wrapper methods from DeviceTree in favor of
-  Property.as_*() and Property.from_*() plus DeviceTree.set_prop()
-  (David Gibson)
-- Drop unnecessary copy.deepcopy() and compare unordered node/child sets
-  instead of ordered lists in round-trip test (David Gibson)
+- New patch speeding up fdt_find_string_len_() with memchr()
 
-Changes in v3:
-- Move NodeTree out of pylibfdt/libfdt.i into a new devicetree.py module
-  and rename it to DeviceTree (David Gibson)
-- Store libfdt.Property objects in self.props instead of raw bytes
-  (David Gibson)
-- Return a packed libfdt.Fdt object from flatten() instead of raw bytes
-  and use fdt.set_boot_cpuid_phys() (David Gibson, Simon Glass)
-- Raise ValueError in unflatten() on duplicate property or sibling
-  subnode names (Simon Glass)
+ libfdt/fdt.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-Changes in v2:
-- Split live tree representation out of fdtfactor (David Gibson)
-
- pylibfdt/libpydt.py    | 184 +++++++++++++++++++++++++++++++++++++++++
- pylibfdt/meson.build   |   2 +
- tests/libpydt_tests.py | 106 ++++++++++++++++++++++++
- tests/meson.build      |   2 +-
- tests/run_tests.sh     |  13 ++-
- 5 files changed, 302 insertions(+), 5 deletions(-)
- create mode 100644 pylibfdt/libpydt.py
- create mode 100644 tests/libpydt_tests.py
-
-diff --git a/pylibfdt/libpydt.py b/pylibfdt/libpydt.py
-new file mode 100644
-index 000000000000..6d8501f432ca
---- /dev/null
-+++ b/pylibfdt/libpydt.py
-@@ -0,0 +1,184 @@
-+# SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
-+"""libpydt - Non-flattened in-memory device tree representation in Python."""
+diff --git a/libfdt/fdt.c b/libfdt/fdt.c
+index d9ccb70345d0..c7cedfba7815 100644
+--- a/libfdt/fdt.c
++++ b/libfdt/fdt.c
+@@ -348,12 +348,20 @@ int fdt_next_subnode(const void *fdt, int offset)
+ const char *fdt_find_string_len_(const char *strtab, int tabsize, const char *s,
+ 				 int slen)
+ {
+-	const char *last = strtab + tabsize - (slen + 1);
+-	const char *p;
++	const char *last;
++	const char *p = strtab;
+ 
+-	for (p = strtab; p <= last; p++)
++	if (tabsize < slen + 1)
++		return NULL;
++	if (slen == 0)
++		return memchr(strtab, '\0', tabsize);
 +
-+import libfdt
-+
-+
-+class DeviceTree:
-+    """In-memory live tree representation of a devicetree node and its subtree.
-+
-+    `props` and `children` are public dictionaries intended to be accessed and
-+    manipulated directly by callers (e.g. `node.props['status'].as_str()`,
-+    `node.props.get('reg')`, `node.children.get('soc')`), with `set_prop()`
-+    provided as a convenience for inserting a `libfdt.Property` under its own
-+    `prop.name`.
-+
-+    Attributes:
-+        props: Dict mapping property name (str) to `libfdt.Property`.
-+        children: Dict mapping child node name (str) to child `DeviceTree`.
-+    """
-+
-+    def __init__(self):
-+        self.props = {}
-+        self.children = {}
-+
-+    @classmethod
-+    def unflatten(cls, fdt, offset=0):
-+        """Unflatten an FdtRo subtree starting at `offset` into a DeviceTree.
-+
-+        Args:
-+            fdt: An `FdtRo` (or `Fdt`) instance.
-+            offset: Starting node offset (default 0 for the root node).
-+
-+        Returns:
-+            A `DeviceTree` representing the node at `offset` and its
-+            descendants.
-+
-+        Raises:
-+            ValueError: If a node contains duplicate property names or
-+                duplicate sibling subnode names.
-+        """
-+        stack = []
-+        depth = 0
-+        while depth >= 0:
-+            node = cls()
-+            props = node.props
-+            for prop in fdt.properties(offset):
-+                name = prop.name
-+                if name in props:
-+                    raise ValueError(f'Duplicate property {name!r}')
-+                props[name] = prop
-+            if depth == 0:
-+                stack = [node]
-+            else:
-+                parent = stack[depth - 1]
-+                subname = fdt.get_name(offset)
-+                if subname in parent.children:
-+                    raise ValueError(f'Duplicate subnode {subname!r}')
-+                parent.children[subname] = node
-+                del stack[depth:]
-+                stack.append(node)
-+            offset, depth = fdt.next_node(offset, depth)
-+            if offset < 0:
-+                libfdt.check_err(offset)
-+        return stack[0]
-+
-+    def _flatten_subtree(self, sw, name):
-+        """Recursively write this DeviceTree and its children into an FdtSw.
-+
-+        Args:
-+            sw: An `FdtSw` sequential-write instance.
-+            name: Node name for this subtree (empty string `''` for root).
-+        """
-+        with sw.add_node(name):
-+            for prop_name, val in self.props.items():
-+                sw.property(prop_name, val)
-+            for child_name, child_node in self.children.items():
-+                child_node._flatten_subtree(sw, child_name)
-+
-+    def flatten(self, mem_rsv=(), boot_cpuid_phys=0):
-+        """Serialize this root DeviceTree into a packed `libfdt.Fdt` object.
-+
-+        Args:
-+            mem_rsv: Iterable of (address, size) tuples for the FDT memory
-+                reservation block.
-+            boot_cpuid_phys: Physical boot CPU ID for the FDT header.
-+
-+        Returns:
-+            Packed `libfdt.Fdt` instance.
-+        """
-+        sw = libfdt.FdtSw()
-+        for addr, size in mem_rsv:
-+            sw.add_reservemap_entry(addr, size)
-+        sw.finish_reservemap()
-+        self._flatten_subtree(sw, '')
-+        fdt = sw.as_fdt()
-+        fdt.set_boot_cpuid_phys(boot_cpuid_phys)
-+        return fdt
-+
-+    def set_prop(self, prop):
-+        """Insert or replace a `libfdt.Property` in `self.props` under `prop.name`.
-+
-+        Args:
-+            prop: `libfdt.Property` instance to store at `self.props[prop.name]`.
-+        """
-+        self.props[prop.name] = prop
-+
-+    def get_node(self, path):
-+        """Look up a descendant DeviceTree by path without modifying the tree.
-+
-+        Follows the slash-separated node names in `path` starting from `self`
-+        (leading, trailing, and repeated `'/'` characters are ignored, so
-+        `'/soc/i2c@4000'` and `'soc/i2c@4000'` behave identically, and `''` or
-+        `'/'` returns `self`). If any component along `path` is not present in
-+        `children`, returns `None`.
-+
-+        Args:
-+            path: Slash-separated node path starting from `self` (e.g.
-+                `'/soc/i2c@4000'` or `'soc/i2c@4000'`).
-+
-+        Returns:
-+            The `DeviceTree` at `path`, or `None` if not found.
-+        """
-+        node = self
-+        for part in path.split('/'):
-+            if not part:
-+                continue
-+            node = node.children.get(part)
-+            if node is None:
-+                return None
-+        return node
-+
-+    def create_path(self, path):
-+        """Return the descendant DeviceTree at `path`, creating missing nodes.
-+
-+        Looks up a child or deeper descendant `DeviceTree` by following the
-+        slash-separated node names in `path` starting from `self` (leading,
-+        trailing, and repeated `'/'` characters are ignored, so
-+        `'/soc/i2c@4000'` and `'soc/i2c@4000'` behave identically). If any
-+        node along `path` does not exist yet in `children`, a new empty
-+        `DeviceTree` is created for it automatically (similar to `mkdir -p`).
-+        Passing `''` or `'/'` returns `self`.
-+
-+        Example:
-+            root = DeviceTree()
-+            # Automatically creates root.children['soc'] and
-+            # root.children['soc'].children['i2c@4000'], and returns the
-+            # 'i2c@4000' DeviceTree.
-+            i2c = root.create_path('/soc/i2c@4000')
-+            i2c.set_prop(libfdt.Property.from_str('status', 'okay'))
-+
-+        Args:
-+            path: Slash-separated node path starting from `self` (e.g.
-+                `'/soc/i2c@4000'` or `'soc/i2c@4000'`).
-+
-+        Returns:
-+            The `DeviceTree` instance at `path`.
-+        """
-+        node = self
-+        for part in path.split('/'):
-+            if not part:
-+                continue
-+            if part not in node.children:
-+                node.children[part] = type(self)()
-+            node = node.children[part]
-+        return node
-+
-+    def walk(self, path=''):
-+        """Yield `(path, node)` pairs for this subtree in pre-order.
-+
-+        Args:
-+            path: Path prefix for `self` (defaults to `''` for the root node,
-+                producing paths like `''`, `'/soc'`, `'/soc/i2c@4000'`).
-+
-+        Yields:
-+            Tuple of `(path, node)` for `self` followed in pre-order by each
-+            descendant `DeviceTree`.
-+        """
-+        stack = [(path, self)]
-+        while stack:
-+            cur_path, node = stack.pop()
-+            yield cur_path, node
-+            prefix = cur_path.rstrip('/')
-+            for name, child in reversed(node.children.items()):
-+                stack.append((f'{prefix}/{name}', child))
-diff --git a/pylibfdt/meson.build b/pylibfdt/meson.build
-index b13d8021497f..ccf6c1bf78a6 100644
---- a/pylibfdt/meson.build
-+++ b/pylibfdt/meson.build
-@@ -19,3 +19,5 @@ pylibfdt = py.extension_module(
-   dependencies: [libfdt_dep, py.dependency()],
-   install: true,
- )
-+
-+py.install_sources('libpydt.py', pure: false)
-diff --git a/tests/libpydt_tests.py b/tests/libpydt_tests.py
-new file mode 100644
-index 000000000000..0f3d8d68945a
---- /dev/null
-+++ b/tests/libpydt_tests.py
-@@ -0,0 +1,106 @@
-+# SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
-+# libpydt - Tests for in-memory DeviceTree representation in Python
-+#
-+
-+import sys
-+import unittest
-+
-+sys.path.insert(0, '../pylibfdt')
-+import libfdt
-+from libfdt import FdtSw, Property
-+import libpydt
-+
-+
-+class DeviceTreeTests(unittest.TestCase):
-+    """Test class for libpydt.DeviceTree"""
-+
-+    def setUp(self):
-+        with open('test_tree1.dtb', mode='rb') as f:
-+            self.fdt = libfdt.FdtRo(f.read())
-+
-+    def testRoundTrip(self):
-+        """Test unflattening and flattening a tree via DeviceTree"""
-+        tree = libpydt.DeviceTree.unflatten(self.fdt)
-+        self.assertIsInstance(tree.props['compatible'], Property)
-+        rsvmap = self.fdt.get_mem_rsv_list()
-+        cpuid = self.fdt.boot_cpuid_phys()
-+        fdt2 = tree.flatten(rsvmap, cpuid)
-+        self.assertIsInstance(fdt2, libfdt.Fdt)
-+        self.assertEqual(rsvmap, fdt2.get_mem_rsv_list())
-+        self.assertEqual(cpuid, fdt2.boot_cpuid_phys())
-+
-+        tree2 = libpydt.DeviceTree.unflatten(fdt2)
-+        nodes1 = {
-+            path: (n.props, set(n.children.keys()))
-+            for path, n in tree.walk()
-+        }
-+        nodes2 = {
-+            path: (n.props, set(n.children.keys()))
-+            for path, n in tree2.walk()
-+        }
-+        self.assertEqual(nodes1, nodes2)
-+
-+    def testUnflattenSubtree(self):
-+        """Test unflattening a non-root subtree offset"""
-+        suboff = self.fdt.path_offset('/subnode@1')
-+        sub = libpydt.DeviceTree.unflatten(self.fdt, suboff)
-+        self.assertEqual('subnode1', sub.props['compatible'].as_str())
-+        self.assertEqual({'subsubnode', 'ss1'}, set(sub.children.keys()))
-+
-+    def testDuplicates(self):
-+        """Test that DeviceTree.unflatten() rejects duplicate names"""
-+        sw_prop = FdtSw()
-+        sw_prop.finish_reservemap()
-+        with sw_prop.add_node(''):
-+            sw_prop.property_u32('dup', 1)
-+            sw_prop.property_u32('dup', 2)
-+        with self.assertRaises(ValueError):
-+            libpydt.DeviceTree.unflatten(sw_prop.as_fdt())
-+
-+        sw_node = FdtSw()
-+        sw_node.finish_reservemap()
-+        with sw_node.add_node(''):
-+            with sw_node.add_node('dup'):
-+                pass
-+            with sw_node.add_node('dup'):
-+                pass
-+        with self.assertRaises(ValueError):
-+            libpydt.DeviceTree.unflatten(sw_node.as_fdt())
-+
-+    def testCorruptTree(self):
-+        """Test that DeviceTree.unflatten() raises FdtException on corrupt trees"""
-+        with open('truncated_property.dtb', mode='rb') as f:
-+            fdt_trunc = libfdt.FdtRo(f.read())
-+        with self.assertRaises(libfdt.FdtException):
-+            libpydt.DeviceTree.unflatten(fdt_trunc)
-+
-+        # Truncate size_dt_struct so the tree ends mid-subnode
-+        corrupt = self.fdt.as_bytearray()
-+        fdt_corrupt = libfdt.FdtRo(corrupt)
-+        fdt_corrupt._fdt[36:40] = (32).to_bytes(4, 'big')
-+        with self.assertRaises(libfdt.FdtException):
-+            libpydt.DeviceTree.unflatten(fdt_corrupt)
-+
-+    def testNavigationAndProps(self):
-+        """Test DeviceTree navigation and property setting"""
-+        root = libpydt.DeviceTree()
-+        self.assertIs(root, root.get_node(''))
-+        self.assertIs(root, root.get_node('/'))
-+        self.assertIsNone(root.get_node('/soc/i2c@4000'))
-+
-+        i2c = root.create_path('/soc/i2c@4000')
-+        self.assertIs(i2c, root.get_node('/soc/i2c@4000'))
-+        self.assertIs(i2c, root.get_node('soc/i2c@4000'))
-+        self.assertEqual({'', '/soc', '/soc/i2c@4000'},
-+                         {path for path, _ in root.walk()})
-+        self.assertEqual({'/', '/soc', '/soc/i2c@4000'},
-+                         {path for path, _ in root.walk('/')})
-+
-+        i2c.set_prop(Property.from_str('status', 'okay'))
-+        self.assertEqual('okay', i2c.props['status'].as_str())
-+        i2c.set_prop(Property.from_uint32('#address-cells', 1))
-+        self.assertEqual(1, i2c.props['#address-cells'].as_uint32())
-+
-+
-+if __name__ == '__main__':
-+    unittest.main()
-diff --git a/tests/meson.build b/tests/meson.build
-index c25500606059..e37567864e04 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -119,7 +119,7 @@ if not pylibfdt_enabled
- else
-   env += [
-     'PYTHON=' + py.full_path(),
--    'PYTHONPATH=' + meson.project_build_root() / 'pylibfdt',
-+    'PYTHONPATH=' + meson.project_build_root() / 'pylibfdt' + ':' + meson.project_source_root() / 'pylibfdt',
-     'NO_PYTHON=0',
-   ]
- endif
-diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-index f750faa1f60a..3cacb68438df 100755
---- a/tests/run_tests.sh
-+++ b/tests/run_tests.sh
-@@ -1149,17 +1149,16 @@ fdtoverlay_tests() {
-     run_wrap_test test "$bd" = "$pd"
++	last = strtab + tabsize - (slen + 1);
++	while (p <= last && (p = memchr(p, s[0], last - p + 1)) != NULL) {
+ 		if (memcmp(p, s, slen) == 0 && p[slen] == '\0')
+ 			return p;
++		p++;
++	}
+ 	return NULL;
  }
  
--pylibfdt_tests () {
--    run_dtc_test -I dts -O dtb -o test_props.dtb "$SRCDIR/test_props.dts"
-+run_python_tests () {
-     TMP=/tmp/tests.stderr.$$
--    $PYTHON "$SRCDIR/pylibfdt_tests.py" -v 2> $TMP
-+    $PYTHON "$1" -v 2> $TMP
- 
-     # Use the 'ok' message meaning the test passed, 'ERROR' meaning it failed
-     # and the summary line for total tests (e.g. 'Ran 17 tests in 0.002s').
-     # We could add pass + fail to get total tests, but this provides a useful
-     # sanity check.
-     pass_count=$(grep "ok$" $TMP | wc -l)
--    fail_count=$(grep "^ERROR: " $TMP | wc -l)
-+    fail_count=$(grep "^ERROR: \|^FAIL: " $TMP | wc -l)
-     total_tests=$(sed -n 's/^Ran \([0-9]*\) tests.*$/\1/p' $TMP)
-     cat $TMP
-     rm $TMP
-@@ -1170,6 +1169,12 @@ pylibfdt_tests () {
-     tot_tests=$((tot_tests + $total_tests))
- }
- 
-+pylibfdt_tests () {
-+    run_dtc_test -I dts -O dtb -o test_props.dtb "$SRCDIR/test_props.dts"
-+    run_python_tests "$SRCDIR/pylibfdt_tests.py"
-+    run_python_tests "$SRCDIR/libpydt_tests.py"
-+}
-+
- while getopts "vt:me" ARG ; do
-     case $ARG in
- 	"v")
 -- 
 2.56.0.679.gc527c65306-goog
 
