@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794794636;
-	b=wHtTW+qpx+OM5c/XsvKcM5IwcrP4yWF4CnGjFAQmkK/Ez1XlAmmGjwigLePjwf+Z5czv
-	 Uq5Tpw8lqxig6auHCiP603LSUdsVYelZyc4s+UZaEttj0B0aBLiguDeYTUdYGpYeOHxPf
-	 0/Pbj8oqJvS2JFD7vMFcwrGugOoWxJbRsK/UL9U/8bpe7gIi90zb7tJmjNQBedyNz0aFO
-	 MsdH50XSFGoFkkZ8+NikwiOY2hSle6SaPE8IaBgFAt9nKgS4NREK+0/3UtqI/V6EbaDjg
-	 6UAcqiK7zP41h/89ZS0c5zNmlaOyJTbEEv0RS9hGeN1upBozrWNNpSrxKRc2tXtfFaQ==
+	t=1794794669;
+	b=iYRLSXlphsb/kxCxRB9yj2vmzq0/jexmGg3LIfFmG7krJCpYblfhenC3nY8CCqLJtYZe
+	 xn+NvNzPR04dzm1hDtGzpONb8jgJOtLrWX3zc0f6/vZETdxrVMSRbhjmPDmaUbvMgyRqM
+	 VIPB2tcrLgi3p/m3dmnRKep4aFuEEXAX0FQHKvABc3ObjWyZgBZBzwmVXrzc0kwuj7fVO
+	 GzBiaNg//uK720W9+UyaM/2qlAun1k0rnsHHbxnlsECkpAVIEkgLUynwIfByf09qw4nx2
+	 xXKqD23asLDgx9vi2TOtMsM3rD9/0qrWDx0ytczvbQFTX6hHdKGYget8BpoSPBcbC0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794794636;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794794669;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=A+exirj2lN/QaUdQNJy0KY2kCcsuyipH0D/pJtaEFF8=;
-	b=yJ4k4aNzDktje+U9Yw/55YMlZT32UTEKPEAtBJjUeUy92FrDbHpNH86mYrripprfIDHD
-	 Y8JOcWmlEYnpgEe+EaXzXaP2PVcIe9fp97dkEvkXZ6krHuUtGaYDNLuNX3lIfWMMtkKZ4
-	 Hay0kAVkKJrmTeCCEuDwVWsU9d0+UdmXiXFspzyvVd4ZVHheV+VruHVs/+sl6hv91IXXM
-	 CBy1DIuG+ko9+aPG2FpYrrhwGCJylTPF9ODBjrPSsRMVYeTpvnyx/Jl6AAy5XSvwzVK8t
-	 XMUIIO7a9j5x7X21lrKN0l1F3gC1d60kw7EM1CrTSDaj/HCFFllfXxuW2TRI/maOgUw==
+	bh=N7ZWs3CgKW5BbP1cOsVsIE1/r4C9JHPX56wBYCwWr0Y=;
+	b=1FOvZb3xARGRpEfA8w+m6JH9G3oUvpm1UYsyV6beLEQqvcJ6qVldFyI/Gs8lXAtqA8sG
+	 vgnmaw5c/VbY0D2KUIZuD5LWixg/mwyHovU3IxKQ/6ZsovA9Mmkn33QCHjVPUPM/Gcz6I
+	 z1yUTFrZa+gpKR2AGxPS9bboI7oY0gu2LQ/obB7GH3aPnF3b0bt8z4Y6x+Yt9rDViUIdS
+	 3+VcyTcidjN3+lRMOfnmNdUU/ptS6GvZ9Eq/VsGaMPXnUUQIbqe4Oh73b6jZIILq92htg
+	 UYkuPsof1NHxQ7uSqJloJunIcQZxzGSR2ZHLaFmyTAD8SxEI9Ea0n0GVFc6rHm1yMJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O4Vvt/aE";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FKTrOw5R;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8BEA606A31C
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:03:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BC8606A31C
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 02:04:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O4Vvt/aE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22D5C1F000C4;
-	Mon, 16 Nov 2026 02:03:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FKTrOw5R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45AED1F000C4;
+	Mon, 16 Nov 2026 02:04:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794794636;
-	bh=A+exirj2lN/QaUdQNJy0KY2kCcsuyipH0D/pJtaEFF8=;
+	s=k20260515; t=1794794668;
+	bh=N7ZWs3CgKW5BbP1cOsVsIE1/r4C9JHPX56wBYCwWr0Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O4Vvt/aE1atZ2lBn6/PuxiZbdmxc1IbQ8pt/2NsEgt2ek7A0zl/qGqxB1uwCJdZWp
-	 DnR0TtCPdUtHZyRIDo3BQcGMJhmOvyy3y3EQCsN1xPwq6M2O1TUmHG2hUthlOHq2+F
-	 naphvWFE2nBOpMeD+K3B7JAcysEX5jUV79/EC8DZHOjgvCiDxaQ7aTILmNMs8n6y7M
-	 xtkQB8dUTZ6QFlDR0f08XFDq3Z+voyJw5DtEx/kIHcoHSLSoeL3dcNyFaVmplp8sP0
-	 FDTleXJTAYLUyR22TSlIY/UdldxqRx4l4no8QT14w9kTbguh/tJR0f5tWk7uoa6sHx
-	 rzDJbw7B6rhhA==
-Message-ID: <sashiko-outbox-216060@kernel.org>
+	b=FKTrOw5RiT0MbtKmKyGxgaq2cMf6owJv7iRXxTqHku/WKxcEvUG+dt3Fp3gAjIhBJ
+	 cZH34usAumlefQAmJlHFJt20OLLQ4nvjNgdBsMP5PU01+uk6Die9mdrNgpEaVJqw5n
+	 GwgLbDvMpSOTtW7ya2ow3vSEhi6JfGygHU37wCvpql64PUfLrDgIXQyi7j++9PUezk
+	 zesiPR3XX8lA1cCDrMKc8ns8Zxyku4YWZaW9fcG1m3UOeTKsNCihxgBjWQYy0iDG5v
+	 31JRkWq5mHflJ7VtNcPZ4gOLb9tpTvYU1U48bPrVrnK5kw+if/3e4NIXlt4y/IJ2X3
+	 DgGGc00oh2uGA==
+Message-ID: <sashiko-outbox-216062@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 05/13] media: mediatek: jpeg: Fix multi-core clk
- suspend and resume setting
+Subject: Re: [PATCH v19 12/13] media: mediatek: jpeg: add jpeg compatible
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyrie Wu" <kyrie.wu@mediatek.com>, devicetree@vger.kernel.org
 Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261116013402.1273016-6-kyrie.wu@mediatek.com>
+In-Reply-To: <20261116013402.1273016-13-kyrie.wu@mediatek.com>
 References: <20261116013402.1273016-1-kyrie.wu@mediatek.com>
- <20261116013402.1273016-6-kyrie.wu@mediatek.com>
+ <20261116013402.1273016-13-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 02:03:55 +0000
+Date: Mon, 16 Nov 2026 02:04:27 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,152 +60,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] media: mediatek: jpeg: deadlock and missed hw wait in
-  v4l2_m2m_suspend()
-- [Medium] media: mediatek: jpeg: uncoordinated v4l2_m2m_resume() on
-  shared m2m_dev
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] media: mediatek: jpeg: bad 34-bit stall address in
+  mtk_jpeg_set_enc_dst()
 --
 
-commit 3fc9b3db7f2ed0b9fd6715e9fd9cf8dac338e53f
+commit 2178cb0abdb84f47ce9c6cd9ebe6e4f64b01196b
 Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-media: mediatek: jpeg: Fix multi-core clk suspend and resume setting
+media: mediatek: jpeg: add jpeg compatible
 
-This commit moves multi-core clock management to the hardware component
-devices' runtime PM callbacks and adds system sleep callbacks to suspend
-and resume the M2M queue and component clocks.
+This commit adds MT8196 device tree compatible strings and driver variant
+data for the MediaTek multi-core JPEG encoder and decoder.
 
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/dri=
-vers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
-> index 3c22417f4e7c4..b9ba37a880b2d 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
-
-[ ... ]
-
-> @@ -673,11 +669,67 @@ static int mtk_jpegdec_hw_probe(struct platform_dev=
-ice *pdev)
->  	return 0;
->  }
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> index 1a289e4487930..b38feef2dcbd4 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> @@ -1963,6 +1963,20 @@ static struct mtk_jpeg_variant mtk8195_jpegenc_drv=
+data =3D {
+>  	.jpeg_worker =3D mtk_jpegenc_worker,
+>  };
 > =20
-> +static int mtk_jpegdec_pm_suspend(struct device *dev)
-> +{
-> +	struct mtk_jpegdec_comp_dev *jpeg =3D dev_get_drvdata(dev);
-> +
-> +	clk_bulk_disable_unprepare(jpeg->jdec_clk.clk_num,
-> +				   jpeg->jdec_clk.clks);
-> +
-> +	return 0;
-> +}
-> +
-> +static int mtk_jpegdec_pm_resume(struct device *dev)
-> +{
-> +	struct mtk_jpegdec_comp_dev *jpeg =3D dev_get_drvdata(dev);
-> +
-> +	return clk_bulk_prepare_enable(jpeg->jdec_clk.clk_num,
-> +				       jpeg->jdec_clk.clks);
-> +}
-> +
-> +static int mtk_jpegdec_suspend(struct device *dev)
-> +{
-> +	struct mtk_jpegdec_comp_dev *jpeg =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	/* Stop new submissions before checking hardware activity. */
-> +	v4l2_m2m_suspend(jpeg->master_dev->m2m_dev);
-> +
-> +	if (READ_ONCE(jpeg->hw_state) !=3D MTK_JPEG_HW_IDLE)
-> +		ret =3D -EBUSY;
+> +static struct mtk_jpeg_variant mtk8196_jpegenc_drvdata =3D {
+> +	.formats =3D mtk_jpeg_enc_formats,
+> +	.num_formats =3D MTK_JPEG_ENC_NUM_FORMATS,
+> +	.qops =3D &mtk_jpeg_enc_qops,
+> +	.m2m_ops =3D &mtk_jpeg_multicore_enc_m2m_ops,
+> +	.dev_name =3D "mtk-jpeg-enc",
+> +	.ioctl_ops =3D &mtk_jpeg_enc_ioctl_ops,
+> +	.out_q_default_fourcc =3D V4L2_PIX_FMT_YUYV,
+> +	.cap_q_default_fourcc =3D V4L2_PIX_FMT_JPEG,
+> +	.multi_core =3D true,
+> +	.jpeg_worker =3D mtk_jpegenc_worker,
+> +	.support_34bit =3D true,
+> +};
 
 [Severity: High]
-Can v4l2_m2m_suspend() deadlock during system suspend, and does it wait
-for active multi-core hardware jobs?
+Does enabling support_34bit with mtk_jpegenc_worker() program a corrupted
+upper stall address into JPEG_ENC_STALL_ADDR0_EXT?
 
-v4l2_m2m_suspend() waits until TRANS_RUNNING is cleared by
-v4l2_m2m_job_finish().  However, mtk_jpegdec_worker() and
-mtk_jpegenc_worker() call v4l2_m2m_job_finish() immediately after starting
-the hardware, while jpeg->hw_state is still MTK_JPEG_HW_BUSY:
+mtk_jpegenc_worker() calls mtk_jpeg_set_enc_dst(), which adds the buffer
+byte size directly to the 2-bit upper address extension instead of
+extracting the upper bits of dma_addr + size:
 
-drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:mtk_jpegdec_worker() {
+drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c:mtk_jpeg_set_enc_dst=
+() {
     ...
-	mtk_jpeg_dec_start(comp_jpeg[hw_id]->reg_base);
-	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
-	spin_unlock_irqrestore(&comp_jpeg[hw_id]->hw_lock, flags);
+	if (support_34bit) {
+		addr_ext =3D FIELD_PREP(MTK_JPEG_ADDR_MASK, upper_32_bits(dma_addr));
+		writel(addr_ext, base + JPEG_ENC_DEST_ADDR0_EXT);
+		writel(addr_ext + size, base + JPEG_ENC_STALL_ADDR0_EXT);
+	}
 }
 
-As a result, v4l2_m2m_suspend() does not wait for an in-flight frame to
-finish on the hardware, and the subsequent jpeg->hw_state check
-immediately fails system suspend with -EBUSY whenever a frame is active.
-
-Furthermore, mtk_jpeg_probe() allocates jpeg->workqueue with WQ_FREEZABLE,
-which is frozen during suspend_freeze_processes() before device suspend
-callbacks run, whereas v4l2_m2m_job_finish() schedules the next job via
-m2m_dev->job_work on the non-freezable system_percpu_wq:
-
-kworker (jpeg->workqueue)         PM task / system_percpu_wq
-                                  suspend_freeze_processes()
-                                    freeze_workqueues_begin()
-mtk_jpegdec_worker()
-  mtk_jpeg_dec_start()
-  v4l2_m2m_job_finish()
-                                  v4l2_m2m_try_run()
-                                    curr_ctx->job_flags |=3D TRANS_RUNNING
-                                    mtk_jpeg_multicore_dec_device_run()
-                                      queue_work(jpeg->workqueue, ...)
-                                      (queued on frozen workqueue)
-                                  mtk_jpegdec_suspend()
-                                    v4l2_m2m_suspend()
-                                      wait_event(..., !TRANS_RUNNING)
-                                      <-- hangs forever
-
-The same issue applies to mtk_jpegenc_suspend() in mtk_jpeg_enc_hw.c.
-
-> +	else
-> +		ret =3D pm_runtime_force_suspend(dev);
-> +	if (ret)
-> +		v4l2_m2m_resume(jpeg->master_dev->m2m_dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static int mtk_jpegdec_resume(struct device *dev)
-> +{
-> +	struct mtk_jpegdec_comp_dev *jpeg =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_force_resume(dev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	v4l2_m2m_resume(jpeg->master_dev->m2m_dev);
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does calling v4l2_m2m_resume() on the shared master_dev->m2m_dev from
-each component device unpause the M2M queue while sibling components are
-still force-suspended?
-
-In multi-core mode, the parent device and all component devices share a
-single m2m_dev whose QUEUE_PAUSED flag is a single non-refcounted bit.
-During system resume, the parent device resumes before its children in
-mtk_jpeg_resume() and calls v4l2_m2m_resume(jpeg->m2m_dev), and the first
-child to resume calls v4l2_m2m_resume(jpeg->master_dev->m2m_dev) again
-while the remaining child devices are still force-suspended (and even if a
-sibling fails pm_runtime_force_resume()).  Similarly, if one child device
-suspends and a second child fails mtk_jpegdec_suspend() with -EBUSY, the
-error path calls v4l2_m2m_resume() before dpm_resume() has force-resumed
-the first child.
-
-If v4l2_m2m_resume() dispatches a queued job while any idle sibling is
-still force-suspended, mtk_jpegdec_worker() or mtk_jpegenc_worker() can
-select that sibling, fail pm_runtime_resume_and_get() with -EACCES, and
-complete the buffers with VB2_BUF_STATE_ERROR.  The same issue exists in
-mtk_jpegenc_suspend() and mtk_jpegenc_resume() in mtk_jpeg_enc_hw.c.
+Because size is page-aligned, any carry across a 4 GiB boundary in
+dma_addr + size is lost from bits [1:0] while upper bits of size are
+written into the register, corrupting the 34-bit destination end boundary
+used to stall DMA writes when the encoded bitstream overflows the buffer.
+Should JPEG_ENC_STALL_ADDR0_EXT be programmed with
+FIELD_PREP(MTK_JPEG_ADDR_MASK, upper_32_bits(dma_addr + size))?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116013402.1273=
-016-1-kyrie.wu@mediatek.com?part=3D5
+016-1-kyrie.wu@mediatek.com?part=3D12
