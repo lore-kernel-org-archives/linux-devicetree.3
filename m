@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794844258;
-	b=BxZxifjCV0KZzfzKG9S9n3ZlvTyVkLmqMUF3sMiy/cQqcrQUeurRSTtlZPR3Kh9HHyjC
-	 qfFf3wnczTrlxFDnpObKDPlcgRzps2GAu5jmYYxfhQ/1EYZy5nPU4Ym2d3N4COP5I5e/S
-	 yvJtNWe2kTaD+9RP0kRWEYgsMAvGxpsTsb40dGSIPcNiWW7VMRArYzNAHugHmlUH0qX25
-	 T2bRCUIvye768zPVUeJ0wQlyFk5D1+/LyRKVuHK8xiqLIORZhSqWjWny7KOE2g9zEYqoG
-	 awGEKRpuASBwwXP333lPbC9J45hBnHvH0/jzvsUN99uoZ1fNazBAVpeFlCLT430F0Lg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844258;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Or4NikZZZ2rCCHMnzA67i4ix/lYg7mAEFyfG4auz7A0=;
-	b=ltB6mu/9/IYcQxEi6v909hZ+ziNVfVdAaSUJeZS6jm8paj40lrVPtFT+mXnrfUqOkXuA
-	 ffujJF+1Tluh7xlYz6B6R5paPvgv82Ha2VRBnW/MF0a0r3SFpanwIdBM4OyGSo5rulIuS
-	 14VnonuUUtNQvMr+Z0vfRsD+Z9jvCjqHgDUlumuxryglPsEPXOVi/9vn2FRqNEuTvdXK1
-	 sPGdgRCQ8sg7qm/uhj5aUneSkTw+OrqG2677LyNkyZlQOHzbpSPMYcHZn+7P1SGvs3qSR
-	 K4OtsrROIJuTnLGokTYO3jyViNMb2MFarnlfcMkJ6jSy9E2jkSvafNsjcjwC0EPzI7g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QOO3qL3j;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794844445;
+	b=Kpw+6/YBPOzVpZaoJBpwhUiBU+t3ArhFGXvgxwu+HxV0GzLBtnXyRam9Zqt8Vah3BZbI
+	 OyBWCTvV5l37NvMFon/+a20MSsZcH71KSm5+D2m7rDCgbVJrziWpCbDfKEzFoWjZ10Xdb
+	 IDr9bzQXF2E4s4BviK4ZYCbaBotVEGHBMl3SxUXpm7plZBpPH7X0eVSJ1b8JxT918hsiO
+	 SPgcW9kl1KBxlaRMaEDUMkGYARAFklK3p/n/qTSRRpx+Fu2qwHtV0oxZkZiA783n4BAPv
+	 ue5IzAu8Ex5Ci9UyN9aVlYjxgYYtXruVxaK2kdvEWd1sycm5HojH1G9e0S8+toTAhcg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794844445;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=NWRdhyGF/OmGFSNeChtRw7cFLrscUlkWLVkf/Xw+0HI=;
+	b=lp0llXOxR3KIIviZVflb/iEnXi0HG0EEl7YisO2y3qDv55m9dZGLFjY5Pqc/WKuCH5EJ
+	 3G9ZweJO7RDAr41UVblP1M3qCcMi7lXkuiP0Ewq5uQej8oNt+dw6WikWydrsQ1aMCiyYo
+	 T43tTzYpzKAN/4RDpDXa2sEMqPTyXR/nOoGBvf7H/pVJZ1bb/s40PUldhGrxNnvgt9IB0
+	 qfyxmi7vd1CYsnIWlk3+GMTAfXO2bN1Zyhx/8jjPOPEMpCXJD2iagniW7LSF7ICCDERqh
+	 MEo35QoCCO/YEzbLmnjKm0HnW6xSbYnbH/3rnRrzSjATQ2zQc0c4EZmqux4P3oeHR8A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LUCjnufJ;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B56606A32F;
-	Mon, 16 Nov 2026 15:50:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF225606A33A;
+	Mon, 16 Nov 2026 15:54:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QOO3qL3j
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794844258;
-	b=M9Y6sIOjzpQE/9wzO8rt/GAMbqY5jiJzWOx9ioBPZ8t53+pfOmHfJZiLAhIK7ihUxpEJ
-	 hBtmvly4AuFdumSxbSfvYQ/VzSmyXedlakKv29SFLADuDxR0agYByIpF6TrZ7qawIZ1Ct
-	 3MKyplHusCMT9akiNiaqhAu55jk19/BD7hcnUSpRYws5wdEtQhfM3h2x3Go6KinCd7YuS
-	 O18lKWFU+eG+bPSJJqoanxL62mVhaNM8WZpEdK8M3uK8muNbmm7zogvZQVxXulGcwWZlN
-	 cNK7QGxmASP26pSoQkwDYgYt7ibS7OpM8raRR+xvrEwWFJnF1fogryWoT1+sv8lyVKQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794844258;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Or4NikZZZ2rCCHMnzA67i4ix/lYg7mAEFyfG4auz7A0=;
-	b=En6BJ0bBzu+3DwUqGI3cDupPaCX0gO/hlz3TIzCoSQJie8jg/lGI9OjtJQw8LFuiQ4sZ
-	 bDzVPprpcoBTAup9DfmqaE0e+F9/UF05zt8KDyOoU+BZNiW+iiEGEErRXFfefBt9QTL6x
-	 krdOXOt149z3NvTeIrUMahMNaDd/sAJMsx66ia8FQZ/yajYV/JYM9dbtgLhL8i6uQCwfd
-	 WlC6o62rYBOIyUnM5MRZzLzBKBVSrOUKnb5vg6iyMtob1AYy5Q8VtQRNXzVyQqANSJCw0
-	 fkuRinKJ5nWIznJzq7fPSXM5V8BxYNUeHQ9R5xJkBHalUVOLWGb2Ywl21XHgoYyNvzg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 34DD91F000CB;
-	Mon, 16 Nov 2026 15:50:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LUCjnufJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5501D1F000C9;
+	Mon, 16 Nov 2026 15:54:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794844257;
-	bh=Or4NikZZZ2rCCHMnzA67i4ix/lYg7mAEFyfG4auz7A0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=QOO3qL3jGoI3JX+PyXtfJTp/grquRY8+HkQCI7wEUuYYJu0VZkNul0B7sTG9mP7w3
-	 r2bEytDYpJtdZF+iY1Uf12FKS2aUJcYFsAWbGnK+vPevxbEBRCdlpl4S/ztypJMEOV
-	 IWqmTeVPKHy7IFzL/nHgIucyNRLiq3xGnZ8DTNrXGK6wz+OrkRW22URiDAA4bt8ESh
-	 sEesKHGPV8jbHwPshWjzRSdVvBLBLAHv4iq4V+hFiP20oUffj4McXCkkNpjG0a/H8o
-	 pgiWB6ctcCGGxdkzr1zw+JDsioaIi6ezyC2lvxWCnvlgS+Z4TRoEMFIm+WxFnxp7qu
-	 dXr2GZCh600Pg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B8E8C4A4FC;
-	Mon, 16 Nov 2026 15:50:56 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 16 Nov 2026 16:50:45 +0100
-Subject: [PATCH v3 3/3] arm64: dts: qcom: sdm845-google: Require modem
- socinfo
+	s=k20260515; t=1794844445;
+	bh=NWRdhyGF/OmGFSNeChtRw7cFLrscUlkWLVkf/Xw+0HI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LUCjnufJSpYUxmLjtKYEMo5DkKQpAaPasieX0MrIIufSH8hznup+3WcCkKXB0ZAlD
+	 2f/BQ2LClUs15uv6qnm76soYFrlT5qpGC80Ryf0bt9aDhFlbmmkZ+E0uJQ31QPswm9
+	 F4ZgU1Iw9kEB6W6LrZNDXa0hAkFez/TE6+zUwwxQD9QkvzM0dcrNzibJ0CYdbleFc6
+	 yOOhTjROR5DNw3rCOkiOwXGitQV4Mog8Y6aZdILecmv9urZd9d0y9SfD6uR2i1AJPu
+	 Vx65jdQmboOZ4BeCu8UZj35ZZ/C2i1lVBfsDwaSh5SRszxplVNbUk1TSzeLTWe29W8
+	 Rafvu/4jFuH7g==
+Message-ID: <sashiko-outbox-217318@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 09/12] usb: gadget: tegra-xudc: Add support for
+ Tegra238
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jon Hunter" <jonathanh@nvidia.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116-tegra-usb-v2-9-42efc03a9700@nvidia.com>
+References: <20261116-tegra-usb-v2-0-42efc03a9700@nvidia.com>
+ <20261116-tegra-usb-v2-9-42efc03a9700@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 15:54:04 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,82 +60,85 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-modemsmem-v3-3-24ebc7ed6eb9@ixit.cz>
-References: <20261116-modemsmem-v3-0-24ebc7ed6eb9@ixit.cz>
-In-Reply-To: <20261116-modemsmem-v3-0-24ebc7ed6eb9@ixit.cz>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Miro Mraz <mraz.miro@seznam.cz>
-Cc: Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, 
- linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1063; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=b1c7/PH/ZBn7CdtqlJWGuvtm6FqXDNuZ6icQBu1gPcY=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq+yZfCBjZfqAB9dl+hwLxqMcVD+vRV83mg27jl
- mjt0BEn8kKJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavsmXwAKCRBgAj/E00kg
- cpW7D/0ad5tAGVKYbk22HnkEzkUniurD9zTrHxnP69SKU6x4Vk3wz6hWCgU2RkTXbnS3noCyr+P
- xXYgsUeSqtbijHuOeL1RRgnm4KVF2YQoBUTC4ckQjawG4amRkXVdrCCKnS0boFfYacgvo/YDK3i
- nEGJr3UjkJTtSJ1BXFKBBk8NkRvD4uL9n0QlwENblcczRk1UfdUoQWQvyKRFa7Bmic139oHN7BY
- CSyBlFOImkl4BHZfZAgDAR6Sr89z4hODyLsLGezuku+LZHeBEIlV/UlTp7k1rB0214w0z399Rlu
- ogePFbq4kOi1WdobGimlDW2pCh9RWzbSTRwHY95ew8yy7FM3odS3PvqtrTMnSyt2miboLtxNTdQ
- BA2up2/kImr16CTATZ06fKn+IuaUgKU4OGYVrvudnvHqaXLJOTX4SImKsoUBxdHkA+SSGRBq0Uo
- AQObPCpxQ1mnRjJ9aub3RVFJvN8alCSVQmugkknCg+hpQgaM73QgrCnNzyEOAgirNrpuZ0zPzwC
- jVWt/IjpLyWGBld6doRb1ELF80zxfvMLmgeFPb98sMrlrvWixFvULVkHzsA3pT4t/uNpFmJZjT4
- SzMJ72yNm1L9rgKVSBgBczue034etP1O/Pf+8e9KolQX6Tim9mhNMI2iIrrk1SSLtsXP261S78K
- igwr5kv6j4Nf9hA==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
-Content-Transfer-Encoding: 7bit
 
-From: David Heidelberg <david@ixit.cz>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] usb: gadget: tegra-xudc: unconditional reset assert in
+  tegra_xudc_remove()
+--
 
-The modem firmware on the Google Pixel 3 and Pixel 3 XL reads the SoC
-platform information from the first vendor-reserved SMEM item before
-booting. Add the google,require-socinfo property to the MSS remoteproc
-node so the MSS driver publishes it.
+commit 01f4840c1e0e2937e62224e3b8e14a7ec36d25bd
+Author: Jon Hunter <jonathanh@nvidia.com>
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+usb: gadget: tegra-xudc: Add support for Tegra238
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index 3c9656b88b696..0a18d9a124566 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -426,16 +426,18 @@ &ipa {
- &mdss {
- 	status = "okay";
- };
- 
- &mss_pil {
- 	firmware-name = "qcom/sdm845/Google/blueline/mba.mbn",
- 			"qcom/sdm845/Google/blueline/modem.mbn";
- 
-+	google,require-socinfo;
-+
- 	status = "okay";
- };
- 
- &pm8998_gpios {
- 	volume_up_gpio: vol-up-active-state {
- 		pins = "gpio6";
- 		function = "normal";
- 		input-enable;
+This commit adds Tegra238 SoC support to the Tegra XUDC driver, managing
+the xusb_dev and xusb_ss resets instead of power domains when
+has_powergates is false.
 
--- 
-2.55.0
+> diff --git a/drivers/usb/gadget/udc/tegra-xudc.c b/drivers/usb/gadget/udc=
+/tegra-xudc.c
+> index 43a1940ed88ab..3d7254d6ebcd1 100644
+> --- a/drivers/usb/gadget/udc/tegra-xudc.c
+> +++ b/drivers/usb/gadget/udc/tegra-xudc.c
 
+[ ... ]
 
+> @@ -3916,6 +3958,23 @@ static int tegra_xudc_probe(struct platform_device=
+ *pdev)
+>  	return err;
+>  }
+> =20
+> +static void tegra_xudc_assert_resets(struct tegra_xudc *xudc)
+> +{
+> +	int err;
+> +
+> +	err =3D reset_control_assert(xudc->dev_rst);
+> +	if (err)
+> +		dev_err(xudc->dev, "failed to assert device reset: %d\n", err);
+> +
+> +	/*
+> +	 * Release the shared SS reset vote even if the device reset fails,
+> +	 * otherwise the next activation adds an unbalanced deassert vote.
+> +	 */
+> +	err =3D reset_control_assert(xudc->ss_rst);
+> +	if (err)
+> +		dev_err(xudc->dev, "failed to assert SS reset: %d\n", err);
+> +}
+> +
+>  static void tegra_xudc_remove(struct platform_device *pdev)
+>  {
+>  	struct tegra_xudc *xudc =3D platform_get_drvdata(pdev);
+> @@ -3931,7 +3990,10 @@ static void tegra_xudc_remove(struct platform_devi=
+ce *pdev)
+>  	tegra_xudc_free_eps(xudc);
+>  	tegra_xudc_free_event_ring(xudc);
+> =20
+> -	tegra_xudc_powerdomain_remove(xudc);
+> +	if (xudc->soc->has_powergates)
+> +		tegra_xudc_powerdomain_remove(xudc);
+> +	else
+> +		tegra_xudc_assert_resets(xudc);
+
+[Severity: Medium]
+Can tegra_xudc_remove() call tegra_xudc_assert_resets() when xudc does not
+hold a deassert vote on xudc->ss_rst?
+
+tegra_xudc_probe() only acquires dev_rst and ss_rst, leaving them to be
+deasserted by tegra_xudc_activate() on runtime resume.  In
+tegra_xudc_remove(), pm_runtime_get_sync() is called without checking its
+return value before tegra_xudc_assert_resets() runs unconditionally.  If
+tegra_xudc_activate() fails (after already unwinding its reset
+deassertions) or never runs when runtime PM is disabled in the kernel
+configuration, reset_control_assert(xudc->ss_rst) will underflow
+deassert_count in __reset_control_assert() or drop the shared SuperSpeed
+reset vote held by the active xhci-tegra host controller.
+
+Also, when pm_runtime_get_sync() succeeds, tegra_xudc_free_eps() and
+tegra_xudc_free_event_ring() free the coherent transfer and event rings
+while the controller, clocks, and bus mastering are still enabled, before
+tegra_xudc_assert_resets() asserts the resets.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-tegra-usb-=
+v2-0-42efc03a9700@nvidia.com?part=3D9
