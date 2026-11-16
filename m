@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794838536;
-	b=Ck64Ek0H/O6EWJ3HM0tV6bJ5HKrjf0UKUYMwMIQhb4jCmztL/3mGMkZ+DEdYed9u31Tc
-	 cHf8dWynDY/zTf1ZqJB4XRQ5wFs1mjhRX2RQb5IR7TR4LpGq40YRW7S5p/TVCwG/o3vde
-	 pWq7MHVYFfOKxNqgo8IAxHT7gHeAxtsljf5kG7IytLcYjR2M+89VTi5Y3CiUSD6dLGffh
-	 L9UooANP+GQM3k2pdK2ygVgxQhrCIhXRd8z6Dk6mGuGj4aU484rUV7FKAvveC9YuDyNVF
-	 iTmDYDvdhtYJaLG9WK00wYns4QbN4mA9Z6aMJGNpW6QIYMLq1dICTNffqLQJ5zq2Mrg==
+	t=1794838548;
+	b=VEhD6uIM0NusP3kBgrkQhcUNztwzrgRnUUcUaHKOYyyPSHN1mVd+/Y1//R4ZhCM0Roa+
+	 1ZgNqw38OMcobNIFQqHMcLOfPc+Kh9u4kW5KkEl7FEqK7vTkRc0hFfw1ml/gSMYB74lqN
+	 6IRxEHArXfzsbtYtP5Sn4TZWbqP1tY5FJNGvSUusQBRjbWiSR00k0fSfSPB4E6BRvayDN
+	 UwBsQ0n/wDSQ5OBWp3Ffteoat7WPDc1O8fR/ap3MDM2MbQVkvk76ig6Bq+jFs/BCv8Mk3
+	 zvxx2KNXc+Hu6xcJ6zqvgGM6BedX+NhTydH1rd0GK+xta5UvVPd1T/Rxbw2J9IbNThg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838536;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838548;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PRwvJorxkByLGTSFno1Iu5DhwXlwxTrPSjgbw9+lMxI=;
-	b=wkbeEr1jPbppvBY4vPUot6EgGTFISlfi58ClmjsSImI8mycdYDdm7t6qJumKMibbNkts
-	 qzurRxGRaH1RGaJvgJzRepBApfQEfZUg+FmV/WXgx31eFJhUmmJMJEV55oTSGxWM7yv0O
-	 zuhmYAGWss6yt7e3scG74T4VTrwSmHlEWjEb5LiHjSLiD06WZ0/2WSmdIa26OgVI7pMjA
-	 3k3At7/1ECctrY022rOZXcWzIHnuqBnngl0Vb9LWyRzSnicNyOTsblqfMoowtctQNEfOv
-	 aktyE5+YLSJnv7rO8kTU0gswBZ7L1B3LIKkmjukCJUYNIlh9hpusDN1DLUYd1dL3HVg==
+	bh=A3XeEqkaktNVQ51Yi0Y1kI4qohFni5uS6O7rkj9mTrM=;
+	b=Lx6kVjWb/54XIOeR5giV4Yf2mVKnUJxV/ODmUjPuxIopdHYPyqEn4RS8r8CjnxqzF6c+
+	 PydauzGR0kyxhC38M2t0YuW8EQuvMQ7Zrid8XddWicwm8x70h5gzSJz7g6uVBZS3zlMiz
+	 n5fklcmXkUgjwQZadla0ae1dKqwA6eXaN/8WdgHC+8Ow+x6js14JA9DnlxQwx83jd9yoW
+	 RudPIMt01is79XJ7US7Q9tOVRjaOW6iUUV5jMFsT+UUfrRTrT9vwqnUje6LFJ+6kfHk25
+	 NNGNPwAcBfMqGE1WjzDbxCSqqqCALDqS/0nHhmzpW8wO3xuunAiJEU3FtBIJZFNT3EA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTP6ZJtL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bpPmJV/6";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB94606A336;
-	Mon, 16 Nov 2026 14:15:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8707606A890;
+	Mon, 16 Nov 2026 14:15:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTP6ZJtL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887571F000CA;
-	Mon, 16 Nov 2026 14:15:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bpPmJV/6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C136E1F000CA;
+	Mon, 16 Nov 2026 14:15:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794838536;
-	bh=PRwvJorxkByLGTSFno1Iu5DhwXlwxTrPSjgbw9+lMxI=;
+	s=k20260515; t=1794838548;
+	bh=A3XeEqkaktNVQ51Yi0Y1kI4qohFni5uS6O7rkj9mTrM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iTP6ZJtLdVdpd/VbF72VakFFel44De5q9eZV8MHs5WSmwU6X6M18VK+RDB/lBwbzU
-	 8886RbprK5AIpxpbR9LKMqh5V3NkpFExHNBlmwwjuR1JDeDfQgulYVUpycuCVKK3tq
-	 lCjFqhYzNQLGTegetqNFZEifPnRG36p1zMP7O7PehM1OsYyuurb9KmZZtBNHtZeHVB
-	 GsoHwNzQebSawKrXdjEzTjDMrfq8gmtGHnwcTgceC8scsQ8Ff7DjDjSCBGI5AAe+BE
-	 wiBSxjg8BRdQLxFeiv7lS4N0mnHN5bByILcV7PYNRg/UEDo2DuilHw/vpM7OOspHUQ
-	 ic8XAtYc37vCQ==
+	b=bpPmJV/6+5iIIHaLH+cDa4neTY7WoEcq6D0g/jARxCM1h23PxuXhq2Jxrz8WBTp3J
+	 1iSHvrPN340gh3f3CZy4gImAIDa9Ilf0eXcyqEwl8IryjtDTP8ACvV6g1wPncZ4ykI
+	 lmnX6vyrayFR42nPYTa9pW2fyVsEZegNuS+XmGmCKSubLjxcL8Ed2menO3Ukiykjoq
+	 1E9/JVnX5EDRCfrysbifqRwdEL10Ng4ika5oFfCkfXWwkso/2I8CeIhp6RWSYjDQmI
+	 xHmAFVHCKrWXGhur9bCudeNlawezBINo/J10/3Q2fF4xca8Mv/lJdlLD2+vw88EMvC
+	 wx7geXmBdk91w==
 From: Jisheng Zhang <jszhang@kernel.org>
 To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
@@ -58,9 +58,9 @@ Cc: netdev@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 6/8] soc: synaptics: Populate SL2610 system controller DT children
-Date: Mon, 16 Nov 2026 21:54:40 +0800
-Message-ID: <20261116135442.4827-7-jszhang@kernel.org>
+Subject: [PATCH 8/8] arm64: dts: synaptics: Enable Ethernet on SL2619 RDK
+Date: Mon, 16 Nov 2026 21:54:42 +0800
+Message-ID: <20261116135442.4827-9-jszhang@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261116135442.4827-1-jszhang@kernel.org>
 References: <20261116135442.4827-1-jszhang@kernel.org>
@@ -75,50 +75,102 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SL2610 system controller currently creates only its fixed clock,
-reset and pinctrl MFD devices. DT children such as the MDIO mmio-mux
-therefore never become platform devices, leaving their consumers in
-deferred probe indefinitely.
-
-Populate enabled DT children after adding the MFD devices. Use the
-managed helper to remove these children before the MFD devices during
-teardown and probe-error cleanup.
+The SL2619 RDK uses the second MAC with an external RGMII PHY at MDIO
+address 2. Enable the MAC, its pin configuration and the shared MDIO
+selector. Describe the PHY reset GPIO and timing on the demultiplexed
+bus selecting the second MDIO master.
 
 Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-Assisted-by: LLM
 ---
- drivers/soc/synaptics/sl2610-syscon.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/synaptics/sl2619-rdk.dts | 77 ++++++++++++++++++++
+ 1 file changed, 77 insertions(+)
 
-diff --git a/drivers/soc/synaptics/sl2610-syscon.c b/drivers/soc/synaptics/sl2610-syscon.c
-index c6fc2955ac0d..b7965f4bb963 100644
---- a/drivers/soc/synaptics/sl2610-syscon.c
-+++ b/drivers/soc/synaptics/sl2610-syscon.c
-@@ -6,6 +6,7 @@
- #include <linux/mfd/core.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/of_platform.h>
- #include <linux/platform_device.h>
- 
- struct sl2610_syscon_data {
-@@ -56,9 +57,14 @@ static const struct sl2610_syscon_data sl2610_cpu_data = {
- static int sl2610_syscon_probe(struct platform_device *pdev)
- {
- 	const struct sl2610_syscon_data *data = device_get_match_data(&pdev->dev);
-+	int ret;
- 
--	return devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_AUTO,
--				    data->cells, data->num_cells, NULL, 0, NULL);
-+	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_AUTO,
-+				   data->cells, data->num_cells, NULL, 0, NULL);
-+	if (ret)
-+		return ret;
+diff --git a/arch/arm64/boot/dts/synaptics/sl2619-rdk.dts b/arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
+index 58901ac2a050..d10811e8436a 100644
+--- a/arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
++++ b/arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
+@@ -13,4 +13,81 @@
+ / {
+ 	model = "Synaptics SL2619 RDK";
+ 	compatible = "syna,sl2619-rdk", "syna,sl2619";
 +
-+	return devm_of_platform_populate(&pdev->dev);
- }
- 
- static const struct of_device_id sl2610_syscon_of_match[] = {
++	aliases {
++		ethernet0 = &ethernet1;
++		ethernet1 = &ethernet0;
++	};
++
++	mdio-demux {
++		compatible = "mdio-demux";
++		mdio-parent-bus = <&mdio1>;
++		mux-controls = <&mux1 0>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		mdio@1 {
++			reg = <0x1>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			ethernet_phy1: ethernet-phy@2 {
++				compatible = "ethernet-phy-id001c.c916";
++				reg = <2>;
++				pinctrl-0 = <&eth1_phy_rst_pmux>;
++				pinctrl-names = "default";
++				realtek,clkout-disable;
++				reset-assert-us = <20000>;
++				reset-deassert-us = <100000>;
++				reset-gpios = <&portf 3 GPIO_ACTIVE_HIGH>;
++			};
++		};
++	};
++};
++
++&sm_pinctrl {
++	eth1_phy_rst_pmux: eth1_phy_rst-pmux {
++		groups = "SM_GPIO35";
++		function = "gpio";
++	};
++};
++
++&pinctrl {
++	eth_mdio_pmux: eth-mdio-pmux {
++		groups = "GPIO31", "GPIO32";
++		function = "rgmii";
++		drive-strength = <7>;
++	};
++
++	eth1_tx_pmux: eth1_tx-pmux {
++		groups = "GPIO48", "GPIO49", "GPIO50", "GPIO51", "GPIO57", "GPIO58";
++		function = "rgmii2";
++		drive-strength = <10>;
++		input-disable;
++		bias-disable;
++	};
++
++	eth1_rx_pmux: eth1_rx-pmux {
++		groups = "GPIO52", "GPIO53", "GPIO54", "GPIO55", "GPIO56", "GPIO59";
++		function = "rgmii2";
++		drive-strength = <7>;
++	};
++};
++
++&mux1 {
++	status = "okay";
++};
++
++&ethernet1 {
++	status = "okay";
++	pinctrl-0 = <&eth_mdio_pmux>, <&eth1_tx_pmux>, <&eth1_rx_pmux>;
++	pinctrl-names = "default";
++	phy-handle = <&ethernet_phy1>;
++	phy-mode = "rgmii-id";
++
++	mdio1: mdio {
++		compatible = "snps,dwmac-mdio";
++		#address-cells = <1>;
++		#size-cells = <0>;
++	};
+ };
 -- 
 2.55.0
 
