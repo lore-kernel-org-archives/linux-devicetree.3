@@ -1,111 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794856927;
-	b=bzlqsP9DVm3YSgIkhwPkJVEkyON1hM9+SurImGS49dU1+MFK14dQrHJg9iD157NAPkHe
-	 68DRc0by/4Vmk6CW0nLwhEKGucwYfK9xlVyWH9JJi7vk+nDFXr5Ir4tQ3cjFeeSyzfUQE
-	 cDH36feCieGVnCxP+Xexgd/OrBiB3zdhptvixJe+5lAIILfEtk4F+JbeUYw/ABfUT7C1u
-	 bEhtgGe5p6wfkMObTuzkVrWb9Sn2t6qPVzXQLXh8VFaiHWorTFrxSRi4WgEnYACINv8T1
-	 +PbpiuUzeRituxpRLr73+JVnlSPPdi918XSqXmS4gpNDGMFPrg+X0M2uqq5v/qYa7GA==
+	t=1794857424;
+	b=O2Vft7nJdE50xiroBVoOEJ3tRpv95gDgpiKowE4LqUoW/Fp9m5/K6sDx01eBpsX/zwir
+	 WuNRqXVDHhW+4bOsmaEqfxZDMv1jI2uAAOXIqDD03JD9XRIfD5+Pue0E2BWQCreoDas06
+	 OXunCPfRmwsylKNricE9flI7eRvjj0yDF/PgDWLrTa+IuNWJi62W/6yP2Z4iY7VxNXtGQ
+	 9B+SIOOLYwa/Pk2ZEQVQ7ZBuUgEjFyDKeLN+9i1qKRyFBZ52KERBGGtgHodhX3R/3Io7u
+	 lH5Vls706d90hSB2wcf9MH3g3IrZVYD3iXZOidx1NwpnwyelL1cL/+EkIbJFLVhW+rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794856927;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794857424;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EweSUMm4/P5BAq0haWY7BiMzFOHYazFTSCELjkONQrs=;
-	b=1ZRKhHW+QOMg6Yr/MkNYr+2juZFSiBLUwDbCsTOVAVjVDW81Bux5IwKTey7EcP00XM1g
-	 uPcDqcblo1wIRlrncW3nLk42BhUVKrhxz6l3PhRqdiMNzHGiBiYlj9gHo86NpoBIajCfT
-	 oCQFK1l7MPcP6OoTl7aDCQbxdBJ/ytj4P8Lq8fcrVJJ328HGYoUc1b6WnSmVymefdRyEG
-	 xGl8mBqjYj1gCgeixOqgLaXSQebLLtiigQb0pNXPj+FZCYEQCnNWuAsRxSJ9ECi4oFE6p
-	 qmqdeHcxFD3zFToeVe7xHkrlMw/hCp6csTxN+oJGFEm2gfKuuUBUFNbEWwpMZ+0HNbg==
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8Y8Yw9LOdvyV/HcUuJyObmf9/gu6aH92RylQl5nKXvI=;
+	b=SByM9O2yU/vzlJjBnsetHTw90d68EM0oO2tAbHqqz00UVG1fc5Ho3NvmsaoonrSCdjpA
+	 FR6cWrw/Q1+k4dkaH9RiZUlaKoLiEvA0QWsI2LyN23QDOidBOquqlg22HIC3F81y4HyGl
+	 Ax8GjIJXEA76WPLbidKBPsI2YR9qJZ5t1PCsKdMzJjiQQKMjDW487Pdi3+kBLrb4clzV+
+	 1d+2SX8+FmSVkwoHl1+LK+Od4Jt9lPtBqH9VzLuGBRkHu+hS584uUs9+mNVtdPtlHKRLP
+	 I9A8FkFwd1dfScuLEaUaNDd2WExGaRLcNDF9pvlCYJfWtJbYhmag2H5FH8xYhc8KHRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="nRMS7S/+";
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=E96WAHkT;
+	arc=none smtp.remote-ip=209.85.222.176
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A11606A323
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 19:22:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20A11606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36541606A32A
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 19:30:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36541606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nRMS7S/+
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so5016716eec.0
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 11:22:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=E96WAHkT
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-9496473b511so23634285a.0
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 11:30:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794856926; x=1795461726; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=ziepe.ca; s=google; t=1794857423; x=1795462223; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=EweSUMm4/P5BAq0haWY7BiMzFOHYazFTSCELjkONQrs=;
-        b=nRMS7S/+s2Is0hyBZzp0u0FXGwf3uGVRM53Rnx6JBxjL18C39IVe8tfqvxRbjadSNK
-         WUioEZPqrBNefjqg6vGnQg89ClP/bpuUyPvN9pF6ydLpc9SmQDEvwH75UlY4CUUq3jFN
-         piaRj6AKYi5LkOXB+e5Dbz2l8jO4vvVkIw+WO/YJacySO2wPyu9IYH6/ZYim+TXEAVji
-         YMoZqDc0ll/DLm8VfyP3YG5x9wbKxYJWKQJyKKSa03bADwy2nHK+ZNuP6Tp3vBlKXO8c
-         qJKNqWqw+l3KUbclJP4S/YG3mCssdy2kOT75XLkYFx1XLfoUPFyJTGQuNEapvB6eIiJZ
-         Tlgg==
+        bh=8Y8Yw9LOdvyV/HcUuJyObmf9/gu6aH92RylQl5nKXvI=;
+        b=E96WAHkT+sP92lQq8lfU7rpYkYmClz1BkPu1iXTnY8MIB//GemYHc5QdBt1ld40Smy
+         acUqrFGAqUxCszfVw+pzy4SnJCfUKiX/A4Q+0gJXedFRj+sYatxoMGnyXMoUK+xgqxjR
+         s4wgXwYNtTus15EIP5/qVjorQQoKK/mBth3DTSneehjsfS+0679AFf3GT8wrrI+TLrTG
+         S67lGTnC4/NuArZMxsujuqU9DVFtqdgciQWqSBdOrH62D7p7LY8rnKE/kpe2Uczm3HkT
+         7VhnHMuAAjm5NWwm6eproW22AIWHmXSjkJumB6jc+PP/hWJaqbaadKSgQjgzEdlnANOm
+         VH6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794856926; x=1795461726;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794857423; x=1795462223;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EweSUMm4/P5BAq0haWY7BiMzFOHYazFTSCELjkONQrs=;
-        b=ZDwhq+UJPPC4q7G/tjQEuDrIdTotz959dDxwwUeBC6jJxKO2W2ADScsChvA927bb79
-         KE6LavYzyMysD6otTHGuVqS328M4y+qWRwneYgO+IFKSyVBb3Epzat12Mzkv7e5mhEGl
-         URP0E7kVuN/NqQea+6vq5Am5buKmWU/rxHiZiRp7G0ywF8UJQ1pXX7TmwSlybHu4G+ns
-         rFKU4VyCbz6SuCl0BuUyMUs3AEQD3AEMqnfyiEOiVFC9PnBBgUH2qOwNhVx/Qdj3Hwl6
-         4SQcpAcVJ/Jy+2C57xPeHsh7Wsd7D/kHnPGg6F+LZ1ZyitZwgIYCVYLOrm0SUR7cqGbh
-         YltA==
-X-Forwarded-Encrypted: i=1; AL+hErHDVdgItj2RQqp53tSsy4qM7Oi9mkacCUB66UTss7v6EdJ6PRvHmCU0O81CXjQEZpH2tsEhG0psCVY1@vger.kernel.org
-X-Gm-Message-State: APuU4Z+AhtZG/zwfB0cJhf7y54JH3ff85K3gHc2w3aIV40Y51FzpxDnK
-	odm2RYZyDSqDNOReIgda+fZFaoMKMqjzDBLjTFixDCU0g5GJGKK3/em6trg9KXLB8R48NA==
-X-Gm-Gg: AYBFou1WgNWB622x1jB2UucXnAaDKNJEVHeAe7g7v5SiiE0YswzEg+0Yk2KySClur3q
-	trojIuc4isbOSibTdam3vo7iCCy7a2rrL/sPrIxrKviDHiGDdvOZNuOWNtNnH4OFx4KVC203Iy2
-	ZE3SbPkYH3o0ogWnuO3tMXljivQYV4FW0UKWF3rwh2WjAqQvRDtbTqh5qSnVZFFZcOXr0V6hYXJ
-	3LKoTwY2/n2Cs6J9y89AMJak+ztTcZcmDQhmPJpStEufErKGAEi20Cvmc/2U7z7F2mXWaLalOit
-	Gfx8ls8JNN99iLQb1LWgapyYPST5uYHy3wPU5NnXdzkBmOSdj0kCqtGAjPc3wQypXEov1IdKzKz
-	956fX1vo9plCb8wAthY50piGdDcXcTYWhWNaLxgqJL06+/DQ4HcIn1jX1iL14QdI58X+0cJuZP2
-	CC/qfQ0qdOFhNtVajFO05zYICJ51YZ7u6v88rTLFT0G1Zi13/z0R91/vlXtgiisstKlUqzOX6Dj
-	Kjwi2rTEwxwcFN9nj7ZeNQOdZyPQPxsQrfw5JmBkyi8/AupfQT3jvTvTDSUmpZUCPvDIlNAsndi
-	UY/JF3mD9G31fkAeGvqOO22P+W+mPCVCFz4G1K8pALC5Cbg+hll0axUOOGg5kh1NlaWBk1pc3fD
-	+XF42hbJFYkbc2NIe3srjbO3W8ZoHe+lHUJScNWvxVthuhufJHVxAfmE6Gn4EnDdocK/BMLph1L
-	Nv3ownML+kh/XBoxHaFlTZdZ4/58ZoU/522XlRAn+n/g==
-X-Received: by 2002:a05:7301:d189:b0:36f:a651:d649 with SMTP id 5a478bee46e88-37964b08e64mr11776840eec.4.1794856925787;
-        Mon, 16 Nov 2026 11:22:05 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm34908993eec.22.2026.11.16.11.21.59
+        bh=8Y8Yw9LOdvyV/HcUuJyObmf9/gu6aH92RylQl5nKXvI=;
+        b=2fzkiV6iy0EpnkJJ8uV2I2NzY7I7loCMwohjbnfyTof1ZL9JhThmkZNVeTHP62QlVK
+         tztfSKNysoPVqLTxcAGpQG/6eJ6aBtSapBI+A3CJrUSe9eqIiiz1/SAP+7uFT2BaHjrE
+         IhqouoMInoy7WH7vLfy8/XhyB9hZn7L01wTGbDn8HKapP67haXxvOG/wLO6JqDE0Fsdx
+         QGerohUmQ/IlLHM4a80r78tJcuClRMncdKU0mRCq4mBNG6nUlh7MHiSFGtcgCknxloWZ
+         ANvvoOhXIhZaJFoftIAZXQuOr++scdoD8QGXtvq7cWdqoFUW6LTb4XJDh0KNxi657529
+         iWTA==
+X-Forwarded-Encrypted: i=1; AL+hErFW9Ct2joz4BQwY2EY4WSjrdLvpmx6whV+eozDM0nwQ66oiQh754NfFxlPrKlv10UE7W28LON3/MNbq@vger.kernel.org
+X-Gm-Message-State: APuU4Z+LET8GqM1GzvOwF+UR3WrkZ0ZWyNH/0pgYP38e90N5Lpi//bqE
+	jls1GIdLHpyj6lWmu7rIWCg+E7lHxOKGJehV6H/vtY0k3fkMIiW+tBLj9OGqGQI072A=
+X-Gm-Gg: AYBFou0vz3gbjyjipbiWTaMDIgnccmftc2Ps8d3thXW/qO6RWESvSn43u3/dk3DO03W
+	99x9VNbZTh1hJWuXSXyy/I9OFNr2EamB8lhmmc8o0sSNVo+bz7W1IloR12W0/fcIO2aevWH/M24
+	j8iKmarPQpRQ4zbem8BF+0hfsRVYiDeVBUqHRUNw2ApHvAsW5UIUyOritzGR3UWivagzSW0IHE1
+	K0qsX3En9BRZf+/iQywl24AycQ3lTuiyKFM2hoRPeqZ8GGsXANELN5YlDNTqF3T+mS+tBdpq0Dd
+	RT0CljSHwuwHxF2vY4fRHOmv0KX4V4f2D8/oX5veN6NJpXHeIUNm8KiUDROCkqHZZBLUsg4bB9M
+	0tl/KCMq7GEa7xZXhqdpXGamiGnecT7zR44yjdUMab01hGDHoAMRGfH6WbgP1Se3hSld6RZA60o
+	WWGMx0yjsp4f+JBeSisrRYUeTpGgXLMTB+0EGlKGk/AUZQYCxnZxTRRRTeuwzpSbrzokJDlMlRe
+	a3IYLTBzQxYd3qikjLXIEjdFM/I1dDkakM2bhXeaTZ6QsZZp+Bj1p5a5hUJRNo+d+E+zvO1vkLM
+	0BAEvA==
+X-Received: by 2002:a05:620a:4406:b0:949:7058:dbcb with SMTP id af79cd13be357-9498b875510mr84935385a.14.1794857422999;
+        Mon, 16 Nov 2026 11:30:22 -0800 (PST)
+Received: from ziepe.ca ([142.166.156.71])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94978ae5483sm390417085a.12.2026.11.16.11.30.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 11:22:05 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
+        Mon, 16 Nov 2026 11:30:22 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xT2PF-0000000AJAU-3HLU;
+	Mon, 16 Nov 2026 15:30:21 -0400
+Date: Mon, 16 Nov 2026 15:30:21 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Esben Haabendal <esben@geanix.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Pan Chuang <panchuang@vivo.com>,
-	Hemanth Selam <hemanth.selam@gmail.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Nikita Travkin <nikita@trvn.ru>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/4] iio: light: ltr501: Add support for the LTR-659PS-01 proximity sensor
-Date: Tue, 17 Nov 2026 00:51:56 +0530
-Message-ID: <20261116192156.33333-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261115083741.62140-5-clamor95@gmail.com>
-References: <20261115083741.62140-1-clamor95@gmail.com> <20261115083741.62140-5-clamor95@gmail.com>
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v6 0/9] dmaengine: add DMA channel bus and fsl-edma
+ per-channel IOMMU support
+Message-ID: <20261116193021.GB2452510@ziepe.ca>
+References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,59 +116,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
 
-On Sun, Nov 15, 2026 at 10:37:41AM +0200, Svyatoslav Ryhel wrote:
-> -	if (test_bit(0, indio_dev->active_scan_mask) ||
-> -	    test_bit(1, indio_dev->active_scan_mask))
-> -		mask |= LTR501_STATUS_ALS_RDY;
-> -	if (test_bit(2, indio_dev->active_scan_mask))
-> -		mask |= LTR501_STATUS_PS_RDY;
-> +	iio_for_each_active_channel(indio_dev, chan_idx) {
-> +		const struct iio_chan_spec *chan = &indio_dev->channels[chan_idx];
+On Thu, Nov 12, 2026 at 03:53:03PM +0800, Peng Fan (OSS) wrote:
+> I used iommu-map for eDMA, but iommu experts rejected it:
+> "Using iommu-map to describe synthetic dma_chan_dev devices that the
+> kernel creates is the same kind of DT abuse from over here:"
+> More info: https://lore.kernel.org/all/20260917144804.GI3196566@ziepe.ca/
+> 
+> So I followed here [2] as Krzysztof wrote for QCOM VPU:
+> "Thanks Jason for context and detailed arguments. Robin did not chime in
+> yet, but from what I understood the DT-child-node approach will be the
+> way we should go here.
+> 
+> I accept above point of view and I am fine with this, thus Vishnu and
+> Vikash - please go ahead with DT-child-node solution we had some time ago."
+> [2] https://lore.kernel.org/linux-iommu/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
+> 
+> This series adds per-channel DT child node support to fsl-edma and, as a
+> prerequisite, introduces a proper bus for DMA channel devices.
 
-iio_for_each_active_channel() walks the bits of active_scan_mask, so
-chan_idx is a scan index, not an index into indio_dev->channels[].
-The two only match when every channel before it has scan_index ==
-array position. That holds for ltr659_channels[], but not for
-ltr501_channels[] (also used by ltr559) or ltr301_channels[]: entry 0
-there is LTR501_LIGHT_CHANNEL() with .scan_index = -1, so scan bit N
-maps to channels[N + 1].
+To be fair this is discouraged too, now that I've seen 3-4 people
+trying to do exactly the same thing I'm not as positive about the
+DT-child-node hack.
 
-On ltr501/ltr559 that gives:
+Can all of you come up with a proposal that doesn't involve hacking up
+DT just to unbundle the SIDs?
 
-  scan bit 0 (intensity_both)  -> channels[0], IIO_LIGHT: no RDY bit set
-  scan bit 1 (intensity_ir)    -> channels[1], IIO_INTENSITY: ALS_RDY (ok)
-  scan bit 2 (proximity)       -> channels[2], IIO_INTENSITY: ALS_RDY
-  scan bit 3 (timestamp)       -> channels[3], IIO_PROXIMITY: PS_RDY
-
-So a proximity-only buffer waits for ALS_RDY and never reads PS (the
-"if (mask & LTR501_STATUS_PS_RDY)" block is skipped), and pushes
-zeros; intensity_both alone gives mask == 0 and also pushes zeros;
-and enabling the timestamp makes an ALS-only capture wait for PS_RDY
-as well. On ltr301 bit 0 is likewise lost.
-
-> +		if (chan->type == IIO_INTENSITY)
-> +			mask |= LTR501_STATUS_ALS_RDY;
-> +
-> +		if (chan->type == IIO_PROXIMITY)
-> +			mask |= LTR501_STATUS_PS_RDY;
-> +	}
-
-This is what iio_find_channel_from_si() is for, as Jonathan suggested
-on v3. With the export patch you sent separately, something like
-
-	iio_for_each_active_channel(indio_dev, scan_idx) {
-		const struct iio_chan_spec *chan =
-			iio_find_channel_from_si(indio_dev, scan_idx);
-		...
-	}
-
-(it also returns the timestamp channel, which matches neither type)
-would keep the type-based check working for all four chips. Since
-this patch is the export's only user, it is probably best to fold the
-export into this series.
-
-Thanks,
-Arnav
+Jason
