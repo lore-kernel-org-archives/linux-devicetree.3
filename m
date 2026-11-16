@@ -1,75 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794838103;
-	b=lQcFpNYDMJUVTXTAeqrgmWQxB8+cMCaNKhZgodpEFRwOXJ0LHsfroXZrvxLYdhDUpG8d
-	 AIZlSqsr0c0Qu6L3lgzEIi21bEVji2bs2andG1f5BkXPASVnzSZ2b55n6/keQb4uNz9sg
-	 HUbcueMR/mfWWfnDD51h3h5522saXcZ1KiYnMNnGfALYTzQDPh7aeUOyGfKMumWV3tAZZ
-	 tdVoGetiWAUGJrdCH8i65Ui1qu4Lvfpu1xmxNRYnWZZBX8tscyYgijfjatwpCa9dCmzkC
-	 W+ubIF8IJyD8ACc0xKMFa3L5ZlwTmD46KkDUgbv+17Z8DkkMWw5NKUg4R6flz3dNirQ==
+	t=1794838235;
+	b=a7EzM7wdunxXaqSyvTRwtBDwQFbaYLS1TQrAvWM/EoKx/5Vzy/0KYzTcFAWVHdECzp1o
+	 GuGKuW71bSUg0+AphBxkZIrdcoaVfOdivjqwCiuePucowXeptxhxHxYgnTEA3O8bdq9EE
+	 lyhNKEZD0+vz6CaX4Sk/vBJnyesLzneM85sx/Mczdqv89IQyOcaWFhirSzjSa9ZHJMOk7
+	 8bxL40ZcEMrfUhdN36EpgS6ljS34yEXIIB+nggMMFazCtnWx6FZ7zHHf7HJYybaOOdMdi
+	 JCdutrhOzx00CdXpYIZcMH71B07XIrcUppq/AZYw4lvKuLWmdUbRNQHnLqZEIfFzaBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838103;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=6XgtXKrUb7kPgwKD/f012L0xoO7Sh8iYK023Xn9JSFI=;
-	b=mfsGBIl1r9sEgJ7bbqbr2nWZK8s9EYkB/zdCxSYJhSHIIhRoaS8H8C+XMl+7cDqBYuG3
-	 +/ojub2yAvZGNt6VEoa/6yJSDZi8BTRIrj8XhojjP9XHnS0RxrhUeOaHDE+x7kLun1wHT
-	 sXpL28I1Crr5C08ghqisnrif1NJr97nWQTV7QduqFQSJ0jlJXPlBovZ3DD7EuMlgMq/sD
-	 RpduxvuiWoW5WQhiBjAfRuvq5rpvcKxuMFbLukq8llTkNJ78jW3/jztx2SQGONZxg1OUE
-	 /LOL38P8eQMccftkIYSlXFU+IsTLFykiFXl0zamPvEUQssgwZLOywc/dfVHxoU/a+ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838235;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=9Ww2B866Qzj75gaqNgDn9gH66Ny8eO7Uks5H+nxKStc=;
+	b=nC5iJP5zUTajI+rgWzk5C4ZZYLjFiOifIAkLzY8LvP5LDd4iltYVUVpx3hG5dRx+gb3+
+	 P3Ms8dZCd1Xr3mwHolIrSmxCi4HXR6OKa2Bj5HN1pYxE+9DEntvUyZVGprSHYdSXl6UjX
+	 PjGBi7nCF1eocjVxNij6DWEizIJ+xCvX6dCQDIgb2osi/jpyN03nQq9JKEJWBACvjWRFE
+	 IaEN/SRb8jObtYV3nwHdzMo+L779XPj4qpElo6luKpo1anvnfZzjxk6yAsLUh+N5v0png
+	 1R/YftA30XiplSCerQn7ky/US/skTJIU1KaZSv8T/vj2OVtZ4bCrEDmOUwDbcXGNtBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b="Le/+a0St";
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b="o/pEEvs8";
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7AB606A331;
-	Mon, 16 Nov 2026 14:08:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B7AB606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7EA606A329;
+	Mon, 16 Nov 2026 14:10:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A7EA606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=Le/+a0St
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1794838099;
-	bh=6XgtXKrUb7kPgwKD/f012L0xoO7Sh8iYK023Xn9JSFI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Le/+a0St5+LbKQh4KvmBcsPiv9Z54ypsyqNjFb/uB43/ZAZK22Q4F9XYCwyRVGMey
-	 mphndvunk8dNwplRzbWJKiYV62UWsfDsL9jyF2q/UbEZUZ5QMgh7O95kDICDmjo7eM
-	 xqNYO6BwW+WzDPoVMIWG4iRZdYeBmxdW2Ny9bU3zu2HPrDHLeL19cN9csHX68+0kmw
-	 akgq6KFBgY4/y0bz+Y5z1T/MN2p9wRuoSfu79lQ/RlasxwzzX6HSxqu9ZzudxYyWkz
-	 ya96AtbI4ikjJG+DABEeCu1ywwWLrxZHV9rt9LVtT8fRhrTuVTOIODVvuYExijyBT+
-	 6Efj2sLle885w==
-Received: from pecola.lan (unknown [159.196.93.152])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id BCEAD6005F;
-	Mon, 16 Nov 2026 22:08:16 +0800 (AWST)
-Message-ID: <63b0ab24f2ec4f83ac87add03f2aa9517f7f73dd.camel@codeconstruct.com.au>
-Subject: Re: [PATCH net-next 0/2] net: mctp: Add MCTP transport for the
- Axiado AX3005 IRoT
-From: Jeremy Kerr <jk@codeconstruct.com.au>
-To: Akhila Kavi <akavi@axiado.com>, Sammai Chakravarthy	
- <schakravarthy@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet	 <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni	 <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Tzu-Hao Wei	 <twei@axiado.com>, Karthikeyan Mitran
- <kmitran@axiado.com>, Matt Johnston	 <matt@codeconstruct.com.au>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	openbmc@lists.ozlabs.org, Adam Young <admiyo@amperemail.onmicrosoft.com>
-Date: Mon, 16 Nov 2026 22:08:16 +0800
-In-Reply-To: <f752d203-8239-4203-aa04-884b4d7e5d80@axiado.com>
-References: 
-	<20261101-mctp-transport-irot-ax3005-v1-0-36ceb822f01e@axiado.com>
-	 <4102c20ece135c4d94e94af4441a01425ad159fc.camel@codeconstruct.com.au>
-	 <f752d203-8239-4203-aa04-884b4d7e5d80@axiado.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=o/pEEvs8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=9Ww2B866Qzj75gaqNgDn9gH66Ny8eO7Uks5H+nxKStc=; b=o/pEEvs86dEc+pMCHsYRxbJ5Ye
+	9fJHYQOKPsZNt1ibHSs+Q94g06Uw6dYYoBAvBm9/YOqpg6lmDQgUQkigm+br3yKhjTHoO7fnSLXmA
+	o+aIFKR6NBd96a/hc3dKBUxFRgcAZxOQqWgEZ2LgAzx7HPlCDc+H2QqCE9eD8gqzi7dg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xSxPZ-00Gw0P-Tz; Mon, 16 Nov 2026 15:10:21 +0100
+Date: Mon, 16 Nov 2026 15:10:21 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: netdev-bot+sashiko@kernel.org
+Cc: jacky_chou@aspeedtech.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, ratbert@faraday-tech.com,
+	edumazet@kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v6 2/7] dt-bindings: net: ftgmac100: Add AST2700
+ compatible
+Message-ID: <51667f1f-4f2b-44ea-b725-87cf63c2c9dc@lunn.ch>
+References: <20261112-support_ast2700-v6-2-238020bf46cf@aspeedtech.com>
+ <179483725554.3136.8359940788845125105@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -79,51 +67,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179483725554.3136.8359940788845125105@kernel.org>
 
-Hi Akhila,
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: aspeed,ast2700-mac
+> > +    then:
+> > +      required:
+> > +        - phy-mode
+> 
+> [Severity: Medium]
+> Is phy-mode really mandatory for every AST2700 MAC node? The binding
+> also documents the use-ncsi boolean. That mode runs the NC-SI stack
+> over RMII instead of talking to an MDIO PHY. The first example in this
+> file sets use-ncsi and has no phy-mode property, and that is a valid
+> setup on the earlier Aspeed parts.
 
-> Thanks for the review. To give some context first: this link is
-> entirely internal to the AX3005, and not for host communication. The
-> IRoT's MCTP endpoint is only reachable from the application subsystem
-> on the same die, through the mailbox and the shared-memory carve-out.
+This seems like a valid point. Maybe make it conditional like the
+code, either phy-mode, or use-ncsi. Both or neither is invalid.
 
-Yep, understood.
-
-> Both ends are fixed on the same die, and no third-party MCTP device
-> can ever be on the other end of this link, so carrying it as MMBI
-> would add nothing.
-
-It would mean that the driver doesn't need to be entirely custom.
-
-I'm mainly curious as to why you went with a brand-new interface rather
-than implement MMBI.
-
-> The IRoT can't bridge anything to this link. As above, nothing outside
-> the chip has a hardware path to the IRoT's MCTP endpoint, so the
-> application processor is its only MCTP peer.
-
-OK, makes sense. Be aware that you may have the other direction too, in
-which case the iRoT may need to fragment (and reassemble) packets that
-are bridged through this host, to other peers via links with a smaller
-MTU.
-
-I assume that's not in your current designs, but will crop up if those
-change.
-
-> If you would prefer, v2 can default mtu to the 68-byte baseline and
-> leave max_mtu at the negotiated limit, so the platform config raises
-> it explicitly. I'm fine with either option.
-
-Your call really. It's generally safer to start at the BTU and then
-increase, but if your platform design means that the max MTU will always
-be safe, then may as well set that.
-
-> Please send the implementation comments when you're ready; I'll fold
-> them into v2.
-
-OK, shall do.
-
-Cheers,
-
-
-Jeremy
+	Andrew
