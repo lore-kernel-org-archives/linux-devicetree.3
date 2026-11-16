@@ -1,105 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.19
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794849162;
-	b=xqxV03pfMzGwy/X5Q7ihF3X0frFDiQTJ4Ns1lfXZ87F/31lwrYQa46nsIxCvmgus6Fcz
-	 wiy6dsYMvnh7vdtTlvu+KLT0caLTddEBqa7yrbQKfzlgSSMBKY9JkahBTnyZv1OIUacSe
-	 n/qJgaeKKSFcpep6FwUMLw0E8x5hDaZVjHCuKsHT95qHbl7P54wYFZBp6p7envlmHanqg
-	 0rlwaPRAk4hcjEnjgZfyNHTj5ZyEy8s4Ykvhh8OeuJa4nzQIgBbicO+UGu3WK2FwGFmc0
-	 pmhauhmBf67Ha7Nmi3FGGeJmppWZL2G5kIW3/NbpDGP6Hi8BkMx+zOQVEjzMr+47G3g==
+	t=1794849258;
+	b=rfApuphVQ4kXsWQz9DsGMiPHiqpv5kycUod0UEKZJQ1UXd9WV7Z52Mr6YTFmdutsfFXb
+	 yE5Vs3nSLE+lyDw42UoZcfCVBQdkgg/9Szov0S6ArQVVWfbvO8Dqz4MrfeQgNMQUygSjl
+	 qAh/5U8KEplulCKwZBKUq9jyaRScC4gHTktVlOtLyDOWvB+Cm8DoR6xAwN9WgOOiU2Fon
+	 DTdPtlSADEZTud8A3j25tgC5aWryDfviX9AwCmgsrHlwLD7EPDhT0+Qn92qbCXTRFp5CT
+	 98NVNRMzy1r7cG/EohsBu+/lR/dwHmmvDZ5x9zQO3UcHcQ9Fmb1i8r4Oivv+5j7uebg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794849162;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Aamj86dzv2Ke/HgO9XDLo88lwbPM6q/7WVEi7BQ5bY8=;
-	b=orsy1RgmNPqoeKaaXXku1u7unS6TFu8vHNNd3oC6VMPYAJI7twyDyaw/QuPq+HYwigM0
-	 iG5U5ndOJ2XHLxdMjalDXDxPQ8mjDrGdRNH8SH1SoW7YviF3Q5PVglNiAM4300iRZYDrc
-	 YxffeDvaGq6Be+sXtQ9pZSPRreZj46iK5HgammdrdIToWuNcDSHasudI+bpquIYGYuTN1
-	 uTCj8Xx0wXCwIe2Gqd+sZzjcHkmUBhODU3bvSPKy4RfOc6FhNQfxoBlBALGqHiljin9jr
-	 l3tZOVGnSANSr0g0ySdJUSH90KscwGVk3Skli6Sz7tZDVa3eHDNcXQ/BbVsJMHpZTGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794849258;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=UGIDXdp2RIrXTSdgnrAspAZ/nkS4v0bZBuA1gb5G5i8=;
+	b=MY4w19nzsky9aKn4KiUSGEC4C1rikyx/waOJYRS4JWGuubNLaEpHgNq9ka6RFo25VhSZ
+	 UGRiT+vmlcNNUiWPl/m3m2CQrKL4JZFp+RYikuNYfocI+2SqHkBTwtMOH3Gri5AlHxxsk
+	 tzZYNGCwvqefamdw+MUyvZZCyx8g0VqSzJVomBp1i5DuoStxOYMexDkFEjRvFf9kH4B7e
+	 QivcvPgwhHSFgjxoZ7xyCMg6zoX8qnWodiKzss+WYim7RQ0F78ZNeytqyYH7n6rzHVbPi
+	 Y/ttpbj0khCTUXZX3ToMS33R2FqmZ84WoNSeqJES7kU/G/Jh8m3OJQY94zCiCuEhNFw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=fE1TKMwN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.19
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013019.outbound.protection.outlook.com [40.107.159.19])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NywTcSMT;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Oavvq+Jw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5715606A323;
-	Mon, 16 Nov 2026 17:12:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5715606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAC3606A338
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 17:14:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DAC3606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=fE1TKMwN
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Io2PkWtPxGfsEn4BxVxdyuzrp7pj9A/u2u7B8/EV0jhRO6dLP0NwXoipokWJfYqnCoXftr37mGAECLBDFoFiGy8UwbHnJrbGIVfE0O+wYL1F5CqeHfVRZivWe9NdTMAPZnkWA1NnsPlH3ZN4eCS4v2HC0gclA4su85w9edg6o+7On/LWVmeyfohfqqP9dOkYQjj2w5dY6yAuHolYP1NJ8u3Z5ZTdZY9hRIpgbFciL2HuhTitcMahHCw233FBF3adtZ4xpp4jm/aenGGchCbnbzxuiG5T2tEanLiqt4MdwU0slIZSGtaJNg12SZvk/hzGM8X+U592Xa18JIMQkBMejg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Aamj86dzv2Ke/HgO9XDLo88lwbPM6q/7WVEi7BQ5bY8=;
- b=B0RwoWUYkp6feo5x5WlyuaieOob/qjO4BGmebftn2NIAoomHBv08B7pvN7YB0cNmUwPc5+LgJyK3ztrKq5oeeSk8x6W8VMGMz8+qsH5v4sOjpMAPqRiXdgTgS84Qm3b6C6b1/mzgNDIrdkPhh1YVblYqGDmnSZiv/O33x1JMeZ7VjLquzAWngErBosVfl2I272e8cPPmknno3FWT8hBX3NCfyAbLQv/byNauHhbtf01VhjFw1bIt/DLbYYys4nvel8hST+hiZhe7WnFbtfegbMLA19ncjPyi4KlIRv95E6TfIXLEpBGGQq0S3fhd97DTIykxhChLVikKSjW+9gN3FQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Aamj86dzv2Ke/HgO9XDLo88lwbPM6q/7WVEi7BQ5bY8=;
- b=fE1TKMwNfsIDK4AeahuojwkSR5Jwwr4lXKyWDymt/DSu/NyKORE2r7GUgmEJvAMVn7GXQBpqr12qeVRXtuUyNe0P70Dm1KKTO8vxM1nhGEUQIgCck9IBCeWoNgpLwRvTbuBablvE/zohK/D9mcpiyW7c/pC6pvev93m6wxAqVWYrBa3jQ5pDF2dcHeyKVZzZM9IgktQaQs4CQUWAbzvaiValAfNS3gloji5VD8w2dpmDNiCXPQpK4FmPus9A7KTXislMmVUi2iDJ+gf1scXJKwrAXdR2Ha6yqQ/hHNuioyc/GtawBIQe9Ci9EiYX+tWdNhPDPt2jjZxvvj61m38t1w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by GV4PR04MB668163.eurprd04.prod.outlook.com (2603:10a6:150:40f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 17:12:35 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 17:12:35 +0000
-Date: Mon, 16 Nov 2026 11:12:22 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: vjardin@free.fr
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Ioana Ciornei <ioana.ciornei@nxp.com>
-Subject: Re: [PATCH v6 4/5] pinctrl: freescale: add the Layerscape RCW
- pad-mux driver
-Message-ID: <avs5doXCSvucsOdR@SMW015318>
-References: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
- <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-4-fbdce4565a5c@free.fr>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-4-fbdce4565a5c@free.fr>
-X-ClientProxiedBy: PH7PR17CA0022.namprd17.prod.outlook.com
- (2603:10b6:510:324::7) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NywTcSMT;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Oavvq+Jw
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGGIo2w155615
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 17:14:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	UGIDXdp2RIrXTSdgnrAspAZ/nkS4v0bZBuA1gb5G5i8=; b=NywTcSMTB0SjVUH8
+	zpjux3PRGT+tY70cwKUHkTdZU6FQce64TaRkPm55vIxr2cJyMo+bEdnrpOKiv31O
+	FFQIlEiLf9N9yJLplM7D8VMht3Te2bvxzvNzib6F+Fh3/GJE2YfxEfkSh43plUNn
+	0U1jZvUAj1k0ASPm4mybE5QcXm+kJol8yLMjkVb02U85KmpF24PWjWCvAtJF/98A
+	CoC5ifC7q+rvAkW3KWJF8yyVOUcN2Y/WhBKI04O0FA8R95QVy1aOW3+QGT7qfpqA
+	LoOOYzr+6iz7S4t2RDspWL/9FPDi3hgcY3SmQ40L6u9MAWeAL6SOBB8V45aF1VzH
+	4Zp33Q==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hyy6ghsus-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 17:14:16 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-94970ad532bso278200685a.0
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 09:14:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794849256; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NCXXb6UXgIJ+9Lqpd4+A9h0KNNjBtH+bacjmqsCl2F2MNDRTDcunuzsVuxQbrnwbZK
+         +NqwP3k6E3HD7j6xUfA6aeo/TD4aDfGWUYsgX6YpNh2I2MccMtLTnfrDHM8ob7ZTq6Tn
+         +IOTUsh0KA9Cbcc6hXzSutsUk/eQAQCOMel5X830Mq7GegUdDCYlaXxmA1p4HKhM3mTP
+         WHCkjcZtrO+s9pvOCH4aeSiBi2hPrhh7nGZS0icp552LnKHyFSRvoz2JEZ5tnWeH2oSy
+         K2zcKePrFcn6yBxDUyBqc6kiECexAPx2K0XPgvXLQWiMjfRiImPGEuIYK54WwRwKA8ik
+         nDvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UGIDXdp2RIrXTSdgnrAspAZ/nkS4v0bZBuA1gb5G5i8=;
+        fh=H3CjphLL14wcYtdtxDsBzLcRtUGHBdZDu0aimPAanoY=;
+        b=eUJOMg7h58lCk2q22KFLRt56EfQNDrGyEPix57rCURZqojXUMq4162P7jSuOXIGiBA
+         N7VY4joG8cEoRFoadr8XYiDgiBrbHOAg+R0wOyCLRyncnzIQzaHYtTjaLoEgZrBVRvPH
+         4nO+a6Zd/Vq2t43fVzbtpFudMhZQth6KMP4+1KT2Fl0kdbQQhIuKj6oRchS60dYyiVqv
+         I01HEr8dXCTGr4Vycj88mGFlX9+x9O9MvZbJ5EKFOHtxbXDrJXlXofl1wcn0CAFdr+5I
+         OQAvdsaxHgkuBxq3TuB/O8zA6v+teV122FCpFhIPmeKvBEHJEoA9FYxJ2jEMccISXSsq
+         00Bg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794849256; x=1795454056; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UGIDXdp2RIrXTSdgnrAspAZ/nkS4v0bZBuA1gb5G5i8=;
+        b=Oavvq+JwNQrTn5YmGNpTNeeEL/plcUcvqJpF8HaP0iHoXVlerGo8RsTb33IrKAIXEa
+         UEbEmF6gVxDQsV0OCOX/zkrltHSnDA/k6NhQQqLfv/6Ae7kPJWuPUdYuJiX8SFb/z64w
+         oS/RslhJ//HsCF29Pn7yZejEuMX6UepSDdxXS9kUADNYfKKIMW+iXQKSDTN1IpZsJ2Ni
+         UkfUCxJeFnm5RZC6II3tEJKmWDl0zZgHtU6QpAPJfzsPX0XwjUT1K+lICHFXZ0umgsQt
+         byVlH5niBMIQMv2sX4dAZoK9OVqMnv1CXIZqO9CQKuvg4O+sXSxeJJZsf7q/tDQ0S+UJ
+         jxIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794849256; x=1795454056;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UGIDXdp2RIrXTSdgnrAspAZ/nkS4v0bZBuA1gb5G5i8=;
+        b=izJP/hBFlXwmWeFvngOFlVMF2njZoy25nPYju8Xkh389L+yRae/yRS9rktuzwuJcJL
+         LiB0BtckqWVUZuc3hEzm/K3RNdUkX8ws+q3ctXnI4YPPhQLzsAMTvWNo/uAvbBC5GYF6
+         yl5H0vHnU9We8/1+SKQ3MLLKJBha65CptQv9/qNwuBfO/wDId8kBQD0imXv/fnG/kDie
+         H2Dd6u7CiyK0+ANoo0ZysSAisBhIicEotpaQr7rN35jWNcE2Decjdmb8ogcBb2ww1iVc
+         ipSHeSN9crEzypO2dftEy3fh0xgXYKGDnoN91VRyZ499nz3vSUJGLTp1Mge2AOwfvcLV
+         +EHQ==
+X-Forwarded-Encrypted: i=1; AL+hErEhCWmMR7+WltVyIj7HnuiplLQ7TQ9QaPM/y9MiA2DyuYZmVn7+PK9mIc+tBEr3t+rJ1RFUHXQ8Gy/6@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/oWRcjDjChg633J3zNRtHNx3u/agL6lMCYqnxhS64yx2+h8c8
+	FCC8iLEEkK6hGFuIlgRuVv3R3edKtEWm4tyxD9DtSSKrmRTBvbD81DZm8wtc5+KqFnhBkwn90Il
+	lpVWGDt0FYydjbRVb1+tIhBZt2C2vAgi5XSXRiTxaXLVRvPExNWqtAfriVEvUj70guQ2X+FHWj/
+	6DqA0DFuOT1OeFf4xdPFrftyc96XuEi47qmGT75X0=
+X-Gm-Gg: AYBFou16nQFSdGAgrJayb8KpkLJnhsuH9RAwlUUdV+FEZReryvcl4XroUHXkNR1lLsw
+	1rKmeAIGKqa6EJElO+b/kV49O4SaECs2VRNXf1qUQr1jxpp3j44/lhhjl/1GmbP3nz6vOOcR2VF
+	T7LWagL7snWwcQgPZcBUPKA/GcJ4rrHwCuGQUB5sbw8KmNX8e2moxzXW6Lv8OexMKCagXeR3PKx
+	CJkNuFtDf4yW1P1GKpwe5fYW9iUksh19T/iEKDBT19PJVTHChhIxi81ak7X4PZLVuWAoCkolbsy
+X-Received: by 2002:a05:620a:370e:b0:949:7502:6a8 with SMTP id af79cd13be357-94975020921mr757117385a.56.1794849255675;
+        Mon, 16 Nov 2026 09:14:15 -0800 (PST)
+X-Received: by 2002:a05:620a:370e:b0:949:7502:6a8 with SMTP id
+ af79cd13be357-94975020921mr757111285a.56.1794849255104; Mon, 16 Nov 2026
+ 09:14:15 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,585 +128,194 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV4PR04MB668163:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa79aa52-a0b1-42e5-3b55-08df4404cee6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|376014|7416014|23010399003|366016|22082099003|18002099003|6133799003|261009223027099003|3023799007|4143699003|56012099006|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261021121427099003|261022075727099003|10067099003|15866825006|41080700001;
-X-Microsoft-Antispam-Message-Info:
-	EvOjHFTxUR1L566e8t5fFTadV/l7+M37j0G60CYtKgV5qevvwYWgafNy4UDVXe9L5U+Ir4m3UcGGgrTYyIylz7wJhlxRo6NFmR02mdUq5miM0zxvSK5RE77VrAscAx4eePcfnhWlfMZSZjdhOFKnsKWr9/+eP+5C2g+jlOGPmw0xlyHMxHFrwF+Q/Q+4mRFYaI9pfde392RElG0BqR9888HjsP+JFSu8idozOwdNksOaJurNCQEYppM/qKSXjZK4DnTmsNskOB724VD8FRBnxz78RTR0IqiypigGWjZ0a880HB7k5fkniLpfriBL7ROYckMSsSNbPJkOOCFG1EJvIi1wKTGaDpUID+XmTJdZAyB6zexPGQ+z2SOqxrAISgac/wwKl+JyEq0if0zkIUqYkZf70DU60aQJ0zuoCIp9wuiGhMY1tjKh7GQXfrAoT0/Le6XeRipcRJIXDMAczxApo61aB3EBts8XmXeCdI/GXBLPIarVb+j6w0iUnD9hB/+Xh9HbgkrF2n59i7YRLkvNH9qIq5IPvuonLgzCdL1q2Xkr+bQc2f69lGfn7BeXTtemvFTSc5hDGyoRn5fr12cMiw+wdFvIevG/3bBZrlCf98Eh7DpPhQYOhQF4nsB2bY/za+N4Gefap5cWeWKQ6IiPK7KLh9uvDV/vN9fs+CUXaK1AMK4Xgwbw3HXvpFLai9/Ui2Qisu8tkiAIkDItqoqqQLuo/rMGdo/j5DNvsl3cj/3l0m/ww9tf29bOtrMAY/mJ
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(7416014)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(261009223027099003)(3023799007)(4143699003)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021121427099003)(261022075727099003)(10067099003)(15866825006)(41080700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Kx3RysL710ipzPzIFQaoi3MuI06iRu4Z/w7IMBiA3ektVUvoME6iUIO94L20?=
- =?us-ascii?Q?nYPhgqFr0CnJnFfoKQp0bsSSTYoUf88puue6aCZr/Nu7cRgYRwC5bjqU3GE+?=
- =?us-ascii?Q?Y8fjEZ0d2wTaxg3mkc4bR/SvJZKAW18/FrRKAC0meL0kIM6anu4Q22OnBsmX?=
- =?us-ascii?Q?G2QfTobZpTueoNsT4LYMi52X7SAyD9BClNWcPYB9Zr5tOwkiM4KNUbqjQ1tK?=
- =?us-ascii?Q?B6ZCB0I4toKPqq9MQ4SDL9wZ2nV2owOfvYKFXcTxYpKY5SfXuUk60EFwKVUv?=
- =?us-ascii?Q?2c47JzUZd4fzu08gWNOlJZVrSNFeKbop0lbdcjBeE1bltxV8yZdXyNeoUE7S?=
- =?us-ascii?Q?HUFlLLQK15KlyW3wXLeuFrdOXyOo34PhIilNqVDHD6ELB0cTJWNNs29RB1mX?=
- =?us-ascii?Q?mq+eP/Fr8xBnCeV4wgt5Tbj3QJxVQNsgBSk7PDTiadTel0KReBQa+E/CG+ja?=
- =?us-ascii?Q?At6SMhL9TkKNnmCfdvWCMbAosmQBEZT5ZfheV5rSTr32keLeZxvO2kahm42b?=
- =?us-ascii?Q?Ee9Yih5vm2uoMFP1ivD8i3n+PhQwm+LuH6vx/EjeasH3U61b21/Rxq19pBZ2?=
- =?us-ascii?Q?k27Zle7ivJqG8QlBPNskFo4zYZj/yH9Rgh6G9e8vQHbC7AsjCsdVEZ51v1Di?=
- =?us-ascii?Q?ZoOLmH3FNdMYtdYDiIjXaLm2i84lwHNwg4Q9D0OZLOUGdkffM7akedLHgmVa?=
- =?us-ascii?Q?WgyoKzoSsxtn8AaK0ey7CnsowVY3sc6pr7WOEGFFlXXO/WvRC5ewUJzkFUim?=
- =?us-ascii?Q?61j7j17JBg1Ww/CtksZdDbfS9HYkD/IOv9uaZk8lWgGscYycZ7o3oFDBCjY3?=
- =?us-ascii?Q?xfrpZrMdQ+wJatLtwWguCjxM5nq03/EnPKZ5j3P9ydBDUJUj18XIvRXGEnRD?=
- =?us-ascii?Q?hxgvlgAujZGKKh6W/K3Lc0PmrWLjYYBesC0YqQO4RZxMSTEMPrW6F73NSzDg?=
- =?us-ascii?Q?dO78g+VOF01mwl4G6s/AC5/LTOTfwr+kUoZBTvzyjbSd/oC5e8fp4tfiUxyC?=
- =?us-ascii?Q?xwnISNCoYwAXm071QDFi0o5XlzO84xlfvu3UM4L+9Dr12lcm6vD58AaAzu2y?=
- =?us-ascii?Q?08YTQbm01feVtSybPfRrZLatlkrnXJSDMFgf4FMOHcsvYxcPuqWYz575S3Qh?=
- =?us-ascii?Q?W/RnybKZvS0FD2UFLBOSkzaYUKRLD2bG3+PDLyhIMsddH7Mf4tFZjkxsSFpM?=
- =?us-ascii?Q?mkBMGV8ApNosv1Reld0UK18LuRR9rK6I7/gHcdvTdltMtorsCr8RG8YvkIu2?=
- =?us-ascii?Q?V40iPhKquejOnCSRvClrntQ9rRImFDpqQ2SORoqacIQfD8TdVWy/AK460H2h?=
- =?us-ascii?Q?boadoAMLuo25rizAhzM0fzDCWUZ4yA4p4FrTGvYuaOOKZTSB9kOAUAlHSEoW?=
- =?us-ascii?Q?bDAQTxOccYse0VOXhSLMLGWcXq7SggYZpABEfsWDtQK2aYbun734pVsqjJJj?=
- =?us-ascii?Q?ibCR+w2s3PAoWQgFyS2mU5XurP+azJTm984jS1ZtgWZBFXiSRLKbG+pRIZJi?=
- =?us-ascii?Q?n407xP3X/h5Ty9cHIhnOhApAdEW4lhJdExVpNoEb760ZoDOH6pEQ7DNYAEds?=
- =?us-ascii?Q?MWkN6w9F+d5HTpAw8+W5Xc6O9rJ7dyIbIl4XtHlMGt/z/+nzTgZzazzlFu4s?=
- =?us-ascii?Q?Lkpd6+wqf+sukCUjTxiGA0dydksCS9Idu2DrkeEm0/VvIvDln0fSxkSorSK+?=
- =?us-ascii?Q?PlJ94n+DVcxTxSt0giXUX9mcxUNEu7OMH8JdBbW+e7bAf5o7VWNdevAVhaAg?=
- =?us-ascii?Q?3dts3XLOgRkNNNjmKJx3uizY/ZRCyBZVje6nX8Aedza0KDBThGVC?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa79aa52-a0b1-42e5-3b55-08df4404cee6
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 17:12:35.3849
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yl3ewwPtD43taPMsXgYdwKjKO2bwl5bSzfiYohQcyCp5YfiNuzjN4UDq/yMQeXpzJLkufmc17OgrgZI1fUx3/RXvbWEkII08ySV0e9Z1QL8nS5+0HasbhqUCZJgKw+kg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB668163
+References: <20261005-monza-wireless-v7-0-5a6de7662dcb@oss.qualcomm.com>
+In-Reply-To: <20261005-monza-wireless-v7-0-5a6de7662dcb@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 16 Nov 2026 18:14:04 +0100
+X-Gm-Features: AclHuK-gzqgD2ofKvkGd7o_qM6TFIZRuqcKLnoXo_1NUG577lrtNPElPOvNnw5A
+Message-ID: <CAFEp6-1ys9CibgvvaQL3dvA7y0GjJbhNgf0wD5YAAFz3AqFkaA@mail.gmail.com>
+Subject: Re: [PATCH v7 0/8] arm64: dts: monaco-arduino-monza: Add support for
+ LGA WiFi/BT module
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-pci@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Wei Deng <wei.deng@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2OCBTYWx0ZWRfX+seK0d7siiWx
+ pXR66MUhMOn4WsBcSZHuMFpoofeeCtYF2VPfGJnWoWUtJJ2Dg1Uugbyzvr+At5sMWedzPz/Gvzx
+ VsAEFClXPtlBJu+24dhwtDqoTZN9zXy/00WacLMBdIDlO34pNzHCwbiD1YFicUmC84QkGZU8J0N
+ DWVcoZR9fAa1/NwHzw4CTlAAjH/ND3rlBeT0gzhcFxIFhwT1ZT0yxVXP2xMnnBthZYROzizOUQ0
+ NUDojoIn3nYOS2nXCV7PS5qDtHcoKNLXpfmQmsLcWhPZes7o0KpQFf0l8i/5WGBGLxZymX0/Cb0
+ B4vQiC9rCb2YH9HNmpyoSF4J3cnBSTUYosvwrhnlMuA7udEujAjix7pe4jiGR3Lnd3yHZrJW9Jq
+ 1cqNIJy4PbrFFCDzmHqs1MW0aSN1FvmNv+vxGYFor8E3u9MXyoks6pa+oW8v9wHioxmiS6C1Umh
+ 0MkP77KLA5iXBISW3Pw==
+X-Proofpoint-GUID: emvzZpUc1vaR1-Y1flA_xDGKwlEYcsWx
+X-Proofpoint-ORIG-GUID: emvzZpUc1vaR1-Y1flA_xDGKwlEYcsWx
+X-Authority-Analysis: v=2.4 cv=D/DSufRj c=1 sm=1 tr=0 ts=6afb39e8 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=AQfUo8DtNGVBezQI14YA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2OCBTYWx0ZWRfX3FNM1DZFlRCn
+ KBGiL0Ceev6iEAncxUi8IPk9UhbWFcCPzTdE/lqZndeFZdPlJC6NpPWRmqOf6edzDmcRArlVy/j
+ m0dpcpEmCeb7QoEEkxI2aaZgPeHD8B8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_05,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ clxscore=1015 adultscore=0 malwarescore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160068
 
-On Sun, Nov 15, 2026 at 02:27:34PM +0100, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
+Hi Luiz, Bartosz,
+
+On Mon, Oct 5, 2026 at 2:21=E2=80=AFPM Loic Poulain
+<loic.poulain@oss.qualcomm.com> wrote:
 >
-> The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
-> fields of the RCW, read-only in RCWSR12..14 of DCFG and changed at
-> runtime through the same fields of the override registers in its DCSR
-> view, which read 0 until written.
+> This series describes support for the onboard WiFi/Bluetooth module
+> present on the Arduino VENTUNO Q (monaco) platform.
 >
-> Since commit 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c
-> gpio to support bus recovery") Linux drives them with pinctrl-single on
-> the override registers, so its first pin state clears every other field
-> of the word: a board whose RCW programs a non-zero pad mux loses those
-> pads at the first I2C probe.
+> The board provides LGA pads for a wireless module. On the VENTUNO Q
+> these pads are populated with an NFA725B module featuring the
+> QCA2066 WiFi/BT combo chip. While implemented as an LGA footprint,
+> the design is functionally compatible with the M.2 Key E.
 >
-> Add a generic Layerscape driver for the pad mux as a child of the DCFG
-> node. The fields and their encoding are per-SoC tables selected by
-> the compatible, so that other Layerscape SoCs can be added to it.
+> The NFA725B exposes WiFi over PCIe and Bluetooth over a UART.
+> Both interfaces are gated through the W_DISABLE1# and W_DISABLE2#
+> signals, as defined by the M.2 specification and handled here via
+> the pcie-m2 power sequencer.
 >
-> Only the LX2160A is done: the fields of RCWSR12..14 and the EC1, EC2,
-> USB_EXT, GTX_CLK and SDHC1_DS ones of RCWSR27.
+> This series models the hardware using the existing pwrseq framework
+> and connector bindings, allowing coordinated PCIe and UART bring-up.
 >
-> Then pin states select them with the generic function and groups
-> properties, and every change goes through the RCW override
-> of fsl-guts, which reads the status register, writes the override and
-> waits for the status register to follow.
->
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+
+Is there anything blocking this series from being picked up for
+Bluetooth? I've already rebased it, so I'd appreciate any feedback if
+anything still needs to be addressed.
+
+Thanks,
+Loic
+
+
 > ---
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
->  MAINTAINERS                                        |   8 +
->  drivers/pinctrl/freescale/Kconfig                  |  15 +
->  drivers/pinctrl/freescale/Makefile                 |   1 +
->  drivers/pinctrl/freescale/pinctrl-layerscape-rcw.c | 427 +++++++++++++++++++++
->  4 files changed, 451 insertions(+)
+> Changes in v7:
+> - Rebased on linux-next (pwrseq changes dropped)
+> - Link to v6: https://lore.kernel.org/r/20260904-monza-wireless-v6-0-d8c5=
+042b3efd@oss.qualcomm.com
 >
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 93abbb315065..2df4866d37bb 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -20207,6 +20207,14 @@ F:	Documentation/devicetree/bindings/clock/*imx*
->  F:	drivers/clk/imx/
->  F:	include/dt-bindings/clock/*imx*
+> Changes in v6:
+> - Rebase onto v7.3-rc1: drop the now-upstream "power: sequencing: pcie-m2=
+:
+>   Add QCA2066 (QCNFA765) BT serdev ID" patch and adapt to the
+>   pwrseq_power_on()/pwrseq_power_off() -> pwrseq_enable()/pwrseq_disable(=
+)
+>   rename that landed in this merge window.
+> - hci_qca: fully drop struct qca_power and move its fields directly into
+>   struct qca_serdev, removing the bt_power indirection (Dmitry).
+> - Pick up Reviewed-by/Acked-by tags from Mani, Bartosz and Dmitry on the
+>   pwrseq_is_controllable() API, the pcie-m2/qcom-wcn controllability
+>   reporting, the bt_en_available rework and the M.2 connector support
+>   patches.
+> - Drop the pwrseq-m2-bt prerequisite series link, it is now merged upstre=
+am
+>   and included in the v7.3-rc1 base.
+> - Link to v5: https://lore.kernel.org/r/20260720-monza-wireless-v5-0-69ec=
+6743543c@oss.qualcomm.com
 >
-> +NXP LAYERSCAPE RCW PAD-MUX DRIVER
-> +M:	Vincent Jardin <vjardin@free.fr>
-> +L:	linux-gpio@vger.kernel.org
-> +L:	imx@lists.linux.dev
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
-> +F:	drivers/pinctrl/freescale/pinctrl-layerscape-rcw.c
-> +
->  NXP NETC ETHERNET SWITCH DRIVER
->  M:	Wei Fang <wei.fang@nxp.com>
->  R:	Clark Wang <xiaoning.wang@nxp.com>
-> diff --git a/drivers/pinctrl/freescale/Kconfig b/drivers/pinctrl/freescale/Kconfig
-> index fd53cf5bb843..8e964cf620b0 100644
-> --- a/drivers/pinctrl/freescale/Kconfig
-> +++ b/drivers/pinctrl/freescale/Kconfig
-> @@ -283,3 +283,18 @@ config PINCTRL_IMXRT1170
->  	select PINCTRL_IMX
->  	help
->  	  Say Y here to enable the imxrt1170 pinctrl driver
-> +
-> +config PINCTRL_LAYERSCAPE_RCW
-> +	bool "NXP Layerscape RCW pad-mux driver"
-> +	depends on OF
-> +	depends on ARCH_LAYERSCAPE || COMPILE_TEST
-> +	default ARCH_LAYERSCAPE
-> +	select FSL_GUTS
-> +	select GENERIC_PINCTRL_GROUPS
-> +	select GENERIC_PINMUX_FUNCTIONS
-> +	select GENERIC_PINCONF
-> +	help
-> +	  Say Y here to mux the pads of the Layerscape SoCs at runtime. The
-> +	  pads are muxed by fields of the RCW: the driver changes it in the
-> +	  DCSR view of the DCFG that fsl-guts drives.
-> +	  The I2C bus recovery needs it to switch the pads of a bus to GPIO.
-> diff --git a/drivers/pinctrl/freescale/Makefile b/drivers/pinctrl/freescale/Makefile
-> index d27085c2b4c4..34309ac7411d 100644
-> --- a/drivers/pinctrl/freescale/Makefile
-> +++ b/drivers/pinctrl/freescale/Makefile
-> @@ -35,3 +35,4 @@ obj-$(CONFIG_PINCTRL_IMX25)	+= pinctrl-imx25.o
->  obj-$(CONFIG_PINCTRL_IMX28)	+= pinctrl-imx28.o
->  obj-$(CONFIG_PINCTRL_IMXRT1050)	+= pinctrl-imxrt1050.o
->  obj-$(CONFIG_PINCTRL_IMXRT1170)	+= pinctrl-imxrt1170.o
-> +obj-$(CONFIG_PINCTRL_LAYERSCAPE_RCW)	+= pinctrl-layerscape-rcw.o
-> diff --git a/drivers/pinctrl/freescale/pinctrl-layerscape-rcw.c b/drivers/pinctrl/freescale/pinctrl-layerscape-rcw.c
-> new file mode 100644
-> index 000000000000..46686c6923c3
-> --- /dev/null
-> +++ b/drivers/pinctrl/freescale/pinctrl-layerscape-rcw.c
-> @@ -0,0 +1,427 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Layerscape pad muxes: fields of the RCW, changed at runtime.
-> + *
-> + * Copyright 2026 Free Mobile - Vincent Jardin
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/fsl/guts.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/pinctrl/pinconf-generic.h>
-> +#include <linux/pinctrl/pinctrl.h>
-> +#include <linux/pinctrl/pinmux.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/seq_file.h>
-> +
-> +#include "../core.h"
-> +#include "../pinmux.h"
-> +
-> +struct rcw_pmux_func {
-> +	const char *name;
-> +	u8 val;
-> +};
-> +
-> +struct rcw_pmux_group {
-> +	const char *name;
-> +	u8 rcwsr; /* one-based, as in RCWSR12 */
-> +	u8 shift;
-> +	u8 width;
-> +	const struct rcw_pmux_func *funcs;
-> +	u8 nfuncs;
-> +};
-> +
-> +/* The pad-mux groups of a SoC, one per field of its RCW */
-> +struct rcw_pmux_soc {
-> +	const struct rcw_pmux_group *groups;
-> +	unsigned int ngroups;
-> +};
-> +
-> +#define RCW_PMUX_FUNC(_name, _val)	{ .name = _name, .val = _val }
-> +#define RCW_PMUX_GROUP(_name, _rcwsr, _shift, _width, _funcs)		\
-> +	{								\
-> +		.name = _name, .rcwsr = _rcwsr,				\
-> +		.shift = _shift, .width = _width,			\
-> +		.funcs = _funcs, .nfuncs = ARRAY_SIZE(_funcs),		\
-> +	}
-> +
-> +/* LX2160A: RCWSR12..14 and RCWSR27 */
-> +static const struct rcw_pmux_func lx2160a_iic2_funcs[] = {
-> +	RCW_PMUX_FUNC("i2c", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("flextimer", 2), RCW_PMUX_FUNC("sdhc", 6),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_iic3_funcs[] = {
-> +	RCW_PMUX_FUNC("i2c", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("can", 2), RCW_PMUX_FUNC("evt", 6),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_iic5_funcs[] = {
-> +	RCW_PMUX_FUNC("i2c", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("sdhc-clk", 2), RCW_PMUX_FUNC("spi", 3),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_iic6_funcs[] = {
-> +	RCW_PMUX_FUNC("i2c", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("sdhc-clk", 2),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_xspi1_funcs[] = {
-> +	RCW_PMUX_FUNC("flexspi", 0), RCW_PMUX_FUNC("gpio", 1),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_sdhc1_base_funcs[] = {
-> +	RCW_PMUX_FUNC("sdhc", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("spi", 2), RCW_PMUX_FUNC("sdhc-spi", 3),
-> +	RCW_PMUX_FUNC("sdhc-data4", 4),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_sdhc1_dir_funcs[] = {
-> +	RCW_PMUX_FUNC("sdhc", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("spi", 3), RCW_PMUX_FUNC("sdhc-data", 4),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_sdhc2_data74_funcs[] = {
-> +	RCW_PMUX_FUNC("sdhc", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("i2c", 2), RCW_PMUX_FUNC("flexspi", 6),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_sdhc2_base_funcs[] = {
-> +	RCW_PMUX_FUNC("sdhc", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("spi", 2), RCW_PMUX_FUNC("flexspi", 6),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_uart_funcs[] = {
-> +	RCW_PMUX_FUNC("uart", 0), RCW_PMUX_FUNC("gpio", 1),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_uart1_rtscts_funcs[] = {
-> +	RCW_PMUX_FUNC("uart", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("uart3", 2),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_uart2_rtscts_funcs[] = {
-> +	RCW_PMUX_FUNC("uart", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("uart4", 2),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_irq_funcs[] = {
-> +	RCW_PMUX_FUNC("irq", 0), RCW_PMUX_FUNC("gpio", 1),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_irq_flextimer_funcs[] = {
-> +	RCW_PMUX_FUNC("irq", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("flextimer", 2),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_evt_funcs[] = {
-> +	RCW_PMUX_FUNC("evt", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("flextimer", 2),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_clk_out_funcs[] = {
-> +	RCW_PMUX_FUNC("gpio", 1), RCW_PMUX_FUNC("flextimer", 2),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_asleep_funcs[] = {
-> +	RCW_PMUX_FUNC("asleep", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("evt", 2),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_reset_req_funcs[] = {
-> +	RCW_PMUX_FUNC("reset-req", 0), RCW_PMUX_FUNC("gpio", 1),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_iic1_funcs[] = {
-> +	RCW_PMUX_FUNC("i2c", 0), RCW_PMUX_FUNC("gpio", 1),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_ec1_funcs[] = {
-> +	RCW_PMUX_FUNC("rgmii", 0), RCW_PMUX_FUNC("gpio", 1),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_ec2_funcs[] = {
-> +	RCW_PMUX_FUNC("rgmii", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("tsec-1588", 2),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_usb_ext_funcs[] = {
-> +	RCW_PMUX_FUNC("usb", 0), RCW_PMUX_FUNC("gpio", 1),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_gtx_clk_funcs[] = {
-> +	RCW_PMUX_FUNC("gtx-clk", 0), RCW_PMUX_FUNC("gpio", 1),
-> +};
-> +
-> +static const struct rcw_pmux_func lx2160a_sdhc1_ds_funcs[] = {
-> +	RCW_PMUX_FUNC("sdhc", 0), RCW_PMUX_FUNC("gpio", 1),
-> +	RCW_PMUX_FUNC("spi", 2),
-> +};
-> +
-> +static const struct rcw_pmux_group lx2160a_groups[] = {
-> +	/* RCWSR12 */
-> +	RCW_PMUX_GROUP("iic2", 12, 0, 3, lx2160a_iic2_funcs),
-> +	RCW_PMUX_GROUP("iic3", 12, 3, 3, lx2160a_iic3_funcs),
-> +	RCW_PMUX_GROUP("iic4", 12, 6, 3, lx2160a_iic3_funcs),
-> +	RCW_PMUX_GROUP("iic5", 12, 9, 3, lx2160a_iic5_funcs),
-> +	RCW_PMUX_GROUP("iic6", 12, 12, 3, lx2160a_iic6_funcs),
-> +	RCW_PMUX_GROUP("xspi1-data74", 12, 15, 3, lx2160a_xspi1_funcs),
-> +	RCW_PMUX_GROUP("xspi1-data30", 12, 18, 3, lx2160a_xspi1_funcs),
-> +	RCW_PMUX_GROUP("xspi1-base", 12, 21, 3, lx2160a_xspi1_funcs),
-> +	RCW_PMUX_GROUP("sdhc1-base", 12, 24, 3, lx2160a_sdhc1_base_funcs),
-> +	RCW_PMUX_GROUP("sdhc1-dir", 12, 27, 3, lx2160a_sdhc1_dir_funcs),
-> +	/* RCWSR13 */
-> +	RCW_PMUX_GROUP("sdhc2-data74", 13, 0, 3, lx2160a_sdhc2_data74_funcs),
-> +	RCW_PMUX_GROUP("sdhc2-base", 13, 3, 3, lx2160a_sdhc2_base_funcs),
-> +	RCW_PMUX_GROUP("uart1-soutsin", 13, 6, 3, lx2160a_uart_funcs),
-> +	RCW_PMUX_GROUP("uart1-rtscts", 13, 9, 3, lx2160a_uart1_rtscts_funcs),
-> +	RCW_PMUX_GROUP("uart2-soutsin", 13, 12, 3, lx2160a_uart_funcs),
-> +	RCW_PMUX_GROUP("uart2-rtscts", 13, 15, 3, lx2160a_uart2_rtscts_funcs),
-> +	RCW_PMUX_GROUP("irq11-8", 13, 18, 3, lx2160a_irq_funcs),
-> +	RCW_PMUX_GROUP("irq7-4", 13, 21, 3, lx2160a_irq_flextimer_funcs),
-> +	RCW_PMUX_GROUP("irq3-0", 13, 24, 3, lx2160a_irq_flextimer_funcs),
-> +	RCW_PMUX_GROUP("evt4-3", 13, 27, 3, lx2160a_evt_funcs),
-> +	/* RCWSR14 */
-> +	RCW_PMUX_GROUP("evt2-0", 14, 0, 3, lx2160a_evt_funcs),
-> +	RCW_PMUX_GROUP("clk-out", 14, 3, 3, lx2160a_clk_out_funcs),
-> +	RCW_PMUX_GROUP("asleep", 14, 6, 3, lx2160a_asleep_funcs),
-> +	RCW_PMUX_GROUP("reset-req", 14, 9, 1, lx2160a_reset_req_funcs),
-> +	RCW_PMUX_GROUP("iic1", 14, 10, 1, lx2160a_iic1_funcs),
-> +	/* RCWSR27 */
-> +	RCW_PMUX_GROUP("ec1", 27, 0, 2, lx2160a_ec1_funcs),
-> +	RCW_PMUX_GROUP("ec2", 27, 2, 2, lx2160a_ec2_funcs),
-> +	RCW_PMUX_GROUP("usb-ext", 27, 4, 1, lx2160a_usb_ext_funcs),
-> +	RCW_PMUX_GROUP("gtx-clk", 27, 5, 1, lx2160a_gtx_clk_funcs),
-> +	RCW_PMUX_GROUP("sdhc1-ds", 27, 6, 2, lx2160a_sdhc1_ds_funcs),
-> +};
-> +
-> +static const struct rcw_pmux_soc lx2160a_soc = {
-> +	.groups = lx2160a_groups,
-> +	.ngroups = ARRAY_SIZE(lx2160a_groups),
-> +};
-> +
-> +struct rcw_pmux {
-> +	struct device *dev;
-> +	struct pinctrl_dev *pctl;
-> +	struct pinctrl_desc desc;
-> +	const struct rcw_pmux_soc *soc;
-> +	struct pinctrl_pin_desc *pins;
-> +};
-> +
-> +static u32 rcw_pmux_group_mask(const struct rcw_pmux_group *group)
-> +{
-> +	return GENMASK(group->shift + group->width - 1, group->shift);
-> +}
-> +
-> +static const struct rcw_pmux_func *
-> +rcw_pmux_find_func(const struct rcw_pmux_group *group, const char *name)
-> +{
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < group->nfuncs; i++) {
-> +		if (!strcmp(group->funcs[i].name, name))
-> +			return &group->funcs[i];
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
-> +static void rcw_pmux_pin_dbg_show(struct pinctrl_dev *pctldev,
-> +				  struct seq_file *s, unsigned int pin)
-> +{
-> +	struct rcw_pmux *pmux = pinctrl_dev_get_drvdata(pctldev);
-> +	const struct rcw_pmux_group *group = &pmux->soc->groups[pin];
-> +	unsigned int i;
-> +	u32 val;
-> +
-> +	if (fsl_guts_pmux_read(group->rcwsr, &val))
-> +		return;
-> +
-> +	val = field_get(rcw_pmux_group_mask(group), val);
-> +	for (i = 0; i < group->nfuncs; i++) {
-> +		if (group->funcs[i].val == val) {
-> +			seq_puts(s, group->funcs[i].name);
-> +			return;
-> +		}
-> +	}
-> +	seq_printf(s, "0x%x", val);
-> +}
-> +
-> +static const struct pinctrl_ops rcw_pmux_pctlops = {
-> +	.get_groups_count = pinctrl_generic_get_group_count,
-> +	.get_group_name = pinctrl_generic_get_group_name,
-> +	.get_group_pins = pinctrl_generic_get_group_pins,
-> +	.pin_dbg_show = rcw_pmux_pin_dbg_show,
-> +	.dt_node_to_map = pinconf_generic_dt_node_to_map_group,
-> +	.dt_free_map = pinconf_generic_dt_free_map,
-> +};
-> +
-> +static int rcw_pmux_set_mux(struct pinctrl_dev *pctldev,
-> +			    unsigned int fsel, unsigned int gsel)
-> +{
-> +	struct rcw_pmux *pmux = pinctrl_dev_get_drvdata(pctldev);
-> +	const struct function_desc *func;
-> +	const struct rcw_pmux_group *group;
-> +	const struct rcw_pmux_func *mux;
-> +	const struct group_desc *grp;
-> +	u32 mask;
-> +
-> +	func = pinmux_generic_get_function(pctldev, fsel);
-> +	grp = pinctrl_generic_get_group(pctldev, gsel);
-> +	if (!func || !grp)
-> +		return -EINVAL;
-> +	group = grp->data;
-> +
-> +	mux = rcw_pmux_find_func(group, func->func->name);
-> +	if (!mux) {
-> +		dev_err(pmux->dev, "%s has no %s function\n",
-> +			group->name, func->func->name);
-> +		return -EINVAL;
-> +	}
-> +
-> +	mask = rcw_pmux_group_mask(group);
-> +
-> +	return fsl_guts_pmux_override(group->rcwsr, field_prep(mask, mux->val),
-> +				      mask);
-> +}
-> +
-> +static const struct pinmux_ops rcw_pmux_pmxops = {
-> +	.get_functions_count = pinmux_generic_get_function_count,
-> +	.get_function_name = pinmux_generic_get_function_name,
-> +	.get_function_groups = pinmux_generic_get_function_groups,
-> +	.set_mux = rcw_pmux_set_mux,
-> +	.strict = true,
-> +};
-> +
-> +static int rcw_pmux_add_functions(struct rcw_pmux *pmux)
-> +{
-> +	const struct rcw_pmux_soc *soc = pmux->soc;
-> +	const struct rcw_pmux_group *group;
-> +	const char **groups;
-> +	unsigned int i, j, k, n;
-> +	int ret;
-> +
-> +	for (i = 0; i < soc->ngroups; i++) {
-> +		group = &soc->groups[i];
-> +		for (j = 0; j < group->nfuncs; j++) {
-> +			const char *name = group->funcs[j].name;
-> +
-> +			/* already added from an earlier group? */
-> +			for (k = 0; k < i; k++) {
-> +				if (rcw_pmux_find_func(&soc->groups[k], name))
-> +					break;
-> +			}
-> +			if (k < i)
-> +				continue;
-> +
-> +			groups = devm_kcalloc(pmux->dev, soc->ngroups,
-> +					      sizeof(*groups), GFP_KERNEL);
-> +			if (!groups)
-> +				return -ENOMEM;
-> +			n = 0;
-> +			for (k = i; k < soc->ngroups; k++) {
-> +				if (rcw_pmux_find_func(&soc->groups[k], name))
-> +					groups[n++] = soc->groups[k].name;
-> +			}
-> +			ret = pinmux_generic_add_function(pmux->pctl, name,
-> +							  groups, n, NULL);
-> +			if (ret < 0)
-> +				return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int rcw_pmux_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	const struct rcw_pmux_soc *soc;
-> +	struct rcw_pmux *pmux;
-> +	unsigned int i;
-> +	u32 val;
-> +	int ret;
-> +
-> +	/* The override needs the DCSR view of DCFG, mapped by fsl-guts */
-> +	if (!fsl_guts_pmux_override_supported())
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "no RCW override through fsl-guts: the dcfg node needs its DCSR reg\n");
-> +
-> +	soc = device_get_match_data(dev);
-> +	if (!soc)
-> +		return -ENODEV;
-> +
-> +	pmux = devm_kzalloc(dev, sizeof(*pmux), GFP_KERNEL);
-> +	if (!pmux)
-> +		return -ENOMEM;
-> +	pmux->dev = dev;
-> +	pmux->soc = soc;
-> +
-> +	pmux->pins = devm_kcalloc(dev, soc->ngroups, sizeof(*pmux->pins),
-> +				  GFP_KERNEL);
-> +	if (!pmux->pins)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0; i < soc->ngroups; i++) {
-> +		pmux->pins[i].number = i;
-> +		pmux->pins[i].name = soc->groups[i].name;
-> +	}
-> +	pmux->desc.name = dev_name(dev);
-> +	pmux->desc.pins = pmux->pins;
-> +	pmux->desc.npins = soc->ngroups;
-> +	pmux->desc.pctlops = &rcw_pmux_pctlops;
-> +	pmux->desc.pmxops = &rcw_pmux_pmxops;
-> +	pmux->desc.owner = THIS_MODULE;
-> +
-> +	ret = devm_pinctrl_register_and_init(dev, &pmux->desc, pmux,
-> +					     &pmux->pctl);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "pinctrl registration failed\n");
-> +
-> +	for (i = 0; i < soc->ngroups; i++) {
-> +		ret = pinctrl_generic_add_group(pmux->pctl, soc->groups[i].name,
-> +						&pmux->pins[i].number, 1,
-> +						(void *)&soc->groups[i]);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
-> +	ret = rcw_pmux_add_functions(pmux);
-> +	if (ret)
-> +		return ret;
-> +
-> +	for (i = 0; i < soc->ngroups; i++) {
-> +		u8 rcwsr = soc->groups[i].rcwsr;
-> +
-> +		if (i && rcwsr == soc->groups[i - 1].rcwsr)
-> +			continue;
-> +		if (!fsl_guts_pmux_read(rcwsr, &val))
-> +			dev_dbg(dev, "pad muxes of RCWSR%u = 0x%08x\n", rcwsr,
-> +				val);
-> +	}
-> +
-> +	return pinctrl_enable(pmux->pctl);
-> +}
-> +
-> +static const struct of_device_id rcw_pmux_of_match[] = {
-> +	{ .compatible = "fsl,lx2160a-rcw-pinmux", .data = &lx2160a_soc },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, rcw_pmux_of_match);
-> +
-> +static struct platform_driver rcw_pmux_driver = {
-> +	.driver = {
-> +		.name = "layerscape-rcw-pinmux",
-> +		.of_match_table = rcw_pmux_of_match,
-> +	},
-> +	.probe = rcw_pmux_probe,
-> +};
-> +module_platform_driver(rcw_pmux_driver);
-> +
-> +MODULE_AUTHOR("Vincent Jardin <vjardin@free.fr>");
-> +MODULE_DESCRIPTION("NXP Layerscape RCW pad-mux driver");
-> +MODULE_LICENSE("GPL");
-> +MODULE_IMPORT_NS("FSL_GUTS");
+> Changes in v5:
+> - hci_qca: comment why the M.2 'uart' pwrseq lifetime is bound to the ser=
+dev
+>   consumer device instead of using devm_pwrseq_get() on the controller (B=
+artosz).
+> - hci_qca: note that dropping the always-on pwrseq handle is not a leak s=
+ince
+>   the descriptor is still released by devres (Bartosz).
+> - Link to v4: https://lore.kernel.org/r/20260716-monza-wireless-v4-0-9b02=
+e6f549d7@oss.qualcomm.com
 >
+> Changes in v4:
+> - pwrseq: rename pwrseq_power_is_controllable() to pwrseq_is_controllable=
+() (Bartosz).
+> - pwrseq: move the is_controllable() callback from the unit to the target=
+ (Bartosz).
+> - pwrseq: add might_sleep() and guard pwrseq_is_controllable() against
+>   concurrent provider removal with rw_lock, matching pwrseq_power_on/off(=
+) (Bartosz).
+> - pwrseq: clarify the pwrseq_is_controllable() doc (Bartosz)
+> - hci_qca: lifetime follows the Bluetooth device rather than the UART con=
+troller (ChenYu).
+> - dt-bindings: also add the "qcom,pcie-m2-1620-lga-connector" compatible =
+(Mani).
+> - arm64: dts: monaco-arduino-monza: rename the 'pcie_bridge_ep' endpoint =
+to 'pcie_ep' (Mani).
+> - pwrseq: reword commmit message (Mani)
+> - Link to v3: https://lore.kernel.org/r/20260710-monza-wireless-v3-0-4625=
+3587af64@oss.qualcomm.com
+>
+> Changes in v3:
+> - Embed bt_power in struct qca_serdev instead of allocating it (Dmitry).
+> - Add generic pwrseq_is_controllable() API + per-target .is_controllable(=
+)
+>   callback; use it in hci_qca instead of peeking at the W_DISABLE2# prope=
+rty.
+> - Implement .is_controllable() in the pcie-m2 and qcom-wcn providers.
+> - Treat non-controllable BT power as always-on.
+> - Integrate the pending Bluetooth pwrseq patches from Mani.
+> - Link to v2: https://lore.kernel.org/r/20260702-monza-wireless-v2-0-7b56=
+e2a6a6d4@oss.qualcomm.com
+>
+> Changes in v2:
+> - hci_qca: extract M.2 pwrseq into qca_serdev_get_m2_pwrseq() helper, cal=
+led
+>   outside the SoC switch; drop duplicated of_graph logic and redundant
+>   bt_power NULL checks (Dmitry/Mani)
+> - dts/bindings: use qcom,pcie-m2-1418-lga-connector (fallback
+>   pcie-m2-e-connector) instead of the generic M.2 E-key compatible (Mani)
+> - Link to v1: https://lore.kernel.org/r/20260520-monza-wireless-v1-0-9f69=
+42310653@oss.qualcomm.com
+>
+> ---
+> Loic Poulain (6):
+>       Bluetooth: hci_qca: Set 'bt_en_available' based on pwrseq power con=
+trollability
+>       Bluetooth: hci_qca: Embed bt_power in struct qca_serdev
+>       Bluetooth: hci_qca: Support QCA2066 on M.2 connector via pwrseq
+>       Bluetooth: hci_qca: Flatten struct qca_power into struct qca_serdev
+>       dt-bindings: connector: pcie-m2-e: Add vendor LGA connector compati=
+ble
+>       arm64: dts: qcom: monaco-arduino-monza: Add QCA2066 M.2 WiFi/BT sup=
+port
+>
+> Manivannan Sadhasivam (2):
+>       Bluetooth: hci_qca: Add M.2 Bluetooth device support using pwrseq
+>       Bluetooth: hci_qca: Rename 'power_ctrl_enabled' to 'bt_en_available=
+'
+>
+>  .../bindings/connector/pcie-m2-e-connector.yaml    |   8 +-
+>  arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts  |  64 ++++++++-
+>  drivers/bluetooth/hci_qca.c                        | 160 ++++++++++++---=
+------
+>  3 files changed, 157 insertions(+), 75 deletions(-)
+> ---
+> base-commit: f0406245cb9855e6318335a8a223551354291a46
+> change-id: 20260520-monza-wireless-e6ce7f013f38
+>
+> Best regards,
 > --
-> 2.43.0
->
->
+> Loic Poulain <loic.poulain@oss.qualcomm.com>
 >
