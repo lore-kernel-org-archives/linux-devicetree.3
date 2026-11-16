@@ -1,78 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794830134;
-	b=quhPba7OYM1GY47bsgQ6TOc+WeA2rnSbRAe67NcSRktsIFjX0kebgSfA7zlkedOJa+/B
-	 W3H9maMqxEMnT87k5Oz6+16Remv/ZvbmOJiPYIUnjw3NNy+cf9tN+1XvYKvS0ZQO4c429
-	 zIB2UGYwnXHvx4PF/Tz4eLOcovEPdkABEqyVD1uE5QOINNnV9CNNhOO0WVmKQXRT3/uV2
-	 DrgS5eReFOite7W9xVwg2LbopA9PJglRqNP8rf6NQ4bI10DAXNS6UIRU4lyOhgmxHH6i7
-	 5eebXhVcdvMueV7A/GqJpmLA1N1x/EMCNUB8FWi/dwrBE0zU7JMScRFb6fL6U67rLfA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830134;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nRcfcPqfetT5jsi4BrjqJuRmHpuTHA7ybDz4X2ZZ5WM=;
-	b=y6GzJ4HFfSqxbP3NJx6MfcZQKtNmI6RDztHPrJ6pGjdB345K8RQ5pnnppTVtcgmkFZHX
-	 ZydKGBBipHasf92ZgOu8GZFgslZcA3AV22h2XPvEJ6jPy7f2+KrC9SO+OuAi1IHirugbr
-	 uqPN9CO0D2tHNJ8rBl2NxHPeK6Qi8tfn4iWYy9INcr1v6u6oCwPNWn0HcwNIT5U4h0iWL
-	 /CgKv3q+lubOU9Ttf6YS14BGH4vBCQMM4svTTlOb0kEAAahr32FEt1GiXzsjTJEhQFpaf
-	 j4OMQi74gmCgF3h5wResYS+yZsdD0PdWQON4GGRBg4FV2S/67+QW+BmeP2UocL2Rb6w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Umfh6l6S;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D51606A89D;
-	Mon, 16 Nov 2026 11:55:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Umfh6l6S
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794830133;
-	b=dEqk9UHzScEThq2FYl8jVbJy7yDcYMJEYMJfSJQipKbOwESrEcuA2xNVSyTbmVa7fmQ3
-	 UaJ8vOYnupqiH91V1GpuTYaX/gv6pszfFmAURVfjgoy5TSp70LHEbKTfIPxSrak+memH+
-	 ECG3bB514JtZDKyAb/m2tHU7OUI4K/hhGrS7SwimzOWy2Znu5m5V6OjFsfE4F+LCufK5a
-	 0jHL8e4Md4v59U7NzHVAgPAgoQOeyRiK6G5iRqPkPlrh+j16b23YmaI8OXOBQJN7Nm0Bv
-	 /4BnIgZFqx7CDQDNakjqrY3gmUFLjFPQwBgL4EYE8MPDaps9UHaLl/1Hmx87exU+MJw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794830133;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nRcfcPqfetT5jsi4BrjqJuRmHpuTHA7ybDz4X2ZZ5WM=;
-	b=BiNxOPjJ7NzkEnqAtzPj6IEdEKu2cREe44GiI2AHp2UAFj3IV4fbWZHBMu7XyZB8kgz2
-	 /s6fNMjvY6wv/aTTgEvzcHOqaqwSNyhZIk66burcTu/tJBSpBptWxgOzP+kgYF0O1sR1+
-	 pNbi6qa0xdZqiTVCtTw1EcQYOb5Nku9oH5Xh3N9I8MzsVqfuCzOBaZrS3sf8oJuMmB0nA
-	 Nd0HJ/Do2SoHiqQ6rS4C4+7jNrjrH2e+7yEHMDemLoXutoNTf7eOUQMSOBY+az9vaic/5
-	 Z5tQcun21hNBAu9EinEsF+xpMENmGFIejjFmD8hGX39K9Kb12vYk/6Fa8W0c35nVVrQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794830229;
+	b=aTJopYZzjfgro4Bmv2KZ5p7WR0NnWhOL8x36aBpbJ0xTgE3w1tbBlbUwYM+Mqq8oKVIc
+	 n3CjbiuDlGjeb7b4VfBpG/7z275pdOi37tPPIqKBRzkbneSVfNEzhVdYCF6wNptL2gK9z
+	 hyrzVdQsvALRC3B8Eu+mgOzgDxlgjeBAMUi+d0ADdO+9CfV4oQc/UlUBXROH5sDHRpZGq
+	 Wx5T97ujaDsYa2/TKCo1Tv3XJJAVpLoH7OOP/xGXLp/QiYgFToVMXLFu9u7HlR6mnvGH/
+	 fdb72fxbMbqWxeIDKSXL3hnhDQXtY3i/TEcFk0I/D+GIe1i0/6h29KRyAJzCYexHz5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830229;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=XPQ1wIXQCkQXPiny6s36FrRzIlHdxNRjUMbMmTa47BM=;
+	b=MSLemOKuNM4VRNg82QyBXTSBGw8PYp445NSwKcTurUM5m7QHPArEhRMIs3f0AHFrdrHm
+	 o9nmThVDyqaSRonQ3XmmDqAeqebc3ZYZFH3cEKxeMKXcalJ3O0ljKAS6Su1GnIuOLeHmH
+	 aIyF6KvSuZ9aP7MZZdBbLxJH2ga/H3RB13umuolpAQHJYJZp1YB3r0qjMJ8wm44+1QwaA
+	 EddYZC6tCbMmMZ9ImH2wcmraOFGh/Ubmp+NIKcPhDoulXrkO641FJZSTGkm91psUInzbu
+	 4BXNMlufF45UA9ThFyPE+wnTxADXcsjZp18KXTPyEpIeRU8fShCEB2vkCbhNRMx2vFw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=e9qWIYEX;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D14A21F000D4;
-	Mon, 16 Nov 2026 11:55:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794830133;
-	bh=nRcfcPqfetT5jsi4BrjqJuRmHpuTHA7ybDz4X2ZZ5WM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Umfh6l6Sefa2wtszH/GKJ8z2gcKxpK2261KlfpcQCNAfu71UQ4rDMW7fqVQP6W5LM
-	 zQ6utfpxWIL6iIxFB/ud7+y8ctAmHlz4my59T4gANH1+zsq4gdW8+JaAaAwciGgkSv
-	 VbbYCphzh5Zghn6h00rnMddBr2Nf6k/wRE38Gq9Yr3nj9pQVHJTmbkAGkwNzts3Weq
-	 TYpGzZmFKFMYcowRpW/tkrIHQ86SzK5/Q0Y0IQUbakk176xcBcDUEIsFLgVu4jptiZ
-	 hPEywfp5nrEc5joS2qjKbjGYtSVVSnQqPtAYXlCIsuhrZJbbYV5zz1bz7A3xx/OWTs
-	 N6v3RDPiXn8cQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5A33B4A466;
-	Mon, 16 Nov 2026 11:55:31 +0000 (UTC)
-From: Aleksa Paunovic via B4 Relay <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
-Date: Mon, 16 Nov 2026 12:55:14 +0100
-Subject: [PATCH v3 7/8] MAINTAINERS: Add entry for MIPS RISC-V SoC support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB13606A323
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 11:57:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EB13606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=e9qWIYEX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=XPQ1
+	wIXQCkQXPiny6s36FrRzIlHdxNRjUMbMmTa47BM=; b=e9qWIYEXxZMCm4mjbaNR
+	tIAuQ88fKvTqH2QXOgyN+ul9rRhg8zCINmvw0JrCYMVcuLesFPYJPV7n/AlQ5Nh5
+	l13ZH1zIYMg8Ej612P1Cx8ds4HMmJuTccH+O9Z5yYcDO/AN/YuEtCS3gHo6aKxAo
+	3Hym1+hpIRbccoC2k0uPKclf5drzr3x9cUC4bUbCZMAQZqcqich9RkCuzzAwTWmE
+	Kj0cYhJY774UDulZ13WJlzrvYRxQl1XuxUxYDcIvBZXikVLuo6vEFr04iNDc91KY
+	mP75UbhLQiocWrytPsAhr/za892hAvl9/HQ1/DWC/UcuYOw3nVL2l/FOBWn5vFIz
+	jQ==
+Received: (qmail 1270761 invoked from network); 16 Nov 2026 12:57:03 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Nov 2026 12:57:03 +0100
+X-UD-Smtp-Session: l3s3148p1@WLLmeWNgjMgujnv5
+Date: Mon, 16 Nov 2026 12:57:02 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-renesas-soc@vger.kernel.org
+Cc: Adam Ford <aford173@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: renesas: beacon: Increase sdhi speeds
+Message-ID: <avrvis4phg1v-Uxw@ninjato>
+References: <20261116104427.5152-2-wsa+renesas@sang-engineering.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,69 +66,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-p8700-dts-v3-7-ec5d4b7de39f@htecgroup.com>
-References: <20261116-p8700-dts-v3-0-ec5d4b7de39f@htecgroup.com>
-In-Reply-To: <20261116-p8700-dts-v3-0-ec5d4b7de39f@htecgroup.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, 
- Djordje Todorovic <djordje.todorovic@htecgroup.com>, 
- Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Inochi Amaoto <inochiama@outlook.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Conor Dooley <conor@kernel.org>, linux-riscv@lists.infradead.org, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Joel Stanley <joel@jms.id.au>, 
- Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794830124; l=854;
- i=aleksa.paunovic@htecgroup.com; s=20250806; h=from:subject:message-id;
- bh=vb61DMpqL5a39NmtlZJUf76Y1KgC0WwgwIwdSxwuzoQ=;
- b=HLSKtg/bptyTUBFjrFU6X/ri6p+ErLOY6x04krRt8MeXvHr5BqJa/qcZumgbU7yE57ZHwcorc
- qqqPV8Q09V7B96H7++yRVnj9OwvwNJRDuKvXXJhRtz9xlkcslYqb6vH
-X-Developer-Key: i=aleksa.paunovic@htecgroup.com; a=ed25519;
- pk=Dn4KMnDdgyhlXJNspQQrlHJ04i7/irG29p2H27Avd+8=
-X-Endpoint-Received: by B4 Relay for aleksa.paunovic@htecgroup.com/20250806
- with auth_id=476
-X-Original-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-Reply-To: aleksa.paunovic@htecgroup.com
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="KhGI/zD6So15lITj"
+Content-Disposition: inline
+In-Reply-To: <20261116104427.5152-2-wsa+renesas@sang-engineering.com>
 
-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-
-Add a MAINTAINERS entry covering the MIPS RISC-V devicetree sources
-and the board binding.
-
-Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
----
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c2414447892c24d58595059ca27b18775919ac12..a00f1a801be3c532c33918e673c7977d9de91823 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23542,6 +23542,13 @@ F:	drivers/spi/spi-mpfs.c
- F:	drivers/usb/musb/mpfs.c
- F:	include/soc/microchip/mpfs.h
- 
-+RISC-V MIPS SoC SUPPORT
-+M:	Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-+L:	linux-riscv@lists.infradead.org
-+S:	Supported
-+F:	Documentation/devicetree/bindings/riscv/mips.yaml
-+F:	arch/riscv/boot/dts/mips/
-+
- RISC-V MISC SOC SUPPORT
- M:	Conor Dooley <conor@kernel.org>
- L:	linux-riscv@lists.infradead.org
-
--- 
-2.43.0
+--KhGI/zD6So15lITj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
 
+> [Severity: High]
+> Does enabling mmc-hs400-1_8v here break eMMC HS400 transfers on
+> r8a774a1-beacon-rzg2m-kit with RZ/G2M ES1.3 or ES3.0?
+
+Dunno which ES versions this SoM can carry. I will drop the relevant
+hunk and leave the addition for a party really having the HW.
+
+
+--KhGI/zD6So15lITj
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr674oACgkQFA3kzBSg
+KbZJIw//akK9tTqEjgihe5aLlFrEUl5fXdImqi2/3bHhmA7T+M56aYeqy85ii1b8
+ct0HDw2/tSkX+tm2Vc/ALoPrp89prWvXQc3cat9SJzcNHJXnUF/rn7z2kOEMBhn4
+Aab05/Vw8VyQszUJSJqKVAPVtXCKgP724PxHCoIvjS5rsSXsYn6X7SpRHkLd1koU
+pOO+u0B/S//ijlzrOuizCdTDo1uTppuTDAM1DyDAC+5R1yZP7h551ycOmlLftkuc
+1SZXXG2uRBLJK8ZQv8bxO7EbLW/zadLCTYPyeAGmGlUSI/6FM8o3lzGYQtNhUzvN
+xW5+tVbnqQ95bRKNZDbfZoCFc9PhTRGIkasCFcdaS0Lp4I3uKr7CJ9PxeFNv8dv5
+FR1HbYC7dacT618o7KlgeZ21Ry29UbcvrJbgrroYA8ykZUN+gBwTO8CR1EP8Xdtd
+nFRPNjqNuQSdMXMHBdSGgOU+CQHdQwVN5e/88YSVw3dK5Zb3P4Qj1nslvrMgdbLH
+xnyKDBGTKlSeoC2cBG1ILql7c3yrpHeIUbjVQxAN3x8VB77LtRyEfhdYUJPOqpHP
+VLJX1hAFeAz0CKXs78qZBv48fKSvgUH3edld1dDG+fqbh7m4A36uKL04/wLdnQ/W
+BUNinlyXH+hJxgyYJPbvC8djUD5jvET8qM8ndiNCYDAYCdr0J10=
+=ACCe
+-----END PGP SIGNATURE-----
+
+--KhGI/zD6So15lITj--
