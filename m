@@ -1,57 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.27
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819467;
-	b=pFDhayjXeCJ7E1ULj8rT/zyb7USSTBzbJZHLNd7eLJZbY7z6bUiV3LqOuqhLF89kbIZY
-	 7AwGSQnckF7DFFer8OtHPStM+0JuKsY4D3BoY3FpS33AIEssppucwCIiHPU+yq1U1XI8O
-	 ujs04RJtJGz5cbJrruJzETNOCVAQYSufFG9KKQLr/2/7hS2+TkJSi9m0Mg0X5P4xm2ZK/
-	 CYqj4KE/cAeT4Fr0m6WQCmJ8Z9aDjrWE/s1wA2Tmwcs5yBOlDwy+94SI7JL6nrlDdiG+8
-	 OZpLxiFeHepuZQIdty8mkYPg6E7l/c0FXyGFXXA92uO+brtEe1UTQB5IRpBFX8oGSYA==
+	t=1794819546;
+	b=zA5U/xhYkXU+0Dzec8n4xEeq/o/XSszm5IXkJffc6MAj9b5E9kw9S1elYM61onbDst3X
+	 0L2ZHY9N9dyBwLy3V/JEPZzldmg/yBY8BacClb3zYzbXycpkpCeMI+3TKrXbYGMIrxkeI
+	 MkOiSy8ujHrwzyie8aJAybs2YWTEeKUXQ4lkX3V729Zj3WF8aEofimqhAsHFTSxqBqzY1
+	 sDhjkXiwFgMMmqNuwHhNqHHfSW7p0uFIBnoDLCowo3UvoZp0ho2XV/QBXe+yOIaRNvozN
+	 FQ48LvC8MUqCP6YdUHeX3if7nYwjPnAzQiJRLzPv3dNsBfJr6wexfgiawYG+xr8i8nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819467;
-	h=DMARC-Filter:DKIM-Signature:Message-Id:X-Mailer:Received:
-	 X-Lms-Return-Path:Cc:Subject:Mime-Version:Content-Transfer-Encoding:
-	 From:Content-Type:To:Date:X-Original-From;
-	bh=BTcZk/ysXO+x/psVKKTgMfCcFG9OUCtxSRwx0yIpMrg=;
-	b=KqeV7dfIu0+d149O3O26iaXhHiYfFx5xCK+FSZ5MiT+6b1yDxN4c2325t6MazwIY0VMJ
-	 lRrOjVgmC5wTQX9AIZfR8S40V7KlagdL811Cc91U0yuIc7dkAgVNed8F13SEeLiL2xmEd
-	 lwO3aGJOCcpqnlbbeiYiTOs3+p4FOpRGreceGlSubDPlf9QoSOi1fP8qO2K4I1X0P2aFn
-	 wy7Fwy40FdNCfYO0c4+PtNqkDpuszpu022DB2kQKifYM1kfxpfnscKgoKW8k+7O3bdWQf
-	 ktRcH536x8GA7B0caGMQPmGWnCdMn3LlTMEo6jN5+m0wW5zs6td2xavIIE2TbG+akIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819546;
+	h=DMARC-Filter:DKIM-Signature:Date:X-Lms-Return-Path:References:
+	 X-Mailer:To:Cc:Subject:Content-Transfer-Encoding:From:Received:
+	 X-Original-From:In-Reply-To:Message-Id:Mime-Version:Content-Type;
+	bh=XVGuat01xtbGFqMwwAT48i+lQJU6RP1WQYE+osx+dlk=;
+	b=WmgMq8ffoTaF2bL0hCRyLVGbTVDl2V+w+vQych/IjI2AWfCdP+T/4yYIfLrkvhBZPMtE
+	 QNgAP8NxZwERtvgHwxvyCOPs1O3ijoAUVt2ghZmXlq9ESKYVY2SFHanfI5WwVKjU5uckp
+	 asSNmjwrz1JeivS18mELwfSlFy3UyrCHVi1jyjob7fkJmMYSu7kCnum8OzxHjCIOdJklf
+	 sdzKzd0CX5F/4kUfkyKlAl9aIez3ut4WJj24jyRvU3OpMeTr82jZ5qrwNLKcE/mLgOYR7
+	 udZ5t+qgVZrKo8MAiLiW/pfAIJ4s347TWCh2TSznzLl9jPKMpwIE0TQeuQKRovXFQVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=deepcomputing.io;
 	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=FXEdP6im;
-	arc=none smtp.remote-ip=209.127.231.35
-Received: from va-2-35.ptr.blmpb.com (va-2-35.ptr.blmpb.com [209.127.231.35])
+	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=R15BR0HF;
+	arc=none smtp.remote-ip=209.127.231.27
+Received: from va-2-27.ptr.blmpb.com (va-2-27.ptr.blmpb.com [209.127.231.27])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00901606A32A
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 08:57:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00901606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1339606A895
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 08:59:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1339606A895
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=FXEdP6im
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=R15BR0HF
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794819454;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794819534;
   h=from:subject:mime-version:from:date:message-id:subject:to:cc:
  reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=BTcZk/ysXO+x/psVKKTgMfCcFG9OUCtxSRwx0yIpMrg=;
- b=FXEdP6imxUa80WWfC+36CeHIOP2D7V8thM9xwarmZts2uMZVhoct/Y7OADD7Ck5PPr6Q3D
- xjGB8BJWSsE/W2STuHBeHXve38RtKUI7ocAohE23bUOZkFijUtPn1Y15TvFazNmhFU5gNF
- er+fPmFd8/1AQasJb0jnUzQ6e88/EoJpYcqIskOPWir1+Ng3Wv9eGbNtXVxTmiF23v+qJL
- ZP2cUgAhbGPjLr7ea2cpwU3sDYoZWSX8KwDH6kgbK5EIo4MJAQumJvMJWJWlrk5GtQWgRO
- mXIfAfBx0yIA/q/8WzdFf24ImAlgu3QYwxXs7HjJ8nROVRiFU7hqlPTpJ+0m1A==
-Message-Id: <20261116085725.951253-1-sandie.cao@deepcomputing.io>
+ bh=XVGuat01xtbGFqMwwAT48i+lQJU6RP1WQYE+osx+dlk=;
+ b=R15BR0HFtk4hmy78Z49KI/+1shzMrm0eVMUcQIuJwrTEsV7qTEjt3LY767PjVu3bjaW+J0
+ zfmnqkcPUQh1cNPtWiZ4kJgLYN3fENeyqjyGrJwb513AHfDdoAW9qLdqllfY3M9bq9rYbQ
+ AS8Ews2c8AmeAtjXZ/GBlhCxa5kw7CKGOmaxVt6dOOiiXMSB1OUt5nu9SuJxy/nbsYgjo6
+ soYd8NOB7VQB9aFLTo/b5rvpREMrVf+0cAsROx/WpiIcDOwfvcOwvUZjqmjW/krosvLdX+
+ 3b56oTsDrejWlLuV1si16nw7uf24qrKXhqdUELNiG02P9cc2zUm4nU7CfF+8lg==
+Date: Mon, 16 Nov 2026 16:58:38 +0800
+X-Lms-Return-Path: <lba+26afac5cc+b2a3ab+vger.kernel.org+sandie.cao@deepcomputing.io>
+References: <20261116085725.951253-1-sandie.cao@deepcomputing.io>
 X-Mailer: git-send-email 2.43.0
-Received: from roma-Laptop-12th-Gen-Intel-Core.lan ([183.23.101.74]) by smtp.feishu.cn with ESMTPS; Mon, 16 Nov 2026 16:57:31 +0800
-X-Lms-Return-Path: <lba+26afac57c+450d40+vger.kernel.org+sandie.cao@deepcomputing.io>
+To: "Yixun Lan" <dlan@kernel.org>, 
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>
 Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
 	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
 	<linux-kernel@vger.kernel.org>, 
 	"Sandie Cao" <sandie.cao@deepcomputing.io>
-Subject: [PATCH 0/5] riscv: dts: spacemit: enable WLAN and Bluetooth on DeepComputing FML13V05
+Subject: [PATCH 1/5] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add 115200n8 to stdout-path
+Content-Transfer-Encoding: 7bit
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+Received: from roma-Laptop-12th-Gen-Intel-Core.lan ([183.23.101.74]) by smtp.feishu.cn with ESMTPS; Mon, 16 Nov 2026 16:58:51 +0800
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+In-Reply-To: <20261116085725.951253-1-sandie.cao@deepcomputing.io>
+Message-Id: <20261116085838.951269-1-sandie.cao@deepcomputing.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,52 +73,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
 Content-Type: text/plain; charset=UTF-8
-To: "Yixun Lan" <dlan@kernel.org>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>
-Date: Mon, 16 Nov 2026 16:57:25 +0800
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
 
-This series updates the DeepComputing FML13V05 device tree to describes
-the console UART as 115200n8, add rfkill nodes for WLAN and Bluetooth,
-model the 3.3V supply of the WLAN module, and enable PCIe node.
+Specify the console options in stdout-path so the kernel configures the
+FML13V05 debug UART (uart0) at 115200 baud, 8 data bits and no parity.
 
-The series is based on next-20261113. The DeepComputing FML13V05 
-device tree depends on [1]. The PCIe driver depends on[2], which 
-in turn depends on [3] and [4]. The PCIe node depends on [5].
-
-[1] https://lore.kernel.org/all/20261109033154.361399-1-sandie.cao
-@deepcomputing.io/
-[2] https://lore.kernel.org/all/20260929083755.458238-1-inochiama
-@gmail.com/
-[3] https://github.com/spacemit-com/linux-6.18/commits/k3-br-v1.0.y/
-drivers/pci/controller/dwc/pcie-spacemit-k1.c
-[4] https://lore.kernel.org/linux-phy/20260904083709.425893-1-inochiama
-@gmail.com/
-[5] https://lore.kernel.org/spacemit/20260727094726.890179-3-inochiama
-@gmail.com/
+Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
 ---
-Sandie Cao (5):
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add 115200n8 to
-    stdout-path
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add rfkill node for
-    WLAN
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add rfkill node for
-    Bluetooth
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add WLAN power
-    regulator
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: enable PCIe
+ arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- .../spacemit/k3-deepcomputing-fml13v05.dts    | 60 ++++++++++++++++++-
- 1 file changed, 59 insertions(+), 1 deletion(-)
-
-
-base-commit: 4bc415760dd40fcff23deb073333984dd15d418d
+diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+index 051046fe90b2..804a9e64cf6e 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+@@ -15,7 +15,7 @@ aliases {
+ 	};
+ 
+ 	chosen {
+-		stdout-path = "serial0";
++		stdout-path = "serial0:115200n8";
+ 	};
+ 
+ 	memory@100000000 {
 -- 
 2.43.0
