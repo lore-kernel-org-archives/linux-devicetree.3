@@ -1,56 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794829002;
-	b=fIx87xyqj3jMUZN05opIbL4vmxr1bs+PQUYBvTsUCu6W8DRve7MNzriQYgNwT2HJossl
-	 ma4GPayucdU17UDrb52IND2V9rViD2CptuAHr050YyWEp/N/4K01eKoh+06pPl8ALGFeB
-	 4MLm/fEN99xEpB7O6yCwB51MXaS7EYGiCfN6HHwcsZgYdP+SATLQ7zLpolfiIjVIM8kUj
-	 iQPBvrvJB8KUCj66+eVDNqO0/3TplqAm1L5cplmc3N5aLmUBk7ywkeCyTPf0tvvP7U+1S
-	 wwLJZXTQ+aMVzgf6Y3gpDjI4bmBNJwQJEoJPp6j1v1gLSKSq0NIlBTmYgpi6Jri62Iw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829002;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=oZKP5Z/jwozKHx23Ts/K4LfZlrjoVt0E7Z94tJcPuoI=;
-	b=FhkSel+qlFZLshvCJwzlrnVhdPh37+LGovtgLmBpVMGxsDdjOwNfHS0+n3jkp/jP0+9m
-	 wTc6c6MmxcpMqta7nyyfFPelnwRu2xwS6RmL5a7iB4r5tSyKDzcMToi1B+0Q94+yYGi/T
-	 Llj5b6+MTu4OWV4gflXwjdrEta9awlB4lh3JMn2366VfbPNnsEVkJRDcDeQR0tFHtqXP6
-	 Lm7sJllds2HhrdsyKBUx0e7bsnjiTcep7W1ZO552KseAtJihZdQjVHEnk+qxODAfJgBM3
-	 V96505auu5txG3P0qZkgMEG90xFwM3pkxVSYnslBHmnbLgIlOtVYjPY1xruALA1ZucQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D1BBYhjz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794829006;
+	b=kIuWFhJF/jhb8Zmtg9PjSdLgn7fFOhH16LP9+Bv9xToTvpIqpbicBomYwrc/V+KKUwp0
+	 Dq1LE4giUUNU6cXiL4VLOiU2Rg2jEfsOsrt+CsWr8pDGThwPnAZRsYOSmlLt7bQCBRGh2
+	 jLMMrdFceEGbHAqjgjdJj1ngS/64rFjYS2VQ84iilQiMadkoeQwO76kR5/xWfWWTUJJEr
+	 h12uhSxe0ab/7R27xva7M7pf0ZfXVnxFw7DpvpOCjghNkMQKNjnMn9DWQolH4KWYhZMt+
+	 bmer3X+voRn44AUVmNYvT/aMDhRz5D5Ap053KB60gWlsmKUifXvPRHHfY/eILxfodaQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794829006;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
+	 X-Mailer:X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=jUfs4WgdIzDmVn5wGXTlrouKHvKM6sgDIsWXkQqxs8c=;
+	b=bnYlHJBq/9w9LhBte+2tch4NDlrYCt27gjRSo9KX2sWW7VbKQ13HOpG45tNFFfmB2RJq
+	 H5ibTXGRZWfaBwQbCz+uC2kjglm5j6fUafABfmi8fLamItro7nAEiZHBMImKMaOESH+bm
+	 qVKJE4Xd/J+ogw/QBSEvwa2s0/vIt25L0EwM6jbnXdUfaCIHfrocxUhFDdkyaUBbw64u8
+	 YdQFJ54bWpbv9+osL7PulxOsD3rMycbemUR+NHxxWzNsFcscEGlgTm4aignXKjNxF1osq
+	 9ZYyDhz0YOxsKESyLAJntKmf2VNhurQLA/ysk0m5fotw5iinwEm8naWET6nZb2M8xLQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=E7EXUvfR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.42
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013042.outbound.protection.outlook.com [40.107.162.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB65A606A329;
-	Mon, 16 Nov 2026 11:36:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624D4606A323;
+	Mon, 16 Nov 2026 11:36:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 624D4606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D1BBYhjz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 181981F000C4;
-	Mon, 16 Nov 2026 11:36:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794829002;
-	bh=oZKP5Z/jwozKHx23Ts/K4LfZlrjoVt0E7Z94tJcPuoI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D1BBYhjzmC0Gk+sR1OdNXa7fR/PxKAuT1/DjPnXXlFQTECGGHDtCDfpbGCP2Q6XSW
-	 e4lMYGMEdZiDwlpkly2W5aVzzuuDD4Jf3mGzNmzPyi4QWreEKWHJFc3TIkE1OVi8Aq
-	 dkRypcjaxww1BnSP0WkBxSi1cLpaPxN5gxlChxV29ubDp8XcJ6VLyyLGz69UKeXqjv
-	 d/AvToznU+tQWPhc95Fh+KMrxB9oo3FUzxNLDkQxSMHr8O8DvyDuhydy6AeKUuI5Ei
-	 YYt0dMHdOxxMPZLbFfRbgQ28PbUM7MrQqLvjvFeLZUVOMSbVGpoO+WxTDT8P8Cq3eW
-	 Oumukn9/8zDSA==
-Message-ID: <sashiko-outbox-216951@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] arm64: dts: Add phyFLEX-Libra i.MX 8M Plus FPSC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yannic Moog" <y.moog@phytec.de>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261116-imx8mp-phyflex-v1-2-4adcf8b4d373@phytec.de>
-References: <20261116-imx8mp-phyflex-v1-0-4adcf8b4d373@phytec.de>
- <20261116-imx8mp-phyflex-v1-2-4adcf8b4d373@phytec.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 11:36:41 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=E7EXUvfR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WzC1DJzwrJKxdqhYX4QkrofcX0HGv+FRvzTwCkMLxjCNsWlIO3CDQWgMR7k6Vd5qA6Izi2UunBIzMR2uZI1BCYaRMpmUczQJaQt4GowHcCI0/57BC6E+Z4d15U2JgwYRVH3nBNCcRTPJ8E2vbIFl3tjHUfeLlsP65MYXDywRPvLmwtyGfLYX7LKl+g+LISJlzeAVbtD1YfUAfibSaNImY/hmwLk6DiWhgDprxGMqlXb9QAB9UJdU4quvcaC+qDimRb6hx0Jt/S7Uizcjmn23mzGCw4B0wkuQ35TAYLnCsrFl5KwwfXe36kqsmsNYpZbBAa2s3JIwPoHp/bTFqxgzIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jUfs4WgdIzDmVn5wGXTlrouKHvKM6sgDIsWXkQqxs8c=;
+ b=K2Pn5ByJrvfZo0bo+9NcSUZjfPhXHQBuNuWXRR7RvJg3fUualJ5dzukAlfSZcZfWaSpLHpr86rVLryxOh8kmqUO1oJDo1ivWJVzIT2gvnfbmDqKWzbtNWl7qM1mZgaOeJkEvxhayjDp/zwJJZ6iUynQQbKKfKnVrrProsfCbRbEo1dtzeNGpOxSkH9Ntz8baSdD0KJCwmVICEs3xgPTDTfo0LnpX/PrvYxgr/bs7X/fVx6mvlc1HzcMnJYDCMj8tNM+/Ws9Bk9LE1EstPorLHrtBhXw/OLj3Zdj5y9qJ4D+TvRsq/pr55kj5h5TEWawfdgjqzyRLE1v2GmJuIH06Nw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=st-md-mailman.stormreply.com
+ smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jUfs4WgdIzDmVn5wGXTlrouKHvKM6sgDIsWXkQqxs8c=;
+ b=E7EXUvfRDFd+UBKz9lAQuGtYlxShDsv3lKoO60nDTUd7FS4uLwb02vD2s5/AMzXgyGGWWVIXo5cpW2gYIIQRFa3asFkmM6FysvMve6tDWdwREWNcPP4RBy7wvKCt7w/juqxQK/I3WE+DaGxOyFMxvdcyvkSGUBBN590xPCIGB5NHa9hQpqcFJoCRgfqKq+3cx2XUQM6LM8e/Ihn88HlJaNQg+rqwsj4qCA0Pe7qJ7MvPgobjP13Gezk9d8qeMw/kJKbIDySjt+Xx66tNYXPHcQn26Hd+Thv0YDWgmV6XFat1+KTzDpT+2r54pkPRtw5pkW86BdN5DrnWxMDvp+x38w==
+Received: from DUZP191CA0044.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4f8::25)
+ by WA4PR10MB866235.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:1d0:30::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Mon, 16 Nov
+ 2026 11:36:41 +0000
+Received: from DB1PEPF000509E9.eurprd03.prod.outlook.com
+ (2603:10a6:10:4f8:cafe::4) by DUZP191CA0044.outlook.office365.com
+ (2603:10a6:10:4f8::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Mon,
+ 16 Nov 2026 11:36:40 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB1PEPF000509E9.mail.protection.outlook.com (10.167.242.59) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 11:36:40 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
+ 2026 12:37:23 +0100
+Received: from localhost (10.130.77.105) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 16 Nov
+ 2026 12:36:39 +0100
+From: Alain Volmat <alain.volmat@foss.st.com>
+Date: Mon, 16 Nov 2026 12:36:02 +0100
+Subject: [PATCH v2 2/3] arm64: dts: st: add delay on imx335 reset gpio on
+ stm32mp257f-ev1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,278 +104,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261116-stm32mp-imx335-fix-v2-2-5f2f8ce7e4eb@foss.st.com>
+References: <20261116-stm32mp-imx335-fix-v2-0-5f2f8ce7e4eb@foss.st.com>
+In-Reply-To: <20261116-stm32mp-imx335-fix-v2-0-5f2f8ce7e4eb@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	"Alain Volmat" <alain.volmat@foss.st.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509E9:EE_|WA4PR10MB866235:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46a3ad46-1bec-4aa9-055a-08df43d5e18d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|22082099003|18002099003|11063799006|56012099006|261028144727099003|261026140227099003|261102123227099003|261022075727099003|261022105027099003|261021123027099003|261021121427099003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	fTo0/uGGkWel7ptGtVnb1PD1CD11AEiJb2ZGkEailwr5iMdWh452fdiKr2YqY3VMhbaxAzVZfD1LZajvHU7SIJ5wuDCyV7vvo3A57smaRShqAxmPEHx00aC5raprVJq/4OaOyloSIQ8nriz59Bcfhb47YjmKMqSTaWhpoZQOTVe2FmSHqiYgAY2y6AquVI36jP1Vk3JHiFYE2pRanT03/cmuO9ddqBdlRshzmmZROIF20+P0ZRhJGefwokYKnoYRATJ93IhwgotbnwSXcrFVBrxpi1W7M1q+GmyT07N9KpCMZQDG6w+mtGATWv64ZAc3uaMBEmhE0ZEb+m5utuNOiITutgpfWCL4isGDOFUY9RdIzROEgZsbGgf45wzgI5s5/jyuB4rxnUmmQcco1zgMmUlDGHS3qJAi2ltkFBtlfPJjIko4cT9xgcuL3xE/avVXbmTCwotBwAldw5kmu5qx6LSd9ov8MAN5CUrfz3EdXedOsTJBLcDz/6bjaflErrGiIk/6uNO2YQj18YbjMOuht8zP9sxhlouu3NZC8p64tjS9QuizE+CaE+NWVQT+lswavDws/yfcJ0nplDJWTPx20+JSQ7AIHZnl7SKLWlMt5pdXpdw/hAcTnUwmQxfJrSc77z1t29mTKB7Gm1dvGQD8bMH0AfSNolN6O9qt9gnjDpNAX8aP9ZIC3ECVbBqXm/CXd9iYew1D+Dt96X882zo8bw==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(22082099003)(18002099003)(11063799006)(56012099006)(261028144727099003)(261026140227099003)(261102123227099003)(261022075727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	du+lkaPboRkosLZrKE+8KQyyQw3bNHSSc0A65mQD0UXygrRhgvsNTuSdi+h8RFG1zZLIfQJ6YpCGxWgdMftY7Wwlxx10q/5FeHCmG4621Nese3nmQbhIQ9OQArC+p/qWPpkkacfSSNA/IUozlWFtUgp/5vPxe+9EvdXLWNypxpKMg0xjAIu7ZPgmhKhzXlaml6mW18SgkoqF30UHUOUyTBg6Mo9jYOP46d9w+ybQXUNXzQmS8K3Cse1m5bOWMjJd7R+a0mnI3X8BWJw0VVOFTGM8D0G33u3CiNBT74korOKvDE8ewbQH0Kw7UptMNOGOeZpCvLW2EETRmwtMJ3KdkRrceGq9XxAat3wx/fsYDgPunko0t14efZhr8p8+1R8heOn75e4ycJXHQ0pgm6RCoCuUrG16lNTyrv1mziqf+5Ynil8U4CE8YVusfMRc/YPr
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 11:36:40.0054
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46a3ad46-1bec-4aa9-055a-08df43d5e18d
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509E9.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: WA4PR10MB866235
 
-Thank you for your contribution! Sashiko AI review found 9 potential
-issues to consider:
-- [High] arm64: dts: imx8mp-phyflex: missing cs-gpios on ecspi1 and
-  ecspi2
-- [Medium] arm64: dts: imx8mp-phyflex: duplicate UART2_RXD pinmux in
-  pinctrl_ecspi3
-- [Medium] arm64: dts: imx8mp-phyflex: misplaced pcie0 properties and
-  clkreq conflict
-- [Medium] arm64: dts: imx8mp-phyflex: wrong compatible on 32-byte ID
-  page eeprom@58
-- [Medium] arm64: dts: imx8mp-phyflex: pull-downs enabled on usdhc1 CMD
-  and DATA pins
-- [Medium] arm64: dts: imx8mp: missing OF graph ports in
-  m2-key-e-connector
-- [Low] arm64: dts: imx8mp: 32.768 MHz typo in m2_suspend_clk
-  clock-frequency
-- [Low] arm64: dts: imx8mp: invalid port@2 on hd3ss3220 and usb3_phy0
-  switch
-- [Low] arm64: dts: imx8mp: duplicate gpio-line-names on gpio5 in
-  libra-rdk
---
+The imx335 reset gpio is connected to the sensor reset via an RC hence
+a delay is needed in order to take into account the time needed to
+reach the level for which the sensor sees the correct level.
+This prevent having imx335 power-on issues due to the fact that the
+driver is trying to access to the sensor while the reset hasn't been
+yet properly handled.
 
-commit 6df61ef89e5f051cd50d9b4d059d503e1d71d85f
-Author: Yannic Moog <y.moog@phytec.de>
+Fixes: 8df9bff27889 ("arm64: dts: st: enable imx335/csi/dcmipp pipeline on stm32mp257f-ev1")
 
-arm64: dts: Add phyFLEX-Libra i.MX 8M Plus FPSC
+Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+---
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-This commit adds the SoM and RDK carrier board device trees for the
-PHYTEC phyFLEX-Libra i.MX 8M Plus FPSC platform.
+diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+index 782b4bb843ee..f40ae2293b3e 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
++++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+@@ -73,6 +73,13 @@ ddr_channel: sdram-channel-0 {
+ 		io-width = <32>;
+ 	};
+ 
++	imx335_reset_delay: imx335-reset-delay {
++		compatible = "gpio-delay";
++		#gpio-cells = <3>;
++		gpio-controller;
++		gpios = <&gpioi 7 (GPIO_ACTIVE_LOW | GPIO_PUSH_PULL)>;
++	};
++
+ 	memory@80000000 {
+ 		device_type = "memory";
+ 		reg = <0x0 0x80000000 0x1 0x0>;
+@@ -259,7 +266,7 @@ imx335: camera@1a {
+ 		avdd-supply = <&scmi_v3v3>;
+ 		ovdd-supply = <&scmi_v3v3>;
+ 		dvdd-supply = <&scmi_v3v3>;
+-		reset-gpios = <&gpioi 7 (GPIO_ACTIVE_LOW | GPIO_PUSH_PULL)>;
++		reset-gpios = <&imx335_reset_delay 0 1000 1000>;
+ 
+ 		port {
+ 			imx335_ep: endpoint {
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-phyflex-fpsc-g-som.dtsi=
- b/arch/arm64/boot/dts/freescale/imx8mp-phyflex-fpsc-g-som.dtsi
-> new file mode 100644
-> index 0000000000000..384a19743b15f
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-phyflex-fpsc-g-som.dtsi
+-- 
+2.34.1
 
-[ ... ]
-
-> +	/* User EEPROM ID page */
-> +	eeprom@58 {
-> +		compatible =3D "atmel,24c32";
-> +		reg =3D <0x58>;
-> +		pagesize =3D <32>;
-> +		vcc-supply =3D <&reg_vdd_io>;
-> +	};
-
-[Severity: Medium]
-Should eeprom@58 use compatible =3D "atmel,24c32d-wl" instead of
-"atmel,24c32"?
-
-"atmel,24c32" registers a 4096-byte nvmem device instead of a 32-byte
-identification page.  Reads past 32 bytes wrap around the page, and writes
-to offsets >=3D 0x400 set address bit A10, which issues the hardware Lock ID
-command on 24C32-D devices and permanently write-locks the identification
-page.
-
-[ ... ]
-
-> +&iomuxc {
-> +	pinctrl_ecspi1: ecspi1grp {
-> +		fsl,pins =3D <
-> +			MX8MP_IOMUXC_ECSPI1_SCLK__ECSPI1_SCLK   0x82    /* SPI1_SCLK */
-> +			MX8MP_IOMUXC_ECSPI1_MOSI__ECSPI1_MOSI   0x82    /* SPI1_MOSI */
-> +			MX8MP_IOMUXC_ECSPI1_MISO__ECSPI1_MISO   0x82    /* SPI1_MISO */
-> +			MX8MP_IOMUXC_ECSPI1_SS0__GPIO5_IO09     0x106   /* SPI1_CS */
-> +		>;
-> +	};
-> +
-> +	pinctrl_ecspi2: ecspi2grp {
-> +		fsl,pins =3D <
-> +			MX8MP_IOMUXC_ECSPI2_SCLK__ECSPI2_SCLK   0x82    /* SPI2_SCLK */
-> +			MX8MP_IOMUXC_ECSPI2_MOSI__ECSPI2_MOSI   0x82    /* SPI2_MOSI */
-> +			MX8MP_IOMUXC_ECSPI2_MISO__ECSPI2_MISO   0x82    /* SPI2_MISO */
-> +			MX8MP_IOMUXC_ECSPI2_SS0__GPIO5_IO13     0x106     /* SPI2_CS */
-> +		>;
-> +	};
-
-[Severity: High]
-Are cs-gpios missing on &ecspi1 and &ecspi2?
-
-pinctrl_ecspi1 and pinctrl_ecspi2 mux the SS0 pads as GPIO5_IO09 and
-GPIO5_IO13, but neither the SoM dtsi nor imx8mp-phyflex-libra-rdk.dts sets
-cs-gpios on &ecspi1 or &ecspi2.  Without cs-gpios, spi-imx drives native
-hardware SS0, which is disconnected from the pins, so chip-select is never
-asserted for adc@0 on ecspi1 or tpm@0 on ecspi2.
-
-> +
-> +	pinctrl_ecspi3: ecspi3grp {
-> +		fsl,pins =3D <
-> +			MX8MP_IOMUXC_UART1_RXD__ECSPI3_SCLK     0x82    /* SPI3_SCLK */
-> +			MX8MP_IOMUXC_UART1_TXD__ECSPI3_MOSI     0x82    /* SPI3_MOSI */
-> +			MX8MP_IOMUXC_UART2_RXD__ECSPI3_MISO     0x82    /* SPI3_MISO */
-> +			MX8MP_IOMUXC_UART2_RXD__GPIO5_IO24      0x106     /* SPI3_CS */
-> +		>;
-> +	};
-
-[Severity: Medium]
-Should the SPI3_CS pin in pinctrl_ecspi3 be
-MX8MP_IOMUXC_UART2_TXD__GPIO5_IO25 instead of
-MX8MP_IOMUXC_UART2_RXD__GPIO5_IO24?
-
-Both entries configure the UART2_RXD pad, so the second entry overwrites
-ECSPI3_MISO with GPIO5_IO24 and leaves the UART2_TXD pad unmuxed.  The
-gpio-line-names property on &gpio5 also labels line 24 as "SPI3_CS"
-instead of line 25.
-
-[ ... ]
-
-> +	pinctrl_usdhc1: usdhc1grp {
-> +		fsl,pins =3D <
-> +			MX8MP_IOMUXC_GPIO1_IO07__USDHC1_WP	0x106	/* SDIO_WP */
-> +			MX8MP_IOMUXC_GPIO1_IO06__USDHC1_CD_B	0x106	/* SDIO_CD */
-> +			MX8MP_IOMUXC_SD1_CLK__USDHC1_CLK	0x106	/* SDIO_CLK */
-> +			MX8MP_IOMUXC_SD1_CMD__USDHC1_CMD	0x106	/* SDIO_CLK */
-> +			MX8MP_IOMUXC_SD1_DATA0__USDHC1_DATA0	0x106	/* SDIO_DATA0 */
-> +			MX8MP_IOMUXC_SD1_DATA1__USDHC1_DATA1	0x106	/* SDIO_DATA1 */
-> +			MX8MP_IOMUXC_SD1_DATA2__USDHC1_DATA2	0x106	/* SDIO_DATA2 */
-> +			MX8MP_IOMUXC_SD1_DATA3__USDHC1_DATA3	0x106	/* SDIO_DATA3 */
-> +		>;
-> +	};
-
-[Severity: Medium]
-Does pad setting 0x106 enable internal pull-downs on the USDHC1 CMD and
-DATA0..3 lines?
-
-On i.MX8MP, 0x106 sets PE=3D1 with PUE=3D0 (pull-down), pulling the SDIO
-command, data, and active-low DATA1 interrupt lines low when undriven
-instead of pulling them high as 0x1d0 does on pinctrl_usdhc2 and
-pinctrl_usdhc3.
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-phyflex-libra-rdk.dts b=
-/arch/arm64/boot/dts/freescale/imx8mp-phyflex-libra-rdk.dts
-> new file mode 100644
-> index 0000000000000..7ebedbcba7c67
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-phyflex-libra-rdk.dts
-
-[ ... ]
-
-> +	m2-key-e-connector {
-> +		compatible =3D "pcie-m2-e-connector";
-> +		clocks =3D <&rv3028>;
-> +		i2c-parent =3D <&i2c3>;
-> +		sdio-reset-gpios =3D <&gpio_expander2 6 GPIO_ACTIVE_LOW>;
-> +		sdio-wake-gpios =3D <&gpio_expander2 5 GPIO_ACTIVE_LOW>;
-> +		uart-wake-gpios =3D <&gpio_expander1 13 GPIO_ACTIVE_LOW>;
-> +		vpcie3v3-supply =3D <&reg_vdd_3v3>;
-> +		w-disable1-gpios =3D <&gpio_expander1 9 GPIO_ACTIVE_LOW>;
-> +		w-disable2-gpios =3D <&gpio_expander1 10 GPIO_ACTIVE_LOW>;
-> +	};
-
-[Severity: Medium]
-Is m2-key-e-connector missing its OF graph ports node?
-
-pwrseq_pcie_m2_probe() requests w-disable1-gpios and w-disable2-gpios
-asserted (GPIOD_OUT_HIGH), and only deasserts them or creates the
-Bluetooth serdev when endpoints are matched via the connector's ports
-node.  Without ports, M.2 Wi-Fi and Bluetooth cards remain permanently
-disabled when CONFIG_PWRSEQ_PCIE_M2 is enabled.
-
-> +
-> +	/* RTC (rv3028) clock is used by default */
-> +	m2_suspend_clk: oscillator-suspend {
-> +		compatible =3D "fixed-clock";
-> +		#clock-cells =3D <0>;
-> +		clock-frequency =3D <32768000>;
-> +		status =3D "disabled";
-> +	};
-
-[Severity: Low]
-Should clock-frequency in m2_suspend_clk be 32768 instead of 32768000?
-The M.2 Key E suspend clock (SUSCLK) is 32.768 kHz, not 32.768 MHz.
-
-[ ... ]
-
-> +&gpio5 {
-> +	gpio-line-names =3D "", "", "", "", "I2C5_SDA",
-> +			  "GPIO1", "", "", "", "SPI1_CS",
-> +			  "", "", "", "SPI2_CS", "I2C1_SCL",
-> +			  "I2C1_SDA", "I2C2_SCL", "I2C2_SDA", "I2C3_SCL", "I2C3_SDA",
-> +			  "", "GPIO2", "", "", "SPI3_CS",
-> +			  "", "GPIO3";
-> +};
-
-[Severity: Low]
-This isn't a bug, but &gpio5 duplicates the exact same gpio-line-names
-array already defined in imx8mp-phyflex-fpsc-g-som.dtsi.
-
-[ ... ]
-
-> +	usb-typec@47 {
-> +		compatible =3D "ti,hd3ss3220";
-> +		reg =3D <0x47>;
-> +		id-gpios =3D <&gpio1 10 GPIO_ACTIVE_HIGH>;
-> +		interrupt-parent =3D <&gpio_expander1>;
-> +		interrupts =3D <4 IRQ_TYPE_LEVEL_LOW>;
-> +
-> +		ports {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +
-> +			port@0 {
-> +				reg =3D <0>;
-> +
-> +				hd3ss3220_in_ep: endpoint {
-> +					remote-endpoint =3D <&ss_ep>;
-> +				};
-> +			};
-> +
-> +			port@1 {
-> +				reg =3D <1>;
-> +
-> +				hd3ss3220_out_ep: endpoint {
-> +					remote-endpoint =3D <&usb3_role_switch>;
-> +				};
-> +			};
-> +
-> +			port@2 {
-> +				reg =3D <2>;
-> +				hd3ss3220_orientation_switch: endpoint {
-> +					remote-endpoint =3D <&usb_phy_orientation_switch>;
-> +				};
-> +			};
-> +		};
-> +	};
-
-[Severity: Low]
-Does usb-typec@47 allow port@2, and does usb3_phy0 support
-orientation-switch on i.MX8MP?
-
-ti,hd3ss3220.yaml only permits port@0 and port@1 because the HD3SS3220
-integrates the SuperSpeed orientation mux internally and its driver never
-requests a typec_switch, so port@2 fails dtbs_check.  Likewise,
-phy-fsl-imx8mq-usb only registers a typec_switch when a second TCA register
-region is present (on i.MX95), which fsl,imx8mp-usb-phy does not have.
-
-[ ... ]
-
-> +/* M.2 PCIe */
-> +&pcie0 {
-> +	external-facing;
-> +	reset-gpio =3D <&gpio1 8 GPIO_ACTIVE_LOW>;
-> +	supports-clkreq;
-> +	vpcie-supply =3D <&reg_vdd_3v3>;
-> +	wake-gpios =3D <&gpio_expander1 11 GPIO_ACTIVE_LOW>;
-> +	status =3D "okay";
-> +};
-> +
-> +&pcie_phy {
-> +	clocks =3D <&hsio_blk_ctrl>;
-> +	clock-names =3D "ref";
-> +	fsl,clkreq-unsupported;
-> +	fsl,refclk-pad-mode =3D <IMX8_PCIE_REFCLK_PAD_OUTPUT>;
-> +	status =3D "okay";
-> +};
-
-[Severity: Medium]
-Should external-facing and wake-gpios be placed on the Root Port node
-(&pcie0_port0) rather than &pcie0, and why are both supports-clkreq and
-fsl,clkreq-unsupported set?
-
-pci_set_bus_of_node() and pci_configure_of_wake_gpio() only read
-external-facing and wake-gpios from the Root Port pci_dev node, so both
-properties are ignored on the host controller node and fail
-fsl,imx6q-pcie.yaml validation.  In addition, supports-clkreq on &pcie0
-and fsl,clkreq-unsupported on &pcie_phy configure IOMUXC_GPR14 with
-conflicting CLKREQ# settings.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-imx8mp-phy=
-flex-v1-0-4adcf8b4d373@phytec.de?part=3D2
