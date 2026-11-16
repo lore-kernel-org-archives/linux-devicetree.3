@@ -1,106 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794845130;
-	b=SDyBNEQPtsaqLFVSGQ4jlinBHz79jbBfWPXex1Jok+WO9++b2FRkfLeSKTYr1uJi8AsC
-	 7x9Dg0eInNqJ0IuC17CspVjYmnW90/beKbA6FMxGqrg1j9xWgP2yQhb+G268Ql0GSXxcl
-	 uG2XS3r7+i/sHiIz8aANvN/sDwKT/sHe7VA+Pb0okNWDTSlHyFUJKfLOyzw7g0MWpDVhW
-	 okxCcCtiagrgQRNbExoWKVuW1jMp0bvvYWXrMDH5XK7LQD5RbNor9VfoKNzwSR7ZP5jHn
-	 EJKfRObTirQ9tf8uWqIc/xSH/2KtdTOvXC4WAFgGagb/8LBJNZr5LV+7zIBj+TPbuYw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845130;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=909fGxJj8pcbDn0gjsDKGhAGHncEpAXdhzKPe6Jd3lw=;
-	b=YGzxusb2GBXvEClcfVoCzbwQffqxnOqWfzB13KpNC2GOloso5XlN52CAVWlkOEBqBOCp
-	 4w8+sLm4cTb7HkezI27CHRSfuVPhuFrkqs6wJEeBfdAzZH6DMKVH4hdGAZeAXThl/5tkP
-	 It7qvIK1ZDP3eSveH8OFMbPu0UAHkX3uGZTWoDCj8/HVI6BeYB+FtfwEKeFJ4hV/8452a
-	 A4W/uo2n5RIOEHM35KV3SB2d66OC1u1nnGafcv8cjZI7CHtLYVRfMW11YB/tnl2SxPBzo
-	 +wwqGKRgpPbbZWKBXmtwrl3hhbq27ENslnG3T9QuC2Ak20xzzjBntxKG+KYN6ni/Ozw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=co2D1OUk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.71
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011071.outbound.protection.outlook.com [52.101.65.71])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794845206;
+	b=vpOjUkEcEUs6svaBTrsOZtCkSM+UHWfQl9CFz7BtGCBow9D2aVtUjTL9nT9JBsdkOCZP
+	 oX2J1rELUdfnk9wQXHucYJCBuhZulLfSLo8oQi+19cvcFnRkTiyuRSshp1P4mUIaLoLhb
+	 q9a7JH86AqI4fHFQ6PROcTQRXoDY5Rozj2s/874+hczQwblIqwE5lJNm3X5oHPMS3GcYU
+	 goEdrvbF1QFG4wDGzAQSHCw0P46kSWFFeEINrMouDsF4u16sECYaGIZ7c0lvUFkuUgJRR
+	 vospvIiuWaniisUwr0I8zZP4hJDuRAKH0batTf8bG48faSadk5OUSnyg1wK3GWNZ2+w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845206;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Hb1bTNHLdhj1/DC9MBQeme22v2W+eWYJPzYyEpAFjGQ=;
+	b=mS3SjeFMSkxXusuWN9N4w7zKVIELafK56seOLo6KJO0p14j4AHp5KPW99+Cq29/fafpx
+	 XxGFIGxU6dGfa67ggMQyMCidUya3sSE9Hla312Yhghzrn4hdQvUx33ROBZAEBwwUcrhkz
+	 3a+tKW33JS+waBB4TegrvzKSmwS0eZexPM30kMsaOBlUga0INoTVHhaIpKj9zaIP5YzrH
+	 nQPyQ0EwlJDdIYWQhSIIHUvflkKePMcYEs+w4rMMkQFLru89SbxmdVZsoxbpGQYmw7p82
+	 LM4fwHcGRl5TR91m36aDaEtYTIH4Vs8+JwG9zoreiJi/fAPMjojLtblybzNEp0lCibA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ANKIZ/op";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF3A606A322;
-	Mon, 16 Nov 2026 16:05:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DF3A606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA64606A322
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 16:06:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=co2D1OUk
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h3bko/I+kKp+6Vn2fs+vB4jNgaOYyDPZMSY7cPlBqICykD13EHx/uwWVAysX7Fc4Nzlhfq4eilGENMt3Ll6R/DhOuIf3DSV7UEy33IvAOLDDNK/cjW2XxpEQM6B++fiORFtKN58vrS/WcwKBjyPHiim4yFxTo/Z64aRmIFeVWpXnZfeMmHmeHH8peXTOMobl/xfac8SR8xv+2KhF/EM0mF//CVefCGHY7ejidx7U81SsAWy8LMk4PEzHNjAspBMTqLKzKiRRdu/lURS5wNMbKV2VreeO+zuHFGEel1F9i8kRgGJdu6ibw7IjwjjDUYFtFAqDnpL3avYOmirEcKiEwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=909fGxJj8pcbDn0gjsDKGhAGHncEpAXdhzKPe6Jd3lw=;
- b=EKNIyWd3YO/C9A4xrYBB9teXAbYLkC295sEq3ChJ32Gne9jrISeDVWKPEtlbI5Gvyd7g/zcgqxksYG+hlemyqvwCwwycFgQEhF3XDKPrE1ew1JF/p6ssGh9/YtFw+lG8iixRQCm9852FAXSCqyb+ISMP18zcbQu6SWxErOA5tyQ4Hk8k45RYk44hvDCuRRW2TA1ctuHKpaU3PXleJcG9EHUqT/zcDh3HuAIJ4gJ/v+tlUmhoeccE0YYhq7jB7tpQb0aQXi/XzMexaVK0RNpBI1M4w9l1jAfavxwRI/qwcidNoIz1FP+5DZey7l43bTUKiM3Rd4R+jCm4KUkOD9/MUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=909fGxJj8pcbDn0gjsDKGhAGHncEpAXdhzKPe6Jd3lw=;
- b=co2D1OUkQbzM/nbdF1JrX8RdYkzwdAMhXqJkJnuAeuuQ/hr3q42tX1tSLkVkYcc4dz5/KhBdnNGtgDFJLE3KLyxFjr00DvRxyQ1jegARtVAxma+vxC0aRH9tHpagNQKoz2l3CZNtMqeD4LvyRh5DXf5lSnGhgTUoqK0ysrfd7okMGpZunqCoVez25R02ttsv3RINQ1f9+orXTBbZSEhnNmJt7rtiymqOjXpbwefeb85+YkDCT9HHHx+jiSSrgazEMmcVSagGgNGndheok1Ufd4D68o4tqhcsuGlUcSAxbDj/OrLOKCjeXPzYEXpgT1FvVo6D4h/kju5QQAakh7ESSg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AS1PR04MB9405.eurprd04.prod.outlook.com (2603:10a6:20b:4db::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 16:05:26 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 16:05:26 +0000
-Date: Mon, 16 Nov 2026 10:05:15 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-bsp@toradex.com,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 01/11] arm64: dts: freescale: imx8mm-verdin: Add SPI
- alias
-Message-ID: <avspu5VpQ6OtbJF2@SMW015318>
-References: <20261112150236.164850-1-francesco@dolcini.it>
- <20261112150236.164850-2-francesco@dolcini.it>
- <avXeK-IRXbKqI-pc@SMW015318>
- <20261113073135.GA8515@francesco-nb>
- <avc2nzql-JV7a-JH@SMW015318>
- <20261113171927.GA762258@francesco-nb>
- <aveChu8WqYM2JZcN@SMW015318>
- <20261116114509.GA101185@francesco-nb>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116114509.GA101185@francesco-nb>
-X-ClientProxiedBy: PH8P221CA0020.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:2d8::33) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ANKIZ/op
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58EB21F000C4;
+	Mon, 16 Nov 2026 16:06:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794845205;
+	bh=Hb1bTNHLdhj1/DC9MBQeme22v2W+eWYJPzYyEpAFjGQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ANKIZ/opjkw9tVdKvMM9b3LWphguxhLocd/ra39orvCbceNKEr64rVet/83j605nv
+	 WNQmlE6rN63VyUnTup/Y1l4Er8oDw2o6oyjP7szkMWK2D5UXE4J2ljULOl5W9qJPsp
+	 Mspjh/T+0Fc3pxVgA/2J46J65qxw1dJqRA0OGQ8HaZGjiQzs/TAmViHACqNUX9UOGD
+	 Nm3dvteADv5WxvZdicpUFNHy2lzDoUzZNGGqQmpV9uy3IcmhlyD5DiEgsi1jU+CnFV
+	 u78ydHmFHeOFaCwMzWJIS6xJE2LRb+BJFEWT9r8HRYFKKAnSbk6qIwAQFkH8OJQskJ
+	 Ecusgm9Z/L4aQ==
+Message-ID: <sashiko-outbox-217338@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] remoteproc: qcom_q6v5_mss: Publish socinfo for
+ Pixel modems
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116-modemsmem-v3-2-24ebc7ed6eb9@ixit.cz>
+References: <20261116-modemsmem-v3-0-24ebc7ed6eb9@ixit.cz>
+ <20261116-modemsmem-v3-2-24ebc7ed6eb9@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 16:06:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,155 +60,162 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS1PR04MB9405:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf72f224-9e22-48ce-bf63-08df43fb6d65
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|19092799006|10067099003|11063799006|4143699003|56012099006|261021123027099003|261022105027099003|261026140227099003|261026121527099003|261021121427099003|261022075727099003|261102123227099003|261028144727099003|261009223027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	T085JXDYDORSzZc25Y3tSVX4PSmNdNajwIpXnO5IhteJ3d9ybGbN8ca425+HlNyRWAuvQOUaNW/YFdeNgoyeUXWrr4RBUpaD+VjBkppZZiAAmsstHqSYyx1iQDhDze4jKrxHSmHjXC+D/oWdQLyHxgPfgVR+Qz5MWRrO2wG7X4GbakPvKpKefKfCXsv6Empbm9IXe97qo80vFuPfGhA9MPx3yYhvYPQXwSHYtWZso51bb3E65WOdAxpJDl7aqDT2vRXNV6S1EdDVM430U4ugmMJ70nJK0H5wHVbiHi2qdVu9iEtDq0YiJamTOoFlXQk5ZjkSNv+nRnvexJgtcevHK1rMqN33Leb848n+8esvHbGd4NQc04gwMXgahHqMb5+sntv/Z7KSI17Ibp8czCYKDiVyhMBQz5UdmZMemgLUWn3yPaO5OHVoU4sCvXtNEcsnkeDzyFbuFejIYxLtt0+YLTegJvnHv52y6l2foA6kOoEtyF7eoG4KsuDYMiqJAJ6rYXw82hSbkoQq9B0tzaCXQk35jaL7uwZvZEd3MLvBxSnp8RSiYIfiOEx0f87Q7m0m6ekIK2gasbRHoJwBm6xzTpsR4vLFneLiJYwcTMrQcpa5BG0DaBYFMhPZkW+c74C0
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(19092799006)(10067099003)(11063799006)(4143699003)(56012099006)(261021123027099003)(261022105027099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022075727099003)(261102123227099003)(261028144727099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Y5ZHA+iop8kvjRVm9oR8b/a4GGR14oTp7ptUlJhZU+8qNDEgQPgs2r+i9Qa1?=
- =?us-ascii?Q?I+Ok1uUwbc5znpl4xO6rLLu5kQfJbclxwmPVXJEj3zIV1dXZVVcUOTgzSS0d?=
- =?us-ascii?Q?GTDiXuvDccP2gq3JBvCNZHP3sagOsqNu61YECJlX5oBJ1bJo1dXI6SatgeuP?=
- =?us-ascii?Q?GuHCB2X5XVHf6zT/QdrgTHZK37N6kYqnmplMr0E4LMZeNV2L7MbMXkN7/Acy?=
- =?us-ascii?Q?1NovLTx8fvt4U99KOZjTrr40c/kjgWW0EwnUotdX6ZXMEAthbMeYOnnArgiR?=
- =?us-ascii?Q?+dgcsw51Z9AsjeRH9i5E4vFXlKNxYyW7PLHni/HDQU4eD6jENteXsGaenn6X?=
- =?us-ascii?Q?gd9jgF9tJesM5nG7v98mnGm7++QwHFalSP/JQ+196FrztLiXt3qDewwQL5Nf?=
- =?us-ascii?Q?NvrwR0g1b5RYy8g7f5rhUbmkDiHroVcQOSKNmSoAUp79lwI3MzmCbdMFPOOW?=
- =?us-ascii?Q?T5K9Ek9WyXEGmdzpd50Xj2UWBa0BSyl4TS47vD/wTyKQOyzVjBYR9BdwVPUZ?=
- =?us-ascii?Q?xJKb/bsPeUmDIco9XivtODYgAWvVsbYt7nbv9LluRNwGmhtlEwEy15/9UsO2?=
- =?us-ascii?Q?uk0wATRyBiW57d74EdJcW8PkCN6T+raxKnpsUbFyo0Z0aRmkqvRR2wz9LEvx?=
- =?us-ascii?Q?VFChOgBSmoqJfhbUOe8mhQyOZCgJEes3H2GhgdCp8L+UB3U+81LeAole4Z53?=
- =?us-ascii?Q?5SIWB5Kjt1yHOChG7mEflK2R12Gs9ON1UW60ZP3mDHbOQEH/AwsnPKX/9d7O?=
- =?us-ascii?Q?MYTajFtm9+WDwDz8SdJuuTIbNevPojCz0sRvav4u2BSetYKOgM0dWdPhYF5B?=
- =?us-ascii?Q?Sp2NqE+r8uKaPx3rDVJH3WDabC4gnrA99TL/oYpP41jgGOHL7losJ0kQ6ks0?=
- =?us-ascii?Q?8wVxEWkwvjIbzYb+5FMEHz0piisFndpbLck+Hm1+NJO4QVsvhLlXz9J8iAVx?=
- =?us-ascii?Q?8cEK1QntA6OoPQOz+7wIDLzSlIIOBw80STSg/j3+ggh7uh8Uf8+5Kaqr2wQw?=
- =?us-ascii?Q?Udu9Hf7KOZeWZTY7WboPsiEiyjR802sz05hcsO02kKZp6ANHHAteojOXJ4nx?=
- =?us-ascii?Q?qbecMrObNy3aTFP2s5sq6RWUvxGAn5I5qjBsxN1BFUq0ZCi8lYmFua8YTC0F?=
- =?us-ascii?Q?ClBSK1o6yL8+/5Zx+zGfULt9LPjm9SKj4j5+FdhpgsLquNITYjjZDvYS+sNA?=
- =?us-ascii?Q?1GqACWrFevtn4NG2+lODl2V9rzJ6rR7iwHRcrAnlgyxdjDAmzMkHE49/AVWW?=
- =?us-ascii?Q?yKkGV8qAshEXJ2mtUBi/N6tNBM30nNxAlDoBjEBuDs2CPMfIfAXMQOyQHGke?=
- =?us-ascii?Q?bmr3K3BMC51tYt33Hc7VTt3dtARC278vlM3nhlY/EkZhLT4qtd/xE19nkdwv?=
- =?us-ascii?Q?nBnVOXZQfOIzMi7ofV7BJt+vuKzwC6NPZwO3pAlN67icP1CronSmkR+qeAwl?=
- =?us-ascii?Q?TaBHjdcVMMm2RhDgkM8LvR9IGY9y2jwuPanCUUX1haYVk6pdX28mvDu5Nnsl?=
- =?us-ascii?Q?0Pvj2WmwIaN+A0p+3WfOieh7ehxciZ/0yaTLnTIe6Tb6m6UpNUXSHfAT3F/l?=
- =?us-ascii?Q?V6YKULmOcg6KVIseCaWxxIePNgD2auL6EMQMdHgj+xrpGfJ1p9CtwLtLI2t0?=
- =?us-ascii?Q?kT6nwU0Pw0UHh0HakbzKfETB3y1ATDjrjjfJlJIjlAV9FQK3oybMyXi8LItY?=
- =?us-ascii?Q?Kb4SZWCqkH/lVM2xMqToeWHDaNrwu0YjByjslRREFYHsZOLcJH3+20qgPLrs?=
- =?us-ascii?Q?BTmsZLqqHavHi45bFLy9gK2VeJRHQVFzcYh2nBi1AsJIw69UAW8H?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf72f224-9e22-48ce-bf63-08df43fb6d65
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:05:26.3309
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V8l//ku9NoDfpKfskDQ122EbL+84sK/vi684jsOqxT7IaFxTmFbcQiMnPPVD9H9Sd2/f7dAZjmFbAqslkNyeFeH+5yfnoYbBTgO1MOPv877fDE5Q39SteSfQrEdId585
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9405
 
-On Mon, Nov 16, 2026 at 12:45:09PM +0100, Francesco Dolcini wrote:
-> Hello Frank,
->
->
-> On Fri, Nov 13, 2026 at 03:35:02PM -0600, Frank Li wrote:
-> > On Fri, Nov 13, 2026 at 06:19:27PM +0100, Francesco Dolcini wrote:
-> > > On Fri, Nov 13, 2026 at 10:11:11AM -0600, Frank Li wrote:
-> > > > On Fri, Nov 13, 2026 at 08:31:35AM +0100, Francesco Dolcini wrote:
-> > > > > Hello Frank,
-> > > > >
-> > > > > On Thu, Nov 12, 2026 at 09:41:31AM -0600, Frank Li wrote:
-> > > > > > On Thu, Nov 12, 2026 at 04:02:23PM +0100, Francesco Dolcini wrote:
-> > > > > > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > > > > >
-> > > > > > > The Verdin family pinout defines the SoM interfaces and their
-> > > > > > > numbering, SPI_1 being the SPI bus available to the carrier board,
-> > > > > > > implemented by ecspi2 on Verdin iMX8MM.
-> > > > > > >
-> > > > > > > imx8mm.dtsi numbers ecspi2 as spi1, so the Linux bus number in sysfs
-> > > > > > > and the spidev name do not match the Verdin interface. Add a spi0
-> > > > > > > alias in the SoM dtsi and delete the inherited spi1, so ecspi2 is
-> > > > > > > bus 0, zero-based with SPI_1 being spi0, and carries a single alias.
-> > > > > > > ecspi3, internal to the SoM with the CAN controller and the TPM, keeps
-> > > > > > > the spi2 alias inherited from the SoC.
-> > > > > > >
-> > > > > > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > > > > > ---
-> > > > > > >  arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi | 2 ++
-> > > > > > >  1 file changed, 2 insertions(+)
-> > > > > > >
-> > > > > > > diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > > > > index 1ac9d000d415..0369803a4d46 100644
-> > > > > > > --- a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > > > > +++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> > > > > > > @@ -16,6 +16,8 @@ chosen {
-> > > > > > >  	aliases {
-> > > > > > >  		rtc0 = &rtc_i2c;
-> > > > > > >  		rtc1 = &snvs_rtc;
-> > > > > > > +		spi0 = &ecspi2;
-> > > > > > > +		/delete-property/ spi1;
-> > > > > >
-> > > > > > Can you avoid delete property for new platform?
-> > > > >
-> > > > > Unfortunately this is needed.
-> > > > >
-> > > > > The included imx8mm.dtsi has
-> > > > >
-> > > > >   spi1 = &ecspi2;
-> > > >
-> > > > Create patch move aliase to each boards' dts from imx8mm.dtsi, which is
-> > > > board feature, not soc features.
-> > >
-> > > Please see the linked thread [0][1]. It's not a viable option.
-> >
-> > where [0] and [1]
->
-> Please see my previous email,
->
-> https://lore.kernel.org/all/20261113073135.GA8515@francesco-nb/
->
-> in which I tried to explain the issue.
->
->
-> > > In addition, I can do this for my boards (Toradex), how do I know what I
-> > > have to move for boards I do not know? I can't do that. The only way
-> > > would be to duplicate the whole aliases on *every* board.
-> >
-> > at imx9, already move aliase to each boards, dupicate it and just make
-> > sure build finial results the same.
-> >
-> > i.mx8 is still not too old yet.
->
-> Do you want me to duplicate the whole aliases block on every board? I
-> cannot do anything better then just duplicating everything, given I do
-> not know what aliases make sense for each board. I can do better for my
-> boards (Toradex), but for the others I can't.
->
-> And this will likely break out-of-tree users (and to be clear, I think
-> that out-of-tree users of Linux DT files is a fact, see U-Boot, barebox,
-> ... and more), as I discussed in the previously linked discussion.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] remoteproc: qcom_q6v5_mss: dev_err_probe() used in runtime
+  q6v5_start()
+It also noticed 1 related pre-existing issue this patch does not
+introduce:
+- [High] remoteproc: qcom_q6v5_mss: missing need_pas_mem_setup
+  assignment in q6v5_probe() [1]
+--
 
-This is validate reason. We can try move one platform firstly later.
+commit b9f47173917266b645cba443348a310e5cf36ef0
+Author: David Heidelberg <david@ixit.cz>
 
-Frank
+remoteproc: qcom_q6v5_mss: Publish socinfo for Pixel modems
 
->
-> To me this is not the correct thing to do, it will work for my boards,
-> but I do not think this is the right decision for the whole i.MX
-> ecosystem.
->
-> And it's not about being old or not, it's about not introducing
-> regressions and caring about the users.
->
-> Francesco
->
+This commit publishes SoC platform type, subtype, and revision fields from
+SMEM socinfo into vendor SMEM item 134 before starting the modem when the
+"google,require-socinfo" property is present.
+
+> diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom=
+_q6v5_mss.c
+> index dd052a62b8583..53deabea62259 100644
+> --- a/drivers/remoteproc/qcom_q6v5_mss.c
+> +++ b/drivers/remoteproc/qcom_q6v5_mss.c
+[ ... ]
+> @@ -1673,12 +1682,76 @@ static void qcom_q6v5_dump_segment(struct rproc *=
+rproc,
+>  	}
+>  }
+> =20
+> +/* Layout of the vendor-defined SMEM item read by the Pixel modem firmwa=
+re */
+> +struct modem_smem_info {
+> +	__le32 version;
+> +	__le32 modem_flag;
+> +	__le32 major_id;
+> +	__le32 minor_id;
+> +	__le32 subtype;
+> +	__le32 platform;
+> +	__le32 efs_magic;
+> +	__le32 ftm_magic;
+> +};
+> +
+> +#define MODEM_SMEM_VERSION	0
+> +#define PLAT_VER_TO_MAJOR_ID(v)	(((v) >> 16) & 0xff)
+> +#define PLAT_VER_TO_MINOR_ID(v)	((v) & 0xff)
+> +
+> +static int q6v5_socinfo_publish(struct q6v5 *qproc)
+> +{
+> +	struct modem_smem_info *info;
+> +	struct socinfo *socinfo;
+> +	u32 plat_ver;
+> +	int ret;
+> +
+> +	socinfo =3D qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_HW_SW_BUILD_ID, NULL=
+);
+> +	if (IS_ERR(socinfo))
+> +		return dev_err_probe(qproc->dev, PTR_ERR(socinfo),
+> +				     "could not get socinfo\n");
+> +
+> +	/* hw_plat_subtype was added in socinfo format 0.6 */
+> +	if (le32_to_cpu(socinfo->fmt) < SOCINFO_VERSION(0, 6))
+> +		return dev_err_probe(qproc->dev, -EOPNOTSUPP,
+> +				     "socinfo format too old\n");
+> +
+> +	/* -EEXIST: the item survived an earlier boot */
+> +	ret =3D qcom_smem_alloc(QCOM_SMEM_HOST_ANY, SMEM_ID_VENDOR0, sizeof(*in=
+fo));
+> +	if (ret && ret !=3D -EEXIST)
+> +		return dev_err_probe(qproc->dev, ret,
+> +				     "could not allocate modem smem\n");
+> +
+> +	info =3D qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_ID_VENDOR0, NULL);
+> +	if (IS_ERR(info))
+> +		return dev_err_probe(qproc->dev, PTR_ERR(info),
+> +				     "could not get modem smem\n");
+> +
+> +	plat_ver =3D le32_to_cpu(socinfo->plat_ver);
+> +
+> +	/* modem_flag, efs_magic and ftm_magic are left zero */
+> +	*info =3D (struct modem_smem_info) {
+> +		.version   =3D cpu_to_le32(MODEM_SMEM_VERSION),
+> +		.major_id  =3D cpu_to_le32(PLAT_VER_TO_MAJOR_ID(plat_ver)),
+> +		.minor_id  =3D cpu_to_le32(PLAT_VER_TO_MINOR_ID(plat_ver)),
+> +		.subtype   =3D socinfo->hw_plat_subtype,
+> +		.platform  =3D socinfo->hw_plat,
+> +	};
+> +
+> +	return 0;
+> +}
+> +
+>  static int q6v5_start(struct rproc *rproc)
+>  {
+>  	struct q6v5 *qproc =3D rproc->priv;
+>  	int xfermemop_ret;
+>  	int ret;
+> =20
+> +	if (qproc->need_socinfo) {
+> +		ret =3D q6v5_socinfo_publish(qproc);
+> +		if (ret)
+> +			return ret;
+> +	}
+
+[Severity: Medium]
+Should q6v5_socinfo_publish() use dev_err() instead of dev_err_probe(), or =
+be
+called from q6v5_probe()?
+
+Because q6v5_probe() sets rproc->auto_boot =3D false, q6v5_start() ->
+q6v5_socinfo_publish() only runs at runtime when the remoteproc is booted or
+recovered.  If qcom_smem_get() or qcom_smem_alloc() returns -EPROBE_DEFER at
+that point (q6v5_probe() does not check qcom_smem_is_available()),
+dev_err_probe() demotes the log to debug level, returns -EPROBE_DEFER to
+rproc_boot(), and allocates qproc->dev->p->deferred_probe_reason, which is
+leaked because the already-bound device is never placed on
+deferred_probe_pending_list.  If qcom_smem_alloc() returns -ENOMEM when the
+SMEM heap is full, dev_err_probe() also suppresses the error message.
+
+> @@ -2132,6 +2205,8 @@ static int q6v5_probe(struct platform_device *pdev)
+>  	qproc->has_ext_cntl_regs =3D desc->has_ext_cntl_regs;
+>  	qproc->has_vq6 =3D desc->has_vq6;
+>  	qproc->has_spare_reg =3D desc->has_spare_reg;
+> +	qproc->need_socinfo =3D
+> +		of_property_read_bool(pdev->dev.of_node, "google,require-socinfo");
+>  	ret =3D q6v5_init_mem(qproc, pdev);
+>  	if (ret)
+>  		return ret;
+
+[Severity: High]
+This problem wasn't introduced by this patch, but does q6v5_probe() forget =
+to
+copy desc->need_pas_mem_setup into qproc->need_pas_mem_setup [1]?
+
+q6v5_probe() checks desc->need_pas_mem_setup for early probe deferral, but
+never assigns it to qproc:
+
+drivers/remoteproc/qcom_q6v5_mss.c:q6v5_probe() {
+	...
+	if (desc->need_pas_mem_setup && !qcom_pas_is_available())
+		return -EPROBE_DEFER;
+	...
+	qproc->version =3D desc->version;
+	qproc->need_mem_protection =3D desc->need_mem_protection;
+	qproc->has_mba_logs =3D desc->has_mba_logs;
+	...
+}
+
+As a result, qproc->need_pas_mem_setup stays false in q6v5_mpss_init_image()
+and qcom_scm_pas_mem_setup() is skipped on platforms that set
+need_pas_mem_setup (such as SDM632), preventing the modem from authenticati=
+ng
+and booting.
+
+[1] https://sashiko.dev/#/bug/linux-83fcbc28-236c-48e4-a6bd-731f4361f9ae
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-modemsmem-=
+v3-0-24ebc7ed6eb9@ixit.cz?part=3D2
