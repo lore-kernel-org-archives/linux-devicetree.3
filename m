@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814808;
-	b=jHGdLtUd6I3T1EwczjHeF1WKVzZ6aAX9dStGlbvikdMPueCEk/4MBJo/kSv33Q7oPcl5
-	 8brdiri+tTPGwTBgK482nPgWnGWBZ6VVM7p6gd7PjQ350AThXLCgdDoxstIVd726bu9Lc
-	 78KNav5T/ofRk2AzQIIlAAFTJpg74qWPBwCwGg+qSNSd4Z4Lip2h1+E9WjKc7SjWZvXYU
-	 cPwuIBd4AW1GnJZ1zOBqBgEae3WAFG8KxUyI+WNHmfNWKsI6tXPepmsjjQc6Cqw4G43gk
-	 m8HoxEHu+yHVWEvAHngxrJnbF1SjwXrI5+icIL4tH0XzbqGPVaTOq3AKgvhuf8fnzMw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814808;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=K2w/2CDC2TQ1Gy2kBRj5SIsyUDp+bZj79HyJVKV4fFY=;
-	b=a9ZvNnaWJhJGlyCs6IsUT9jGmXSGo9t0DXtJBLvzCAwMr/tXrU4r0IsdifWDF1Ewpuvy
-	 Jw2dM1S0kF2ulnM6PXy7S0sRKVvQ22+EB3ZL7dAlSzlBt8ak5OwZW+aAZtUNNp2FOIZpv
-	 xomOqjO64v22G741h13UpYuwxWf67xsBESoACZhnfpXtXtSCG697IXu4yPfVd2OXhddIs
-	 yynAquAuR28nXFZB6+JiMaTIerdBIH1dwQJHLCZsrlxK+XcW0CYlSbfr2sp2FJa/FLVL8
-	 93bkrr+4BN8J642fYLAJVKsrVE4cx4zi2ZjVoayKTChGEUfjrgpJWuaq9GDWa47YzzA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XwhtmVeP;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794814804;
+	b=gf6inc33rOwGaB/UcwbLICJibbumR+TR0WnG5RYS2LwhTK4/w2pXNlb+GMdOBsiynDYd
+	 GeNDzInmw0G8EzHQDQjagDFND6hkTDJbz58uwJ4+5jJQtgEofQ8mE0vPZaCiLIxakyptS
+	 Hofp+JzAvuof3YYFZRnoTUDRCLbMecGxi2/fGvBhFyBliV24a2SN47IM/0Z0Xh4CMBR5W
+	 DMfKqiqOPQtApbyl5Sglqodrk7O18MM59utmWgXcGdx5liV+56oVx2N603fBRxiD+9kLx
+	 rqeZYrabKLVQqkoyEHsLcnSfj0OGD7/4sE4l5QnyPE3EOypTSAwNi9ugTEgjDWUsXIg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814804;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Av6zBgoTaQ4kzE50yOzGV0U3+7rGIC9YXFrl47jgk1k=;
+	b=SY/ZG8NUPcitsm0mbFmlgEFolhbVNvilON3y+W6c63zT0wrggD7KGtWgjw1WF/jFcdKY
+	 ZujZjLhpQJbMaFsch5/YU9W2/+Fkqsg6Vn2NgpwCiqg77Sxqk4CmxanozHGbwuEYvk0Q4
+	 Lce1Yd1vtsxd5Pph6OtBd0jlMx8OhMnkvigGO5K8WtfnwVXk0GPn4Mppx7p/+GztffW61
+	 rXD4ONIfiXO94UZT6+nHg/lARbYe7/iumxsfK5+XAkDOBpoMEOwSLeptWuWIn8fy65UAW
+	 tBk+pLo7qy58WB6CdQgXO8h7Y0sz1VEGyMEoSn81a+b737/FFaE33RMkI3bfF6bpw8g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qvuu+yf2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945CD60A2635;
+	Mon, 16 Nov 2026 07:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qvuu+yf2
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794814804;
+	b=RL2j11HyaPJqgz+uuwF9vEREAwWfriohmnFgmTsqUv/Hg+B7ShdN1T1WopDa92aaQRCU
+	 Owdn5K5XAqVpFy4Ywc2QUp7fGWWMUh8IiGKEtY7ihORGUdk/lEou0TaH7+54Vo4UhMI0g
+	 qds8qoXNbtYKrkhY9BmBtRXW9J97SoLmJM8KwAdYEHmOVciD8h2MoNr+xUbCu79M/Op56
+	 rXVmsUm+2AF6a2P/2AAWJx8gUTwe3NUzuS9HY8FEUsU866eJw2nPLpaK/XS0YXQXuSnRe
+	 3khJ3eE4sy8xe5TCoH6N3FWzq/o/VuiKRpjnmXnd9rFfl4XPejuOrpDgATqURb3Ug1w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794814804;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Av6zBgoTaQ4kzE50yOzGV0U3+7rGIC9YXFrl47jgk1k=;
+	b=CnchPVbXGTMjRn78t71WcFp6Ovs4yVg9j++w4pbXg371KywstUt9407QPyBpFa8+bfAk
+	 aT9xBeNcQpqidSU0qJ8gY5jfER8hg6decTJ9KHEH5iZ4H8yVvG8WMILR7x37Ehqnzd3s2
+	 T09ed7BD04j7FUsdwjuVm1wVIqrmGSAZssZFq4CiGg4jOJODvD6pvNEEmEuNxJj7YHO59
+	 PGqSZmODYW5qBHDs1UKS3/mGnW98V8iigLHM2uKdHm8nQRkx0bb5iTbjqLjRwcNIPDohU
+	 L83oksUkXpVTbFKpSBwopKh9ip2MN0JudyVw0nYvOvhVldIuqiAyMr4FNmSdf3agm+A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABA160A6F4B
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:40:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ABA160A6F4B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XwhtmVeP
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-49a92144733so1158402f8f.0
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 23:40:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794814807; x=1795419607; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K2w/2CDC2TQ1Gy2kBRj5SIsyUDp+bZj79HyJVKV4fFY=;
-        b=XwhtmVePSoW4ae88yfpklI2685ThGLON8Vae5F60PxB7bNdIc73nqLCuhfTQKGLX3K
-         MafXWZ25JILHW46tV95+18InQfqQ/HDpX7CznXUbZPpErL/9rWJP2KjyhhgutR7FIznT
-         0BfCxVy47quRScwTDiaChO0d/jhqK3fGD/ApRDAnN1nSqel3PWpIpnqfypy9WJvtpBT1
-         c3iMXraGoGW6zMzTHSoVcKuHQNokpNn0YnW+N6ndXMMcactjL5d8Ix0T/1VsLb86e4rf
-         V5uKY8Ux/CY0WROYf6ZDkKpK3dOOkx5eEz+/QJSPq1eMaQanRMVfsI0yuN7QmsMNfBjX
-         dRAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794814807; x=1795419607;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K2w/2CDC2TQ1Gy2kBRj5SIsyUDp+bZj79HyJVKV4fFY=;
-        b=yrvm5EROOPnnlYry3e9OpZz2T6Ogvv1Y3bbqnyWTw0N9GUAXXHoy1RaoLYent6WQV/
-         IcnZ/NJd0NwjaO1GYtS5mVyEwT9KMIgGJr81hP3wieNmqpo15DJkfyc9UKi6FFqsSJnc
-         gUuqK4bbpImlfQqkzUGE1EBP1T+/d7FSXKBOZOVZuY4I6FleOhcYPtEvpEF1G3pqUmFs
-         cIs34N6dElKBdi1rycDTBQugpbqGTmN+v/KeOa31ekoaUUEHou83zy+PIX1MvTOPM6jC
-         VL92kdGzKWuM48Ht4iiny1rciF7ev3eNoMJLd4AFUty0Nagd3+WLKqRMnJPbYy0xCMrL
-         488Q==
-X-Forwarded-Encrypted: i=1; AL+hErFnVsMcsuw2ryq49LeY1x2QeFYzLemUsCFPjximatZztQNbNDAZLVeyPjhZtqOFmiAyZgiuUm3XALn6@vger.kernel.org
-X-Gm-Message-State: APuU4Z98wKFiMRtggocEzeJCKJ8WLlXdcqeFHQnbtvNKOZdrf1d2pSUP
-	CwzCuzJdtwsaS6f2fm0uQWuid2PiklfYUsAQQZwJw0NIZ6ueCkQvDF/I
-X-Gm-Gg: AYBFou0e9u60gD99k/EyLpxaaRMf+7GEnQxURrcCimHPYSpL23XdCLBNCbb/AMQU2Bx
-	jMPsGbKx3IMg4Z0SFaSAGhq5lXvwLDFG9uu+axRsKE1AUItOHUmXE4+rMBe5LzWAsa93XQ80dub
-	1P9GIcOSmk8KMtqNvUuI42sqeab5OH5QomE8erCxSKwRig1iD7bI2krWdq5mW11zh8j+tBI64aE
-	c4JoiNJpCSmeNB5/1yqp5FRUH3jGyv0eYXD2AlhSyV7MZLQFBerZZM02hG6iJ8XRj6kF33HpF2b
-	0UXijRHAwwoa1UOaTwiYuJLKFOZL9KrPpE3cji6VUi8STkhiq0YN7ZW79T9SeXAQBslqQh6BVqr
-	HqQLRLuR/mCbyT0GZEOgZqVbAf54MfsqqWK95SEGcuol7SXvApXzql/BLelR6QLpcvgZDNvyk9T
-	eFQjBoiW0tQpVF3dWFZEXIYUbtjQIwf+jani8HNg/PwrQcwTXu4ipkgrH5lphSMEVIjFYD/lTMz
-	d+j/IRIZE8x6nOk00bajgeXKpkvgJbOQOXQ2b3nC/8iAT+lze57CptbeJp1pvwfpoCKUA12OiMe
-	9U7y8VmdoA==
-X-Received: by 2002:a05:6000:4022:b0:491:971a:c568 with SMTP id ffacd0b85a97d-49c712ac9b2mr24706400f8f.10.1794814806766;
-        Sun, 15 Nov 2026 23:40:06 -0800 (PST)
-Received: from dl360p ([130.61.107.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c603f4d29sm20354115f8f.35.2026.11.15.23.40.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 23:40:06 -0800 (PST)
-From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: Yassine Oudjana <y.oudjana@protonmail.com>,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-Subject: [PATCH v1 3/3] power: supply: s2mu005-battery: add S2MU106 support
-Date: Mon, 16 Nov 2026 10:40:00 +0300
-Message-ID: <20261116074000.355176-4-tadilhusrev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116074000.355176-1-tadilhusrev@gmail.com>
-References: <20261116074000.355176-1-tadilhusrev@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 4D4A11F000CD;
+	Mon, 16 Nov 2026 07:40:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794814804;
+	bh=Av6zBgoTaQ4kzE50yOzGV0U3+7rGIC9YXFrl47jgk1k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Qvuu+yf25oNBkSK0mJAzwcr7RIiS4nPrHZG6Ekx4OKKJ7ESwNCGmoyaiavnZdrM63
+	 35e89Of3cUEO9IVtg1SMcrCPYzVTmXsN+ahEhxTRSRu68/ZOsy1e+yEVnQLezJReix
+	 MDk41Px3e9PBobki4dD9dZiC0PXTlxAM0BgZBTi+7yN1X+xEmtWVYrN6u0RRSgmZWz
+	 9awykcDB2hY2wo/5o2d89+coYAvJDJu0ChPyClRMtkQlA3iE2otjvrKtfiYv/eQqNW
+	 zWvl7twSifdtbeayslSjIHhZj7vYS0dRqU47rycHGvW2jJ9d6Yvy3a4AVtXc7+i1dU
+	 H0xh9UCUaivvQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 051664A3BD;
+	Mon, 16 Nov 2026 07:40:01 +0000 (UTC)
+From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
+Date: Mon, 16 Nov 2026 13:10:08 +0530
+Subject: [PATCH v2 10/11] arm64: dts: qcom: molokai: Describe the Adreno
+ 829 GPU
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,147 +83,187 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-molokai-soc-v2-10-9dc4dddc4e96@yahoo.com>
+References: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
+In-Reply-To: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794814798; l=4118;
+ i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
+ bh=2HkDl1+9itKBIsKaFYMNX6gN+5ciNOiOA4CxVzbOQLU=;
+ b=SZS8Tw5lYWqw0RjAYLAnmBnhn8eficsy4G9sRmMD81LlpbUPjeYHtkRcTpcHxHmJ9aBiN5NHf
+ aQXJ1CUp0jjCoKSFRCxB+juJGYR90QyoVl/l/XoE57MbtK1qecUl+kT
+X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
+ pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
+X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
+ with auth_id=1303
+X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Reply-To: venkat.yadlapati@yahoo.com
+Content-Transfer-Encoding: 7bit
 
-The Samsung S2MU106 PMIC fuel gauge uses the same STATUS/RVBAT/RCURCC/
-RSOC registers and scaling as the S2MU005, so the same read paths apply.
-It does not, however, share the MONOUT average-monitoring path: reading
-the averaged voltage and current through it returns bogus values on the
-S2MU106. Introduce a per-variant descriptor so the S2MU106 exposes only
-the instantaneous voltage, current, capacity and status, and derive the
-status from the instantaneous current alone when the average is absent.
+From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
-Tested on a Samsung Galaxy XCover5 (Exynos850): voltage, state of charge
-and the sign of the charge current track the stock readings; the gauge
-has no alert line wired, which the preceding patch already accommodates.
+The Molokai GPU is an Adreno 829 instead of the Kaanapali Adreno 840. It
+has no speed bin fuse and its own set of operating points.
 
-Signed-off-by: Adil Hüsrev Tepe <tadilhusrev@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 ---
- drivers/power/supply/s2mu005-battery.c | 61 ++++++++++++++++++++++----
- 1 file changed, 52 insertions(+), 9 deletions(-)
+ arch/arm64/boot/dts/qcom/molokai.dtsi | 123 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 123 insertions(+)
 
-diff --git a/drivers/power/supply/s2mu005-battery.c b/drivers/power/supply/s2mu005-battery.c
-index 9798a62ff..a1bd9ffdd 100644
---- a/drivers/power/supply/s2mu005-battery.c
-+++ b/drivers/power/supply/s2mu005-battery.c
-@@ -38,6 +38,7 @@ struct s2mu005_fg {
- 	struct regmap *regmap;
- 	struct power_supply *psy;
- 	struct mutex monout_mutex;
-+	bool has_monout;
+diff --git a/arch/arm64/boot/dts/qcom/molokai.dtsi b/arch/arm64/boot/dts/qcom/molokai.dtsi
+index 82fd31bda1d9..3b9772edd68f 100644
+--- a/arch/arm64/boot/dts/qcom/molokai.dtsi
++++ b/arch/arm64/boot/dts/qcom/molokai.dtsi
+@@ -12,6 +12,7 @@
+ #include "kaanapali.dtsi"
+ 
+ /delete-node/ &gpi_dma4;
++/delete-node/ &gpu_opp_table;
+ /delete-node/ &i2c_master_hub;
+ /delete-node/ &qupv3_4;
+ /delete-node/ &uart18;
+@@ -37,6 +38,128 @@
+ /delete-node/ &sdc2_default;
+ /delete-node/ &sdc2_sleep;
+ 
++&gmu {
++	compatible = "qcom,adreno-gmu-829.0", "qcom,adreno-gmu";
++};
++
++&gpu {
++	compatible = "qcom,adreno-44030a00", "qcom,adreno";
++
++	/* No GPU speed bin fuse */
++	/delete-property/ nvmem-cells;
++	/delete-property/ nvmem-cell-names;
++
++	gpu_opp_table: opp-table {
++		compatible = "operating-points-v2-adreno",
++			     "operating-points-v2";
++
++		opp-195000000 {
++			opp-hz = /bits/ 64 <195000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
++			opp-peak-kBps = <2136718>;
++			qcom,opp-acd-level = <0xc82f5ffd>;
++		};
++
++		opp-301000000 {
++			opp-hz = /bits/ 64 <301000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
++			opp-peak-kBps = <5285156>;
++			qcom,opp-acd-level = <0xc82f5ffd>;
++		};
++
++		opp-403000000 {
++			opp-hz = /bits/ 64 <403000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++			opp-peak-kBps = <5285156>;
++			qcom,opp-acd-level = <0xc8295ffd>;
++		};
++
++		opp-496000000 {
++			opp-hz = /bits/ 64 <496000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
++			opp-peak-kBps = <5285156>;
++			qcom,opp-acd-level = <0xc8295ffd>;
++		};
++
++		opp-589000000 {
++			opp-hz = /bits/ 64 <589000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
++			opp-peak-kBps = <6074218>;
++			qcom,opp-acd-level = <0xc02b5ffd>;
++		};
++
++		opp-660000000 {
++			opp-hz = /bits/ 64 <660000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
++			opp-peak-kBps = <6074218>;
++			qcom,opp-acd-level = <0x882f5ffd>;
++		};
++
++		opp-714000000 {
++			opp-hz = /bits/ 64 <714000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
++			opp-peak-kBps = <6074218>;
++			qcom,opp-acd-level = <0x882f5ffd>;
++		};
++
++		opp-732000000 {
++			opp-hz = /bits/ 64 <732000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
++			opp-peak-kBps = <8171875>;
++			qcom,opp-acd-level = <0x882e5ffd>;
++		};
++
++		opp-795000000 {
++			opp-hz = /bits/ 64 <795000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
++			opp-peak-kBps = <12449218>;
++			qcom,opp-acd-level = <0x882d5ffd>;
++		};
++
++		opp-891000000 {
++			opp-hz = /bits/ 64 <891000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
++			opp-peak-kBps = <12449218>;
++			qcom,opp-acd-level = <0xa82b5ffd>;
++		};
++
++		opp-975000000 {
++			opp-hz = /bits/ 64 <975000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
++			opp-peak-kBps = <14398437>;
++			qcom,opp-acd-level = <0x882b5ffd>;
++		};
++
++		opp-1025000000 {
++			opp-hz = /bits/ 64 <1025000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L0>;
++			opp-peak-kBps = <14398437>;
++			qcom,opp-acd-level = <0xa82a5ffd>;
++		};
++
++		opp-1075000000 {
++			opp-hz = /bits/ 64 <1075000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
++			opp-peak-kBps = <14398437>;
++			qcom,opp-acd-level = <0x882a5ffd>;
++		};
++
++		opp-1150000000 {
++			opp-hz = /bits/ 64 <1150000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L2>;
++			opp-peak-kBps = <18671875>;
++			qcom,opp-acd-level = <0xa8295ffd>;
++		};
++
++		opp-1225000000 {
++			opp-hz = /bits/ 64 <1225000000>;
++			opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L3>;
++			opp-peak-kBps = <18671875>;
++			qcom,opp-acd-level = <0x88295ffd>;
++		};
++	};
++};
++
+ &gpucc {
+ 	compatible = "qcom,molokai-gpucc";
  };
- 
- static const struct regmap_config s2mu005_fg_regmap_config = {
-@@ -168,16 +169,18 @@ static int s2mu005_fg_get_capacity(struct s2mu005_fg *priv, int *value)
- 
- static int s2mu005_fg_get_status(struct s2mu005_fg *priv, int *value)
- {
--	int current_now, current_avg, capacity;
-+	int current_now, current_avg = -1, capacity;
- 	int ret;
- 
- 	ret = s2mu005_fg_get_current_now(priv, &current_now);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = s2mu005_fg_get_current_avg(priv, &current_avg);
--	if (ret < 0)
--		return ret;
-+	if (priv->has_monout) {
-+		ret = s2mu005_fg_get_current_avg(priv, &current_avg);
-+		if (ret < 0)
-+			return ret;
-+	}
- 
- 	/*
- 	 * Verify both current values reported to reduce inaccuracies due to
-@@ -240,12 +243,47 @@ static const struct power_supply_desc s2mu005_fg_desc = {
- 	.get_property = s2mu005_fg_get_property,
- };
- 
-+/*
-+ * The S2MU106 fuel gauge shares the direct STATUS/RVBAT/RCURCC/RSOC
-+ * registers and their scaling, but not the MONOUT average-monitoring path,
-+ * so the averaged voltage and current are not exposed on it.
-+ */
-+static const enum power_supply_property s2mu106_fg_properties[] = {
-+	POWER_SUPPLY_PROP_VOLTAGE_NOW,
-+	POWER_SUPPLY_PROP_CURRENT_NOW,
-+	POWER_SUPPLY_PROP_CAPACITY,
-+	POWER_SUPPLY_PROP_STATUS,
-+};
-+
-+static const struct power_supply_desc s2mu106_fg_desc = {
-+	.name = "s2mu106-fuel-gauge",
-+	.type = POWER_SUPPLY_TYPE_BATTERY,
-+	.properties = s2mu106_fg_properties,
-+	.num_properties = ARRAY_SIZE(s2mu106_fg_properties),
-+	.get_property = s2mu005_fg_get_property,
-+};
-+
-+struct s2mu005_fg_variant {
-+	const struct power_supply_desc *desc;
-+	bool has_monout;
-+};
-+
-+static const struct s2mu005_fg_variant s2mu005_fg_variant = {
-+	.desc = &s2mu005_fg_desc,
-+	.has_monout = true,
-+};
-+
-+static const struct s2mu005_fg_variant s2mu106_fg_variant = {
-+	.desc = &s2mu106_fg_desc,
-+	.has_monout = false,
-+};
-+
- static int s2mu005_fg_i2c_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
- 	struct s2mu005_fg *priv;
- 	struct power_supply_config psy_cfg = {};
--	const struct power_supply_desc *psy_desc;
-+	const struct s2mu005_fg_variant *variant;
- 	int ret;
- 
- 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-@@ -264,11 +302,12 @@ static int s2mu005_fg_i2c_probe(struct i2c_client *client)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to initialize MONOUT mutex\n");
- 
--	psy_desc = device_get_match_data(dev);
-+	variant = device_get_match_data(dev);
-+	priv->has_monout = variant->has_monout;
- 
- 	psy_cfg.drv_data = priv;
- 	psy_cfg.fwnode = dev_fwnode(dev);
--	priv->psy = devm_power_supply_register(priv->dev, psy_desc, &psy_cfg);
-+	priv->psy = devm_power_supply_register(priv->dev, variant->desc, &psy_cfg);
- 	if (IS_ERR(priv->psy))
- 		return dev_err_probe(dev, PTR_ERR(priv->psy),
- 				     "failed to register power supply subsystem\n");
-@@ -276,7 +315,7 @@ static int s2mu005_fg_i2c_probe(struct i2c_client *client)
- 	if (client->irq > 0) {
- 		ret = devm_request_threaded_irq(priv->dev, client->irq, NULL,
- 						s2mu005_handle_irq, IRQF_ONESHOT,
--						psy_desc->name, priv);
-+						variant->desc->name, priv);
- 		if (ret)
- 			return dev_err_probe(dev, ret, "failed to request IRQ\n");
- 	}
-@@ -287,7 +326,11 @@ static int s2mu005_fg_i2c_probe(struct i2c_client *client)
- static const struct of_device_id s2mu005_fg_of_match_table[] = {
- 	{
- 		.compatible = "samsung,s2mu005-fuel-gauge",
--		.data = &s2mu005_fg_desc,
-+		.data = &s2mu005_fg_variant,
-+	},
-+	{
-+		.compatible = "samsung,s2mu106-fuel-gauge",
-+		.data = &s2mu106_fg_variant,
- 	},
- 	{ }
- };
+
 -- 
-2.53.0
+2.56.1
+
 
