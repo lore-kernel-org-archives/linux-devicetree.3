@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794814804;
-	b=gf6inc33rOwGaB/UcwbLICJibbumR+TR0WnG5RYS2LwhTK4/w2pXNlb+GMdOBsiynDYd
-	 GeNDzInmw0G8EzHQDQjagDFND6hkTDJbz58uwJ4+5jJQtgEofQ8mE0vPZaCiLIxakyptS
-	 Hofp+JzAvuof3YYFZRnoTUDRCLbMecGxi2/fGvBhFyBliV24a2SN47IM/0Z0Xh4CMBR5W
-	 DMfKqiqOPQtApbyl5Sglqodrk7O18MM59utmWgXcGdx5liV+56oVx2N603fBRxiD+9kLx
-	 rqeZYrabKLVQqkoyEHsLcnSfj0OGD7/4sE4l5QnyPE3EOypTSAwNi9ugTEgjDWUsXIg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814804;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Av6zBgoTaQ4kzE50yOzGV0U3+7rGIC9YXFrl47jgk1k=;
-	b=SY/ZG8NUPcitsm0mbFmlgEFolhbVNvilON3y+W6c63zT0wrggD7KGtWgjw1WF/jFcdKY
-	 ZujZjLhpQJbMaFsch5/YU9W2/+Fkqsg6Vn2NgpwCiqg77Sxqk4CmxanozHGbwuEYvk0Q4
-	 Lce1Yd1vtsxd5Pph6OtBd0jlMx8OhMnkvigGO5K8WtfnwVXk0GPn4Mppx7p/+GztffW61
-	 rXD4ONIfiXO94UZT6+nHg/lARbYe7/iumxsfK5+XAkDOBpoMEOwSLeptWuWIn8fy65UAW
-	 tBk+pLo7qy58WB6CdQgXO8h7Y0sz1VEGyMEoSn81a+b737/FFaE33RMkI3bfF6bpw8g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qvuu+yf2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945CD60A2635;
-	Mon, 16 Nov 2026 07:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qvuu+yf2
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794814804;
-	b=RL2j11HyaPJqgz+uuwF9vEREAwWfriohmnFgmTsqUv/Hg+B7ShdN1T1WopDa92aaQRCU
-	 Owdn5K5XAqVpFy4Ywc2QUp7fGWWMUh8IiGKEtY7ihORGUdk/lEou0TaH7+54Vo4UhMI0g
-	 qds8qoXNbtYKrkhY9BmBtRXW9J97SoLmJM8KwAdYEHmOVciD8h2MoNr+xUbCu79M/Op56
-	 rXVmsUm+2AF6a2P/2AAWJx8gUTwe3NUzuS9HY8FEUsU866eJw2nPLpaK/XS0YXQXuSnRe
-	 3khJ3eE4sy8xe5TCoH6N3FWzq/o/VuiKRpjnmXnd9rFfl4XPejuOrpDgATqURb3Ug1w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794814804;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Av6zBgoTaQ4kzE50yOzGV0U3+7rGIC9YXFrl47jgk1k=;
-	b=CnchPVbXGTMjRn78t71WcFp6Ovs4yVg9j++w4pbXg371KywstUt9407QPyBpFa8+bfAk
-	 aT9xBeNcQpqidSU0qJ8gY5jfER8hg6decTJ9KHEH5iZ4H8yVvG8WMILR7x37Ehqnzd3s2
-	 T09ed7BD04j7FUsdwjuVm1wVIqrmGSAZssZFq4CiGg4jOJODvD6pvNEEmEuNxJj7YHO59
-	 PGqSZmODYW5qBHDs1UKS3/mGnW98V8iigLHM2uKdHm8nQRkx0bb5iTbjqLjRwcNIPDohU
-	 L83oksUkXpVTbFKpSBwopKh9ip2MN0JudyVw0nYvOvhVldIuqiAyMr4FNmSdf3agm+A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794814805;
+	b=xBAnVPCaOebHqVTNwCYVW3ULMeEW/MbdSTHpxomS25uMFw5bFXZk4swXVi9kC5CYZM2l
+	 xPn1MPBAPqaLtfgEe9bxY2VbAeGqrssJX/osziaRVvBUCS46pRTmR/K/WStUNEe4MVCMx
+	 p5xExyuXlkjH/ZROgZSInjwNOuJm+OUC/14Cm4Jv5PSpeJkIFSB31T0BXpzSBZbDqPz3X
+	 N025Iz2YrCjEBb6melVjexdNieC9TlvdZ6mlyl08P1vI3uwfjdyX60nXoq4t466r1cYwH
+	 1gLolSW2JsQSA75jNGlxvsy/s+QcXEJsDueRBWYrFMabV5JLDgty0s4ugo6E3AiEtwg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814805;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rKMBgpb0mxyP+6kb+ZdWDKHU+yeBE20Y58pj8NkP9p4=;
+	b=SFQiUSRQgfeH/wNNrsOinAsr0PsouPZlShWo7cb6tHKRZBMQEHVBXB+t1SgNgcg/d9xa
+	 jozkh/vccYWd1EJiMR5yNIQ9PKcr4+H3mF+24auo9tBqAB5kzYMFNv36G4DbIWoz0YkMx
+	 QBaF6tj00pouvCGl2gX5wbw0q5uwVoYUokmh9gkqfXUWDOi5zlJRvMXw6mL0ph7LyDN2w
+	 Ble/U+NLD9OzMvQk+01NRUzp7W3P1Q35razoCmAEg4TrrwrFnoOWqaOu6mUkc5rABG6V7
+	 9Wd5SSL3U47iEwTncaT88nz9fk4WkfTUR83KVTo6ha0+mpHteiNLW4k3xyrkCoIoCVg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mojDRsKq;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4D4A11F000CD;
-	Mon, 16 Nov 2026 07:40:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794814804;
-	bh=Av6zBgoTaQ4kzE50yOzGV0U3+7rGIC9YXFrl47jgk1k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Qvuu+yf25oNBkSK0mJAzwcr7RIiS4nPrHZG6Ekx4OKKJ7ESwNCGmoyaiavnZdrM63
-	 35e89Of3cUEO9IVtg1SMcrCPYzVTmXsN+ahEhxTRSRu68/ZOsy1e+yEVnQLezJReix
-	 MDk41Px3e9PBobki4dD9dZiC0PXTlxAM0BgZBTi+7yN1X+xEmtWVYrN6u0RRSgmZWz
-	 9awykcDB2hY2wo/5o2d89+coYAvJDJu0ChPyClRMtkQlA3iE2otjvrKtfiYv/eQqNW
-	 zWvl7twSifdtbeayslSjIHhZj7vYS0dRqU47rycHGvW2jJ9d6Yvy3a4AVtXc7+i1dU
-	 H0xh9UCUaivvQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 051664A3BD;
-	Mon, 16 Nov 2026 07:40:01 +0000 (UTC)
-From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Date: Mon, 16 Nov 2026 13:10:08 +0530
-Subject: [PATCH v2 10/11] arm64: dts: qcom: molokai: Describe the Adreno
- 829 GPU
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46EB60A263D
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:40:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B46EB60A263D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mojDRsKq
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb69f5b161so5470025e9.0
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 23:40:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794814803; x=1795419603; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rKMBgpb0mxyP+6kb+ZdWDKHU+yeBE20Y58pj8NkP9p4=;
+        b=mojDRsKqwRrJVUQ5AuDQp92qQp6ai02Mt7rBOXHrgEvaT+gJ1zdQl1Ey87DJi+FYgi
+         0sHEMpTaur8fvoBkWjwVO/PRg5JU+6NUw/Bdy/elN9fbPjgtIolRr6zunPblX2MdQRXH
+         3Pf4N34SDEvwXAOhzNj49/roxN2DTi6bIiDoF9GLEg1vc+yOr/yKZz+dCddpQWF4T8Dc
+         HwtB17SMeTjl8gjSpOAFSnSnukq6ih2u9cB7Tpr7h641/dmzlCENZWP+NSV+JA3/uvaY
+         PoPf+lvIKkYr/sq8xjxz5mJ4AFCAPqC8aL805+aiHIyJIjFJFU9KDDitp/53X5L1ns5y
+         vjow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794814803; x=1795419603;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rKMBgpb0mxyP+6kb+ZdWDKHU+yeBE20Y58pj8NkP9p4=;
+        b=d17/C27YixMXedbkjdnl9BwCqGudFGfJKCGKh+CAY0glPi9jYPuLBEIM8NL2ikKj3V
+         bHYRvmWocKHj/VbPRwS33/cx5sxy17OLQ9pN+m8ErKzg7ks0i9vQlWvcBViFQlOt8hqd
+         JZW/bR4x9oxVUJnkgjigNtfUxzIPRMhULC4RWUSykhBXVndXmq1g/oBbYIeCObhX5E95
+         CYsj8atFG70W64VKw5lWHQIs2uOyw98qPc4eTyROQ0V5cedV0RepMmtH/vrmrcBL+3S8
+         NgmQvH6ufi3HAynVBjjIkWxsKSBj/Z//S+A3T2weSLv65jmTnLCz+nB/2PtacColf5ks
+         Bdsg==
+X-Forwarded-Encrypted: i=1; AL+hErHPwQGBqiRJW04JAy184feio5Sc2FN3l0buZX3MLvzqEB1+tiJkAfZCzXx0K2/uyyhazw89Gq2to7sj@vger.kernel.org
+X-Gm-Message-State: APuU4Z+x0Ff+UN2Z0g/CTMAzweDeROUyqXuNh+uBDYkrQ0j1udjf66EJ
+	D5beTtQ34oIwPaMMzEZGXioOdAHkJytWttu/C9AWrUowcuevsEUiSO8U
+X-Gm-Gg: AYBFou26JSBUO+DeryUYxM0bLNbTqkPD07e8qnyyd5gU5BNeyWPNZbWu3QHJhzpn0SI
+	LADTNZZFdtF6zG0f/ukFCiMVasM/3sIam8BdrVtylvp0xtwnXaxYpNFAKAgOyDVQ1/V6/C8MW87
+	lPjHgVOML8fUjaCZtdVkqp9JbbkfS6Z+YDmqeBO84ESo4YXD/llkiDEKC5xa6lCJmPWLWn7ZrKi
+	DpNRQdkvjmPJMa+LXSxWu80ZJ/C5/cWUXqftROnh+Y63tblXiv36lRnees9Bj2Zu25CiphhVev7
+	+GB4uy4/QvTLQ/VZJsADnxbSR24y+JRiYC0H6TruDkgPxAtHT530nO35EuHVe4k7/K/AWMJqzUP
+	6B1VKUlMwpkoUu9VmjhF1cU2t3pVfjCtV+w13iPXnMF1s4yIlH07hok/FTZxiA7lxFhMzEy18li
+	L5/Tru8LRAFo+3R96z6pWUEijl5qvg0nCQLCqQGz2fWmHnwXHJbBIms2W2n2DhODCnxhrLwxzMh
+	O3UvpxJSkCjs4G8iJQqYIjBns8eYdqsWaDOYXfdoEhd5bNg42bODyjfS28VXFwdX9gH4n0NpCua
+	Jv4uH7o2k9lIARSaiVL3jgsDOoPHgQ3v
+X-Received: by 2002:a05:600c:8b05:b0:4a4:4d57:8462 with SMTP id 5b1f17b1804b1-4bb55a99ed0mr197499175e9.24.1794814803044;
+        Sun, 15 Nov 2026 23:40:03 -0800 (PST)
+Received: from dl360p ([130.61.107.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c603f4d29sm20354115f8f.35.2026.11.15.23.40.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 23:40:02 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: Sebastian Reichel <sre@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kaustabh Chakraborty <kauschluss@disroot.org>
+Cc: Yassine Oudjana <y.oudjana@protonmail.com>,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+Subject: [PATCH v1 0/3] power: supply: s2mu005-battery: add S2MU106 (Samsung Galaxy XCover5)
+Date: Mon, 16 Nov 2026 10:39:57 +0300
+Message-ID: <20261116074000.355176-1-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,187 +102,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-molokai-soc-v2-10-9dc4dddc4e96@yahoo.com>
-References: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
-In-Reply-To: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794814798; l=4118;
- i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=2HkDl1+9itKBIsKaFYMNX6gN+5ciNOiOA4CxVzbOQLU=;
- b=SZS8Tw5lYWqw0RjAYLAnmBnhn8eficsy4G9sRmMD81LlpbUPjeYHtkRcTpcHxHmJ9aBiN5NHf
- aQXJ1CUp0jjCoKSFRCxB+juJGYR90QyoVl/l/XoE57MbtK1qecUl+kT
-X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
- pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
-X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
- with auth_id=1303
-X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-Reply-To: venkat.yadlapati@yahoo.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+This series adds support for the Samsung S2MU106 PMIC fuel gauge to the
+existing s2mu005-battery driver, for the Samsung Galaxy XCover5
+(Exynos850).
 
-The Molokai GPU is an Adreno 829 instead of the Kaanapali Adreno 840. It
-has no speed bin fuse and its own set of operating points.
+The S2MU106 fuel gauge shares the S2MU005's direct voltage, current and
+state-of-charge registers and their scaling. This was verified on an
+XCover5: with the s2mu005 driver bound to the S2MU106 gauge, voltage,
+state of charge and the sign of the charge current all read correctly.
+It does not, however, share the MONOUT average-monitoring path, so the
+S2MU106 variant exposes only the instantaneous values. The XCover5 also
+does not wire the gauge's alert line, which patch 2 accommodates.
 
-Assisted-by: LLM
-Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
----
- arch/arm64/boot/dts/qcom/molokai.dtsi | 123 ++++++++++++++++++++++++++++++++++
- 1 file changed, 123 insertions(+)
+  1  dt-bindings: add samsung,s2mu106-fuel-gauge
+  2  make the alert interrupt optional
+  3  add S2MU106 support
 
-diff --git a/arch/arm64/boot/dts/qcom/molokai.dtsi b/arch/arm64/boot/dts/qcom/molokai.dtsi
-index 82fd31bda1d9..3b9772edd68f 100644
---- a/arch/arm64/boot/dts/qcom/molokai.dtsi
-+++ b/arch/arm64/boot/dts/qcom/molokai.dtsi
-@@ -12,6 +12,7 @@
- #include "kaanapali.dtsi"
- 
- /delete-node/ &gpi_dma4;
-+/delete-node/ &gpu_opp_table;
- /delete-node/ &i2c_master_hub;
- /delete-node/ &qupv3_4;
- /delete-node/ &uart18;
-@@ -37,6 +38,128 @@
- /delete-node/ &sdc2_default;
- /delete-node/ &sdc2_sleep;
- 
-+&gmu {
-+	compatible = "qcom,adreno-gmu-829.0", "qcom,adreno-gmu";
-+};
-+
-+&gpu {
-+	compatible = "qcom,adreno-44030a00", "qcom,adreno";
-+
-+	/* No GPU speed bin fuse */
-+	/delete-property/ nvmem-cells;
-+	/delete-property/ nvmem-cell-names;
-+
-+	gpu_opp_table: opp-table {
-+		compatible = "operating-points-v2-adreno",
-+			     "operating-points-v2";
-+
-+		opp-195000000 {
-+			opp-hz = /bits/ 64 <195000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
-+			opp-peak-kBps = <2136718>;
-+			qcom,opp-acd-level = <0xc82f5ffd>;
-+		};
-+
-+		opp-301000000 {
-+			opp-hz = /bits/ 64 <301000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-+			opp-peak-kBps = <5285156>;
-+			qcom,opp-acd-level = <0xc82f5ffd>;
-+		};
-+
-+		opp-403000000 {
-+			opp-hz = /bits/ 64 <403000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+			opp-peak-kBps = <5285156>;
-+			qcom,opp-acd-level = <0xc8295ffd>;
-+		};
-+
-+		opp-496000000 {
-+			opp-hz = /bits/ 64 <496000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
-+			opp-peak-kBps = <5285156>;
-+			qcom,opp-acd-level = <0xc8295ffd>;
-+		};
-+
-+		opp-589000000 {
-+			opp-hz = /bits/ 64 <589000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+			opp-peak-kBps = <6074218>;
-+			qcom,opp-acd-level = <0xc02b5ffd>;
-+		};
-+
-+		opp-660000000 {
-+			opp-hz = /bits/ 64 <660000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
-+			opp-peak-kBps = <6074218>;
-+			qcom,opp-acd-level = <0x882f5ffd>;
-+		};
-+
-+		opp-714000000 {
-+			opp-hz = /bits/ 64 <714000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+			opp-peak-kBps = <6074218>;
-+			qcom,opp-acd-level = <0x882f5ffd>;
-+		};
-+
-+		opp-732000000 {
-+			opp-hz = /bits/ 64 <732000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+			opp-peak-kBps = <8171875>;
-+			qcom,opp-acd-level = <0x882e5ffd>;
-+		};
-+
-+		opp-795000000 {
-+			opp-hz = /bits/ 64 <795000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+			opp-peak-kBps = <12449218>;
-+			qcom,opp-acd-level = <0x882d5ffd>;
-+		};
-+
-+		opp-891000000 {
-+			opp-hz = /bits/ 64 <891000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+			opp-peak-kBps = <12449218>;
-+			qcom,opp-acd-level = <0xa82b5ffd>;
-+		};
-+
-+		opp-975000000 {
-+			opp-hz = /bits/ 64 <975000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-+			opp-peak-kBps = <14398437>;
-+			qcom,opp-acd-level = <0x882b5ffd>;
-+		};
-+
-+		opp-1025000000 {
-+			opp-hz = /bits/ 64 <1025000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L0>;
-+			opp-peak-kBps = <14398437>;
-+			qcom,opp-acd-level = <0xa82a5ffd>;
-+		};
-+
-+		opp-1075000000 {
-+			opp-hz = /bits/ 64 <1075000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-+			opp-peak-kBps = <14398437>;
-+			qcom,opp-acd-level = <0x882a5ffd>;
-+		};
-+
-+		opp-1150000000 {
-+			opp-hz = /bits/ 64 <1150000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L2>;
-+			opp-peak-kBps = <18671875>;
-+			qcom,opp-acd-level = <0xa8295ffd>;
-+		};
-+
-+		opp-1225000000 {
-+			opp-hz = /bits/ 64 <1225000000>;
-+			opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L3>;
-+			opp-peak-kBps = <18671875>;
-+			qcom,opp-acd-level = <0x88295ffd>;
-+		};
-+	};
-+};
-+
- &gpucc {
- 	compatible = "qcom,molokai-gpucc";
- };
+Based on v7.4-rc1.
+
+Tool usage
+----------
+Prepared during XCover5 mainline bring-up with an AI coding assistant
+(Claude Code, Anthropic): it compared the S2MU005/S2MU106 fuel-gauge
+register maps, drafted these changes and changelogs, and ran a live A/B
+comparison on the device under my direction. I reviewed every line,
+tested on hardware, and take responsibility for the series. Review
+comments are welcome and I will answer them myself.
+
+Adil Hüsrev Tepe (3):
+  dt-bindings: power: supply: samsung,s2mu005-fuel-gauge: add S2MU106
+  power: supply: s2mu005-battery: make the alert interrupt optional
+  power: supply: s2mu005-battery: add S2MU106 support
+
+ .../supply/samsung,s2mu005-fuel-gauge.yaml    |  7 +-
+ drivers/power/supply/s2mu005-battery.c        | 71 +++++++++++++++----
+ 2 files changed, 63 insertions(+), 15 deletions(-)
 
 -- 
-2.56.1
-
+2.53.0
 
