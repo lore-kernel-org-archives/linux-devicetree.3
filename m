@@ -1,100 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.129
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794810022;
-	b=x+hlR+vGbCI4XC2+KPWOY9Swo8sljHInlSforBm9f1anfw+qqDIXJPIGOPjjJ9hv5dZN
-	 hKznU82uhIHSj4SUuEGM6DQU/gT/1LKz70yevIgxUpY3k/rxZ/D/Pb8kDJHZt1nwfXeQC
-	 DHVKn7K9UPGwus9yuZFYP48o9QWeZfTu/R+j/zYv9BdyTav6b36heft8XTFdvKWTIXs8F
-	 IsBWG3Lw4BQ6Jk9s/A5EIY8cZbMMysE+19Ic8NeSp5cyGBGwL843IywF0JHtAMiWYf4pu
-	 W1BlsNZ/yS/4Ya6XuAgXQ4IN9G/bOd4H65EcvimEagFNtICsuWIJvKltQMUvFoAilTQ==
+	t=1794810110;
+	b=Zu8nGLy+zpm9u6mebFVUYsTBXIrRrgdCRBSRP/OVW1Jp9+a/ZFsRTVoP3MWP+WfocUnC
+	 n2D1JZ24/LUDA3vB2Pii58+KPjyt12oHsBqELqDZMTT+HuNdV1noC6gfWexowzR6/jM61
+	 ieAkF3YIIXzy7SCGTLO92Dg+BVRmsDt/g8rXk+sH0NR39yyPDBA/jUaTJXlsu4c0wrS2h
+	 1Vkd9ApzOey0kPmJwYrPzzfVmIHxRUIf2QrxDzFzCixS6rtVe3E3JcBZDUmABm3vk2/yD
+	 7JOeVUZdZ3ojvcRZqcoMzD/kDBw7t8AEirT1sq53U46z3dLImW4FIrFqKDOHWDS7IIQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794810022;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=SvmmvB0pBmnVgS4Zrtkcz2J9hW+b0uIVSeXmMcY2wN8=;
-	b=Cw9Dmz7KfaZRDjvMd1GhA6OZuArjb1YnziacU72bYz2Ud5KJMDxDg4H0dtxa70u/PbK5
-	 MoKprY1czimO3ZMd18v0KO2xmdZ3sotkDmk+AkNZpD5K8RV7Fv5nBbd3zuQLPXX6hp6RK
-	 PTAuaaIXVeXMPSG9/6UlR0h60H/j8rPaN9/gKHAY9hM2C2mKbm5pYaSAQ8Z2TsuKS2nQF
-	 b0udlIXLKhRUjuctaKA+bFOCLduRPcblauiAMoZdtRB2AWA+Bun7WUUhQthVIu3tbw4RE
-	 cbOq6oOfq4NqAplA25C+RLCZ/LI9zJOV41IXPVFV6X+YIarHLWN+bMM3WoIByf536wQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794810110;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=KPgfhl/DVFiQluvknLrE2yUG2LAGndG/AH+oeLL0W+o=;
+	b=Q6NzgfWdJDsTCPW6IzeFLvpdfMtsVdnXIhD2v3TkFui1/sUKJC90IIaztCtAr9cwafQ5
+	 3ztwZbnK6iLmr0/GQn4qTHSut0j3YtAEb3aFuYuQPItER3HrCPOVL3obeh7mOubEw5tUx
+	 Z6Yd0BffFcCKAdF0B4jdkdoaNtnUiCBiEdyDnHknE0/6sqdPeHeMTgm79SXekK/12mFEE
+	 24+sKyNJhZuvKiLDzAiKf0tXGlxUIR+79Ulu0MlZqlb+FhVwav0qNILaZZUSu+kLwdH92
+	 HXwHFEnqkuu7PcZ4XOz7690/Jm0w4bRPKkTekrg6bKwltuDitt7MxLerg0YuEYI4uzQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b="KeiB/C9D";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.129
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023129.outbound.protection.outlook.com [52.101.127.129])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IwzHRCul;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C82606A31C;
-	Mon, 16 Nov 2026 06:20:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4C82606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FCA2606A31C;
+	Mon, 16 Nov 2026 06:21:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=KeiB/C9D
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VmYcgVwzgrE8qDgdVV4adnTB4G0+iv+Nr9QzYgYxjs6MnRPLJH99hmMMmOJm2Lfkpfo+iWNNyNRtVwMXLCtvBJwTVfVynepKxPkGEuyd/q+SwbqQGvAug42zM+K26E+81VYZR9lN+2vH1QB3KDJqJNHufCE5zMMjuGNMCHRYHGCvF0GJigPdUgEl3Kf5It3nbQwCR6aYwZlekViTuBIWX44+zWVsO+sQvu1XY08K+5xHgHSwPZNETxSsnFj51vLzAWi8CLYD3xFUlibUfm0XHNoTUTKNPfp4AKZMF+d46gnmqPr6VsSuIg01U8YTc4tX5PcW5iPTG6pornNZtL3bqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SvmmvB0pBmnVgS4Zrtkcz2J9hW+b0uIVSeXmMcY2wN8=;
- b=WA0z0Ol5jOJE5awsi3K1BCQ1HxpRcVtacKtr5SsCZLEN2cenkgHnpCzhQoIUuBTdtY5Zl7GHBL8q4XJUCuPYzrlpO1P7YwHq61wEHphutgtT2GLVMATMMkOAWbzhQ0pCHUN/j9pYCMyl6nTL1/OEccQqgP3KCgWmo3VL1bRZ9L96Xgok0s1f7DYIXcX6TsZ8W5rySvwpEJhZfml7Q9RZCnRfMURLKv3gpSbIUa5u8jcnIN+eTBfahLVCm4HUT1XqkUMtizB6rt/te4p0aDB3TPus2OF+fNpKrlummhx1mlWh+ERJRRwzoLxbTxtM3D61XW949OuA8j1VtM7BbM2yTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SvmmvB0pBmnVgS4Zrtkcz2J9hW+b0uIVSeXmMcY2wN8=;
- b=KeiB/C9DLJzkL+VMtM7svzgxnhATjMfQrAL7annAGAuuotYsIZRJItyVy8Hq8LjNc4tyEpluyN6ZHaMUenPD691RXMRzjgSSHOGs5+Z0pll5uc+DaNtDkd3fSr+AHYli15YsH/1dCl1yw9qhAPUue8ad47xs/XwQTjgicLEC2WjRIO36MtrnwTxrxvuTgqbHWp6AHfqGc8ugSZGbGMwUJr8UBjfbJ0EzqobEyo4Fee8TLaxwKMOMX48kwuv1ERP+6EJP/2TSEbSXQ3H0h6tvJrT7Cev0mWfQcAxIRdrFlhE61QKyS9f05mWctvLacud8JXB/OATkgjLnGdT86dqV2A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
- by SEYPR03MB7507.apcprd03.prod.outlook.com (2603:1096:101:143::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 06:20:15 +0000
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 06:20:15 +0000
-Message-ID: <f6972e64-741f-46a1-b990-4d7362466bf0@amlogic.com>
-Date: Mon, 16 Nov 2026 14:20:13 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 1/6] firmware: meson: sm: video firmware loading via
- secure monitor
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
- <20261022-b4-s4-vdec-upstream-v12-1-616240978792@amlogic.com>
-From: Zhentao Guo <zhentao.guo@amlogic.com>
-In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-1-616240978792@amlogic.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI2PR02CA0023.apcprd02.prod.outlook.com
- (2603:1096:4:195::11) To KL1PR03MB5521.apcprd03.prod.outlook.com
- (2603:1096:820:51::12)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IwzHRCul
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794810110;
+	b=EQG24TdehKKSsdR9tGV9/5BzrYePF/UuJggbAvTlqh7VHN/qqV9/RtKIneQWGIcE5Moa
+	 ep9wOOuXPZfd1UPvblk1d2WTR+Va14dwlFok0owGXNM0vzOuhjPUdZEh+5mmf4C+ipDi2
+	 6Vj9BeQUrfKzq2XlhbANl0YRa+iyHAqyOC2+clzXKWezVnU326WqNgwqUmfpj3TV8EIbm
+	 uRJclMYdNZ/SM67XsMAY0KQZXVlVf0raiv8gmzoDbme1Hy2Fb74oskXMEsqtUXCPYWMAG
+	 PymGudeWEnOvSJKDqf7ug4LvF0pxHv3B3/QEjzir756vrB0sd9uHPMmD4eYT5e+A2Wg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794810110;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=KPgfhl/DVFiQluvknLrE2yUG2LAGndG/AH+oeLL0W+o=;
+	b=vP/TMGChV0dgP6Uu0LW4WBPyR9MD7A0K+fPAWnSXm7F3yGdQ2XpTshaX/1IflUbLwz0s
+	 p3NOuxWR3ln0WXROWLbkk90BRXEFQrYn4a8Q4dRcBpNQm9hCiNNV7JIoo8Go5jDLntG3t
+	 jr9rpQwxp+X3/KHgusoe6kWEZ7xpvUksltkVV5OthtEO0zORL9c4D9f9rvSxgS7qN07gU
+	 XsRYJtRgt2QSHu/BJYk4IR4bqyxTbTzeXt9q6v4LgoV8pMSjlhqJUOz5l8f2U80GLP9XI
+	 OtWaaSmKCoLPIhxzgAZ3UfrJ1U4loIoBF1nAhCF+vW1fJHKtA+B4zSJYwQyyogW0bMw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 629CD1F000C4;
+	Mon, 16 Nov 2026 06:21:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794810110;
+	bh=KPgfhl/DVFiQluvknLrE2yUG2LAGndG/AH+oeLL0W+o=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=IwzHRCul8ZSi5nnbuNCCzbPnv4OkU5WUHDHjIArXrcnb/alXk5si+AL/Fi4VPJlQ5
+	 AyPM2XBgITiI85KTknf2Int5JABjFSE4p5qRA/93FG3exMNQnvum+WtrOs5qrKcBUg
+	 aapYjt3wqxsbXt89np52CN5CkDp6TFDhMRbJlqlllUyGhE7KYt6laWyoUtNnDrM5nK
+	 vCBNHtXCOoz5Vl7jLbaSFlS5ORoxUHZ50dc59sJE+9Nb7D6XQJgU6teL8mw1UeyQZX
+	 oKntVcvVUk94C8UBGdPmpnAGQVOz+uEizVMCiNC2fqAE+OuNfdTDmsqNQ2acGVVk0M
+	 iObolnN4cbP3w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E77B44A34A;
+	Mon, 16 Nov 2026 06:21:48 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Subject: [PATCH RESEND v3 0/2] clk: qcom: Add SM7250 graphics clock
+ controller
+Date: Mon, 16 Nov 2026 11:51:31 +0530
+Message-Id: <20261116-gpucc-sm7250-v3-0-df68449f0e36@brar.si>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,115 +84,124 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|SEYPR03MB7507:EE_
-X-MS-Office365-Filtering-Correlation-Id: 935637be-7d4a-4c08-c0b5-08df43a9ad80
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|4143699003|11063799006|56012099006|261026140227099003|261028144727099003|261021135927099003|261022105027099003|261022075727099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	dAb6uWbsrh9jSVmkd0xWu2fB4+evWZOTCO5/YQyKzj2uGXtjNx+QFeB4gWKDWeX7vblORfjt+yxVjaaHE3rA5OSgO3PHjrL4zy+AHMrDPYV36jVp0CmyVQzNgCqcxYAZHQhFMc3fJLwtWqzPcI75XjnMaBdQOTCdewp/m0G9m+UqNDer+p5mWLSYSpkOUWSgPBfL0lZuZADrX6nCfHYOVRPWVPbix2q7s0yJJMJhgytkRqsGGstjL+r6Azq4qgKWM9rFb9V8v4QBKd5ecBsnJvIAxICg6fgzoDI50u4ymjBN8Mr5rqETFi8r7Tog7PN1nNjRb2grWBBXnnNyGJmQsWz0/JlEl4ioL2F0gc8wUuiqwTcOM6RvmiEO8NZZg2zovcv04vF2CiOXLbtt3HthW6UYx7+6AHR9efYzsc0RbkLBLBPXM7qB7oOQcWp34iBj1frCzjAHGZ1Pxvm1rNg13K7yvy+e24UpOZE48wk9H4+7PFU0r31hNWP1kkCGHWgQ4xgbprs6LSZUvYSyO5AAz4UQQCKiRdtluoalG76CHmT+Yrx2H9cT3GFfIgLZJ9piuIh2IM7QcSSPGLbnp45m3wRdEPPWzHg79S0ipD1JTn17SuhtjOg+YJkKqeER3qgbhOuRrckvbEBrEgbw0VHqsLBAiy8ZhECZIkr1d8t0aMA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(261021135927099003)(261022105027099003)(261022075727099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?by9KUVFkU1A1TXh1cGJRUlBxZ3JGR2VtOEN0alR6dUMzaGt5NlBjaUw1bndF?=
- =?utf-8?B?eGQ5SFZvTkgrMFVWLzlndmZORTFSNEpwWlFFaTFLS1NjUFRKRlhWUnlJaVRl?=
- =?utf-8?B?cFpiemlCL1dpTnRNN1BmeWVmMGZVQU1yQTVMcy9qeGVUc3JiRENlR3p0ZmFv?=
- =?utf-8?B?WVlrSlJxNkZ1Sy9KS0htSUg2dlA3ZjNwMW9KVmxhanV0Vy8zYjUxZllydE9D?=
- =?utf-8?B?VXY5WTE1bW9jMWZjZnpqcjdvSmZXamR4bWpTVWVqMlhrTE9mOUdJZzdlWCtx?=
- =?utf-8?B?QlhhWXV5SjVZUXFLU1RIS0Rod1BtZmkxTi9peEIrS2NWZUQ5aUowTEZubEZu?=
- =?utf-8?B?dFZqTkZSc0VINHJDcjlGTnFDV041alJiRHBSSnBwVk1vTnFyOUdYOHJQaDRT?=
- =?utf-8?B?THM1WkxXekpHSWR6eUY5YkVGaml3TUJ5ZmJneDI5a3VpZkRCR2ZKR0x2c0R2?=
- =?utf-8?B?eGY5NHZtRnZsUjZaZnJZZEcwaG9BMHY0RGd6cVpOTFhxNWkxWEc0N04yYnVR?=
- =?utf-8?B?ZXdKUUJyN3dwc3crOTBua2pIV29uNTJXckRxc29jZUZTampvMGdDNS9LS1Qw?=
- =?utf-8?B?UXJPR2tMdXlpQnR2YXJZbzRmVlVseW5vRkY4c0x1MGhHbTVOZnZzVTE2aUlO?=
- =?utf-8?B?ODQrK0pXTjN3MGpXL2xrTHJKb1JGbVBDdUhuZTlDY29VMVhldGs1VDFFbTBZ?=
- =?utf-8?B?UEpoWVl6TlV1dG5DY2diQUdQVnU4Q0o2RkZSTWgyZFp0WEszKzlpT0wvMDZh?=
- =?utf-8?B?T0NUSU54dTRubjNreXpzMy9BSURtRll6RjlvcHc3UmVRby81UHl3Mkw0cXJ2?=
- =?utf-8?B?aTF1MmppcU1iNE9TRmpJTXRBb2pHNTEvYlp0TytRaFpTQVVXMUU3d1B5Tksw?=
- =?utf-8?B?TUo3alp1ckl2di9tNW5kOWpPL1FwSVhxMWxncG1wV1lWeGx1U1l4THlDWHNa?=
- =?utf-8?B?NWFYcUlEWWZYQjM0cHdrWFJOSVhJQmtxTkkrRmhvVDdUVzkvUWJoZ3FtNlIr?=
- =?utf-8?B?bnowTkt6QlI3c1lxRVY2NDREa2EwMDhMY0h4Wi8ra1kycExaZldUUUJiNG43?=
- =?utf-8?B?Um94M2ptaUk4T3Q4RW4ySytTNUVrcWVnbGJqcm83ZkFZWHROT0d6WStDMEU1?=
- =?utf-8?B?WFpiYlNKRjZkaTZqbS9vUW9hbkJVUG1pZ3I5MGpvbFFSL2VrR3QwWllXV3hM?=
- =?utf-8?B?WUFlL05pQnBPbFplaUFQWHJWUEd4MmZ0ZVR3cjNrTFZHOGsyeWc1Z0srdWJO?=
- =?utf-8?B?eCtXTFV0c3BOTmtOTE1FSlg3RDU1TkpNa2ZxNFBKL2ovOTd0alh3SGVGbERp?=
- =?utf-8?B?OXlFc2owUjNMUEtGSkpNbzBwaStKNG5KVitRUDlueVJ3dXAwUTN5bHNzS0VT?=
- =?utf-8?B?a2pxNTFBdmVHalFmRXBiWElNSVJYamIzWUVqa0N4Z05zZ1A5RHNrbk9sUHNs?=
- =?utf-8?B?OWlIakQ2QUJQOFB4QjFOQmptYUczdVhveEtlOWszUUtmUkp6TFdYMFd0VGpz?=
- =?utf-8?B?d0I1Z2RCQzZoRDJDKzNvbGlGdS9hUHAyY0ZVUktsMExIbVhpdzF0S2tuQWlr?=
- =?utf-8?B?QUtUMENVTGdhTkJ2S0V0L0FRYTRISFdsS2FuemNXVkN4Vmo4Tit6RTB3cUcx?=
- =?utf-8?B?SXNQTDd6VG9oVnVZdWxHSmVwZmFRM1dXNzR3aFRIcHAweHIwaWJsVWM0QU9u?=
- =?utf-8?B?L2FvaXUreGNCaXRaVWRZYnJOalNlTWJsbmRlRDBucFhsMkREQ1ROM0NjbGRP?=
- =?utf-8?B?THdtMEFOVDBsMjl6bUhTL3RmVWlrVmlMQkRqdUtqaTVKOC9YS01taDQ2Zlhx?=
- =?utf-8?B?cmJwZWIvMVdDVDJJdFlZMndBZ0xncVVlK292eTl0UFFZOGFjUHNyZllsaE5h?=
- =?utf-8?B?NFlmUjZ4YVBoVnlkTXEwTUR1U2NBcnZINzdvNmsyTEJldU5aTk4rNWhYdXNL?=
- =?utf-8?B?U2FIc3I1K0wwWHQ2U3lqSTZ2MTViSlFjWFN4cUs0RUtXM2Q5WGJzWXB1MGRR?=
- =?utf-8?B?eFRpVW5VSS9uZnZlbjc0cTh0c29jdkwxNXVGdEVNNTZjZzhpbkIzdld5YWN2?=
- =?utf-8?B?S0JxSWFJVm9iUlM5Wmx5NjRpeUQwc2NOTERPTmdQNklZdm02TXEzcjJkUHdh?=
- =?utf-8?B?REpUd2tPOHQyMXcwYzdRT1RzVTlKZ2MyV1E1blFSUlRIcjZjMlNBVUlUNDZ3?=
- =?utf-8?B?aGtCak5MUzVRWERYdnhibXdSNXJrdWVBNnRLNCtSalVYSXFPRzNZNmRYQ3Iy?=
- =?utf-8?B?eVYrS3Z5aW9JOTN2dVdNVzgwbjNxTDh4eTg2Z2NvMzVGRDI4L0FBai91aHhs?=
- =?utf-8?B?TFVZS2hvMExLbExrZjJWZ0ZnSE5DNkdGK1RnYTJkbnFWUEgzZXVadz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 935637be-7d4a-4c08-c0b5-08df43a9ad80
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 06:20:15.1333
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2vyjR1GQTBgVn5RjfV+mJLzE3Z3stIhOYCySCgKqcmXNApKI8CJJ/RPVzsxz7Zrfrw7CtztUSxB98ji+cEQHtA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB7507
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22QS0/DMBCE/0rkM47s9aupEOqBXjnAEXHwY9MaS
+ FPsJAJV+e+4aQ8V4jir/WZm90QypoiZrKsTSTjFHPtDEeKuIn5vDzukMRRNgIHmDATdHUfvae4
+ MKEY1BxuU0My0SApyTNjG78XulTxvX7ZPj+TtMs+je0c/nL2umwm/xpI3XNc7zNkueevq/hLHN
+ ZMgBdQrkJTTnBBzKfVhE2s42+w6Gz9r33cPZ0dnM9Iiujisq1ZpA1aEtmXQ8KCtVOiYB7VyTQB
+ n0cnglTFLu33MQ59+lh9MfCnz/7kTp4yGhsvGo8eVw41LNtU5LjYT3KLmDwoFNUYwpVEyKW7Qe
+ Z5/AQ4NbiCHAQAA
+X-Change-ID: 20261023-gpucc-sm7250-612ad53607fe
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Taniya Das <taniya.das@oss.qualcomm.com>, 
+ Imran Shaik <quic_imrashai@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Ishu Brar <patches@brar.si>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794810107; l=4051;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=ic5XdO1AeDrgCu2w9+lfdrzstjc+aLj8SGbXgvtd4Bo=;
+ b=Ls1XolrLfUy5tvbN6P1zkARSElvjuS7Mk6vnbbnGIyo+//9rwZuBLcHVd6Kf8vp7S9ENndmKJ
+ TM7KxpNrdqxCoe70Be5y02pfL3pOP1qyRozAoag/pHETcn/fIbRc6lg
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
+ auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
+Reply-To: patches@brar.si
 
-Hi Neil,
+Add the graphics clock controller (GPU_CC) of the Qualcomm SM7250 SoC
+(Snapdragon 765/765G/768G): a binding patch with the header, and the
+driver. It provides the GMU clock with its Lucid PLL, the GPU CX and GX
+power domains and the GPU SMMU vote clock. The driver is written in the
+current style of the qcom gpucc drivers; the PLL settings, frequency table,
+register offsets and GDSC data come from the downstream driver of the
+platform.
 
-Patches [1/6] and [2/6] of this series add a new SMC command in
-meson/firmware, which required by the S4 stateless video decoder
-to load the firware via SMC.
+This series depends on the SM7250 GCC series from Shreeshankar [1] (the
+Kconfig symbol SM_GCC_7250 and the parent clocks come from it). The
+Adreno 620 series [2] needs this controller for the GMU clock and the GPU
+power domains. The SoC devicetree nodes are not part of this series.
 
-During the review of this series, the media maintainer, Nicolas,
-requested that these two patches be merged first, so that the
-remaining media patches can proceed on top of them. He is fine
-with either approach, merging them along with this series, or
-splitting them out into a separate patchset.
+Tested on a OnePlus Nord (a 7.3 based tree): the controller probes, and
+the Adreno 620 powers up its CX and GX domains and runs Vulkan work with
+these clocks.
 
-So if these two patches look fine to you, an Acked-by would let
-them go through the media tree ahead of the rest. Or we would
-also be happy to split them out and send a separate series if
-you think it would be better. Any suggestion or review feedback
-would be much appreciated.
+[1] https://lore.kernel.org/r/20261016042432.824-1-sreeshankar0910@gmail.com
+[2] https://lore.kernel.org/r/20261023-adreno-a620-v3-0-2d1d566e5e13@brar.si
+
+---
+Changes in v3 RESEND:
+- No changes; resending after the merge window.
+
+Changes in v3:
+- Use GENMASK() and FIELD_PREP() for the GMU CBCR wake/sleep fields; the
+  mask and value written to 0x1098 are unchanged (0xff0 and 0xff0)
+  (Konrad Dybcio)
+- Set .use_rpm in the qcom_cc_desc, as the newer GPU clock controller
+  drivers do (Taniya Das, Konrad Dybcio)
+- Keep BRANCH_HALT_VOTED for gpu_cc_hlos1_vote_gpu_smmu_clk instead of
+  BRANCH_VOTED as in the SM8250 driver (Abel Vesa): the clock is a
+  voted branch and the newer drivers (SM8350, SM8450, SM8550, SM8650,
+  SM8750, X1E80100 and others) all use BRANCH_HALT_VOTED, so the status
+  is polled on enable; this was changed in v2 on purpose
+- Link to v2: https://patch.msgid.link/20261027-gpucc-sm7250-v2-0-773056e4043e@brar.si
+
+Changes in v2:
+- Renamed the header to qcom,sm7250-gpucc.h to match the compatible (Krzysztof)
+- Converted the driver to the current qcom_cc_driver_data style: the PLL is
+  configured by the common code and the GMU CBCR settings by the
+  clk_regs_configure callback, with const clk_init_data and DT parent
+  indices (Krzysztof)
+- Use BRANCH_HALT_VOTED for the GPU SMMU vote clock, so its status is
+  polled on enable, as in the newer GPU clock controller drivers
+- Link to v1: https://patch.msgid.link/20261023-gpucc-sm7250-v1-0-d9149cece8be@brar.si
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+To: Stephen Boyd <sboyd@kernel.org>
+To: Brian Masney <bmasney+clk@redhat.com>
+To: Jerome Brunet <jbrunet+clk@baylibre.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+To: Imran Shaik <quic_imrashai@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-clk@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Ishu Brar (2):
+      dt-bindings: clock: qcom: Add SM7250 graphics clock controller
+      clk: qcom: Add SM7250 graphics clock controller driver
+
+ .../devicetree/bindings/clock/qcom,gpucc.yaml      |   2 +
+ drivers/clk/qcom/Kconfig                           |  10 +
+ drivers/clk/qcom/Makefile                          |   1 +
+ drivers/clk/qcom/gpucc-sm7250.c                    | 379 +++++++++++++++++++++
+ include/dt-bindings/clock/qcom,sm7250-gpucc.h      |  36 ++
+ 5 files changed, 428 insertions(+)
+---
+base-commit: f5672a3dff0291d6a45eb0c258b9d2baeb4dc577
+change-id: 20261023-gpucc-sm7250-612ad53607fe
+prerequisite-message-id: <20261016042432.824-1-sreeshankar0910@gmail.com>
+prerequisite-patch-id: 73b48e3c0861782784c45684336c1cb2c8b37852
+prerequisite-patch-id: fb97b00b62996e3d3634185a803a33eb545522dd
+prerequisite-patch-id: 8190bf61e50dbe2e09859505e8e4d8cb4ab02ddb
+prerequisite-patch-id: 8c34692012f724a93c58e1df02338acec497344d
+prerequisite-patch-id: 983ca91f160cca12047d9b0829c8cbbf4cc32e98
 
 Best regards,
+--  
+Ishu Brar <patches@brar.si>
 
-Zhentao
 
-> From: Zhentao Guo <zhentao.guo@amlogic.com>
->
-> Add SM_LOAD_VIDEO_FW to the secure monitor command enum
-> to allow decoder drivers to load firmware through the meson_sm
-> interface.
->
-> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
-> ---
->   include/linux/firmware/meson/meson_sm.h | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firmware/meson/meson_sm.h
-> index 3ebc2bd9a976..3b90b49d0552 100644
-> --- a/include/linux/firmware/meson/meson_sm.h
-> +++ b/include/linux/firmware/meson/meson_sm.h
-> @@ -15,6 +15,7 @@ enum {
->          SM_THERMAL_CALIB_READ,
->          SM_A1_PWRC_SET,
->          SM_A1_PWRC_GET,
-> +       SM_LOAD_VIDEO_FW,
->   };
->
->   struct meson_sm_firmware;
->
-> --
-> 2.42.0
