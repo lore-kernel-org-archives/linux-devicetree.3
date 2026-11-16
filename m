@@ -1,112 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794812130;
-	b=XnW0/mjDLW855hoATHEEciAg4IGASfD3ueYk8ZLbifoo8j2/tQKR/Hc04CoFEzA0ao/v
-	 O8ktGoExf+JfEi7SI4BjyRROKFIQKUijFocMPCbKrN2ry6B3AjXNFDzVSpGV3oFQuNmQF
-	 QiGC17h7d3x8+v1hb9et+EEBR35RKxhigmgS1+15nIog5EI/ZLeLsndmV1hKLrYXInTyJ
-	 8A8sBf9HVbnSezybAadawHffbNiEY3yFZ6zTR9c0jcQnOZ3anEJLS8dWoPj6AWbX78oNa
-	 +We+683f3glkZRK+nnY/QXQXuAEn3JTPiqBApEIVcsZi86vpoybceMyPDIJ5VvWInmQ==
+	t=1794812537;
+	b=NHC5jWGDDcNGLMAMM63qXCoAvrQQNQWcY3PKzonhsjpcogBixzpgLH+P9tH/39uVDW3t
+	 0RM0fXyKN+2xFj3GmVOt47d4CijuytWg+r1b45qBETT7hRAFpRhLbpMbMrWvZxguscwGH
+	 JseXt7LdRG8GE0RxYQRiv8noVCsiYI+JWb/n2nyFKjBj8s93gxReP6QZKeWRDDxkCGm7u
+	 LJ7DT0C8zylJbZATbhLYgUgltxqAY6/MnE6T4tH7tgr5ESQ3r8/1ux+syTv7R0o+tQJFZ
+	 Hby5fs900xN5F/dHMN6lHgykFpR0fKJKbpVtShtlS0PZpzKqveLM8bkQKG/hzvISpbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794812130;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=2S9k1KDmjXj6+ft2VRTVkulkYwAMCOYGy6MlND8T/mA=;
-	b=eDw3ygS7GGS6YnDt2bku0p9CvgrG0HZQtl5EVlqXI4gK4OpYUEsOXYLB8EauwFHvsUID
-	 RoSuLB9TatZkjRhQEgbVVorqP5FRjU9lOJXSk7ZF4BcqdmLgFEuntlhR5gJSlG/cYIByV
-	 YvGUysCt6ZdRtoOkwQv/lXL0JQeqJmw9aaC4oXf4gfarvMlEYsRjXDxt7h5del8giAFc4
-	 +GUbPTJDY0I1G0We+lHfVulnnCFXztkIH3tKq2WZIKB1DFJvNHc4b3K2cvmQjqw4+o0zi
-	 ReArnulOuQ4g/ootM/rN/KuB/ny7xYdQW1gmnoZZ5Y46y9v4OaVQUZC1S9sDmmwdCnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794812537;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Oar97+R2dcLaRVk0nmpwc72qymMp7EMYfC2wL31fOwU=;
+	b=dPl86Xw3Tj+vVMimYn0Zh7dxX7T1Nn/9Bn0a/itxT83l1zY3pAcnAK+06w8EDnP1wIUj
+	 c344gM9K5GiSOhZz9lzPfcfdgFi5PLNd0KUjPUvyZWLG+8PIpekMgrytdqEoN/g/xutWv
+	 jsdwi9NI3iKOE/8+ZB5Do7445tVTJ/6FBVj+QjXR/2JDzRsa0k+5yLCdxOxZUUhMsFq9s
+	 bMTveyIthgBPEpkUHxS9iuxts9JBf3WNsCD9s8I4LdQ6UXftBSKA6WP6jXmPwAttS4y+X
+	 MQTp4oau4aknQvmgQcQYP87DYPRWXZj5To1fJejCW9A8u167wA08VkfoZm8cVnIwIXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=U0OaEmZ4;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ByS1Voth;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="w1CPw/xc";
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637ED606A332
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 06:55:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 637ED606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB31606A898
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:02:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFB31606A898
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=U0OaEmZ4;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ByS1Voth
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AG5LGbo2880058
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 06:55:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2S9k1KDmjXj6+ft2VRTVkulkYwAMCOYGy6MlND8T/mA=; b=U0OaEmZ49T45GN13
-	5D8nLtZtILVSQ+OpE+0c8UPXOk1eI9DQEJ1v2QptQhynR9eSUqISXvRbAoWDW+88
-	q3VuEi8BRBs/MfhXZeWjP1ldSVc6mt5huyT2HfNsAqjeyXRi2AfQx9otohAHwvqr
-	KMQqF7cOW57/5+z7JO+Tx8X6uY66ybivBGiUP0EIwarxRqkMExVrGexnOr8wm8wH
-	z8hnEWDN7BivDnR3WvZwPvCghc0SJL4rCgTWpJtIkWgCgnZHbwuF//fawy/sjW44
-	pkacIt+68bHrWFHm5NGpvb1MPxhaJ1pMxTCRzx9YQ3YOvQ2JIYGOoMiYGWUuShqX
-	avfQOw==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhj4582s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 06:55:29 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a065d0e9deso2107878b3a.0
-        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 22:55:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w1CPw/xc
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb5b8ef642so17123255e9.1
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 23:02:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794812128; x=1795416928; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794812535; x=1795417335; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2S9k1KDmjXj6+ft2VRTVkulkYwAMCOYGy6MlND8T/mA=;
-        b=ByS1VothaasQYvwXVzT8n1CMxSIQIOT482mpgMHVnUqa5OpCsAdI5ytBhLoTIq75Rr
-         hAbJQKntARRRKejmnmwTBll9iK3VgBjqpubZeLGc4YN86YsahX1M0FptdksFxEuY4nW/
-         q8yA2a8I4ZwQGmH7mCrOy4jtxsOI38de7SPlNa9+GXO5suKJm5a664PRZUXgRAhlaKhA
-         MXpW50hJRQ/GH9vJT+9/Y8aKX7FpARiCUz3CYNLWQGekt07GB+ncZT9jiraka/H3VjBK
-         lfG0EtfHaQswrx6EUEMD1ZFAJDi2gbWQqeJXOHeGOjCcTqw29Xif5UmgD4ojmC0s9UfX
-         Y6tQ==
+        bh=Oar97+R2dcLaRVk0nmpwc72qymMp7EMYfC2wL31fOwU=;
+        b=w1CPw/xcgAAnsRih3vNd+rHB6D43IqAWaSuMDgG0hPinaYup7k3VEwkBTMX0ARLEbG
+         n+jD+HSWIL6M3c77Qmi4HnCUKzqYxPyPcjSkSNZkooJFlgniYMq/6Hbn4/1EWOCSMZu0
+         N2zDeRXbq+Xp5s6hA+0+dvhMFi9/bidqMxK/0k/ZyaXsDFEJTt1uOwuAvs+0ZEcVDn8b
+         axbSkJqs+MD/WLvh74S2stnBOQE6NA+8yDD3o2BebWWvOAgCXoL9mkR2tMnI//PvB1pi
+         rYLxVjO9/udNOTvanGxM2cYIFOrIdhins+9g3k71b7EoZf+ZiQyfxbNI3ih4nB5RG5KU
+         vypw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794812128; x=1795416928;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2S9k1KDmjXj6+ft2VRTVkulkYwAMCOYGy6MlND8T/mA=;
-        b=B4zaMZsY9HHGZWbWjCs8AR352loBI6ZuSX1vlT559q+WtV9BY15xkJtSnCx6aFsfjx
-         JvxcPqDpiVbQJDwdRHbF51WnUyPe6aq3FBElp0K90pC3Ph0FDlEA9AuQSZ5N6XGIiBuN
-         0huvTTHx1KDN9o1HizGA8FfpS5LezPTR7uaziHhE7P8I30kG17tYiDNWgsvNPoagnTne
-         eY8MNw2P+VAdIB2MrGaupPTeVZbaVckaJJEibRVdfKc7vLt48bnsOv0ZjXkuAFUy3Zyr
-         6kCQo4H63bon40q0/J5rqgkMXHJskutAmssG4cFjFQCsnVWMXYw8YahzMVrepM5sfujv
-         du6A==
-X-Forwarded-Encrypted: i=1; AL+hErHYfgNMQbWUNKfudgrX56o8bJ+urRCklXUjVdadymyvVaGWgfUdhsR3ztfn/0KiK7BF8pA7cEZorw7F@vger.kernel.org
-X-Gm-Message-State: APuU4Z/RK8lbvO7jaKN4y+9X22U9MyPNN/fXXhjRCf6o/+NJGwgPLi92
-	o7g/JdlcTzKdrl1th97YWWbwYeGMsoq1Z7Ctz30qi+hbhehV/RWdJaCXLgHhJZrYbATeAq9nnY6
-	2q8Qe3V4ojW0fS86zzulSn0qvZZSCDf7ABRRsPrdB3GeKv+xbQ3vqST/jbRaZ4aB+
-X-Gm-Gg: AYBFou0JHEP9u52H3YwCKzfxeLEjlK1owNj9VqZrvYN+0efyOfNAwPR03k+cvBUGYdV
-	r2KQM1CE+UsmefYV0lGE/18rUEBsEdlEoZuuF5kv9kLWxvW5es70X9eZTxfmQ2Z7aWAYjvmsc8r
-	VI6pUf5RbBskqGxG5KPr1+eTOoHSihfP8UGwuv/MX51GNv4DstEJqy614AZFHvuIPP9VZxCVaTn
-	W4tNxAV/1BbrQqq+cKeP39+gU6ooeGDkz9TB3Y5Z+6iXlDhmm3rvp6R53yv1l8+XyAfILAuGIjg
-	wpjiLdPfjHPnjtvlctHep1BfjfboxHWlQ/ic5R74aY3lT2hnMObt62VVNa4eIelVmopQcrpbvKz
-	dbKJF4HmlXRVAzaMu1vTvbcmDvtZJ91kCdMUjfIxk1RjbDlpkvfW7iWZItgKt+GDHGi01fyQ6u/
-	TR2o+DORMjoABQRG52uhuVNoWP1iVzAAn0sGZSeI71LR8=
-X-Received: by 2002:a05:6a00:1995:b0:884:831e:d0e3 with SMTP id d2e1a72fcca58-8beb63a2ad1mr6236121b3a.17.1794812128188;
-        Sun, 15 Nov 2026 22:55:28 -0800 (PST)
-X-Received: by 2002:a05:6a00:1995:b0:884:831e:d0e3 with SMTP id d2e1a72fcca58-8beb63a2ad1mr6236100b3a.17.1794812127686;
-        Sun, 15 Nov 2026 22:55:27 -0800 (PST)
-Received: from [10.133.33.59] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed2829dcdsm3208979b3a.48.2026.11.15.22.55.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 22:55:27 -0800 (PST)
-Message-ID: <c3da00ab-913b-48ee-8af1-eaef26548b4e@oss.qualcomm.com>
-Date: Mon, 16 Nov 2026 14:54:59 +0800
+        d=1e100.net; s=20260707; t=1794812535; x=1795417335;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Oar97+R2dcLaRVk0nmpwc72qymMp7EMYfC2wL31fOwU=;
+        b=21ESLlpKjO6I1Ur0RWIFctU8gDE1ZU7XkcURoB4Pf/bEPRZIQYDiMHwR1RyyeB9Mi1
+         MqfODMxHM33OwW2C96L+ECjx6vale35SvhPen3na98ifKrw5bM6/tKcZ6z2D0vX8NPqx
+         WIi6vcPNFpHvg4WdjL5sCT3WFI2VIDYFzCkfW4wvDZo6lGCeWp2UfyPBudRpRXJusdV9
+         zZNYWVPm1FfE/YBDXewMiG37eeJFrNQUcEZZ2HzozRG3xe1JJ0mGWzf90XMaST/gGSf0
+         S5onXnPRuA8RpeTbizN+owU2Zu6pr2sezo2Ove5EOZII/axKw4APwGFW25XwAEdfTt9h
+         E8pQ==
+X-Forwarded-Encrypted: i=1; AL+hErGOPfOK26lFkjnkOqviHiWCSbGPulXlueK1xelWgTIPFoIDCCfs700BCq4l3zn58DzNd4xbLvdEqLdg@vger.kernel.org
+X-Gm-Message-State: APuU4Z9MJQz8P3A7MVyrIElSy0DY7pilwhnpHYYf12KAsB5XGC23CTRF
+	dOOlpNRHj4u6bFxoIKqXdrsDohexQY2EGu9EoJmr/7KC/gjDA98/ONTC
+X-Gm-Gg: AYBFou2kYEpGayGQIK/c2wi9Y/g39ZGHlMCTDFulq1qBfdo0ZcmdvRyPv1pzRYxVazu
+	WSCKuoKywkShDLdlJJFJq8ggdVUFY4ZtGYy+8MUdIdobm32bKsbOBjDTbqklUL6kOuw41kukEvO
+	h9favgT8gWx2ikyummyprLi57MI1fdiyfGhlDxbQ2+Pgm+57OyrCCdBxcEZOulHXEQkBzYlPQa3
+	2zrh8+rfdnrj6kFL/P1Eg0MXhL2QkFKz8arjEbio3ZxcWC5c0evfaAjolqGVKeuhUAzRJkJHaF8
+	TySJBgPUB4cLtY7XdDmwl0EvJhva/iRX4TBE5SZTO5+1qhxCTFAbUk46G+f5aAnXS38lWMo2tdf
+	QJ78/3K+FJOnNXMo/v+xvo0IV1YmU17hry1W2t0aj4BMkVGSw2PkrLWa/mL+jO2bmZLV4X8UOZ2
+	jJTDD1o9fRhVIrYKCHQzNU7AycHGf450Xn3TzaKkbIX6Fv25us9bG0Sfy8ly1ha1N84X2ZDrzAs
+	wqd3Cmxj0YsFljlpJMOQolYWqYIHd8RK2WZTETlMzJGoiUL+DvkldhJdrhcU53d1EPr4hiKJ5X2
+	YVouXv5sQlUh
+X-Received: by 2002:a05:600c:4e13:b0:4ba:38a9:85e3 with SMTP id 5b1f17b1804b1-4bb55a47fabmr200763425e9.12.1794812535128;
+        Sun, 15 Nov 2026 23:02:15 -0800 (PST)
+Received: from dl360p ([130.61.107.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2538b9sm558777625e9.1.2026.11.15.23.02.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 23:02:14 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+Subject: [PATCH v1 0/2] drm/panel: add Novatek NT36525 (Samsung Galaxy XCover5)
+Date: Mon, 16 Nov 2026 10:02:10 +0300
+Message-ID: <20261116070212.314228-1-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,86 +106,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 08/10] coresight: Add CORESIGHT_DEVID2 to
- linux/coresight.h
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, andersson@kernel.org,
-        alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
-        konrad.dybcio@oss.qualcomm.com, james.clark@arm.com,
-        krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
-        devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
-        songchai@qti.qualcomm.com
-References: <20261113024935.3173715-1-songwei.chai@oss.qualcomm.com>
- <20261113024935.3173715-9-songwei.chai@oss.qualcomm.com>
- <9a479160-5bab-42f8-bf50-7b92c40b39c0@arm.com>
-Content-Language: en-US
-From: "Songwei.Chai" <songwei.chai@oss.qualcomm.com>
-In-Reply-To: <9a479160-5bab-42f8-bf50-7b92c40b39c0@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDAyNyBTYWx0ZWRfXxBp4BRZlhNcI
- RG1FShz9zac4QLuDpKS4LI9cgSnCM3SbL0+fmRrrWvgYN4uS3OvvoEk/Z6+RUAN68Q9vRchbbX1
- Pp9KWCm6e/8pauBmPP2AV3ku/5MeMK406qACmvPaRGqY4IDhDKAiB+4LbiA5DawpMMg9ZSUOhTh
- bRn3oQG4jAPHka5EzYHUmuBM8mo3O14G7eCARr4KOEmR1ZCQTg+2cNRmVh8lCacLm6xLInVFTCs
- xpIMG5wLrTQazCAcvdmTypksuoPxlLmLmMTy0IdiRi5DVCJifVX9/Ytowj8GJNHLYdSW6Scsh5v
- kisaAHoynTn2RbunXeJOln7focu9Hx+fO4lemeCW+FcMMbxgzlN0dPzAjRLI+UMB4hvgv1nkz/W
- djqaaEsurpXhFyZzmOE700VbzmumL5cvAIcGnplWliq6h9yy56ySKDfM+CVU+QMcfTpZ6Tzrp1I
- SfSq5byfyPHYUIGYk0Q==
-X-Authority-Analysis: v=2.4 cv=av0nmiZV c=1 sm=1 tr=0 ts=6afaa8e1 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=RG7znLGuzyzmRdsVfVEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-GUID: MXPh9iFJiJeAZnPtCUOxEfWaaZY4-JP9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDAyNyBTYWx0ZWRfX2yIHjqIOwgTY
- f0Rh/JeTr2XIABqoxolZq/0kySR0v1/KfCC0jAcAEEWLU9BYElgHx10i9bemk6s1GJPMPmUosx4
- bakVlbhaiWQvh/EaULfnQ2hjWEvNpeU=
-X-Proofpoint-ORIG-GUID: MXPh9iFJiJeAZnPtCUOxEfWaaZY4-JP9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-16_02,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0
- impostorscore=0 clxscore=1015 spamscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160027
 
+This series adds a DRM panel driver and its DT binding for MIPI-DSI
+video-mode panels based on the Novatek NT36525 controller, as fitted on
+the Samsung Galaxy XCover5 (SM-G525F, Exynos850). The panel is 720x1480,
+uses an active-high reset (RESX), and a DCS init sequence that mirrors
+the stock Samsung bring-up. Backlight goes through drm_panel_of_backlight().
 
-On 11/13/2026 6:27 PM, Suzuki K Poulose wrote:
-> On 13/11/2026 02:49, Songwei Chai wrote:
->> CORESIGHT_DEVID2 lives at a fixed, architecturally-defined offset
->> (0xfc0) within the generic CoreSight management register block,
->> immediately preceding CORESIGHT_DEVID (0xfc8). Components outside
->> drivers/hwtracing/coresight/ that follow the same register convention
->> (e.g. the Qualcomm TGU, which uses it to detect its timer/counter
->> capabilities) need to read it too.
->>
->> Add it to the public include/linux/coresight.h so it can be shared
->> outside of drivers/hwtracing/coresight/, matching CORESIGHT_LAR and
->> CORESIGHT_DEVID already moved there.
->>
->> Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
->> ---
->>   include/linux/coresight.h | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
->> index 5286b3606581..7ce0366c7c70 100644
->> --- a/include/linux/coresight.h
->> +++ b/include/linux/coresight.h
->> @@ -37,6 +37,7 @@
->>   #define CORESIGHT_UNLOCK    0xc5acce55
->>   #define CORESIGHT_LAR        0xfb0
->>   #define CORESIGHT_DEVID        0xfc8
->> +#define CORESIGHT_DEVID2    0xfc0
->>     static inline void CS_LOCK(void __iomem *addr)
->>   {
->
->
-> Merge it with Patch 1 please.
-Moved Patch04 & Patch08 to Patch02
->
-> Suzuki
+  Patch 1  dt-bindings (compatible: "samsung,xcover5-nt36525",
+           "novatek,nt36525")
+  Patch 2  the panel driver
+
+Tested on a Samsung Galaxy XCover5 running 7.4-rc1 plus this series: the
+panel initialises and displays correctly under phosh. checkpatch.pl and
+dt_binding_check are clean (bar the usual new-file MAINTAINERS note; the
+files are covered by the DRM PANEL DRIVERS wildcards).
+
+Based on v7.4-rc1.
+
+Tool usage
+----------
+This series was developed during XCover5 mainline bring-up with the help
+of an AI coding assistant (Claude Code, Anthropic). The assistant converted
+the vendor init stream to mipi_dsi_dcs_write_seq_multi(), drafted the driver
+skeleton and the DT binding, and drafted these changelogs. I reviewed every
+line, validated the binding (dt_binding_check, yamllint), tested the driver
+on hardware, and take full responsibility for the contribution.
+Prompt summary: "convert the XCover5 NT36525 vendor panel init into a
+mainline drm_panel driver plus DT binding; keep it checkpatch- and
+dt_binding_check-clean; test on the device." Review comments are welcome
+and I will answer them myself.
+
+Adil Hüsrev Tepe (2):
+  dt-bindings: display: panel: add Novatek NT36525
+  drm/panel: add Novatek NT36525 panel driver
+
+ .../display/panel/novatek,nt36525.yaml        |  71 +++
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt36525.c | 486 ++++++++++++++++++
+ 4 files changed, 571 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36525.c
+
+-- 
+2.53.0
+
