@@ -1,89 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831116;
-	b=HbHCX7C7qR8+PxzvmvSpfKxykkg5Ca9PQ5kcb1F+SEHTKLUafo59ubCiiS02HvNfAoZA
-	 TwmfYz1ntT2KCWtFG1HGxk8cJEj0tITUgWGocbyf1cRoj3AGIIg9X20JN8E9REsadpixO
-	 QL351vmlGn/2SAnhPfYusplT7DPLsyPxOXopFohrq1n8mVl/aleaWDJLRkrdkPukWjVPH
-	 D6KP3GvAfOzDzcThxkCfe0k/tE6bF1CSWcCVW4WGmDAs7NoqPpJe6LOfrS6dCqWWL07iw
-	 uT11Q6vla/TXnTKik6/Dgm1MbWlSgEDFLFvTWwAh0Re9MMn0hFIXOKddB0+thCAUE6g==
+	t=1794831209;
+	b=r7GxTf7JkK4NYkh1QsHOnGbD3zg2ymEI5nAWIRRRLVPhDK6W735oJiYp6r8qZ9zT63ab
+	 Oi92PlPZrW4rSR6oCpypnv+kpHkN8wQ23/J9IiDVIPAxCMlJDWIKXfxG9rJu8BGpnJL3R
+	 fnbZi/swM2ELv/jbE9/gF8kUl+1HeQDuklBbDWF4+646SKR68qJ6bgIYe1PvBcWmPp9wZ
+	 WS/Y7bRZ6O5ET7w2tzph570D0nR0pDLg6iSM5wA/ozwTrvwOjRtPii0OKowVSK6xOMQTG
+	 zKoyaht+YiuXMAoh/n817bcpCMX2pjYl/+uVEYyPWWhuLmfhOc/M6MLA2o+9aVQzBSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831116;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=pEbQYi4NjQVP0dtbEgl40Tg4qtmWWlkw/cjXJIhkZZg=;
-	b=jkNrX179Mi6CT1DrfTV3sQlWxXvzepH/l2M+XcJtklHC6KLDa95YFHdQuhPteCQw16GN
-	 IFLuvUPrZi34ZRl44BUo63ieBlPrdro1bVZyLvZmAsBLZ2YU7Ow3OlaHF+JjbBk3NOxow
-	 1o2KuU7Ek/g0WUDez+TRHZ3jj3frwcWV010OsPrChByNs63kI+3wkD5OkAFVeKqmGjkBa
-	 0vBp8ivIVOxmC6WTu8MLs4Ep27XITcO5ulUSlgMYxRKRLrJf4kqeaH8yJrWZAA+4wzHRb
-	 AdpLi0a4nHtjWp6KfVsQZbH9GbXul/6Htk7GoVMkbQfMbZOmF9o8C0vODCxhEJp3R/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831209;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=JErpceofJPDqtVbOd8jF+eXohzohchNfQstY/Xqb0tA=;
+	b=bde4QcFu/W8/2iZJ3ASmO6HaxpyjTVFoCF1q6+DEcAScItgZoZpxAedClNSd7YXZzuTR
+	 pkuv9oZr/5jtDE+hTluqmPFj8LN2FcMU300GgC17JaulPhjF23winsapOK0VGNB6KXVK7
+	 mgf6O13TKusnaKJyDuSOSzDEokGVLcWjvnhCvkWUty/XLe7fnUkmIF18vAUkTB0PBD1JU
+	 GV25xEHrxzgeGCtuB9wWJ9lzpfCunG1dkonho2NzPmFPLccKdCzYgMqiTrLqr89rmG6Es
+	 umBw43eFDm8/PRcMJjPoYguc2ZN4UC+sHBjq4SNFHPI44J42Am0gW+Pqb6ip92M8YqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e9Go8mMR;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WjrJX95O;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C132606A339
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 12:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C132606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E76606A31C
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 12:13:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e9Go8mMR
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so37590985e9.2
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 04:11:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794831115; x=1795435915; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pEbQYi4NjQVP0dtbEgl40Tg4qtmWWlkw/cjXJIhkZZg=;
-        b=e9Go8mMRt6CeWWTDO4HPH5sj1A7YFgUu/hybUxyiZsIm94O5mAosz72l8YPgiWdFG2
-         lU5MOSD37s2mn/eEKrtnWqEtBbMSRZCmadviDFlv4rEoEJ+O6K3MNON88r35Ag1kKeCl
-         /FzW5fX+zqW8lnxkkthYpLvGuqR7cH/cUWG/MaooR4/YaGo7WNAUihTrV9l1ifgCQXQY
-         nKj64+d2yEbvqf4Dcx6t/Harg0oXfug+Ndb3bHsXKbpAmAnSU/xteNeP0oiUdul6FNgY
-         cta/aYMWeAWcC/SGSaMll51wrAKFcKtkKcXUQQSucKwBiBsqlu4YHL60ap7XGf9gsq2p
-         CDjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794831115; x=1795435915;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pEbQYi4NjQVP0dtbEgl40Tg4qtmWWlkw/cjXJIhkZZg=;
-        b=FbHvEE9w/ZV/eZaWdHRxZ4fUU0SZ29aMNp5RuqAswgWHBs8JtGvmKZW1Xs1lRZo8w3
-         1RF/uP3EvOQT3FLpeP9Bn1GCR5z1KWPaUFsPjeX77wIAkvNo5G4c4CX+NgoO+D9GNYrG
-         nRgXo2XGY0tM+DOz0+baYvAHDaF1idp5jcw+E1siab6u0wtRkc79vglDLwEjJd4ctATS
-         3N4hipxAdPbvKTBVrZFGQ4J2VrRJBKrRuKRz0+Jd7+i1i9OvRbwzwtlTqYJ8NNkNAmLS
-         C06/2N9iBmmWkgIKx5+enUcnGZ2/on00RkLd6pVBP1GjLAnWzb6ZbcAP5dW0XI8WQabU
-         XkKw==
-X-Forwarded-Encrypted: i=1; AL+hErGmhUz0ifssNHoUqbrFFbadyG+vGlHKgmWM+F6Ek9SA1dilg58v9zWe+dP5QZ+YNGDESvWaF9SOsHul@vger.kernel.org
-X-Gm-Message-State: APuU4Z84JIJGuPLI/Qf5U6K7GYV8gEfOksGd3WTa7HteQt37nXA2FD3p
-	IZrnS/SY+ELq80wDoDsYm0S/eOEUjqTmDdyuGfAQSUCZzAisyKDPsWAv
-X-Gm-Gg: AYBFou0QJN0wGFDyjueEEV2VCMS1lwMq0TTkqRmbXlb1zT74p/zIRS9q6X7CkOBx7Ng
-	hTnDEzwrBnmxJ1q5cQd5L/dS99k4bpaOFJAN0G8P+r9Vmmrz4vokLzKBnIAlZFrthCx7WGeu/ln
-	GAtltjRdtMfMJzhh2pM+dou2Ear+IZeW410A0GpAX4+ZcjGYl3msp52eLRt11Hv/+yR/+iPKxbF
-	r7jLnj/tqMUTshldNG+He8+Z64wBcfU9sZKuAoUU3+/m7KYQdn3Qmpnhj+pWRlWVJH0XMD48xy5
-	AAp1rxYw987bhqHRNNF15BZDcKFYBMxmTmz6huDH3QDI1FAaoU0V7Dv9sYSon5ty/0XoBuoZjK9
-	xkriotrilFs9SoyJetR84venXh0FTyHk8a0B3aMfdx9xbpWhqY1gMB6JQLAZoP/8Sj0uKKeWKf3
-	8WjRH9CN6QA/L5j1ndibV0XVEvg0sobMjHCZMZKo+Aw9q6QX3uvL20zUKN1Y9ORXpo47gLQ5QYl
-	ZEHEDUaRJNzT6lgKm1N6gr8aUBxg0PFtanEkKo+wJP1vMKw8lavuQbMsRu/DIXsP+wCH1AgxHPR
-	vWC0bgpgAtScpTTuLVDU7j9CYESqY4PbgToXrbvKlpz7BheBN436msU7xwEhPfcozs36t53asGn
-	1ywILC5It2YqkbFOlp4CaFXPXFS9gWcsdUpGTCr2RtFScSHZ758g=
-X-Received: by 2002:a05:600d:41c9:b0:4bb:60bd:5398 with SMTP id 5b1f17b1804b1-4bb60bd5507mr142579815e9.10.1794831114708;
-        Mon, 16 Nov 2026 04:11:54 -0800 (PST)
-Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at. [80.108.121.211])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb70105a98sm61442005e9.5.2026.11.16.04.11.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 04:11:53 -0800 (PST)
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Mon, 16 Nov 2026 13:11:49 +0100
-Subject: [PATCH 2/2] arm64: dts: imx8mq-mnt-reform2: Drive the internal
- panel from DCSS
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WjrJX95O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 988941F000C4;
+	Mon, 16 Nov 2026 12:13:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794831209;
+	bh=JErpceofJPDqtVbOd8jF+eXohzohchNfQstY/Xqb0tA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WjrJX95OJcsaJaVY4k46WlACFmlhkn01sLqsUomJhGaUop0whzpKhtqkvYEkURjYM
+	 ZwItjpOVZo1x1apnyzI3g52Ljg2tjAtdyc5ic8SRfokgqqR8zmBzDZaQwEKdYYObsp
+	 QJ+EVbp6PVo8X2BZoWuGnCGfZZDyIeySZzNsE6MVDlawXQb2dH20DBcsG59rl60YZo
+	 0udOQFlwsk0LGzU9YTsdBV54fyED/WDzIJtSwTudTrstxyCPNRE2C7BWaQgf8h7X/j
+	 vo8xfFbGc2pMyp4qKJc56d1r5jG5IZyEI6dclf7cK3KzlqJU+bo7+F8OFPTm9OFIsj
+	 nUDZbcIh/jr0g==
+Message-ID: <sashiko-outbox-216995@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/8] dt-bindings: timer: Add MIPS P8700 ACLINT MTIMER
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aleksa Paunovic" <aleksa.paunovic@htecgroup.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116-p8700-dts-v3-5-ec5d4b7de39f@htecgroup.com>
+References: <20261116-p8700-dts-v3-0-ec5d4b7de39f@htecgroup.com>
+ <20261116-p8700-dts-v3-5-ec5d4b7de39f@htecgroup.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 12:13:25 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,120 +59,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-reform2-internal-panel-v1-2-765cf8d5ff4f@igalia.com>
-References: <20261116-reform2-internal-panel-v1-0-765cf8d5ff4f@igalia.com>
-In-Reply-To: <20261116-reform2-internal-panel-v1-0-765cf8d5ff4f@igalia.com>
-To: Douglas Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sam Ravnborg <sam@ravnborg.org>, "Lukas F. Hartmann" <lukas@mntre.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, 
- Christian Gmeiner <cgmeiner@igalia.com>
-X-Mailer: b4 0.14.3
 
-From: Christian Gmeiner <cgmeiner@igalia.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: timer: unwieldy conditionals and broken reg-names
+  in c900 mtimer
+--
 
-The panel is driven by LCDIF through the NWL MIPI-DSI host and a
-SN65DSI86 eDP bridge. LCDIF underflows at 1920x1080. The picture shows
-horizontal streaks and the underflow flag in LCDIF_CTRL1 is set several
-times per second, even when idle.
+commit c813dc9b1038dccb749c89c6352de2cfcd1ce9b4
+Author: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 
-DCSS does not have this problem. Connect it to the MIPI-DSI host and
-leave LCDIF disabled.
+dt-bindings: timer: Add MIPS P8700 ACLINT MTIMER
 
-Use IMX8MQ_CLK_DC_PIXEL as pixel clock, with the video PLL at four
-times the panel pixel clock. The DCSS binding only allows three
-assigned-clocks, so the PLL setup is in the MIPI-DSI node.
+This commit adds the mips,p8700-aclint-mtimer compatible and support for
+both mtime and mtimecmp register regions to thead,c900-aclint-mtimer.yaml.
 
-Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
----
- .../boot/dts/freescale/imx8mq-mnt-reform2.dts      | 52 ++++++++++++++++++++--
- 1 file changed, 48 insertions(+), 4 deletions(-)
+> diff --git a/Documentation/devicetree/bindings/timer/thead,c900-aclint-mt=
+imer.yaml b/Documentation/devicetree/bindings/timer/thead,c900-aclint-mtime=
+r.yaml
+> index cf7c82e980f67..a5ebe04ade9ed 100644
+> --- a/Documentation/devicetree/bindings/timer/thead,c900-aclint-mtimer.ya=
+ml
+> +++ b/Documentation/devicetree/bindings/timer/thead,c900-aclint-mtimer.ya=
+ml
+> @@ -21,13 +21,19 @@ properties:
+>            - enum:
+>                - anlogic,dr1v90-aclint-mtimer
+>            - const: nuclei,ux900-aclint-mtimer
+> +      - const: mips,p8700-aclint-mtimer
+> =20
+>    reg:
+> +    minItems: 1
+>      items:
+> +      - description: MTIME Registers, or MTIMECMP Registers if only one
+> +          region is present
+>        - description: MTIMECMP Registers
+> =20
+>    reg-names:
+> +    minItems: 1
+>      items:
+> +      - enum: [ mtime, mtimecmp ]
+>        - const: mtimecmp
+> =20
+>    interrupts-extended:
+> @@ -42,6 +48,26 @@ required:
+>    - reg-names
+>    - interrupts-extended
+> =20
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: mips,p8700-aclint-mtimer
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 2
+> +        reg-names:
+> +          minItems: 2
+> +    else:
+> +      properties:
+> +        reg:
+> +          maxItems: 1
+> +        reg-names:
+> +          items:
+> +            - const: mtimecmp
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mq-mnt-reform2.dts b/arch/arm64/boot/dts/freescale/imx8mq-mnt-reform2.dts
-index 3ae3824be027..31c7428f0386 100644
---- a/arch/arm64/boot/dts/freescale/imx8mq-mnt-reform2.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mq-mnt-reform2.dts
-@@ -171,17 +171,61 @@ edp_bridge_out: endpoint {
- 	};
- };
- 
--&lcdif {
--	assigned-clocks = <&clk IMX8MQ_CLK_LCDIF_PIXEL>;
--	assigned-clock-parents = <&clk IMX8MQ_SYS1_PLL_800M>;
--	/delete-property/assigned-clock-rates;
-+&dcss {
-+	clocks = <&clk IMX8MQ_CLK_DISP_APB_ROOT>,
-+		 <&clk IMX8MQ_CLK_DISP_AXI_ROOT>,
-+		 <&clk IMX8MQ_CLK_DISP_RTRM_ROOT>,
-+		 <&clk IMX8MQ_CLK_DC_PIXEL>,
-+		 <&clk IMX8MQ_CLK_DISP_DTRC>;
-+	assigned-clocks = <&clk IMX8MQ_CLK_DISP_AXI>,
-+			  <&clk IMX8MQ_CLK_DISP_RTRM>,
-+			  <&clk IMX8MQ_VIDEO_PLL1_REF_SEL>;
-+	assigned-clock-parents = <&clk IMX8MQ_SYS1_PLL_800M>,
-+				 <&clk IMX8MQ_SYS1_PLL_800M>,
-+				 <&clk IMX8MQ_CLK_25M>;
- 	status = "okay";
-+
-+	port {
-+		dcss_dsi_out: endpoint {
-+			remote-endpoint = <&mipi_dsi_dcss_in>;
-+		};
-+	};
-+};
-+
-+&lcdif {
-+	/delete-node/ port;
- };
- 
- &mipi_dsi {
-+	/*
-+	 * DCSS takes the pixel clock from the video PLL. The PLL runs at four
-+	 * times the 138.78 MHz panel pixel clock.
-+	 */
-+	assigned-clocks = <&clk IMX8MQ_CLK_DSI_AHB>,
-+			  <&clk IMX8MQ_CLK_DSI_CORE>,
-+			  <&clk IMX8MQ_CLK_DSI_IPG_DIV>,
-+			  <&clk IMX8MQ_VIDEO_PLL1_BYPASS>,
-+			  <&clk IMX8MQ_CLK_DC_PIXEL>,
-+			  <&clk IMX8MQ_VIDEO_PLL1>;
-+	assigned-clock-parents = <&clk IMX8MQ_SYS1_PLL_80M>,
-+				 <&clk IMX8MQ_SYS1_PLL_266M>,
-+				 <0>,
-+				 <&clk IMX8MQ_VIDEO_PLL1>,
-+				 <&clk IMX8MQ_VIDEO_PLL1_OUT>;
-+	assigned-clock-rates = <80000000>, <266000000>, <20000000>, <0>, <0>,
-+			       <555120000>;
- 	status = "okay";
- 
- 	ports {
-+		port@0 {
-+			/delete-node/ endpoint@0;
-+
-+			mipi_dsi_dcss_in: endpoint@1 {
-+				reg = <1>;
-+				remote-endpoint = <&dcss_dsi_out>;
-+			};
-+		};
-+
- 		port@1 {
- 			reg = <1>;
- 
+[Severity: Low]
+Should mips,p8700-aclint-mtimer be split into its own binding schema rather
+than overloading reg and reg-names in thead,c900-aclint-mtimer.yaml?
 
--- 
-2.56.0
+The existing compatibles in this binding only have a single mtimecmp region
+and no memory-mapped mtime region, as noted in commit b91cf01cf3e6
+("dt-bindings: timer: thead,c900-aclint-mtimer: separate mtime and mtimecmp
+regs"). Combining the two-region MIPS layout with the single-region layout
+forces item 0 of reg and reg-names to mean either mtime or mtimecmp and
+requires an allOf if/then/else block to redefine both properties per
+compatible.
 
+In addition, the conditional reg-names constraints here are incomplete: the
+then branch only sets minItems: 2 without constraining the first item to
+const: mtime, which lets an invalid reg-names =3D "mtimecmp", "mtimecmp" pa=
+ss
+validation via the top-level enum, while the else branch overrides the
+2-item list with a 1-item list without setting maxItems: 1.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-p8700-dts-=
+v3-0-ec5d4b7de39f@htecgroup.com?part=3D5
