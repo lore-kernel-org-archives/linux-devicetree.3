@@ -1,65 +1,43 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794850861;
-	b=GO6a/sss/ahUfePdtfasoU6jViMzFu15uS5D+ocQ/rLFxhELTBrTJLITndEpMtBTLoBv
-	 XCBPsp90b6bMG79qQsQY9cbaftQYhbyRx8DyPvCYaYaax6tO5hXHVxqsD7yFJ+i2fXqbH
-	 nQi3LbqtXRNwi3jvY4eSDoJYNUsNDFCwyAm4Q4P4xK1jLJ/48eKrd0ZhEALhdOrJlFwF7
-	 X5ZvuMII0Tm9mGzpPrXn8xJck0z+fhLdaFCq/HC/MBHye9bDPs++HFitUOCRXS/WQSWXM
-	 I0sk+gO7GK5RxfhEGHpq0nquc7VNmHLVnzULllEel0bPcmJvVZSrI36Sa6rIvZ9us4Q==
+	t=1794851261;
+	b=MAAROYE8AJiRdYvryT3bqQOvDOG8Nl52auQ4pBemSr/5ZPuXKLPE9TY/Lo3hr5gL373M
+	 STLlBJQxIoL0DxIUCd+eQKYJiWD1QunCpApubvNCRLtk5FLrqUBC8HTW32xt1H8CaU9aX
+	 Atwx98kmMDLq7d+nXrFDenFfcj2fhXhPya17e2KcABfcc45FPtHzfDww07GkWqR51eYiN
+	 qJOoN52PnaHGG3CiZID62hBeWjEL4/5rasMUbermDGzNHL8hFzgrz46KFZsjpG6yffrKC
+	 hetsB1y2qKf8D8t/TzKnHiBfnNFQh/AceSBSivcA2eS9/RZfBy//To0/Ko3C692gccw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794850861;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wbM7PObAphnFp29ig3MYdFeHyh+1rC5d4x5j+W0SbqY=;
-	b=j9QoVlDEwPXc2shzpe22o5fs2ialNEWiry07Fbuitji3NJjffZUGns5bocXcAG83VC0T
-	 htImSm5oTuD45ARnnumdAaR5WyFHTKxAOCLmM4g25nxIyy/LLqbyJMI+2DdRE1JIAl/+Y
-	 830WkTM5b3+eKd1XI4rfJ+ktdLkpQWwJkG6VrG7r3kNuHGLCe8N7IheeLVb3rxy9TNWHX
-	 EbR75UmQ4QyFPRQXx6PbROuBS2UHvyjPp2iHiAy3JxDUdQOGCpi71uOtz99D20qeV/O0c
-	 0jNg2f/P4ihGXS3S5sobAfE8tpftoed9FBCdDskmh2MPXVKN/q91sgxOJ/hD9EPs+oQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851261;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=I5eMNskrWfHY+Ao3oKQAyIDWEN4eHpIvs0Mcs5jAu0E=;
+	b=fX4zZMl8eRXlYTjOj6xVvV9+7Kx6vdq4nVat24ARl0Pf28ZZrmoNh5rFukXbljo9HhN+
+	 jF8YXCOVYmTjF/1MGeC3qc5ZRsSHICGwoS8Qn4ZbBWjG60ljZeEypzIaBcvJL5eybJXKf
+	 Pl6aikWb1ZLllJNHQqSccm90EEnkKow7bQ49G8K4rq6pm2Tzs0s7lzU/MbVO5elR8wq54
+	 KJTFI2edUl3IbFSSAsJYbLUYLmX71AX0dt7PKl5o9xzo9/h5r8vRUP8SII08Yh4rlPF9i
+	 7zhegy2c1YDRSG8nrgNVzJexnWThPjIYZCT6TrhI/pa2DAQtz9EkScbda93eREMnSvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O6zrnKo+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=phrozen.org;
+	spf=pass smtp.mailfrom=phrozen.org;
+	arc=none smtp.remote-ip=46.4.11.11
+Received: from nbd.name (nbd.name [46.4.11.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97A7606A322;
-	Mon, 16 Nov 2026 17:41:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O6zrnKo+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A02A81F000C9;
-	Mon, 16 Nov 2026 17:40:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794850861;
-	bh=wbM7PObAphnFp29ig3MYdFeHyh+1rC5d4x5j+W0SbqY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O6zrnKo+1vIXmFQnUBm1R4U9NxwK1087y+Lng2RIuXFg1i0w1tMIHvLxCQSK/Gs+O
-	 LpVoSakcIfjh8msixhP+Om0d8TqzajVwTp+f8aKyOOh9Cm0KRqWMgRQK4pq8pVLHrP
-	 KstwU+HcAvT4/LA4CD0nvkzFXWOOFwK7DGPpZooBEi20eLu/AAZ4kNl8VZ9GakU5k5
-	 m4fd922WMIKw9dzySH0wJVLE28rtsUhlfIYgdjs4V0bXB5Z+HMsr4p3d5h66cU97iv
-	 F+OSg10v62Lu0/oHRxRl5GlpSzCO8hRnugMZpn5fdtgEF2ZfKi6/MH+WjOwZL5eBwR
-	 2sx6gn5oB+XJw==
-Date: Mon, 16 Nov 2026 17:40:55 +0000
-From: Conor Dooley <conor@kernel.org>
-To: aleksa.paunovic@htecgroup.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Djordje Todorovic <djordje.todorovic@htecgroup.com>,
-	Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Inochi Amaoto <inochiama@outlook.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@sifive.com>, Joel Stanley <joel@jms.id.au>
-Subject: Re: [PATCH v3 7/8] MAINTAINERS: Add entry for MIPS RISC-V SoC support
-Message-ID: <20261116-canary-pedometer-9df9d756da82@spud>
-References: <20261116-p8700-dts-v3-0-ec5d4b7de39f@htecgroup.com>
- <20261116-p8700-dts-v3-7-ec5d4b7de39f@htecgroup.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C92606A334;
+	Mon, 16 Nov 2026 17:47:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06C92606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
+Received: from [2a04:4540:1403:e6fc:39d9:16d5:775d:5525]
+	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <john@phrozen.org>)
+	id 1xT0ng-004GYh-1s;
+	Mon, 16 Nov 2026 18:47:28 +0100
+Message-ID: <b94ed5e4-cb80-4e05-9964-bb08a61aa1fd@phrozen.org>
+Date: Mon, 16 Nov 2026 18:47:27 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,89 +47,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1XvBLiguEsEm543R"
-Content-Disposition: inline
-In-Reply-To: <20261116-p8700-dts-v3-7-ec5d4b7de39f@htecgroup.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/7] dt-bindings: pinctrl: airoha: add AN7589
+To: Conor Dooley <conor@kernel.org>
+Cc: Lorenzo Bianconi <lorenzo@kernel.org>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Ahmed Naseef <naseefkm@gmail.com>,
+ Benjamin Larsson <benjamin.larsson@genexis.eu>,
+ Christian Marangi <ansuelsmth@gmail.com>, devicetree@vger.kernel.org,
+ lei.dong@airoha.com, Linqi.zhang@airoha.com, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ mfd@lists.linux.dev, Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+ Rajeev.kumar@airoha.com, upstream@airoha.com, Weifeng.xu@airoha.com,
+ zhengping.zhang@airoha.com
+References: <20261112185941.1316112-1-john@phrozen.org>
+ <20261112185941.1316112-6-john@phrozen.org>
+ <20261113-fame-smock-6ea3b8fadcd0@spud>
+Content-Language: en-GB
+From: John Crispin <john@phrozen.org>
+In-Reply-To: <20261113-fame-smock-6ea3b8fadcd0@spud>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---1XvBLiguEsEm543R
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, Nov 13, 2026 at 05:40:42PM +0000, Conor Dooley wrote:
+> As Lee requested, please split this out. Two patches, maybe even three.
 
-On Mon, Nov 16, 2026 at 12:55:14PM +0100, Aleksa Paunovic via B4 Relay wrot=
-e:
-> From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
->=20
-> Add a MAINTAINERS entry covering the MIPS RISC-V devicetree sources
-> and the board binding.
->=20
-> Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-> ---
->  MAINTAINERS | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c2414447892c24d58595059ca27b18775919ac12..a00f1a801be3c532c33918e67=
-3c7977d9de91823 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23542,6 +23542,13 @@ F:	drivers/spi/spi-mpfs.c
->  F:	drivers/usb/musb/mpfs.c
->  F:	include/soc/microchip/mpfs.h
-> =20
-> +RISC-V MIPS SoC SUPPORT
-> +M:	Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-> +L:	linux-riscv@lists.infradead.org
-> +S:	Supported
-> +F:	Documentation/devicetree/bindings/riscv/mips.yaml
-> +F:	arch/riscv/boot/dts/mips/
+Agreed. v3 splits it into three patches.
 
-Right, so still no git tree here. How are we going to get this applied?
+> Do we even need a child node here? If all this node does is
+> gpio/pinctrl, why can the driver not bind directly to this node?
+>
+> What else does it do that warrants being a syscon?
 
-My comment on the last version was:
-| You're missing a MAINTAINERS entry for the platform, since someone is
-| going to have to pick up the patches for the arch/riscv/boot/dts/gf and
-| that someone is neither Palmer nor Paul.
-| See Documentation/process/maintainer-soc.rst for more info.
-|=20
-| I'd apply patches as a very last resort, but even then you'd need an entry
-| to make sure that you're CCed on patches for the platform because I
-| don't care about the platform and would just apply things that look
-| correct if there was no reviews provided.
+The block also holds the PWM controller. Its registers interleave with
+the GPIO ones. The PWM series adds it as a second child, as on the
+EN7581. That series has a depency on this one so I have not posted it yet.
 
-You have added the entry, which is great, but the absence of a git tree
-implies you're not actually intending applying the patches? Ideally you,
-someone that cares for this platform, would do that - and the lack of a
-tree implies that you're expecting someone else (me?) to do it.
+> Otherwise, there should only be one. uart1 and uart2 should have
+> different nodes.
 
-Cheers,
-Conor.
+Agreed. v3 sets maxItems to 1. Only pcm_spi and pcie keep more, as
+their groups carry different signals of one device.
 
-> +
->  RISC-V MISC SOC SUPPORT
->  M:	Conor Dooley <conor@kernel.org>
->  L:	linux-riscv@lists.infradead.org
->=20
-> --=20
-> 2.43.0
->=20
->=20
->=20
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+> So here, maxItems should be 1 for similar reasons.
 
---1XvBLiguEsEm543R
-Content-Type: application/pgp-signature; name=signature.asc
+Agreed, v3 does this for i2c too.
 
------BEGIN PGP SIGNATURE-----
+> I'm also curious about why this goes up to 74. None of the functions
+> have 74 pins, surely?
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavtAJwAKCRB4tDGHoIJi
-0iBkAQCJvGKE3LM6qVP/x7ZRhCNl841gAEn9bwsxQj0K/mhPuAEA1a3Ds1qdqjYO
-wJ/wgZaVpxM0yvjQSWXIB9hn1o6WTQg=
-=2URi
------END PGP SIGNATURE-----
+A conf node can set the same config on any set of pins. 74 is all the
+pins. The EN7581 binding does the same with 58.
 
---1XvBLiguEsEm543R--
+v3 will follow shortly.
+
+        John
+
+
