@@ -1,50 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819682;
-	b=qObW9H4rMUg9NFo8wlijycZFXlix1dQMWzQtaDdQYpttZZanf0SXoKzma9mnkLYERYyB
-	 pgz6x4qtaAhUEYg+hWJftJilqTJFjif8lvB3pfQ9fLQfhiSiP82i/pulUJUSdQvlAQ5fj
-	 /J6/yCm1D7EuiwYl8129cnkQYz7HJaIlEkX64UaD9/KCE+GKHjtGz+aU/da+vfODwF3BK
-	 mt1naWq1U2EtvOCyONOjxKm861AlUiM3KPq/CwC6NJ7YJVoGKbjzFeL9XmelEkpNXpR7i
-	 6N3A8+js6H2exTviXNSkyw11Nk76kdKgvlBhQG8u536LkUHlgRnvRaQLITbzDGE9XHA==
+	t=1794820037;
+	b=CWL2LeoI0Jt9ZR0uGa+0zvAjf46OI9Zj1/flzeMkPzS/AmR0ym+5xAOjtn10oeGcEERy
+	 z6IIBICUsqfpPyoHUlIkXmjlbI/Skkzzj2b03/b7eMiO6hiFdMn6q6q5S3tgt66yVtjMx
+	 sd64gynYvaKKRiOI1T98IKK995Fru7Pi9ZwqrTbei70BQ+O3tFVC0zoPVJkzrt0Oqu+Cq
+	 HO9IF5R8vr95CP92kgzuSHaUF1f0wJIM6ZshrXi0wqhMzvv7mu0yc3PRDjXr9Ye0fswWa
+	 0yGqQIT6g3SWke/mwHLRDdTotjlJ1HMTUVyyGqBwiPoL++r3OiDAd1P6i26bcn6uztQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819682;
-	h=DMARC-Filter:DKIM-Signature:Subject:Mime-Version:
-	 Content-Transfer-Encoding:In-Reply-To:Content-Type:From:
-	 X-Original-From:Received:Date:Message-Id:References:To:X-Mailer:
-	 X-Lms-Return-Path:Cc;
-	bh=K+SHc+Dz2bu6gR+hGPRdpnsUFNLQ0kuFmQnGIRcMA1w=;
-	b=x+y/x5znfy3X5MYU8yrTIUKazckY0cO0CRjpw5+Y6hIaSlp5QRtBJ269zTFRkBc4BbQW
-	 ya9R3egcshCoTR3AQLzuBE2eeZ21X7OiASZfZJE8c9L0YE331DbsLwqX3tuvxOiU3KGQY
-	 h6yLq2JsFT3SSlJo7xH7zMlGkPxiZAufPpfmvt3I1sSzV8m5xF+Egh8CuMroqfrNM8OBu
-	 5skYf89HDzaWG8qjAAjiLU2IzXm0ZVXdyWrLL56iaXJjMvabu5xWlq/OH8dk3bL/rvWMk
-	 j3AZxCPSDIBXYSY3PmnhYu+SBaPZkxGBie1XWrurGdzEhrEr4G/gOJoKFyBC6bmY4nA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820037;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rm/t3UchaKdtiqPwazLlyh/gGsrLPRISrvENAfCooH8=;
+	b=C4y/nHIl52Q6fIWWLDLMSQ4E067SzFVghy+xpywsLe4kSZ6QFeKyw96q1ZUsvuVfArYY
+	 Mo75oI88bXgEJEXlujM3H+REUiDAKQPUvBkBS4yw3Z94ifaHeiSlvqWKeVZYf8Mg2ias7
+	 BDb91nRjEc2AVrAij0HPywSIJhKLb7rJcNuG8m9FsoZqMIV9xRicygQ4eBXt7yERWXvBk
+	 DaSsRvdYy0cTH3G9fZEQ/TzA4+KQuzLPtkY3F75xWmqRamMetJTom5csX7ZmT7wGyVJLa
+	 /Z9V3N4LC/o9T1SRaEOebLNW/h5lQLSicOyTxEyrTew5uGkIe14UEYk5t/Ny34Nhelw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=BcBHb0JU;
-	arc=none smtp.remote-ip=209.127.231.35
-Received: from va-2-35.ptr.blmpb.com (va-2-35.ptr.blmpb.com [209.127.231.35])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="lkuxm/BZ";
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A51606A31C
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 09:01:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52A51606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA23606A31C;
+	Mon, 16 Nov 2026 09:07:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECA23606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=BcBHb0JU
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794819671;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=K+SHc+Dz2bu6gR+hGPRdpnsUFNLQ0kuFmQnGIRcMA1w=;
- b=BcBHb0JUCiRWRQR2XiUd366egCc5OrLzts95nuu7WbwyIXj1I+zkLeoCG67OoRJeHdpalx
- qQy9mqkylv0z2dzh72xBNlpZnr8jYeEdeWzPDVNT2HNgffnCa+moOM1y9o+4JgkdWchFNu
- iwVkNaM+8uqUalRrVKIxOwT4YBKKjvPdKSY2uDSyWOR1Mkg0N/RBpmSAe8X0syqSvkgCNO
- dLfc7RHYb8LgdcIvDTh0RlBRg7PTfGoTGLpqLOlSeceBI1mV/6MrsJGjgsCo36NnQ36GSR
- QHgT/9Li+kR8/2xMmME75vZWKAmNpZjKnEH0Ey1OpiRvicwudDkZcKsqpfZTEg==
-Subject: [PATCH 5/5] riscv: dts: spacemit: k3-deepcomputing-fml13v05: enable PCIe
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=lkuxm/BZ
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DD4F5B5;
+	Mon, 16 Nov 2026 10:04:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794819888;
+	bh=WXZM0v7Iccc0YJN6sQ4Tx8wDPorwn1ToYD+9hhAWpd8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=lkuxm/BZ2UePK8LCRX7rGlh4744zQS0tXj0rgBall8N+8QEP2QrN0oNWfpoASriW8
+	 TfyiFjuzPxwnBV6GivBn9SDspSN5s825ywkKBW8mdnezD4wuRW1HpyO/xWWrLBCRgu
+	 uy25bWlz4+tg5C0csXIVZ4Id9cvebTsTuczb8v54=
+Message-ID: <692d174e-eea4-4b5d-97f8-384de96e4eb4@ideasonboard.com>
+Date: Mon, 16 Nov 2026 11:07:09 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,89 +53,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/2] Add no-hpd property to the cadence bridge
+To: Yashas D <y-d@ti.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, h-shenoy@ti.com, panchuang@vivo.com, kees@kernel.org,
+ r-ravikumar@ti.com, sjakhade@cadence.com, yamonkar@cadence.com
+References: <20261009064024.985688-1-y-d@ti.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <20261009064024.985688-1-y-d@ti.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-In-Reply-To: <20261116085725.951253-1-sandie.cao@deepcomputing.io>
-Content-Type: text/plain; charset=UTF-8
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
-Received: from roma-Laptop-12th-Gen-Intel-Core.lan ([218.17.141.187]) by smtp.feishu.cn with ESMTPS; Mon, 16 Nov 2026 17:00:59 +0800
-Date: Mon, 16 Nov 2026 17:00:44 +0800
-Message-Id: <20261116090044.951354-1-sandie.cao@deepcomputing.io>
-References: <20261116085725.951253-1-sandie.cao@deepcomputing.io>
-To: "Yixun Lan" <dlan@kernel.org>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>
-X-Mailer: git-send-email 2.43.0
-X-Lms-Return-Path: <lba+26afac64d+e6fd04+vger.kernel.org+sandie.cao@deepcomputing.io>
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>
 
-The FML13V05 has two PCIe root complexes: pcie0 with four lanes on
-combophy channels 0/1 for SSD and pcie4 with one lane on combophy
-channel 5 for Wi-Fi. Add the 3.3V auxiliary regulator that powers
-the PCIe slots and enable both controllers.
+Hi,
 
-Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
----
- .../spacemit/k3-deepcomputing-fml13v05.dts    | 33 +++++++++++++++++++
- 1 file changed, 33 insertions(+)
+On 09/10/2026 09:40, Yashas D wrote:
+> This series adds 'no-hpd' device tree property support to the Cadence
+> MHDP8546 bridge driver for boards where the HPD line cannot be used for
+> hotplug detection.
+> 
+> On TI J721S2 EVMs, the DP0 HPD resistor is DNI from factory, so the HPD
+> signal is not physically connected to SoC pin AA24 by default. AA24 must
+> still be in DP0_HPD mux mode for the MHDP firmware to operate.
+> 
+> When 'no-hpd' is set, DRM_BRIDGE_OP_HPD is omitted and the framework
+> falls back to polling .detect() every ~10 seconds. Presence is detected
+> by reading DP_DPCD_REV (0x000) over AUX, with an early exit when the
+> monitor is stably connected to avoid re-programming the stream each poll.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-index 2e1ad0929ee5..ea37981a86aa 100644
---- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-@@ -23,6 +23,14 @@ memory@100000000 {
- 		reg = <0x1 0x00000000 0x4 0x00000000>;
- 	};
- 
-+	reg_aux_vcc3v3: regulator-aux-vcc3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "AUX_VCC3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+	};
-+
- 	reg_aux_vcc5v: regulator-aux-vcc5v {
- 		compatible = "regulator-fixed";
- 		regulator-name = "AUX_VCC5V";
-@@ -202,6 +210,31 @@ &combophy {
- 	status = "okay";
- };
- 
-+&pcie0_rc {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pcie0_0_cfg>;
-+	num-lanes = <4>;
-+	status = "okay";
-+
-+	pcie@0 {
-+		vpcie3v3-supply = <&reg_aux_vcc3v3>;
-+		phys = <&combophy 0 PHY_TYPE_PCIE>,
-+		       <&combophy 1 PHY_TYPE_PCIE>;
-+	};
-+};
-+
-+&pcie4_rc {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pcie4_0_cfg>;
-+	num-lanes = <1>;
-+	status = "okay";
-+
-+	pcie@0 {
-+		vpcie3v3-supply = <&reg_aux_vcc3v3>;
-+		phys = <&combophy 5 PHY_TYPE_PCIE>;
-+	};
-+};
-+
- /*
-  * Onboard SD card slot:
-  * Please insert or remove the SD card while the device is powered off.
--- 
-2.43.0
+How did you test this? I can't get a picture on J721E EVM if I apply this.
+
+  Tomi
+
+> Changes since v6:
+>    - Reverted back to dev_dbg instead of dev_err for the normal hpd case.
+>    - Picked up Acked-by from Krzysztof Kozlowski from v6 on the bindings patch.
+> 
+> Link to v6: https://lore.kernel.org/all/20260802153825.1570435-1-y-d@ti.com/
+> 
+> Rahul T R (2):
+>    dt-bindings: display: bridge: cdns,mhdp8546: Add no-hpd property to
+>      the cadence bridge
+>    drm: bridge: cdns-mhdp8546: Add no-hpd property
+> 
+>   .../display/bridge/cdns,mhdp8546.yaml         | 11 +++
+>   .../drm/bridge/cadence/cdns-mhdp8546-core.c   | 69 +++++++++++++++++--
+>   .../drm/bridge/cadence/cdns-mhdp8546-core.h   |  1 +
+>   3 files changed, 75 insertions(+), 6 deletions(-)
+> 
+
