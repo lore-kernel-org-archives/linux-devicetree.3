@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.54.127.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.54.127.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855529;
-	b=3iCoOMWECxRbiHr80yS/GnKubi/k0QJNOZnTrTy/sUJlWEmuEhSeqJRVZbAoPDLThNRx
-	 Td46Bx3Maz2u5p9J1P1HqyDvimTSJua5LzfB+ZJeHAkjn0Zd9/50cs8D0zhuOP3vof16N
-	 z1CRP2p7PIzEK9rVuaDctdXimy2crOKq+ZtfULMKNCzqkgOhLiScfTAjygJy59DgoH8zz
-	 6OVkLKhSTB9A54IkYa1VrETo9roXGLjICqoX1AaCVHouMmSXAgaptBVMYbFfked+LvfYz
-	 dCESyqRz5i7jhsDvzN5QpEGJCoMbla8Wfy4u31QaxnoNNTunXYdUmK9KnPIqFo+1qzg==
+	t=1794855547;
+	b=KSPjuKDiZ+K0El3j2F8z0piWrGeRxrj29ggklAghXARyzbc+yGoxN21GoDMPugG/MoAY
+	 XTQBEKpubromNg7fJyy75PnZE/yqhhZL9acg28PSibASF/mMZxUpEqZVT3JgMQ0Q098jY
+	 hQeQssyUK92Oy9AjYNb6jubNN572QmIQMdKIyrC24N31O0SdPHdr0tJy36yI3lGOQauV5
+	 z58Y/MQqua2ED7XUeG+FQv7wLgNy7zRX/MjkyThUqjXa4PtrUF5R9f53sGQGsx92DIcOv
+	 xi+LdLsD8V4gCBO7C9A+B3gAXxT92irmpEv/hCkMEUss3LG6EpddVo6GfBxpYfRrFQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855529;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855547;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Envelope-From;
-	bh=OnERbGbeZyB4DLRh/yAtoGCkeRPa0jQKYunCmHKvjZ8=;
-	b=WRwuEYu9nSZGNnKtyjeVUaLcbmcNOIFIjE7Hi7d6fxNQie7zgPtVeWmSU0XWjm1QEQqk
-	 gv+qdWkJmO8D0LCFDbU3rJMr9aYrI1mDg7upiPT3OJGyz9qBDqX9IW7PJjKFMc2zQOOJq
-	 F1qYOtZDCDlTJJ8ucgycjfLEd9rpRobkA4D5bva7w5j70bBqDVjhTdpklC6iEhMDu5ykm
-	 Th2sFs/JUyXuvV6CzAcsj9nkSdRlEHVRADHTyrXLm522XCenaQ8GociA54ZZUmHEvhMay
-	 to1Z/o7qT8ymAf4+QnpgpMuYiGUe1JNdi0LtzBhHvnVZunNqGn2/l2jbOScLfkxr86g==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Envelope-From;
+	bh=IpWRaIqFYpHuiZAy8OVcSapWNWeYnlDeXUT+MZCj6vA=;
+	b=M+VUWB63h5/+aKp1LghcCDc+pD9exU4iRKCpi4f6Uf8DNII74CFEVi6j8JqpcMOuPJs/
+	 61vpPbYNoNxwgd5ds02Zf+Yb7ubzYzZ1uZvEI/hDrbDmHXYjbonVLTPXVkorSyemMteal
+	 QV02o0iWaclJYETaHhRGHG1gaJRqYpDS87YBjNquuiZHSTdL1OGAdcFU8x4QYUp4lsVxo
+	 Hmpl3ssd2RWGC86K1ZqUIk3rr2Y3cfGs1ST4X2lHanXJHF1K48xuOVGuQ0aP3x/HLLQBg
+	 lQpw74TRyV4qpu0OrJka8Ek/LW5R0LqnZfJ31yT4LMfZnT7sGsKInAL3EUNhvliGYNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chrispinetinega.com;
 	spf=pass smtp.mailfrom=chrispinetinega.com;
-	dkim=pass header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=uQ6QP9qj;
-	arc=none smtp.remote-ip=198.54.127.128
-Received: from out-2z4y-a128.jellyfish.systems (out-2z4y-a128.jellyfish.systems [198.54.127.128])
+	dkim=pass header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=RLEnayxb;
+	arc=none smtp.remote-ip=198.54.127.131
+Received: from out-2z4y-a131.jellyfish.systems (out-2z4y-a131.jellyfish.systems [198.54.127.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7806F606A896
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 18:58:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7806F606A896
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A65606A8A8
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 18:59:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1A65606A8A8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chrispinetinega.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrispinetinega.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=uQ6QP9qj
+	dkim=pass (2048-bit key) header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=RLEnayxb
 Received: from mail.privateemail.com (unknown [62.8.90.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4jSxvv4QzWz8sWS;
-	Mon, 16 Nov 2026 18:58:19 +0000 (UTC)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4jSxwP4rGgz8sWT;
+	Mon, 16 Nov 2026 18:58:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chrispinetinega.com;
-	s=default; t=1794855506;
-	bh=OnERbGbeZyB4DLRh/yAtoGCkeRPa0jQKYunCmHKvjZ8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=uQ6QP9qjtMfL1xyoY0p5DQkJsjPV8GcHjzwZMLGFt2XTkFz+ZG8S3V/77PWtQkrtH
-	 0LxHx0rVcj6KYhC0y0jQvPAx3ILqg0eWMdsS+39ewAbySmx3hvkl227W2auY6N5ad2
-	 /pHr+D48jqFkGvahmcKAb9PasmQgSpoROoWksgWCN1dq+bMHzoGw06RFTX9ipKzJV8
-	 AFwlADs93WWGtqBUcs/awBYtlfe0RjZ7ieEh2niLcdJjnJJGOgRTpyuyRBrrqb60P1
-	 pEo6LRWrZuO2MjNbsDM1wbZ7WMxsDkDwH5/lfMEdL4+KiA8Mi3mZyPyUIZ/Xq5nxCo
-	 Iuw4YpXlAhNsw==
+	s=default; t=1794855534;
+	bh=IpWRaIqFYpHuiZAy8OVcSapWNWeYnlDeXUT+MZCj6vA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=RLEnayxbmvqpyZDpX6CRadKeHs0sNdNzsmnek0FEPWG8jaT+1ycW9FgPw4c8q5MEX
+	 LA4BdeJlDxU8K40KNPVpQVQm9O4fwKHwBWDATpbXfKdb2tw5sNgGFDUGagLaBuiAv0
+	 N+Iosk8HI5LPwBvHek8CpllgdXsbwEGChaJr3ToCzvBs2rBztkaMrxDDUi9b4fQKmk
+	 EpLPWeb7FN1QYaa6jpQ1sgB6rTdBYkpHDRxPeqTLqGhUgXbLitT8qRB2DkNDIZPwCU
+	 XUn+JT0UPrYovajVsYiRlDHxYS3LPVYtwX4oKcm5tCLmnGdSkUsPIOZMnKSUC5d9gn
+	 dyDzii6QUF7wg==
 From: Chrispine Tinega <dev@chrispinetinega.com>
 To: Lee Jones <lee@kernel.org>
 Cc: lgirdwood@gmail.com,
@@ -67,10 +67,12 @@ Cc: lgirdwood@gmail.com,
 	linux-omap@vger.kernel.org,
 	mfd@lists.linux.dev,
 	Chrispine Tinega <dev@chrispinetinega.com>
-Subject: [PATCH v2 0/3] mfd: tps65219: Let a board run past the warm threshold
-Date: Mon, 16 Nov 2026 21:58:08 +0300
-Message-ID: <20261116185811.1907811-1-dev@chrispinetinega.com>
+Subject: [PATCH v2 3/3] mfd: tps65219: Keep running past the warm threshold when asked
+Date: Mon, 16 Nov 2026 21:58:11 +0300
+Message-ID: <20261116185811.1907811-4-dev@chrispinetinega.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116185811.1907811-1-dev@chrispinetinega.com>
+References: <20261116185811.1907811-1-dev@chrispinetinega.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,49 +85,66 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Envelope-From: dev@chrispinetinega.com
 
-The TPS65219 has four die temperature sensors, each with a warm and a
-hot threshold. With a sensor's warm warning unmasked, the PMIC sequences
-all its outputs down at the warm threshold, 110 to 130 C. With all four
-masked, it only reports the warning and powers off at the hot threshold,
-130 to 150 C. The masks come from NVM, so a board that wants the second
-behaviour has to set them on every boot.
+When the devicetree sets ti,no-warm-shutdown on a TPS65219, set the
+four SENSOR_x_WARM_MASK bits in MASK_CONFIG at probe. The PMIC then
+reports a warm die instead of powering the board down, and powers off
+only at its hot threshold.
 
-The BLIIoT ARMxy BL350, an AM6254 industrial controller rated to 85 C
-ambient, ships a vendor kernel that does this from a devicetree flag.
-This series adds a binding for it and the driver code, and corrects the
-MASK_EFFECT macro on the way: it named bits 2:1 of MASK_CONFIG, which
-are warm masks, instead of bits 6:5. Nothing used it yet.
+The masks are loaded from the PMIC's NVM at every power-up, so they are
+set on every probe.
 
-The property is limited to the TPS65219. I have not checked the
-MASK_CONFIG layout of the TPS65214 and TPS65215.
-
-This series is build-tested for arm64 with W=1, and dt_binding_check
-passes. It has not run on a board in this form. On a BL350, the
-vendor's equivalent code sets the same four bits, and the PMIC reads
-MASK_CONFIG = 0xef.
-
-A runtime override, for a user who wants the PMIC to shut down at the
-warm threshold anyway, is left for a follow-up once someone needs it.
-
+Signed-off-by: Chrispine Tinega <dev@chrispinetinega.com>
+---
 Changes in v2:
-- Patch 1: add the Fixes: tag. (Sashiko)
-- Patch 2: the binding no longer says the operating system reacts to
-  the warning, since nothing does today. Mark's Reviewed-by added.
+- None.
 
-v1: https://lore.kernel.org/all/20261114032457.3434248-1-dev@chrispinetinega.com/
+ drivers/mfd/tps65219.c       | 15 +++++++++++++++
+ include/linux/mfd/tps65219.h |  6 +++++-
+ 2 files changed, 20 insertions(+), 1 deletion(-)
 
-Chrispine Tinega (3):
-  mfd: tps65219: Correct the MASK_EFFECT field of MASK_CONFIG
-  regulator: dt-bindings: ti,tps65219: Add ti,no-warm-shutdown
-  mfd: tps65219: Keep running past the warm threshold when asked
-
- .../bindings/regulator/ti,tps65219.yaml           | 10 ++++++++++
- drivers/mfd/tps65219.c                            | 15 +++++++++++++++
- include/linux/mfd/tps65219.h                      |  8 ++++++--
- 3 files changed, 31 insertions(+), 2 deletions(-)
-
-
-base-commit: c92739a23a80f5f0a7c6f3c10aa792102d252ac4
+diff --git a/drivers/mfd/tps65219.c b/drivers/mfd/tps65219.c
+index e52fbf148..d8e352f35 100644
+--- a/drivers/mfd/tps65219.c
++++ b/drivers/mfd/tps65219.c
+@@ -507,6 +507,21 @@ static int tps65219_probe(struct i2c_client *client)
+ 		}
+ 	}
+ 
++	/*
++	 * The warm masks are loaded from NVM at every power-up, so they are set
++	 * again on every probe. With a sensor unmasked, the PMIC powers down at
++	 * the warm threshold; with all masked, only at the hot threshold.
++	 */
++	if (chip_id == TPS65219 &&
++	    of_property_read_bool(tps->dev->of_node, "ti,no-warm-shutdown")) {
++		ret = regmap_set_bits(tps->regmap, TPS65219_REG_MASK_CONFIG,
++				      TPS65219_REG_MASK_SENSOR_WARM_MASK);
++		if (ret) {
++			dev_err(tps->dev, "Failed to mask warm shutdown: %d\n", ret);
++			return ret;
++		}
++	}
++
+ 	ret = devm_regmap_add_irq_chip(tps->dev, tps->regmap, client->irq,
+ 				       IRQF_ONESHOT, 0, pmic->irq_chip,
+ 				       &tps->irq_data);
+diff --git a/include/linux/mfd/tps65219.h b/include/linux/mfd/tps65219.h
+index 5a6be84e2..688173044 100644
+--- a/include/linux/mfd/tps65219.h
++++ b/include/linux/mfd/tps65219.h
+@@ -196,7 +196,11 @@ enum pmic_id {
+ #define TPS65219_REG_MASK_UV_BUCK3_UV_MASK		BIT(6)
+ #define TPS65219_REG_MASK_UV_RETRY_MASK			BIT(7)
+ /* MASK Config */
+-// SENSOR_N_WARM_MASK already defined in Thermal
++#define TPS65219_REG_MASK_SENSOR_3_WARM_MASK		BIT(0)
++#define TPS65219_REG_MASK_SENSOR_2_WARM_MASK		BIT(1)
++#define TPS65219_REG_MASK_SENSOR_1_WARM_MASK		BIT(2)
++#define TPS65219_REG_MASK_SENSOR_0_WARM_MASK		BIT(3)
++#define TPS65219_REG_MASK_SENSOR_WARM_MASK		GENMASK(3, 0)
+ #define TPS65219_REG_MASK_INT_FOR_RV_MASK		BIT(4)
+ #define TPS65219_REG_MASK_EFFECT_MASK			GENMASK(6, 5)
+ #define TPS65219_REG_MASK_INT_FOR_PB_MASK		BIT(7)
 -- 
 2.53.0
 
