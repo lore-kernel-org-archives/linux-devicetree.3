@@ -1,82 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839048;
-	b=yRaWFxLFpjfGZ89hSWW6K9wVrppdoQ0PUQNjyxjHiyErjBS13rf7D29Itzs3b4ZaOrjt
-	 tLO7yz9cAlqReYWSR912+hrMTXpA8u+zFrx/VAYO4AdVoDawPGJL6dUs/k1xL+iZsu1Tv
-	 2keA8vy675Yt2Vq6E1+Y05l2mUiwbJHaDWqD4iqg1dEcRoIO0Vz+imWvRev1WgTzXyMs1
-	 9wIY2yhpxTOD6f5DNp8ElAeNXSzAre1Zn2ju8fho2qNJ/EvlWzssMbiMwXHPN6xU8oqEN
-	 1dF9SazxDWNC78ECqNPWSNHvM2GIgZFqV3Zadj5+VTIAhovepW/t4cGc1Eyc4nrpiTQ==
+	t=1794839112;
+	b=GarB5ReKcNs1GxkhRJmPAcGFLFc1n+L0h1nBRzZmPuPKzDZJpyeTwrA/2zrekmbn+g64
+	 m1YCfcCMOuhWOqrTdGyCz88BPGjdWjLvbf7jk2rSh6DACtAO8Tpxh0pvyeAFZGhJ3BLzV
+	 Ccat0STvywbIqytVU/7oRhtva9GeaFLd5RJRlxrurnxahjYZy3lz3Vnup4JqW8bV+jJbt
+	 brJIg7ZvBKRmAZcv8OrWYROt883kbiUm+VTUPNY006mBCXm7oBJFoRvq/h4zWV6NzSA9c
+	 95QwI1TEkUwNbLu3zd+nii7srqgNznXgCQulqZepxuFGoqxJ/SX4SvhwurG+8flDGPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839048;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=eR1uMzWk87sdlr18ySoDXRPmlYlKL1zzSUHsdZpv0Rc=;
-	b=imiwZuGaZjDsFaR+GYSPas8WaAqZxxj45hFyQcmsFjkVoakIBa1EG9BtmGSoOgMX1dEY
-	 URJ1tsHwvBuo5UDsj49C04pa4yz6AUINi1uKaIWk83Ha2CooVkkCSltspayEU9e/Ue3Vj
-	 fsPuEq7bL/8hkF74wFgEJ5mrIUiFivKMerKzNLngVQHblf9PMv1zk4MjGt8dNjzh0xK3T
-	 rwrhfNztEJgNTcBfyZWJrEddtUgA8Ml4iNsktMRe9qSiZQ9fQdkdJhz7+5WrUD3MpnfNm
-	 6MxAbSyDB/qlP+Gzp1nqvQA19InYoUsReNnp/y9Gd0mVUiwiPWvuFq5mgS77HZQpoNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839112;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=8droy8SkDbf75L1AVTA69UoLCcieNW/rhnOo3JtrCC0=;
+	b=FVqBjvNwFhPDe1CpPOZ/NC+w1F03t7NIDc+epougZlhpA3O5maNJDo/14tthoL65DK0V
+	 cl4+WxyHg/nbR+tXlapoaljqD4vFb4RGSlQeybQ+me78FLNYbMMiuvjtgrXXRz0RLJPfH
+	 1tWAV+rPzSyE6+msvG3qRfeovqOaZGmsqX2cfXKnqoSr23bAanaZvdM6CckLJrnbfXOKP
+	 z7ddcK9Gtf9Eo16Vd+fpw+/AIuxDy326KMn5+ZIu1TG/jLo8j5y4qGw66g6Dw6YdVHyes
+	 fxxMPYgfSR/TtHyEKLgnKSRAc27P1OKby+TVo531XFjpV0LF8PeXF1FhIbQSwqE7+tQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="XrclSol/";
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="rdnB+/Zh";
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3E9606A885
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:24:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C3E9606A885
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149E2606A329
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 14:25:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 149E2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=XrclSol/
-Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
-	by cmsmtp with ESMTPS
-	id SuIrxlZMeyb4YSxctxrXD8; Mon, 16 Nov 2026 14:24:07 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SxcsxikloFhzrSxcsxPkUD; Mon, 16 Nov 2026 14:24:07 +0000
-X-Authority-Analysis: v=2.4 cv=JY+8rVKV c=1 sm=1 tr=0 ts=6afb1207
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=hhRZiPmDs0itODvUV34A:9 a=CjuIK1q_8ugA:10 a=3T6Gmkx0uuYA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=eR1uMzWk87sdlr18ySoDXRPmlYlKL1zzSUHsdZpv0Rc=; b=XrclSol/tJyhgQ4WzTN29B21wF
-	Ttdfgqpn87vsgCvE498ft5qcqXEkMpPfqnddxrUa7MLiZr2aSNsD1StNMwbAaubSCFX2T0fhkfklG
-	lWJhtcvKRqBIQKicu9C2bi6VF3wEu33wZ4aeXaTSd5YUiODr2quYsjyGJd8Y9G+ldIwGsdbiNGiHx
-	3M2LSSE4Ms4Of8pEYvrnS8d8tj7375A0SqHkZS9ZcuR0EDaN99+gD1hFq8EKlfptWg1cfgFhU5qum
-	mD0b1ZYZ3TvXo1qp99GaeIugKK8ycJJwcLfRf2Yo4X7K6cQLyl0H2uhTDq8vpLsvzp9qm/SBSuA99
-	6qABMVEA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:51630 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSxcs-00000003mbz-1DYS;
-	Mon, 16 Nov 2026 19:54:06 +0530
-Date: Mon, 16 Nov 2026 06:24:05 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-watchdog@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: watchdog: arm,twd-wdt: Allow power domains
-Message-ID: <0a3783cc-cba0-41b6-a411-fd95beb1da6a@roeck-us.net>
-References: <20261116-ux500-watchdog-twd-binding-v1-1-a26adc9cea5e@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rdnB+/Zh
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a070755c8cso1843843b3a.0
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 06:25:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794839111; x=1795443911; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8droy8SkDbf75L1AVTA69UoLCcieNW/rhnOo3JtrCC0=;
+        b=rdnB+/ZhhgSe+IpZn/PJ9byBPBpOFlpUvLmE+fYt2aOnkTzu8B1+Sd5e9h5Xq7pkex
+         xQaovwrY+iBOf9WrkUEehBiFNeNohjpXp98vbuT1y9Y+vw+HONLpB+k+wuCPaS7reV5Q
+         1o2X3Ftk4/NGFwHjn0PkRJyeiAhKuap1ciJpErLP7PeJm9VUiS2o34EAV2FE768aJHrL
+         EIEoJSUMeLpbszTumbIRh2o5vqgpnbhTy3gbEIjfYaVA3nM3wBMdMN1dZ7q0OQovfZpk
+         7pat34Y2NdG/bMjTTzEb03QeMiz5Njo7GWUFr8sWVN2NvSQ9EBGXCyF3pUd0aRvd606Z
+         kzPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794839111; x=1795443911;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8droy8SkDbf75L1AVTA69UoLCcieNW/rhnOo3JtrCC0=;
+        b=MQeLseU/AQONUkya0doLB35aS7TbTBpWn1d1lR3stJQ50n2yWhbOSdfHF115SXNUlW
+         ZDNH0uxLx3pr4GgIySpzpjF0FpWns8dLCtgIU9HhnyqyqjoFJ4RF/X8xY89Li1e+1g/k
+         vq+K9nrYdb28X0y3mxiJ1sLhk48gpZ6iQuI7PaVXRvr9MXfxYVi3A9Hy1H69yVA1XnxA
+         qt/9VcfAyvLwyKU+Bj23Ypv7t7CsO0hyFYv/U+RYw1Q9Rd82vmqTX7v9zfjDh8qDHezT
+         L8q6gRu/ICYIrU+zJBkZsrDQBkJfMTgyt5rsqntBRjJWqhjx93VrY+3mRqDeuy9bzLqN
+         jZ9A==
+X-Forwarded-Encrypted: i=1; AL+hErFu/YdYjHkEnE+kMunH8v4c1e7sOfWZOIVD31mmpxQkIBSA4ofsJjKINnHA33zt4v/g/AgpJ/L1Qcpa@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Mi/FChdH+cD2V/b1BQgnsD/DUJ/K7UTdq69ZB4aRg7CVyacSm
+	UPboX20+ssBhunE3QLk5yoIJGd4iegRCg85jWQRg9vlgCimbrcNJS7Zf
+X-Gm-Gg: AYBFou2aNehLzjPBmTRtal61m0hxpVlyuid3I1pkaDH2fFbizP+L8BQ/3DgnjWCStON
+	kB9E/CuKm+n6NNtZiQbERaAIbWqJlCk2ixtG0H6bdYIiMdRx40c1PijNYeZQ/CoLjp+zn3n7++X
+	NpsvErrP+ddyZCUOm3D0h6hBBdCGaxSOv0wUeOPH7N5vC0ATGMTQ6s30JG1X39BbBB61CHhafjN
+	Me1FVmkuh4GXyyzZzWrHF/egJHW1wmrxC3QPY1v8A76xY1B1daaWc2ghEM66qTyOE6/iwzwmMr2
+	BwOW6HLZctfnyRuYBNxxp+jjPLH3DrUWPMQae7UKInMkSeczRbbT5V63RFPutjl7+HNi8cp8/3B
+	TOrUB3m/7sFubHEnsVt7jVq59vXUpM/lEgfVabprd6T0QU47z/1ntNx8aTUZwilgvH2MdwrIHsg
+	8bATw7YoerXr6pBhhh/uiJ9kBafBun0aFguz+5U7jWJ8F6b5aN1ILKCP4eZdIgmS4Ng6N5zJpCf
+	L2CoOxP9IR4tLw5aRWQrTjDkZY3GDlsYEPwfBNxYLW7y3eaqxZBehMmiIhPzhPT7hD/Bb+2Qjsz
+	NUKGMcAmm3p6Xvb3nTp8qQA2xBvK0kJaU6eVzcQugRXmZXJZ7a7doXE9LXaV
+X-Received: by 2002:a05:6a21:8883:b0:3e2:2234:62a with SMTP id adf61e73a8af0-3f7a84cef9bmr7584081637.55.1794839111006;
+        Mon, 16 Nov 2026 06:25:11 -0800 (PST)
+Received: from arch.localdomain ([152.175.35.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed2053d26sm3834158b3a.36.2026.11.16.06.25.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 06:25:10 -0800 (PST)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: jernej.skrabec@gmail.com
+Cc: conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	james.hilliard1@gmail.com,
+	krzk+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	robh@kernel.org,
+	samuel@sholland.org,
+	wens@kernel.org
+Subject: Re: [PATCH 0/2] arm64: dts: allwinner: h6: Enable Ethernet on Tanix TX6
+Date: Mon, 16 Nov 2026 22:25:03 +0800
+Message-ID: <20261116142503.671907-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261115171148.37784-1-jernej.skrabec@gmail.com>
+References: <20261115171148.37784-1-jernej.skrabec@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,37 +105,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116-ux500-watchdog-twd-binding-v1-1-a26adc9cea5e@kernel.org>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSxcs-00000003mbz-1DYS
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:51630
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 17
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfHXIbEC3ofcstprsoKoWaHq3/9KwtYmxauPRd0ZLXwcZ4I952N94fZEl7AvpoxFIeLmHDxt2W+V48JIoWzwAfUJbsZ8qznlnMXvlg72O3vb1xlzzN+0u
- TtNu4SomLc910z8SzTsrVId4v2PXd7RWAm/ap7lGhCAbOxFXkZWdTfYcJ1mr350nj6wUUA5rfHQw1gxux2Uob2jN2Ase0Usw7Ys6zGW7+VDreZakOZtMvf3m
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 10:49:58AM +0100, Linus Walleij wrote:
-> Allow TWD watchdog nodes to reference their power domain.
+Hi Jernej,
+
+> The AC200 MFD and Ethernet PHY drivers and their bindings were merged
+> in v7.4-rc1. This series adds the device tree parts needed to use them
+> on H6, starting with the Tanix TX6 and TX6 mini TV boxes, whose only
+> Ethernet port goes through the PHY in the AC200 co-packaged with the
+> H6.
 > 
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> Patch 1 describes the AC200 in the H6 dtsi: the I2C3 controller with
+> the AC200 on it, a pwm-clock that provides its 24 MHz reference clock
+> from PWM1, the RMII pins and the EPHY calibration value in the SID.
+> Everything stays disabled.
+> 
+> Patch 2 enables Ethernet on the Tanix boards.
+> 
+> Tested on a Tanix TX6: 100 Mbit/s full duplex, about 11 MB/s in each
+> direction, and the link comes up both after cold boots with no
+> Ethernet initialisation in U-Boot and after U-Boot has used it. The
+> TX6 mini shares the same dtsi and was not tested separately.
+> 
+> The arm64 defconfig does not enable CONFIG_MFD_AC200 and
+> CONFIG_XPOWERS_ACX00_PHY yet; I can send a separate patch for that.
+> 
+> Best regards,
+> Jernej
+> 
+> Jernej Skrabec (2):
+>   arm64: dts: allwinner: sun50i-h6: Add AC200 companion chip
+>   arm64: dts: allwinner: tanix: Enable Ethernet
+> 
+>  .../boot/dts/allwinner/sun50i-h6-tanix.dtsi   | 40 ++++++++++++++
+>  arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi  | 53 +++++++++++++++++++
+>  2 files changed, 93 insertions(+)
+> 
+> -- 
+> 2.43.0
 
-Applied.
+Same AC200 setup on TaiqiCat (TQC) A01; I'll send the board enablement
+separately once the H6 dtsi changes are merged.
 
 Thanks,
-Guenter
+Jun
