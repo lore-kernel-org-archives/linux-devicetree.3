@@ -1,65 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823857;
-	b=FBpvMQxsw4kSQod9dzB0DxpL8iYzfmo+ctmdeqWz04GkKYKws3vOAmo0oR1Ic8vsEF2K
-	 VvExxyIKV0kmYn6kqe/dtErEiiWyEJkdNyL1BxlJzqCQWecm5e0uDyJF0/cHdyFkrKACT
-	 KbD+h4szi3QwBXo/e1aX1l3iXd8SQLW/30rKQDGW0dr8JaOiR6gM/mJfeH4o7pCOz/+ak
-	 RWh97g7DQUWDKILQmaemVA03PhStMUeontkpUCPVl2+mAYwdBcLw0K10GqRnNQ2TaqjsY
-	 es6F6O6pXsDOVlNo0ZCHpwtsUQgJrPpUef4TL3kZVbsNI4vGoCRG3C7EY2C7+CvuOZA==
+	t=1794824005;
+	b=lwzhPwntZeloVotR3bq6/SD4XVmGpPIOp6oSifIp+4+gWvF8cr0RhD6t6iID/PpSQk/P
+	 bpdcX0y7EJl20OztF1a2bfKpiInwd+mVOh8j64dx/t/Byrq75Xv2Vx686yJaEgz4XcS1d
+	 r+bc7rMELZouhh/Kg4Yx4FO82880C/FBg44OcnU0J+XInRuKtjtADOaD9PgDqE/aLvEoZ
+	 IZawyfnseVEfv887vori2VAnMB2CTtqFnZAQ8wNG0QlAFX/UxLcuJ2PKwgYCgpww2WvKF
+	 OMwtAaACPlZMgqWPpNvd3y4ADPTWolo8FlwFbSBv4D8OysSG6EAsttf6m6JEQBjU3bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823857;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
-	bh=S3e2DLc/EFtAmhQSbf1IYEBcV1UrLcWSeCvbdOXz2tM=;
-	b=Aaxgap1tfFNS4+4dsFj5VkSMD/VgyvU+khDRLMC7Z0aCh93XQJt3BQmkTyWHqKhdy+Hc
-	 l4FTaKAmAcHmpYZrd40A7Ml9E6vWznENOQ8Xah5APYSm7NPD9UWm1XW4WsrkVt1Z+5Kes
-	 RVWyIMWzhWZupBzSoWRyYKjG0br4EytwlUp8OUbUSKcfFHJx53emIgULCPIONJ3bkvqAG
-	 7NgSg5Jwr7AsPaKlA+r/3xC992asgbi89sv1tOYbe59kG23i1FW+gNAumtcRjJ67lQeWy
-	 Nq+hqzSPuo5QEJ7Q7QxwXaK9F1wI+t5NqnCsd05o1fKnh0VxCcVaGoGBjxWXRgMkQYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824005;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XY2rmJ8885nktXMitJAyrE5uwC457rZep4K4ylZxzgo=;
+	b=tEXqgiir+GlF5ZLl7eNxFbKIgSUwFADD73w+ZCkAvVo1GWuy44hpqqwyVj3kXdnFAbMK
+	 IoxY4DZfDNsi5fV2YGroy7Ytq/0oDnFIVT2DDIjpLfZ9OaW2WnFMpFzVE1WqBvS+Ex8bF
+	 VF6yZmSrLhnlY5CJc3ToYfm3tDTP6zUR/b1MBHVuCbp4Gr16JSe+WtlPU6vVjKprMYkQx
+	 5MbM3TXA8nFM/z+MHCKzKkeCL6FQAcdMNEHBgicBu3bZnX30YGXs/Xy+Q0t7Mh1t8KG5x
+	 M/dSQfHKGJrEXt3X5FyGZnZbFjIJs/np2ps0vx64Y9AIAcREVw8KRFDxXZ8KqwYJLSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=TM26JCQF;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=mCsdp8PU;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8ZgRc0d;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8708C60A2621;
-	Mon, 16 Nov 2026 10:10:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8708C60A2621
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90A4606A339;
+	Mon, 16 Nov 2026 10:13:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=TM26JCQF;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=mCsdp8PU
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794823855;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S3e2DLc/EFtAmhQSbf1IYEBcV1UrLcWSeCvbdOXz2tM=;
-	b=TM26JCQFoAnht5BFwb3zhIhj4jsbnO2OSo0YeZDJ+x3j/dKe2U3PhkJ0GXoVU89Yd0XPC5
-	EWbBzF1DMrz5HrXNHLlMqSEnLfq4K/QE90G/9q5fLiSu+4RAZ5PUU2HTfKcozO1hSjsKGH
-	xcMEYrgdgAX/v9cFaoxwP30LTO2Q76fZzJm2wX954M9LN++SA85iIsBLrMjO8GvtCJDGh1
-	sizCRDQWEit1isrX9zTg0SHoGYxwTir9aUtNrAQtYzGc7UVojoA/iuqYnnVmcyOFQqc1ix
-	2c5seHoYVfB0YVd5W2sz3BNbRD6L817mXpY8G4T026aHE8lz+tD/COLrrIKvww==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794823855;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S3e2DLc/EFtAmhQSbf1IYEBcV1UrLcWSeCvbdOXz2tM=;
-	b=mCsdp8PUvqF/Yim9bXJ+gwkyRtboEus4fDXD4PR0UIjaTywVS7KlsdZr5oip12U/e2HGi/
-	sZyDB95oiyTWPzCw==
-Date: Mon, 16 Nov 2026 11:10:33 +0100
-Subject: [PATCH v10 09/12] arm64: defconfig: Enable the raspberrypi otp
- driver as module
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8ZgRc0d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31F561F000C4;
+	Mon, 16 Nov 2026 10:13:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794824005;
+	bh=XY2rmJ8885nktXMitJAyrE5uwC457rZep4K4ylZxzgo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=V8ZgRc0dKkYGKJB28RMQ5keuZd5FDYeRsqoYI8P9/++ykBfxePEIlCurHc3/Q12Hx
+	 qntbB8bxSFLpfDyTP3ZaiInUffBjwl6AFUc8kDQPhMvd/uaRucvEekW2imOwI9WAjS
+	 WYdy1qhrjMBbjHGB9VBUQgo+4DGtboec1lYRGlsjsM+hSQlpdot1uTkezb4vRgaL7a
+	 Lo/+Q+zI6rtpVtjn83pqQkOVFDxMequOJ1WfagioxAk8ye5398D75YA0ZR48C1Huuv
+	 nSAXMz5qOe2uYuLFAY+RWPYDC7+I5WWb/jfmlxB8LifNOZGKopnbgiapFlcjUkWxuw
+	 qk/f5mOHYUVOA==
+Date: Mon, 16 Nov 2026 11:13:21 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Hongliang Yang <hongliang.yang@cixtech.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>, 
+	Roger Quadros <rogerq@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Gary Yang <Gary.Yang@cixtech.com>, 
+	Fugang Duan <fugang.duan@cixtech.com>, linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com
+Subject: Re: [PATCH v8 1/2] dt-bindings: usb: Add CIX Sky1 USBSSP controller
+Message-ID: <20261116-hypersonic-purring-shoebill-5bbfa9@quoll>
+References: <20261112022141.4136099-1-hongliang.yang@cixtech.com>
+ <20261112022141.4136099-2-hongliang.yang@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,61 +62,90 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-rpi-otp-driver-v10-9-15302dcfd5e1@linutronix.de>
-References: <20261116-rpi-otp-driver-v10-0-15302dcfd5e1@linutronix.de>
-In-Reply-To: <20261116-rpi-otp-driver-v10-0-15302dcfd5e1@linutronix.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Ray Jui <ray.jui@broadcom.com>, Scott Branden <scott.branden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
- Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
- Russell King <linux@armlinux.org.uk>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, 
- Gregor Herburger <gregor.herburger@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794823848; l=987;
- i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
- bh=6YL5o+FkfRNe3jisn0G42FaZ58Ui5doUPUkjSlQYsNY=;
- b=lRvb8b55MOrlxfIN4UPMYCa64R/X3dF0pzqQOWqPd4W3rwzhXw0ec/EPPPRJ4vxKikvjlIbM5
- W0ZXWhIawwmBxdPH3KFDXv9pSPf2fGP+lQqlXFGspb1FXa1/95jPpzY
-X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
- pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261112022141.4136099-2-hongliang.yang@cixtech.com>
 
-Enable the newly added Raspberry Pi OTP driver as module to allow access
-to the otp registers. This driver provides access to the OTP registers
-present on all Raspberry Pi boards and the private OTP registers present
-on the Raspberry Pi 5.
+On Thu, Nov 12, 2026 at 10:21:40AM +0800, Hongliang Yang wrote:
+> +required:
+> +  - compatible
+> +  - reg
+> +  - ranges
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - cix,usb-syscon
+> +
+> +patternProperties:
+> +  "^usb@[0-9a-f]+$":
+> +    $ref: cdns,usb3.yaml#
 
-Enabling this in the generic arm64 defconfig allows standard upstream
-kernels to use these registers on Raspberry Pi 3, 4 and 5 out of the
-box.
+Please move patternProperties before "required:" block.
 
-Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
----
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/cix,sky1.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
+> +
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        usb@91c0314 {
+> +            compatible = "cix,sky1-usbssp";
+> +            reg = <0x00 0x91c0314 0x00 0x100>;
+> +            ranges;
+> +            #address-cells = <2>;
+> +            #size-cells = <2>;
+> +
+> +            clocks = <&scmi_clk CLK_TREE_USB3A_H0_CLK_SOF>,
+> +                     <&scmi_clk CLK_TREE_USB3A_0_AXI_GATE>,
+> +                     <&scmi_clk CLK_TREE_USB3A_H0_CLK_LPM>,
+> +                     <&scmi_clk CLK_TREE_USB3A_0_APB_GATE>;
+> +            clock-names = "sof", "axi", "lpm", "apb";
+> +            resets = <&src SKY1_USBC_SS2_PRST_N>,
+> +                     <&src SKY1_USBC_SS2_RST_N>;
+> +            reset-names = "apb", "core";
+> +            cix,usb-syscon = <&src 0x424 8>;
+> +
+> +            usb@91d0000 {
+> +                compatible = "cdns,usb3";
+> +                reg = <0x00 0x91d0000 0x00 0x4000>,
+> +                      <0x00 0x91d8000 0x00 0x8000>,
+> +                      <0x00 0x91d4000 0x00 0x4000>;
+> +                reg-names = "otg", "xhci", "dev";
+> +                dr_mode = "otg";
+> +
+> +                interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
+> +                             <GIC_SPI 169 IRQ_TYPE_LEVEL_HIGH>,
+> +                             <GIC_SPI 170 IRQ_TYPE_LEVEL_HIGH>,
+> +                             <GIC_SPI 171 IRQ_TYPE_LEVEL_HIGH>;
+> +                interrupt-names = "host", "peripheral", "otg", "wakeup";
+> +                maximum-speed = "super-speed-plus";
+> +
+> +                phys = <&usb3_phy4>, <&usb2_phy4>;
+> +                phy-names = "cdns3,usb3-phy", "cdns3,usb2-phy";
+> +            };
+> +        };
+> +
+> +        usb2_phy4: usb-phy {
+> +            compatible = "usb-nop-xceiv";
+> +            #phy-cells = <0>;
+> +        };
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 7b4985b29b21c..023def2297331 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -1740,6 +1740,7 @@ CONFIG_NVMEM_SPMI_SDAM=m
- CONFIG_NVMEM_SUNXI_SID=y
- CONFIG_NVMEM_UNIPHIER_EFUSE=y
- CONFIG_NVMEM_ZYNQMP=m
-+CONFIG_NVMEM_RASPBERRYPI_OTP=m
- CONFIG_FPGA=y
- CONFIG_FPGA_MGR_ALTERA_CVP=m
- CONFIG_FPGA_MGR_STRATIX10_SOC=m
+And drop usb-phy
 
--- 
-2.47.3
+With these two:
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
