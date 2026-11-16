@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794798335;
-	b=u74SPAEwwM9bAkU9mmn02X+lc+r6ckc6AydlLVn8OkgR4NHxLardvigPEvPn69WQ9l9H
-	 S8wbVz+nRJJxe/3a4PbR6dyd48kweUsqm1paPswluV9RFygdYDbWhT3AfmgE29DkY7wMh
-	 3F1kV3AU+BrTwVesyvUy22R6yb2HrB7ZuCblF57i5wWCjBwq2zo6wBMluCPFDlX05U7qu
-	 OcSx+/Ef2IPtFCWx6Sq6slGOjt+TfeyUjNsKuydrADmF36WNK6GBChpnlex6JMIo6uuNR
-	 FlX7isyY/+O91+Cdf7+VrV83AZY6OGlcW/KseBkmC2jhf2biRaRsPKVbBIeCZNcOQcg==
+	t=1794798838;
+	b=E1gcFkV6nds3F3gwFG4YwAtgs5Ms4tmLJhgKBJX4db7YYiRb/nGSGRKirGIkoDBRZf3m
+	 zS2nmxv7kZlVFQzHZUT0GbVD2l5Aauy86T44bRK81rPx+nV8D/w8u6D2nnLpD1ynAlSTa
+	 NgAFJ8jMiYRBs1jQQQBGKYo0y+Esby7fG+WXElU2JmqnG1YKjhhyxSsZaaOD0PMRQtPdI
+	 06EsuztypC7+alL7TNSEcCh8bNa+gyan3bHq/lJTvBiVhT7mc2msG42rkuLhL+JUAuhiv
+	 +XnTia+jajA/0/UauB8es93qeynukgGsdtde7Y7BPSMnsaiSzWeYvXaLABbkUv6/+6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794798335;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794798838;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=LAuTbl2HX3qhAEBMiEQP62OmlsXSQlZPdUzj4B1f3n4=;
-	b=r1e3p+P/8zZ58eiVP6/ZkCHOw3l42nyPKVoE5ipgzIBbe3mf34UdroWuQXI7HuzccRwZ
-	 jLu0AY3zY/AbmaT0ZHxtoZ4zK/DNLt6GeGafoLrTIGiIovwxRKYQ4gpwUGWyCCFxw2FJ6
-	 akADLnNOMXK7i+hwQke8QQM+Ta/b8d1EQsKg/qwj2WS8CncGTeSCzNgtRSbX2/eNoCT3G
-	 OCbquOcwH+1hi0jGUD3ucGhBHXliKtjLOZ86+kL8wvWcWGcKTzCzHEuSig3H1M9VKlvYn
-	 Ro3PJiAv4NnBU9QLFXmlELHWsi218Ayl0GTr+djhKXxH5pWEHKKtJFtYQ/EsbYEgCaA==
+	bh=NPEtTXFUoFzK7wsmx+bhz2FqqhGj5JTMxvfIObx3PZA=;
+	b=wDq0eroN74iJiGMFhPlI3xpSSZTXIRTdB7aRX023tDBuosTQo5XqS4+3O/4DAToFqyjL
+	 NkJBa6nrOh0inTnWr4jbPfsXvEprvUaMApwq2j0pRFHpSR9dt3u/0Y6rXIeXUzpui0vzV
+	 /egU+6o3eDPmiIKgeJwpExKf9wKV5YS9qtqri14OXMu99CSN/ILJ4InDfZkLNfYd4vzsB
+	 spZI2g6iS99jZJuxZG4FdywZUbTx7s5UyN9Ho6pkZn8fKr7UDNZ7wZZaO6hJH6D/J4sdl
+	 TYZIBAvccejyk0E7rlwIZTGCpHoBSubCdUhpK1mWNaVEMLBN+bHSSXsNdTo3RPdVg6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMSiWMwi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O89oMK+y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED969606A338
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 03:05:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6190E606A31C
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 03:13:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMSiWMwi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DF5F1F000C4;
-	Mon, 16 Nov 2026 03:05:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O89oMK+y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB8AB1F000C4;
+	Mon, 16 Nov 2026 03:13:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794798334;
-	bh=LAuTbl2HX3qhAEBMiEQP62OmlsXSQlZPdUzj4B1f3n4=;
+	s=k20260515; t=1794798838;
+	bh=NPEtTXFUoFzK7wsmx+bhz2FqqhGj5JTMxvfIObx3PZA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AMSiWMwiHwQ5/755uMQdIbhwzQV7tIf3GbdW2Jg+nr54YwsMkBRPYsiprlS72p4aq
-	 6yYGEqbsYSxB1TTPYf4a5Ja/ejwYM0ur7nEKScWpG90zbD1nWSsIrcmGjtX3x5TdMM
-	 QOgo287QB3ObfjAQQIH0iW0bPHSzvQtq+/uJisiaM5/y9GOWnt7x5uIclz/qPz6zak
-	 mlRi8QSTxP8I48ONwnIoEwjLH9KaaIQo799ZCsV1kV44oyLFpa7AeFBcqzi8oHhIvF
-	 w76UQuzpG+6Br9ijrDSbPYYVD5gYLw9xSHIFJSbqL/mvAQ3Yq9L2aYRxy9AZ3+emrI
-	 wf6G8qnYU7a4w==
-Message-ID: <sashiko-outbox-216098@kernel.org>
+	b=O89oMK+yhWIB7aPPPvGaMs0MIzChAXr+AoGefD/kB0dHtRvZfJdKTH0/X+AZhrCxn
+	 hbOhtx7eGz7lBHoBj7KyuIKBHuG8DRRrTiXFJGYjsq4AV9qgbL0b6dzZlsLwJ+w5Fe
+	 iIn9uAE9gBgyP28nad8ufBysQQj5NdGVRWC4ZQLdYFWvh7ixCCUioz5AW4xEWFi/B3
+	 Wij64xNtlPZQo4A9PCuWM3EyIZJ1LIHBRkezJhR89T7hZsoKhehB9k5qFX/JNrpipU
+	 e6jTGt+Chapa+h6PIUATeDSqCNJGEGDM/IqKD22CpaH79MV3fhMECeg0IXFk28fIlx
+	 up5MAlMaUZWaQ==
+Message-ID: <sashiko-outbox-216112@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: nvmem: add byte-mask property for
- non-contiguous byte selection
+Subject: Re: [PATCH v2 2/2] nvmem: core: add byte-mask support for
+ non-contiguous cell bytes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Hongmei Xu" <hongmei.xu@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261116-nvmem-byte-mask-for-split-macaddr-v2-1-96f4a0c08264@oss.qualcomm.com>
+In-Reply-To: <20261116-nvmem-byte-mask-for-split-macaddr-v2-2-96f4a0c08264@oss.qualcomm.com>
 References: <20261116-nvmem-byte-mask-for-split-macaddr-v2-0-96f4a0c08264@oss.qualcomm.com>
- <20261116-nvmem-byte-mask-for-split-macaddr-v2-1-96f4a0c08264@oss.qualcomm.com>
+ <20261116-nvmem-byte-mask-for-split-macaddr-v2-2-96f4a0c08264@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 03:05:33 +0000
+Date: Mon, 16 Nov 2026 03:13:57 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,70 +61,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] dt-bindings: nvmem: byte-mask redefines reg size and accesses
-  beyond reg
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] nvmem: core: unaligned raw_len in
+  nvmem_cell_info_to_nvmem_cell_entry_nodup()
+- [Low] nvmem: core: redundant nvmem_validate_byte_mask() in
+  nvmem_add_cells_from_dt()
 --
 
-commit 66779220f836f809e1148ff64ede0801ef303fad
+commit ef65d0ead813d5be4bc32f2283c1a2c9aee24659
 Author: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
 
-dt-bindings: nvmem: add byte-mask property for non-contiguous byte selection
+nvmem: core: add byte-mask support for non-contiguous cell bytes
 
-This commit adds the byte-mask property to the fixed-cell NVMEM binding to
-select non-contiguous physical bytes within a 32-byte window relative to a
-cell's base offset.
+This commit adds a byte-mask cell property to select and pack
+non-contiguous physical bytes from an NVMEM region into a logical cell
+value.
 
-> diff --git a/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.y=
-aml b/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-> index 38e3ad50ff4fb..46e1101ee98ae 100644
-> --- a/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-> +++ b/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-> @@ -34,6 +34,20 @@ properties:
->          description:
->            Size in bit within the address range specified by reg.
+> diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
+> index 7d4cce8e27424..7e96b84bc4e28 100644
+> --- a/drivers/nvmem/core.c
+> +++ b/drivers/nvmem/core.c
+[ ... ]
+> @@ -603,12 +645,22 @@ static int nvmem_cell_info_to_nvmem_cell_entry_nodu=
+p(struct nvmem_device *nvmem,
 > =20
-> +  byte-mask:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 1
-> +    description: >
-> +      Bitmask selecting which physical bytes within the NVMEM device reg=
-ion
-> +      contribute to this cell's output. Bit N set means physical byte N
-> +      relative to the cell's base offset is included; selected bytes are
-> +      packed into the output buffer in ascending byte order. Byte positi=
-ons
-> +      are relative to the cell's base offset and limited to a 32-byte wi=
-ndow.
-> +      The highest set bit must not reference a byte beyond the device si=
-ze.
-> +      The number of set bits must not exceed the cell's logical size giv=
-en by
-> +      reg. Cannot be used together with bits. Cells using byte-mask are
-> +      read-only; write operations are not supported.
+>  	cell->bit_offset =3D info->bit_offset;
+>  	cell->nbits =3D info->nbits;
+> +	cell->byte_mask =3D info->byte_mask;
+>  	cell->np =3D info->np;
+> =20
+> +	if (cell->byte_mask) {
+> +		int rc =3D nvmem_validate_byte_mask(nvmem, info);
+> +
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+>  	if (cell->nbits) {
+>  		cell->bytes =3D DIV_ROUND_UP(cell->nbits + cell->bit_offset,
+>  					   BITS_PER_BYTE);
+>  		cell->raw_len =3D ALIGN(cell->bytes, nvmem->word_size);
+> +	} else if (cell->byte_mask) {
+> +		cell->raw_len =3D fls(info->byte_mask);
+>  	}
 
 [Severity: Medium]
-Does byte-mask redefine the size cell of reg as a logical output size while
-allowing physical reads past the declared reg range?
+Should cell->raw_len be aligned to nvmem->word_size here, as the
+cell->nbits branch and nvmem_validate_byte_mask() do?
 
-Any non-contiguous selection of K bytes has a highest set bit H >=3D K, whi=
-ch
-references physical bytes at offset + H outside a reg =3D <offset K> range.
-Unlike the existing bits property, which stays within the address range
-specified by reg, setting reg =3D <offset K> causes physical accesses beyond
-the cell's declared reg range and hides overlaps between sibling cells.
-Conversely, setting reg =3D <offset M> to cover the full physical span M > K
-leaves the contents of the trailing M - K output bytes unspecified in the
-binding and causes consumers such as nvmem_get_mac_address() and
-nvmem_cell_read_u32() to see an unexpected cell size M instead of K.
+Leaving cell->raw_len as fls(info->byte_mask) triggers the
+!IS_ALIGNED(cell->raw_len, nvmem->word_size) check just below whenever
+nvmem->word_size > 1 and fls(info->byte_mask) is not a multiple of
+word_size:
 
-Also, the commit message notes that multiple reg entries would require the
-consumer to assemble the value from separate cells, but multiple reg tuples
-on a single cell node (for example, reg =3D <offset1 len1>, <offset2 len2>)
-describe one cell with discontiguous physical ranges without redefining reg
-or limiting the span to 32 bytes.
+drivers/nvmem/core.c:nvmem_cell_info_to_nvmem_cell_entry_nodup() {
+    ...
+	if (!IS_ALIGNED(cell->raw_len, nvmem->word_size)) {
+		dev_err(&nvmem->dev,
+			"cell %s raw len %zd unaligned to nvmem word size %d\n",
+			cell->name ?: "<unknown>", cell->raw_len,
+			nvmem->word_size);
+
+		if (info->raw_len)
+			return -EINVAL;
+
+		cell->raw_len =3D ALIGN(cell->raw_len, nvmem->word_size);
+	}
+}
+
+That logs a false error and, if info->raw_len was set (for example by a
+fixup_dt_cell_info callback), fails cell registration with -EINVAL.
+
+[ ... ]
+
+> @@ -829,16 +881,27 @@ int nvmem_add_cells_from_dt(struct nvmem_device *nv=
+mem, struct device_node *np)
+[ ... ]
+> +		of_property_read_u32(child, "byte-mask", &info.byte_mask);
+> +
+>  		info.np =3D of_node_get(child);
+> =20
+>  		if (nvmem->fixup_dt_cell_info)
+>  			nvmem->fixup_dt_cell_info(nvmem, &info);
+> =20
+> +		if (info.byte_mask) {
+> +			ret =3D nvmem_validate_byte_mask(nvmem, &info);
+> +			if (ret)
+> +				goto err_free_name;
+> +		}
+> +
+>  		ret =3D nvmem_add_one_cell(nvmem, &info);
+
+[Severity: Low]
+This isn't a bug, but nvmem_add_one_cell() ->
+nvmem_cell_info_to_nvmem_cell_entry() ->
+nvmem_cell_info_to_nvmem_cell_entry_nodup() already calls
+nvmem_validate_byte_mask(nvmem, &info), so this check in
+nvmem_add_cells_from_dt() is redundant.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-nvmem-byte=
--mask-for-split-macaddr-v2-0-96f4a0c08264@oss.qualcomm.com?part=3D1
+-mask-for-split-macaddr-v2-0-96f4a0c08264@oss.qualcomm.com?part=3D2
