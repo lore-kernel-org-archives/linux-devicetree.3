@@ -1,78 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794814814;
-	b=1/Ho2Eml2hIQaKEVD43DFiTxWjLpFTu1Epi34spBv3AEJYry9ytMbaBZE2iyutMTt2m+
-	 kWMzVKPdT8bXNFpyKWNqm1I0S7UVy98ICfDbOsgIQhqV/esXBmlgYZIyhRjqvZ15pCPz3
-	 5+J7a/jz+pf3nZpYcoX0mt85fiCgxGiQTFmWwHUBn3y6EHh/rMjAbjkg0ujy+MQcp57u1
-	 RxeJGuvJML5txT2iN0WbvBO4BiL1TuS0PXnautrcnzbFrANRJlgoqTtOm609JjtuRCyOM
-	 rBSQ90EE33u1K7I89de5PM1sbct2Lyyvk/zShuBNzKlp1pznzHsAdIVUCJuc+0r2rGA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814814;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=mb9rHos8tHcP6+kunMSZSY6J85Jw9A8LptIrsB7iGLc=;
-	b=0Rm3j/67hWii/BiUVJ/0pKNXa34Q6HnGIznVo1xHd2l4wiTjBjFo8FMKXwy+mUSZT+53
-	 R4KDiNr31KHbSCHVKoOKL/5J42U2pXuSCPvXPWd0uiI1B/PgNxuLoVOjNkUl6W21KlwsJ
-	 3tgh7fz3or1Po7KEcdqFYsG+79xsRBiUbDwpM89iGdAOjhj1WD5N83Bnp8Zgm/GcET2Of
-	 vIckYfajAsSPRP9yBPZqzWXXQjOkoZCVgvuRBu4DU01MzvucJ8I4MBRRMhSns2prLQmSE
-	 fTb9DhSgnNzM+88FHfAo3BG6HIw0Pz/oQlaaSyZMHRf/LrXdakXwyA2cPan7NgfznuA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABTcK5PE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405E5606A894;
-	Mon, 16 Nov 2026 07:40:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABTcK5PE
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794814814;
-	b=YoXBuFHPFW8iTe45MvhRr5ADJE1j9KSTALQamE+Y4QqcpXS58SL03yznWLlVoaYiaoAn
-	 OIL38iBxaUJbrqyMNA0R4zQkcI5mYQ17Oyc+n6pcH3uF+jSjcq4S9+4C8CFfB2+C4L+48
-	 z0qqrLEWGyqvN4u9t1xmxGesM0TpSt9pa7zcha9TxZtsfSsSLPQtEAybdSqTxZrhZt/B9
-	 97+uQIJ7ALiIRpTud/kF3bN+GNT/k9sMnjytWqW8nziqG0nho6Yw1seL1jRBtap8yLdCc
-	 vkO90lIlkxDyu7++4wnorEBJw6IIpWmWj9yXm3FicRKzucde4XTh14vcop4qeTLSPfw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794814814;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=mb9rHos8tHcP6+kunMSZSY6J85Jw9A8LptIrsB7iGLc=;
-	b=exTiH+0KWblyQ9ZZh+CVrO2u0ADkzIDizKTN2zz+Pvd/13MBa33g3muJ1akXLP6p09a7
-	 UR3qGfcrwp5dQvL4WkkEWSknNM1M+FjUF3XVMrNUnUgbFzafB4yelXtlLSk9n8OLd6rWv
-	 INheIUzBhNRwJsQMEaLg1xOSUc4bNhaz18U267AZYjbYKIRYUJYEB4yOCXysbfd0WriWx
-	 16vHx03PF1MIycOLdzF20yq0E9Si6j45YoxmmeHSETcSHcMQ+++AZz/BFtp9iEEORFIk/
-	 o/ui4KDFGfTKKoxRCnJ5p1GLfNjH9K4BuLxUoLGplmyW3jcuCPhn6r5yfPa7jI0H4YQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794814820;
+	b=QFhtNGBscsnXCk0IDjmAZMFY90AC1yez+7shvttcUUNweQRvEGF/XtURwdTOK6+qBnPg
+	 m0ETvb4xUJjEWPlBw9h+6X6DUJ8oQ82cLp+lEHcxOu3mi81z5BsAktlfLk50uqN26x+qx
+	 d8bQp2NaDsneAFXAlaVxcneyM1zhQVQ8L7TVI7ox39GHm4DQ9kOKq7p3L8uNFJ9X+9vcH
+	 rPXwVb7kNtxijFr1tBIuYMs+Il8dFHuXFUR8Rn6V7nVk7XqULBCmmbDYFQgLQJrEG8EEI
+	 chPCkmL80Cyh0gF0tXSwqAqu4tiDxcgqg10HMrQUfrCAHEx/bQ8p+8cfFaZC6tYg9XQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814820;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=xyQrPGCPEbH8yQYIpRCWFwW9mLNyzd5f976QgJ4wDRg=;
+	b=VEclyBmYg2Y7KCvUHgLzL+TqG7odIbFfKB5L+vhEsLIW4X6jr5aThhqd4N4OQGS4AH40
+	 AfBgXt7Aoh5kYpfd571vs7zC9PWpUGNxJ1X/w3sC7tJXAcReX0XM66wzypBbgvRWy2+2S
+	 hNnBf1LK01aZOd1T8CHzNw6vKNP0VMlWiECK+nrGzi52+pfLVxI3ATYClniHoEFdJV6XR
+	 cmIafCkKrw2FEBwh975nrtj9NZLuG7vgVto/w7SkvEXqiUNyzHowNhd8mw1KmPva+Vv8t
+	 k9kWpCa6Vsf4ZvesEVtATlqOplg1c2XsgIzdi+zKxJF053NS6dJXC79lNItIyfQKeDw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MQIllmdf;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 624501F002C2;
-	Mon, 16 Nov 2026 07:40:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794814814;
-	bh=mb9rHos8tHcP6+kunMSZSY6J85Jw9A8LptIrsB7iGLc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ABTcK5PEz1PaM6P2sfNE+f27Wcmt5wNqyMidRbSLibr5pzsfhM7f0TDCyVHLO9DOM
-	 dQ0XcfQGrsVB7VA1hjiswK1q4gafXHFH2FV3wibnSMAA4c0PEjUjJ1PRUg/2c6IF9/
-	 OM4k/5VR1g6IFYd2WZvnEg7NDWgPMhDPNhd313dB8znce+bqij5zZ3/O4p3t/eAr41
-	 kx2xTHxm4Tm+DfuMhlJlTJb3ghi7gQfqC+0S3JpatyCovCHJ7bAmINz+Hee3o+Enj4
-	 K6UpEbY50+kq68Rc6/YN2uzy6d4+HnNW2JaCvYpg4uGTGODl8/q1+TZJwOqI8RYI1+
-	 wXpbW2XE3cOMQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E70BB4A3AD;
-	Mon, 16 Nov 2026 07:40:12 +0000 (UTC)
-From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Date: Mon, 16 Nov 2026 13:10:12 +0530
-Subject: [PATCH v2 1/2] dt-bindings: display: panel: Add Ilitek ILI97680A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07A160A2620
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 07:40:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A07A160A2620
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MQIllmdf
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4bb702a7548so4741015e9.1
+        for <devicetree@vger.kernel.org>; Sun, 15 Nov 2026 23:40:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794814818; x=1795419618; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xyQrPGCPEbH8yQYIpRCWFwW9mLNyzd5f976QgJ4wDRg=;
+        b=MQIllmdfsamobYuYUbGh9pvlZFXvPPC48p3GzVjsX6TjMA3ZgemLVBR07Z5z9Pydgz
+         BxmvMPGn6WGP+hHdEsPbYZJRL4BlW66LGLG55I1Rm9ppkiw02kUOE9DSKphefjhRHydL
+         bPg9vXOPPx8xe/4on9mIkq4CkgjmcT7T/F3seQ0wNgjGjdmqW9S+5h3ecYHWgCQx43Wg
+         Huest9FK/uzkeER2HS91v0veh8tjxG5oMm7lKtuxQK8ZRwnLxpF3OHvmGL8Gidd/ca+L
+         E4R7h0BWSJcqGovUYSWpOToJanLNrfvuAX38juFYCZialZyFGIdoPfRfpfpBsKfPNcn1
+         larQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794814818; x=1795419618;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xyQrPGCPEbH8yQYIpRCWFwW9mLNyzd5f976QgJ4wDRg=;
+        b=sjvZHlXJumhf9W1Ce523s5BrvXbI2UQaysEf3XfzDcFkNFnehT8yvl7Vv1vw7APcyh
+         DkZ+NnHJkQfv2cjTG8JiOYgnwzabLGip0rLL07piaEsxUbYgoBMcKx25uY07Wu78krcP
+         CZsWN16QLde2HB9dvmfUo3DJTY/SatkMG6cUXX+9fvkIhW8V4mw1nTR1XNXyZZw/EqhX
+         fEHdQ/fNckDdlRBhjTn67Bh1woQ8oEJ9vQqSvyccfXup7oW295IchqW1vQ9B45Aljb7a
+         IaBdomhHiPTxeY4KW3B3gW2XPQNhsGG8oN3cqSo692z9hWD9XjbBJK91qY9xVZ6vkEew
+         TGvQ==
+X-Forwarded-Encrypted: i=1; AL+hErEJBX0h3kASbgPg5l3LS9pxbR1CZ9JaTik+Wm9ck+YaBieMAhH38QLXI7SdPJk605eN1Mlr+dgqUcu1@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Pcb3vcwIdy27CDim0FJDHSJgNKaU1+OuJMfWmcaW2baZ4SJaC
+	JihEM5qjlOBNpuvYFzMQM61NGrR7+3tHRS5Z6aPxErr5Fh5FANm2QFkO
+X-Gm-Gg: AYBFou1pjZLZJ3BAp8x5FpDwVYr6O9ybuj7JvVgw78ZN4N+Vgputd0jBQrPHUS7EjoU
+	cDf0ugpQqlRgXeyDeUr2R7wZZC3hNGGgpRmlVPSCEYXrfjiupL0qiqkKu8xyqvCJvVal09jGyaL
+	syENwH+wP5ApRXpjVO/xZ6KTMgAYJpVA4T28fw9MSW93nkbE6com3Wlg0br0eTyxRl1A4AvjVIg
+	yide1Mcgn3pCojyyQFHC2SDkP65BlengxMpwAVV01Eksjt34O5mPgGLbcgcBfC2XpDdS0bUfvuF
+	ZXEuUrQEc4Agm7+ZNQKry2ho2/TvdEJLmMOeEezSnm5OrqCyjkTFBM+jtWY+qHW5JVuVWCLf2gu
+	8xP6nmJxZVR/+FnSsLIxMABSdbseDvbRISToGaXqeHy3WUBCfgcoCRhJa3rfeUXODJyAwpjNEWQ
+	tbMu2QJYEAO7/N8zQNWziGApGfS3UvZ368I0MhtX4wXMlcUuos7ZUGh5vFjjgx/M6y6f5Ebueqv
+	dwo1/znYM+NqM664SWRv/rJM/yoGNZHb5yc2/rZ0OtBBszFGSPSSOeM2UIzcrmMRaWx4JuTXYla
+	E02etvbSurg=
+X-Received: by 2002:a05:600c:154a:b0:4bb:6a5a:7824 with SMTP id 5b1f17b1804b1-4bb6a5a798emr78860495e9.30.1794814817903;
+        Sun, 15 Nov 2026 23:40:17 -0800 (PST)
+Received: from dl360p ([130.61.107.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571cfa2esm259712705e9.2.2026.11.15.23.40.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 23:40:17 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+Subject: [PATCH v1 1/2] dt-bindings: iio: proximity: add Imagis ISG5320A
+Date: Mon, 16 Nov 2026 10:40:12 +0300
+Message-ID: <20261116074013.355363-2-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116074013.355363-1-tadilhusrev@gmail.com>
+References: <20261116074013.355363-1-tadilhusrev@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,148 +106,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-vantage-panel-v2-1-e2ab48645e2c@yahoo.com>
-References: <20261116-vantage-panel-v2-0-e2ab48645e2c@yahoo.com>
-In-Reply-To: <20261116-vantage-panel-v2-0-e2ab48645e2c@yahoo.com>
-To: Venkat Yadlapati <venkat.yadlapati@yahoo.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794814811; l=3218;
- i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=/i7bQzzWSOyoUoPNVeSXBs8XdBsv/giMTK78lHZdqTw=;
- b=YxkREBkmEyYZm6u8PpmMZDOLQ7R9WsxC1tLrmerVmm38oeacUVq0/I9pekUa+qgt6iUDeQOeT
- lfipp6EyC5dAE2kG+H3o9obOuIwGkk3nOo/lEvT14OttX0WMBs6EvkZ
-X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
- pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
-X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
- with auth_id=1303
-X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-Reply-To: venkat.yadlapati@yahoo.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Add a binding for the Imagis ISG5320A capacitive SAR/grip proximity
+sensor (I2C), as fitted on the Samsung Galaxy XCover5.
 
-Document the Ilitek ILI97680A based 1264x2780 AMOLED panel by BOE, a
-MIPI DSI command mode panel with DSC 1.2 compression found in the
-Motorola Signature.
+The binding was drafted during XCover5 mainline bring-up with the help
+of an AI coding assistant (Claude Code, Anthropic) and reviewed and
+validated (dt_binding_check, yamllint) by me.
 
-An LLM was used to help write this commit message.
-
-Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Signed-off-by: Adil Hüsrev Tepe <tadilhusrev@gmail.com>
 ---
- .../bindings/display/panel/ilitek,ili97680a.yaml   | 75 ++++++++++++++++++++++
- MAINTAINERS                                        |  6 ++
- 2 files changed, 81 insertions(+)
+ .../iio/proximity/imagis,isg5320a.yaml        | 56 +++++++++++++++++++
+ 1 file changed, 56 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/proximity/imagis,isg5320a.yaml
 
-diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili97680a.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili97680a.yaml
+diff --git a/Documentation/devicetree/bindings/iio/proximity/imagis,isg5320a.yaml b/Documentation/devicetree/bindings/iio/proximity/imagis,isg5320a.yaml
 new file mode 100644
-index 000000000000..c098b44fef3f
+index 000000000..b23d6bafd
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili97680a.yaml
-@@ -0,0 +1,75 @@
++++ b/Documentation/devicetree/bindings/iio/proximity/imagis,isg5320a.yaml
+@@ -0,0 +1,56 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/display/panel/ilitek,ili97680a.yaml#
++$id: http://devicetree.org/schemas/iio/proximity/imagis,isg5320a.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Ilitek ILI97680A based AMOLED DSI command mode panel
++title: Imagis ISG5320A SAR proximity (grip) sensor
 +
 +maintainers:
-+  - Venkat Yadlapati <venkat.yadlapati@yahoo.com>
++  - Adil Hüsrev Tepe <tadilhusrev@gmail.com>
 +
 +description:
-+  AMOLED panels driven by an Ilitek ILI97680A controller over MIPI DSI in
-+  command mode with DSC 1.2 compression. The resolution, DSC settings and
-+  initialization sequence depend on the panel, so each panel has its own
-+  compatible with the controller as fallback.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
++  Imagis ISG5320A capacitive SAR/grip sensor (I2C), exposed as one IIO
++  proximity channel (B-channel diff = CDC16_T - BSL16_B). As fitted on the
++  Samsung Galaxy XCover5.
 +
 +properties:
 +  compatible:
-+    items:
-+      - enum:
-+          # 1264x2780 BOE panel of the Motorola Signature (vantage)
-+          - motorola,vantage-boe-ili97680a
-+      - const: ilitek,ili97680a
++    const: imagis,isg5320a
 +
 +  reg:
 +    maxItems: 1
-+    description: DSI virtual channel
 +
-+  vci-supply: true
-+  vdd-supply: true
-+  vddio-supply: true
-+  port: true
-+  reset-gpios: true
++  interrupts:
++    maxItems: 1
++    description: active-low data-ready / proximity interrupt
++
++  vdd-supply:
++    description: sensor supply
++
++  wakeup-source: true
 +
 +required:
 +  - compatible
 +  - reg
-+  - vci-supply
-+  - vdd-supply
-+  - vddio-supply
-+  - port
-+  - reset-gpios
++  - interrupts
 +
 +additionalProperties: false
 +
 +examples:
 +  - |
 +    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2c {
 +        #address-cells = <1>;
 +        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "motorola,vantage-boe-ili97680a", "ilitek,ili97680a";
-+            reg = <0>;
-+
-+            vci-supply = <&vreg_l13b_3p1>;
-+            vdd-supply = <&vreg_l11b_1p2>;
-+            vddio-supply = <&vreg_l10b_1p8>;
-+
-+            reset-gpios = <&tlmm 146 GPIO_ACTIVE_LOW>;
-+
-+            port {
-+                endpoint {
-+                    remote-endpoint = <&mdss_dsi1_out>;
-+                };
-+            };
++        grip@28 {
++            compatible = "imagis,isg5320a";
++            reg = <0x28>;
++            interrupt-parent = <&gpa2>;
++            interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
++            vdd-supply = <&grip_vdd>;
++            wakeup-source;
 +        };
 +    };
 +...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c4f4e48774d0..e2a8093c328a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13040,6 +13040,12 @@ M:	Stanislaw Gruszka <stf_xl@wp.pl>
- S:	Maintained
- F:	drivers/usb/atm/ueagle-atm.c
- 
-+ILITEK ILI97680A PANEL DRIVER
-+M:	Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/panel/ilitek,ili97680a.yaml
-+F:	drivers/gpu/drm/panel/panel-ilitek-ili97680a.c
-+
- IMAGIS TOUCHSCREEN DRIVER
- M:	Markuss Broks <markuss.broks@gmail.com>
- S:	Maintained
-
 -- 
-2.56.1
-
+2.53.0
 
