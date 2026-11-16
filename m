@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794817353;
-	b=Sbw78vErOKM3opQSyXmka7c9hL4mo0Wc4TM439xhbe+o+QvH8qpP+EU5PcwQ97FiB6b4
-	 7S0d9Nd9jfLGQEF9TN5C5SNOZizFyfL28/G8Qdv4frbkrxVWUN1UBryalyMbFNUN4lHVv
-	 DhMoIC6FrKLXSQy+AeSrhy9qKTMV+cQkYyRYEUV0x4ncpVL2lq4zor5svxq/da16Fe3mp
-	 3XKcnBfHaJx2IqlgCX1GPokHzc3qZEq+5v9L1HKvH/5MquSBhU/C8Hg2xsj8BdkX0OPF/
-	 0uPVOg3J4Qjgb9J80xKAj40s3NeZVvBp363f9DoceN13XQvbAEveqYB+lbhHXrkBOBQ==
+	t=1794817359;
+	b=X8fQUNFyNYyPi5z8DgijDcY7SCuRK0JhUYZNL+tBEU/M/5e2Y4GGeS9yoa4nfNhd24tN
+	 l+G+bX+W5lnJKrHNbOWJPvxPxv0Y8BDsx6vplPxHreoHs550Gk315a62sZ0rCe5xzNDzE
+	 6cm3T7djKgmKXEIH+NjHjrKqqPzJwq4kqTrJUFLSxG5jPbMt6O+5pDp0ww/pRzpWBK/84
+	 fSnZKoKaNUH6ubcRUAakTu0oeJSWDuU4ENqSHf5LbtjwOaDLCm2IBH22I008hlYrDPImJ
+	 tbWdMcTZsG15ybOjSena5OLfe5+VelKc7TvIzY7A3mJN6NXv0OPgNn66FY+ChRz8c/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794817353;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794817359;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
 	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=dKvcVIFhr+1EjKzd87mrkJtUpo8rJyi2I3oWszDEnAY=;
-	b=3VTx8zsiQb/BSmhWVI4tSSijCcrC5WxD8nso9EN9zbgIdL0j6WHgMqP9gq6lJ4F+oBno
-	 CA0T0hwxh2xxieyQ6d0JOkc6k6eoeNXvK7GAK9YlBJX+KEQA1imy7ZEJkZYWpQ4HpjTeR
-	 gID9S/3omM5cfM/VFGO0muvW7jA3rfFDj644Vi+HIGaTUqCdWR3DikVOXlmgTeDReIV1h
-	 O6nS2n4EpuAoVtsYVSZv17EcxB97/xPY+P37fiO/hsE72mPGfTwA1m05KO8nIYr2Z88xf
-	 D289sMAfveQsmiq53+/7HjcdLquZTqNVJhb1aU8caov5H036M7Df5mZRHLlHZy5Y2wQ==
+	bh=FhHfyYwYQ9ZGP17NUjMsOu+VrPrB95iXQbOeEOYKFOs=;
+	b=fn4e1j+sLoOlVK0dNzCR10ATm5Q1iPjPwYivCwLQ25MTwvZZfX6AIYmXp493nkeOhRmp
+	 2vIcfQnXCwIY7Kdjz5XPhcp+DdTpKtQ26UpViiZDoS4tczDJR2CDWX4D/Z7ozJHVeCehW
+	 jRP9IZs2p7YNe5axCgGbaQceyXLMwcmNYWaCCBM/G2VE2IxHFfjB+a/y3HK6bG7LbwAeR
+	 qjQiuCOzTyHuHtT5nZvWec1VOzqbsrdFfJxKsQb6mDHdR+nFkgOfbXxKvJbvn0J1B24Cg
+	 tCKIJ6KEFJ++hZxqgeV/xJH6Tt0UZq3PBz5wXAWugGnv/OR2YrOLJ8PLrCKQSFzNrOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=sang-engineering.com;
 	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=VuhyJApc;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b="jx/ZBIZU";
 	arc=none smtp.remote-ip=194.117.254.33
 Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563E2606A329
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 08:22:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 563E2606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A981606A329
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 08:22:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A981606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=VuhyJApc
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=jx/ZBIZU
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=dKvc
-	VIFhr+1EjKzd87mrkJtUpo8rJyi2I3oWszDEnAY=; b=VuhyJApcECKBIkDK7t3v
-	ZJ0qCN5fco1JwcdA9llunh3yL4dCYZXDPsS7oi8xxB0fBUxJRX9Io3M7skT519SC
-	a3P+0Ibj3oJr4T4xlE9I7+sgxJK4HGfalxqtZErBJFUpZtRqR/e+cbT98XDsgS1n
-	K/vmBaM54Dv3yaqJy3yaRFcmiDyJZStrPr8gDd7xwR0X+BiFBkYPlItxy+XcnUk2
-	akcZ/TZOYyUfpH561NeKFkbE7b6wWvMCQYzau3OexUi/E1DZTmlP/hIAwnLiZS9t
-	/kHia6WmBXgKFOAoFL2tfPuZ+hvyRTMF86kf8v7i2c8YQyw/Y0upa1HtgTsCU6NS
-	9Q==
-Received: (qmail 1194830 invoked from network); 16 Nov 2026 09:22:29 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Nov 2026 09:22:29 +0100
-X-UD-Smtp-Session: l3s3148p1@06iIemBg7qoujnv5
-Date: Mon, 16 Nov 2026 09:22:29 +0100
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=FhHf
+	yYwYQ9ZGP17NUjMsOu+VrPrB95iXQbOeEOYKFOs=; b=jx/ZBIZUH+eiIfgl591n
+	kki9k049+ZNEFJ6O8zEQf43eL2mUryLnYS6WONV35hADltlR8913ZsixH40hIN7M
+	VJdX7R7NtHbnnEPcK1Cx4qLIwgAAAkEUIxLghF2sGxEwGhBpfpcraSVFS6OxBnWb
+	6knyJdn2tt5NVk4EcrvGRFASslihaJ6ZF+tfI7gAzsFc7aD1zwt/+xbbXmBtFWoB
+	GDjvx0KFOdXUqMvBTGcsvH2veU13F0d7G/YP2XBruubZ0O1r2rjAH1rynewjJarR
+	s6SMAGdGvyLWzOH4nB8m5Esih77sNNP7aIVQQEjfU1NA4nbdlGVAspdZE4N3OISG
+	bw==
+Received: (qmail 1194944 invoked from network); 16 Nov 2026 09:22:35 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Nov 2026 09:22:35 +0100
+X-UD-Smtp-Session: l3s3148p1@Iy/hemBg+Igujnv5
+Date: Mon, 16 Nov 2026 09:22:34 +0100
 From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -68,11 +68,11 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
 	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 4/8] reset: Add
- reset_control_get_from_provider_exclusive()
-Message-ID: <avq9RULt4TRM7g0j@shikoro>
+Subject: Re: [PATCH v4 5/8] pmdomain: Make genpd_get_from_provider() return
+ -EPROBE_DEFER
+Message-ID: <avq9SkUx-3q_28wO@shikoro>
 References: <cover.1792163045.git.geert+renesas@glider.be>
- <b9e68c8df1e545191e0359dba23fe53de31a4ce5.1792163045.git.geert+renesas@glider.be>
+ <4524363679c1f2163aca3b3dda2bfbde170d095a.1792163045.git.geert+renesas@glider.be>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,19 +84,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b9e68c8df1e545191e0359dba23fe53de31a4ce5.1792163045.git.geert+renesas@glider.be>
+In-Reply-To: <4524363679c1f2163aca3b3dda2bfbde170d095a.1792163045.git.geert+renesas@glider.be>
 
-On Fri, Oct 16, 2026 at 05:55:43PM +0200, Geert Uytterhoeven wrote:
-> When stacking two reset controllers, the upper one should go through the
-> proper channels: request exclusive reset controls and use them via the
-> reset_control_*() APIs.  However, unlike the clock subsystem, which has
-> of_clk_get_from_provider(), the reset subsystem does not offer a way to
-> lookup and obtain a reset from a reset provider.
+On Fri, Oct 16, 2026 at 05:55:44PM +0200, Geert Uytterhoeven wrote:
+> Unlike provider-based look-up functions in other subsystems[1],
+> genpd_get_from_provider() returns -ENOENT instead of -EPROBE_DEFER when
+> the provider is not found, thus not supporting probe deferral.
+> Currently this is worked around in of_genpd_add_subdomain() by remapping
+> -ENOENT[2].
 > 
-> Hence add a public helper reset_control_get_from_provider_exclusive()
-> to lookup and obtain an exclusive reference to a reset controller, based
-> on the recently introduced __reset_control_get_from_provider() helper.
-> This will be used by the R-Car X5H Module Controller driver.
+> Fix this for all current and future callers by returning -EPROBE_DEFER
+> instead, and drop the no longer needed remapping code.
+> 
+> [1] of_clk_get_hw_from_clkspec(), __fwnode_reset_control_get()),
+> [2] Commit 18027d6f392ee8d8 ("PM: domains: Make of_genpd_add_subdomain()
+>     return -EPROBE_DEFER").
 > 
 > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
