@@ -1,50 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820037;
-	b=CWL2LeoI0Jt9ZR0uGa+0zvAjf46OI9Zj1/flzeMkPzS/AmR0ym+5xAOjtn10oeGcEERy
-	 z6IIBICUsqfpPyoHUlIkXmjlbI/Skkzzj2b03/b7eMiO6hiFdMn6q6q5S3tgt66yVtjMx
-	 sd64gynYvaKKRiOI1T98IKK995Fru7Pi9ZwqrTbei70BQ+O3tFVC0zoPVJkzrt0Oqu+Cq
-	 HO9IF5R8vr95CP92kgzuSHaUF1f0wJIM6ZshrXi0wqhMzvv7mu0yc3PRDjXr9Ye0fswWa
-	 0yGqQIT6g3SWke/mwHLRDdTotjlJ1HMTUVyyGqBwiPoL++r3OiDAd1P6i26bcn6uztQ==
+	t=1794820600;
+	b=ypI9ESIjeshLrT4EdlvuMNVSqBzb/pWVGhzhH4mTFnbGPuZsiRZIfVuOr5WlmKrfmVyr
+	 P3eVaHrs383RtEdx+OkQnT9gOOHZL4MSpzcQtw6icmV7kOF4vwpYbXmHpHw04KCupbpQy
+	 zIevEzXR8zgvSmIKByF2oxV1Y+qk3460QT6b5hS6YdfClLIueoPyxlXPHoBS1Lawdw05A
+	 x51ghaWsyprt4OfZUiTUrTbiIxiwA4o6CO+jh56Gp1ZA90V1MV07SOElelo5yg1tyjjB5
+	 fDAuqpHRtPfIeCYVyT20alOKd9RlAFkA7ZO4GlpKXqidt3/BcxcOjbIhz0kWwY1myqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820037;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rm/t3UchaKdtiqPwazLlyh/gGsrLPRISrvENAfCooH8=;
-	b=C4y/nHIl52Q6fIWWLDLMSQ4E067SzFVghy+xpywsLe4kSZ6QFeKyw96q1ZUsvuVfArYY
-	 Mo75oI88bXgEJEXlujM3H+REUiDAKQPUvBkBS4yw3Z94ifaHeiSlvqWKeVZYf8Mg2ias7
-	 BDb91nRjEc2AVrAij0HPywSIJhKLb7rJcNuG8m9FsoZqMIV9xRicygQ4eBXt7yERWXvBk
-	 DaSsRvdYy0cTH3G9fZEQ/TzA4+KQuzLPtkY3F75xWmqRamMetJTom5csX7ZmT7wGyVJLa
-	 /Z9V3N4LC/o9T1SRaEOebLNW/h5lQLSicOyTxEyrTew5uGkIe14UEYk5t/Ny34Nhelw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820600;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=gvGIvCmlhaHK5VTvge++qqXPDRtL1BbEPEiPXK07rUk=;
+	b=Zd3UQ0V58aTHo1oHR3ZV6GIXeX4cNgYleJgoxnvFNIpDwFw9iDqsZtAhvpDs5qa5b9IY
+	 2rWtBhJVDmmGAj26LN6gvSd2gNu3ESO0ruGgoccCrcXXxOOlmEVZNrizTh21bpt0Ace12
+	 FAOE3+KLbIlVPmc5rCUZ1J1/eg+f++rcJRh+xHUuWzsARKs7W7cLPD3UNWbl6LkoJljkD
+	 Pef9lmnsRu48lZnzq2zah47/4+iSbcyOfaRb1mudC25+crtm6RZfFaSJOovUjqWEY/E6m
+	 Kye1TaiTMvwMjBs55ZEvwYg9IkaVQ+I0+va2r2NRNsEAoW61XLiC1Zzm/KxxW2nbiIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="lkuxm/BZ";
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZCuanzq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA23606A31C;
-	Mon, 16 Nov 2026 09:07:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECA23606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDCF9606A32C
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 09:16:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=lkuxm/BZ
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DD4F5B5;
-	Mon, 16 Nov 2026 10:04:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794819888;
-	bh=WXZM0v7Iccc0YJN6sQ4Tx8wDPorwn1ToYD+9hhAWpd8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lkuxm/BZ2UePK8LCRX7rGlh4744zQS0tXj0rgBall8N+8QEP2QrN0oNWfpoASriW8
-	 TfyiFjuzPxwnBV6GivBn9SDspSN5s825ywkKBW8mdnezD4wuRW1HpyO/xWWrLBCRgu
-	 uy25bWlz4+tg5C0csXIVZ4Id9cvebTsTuczb8v54=
-Message-ID: <692d174e-eea4-4b5d-97f8-384de96e4eb4@ideasonboard.com>
-Date: Mon, 16 Nov 2026 11:07:09 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZCuanzq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E021F000C5;
+	Mon, 16 Nov 2026 09:16:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794820599;
+	bh=gvGIvCmlhaHK5VTvge++qqXPDRtL1BbEPEiPXK07rUk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MZCuanzqH/XeF5lI7Iy2oS0Xx/TVWfiYngE+Cf7HQF6F7Xz/QsymZL8utfjDtk/Tl
+	 CK0qbRMCgl8Bm+V2u5zJqUhB5wuap/vVM64h2Bg8xnMvgf7fUdeWvggYsZXFgjBgJK
+	 h3HJ15K1JE6nbKgRXnt38kwquxh5wQw7L7HvNxal/hsCFQMTRb1F24ovCtf4lFaZVZ
+	 n0TALyellAy+NueQA5UVToCVgbqmeVCDWw3CXkNzr1AliiIefac30j67mrnMHqp2+7
+	 bbMVW/u05AHwfw0Uen9NXxIrYTbaZfosirJSwXkLtMEgkRvMruY84lUkt9PSJ90aHj
+	 YQWNgPp9VGL8A==
+Message-ID: <sashiko-outbox-216598@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 11/11] arm64: dts: qcom: Add Motorola Signature
+ (vantage)
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Venkat Yadlapati" <venkat.yadlapati@yahoo.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116-molokai-soc-v2-11-9dc4dddc4e96@yahoo.com>
+References: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
+ <20261116-molokai-soc-v2-11-9dc4dddc4e96@yahoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 09:16:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,60 +60,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/2] Add no-hpd property to the cadence bridge
-To: Yashas D <y-d@ti.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, h-shenoy@ti.com, panchuang@vivo.com, kees@kernel.org,
- r-ravikumar@ti.com, sjakhade@cadence.com, yamonkar@cadence.com
-References: <20261009064024.985688-1-y-d@ti.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20261009064024.985688-1-y-d@ti.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] arm64: dts: qcom: vantage simple-framebuffer lacks clocks and
+  power domains
+- [Low] arm64: dts: qcom: gpio@b800 out of unit-address order in pmic@0
+--
 
-On 09/10/2026 09:40, Yashas D wrote:
-> This series adds 'no-hpd' device tree property support to the Cadence
-> MHDP8546 bridge driver for boards where the HPD line cannot be used for
-> hotplug detection.
-> 
-> On TI J721S2 EVMs, the DP0 HPD resistor is DNI from factory, so the HPD
-> signal is not physically connected to SoC pin AA24 by default. AA24 must
-> still be in DP0_HPD mux mode for the MHDP firmware to operate.
-> 
-> When 'no-hpd' is set, DRM_BRIDGE_OP_HPD is omitted and the framework
-> falls back to polling .detect() every ~10 seconds. Presence is detected
-> by reading DP_DPCD_REV (0x000) over AUX, with an early exit when the
-> monitor is stably connected to avoid re-programming the stream each poll.
+commit 06a3bd9d7180afacf80e722fa6af997381342626
+Author: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
-How did you test this? I can't get a picture on J721E EVM if I apply this.
+arm64: dts: qcom: Add Motorola Signature (vantage)
 
-  Tomi
+This commit adds the devicetree for the Motorola Signature (vantage)
+smartphone based on the Qualcomm Molokai (SM8845) SoC.
 
-> Changes since v6:
->    - Reverted back to dev_dbg instead of dev_err for the normal hpd case.
->    - Picked up Acked-by from Krzysztof Kozlowski from v6 on the bindings patch.
-> 
-> Link to v6: https://lore.kernel.org/all/20260802153825.1570435-1-y-d@ti.com/
-> 
-> Rahul T R (2):
->    dt-bindings: display: bridge: cdns,mhdp8546: Add no-hpd property to
->      the cadence bridge
->    drm: bridge: cdns-mhdp8546: Add no-hpd property
-> 
->   .../display/bridge/cdns,mhdp8546.yaml         | 11 +++
->   .../drm/bridge/cadence/cdns-mhdp8546-core.c   | 69 +++++++++++++++++--
->   .../drm/bridge/cadence/cdns-mhdp8546-core.h   |  1 +
->   3 files changed, 75 insertions(+), 6 deletions(-)
-> 
+> diff --git a/arch/arm64/boot/dts/qcom/molokai-motorola-vantage.dts b/arch=
+/arm64/boot/dts/qcom/molokai-motorola-vantage.dts
+> new file mode 100644
+> index 0000000000000..6d6648b8cddc6
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/molokai-motorola-vantage.dts
+> @@ -0,0 +1,784 @@
 
+[ ... ]
+
+> +	chosen {
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +
+> +		framebuffer0: framebuffer@fc800000 {
+> +			compatible =3D "simple-framebuffer";
+> +			reg =3D <0x0 0xfc800000 0x0 0x2b00000>;
+> +			width =3D <1264>;
+> +			height =3D <2780>;
+> +			stride =3D <(1264 * 4)>;
+> +			format =3D "a8r8g8b8";
+> +		};
+> +	};
+
+[Severity: Medium]
+Does framebuffer0 need clocks and power-domains properties (or dispcc
+disabled) to keep the bootloader-initialized display pipeline running?
+
+In kaanapali.dtsi, gcc and dispcc are enabled by default while mdss is
+disabled.  Without a consumer claiming GCC_DISP_HF_AXI_CLK, the dispcc
+MDSS clocks, and DISP_CC_MDSS_CORE_GDSC, clk_disable_unused() and
+genpd_power_off_unused() will gate the display clocks and collapse the
+MDSS core GDSC during late initcalls, breaking simple-framebuffer
+scanout.
+
+[ ... ]
+
+> +&spmi_bus0 {
+> +	pmic@0 {
+> +		compatible =3D "qcom,pmk8550", "qcom,spmi-pmic";
+> +		reg =3D <0x0 SPMI_USID>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		pmk8550_pon: pon@1300 {
+> +			compatible =3D "qcom,pmk8350-pon";
+> +			reg =3D <0x1300>,
+> +			      <0x800>;
+> +			reg-names =3D "hlos",
+> +				    "pbs";
+> +
+> +			pon_pwrkey: pwrkey {
+> +				compatible =3D "qcom,pmk8350-pwrkey";
+> +				interrupts =3D <0x0 0x13 0x7 IRQ_TYPE_EDGE_BOTH>;
+> +				linux,code =3D <KEY_POWER>;
+> +			};
+> +
+> +			pon_resin: resin {
+> +				compatible =3D "qcom,pmk8350-resin";
+> +				interrupts =3D <0x0 0x13 0x6 IRQ_TYPE_EDGE_BOTH>;
+> +				linux,code =3D <KEY_VOLUMEDOWN>;
+> +			};
+> +		};
+> +
+> +		pmk8550_gpios: gpio@b800 {
+> +			compatible =3D "qcom,pmk8550-gpio", "qcom,spmi-gpio";
+> +			reg =3D <0xb800>;
+> +			gpio-controller;
+> +			gpio-ranges =3D <&pmk8550_gpios 0 0 6>;
+> +			#gpio-cells =3D <2>;
+> +			interrupt-controller;
+> +			#interrupt-cells =3D <2>;
+> +		};
+> +
+> +		pmk8550_rtc: rtc@6100 {
+
+[Severity: Low]
+This isn't a bug, but gpio@b800 is out of ascending unit-address order
+within pmic@0 and should be placed after nvram@7100.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-molokai-so=
+c-v2-0-9dc4dddc4e96@yahoo.com?part=3D11
