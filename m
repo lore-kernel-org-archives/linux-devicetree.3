@@ -1,64 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.40
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794811783;
-	b=wpk4LJ5ylrO1UeXceSDkrZWiv9H21eHl1Zbbk/SpQUezml1MSpkOnxyc1aCABcDE/x0P
-	 ie9eFVdrdfUJN01KltKH/fHWgPNfkXCzh4osMH0HjTB6yQnGvxj+ul1Xgzx8CH0Ne4mYR
-	 ybVn1FqZ0f/trhBT7ycWIr+8e78BTLi8ly0QarErWTvrmcbtgAP5alP4vAO4Y9GvHOTjR
-	 MxdwUrOIXGB99zT8KfgDOqse0FTL95v+P9ONmklKOO2gqMroSLnh5q2oo4U58wB9US6dU
-	 KOn40sPw14blaaYI+/qqjn8OLe9dtSbkiyfwlz9Z7vxETSmMHUtgSRVBaT3FFcF7Z6g==
+	t=1794811878;
+	b=erz0mhC/XTJUg0KEr9AyPYmAk3WhIyKX6riH7wbQUJrfpbshFYn1bM+gylh3PE7MI71X
+	 ME+jP+Jj04M//SscYnca0khw4EEm5+1gSB504TAr77l6oFXupESgd22ig07JirpdJToVn
+	 zL3xy2kFdDb4SOt0JfbEYnPdZS0btNd3fZp5mWgK5vZy3R7oP9JbKEFIX4d1E5j4rKHnU
+	 xlLQ4T4THkFYySKZuxenGU0Bry6F7GCYusv3gcuJbjbsPGNs2wIWPGTYqsyi9WJ1rC1vZ
+	 4IUuPLKoloB4lpJq+NVQLz7te0cM93itbhte+NFom12I0cvnYFLMSsVE3Rl9EX8tZ1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794811783;
-	h=DMARC-Filter:DKIM-Signature:Message-Id:Cc:From:X-Lms-Return-Path:
-	 In-Reply-To:Content-Type:Date:To:Subject:Mime-Version:References:
-	 Content-Transfer-Encoding;
-	bh=+t8ZxELPYTH2d5u1GirmDH7jb3H83Y/CovQh+JvDD1k=;
-	b=RqGHqIKWtW0LInHqYcyxHpM0iJaMoOlKwsGl4W3R6hiph+FlAhHNvIWBynvopwIXkiOB
-	 ANG2AsBEFdjWVigAsGiJiriZ2meJQFaw30Y3635RomreC8Wp9rTXMrydhehTEbdOnoIqx
-	 jph8bShLkIJ4Cj4Y/P5hoJyp6kYbQYxZodcV5EtRmpCnbB/Gxs+daKI9WxT4onU4n/WTz
-	 WQu+q/ZTwQuw1bJg+ZQv1xVG4Kw4JL2fUiBheRWy511Uaf0WW3DBG0qnLjS7WBJOjXmJX
-	 WRkAvXxOfNiKMuK7Omj7ME0dZ+ulUsi8wNP3CGk++fxtt9W84keO19SRKgwE6amX1Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794811878;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=K4G3vtF3EXpcWXUVltCjBtpSx2zykht4IPE6VMUltOY=;
+	b=wxJ74h6HufN+cDgz+ihsVSCNSFCoUJ5h0z90V1VSkmxZ+KPgtofFGD2b3NZRviFDm1np
+	 j65IRGYHnfQwp6BwctkSBV1hjWzuZRICg0cmYqWLaJnWBr/6tPClB36BftcpgbLk8GFjM
+	 JjeI5k25JTfmPp5/h5siPjzOb+m6wKc4CK35BLgD6j7tVNwgv3GqEYgJFpym/XfwevGAJ
+	 o3pIT79N0okQ4zgpFJtmQwP/Rfqmf6shNSvp44JFO5z0E1mFVxPNNW/ZmOJe/TisKvcXe
+	 jU1FKHupDif3MkuodNvZxRUgFiNkV7swrCTHyuMsyDQPsrLAiKgcRetHXKGBJ+RPIOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=oX2P7plc;
-	arc=none smtp.remote-ip=209.127.231.40
-Received: from va-2-40.ptr.blmpb.com (va-2-40.ptr.blmpb.com [209.127.231.40])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1fmu+OW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632CF606A329
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 06:49:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 632CF606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B083606A33F
+	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 06:51:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=oX2P7plc
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794811777;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=+t8ZxELPYTH2d5u1GirmDH7jb3H83Y/CovQh+JvDD1k=;
- b=oX2P7plcXodZNslbMgvxRoEyJCTfwNtwRtlGEJqET49GZFE+Z9wquBJ+/BUp2n38Q3dA2z
- Btnb5XtrWUL2buosdGtxjOlR/mj+7gJBUupXuFMqlGhe0hQQKsZUrDl7tpP0GYpZmkZalV
- QxX6OteiWPli/OFVj+H0PXru9HkXP9bsbb3FuAae9RA1DarlV1+oBWJt/1gpDANI41K/Xv
- BBEr8rhOaZS1ctTd7Sv7s6vL615GhmQg2k0O69FdLHNlTlyv9QKdixC54Ha5HkW7Ee/DRb
- 1qc7WBrh7IG7ZKXsWHNkxl7HJCzHgYqiaobpxXOBR+LT+CCaNtPSvdADsLNV/w==
-Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.efc7f10c.ccd0.4025.9bef.e587b1e9e4e8@feishu.cn>
-Cc: "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	"devicetree" <devicetree@vger.kernel.org>, 
-	"linux-riscv" <linux-riscv@lists.infradead.org>, 
-	"spacemit" <spacemit@lists.linux.dev>, 
-	"linux-kernel" <linux-kernel@vger.kernel.org>
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-X-Lms-Return-Path: <lba+16afaa77f+e5c053+vger.kernel.org+sandie.cao@deepcomputing.io>
-In-Reply-To: <20261114075506-GKB100523@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Nov 2026 14:49:33 +0800
-To: "Yixun Lan" <dlan@kernel.org>
-Subject: Re: [PATCH v4 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1fmu+OW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A96131F000C4;
+	Mon, 16 Nov 2026 06:51:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794811877;
+	bh=K4G3vtF3EXpcWXUVltCjBtpSx2zykht4IPE6VMUltOY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=H1fmu+OW4w2FBxU8AGbWGQ5JlMBF6FqVkdzcrhuFrQ+iHnW//Ja+DjlMOt1nsxoF6
+	 YtLjp7XAVcSsDOqm94QI7zflQoYMkXQ6smz7+IsHR15Iv2hJEbXix+JWmkYqH2C5Jf
+	 9E+sCXq4ZaL+jXr7aiWMkWshmdqe5RvqXSE3wRgUBEWcyybfKC/LDr9diTxFeVAt68
+	 cnOa5PkM0FoVY3E/JGT23cLZXpZElAzI6DZ6lsxieupJeqW1H2+9Zvf9+D2j1XB3vu
+	 rKneen5d/78MF/EYLz7wJqDd0ke1icckzc1JSsvAhuMa4lNxjMo4hKeb+dswBaMBeu
+	 vBJrp58UExTnQ==
+Message-ID: <sashiko-outbox-216335@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/2] dt-bindings: interconnect: qcom: Add SM7250 RPMh
+ NoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ishu Brar" <patches@brar.si>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116-icc-sm7250-v5-1-506be082a3c5@brar.si>
+References: <20261116-icc-sm7250-v5-0-506be082a3c5@brar.si>
+ <20261116-icc-sm7250-v5-1-506be082a3c5@brar.si>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 06:51:17 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,108 +60,115 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261109033154.361399-1-sandie.cao@deepcomputing.io> <20261109033348.361452-1-sandie.cao@deepcomputing.io>
-	<20261114075506-GKB100523@kernel.org>
-Content-Transfer-Encoding: quoted-printable
 
-Hi, Yixun:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] dt-bindings: interconnect: qcom: sm7250-rpmh: invalid child
+  node modeling
+- [Medium] dt-bindings: interconnect: qcom: sm7250-rpmh: clocks
+  forbidden on aggre2-noc
+--
 
-> From: "Yixun Lan"<dlan@kernel.org>
-> Date:=C2=A0 Sat, Nov 14, 2026, 15:55
+commit b308f53251bfcc5ecbf2fb5f677aee7859d07704
+Author: Ishu Brar <patches@brar.si>
 
-> Hi Sandie,
->=C2=A0
-> On 11:33 Mon 09 Nov =C2=A0 =C2=A0 , Sandie Cao wrote:
-> > Add the device tree node SDHCI-0 controller for onboard Micro SD card s=
-lot.
-> >=C2=A0
-> > Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
-> > ---
-> > =C2=A0.../spacemit/k3-deepcomputing-fml13v05.dts =C2=A0 =C2=A0| 22 ++++=
-+++++++++++++++
-> > =C2=A01 file changed, 22 insertions(+)
-> >=C2=A0
-> > diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts=
- b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > index bcd533484a73..051046fe90b2 100644
-> > --- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > @@ -177,6 +177,28 @@ &combophy {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D "okay";
-> > =C2=A0};
-> > =C2=A0
-> ..
-> > +/*
-> > + * Onboard SD card slot:
-> > + * Please insert or remove the SD card while the device is powered off=
-.
-> > + * It works as a boot media. so set it to non-removable.
-> > + */
-> Is there any public schematic available for FML13V05? I guess there is
-> no CD pin (Card Detect pin)? as no "cd-gpios" property seen here
->=C2=A0
-> The above comment isn't really useful or even correct, I'd suggest
-> drop it.
+dt-bindings: interconnect: qcom: Add SM7250 RPMh NoC
 
-In version 1 [1],=C2=A0 the patch is cd-gpios =3D <&gpio K3_GPIO(88) GPIO_A=
-CTIVE_LOW>;
-but K3_GPIO(88) is fake cd-gpio, it's tied low on board.
-So In version2 [2], the patch changes to non-removable.
-And In version3 [3], add comment.=C2=A0
+This commit adds the Device Tree binding schema and interconnect ID header
+for the Qualcomm SM7250 RPMh Network-On-Chip interconnect providers.
 
-The options: cd-gpio, non-removable, broken-cd=C2=A0 all work on this board=
-.
+> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,sm7250-r=
+pmh.yaml b/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.=
+yaml
+> new file mode 100644
+> index 0000000000000..8e729d78cce40
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml
+> @@ -0,0 +1,104 @@
+[ ... ]
+> +  clocks:
+> +    items:
+> +      - description: aggre UFS PHY AXI clock
+> +      - description: aggre USB3 PRIM AXI clock
+> +
+> +  interconnect:
+> +    type: object
+> +    description:
+> +      The interconnect providers do not have a separate QoS register spa=
+ce,
+> +      but share parent's space.
+> +
+> +    allOf:
+> +      - $ref: qcom,rpmh-common.yaml#
+> +
+> +    properties:
+> +      compatible:
+> +        enum:
+> +          - qcom,sm7250-compute-noc
+> +          - qcom,sm7250-mc-virt
+> +          - qcom,sm7250-qup-virt
+> +
+> +    required:
+> +      - compatible
+> +
+> +    unevaluatedProperties: false
 
-We just need to detect the SD card when bootup, don't need the driver=C2=A0
-to detect hot-plug event , non-removable should be suitable and faster,=C2=
-=A0
-we recomment to use non-removable.
+[Severity: Medium]
+Should qcom,sm7250-mc-virt and qcom,sm7250-qup-virt be top-level compatibles
+with reg: false instead of child nodes under the interconnect property?
 
+Unlike qcom,sm7250-compute-noc, which shares its parent's MMIO space for NPU
+QoS ports, mc-virt and qup-virt are purely virtual BCM-voting providers with
+no QoS registers at all.
 
-[1]: https://lore.kernel.org/all/20260922110231.3426011-1-sandie.cao
-@deepcomputing.io/
-[2]: https://lore.kernel.org/all/20261020081633.3673704-1-sandie.cao
-@deepcomputing.io/
-[3]: https://lore.kernel.org/all/20261102060012.100623-1-sandie.cao
-@deepcomputing.io/
+In addition, defining this child node as a fixed property named interconnect
+at the top level prevents a parent NoC node from having more than one child
+interconnect node, and allows child interconnect nodes under any of the eig=
+ht
+parent NoC compatibles rather than restricting them in allOf to the parent
+NoC whose register space is actually shared.
 
-Best regards
-Sandie
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +allOf:
+> +  - $ref: qcom,rpmh-common.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sm7250-aggre1-noc
+> +    then:
+> +      required:
+> +        - clocks
+> +    else:
+> +      properties:
+> +        clocks: false
 
->=C2=A0
-> > +&sdhci0 {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-names =3D "default","uhs";
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-0 =3D <&mmc1_cfg>;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-1 =3D <&mmc1_uhs_cfg>;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0bus-width =3D <4>;
-> ..
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0non-removable;
-> "no-removable" property usually used for emmc chip soldered on board,
-> =C2=A0so there is no way it can be physically removed.. check=C2=A0
-> Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
->=C2=A0
-> For cases that no CD pin (or no GPIO CD pin) designed for SD card from
-> hardware schematic perspective, using "broken-cd" is a more proper way,
-> it will fallback to use poll mechanism to detect the card, please check
->=C2=A0
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0no-mmc;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0no-sdio;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0disable-wp;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0cap-sd-highspeed;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0vqmmc-supply =3D <&aldo1>;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0sd-uhs-sdr25;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0sd-uhs-sdr50;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0sd-uhs-sdr104;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D "okay";
-> > +};
-> > +
-> > =C2=A0&uart0 {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-names =3D "default";
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-0 =3D <&uart0_0_cfg>;
-> > --=C2=A0
-> > 2.43.0
->=C2=A0
-> --=C2=A0
-> Yixun Lan (dlan)
->=C2=A0
+[Severity: Medium]
+As reported by Krzysztof Kozlowski on v3 [1], does qcom,sm7250-aggre2-noc
+also need a clocks property for the RPMH CC IPA clock?
+
+In include/dt-bindings/interconnect/qcom,sm7250-rpmh.h, MASTER_IPA belongs =
+to
+aggre2-noc:
+
+include/dt-bindings/interconnect/qcom,sm7250-rpmh.h:
+#define MASTER_A2NOC_CFG		0
+#define MASTER_QDSS_BAM			1
+#define MASTER_QUP_0			2
+#define MASTER_CRYPTO_CORE_0		3
+#define MASTER_IPA			4
+
+Setting clocks: false for all compatibles other than qcom,sm7250-aggre1-noc
+prevents Device Tree from supplying the IPA clock needed to access the IPA
+QoS registers in aggre2-noc.
+
+[1] https://lore.kernel.org/r/20261027-tangible-steadfast-serval-caccf3@quo=
+ll
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-icc-sm7250=
+-v5-0-506be082a3c5@brar.si?part=3D1
