@@ -1,62 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830229;
-	b=aTJopYZzjfgro4Bmv2KZ5p7WR0NnWhOL8x36aBpbJ0xTgE3w1tbBlbUwYM+Mqq8oKVIc
-	 n3CjbiuDlGjeb7b4VfBpG/7z275pdOi37tPPIqKBRzkbneSVfNEzhVdYCF6wNptL2gK9z
-	 hyrzVdQsvALRC3B8Eu+mgOzgDxlgjeBAMUi+d0ADdO+9CfV4oQc/UlUBXROH5sDHRpZGq
-	 Wx5T97ujaDsYa2/TKCo1Tv3XJJAVpLoH7OOP/xGXLp/QiYgFToVMXLFu9u7HlR6mnvGH/
-	 fdb72fxbMbqWxeIDKSXL3hnhDQXtY3i/TEcFk0I/D+GIe1i0/6h29KRyAJzCYexHz5g==
+	t=1794830340;
+	b=uOicX5quINkSS4meH4TWZPuoOpu4falK0yaha9InK71qoXtaOtyvmuji2F1uXVeOMbea
+	 ke5bUB9WcnMgGQBn8AWdm+/S7qBkIcsKiES4bKimDiJ1Jj4AhARJbLQ839gRZ7Mv30eTa
+	 X5kHMig47BY2O7b5C4OcT6xnzA7HASIbWU7jYT07T1OxCMRcBRQ4znS8NrguJaoCAKwZl
+	 GWP78KwvWN4ZoOAkl49Aqt3f0VNGeQc6KznPT8TV+RyhUsEkLcAzhvZfsrg1YjOxdDWOv
+	 IKIJ3R5DwBSQqmGCFCcKseUfVIL8AXXTIk8nqpWYvwuzkAJl5+1v/cmrhyXR7y5PkAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830229;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=XPQ1wIXQCkQXPiny6s36FrRzIlHdxNRjUMbMmTa47BM=;
-	b=MSLemOKuNM4VRNg82QyBXTSBGw8PYp445NSwKcTurUM5m7QHPArEhRMIs3f0AHFrdrHm
-	 o9nmThVDyqaSRonQ3XmmDqAeqebc3ZYZFH3cEKxeMKXcalJ3O0ljKAS6Su1GnIuOLeHmH
-	 aIyF6KvSuZ9aP7MZZdBbLxJH2ga/H3RB13umuolpAQHJYJZp1YB3r0qjMJ8wm44+1QwaA
-	 EddYZC6tCbMmMZ9ImH2wcmraOFGh/Ubmp+NIKcPhDoulXrkO641FJZSTGkm91psUInzbu
-	 4BXNMlufF45UA9ThFyPE+wnTxADXcsjZp18KXTPyEpIeRU8fShCEB2vkCbhNRMx2vFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830340;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KXBcB6uNW5ouM37NwNEoi+ql5ySZLImh0lVzkayzOW8=;
+	b=4VgvJJZRQuo6+6wEsoiaOMWFF0Oh4WOoRcvP758nUp+6wliyg1yK9xqJ7O8oBklMHzSY
+	 HqWaUlY1OR+8zqx2K4pqkUrXbcAbCdz3voxZpBnyEH7QG7OMo97KflstkKW2iRw75HRik
+	 2rcJsKNpbaWZX14zKIR1KZzeWuU1qrUzaE/MptKUliKAXcE31vcGwzaePrr/gsvvnh3d4
+	 x6ZlbbMpqI4iG2s3Bm9jYeCaKgbE6iOjIxmwRdhxMgUZHPeWF7tK4dJs5gX6pr/Tgh/4L
+	 ICOcigLP5GuOeFW2Sy6pSTpnQhn6ifWJIbrAgUUqRj5Z9chwJunsBmE2uUgAzsZgmYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=e9qWIYEX;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BiSN7I8z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB13606A323
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 11:57:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EB13606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E95606A32F;
+	Mon, 16 Nov 2026 11:59:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=e9qWIYEX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=XPQ1
-	wIXQCkQXPiny6s36FrRzIlHdxNRjUMbMmTa47BM=; b=e9qWIYEXxZMCm4mjbaNR
-	tIAuQ88fKvTqH2QXOgyN+ul9rRhg8zCINmvw0JrCYMVcuLesFPYJPV7n/AlQ5Nh5
-	l13ZH1zIYMg8Ej612P1Cx8ds4HMmJuTccH+O9Z5yYcDO/AN/YuEtCS3gHo6aKxAo
-	3Hym1+hpIRbccoC2k0uPKclf5drzr3x9cUC4bUbCZMAQZqcqich9RkCuzzAwTWmE
-	Kj0cYhJY774UDulZ13WJlzrvYRxQl1XuxUxYDcIvBZXikVLuo6vEFr04iNDc91KY
-	mP75UbhLQiocWrytPsAhr/za892hAvl9/HQ1/DWC/UcuYOw3nVL2l/FOBWn5vFIz
-	jQ==
-Received: (qmail 1270761 invoked from network); 16 Nov 2026 12:57:03 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Nov 2026 12:57:03 +0100
-X-UD-Smtp-Session: l3s3148p1@WLLmeWNgjMgujnv5
-Date: Mon, 16 Nov 2026 12:57:02 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-renesas-soc@vger.kernel.org
-Cc: Adam Ford <aford173@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: renesas: beacon: Increase sdhi speeds
-Message-ID: <avrvis4phg1v-Uxw@ninjato>
-References: <20261116104427.5152-2-wsa+renesas@sang-engineering.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BiSN7I8z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 238B61F000C4;
+	Mon, 16 Nov 2026 11:58:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794830340;
+	bh=KXBcB6uNW5ouM37NwNEoi+ql5ySZLImh0lVzkayzOW8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BiSN7I8zzul/TLEoVVXXETvMPwnfgHpJ3hMMm2vBW5DCJhPoowDg9uxZSCVz6P8/x
+	 Rjw2LXfBbTYvB2WOSlLGKL/hMpW+cxPfVg/D0IlgIGyMCpT5xtq1VbvI7rEzXf66y6
+	 xotCsLsU6WNAxhM8EqudlvxJ6C+H//scMQTnwBRfrHCWZr+NzXtSSea7e5RzPc+/LU
+	 pFcaJ9YT3RC8yKV/+1LmFzryG1CUzQ1NSuJjn/XoBbkLtrf9XXejx8usok+LVLJGE9
+	 tx9IyRQpKgz/B0QiU386uxOw82bn3ey9VDZx6/CSszGrBjz8TCbAbz3W/HQm7kP9bb
+	 6ifnMAojaFwWg==
+Date: Mon, 16 Nov 2026 12:58:55 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ulf Hansson <ulfh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: power: domain-idle-state: Add
+ system-state
+Message-ID: <20261116-icy-free-lionfish-c3eed8@quoll>
+References: <20261113-s2idle_state-v2-0-ad604182e7e7@oss.qualcomm.com>
+ <20261113-s2idle_state-v2-1-ad604182e7e7@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,42 +63,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KhGI/zD6So15lITj"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261116104427.5152-2-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20261113-s2idle_state-v2-1-ad604182e7e7@oss.qualcomm.com>
 
---KhGI/zD6So15lITj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Fri, Nov 13, 2026 at 10:25:25AM +0530, Maulik Shah wrote:
+> Some domain idle states require system-wide coordination and are not
+> applicable while the platform is up and running.
 
+You repeated the property description. Say something more. Why they are
+not applicable when platform is running? So if not running, when are
+they applicable? Why?
 
-> [Severity: High]
-> Does enabling mmc-hs400-1_8v here break eMMC HS400 transfers on
-> r8a774a1-beacon-rzg2m-kit with RZ/G2M ES1.3 or ES3.0?
+> 
+> Add a boolean system-state property to describe these states.
+> 
+> Acked-by: Kevin Hilman <khilman@baylibre.com>
+> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/power/domain-idle-state.yaml       | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/power/domain-idle-state.yaml b/Documentation/devicetree/bindings/power/domain-idle-state.yaml
+> index 4dd4f59bbbec..b19952f6225d 100644
+> --- a/Documentation/devicetree/bindings/power/domain-idle-state.yaml
+> +++ b/Documentation/devicetree/bindings/power/domain-idle-state.yaml
+> @@ -45,6 +45,12 @@ patternProperties:
+>            state will yield power benefits, after overcoming the overhead while
+>            entering the idle state.
+>  
+> +      system-state:
+> +        description:
+> +          When present, this state requires system-wide coordination and is
+> +          not applicable while the platform is up and running.
 
-Dunno which ES versions this SoM can carry. I will drop the relevant
-hunk and leave the addition for a party really having the HW.
+So when is it applicable if not when up and running?
 
+Best regards,
+Krzysztof
 
---KhGI/zD6So15lITj
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr674oACgkQFA3kzBSg
-KbZJIw//akK9tTqEjgihe5aLlFrEUl5fXdImqi2/3bHhmA7T+M56aYeqy85ii1b8
-ct0HDw2/tSkX+tm2Vc/ALoPrp89prWvXQc3cat9SJzcNHJXnUF/rn7z2kOEMBhn4
-Aab05/Vw8VyQszUJSJqKVAPVtXCKgP724PxHCoIvjS5rsSXsYn6X7SpRHkLd1koU
-pOO+u0B/S//ijlzrOuizCdTDo1uTppuTDAM1DyDAC+5R1yZP7h551ycOmlLftkuc
-1SZXXG2uRBLJK8ZQv8bxO7EbLW/zadLCTYPyeAGmGlUSI/6FM8o3lzGYQtNhUzvN
-xW5+tVbnqQ95bRKNZDbfZoCFc9PhTRGIkasCFcdaS0Lp4I3uKr7CJ9PxeFNv8dv5
-FR1HbYC7dacT618o7KlgeZ21Ry29UbcvrJbgrroYA8ykZUN+gBwTO8CR1EP8Xdtd
-nFRPNjqNuQSdMXMHBdSGgOU+CQHdQwVN5e/88YSVw3dK5Zb3P4Qj1nslvrMgdbLH
-xnyKDBGTKlSeoC2cBG1ILql7c3yrpHeIUbjVQxAN3x8VB77LtRyEfhdYUJPOqpHP
-VLJX1hAFeAz0CKXs78qZBv48fKSvgUH3edld1dDG+fqbh7m4A36uKL04/wLdnQ/W
-BUNinlyXH+hJxgyYJPbvC8djUD5jvET8qM8ndiNCYDAYCdr0J10=
-=ACCe
------END PGP SIGNATURE-----
-
---KhGI/zD6So15lITj--
