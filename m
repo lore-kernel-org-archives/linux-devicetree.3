@@ -1,121 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794829766;
-	b=vFyVGflUV3kzfdPg83EtM8fuTKLtujJc+xY5GfdL837D3Gu/uR6V2flgc6qBadKNdkWM
-	 Ny8yp9AaRG2u5C4Nnu92y3uXZZ+zKPgoK5Av86AsSZX1NXnq3Ym34aMPiyGCYqSK57Zd/
-	 s/Jx1duWSScnhhSe5aiAkeph8aWPpOfoTct4IStgFaHb/svzs4B4Cyy1S524lI8rV0eAI
-	 Opqw/YBkMMf7b0Ow8p8RdQmQpviPdm01yv/pKjuJ6M3047xl1+vfHmrWTwll6VD2st2R5
-	 LXuJ0pyZ/VjitHIk6MLipLE74Qv52XljKA1y5JY5hJgajmu3m5zP5tFq2+cK5frWGtQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829766;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ibqxhW40RmBjwpc8i50dBPwS/b2wJRBsVzM6V99AbQ8=;
-	b=lXw3SZfwIxJkBthwMs8eFD+BMhaAk8FyHGOYfzAHGGm1jPdSiomOkuKjfLABXjvgjHRQ
-	 2gCeALvBvNlSpwHfcETako2h6g5NU49laM0CL4caajfsj3yX3IqsalQgObxxAVltZzkN9
-	 iAvcKJXjg29uW8MQ4H9427pYbOCo+SCyLhtPcudruUeS75EWmOVcOUHkfKdtERJPtzNAe
-	 5pf+SDT6T+TqezMBdNLSMvwltIydOxJnn4KVXL3Sk0o7nzWN7TBYqG9OCjRoJqZQix3HY
-	 +fEGAO5UkyFuAXiR0VSy3iulkoVpVOOLxyqz4QFxuSH4s7V8CkSL8nIS6ucAsmkyyKw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jFaLEiLM;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ReeRdIxW;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794829782;
+	b=Tsm3UvVgqbuZ6oTJ/TGv0UbFiw1X0W0Mzsksvcm6akpkklUIgJzNye78Wvvjq2H2GN5B
+	 AD+GA1vWMhqoxLqJ+QyxlDK1YxiRzSFRnkpow1CrGylmRGWckLvBXoV06P+R3pOoLM8dT
+	 vudE7Ib1O0JPtonkfMJizNsA5tjyLV9FTWmCOtPUhdhLdzZPCVdR07zxH5JZ5t3OH/81X
+	 nWRInqJkMHYgj1bZiswDuyKxoFNdYnd5uulpd20YW9qBqr67LP7ClOvtJv0frD88M1hR2
+	 ssgcOrq5TOiLFrfVJH+fjryMl94AsTDGvaSUgh25Xwt/jMLd7rrDPXLiLHeHog4IULA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794829782;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=m4J7Coq8r/xqjCecsg9Er+GxXxxD28PbpsvCfJr5jlM=;
+	b=PXm1oRbrWGAusbjaOcqVy/d95YmUhKSrbZVY2+ndaEbVVqma5EDVa2Qq/4aOzeb2SSOj
+	 r0iLUWupNjQXcn3lM1P4VzsU1plqgLktXO9g7g+cdNyrCYMsMMwWTSqBO2sWUJl9WoYsT
+	 4TjjSN14Utpj5o2hG2P7k1gI9slA/29PNQU2OspDDmQWoAOJxEH7e3B+TmE+ZhrOZ03uZ
+	 t/dig1kVHQ7gx+XTt1aITZBS32hym4+hgKwRtwnbs92v8hGxhQxB8jQlXRNs4nWAhfdXB
+	 /ynsHkiacuwfqJbdmEuzZ2u07M+3kMLMZNO1leVQ3t+wPEjKQVc4XruRPhkepM2anhQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=TCxJiKsk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59255606A330
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 11:49:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59255606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34CEF606A323;
+	Mon, 16 Nov 2026 11:49:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34CEF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jFaLEiLM;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ReeRdIxW
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGBLR7V1016200
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 11:49:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=ibqxhW40RmB
-	jwpc8i50dBPwS/b2wJRBsVzM6V99AbQ8=; b=jFaLEiLMC8vWMriw71pNEsMdwI6
-	cYqSJLISN+Y0TLPvXJ7vQElyBXrGyBX34tyHaEb8J3GPnTD3WmX+j5byxT9thTMP
-	KV/K4T7RW/YNL1gAIwRTEKPNmiT5GCMvLZtFInoqjRFWc8JuXx4VxnY/hcsfCeTU
-	d/ZxtYpwjc4VjBx3uDBvZWgvps+f9DRJIT+WUzZjtEIagsEQKE+0TMTIrxELYT3b
-	X+z28Y0EpbOJpjjWkYZtb/Z+xKDO4vYGal4FtH0w+sWPL6vHOrwc8r1G9XeHrBok
-	khpIjW7xTZGdcRGcIz07n8aNW/vjBagdD1Kg2Tvd9N75UD51cAOuTK63xLA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0003g9ve-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 11:49:24 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36efb506f29so2788775eec.1
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 03:49:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794829763; x=1795434563; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ibqxhW40RmBjwpc8i50dBPwS/b2wJRBsVzM6V99AbQ8=;
-        b=ReeRdIxWWwvADvkNtdIOLMoL3SIwzEga0Kzxl7+C5Svl5RN2+LRuZR/m4bLek5zYQs
-         snMMtpz2XWRbxQ3nxFemg6qhZQIfZ3t/+txX8wLsWkasXYUHID7+C0lBL+cOYh8xXrx7
-         skIPVqO34V+KR2CE6sBx357LYfUj0ojNjDYThIzAOBXF3jQQP4Q8LWAIMAkK+GCfxEAK
-         43hiQxPnlqnhuE38KJKofFdu5FXmpuB3A7evn6+tZbte9CL8ONfOYqbtW7UGBl8jZPSK
-         vRVq0G5fCc3fpNF7YxnPYZJoHan8yXzYHKosAnvq/YHEGVLTA/jP/cErfMdhGdi5owlN
-         bVaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794829763; x=1795434563;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ibqxhW40RmBjwpc8i50dBPwS/b2wJRBsVzM6V99AbQ8=;
-        b=h33niXRqIsVe4/jr2rk0U/MxhPsc+tXV/Zv0XclVLLi+r8z2vp3NstLbW9JSi4MEda
-         sIQJLrOEB075sO0AvtJZ0AVJc7Ew1nPvooF1KJjIJoIQ788C6chzqiqMs8cAmRTPsUG7
-         7gKEJ3hKYbdx2xn3xfc7oID/JyT9GNuAxbpj585oCD3Z5r3kY0XJd0NEiuLF5ZozHMfU
-         FcfDF6ka5hShvsxmgLQ6fKRwkNFKdM2Ms3GPsjVNChAVpgDJ8OU8zhBW6sX45Aj2K5Se
-         I4tJsBqBrDin5X2vf8Pd8VQt+HeiFi+w5jFD25AGeLoxj3vztUjSkrAuhlVzcQY917E9
-         7Q9Q==
-X-Forwarded-Encrypted: i=1; AL+hErFw4XxzPO61Lfcv76KbHTymmsDdZlv84CEKzZgJVm57qMQho7tYMBj7Bb6B8MW9w1jAT9JRQypy9QmI@vger.kernel.org
-X-Gm-Message-State: APuU4Z/neE341TxnbBYSHdpbbyGqnEuU0lWYwbHTt6zoZ8yPlsT1n2No
-	9d3R404nFtfX+yEB8jntndXETP3mbTb3AbzGgG1ezrCDqaFTscvMDRe3UvzGeE7iD7cssV7AvNH
-	xzyxnlVB7/fUO63QU8Seigog5ji3JDq1Isa8memExl5PSyJgRtb96zP7NGLxoBNoR
-X-Gm-Gg: AZFdTZcaPrmFL+ATxmitrrc1Pb5KsWDTLoV48kGW0rh4d0q2GF1BKAr9YQ6Zml9xyeW
-	GTPSk/RBeI11u/JjG5JGVhKZaL4tyK3gKURtiYqUMubrMMuptQc/sHmNqHrdyi5DGnWFnIWLxIM
-	aK5U+d8X0qdIPg2Iusrksvf3pvKQvLPtSiZFjTm3C4CSuDT0ribZhi091EkAUhCxDWGM+7m7nfV
-	UndBjroXlYVsNaODM/xogLeBG1PnQAO0nO3f5g3eYvlSmUC612m6FEIL4YB5AAtGnl759kisXqz
-	UF4IUuJMHKkaW4Q6IwnS3oCzNgHqm030y8ox5AUquJzQmg2zz5suwIk77nh++BpY0AbDDItvmsp
-	24+qlPKUwUbmjn4OG0+rGDsjJe4lQsqlikNrVUmvBm3pZkTwwGmD6wqwGpbvNap9L/b3EpJQ8mq
-	mq
-X-Received: by 2002:a05:693c:2804:b0:37b:7bba:8199 with SMTP id 5a478bee46e88-37b7bba83dbmr5244731eec.6.1794829763151;
-        Mon, 16 Nov 2026 03:49:23 -0800 (PST)
-X-Received: by 2002:a05:693c:2804:b0:37b:7bba:8199 with SMTP id 5a478bee46e88-37b7bba83dbmr5244704eec.6.1794829762580;
-        Mon, 16 Nov 2026 03:49:22 -0800 (PST)
-Received: from hu-akakum-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955822d58sm33802844eec.10.2026.11.16.03.49.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 03:49:22 -0800 (PST)
-From: Akash Kumar <akash.kumar@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: [PATCH 2/2] arm64: dts: qcom: talos-lyra-evk: Wire up CYPD6129 USB Type-C ports
-Date: Mon, 16 Nov 2026 17:16:41 +0530
-Message-ID: <20261116114908.1701258-3-akash.kumar@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116114908.1701258-1-akash.kumar@oss.qualcomm.com>
-References: <20261116114908.1701258-1-akash.kumar@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=TCxJiKsk
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2F5B3200AD7;
+	Mon, 16 Nov 2026 12:49:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794829779;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m4J7Coq8r/xqjCecsg9Er+GxXxxD28PbpsvCfJr5jlM=;
+	b=TCxJiKskoA4zEC33jJD8RNwpMWe2fWbiQysXdhyFbET5LT3ak66+0+sVSJGBQJI3ZNYOy1
+	etmGIUzeAAtUhwF5L5di9tg/8oJwH1tWh12kJAkCU61aOQWG6+uJt13COdNXvypQHGHx/w
+	rpV02KzxRK5ukg2pXFygbpXEHf7LgAhKtlVEDfz+jTJ1Y3rGqnHT8uFfQ1sPlwCKAGf+U1
+	zO3LyMvJHHMI63YUIu2sWyWOCs9DWZtWCoozgTz6SrzcXx/GDJnJKXwjuPHEG/a6Bzt1JC
+	Mb+lVdJRkt0n2PceRMKJw6+efx/cxdFKq30HZWd06atfIz9yb3J+W5wM/pNYjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794829779;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m4J7Coq8r/xqjCecsg9Er+GxXxxD28PbpsvCfJr5jlM=;
+	b=bhb5gt1s6T2CLoIn/WkEEKUFkiCJfuLzsBiov/r2AT0+WDgL6/Zi1GrtClImVckmhYmmXF
+	ubPEImde4nZygvCWDNecbGuT++VbNtsNTgaJ7aQ/s9u5Ogv7p/So5uoBeMHAzg0AmWOKgh
+	4XJPFN9jLpr9Sq7uNrzzun3lwDsC5QlMQ+T3nulSxHUrSywIccblHZzbVah/LT/DcwmqND
+	eBjilWReeBou5AcnaR+DuvfAHBvMDvcnqmyprx9lLvtxmjD4OCD4+CVRTdd+KFShZl3Uz7
+	wb6WBpjQLJq1uMw0QyHdLU17uqgumyucihewa0GtICRgaJgQhTq6+b9gC+xbdA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794829779; a=rsa-sha256;
+	cv=none;
+	b=Q/GTP5h5iQHyLUddqPQpEnZOgcdwmSwpAHmQJd8kO6lR3N3oIFZDGuoeZaga1Wd+Y6VNov
+	fveCRaFRD/oLqzcTj//y8jWXZ8zFdTshHLPmzB9Empre5mur/qm1smIFBtZ2/GRTWhxmbc
+	WfGpk8e/pXhCuaDejdoG5lQhChgIJqSuNuEGGR3q36tnfksFoDqdrW0GedInlpUB3tSFSt
+	TTMlYRwWCnny6EJEJkYd+8ROY6yMDYtXk/WMH4gAkzeNXO64Uc+RxKCdH0QONE04Amkqmu
+	1ykfHeM2QpAlNVQ5GkcmbNv3ktrsWcSmDF0y5+IWT9CnzhskS9wr7IOGMjYjUQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <6ff41e4f76419d8f66b85f5a838e81f189f93521.camel@pengutronix.de>
+Subject: Re: [PATCH v2 07/13] reset: add Synaptics SL2610 reset controller
+ support
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Jisheng Zhang <jszhang@kernel.org>, Rob Herring <robh@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Catalin Marinas	 <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland	 <mark.rutland@arm.com>, Sebastian Hesselbarth
+ <sebastian.hesselbarth@gmail.com>,  Stephen Boyd <sboyd@kernel.org>, Brian
+ Masney <bmasney+clk@redhat.com>, Jerome Brunet	 <jbrunet+clk@baylibre.com>,
+ Linus Walleij <linusw@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Date: Mon, 16 Nov 2026 12:49:39 +0100
+In-Reply-To: <20261115102401.3520-8-jszhang@kernel.org>
+References: <20261115102401.3520-1-jszhang@kernel.org>
+	 <20261115102401.3520-8-jszhang@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -125,291 +101,301 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: GOSyfhDsGfPGBdMERnZdUg7OnGnRzZVO
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA0NiBTYWx0ZWRfX8yqpGlXOeIHw
- 4hBz+frNQUSeAMwwCWN0ahfvotrvmcwLtmrk0rxnxODKhyFFuwuJJBd/VYDShHilTV8xq3y4iur
- VIR/Oq2Ty9OoKbjCvKCAxpO73aptxeE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA0NiBTYWx0ZWRfX+OxhdtYjUVyw
- yuEvt3IjLp7B48uHttQoY6DikvKL34XLrnCjgR8lCOZKRvk9ygUmkEktiX6KeUQbuHtKFeQK4eY
- 8eC/bnQU2EdOhdiGIeC5rF9ymXvrtgkhu2fooPrw+AhdfkThpRzPC4MljUPL/6psR2XhA4iZj4G
- CdkLMz2SmiPIdG9NKzF4flJKBhixEh4KjgJGUsTWjZALUlzdUS2sh0rzzKpFiAYsZQdFbLHh8+3
- gcRjFGG8U1FHzEfkdXT8JrzvtYoDe8ku3ySz088Le8UuF973GacvroWId7PItf2UgquKVDkMErd
- eqt4wcJVxfQ5W65fnOQQSBkA8gHnx4uArvQkwovLVBacXXzJ9ElgYz6fyuitMc6xLO2kvBX0tj8
- YRGi3QUiExRUBW03OXQU4erLtzQL79M46t8ITeB9Z/EaiW/03gB+gi+PMypKpQKtC6eDV/xxYiG
- etQ3z/YMCHocapGFOKA==
-X-Authority-Analysis: v=2.4 cv=Z4N5j3RA c=1 sm=1 tr=0 ts=6afaedc4 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=1-dFLm9VQVe0kl0r4fgA:9 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: GOSyfhDsGfPGBdMERnZdUg7OnGnRzZVO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-16_04,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611160046
 
-From: Akash Kumar <akakum@qti.qualcomm.com>
-
-Add the CYPD6129 UCSI PD controller (typec@40) on i2c5 with its two
-USB-C connectors, and route their HS/SS endpoints to usb_1/usb_2's
-dwc3 controllers and the USB QMP PHY. The PD controller, its GPIO86
-interrupt line, and the PM8150 GPIO10 VBUS-enable control are on the
-SoC/SoM card, so they are added to talos-lyra-evk-som.dtsi.
-
-connector@1 additionally routes its SBU lines through a GPIO-controlled
-SBU mux (onnn,fsusb43l10x) selected by expander0, since connector@1's
-physical Type-C port carries SuperSpeed and SBU while connector@0's
-port is USB-HS-only by hardware design. The SBU mux and its GPIO
-expanders live on the carrier board, so they are added to
-talos-lyra-evk.dts along with the TLMM GPIO64 VBUS boost enable fixed
-regulator that supplies the USB daughter-card connector's VBUS.
-
-Switch usb_1/usb_2 to dr_mode = "otg" with usb-role-switch so role
-switching is driven by the PD controller, and add the supporting
-USB1_VBUS regulator and pinctrl entries needed by this routing.
-
-Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
----
- .../boot/dts/qcom/talos-lyra-evk-som.dtsi     | 121 ++++++++++++++++++
- arch/arm64/boot/dts/qcom/talos-lyra-evk.dts   |  42 ++++--
- 2 files changed, 152 insertions(+), 11 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
-index 7d9a08471906..ed3a369dac02 100644
---- a/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
-+++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
-@@ -31,6 +31,16 @@ xo_board_clk: xo-board-clk {
- 			#clock-cells = <0>;
- 		};
- 	};
-+
-+	regulator-usb1-vbus {
-+		compatible = "regulator-fixed";
-+		regulator-name = "USB1_VBUS";
-+		gpio = <&pm8150_gpios 10 GPIO_ACTIVE_HIGH>;
-+		pinctrl-0 = <&usb1_en>;
-+		pinctrl-names = "default";
-+		enable-active-high;
-+		regulator-always-on;
-+	};
- };
- 
- &apps_rsc {
-@@ -179,6 +189,87 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/qcs615/a612_zap.mbn";
- };
- 
-+&i2c5 {
-+	typec@40 {
-+		compatible = "cypress,cypd6129";
-+		reg = <0x40>;
-+		interrupts-extended = <&tlmm 86 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-0 = <&usb0_intr_state>;
-+		pinctrl-names = "default";
-+		wakeup-source;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		connector@0 {
-+			compatible = "usb-c-connector";
-+			reg = <0>;
-+			label = "USB-C";
-+			data-role = "dual";
-+			power-role = "dual";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ucsi_ccg_port_0_hs: endpoint {
-+						remote-endpoint = <&usb_2_dwc3_hs>;
-+					};
-+				};
-+			};
-+		};
-+
-+		connector@1 {
-+			compatible = "usb-c-connector";
-+			reg = <1>;
-+			label = "USB-C";
-+			data-role = "dual";
-+			power-role = "dual";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ucsi_ccg_port_1_hs: endpoint {
-+						remote-endpoint = <&usb_1_dwc3_hs>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ccg_typec_con1_ss: endpoint {
-+						remote-endpoint = <&usb_qmpphy_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ccg_typec_con1_sbu: endpoint {
-+						remote-endpoint = <&sbu_mux_in>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&pm8150_gpios {
-+	usb1_en: usb1-en-state {
-+		pins = "gpio10";
-+		function = "normal";
-+		output-enable;
-+		power-source = <0>;
-+	};
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
-@@ -229,6 +320,15 @@ &sdhc_2 {
- 	status = "okay";
- };
- 
-+&tlmm {
-+	usb0_intr_state: usb0-intr-state {
-+		pins = "gpio86";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+};
-+
- &uart0 {
- 	status = "okay";
- };
-@@ -250,6 +350,14 @@ &ufs_mem_phy {
- 	status = "okay";
- };
- 
-+&usb_1 {
-+	status = "okay";
-+};
-+
-+&usb_1_dwc3_hs {
-+	remote-endpoint = <&ucsi_ccg_port_1_hs>;
-+};
-+
- &usb_1_hsphy {
- 	vdd-supply = <&vreg_l5a>;
- 	vdda-pll-supply = <&vreg_l12a>;
-@@ -258,6 +366,15 @@ &usb_1_hsphy {
- 	status = "okay";
- };
- 
-+&usb_2 {
-+	status = "okay";
-+};
-+
-+/* HS only */
-+&usb_2_dwc3_hs {
-+	remote-endpoint = <&ucsi_ccg_port_0_hs>;
-+};
-+
- &usb_2_hsphy {
- 	vdd-supply = <&vreg_l5a>;
- 	vdda-pll-supply = <&vreg_l12a>;
-@@ -279,3 +396,7 @@ &usb_qmpphy_2 {
- 
- 	status = "okay";
- };
-+
-+&usb_qmpphy_out {
-+	remote-endpoint = <&ccg_typec_con1_ss>;
-+};
-diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-index d4468e609911..020ce7db4241 100644
---- a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-@@ -4,6 +4,7 @@
-  */
- /dts-v1/;
- 
-+#include <dt-bindings/gpio/gpio.h>
- #include "talos-lyra-evk-som.dtsi"
- 
- / {
-@@ -22,6 +23,30 @@ dp0_connector_in: endpoint {
- 			};
- 		};
- 	};
-+
-+	regulator-vbus-boost-5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_vbus_boost_5v";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&tlmm 64 GPIO_ACTIVE_HIGH>;
-+		pinctrl-0 = <&vbus_boost_en>;
-+		pinctrl-names = "default";
-+		enable-active-high;
-+		regulator-always-on;
-+	};
-+
-+	sbu-mux {
-+		compatible = "onnn,fsusb43l10x", "gpio-sbu-mux";
-+		select-gpios = <&expander0 12 GPIO_ACTIVE_LOW>;
-+		orientation-switch;
-+
-+		port {
-+			sbu_mux_in: endpoint {
-+				remote-endpoint = <&ccg_typec_con1_sbu>;
-+			};
-+		};
-+	};
- };
- 
- &i2c5 {
-@@ -100,16 +125,11 @@ dp_hot_plug_det: dp-hot-plug-det-state {
- 		function = "dp_hot";
- 		bias-disable;
- 	};
--};
- 
--&usb_1 {
--	dr_mode = "peripheral";
--
--	status = "okay";
--};
--
--&usb_2 {
--	dr_mode = "host";
--
--	status = "okay";
-+	vbus_boost_en: vbus-boost-en-state {
-+		pins = "gpio64";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
- };
--- 
-2.43.0
-
+On So, 2026-11-15 at 18:23 +0800, Jisheng Zhang wrote:
+> Support the SoC and MCU reset controls exposed by the SL2610 system
+> controllers. Match the MFD-created platform devices, use the parent
+> syscon regmap and register each reset provider against the parent DT node=
+.
+>=20
+> Handle both pulse resets and sticky resets with assert/deassert controls.
+>=20
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> ---
+>  MAINTAINERS                  |   1 +
+>  drivers/reset/Kconfig        |  13 ++
+>  drivers/reset/Makefile       |   1 +
+>  drivers/reset/reset-sl2610.c | 224 +++++++++++++++++++++++++++++++++++
+>  4 files changed, 239 insertions(+)
+>  create mode 100644 drivers/reset/reset-sl2610.c
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index eae1493485ee..1bd3b2f39865 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3812,6 +3812,7 @@ F:	Documentation/devicetree/bindings/soc/synaptics/
+>  F:	arch/arm/boot/dts/synaptics/
+>  F:	arch/arm/mach-berlin/
+>  F:	arch/arm64/boot/dts/synaptics/
+> +F:	drivers/reset/reset-sl2610.c
+>  F:	drivers/soc/synaptics/
+>  F:	include/dt-bindings/clock/syna,sl2610.h
+>  F:	include/dt-bindings/reset/syna,sl2610-reset.h
+> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+> index eda9c698a95f..98e973a8798c 100644
+> --- a/drivers/reset/Kconfig
+> +++ b/drivers/reset/Kconfig
+> @@ -358,6 +358,19 @@ config RESET_SUNXI
+>  	help
+>  	  This enables the reset driver for Allwinner SoCs.
+> =20
+> +config RESET_SL2610
+> +	tristate "Synaptics SL2610 Reset Driver"
+> +	depends on ARCH_BERLIN || COMPILE_TEST
+> +	depends on OF && HAS_IOMEM
+> +	select SOC_SL2610_SYSCON
+> +	help
+> +	  Support the reset controllers in the SoC and MCU system control
+> +	  blocks of Synaptics SL2610 SoCs. Both pulse and sticky reset lines
+> +	  are supported.
+> +
+> +	  To compile this driver as a module, choose M here. The module will
+> +	  be called reset-sl2610.
+> +
+>  config RESET_TENSTORRENT_ATLANTIS
+>  	tristate "Tenstorrent atlantis reset driver"
+>  	depends on ARCH_TENSTORRENT || COMPILE_TEST
+> diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+> index 489fafd6bbe3..d28276a4f2ea 100644
+> --- a/drivers/reset/Makefile
+> +++ b/drivers/reset/Makefile
+> @@ -42,6 +42,7 @@ obj-$(CONFIG_RESET_SCMI) +=3D reset-scmi.o
+>  obj-$(CONFIG_RESET_SIMPLE) +=3D reset-simple.o
+>  obj-$(CONFIG_RESET_SKY1) +=3D reset-sky1.o
+>  obj-$(CONFIG_RESET_SKY1_AUDSS) +=3D reset-sky1-audss.o
+> +obj-$(CONFIG_RESET_SL2610) +=3D reset-sl2610.o
+>  obj-$(CONFIG_RESET_SOCFPGA) +=3D reset-socfpga.o
+>  obj-$(CONFIG_RESET_SUNPLUS) +=3D reset-sunplus.o
+>  obj-$(CONFIG_RESET_SUNXI) +=3D reset-sunxi.o
+> diff --git a/drivers/reset/reset-sl2610.c b/drivers/reset/reset-sl2610.c
+> new file mode 100644
+> index 000000000000..1ca58d5a3e71
+> --- /dev/null
+> +++ b/drivers/reset/reset-sl2610.c
+> @@ -0,0 +1,224 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2026 Synaptics Incorporated
+> + *
+> + * Synaptics SL2610 reset driver
+> + *
+> + * Author: Jisheng Zhang <jszhang@kernel.org>
+> + */
+> +
+> +#include <dt-bindings/reset/syna,sl2610-reset.h>
+> +#include <linux/delay.h>
+> +#include <linux/io.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_address.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset-controller.h>
+> +#include <linux/slab.h>
+> +#include <linux/types.h>
+> +
+> +/* SL2610 ACPU subsystem */
+> +#define SL2610_GBL_PERIFRESET			0x350
+> +#define SL2610_GBL_PERIFSTICKYRESET		0x360
+> +#define SL2610_GBL_APBPERIFRESET		0x370
+> +#define SL2610_GBL_TOPSTICKYRESET		0x378
+> +#define SL2610_GBL_AVIOSTICKYRESET		0x37c
+> +
+> +/* SL2610 system subsystem */
+> +#define SL2610_SMGBL_STICKYRST0			0x400
+> +
+> +#define to_sl2610_reset_priv(p)	container_of((p), struct sl2610_reset_pr=
+iv, rcdev)
+> +
+> +#define SL2610_RESET(id, reg, bit, sticky)[id] =3D { reg, BIT(bit), stic=
+ky }
+> +
+> +struct sl2610_reset_cfg {
+> +	u32 reg;
+> +	u32 bit;
+> +	bool sticky;
+> +};
+> +
+> +struct sl2610_reset_data {
+> +	const struct sl2610_reset_cfg *cfgs;
+> +	size_t num;
+> +};
+> +
+> +struct sl2610_reset_priv {
+> +	struct regmap *regmap;
+> +	const struct sl2610_reset_cfg *cfgs;
+> +	struct reset_controller_dev rcdev;
+> +};
+> +
+> +static const struct sl2610_reset_cfg sl2610_reset_cfgs[] =3D {
+> +	SL2610_RESET(RST_SOC_SDIO0, SL2610_GBL_PERIFRESET, 2, false),
+> +	SL2610_RESET(RST_SOC_USB0, SL2610_GBL_PERIFRESET, 4, false),
+> +	SL2610_RESET(RST_SOC_EMMC, SL2610_GBL_PERIFRESET, 5, false),
+> +	SL2610_RESET(RST_SOC_GETH0, SL2610_GBL_PERIFRESET, 6, false),
+> +	SL2610_RESET(RST_SOC_SDIO1, SL2610_GBL_PERIFRESET, 7, false),
+> +	SL2610_RESET(RST_SOC_USB1, SL2610_GBL_PERIFRESET, 8, false),
+> +	SL2610_RESET(RST_SOC_GETH1, SL2610_GBL_PERIFRESET, 9, false),
+> +	SL2610_RESET(RST_SOC_USB0PHY, SL2610_GBL_PERIFSTICKYRESET, 0, true),
+> +	SL2610_RESET(RST_SOC_USB0CORE, SL2610_GBL_PERIFSTICKYRESET, 1, true),
+> +	SL2610_RESET(RST_SOC_USB0MAHB, SL2610_GBL_PERIFSTICKYRESET, 2, true),
+> +	SL2610_RESET(RST_SOC_USB1PHY, SL2610_GBL_PERIFSTICKYRESET, 3, true),
+> +	SL2610_RESET(RST_SOC_USB1CORE, SL2610_GBL_PERIFSTICKYRESET, 4, true),
+> +	SL2610_RESET(RST_SOC_USB1MAHB, SL2610_GBL_PERIFSTICKYRESET, 5, true),
+> +	SL2610_RESET(RST_SOC_UART0, SL2610_GBL_APBPERIFRESET, 0, false),
+> +	SL2610_RESET(RST_SOC_UART1, SL2610_GBL_APBPERIFRESET, 1, false),
+> +	SL2610_RESET(RST_SOC_UART2, SL2610_GBL_APBPERIFRESET, 2, false),
+> +	SL2610_RESET(RST_SOC_UART3, SL2610_GBL_APBPERIFRESET, 3, false),
+> +	SL2610_RESET(RST_SOC_I2C0, SL2610_GBL_APBPERIFRESET, 4, false),
+> +	SL2610_RESET(RST_SOC_I2C1, SL2610_GBL_APBPERIFRESET, 5, false),
+> +	SL2610_RESET(RST_SOC_SPI0, SL2610_GBL_APBPERIFRESET, 6, false),
+> +	SL2610_RESET(RST_SOC_SPI1, SL2610_GBL_APBPERIFRESET, 7, false),
+> +	SL2610_RESET(RST_SOC_SPI2, SL2610_GBL_APBPERIFRESET, 8, false),
+> +	SL2610_RESET(RST_SOC_SPI3, SL2610_GBL_APBPERIFRESET, 9, false),
+> +	SL2610_RESET(RST_SOC_APBTIMERS, SL2610_GBL_APBPERIFRESET, 10, false),
+> +	SL2610_RESET(RST_SOC_APBSYSCNT, SL2610_GBL_APBPERIFRESET, 11, false),
+> +	SL2610_RESET(RST_SOC_APBWDT, SL2610_GBL_APBPERIFRESET, 12, false),
+> +	SL2610_RESET(RST_SOC_APBGPIO, SL2610_GBL_APBPERIFRESET, 13, false),
+> +	SL2610_RESET(RST_SOC_APBDMA, SL2610_GBL_APBPERIFRESET, 14, false),
+> +	SL2610_RESET(RST_SOC_GPUCORE, SL2610_GBL_TOPSTICKYRESET, 0, true),
+> +	SL2610_RESET(RST_SOC_NPUCORE, SL2610_GBL_TOPSTICKYRESET, 1, true),
+> +	SL2610_RESET(RST_SOC_AVIOAIOG, SL2610_GBL_AVIOSTICKYRESET, 0, true),
+> +	SL2610_RESET(RST_SOC_AVIOVPPG, SL2610_GBL_AVIOSTICKYRESET, 1, true),
+> +	SL2610_RESET(RST_SOC_AVIOVIPG, SL2610_GBL_AVIOSTICKYRESET, 2, true),
+> +};
+> +
+> +static const struct sl2610_reset_cfg sl2610_system_reset_cfgs[] =3D {
+> +	SL2610_RESET(RST_SM_ADCCORE, SL2610_SMGBL_STICKYRST0, 0, true),
+> +	SL2610_RESET(RST_SM_ADCPRST, SL2610_SMGBL_STICKYRST0, 1, true),
+> +	SL2610_RESET(RST_SM_CAN0PRST, SL2610_SMGBL_STICKYRST0, 2, true),
+> +	SL2610_RESET(RST_SM_CAN0SRST, SL2610_SMGBL_STICKYRST0, 3, true),
+> +	SL2610_RESET(RST_SM_CAN1PRST, SL2610_SMGBL_STICKYRST0, 4, true),
+> +	SL2610_RESET(RST_SM_CAN1SRST, SL2610_SMGBL_STICKYRST0, 5, true),
+> +	SL2610_RESET(RST_SM_GPIOPRST, SL2610_SMGBL_STICKYRST0, 6, true),
+> +	SL2610_RESET(RST_SM_GPIOSRST, SL2610_SMGBL_STICKYRST0, 7, true),
+> +	SL2610_RESET(RST_SM_I2CM0PRST, SL2610_SMGBL_STICKYRST0, 8, true),
+> +	SL2610_RESET(RST_SM_I2CM0SRST, SL2610_SMGBL_STICKYRST0, 9, true),
+> +	SL2610_RESET(RST_SM_I2CM1PRST, SL2610_SMGBL_STICKYRST0, 10, true),
+> +	SL2610_RESET(RST_SM_I2CM1SRST, SL2610_SMGBL_STICKYRST0, 11, true),
+> +	SL2610_RESET(RST_SM_I3CPRST, SL2610_SMGBL_STICKYRST0, 12, true),
+> +	SL2610_RESET(RST_SM_I3CSRST, SL2610_SMGBL_STICKYRST0, 13, true),
+> +	SL2610_RESET(RST_SM_PDMPRST, SL2610_SMGBL_STICKYRST0, 14, true),
+> +	SL2610_RESET(RST_SM_PDMSRST, SL2610_SMGBL_STICKYRST0, 15, true),
+> +	SL2610_RESET(RST_SM_PVTHSRST, SL2610_SMGBL_STICKYRST0, 16, true),
+> +	SL2610_RESET(RST_SM_PVTPRST, SL2610_SMGBL_STICKYRST0, 17, true),
+> +	SL2610_RESET(RST_SM_PWMPERIRST, SL2610_SMGBL_STICKYRST0, 18, true),
+> +	SL2610_RESET(RST_SM_PWMPRST, SL2610_SMGBL_STICKYRST0, 19, true),
+> +	SL2610_RESET(RST_SM_SPIMPRST, SL2610_SMGBL_STICKYRST0, 20, true),
+> +	SL2610_RESET(RST_SM_SPIMSRST, SL2610_SMGBL_STICKYRST0, 21, true),
+> +	SL2610_RESET(RST_SM_SPISPRST, SL2610_SMGBL_STICKYRST0, 22, true),
+> +	SL2610_RESET(RST_SM_SPISSRST, SL2610_SMGBL_STICKYRST0, 23, true),
+> +	SL2610_RESET(RST_SM_UART0PRST, SL2610_SMGBL_STICKYRST0, 24, true),
+> +	SL2610_RESET(RST_SM_UART0SRST, SL2610_SMGBL_STICKYRST0, 25, true),
+> +	SL2610_RESET(RST_SM_UART1PRST, SL2610_SMGBL_STICKYRST0, 26, true),
+> +	SL2610_RESET(RST_SM_UART1SRST, SL2610_SMGBL_STICKYRST0, 27, true),
+> +	SL2610_RESET(RST_SM_UART2PRST, SL2610_SMGBL_STICKYRST0, 28, true),
+> +	SL2610_RESET(RST_SM_UART2SRST, SL2610_SMGBL_STICKYRST0, 29, true),
+> +	SL2610_RESET(RST_SM_UART3PRST, SL2610_SMGBL_STICKYRST0, 30, true),
+> +	SL2610_RESET(RST_SM_UART3SRST, SL2610_SMGBL_STICKYRST0, 31, true),
+> +};
+> +
+> +static const struct sl2610_reset_data sl2610_reset_data =3D {
+> +	.cfgs =3D sl2610_reset_cfgs,
+> +	.num =3D ARRAY_SIZE(sl2610_reset_cfgs),
+> +};
+> +
+> +static const struct sl2610_reset_data sl2610_system_reset_data =3D {
+> +	.cfgs =3D sl2610_system_reset_cfgs,
+> +	.num =3D ARRAY_SIZE(sl2610_system_reset_cfgs),
+> +};
+> +
+> +static int sl2610_reset_assert(struct reset_controller_dev *rcdev,
+> +			       unsigned long id)
+> +{
+> +	struct sl2610_reset_priv *priv =3D to_sl2610_reset_priv(rcdev);
+> +	const struct sl2610_reset_cfg *cfg =3D &priv->cfgs[id];
+> +
+> +	if (!cfg->sticky)
+> +		return -EINVAL;
+> +
+> +	return regmap_clear_bits(priv->regmap, cfg->reg, cfg->bit);
+> +}
+> +
+> +static int sl2610_reset_deassert(struct reset_controller_dev *rcdev,
+> +				 unsigned long id)
+> +{
+> +	struct sl2610_reset_priv *priv =3D to_sl2610_reset_priv(rcdev);
+> +	const struct sl2610_reset_cfg *cfg =3D &priv->cfgs[id];
+> +
+> +	if (!cfg->sticky)
+> +		return -EINVAL;
+> +
+> +	return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
+> +}
+> +
+> +static int sl2610_reset_reset(struct reset_controller_dev *rcdev,
+> +			      unsigned long id)
+> +{
+> +	struct sl2610_reset_priv *priv =3D to_sl2610_reset_priv(rcdev);
+> +	const struct sl2610_reset_cfg *cfg =3D &priv->cfgs[id];
+> +
+> +	if (cfg->sticky) {
+> +		regmap_clear_bits(priv->regmap, cfg->reg, cfg->bit);
+> +		usleep_range(10, 15);
+> +		return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
+> +	}
+> +
+> +	return regmap_set_bits(priv->regmap, cfg->reg, cfg->bit);
+> +}
+> +
+> +static const struct reset_control_ops sl2610_reset_ops =3D {
+> +	.reset	=3D sl2610_reset_reset,
+> +	.assert =3D sl2610_reset_assert,
+> +	.deassert =3D sl2610_reset_deassert,
+> +};
+> +
+> +static int sl2610_reset_probe(struct platform_device *pdev)
+> +{
+> +	struct device_node *parent_np =3D pdev->dev.parent->of_node;
+> +	struct sl2610_reset_priv *priv;
+> +	const struct sl2610_reset_data *data =3D
+> +		(void *)platform_get_device_id(pdev)->driver_data;
+> +
+> +	priv =3D devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->regmap =3D syscon_node_to_regmap(parent_np);
+> +	if (IS_ERR(priv->regmap))
+> +		return PTR_ERR(priv->regmap);
+> +
+> +	priv->rcdev.owner =3D THIS_MODULE;
+> +	priv->rcdev.ops =3D &sl2610_reset_ops;
+> +	priv->rcdev.dev =3D &pdev->dev;
+> +	priv->rcdev.of_node =3D parent_np;
+> +	priv->rcdev.of_reset_n_cells =3D 1;
+> +	priv->rcdev.nr_resets =3D data->num;
+> +	priv->cfgs =3D data->cfgs;
+> +
+> +	return devm_reset_controller_register(&pdev->dev, &priv->rcdev);
+> +}
+> +
+> +static const struct platform_device_id sl2610_reset_ids[] =3D {
+> +	{ "sl2610-soc-reset", (kernel_ulong_t)&sl2610_reset_data },
+> +	{ "sl2610-mcu-reset", (kernel_ulong_t)&sl2610_system_reset_data },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(platform, sl2610_reset_ids);
+> +
+> +static struct platform_driver sl2610_reset_driver =3D {
+> +	.probe =3D sl2610_reset_probe,
+> +	.id_table =3D sl2610_reset_ids,
+> +	.driver =3D {
+> +		.name =3D "sl2610-reset",
+> +	},
+> +};
+> +module_platform_driver(sl2610_reset_driver);
+> +
+> +MODULE_AUTHOR("Jisheng Zhang <jszhang@kernel.org>");
+> +MODULE_DESCRIPTION("Synaptics SL2610 reset controller");
+> +MODULE_LICENSE("GPL");
