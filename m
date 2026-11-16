@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794847206;
-	b=ssSehRle5QdnsNJmW69GZQYZKTaNQbcCdJGmymKbfOSg5VP2CDMm7Wjf8He2TXF9xIYM
-	 o9NDBFYMGvz7qTc1HeBEy7vLFzaRJK6nOQlq28K8UHxCb3+6Sp3o9r/js83Q5KX6uBmHN
-	 6CUN32+U11hZyJkopddgdjcc5VVH273gjzgkEzjA+Bj6bWkhhOwURgd6niyXIr1jkZRl+
-	 UQq2fzt3lb/+LUp/Ruw0sbz51k3MyrhDXVrtK9qm8p4UrHhR1DOJT2240IfGdrjuKcYlZ
-	 1nyPeZNHhNmF98tb2idU2G+f3T6DifTpb2arfJ2etMeFBKEyf3VDjjX2JswiJsQcurQ==
+	t=1794847202;
+	b=YxtLgLIjIljjjjIDtWG/LJ1dMjs1alA76uqvUvW7HPgEWetgmYZE3HLg7SQyG6ri5MKC
+	 i7S/ktGUe3ypc3Nl/OsnOjrACsDKIjnDbLwg2fIvW9P6ctCi4J41O9Rau9pwf14l67Zka
+	 P2ryyg4vukdrtV6/12DbQh6/eS9cGbP8wrWDfEUflDLBAj6yywB79J2EabGhc1hXvREGV
+	 khgndMGSJwMmYBBWKZ7/0n9YlYUlpJMUgA2d1K8C93l0O6a6XL3V0e75y9ujYF6RQi7PT
+	 9BW9dPHGmZbM1oDxb1ypiEoZgIB23q+XdaEmOTkAmDwBlcuxa5RCiH32hUds8M/QSig==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794847206;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794847202;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=phEBJ2O90PFZtcI3ETfomcxQ5wtK9Cexg19eqDMBIGw=;
-	b=JX3l50njTFH3Gj0rM///d1WqMVzEGIrK1c70WQbDDGRtxmd3Nt5NgPm2/xP9tbSlQdgh
-	 X2a20oU1bodp080IuyozIoXRByMwr0lXNwgwTV45USoeUM0X76/J7l11B2KW3MEc8uxC0
-	 VfnsXneXCfxBaj1kXOFCO3ZRPl91unJ5V2QBcElNtibEPHeUn7u8pBtH63O9jKuaoN4jH
-	 GprrU03sjjll1o+1Id4nDTX1hgzQqbTyuqJTbW4Q3NLpQAOhOtaJr83S3oOsb00tf/TPm
-	 wJTvfdjg5Br/AjyN958fOX1lDYgHeixZ4qlR3apMaACX55YRAjcStBiKXJUMXoJRylA==
+	bh=2fSUmENcPbdWMo1y0rXNjFtAImizWQknuiBcrGx6xPU=;
+	b=QrgRMvPjkc0zQ3fk/qdiHDkjhSJDjd04n5zPfO9nr8asYjqtgASWon14ki/0uEovFcbb
+	 mwoKzIFgNjIX4NNkVVci1k0jGxVb0QACYWODKxt+vgVfWTaEOtpE1If9U9tEyfIMPxrey
+	 LVI6De/BgI0Q2gnFmBvooWWJu91s61q4b0JIHBx1l0VIKCdGi18JSn5oITD49s5HIsppz
+	 +ZAPnF9ifyzgLfQ/JJSuKIXE1KDlhOT+d68vuY6Efd47xc5vaqpoX0tLEXNNV+UWBSLF7
+	 u2u8zKwBoNUY4mwOPPIGV00kObc3tLWxRUrLJRUfTVCPMLc+TdsEcAs/M2WYVCDLZfw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luqSXBYJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JRfxZrI6;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3413C606A8B0;
-	Mon, 16 Nov 2026 16:40:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7327606A8A8;
+	Mon, 16 Nov 2026 16:40:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luqSXBYJ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JRfxZrI6
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794847205;
-	b=h+YhoYIRWsRWwS+d3a86bCuFB3vF4LoKPvZkD9VFos/9jebtCfL8wReIbGK0fA8cyaJG
-	 1MdICklYsD7PoIHwxOEapkT9ybEs6nlhksrtX/Hr0hs8pmILmlHQiIN8BHscj2+k1Lp0S
-	 BfLT8Fuh4gI8osT4b+RAuBRHa3uiyT4LhjCe0Qk/OqernBgPDHPER/1wj9ZP78UR8+5kB
-	 sBtpHumHTZwhTLoVlzuYGmRt8fojDIyuzw29w3F0qamDjrumHPveA6Y4JObntGRZoaCPc
-	 ZpqVqgS3lSII13+O5SAkJX9sXJSWGzqJGKYoBEvgq5p+bVusNuvB1JQquIejYaPVhKg==
+	t=1794847201;
+	b=fs504JyEhebwzKuwDV8uA3O83EKP1AN3qZf3dzV+ZwhJ9H4CgbXe1A2iDdbUcTd/Ta85
+	 B/CLqsd1bLzT9SngI2RYinf+O/V7ca+razaght4kQLxIE/Mk8cN1wWA8etAmTMaVpL938
+	 /Lw4QVD3AM7EN7IDUxpSKcLczpMzuMnFjKs+usy9nltpqeeUJNMXzZ0Odq0pMAzo5C094
+	 i9ajKKz7/5++xCIMfJzT0dILi0MWzHJC8y9JR6iTKvJZ5gi1EbFfnz4MW/eYYcbGjQTCC
+	 7an1UALsNSFqnEmmLWmVCJAPbKJ/NYgFSHebxJWpI9tU2afXP8AmkqaKDWDnUKqbpoQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794847205;
+	c=relaxed/relaxed; t=1794847201;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=phEBJ2O90PFZtcI3ETfomcxQ5wtK9Cexg19eqDMBIGw=;
-	b=E9YSmHp+t63cD/4HjIMeBaX0/Nmye4smKKtREla9jTtTIkQI/Pw4/Jp/r2ZiuWBs4XcO
-	 FGgs3wNxIQgNV0UygKlE5bE+Dzvno8iCq970ZFLm13t8rvBa+vx704/T9HlDiz6Aw/+QU
-	 JC2b4KHxs8UKDooOb4K3sbzDiDu70zElAsVBzg/IIByzVEFfcQlCMU1d0Cqwnh/Z94LWs
-	 LWTVYVkPPUegqN1pG+bp58OjZyqEuKVOggM0bbGqwqKAu8IQMg6jyRHgCzLtEEUFnAJQ3
-	 ItSs3RRPi3lA+vDSKciF3hlo3LZ8BnH75TyXmXJBBUT40ybZERP3v4Q9oso3BeRCZcg==
+	bh=2fSUmENcPbdWMo1y0rXNjFtAImizWQknuiBcrGx6xPU=;
+	b=lv1CRvVdjEkPj6u5K++VWF5vUhgTnu/i10xueaOB1ZvJZK/l+myDRuAfLawMP2rZn3YQ
+	 mSclRLsTW4GGZcIU8I7ZqN1aqDzPMhlCuPLmnC90cn7qmi3P4G0sQvzZn/BAs8jBMbILM
+	 zc0O4Qj0ahGijpb9m6DuyOh7NIr8Wn1S1l3Dh8KvQ8FwcjA4btr5FpOtzNNHX0Bhs2RBe
+	 5ej++LJhIVC3HHcRXsK3B6p3ayysRsm8jzeUA5nakASVIzMwHruLvsGKKK4KXxiFthfqo
+	 EIKgVN6biQeUlQQvC2hVUTeM4hpSbXgd4KUCC1AUjjgAUZsXVOy7ajj2lYHyTGzPUvQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3E40E1F000D1;
-	Mon, 16 Nov 2026 16:40:01 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7E37E1F000CA;
+	Mon, 16 Nov 2026 16:40:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794847205;
-	bh=phEBJ2O90PFZtcI3ETfomcxQ5wtK9Cexg19eqDMBIGw=;
+	s=k20260515; t=1794847201;
+	bh=2fSUmENcPbdWMo1y0rXNjFtAImizWQknuiBcrGx6xPU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=luqSXBYJlNAQLi8RtYn7HZ22Q4SJe0o5ddz+6ZL7Rff96/Z8SWfWOEtG/9hws2GZg
-	 CuO691E8cVGzQhslZOopfd6NVP2l4JfjJt6EAnSZj+0hlrkGkF6Vga3UPXxNPokb/W
-	 uwNj3NOFFfKQURvbl4Ep+6iSxoZE7kShZk/Y3yDqXq1WxGsi8zoPEEpMg3kCMFJTgP
-	 KWAv4nBmvi+FK9fdYv5zNFJ/dxcwwq9zfmurC6AY+PPOPrmmEUNz6PETgAj7+loTAX
-	 y/RKyUnnYROE91O2BtvSnp6mL8lBhqWFdRYeTOx/lI7dvlcPL1+iLPB/avxnv6M2lG
-	 m2yM27rjzVldA==
+	b=JRfxZrI6t2A2FksAFDz0HHKNApqSbQhmMOkPk5J8BOjec1Kc3/cyruIj6aEief4TK
+	 XodJKn5BjhByW/BLFdSzvn0hIgP4m/MwK7raIPcH7ylNSdFIejywQY8thx9XOYX1cJ
+	 9Wvq+qK3JjPY831fu/1JN9G5JJDgxT2cqlThfMcHaPv5WWCTsRq6QKnr2ODCrVjF9U
+	 GhzShBfwWgKAqiD2POiZP30l1nN80rxg7K5Qt7S1tuvs+TrMPgEahYoZaIRu8C8XxG
+	 QrPhrssK9z58jmF/BxXB2U6ww/W0fUfK8abWXOCgJSGCCIGOt5pNzR00YWhyoI0GrQ
+	 Fnfqq6tv+IsRg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9807C4A53E;
+	by lkml.kernel.org (Postfix) with ESMTP id 253844A52A;
 	Mon, 16 Nov 2026 16:39:59 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Mon, 16 Nov 2026 16:40:02 +0000
-Subject: [PATCH v4 10/12] iio: frequency: ad9910: support iio backend
+Date: Mon, 16 Nov 2026 16:39:57 +0000
+Subject: [PATCH v4 05/12] dt-bindings: iio: frequency: add
+ adi,ad9910-axi-backend
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-ad9910-backend-support-v4-10-fcf1ad364ed5@analog.com>
+Message-Id: <20261116-ad9910-backend-support-v4-5-fcf1ad364ed5@analog.com>
 References: <20261116-ad9910-backend-support-v4-0-fcf1ad364ed5@analog.com>
 In-Reply-To: <20261116-ad9910-backend-support-v4-0-fcf1ad364ed5@analog.com>
 To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -101,525 +102,129 @@ Cc: Olivier Moysan <olivier.moysan@foss.st.com>,
  Randy Dunlap <rdunlap@infradead.org>, 
  Rodrigo Alencar <rodrigo.alencar@analog.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794847197; l=18559;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794847197; l=3737;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=DCE1PJxXjI563/z/BkqdyiuIZrn5K9biLUi9c9bH+vM=;
- b=yufjvJ34NjCouIaQA40pf3G8jWOOKvy7UKEFj6R5vX+75UKTjPbnxKE/F8k9EYTVnT/7P98W/
- v4kGhTvWBcfBfy2nxn5DrjQ0TYc1Eel/Orq81FgNvr3utN1WhGUl03K
+ bh=BlveSXTBkrVMa7jHBGiJtSUp2f/q4Ub0i4UsjmjsZ+4=;
+ b=BVUU10xdaf7Mb9RdndNTU2RBmYkqeDwV+d2p8/AA8Jzw64w7xJTrKWdgvFf5D8PzIWnaimpvI
+ CohJx//207JDVXT5SkMpFJmv8ASxF9A8pQuqDf+SHxphxQALdJ94QJs
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
  with auth_id=561
 X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 Reply-To: rodrigo.alencar@analog.com
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-The AD9910 parallel data port allows modulation of the DDS core parameters
-at up to the PDCLK rate, which requires a high-speed data source. Add
-support for an optional IIO backend that provides such interface, with
-data streamed into the device through an output buffer.
+Add bindings for the AD9910 AXI backend IP core. The FPGA IP core
+interfaces with the data and control pins of the AD9910 DDS, streaming
+data from memory via DMA into the 18-bit parallel data port (F[1:0] and
+D[15:0] pins), which is clocked by the PDCLK output of the device. It
+also drives the PROFILE[2:0] pins and the DRCTL pin, which controls the
+slope direction of the digital ramp generator (DRG). The DRCTL pin is
+driven by a PWM generator, so the IP core is described both as an IIO
+backend and as a PWM provider.
 
-The parallel port channels get scan indexes and scan types according to
-the data destination: 14-bit amplitude, 16-bit phase, 16-bit frequency,
-or the 8-bit amplitude and phase pair for polar modulation. As only one
-destination can be active at a time, this is enforced by the available
-scan masks. On buffer enable, the destination is configured in the
-backend and the parallel data port is enabled. The sampling_frequency
-attribute of the parallel port channels controls the backend data rate.
-
-The backend is also notified about profile changes, as it may drive the
-PROFILE[2:0] pins, and the debugfs source attributes now consider the
-parallel data port when reporting which channel controls each DDS core
-parameter.
-
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
- drivers/iio/frequency/Kconfig  |   1 +
- drivers/iio/frequency/ad9910.c | 234 +++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 229 insertions(+), 6 deletions(-)
+ .../iio/frequency/adi,ad9910-axi-backend.yaml      | 74 ++++++++++++++++++++++
+ MAINTAINERS                                        |  1 +
+ 2 files changed, 75 insertions(+)
 
-diff --git a/drivers/iio/frequency/Kconfig b/drivers/iio/frequency/Kconfig
-index 591476f23ace..b3ed2e39e2fb 100644
---- a/drivers/iio/frequency/Kconfig
-+++ b/drivers/iio/frequency/Kconfig
-@@ -33,6 +33,7 @@ config AD9910
- 	select CRC32
- 	select FW_LOADER
- 	select FW_UPLOAD
-+	select IIO_BACKEND
- 	help
- 	  Say yes here to build support for Analog Devices AD9910
- 	  1 GSPS, 14-Bit DDS with integrated DAC.
-diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
-index daa77093e2e4..b5e608b29288 100644
---- a/drivers/iio/frequency/ad9910.c
-+++ b/drivers/iio/frequency/ad9910.c
-@@ -31,6 +31,7 @@
- #include <linux/units.h>
- #include <linux/unaligned.h>
- 
-+#include <linux/iio/backend.h>
- #include <linux/iio/iio.h>
- #include <linux/iio/sysfs.h>
- 
-@@ -300,6 +301,15 @@ struct ad9910_ram_fw {
- 	__be32 words[] __counted_by_be(wcount);
- } __packed;
- 
-+enum {
-+	AD9910_SCAN_IDX_AMP,
-+	AD9910_SCAN_IDX_PHASE,
-+	AD9910_SCAN_IDX_FREQ,
-+	/* polar phase goes first, as it is placed in the lower byte, D[7:0] */
-+	AD9910_SCAN_IDX_POLAR_PHASE,
-+	AD9910_SCAN_IDX_POLAR_AMP,
-+};
+diff --git a/Documentation/devicetree/bindings/iio/frequency/adi,ad9910-axi-backend.yaml b/Documentation/devicetree/bindings/iio/frequency/adi,ad9910-axi-backend.yaml
+new file mode 100644
+index 000000000000..0015a92aeaea
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/frequency/adi,ad9910-axi-backend.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/frequency/adi,ad9910-axi-backend.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- enum {
- 	AD9910_POWERDOWN,
- 	AD9910_DWELL_EN,
-@@ -331,6 +341,7 @@ struct ad9910_state {
- 	struct gpio_desc *gpio_pwdown;
- 	struct gpio_desc *gpio_update;
- 	struct gpio_descs *gpio_profile;
-+	struct iio_backend *back;
- 
- 	s64 ramp_up_time_ns;
- 	s64 ramp_down_time_ns;
-@@ -350,6 +361,7 @@ struct ad9910_state {
- 
- 	struct ad9910_data data;
- 	u8 profile;
-+	u8 scan_mask;
- 
- 	bool ram_fwu_cancel;
- 	char ram_fwu_name[20];
-@@ -568,6 +580,16 @@ static int ad9910_set_sysclk_freq(struct ad9910_state *st, u32 freq_hz,
- 
- 	st->data.sysclk_freq_hz = sysclk_freq_hz;
- 
-+	/*
-+	 * SYSCLK is already updated in the device, so the driver state is not
-+	 * rolled back on a backend failure. The error is still returned, which
-+	 * lets userspace know that something went wrong.
-+	 */
-+	if (st->back)
-+		return iio_backend_set_sampling_freq(st->back,
-+						     AD9910_CHAN_IDX_PHY,
-+						     sysclk_freq_hz);
++title: Analog Devices AD9910 AXI Backend IP core
 +
- 	return 0;
- }
- 
-@@ -579,6 +601,10 @@ static int ad9910_profile_set(struct ad9910_state *st, u8 profile)
- 	values[0] = profile;
- 	gpiod_multi_set_value_cansleep(st->gpio_profile, values);
- 
-+	if (st->back)
-+		return iio_backend_chan_enable(st->back,
-+					       AD9910_CHAN_IDX_PROFILE_0 + profile);
++maintainers:
++  - Rodrigo Alencar <rodrigo.alencar@analog.com>
 +
- 	return 0;
- }
- 
-@@ -1008,6 +1034,7 @@ static const struct iio_chan_spec_ext_info ad9910_osk_ext_info[] = {
- 	.output = 1,						\
- 	.channel = AD9910_CHANNEL_PROFILE_ ## idx,		\
- 	.address = AD9910_CHAN_IDX_PROFILE_ ## idx,		\
-+	.scan_index = -1,					\
- 	.info_mask_separate = BIT(IIO_CHAN_INFO_ENABLE) |	\
- 			      BIT(IIO_CHAN_INFO_FREQUENCY) |	\
- 			      BIT(IIO_CHAN_INFO_PHASE) |	\
-@@ -1022,6 +1049,7 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_PHY,
- 		.address = AD9910_CHAN_IDX_PHY,
-+		.scan_index = -1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_SAMP_FREQ),
- 		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),
- 		.ext_info = ad9910_phy_ext_info,
-@@ -1040,6 +1068,14 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_PARALLEL,
- 		.address = AD9910_CHAN_IDX_PARALLEL_AMP,
-+		.scan_index = AD9910_SCAN_IDX_AMP,
-+		.scan_type = {
-+			.sign = 'u',
-+			.realbits = 14,
-+			.storagebits = 16,
-+			.shift = 2,
-+		},
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_SAMP_FREQ),
- 		.parent = &ad9910_channels[AD9910_CHAN_IDX_PHY],
- 	},
- 	[AD9910_CHAN_IDX_PARALLEL_PHASE] = {
-@@ -1048,7 +1084,14 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_PARALLEL,
- 		.address = AD9910_CHAN_IDX_PARALLEL_PHASE,
--		.info_mask_separate = BIT(IIO_CHAN_INFO_SCALE),
-+		.scan_index = AD9910_SCAN_IDX_PHASE,
-+		.scan_type = {
-+			.sign = 'u',
-+			.realbits = 16,
-+			.storagebits = 16,
-+		},
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_SAMP_FREQ) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
- 		.parent = &ad9910_channels[AD9910_CHAN_IDX_PHY],
- 	},
- 	[AD9910_CHAN_IDX_PARALLEL_FREQ] = {
-@@ -1057,7 +1100,14 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_PARALLEL,
- 		.address = AD9910_CHAN_IDX_PARALLEL_FREQ,
--		.info_mask_separate = BIT(IIO_CHAN_INFO_OFFSET) |
-+		.scan_index = AD9910_SCAN_IDX_FREQ,
-+		.scan_type = {
-+			.sign = 'u',
-+			.realbits = 16,
-+			.storagebits = 16,
-+		},
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_SAMP_FREQ) |
-+				      BIT(IIO_CHAN_INFO_OFFSET) |
- 				      BIT(IIO_CHAN_INFO_SCALE),
- 		.parent = &ad9910_channels[AD9910_CHAN_IDX_PHY],
- 	},
-@@ -1067,7 +1117,14 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_PARALLEL_POLAR,
- 		.address = AD9910_CHAN_IDX_PARALLEL_POLAR_AMP,
--		.info_mask_separate = BIT(IIO_CHAN_INFO_OFFSET) |
-+		.scan_index = AD9910_SCAN_IDX_POLAR_AMP,
-+		.scan_type = {
-+			.sign = 'u',
-+			.realbits = 8,
-+			.storagebits = 8,
-+		},
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_SAMP_FREQ) |
-+				      BIT(IIO_CHAN_INFO_OFFSET) |
- 				      BIT(IIO_CHAN_INFO_SCALE),
- 		.parent = &ad9910_channels[AD9910_CHAN_IDX_PHY],
- 	},
-@@ -1077,7 +1134,14 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_PARALLEL_POLAR,
- 		.address = AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE,
--		.info_mask_separate = BIT(IIO_CHAN_INFO_OFFSET) |
-+		.scan_index = AD9910_SCAN_IDX_POLAR_PHASE,
-+		.scan_type = {
-+			.sign = 'u',
-+			.realbits = 8,
-+			.storagebits = 8,
-+		},
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_SAMP_FREQ) |
-+				      BIT(IIO_CHAN_INFO_OFFSET) |
- 				      BIT(IIO_CHAN_INFO_SCALE),
- 		.parent = &ad9910_channels[AD9910_CHAN_IDX_PHY],
- 	},
-@@ -1087,6 +1151,7 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_DRG,
- 		.address = AD9910_CHAN_IDX_DRG_FREQ,
-+		.scan_index = -1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_ENABLE) |
- 				      BIT(IIO_CHAN_INFO_SCALE),
- 		.parent = &ad9910_channels[AD9910_CHAN_IDX_PHY],
-@@ -1097,6 +1162,7 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_DRG,
- 		.address = AD9910_CHAN_IDX_DRG_PHASE,
-+		.scan_index = -1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_ENABLE) |
- 				      BIT(IIO_CHAN_INFO_SCALE),
- 		.parent = &ad9910_channels[AD9910_CHAN_IDX_PHY],
-@@ -1107,6 +1173,7 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_DRG,
- 		.address = AD9910_CHAN_IDX_DRG_AMP,
-+		.scan_index = -1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_ENABLE) |
- 				      BIT(IIO_CHAN_INFO_SCALE),
- 		.parent = &ad9910_channels[AD9910_CHAN_IDX_PHY],
-@@ -1117,6 +1184,7 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_DRG_RAMP_UP,
- 		.address = AD9910_CHAN_IDX_DRG_FREQ_RAMP_UP,
-+		.scan_index = -1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
- 				      BIT(IIO_CHAN_INFO_SAMP_FREQ) |
- 				      BIT(IIO_CHAN_INFO_INT_TIME),
-@@ -1129,6 +1197,7 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_DRG_RAMP_DOWN,
- 		.address = AD9910_CHAN_IDX_DRG_FREQ_RAMP_DOWN,
-+		.scan_index = -1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
- 				      BIT(IIO_CHAN_INFO_SAMP_FREQ) |
- 				      BIT(IIO_CHAN_INFO_INT_TIME),
-@@ -1141,6 +1210,7 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_DRG_RAMP_UP,
- 		.address = AD9910_CHAN_IDX_DRG_PHASE_RAMP_UP,
-+		.scan_index = -1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
- 				      BIT(IIO_CHAN_INFO_SAMP_FREQ) |
- 				      BIT(IIO_CHAN_INFO_INT_TIME),
-@@ -1153,6 +1223,7 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_DRG_RAMP_DOWN,
- 		.address = AD9910_CHAN_IDX_DRG_PHASE_RAMP_DOWN,
-+		.scan_index = -1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
- 				      BIT(IIO_CHAN_INFO_SAMP_FREQ) |
- 				      BIT(IIO_CHAN_INFO_INT_TIME),
-@@ -1165,6 +1236,7 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_DRG_RAMP_UP,
- 		.address = AD9910_CHAN_IDX_DRG_AMP_RAMP_UP,
-+		.scan_index = -1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
- 				      BIT(IIO_CHAN_INFO_SAMP_FREQ) |
- 				      BIT(IIO_CHAN_INFO_INT_TIME),
-@@ -1177,6 +1249,7 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_DRG_RAMP_DOWN,
- 		.address = AD9910_CHAN_IDX_DRG_AMP_RAMP_DOWN,
-+		.scan_index = -1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
- 				      BIT(IIO_CHAN_INFO_SAMP_FREQ) |
- 				      BIT(IIO_CHAN_INFO_INT_TIME),
-@@ -1189,6 +1262,7 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_RAM,
- 		.address = AD9910_CHAN_IDX_RAM,
-+		.scan_index = -1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_ENABLE) |
- 				      BIT(IIO_CHAN_INFO_FREQUENCY) |
- 				      BIT(IIO_CHAN_INFO_PHASE) |
-@@ -1201,6 +1275,7 @@ static const struct iio_chan_spec ad9910_channels[] = {
- 		.output = 1,
- 		.channel = AD9910_CHANNEL_OSK,
- 		.address = AD9910_CHAN_IDX_OSK,
-+		.scan_index = -1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_ENABLE) |
- 				      BIT(IIO_CHAN_INFO_RAW) |
- 				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
-@@ -1314,6 +1389,12 @@ static int ad9910_read_raw(struct iio_dev *indio_dev,
- 		case AD9910_CHANNEL_PHY:
- 			*val = st->data.sysclk_freq_hz;
- 			return IIO_VAL_INT;
-+		case AD9910_CHANNEL_PARALLEL:
-+		case AD9910_CHANNEL_PARALLEL_POLAR:
-+			if (!st->back)
-+				return -EOPNOTSUPP;
++description:
++  FPGA IP core that interfaces with the data and control pins of the AD9910
++  Direct Digital Synthesizer. The SPI bus is used as the control interface
++  of the AD9910 device, while this IP core streams data from memory via DMA
++  into the 18-bit parallel data port (F[1:0] and D[15:0] pins), which is
++  clocked by the PDCLK output of the AD9910. The IP core also drives the
++  PROFILE[2:0] pins for profile selection and provides a PWM generator that
++  drives the DRCTL pin, controlling the digital ramp generator (DRG) slope
++  direction.
 +
-+			return iio_backend_read_raw(st->back, chan, val, val2, info);
- 		case AD9910_CHANNEL_DRG_RAMP_UP:
- 			tmp32 = FIELD_GET(AD9910_DRG_RATE_INC_MSK,
- 					  st->reg[AD9910_REG_DRG_RATE].val32);
-@@ -1623,6 +1704,17 @@ static int ad9910_write_raw(struct iio_dev *indio_dev,
- 		if (chan->channel == AD9910_CHANNEL_PHY)
- 			return ad9910_set_sysclk_freq(st, val, true);
- 
-+		if (chan->channel == AD9910_CHANNEL_PARALLEL ||
-+		    chan->channel == AD9910_CHANNEL_PARALLEL_POLAR) {
-+			if (!st->back)
-+				return -EOPNOTSUPP;
-+			if (val < 0)
-+				return -EINVAL;
++  https://developer.analog.com/docs/hdl/latest/library/axi_ad9910/index.html
 +
-+			return iio_backend_set_sampling_freq(st->back,
-+							     chan->address, val);
-+		}
++properties:
++  compatible:
++    const: adi,ad9910-axi-backend
 +
- 		if (val < 0 || val2 < 0 || val > st->data.sysclk_freq_hz / 4)
- 			return -EINVAL;
- 
-@@ -1773,9 +1865,14 @@ static int ad9910_write_raw_get_fmt(struct iio_dev *indio_dev,
- 			return -EINVAL;
- 		}
- 	case IIO_CHAN_INFO_SAMP_FREQ:
--		if (chan->channel == AD9910_CHANNEL_PHY)
-+		switch (chan->channel) {
-+		case AD9910_CHANNEL_PHY:
-+		case AD9910_CHANNEL_PARALLEL:
-+		case AD9910_CHANNEL_PARALLEL_POLAR:
- 			return IIO_VAL_INT;
--		return IIO_VAL_INT_PLUS_MICRO;
-+		default:
-+			return IIO_VAL_INT_PLUS_MICRO;
-+		}
- 	case IIO_CHAN_INFO_SCALE:
- 		return IIO_VAL_INT_PLUS_NANO;
- 	case IIO_CHAN_INFO_OFFSET:
-@@ -2169,6 +2266,12 @@ static inline const char *ad9910_frequency_source_get(struct ad9910_state *st)
- 				 st->reg[AD9910_REG_CFR2].val32))
- 		return ad9910_channel_str[AD9910_CHAN_IDX_DRG_FREQ];
- 
-+	/* Parallel data port enabled and data destination is frequency */
-+	mode_en = FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
-+			    st->reg[AD9910_REG_CFR2].val32);
-+	if (mode_en && (st->scan_mask & BIT(AD9910_SCAN_IDX_FREQ)))
-+		return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_FREQ];
++  reg:
++    maxItems: 1
 +
- 	/* FTW: RAM enabled and data destination is phase, amplitude, or polar */
- 	if (ram_en)
- 		return ad9910_channel_str[AD9910_CHAN_IDX_RAM];
-@@ -2209,6 +2312,16 @@ static inline const char *ad9910_phase_source_get(struct ad9910_state *st)
- 				 st->reg[AD9910_REG_CFR2].val32))
- 		return ad9910_channel_str[AD9910_CHAN_IDX_DRG_PHASE];
- 
-+	/* Parallel data port enabled and data destination is phase */
-+	mode_en = FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
-+			    st->reg[AD9910_REG_CFR2].val32);
-+	if (mode_en) {
-+		if (st->scan_mask & BIT(AD9910_SCAN_IDX_PHASE))
-+			return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_PHASE];
-+		if (st->scan_mask & BIT(AD9910_SCAN_IDX_POLAR_PHASE))
-+			return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE];
-+	}
++  clocks:
++    maxItems: 1
++    description: AXI bus clock (s_axi_aclk).
 +
- 	/* POW: RAM enabled and data destination is frequency or amplitude */
- 	if (ram_en)
- 		return ad9910_channel_str[AD9910_CHAN_IDX_RAM];
-@@ -2255,6 +2368,16 @@ static inline const char *ad9910_amplitude_source_get(struct ad9910_state *st)
- 				 st->reg[AD9910_REG_CFR2].val32))
- 		return ad9910_channel_str[AD9910_CHAN_IDX_DRG_AMP];
- 
-+	/* Parallel data port enabled and data destination is amplitude */
-+	mode_en = FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
-+			    st->reg[AD9910_REG_CFR2].val32);
-+	if (mode_en) {
-+		if (st->scan_mask & BIT(AD9910_SCAN_IDX_AMP))
-+			return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_AMP];
-+		if (st->scan_mask & BIT(AD9910_SCAN_IDX_POLAR_AMP))
-+			return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_POLAR_AMP];
-+	}
++  dmas:
++    maxItems: 1
 +
- 	/* only way to control amplitude at this point is through OSK */
- 	if (ram_en)
- 		return ad9910_channel_str[AD9910_CHAN_IDX_OSK];
-@@ -2283,6 +2406,90 @@ static inline void ad9910_debugfs_init(struct ad9910_state *st,
- 			    &ad9910_amplitude_source_fops);
- }
- 
-+static const u8 ad9910_scan_chan_idx[] = {
-+	[AD9910_SCAN_IDX_AMP] = AD9910_CHAN_IDX_PARALLEL_AMP,
-+	[AD9910_SCAN_IDX_PHASE] = AD9910_CHAN_IDX_PARALLEL_PHASE,
-+	[AD9910_SCAN_IDX_FREQ] = AD9910_CHAN_IDX_PARALLEL_FREQ,
-+	[AD9910_SCAN_IDX_POLAR_PHASE] = AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE,
-+	[AD9910_SCAN_IDX_POLAR_AMP] = AD9910_CHAN_IDX_PARALLEL_POLAR_AMP,
-+};
++  dma-names:
++    items:
++      - const: tx
 +
-+static u32 ad9910_buffer_chan_idx(struct iio_dev *indio_dev)
-+{
-+	unsigned int scan_idx;
++  '#io-backend-cells':
++    const: 0
 +
-+	/*
-+	 * The IIO core does not enable the buffer with an empty scan mask, and
-+	 * the active one is always among the available scan masks, so the
-+	 * first set bit is one of the AD9910_SCAN_IDX_* values.
-+	 */
-+	scan_idx = find_first_bit(indio_dev->active_scan_mask,
-+				  iio_get_masklength(indio_dev));
++  '#pwm-cells':
++    const: 3
++    description:
++      The first cell is the PWM channel index, which must be 0 (DRCTL output).
++      The second cell is the PWM period in nanoseconds and the third cell
++      holds the PWM flags.
 +
-+	return ad9910_scan_chan_idx[scan_idx];
-+}
++required:
++  - compatible
++  - reg
++  - clocks
++  - dmas
++  - dma-names
++  - '#io-backend-cells'
++  - '#pwm-cells'
 +
-+static int ad9910_buffer_preenable(struct iio_dev *indio_dev)
-+{
-+	struct ad9910_state *st = iio_priv(indio_dev);
-+	int ret;
++additionalProperties: false
 +
-+	guard(mutex)(&st->lock);
-+
-+	st->scan_mask = *indio_dev->active_scan_mask;
-+	ret = iio_backend_chan_enable(st->back,
-+				      ad9910_buffer_chan_idx(indio_dev));
-+	if (ret)
-+		return ret;
-+
-+	ret = ad9910_reg32_update(st, AD9910_REG_CFR2,
-+				  AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
-+				  AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
-+				  true);
-+	if (ret)
-+		iio_backend_chan_disable(st->back,
-+					 ad9910_buffer_chan_idx(indio_dev));
-+
-+	return ret;
-+}
-+
-+static int ad9910_buffer_postdisable(struct iio_dev *indio_dev)
-+{
-+	struct ad9910_state *st = iio_priv(indio_dev);
-+	int ret, ret2;
-+
-+	guard(mutex)(&st->lock);
-+
-+	st->scan_mask = 0;
-+	ret = ad9910_reg32_update(st, AD9910_REG_CFR2,
-+				  AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
-+				  0, true);
-+
-+	/* disable the backend channel even if the device update failed */
-+	ret2 = iio_backend_chan_disable(st->back,
-+					ad9910_buffer_chan_idx(indio_dev));
-+
-+	/*
-+	 * Return the first error. The IIO core completes the buffer disable
-+	 * regardless and only propagates the error to userspace, which is why
-+	 * both steps above are always done.
-+	 */
-+	return ret ?: ret2;
-+}
-+
-+static const struct iio_buffer_setup_ops ad9910_buffer_setup_ops = {
-+	.preenable = ad9910_buffer_preenable,
-+	.postdisable = ad9910_buffer_postdisable,
-+};
-+
-+static const unsigned long ad9910_available_scan_masks[] = {
-+	BIT(AD9910_SCAN_IDX_AMP),
-+	BIT(AD9910_SCAN_IDX_PHASE),
-+	BIT(AD9910_SCAN_IDX_FREQ),
-+	BIT(AD9910_SCAN_IDX_POLAR_AMP) | BIT(AD9910_SCAN_IDX_POLAR_PHASE),
-+	0
-+};
-+
- static int ad9910_probe(struct spi_device *spi)
- {
- 	static const char * const supplies[] = {
-@@ -2326,6 +2533,20 @@ static int ad9910_probe(struct spi_device *spi)
- 		return dev_err_probe(dev, PTR_ERR(dev_rst),
- 				     "failed to get device reset control\n");
- 
-+	st->back = devm_iio_backend_get_optional(dev, NULL);
-+	if (IS_ERR(st->back))
-+		return dev_err_probe(dev, PTR_ERR(st->back),
-+				     "failed to get iio backend\n");
-+	if (st->back) {
-+		ret = devm_iio_backend_request_buffer(dev, st->back, indio_dev);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "failed to request iio backend buffer\n");
-+
-+		indio_dev->setup_ops = &ad9910_buffer_setup_ops;
-+		indio_dev->available_scan_masks = ad9910_available_scan_masks;
-+	}
-+
- 	/*
- 	 * The IO RESET pin is not used in this driver, as we assume that all
- 	 * SPI transfers are complete, but if it is wired up, we need to make
-@@ -2440,3 +2661,4 @@ module_spi_driver(ad9910_driver);
- MODULE_AUTHOR("Rodrigo Alencar <rodrigo.alencar@analog.com>");
- MODULE_DESCRIPTION("Analog Devices AD9910 DDS driver");
- MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("IIO_BACKEND");
++examples:
++  - |
++    ad9910_backend: dds-backend@44a00000 {
++        compatible = "adi,ad9910-axi-backend";
++        reg = <0x44a00000 0x10000>;
++        clocks = <&clkc 15>;
++        dmas = <&tx_dma 0>;
++        dma-names = "tx";
++        #io-backend-cells = <0>;
++        #pwm-cells = <3>;
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 02015eaec312..1913532d96b3 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1774,6 +1774,7 @@ S:	Supported
+ W:	https://ez.analog.com/linux-software-drivers
+ F:	Documentation/ABI/testing/debugfs-iio-ad9910
+ F:	Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
++F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910-axi-backend.yaml
+ F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml
+ F:	Documentation/iio/ad9910.rst
+ F:	drivers/iio/frequency/ad9910.c
 
 -- 
 2.43.0
