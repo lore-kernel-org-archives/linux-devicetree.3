@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794958165;
-	b=ODNkeLU9vfGXdYQRgYLIbuMe2w8jCQ10aHoq4O/fh5ivwx+ngxHfMIZ5LBEgwpFTbOk3
-	 hN28ab49FTvHaCceJ5Z0CdwhyMZcT7l5ehnHRBml0ROOBRWE8MyrZQiVz3zlRzs453Jhn
-	 n4dc2DLQaAbGLH1fc5Ny0CAc8DLK5zLLa6C7iEB8paQWdozn+UcCU5SO4vTWV3jRePhK4
-	 FPTEgk7uS6S1wIXIteIrXdQUrwuOpv2j5uIflP/CW/0SPA+4UmutxGLYWh20otLUQkgV4
-	 8Zexq0uPHIPPj7WVz+ylEQdD2qBU96VmwJXkqM2ymOro59FX6m2iSfDDASM2OvN4CuA==
+	t=1794958161;
+	b=j3z3F41OiRuqvrFiG6dT363n6nKXifmGmct6N2P6SND34aLvdRJvIqOq+Juj5GH/2coS
+	 zzWYgieIFGwmVAKevWVhM34j0Qc11sIUt36Qt+dm8A0aDgV2ea1y8xYFub6thBo+7DCVE
+	 P8HMpzm76lD73r6eVHIwLMVZ5a8gA0kgBrdAAn120KfbK6IZkHz84uFMsn6dRJqU+Bg4I
+	 mh33SbUFJgVEGOD7qdL+Nfeq2mtiWPcfvr8c8H4ceKLPJEsqrhqzCWexfFhG3gsEOg3Pd
+	 gs47Nt+SbuRAKP6u10+Cvc0ocrFieYCPaVGCysMcGTKkf5RMKhX/cnYQyoTodLv02NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794958165;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794958161;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=CnlWQFO2MIWpJhh6iO4DeI6VsCNFONNEsQzLy6AsPmc=;
-	b=VyZhiqq08sVdrBHT4+5QMFV5Guq4raS8D5emrT3bFSoNjgVsuswiYIi5H4vhXLFEuceg
-	 sCT2lc3zoQQKadOOWMsAQqbKOCQKpxaUFUOslQomw2FxT/O0Ys0dvTnsZqaoOMXqdpuJr
-	 WTXiOgJNOOBOAAaAF4y7xWhSeqgQrisPmc3vFTH4JwcgcndiP3Xp2txc0UVuQGNntFNHt
-	 arrbW0IS+rBffgEZsPoADpQHndLPaT8v5VMRFb2prrJWBBDdMn8ROoWmjCyZu2A/9NfmV
-	 wEsYABq7F8OUFQYskmRAOgbyfrD6e5jOhJtrm673cSK0p9WxflO8Djaj+P8C50YcwxA==
+	bh=6l3YXXOGzefgjfKYki1kUCfxY/B6YsVZGiucocYAgdg=;
+	b=XQcVwdMgwNsOqXbOOpm9oPJbnrqvDTgdg9vXjVR+12UPGE9q/2a7BcR9OxVorlq/7aJY
+	 o3DOJ0ojpuLFqFElfbnIZFA+UA7N4nz+/CkzHaGhK8x8WJ+kib04UAuyMu+LCCNA0nnEo
+	 Sa7BdkY95afMcyVUcfzMDOL/hv0O2KVvracyfxd+qzucuHw3hU3K4uMr8gj78xLU7o979
+	 Et54uIWMoRFcMAy3wHgZCileu7hY3QVZD9DPUfS68q9KbbrJo8H94cFldH5K/4o+5fstR
+	 NtqoU6KWmEXTxuZY1e/PYe1+JEXa/CRwflaqHjcoUmJ83t9K116S8++ztWzCCTtTrFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKyIRZpI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A18a/Unq";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625F8606A32F;
-	Tue, 17 Nov 2026 23:29:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BB8606A337;
+	Tue, 17 Nov 2026 23:29:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKyIRZpI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC55F1F000C4;
-	Tue, 17 Nov 2026 23:29:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A18a/Unq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048331F000C4;
+	Tue, 17 Nov 2026 23:29:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794958165;
-	bh=CnlWQFO2MIWpJhh6iO4DeI6VsCNFONNEsQzLy6AsPmc=;
+	s=k20260515; t=1794958161;
+	bh=6l3YXXOGzefgjfKYki1kUCfxY/B6YsVZGiucocYAgdg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=EKyIRZpIXe0YOhIo3XkGBE+5f/p3MfuLBRFq20JiSKb3jtXirFg+ZGNay9zaDJ7cW
-	 MqQBI2sVU4tQWMzfsRiidqTzQ+v0GPGcYhQt6FzUwvCKDePJ2xPW3nAijZrDP2qb5C
-	 8g2hm42WTHgQXPslLkDy35zDwvosBAuuJvvS86J5jqyqCU2Rxq/DijyvIQNs5Ndntm
-	 sYCdd/mcx7bIbZVdhwHuDf+dtTmH+2AZTW4ldn6xpYS48CoMStgmbU1FfoYq6kFqjD
-	 jHuSCTbj5x7UgRQ3+M98eyWgCbkbPnRtpp3efqOIYtKC3pox35w+9MS0/Bl58M7zLb
-	 LE/9qZ5fNaHIw==
-Subject: Re: [PATCH net-next 5/9] net: dsa: add Broadcom FA metadata and IPv4
- exception paths
+	b=A18a/Unq3wxii+l9YzDXGE/+ENja4tS5EdEUKNIx3GdDGY8SdaGxOsyOriS2tNvxO
+	 AWCkr0ugay/umI/Gx71FG7LjbrCVWlOC9P/5loP/UKVe0hBr+7fjxPNnt8/2kwyiAc
+	 FQaFDjIpAYZzcLxzZb18cOSg7+4bpeSwRcMkcEc1DZhht7HhDf3miC0G9MjcBJow4X
+	 hP5yIHTY/wSSxg7v895XNrTt2909uqW4ilNSNoxGmPE84nfSnTpbmn3VIYsZgzeZK9
+	 wjcAAkeVQr4O8N0g0OBXQuT2kmUQ5eeewpNV8+HdglYz8g26dumcNrqmGumQibTALa
+	 B5rbRYpczVO4g==
+Subject: Re: [PATCH net-next 3/9] netfilter: flowtable: retain offload
+ ownership until deletion completes
 From: netdev-bot+sashiko@kernel.org
 To: florian.fainelli@broadcom.com
 Cc: netdev@vger.kernel.org, rafal@milecki.pl,
@@ -52,11 +52,11 @@ Cc: netdev@vger.kernel.org, rafal@milecki.pl,
  pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  netfilter-devel@vger.kernel.org, coreteam@netfilter.org
-Date: Tue, 17 Nov 2026 23:29:23 +0000
-Message-ID: <179495816343.3136.8938496694323714432@kernel.org>
-In-Reply-To: <20261116222519.1416501-6-florian.fainelli@broadcom.com>
-References: <20261116222519.1416501-6-florian.fainelli@broadcom.com>
-X-sashiko-severity: High
+Date: Tue, 17 Nov 2026 23:29:19 +0000
+Message-ID: <179495815956.3136.7417407587662864290@kernel.org>
+In-Reply-To: <20261116222519.1416501-4-florian.fainelli@broadcom.com>
+References: <20261116222519.1416501-4-florian.fainelli@broadcom.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -69,10 +69,10 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 13 potential
+Thank you for your contribution! Sashiko AI review found 6 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 7 · Low: 5
+Critical: 0 · High: 0 · Medium: 4 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -80,601 +80,327 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] Bridged ports lose every FA exception guard while their CPU-
-  bound traffic still passes through the inline FA.
-- [Medium] When FA is enabled, b53_setup_port() and b53_br_leave() put
-  standalone user ports in EAP_MODE_BASIC instead of EAP_MODE_SIMPLIFIED.
-- [Medium] On NETDEV_PRE_CHANGEADDR, b53_fa_netdev_event() writes an all-
-  zero TCAM entry over the port's router-MAC allow rule…
-- [Medium] If b53_fa_port(dev, port, true) fails in b53_br_leave(), the
-  code logs an error and calls b53_disable_port(), which only sets the…
-- [Medium] The TCP SYN/FIN/RST trap rules 0-2 in b53_fa_setup() include
-  CFP_TCAM6_IP_FRAGMENT in the mask with data 0, so they match only…
-- [Medium] The commit says it 'keep[s] ordinary data flooding off the
-  auxiliary CPU'.
-- [Medium] net: dsa: b53: missing CPU port 5 in non-default VLANs in
-  b53_vlan_add()
-- [Medium] net: dsa: tag_brcm: brcm_tag_rcv_ll() reads prepended tag as
-  MAC DA
-- [Low] The B53 CFP action and meter RAM programming differs from the
-  reference programming of the same register block.
-- [Low] b53_uses_fa_tag() does not follow the DT binding's compatible
-  list.
-- [Low] The NET_DSA_TAG_BRCM_FA help text says 'Transmit uses the
-  ordinary prepended Broadcom tag' and 'Enable this for a B53 switch…
-- [Low] Plain bool FA state flags are read and written concurrently
-  without a common lock or READ_ONCE/WRITE_ONCE.
-- [Low] net: dsa: b53: duplicate CFP rule programming in b53_fa_setup()
+- [Medium] Moving IPS_OFFLOAD_BIT out of flow_offload_teardown() means
+  the lockless check in nf_flow_table_extend_ct_timeout() can no longer…
+- [Medium] This patch reverses the central change of the commit in its
+  Fixes: tag but does not say so, and it does not mention the later…
+- [Medium] The patch's ownership argument ('For hardware flows, GC
+  reaches this point only after hardware deletion is complete ...…
+- [Medium] The patch now releases IPS_OFFLOAD (re-admission) in
+  flow_offload_del() once NF_FLOW_HW_DEAD is set, and the commit…
+- [Low] The new KUnit test nf_flow_test_hardware_retirement() and the
+  NF_FLOW_TABLE_KUNIT_TEST help text say they check that hash removal…
+- [Low] The new Documentation/networking/nf_flowtable.rst text (and the
+  commit message) list the visible side effects of keeping IPS_OFFLOAD…
 
 --
 
-net: dsa: add Broadcom FA metadata and IPv4 exception paths
+netfilter: flowtable: retain offload ownership until deletion completes
 
-This patch adds a brcm-fa DSA tagger for the Northstar flow accelerator
-miss descriptor. It also adds B53 CFP rules that send TCP SYN/FIN/RST,
-TTL 0/1, packets longer than 1500 bytes and non-router-MAC IPv4 traffic
-to port 5/GMAC0, outside the FA. A netdevice notifier and an RCU-protected
-backend registry in tag_brcm.c coordinate guard and conduit readiness.
+This patch moves the clearing of IPS_OFFLOAD_BIT from
+flow_offload_teardown() to flow_offload_del(), after both hash entries have
+been removed. The goal is that a replacement flow can't be admitted on the
+same conntrack while the old owner's cleanup is still pending. It also
+documents the transient status and adds KUnit tests for the ownership
+lifetime.
 
-> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-> index b7aff5e238e85..3e8c9679836d3 100644
-> --- a/drivers/net/dsa/b53/b53_common.c
-> +++ b/drivers/net/dsa/b53/b53_common.c
-
-[ ... ]
-
-> @@ -678,7 +685,8 @@ int b53_setup_port(struct dsa_switch *ds, int port)
->  	 * dropping frames because it isn't allowed to forward there.
->  	 */
->  	if (dsa_is_user_port(ds, port))
-> -		b53_set_eap_mode(dev, port, EAP_MODE_SIMPLIFIED);
-> +		b53_set_eap_mode(dev, port, dev->fa_cfp_enabled ? EAP_MODE_BASIC :
-> +			 EAP_MODE_SIMPLIFIED);
-
-[Severity: Medium]
-On FA boards, standalone user ports now get EAP_MODE_BASIC. Does that
-bring back the problem fixed by commit 4227ea91e2657f ("net: dsa: b53:
-prevent standalone from trying to forward to other ports")?
-
-That commit uses EAP_MODE_SIMPLIFIED to send all standalone-port traffic
-to the CPU. In BASIC mode, a frame that no CFP trap redirects goes through
-normal ARL forwarding. That covers non-IPv4 traffic such as ARP and IPv6.
-It also covers IPv4 frames that hit the allow rules, which have no action.
-
-Suppose the DA was learned on a VLAN-unaware bridged port with learning
-on (shared PVID 0). The ARL forwards the frame to that port, the PVLAN
-mask blocks it, and the frame is dropped instead of reaching Linux.
-
-b53_br_leave() makes the same change, so ports leaving a bridge are hit
-too. Two comments no longer match the code: "Force all traffic to go to
-the CPU port" above this call, and "Enable redirection of unknown SA to
-the CPU port" in b53_br_leave(). The commit message does not mention this
-change either.
-
-[ ... ]
-
-> @@ -1326,6 +1336,315 @@ int b53_setup_devlink_resources(struct dsa_switch *ds)
-
-[ ... ]
-
-> +static int b53_fa_rule(struct b53_device *dev, unsigned int index,
-> +		       const u32 data[8], const u32 mask[8], bool trap)
-> +{
+> diff --git a/Documentation/networking/nf_flowtable.rst b/Documentation/networking/nf_flowtable.rst
+> index d757c21c10f2d..b9b4444357758 100644
+> --- a/Documentation/networking/nf_flowtable.rst
+> +++ b/Documentation/networking/nf_flowtable.rst
+> @@ -205,6 +205,19 @@ refers to the software offload mode, so there is a distinction between [OFFLOAD]
+>  which refers to the software flowtable fastpath and [HW_OFFLOAD] which refers
+>  to the hardware offload datapath being used by the flow.
+>  
+> +During teardown, software fastpath lookups immediately stop matching the
+> +flow. Packets reaching software follow the classic forwarding path, while
+> +hardware deletion may still be pending. The OFFLOAD status
+> +bit remains set until hash removal and asynchronous hardware deletion are
+> +complete, preventing a new owner from racing the old owner's cleanup. As a
+> +result, conntrack dumps can temporarily retain [OFFLOAD] or [HW_OFFLOAD]
+> +and omit the TCP state after a FIN or RST has returned to the slow path.
 
 [Severity: Low]
-This isn't a bug, but the TCP flag loop open-codes what b53_fa_rule()
-does with trap set:
+Is this list of side effects complete? Several in-tree users of
+IPS_OFFLOAD_BIT now see the bit set for the whole GC and async DESTROY
+window.
 
-  - the eight DATA/MASK writes
-  - both action words and the action commit
-  - the meter writes and the meter commit
-  - the TCAM commit
+ctnetlink_dump_info() skips the timeout as well as the protoinfo:
 
-Could this loop just build data and mask and then call
-b53_fa_rule(dev, rule, data, mask, true)? With two copies, any change
-to the action or meter programming has to be made twice, and one copy
-is easy to miss.
-
-[ ... ]
-
-> +	err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_ACTION(0),
-> +			  trap ? CFP_ACT0_FWD_MAP_REPLACE | CFP_ACT0_DST_PORT5 |
-> +				CFP_ACT0_REASON_TERMINATION : 0);
-> +	if (!err)
-> +		err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_ACTION(1),
-> +				  trap ? CFP_ACT1_CLASS_ID(1) | CFP_ACT1_FWD_MAP_REPLACE |
-> +				  CFP_ACT1_DST_PORT5 : 0);
-> +	if (!err)
-> +		err = b53_fa_cfp_write(dev, index, CFP_ACC_ACTION);
-> +	if (!err)
-> +		err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_METER, 0);
-> +	if (!err)
-> +		err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_METER + 4, 0);
-> +	if (!err)
-> +		err = b53_fa_cfp_write(dev, index, CFP_ACC_METER);
-> +	return err ?: b53_fa_cfp_write(dev, index, CFP_ACC_TCAM);
-> +}
-
-[Severity: Medium]
-With vlan_filtering enabled, can these redirects to port 5 still reach
-GMAC0 for VLAN-tagged traffic?
-
-The trap actions do not set VLAN bypass. The comment in b53_fa_setup()
-says VLAN filtering is preserved on purpose.
-
-Port 5 is only a member of VID 0, which it gets from the
-b53_for_each_port() loop in b53_setup(). For any other VID,
-b53_vlan_add() is called for the user port and for its cpu_dp.
-b53_preferred_cpu_port() makes cpu_dp port 8 for every user port, so
-BIT(5) never ends up in dev->vlans[vid].members.
-
-b53 sets ds->vlan_filtering_is_global. Enabling vlan_filtering on any
-bridge on the switch therefore also turns on VLAN table enforcement for
-the standalone ports, and those are the only ports with CFP
-classification enabled.
-
-Take a standalone port with an 802.1Q upper. Its tagged SYN/FIN/RST,
-TTL 0/1 and oversized IPv4 frames are redirected to a port that is not
-a member of their VLAN. So is everything caught by
-B53_FA_DEFAULT_RULE. Wouldn't the switch drop these frames instead of
-delivering them to Linux?
-
-Should port 5 be kept in step with port 8 in b53_vlan_add() and
-b53_vlan_del() when fa_cfp_enabled is set? Or should the trap action
-bypass the VLAN check for port 5 after all?
-
-[Severity: Low]
-Is the policer meant to stay enabled here? The register layout matches
-bcm_sf2: ACT_POL_DATA0/1/2 sit at 0x50/0x54/0x58 and RATE_METER0/1 at
-0x60/0x64. In that layout, writing 0 to RATE_METER0 selects
-POLICER_MODE_RFC2698. bcm_sf2 does this instead:
-
-drivers/net/dsa/bcm_sf2_cfp.c:bcm_sf2_cfp_act_pol_set() {
+net/netfilter/nf_conntrack_netlink.c:ctnetlink_dump_info() {
     ...
-	core_writel(priv, 0, CORE_ACT_POL_DATA2);
-    ...
-	/* Disable the policer */
-	core_writel(priv, POLICER_MODE_DISABLE, CORE_RATE_METER0);
+	if (!test_bit(IPS_OFFLOAD_BIT, &ct->status) &&
+	    (ctnetlink_dump_timeout(skb, ct, false) < 0 ||
+	     ctnetlink_dump_protoinfo(skb, ct, false) < 0))
     ...
 }
 
-Here B53_CFP_ACTION(2) is never written before the action RAM commit,
-and RATE_METER2..6 are never written at all.
+ct_seq_show() hides the expires field in the same way. As a result, the
+repaired timeout mentioned in the next paragraph can't be seen during this
+interval.
 
-Would every rule, including the allow rules, then get a zero-rate trTCM?
-Would the third action word (MAC limit bypass, TC change, PCP/DEI remark)
-come from whatever the staging register happens to hold? The TCP flag
-loop in b53_fa_setup() open-codes the same sequence.
+nf_nat_used_tuple_harder() also reads the bit as "entry is offloaded":
 
-[ ... ]
-
-> +static int b53_fa_setup(struct b53_device *dev)
-> +{
-
-[ ... ]
-
-> +	for (rule = 0; rule < 3; rule++) {
-> +		memset(data, 0, sizeof(data));
-> +		memset(mask, 0, sizeof(mask));
-> +		data[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE1 | CFP_TCAM0_UDF0_FLAG(rule);
-> +		/* Slice 1; FIN, SYN or RST. */
-> +		mask[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE_MASK | CFP_TCAM0_UDF0_FLAG(rule);
-> +		data[5] = CFP_TCAM5_UDF_VALID(0); /* UDF A0 valid. */
-> +		mask[5] = CFP_TCAM5_UDF_VALID(0);
-> +		data[6] = FIELD_PREP(CFP_TCAM6_IP_PROTOCOL, IPPROTO_TCP);
-> +		mask[6] = CFP_TCAM6_L3_FRAMING | CFP_TCAM6_IP_PROTOCOL | CFP_TCAM6_IP_FRAGMENT;
-
-[Severity: Medium]
-CFP_TCAM6_IP_FRAGMENT is in the mask with data 0, so these SYN/FIN/RST
-traps match only unfragmented packets. b53_fa_guards() has no rule that
-sends IPv4 fragments to port 5 either.
-
-Take a first fragment (MF set, offset 0) with SYN, FIN or RST, TTL above
-1, at most 1500 bytes, addressed to the port's router MAC. It would match
-the allow rule and take the FA inline path instead of GMAC0.
-
-If the original FA looks up first fragments, can TCP control segments
-for a live tuple skip the exception path and Linux conntrack?
-
-Two later pieces of the series seem to assume fragments are trapped:
-
-  - The documentation says "IP options and fragments retire pairs by
-    their L3 identity before Linux can process a reused tuple".
-  - fa_control_receive() in the backend handles fragments.
-
-[ ... ]
-
-> +	/* Ordinary flooding must reach only the data CPU, not both MACs. */
-> +	b53_port_set_ucast_flood(dev, 5, false);
-> +	b53_port_set_mcast_flood(dev, 5, false);
-> +	err = b53_write8(dev, B53_CTRL_PAGE, B53_PORT_CTRL(5), PORT_CTRL_RX_UCST_EN);
-
-[Severity: Medium]
-Do the RX_*CST_EN bits do anything on port 5? b53_regs.h documents them
-as port 8 only:
-
-#define   PORT_CTRL_RX_BCST_EN		BIT(2) /* Broadcast RX (P8 only) */
-
-At the same time, b53_enable_port() and b53_br_leave() add BIT(5) to the
-PVLAN egress mask of every user port:
-
-	if (dev->fa_cfp_enabled && (dev->fa_cfp_ports & BIT(port)))
-		pvlan |= BIT(5);
-
-b53_br_join() keeps that bit through its read-modify-write. b53 has no
-broadcast flood mask, so broadcast frames would seem to egress both port
-5 and port 8.
-
-brcm_fa_tag_rcv() passes port 5 frames without BRCM_EG_RC_PROT_TERM up
-the stack. Would Linux then receive ARP, DHCP and other broadcasts twice
-on the user netdev, and forward them twice when the port is bridged?
-That would not match "keep ordinary data flooding off the auxiliary CPU"
-in the commit message.
-
-[ ... ]
-
-> +static int b53_fa_port(struct b53_device *dev, int port, bool standalone)
-> +{
-> +	struct dsa_port *control = dsa_to_port(dev->ds, 5);
-> +	bool ready;
-> +	u16 ports;
-> +	int err;
-> +
-> +	if (!dev->fa_cfp_enabled)
-> +		return 0;
-> +	ports = dev->fa_cfp_ports & ~BIT(port);
-> +	if (standalone)
-> +		ports |= BIT(port);
-> +	ready = b53_fa_ready(dev, dsa_port_conduit_is_operational(control));
-> +	err = b53_write16(dev, B53_CFP_PAGE, B53_CFP_CTRL,
-> +			  ready ? ports : 0);
-> +	if (!err)
-> +		dev->fa_cfp_ports = ports;
-> +	return err;
-> +}
-
-[Severity: High]
-What protects a bridged port after b53_br_join() calls
-b53_fa_port(dev, port, false)?
-
-Clearing the port's bit in B53_CFP_CTRL turns off all of its guard rules
-for as long as it stays bridged: SYN/FIN/RST, TTL 0/1, length, the
-router-MAC allow rule and the default IPv4 trap.
-
-b53_fa_conduit_state_change() and b53_fa_netdev_event() both call
-brcm_fa_control_set_ready(data->conduit, false) before writing CFP_CTRL.
-This function does not. FA readiness therefore stays true, and live
-entries are not retired before this port's exception path goes away.
-
-Port 8 is still the preferred CPU port. It still has unicast and
-multicast flooding on from b53_setup_port(), and it is still in every
-PVLAN mask.
-
-A host on the bridged port could send a frame to a standalone port's
-router MAC, carrying the tuple of a flow offloaded for that port. The FA
-key has no input port, so would the frame be forwarded and NATed in
-hardware without Linux seeing it? TTL 0/1, FIN/RST and oversized packets
-on that tuple would get through the same way.
-
-This looks like the "live tuple from bypassing Linux ingress policy on
-another switch port" case that the commit message says is prevented. It
-also breaks "Disable admission and retire entries before removing any
-exception path". The later patches in the series leave this code as is,
-and the documentation patch only says that CFP classification is disabled
-on bridge members.
-
-[ ... ]
-
-> +static int b53_fa_netdev_event(struct notifier_block *nb, unsigned long event, void *ptr)
-> +{
-
-[ ... ]
-
-> +	control = dsa_to_port(dev->ds, 5);
-> +	data_cpu = dsa_to_port(dev->ds, 8);
-> +	brcm_fa_control_set_ready(data_cpu->conduit, false);
-> +	if (event != NETDEV_PRE_CHANGEADDR) {
-
-[ ... ]
-
-> +	}
-> +	err = b53_fa_rule(dev, B53_FA_ALLOW_BASE + dp->index, data, mask, false);
-
-[Severity: Medium]
-What brings back the allow rule and FA readiness if the address change
-fails after NETDEV_PRE_CHANGEADDR?
-
-On that event, this code writes an all-zero entry over the port's allow
-rule and drops readiness for the whole data conduit. Only a later
-NETDEV_CHANGEADDR undoes this.
-
-netif_set_mac_address() can return early without sending
-NETDEV_CHANGEADDR:
-
-net/core/dev.c:netif_set_mac_address() {
+net/netfilter/nf_nat_core.c:nf_nat_used_tuple_harder() {
     ...
-	err = netif_pre_changeaddr_notify(dev, ss->__data, extack);
-	if (err)
-		return err;
-	if (memcmp(dev->dev_addr, ss->__data, dev->addr_len)) {
-		err = ops->ndo_set_mac_address(dev, ss);
-		if (err)
-			return err;
+	static const unsigned long flags_offload = IPS_OFFLOAD | IPS_HW_OFFLOAD;
+    ...
+	if (nf_ct_kill(ct))
+		taken = flags & flags_offload;
     ...
 }
 
-dsa_user_set_mac_address() returns -EADDRNOTAVAIL for an invalid address,
-so "ip link set lanX address 01:00:00:00:00:00" is enough to trigger
-this. A later notifier vetoing PRE_CHANGEADDR has the same effect.
+A torn-down TCP entry in CLOSE or TIME_WAIT that has gone back to the slow
+path would now be evicted but still reported as taken.
 
-Would all hardware flows then stay retired until an unrelated NETDEV_UP
-or NETDEV_CHANGEADDR event, or a control conduit state change?
+The UAPI comment for IPS_OFFLOAD_BIT in nf_conntrack_common.h still says
+"Conntrack has been offloaded to flow table", but this text redefines the
+bit as ownership pending cleanup.
+
+Should these effects be documented here too?
 
 [ ... ]
 
-> @@ -2439,6 +2775,10 @@ void b53_br_leave(struct dsa_switch *ds, int port, struct dsa_bridge bridge)
->  		vl->members |= BIT(port);
->  		b53_set_vlan_entry(dev, pvid, vl);
->  	}
-> +	if (b53_fa_port(dev, port, true)) {
-> +		dev_err(ds->dev, "failed to restore FA classification on port %d\n", port);
-> +		b53_disable_port(ds, port);
-> +	}
+> diff --git a/net/netfilter/nf_flow_table_core.c b/net/netfilter/nf_flow_table_core.c
+> index 2aa2647ed9df0..4c82097cd50bc 100644
+> --- a/net/netfilter/nf_flow_table_core.c
+> +++ b/net/netfilter/nf_flow_table_core.c
+> @@ -393,12 +393,15 @@ static void flow_offload_del(struct nf_flowtable *flow_table,
+>  	rhashtable_remove_fast(&flow_table->rhashtable,
+>  			       &flow->tuplehash[FLOW_OFFLOAD_DIR_REPLY].node,
+>  			       nf_flow_offload_rhash_params);
+> +	/* Release admission only after both hashes and async hardware state
+> +	 * have gone. An older owner must not clear its replacement's status.
+> +	 */
+> +	clear_bit_unlock(IPS_OFFLOAD_BIT, &flow->ct->status);
+
+[Severity: Medium]
+The commit message says "For hardware flows, GC reaches this point only
+after hardware deletion is complete" and "Holding the admission bit
+prevents overlapping owners".
+
+Can a datapath reader still queue a FLOW_CLS_REPLACE for this flow after
+its DESTROY has completed?
+
+flow_offload_lookup() checks NF_FLOW_TEARDOWN once. The later
+flow_offload_refresh() only looks at NF_FLOW_CLOSING and NF_FLOW_HW:
+
+net/netfilter/nf_flow_table_core.c:flow_offload_refresh() {
+    ...
+	if (likely(!nf_flowtable_hw_offload(flow_table)) ||
+	    test_bit(NF_FLOW_CLOSING, &flow->flags))
+		return;
+
+	if (test_bit(NF_FLOW_HW, &flow->flags))
+		nf_flow_offload_refresh(flow_table, flow);
+}
+
+nf_flow_offload_work_alloc() is gated only by NF_FLOW_PENDING.
+flow_offload_work_handler() clears that bit after flow_offload_work_del()
+has set NF_FLOW_HW_DEAD. One possible sequence:
+
+reader                      gc / offload work
+flow_offload_lookup()
+  TEARDOWN not set
+                            flow_offload_teardown()
+                            nf_flow_offload_del()
+                            flow_offload_work_del()
+                              set_bit(NF_FLOW_HW_DEAD)
+                            NF_FLOW_PENDING cleared
+flow_offload_refresh()
+  nf_flow_offload_refresh()
+    REPLACE queued
+                            flow_offload_work_add()
+                              set_bit(IPS_HW_OFFLOAD_BIT)
+                            flow_offload_del()
+                              clear_bit_unlock(IPS_OFFLOAD_BIT)
+                              flow_offload_free()
+
+After this, the re-installed hardware rule is keyed by a freed cookie, and
+IPS_HW_OFFLOAD stays set on the ct. nft_flow_offload_eval() or act_ct can
+then admit a replacement owner through test_and_set_bit(IPS_OFFLOAD_BIT).
+
+With PREEMPT_RCU or PREEMPT_RT, the reader's RCU section could span
+flow_offload_del(). Could the queued REPLACE work then use the flow after
+flow_offload_free_rcu() has freed it?
+
+The lookup/refresh window existed before this patch, but the new ownership
+argument depends on it being closed. Later patches in the series don't
+touch flow_offload_refresh() or nf_flow_offload_refresh().
+
+[Severity: Medium]
+Does NF_FLOW_HW_DEAD really mean the device removed the rule?
+flow_offload_work_del() sets it unconditionally:
+
+net/netfilter/nf_flow_table_offload.c:flow_offload_work_del() {
+	clear_bit(IPS_HW_OFFLOAD_BIT, &offload->flow->ct->status);
+	flow_offload_tuple_del(offload, FLOW_OFFLOAD_DIR_ORIGINAL);
+	if (test_bit(NF_FLOW_HW_BIDIRECTIONAL, &offload->flow->flags))
+		flow_offload_tuple_del(offload, FLOW_OFFLOAD_DIR_REPLY);
+	set_bit(NF_FLOW_HW_DEAD, &offload->flow->flags);
+}
+
+flow_offload_tuple_del() throws away the return value of
+nf_flow_offload_tuple(..., FLOW_CLS_DESTROY, ...), and
+nf_flow_offload_tuple() skips callbacks that return errors.
+
+A driver's DESTROY can fail and leave the rule programmed, for example
+bnxt_tc_del_flow() after a firmware HWRM failure. In that case
+flow_offload_del() still releases IPS_OFFLOAD and frees the flow, and the
+flow's tuplehash[dir].tuple is the driver cookie.
+
+Could a replacement owner then program a second rule for the same tuple
+while the stale rule, with the old route or NAT, stays in hardware with no
+way to delete it?
+
+The ignored DESTROY result predates this patch. However, the ownership
+serialization described in the commit message depends on deletion having
+completed.
+
+>  	flow_offload_free(flow);
 >  }
->  EXPORT_SYMBOL(b53_br_leave);
+>  
+>  void flow_offload_teardown(struct flow_offload *flow)
+>  {
+> -	clear_bit(IPS_OFFLOAD_BIT, &flow->ct->status);
+>  	if (!test_and_set_bit(NF_FLOW_TEARDOWN, &flow->flags))
+>  		flow_offload_fixup_ct(flow);
+>  }
 
 [Severity: Medium]
-Is b53_disable_port() enough on this failure path? It only sets the RX/TX
-disable bits in PORT_CTRL. It does not set fa_guards_failed or drop FA
-readiness, and fa_cfp_ports still lacks this port's bit.
+Without this clear_bit(), can the flowtable GC overwrite the timeout that
+flow_offload_fixup_ct() just repaired?
 
-The next ndo_open runs b53_enable_port(), which clears those bits:
+nf_flow_offload_gc_step() samples NF_FLOW_TEARDOWN once and doesn't check
+it again before calling nf_flow_table_extend_ct_timeout(). The only guard
+left in the extend helper is the IPS_OFFLOAD_BIT re-test:
 
-	b53_write8(dev, B53_CTRL_PAGE, B53_PORT_CTRL(port), 0);
+net/netfilter/nf_flow_table_core.c:nf_flow_table_extend_ct_timeout() {
+	u32 ct_timeout = READ_ONCE(ct->timeout);
+    ...
+	if (!refcount_inc_not_zero(&ct->ct_general.use))
+		return;
 
-The port is then standalone with no CFP classification. Its traffic goes
-through port 8 and the FA while readiness is still true.
+	/* load ct->status after refcount increase */
+	smp_acquire__after_ctrl_dep();
 
-The notifier failure path sets fa_guards_failed for this kind of case.
-Should this path set it too?
+	if (nf_ct_is_confirmed(ct) &&
+	    test_bit(IPS_OFFLOAD_BIT, &ct->status)) {
+    ...
+			cmpxchg(&ct->timeout, ct_timeout, new_timeout);
+    ...
+}
 
-[ ... ]
+That re-test now always passes until flow_offload_del() runs. Consider:
 
-> @@ -2564,6 +2905,46 @@ static bool b53_can_enable_brcm_tags(struct dsa_switch *ds, int port,
+CPU0                                CPU1
+nf_flow_offload_gc_step()
+  teardown = false
+                                    flow_offload_teardown()
+                                      set NF_FLOW_TEARDOWN
+                                      flow_offload_fixup_ct()
+                                        nf_ct_refresh()
+nf_flow_table_extend_ct_timeout()
+  READ_ONCE(ct->timeout)
+    /* repaired, below 5 min */
+  test_bit(IPS_OFFLOAD_BIT)
+    /* still set */
+  cmpxchg(&ct->timeout, ct_timeout,
+          now + NF_CT_DAY)
 
-[ ... ]
+CPU1 can be the datapath after a failed dst check or a missing outdev, act_ct
+on FIN/RST, or nf_flow_table_cleanup() on netdev events.
 
-> +static bool b53_uses_fa_tag(struct dsa_switch *ds, int port)
-> +{
+The refcount, smp_acquire__after_ctrl_dep() and re-test sequence from
+commit 03428ca5cee9 depends on teardown clearing the bit before
+flow_offload_fixup_ct() repairs ct->timeout.
 
-[ ... ]
+flow_offload_del() doesn't repair the timeout again. A UDP flow with no
+further packets would therefore keep its conntrack entry for NF_CT_DAY
+instead of seconds or minutes.
 
-> +		ethernet = of_parse_phandle(node, "ethernet", 0);
-> +		fa = of_parse_phandle(ethernet, "brcm,flow-accelerator", 0);
-> +		enabled = IS_ENABLED(CONFIG_BCM_NS_FA) && of_device_is_available(fa) &&
-> +			  (dev->chip_id == BCM53011_DEVICE_ID ||
-> +			   dev->chip_id == BCM53012_DEVICE_ID ||
-> +			   (is5301x(dev) && of_device_is_compatible(fa, "brcm,bcm4708-fa")));
+Doesn't this contradict "TCP state and timeout repair run at first
+teardown" in the commit message? Later patches in the series leave
+flow_offload_teardown(), nf_flow_offload_gc_step() and
+nf_flow_table_extend_ct_timeout() unchanged.
 
-[Severity: Low]
-Should this check use the compatibles listed in the binding?
-brcm,bcm4708-fa.yaml allows brcm,bcm4708-fa, brcm,bcm53011-fa and
-brcm,bcm53012-fa, and its example uses brcm,bcm53011-fa. bcm_ns_fa_init()
-later in the series accepts all three.
+[Severity: Medium]
+This undoes the main change of the commit named in the Fixes: tag:
 
-As written, BCM53011/BCM53012 accept any available node without looking
-at its compatible. BCM53010/53018/53019 accept only brcm,bcm4708-fa.
+    Fixes: e5eaac2beb54 ("netfilter: flowtable: fix TCP flow teardown")
 
-That leads to two mismatched setups:
+e5eaac2beb54 moved this clear_bit() from flow_offload_del() into
+flow_offload_teardown(). The reason was that conntrack gc could race to
+undo the packet path's timeout adjustment, leaving the entry with the
+one-day offload timeout.
 
-  - A 5301x board whose DT uses brcm,bcm53011-fa or brcm,bcm53012-fa gets
-    the FA backend set up on GMAC2, while b53 uses the ordinary brcm tag
-    and installs no CFP guards.
-  - A 53011/53012 board with an unrelated compatible gets FA tagging, and
-    then bgmac probe fails.
+Moving it back looks safe on mainline only because commit 03428ca5cee9
+("netfilter: conntrack: rework offload nf_conn timeout extension logic")
+removed this block from gc_worker():
 
-[ ... ]
+	if (test_bit(IPS_OFFLOAD_BIT, &tmp->status)) {
+		nf_ct_offload_timeout(tmp);
+		...
+		continue;
+	}
 
-> @@ -3385,7 +3773,32 @@ int b53_switch_register(struct b53_device *dev)
->  	dev_info(dev->dev, "found switch: %s, rev %i\n",
->  		 dev->name, dev->core_rev);
->  
-> -	return dsa_register_switch(dev->ds);
-> +	ret = dsa_register_switch(dev->ds);
-> +	if (ret || !dev->fa_cfp_enabled)
-> +		return ret;
+03428ca5cee9 has no Fixes: or stable tag. Suppose this patch is backported
+to a stable tree that has e5eaac2beb54 but not 03428ca5cee9.
 
-[ ... ]
+Wouldn't gc_worker() then reset ct->timeout to now + NF_CT_DAY during the
+whole window from teardown to flow_offload_del()? flow_offload_del() would
+then clear the bit without another repair. For closed TCP and expired UDP
+entries, that brings back the bug e5eaac2beb54 fixed.
 
-> +	ret = register_netdevice_notifier(&dev->fa_netdev_nb);
-> +	if (ret)
-> +		goto unregister_switch;
-> +	ret = devm_add_action_or_reset(dev->dev, b53_fa_unregister_notifier, dev);
-> +	if (ret)
-> +		goto unregister_switch;
-> +	dev->fa_guards_ready = true;
-> +	if (!dev->fa_guards_failed) {
-
-[Severity: Low]
-These plain bool flags are accessed concurrently with no common lock and
-no READ_ONCE()/WRITE_ONCE():
-
-  - Here, fa_guards_ready is written and fa_guards_failed is read outside
-    rtnl, after b53_fa_netdev_event() is already live.
-  - The notifier reads both flags under rtnl and may write
-    fa_guards_failed.
-  - b53_teardown() writes dev->fa_stopping without rtnl, while
-    b53_fa_netdev_event() reads it for every netdevice event in the
-    system.
-
-The final readiness looks correct, because b53_fa_ready() is evaluated
-again under rtnl_lock() below. Won't KCSAN still report these accesses as
-data races?
-
-[ ... ]
-
-> diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
-> index 4f44bf3ede238..2dffff2f6c343 100644
-> --- a/net/dsa/Kconfig
-> +++ b/net/dsa/Kconfig
-> @@ -69,6 +69,15 @@ config NET_DSA_TAG_BRCM_PREPEND
->  	  Broadcom switches which places the tag before the Ethernet header
->  	  (prepended).
->  
-> +config NET_DSA_TAG_BRCM_FA
-> +	tristate "Tag driver for the Broadcom Northstar flow accelerator"
-> +	select NET_DSA_TAG_BRCM_COMMON
-> +	help
-> +	  Support the prepended four-byte FA metadata tag on Northstar GMAC2.
-> +	  The receive format includes a hash, bucket, parser status, and input
-> +	  switch port. Transmit uses the ordinary prepended Broadcom tag.
-> +	  Enable this for a B53 switch explicitly connected to an accelerator.
-
-[Severity: Low]
-This isn't a bug, but the help text does not match the code.
-brcm_fa_tag_xmit() puts the tag inside the frame for user ports behind
-CPU port 5:
-
-	return brcm_tag_xmit_ll(skb, dev, dp->cpu_dp->index == 5 ? 2 * ETH_ALEN : 0);
-
-drivers/net/dsa/b53/Kconfig also selects NET_DSA_TAG_BRCM_FA
-unconditionally, so the user has nothing to enable. Could the help text
-be updated to match?
+Could the commit message say that it reverts part of e5eaac2beb54 and
+depends on 03428ca5cee9?
 
 [ ... ]
 
-> diff --git a/net/dsa/tag_brcm.c b/net/dsa/tag_brcm.c
-> --- a/net/dsa/tag_brcm.c
-> +++ b/net/dsa/tag_brcm.c
-> @@ -407,7 +416,100 @@ DSA_TAG_DRIVER(brcm_prepend_netdev_ops);
->  MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_BRCM_PREPEND, BRCM_PREPEND_NAME);
->  #endif
->  
-> +#if IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM_FA)
-> +static LIST_HEAD(brcm_fa_controls);
-> +static DEFINE_MUTEX(brcm_fa_control_lock);
-> +
-> +void brcm_fa_control_register(struct brcm_fa_control *control)
-> +{
-> +	mutex_lock(&brcm_fa_control_lock);
-> +	list_add_rcu(&control->list, &brcm_fa_controls);
-> +	mutex_unlock(&brcm_fa_control_lock);
-> +}
-> +EXPORT_SYMBOL_GPL(brcm_fa_control_register);
-> +
-> +void brcm_fa_control_unregister(struct brcm_fa_control *control)
-> +{
-> +	mutex_lock(&brcm_fa_control_lock);
-> +	list_del_rcu(&control->list);
-> +	mutex_unlock(&brcm_fa_control_lock);
-> +	synchronize_net();
-> +}
-> +EXPORT_SYMBOL_GPL(brcm_fa_control_unregister);
-> +
-> +void brcm_fa_control_set_ready(struct net_device *conduit, bool ready)
-> +{
-> +	struct brcm_fa_control *control;
-> +
-> +	/* State callbacks can sleep while retiring hardware entries. */
-> +	mutex_lock(&brcm_fa_control_lock);
-> +	list_for_each_entry(control, &brcm_fa_controls, list)
-> +		if (control->conduit == conduit && control->state_change)
-> +			control->state_change(control->priv, ready);
-> +	mutex_unlock(&brcm_fa_control_lock);
-> +}
-> +EXPORT_SYMBOL_GPL(brcm_fa_control_set_ready);
-> +
-> +static struct sk_buff *brcm_fa_tag_xmit(struct sk_buff *skb,
-> +					struct net_device *dev)
-> +{
-> +	struct dsa_port *dp = dsa_user_to_port(dev);
-> +
-> +	return brcm_tag_xmit_ll(skb, dev, dp->cpu_dp->index == 5 ? 2 * ETH_ALEN : 0);
-> +}
-> +
-> +static struct sk_buff *brcm_fa_tag_rcv(struct sk_buff *skb, struct net_device *dev)
-> +{
-> +	struct dsa_port *cpu = dev->dsa_ptr;
-> +	struct brcm_fa_control *control;
-> +	struct dsa_port *data_cpu;
-> +	unsigned int port;
-> +	u8 reason;
-> +
-> +	if (cpu->index != 5)
-> +		return brcm_tag_rcv_ll(skb, dev, ETH_HLEN, true);
-> +	if (!pskb_may_pull(skb, BRCM_TAG_LEN))
-> +		goto drop;
-> +	reason = skb->data[0]; /* Embedded tag byte 2 after eth_type_trans(). */
-> +	port = skb->data[1] & BRCM_EG_PID_MASK;
-> +	skb = brcm_tag_rcv_ll(skb, dev, 2, false);
-> +	if (!skb)
-> +		return NULL;
-> +	dsa_strip_etype_header(skb, BRCM_TAG_LEN);
-> +	skb_set_mac_header(skb, -ETH_HLEN);
-> +	if (!(reason & BRCM_EG_RC_PROT_TERM))
-> +		return skb;
-> +	data_cpu = dsa_to_port(cpu->ds, 8);
-> +	if (!data_cpu || !dsa_port_is_cpu(data_cpu))
-> +		return skb;
+> diff --git a/net/netfilter/nf_flow_table_core_test.c b/net/netfilter/nf_flow_table_core_test.c
+> new file mode 100644
+> index 0000000000000..378a1c60b50b9
+> --- /dev/null
+> +++ b/net/netfilter/nf_flow_table_core_test.c
+> @@ -0,0 +1,86 @@
+
+[ ... ]
+
+> +	flow_offload_teardown(flow);
+> +	/* nft_flow_offload must not admit another owner during async DESTROY. */
+> +	KUNIT_EXPECT_TRUE(test, test_and_set_bit(IPS_OFFLOAD_BIT, &ct->status));
+> +	flow_offload_teardown(flow);
+> +	KUNIT_EXPECT_TRUE(test, test_bit(IPS_OFFLOAD_BIT, &ct->status));
+> +	/* Model completed hardware deletion before the GC removes the hashes. */
+> +	clear_bit(IPS_HW_OFFLOAD_BIT, &ct->status);
+> +	set_bit(NF_FLOW_HW_DEAD, &flow->flags);
 > +	rcu_read_lock();
-> +	list_for_each_entry_rcu(control, &brcm_fa_controls, list)
-> +		if (control->conduit == data_cpu->conduit)
-> +			control->receive(control->priv, skb, port);
-> +	rcu_read_unlock();
-> +	return skb;
-> +drop:
-> +	kfree_skb(skb);
-> +	return NULL;
-> +}
-> +
-> +static const struct dsa_device_ops brcm_fa_netdev_ops = {
-> +	.name = BRCM_FA_NAME,
-> +	.proto = DSA_TAG_PROTO_BRCM_FA,
-> +	.xmit = brcm_fa_tag_xmit,
-> +	.rcv = brcm_fa_tag_rcv,
-> +	.needed_headroom = BRCM_TAG_LEN,
-> +	.promisc_on_conduit = true,
-> +};
-> +
-> +DSA_TAG_DRIVER(brcm_fa_netdev_ops);
-> +MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_BRCM_FA, BRCM_FA_NAME);
-> +#endif
-> +
->  static struct dsa_tag_driver *dsa_tag_driver_array[] =	{
-> +#if IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM_FA)
-> +	&DSA_TAG_DRIVER_NAME(brcm_fa_netdev_ops),
-> +#endif
->  #if IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM)
->  	&DSA_TAG_DRIVER_NAME(brcm_netdev_ops),
->  #endif
+> +	flow_offload_del(&table, flow);
 
-[Severity: Medium]
-Does the link-local check at the end of brcm_tag_rcv_ll() look at the
-right bytes for this call?
+[Severity: Low]
+Does this test cover the ordering it describes? The Kconfig help says
+"Require hash and asynchronous hardware deletion before re-enrolment".
+However, the only code that makes deletion wait for hardware removal is in
+nf_flow_offload_gc_step():
 
-With offset == ETH_HLEN the tag is prepended. eth_type_trans() on the
-conduit therefore left skb->mac_header pointing at the four-byte tag,
-not at the destination MAC. skb_pull_rcsum() only moves skb->data.
-After the pull, eth_hdr(skb)->h_dest covers the tag plus the first two
-bytes of the real DA. is_link_local_ether_addr() then does not
-recognise 01:80:c2:00:00:xx frames.
+	if (test_bit(NF_FLOW_HW, &flow->flags)) {
+		if (!test_bit(NF_FLOW_HW_DYING, &flow->flags))
+			nf_flow_offload_del(flow_table, flow);
+		else if (test_bit(NF_FLOW_HW_DEAD, &flow->flags))
+			flow_offload_del(flow_table, flow);
 
-Port 8 is the CPU port for all user ports on these boards. STP BPDUs,
-LLDP, LACP and EAPOL received on bridged ports would all get
-offload_fwd_mark set.
+This test sets NF_FLOW_HW_DEAD by hand and calls flow_offload_del()
+directly, and flow_offload_del() reads neither flag. If the
+HW_DYING/HW_DEAD gating were removed or broken, neither case would fail.
 
-The switch only trapped these frames and did not forward them. With
-the mark set, the bridge also won't forward them in software to other
-ports on the same switch. That matters with STP disabled or with a
-group_fwd_mask configured.
+Both cases also use IPPROTO_ICMP, so flow_offload_fixup_ct() returns
+immediately. The TCP state and timeout repair at first teardown is never
+exercised. nf_flow_test_teardown_repeat() only checks that
+flow_offload_teardown() no longer touches IPS_OFFLOAD_BIT.
 
-The port 5 branch in brcm_fa_tag_rcv() fixes up the MAC header with
-skb_set_mac_header(), but this branch does not.
-
-brcm_tag_rcv_prepend() seems to have the same problem already, so this
-may need its own fix in brcm_tag_rcv_ll(). After the pull, it could
-read the DA from skb->data - ETH_HLEN, or reset the MAC header first.
-Which would you prefer?
+Later in the series the Kconfig help is reworded to "Test flowtable
+ownership during asynchronous hardware deletion", so the gap seems to
+remain in the final state.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261116222519.1416501-1-florian.fainelli%40broadcom.com
