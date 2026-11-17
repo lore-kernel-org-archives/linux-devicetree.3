@@ -1,121 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919214;
-	b=2vW4Ga6GUyD5PO8n4L5H2XcaFdenkTdm2gBfhcvL+zL0uWRsvrkWSvRbuao5/nJa1WAQ
-	 JlXKYXu8/k6ao9qI2RPiNKKCYjCRfQkeZnpjCbCpaqqRUzTc6Q8dvvt9DumyK/DV6+/nv
-	 AKsV5grJWoumQxwVI2MTx5K3MFJCSfpdW5ObTnjpsS8So+FhPfMsL40HAucXWqRoJYr6h
-	 MKdS4HJRYeK2zDMsa+8EepeYbf+iYuzS4FOh29Zh4hUsQzCtwuMNIgvi3spjMSYityEur
-	 gonuIRuALLcKhsEqNGMnJgTcOVbeopdOqFWYkZPA3x+1eaEbc+8ng1Cq2WYAzMSFjKQ==
+	t=1794919216;
+	b=HQNJXL5M2ReRZBTbXHoZJ3/8FbPqpDOOe9Mx7tgZEr6TGHf6gr4ZU9/uDGCeRfduYLLZ
+	 JiUH0N9l3x7vNW6YcTg6JAlMyl+kRksnUUFlI3osJ53I8XXu0xpVxwGEiGvGkXLqA0k8Z
+	 DGoCotAIhRYGfjLpF7VjIrHmJZQe9HlW1QFriRldtJdI/GCjR/IGvTf0nzIgXe2Q2swrj
+	 59mnpTng3zO7r9hnrW8S/MMy5OHtik93hDdrBFll1PBY4OeiRcIO+/GdIOb6XdigdjLf2
+	 leyZU6vxMF41jvzsHiShhRwPrWpLBYeJ1QIy2zCoOsCBT/eNIkjnEUh3exbhIYVgGbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919214;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=l3AZy4riXXi7OLtUVBY6GfrY+Mq1552Tq5et+9Ive2c=;
-	b=OAcDr3Cps5FAO8O1hb0USMDEf8JI3lR829NnfFfhyiP6o2cU1cshr8Llf9CgbqFY7wFi
-	 BijW4U5wfvJGtmtb+zhxjZqjdT7mUrIN+peFL43D5TnhpPkm0JUPZ3aPJq3tvZOWQKsGA
-	 H/vrtGg2fqLpw++xRxCsJy15JxAdu5Nm3KQ9qgEI7J9gDv5RWPdCEqVTBU5FU5HYsF6jq
-	 0xWSEfABpZwCapkwGBXTh5IbJzSDCLRtFIsejwfs+YIYtHFaTI3Pc/PmguawIM2+T0zEW
-	 1NxOW7+lABUj0CAJAAri/V945awragWyefXxpzvbH8+rnU1pcwsU3F6hSngcwGh1T4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919216;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=7p7Pb+f3+26BR0KMgF8tnopJHqF0TPOrtCKj4Okhm9o=;
+	b=a9fSitlBv2JqxMmBvw92xX1wPY8JgXgdNNybzEJhr1lUIdyNtYRfzvp95mpdVEony+YN
+	 SWeVpFp/LvCGMdGuh0qyejhS/XfvHvH06MhLx4PH8ljjIMtg15T43jZhgEmEVAcro9hZU
+	 Dl49ceuIa1xf1kC6jAHimWJMXCNPl+tJTXzGrX2lW1fICVajGXWyZmPye3tgAKT1UyFfM
+	 HiY5C9AMkIcn6gxhHmxYK1bMvLrBD7/TtKm+MmBwLHb7/iU6M+MpKqUAqzN/v484uNd91
+	 7zqaqepN+qptoJ61G9AK7kCf6id5KuAP8IHyStkzHrmWfZSBS6CtEtQnm6uowU62atQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fh2bEDIR;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=e9BT7v3M;
+	arc=none smtp.remote-ip=54.206.16.166
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31B460A3829
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 12:40:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C31B460A3829
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3E960A3837;
+	Tue, 17 Nov 2026 12:40:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB3E960A3837
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fh2bEDIR
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so33278625e9.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 04:40:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794919212; x=1795524012; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=l3AZy4riXXi7OLtUVBY6GfrY+Mq1552Tq5et+9Ive2c=;
-        b=Fh2bEDIR/d4uWsXPkBfajsg5Nj7BImqYBDcRS4r+K6kCFwgeO+dcKNai4X+1/lmKmc
-         1gISntCorZBotrgw7gWmMS29Ac1jNLiXIbTNJJci4zTdvWCsrgMm7m0aKIk9NHFx1UJP
-         QHP770xVZniMTDC45tVGF2RNJERWAAfLIMPoV9QmQvL0citbFzUX90QPouysWgIJ/f1n
-         AXgfs7Aj60F2QXBV2EB1MZy6FXJkE72sj2yoZFtNwX2brRbnryjsuoMBIHhotID6UXRj
-         nxUHsoTME3V609QEQcv8buE5iT8roh1KFQUJ/X0GjBiThB/lsqoBJcrO9xvw26IercKs
-         pcnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794919212; x=1795524012;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=l3AZy4riXXi7OLtUVBY6GfrY+Mq1552Tq5et+9Ive2c=;
-        b=IjVP3RBV9DSLI3XIKvPrcYBzIGxGdnPE1Mrz9DWheArigUCBGzSxv4exj8NAcC8LmY
-         CgUaPofo1KqbMaL/HrKha/qjYjrsmuYRIIea+r74R3wC4STaW5HS+pLnxV7IBzdsig3n
-         v+dOjZN0Lb6Em2U8FADdFeDg/jock3fyO4DbJDNQeC2od7TSQteMqwnytJi7rIqaDCGC
-         /LDwK9AWMmGbgdc4DvFNlInlJcvwAASEgruocuZV3Nd28Ef78CTx5vzyhQs2gjd2liim
-         phU4O2xD9sLHWGEtYsl4SNPeVOJQDkHfywpYhN+tyef4m+e2elgT12SzShbirZJtZCkV
-         llvg==
-X-Forwarded-Encrypted: i=1; AL+hErFf7QvcIMxbAjcQI3tSll9oupygaMudH4HaGVeollHBfodsRsQGhANHwz+wUPquHYjdtvKJQGywIiCC@vger.kernel.org
-X-Gm-Message-State: APuU4Z/z2g9fCkwQRKF+bbr4ZnSarT8/sYKE+y4at5t8+kHo0TYNijqP
-	fXVntYcDcFhpdTLKX/fYSmObd25VeLumZtsczzGIebfMinzETSO3Vgrs
-X-Gm-Gg: AYBFou2DkXe6ay2IkMcLbVAeNYCnqLK10SI+IhgdSCSOanZjBehmpdotwbox3oUHuTu
-	9O3yTbDj6n+KTwVui40bub7FxSw5zcNwToU9ZAfwwMu3u/e1XMgRRCjX8uWMfJa2ZYEeOaRvbqQ
-	6qHBe0GT2zIWhGjz6ivx6e1X5kFRJ78QZB+8lwp/t9J4RFxrHO75zfJcA01QSnweEucl0CVLpxT
-	19SgG69SdEpYDm9j3FvwaMZphqFCHZVbkoOmowdr+w5jT4UfOKYiK0QvXcVHJFz6im5TYBC86uM
-	0ScpgI3lljPuhs603QaM4v255ku3TJs/s+3R6u/GmUxxymmquJWMrQOeBA1A6AtHDphqXPxWePv
-	vhRdR2AwrD+0Q1FiTIXLVhajbsSYNzlGfIvwtjwHxnqHffLHtb2NIbUCOc6S9RVKgJuBceIw7h0
-	+jUTpVZl79QMeT0JW8OAPqd5ZKluGM/ZN+A8weKw4I9UM8JyQcebN/f/tTH1933VwIqNsXR2OG7
-	6Z6UO6zPSs/jHytLq/l2O+xf8QtnhXTExma/sMQZTRVyVliS5TuGiOb8Mi1XdLxqeTkLKLx7Zii
-	wYG35vjW9ltaqY16EPBAF9s1ov1wllDqoGV6ob1FLDws7MxDgcsd2LuAw5PHacbSK6ZerX1xIvW
-	2thBWGJfl2eln14HGLAB1O304q8IexthU3u81N6yBvqeE4ABoqN3iFG0=
-X-Received: by 2002:a05:600c:4f07:b0:4bb:6a5a:7834 with SMTP id 5b1f17b1804b1-4bb6a5a7a48mr183926425e9.20.1794919212027;
-        Tue, 17 Nov 2026 04:40:12 -0800 (PST)
-Received: from Ansuel-XPS24.localdomain (93-34-92-103.ip49.fastwebnet.it. [93.34.92.103])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb78386902sm73367065e9.1.2026.11.17.04.40.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 04:40:11 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	llvm@lists.linux.dev
-Subject: [PATCH net-next v22 02/15] net: phylink: keep and use MAC supported_interfaces in phylink struct
-Date: Tue, 17 Nov 2026 13:39:42 +0100
-Message-ID: <20261117123956.11981-3-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261117123956.11981-1-ansuelsmth@gmail.com>
-References: <20261117123956.11981-1-ansuelsmth@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=e9BT7v3M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794919165;
+	bh=7p7Pb+f3+26BR0KMgF8tnopJHqF0TPOrtCKj4Okhm9o=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=e9BT7v3MsC99gVDnGgFKIj2oKhloAVvbVZhOxSLC+CprTQhf0x8aKYZmuVa+tcnmI
+	 KW0vz91ZuLabqgHamCmmM+w71ftCWnRn+qfRnzkM8ncHw+vuCJ3ro0T2x/8cqtxiYh
+	 svOKYG08K6+bMUI9IqjgStCrQMUg/gFuUJneABHY=
+X-QQ-mid: zesmtpsz6t1794919160t47160cb6
+X-QQ-Originating-IP: G3YnxjTqmHWEqOVoZbVi8fJCVpijP52i68C9QpO6E78=
+Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 17 Nov 2026 20:39:18 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6784433204915299541
+EX-QQ-RecipientCnt: 20
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+Date: Tue, 17 Nov 2026 20:38:51 +0800
+Subject: [PATCH v5 9/9] riscv: defconfig: enable ChipIdea USB controller
+ support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -125,118 +64,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-b4-spacemit-k1-usb2-v5-9-52c3829cca69@linux.spacemit.com>
+References: <20261117-b4-spacemit-k1-usb2-v5-0-52c3829cca69@linux.spacemit.com>
+In-Reply-To: <20261117-b4-spacemit-k1-usb2-v5-0-52c3829cca69@linux.spacemit.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
+ Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, Junzhong Pan <panjunzhong@linux.spacemit.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794919127; l=1116;
+ i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
+ bh=NhXTB+6LQeBDPdlKhQEBituQTc95+pqg5YH7EZfmLUo=;
+ b=QUdPN24BuQF+95BXzm+DDCfCJghmFtjy08DbMyYzrC5QXvJaRgxzicO2wk0+SFr0RhcoCv8HF
+ N7P6gcMHU11DRH1PQLTWyjeQimu4VYukjVqUfl0dhepleG1IxbaNp/7
+X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
+ pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: OKhy7fcgXWEZOKCbU3ZbOYj9HEMXxZS4/TuaLaWrHOZn/sScxJVbURq1
+	LSeSIEuKR/w/Tu6o+7+tgvi0rbDYw50oVoCQh8KrSQ40TAMtqa7tp5X0efwwiFtfsAtc9ha
+	b5eWJMcDEWz81Y8sVRJKjT09DG2qSdVIbm1kD/9xJ5J7nnyo/E5wGwBkBfo/XT5JA/+k7If
+	qymfXY9yezSpyODUZA4SR1tnlDDQTGMO2a6eHpfAhhwrPEZ+zhtwdmRNsITMLmXPdXWSkHb
+	nxKynTm47BDjVCyZ5nurqNuemTwGRfd2p1pr5s02vmJT+iSaWnyl2mPY0Cx02KBroR9CsFP
+	iDC/T7bxBXq5e9trThucKkupPvJ+pcdgMuSC8FMwP9XRabkEhsiqKi3NVJdEr1ImKYDz9Vr
+	0v9FlBunxq9Ig0yPIoqgKygr30eS3j4dlmngKCMdrz0BkiESdFEzWxu+QdwWDRbZO/yJfio
+	W6AYDuo14R11+x3jybXDl71XZlSnsft8W9cLiOGM3FyI0MN3o1/3fDHlAWg6jPbAKyimZnv
+	n0fvhmXFtb50HOidPJJnVHQNHHVE8G8rEScA2F7ttrWFjwnGg3wxUyHYQWt4noLPEiDF04h
+	pHeC6adjcROGs4mQCE7F1M3eol3baenx8T5Hnv/+zkAsKQZeCEKKz4MUb2WJ4HrqUH2Ko5e
+	4lqYFjTsueVuCUEBhUdDJ+kbC4RqolUwsFODBvam+MVG0D3d+JOUNBqrp1NzLu7IzI5VbkT
+	DWRRPloyHrlhDOlkiJkBR7TFWl0PcqUTkyYIifxDDHmOW0AWrhtMT56SIyTiQ0S3PjeQQ4F
+	gaoar0WcjJ+w6VZGdN11fM0NSkHGukdS3CtOEbVxNzAMBeZQVyrQNZ1uKteu6zorzk+Q6QT
+	rvQr5li3a/yt5ABqnWgtzjT7sjBimhEX4SNGp9x7SMHMzSWoLgeR1up+26+gCrtqW9F/i9y
+	1X5RIsHpqUiJxRxguVtL0dRL/XvbJyQR7JcMhbotV91OHT5v4T9Zo+ETtzJIb9jkqAQbP8J
+	CHq8MxDsCwsUuuHXSz9GdpkT6DgJD7gMODka8/vYAaTIbZUsN0RflBOU71QV4VDhtT5/t56
+	9SkS9C2q5S95Dbls8Q8JIJGd3ykD2/wMU/f3MDqlTEcp828x0RHWaIHNrCYPdOO8co8U5rm
+	SRIKlkGhE3czjlXs/231dHBmjBB1u/F24kL7WBQpnv5eS5E=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-Add in phylink struct a copy of supported_interfaces from phylink_config
-and make use of that instead of relying on phylink_config value.
+Enable the ChipIdea USB2 controller and SpacemiT K1 USB2 PHY
+as module to support USB2.0 controllers on the SpacemiT K1
+SoC. The _UDC and _HOST are bools that decide which roles are
+support.
 
-This in preparation for support of PCS handling internally to phylink
-where a PCS can be removed or added after the phylink is created and we
-need both a reference of the supported_interfaces value from
-phylink_config and an internal value that can be updated with the new
-PCS info.
-
-Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Reviewed-by: Yixun Lan <dlan@kernel.org>
+Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
 ---
- drivers/net/phy/phylink.c | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+ arch/riscv/configs/defconfig | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index d9d0ace2042e..f482dc608810 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -63,6 +63,11 @@ struct phylink {
- 	/* The link configuration settings */
- 	struct phylink_link_state link_config;
- 
-+	/* What interface are supported by the current link.
-+	 * Can change on removal or addition of new PCS.
-+	 */
-+	DECLARE_PHY_INTERFACE_MASK(supported_interfaces);
-+
- 	/* The current settings */
- 	phy_interface_t cur_interface;
- 
-@@ -633,7 +638,7 @@ static int phylink_validate_mask(struct phylink *pl, struct phy_device *phy,
- static int phylink_validate(struct phylink *pl, unsigned long *supported,
- 			    struct phylink_link_state *state)
- {
--	const unsigned long *interfaces = pl->config->supported_interfaces;
-+	const unsigned long *interfaces = pl->supported_interfaces;
- 
- 	if (state->interface == PHY_INTERFACE_MODE_NA)
- 		return phylink_validate_mask(pl, NULL, supported, state,
-@@ -1788,7 +1793,7 @@ static int phylink_create_sfp_cage_port(struct phylink *pl)
- 	port->is_mii = true;
- 	port->active = true;
- 
--	phy_interface_and(port->interfaces, pl->config->supported_interfaces,
-+	phy_interface_and(port->interfaces, pl->supported_interfaces,
- 			  phylink_sfp_interfaces);
- 	phy_port_update_supported(port);
- 
-@@ -2091,6 +2096,9 @@ struct phylink *phylink_create(struct phylink_config *config,
- 	__set_bit(PHYLINK_DISABLE_STOPPED, &pl->phylink_disable_state);
- 	timer_setup(&pl->link_poll, phylink_fixed_poll, 0);
- 
-+	phy_interface_copy(pl->supported_interfaces,
-+			   pl->config->supported_interfaces);
-+
- 	linkmode_fill(pl->supported);
- 	linkmode_copy(pl->link_config.advertising, pl->supported);
- 	phylink_validate(pl, pl->supported, &pl->link_config);
-@@ -2218,7 +2226,7 @@ static int phylink_validate_phy(struct phylink *pl, struct phy_device *phy,
- 		 * those which the host supports.
- 		 */
- 		phy_interface_and(interfaces, phy->possible_interfaces,
--				  pl->config->supported_interfaces);
-+				  pl->supported_interfaces);
- 
- 		if (phy_interface_empty(interfaces)) {
- 			phylink_err(pl, "PHY has no common interfaces\n");
-@@ -3037,12 +3045,12 @@ static phy_interface_t phylink_sfp_select_interface(struct phylink *pl,
- 		return interface;
- 	}
- 
--	if (!test_bit(interface, pl->config->supported_interfaces)) {
-+	if (!test_bit(interface, pl->supported_interfaces)) {
- 		phylink_err(pl,
- 			    "selection of interface failed, SFP selected %s (%u) but MAC supports %*pbl\n",
- 			    phy_modes(interface), interface,
- 			    (int)PHY_INTERFACE_MODE_MAX,
--			    pl->config->supported_interfaces);
-+			    pl->supported_interfaces);
- 		return PHY_INTERFACE_MODE_NA;
- 	}
- 
-@@ -3921,14 +3929,14 @@ static int phylink_sfp_config_optical(struct phylink *pl)
- 
- 	phylink_dbg(pl, "optical SFP: interfaces=[mac=%*pbl, sfp=%*pbl]\n",
- 		    (int)PHY_INTERFACE_MODE_MAX,
--		    pl->config->supported_interfaces,
-+		    pl->supported_interfaces,
- 		    (int)PHY_INTERFACE_MODE_MAX,
- 		    pl->sfp_interfaces);
- 
- 	/* Find the union of the supported interfaces by the PCS/MAC and
- 	 * the SFP module.
- 	 */
--	phy_interface_and(pl->sfp_interfaces, pl->config->supported_interfaces,
-+	phy_interface_and(pl->sfp_interfaces, pl->supported_interfaces,
- 			  pl->sfp_interfaces);
- 	if (phy_interface_empty(pl->sfp_interfaces)) {
- 		phylink_err(pl, "unsupported SFP module: no common interface modes\n");
-@@ -4166,7 +4174,7 @@ static int phylink_sfp_connect_phy(void *upstream, struct phy_device *phy)
- 
- 	/* Set the PHY's host supported interfaces */
- 	phy_interface_and(phy->host_interfaces, phylink_sfp_interfaces,
--			  pl->config->supported_interfaces);
-+			  pl->supported_interfaces);
- 
- 	phy_set_upstream_port(phy, pl->sfp_cage_port);
- 
+diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
+index 04ae305d5511..9a0b3847ff43 100644
+--- a/arch/riscv/configs/defconfig
++++ b/arch/riscv/configs/defconfig
+@@ -222,6 +222,9 @@ CONFIG_USB_CDNS3_HOST=y
+ CONFIG_USB_CDNS3_STARFIVE=m
+ CONFIG_USB_MUSB_HDRC=m
+ CONFIG_USB_MUSB_SUNXI=m
++CONFIG_USB_CHIPIDEA=m
++CONFIG_USB_CHIPIDEA_UDC=y
++CONFIG_USB_CHIPIDEA_HOST=y
+ CONFIG_NOP_USB_XCEIV=m
+ CONFIG_USB_GADGET=y
+ CONFIG_USB_CONFIGFS=m
+@@ -272,6 +275,7 @@ CONFIG_PWM=y
+ CONFIG_PWM_PXA=m
+ CONFIG_THEAD_C900_ACLINT_SSWI=y
+ CONFIG_PHY_SUN4I_USB=m
++CONFIG_PHY_SPACEMIT_K1_USB2=m
+ CONFIG_PHY_STARFIVE_JH7110_DPHY_RX=m
+ CONFIG_PHY_STARFIVE_JH7110_PCIE=m
+ CONFIG_PHY_STARFIVE_JH7110_USB=m
+
 -- 
-2.55.0
+2.34.1
 
