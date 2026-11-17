@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794886765;
-	b=iQRSv+a+weqVND/H4mK0svXXeBKHl0Hl3Y8USEyoxRdyBIJSr/Se3p4QXIQoEJnvXREm
-	 PrPLIEXOLT7AXv7Toe4qGnpi6C6LbSw8lb53Ic2SBkOIgR6SFDNMqJsJENoJFF3cRD36W
-	 u6wwRmL7TDkqpCEW7bVqvLxwUEP7dZIbDXcZFmLnEU0Ttr1ct/TVsuDFYnvyX1NkY4cvU
-	 zX2OL66aLEWjkoBaIDcJEe/I16HCk4vZCuHhWMwjdVNiJCl0/b0KRseMZJkq92H9BXjgN
-	 cWvGs2PoDPB/zvQb5OFups4qApEScPnS1ma7bRLDZ659gD6VWaF8hN4VztGUMWPLhbg==
+	t=1794886992;
+	b=Lq9GPJkoAeb8qKDpq7iD3IDjAjruM9JH+mldu5QGOH+E2kwjtqhtXS5YmBJq+qzjLu6k
+	 Zva+keFNifknmDH+hlTBqR4VaIg7hWKT120SETQa2aw3Ql2Z0zjXTaK/iJVxsS9qmLLkB
+	 QeXiFU2iuQqvtcqxZ8ayYYm0Cqvc5hpq/vcf8xZCaQta7yaSytxRRzwrPJzSAv/ExpQLx
+	 leaZ/1As7nXAPDXOYNwL+wg6mObW3tLwtVYV1E8ca2QaRM2p/6qH9XMjUmW8ICwTpXTHb
+	 9d72F67U6iT2q4eE62f1H+qL3oLtc7RkBtgVFO8NGQsM6h2riL1XRs//xPaXplfsvGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794886765;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=0KvMpy3HkOU70jB7qTB+U6wOYnN1Q7Ynd+TJccwO0fE=;
-	b=H4yQ5ydNIFjKea+XtLTuyiDCNnVhePfSmSZ9bp2t1i1zXHTEVaPZV/ckIhJdKp3wRFsg
-	 qgWPP7tDDm67Qp57SKJ+mJjgBbxAwhJdU7SmpeP/dc0Y7a2yumm+O5S+n2VjAX8CdXnk2
-	 7T5snc+yRAwBBuM96j/qGBH8LqH2VNLudp8VIGt4prI/9xScK8mygEj4wzMsK5OQjadtg
-	 7hu1RJA5mHaTvSQ13pkYmWrEi3k1gfdDlU2+LZlldDBXjyD5UGK7ncLv4WJQKi4w470Im
-	 CwRi2aAhVxSoVJ2UmmcLXpydAME3Clrre6YpMrtl9Cq+9asRAwdRGj9Yc852mC2UFCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794886992;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=nRBAFnEApl3XvYxVAcATjRSQNlRWncFye6hnLwE9I8g=;
+	b=u+dmnEVbMnv0gk9Z+ThuA3iBeFEBBUmebEJSv8e3rwp8u7cQS22gehfXdXYtgxJCdGgG
+	 hPCYfuMSy7UW/xIIh5wDUQa8DTBk7lnmI+q5Z3KOPFm+TrZMhzzTEDU4SS51FJ/g+B598
+	 wIyXeoGFHdjL0siXajtRy2tUL3YtLTzMJJHKHFkR3AzWFKRvUnL6jPCPP2dtv93jYUp/1
+	 tXNF7MzeLaGVRhnOeoHtqVxxpy7QHpnE07QrQDCITWqA/Ou5f4V/8u8pQwgx7E+BvmaYy
+	 v58AHsTD1Y+N5Wi5nqI9WyWdIk/Lf7w1+WTGJxqc37OJTo+UfH8yjbffLotstF82cFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCDbrW47;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L35JyBlF;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A2F606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 03:39:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F118606A323
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 03:43:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F118606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCDbrW47
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8D6E1F000C4;
-	Tue, 17 Nov 2026 03:39:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794886765;
-	bh=0KvMpy3HkOU70jB7qTB+U6wOYnN1Q7Ynd+TJccwO0fE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jCDbrW474XmBbICjwSKvVbu3Id3nRohEuO83jzo+kHckiAKGwiF1TaW59GxRylxF3
-	 kRPCZ6FX7qRC1CatTykPP8KBtScepGdHFiXZhpfyBMCSeQZ42s2YhdYuVdqNOIuj/W
-	 s9jBcw/f4v48/Z0l49HyjyT1WN+R94cy69XUqiIUafuslWgMvaYSHMeyDUbadHT9fE
-	 9SFRvgiDO/mZ8P1ghCj/em15LXHh7SMw34EkybkQx/4a47n1rPcwyVRNNCyVi+1PYi
-	 SaAIxSa9cH1MgH/AWkCVxICOF0ln773NK8X2QeX+UI2mTvxGK8z5+h4WTvYYBO7yzR
-	 52DbvTg41jj+Q==
-Message-ID: <sashiko-outbox-218146@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 08/14] media: dt-bindings:
- mediatek,vcodec-subdev-decoder: Add MT8196
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261117032950.1425556-9-kyrie.wu@mediatek.com>
-References: <20261117032950.1425556-1-kyrie.wu@mediatek.com>
- <20261117032950.1425556-9-kyrie.wu@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 03:39:24 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L35JyBlF
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2efe022c04bso488855ad.1
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 19:43:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794886991; x=1795491791; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nRBAFnEApl3XvYxVAcATjRSQNlRWncFye6hnLwE9I8g=;
+        b=L35JyBlF/o0S9PMiCVE4IkeMFVdZ3YXp+JSZAcvz5D9RwAP3brvGtQYDCXyBe3NOUw
+         RuuITAzm+oKtrVJBp6wz8OwyT/haihs9l5Zb9RF84sA3uKKKqL78/9VQ/kTT6AC+uzuM
+         87KTODBnXBJ3Ysv7md/RyO5LBcA8x4K/61847vA7jkT6ZPKUhFHM3RRCFyC6qKK/iWCF
+         MMcfjuBQ2vLLWVow0iA8ULvhxlQeV8Fq+0xkxpCPxUsHiehe5yS9qmnICDLOrZfRI8RE
+         8N0/mNnEAF9wPoPDFGiCTianHHYDjY3uJ0XgzJ/SOOdGctD4uutJP8n3vEixW4PMb98Y
+         egBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794886991; x=1795491791;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nRBAFnEApl3XvYxVAcATjRSQNlRWncFye6hnLwE9I8g=;
+        b=gbF6mHuypunJ3UxP/vUbIVOyvkgK8YeJ2bAS4/UcccYNev83bcH91cmzbz5Cq/64kX
+         QPWULT95mXaI9BWy90YMCUNiOitEIcTE5fm5eiVhgCriYepJFRqSovXXOE79m0dOUuE4
+         9Sl7lwLsa9+vTTYwMHXTUARKhc3/XpfiJfw+4wg3IAjHz2HvWzpvZSIC8gbIgFBzH2x4
+         arstlt9amrY3tt1Q9b58MsE58Vcj2RH0rP5bsE6nxmqStp17Ay34St3pGj5DanNLjDpo
+         CNM4NzlS/9isynFHF86nEETT9lbtTSTf95Lx4Rek1aikiqO9d85rHqYTyn6ykAVLRun0
+         6C7w==
+X-Forwarded-Encrypted: i=1; AL+hErG/HCaEiqzKmiOa+sTcq9TTd9wZ9yFmSBE8ciZSI0fBxt3g98Xmdv8onRil84ZL5eklIF8OD4owHibV@vger.kernel.org
+X-Gm-Message-State: APuU4Z+5VdPdykVnEYfHI0LZUhzlERpsgJa5415yRIsQv+wPvBjKWmHT
+	rdBr0XFeULbr3pIPNIjOvTMvIvfRq3kNIz4ha+ul071+7DD1XdNIDb1v
+X-Gm-Gg: AZFdTZek9LHPJlUVBlcvLXqWcBh27j9E+KdoOAL8O+r2q1A8H9Vdo2r7tbJPwrfi4CC
+	LWqwkitrxw8QRnOVGEjTzfk8dqM1yI0j1dakANmkx2BHFHDbe1I+y5exTTjwR0dU/beTXhew3fU
+	AvY9TDoSA8qW+7PuN9EcUVA8nhuoyRxTgyaVp8SwSfLDXW/qK/ynPONOVV/TOc3xr1UXLWr1WTK
+	jH8EU1oQdjIJNBCl2qZNwLuK8F+DgBt6Gbkto16TfK0Q/2ON2wC5hokXG0VXhM/qVHPvH7kVsO0
+	kc+71/t+MyvzYgS6jyCPx/VXJ0zzUv9bykM2jxhZX6188qzSWOW0q3cng+ggLR7E7Lj2/qJbnxu
+	GJLlv5L2gsOzxwM52H4lvnlUtww+vFnKU9Mx/6OrDieyATM7tNWtaUSjg2XaUGoZYUh8QLZFkha
+	RggJIkFoaTYhqvVsHKe3jz+IdAVVv8bijln7ZmZxvUvJXNig49kVNwaSne/sJWnDN0nJYXI6LzL
+	6B39YHxGRCQeuqvzamfg82j6kqh/whnwU003u8qJq0g528s2cQNEpnsvnF5PJyMZDBixYqLCoGe
+	56UxBDCYPa3kqOzuDE/xWA2xs0jKvgJth1XAi2WIZunisPQpcxK9gDlB0Rqq
+X-Received: by 2002:a17:902:fc47:b0:2ed:3eeb:b0db with SMTP id d9443c01a7336-2ee0de10ab1mr118955035ad.17.1794886991445;
+        Mon, 16 Nov 2026 19:43:11 -0800 (PST)
+Received: from [172.20.10.2] (42-79-72-63.emome-ip.hinet.net. [42.79.72.63])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a87180sm6533155ad.62.2026.11.16.19.43.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 19:43:10 -0800 (PST)
+Message-ID: <63472ed5-1bc5-4acb-97ba-55749ec93c2a@gmail.com>
+Date: Tue, 17 Nov 2026 11:38:15 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,98 +91,48 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: nuvoton,nau8310: Add NAU83G10
+To: Krzysztof Kozlowski <krzk@kernel.org>, Neo Chang <YLCHANG2@nuvoton.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, robh@kernel.org,
+ krzk+dt@kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, kchsu0@nuvoton.com, sjlin0@nuvoton.com,
+ lkp@intel.com
+References: <20261109051251.471879-1-YLCHANG2@nuvoton.com>
+ <20261109051251.471879-2-YLCHANG2@nuvoton.com>
+ <20261109-grateful-white-meerkat-090edc@quoll>
+Content-Language: en-US
+From: YLCHANG2 <neo.chang70@gmail.com>
+In-Reply-To: <20261109-grateful-white-meerkat-090edc@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] media: dt-bindings: unwieldy per-SoC conditionals and missing
-  vcp: false
---
 
-commit b84ac51492845b481ba538f65b5ea25cbc4c838d
-Author: Kyrie Wu <kyrie.wu@mediatek.com>
-
-media: dt-bindings: mediatek,vcodec-subdev-decoder: Add MT8196
-
-This commit adds the mediatek,mt8196-vcodec-dec compatible string and
-mediatek,vcp property to the MediaTek video decoder subdev binding, while
-moving the mediatek,scp requirement to existing SoCs.
-
-> diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-subd=
-ev-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-s=
-ubdev-decoder.yaml
-> index d1d209cbbd43a..c06d8a8a607d0 100644
-> --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-deco=
-der.yaml
-> +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-deco=
-der.yaml
-
-[ ... ]
-
-> @@ -179,6 +184,51 @@ then:
->      - interrupts
-> =20
->  allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: mediatek,mt8196-vcodec-dec
-> +
-> +    then:
-> +      required:
-> +        - mediatek,vcp
-> +
-> +      properties:
-> +        mediatek,scp: false
-> +
-> +      patternProperties:
-> +        '^video-codec@[0-9a-f]+$':
-> +          properties:
-> +            compatible:
-> +              enum:
-> +                - mediatek,mtk-vcodec-core
-> +                - mediatek,mtk-vcodec-lat
-> +
-> +            clocks:
-> +              maxItems: 4
-> +
-> +            clock-names:
-> +              items:
-> +                - const: sel
-> +                - const: vdec
-> +                - const: lat
-> +                - const: top
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - mediatek,mt8192-vcodec-dec
-> +              - mediatek,mt8186-vcodec-dec
-> +              - mediatek,mt8188-vcodec-dec
-> +              - mediatek,mt8195-vcodec-dec
-> +
-> +    then:
-> +      required:
-> +        - mediatek,scp
-
-[Severity: Low]
-Should this binding be split into separate schema documents instead of addi=
-ng
-more per-compatible if-then blocks to allOf?  MT8196 diverges in both its
-firmware processor (VCP vs SCP) and its video-codec child node constraints =
-on
-top of the existing single-hardware and multi-hardware SoC variants, which
-makes the conditionals in this single schema unwieldy and duplicates the
-four-item clock-names list from mediatek,mt8195-vcodec-dec.
-
-Also, if kept in a shared schema, the SCP-based compatible branch does not =
-set
-mediatek,vcp: false, which leaves mediatek,vcp allowed on those SoCs during
-dtbs_check.  Finally, the SoC architecture list in the top-level description
-is not updated to mention MT8196.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117032950.1425=
-556-1-kyrie.wu@mediatek.com?part=3D8
+On 11/9/26 21:11, Krzysztof Kozlowski wrote:
+> On Mon, Nov 09, 2026 at 01:12:50PM +0800, Neo Chang wrote:
+>> +  nuvoton,sar-voltage:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    description:
+>> +      SAR Gain Tracking Selection.
+>> +    enum:
+>> +      - 0 # VDDA
+>> +      - 1 # VDDA * 1.0
+>> +      - 2 # VDDA * 1.1
+>> +      - 3 # VDDA * 1.2
+>> +      - 4 # VDDA * 1.3
+>> +      - 5 # VDDA * 1.4
+>> +      - 6 # VDDA * 1.54
+>> +      - 7 # VDDA * 3.12
+>> +    default: 0
+>> +
+>> +  nuvoton,sar-compare-time:
+> Use proper unit suffix from property-units in dtschema.
+>
+> Also, Sashiko feedback needs to be addressed.
+Got it. I will update the property name with the proper unit suffix and 
+address Sashiko's feedback in the next version.
+>
+> Best regards,
+> Krzysztof
+>
