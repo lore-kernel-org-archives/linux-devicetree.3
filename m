@@ -1,56 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794957433;
-	b=iu637ChnQtRO88LeMTsa7zZ66fqzr63odvst0fHNLg0+2vAFue5hCByVfKX/e/MDQemP
-	 ik8Z8EO79qqumhHjJO1a7/OB6s281bS+7RDZ5R23IMsLbMofggtXSYZN0WCDLWcvKyBC2
-	 NZuGr0zZLrjA8Xh1AQoLJ0qQ/aBvyxtK24TdQEp0eAdMPCOHy6UYYte0+g7MIDK91bVZB
-	 NV8Trpz1yemi8JlCTE5pGfwscbXmdlXKyAgNt1lBgU/9uvn5OQEgyonFZuZHqG4flIn5K
-	 v2W0s7911UHGrFQ9dJtHjWRljecQU181X7MYGh8XwUXAqKpOsrf3xAeIq6WMDmxhMjw==
+	t=1794957910;
+	b=DeR31WDJneqtFi/GuEvzxLny/BB5rJhWAcPX4wA+SywvcndaKMBhqGhQ5WpGhfUGfms0
+	 ImepUc2U8xmVQqGtyIu+ODVC0ZDWH25Sog69BkYxyCem+LhegqlkXoLbmuRDkWfpbbDqJ
+	 mSVLcvOhYACsJsOCMf7t4BI/nTrISq27pzVMf9p2wtX3DBhdQ0ClA5ncFZpVxzlAworPd
+	 x8SZ5JQst/aJkA6jnMijRIKHKDd9YD/ELsGYpwx0ue0IIUlF536UUn7/OgT+wcjkkxLwx
+	 dDLow8OGHYdwLte0VGNBnkmKoWme/JgyFwQjzNhdVeVMTAstLfRV7KkdeMSSktZIb8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794957433;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Lrd7pfsA/gpXWlBfBjdzCjvJ1tm4d5drbCLNvWvxMes=;
-	b=csP+Ql8ghZ/iopdFHfji1Jbwu1HY6hiiVig+fy7OlYcTJ8y6OfqZSHICM81zgbf0lQ5X
-	 ePvgc/djXjkE3sF+L19JYm82BxaKvuvwE9utrCIjRqzI0QQMAZ0SbrojxclE6kGv6sHC0
-	 ADMyRdSCIfCHrGlyuEad4cEfVWnD1+tIu6fyrgQJ2J+MXURbaAnQMAqDHRhuoLTDOrTHs
-	 iqW8M4KojiMn5H7zSWacXApRD8Ao7koF02j5iVK8S7uTrK32ulEO2aS9PZTfoqVAkEdCc
-	 DwxLEplwk+1NuvgP9vac+5oMatsbywmLQ8k3RPxhJxcBWrzTfcB6Mv6kNvwQx3ZE0jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794957910;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
+	 X-Pm-Original-To:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=+MzJUlSHy4eYz8k3I9+Z1/DrWgXW8jRa6k0Wz5zf8Es=;
+	b=Ln7mqVA2Be4SIVoQC74E//Vkx4qhgo3iMDKQY2gNggnOMkN+NxfI+x6irQX68DpTHSVr
+	 PO/dHX2s5U0fTMaImQVBVBMUUJvrJ809o4/2/TiQW6Yg8Ob1E2dQjk9Q8IAjoOkxV8Nv/
+	 Jofg88YchfV3l5MIl2LmL0TG4h7BOCQ4wEfG5XLJHhlz9UlRPJMOM1LmK2V2myKWfiYx3
+	 5Moz30zQd1zlyMXH0U88UEuhV4w15rvvq0RNF6HX4QqoSGqb2a1FuXQhsCH75KW4MEKem
+	 ifhsS/CiqFW62Pn3JPSfg+rdaXo37wffLUMOYj2ot+jDKX7tGBk2urkhe4eDxAD+G/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVPuSeeV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sverdlin.org;
+	spf=pass smtp.mailfrom=sverdlin.org;
+	dkim=pass header.d=sverdlin.org header.i=@sverdlin.org header.a=rsa-sha256 header.s=purelymail1 header.b=MlnVnObC;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail1 header.b=JvEiBCCF;
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39670606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 23:17:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FFC606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 23:25:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82FFC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sverdlin.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sverdlin.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVPuSeeV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A5C1F000C4;
-	Tue, 17 Nov 2026 23:17:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794957432;
-	bh=Lrd7pfsA/gpXWlBfBjdzCjvJ1tm4d5drbCLNvWvxMes=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZVPuSeeV6/vOpG+ZW6fLzLbLJaUfF9VRv9j9Tjw2RmnUfhFqcdsfeHIvEvyJxmz3Z
-	 RZQBmhy36TCVgcW7C3c8QlI0bk73ZdVVXLyOBC7LyHaSB6iI8wS0VxirgENg2XQNo1
-	 phadhNaOqOTHqwXlV97dWD1f2qzzLciSf6vv2x+AZm/DFAylw6fPv0YSrs6Mxs4Vig
-	 QC9v9TxIVEeYYvuR1ksHZ2foDQ3VEAuNheEKFLgM6gXIlQ+jNiYuHydZ7isd73pFUx
-	 1gURT7sGwo106zjvtrglSEa87EYdWPXYIm6nHlSH+i3Au5tueNTXg7aQD81z526s9p
-	 csUz7RsBR0gfA==
-Message-ID: <sashiko-outbox-219788@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/5] drm/msm/a6xx: Add Adreno 753 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akhil P Oommen" <akhilpo@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-nord-gpu1-v2-1-8d6d9908b7c5@oss.qualcomm.com>
-References: <20261118-nord-gpu1-v2-0-8d6d9908b7c5@oss.qualcomm.com>
- <20261118-nord-gpu1-v2-1-8d6d9908b7c5@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=sverdlin.org header.i=@sverdlin.org header.a=rsa-sha256 header.s=purelymail1 header.b=MlnVnObC;
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail1 header.b=JvEiBCCF
+DKIM-Signature: a=rsa-sha256; b=MlnVnObCBZqCH2kEZrNce4+p2hQJguBuSDf8535IEZP5uq06sRAfiUmr/+4Nqsa7zgV1QwthqQhCc04HYH5d3bj+ND7fJlcJ/RSS+tkzsklu5Y/fJ7EYlxVgK91F7M/E6WueJSxpv45nRMKzUqC/AJaX+tBPFuGxfaoH75pIbaEKnixb0ik0+HLT/DlBasFi4pMBHueb4CptYHo0eiwpwF9owjdOD0gjQWXoTJMbUulOPEC9sJ8uYuxwBPfrlc2I/nV2S3OAxCVhT8DgBXAS4i4ySbBnyESH00Fdl7CDDkEyGYl8fAhOAaCNIoK4ME/PzqPBUaGunU+rVpIhTY1NIw==; s=purelymail1; d=sverdlin.org; v=1; bh=+MzJUlSHy4eYz8k3I9+Z1/DrWgXW8jRa6k0Wz5zf8Es=; h=Received:Message-ID:Subject:From:To:Date;
+DKIM-Signature: a=rsa-sha256; b=JvEiBCCFFI3HmL0ydlTlgWrchv77khmsFsDOYPbA7OBa9pAjlD5aSS//gQvsNgsbqgHnecjlVV9zO7d4OlUWUHBmQibjGww6PvlHxMnXrZI21ChoR8EzljicFg7dd332o4tEmefs/5ZDe/PuhmRITGFVUjxYBSEh8ROlFoOSAzsL/rsdcXgGP4cpMJjcrZY3kKqWFJXQmdpZiCfp1xveOr24t2womp0ehxBcADJRp8/hlua9RuMV4XHEKv5UQc42SiP7g1P8KNdcZUX0RiqY4lOw6WP03VtoFDHMeWWuefFbTBp7vJLlUKkN//+Byz9A2VtFCSGHyUvw72gI2JJzXA==; s=purelymail1; d=purelymail.com; v=1; bh=+MzJUlSHy4eYz8k3I9+Z1/DrWgXW8jRa6k0Wz5zf8Es=; h=Feedback-ID:Received:Message-ID:Subject:From:To:Date;
+Feedback-ID: 815097:39668:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 418562010;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Tue, 17 Nov 2026 23:25:05 +0000 (UTC)
+Message-ID: <9957d8679c44e695e22ba86224e4f853a0a65217.camel@sverdlin.org>
+Subject: Re: [PATCH v3 1/3] dt-bindings: arm: sunxi: document Radxa Cubie A7S
+From: Alexander Sverdlin <alex@sverdlin.org>
+To: Enzo Adriano <enzo.adriano.code@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Date: Wed, 18 Nov 2026 00:24:51 +0100
+In-Reply-To: <f1da763aca9c4978dd7cd9a363548b5e53314656.1794227241.git.enzo.adriano.code@gmail.com>
+References: <cover.1794227241.git.enzo.adriano.code@gmail.com>
+	 <f1da763aca9c4978dd7cd9a363548b5e53314656.1794227241.git.enzo.adriano.code@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 23:17:11 +0000
+User-Agent: Evolution 3.62.1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,83 +65,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/msm/a6xx: missing UBWC L2/L3 swizzle disable in
-  a6xx_set_ubwc_config()
---
+Hi Enzo,
 
-commit 0728c6891f9936a41b152874415dd989fc9326a8
-Author: Shivam Rawat <shivrawa@qti.qualcomm.com>
+On Mon, 2026-11-09 at 23:45 -0500, Enzo Adriano wrote:
+> Document the Radxa Cubie A7S board and Allwinner A733 SoC compatibles
+> for the accompanying initial board device tree, so it can be identified
+> and validated.
+>=20
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
 
-drm/msm/a6xx: Add Adreno 753 support
+Reviewed-by: Alexander Sverdlin <alex@sverdlin.org>
 
-This commit adds an A7xx catalog entry, an adreno_is_a753() helper, and
-hardware initialization adjustments for the Adreno 753 GPU in the Qualcomm
-Nord SoC.
-
-> diff --git a/drivers/gpu/drm/msm/adreno/a7xx_catalog.c b/drivers/gpu/drm/=
-msm/adreno/a7xx_catalog.c
-> index 6f704898cea6e..9465ffa3dd12e 100644
-> --- a/drivers/gpu/drm/msm/adreno/a7xx_catalog.c
-> +++ b/drivers/gpu/drm/msm/adreno/a7xx_catalog.c
-> @@ -451,6 +451,41 @@ static const struct adreno_info a7xx_gpus[] =3D {
->  			},
->  		},
->  		.preempt_record_size =3D 3572 * SZ_1K,
-> +	}, {
-> +		.chip_ids =3D ADRENO_CHIP_IDS(0x43051701), /* "C523v2" */
-> +		.family =3D ADRENO_7XX_GEN3,
-> +		.fw =3D {
-> +			[ADRENO_FW_SQE] =3D "gen71300_sqe.fw",
-> +			[ADRENO_FW_GMU] =3D "gen71300_gmu.bin",
-> +		},
-> +		.gmem =3D 3 * SZ_1M,
-> +		.inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
-> +		.quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT |
-> +			  ADRENO_QUIRK_HAS_HW_APRIV |
-> +			  ADRENO_QUIRK_PREEMPTION |
-> +			  ADRENO_QUIRK_IFPC,
-> +		.funcs =3D &a7xx_gpu_funcs,
-
-[Severity: High]
-Does a6xx_set_ubwc_config() need to disable level 3 UBWC bank swizzling
-and program the swizzle disable bits into REG_A7XX_GRAS_NC_MODE_CNTL for
-Adreno 753 on Nord?
-
-In drivers/soc/qcom/ubwc_config.c, "qcom,nord" maps to glymur_data, which
-sets both UBWC_FLAG_DISABLE_SWIZZLE_LVL2 and
-UBWC_FLAG_DISABLE_SWIZZLE_LVL3.  That configuration is exposed to
-userspace via MSM_PARAM_UBWC_SWIZZLE and programmed into MDSS and Iris,
-and a8xx_set_ubwc_config() writes both level2_swizzling_dis and
-level3_swizzling_dis for other glymur_data platforms.
-
-Adreno 753 uses a7xx_gpu_funcs -> hw_init() -> a6xx_set_ubwc_config(),
-which only checks UBWC_SWIZZLE_ENABLE_LVL2 and omits level 3 swizzle
-disable from REG_A6XX_RB_NC_MODE_CNTL, REG_A6XX_TPL1_NC_MODE_CNTL and
-REG_A6XX_SP_NC_MODE_CNTL, and writes neither level2_swizzling_dis nor
-level3_swizzling_dis to REG_A7XX_GRAS_NC_MODE_CNTL:
-
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c:a6xx_set_ubwc_config() {
-	...
-	u32 level2_swizzling_dis =3D !(qcom_ubwc_swizzle(cfg) & UBWC_SWIZZLE_ENABL=
-E_LVL2);
-	...
-	if (adreno_is_a7xx(adreno_gpu)) {
-		for (u32 pipe_id =3D PIPE_BR; pipe_id <=3D PIPE_BV; pipe_id++) {
-			gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
-				  A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id));
-			gpu_write(gpu, REG_A7XX_GRAS_NC_MODE_CNTL,
-				  FIELD_PREP(GENMASK(8, 5), hbb_lo));
-		}
-	...
-}
-
-Leaving level 3 swizzling enabled in RB/TPL1/SP and both level 2 and
-level 3 swizzling enabled in GRAS mismatches the rest of the SoC and
-userspace, corrupting UBWC surfaces during rendering and buffer sharing.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-nord-gpu1-=
-v2-0-8d6d9908b7c5@oss.qualcomm.com?part=3D1
+> ---
+> =C2=A0Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
+> =C2=A01 file changed, 5 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documenta=
+tion/devicetree/bindings/arm/sunxi.yaml
+> index 28437c47ac01..37a7d713ac71 100644
+> --- a/Documentation/devicetree/bindings/arm/sunxi.yaml
+> +++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
+> @@ -857,6 +857,11 @@ properties:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: rad=
+xa,cubie-a5e
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: all=
+winner,sun55i-a527
+> =C2=A0
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Radxa Cubie A7S
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: radxa,cu=
+bie-a7s
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: allwinne=
+r,sun60i-a733
+> +
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Remix Mini PC
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: jid=
+e,remix-mini-pc
