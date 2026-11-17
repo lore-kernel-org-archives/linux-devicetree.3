@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920875;
-	b=2TzLZV4tb6zyuRq8qvWpPqUeo9cR4XxaXfpGU7iEZyOwkvQ1fT/yuI0JPGdcq4vSLcK3
-	 FnqtpFzIsGP87B7fEe6rV4LOM4z4UTYoRmwK4b3fCJmtNeMgPODdDAaLZKtzKu9MM+OEd
-	 G7YAgtyn7xMeY1iDBPWRpT//QdRBtE1kxiLBpdQl9/4VKAsjO2xKQsMFv4GX3h3rOayg9
-	 y/1WHu0Opop4uVDQi6zlbIFqEUHrJhGZY+2+njpjfOtTsERL02FVQIfqFg3pOYf7H6GKx
-	 olhS/aoZHQ7p+YAT7Io2Xu6UQw3fcRPYZZzS0jAqjRsn84p8tF285sLQMl1JpYCqiMQ==
+	t=1794920880;
+	b=dzMp/hxJOnoljk14VNiIxlW6EEjaOvhrApGOHgtujg54jLfYwXYi/OkqjPE56csnzTbV
+	 t+6A41VDkV5gJD9LazfDuxCjDUOuxottEwclrgw3Z+Hx1Z/3tN6QSyASoXnqUdZ5qx2df
+	 22KEQ0h8XnfO6XcSe5YaqAX7q6nWB+7CGJ3aCB9z1JWddR74QcGu8g2ooLNQkOp5aKHDP
+	 t4LzZc7oJyx6THOR5vwQgudDyRrOxMMnEUv11/+htIvlMf/wyu7+TK9RKWbMNDsLrZqrM
+	 FJdCPpyR9eP/+bdxk+ZA6YUxka2WPeWiJ0tqimMVc/p3W2uiqNoRJXzbBLFPu/L6Z8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920875;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920880;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=8r+7XF8F7JmD8GZ10igNH1KanuHgCZwsM4pGmySSqBM=;
-	b=oEwp7REaMAbdqL2+AuB/c6/0gNM08zGTvrPvYsg9abI9nN2ASXtCWwCi0nKn5XHRSWA3
-	 X/XijxvdA3OKfW1mw1f3tRNBEGx/+/tYn7L2Y1pb4FvzwfmmjKncYOQsLFGZjsR0+Hi0h
-	 lqtZb5BFF8ckItkn59EQjXRl2TCWI7m9HGlTG3GMHBBgKljnx1sokbrU3C23UZSS9s9X/
-	 2921yaL3N/HijLl1ibDHojmxoAT09CkJbbJsmMTiOILx2lARgrHMYuh8as02vZinBFizl
-	 gIjcv+SyzA4OwfvwwQW9JwNs1eJNPlUUgLlctldxp/D54kVVznzOa0nn+nOe2lPrzkw==
+	bh=xUALyvtUXYfkbKIvNlqiBzpv7vLH5wP8YCmHD2a1OBQ=;
+	b=y7NnpFdwOWDZpQqNqN/IZsDqxXSIAzKCUOE45bxrL9UG5hf7BpZ64i0e5UglMVDLU909
+	 rKjLIMBW995RsNtRj7B03n0RliZbHfZb8q78ZUG6oHhXmWh8mFp0VDR1nOZjRO6RUBP2V
+	 sMEJ7heU065Qw057Z/Ei5S1ZR3l8ihOxlbu+H+ZAb6/p9Zg8SacsSADZGWxYjOVvVW/0H
+	 Woq/acpRSlRYCHGFYjqYDh6LoA8KeQKA1/spPT9UQEc5iUWUD27gT166kxLqDXA/881DU
+	 EQgvk3eWO7xiZ2hbDwcSl/uI1l4yVJ8IctaduxqxQ56hi9RrSiPmuND9dzYtvFV8xjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JYTTJ9Tq;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TUzYBapA;
 	arc=none smtp.remote-ip=185.246.85.4
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2E2606A332
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:07:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F2E2606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CFF560A3824;
+	Tue, 17 Nov 2026 13:08:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CFF560A3824
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JYTTJ9Tq
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TUzYBapA
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 573A24E4156C;
-	Tue, 17 Nov 2026 13:07:52 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 09A4A4E4156F;
+	Tue, 17 Nov 2026 13:07:59 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C3975FC81;
-	Tue, 17 Nov 2026 13:07:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 707E111BC0026;
-	Tue, 17 Nov 2026 14:07:49 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CB89C5FC81;
+	Tue, 17 Nov 2026 13:07:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 56AA511BC0024;
+	Tue, 17 Nov 2026 14:07:55 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794920871; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794920877; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=8r+7XF8F7JmD8GZ10igNH1KanuHgCZwsM4pGmySSqBM=;
-	b=JYTTJ9TqyNPku/NwWDLt6DMR3bgB0fD0IJvJsAPEFC+3xiXmqccdzofdZ9klBHrWXt1+Wc
-	zml+PcxtLgGJxsxEJKCn2VJlla9O4+0AWcL4mw61HZIl2vxGqTUnWdC7Mprz1kszRxmZ+J
-	tJ3Dfy9ca2fykK9e+kDQHkJGSSRiRXmmasWBEBz0xkO4DxRBbtqhmUz9mxH6JULzzt4EXC
-	9OfQYUriunkHo0Mepaa56rbkl5tXmARQWP9FOktJjr0OH8qtkE66jplNtjlBGqfrHPtoVk
-	UIqS/gGhv21wZZe9vXtubp+EJ74MvzLWvsQ1APIzm9IumGnDZx8dexyRtGI2uQ==
+	bh=xUALyvtUXYfkbKIvNlqiBzpv7vLH5wP8YCmHD2a1OBQ=;
+	b=TUzYBapAP77zC1ftvdhFx3XxXtYnogSdOAGGb0OAmAPmvsMu6oSQFrRJIRzAhTXKcuipL/
+	w6smXc6HF1AV9zJtGXTxEfx6mph4vYK3FmUQMgqYksUii8CRPa+rs4RnNnbXDaAYL/Y03B
+	15Es18bRO1XTKGFdOnqxaMw3BJgsm/strP4B6Z7Kw9GuS0CfptxZW9/bhfqFmFhDfmWIq6
+	X96TKIPrK6X+IfDUK+VcMmu+OOBnrfTYdq3kiJ+hxVbS7LDNnRaIRWtXCJUtcczXQ2J1pY
+	OJq2eDPc/o1YXJWOPnbap+Zy/mQmGvoAoEHjppgAUF6vM+7idShsC7aTdT9+Ew==
 From: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
 To: Nishanth Menon <nm@ti.com>,
 	Vignesh Raghavendra <vigneshr@ti.com>
@@ -67,9 +67,9 @@ Cc: Tero Kristo <kristo@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Richard Genoud <richard.genoud@bootlin.com>
-Subject: [PATCH v6 1/6] dt-bindings: remoteproc: k3-r5f: Add Jacinto LPM memory region
-Date: Tue, 17 Nov 2026 14:07:32 +0100
-Message-ID: <20261117130737.141993-2-richard.genoud@bootlin.com>
+Subject: [PATCH v6 4/6] arm64: dts: ti: k3-j721s2-ti-ipc-firmware: Reserve memory for LPM metadata
+Date: Tue, 17 Nov 2026 14:07:35 +0100
+Message-ID: <20261117130737.141993-5-richard.genoud@bootlin.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261117130737.141993-1-richard.genoud@bootlin.com>
 References: <20261117130737.141993-1-richard.genoud@bootlin.com>
@@ -85,8 +85,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Declare a carveout memory region to store LPM metadata on Jacinto
-devices.
+Declare a carveout memory region to store LPM metadata on J721S2.
 
 For Jacinto devices, this memory region is needed for saving ATF context
 and the certificate information of ATF and OPTEE and DM image. This LPM
@@ -97,7 +96,7 @@ U-Boot R5 SPL/TIFS will use this area to save and restore:
 - ATF certificate information
 - OPTEE certificate information
 - DM image (which has been copied in memory at boot time by U-Boot
-R5-SPL)
+  R5-SPL)
 
 At resume, U-Boot R5 SPL is executed and detects that the board is
 resuming (with a flag set in the PMIC), then it:
@@ -110,55 +109,44 @@ resuming (with a flag set in the PMIC), then it:
 
 https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
 
+As this is used by U-Boot SPL, bootph-pre-ram is added.
+
 NB: This memory region is not part of DM memory (which is not retained
 at suspend)
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Prasanth Babu Mantena <p-mantena@ti.com>
 Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
 ---
- .../bindings/remoteproc/ti,k3-r5f-rproc.yaml   | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ .../arm64/boot/dts/ti/k3-j721s2-ti-ipc-firmware.dtsi | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml
-index 14e6b2f817b3..af2acd429974 100644
---- a/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml
-+++ b/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml
-@@ -155,9 +155,10 @@ patternProperties:
-         description: |
-           phandle to the reserved memory nodes to be associated with the
-           remoteproc device. There should be two reserved memory nodes defined
--          for the basic layout or 6 partitions for a detailed layout. The
--          reserved memory nodes should be carveout nodes, and should be defined
--          with a "no-map" property as per the bindings in
-+          for the basic layout, three for the Jacinto layout or 6 partitions
-+          for a detailed layout. The reserved memory nodes should be carveout
-+          nodes, and should be defined with a "no-map" property as per the
-+          bindings in
-           Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
-         oneOf:
-           - description: Basic layout
-@@ -174,6 +175,12 @@ patternProperties:
-               - description: LPM metadata
-               - description: LPM FS context data and reserved sections
-               - description: DM RM/PM trace and firmware code/data
-+          - description: Jacinto layout
-+            items:
-+              - description: region used for dynamic DMA allocations like vrings and
-+                             vring buffers
-+              - description: region reserved for firmware image sections
-+              - description: LPM metadata
+diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-ti-ipc-firmware.dtsi b/arch/arm64/boot/dts/ti/k3-j721s2-ti-ipc-firmware.dtsi
+index 5253d028da09..010d20d56927 100644
+--- a/arch/arm64/boot/dts/ti/k3-j721s2-ti-ipc-firmware.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j721s2-ti-ipc-firmware.dtsi
+@@ -95,6 +95,12 @@ rtos_ipc_memory_region: memory@a8000000 {
+ 		alignment = <0x1000>;
+ 		no-map;
+ 	};
++
++	lpm_memory_region: memory@a9c00000 {
++		reg = <0x00 0xa9c00000 0x00 0x00300000>;
++		no-map;
++		bootph-pre-ram;
++	};
+ };
  
-       memory-region-names:
-         description: |
-@@ -192,6 +199,11 @@ patternProperties:
-               - const: lpm-metadata
-               - const: lpm-context
-               - const: dm-firmware
-+          - description: Jacinto layout
-+            items:
-+              - const: dma
-+              - const: firmware
-+              - const: lpm-metadata
+ &mailbox0_cluster0 {
+@@ -189,8 +195,10 @@ &mcu_r5fss0 {
+ &mcu_r5fss0_core0 {
+ 	mboxes = <&mailbox0_cluster0 &mbox_mcu_r5fss0_core0>;
+ 	memory-region = <&mcu_r5fss0_core0_dma_memory_region>,
+-			<&mcu_r5fss0_core0_memory_region>;
+-	memory-region-names = "dma", "firmware";
++			<&mcu_r5fss0_core0_memory_region>,
++			<&lpm_memory_region>;
++	memory-region-names = "dma", "firmware", "lpm-metadata";
++	bootph-pre-ram;
+ 	status = "okay";
+ };
  
- # Optional properties:
- # --------------------
