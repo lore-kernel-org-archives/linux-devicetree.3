@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925564;
-	b=TqLK3DdXYdwM/pWogfbheioOt0PT7IC/dbbV92KYWPIzXqLGL17jhuemLocNf2CMddif
-	 XzL0a+YLl0RyOd4gA+a9dTu99Gb7WbL9yIFBlw55O5DciupebyR67goZ7sGTmRFAPNMCv
-	 5En43JsL8qNwGR+c2ztsKZJm8lZoGHEeODW5mrz1yDXsajRY38SRgb6HsA77YZxyaLM9+
-	 +yglImrLxUbtAkxJnf6QoghtBeKkpTzdoJDegK3iewY12hHuHy6Ys8vTQRj/GZ15c1Kh1
-	 o6V9itdXcvmXpwFyEJUZI7Ajv9/EAWswWq0o1HKbonETSz0cjAPtMgBknkVNiwnG+Bw==
+	t=1794925574;
+	b=XUgxmcsgiqLTLY8OwmDnHvgq68Uqc5/ZrFm0jiYcusA376TwH63rjhrFjqmGhgPDDYZB
+	 oVoEBJLzwoWZwodD80tJH4F5z/G99lxdPChpX1dwQ9GSwBJ9FmZQFD2wBexIpkx2F0qMw
+	 BIbg67pHGF45UIF3AgZVuw1fbvmre2lycHfWdTidpxOh5AQKuD+TdmJKpqSvmAuLpwKjR
+	 uLSUB3LyAeExck3QO9wh+qX8PSYf3/G2W7ll4V/LhiBCnYhayZPUOYRrc6P131fpE68bW
+	 zZk80vflQK5lbSMSpjq44fYPFVtJC118QbpswE3mmlw82A88pGU/oYVxZToEzrUPKFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925564;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925574;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=PjWzcBhkkgVIs9w69hUJsb5oT+L/Mcad55T5JmI+iio=;
-	b=cmkQoAQIewc3iygJxch0UbtVL/yzy7Jh9ViVFASSmg8vrEzQ4UwqOPdaxlskPCFGQTAx
-	 ttn5b33Y54NbjORIaFZxtauP2IC2OJsKWRq5JsgazLMIWtMc8fHaNfkLRZSvXEw4EJocP
-	 EzVN56XP9koN0fxhfI0GIogSOOphkPAdF4Rh3MxFDGm5ZKR80uWreR7KmFacQX8DrY8VU
-	 M0GyYHHh596Hw+pd4+vBu+vUiwxxLPiZfP9NUnIFEv0S26JV6tZ3xI2/cNW2t27aY5uOp
-	 9olAGmOAE/SeIwRwmUMTD9wNIueq7ejAqvU2nWUb3I81MdqJce398yVqIsmj/NU+aVA==
+	bh=Qr2nUABmn5h/YBOq4rfdc5mzXb4rIjc5Q4wwfmjeF/o=;
+	b=MbsHegOcKbfmZqKruXWsPOoFnYBWPm0/IWRubWbKvHK+3X6IoB1FOAIhabuKsZpYcKT9
+	 G8ksapS216p9vq7EeX8XYkXBhh2ySGfomxn0q1uSF0VbkDpeyWpfJp9xX0BzRLc9WG4WI
+	 PLTxEiojZOdw8wVhkEUvWKovbvfVYhkQhgcCIqXg4dK8YbzhWx2ZBe9UXsdvrAYbaKnEB
+	 VuRRy/YPsCvf3TQsfziB/NdHye5UOT6DUL01KPxYhw6yhBFW98P42569EQkrj3hF+gG9G
+	 RzbzytuCYBRJr4mAfInJpqiqxJYyrrX8wXTY3rTLQOJ5S2NXP67h2n+Ct/yAW9BOu9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=E6nTjQ4n;
-	arc=none smtp.remote-ip=109.224.244.122
-Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qD6dL8zB;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10A9606A32A
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 14:26:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C10A9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DAF606A338;
+	Tue, 17 Nov 2026 14:26:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12DAF606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=E6nTjQ4n
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794925561; x=1795184761;
-	bh=PjWzcBhkkgVIs9w69hUJsb5oT+L/Mcad55T5JmI+iio=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=E6nTjQ4nXY2wVq8ILFv7CKNwzPaPG0s6BsRHUl6vP2rMAqimwzcmGMPcIuVGbu8yr
-	 wIDiF0PcO4R5mHmcjBVci6m6fnj9WylW7dDEV1IA/Z5la3tGcyizTXgMYk+b8nmje5
-	 ZUrT9NfAs+B/8H/2cGWYFhzf3JoirIFO1+3tDhHS1u4VqM6ojhmsbpfNlfuqzfR8OH
-	 WA7oYOXCYAgRBby7IHCQ0sWauKEB7c7Gdd/9fZ2pfp5aYQJ0Vy73wYccwfwDVqj0RU
-	 Na5nQ8yRUI/uNdBrytUKlOacddP+Dc6e6xaDZuqX8jJXEfqMJ4tg9mSr5t1v4dOLJZ
-	 d+LKVymCLGorA==
-Date: Tue, 17 Nov 2026 14:25:55 +0000
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, Houlong Wei <houlong.wei@mediatek.com>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v2 2/3] soc: mediatek: cmdq-helper: add legacy GCE ISA support
-Message-ID: <evZkmv2okbTXDrodokQupcspmC8Rk0aHgHxz_-5P_lHqNZ9vat-QT5bZTP1-P2zGeuhCCl9Qv4BdGN-LM0mhnAPz3ibpy2slzjvFgIH3eXE=@protonmail.com>
-In-Reply-To: <39494ea2-7fb5-4414-8560-47ddd40260cf@collabora.com>
-References: <20260907-6572-gce-v2-0-412a5b037290@protonmail.com> <20260907-6572-gce-v2-2-412a5b037290@protonmail.com> <39494ea2-7fb5-4414-8560-47ddd40260cf@collabora.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 25c3788f3b699fde6da1f692dcea107b1ebc25bc
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qD6dL8zB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794925572;
+	bh=Y8zZspvVCHyV544/HTl+z4+atP6mcZ4w51n6InGt6FA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qD6dL8zBJa/8aKYElbLg/C0j/T6uzmQiUwv9Iy/FwdtkoZMnRPA0tR1Tr7NkEtQZF
+	 3qPsvf3dTZ87+6HVFrpI8vn/0ROgE3DUG9o44xFLzzvIUsXLdaKAt7NbHToKtZezCu
+	 tnMvXEVNW2MH4VsnJwiUqmyU5r4moZO028h//j0nFVzNAS5I0JI9xRPvcd1GkeY9xM
+	 /7KM2ZGjVl7TPs+O1tfBdO8F10XELQ6cjiChADQHpvvyTip+UZBQboIH7PMUuJ7TFN
+	 Y3XZzLSqBQheTb1R7G1KW9Kl4f9t6QMQMhGeKXie8onu/6g6ftQ++Zds96uukdP2Ce
+	 LPwvM1iRzmA1g==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D90C117E0069;
+	Tue, 17 Nov 2026 15:26:11 +0100 (CET)
+Message-ID: <a7d13845-5f9e-4337-a7d5-f01988c03f87@collabora.com>
+Date: Tue, 17 Nov 2026 15:26:11 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,13 +61,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: mediatek: Remove undocumented, unapproved
+ aliases
+To: Akari Tsuyukusa <akkun11.open@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20261117130556.234785-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <avxXNp5xEbczbb1y@buffalo-ssd>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <avxXNp5xEbczbb1y@buffalo-ssd>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Angelo,
+On 11/17/26 15:16, Akari Tsuyukusa wrote:
+> Hi Krzysztof,
+> 
+> On Tue, Nov 17, 2026 at 02:05:57PM +0100, Krzysztof Kozlowski wrote:
+>> The ovl, aal, color, dsi, gce, rdma, split and other aliases were never
+>> approved by Devicetree maintainers, because they were never documented
+>> as actual ABI.  Drop them, because no new custom aliases are allowed for
+>> years now.
+>>
+>> This might break users of this undocumented ABI, so these should be
+>> updated to use only documented and approved ABI.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> You mentioned 64-bit MediaTek SoCs, but the same class of issues also
+> exists in 32-bit MediaTek SoCs under arch/arm/boot/dts/mediatek/.
+> For example, mt7623n.dtsi has rdma0/rdma1 aliases, while mt6589.dtsi,
+> mt8127.dtsi and mt8135.dtsi misuse "simple-bus" for the "clocks" node.
+> 
+> I hope this push for correctness doesn't lead to any regressions.
+> 
 
-Legacy ISA patch of this series has got Ack now. Can you please pick
-this up when you get some free time?
+As I said, picking this right now would break all MediaTek SoCs, but that patch is
+just a way to get a discussion started - don't worry, noone is crazy here, this
+will not get merged until a decent solution that avoids regressions is found.
 
-Thanks,
-Roman
+Cheers,
+Angelo
+
+> Best regards,
+> Akari
+
