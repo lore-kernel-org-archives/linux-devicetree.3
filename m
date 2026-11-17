@@ -1,56 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794892847;
-	b=hW82zZr10Rgzbxc/r1aBQeKFvlfZyqydAz0KUKvZ//jH3QDI2f29F0KIwHmuDHqzh9rR
-	 8rXcrVnDY4JvsahuWqguEYqMlSwvaQy34hGCrQpbuYamLVB3a4nT3lxgosD3p+eM23fL4
-	 8LySmX02lmJIxiYCsmFcQ+W5gy99QVlRWZlmIqXUtIwlnbE0t2wrtNqGkKM5/espU50mz
-	 B9emO9kfFsQNiWcGtJ9tnr8MYE/NGg7gnfbCaksje0dBg2f+OXz0SH1P8SqD0wKBPUeWr
-	 Td9Y7sX2DfDNl2jxAOHkyMBMsAk0Ax+7oInSuM6nuRNI8r1W1hzk8Ol+Tl6y8+mtqzg==
+	t=1794892877;
+	b=t7yJ0PKdZGXs7Uq7TGnVhXkS5yUxEh/goLfmhmN0Syus3crkAJRTbd0uV9opWLwwmh/R
+	 RBiv+b2if5uuha3BTHzjfY0QytIFa52sFxTh0++CGaz9lIcRQdpEkJnduY/fOjuKA7U7/
+	 xKLXXN9/hpFj8JxKU3/QHd2fJ0Gi9JFlTT0TGWjlAUGHKejzsclpxSVoasWIO1sS7H0EF
+	 BI/1khBJDWmiACLQEmOLIX1cHEq8PtgJBjgbLZ3xdoVDH33hAKBOiCEea29NCE2HyE6u/
+	 /cKsOkqlho74QVjqJagGSkwaKThyHiU3CdcXdmuiYZKo539jD8p1QK1uwblVV6MOWhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794892847;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=6XP1P1MaUHqmBLx1P7JlXwdoH9Xb14V9Uo/hAccbf/E=;
-	b=qQrXogOldKtj7LmGhMs4HDDXgUVnrntbvzXVNP09EaB+V5nQZe2DmoE5frdNd994fsPD
-	 Byzl9GsBVxbax4OY0r9EOG0WVsOcBOJdeW2u7Bw0ODpUG3/s7zNbIUGNDsbNb2An8fnRo
-	 A/tH6ZdDUB3OT9WYih3HUnoOq7VasLODkxKygcUDYemfGy/TCZUikpGHdFuS0wEHDB0Nt
-	 lMq5dmeJQqD+OUZyL3xYkJDP1UzadHIRSfVgcv041NaM/CJXpzcgvbY7+aFXJxzgY0NDm
-	 fbCHDDIYysyZaBpAHWn253ODZf3TWMfdhK5iSQOeblaXYRzQIray8eIoK5/uvqfdmjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794892877;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=6zRJ+UUYcI1M1J+0zvWC1eyTD4Wl/xFBBOIvtWTygCg=;
+	b=VBs036KTMHU1pvutNww9ENe8f0cR8iighcHZHaZ/YL4KgoZ3+T8RcYMfSTCDA88fheZG
+	 h6Zycgk5r2qa/W3rF8Cv5EUke7BGETNmmOo5rqiBOKaMgGw+XnURVd98uYZjRmDqRB3C4
+	 XOITuP5ltVeg/yd3S1BzlYFEoISPHnp3COINttlUl6eaNsiCvtaMIyJrRU51wM69qrCJj
+	 UpHAsyGa6wHviR9Z5fImrzrqvZf0oZIpNSbz+D+FEfqP2WDAgRVRyI7adfsr9OAbuG/wp
+	 tst1qlBRHwHi9yIgxYxfEUMWRPKnvYeLPV2yDh0a84IiQmYb23nJDuFg7gr3Dm6hWFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5PpOO67;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB26E606A31C;
-	Tue, 17 Nov 2026 05:20:47 +0000 (UTC)
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=li4+X7aB;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D9D5E606A331;
+	Tue, 17 Nov 2026 05:21:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9D5E606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5PpOO67
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65331F000C4;
-	Tue, 17 Nov 2026 05:20:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794892847;
-	bh=6XP1P1MaUHqmBLx1P7JlXwdoH9Xb14V9Uo/hAccbf/E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=n5PpOO67vAII8Vmjmnfi00D1cDngDkuHMFrN5cf8c0AruftqI7sZsQUqHdMMYKBh0
-	 jhO+gzgCpeymbyGl6m8xnlyjTYwxR+6cWhY1doKlBzhSg31ME9kvk0+hNDSzgumJpo
-	 ALg+S+ZLAhhHYLZdKfpfGs+xrpyqiAorSfzTh8K8zBNYoK2lSqbRMwyxUZBWGnKygh
-	 u0pYu494DmsTtxwFZLYG/oKL5ar/5zlxuY4Rl2zzWVcBP91oTsbicq76TZLuzzDV7V
-	 93KQkx6xaOPJEoZtEyiL2/6r7m3g6sWQ2sG5rv8KbnAWEszTIVn/t6t9yfcD8l/Dbe
-	 +rZeZxhDH1OKg==
-Message-ID: <sashiko-outbox-218197@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC] leds: DT: migrating existing labels to
- function/color
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cristian Filipescu" <filipescu.cristian@gmail.com>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org
-Cc: linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <179489221679.1.1429296960451969532.led-label-policy-rfc@gmail.com>
-References: <179489221679.1.1429296960451969532.led-label-policy-rfc@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 05:20:46 +0000
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=li4+X7aB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=6zRJ+UUYcI1M1J+0zvWC1eyTD4Wl/xFBBO
+	IvtWTygCg=; b=li4+X7aBb/zg9MhrugbBA3j1lQ/+q7HuSJfEV36lpi1ThscdL5
+	4JYGvLGKLYq+d3svFzbHSrBkl7rPpJLfXM4kUgWEAoMNRH7CPS+4QfU7cRE3khu1
+	u3Tcl2Yz5PNQ/fp6HBkUwL//smb1X+GiUC8CC45B/d+H/OM+NLwMS1dHs=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.190.181])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgBHxTlI5Ptqc0LLAA--.214S6;
+	Tue, 17 Nov 2026 13:21:14 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: [PATCH v2 4/6] Input: aw86927 - add support for Awinic AW86937
+Date: Tue, 17 Nov 2026 13:21:10 +0800
+Message-ID: <20261117052112.32527-5-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261117052112.32527-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261117052112.32527-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,131 +63,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgBHxTlI5Ptqc0LLAA--.214S6
+X-Coremail-Antispam: 1UD129KBjvJXoW7uF4fCF15Zr1kur15Kw1Dtrb_yoW8GFW8pF
+	yDGr4DtFWYqFW7Kws7tr1jvFy3C347WFZrKrZI93W2qwnxGa1rKFnYg3yfZFyUKrW5GF4f
+	Ja97JF15uanrJr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPSb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
+	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI
+	8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2
+	jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4
+	CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvj
+	eVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCY02
+	Avz4vE14v_GrWl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
+	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r
+	1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF
+	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+	0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7I
+	U8LL05UUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2r7WdojVwAUsr
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] arm64: dts: allwinner: missing Signed-off-by trailer and RFC
-  commit format
-- [Medium] arm64: dts: allwinner: removing LED label changes sysfs and
-  GPIO names
-- [Low] arm64: dts: allwinner: inaccurate DTB count and Orange Pi 3 LTS
-  claim in log
---
+The AW86937 reports CHIPID 0x9370 and is register compatible with the
+AW86938 as far as the boost setup is concerned, so it joins that branch of
+the haptic initialisation.  Detection stays by CHIPID, so the existing
+AW86927 compatible keeps working as fallback.
 
-commit 9235c19cbef601645f52663823784ba072327e48
-Author: Cristian Filipescu <filipescu.cristian@gmail.com>
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ drivers/input/misc/aw86927.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-> leds: DT: migrating existing labels to function/color
->
-> Hi,
->
-> The common LED binding deprecates label in favour of function and color.
-> Is removing existing labels desirable when it changes established LED cla=
-ss
-> names, or should existing board descriptions retain them for compatibilit=
-y?
->
-> For example, the Orange Pi H6 descriptions could replace their labels with
-> LED_FUNCTION_POWER/STATUS and LED_COLOR_ID_RED/GREEN. With gpio-leds, this
-> would change the names under /sys/class/leds:
->
->   orangepi:red:power    -> red:power
->   orangepi:green:status -> green:status
->
-> The example below changes two files and affects Orange Pi 3, 3 LTS, Lite2
-> and One Plus. GPIOs, polarity, pinctrl, defaults and triggers are unchang=
-ed.
-> All four DTBs compile before and after; comparison found only the intended
-> label/function/color changes. The renamed LEDs have not been tested on
-> hardware.
+diff --git a/drivers/input/misc/aw86927.c b/drivers/input/misc/aw86927.c
+index 9dda96c..690726a 100644
+--- a/drivers/input/misc/aw86927.c
++++ b/drivers/input/misc/aw86927.c
+@@ -147,6 +147,7 @@
+ #define AW86927_CHIPIDH_REG			0x57
+ #define AW86927_CHIPIDL_REG			0x58
+ #define AW86927_CHIPID				0x9270
++#define AW86937_CHIPID				0x9370
+ #define AW86938_CHIPID				0x9380
+ 
+ #define AW86927_TMCFG_REG			0x5b
+@@ -183,6 +184,7 @@ enum aw86927_work_mode {
+ 
+ enum aw86927_model {
+ 	AW86927,
++	AW86937,
+ 	AW86938,
+ };
+ 
+@@ -589,6 +591,7 @@ static int aw86927_haptic_init(struct aw86927_data *haptics)
+ 		if (err)
+ 			return err;
+ 		break;
++	case AW86937:
+ 	case AW86938:
+ 		err = regmap_update_bits(haptics->regmap,
+ 					 AW86938_PLAYCFG1_REG,
+@@ -751,6 +754,9 @@ static int aw86927_detect(struct aw86927_data *haptics)
+ 	case AW86927_CHIPID:
+ 		haptics->model = AW86927;
+ 		break;
++	case AW86937_CHIPID:
++		haptics->model = AW86937;
++		break;
+ 	case AW86938_CHIPID:
+ 		haptics->model = AW86938;
+ 		break;
+-- 
+2.53.0
 
-[Severity: Low]
-Is the list of four affected DTBs accurate?
-
-arch/arm64/boot/dts/allwinner/Makefile only builds three H6 Orange Pi DTBs:
-sun50i-h6-orangepi-3.dtb (from sun50i-h6-orangepi-3.dts) and
-sun50i-h6-orangepi-lite2.dtb and sun50i-h6-orangepi-one-plus.dtb (which
-include sun50i-h6-orangepi.dtsi).  There is no Orange Pi 3 LTS device tree
-in the kernel tree.
-
-> I was thinking of converting all the deprecated LED labels, but I wanted
-> to see if this was something maintainers wanted, since it would touch a l=
-ot
-> of files. Would you prefer retaining existing labels (potentially adding
-> function and color alongside them), or reviewing migrations with the name
-> changes explicitly documented?
->
-> This is a discussion example, not a patch for inclusion. Preparation and
-> static checks were assisted by OpenAI Codex.
->
-> Thanks,
-> Cristian
-
-[Severity: High]
-This commit has no Signed-off-by: trailer, uses an RFC email body instead
-of a declarative changelog, and uses "leds: DT: ..." rather than the
-"arm64: dts: allwinner: h6: ..." subject prefix.
-
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts b/arc=
-h/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-> index ce82aa265cfd1..8e411705769b1 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-> @@ -8,6 +8,7 @@
->  #include "sun50i-h6-gpu-opp.dtsi"
-> =20
->  #include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/leds/common.h>
-> =20
->  / {
->  	model =3D "OrangePi 3";
-> @@ -45,13 +46,15 @@ leds {
->  		compatible =3D "gpio-leds";
-> =20
->  		led-0 {
-> -			label =3D "orangepi:red:power";
-> +			function =3D LED_FUNCTION_POWER;
-> +			color =3D <LED_COLOR_ID_RED>;
->  			gpios =3D <&r_pio 0 4 GPIO_ACTIVE_HIGH>; /* PL4 */
->  			default-state =3D "on";
->  		};
-> =20
->  		led-1 {
-> -			label =3D "orangepi:green:status";
-> +			function =3D LED_FUNCTION_STATUS;
-> +			color =3D <LED_COLOR_ID_GREEN>;
->  			gpios =3D <&r_pio 0 7 GPIO_ACTIVE_HIGH>; /* PL7 */
->  		};
->  	};
-
-[Severity: Medium]
-Does removing label here and in sun50i-h6-orangepi.dtsi cause a userspace
-regression by renaming the sysfs entries and GPIO consumer names?
-
-When gpio_leds_create() registers these nodes without label,
-led_compose_name() formats the LED names as "red:power" and "green:status"
-instead of "orangepi:red:power" and "orangepi:green:status", and passes the
-new kobject name to gpiod_set_consumer_name().  That breaks userspace
-scripts and board configurations that rely on the existing /sys/class/leds/
-paths and GPIO consumer labels on Orange Pi 3, Lite2, and One Plus.
-
-Documentation/devicetree/bindings/leds/common.yaml leaves "deprecated: true"
-off the label property so existing device trees can keep their established
-names without dtbs_check warnings.  Note also that adding function alongside
-an existing label has no effect, because led_parse_fwnode_props() returns
-immediately after reading label:
-
-drivers/leds/led-core.c:led_parse_fwnode_props() {
-	...
-	if (fwnode_property_present(fwnode, "label")) {
-		ret =3D fwnode_property_read_string(fwnode, "label", &props->label);
-		if (ret)
-			dev_err(dev, "Error parsing 'label' property (%d)\n", ret);
-		return;
-	}
-	...
-}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/179489221679.1.1429=
-296960451969532.led-label-policy-rfc@gmail.com?part=3D1
