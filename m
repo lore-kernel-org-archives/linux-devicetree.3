@@ -1,118 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919658;
-	b=If9CYQvhOTcCbcuSJoxNbM/toQyEhvPY3btIZIgZ0ZEVt1kI5kxGt68lXFYKCHpYyB32
-	 UBxFPVMJbcpJSFGN9YI4KKaXNSwdlinpSzul2lm3BaCNAcgHV4m5HH/8AIBwyWLsP4l4u
-	 VLdwmjvoHeR11xOs7+A5Rxayno3Ot2oDF9TsyaJldRfbzQhCvJbmbCeKW8Xqh1Qvellk+
-	 Ft7MIO0OYJAIn7nEUZAa6oaG9BWClJt+U/xYOqmWMo5Rd8khQUj7XoWwNZ2uzepoBa9Cs
-	 gulc/n6N5R9LIVfQWWDjhTAKlG7liaWpoCX9xIJ6EDUTgc5b6aMCSefkaJMnlqRmMlQ==
+	t=1794919776;
+	b=1cCwLg8OfDlQ9khFetPUzBj/vhE5ZpT0GCRXpFMS3M2GBkXjptaKNDEV5AaH0yE90iRn
+	 6bUrgtWvE03+nT3jL8HoSY5k84v2LOhQ/UoGr5CnSBwdL2XlBoGXg1OOy3MGog4dtCxVd
+	 Kr3LX1fRWrtX8L3ETQPdyFaS7UiQgB8k80ks/qvRXPMBOodHCOfTvzSuCQFkC1wE7PMKt
+	 4D8pceeCUuLt3pQMUemJJbPZLBAaJtuwyPwdadDoj8AgptxFaZIRmtopAMpZiFApThaLS
+	 jxNc6gbgEJJaOHw5OIJFacTRwc0hqTgBjSU3AZBTB5zdqtvNBFI873Yd29qyYFZ+YVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919658;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:X-Google-Original-Message-ID:Date:From:To:Cc:Subject:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=IDaAvYVXZ58edhDcqT25CtUAFfFh9zrLMuk/nutn9Sg=;
-	b=QMmwF/g7iqd8UMAmlnIUhp1T7T3aLgCM7UQyrv+lDkVylKaoloXuxwrJsLRzvd6Ftu1/
-	 DRJS/ScroB0bf+5F5v+NE+JgKmr7JI7oSryfAQ0sUZ3M1dzlgVe2+uMVlEIrBE8gpVWzH
-	 JYxybJ68ej3qJ0o0uEM8JC3wjvTCPcB7W4Pa+sJkregF39R80o/mtU5eC/h9UvN1oD+FH
-	 21W19MuIlyXsSXau4imTZaoRMQt4uDkcsb6pYX+sfq/fj5GyQk4VrkRSYUDpR2UZ7ePgS
-	 00mFuTkJKQyvKr/cNS8zqId5fLxmmcL1zSc76xtK07lm1mp1lHDRtOE/7DzbMkVOQkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919776;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=NDXZE5uN16UvOOflyM5pOpVzOkug8tVrjeti6ZNqlOk=;
+	b=fpND4qIDHh/DyFx0UeLNwCL1bmCLwE8FA9Y/I8zfSPFuX0TRDHDYBiO8+aUAa5EPN7Cq
+	 4VsLfgYUmlNAl7nda0+Y6Sto515Wmj9pXDLz1sLSPmIt6QDcBKYQfLPtm7Opqu3rnpRY5
+	 K3OAQkbWsHsQPgR0yBYsLq8jP+E5oFNmuN4F7PIfuAtG8ri9rQuwiGCQD774dTppK4Y5w
+	 7QmwKlIB+V7hL8xSc09GHn4kWMB5R9Qrn3nz3nSy3TAzQc7RPxIxXvm/xlvH6C+QiGEFJ
+	 itaVxivl41aQeTnCuR5uaANS6oqSVWNtMXzB/SabV9A5QWsvZbA5fiOzt6gEhKxUi8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="GR//esP/";
-	arc=none smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nut6pCgX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1ABD606A330
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 12:47:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1ABD606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4655D606A329;
+	Tue, 17 Nov 2026 12:49:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GR//esP/
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b4bd3d98bfso6248511a12.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 04:47:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794919656; x=1795524456; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IDaAvYVXZ58edhDcqT25CtUAFfFh9zrLMuk/nutn9Sg=;
-        b=GR//esP/c4jjW7kiru6z01qnxOfaFo6rWysyC+LikP/1AVwDdpHcQqSz+pIcMSZZLL
-         rGUV3uBrN/ccnmzI8R52Z4Oeg81aVtcX3vBb2DF0cDUxgjk/DXT+msphxH1pfVcr0lsQ
-         yDvdqxlzl80F0AdPjBiECfnY0M0O9euYkDkZxrG9V8PqqSLIuANgdUsb4eDMZOsjqE7i
-         QWVyyrPvamr6xPGKmSQQBuzXyrQJby/WFvm7nHdgO0G1Uvk2MX4MXJwdwBXXWKBv/DrA
-         PJ2GLNHpXXGTG2b2JjZy0uSFrWV2Oh1i7GlvXxKrGOGIZZU4eeELgJR3VfZ/TBqqZdR4
-         S3JQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794919656; x=1795524456;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IDaAvYVXZ58edhDcqT25CtUAFfFh9zrLMuk/nutn9Sg=;
-        b=BJ4sx9Lf7KjeXJ0jRjqVfrwBGZ37fhmE8snnjP5rSzarB8v+n7rq6tcjQQ5pyc7ijR
-         6VqQUQaRYrg5bEpDng/J2XI2qTwKEPbND8A00Fx5GcPbiR6MhruMUvgJF7gF2kYHU+1Y
-         5Y55sARNy6HuaWctQyBHH7TAKamXnADPntx+6Qx7hDZMNGSOayYE/mKjzlRUryu4DU41
-         SCrKKcWD9BllBQM9Y02jte5BtpEOp3ASbBaPFskwTCiA9ATjnZ+3tzOTkeVdIZTcqTLD
-         /gB9F0F5D37FqKEG11WYtkus2t0BHfASPdU9y0PEAt6MocfMovYNrqxjCGldCB4ICZkR
-         G0Pw==
-X-Forwarded-Encrypted: i=1; AL+hErGwVO0x9FL4ASEP3b+8wgo6vzsAFuMcxpnSd5JiDAvulgCXFmZW1gXhBzYFq28KwVj+WpP8IowUMgRR@vger.kernel.org
-X-Gm-Message-State: APuU4Z8h4CYJ+L7szSeE+HjrAcHP6DRJWeJ2GAB6F8L0vdd4wDf8kv2k
-	QWIhMIkXQ/3rJnTgjqg4SMT2S5JKg4/7wnNQQ/JuF5GA+9sQrqvP6KpE
-X-Gm-Gg: AYBFou0j/zjmqCufr6UJOV5DzFFt8Wp7Zt0GcAh8VLipjnDIH9Bq6ODkU1o7tAcm5KV
-	PXxv1slWMZRkqVBS7leMoaItWvviFAOzHNwoRHoJzRtCctVqH4MSEPN2sWeQ8vMZxCzWD5xj2Od
-	PO7xhl4vCfTYsJVhwCJeZqvYndXSQodWdURPpZI5A2ZE6SYz9Jzm+a/cUD4TniVRx5qMu8+FEHT
-	S/tyeL/BnZnhUo+Hza++yntud+AppKWxW3qhsAYh2oVzHS8AIqbPWFReqYBxmxPZJVpZwU3M7KA
-	NLRn4m4Ea+ys1ic3r2lW1kCTCVLhhzR71vEyZ3+337cSuU+vzewCvqUD/xzuI8CW32yBAxqjdiq
-	JqpwOEWxRACXxR/Euy2LHAeTRHJOQGH+oNmb1yDDWDHp891Bmap9Tghm+d5u1E3LlOkF5Dkga3L
-	eP9yIxbXhMQ9s9RFa/5O1x5ynBFz4WraI/w8osgegbZCo5SOAWV+SpiOGDJVVlG3i0EHxSlGpqJ
-	/ZmtKfEaBphc4eXUzyft2c6yJWveEt7tf6VwemCYS74n+qBbgmB36/HwmQwG/t0sWMH+pIUKLQJ
-	v4IrmbXpVl62JPllNxiZvuez20wzUHmmnPqARfSQgGiD5Wm2xG9M/xxMbvjQu9xsemjN7h4KDLY
-	kL1XG7DhilJOqYiyV
-X-Received: by 2002:a05:6402:2347:b0:6b8:7d2b:4dcb with SMTP id 4fb4d7f45d1cf-6b87d2b5390mr750722a12.14.1794919656177;
-        Tue, 17 Nov 2026 04:47:36 -0800 (PST)
-Received: from Ansuel-XPS. (93-34-92-103.ip49.fastwebnet.it. [93.34.92.103])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b87368c70fsm430430a12.23.2026.11.17.04.47.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 04:47:35 -0800 (PST)
-Message-ID: <6afc4ce7.4b925a68.31e7c.7768@mx.google.com>
-X-Google-Original-Message-ID: <avxM5Ldccuc6TgM_@Ansuel-XPS.>
-Date: Tue, 17 Nov 2026 13:47:32 +0100
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
-Subject: Re: [PATCH net-next v22 00/15] net: pcs: Introduce support for
- fwnode PCS
-References: <20261117123956.11981-1-ansuelsmth@gmail.com>
- <179491941687.3291.11313796890436002644@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nut6pCgX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B239E1F000C5;
+	Tue, 17 Nov 2026 12:49:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794919775;
+	bh=NDXZE5uN16UvOOflyM5pOpVzOkug8tVrjeti6ZNqlOk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Nut6pCgXoh+kAmsX2ASzjgctAD9VtVsFeGVHA5qIw8RWIYMcizQCIKD8DVf6sGKeX
+	 0FQg1J2QRXe7Q5DBP6zsRTZIJS1pfmVFrcKujmdIvKTMxWwkLuiA4d9nVjCIe8g/aJ
+	 oUyBOXJUpYA9eTMoHkleUYnF17c5Jr37AxJHqI2xQSxwyyC8Avda1Sgkf3e6cRuHDJ
+	 2vgivel8MK3Jkes3aeymyZ4yMs4F4LlUI+4sJcpl4frcHiENRc96E3LDUv4MKo7j9O
+	 12PuNHxAqKFyrxResu9VmopxolYSr7JBq+qz74DcC7PfumHlmJ/+mfip049tuhHMfY
+	 jT9EA79B31bSQ==
+Message-ID: <7bebe58b-6a87-4458-bd23-a672eaef8760@kernel.org>
+Date: Tue, 17 Nov 2026 13:49:29 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -122,43 +51,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179491941687.3291.11313796890436002644@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 21/22] arm64: dts: apple: t8112: Add USB4 ACIO and NHI
+To: Sven Peter <sven@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
+ <YehezkelShB@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-21-1f80085f93fb@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260906-b4-apple-soc-tbt-v2-21-1f80085f93fb@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026 at 12:43:36PM +0000, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
+On 06/09/2026 20:36, Sven Peter wrote:
+> Add the ACIO host router, NHI, DART and mailbox nodes for both Type-C
+> ports on t8112 and connect the host routers to the Type-C connectors.
+> Also describe the USB3 path from each host router to its DWC3 controller
+> so the NHI driver can create the required device link.
 > 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
+> Signed-off-by: Sven Peter <sven@kernel.org>
+> ---
+>  arch/arm64/boot/dts/apple/t8112-jxxx.dtsi |  95 ++++++++++++++-
+>  arch/arm64/boot/dts/apple/t8112.dtsi      | 186 ++++++++++++++++++++++++++++++
+>  2 files changed, 279 insertions(+), 2 deletions(-)
 > 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by LLM and not proven at runtime). If it was triggered
->    please include the symptoms, like the stack trace or kernel messages.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account.
-> 
-> *IMPORTANT*: If you do repost (for other reasons) - please include
-> the relevant info in the cover letter or commit messages.
-> -- 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+> diff --git a/arch/arm64/boot/dts/apple/t8112-jxxx.dtsi b/arch/arm64/boot/dts/apple/t8112-jxxx.dtsi
+> index 562e7a25a1e8..d0dc7eaaca35 100644
+> --- a/arch/arm64/boot/dts/apple/t8112-jxxx.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t8112-jxxx.dtsi
+> @@ -13,6 +13,10 @@ / {
+>  	aliases {
+>  		atcphy0 = &atcphy0;
+>  		atcphy1 = &atcphy1;
+> +		usb4-0-acio = &usb4_0_acio;
+> +		usb4-0-nhi = &usb4_0_nhi;
+> +		usb4-1-acio = &usb4_1_acio;
+> +		usb4-1-nhi = &usb4_1_nhi;
 
-The RCU """bug""" was found while evaluating the code. It's hardly possible
-to have such bug on real world scenario since PCS and MAC are currently
-tightly coupled. Nonetheless with VERY BAD PROGRAMMING it's still possible
-to trigger it.
+Sorry, that's a no go. I will be removing all of these which were committed.
 
-It's both a fix and a prerequisite for having standalone PCS support.
-
-(hope I don't have to repeat this message for the next gozillion revision
-of this series...)
-
--- 
-	Ansuel
+Best regards,
+Krzysztof
