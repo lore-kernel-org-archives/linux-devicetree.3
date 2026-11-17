@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794874229;
-	b=k9vfGC8+xV33LmGTeGjrTBiUdPISP+efXruJEa2do4X9tX/ctproRtQKX9P/QtkGQAwa
-	 dIhJ8RPHxpGQysqsqhVIMgU4BDsGaxdg1mECmav0QllA1plB0GvrDYXBYs1hPmQYlSX54
-	 2UvOrtHP2n8M5B7KvwnnNRa9WJBISwZvcgfjxUi6T2UHc+Ow6W6RmSokPq0bNiyEcQxQD
-	 3fBC5iPDG/VXmKIunPrILkX+BAmFj9VmRNV9JmygKG/2jP1ZRIvFDe4YKDo5v8DyTsKvn
-	 irV9sPn+0zRDjI3QmRhRcochAv3igG82i7IgVKxCmQkJN/bUoYhDypQjCLKYXZT33TQ==
+	t=1794874266;
+	b=uBk23DOMY2+lK4GR0sakVsC+t5PGAROvsQBdSguCSUMMlaYS5hhwffDfpKaOWYxLzI6v
+	 K9FObWAd5Pth7bNiXPI9M2e51uiH6+dJZ5MND1zHpO3Us3PJNUecckNQbLynNXL4aHMSk
+	 5JdaQIKjEldqpO9UiqAKb+yV4o/QqhD16N4uRvHWrmfImZiVSc+viNIYLppxPdqJ2ot7Q
+	 Iah0eb09mQkh09GNYpc9i/A0ndUSMRxFnTthQtRtEQAbPVDAk2eCYKHQnkmoVcguo2O1v
+	 NzyOwC0YRBMkJwlgdRtz4b/kmBvJLDD7vh8FZunCEtfzGOLHy2lNCwaZcdeBp0vOEaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794874229;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lQ/lPICoJiotyWHSrRapNHgIRmX8DECgld58kqB9Z4o=;
-	b=EzCYkMgk4mVLksVAInZRLoa/DV/C6fJjpAHGINLQEUwn4Ddow1+SwWl9RTORBZ4kwK2C
-	 2+8iVOVrr4TdcY+FiHv8+O814oMUWZyqg8iLxMLXOZ16G2b07/l5gTvxXoCSXZUADdHoL
-	 881sznOhzISwdnnEctGWHiURDyIAlwL5FONWC8Xs73tkkxYmAi8N/Uhe4h4+SqcavRdc7
-	 5Wsd9dmmBEXaYL6qBf1JPOzicsVIK8rJI/2FwWXsbd9KqR4vvzgOytd4teuagN68qDxrr
-	 J/P3DEBD80L0EIczS4hwqELGQbfQeFkegPXlFP6oZpB16acKg6j+c/Vs4vPJF1zpNLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794874266;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=YjKQ2PdbHkjHFZ+hN04dl+fGzrnZtXKbmZaR+wm1jOg=;
+	b=vTDa545oYa4ZWuPT4RISBr4Z+zsIBpIQw75tJxTLFRhIrELL6eiPVIFqI1D9U0bDMvEK
+	 4XV9PwfV7AshWBmxGOCQVd+nu7LCEG3owml1Gvwis2GPk4710zasL9HpA4dyZveMfJUds
+	 /NeDf0TYYLBl7PSW1rdP0nMRi0gGYjkfDyWqGZZAU2nE46VpaJ9edWoWtX5UPgc2MJ2Dy
+	 YYzqT5TVApnLe0dQ7IImqu1DPZkKrTmjl6gpr1p8hhdg8XiRzgz4XSx9ZUBfjSJ8Je23H
+	 23uw3lrpSJzqUdLcl3Kkmh7Fehq/8IBawPof64kkIF/8iwAxN/gNjPke1PPzUJjWYlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EZ7xLxP5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZGxqJln;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34835606A31C;
-	Tue, 17 Nov 2026 00:10:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01870606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 00:11:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EZ7xLxP5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFF9A1F000C4;
-	Tue, 17 Nov 2026 00:10:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZGxqJln
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEDF51F000C4
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 00:11:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794874228;
-	bh=lQ/lPICoJiotyWHSrRapNHgIRmX8DECgld58kqB9Z4o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EZ7xLxP5L5//W6YKkGmAlJ5gDACGbJzl8N6pTI2UZnE7+9vAQegVXC0U+PgJh5NVk
-	 cdV7QCwcbqz8mrPwR7nsSnQJx/FZT7We3cz5FjOACcGtPKHJQ03/Uv2lQL//7DtssJ
-	 Yy3/H4fayB+XP+HNQEw6Q5GdZWV8t7YmSs/oQ0Wl31LRRjdt0K0GKWheD5PL0aOPcE
-	 pCRMMfGYKZl20o3HhCVXJnXZoj0n1pu7nnVcDzbN2r5MT0cFOY7X+uUq9Z8T8/cz32
-	 9LEv6CnMq9Y5RxZOSt1eNVgMnZD5DyQ/Cpp7N4C+JJ4khWymKn9YJDJxXI+vcBXFHy
-	 g6vsyR/TgR14g==
-Date: Mon, 16 Nov 2026 18:10:25 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: Richard Acayan <mailingradian@gmail.com>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 7/9] arm64: dts: qcom: pm660l: add analog audio codec
-Message-ID: <avubHsbu-zkf5Uqc@zenbook>
-References: <20261107022453.159341-1-mailingradian@gmail.com>
- <20261107022453.159341-8-mailingradian@gmail.com>
+	s=k20260515; t=1794874265;
+	bh=YjKQ2PdbHkjHFZ+hN04dl+fGzrnZtXKbmZaR+wm1jOg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QZGxqJlnFAM93hsizrM154QuW/4jTifan+hgL0/vdwLtJ7Sa3Kt9qXsYyx0Dn9IcO
+	 KBYlZmf2GmhMlpygHXpgO3oYd433qlxTMOAA4/GDa2TkY6jS5OC+SJFz5xnjtoSoDD
+	 8fKTcIZPrHMnXKlUozahNvcnL/CRVq0OyM6qaSk0EHl+0Rcv2O7gE276rln/sjy82H
+	 8V7krPMh+GTWYREisb8jxAFtqyIWTyUXxn4nFKQs5GkClcVxR/rdfjKT+oON3aHd8M
+	 Y8RSZKVka5gmPed6iQ/XR3zK+9m7fwofxSbCd/gcr12TcdNXWzuEMAi5iE29rSSHZC
+	 O2CdyMDCf+Uvg==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5c14e307f29so4633649e87.1
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 16:11:05 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFXM9j219xHgiibX54vroUJfzQa/wV7oe5PB6qy+Ip3+uLE30hO1LKhkvInzU2iKIKphFs8a83Wk9Vw@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1f8GtmZ4QGaKjQQzqZ3eeVS0SP5P4Sqe1ksS+jpKg24NE4mm9
+	kbyEkNbkKkuGGgnENZonjbFysMUkpcRYyUoqh/gA6snkG22lN743RLxjOAgIk/4EZWw/xJRcf/x
+	Sy3290eqxsghmotwauetpGq2L15uH8Qs=
+X-Received: by 2002:a05:6512:230e:b0:5c1:4f2b:a2ba with SMTP id
+ 2adb3069b0e04-5c1709f75b9mr4513682e87.34.1794874264502; Mon, 16 Nov 2026
+ 16:11:04 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,79 +59,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107022453.159341-8-mailingradian@gmail.com>
+References: <20261117-xg6846b-bcmbca-xrdp-reset-v5-0-f584e8b8e696@kernel.org>
+ <20261117-xg6846b-bcmbca-xrdp-reset-v5-1-f584e8b8e696@kernel.org> <sashiko-outbox-217953@kernel.org>
+In-Reply-To: <sashiko-outbox-217953@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 17 Nov 2026 01:10:52 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnNALhUhekMvUxes-+Wmq+g01Tck9NNvViy+ofFSL+N4A@mail.gmail.com>
+X-Gm-Features: Aa3M54rQwu5Yk_Bv4F8GS-3F1wpvPataOkYjkIAgSEJnOZCG3CWzAbrtg66X8GU
+Message-ID: <CAD++jLnNALhUhekMvUxes-+Wmq+g01Tck9NNvViy+ofFSL+N4A@mail.gmail.com>
+Subject: Re: [PATCH v5 1/6] dt-bindings: mfd: Describe the BCM6846 PMC complex
+To: sashiko-reviews@lists.linux.dev
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	lee@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 06, 2026 at 09:24:51PM -0500, Richard Acayan wrote:
-> The PM660L analog audio codec (PMIC revision 4) controls the headphone
-> jack, and optionally the earpiece and speaker, at the vendor's decision.
-> Add the analog audio codec.
-> 
+On Tue, Nov 17, 2026 at 12:57=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+>
+> [Severity: Medium]
+> As reported by Philipp Zabel on RFC [1], why are power-controller,
+> clock-controller, reset-controller, and hwmon modeled as separate
+> address-less child nodes rather than putting the provider cell properties
+> directly on the brcm,bcm6846-pmb node?
 
-Trying to merge this on top of linux-next gives me a number of
-DeviceTree validation warnings related to "sound-name-prefix". There's
-also a number of warnings from the later "arm64: dts: qcom:
-sdm670-google: add sound card".
+Parroting Sashiko.
 
-Please review, update and resubmit.
+This question has already been answered in earlier iterations of
+the patch.
 
-Thanks,
-Bjorn
-
-> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-> ---
->  arch/arm64/boot/dts/qcom/pm660l.dtsi | 37 ++++++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/pm660l.dtsi b/arch/arm64/boot/dts/qcom/pm660l.dtsi
-> index 3f8b9eafe164..608c1c2120c9 100644
-> --- a/arch/arm64/boot/dts/qcom/pm660l.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/pm660l.dtsi
-> @@ -87,6 +87,43 @@ pm660l_wled: leds@d800 {
->  			status = "disabled";
->  		};
->  
-> +		pm660l_codec: audio-codec@f000 {
-> +			compatible = "qcom,pm660l-wcd-analog-codec",
-> +				     "qcom,pm8953-wcd-analog-codec";
-> +			reg = <0xf000>;
-> +			interrupts = <0x3 0xf0 0x0 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf0 0x1 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf0 0x2 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf0 0x3 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf0 0x4 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf0 0x5 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf0 0x6 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf0 0x7 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf1 0x0 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf1 0x1 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf1 0x2 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf1 0x3 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf1 0x4 IRQ_TYPE_EDGE_BOTH>,
-> +				     <0x3 0xf1 0x5 IRQ_TYPE_EDGE_BOTH>;
-> +			interrupt-names = "cdc_spk_cnp_int",
-> +					  "cdc_spk_clip_int",
-> +					  "cdc_spk_ocp_int",
-> +					  "mbhc_ins_rem_det1",
-> +					  "mbhc_but_rel_det",
-> +					  "mbhc_but_press_det",
-> +					  "mbhc_ins_rem_det",
-> +					  "mbhc_switch_int",
-> +					  "cdc_ear_ocp_int",
-> +					  "cdc_hphr_ocp_int",
-> +					  "cdc_hphl_ocp_det",
-> +					  "cdc_ear_cnp_int",
-> +					  "cdc_hphr_cnp_int",
-> +					  "cdc_hphl_cnp_int";
-> +			sound-name-prefix = "Analog";
-> +			#sound-dai-cells = <1>;
-> +			status = "disabled";
-> +		};
-> +
->  		pm660l_spmi_regulators: regulators {
->  			compatible = "qcom,pm660l-regulators";
->  		};
-> -- 
-> 2.56.0
-> 
+Yours,
+Linus Walleij
