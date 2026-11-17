@@ -1,57 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794888861;
-	b=HvzCgOhPvKcNItWuC/0K2+gjUYf6c0xWnaqwb7E5Hk/UpGGc4OsOq87W6E7Vp+6rO3lH
-	 d1y8UIDIOKwyKL6gdk8M7nFqskUR9gPEcvPV1BozZTGI8Uo7M+7qhHmanSVzKh3vtYuaC
-	 s9Q7Gs379p6R19nFOS5mvfW2psqGIWnncyC0Dray8gFrjMRYmnIz05hdGOfULkgUYKdUI
-	 5UKvSED4BvgY973Viyn9FQj3PLymteGRZaewVSmLv9pUsLbxgjqTpA4rl1dSjz2wNkd5u
-	 x6eSKW536WoodD2LU4IWHqxpr2LmdQ12gMGnipXnfWzrmGzWBzD0mqrK8YVJbF7etaw==
+	t=1794889044;
+	b=3vll9Gd8FXdPAOmh6oeNKA+L11/V7tgq/H8R9AzGGCCN8sKk0Wfo1QT2TH/1XH927wUR
+	 2n13J3v//AK5etJKGYQW7KGEa7nFNgyNpcY1e5BtOW3vH9AGhSmmPHhccK/hXGeIpmg5X
+	 EgMb8BzegTI78S+81y22pR7oGQxg1q+OwX+qHYbh0a9+qqqh7sM2BE+G4J/9eNFI7OreC
+	 raY/hPMnozF15k6PfsWTnhEhMQUWvzV0hB9Ek628e7FJNhswunLEaXqIWzPanXIW7G/o/
+	 vQEeITo85Q3YYtbL1OiaMYM8FDx+1Sps1or3peEoqwv+HP08pgOBza332J9B+eQuO/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794888861;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=yU9/aoF+hdGK0FL+ZZnBWAJml9c3OG8hkZh51TRHELE=;
-	b=r7+bvfrpWM7Bjmgt/hiU3ZWYAR+VY5oGNSmFEwyFVKlSYCPIW2oiR7wardu58nd7liVq
-	 WpUAaimX5iRFzr5xEcuAQ681S6D2VShMRzDV/xED0UWcHaExb6C3lndTZyoZB70z1DH9I
-	 1IqM6M/Rut0KhlHHmHSZEQeAa5JGpHaVEsNoqo1ApXnMRRsvuikL16b4MfM6YQXb2oDCV
-	 fsnTLQfPBVzXIPTf3O3gQbTblvbmiqTKJx78Ji0yhkzjuW5dZYn+PPpa9nHccYr/2ZN0Q
-	 3o2IUn9pLKWPQ+cw+dCgHRQcTnbcKjrAnw/PCWaxQf0Mm+49IFIH0pgt3bsl1VKVgAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794889044;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=OBSo/4IN7S6trP7CgPBOd4llSonUbNqkrJxw7CQiCqA=;
+	b=NIZaC7B1GZjlElqYTayMG6I3QZnxZGxRjQozxZtDxj+9Del97SYEd2vyibPf7H9lPziI
+	 aIPfbhbDw4c1MFIvZlgfEWWYhUOnPP00SVbpeXVAjWUN+O63SrWT2YlGGgVD04umyuq8U
+	 +KKznzPpi7B0+jpoCEyZd9YL7OVmufirbJPV6y1BpGzZwiPA1jglpbzX5f2TnAikyWryk
+	 P/XO0WrAIerc0plG4a/TXw0XW/DYAS7QZSATU5lvXBcl+nFRA+1erklPdCfN3STrQ0lAJ
+	 pbDE/vSWwA0YFYgBeD8QRfMJWI16VueZL2/q8EPdS2WBuXW7z8RlRgoS7qnD3V97aQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4BbxV9B;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D889606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 04:14:20 +0000 (UTC)
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=wqSPP4SN;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E424606A31C;
+	Tue, 17 Nov 2026 04:17:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E424606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4BbxV9B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C4A1F000C4;
-	Tue, 17 Nov 2026 04:14:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794888860;
-	bh=yU9/aoF+hdGK0FL+ZZnBWAJml9c3OG8hkZh51TRHELE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a4BbxV9BTw0FkWiZGK9bdlFSmhKPH+xhVD9+ZuBLVJrV6mkYBeZNQy4UWup5yi0pW
-	 uSq+jA/WyWk/2vqZHdSaAzkkbPwEODWw2CLQS9wr04Vio0YoSnnXSXTB4JNmptW5zD
-	 Ar/u1VqOFL/QN8j3nghoqzOyOuQbuFkq8Fk0Q3dYKqdSQ3tSJ0mroRQ/dx7mgh0kYo
-	 M5/0Jrm5JybLLSrhOI9qbl75hDVDdfeGuH7xXZVDowksbw49jPCEkl9PSR3akVm48V
-	 vlbe0joVd8UNlOGw7IAIYL+UCFelRhsWNjso9aBCE4EF3DOIu4MWn57O5VfdPfCcWl
-	 Py+J683ViA5Gw==
-Message-ID: <sashiko-outbox-218180@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 14/14] media: mediatek: decoder: support av1 extend
- vsi
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261117032950.1425556-15-kyrie.wu@mediatek.com>
-References: <20261117032950.1425556-1-kyrie.wu@mediatek.com>
- <20261117032950.1425556-15-kyrie.wu@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 04:14:19 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=wqSPP4SN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=OBSo/4IN7S6trP7CgPBOd
+	4llSonUbNqkrJxw7CQiCqA=; b=wqSPP4SNDPs9mlVJhVqodlTTM8hCkkL9ov8+3
+	EuWJ/U4hWyJfNTMieF64k1+L9CI/7g1H+EYsCj7jLh170O8nxj3eHaGU+pa4KE16
+	gFWSsRpFxTiHKK1vc+ekuQdLqUJJ/50c/ucrEEkBKsFZ3pfoCf/w88lX09tub+m0
+	7LcH/Q=
+Received: from [127.0.1.1] (unknown [114.214.186.145])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgCHATZH1ftqQgjLAA--.1640S2;
+	Tue, 17 Nov 2026 12:17:11 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>
+Subject:
+ Re: [PATCH v5 0/3] drm/msm/mdss: reset all block resets described in DT
+Date: Tue, 17 Nov 2026 12:17:11 +0800
+Message-ID: <179488903160.260870.8168848839719897744@mail.ustc.edu.cn>
+In-Reply-To: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,152 +65,119 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-CM-TRANSID:3pYKCgCHATZH1ftqQgjLAA--.1640S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGr15KF4rtF18AFWkuw4fuFg_yoWrtr43pF
+	ZrKwsxKr1kGry0kFn7Aw4jva4I9wsYkFZ8GF15tryYvan8Kw18Ar93Kw1Fq3429Fs7Xa4j
+	va4jgw18CFWvqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvjb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_Jw0_GFylc2xS
+	Y4AK67AK6r45MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
+	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUgR
+	pPUUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2r7WdojVwACs9
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] media: mtk-vcodec: VCP table sizes set for non-VCP in
-  vdec_av1_slice_init()
-- [Low] media: mediatek: vcodec: duplicate AV1_TILE_SIZE macro and
-  vdec_av1_get_tiles_num()
---
+Hi all,
 
-commit 9047e2aa57e9e09f9e60cb45bd82896702db3562
-Author: Kyrie Wu <kyrie.wu@mediatek.com>
+3/3 says "5 of 9 cold PORs became 15 out of 15" and leaves it at that.  That
+is the only place the Q28 evidence has ever appeared upstream, and it does not
+let anyone judge it.  Here is the underlying data and, more importantly, the
+boundary of what it does and does not show.  No code change in this message;
+take it as material for the commit message if you think it belongs there.
 
-media: mediatek: decoder: support av1 extend vsi
+Board: Lenovo Y700 Gen4 (TB322FC), SM8750P, bonded dual-DSI panel
+"csot,pp8807hb1-1" (driver novatek,nt36536), 1904x3040, DSC, two DSI hosts.
 
-This commit adds extended VSI support to the MediaTek AV1 stateless
-decoder by storing tile group information in the shared VSI structure when
-MTK_VDEC_IS_SUPPORT_EXT is set.
+1. What actually fails, and how it is classified
 
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1=
-_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av=
-1_req_lat_if.c
-> index 2d6e08e722de0..97ca80fd06d6b 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
-t_if.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
-t_if.c
-> @@ -25,6 +25,9 @@
-> =20
->  #define AV1_INVALID_IDX			-1
-> =20
-> +#define AV1_NON_EXT_VSI_SIZE		0xD50
-> +#define AV1_TILE_SIZE			64
-> +
->  #define AV1_DIV_ROUND_UP_POW2(value, n)			\
+The failure is a cold boot (real power-on reset) that brings up no image.  It
+is ~50% of cold PORs, it is random per boot, and it clusters in time; it is
+independent of the kernel image - the same binary is good and then bad in
+neighbouring boots, and seven different kernel variants were tested against
+this.  Three distinguishable forms:
 
-[ ... ]
+  A. cardN exists, panel init fails.  Five dmesg lines, in order:
+       command DMA timeout: status=0x2200200
+       peer command DMA timeout: status=0x2200200
+       bonded command DMA failed: master=-110 peer=-110
+       sending dcs data ff 20 failed: -110
+       Failed to initialize panel: -5
+     followed by intf1/ctl 1 reset failure -22 and a vblank/frame-done storm.
+  B. no DRM card at all, with "DSI PLL(0) lock failed, status=0x00000000" at
+     about 0.86 s and a failed device link for panel@0.
+  C. dark panel with everything in the DRM state looking healthy: connector
+     connected, DPMS On, frame counter advancing, backlight non-zero, and the
+     DSI pclk held.  This one is the reason "no DMA timeout in dmesg" must not
+     be read as "display works".
 
-> @@ -1403,17 +1413,29 @@ static void vdec_av1_slice_setup_uh(struct vdec_a=
-v1_slice_instance *instance,
->  	vdec_av1_slice_setup_tile(frame, &ctrl_fh->tile_info);
->  }
-> =20
-> +static
-> +struct vdec_av1_slice_tile_group *vdec_av1_get_tile_group(struct vdec_av=
-1_slice_instance *instance,
-> +							  struct vdec_av1_slice_vsi *vsi)
-> +{
-> +	if (IS_VDEC_SUPPORT_EXT(instance->ctx->dev->dec_capability))
-> +		return &vsi->tile_group;
-> +	else
-> +		return &instance->tile_group;
-> +}
+The only physical discriminator we found for C is the DSI interrupt counter:
+41 on a lit panel, 0 on a dark one, with identical DRM state.
 
-[ ... ]
+2. Why "reset the MDSS blocks" was picked
 
-> @@ -1608,6 +1630,15 @@ static int vdec_av1_slice_setup_pfc(struct vdec_av=
-1_slice_instance *instance,
->  	return ret;
->  }
-> =20
-> +static u32 vdec_av1_get_tiles_num(struct vdec_av1_slice_instance *instan=
-ce,
-> +				  struct vdec_av1_slice_vsi *vsi)
-> +{
-> +	if (IS_VDEC_SUPPORT_EXT(instance->ctx->dev->dec_capability))
-> +		return vsi->tile_group.num_tiles;
-> +	else
-> +		return instance->tile_group.num_tiles;
-> +}
-> +
->  static void vdec_av1_slice_setup_lat_buffer(struct vdec_av1_slice_instan=
-ce *instance,
->  					    struct vdec_av1_slice_vsi *vsi,
->  					    struct mtk_vcodec_mem *bs,
-> @@ -1648,12 +1679,18 @@ static void vdec_av1_slice_setup_lat_buffer(struc=
-t vdec_av1_slice_instance *inst
-> =20
->  	vsi->tile.buf =3D instance->tile.dma_addr;
->  	vsi->tile.size =3D instance->tile.size;
-> -	memcpy(lat_buf->tile_addr.va, instance->tile.va, 64 * instance->tile_gr=
-oup.num_tiles);
-> =20
->  	vsi->cdf_table.buf =3D instance->cdf_table.dma_addr;
->  	vsi->cdf_table.size =3D instance->cdf_table.size;
->  	vsi->iq_table.buf =3D instance->iq_table.dma_addr;
->  	vsi->iq_table.size =3D instance->iq_table.size;
-> +
-> +	/* lat_buf is used to share hardware decoder syntax between lat and cor=
-e,
-> +	 * there isn't only one. But there is only one tile.va for each instanc=
-e.
-> +	 * Need to copy tile information to lat_buf every time.
-> +	 */
-> +	memcpy(lat_buf->tile_addr.va, instance->tile.va,
-> +	       AV1_TILE_SIZE * vdec_av1_get_tiles_num(instance, vsi));
->  }
+Because in a bad boot the failure is not inside the DSI controller and a DSI
+host reset does not clear it.  Registers read from a live bad boot:
+STATUS0 = 0x20003 (engine and DMA busy), DSI interrupt count 0, PLL unlocked
+bit not set (the PLL is locked), and CLK_STATUS sitting at 0x1743/0x3743 with
+DYN_PCLK_ACTIVE never released, where a healthy boot shows 0x343 -> 0x743 ->
+0x343 around each command.  Repeated retries after that point fail with
+identical values, which is why a single bad boot costs the whole session.
 
-[Severity: Low]
-This isn't a bug, but AV1_TILE_SIZE duplicates the existing
-AV1_TILE_BUF_SIZE macro (also 64) used for allocating and indexing the
-same tile entries in vdec_av1_slice_alloc_working_buffer() and
-vdec_av1_slice_setup_tile_buffer().  Also, vdec_av1_get_tiles_num()
-duplicates the IS_VDEC_SUPPORT_EXT() check in vdec_av1_get_tile_group()
-instead of using vdec_av1_get_tile_group(instance, vsi)->num_tiles.
+Against that, the change under review makes the display driver de-assert the
+MDSS block resets described in DT before anything is programmed, which puts
+the whole MDSS block into a known state before the first DCS command.
 
-[ ... ]
+3. The measurements
 
-> @@ -1943,10 +1982,20 @@ static int vdec_av1_slice_init(struct mtk_vcodec_=
-dec_ctx *ctx)
->  		goto error_vsi;
->  	}
-> =20
-> -	if (vsi->vsi_size !=3D sizeof(struct vdec_av1_slice_vsi))
-> -		mtk_vdec_err(ctx, "remote vsi size 0x%x mismatch! expected: 0x%zx\n",
-> -			     vsi->vsi_size, sizeof(struct vdec_av1_slice_vsi));
-> +	if (IS_VDEC_SUPPORT_EXT(ctx->dev->dec_capability)) {
-> +		vsi_size =3D sizeof(struct vdec_av1_slice_vsi);
-> +		vsi->iq_table_size =3D AV1_IQ_TABLE_SIZE;
-> +		vsi->cdf_table_size =3D AV1_CDF_SIZE;
-> +	}
+Campaign of 23 real power-on resets, arms sampled alternately in the same
+session, identical kernel/config/ramdisk/dtb/cmdline except for the change:
 
-[Severity: Medium]
-Should setting vsi->iq_table_size and vsi->cdf_table_size to
-AV1_IQ_TABLE_SIZE and AV1_CDF_SIZE be guarded by fw_type =3D=3D VCP rather
-than IS_VDEC_SUPPORT_EXT()?
+  base (no reset)                 9 boots: 4 good, 5 storm
+  base + MDSS block reset         5 boots: 5 good
+  base + block reset + DIGTOP    10 boots: 10 good
+  base + DIGTOP only              4 boots: 1 good, 3 storm
 
-AV1_CDF_SIZE and AV1_IQ_TABLE_SIZE are the partition sizes of the VCP
-shared memory region in mtk_vcodec_vcp_dm_addr(), and
-vdec_av1_get_cdf_table_addr() and vdec_av1_get_iq_table_addr() only select
-those VCP partitions when mtk_vcodec_fw_get_type() is VCP:
+Fisher exact, two-sided: block-reset+DIGTOP vs base p = 0.011; DIGTOP alone
+vs base p = 1.0 (no effect); the two arms containing the block reset merged,
+15/15 vs 4/9, p = 0.003.  So the block reset is the thing that does something;
+the DIGTOP/PLL-lock tweak does not, on its own, at all.
 
-drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c:v=
-dec_av1_get_cdf_table_addr() {
-	if (mtk_vcodec_fw_get_type(ctx->dev->fw_handler) =3D=3D VCP)
-		return AV1_CDF_MEM;
-	else
-		return (u32)vsi->cdf_table_addr;
-}
+Moving the same reset out of the clock driver's probe into the display driver
+(the shape of this series) then measured 5/5 good cold PORs.
 
-If an SCP platform advertises MTK_VDEC_IS_SUPPORT_EXT via
-scp_get_vdec_hw_capa(), overwriting vsi->iq_table_size and
-vsi->cdf_table_size here causes vdec_av1_slice_init_cdf_table() and
-vdec_av1_slice_init_iq_table() to allocate and memcpy() the VCP partition
-sizes from the SCP DMEM addresses vsi->cdf_table_addr and
-vsi->iq_table_addr.
+4. Two boundaries I do not want to paper over
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117032950.1425=
-556-1-kyrie.wu@mediatek.com?part=3D14
+- The 15/15 figure is a merged group and it predates this series' shape.  It
+  measures "MDSS block resets are de-asserted by the display side early", not
+  literally patch 2/3 of v5.
+- The reset set that was measured on hardware is the three-entry set (core,
+  core_int2, rscc).  After sashiko's remark about 0xa000 v4/v5 dropped to two
+  entries, and the two-entry set has not been through a cold-boot sample yet,
+  nor has 0xa000 been varied on its own.  A paired cold-boot run of two-entry
+  vs three-entry is queued; until it completes, 3/3 stays worded as "not
+  repeated with this exact set" rather than as equivalent.
+
+5. What I would like to know
+
+Is this evidence useful for merging the series, or would you rather see it
+condensed into 2/3's commit message?  And separately: given that the failure
+is a cold-boot race that upstream cannot reproduce on any other board we know
+of, is a quirk-style "reset everything described in DT" acceptable here on its
+own merits, or does it need to be tied to a named hardware erratum to be
+mergeable?
+
+AI-assistance disclosure: this message was drafted with an LLM coding
+assistant; the author verified every number and register value above against
+his own logs and test records and takes responsibility for it.
+
+Thanks,
+Qianhui
+
