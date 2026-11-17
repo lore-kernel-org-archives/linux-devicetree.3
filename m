@@ -1,56 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921899;
-	b=JOl7DPMuKjWZuS6lXx8dFpuFuXKfN45OvexF2pbOH1RjPTjXnAVtb6cPQwt5ItbYJvkV
-	 /i4qhvXCwJDVFMlhYif3OVpV22PzzdOUiHinXSHBTdC/w8eLuc7jWDMxLHP2rzhuvE9S/
-	 ZXGBZfRea86jvRW39EC6kgRsIAKlrskn+6jDNgWfzxnY9zdgngxel8L5ie9HsT7HLs50H
-	 cNnDOBfVK0U0Awhi9cno/vpAWuki48G7FtBNlD+imdySh3AkZMBDGFi00ZZ5CcOCu/+22
-	 yEVFYkcr/NuYCgR7bD6uKNWVxei98lfJd5LErLbi5Xhksl7E1M6T8cDwvAL3yzDAKRw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921899;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=wigF95eIs4ur4ofMjkLG2BkFBY1MOD3SatOTNyyFJi0=;
-	b=mBa5M3kMsjsjJ4JWjOLOvxUatFzGuxxhvorcWcKHynd/2AzfSZZPKA6IzZdMV6sgq4UU
-	 MSrsTjn7YqPZW11JP5LuftM5G6LisT1sfJUHF61p/EwEpJDinYu3JTJTQkNEpBaF+F0aL
-	 nbtaN+jh1adZsPgyUQ4hacskIgk9Iu/AZUyOH3Y7G1YFu8hXtwE7D1XXM8LpEEQK9kIzM
-	 vztNb1pI7TUzpMB38oTfOgeuO12ab3dccB82cbj2ccmkjk0t094SK1MTbPfhuC6sX3Iey
-	 8U+PO3V6Mai6InTwY3Oq7ZMgnoi5xm79hToS15qILD5vDhD01TAK47bx5FH79rrzLhA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IL2SO+xY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794922002;
+	b=0A22mANaNbtSVfp6A1pVF7sex9oI/etD8cHfsh+UZPfogVzBl6kVJGfHSy3qSTPQpPFY
+	 dBPiRYN2rJFYEXB+QWM4xh3PeTOmBjxJ+8FawXHrHzMY/S8G98yU7jXi7kO95lYt9GUdf
+	 7DX62WPnXTb2IpseZGLwQSllw7grw1Z9WM93ySclGwb/lJh+LyC0apv3oVLPvJLAgVI82
+	 5D3/Hf2zRXnO5mky6JqtkELZ11dX5mqsqd4dApygni3S1WlgiXkpg4g8Awy+5IbcV774o
+	 +ptKVmZnGh/wuqLT01J3olJa8+VQnJgWRI0uEoN2ZEBRIU+c/21AjYDx2q6Ed9u0dxQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922002;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=AaDKJsLWEh7/iLpR8aPgnfDX6Rsn+z2sYbKJVVqDKhM=;
+	b=Oyq5vzUMJj9OC+EDoc+DKwGFxtiI0/MJvCt0Rbv7hQ4qAoY6Y2Z700FQoLcKwur5ukIo
+	 gqds/ozlQLjBmkWa4VfE22ePSSj/2pew6qjGYblTBmjI2j3eB0PHAGCoI4LhPWWamrGo+
+	 GqziWzlNm4JxjGhnvHtHncgRn5TWeN0LlTgL0YwHmdw6Gvl6KQm+2OT7oypUJfG0Zutqj
+	 ujiXz8GF/5WnyMyWZus9r1JEVbdLIwGiyUr0TPVWWWrnrfMTLGQqSI2V71j19ZSR46L7G
+	 Uir/hklf+A++HFZ6pH+krk9efNYyv2FoTkDJZ2sCAAaJjo3NqFyYpx22bh/F1pOg/Zg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tTsTP4U1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35BA1606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:24:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE5E606A323
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:26:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FE5E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IL2SO+xY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56F81F000C5;
-	Tue, 17 Nov 2026 13:24:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794921899;
-	bh=wigF95eIs4ur4ofMjkLG2BkFBY1MOD3SatOTNyyFJi0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IL2SO+xYk5ElL9NwsbSRgSEtJ/3TuTOms24KZ3A5156BW6lMck8vl/ofJh1AiGZhc
-	 6F66dqj3j9l1BXNk1Y34OZxmImhsMSA/Lm/Txu7cLPRgKnVd6+O0KkemMhA1yLhHFZ
-	 ON35DIuJM1V689/rsNeznhNnFVvrx0Ia92fPRDg3wfR0HZ7gL/OZ/m7oGvOf48T2Jy
-	 HdeTuUWQ+zZBX1GKnqBINHSpgZYjpMbYt5ThmCgvNen+B9FeCBvza1nHYV8qtaw7ic
-	 /N+GQ7VLT3Dfftf07zbg3lgQKQN2bGk+CTK6GWkEs26JR9DPx9LIeXVVqB9s/c3r+h
-	 8BEho0KJGgbLw==
-Message-ID: <sashiko-outbox-218871@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: apple: Remove undocumented, unapproved
- aliases
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261117130616.234953-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261117130616.234953-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 13:24:58 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tTsTP4U1
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b785ca42ebso7092815a12.2
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 05:26:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794922001; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CvEi4B8U1GSDA2zumFopTmlyG0mRlpx0ApI3HoV9BMFxFbMg/yK5b8qQsEyVBsWW7w
+         DRY9XBtlZn6Qz8cI8AtpeitgZhmt4yl0ctYBvuNc/ur8y7DFYDzn2l31miua88+ViqLp
+         /C7XvzgQLIbC9G7aO6Prf7Fl/nhH9v+ifnJf9PDxda93V0U2UEB7j+OOT4lrMN+66a//
+         HY8bjfj5jeq6DjN7uflc7vMv+CuENGlZHlsRBJF807oSA+8lWRVSzE5Scq+KJW6I6386
+         OMTunG3G0gAuvxcIQmPBTv0ABvPu2YMK+grplqVQtsm56zezxZqPFmRn/5j6BOPRHFBV
+         u+Gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=AaDKJsLWEh7/iLpR8aPgnfDX6Rsn+z2sYbKJVVqDKhM=;
+        fh=XjVI1NLfCQsHiyMcc4N8NcxZuZe51A0Xs+7Zy1NDzPU=;
+        b=qISj5CceSwgA25pd31l0ZmHSOQ2zIGPWoZ8d/hVOjYDPLxQ0m7q6XGVI7YNQumm13C
+         GHeAKgvAIHjqSiKGEu03sSrUI5SsrLh6jyBINegKM/ZRIkq2IpjqGyCDEKNFeydVhRtY
+         X+kmDPysWJGL6R6S1BMeLJreZpoIEVsfGs4OQYFUoz51AvyPaQOTFYtTcoct5VAjZdW4
+         oUYQsZO41pAfiDGFnHZXVTib0FHMhu5jqLIOTxtYvbR69GkbBrgUnit7T81LjuNBaLPt
+         Ea/cCO9dTJ7TvVN5mRYVt6Dtgn4B4hATocolmqCYbZgAasHt2i6MY2ngTc1d7iR5dulv
+         F9/A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794922001; x=1795526801; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AaDKJsLWEh7/iLpR8aPgnfDX6Rsn+z2sYbKJVVqDKhM=;
+        b=tTsTP4U1cCg9Rk1KBSRbSUm6wrsPHp1ZGTzobUTmseCRCyq7/058crmjpXgSCDQrVD
+         Oo//fiT1U/F1MgOxMmxooc4czK40/OUnCOlhjrsYgDN9x3tSKk16GX1Hh49zChF2aP1L
+         MHLP4aI98Sg3L2qBUjcpxaIE2XkQkpiMlmnY1UOMMW395k4HisBZyhNzgBrFASyHdSoy
+         Avg3UUwBdhjJXOLDxSd0mL2t7078Cy4hytGP8ZlALjQYHCUUZGiP9E82hfdRNeRf3Tia
+         VRF8x8qN569gR7x1QNnbgToOet2Laa74J4mR2YGYkSdMROuuFvFVVPJYWX7gsQ/a0Irh
+         QcUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794922001; x=1795526801;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AaDKJsLWEh7/iLpR8aPgnfDX6Rsn+z2sYbKJVVqDKhM=;
+        b=gtE+uLSQD+5Rg/+y00kEDPCu+1o6ItUqr0hTfkvyce1RVscbYlqxQu9lHj0224RhTN
+         8v3caOj+alAgvaU/HhzWH1Z3vbvn4HFtIFz61r+0cSBbPpD6YbvFrD+mhBEb6lWhPrN6
+         wJ8Am58COtGAsSzOaf7AD4+FYU0UQ3P7z87vKhKY2YVm/1W5MV2QvK0SYBI+FJEmFqIA
+         LJy8H721ozp4t7/HSNc6qQe1+gpRckuJZdmWAzrrf1EkpxnCtVcDVt9YVve1d1GohzbR
+         LLYAV01wOM6z17wzg5AfcpcrQdps3vh7aLALyq8RgVkxSyEJLeM7oODZwXKcqUTbOE5c
+         3dTw==
+X-Forwarded-Encrypted: i=1; AL+hErHIOWaNCt2LDlBSq5XNAOPj5voGNOb4NKOBacSuJeEFnPKEWL8Ge7RPGyRzE1GdwPeqKbiNA4mytfI6@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RMasWn+Bw22IwkC0nheJr11tp7OtKDwe13xjUz6Ap53OUWtyt
+	4rljtEPr6TYmNN9KRt+sY4iNqeMA72+OZW+NtBvnpPbWoIikD0komyvbq7gMXkb/tRRV3CFif0p
+	jAtANlB9eXfwIdPCsbnj3O0OzaFf7ICbPjUI4
+X-Gm-Gg: AYBFou1y2MIu1Ty1EPHVC1dxIYXIfes7c+bZKmcbe6Fj7PXiCqnwiijQJ46joXXh7Mm
+	v+Bv2tHTNT/2w47xUSuEjQ/3hfgP56sQp1ke+oEWmJRErOOAIP16N7EskeRvBg2tjZxkQL0Sis1
+	/5CyHF1Dr+zT0Xo3yVEl9afxXj6IctBg3L+arE2SBttRkvP6su5kSGlIg1CUfC7Lq/3hWaUkGVu
+	OPl2kalkKcz0j1vd6WCvb0jZpwxqQ/zo6uSkafuUNAmI4YPlXTp9ngmOyP6qkoI32w2kX6iZcb9
+	BCH6KcyDJ/F5LReR3F8vFmHFrmzwYscBrylUeDgTnuRnLyj2C4PqbLPBCTKpxeVCopzQMcESYG2
+	ra5PQ+Tq+YnBfeYMYL6YxcisKrNfi3VFYx/Y=
+X-Received: by 2002:a05:6402:4504:b0:6b5:7de8:87cd with SMTP id
+ 4fb4d7f45d1cf-6b7c0d06f9amr10641554a12.42.1794922000158; Tue, 17 Nov 2026
+ 05:26:40 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,98 +102,44 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20260921113914.779393-1-l.scorcia@gmail.com> <20260921113914.779393-2-l.scorcia@gmail.com>
+ <3701981f-cdda-46a7-8079-de5479ae9c27@kernel.org>
+In-Reply-To: <3701981f-cdda-46a7-8079-de5479ae9c27@kernel.org>
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Date: Tue, 17 Nov 2026 14:26:28 +0100
+X-Gm-Features: AclHuK-pAjMxUsyMno9u008purn-se7dqQHzpp18oe2HOK5CuVKhIbMUqhDzQWQ
+Message-ID: <CAORyz2+wF=VDTFkRFU7jBu-zNTW7T8mnPrJZAj8ZVD-Yyr2b6A@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: mediatek: dpi: Add
+ compatible for mt8167
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-mediatek@lists.infradead.org, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>, 
+	Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] arm64: dts: apple: removing aliases breaks atcphy_probe() and
-  Z2 calibration
+> Turns out you bring here undocumented ABI. NAK.
+
+Hi, I'm sorry but I don't see the relation between this commit you
+just NAKed and the bigger issue about mediatek-drm alias usage. It's
+not like I'm introducing anything new in these DPI specific patches
+and the individual display block drivers do not depend on the aliases
+(they're used by mediatek-drm for building the pipeline).
+
+I understand why the commit to the dtsi that includes the aliases is
+NAKed, and the eventual fix is going to require a change in all of
+Mediatek SoCs dtsi. I am fine with the dtsi changes being blocked
+until an appropriate solution is found. I just don't understand the
+NAKs on the DPI components.
+
+Thank you for your help
 --
-
-commit aa4c33e989489cbc224f3300ed3e06e23d8eea9a
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-arm64: dts: apple: Remove undocumented, unapproved aliases
-
-This commit removes the atcphy0..atcphy7 and touchbar0 aliases from the
-Apple M1 and M2 devicetrees.
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/apple/t8103-j293.dts b/arch/arm64/boot/d=
-ts/apple/t8103-j293.dts
-> index 1d074b9e60183..779da65a66e31 100644
-> --- a/arch/arm64/boot/dts/apple/t8103-j293.dts
-> +++ b/arch/arm64/boot/dts/apple/t8103-j293.dts
-> @@ -18,14 +18,6 @@ / {
->  	model =3D "Apple MacBook Pro (13-inch, M1, 2020)";
->  	chassis-type =3D "laptop";
-> =20
-> -	/*
-> -	 * All of those are used by the bootloader to pass calibration
-> -	 * blobs and other device-specific properties
-> -	 */
-> -	aliases {
-> -		touchbar0 =3D &touchbar0;
-> -	};
-> -
->  	led-controller {
->  		compatible =3D "pwm-leds";
->  		led-0 {
-> diff --git a/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi b/arch/arm64/boot/=
-dts/apple/t8103-jxxx.dtsi
-> index 686fb1dd215d2..5304a5591984d 100644
-> --- a/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
-> +++ b/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
-> @@ -15,8 +15,6 @@ aliases {
->  		serial0 =3D &serial0;
->  		serial2 =3D &serial2;
->  		wifi0 =3D &wifi0;
-> -		atcphy0 =3D &atcphy0;
-> -		atcphy1 =3D &atcphy1;
->  	};
-> =20
->  	chosen {
-
-[Severity: High]
-Does removing the atcphy and touchbar aliases across these devicetrees caus=
-e a
-regression in atcphy_probe() and Touch Bar digitizer calibration when booti=
-ng
-with the m1n1 bootloader?
-
-As described in Documentation/devicetree/bindings/phy/apple,atcphy.yaml and
-Documentation/devicetree/bindings/input/touchscreen/apple,z2-multitouch.yam=
-l,
-m1n1 resolves /aliases/atcphy0..atcphy7 and /aliases/touchbar0 to copy
-per-device factory calibration data from Apple's ADT into the FDT at boot
-(and on Ultra SoCs in t6002-j375d.dts, t6022-j475d.dts, and t6022-j180d.dts,
-atcphy4..atcphy7 map flat ADT port indices onto the second die's
-atcphy0_die1..atcphy3_die1 nodes).
-
-Without the atcphy aliases, m1n1 does not populate the required
-apple,tunable-* properties on the PHY nodes, so atcphy_probe() ->
-atcphy_load_tunables() -> devm_apple_tunable_parse() fails with -ENOENT:
-
-drivers/phy/apple/atc.c:atcphy_load_tunables() {
-	...
-		*tunables[i].tunable =3D devm_apple_tunable_parse(
-			atcphy->dev, atcphy->np, tunables[i].dt_name, tunables[i].res);
-		if (IS_ERR(*tunables[i].tunable)) {
-			dev_err(atcphy->dev, "Failed to read tunable %s: %ld\n",
-				tunables[i].dt_name, PTR_ERR(*tunables[i].tunable));
-			return PTR_ERR(*tunables[i].tunable);
-		}
-}
-
-Aborting atcphy_probe() before atcphy_probe_finalize() prevents registration
-of the ATCPHY reset controller, Type-C mux, and USB/DP PHYs, which keeps all
-integrated dwc3 USB Type-C controllers on M1 and M2 systems from probing.
-Similarly, without touchbar0 in t8103-j293.dts and t8112-j493.dts, m1n1
-cannot inject apple,z2-cal-blob, so apple_z2_build_cal_blob() returns NULL =
-and
-apple_z2_upload_firmware() boots the Touch Bar digitizer without its
-factory calibration data.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117130616.2349=
-53-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
+Luca Leonardo Scorcia
+l.scorcia@gmail.com
