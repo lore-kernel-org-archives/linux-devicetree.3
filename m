@@ -1,70 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794887351;
-	b=e3owymF/ble2Cke4nf0nCfUOlmk2057hc7Ow43qEAaLu3ZlbK2Ue1gjMbpkH94w95b59
-	 ICSpudQdFX497t6MUsXeuQGi08S/lU0iWL6lfsDJrV7paSdj6T3sXXkvsUpIF+nk7B77g
-	 AVncg8IE9Xmd/sZwGtMYnc1ogrDtebJiDIUQOpRi9O0i54RAvDw6IUz74Lqn73HVykrEr
-	 ivLLrIzatgWm0kEzHIy3ELjPZUkai3IyfXPCLi6+AO5ybIVW5fs1Lxcmu/3TvQ4r3/Dfg
-	 25aDhF//fdxkJU5isyHlhhy4lEmtTegejN7oDgz2D+DmVnB+CeUQ5Jx9HGAG44R8gnw==
+	t=1794887596;
+	b=1L1ljqxdOeOjivasdDsX13L7rAAXauz0bGoq1nPibYhPd0Uf9hZlhnsEtXfbk3qFT6x+
+	 veu/P7ndejTMVHutAgWPUFVhsg5BuICrgAN/l+MD+jx6l7I4fWh1V+bBwJALvrv2gVXst
+	 G9ZBhEkrusI+CyKw3bqsayCyNMikHeQ9v20KKVX9KEQPM2o3DuiHkoZrv+S9xHrweXETM
+	 7PHdXu1dVGm7Us/97JM1BVnRc6MTJsjlZ0KvJqNu5r+huq9QsSdt7JnxgPCWtZRf6g1RO
+	 gZJOlR7vThHYzImjWoFObcC0p9sTdZxpDbdnAhRDDnHFrQZUGEUVe6520m7zEGcyZUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887351;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=kz9eQ61Ajq43uxmlFTJjwTmcAGgP+PmpRb4bS50Xo0k=;
-	b=dnuvXyb3i18sa1gB+hniT4Ut3MI5nlIkTmp7ZoYVUYpQSxcuruI48Ojx24XXcKSFzDh1
-	 FW+E+BzQ3+80Y52rQK3l8p9PqwQ7fsHjHIP9ilg0sB9ERGYdOF29qyuG26VQWeEHqC4+m
-	 rm10k739isqrbivL+MKNob1Lt4LLxbr8k4+f16rRnMfT6Zo8svOI8ooGAhp5KrnB8ku3D
-	 5BIO21WOlrheV4sPCeqoIaV8ACaXMi8gCQsYCA+8oxgxgoO8pbNhjjn1cesW5EF2A6rYq
-	 HRJaCxYTiOsu04wxiUg5PbiIvgIXfzl8TufT9OzoQPfn6RcVoYJNYAI15MuT6aX8D+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887596;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=tLUEeWBNH1suUP6OTW5uxLnjtx/9ByNMKhVBJm7UctU=;
+	b=rZ+E6JF/7/v4uyfvtHXR+sep3X0fn1bMbmeb37KHCbhuRjKfOo2HvvoZ6uKouljLcDjO
+	 C0YqJ+NebaQn/6Qq5JJSuFyBLI1VReHe3xS8d5QHujqhTVqqSKP6PHzdG/SUncBQMOchW
+	 3nyTFhm0bVqp4tD81gsOfWvJhn6lORPiX/xKWduMWbQom45O/POPGo47DYTKT6pljF4rb
+	 MkNqEDPdCuhPE1bCZGlEnFZyf0IcSAXl/l4kdyuqzb3lQHF3YeqPUOW343pQdUs28GRXB
+	 MAh72IiHtf3f3zdACf1swnekq8C8o1jm3x1bsKvwama5lhm1orj81U0crKmF1WdSZCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=dBDwfsaC;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6+nWK8x;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7750606A323;
-	Tue, 17 Nov 2026 03:49:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7750606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E884606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 03:53:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=dBDwfsaC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1794887347;
-	bh=kz9eQ61Ajq43uxmlFTJjwTmcAGgP+PmpRb4bS50Xo0k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dBDwfsaCPvpMXrlQRxkZGdSpNft02CmLvrosxD6kyii1kvb3C/glBHzWY90XQdbCw
-	 TzEs+cc5scanTabCQfbZ1nR4j6740CAN57h1h5/K158JFqfekORlk/v4IEHGaf2NXK
-	 rjTAy5IvTemngIVNWNQsl9+bMlNwdYR12hB2+1KcZzyddiiah7EGFwlZjJy5FHIKSY
-	 q5cbFnXkm8nsXEBmc7fbpFCjyixoRrIcgb/nX99RaB3yVbji2o/+OZe7VYGmfyK4m9
-	 WE9vo4GY084109BEHBUp9gGFsfzrlbAOF8AWLxYHEN+CFgXAmx7bACnRYk4d7ofgXT
-	 pFCj8cUzCqmGQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jT9hM4jJYz4wSq; Tue, 17 Nov 2026 14:49:07 +1100 (AEDT)
-Date: Tue, 17 Nov 2026 14:47:29 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Douglas Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Julius Werner <jwerner@chromium.org>
-Subject: Re: [PATCH v4 06/14] pylibfdt: Speed up FdtRo.properties() with a C
- helper
-Message-ID: <avvOUIIn9t00XqY_@gractus.seuss>
-References: <20261116205320.1621386-1-dianders@chromium.org>
- <20261116205320.1621386-7-dianders@chromium.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6+nWK8x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853491F000C4;
+	Tue, 17 Nov 2026 03:53:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794887595;
+	bh=tLUEeWBNH1suUP6OTW5uxLnjtx/9ByNMKhVBJm7UctU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=b6+nWK8xEEIvEYeKyjh+DdN9oMZEDlWP6Jt4NgPUJ/4NPK5AyjT+jkufU/JmM/es2
+	 DyYRLvMlSuY4HQc5jTmzsCVarWhEjSXyF+H+pWcWq5VFaLt4sdWYYMI9kK+RDCatYE
+	 iEh5kO+8o7+dmrikSwpeNtd0H4f27FOaNbTGMbjavo7PbtQAOpf7mqQ5hqeKNX2BX6
+	 pnLtP+SAbCQJJy/276uyFHg0PuiUpQddOjctE2WYlYyepHeKhkk3acxl9S5Qx7JGUx
+	 ccRCtMwcw5SjJNem30P3HotK1Qrp21Ygq6trdFG3Py6tJZmB+3RaBupq9rZLywzqpf
+	 LLf1wN6LmRcvQ==
+Message-ID: <sashiko-outbox-218167@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 04/14] media: mediatek: vcodec: get different
+ firmware ipi id
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261117032950.1425556-5-kyrie.wu@mediatek.com>
+References: <20261117032950.1425556-1-kyrie.wu@mediatek.com>
+ <20261117032950.1425556-5-kyrie.wu@mediatek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 03:53:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,73 +60,74 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fn2kyC0KazwbIRxa"
-Content-Disposition: inline
-In-Reply-To: <20261116205320.1621386-7-dianders@chromium.org>
 
---fn2kyC0KazwbIRxa
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] media: mediatek: vcodec: fw_handler->type accessed directly by
+  callers
+--
 
-On Mon, Nov 16, 2026 at 12:53:03PM -0800, Douglas Anderson wrote:
-> Iterating over a node's properties via `FdtRo.properties()` currently
-> crosses the Python/SWIG boundary `1 + 2 * num_props` times per node
-> (`first_property_offset()`, `get_property_by_offset()`, and
-> `next_property_offset()`, along with their Python `check_err()` and
-> `check_err_null()` wrappers). When walking every property across large
-> device trees from Python, those per-property SWIG round-trips dominate
-> runtime.
->=20
-> Add a C helper `fdt_node_properties_stub()` in `pylibfdt/libfdt.i`
-> backing `FdtRo.properties()` so all `Property` objects for a node are
-> collected in a single C call per node, interning property name strings
-> via `PyUnicode_InternFromString()`. Also add an invalid-offset exception
-> check to `testPropertiesIterator` in `tests/pylibfdt_tests.py`.
->=20
-> On one stress test (walking all ~573k nodes and ~2.06M properties across
-> 438 arm64 Qualcomm DTBs) this reduced `FdtRo.properties()` time by
-> ~1.8x.
->=20
-> Assisted-by: Gemini:gemini-pro-prerelease
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+commit 570b1a574a8a9971d79e8070cabc43cdc4bbf018
+Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-Hm, optimizing pylibfdt has never been a focus, on the general
-assumption that if speed is really important to you, you shouldn't be
-using Python.  I'm happy enough with patch 4, because it's a speed win
-with a very small and simple change.  This optimization is a much
-larger chunk of code, so I'm not so convinced this is worth the source
-complexity we pay for it.
+media: mediatek: vcodec: get different firmware ipi id
 
-That's not an outright rejection, but I'd need convincing this is
-worth it.
+This commit adds mtk_vcodec_fw_get_ipi() to select the decoder IPI ID
+based on the firmware type and hardware index, and updates the stateless
+decoder initialization callbacks to use it.
+
+> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.=
+h b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h
+> index 50d93d47b6de0..005ac9969b5bd 100644
+> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h
+> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h
+> @@ -43,5 +43,6 @@ int mtk_vcodec_fw_ipi_register(struct mtk_vcodec_fw *fw=
+, int id,
+>  int mtk_vcodec_fw_ipi_send(struct mtk_vcodec_fw *fw, int id,
+>  			   void *buf, unsigned int len, unsigned int wait);
+>  int mtk_vcodec_fw_get_type(struct mtk_vcodec_fw *fw);
+> +int mtk_vcodec_fw_get_ipi(enum mtk_vcodec_fw_type type, int hw_id);
+> =20
+>  #endif /* _MTK_VCODEC_FW_H_ */
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1=
+_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av=
+1_req_lat_if.c
+> index 49d9b4a72387e..84d28a0ba15a5 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
+t_if.c
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
+t_if.c
+> @@ -1878,6 +1878,7 @@ static int vdec_av1_slice_init(struct mtk_vcodec_de=
+c_ctx *ctx)
+>  {
+>  	struct vdec_av1_slice_instance *instance;
+>  	struct vdec_av1_slice_init_vsi *vsi;
+> +	enum mtk_vcodec_fw_type fw_type =3D ctx->dev->fw_handler->type;
+>  	int ret;
+> =20
+>  	instance =3D kzalloc_obj(*instance);
+> @@ -1885,8 +1886,8 @@ static int vdec_av1_slice_init(struct mtk_vcodec_de=
+c_ctx *ctx)
+>  		return -ENOMEM;
+> =20
+>  	instance->ctx =3D ctx;
+> -	instance->vpu.id =3D SCP_IPI_VDEC_LAT;
+> -	instance->vpu.core_id =3D SCP_IPI_VDEC_CORE;
+> +	instance->vpu.id =3D mtk_vcodec_fw_get_ipi(fw_type, MTK_VDEC_LAT0);
+> +	instance->vpu.core_id =3D mtk_vcodec_fw_get_ipi(fw_type, MTK_VDEC_CORE);
+
+[Severity: Low]
+Should mtk_vcodec_fw_get_ipi() take struct mtk_vcodec_fw *fw instead of
+enum mtk_vcodec_fw_type?
+
+In mtk_vcodec_fw.h, struct mtk_vcodec_fw is forward-declared as an opaque
+handle whose definition lives in mtk_vcodec_fw_priv.h, and every other
+mtk_vcodec_fw_*() helper takes struct mtk_vcodec_fw *fw as its first
+argument (with mtk_vcodec_fw_get_type() provided specifically to query
+fw->type).  Taking enum mtk_vcodec_fw_type here causes vdec_av1_slice_init()
+and the other four decoder init callbacks to reach directly into the private
+ctx->dev->fw_handler->type field.
 
 --=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---fn2kyC0KazwbIRxa
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmr7zlAACgkQzQJF27ox
-2Gf+Kg/+LJCwJBC6cG4MVgEbPtcl8NpOc43ohCmSJXfubmq0lxg72NF6kL3jsR2T
-I9WZfGWNhSCYAV54mFO2prRGyAQp7FGm2bZ3XqZm+BBdx1TWuR1izX+LCMxqQCOd
-ozXyu8CmRzyocLUujjrHv2PEE+cmm+6cQYlJDTuACPdVoIcF0Cp50VGyNB7Xi+0v
-cime+4o0Tx4ekNNUhJDV27d/vWomoXHTlzULYUO+YWDTgDVb89go8yLPa0oOhM/T
-VmI3ExWjhK5ixnhG6pyw59VLiI/gKz3hBC0ywRUYCKENsCeyafeeiSP6G4K02Cuj
-xRXM7cdCX+vuzNDb2SMbosbaNJ+EP7sRnXeadEUlSA/AzMWYsjCuwKRDWvZNlCPl
-rmtYo7qDS/ctPnEfk1ykJHJacE4aRRszAFA98ImKc9TQp1o9Jz52QD3pv5Dijjsj
-m/O661i4th4dWs9mFDsk28M0HYmXDnaudYaBx1S+T6Z3u7bh25ttYi2yqLSX694u
-UD61YkyF5mD5SMi+4UDZQhK8AqFOT5IPkyEFuZUP93WRtYZbcWSF+DqGfFdWuBxr
-GLmCY/4o/TIg2ew4YKgH2XTTJ87ZonmTUvGpNFUYbyyC496vG3Lm8urZ4epAIMwo
-zCPvBR7M4qWxjtU//o3C56o7LuImLFxRECxFMM8uhuiuR4iMvHc=
-=j/gM
------END PGP SIGNATURE-----
-
---fn2kyC0KazwbIRxa--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117032950.1425=
+556-1-kyrie.wu@mediatek.com?part=3D4
