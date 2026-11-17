@@ -1,67 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794881910;
-	b=OBWF7zIu9eWJtVVZlyVc/OGT8uN4e4vDV4g1o+sTkgXGBgXtYrcKrPnZCbGpFTPSYh9P
-	 fWSrfFgPqKa3BBt/oQZ5L4mTZCo+x6WeTuFN/cRp/aerxl2UsbqUZ26XvfifqylGqYRSY
-	 wr0KuZMV4aXP+eW6qKNEsDJWMxL7let+mBWUCvvelGn4VgwL+R8EyKM3Qv2xT5ETE4d9V
-	 QsqZpwUmWt6qzQttmdxAEoT5Jr9nCrn3qyQ1s0cFO/LRdGSCQ1zKy6Iwa81lSWANhE6if
-	 Bb5M2wYtOSBxd0tsxRTutqDvaaO9ul1adsqSnd4juk9EuZXm/duronQgYk6fFFrR6DA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794881910;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Iug4TGD754qTGDCf5G9syud2pIcOMBho6GRbOeFJ2eM=;
-	b=19nLr+a/gjcwCkj9+Tc+CfYQag8qs5yeZVSU+KHqzljZYkk8+IAkOvv+9pJBm+JJptdc
-	 D/Oq+Wx8KN3bLiqkHYfow6WyEZduGuZPiDUldyTqBZob2uZXvfqQkI8FSMyfGHfhZZg3B
-	 BJKIb264J5zKGKBiZ6Iro5FCOvMNSrLwpYGwNxpbA9b67hDzzDiskczlSTtWWYR0xIlCG
-	 nKY4oraelmyc5kR5xWtqBh/kmCVNszyUL8LMmEqBhlTO7G/n2gAhVAPyc58VEer4zA+nu
-	 jq9Ge8gCa1HRJhRMQRgbyEMAS7RXDk324ogf+l+31TnUmrZyQe2PUfwzgsmLuobLTtg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LEjVcZzi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.81
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794882546;
+	b=5trvU3Cgwb1Ve4HcF5cHSj/I0KYxzvk+hBoi2CGSjdv+SelmxDvjJZNHvYbINO82GBig
+	 gjEK+waajElq9U1/Rymza0Aws8eK2RppgyZQsnyQCAwhS+3i+QPkqt2UaHQVX+8n+ePQ4
+	 8GCmTgA5k6oKQwEBZSTP9hQw/5IZ/fppwS7Yx81hX7OTnTloDREjon/CO00vQSzjYbr7r
+	 9SAvQL4GEvwVquc0XwkCdF4FCbIakXZmOD0ComzWIF3QVRGmkVTA4k5ilXDT421Lj4keI
+	 De+b4T80qpya+PqgwXIy/0geW4ijmkOJ0FnIWdh+dQPwCXoJggH18pZ2fS7kbN4M0kw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882546;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=lvSu7AhVLbMLhLIQCXtxPqvA7yUCBiyk7/6hYNrWuec=;
+	b=toVCQrTTzyPM7xu1AsFrKoj6HGnv15OdPBXZ5zy+q9w8qZGC+BO7qBLU3/pxnBg/87jK
+	 LKpkpkwS2ozfWW2Z4EJ0yIK2qRU/iDXnUNw/7be6HDd9+RGCXxrRXqpbgdcyk8aWmpk7j
+	 J7H+Wt/r+MqWwRYhl8t2S9ZKmBwJ70skugRh89gFtECLQJA64sB5vzvxfF47PRpH7qZAW
+	 bfnB9SAxCCrsS+41k6OZ4Ucx2x7LRQQlKTl0cxcHCBrOUhLa3puOo39xsLg0Pl1q4bK+K
+	 jYW6E3DOCueRYmBYQ3YfiI7B7zRiN2U+rhyN3vUeqkWNDCs4il5DDGTk98V9ZTc4IFw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.81
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022081.outbound.protection.outlook.com [52.101.126.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E15606A330;
-	Tue, 17 Nov 2026 02:18:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LEjVcZzi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E29C1F000C4;
-	Tue, 17 Nov 2026 02:18:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794881910;
-	bh=Iug4TGD754qTGDCf5G9syud2pIcOMBho6GRbOeFJ2eM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LEjVcZziI109Xn5JMSCKjugQlpC6pcFAAjTW299SRsPCILV8vxeoXFs1AscQG4qw1
-	 Nez/j5Ytq7OsgY+YgItILZL58Ay01mGCbQp/4CNz5UHzYQKKiiBYCR6WjqWh0dY18J
-	 0ML7X+1luOuPArL0p57IxzDDVlD0WEoQ3wVVxRRCvOOHfTiA9guC2JbvoXJe7hbveh
-	 ivwF9s6TPQlb3BSBeve22y1ymnZsNNGIVART7fjKxrraPp7mlxuj+QUQQiJR0jeNSy
-	 +vdFTEDy0/NfzuhFzzd+FtMCC1Ov+n+SaShORYaMZ+jBXwICDCc+gV3EqiR7wY1eYN
-	 R2VoovQBZcBng==
-From: Jakub Kicinski <kuba@kernel.org>
-To: arouhi@sitime.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	jiri@resnulli.us,
-	vadim.fedorenko@linux.dev,
-	arkadiusz.kubalewski@intel.com,
-	ivecera@redhat.com,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	cjubran@nvidia.com,
-	Oleg.Zadorozhnyi@devoxsoftware.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B7A606A323;
+	Tue, 17 Nov 2026 02:29:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88B7A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=df84NVMEvZjwxJoYw/xmbhslXObgGdFzBQZ2ntghMA7Z4Svq1yvvng4furuDGu1eVq5Qu0IBq/N59KblZ4zLrRGuSWaGfbHjGTK+QX60ecHbXVP+4Maq2DKa6kvoSsUz436VqrVKLXgIaKo4O0PkDAWSwoPfV228dy+A9zzG6+KPxw89iKi1SjksZqEpVBppM9zITosxxn6Wxg+4wB3eFkAWybJ3UymdzaPbwM/LQjcspb8GBR0X88h6B7KDOtWbd2tY+og8W+J4fIKMIHH7Rr/r+V5VG+ZFKKCJRjpcjPOZNv0+SrlyPwy1bRO5VpAPw/me4ekTxcGde2XKMR9CxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lvSu7AhVLbMLhLIQCXtxPqvA7yUCBiyk7/6hYNrWuec=;
+ b=Qkdau7LlSPc4lNu91Z/XwFZP+wSmyqakv3q7D1uBKf7e3YqjivvjZZwt3taNsBAms98dGC1cEUiXMk6zwuPX5FpioElB0Zi3zH76NQdyppPhQkY8KyXvTGkJObzkI+/g+7UpQL3zd4wnCJcT/lawbDIDz9Rn0/Ej+gxY4LWqRkIzkPwtc1QvfQzQvCJULVqaJOhmk9ackN9glOe93K4IlbLYZbeD2sHC72RcvweUO7ytWALV+CZK5pZaNujtA4rjt/gu9O9EQknQIm3WJAorTVbKM4CUQ1kPLrZkJLQr/9MfaaLGwPxU3F5Hlsias2bsIRMHjQkHZ7m5gULDxFcLPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI2PR02CA0032.apcprd02.prod.outlook.com (2603:1096:4:195::12)
+ by KU2PPF056618284.apcprd06.prod.outlook.com (2603:1096:d18::487) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.8; Tue, 17 Nov
+ 2026 02:29:01 +0000
+Received: from OSA0EPF000000C9.apcprd02.prod.outlook.com
+ (2603:1096:4:195:cafe::1a) by SI2PR02CA0032.outlook.office365.com
+ (2603:1096:4:195::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
+ 17 Nov 2026 02:29:01 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000C9.mail.protection.outlook.com (10.167.240.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 02:29:00 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 89177427EFC6;
+	Tue, 17 Nov 2026 10:28:59 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Gary Yang <Gary.Yang@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>
+Cc: linux-phy@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v15 13/13] dpll: sit9531x: model the inter-PLL sync line as a pair of pins
-Date: Mon, 16 Nov 2026 18:18:27 -0800
-Message-ID: <20261117021827.2220456-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261110202607.55744-14-arouhi@sitime.com>
-References: <20261110202607.55744-14-arouhi@sitime.com>
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	Hongliang Yang <hongliang.yang@cixtech.com>
+Subject: [PATCH v8 1/2] dt-bindings: phy: Add CIX Sky1 USB3 PHY
+Date: Tue, 17 Nov 2026 10:28:57 +0800
+Message-ID: <20261117022858.2210212-2-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261117022858.2210212-1-hongliang.yang@cixtech.com>
+References: <20261117022858.2210212-1-hongliang.yang@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,585 +110,159 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C9:EE_|KU2PPF056618284:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 302c4cd4-3ffb-4d18-bdec-08df44528a70
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|7416014|261026140227099003|261026121527099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|5023799004|56012099006|10067099003|22082099003|18002099003|261009223027099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	ePiBjpYJMYu6L4P33LQDKfKDI8Blm9WTQi3PXOG5spZo+AKWJDpNG+NHh+oQnj0YKh18Og0b6ZMR6aTNyPCSluZYCSLm3kZLbKgLN4PTH31MDppPOEqIM/dMOlN71bG1Ej2d/BCmJVL9QTcwcQkZfHhZTArsAL7ysAgJu6vndZAvsIsplik8a5bcP2l/BceHBJQNGEMnO8+T+HS8ouHle1Xkf2zj2MFNAPkGkjU8EjvnkVIpQTjE9KbAtYipxsDMALYQtV1CH6IMTyMMvwXeuyAQwypchsKDCGSQ+crdV20C2xaEaJOc98+4vyzQNQSvPVoDqufN1jpZHC/hxhtdHa+v2sCji9xvp0cRc4zbgbac/PgHJRSX3w48kTxUIdBN7iTA6axkPzYy2chT1BQkKrMjB2cVzFbEHZRmR9mwn69uwunqh2P+syV2QiY6MzPr/SYU8+Mzv0w69b/aSXO+3S5EPvrb3c8O6Xbt+jxTHS02S+m+lGbhePHksUQUmp1Y7nZfKuZeCvzDyYAGBbVL/pmqkDGVX1bSuvx/fO3QvWFOgKec79yq/cF4ooSkBLaAKIQB6cHGup1HaoxQ/1bTitGOGB9H0OvtbM8e37A+LgelgThEaggiaJi7rpgtMbr4easPT7bo5UHMKh7t+I3oDQ==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(7416014)(261026140227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(5023799004)(56012099006)(10067099003)(22082099003)(18002099003)(261009223027099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jWXgltC8kVc4oo0DrJze4wP1QQ0H+GdBv7E+NE1s1YGzF2JU1RJAUttYrigyTv6SkxKWeHNRM5iGp/X/Mum65f4GAl8nfsnEJUoAn8YYSpRzgPhejWWRWvbxXswugtTdtsagpUlyjrWL75WAKX/PdrWIh9Ikg/L1z2Z0BD3szXLVFm17+QNkC0DTiVS3ybIhZEIPdb+AG3HMeclnu3JBvfCYFaQs+f/7OhpBkBTaUh+ZeWGXGpgp68TqIYvbexnGJ++a6aVP+gXlm4G+M6bo9+sHeq4Jy9Qwfz5vMElN2Vj+4xA3J/waa91/sWHKa0/KmGhBk7iBDcrd0i1wILT+e3ZFNhWbXXueIcCdaAndioMjaNWfcLiwS1WMWOehaMPey5HdJKOIiKgszxjYBmY8/GVmJiaHU+AnDPQrCiPK0J5Sq0pdT5AsOFqgY7fgzxIr
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 02:29:00.7962
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 302c4cd4-3ffb-4d18-bdec-08df44528a70
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000C9.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KU2PPF056618284
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
+Add device tree binding for the CIX Sky1 USB3 PHY, the SuperSpeedPlus
+PHY of the two USB3 Type-A ports of the SoC.
+
+The two lanes are not separate devices: they live in one register
+block, share the same clocks and resets, and are brought up by the
+same initialization sequence. The node is therefore a single PHY
+provider with #phy-cells = <0>, referenced by both controllers, and the
+driver reference counts phy_init() and phy_exit() so that the block is
+set up once for all of them.
+
+Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
 ---
-dpll: sit9531x: model the inter-PLL sync line as a pair of pins
+Changes in v7:
+- Describe the PHY as one provider of both lanes and say why. v5 had
+  one child node per lane, v6 dropped them, and nothing in the binding
+  or the changelog said where the second lane went.
+- Reword the description so that it describes the provider instead of
+  the register programming of the block.
+
+Changes in v6:
+- Drop the per-port child nodes. The parent node is the PHY provider
+  with #phy-cells = <0>, as the block drives both lanes and the ports
+  share the initialization sequence.
+---
+ .../bindings/phy/cix,sky1-usb3-phy.yaml       | 78 +++++++++++++++++++
+ MAINTAINERS                                   |  1 +
+ 2 files changed, 79 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+
+diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+new file mode 100644
+index 000000000000..205140bf84e7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+@@ -0,0 +1,78 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/cix,sky1-usb3-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: CIX Sky1 USB3 PHY
++
++maintainers:
++  - Hongliang Yang <hongliang.yang@cixtech.com>
++
++description: |
++  The CIX Sky1 USB3 PHY provides the SuperSpeed lanes of the USB3 Type-A
++  ports of the SoC.
++
++  Both lanes are programmed through one register block and share the
++  same clocks and resets, so the node is a single PHY provider with
++  #phy-cells = <0> that all consumers reference. The driver reference
++  counts phy_init() and phy_exit(), so the block is set up once for all
++  its consumers.
++
++properties:
++  compatible:
++    const: cix,sky1-usb3-phy
++
++  reg:
++    maxItems: 1
++
++  "#phy-cells":
++    const: 0
++
++  clocks:
++    items:
++      - description: APB register interface clock
++      - description: PHY reference clock
++
++  clock-names:
++    items:
++      - const: apb
++      - const: ref
++
++  resets:
++    items:
++      - description: PHY reset
++      - description: PHY APB preset
++
++  reset-names:
++    items:
++      - const: core
++      - const: apb
++
++required:
++  - compatible
++  - reg
++  - "#phy-cells"
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/cix,sky1.h>
++    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
++
++    usb-phy@9210000 {
++        compatible = "cix,sky1-usb3-phy";
++        reg = <0x9210000 0x40000>;
++        #phy-cells = <0>;
++        clocks = <&scmi_clk CLK_TREE_USB3A_PHY3_GATE>,
++                 <&scmi_clk CLK_TREE_USB3A_PHY_x2_REF>;
++        clock-names = "apb", "ref";
++        resets = <&s5_syscon SKY1_USBPHY_SS_RST_N>,
++                 <&s5_syscon SKY1_USBPHY_SS_PST_N>;
++        reset-names = "core", "apb";
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..73783abe027e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2903,6 +2903,7 @@ S:	Maintained
+ T:	git https://github.com/cixtech/linux-mainline.git
+ F:	Documentation/devicetree/bindings/arm/cix.yaml
+ F:	Documentation/devicetree/bindings/mailbox/cix,sky1-mbox.yaml
++F:	Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+ F:	arch/arm64/boot/dts/cix/
+ F:	drivers/mailbox/cix-mailbox.c
+ K:	\bcix\b
+-- 
+2.54.0
 
-This patch exposes the internal INTSYNC line as two pins: a source output
-pin and a destination input pin on each DPLL. Taking the line writes a
-register pattern to the source PLL's EXT page and sets a global enable.
-The owner is detected from the pages, and connects are refused on
-unrecognized or conflicting configurations. Resume now re-reads the
-INTSYNC owner, the output mute state and the output delays.
-
-> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index 8f305cc27737e..e3ce7b6cad6b9 100644
-> --- a/drivers/dpll/sit9531x/core.c
-> +++ b/drivers/dpll/sit9531x/core.c
-
-[ ... ]
-
-> @@ -2585,6 +2604,556 @@ static int sit9531x_clear_notifications(struct sit9531x_dev *sitdev)
->  	return 0;
->  }
->  
-
-[ ... ]
-
-> +/*
-> + * Values written to the source PLL's EXT page to enable or disable INTSYNC,
-> + * which locks the frequency PLL to the phase PLL.
-> + */
-> +struct sit9531x_intsync_reg {
-> +	u8 offset;
-> +	u8 en_val;
-> +	u8 dis_val;
-> +};
-> +
-> +static const struct sit9531x_intsync_reg intsync_config[] = {
-> +	{ 0x2D, 0x02, 0x00 },
-> +	{ 0x50, 0x08, 0x00 },
-> +	{ 0x51, 0x04, 0x00 },
-> +	{ 0x54, 0x02, 0x00 },
-> +	{ 0x55, 0x28, 0x20 },
-> +	{ 0x5C, 0x0F, 0x00 },
-> +	{ 0x5D, 0xFF, 0x00 },
-> +	{ 0x6C, 0xDD, 0x00 },
-> +};
-
-[Severity: Low]
-This isn't a bug, but the commit message says:
-
-  Taking the line writes a pattern to the source's EXT page and sets a
-  global enable; giving it up writes the disable pattern.
-
-The pattern is eight unnamed offset/value pairs. They are written after
-the EXT page debug window is unlocked with SIT9531X_PLL_DEBUG_UNLOCK. The
-comment on sit9531x_intsync_debug_lock() says that key "opens every debug
-register on the page". There are no register defines and no datasheet or
-vendor reference for these values.
-
-sit9531x_intsync_src_detect() also opens the debug window on all four EXT
-pages at probe, on resume and on every refresh.
-
-Could the commit message mention this? Could the registers get names or a
-reference?
-
-The order in the message is also the reverse of what
-sit9531x_intsync_enable() does, which sets the global enable first and
-writes the pattern second.
-
-The message also describes "an output pin on the source PLL". However,
-sit9531x_dpll_pin_is_registrable() now registers the SYNCOUT pin on every
-DPLL:
-
-	if (index == SIT9531X_INTSYNC_OUT_PIN_ID)
-		return true;
-
-sit9531x_drive_pins_ntf() also notes "The source pin is one pin registered
-on every DPLL".
-
-Could the description match the pin model that userspace sees?
-
-[ ... ]
-
-> +int sit9531x_intsync_readback(struct sit9531x_dev *sitdev)
-> +{
-> +	bool partial = sitdev->intsync_partial;
-> +	s8 src = sitdev->intsync_src;
-> +	int rc;
-> +
-> +	rc = sit9531x_intsync_src_detect(sitdev);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (partial && (sitdev->intsync_src < 0 ||
-> +			(sitdev->intsync_src == src &&
-> +			 !sitdev->intsync_partial))) {
-> +		sitdev->intsync_src = src;
-> +		sitdev->intsync_partial = true;
-> +		sitdev->intsync_foreign = false;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does this sticky partial record make sense on the resume path?
-
-The comment in sit9531x_resume() says "A part that lost power returns
-with its profile's INTSYNC routing". It then calls
-sit9531x_intsync_readback(), not a fresh sit9531x_intsync_src_detect().
-
-If a partial record existed before suspend, the new scan result is
-overridden in two cases: the scan finds no source, or it finds the same
-PLL fully enabled. In both cases intsync_foreign is also forced to false.
-
-The kernel-doc reason, "a page reads the same latched or not", only holds
-while the driver's own unlatched writes may still be in the page. After a
-power loss and profile reload, the page holds the profile's real latched
-values.
-
-Some possible results:
-
-- The profile fully enables INTSYNC from the recorded PLL, but that PLL's
-  SYNCOUT pin reports DPLL_PIN_STATE_DISCONNECTED while the line is
-  driven.
-
-- The profile has no INTSYNC, but other PLLs still get "INTSYNC is already
-  sourced by another PLL". The recorded PLL's destination also cannot be
-  made selectable.
-
-- The profile sets the global enable with no recognized page. Detect sets
-  intsync_foreign = true and readback clears it. A later CONNECTED on the
-  recorded PLL then passes every check, and sit9531x_intsync_enable()
-  drives the line alongside the unrecognized configuration.
-
-Would a plain detect be a better fit for resume?
-
-[ ... ]
-
-> +int sit9531x_intsync_enable(struct sit9531x_dev *sitdev, u8 src_pll_idx,
-> +			    bool *rollback_failed, bool *touched)
-> +{
-
-[ ... ]
-
-> +	rc = sit9531x_read_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL, &val);
-> +	if (rc)
-> +		return rc;
-> +	if (touched)
-> +		*touched = true;
-> +	rc = sit9531x_write_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL,
-> +			       val | BIT(SIT9531X_INTSYNC_EN_BIT));
-> +	if (rc)
-> +		goto err_disable;
-> +
-> +	rc = sit9531x_write_u8(sitdev, SIT9531X_REG_GLOBAL_UPDATE,
-> +			       SIT9531X_SMALL_UPDATE_CMD);
-> +	usleep_range(1000, 2000);
-> +	if (rc)
-> +		goto relock_err;
-> +
-> +	rc = sit9531x_write_u8(sitdev,
-> +			       SIT9531X_REG(ext_page,
-> +					    SIT9531X_PLL_REG_DEBUG),
-> +			       SIT9531X_PLL_DEBUG_UNLOCK);
-> +	if (rc)
-> +		goto relock_err;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(intsync_config); i++) {
-> +		rc = sit9531x_write_u8(sitdev,
-> +				       SIT9531X_REG(ext_page,
-> +						    intsync_config[i].offset),
-> +				       intsync_config[i].en_val);
-> +		if (rc)
-> +			goto relock_err;
-> +	}
-> +
-> +	rc = sit9531x_pll_small_update(sitdev, src_pll_idx);
-> +	if (rc)
-> +		goto relock_err;
-
-[Severity: Medium]
-Should the EXT page pattern be written and latched before the global
-enable is set?
-
-Here the global enable is set and applied with the page-0 small update
-first. The restore path in __sit9531x_intsync_disable() notes "The page-0
-small update applies the global enable". Only after that is the EXT page
-unlocked, written, and latched with sit9531x_pll_small_update().
-
-So for several milliseconds of I2C traffic the gate is live while no EXT
-page holds a latched source configuration. sit9531x_intsync_src_detect()
-treats exactly this state (global enable set, no page pattern) as foreign
-and refuses connects in it.
-
-Destination PLLs that list INTSYNC could select or lock to the line during
-that window. If a pattern write fails, the line was also live with no
-configured source until the rollback. The disable path already uses the
-safe order: gate first, then page.
-
-Unless the hardware requires the gate first, would it be safer to latch
-the page before applying the global enable? What the part does with the
-gate set and no latched pattern isn't documented in the tree.
-
-> +
-> +	rc = 0;
-> +	goto relock;
-> +
-> +relock_err:
-> +	sit9531x_intsync_debug_lock(sitdev, ext_page);
-> +	goto err_disable;
-> +
-> +relock:
-> +	lock_rc = sit9531x_intsync_debug_lock(sitdev, ext_page);
-> +	if (lock_rc)
-> +		dev_warn(sitdev->dev,
-> +			 "PLL%c: INTSYNC enabled but the debug window was left open: %d\n",
-> +			 'A' + src_pll_idx, lock_rc);
-> +
-> +	return rc;
-
-[Severity: Low]
-Can the EXT page debug window be left unlocked with nothing retrying the
-close?
-
-If sit9531x_intsync_debug_lock() still fails after the SIT9531X_CLOSE_TRIES
-retries in sit9531x_write_close(), this path only warns and still returns
-0. The relock label in __sit9531x_intsync_disable() does the same.
-
-The caller, sit9531x_dpll_intsync_src_state_on_dpll_set(), runs
-sit9531x_intsync_src_detect() afterwards, which acts as one more close
-attempt. If that detect also fails, intsync_stale is only set when there
-is a conflict:
-
-	} else if (changed && detect_rc && sitdev->intsync_conflict) {
-		sitdev->intsync_stale = true;
-	}
-
-So after a successful enable or disable, the poll never tries the close
-again.
-
-The main PLL page already has this covered by chan->key_pending and
-sit9531x_tap_back_retry(). That path writes sit9531x_pll_page(pll_idx),
-though, not the EXT page.
-
-Should the EXT page lock be tracked the same way?
-
-[ ... ]
-
-> +static int __sit9531x_intsync_disable(struct sit9531x_dev *sitdev,
-> +				      u8 src_pll_idx, bool restore,
-> +				      bool *owner_kept, bool *touched)
-> +{
-
-[ ... ]
-
-> +	for (i = 0; i < ARRAY_SIZE(intsync_config); i++) {
-> +		rc = sit9531x_write_u8(sitdev,
-> +				       SIT9531X_REG(ext_page,
-> +						    intsync_config[i].offset),
-> +				       intsync_config[i].dis_val);
-> +		if (rc)
-> +			goto restore_global;
-> +	}
-> +
-> +	rc = sit9531x_pll_small_update(sitdev, src_pll_idx);
-> +	if (rc && owner_kept)
-> +		*owner_kept = true;
-> +
-> +	goto relock;
-> +
-> +restore_global:
-> +	/*
-> +	 * Restore the global enable, or finish the disable if the page holds
-> +	 * the disable pattern.
-> +	 */
-> +	if (restore && in_window) {
-> +		bool off;
-> +
-> +		if (sit9531x_intsync_page_off(sitdev, ext_page, &off)) {
-> +			if (owner_kept)
-> +				*owner_kept = true;
-> +		} else if (off) {
-> +			rc = sit9531x_pll_small_update(sitdev, src_pll_idx);
-> +			if (rc && owner_kept)
-> +				*owner_kept = true;
-> +			goto relock;
-> +		}
-> +	}
-> +
-> +	if (restore && was_enabled) {
-> +		int ret;
-> +
-> +		ret = sit9531x_read_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL,
-> +				       &val);
-> +		if (!ret)
-> +			ret = sit9531x_write_u8(sitdev,
-> +						SIT9531X_REG_INTSYNC_GLOBAL,
-> +						val |
-> +						BIT(SIT9531X_INTSYNC_EN_BIT));
-> +		if (!ret) {
-> +			/* The page-0 small update applies the global enable */
-> +			ret = sit9531x_write_close(sitdev,
-> +						   SIT9531X_REG_GLOBAL_UPDATE,
-> +						   SIT9531X_SMALL_UPDATE_CMD);
-> +			usleep_range(1000, 2000);
-> +		}
-
-[Severity: Medium]
-What state is the line in after this rollback?
-
-Suppose one of the dis_val writes fails partway. in_window is then true,
-and the page holds some disable values followed by the remaining enable
-values. sit9531x_pll_small_update() has not latched them.
-
-sit9531x_intsync_page_off() reports that the page is not off, so the code
-falls through. It then sets and applies the global enable again over that
-mixed page.
-
-Next, the caller runs sit9531x_intsync_src_detect(). It sees a page with
-both patterns and records intsync_src = pll with intsync_partial = true.
-After that, sit9531x_dpll_intsync_src_connected() reports disconnected and
-sit9531x_intsync_driven() treats the line as not driven.
-
-There are two possibilities:
-
-- If only the PLL small update latches EXT page writes, the line is still
-  driven from the original latched pattern under the restored gate, while
-  the driver reports it as not driven.
-
-- If the page-0 update latches them too, the gate is on over a
-  half-written configuration.
-
-Would it be more consistent to rewrite the full enable pattern before
-restoring the gate, or to leave the gate off?
-
-[ ... ]
-
-> @@ -4420,12 +5000,128 @@ static int sit9531x_suspend(struct device *dev)
->  static int sit9531x_resume(struct device *dev)
->  {
-
-[ ... ]
-
-> +	/*
-> +	 * Drop and report writes pending from before suspend: a reloaded
-> +	 * profile may have replaced their registers.
-> +	 */
-> +	for (i = 0; i < SIT9531X_NUM_PLLS; i++) {
-> +		struct sit9531x_chan *chan = &sitdev->chan[i];
-> +		bool retime = false;
-> +		u8 j, ho;
-> +
-> +		/*
-> +		 * A table write-back is pending only under forced holdover;
-> +		 * once that is cleared, the next poll reads the table from the
-> +		 * registers.
-> +		 */
-> +		if ((chan->table_pending || chan->ho_release_pending) &&
-> +		    !sit9531x_read_pll_u8(sitdev, i, SIT9531X_PLL_REG_HO_CTRL,
-> +					  &ho) &&
-> +		    !(ho & BIT(SIT9531X_PLL_HO_FORCE_BIT))) {
-> +			dev_warn(sitdev->dev,
-> +				 "PLL%c: forced holdover cleared over suspend, priority table restore dropped\n",
-> +				 'A' + i);
-> +			chan->table_pending = false;
-> +			chan->ho_release_pending = false;
-> +		}
-> +
-> +		for (j = 0; j < sitdev->info->num_outputs; j++) {
-> +			if (!sitdev->out[j].retime_pending ||
-> +			    sitdev->out[j].pll_idx != i)
-> +				continue;
-> +			sitdev->out[j].retime_pending = false;
-> +			retime = true;
-> +		}
-> +		if (!retime && !chan->flush_pending &&
-> +		    !(sitdev->flush_arm_pending & BIT(i)))
-> +			continue;
-> +		dev_warn(sitdev->dev,
-> +			 "PLL%c: pending before suspend, dropped:%s%s%s\n",
-> +			 'A' + i, retime ? " delay re-time" : "",
-> +			 chan->flush_pending ? " output realignment" : "",
-> +			 (sitdev->flush_arm_pending & BIT(i)) ?
-> +			 " on-demand flush enable" : "");
-> +		chan->flush_pending = false;
-> +		sitdev->flush_arm_pending &= ~BIT(i);
-> +	}
-> +	if (sitdev->flush_ctrl_pending) {
-> +		dev_warn(sitdev->dev,
-> +			 "flush trigger source select pending before suspend, dropped\n");
-> +		sitdev->flush_ctrl_pending = false;
-> +	}
-
-[Severity: Medium]
-Is it intended to drop these pending writes on every resume?
-
-Nothing here checks that the part actually lost power. sit9531x_suspend()
-only stops the IRQ and the poll:
-
-	if (sitdev->irq > 0)
-		disable_irq(sitdev->irq);
-	kthread_cancel_delayed_work_sync(&sitdev->work);
-
-The DT binding patch also says boards so far keep the part powered. In the
-usual case, then, the registers survive suspend.
-
-Before this patch, the poll retried these writes after resume through
-sit9531x_retime_retry(), sit9531x_flush_retry() and
-sit9531x_phase_flush_undo_retry(). The last of these writes the original
-GPIO_FUNC_CTRL1 trigger select and the per-PLL PHFL enables back, and it
-does nothing once the flags are clear:
-
-	if (!sitdev->flush_ctrl_pending && !sitdev->flush_arm_pending)
-		return 0;
-
-With the flags cleared here, a pending delay re-time or realignment is
-abandoned. So is the undo of a phase-flush trigger or enable change.
-GPIO_FUNC_CTRL1 and PHFL_CTRL can then stay at the driver's temporary
-values, and nothing retries them.
-
-The commit message only says "Resume re-reads the line owner, the output
-mutes and the output delays".
-
-This pending-write policy is unrelated to INTSYNC. Could it go in a
-separate patch with its own rationale?
-
-[ ... ]
-
-> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> index ba4ac5e7d365d..1bd2b962cdabe 100644
-> --- a/drivers/dpll/sit9531x/dpll.c
-> +++ b/drivers/dpll/sit9531x/dpll.c
-
-[ ... ]
-
-> @@ -177,16 +191,18 @@ const struct dpll_device_ops sit9531x_dpll_device_ops = {
->  };
->  
->  /*
-
-[ ... ]
-
-> + * selection naming the lost one. On manual input select, the routed input is
-> + * CONNECTED. The INTSYNC destination has signal while the driver's record shows
-> + * a PLL driving the line. An output or the INTSYNC source is CONNECTED while
-> + * driven and DISCONNECTED otherwise; SELECTABLE is refused. The XO pin is
-> + * always CONNECTED.
->   */
-
-[Severity: Low]
-This isn't a bug, but this sentence doesn't match sit9531x_intsync_driven().
-That function also returns true when no complete source is recorded but a
-PLL is locked to the line:
-
-	if (chan->routed_ref == SIT9531X_INTSYNC_PIN_ID &&
-	    chan->locked && !chan->ho_freeze &&
-	    !chan->stale && !chan->intsync_dropped)
-		return true;
-
-So in the foreign or stale cases, the destination reports signal rather
-than DPLL_PIN_OPERSTATE_NO_SIGNAL.
-
-The comment on sit9531x_dpll_selection_no_signal() ("a PLL driving or
-locked to the line") does match the code. Could the contract block say
-the same?
-
-[ ... ]
-
-> @@ -662,6 +689,325 @@ sit9531x_dpll_output_pin_direction_get(const struct dpll_pin *pin,
-
-[ ... ]
-
-> +static int
-> +sit9531x_dpll_intsync_src_state_on_dpll_set(const struct dpll_pin *pin,
-
-[ ... ]
-
-> +	switch (state) {
-> +	case DPLL_PIN_STATE_CONNECTED:
-> +		if (was_connected)
-> +			break;
-> +		if (sitdev->intsync_src >= 0 &&
-> +		    sitdev->intsync_src != sitdpll->id) {
-> +			NL_SET_ERR_MSG(extack,
-> +				       "INTSYNC is already sourced by another PLL");
-> +			rc = -EBUSY;
-> +			break;
-> +		}
-
-[Severity: Medium]
-Can a partial record cause refusals that userspace has no way to see?
-
-sit9531x_intsync_src_detect() records intsync_src = pll with
-intsync_partial = true when it finds a page with both patterns, or the
-whole pattern under a clear global enable. The error handling later in
-this function also sets intsync_partial = true after an I2C failure in
-enable or disable.
-
-With that record:
-
-- sit9531x_dpll_intsync_src_connected() returns false, so every SYNCOUT pin
-  reports DPLL_PIN_STATE_DISCONNECTED.
-
-- CONNECTED on any other PLL's SYNCOUT still fails here with -EBUSY.
-
-- sit9531x_dpll_intsync_dst_state_on_dpll_get() and the existing
-  sit9531x_dpll_pin_snapshot() force the recorded PLL's INTSYNC
-  destination to disconnected. This happens even when its priority table
-  lists INTSYNC and prio_get reports a slot:
-
-	if (sitdev->intsync_src == sitdpll->id)
-		*state = DPLL_PIN_STATE_DISCONNECTED;
-
-- sit9531x_dpll_intsync_dst_state_on_dpll_set() refuses SELECTABLE on that
-  destination with "PLL cannot lock to the INTSYNC it drives", although
-  its source pin says it is not driving.
-
-The only way out is a disconnect request on a SYNCOUT pin that already
-reads disconnected. Nothing tells userspace to send it.
-
-The foreign case (global enable set, no page with the pattern,
-intsync_src == -1) seems to have no way out at all. A disconnect request
-does nothing:
-
-	case DPLL_PIN_STATE_DISCONNECTED:
-		if (sitdev->intsync_src != sitdpll->id)
-			break;
-
-A connect request is refused, and nothing clears the global enable. The
-source function then stays unusable until a profile reload or reboot.
-
-The commit message only mentions refusals for an unrecognized enable and
-for two pages. Should the partial state be reported consistently, or
-exposed some other way?
-
-[ ... ]
-
-> +		hw_src = sit9531x_input_hw_src(SIT9531X_INTSYNC_PIN_ID);
-> +		if (sit9531x_input_prio_present(sitdev, sitdpll->id, hw_src)) {
-> +			NL_SET_ERR_MSG(extack,
-> +				       "PLL selects INTSYNC as a reference; it cannot drive it");
-> +			rc = -EBUSY;
-> +			break;
-> +		}
-> +		rc = sit9531x_intsync_enable(sitdev, sitdpll->id, &owner_kept,
-> +					     &changed);
-
-[Severity: Medium]
-Does this guard cover a PLL in manual input mode?
-
-sit9531x_input_prio_present() only tests chan->prio_mask, and a manual
-input PLL ignores its priority table.
-
-sit9531x_chan_select_fetch() can set manual_ref to SIT9531X_INTSYNC_PIN_ID
-when the select register holds the SIT9531X_PRIO_SRC_INTSYNC code:
-
-	if (sel & SIT9531X_MAN_IN_SEL_FROM_REG) {
-		sel = FIELD_GET(SIT9531X_MAN_IN_SEL_MASK, sel);
-		chan->manual_ref =
-			sit9531x_hw_src_input(sit9531x_prio_src_canon(sitdev,
-								      sel));
-
-With pin-based select, sit9531x_chan_state_fetch() can also report
-routed_ref == SIT9531X_INTSYNC_PIN_ID. In neither case does INTSYNC have
-to appear in prio_mask.
-
-sit9531x_dpll_pin_ops_get() gives a manual PLL's SYNCOUT pin the same
-sit9531x_dpll_intsync_src_pin_ops. So with no recorded source, no conflict
-and no foreign enable, a connect request passes every check.
-sit9531x_intsync_enable() then makes that PLL the line source while it is
-using the line as its reference.
-
-Automatic mode has the same gap while chan->table_pending is set. In that
-case prio_mask is built from table_back, and routed_ref can still be
-INTSYNC.
-
-Should this also check chan->routed_ref and chan->manual_ref against
-SIT9531X_INTSYNC_PIN_ID?
-
-[ ... ]
