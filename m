@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794892880;
-	b=2RNZtXD7GOdgsFBCT1KRrH6WvHQx4Y3BRwcTHWwfXIq5gdRw3yHOnHTDQwyXRZwa1DQm
-	 CUuYo2uVAea+TxeJesQqW5C4Pxq1fuUPZ8mNP6LdFYNwuMN0D/CMApHASQ/1SCwardkBp
-	 vBmXfGC85//RvHoEDzz+x0uzY2/F0/p6H2CTlRv/CYNVLk9GcknjS0QOspehDCVfb+VBs
-	 qq/okEGenWHVpsOnXszKWYE33y339nxr2lw/5oE6KCgsInqBwOYeok2izCo+DdafMRVHb
-	 qHhSzUUAiLJ6NTzZMc0apJ9ax8YYQ+KCuPuMHm46PWZSAJZntGMV4/Q1tvBHsItdJVA==
+	t=1794892882;
+	b=JE8rf7Rlo2lqKhVwZZGfXGfwhFZmgfacylxBKWZMGOjbdcioAMCuwJWgFFF4+HiRLOlt
+	 F0gawKgFL+LxC6WdtYRKwOpx8NzsVVS1PCHF6YVCS2pxm+Z37zVJVl6dRjzmutAZCx4Qp
+	 YFBw8Ee/nmfP3y9bv50V/unh8j7l5YD2BtHbDiWx8Lw76LzvkAZUSO5i9T5+YyyDUAIPp
+	 ZaxlDh3RyOmKYoYUFB9jEbS4wwSgAL7mB+MxWaUVjd2B0+wFuHpYSQajo1JTnB/pdd6XB
+	 Ull1m30Nq4gOKDV6rDHY9IQDeFVPoiRi5wX3m8/DOGCbNTrhdp2bq2hvtf4+qJPh7jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794892880;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=eDQV/rDNj7Yb8pf/Zy9GR3KONoTlwlayGsHiXALYAJ0=;
-	b=EzSAOr9nsyphdAGolriFxPZ+hlI1/JfYs0OtZCvc6ontv23plEaQnklBwWltv0PfHMiH
-	 JScv6K65tC9MUoc/XYKP7vLK44F/ekXVUcx+nQgfLruMhTduJodx0pvp/TfWNznpaZSsL
-	 5ED7Zfd0w77H28e5FOg32xZUT8QzTqPSlE+K9Nupz2hzJLEI9J9JrbmKZyBLXMQk2dwKX
-	 +m19izro08hueRbyvc2aBLzYWJNsLVU8VB6HSj9s//7Jwwxk6Go6Q5RdqTXFTxYD9zggO
-	 zFsV6cOwFYRU/GkSve1nw9YH1Pg+BcldmR1pCRZVwhqG5pgk8239rw8/029rPSQq2NA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794892882;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=quGem6Fj9Tf2qpbAHbxVpLYypIRX0+rgeI8mDoA8ccI=;
+	b=Nao1fLs5LD/Lm9riiuPqJfdBq88dgjbJond1PDZ7zGVRY51NZ6VPLMV5J3UUXKlNbfo2
+	 9rgd8VGPIVMuMl3JBO8+rTMwOpsO5vM7WZveQVTZJIdz7HrubSb6KmnTrw3QMDwEX9jV5
+	 lKhpGUhJHapLAaCgHGs8t9REfRZObVerX1zkDZ4O8OD+xXO5bxbnhpcSUJ2CKTPMZPPwq
+	 Xvlq3xaHWSV1M2ajMlNKovHddUZ010JR7oULUSgLmBa0MAawoGFzzuncFrvt365DJJi4m
+	 9RyLdtyyh/ji8SLk2ct1XZ8kN7S5ExmmQ/E2Cy/OrJpNPyW3oMM1ENwMEtdY2wL/XCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=fd5iuUHs;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D9CBA606A330;
-	Tue, 17 Nov 2026 05:21:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9CBA606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=f0LHkNmt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E997606A882;
+	Tue, 17 Nov 2026 05:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=fd5iuUHs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=eDQV/rDNj7Yb8pf/Zy9GR3KONoTlwlayGs
-	HiXALYAJ0=; b=fd5iuUHsYEj8VMvyQfBMknot1uC/s8CyKhqqGdt+GZ2c5RiPz+
-	MDz1QLgrYGNloFPgnVs5l97qFmapIjRAZPaqJHnfqk3LBdBRFoorZD/fZdIGrF2r
-	qvTEJ+DZGLDvkIEg9KoivD1fGPJA2yhb+NlFeQmLz9jBGdVllkJACi/XY=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.190.181])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBHxTlI5Ptqc0LLAA--.214S3;
-	Tue, 17 Nov 2026 13:21:13 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=f0LHkNmt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74C521F000CB;
+	Tue, 17 Nov 2026 05:21:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794892882;
+	bh=quGem6Fj9Tf2qpbAHbxVpLYypIRX0+rgeI8mDoA8ccI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=f0LHkNmtBguwNmbiAfcAI4hXEHw0nVGVyUMeeEo0b2DqqeWNq+/llK+FJPymweb+R
+	 nz2fQm+UsZk7u6dO8ONMl0SNITeNZr2lLCdDAwBOA6YQYZXgsbfCyG2jiyCgE3/u2F
+	 CpkiKd0QfD7hxZLy7goxN/Z3XNgoxe90GgvA5OA8=
+Date: Tue, 17 Nov 2026 06:21:11 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Elson Serrao <elson.serrao@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: [PATCH v2 1/6] Input: aw86927 - fix the 7 V boost reference for AW86938
-Date: Tue, 17 Nov 2026 13:21:07 +0800
-Message-ID: <20261117052112.32527-2-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117052112.32527-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261117052112.32527-1-xiaqinghuan@mail.ustc.edu.cn>
+	Rob Herring <robh@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 0/8] Improve Qualcomm EUD driver and platform support
+Message-ID: <2026111740-florist-conflict-eb96@gregkh>
+References: <20260929213513.2401005-1-elson.serrao@oss.qualcomm.com>
+ <57c5aa78-a116-45d4-ab32-772cd970e6f6@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,54 +59,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBHxTlI5Ptqc0LLAA--.214S3
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jr15Zr1DGrW3ur1ftF1fZwb_yoWkWrb_C3
-	4rZwn3Z340kF1kKw4DtwsIvrZIqrn5Wa43Z3Zavr15KFyIyFsrJa18Xr4UXwn7ArWDAa1j
-	kr4UAasa9a4FgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbDAYjsxI4VW3JwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7
-	IE14v26r18M28IrcIa0xkI8VCY1x0267AKxVWUCVW8JwA2ocxC64kIII0Yj41l84x0c7CE
-	w4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6x
-	kF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY
-	1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4
-	xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCa
-	FVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxkIecxEwV
-	AFwVW8WwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
-	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIx
-	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
-	wI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
-	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jwEfOU
-	UUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2r7WdojVwAQsv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <57c5aa78-a116-45d4-ab32-772cd970e6f6@oss.qualcomm.com>
 
-AW86938_PLAYCFG1_BST_7000MV names 7 V, but the register encodes the boost
-voltage as ((mV - 6000) / 2 * 0x8313) >> 22 + 5, so the value used since
-AW86938 support was added, 0x11, selects 9 V.  Program 0x09 for 7 V, the
-value the vendor driver uses for these actuators.
+On Mon, Nov 16, 2026 at 04:06:52PM -0800, Elson Serrao wrote:
+> Hi Greg,
+> 
+> When you get a chance, could you please pick up patches 1-7 for the USB tree if everything looks good on your end? 
 
-Found while adding the AW86937 variant, which shares the register layout
-and the same wrong value.
+We do not just pick parts of patch series, our tools don't like that :(
 
-Fixes: df53055c540f ("Input: aw86927 - add support for Awinic AW86938")
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- drivers/input/misc/aw86927.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+And why top-post?
 
-diff --git a/drivers/input/misc/aw86927.c b/drivers/input/misc/aw86927.c
-index 1f73f06..813f359 100644
---- a/drivers/input/misc/aw86927.c
-+++ b/drivers/input/misc/aw86927.c
-@@ -48,7 +48,7 @@
- #define AW86938_PLAYCFG1_BST_MODE_MASK		GENMASK(5, 5)
- #define AW86938_PLAYCFG1_BST_MODE_BYPASS	0
- #define AW86938_PLAYCFG1_BST_VOUT_VREFSET_MASK	GENMASK(4, 0)
--#define AW86938_PLAYCFG1_BST_7000MV		0x11
-+#define AW86938_PLAYCFG1_BST_7000MV		0x09
- 
- #define AW86927_PLAYCFG2_REG			0x07
- 
--- 
-2.53.0
+thanks,
 
+greg k-h
