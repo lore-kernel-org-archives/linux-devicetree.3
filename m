@@ -1,55 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794874266;
-	b=uBk23DOMY2+lK4GR0sakVsC+t5PGAROvsQBdSguCSUMMlaYS5hhwffDfpKaOWYxLzI6v
-	 K9FObWAd5Pth7bNiXPI9M2e51uiH6+dJZ5MND1zHpO3Us3PJNUecckNQbLynNXL4aHMSk
-	 5JdaQIKjEldqpO9UiqAKb+yV4o/QqhD16N4uRvHWrmfImZiVSc+viNIYLppxPdqJ2ot7Q
-	 Iah0eb09mQkh09GNYpc9i/A0ndUSMRxFnTthQtRtEQAbPVDAk2eCYKHQnkmoVcguo2O1v
-	 NzyOwC0YRBMkJwlgdRtz4b/kmBvJLDD7vh8FZunCEtfzGOLHy2lNCwaZcdeBp0vOEaQ==
+	t=1794875429;
+	b=yRMxRik1cCgfcHyRUaymT8QyQJf2HY419k9OlhY6LGO/3IfCQ9HPWZHjgpNjEb1Qh+Ho
+	 h0XRuaTHuqD7yJKEw5zBcDIAfTyauhFenDy4bAiLCWSfEzi2fY1oL0orUFg1O1oWiiK+g
+	 U/b0MmQk5gS1QAsCIV8LjVtX3naYZU+uFB//ADwCiSwKBgekoG4CXsbtTZvC91IVmbIYm
+	 1xxd/YDCb6qIEqTAK9z26/OFhXP2OnbT3MwFN3+gNnVlUsxnk2BiZ3he6DpLpGh1RcYmJ
+	 JJMXSPd0T0neNfJ7TKrU/3p3UKZDf/BvV84t3FQ0GRVuaGGFa2kUdAAVAoZRulR3Yaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794874266;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=YjKQ2PdbHkjHFZ+hN04dl+fGzrnZtXKbmZaR+wm1jOg=;
-	b=vTDa545oYa4ZWuPT4RISBr4Z+zsIBpIQw75tJxTLFRhIrELL6eiPVIFqI1D9U0bDMvEK
-	 4XV9PwfV7AshWBmxGOCQVd+nu7LCEG3owml1Gvwis2GPk4710zasL9HpA4dyZveMfJUds
-	 /NeDf0TYYLBl7PSW1rdP0nMRi0gGYjkfDyWqGZZAU2nE46VpaJ9edWoWtX5UPgc2MJ2Dy
-	 YYzqT5TVApnLe0dQ7IImqu1DPZkKrTmjl6gpr1p8hhdg8XiRzgz4XSx9ZUBfjSJ8Je23H
-	 23uw3lrpSJzqUdLcl3Kkmh7Fehq/8IBawPof64kkIF/8iwAxN/gNjPke1PPzUJjWYlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794875429;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=U2B/uabe/QmuXvbvHoYk8ZWVeldXL8jP6hg7gbVv3cw=;
+	b=zwJnUREsamVwSdhONsvX3l79e1JkxTM1poLHzAC1rHaWxm2aQIvpLX/UX8sdVz5QE4q9
+	 7EBsOjvgS/PN/pyb+0VF4COqkuj0YKXDuP8NHX9xT9a4Ek1QlCV359hR2a+YL+k+OpS06
+	 xYQk5qlVQXoNzVa2VlEnIFC/et5MQ5Fv3F8Ax+etWlPpcAwB28cX+eyxQ3QKJimtrYBiI
+	 qca0Qr7xAeEI6ry7VML6CfY7alzHPBfW2FzM+yx5s2J3UgkhHzkQg0yYXpAiInsIQ31h6
+	 YNyDjua3+pnlYcJQ02A3d+lcuCA7DxjbGYn1N1g037VgIy+Dvwurx9Mz+yMKZVol7UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZGxqJln;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GaOC5+JJ;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01870606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 00:11:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53111606A323;
+	Tue, 17 Nov 2026 00:30:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53111606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZGxqJln
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEDF51F000C4
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 00:11:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794874265;
-	bh=YjKQ2PdbHkjHFZ+hN04dl+fGzrnZtXKbmZaR+wm1jOg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QZGxqJlnFAM93hsizrM154QuW/4jTifan+hgL0/vdwLtJ7Sa3Kt9qXsYyx0Dn9IcO
-	 KBYlZmf2GmhMlpygHXpgO3oYd433qlxTMOAA4/GDa2TkY6jS5OC+SJFz5xnjtoSoDD
-	 8fKTcIZPrHMnXKlUozahNvcnL/CRVq0OyM6qaSk0EHl+0Rcv2O7gE276rln/sjy82H
-	 8V7krPMh+GTWYREisb8jxAFtqyIWTyUXxn4nFKQs5GkClcVxR/rdfjKT+oON3aHd8M
-	 Y8RSZKVka5gmPed6iQ/XR3zK+9m7fwofxSbCd/gcr12TcdNXWzuEMAi5iE29rSSHZC
-	 O2CdyMDCf+Uvg==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5c14e307f29so4633649e87.1
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 16:11:05 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFXM9j219xHgiibX54vroUJfzQa/wV7oe5PB6qy+Ip3+uLE30hO1LKhkvInzU2iKIKphFs8a83Wk9Vw@vger.kernel.org
-X-Gm-Message-State: APuU4Z+1f8GtmZ4QGaKjQQzqZ3eeVS0SP5P4Sqe1ksS+jpKg24NE4mm9
-	kbyEkNbkKkuGGgnENZonjbFysMUkpcRYyUoqh/gA6snkG22lN743RLxjOAgIk/4EZWw/xJRcf/x
-	Sy3290eqxsghmotwauetpGq2L15uH8Qs=
-X-Received: by 2002:a05:6512:230e:b0:5c1:4f2b:a2ba with SMTP id
- 2adb3069b0e04-5c1709f75b9mr4513682e87.34.1794874264502; Mon, 16 Nov 2026
- 16:11:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GaOC5+JJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794875429; x=1826411429;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8gVBDSdO3QnCkbysAcQxx5Ix2FP39pCUquIV8ycUM/c=;
+  b=GaOC5+JJ+/9sOLtq2q8nU9Et3dEDthkP1JqORLT3X/utq69w2hGx+aY+
+   3so0i7ffyQXQbqXPFFhEecybY6/YtTt8cs6+BSNNu9XAW3kZKnDsdH3wo
+   KOeFL7ieQOMMKSXi0JOzlGb++HbPAXXmXgPwh00u6ePNeeUsil6xsIosC
+   wNX60uygoJhc12rCwHSs5hYKWIsof79Pu65SEzDoheBgCFJHT/reSXZLu
+   HtVJp/IIab0G0frzfxjs61vsRBEKxKD+nh2DKijjXShII4E6r1QN8Rnae
+   uOdmNciWduGgMLIkp5vyCYoAIFP0oUGU1RmQfLxFCgrZtF0wGAP1eKdA4
+   Q==;
+X-CSE-ConnectionGUID: LhY3yEzRQoW4VfwCzXmv/w==
+X-CSE-MsgGUID: 8htIENRYQX2bVzeYKKz2Fw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3648152"
+X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
+   d="scan'208";a="3648152"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 16:30:28 -0800
+X-CSE-ConnectionGUID: VAgfbtYiRm+5yRsw4auy4A==
+X-CSE-MsgGUID: fNNJQyq1Ri65VGTx7OzBtg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
+   d="scan'208";a="9479561"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa008.jf.intel.com with ESMTP; 16 Nov 2026 16:30:23 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xT75X-000000019f5-0w2K;
+	Tue, 17 Nov 2026 00:30:19 +0000
+Date: Tue, 17 Nov 2026 08:30:15 +0800
+From: kernel test robot <lkp@intel.com>
+To: Caleb James DeLisle <cjd@cjdns.fr>, netdev@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, andrew@lunn.ch,
+	olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
+	daniel@makrotopia.org, linux@armlinux.org.uk, arinc.unal@arinc9.com,
+	Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, naseefkm@gmail.com,
+	b.larsson@gmx.com, Caleb James DeLisle <cjd@cjdns.fr>
+Subject: Re: [net-next v5 3/7] net: dsa: mediatek: add support for
+ passthrough mode
+Message-ID: <202611170845.l4X9RRsI-lkp@intel.com>
+References: <20261116183332.168858-4-cjd@cjdns.fr>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,34 +92,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117-xg6846b-bcmbca-xrdp-reset-v5-0-f584e8b8e696@kernel.org>
- <20261117-xg6846b-bcmbca-xrdp-reset-v5-1-f584e8b8e696@kernel.org> <sashiko-outbox-217953@kernel.org>
-In-Reply-To: <sashiko-outbox-217953@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 17 Nov 2026 01:10:52 +0100
-X-Gmail-Original-Message-ID: <CAD++jLnNALhUhekMvUxes-+Wmq+g01Tck9NNvViy+ofFSL+N4A@mail.gmail.com>
-X-Gm-Features: Aa3M54rQwu5Yk_Bv4F8GS-3F1wpvPataOkYjkIAgSEJnOZCG3CWzAbrtg66X8GU
-Message-ID: <CAD++jLnNALhUhekMvUxes-+Wmq+g01Tck9NNvViy+ofFSL+N4A@mail.gmail.com>
-Subject: Re: [PATCH v5 1/6] dt-bindings: mfd: Describe the BCM6846 PMC complex
-To: sashiko-reviews@lists.linux.dev
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
-	lee@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116183332.168858-4-cjd@cjdns.fr>
 
-On Tue, Nov 17, 2026 at 12:57=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
->
-> [Severity: Medium]
-> As reported by Philipp Zabel on RFC [1], why are power-controller,
-> clock-controller, reset-controller, and hwmon modeled as separate
-> address-less child nodes rather than putting the provider cell properties
-> directly on the brcm,bcm6846-pmb node?
+Hi Caleb,
 
-Parroting Sashiko.
+kernel test robot noticed the following build warnings:
 
-This question has already been answered in earlier iterations of
-the patch.
+[auto build test WARNING on 7ccc5e05043b1bb84326b19a2b05938d8f7a2ae6]
 
-Yours,
-Linus Walleij
+url:    https://github.com/intel-lab-lkp/linux/commits/Caleb-James-DeLisle/net-dsa-mt7530-get-ctrl-phy-addr-using-a-function/20261116-183326
+base:   7ccc5e05043b1bb84326b19a2b05938d8f7a2ae6
+patch link:    https://lore.kernel.org/r/20261116183332.168858-4-cjd%40cjdns.fr
+patch subject: [net-next v5 3/7] net: dsa: mediatek: add support for passthrough mode
+config: arm-randconfig-1003-20261117 (https://download.01.org/0day-ci/archive/20261117/202611170845.l4X9RRsI-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261117/202611170845.l4X9RRsI-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611170845.l4X9RRsI-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> Warning: drivers/net/dsa/mt7530.c:1410 function parameter 'dp' not described in 'mt753x_upstream_port_index'
+>> Warning: drivers/net/dsa/mt7530.c:1410 function parameter 'dp' not described in 'mt753x_upstream_port_index'
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
