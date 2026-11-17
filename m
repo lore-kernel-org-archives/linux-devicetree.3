@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794945186;
-	b=0XfxTgjaPTmyjX9nAaH6i2FsrWqokwIEisTnP+DaxCV9LADau6yb+im/nHqVQSnTpSYO
-	 yOj6ygbV3A964vLFSdB/GejNQGOJ4wiHSP8kZcdVWZsqyVpiii+bosvwqhsPy4jOArjhn
-	 JyV/hqU1QawyB9beo42SEoizqD0bXhGmQeirPFf5sqRzJY+tA7UJ6EG+OxrCzcvxGdqyu
-	 oGCt2A7fd3cZF1ScmQ3udnKT16S4ilOqNdjjP8/iJ2JZDL16afOhVC3C3/VJYGhjuN8nT
-	 YniPO2ZBUUfQTiYgFGWFDXWZfOY+WJFY4X/Ml7V1eoXX4rNo9iUmkPEz6m+UijD18jA==
+	t=1794945182;
+	b=gn0jwIbSz7nFHyy64LMneY78h8LEIED9wTjaty0TPBt+oSs+8YkmFNrP8HGj8JVjrG/4
+	 uIELFSUYYxnbnDusIFbvrWCi6LYXT5EXb7jvLoujUgiSyFQuXql7rtRanxC1wR6t1E2AK
+	 jksL3APxv56FClIOyVwpxykNIK1K7mVLZ11kp+V4zRanF74TKbDV4L/F65uhZN3Od9yIZ
+	 mECS6TgQLkvTnVD/YXgIkbpUtFymPOl8egZiifyrNCt3uw27M9feY3HxOKDsG+IATM255
+	 /I5Pxf/9fjy+/mq10sODKkuHCYV4cV0smO4Bhn9vv35LlaVOpY8Z0NPvIOM3nNzUapw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794945186;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794945182;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=uhe4pcuFQQBrgruJxfFIvK3IwTRis9Cusm7BBq0QP3E=;
-	b=CfixcG94Dno+JLAkAk0UmOOjVlfu5T00r9nPS/BQs+Ynt/I4JCLUataOU56ACyXDwbWN
-	 w6OIt28i631DsJsmmXbPZbd4Rk3xmlui3Y6Gvq0mKYjLpykkDFCI8Mm+3Ts84Tt8zTfEh
-	 dbRQ6O7K5wDWU+Gzu0W6MdumeRv06h64/SYf3iOmw36ZbjIRJRk4RvhEfRJ4UZZu2wX/G
-	 78tx0xbWVlHVD0IHHir81agBv9eY8P5+NQakfLEYSKY/anIyad1dd8RP08/kZhZGc48u6
-	 AEMTmpt8U+8sA1Yq4zWVteTcRaE/jS0lDDlUV8NnhOjnWRV6zukrpvr/BiptZP1/H9g==
+	bh=D2bnixEpfTEsibBAUfFMWemVQ+XXhcjNPKR3fGbEq7s=;
+	b=ersJVEv1UozEQLxfvCazqD3l4VSdLc6VF8vAAOS3jEIdpdIYdLYKW6isgst4o8G4U9ne
+	 DsCv6vgTAlKwu8MIC8accOqsM3L2I7ufN0N/1VBHpWqqWOprbvW0ZEaD8JdEG4Q1NkVGi
+	 NxcVu37GfhXga8AHN2oSpyUx3UymclhAfZLvKjxFyMAvLb/Z+OKHRUirzRsA9+cqZv7q7
+	 vFO8/XrJvy7onzSYp1SCBZOiyIQPqNgWVeVYtgVKUrZ/ExjIyjKBRe4V8LQ2vMvCc9OWh
+	 eUopB1HOOAAVyverIsS4UIV64AII2g7J7JTUK6LDl7sqLA3DUV3lvbQNhrsiPHey+iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyJtv9gO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ec0nRP7Y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BD9606A33F;
-	Tue, 17 Nov 2026 19:53:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D3B606A32C;
+	Tue, 17 Nov 2026 19:53:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyJtv9gO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87F691F000D0;
-	Tue, 17 Nov 2026 19:53:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ec0nRP7Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6CC1F000C7;
+	Tue, 17 Nov 2026 19:53:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794945185;
-	bh=uhe4pcuFQQBrgruJxfFIvK3IwTRis9Cusm7BBq0QP3E=;
+	s=k20260515; t=1794945181;
+	bh=D2bnixEpfTEsibBAUfFMWemVQ+XXhcjNPKR3fGbEq7s=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=OyJtv9gOyihBHYWaFzM3POKGEme/NSpQ51NsbjMjecngK56HkQzdZsy2Nj6vr+lRF
-	 S7kG/gdnltYadG9PVfHFFVSRzlQjF5H+Djl7ZZPJtxo1feu8Y2g6wA6OmxWYjT8MLt
-	 XUq9g9+o26wdR8Eqr28Z1VQi19WgovElhzhBxswyOlJqF+vavWMBuetZ7E5xFk8OAJ
-	 ndxvIOw2btQQ/CIWmmGS7uoqXzDORmjB+GAcIq2UtQQXEBBN9rtdPZu+7fXZfcGBX2
-	 CKx4MBsbO+5A7zRO+DQ0ysEE29YLuTY4+UABFKc2agP5VSj0b+FFfPwVmvWKqTOjlm
-	 3x3gbKoCXabNg==
-Subject: Re: [PATCH net-next v11 08/14] net: ethernet: oa_tc6: Drop frames if
- footer has FD bit set
+	b=ec0nRP7Y17xsAqSB+j7af1Co0iQtxNQh8yESb2RMLElFyADqtj82aKIptZDiUsiWz
+	 EYtWld4sU6DWwj2uRtugSJv0oKNZtX8BBcIgZRMKHylNWMXHMhcJBpzQZWT0wtg48V
+	 axPoqhwhNM6jNSijIKRxw2GeXQR8xjRIibqNBt04m6EeMuESxAKefNPJeeEr4Jb67Q
+	 CuQBO+Hiu+bNEM4qi82gVZC/JvD/llvyZQ+ft5KNzEARj8fH+yBbAVwuz04CetinmP
+	 mP3g95gvfehqNsWHG6JF0XJOAHgNWG4uO5PNvHA693PZTggPtfR08tCHbf7I5OiytN
+	 izrvHjItHOhig==
+Subject: Re: [PATCH net-next v11 05/14] net: ethernet: microchip: lan865x:
+ Depends on PTP_1588_CLOCK_OPTIONAL
 From: netdev-bot+sashiko@kernel.org
 To: Selvamani.Rajagopal@onsemi.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
@@ -52,11 +52,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
  edumazet@kernel.org, piergiorgio.beruto@gmail.com, netdev@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-doc@vger.kernel.org, jerry.ray@microchip.com, ciprian.regus@analog.com
-Date: Tue, 17 Nov 2026 19:53:04 +0000
-Message-ID: <179494518411.3136.11012925273881298159@kernel.org>
-In-Reply-To: <20261113-s2500-mac-phy-support-v11-8-7a186141952c@onsemi.com>
-References: <20261113-s2500-mac-phy-support-v11-8-7a186141952c@onsemi.com>
-X-sashiko-severity: Medium
+Date: Tue, 17 Nov 2026 19:53:00 +0000
+Message-ID: <179494518028.3136.14363053489966297162@kernel.org>
+In-Reply-To: <20261113-s2500-mac-phy-support-v11-5-7a186141952c@onsemi.com>
+References: <20261113-s2500-mac-phy-support-v11-5-7a186141952c@onsemi.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -69,119 +69,42 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] In oa_tc6_prcs_rx_chunk_payload()
-  (drivers/net/ethernet/oa_tc6/oa_tc6_main.c), frames the MAC-PHY marks…
-- [Low] This concern is retained only because it requires validation.
+- [Low] Rejected as a false positive.
 
 --
 
-net: ethernet: oa_tc6: Drop frames if footer has FD bit set
+net: ethernet: microchip: lan865x: Depends on PTP_1588_CLOCK_OPTIONAL
 
-This patch adds handling for the Frame Drop (FD) bit in the receive data
-chunk footer in oa_tc6_prcs_rx_chunk_payload(). When the last chunk of a
-frame has FD set, any partially assembled rx_skb is freed and the dropped
-frame's data is skipped. If the same chunk also carries the start of a
-new frame, that new frame is still processed.
+This patch adds a PTP_1588_CLOCK_OPTIONAL dependency to the LAN865X
+Kconfig entry. It prepares for a later patch in the series that makes
+OA_TC6 depend on PTP_1588_CLOCK_OPTIONAL. A select of OA_TC6 does not
+pick up that dependency, so without this change LAN865X=y with
+PTP_1588_CLOCK=m could fail to link on ptp_clock_register().
 
-> diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_main.c b/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
-> index 2b31370da2d2b..5d01ef5a13ad0 100644
-> --- a/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
-> +++ b/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
+> diff --git a/drivers/net/ethernet/microchip/lan865x/Kconfig b/drivers/net/ethernet/microchip/lan865x/Kconfig
+> index 7f2a4e7e1915f..342172cb8837d 100644
+> --- a/drivers/net/ethernet/microchip/lan865x/Kconfig
+> +++ b/drivers/net/ethernet/microchip/lan865x/Kconfig
+> @@ -8,6 +8,7 @@ if NET_VENDOR_MICROCHIP
+>  config LAN865X
+>  	tristate "LAN865x support"
+>  	depends on SPI
+> +	depends on PTP_1588_CLOCK_OPTIONAL
+>  	select OA_TC6
+>  	help
 
-[ ... ]
+I didn't find any regressions in this patch.
 
-> @@ -1159,6 +1160,25 @@ static int oa_tc6_prcs_rx_chunk_payload(struct oa_tc6 *tc6, u8 *data,
->  	if (tc6->wait_until_start_valid)
->  		return 0;
->  
-> +	/* Drop the frame, if footer sets FD bit. Checking FD bit
-> +	 * becomes important, when cut-through operation is enabled.
-> +	 */
-
-[Severity: Low]
-The only scenario the commit message gives for FD being set is RX
-cut-through:
-
-  With RX cut-through enabled, the MAC-PHY can start forwarding a frame
-  before it knows the frame is bad, and uses FD to tell the host to
-  discard it.
-
-At this commit nothing enables cut-through. struct oa_tc6 has no
-cut-through state yet, and nothing writes OA_TC6_CONFIG0_RXCTE.
-
-The later S2500 patch in this series adds ctc_capable,
-oa_tc6_rx_cut_through_enable() and the OA_TC6_CONFIG_RX_CUT_THROUGH
-quirk. That makes this patch groundwork for that change, and the ordering
-looks fine.
-
-Can the existing MAC-PHYs (LAN865x and others) also set FD in their
-default store-and-forward mode? If so, frames marked FD would currently
-reach the stack through oa_tc6_submit_rx_skb()->netif_rx(). Should this
-then carry a Fixes: tag? If not, could the commit message say that
-cut-through is enabled by a later patch in the series?
-
-> +	if (end_valid && frame_drop) {
-> +		oa_tc6_cleanup_ongoing_rx_skb(tc6);
-> +
-> +		/* Full frame in this chunk. Nothing to free. Move on to
-> +		 * next chunk.
-> +		 */
-> +		if (start_valid && start_byte_offset < end_byte_offset) {
-> +			tc6->netdev->stats.rx_dropped++;
-> +			return 0;
-> +		}
-
-[Severity: Medium]
-Should frames with FD set be counted in rx_errors rather than only in
-rx_dropped?
-
-For a frame that fits in one chunk, this block increments only
-rx_dropped. For a frame that spans several chunks, the
-oa_tc6_cleanup_ongoing_rx_skb() call above also increments only
-rx_dropped:
-
-static void oa_tc6_cleanup_ongoing_rx_skb(struct oa_tc6 *tc6)
-{
-	if (tc6->rx_skb) {
-		tc6->netdev->stats.rx_dropped++;
-		kfree_skb(tc6->rx_skb);
-		tc6->rx_skb = NULL;
-	}
-}
-
-The kernel-doc for struct rtnl_link_stats64 in
-include/uapi/linux/if_link.h defines these counters as follows:
-
-  @rx_errors: Total number of bad packets received on this network device.
-  @rx_dropped: Number of packets received but not processed,
-    e.g. due to lack of resources or unsupported protocol.
-
-The commit message describes FD frames as frames the MAC-PHY "knows the
-frame is bad". These are bad frames from the wire, not host-side drops.
-
-With cut-through enabled on S2500 later in the series, would every
-corrupted frame on the segment show up as rx_dropped in ip -s link while
-rx_errors stays at 0?
-
-> +
-> +		/* The chunk carries only the end of the dropped frame. */
-> +		if (!start_valid)
-> +			return 0;
-> +	}
-> +
-
-[ ... ]
+The next patch in the series adds the same dependency to ADIN1140, which
+also selects OA_TC6. That happens before "net: ethernet: oa_tc6: Support
+for hardware timestamp" adds the dependency to OA_TC6 itself, so no
+commit in the series should hit the link failure.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-s2500-mac-phy-support-v11-0-7a186141952c%40onsemi.com
