@@ -1,57 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794940728;
-	b=NGVCx7lHZqTV7c31rxfDYxfVgIG3KrKt/rypET8vy/7S+2Blv5986TUHh7yz6uc5jqvv
-	 llZhV/yHLTue0toaWW8OTa/dFI/MgkNtBrmbDZPnbJrErRsoNNHlY3/AnyM9xSVWbdZiJ
-	 ZfqVHYkhWitebM/d4d9drIn5K9C58nsxHqmnzsFpCbx+D7ss1NMqRZPJsMSX0LtsMjp6S
-	 3ZYPpAzaNKq680Ascpo/eltDujX2hQbXsp/XI1QhCJ2kJnD9KidNkmYHCQJA7rbFfuiM8
-	 2vOclwHedcmiE5WD0BE7gKTUANj2v2JHZU1tDkjsO6gnf10PIzTABMySe1f0i2fB+dg==
+	t=1794940878;
+	b=tu7plxznyFIg0EVsJpql7rdkngFpLdLVN5fd+/1dIb7DgvF3w6K1gcVzItxFftVH52k6
+	 hWbaceyesqb1SfLNr0FvFEjKT/XQmflaexn2Bpp9r5ETs/Z4hsBUnkDcwk9MDePYUVQjl
+	 7z2E+//waQj5DdtRM2EtnhE0On8oI0XIbN7oTRTIn7t2NsPCRorty3pZpGMqxe5lOfSYC
+	 +CVTIPsHbzgbcyW7d8jTMGndU/25zGswiQ5x0l40r4XEAEE6n6tm56DBjuuDMpavhaDUX
+	 DZM/+UYgm6+vAHqvRr/E6J4fXSDBPuriQJws/JcASL0ZJ6R8N3LM1z+Gl4VdpeEBe5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794940728;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=dXkgnkwvG82CtcofZShTx+jLwggtZI46Qg6fUKRJGXM=;
-	b=iGEtVnbn/Rep4LHDCYR+2+eRQTpsQ9PxnfOfPm7KFs7OlwJFytoH3472Pu3kW5nSvL38
-	 CjLhZvZa9aUTOO9K585GdrNahYZiuQA2jyDrY5UjxGhZQn2nvDsjkaQ23SfUS3avdk4Q+
-	 jN88nIq72Y8jyyx9Yhy5G/QGjjp0iAGbC04UFp0JaSaXCYqMZEpLVqIHJCy5FB/bd9foh
-	 WcuCBxK22zT6qZ51pLOJGd73bR981MF6x1s/+Q/qG9SfUq2uA60hprdc1B1ONYXsSK7eY
-	 bAJyfx/PEt4Ttu4BBFGd0lcFZkl1uw4crXMgJ572XbLiO6HRZ1n9OVc2Kd/i3X6g/Dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794940878;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=uzgMGuJH7y9PpdqDVrfWe+YpxihFKk8NBF5FqP0/B48=;
+	b=Jem0GzDdznr9pArje+fgzUESquwQRAU87LaVXRc+WwKtpJfx0lVc/TQ8aOsVa4wJ4Dke
+	 rGP9jKnutdUZLcGF/gX+FUZMe424ZRVRBTejEygE6SKg3FJgkrvojzf9PO7GqRuKfHluE
+	 47kMnShdGlq4QbHzXV9uDwTpWQSXueoD+f/dSC4meIK6pIcigh8hRz3GplvY+cQx5gjjR
+	 MSXE7+vQFb5zR3NFFl8BZfkTjRy2GLtA/42YsvQvwMngHuJiYG29Y5MUi+s+fxh56+5NX
+	 eSr23Gk3ews/YHIUMyUb9PFYYUSbkiNHeWlPxKEURCEv2wudeP6AeYrOHF1SLDBgirA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcG5JMZs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=YFDmMSQ6;
+	arc=none smtp.remote-ip=35.89.44.37
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3524606A31C;
-	Tue, 17 Nov 2026 18:38:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37663606A339
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 18:41:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37663606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcG5JMZs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86BC71F000C7;
-	Tue, 17 Nov 2026 18:38:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794940727;
-	bh=dXkgnkwvG82CtcofZShTx+jLwggtZI46Qg6fUKRJGXM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IcG5JMZsJBo9iCcQvJhu5NxBQqAK5G7qcG9UjTrOXmOcdh+Ya5o1VTPjvQ55GruOg
-	 a/EW6KAm/F7oveJs+Hlsaqtgq6RWknpG0EJMCvQQhOK0noK8s+PIinojpB9dn8WsWB
-	 Fc5ZW5vtu8Ct4Ry0USC7QgfT3OeqLk76m2qqK9Zbnh4hwvYhEp2kZcD9Q85ZmSgXiT
-	 AQGDaHDzw/KCqL3RfNjzmEvFjxxMe8PT7uDNuhjMZRTQQjcGXKMthR7FX5IZwz4d6k
-	 0g8QXf7IxTDAUErFsG5zmbEB2CPsqnG85rfdHbIFEobrfcp7XUb6P8wzpK76/Wj2hi
-	 Ziob5Z7C+dSsA==
-Message-ID: <sashiko-outbox-219369@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/7] pinctrl: ingenic: Fix hardware dual-edge
- interrupts on X1600
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <b87494f8bd72efe7d4c8b8c7c6a5f37686861aff.1794940167.git.hns@goldelico.com>
-References: <cover.1794940166.git.hns@goldelico.com>
- <b87494f8bd72efe7d4c8b8c7c6a5f37686861aff.1794940167.git.hns@goldelico.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 18:38:47 +0000
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=YFDmMSQ6
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
+	by cmsmtp with ESMTPS
+	id THr2xVOLuVK9UTO7DxAaFY; Tue, 17 Nov 2026 18:41:12 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id TO7Bx7saBuJrPTO7CxgSPB; Tue, 17 Nov 2026 18:41:10 +0000
+X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6afc9fc7
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=gAnH3GRIAAAA:8
+ a=EUspDBNiAAAA:8 a=3OfnbWqpRXkE7MXKp-4A:9 a=CjuIK1q_8ugA:10
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=uzgMGuJH7y9PpdqDVrfWe+YpxihFKk8NBF5FqP0/B48=; b=YFDmMSQ6njJ7g3TGwyqyWG6HbD
+	VSUs5xReDgoBDPjfuNVzXMpkDWlDX/66hznqmy1hiwlGvrhHVLfoIqNb9Ba7058Fj6B3Q3Caud8S/
+	RW4Y2jcPocH/FzHoCD50S6gLiVL8jpsaYxgL5l4OQ1Q5cOVPJ0DFG/WWDTvYQFb1AXOYJgsiFNtwm
+	irFQAVbPn8u3m8Nr4ILti1/hOWXmj/wc+qwyZYYxG6QAHRK80Bz2d9EgvK8t+nqCigZhOSMU5dwck
+	hdNbtLBqmKlatziwPdDFz8+mwwxOXQ0TELj9ZWxiKMzSOemDfCMfTvTmSh7mK4LAV+uRtCpespuTU
+	OD6atnNA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:45336 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xTO7B-000000006da-1bIQ;
+	Wed, 18 Nov 2026 00:11:09 +0530
+Date: Tue, 17 Nov 2026 10:41:08 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christopher de Guzman <christopher.deguzman@analog.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: hwmon: ltc2978: Add support for
+ LT7175 and LT7176P
+Message-ID: <ea14de95-c079-4302-8a65-86c4c65a8e12@roeck-us.net>
+References: <20261110-upstream-lt7175-lt7176p-v2-0-dd60d28383bf@analog.com>
+ <20261110-upstream-lt7175-lt7176p-v2-1-dd60d28383bf@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,89 +88,39 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-upstream-lt7175-lt7176p-v2-1-dd60d28383bf@analog.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xTO7B-000000006da-1bIQ
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:45336
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 3
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfJNrMF6PgPhCSUwbzGT4gM/s4thUMvk8dz4O/BDPo+XYadxW7+9kByOdRtTX0g6mvq2UxhBixG9xISLVdBZaGvdeqRxWtZFaDqtsS2N0+LhRKgX7KVhB
+ hxAP2Dp+p7rp2eINClX/mrtELgKav/JG2fMbKXadcWrnzEmoMsWukf+cqdLvqvpCEgzxCM4zov+HjxDUx7CIaNeaOxWGh7U2nfPYebmI5vQxRAFDv7OCKhDv
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] pinctrl: ingenic: redundant checks and duplicated branch in
-  irq_set_type()
-- [Low] pinctrl: ingenic: missing Fixes: trailers for X2000 and X1600
-  dual-edge IRQ
---
+On Tue, Nov 10, 2026 at 06:00:40PM +0800, Christopher de Guzman wrote:
+> Document the compatible strings for the LT7175 and LT7176P PMBus buck
+> regulators supported by the ltc2978 driver.
+> 
+> Signed-off-by: Christopher de Guzman <christopher.deguzman@analog.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-commit 478cc52f71c553d81f6fc71fbe29cdc01e47f147
-Author: H. Nikolaus Schaller <hns@goldelico.com>
+Applied.
 
-> pinctrl: ingenic: Fix hardware dual-edge interrupts on X1600
->
-> Use the hardware dual-edge detector on X1600 and X2000.
->
-> Set PAT1 when configuring both edges and program EDG on X1600.
-> Keep software edge switching for older SoCs without EDG.
->
-> Tested on X1600 and X2000 using GPIO buttons and register readback.
->
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-
-[Severity: Low]
-Should this bug fix include Fixes: tags for the commits that introduced X20=
-00
-and X1600 GPIO support?
-
-  Fixes: 943e0da15370 ("pinctrl: Ingenic: Add pinctrl driver for X2000.")
-  Fixes: 4da56f9c6f14 ("pinctrl: ingenic: add x1600 support")
-
-> diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-=
-ingenic.c
-> index 7d3f34c4fb589..f718725d84d4a 100644
-> --- a/drivers/pinctrl/pinctrl-ingenic.c
-> +++ b/drivers/pinctrl/pinctrl-ingenic.c
-> @@ -3622,6 +3622,10 @@ static void irq_set_type(struct ingenic_gpio_chip =
-*jzgc,
->  		break;
->  	}
-> =20
-> +	if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
-> +	    is_soc_or_above(jzgc->jzpc, ID_X1600))
-> +		val2 =3D true;
-> +
->  	if (is_soc_or_above(jzgc->jzpc, ID_JZ4770)) {
->  		reg1 =3D JZ4770_GPIO_PAT1;
->  		reg2 =3D JZ4770_GPIO_PAT0;
-> @@ -3644,6 +3648,9 @@ static void irq_set_type(struct ingenic_gpio_chip *=
-jzgc,
->  		ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
->  		ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
->  		ingenic_gpio_shadow_set_bit_load(jzgc);
-> +
-> +		if (is_soc_or_above(jzgc->jzpc, ID_X1600))
-> +			ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset, val3);
->  	} else {
->  		ingenic_gpio_set_bit(jzgc, reg2, offset, val1);
->  		ingenic_gpio_set_bit(jzgc, reg1, offset, val2);
-
-[Severity: Low]
-This isn't a bug, but both callers of irq_set_type()
-(ingenic_gpio_irq_set_type() and ingenic_gpio_irq_ack()) already convert
-IRQ_TYPE_EDGE_BOTH to level triggers when !is_soc_or_above(jzgc->jzpc,
-ID_X1600).  Can case IRQ_TYPE_EDGE_BOTH set val2 =3D true directly instead =
-of
-setting val2 =3D false and overriding it here?
-
-Also, with the ID_X1600 check added to the ID_X1000 branch, the preceding
-is_soc_or_above(jzgc->jzpc, ID_X2000) branch in irq_set_type() is now
-identical and can be dropped:
-
-drivers/pinctrl/pinctrl-ingenic.c:irq_set_type() {
-    ...
-	if (is_soc_or_above(jzgc->jzpc, ID_X2000)) {
-		ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
-		ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
-		ingenic_gpio_shadow_set_bit_load(jzgc);
-		ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset, val3);
-	} else if (is_soc_or_above(jzgc->jzpc, ID_X1000)) {
-    ...
-}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794940166.gi=
-t.hns@goldelico.com?part=3D2
+Thanks,
+Guenter
