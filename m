@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.72.192.75
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794905359;
-	b=Z9H2lGJBQxFS92Egw5MJhUNVKkRfv1KxLFNxPlc23a1vx0B8/ihRaUC3zDXfI2JH8sL0
-	 /dTpQKsG77sTQ+MOBbx9LX9pIKn06zRIO6Mv+VV4l7px3NumoLcVLBIoHfkv2AHhF/FoH
-	 nl+1ssqGnRW/kg49+A7iiZO1Xa+VfPj6Jn1GzFdS0rywHm85o4IQkVrqJ4svTwlJ2/ZKn
-	 J5WHZNq6hCSwbbprO2JNjIfIuSufQvorKOgz+g5SMgU6s8FrfRdL8ryX+tw1Shce0SpHn
-	 JohqM3YhNcnjP6XJFUMlp0CHWjfsY7qdaMH0DUjYwK51AJihirtXi9TOf4RaltWB57Q==
+	t=1794905362;
+	b=0iqRnmw/J9WFQ4Efwv80lU5EKYs9wnrD4KsSSl5xOkzM1t9CRdwByrLvd8CMKHUg6/LT
+	 ylbKy1XGfBb0NKeZBOr5cGk6pQNN7fZYcQNl4lJ3uSAs1Ks9oNr6PX5GJ2WGk4748XDBP
+	 fr8W9tislXGZYhBoDyRIyQJUP2kmImXj3uKximnyYcyaMAHpgDYI5UyH0r7x22aDZiodh
+	 c1xqoxSoVUIIl0NVzQEoLd5ru6AWHvUHPUYx29FrVzR9HJVjVUDc/vnFTYT6yPsQ96yON
+	 9qDmAlgoYE27a+hPGyNHNf9Bz4qg7YWjgtzJKoV0ZSyr1c571YvF7lL6d2k4r4PkwZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794905359;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Subject:
-	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=zWyRURPu1OxrVx0wsF9VEbECiyatmSf1CoESfSh8E/k=;
-	b=Zc/baG6lhJG8sJRJP1Xs+NtzDV5PQJD7l3um5Kol9tkDnJQLv6TWOEwThK8i6MUH+g4l
-	 bPY9IFO/p1bZW95te6pmOuwGUotz3fRM6C5eyVqpsUKxJqwISjaoU2U07SzkH9nkwxKts
-	 NS9kW/PCpP/tHWNC4xK57nZD83BSQAvaV0AEekM0nqo7fwa/lH7+s4ybgwbDeau65rTAK
-	 EQpMBsQ3ntv3besSGeMt2+3C90ksA+QBocbjwCHCqPkx5GFmlBMguBX08ifryceA6eKdk
-	 4X+2uySI64UqNPpF74MAkqWS5zc2PeBMLX+TSjYiXcYXCkmWS4mN4mWrFFtAPLpwICQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794905362;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=dDphXepmTf/DSdA6L5iPJVxN4NKPCh9r42nuQhCZVoM=;
+	b=t/8aWJovlzh1XTYbazK7TqpROya+jAIayGRy8zqyc3/ntgpEQjHNRJaBS3FJftoVbBPU
+	 hgN21hpQgyIuDVfflz83T/amqbAm0j8uYKe4+y+7If4gHOwkMe13S9tm+wSueWZtYe4nk
+	 h2/AcraPAEpkzfSckD5kOabBZPm3TRY51xqm7a/U+rMb76o1+MZvn9czxw3keIGKULS7C
+	 1BAUFGA5/++o64PTSrngFGM8XwLw3B7b1zXzq2aETcjPPp/x64KIH9Y8obX4AERQHlAcJ
+	 6nhcg/7vC+vlFr12DO8YW3HSS8dvgCsOp5Qlx2ju4di+hHmlxSr++DPNPLGfLVlbY+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=fuuwmVdh;
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=jonasjelonek.de;
+	spf=pass smtp.mailfrom=jonasjelonek.de;
+	dkim=pass header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=hWPvmLjd;
+	arc=none smtp.remote-ip=217.72.192.75
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FE5606A884;
-	Tue, 17 Nov 2026 08:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40FE5606A884
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17274606A896
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:49:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17274606A896
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=fuuwmVdh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794905338;
-	bh=zWyRURPu1OxrVx0wsF9VEbECiyatmSf1CoESfSh8E/k=;
-	h=From:Subject:Date:Message-Id:MIME-Version:To;
-	b=fuuwmVdhelGO1UBk6i9s39jpuo8MFOCQ4bCG3ZIwQMchyGnb3LcUlBlUpYA2OCxvb
-	 Q+OLt0uXWDZFB30twXWCTWw+6zF2Ry2B8gtIgmOaSbC7ncp1BdCDnRrUh6ljYXJJdY
-	 8hxeAGMijQEseo+v1y4FnVZH+3meugEp1zCdtarM=
-X-QQ-mid: zesmtpsz2t1794905337t89f735b3
-X-QQ-Originating-IP: R99N8wcVkiTH8aE42GHQGH77icoKGm0a84h5ayh/DHc=
-Received: from = ( [183.48.247.191])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 17 Nov 2026 16:48:54 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 195453335041648402
-EX-QQ-RecipientCnt: 15
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Subject: [PATCH v2 0/2] riscv: dts: spacemit: Add K3 CoM260 TQ support
-Date: Tue, 17 Nov 2026 08:48:50 +0000
-Message-Id: <20261117-k3-tq-dts-based-on-com260-v2-0-68b337bd8938@linux.spacemit.com>
+	dkim=pass (2048-bit key, unprotected) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=hWPvmLjd
+DKIM2-Signature:  i=1; m=1; t=1794905349;
+ mf=PGpvbmFzQGpvbmFzamVsb25lay5kZT4=;
+ rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+ d=jonasjelonek.de;
+ s=s1-ionos:rsa-sha256:ZV8dQgkA4dV12qQQqO1A3o4bV6B+
+   QqHuyCJiqsjcWiCSbaNodtscTWROd63vsDeivqFV54aSofqlz84P+QOdgXpvn4JuN6D55rJ8Ij0
+   TPMOxyj8xISHek0KaBcDu5GWor8O9cEEJ84sAPqi74xDP5evlQxbfb0MLz21QXtGc2GNF442PnV
+   YP32D4lNI28Fls0IjrTidtKbBpKFJfiAmjbUiM74hydFO43yUjpM7hAa8VsdVWBob2n5IMmD3pa
+   rFQsXK1o0XKV75W6CLzNWVkFix2c4uGVDCrfEjTGfahNYuT7lpN4MIePT17pP4eog96faKn50VL
+   T6frSANVQifjIA==;
+Message-Instance:  m=1;
+ h=sha256:
+   6jSxRpdrKNFVuIJ1JFQ1jjEIC0YmNnOqBgkrA5Q5wEo=:
+   5S00Mf9YRv4dtSRWDlxv3uk7E45ViznI6QfTF+tEijk=,
+  sha512:
+   EkuheOQNW+OQ3I1aJQ8tRMsfu+y1ZJUgykHrq+dE6SV60J1vpMMAC+hZgLy1nWfYCC7DNGvYWkHfq5X8zI5soQ==:
+   KvRlFwS9eEU7srxHQ848tEa/sX1K6k+NT2fJBt0+NcJn9Joh4Av1HHpHC3TvJ2egsdpa0os18PxoaCbkagH2Ng==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
+	s=s1-ionos; t=1794905281; x=1795510081; i=jonas@jonasjelonek.de;
+	bh=dDphXepmTf/DSdA6L5iPJVxN4NKPCh9r42nuQhCZVoM=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=hWPvmLjd7hsKZd+j618UV+7+A+G8R9K4bQSyHSsFqDr/f6ApXd52M/69gvKeLktx
+	 c670jf3vGb6qNW16aMWdc8Wol9sd9cw/BKbs0RSH/D3CqErQ4/Zt1l8xVE6X2U0wS
+	 J22cuJbv2tTIltjmBs7PZQ+1Ehjl4Wsx/r5UZUSH8D4qN3WBnr+FG6Zwaugnrex7L
+	 R2CVEQ7Zbb//miw46JqpaxKoHNIwSm4k++f1eyxO973KJBcHKmtqsXlTEE5CACQNP
+	 7xUSEuP0/0URcePIF4/But8rFMWLor3I424CnUl0OQTZs2CohZfCb/crfuf/MdZKH
+	 uvUGeNiXkMSZe219+g==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
+ [213.165.67.113]) with ESMTPSA (Nemesis) id 1N4yyQ-1wSmJg3WMe-013gdd; Tue, 17
+ Nov 2026 09:48:01 +0100
+From: Jonas Jelonek <jonas@jonasjelonek.de>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Jonas Jelonek <jonas@jonasjelonek.de>
+Subject: [RFC PATCH net-next 1/2] dt-bindings: net: add Realtek XSGMII interface mode
+Date: Tue, 17 Nov 2026 08:47:47 +0000
+Message-ID: <20261117084748.2387647-2-jonas@jonasjelonek.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261117084748.2387647-1-jonas@jonasjelonek.de>
+References: <20261117084748.2387647-1-jonas@jonasjelonek.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,105 +103,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw6CMBQFf4V07SVtEQiu/A/Doo+rVKXFthAM4
- d8tsHc5yZwzCwnoDQZyyRbicTLBOJuAnzKiOmEfCEYnJpzyilFWwquA+AEdA0gRUIOzoFzPKwp
- FrUvdNILLRpK0Hzzezbx/39qDwyifqOJ2uBmdCdH57x6f2OYdHUb/dSYGFISgsq7ZWaCm17ex4
- 5yHQSjsTcyTR9p1XX8R4ild3QAAAA==
-X-Change-ID: 20261015-k3-tq-dts-based-on-com260-37d5d99a2b9b
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Guodong Xu <docular.xu@gmail.com>, Yangyu Chen <cyy@cyyself.name>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2089;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=cKNI6p0a2FU5oVIDwqYsIH8y/2k6zgLXOKucQO4l7mY=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFl/RL7tV15x5p3kxRs7M1/zzyuLvRLnc0rVnSNEMiHJ0
- L21NntHRykLgxgXg6yYIkv3A55tBT5RtgUChb4wc1iZQIYwcHEKwETSBRl+Mv6c3C5UknuDvfT8
- uaLQJ+/PmCVPtVxzPqgh7P/es/aJ9xgZenaLx6bWKC9qWC74sd4w/1jXk+ITgitE9/FUsqwKtbH
- gAwA=
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NdC04oDZj+f2IKe70051Ci0qG8BpBvvmKMTPIcLphf+rKCAnRa8LGcV6
-	2rfenz2kMIu8qYQqNs/Y5Lx8NTLqxKJqYrFCQOIrylCFYhi1Br2P89GjLP41VEuB3PyOeT0
-	Zu+op8rk73g8slqjCSz4ohMoJ+Mb8Na6xJjzk7mqfXm0ex93CeYyq7mJh92V7OeZMNSg8oR
-	FAo0qN69JBg/FPTNz4uWZZVYKav1m7RBDdxcq32s2B/FEZrCTG/5+e12A0wlo+Y9nOiHpKk
-	J15NuyUDiIJhwrM8JcWX8d/pxtdfX+FMSbOoz+SkHKS0FP3tzjHkfVf0OCbjrVTmmiIR/uL
-	S8akvAYhJxZmaGWvzHw6/nwODSpH09MazC42W/urFEGNtvfWZKraLyR2xCx/uFgqeieEY4W
-	RC76mp6+GGNnSDnjq3BJV7qgkQk8poCZ5KXfCUird2I6RhReCqOSGF3VqX/tdRCQJ9TPh/X
-	ts7czFfXYw7TOtplknTDWBuBR5JdG6/v+xJ9zc2+a+5qHBIOq79qLV+/yq6Q2Wa951ogMLg
-	6feSs3h2bYvQ8wLWWRmRBCf+ecVyTtmJyPH2yko0sHiDTAH/lgb9WkGaukueeqf90NoEzWF
-	0SYXu9bsLya3APxKY8tKqYySAegchq7OaCExn/xUle5/Nfc6Hv3eitP+845txW+2Ev+6Y2f
-	hyEIssWhiUvTT4WrNzowFHa7kvbEt6ecPWIORwWKHfil7r/uiu9j4du21P5D67QHrQIlUxF
-	L+awozUX+AKD8P6FcLb+zZ6X0cCmPNxOkheEXkMY2Din03aJ6CBRSbwGscBsEgfrZj6KZ+m
-	uwmzR6VnQtfNBml8bGLnCwX/zWqCwzXc22JPyEqLHkzw1g/FAMnOeRm2JHC4vACEkOIkcHE
-	8riNmPE77/y0Cx/dkcmQnp+thCJSDumSOUgZ5cJzR/Jvc5LFIO6WriDfG1zVh/LmQrHbqRk
-	kn5Y/YcjItwYJnCXl0BRAUjwms82filJYHUi2B0zAwr26coD39H2pNPHUteyJ/IXmYR8cmB
-	3kDfoIHL27Q5w+6oFbNZuXIEtZvr5YMJd9cOGfgifTUoK+gjje6bHq+2lz50B7TUM8H3jof
-	gu3D6eYJ9uUocJC/ziN+B710t1ayWMO1Gant+ug0flUuRzGJjUIHrg3vyryZDJ5mFsYrvMm
-	2oVULVvDfWaE3eI=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:rBcdlKiuMzWqqMqMx3j3k1snq8RgXxY6R4WvEE8/UO5VKiSjYP1
+ kS6Umd45dbsyGH+W3/UcgT0Hil1paPtJxYU/jlIi8d/PQHBxzcF5PCO7ymy7oiMBN5UoLwH
+ 8D1XkIYZ7C/VXGmlU3dHlYtJlv+nxBYeOc7+EAz9ALRgJIK0JENs37LIWpF6xyypYizIvI4
+ 8ohxmgdGuEbPp+NSz3daA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:k/KB5u+1Fqk=;LvhFHHapjoWbfsknFWLvmzbcCdh
+ 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
+ DFw==
 
-This series adds device tree support for the K3 CoM260 TQ board, a
-K3 CoM260 module on the TQ carrier board.
+Add xsgmii to the supported MAC-PHY connection types. Realtek's
+proprietary XSGMII interface carries eight 10/100/1000 Mbps ports over a
+single 10.3125 Gbaud SerDes lane and is distinct from USXGMII and
+10G-QXGMII.
 
-The board uses the CoM260 module description for the UART console,
-Ethernet, module EEPROM and PMIC, and describes the carrier's Ethernet
-PHY LEDs.
+Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
+=2D--
+ Documentation/devicetree/bindings/net/ethernet-controller.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-The TQ carrier board comes with one of two power schemes for the CPU
-clusters. Both are the same hardware otherwise, and the system currently
-relies on the bootloader to set up the power scheme, so a single
-compatible and device tree cover both variants. Once the regulators are
-supported, the power schemes can be described as overlays applied to
-this device tree at build time.
-
----
-Changes in v2:
-- Rename the board to K3 CoM260 TQ, which covers both the TQ and the
-  IFX TQ power schemes.
-- Use a single compatible for both power schemes of the TQ carrier.
-- Link to v1: https://patch.msgid.link/20261105-k3-tq-dts-based-on-com260-v1-0-aa0b7714aed0@linux.spacemit.com
-
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Paul Walmsley <pjw@kernel.org>
-To: Palmer Dabbelt <palmer@dabbelt.com>
-To: Albert Ou <aou@eecs.berkeley.edu>
-To: Alexandre Ghiti <alex@ghiti.fr>
-To: Yixun Lan <dlan@kernel.org>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-To: Guodong Xu <docular.xu@gmail.com>
-To: Yangyu Chen <cyy@cyyself.name>
-Cc: devicetree@vger.kernel.org
-Cc: linux-riscv@lists.infradead.org
-Cc: spacemit@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org
-
----
-Troy Mitchell (2):
-      dt-bindings: riscv: spacemit: Add K3 CoM260 TQ
-      riscv: dts: spacemit: Add K3 CoM260 TQ support
-
- .../devicetree/bindings/riscv/spacemit.yaml        |  1 +
- arch/riscv/boot/dts/spacemit/Makefile              |  1 +
- arch/riscv/boot/dts/spacemit/k3-com260-tq.dts      | 44 ++++++++++++++++++++++
- 3 files changed, 46 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261015-k3-tq-dts-based-on-com260-37d5d99a2b9b
-
-Best regards,
---  
-Troy Mitchell <troy.mitchell@linux.spacemit.com>
+diff --git a/Documentation/devicetree/bindings/net/ethernet-controller.yam=
+l b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+index 30b2a335116e..e9406ddd0fc0 100644
+=2D-- a/Documentation/devicetree/bindings/net/ethernet-controller.yaml
++++ b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+@@ -45,6 +45,7 @@ properties:
+       - psgmii
+       - qsgmii
+       - qusgmii
++      - xsgmii
+       - tbi
+       - rev-mii
+       - rmii
+=2D-=20
+2.53.0
 
