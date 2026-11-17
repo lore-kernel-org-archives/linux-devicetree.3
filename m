@@ -1,58 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794954841;
-	b=4LsBCtU3tuZ+I/8GQZzT16rayOr4HvM7SKVml/HSQMlBoUBLtDyRAxDKiMfC1GKra38O
-	 hvv5iVnr5S/Y0E1Mb1xVxo3VNvqO8hnyzlvycZqIWbunTCJNboqC4qHHVPCqXpQOs9g7f
-	 q1NZjSEkvyC4Kfk3bAC1pc28Q758bH5afwuMA320ooR1ldUjDoMXe9SyGX14QYxQZoJAK
-	 3ZbDNjQDvMpyOh0/BbYYQOiVz61IDK32ulroI8VyBjcZiChqJaxnIiFxZDjxG4eDKsNzR
-	 ZTVPyegFtvmUFBb/XfAluaeGrwFV3y9h+avJItGksVxbQpKHDCDlby7yLJpL2yamTDw==
+	t=1794954883;
+	b=SWT3hP0Zi11kAXbQ8sqrhaJfbe1hsIsV67cpS7helLA0NV6UYeqjA+chyv+0180l1KUq
+	 OPx1nvVKrtmu+P1Lrjameck8RDXShqFUjSy/dChOgOTWs2LzSosb+3ZowqrV5hr7pbTVN
+	 LGK9TeEKo07gfP1dejc6cGXB3zXcRUKVDugMIQOkZR1dQadbx1b+VOIUcYRNG4v4ivmDO
+	 y8l/cWeSyOql4mr+IEjq8QqMJ8HolcSCMZ5cPUI0T96vAFs3DhvcD3C2FIi3DWtZmtOak
+	 5qaLWgrQc+71CoZYIZJa5sgHnY79zaRNRn8ynqGr1OYqThNJL7P4tbMammEHRRlIeRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794954841;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=BRQPZrXDnfJE/V+QLtvaLZR4zsB4nU0XWLHNSB5NbYs=;
-	b=Yo5CAwVQrWiTOpf4JEvosBAo5Y6q6YjNBqV1wMYhbEJ9N2gWYoc3lZGKKJvPFzvPzhLf
-	 2VNRcrbqBXgZGOW/do7Q286ArkPn+9KUEMZLen0VtOQe3TpeR4kKL1m5psMZBPbCI8+Ye
-	 GCMVTNtCBozqkd15jByE2UQrz0rNO0gwv5BbP/BtrNoNf740wpx28lH4Si6Zm02Wa7dxY
-	 7xxzyfDx0MZFHUm6nKjNutZFfked0GXzy5ylBwjQ6AIM17ozSDaWwRufDpTvnYXqCjBR3
-	 uBWrDMSvdVTR2HRbgDTRqepdxRVJDc1JtggHy+HCvt89UZU7XRF0yIXYAS4TCQX4Ixg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794954883;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
+	 X-Pm-Original-To:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=ohzi203yKMWUnbkmuyMG76MMrHD3zBvQvlxSie9xOmQ=;
+	b=M2PrySiRzlJ4xF85Djy/3X1c7UzZHiRsvsf70jdBEKcpQ6J7pdME7Ro60TzCwTQaOziL
+	 X8GAoQciXFGFEMqS17r2j1vSc+vk46JmHuFcZNaD2DzXeov7u/DKUjOx7/l/OMBfPssWd
+	 FnhaCx3QiXLmfB6ASfNTU6BGRZtowuNRt1AxlLB0OvvffNvMvSmWS6Ih+S+F9g/m2/hbw
+	 5ou1BRBnZSfINY5chfklOAGxG8gemsMpV8XyoOOy+8YMVmwtrqfg5C6/0rjLxCsHrZ8WJ
+	 Qub6qtDJXCuakBFwfxy9X2WO1UlTT57hpAJlQgDUI/4rJ5prSmF084mk4kuqmhWnyYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+mLupPG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sverdlin.org;
+	spf=pass smtp.mailfrom=sverdlin.org;
+	dkim=pass header.d=sverdlin.org header.i=@sverdlin.org header.a=rsa-sha256 header.s=purelymail1 header.b=dIhqHrpZ;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail1 header.b=Kq53aB+F;
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59E1606A335
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 22:34:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8AC6606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 22:34:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8AC6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sverdlin.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sverdlin.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+mLupPG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117B11F000C5;
-	Tue, 17 Nov 2026 22:34:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794954841;
-	bh=BRQPZrXDnfJE/V+QLtvaLZR4zsB4nU0XWLHNSB5NbYs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=A+mLupPGwu1oLxbyFoRQjx+YLlc/10mJSJtd1GkxuFGNdhxUuXfs0NGwjd1KZ5TbJ
-	 IZGmWcd5wAXDXTuMqSbCNymwDJKHJHrM8k+VJ+7kC2rD6Xuvd1dU6s+10HNFJxFYsl
-	 cPGdUApjHqs7qEBGHrSVqDLZ8NQAyK7TmR4ymwsNGfnkcrCDp04X/I130P2rIii2Cx
-	 E3L/OwnrG4pucGja+XIwPkHnWwhINBdydBpQFMW4k7o7Y7fiDee8zUmEQtDwQAGUhV
-	 NbrilXvLbVUjpt+oXghT4Bhlu6nAufTstlt2vxuGIcqADYIrLU7Lm3+kcmwfD+YTN5
-	 fwozOnCu0Jv9g==
-Message-ID: <sashiko-outbox-219756@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 8/9] net: add KUnit coverage for FA and
- flowtable path validation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Florian Fainelli" <florian.fainelli@broadcom.com>
-Cc: =?utf-8?b?b3BlbiBsaXN0Ok9QRU4gRklSTVdBUkUgQU5EIEZMQVRURU5FRCBERVZJ?=
- =?utf-8?b?Q0UgVFJFRSBCSU5ESU5HUw==?= <devicetree@vger.kernel.org>, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261116222519.1416501-9-florian.fainelli@broadcom.com>
-References: <20261116222519.1416501-1-florian.fainelli@broadcom.com>
- <20261116222519.1416501-9-florian.fainelli@broadcom.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=sverdlin.org header.i=@sverdlin.org header.a=rsa-sha256 header.s=purelymail1 header.b=dIhqHrpZ;
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail1 header.b=Kq53aB+F
+DKIM-Signature: a=rsa-sha256; b=dIhqHrpZ2o7lgKWDF475+Jzn84Ku+ta2e7VDE9zTgbQzUzPaDnoDl2MWOmiEkOHLJfxI5P+nUjfRaXVhY2IW6w62VDEof6zlL4fdO0gdlHIv2ADrUPdZUo6Db+UskSpL3ja0WfRwhNizReBbjZ7vbmDNdLbDFzzUXJosdFgR1KBPe4FRHwB1nGW5AL//r/1msQjhfM11gSvcXqRLH9UyUH3i8xOv409bPkUpPnr3fy8hb424STcgKkYnCtp4vWN/5w6vxRKUw7zTT3M6Ifx1S29453eKXnNdaCee+i9TnQc4tdjRuz7K9DFC7ZA00fms6W/yq4yK0FXWFw6/sgLHTQ==; s=purelymail1; d=sverdlin.org; v=1; bh=ohzi203yKMWUnbkmuyMG76MMrHD3zBvQvlxSie9xOmQ=; h=Received:Message-ID:Subject:From:To:Date;
+DKIM-Signature: a=rsa-sha256; b=Kq53aB+FMbAK0mUP0TDBhtTnsPTxD/kdYw+nuXc4Vl+PEgAkB9A+mig3SbRW5VX2tZgsDxE7SJ3tZ396Yqt6yP4p+s9/ptB/0hWUe5vpU+yCEo6RYpONZktFmwW3PNVgLhevpJeOTFAWNhdeMN7ZeW3pccQUsg/VJjUsJ4FLTDCKyQw34jGQrtCdHCmGxSIpVolzKIIkw6Wom+xz1ePRldN/9U0t6gAMehQoA2+Qxq11oXCdN1v01U6opo2Ghor5t0QQNtg8rIUwhqGGlJ3cnGmtyJz0m3drnmFwjSQGUBSbn2U9/aNU3PUioMgZ/gxQrruFkcocfL+43f9nmTHUlQ==; s=purelymail1; d=purelymail.com; v=1; bh=ohzi203yKMWUnbkmuyMG76MMrHD3zBvQvlxSie9xOmQ=; h=Feedback-ID:Received:Message-ID:Subject:From:To:Date;
+Feedback-ID: 815097:39668:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1938573665;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Tue, 17 Nov 2026 22:34:32 +0000 (UTC)
+Message-ID: <6350ad134c9d09d9754ad79d942a9205c8cdaf84.camel@sverdlin.org>
+Subject: Re: [PATCH 2/6] cpufreq: sun50i: Move nvmem cell reading into a
+ helper
+From: Alexander Sverdlin <alex@sverdlin.org>
+To: rajanyadav0307@gmail.com
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Cody Eksal <masterr3c0rd@epochal.quest>
+Date: Tue, 17 Nov 2026 23:34:20 +0100
+In-Reply-To: <20261104-a133-series-v1-2-58217cb33a87@gmail.com>
+References: <20261104-a133-series-v1-0-58217cb33a87@gmail.com>
+	 <20261104-a133-series-v1-2-58217cb33a87@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 22:34:00 +0000
+User-Agent: Evolution 3.62.1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,83 +67,48 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] net: broadcom: fa: invalid MMIO heap pointer in bcm-ns-fa
-  KUnit tests
---
+Hi Rajan,
 
-commit ba8a6de53c2a0a0ed0378db8bfcb3ef2f7005c51
-Author: Florian Fainelli <florian.fainelli@broadcom.com>
+thank you for the series!
 
-net: add KUnit coverage for FA and flowtable path validation
+On Wed, 2026-11-04 at 22:40 -0600, Rajan Yadav via B4 Relay wrote:
+> From: Rajan Yadav <rajanyadav0307@gmail.com>
+>=20
+> The A133 speed grade needs several efuse cells, but the cell reading
+> is open coded in sun50i_cpufreq_get_efuse() for a single cell. Move it
+> into sun50i_cpufreq_read_cell(), which takes the cell name, so the next
+> patch can read the A133 cells by name.
+>=20
+> No functional change: the existing users read the first cell, as
+> before, with the same length check, byte order and error message. The
+> raw bytes are now held in a __le32, the type le32_to_cpu() expects,
+> which also removes the sparse warning "cast to restricted __le32" that
+> the kernel test robot reported.
+>=20
+> Claude Code (Anthropic) drafted this refactor and its message; I
+> reviewed and tested it.
+>=20
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202603021703.aBD0w99y-lkp@i=
+ntel.com/
+> Signed-off-by: Rajan Yadav <rajanyadav0307@gmail.com>
 
-This commit adds KUnit test suites for Broadcom B53 FA exception guards,
-Northstar flow accelerator rule encoding and invalidation, Broadcom FA DSA
-tags, and Netfilter flowtable cached path validation.
+I've tested the series on A133 "marking 0x1400, bin 4, revision 6: speed gr=
+ade 9":
 
-> diff --git a/drivers/net/ethernet/broadcom/bcm-ns-fa-test.c b/drivers/net=
-/ethernet/broadcom/bcm-ns-fa-test.c
-> new file mode 100644
-> index 0000000000000..59406f84809e7
-> --- /dev/null
-> +++ b/drivers/net/ethernet/broadcom/bcm-ns-fa-test.c
-[ ... ]
-> +static void fa_test_tcp_control_readiness(struct kunit *test)
-> +{
-> +	struct bcm_ns_fa *fa =3D kunit_kzalloc(test, sizeof(*fa), GFP_KERNEL);
-> +
-> +	KUNIT_ASSERT_NOT_NULL(test, fa);
-> +	fa->regs =3D (void __iomem *)kunit_kzalloc(test, 0xc0, GFP_KERNEL);
-> +	fa->learned =3D kunit_kcalloc(test, FA_SLOTS, sizeof(*fa->learned), GFP=
-_KERNEL);
-> +	KUNIT_ASSERT_NOT_NULL(test, fa->regs);
-> +	KUNIT_ASSERT_NOT_NULL(test, fa->learned);
-> +	mutex_init(&fa->lock);
-> +	spin_lock_init(&fa->learn_lock);
-> +	fa_control_state_change(fa, true);
-> +	KUNIT_EXPECT_TRUE(test, fa->tcp_ready);
-> +	fa_control_state_change(fa, false);
-> +	KUNIT_EXPECT_FALSE(test, fa->tcp_ready);
-> +	fa->stopping =3D true;
-> +	fa_control_state_change(fa, true);
-> +	KUNIT_EXPECT_FALSE(test, fa->tcp_ready);
-> +}
-> +
-> +static void fa_test_lookup_gate_preserves_tags(struct kunit *test)
-> +{
-> +	struct bcm_ns_fa *fa =3D kunit_kzalloc(test, sizeof(*fa), GFP_KERNEL);
-> +	u32 *regs =3D kunit_kzalloc(test, 0xc0, GFP_KERNEL);
-> +	u32 control =3D FA_CTL_CRC_OVERWRITE | FA_CTL_NO_DA_CHECK;
-> +	u32 header =3D FA_BRCM_HW | FA_BRCM_RX | FA_BRCM_TX | FA_BRCM_PARSE_EXC=
-EPTIONS;
-> +
-> +	KUNIT_ASSERT_NOT_NULL(test, fa);
-> +	KUNIT_ASSERT_NOT_NULL(test, regs);
-> +	fa->regs =3D (void __iomem *)regs;
-> +	writel(control, fa->regs + FA_CTL);
-> +	writel(header, fa->regs + FA_BRCM_HDR);
-> +	fa->enabled =3D true;
-> +	fa->tcp_ready =3D true;
-> +	fa->route_mtu_ok =3D true;
-> +	fa_lookup_update(fa);
-> +	KUNIT_EXPECT_EQ(test, readl(fa->regs + FA_L2_ETHERTYPE),
-> +			(u32)(ETH_P_IP | ETH_P_IPV6 << 16));
+Vendor build had scaling_max_freq =3D=3D 1512000.
+Upstream before the patch scaling_max_freq =3D=3D 1464000.
+With your series scaling_max_freq =3D=3D 1512000.
 
-[Severity: Medium]
-Can fa->regs be backed by a raw kunit_kzalloc() buffer when writel() and
-readl() are called on it here and in fa_test_invalidation()?
+I also tried to set 1008000 and 1512000 and `mhz` tool
+reports cpu_MHz=3D1005.475 and cpu_MHz=3D1509.625 respectively.
 
-Running this suite under the default User Mode Linux KUnit runner (with
-drivers/net/ethernet/broadcom/.kunitconfig) enables indirect iomem
-emulation in lib/logic_iomem.c, where get_area() rejects plain heap
-addresses that lack the ioremap bias.  Every readl() and writel() on
-fa->regs triggers a warning splat, drops the write, and returns
-0xffffffffU from readl(), causing the register expectations in
-fa_test_lookup_gate_preserves_tags() and owner.lookup_stopped in
-fa_test_invalidation() to fail.
+Reviewed-by: Alexander Sverdlin <alex@sverdlin.org>
+Tested-by: Alexander Sverdlin <alex@sverdlin.org>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116222519.1416=
-501-1-florian.fainelli@broadcom.com?part=3D8
+> ---
+> =C2=A0drivers/cpufreq/sun50i-cpufreq-nvmem.c | 55 ++++++++++++++++++++---=
+-----------
+> =C2=A01 file changed, 33 insertions(+), 22 deletions(-)
