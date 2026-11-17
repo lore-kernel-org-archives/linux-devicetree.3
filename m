@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920488;
-	b=fxmtF9Z/86N/cNn79q1x5JStaVeKBOSmJhr/6KUV3I9G+l1VCWNyeyrk2lhAcBGOwGdq
-	 POTKxahh/vDFn8wQtn0zXLHdKzumE5NkUtCVxfyTbLTQSSZGmMlUAdXR5Lgs57rxgIp00
-	 DQIrVrWhhhSXiXiIb0pnfbwvydVaImdFc3Qp6+q6HZv0s2lOPrVSZhIgPkEMPh/I7dcjw
-	 m1tY51TE+UZw+WWA3S93oRc8g1f2C03yPx+RVVUn4pVusOtrdDIagAVHEVm+Xijtr0VLa
-	 xhF7fHt90DoVt6TzOrg5wtO3qdXVURYZVkFb1/ShTTg910iCk98JboOJnX4mghyfVhw==
+	t=1794920661;
+	b=1Wm7Ic66+MSJwfDX0ogrWPU0h8YTBma3arJwOJ4Yb4o3DNW5Tyx1E5ZswBzFlRaOuN6u
+	 nn9MfBQjiLMcDmdubYO1qQmgnVM+jCZRR3a14ncUxI6YcXC2WkKq0WLUOHE3Xg1oc1MIN
+	 3oNnt6gjpfci9E5mgV7ofolEXYGlW2ym4ijE7m9cBhBVlbGlN6CpIl0jyo4gsUqq8Ftn4
+	 05Wu7MIApxTn+JtEIsbSy4soT2wS+GCKQyC+T0eo1JK/s8NKCALSmZw5i6paLnFf/pxCD
+	 fHbJC3u047DGvBhQ6pl8QfPNufBFGfrH0Lq8z4/q3y4IcrcjGY2jkucjh+wwGwzXS7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920488;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920661;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=K4+bxeKbm2S5mQ8+ZMcHTmJBc6M9HajCXVC658PLSV4=;
-	b=HV58HDqxiqesEvieyj/dfEhpB3NLD2xBnyZPmXsxaQ+9rP5avPyrD35bYHnDyygrmEAt
-	 byzy6QFPO97dO1IHPZ0sZspHnTYkqlZeOqSz78Yo6EmaqW+EAGnq6DbkM8irQOrSwlhE+
-	 RtXLNdzn9GjPDv0KsstLOw79SxbXyBJZKHwVqgjxK4sANVhDPNTeWCdcZ4GH87IhiI+tU
-	 HeHoo/ds5NYhFvhClv+EmP1v1+NzSK4mJaGA2ww/J0yo1t6BVtBTTpiozE+Q4rOfpTri/
-	 K5LqV8KFGWiw1K/LtC4EwONrXXda5CqWpK/rq4VogoSCSZkbMEzxJhh9/rUh7tZk69Q==
+	bh=nI2cgsAmA/JuxQGnB2pVceabASOqqzEJlK87ic5E+LQ=;
+	b=Rq+1xJyLqvBkPpkV7rLm6f8hS/B8CMeN+rAt9vShNpVEB8iQZw8ffzSCac+2GfJ125No
+	 H+KfZ2W30ym0Hl/yeRSmAsYLZ8jkzUvGyPXg5NdDyrsdUfAVCqlb+LFS02vtX0iUDfYRq
+	 Be2kXs0pR133EDT4iaoXi2BaVHE19m7wKN742Ej9ysl8Isi8qFNccjSG1Mm0SJO+N48Hu
+	 CaqViMX62CBRIMqSQfLiPbTfYu9wgTbj8Dvw55LgVoDj/quce/XWi5Zkn4dMm+LR3SVXW
+	 dea621FMBXv376C/ehKm/zgIciB3VqYbkTcJiyKyUCLXHuwNyxtsN7xu69YLQgM6dCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2ZhIgH0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bE5J5D0S;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92898606A31C;
-	Tue, 17 Nov 2026 13:01:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255DD606A331;
+	Tue, 17 Nov 2026 13:04:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2ZhIgH0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B801B1F000C5;
-	Tue, 17 Nov 2026 13:01:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bE5J5D0S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B07B1F000C4;
+	Tue, 17 Nov 2026 13:04:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920488;
-	bh=K4+bxeKbm2S5mQ8+ZMcHTmJBc6M9HajCXVC658PLSV4=;
+	s=k20260515; t=1794920660;
+	bh=nI2cgsAmA/JuxQGnB2pVceabASOqqzEJlK87ic5E+LQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G2ZhIgH0o7rjre2pkg2OVrAai147FuGhQNi4/Yiisy5DAnPoOZ8LffCDsHPjO9DmS
-	 7NkZw5YxR7NOX095ov50Majcu9jMTeJs0L1ECxLQ/wHjaL+m+NplAUdJh7+VvHEjGx
-	 IcrStSGqVP15xPugZhKmq50NQX6C5ZIrpRdzTQo5Y85CgsuMplQfHVbZnKgb2RNBIj
-	 44t3VsvcV5Gvoq/1TNKNdEwo5bcl8hzeFIUaPEsNvnyDBAyV6vqx1QS7Xh4cTtozEq
-	 ycOINiFVzBGS2RUusvdV6NndPOJoBY+X2tAQwM8o8gAN8WnQLgUeh6HPK3GMsd/zAi
-	 ikFRRi4dl+7uw==
-Message-ID: <sashiko-outbox-218826@kernel.org>
+	b=bE5J5D0SENvHxZUjar42icMfJylTWccN+96DT2vYPDxWEG9NlR8qjClXJFACvmnGi
+	 fgjGACxXJVBqsx/AxBYf/LwcE8xZTGbrX7NrUnL5aJ7n3b27Gnop9sQ7ehOkjWmrbb
+	 ZzxnQPoleqkW0MddXPVrfBkwFCYhkEKk7HUk59iNK4zmbe042+MaarV/Ja6t3hwzV3
+	 1YbG8nzBrG0hVwuCBM7ImUiMYz1pE2HD1SUK2UGLPh2NeCISjiV6HNUzKWSQJ9v8DS
+	 C0OUB9RvT6TxBbT8CoMi2kHPi4/+MdowfkTVOz7AyeEBvkdDAPQIFZlWNMxy+xt5SC
+	 0TnCoG6aHhSDg==
+Message-ID: <sashiko-outbox-218833@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 07/11] Input: touchscreen: add Silicon Works SW42902
- support
+Subject: Re: [PATCH v1 05/11] drm/panel: add LG SW43103 panel driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: rofikkerneldev <rofikcoga@gmail.com>
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261117123946.668557-8-rofikcoga@gmail.com>
+In-Reply-To: <20261117123946.668557-6-rofikcoga@gmail.com>
 References: <20261117123946.668557-1-rofikcoga@gmail.com>
- <20261117123946.668557-8-rofikcoga@gmail.com>
+ <20261117123946.668557-6-rofikcoga@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 13:01:27 +0000
+Date: Tue, 17 Nov 2026 13:04:19 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,189 +60,153 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 6 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issues to consider:
-- [High] Input: sw42902: username handle in Signed-off-by trailer and
-  MAINTAINERS
-- [Medium] Input: sw42902: IRQ disable imbalance on sw42902_resume()
-  error path
-- [Low] Input: sw42902: use named initializer in struct i2c_device_id
-  table
-- [Low] Input: sw42902: follow Input error variable naming and return
-  style
-- [Low] Input: sw42902: partial MT events queued before palm cancel in
-  sw42902_irq()
-- [Low] Input: sw42902: redundant dev_err_probe() after
-  devm_request_threaded_irq()
+- [High] drm/panel: username handle used instead of real name in DCO and
+  authorship
+- [Medium] drm/panel: sw43103_remove() calls sw43103_unprepare()
+  unconditionally
+- [Medium] drm/panel: sw43103: unsynchronized DSI transfers in
+  sw43103_backlight_update_status()
+- [Low] drm/panel: sw43103_enable() hardcodes full brightness before
+  backlight_enable()
 --
 
-commit 7d934418330ef369d907f6e1ac22a2b5372028a3
+commit c8fd387b550027d7b2fde8a05702145f363e56ba
 Author: rofikkerneldev <rofikcoga@gmail.com>
 
-> Input: touchscreen: add Silicon Works SW42902 support
+> drm/panel: add LG SW43103 panel driver
 >
-> Add basic multitouch support for the SW42902 controller. Implement the
-> GPIO power and reset sequence and use the firmware already present in
-> controller flash; no firmware update is performed.
+> Add support for the 1080x2460 SW43103 AMOLED panel. Handle power and
+> reset sequencing, DCS backlight control, and the DSC configuration
+> required by the panel.
 >
 > Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
 
 [Severity: High]
-The Signed-off-by trailer, Author header, and MAINTAINERS entry for this
-driver use an account handle (rofikkerneldev) instead of a real human
-name, which does not meet the Developer's Certificate of Origin
-requirements in Documentation/process/submitting-patches.rst.
+Under Documentation/process/submitting-patches.rst and the Developer
+Certificate of Origin, patches must use a real human name rather than a
+username handle (rofikkerneldev) in the commit author, Signed-off-by tag,
+maintainer entry, and module author macro.
 
-> diff --git a/drivers/input/touchscreen/sw42902.c b/drivers/input/touchscr=
-een/sw42902.c
+> diff --git a/drivers/gpu/drm/panel/panel-lg-sw43103.c b/drivers/gpu/drm/p=
+anel/panel-lg-sw43103.c
 > new file mode 100644
-> index 0000000000000..7b39a97053c63
+> index 0000000000000..caab54e0d1153
 > --- /dev/null
-> +++ b/drivers/input/touchscreen/sw42902.c
-
+> +++ b/drivers/gpu/drm/panel/panel-lg-sw43103.c
 [ ... ]
-
-> +	for (i =3D 0; i < count; i++) {
-> +		const u8 *contact =3D ts->report + 36 + 12 * i;
-> +		u32 a =3D get_unaligned_le32(contact);
-> +		u32 b =3D get_unaligned_le32(contact + 4);
-> +		u32 c =3D get_unaligned_le32(contact + 8);
-> +		unsigned int id =3D a & 0x1f;
-> +		unsigned int event =3D (a >> 16) & 3;
-> +
-> +		if (id =3D=3D 15) {
-> +			sw42902_release_contacts(ts);
-> +			return IRQ_HANDLED;
-> +		}
-> +		if (id >=3D SW42902_MAX_CONTACTS || (event !=3D 1 && event !=3D 2))
-> +			continue;
-> +
-> +		input_mt_slot(input, id);
-> +		input_mt_report_slot_state(input, MT_TOOL_FINGER, true);
-> +		touchscreen_report_pos(input, &ts->prop, a >> 18, b & 0x3fff, true);
-> +		input_report_abs(input, ABS_MT_PRESSURE, (b >> 14) & 0xff);
-> +		input_report_abs(input, ABS_MT_TOUCH_MAJOR, (c >> 4) & 0x3fff);
-> +		input_report_abs(input, ABS_MT_TOUCH_MINOR, c >> 18);
-> +	}
-
-[Severity: Low]
-Can sw42902_irq() queue partial multitouch events before cancelling the
-frame on a palm report?
-
-If a report has active finger contacts at earlier indices followed by a
-palm entry (id =3D=3D 15), the loop already queues slot activation and
-position events into input->vals[] for those earlier contacts before
-calling sw42902_release_contacts(), flushing transient touch updates and
-slot releases in the same SYN_REPORT frame.
-
-[ ... ]
-
-> +static int sw42902_start(struct sw42902 *ts)
+> +static int sw43103_enable(struct drm_panel *panel)
 > +{
-> +	u8 version[4];
-> +	int ret;
+> +	struct sw43103_panel *sw43103 =3D to_panel_info(panel);
+> +	struct mipi_dsi_multi_context ctx =3D { .dsi =3D sw43103->link };
 > +
-> +	ret =3D sw42902_read(ts, SW42902_VERSION, version, sizeof(version));
-> +	if (ret)
-> +		return ret;
-> +	if (version[2] !=3D 10 || (version[3] & 0xf) !=3D 4) {
-> +		dev_err(&ts->client->dev, "unexpected chip/protocol: %u/%u\n",
-> +			version[2], version[3] & 0xf);
-> +		return -ENODEV;
-> +	}
+> +	/* Display On */
+> +	mipi_dsi_dcs_set_display_on_multi(&ctx);
+> +	mipi_dsi_msleep(&ctx, 20);
 > +
-> +	ret =3D sw42902_write(ts, SW42902_SERIAL_SPI_EN, 0);
-> +	if (ret)
-> +		return ret;
-> +	ret =3D sw42902_write(ts, SW42902_DEVICE_CTL, 1);
-> +	if (ret)
-> +		return ret;
-> +	ret =3D sw42902_write(ts, SW42902_INTERRUPT_CTL, 1);
-> +	if (ret)
-> +		return ret;
-> +	ret =3D sw42902_write(ts, SW42902_DRIVING_CTL, SW42902_DRIVING_STOP);
-> +	if (ret)
-> +		return ret;
-> +	msleep(30);
-> +	return sw42902_write(ts, SW42902_DRIVING_CTL, SW42902_DRIVING_U3);
+> +	/* Enable display backlight control and full brightness */
+> +	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x2c=
+);
+> +	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x0=
+7, 0xff);
+> +
+> +	return ctx.accum_err;
 > +}
 
 [Severity: Low]
-This isn't a bug, but in the Input subsystem variables that only hold 0 or
-a negative error code should be named error or err rather than ret (here
-and in sw42902_irq(), sw42902_probe(), and sw42902_resume()).  Also,
-since sw42902_start() has multiple failure points, the final
-sw42902_write() call should check error and explicitly return 0 on
-success.
+Should sw43103_enable() leave brightness programming to the backlight
+device?
 
-> +static int sw42902_probe(struct i2c_client *client)
-> +{
-
-[ ... ]
-
-> +	ret =3D devm_request_threaded_irq(dev, client->irq, NULL, sw42902_irq,
-> +					IRQF_ONESHOT | IRQF_NO_AUTOEN,
-> +					dev_name(dev), ts);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "interrupt request failed\n");
-
-[Severity: Low]
-This isn't a bug, but devm_request_threaded_irq() already calls
-dev_err_probe() via devm_request_result() on failure, so wrapping its
-return value in dev_err_probe() logs a duplicate error message and
-overwrites the deferred probe reason.
+drm_panel_enable() calls backlight_enable(panel->backlight) right after
+panel->funcs->enable(panel), which invokes sw43103_backlight_update_status()
+to write the control display register and the configured brightness
+(defaulting to 1024).  Hardcoding 0x07ff (2047) here duplicates those
+transfers and briefly flashes the panel at maximum brightness whenever the
+display is enabled at a lower brightness level.
 
 [ ... ]
 
-> +static int sw42902_suspend(struct device *dev)
+> +static int sw43103_backlight_update_status(struct backlight_device *bl)
 > +{
-> +	struct sw42902 *ts =3D i2c_get_clientdata(to_i2c_client(dev));
-> +
-> +	disable_irq(ts->client->irq);
-> +	sw42902_release_contacts(ts);
-> +	sw42902_write(ts, SW42902_DRIVING_CTL, SW42902_DRIVING_STOP);
-> +	sw42902_power_off(ts);
-> +	return 0;
-> +}
-> +
-> +static int sw42902_resume(struct device *dev)
-> +{
-> +	struct sw42902 *ts =3D i2c_get_clientdata(to_i2c_client(dev));
+> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
+> +	u16 brightness =3D backlight_get_brightness(bl);
+> +	u8 ctrl =3D 0x2c;
 > +	int ret;
 > +
-> +	sw42902_power_on(ts);
-> +	ret =3D sw42902_start(ts);
-> +	if (ret) {
-> +		sw42902_power_off(ts);
-> +		return ret;
-> +	}
-> +	enable_irq(ts->client->irq);
-> +	return 0;
+> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> +
+> +	ret =3D mipi_dsi_dcs_write(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, &ctrl, =
+sizeof(ctrl));
+> +	if (ret < 0)
+> +		goto out;
+> +
+> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+> +
+> +out:
+> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+> +
+> +	return ret < 0 ? ret : 0;
 > +}
 
 [Severity: Medium]
-What happens on the next suspend if sw42902_start() fails during
-sw42902_resume()?
+Can a sysfs brightness write race with panel preparation or issue transfers
+while the panel is powered off?
 
-When sw42902_start() fails, sw42902_resume() powers off the controller and
-returns without calling enable_irq(ts->client->irq).  Because the PM core
-clears dev->power.is_suspended before invoking the resume callback, the
-next system suspend still calls sw42902_suspend(), which writes to the
-powered-off chip over I2C and calls disable_irq(ts->client->irq) a second
-time, leaving the IRQ disabled even if a later resume succeeds.
+sw43103_backlight_init() registers the backlight device during probe, and
+backlight_device_set_brightness() calls sw43103_backlight_update_status()
+under only bd->ops_lock and bd->update_lock.  If userspace writes to sysfs
+while the panel is unprepared, mipi_dsi_dcs_write() runs while the panel is
+in reset or powered down.  If it writes during sw43103_prepare(), it also
+races on dsi->mode_flags:
+
+CPU0                              CPU1
+sw43103_prepare()
+  sw43103_program()
+    sw43103_init_sequence()
+                                  backlight_device_set_brightness()
+                                    sw43103_backlight_update_status()
+                                      dsi->mode_flags &=3D ~...
+    mipi_dsi_dcs_write_seq_multi()
+      /* sent in high-speed mode instead of low-power mode */
+
+Conversely, restoring the low-power mode flag at the end of
+sw43103_backlight_update_status() while sw43103_program() is sending the
+picture parameter set forces mipi_dsi_picture_parameter_set_multi() into
+low-power mode.
 
 [ ... ]
 
-> +static const struct i2c_device_id sw42902_ids[] =3D {
-> +	{ "sw42902" },
-> +	{ }
-> +};
+> +static void sw43103_remove(struct mipi_dsi_device *dsi)
+> +{
+> +	struct sw43103_panel *ctx =3D mipi_dsi_get_drvdata(dsi);
+> +	int ret;
+> +
+> +	ret =3D sw43103_unprepare(&ctx->base);
+> +	if (ret < 0)
+> +		dev_err(&dsi->dev, "failed to unprepare panel: %d\n", ret);
+> +
+> +	ret =3D mipi_dsi_detach(dsi);
+> +	if (ret < 0)
+> +		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
+> +
+> +	drm_panel_remove(&ctx->base);
+> +}
 
-[Severity: Low]
-This isn't a bug, but per I2C subsystem conventions new struct
-i2c_device_id entries should use named initializers ({ .name =3D "sw42902" =
-}).
+[Severity: Medium]
+Does calling sw43103_unprepare() directly in sw43103_remove() underflow the
+regulator enable counts?
+
+sw43103_unprepare() unconditionally calls regulator_bulk_disable() without
+checking or updating ctx->base.prepared.  If the panel is not prepared when
+the driver is unbound, regulator_bulk_disable() triggers an unbalanced
+regulator disable warning and returns -EIO; if the panel is prepared,
+powering it off before mipi_dsi_detach() and drm_panel_remove() leaves
+ctx->base.prepared set, causing modeset teardown to access an unpowered
+panel and disable the supplies a second time.  Removing the manual
+sw43103_unprepare() call lets the modeset driver tear the panel down
+cleanly.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117123946.6685=
-57-1-rofikcoga@gmail.com?part=3D7
+57-1-rofikcoga@gmail.com?part=3D5
