@@ -1,43 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794915230;
-	b=wTDnI8Cl9jpQXbPNVdOUczPD2jq363W8/0buWFaGqKpmBtUk5esh4MLnE6Pm6xsuZAJ7
-	 b/0UljUvNmUvRBso24cdDo1EAc1czF1nAb3zXHLhULRAlk0hxcR9En8Uo9dhrkRyFiPap
-	 DZ2WajvZQIYXTaUo+6xoe+jpmDmNn3BCpRKxNnZ8DCN34MvEANMXGJX3Sp7pqT8RO04dW
-	 1KLJuw6T1NegdvwEnbFC/WJnYrMEekRN+ktTgK7aMlbasBgLiDseoSYMsIcx3hwVlZb6s
-	 m6GcsffmkNhdBttG3kyc9jnRlOnNcaYv9w0Be5RKrDgbvaIllox4DAjU3Djvbypkv3Q==
+	t=1794915282;
+	b=WKOh5kKSCSy+dpIwB86XY/lKr0fa/pbVaswrpBUZO/92y8M/7Ly9wbauvJjcg30zaOkn
+	 J+6w74AbX1cnDPDH0VGQDYqKIcuPnts7hIdbAYWcqX/NcSX5qCwHJPi3OTL2+Eo7xE5ut
+	 jnmL8arATox9SAmdsa+Qr30xPxoj74Bd9FXxcPHQ8cObnzKqoqkqFj5tt6iT4u7tUEJ+5
+	 TV/0AkFxSpUyICHYiY2Y4UUjrZfL4LtptG7Qy+iLNq0VawgmHL8mnmQhUn9qaGhrbDGL1
+	 7VaLbFDG1fesxTBH3mx7Vucx4nG82TMLENjrnHI5jviVUBcGQwc231bTexKQ23TRFlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794915230;
-	h=Received:From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=kjXAaXK6hQb/XXAPNwyN4JZO8nJotie+Ok3HcmhEFCE=;
-	b=NBX+5EHRgbTG99hHxHIfyu9lLA88WhlK11Mkmxb0+Kyq5PaIDU4lPR3CMdRbOFvzPtfj
-	 ImMnHqPJSJ8YUa2tXNX4k9J8ys5suOpEi2We0bPfu3dy3S8t53fA3UPuYIjC7j7gsDb6b
-	 dkS8tRqih/23iCfFO4YAH/E+m9FplArWdf+ztc3T/5QW4Lo0kYijhBZV8mSSSCWxl8u8J
-	 mWsRw94VFIzZAoXQdWtE/vqMRFn/T4+Gzn8ziylaIVlgSFjQHFKQbBgRK7bZc2VvvPeNv
-	 kFPsdfbzbRHwe6OaQ0RKccU64+fCd22HC7osOj9uJ1BijoxXtpMvhiL3oPO84tVQYlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794915282;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=dU6AYxqGJ8lH/GhgPco4xoKYsGMuZyQ09Hz+IUgud/Q=;
+	b=biEieq6F3Vr3gwU4zwKewT2f3HAVQlNCHUpgaI7id0WNaxZUPXLtb6cXhGT3AnG1/Xzb
+	 6l66/e1qINMR8L+Jn+RZYDrgZ2vFcbTfK8QoPbcbhQMUd9HRFqeGN9cFpyd8Ww/Vp3pLo
+	 xj3D8P5qYAFtj3q/oQLE08VJnIvbrKM/7qB931qh4RPvnE96H3HZ0gxJ05C1b3wlDPzGu
+	 A04lUl1suI5J+w9Y1Wfgh7fjH0M7EbMjP0OmrR83a63zvCX7rANOD7U1mugAWCPi5yIgy
+	 XvQCkhDgPvwIh75eKpX0R25DPHUi5MqFDXlOgTx6hYh4LFzXFaoR3rTQiNyuGXm6P7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UchQ8asQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968C0606A31C;
-	Tue, 17 Nov 2026 11:33:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0121F000C4;
-	Tue, 17 Nov 2026 11:33:49 +0000 (UTC)
-From: Thierry Reding <treding@nvidia.com>
-To: Jon Hunter <jonathanh@nvidia.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>
-Cc: Sumit Gupta <sumitg@nvidia.com>, devicetree@vger.kernel.org, 
- linux-tegra@vger.kernel.org
-In-Reply-To: <20261030141101.845044-1-thierry.reding@kernel.org>
-References: <20261030141101.845044-1-thierry.reding@kernel.org>
-Subject: Re: [PATCH 1/3] arm64: tegra: Fix address translation on Tegra264
-Message-Id: <179491522089.28851.706571593758877456.b4-ty@b4>
-Date: Tue, 17 Nov 2026 12:33:40 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDD5606A31C;
+	Tue, 17 Nov 2026 11:34:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UchQ8asQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B938A1F000C5;
+	Tue, 17 Nov 2026 11:34:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794915281;
+	bh=dU6AYxqGJ8lH/GhgPco4xoKYsGMuZyQ09Hz+IUgud/Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UchQ8asQuCKu7vHV1U/v7QKUgWH76UF2rxPpZWw3tVH2cgImhghMsfT7iSRmfuEMw
+	 abwx+YQ4oHoDFlp+dcYw2+aw4cKA3YYb8TqQBsvU/74GjJmhpTJENGcM58HwM36NWL
+	 s09enbqIoJf9KPIxV69Sq8BFFOeMIe3cs/zHr4i8+fp4uJNYlNzvJdxshXWR15CiLJ
+	 SEP0QxRkQi8RQnfZrAa0aS0Hd8PTYHnBa+a3thtaEdbzTJv8dX8zY1PYZ+ak345bDb
+	 CM7bQ/A6Gk8+n9lRVMVF1eJgBKPR3Fhn8DENnnv6oTEtSrTH0Bm+jfi2afybXCivop
+	 U4/j6SoufOM7Q==
+Date: Tue, 17 Nov 2026 11:34:34 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Karthik S <karthik.s@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/3] ASoC: qcom: Add talos-lyra-evk audio support
+Message-ID: <51d0c10e-a5f5-44b3-9dbd-90d5727e4751@sirena.org.uk>
+References: <20261117110848.465407-1-karthik.s@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -47,40 +65,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=530; i=treding@nvidia.com;
- h=from:subject:message-id; bh=q1slLfOKQxL+mlf4j90HFWk8qZw/bT+KR5uqMVpdt7k=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBq/Duc6TC5f85T5Ccw7kzjINcTUxBR1TgGZmvil
- pKVBPFYtb+JAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCavw7nAAKCRDdI6zXfz6z
- oX1iD/wIDerM7zPJcOnSKKQVnqi5AeaA0keVtyoEdJxTOfzhIVJ6vNr218cBrydq8ykicVq4aXh
- 1/YYIizIYEMlNJPXt5ZhOtA1y1Ke1Rs8+jp1BeGNkoDftMekYQHItoWmOEBknsHHDs4+BXMJChc
- IMFanN3ERXpBYfCQXwO5NETDIG6P5MZO6IgK3pSLHppOoka3ANQEiehfCziHAvG6B/VUjAiuFFU
- 64W5Uywn/2HNMznoNVUgG64PHlaZD2x+8Q/NgpuiiRwGOY+bphiqntUx8vq9D1x2RV6uwOyXYcX
- hh6sC7r2UT0FyoCIMBXw1Qrjh75Jc0hOwPrfdg3toAnxabGQDRvnJOvi2vOqEawprR6qrfsMZtw
- t+FHR8Uj32LQ4bfSB+XouV4qLECt5HpL7/1JXDexfNNO8KQ66nvxcmRo8q7YMyZAMi4FEwtFAZr
- OtFGl9PT0pXEaZ/qaVU062czJhlyobuRyYDxUL4vk4TpDcGFFrxnUPUIrYvcYyem7gOWnDljChD
- PTXjJLFoQmbx7ExMANMT8oFUcFMhCf5/x/ENGONlLeNvqPaLXqMzZ9GNMMED8WSm7n/US8nPcvB
- F11CuMelti16XC/Fm6d1SPkocWcNMDifuKFSnqw9hY/0FCto2SFpnlREalMs4NONz9Lb3Cgcp8W
- nmBzdf0nf4AonLg==
-X-Developer-Key: i=treding@nvidia.com; a=openpgp;
- fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="h1ZWgSPvCeY8xSxp"
+Content-Disposition: inline
+In-Reply-To: <20261117110848.465407-1-karthik.s@oss.qualcomm.com>
+X-Cookie: Marriage, n.:
 
 
-On Fri, 30 Oct 2026 15:10:59 +0100, Thierry Reding wrote:
-> arm64: tegra: Fix address translation on Tegra264
+--h1ZWgSPvCeY8xSxp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Applied, thanks!
+On Tue, Nov 17, 2026 at 04:38:45PM +0530, Karthik S wrote:
+> This series adds audio support for the talos-lyra-evk platform, which
+> uses the MAX98091 codec over the Secondary MI2S interface for both
+> playback and capture.
 
-[1/3] arm64: tegra: Fix address translation on Tegra264
-      commit: 168fca2ee5e60e649b3d476e451f7833633a1455
-[2/3] arm64: tegra: Fix memory size unit in comment
-      commit: 17c5a5ee525da79ab1ca0a5b92190a0587604643
-[3/3] arm64: tegra: Remove PCI ranges from VISION chiplet
-      commit: f87ba646efb4afd159a418c43b0d95062eaae1f5
+This doesn't apply against current code, please check and resend.
 
-Best regards,
--- 
-Thierry Reding <treding@nvidia.com>
+--h1ZWgSPvCeY8xSxp
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr8O8kACgkQJNaLcl1U
+h9Cawwf9Fzu5gxI/WvW79DbC+rMMDZ86M+3i1kMDA8rOGQlfBqF5+kNdB28NxtNA
+eAPdZra2egkT6CiGAxVQv4A8iriJ+Kr4kGHsnyFymGKSR3BGO5GIPWnB5PzF/5Tq
+ivtXSQpbFPMlWKGTqWbvx8QPTmz+I1RZRrRY9jXrhe0V+/zXmKmvNctlKhjp0ghM
+Gt1oN0bpg4uB+CWrro4Pgg/XJJHN8D/KHM9cchJxOJdbU0JD53s7LGFu8Vc1UPSk
+YYHup5DO2ln/sjbTNzzJMzBUyNMDmZiinbdyF2ilSOSnX5DFVHo5TKra/OUc9hIM
+vQeuEDiT5qzSJai/mqgSqe+NyVNuZg==
+=VTnW
+-----END PGP SIGNATURE-----
+
+--h1ZWgSPvCeY8xSxp--
