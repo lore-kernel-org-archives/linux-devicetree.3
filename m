@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794915412;
-	b=5iEXMhe6B4A8tWvrs62zPtAtr/0IGGMT7ImQSV3RFyfznQrGXNjiQr3jfG+d0upK1rVQ
-	 kZIaA8fkV7zibsqjCjbXIM6hxuHMYdD1tVgvsesHdiFPmP3wdtzPZ0VzND4izFYKXT/Zt
-	 5iYZ46zNyUHjoYQWAibiyCy4GZAu/YvhbswVhG/RVVNUuc0ZlkuwaWXv/lfe9lh0SVPjZ
-	 d8zYXZlFobkTSUnXVskCiEMVZJFvDbtrZ5sh8Q9pBDXfaGOUQpNYXGTlXQG4b+iTJnpBW
-	 diKFMat1Kf7/Q4xZPcxZdqh9LLiP6E8bnEL92CN1hPhwrjOOVmveXACmbaVxp5tQQLw==
+	b=ET6RzhxaRikw3CAcEA/Sh8HuMuOiqxkbnHR3DyFqgc01AIO26fJ1bT6VNet2ZA6oOzSQ
+	 JIpOXmwoUrgWR7ocJ1ERD9VhvRi8CRuL8lz+cyaW58EVqM7sgv8mUFQH1jjVYr5dKLaWL
+	 2yppYYgSgDO3KXzV4u+Rtfubu5841/52IFOHipVjMY8KSfeJWGhw3BigCqgPMDS3ZcbSQ
+	 BNQDWKbSWnFViwox0gZd3A1UTsm1baAmpel/AmFAxmAeF6KfVq8Gbtkn40kLPBGE2X+CW
+	 rsHTwh6HTJ+DQJ2yhDgVL+d843/bTMvAjGkJmR9TkX3sIdiZTmI+OsiWRREmsG75yJw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794915412;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=WLsrLWcaHLMIPgECXjlqeKlMPqmSq6rMMsrBtlCMClI=;
-	b=rQs0N7OZyZAnwJipHs1TRoV6ZZBPta28DtlprProtrQ5P/0hlCRjpR6Jhe3nafkRUGRx
-	 Ut9bPQFQ0+tD1bglm14qSvoDWkzMhYhvSw55OmK/etV5oSvDIw4R1JJ7zHpo59gkwgiIH
-	 LCsGroVXO5xds3A+PnSyuT84EYuSNQCGczCxe2TS28puW6yCUNX+6shhBpmdlumjS6Wrl
-	 TjJC3nQmIncfMSHEOW1PfpNwuUfbOnHn2Wnc6++BhWEXK2wgR938wjRwAWvo6zdcqp5C2
-	 v1vpyuAem1NjhvpwK4vjflucyQgesa6Yw4Ck2pnYD3+7+DPA1YoAqq13OLKXptDny3g==
+	bh=dxqcIqtWTxIZw43ZJIhJkSexxCStYIQHemKkftsp9Yg=;
+	b=zdfYjOIPs6VyNXA5TWTt9jDLsXn01LrK+W8lsGU7NvPCQCF1yJsebrK/r6QKvQzTNAag
+	 7sL6bhm/3HLrWWYNZO31OpORiHJlGnTaj64QFl2shp3tlwSumi0NFuTdiVMSgvHnICjDS
+	 Py/yu586Jtnkgehf5qOb2a8ZMvF8z++C1QSCWPCRq4t+VZy7+39ahCILJ7yVmPsrehvA5
+	 Y0tOi0pSze5OhJ3SN+1iOrOvqSL6yKtvUKCLz2Hq47n6DfMmturWFMAaHKiRc92dK+SUO
+	 YJxKyMb8yomsbdmCBPa6x3WrdMN15BFzDTz0+LarCnay0MdAuHXSlZH0IrED4MsQb/w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="S04xAB/D";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmx5vI3N;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7795A606A332;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C4C606A32C;
 	Tue, 17 Nov 2026 11:36:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S04xAB/D
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmx5vI3N
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794915412;
-	b=g/UEmOv8+mHEbevTNYtTO9L8+boGtYtjhsO5ysPQvU9rgBLA7/fiMbrPmxhyCafLLh7R
-	 +VfzOU16c0h2/m1Mw7G9IGDSmgmehwj5e2Q8EECTa/j+ydwRwyqdEvzuuwY+6CtKVk2Pd
-	 6Ez4szQkofcOCS45wHuXsE5VhxoiGnIzdmOkfhjxbyskd5fVJX9DrRhrwLkygIbJXSMEw
-	 DuHTyrtkN5/V2wkq3VhfVxmhvNRm2VtDnxfOVh8Wltf6RmlwIep7nKcdAEctM6sG7Cfyc
-	 au2SWXEOdEdVId103m8TpMFcNHlpbBTPjPvIt97OQ9gQBmG6tpGATc/ivPFGRlwRfIA==
+	t=1794915411;
+	b=yolpu5J+3qyNUE1/VtijjH5Q3Z0leTc2vSxmU8HQYPQSqxO0Iufps+7RcUnlnFyKthrv
+	 Y6dAeg3rzZtJLIfp6kWSQKReNIIW154+ChPGKb11wbbrwTb8B6cBaOL3d2Tiv9yjGxnLb
+	 WEBgH3Wqk3sfzaQ3CVgaC2RPOwNjTEaQ0w+b7kBy3cFi3ejZOgYjNSDEEb1D5hVw4t5+q
+	 0aVf1yKrPGuaYAHea3ATR9tI2kAiTQLpAU4SwU0dFkbXvPZESxE2aPgZ+4ssVHmrmxflx
+	 96cVcqvNDOFTirUhVTHCuMzsnE9a50EIyZLsK1rIobWtcq/qBmH60zUndqn/VWj2qlA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794915412;
+	c=relaxed/relaxed; t=1794915411;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=WLsrLWcaHLMIPgECXjlqeKlMPqmSq6rMMsrBtlCMClI=;
-	b=mWlBWA1/rHinMYgDrie/pp2517Yqs+3qB/yO77c1HvNDuW+OGcnMXBhIDmZwXy3CvHPT
-	 Jztvx/TTGJH6SF/h6gwUqMowBoElbpH7aAYSek2uOc0AF4gS39YG5k4MDh0m7t8c8bXBt
-	 K7qnnRLMhVjUYXrciFeSqa4kwV1niSSyhYjXPa1hvyU0NabWXcUWfrsGRwzDeT1Lfh3gj
-	 bB1e6kShHLL800dGwMRVbbAaOnf9yjQUpji/cWKJqHYDI1rkgbvirkYoo0jfn9bN/DcBR
-	 T0eKW71VrzydydsaaDbpu5wIiB3rJofXNBBIfXL7OXUUU2/WLrvZ5SEOxBJlPX2Y7uQ==
+	bh=dxqcIqtWTxIZw43ZJIhJkSexxCStYIQHemKkftsp9Yg=;
+	b=qU3UGzxXjmNBs+SIoZ7j2QlwjDLVluCGS109GL1+Gcsq9l2a+sUGDIdXaUtlgqKmK+8b
+	 rZbHN908uJ+K5BrjdawIreZcK7Rxx6tSh3+wzBh3jR1hFvRhGpAdNqcULSFVSRmpO7f5l
+	 S7baQmdv5y8GV9pWHN+AiLfoPmAMvFWLFQXzdj8vdCWrwykTwdsOx/haZ4MnZRWS4RnZO
+	 wxL+q2J9euZqVe8F3SjkmqWX018qsWdT+doATiglw9NeM5J6hbbM/Oi1tb3K2yBPwNWLW
+	 4/Vnb8rAN0/Z45cbQEeDOr1wndktuyZcjdVB/05Vm9heDSH1ROLl0GpgGxa2JiJvFAw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E50481F000C8;
+	by smtp.kernel.org (Postfix) with ESMTPS id CD4D01F000C7;
 	Tue, 17 Nov 2026 11:36:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794915412;
-	bh=WLsrLWcaHLMIPgECXjlqeKlMPqmSq6rMMsrBtlCMClI=;
+	s=k20260515; t=1794915411;
+	bh=dxqcIqtWTxIZw43ZJIhJkSexxCStYIQHemKkftsp9Yg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=S04xAB/DMUIeo+4BQ9Sf5RDhgjrxjzuSC282YbcW50Qn0f8g9j3TeP3s/vRZAav0k
-	 5MBxsRsT2DuN4keN0drrRqWN+Lwu43kJVZqmC17o51te2YJqhYggYMzqsJfbCjHF9+
-	 D+PbuzSlIRPbzA3zSrWl5UNMeEmY8JUUQccSaK7JhA0vEbOzuPP8SYADTLFsAXO1oN
-	 aLiqUzv0km2OHa140FGYhBAK17FqaebqPYJhQ+cfupwbu0sS3NoxymF8LN9sPW40YF
-	 beHSNl0HtJq7yU4g1HnfBY4qfMP8Gwff6yWL56iNpUznYL7VE3yw7P21KS6GNWPK2f
-	 WGVN7UqdDWqpA==
+	b=bmx5vI3NgMAOo1PO5+XWgVz378rfy4oAmOhDsR39phU2KL9Gqr8mV53Bh3hi11Kkz
+	 HFEmEt2Qgk1GVTfzs2rJZeO6Npi3q3v7mNjnk62lVoloKwnlmME7Et9P31S53Nzlmp
+	 B42+tKonzpdx02OO28qWBt2XRtVD72ylDYTcE4WN4TEO+QwNTm+2ZW96M/uLTTSRMF
+	 YVkRGAR28jwxM6lackJEp8KdsTblKO4uUJ6M7eZq0Yb1sgWQfNX0H65RoHoyIttWjE
+	 YJ7AAAijNL99C8VlCftdOBnz7cf3bHarewkBXGJIEXU5Yh4zqbGxxXl/AXEa+wUHAJ
+	 HEvCMOlTjlb7A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 731F34A821;
+	by lkml.kernel.org (Postfix) with ESMTP id 5C34F4A81D;
 	Tue, 17 Nov 2026 11:36:50 +0000 (UTC)
 From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Tue, 17 Nov 2026 13:33:24 +0200
-Subject: [PATCH RESEND v5 4/4] nvmem: mtk-efuse: add mt6572 support
+Date: Tue, 17 Nov 2026 13:33:23 +0200
+Subject: [PATCH RESEND v5 3/4] nvmem: mtk-efuse: add CPU speedbin
+ post-processing
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-6572-nvmem-v5-4-9b561a8a83e1@protonmail.com>
+Message-Id: <20261117-6572-nvmem-v5-3-9b561a8a83e1@protonmail.com>
 References: <20261117-6572-nvmem-v5-0-9b561a8a83e1@protonmail.com>
 In-Reply-To: <20261117-6572-nvmem-v5-0-9b561a8a83e1@protonmail.com>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -97,11 +98,11 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Roman Vivchar <rva333@protonmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794915409; l=1186;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794915409; l=1737;
  i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=mWKEv6xosLs4X5XvowD7mx6yLXlNMxpHdaw+++X3b1Y=;
- b=HBm6I4zRrHGeg8wxUl+qexXvxYh8tSZFqFTHVfhuk6y3hAcUo0uquOT+hONaqE7KjpawokUtO
- mCBMalZ6Qx5Afp86nBgEI47dXCKaxG3adIgm3qg2H+9L2uxLqiVE92z
+ bh=2fMHy4JxbvhP2Nx70MB1a2Zu4elW1Lbb73LR5vQKGOc=;
+ b=GEZYIJniMHkcE0LLN+BoXraYuM1xaVRYosLrMetE1QqhfWhM0dvsvNLsGoNwPP6fVcyCeuM75
+ ATyT/SPm6g5BpNXis2ddYoMCVVdfRp7NN/fMuEYTVwyCD6F3aWFEbvj
 X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
  pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
 X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
@@ -112,37 +113,55 @@ Content-Transfer-Encoding: 7bit
 
 From: Roman Vivchar <rva333@protonmail.com>
 
-Add a platform data struct for the efuse controller.
+MediaTek SoCs are often released under the same marketing name, but with
+different suffix for the speedbin. For example, mt6572m has 1 GHz limit,
+mt6572a - 1.2 GHz, mt6572w - 1.4 GHz.
+
+Since the speedbin is stored as a number in the efuse, add support for
+converting it to the bitmask for opp-supported-hw usage in the DT.
 
 Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 ---
- drivers/nvmem/mtk-efuse.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/nvmem/mtk-efuse.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
 diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
-index d2e5c69c580e..24d302a15528 100644
+index 980c29d01337..d2e5c69c580e 100644
 --- a/drivers/nvmem/mtk-efuse.c
 +++ b/drivers/nvmem/mtk-efuse.c
-@@ -150,6 +150,11 @@ static int mtk_efuse_probe(struct platform_device *pdev)
+@@ -70,6 +70,18 @@ static int mtk_efuse_gpu_speedbin_pp(void *context, const char *id, int index,
  	return 0;
  }
  
-+static const struct mtk_efuse_pdata mtk_mt6572_efuse_pdata = {
-+	.uses_post_processing = true,
-+	.needs_aligned_read = true,
-+};
++static int mtk_efuse_cpu_speedbin_pp(void *context, const char *id, int index,
++				     unsigned int offset, void *data, size_t bytes)
++{
++	u8 *val = data;
 +
- static const struct mtk_efuse_pdata mtk_mt8186_efuse_pdata = {
- 	.uses_post_processing = true,
- 	.needs_aligned_read = false,
-@@ -161,6 +166,7 @@ static const struct mtk_efuse_pdata mtk_efuse_pdata = {
- };
++	if (val[0] >= 8)
++		return -EINVAL;
++
++	val[0] = BIT(val[0]);
++	return 0;
++}
++
+ static void mtk_efuse_fixup_dt_cell_info(struct nvmem_device *nvmem,
+ 					 struct nvmem_cell_info *cell)
+ {
+@@ -83,6 +95,13 @@ static void mtk_efuse_fixup_dt_cell_info(struct nvmem_device *nvmem,
+ 	if (cell->nbits <= 3 &&
+ 	    strncmp(cell->name, "gpu-speedbin", min(sz, strlen("gpu-speedbin"))) == 0)
+ 		cell->read_post_process = mtk_efuse_gpu_speedbin_pp;
++
++	/*
++	 * On mobile SoCs, the CPU speedbin is a number. Convert it to
++	 * a bitmask for supported-hw usage.
++	 */
++	if (strncmp(cell->name, "cpu-speedbin", min(sz, strlen("cpu-speedbin"))) == 0)
++		cell->read_post_process = mtk_efuse_cpu_speedbin_pp;
+ }
  
- static const struct of_device_id mtk_efuse_of_match[] = {
-+	{ .compatible = "mediatek,mt6572-efuse", .data = &mtk_mt6572_efuse_pdata },
- 	{ .compatible = "mediatek,mt8173-efuse", .data = &mtk_efuse_pdata },
- 	{ .compatible = "mediatek,mt8186-efuse", .data = &mtk_mt8186_efuse_pdata },
- 	{ .compatible = "mediatek,efuse", .data = &mtk_efuse_pdata },
+ static int mtk_efuse_probe(struct platform_device *pdev)
 
 -- 
 2.56.1
