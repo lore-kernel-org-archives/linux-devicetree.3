@@ -1,74 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794877506;
-	b=wZnR9mW9F+FEy+2jg7mlWX5ZvUMPL4JWWH6dXrogcZx4Gio1UesgCK1Ou1Onf2xcUF4f
-	 r26vLeF04EoEwuI2Xy5C6Q8adbZRUdSvpAkkin+le8Mf/WvctKHC7PjPPXwnlqpdRcuhz
-	 Xmi9LjWU0Y/uHI4zkM3/K+79GpZOAt3biL/0+qBvrKp0cJhhZu3M2ujUFqrlDsBd1qRwJ
-	 4QU8FflU+6BMdTLGsJOprF9eASxcsRUmlY4bSuRS/175yEyW2D7oEqkTbqm+/9O0iXFKW
-	 PVyd7BnVnmLkwcd/MRPGAtN8ZLEuxgezt3r3ESmaqCaP7yFoS6c2UTIWBNGRlmX8/jA==
+	t=1794877507;
+	b=cvCtlP2M/CUhAXwCCMt0+Vlx4AnhVv0MC/xmmr0zK+3rQQ96UIjs87CccjaYhv9TesQ4
+	 uSNMQBLNFhGuOfguyfV3z/0v5OfOK71aQnVivudpR1etBJKqbgd5Aj0aOOTVtS2ILWzfN
+	 SwyaDoVjFulK76lMA9+bLgi69MjXw/AmkLCZR4vOORtacJbCzGfdpWMhl+EZ+qW6z8w2D
+	 enTtjmGuZiEHCcXN23RXZ4jFOAjX734sfJE1MzxTES5nFJa+MiXVKU4Da2kaugw5mq+Cw
+	 6g+dequazim7Z3vVQXeGDKrfMQ2bpc48H5RRyKo90Lv1KQpFFfoPZRbF+b2QGBjVRgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794877506;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877507;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=YxNXRFV2tfHnN9zjEBdLST7EXKRWTkncONoWrmBal2M=;
-	b=HSCaNwB6Dpqttr8/Ej3t5bmN3Fe2ehtb6M3ethAauu71zXmrWDilojrE4L3SWoWY2eVV
-	 ibnM4D0Y8ZeHmeP2udGliw9JUwxIOdUpgOKuZESsvBv9rIsLd2qNCit3k1DgrlueNLdpN
-	 Ngoo7Xn+CE6ha1DW8qsNyN8WyIHpOPH5ZmoG7tw4RN/6txccI0m7d61VAePrhQ0am8TO0
-	 IipxjeKC1Vi8nfNsAbxkk1u8RhSD0OEqd+sfeYTESUcAI5Gy59zRBtSMPmlZthreZRxug
-	 j9r13DNjpH3yhIZMZDuH3Jc6QrU09Bo85pyZ/SLdojqzKk5PxrWkC1bAoZrxn5Q3f2w==
+	bh=bAKWIAVqDT3AcQkpi2qynUpaTpqH3SIx5CGznaLOzLM=;
+	b=IzHloWCTFCX4wcJJTKTuD7l5vHD1MPtY+wa1sFeM9CIenYBCasPGg4WFcqrCINVNMMhl
+	 bCE2QID/HGNvJTn9udCeOX6LmhJg3yFH2qRgIt6ATvsGxYEPYBD2MxEk2SPbVPDUsQxyG
+	 07V9xXPuUHlEhyo4hA1uWT9TXxGjFmyVPUqZuR1idH0YjBJuogQ4XK0M8OqBALfED5C5b
+	 6T2OOIwBFCsQid01fl3VpEO6Ke54YXlPsau6lLU7hAQs+OhMECQCkR/u7ijQOVHGgqnEc
+	 mOY1ebsJJHBAK/gvkvV18oNtyP6gK+6gpEdPQA5EDb1T7g+y80Da1jA/5skphs5Ix3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ihiBjnmR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCxGRqoo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D70606A334;
-	Tue, 17 Nov 2026 01:05:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60ECA606A323;
+	Tue, 17 Nov 2026 01:05:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ihiBjnmR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F4421F000CD;
-	Tue, 17 Nov 2026 01:05:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCxGRqoo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093AE1F000CC;
+	Tue, 17 Nov 2026 01:05:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794877505;
-	bh=YxNXRFV2tfHnN9zjEBdLST7EXKRWTkncONoWrmBal2M=;
+	s=k20260515; t=1794877507;
+	bh=bAKWIAVqDT3AcQkpi2qynUpaTpqH3SIx5CGznaLOzLM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ihiBjnmRjKcU2lWBTMOD6ZsOSL23L8g7JtHfDU/jie6aoauMKrFgyB3jCWTlCEb0H
-	 av/sznex8DjoOG06+ViORXzDpSAxzWglbsD3r1dNrm7ijV6DdQTBnmPpQ3WF1gaepv
-	 8arGYdTFmp270YLkd3C1vhm++82NEBm06pGWjWnqv5sLIlZSqzc2Q8Td+1yjAWdDFL
-	 cv9LQB4L4UJmSdPKvdXiFR2wRAvFtYzd4p4g/gpHNrAEDwz1+xtDCiA508cttz459C
-	 5xYUy/wHOw4WLFNwflwdRGnVIxG60Ja++5yKAzSn1xFnyCzYdgUhjY2orbf8rVKNpJ
-	 LTTf9qgzJ2Lpg==
+	b=MCxGRqooq5Vy3Ft5sWW1NSrM9EcCDMvHyt8pPFxyp+1L0mzZa3rsXD+y39F99+6pa
+	 8BxF5yirjGiIZl3NneUN4/LVEqzcQ/TfXbKdeQdXmnGMz0JMX9Y3GqEQaFfOs0kLYT
+	 KbgkIxA3RmnHAoDYRucY2UQud3C01BXrua6w7gt6UYpv2Se6RRAl+NZNz/Wk2nSUqr
+	 c/erAXbs3V8IdJfBEW66qczkMIa9faoWu87SK0t0Ml8NtQRySZ/H6XCBnmuNlZ0HGn
+	 zaBxrKC4QLQS6MoyzKGeF+NmC8n1ifqnIRLRqxkXjhWY1BbKg4BECOIJ5MLdef0KMA
+	 w3e06CVN9OT3w==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Tengfei Fan <quic_tengfan@quicinc.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Ling Xu <quic_lxu5@quicinc.com>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
+	Chenna Kesava Raju <quic_chennak@quicinc.com>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v5 0/5] arm64: dts: qcom: support SDM845 HDK
-Date: Mon, 16 Nov 2026 19:04:42 -0600
-Message-ID: <179487749311.432567.13731277200090621528.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	stable@kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: lemans: Remove secure FastRPC context bank
+Date: Mon, 16 Nov 2026 19:04:43 -0600
+Message-ID: <179487749347.432567.13609391802226605329.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019-sdm845-hdk-v5-0-4aa7e22cd0ed@oss.qualcomm.com>
-References: <20261019-sdm845-hdk-v5-0-4aa7e22cd0ed@oss.qualcomm.com>
+In-Reply-To: <20261111-lemanscb10-v1-1-7164700b7be6@oss.qualcomm.com>
+References: <20261111-lemanscb10-v1-1-7164700b7be6@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,23 +76,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 19 Oct 2026 12:18:02 +0300, Dmitry Baryshkov wrote:
-> Lantronix HDK845 aka Qualcomm SDM845-HDK is a hardware development kit
-> for the Qualcomm SDM845 / SDA845 platform. It uses the modem-less
-> version of the chip (SDA845) and provides a rich set of the peripherals
-> and connectors. The DSI panel is an optional addon, so it is being split
-> to a separate overlay. To (hopefully) ease merging, the overlay is split
-> to a separate patch as it depends on the panel. The base DT doesn't have
-> external dependencies.
+On Wed, 11 Nov 2026 22:18:32 +0530, Ekansh Gupta wrote:
+> FastRPC context bank 10 is reserved for the secure PD feature available
+> in downstream. The secure PD feature is not supported upstream and the
+> context bank must not be used by any other PD.
+> 
+> Using this context bank for a non-secure PD results in an SMMU
+> non-secure global fault.
 > 
 > [...]
 
 Applied, thanks!
 
-[4/5] arm64: dts: qcom: add device tree for SDM845-HDK
-      commit: 30eb04d28111e83d2ada48f46be2d314e1a47860
-[5/5] arm64: dts: qcom: sdm845-hdk: add display card overlay
-      commit: e0bcadc233e6f0876eb66130389db9909c831dc3
+[1/1] arm64: dts: qcom: lemans: Remove secure FastRPC context bank
+      commit: 38281f5b033a639c4e92bd699d14d42d0d79e7fa
 
 Best regards,
 -- 
