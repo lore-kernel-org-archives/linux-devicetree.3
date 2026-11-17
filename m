@@ -1,57 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921157;
-	b=qeNZ2RTFjIg56pVzW9Dc01BMe3dgj2pcfJ/GmB97NdVrv7xEgLmWBYik+DFNLGzlUwvq
-	 XL5cgCmrHfEiOsnab9K38h6j5Wo9HqmCppgwC5EozG2ArcoSNu8Ty+9oXWr+JYkKdgGv8
-	 0KWRnveJojtWJE2XTGCx6iypsonAiXtfg0pQpFxRU5hNvjjJtWraJ9xfFY3cn/Qze5qID
-	 /tjJu33UDBEGx/ku1yTac11xb0OyjvyNr9Y7aanM+hZCkxMhYUp1cBHPbqMw9bf7Qi4pm
-	 uGTQUUmkpKaUdOFm5vytomeRkPZdedQXnFfmP45xDp4rYcz+sMwKqvxvwRtyBCRrnig==
+	t=1794921287;
+	b=btGZTOh0dFzq8hCDh9hy0j2q8rRVXvGjn3oxoYJowF0yM8DtzAnqKQMLQe4mCprcssMS
+	 z1KiSaT+OJlnY8XgjaC1HlITOJVibsTJ10HcQ/1j5zvFsBDFtR8XUns6xUFk+6zZRurri
+	 jvZ5TznJvb+z2KppjKXvBcwlKlrJ5G4ng9g+h0cgU4hZlIRLFaWUlXPjOsKMbYQuq8zGP
+	 +Gl4eHEA+3Jdat6rk9N+YRoYEufHSiP4F7RLM41CzigmJGTIcbgFWwEKr8xPjy+euE9ez
+	 qMpEfGlEZ8GjfJkvo2BCGFPYazs13rkEllw070G8JTL4GITjRKx+XTEF5g8xUMpLAag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921157;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=MdVqw0F5CfoMgltcebKZnz2NwUzBuH6PWbQR6PRHA8w=;
-	b=cyQTPZ8X0bZe9kE1i5H2YDgNZ1tRzOmEEN1V+ciivwYUcM6OTayaQOJpLDprBH4v84nS
-	 AvjlQ4dnme2wXu9Gcl7OnnbTq08iSWHFmE75HZtdC6bFdXWyDmVrufrFK5YVpScbdp9AG
-	 gBkpjAQoVJSIDm8N/9Y4/w7V7zcyq6dt3YfQERti4+plWy/bWisMP+5BE1xbVbSeEU7t1
-	 Aenxjzw309Dgo5T6VJ0TWgKz40VqAnzpfKD8+vVy93NLChjpdVwXkJKF3AurnHvlTC2XG
-	 9Fl6goHCUhQ8pjUK0sLt2qI2oHT7PAPPYz3j/T9YUapaXbiv7v7g/yVnykbQXEzJ0/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921287;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=0qKcuyhzLFuBHbczAbqx5crwyCe5DTKBouONLeSXJ7A=;
+	b=pm9fcD6MomQ+XwbT+q2mEoDslmzagvHjuqOMDg+fLy+NMQgt5E4KD73ZlnyxyHjV204V
+	 o89lIsWloTr7kmE2tWwpt+hpDWj8C4uz+QvDsscxEgd/c4UbC53IqYHNUhiC3+XI7uVLx
+	 zx/pQWxwf/gHlemMS7iJJWxqpk/3kgjJBbOBDXDTTTxavc3cj6ck38jZl5MbFSJ1zqMuP
+	 FceJGnABVjsZiIjidosROpWW4V6imd2U9Sv1yKD+4GKSWkjva62S05RA/J+20AdoDvM6R
+	 pWlEvRQtr1JMle6JQt3KSPBx3ah99QqlrL6K5ugeVWZXj7hBlIAtEWB5UuzPXSJh+Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTfP8oKv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G64rw3CY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3904F606A31C;
-	Tue, 17 Nov 2026 13:12:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D24606A8BA;
+	Tue, 17 Nov 2026 13:14:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTfP8oKv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4F81F000C4;
-	Tue, 17 Nov 2026 13:12:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G64rw3CY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49E991F000C9;
+	Tue, 17 Nov 2026 13:14:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794921156;
-	bh=MdVqw0F5CfoMgltcebKZnz2NwUzBuH6PWbQR6PRHA8w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CTfP8oKvQiGbvvW8+dwm34sXTVzlnAdMybf9ixbWZHqnXLu926UDeXWb9bepTvgaz
-	 qND2/U1G1We7VZDgvq9ea/4XG34Cpl5ikgycFCaxYunknd+Irm8FoGUcpgHXMWXDtS
-	 RFqEVgwTbp67qQdNC94v6vvd738SKj66o5TRvuFBO3Y1AMi06v/jf7AR4mPhIrYe2Z
-	 fVRh+qehQg344DuzFylDMY2X89OImK2lhskqa+zNynBirMCZ0/OAO4hdE3DQEGn1uA
-	 1nL+c879a4q3LaqqtP7j5r30Fp0P51Bw7GTFw6jIBQ9yrjYwFaP3dPN22L+bauIcfa
-	 zArAAfyzZY8Kg==
-Message-ID: <sashiko-outbox-218846@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 08/11] arm64: dts: qcom: sm8250-lge-timelm: enable
- SW43103 panel
-Reply-To: sashiko-reviews@lists.linux.dev
-To: rofikkerneldev <rofikcoga@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261117123946.668557-9-rofikcoga@gmail.com>
-References: <20261117123946.668557-1-rofikcoga@gmail.com>
- <20261117123946.668557-9-rofikcoga@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 13:12:36 +0000
+	s=k20260515; t=1794921286;
+	bh=0qKcuyhzLFuBHbczAbqx5crwyCe5DTKBouONLeSXJ7A=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=G64rw3CYHmgxRV/7GES39h1YULxbfVBT+cug1THdGAri/RqGKaMXNzkikasyR7m7O
+	 c7YS74i8mNWKuefEWuDB5xLPkDpyCWy321NqP7jfxtknrk8xl6sOq37Ipub/fE6EaL
+	 L3hOeyVbZt8N9E48dqn6qcFUEA/ccSwXT+MVKtIOFN6VmMSIt+AQ5h52ueJyQng8EK
+	 /5lPSC8APo+at6ba3BJOUVelxnSSpbUda5mHJgXHy+j5avTqXyNkFUMKxQ7XFYRcsI
+	 tVVwf4jvnuo3uMDIO/x5uqHpCU2rLUoGF3py7u1FAbVXjXYZV1+ZTOjo0Xo4hBCbS8
+	 fVqdWv/zaS7pQ==
+Subject: Re: [PATCH net-next v4 4/8] net: xilinx: tsn: parse endpoint DMA
+ channel configuration
+From: netdev-bot+sashiko@kernel.org
+To: srinivas.neeli@amd.com
+Cc: nagadheeraj.rottela@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, richardcochran@gmail.com, michal.simek@amd.com,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, rostedt@goodmis.org,
+ edumazet@kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rt-devel@lists.linux.dev, git@amd.com, neelisrinivas18@gmail.com
+Date: Tue, 17 Nov 2026 13:14:44 +0000
+Message-ID: <179492128482.3136.14229628808606591959@kernel.org>
+In-Reply-To: <20261113-patches_v2_external-v4-4-56bb26f042a4@amd.com>
+References: <20261113-patches_v2_external-v4-4-56bb26f042a4@amd.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,130 +66,93 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] arm64: dts: qcom: Signed-off-by and Author use handle
-  rofikkerneldev
-- [High] arm64: dts: qcom: enabling mdss with gmu disabled breaks
-  a6xx_gmu_init()
-- [Medium] arm64: dts: qcom: missing enable-gpios in sm8250-lge-timelm
-  panel@0 node
-- [Medium] drm/panel: sw43103_remove() calls sw43103_unprepare()
-  unconditionally
-- [Low] arm64: dts: qcom: redundant dispcc status and unsorted mdss
-  nodes
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
+
+Low priority / nit picks for your consideration:
+
+- [Low] The driver requires the number of tx_chanN entries in "dma-names"
+  to equal "xlnx,num-priorities", but the DT binding does not encode or…
+
 --
 
-commit 3038d85d6373aad3b6104c371b0b0d8abde1a320
-Author: rofikkerneldev <rofikcoga@gmail.com>
+net: xilinx: tsn: parse endpoint DMA channel configuration
 
-> arm64: dts: qcom: sm8250-lge-timelm: enable SW43103 panel
->=20
-> Enable DISPCC, MDSS, DSI0, and its PHY. Attach the SW43103 panel with
-> its power rails, reset GPIO, and four-lane DSI link.
->=20
-> Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
+This patch counts the tx_chanN and rx_chanN entries in dma-names and
+allocates the conduit netdev with that many TX and RX queues. It parses
+the tx-queues-config child node to map each logical TX queue to a TX DMA
+channel. Probe also requires the TX channel count to equal
+xlnx,num-priorities on the parent IP node.
 
-[Severity: High]
-The Author header and Signed-off-by trailer use an account handle
-(rofikkerneldev) instead of a real human name, which does not meet the
-Developer Certificate of Origin requirements in
-Documentation/process/submitting-patches.rst.
+> diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+> index b6458bb0ba0fd..9458db38255d4 100644
+> --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+> +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts b/arch/arm64/=
-boot/dts/qcom/sm8250-lge-timelm.dts
-> index ecbff27976fc2..fca48472f5dfe 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
-> @@ -557,3 +557,42 @@ &usb_1_qmpphy {
->  	vdda-phy-supply =3D <&vreg_l9a_1p2>;
->  	vdda-pll-supply =3D <&vreg_l18a_0p9>;
->  };
+[ ... ]
+
+> @@ -69,15 +88,180 @@ static const struct ethtool_ops ep_ethtool_ops = {
+
+[ ... ]
+
+>  static int xlnx_tsn_ep_probe(struct platform_device *pdev)
+>  {
+
+[ ... ]
+
+> +	ret = of_property_read_u32(ip_np, "xlnx,num-priorities", &num_prio);
+> +	of_node_put(ip_np);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "missing xlnx,num-priorities\n");
 > +
-> +&dispcc {
-> +	status =3D "okay";
-> +};
+> +	if (num_prio < TSN_MIN_PRIORITIES || num_prio > TSN_MAX_TX_QUEUE)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "invalid xlnx,num-priorities %u\n",
+> +				     num_prio);
+>  
+> -	ndev = alloc_etherdev(sizeof(*ep));
+> +	if (num_tx_dma_channels != num_prio)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "TX channel count %u must equal num-priorities %u\n",
+> +				     num_tx_dma_channels, num_prio);
 
 [Severity: Low]
-This isn't a bug, but dispcc in arch/arm64/boot/dts/qcom/sm8250.dtsi is
-already enabled by default, so this status override is redundant.  Also,
-board-level label overrides in Qualcomm device trees are sorted
-alphabetically, so the &mdss* nodes below belong between &gpu and
-&pm8150_gpios rather than after &usb_1_qmpphy.
 
-> +
-> +&mdss {
-> +	status =3D "okay";
-> +};
+Is this equality check stricter than what the binding in
+xlnx,tsn-endpoint-ethernet-mac.yaml allows?
 
-[Severity: High]
-Does enabling &mdss fail to bind the DRM device because &gmu is still
-disabled?
+The binding says the following and nothing more:
 
-In sm8250-lge-timelm.dts, &gpu is enabled, while gmu in sm8250.dtsi
-defaults to status =3D "disabled" and is never enabled by the board DTS.
-When dpu_dev_probe() calls msm_drv_probe(), add_gpu_components() includes
-the GPU in the DRM component master match list alongside mdss_dsi0.
-During component_bind_all() in msm_drm_init(), adreno_bind() ->
-a6xx_gpu_init() -> a6xx_gmu_init() looks up the GMU platform device via
-of_find_device_by_node(), which returns NULL because the gmu node is
-disabled.  a6xx_gmu_init() returns -ENODEV, aborting component_bind_all()
-and preventing both the display controller and the SW43103 panel from
-initializing unless &gmu is also enabled.
+  - each dma-names item matches "^(tx|rx)_chan[0-7]$"
+  - there are 2..16 items, with at least one TX and one RX entry
+  - each queueN under tx-queues-config maps to a distinct TX channel
+    listed in dma-names
 
-> +
-> +&mdss_dsi0 {
-> +	vdda-supply =3D <&vreg_l9a_1p2>;
-> +	status =3D "okay";
-> +
-> +	panel@0 {
-> +		compatible =3D "lg,sw43103";
+Taken together, these rules only require the TX channel count to be at
+least xlnx,num-priorities. They don't require it to be equal.
 
-[Severity: Medium]
-Does instantiating "lg,sw43103" expose an unbalanced regulator disable in
-sw43103_remove() on driver unbind or module unload?
+For example, this DT looks valid against the schema:
 
-drivers/gpu/drm/panel/panel-lg-sw43103.c:sw43103_remove() {
-	ret =3D sw43103_unprepare(&ctx->base);
-	if (ret < 0)
-		dev_err(&dsi->dev, "failed to unprepare panel: %d\n", ret);
+    xlnx,num-priorities = <2>;
+    ...
+        dma-names = "tx_chan0", "tx_chan1", "tx_chan2", "rx_chan0";
+        tx-queues-config {
+            queue0 { xlnx,dma-channel-num = <0>; };
+            queue1 { xlnx,dma-channel-num = <1>; };
+        };
 
-	ret =3D mipi_dsi_detach(dsi);
-	if (ret < 0)
-		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
+But xlnx_tsn_ep_probe()->ep_count_dma_channels() counts three TX
+channels, and probe then fails with:
 
-	drm_panel_remove(&ctx->base);
-}
+    TX channel count 3 must equal num-priorities 2
 
-Calling the raw sw43103_unprepare() callback directly bypasses
-drm_panel_unprepare() and ctx->base.prepared tracking, unconditionally
-calling regulator_bulk_disable() on vddi and vpnl.  If the panel is
-already unprepared, this underflows the regulator enable count and
-triggers a WARN in _regulator_disable().  If the panel is prepared and
-enabled, sw43103_unprepare() asserts reset and cuts power while
-ctx->base.prepared remains true, before mipi_dsi_detach() triggers DRM
-atomic shutdown to send MIPI DSI commands and call drm_panel_unprepare()
-a second time.
+The commit message says equality is the intended rule. Should the binding
+state or enforce that in the xlnx,num-priorities or dma-names
+descriptions? Or should the driver accept extra TX channels that no queue
+uses?
 
-> +		reg =3D <0>;
-> +
-> +		vddi-supply =3D <&vreg_l14a_1p8>;
-> +		vpnl-supply =3D <&vreg_l11c_3p0>;
-> +		reset-gpios =3D <&tlmm 75 GPIO_ACTIVE_LOW>;
-
-[Severity: Medium]
-Should this panel node also specify enable-gpios =3D <&pm8150l_gpios 4
-GPIO_ACTIVE_HIGH>?
-
-The binding example for the timelm panel in
-Documentation/devicetree/bindings/display/panel/lg,sw43103.yaml specifies
-that GPIO alongside the same vddi-supply, vpnl-supply, and reset-gpios.
-Without enable-gpios here, devm_gpiod_get_optional(dev, "enable",
-GPIOD_OUT_LOW) in panel-lg-sw43103 returns NULL, and sw43103_prepare() and
-sw43103_unprepare() never toggle the panel's PM8150L GPIO 4 enable line
-across display power cycles.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117123946.6685=
-57-1-rofikcoga@gmail.com?part=3D8
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-patches_v2_external-v4-0-56bb26f042a4%40amd.com
