@@ -1,102 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794878277;
-	b=ERYwNZ4zpslsJm+/WS7aTuwspRAzST1aKwMb6lWZdUl14Br07n2R97JZ2cDaK8bXBuTs
-	 dKMNIBcb/j7ZebmaCkyijF/mXPGd05vytPI9/JlxnL/N+ISjZ95+0/o1cHoG8SUuXLqaD
-	 YjyxsCksbrWo0ykcqad/HSc288ME1Pb0Zb6oiXJ/BVeVIav/99Ru4aZftmRZZxzYFiwVU
-	 zXcGshGMB20uu6ADgGiSsjPAETLF1Acc/Q2N39993ZpDWW8mgm9LH4SVBs+wH9/LaMMz8
-	 mV8UTbTD8CyqjZEGxR7ffUHfsTt5aaLCGEoNeUYH9oAnMp1mif5Ytxhk4P2kQoRiXOA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794878277;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794878344;
+	b=oiPSXFszg1uObBMikKyaj7tfLCwPqn/ismmYB9CsUTq3KCasNN+jEirno3V8+8Ot0dD3
+	 GDFmurMVABaTMa1zzEMlIETFZYqeuH7PC3D5Za2Wo4Yu6r31kV8AaBhgt11GY6jwW2vro
+	 1tPHavfU8CktOCHnrP6cuF88xEQATtz/xgdwHqKNDxd3j+7yzxu06Dg+T70kvAtapHaJX
+	 5+L6gxz4sgNJpTKPBD/Gj6QNp0aIK9O+JHKXg9+LUJfqqUt0ZnhEMtbv5p640dGtXLrfP
+	 A8IASB5oa4AX2JQzXEENNm/tdPSfEJKS+x/BrRq9XsorzqbAQOu1YX8qeHgspnwiMyA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794878344;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=/DUl5nkubottrq+DmlqmVS5vhvOiDyY993sZh0Q2i6w=;
-	b=m20POWrW0nlUz+A4LmWdji0v2r5Hlsp54LtuasyOWLBuisaBanpjb4f5UwavFsYWPW2o
-	 dQe+AQvMJTgN8FZkPaaKZkK+n1tWvSsueMlTpEOhT0SFUS5Pf+rFI7j0PUO1pCvsDgbYq
-	 AdjJzI95iVvXQZXh9bveL2qjU01nZOH94q94ODs2EcO6jcpBI9LxFXU9ncq4mMlHyTBsN
-	 /8AICGbRuKfivC09+WgEbsSZiki2BaEws0CFQCoQSf0TUDjGYywTJ2zkCGSv28yh+PgKI
-	 Tv7ltNwdURakZLyqyCOFrP/Q0Rchs/lV+EeE5z4hsrdoaLI4fXF/yC3WefanlTmdUxA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0LMIhRKsAqf7tkHd6CvCf8vX+HRhhWOWmXfOlVGA7zA=;
+	b=kuKoQ0r33lUj1AMKG4wP3pPI1m/XygXmBBb1CzRNphW0T9ktajdGUJrSOQvFEMUtaFdp
+	 G4WF1qYjjtBRSnvuc+9sS/pV2z6Wp38kvdFKy45fb9Q/AHqITI5rBM8JGOF2xizgNNyUD
+	 YwkeJpvCjPh4X5jCN8ZV8IZL9Ae2wOSoBQtE9n7uzU5bqVCdEo3WracKH2BSIhQtbYK8O
+	 m4i/2TsLZvWCxoUq9knY6VweW1ZFdf3SZp3a4zO/zn1G97Ex1B3QrQjB8s+Snc5vUrutz
+	 CbYC4WxPtbCSVN56lXgj+NUx9QzQbScx19T/IkuX6HkgnI6uFu2HgOjJsc+NywOPhaA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P4YS2TRG;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x1sKZPNT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.174
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81893606A323
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 01:17:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81893606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36585606A323
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 01:19:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36585606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P4YS2TRG
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-38133db970bso607508eec.0
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 17:17:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x1sKZPNT
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3adef977ad9so36935531fa.1
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 17:19:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794878342; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NtQ4Uhy/lr8cvlgnKwwWRPO+fX88QpZrMHJFdTWyAz/yQiFdtdHWU25RlzXRfYPcf+
+         EZ3Iq2DZsapwuWHMWqafl++gNEGLTcsatHgoIwGW3WSYScVrDNp8gEIwh2qOa00OoHXl
+         SxNv6agY0RT3IC+uGjkRAgMXkYGEeOcnlLyFsYVJM92u/byjNGrp0D71pJ9Y1l85O6OV
+         VbEnFVK+d61ORdFDPH58cuk/3ZZco7VD/p7AuiK8f99jDKArkDDfSOCnvmnHIyAJpd1Q
+         hTY1AYNjkzG0dHXw1m8dwpkWLcJtAtZ8z4Z+x4ig7rxpLPzQVRjOoDt0JTXXgCxECbbq
+         iShg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0LMIhRKsAqf7tkHd6CvCf8vX+HRhhWOWmXfOlVGA7zA=;
+        fh=pRiMfN/EO5XibkaYck7hoxc2CiHmiDYQFvJKP6wd+Gw=;
+        b=NN36HGxEosV9/kvzU+2y5fr1FZDx1AoiZs0/i++FRpP42E1rNsuX20419iuy9/XYBE
+         hzOWD/oJ9+md0k6ALfllAl6JzERliL1nG6ain715bCYCEGdWAlqOH+GBnHTponfAiQm8
+         01Kgfkc8slQvak9PbEGuRPtWruOv/QTy7ZpotqBKRk6WFq+3Hv1HryC6iY7uf7+Q3spU
+         9uclluw+UYh4zPwIA/csIY/G9iKq9iie9XZSpCJHXSO6Ol6+Q+fhEsmXvKkwgV6w8aGl
+         KYDZ8S/HQl9Gajgt4nmW5MRjjs14M6mp9/bg8CkZ/aGT8sdW0lULiThpl1NnTMcmAq2G
+         ATyg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794878277; x=1795483077; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/DUl5nkubottrq+DmlqmVS5vhvOiDyY993sZh0Q2i6w=;
-        b=P4YS2TRGiYo+OE7Dv4hYMsPhD9R6X+IqEgqM1bI5izV7LBwohPF+81z9NiZdW67eJ1
-         m7XeaVnppGN5G37RPH6T4BqsCep6GsYY0TuTU10oc53Hump2xMM+VTdc27Tb5RgdLCPV
-         4+oL3WKazs1Amc+QYAp8rat3K7noIPd3NgTpasLSxWs7gpJofGMod6+CRuYQrn6DVHH2
-         7vd8KdTZDK5fV3vLSUu9lYdH9ooZce6ooqD9KXYv4KUb/oPqMtZ7K6h2QG1pWwRkYu3w
-         yku/uBmh7c6dXXJL6vgz+3VLjVaI/ShTyQT1+bs+4CNxmdDRq4Mc7GZ77BBRZ0dmRWKB
-         +zAQ==
+        d=gmail.com; s=20260707; t=1794878342; x=1795483142; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0LMIhRKsAqf7tkHd6CvCf8vX+HRhhWOWmXfOlVGA7zA=;
+        b=x1sKZPNTBgI+oXYSIw4eVifpFiIzZkJlL4rlZLx3kOxRYR2UD5N33hRjLk3va6Vsrj
+         M9A5MgvOKKavPDk9a3EXOmoKe/tmJ0kovYBdQCX9+eLE7X90MKvW1AMtuIb7sF+5akJd
+         JJtuZGABTZhSN5r20zZx2JzH5t/DK8GNah2osDJvVVL8U+jE/pLKRX3DPNnA0qupZ+O1
+         WPbReXb48AVxZRtZw2ExHTtIg2++XNad8/9TM6zOlytRNwQMEKZEO1lzJPotKKehBdV3
+         JTkVviZDn6hP39W6ZoVO2lcMAU+nNuJvYeVX0uAe9Wo760P6h0fjCoY9xcbjJX71Eetr
+         wBow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794878277; x=1795483077;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794878342; x=1795483142;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/DUl5nkubottrq+DmlqmVS5vhvOiDyY993sZh0Q2i6w=;
-        b=sH80EqkjgQK08XnQxxrimuGHnUXZ24ngO85puFKU6x2y5d9X2O7P4/VQLgjfIVaq1x
-         0xfXMBcf4t34NVFjWtFuTllaVK8iowBWOJHRFDAqTXkOxkpv1ecd0qP2/hmU0fgzFsbb
-         wENIcVCddKzdtCLGfEXzNo1XsHGQ9N6pDLDWS0jD8+ubte4Q/+EWokx1XO+8W78dG0qi
-         gOWck+8nwZ5etaCdXV8WWkuGvinE3PWyiAk3bBmNRiaEMHWd0ZFsT6/SkxZEza4lBfbp
-         e6iLgGK2frwv/tYYg/vMjlM5ARHqpjAZg8RSSsKewkF/4kLZmaB5BuMbNYTncArq+/zg
-         VOfw==
-X-Forwarded-Encrypted: i=1; AL+hErFFDiO3FBr+Wsj3svc7ZHczfrj2PThOXITEOy1Gn0LFLyH7+IwYGiaa96+Ex5uP/6XFacpHwPguDl39@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fQLNTVb1IlPxVZn5CgLzq4GoJevfOCJVQMlYqdU1e0ekmirsD
-	ji8b3xLf41B7wyeIrhCKC9VpapCzKNqB8q07rDnUFp33fq6TrMn2Z+to
-X-Gm-Gg: AZFdTZewMEXg8fjHwFU++CkxAf7tkKKtzA9/z1nelWuq0jgUuGlprhPCMnnNPa7TdTJ
-	PbLqzvqIoClAcWSlfu5+lzBn+mlUaZDpAgo4JV8UliMQO1JxiPWAczatVS6bPP6J0YvYsDldgb1
-	UtZ/5MFvetyp90qm3St8BYzPj5LSd/L4plNR9OzozvWADitDJsIL3yW9HNJTbQPKyVJCufZDnbW
-	eJPt5e6kg9iKt1tl24eOshtaCvS7F2EUZKOcG4EMrIqnqPEC5q+MZ3obpiBaBnv8N180Grqi7VW
-	gpGIsdd/ZRh6bGWNwoHICVzAB0AzGAGdUMzvvPtkpbtc1MDtrDSQYQZgIPu3AbFVSvARuOdr2ri
-	HGBL72/eMY3MHylsQcZTf38Avz3IfYujZF/PX4YhydbqwdA7bm7rSOvejKAXSxTwQOIvETk8zhd
-	vZycARXp/8V0kzNkoAKiqZkZWSE2M36mSy0cP5eTdTLiVuv1f257Kd9aQ6GHn+Lk0P88hF7HaLo
-	Zzg9iqfgLdT3HwHcBe36lzkh6DFSXR/EGmmWwWkOgyLcEgQ5YTAQRdp/yG7LyV7yMl1rXapo4Kk
-	4tc/PYlBomzk/yzciOBWuLUMl1y3nd82lEaDk2/gHYnO9kC7FQpBdWRYhAbzggCF2bYDTYEV+BX
-	8BlOB
-X-Received: by 2002:a05:7300:540f:b0:380:c3d7:c263 with SMTP id 5a478bee46e88-380c3d7c590mr2579893eec.5.1794878276258;
-        Mon, 16 Nov 2026 17:17:56 -0800 (PST)
-Received: from smalls.localdomain (ip-198-145-71-161.az.bambroadband.net. [198.145.71.161])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm36639201eec.22.2026.11.16.17.17.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 17:17:55 -0800 (PST)
-From: Hunter Laux <hunterlaux@gmail.com>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>, Bartosz Golaszewski <brgl@kernel.org>,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
- letux-kernel@openphoenux.org
-Subject: Re: [PATCH 3/3] pinctrl: ingenic: Add X2600 pin groups and functions
-In-Reply-To:
- <afd42cc2ca2c93501ff1769b7d7a25559ef68a2f.1794557697.git.hns@goldelico.com>
-References: <cover.1794557697.git.hns@goldelico.com>
- <afd42cc2ca2c93501ff1769b7d7a25559ef68a2f.1794557697.git.hns@goldelico.com>
-Date: Mon, 16 Nov 2026 18:17:55 -0700
-Message-ID: <179487827555.2153459.1199232821591145638@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+        bh=0LMIhRKsAqf7tkHd6CvCf8vX+HRhhWOWmXfOlVGA7zA=;
+        b=ZWrnpb41L5raA+vuSJ2ht9y2I136yDOvLdzLgspZScDwwWaPD24maq/QPix8D7grrT
+         iUtWWPyxGyzsqo0fw5oT8CXfHYeP8YbsxvC6JCozbuFiM7oViPGs07usBD3s9e1vSRaC
+         nAwLJM7fa7DQgKmCQvtYHPUWjXQWpLye/jhcIVJAURgOogfhuhH0/VKuLvBG54WolUQf
+         E2ZAeSkgrhaZJXKXLmn9SbqrIwV/DxOXVR67Hkr6Fqe1/O4ZH4o/n2cHcUdd6AbDZjzG
+         dgUejVgIyS47uA4CRtX2AGXxuQuy9vJaVq4MN5gjMiiGGzT2DyXB/OQW416FJIULLm8T
+         ViyQ==
+X-Forwarded-Encrypted: i=1; AL+hErHeHH6QooEgF97uTjZNPDWhzpuf49KACLm9hh1UmmLIohoEJkq0FT8vvDjTSG0nIRQe97k5tMVOsluT@vger.kernel.org
+X-Gm-Message-State: APuU4Z+OBolNxe/aWJzWmd19kP1hO34b4n5ATr7G9ypqquXKEdPb97/7
+	FhoFnYUHLUa4NZoRdWRz090ghOVZruGUGfhTzCpL8rXrCBUcGKYgZLEvyxFYXsElxyNK4+TQ45P
+	JDhFHKulUPrOP1uIidzGmUQqLWQ5RSEA=
+X-Gm-Gg: AYBFou2+zsKVmkMD8Kqp61l1pyMpB8HRtrQBH83jakK3bqj7KdpTPQvyvH47WNeOHsT
+	qcG5kLLLUdA1AiM4IWdGhiIlW/ZO01QsT1puAM1aLbxW8wOM7zAOvUaOUszADJImJzUdR3Q5hJJ
+	SYVTSA9ZiNHKdkWUhyOGL2bU/0GL/z1dg7yZxW7aY1Xrb4M/Ghxz2645O1SFlph+36JX18xcZaE
+	x8Yv3th20KDdtqr3VHVdcw7v7jPe3/M7tF3PsZuQthiqyDxvRja5sedsGwviGR76isJoLfTxsv1
+	Ord7mfVrpKz23YFXGAAvPVR7yHdtZJNp9vjG7B2H6H+3C/Ko6VBtsIkpepTfxyZNL0Li6lKJLx5
+	raH++Zz7Yt6gXcoob4neS8ceirbaUnrf+WuX1X1unVVegEe5axiv8uOBix87qjY7wFUSTBYs6BC
+	e4DBR1xkU00aUDs6Gi+15ZUKoENg==
+X-Received: by 2002:a05:651c:41cf:b0:3ab:4f5e:3edc with SMTP id
+ 38308e7fff4ca-3ae2b4f0263mr32473621fa.15.1794878341861; Mon, 16 Nov 2026
+ 17:19:01 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,45 +105,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20260311194531.70441-1-festevam@gmail.com> <177344689795.3706356.13043407533958417879.robh@kernel.org>
+In-Reply-To: <177344689795.3706356.13043407533958417879.robh@kernel.org>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Mon, 16 Nov 2026 22:18:48 -0300
+X-Gm-Features: AclHuK85a0wTDwYZkXytyVwys37e_78s3w7QVgGrJmJ9qPzFcQX4mkAQjyHnXmo
+Message-ID: <CAOMZO5BdxG2_raZ--ZrrTn=_i2HKTM=pCB0hWi4+CBRno3DGtw@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: net: wireless: marvell,sd8787: Relax length constraints
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: briannorris@chromium.org, conor+dt@kernel.org, 
+	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, 
+	johannes@sipsolutions.net, krzk+dt@kernel.org, kvalo@kernel.org, 
+	linux-kernel@vger.kernel.org, Frank.Li@nxp.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Nikolaus,
+Hi Rob,
 
-On Fri, Nov 13, 2026 at 09:14:58AM +0100, H. Nikolaus Schaller wrote:
-> +	INGENIC_PIN_GROUP("uart1-data-c", x2600_uart1_data_c, 1),
-> +	INGENIC_PIN_GROUP("uart2-data", x2600_uart2_data, 1),
-> +	INGENIC_PIN_GROUP("uart4-data-b", x2600_uart4_data_b, 2),
-> +	INGENIC_PIN_GROUP("uart5-data-b", x2600_uart5_data_b, 2),
+On Fri, Mar 13, 2026 at 9:08=E2=80=AFPM Rob Herring (Arm) <robh@kernel.org>=
+ wrote:
+>
+>
+> On Wed, 11 Mar 2026 16:45:31 -0300, Fabio Estevam wrote:
+> > Commit 31ed9d9d71ec ("ARM: dts: rockchip: Limit WiFi TX power on
+> > rk3288-veyron-jerry") added calibration data for the rk3288-veyron-jerr=
+y
+> > platform. The commit message explicitly notes that "the length can vary
+> > between hw versions", as documented in the original text binding.
+> >
+> > The current YAML schema enforces fixed maximum lengths for calibration
+> > data arrays, which causes dtbs_check warnings for rk3288-veyron-jerry.d=
+ts.
+> >
+> > Relax the constraints for the two properties that have
+> > variable-length data in this platform by adding minItems based on the
+> > actual data used in the downstream kernel:
+> >
+> > - marvell,caldata-txpwrlimit-2g: 508 bytes (from rk3288-veyron-jerry.dt=
+s)
+> > - marvell,caldata-txpwrlimit-5g-sub2: 744 bytes (from
+> > rk3288-veyron-jerry.dts)
+> >
+> > The original maxItems values are preserved as upper bounds to maintain
+> > validation for other platforms while accommodating this specific
+> > hardware variant.
+> >
+> > Fixes: 25f855413885 ("dt-bindings: net: wireless: convert marvel-8xxx.t=
+xt to yaml format")
+> > Signed-off-by: Fabio Estevam <festevam@gmail.com>
+> > ---
+> >  .../devicetree/bindings/net/wireless/marvell,sd8787.yaml        | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+>
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-Per the X2600 PM, shouldn't these be 2, 0, 1 and 1?
-
-> +static int x2600_slcd_ctrl_pins[] = {
-> +	0x34, 0x3c, 0x3d, 0x3e, 0x3f,
-> +};
-
-PB20 (0x34) has no function 1. Did this come from the X2000 table?
-Should 0x34 be dropped?
-
-> +	INGENIC_PIN_GROUP("pcm", x2600_pcm, 3),
-[...]
-> +	INGENIC_PIN_GROUP("pwm11", x2600_pwm11, 0),
-> +	INGENIC_PIN_GROUP("pwm12", x2600_pwm12, 0),
-> +	INGENIC_PIN_GROUP("pwm13", x2600_pwm13, 0),
-> +	INGENIC_PIN_GROUP("pwm14", x2600_pwm14, 0),
-> +	INGENIC_PIN_GROUP("pwm15", x2600_pwm15, 0),
-> +	INGENIC_PIN_GROUP("pwm-trig-c", x2600_pwm_trig_c, 1),
-> +	INGENIC_PIN_GROUP("pwm-trig-d", x2600_pwm_trig_d, 1),
-[...]
-> +	INGENIC_PIN_GROUP("wait", x2600_wait, 3),
-
-These groups aren't in any function.
-
-> +	0x000007ff, 0xffffffff, 0x7ffbfff, 0x0000ffff, 0x000ffffe,
-[...]
-> +	0x000007ff, 0xffffffff, 0x01ffff1, 0x0001e000, 0x000fffff,
-
-Port C is missing a digit?
-
-On port E, 0x80 is pull enable and 0x90 selects up/down (PEPE/PEPS).
-Doesn't that make the X2000 pull code wrong there?
-
-Hunter
+Can you pick this one, please?
