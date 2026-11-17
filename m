@@ -1,79 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794947366;
-	b=5eTKV6IdLR2YWMIyqUcnqFoFLckoZEDHmOyZCUN3DVM2f/Gi2oLF9aoISzO2ZOKq08jP
-	 V3cbeTlwgFVtPjHAaRjy8PU6t6sRDOQR1Asu6AgKV34QY33S3MfkoQ0hjHtO0BRdYWz4t
-	 0R5eWBfU3h87/XqPS5mRx2k4b+WtmElDARBpV8A5fiKGP8R6sweUphB1qEmDH2dFkgXIz
-	 2AF/U4fFA4L5Lry5ZMFe8xINrtYa7i4RrIQeX6tH241Rjjuse+IHvzW1xDkxDjKT8cOf9
-	 OmDlODZC8A89NN/anjNtejRHdXV0u6/xIaeBmn1bvAbIMrkojlkiTeAfjBs2/+koDiA==
+	t=1794947904;
+	b=NMhXzwlVRUS5tRxHRDUmenxkQ8l6+9JxtqzgLmayfXLURJzaf+c3Zlvzh7HCPtlwth3k
+	 yHl7Z1h18WaKjyBkYtPD9D4z+NofjYwmQN849Smm+v6VZptjvGa8hOo0LQq5/e4hjus2P
+	 vGFsEez6Ivb/UFBavJQvX5LRg26DAyki+r/DVgEZG6/AHF2bGiW/P5VKQHr3gM8w86p/V
+	 SCu4BvRha0/w2/ThshEUJIKMvD9GY4E+taCKdEV7JcvxXzYrf7uBiHANN+4DMkFjcyl3f
+	 g6eK+Z2E0DoSM3t24PZ8/28rdVB7FGIn2qyABfBGlp562YMfn9Vid41c7lBI9rlLIwA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794947366;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=l9S+/fGt6QMtr7orblw6BxaiAisH7gLZIShPMzXT7qI=;
-	b=30vqp9mdUe85RnVRSZvfRq+SQH6ZQsTddgq1wnbkNxO4XnX/3j0Sqw2oak4z6RFWomPk
-	 bDLobn15w+xBqFiQYDTHZVcESEE1asI1L8w398GhhDJwxmzLbeoBwAhDGiLXAcieocVue
-	 TcPDWcdBgpGTssA9PMa8/27vihOoxlPWUC+XKEJNzBVaFmOiIfJjGVucglraxyr9BU0em
-	 3O1SRLQEGJcPkwzU+fJW/0KARyow4JkpaqHvP/scpDFBFTQoTHgOXFdVVtsPuu6RceLDO
-	 6t4JGn0bs2vjBrssVdYFN/syuchykCw37/C8/jw2Ph/JiD2Zqf87UklQrgb7j81vTQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794947904;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Received:Received:From:Subject:Date:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=oPZ3KGhECdw+59cHKRLkfyLnKx2Z8YZbvqMPcjVHU7Q=;
+	b=QZo7qLzSpXO7tITwN5WHLH6Yj3nJ6EuQ+rU3lWpLKwWB5bXdsKWmcjUZxK3EiI98rgrw
+	 g1FnnFH1s4Kn5ocEkbWb88yqsrIuFyCjfjx3B07Nx/wQHQr6om0lSCG/oJkOIYyFE9L/L
+	 YOiTqzFW3qwXp7HODG4wB5Zq/L+yYrbbZpWlqUBdPvUljC+v13We0Wy9gROdyF7mXTGH1
+	 GvxFx9giVTeY5YMKd9WsHHr4dSQBmC6A+Dp4X8CyD2Gz2AW+nj06IYKfvEWTRNnjrxj+t
+	 8S+UQTHTLfznTGGD2mE5Tp0Tz4n79RpEEHiFcyKQmxUEzzc03+nvs9fgVDF2w5I2gww==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NpVymrhF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1A4606A33A;
-	Tue, 17 Nov 2026 20:29:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NpVymrhF
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794947366;
-	b=YB0yZtia/QWuK4S0crq/zRVInF6yg+xMG0p85CbLZLKvoSpdHWYeVp4ALSc6CAIrme6q
-	 o8OrupnBmM5pPZr4loyEq2tEDPmATlBOg8yxxjtw4KHx2xyalo4hM+q9mdZDnTILWwhOC
-	 K8H3WoVGirS44GnJlVPibCa2O80nfMoVlGyB/Ywdfo/lAVKTkH/NbsiZdEkgICsDrDU7G
-	 QpLJ6r2Svpkqh8HFvvnXhyJ1iXku34vUNkfCFEYGTwpoDyAjsT98eYwVf2R98vo8G68IY
-	 /88NzUMc6I9EMtH9ZsnJU2oMhjNV32TG0Sped/2qEng+Bf7sLZDHxFHGrEKKBgJEblw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794947366;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=l9S+/fGt6QMtr7orblw6BxaiAisH7gLZIShPMzXT7qI=;
-	b=zIDLFsb3hznDh/FHZTG+qSvcN88y6Fxya+zqT3GGcRtwiavwVwxf7BmV4egdPyf+VBRP
-	 AojkbSc+hdsgR/CS1EP+krrIYLEXF8gMsWbSPfBz6pm7y768eHuzFCwEANovl+ZXhN8Tb
-	 A/+SVecXkFVMC8zb6Gg6BOE5vUWtu8xwpFjFuoYTjfBeqjLzv+Io+M+T+66da+ipASbwE
-	 E5vzsVAeiHK7cyocjNCOqHsAaIChgL+qIVHssjm953C2cyAiD5MCqtg7aQ/ZJ70U96TP+
-	 WyaUbiqMtE5gZG8oXHzUXvTVyeiyRhesBrKFF4jAa7G4/lkcwNcjzli9/YFYy0mLjUw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=YRHg1GtA;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=gBqKKWJ1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 546D11F000C6;
-	Tue, 17 Nov 2026 20:29:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794947366;
-	bh=l9S+/fGt6QMtr7orblw6BxaiAisH7gLZIShPMzXT7qI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=NpVymrhFZ4TVyUtYiRcoTIy+Eg86NC3I5eWXFn8Ktp10UI0phxb2WxQ4mnPDAM0ev
-	 kwptKW4xQ8myQczmWu3K+3FO8WZ7hSksDEgV7PuGFom+SL6qSit672R3Fur5jUb8Ej
-	 Q7zg/dlJEHJo/qSdttim2WySHjQFMJBsKetKNUSyUSvi0O6AiH/5IpK9/OhzDAXBeY
-	 xGZXeFvPrFKbBgX/gocCLSFMZMqEdMW4vWiXEYqxtJXsMsb9OQOi9uv1tUAspmKD32
-	 F4rytBbGVoI8pq0XqKVsFIw3c2tPlLk0fc8/OQYnPXsA3joCsI6xxEyPpjTaAVdAmm
-	 SF+fy485zIXoA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D86304AAD6;
-	Tue, 17 Nov 2026 20:29:23 +0000 (UTC)
-From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Tue, 17 Nov 2026 23:29:24 +0300
-Subject: [PATCH v4 2/2] irqchip: Add Cortina Systems CS75xx peripheral
- interrupt controller
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86194606A31C;
+	Tue, 17 Nov 2026 20:38:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86194606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=YRHg1GtA;
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=gBqKKWJ1
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6AHKLoJD1494296;
+	Tue, 17 Nov 2026 14:38:13 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=oPZ3KGhECdw+5
+	9cHKRLkfyLnKx2Z8YZbvqMPcjVHU7Q=; b=YRHg1GtA5Ipe7+0Dh+IZXwYrrB+DH
+	Z851zSixdrZdYWSDf244wlpHOaCo20iy+y24tRdA+hCtiQWn3GxTSSWk5AvkUXnL
+	0XFAIY7lbNCSxfoTeywAv7qDo8tDhMXEy58TyiRkmmQDrW5MhZY4LAj9o2sbAWZC
+	tLL/auNY0OkRWHOLtbQ6tb5OyvWC2cqfM0Wfby00DKkNgHjsienBedQ7hRO68Tvx
+	QDRKSP4Pli60mVlFjFsItZZVgJPb/8BStWa0lzKagJ5f3BO8SA1SCt0J8cfUy8Yr
+	Z/4Ola0W1h6qZ7pIfGLns1r+Rif/+5pDsdBobuJUHovfpbFDDnpJUrmOA==
+Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010031.outbound.protection.outlook.com [52.101.46.31])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4j0kxqv205-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 14:38:13 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Zo5KY5uCLhEEwHt39lS3/UkO6PZGNTIpfdXi7q6Tdk9JnZnvTI7q5/uThBcCBZtq0p8WIvQx9npA5gze4GycBKBXfe6rETx2lxtawSoGs0m0kOdGWnusPskgO8ggaIPfUc0bhwh4fr+uNzSn/3NjLWPNFiHmEOeHO1sy7riWkGsMFc9U0v5N5b8XRvkEQpnBFwcMAezQ0Alhsv+B2HxHNfaFR+BdGyZFzzzALtJ1WeGYZ6UFTyf2FPVub0A7tmc7d+cuGrHUiQWOFbsOH/xgQ6O0HnN9V+lzQmcXT2ch6iqlKPsr0uP5U3qV3TZ9q0ZnEMhMcuQV6kV9r/hTk61p7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oPZ3KGhECdw+59cHKRLkfyLnKx2Z8YZbvqMPcjVHU7Q=;
+ b=P7ZngzYMCR61XKylWoSdwgVHpTRh/3j0f+4WKlvcW2qRraabL8rxATpegGvQEK+uoWUri+HJnTJOIzw5jsDP6GOy77OfmR12KFtP6P32DgAvw0jyRuaYsuB8jwYUdLYxTLWb9IuhKYGA+ieQzDktplJX1fr0JiioZMnEZCMaUDDpOtFZDItFDW/yfB6EcPcYx4jYBkILDYmg6JrmlSmbcPdJLpQgzDbLlkhtThk5v2Q4aL/cz5wmqaMNmezfeVKuh0+0uhyo3/l6LV+hz1fOFA+1m09k2dNaJ5ifGOpxAndQOIvs8LJI0fvBbrQanimCYzTMyCtR5N6Bch8Wf3tjOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=dolcini.it smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oPZ3KGhECdw+59cHKRLkfyLnKx2Z8YZbvqMPcjVHU7Q=;
+ b=gBqKKWJ1ntK0u7DhQ5KiXX0zOQ/W1RoFW8L7p6jjodjvwr40HvCTvpuJYT+NorD50LQa7LXMDo5Nu3aSQOGj7mnB8QlXsALQvr/ql55CM4BsjR/eaUuC7tJijgEdwTXAmYnSa3m8cGq9o19DlDvjq+tRvokpm4DAm8nLtMv2Xf4=
+Received: from YT4P288CA0031.CANP288.PROD.OUTLOOK.COM (2603:10b6:b01:d3::9) by
+ CH4PR10MB8097.namprd10.prod.outlook.com (2603:10b6:610:241::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Tue, 17 Nov
+ 2026 20:38:11 +0000
+Received: from CO1PEPF0001885F.namprd02.prod.outlook.com
+ (2603:10b6:b01:d3:cafe::c) by YT4P288CA0031.outlook.office365.com
+ (2603:10b6:b01:d3::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
+ 17 Nov 2026 20:38:10 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ CO1PEPF0001885F.mail.protection.outlook.com (10.167.249.248) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 20:38:09 +0000
+Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
+ 2026 14:37:41 -0600
+Received: from DLEE204.ent.ti.com (157.170.170.84) by DLEE201.ent.ti.com
+ (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
+ 2026 14:37:41 -0600
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE204.ent.ti.com
+ (157.170.170.84) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 17 Nov 2026 14:37:41 -0600
+Received: from [127.0.1.1] (uda0506412.dhcp.ti.com [128.247.81.196])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AHKbe3T498237;
+	Tue, 17 Nov 2026 14:37:40 -0600
+From: Kendall Willis <k-willis@ti.com>
+Subject: [PATCH v5 0/2] Input: gpio-keys - support wakeup pinctrl state
+Date: Tue, 17 Nov 2026 14:37:25 -0600
+Message-ID: <20261117-upstream-gpio-wakeup-v5-0-0e10aa2f7c1e@ti.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,185 +135,142 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-cs75xx-intc-v4-2-0a678f35e5f3@gmail.com>
-References: <20261117-cs75xx-intc-v4-0-0a678f35e5f3@gmail.com>
-In-Reply-To: <20261117-cs75xx-intc-v4-0-0a678f35e5f3@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Fil Dunsky <filipp.dunsky@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794947362; l=5096;
- i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=/TDDrsDXswx4rj1Q6oUXRwk17epz9dhPBPrG6KgLxTU=;
- b=ejtm9LmgvsXGWtXcUH+DBww2L0dLTC7iLcg7hwYWNdOK6fmX8CnNkHveV42QYqqEvLPukM5j2
- l3yTAe0NU60ASH/rvpslPwVDWj2V7OEU1cGE/nho1xhg5ih+NKVfMwt
-X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
- pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
-X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
- auth_id=1085
-X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
-Reply-To: filipp.dunsky@gmail.com
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAW7/GoC/3XOQW7CMBAF0KsgrzEaz4zdpKveo2JhnAlYCBLZI
+ aVCuXsdhBBIzfKPNO//m8qSomT1ubqpJGPMsTuXYNcrFQ7+vBcdm5IVAjqogfWlz0MSf9L7Pnb
+ 6xx/l0muL3jJUEGquVHntk7Txeme/tyUfYh669HtvGc18fYAG/wdHo0G3IAa54l1F7muIm9Cd1
+ KyN+CKgXRCwCC5YS0TWIb8L9BQMgFkQaBZa2oVGyH14ehP4VVjawEWoXVtWNsKuhqcwTdMflwM
+ censBAAA=
+X-Change-ID: 20260904-upstream-gpio-wakeup-52a54080c948
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>
+CC: <francesco@dolcini.it>, <msp@baylibre.com>, <s-kochidanadu@ti.com>,
+        <a-kaur@ti.com>, <s-tripathi1@ti.com>, <vishalm@ti.com>,
+        <k-willis@ti.com>, <linux-input@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794947860; l=2309;
+ i=k-willis@ti.com; s=20251230; h=from:subject:message-id;
+ bh=DG12EHeImfEctwFD+H/XLOuKXotzif0ozqzlLz6ceXA=;
+ b=N1bvqH4gOpzzitFuz4EBaA/I/gcDs4VFuH639wF6rauD/TIbFNIKff0bQNZ5YPpn+j+YV/RSs
+ RlFoli15jjaDhsxxEIBSqVRZyIb8Ym7kzUv6cF0fQCV3uxR3u37nE4g
+X-Developer-Key: i=k-willis@ti.com; a=ed25519;
+ pk=fQiPVFwmogfDAKdaAKq163RWSfgHZVE/MrsDzp0Xo1k=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF0001885F:EE_|CH4PR10MB8097:EE_
+X-MS-Office365-Filtering-Correlation-Id: f334ef3b-612d-4eec-61e8-08df44eab11e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|23010399003|18002099003|6133799003|10067099003|13003099007|261022105027099003|261028144727099003|56012099006|261026140227099003|261102123227099003|261009223027099003|261022113327099003|261021121427099003|260925022911599003|261022075727099003|260925021911599003|260925021311599003;
+X-Microsoft-Antispam-Message-Info:
+	AB6GCofyYFtb54lD8uLszmx6RbYBtOuD0EixJTT/jPmhDvrDzcMZY3LTGfQ4FDqnl0z0+PngnvVYbfTLm/K4O71ySa3uHTXTQAHmpYfjA/CuvIe5bDEu6A5JNgNuryAWHKZ752bGUIgjqu1fbWcpOY4QL77xuWmXN8o5T0f8vtd7o9n6gmLISF+JiogNxoN82QPKLDfVBG6AEnTaUfjV800/UQTWaRksIkfryEEqAJcnXRxuynJE7ZBNMwMXMqn2XxJYzliK/ThXBYWekmsBhf7+mliZka1PFFazVvujUF0Mq+JKjVuW6uTRibwCH4CRtufmj6IU/NccqIc4ZY39D+5/IceP70VZlSCopkBNwiCAo9TBufYrC5fx4/L7sDfY6LlsZvqz7dHE/iBfYG7gVCfRKm/F9ZTloq8pvdfsMDPN/i2mUE1aa15znB/gyOnA08DllxXdsFweG+dpx/fQsFC1W76FIpWdwJZJTWr6R5asRlK3F0hf2FvCLbWW9CdoCjZ8mgWqOhFPtgIbOCn3oZI2arpyeuyCYpUjWj3nHIjIcWRfWOs6MYs3OE+aQRofz6P8R7+SKoTQqfUQlEy1aRBcisViotFPu5HlQVHgKLSPKfwyUeGZ7m+CfSxLrLJZL4MMmqCS91XgHqQS4/J+mg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(23010399003)(18002099003)(6133799003)(10067099003)(13003099007)(261022105027099003)(261028144727099003)(56012099006)(261026140227099003)(261102123227099003)(261009223027099003)(261022113327099003)(261021121427099003)(260925022911599003)(261022075727099003)(260925021911599003)(260925021311599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	zWk4LbNfVCqCWC06NFaxX4ooyO0qU2EN/ssPwMdxDjrXglWhxjqBY3tByhh54kJ8qMZE9ch7vft3CyqeVSQ+Eg/7sKwPdxhPtFqJBrG3jMB6lcaig9kCYsyUiF1B/7YHbqUEIzP+KOTUUAuePBXVnKWDN4nznem7rA/c9dVICbnfpxTiaHjzesZ0AtXEOj4QdGDx3cN877c6yexmJX4UT8q/c747thL0BnEukXD8/03xoW93AbuJoeVmYUNPVn2+jRtBVg/PBSl694HrLmf91KtqLpPD6a/XZri+WX0BmS+7kk03os2ipHDPC+EhtKQBNOk5d5MK1ZawhLSoqynTbxzMAY2qYmx7mC7vS9sTlsSa0d9rXD/lb8YkeoKa9crKeMccDD9afLFGMX6wG0LcjQEht7HfXVOZ1Hfj9vw3O2Vex0VGSqhK8GPsEDEnSeQ9
+X-Exchange-RoutingPolicyChecked:
+	bMQBHHpscdHj6jVxkHEpsVX1uS0sPzYWK1FvsOQm80QCEN2ynxkedZ72gpGoJiflxdL1z5rm39414BulcmQhdjslHfIn/+L2z3H42yP0hUIx7pCT9jGk5PhgmIwo/XttpVZ/Cd9gnNrf8hBtpuwXmquoZpImLQOoy1T9edFwDW4TUE+HDWPLGJtRF79o0rhXU8m4cau+xLW5mdzI/gwmRZ7712MEBMwo3pDVajMFN4TL3iB8XZ6w80si6KRtrZsQcGfBFbelOT2hrrbuiVdFw3CqdJ6o+hQKhylJ1unGE39AntxnRCyhlmErRlnryvrxkAMNIeZpBTuE3hn32q69PA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 20:38:09.3221
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f334ef3b-612d-4eec-61e8-08df44eab11e
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF0001885F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR10MB8097
+X-Proofpoint-ORIG-GUID: mrkkxWcnssL2_4jiqWEANf2_SfJKnvaD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA4MiBTYWx0ZWRfXyjivPqlN6zdl
+ N/Pi9ndJPgFgV8NnJF4JnTQW1l/6LAdnw9CDuIwrgeSJ6i+qLJzZ3XCvnlF3vn/iKo8EbCn+I8O
+ dIIsE/Y2+cEDcyb6TYHh+u1Rctad5NQed4ZFbwmmyc4k0f0NZOv7qMkVdRl4WQjdvWNAlpcHq5g
+ 77JBhcXMhbbNGiL68qFzCPcQHbY82sbO4dkLP08IaU0m9x0QE0gUZYY/HdFVX2vQW8i5wc/SICp
+ RYBevji63sNYOrosv2ms6Fmk7qPvSDk0eVg9psC55HNPkvhIdl91/FamMU+pcZJdf0VZJIMGDO/
+ ZGczLayLbeSINgtMBfnqXxtzpentfC82cGk57rImEHH4MYo64+Jk1aZCSSRa3q2I9oT7FJBRU2W
+ 0L+yTjXL60kfov2LZvJMyQEcaM4Q9ODQgfZDrJj0booE+Fp1jDE8MbgvO/rvLUV7C/q44zZcJdE
+ nYuYPRB6sBPJ7RcOdqA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA4MiBTYWx0ZWRfX6P1u/FsIVflC
+ iU8EEMi+F3Bnxg+XlbQY7g6D1bdQ7o2I4Qa/LYxkKfU9qkgIhuKvhzzEeCZJGMiDQdlrb95E9aK
+ wZw0POJtUHsFZnzUMj0xmuGl8akwngU=
+X-Authority-Analysis: v=2.4 cv=DqzDa2/+ c=1 sm=1 tr=0 ts=6afcbb35 cx=c_pps
+ a=1g1g+NiJF5nyOkqFb40SOQ==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=VwQbUJbxAAAA:8
+ a=sozttTNsAAAA:8 a=PNN4_0-CexN-1qqvoMQA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: mrkkxWcnssL2_4jiqWEANf2_SfJKnvaD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_04,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
+ spamscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170082
 
-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Add 'wakeup' pinctrl state to support separate pin wakeup
+configurations for GPIO. Upon suspend the 'wakeup' pinctrl state is
+chosen if it exists. On resume the 'default' pinctrl state is selected.
+The 'wakeup' pinctrl state allows wakeup from low-power states if a
+specific pin configuration is needed.
 
-The timers, GPIO banks, I2C, MDIO, SPI and a few other low speed
-peripherals of the Cortina Systems CS75xx SoCs share a single GIC
-interrupt. A status register shows the level of the 15 sources and an
-enable register masks them; there is nothing to acknowledge, each source
-is cleared in its peripheral.
+On TI K3 AM62 family of devices, the GPIO controller is turned off in
+suspend to RAM states, so no interrupt can be received by the
+controller. This prevents system wakeup from low-power states.
+Alternatively, the pins can wakeup the system if a wakeup flag is set on
+the pin by using pinctrl.
 
-Add a chained driver using a generic chip on a linear domain.
+A corresponding device tree patch using the 'wakeup' pinctrl state can
+be found under "arm64: dts: ti: k3-am62l3-evm: add wakeup-source for GPIO
+button" [1].
 
-Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+Tested GPIO wakeup from suspend on AM62L EVM and AM62P EVM.
+
+[1] https://lore.kernel.org/all/20260912-upstream-gpio-wakeup-dts-v1-1-2057d76c63aa@ti.com/
+
+Signed-off-by: Kendall Willis <k-willis@ti.com>
 ---
- drivers/irqchip/Kconfig      |  12 ++++++
- drivers/irqchip/Makefile     |   1 +
- drivers/irqchip/irq-cs75xx.c | 100 +++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 113 insertions(+)
+Changes in v5:
+- Pull in Reviewed-by tags.
+- Rebase to v7.4-rc3
+- Link to v4: https://lore.kernel.org/r/20261005-upstream-gpio-wakeup-v4-0-96f092de4690@ti.com
 
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index 136bab41f..db5edd4ec 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -187,6 +187,18 @@ config BRCMSTB_L2_IRQ
- 	select GENERIC_IRQ_CHIP
- 	select IRQ_DOMAIN
- 
-+config CS75XX_INTC
-+	bool "Cortina Systems CS75xx peripheral interrupt controller"
-+	depends on ARCH_CORTINA_ACCESS || COMPILE_TEST
-+	default ARCH_CORTINA_ACCESS
-+	select GENERIC_IRQ_CHIP
-+	select IRQ_DOMAIN
-+	help
-+	  Support for the interrupt controller of the Cortina Systems
-+	  CS75xx SoCs that combines the interrupts of the low speed
-+	  peripherals (timers, GPIO banks, I2C, MDIO, SPI) into a single
-+	  GIC interrupt. Say Y if you have a board with such an SoC.
-+
- config DAVINCI_CP_INTC
- 	bool
- 	select GENERIC_IRQ_CHIP
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index 16a5fd126..7ed8f8b33 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -136,3 +136,4 @@ obj-$(CONFIG_MCHP_EIC)			+= irq-mchp-eic.o
- obj-$(CONFIG_SOPHGO_SG2042_MSI)		+= irq-sg2042-msi.o
- obj-$(CONFIG_SUNPLUS_SP7021_INTC)	+= irq-sp7021-intc.o
- obj-$(CONFIG_IRQCHIP_XILINX_SMMU_CSR)	+= irq-xilinx-smmu-csr.o
-+obj-$(CONFIG_CS75XX_INTC)		+= irq-cs75xx.o
-diff --git a/drivers/irqchip/irq-cs75xx.c b/drivers/irqchip/irq-cs75xx.c
-new file mode 100644
-index 000000000..f3d71b06c
---- /dev/null
-+++ b/drivers/irqchip/irq-cs75xx.c
-@@ -0,0 +1,100 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Cortina Systems CS75xx peripheral interrupt controller
-+ *
-+ * The low speed peripherals on the register bus (timers, GPIO banks, I2C,
-+ * MDIO, SPI, ...) share a single GIC interrupt. A status register shows
-+ * the level of the 15 sources and an enable register masks them; there is
-+ * nothing to acknowledge, the sources are cleared in the peripherals.
-+ */
-+
-+#include <linux/bitops.h>
-+#include <linux/io.h>
-+#include <linux/irq.h>
-+#include <linux/irqchip.h>
-+#include <linux/irqchip/chained_irq.h>
-+#include <linux/irqdomain.h>
-+#include <linux/of.h>
-+#include <linux/of_address.h>
-+#include <linux/of_irq.h>
-+
-+#define CS75XX_INTC_STATUS	0x00
-+#define CS75XX_INTC_ENABLE	0x04
-+
-+#define CS75XX_INTC_NR_IRQS	15
-+
-+static void cs75xx_intc_handler(struct irq_desc *desc)
-+{
-+	struct irq_domain *domain = irq_desc_get_handler_data(desc);
-+	struct irq_chip *chip = irq_desc_get_chip(desc);
-+	struct irq_chip_generic *gc;
-+	unsigned long pending;
-+	unsigned int hwirq;
-+
-+	gc = irq_get_domain_generic_chip(domain, 0);
-+	chained_irq_enter(chip, desc);
-+
-+	pending = readl(gc->reg_base + CS75XX_INTC_STATUS) & gc->mask_cache;
-+	for_each_set_bit(hwirq, &pending, CS75XX_INTC_NR_IRQS)
-+		generic_handle_domain_irq(domain, hwirq);
-+
-+	chained_irq_exit(chip, desc);
-+}
-+
-+static int __init cs75xx_intc_init(struct device_node *np, struct device_node *parent)
-+{
-+	struct irq_chip_generic *gc;
-+	struct irq_domain *domain;
-+	void __iomem *base;
-+	int parent_irq;
-+	int ret;
-+
-+	base = of_io_request_and_map(np, 0, of_node_full_name(np));
-+	if (IS_ERR(base)) {
-+		pr_err("%pOF: unable to map registers\n", np);
-+		return PTR_ERR(base);
-+	}
-+
-+	/* Mask everything before the chained handler is installed */
-+	writel(0, base + CS75XX_INTC_ENABLE);
-+
-+	parent_irq = irq_of_parse_and_map(np, 0);
-+	if (!parent_irq) {
-+		pr_err("%pOF: unable to map parent interrupt\n", np);
-+		ret = -EINVAL;
-+		goto err_unmap;
-+	}
-+
-+	domain = irq_domain_create_linear(of_fwnode_handle(np), CS75XX_INTC_NR_IRQS,
-+					  &irq_generic_chip_ops, NULL);
-+	if (!domain) {
-+		ret = -ENOMEM;
-+		goto err_dispose;
-+	}
-+
-+	ret = irq_alloc_domain_generic_chips(domain, CS75XX_INTC_NR_IRQS, 1, "cs75xx-intc",
-+					     handle_level_irq, IRQ_NOREQUEST | IRQ_NOPROBE, 0,
-+					     IRQ_GC_INIT_MASK_CACHE);
-+	if (ret)
-+		goto err_domain;
-+
-+	gc = irq_get_domain_generic_chip(domain, 0);
-+	gc->reg_base = base;
-+	gc->chip_types[0].regs.mask = CS75XX_INTC_ENABLE;
-+	gc->chip_types[0].chip.irq_mask = irq_gc_mask_clr_bit;
-+	gc->chip_types[0].chip.irq_unmask = irq_gc_mask_set_bit;
-+
-+	irq_set_chained_handler_and_data(parent_irq, cs75xx_intc_handler, domain);
-+
-+	return 0;
-+
-+err_domain:
-+	irq_domain_remove(domain);
-+err_dispose:
-+	irq_dispose_mapping(parent_irq);
-+err_unmap:
-+	iounmap(base);
-+	return ret;
-+}
-+
-+IRQCHIP_DECLARE(cs7542_intc, "cortina,cs7542-intc", cs75xx_intc_init);
+Changes in v4:
+- Propagate all errors but -ENODEV from devm_pinctrl_get() in probe().
+- Link to v3: https://lore.kernel.org/r/20261001-upstream-gpio-wakeup-v3-0-6f3bcde367a3@ti.com
 
+Changes in v3:
+- Propagate -EPROBE_DEFER from devm_pinctrl_get() in probe().
+- Link to v2: https://lore.kernel.org/r/20260925-upstream-gpio-wakeup-v2-0-6c5533356246@ti.com
+
+Changes in v2:
+- Update gpio-keys dt bindings commit message for better explanation of
+  wakeup state.
+- Fix error pathways for if switching to the "wakeup" pinctrl state
+  fails.
+- Link to v1: https://lore.kernel.org/r/20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com
+
+---
+Kendall Willis (2):
+      dt-bindings: input: gpio-keys: add pinctrl states
+      Input: gpio-keys - support wakeup pinctrl state on suspend
+
+ .../devicetree/bindings/input/gpio-keys.yaml       | 16 +++++++++++++
+ drivers/input/keyboard/gpio_keys.c                 | 26 ++++++++++++++++++++++
+ 2 files changed, 42 insertions(+)
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20260904-upstream-gpio-wakeup-52a54080c948
+
+Best regards,
 -- 
-2.53.0
-
+Kendall Willis <k-willis@ti.com>
 
