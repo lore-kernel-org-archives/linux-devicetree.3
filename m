@@ -1,63 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794877508;
-	b=C4PwJqi3Q5TbRNf9jJJjRldkVnTzx2hA5RpdyJbASCji6HGt6LDwMROXVEICqnqToile
-	 TYwI/EW72xKJfWpAIvvCfqNki0sO+2H+ulBf0KK8ab+shZ3gTjU9Lbi3q//kaI1cfxB5Y
-	 eCF5JsCOmIwimnkGQuHL1QUSupUwSKT73ikVm335OcMWfwptHOdqskIklzt+2DjQ7Di7I
-	 FULlE8Ypc/LuqmFmzgA+Kc13OMsGASQxtuBLt1XpKtBXDKktDZYm0j3mn+PKHY7L6IhNr
-	 JWYIO4P2pcQI6df4xlhZMG2xg/Zc6j1oSlRyzdgEFuYr8cMJg+1Dr8OXO3lJOLlSMwg==
+	t=1794877517;
+	b=LZ8vNagJl7VRFLKw3yKGipSkzi1QlhQPkjBuOi263qsNnc7EQNCRHyGU1zwOpxIyc2O9
+	 /Y9ngSYOKovdnttwGrRLykcEYaoUBfyXvckagkssPzp0Z2bgBP3TaJVO3F3pUCX53PER6
+	 OUPIf7a3X1agPslCxpLYL2hUNaAKy72ENwB2rCTH+CzcjW/lyWFMdQ9e8UqNX5ebadzX8
+	 A1QjfwLlGiSUHIIGhgvnl2qrQAij5bpb3boKUqVoGJ392d41jZ5B5cSZH6CjQcmkgM4eV
+	 PGw0sL1gcbw8ae2gwdgBuwfyHvjrJFi2YCBMrfkYs7dVda0UjDz5lbMM40sIK6U6hwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794877508;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877517;
+	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=biGlWn0Jl3m8BL2GiqbKXlWabAcSMOyXxHhMwdh2Do8=;
-	b=KLyxkWIK1kN0JV7EIrvhYrcO9L8RQDbE+cCnlEaIfxBS0yKgDfydj1d660epzOMT7W3d
-	 P2eIgNLx42VP1G/nt53vucb1NNyFLcRfP+OSGxpRn5TuZUPflf7lONqZary2wF5naEFyF
-	 Yud9mrQoUlBon9G8pTbmq0UPdvccnzTZ5/Xeu13pMjde05nedjcROhD6GuXGqliJ4v9Tq
-	 QMeE3YxD9BHfUvngCTLjoWGX1k4eYalBa1NmLFbjYEvEWH4YblE5+cfI4ZdHjGFJlT6DP
-	 9ddcbqlH9IjnUnMwPW4L9asPEw7efn5K7gQPe6c3aj2nyA8aovBD3x+i/qADHZwKBug==
+	bh=t2JM5GCECTkMdM3S+MJpk56aIu7bFWfVAUq5lccAk5o=;
+	b=gUv1KGmksTXS+nyaT//GQOP9H6rbdg4iZxfE1NOG7nobu9/QcgzsDE+bMzs4OmKK13KZ
+	 KcfbTBTFsgLlzZNhdnLj0Lw3qSinPE1cuV4yuN03QDL8Om9WWs9L2ii0sHZxZcoVbQVaD
+	 3qkc1Ni/i6FTjLEpIfvuMfiHbprtqVx10qCGcp4pmPboQDPZnxuq3CfXkTFaDvdDJF6uD
+	 vC1Uc/zGM8iIGfzWeUl1ngU28btIXubP2xhldYOjjdgalPDb0iMDwDGCF9z+R3F7V2dOo
+	 0GiQkQL4kiLkVBOFG3T9G+9tnl0TcD2Z6gQBN+vGlLAuvYUEf0JUa9RWwO0BEoWy/gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYzbIuIt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A4lKAN/L";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDDE606A337;
-	Tue, 17 Nov 2026 01:05:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA73E606A330;
+	Tue, 17 Nov 2026 01:05:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYzbIuIt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74D841F000CE;
-	Tue, 17 Nov 2026 01:05:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4lKAN/L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 657631F000C4;
+	Tue, 17 Nov 2026 01:05:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794877508;
-	bh=biGlWn0Jl3m8BL2GiqbKXlWabAcSMOyXxHhMwdh2Do8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SYzbIuItCq4qMjfjdfSfzxktak8DqM35g/JHAje8A48BuDvTGVEnSo0Z8ROgqsEv/
-	 5LhQMkb14fhWfspQezq5IDv5bGRmvFcJuAvGmcY8mnYiw8mvFEDR8J1etCiIC5LLgu
-	 +r2za7ZhCu20zEk4A+zh6dcYSO4Mmx0Lb96HfbGqowVgnbzu7DCngGZwgkjlsWewgr
-	 x+ZZUJO5RI+aGzRIdjSm4XPIL4vXBQCOxaEnCPN/AkNFRipJO20EF7Q40cGYwA2P0J
-	 wJS4FIR2QT+EqKIvnHinRhDxgVUr/xLe40N+Hvt90EXo9dAW5S9SYYnuuRQefKRv5Q
-	 9r/CTmNCwhnsQ==
+	s=k20260515; t=1794877516;
+	bh=t2JM5GCECTkMdM3S+MJpk56aIu7bFWfVAUq5lccAk5o=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=A4lKAN/LGZVzhwYKQJM0fKcJSTSH2zx+1uuV7kQ6ytSoWP+Jmkfit3Pb6fluFP6HO
+	 URy5FutMhwT5baHbX6qPXZ/RnDrns1hsLogu2WnGXfcytun5cRponp4d7thBkZRKNz
+	 EFqR5LaIg4trtKcu96bxLRZECESKL486UeIKE1MfbYpTuG13qCQPm5I6XtWoBYq+eP
+	 ilW+UVj2y2oft1VQs1dnEJmraf/dmbkwTZoKzSb7od431g3qKLD1rWcVVPP3mmffm/
+	 LdJ/FKclruaPYhQ05rh4hUX242OFm86UYI0+Hhd2p1ABFBdtQQduv2YHQA5WKdcRdQ
+	 yr909Z5YJGuQA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Igor Belwon <igor.belwon@mentallysanemainliners.org>
-Cc: linux-arm-msm@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v5 0/2] arm64: dts: qcom: Add support for the Xiaomi 17 Ultra series of devices
-Date: Mon, 16 Nov 2026 19:04:44 -0600
-Message-ID: <179487749321.432567.16903571745010192218.b4-ty@b4>
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH 1/2] arm64: dts: qcom: Correct white-space style
+Date: Mon, 16 Nov 2026 19:04:48 -0600
+Message-ID: <179487749339.432567.6694138389097894424.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261020-nezha-v5-0-04898d6b5f80@mentallysanemainliners.org>
-References: <20261020-nezha-v5-0-04898d6b5f80@mentallysanemainliners.org>
+In-Reply-To: <20261113185426.183501-3-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261113185426.183501-3-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,22 +69,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 20 Oct 2026 16:19:13 +0200, Igor Belwon wrote:
-> This series adds support for the Xiaomi 17 Ultra series of devices,
-> consisting of the Chinese domestic region version of the device as well
-> as the EEA version. The only real difference in the devices is the
-> battery capacity.
+On Fri, 13 Nov 2026 19:54:27 +0100, Krzysztof Kozlowski wrote:
+> Correct minor style issues around white-spaces (e.g. double space before
+> '=', missing space before bracket, spaces used for indentation) to fix
+> dt-style-check warnings like:
 > 
-> Currently only basic devicetree support is added, with driver support
-> for the display panel as well as other hardware blocks to be added in
-> future patch series.
+>   monaco-ac-evk.dts:825: [redundant-whitespace] extra whitespace after :
+> 
 > 
 > [...]
 
 Applied, thanks!
 
-[2/2] arm64: dts: qcom: Add support for Xiaomi 17 Ultra phones
-      commit: c0692181aa90a0b31c25abce757c2cf61e5532e7
+[1/2] arm64: dts: qcom: Correct white-space style
+      commit: c4ec9fced70f2445d11cf77dbb04f5c01d0cf9ae
+[2/2] arm64: dts: qcom: qcs8550-ayntec: Use hyphens for nodenames
+      commit: dc607958bc6a13a212a947cd3a29acc704b8c446
 
 Best regards,
 -- 
