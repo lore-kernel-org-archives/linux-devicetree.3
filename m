@@ -1,74 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.38.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933869;
-	b=gQBvtaTqNs2wYO/SCZz/Vq+C9pYd4k1y3zCDYUghf0PjINcOBhfSoZ6fyLmk7r9TR7mg
-	 uFALiyW3lh6nCcbT+AcyefRGrXVYLTptqPO7kErFBLQAxNfyzYOHYXacVvcoBiltYEAWk
-	 /r4FJYMNCP9gT1c/os5w8x9gUNYW2E5b5fVIxC8XLaNDedsYDqM/eZBEiDJ/BAFOGsQex
-	 Lx6gFHYw0cuzowfr0ezX6hSn0VuqSRzLL8w1G8yTQck/VhS/itPLhqiDHRBc/HhvBCcpu
-	 VH0rtg49dxUgBDJH/aZnJmgpLDNFMyBVoz+qMOAidJGAppJceYXxrtfpadK99qvTE3g==
+	t=1794933946;
+	b=eA3kavDCorSYuqN4/wWPxYNXHYhQlqg2CM9Gcrdz/pp1EcDl4e5jMLWQcVfWODCYaSNG
+	 u7i9340yZAyiOzLWEyG2Ad2VSvqeLj1kjJ/TCX48YEi9MKYPuu/hEIQc4TuTL3lWK/RBU
+	 Mvy1Rto6gvx9/dbV6H5dnohg9+cNkJpi/PePLt93uVU9T+onfCvYAUBo7H5u6qrzHLJBO
+	 kvYwjPH+hYqu+U1jpGA10iJ09z4kW91rLFPGHljdq99X1m7shBzDVr1cpy6EnzR+GuQ6h
+	 eJkFKD2PSWFa74MjHMR92jd8VvyAIoM5AHlrKl+Poj7poUHMmAv1f4uM8c7CZmtytbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933869;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=mmhsYfo4oARdZWXfsQFEQDsYzn+5x9KB/AI2fdJWlJ8=;
-	b=oTnCeI8oG+yN9FyGZrqls8O2gscTRyqYLqNMCZXQapOTe0UgtswxIuaXBwvMYd0vj8nr
-	 Ie2zPW6anbcmxYeIofBrGW6DCwZ2tpbrUIYDBFb3qEur+5LIx6IvU/BDYEc4R773Uakhu
-	 wsBxNOmjqQYDNIlIJwduTvwb43r14880zF4f2qYGBngnX1gANrf4djjQI8J+bXM7R59W7
-	 PsYwBtzfwCtF6XTcHVD/vVq8Hh89WmI2ouSaTV5H32fRAmh0ao5oJT1EkbxsLVyeEHo/Z
-	 pRxH5J7/XBQGMdw7st5znI0KTjYRYjPn/ZXHq3zLg2A8YKZ44S4q3z4r8ixQCKtDhvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933946;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	bh=b7rA3f+5kZ4ohnzATtzU3IQFFAM5nwbvX+N6Ax6dlwg=;
+	b=jlK1ge7NJY+HvdouJcmCsV84fxe9wqM28gg0YpCjBhw+hX9UawbtilEToNddHJL3B/O5
+	 n50jfOzhUbHCD9AZRYqHl/IxFWViuSDDAYRf6OpQ0B/B9Ye5BwoXZT7aVjLhDP2tCbH1z
+	 ZMYHQ0kxlFA0ep+0U9HkgJ8xgRwgjYMV1g4HKOf5eCuEdJ5Zpjfp/hCcyfpWSs5KMS8aW
+	 QKYsILh76Be92GdcSkGUFDacMF5iryX3zkBK4rQiXAXopkEoBfUFfxaODnPVCYnk1fUq/
+	 FEIozEfiBBWLF/chqWoExPWC/pTTYcHHsTiyeZ0lOH/qb6C6k46IW1e4HB1b3PfRVRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=oM6f103S;
-	arc=none smtp.remote-ip=212.27.42.6
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+	dmarc=pass header.from=simonwunderlich.de;
+	spf=pass smtp.mailfrom=simonwunderlich.de;
+	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=Ko6SikcA;
+	arc=none smtp.remote-ip=23.88.38.48
+Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2134A606A331;
-	Tue, 17 Nov 2026 16:44:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2134A606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D529606A31C;
+	Tue, 17 Nov 2026 16:45:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D529606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=oM6f103S
-Received: from L23803.iliad.fr (unknown [213.36.7.12])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 505A978050F;
-	Tue, 17 Nov 2026 17:44:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1794933866;
-	bh=8l2fTCrBkpqaY8HCGM4+a4lOBeNcGWo5zClpf/ajZ4k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oM6f103Ss/FYzVeyiPMkUl88MqlTQDs0RMWOZ/YH3RrGQ9jocwoPKT4ozk682LsEL
-	 edaTT5pXBvxGo6YRUjs2zEEKVzeoguISXqseXFnycNDnsnf9DNBYoi4FWlTMweSBDn
-	 o1VOEeATe1ZhFbc8EBpEmVf5nfXKBx7QajVgGRpq+32vod1+9bjRErp9cGfmCK2L0c
-	 Bzj7pTLCGTrVyOO325anFqd6AqlCtO0b9e/X0FFSqAiOK2TRSXb9JQ3Cie/rYT0e0p
-	 lc0C1MF+QDCdHJfXwNmlkI/XPfXNTvon8HzJCOFSgxDLTAfEISvhSdUo7sX2bUT0Z/
-	 nMmm42FPMwU2A==
-Date: Tue, 17 Nov 2026 17:44:00 +0100
-From: Vincent Jardin <vjardin@free.fr>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
-Subject: Re: [PATCH v6 4/5] pinctrl: freescale: add the Layerscape RCW
- pad-mux driver
-Message-ID: <avyEUKJBiDwxpLt7@L23803.iliad.fr>
-References: <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-0-fbdce4565a5c@free.fr>
- <20261115-for-upstream-lx2160a-rcw-pinmux-v1-v6-4-fbdce4565a5c@free.fr>
- <avtsY-7-I7_pdyD0@lxl00025.wbi.nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=Ko6SikcA
+Received: by mail.simonwunderlich.de (Postfix) id 7F3C0FA039;
+	Tue, 17 Nov 2026 17:45:36 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
+	s=09092022; t=1794933937;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b7rA3f+5kZ4ohnzATtzU3IQFFAM5nwbvX+N6Ax6dlwg=;
+	b=Ko6SikcAnFscPuvoOl+h9YTtyPLrjZi7kEEQLf3A0K+Imfmwfx22QXglwfosAAXMVs2uB+
+	wATDpXH7/ggdyQl7iLTGzySpVWrVrrpEHIPzNwngA7mROUnuUHNR6TBAE2ergZLhyBnfVW
+	RUVYgW5+9rqEMt8F1MWf8qwR7UUjv4mQEdYnwQYT1gK7bv8HgC6qGoQ5UE+JSqaMnV+9u/
+	IFr7NZO8PUVfpea5ZWAqdymWRGwnyLYrrOZGIhfqvZhLgoQHt5WMGCeFgh6Ny4F+swoqAX
+	TyByTHT9kqL2KHViMHVKIOlVjIHFY9/qRhncM3rENORPktp5RHmDX+NjrIgG+w==
+From: Simon Wunderlich <sw@simonwunderlich.de>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>,
+ Vignesh Raghavendra <vigneshr@ti.com>, linux-mtd@lists.infradead.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org,
+ Hauke Mehrtens <hauke@hauke-m.de>, Aleksander Jan Bajkowski <olek2@wp.pl>,
+ John Crispin <john@phrozen.org>, Sebastien Decourriere <sebtx452@gmail.com>,
+ Yangtao Li <frank.li@vivo.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] dt-bindings: mtd: Add lantiq,nor
+Date: Tue, 17 Nov 2026 17:45:36 +0100
+Message-ID: <5155531.6YUMPnJmAY@prime>
+In-Reply-To: <87fqwzn3tq.fsf@bootlin.com>
+References:
+ <20261114100608.3432120-1-sw@simonwunderlich.de>
+ <20261114100608.3432120-3-sw@simonwunderlich.de> <87fqwzn3tq.fsf@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,74 +73,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <avtsY-7-I7_pdyD0@lxl00025.wbi.nxp.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Hi Vladimir,
+On Tuesday, November 17, 2026 11:35:13=E2=80=AFAM Central European Standard=
+ Time=20
+Miquel Raynal wrote:
+> Hi Simon,
+>=20
+> On 14/11/2026 at 11:06:04 +01, Simon Wunderlich <sw@simonwunderlich.de>=20
+wrote:
+> > The NOR flash on the External Bus Unit (EBU) of Lantiq SoCs is handled
+> > by the lantiq-flash driver and used by danube_easy50712.dts, but its
+> > binding was never documented.
+> >=20
+> > Add a schema for it, including a new optional lantiq,ebu-swap-check
+> > property. Some boot loaders, like the BOSS bootmonitor on the bintec
+> > elmeg RS123 and RS353, enable the EBU's own endianness swapping for the
+> > flash chip select (EBU_BUSCON0 bit 30), and the flash then appears at
+> > its unswapped addresses. Whether that bit can be trusted depends on the
+> > SoC: it only works on VR9 (xRX200) from revision 1.2 and on AR10
+> > (xRX300), and Falcon has no such register. A board property instead of
+> > a list of SoC revisions in the driver was requested in the review of an
+> > earlier attempt at this. The property does not state the bit's value,
+> > so a board keeps working with either boot loader setting.
+> >=20
+> > Link:
+> > https://lists.infradead.org/pipermail/linux-mtd/2017-January/071749.html
+> > Link:
+> > https://lists.infradead.org/pipermail/linux-mtd/2017-January/071818.html
+> > Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
+>=20
+> Let's be honest, I am not very familiar with that MTD area and all the
+> legacy content is has, but would it be a lot more work to add lantiq as
+> a physmap variant? I don't like much the fact that you describe the
+> flash without describing the EBU. Physmap versions typically are matched
+> using the more specific compatible (lantiq,ebu?) and the cfi-flash
+> fallback. All your tweaks are EBU/machine/integration details, not
+> related to the flash itself.
+>=20
+> One consequence of not modeling the controller is your need for
+> EXPORT_SYMBOL_GPL(ltq_ebu_membase) in patch 3/5, which is quite a hack.
+>=20
+> Thanks,
+> Miqu=C3=A8l
 
-> The "i2c" and "gpio" functions of lx2160a_sdhc2_data74_funcs[] here
-> hides some real unpleasantness. These 4 pins either get all assigned to
-> I2C7_SCL, I2C7_SDA, I2C8_SCL, I2C8_SDA, or they get all assigned to GPIO.
-> But they cannot be assigned in pairs of two (or individually, i.o.w. not
-> in the granularity we need), which makes independent I2C bus recovery
-> practically impossible (i2c6 as I2C while i2c7 is as GPIO).
+Hi Miqu=C3=A8l,
 
-yep, the doc is clear about it: SDHC2_DAT74_PMUX is a single field for
-the 4 pads, 0b001 gives GPIO_2[18:15] and 0b010 gives IIC7 and IIC8
-together (RM rev 1, 4.9.8.9). IIC7 and IIC8 are not available on any
-other pad.
+thank you for applying patch 1!
 
-Checking from other angles, the A-010650 workaround uses one write for both
-buses: 0x700100130 = RegA OR 0x031. That mask looks wrong to me though: bits 5:4
-belong to SDHC2_BASE_PMUX, and OR-ing 0x001 onto 0b010 gives the reserved
-0b011. Could someone at NXP have a look ?
+About physmap: you were right, and this was actually a great hint. I tested=
+ on=20
+the my RS123: with the EBU swap that its boot loader enables, the flash is=
+=20
+simply a plain CFI flash. With compatible =3D "cfi-flash" and the generic p=
+hysmap=20
+driver, probing, reads (identical to what lantiq-flash reads, unaligned rea=
+ds=20
+included), erase and write all work. So this board needs no lantiq-flash ch=
+ange=20
+at all, and I'm dropping patches 2 to 5. There won't be a v2.
 
-> The way the code is currently written, the pin_request() call will fail here:
+Turning lantiq-flash itself into a physmap variant for the boards with the=
+=20
+classic U-Boot setup would probably be the cleaner model, but I don't have=
+=20
+such a board to test it, so I'm leaving that alone for now.
 
-Yes, in fact, it is not new with this series: both nodes have shared the
-same setting since
-  8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c gpio to support bus recovery")
-from Carlos Song (NXP) where the two pinctrl-single states covered the same
-bits, so the second controller would have failed the same way. Wihtin the
-kernel, there is no board that enables i2c6 or i2c7, so nobody did hit it!
+Thank you again!
+     Simon
 
-> Due to the fundamental issue of this limitation, I don't think it makes
-> sense to have the pinctrl states described in fsl-lx216x.dtsi for i2c6
-> and i2c7. Perhaps you could remove them in another change (either as a
-> follow-up, or another patch in v7 if you need to resend).
 
-Done for v7 as an additional patch: the DTS drops pinctrl-names, pinctrl-0/1
-and scl/sda-gpios from i2c6 and i2c7, and the two states nothing else uses.
-A board that needs one of these buses can add its own states, or set the
-field once with a hog on the pad-mux node.
-
-I tested on my board for regressions, since there those 4 pads carry
-the eMMC DAT[7:4]: the other I2C buses still set up their GPIO recovery,
-and the eMMC still runs in 8-bit HS400.
-
-I also went through the other fields. 7 more settings mix two
-controllers the same way:
- - flextimer on iic2, irq3-0, irq7-4, evt4-3 and evt2-0 (FTM1 and FTM2 channels)
- - sdhc-spi on sdhc1-base (SDHC1 with SPI3_PCS0) and usb on usb-ext (USB1 and USB2)
-No dts claims any of them.
-
-About your previous comment on clk-out: v7 names encoding 0 "clk-out".
-On my board, with debugfs, it shows now:
-
-  pin 20 (evt2-0) 0:? evt
-  pin 21 (clk-out) 0:? clk-out
-  pin 22 (asleep) 0:? asleep
-
-and the U-Boot port of this driver shows "clk-out : clk-out" in
-"pinmux status".
-My take: the reserved marking comes from RM rev 1: its revision history
-says "Updated 0b000 as reserved" and the CLK_OUT configuration section was
-removed, while table 19 still lists 000 (CLK_OUT).
-
-There is a similar gap on EC1: the signal tables list CLK_OUT2 on
-EC1_TXD0/GPIO4_DAT03, but EC1_PMUX only has 0b00 RGMII and 0b01 GPIO,
-0b10 and 0b11 being reserved. Would you know which value selects CLK_OUT2 ?
-
-thank you,
-  Vincent
