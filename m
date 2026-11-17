@@ -1,107 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=81.169.146.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794940198;
-	b=GP9O6xlXSmMYGxHWQmw60gR75v3geVM4l5nFNX6gJ8IDjeuuKf/P6Sl8NWQduN3JFSVz
-	 DagCPf1wlS+uP4odeWAaJkDmAn2W6yh1px3Owvt0YR9Htr84sFw5wETJSENPZEAlRrPG/
-	 1XaYA+qYDhkSTKlg23s74Ban+BXw077oENDutBa1t1sB5D8VC9VDy59tOokHiLBeNGYFP
-	 wSIgAnTvUxrn1UsLUdP0V8tLQKxLj32WeFfBD9OSpYLI+YFEYdmRlq9+NsEb8JRHlgPjp
-	 v0uqt2RDVZ/ltHYDYV0pdaVweBoaLznonR8LW9WgQRSZmLJstTWdPjjh5rqqbPaiI5Q==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.34
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794940317;
+	b=nCyypLaaEAxv53P43G984eWdXyGV0RwFSq7fbHSHzTtvHEZ0j+SYMNCpk1/sMpRy/27j
+	 0RBatDrvKD1/+1SwebXTUQDOBx8yVOOaSWJxvpFEmqQJIrQcr6vn8tkzgSu3gUNcQQRW1
+	 1bFy17HumpKmhiTDj8r5xPsXVtsh8Cnp1LZvdlV1TAkj7a2HdEF3kTvdPzCfk55WpgNtj
+	 +YOqniNaeBSRu3PguQJ+/OeJq40L9RaeN+NIyGU0TUJuzMoLaVviR2J5YC6JU5n/q7tih
+	 sMCpmTEMu+v02OO1if+Ir59BNRphesj1VflxZOZN4O91DCwjDvGkvj8orExoTJDR7pw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794940198;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=kozc+KO+eO51/opRUV5fmjcN0Nnwx09tSX5N2H3WYC0=;
-	b=ElDsZolmqZm/Z30yYdzu2S6WacA2OLNo+ZKrGXeXVvT5uZ9Oc1ND2hINCIIxV3JKv7VU
-	 wmUvACznuvx2JkKBQPW5WNrLjDTVUzWZAgZmZlsKjbk8+eS4hai8jPn6KzhbLplDNWT4B
-	 MDKEhGgI6BpbFdRl1zqKM54/1GS6T8GDGjCcSIRfURsEPUyhfLjo3obo/JIrwaoF3/tvb
-	 lWxzNwtb2+imkBGgLTST1ASNxpzN3Np4cnX3Q/QP/YG805TXnQ5mPjAiECq+fdMbEJ0L9
-	 gsITdQo1z3sptK0PJDkfTvSJJJlS6JHCwxvFwNs82GxlixLxCY+O/cwYWBvHtWZ7C7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794940317;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=8GcMvxjU7qDJE4xqlO/DI29b4UfW+btTJUDtVbb8+4M=;
+	b=FPVBn2iwm7pdMDet5tG4M7GveryEu0Z7YxLXWfp7H0p5U8D6OiplWm7eLrChNI1uCCjG
+	 nZtS+NJRootfLnBMKWFTqzS5h4bpWtbWH3IiTd154DXWNb32yTDhX0a6lUzUoeGCS4oUO
+	 qZr3M9uHnG7ejalVdKZoBaUsSY/Bowaht+EHSmdb/C1acQTnmQYs44nLi/xnvXTka9+Is
+	 7v6J1lN5LvgSPbhvBFBsnlXO1dAr+D2iwpVWmHbBXRl2snqhvwEc0uZLcwUFFIMcFtnAK
+	 QQNvbPvd8Wf8OPDP8LUiCVr47k3IbnKpFw+DF3gzvSW7H1eBfSRXbJFa5Tc8ul4srIw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=eUwAOwFq;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=cRsz9Rtx;
-	arc=fail smtp.remote-ip=81.169.146.169
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.169])
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b="D/4hEkSA";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.34
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013034.outbound.protection.outlook.com [40.107.159.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC27D606A890;
-	Tue, 17 Nov 2026 18:29:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC27D606A890
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F7C606A32C;
+	Tue, 17 Nov 2026 18:31:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24F7C606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=eUwAOwFq;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=cRsz9Rtx
-ARC-Seal: i=1; a=rsa-sha256; t=1794940174; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=lGAhJnRu9prewuGehSWVddRScynhtUvOzAZWD6k7pJ/eUUmmT+ZCbGrMAkE5AclLPm
-    DR5svRgRWEoc9Y9LO+xlyogE2GGSFxXK4MCGTTSFH9S2rii8f/o+yPA6wcUlG0b4j46z
-    XGNDwo0ypb2lfdFL0rW8oiqd0MsuK9WzblnUUHLJxpMxLyyb78BK1p2E1Eq2KYRXZpr5
-    sq4Pim+RINMdw+PtStAL27M+e7aZeIHTQ9884YnWs+VLqXos0Da+iHUA6G/WfNaoEpPc
-    /iLkNYOqyXg/r7v+ypTloTxjEgihdYvfOE7VcQhse7b9Jd6+2hH4/z9SYowQYluFIC84
-    r+Pw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794940174;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=kozc+KO+eO51/opRUV5fmjcN0Nnwx09tSX5N2H3WYC0=;
-    b=UObN+OujETLSJhqS2dUUrSTehc3e+YNybLzrzpNUq4uIMRdPnyHdF4Z6/8/xhJYK/L
-    DWPPUkEkhbMbcMEjRbhX21RYiUw+ImbWZw8apo/CqSFNaOkEBhJBWYBKQRnveCSixGV7
-    07tk3zz4pInzynaVUtrUmpFKL3RL9jfPyM8pIIUVioii6O1Dxb032DnUzV0YiyZGp4Wy
-    nf66B/bKGyEptNphCeTPm+kMa9RKg1B7lCTFgdzvBF6+aka0XflgAMk6fVPCNCbtxQB/
-    MvLFu9dwaTnv7frA7prSoGeCJJuDTh4pzqJDz7VKsZ2s9/STiysYZggMaOtFkzmU0RsM
-    2E1w==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794940174;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=kozc+KO+eO51/opRUV5fmjcN0Nnwx09tSX5N2H3WYC0=;
-    b=eUwAOwFq7cRl0GHVIDDj4lshZTvfKQm1emQsFY8HN4F5iKiRz71VNgrGh2HMj5G76k
-    a0HEKFdI1a2avfodYiv+142jF71cjFoApuWUh9ckG/lQpr34oDV08Yu/mSbWnkSw5VPH
-    3P9Kp8lpMCnrAnl9iKd7iDTgo7mX2u3vRp0ajtYL7r+tXiqqYbvI8Is+3fE2id/kfCyR
-    Im5BUJt3i2YHQ8sCaYQPe//CTblDUBUjnlMDDspU6hf6h3UwtYSNPd1nN+0TdbSWeiBI
-    PEwAUrqUVXRnuV8Jp6Epta7YzOwEsdBvKycL37FtMhUuCQYuflal6FrtzW3g2HaYo12E
-    /9WQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794940174;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=kozc+KO+eO51/opRUV5fmjcN0Nnwx09tSX5N2H3WYC0=;
-    b=cRsz9RtxTCPuL0TrRXq8Tnez5S3C+ug9Fl3sF8aK+vDpMFXqKXZ38PvU1zdAKbQZI4
-    HV4IXWexez1FG5/A7DDg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ3ppelMiNKoEY92nD9kO01+3QZuyyF4VcrvHZ"
-Received: from iMac.fritz.box
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22AHITYYbS
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Tue, 17 Nov 2026 19:29:34 +0100 (CET)
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	letux-kernel@openphoenux.org,
-	"H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: [PATCH v2 5/7] pinctrl: ingenic: Add X2600 pin groups and functions
-Date: Tue, 17 Nov 2026 19:29:26 +0100
-Message-ID: <791fcd082f8eeecf19edd2a1c3da138658e07560.1794940167.git.hns@goldelico.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1794940166.git.hns@goldelico.com>
-References: <cover.1794940166.git.hns@goldelico.com>
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=D/4hEkSA
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wEEyWMbAnFFK0jRnS/E72R3LjT+1Pw16jx81w5iDX6jcMVV2s/TLPfwj/SjLc2hNLmK95q7qAU8aHOwJZitlncCX03XgVcpTZeZZSjhK3nHACTSeQOcgCjIpzGNS2wWDOtbVCXwqyBjoZCLXU/aUR/lFv4b73kac8Xv9bfb87z00WTwp8//v5j8VLN4/UHwGcRJ9VvBFmm5MKfAeVkcENuu1P6aGUwhqrEXyLMqTSNemktypDQuqjUECdH+73ZYaoR+g1FLYFbtdKjAx2z/dAzDScf4DRcb6xmCNIryvOm721ys6BEpEkgEZ+HtXhwoxzjGWI64Bj6kFPlSyN4HKKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8GcMvxjU7qDJE4xqlO/DI29b4UfW+btTJUDtVbb8+4M=;
+ b=PgryRVehj+g/4Rn8t1+jXSSzeB6YovFMlvsgo7Uh7z43HL2ymxNopgzkPpbTtIu8bT6Z6GZbV58IuMd/cqsA42+PojMhxit2yG431trHRwpVnrNGEkwnawuf2FhYjdy02qoLEC+xHaFZx8eQDyRIjxVUxewkvp0oOrTsScKxmA8RbDG6P819zaC3Vkv8DlEjFNX6jxG2tPqiclJYrQLjFOViXk131q4WuoVOy+TUDYSVig/VroSSVsUFuakmbgDbu3h/WlHGWKlvcs1KZxdDQVa/bUq15Ju+JdPB41YR5S96SVnnMSLyPWS4FgnuwHjxNRTO31kl6+CFi+Mju3dV1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8GcMvxjU7qDJE4xqlO/DI29b4UfW+btTJUDtVbb8+4M=;
+ b=D/4hEkSA5UNQ1E4wwl+9xUbm22ipOLDwy5XNyTOyYpF4OwCfGgqtmTA4dqDYCGpWnO6ilJdPzi2Ey6DkNunsfQVTnvQbFRnSSxrpoI9DfF1O+FhmlxUEujWdL62aiDIRATcp2srNeYWejazamJDJl8eRaq2nBuFfZWKvqmRDhpGDnbkyI4BG/QgMwtu14zqDeRYbZJFC5napHfUDjYyQH9o0va8M0e9T+BfSWKJdNUpcKk5JGwfd91AkvUuZsTrB/f+VJCL+wui+YeRKnHk+iMqiJdWIUgCS7jXzZFnvqdFdM+eDIimKC/q5XTjt11UItYhDwDmtZtNSTuGgzKkj2Q==
+Received: from DUZP191CA0006.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4f9::16)
+ by DB9PR10MB8248.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:4ca::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Tue, 17 Nov
+ 2026 18:31:53 +0000
+Received: from MAD0EPF000008B6.eurprd04.prod.outlook.com
+ (2603:10a6:10:4f9:cafe::a2) by DUZP191CA0006.outlook.office365.com
+ (2603:10a6:10:4f9::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Tue,
+ 17 Nov 2026 18:31:52 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ MAD0EPF000008B6.mail.protection.outlook.com (10.167.241.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 18:31:52 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 17 Nov
+ 2026 19:32:52 +0100
+Received: from localhost (10.48.87.100) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 17 Nov
+ 2026 19:31:51 +0100
+From: Patrick Delaunay <patrick.delaunay@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+CC: Conor Dooley <conor@kernel.org>, Mark Brown <broonie@kernel.org>, "Patrick
+ Delaunay" <patrick.delaunay@foss.st.com>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>
+Subject: [PATCH v2 1/2] arm64: dts: st: add SCMI voltage domain regulators for STM32MP211
+Date: Tue, 17 Nov 2026 19:28:45 +0100
+Message-ID: <20261117192843.v2.1.I7bc9202635a4961733bf6f80fb06d89703bce1fc@changeid>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117183121.654286-1-patrick.delaunay@foss.st.com>
+References: <20261117183121.654286-1-patrick.delaunay@foss.st.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,570 +116,153 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MAD0EPF000008B6:EE_|DB9PR10MB8248:EE_
+X-MS-Office365-Filtering-Correlation-Id: e6262059-dc48-436f-955d-08df44d90ce2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|7416014|22082099003|18002099003|6133799003|261009223027099003|3023799007|261021123027099003|56012099006|11063799006|261028144727099003|261102123227099003|261026121527099003|261021121427099003|261026140227099003|261022105027099003|261021135927099003|10067099003|44046007;
+X-Microsoft-Antispam-Message-Info:
+	SRHZAjpUN2aI+Al7fM9zUVR5dkLaXYXv3OiBaj31yAHMJobCTuVYkmSm63wpf/zNlpCFazBISkRIURNYdS6scSs8rkqOaYnysbp56aS8bdz14UYUy9bHibVxRKTr7YOWGKz1Tu00BYfWkZOtDQZfM/7vIQzG39151b+ruBO2akEJQXQBMAHhPBTn3D/44iq85ptd7FRAoLvCUltCDIXMSZLOmPz2ZP3eqEWQ9W9gLlzcJRvrhFsdMUuYWVQkmrqiLux2+9pSaZ6lp9UvbZ8t6Cia76Up3pHNLUtrpbsVvsqg5CLmG1ap2mbV+BsCdJF8rE72EtWzTJafR87H6lYQL8csKlbWDV2uzNSEMlVy8Y/KgUCI1EmaNZObE1bm8oFVmOC3nIwqb54JyTWfk+RCO9Vux5UyWBPo7HGHBkC2KY3r8fFIFpN2wRggh5uO2PNvwyKnVl1qCbNQWiWNAgTj/PsvYXG6LrbF3n+0xpD37uIlASxdNK65cnY9ckOtAjj4N4LP4AHXOqDwtfBTuBaIhWBICY+pnbHSvZsbZbet8kYoJQbYzuQ+ts6dOttUeSEqfnOF8dcK8LF9WQbvwt2EdlChp1/z5PC3OtgFTgRQcyxtKsChKkQPJaej/dtEGAWG2GDopal58SPGpY542Aeyz+Cpb8VbNa9cMopuZQ+1tiiC6J3tLNxdqJd+KRzen8n6QbKVSA055FzuCuimv6kcApEb9uxuZyBf3E+cZgeD0wt5vud5UUNo9A8j3UJ6UgCM
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(7416014)(22082099003)(18002099003)(6133799003)(261009223027099003)(3023799007)(261021123027099003)(56012099006)(11063799006)(261028144727099003)(261102123227099003)(261026121527099003)(261021121427099003)(261026140227099003)(261022105027099003)(261021135927099003)(10067099003)(44046007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	IcrkL6jGxI0+y3rNs/X1tj9HYZFM+N89TLmuZ/HAvOFmOA8fEdUb62+pghiQKUvHWL9SdEI5J89Kv56k45Q0p7ZqbFZA58963B88TI4Kr/wJoK2qv6NpuA2fKW+3E8xQyRFI+V8zcw3U3jGcDfavgWeuWBVVO1XBu1N9YptabI8SrjtRviF1H4BwnD4zXvcDLG2GSWaCnxlMYpI7oYR9B2x0dKbHMGlMEO2tqQVmZiaUYNZnNWkb+ONB1sF7cxMyuhG5TEPo/xCejBJp6LtvDe+6sCUVD7iXNhZQm7teuHXBGl5mDcEa/LBAQdDk8denJ5QQCF7dO4HIzgv2d0bhW8j831aCkEtVf4GxfVanN5HL5jdNTlODDKnlWf935Z4I/jojVqDbtOF/MuBRUGRxtR6HD0z4ggG8ORMOueYoyhAcIavrK5tvnOra2h64PtCx
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 18:31:52.3520
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6262059-dc48-436f-955d-08df44d90ce2
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MAD0EPF000008B6.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR10MB8248
 
-Add X2600 pin groups, mux functions and GPIO configuration.
+Add SCMI-based regulator descriptions in the STM32MP211 SoC DTS,
+covering VDDIO1, VDDIO2, VDDIO3 and VDDA18ADC voltage domains.
 
-Use the documented GPIO pin ranges for pull capability masks:
-PA0-11, PB0-31, PC0-30, PD0-16 and PE0-20. Add the PCM, PWM,
-PWM trigger and WAIT function mappings and remove the empty LCD group.
+These regulators are exposed through the SCMI voltage protocol
+and will be referenced by board-level DTS files.
 
-Define separate UART1 hardware flow-control groups for ports B and C,
-which use different pinmux function values.
-
-Apply the UART mux corrections and SLCD pin correction suggested
-during review by Hunter Laux.
-
-Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
 ---
- drivers/pinctrl/pinctrl-ingenic.c | 520 ++++++++++++++++++++++++++++++
- 1 file changed, 520 insertions(+)
 
-diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-ingenic.c
-index f23aeba92396b..0aa29d6cdf4b3 100644
---- a/drivers/pinctrl/pinctrl-ingenic.c
-+++ b/drivers/pinctrl/pinctrl-ingenic.c
-@@ -3520,6 +3520,521 @@ static const struct ingenic_chip_info x2100_chip_info = {
- 	.access_table = &x2000_access_table,
- };
+Changes in v2:
+-  Move the SCMI ID definitions in stm32mp21-regulator.h
+   to the DTS directory; it is not a part of DT bindings
+
+ arch/arm64/boot/dts/st/stm32mp21-regulator.h | 48 ++++++++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp211.dtsi       | 27 +++++++++++
+ 2 files changed, 75 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp21-regulator.h
+
+diff --git a/arch/arm64/boot/dts/st/stm32mp21-regulator.h b/arch/arm64/boot/dts/st/stm32mp21-regulator.h
+new file mode 100644
+index 000000000000..bf26b7efd2ec
+--- /dev/null
++++ b/arch/arm64/boot/dts/st/stm32mp21-regulator.h
+@@ -0,0 +1,48 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
++/*
++ * Copyright (C) 2026, STMicroelectronics - All Rights Reserved
++ */
++
++#ifndef __DTS_STM32MP21_REGULATOR_H
++#define __DTS_STM32MP21_REGULATOR_H
++
++/* SCMI voltage domains identifiers */
++
++/* SOC Internal regulators */
++#define VOLTD_SCMI_VDDIO1		0
++#define VOLTD_SCMI_VDDIO2		1
++#define VOLTD_SCMI_VDDIO3		2
++#define VOLTD_SCMI_ADC			3
++#define VOLTD_SCMI_VREFBUF		4
++
++/* STPMIC regulators (STPMIC25/STM32MP2L/STPMIC1L) */
++#define VOLTD_SCMI_STPMIC_BUCK1		5
++#define VOLTD_SCMI_STPMIC_BUCK2		6
++#define VOLTD_SCMI_STPMIC_BUCK3		7
++#define VOLTD_SCMI_STPMIC_BUCK4		8
++#define VOLTD_SCMI_STPMIC_BUCK5		9
++#define VOLTD_SCMI_STPMIC_BUCK6		10
++#define VOLTD_SCMI_STPMIC_BUCK7		11
++#define VOLTD_SCMI_STPMIC_LDO1		12
++#define VOLTD_SCMI_STPMIC_LDO2		13
++#define VOLTD_SCMI_STPMIC_LDO3		14
++#define VOLTD_SCMI_STPMIC_LDO4		15
++#define VOLTD_SCMI_STPMIC_LDO5		16
++#define VOLTD_SCMI_STPMIC_LDO6		17
++#define VOLTD_SCMI_STPMIC_LDO7		18
++#define VOLTD_SCMI_STPMIC_LDO8		19
++#define VOLTD_SCMI_STPMIC_REFDDR	20
++#define VOLTD_SCMI_STPMIC_GPO1		21
++#define VOLTD_SCMI_STPMIC_GPO2		22
++#define VOLTD_SCMI_STPMIC_GPO3		23
++#define VOLTD_SCMI_STPMIC_GPO4		24
++#define VOLTD_SCMI_STPMIC_GPO5		25
++
++/* External regulators */
++#define VOLTD_SCMI_REGU0		26
++#define VOLTD_SCMI_REGU1		27
++#define VOLTD_SCMI_REGU2		28
++#define VOLTD_SCMI_REGU3		29
++#define VOLTD_SCMI_REGU4		30
++
++#endif /* __DTS_STM32MP21_REGULATOR_H */
+diff --git a/arch/arm64/boot/dts/st/stm32mp211.dtsi b/arch/arm64/boot/dts/st/stm32mp211.dtsi
+index 4bfd58b26b51..84a2b51d705f 100644
+--- a/arch/arm64/boot/dts/st/stm32mp211.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp211.dtsi
+@@ -4,6 +4,7 @@
+  * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+  */
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
++#include "stm32mp21-regulator.h"
  
-+static const u32 x2600_pull_ups[5] = {
-+	0x00000fff, 0xffffffff, 0x7fffffff, 0x0001ffff, 0x001fffff,
-+};
-+
-+static const u32 x2600_pull_downs[5] = {
-+	0x00000fff, 0xffffffff, 0x7fffffff, 0x0001ffff, 0x001fffff,
-+};
-+
-+static int x2600_can0_pins[] = { 0x47, 0x48, };
-+static int x2600_can1_pins[] = { 0x49, 0x4a, };
-+
-+static int x2600_cim_pins[] = {
-+	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
-+	0x08, 0x09, 0x0a, 0x0b,
-+};
-+
-+static int x2600_clk_pins[] = { 0x82, };
-+
-+static int x2600_dmic_pins[] = { 0x44, 0x45, 0x46, };
-+
-+static int x2600_i2c0_c_pins[] = { 0x40, 0x41, };
-+static int x2600_i2c0_d_pins[] = { 0x64, 0x63, };
-+
-+static int x2600_i2c1_b_pins[] = { 0x20, 0x21, };
-+static int x2600_i2c1_c_pins[] = { 0x42, 0x43, };
-+
-+static int x2600_i2c2_b_pins[] = { 0x23, 0x22, };
-+static int x2600_i2c2_c_pins[] = { 0x53, 0x54, };
-+static int x2600_i2c3_c_pins[] = { 0x55, 0x56, };
-+static int x2600_i2c3_e_pins[] = { 0x85, 0x86, };
-+
-+static int x2600_i2s_clk_rx_pins[]  = { 0x4f, }; /* PC15 */
-+static int x2600_i2s_sysclk_pins[]  = { 0x50, }; /* PC16 */
-+static int x2600_i2s_clk_tx_pins[]  = { 0x51, }; /* PC17 */
-+static int x2600_i2s_data_pins[] = { 0x52, 0x53, }; /* PC18, PC19 */
-+
-+static int x2600_lcd_16bit_pins[] = {
-+	0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b,
-+	0x2c, 0x2d, 0x2e, 0x2f, 0x30, 0x31, 0x32, 0x33,
-+};
-+
-+static int x2600_lcd_18bit_pins[] = { 0x34, 0x35, };
-+
-+static int x2600_lcd_24bit_pins[] = {
-+	0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b,
-+};
-+
-+static int x2600_lcd_sync_pins[] = { 0x3c, 0x3d, 0x3e, 0x3f, };
-+
-+static int x2600_mac_pins[] = {
-+	0x4f, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58,
-+};
-+
-+static int x2600_msc0_1bit_pins[] = { 0x60, 0x61, 0x62, };
-+static int x2600_msc0_4bit_pins[] = { 0x63, 0x64, 0x65, };
-+static int x2600_msc0_8bit_pins[] = { 0x81, 0x82, 0x83, 0x84, };
-+
-+static int x2600_msc1_1bit_c_pins[] = { 0x59, 0x5a, 0x5b, };
-+static int x2600_msc1_4bit_c_pins[] = { 0x5c, 0x5d, 0x5e, };
-+
-+static int x2600_msc1_1bit_d_pins[] = { 0x66, 0x67, 0x68, };
-+static int x2600_msc1_4bit_d_pins[] = { 0x69, 0x6a, 0x6b, };
-+
-+static int x2600_otg_pins[] = { 0x81, };
-+
-+static int x2600_pcm_pins[] = { 0x40, 0x41, 0x42, 0x43, }; /* PC0-PC3 (Func3) */
-+
-+static int x2600_pwm0_pins[] = { 0x2c, }; /* PB12 (Func2) */
-+static int x2600_pwm1_pins[] = { 0x2d, }; /* PB13 (Func2) */
-+static int x2600_pwm2_pins[] = { 0x2e, }; /* PB14 (Func2) */
-+static int x2600_pwm3_pins[] = { 0x2f, }; /* PB15 (Func2) */
-+static int x2600_pwm4_pins[] = { 0x30, }; /* PB16 (Func2) */
-+static int x2600_pwm5_pins[] = { 0x31, }; /* PB17 (Func2) */
-+static int x2600_pwm6_pins[] = { 0x32, }; /* PB18 (Func2) */
-+static int x2600_pwm7_pins[] = { 0x33, }; /* PB19 (Func2) */
-+static int x2600_pwm8_pins[] = { 0x47, };  /* PC07 (Func0) */
-+static int x2600_pwm9_pins[] = { 0x48, };  /* PC08 (Func0) */
-+static int x2600_pwm10_c_pins[] = { 0x49, }; /* PC09 (Func0) */
-+static int x2600_pwm10_e_pins[] = { 0x82, }; /* PE02 (Func2) */
-+static int x2600_pwm11_pins[] = { 0x4a, }; /* PC10 (Func0) */
-+static int x2600_pwm12_pins[] = { 0x4b, }; /* PC11 (Func0) */
-+static int x2600_pwm13_pins[] = { 0x4c, }; /* PC12 (Func0) */
-+static int x2600_pwm14_pins[] = { 0x4d, }; /* PC13 (Func0) */
-+static int x2600_pwm15_pins[] = { 0x4e, }; /* PC14 (Func0) */
-+static int x2600_pwm_trig_c_pins[] = { 0x54, }; /* PC20 (Func1) */
-+static int x2600_pwm_trig_d_pins[] = { 0x6c, }; /* PD12 (Func1) */
-+
-+static int x2600_sfc_d0_pins[] = { 0x60, 0x61, 0x62, 0x63, 0x64, 0x65, };
-+static int x2600_sfc_d6_pins[] = { 0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, };
-+
-+static int x2600_slcd_8bit_pins[] = {
-+	0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b,
-+};
-+
-+static int x2600_slcd_16bit_pins[] = {
-+	0x2c, 0x2d, 0x2e, 0x2f, 0x30, 0x31, 0x32, 0x33,
-+};
-+
-+static int x2600_slcd_ctrl_pins[] = {
-+	0x3c, 0x3d, 0x3e, 0x3f,
-+};
-+
-+static int x2600_ssi0_dt_b_pins[] = { 0x22, };
-+static int x2600_ssi0_dr_b_pins[] = { 0x21, };
-+static int x2600_ssi0_clk_b_pins[] = { 0x23, };
-+static int x2600_ssi0_ce0_b_pins[] = { 0x20, };
-+
-+static int x2600_ssi0_dt_d_pins[] = { 0x61, };
-+static int x2600_ssi0_dr_d_pins[] = { 0x62, };
-+static int x2600_ssi0_clk_d_pins[] = { 0x60, };
-+static int x2600_ssi0_ce0_d_pins[] = { 0x65, };
-+
-+static int x2600_ssi1_dt_c15_pins[] = { 0x50, };
-+static int x2600_ssi1_dr_c15_pins[] = { 0x51, };
-+static int x2600_ssi1_clk_c15_pins[] = { 0x4f, };
-+static int x2600_ssi1_ce0_c15_pins[] = { 0x52, };
-+
-+static int x2600_ssi1_dt_c25_pins[] = { 0x5a, };
-+static int x2600_ssi1_dr_c25_pins[] = { 0x5b, };
-+static int x2600_ssi1_clk_c25_pins[] = { 0x59, };
-+static int x2600_ssi1_ce0_c25_pins[] = { 0x5e, };
-+
-+static int x2600_ssi_slv_dt_pins[] = { 0x3d, }; /* PB29 (Func2) */
-+static int x2600_ssi_slv_dr_pins[] = { 0x3e, }; /* PB30 (Func2) */
-+static int x2600_ssi_slv_clk_pins[] = { 0x3c, }; /* PB28 (Func2) */
-+static int x2600_ssi_slv_ce0_pins[] = { 0x3f, }; /* PB31 (Func2) */
-+
-+static int x2600_tcu0_in0_pins[] = { 0x34, }; /* PB20 (Func2) */
-+static int x2600_tcu0_in1_pins[] = { 0x35, }; /* PB21 (Func2) */
-+static int x2600_tcu1_in0_pins[] = { 0x36, }; /* PB22 (Func2) */
-+static int x2600_tcu1_in1_pins[] = { 0x37, }; /* PB23 (Func2) */
-+static int x2600_tcu2_in0_pins[] = { 0x38, }; /* PB24 (Func2) */
-+static int x2600_tcu2_in1_pins[] = { 0x39, }; /* PB25 (Func2) */
-+static int x2600_tcu3_in0_pins[] = { 0x3a, }; /* PB26 (Func2) */
-+static int x2600_tcu3_in1_pins[] = { 0x3b, }; /* PB27 (Func2) */
-+
-+static int x2600_tcu4_in0_pins[] = { 0x47, }; /* PC07 (Func1) */
-+static int x2600_tcu4_in1_pins[] = { 0x48, }; /* PC08 (Func1) */
-+static int x2600_tcu5_in0_pins[] = { 0x49, }; /* PC09 (Func1) */
-+static int x2600_tcu5_in1_pins[] = { 0x4a, }; /* PC10 (Func1) */
-+static int x2600_tcu6_in0_pins[] = { 0x4b, }; /* PC11 (Func1) */
-+static int x2600_tcu6_in1_pins[] = { 0x4c, }; /* PC12 (Func1) */
-+static int x2600_tcu7_in0_pins[] = { 0x4d, }; /* PC13 (Func1) */
-+static int x2600_tcu7_in1_pins[] = { 0x4e, }; /* PC14 (Func1) */
-+
-+static int x2600_uart0_data_c_pins[] = { 0x57, 0x58, };
-+static int x2600_uart0_hwflow_c_pins[] = { 0x55, 0x56, };
-+static int x2600_uart0_data_e_pins[] = { 0x89, 0x8a, };
-+static int x2600_uart0_hwflow_e_pins[] = { 0x8b, 0x8c, };
-+
-+static int x2600_uart1_data_b_pins[] = { 0x20, 0x21, };
-+static int x2600_uart1_data_c_pins[] = { 0x42, 0x43, };
-+static int x2600_uart1_hwflow_b_pins[] = { 0x22, 0x23, };
-+static int x2600_uart1_hwflow_c_pins[] = { 0x44, 0x45, };
-+
-+static int x2600_uart2_data_pins[] = { 0x6d, 0x6c, };
-+
-+static int x2600_uart3_data_b_pins[] = { 0x37, 0x36, };
-+static int x2600_uart3_data_c_pins[] = { 0x50, 0x4f, };
-+
-+static int x2600_uart4_data_b_pins[] = { 0x38, 0x39, };
-+static int x2600_uart4_data_c_pins[] = { 0x51, 0x52, };
-+static int x2600_uart5_data_b_pins[] = { 0x3a, 0x3b, };
-+static int x2600_uart5_data_c_pins[] = { 0x47, 0x48, };
-+static int x2600_uart6_data_c_pins[] = { 0x40, 0x41, };
-+static int x2600_uart7_data_c_pins[] = { 0x44, 0x45, };
-+static int x2600_uart7_data_e_pins[] = { 0x83, 0x84, };
-+
-+static int x2600_wait_pins[] = { 0x6b, };
-+
-+static const struct group_desc x2600_groups[] = {
-+	/* CAN (Controller Area Network) */
-+	INGENIC_PIN_GROUP("can0-data", x2600_can0, 2),
-+	INGENIC_PIN_GROUP("can1-data", x2600_can1, 2),
-+
-+	/* CIM (Camera) */
-+	INGENIC_PIN_GROUP("cim-data", x2600_cim, 0),
-+
-+	/* EXCLK (externel clock output) */
-+	INGENIC_PIN_GROUP("ex-clk", x2600_clk, 1),
-+
-+	/* DMIC */
-+	INGENIC_PIN_GROUP("dmic-data", x2600_dmic, 0),
-+
-+	/* I2Cs */
-+	INGENIC_PIN_GROUP("i2c0-data-c", x2600_i2c0_c, 1),
-+	INGENIC_PIN_GROUP("i2c0-data-d", x2600_i2c0_d, 2),
-+	INGENIC_PIN_GROUP("i2c1-data-b", x2600_i2c1_b, 3),
-+	INGENIC_PIN_GROUP("i2c1-data-c", x2600_i2c1_c, 1),
-+	INGENIC_PIN_GROUP("i2c2-data-b", x2600_i2c2_b, 3),
-+	INGENIC_PIN_GROUP("i2c2-data-c", x2600_i2c2_c, 2),
-+	INGENIC_PIN_GROUP("i2c3-data-c", x2600_i2c3_c, 2),
-+	INGENIC_PIN_GROUP("i2c3-data-e", x2600_i2c3_e, 1),
-+
-+	/* I2S (Audio) & PCM */
-+	INGENIC_PIN_GROUP("i2s-clk-rx", x2600_i2s_clk_rx, 1),
-+	INGENIC_PIN_GROUP("i2s-sysclk", x2600_i2s_sysclk, 1),
-+	INGENIC_PIN_GROUP("i2s-clk-tx", x2600_i2s_clk_tx, 1),
-+	INGENIC_PIN_GROUP("i2s-data", x2600_i2s_data, 1),
-+	INGENIC_PIN_GROUP("pcm", x2600_pcm, 3),
-+
-+	/* LCD & SLCD */
-+	INGENIC_PIN_GROUP("lcd-16bit", x2600_lcd_16bit, 0),
-+	INGENIC_PIN_GROUP("lcd-18bit", x2600_lcd_18bit, 0),
-+	INGENIC_PIN_GROUP("lcd-24bit", x2600_lcd_24bit, 0),
-+	INGENIC_PIN_GROUP("lcd-sync", x2600_lcd_sync, 0),
-+	INGENIC_PIN_GROUP("slcd-8bit", x2600_slcd_8bit, 1),
-+	INGENIC_PIN_GROUP("slcd-16bit", x2600_slcd_16bit, 1),
-+	INGENIC_PIN_GROUP("slcd-ctrl", x2600_slcd_ctrl, 1),
-+
-+	/* MAC (Ethernet) */
-+	INGENIC_PIN_GROUP("mac", x2600_mac, 0),
-+
-+	/* MMCs (MSC) */
-+	INGENIC_PIN_GROUP("mmc0-1bit", x2600_msc0_1bit, 0),
-+	INGENIC_PIN_GROUP("mmc0-4bit", x2600_msc0_4bit, 0),
-+	INGENIC_PIN_GROUP("mmc0-8bit", x2600_msc0_8bit, 0),
-+	INGENIC_PIN_GROUP("mmc1-1bit-c", x2600_msc1_1bit_c, 0),
-+	INGENIC_PIN_GROUP("mmc1-4bit-c", x2600_msc1_4bit_c, 0),
-+	INGENIC_PIN_GROUP("mmc1-1bit-d", x2600_msc1_1bit_d, 1),
-+	INGENIC_PIN_GROUP("mmc1-4bit-d", x2600_msc1_4bit_d, 1),
-+
-+	/* OTG (Vbus driver) */
-+	INGENIC_PIN_GROUP("otg-vbus", x2600_otg, 1),
-+
-+	/* PWMs */
-+	INGENIC_PIN_GROUP("pwm0", x2600_pwm0, 2),
-+	INGENIC_PIN_GROUP("pwm1", x2600_pwm1, 2),
-+	INGENIC_PIN_GROUP("pwm2", x2600_pwm2, 2),
-+	INGENIC_PIN_GROUP("pwm3", x2600_pwm3, 2),
-+	INGENIC_PIN_GROUP("pwm4", x2600_pwm4, 2),
-+	INGENIC_PIN_GROUP("pwm5", x2600_pwm5, 2),
-+	INGENIC_PIN_GROUP("pwm6", x2600_pwm6, 2),
-+	INGENIC_PIN_GROUP("pwm7", x2600_pwm7, 2),
-+	INGENIC_PIN_GROUP("pwm8", x2600_pwm8, 0),
-+	INGENIC_PIN_GROUP("pwm9", x2600_pwm9, 0),
-+	INGENIC_PIN_GROUP("pwm10-c", x2600_pwm10_c, 0),
-+	INGENIC_PIN_GROUP("pwm10-e", x2600_pwm10_e, 2),
-+	INGENIC_PIN_GROUP("pwm11", x2600_pwm11, 0),
-+	INGENIC_PIN_GROUP("pwm12", x2600_pwm12, 0),
-+	INGENIC_PIN_GROUP("pwm13", x2600_pwm13, 0),
-+	INGENIC_PIN_GROUP("pwm14", x2600_pwm14, 0),
-+	INGENIC_PIN_GROUP("pwm15", x2600_pwm15, 0),
-+	INGENIC_PIN_GROUP("pwm-trig-c", x2600_pwm_trig_c, 1),
-+	INGENIC_PIN_GROUP("pwm-trig-d", x2600_pwm_trig_d, 1),
-+
-+	/* SFC (Serial Flash Controller) */
-+	INGENIC_PIN_GROUP("sfc-d0", x2600_sfc_d0, 1),
-+	INGENIC_PIN_GROUP("sfc-d6", x2600_sfc_d6, 0),
-+
-+	/* SSIs (SPI) */
-+	INGENIC_PIN_GROUP("ssi0-dt-b", x2600_ssi0_dt_b, 0),
-+	INGENIC_PIN_GROUP("ssi0-dr-b", x2600_ssi0_dr_b, 0),
-+	INGENIC_PIN_GROUP("ssi0-clk-b", x2600_ssi0_clk_b, 0),
-+	INGENIC_PIN_GROUP("ssi0-ce0-b", x2600_ssi0_ce0_b, 0),
-+	INGENIC_PIN_GROUP("ssi0-dt-d", x2600_ssi0_dt_d, 2),
-+	INGENIC_PIN_GROUP("ssi0-dr-d", x2600_ssi0_dr_d, 2),
-+	INGENIC_PIN_GROUP("ssi0-clk-d", x2600_ssi0_clk_d, 2),
-+	INGENIC_PIN_GROUP("ssi0-ce0-d", x2600_ssi0_ce0_d, 2),
-+	INGENIC_PIN_GROUP("ssi1-dt-c15", x2600_ssi1_dt_c15, 2),
-+	INGENIC_PIN_GROUP("ssi1-dr-c15", x2600_ssi1_dr_c15, 2),
-+	INGENIC_PIN_GROUP("ssi1-clk-c15", x2600_ssi1_clk_c15, 2),
-+	INGENIC_PIN_GROUP("ssi1-ce0-c15", x2600_ssi1_ce0_c15, 2),
-+	INGENIC_PIN_GROUP("ssi1-dt-c25", x2600_ssi1_dt_c25, 1),
-+	INGENIC_PIN_GROUP("ssi1-dr-c25", x2600_ssi1_dr_c25, 1),
-+	INGENIC_PIN_GROUP("ssi1-clk-c25", x2600_ssi1_clk_c25, 1),
-+	INGENIC_PIN_GROUP("ssi1-ce0-c25", x2600_ssi1_ce0_c25, 1),
-+	INGENIC_PIN_GROUP("ssi-slv-dt-b", x2600_ssi_slv_dt, 2),
-+	INGENIC_PIN_GROUP("ssi-slv-dr-b", x2600_ssi_slv_dr, 2),
-+	INGENIC_PIN_GROUP("ssi-slv-clk-b", x2600_ssi_slv_clk, 2),
-+	INGENIC_PIN_GROUP("ssi-slv-ce0-b", x2600_ssi_slv_ce0, 2),
-+
-+	/* TCUs (Timer & Counter Units) */
-+	INGENIC_PIN_GROUP("tcu0_in0", x2600_tcu0_in0, 2),
-+	INGENIC_PIN_GROUP("tcu0_in1", x2600_tcu0_in1, 2),
-+	INGENIC_PIN_GROUP("tcu1_in0", x2600_tcu1_in0, 2),
-+	INGENIC_PIN_GROUP("tcu1_in1", x2600_tcu1_in1, 2),
-+	INGENIC_PIN_GROUP("tcu2_in0", x2600_tcu2_in0, 2),
-+	INGENIC_PIN_GROUP("tcu2_in1", x2600_tcu2_in1, 2),
-+	INGENIC_PIN_GROUP("tcu3_in0", x2600_tcu3_in0, 2),
-+	INGENIC_PIN_GROUP("tcu3_in1", x2600_tcu3_in1, 2),
-+	INGENIC_PIN_GROUP("tcu4_in0", x2600_tcu4_in0, 1),
-+	INGENIC_PIN_GROUP("tcu4_in1", x2600_tcu4_in1, 1),
-+	INGENIC_PIN_GROUP("tcu5_in0", x2600_tcu5_in0, 1),
-+	INGENIC_PIN_GROUP("tcu5_in1", x2600_tcu5_in1, 1),
-+	INGENIC_PIN_GROUP("tcu6_in0", x2600_tcu6_in0, 1),
-+	INGENIC_PIN_GROUP("tcu6_in1", x2600_tcu6_in1, 1),
-+	INGENIC_PIN_GROUP("tcu7_in0", x2600_tcu7_in0, 1),
-+	INGENIC_PIN_GROUP("tcu7_in1", x2600_tcu7_in1, 1),
-+
-+	/* UARTs */
-+	INGENIC_PIN_GROUP("uart0-data-c", x2600_uart0_data_c, 1),
-+	INGENIC_PIN_GROUP("uart0-hwflow-c", x2600_uart0_hwflow_c, 1),
-+	INGENIC_PIN_GROUP("uart0-data-e", x2600_uart0_data_e, 1),
-+	INGENIC_PIN_GROUP("uart0-hwflow-e", x2600_uart0_hwflow_e, 1),
-+	INGENIC_PIN_GROUP("uart1-data-b", x2600_uart1_data_b, 1),
-+	INGENIC_PIN_GROUP("uart1-data-c", x2600_uart1_data_c, 2),
-+	INGENIC_PIN_GROUP("uart1-hwflow-b", x2600_uart1_hwflow_b, 1),
-+	INGENIC_PIN_GROUP("uart1-hwflow-c", x2600_uart1_hwflow_c, 2),
-+	INGENIC_PIN_GROUP("uart2-data", x2600_uart2_data, 0),
-+	INGENIC_PIN_GROUP("uart3-data-b", x2600_uart3_data_b, 1),
-+	INGENIC_PIN_GROUP("uart3-data-c", x2600_uart3_data_c, 3),
-+	INGENIC_PIN_GROUP("uart4-data-b", x2600_uart4_data_b, 1),
-+	INGENIC_PIN_GROUP("uart4-data-c", x2600_uart4_data_c, 3),
-+	INGENIC_PIN_GROUP("uart5-data-b", x2600_uart5_data_b, 1),
-+	INGENIC_PIN_GROUP("uart5-data-c", x2600_uart5_data_c, 3),
-+	INGENIC_PIN_GROUP("uart6-data-c", x2600_uart6_data_c, 2),
-+	INGENIC_PIN_GROUP("uart7-data-c", x2600_uart7_data_c, 1),
-+	INGENIC_PIN_GROUP("uart7-data-e", x2600_uart7_data_e, 1),
-+
-+	/* WAIT */
-+	INGENIC_PIN_GROUP("wait", x2600_wait, 3),
-+};
-+
-+static const char * const x2600_can0_groups[] = { "can0-data", };
-+static const char * const x2600_can1_groups[] = { "can1-data", };
-+
-+static const char * const x2600_cim_groups[] = { "cim-data", };
-+
-+static const char * const x2600_clk_groups[] = { "ex-clk", };
-+
-+static const char * const x2600_dmic_groups[] = { "dmic-data", };
-+
-+static const char * const x2600_lcd_groups[] = {
-+	"lcd-16bit", "lcd-18bit", "lcd-24bit", "lcd-sync",
-+};
-+
-+static const char * const x2600_i2c0_groups[] = { "i2c0-data-c", "i2c0-data-d", };
-+static const char * const x2600_i2c1_groups[] = { "i2c1-data-b", "i2c1-data-c", };
-+static const char * const x2600_i2c2_groups[] = { "i2c2-data-b", "i2c2-data-c", };
-+static const char * const x2600_i2c3_groups[] = { "i2c3-data-c", "i2c3-data-e", };
-+
-+static const char * const x2600_i2s_groups[] = {
-+	"i2s-data", "i2s-clk-rx", "i2s-clk-tx", "i2s-sysclk",
-+};
-+
-+static const char * const x2600_pcm_groups[] = { "pcm", };
-+
-+static const char * const x2600_mac_groups[] = { "mac", };
-+
-+static const char * const x2600_msc0_groups[] = { "mmc0-1bit", "mmc0-4bit", "mmc0-8bit", };
-+
-+static const char * const x2600_msc1_groups[] = {
-+	"mmc1-1bit-c", "mmc1-4bit-c", "mmc1-1bit-d", "mmc1-4bit-d",
-+};
-+
-+static const char * const x2600_otg_groups[] = { "otg-vbus", };
-+
-+static const char * const x2600_pwm0_groups[] = { "pwm0", };
-+static const char * const x2600_pwm1_groups[] = { "pwm1", };
-+static const char * const x2600_pwm2_groups[] = { "pwm2", };
-+static const char * const x2600_pwm3_groups[] = { "pwm3", };
-+static const char * const x2600_pwm4_groups[] = { "pwm4", };
-+static const char * const x2600_pwm5_groups[] = { "pwm5", };
-+static const char * const x2600_pwm6_groups[] = { "pwm6", };
-+static const char * const x2600_pwm7_groups[] = { "pwm7", };
-+static const char * const x2600_pwm8_groups[] = { "pwm8", };
-+static const char * const x2600_pwm9_groups[] = { "pwm9", };
-+static const char * const x2600_pwm10_groups[] = { "pwm10-c", "pwm10-e", };
-+
-+static const char * const x2600_pwm11_groups[] = { "pwm11", };
-+static const char * const x2600_pwm12_groups[] = { "pwm12", };
-+static const char * const x2600_pwm13_groups[] = { "pwm13", };
-+static const char * const x2600_pwm14_groups[] = { "pwm14", };
-+static const char * const x2600_pwm15_groups[] = { "pwm15", };
-+static const char * const x2600_pwm_trig_groups[] = { "pwm-trig-c", "pwm-trig-d", };
-+static const char * const x2600_wait_groups[] = { "wait", };
-+
-+static const char * const x2600_sfc_groups[] = { "sfc-d0", "sfc-d6", };
-+
-+static const char * const x2600_slcd_groups[] = { "slcd-8bit", "slcd-16bit", "slcd-ctrl", };
-+
-+static const char * const x2600_ssi0_groups[] = {
-+	"ssi0-dt-b", "ssi0-dr-b", "ssi0-clk-b", "ssi0-ce0-b",
-+	"ssi0-dt-d", "ssi0-dr-d", "ssi0-clk-d", "ssi0-ce0-d",
-+};
-+
-+static const char * const x2600_ssi1_groups[] = {
-+	"ssi1-dt-c15", "ssi1-dr-c15", "ssi1-clk-c15", "ssi1-ce0-c15",
-+	"ssi1-dt-c25", "ssi1-dr-c25", "ssi1-clk-c25", "ssi1-ce0-c25",
-+};
-+
-+static const char * const x2600_ssi_slv_groups[] = {
-+	"ssi-slv-dt-b", "ssi-slv-dr-b", "ssi-slv-clk-b", "ssi-slv-ce0-b",
-+};
-+
-+static const char * const x2600_tcu_groups[] = {
-+	"tcu0_in0", "tcu0_in1",
-+	"tcu1_in0", "tcu1_in1",
-+	"tcu2_in0", "tcu2_in1",
-+	"tcu3_in0", "tcu3_in1",
-+	"tcu4_in0", "tcu4_in1",
-+	"tcu5_in0", "tcu5_in1",
-+	"tcu6_in0", "tcu6_in1",
-+	"tcu7_in0", "tcu7_in1",
-+};
-+
-+static const char * const x2600_uart0_groups[] = {
-+	"uart0-data-c", "uart0-hwflow-c", "uart0-data-e", "uart0-hwflow-e",
-+};
-+
-+static const char * const x2600_uart1_groups[] = {
-+	"uart1-data-b", "uart1-data-c",
-+	"uart1-hwflow-b", "uart1-hwflow-c",
-+};
-+
-+static const char * const x2600_uart2_groups[] = { "uart2-data", };
-+static const char * const x2600_uart3_groups[] = { "uart3-data-b", "uart3-data-c", };
-+static const char * const x2600_uart4_groups[] = { "uart4-data-b", "uart4-data-c", };
-+static const char * const x2600_uart5_groups[] = { "uart5-data-b", "uart5-data-c", };
-+static const char * const x2600_uart6_groups[] = { "uart6-data-c", };
-+static const char * const x2600_uart7_groups[] = { "uart7-data-c", "uart7-data-e", };
-+
-+static const struct pinfunction x2600_functions[] = {
-+	INGENIC_PIN_FUNCTION("can0", x2600_can0),
-+	INGENIC_PIN_FUNCTION("can1", x2600_can1),
-+	INGENIC_PIN_FUNCTION("cim", x2600_cim),
-+	INGENIC_PIN_FUNCTION("exclk", x2600_clk),
-+	INGENIC_PIN_FUNCTION("dmic", x2600_dmic),
-+	INGENIC_PIN_FUNCTION("i2c0", x2600_i2c0),
-+	INGENIC_PIN_FUNCTION("i2c1", x2600_i2c1),
-+	INGENIC_PIN_FUNCTION("i2c2", x2600_i2c2),
-+	INGENIC_PIN_FUNCTION("i2c3", x2600_i2c3),
-+	INGENIC_PIN_FUNCTION("i2s", x2600_i2s),
-+	INGENIC_PIN_FUNCTION("pcm", x2600_pcm),
-+	INGENIC_PIN_FUNCTION("lcd", x2600_lcd),
-+	INGENIC_PIN_FUNCTION("mac", x2600_mac),
-+	INGENIC_PIN_FUNCTION("mmc0", x2600_msc0),
-+	INGENIC_PIN_FUNCTION("mmc1", x2600_msc1),
-+	INGENIC_PIN_FUNCTION("otg", x2600_otg),
-+	INGENIC_PIN_FUNCTION("pwm0", x2600_pwm0),
-+	INGENIC_PIN_FUNCTION("pwm1", x2600_pwm1),
-+	INGENIC_PIN_FUNCTION("pwm2", x2600_pwm2),
-+	INGENIC_PIN_FUNCTION("pwm3", x2600_pwm3),
-+	INGENIC_PIN_FUNCTION("pwm4", x2600_pwm4),
-+	INGENIC_PIN_FUNCTION("pwm5", x2600_pwm5),
-+	INGENIC_PIN_FUNCTION("pwm6", x2600_pwm6),
-+	INGENIC_PIN_FUNCTION("pwm7", x2600_pwm7),
-+	INGENIC_PIN_FUNCTION("pwm8", x2600_pwm8),
-+	INGENIC_PIN_FUNCTION("pwm9", x2600_pwm9),
-+	INGENIC_PIN_FUNCTION("pwm10", x2600_pwm10),
-+	INGENIC_PIN_FUNCTION("pwm11", x2600_pwm11),
-+	INGENIC_PIN_FUNCTION("pwm12", x2600_pwm12),
-+	INGENIC_PIN_FUNCTION("pwm13", x2600_pwm13),
-+	INGENIC_PIN_FUNCTION("pwm14", x2600_pwm14),
-+	INGENIC_PIN_FUNCTION("pwm15", x2600_pwm15),
-+	INGENIC_PIN_FUNCTION("pwm-trig", x2600_pwm_trig),
-+	INGENIC_PIN_FUNCTION("sfc", x2600_sfc),
-+	INGENIC_PIN_FUNCTION("slcd", x2600_slcd),
-+	INGENIC_PIN_FUNCTION("ssi0", x2600_ssi0),
-+	INGENIC_PIN_FUNCTION("ssi1", x2600_ssi1),
-+	INGENIC_PIN_FUNCTION("ssi-slv", x2600_ssi_slv),
-+	INGENIC_PIN_FUNCTION("uart0", x2600_uart0),
-+	INGENIC_PIN_FUNCTION("uart1", x2600_uart1),
-+	INGENIC_PIN_FUNCTION("uart2", x2600_uart2),
-+	INGENIC_PIN_FUNCTION("uart3", x2600_uart3),
-+	INGENIC_PIN_FUNCTION("uart4", x2600_uart4),
-+	INGENIC_PIN_FUNCTION("uart5", x2600_uart5),
-+	INGENIC_PIN_FUNCTION("uart6", x2600_uart6),
-+	INGENIC_PIN_FUNCTION("uart7", x2600_uart7),
-+	INGENIC_PIN_FUNCTION("tcu", x2600_tcu),
-+	INGENIC_PIN_FUNCTION("wait", x2600_wait),
-+};
-+
-+static const struct regmap_range x2600_access_ranges[] = {
-+	regmap_reg_range(0x0000 + 0x000, 0x0000 + 0x0e8),
-+	regmap_reg_range(0x0000 + 0x170, 0x0000 + 0x190),
-+	regmap_reg_range(0x0000 + 0x200, 0x0000 + 0x210),
-+	regmap_reg_range(0x0000 + 0x814, 0x0000 + 0x8f0),
-+	regmap_reg_range(0x0000 + 0x974, 0x0000 + 0x978),
-+
-+	regmap_reg_range(0x1000 + 0x000, 0x1000 + 0x0e8),
-+	regmap_reg_range(0x1000 + 0x170, 0x1000 + 0x190),
-+	regmap_reg_range(0x1000 + 0x200, 0x1000 + 0x210),
-+	regmap_reg_range(0x1000 + 0x814, 0x1000 + 0x8f0),
-+	regmap_reg_range(0x1000 + 0x974, 0x1000 + 0x978),
-+
-+	regmap_reg_range(0x2000 + 0x000, 0x2000 + 0x0e8),
-+	regmap_reg_range(0x2000 + 0x170, 0x2000 + 0x190),
-+	regmap_reg_range(0x2000 + 0x200, 0x2000 + 0x210),
-+	regmap_reg_range(0x2000 + 0x814, 0x2000 + 0x8f0),
-+	regmap_reg_range(0x2000 + 0x974, 0x2000 + 0x978),
-+
-+	regmap_reg_range(0x3000 + 0x000, 0x3000 + 0x0e8),
-+	regmap_reg_range(0x3000 + 0x170, 0x3000 + 0x190),
-+	regmap_reg_range(0x3000 + 0x200, 0x3000 + 0x210),
-+	regmap_reg_range(0x3000 + 0x814, 0x3000 + 0x8f0),
-+	regmap_reg_range(0x3000 + 0x974, 0x3000 + 0x978),
-+
-+	regmap_reg_range(0x4000 + 0x000, 0x4000 + 0x0e8),
-+	regmap_reg_range(0x4000 + 0x100, 0x4000 + 0x118),
-+	regmap_reg_range(0x4000 + 0x170, 0x4000 + 0x190),
-+	regmap_reg_range(0x4000 + 0x200, 0x4000 + 0x210),
-+	regmap_reg_range(0x4000 + 0x814, 0x4000 + 0x8f0),
-+	regmap_reg_range(0x4000 + 0x974, 0x4000 + 0x978),
-+};
-+
-+static const struct regmap_access_table x2600_access_table = {
-+	.yes_ranges = x2600_access_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(x2600_access_ranges),
-+};
-+
-+static const struct ingenic_chip_info x2600_chip_info = {
-+	.num_chips = 5,
-+	.reg_offset = 0x1000,
-+	.version = ID_X2600,
-+	.groups = x2600_groups,
-+	.num_groups = ARRAY_SIZE(x2600_groups),
-+	.functions = x2600_functions,
-+	.num_functions = ARRAY_SIZE(x2600_functions),
-+	.pull_ups = x2600_pull_ups,
-+	.pull_downs = x2600_pull_downs,
-+	.access_table = &x2600_access_table,
-+};
-+
- static u32 ingenic_gpio_read_reg(struct ingenic_gpio_chip *jzgc, u8 reg)
- {
- 	unsigned int val;
-@@ -4450,6 +4965,7 @@ static const struct of_device_id ingenic_gpio_of_matches[] __initconst = {
- 	{ .compatible = "ingenic,x1830-gpio" },
- 	{ .compatible = "ingenic,x2000-gpio" },
- 	{ .compatible = "ingenic,x2100-gpio" },
-+	{ .compatible = "ingenic,x2600-gpio" },
- 	{},
- };
- 
-@@ -4711,6 +5227,10 @@ static const struct of_device_id ingenic_pinctrl_of_matches[] = {
- 		.compatible = "ingenic,x2100-pinctrl",
- 		.data = IF_ENABLED(CONFIG_MACH_X2100, &x2100_chip_info)
- 	},
-+	{
-+		.compatible = "ingenic,x2600-pinctrl",
-+		.data = IF_ENABLED(CONFIG_MACH_X2600, &x2600_chip_info)
-+	},
- 	{ /* sentinel */ },
- };
+ / {
+ 	#address-cells = <2>;
+@@ -67,6 +68,32 @@ scmi_reset: protocol@16 {
+ 				reg = <0x16>;
+ 				#reset-cells = <1>;
+ 			};
++
++			scmi_voltd: protocol@17 {
++				reg = <0x17>;
++
++				scmi_regu: regulators {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					scmi_vddio1: regulator@0 {
++						reg = <VOLTD_SCMI_VDDIO1>;
++						regulator-name = "vddio1";
++					};
++					scmi_vddio2: regulator@1 {
++						reg = <VOLTD_SCMI_VDDIO2>;
++						regulator-name = "vddio2";
++					};
++					scmi_vddio3: regulator@2 {
++						reg = <VOLTD_SCMI_VDDIO3>;
++						regulator-name = "vddio3";
++					};
++					scmi_vdda18adc: regulator@3 {
++						reg = <VOLTD_SCMI_ADC>;
++						regulator-name = "vdda18adc";
++					};
++				};
++			};
+ 		};
+ 	};
  
 -- 
-2.56.0
+2.43.0
 
