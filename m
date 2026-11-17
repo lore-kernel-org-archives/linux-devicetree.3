@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794916945;
-	b=r/YSxvEp2lVvSljwHWK0cDLv3dDRc8R9qq04yRfnW1S0goXl7DGsPGVm2zpoGcNrOcTT
-	 Yu8ALKaDmXvOWjICwTHf0DqoEVFwKw+oQ72e1IVh+0WvleYduAeCGm2wb+NMAp1dxYFrF
-	 e7fIdkZVBmKvzrWATVOHSnkDjlxiLooHdUbrLDRiS1F773fN5TFRKO1DB+8RdPBBvSBOU
-	 kzOUDwayCkbPXMWpBZqHOgM7CaRSchrFX2BaxWCglU4BGMvf8lXb9jI8hLnLGew7eakQM
-	 EJucbOEG7yF5QRi+LRK83p3zdflipmvNwRUXzmzdWg2JYgsLUfgEyqXzp8rm8sxDySA==
+	t=1794916949;
+	b=o9ZXnUgfyDFvcHfL5UJ2gSSOUBCIHB3mNdA+CQCbO03WHruDoMbIg1pkEJJklMzCm9Ly
+	 vr1S0gqYFt48GAP6cAbfJo4vMlUvS7+4oUrytWQ9yM8qyEFGhsKHpFokLMhJqgQgkAHqw
+	 uImIkTv7zpGFR8MFAhxupZUKmvkzmkoAZb50/thMRxCjZntkgseNLOweK8OtYud61+XCf
+	 LbIGWVW9WawTDpLoHtXfMnmOAY/WzRB4+AKyjio1R3LdkTkv0kDIsSZLxid+5ZuLAWBh9
+	 WAqnQ3rfe1XDAmFC36tV1Kdl+Gt30qjxYKrmV2Xpk3gRj3cIih2w4z2w021My8MqN3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794916945;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794916949;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=TRDoGgRwa5KsWvB/IflpQ73VDTml/plhE/c6Vl1BGL4=;
-	b=17Sd4svEGyDpcVbGebh2Ob/sx1XohrawcZqDEqCRG5zcuCIGTXcECYLXgWcGOiyIa5wq
-	 wLZlvOLwVkBVksX7lFNS6dcG25P19bUbTFoAo2i5DKZ2OemVwDUCNspaFOYud7Tyds1RC
-	 XANTtsuxRHTGnESwMtzWpUUZVKpls2/rNIu12pDUJedKp0ovkgWvYDjHMAjHOL0bR6iEu
-	 svQIXQAqPeEnV3qe7fwOMpaizybofMp3yM5Ncm2dMqH0fwV4j3gr9MU3WBq7dMvFI6Uu8
-	 MfTNAnnMmBJRBjqbPBFDsFtzqJexLSyYMpyQyceLDyKbiIDLU8XS7Rb+HO0tG13mgyQ==
+	bh=K1Zvfa99sLuK1DLzK+ZnNXjcPb2OGlPh4oAuZqkwtkw=;
+	b=koxXvV03SGR7BMvDpC4Gb6bp1clblZDXVQQSf056UHmODlQmyxn8atTBWJDFyF7c/1VJ
+	 oZwW1EB4nTBnZJpJKQnm7VQBcuDOMGntS5LhTkih1BpwMMNjfInK9W8f1qrnC27XurVVo
+	 AxRnBHFH03XwUo3cy7FkE4hvjCXPyfjYmucSLLBINEN0W/NImiiAKNCU0TcTPkgFNcY47
+	 kc1Xp3s0TpNYGJNouUs4Lx/18ePjgBl4BZ1M3nyasApPHcHd74NVj6uMuk1E3HUvvlB0g
+	 7WCISUeYIvBlnjCaP90WWPYsKZu1Js4qvGCaTlmsS5WoHOzOs2N55jqrF78+SnmOfog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=q3ivFl7X;
-	arc=none smtp.remote-ip=79.135.106.121
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ZzqHuuPs;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07105606A329
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 12:02:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07105606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6573606A89D;
+	Tue, 17 Nov 2026 12:02:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6573606A89D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=q3ivFl7X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794916942; x=1795176142;
-	bh=TRDoGgRwa5KsWvB/IflpQ73VDTml/plhE/c6Vl1BGL4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=q3ivFl7XnsQ4mk+NCr+/jvp24S4+bJ6ole8RRhDBj5kzXDzs2Zl29mveKSMA9lSt5
-	 hTXrgC4nxQJwDA4XOSo+CcmC64Y+nLiQhp2el26uv4Gqv9wlckMppTUXACcZyxt5/p
-	 ql2WZVOAoDauiGGY9bGFHEW/XAMKfYO2wgJiRFvf6TVBW4GHbDrEPmFAC1id/oXmiJ
-	 n6zy/KLADPUKutgw8Ks/23t/rfeSRJlr0ap0VDd5nrP/QzJ9qZe/Yt/vM/QwafeO3w
-	 fokzQWn0HK2N4bAEKDKjuu+NB1dI0nL3UGYMrQwKYGXaJCzz/EbPXmGi+riMTqW8pV
-	 UQZeXEMYNaIlA==
-Date: Tue, 17 Nov 2026 12:02:15 +0000
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Lala Lin <lala.lin@mediatek.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH RESEND v5 3/4] nvmem: mtk-efuse: add CPU speedbin post-processing
-Message-ID: <k8LLawty9o68P00hLr5LO1163o_m16f_vf8fBZvdD18nOatszy1i4Dp7DeC8Hv2--Q08YyZfhCRnQbVDps0lqB2zZrx-k_GxKUaqj6eT6r4=@protonmail.com>
-In-Reply-To: <b0fa129a-e9ad-4a7b-a2aa-2202bfa23232@collabora.com>
-References: <20261117-6572-nvmem-v5-0-9b561a8a83e1@protonmail.com> <20261117-6572-nvmem-v5-3-9b561a8a83e1@protonmail.com> <b0fa129a-e9ad-4a7b-a2aa-2202bfa23232@collabora.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 4dc8420aa797847c5bd3778dc677e8a39e520ad9
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ZzqHuuPs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794916946;
+	bh=Pn/vfILlPgBup/CmDpdpki2EarwYCJXJtgx9MsaRfYs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZzqHuuPsdun6H5EzYeowjGgBvsG48E5Bx+DLK1RB6P2I/WTSewjunAKXg2InEfkoJ
+	 08F/RwnoWzx8i+NGNHI3dgpg5mDAgAhmCnEZdt8OS0GxC5AXnxXwfy5fX7PPpTfGT5
+	 d9g0yQHw3DHBmI4IAKJEAz3Td2PlizoaxiLCDbEGDekOi5C4TYKBEadkvYcVdiO0RK
+	 8ozohV/+jpWxUWTKQGlpvuGtbyzQtS+FYYqf2rnSAYSx8nJw/WdE1qLOF3EIrTJh+J
+	 ua3XZP6yIiaBRxkMqjPTpSAh2MWlpbiNcoyg7mjKUx5BOudQ+6jO4OjO0gPdpB2qjm
+	 Nxc9QIUDR2IaA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4B26E17E0406;
+	Tue, 17 Nov 2026 13:02:26 +0100 (CET)
+Message-ID: <fb428deb-9408-4129-89d1-1c2a3da1b75b@collabora.com>
+Date: Tue, 17 Nov 2026 13:02:25 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,83 +61,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/6] arm64: Initial support for MediaTek MT8163 SoC
+To: bengris32@protonmail.ch, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Sean Wang <sean.wang@mediatek.com>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-serial@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-0-e68d7d428f99@protonmail.ch>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-0-e68d7d428f99@protonmail.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Angelo,
+On 11/5/26 15:28, Ben Grisdale via B4 Relay wrote:
+> This series adds basic support for the MediaTek MT8163 SoC.
+> 
+> The MT8163 is a 64-bit SoC featuring four ARM Cortex-A53 cores,
+> typically found in entry-level tablets and smart displays, such as
+> the Amazon Echo and Fire HD devices.
+> 
+> The bindings and SoC dtsi added here, together with the already applied
+> watchdog support, are enough to boot the 2016 Amazon Echo Dot (biscuit)
+> to a shell over UART0.
+> 
+> This series requires custom TF-A, U-Boot and OP-TEE ports for MT8163.
+> The stock vendor firmware does not provide a usable PSCI implementation
+> (the vendor kernel brings up secondary CPUs with a custom "mt-boot"
+> enable-method instead), and these ports also define the reserved memory
+> layout used by the board dts:
+>   - TF-A: https://github.com/iara-linux/arm-trusted-firmware
+>   - U-Boot: https://github.com/iara-linux/u-boot
+>   - OP-TEE: https://github.com/iara-linux/optee_os
+> 
+> This is the first of several series. Support for the remaining
+> peripherals will follow, starting with the clock controllers, pinctrl
+> and power domains.
+> 
+> Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
 
-On Tuesday, November 17th, 2026 at 1:56 PM, AngeloGioacchino Del Regno <ang=
-elogioacchino.delregno@collabora.com> wrote:
+Whole series is
 
-> On 11/17/26 12:33, Roman Vivchar via B4 Relay wrote:
-> > From: Roman Vivchar <rva333@protonmail.com>
-> >
-> > MediaTek SoCs are often released under the same marketing name, but wit=
-h
-> > different suffix for the speedbin. For example, mt6572m has 1 GHz limit=
-,
-> > mt6572a - 1.2 GHz, mt6572w - 1.4 GHz.
-> >
-> > Since the speedbin is stored as a number in the efuse, add support for
-> > converting it to the bitmask for opp-supported-hw usage in the DT.
-> >
-> > Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> > ---
-> >   drivers/nvmem/mtk-efuse.c | 19 +++++++++++++++++++
-> >   1 file changed, 19 insertions(+)
-> >
-> > diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
-> > index 980c29d01337..d2e5c69c580e 100644
-> > --- a/drivers/nvmem/mtk-efuse.c
-> > +++ b/drivers/nvmem/mtk-efuse.c
-> > @@ -70,6 +70,18 @@ static int mtk_efuse_gpu_speedbin_pp(void *context, =
-const char *id, int index,
-> >   =09return 0;
-> >   }
-> >
-> > +static int mtk_efuse_cpu_speedbin_pp(void *context, const char *id, in=
-t index,
-> > +=09=09=09=09     unsigned int offset, void *data, size_t bytes)
->=20
-> You can *literally* reuse mtk_efuse_gpu_speedbin_pp....
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-No, I can't. On later SoCs CPU speedbin has different encoding.
-For example, on mt6768 it can be stored in either low or high 4 bits.
-This is out of scope for this series, but I'd like if we kept this
-callback for the future SoCs.
-
->=20
-> > +{
-> > +=09u8 *val =3D data;
-> > +
-> > +=09if (val[0] >=3D 8)
-> > +=09=09return -EINVAL;
-> > +
-> > +=09val[0] =3D BIT(val[0]);
-> > +=09return 0;
-> > +}
-> > +
-> >   static void mtk_efuse_fixup_dt_cell_info(struct nvmem_device *nvmem,
-> >   =09=09=09=09=09 struct nvmem_cell_info *cell)
-> >   {
-> > @@ -83,6 +95,13 @@ static void mtk_efuse_fixup_dt_cell_info(struct nvme=
-m_device *nvmem,
-> >   =09if (cell->nbits <=3D 3 &&
-> >   =09    strncmp(cell->name, "gpu-speedbin", min(sz, strlen("gpu-speedb=
-in"))) =3D=3D 0)
-> >   =09=09cell->read_post_process =3D mtk_efuse_gpu_speedbin_pp;
-> > +
-> > +=09/*
-> > +=09 * On mobile SoCs, the CPU speedbin is a number. Convert it to
->=20
-> Other SoCs have got the same efuse style as mobile SoCs: anyway, all Medi=
-aTek
-> SoCs (apart from networking ones) are (in a way or another) variants of t=
-he
-> mobile ones.
-
-They're not really variants, some of them have no direct mt81xx/83xx siblin=
-g.
-
-Best regards,
-Roman
