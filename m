@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794876796;
-	b=yaA7SRQ56S/d+qSZSA1AuFP3nwinoETLEc9HVm+53NgQCodx4CcZlKAI7HX5q3EGm+uW
-	 ah0tkCTmfAgVSrVK+dO83eEk9+HFIL4LNKcKmNZePIKCcZdNBPsItRttdpUn5z2v4CcOc
-	 ACvGyow80DZY49Zox6+iWZugdZxkmmTLZLyKCw30OWelAXrbVzIt7dJ0jXz7HqNkExfcu
-	 yJA3isxHi14ZHSrCW7WB0O4TxsqN4aWBeqkKJCv/YaKWNOjJXNrmm+W5BfuGcyZVwy2bb
-	 gsCvSkKHAFBsJdPpVR5GCzwBrGp06g1UEVzxhPDsee1ClGB8bTNTQc08plvULRy0xzg==
+	t=1794877078;
+	b=oeemGeRxiuhlsZKqoqD6u7Efx0A2tyf1R3XUF9yZSx/9yE3WmqbceH1w8Dm5hzXNHepQ
+	 KtMJb8VTi3Vab9DEJOIZmiaGnmWpOmjUdXoN5KbUrSfAS++NyMNPF+EK/8KzBJhYet7/o
+	 q1WT3K1cC/ZWwiUBvNzYV0s2E5Gf4oD6J+xb51TebzSDFpwPVouwj03j+D/1bMn0GZGfk
+	 ivVnxr6+EPCCmKhW+0iLPCN5q2lOXXuWTJI2S0cRDLsNS0tpoi5LBLxGlBfnq6jJ8QkG6
+	 NlbcbD/3edims/XEgtEQkp5Q9bnbFtg9uWVfXZhi9mVKsOQFaEoMrga+vsoW/NddDjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794876796;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=cZKrqKKU0Zn/4482SS6UmQ97SbQVJzWFNH6cljGk8Iw=;
-	b=nYmn4+l76XtHcVsGwz+inDZpeGDHWfKp+Ncgu7M7BgJmHSnaCd1TXWrjJc32RJHtFyD9
-	 ApLDN6XmryiWH0hK93R/DOwwKwZDDAlaU7ny3UtWrF/mlPZHpD621nJUVgkLW6zFvHw0w
-	 QSBH+vp0eG2+wwDteYJiSKGEjMIh32l+IrM0N0Q/SceSeiyWGc91W4/rBkaQLqeQ2wbhx
-	 sbeDWOn08fL5SsLisEE3KHNP+BgTF52TvTeFaVNECPKiJpZW1P4CgP0GuX2w/Zf4miUAG
-	 vL/LHKYva9nD7ofvSRLzZiw3HJRt+rFvvAW90PSdPZwPITvSg7qeDFNgMGIRU26N+Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877078;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KgDSpxzJb3bAALuMtGoPjTr7eQ9Jv9niChI7HXsF3Z4=;
+	b=heIKjjviB3Gybwzx/2JNWYxM/uNvD500auXOfALDSaEIyXmpQOYtAmL9tUm0k2omzS+v
+	 uLUyKPtGaIOZLwPOpijYRGk1oa8wOYdlW8wkOL0ZFhB1bBVJFvKuqiLrw7bdhR3E1j9vg
+	 9AgzjA0I+BfPXLurknRDAVw1xdKbpxknS75bZwiWiKHtZFT8nyZoK1RtwdX/GzTejc45y
+	 J30vVq7MPby754NUtoQlwT+Rls5k5r6zDIT8/ag4rnu2fxnm2zbaL9RXKfeRRxQd30qBC
+	 fc76e0YGC6mfthnhz+va2ajZlm7qqvWqfwpSAKMmw0QNPt00tPmEyfwvXFsFJreI9KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWbFHhRs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=epJ76Q5N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B12606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 00:53:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAEFA606A31C;
+	Tue, 17 Nov 2026 00:57:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWbFHhRs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F37D1F000C4;
-	Tue, 17 Nov 2026 00:53:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=epJ76Q5N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D74971F000C4;
+	Tue, 17 Nov 2026 00:57:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794876796;
-	bh=cZKrqKKU0Zn/4482SS6UmQ97SbQVJzWFNH6cljGk8Iw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SWbFHhRsx/xCAeUztMQl9llLhJQ4cLqgH4mLu+iWR3P+N4U1qPXzMOtgvi/LSbXOh
-	 i9peVaVJ1tkcxIcCCZ5xncmbfY9RpIyy+bSEmro0Xw5OQJ5LV47QbvecjB7ilrdzT7
-	 lmjXQZ29gK4pjHsshI7/lslY7EJeLORmnpdgZhY7nDPOSOS5sNxiusJMLcRCTNEXRm
-	 X86A9TJXsorLJNYQiIuNk2vlV8bt46mGW472II9g79F94R+d9pScpMReITm/gn3lB2
-	 FAnJTSxR3oJ2p7ikIWhc64LwtnMKuvKBtPcwUUC+450yXXm/TJWCqgwltBzNPSrlff
-	 Dl/nAXMme7HTg==
-Message-ID: <sashiko-outbox-218030@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] phy: siflower: Add SF19A2890 USB 2.0 PHY driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joseph Telaak" <joseph@telaak.dev>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261116-sf19a2890-usb-phy-v2-2-df3ce9d23f5a@telaak.dev>
-References: <20261116-sf19a2890-usb-phy-v2-0-df3ce9d23f5a@telaak.dev>
- <20261116-sf19a2890-usb-phy-v2-2-df3ce9d23f5a@telaak.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 00:53:15 +0000
+	s=k20260515; t=1794877078;
+	bh=KgDSpxzJb3bAALuMtGoPjTr7eQ9Jv9niChI7HXsF3Z4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=epJ76Q5NwE05ch2nHZjELnmbx2glge7NHXjaE2gHfeTw43Gp+kfzoNCgilb9C+DsC
+	 eqaGWYfMSCv19UUGWTyP55mgIipVnYtbXVEr3jUx4W0csz5AF/xXx7cUgTQef0U6WD
+	 Jw/VLhGoxb/1++54nSFdEZeDZ7kklgfhCvvIftnOdyuPuliWMKUap3zpJlTLJSdcTp
+	 rQ5yQOOCziYFiJ0BM0lDSy5CRhF1amTipv4C6RkeqvXyw4VPeV0Yz8bpeeRJDJuJmg
+	 OiyPiNZeDYB4Xj0+e6Qpy9qgIvdq5VUFjxtPDK6sjH9/PM/4PCibmRWS/jFERSsFuZ
+	 2vwlQALqlYjxA==
+Date: Tue, 17 Nov 2026 00:57:55 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: E Shattow <e@freeshell.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] riscv: dts: spacemit: k3: use com260 8gb memory
+ configuration
+Message-ID: <20261117005755-GKD100890@kernel.org>
+References: <20261115195112.32120-1-e@freeshell.de>
+ <20261115195112.32120-2-e@freeshell.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,38 +62,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261115195112.32120-2-e@freeshell.de>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] phy: siflower: undefined Kconfig dependency
-  MACH_SIFLOWER_MIPS
---
+Hi E Shattow,
 
-commit 202f638a2bcc34b802f82ced18e112090e99c627
-Author: Chuanhong Guo <gch981213@gmail.com>
+On 11:50 Sun 15 Nov     , E Shattow wrote:
+> The boot loader may override this configuration based on stored ID value
+> in EEPROM TLV and if it does not then the smallest common sold
+I think bootloader will detect memory size during DDR initiliazation phase,
+and then update the DT configuration, I haven't checked vendor code, but
+plan to implement this in mainline u-boot..
 
-phy: siflower: Add SF19A2890 USB 2.0 PHY driver
+While the change itself looks good, to have always smallest valid default..
 
-This commit adds a driver and Kconfig entry for the Siflower SF19A2890
-USB 2.0 PHY.
+> configuration of 8gb is the most compatible option.
+> 
+> Signed-off-by: E Shattow <e@freeshell.de>
+> ---
+>  arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+> index 054bfff7413a..c18680b963a4 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+> @@ -14,7 +14,7 @@ / {
+>  
+>  	memory@100000000 {
+>  		device_type = "memory";
+> -		reg = <0x1 0x00000000 0x4 0x00000000>;
+> +		reg = <0x1 0x00000000 0x2 0x00000000>;
+>  	};
+>  
+>  	reg_5v_sys: regulator-5v-sys {
+> -- 
+> 2.53.0
+> 
 
-> diff --git a/drivers/phy/siflower/Kconfig b/drivers/phy/siflower/Kconfig
-> new file mode 100644
-> index 0000000000000..5ae1f83d14494
-> --- /dev/null
-> +++ b/drivers/phy/siflower/Kconfig
-> @@ -0,0 +1,12 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config PHY_SF19A2890_USB
-> +	tristate "Siflower SF19A2890 USB 2.0 PHY driver"
-> +	depends on MACH_SIFLOWER_MIPS || COMPILE_TEST
-
-[Severity: Medium]
-Is MACH_SIFLOWER_MIPS defined anywhere in the tree?  Because that Kconfig
-symbol does not exist, it evaluates to n and prevents PHY_SF19A2890_USB
-from being enabled unless COMPILE_TEST is set.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-sf19a2890-=
-usb-phy-v2-0-df3ce9d23f5a@telaak.dev?part=3D2
+-- 
+Yixun Lan (dlan)
