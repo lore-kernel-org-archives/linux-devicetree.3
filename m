@@ -1,15 +1,15 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.138
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.121
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794907936;
-	b=emwHYrJrIgtbzQ91S5Pti2LmX0xgfONiAhXYomkn1tW/yc4/yYKTJaF9Gnk4I6x4W/EW
-	 4j5Ma2nDlaBphg8TFyKM9l/0inm7TaHeLqiFVv4m/MiMHmwvmEdSLyWbdV3bg4RMTT5tr
-	 qBoWy8qILK+1bUD5wByV8hVXa8bTHyY9IzmIyxcKGvGIEYXRoHmwP6p+6zY+/R6573j5i
-	 kUZXRLCUu2GbwoA/Fo+5N6FMhVBPVfMfHkICguTF7M1jYUmm37tRhqm86mydl51gL7kdB
-	 hpnfAlJfvRz5Ga/re8jeYic1QSzqdDkmpDuC1akn1k5F8Ke6WYOM+KYJlZFVMKnxJ1w==
+	t=1794907952;
+	b=Le/4S9txRidDHWW0pQ7YWkOuR/QA7L1FuJ/AtNVaT/ZhCvAJRuDC3jsqt9algSfejelh
+	 NrEIL5y2igny5B6kWc7IgUlaX3ProwsrS6ZKreO8M3EsppkEo1el2Y9co+zYjtTqPi6sO
+	 SiKPm7bNyUWy3LujV41OuXb6ysxYmEzwvkZkDAR6L27rcxffjlxOZRwz00VChchZvL8th
+	 Gv96TV6JZjiITAYaVJ/g5bndHDesGGZtz4EPrmH7tNaJkJCnW6xqfshmVQHmvXXSFZomg
+	 Tpv2Jr0pdVkrS2SaZDfK09ykmhLXS5UNTa2/0wm8WaapGKRyKIMMvJVt/9BcGtOV66g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907936;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907952;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
@@ -24,75 +24,78 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zyfiWhGTrprm9B6gHh1KS01+8vcAgtThEw8T/f1Fwnc=;
-	b=Hqp1qceH1bFqx6J1AiyzmmpUrURRFCE1bf3S/9f0SuKhDT7NRBrcdrKkg4Om54BXD3S6
-	 i344iZJ48BkgM7GwocqquLIQzGoevxY6f78qx9ui57a83hyA6tdz34nZkSWCx7qWo15tM
-	 opq2a/JwnMlTSBU6/YrJ+GF0qWqKyp6yJLIke+mjh1PI2+pEkQPBjgFuoY5XQMbXfHULw
-	 HQiXCM57Bp2q2IOpOG4L7hN6emvWBHEWR9Bu0meUgHsk70mv151wytNZzAfvhWUXU6aY+
-	 zuShaDF1nPF15HwErzn8WrLP/YGecKo2fxGHwbir+spPvvf+WA5AbGgIai3lgimA0XA==
+	bh=cAohnXRlhmTtbn5EarDJT/yhoqvFcXPLxV4lwVGoOWo=;
+	b=WUCSR+m90YLKQTh0X/RMUTlTTuH3Zr8c83D7NMR/HODD3p4zgt2Se1B2MHNMXDiHAtUu
+	 jfnUdQCLwM2EmG3rWU6yDYKVRg0hO3+zosQTBiOOFvJFC/SmyMVRLr7qeG6LJk2eYmXpq
+	 8WueWxKm9/HYaA9nGG5oPg+C492R9qWOEYb++8CqgRgPWcYJnGGdWKut5TXnCTxD7SWLv
+	 7iDdcRsZ4gAyn/N/EABl3HnV4aWuFYhImh9wkCHpeJpvGQ8vP02wdgV7wGnL+jifZIKKZ
+	 qYriQKJPLFYw7oLrAqcH2n4MHl8Ye4WNLvb7vlN8cNs1iy27K7KWZ5RhP+jGIzkwkhw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=XGcVNAYg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.138
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023138.outbound.protection.outlook.com [40.107.44.138])
+	dmarc=pass header.from=phytec.de;
+	spf=pass smtp.mailfrom=phytec.de;
+	dkim=pass header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b="pNy/HNR2";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.121
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11023121.outbound.protection.outlook.com [52.101.72.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634C9606A32C;
-	Tue, 17 Nov 2026 09:32:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 634C9606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813CD606A329;
+	Tue, 17 Nov 2026 09:32:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 813CD606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=XGcVNAYg
+	dkim=pass (2048-bit key, unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=pNy/HNR2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AuufFUohQ4Mmk3MxdrZgVVX1P2xpOjHptgUvPcFTEzJD8S6dGfQ9FNqe32JTcYE++inVSevoZS8xczreauDZk23WVJBKoQiokXoH7siqy1hXrFWvVTI+TAjvA7fhgEX9nLKFZi2SqsxoRirjdlhI24aB6aJsqH4cAIvYCPGegQVLKhBJtRGcymzK34ri5dlxJpuNpUV7KYxPPWKRqkzKlC6NwNDNqHQtimXCnihRTjCEq2usSElsYnM57f4Ow2JJuzonx8ZKuz6MgGV0ua6ItoRBY0aD4N2B2EizjtZFAFQnSyDU+n2TjKaSMZs6Ivt0iy1V43ctfz5qH8sfmHanYQ==
+ b=tR1XVuH7ly1B+EkyVU0Jm8DgsRpRZkzxVtGCSL2KydRIS5kgY79fbl56sgIgibmw16Kh4QqHdO1WJf7vvRQWVxMT7QcSEt+C8QfVsZnXrBvMxujEIqWeTCC8fFTeLbQZibO0binl3b5oUNw5XMScqG5vggDG6DMDRxkzwaVaUuV1fWbCW6q+i9jYgQzSsFFKYvxTbuCQ5UMw86uBEsTDY1rsT9j+jPgqx3p8r278htuZ3ot3DDXsT3hN4AwCVcCAlV+6BHvZ6eUNtIxaVxKDCJCMj/1adSKS+ggRjvZLNF+M8ZZo0DydbDrJJkt9DRfM7/8DkMmVDkT2wyILy9rRSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zyfiWhGTrprm9B6gHh1KS01+8vcAgtThEw8T/f1Fwnc=;
- b=Pgd4aJerSns7obidmZSL8uPz+bMbqHHPjXNy0mE710DcSiaLAIk+gXbjCG8A7JpoNcQVsqpYShKxCjn5IyIEXJGm7h/F2q8w5pYuXTuhzzLqrev9fF2Kvis14Yvun9LtoN8mL68oxA/9hACXLONaewaXmhxZDXr6zWIDROJV6oxhqF5HLFL009xuhD0EtibkV/P8BoBT4JkXhC30bEvakpTQT892rXomWzgAB4ckbalLcwCO8Uaq+VeUajCdg+Z2CUUBnk5irM7apP0Didx05Z21DFQTFz4kvhwKXDmK5t5NAv2e87UFmaVFVNKxr2jMXInRyFqX1RkLHMyC4m5FeA==
+ bh=cAohnXRlhmTtbn5EarDJT/yhoqvFcXPLxV4lwVGoOWo=;
+ b=y1YYozH+eQYK3aqIU9pd4mEASru09Uc/eQMlR4Z5SSvBhz9K5RboYXEhssHX0C0ZGDLp/INsZLwdBJgOsKQU5THXi5Izkp/dHgHac9ZhT7IQlMj4q5yCjiVRPEjjVJ/g259XWq4+bwXu9tMZqCkgagfP91SEjZW5XK444XDgdowQxxa2spnWtIxuz2jiVz/O7R16VAn1+N7fkpoTyu2ceKdhZxQj72k5it0kLg8eCDjoFCZRo3yCYJpedAOHbNPYzIXRnVqo+WsZNHRaVOOFzRO6SCDviSph5vNd/H3AgTZ6bafslnT09cbXt5pslcI/Y9sWlsrsFqFytvD8ZZ8HQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
+ smtp.mailfrom=phytec.de; dmarc=pass action=none header.from=phytec.de;
+ dkim=pass header.d=phytec.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zyfiWhGTrprm9B6gHh1KS01+8vcAgtThEw8T/f1Fwnc=;
- b=XGcVNAYgE4o28EZFFuScP0ep7IhBgb6/3jk7wQocY6LEh2HQMizme9nv8aLhscfBLmHUPlamhjn8WBvL29wYVtLN6es9QWavijxjJFA6KU9ytkdqstQLHtp4jPIYvEZN5TRtgEGX7uGuCq2jIynaAdOx8DRL6rjDaVtOPiaDa0USANJ5fh8EmpXJ3A1DhFCw+L3dWi2I2H8py15H3k1magigPvWruiHAu82T7U5L3pYKLiSP0or9E62juqLn/SDZWtfCFiG/eTJ/fciZvgxo4/5Oik/odIb8DN9gfOOZjPjGV6iunS5TXRYOZia7/DEIasFG8ysXFpSDbZGi/eBSqw==
+ bh=cAohnXRlhmTtbn5EarDJT/yhoqvFcXPLxV4lwVGoOWo=;
+ b=pNy/HNR2PHjjO6zElTwGzrsbasrxv/2vqh6Zl0Ffqhm4edWSHHZMQ78CI6kSf6qIhNbKPO8uSjEiHoo+ndULj1xKWsTGztit2cFiezVhgdQ+rWRgZnxY8XK5Xqou9diPICrrwjlw9Ob4cslWjcGjEd74XSQPAl3qnHrhxHjWUgdPYunh9uRbtli2NN3vHj///wZnWgWuEZQRYDyRTJf4g/OxOS9NUbZcIhCFtMGNNvPsmHTygLjl3u9dj9dapr1sJsW3s0SJ+ZJ3KjHTZpYDpTq/rEoFhL2JhlV++JtVayNUCmE35JT2Qa31EjDRtpFyzBm8/hNOBHBM0D8ccS7xxw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
- by TYNPR03MB9821.apcprd03.prod.outlook.com (2603:1096:405:3b5::8) with
+ header.d=none;dmarc=none action=none header.from=phytec.de;
+Received: from VI1P195MB0623.EURP195.PROD.OUTLOOK.COM (2603:10a6:800:159::10)
+ by VI0P195MB2840.EURP195.PROD.OUTLOOK.COM (2603:10a6:800:2ba::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 09:32:12 +0000
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4%7]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 09:32:11 +0000
-Message-ID: <0f0f687a-83d0-4af9-b146-3d737ccac809@amlogic.com>
-Date: Tue, 17 Nov 2026 17:32:07 +0800
+ 2026 09:32:27 +0000
+Received: from VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
+ ([fe80::2f8:67bc:a785:6894]) by VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
+ ([fe80::2f8:67bc:a785:6894%7]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 09:32:27 +0000
+Message-ID: <06904f2c-379b-412a-a842-04d7898c56d4@phytec.de>
+Date: Tue, 17 Nov 2026 10:32:25 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/2] dt-bindings: i2c: add Amlogic A9 I2C controller
+Subject: Re: [PATCH v2 3/5] arm64: dts: imx95-phyflex-libra-rdk: Add overlays
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Yannic Moog <y.moog@phytec.de>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ upstream@lists.phytec.de
+References: <20261113-wip-bhahn-imx95_upstreaming-v2-0-3ef58af5e689@phytec.de>
+ <20261113-wip-bhahn-imx95_upstreaming-v2-3-3ef58af5e689@phytec.de>
+ <avc7o0T0-tSW_c0H@SMW015318>
 Content-Language: en-US
-To: Markus Elfring <Markus.Elfring@web.de>,
- Junyi Zhao <junyi.zhao@amlogic.com>, linux-amlogic@lists.infradead.org,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- Andi Shyti <andi.shyti@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>
-References: <20261117-a9-i2c-v9-0-7b303c894fea@amlogic.com>
- <20261117-a9-i2c-v9-1-7b303c894fea@amlogic.com>
- <78d4a042-d9e0-4b88-8788-30310462dbdb@web.de>
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-In-Reply-To: <78d4a042-d9e0-4b88-8788-30310462dbdb@web.de>
+From: Benjamin Hahn <B.Hahn@phytec.de>
+In-Reply-To: <avc7o0T0-tSW_c0H@SMW015318>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TY4P301CA0083.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:36f::11) To TYZPR03MB6896.apcprd03.prod.outlook.com
- (2603:1096:400:289::14)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0291.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e7::17) To VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:800:159::10)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,76 +106,211 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|TYNPR03MB9821:EE_
-X-MS-Office365-Filtering-Correlation-Id: 693dc191-7ea7-4c94-2162-08df448da871
+X-MS-TrafficTypeDiagnostic: VI1P195MB0623:EE_|VI0P195MB2840:EE_
+X-MS-Office365-Filtering-Correlation-Id: 298d6687-9b6f-459c-f084-08df448db1bd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|11063799006|4143699003|56012099006|261026121527099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|10067099003|4143699003|11063799006|56012099006|261021121427099003|261021135927099003|261022075727099003|261009221227099003|261009223027099003|261026121527099003|261102123227099003|18002099003|22082099003|13003099007|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	dK03VyP/ShZLej0H8IQu2AkpDJu6+BYE6IQw0AuDdjgD4IgtZuOJvFrEg9TDkbaYr1swsVEOFj+hly+MTTgSx5hM2Muuva5jXdf0DHEPZ0nsS4mzVsrcShJjfkMkT8mmvnffesMILnWPda2KWcBsa2fpZtZV7jIsX2lc1jMqA6KOzoCoCqq/U3tp2atr25PYezeoQBrwQHOP+YncMjnigqqa5BGlyC7rh0nPE+ivuT7GHaAy6KtQ1lgpqYZ7/05h9jNDruiArcDyaTxXv0nrZ+Hb5+adu7SGg49gdhvyJo8teBamiMFpJzMdNcn0MxMTtCl2HI0h6Co4osa4mhFpBwf5Jd/g1VtSsx4ZmwNhPZ5LYS5xQgc3aa4nJNxSqiycSb5+nmFQUGrhRLcG5i0Rr/DCjuFEMByIjWGwl+Xety8q3TjZ2qIIok2FadSp2uHDGVrp4uLx77yrvucwZ9op15TqetktRfzPGDlzyOBQV2H0EtWN6xI36XHN23Sgmb9JtGOKOKKVdL2rIwas8oseLlK+9NRsq17CX8w316jmixbg1+eWAwqgy+uhm9PsUk5mCeqZzcwpN7sOJcsgD8dtmVjrWeMmoBxKkeJP9HPxWDU+PfwkGqXAbnB7Vl0ndDeYvkk/0jKYRryMUD7P0p1WPMnTuMmt6GQ4XIpW2a4TpEM=
+	bRhtk6XDlaNFep9CNu+OO9LzoihvTt6yMEfINmMmEYMEAyUpY8YTdejKat/J4yU/kaHHVsBVLpVKAbcAHqN4wnyYcaH2MooBIrgByFPDclp3O3g34JwcHsaULtpu3m1J6cowrSkj6DK3FJ3XdouEGEC+iE6x/ilhLXpWGuOwKtcSKKwFrRcYApp4o2j7VRRFmpFSNj74nJD9Tj5ovmINtvUAKfEysch9PsJvPWz8/LfbQWBNp2gF/tALZ92tjO9igxZSfc1v83TkUXkNuiV+I4kIwVWZVcnWJkf9O8IQyUfNfMd3p/AZcCO/QxqF1HdZa6l53yHx/5d2ryFANxJ3tlNJfz7GjObVPSDryehMHKiQfsksPTjLZoYjwS/J4AnjWvQbmtaR4QSeTLGlIQnWYZNQcidiDSNcmW0QJf+B5Rcd+N3TZsf8LsBoF+u+BkfeYg1aFQzT6q3ZbLP7rBkV6JCmgwWC42MA3dn2edisrVTcBviczkKe6/jqsO/TyOAodirvvrxrp9WhSFV0yStsWSTp03IC0PFMEZzt9XRW9k/ZyCQYrWHWi2yfhDEfyO/3EgNgsaR2621WRV+TcXkZQCGdjqY4vRyJSytT+8KldL4Jl7lOUzBBQp4Ye3NIHAUe
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(261026121527099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1P195MB0623.EURP195.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(10067099003)(4143699003)(11063799006)(56012099006)(261021121427099003)(261021135927099003)(261022075727099003)(261009221227099003)(261009223027099003)(261026121527099003)(261102123227099003)(18002099003)(22082099003)(13003099007)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QmZESzN1eEZZbThzZldMWEVKaGdBZGhsbkJTb2JEUTNyelEwMlRpMzlWNWxk?=
- =?utf-8?B?Z08rUkRlcVpaRjhScmh3dHIydzVMcVUwd3RReG9tSVVyZUF0cEFIU29oK3pS?=
- =?utf-8?B?UEFvNlQ0blNMYlBlcG5nazJ1OGxBL1gzZHBEVUxCREsyR0d0MjIzRStNOERs?=
- =?utf-8?B?SlpBWTViS0VlRmJGVTB1WHZFNmx1ZXZKUGRWU0NwampMdG4wQTdLRHF2TDFi?=
- =?utf-8?B?NyswZnpab1Q2RnFBRUFNUWpUNE8weEhCc2preFdvcFJ5K0YyY29OQXZHMlhK?=
- =?utf-8?B?dlZySTFiVDNGMTBSQ2pXb2pSK0FjU1hKcEpTNGNrd0ZjdE1DbkU1SFNGVm1T?=
- =?utf-8?B?ZWk1SkJsQXdpaUU0Sk53dEN0N21ocHVwclRCY2hsRll3WE1VODEyaDRxNVVj?=
- =?utf-8?B?NUFxR1JiNzEyaHR6SUUvVkNnQ0VXaCs5eDNybFBlK1hDdm5nemlVa2hQbkZy?=
- =?utf-8?B?VkIvQzVlUklJRWV3UmVFWjBZcG0yUFFIWWZ3TUwyR2pkdWM0QWpJeDNiUy9p?=
- =?utf-8?B?UHVFL0paMjFLZmoxN0Q1OFRwRlBicTFVZ0pTMWVGZVZ5ZUI1Z0FOVW1NMEs2?=
- =?utf-8?B?QWZERjhFRHQ3eTIyc3JkbmZqMHN1enREODZleEJRWERvdi80RWcxekEzV01F?=
- =?utf-8?B?VHBqWTRmbzRLcVhINmlvUzNLRDVva2dDNm41UjRFRWFiMmR1SHcwS2p6Sysy?=
- =?utf-8?B?dkg5YXRsWjZjSWtURWhxZlNFcDdGL3U5WFdnYXdKZUxHV2FFckYrVC91ak1R?=
- =?utf-8?B?a0N0Y0lBUHBLOGZXQmxrQ240SXNwdGcxcThwSlRobVhQa2p4TW5NcThCMTgy?=
- =?utf-8?B?aFlHY2FySi9EcWx6L0p2OUtqaUFOYTRCVS92eXpFbGJjRkE5bk0wNHVCekN1?=
- =?utf-8?B?NExvNzQ1bjZWTkV2N0twTVN3bFJ5dnBabkYzaU9tRzJQeGNKcFR1bVZucnJ5?=
- =?utf-8?B?eWdsN3RPbGdlRDNkeXhUNXVUa0JJek4vRnhjK2xhUFlrNUFIa1FBV2xlR29o?=
- =?utf-8?B?dnJiemw1WkI2M2dKMFVaTVpLS3hNQVJSRFdIOUlDZXNuUnM2RGRHQUFsRlpH?=
- =?utf-8?B?cm5OeFpaOVlEMzlXaUpsTlpKaTBXc1Ziek5xU0psVHo1MHZEdFhJZHcyaDQ3?=
- =?utf-8?B?Wkd6OEpoUUQwUThRZ3RmV0ZpOUsyVitoRjRVMFdWS1lVdDQvSStGMVB5ditJ?=
- =?utf-8?B?NVhxMzQ0UExiRGRIaC82Z25uMGFZSUpXS05mTUtHZGdicmVqZGREcGpKZGdC?=
- =?utf-8?B?aTUyU0kwVUMzb0lxbHJmSVhoT2s0WGsveW8xSWI5dVEyQWVZN2dlNkdYZnd1?=
- =?utf-8?B?aVJpU0g2NjF4K3QveXJqMXU5dFN1di92Z0lKVWRnZ2VxUEZ6TTVkNWdxZVBV?=
- =?utf-8?B?N2Z3UHV5aUlkL3N5alhWSXpOOVdwdWh5cEExZEdQS0lyVEdOTFNxQVRSNXI3?=
- =?utf-8?B?QWUzS0h2WUhXQTFiczIwbTQwNGZUV0FLMG5OM01xUlU2dVF4ZkxxQXU2dXZ5?=
- =?utf-8?B?ZU9KQ1cyamNrR2p1NVZqWXdFTG1UQVR3blU3QTFNUkJSSE9yUFNibG9HVUU3?=
- =?utf-8?B?c1NqT3hrc1FqbWYxM1ZBeWQrajdlb0xwYjVrWldCT1A3OEVzb051WHMzOXRa?=
- =?utf-8?B?dWs3SXRoT2psRGVyRVE2TmsvajNGL3BtWFFaZWJVanVMR0tZa0pEM0U3WlU4?=
- =?utf-8?B?bUhPWkdweVR3RzUydDZuSTBGS05zN3NVOW5oSVlnMDQyS0dDK1JpQ2RMdkxX?=
- =?utf-8?B?aW9KdTJqaUtGSFNsZ3o0SlA0Tkd2U1FhcEl5OUdRRis2WVA2NnM5dGM1L0dM?=
- =?utf-8?B?eGlUeTVBNEpIODd0cGNFQ0lQdjh2NW9CazBmZHhrYmx2TTBIL2xlclJCWTl5?=
- =?utf-8?B?bCtkRW0zUUYwMDNiM1BURC8rcWdYclkxc2FmcXNIVGJSUU5RZHRuLzkwcFd5?=
- =?utf-8?B?OTRGWEpjY2xWTHh3LzM2U2xxQldoTkdtbnhBUTJ5UkNoeDlKbTZOTU56YkN3?=
- =?utf-8?B?ZENDcU44S1dING9jSkJPMXcrOGhucFNYRVhITVVGNjVmSUpRYkhxNDIvU3Br?=
- =?utf-8?B?UVo5UFJlVXlzQmpEZlMyeTJGYjB2NDRHTEpsaVJBWHRKS1ZMclNVTTRpcWgy?=
- =?utf-8?B?SnN6NFFOTWpCNWZlMkVDWEhvNWp3NFZwQmdBL1hVK08xSy91RnF6ME9YNnJT?=
- =?utf-8?B?VXhjSTF0THYzeGo3S1JSMktYVjlka01mLy9CdWk4OE5IN25BV1ZENUhqeHFR?=
- =?utf-8?B?TWVUdWt3bDJMUWw4cGVLREpLRVplbDhxWExZdTRzODVQcG1BY2hEa2FFaU1R?=
- =?utf-8?B?Z2NZdGtORm9DNDdmZXNyT2UrQlZYYWt6eHN3WmRFb2ZSYWlqeUN5V2VFbEFl?=
- =?utf-8?Q?KpGCraeTyj0+4FWo=3D?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 693dc191-7ea7-4c94-2162-08df448da871
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
+	=?utf-8?B?Rnk0ZUdYRFhNWHVMM3c5Y3FWS1gva3lIM3JBd21SVWd5dHlEdEZmajlDcGsw?=
+ =?utf-8?B?R2lpU3RoWmtyanlucCt3VCtVN0YvUUc3SmdRZWx4REhmeE5OcUk5NDRRZFB2?=
+ =?utf-8?B?NDRid2hmb0w3YzNlM0xaS2w3cVptSzc0ZnV0U0lxa3FtV3I1NmFuL1lsaFpo?=
+ =?utf-8?B?QkMyK2RJOFJ6a0VHbUZsWHZhMmRsUUxpRW85UXNWN0F4bGR1Qm8xemlDSWR3?=
+ =?utf-8?B?dVM4ZkxoUjQ2ekdrUW1rb29jaFkxUlZNUk9LQUplb0gxM05zdDZzTHNVeWpG?=
+ =?utf-8?B?SUF0djN0cVJMRXVTYmpqWjhWYWxDUlVBNnNPS3V2T1VQdFBxQUZFdkFaYWRW?=
+ =?utf-8?B?RkJ3aVhRbU1XY2lxU2VhWlUzcUdPcDN5cmdEdWFiL2dLZm43OFJ3TkJIMzlo?=
+ =?utf-8?B?a0RlQ2h2ZitORHZzRHBobzIwTnlGTzM5NGF1VDhXNXRwR2RMb2I0b09zaDV6?=
+ =?utf-8?B?SGJXOU5oSmVvZ29LemlXM3NVOHBXWkgxUjFTM1BjcHd6bnQ5a3Fyb0J6Yi93?=
+ =?utf-8?B?K2h3RDVObXozdjZCbVFHY25UTGgrSVZ4WmlmRjlUaW02SnFPVDM5dHpuYWph?=
+ =?utf-8?B?V0NLa09LOXNPWWZYT2JLMTd6bkttVzlmb1BLRDVNcTVVM3RzT05MN3ZWejIz?=
+ =?utf-8?B?UFBmRnIwdGZPV09Hd1FQOXlOTU9Vb2JNWXZJN1lweDZncUx1R3JmTlFQRENQ?=
+ =?utf-8?B?bW9paGZFQUlDODNCQkRhTDBOZ0RGYXhCMkJzTjdkSlYyRFUwWTNrVXFnNDlt?=
+ =?utf-8?B?UVZOSm1jdG1jOGlTaGZIL1hRcFhGcktJdGNJaWF4TTAxTldYSDV3Vk0yVDB3?=
+ =?utf-8?B?amMyeWcyZzVpd2gycmJuaUFmTDB0RFZQaEFmNnhVQmNyT2QzUVU3SWlCcnh4?=
+ =?utf-8?B?VmdkWHJJYkN6dk1Jdk5rYVV6cm9RVmdOMXFRWGpubVd5VTZBZ2RHblo4Uktz?=
+ =?utf-8?B?U2pqbFc2SmlWaWk2QUF0a1E0T1N0dE1UanJWYUgrL3BaVW5jaXdtTXBaUzBp?=
+ =?utf-8?B?c3YzNVJXSTRFWHBiVk9EdHFKcTJOdmpoTUk5aWJSSUY2TEVzUGZPVVljWnp3?=
+ =?utf-8?B?RGY3eHFwenk3U1lqSFh4M21COFhMeFRjaStoLzFhdUJTeXNnUVpVUzBZNVMy?=
+ =?utf-8?B?Wmo3bHBWSjNSdnBmRmxLNjA4akZOWEJjSmM5eG05LzNIQjVIbjJQdi9vTitK?=
+ =?utf-8?B?OU1ZRzlqdVhRM2oxWUJydVRSNVM0RUpsMURBWE5LVXhSZ3JIUlpJQVRwbEIr?=
+ =?utf-8?B?VER5QjNqQWxUcXBDZ3dOZ3dYWGVmYnBVVEZHbWt3cmpzY3NmV2hwSXgyUHQ2?=
+ =?utf-8?B?QkFuWFcxSWpoZkdBZUFDaytrQ0U1cWdqUEk0d01sYTlSYVNzempoNnoxWXox?=
+ =?utf-8?B?ait1NWJLendhdmR0RExpb2ZXQWNEV044QUI1dUNMQlhidDNFRVlGV0QrbEpm?=
+ =?utf-8?B?cjFYSDZISjUvNDhmbWE2bjFzWEp3OENiZlo0d0tkV1ViUVJDLzBiVkhPOVlB?=
+ =?utf-8?B?MHdCcDBsR1dZQ3IvaDNBTjFBYm1HSCtaUnh1UHFuMjBqRmJNR2doVHlXZEtS?=
+ =?utf-8?B?emNIVXpManpJN00wSnF6YVJ3Z1dpa0R5NVphTFZjOTZQSjBkdzlqb2ptUUV5?=
+ =?utf-8?B?bDFwYmNiODlvYktTMm1LTWdINjdVeTNhdkxnMXR5NURJT2pzbzRhNUZjMTdF?=
+ =?utf-8?B?UUY3YW5vQTRJRFByU2F1QXdmc2Y0aFN2bUdZT1JYcXA0YU9qRWFNYWYrZFFq?=
+ =?utf-8?B?SUhZM0pWYUN6QjNLemsya2JUd1VvUFgxL2dFS2Mxb2lQbjN6Nk10QVBsSXNj?=
+ =?utf-8?B?d25GOGtJaytOdUJEaURNNzNkRWRRVU9RUDVmditwTnA0NFdSVGVwSjhjODFC?=
+ =?utf-8?B?aVowZG51OWU2eVU1Z2prUFp4TE1tbnVqeGlLTlZHM3R0b1FPNzFyYVBkWTlp?=
+ =?utf-8?B?QmVIQllMRUVYeU9WbWZZQ3p6QU5zN0VTbU9MSCtiT3llOHA2V3Z5dXlIc3Ji?=
+ =?utf-8?B?b2NBbzVsVmE5TnV4c29hb3ZjVll2aFhocjNTWGFhazF0T0ZNQ1dSV1BoWTBq?=
+ =?utf-8?B?cTY5M0J5NTZ0bUhaelVrN2wrU1hON2Y3b2p3NWIySG1USkw1Wk53c3g2Tlhl?=
+ =?utf-8?B?ZEtqTFJ1aUl2dUE1RG9BME1mQVMrQW96N3lTSkwyMnJ3OCtEMG1iRlZIMGNh?=
+ =?utf-8?B?R1JlemJkellTOGZlTVkwVWJRWVhZQVpDOTcyQklLV1hwYkljNEFUTzBJTGVM?=
+ =?utf-8?B?U0g4U0FNZC9aVFZtbHVqcFMxbWtPS3lYbWUyOElMVFJqNzVacDlNYlFzQ1dt?=
+ =?utf-8?Q?zmWcj6iu8zsgLTIBR9?=
+X-OriginatorOrg: phytec.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 298d6687-9b6f-459c-f084-08df448db1bd
+X-MS-Exchange-CrossTenant-AuthSource: VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 09:32:11.8759
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 09:32:27.4431
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TRvoKPQtTBn/a7M1WBoh+LaW7KQF5Bdz7xSqI3WAiR3bq3CTw1V57CfD2L1D4Uyq/mrti832egqq6WvLUP/kKVzZDf8q1zmNLGQ4EYMRae4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR03MB9821
+X-MS-Exchange-CrossTenant-UserPrincipalName: Cs4/1PPfSfdIE0rVLqofWVHJ7SsyeVA6Pbb3QyvEc9rnlJrmkz1/0ksNRI2GoWzu/1Y0J6+1VpYkGTcD9afgiA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0P195MB2840
 
+Am 13.11.26 um 17:32 schrieb Frank Li:
+> On Fri, Nov 13, 2026 at 05:00:05PM +0100, Benjamin Hahn wrote:
+>
+> subject Add overlay for som temperature sensors and ...
+>
+>> Add overlays for SoM temperature sensors and M.2 Key-E WIFI/BT cards
+>> that need the nxp,88w8987-bt compatible in devicetree (tested on
+>> IW611/IW612).
+>>
+>> Signed-off-by: Benjamin Hahn <B.Hahn@phytec.de>
+>> ---
+>>   arch/arm64/boot/dts/freescale/Makefile             |  9 ++++++++
+>>   .../imx95-phyflex-fpsc-g-som-temperature.dtso      | 23 +++++++++++++++++++++
+>>   .../imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso | 24 ++++++++++++++++++++++
+> which is independ, suggest use two patches to do that.
+Will do
+>
+>>   3 files changed, 56 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+>> index 4eb7508193e7..17b357f4886a 100644
+>> --- a/arch/arm64/boot/dts/freescale/Makefile
+>> +++ b/arch/arm64/boot/dts/freescale/Makefile
+>> @@ -739,7 +739,16 @@ imx95-19x19-evk-pcie1-ep-dtbs += imx95-19x19-evk.dtb imx-pcie1-ep.dtbo
+>>   dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-pcie0-ep.dtb imx95-19x19-evk-pcie1-ep.dtb
+>>   dtb-$(CONFIG_ARCH_MXC) += imx95-libra-rdk-fpsc.dtb
+>>
+>> +imx95-phyflex-fpsc-g-som-temperature-dtbs := \
+>> +			  imx95-phyflex-libra-rdk.dtb \
+>> +			  imx95-phyflex-fpsc-g-som-temperature.dtbo
+>> +imx95-phyflex-libra-rdk-bluetooth-88w8987-dtbs := \
+>> +			  imx95-phyflex-libra-rdk.dtb \
+>> +			  imx95-phyflex-libra-rdk-bluetooth-88w8987.dtbo
+>> +
+>>   dtb-$(CONFIG_ARCH_MXC) += imx95-phyflex-libra-rdk.dtb
+>> +dtb-$(CONFIG_ARCH_MXC) += imx95-phyflex-fpsc-g-som-temperature.dtb
+>> +dtb-$(CONFIG_ARCH_MXC) += imx95-phyflex-libra-rdk-bluetooth-88w8987.dtb
+>>
+>>   dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-verdin-evk.dtb
+>>
+>> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som-temperature.dtso b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som-temperature.dtso
+>> new file mode 100644
+>> index 000000000000..84afe1ff9f06
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som-temperature.dtso
+>> @@ -0,0 +1,23 @@
+>> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+>> +/*
+>> + * Copyright (C) 2026 PHYTEC Messtechnik GmbH
+>> + */
+>> +
+>> +/dts-v1/;
+>> +/plugin/;
+>> +
+>> +&dram_sense {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&emmc_sense {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&ethphy_sense {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&pmic_sense {
+>> +	status = "okay";
+>> +};
+>> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso
+>> new file mode 100644
+>> index 000000000000..1601e04b3940
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso
+>> @@ -0,0 +1,24 @@
+>> +// SPDX-License-Identifier: (GPL-2.0-or-later OR MIT)
+>> +/*
+>> + * Copyright (C) 2026 PHYTEC Messtechnik GmbH
+>> + */
+>> +/dts-v1/;
+>> +/plugin/;
+>> +
+>> +#include <dt-bindings/gpio/gpio.h>
+>> +
+>> +&lpuart8 {
+>> +	bluetooth {
+> Can you add label for bluetooth at boards file, so this overlay can
+> reuse for other 88w8987-bt module.
+This would be technically possible, but I don't think it is the cleanest 
+solution.
+1. adding an empty bluetooth node into the base dts leads to DTBS_CHECK 
+errors:
 
+arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dtb: 
+serial@426a0000 (fsl,imx95-lpuart): bluetooth: 'compatible' is a 
+required property
+         from schema $id: 
+http://devicetree.org/schemas/serial/fsl-lpuart.yaml
+arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dtb: 
+serial@426a0000 (fsl,imx95-lpuart): Unevaluated properties are not 
+allowed ('bluetooth', 'uart-has-rtscts' were unexpected)
+         from schema $id: 
+http://devicetree.org/schemas/serial/fsl-lpuart.yaml
+arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dtb: 
+serial@426a0000 (fsl,imx95-lpuart): bluetooth: 'compatible' is a 
+required property
+         from schema $id: http://devicetree.org/schemas/serial/serial.yaml
 
-On 2026/11/17 17:05, Markus Elfring wrote:
->> Add a Device Tree binding for the I2C controller found on the
->          device tree?
-> 
-Will do s/Device Tree/device tree.
-> 
->> Amlogic A9 SoC.
+2. I also think this is a bit missleading, as this UART is not used fix 
+for bluetooth on M.2 Key-E, but its default is RS232/RS485. It can be 
+switched to Key-E by the Multiplexer controlled by UART1_BT_RS_SEL GPIO.
+
+The (default) state of this GPIO also needs to  be switched when 
+enabling this overlay. So this leads to the overlay not beeing generic 
+anyway.
+
+>
+>> +		compatible = "nxp,88w8987-bt";
+>> +		fw-init-baudrate = <115200>;
+>> +	};
+>> +};
+>> +
+>> +&gpio_expander1 {
+>> +	uart1_bt_rs_sel: bt-rs-hog {
+>> +		gpios = <14 GPIO_ACTIVE_HIGH>;
+>> +		gpio-hog;
+> Look like it is pinmux ref gpio-mux
+>
+> https://lore.kernel.org/imx/20261023-dxl_lcdif-v4-5-4ae8395a4b23@nxp.com/
+
+Looks like a good solution, will do.
+
+Benjamin
+
+>
+> Frank
+>> +		line-name = "UART1_BT_RS_SEL";
+>> +		output-high;
+>> +	};
+>> +};
+>>
+>> --
+>> 2.53.0
+>>
+>>
