@@ -1,57 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794923004;
-	b=2iJ9FVthzVokx6TXwdDlOMdcV/AmZVU/u1O8uWViL//+HW3jFwCR3yFVIfib8GGKlBXX
-	 VOPfxOWT/KV8HEG0nM21h2dWB3tu6Y+W9jab4bYL7oiRAhJvoND8zqLYjtZtOAwQz5kpt
-	 iF38TWCN51QW3ZBCvo5ato2Q5wDd4uWuCpa9h1e2Uy+F3KH0NhWWclXrBmtYXfu/5c0nV
-	 0sP3ymwe1heIg3ysJxSBXa2Qo2p4/qhcjEUlyABmN6s+Sb2ty7GJSj5Wmj0dAdsva8ecY
-	 jM9kAQAonfGyltuaAVbcbZj0wnonn0V2lcv3LNAATsyoRZfyIvbD8ZADYKUn1fVqtBQ==
+	t=1794923152;
+	b=Rge7GtR5I25mRVHjPMAwQKaSlcQ/vTYjHxNX5YAO8+J4348SKCMKBVzGPdke3qnM/w9v
+	 WSOTBodZc+npG1c7xXoHnJ4q7aG4aAKi6y+cL6jLbJgruzqcnlVFiJNQjwXWDVl41tGph
+	 3FLNRNIgryb6gOKfksCYW5508ec62V7aGyPhVSdPm5aV5uUqjTE+Jjt1CwCigp7hi1CvD
+	 F2K6QTfuL6Gzj36eqwNCHyCo+uXXfX0VxiynfdPI8k2qX/xi5V5OOmh61rvO0aLx1Mo34
+	 OkkI37B0kqfSkJ7FqzDc5uTOVshqCkREkoiLd4OK+QLKs89G/H8of2QSZMc5rfUUJ/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923004;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=aq1QlB9f0rwslTenErOUzzlTaS+RXbiPsuyp0pgQCik=;
-	b=H9LOFYFBYUe5zGy7HZ4zm7XkPHKeeSchDXZ598RPj7ybO51S0WF6iryfBleTVXhE7JeS
-	 7YJY6MuxAFcZC9HencqyNmuHuSBPGJjp4c03ANNdr8bqoNzh1XTGYv1OfZ4oi7hSttIs6
-	 bvvJ6AUELajF93xPg8XzLOq2ENTH77ID7c/+OVcmKIdQ7AhnDE2ewZC02nkHmbI+W3aCx
-	 WBL8z2VQH6wEGKM2aR06+A/+PUHKmc0vMKjdxbrQUbHwKo/EnwKahoYBFjTJPg/ZHferp
-	 ej+GWLVPOl/nPihPgp+OYbRZxtwJDxnTHUkdz33XUTAN4zQucNWNskKR2ouvJ9pwEtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794923152;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=U4Jno7SA9gSG3rLqH83/3aHuhwvh4btgkGA+SaR/JKo=;
+	b=SkWNpDfiR1iMgQ3KKJq4NHLrcFwx/SsL6Lqz2hCi6XFxygBjEnTTVJo1wO9TBccCCwUV
+	 HFVyYsuo26xyXtHTZenfLwMWiNGLDo4GhvEsNvJpZHN5EU/tUEBu6Ejbct+xeNjRhYnvi
+	 olbGobsa8Dx+7DTHCF2P4JmXCOq0+eC9JyXFQ7qL05PqzzpvqHto1+6nHZTVEYTKw3lvS
+	 AHEEX+D0kJr5qO9yhNcrlWSvU6/6oIZ/zAq9EfbaZ3N7uNMv7R/zyTC9VwHRXLjPshdrf
+	 e6KQdYPY+5VlmH2MHVx1jVNY4LdOqXvdGb8g4iZD3FdiFn7vHIVZwWRhdH9QCIJjzZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eTXvD8A/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L/dbE2L4";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763D8606A31C;
-	Tue, 17 Nov 2026 13:43:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 03185606A338;
+	Tue, 17 Nov 2026 13:45:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eTXvD8A/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02EC61F000C5;
-	Tue, 17 Nov 2026 13:43:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L/dbE2L4
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1BFFF1F000C4;
+	Tue, 17 Nov 2026 13:45:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794923004;
-	bh=aq1QlB9f0rwslTenErOUzzlTaS+RXbiPsuyp0pgQCik=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eTXvD8A/45f7EJn4JbWwK1sYfup224mA3iCH8pGJlsJP0ktrl1YpAj8fM9QriO1E5
-	 Vk9dJZrTvz8vjSANiIr1A3P+ZyWcx/TbCvIj9gTxK9to6lZvh+oTpGx1voWqBYUyWX
-	 gOx6hy03Nos/mMoRrXEJ9YaAbPjGtmlU/C8Ul6k2NN6YVFmUO29MiNrIhaqel9knwK
-	 qw66vCppPqss2b1GBF1ZlnDb1johibUuGl3fVy6MFksqm8qG7h71x2RfxeWVIKk3H4
-	 9OLpvzaZlFniF8LuknPXvZ1htvLVhhVFEZzJQo+CrQJOoz37Z0lBmlmU+OsPI3gi3F
-	 JVXmebPJySowA==
-Message-ID: <sashiko-outbox-218896@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 3/6] clocksource: add the SiRF AT550 counter and
- match timer
-Reply-To: sashiko-reviews@lists.linux.dev
-To: yy-Local-LLM <yogo.0917.sabu@gmail.com>, devicetree@vger.kernel.org
-Cc: linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261117-at550-rfc-v1-v1-3-5879573cb825@gmail.com>
-References: <20261117-at550-rfc-v1-v1-0-5879573cb825@gmail.com>
- <20261117-at550-rfc-v1-v1-3-5879573cb825@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 13:43:23 +0000
+	s=k20260515; t=1794923151;
+	bh=U4Jno7SA9gSG3rLqH83/3aHuhwvh4btgkGA+SaR/JKo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=L/dbE2L4h8i29r0kX1aDp8hJ7oEipmj5Tee1IeQRsekwmTPY540c1h6KxDZhFYaFR
+	 fsOmwTpfvYGcKC4byXf9yrVwaNXLk3IbMHuQpWjuIWJkzhwmG+dcJQd9BlzDghUSSF
+	 pZ/geOJifziWeJnDpF8Ugh1K9rF2HlmDkc48wG6v1BAx4gffioy7RAnglWBVrmahU5
+	 xQjAYuD9Sf43vFE2+eFOcZHuH77GKTaiqGCsJ2hjoE/fY4zclhyu/dWu8w05bNe4c6
+	 5+NZH93+wXAvNQz3YCcr0vKLZbgpea+UpxXDEr6RO8eHDvGn8FY86Sb3ifZGhV++9p
+	 DbFuUUtYZ213Q==
+Date: Tue, 17 Nov 2026 14:45:48 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Bjorn Andersson <andersson@kernel.org>, 
+	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Souvik Chakravarty <Souvik.Chakravarty@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	John Stultz <john.stultz@linaro.org>, Moritz Fischer <moritz.fischer@ettus.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Christian Loehle <christian.loehle@arm.com>, Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Andy Yan <andyshrk@163.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, 
+	Andre Draszik <andre.draszik@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	Srinivas Kandagatla <srini@kernel.org>
+Subject: Re: [PATCH v27 05/10] dt-bindings: arm: Document reboot mode magic
+Message-ID: <mtqd3j7y333wfuel3j4wddtdtqbtlze6ojtepbxagl5zbfx6wb@fc3i4fny5p6n>
+References: <20261029-arm-psci-system_reset2-vendor-reboots-v27-0-fa4b3ff1359b@oss.qualcomm.com>
+ <20261029-arm-psci-system_reset2-vendor-reboots-v27-5-fa4b3ff1359b@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,120 +71,18 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-arm-psci-system_reset2-vendor-reboots-v27-5-fa4b3ff1359b@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] clocksource/drivers/at550: non-real-name handle in
-  Signed-off-by trailer
-- [Medium] clocksource/drivers/at550: MMIO read before clock enable in
-  at550_timer_init()
-- [Medium] clocksource/drivers/at550: missing set_state_oneshot_stopped
-  in at550_timer_init()
-- [Medium] clocksource/drivers/at550: stale match race in
-  at550_next_event() status clear
---
+On Thu, Oct 29, 2026 at 02:30:59PM +0530, Shivendra Pratap wrote:
+> Add bindings to describe vendor-specific reboot modes. Values here
+> correspond to valid parameters to vendor-specific reset types in PSCI
+> SYSTEM_RESET2 call.
+> 
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> ---
 
-commit b350bccc2b4d4235b5ab2d214012109afb381252
-Author: yy-Local-LLM <yogo.0917.sabu@gmail.com>
-
-> clocksource: add the SiRF AT550 counter and match timer
->
-> Use the low 32-bit counter as clocksource/sched_clock and match zero as
-> a one-shot clockevent. Obtain its rate through the common clock
-> framework. Preserve the firmware counter/divider and refuse a running
-> watchdog. Unwind IRQ, clock and I/O resources if initialization fails.
->
-> Signed-off-by: yy-Local-LLM <yogo.0917.sabu@gmail.com>
-
-[Severity: High]
-Under Documentation/process/submitting-patches.rst, the Developer's
-Certificate of Origin requires a real human name (known identity) in the
-Author header and Signed-off-by trailer rather than a handle or LLM
-identifier.
-
-> diff --git a/drivers/clocksource/timer-at550.c b/drivers/clocksource/time=
-r-at550.c
-> new file mode 100644
-> index 0000000000000..a47dadfb9554f
-> --- /dev/null
-> +++ b/drivers/clocksource/timer-at550.c
-[ ... ]
-> +static int at550_next_event(unsigned long delta,
-> +			    struct clock_event_device *event)
-> +{
-> +	u32 target =3D readl(at550_timer) + delta;
-> +
-> +	writel(0, at550_timer + AT550_ENABLE);
-> +	writel(1, at550_timer + AT550_STATUS);
-> +	writel(target, at550_timer + AT550_MATCH0);
-> +	writel(1, at550_timer + AT550_ENABLE);
-
-[Severity: Medium]
-Can a stale value in AT550_MATCH0 fire a premature interrupt when
-at550_next_event() clears AT550_STATUS before updating AT550_MATCH0?
-
-Because the counter is free-running and AT550_MATCH0 still holds the
-previous comparator value when writel(1, at550_timer + AT550_STATUS)
-runs, the counter reaching that old comparator value before the new
-target is written to AT550_MATCH0 re-latches bit 0 in AT550_STATUS.
-Setting AT550_ENABLE to 1 then immediately triggers an interrupt even
-though the new target is still in the future.  Disabling AT550_ENABLE
-first, computing target and writing AT550_MATCH0 before clearing
-AT550_STATUS avoids latching a match from the old comparator value.
-
-[ ... ]
-> +static int __init at550_timer_init(struct device_node *node)
-> +{
-> +	struct clk *clk;
-> +	unsigned long rate;
-> +	unsigned int irq;
-> +	int ret;
-> +
-> +	if (at550_timer)
-> +		return -EINVAL;
-> +	at550_timer =3D of_iomap(node, 0);
-> +	if (!at550_timer)
-> +		return -ENOMEM;
-> +	/* Do not disturb a running firmware watchdog or unknown divider bits. =
-*/
-> +	if (readl(at550_timer + AT550_WATCHDOG) ||
-> +	    readl(at550_timer + AT550_DIVIDER) > 0xffff) {
-> +		ret =3D -EBUSY;
-> +		goto unmap;
-> +	}
-> +	clk =3D of_clk_get(node, 0);
-> +	if (IS_ERR(clk)) {
-> +		ret =3D PTR_ERR(clk);
-> +		goto unmap;
-> +	}
-> +	ret =3D clk_prepare_enable(clk);
-
-[Severity: Medium]
-Does at550_timer_init() read AT550_WATCHDOG and AT550_DIVIDER before
-enabling the timer clock?  If the peripheral clock is gated prior to
-clk_prepare_enable(), reading those registers can cause a bus hang or
-synchronous external abort during boot.
-
-[ ... ]
-> +	at550_event.name =3D "at550-match0";
-> +	at550_event.features =3D CLOCK_EVT_FEAT_ONESHOT;
-> +	at550_event.rating =3D 200;
-> +	at550_event.set_next_event =3D at550_next_event;
-> +	at550_event.set_state_shutdown =3D at550_shutdown;
-> +	at550_event.set_state_oneshot =3D at550_shutdown;
-> +	at550_event.tick_resume =3D at550_shutdown;
-
-[Severity: Medium]
-Should at550_event.set_state_oneshot_stopped also be set to
-at550_shutdown?
-
-When the last pending timer event is cancelled and tick_program_event()
-is called with expires =3D=3D KTIME_MAX, it switches the device to
-CLOCK_EVT_STATE_ONESHOT_STOPPED without calling set_next_event().
-Without set_state_oneshot_stopped, __clockevents_switch_state() returns
--ENOSYS and leaves AT550_ENABLE set, causing the previous AT550_MATCH0
-value to fire a spurious interrupt when the counter reaches it.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-at550-rfc-=
-v1-v1-0-5879573cb825@gmail.com?part=3D3
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com> 
