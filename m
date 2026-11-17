@@ -1,107 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.73
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794908654;
-	b=ymWALpblVdCB09URHmfXZyrzlUfimEfnCmwPuRJZI5fZ5/UAl5oS62AxzbELuIVVKyIX
-	 vFoOdtMyYy9PF3/AiHjrS5/thivVyIJFA2T00Hk2N6Q2twkRcPSqoXihRB5CCE6G+DIkg
-	 dUo5gc5iDKMMfDg0T2ccCCen4s+4bUJUvraphvU+fTVaAu1Ro7LtfnOFyUIzqH16dXuuK
-	 UxUqIj8WXshG6lakWqZR+qFGm/dkRpSyRj0JrqfH2ZYhfb0EdXxSsTZpBOW4MmDPMLeif
-	 FXMQHO3A3wHxji7smoeMYM5vcM8mw1zEtZiOjtWTrp2stsXMVZ9FVDDuGQiDNgVHeBg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908654;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=h2xoCu77JB2CKHqXFOK/9xN5zdGfQruJ6NkfVX2vsbs=;
-	b=rer+YPPsdO1nOwtle+CJkVPSbiLDaBAuI7Of9yBPaZfkn/L3b1ABDQCtq2rF0epEQB/V
-	 +SV/P+K9zSofx9jL9GeEejPnVqu+RhTu1bEL20TCqI3O1NvhlMIuUrvkfgv6e9IPa5RMH
-	 s8vw1D4hTexXLybRTlQ4au/vr+NEaPGPNNF6hC21sIkFHsjmds6YD3svQK/eYByhdbKPp
-	 VEcu+Wu6fFf7jczBiS0ZUuLsTOGNfyS8FHuPlKxs7TtJqRVahqKA2S7Iyq3l8D7A23hmg
-	 xwJINeNCLJ0sSVyovp4mfBWS8wm1V8aFVub/ejoxF68mRW/T0qjBh1GhiS4Hl8kcZKA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.73
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023073.outbound.protection.outlook.com [52.101.127.73])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794908770;
+	b=d2X0a4RwQZwIz8yMbFWMb0C8w5+5ugAKcqiPgjywvx9vG8oJg8GJXnZXBrvRzqsTMda0
+	 92XIdgeZbjJMuXQyNUpgrXgmAniDfncKimjUWRbvE9nljBLsZeYkKMmqV0lJkrHmL8B7F
+	 pCmX04HjgK3i5FkpblMF9GzHlJpvr6pJewnWQECnDgEoxQR+eARtCTRVH0DerbCDOpVcl
+	 x9aN+eL2JAxynSbzWWdw/rn6ukDhnB7cIbjezjln2qb3R0ED4+X/yrFRB7FoU9tRsW+D/
+	 U7xBkhg9PxepP4TlDWR9Q4wPuzuiASxeu1e8UeRWko+hGWMnrWGzFDUs1G0YG9Thzkg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908770;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=TtZ7L+0FStK3cBA/dvaUkjGUZLnkhoPuIPbQ7OTOy9M=;
+	b=r8PIDB9B312kgb2N454kSqYaCBHV09mT9cdYmIqjkUbcgmakWoQW0FOHmK8UCoQUppjk
+	 FKu0pK/k9hdp5W2+13dzYreE2JLURRmxTXRAUPM9T5SUtnbrnPjYZ5lBv6mbxVkJabN8C
+	 njt9o2TXP4wyI/1yRDPuTjK7NXKqsVI4j5HTJewSEiOVEi6B+tEh1jSyXF4G2OiR/V3sT
+	 xbW8uqghj+Ra4U8NYeM/H8rRytreWU7ZgGc3rV8lkchd1K3NfzD1/XBrNkePQQi9+CFhF
+	 Zt844xzamxHab9BmVBUrDuP54hzfjRyLTlD2ce8wnCYT0+fAgXqJN3xc0rDSaJIZcFg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b="k1Bn/xaR";
+	arc=none smtp.remote-ip=54.254.200.128
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2763606A329;
-	Tue, 17 Nov 2026 09:44:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2763606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XbdzjUpm+Pcnx4wQRz/noYYnJXE4933ccjemi6/SUPUQvNCuFTg2Oi+aibwmpO6se87Sn39fTYIJr0me53IwbWcv6cQ91VND5jFOag1VtiBZdEJloqvG0E/Qn4/N4hO6nlXeHdbqvNjOzjd9w0Sz74pm8WTEEqy/fzqA0JstWHAGeFU/GlqOJCrnFy4cPKlmsS4qanSkEtbEkItm3Gqii6D62NzVl7Jq540BOy4GwsRwvKWR2ESWOdtQliZwwQuh8u6Q4OnjWscEZQL9Ajk66H9dCTt46NthNhvHGYxF+03k4KM/Ma/LVRt3cWLaBeex9zJ3SMEI26iQhthowr+F8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h2xoCu77JB2CKHqXFOK/9xN5zdGfQruJ6NkfVX2vsbs=;
- b=msQdbIZG4T3G3Hk9OKPFdnexFuoki4KpNBAXfRVjTh1nD5gzUG5QQjlzEQK2Uwvr4+YDtn39tZTuctxfP3RjDajr0OV2iPoKlAl692vfpfqmk0E68sOhTblRUPvjRuRvBWmcGR7jm5fB3oCnGa4KcWrk7oEd0HFaMC8TDC4Wwfi14QuJUhVe3+V1bg43MX/6oOc6y5Fqmf+azRrshTiscxRToaOA8vNIaelPmuiTITY9U/aMZzmNqt6lLoxsHWzTDXNbA8fTjxXrclYaO4Gzt7Hc8eEDLLgdyWNQnon0htWbWzeh2mVGP5jYVCqDWJezDElw4XKsHCQdnUnwdw4U3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI3PR01CA0008.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::7) by SE3PR06MB7960.apcprd06.prod.outlook.com
- (2603:1096:101:2ea::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Tue, 17 Nov
- 2026 09:44:10 +0000
-Received: from SG2PEPF000B66CD.apcprd03.prod.outlook.com
- (2603:1096:4:296:cafe::74) by SI3PR01CA0008.outlook.office365.com
- (2603:1096:4:296::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Tue,
- 17 Nov 2026 09:44:10 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66CD.mail.protection.outlook.com (10.167.240.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 09:44:09 +0000
-Received: from ubuntu (unknown [172.20.64.99])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 69099427EFC5;
-	Tue, 17 Nov 2026 17:44:08 +0800 (CST)
-From: Jelly Jia <Jelly.Jia@cixtech.com>
-To: vkoul@kernel.org,
-	Frank.Li@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	robin.murphy@arm.com,
-	sboyd@kernel.org,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	tglx@kernel.org
-Cc: devicetree@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jelly.Jia@cixtech.com,
-	linux-clk@vger.kernel.org,
-	joakim.zhang@cixtech.com,
-	radu@rendec.net
-Subject: [PATCH v4 0/5] soc: cix: Add the Sky1 AUDSS DMA-350 interrupt path
-Date: Tue, 17 Nov 2026 17:44:03 +0800
-Message-ID: <20261117094408.1393837-1-Jelly.Jia@cixtech.com>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87ADC606A32F;
+	Tue, 17 Nov 2026 09:46:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87ADC606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=k1Bn/xaR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794908734;
+	bh=TtZ7L+0FStK3cBA/dvaUkjGUZLnkhoPuIPbQ7OTOy9M=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=k1Bn/xaRTFJ2+zDx7EPE0HSWCE/dPNP+Ics5HuSozZa88qavYCkwUJZZvHLf6x2v8
+	 WAH2pC65QDVZxs+sTv6CtD/tGW9PT8NZhR5wPwpTJoRLiPjiz8IJSe9zi+vHE62lZ0
+	 sMjZU6sdjb8cxFx9E9gXlme0M19V3EjQCtEjTaf8=
+X-QQ-mid: esmtpgz13t1794908732ta39893dd
+X-QQ-Originating-IP: vEm5orcdwrO02LSErlK8QvDEW+GeaBV8cJ7W7cvFR4o=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 17 Nov 2026 17:45:29 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 7927286612555164191
+EX-QQ-RecipientCnt: 16
+From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Date: Tue, 17 Nov 2026 09:45:12 +0000
+Subject: [PATCH v2 4/5] riscv: dts: spacemit: Add the K3 APB timer
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,102 +63,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CD:EE_|SE3PR06MB7960:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 68a1f679-0a98-4676-a068-08df448f5467
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|82310400026|23010399003|36860700016|921020|10067099003|260925021911599003|260925021311599003|260925022911599003|261021121427099003|56012099006|261022075727099003|261021123027099003|261026121527099003|261022105027099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	mPy7c8QsqBIYz5lyBj6BPCMDkc1e9Ji31FFN9mZLWGxkuQDBUUCpRaaVbOV78UxkdiYL20JHGl6G9aekWVRA9gG8kly6gXAO9H+e8VHJvf2whtgdZp3YHIBEFYVig5MDwFtWswPnXblyrh2AFzOYa8DoRzWi59fJlW5ChE3eBDnsL6sDidBHjAGFTVIqeP1RObm+NWaFLTMelD1mnsrM/OnedcdZKL0qUojKDSwgMBiwIVoJUCI8xt0PbYrHycrL+qFaROK/xXJEtBUTA48lDAHC6U5uIaX48uWM2yGYT43HD60nJdQd/j0ljOLJMT5rr4X1CyC28VsvBQnfgMH8zSP9WoWFu8FBSGsV/9+X/v3ttgKysWCXfoO8yKDxs2dRd1AHU7tkYhGkv6gPmuK++XOF0ztIca7f7r0XVuk+jvkOZtyIpkRjNK20Y4VVt4tmJD0UqyTM90Rfb5b6YiMVxkx61XECkbvKujHq9YvWLY7LgeYcr971YbNwaOjB2nOKX6QDz4BGlvIvMgLx6ylOIjm3lgaEcu0oK6v7kTKJaIp4HNUPAgaJTrcmoCyLM7BI4p4GGoZ9KRSVEwaT0YM9by4RspOyfrrA9LI9LPYNJvL89x3Hebcz0OZR2z5X9Zon8KW8+1T3z4efv9WalrMTTSnVskrdZTl5wtklTNvXZn3yvXilR37WSkrzeCFv6W6BWWNVdhyhiQN5t3uEcG5c8A==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(921020)(10067099003)(260925021911599003)(260925021311599003)(260925022911599003)(261021121427099003)(56012099006)(261022075727099003)(261021123027099003)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	QNd7NSAmig+j+WCs/Bu8380QTk3Fab8na7jAJ4j71KynooPSbOv8qmwklO/Rslg2rKWBRGGESdi1Bs1Ck5VFwDmXAIMal8OXaBFNMlUb3Z9qAgzIM3ovQl/W/HykZ2mOgQ8qO21y5bI93mpkbOFgX5HASpNJKOulyRxioXcMOEyK2VJypQyvwJz4fX+kSn+7y6qxjC0hUo6IcaSPdFMSxMqKJc6S2yuRFtQMIfFkOnucD5AAzf2/8jUg4yYteMMMQCWMJkTB/AODQs0cBLnj0FnyOR76bvbhi09mRrg0/xIMVbD7VjBt1HNmJKYePk6H5xkHluOtyxRti2ST+cxJUiAuPwxmiw3iGdmWRo53BGFJ0To19RFTuolOEDrqUdnj0mnXC650/RLiS3lIrQ/HCJsy2FCMxsw3iBgWNpBZkdEYjPSNW0gjevmRE8QIKU3C
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 09:44:09.5123
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68a1f679-0a98-4676-a068-08df448f5467
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66CD.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR06MB7960
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-spacemit-soc-timer-v2-4-9264d0ea7755@linux.spacemit.com>
+References: <20261117-spacemit-soc-timer-v2-0-9264d0ea7755@linux.spacemit.com>
+In-Reply-To: <20261117-spacemit-soc-timer-v2-0-9264d0ea7755@linux.spacemit.com>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1383;
+ i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
+ bh=Lakketge+7u3TGaLDJYVC3ImXbq0o9pWuFTAwlnXYmc=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFl/lNR2zLG5n7p+95lLBeasi16qySo2MRsc3/nj9olfh
+ 00Dr1883VHKwiDGxSArpsjS/YBnW4FPlG2BQKEvzBxWJpAhDFycAjARodcM/4xmhV445D3BfWrY
+ i9R9DJcC022SJFbbPQlZa7HvH2f3fxVGhqMzZTn6GY1+iiUfWpPixynwKfrO0+IQMaEsV2Y16fP
+ CnAA=
+X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Noy+ibaQGaj1sDIZS4pi9+QgWapHO5yHae4EOegMDT1NWGl8BhUd+oII
+	t1MlzjgL8j6nhCFUQ0qFE+KYCooZQuZFvp4ybfbUUu2v7KK+83Rpie7ZvtiIGOf7RIEH/t7
+	/o8Gc/lxcHF9uAbRm1pg4Da7R0dHYQHrex15u/ZPBQwegKp91ac5A40YzJL21qleY74Rwq4
+	d/IZifkTIiZ2Y1xiQtV+5Ff7XyLFO4h8FTjyGTxBTVaprbIrgJb6/Jz55lQv0mRYaCICfOr
+	wDEZBVfOIjzNmjq58+SvzGJ+R+dWtRspG4H4QVt/r5O5tem2S+e4njR76tw/hmH3ATbQ6p/
+	gxGiUNXgDjh3PQeWTmHdkKpAudbrYwsrRbQ9LuLMR0pjUZcExIkuzoaJCvxydeUaVjbEH4a
+	aoW8Hbw+esPb23bSWG0JiBubwwDESSG4DPbxu4hjvlQLsPCtOSwHpplMPmR2UE/lnIw/o1a
+	3yQsTTd/G13VB1/GAHAOnjqrSp8OURhP2wme7Ua6/qphyp31WFb/yJa0clOTzAemEmj/5Za
+	Vp9ruMvVSUze5ibRprbtYwP1HeNrBrPL7lVqcUyLrKJSZGW65tsixV7pR9GmVkQ1T9j0yoX
+	hI2zjxcVJ55mjptD5CA9rwhWFMay1qx3wmm/iW7DsgeAkbrRhw8gXYAex8l63WOxeVLxdFC
+	99wqecsYN+sIb6gQ+DbKxymi5fmrQxMFXRGz8E8QWPIUllboTCFlZaC+bo4dn29d29ICS+G
+	U8HLoReY94Gj/rul/4+oUGlQUaFey7DSzJl50ISemECiESem6mZ7iKzqTDpKGXbE8rxH3jY
+	j0mVK932XG/8JU/pY2OBk2dY63YARWaEeYBVz+GksBKPKWzPUpGxmi8+lUfGx/v01ntoV2F
+	LQ/omcZ5KsMSWmcZMulnClie8IXdhOgb7EfvDbFOxEwKctVrOPM4jPK29U1AHq1Lj0/IuwL
+	ugy1EeL677GJKeWdkhFlN5yDvMvK5JCXoiwuE4a543ZCIOdEtv7PRoRKOx0FAzh9Z7n7SFB
+	7X5aM/CxOxcSOBZ0fIEIsYDCe/e8gEhHhZLrT96kMJ4V+z2SLgzjP8HrSCtNpsK0j47sc5R
+	Vy8oTVMbwFJue+PufZbIM/jdky6MRP2XgkQLO8k4wsPG2qAjX6Kpy0=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-Hello,
+Describe the APB timer at 0xd4016000 and its counter 0 interrupt so it can
+provide a shared clockevent. Select the oscillator-derived 1 MHz input
+and connect the functional clock, bus clock and reset.
 
-This series adds the CIX Sky1 AUDSS DMA-350 interrupt path through the
-audio subsystem CRU and restricts DMA channel registration using the
-optional dma-channel-mask property. No audio client drivers are added.
-DTS enablement is kept separate from this revision.
+The register interface is compatible with K1, so use the K1 fallback
+following the K3 compatible.
 
-It depends on the companion v7 series, "dmaengine: arm-dma350: Add slave
-support and Sky1 integration". Apply that series first.
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+---
+ arch/riscv/boot/dts/spacemit/k3.dtsi | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-The CRU gates eight DMA channel inputs onto a shared GIC interrupt.
-Implement the irqchip as an auxiliary driver under drivers/irqchip/,
-following the existing reset auxiliary device pattern. It shares the
-parent regmap and the same CRU DT node; no new hardware node is needed.
-The existing reset driver is unchanged.
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index e89d2cc5ca8c..cee313232c11 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -777,6 +777,18 @@ syscon_apbc: system-controller@d4015000 {
+ 			#reset-cells = <1>;
+ 		};
+ 
++		timer1: timer@d4016000 {
++			compatible = "spacemit,k3-timer", "spacemit,k1-timer";
++			reg = <0x0 0xd4016000 0x0 0x100>;
++			interrupts = <26 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&syscon_apbc CLK_APBC_TIMERS1>,
++				 <&syscon_apbc CLK_APBC_TIMERS1_BUS>;
++			clock-names = "func", "bus";
++			assigned-clocks = <&syscon_apbc CLK_APBC_TIMERS1>;
++			assigned-clock-rates = <1000000>;
++			resets = <&syscon_apbc RESET_APBC_TIMERS1>;
++		};
++
+ 		uart0: serial@d4017000 {
+ 			compatible = "spacemit,k3-uart", "intel,xscale-uart";
+ 			reg = <0x0 0xd4017000 0x0 0x100>;
 
-There is no per-channel pending status in the gate register. Poll enabled
-children using level flow handling with IRQ_IS_POLLED, retaining masking
-for disabled and oneshot-threaded children. The domain's PM device is
-the IRQ child. Its PM callbacks quiesce the parent IRQ around parent CRU
-power transitions; shared clock, reset and register context remain with
-the CRU driver. Use noirq ordering for system sleep and dispose mappings
-before removing the domain. No sleepable resume runs in hard IRQ context.
-
-Changes since v3:
-- Move the IRQ implementation out of the clock subsystem into a separate
-  auxiliary irqchip driver; keep the parent-side registration and shared
-  CRU context in the clock driver. (Brian.)
-- Simplify the interrupt-controller dependency with dependentRequired
-  and drop the redundant conditional #interrupt-cells requirement.
-  (Krzysztof.)
-- Retain the channel-mask binding and its Reviewed-by; collect Frank's
-  Reviewed-by for the unchanged mask behaviour.
-
-Previous version:
-https://lore.kernel.org/r/20261106013520.1134450-1-Jelly.Jia@cixtech.com
-
-Jelly Jia (5):
-  dt-bindings: soc: cix: Describe the Sky1 AUDSS DMA IRQ controller
-  irqchip: Add the Sky1 AUDSS auxiliary interrupt controller
-  clk: cix: Register the Sky1 AUDSS IRQ auxiliary device
-  dt-bindings: dma: arm,dma-350: Document dma-channel-mask
-  dmaengine: arm-dma350: Honour dma-channel-mask
-
- .../devicetree/bindings/dma/arm,dma-350.yaml  |   3 +
- .../bindings/soc/cix/cix,sky1-audss-cru.yaml  |  31 ++-
- MAINTAINERS                                   |   1 +
- drivers/clk/cix/clk-sky1-audss.c              |  37 ++-
- drivers/dma/arm-dma350.c                      |  16 +-
- drivers/irqchip/Kconfig                       |  16 ++
- drivers/irqchip/Makefile                      |   1 +
- drivers/irqchip/irq-sky1-audss.c              | 255 ++++++++++++++++++
- 8 files changed, 354 insertions(+), 6 deletions(-)
- create mode 100644 drivers/irqchip/irq-sky1-audss.c
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-prerequisite-patch-id: aad1bc3c30a4825048143a3e0395e696201548e9
-prerequisite-patch-id: 2e9d1a314d10e25bcd4e2285b36471200a9f17e6
-prerequisite-patch-id: cf5b4f0b15f7e217ded422fa78c169653004d70b
-prerequisite-patch-id: b1a307c60ed1189999dbae31770cc5e4afe569e0
-prerequisite-patch-id: b78624ba53dce6857d20b65d3393ca5c77fd2c6e
-prerequisite-patch-id: d19a15bf5a6aed8ab078eab07594dbdfd81bbcaf
-prerequisite-patch-id: ac650cba94ae1fc52c25e6e1cf67e3af38cf92fa
-prerequisite-patch-id: 53807c6c2b9d9deef242023baf70ac7e9f73a87b
-prerequisite-patch-id: 62385082b538a0f354f44a70c2c251771238e047
-prerequisite-patch-id: caf492d9e693ce5901d8c4512906258607b435a6
 -- 
-2.54.0
+2.56.0
 
