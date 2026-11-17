@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794945492;
-	b=Ytaon6oixmbX8F3wAEpLQQa/2co9hWPrKi8YgKvWWErSEPpUvxvvh1EJlOwTwYrepNGP
-	 fh4RJr7g6pt1F0gJWGMSw5M8GQGtZkDHtgVezCULhFesHM5adVE9Pl3E5nDKrkVvLqy/t
-	 hsEdeXL2J6PnwkCz0h+qdHGnnL3Z9e6K4YKbreDVWeiva6A/8G1DfXDFqatz275sl7OJ7
-	 esXVZW49n1QQ+BLyls4Us4/tqfioeteEMTSPDxh5p8e88sqzuN0TfO/ldT8vCPMEmEZCI
-	 PzlrK3MdMfDmEvuYZp1mJGF4EsPQlT+qMiq8HvXOLj3Cb9+877df0+ojCK9TzL6NzEQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794945492;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=qsjU6DFACAbDOfJLMOOcz7Evb3Wx0q0vKZrTcX0d8CY=;
-	b=eZ+mgz7El8i+E/gY+dO3klAr6yhEhXzMJBxhTWvOkoOFRJKk8d1mliMSotR4NUzjjHPp
-	 npXxsKN/s9nG3BZ1xQ40hk3HcKR8t+gQDNmq4GQ2qyaL4V3j507ZLHV37vTT3178K7xQn
-	 TmdDJt9mCWMqCrI5uvxWdr9Z6B3MDNLqOd6DMSoRchQrz2Jds3dU6zPlG0varN0+SW4Fc
-	 X9xncdId5wD+iBA+eI50SY/uDcD1LzuC7qMVaYNdCxpKtSGkcInLkrRNU0w3M/ilHiDun
-	 lL3H5u0gzHAPPIzyn5Or7Z8sJyx8CmsRqy2L7eThOtb9Q0/Oo/9ljkaHjl4gI3GKF4A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oRuTZncz;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794945613;
+	b=kCPZRuFMqwAjhI6GgPrvKeJGcnyZHJ7Yw0wJn+dLmfDnjabdnL4MIzrUBDWibRk7Yitl
+	 qVGm52CFwAje9YX3syT+uIbL2M/0JTGU7h/JPNpFZgH0rrekPtR0Ot8vugfKEADOFZ61J
+	 2AC5UMbPf5UAq8LmLX0GW/w7mCSN/7RqNLxG38DDHDpAJmthTGeNGcB71alXLL0t7PbqE
+	 ajgi4MYIYwRhXbvmA0iNgACEztgtLdogpRTzoQuyTAQMI8RtaBtYT7YTtBWry+OqFgM6C
+	 kbQqEa0YA2YdWt6co/vRZZJ05tastiFqFuKNOGig6aRAA8B0hjgTOx6IGW1kCuntkBw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794945613;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=W7wzKrMIF5A35pVBIgo5N/n+mM8H4di7DwvtH1jtWd0=;
+	b=iT1tpcH3/tt6/WAF0gt2rGmbxTv0lB0/eQmyzMu5Jt5wFlhZOFLHURxF7lg5zukTS7RV
+	 m2lxbW5eT0MmIrzqUHqJO6ERRwPZw7OHE8Jc9S3t41UcLcdddnoTrvJzE5jOW3kjqbbIe
+	 IQrrmVFF2Pa6+jovmScR5p8Zinfmn6UYZpSFAVHM67Cisil6AxvqNDweRdAHg05oJXD3b
+	 K0L28RdQXzTBg63F+8NLyaFHmtwvV7uyS/ekfPGOI/Egw1iW0rMyzG2C9Ov3qlXntrfZf
+	 K0QUJSTZKxwUMLELTZDp/Wb1vJc6SGFKT+OG2wyscO9sUWdsnks3tkEM+CIrheJPrDw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rf0hdqbX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4F54606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:58:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91823606A31C;
+	Tue, 17 Nov 2026 20:00:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oRuTZncz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3379E1F000C4;
-	Tue, 17 Nov 2026 19:58:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rf0hdqbX
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794945613;
+	b=wPg5yaoqEa43xiaocJD0UVn39PqiS107pB2u7EnaeE8Aox0IWvu3ufTK1lluibOJUc2x
+	 gLAIqxcGufa5ypa2+PaFiCeJaJ1RAGVKu+JVSTsZrG1mCLg+glIzgYZnMamHDifRz59yL
+	 jK51azOXeVVUzeBmnsMemHKXkqvrkGguVqudKYDnODfRWwmI61SqmLYjqCa/NdQoFL1NQ
+	 QOyvbY7Jq5i1BmYNGcfapANhd8FSWPjV9nkg1/moIYpqUBqGpMfF9vBzNnFmbjgwXrJ+4
+	 Na3AET0BZ72mZ9oV9w2FW7WT3lttTGbJP4UztPX+jvgmTKNpiYAj5YaF5QDO23Jm/+w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794945613;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=W7wzKrMIF5A35pVBIgo5N/n+mM8H4di7DwvtH1jtWd0=;
+	b=vludeIvKLCbfkq5tkJAdBCw28bpJ42VbwvsKT5lefuxPzOnStfff8qZ6nBQN/QwuWcyj
+	 d2XE2BRnxn3/jEBngWCxvboJKpYxkNWLN8g//8CaNYTjzU4tGjftwfpBu+md+pjqQEVfM
+	 ZTknSD3IxN3S2lia5pDvcP5Hvw8kDPcpkRHNbhpbHY5Ncj5O2MBXut9EkvEWJdUtPa7mi
+	 AONtyyX1dRy7G/2yMDysD//R6Chf13vhlDnjYk/4ofKnKC8bSKHnw5AoDhIwVj6MYmMQl
+	 Ky9ltclgEUuPXn9jMzpUis6Uuia34FWbdKiGDaMk/KTvoOR9tV3qvFiqQ8VnTf3QJuA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id CD6661F000C6;
+	Tue, 17 Nov 2026 20:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794945492;
-	bh=qsjU6DFACAbDOfJLMOOcz7Evb3Wx0q0vKZrTcX0d8CY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oRuTZnczPBzp7vCRPzYA8CeIO4F+D3quE7Q84dLMmiYTH5gGsx76zknj4tzRH7K0z
-	 JePvcwIs6FaDra2ISn07URXkOye1twBppiPGFsHwq11KFawgW7lFOh65OUgZLUmoHq
-	 rxGGLRk92ncO0jmA8+RSWn5NXYjfQ9XSfATotq7Ice7J5BU6SYenEm8h6RineS3umC
-	 8qzgaIHIGq5G0l+fr9CBckk25k5wU3czlNL7kUWUfHJv8rUPBtv+K1Zg3eQw1tnoMp
-	 xSWSgb7S48XToMWZg8imz9B1M5Xx7KSL5oQd+xK6kSlv2yFghm1MPS2g/kMJhhewFp
-	 +S4ev8sFQmT2g==
-Message-ID: <sashiko-outbox-219538@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 04/10] phy: amlogic: Add Meson HDMI TX PHY driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
-Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, olteanv@gmail.com
-In-Reply-To: <20261117-meson-drm-create-hdmitx-phy-v1-4-9e0ac931381c@aliel.fr>
-References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
- <20261117-meson-drm-create-hdmitx-phy-v1-4-9e0ac931381c@aliel.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 19:58:11 +0000
+	s=k20260515; t=1794945613;
+	bh=W7wzKrMIF5A35pVBIgo5N/n+mM8H4di7DwvtH1jtWd0=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=Rf0hdqbX0upqMT5UR5QBpBzcCmSXS+VTRSzxqVUM2kh9KE1i0HISxC1U4b+rDNy+a
+	 NxvF6gyRqhFIBsrsUcn2/YH7XtG9LwXpKQRe4KiCAEmX1Py3Gz9QszZp9Ox30AgUyc
+	 dkBAL2ooxrB5aQhaO3tAxbz759cScvgtBqBiUfLRVznOg6IEJyIDYR7EY8XD9HXljg
+	 YC0h2ai8Ptz1n61L0MCridP6Ql24qd6XMQzP2CdtVieCbZAK2oEKR4UAt5qJA6xvM2
+	 KYpFXh6NiM0Ny/OsBTFV30B1x7TMwv6vtg/RJNc2YVlFxZWV6Ov/8nhHN+Mg1Jm0Rc
+	 QWwJTO/5kfl0g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2A7CF4AAA2;
+	Tue, 17 Nov 2026 20:00:12 +0000 (UTC)
+From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
+Subject: [PATCH v2 0/2] riscv: eswin: Add Milk-V Megrez board support
+Date: Wed, 18 Nov 2026 04:00:04 +0800
+Message-Id: <20261118-eic7700-megrez-v2-0-0113ebc5b670@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,83 +82,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAESy/GoC/3WMQQ7CIBBFr9LMWhqgFoir3sN0gdOhnYWtAUPUh
+ ruL3bv5yfvJezskikwJLs0OkTIn3tYK+tQALn6dSfBUGbTURinlBDFaK6W40xzpI5SRvcWApp8
+ CVOkRKfDrCF7Hygun5xbfRz+r3/s3lZWQwgfXdeebq2sGTuhT67HFFcZSyhcfUkbtrgAAAA==
+X-Change-ID: 20261118-eic7700-megrez-16057cfc65df
+To: Min Lin <linmin@eswincomputing.com>, 
+ Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>, 
+ Pritesh Patel <pritesh.patel@einfochips.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: Han Gao <rabenda.cn@gmail.com>, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Han Gao <gaohan@iscas.ac.cn>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794945611; l=896;
+ i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
+ bh=SDt48WVWTll6uo/OVctZfZyhSoQdBdTCZ/44sy5DSzI=;
+ b=u5au61AgyaWYlf2mfOXaHopJIw1oONJFU2rD9aw2fH8nLvUaYZf7YKoTbyIlrss08dQoklfXs
+ 7Yv3lOtbYLZBGcS5QEURKWrlRcLkeXHdR2VxU/wmaD4Bvvo9CpuMYKl
+X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
+ pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
+X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
+ auth_id=1262
+X-Original-From: Han Gao <gaohan@iscas.ac.cn>
+Reply-To: gaohan@iscas.ac.cn
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] phy: amlogic: broken rate and submode check in
-  meson_hdmi_phy_validate()
---
+The Milk-V Megrez is a Mini-ITX board based on the ESWIN EIC7700X SoC.
 
-commit 0bf49ea77c864cdcf7af96e59e1ffba5194d9636
-Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+This series documents the board compatible and adds a minimal device
+tree that enables UART0 on the USB-C debug port as the serial console.
 
-phy: amlogic: Add Meson HDMI TX PHY driver
+Changes in v2:
+- Add missing email to the copyright line.
+- Link to v1: https://lore.kernel.org/r/20261118-eic7700-megrez-v1-0-af8334b88336@iscas.ac.cn
 
-This commit adds a generic PHY driver for the HDMI TX PHY on Amlogic GXBB,
-GXL, GXM, and G12A SoCs, along with a legacy helper for device trees
-lacking a "phys" property.
+---
+Han Gao (2):
+      dt-bindings: riscv: eswin: Add Milk-V Megrez
+      riscv: dts: eswin: Add Milk-V Megrez board
 
-> diff --git a/drivers/phy/amlogic/phy-meson-hdmi-tx.c b/drivers/phy/amlogi=
-c/phy-meson-hdmi-tx.c
-> new file mode 100644
-> index 0000000000000..69833a080dc35
-> --- /dev/null
-> +++ b/drivers/phy/amlogic/phy-meson-hdmi-tx.c
-[ ... ]
-> +/* GXBB */
-> +static const struct meson_hdmi_phy_rate gxbb_rates[] =3D {
-> +	/* 5.94Gbps, 3.7125Gbps */
-> +	{ 371250000, 0x33353245, 0x2100115b },
-> +	/* 2.97Gbps */
-> +	{ 297000000, 0x33634283, 0xb000115b },
-> +	/* 1.485Gbps, and below */
-> +	{ 0,         0x33632122, 0x2000115b },
-> +};
-[ ... ]
-> +static const struct meson_hdmi_phy_rate *
-> +meson_hdmi_phy_find_rate(const struct meson_hdmi_phy_data *data, u64 rat=
-e)
-> +{
-> +	unsigned int i;
-> +
-> +	for (i =3D 0; i < data->num_rates; i++)
-> +		if (rate >=3D data->rates[i].min_rate)
-> +			return &data->rates[i];
-> +
-> +	return NULL;
-> +}
-[ ... ]
-> +static int meson_hdmi_phy_validate(struct phy *phy, enum phy_mode mode,
-> +				   int submode, union phy_configure_opts *opts)
-> +{
-> +	struct meson_hdmi_phy *priv =3D phy_get_drvdata(phy);
-> +
-> +	if (mode !=3D PHY_MODE_HDMI)
-> +		return -EINVAL;
-> +
-> +	if (opts->hdmi.bpc !=3D 8)
-> +		return -EINVAL;
-> +
-> +	if (!meson_hdmi_phy_find_rate(priv->data, opts->hdmi.tmds_char_rate))
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
+ Documentation/devicetree/bindings/riscv/eswin.yaml |  1 +
+ arch/riscv/boot/dts/eswin/Makefile                 |  1 +
+ arch/riscv/boot/dts/eswin/eic7700-milkv-megrez.dts | 25 ++++++++++++++++++++++
+ 3 files changed, 27 insertions(+)
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20261118-eic7700-megrez-16057cfc65df
 
-[Severity: Medium]
-Can meson_hdmi_phy_find_rate() ever return NULL here?
+Best regards,
+-- 
+Han Gao <gaohan@iscas.ac.cn>
 
-Every per-SoC rate table ends with an entry where min_rate is 0, and rate
-is an unsigned u64, so rate >=3D data->rates[i].min_rate is always true on
-the final entry.  That makes the NULL return and the callers' NULL checks
-in meson_hdmi_phy_validate() and meson_hdmi_phy_configure() dead code, and
-meson_hdmi_phy_validate() accepts any tmds_char_rate value (including 0 Hz
-or rates above the 594 MHz hardware limit).
 
-In addition, meson_hdmi_phy_validate() does not check that submode is
-PHY_HDMI_MODE_TMDS before reading opts->hdmi.tmds_char_rate, which shares
-an anonymous union with opts->hdmi.frl when submode is PHY_HDMI_MODE_FRL.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-meson-drm-=
-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr?part=3D4
