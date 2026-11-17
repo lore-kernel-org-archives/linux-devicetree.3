@@ -1,47 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918932;
-	b=axQfShJXxQvab0BGwh3bOHY38/zJo6CB+RuMvT+ZGABSD+MGheJxAFUVPwUjcADwr7jW
-	 CY4Hyi686iAVQztSSt1gkVe3XXmVedZJmfx4yeJ/Br7c3jFHTlhGoWQNckDld5J0PapYX
-	 QJZpxhpgNxYnUVAWCU5pxpim8J2/5DE3XOISEh0JYGX0kwYOSbKYZ3AlZF/JHTRisSwej
-	 GlxEayU0OxA88fWPUaWXZs40oyGZ2cxsq1tdJw88Ux2jnsduOFjDYwjmAhSK5/TYO7Sjx
-	 Q/Z/2N5/XWjYs+m+YhxW9qHmDcJEYWoUXMnhV6p477IyH5dOJoRZmTZkKmnIW8HampQ==
+	t=1794919188;
+	b=WD1Wly1PblzC9td8bbvJkcDSi2q/ULh7z5YKPs6kYNMEwo0EM9QhfAwjg/L46iG/0sUn
+	 IlwOkeOuXA4SZkrowhHXlO6iVyaX6YPS9iPcJ7hMPDeIuMZI4oELKQ8Y8/y2ilAslgE12
+	 mGcn/71mHfqUrf/LD43D+kFPlmSc8KM1O7XKXl032wDV/0/xVDmbu5YGgo9Nx8lf4VZom
+	 IFuc0EnqQhtqlcZp7Seew7OlZCS9OTDvhkQb84wyAS+2QAN6sUnC3cNTJxm1ogN6Bb3sJ
+	 Li+0urSFI0cXth1LtsbxQJgTTSd0EliQB5yv4qFXcEdj01YX/wnjo8mfDe3gcOtVDdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918932;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jsPV85ju58AThY22ybSoCSGFxhGFAMEskuRonfrShTo=;
-	b=PdxAsoZD05Lssd3LtPA4MFJ9m7AcSFntedVR/ha/ZNFW9eUb9PXm7Ul2hbOLeOL0M6rS
-	 21pog+Aynq31XjaS0o+VbuSoWXqIQXfk2CrIngoCPB+kIpkfP2AW26qR2LNHhuelTU+Zi
-	 cqUUHahs1ST/vkwDEkAhR+JO3oDExoiWiFjrXAplUwYA6zZ1iKvx0OPHa5wN/KP+aa9du
-	 5isA3DR61J6chyXsGHdvgHfSZsAE+MUUr/2VN6EqfsGWcelXL+WAjfGrrH5CByVK4k9P3
-	 ypZEVbGvlRG8qdZUeUlGWJoOqXoCN/iPDbEgQ6B/hi2c0b0xroIdlu5ggodYYzI4gvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919188;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=FS+EihS5oMWVSmj9NW9KnSqRNWrO4SL+ZQGc/pMQ5vE=;
+	b=FUAofuROuRFkvJZUiqQHJfrFThHem/MlogqhrxYOcPgeDM8h72whsy4yL/igK6PisfPu
+	 B4cxYvtmnhy19YsyMvo6mgfjvIS5U2fWK3eTZMnKodzCSvHX+t/v5cTK/M6GwhEJPKbve
+	 WYxKqDx1s4IL8GN61ikN+CyezPNh/D/0N+5+0OHcc6OIhklHMs+CvqBJdAWDR27Sx4/Jd
+	 zotGULCXcamqJZhKZkndH1pEtxZXg2sifJ2TRJ9uslGtkkfTVl0n4/3acsSRbVO568Hdb
+	 8mIKklHGTJsp15eUFJm/lcmvvjpDBMdUj3CPIOoNoCtgmJn8Z9pjCrFeDMbDI2aKmkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdjQOUDZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=IerAi1aa;
+	arc=none smtp.remote-ip=54.254.200.128
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF3A606A323;
-	Tue, 17 Nov 2026 12:35:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96DAA606A31C;
+	Tue, 17 Nov 2026 12:39:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96DAA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdjQOUDZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8838E1F000C9;
-	Tue, 17 Nov 2026 12:35:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794918932;
-	bh=jsPV85ju58AThY22ybSoCSGFxhGFAMEskuRonfrShTo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PdjQOUDZapt/y7rIWPfEmMnzN8N6SfcGSvGK9lp4B9/OmUx6J4NmhYGMHB72ALxds
-	 MN2EJ41qJzL4LGt1TKyggXuWygy6Ni3v6auXE/bg0DwXBhv8EUlkYWAd6Ep0ozn3MF
-	 LOv8AAgdmUfrIM7wzO7pTTrayPwFrnI9ihxpJbS6Y59S4zlbbKg2H1+Lx9XW7/zQxx
-	 /cyq5BxWqjkovCFOGbLSNsVNsmWqgCg1HlzxkveLelRZmHBxN0oIXCH0Yk0xK82nvY
-	 BNX1dtL7pqRpAolE5UlC+ESQuiTIK8SSELtNhTBrpRENMVhZ8jQeNR2R6lFTgrbCtI
-	 LZW7H/hj+5H3w==
-Message-ID: <d4ddb010-1722-4a77-9b59-68b625473559@kernel.org>
-Date: Tue, 17 Nov 2026 13:35:26 +0100
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=IerAi1aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794919131;
+	bh=FS+EihS5oMWVSmj9NW9KnSqRNWrO4SL+ZQGc/pMQ5vE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:To;
+	b=IerAi1aaJJ2RKSoRSkoWIDbHKO1e7ijhidYhqGpL1aPWx0j7VvarPDrrWtpaRMhmo
+	 UrO40ovFT+Tlr7+53mBBOgmsz6oWDJ7oBr3E6YEbPNfVIP4k28IVknG6ik/ozxc/3/
+	 iGwVObOjYbfZMvp2HWAqzlC3bwIpVt/16twhc7n8=
+X-QQ-mid: zesmtpsz6t1794919129ta284ade7
+X-QQ-Originating-IP: p3/539OhKh9+bQjjuJIrZ9dd41hjblu/Bwz6rSK74Tg=
+Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 17 Nov 2026 20:38:46 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 16629148470618131347
+EX-QQ-RecipientCnt: 22
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+Subject: [PATCH v5 0/9] Add SpacemiT K1 USB2.0 controllers support
+Date: Tue, 17 Nov 2026 20:38:42 +0800
+Message-Id: <20261117-b4-spacemit-k1-usb2-v5-0-52c3829cca69@linux.spacemit.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,101 +64,122 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] arm64: dts: mediatek: mt8167: Add DRM nodes
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- linux-mediatek@lists.infradead.org
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org
-References: <20260505214541.333657-1-l.scorcia@gmail.com>
- <20260505214541.333657-2-l.scorcia@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260505214541.333657-2-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANJK/GoC/33NzW7CMAzA8VdBOS/IcRIac+I90A5p4oyI0aIGK
+ ibUd1+KtI9D4fi37J/vovCQuYjt6i4GHnPJfVfDvq1EOPjug2WOtQUCbsAplK2R5ewDn/JFHpW
+ 8lhYlNT6mgE5H60S9PA+c8u2h7t9rH3K59MPX48mo5ulrb1QSZEIXEhJbxHb3mbvrbf2zuA79S
+ czwiH8YgVvGcMag0QZT8mDVU0z/w7BZxnTFAjdA1tEGND3FzC+mAGgZMxXDSI6tRhPJL2LTNH0
+ DbC4WOaYBAAA=
+X-Change-ID: 20260812-b4-spacemit-k1-usb2-97adfc283d58
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
+ Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, Junzhong Pan <panjunzhong@linux.spacemit.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, Ze Huang <huang.ze@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794919127; l=3040;
+ i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
+ bh=E55E0nnm+Grkoyc8TNb+aUvmcwj7oA3qlcosKlhHWJI=;
+ b=kDKBWBOqAVGp5dMZMRKINevvRO8lPjXA3IIjwf4SqmbJXPTYGTCl/559ykoj2lEHi9czu1hxY
+ dcqSoFI/UC1BiO9f4ZqbuaDpQpZ+vHD0nnZTL3HpcT9uGsh/CsJ97Az
+X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
+ pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: MgEbn4EBW630GD1qABmjaKgk/1xw8nV+BIMT2mN0axLVf7gsNjaJp7vj
+	x2ECLBAgJpzbbctgA/JvsvK9pLiv7NN6HzQoWl262ChU2teag6apwSH4xFPIQhL6cOe3JMv
+	wgh28hOkrVRlZ76GrPnqgOe5ySrxLoQubaneQay5fSDa2Kv5Q2x7HWj25biFZbUvpJeUqvi
+	kmQiNm1JNJTOyCbpvrYfQJFM3flH630JVcKUEHqA1nbhy99lmxhOI5uF+xXBo1PjskyuGIV
+	wEBwD/tD6av/az2EE5Ux1M45AN2Y31zMxE8pAP8ZUwfPCOsc/qCYLtVywlWl7tITXSCYrRn
+	8ORcbcGy6PMSS05KjsQlevf6/jmFTXYhuFqn39TZ0c5SpZZNS7R0S2ETzD+sgAZKeUxjboy
+	1RtnJB9oFb/F6BoO8r/L271O83sRMxKhPFnaDGUM1x5//rrs4a3SpCRQHeSm8Uye6BwnlRP
+	3uJyJF9T+3Z5HzS7AxcKXaFWbYkx7ihccbqflKYUrHJs03Yy6eNXyxKeViGDOi9yhO3zu4W
+	Fd+NOa0OFVpzf7ntR5iZs84w+qNyoeLtqz5DWCB7pMqMqYWbsvGGOVZytQeNsqnJD7LBgQK
+	gG0hU6tUOzbcW7cfPvnDbaS2NH8W0oJVLVwqI8mSaWWJtcg6+1loRiuge+6z5z6wLIjHkOi
+	htqEn6q7Tuej590PgqOmH23jJxD0L9FR7Pjhl5E9Aa3sPmi4PvMlTOSJfIYeGDhHa/2tl0s
+	wjBlc74tAkEhPMKm+m9giSBheofInot0CPhOofxVV3EM4FQXWTYsyjyH3QzWwwiVXocA9a2
+	ZfVU14ugg82NOmvSIAtV0XcsQMJWHE6NGdwDXKGUVZZnRz/mRdW6zenHoHWdV2X0rRKG9/g
+	LFlaOtR5Z8gOODnAeq59hngQ/j5x+Dl1Enb00WwRrxN1gQTtQpK/V7O1cqPC1Ewqxpbf8vD
+	M9l438QKpPO72Nd6EFgU3CTMdT/fbg2+kC3INxrWL+gmzVdHMdHbueqktsAmKIPUy3b0vxR
+	Hp75oWjJgEN74zSc+ZeI3SbST0udv05Eo6xENits49sRx+DqRbxC0mdpyylzI3ZhLw2pedg
+	7VBT7sU7KSszWCwbd2bzwpttEj76+TTrxzUfHrZIOme2BPHp0OuJBsATzAKASqSSD1HO8hK
+	II0GWaz0TN7KEPh5NBiOv4qDnR21bk8lXg5GXsyINJUVTbo=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-On 05/05/2026 23:44, Luca Leonardo Scorcia wrote:
-> Add all the DRM nodes required to get DSI to work on MT8167 SoC.
-> 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->  arch/arm64/boot/dts/mediatek/mt8167.dtsi | 317 +++++++++++++++++++++++
->  1 file changed, 317 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-> index 27cf32d7ae35..32d3895baaa6 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-> @@ -16,6 +16,20 @@
->  / {
->  	compatible = "mediatek,mt8167";
->  
-> +	aliases {
-> +		aal0 = &aal;
-> +		ccorr0 = &ccorr;
-> +		color0 = &color;
-> +		dither0 = &dither;
-> +		dsi0 = &dsi;
-> +		gamma0 = &gamma;
-> +		ovl0 = &ovl0;
-> +		pwm0 = &disp_pwm;
-> +		rdma0 = &rdma0;
-> +		rdma1 = &rdma1;
-> +		wdma0 = &wdma;
+The SpacemiT K1 SoC has two USB2.0 controllers, one has Dual-Role
+support, but the hardware has no internal OTG registers, the other is
+Host only. These controllers are compatible with Chipidea USB2 driver
+with some flags set and reset control support.
 
-NAK
+This series is based on 7.4-rc1 and has been tested on Banana Pi F3
+development board.
 
+A self-powered USB device/hub is needed to test the host function of the
+dual-role controller on Banana Pi F3, a MINI-PCIe USB2.0 module (a
+cellular module e.g.) is needed to test the host only controller.
+
+---
+Changes in v5:
+- rebase on 7.4-rc1
+- drop the ci_hdrc_usb2_priv struct as sashiko suggested
+- Link to v4: https://lore.kernel.org/r/20261009-b4-spacemit-k1-usb2-v4-0-2d98e5324d9a@linux.spacemit.com
+
+Changes in v4:
+- drop irrelevant Tested-by tags collected by b4
+- collect Reviewd-by from Yixun
+- Link to v3: https://lore.kernel.org/r/20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com
+
+Changes in v3:
+- collect tags
+- merge the two dt-binding commits
+- use local variables when acquiring devm managed clock/reset
+- drop manual clk_disable_unprepare() from the remove path
+- enable related drivers as modules in defconfig
+- Link to v2: https://lore.kernel.org/r/20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com
+
+Changes in v2:
+- rebase on 7.3-rc1 and collect tags
+- reorder the usbphy and usb nodes in k1-bananapi-f3
+- add constraint for spacemit,k1-usb2 in dt-binding
+- add OrangePi RV2 device-tree change
+- use devm_clk_get_optional_enabled() for driver according to sashiko's advice
+- Link to v1: https://lore.kernel.org/r/20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com
+
+Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+
+---
+Junzhong Pan (9):
+      dt-bindings: usb: ci-hdrc-usb2: add spacemit,k1-usb2 compatible
+      usb: chipidea: usb2: use devm_clk_get_optional_enabled()
+      usb: chipidea: usb2: drop the ci_hdrc_usb2_priv wrapper struct
+      usb: chipidea: usb2: add optional reset support
+      usb: chipidea: usb2: add SpacemiT K1 support
+      riscv: dts: spacemit: add USB2.0 controller nodes for K1
+      riscv: dts: spacemit: enable USB2.0 controllers on BananaPi F3
+      riscv: dts: spacemit: enable USB2.0 controllers on OrangePi RV2
+      riscv: defconfig: enable ChipIdea USB controller support
+
+ .../devicetree/bindings/usb/ci-hdrc-usb2.yaml      | 15 ++++++
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts    | 16 ++++++
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts   | 28 ++++++++++
+ arch/riscv/boot/dts/spacemit/k1.dtsi               | 40 +++++++++++++++
+ arch/riscv/configs/defconfig                       |  4 ++
+ drivers/usb/chipidea/ci_hdrc_usb2.c                | 59 ++++++++++------------
+ 6 files changed, 131 insertions(+), 31 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260812-b4-spacemit-k1-usb2-97adfc283d58
 
 Best regards,
-Krzysztof
+-- 
+Junzhong Pan <panjunzhong@linux.spacemit.com>
+
