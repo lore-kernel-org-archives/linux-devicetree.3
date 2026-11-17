@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794887596;
-	b=1L1ljqxdOeOjivasdDsX13L7rAAXauz0bGoq1nPibYhPd0Uf9hZlhnsEtXfbk3qFT6x+
-	 veu/P7ndejTMVHutAgWPUFVhsg5BuICrgAN/l+MD+jx6l7I4fWh1V+bBwJALvrv2gVXst
-	 G9ZBhEkrusI+CyKw3bqsayCyNMikHeQ9v20KKVX9KEQPM2o3DuiHkoZrv+S9xHrweXETM
-	 7PHdXu1dVGm7Us/97JM1BVnRc6MTJsjlZ0KvJqNu5r+huq9QsSdt7JnxgPCWtZRf6g1RO
-	 gZJOlR7vThHYzImjWoFObcC0p9sTdZxpDbdnAhRDDnHFrQZUGEUVe6520m7zEGcyZUA==
+	b=0VBnrxPzCkhTUK7B+pexj9gOyZPeEQv+WN9frVBjqzq4hE+lSYIKH+8GrRgNtXGXDH30
+	 GqeBlR01EeTERagfX8u34h5kW3SWHhPKyXERLQ+bz19yvGCBYeRXgP6DQCLlaGXnvasnx
+	 5VE8KsiOWQDt61oYGLWqie+0ONfTN2roTQtMWVNYGVk7qxAenD/6bpdcCg2qHtuG2S1TQ
+	 hbEoXzJykCQSBcCeLAsVdHuKaS44GQ3r3mvUH8/10CJ7C5GXSGL9CyTuTBXtc0PHobQo4
+	 +fBkrsL4CM+iWZgskbpjjv6yY9hkHwJJXG6OUcCuA4+DebCwm1hsmOcdVAizHn+2evg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794887596;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=tLUEeWBNH1suUP6OTW5uxLnjtx/9ByNMKhVBJm7UctU=;
-	b=rZ+E6JF/7/v4uyfvtHXR+sep3X0fn1bMbmeb37KHCbhuRjKfOo2HvvoZ6uKouljLcDjO
-	 C0YqJ+NebaQn/6Qq5JJSuFyBLI1VReHe3xS8d5QHujqhTVqqSKP6PHzdG/SUncBQMOchW
-	 3nyTFhm0bVqp4tD81gsOfWvJhn6lORPiX/xKWduMWbQom45O/POPGo47DYTKT6pljF4rb
-	 MkNqEDPdCuhPE1bCZGlEnFZyf0IcSAXl/l4kdyuqzb3lQHF3YeqPUOW343pQdUs28GRXB
-	 MAh72IiHtf3f3zdACf1swnekq8C8o1jm3x1bsKvwama5lhm1orj81U0crKmF1WdSZCg==
+	bh=n9Ywp6KThLEffhUa4Ev+Bz23d29sLUyBrY7vcTocCwE=;
+	b=N+BbBWia++6CEepHVm+VQmkOrLgQk6hfhvri/9rYO1uUhthOxMhmpQ3cMLG0H1kXaquw
+	 OTP/45rtIVw9ZrM3z1/BncSOc/vRF2Ap7hRRZcFqvMFZiCZ0hpCD2RgCw/P0SrRpEQeEk
+	 Au/mNZJQIWGv30fjadLpC3Wmjc1aqfnubk+2RvyUXAZ4KsonUBr5XNgmGF7gubM3iFcEA
+	 aJz7BrfMwnMZ7424yCSe/iN6CVnu2OJ3RbH31J5F7ingEt4TdrlY17RJ2JXUwS47dphGR
+	 xc3QMe7ej4FsyenFs8DFaOzHgw461msF0CVQVBOO3eLF6LMt6v9AZ0sBvu432fveOdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6+nWK8x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ET6Rh3bw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E884606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0CB606A32C
 	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 03:53:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6+nWK8x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853491F000C4;
-	Tue, 17 Nov 2026 03:53:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ET6Rh3bw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 596501F000C5;
+	Tue, 17 Nov 2026 03:53:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794887595;
-	bh=tLUEeWBNH1suUP6OTW5uxLnjtx/9ByNMKhVBJm7UctU=;
+	s=k20260515; t=1794887596;
+	bh=n9Ywp6KThLEffhUa4Ev+Bz23d29sLUyBrY7vcTocCwE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b6+nWK8xEEIvEYeKyjh+DdN9oMZEDlWP6Jt4NgPUJ/4NPK5AyjT+jkufU/JmM/es2
-	 DyYRLvMlSuY4HQc5jTmzsCVarWhEjSXyF+H+pWcWq5VFaLt4sdWYYMI9kK+RDCatYE
-	 iEh5kO+8o7+dmrikSwpeNtd0H4f27FOaNbTGMbjavo7PbtQAOpf7mqQ5hqeKNX2BX6
-	 pnLtP+SAbCQJJy/276uyFHg0PuiUpQddOjctE2WYlYyepHeKhkk3acxl9S5Qx7JGUx
-	 ccRCtMwcw5SjJNem30P3HotK1Qrp21Ygq6trdFG3Py6tJZmB+3RaBupq9rZLywzqpf
-	 LLf1wN6LmRcvQ==
-Message-ID: <sashiko-outbox-218167@kernel.org>
+	b=ET6Rh3bwWd/EUuDF/LTvAdjbNUAtBM/el/W7HOB7EDsmgCuKIkeBXENWHrNV1/FPa
+	 wepNeP0/fMUwDTbfebpmhJHow5YhSyqjbPhS/ioR15AMOlCFgu9e00tlOq+HMA8Pzb
+	 CoUK7XD5b8VpqwDnk3wVIS0U9hhifWksxp45v5gu9GoMprVLN2aU1GyYhE0c7BCLEY
+	 XyzY69w08gI/FscAiNYdWaH9i46yVpQ+jlT7S9SsPXTS8dEgEDEgC0ujcKsXezB0Jk
+	 BnUzV4Kbb77OMS0icxafP8079nnLrgotr604XF3y2WzVa9MlaCcF3XiY5bNde7gaW6
+	 +z7A0oljLk5rA==
+Message-ID: <sashiko-outbox-218168@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 04/14] media: mediatek: vcodec: get different
- firmware ipi id
+Subject: Re: [PATCH v9 03/14] media: mediatek: vcodec: add driver to support
+ vcp encoder
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyrie Wu" <kyrie.wu@mediatek.com>, devicetree@vger.kernel.org
 Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261117032950.1425556-5-kyrie.wu@mediatek.com>
+In-Reply-To: <20261117032950.1425556-4-kyrie.wu@mediatek.com>
 References: <20261117032950.1425556-1-kyrie.wu@mediatek.com>
- <20261117032950.1425556-5-kyrie.wu@mediatek.com>
+ <20261117032950.1425556-4-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Tue, 17 Nov 2026 03:53:15 +0000
@@ -63,71 +63,112 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] media: mediatek: vcodec: fw_handler->type accessed directly by
-  callers
+- [High] media: mediatek: vcodec: UAF in IPI handlers after VCP IPC
+  timeout
 --
 
-commit 570b1a574a8a9971d79e8070cabc43cdc4bbf018
+commit e54823b0eef88187197f04023f2a3956ba3b46d7
 Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-media: mediatek: vcodec: get different firmware ipi id
+media: mediatek: vcodec: add driver to support vcp encoder
 
-This commit adds mtk_vcodec_fw_get_ipi() to select the decoder IPI ID
-based on the firmware type and hardware index, and updates the stateless
-decoder initialization callbacks to use it.
+This commit extends the VCP firmware interface driver to support the video
+encoder by handling the encoder feature ID, memory ID, mailbox ID, and IPI
+message queue thread.
 
-> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.=
-h b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h
-> index 50d93d47b6de0..005ac9969b5bd 100644
-> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h
-> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.h
-> @@ -43,5 +43,6 @@ int mtk_vcodec_fw_ipi_register(struct mtk_vcodec_fw *fw=
-, int id,
->  int mtk_vcodec_fw_ipi_send(struct mtk_vcodec_fw *fw, int id,
->  			   void *buf, unsigned int len, unsigned int wait);
->  int mtk_vcodec_fw_get_type(struct mtk_vcodec_fw *fw);
-> +int mtk_vcodec_fw_get_ipi(enum mtk_vcodec_fw_type type, int hw_id);
+> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_=
+vcp.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+> index 3b85ae0e632a8..5ec7a67b51b67 100644
+> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+[ ... ]
+> @@ -223,8 +225,13 @@ static int mtk_vcodec_vcp_msg_ipi_send(struct mtk_vc=
+odec_fw *fw, int id, void *b
+>  	}
 > =20
->  #endif /* _MTK_VCODEC_FW_H_ */
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1=
-_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av=
-1_req_lat_if.c
-> index 49d9b4a72387e..84d28a0ba15a5 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
-t_if.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
-t_if.c
-> @@ -1878,6 +1878,7 @@ static int vdec_av1_slice_init(struct mtk_vcodec_de=
-c_ctx *ctx)
->  {
->  	struct vdec_av1_slice_instance *instance;
->  	struct vdec_av1_slice_init_vsi *vsi;
-> +	enum mtk_vcodec_fw_type fw_type =3D ctx->dev->fw_handler->type;
->  	int ret;
+>  	mutex_lock(&vcp->ipi_mutex);
+> -	feature_id =3D VDEC_FEATURE_ID;
+> -	mailbox_id =3D IPI_OUT_VDEC_1;
+> +	if (fw->fw_use =3D=3D ENCODER) {
+> +		feature_id =3D VENC_FEATURE_ID;
+> +		mailbox_id =3D IPI_OUT_VENC_0;
+> +	} else {
+> +		feature_id =3D VDEC_FEATURE_ID;
+> +		mailbox_id =3D IPI_OUT_VDEC_1;
+> +	}
 > =20
->  	instance =3D kzalloc_obj(*instance);
-> @@ -1885,8 +1886,8 @@ static int vdec_av1_slice_init(struct mtk_vcodec_de=
-c_ctx *ctx)
->  		return -ENOMEM;
-> =20
->  	instance->ctx =3D ctx;
-> -	instance->vpu.id =3D SCP_IPI_VDEC_LAT;
-> -	instance->vpu.core_id =3D SCP_IPI_VDEC_CORE;
-> +	instance->vpu.id =3D mtk_vcodec_fw_get_ipi(fw_type, MTK_VDEC_LAT0);
-> +	instance->vpu.core_id =3D mtk_vcodec_fw_get_ipi(fw_type, MTK_VDEC_CORE);
+>  	timeout_jiffies =3D jiffies + msecs_to_jiffies(VCP_SYNC_TIMEOUT_MS);
+>  	while (!vcp_device->ops->vcp_is_ready(vcp_device, feature_id)) {
 
-[Severity: Low]
-Should mtk_vcodec_fw_get_ipi() take struct mtk_vcodec_fw *fw instead of
-enum mtk_vcodec_fw_type?
+[Severity: High]
+Can a timeout or signal interruption in mtk_vcodec_vcp_msg_ipi_send() lead
+to a use-after-free in vpu_enc_ipi_handler() and vpu_dec_ipi_handler()?
 
-In mtk_vcodec_fw.h, struct mtk_vcodec_fw is forward-declared as an opaque
-handle whose definition lives in mtk_vcodec_fw_priv.h, and every other
-mtk_vcodec_fw_*() helper takes struct mtk_vcodec_fw *fw as its first
-argument (with mtk_vcodec_fw_get_type() provided specifically to query
-fw->type).  Taking enum mtk_vcodec_fw_type here causes vdec_av1_slice_init()
-and the other four decoder init callbacks to reach directly into the private
-ctx->dev->fw_handler->type field.
+mtk_vcodec_vcp_msg_ipi_send() ignores its wait argument (2000 ms) and waits
+with wait_event_interruptible_timeout() for 100 ms (IPI_TIMEOUT_MS), which
+includes both VCP firmware response time and scheduling delay for
+mtk_vcodec_vcp_msg_process_thread().  If a DEINIT IPI times out or is
+interrupted by a signal during device close, h264_enc_deinit()
+unconditionally frees inst (and fops_vcodec_release() frees ctx) while the
+ACK is still in flight or queued:
+
+drivers/media/platform/mediatek/vcodec/encoder/venc/venc_h264_if.c:h264_enc=
+_deinit() {
+	...
+	ret =3D vpu_enc_deinit(&inst->vpu_inst);
+
+	if (inst->work_buf_allocated)
+		h264_enc_free_work_buf(inst);
+
+	kfree(inst);
+	...
+}
+
+drivers/media/platform/mediatek/vcodec/encoder/venc_vpu_if.c:vpu_enc_ipi_ha=
+ndler() {
+	...
+	mtk_venc_debug(vpu->ctx, "msg_id %x inst %p status %d", msg->msg_id, vpu, =
+msg->status);
+	if (!vpu_enc_check_ap_inst(enc_dev, vpu) || msg->msg_id < VPU_IPIMSG_ENC_I=
+NIT_DONE ||
+	    msg->msg_id > VPU_IPIMSG_ENC_DEINIT_DONE) {
+		mtk_v4l2_venc_err(vpu->ctx, "venc msg id not correctly =3D> 0x%x", msg->m=
+sg_id);
+		vpu->failure =3D -EINVAL;
+		goto error;
+	}
+	...
+error:
+	vpu->signaled =3D 1;
+}
+
+CPU0                                      vcp_enc_msq_thread
+fops_vcodec_release()
+  ...
+  h264_enc_deinit()
+    vpu_enc_deinit(&inst->vpu_inst)
+      mtk_vcodec_vcp_msg_ipi_send()
+        wait_event_interruptible_timeout()
+        /* times out or -ERESTARTSYS */
+    kfree(inst)
+  kfree(ctx)
+                                          mtk_vcodec_vcp_msg_process_thread=
+()
+                                            vpu_enc_ipi_handler()
+                                              mtk_venc_debug(vpu->ctx, ...)
+                                              vpu_enc_check_ap_inst() /* fa=
+lse */
+                                              mtk_v4l2_venc_err(vpu->ctx, .=
+..)
+                                              vpu->failure =3D -EINVAL;
+                                              vpu->signaled =3D 1;  <-- use=
+-after-free
+
+When the delayed ACK is processed, vpu_enc_ipi_handler() dereferences
+vpu->ctx before calling vpu_enc_check_ap_inst(), and both
+vpu_enc_ipi_handler() and vpu_dec_ipi_handler() still dereference vpu->ctx
+and write to vpu->failure and vpu->signaled after the instance check fails.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117032950.1425=
-556-1-kyrie.wu@mediatek.com?part=3D4
+556-1-kyrie.wu@mediatek.com?part=3D3
