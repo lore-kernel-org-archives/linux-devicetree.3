@@ -1,62 +1,160 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794889044;
-	b=3vll9Gd8FXdPAOmh6oeNKA+L11/V7tgq/H8R9AzGGCCN8sKk0Wfo1QT2TH/1XH927wUR
-	 2n13J3v//AK5etJKGYQW7KGEa7nFNgyNpcY1e5BtOW3vH9AGhSmmPHhccK/hXGeIpmg5X
-	 EgMb8BzegTI78S+81y22pR7oGQxg1q+OwX+qHYbh0a9+qqqh7sM2BE+G4J/9eNFI7OreC
-	 raY/hPMnozF15k6PfsWTnhEhMQUWvzV0hB9Ek628e7FJNhswunLEaXqIWzPanXIW7G/o/
-	 vQEeITo85Q3YYtbL1OiaMYM8FDx+1Sps1or3peEoqwv+HP08pgOBza332J9B+eQuO/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794889044;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=OBSo/4IN7S6trP7CgPBOd4llSonUbNqkrJxw7CQiCqA=;
-	b=NIZaC7B1GZjlElqYTayMG6I3QZnxZGxRjQozxZtDxj+9Del97SYEd2vyibPf7H9lPziI
-	 aIPfbhbDw4c1MFIvZlgfEWWYhUOnPP00SVbpeXVAjWUN+O63SrWT2YlGGgVD04umyuq8U
-	 +KKznzPpi7B0+jpoCEyZd9YL7OVmufirbJPV6y1BpGzZwiPA1jglpbzX5f2TnAikyWryk
-	 P/XO0WrAIerc0plG4a/TXw0XW/DYAS7QZSATU5lvXBcl+nFRA+1erklPdCfN3STrQ0lAJ
-	 pbDE/vSWwA0YFYgBeD8QRfMJWI16VueZL2/q8EPdS2WBuXW7z8RlRgoS7qnD3V97aQw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=wqSPP4SN;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E424606A31C;
-	Tue, 17 Nov 2026 04:17:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E424606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.76
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794890086;
+	b=UXHhbOImuisFp/N9RXouaQYA8KvBeknhANcGGhGziN5gg6laKr9gOJmC4SOExVT0yMcx
+	 zLfesWJyZ5NB162WfJemjufoWI+57X5V2PCfXgulCa4u3SUHZ6UfIuJSVd3mNcMz5Sr69
+	 aq10DiTijzVv+fdo28xd9VarDNHZtU+015pRhzHzu/2mVP1GHyWBNYIH02SsLffiD6FP5
+	 wV36Owukg3B9PVSv8OFz0cALNGyRqvzdxaRew9qzsgotPUV3jEUhAw+OyP9jtT8JrhMzW
+	 ZxjHKyvMxfbLSQTBNMoNDNYSL5Bu0LZ5ulQFHLjWre56tOFVBDWe9uU5KKrzUgK7phg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794890086;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=fGyZs87pbsSvhhgTElNPVcLsDCodgkelglp8m9Txbjc=;
+	b=0KQhPaQGwoImEukLCR5QFWCGfUgCeug1RaJeN9fTJGCxtKXIanqSDHhpIC4gjv3Kasxi
+	 9u8n+oNUvU/HYSRSvr31gDg0ZnkRVE41ddBhgJ+Jgf1Lu4/v/kYTP/3Ivm9uXESH2cjmf
+	 KshCXE8Dtk9TqSZMc2Lo5JgUvNP8TnowtGLz39eHV14CuGAbeUlVRxLKTmmwO6ucgs0nu
+	 TQhE/WgCho+UUu6sJCj49bVy2bwkyBG400EPiCmz+l01ZmlRC4IXE8lz1Z67xPwXqPvcP
+	 fYCK1Z5HgRSjbhY15uxC4lQchcaSWl05Ydl2L0HViAUWBQ4kAyiwJmQQysySu3+bJow==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=aspeedtech.com;
+	spf=pass smtp.mailfrom=aspeedtech.com;
+	dkim=pass header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b="oo1h/igA";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.76
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022076.outbound.protection.outlook.com [40.107.75.76])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADA8606A32A;
+	Tue, 17 Nov 2026 04:34:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ADA8606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=wqSPP4SN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:Content-Type:
-	Content-Transfer-Encoding:MIME-Version; bh=OBSo/4IN7S6trP7CgPBOd
-	4llSonUbNqkrJxw7CQiCqA=; b=wqSPP4SNDPs9mlVJhVqodlTTM8hCkkL9ov8+3
-	EuWJ/U4hWyJfNTMieF64k1+L9CI/7g1H+EYsCj7jLh170O8nxj3eHaGU+pa4KE16
-	gFWSsRpFxTiHKK1vc+ekuQdLqUJJ/50c/ucrEEkBKsFZ3pfoCf/w88lX09tub+m0
-	7LcH/Q=
-Received: from [127.0.1.1] (unknown [114.214.186.145])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgCHATZH1ftqQgjLAA--.1640S2;
-	Tue, 17 Nov 2026 12:17:11 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=oo1h/igA
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IYdpykzTTUSDDh1kkTzohDG27S07F84tqREFS1FfWG8Mq+j1uAINWON/nkSzVWS4w4olpMjwyG6HDVP0K+dQCLPRKa7A6G0XNodZeIcS1HTyxv8wovi1lBvOqnz8Lll5fYn/XltUe+2wfbgBg9REDw1Lbp9BpZhthW8KdYhS36EYeTGNGgvacgfpCX/ZbFoD54MxHIH6vbykcs71Pkq6tiZ67bl+2vjypwtE5/v/aEIsMT3rWRGdOBn9/812oujHyNurvS4ZMf7V9LOWZ+oZG6W1TjtJQAK31vCVCKPQX7eYVBp/zOXJRw0JihzdEYObPqYHxNnz8HKwwkCoCt74Fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fGyZs87pbsSvhhgTElNPVcLsDCodgkelglp8m9Txbjc=;
+ b=x8QebbUNOnIV4ps6qffA6yMbkb1zE1+DuXpgSooscuDYirUB58G9MY4FbJ6GsaZJtVVGnCHiG3877CB6N6R/33Wnb/oJFSKrM8NX1+annfz5oF99M78njRX+et21jp6ZTr1xBCPmi9mzksbyAvzKs3yef8Y72NuujeRJcO/BZ1MErtJtq7Y/r83n8iiRsuRqnzmJ99HNZjEaWv7nWqW6Ltr3ToaP7Qi/DoginZjhZcAYw4tEWE0iKawUnuYCA7/lJJmNxELSA0dq/xnqIdGTrY8y3oDWJMlKgtdSqxq3N1sfOUrHVkmxWLwi6B6Ffa2ps05wN8lLHSQYiHocns7JWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fGyZs87pbsSvhhgTElNPVcLsDCodgkelglp8m9Txbjc=;
+ b=oo1h/igAMkUz3Eg4vf/kOA+u8y6c3Nu+7oMTBP2QoUPBiMnFRvPoh6z2kOlW8/0u/tV5B55acYhKEkFVt1LDs8azOjAQLaCdnoPe1xKI4QCab+EiUgT3v07N2uBMr7gUQSd69WttTMIG5Z2tftGRHjojvt597sbjSPJ6APtQ1mhi/9u97MvDbF2tQNNsfJDFtiuNiLrT0ceLbPmf829elBJLPd2XyVTg4qPtv3oKovK9N0wBB2vZ2JE30Lo1G8L5jxNPnTJ1ul08h2C2qOeICEZevmIK/IGhfx0aroN1eMku2ZDjsgyoKh5lnx6VaMS0OTTiHS1I372U34xNBAx0Sg==
+Received: from SI2PR06MB5140.apcprd06.prod.outlook.com (2603:1096:4:1af::9) by
+ SEZPR06MB5965.apcprd06.prod.outlook.com (2603:1096:101:ed::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.7; Tue, 17 Nov 2026 04:34:42 +0000
+Received: from SI2PR06MB5140.apcprd06.prod.outlook.com
+ ([fe80::9d82:c43a:404:99a9]) by SI2PR06MB5140.apcprd06.prod.outlook.com
+ ([fe80::9d82:c43a:404:99a9%7]) with mapi id 15.21.0639.006; Tue, 17 Nov 2026
+ 04:34:37 +0000
+From: Jacky Chou <jacky_chou@aspeedtech.com>
+To: Andrew Lunn <andrew@lunn.ch>, "netdev-bot+sashiko@kernel.org"
+	<netdev-bot+sashiko@kernel.org>
+CC: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "ratbert@faraday-tech.com" <ratbert@faraday-tech.com>,
+	"edumazet@kernel.org" <edumazet@kernel.org>, "hkallweit1@gmail.com"
+	<hkallweit1@gmail.com>, "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Subject:
- Re: [PATCH v5 0/3] drm/msm/mdss: reset all block resets described in DT
-Date: Tue, 17 Nov 2026 12:17:11 +0800
-Message-ID: <179488903160.260870.8168848839719897744@mail.ustc.edu.cn>
-In-Reply-To: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ =?big5?B?pl7C0DogW1BBVENIIG5ldC1uZXh0IHY2IDIvN10gZHQtYmluZGluZ3M6IG5ldDog?=
+ =?big5?Q?ftgmac100:_Add_AST2700_compatible?=
+Thread-Topic: [PATCH net-next v6 2/7] dt-bindings: net: ftgmac100: Add AST2700
+ compatible
+Thread-Index: AQHdcoFN+8JnXVXgiESP7FRZBqX4RrcwvuyAgAAEf4CAAPEScA==
+Date: Tue, 17 Nov 2026 04:34:37 +0000
+Message-ID:
+ <SI2PR06MB51405A2A5DD4F1E8FCB108669D7B2@SI2PR06MB5140.apcprd06.prod.outlook.com>
+References: <20261112-support_ast2700-v6-2-238020bf46cf@aspeedtech.com>
+ <179483725554.3136.8359940788845125105@kernel.org>
+ <51667f1f-4f2b-44ea-b725-87cf63c2c9dc@lunn.ch>
+In-Reply-To: <51667f1f-4f2b-44ea-b725-87cf63c2c9dc@lunn.ch>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SI2PR06MB5140:EE_|SEZPR06MB5965:EE_
+x-ms-office365-filtering-correlation-id: d6b783ce-f1f1-44e5-701e-08df44641645
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|38070700021|56012099006|4143699003|261022105027099003|261026121527099003|261028144727099003|261026140227099003|10067099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ q+ahv3THG1RzljMOUSvmu3U9s0LvQB8IHnm+j1amwk7e1R33T0o7/vuzqgu+6DUGGjLeChRAdFQONeNQsW03BN5e0Gxh9PDwatY3uvAN+l/4f+grrxT3Y0Qh12o9YT1vLLBoM9qiRBvdJ+wUbvb6lZdRsSQQQYNrrw/9+VuDzwdAdbXZUtPzDlQegvQU3xePmQn8NHx7KOKxtH8tc7bUdEOGzxA9AdfPlm+YSwBdZZSYl2R7XvxdTxXc3/1ZD3JiItqcl+oIF2ZMAcf2D43ysX4Mem9nGOpkO3Z31exflYpSQbwSEBPThOUWSVg+ZuEhZUJxklHTpODt5n4NYQ5rMVmBnzZVXp/xRE6lhnxv7pJ0S92CDSn3gNFEz/wGYMtqtzOPqSe/RpgTfDD02pWw8OqsxHFTAwIYk2mNhiBCXMSXrcY7ba1zeAl7JEGcEFE9RPVApeP5myUJ2Avrr8K6uQzDKiUKJfsjVNj5tCfAxllg79XM3D8yyGeYg5DA5rJO9gKrScrKxIdgRmvan6lfPQUnQ9vA4Z3oCQJi87X4fHVehQWMsJEPf15IS3rrglveIE6ZOIpKp0YBgfmaYpgbVKkj8k0ugQ/4BJw+NSNaN3tEhFhId1anpJMm2qf1qEYiFaRy3OXAS9bPjyKGmN08ICUnI+exh85Gr2nSytdivkB6hjkgWZR8Gnfog3bLNwBI/uQskiB30kBVdunBFl7OsvyX9TKqBr5HJkuUnmin07o=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR06MB5140.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(38070700021)(56012099006)(4143699003)(261022105027099003)(261026121527099003)(261028144727099003)(261026140227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?big5?B?YWVFcU12djJad2xEWlpWQnBWc0hBSFkzdFozM2wwNFlKTlFQSGczcm5FTzBRY2pX?=
+ =?big5?B?RjdCdlM1Q2JYb1ZJYXJ6Yytzd2VrdE5TSkZHVEVLYzVWajBwak0yVTVZL2hNNldZ?=
+ =?big5?B?Vnk3QUJCcC9HZHQxNVU1c0RVZHlOOGJqRVNDazBxZnRUU3AwQ3k1MkhrelQzaito?=
+ =?big5?B?YVRhQ0thd296QmIyczY3S09FMDc3YVlqMzZ5LzRyTElFQnZtbXA0RlZTRWs2b2dK?=
+ =?big5?B?K2txMUVKdWdwVXJXaEFGdEFpYnBKN1VYYS9zYW4xRWxXZGJnWm5QNXBrd2Nhcmx2?=
+ =?big5?B?VVRoUWU5cTVwblZrNHkrSTF3OUN3UnNuRzE4TUpkR0l3LzVQdTY2R042M2VuTi9X?=
+ =?big5?B?anlNSllVcHlKRVR6cUx3cWUxUk05SkFBWFQ3SDJUTlVFZk1hd0hscUxhdFZxSFJN?=
+ =?big5?B?VUFHWStRcUJRWFJDU3h0Q0RWWlZ2a2lrdEcrNUlWWmdtODl0SDhrcDZybzZjUE9j?=
+ =?big5?B?TjR3OXhXU0t2akhLVzByOGdKRFAvTUxUUENEZ1NwM29EQmlUaTZud0VTYlgxOW90?=
+ =?big5?B?VUx3Z2o3SkpKdVhMb0pPZFd4S2xPaGVBWTM4Q1V4Y1FVcmpzN2VPeUVLWDJsYUsv?=
+ =?big5?B?eVY3QkdGL1JTQlFQQ1BaZ1FWOGtndnByMmZ2QStLc1pNalhnVHZNZ09kVTZGcGgy?=
+ =?big5?B?U3FwdVRPd3c5a1QwVlVSYW5EK0U3anQ4NEVXQUdabURUZXJ2SjZZazErZzQ1eXNW?=
+ =?big5?B?MG9Ja0EyaFNxVUNlb3JSK3h0eGlCTCs0VzJ2ZnRBMG5rcU9hREZsRDlWMm9tMjlT?=
+ =?big5?B?ejk5b2tKQzBNNy9ZTVdqdTJFWnhYYkY5NTFOdjhGRTFkbmg2Q1VFRER2d0FUdGFE?=
+ =?big5?B?aGhxdk5IV0grZ3NUTWNnTGhOTWNBblhqTHdmU25RVHBFNXZyUUhpSWNOZitWLytS?=
+ =?big5?B?WEhEVjhEcjN1V25lU1lYWWZvK2kwVXNSV0pwMHBFT3BuS0FWU1BvK09XMi9NeElR?=
+ =?big5?B?bG8zZVZ2U1pJNkIrd2NVOWxMQkdSQzVSZjVqSjhocjZhcnM1aVRGSkNmaFBCYW16?=
+ =?big5?B?L0ROSlo4ZGVEbGxaOE5yZlJGRmxkMFdRUTZ5a0FOOFhWS3pqWUpCUTQ0WjMvdnM2?=
+ =?big5?B?Q01pWXF0eGJWakpSRlh2RmxNRXpud1BXbHpQNlIrcHY2ZG94a3VCTmJnaHNjQWZv?=
+ =?big5?B?eCttaU4xY0ZrbmJnKzczNldBK21hTGc3cGpGVFZlc0NnM0JQYWVGNytjakE2STND?=
+ =?big5?B?N243VUhXMnRERnZNTWZaS0dFcEJPODZlS0RpTGZDV2hDL0cwdFlzaHNtZW04eTBD?=
+ =?big5?B?dGRMVTlMWC95ZXUyaFpjM09YVzlqelBQTGp6UURKUDdUQlU2T1RWZHBDZktpamYz?=
+ =?big5?B?Q0tLLzFaNmRySnE4YlhQUk9wVHZ3SmZ4dEhkQ01JTkFlUEpodEZnelNxZXNOV1FF?=
+ =?big5?B?ZUkrMUFHZGlqOSttL0hHcVZ3czhOZEE2ZFAwYVQxSDVLTUxYSmhIRXFxS2szRU9E?=
+ =?big5?B?UlRJSlBKOWNTZjZqeEx1Q0NmSFd6NFZXQmxFTHNYYXJlczRTTmZBRjhKZWtad2Ey?=
+ =?big5?B?ZmxZblBsTHA5MmcxTnlvc3VuUEZ3ZFRDU081SCt0SDc2T3hmZnNNQyt5U3kxUGsy?=
+ =?big5?B?UC9pVkdqRDZNcmtWSStRd3RpbkhUbkg4Ync4OWhkTHJaWTZUSS9wQ2lyWklKQzlX?=
+ =?big5?B?VHNMRVI0S0U0UDZycW9zUnZKME5tb3FFWFkxWGpmNFdZUW9sR2l2NnlxdSthTGFl?=
+ =?big5?B?MzZMbHM1MHU2WmlnMWVnZ0FkbXNmZEVscHcweGFadUtrYVFaS3R0MklVZ3YxNHhq?=
+ =?big5?B?ZUxWUm1HOTBKbVhvQ1Z1RVJNRHdUSXlvc3RpZUlBZTVNaDZMakhZbW5HU1hNVWFN?=
+ =?big5?B?bmd0aExEZ0Q5WUk1STFNK1NYaEVhQTM0LzVoWGZpUWFieGE1QnhjNm16QnFvR05J?=
+ =?big5?B?K2J6ekNhU1JMQVN2cmZzUC9SeFBNSFdXSWp5dkliQ1k4eWpiN2kremZyT29yT1lI?=
+ =?big5?B?eThPbU9FTkVZWWNyK3d5bVd6L2ZaQ2EyYTcyUldYVEcyZHBaMnA0SHl0UENuZi9K?=
+ =?big5?B?alBDRHFJazFldE53TVVWVXplK29ITHlidmMvb2tOS0g3eU9OMEFlT1Z4Qk5rdlFz?=
+ =?big5?B?V3FNdmc2bmJUUzZGdFdtZ1U1ME5LTVdORnZlZE1pZzRuelRLdWtqeDZnNlhJR0xm?=
+ =?big5?B?WFBjSWJYTzhmaHR5bHU0OFQ1N1NZUVExdmRzcnE1S0g0T1h1bkJaOGZ3K085NFc1?=
+ =?big5?B?aG4rd1pudEFkQm9QZGZDNTNGeTNvQT09?=
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,118 +164,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:3pYKCgCHATZH1ftqQgjLAA--.1640S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGr15KF4rtF18AFWkuw4fuFg_yoWrtr43pF
-	ZrKwsxKr1kGry0kFn7Aw4jva4I9wsYkFZ8GF15tryYvan8Kw18Ar93Kw1Fq3429Fs7Xa4j
-	va4jgw18CFWvqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvjb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_Jw0_GFylc2xS
-	Y4AK67AK6r45MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
-	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUgR
-	pPUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2r7WdojVwACs9
+X-Exchange-RoutingPolicyChecked:
+	JR6wd+jEhhZA9lVfeIzhbTZNA3gHvTydbfI0oMFhyGlAPqamGj9DcxEtNsWjbAO1yy+dEp8kaUGbydzdOONl1oDHO3HaDYG9Q+JEkGFW5SMqCDmoea7HtoVWpb4nMxXPCZN1WcUj73VTCTAJr0pxzEHTtjwNxjUVmg5vzpUU/CJplKN04fd7eP9rj1KmEtXX7I0P81L9KvzjNPMTr1kpSLqG5oK8/rt3yPohLPm5tsUwKCyQXcKVAfa6LfptQN4u7biyPxL2V3dyytlmhXdSCmdm9Y4cRHjcOMbzbT8eF/Im9VNO3yM0Tm5qVxd5XXAnrEhBPukdpdQSICuCDbpMEQ==
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SI2PR06MB5140.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6b783ce-f1f1-44e5-701e-08df44641645
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2026 04:34:37.0541
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KtBzHnB/wjract1hnBcNpwhVcrDxOr3HtrlTkFVWSJGeRE3/nuFfcDnF0zz82QEUaSHnnYul/AvP9b9VHSu8VNygLLlfM2cZ3cl4Cur6ddc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5965
 
-Hi all,
-
-3/3 says "5 of 9 cold PORs became 15 out of 15" and leaves it at that.  That
-is the only place the Q28 evidence has ever appeared upstream, and it does not
-let anyone judge it.  Here is the underlying data and, more importantly, the
-boundary of what it does and does not show.  No code change in this message;
-take it as material for the commit message if you think it belongs there.
-
-Board: Lenovo Y700 Gen4 (TB322FC), SM8750P, bonded dual-DSI panel
-"csot,pp8807hb1-1" (driver novatek,nt36536), 1904x3040, DSC, two DSI hosts.
-
-1. What actually fails, and how it is classified
-
-The failure is a cold boot (real power-on reset) that brings up no image.  It
-is ~50% of cold PORs, it is random per boot, and it clusters in time; it is
-independent of the kernel image - the same binary is good and then bad in
-neighbouring boots, and seven different kernel variants were tested against
-this.  Three distinguishable forms:
-
-  A. cardN exists, panel init fails.  Five dmesg lines, in order:
-       command DMA timeout: status=0x2200200
-       peer command DMA timeout: status=0x2200200
-       bonded command DMA failed: master=-110 peer=-110
-       sending dcs data ff 20 failed: -110
-       Failed to initialize panel: -5
-     followed by intf1/ctl 1 reset failure -22 and a vblank/frame-done storm.
-  B. no DRM card at all, with "DSI PLL(0) lock failed, status=0x00000000" at
-     about 0.86 s and a failed device link for panel@0.
-  C. dark panel with everything in the DRM state looking healthy: connector
-     connected, DPMS On, frame counter advancing, backlight non-zero, and the
-     DSI pclk held.  This one is the reason "no DMA timeout in dmesg" must not
-     be read as "display works".
-
-The only physical discriminator we found for C is the DSI interrupt counter:
-41 on a lit panel, 0 on a dark one, with identical DRM state.
-
-2. Why "reset the MDSS blocks" was picked
-
-Because in a bad boot the failure is not inside the DSI controller and a DSI
-host reset does not clear it.  Registers read from a live bad boot:
-STATUS0 = 0x20003 (engine and DMA busy), DSI interrupt count 0, PLL unlocked
-bit not set (the PLL is locked), and CLK_STATUS sitting at 0x1743/0x3743 with
-DYN_PCLK_ACTIVE never released, where a healthy boot shows 0x343 -> 0x743 ->
-0x343 around each command.  Repeated retries after that point fail with
-identical values, which is why a single bad boot costs the whole session.
-
-Against that, the change under review makes the display driver de-assert the
-MDSS block resets described in DT before anything is programmed, which puts
-the whole MDSS block into a known state before the first DCS command.
-
-3. The measurements
-
-Campaign of 23 real power-on resets, arms sampled alternately in the same
-session, identical kernel/config/ramdisk/dtb/cmdline except for the change:
-
-  base (no reset)                 9 boots: 4 good, 5 storm
-  base + MDSS block reset         5 boots: 5 good
-  base + block reset + DIGTOP    10 boots: 10 good
-  base + DIGTOP only              4 boots: 1 good, 3 storm
-
-Fisher exact, two-sided: block-reset+DIGTOP vs base p = 0.011; DIGTOP alone
-vs base p = 1.0 (no effect); the two arms containing the block reset merged,
-15/15 vs 4/9, p = 0.003.  So the block reset is the thing that does something;
-the DIGTOP/PLL-lock tweak does not, on its own, at all.
-
-Moving the same reset out of the clock driver's probe into the display driver
-(the shape of this series) then measured 5/5 good cold PORs.
-
-4. Two boundaries I do not want to paper over
-
-- The 15/15 figure is a merged group and it predates this series' shape.  It
-  measures "MDSS block resets are de-asserted by the display side early", not
-  literally patch 2/3 of v5.
-- The reset set that was measured on hardware is the three-entry set (core,
-  core_int2, rscc).  After sashiko's remark about 0xa000 v4/v5 dropped to two
-  entries, and the two-entry set has not been through a cold-boot sample yet,
-  nor has 0xa000 been varied on its own.  A paired cold-boot run of two-entry
-  vs three-entry is queued; until it completes, 3/3 stays worded as "not
-  repeated with this exact set" rather than as equivalent.
-
-5. What I would like to know
-
-Is this evidence useful for merging the series, or would you rather see it
-condensed into 2/3's commit message?  And separately: given that the failure
-is a cold-boot race that upstream cannot reproduce on any other board we know
-of, is a quirk-style "reset everything described in DT" acceptable here on its
-own merits, or does it need to be tied to a named hardware erratum to be
-mergeable?
-
-AI-assistance disclosure: this message was drafted with an LLM coding
-assistant; the author verified every number and register value above against
-his own logs and test records and takes responsibility for it.
-
-Thanks,
-Qianhui
-
+SGkgQW5kcmV3LA0KDQpUaGFuayB5b3UgZm9yIHlvdXIgcmVwbHkuDQoNCj4gPiA+ICsgIC0gaWY6
+DQo+ID4gPiArICAgICAgcHJvcGVydGllczoNCj4gPiA+ICsgICAgICAgIGNvbXBhdGlibGU6DQo+
+ID4gPiArICAgICAgICAgIGNvbnRhaW5zOg0KPiA+ID4gKyAgICAgICAgICAgIGNvbnN0OiBhc3Bl
+ZWQsYXN0MjcwMC1tYWMNCj4gPiA+ICsgICAgdGhlbjoNCj4gPiA+ICsgICAgICByZXF1aXJlZDoN
+Cj4gPiA+ICsgICAgICAgIC0gcGh5LW1vZGUNCj4gPg0KPiA+IFtTZXZlcml0eTogTWVkaXVtXQ0K
+PiA+IElzIHBoeS1tb2RlIHJlYWxseSBtYW5kYXRvcnkgZm9yIGV2ZXJ5IEFTVDI3MDAgTUFDIG5v
+ZGU/IFRoZSBiaW5kaW5nDQo+ID4gYWxzbyBkb2N1bWVudHMgdGhlIHVzZS1uY3NpIGJvb2xlYW4u
+IFRoYXQgbW9kZSBydW5zIHRoZSBOQy1TSSBzdGFjaw0KPiA+IG92ZXIgUk1JSSBpbnN0ZWFkIG9m
+IHRhbGtpbmcgdG8gYW4gTURJTyBQSFkuIFRoZSBmaXJzdCBleGFtcGxlIGluIHRoaXMNCj4gPiBm
+aWxlIHNldHMgdXNlLW5jc2kgYW5kIGhhcyBubyBwaHktbW9kZSBwcm9wZXJ0eSwgYW5kIHRoYXQg
+aXMgYSB2YWxpZA0KPiA+IHNldHVwIG9uIHRoZSBlYXJsaWVyIEFzcGVlZCBwYXJ0cy4NCj4gDQo+
+IFRoaXMgc2VlbXMgbGlrZSBhIHZhbGlkIHBvaW50LiBNYXliZSBtYWtlIGl0IGNvbmRpdGlvbmFs
+IGxpa2UgdGhlIGNvZGUsIGVpdGhlcg0KPiBwaHktbW9kZSwgb3IgdXNlLW5jc2kuIEJvdGggb3Ig
+bmVpdGhlciBpcyBpbnZhbGlkLg0KPiANCg0KQWdyZWVkLCB0aGFua3MgZm9yIGNhdGNoaW5nIHRo
+aXMuIEkgd2VudCBiYWNrIHRocm91Z2gNCmZ0Z21hYzEwMF9wcm9iZV9kdCgpIGFuZCBjb25maXJt
+ZWQgdGhlIHVzZS1uY3NpIHBhdGggbmV2ZXIgcmVhY2hlcw0KdGhlIHBoeS1tb2RlIGNoZWNrIGF0
+IGFsbCAtLSBpdCByZXR1cm5zIHZpYSBmdGdtYWMxMDBfcHJvYmVfbmNzaSgpDQpiZWZvcmUgZnRn
+bWFjMTAwX21paV9wcm9iZSgpICh3aGVyZSB0aGUgQVNUMjcwMCBwaHktbW9kZSByZXF1aXJlbWVu
+dA0KbGl2ZXMpIGlzIGV2ZXIgY2FsbGVkLiBTbyByZXF1aXJpbmcgcGh5LW1vZGUgdW5jb25kaXRp
+b25hbGx5IGZvcg0KZXZlcnkgQVNUMjcwMCBub2RlIHdhcyBpbmRlZWQgd3JvbmcsIGFuZCB0aGUg
+Zmlyc3QgZXhhbXBsZSBpbiB0aGlzDQpmaWxlICh1c2UtbmNzaSwgbm8gcGh5LW1vZGUpIHdhcyBj
+b3JyZWN0IGFzIHdyaXR0ZW4uDQoNCkknbGwgY2hhbmdlIHRoZSBiaW5kaW5nIHRvIHJlcXVpcmUg
+ZXhhY3RseSBvbmUgb2YgdGhlIHR3byBpbnN0ZWFkIG9mDQpwaHktbW9kZSBhbG9uZToNCg0KICAg
+IC0gaWY6DQogICAgICAgIHByb3BlcnRpZXM6DQogICAgICAgICAgY29tcGF0aWJsZToNCiAgICAg
+ICAgICAgIGNvbnRhaW5zOg0KICAgICAgICAgICAgICBjb25zdDogYXNwZWVkLGFzdDI3MDAtbWFj
+DQogICAgICB0aGVuOg0KICAgICAgICBvbmVPZjoNCiAgICAgICAgICAtIHJlcXVpcmVkOg0KICAg
+ICAgICAgICAgICAtIHBoeS1tb2RlDQogICAgICAgICAgLSByZXF1aXJlZDoNCiAgICAgICAgICAg
+ICAgLSB1c2UtbmNzaQ0KDQpvbmVPZiBoZXJlIG1lYW5zIGV4YWN0bHkgb25lIG9mIHBoeS1tb2Rl
+L3VzZS1uY3NpIG11c3QgYmUgcHJlc2VudCAtLQ0KYm90aCBvciBuZWl0aGVyIHdpbGwgZmFpbCB2
+YWxpZGF0aW9uLCBtYXRjaGluZyB3aGF0IHlvdSBkZXNjcmliZWQuDQoNCkknbGwgZm9sZCB0aGlz
+IGludG8gdGhlIGJpbmRpbmcgcGF0Y2ggZm9yIG5leHQgdmVyc2lvbi4NCg0KVGhhbmtzLA0KSmFj
+a3kNCg0K
