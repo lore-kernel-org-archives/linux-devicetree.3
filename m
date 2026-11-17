@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794909091;
-	b=g3gqu3U5kjKwQ5GliGBEkRPsg0bCyWYIX0qaNO0JtSSOKn21UP147GhRNaDtFmEVx/JJ
-	 Z+A4SCuceOAGS52C52PAUeoW49eWsXgJ9CiTK2IlVlgqqwKVQaEiG3E9D/aibFG93o/FM
-	 YkfsoPTjiKQP2dlPf7H01dezM38u31b4ZopfZLY/acDL2RXWd5oDQB2hufCQ+Bsm1XRXd
-	 izIU7CzBqcqcf+Ap4OBANw/t2No7KTatYOIX91ptYRtw62m9SkkBBC/rgkreF3fvvt4ot
-	 fI54uJQCAfW6fFWhkJu8pDsQfUUEJSvyZouGJm3TO3yOPhX1mXLzeV31UKu5nUV1b7Q==
+	t=1794909087;
+	b=UywQxBje0cvcddueHjTSwtB0exzdjWHxM/IkzZr9npZOdUCJ80ZsP/54jdptmB8HZeYz
+	 +eNMEYh9OvO4K3uCFgNVVTmld4ughEzmnolsDLOFtgSSf2e438xtO2pIhKNZl0rN7pois
+	 FzanX155Qy80jK1nQfOwG0/s5eQrnTHqXYjFZXm1ArNQRFV9o85Nn+k43saiC3MdWkIC2
+	 mz4i8Sms6LuiRwpq6gs6aIetOpbFsvyK0QJtAh5ScAJ1VkkWnxO9LgWDNIXYVWnjn7ObM
+	 kXWG0V+1f8oYJRCBArxWvvBsnyklNJfjN3g4qsISXQ7zmAEjkQABmitEEpYCQo+I4UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794909091;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794909087;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-Id:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=5S49agrrdRdFjaIYgnVtJdcSozvn6OBmzUxnGJiDdhs=;
-	b=Gpe9tioy04m6tqo4U0K+B1iZAVA6admYgDjRpuq9kfR/iGOSZ3iU7BHdyKr89ZT+vURy
-	 AGqE5+xu6ZbKKsBr5tFEM3B1mUJ1koZtXseXw6acp8VHV8ITydC2Eznrs8oqKjZoYYGA/
-	 0vE2VePiCcAwpmYKaYeqIWTTFrLYJvs4KIELyYOHcSn5xx3Tok9aoqiPgLl7Z2wlmpaVj
-	 +cF1Z5aeW+kiXUpfCxcOm+gM7NgYpw2rpJIHP09jj2znFjBAP2iZwJFRSRCfx6Rao91Br
-	 ZVo5ury+bs+Sp9s3g0bV7nwAucxyHssmXHqmNziRIJPR+TbdZFPVJizX4KItuT2MCsg==
+	bh=X5WYmjC+W1XLRGqsI2xwQZ9HsjRo/iUHSgzYnXKRgcw=;
+	b=iJ7/j3oIK4GjEsg7d2/ljddD+FOHfpmM9Bd/8g0ya17AQmtLrvPQvIjZfNTlGfz7SN2r
+	 KBCQ+8hqftAVWGqXJA/Pael1PdGbuIVC2NNH6G08JeBCJH10zmQ3qIHvhkWLmHU9/3pEa
+	 OfXilfFblZLgyfM0AI6/ehHADF9wZYMspMUBeou2lvbeMaCTwvEK2EWmvFsugaPxiGGUN
+	 cAa1l5YAJcgaMtSfO+Edi8p9c6/ClPPXsEozP2KpLEWA9EQIQKxw2zefbGCVg7BM0bf2P
+	 UjxDt5dty42YGmgi0pImCBkc18O/rattEcKmBtKnFwrCwxvfOIry8GRkXVfpgJwG6tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cjdns.fr;
 	spf=pass smtp.mailfrom=cjdns.fr;
-	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=wEpZzhuj;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=BE4h6mZx;
 	arc=none smtp.remote-ip=5.135.140.105
 Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E40EA606A32C;
-	Tue, 17 Nov 2026 09:51:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E40EA606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CA6606A336;
+	Tue, 17 Nov 2026 09:51:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82CA6606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=wEpZzhuj
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C2C69518E08;
-	Tue, 17 Nov 2026 10:51:27 +0100 (CET)
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=BE4h6mZx
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CDE815160AE;
+	Tue, 17 Nov 2026 10:51:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1794909089; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794909084; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=5S49agrrdRdFjaIYgnVtJdcSozvn6OBmzUxnGJiDdhs=;
-	b=wEpZzhuj3iekDn+lBtfOyDhd5oAfT0fFMv1LPRP9HqKLEtPjdhWOulGbBF8Kzq6YiQXbwW
-	YLZfpXkkzcsN/ibgvsPQKsWY18OVkXPX1aibmMASc7F+36te88ftUY+lUz30GJqVCF1m9f
-	vQgyoKGl6mt7Lfztpz167GSgWNTKjXRzmAd/toP8KR2LSwXorSYSUmBBab2lkpnoebDmjH
-	7C3tLOSA+Lt/TgkaVcu1NRTGi3aZc/XRxbw3U6hdfU6RtrwFgQYlWMrMWHec0SdYpgJ7zR
-	L9IQ8YV+QheqG/DkmtPTZSLa9kRcS4/yAkCGRUEzbwsxulOASX1z8XzFY05dCA==
+	bh=X5WYmjC+W1XLRGqsI2xwQZ9HsjRo/iUHSgzYnXKRgcw=;
+	b=BE4h6mZxBUQGaS1W4umNt1PDMiVNVaJ10i9Q+nW70iXoID864tmiePX/bjI8tR1G+0gMSt
+	3t+m8+2vSvrg5Xkeq/KVaqQf6Ws+FfgFox+yh0+7H1qxbhew1B49afE3817Rv8Py1PLaOj
+	vrWxRjTcREozaPAD0SX+kCaI7wAYHeqzIGR9/2pYn6T8HAohi10lEbMiFOJ46hOUFc3hzf
+	31noWA6rkUdRjWSTjKI/75Ac6rUO5ZfZxMjryPYAzeey/hcXTen5YVObomxv+JUYpapf0S
+	4AdnhdulauAem/r7TMQxU+sBF5b5umiVFFDGHXoGEx29B7ZasYbcHhwhXMZwsg==
 From: Caleb James DeLisle <cjd@cjdns.fr>
 To: linux-mips@vger.kernel.org
 Cc: conor+dt@kernel.org,
@@ -55,10 +55,11 @@ Cc: conor+dt@kernel.org,
 	robh@kernel.org,
 	tglx@kernel.org,
 	grandmaster@al2klimov.de,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH v12 4/5] clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
-Date: Tue, 17 Nov 2026 09:51:16 +0000
-Message-Id: <20261117095117.173316-5-cjd@cjdns.fr>
+	Caleb James DeLisle <cjd@cjdns.fr>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v12 1/5] dt-bindings: timer: econet: Update EN751627 for multi-IRQ
+Date: Tue, 17 Nov 2026 09:51:13 +0000
+Message-Id: <20261117095117.173316-2-cjd@cjdns.fr>
 In-Reply-To: <20261117095117.173316-1-cjd@cjdns.fr>
 References: <20261117095117.173316-1-cjd@cjdns.fr>
 X-Mailing-List: devicetree@vger.kernel.org
@@ -73,222 +74,87 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-EN751627 is based on the 1004Kc which uses a different interrupt number
-for each CPU timer. Support both this and the EN751221 which uses a
-single percpu interrupt.
-
-CPU hotplug path is intentionally unsupported because this CPU timer
-is part of a legacy MIPS CPU which never had support for it.
+This hardware is found in the EN751221 SoC family as well as the
+EN751627. The former uses a percpu IRQ for all timers while the
+latter uses an individual IRQ number per timer.
 
 Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- drivers/clocksource/timer-econet-en751221.c | 131 ++++++++++++++++----
- 1 file changed, 108 insertions(+), 23 deletions(-)
+ .../bindings/timer/econet,en751221-timer.yaml | 31 ++++++++++++-------
+ 1 file changed, 20 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
-index f2c4c1ee0a56..edb3db3125ce 100644
---- a/drivers/clocksource/timer-econet-en751221.c
-+++ b/drivers/clocksource/timer-econet-en751221.c
-@@ -24,7 +24,9 @@
+diff --git a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
+index c1e7c2b6afde..ac25785ecfdf 100644
+--- a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
++++ b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
+@@ -12,24 +12,23 @@ maintainers:
+ description:
+   The EcoNet High Precision Timer (HPT) is a timer peripheral found in various
+   EcoNet SoCs, including the EN751221 and EN751627 families. It provides per-VPE
+-  count/compare registers and a per-CPU control register, with a single interrupt
+-  line using a percpu-devid interrupt mechanism.
++  count/compare registers and a per-CPU control register. On EN751221 it uses a
++  single interrupt line using a percpu-devid interrupt mechanism, and on
++  EN751627 it uses an interrupt per VPE.
  
- static struct {
- 	void __iomem	*membase[ECONET_NUM_BLOCKS];
--	int		irq;
-+	int		*irqs;
-+	int		num_irqs;
-+	bool		is_percpu;
- 	u32		freq_hz;
- } econet_timer __ro_after_init;
+ properties:
+   compatible:
+-    oneOf:
+-      - const: econet,en751221-timer
+-      - items:
+-          - const: econet,en751627-timer
+-          - const: econet,en751221-timer
++    enum:
++      - econet,en751221-timer
++      - econet,en751627-timer
  
-@@ -102,6 +104,25 @@ static int cevt_init_cpu(uint cpu)
- 	struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, cpu);
- 	u32 reg;
+   reg:
+     minItems: 1
+     maxItems: 2
  
-+	if (!reg_ctl(cpu)) {
-+		pr_err("%s: missing address resource for CPU %d\n", cd->name,
-+		       cpu);
-+		return -EINVAL;
-+	}
-+	if (cd->irq <= 0) {
-+		pr_err("%s: missing IRQ for CPU %d\n", cd->name, cpu);
-+		return -EINVAL;
-+	}
-+	if (!econet_timer.is_percpu) {
-+		int ret = irq_force_affinity(cd->irq, cpumask_of(cpu));
-+
-+		if (ret) {
-+			pr_err("%s: failed to set IRQ affinity to CPU %d: %pe\n",
-+			       cd->name, cpu, ERR_PTR(ret));
-+			return ret;
-+		}
-+	}
-+
- 	pr_debug("%s: Setting up clockevent for CPU %d\n", cd->name, cpu);
+   interrupts:
+-    maxItems: 1
+-    description: A percpu-devid timer interrupt shared across CPUs.
++    minItems: 1
++    maxItems: 4
  
- 	reg = ioread32(reg_ctl(cpu)) | ctl_bit_enabled(cpu);
-@@ -110,7 +131,10 @@ static int cevt_init_cpu(uint cpu)
- 	clockevents_config_and_register(cd, econet_timer.freq_hz,
- 					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
+   clocks:
+     maxItems: 1
+@@ -52,21 +51,31 @@ allOf:
+           items:
+             - description: VPE timers 0 and 1
+             - description: VPE timers 2 and 3
++        interrupts:
++          description: An interrupt for each timer (one per VPE)
++          minItems: 4
+     else:
+       properties:
+         reg:
+           items:
+             - description: VPE timers 0 and 1
++        interrupts:
++          description: A percpu-devid timer interrupt shared across timers
++          maxItems: 1
  
--	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-+	if (econet_timer.is_percpu)
-+		enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-+	else
-+		enable_irq(cd->irq);
+ additionalProperties: false
  
- 	return 0;
- }
-@@ -141,19 +165,52 @@ static void __init cevt_init(struct device_node *np)
- 					  CLOCK_EVT_FEAT_C3STOP |
- 					  CLOCK_EVT_FEAT_PERCPU;
- 		cd->set_next_event	= cevt_set_next_event;
--		cd->irq			= econet_timer.irq;
- 		cd->cpumask		= cpumask_of(i);
- 		cd->name		= np->name;
- 
--		cevt_dev_init(i);
-+		/*
-+		 * If not enough IRQs were specified for the CPUs, leave IRQ -1
-+		 * and error in cevt_init_cpu
-+		 */
-+		if (econet_timer.is_percpu)
-+			cd->irq = econet_timer.irqs[0];
-+		else if (i < econet_timer.num_irqs)
-+			cd->irq = econet_timer.irqs[i];
-+		else
-+			cd->irq = -1;
-+
-+		/*
-+		 * Tolerate CPUs that could exist but don't.
-+		 * Fail in cevt_init_cpu when they try to start.
-+		 */
-+		if (reg_ctl(i) && cd->irq > -1)
-+			cevt_dev_init(i);
- 	}
- }
- 
- static int __init timer_init(struct device_node *np)
- {
--	int num_blocks = DIV_ROUND_UP(num_possible_cpus(), 2);
-+	int num_blocks = of_address_count(np);
-+	int num_irqs = of_irq_count(np);
- 	struct clk *clk;
--	int ret;
-+	int ret, i;
-+
-+	econet_timer.is_percpu = of_device_is_compatible(np, "econet,en751221-timer");
-+
-+	if (econet_timer.is_percpu && num_irqs != 1) {
-+		pr_err("%pOFn: EN751221 clock must have 1 IRQ not %d\n", np,
-+		       num_irqs);
-+		return -EINVAL;
-+	}
-+	if (num_blocks > ARRAY_SIZE(econet_timer.membase)) {
-+		pr_err("%pOFn: Too many regs: max %zd got %d\n", np,
-+		       ARRAY_SIZE(econet_timer.membase), num_blocks);
-+		return -EINVAL;
-+	}
-+	if (num_blocks == 0) {
-+		pr_err("%pOFn: At least one reg block must be provided\n", np);
-+		return -EINVAL;
-+	}
- 
- 	clk = of_clk_get(np, 0);
- 	if (IS_ERR(clk)) {
-@@ -164,7 +221,13 @@ static int __init timer_init(struct device_node *np)
- 	econet_timer.freq_hz = clk_get_rate(clk);
- 	clk_put(clk);
- 
--	for (int i = 0; i < num_blocks; i++) {
-+	econet_timer.num_irqs = num_irqs;
-+	econet_timer.irqs = kcalloc(num_irqs, sizeof(*econet_timer.irqs),
-+				    GFP_KERNEL);
-+	if (!econet_timer.irqs)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < num_blocks; i++) {
- 		econet_timer.membase[i] = of_iomap(np, i);
- 		if (!econet_timer.membase[i]) {
- 			pr_err("%pOFn: failed to map register [%d]\n", np, i);
-@@ -173,22 +236,32 @@ static int __init timer_init(struct device_node *np)
- 		}
- 	}
- 
--	econet_timer.irq = irq_of_parse_and_map(np, 0);
--	if (econet_timer.irq <= 0) {
--		pr_err("%pOFn: irq_of_parse_and_map failed\n", np);
--		ret = -EINVAL;
--		goto out_membase;
-+	for (i = 0; i < num_irqs; i++) {
-+		econet_timer.irqs[i] = irq_of_parse_and_map(np, i);
-+		if (econet_timer.irqs[i] <= 0) {
-+			pr_err("%pOFn: failed mapping irq %d\n", np, i);
-+			ret = -EINVAL;
-+			goto out_irq_mapping;
-+		}
- 	}
- 
--	irq_set_status_flags(econet_timer.irq, IRQ_NOAUTOEN);
--
--	ret = request_percpu_irq(econet_timer.irq, cevt_interrupt, np->name,
--				 &econet_timer_pcpu);
--
--	if (ret < 0) {
--		pr_err("%pOFn: IRQ %d setup failed (%d)\n", np,
--		       econet_timer.irq, ret);
--		goto out_irq_mapping;
-+	for (i = 0; i < num_irqs; i++) {
-+		irq_set_status_flags(econet_timer.irqs[i], IRQ_NOAUTOEN);
-+
-+		if (econet_timer.is_percpu)
-+			ret = request_percpu_irq(econet_timer.irqs[i],
-+						 cevt_interrupt, np->name,
-+						 &econet_timer_pcpu);
-+		else
-+			ret = request_irq(econet_timer.irqs[i], cevt_interrupt,
-+					  IRQF_TIMER | IRQF_NOBALANCING,
-+					  np->name, NULL);
-+
-+		if (ret < 0) {
-+			pr_err("%pOFn: IRQ %d setup failed: %pe\n", np,
-+			       i, ERR_PTR(ret));
-+			goto out_irq_free;
-+		}
- 	}
- 
- 	cevt_init(np);
-@@ -220,9 +293,17 @@ static int __init timer_init(struct device_node *np)
- 	return 0;
- 
- out_irq_free:
--	free_percpu_irq(econet_timer.irq, &econet_timer_pcpu);
-+	while (--i >= 0) {
-+		if (econet_timer.is_percpu)
-+			free_percpu_irq(econet_timer.irqs[i], &econet_timer_pcpu);
-+		else
-+			free_irq(econet_timer.irqs[i], NULL);
-+	}
- out_irq_mapping:
--	irq_dispose_mapping(econet_timer.irq);
-+	for (i = 0; i < num_irqs; i++) {
-+		if (econet_timer.irqs[i] > 0)
-+			irq_dispose_mapping(econet_timer.irqs[i]);
-+	}
- out_membase:
- 	for (int i = 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
- 		if (econet_timer.membase[i]) {
-@@ -231,7 +312,11 @@ static int __init timer_init(struct device_node *np)
- 		}
- 	}
- 
-+	kfree(econet_timer.irqs);
-+	econet_timer.irqs = NULL;
-+
- 	return ret;
- }
- 
- TIMER_OF_DECLARE(econet_timer_hpt, "econet,en751221-timer", timer_init);
-+TIMER_OF_DECLARE(econet_timer_en751627, "econet,en751627-timer", timer_init);
+ examples:
+   - |
++    #include <dt-bindings/interrupt-controller/mips-gic.h>
+     timer@1fbf0400 {
+-        compatible = "econet,en751627-timer", "econet,en751221-timer";
++        compatible = "econet,en751627-timer";
+         reg = <0x1fbf0400 0x100>, <0x1fbe0000 0x100>;
+         interrupt-parent = <&intc>;
+-        interrupts = <30>;
++        interrupts = <GIC_SHARED 30 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SHARED 29 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SHARED 37 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SHARED 36 IRQ_TYPE_LEVEL_HIGH>;
+         clocks = <&hpt_clock>;
+     };
+   - |
 -- 
 2.39.5
 
