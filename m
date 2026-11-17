@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919200;
-	b=inULirbXH5tJfuofnj85W+W7SJEYNeIWCCkYu2xakTcuWmUea7e2K43Rs4iQIdFNweRw
-	 JqzNPzxUrwnhk4ftMES1XT+0mt65u6LRXWKqtFawdOi92LN1cBQrJcar1xNPKj3RvBskO
-	 Ty5jbNGgWs+3OjoSX+TjRxZHWgY4fbxaeOZXLhE/jU/eEkv1v6Nxu/LAg3+m1L/9LKHRs
-	 Ka/DIFnVmbaqUf06onRnS0o2exI8jmEiMPNLqa+b4FTeS3URqzu2B2MANEBl1Gz9weKo/
-	 qTzxmcZ78sJwrcezO8fPdh0IWLck6rtfQULGfi8qwu0A6le5gI+qpLtpR1zzOnVLzHA==
+	t=1794919201;
+	b=BQPRv3DW6m5Vucyt8yRrKx5Ng87dvjut+d4xaqmjsiYl4JhfLpDeVWbs4KlIDt8XROaR
+	 IedqV434uV6Xqbu5xOg5PmM3P3BAvzdNsnhIN4w4f05TXWl57jqIFzExe//pczQvhBa6C
+	 UtSx40mOFnN15Cn9nsmI0YctFOPX1rZJT3dQyKEi6EOOJ5PDZ5Z2vL4+DHYhBldYllgHF
+	 vHgVCXHLOD/V0jLIGuLyDPXLLW2TWAhbQwBLMFtPMhz39q4ZhQo+z5A88hk/zqPfJ0Bvw
+	 sCkBaQ2CcGkC+TgJXVt6PQVvLdqpaMb+q5pnzxFkslBpR0FE+Qy6vbSwtmBy3m37tzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919200;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919201;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=qFNx2PFwju3GpZX8sb85V+O1VlouegAUrn4ULDGVae0=;
-	b=IoqTNJl4hgnKMs0mlBDkYlEuZ0aq9gUL0hRtjdeDsQ3cupEzLKNONNOOTb9hCVZctmZL
-	 Iy/tKRhgELscpCswBlD5rtbk+1yWcK1Ow70bp9+E+hSY2OZ5E2FJcZLG3uPDRM/HJZ8SW
-	 PjAlyBZnlzIGnstimohZTbOIp81yLXcWRzo6+Rp2H1l3EKUbnXc4+yewvEwUU2+KD2Jnr
-	 6thy9Lg1smn48X4N/4/WMaP7IoPeJ9Gl8/rOri7K3G6xB8ZFhn/pSDY7yuPDhP3euLBfD
-	 cpJCv4lAK3Dfc3USRf+3ZKA+wJZZCXzoQvuMoIliF+wGeIlyhzfMoYbgkWTeeP1VT/w==
+	bh=vjrAJfQ30bNb0haiNW552/JsaDvfxHWTHWoJPW/T5QY=;
+	b=v2J9z5Vp8Pucuk6ESqBBAed8qTr6v1KaDLQ2tJyKDcUtIBev4UCPNabbqDjq0c34JHbu
+	 2zF0I3ZSYnx7M1h3ldTyEMtTM7AQxJ0Vo9W6rWHlX12HtxCjmEWX265URA+TzI80zHyUn
+	 tOL1i3W8SIPqqZgv/2sj6tVHWytve9j9zrgvbSrpOCIM7vu8f6SpmQved8c8I+hMdwPkk
+	 RjroqsiSv99i7FPA+D7Y+NeP/2BN5wUPcAxcgCBjUNDC+rYqJjf6f0mo7xgQ8UGt4zcRz
+	 Cs5hQp8xto3XlvvdksVPwY+lz0tKYEaIlvlZkAykJmyrJZmPcZVg+DW4Rtdm8lYCFPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="V/lyBsh6";
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=amuFs9ok;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8DCF60A5BE8
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 12:39:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8DCF60A5BE8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3405760A6F45
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 12:40:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3405760A6F45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V/lyBsh6
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4b467581b98so42489945e9.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 04:39:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=amuFs9ok
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso52102435e9.1
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 04:40:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794919198; x=1795523998; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794919199; x=1795523999; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qFNx2PFwju3GpZX8sb85V+O1VlouegAUrn4ULDGVae0=;
-        b=V/lyBsh6gxkoHD6nVXKA0TPVLKWRTocRRXjqbnr2UjPo3cTBWHTO1g+x2t0GJeWYtf
-         OU6mnapdKuQQkEYZXdAa480Ab04nrv2nsuotmGGR/B8AaB1BF3P0Tvuwvf1I/bmAkAQ5
-         knX0u9WEflKM814SXPtCWZ2DIYNtcp696loqmMdM4PwxMnhhneNpIFF/1ZO24hEtBmWh
-         BxQ5oBDjpZihX2IPVo/C+sdINcMhL8oFFagr9WxGoMB2Pzlz0En+6QEp/TGmpR7Tu35n
-         JwAzYpk0Au5oKmDb607M7ruAzarlKLI0jrfnU4ljGPXNcGpB3phlNdF9y/OkaGEEGfw2
-         eP0A==
+        bh=vjrAJfQ30bNb0haiNW552/JsaDvfxHWTHWoJPW/T5QY=;
+        b=amuFs9okLI2wRGNauxrep+gGsL+WgJninSyaPDOkEbfMWHi10AqUav2FKNgAwERcf8
+         V7IB6M42D0ens0gIQNIPkVtXA+GlgitgDE/T7rM6Dlc97u7gzS4hyS4gFH6X8HoHIKB3
+         Y0ExhX0hVl9YGII2y2SZVK/0Z81ZNZ7/S/1DAXzPo4mmNwD02YDsVjM7OXvof6xjax9b
+         RxNowgKMcyVGzB24AobXPCvssYOu/F/FgK/lg8M5j/hPa7llwNTv73eKS71OEYgmdOjh
+         6fYLD9cmVDCn/h8rw7RPMmeo+yAV7i0mpGYKAXXAHZMV+EpEJqIPNadAlkBDgh5j5J4f
+         Vgxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794919198; x=1795523998;
+        d=1e100.net; s=20260707; t=1794919199; x=1795523999;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qFNx2PFwju3GpZX8sb85V+O1VlouegAUrn4ULDGVae0=;
-        b=uAFCmYGeYUCxMgdFNVRkJN5x0pQtjjjG83nhR/D+PT83Rg3e9ihu7fRzHJwCl9GRBM
-         s1eW21Rq+Dvdge9MjJp7UANoYS41t14K3gDlOtxvCw8IMen8TCHyociu018cEmocZQFc
-         /TIspBCk06cfK08c3MyCcLGsPpRsB6Ah8SahBYe1yrn4N5Uf5FL1Uezj8lVHN2dQpcke
-         9jkgaj0jPz4ReqaY+t0tai3F4M+/AEedUcWkLo2vr4wWk5JJ4YgTaMMS2yxwmZDlhpIk
-         cFgeA9+CnzuDZsVZCx24uRMMEacIC2J7h9mX7oe574jjFwkisdCqrHWtu+4UH7WSsuUO
-         JruA==
-X-Gm-Message-State: APuU4Z+tO83H8YZlV+ZV+O8oQb4f+1SI5SwbQUfth1sYyFDHiFJ2HpzL
-	DxvutMvNjqH2BQKSx0tr3VNuqrPdYMCh4QXwmejNfboipMmlqoA8ev/4oImZ8IsIFsJsrw==
-X-Gm-Gg: AYBFou2ay903Fb8HnMG/rOZK2F8+zwYGdp/wU7x4jLrnRs5Gp87Zi1l5auDf1c8PMc3
-	dpcBRPLf9Rl/1cRXJCTkbtQeZYLYSuVfqbnmnes/OzkfYB25h2HTY8ce1I+H0fJR7PeXIqd35Sj
-	lExvrJ3XS88F1J6leVcKPWNzS/0TQHKNMkZcEo9Ke49OPI7vmvwaPShpaXbTIchjt79sDgLyeuW
-	zYQcqf8hTxZd/jiGxsH26t4yHJK0ekFUYI1dPxwfEXOJzgfm4RFUQRaYddMFNlsn4po4yPWprud
-	nmlcuE64e+qbs2awh4dnc/tJqOF7ARSk/ag4q15xTv32KD95lh1Jzy6XNzHbdabfJRUAW52XsBt
-	k96P7tIKUd8DiiKG8RVkt1HipgfgV36+zZw0ml4nwg0fRVo3voobgMQalugRjdv/AKQ5uK23bAk
-	LuAnMxxoHGRTab51k2QOdSRqv5lWlsx7lqClW80LGzH+UtiLf7AIkQPfuDjOeQw7l1jfCvN9hjz
-	0JBhEpuOHtTO/t0Xq/2DM8crxZF3eIbY/xQhRu+4y3OrGN6WNX3yTRiH3xC2bczZF1p5SHXMQVZ
-	h06CmiL2nGZ+MXyK5CEJwFqeEiKoBvu0ohJGiwz3Tqcim0aVUtIZSiraqjlyTGjSVvbxLA==
-X-Received: by 2002:a05:600c:354a:b0:4a2:18d4:f9e0 with SMTP id 5b1f17b1804b1-4bb55abaedcmr286510265e9.25.1794919198290;
-        Tue, 17 Nov 2026 04:39:58 -0800 (PST)
+        bh=vjrAJfQ30bNb0haiNW552/JsaDvfxHWTHWoJPW/T5QY=;
+        b=oXslf78pE7xfVw5hyY9zmaArHPcIx95OLvu8VVfHvQv204qf9c/+S6grNz7jOnHLcM
+         ifDd4R9umu6Kbq6tNkWPmhJO+Mw5zTIvmazYD7yTxC6TTIEqcOOYjhj8uxLna7wxPIDt
+         mg7q8hl4sDNGovqRZzMU12THwviQjPUNJXgAFkI6aCWBInfP8RMBbyPHmyo93lwuTHe4
+         aW+1f7/NDS74dEmBWGBkIAWvwYhYmSf1S6uqmH5Dn/hGzM4QOY3cmjK9oZapn6OJH5tv
+         kY2ZCTNcD0mLgFaa9qMe2jZ/MIuWsp6GroZatlCPCrzXAUriLJ3QnoehIixfW0Lxig5V
+         VjOw==
+X-Gm-Message-State: APuU4Z83A2xh+zRAp3WDH3U4Y2eBrC1KFWNlrxsX+HWpkmOdpqB63ur+
+	rA/8c5HtzW44PzFP5bihOVjKpG5PjCPU628duogIeTCTwoOmq5cvGqib
+X-Gm-Gg: AYBFou3tSsdE1jS2L3+mp6nkYIQDx1GHbqpr8TxmLPFob/uK8XQwZbvnak54rZwvWK4
+	sOBMZnSd6EhxUqYv2481i8Do8/u73z38Ty3+mU/C4Y6MEKcv13OvGtoYo+ScgNcMoctCCQs7TPJ
+	tAeewjSpgF5hakTIclirfVOhQ91LilXAofdVKKSr95LR7hR6lDdqmhMI7TTy2XT1VHessztqPF+
+	5G2hBzpxMrgfHwnxPi0dE79rwh3yXHX8SVieXiuvasQdX3dWV39wOaYh3hORqJvImeg6N0tzIDx
+	4v/gSL7kunshl4zASa56WHXqef29L+oVOt4PrrV0DEWk2M8ehbztEWNe9ivlPNx2S+Yoyl3A/In
+	WaJSJ+IvWcPNNhR8PtYT/OamVEdcdqphRCrMN03C5MeOdPk5bMdDP/Fa4yGGkbgGxJTqmlZSByf
+	RkIRepX0LXv/0sp/ra8qdG/cjpZ8/R44omD0qHnpiJ+JFajxE9M8H+qblhk+Zo1bvDSm6c/+yHz
+	dB4anz9Irt++o1fi50U4NI91iokrFJUERN2HwOoOT5pjLIq7Xi9qWuIvWQn9z05G51/zRQun07t
+	cniHq5MQYZSWlXVa98NZmRXy3vRhYoAp6wm1NqSKzpOQ2ALvUVf0GeoHJOVWasYB0wbq0w==
+X-Received: by 2002:a05:600c:4e45:b0:4bb:56bb:1196 with SMTP id 5b1f17b1804b1-4bb56bb49f3mr279082685e9.23.1794919199526;
+        Tue, 17 Nov 2026 04:39:59 -0800 (PST)
 Received: from DESKTOP-BJ3EVC4.lan (94-21-223-203.pool.digikabel.hu. [94.21.223.203])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783f8154sm71474905e9.4.2026.11.17.04.39.57
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783f8154sm71474905e9.4.2026.11.17.04.39.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 04:39:57 -0800 (PST)
+        Tue, 17 Nov 2026 04:39:59 -0800 (PST)
 From: rofikkerneldev <rofikcoga@gmail.com>
 To: linux-arm-msm@vger.kernel.org
 Cc: devicetree@vger.kernel.org,
@@ -91,9 +91,9 @@ Cc: devicetree@vger.kernel.org,
 	Neil Armstrong <neil.armstrong@linaro.org>,
 	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	rofikkerneldev <rofikcoga@gmail.com>
-Subject: [PATCH v1 09/11] arm64: dts: qcom: sm8250-lge-timelm: add SW42902 touchscreen
-Date: Tue, 17 Nov 2026 13:39:44 +0100
-Message-Id: <20261117123946.668557-10-rofikcoga@gmail.com>
+Subject: [PATCH v1 10/11] arm64: dts: qcom: sm8250-lge-timelm: enable USB Type-C
+Date: Tue, 17 Nov 2026 13:39:45 +0100
+Message-Id: <20261117123946.668557-11-rofikcoga@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261117123946.668557-1-rofikcoga@gmail.com>
 References: <20261117123946.668557-1-rofikcoga@gmail.com>
@@ -108,58 +108,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Describe the SW42902 on GENI I2C13 with its interrupt, reset,
-power-enable GPIOs, pinctrl, and native 1080x2460 touch area.
+Enable the PM8150B Type-C controller as a sink-only port. Keep the
+primary DWC3 controller in peripheral mode for now; host mode and VBUS
+sourcing can be enabled after OTG power delivery is validated.
 
 Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
 ---
- .../arm64/boot/dts/qcom/sm8250-lge-timelm.dts | 36 +++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
-index fca48472f5dfe..a094aa81ad225 100644
+index a094aa81ad225..6b57c658cf918 100644
 --- a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
 +++ b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
-@@ -596,3 +596,39 @@ &mdss_dsi0_phy {
- 	phy-type = <PHY_TYPE_DPHY>;
- 	status = "okay";
+@@ -535,6 +535,24 @@ &sdhc_2 {
+ 	no-mmc;
  };
-+
-+&i2c13 {
-+	clock-frequency = <400000>;
+ 
++&pm8150b_typec {
 +	status = "okay";
 +
-+	touchscreen@28 {
-+		compatible = "lg,sw42902";
-+		reg = <0x28>;
++	vdd-pdphy-supply = <&vreg_l2a_3p1>;
 +
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&touch_reset_default &touch_irq_default>;
-+		interrupt-parent = <&tlmm>;
-+		interrupts = <39 IRQ_TYPE_LEVEL_LOW>;
-+		reset-gpios = <&tlmm 38 GPIO_ACTIVE_LOW>;
-+		vcl-gpios = <&tlmm 67 GPIO_ACTIVE_HIGH>;
-+		vdd-gpios = <&tlmm 68 GPIO_ACTIVE_HIGH>;
-+		touchscreen-size-x = <1080>;
-+		touchscreen-size-y = <2460>;
++	connector {
++		compatible = "usb-c-connector";
++
++		power-role = "sink";
++		data-role = "device";
++		self-powered;
++
++		op-sink-microwatt = <15000000>;
++		sink-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)
++			     PDO_BATT(5000, 9000, 15000)>;
 +	};
 +};
 +
-+&tlmm {
-+	touch_reset_default: touch-reset-default-state {
-+		pins = "gpio38";
-+		function = "gpio";
-+		drive-strength = <6>;
-+		bias-pull-up;
-+	};
-+
-+	touch_irq_default: touch-irq-default-state {
-+		pins = "gpio39";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+};
+ &usb_1 {
+ 	status = "okay";
+ };
 -- 
 2.39.5
 
