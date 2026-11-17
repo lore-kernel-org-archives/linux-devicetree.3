@@ -1,71 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794888472;
-	b=uH+oSR7eSLwqFijQjgrbvfXtIVD5uUW434+ZHKkoLP4mBKs2/eaPq0Tm+Ibg+8UjpLen
-	 0jonOmbgcUj0o0yYBNjCBVPiLQkeanSbVc2Bjybf9PYQtb42VjbQ9vFlBy7SV1Nnt6gST
-	 EbTzd9+TEc1G0UdTKCPPKiMPPLc3/a3LT/0kcG85Ix66zeCxY445eCnp/1ycVaEplZOnH
-	 wcVez2QmcGT/yG/wy7XBSsh65A8HCYDyNbjMJ3O5RPI8atUXsGIEdJvPMlkB+W8DwDHRk
-	 K5q3f5Kz2FxmQgzfbcdRfSNkVSoWt+oDlFlzfopCMaFxf415CSd0wgH2z3X6cK3GbNQ==
+	t=1794888861;
+	b=HvzCgOhPvKcNItWuC/0K2+gjUYf6c0xWnaqwb7E5Hk/UpGGc4OsOq87W6E7Vp+6rO3lH
+	 d1y8UIDIOKwyKL6gdk8M7nFqskUR9gPEcvPV1BozZTGI8Uo7M+7qhHmanSVzKh3vtYuaC
+	 s9Q7Gs379p6R19nFOS5mvfW2psqGIWnncyC0Dray8gFrjMRYmnIz05hdGOfULkgUYKdUI
+	 5UKvSED4BvgY973Viyn9FQj3PLymteGRZaewVSmLv9pUsLbxgjqTpA4rl1dSjz2wNkd5u
+	 x6eSKW536WoodD2LU4IWHqxpr2LmdQ12gMGnipXnfWzrmGzWBzD0mqrK8YVJbF7etaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794888472;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=vazntSqnmHMdNlbcyg8Tr4Nzw6bRT2l3Puo42bhlvGI=;
-	b=tYecGR+xLqxA8uH6pKaSnNMIT7q9V2Xp2efBj6TJYWLA8tX9fUwtgB8vSHH0Zsg5WQXq
-	 u5JrqiEuyYRLQ4w5iYu4DY9n9zWJCKD0wFoEoC+APXwPDT4FwSG/LZKRaFojinxMdJFoo
-	 Qvbdj51p2QnE23mx/SesqJ65lt1XeJZisxCowiH9zuKnjDfvqT2tYY05FBqeRVC8RDix5
-	 R0dYXOaQXqIESuK1cf3ZloGjPw2K8s/mgkgp2Vkr04yylc1PPhdkpLgSi2bZiCyF23PHI
-	 v+6FUB3sOcPIGFK7u2HlKDGTJkEP1Bd99z8qi/yzdSgJxpPDkO/5wnmSDBLbGmsKs8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794888861;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=yU9/aoF+hdGK0FL+ZZnBWAJml9c3OG8hkZh51TRHELE=;
+	b=r7+bvfrpWM7Bjmgt/hiU3ZWYAR+VY5oGNSmFEwyFVKlSYCPIW2oiR7wardu58nd7liVq
+	 WpUAaimX5iRFzr5xEcuAQ681S6D2VShMRzDV/xED0UWcHaExb6C3lndTZyoZB70z1DH9I
+	 1IqM6M/Rut0KhlHHmHSZEQeAa5JGpHaVEsNoqo1ApXnMRRsvuikL16b4MfM6YQXb2oDCV
+	 fsnTLQfPBVzXIPTf3O3gQbTblvbmiqTKJx78Ji0yhkzjuW5dZYn+PPpa9nHccYr/2ZN0Q
+	 3o2IUn9pLKWPQ+cw+dCgHRQcTnbcKjrAnw/PCWaxQf0Mm+49IFIH0pgt3bsl1VKVgAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=VXdXWsdr;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4BbxV9B;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A502F606A8A3;
-	Tue, 17 Nov 2026 04:07:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A502F606A8A3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D889606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 04:14:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=VXdXWsdr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1794888468;
-	bh=vazntSqnmHMdNlbcyg8Tr4Nzw6bRT2l3Puo42bhlvGI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VXdXWsdrqLTVaaxEUwgcYTPd+UgQvnBmt6a6nFyOC48XNHWvfJ6j/Sk3CDaFPEFra
-	 8Vq3UUrYuPK4FnxMU1hXJjjJ2izX87eumRdq7EYnLL1OYHx4s4ybMe0FzbwrhHc8uB
-	 k1YBASllLacyd905ECMp1wOaE5uG78uz64mkDOuQxp6PiAcv3aA6apvqUfmVWdEvQL
-	 cHesPN0CdJHxsQLHEYiSKQBwVFsXBOuhcTv0f6WFQH+wPGzUR1jVchCY+1O204T7Q2
-	 z5gE6CSg2GD0hwz80obR0hgw8do10NlqvyPbglljy06j100cM60GJNoLrTUtEHUvRD
-	 0Lzm0+HspRDPw==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jTB5w4f91z4wT7; Tue, 17 Nov 2026 15:07:48 +1100 (AEDT)
-Date: Tue, 17 Nov 2026 15:07:45 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Douglas Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Julius Werner <jwerner@chromium.org>
-Subject: Re: [PATCH v4 08/14] libfdt: Speed up fdt_find_string_len_() with
- memchr()
-Message-ID: <avvTEIZQZwra3Zra@gractus.seuss>
-References: <20261116205320.1621386-1-dianders@chromium.org>
- <20261116205320.1621386-9-dianders@chromium.org>
- <avvRY-nTstFbvTpF@gractus.seuss>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4BbxV9B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C4A1F000C4;
+	Tue, 17 Nov 2026 04:14:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794888860;
+	bh=yU9/aoF+hdGK0FL+ZZnBWAJml9c3OG8hkZh51TRHELE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=a4BbxV9BTw0FkWiZGK9bdlFSmhKPH+xhVD9+ZuBLVJrV6mkYBeZNQy4UWup5yi0pW
+	 uSq+jA/WyWk/2vqZHdSaAzkkbPwEODWw2CLQS9wr04Vio0YoSnnXSXTB4JNmptW5zD
+	 Ar/u1VqOFL/QN8j3nghoqzOyOuQbuFkq8Fk0Q3dYKqdSQ3tSJ0mroRQ/dx7mgh0kYo
+	 M5/0Jrm5JybLLSrhOI9qbl75hDVDdfeGuH7xXZVDowksbw49jPCEkl9PSR3akVm48V
+	 vlbe0joVd8UNlOGw7IAIYL+UCFelRhsWNjso9aBCE4EF3DOIu4MWn57O5VfdPfCcWl
+	 Py+J683ViA5Gw==
+Message-ID: <sashiko-outbox-218180@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 14/14] media: mediatek: decoder: support av1 extend
+ vsi
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261117032950.1425556-15-kyrie.wu@mediatek.com>
+References: <20261117032950.1425556-1-kyrie.wu@mediatek.com>
+ <20261117032950.1425556-15-kyrie.wu@mediatek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 04:14:19 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,77 +60,152 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cXum1XM0T00KBhSS"
-Content-Disposition: inline
-In-Reply-To: <avvRY-nTstFbvTpF@gractus.seuss>
 
---cXum1XM0T00KBhSS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] media: mtk-vcodec: VCP table sizes set for non-VCP in
+  vdec_av1_slice_init()
+- [Low] media: mediatek: vcodec: duplicate AV1_TILE_SIZE macro and
+  vdec_av1_get_tiles_num()
+--
 
-On Tue, Nov 17, 2026 at 03:00:36PM +1100, David Gibson wrote:
-> On Mon, Nov 16, 2026 at 12:53:05PM -0800, Douglas Anderson wrote:
-> > `fdt_find_string_len_()` currently calls `memcmp()` at every byte offset
-> > across the string table (`for (p =3D strtab; p <=3D last; p++)`). When
-> > building or modifying trees with large string tables (such as DTBs and
-> > overlays with hundreds of `/__symbols__` or `/__fixups__` labels via
-> > `fdt_sw` or `fdt_rw`), scanning multi-kilobyte string tables byte by
-> > byte dominates serialization time.
-> >=20
-> > Advance `p` between candidate first-byte matches using `memchr()` (with
-> > an explicit `slen =3D=3D 0` check for empty property names and a `tabsi=
-ze <
-> > slen + 1` bounds check before computing `last`), preserving identical
-> > suffix-sharing behavior.
-> >=20
-> > On one stress test (running the fdtfactor tool across 438 arm64 Qualcomm
-> > DTBs) this reduced `fdt_property()` time by ~5.6x.
->=20
-> What we really want is memmem(), which would presumably have a similar
-> optimization (and likely more) built in.  However, we avoid that to
-> make this easier to environments which lack it.
->=20
-> Complexity isn't too great, so this looks reasonable to me
+commit 9047e2aa57e9e09f9e60cb45bd82896702db3562
+Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-Hmm... actually, thinking about this again, I'm kind of baffled that
-the speedup is so large.  In the old version, if p is at a character
-that doesn't match the start of the string we're looking for, memcmp()
-should return almost immediately (after a single byte comparison), so
-I'd expect both versions to be - roughly speaking - a single scan
-through each byte of the strings block.  At least with gcc builtin and
-inlined mem*() implementations, I'd expect the performance difference
-to be pretty modest between that and the new version.
+media: mediatek: decoder: support av1 extend vsi
 
-What was the environment (host CPU, libc, compiler options) you used
-for the benchmark?
+This commit adds extended VSI support to the MediaTek AV1 stateless
+decoder by storing tile group information in the shared VSI structure when
+MTK_VDEC_IS_SUPPORT_EXT is set.
+
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1=
+_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av=
+1_req_lat_if.c
+> index 2d6e08e722de0..97ca80fd06d6b 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
+t_if.c
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
+t_if.c
+> @@ -25,6 +25,9 @@
+> =20
+>  #define AV1_INVALID_IDX			-1
+> =20
+> +#define AV1_NON_EXT_VSI_SIZE		0xD50
+> +#define AV1_TILE_SIZE			64
+> +
+>  #define AV1_DIV_ROUND_UP_POW2(value, n)			\
+
+[ ... ]
+
+> @@ -1403,17 +1413,29 @@ static void vdec_av1_slice_setup_uh(struct vdec_a=
+v1_slice_instance *instance,
+>  	vdec_av1_slice_setup_tile(frame, &ctrl_fh->tile_info);
+>  }
+> =20
+> +static
+> +struct vdec_av1_slice_tile_group *vdec_av1_get_tile_group(struct vdec_av=
+1_slice_instance *instance,
+> +							  struct vdec_av1_slice_vsi *vsi)
+> +{
+> +	if (IS_VDEC_SUPPORT_EXT(instance->ctx->dev->dec_capability))
+> +		return &vsi->tile_group;
+> +	else
+> +		return &instance->tile_group;
+> +}
+
+[ ... ]
+
+> @@ -1608,6 +1630,15 @@ static int vdec_av1_slice_setup_pfc(struct vdec_av=
+1_slice_instance *instance,
+>  	return ret;
+>  }
+> =20
+> +static u32 vdec_av1_get_tiles_num(struct vdec_av1_slice_instance *instan=
+ce,
+> +				  struct vdec_av1_slice_vsi *vsi)
+> +{
+> +	if (IS_VDEC_SUPPORT_EXT(instance->ctx->dev->dec_capability))
+> +		return vsi->tile_group.num_tiles;
+> +	else
+> +		return instance->tile_group.num_tiles;
+> +}
+> +
+>  static void vdec_av1_slice_setup_lat_buffer(struct vdec_av1_slice_instan=
+ce *instance,
+>  					    struct vdec_av1_slice_vsi *vsi,
+>  					    struct mtk_vcodec_mem *bs,
+> @@ -1648,12 +1679,18 @@ static void vdec_av1_slice_setup_lat_buffer(struc=
+t vdec_av1_slice_instance *inst
+> =20
+>  	vsi->tile.buf =3D instance->tile.dma_addr;
+>  	vsi->tile.size =3D instance->tile.size;
+> -	memcpy(lat_buf->tile_addr.va, instance->tile.va, 64 * instance->tile_gr=
+oup.num_tiles);
+> =20
+>  	vsi->cdf_table.buf =3D instance->cdf_table.dma_addr;
+>  	vsi->cdf_table.size =3D instance->cdf_table.size;
+>  	vsi->iq_table.buf =3D instance->iq_table.dma_addr;
+>  	vsi->iq_table.size =3D instance->iq_table.size;
+> +
+> +	/* lat_buf is used to share hardware decoder syntax between lat and cor=
+e,
+> +	 * there isn't only one. But there is only one tile.va for each instanc=
+e.
+> +	 * Need to copy tile information to lat_buf every time.
+> +	 */
+> +	memcpy(lat_buf->tile_addr.va, instance->tile.va,
+> +	       AV1_TILE_SIZE * vdec_av1_get_tiles_num(instance, vsi));
+>  }
+
+[Severity: Low]
+This isn't a bug, but AV1_TILE_SIZE duplicates the existing
+AV1_TILE_BUF_SIZE macro (also 64) used for allocating and indexing the
+same tile entries in vdec_av1_slice_alloc_working_buffer() and
+vdec_av1_slice_setup_tile_buffer().  Also, vdec_av1_get_tiles_num()
+duplicates the IS_VDEC_SUPPORT_EXT() check in vdec_av1_get_tile_group()
+instead of using vdec_av1_get_tile_group(instance, vsi)->num_tiles.
+
+[ ... ]
+
+> @@ -1943,10 +1982,20 @@ static int vdec_av1_slice_init(struct mtk_vcodec_=
+dec_ctx *ctx)
+>  		goto error_vsi;
+>  	}
+> =20
+> -	if (vsi->vsi_size !=3D sizeof(struct vdec_av1_slice_vsi))
+> -		mtk_vdec_err(ctx, "remote vsi size 0x%x mismatch! expected: 0x%zx\n",
+> -			     vsi->vsi_size, sizeof(struct vdec_av1_slice_vsi));
+> +	if (IS_VDEC_SUPPORT_EXT(ctx->dev->dec_capability)) {
+> +		vsi_size =3D sizeof(struct vdec_av1_slice_vsi);
+> +		vsi->iq_table_size =3D AV1_IQ_TABLE_SIZE;
+> +		vsi->cdf_table_size =3D AV1_CDF_SIZE;
+> +	}
+
+[Severity: Medium]
+Should setting vsi->iq_table_size and vsi->cdf_table_size to
+AV1_IQ_TABLE_SIZE and AV1_CDF_SIZE be guarded by fw_type =3D=3D VCP rather
+than IS_VDEC_SUPPORT_EXT()?
+
+AV1_CDF_SIZE and AV1_IQ_TABLE_SIZE are the partition sizes of the VCP
+shared memory region in mtk_vcodec_vcp_dm_addr(), and
+vdec_av1_get_cdf_table_addr() and vdec_av1_get_iq_table_addr() only select
+those VCP partitions when mtk_vcodec_fw_get_type() is VCP:
+
+drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c:v=
+dec_av1_get_cdf_table_addr() {
+	if (mtk_vcodec_fw_get_type(ctx->dev->fw_handler) =3D=3D VCP)
+		return AV1_CDF_MEM;
+	else
+		return (u32)vsi->cdf_table_addr;
+}
+
+If an SCP platform advertises MTK_VDEC_IS_SUPPORT_EXT via
+scp_get_vdec_hw_capa(), overwriting vsi->iq_table_size and
+vsi->cdf_table_size here causes vdec_av1_slice_init_cdf_table() and
+vdec_av1_slice_init_iq_table() to allocate and memcpy() the VCP partition
+sizes from the SCP DMEM addresses vsi->cdf_table_addr and
+vsi->iq_table_addr.
 
 --=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---cXum1XM0T00KBhSS
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmr70xAACgkQzQJF27ox
-2Gc1VQ/+L2RgHkvbtZddBfGHshJn92Djad6o307+u2sikqFrETPgzchH2WfO5at3
-U+cFWUXG/pIwSmJtUzmTVwXcNEdPEthFgKStrTii6z0a4qKFhRsNVgsSmM6k/Xol
-e1Xv+Ux141/23u3leO7ngzORmoRZhTWevH5931Aw7OUnP/DCdmniM6k8MO5NQFrU
-+Ize6rGRw2appWwP5Na2/EutbgUjNvRA2zCDInR3jg0gpjyBwm3/sl2nNdz6V2GB
-hHVwAZFhWnsepr8As+YItWFlaTVUUaBeRpSLtWOt2SXNEZaQRmrRbF6XxDios32Y
-ynxJyAPwwSeq7J7Yhu+2T26MRU0k8FKtu8PSEQSIqskocAtT4DWLiwRed5iCAMr1
-lZxNO8BaU2gz2RzGd1RYO+LpDTX71xKoubgmeqhpflWAZsmd7G4E3s+QNYljSIcO
-VAJP73HcbKLd1CKmCEZKpgdolQniq1Zx+B2nTMVA6si7XK0FlEIqtwN+UPCM1qyZ
-kUtX9+FK9K8GiHU0j0AhODsITwJqMLZQbgwuWD8warurDq2WJZ0+QJXBnvZ+/Ygq
-8Ucer0Y4h1cPJYhtsSsogwQtviTRLC8HqQ4Bdve6WvZpaoRkOlXg+7USsdMIUrT9
-n6bP83p1az7dxGLNbvyODf/r1rREkjv0LvHNWe3lDn7BoLROTJg=
-=LrBC
------END PGP SIGNATURE-----
-
---cXum1XM0T00KBhSS--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117032950.1425=
+556-1-kyrie.wu@mediatek.com?part=3D14
