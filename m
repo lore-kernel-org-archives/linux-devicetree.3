@@ -1,85 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794940878;
-	b=tu7plxznyFIg0EVsJpql7rdkngFpLdLVN5fd+/1dIb7DgvF3w6K1gcVzItxFftVH52k6
-	 hWbaceyesqb1SfLNr0FvFEjKT/XQmflaexn2Bpp9r5ETs/Z4hsBUnkDcwk9MDePYUVQjl
-	 7z2E+//waQj5DdtRM2EtnhE0On8oI0XIbN7oTRTIn7t2NsPCRorty3pZpGMqxe5lOfSYC
-	 +CVTIPsHbzgbcyW7d8jTMGndU/25zGswiQ5x0l40r4XEAEE6n6tm56DBjuuDMpavhaDUX
-	 DZM/+UYgm6+vAHqvRr/E6J4fXSDBPuriQJws/JcASL0ZJ6R8N3LM1z+Gl4VdpeEBe5g==
+	t=1794940934;
+	b=ltEQhPBV+bf7OuFSO+zGTfqAYygUMg2BTHzJPXQyRKFi52I00okrQwSS92BuN3vPdfs7
+	 UCDxmnH4YUSWYOAemxFjzTqPEnvBhM9DkURocdONuM2H3i491dtIZa8oCDgHZqwFCMGwv
+	 2mhAL7uBMnQnhthnbL6G81V5PF8PMQRr2O9Iq+4wRVUedFg1ctfKXmvDtoUUHsmtZ6WaQ
+	 /+6mORxejsxQPR4M9f1YPeSJSmjwadJOlDoygCEobJxQ8oxPZ+1m/Tx58tNoq2CidUfm8
+	 UhLULbmWmOISiSpLySxsOqrgQCkhf2hMsMb8kxRJb96uSXxOh+Z/qbe5I2CnLr1yQSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794940878;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=uzgMGuJH7y9PpdqDVrfWe+YpxihFKk8NBF5FqP0/B48=;
-	b=Jem0GzDdznr9pArje+fgzUESquwQRAU87LaVXRc+WwKtpJfx0lVc/TQ8aOsVa4wJ4Dke
-	 rGP9jKnutdUZLcGF/gX+FUZMe424ZRVRBTejEygE6SKg3FJgkrvojzf9PO7GqRuKfHluE
-	 47kMnShdGlq4QbHzXV9uDwTpWQSXueoD+f/dSC4meIK6pIcigh8hRz3GplvY+cQx5gjjR
-	 MSXE7+vQFb5zR3NFFl8BZfkTjRy2GLtA/42YsvQvwMngHuJiYG29Y5MUi+s+fxh56+5NX
-	 eSr23Gk3ews/YHIUMyUb9PFYYUSbkiNHeWlPxKEURCEv2wudeP6AeYrOHF1SLDBgirA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794940934;
+	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=oMSOkMJ2ZXC9l3P9pMKrtpE95z4l6icde5TxpIpV/go=;
+	b=EH78HksgDErTqQ2n1iAOs14tbaJhjQbPmOdP/EhmMerftU87Y4Ic7DDoeRlEYT816UIF
+	 YKy/gZn5SJnzjmFUGCnmTq2rRXsfQ7SzPLO9OiDLN7D30G2pXqLsfMV42QrMCffI7b9oQ
+	 GbAHKAT7Dl/3HjKdYt6Hm1r26YMleBeWhj3E+xJPswyoL++0+QEMWMUtB4G+Z4u00kys4
+	 7QBPVOyiNGj7uKfdo9PeQRFT/aJtlRfRVTGS2Cifz6tc1SAwffaJmvXqxLf6zuy/IAnSs
+	 qY8N3sxE2mPtYzgaWgFiBCpkdLgMHRvJoEaD9V+8znswN8E9cdrYOQp8uNZJU5lYNXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=YFDmMSQ6;
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLabCSjT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37663606A339
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 18:41:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37663606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D32606A880
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 18:42:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=YFDmMSQ6
-Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
-	by cmsmtp with ESMTPS
-	id THr2xVOLuVK9UTO7DxAaFY; Tue, 17 Nov 2026 18:41:12 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id TO7Bx7saBuJrPTO7CxgSPB; Tue, 17 Nov 2026 18:41:10 +0000
-X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6afc9fc7
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=gAnH3GRIAAAA:8
- a=EUspDBNiAAAA:8 a=3OfnbWqpRXkE7MXKp-4A:9 a=CjuIK1q_8ugA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=uzgMGuJH7y9PpdqDVrfWe+YpxihFKk8NBF5FqP0/B48=; b=YFDmMSQ6njJ7g3TGwyqyWG6HbD
-	VSUs5xReDgoBDPjfuNVzXMpkDWlDX/66hznqmy1hiwlGvrhHVLfoIqNb9Ba7058Fj6B3Q3Caud8S/
-	RW4Y2jcPocH/FzHoCD50S6gLiVL8jpsaYxgL5l4OQ1Q5cOVPJ0DFG/WWDTvYQFb1AXOYJgsiFNtwm
-	irFQAVbPn8u3m8Nr4ILti1/hOWXmj/wc+qwyZYYxG6QAHRK80Bz2d9EgvK8t+nqCigZhOSMU5dwck
-	hdNbtLBqmKlatziwPdDFz8+mwwxOXQ0TELj9ZWxiKMzSOemDfCMfTvTmSh7mK4LAV+uRtCpespuTU
-	OD6atnNA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:45336 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xTO7B-000000006da-1bIQ;
-	Wed, 18 Nov 2026 00:11:09 +0530
-Date: Tue, 17 Nov 2026 10:41:08 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Christopher de Guzman <christopher.deguzman@analog.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: hwmon: ltc2978: Add support for
- LT7175 and LT7176P
-Message-ID: <ea14de95-c079-4302-8a65-86c4c65a8e12@roeck-us.net>
-References: <20261110-upstream-lt7175-lt7176p-v2-0-dd60d28383bf@analog.com>
- <20261110-upstream-lt7175-lt7176p-v2-1-dd60d28383bf@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLabCSjT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 017BE1F000C7
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 18:42:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794940934;
+	bh=oMSOkMJ2ZXC9l3P9pMKrtpE95z4l6icde5TxpIpV/go=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QLabCSjTrO+uhs0qnW3r93hci4IURvPKtytjLJgRdO3FuZuH8iLtZh587EL0H2A5l
+	 d8cquwMzlQQw1PJ/WNqipOcypWGGCvLVCD/uHIrQFjl/UW3SpDAvyxdjYGPBspFdeG
+	 IskPSU7gVxfAoiYZNeEMwHWzS0BEOphL7y6SBGX3072Ehl2Ab0d7QZ9uZr1ljfE2OV
+	 46bPEIlygkcGdGyzzKsDqlteS5rUai1cvqqHgQZw2radHrnuT0y7hmvqA3907IOFRG
+	 PZFqbKdQxvjy+M2Lg9HGoIKBWait464+Q8gU4z7YyiJVylT63oqMwlzdCQJUVEeumL
+	 CJwVWXyPr3Rjw==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be4b61fd3dso56486e87.3
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 10:42:13 -0800 (PST)
+X-Gm-Message-State: APuU4Z/dQMWvF4WKJ/9XEQmZI40K4nHFsHRLXZfOBPnNB//faqavnCYj
+	/QS6Cug2EzzQG/4kt3NbHw+jAqDRcmmxMb6FyLQBOfc4C4hdqo+aONc3/zeIPqzMHvXB/IM/tau
+	Xp1BOOhB0p6HhZyfv+4KUoyi58as/rZk=
+X-Received: by 2002:a05:6512:2313:b0:5bf:e643:cb75 with SMTP id
+ 2adb3069b0e04-5c1a9f266f8mr5018e87.48.1794940932746; Tue, 17 Nov 2026
+ 10:42:12 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,38 +58,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-upstream-lt7175-lt7176p-v2-1-dd60d28383bf@analog.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xTO7B-000000006da-1bIQ
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:45336
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 3
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfJNrMF6PgPhCSUwbzGT4gM/s4thUMvk8dz4O/BDPo+XYadxW7+9kByOdRtTX0g6mvq2UxhBixG9xISLVdBZaGvdeqRxWtZFaDqtsS2N0+LhRKgX7KVhB
- hxAP2Dp+p7rp2eINClX/mrtELgKav/JG2fMbKXadcWrnzEmoMsWukf+cqdLvqvpCEgzxCM4zov+HjxDUx7CIaNeaOxWGh7U2nfPYebmI5vQxRAFDv7OCKhDv
+References: <20261116-ux500-powerdomain-dts-v1-0-e0f4459c3ab1@kernel.org>
+ <20261116-ux500-powerdomain-dts-v1-2-e0f4459c3ab1@kernel.org> <sashiko-outbox-216799@kernel.org>
+In-Reply-To: <sashiko-outbox-216799@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 17 Nov 2026 19:41:59 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=XdOR_C2tcn_JdPejgaKvZCrxenK2-=ZNfBpamq7t=Ow@mail.gmail.com>
+X-Gm-Features: Aa3M54oixxB7T_iuZTnK_d9bvHPJ1M2WAn4YxfICmRbWj9MkimT-s4sSgTmvMv4
+Message-ID: <CAD++jL=XdOR_C2tcn_JdPejgaKvZCrxenK2-=ZNfBpamq7t=Ow@mail.gmail.com>
+Subject: Re: [PATCH 2/3] ARM: dts: ux500: Add power domains
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 06:00:40PM +0800, Christopher de Guzman wrote:
-> Document the compatible strings for the LT7175 and LT7176P PMBus buck
-> regulators supported by the ltc2978 driver.
-> 
-> Signed-off-by: Christopher de Guzman <christopher.deguzman@analog.com>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Mon, Nov 16, 2026 at 11:55=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
 
-Applied.
+> [Severity: Low]
+> Do the DT binding schemas for these nodes allow the power-domains
+> property?
 
-Thanks,
-Guenter
+Yes.
+
+Submitted in parallel.
+
+Yours,
+Linus Walleij
