@@ -1,49 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794883810;
-	b=bXfgsXiU4K6wZkBFdw//NWjuhTH2M7qcYn4qPB49jQ1ApW0GwvvhZ8U2SWFdL4SoMIAw
-	 HZ6DwSHru7/2yPjFSERNUlbrxcGq2AC8uusj1+C5obk9sFqaee5lomTHN6RTgjGcPm3Ey
-	 JzTkJGJ/g6vwMjlL7Hmrhbe7S1dtCEyyR4W9Z9VY/vmcmxv67QyE2m+xRoh5SYtEDzf/3
-	 myTIqi4OSn/ccDp4ELDD8Q9Te7bbQpwoebXEyl6pHU/9yqBeUT5qcyLjMorHY/aoVDgnD
-	 n51K3sJaCQuGFb8bDKlspZ2UIyjRAbCS+v7VLnsb3r/bJ6CLWHNX/dOdXzCwB9jRwDQ==
+	t=1794883930;
+	b=AKGwoY8EDYz3TEk9auMj2RTtCqlU+3WJHZpnxheu0RrEzpNUlUyNv9daV5oXN/HDUsjr
+	 /3WdiT+SY+HExp4vsojVPpHCxu0IJ0L7FQ3dhgdOyJhEa8LL7tqZLR8Qm0DE6ji39fXF7
+	 61f8gikzFIaclD23GPTEviCJAtcIrNgITGTj3ouKd0HKQv1wn4d7r6KeVkV04PXTLkTTn
+	 SgJDLuiN3Co8q5Kz9nD6D0TyHkHp+OHwdUfKtKVtSe5gdWgdGS6q0AXqfcZMStg/CUKjH
+	 uxCojWfOp4gpK3GIqKwVJn2FAcpeSoXfdbwTKMjrE5/c+rVvxsD4dSq8KzfXHQGHn9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794883810;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=WyecgbeBs166spSfCyzCfTX6lVhKElsoYgGJBq1WKyM=;
-	b=l1A3zvjThb6zjdogybFa1fBUTHuhrNYjXwCoLdpjrIYoiReiz9tlvlwKmTYkma5VnFQu
-	 GcDdAgrfBzk1y5XTDaDFc1wXIGbgeU9cIlPcOjmWY9DHufhyPxXT297vGwRP/p+bv57Q8
-	 D8/tPLO/xB8fnhRSEWrtvLaUhKi650ydfU3p+vO1pBomZAZMN9R0ln0ymrcGKx2WCd2JW
-	 G0p7mdy3trU6G55XCfcMeUkwTXGEDZaqThdyXQbLPwnC/XScLHj7lBDYWJbbvfKFF5+Pc
-	 2qllPy6/vymfOvXkmoAWoyXtY2FX0W2SFZFg5mCPLEatiNnrYgJXhM8hbrx+TzD0HFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794883930;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=qq/tiHdgbGvoi14diuTvjCXYv+VWfbbS/T65lFWDJCw=;
+	b=HiHDqSrARbov0eT3jaVdaJxV+/lrWorL8QjuOJ9o/+e+H3NHzJ/86gHTgiuFLGfLSteP
+	 a2POFU8D3YW8X99O7JOs3sLyIHMsvINyCOwjrhTCGvpyz3oRdCR02d23S+egXEUu1G4V4
+	 tjK1F0jI3j66HoVja8pxO7x03BlKhiMm97/KWDFl6r7CLtVUFXDyBm+SiLCpEj39CLlOZ
+	 RhCvciKvPs6tqvpOGVuSCyx5d/M+zcYYI1eq06FeFBYa7DzxAr4NpOV7qiUMtN+8LrDb0
+	 LL2RF2BE19ZPt9qG0BcfTRBg575lNj63X//ct90LkCvh+oZLmtvbQmHi3vVxYWpOTZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJ2bvX7J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KcVtcIgV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92409606A323;
-	Tue, 17 Nov 2026 02:50:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7371606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 02:52:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJ2bvX7J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE0391F000C4;
-	Tue, 17 Nov 2026 02:50:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KcVtcIgV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 163851F000C4;
+	Tue, 17 Nov 2026 02:52:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794883809;
-	bh=WyecgbeBs166spSfCyzCfTX6lVhKElsoYgGJBq1WKyM=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=CJ2bvX7JgcN/MBJLhYWGlN9xnEwvrPcMMFYXSRFSyv6wZmeq0agesMH5F4IR6QbvS
-	 +bEzhP049C4L/42MXWRh3UUILOVO+8reeu92bRR7I0FW0Pje8EVuIfa2KlPaon9qUi
-	 y/ScD8g5MkYlJ3Zu45WDV6kcHN66PrOL17xzCKyTk3gN2wGBxOhO5JRtan5kgO6x+2
-	 vAtZonvHDMU7j5oEyopmoZaHwWEm2XtLQLPCZu1RoNySz3LnI/7IrXLFtMsA4b/Rfk
-	 Q1mbb7Rw3SylUUU4K6HoUSwVUdsVh+98qAA529wCdlnhZZTYByIoWngzpwgo1YO/RG
-	 PuyE9B92oDR/w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B4348391B088;
-	Tue, 17 Nov 2026 02:50:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1794883930;
+	bh=qq/tiHdgbGvoi14diuTvjCXYv+VWfbbS/T65lFWDJCw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KcVtcIgVgRlvNSDQFKHwERo8S49R1pGsJKGekUysWSAPtrH/NxK3rfm+O5tm6Pry7
+	 rBcIe61Qy4EaIZfiFwsw4yU3JDCFmSm1pD4VfmzGD9eoSqGwb6QvVvxAeBvOU71DGl
+	 zNrVHUfPPFQaTgdv5732D+xsYCXJKHcoUFM1zZpw6oWJGmIVrHJMmcj+tzYVYPhF8F
+	 4E1XTWM8JL7AHvrAuyzZZBy/npxFqtYsGbqEV/zorjAU1B+k1FBjpLu/7nfujzkzTk
+	 KmBFmZgfWSe54LOrxzuvsc1D48aER0G8LLfbKtXl3/l7W9SvOYTbiozT4ArrUaXqNH
+	 gZdfmRUJHsPAw==
+Message-ID: <sashiko-outbox-218097@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 1/2] dt-bindings: phy: Add CIX Sky1 USB3 PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hongliang Yang" <hongliang.yang@cixtech.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261117022858.2210212-2-hongliang.yang@cixtech.com>
+References: <20261117022858.2210212-1-hongliang.yang@cixtech.com>
+ <20261117022858.2210212-2-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 02:52:09 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,48 +59,74 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] dt-bindings: net: airoha: add AN7589 MDIO
- controller
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179488380827.305876.10550611081255055586.git-patchwork-notify@kernel.org>
-Date: Tue, 17 Nov 2026 02:50:08 +0000
-References: <20261112190928.1318743-1-john@phrozen.org>
-In-Reply-To: <20261112190928.1318743-1-john@phrozen.org>
-To: John Crispin <john@phrozen.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, ansuelsmth@gmail.com, devicetree@vger.kernel.org,
- lei.dong@airoha.com, Linqi.zhang@airoha.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, Rajeev.kumar@airoha.com, upstream@airoha.com,
- Weifeng.xu@airoha.com, zhengping.zhang@airoha.com
 
-Hello:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: phy: cix,sky1-usb3-phy uses #phy-cells =3D 0 for
+  two-lane PHY
+--
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+commit c8a29919e01294d52dd3eac0bc1ce8854b5d00a0
+Author: Hongliang Yang <hongliang.yang@cixtech.com>
 
-On Thu, 12 Nov 2026 20:09:28 +0100 you wrote:
-> The AN7589 carries the AN7583 SCU MDIO controller three times, the
-> third one at offset 0xd8. Document it as a fallback pair on the AN7583
-> compatible. Allow the new offset for the AN7589 only.
-> 
-> Signed-off-by: John Crispin <john@phrozen.org>
-> ---
->  .../bindings/net/airoha,an7583-mdio.yaml      | 25 +++++++++++++++++--
->  1 file changed, 23 insertions(+), 2 deletions(-)
-> 
-> [...]
+dt-bindings: phy: Add CIX Sky1 USB3 PHY
 
-Here is the summary with links:
-  - [net-next] dt-bindings: net: airoha: add AN7589 MDIO controller
-    https://git.kernel.org/netdev/net-next/c/7f2ae640555a
+This commit adds the Device Tree binding schema for the CIX Sky1 USB3
+SuperSpeedPlus PHY and updates MAINTAINERS.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+> diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml=
+ b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+> new file mode 100644
+> index 0000000000000..205140bf84e7c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+> @@ -0,0 +1,78 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/cix,sky1-usb3-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: CIX Sky1 USB3 PHY
+> +
+> +maintainers:
+> +  - Hongliang Yang <hongliang.yang@cixtech.com>
+> +
+> +description: |
+> +  The CIX Sky1 USB3 PHY provides the SuperSpeed lanes of the USB3 Type-A
+> +  ports of the SoC.
+> +
+> +  Both lanes are programmed through one register block and share the
+> +  same clocks and resets, so the node is a single PHY provider with
+> +  #phy-cells =3D <0> that all consumers reference. The driver reference
+> +  counts phy_init() and phy_exit(), so the block is set up once for all
+> +  its consumers.
+> +
+> +properties:
+> +  compatible:
+> +    const: cix,sky1-usb3-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#phy-cells":
+> +    const: 0
 
+[Severity: Low]
+As reported by Krzysztof Kozlowski on v6 [1], shouldn't #phy-cells be 1
+instead of 0 so that each USB3 controller consumer node can specify which
+of the two PHY lanes it is connected to?
 
+The hardware block has two distinct lanes with separate per-lane register
+sets serving two independent USB3 controllers. Locking #phy-cells to 0
+omits the per-lane routing from the Device Tree ABI and prevents any
+future per-lane control or tuning without breaking the binding. Also, the
+description references Linux driver internals (phy_init() and phy_exit()
+reference counting) rather than strictly describing the hardware.
+
+[1] https://lore.kernel.org/r/20261105-kind-macaque-of-enhancement-ee0365@q=
+uoll
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117022858.2210=
+212-1-hongliang.yang@cixtech.com?part=3D1
