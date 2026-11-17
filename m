@@ -1,107 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936954;
-	b=HO2ZjFErixeL7TnQQVWCX8Mz/qg6/b5BSiRuZ0XqBHR54krs1/TzwoOltcPvD+mWhTqv
-	 6EgjCqIwThA3BRIZCkftBizym96XitzqcMMShepdIXGRVZlAr4G3w/nTbS9kHMjF1LJKT
-	 CChN5ZYc1PaRyITJxztFPMB0tIxD/q+V+0oeon1iyVuHpAYxA7evQnejILzhVhyTU5dt0
-	 7Gj4+kDUVqyugYpgRMl6FND5usdwBmX6zaTbmqbpKMNUjkbkVrVwiscr44XiMTm/tWgi5
-	 ImSgkhkdt01UX9PhylHpfcqYaao+zITnoWwX8uEIWBFKB0qjoKfgYqoCpNjrxCKnzQw==
+	t=1794937085;
+	b=v5re7Ql7DULU0dQrEsV3wR91Y0Ac9cRfvRhEgGg+E3mly0nMyynw0JnKF8SGmw91VeOG
+	 36ERBTzTVJjt7m2Cn4LAAlJ6JBBpN172KEsixDnqNf7WdhfPBVAi+CCbkjpsUOKXvyBzk
+	 SDC3bBrzKBIIiAMGaikiqlfYXxTPMhXNear1iO06gAyv3eylxVX4oflBDLPprop6uUzHk
+	 DLC9e/+bFD6IVe8Ns3NHa+3PQvW7Mbz/eUvuMEwbNoV4QLLefQPF9Z7o21g9m5QtueR6e
+	 g87MwKef2WJtHIeIF9/EfV8cSFR9CbZmBHTcrsGF8oTXUL2q2KkHYvaCjYdR1MoRUoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936954;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ehDPQMS1CgUNGIZmcAtlpOqErWJKhsWUSWC8X9QQDz4=;
-	b=tmdDVvCSLzPmmwiW0UAzdrHzHa2bXMXfWGCtBIGlkeI6HFbwDOpU7Gd8ASq26OSmb4ZX
-	 ND/alrUTPAFdUgvJBgGTX5bUpwioOmyG2jL7Sd+89uwcoMTyBAKe6sDA7dpV13cOiqCeo
-	 45k+JS82YTT3IHvILJBkWIQ8zR1MB+oZQwjW2P89BC9IdLYGGdq0qNYZ6cYMA7sL4pLTC
-	 KkC8dGwP5QwbfKLqrajacia1SeUgBs6Ej/rNsCunJ869vHSbDUgSGcjcQwzH5IrsJlYmG
-	 /FZlzb9Aer8VbGxglccP3fxPCyuLz3m1UtEoCrmhKgwtwh7Ak/5f+k3XPgycQ3qOcJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794937085;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qId5oU6efIffOiA8tajVDPe+EXVi31e7RDD++IFkWI0=;
+	b=zltuRlnrfDAX2pTkXNC5D+z1ZCV262V+rUG2aTF77FLXOLZTRErPtUor0aBEaan1aO5W
+	 A4bznjg3gD+MXnko+uXD5T5WmoP9Jf4ESZ3jXHaz+kiPjVYzKFXEyEnh2Sfe7R9VjMUjd
+	 LYU1TiCX6K7/Yvn685SEx+SZ0l+LYgWuBzc7Andg6Vazbq9ByDPzuJgFe3akyNTv9gtt+
+	 FqNOUFRzOETUixnzx5p7XCbVevJG22saolh6FUIrMEKnfsJo+el8a3r6A57bzVlb/wEm/
+	 foUX9mqzQKwQCSg1kN+cBN5w1YW3GIWcsLEb9/YoGvlkJjiUatKH2BXBHcuaDj1nPlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gpwZ0hRI;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xd9eNF2S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB321606A32C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 17:35:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB321606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5C2606A337;
+	Tue, 17 Nov 2026 17:38:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gpwZ0hRI
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c50e9408873so294610966b.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 09:35:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794936952; x=1795541752; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ehDPQMS1CgUNGIZmcAtlpOqErWJKhsWUSWC8X9QQDz4=;
-        b=gpwZ0hRIJ0pid42fGOtKDjmjtS+n1dGRHvIVeP0VJdOUEpwL+S3/+EMKHqIKY+8nVJ
-         ZCwrjZnS3Do5vVK5klQrHrzBTZzCOAJZrqi04dVLBtdAjtfXksm2Icwsax73K9CaaP+D
-         hgcdQwC/a37TF3bjUlYprcF1uLFRETn66xIXLjy+KiloUcJ0oFKBJudbT3nZjWkAL/CP
-         nCt5p97NnObGwHllTgYBPz6W5H9AdOLDcAclWmvZ1VvyGJ2oz+wai3iKln/NO0QBZ7Zq
-         EnT/k+XLPnRZkmlRRqU412/gDWlOzI31rmuU9H19XRhPH9aSIKh1xuKZalopbRABi7dN
-         jnag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794936952; x=1795541752;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ehDPQMS1CgUNGIZmcAtlpOqErWJKhsWUSWC8X9QQDz4=;
-        b=Qy2xjTWu5JezNJstS5WZuRfZyn/U/x5B9ArxEWHW4KnhGeeO7do75fEzQZ7weTdFRS
-         vZeeY+urLltrGjCEBPV7SkYljakl+vU30sRZirteJ2BA3ZGeHBmu7AmAS7EzyX5vwszC
-         pAyhb0qN3ZS7mNwBXf/97Y2gYeUV+2Cc816lnNxgGxC+L7a/gFyHtB5kJ4axMP0Hb1Cu
-         ANQUbvNwBXxYdtOK0mf8CkRUQs/Y6SxD5WL/DVeMTqg7Pp710RcTnaC4bXdTgmAcqigk
-         LXPNvPOAt/2jpSBTHl7U7izqcpeUZsWh+FVg7JfjdYLmy0zvSAsSwd+5aW4jA1y6r338
-         TUPQ==
-X-Forwarded-Encrypted: i=1; AL+hErG5a/KMUU6zYxNa1hrZ8nJmJVhDdwXd+wrMS4cmY7wqi8ndXcljHoEAyNhqxRLImCwyjE2bFCrUvBGW@vger.kernel.org
-X-Gm-Message-State: APuU4Z/zpEUGkAXAu8hOr4nwuYj7otCVksYL5oV2Gto43szpoy04/QSa
-	dcDK00kXMqAWDeu41EtWG8lp/j5jqglyw8jEUYJbKom/EQYgDnPYPTM=
-X-Gm-Gg: AYBFou1o6wWtS643fAAgnbhZNtUk5GDKCM4sQR1y9ZytPS8fhaUIFdlwDCRXjbRM9Kd
-	WcDaraA/geKNndvMRyyTCjQ37409k+rSxn5I1JewxGqhll1OD9Ui2EjDlrlf3LQmKW+vrdhznLK
-	uyu59Byc8bdIEx+S3A9xtihiYJQZBW/b6uDAiCER16zLiGs1C2sSpSAz0I/4w/TI3wmGXVRU8kg
-	z9BFjcVrt5GmxWwLIF6U1sGfsZyyi3OkNrV8WWbB4absRK5a1gqGW/fS9JlrjAD6r1VwpuWHa8e
-	JM8RO6Nqnbs/8z3r+JNYXMDih5io6e4HjcAejCpTPLguFeGETxLwD2W3fSsRS71sDLe8IYYS3n4
-	LOiaUlJWB3Sx3IUxFA24xWzWBTCMjMneKW5Ttu8NkCq3dx2kpfGosLkQUO7MytaLfq0uWZuYbyK
-	br6BNQj+U2hsscOchhEgBsVjzzfPmfylmckGueWLgbNYEtzwCBfXDwfIo2RZa66TG46SWVx7CDg
-	Ujr8V6TYF4Vi0gISmAlUwJ0n81rmArczCoQGi8FKx7Cew+Y5P9WEs6M7niLmX0fNAKwB4W2miLt
-	ELM/Mk28fl2OP7hHiPBeT5kErsfHCg1CEDEQrYhT0p9/ThCNzOn5HMZgbbwCVStiQwhU3/bOAEc
-	4Y5wP5i4opj14YFjQsVrJH8jc7A==
-X-Received: by 2002:a17:906:794c:b0:c41:7e99:c6c2 with SMTP id a640c23a62f3a-c5096409d32mr1211919466b.44.1794936951974;
-        Tue, 17 Nov 2026 09:35:51 -0800 (PST)
-Received: from sohrab-omarchy.fritz.box (2a02-a44e-4ae7-1-c0e-6d5a-8ae2-915.fixed6.kpn.net. [2a02:a44e:4ae7:1:c0e:6d5a:8ae2:915])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c510ca049c7sm6863166b.20.2026.11.17.09.35.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 09:35:51 -0800 (PST)
-From: Majid Hajiheidari <majidhhdri@gmail.com>
-To: barnabas.czeman@mainlining.org
-Cc: andersson@kernel.org,
-	konradybcio@kernel.org,
-	rafael@kernel.org,
-	viresh.kumar@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	abelvesa@kernel.org,
-	mani@kernel.org,
-	admin@mswin.me,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: sm6125: Add cpufreq-hw node
-Date: Tue, 17 Nov 2026 18:35:44 +0100
-Message-ID: <20261117173547.1656090-1-majidhhdri@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <a3cbbfa897e960db0d671098be710032@mainlining.org>
-References: <a3cbbfa897e960db0d671098be710032@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xd9eNF2S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491531F000CC;
+	Tue, 17 Nov 2026 17:38:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794937085;
+	bh=qId5oU6efIffOiA8tajVDPe+EXVi31e7RDD++IFkWI0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Xd9eNF2S3oJf9M51r2Y/Hh74LuP3daNmTKtT+nlwtb2NzKaQdYQP9sBuAJSTxYHR9
+	 ES3WC9v2/wT609F1swgrUu0z86ub3Tlr+YkhfGeWdvTjrbH80AcGWFjU4WxVlhM3//
+	 7ZpTaNw0Ik6mai6S8PJNHdltg6Rd5aHhSAaUFAGMQIPByj0RP+i1tUNrkXvcPZO3rP
+	 8cKv2CgK2FiUHVYd09Wkpm0I2yeUg+lnA7Q8pCXy4cOSQIQq60QkJjIGWSaKqlwXsF
+	 3IFAAFuSN69OLyOVUp7bO3CtyPJVSnYYBZqtgOfPtcP9Y+9uCPo2m2NXQL/Bg4b0Dm
+	 1i4VABcTU0BjA==
+Date: Tue, 17 Nov 2026 17:37:59 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Mina Chou <minachou@andestech.com>
+Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, jic23@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be,
+	magnus.damm@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	randolph@andestech.com, cyyang772@andestech.com,
+	tim609@andestech.com, az70021@gmail.com
+Subject: Re: [PATCH v2 18/19] riscv: errata: andes: limit the IOCP workaround
+ to RZ/Five
+Message-ID: <20261117-grape-skeletal-89da442523ce@spud>
+References: <20261113071143.1446167-1-minachou@andestech.com>
+ <20261113071143.1446167-19-minachou@andestech.com>
+ <20261113-helping-elsewhere-cbcf0c8f67ce@spud>
+ <avwdT/vGjfsUCkHv@atcsi01.andestech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,64 +66,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xX4oY8xNNpMcBrcO"
+Content-Disposition: inline
+In-Reply-To: <avwdT/vGjfsUCkHv@atcsi01.andestech.com>
 
-Hi Barnabás,
+--xX4oY8xNNpMcBrcO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-thanks for the review, and for your answer on the cover letter. Both
-mails reached me but neither shows up on lore, so I am answering both
-here and quoting the relevant parts.
+On Tue, Nov 17, 2026 at 05:24:31PM +0800, Mina Chou wrote:
+> On Fri, Nov 13, 2026 at 01:53:29PM +0000, Conor Dooley wrote:
+> > > Move the match into soc_is_r9a07g043f() and make it also require
+> > > ARCH_R9A07G043. Kernels without RZ/Five support then skip the SBI call
+> > > and take the generic Andes cache errata path. No other upstream-
+> > > supported SoC uses this AX45MP mimpid, so their behavior does not
+> > > change.
+> >=20
+> > But a device using this soc that doesn't have a dts in mainline won't
+> > function properly, so this is fragile. Why not just do it properly and
+> > check for RZ/Five specifically?
+> > Can check for of_machine_is_compatible() probably?
+>=20
+> I will check for RZ/Five with of_machine_is_compatible("renesas,r9a07g043=
+"),
+> which on RISC-V is only used by RZ/Five, and drop the marchid/mimpid matc=
+h.
 
-On 2026-11-16 14:41, Barnabás Czémán wrote:
->> +			reg = <0x0 0x0f521000 0x0 0x1000>,
->> +			      <0x0 0x0f523000 0x0 0x1000>;
-> If you check the available sources SM6125 is different from SM6115 the
-> size is 0x1400 instead of 0x1000.
+Looking at what is quoted, I wonder if my main point I forgot to
+include. Checking for ARCH_R9... (or any other SoC in that manner) will
+fall over on multiplatform kernels. Code needs to be written so that no
+matter what Kconfig options are enabled it will work.
+of_machine_is_compatible() solves that though.
 
-You are right. The downstream trinket device tree has 0x1400 for both
-regions; I took 0x1000 over from sm6115.dtsi. I will fix that in v2.
+--xX4oY8xNNpMcBrcO
+Content-Type: application/pgp-signature; name=signature.asc
 
->> +			clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>, <&gcc GPLL0_OUT_EARLY>;
-> There is no proof GPLL0_OUT_EARLY is related to cpufreq, the driver
-> using the clocks for getting the initial rate from them, it is working
-> because this clock have similar rate but i am not sure it is logically
-> correct to bind a clock without proof it is related. That is why i
-> have made changes in the driver to make the clocks optional.
+-----BEGIN PGP SIGNATURE-----
 
-Agreed that downstream does not tell us where the 300 MHz row comes
-from; it has OSM_INIT_RATE and XO_RATE as constants. But that is the
-same file and the same constants for every SoC it serves, and the
-mainline binding still requires both clocks ("XO Clock", "GPLL0 Clock")
-for all of them, SM6115 included. I followed that:
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavyQ9wAKCRB4tDGHoIJi
+0qBvAP9+1RrfwGvdcMspPE/tS0MBvdZoS5zBpUQxasuB4VeMFQEAo9VQjBYpr8/L
+QPB6RwjCOmhkEDqVr7MkDkNYTdGuZgs=
+=h6tV
+-----END PGP SIGNATURE-----
 
-- SM6115 uses <&gcc GPLL0>, which in gcc-sm6115 is the alpha PLL
-  itself. gcc-sm6125 has no index with that name; the PLL is
-  GPLL0_OUT_EARLY, with OUT_MAIN and OUT_AUX2 as its /2 outputs. On my
-  phone it runs at 600 MHz, so the driver's /2 gives the 300 MHz row.
-
-- The mainline driver uses "xo" for every PLL row (xo_rate * lval), not
-  only for the initial rate, so I think at least that one should stay a
-  real clock rather than a constant in the driver.
-
-So with the binding as it is today the DT in this series is what the
-schema asks for, and a node without clocks would need a binding change
-first. Whether the clocks should become optional for these SoCs is
-something I would leave to Viresh, Konrad and Krzysztof.
-
-From your mail on the cover letter (2026-11-15):
-> Also i have added a new SoC data because SM6125 and SM6115 have less
-> LUT entries (12) [2] and there are no throttling IRQs there.
-
-That part I agree with, the trinket fixup in downstream is clear. On
-laurel the generic data happens to stop at the repeated row before it
-gets that far, but nothing guarantees that. Would you send your soc
-data with lut_max_entries = 12 as a driver patch? It does not depend on
-the clock question. Your branch as a whole already ran fine on laurel
-(see my mail of 15 November), and once the patch is on the list I will
-boot it on top of this series and reply with a Tested-by. If the
-maintainers prefer that to go in first, or prefer your DT, I am fine
-with either and will rebase or drop my cpufreq patch accordingly.
-
-Thanks,
-Majid
+--xX4oY8xNNpMcBrcO--
