@@ -1,55 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794898009;
-	b=zJd4KQ8sq3hdls/bcPM/a0EApfITX3qA74f9kdSCxYTcWuInBksS3fyt8peM85Lp3mqv
-	 cOE6siceAAb/6DrwdedtnFpK3oPQo979H8D4QvNIRauDesNzbBrjEeNvT4VctVW/yWOIq
-	 Fr1xqT+E+0S2FBTfzY/hxRy7hv7b00Y/VVW/dnbNGQ9twBdK7xUV2fXpi8eb/xNhI0MOd
-	 PTv+wmZMJKDsuEcTVvczAdSYs9SKKPKc3TDFZ9fQ5LuQBxOcmt1i41jLEgNsgZr7SwpQ1
-	 /j5oi3JZQvh9TFZ0FV58GF1G88VZsntiCob3qQCgOrGKlBJTLFiK6UDnH34cTspQefg==
+	t=1794898035;
+	b=gApVfgT7PHTl1j/f7DXv4HebvSsM5UHMgJv/Tox7Zy1dhOq2qjR4PQ0EQ3S4jplzmvqv
+	 C0W1qEcawl3DnmwKlFmMlWnnQkC8scEp8DogLXu5OUhwZqyAf3AH2eNqos8d5BSiacpFY
+	 Kx97K7TxhkeBbE9K1uwD0l2kNTQWrRP0gxp7X49am0zemV/JStAMUBT0oW6qUMoeV45NW
+	 /reBNzM0QrOXCmeHn+DSTCluPzLwq8vR98rU7ep3zbze3//VED6z/kZ6FgdMweabpsb0W
+	 +1eK2/AYBeXww1j8bTA5TTpAI3hySTNdVSXtpMNCkA1uvUL62/6Ym/dJxUwA15fFI9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794898009;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=Q+gF1IpQxY3Ah+YgluhpyTuzIbzQciSEK4mZyW1nqNs=;
-	b=MUyTq1L+2f8rgXJes1qrM03S00j3cecmp57vHe6jkKNCLQBUaGsRPl+SBSkFhRNE5zWw
-	 BKlKcRvTtrtqW6m0gEmAeoCjiIZWwqoQkbO7rD2+57LSbczUQR8ttueUcEJtz8Li5jMYB
-	 JGcsNYmt5LnhL9jgPgag5Flqn/YGRUs96fH3b3U/+oVtHIt9wo7bMHti8GMUjVwD5veT2
-	 /j7Aznfc+79Bcd4NZLmmkqYpNV1zUt4bR1wMBEUysMVKKuQIdkjNpqZEMIcAmB47V3G6k
-	 Mvbt8azQufUyoQKAyIAdqX+HBiBHLaLoFnl4wIAwcO+UIME2OAWRJEo26eETWmsQZPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794898035;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=HY4O32y5OFsGlmJaGpz2RIOwU2yqM/oDcgp5vERNpck=;
+	b=rC9rbabNWiDGZi3QtxvoMnsiOpJnnRpNwuRHPnGqKe9Jo+nsKkZ2qk8tcvhslX2uJPkA
+	 zLmlR6UIUmnnrTiiIVMw5vQM1uSuP9jN08lmWe913kQvu9r8SYjkekl9E1060IBHbr/fP
+	 eJSo79PjObZh+dFlYmQeE+lji/lp2bq4RWS3vueEfnozqehzEbuGYqBODEkTHtBnqgddw
+	 m535m1l4MAa5CQAcuCUENuS4QHByfKuPO3j7giFacG5ezSFCQrVWI2WmvlxoQ4pVkgB5M
+	 tXre94juiUyAzNV/ioGx+ATAPwaE3/bGIO8NEWNVLX6qu1JCbgCwaY+QQMddK//xoPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=izwbJya4;
-	arc=none smtp.remote-ip=54.92.39.34
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h44a8zGo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB9B606A323;
-	Tue, 17 Nov 2026 06:46:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDB9B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E48606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 06:47:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=izwbJya4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794897969;
-	bh=Q+gF1IpQxY3Ah+YgluhpyTuzIbzQciSEK4mZyW1nqNs=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=izwbJya4Pxyd3RK3GSchVQ9kH6RHkXfc/xKaVRxklhelB363uhnKDHzgoxPW9th4r
-	 UgCFxTCvcsfff4tCipY/+pTeUDf6waKV7F/nYCBRNY0BU8SXAWphj/Zl4SBhL96VQN
-	 4k7V42p0wiwxumILpguiN09ILkeYSJVQbjevkraY=
-X-QQ-mid: esmtpgz13t1794897968t2ce933a8
-X-QQ-Originating-IP: xAtSpxecaocUxTGnDA10G8x8aHp91+CaQjY0yRXZ998=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 17 Nov 2026 14:46:05 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10056131255817741553
-EX-QQ-RecipientCnt: 16
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h44a8zGo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16B131F000C4;
+	Tue, 17 Nov 2026 06:47:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794898035;
+	bh=HY4O32y5OFsGlmJaGpz2RIOwU2yqM/oDcgp5vERNpck=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=h44a8zGoqWc81hDOvRl7O1TEJGkR3k2H837pi/vZM54akW2psti3dN6TSVCLAy8mJ
+	 yeD+koRWF9FLnb4Nf44dOmBnwk9HAm/+sSN1MevnOP92SctQbSi4ash9xQNTU+xfKM
+	 y9NHci46luhk2XgvHKc0mAyib4O9BWVIcacESpYpzgtsxqXV5ULzjA+zMjZmvy6Osk
+	 x1nkxlFNQfw4dvgdrA1giAbFiRxwBnO5ErHBuwV7z1vyIcFaIoHRZQuBuPpVVtjsqX
+	 Jeip3YSwLHcgV3lDncWJnzj6Bozfa8a0w7GoIcx5mHvOCZDbp57osCySF0MzUyPezC
+	 FwiUUK2vD3TIA==
+Message-ID: <sashiko-outbox-218278@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/5] media: iris: Add support for Eliza
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wangao Wang" <wangao.wang@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261117-add_iris_for_eliza-v3-2-02a55a9272ef@oss.qualcomm.com>
+References: <20261117-add_iris_for_eliza-v3-0-02a55a9272ef@oss.qualcomm.com>
+ <20261117-add_iris_for_eliza-v3-2-02a55a9272ef@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 06:47:14 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,90 +59,108 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=7b521a11c60c864c881ef5d8eb32564a68a084993eb79986689971bdd4fd;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Tue, 17 Nov 2026 06:46:04 +0000
-Message-Id: <DMXA85POOYLH.3L9L2Q53OUJ1T@linux.spacemit.com>
-Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Sarah Emery"
- <sarah.emery@canonical.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
- "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
- "Guodong Xu" <docular.xu@gmail.com>, "Yangyu Chen" <cyy@cyyself.name>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] riscv: dts: spacemit: Add K3 CoM260 IFX TQ support
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Yixun Lan" <dlan@kernel.org>
-In-Reply-To: <20261114082802-GKC100523@kernel.org>
-References: <20261105-k3-tq-dts-based-on-com260-v1-0-aa0b7714aed0@linux.spacemit.com>
- <20261105-k3-tq-dts-based-on-com260-v1-2-aa0b7714aed0@linux.spacemit.com>
- <fcd2fc41-5af8-4256-8296-a5435fdf41db@canonical.com>
- <DMTY56PU7CP2.JGIZ9XDXII9E@linux.spacemit.com>
- <20261114082802-GKC100523@kernel.org>
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: M49ymMyQ5YfuZg6AHji/LxP0UDNTO7r2jo98+M0qvUX4dif67OklTrti
-	6woR+EJMu/y5pS6acK8mM6gXVqd6TEVKgyiGUEzYSV6397JK+J3EtEAyZOGiInLruUkmviS
-	sVjVrcNqvU1DlJxspttEshw62Iuv6HJN6DJ3iMwHeXwvqcTcEvHwcrPi3gOfya7x//uJTcz
-	xLJNBDpM9Q2SbwQrYfar5BwWsquhJUIqtLFtK1co7fK7hx0RnaWpGEKETDY2HDIG4KaaoqB
-	Za9tJrDpxzdGHsHiJgXlJWBbsjybGyku6fE9zTdAtn6CXriUReGAgjav1TXE1tfeJGZ+2MO
-	7DMXvphl6+nWBITujelevxOLpRYXdpUOjzkGfbM7xTgp/va9EUmVdREED5vrpLrZ96Z9xl6
-	J3fp477KVkKq1ukC+Y25FpkfHJ3jWeUZ32g7aVperHtcvYOu/yijnFtChQY2tj6Ykb6Xbqn
-	98xtt0E4ADM2CQ0ZvO5Rd69BF7q/kVOz+GRkwMJ7u5JnJmFOAa+NkOq7Ko4DymuVrhNQ0/x
-	HzmoZ5U7rRlmx85VWQqaeBr4Bi+7QqIdZt/+AHDR1VZ9Q5aHbAyVQcGXTahmleaRhy2WI7R
-	Ha8TxNhMibgihLs8DIbGotj+f34/VYR32C4EEs0dsK6PSyj9vbiChQSADJx5asY3w8yFWbb
-	VT7Rr/QLjjRIOWSHX/Rb6kFCn+nsRdCjnENV3saFnYgo3pdyY3PGFiLz59nw5BaKJD4Lawg
-	+IApcur6J/oCW1bKIcrFy8bYiwKr/YII2Xy1vrKuPiuAbJty3+vsQCnNZ14DSF/JGgBz+v6
-	mHTLcFVKkjz1zYhhNIS1vuWwPPGQKLwgxjg3X56S9EmpjILCYPTtScgGjx5GJjfWPJzBzuE
-	6np4hkGGQpi+1MNt8K5VsLgUtEzJjxZ/yjIBSRBP0CnXnht1JwMI2cLGRodXw1/Qh++2uaX
-	wuVstoJ42krnZFBYFsYnCgAvL0hsD/KVwsteeJg9c6R/GAKkF8bbbTcIZc+W4PdEYDsA8pm
-	C526P5oG8r22tVTq+AhryMMdbEoGqtB+dZIbGI6XPdhwoRs5gVznhpguflHUhZzEPN1Tcgr
-	yF8ORU5FLmn
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
 
---7b521a11c60c864c881ef5d8eb32564a68a084993eb79986689971bdd4fd
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] media: iris: NULL dereference in iris_set_slice_count() on
+  Eliza
+- [High] media: iris: broken watchdog handling in eliza_data due to
+  missing wd_intr_mask
+- [Medium] media: iris: zero peak bandwidth in iris_set_icc_bw() on
+  Eliza
+--
 
-On Sat, Nov 14, 2026 at 08:28:02AM +0000, Yixun Lan wrote:
-> On 08:39 Fri 13 Nov     , Troy Mitchell wrote:
-> > They are the same carrier board. The only difference is the power schem=
-e
-> > of the CPU clusters. The bootloader programs those regulators at boot,
->
-> If they are physically same carrier board with same CoM260 module, but on=
-ly
-> the power setup configuration is different? then no reason to introduce t=
-wo
-> different compatible strings, if still need to differentiant, please find
-> other way out?
+commit ce18526ddc6f609e07e690d6181970e4db456f5c
+Author: Wangao Wang <wangao.wang@oss.qualcomm.com>
 
-Agreed. v2 will only add spacemit,k3-com260-tq and k3-com260-tq.dts.
+media: iris: Add support for Eliza
 
-Once the regulators are supported, I plan to describe each power scheme
-as an overlay and build the other variant as a composite DTB, i.e.
-k3-com260-tq.dtb plus its power overlay, so it keeps the same
-compatible.
+This commit adds platform data, firmware description, and device tree match
+entries to support the VPU3.3 Iris video codec on Qualcomm Eliza.
 
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c b/dri=
+vers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> index e963cb116313f..f16f94a2dacc6 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+
+[ ... ]
+
+> @@ -87,6 +93,45 @@ static const struct tz_cp_config tz_cp_config_vpu3[] =
+=3D {
+>  	},
+>  };
+> =20
+> +/*
+> + * Shares most of SM8550 data except:
+> + * - firmware_desc_gen2 to iris_vpu33_p2_s7_gen2_desc
+> + * - vpu_ops to iris_vpu33_ops
+> + * - clk_rst_tbl to sm8650_clk_reset_table
+> + * - controller_rst_tbl to sm8650_controller_reset_table
+> + * - inst_caps to platform_inst_cap_qcs8300 (4K capable, 2 VPP pipes)
+> + */
+> +const struct iris_platform_data eliza_data =3D {
+> +	.firmware_desc_gen2 =3D &iris_vpu33_p2_s7_gen2_desc,
+> +	.vpu_ops =3D &iris_vpu33_ops,
+> +	.icc_tbl =3D iris_icc_info_vpu3x,
+> +	.icc_tbl_size =3D ARRAY_SIZE(iris_icc_info_vpu3x),
+> +	.clk_rst_tbl =3D sm8650_clk_reset_table,
+> +	.clk_rst_tbl_size =3D ARRAY_SIZE(sm8650_clk_reset_table),
+> +	.controller_rst_tbl =3D sm8650_controller_reset_table,
+> +	.controller_rst_tbl_size =3D ARRAY_SIZE(sm8650_controller_reset_table),
+> +	.bw_tbl_dec =3D iris_bw_table_dec_vpu3x,
+> +	.bw_tbl_dec_size =3D ARRAY_SIZE(iris_bw_table_dec_vpu3x),
+> +	.pmdomain_tbl =3D iris_pmdomain_table_vpu3x,
+> +	.pmdomain_tbl_size =3D ARRAY_SIZE(iris_pmdomain_table_vpu3x),
+> +	.opp_pd_tbl =3D iris_opp_pd_table_vpu3x,
+> +	.opp_pd_tbl_size =3D ARRAY_SIZE(iris_opp_pd_table_vpu3x),
+> +	.clk_tbl =3D sm8550_clk_table,
+> +	.clk_tbl_size =3D ARRAY_SIZE(sm8550_clk_table),
+> +	.opp_clk_tbl =3D iris_opp_clk_table_vpu3x,
+> +	/* Upper bound of DMA address range */
+> +	.dma_mask =3D 0xe0000000 - 1,
+> +	.inst_iris_fmts =3D iris_fmts_vpu3x_dec,
+> +	.inst_iris_fmts_size =3D ARRAY_SIZE(iris_fmts_vpu3x_dec),
+> +	.inst_caps =3D &platform_inst_cap_qcs8300,
+> +	.tz_cp_config_data =3D tz_cp_config_vpu3,
+
+[Severity: High]
+Should eliza_data set .slice_caps =3D &iris_vpu2_vpu3x_slice_caps like the
+other VPU3x platforms?
+
+iris_vpu33_p2_s7_gen2_desc uses iris_hfi_gen2_data, which exposes the
+V4L2_CID_MPEG_VIDEO_MULTI_SLICE_MODE control with .set =3D
+iris_set_slice_count.  With .slice_caps left NULL, selecting a multi-slice
+mode (V4L2_MPEG_VIDEO_MULTI_SLICE_MODE_MAX_MB or
+V4L2_MPEG_VIDEO_MULTI_SLICE_MODE_MAX_BYTES) causes a NULL pointer
+dereference in iris_set_slice_count() when it reads
+slice_caps->max_slice_frame_rate.
+
+> +	.tz_cp_config_data_size =3D ARRAY_SIZE(tz_cp_config_vpu3),
+> +	.num_vpp_pipe =3D 2,
+> +	.max_session_count =3D 16,
+
+[Severity: High]
+Is eliza_data missing .wd_intr_mask =3D WRAPPER_INTR_STATUS_A2HWD_BMSK?
+
+iris_vpu33_ops unmasks WRAPPER_INTR_MASK_A2HWD_BMSK in hardware via
+iris_vpu_interrupt_init(), while iris_vpu_clear_interrupt() and
+iris_vpu_watchdog() check core->iris_platform_data->wd_intr_mask.  Leaving
+wd_intr_mask as 0 prevents iris_vpu_watchdog() from detecting a VPU
+watchdog timeout, skipping error recovery and causing
+iris_hfi_isr_handler() to re-enable the level-triggered IRQ while the
+hardware watchdog interrupt remains asserted.
+
+> +	.max_core_mbpf =3D NUM_MBS_4K * 2,
+> +	.max_core_mbps =3D NUM_MBS_4K * 60,
+> +};
+
+[Severity: Medium]
+Should eliza_data also initialize .icc_ib_multiplier =3D 1?  Without it,
+iris_set_icc_bw() computes core->icc_tbl[i].peak_bw =3D bw_kbps *
+icc_ib_multiplier as 0 and always votes zero peak bandwidth on the
+video-mem interconnect path.
 
 --=20
-Troy Mitchell
-
---7b521a11c60c864c881ef5d8eb32564a68a084993eb79986689971bdd4fd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavv4LCEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC+fyAEA32fW5Y/DoYv2
-3Cu2McB1vRv5wspPyKSABjOcL99SY0cA/1W5fQ8Axd/DB/a+Y7vunNMxiHzELf2l
-tN8+CTlqC5QL
-=RSI3
------END PGP SIGNATURE-----
-
---7b521a11c60c864c881ef5d8eb32564a68a084993eb79986689971bdd4fd--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-add_iris_f=
+or_eliza-v3-0-02a55a9272ef@oss.qualcomm.com?part=3D2
