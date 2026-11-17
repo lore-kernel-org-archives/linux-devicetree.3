@@ -1,113 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794948709;
-	b=BTsf8FJwcBdvtLdnRroXdMgvgpWv0/PhN9nTBM/Xf3kRgYPGIh5QSXcWtvZGYVHeBU1S
-	 dYWaRyA6XntZjERJ8CUr1oMEStrH8NSGGnPBktJywlCFR2AzSMwMkycivQX6Ir8DdIyBs
-	 HQLE3HXiGGn/QZP2An7G68rAoN/42Zizp2tZElmW8lDHNUDrqY8dG7030dXB0HQX1thNH
-	 d7OglIlZO00WcHnhLAvrQUzDXllXHz3s0E53Sr7D8v93c3dv2fDXepuDl42fEpgaFrg5d
-	 vA7PBmKS+6l0sQpbdi/8zf9aFsG3P1cS4lUbcPr2+Q74mYutyWS23ccDhZf6S5l0guA==
+	t=1794948734;
+	b=cuN/6tWN1q1iU4TLtaUQ2zlAemiIg9Dh6qwFRDqOACYdEIZnxlkDRzafjfMaIXMFm8wl
+	 WHDeKT6ETF56m8sPieMMaOCKD3R1TmmiPtFIA6auYA6eSDCcvx+Pd/Kj8Qghk2ULB/1A1
+	 JJI/lIe6liSmMtH7Q4xjB+fQ/yybeb4dHiGY+kf5CWkdexJJlohagGYTXua6ZsaARtSTx
+	 H7Xj8JhO1IRRbN7C0gXutVRXK3Oh5J3JycIYnvmCoxhnJstGfQR3rXRIqow5GCy8iIFK0
+	 lbi47ak99oCZZyvGiNaoX1BUkW+Ncf6t89lMmWTep+lNP3V5NYFzd28+bF1G9TBGkFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794948709;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=H3h9IxdpOr+oov0x9AuL8BUQNJ9C7SGtsH7YFmYPEqA=;
-	b=ZiJHUSpgm0iWzr7SL7dpsHVPdA7htvOm/W0D4o40S07yiqWVO8q6XpNqJrgIKnGuou2l
-	 g6TSUf9ZLLq0tCIFTB/XrESk1ypQcORK8TGmuJzq0K4R0wtOyY9a89LAYQ22/AvcWY2eO
-	 6iHwLomYUuzv4Eno7ed8GXpyEZ9r0l3l53oQnkxE9TOW3pTdULyiCJOfffEVWs1g6+WCI
-	 yXxGOSnyX97GXaYRbO4cHUEsambJpeH6FjWQycLYFctAC/LHciYUNcmrtQ5Iw5rj69gRf
-	 ODMHgnDOYsI4lv+jibQMrR9H7ZzYRxXdbpnFJNZMbzkP2L9ZCLQE7MlrAIiMPW4y1gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794948734;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=qR4YTCRl+SUoV0TzOLZOa+5dovXafk3OxLj0xK/t+0Q=;
+	b=hW3dSNBTAhmb9KLoZfdr3QfRlCcm4c/LxivY9TYs1qKLEvTF0P/kHoMiyqMmwei3jQPD
+	 DSoqHGghhuBAvol+3nbxXWyleLPMIrYoc2295CGny1lga/r32hTtmxBX420NhLwPwoFkf
+	 +XGw8VWp3qfNXp6NpaB2K/q4x9KXKGHtTdVCW9JpqbXH8w6pHiyediuNrWsF8+lhH8nOc
+	 E4IrJwwscKbfMW/v4msB8EXs1v9u4E5kHu5d9d7H5op4ZNVwEbaMFGTjhsAwx3OajIKg8
+	 u5pbB9gNlnoI4yVzTlk5GIsTm1YNqcnJWflOjAvwRyoYyaD/LYEWomWxERvROZ91TxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="PVf/MNIb";
-	arc=none smtp.remote-ip=209.85.128.178
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UlHksZgA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5082606A32F
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 20:51:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5082606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC78D606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 20:52:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PVf/MNIb
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b4f4095a7aso2076447b3.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 12:51:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794948708; x=1795553508; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=H3h9IxdpOr+oov0x9AuL8BUQNJ9C7SGtsH7YFmYPEqA=;
-        b=PVf/MNIbC8a6bfWjqZsIxgcF6k2/UaWL3F+LZLDew2Ev/fZ2Lu81CYI2wWz7Stxkq7
-         L6ByZQ6Z42kEUj+NdNL4lNmZJK+zv89zA++4ek3zydtxjSKHyqJU+05UPBXCTOD2ZG2z
-         3vMal9prNOcq0SOcvs6A3Oq02OC0W8ncTrMwhoUQmiaXGVXbcf5cxEUO8dFV1hg1d70M
-         2HLVh9M7my3KAxVDfSULrJabCnwF5iqImeMt3Q+2htXO4Vrk/B7KKWbgqKWVj7gpL08j
-         OOWeeDVHafI94yxstctdFUyjan6C+EAof615/HWP1AlqJfwBGVOXnpZkm/+mPNuzwcRY
-         UN3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794948708; x=1795553508;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H3h9IxdpOr+oov0x9AuL8BUQNJ9C7SGtsH7YFmYPEqA=;
-        b=d19Tt1ok6UiJeihTbsTWFPYulj7yPs+ryvymOajVh6X9SMi/oOeoUmhlWTWTzuMACT
-         jIbmMjnghVDf1Ktad4x1n1KPy3SZmncYFMYaJOTqaZunOEaz0ikIhDMIjEGJ1h5d6+EU
-         AOt57kCj33WhwhyYG6xkzaABLe7eO7IQzUkEQNuV4C/mGro4zv2qOuNmHD2nAzzD1wzc
-         vr+8Gti0gnoduYh24BF7I4Hw7DFsY1SByjgIXe5MNe6hDNJkyvCl8J9JAK+K0GNxTH9G
-         /oqPfS2GdAsfKoQ09LZAh5Dpxt4+EmRUH4FwS7FJ3yjyOdbu1atnOKE20vNejbOYpDhz
-         2bHw==
-X-Forwarded-Encrypted: i=1; AL+hErEbOTLKWWlqNO3ZbXUfcD+eCixRWbeIbpTPxh1HTsBPvrkCwHwNNgm3zWDusvrPpzvD8/senT16u9AJ@vger.kernel.org
-X-Gm-Message-State: APuU4Z/k1IN8duvmeOZXW088wr8w0UUDhw1vx+UdK57rnvv5BVhwdNeP
-	hPCFfS1llkPn0JRuqXM0PeqL+dg0dKyH/pyZnidN1THSzaSGXwd/bPcW
-X-Gm-Gg: AZFdTZfpCPMe38qDQJAV4ZKeUnfHRJdORXFFJTXBiUEOUecMvrPxFHtM6vYjKjesEh/
-	eJgucvvG0Lf7gcf8eFuqRmqpwEJVnreU/L1mzdCeSKTxLQIQs9FqHsqYMPkZM0vHrYQAS4nFh+Z
-	jPuCzBVAarPy0pDlzKDMqIrdKgVlBvEWUrf0ohnGKQmgGMkeRTHQ0Q/BKmrc8z9ljWPFv9htkvG
-	fv2K8UHm5WpdJtXO+bDh8/iwkusV27oglwnRDyKR78t7feSBraGTyXZRthuRoiw4Q3zWpmKAeXL
-	TLRn/OzenjshSVo6ZI209AFgqJjr5Bb1jdW5CSWppGuuYMMfJnv9OIC0dfNdDnyjdiPH3WqBgrN
-	f8xrQeq9L0wUO4kIBhVZYfCrdk0WAYg3lik3rV/NPkTVsta462Q6iUAApxGbOtObp1C136rgZCd
-	ct251HMybQU5/bzD3ujc5N/aJh8tKAvfbSsiqNCG+VlOoOqeskM46Z3Hfqkk7QCKs+nNRJtFBL8
-	szq5pfJAuOVjNpHFnsvEAsR3ASoV8WIWhlrLJ+Odp6AAPlxB/YJ7MqCBVk0uPnpGpLe7cUOP0z8
-	+Fwmoxz4/jj8lWZMroGyG/RX
-X-Received: by 2002:a05:690c:306:b0:8b0:e479:6872 with SMTP id 00721157ae682-8b4fed09583mr3173897b3.17.1794948707375;
-        Tue, 17 Nov 2026 12:51:47 -0800 (PST)
-Received: from localhost ([120.244.9.31])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4fe057c1esm6086647b3.20.2026.11.17.12.51.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 12:51:46 -0800 (PST)
-Date: Tue, 17 Nov 2026 15:51:42 -0500
-Message-ID: <f4b8c87eb0676500661ebea67363ac27.docular.xu@gmail.com>
-From: Guodong Xu <docular.xu@gmail.com>
-To: Icenowy Zheng <uwu@icenowy.me>
-Cc: Cody Kang <codykang.hk@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>,
- Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- dri-devel@lists.freedesktop.org,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v2 15/17] riscv: dts: spacemit: k3-pico-itx: enable the
- DisplayPort output
-In-Reply-To: <576146d4f2752c3c3f6ec6c42812cb9956406383.camel@icenowy.me>
-References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
- <20260809-k3-display-v2-15-327d7910bf71@gmail.com>
- <576146d4f2752c3c3f6ec6c42812cb9956406383.camel@icenowy.me>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UlHksZgA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ED631F000C4;
+	Tue, 17 Nov 2026 20:52:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794948734;
+	bh=qR4YTCRl+SUoV0TzOLZOa+5dovXafk3OxLj0xK/t+0Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UlHksZgA1iKKI1gW3EK2zUiBhMPAF+5rt3Z3zBzJmUjNx5M0yva5uhbHNQQTiPRaB
+	 oCLNAp1Vazz247VRfgBCd1oJGmzSVpSHEBhDZNHGRnqEaF+kJOIE8KQGvr0NgOwMAP
+	 CmshGK35zyrKZxb9pzO8X5+9WGjurB3yZK77vbTuMDnrRboYbhAIZUpzIgpeM9NrQd
+	 xkgIsSTKlwQteGY1eM4KJbEG2ybevaF6hL+THhDhDoryKJ2nxQw0Pz5DGz8nmB+D/Q
+	 3CNKCnLQ4pKvPW1p5wotaBz9lfcp9a3LtGDj8bf8ZwDqsmfjQzGgYReJlYi6O1y3pl
+	 +zPspg5aZs4wA==
+Message-ID: <sashiko-outbox-219661@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] irqchip: Add Cortina Systems CS75xx peripheral
+ interrupt controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261117-cs75xx-intc-v4-2-0a678f35e5f3@gmail.com>
+References: <20261117-cs75xx-intc-v4-0-0a678f35e5f3@gmail.com>
+ <20261117-cs75xx-intc-v4-2-0a678f35e5f3@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 20:52:13 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,25 +60,144 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Hi Icenowy,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] irqchip: CS75XX_INTC uses undefined ARCH_CORTINA_ACCESS and
+  lacks HAS_IOMEM
+- [Medium] irqchip: cs75xx: missing IRQ_LEVEL and wrong IRQ_NOPROBE in
+  cs75xx_intc_init()
+- [Medium] irqchip: cs75xx: leaked MMIO region reservation in
+  cs75xx_intc_init()
+--
 
-On Thu, 03 Sep 2026 20:09:42 +0800, Icenowy Zheng wrote:
-> The connector available on the Pico-ITX mainboard isn't a DisplayPort
-> port -- it's a USB Type-C port instead.
+commit 57fad06ce5781b2c6a356fbbe01aad10d8c69bd9
+Author: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Right, it is a Type-C receptacle, and the commit message should say
-so.
+irqchip: Add Cortina Systems CS75xx peripheral interrupt controller
 
-> I think you need to model the Type-C port and alt functions of it.
+This commit adds a chained interrupt controller driver for the low-speed
+peripheral interrupt combiner on Cortina Systems CS75xx SoCs.
 
-I am not sure that can be done on this board. The redriver/mux in
-front of the receptacle and the PD controller that steers it both
-sit on the EC's own I2C bus, and their interrupt goes to the EC too.
-The SoC has no bus to either chip; all it gets from that side is the
-DP1 HPD line.
+> diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
+> index 136bab41f8011..db5edd4ec0927 100644
+> --- a/drivers/irqchip/Kconfig
+> +++ b/drivers/irqchip/Kconfig
+> @@ -187,6 +187,18 @@ config BRCMSTB_L2_IRQ
+>  	select GENERIC_IRQ_CHIP
+>  	select IRQ_DOMAIN
+> =20
+> +config CS75XX_INTC
+> +	bool "Cortina Systems CS75xx peripheral interrupt controller"
+> +	depends on ARCH_CORTINA_ACCESS || COMPILE_TEST
+> +	default ARCH_CORTINA_ACCESS
+> +	select GENERIC_IRQ_CHIP
+> +	select IRQ_DOMAIN
 
-So a usb-c-connector node would have nothing to link to here.
+[Severity: Medium]
+Is ARCH_CORTINA_ACCESS defined anywhere in the tree, and does CS75XX_INTC
+need to depend on HAS_IOMEM?
 
-Guodong
+Because ARCH_CORTINA_ACCESS is not defined in any Kconfig file,
+CS75XX_INTC cannot be enabled without COMPILE_TEST and its default always
+evaluates to n.  In addition, enabling CS75XX_INTC under COMPILE_TEST on
+architectures without HAS_IOMEM (such as s390 with PCI disabled) fails to
+build in cs75xx_intc_init() due to an implicit declaration of iounmap().
+
+[ ... ]
+
+> diff --git a/drivers/irqchip/irq-cs75xx.c b/drivers/irqchip/irq-cs75xx.c
+> new file mode 100644
+> index 0000000000000..f3d71b06c59de
+> --- /dev/null
+> +++ b/drivers/irqchip/irq-cs75xx.c
+> @@ -0,0 +1,100 @@
+
+[ ... ]
+
+> +static int __init cs75xx_intc_init(struct device_node *np, struct device=
+_node *parent)
+> +{
+> +	struct irq_chip_generic *gc;
+> +	struct irq_domain *domain;
+> +	void __iomem *base;
+> +	int parent_irq;
+> +	int ret;
+> +
+> +	base =3D of_io_request_and_map(np, 0, of_node_full_name(np));
+> +	if (IS_ERR(base)) {
+> +		pr_err("%pOF: unable to map registers\n", np);
+> +		return PTR_ERR(base);
+> +	}
+> +
+> +	/* Mask everything before the chained handler is installed */
+> +	writel(0, base + CS75XX_INTC_ENABLE);
+> +
+> +	parent_irq =3D irq_of_parse_and_map(np, 0);
+> +	if (!parent_irq) {
+> +		pr_err("%pOF: unable to map parent interrupt\n", np);
+> +		ret =3D -EINVAL;
+> +		goto err_unmap;
+> +	}
+> +
+> +	domain =3D irq_domain_create_linear(of_fwnode_handle(np), CS75XX_INTC_N=
+R_IRQS,
+> +					  &irq_generic_chip_ops, NULL);
+> +	if (!domain) {
+> +		ret =3D -ENOMEM;
+> +		goto err_dispose;
+> +	}
+> +
+> +	ret =3D irq_alloc_domain_generic_chips(domain, CS75XX_INTC_NR_IRQS, 1, =
+"cs75xx-intc",
+> +					     handle_level_irq, IRQ_NOREQUEST | IRQ_NOPROBE, 0,
+> +					     IRQ_GC_INIT_MASK_CACHE);
+
+[Severity: Medium]
+Should irq_alloc_domain_generic_chips() set IRQ_LEVEL | IRQ_NOPROBE in the
+set argument instead of passing 0 and clearing IRQ_NOPROBE?
+
+Because the interrupt specifiers have no trigger type cell and the chip
+does not implement .irq_set_type(), leaving IRQ_LEVEL out of the set flags
+means _IRQ_LEVEL and IRQD_LEVEL are never set on the mapped descriptors.
+As a result, check_irq_resend() treats these level interrupts as
+edge-triggered during enable_irq() and schedules software resends via
+irq_sw_resend().  Passing IRQ_NOPROBE in the clear mask also makes the
+interrupts probeable instead of preventing probing.
+
+> +	if (ret)
+> +		goto err_domain;
+> +
+> +	gc =3D irq_get_domain_generic_chip(domain, 0);
+> +	gc->reg_base =3D base;
+> +	gc->chip_types[0].regs.mask =3D CS75XX_INTC_ENABLE;
+> +	gc->chip_types[0].chip.irq_mask =3D irq_gc_mask_clr_bit;
+> +	gc->chip_types[0].chip.irq_unmask =3D irq_gc_mask_set_bit;
+> +
+> +	irq_set_chained_handler_and_data(parent_irq, cs75xx_intc_handler, domai=
+n);
+> +
+> +	return 0;
+> +
+> +err_domain:
+> +	irq_domain_remove(domain);
+> +err_dispose:
+> +	irq_dispose_mapping(parent_irq);
+> +err_unmap:
+> +	iounmap(base);
+> +	return ret;
+> +}
+
+[Severity: Medium]
+Does the err_unmap path leak the memory region reserved by
+of_io_request_and_map()?
+
+of_io_request_and_map() reserves the physical range via
+request_mem_region() before mapping it, and iounmap() only drops the
+virtual mapping, leaving the region permanently reserved in iomem_resource
+if initialization fails.  Using of_iomap() or releasing the region on
+error would avoid the leak.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-cs75xx-int=
+c-v4-0-0a678f35e5f3@gmail.com?part=3D2
