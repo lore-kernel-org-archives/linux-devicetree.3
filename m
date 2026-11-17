@@ -1,45 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794955620;
-	b=TP0WLlXdY3rQjCG+lMMkaqj5l6kUr++visk89uimiM1+O/P1ocbvioPt9S6ZqitSLIct
-	 nGbV4o7266/Z8e9PU5BvBnV19Yn0/H+63XwtkaaoOn3XJz57jLBYCYtrZpcomSbE+pKoO
-	 xoHRijbF+B4WO49h2rm6qYwTeR2Vi7grtt+UaYurvK7vDLCZypiFyZXPKjbsQEWuRYLk6
-	 xMX244+Ip59vZ7T/U+yccvP9zRVM1RDOKy0ChwTHo+cXpruafK9oMlF/bl01tr8Owo3fy
-	 giwcoMaQHt0HFNoiVsH5GIejSE1tNrHCGvSxE+fYOruUNlnHxNJFboqEbY/1N5sO7Aw==
+	t=1794955990;
+	b=Wr2rRtwCutZ14QtGg17epusRqsLHrnheqSGiQORSh1ecgOdkSOIn+IGjyHt9qSsIQ6mR
+	 ghAW8rdLmo3Tz4ueJxpMV15siGIqdCiIGfNwDnbovblWG2fDItqbwe0BhhjIQRMPGrAZ/
+	 66i/nkiTX01VlFh7cLDuIOyTteUatRnKWyEseDa4xWoF4M43Zwy+O3Jqo8zQBoMVLv6Q4
+	 3z2gWka5KVFqwJKGafUc0FLqAlW+UKXsfUCjFFbnKHneQ+0/tU+Q9YxC/9INY3CeXcNrg
+	 6XVGuTRK8/I8oyv28SuqS1gT5jLBMLtjQPBVDPT1Mr8y29f3OTClIrl4dduo/Ukzfvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794955620;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=TxUFMRMYx3DJ6yj47nz6z8REqInSZBHxjQaoTXnZX/c=;
-	b=ldjEMFm7rPc1Z2ijmZ8MRk+kGWuIULt5oM05zrcoWBAdzrpHRIb+N0A0UU/9f2vJT/nr
-	 ktqFnOtPU8aFw/c1Z6XSldDDLbyQ9Bs9nwCj8RnVz9Omd7zqND/ATjUCAgJiW5oifovLg
-	 pCps1ZxEkkTEeoA+sMqlh330VoQSFfWDNg0X7BHDhqXSj9C8j1PfPBoHtv4Y53TneLMPq
-	 ml8O69bE7k0bxMpXW72yy7RzscInTXCVQj6tCGMrrVf6gOoZGM4YCoSfVI5O3156j2D8Z
-	 HIC/X401NBACcMrWmtyCNH3Ul67Vjic0SnIox16mGhGyQzrzUwxohaRYYcZ4C2GamgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794955990;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
+	 X-Pm-Original-To:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=utpAkiwFHBjBDfI84DKHsLpQh91ULE12v2wjMHOYcls=;
+	b=mu6tNwVqs7QrwVwNjnFATjZ5DdhPplbMSmyf5f0p3oTd2dDMN6gA+VaTIzf7ckalVJZr
+	 7z0ew3EyS5w5HcFd/UDPPXhttAJzySpNH7YTvMUdNVkx5BzXyoFRp9dT3LAY11QPpuwlP
+	 vN2gMiB3G5FB5WZVUMOHC39V+zGDhvWf2rdFe3Z/Yw1/JULBeqiTUdYNbDDxPHomiCJPZ
+	 K3EFORF5jDgje2Lb2cb3rfb6Yg0N//Pd5GKrk/61DdzkSUbcOFu7vp6fgRx5RXrX5WU8h
+	 +U7An4Xk3B51IFChZN2CW4mFHjUPZbtt6hAdKFj6WZTsTp+xWb7RtnXVToTgt6CYvbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I59gx9Qj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sverdlin.org;
+	spf=pass smtp.mailfrom=sverdlin.org;
+	dkim=pass header.d=sverdlin.org header.i=@sverdlin.org header.a=rsa-sha256 header.s=purelymail1 header.b=VpISasGt;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail1 header.b=WPQqpMNw;
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98928606A881;
-	Tue, 17 Nov 2026 22:47:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11E5606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 22:53:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D11E5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sverdlin.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sverdlin.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I59gx9Qj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B7C81F000C5;
-	Tue, 17 Nov 2026 22:46:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794955620;
-	bh=TxUFMRMYx3DJ6yj47nz6z8REqInSZBHxjQaoTXnZX/c=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=I59gx9QjhYIJYFa39a/lPSud0wDNSXu+myYH/WcHpvn9sUFqpCjch29DAXsJBrOpm
-	 9t5nnZJNyi/9LVF9nwXu8gSu0mzUCPcUYY3HSFePp8/TQhKgI8h7O0EYzFzAfBH+4H
-	 l9nyIwBBmSJ/oWvntSGlvWBpfXHMjz4TmGeNmXDGYWfE5k+sAvzd7An7tXv6aZFP+4
-	 b/d0Xw6y3yq6CohzJpNJ8cQ7YqaU9Joo1bzp77hi49jzbfkYAl1jaKVALo7qR8wxhj
-	 sHM8fkGu2nxtKQWh/RQ7NFVt2+Vg1pDDAM7wIfcQdtUOO9HbxmyuThsIcg6Nh3Rnkv
-	 bmXN72OiatgKA==
+	dkim=pass (2048-bit key, unprotected) header.d=sverdlin.org header.i=@sverdlin.org header.a=rsa-sha256 header.s=purelymail1 header.b=VpISasGt;
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail1 header.b=WPQqpMNw
+DKIM-Signature: a=rsa-sha256; b=VpISasGt6hFOUpKJTSi8dBra3gbAk0b9ucNeEEkvSqEDrMQnNovWvDWBhHWiWmB45EPYqReyCK7Sn6X/U0djwvify9yCIB43hDeIbXKLHM5QYUUSRGJUzUid3yOjmEyDLYzhjxt1IXUfFaBOROF5X9yxvrvqn6DfiUsb4gpUlQoARK8KLCElCUCDYdQk8eGi96Bo9QQKXDi39+dxnydUF5ql3qVR/IuXM4iZI6ioJFs4l7aFD0rmLu/0RtbJMt1tsuA8PHouvRhjf9ZQFvzcssgv1IzBPrE9U/TMQ09b0Tu5iZkhLHc1P7LScvCpfmMt5NOde73baMDHiAKN/k9png==; s=purelymail1; d=sverdlin.org; v=1; bh=utpAkiwFHBjBDfI84DKHsLpQh91ULE12v2wjMHOYcls=; h=Received:Message-ID:Subject:From:To:Date;
+DKIM-Signature: a=rsa-sha256; b=WPQqpMNw/2XWir5D2XHi3oGT4BNQ0Vp9yoeFLqxVPB+h019xYU004bkv1X/PlsK67Dkdy0Hpo5UvS3N+yw9L6WJZ6iF+DP23jHF3CvXu8rvhhzBWA8YdUrpM482YqXQ0ZXQqbukhRsY/CtzdI3yjQ9dkV9eLUzPhdOJJT8LxHZkbRS/U4XovujIi3W6Lw5Fik9BatQ6tO+mRUeD+AGetIJ9lkmtcGhua93XPiJYItjVwwsGy58yR1mBIVCc1MqeOpGuJcvN/Dnr9dAAM22CR2snE5SGZh95gT6gUZfzjDsCU5y9XdoUck1nhVyt73hHcUoda3qWDI6XEJtvZ18DbhA==; s=purelymail1; d=purelymail.com; v=1; bh=utpAkiwFHBjBDfI84DKHsLpQh91ULE12v2wjMHOYcls=; h=Feedback-ID:Received:Message-ID:Subject:From:To:Date;
+Feedback-ID: 815097:39668:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 150623937;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Tue, 17 Nov 2026 22:53:04 +0000 (UTC)
+Message-ID: <f7752d1d155491876ae5d4bc1694c01c8d86b789.camel@sverdlin.org>
+Subject: Re: [PATCH 5/6] arm64: dts: allwinner: a133: Add CPU OPP table
+From: Alexander Sverdlin <alex@sverdlin.org>
+To: rajanyadav0307@gmail.com
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Cody Eksal <masterr3c0rd@epochal.quest>
+Date: Tue, 17 Nov 2026 23:52:52 +0100
+In-Reply-To: <20261104-a133-series-v1-5-58217cb33a87@gmail.com>
+References: <20261104-a133-series-v1-0-58217cb33a87@gmail.com>
+	 <20261104-a133-series-v1-5-58217cb33a87@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,46 +67,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 2/2] ASoC: jz4740-i2s: Add support for the X1600
-From: Mark Brown <broonie@kernel.org>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Paul Cercueil <paul@crapouillou.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- "H . Nikolaus Schaller" <hns@goldelico.com>, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-mips@vger.kernel.org
-In-Reply-To: <20261024214438.33342-3-olivier@mgcrea.io>
-References: <20261024214438.33342-1-olivier@mgcrea.io>
- <20261024214438.33342-3-olivier@mgcrea.io>
-Date: Tue, 17 Nov 2026 22:46:17 +0000
-Message-Id: <179495557744.2707353.8222109296948133350.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=640; i=broonie@kernel.org;
- h=from:subject:message-id; bh=7cP4yHLtdpsCFF/6HyshCAsYCHoaRqR/0z0xThzsvmg=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL+3ExoN7jSGXP4aVd3llf4kbRL0jKS78yuNS6furpG7
- 6Loz9iXHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZiIsRvDf3dXDdVzt/L+qkru
- ml9j38/bxv51w9alUov51HIMkiZ2TGL478E+z84xTTN6ldBvziMhSh2VIVanXzh231uW/cd89yU
- uTgA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> The X1600's AIC is the X1000's, with two differences.
+Hi Rajan!
 
-> @@ -389,6 +408,16 @@ static const struct i2s_soc_info x1000_i2s_soc_info = {
->  	.field_i2sdiv_playback	= REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 8),
->  };
->  
-> +static const struct i2s_soc_info x1600_i2s_soc_info = {
-> +	.dai = &jz4740_i2s_dai,
-> +	.field_rx_fifo_thresh	= REG_FIELD(JZ_REG_AIC_CONF, 24, 27),
-> +	.field_tx_fifo_thresh	= REG_FIELD(JZ_REG_AIC_CONF, 16, 20),
-> +	.field_i2sdiv_capture	= REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 8),
+On Wed, 2026-11-04 at 22:41 -0600, Rajan Yadav via B4 Relay wrote:
+> From: Rajan Yadav <rajanyadav0307@gmail.com>
+>=20
+> Add the A133 CPU OPPs from the vendor BSP (sun50iw10p1.dtsi). There
+> are ten voltage sets, speed0-5 for the a0-a5/a6 grades and speed6-9
+> for the "high speed" b0-b3 grades. opp-supported-hw selects the
+> frequencies of each grade:
+>=20
+> - 1464 MHz only for the a grades
+> - 1416 and 1512 MHz only for the b grades
+> - 408-1320 MHz for all
+>=20
+> The highest voltage is 1.18 V, inside the 0.81-1.2 V recommended
+> operating range of VDD_CPU in the A133 datasheet (V1.5, table 5-2).
+>=20
+> The BSP uses 1008 MHz where the A100 table uses 1080 MHz, at the same
+> voltages for a0-a2. U-Boot starts the CPU at 1008 MHz, which mainline
+> now reports as an unlisted initial frequency. This table follows the
+> BSP. The BSP table stops at 1512 MHz, so there is no 1608 MHz OPP,
+> although some datasheet versions list 1.6 GHz for the A133. A newer
+> factory kernel adds 1608 MHz for b0 and b1 only; that is left for a
+> follow-up.
+>=20
+> The table has the A100 compatible as a fallback and the speed bin cell
+> first, so a kernel without A133 support selects speed0-2 from the speed
+> bin and gets the voltages of the A100 table, with 1008 instead of
+> 1080 MHz. It needs the efuse cells added to sun50i-a100.dtsi in the
+> previous patch.
+>=20
+> A script compared every voltage and the frequency set of every grade
+> with the BSP file and found no difference.
+>=20
+> Claude Code (Anthropic) drafted this table and its message from the
+> vendor BSP device tree (numbers only) and wrote the comparison script;
+> I reviewed it and tested it on a KickPi K5C.
+>=20
+> Suggested-by: Andre Przywara <andre.przywara@arm.com>
+> Signed-off-by: Rajan Yadav <rajanyadav0307@gmail.com>
 
-In the v2 thread Nikolaus said that there are separate TX and RX
-dividers, is that the case?
+Reviewed-by: Alexander Sverdlin <alex@sverdlin.org>
+Tested-by: Alexander Sverdlin <alex@sverdlin.org>
 
--- 
-Mark Brown <broonie@kernel.org>
+> ---
+> =C2=A0.../boot/dts/allwinner/sun50i-a133-cpu-opp.dtsi=C2=A0=C2=A0=C2=A0 |=
+ 172 +++++++++++++++++++++
+> =C2=A01 file changed, 172 insertions(+)
