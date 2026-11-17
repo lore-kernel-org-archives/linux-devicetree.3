@@ -1,45 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919853;
-	b=MYFfgZmBE5DraID0thUhSXHzyR4WVTMj+uOjoePzHqZUKwnl3wwH19RqGm1yvcEqxwO6
-	 Z+YUQfm8kmczCTttKsJt9BGYlzRKpLBTSYMD7+/qRiMi1Paqckuq+Yrj5mjysQkR4tU9Q
-	 vXr7dbZlOPvIlNXTAC7tpY4iwait2ah1617B89O7aIWgMxbOA2hCLbc6MU8vd30CLzhym
-	 10ykAugLiIz7ttGng8zO29V0JVYUSPXq7E7CC73wgNWJ30SkE7+4R4dfCrLMD9G1/ICkd
-	 7LCqM9j/MZbUYYtkO63mt6+mRqQLe/3p8GPObM3P9n+4SNoNGM9B6GZcpRII5rpdFeg==
+	t=1794919854;
+	b=dpNwGFVtGnosIdN1sP771iDK8Jar2fqGx2D2P2Ybq7uMjL02gfobDVnrwhyarq6kUtI1
+	 oxjPY2iv5YKgPnIvA2//ClTj/XGvmHzKIo8TmBDOhpb+vaWL6KvJ3wz/oaxcC/31U8NN6
+	 EGSonmMpEY84uVI5/fI6M9qgSQseDGxBLHPF5YkSrp9xRLt5odwu3DtBXViDA6f+pcgQ2
+	 3y9FpQGLgz/NiRnX16WZM1Kkl+HCCkUuDaTssH5w5J9m1StedB96pZdLBz5byD2YehgaN
+	 unFXGYMMkI7pEsFxVCxDV3pQW8lQHMghd1p/Wfb00UPKemxVSBtEFXFPcGScLXSFiyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919853;
-	h=Received:From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=Zf3MsUipeIoo9Uty4dGky+vBJxZHkD7wRzAVDmgbAyE=;
-	b=oItz3DJo9jrILkXce2CqMQJ8U65MS4ACecTTym16PoWgpyCgcO0KJs2NNJWdqrG91+Kg
-	 iuYBLC0zGqj/02SpzvoQhF1BrcATkwIZhYdJKMfQpEi2Fa5eBjUAIXVJIi/+XmUzNSUIW
-	 jOaHMtiM3xfbc5Jw6SbmrSeEYKjSB4FkugO4sE6FDmFT19M1Jx4OyNm0UoHnJtuJj9JAB
-	 tw6CeD4vJAVsUG3Y+iAB2BIfrteSWGYWK6TIAzmh1gX0PYprNeXolTQuVQXJZmLaXHmFD
-	 RGGLVShrg+ON06N4bh4GPcBLLQGPOs2tjCbVVwgdWyFXdeJZw3VS+MXKwgCHHAlPQlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919854;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:In-Reply-To:
+	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=m//akQsPn9JtkIDkyJkoy5a2KvGmB9mNZhCGPYriT9M=;
+	b=lfylLLnUw6o2bFkKWrEByx9vWEs2tHtpNNUazH/Vi+PAZs8kndPD3g/jcVggoQZW9y7t
+	 ES/MCK1TnImemwCLqqIy8SmKHL7xUOY8FCDSAVxtqzKjAl8i1GU+VRmAsjRR9KCBr4EU0
+	 uteM7bzGGQQfYDIQpvGKnTZqhCVy5xMgXaDQrhlYupXUcskzJaGxgUub1KuqTEVWslsuf
+	 NbqhWplHXe5SMZcPvZIWQfDzSJ9Ykop1RCIfs5FTI7PK7TEajM3KDPFrEhPfacX4k0hl/
+	 XnyXH+dHSylv1jEQuHlbo6hKUavcOMLXW5bFwZM9CNuRYlQMibyeBXHmastvwOZjULQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=QAQUUQk2;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF05606A89E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B824F606A89D;
 	Tue, 17 Nov 2026 12:50:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFF501F00933;
-	Tue, 17 Nov 2026 12:50:52 +0000 (UTC)
-From: Thierry Reding <treding@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Aaron Kling <webgeek1234@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>
-Cc: linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261015-b4-t210-pd_nvdec-nesting-v1-0-39a36b622eac@nvidia.com>
-References: <20261015-b4-t210-pd_nvdec-nesting-v1-0-39a36b622eac@nvidia.com>
-Subject: Re: [PATCH 0/2] Fix NVDEC boot on Tegra210
-Message-Id: <179491984070.1887007.9922722264589294895.b4-ty@b4>
-Date: Tue, 17 Nov 2026 13:50:40 +0100
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B824F606A89D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=QAQUUQk2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794919852;
+	bh=/NNQdnvNk7fbdVxY6HWPt8tiESYBlaF64MyDZxk6kR0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=QAQUUQk2XnKGQnU7PdVPFu1sH89zSlyTMWLLxn0vnY9qL2Y88IyD3G4pQgZI/aeVn
+	 B4OvT0d49SQKGJlc5ZCZ6Y1PW1zXSR3nMlcc82y/xht5aWLwUNTTipNpCAMs8bn3On
+	 hrNLLc78iMilcMrfo7ofuWulPedX3ONL5tr/OB/3c9HmTMBlUvXD3KcnSIPuC5eBMQ
+	 dSSNmah1e6qkDxReXzxsaAeVgzTSdgBcegcMVSGu/zjUbJuU4aKt2tu4Mtr9axVRO7
+	 TTyS9yHCjitgjo8iQWiT06HOiCtpSxdpP0Q9611dXatIKLX51j6WpQGJczDF+Z51eD
+	 r5XHm26IhcGnA==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5E61417E0311;
+	Tue, 17 Nov 2026 13:50:51 +0100 (CET)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ David Lechner <dlechner@baylibre.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org
+In-Reply-To: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
+References: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
+Subject: Re: (subset) [PATCH 0/4] drm/panel: himax-hx8279: add VDDP supply
+ for Startek KD070FHFID078
+Message-Id: <179491985132.188092.5906284430538056975.b4-ty@b4>
+Date: Tue, 17 Nov 2026 13:50:51 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,43 +80,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=674; i=treding@nvidia.com;
- h=from:subject:message-id; bh=Xs++ydyvFmALhs3iMzQiWYDo+bq5LKMLDLtvJYzWnTc=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBq/E2qY0svl5l3VmkOwUR0Oy9YiATSgZD2sr234
- TFdBZ4vWnmJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCavxNqgAKCRDdI6zXfz6z
- obrbD/0US+rXfMPpd+ydrKWerCxMSEIrUL3hF8pXAReMKKiJXNV7J7kqejcBET6235rGdaUYhVu
- lpY1GJ3XH4j9xm8BIsPk/DbOl0mufeHKqYbf81VruIDbdljwtIGbyHLN11iteuqih++oA1l4DUY
- W8DgPYbxSkNcR0Vi/74SU2CO7c17jnWB6A6c7HQU2Xxo20bdKKtfClMoVhu1QaILI6T6gYrlHMp
- SJm3GY/68y76Sn0v0f2wBaFGpperPrNwrxnkannzCyHimvO8maHEEzZgeE1ZtXcSmsFXuZ3EJHo
- bAXnWpZdzLKLwIhs5nhAkpyLrkLaPCxzMN5ZfLNsHp3Dr2uqJGs1qYXm90H6i6IdW54qJvWYtzr
- dA0VeaLxUc9qQDzOsQJoYgiG1iGHWnWURFASQcbofGRrtvLwJ9COJTelvzcrhoDfIfY4QHiSZaW
- 7bYs+Gv/gMup0LF2PM5qEV43sv1F3t25MnyYByFmipMZopmUw0ST31Uro77BRkTKI+asDPu/abZ
- ipZeL8MwOf29xlqBI0hbBHrlGH7ulzafYc0sk/vnHkF8g1AfxI2vdRJxS5Qx+VpnqM8IIELQ98k
- J6kzK90rnT/EupspuPHAXywEyrxOTekbKv+b46rlbOSc8lncjQDvT8XEnBQWQKj+EbmLR4p0Tg/
- TYf5jr9qgAKgZaA==
-X-Developer-Key: i=treding@nvidia.com; a=openpgp;
- fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
+X-Mailer: b4 0.16.0
 
-
-On Thu, 15 Oct 2026 18:58:01 +0900, Mikko Perttunen wrote:
-> Fix NVDEC boot on Tegra210
-> 
-> On Tegra210, parts of the NVDEC hardware unit are in the NVJPG power
-> domain. According to the TRM, the NVJPG power domains must always be
-> ungated while the NVDEC power domain is ungated. Model the dependency in
-> device tree.
+On Tue, 06 Oct 2026 15:25:00 -0500, David Lechner wrote:
+> The Startek KD070FHFID078 panel has a VDDP power input, which feeds its
+> DC-DC converter in addition to VDD and IOVCC. On the MediaTek Genio 520
+> and 720 EVKs, VDDP is switched by its own regulator, and on the Genio
+> 1200 EVK it comes from its own PMIC LDO, so it needs to be described and
+> enabled. The existing Genio 1200 EVK device tree also turned out to
+> describe the panel supplies incorrectly, so this series fixes that too.
 > 
 > [...]
 
-Applied, thanks!
+Applied to v7.4-next/dts64, thanks!
 
-[1/2] soc/tegra: pmc: Support nested PMC power domains
-      commit: c6935858d13498f24b305aff53bd1123da6a8671
-[2/2] arm64: tegra: Make the NVDEC power domain a subdomain of NVJPG on Tegra210
-      commit: d4e7a00646df735b915273cca544db11f6dc8854
+[3/4] arm64: dts: mediatek: mt8390-genio-common: add the panel vddp-supply
+      commit: 949fe0bd3a3a6ff0e4451ef38ef780f596d0089d
+[4/4] arm64: dts: mediatek: mt8395-genio-common: fix the panel supplies
+      commit: 036ce7562bef9a85d46ed6ba5b83ef4f5e60ad8b
 
-Best regards,
--- 
-Thierry Reding <treding@nvidia.com>
+Cheers,
+Angelo
+
 
