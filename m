@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794887893;
-	b=CAeoDfENgMMqn6MI2dZufaMsbsr7FTjkwL5UqyxFkx7uJH9taNNpooktaPjVku6IWdP5
-	 /bIv+oUwGU9CwHG7ar7zSkdN9mkASLrEuGHxM41WtVIXV6n6TcDj6qr/Kg7QRaAGbw/t/
-	 ZyxajGy1IT9xFGS0EAeX9pd6ao74m/KkK2ByFKk8VXtVmSIsZy0tZo2/G1nd41NKMDpu5
-	 vKbeaar28aZ8S3aiEMlmgjJzcmbtgeJrdW8is7hzDAx39xpQKRrPGCfT6uLzYS28MIfTU
-	 VWLiBrLqa9r8pQSe9ZL0dOVSmTH//TNJsI/W5PUEAVLtN5F8wBd2wJUmOJ0uBoibVzA==
+	t=1794888048;
+	b=hp34U7JSvoD+QlbEFAszgaE7E5RjIhUfdtvD85GY6Q7Zy4eN3Zxj/TrX75VPbBFX0dfX
+	 E9LeAwQOgTmqzrs894+USlGcPtpCKMctKhGI/cwzeGRP6JkXtxld+XyfiRgdwVzR0M/NU
+	 5emZzH4i8lx10b+Z3X+pQKNM/UzZL0Q2Kea6YhuP+B+NRI0ZKV+zq3dnh5NfMhOBBCCx2
+	 Uyk6tqbGWFNyjixHRkfhSyIQa/g6jeYD+VcFluKpygF1UTqz7D4tdhF45G1slsgAnTdXx
+	 4NrBnIOAnsX1CbRfLJnEyBjUuZ5XQtqD8ob05C0REfY5/4mAbUU9nFpLZaLBRenejfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887893;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=UJAcOijmv1siFMXlHDD2Yx1zDphvl4fKpUkYlmwjLWw=;
-	b=06yvtAiPXNdX/SMGErBuRdmuC6c9Oyqv84zslBcdJv0S83xr8LLLDKaPHcdENPQ/NtFw
-	 WrRWbpMnOtba4L8jXWFrTGQAUS8gDpxCBqsd/sOayUIfG8o62gAO734vdymXg946d86yH
-	 CcOcIlVd7Xa4Z+nTwJXitqn2AWX48Ddn7ZuR1rdmUcrg0wbXv0oyZ8cDjQMNuhUobjVZE
-	 /GGW19ilO7/wNBJSioyu/fRhRaYwPKZwwfM7R3VS170cdOC9z00QNjroiMaZGkCuPxEw7
-	 ID2C//eM0Tcyg/XXlzycLbUW6JiIhaNAI/rPpwtVitrqXnJqZm1834BQv95gRADn5NQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794888048;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=nch5behXXAoQGEBsA2Q8BdXIFkZHgLBWF8ZJ/y/s5/w=;
+	b=uuZIAl6lqZHrFwQStvTkPvcVNUhfP5NHrNReyqB1ftarOXQ4R+EdZktDI2Lg1l5dQ7C4
+	 G9HhJNLCdipW+J+yTS4eMsXQeADta1RM1cEjBdwol6QtX5gZV3N4ckou1MLiHUcsQ2HZR
+	 I8mRFUn5hBpyiXDJ2MJTRl36eI8JMT24DK53m04ZhWn2OO2ifXuS/XQIogEI56Z22Ocjd
+	 ODHkNckQKi8tO/iq+GVQs7bp4FfOWcSnmmWhZhUykHIMCM1Bo7i8xDZZlY33MgUzgREY7
+	 QoADTeBsV/v2LeGtfnfIB2uo9WzTP2GgjliCkXidYwdFgUovaiMorwDb+291vFZ5A5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="K8U2KL/I";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b="i/MM1djq";
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A42606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 03:58:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0EAC606A31C;
+	Tue, 17 Nov 2026 04:00:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0EAC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K8U2KL/I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0E601F000C4;
-	Tue, 17 Nov 2026 03:58:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794887893;
-	bh=UJAcOijmv1siFMXlHDD2Yx1zDphvl4fKpUkYlmwjLWw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K8U2KL/IBvoPgtD88+joY4V9Tt5wTaV6UxjjRM8Cfa4RJZW4AdTZprdoV4zAWK8I2
-	 1KsZ8OdzLjXykLpXbhDIJSmwkLuU2g0XturIXIDKFcys6zGix9aa1r9m/qPnswlKeY
-	 tkuoMaB5zo04RPlmUR0ACM3J6GDSl7TVZPF2WzOx1dW/ALbT6zkRKttm5GBqolQ7N0
-	 f9/jGr3E+O39cexzKk8yx2miOtwMssJjtEeStkCHqmm9mHuO+WC0p2H606eRk8enzC
-	 /382twNGVWaKwyMg/ugPosOoFuBsjYjt5nbhG76fY+eGIDRPjIyXPTkoOwpvfP6ZDg
-	 AX3yZS29jHwLg==
-Message-ID: <sashiko-outbox-218174@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 05/14] media: mediatek: vcodec: get share memory
- address
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261117032950.1425556-6-kyrie.wu@mediatek.com>
-References: <20261117032950.1425556-1-kyrie.wu@mediatek.com>
- <20261117032950.1425556-6-kyrie.wu@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 03:58:12 +0000
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=i/MM1djq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1794888045;
+	bh=nch5behXXAoQGEBsA2Q8BdXIFkZHgLBWF8ZJ/y/s5/w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=i/MM1djqiztgRar1CVJUlGk3V0wOd+lZbDoONdrVfCgQBl6AKtsSyv5BEyjGabkVf
+	 842tDz+Bddi2TjssUUIc+PAVUn3CQM9vh5leaZlfjJ06TmBNPn2PLsaeVlVaCtSjpU
+	 7g8MupoVD1VUfaPZh0Ju3cErhtCgDdnzYXJcobqfrMKf5/MN+dKU/3e97i0lrIcFZl
+	 GaRcf+X+bJV5QP2idBvvc7iPR71v3VikIA5gWHXFk3WhGHv9DdnoZdaBDw/Y/vIuGQ
+	 xilrfKiwK/uHFLTo/gH6MT4FpfjrBHh/ePhMKWUJaP4ZYZIwvGH0d55JHfJNgae3tP
+	 0hVs8nvWsJEvw==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jT9xn1xn7z4wT2; Tue, 17 Nov 2026 15:00:45 +1100 (AEDT)
+Date: Tue, 17 Nov 2026 15:00:36 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Douglas Anderson <dianders@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org,
+	Brian Norris <briannorris@chromium.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Julius Werner <jwerner@chromium.org>
+Subject: Re: [PATCH v4 08/14] libfdt: Speed up fdt_find_string_len_() with
+ memchr()
+Message-ID: <avvRY-nTstFbvTpF@gractus.seuss>
+References: <20261116205320.1621386-1-dianders@chromium.org>
+ <20261116205320.1621386-9-dianders@chromium.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,86 +73,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="y2Lfunv7MMkdVJQ0"
+Content-Disposition: inline
+In-Reply-To: <20261116205320.1621386-9-dianders@chromium.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] media: mediatek: vcodec: broken error checks for
-  mtk_vcodec_fw_map_dm_addr()
---
+--y2Lfunv7MMkdVJQ0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit f8c6ecd0c5f49d45a4ff6d9ac44477ccdda67d46
-Author: Kyrie Wu <kyrie.wu@mediatek.com>
+On Mon, Nov 16, 2026 at 12:53:05PM -0800, Douglas Anderson wrote:
+> `fdt_find_string_len_()` currently calls `memcmp()` at every byte offset
+> across the string table (`for (p =3D strtab; p <=3D last; p++)`). When
+> building or modifying trees with large string tables (such as DTBs and
+> overlays with hundreds of `/__symbols__` or `/__fixups__` labels via
+> `fdt_sw` or `fdt_rw`), scanning multi-kilobyte string tables byte by
+> byte dominates serialization time.
+>=20
+> Advance `p` between candidate first-byte matches using `memchr()` (with
+> an explicit `slen =3D=3D 0` check for empty property names and a `tabsize=
+ <
+> slen + 1` bounds check before computing `last`), preserving identical
+> suffix-sharing behavior.
+>=20
+> On one stress test (running the fdtfactor tool across 438 arm64 Qualcomm
+> DTBs) this reduced `fdt_property()` time by ~5.6x.
 
-media: mediatek: vcodec: get share memory address
+What we really want is memmem(), which would presumably have a similar
+optimization (and likely more) built in.  However, we avoid that to
+make this easier to environments which lack it.
 
-This commit implements mtk_vcodec_vcp_dm_addr() to partition the VCP
-shared memory buffer into regions for VSI, VP9 frame context, and AV1
-tables, and updates the decoder drivers to query these regions when
-running on VCP firmware.
-
-> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_=
-vcp.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-> index 5ec7a67b51b67..49ba897630a54 100644
-> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-> @@ -483,8 +483,31 @@ static unsigned int mtk_vcodec_vcp_get_vdec_capa(str=
-uct mtk_vcodec_fw *fw)
->  	       MTK_VDEC_IS_SUPPORT_10BIT | MTK_VDEC_IS_SUPPORT_EXT;
->  }
-> =20
-> -static void *mtk_vcodec_vcp_dm_addr(struct mtk_vcodec_fw *fw, u32 dtcm_d=
-mem_addr)
-> +static unsigned int mtk_vcodec_vcp_get_venc_capa(struct mtk_vcodec_fw *f=
-w)
->  {
-> +	return 0;
-> +}
-> +
-> +static void *mtk_vcodec_vcp_dm_addr(struct mtk_vcodec_fw *fw, u32 mem_ty=
-pe)
-> +{
-> +	unsigned char *vsi_core =3D fw->vcp->vsi_core_addr;
-> +
-> +	switch (mem_type) {
-> +	case ENCODER_MEM:
-> +	case VCODEC_LAT_MEM:
-> +		return fw->vcp->vsi_addr;
-> +	case VCODEC_CORE_MEM:
-> +		return vsi_core;
-> +	case VP9_FRAME_MEM:
-> +		return vsi_core + VCODEC_VSI_LEN;
-> +	case AV1_CDF_MEM:
-> +		return vsi_core + VCODEC_VSI_LEN + VP9_FRAME_SIZE;
-> +	case AV1_IQ_MEM:
-> +		return vsi_core + VCODEC_VSI_LEN + VP9_FRAME_SIZE + AV1_CDF_SIZE;
-> +	default:
-> +		break;
-> +	}
-> +
->  	return NULL;
->  }
-
-[Severity: High]
-Does mtk_vcodec_vcp_dm_addr() match the error return convention expected
-by callers of mtk_vcodec_fw_map_dm_addr()?
-
-The VPU and SCP .map_dm_addr implementations return ERR_PTR(-EINVAL) on
-failure, whereas mtk_vcodec_vcp_dm_addr() returns NULL (or a small
-non-NULL offset from NULL if fw->vcp->vsi_addr was not mapped, because
-mtk_vcodec_vcp_load_firmware() sets vsi_core_addr to vsi_addr +
-VCODEC_VSI_LEN unconditionally and leaves vsi_core_addr NULL for
-ENCODER).
-
-In vdec_av1_slice_init_cdf_table() and vdec_av1_slice_init_iq_table(), the
-callers only check IS_ERR(), so a NULL return from mtk_vcodec_vcp_dm_addr()
-causes a NULL pointer dereference in memcpy().  Conversely,
-vdec_av1_slice_init(), vdec_vp9_slice_init_default_frame_ctx(), and
-vdec_vp9_slice_init() only test for !ptr, which misses ERR_PTR(-EINVAL) on
-SCP/VPU and dereferences the error pointer in kmemdup() or during frame
-decoding.  In addition, vdec_h264_slice_init() and vdec_hevc_slice_init()
-assign the result of mtk_vcodec_fw_map_dm_addr() to inst->vsi_core_ext and
-inst->vsi_core without checking for errors at all.
+Complexity isn't too great, so this looks reasonable to me
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117032950.1425=
-556-1-kyrie.wu@mediatek.com?part=3D5
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--y2Lfunv7MMkdVJQ0
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmr70WQACgkQzQJF27ox
+2GdXGg//VAN2c/+tVxA+i134JdE1rkg86AFIXLIG+rVHy/wnvU56Q5VCXGlwRLwE
+EZ9Ic9BYZU7wZCiHM1ILDmf6Icz58PG6XBeT7zkJwUKYJzbVL7fDXznPQ7p60FD5
+Ush3w2y12kXvnPp3XVyu7YKo9Um3ycz3q4VNZ9FehJI1e3/wk/CtSnf7ET2/GnwZ
+PHoeH4wu1wkT1CN84WUVlbRTXD+xQcK9S8p8lblTWXtO+J5iQUpgf95+7J+AyIYF
+3825McL+hrqMiugnNqsysz0SiZH5beTjDeAveEnD0Y70NzM7MU2zcDrYNHxw1jVV
+nlBON2MJx1O9qNE/k7gYXKbqbYkBCkmfZiSBgAVs3OYIZnuaFYdsia5BiiP/CfIy
+POTHRa3DbEXNPa4QIF1XRaS6QZfVpkkCcMm+FCGe1ayk2HiM8m0s6pLmsJkMPU16
+lvUmOiwP+IS4ngOLvt635yH/8RT+AEsCOvBuIqGB9tz6ATuLFDXxPnqFXArIBFbn
+9w0UaUzCk7myLfFzT/usc8A8K5v85+2qjDEG0ddA0UI5PMuU5h0AlZwY71xPQsDr
+T+t/8IMB+fZjh4rZ4UDcCmwicPXtSz22+O4enEHQWiHQzCjCsZNv0wB5ozdPKgbF
+bx3KLLXdZlhoGCVls9hcMEvuuuerAhCuZjwMbSEFNvdEPc1gcq4=
+=yvwf
+-----END PGP SIGNATURE-----
+
+--y2Lfunv7MMkdVJQ0--
