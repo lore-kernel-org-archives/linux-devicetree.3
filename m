@@ -1,122 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794885344;
-	b=32chjwet39xZuZ0Emb/joAs2SkAOMttGKqiGg+2pcQV2AkkdxBwZM0kHLLqOsGrOk8yP
-	 uzhGewlN2hqHhdepGG/pJpAoUuxoqWaIDPFinpQvhOSxp8aDrIhMZM7B7JXQ3kCzdJzvO
-	 yLdfcXDnORYpWnQ+wRV8H2T/UEKThcBdozfCN5btZNKYebL+AuLBKnefPuvluvAmVBdny
-	 scglIGZ34KPPDJR7mfUesLoduXi5DvD0Ze4w0cpLUqfuB/qyNd5lewihEGSQnGkNQu/Wt
-	 WOEtc2p1U+ZtVb7BZ3eohswRu71rxd1YJHGjvY6xyXH5QMinUPMIfNIt/slIh6ZiVkw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794885344;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=RabYpJPA37+BmIYohz610z5qR1HM/X/uSXCq76koZdQ=;
-	b=gLGNC7s061zaXna2WC8xl3e1/L0X3r+cX2NuMJUZYiOIyWjfEVsXNbvld8wvfPFvOV3z
-	 z3bsNLlv0nP3CGd/nykir2boDwm6KHGHWksaWQ4czmvcwyfjsaMuw234e7gcziFlevQma
-	 fW5622WjeOxV2AoI2Gf4K26AxW4Q7buHtR7Cz4C9yPMsOq8HpYPhbb3av8t9I3d6xTVfo
-	 wtc7uAhhGl+kAvYAzXiCwGh1VV/6UhWO1Z162aHH5ckR0/eZJjm/UlKCcjUvU67GuEiwJ
-	 3EMsF4rGTXWdCfbrbBebdFc99E4I94OsthUrt5269Bwb7La3MhjRNCaLDy4o59IkOzg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fy41sJZh;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="aWAawD/1";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794885440;
+	b=pBnbpmsu/ibOVpynmyX7iP956MrMmSIUon1RUlXN/wLYUKjiTl77btGS5tTtWcpfBNIs
+	 ywqTzUswJNSsXttFlXENbVTYwtvWwM4n2+uVYXCQjIIoAaI0CtheigajrLnhDYdnKTqvm
+	 teMA1YfbaL52CwOR49V9OZMm/PQKkkIrZp3cCLm8U3HzHOAJeVFHLt0jwJuXb9Bf05Hct
+	 PU+2oaEE0KCa9fubu3kCRdtEU1v3jME3sFm20VSSnApw/3w98AJUFpcvFO+7PdAy5NgZ6
+	 vLS31tirZ19sQH8r0cm+8bRpOSoAAGhr64NqQCwDr6tNCCJjamqqJ+HppEjPSqr1gjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794885440;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=u7WxQThHDrtVVlvttx5gutd4hdHvIUx8LTX+PTgMIwA=;
+	b=FB/G0gi5RHn0WTkZa5LbnYr6uUceLZ4GKY8jGHdIH6AgUBQpe3gHWf0SEohZs9BmWevQ
+	 qkFNb8RZ6T9LE8fnxejXCm1l6XgOLm26y4hPkT9gaaCP8e/Qp8nEM8Mos9NPia/Q/hh/J
+	 SiNALGuvgEFytJyLk3PRkE4f3XKg8VId9j7OR1i9R7kPIH1a2SoDg7yCysaf05jy5bbX8
+	 /K6zCnNB+SLGiqojKawBeNHll4GV8JkEtyQPPWL3H9LwJdL/oQDt4GY1dSXQaa8cabLWH
+	 oGlNxVpRGu1516G3KS1LhI7pQAzvYtyRJTk9DqOE6tFGUeuJl7d5Ksy5Mw0beJlZNFA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fG6ix43A;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB09606A323
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 03:15:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EB09606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D81606A31C;
+	Tue, 17 Nov 2026 03:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fy41sJZh;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aWAawD/1
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH2aIBI1507768
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 03:15:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RabYpJPA37+BmIYohz610z5qR1HM/X/uSXCq76koZdQ=; b=Fy41sJZh0beN28KX
-	xLcgYkVB2MgktBxRRx0+tY1tyDXgiXERzfJsEHKOCITg2F9EpENQ11Ix8nKpu0es
-	knm8GjT2BQZExYwTvk6P/5E7r7kVoDG8c4GrwWPs10a5oiuJnGEIq2GiKsH2BOJw
-	f3KI7pVRxIPOLgkwWufbhM3pBhgpd50v6+SuDVa+bTwcd6TtZjpJD4hQjkirGRsD
-	p/sHDZPWWuB+VbxY9cEVJXrKx+mW2Md24g2sf+Ja5ZwYu3pGwuNZo0IaMomsuatk
-	yE6SXi+k+eItLg2FGots+uX4wbF7z7h7C7P9L8xdPJVILSr6k+nDG0ZB952GZCQg
-	Olov+A==
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hyy6gksq7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 03:15:42 +0000 (GMT)
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-67daecab1b5so2547423d50.2
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 19:15:42 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794885342; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dBNMrRVFIRqiLOnSUzlS3VE2E7bOGA9uRb4nWniFHANs00rCgA9AkcqDZd0ZPok0vG
-         ouZ2uXhlCMKG24atcKggUDvP4ERwCRK6LsA12RpfieYb82t61sYaPWOX1HCDLlKRFviy
-         Yzpa3YVqJVou6vMcvtUHSuoTVb5OivdA6B2gN53VoO45LRoBiBiNNsu/5NcNvRY13ojC
-         ajXazsk6vVeySu9MLarUjkWnNWPvr9RFmUN6eVE7KDu/cCpKtQ0iT8LTC6IhmAnnr+MN
-         VABb2Uu3CnB348weOqXay0z2IaNhBksAxztLEPAhR8hW8kKy+UKeGk6cUo/+g6ykDr3j
-         MjhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RabYpJPA37+BmIYohz610z5qR1HM/X/uSXCq76koZdQ=;
-        fh=+Kn94FVzl6rE7mDhn4pFvEHlRshbQ57dQ5o19v04Oyg=;
-        b=F7R9wVslBklxH2et+R6+AsCXoKMKLHFUK+tsMgIJ2NG0hd6VTsUTNwLDFzAsQGXE/I
-         TQM/o4W/Oe9EkuvawcSMh4oCvZOOrSAUpbcxN9Qq5/0I97NS3rbTDDN6DXFHvZkCoLtv
-         HKNKuakGDLfTX1EXj6obwpVoS+7oIzavYfWCsmoYefzI4/g82Qb37xABmXO9/Sf8QzPR
-         oFPZ7FWp9h6ZD/aRKG237dxZAnVNmEMHg2Ck5XwPQvLSHUP3uzbXdoT6gHwNT0cRMfJ6
-         zpS2VWdkCypX33cuR8WXcV3r1qvmHDFSHDFecl/54YddOBeeEpM9cgHlNIpEjAh+yI9V
-         AwVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794885342; x=1795490142; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RabYpJPA37+BmIYohz610z5qR1HM/X/uSXCq76koZdQ=;
-        b=aWAawD/1/Qa0LWcCLgTrYB+1HWt8lfmHuyPDvUPc3stwkb8C/M6d8Cii2+sFCE4nrZ
-         jtlE4+cZ/LkFp+pxPMevX/pJmM/E8IRcX1oV3WLpBa2lcvpP6C9wih5M3LF4ahnEU1YT
-         k/oA1KS7buKJpahmpm6exwbtOkqvIffA9cM9+7f6F/xv+6HCaHeKPUAm1dogQip8v8z9
-         JbW3YQoS8dzqqoOdM9rv+Y12PWqonqo1uvBrs8VTXsv5V9OmfGz3pymFt1GRR8ufZu0t
-         7t0Vl384Co+nDLV9/78QNeGzoKsPFCmFZMGweBxF1r50mtu1VJitLWD4N9GMay+EBY1G
-         R4fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794885342; x=1795490142;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RabYpJPA37+BmIYohz610z5qR1HM/X/uSXCq76koZdQ=;
-        b=NPegNvK6OJKxPS2lzDuGjCA+keht4+hicPwrBVvQDoV80QRfPDPsmRCfnQvIrYrQ9o
-         8+Eogrt49Tr0sjNvOYKm18mtdLk85lfcsf5qmtXQvdcN+Sh6siVCuanjvjDc8Ew9urL9
-         QI9C3ogW4VK2Db/u9j2+8eu/AnDMGN9nJAGZTj4DoIZgx6oKFS/JbZXO9izu4XOM18wH
-         Go7vJCW19RVa/bFkh1PuH76bp57gb4pkbQWiBk7DxFiWkbyAuFLd6pLp6ZMXI4BPtgWb
-         04/5tB0ULJOdmq9FFudopRE+g/Wsa1ZkrPZp6SRS1riTGdXm26/Gh9xfNwaokOxYND36
-         kunQ==
-X-Gm-Message-State: APuU4Z8rBZb82CAtLZ0/4zkpr5U9vBQX0SH4ALqP6acffHtlZWI8UH/w
-	gmI35CCdCbTGczkW44QE5mUl2Tj94uFg/A7A2cVzZq7pabeeC6lke8e1sksBYfCPvF4MJu7Tg4+
-	D0Qv8ZuGpXx63c1JI6tn+LZ4Vrj8RL7aZxp2pFqKJPY0Wlk5EZ/kTX+w7dPdvpG1HTswxiIY+DQ
-	JQOoRZ6CxCC5LlaQaylVp4Sm4ChObeFRJB0i9XwaM=
-X-Gm-Gg: AZFdTZeOuw3s9uo1rGOXDXeaVCEk7z9MuowETBU8GTBIrMY3TVmpp+BGjGZc1RyoJeR
-	TPW/NxivfX80QaJckaa44Rr4bzmC3KO7yEQJc+qjdB4cFS3PQN4LI51cWxEvCwl6blXxxBp8sEo
-	4Kf/4jfikYyztMu45aEEifKPWK1ZzW/YH/njr5/TJsC9HI59jHTFQB11GlKQ==
-X-Received: by 2002:a05:690e:4181:b0:67b:ea15:ece8 with SMTP id 956f58d0204a3-67d89771ac9mr6846268d50.101.1794885341460;
-        Mon, 16 Nov 2026 19:15:41 -0800 (PST)
-X-Received: by 2002:a05:690e:4181:b0:67b:ea15:ece8 with SMTP id
- 956f58d0204a3-67d89771ac9mr6846254d50.101.1794885340992; Mon, 16 Nov 2026
- 19:15:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fG6ix43A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DEDC1F000C5;
+	Tue, 17 Nov 2026 03:17:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794885439;
+	bh=u7WxQThHDrtVVlvttx5gutd4hdHvIUx8LTX+PTgMIwA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fG6ix43Aj+ltOOd7+9gPvpl7gEibFLnYb3d7SYQlKvsNJTJnu8rSifRdfs3120SdL
+	 lJGbozuhewlEmMezq/443vqffmaZ2KZnnumT59+wtqAp++6+3X8ynV3OvK5LBqVbwJ
+	 ouRBE3i6q6XQ6vAK9j9wAZsX8AHAdA+VZTJ4FUg2/j6wRXayqF8jCpVMiS8dMGnRE1
+	 idRsekwB1FegJr0KYkF8Hvnss2h8avXeEkxpTU9gU1mbJBsS2OwWiRAR0qfR1kPrPc
+	 lkoO5GPqmjbzDhNJ3VkkWmQvZQY4BeSx/V+gvWuQvkaRsxu8kiWAx9r1v98vNCcHs1
+	 KJaSiVlzLvcaQ==
+Date: Tue, 17 Nov 2026 03:17:17 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: E Shattow <e@freeshell.de>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
+	Stanley Jhu <stanleyjhu@google.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Aurelien Jarno <aurelien@aurel32.net>,
+	Jennifer Berringer <jberring@redhat.com>,
+	Trevor Gamblin <tgamblin@baylibre.com>, linux-scsi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v8 0/2] Add UFS Host driver support for SpacemiT K3 SoC
+Message-ID: <20261117031717-GKG100523@kernel.org>
+References: <20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org>
+ <8462a0d9-e9b7-467d-b2e1-7870c78e2691@freeshell.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -126,150 +73,181 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-nvmem-byte-mask-for-split-macaddr-v2-0-96f4a0c08264@oss.qualcomm.com>
- <20261116-nvmem-byte-mask-for-split-macaddr-v2-1-96f4a0c08264@oss.qualcomm.com>
- <sashiko-outbox-216098@kernel.org>
-In-Reply-To: <sashiko-outbox-216098@kernel.org>
-From: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 11:15:29 +0800
-X-Gm-Features: AclHuK9x1svYbe_tchpY0HpLjvc9kttSRHHjY6uu8xpeTHuO5qWPVBBgBjndyqE
-Message-ID: <CAPTcHHTwky0jGtG28TMCVRhV+VdXnnwyMn-Z0u+-Y2hujQdWSg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: nvmem: add byte-mask property for
- non-contiguous byte selection
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAxMSBTYWx0ZWRfXzNuIfs5hYBLO
- +xexsiJNmpFGockpJSrEtA+nwGU2jNCy1Aqpoq8SZEUN6RDMqRirZoPwnZ9FXd0ODuiSfTVhf6X
- 2Je3k18sDvZTst8F6dTGwImRbWflTaTqEW4wo0weTQhuLfDySBkFbASU4eZWCdYdOyDyT93kx4j
- RonQxqLkJmZBylldinc6/cRVvJhGARRA/yhBIfUYkd6pcgU5UFG2GogRvM6Q0s/BI6WPgQVP5Cs
- oIuJvUWahzR5Q5NTM7A1RCpIyRt83hVSqTCNZ58f5KaHdvFoU1eq5LnuMw3dJMu8EQw6R4hZ84w
- 4xRQrLIqk+BPR+6q+wfW18Kukrdic6tY6McSbufO4JuKTEOKGapJGYB6NbJElXGQ/Y5vfi5PVXt
- UZNnsN/bt8Zu17jwMHH+KzFMQ6JOcOX1Qgx+bvz1zlx3PJR6ZPDDTL9aDBFz4MQefjGG8bWMno1
- Li3M8uc4DbxWowCRv3Q==
-X-Proofpoint-GUID: 99rTWJIEp5TjrIOie00bsPA-mov0Ys6G
-X-Proofpoint-ORIG-GUID: 99rTWJIEp5TjrIOie00bsPA-mov0Ys6G
-X-Authority-Analysis: v=2.4 cv=D/DSufRj c=1 sm=1 tr=0 ts=6afbc6de cx=c_pps
- a=VEzVgl358Dq0xwHDEbsOzA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=hCrUwOQTafd59ZRO5lEA:9 a=QEXdDO2ut3YA:10 a=uujmmnXaIg8lM0-o0HFK:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAxMSBTYWx0ZWRfXxOtZ+856Y1QV
- APbkOdJjg1cvMqLWbSPhZMa0cSsWjgO/1cAFw7CX3OwLGv7SIKQdfRC9WmqctynXt1rI6JINSuP
- QGwG/kJO/etPyYJlzO96d1fJK0YFHPQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
- clxscore=1015 adultscore=0 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170011
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <8462a0d9-e9b7-467d-b2e1-7870c78e2691@freeshell.de>
 
-On Mon, Nov 16, 2026 at 11:05=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [Medium] dt-bindings: nvmem: byte-mask redefines reg size and accesses
->   beyond reg
-> --
->
-> commit 66779220f836f809e1148ff64ede0801ef303fad
-> Author: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
->
-> dt-bindings: nvmem: add byte-mask property for non-contiguous byte select=
-ion
->
-> This commit adds the byte-mask property to the fixed-cell NVMEM binding t=
-o
-> select non-contiguous physical bytes within a 32-byte window relative to =
-a
-> cell's base offset.
->
-> > diff --git a/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell=
-.yaml b/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-> > index 38e3ad50ff4fb..46e1101ee98ae 100644
-> > --- a/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-> > +++ b/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-> > @@ -34,6 +34,20 @@ properties:
-> >          description:
-> >            Size in bit within the address range specified by reg.
-> >
-> > +  byte-mask:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    minimum: 1
-> > +    description: >
-> > +      Bitmask selecting which physical bytes within the NVMEM device r=
-egion
-> > +      contribute to this cell's output. Bit N set means physical byte =
-N
-> > +      relative to the cell's base offset is included; selected bytes a=
-re
-> > +      packed into the output buffer in ascending byte order. Byte posi=
-tions
-> > +      are relative to the cell's base offset and limited to a 32-byte =
-window.
-> > +      The highest set bit must not reference a byte beyond the device =
-size.
-> > +      The number of set bits must not exceed the cell's logical size g=
-iven by
-> > +      reg. Cannot be used together with bits. Cells using byte-mask ar=
-e
-> > +      read-only; write operations are not supported.
->
-> [Severity: Medium]
-> Does byte-mask redefine the size cell of reg as a logical output size whi=
-le
-> allowing physical reads past the declared reg range?
->
-> Any non-contiguous selection of K bytes has a highest set bit H >=3D K, w=
-hich
-> references physical bytes at offset + H outside a reg =3D <offset K> rang=
-e.
-> Unlike the existing bits property, which stays within the address range
-> specified by reg, setting reg =3D <offset K> causes physical accesses bey=
-ond
-> the cell's declared reg range and hides overlaps between sibling cells.
-> Conversely, setting reg =3D <offset M> to cover the full physical span M =
-> K
-> leaves the contents of the trailing M - K output bytes unspecified in the
-> binding and causes consumers such as nvmem_get_mac_address() and
-> nvmem_cell_read_u32() to see an unexpected cell size M instead of K.
->
-> Also, the commit message notes that multiple reg entries would require th=
-e
-> consumer to assemble the value from separate cells, but multiple reg tupl=
-es
-> on a single cell node (for example, reg =3D <offset1 len1>, <offset2 len2=
->)
-> describe one cell with discontiguous physical ranges without redefining r=
-eg
-> or limiting the span to 32 bytes.
->
-The choice of reg =3D <offset K> where K =3D popcount(byte_mask) is
-intentional: it exposes the logical output size directly in the
-binding,
-so that consumers such as nvmem_cell_read_u32() and
-nvmem_get_mac_address() see the correct cell size without any
-knowledge of byte-mask.
+Hi E Shattow,
+Thanks for testing
 
-The physical read window (fls(byte_mask) bytes from offset) does
-extend past the reg-declared range, and that is by design.
-nvmem_validate_byte_mask() ensures the full physical window stays
-within device bounds, so no out-of-device-bounds access occurs.
-The overlap concern between sibling cells is real, but it is not new:
-the existing framework does not enforce exclusivity between sibling
-cell reg ranges in general;
-DT authors are already responsible for the hardware layout. byte-mask
-does not introduce a new enforcement gap.
+On 17:15 Mon 16 Nov     , E Shattow wrote:
+> Hi Yixun,
+> 
+> On 11/15/26 19:46, Yixun Lan wrote:
+> > This series try to add UFS support for SpacemiT K3 SoC, the controller
+> > components consists of System Bus Interface Unit, UFS Host Controller
+> > Interface, UFS Transport Protocol Layer, UFS Host Registers, Device
+> > Management Entity (DME), Transport Layer, Network Layer, Data Link
+> > Layer, PHY Adapter Layer, and M-PHY Interface. A more detail functional
+> > block diagram can be found in SpacemiT website, chapter 9.7.3 [1]
+> > 
+> > The DTS patch has been dropped in this series [2], and will send
+> > in separate series once this patch accepted. For people who want to
+> > test UFS driver, please grab the DT patch from version v5 [3].
+> > 
+> > Enable UFSHCD_CAP_KEEP_AUTO_BKOPS_ENABLED_EXCEPT_SUSPEND,
+> > This allows the device auto-bkops to be always enabled except
+> > during suspend (both runtime and suspend), with this feature,
+> > the BKOPS interrupt (log below) isn't reported anymore.
+> > 
+> > [  806.710763] ufshcd-spacemit c0e00000.ufshc: ufshcd_bkops_exception_event_handler: device raised urgent BKOPS exception for bkops status 1
+> > 
+> > Link: https://spacemit.com/community/document/info?nodepath=hardware/key_stone/k3/k3_docs/k3_usermanual/09_memory_storage.md&lang=en [1]
+> > Link: https://lore.kernel.org/all/20260918-belligerent-succinct-kraken-7fa592@quoll/ [2]
+> > Link: https://lore.kernel.org/all/20260916-08-k3-ufs-support-v5-3-1f5d71f1027d@kernel.org/ [3]
+> > Signed-off-by: Yixun Lan <dlan@kernel.org>
+> > ---
+> > Changes in v8:
+> > - enable UFSHCD_CAP_KEEP_AUTO_BKOPS_ENABLED_EXCEPT_SUSPEND
+> > - rename to "ref_clk", see explanation in patch
+> > - add delay between enable clk & deassert reset
+> > - respect bRefClkGatingWaitTime, add wait delay
+> > - drop comment of ufs_hba_spacemit_vops, which got CI complaint
+> > - rebase to v7.4-rc1
+> > - Link to v7: https://patch.msgid.link/20261002-08-k3-ufs-support-v7-0-bb39007ff9ae@kernel.org
+> > 
+> > Changes in v7:
+> > - check err return value of ufs_spacemit_quirk_host_pa_saveconfigtime()
+> > - Link to v6: https://patch.msgid.link/20260921-08-k3-ufs-support-v6-0-3479768a2299@kernel.org
+> > 
+> > Changes in v6:
+> > - drop unused macro and dev_req_params
+> > - use global PX_xx macros
+> > - fix axi clock name
+> > - drop dts patch
+> > - collect tags
+> > - Link to v5: https://patch.msgid.link/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org
+> > 
+> > Changes in v5:
+> > - adjust clock names
+> > - add runtime power support
+> > - collect tags
+> > - Link to v4: https://patch.msgid.link/20260908-08-k3-ufs-support-v4-0-22aa2bd97d3b@kernel.org
+> > 
+> > Changes in v4:
+> > - fix clock and reset settings
+> > - drop function which retrieve value of tx_lanes
+> > - propagate return error of ufs_spacemit_dme_set()
+> > - check return value ufs_spacemit_check_hibern8()
+> > - drop call to ufshcd_vops_phy_initialization()
+> > - handle compiling warning if CONFIG_OF not enabled
+> >  add __maybe_unused to ufs_spacemit_of_match
+> > - Link to v3: https://patch.msgid.link/20260806-08-k3-ufs-support-v3-0-037fb322acdb@kernel.org
+> > 
+> > Changes in v3:
+> > - collect tags
+> > - fix dt-binding warning reported-by sashiko
+> > - fix low freq in opp-2 table
+> > - fix err checking in check_hibern8()
+> > - propagate err code in link_startup_notify()
+> > - update documents for event_notify()
+> > - ufs clock driver is merged into v7.3-rc1, update cover letter
+> > - Link to v2: https://patch.msgid.link/20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org
+> > 
+> > Changes in v2:
+> > - fix missing interrupts property
+> > - move ufs node to k3-com260.dtsi
+> > - convert freq-table-hz to operating-points-v2
+> > - rework reset_control, fix header and drop global variable
+> > - drop dump_host_regs() debug interface
+> > - converge and refactor dme_set() operations
+> > - massive reduce of busy delay() loops
+> > - drop vendor specific hce_enable_notify(), fallback to default
+> > - drop unused member from struct ufs_spacemit_host
+> > - add COMPILE_TEST support to Kconfig
+> > - comment style fix
+> > - Link to v1: https://patch.msgid.link/20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org
+> > 
+> > ---
+> > Yixun Lan (2):
+> >       scsi: ufs: spacemit: dt-bindings: Add UFS controller for K3 SoC
+> >       scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+> > 
+> >  .../devicetree/bindings/ufs/spacemit,k3-ufshc.yaml |  56 ++
+> >  drivers/ufs/host/Kconfig                           |  12 +
+> >  drivers/ufs/host/Makefile                          |   1 +
+> >  drivers/ufs/host/ufs-spacemit.c                    | 655 +++++++++++++++++++++
+> >  drivers/ufs/host/ufs-spacemit.h                    |  77 +++
+> >  5 files changed, 801 insertions(+)
+> > ---
+> > base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> > change-id: 20260605-08-k3-ufs-support-c8b308e415e2
+> > 
+> > Best regards,
+> > --  
+> > Yixun Lan <dlan@kernel.org>
+> > 
+> > 
+> > _______________________________________________
+> > linux-riscv mailing list
+> > linux-riscv@lists.infradead.org
+> > http://lists.infradead.org/mailman/listinfo/linux-riscv
+> 
+> Tested v7 and v8 successfully on Sipeed K3 Pico-ITX (32GiB DRAM / 128GiB
+> UFS model). Build and test methodology:
+> 
+> ### build chimera debian-installer with patched mainline kernel
+> ### assume fresh Debian testing "forky" build environment
+> 
+> apt update
+> apt install -y b4 bc bison ca-certificates cpio \
+>  crossbuild-essential-riscv64 curl debhelper fakeroot flex kmod \
+>  libdw-dev libssl-dev libssl-dev:riscv64 linux-config-7.2:riscv64 \
+>  python3 rsync
+> 
+> curl -L \
+>  https://git.kernel.org/torvalds/t/linux-7.4-rc3.tar.gz \
+>  | tar xz
+> 
+> pushd linux-7.4-rc3
+> b4 am -v1 -o- \
+>  https://lore.kernel.org/all/20261115195112.32120-1-e@freeshell.de/ \
+>  | patch -p1
+> b4 am -v5 -P3 -o- \
+>  https://lore.kernel.org/all/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org/ \
+>  | patch -p1
+Did you rename clock name from "ref" to "ref_clk"? see my comment in patch 1
 
-Regarding multiple reg tuples: I will remove the "multiple reg
-entries" statement from the commit message =E2=80=94 it was comparing
-implementation approaches and was misleading since it conflated
-multiple cell nodes with multiple reg tuples on a single node.
+> b4 am -v8 -P1,2 -o- \
+>  https://lore.kernel.org/linux-riscv/20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org/ \
+>  | patch -p1
+[...]
+> 
+> Workload for testing is to repeat the above build steps on-device from
+> UFS-backed root filesystem. In v7 there would be the occasional BKOPS
+> warnings, and v8 here now no such BKOPS warnings.
+> 
+> I do notice some UFS-related warnings and errors in dmesg:
+> 
+> journalctl --dmesg | grep ufshcd
+> ufshcd-spacemit c0e00000.ufshc: freq-table-hz property not specified
+> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+> vdd-hba-supply regulator, assuming enabled
+> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+> vcc-supply regulator, assuming enabled
+> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+> vccq-supply regulator, assuming enabled
+> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+> vccq2-supply regulator, assuming enabled
+> scsi host0: ufshcd
+> ufshcd-spacemit c0e00000.ufshc: ufshcd_scsi_add_wlus: BOOT WLUN not found
 
-pw-bot: cr
+Let's ignore the warning message for now, those shouldn't cause problem
 
-Regards,
-Hongmei Xu
+> ufshcd-spacemit c0e00000.ufshc: DL error event, INT errors:0x4,
+> DL_ERR:0x80000020
+> 
+Seems relate to Data link error, I will see if I can replicate this .. 
+
+-- 
+Yixun Lan (dlan)
