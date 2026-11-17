@@ -1,56 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920661;
-	b=1Wm7Ic66+MSJwfDX0ogrWPU0h8YTBma3arJwOJ4Yb4o3DNW5Tyx1E5ZswBzFlRaOuN6u
-	 nn9MfBQjiLMcDmdubYO1qQmgnVM+jCZRR3a14ncUxI6YcXC2WkKq0WLUOHE3Xg1oc1MIN
-	 3oNnt6gjpfci9E5mgV7ofolEXYGlW2ym4ijE7m9cBhBVlbGlN6CpIl0jyo4gsUqq8Ftn4
-	 05Wu7MIApxTn+JtEIsbSy4soT2wS+GCKQyC+T0eo1JK/s8NKCALSmZw5i6paLnFf/pxCD
-	 fHbJC3u047DGvBhQ6pl8QfPNufBFGfrH0Lq8z4/q3y4IcrcjGY2jkucjh+wwGwzXS7w==
+	t=1794920770;
+	b=N2J9ObNgyUINhYJFNbl4mMUpxd/0uLz3NXXsmNL08SSwDsyTo5NlkjerOOfnGkhzBOWC
+	 ZwCHWLXdDM8FrxHbTJ5SlpKU/h7PRg2mPhLyPbcJnYBzfAfj7wVsWepcg/eZ6V93xSX3N
+	 bYud0a2yS2PKYgCgETL9YqyYhT9qJThi69wBE/lG/NuHODQUXyLj6+3E7bCJe57SRur1g
+	 evsD1C0fl8/JBLH4CCfB0OWQYgvpgcNOv00xywj68W3h+NDTHtYOy6iRWer9mZRfGkbvo
+	 AbZfXhvE4XAV11LQpnDxxcmagGeEba6o3EhzCJjIiwhZjr5uLAPJEOvpJ9QiT+qq4Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920661;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=nI2cgsAmA/JuxQGnB2pVceabASOqqzEJlK87ic5E+LQ=;
-	b=Rq+1xJyLqvBkPpkV7rLm6f8hS/B8CMeN+rAt9vShNpVEB8iQZw8ffzSCac+2GfJ125No
-	 H+KfZ2W30ym0Hl/yeRSmAsYLZ8jkzUvGyPXg5NdDyrsdUfAVCqlb+LFS02vtX0iUDfYRq
-	 Be2kXs0pR133EDT4iaoXi2BaVHE19m7wKN742Ej9ysl8Isi8qFNccjSG1Mm0SJO+N48Hu
-	 CaqViMX62CBRIMqSQfLiPbTfYu9wgTbj8Dvw55LgVoDj/quce/XWi5Zkn4dMm+LR3SVXW
-	 dea621FMBXv376C/ehKm/zgIciB3VqYbkTcJiyKyUCLXHuwNyxtsN7xu69YLQgM6dCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920770;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=werp+leniNoWoVq75RHzy2154GOYJfG48JzVEy4bJ6A=;
+	b=Yk51r6bi97w03/KsfmiSFwlHpe/FWD0SqBZRykbjOord3S3mD+XKUrKH+LF6fw/QeZ7Y
+	 2W/y6vBay/a/ZWGqKl+N5pZ2Om8ItXCeRy8QlmQLwJljzdLyxbZvxlvKxzbA28AX4dST0
+	 s1hmhqaGjaEtLRAA3BBarCG8fmxrisLM1MXIVeSa4exw6xDXlWYTP5uTZxaiHG89UvCl3
+	 zAN+dIQq5m0Y9hUzPZcxsjaJiAM23yFoHB7HucpUYhPeq1DDPytYoiRQlXgu10h9iwPwQ
+	 6htIrEeorchJj3sMQp3/Po9PoDLu0XvBwpJTbeRZ8/yBtfVG5/8vTMMv23kWkYPm2QQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bE5J5D0S;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oUJogxAM;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EmbuStbG;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255DD606A331;
-	Tue, 17 Nov 2026 13:04:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AFD606A32A
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:06:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74AFD606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bE5J5D0S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B07B1F000C4;
-	Tue, 17 Nov 2026 13:04:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920660;
-	bh=nI2cgsAmA/JuxQGnB2pVceabASOqqzEJlK87ic5E+LQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bE5J5D0SENvHxZUjar42icMfJylTWccN+96DT2vYPDxWEG9NlR8qjClXJFACvmnGi
-	 fgjGACxXJVBqsx/AxBYf/LwcE8xZTGbrX7NrUnL5aJ7n3b27Gnop9sQ7ehOkjWmrbb
-	 ZzxnQPoleqkW0MddXPVrfBkwFCYhkEKk7HUk59iNK4zmbe042+MaarV/Ja6t3hwzV3
-	 1YbG8nzBrG0hVwuCBM7ImUiMYz1pE2HD1SUK2UGLPh2NeCISjiV6HNUzKWSQJ9v8DS
-	 C0OUB9RvT6TxBbT8CoMi2kHPi4/+MdowfkTVOz7AyeEBvkdDAPQIFZlWNMxy+xt5SC
-	 0TnCoG6aHhSDg==
-Message-ID: <sashiko-outbox-218833@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 05/11] drm/panel: add LG SW43103 panel driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: rofikkerneldev <rofikcoga@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261117123946.668557-6-rofikcoga@gmail.com>
-References: <20261117123946.668557-1-rofikcoga@gmail.com>
- <20261117123946.668557-6-rofikcoga@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 13:04:19 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oUJogxAM;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EmbuStbG
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC0p9t3047889
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:06:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=werp+leniNoWoVq75RHzy2154GOYJfG48Jz
+	VEy4bJ6A=; b=oUJogxAMZln83g9iN2+29I1+sQ7inyqOcEuTtGiTvTofZfuXzfj
+	kHfQQ30DSMBwH7QfbCU3+UP43rJdjF9wPEnT6uZrwREWeJeqVvlicBEr0tXoy4zt
+	MTacoo47z8b7AXPVgR5rxCO4Jorfpm6Wp0WKI0sOyvmoGIBcLDSvuMVvZeJcOs9a
+	GDcUveMK+NtE2BBLr5pVRrYmzTxEFo2ZPW7PwkiuCETYex2XfyKay3fxh0faGzTD
+	7Vj+e0E+jDHpFZ7BlALcw91Wbb/pg4yOTEZisaafA+bFIzbJfywvQ5PU1DIFwbBd
+	oJIw7hAoZYk8+mFIfYJf4HF2tbVgxK45lvg==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0mv10p8w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:06:09 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-99e109028b4so1705760241.3
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 05:06:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794920768; x=1795525568; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=werp+leniNoWoVq75RHzy2154GOYJfG48JzVEy4bJ6A=;
+        b=EmbuStbGcF8XaCSRdPdxLWxguRTE5qFHmp7rQIplNcm+Yfh5IlbSO70NoLbFACGH4e
+         jDVAlIMywBR9W2khQABDEaW6B/C+RdUy1voq0Pn5IObFMnVM8ukxzfBYoI+5PaLFtsHg
+         BPQY3JwMTR9gfquQXkJifCapdtjS5TfFyh2ZpynhHbdPP0Nnp2NBezmIlRpZVgR3yW5r
+         ZjpuMQ69Fx/RJpwzyBLBhps44sK3VUSCgxkk+eipW6aRPkrtEFOs+3BVCAgf1nexkZmI
+         rh+7cC/1cQqgpy07Mz635QQtzZ3DZKMGseqrqHPYxYSW4vdsCq3rtRmJQhe/GfdIqczw
+         tZtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794920768; x=1795525568;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=werp+leniNoWoVq75RHzy2154GOYJfG48JzVEy4bJ6A=;
+        b=Un00aDEADinzQYO7H2jYoPck18AjuZs2V4sHFyXr+c8Y/l9BWs28Kdb5LFV7yM9txe
+         Hmo7b5vTbQO4Zamyb/hHwu/iTW6PQObleZXhlB2TzhVAyBiEpF9ggXh06+wbhfcsV0Ra
+         IMQ/uZboQLg5G8XDYe9rioYRfmUvQT14xVtNkqyhLjR2ijm8z0PnTRr62FA1h3c4ptbO
+         wykgISUfJriMSdqPS5FdkZdl7HwONweVa6AW12B/Q1Uw2AewOuVwzLp09w0sIYaLIkw6
+         myn78iJ1G9/kH6Tx861mLj4zfL2sAsIk88Z2+oTXbt63tvk0lsOeNL6Bpt+oW3lnjoAM
+         nftw==
+X-Forwarded-Encrypted: i=1; AL+hErEdvv7qBXBh6s2iW4BNh+rr/LkBoMiAjPUou/4SHtM58a8YIytj0IROaC108NwnEPA1gGKbrjGTgE3k@vger.kernel.org
+X-Gm-Message-State: APuU4Z/F79X3roq24WznSDcGm/j+wAwQ+3kCxt9TTnjiB0B/fjZoBaYF
+	pO5IDIsbpgf8BP2jhbDUibaWZwUh2hBwzeAY+ZuHrS5HJz2NTNKEZfguATzcGZ5IP4JaAYvGIto
+	kWuKkYN5YrMU1N2cqzJcq78YCWl7zgYEC3XYtP4YUMsiVBj6v2AE/MSPdeqNavpa7
+X-Gm-Gg: AZFdTZfWN9jRHN933xycxKw5npNkFwIZUdFJy24IczF+Dg7DSOWY/jsf0Z0EDJo8lMT
+	mVUSPNUtogyKKJaUulrUI3y9aGyFsvVHrsbFP4RXlq4Hhy1wz68hF48wj1gXj35zA5bvmsAZG+W
+	y1J7tQl7ms27HZbFymkTZbfMMzV5hsr11XWbVq4151WlifzYl27fQBJX85naPAfjsW2o6soFzZC
+	KdKrOifwuBPrF13SJwftVlgb/YIsj6g88dIkcwblIAMFlEFiBva0E573yFS+k2iD5z9swhsLeyy
+	u9RnI5YTKjYmloKRQya6g+XSalL/OIelcVSUwi+EHxnFYtmlKli4jnrb1XzI+q92XmST3jiEFl7
+	T9HCS9kUBIn0tQd5ZxpeCu3f7+KcS8RI/2j8Of2nvlqH+WcOSKtZIMTBa5Ni8Ow==
+X-Received: by 2002:a05:6122:4f93:b0:5ec:20e8:45ff with SMTP id 71dfb90a1353d-5ee34ae3347mr4929146e0c.21.1794920767804;
+        Tue, 17 Nov 2026 05:06:07 -0800 (PST)
+X-Received: by 2002:a05:6122:4f93:b0:5ec:20e8:45ff with SMTP id 71dfb90a1353d-5ee34ae3347mr4929113e0c.21.1794920767336;
+        Tue, 17 Nov 2026 05:06:07 -0800 (PST)
+Received: from quoll ([195.50.164.66])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b5b078sm534082166b.56.2026.11.17.05.06.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 05:06:05 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH] arm64: dts: mediatek: Remove undocumented, unapproved aliases
+Date: Tue, 17 Nov 2026 14:05:57 +0100
+Message-ID: <20261117130556.234785-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,154 +120,319 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7918; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=JhAQKSi0UHwGaRwXw9Ozbf6HX68wW/ZtNlGPzsJLQPY=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq/FE05ytbYP2204OYIuT2UmPNOZgaD/fErFnqn
+ Yehi09tgqeJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavxRNAAKCRDBN2bmhouD
+ 12y+D/4/5qerQxe/BEAJkh8aESGtkmL0OcZVuM3sOQgqovDF88ovrnq67BZoRD+ZOenW68asV5t
+ uLd5WnWNL/naLPXAwBgivabqWoY+CnkfnPkMbDAqhbXuvGV1xL5XNcGhMc0iElFhS94biszOgds
+ NRQlYPKCYEZoEuEBbleG2vXdARzecRe4NSDQo7cjX85X0gSy5mcjqEGJuwa52CGOsflhtsFmE5Z
+ vQZPFy0Ffqu0ZdjItDPr4u+b8HZfHu/u2AgxSPGw5l67u5D+Ir8MXPr42YvfpLkhSmlS30Y43RX
+ PBW4cKZ8XMQfYEXVhU5PSZyEDgZF53u57IR7TO7jOXklQm2mMZu6hsM1G5J8Fv5O4bKL7QcmST3
+ V3AiqRHZ9KRp8oPuPVclwIOxdK7cAA5w4xPNb6y7ZbGo0+JKsz0UeU+RopVx5UHyNusSSzY3Z82
+ GIkj06gwBQPdWcOPdcpKr11R7QqrlLlXLZSuNcVZQMj6AMqfA/RBeyYz1+610GyNOQuJdgRre+a
+ 3VPqAJEZto9ASmnUs1Y7Q7hjiArQzim6ewz5vmb+URjaNboRswzapn37mJQLng0f0wNlhkvFYz2
+ XWdDJTL343s+bS94gfF8Wi1ADmuR53MrjwysN18+Qz2y33wR2MDuYt2dpnw2reKJdmka/j5jckn sXVVx3Ey+/h4nVA==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: vteEgSYlTc2f3UzQ3BqXR8Sx6tU_qLTr
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA1MiBTYWx0ZWRfX8BI2RmB2RLb0
+ nJCz1vbSjT5j3pCCfH9uQVCEsYO1S6MEEMmQu0v5oJgWK+e95Fj7Okb1B7KGmXqezJqwZFadlAv
+ iXBVupUL6SRiNV3CdIkjdkdHe0PiYkE=
+X-Proofpoint-ORIG-GUID: vteEgSYlTc2f3UzQ3BqXR8Sx6tU_qLTr
+X-Authority-Analysis: v=2.4 cv=Cuwq4X4D c=1 sm=1 tr=0 ts=6afc5141 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=MmkPf4a8AFjUc3_LGQoA:9 a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA1MiBTYWx0ZWRfX7BsUxRKI/uYV
+ gT2p/h81cmpllvyWswh3/JWbAlogdc6H+VKsjwwyygMbWbisfTkVTFVGfbEXtHyx74VffqkEjBR
+ o9ybT2p9FwlrDH/QG9x1uvB9RdyYDXj82Z+QdjefPW1lauOHLMn2V2GUlMvIka6TJJ0MxUv69uX
+ JjMdbpk2T0OoW8pwaIsRBY8hfP7T21YV0nfMVKhgK6cVfZaJAJRJbLnVoYcQHP/TO8DfCkdT1bU
+ 3jCNPGRAiYEeXiTrwzcZ+Zk3HjIsqsttLTqUAgCfv+YkTz6QC7+kFETxtDaZiqmXtdsDWvSt0hy
+ Wc/LbPUPAThtM0ZSZPIr5RCeiE5ULVF6nIK4FJlHseFLAdaLXExe/aDNp6otYRCRgvekJ1FYsc2
+ /IOlkfdcQZrR12oLbJaXrVaVvMxCV9fQLirxs6Hp1mD7yjnMwDAdFIeheLPMLjXuG52DwghN3yI
+ Fh6p6uyFgS6hw2GSYTA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ spamscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170052
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] drm/panel: username handle used instead of real name in DCO and
-  authorship
-- [Medium] drm/panel: sw43103_remove() calls sw43103_unprepare()
-  unconditionally
-- [Medium] drm/panel: sw43103: unsynchronized DSI transfers in
-  sw43103_backlight_update_status()
-- [Low] drm/panel: sw43103_enable() hardcodes full brightness before
-  backlight_enable()
---
+The ovl, aal, color, dsi, gce, rdma, split and other aliases were never
+approved by Devicetree maintainers, because they were never documented
+as actual ABI.  Drop them, because no new custom aliases are allowed for
+years now.
 
-commit c8fd387b550027d7b2fde8a05702145f363e56ba
-Author: rofikkerneldev <rofikcoga@gmail.com>
+This might break users of this undocumented ABI, so these should be
+updated to use only documented and approved ABI.
 
-> drm/panel: add LG SW43103 panel driver
->
-> Add support for the 1080x2460 SW43103 AMOLED panel. Handle power and
-> reset sequencing, DCS backlight control, and the DSC configuration
-> required by the panel.
->
-> Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/mediatek/mt6795.dtsi      | 17 ----------
+ arch/arm64/boot/dts/mediatek/mt8173.dtsi      | 16 ---------
+ arch/arm64/boot/dts/mediatek/mt8183.dtsi      |  5 ---
+ arch/arm64/boot/dts/mediatek/mt8186.dtsi      |  7 ----
+ .../boot/dts/mediatek/mt8188-geralt.dtsi      |  1 -
+ arch/arm64/boot/dts/mediatek/mt8188.dtsi      | 33 -------------------
+ arch/arm64/boot/dts/mediatek/mt8192.dtsi      |  8 -----
+ arch/arm64/boot/dts/mediatek/mt8195.dtsi      | 24 --------------
+ arch/arm64/boot/dts/mediatek/mt8365.dtsi      | 13 --------
+ .../dts/mediatek/mt8390-genio-common.dtsi     |  1 -
+ .../dts/mediatek/mt8390-tungsten-smarc.dtsi   |  1 -
+ 11 files changed, 126 deletions(-)
 
-[Severity: High]
-Under Documentation/process/submitting-patches.rst and the Developer
-Certificate of Origin, patches must use a real human name rather than a
-username handle (rofikkerneldev) in the commit author, Signed-off-by tag,
-maintainer entry, and module author macro.
+diff --git a/arch/arm64/boot/dts/mediatek/mt6795.dtsi b/arch/arm64/boot/dts/mediatek/mt6795.dtsi
+index 6dd706b27830..971fb19e95df 100644
+--- a/arch/arm64/boot/dts/mediatek/mt6795.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt6795.dtsi
+@@ -21,23 +21,6 @@ / {
+ 	#address-cells = <2>;
+ 	#size-cells = <2>;
+ 
+-	aliases {
+-		ovl0 = &ovl0;
+-		ovl1 = &ovl1;
+-		rdma0 = &rdma0;
+-		rdma1 = &rdma1;
+-		rdma2 = &rdma2;
+-		wdma0 = &wdma0;
+-		wdma1 = &wdma1;
+-		color0 = &color0;
+-		color1 = &color1;
+-		split0 = &split0;
+-		split1 = &split1;
+-		dpi0 = &dpi0;
+-		dsi0 = &dsi0;
+-		dsi1 = &dsi1;
+-	};
+-
+ 	psci {
+ 		compatible = "arm,psci-0.2";
+ 		method = "smc";
+diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
+index 6ec50125cea0..868b0fb84449 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
+@@ -22,22 +22,6 @@ / {
+ 	#size-cells = <2>;
+ 
+ 	aliases {
+-		ovl0 = &ovl0;
+-		ovl1 = &ovl1;
+-		rdma0 = &rdma0;
+-		rdma1 = &rdma1;
+-		rdma2 = &rdma2;
+-		wdma0 = &wdma0;
+-		wdma1 = &wdma1;
+-		color0 = &color0;
+-		color1 = &color1;
+-		split0 = &split0;
+-		split1 = &split1;
+-		dpi0 = &dpi0;
+-		dsi0 = &dsi0;
+-		dsi1 = &dsi1;
+-		mdp-rdma0 = &mdp_rdma0;
+-		mdp-rdma1 = &mdp_rdma1;
+ 		mdp-rsz0 = &mdp_rsz0;
+ 		mdp-rsz1 = &mdp_rsz1;
+ 		mdp-rsz2 = &mdp_rsz2;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8183.dtsi b/arch/arm64/boot/dts/mediatek/mt8183.dtsi
+index 7414c10ee664..2c3836555e55 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8183.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8183.dtsi
+@@ -35,11 +35,6 @@ aliases {
+ 		i2c9 = &i2c9;
+ 		i2c10 = &i2c10;
+ 		i2c11 = &i2c11;
+-		ovl0 = &ovl0;
+-		ovl-2l0 = &ovl_2l0;
+-		ovl-2l1 = &ovl_2l1;
+-		rdma0 = &rdma0;
+-		rdma1 = &rdma1;
+ 	};
+ 
+ 	cluster0_opp: opp-table-cluster0 {
+diff --git a/arch/arm64/boot/dts/mediatek/mt8186.dtsi b/arch/arm64/boot/dts/mediatek/mt8186.dtsi
+index 621408439ffa..2f82eb532f30 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8186.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8186.dtsi
+@@ -22,13 +22,6 @@ / {
+ 	#address-cells = <2>;
+ 	#size-cells = <2>;
+ 
+-	aliases {
+-		ovl0 = &ovl0;
+-		ovl-2l0 = &ovl_2l0;
+-		rdma0 = &rdma0;
+-		rdma1 = &rdma1;
+-	};
+-
+ 	fhctl: fhctl@1000ce00 {
+ 		compatible = "mediatek,mt8186-fhctl";
+ 		clocks = <&apmixedsys CLK_APMIXED_TVDPLL>;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+index 801eee735afe..883141d8a6d5 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+@@ -9,7 +9,6 @@
+ 
+ / {
+ 	aliases {
+-		dsi0 = &disp_dsi0;
+ 		i2c0 = &i2c0;
+ 		i2c1 = &i2c1;
+ 		i2c2 = &i2c2;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8188.dtsi b/arch/arm64/boot/dts/mediatek/mt8188.dtsi
+index 14a320f0c70c..f14b23dd57aa 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8188.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8188.dtsi
+@@ -23,39 +23,6 @@ / {
+ 	#address-cells = <2>;
+ 	#size-cells = <2>;
+ 
+-	aliases {
+-		dp-intf0 = &dp_intf0;
+-		dp-intf1 = &dp_intf1;
+-		dpi1 = &dpi1;
+-		dsc0 = &dsc0;
+-		ethdr0 = &ethdr0;
+-		gce0 = &gce0;
+-		gce1 = &gce1;
+-		merge0 = &merge0;
+-		merge1 = &merge1;
+-		merge2 = &merge2;
+-		merge3 = &merge3;
+-		merge4 = &merge4;
+-		merge5 = &merge5;
+-		mutex0 = &mutex0;
+-		mutex1 = &mutex1;
+-		padding0 = &padding0;
+-		padding1 = &padding1;
+-		padding2 = &padding2;
+-		padding3 = &padding3;
+-		padding4 = &padding4;
+-		padding5 = &padding5;
+-		padding6 = &padding6;
+-		padding7 = &padding7;
+-		vdo1-rdma0 = &vdo1_rdma0;
+-		vdo1-rdma1 = &vdo1_rdma1;
+-		vdo1-rdma2 = &vdo1_rdma2;
+-		vdo1-rdma3 = &vdo1_rdma3;
+-		vdo1-rdma4 = &vdo1_rdma4;
+-		vdo1-rdma5 = &vdo1_rdma5;
+-		vdo1-rdma6 = &vdo1_rdma6;
+-		vdo1-rdma7 = &vdo1_rdma7;
+-	};
+ 
+ 	cpus {
+ 		#address-cells = <1>;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8192.dtsi b/arch/arm64/boot/dts/mediatek/mt8192.dtsi
+index 898953acdb61..bf5893e3002b 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8192.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8192.dtsi
+@@ -23,14 +23,6 @@ / {
+ 	#address-cells = <2>;
+ 	#size-cells = <2>;
+ 
+-	aliases {
+-		ovl0 = &ovl0;
+-		ovl-2l0 = &ovl_2l0;
+-		ovl-2l2 = &ovl_2l2;
+-		rdma0 = &rdma0;
+-		rdma4 = &rdma4;
+-	};
+-
+ 	clk13m: fixed-factor-clock-13m {
+ 		compatible = "fixed-factor-clock";
+ 		#clock-cells = <0>;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8195.dtsi b/arch/arm64/boot/dts/mediatek/mt8195.dtsi
+index 9aaf8b6edcb5..389fb9d7ea89 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8195.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8195.dtsi
+@@ -23,30 +23,6 @@ / {
+ 	#address-cells = <2>;
+ 	#size-cells = <2>;
+ 
+-	aliases {
+-		dp-intf0 = &dp_intf0;
+-		dp-intf1 = &dp_intf1;
+-		dpi1 = &dpi1;
+-		gce0 = &gce0;
+-		gce1 = &gce1;
+-		hdmi0 = &hdmi;
+-		ethdr0 = &ethdr0;
+-		mutex0 = &mutex;
+-		mutex1 = &mutex1;
+-		merge1 = &merge1;
+-		merge2 = &merge2;
+-		merge3 = &merge3;
+-		merge4 = &merge4;
+-		merge5 = &merge5;
+-		vdo1-rdma0 = &vdo1_rdma0;
+-		vdo1-rdma1 = &vdo1_rdma1;
+-		vdo1-rdma2 = &vdo1_rdma2;
+-		vdo1-rdma3 = &vdo1_rdma3;
+-		vdo1-rdma4 = &vdo1_rdma4;
+-		vdo1-rdma5 = &vdo1_rdma5;
+-		vdo1-rdma6 = &vdo1_rdma6;
+-		vdo1-rdma7 = &vdo1_rdma7;
+-	};
+ 
+ 	cpus {
+ 		#address-cells = <1>;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8365.dtsi b/arch/arm64/boot/dts/mediatek/mt8365.dtsi
+index 2e782558fb77..4b05f6a864d4 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8365.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8365.dtsi
+@@ -20,19 +20,6 @@ / {
+ 	#address-cells = <2>;
+ 	#size-cells = <2>;
+ 
+-	aliases {
+-		aal0 = &aal0;
+-		ccorr0 = &ccorr0;
+-		color0 = &color0;
+-		dither0 = &dither0;
+-		dpi0 = &dpi0;
+-		dsi0 = &dsi0;
+-		gamma0 = &gamma0;
+-		ovl0 = &ovl0;
+-		rdma0 = &rdma0;
+-		rdma1 = &rdma1;
+-	};
+-
+ 	cpus {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+index 669eaec662f3..a938539c92b8 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+@@ -21,7 +21,6 @@
+ 
+ / {
+ 	aliases {
+-		dsi0 = &disp_dsi0;
+ 		ethernet0 = &eth;
+ 		i2c0 = &i2c0;
+ 		i2c1 = &i2c1;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8390-tungsten-smarc.dtsi b/arch/arm64/boot/dts/mediatek/mt8390-tungsten-smarc.dtsi
+index f2ad9265be31..d70bed80274b 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8390-tungsten-smarc.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8390-tungsten-smarc.dtsi
+@@ -16,7 +16,6 @@
+ 
+ / {
+ 	aliases {
+-		dsi0 = &disp_dsi0;
+ 		ethernet0 = &eth;
+ 		i2c0 = &i2c0;
+ 		i2c1 = &i2c1;
+-- 
+2.53.0
 
-> diff --git a/drivers/gpu/drm/panel/panel-lg-sw43103.c b/drivers/gpu/drm/p=
-anel/panel-lg-sw43103.c
-> new file mode 100644
-> index 0000000000000..caab54e0d1153
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-lg-sw43103.c
-[ ... ]
-> +static int sw43103_enable(struct drm_panel *panel)
-> +{
-> +	struct sw43103_panel *sw43103 =3D to_panel_info(panel);
-> +	struct mipi_dsi_multi_context ctx =3D { .dsi =3D sw43103->link };
-> +
-> +	/* Display On */
-> +	mipi_dsi_dcs_set_display_on_multi(&ctx);
-> +	mipi_dsi_msleep(&ctx, 20);
-> +
-> +	/* Enable display backlight control and full brightness */
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x2c=
-);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x0=
-7, 0xff);
-> +
-> +	return ctx.accum_err;
-> +}
-
-[Severity: Low]
-Should sw43103_enable() leave brightness programming to the backlight
-device?
-
-drm_panel_enable() calls backlight_enable(panel->backlight) right after
-panel->funcs->enable(panel), which invokes sw43103_backlight_update_status()
-to write the control display register and the configured brightness
-(defaulting to 1024).  Hardcoding 0x07ff (2047) here duplicates those
-transfers and briefly flashes the panel at maximum brightness whenever the
-display is enabled at a lower brightness level.
-
-[ ... ]
-
-> +static int sw43103_backlight_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	u16 brightness =3D backlight_get_brightness(bl);
-> +	u8 ctrl =3D 0x2c;
-> +	int ret;
-> +
-> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret =3D mipi_dsi_dcs_write(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, &ctrl, =
-sizeof(ctrl));
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-> +
-> +out:
-> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-> +
-> +	return ret < 0 ? ret : 0;
-> +}
-
-[Severity: Medium]
-Can a sysfs brightness write race with panel preparation or issue transfers
-while the panel is powered off?
-
-sw43103_backlight_init() registers the backlight device during probe, and
-backlight_device_set_brightness() calls sw43103_backlight_update_status()
-under only bd->ops_lock and bd->update_lock.  If userspace writes to sysfs
-while the panel is unprepared, mipi_dsi_dcs_write() runs while the panel is
-in reset or powered down.  If it writes during sw43103_prepare(), it also
-races on dsi->mode_flags:
-
-CPU0                              CPU1
-sw43103_prepare()
-  sw43103_program()
-    sw43103_init_sequence()
-                                  backlight_device_set_brightness()
-                                    sw43103_backlight_update_status()
-                                      dsi->mode_flags &=3D ~...
-    mipi_dsi_dcs_write_seq_multi()
-      /* sent in high-speed mode instead of low-power mode */
-
-Conversely, restoring the low-power mode flag at the end of
-sw43103_backlight_update_status() while sw43103_program() is sending the
-picture parameter set forces mipi_dsi_picture_parameter_set_multi() into
-low-power mode.
-
-[ ... ]
-
-> +static void sw43103_remove(struct mipi_dsi_device *dsi)
-> +{
-> +	struct sw43103_panel *ctx =3D mipi_dsi_get_drvdata(dsi);
-> +	int ret;
-> +
-> +	ret =3D sw43103_unprepare(&ctx->base);
-> +	if (ret < 0)
-> +		dev_err(&dsi->dev, "failed to unprepare panel: %d\n", ret);
-> +
-> +	ret =3D mipi_dsi_detach(dsi);
-> +	if (ret < 0)
-> +		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
-> +
-> +	drm_panel_remove(&ctx->base);
-> +}
-
-[Severity: Medium]
-Does calling sw43103_unprepare() directly in sw43103_remove() underflow the
-regulator enable counts?
-
-sw43103_unprepare() unconditionally calls regulator_bulk_disable() without
-checking or updating ctx->base.prepared.  If the panel is not prepared when
-the driver is unbound, regulator_bulk_disable() triggers an unbalanced
-regulator disable warning and returns -EIO; if the panel is prepared,
-powering it off before mipi_dsi_detach() and drm_panel_remove() leaves
-ctx->base.prepared set, causing modeset teardown to access an unpowered
-panel and disable the supplies a second time.  Removing the manual
-sw43103_unprepare() call lets the modeset driver tear the panel down
-cleanly.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117123946.6685=
-57-1-rofikcoga@gmail.com?part=3D5
