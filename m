@@ -1,80 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794923803;
-	b=0WT/6GMnZ87WRlw9MAfcZI72/higPGK6JeGz6YC+zGIP6fNgTFE10Z95Z7+HPyCR27LD
-	 O4+X+jr2R8BH5+wyohnbWOhajpTpAcjGWmQwTQRcqE2NX5XP0cDTlMp9NgPzAE9gwjYb2
-	 GmwbFAXvycH5RawWM7roSsa4bCmoKmlJJ5yWGwEbeR3Ha7GgqpCoKsLA5GuIwftqDM7XM
-	 EZQvJ1JqNyyNFoQvadoNvjmmC9c6g/94bZnWbUZpODZ2EtNtR11LQVdyticTD6oSOhOua
-	 k2nCjN6Hf0tUiYvZpFbyOLxAtr+umjC7RJrs39YCx/31cPxGQB0KpRnIxfqW4sNqQig==
+	t=1794924307;
+	b=lQwm1uPZ0GHvNtmLy6VEPJVdE01m7gf2nyx9WyqPJNZmkK5wqn39LufdMI5XAbhhB7iQ
+	 WFmipSca9zFADn+9xtDhxe+WL2xhsLDN0TqZ75WNHdQLEkNDCPsc3EwD8YyOW64J+cQ4v
+	 fG/1bhIdPTyLkK5OuxhugGrxEQAb5H2LRtF0t8zK4tU50N3nfAHwiyPgrLSQN1dcO9AwZ
+	 lMXqMfqYN6bnfQDzqZfr+qzrgh+JRiUL7hM0ahLSDEetLlngcguc+4jASIG5qk1If7m+O
+	 l2P3xVEcmQ6wuguht/ZBiqUmtvvpsOzV7ujR3LPhr/WvLo9ukBqolfIWQ5DFMvDeGcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923803;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=JdoNxbvOdGdn5zkdEm9b8MntiuQ8OfXeFa1AJ3RThLM=;
-	b=dUquGFiJkEi+E2C10Y/Xo0Q323gItA1LhiTysXsFy20nndKf1sHLi3ADd7LLFblmS4et
-	 aNAtuN/Jdo0caGOgZUrcLEtDidBlwm5xU7+QET5w0rZSnj2c5GJHEysG4ZZvWio7aH4Go
-	 xS4B42GVt0uiOLqQ0Ne/5wIlVwxyT+a05ijwwMV8//3ZQhNiqnaN3Qy83uv0oDTdRIsqh
-	 t9umhQWqDGHyRIJI1JQwssLmAPt5K6KQmMFotuUoyRzPj+r3deLr4oor4wjRHlBGbLvUw
-	 8J6gqr8BFYWqQmn52rMAYSh4tdr/0v2dt74eGPqDfyp6e8kg2BORNxILrgCPTQpMvyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924307;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=coQw/pjKP5s+yblH7PMp+lJnV2E2rZhvzsYmHLQwVOQ=;
+	b=jvrfvc6Sg9ET9Qa1DyVOeoD0hlg8kpCTd6eSExhOcpSOz3sZjTSF3B27I2YbwPLnJVpY
+	 MMDwXPJE6AfCFoR2UWWlcMJMIe6yNld118W4z8wQLHon4XVw1kvftXbetn/tmpdgKYrdM
+	 9TCbEjq8f8BPeSlZRRh2aBE8Gl5Ygyl4IwM5Lx7CgOIumoT98wuCx/jbodFx4aIDTzklU
+	 wGXwMkWZSEI1rMA4JHDnumq4//smUGk1ZHKmPztfW0ZlNxFF5wPvuLdsbwR80mdiPb3xh
+	 VTQN311UThwna9QaaKLtpDpNg9LXFtUYZ6amj/b0U45vYEmbbxWX0Jjk0PNJLf2taCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kqyD75yD;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLFf8uoQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754C6606A323;
-	Tue, 17 Nov 2026 13:56:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 754C6606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CA3606A896;
+	Tue, 17 Nov 2026 14:05:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kqyD75yD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794923803; x=1826459803;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=Ea3tlvsxN6sCO4EObLOHeR1Qlhl1afKZETW82drmShU=;
-  b=kqyD75yDOMISXV11f2Q6hOWGumU/XTDsEz1MYpsMigncg8Z3pgTWwoMk
-   NgoJiTL03mWJQQ0JY6YxkuRSAttVs5SPl19Z4fnPc/sBL2A/pyHVyyIRh
-   TnunsUWBJ2Np3ykdxnz4CPPJcoTKZSAcxVFienv3LfouugtWDpWrUhIkd
-   C49hcr9l5+d1ukwn3ORcypX38UPzIi22hkjoTeAIkB5je0WhU22X5ziPq
-   FUVuvnJyCMfnvhdB58b7LL/odZRy8ihQg9QrXHdfxmVYFELjYT/v038ZX
-   l6GH4b7S61XkNiv+FeAbwlmKgHhv75ijlcf/byCp0Mn5u4mMcb/bmnetU
-   g==;
-X-CSE-ConnectionGUID: GnohH8m/R2OtU+BEWR2KTw==
-X-CSE-MsgGUID: UTmMVJS1QZOnS8WO0azxcA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3576235"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3576235"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 05:56:41 -0800
-X-CSE-ConnectionGUID: 3EEqGSKdRvuTkNRBbInPHw==
-X-CSE-MsgGUID: fvSVtpXaSMuS3eike8RdfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9701080"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 05:56:36 -0800
-Date: Tue, 17 Nov 2026 15:56:34 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Adil =?iso-8859-1?Q?H=FCsrev?= Tepe <tadilhusrev@gmail.com>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: proximity: add Imagis ISG5320A SAR sensor
- driver
-Message-ID: <avxdEl-IB2yf3pdi@ashevche-desk.local>
-References: <20261116074013.355363-1-tadilhusrev@gmail.com>
- <20261117104414.1182364-1-tadilhusrev@gmail.com>
- <20261117104414.1182364-2-tadilhusrev@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLFf8uoQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 186FF1F000C7;
+	Tue, 17 Nov 2026 14:05:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794924307;
+	bh=coQw/pjKP5s+yblH7PMp+lJnV2E2rZhvzsYmHLQwVOQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QLFf8uoQaCvzNQPhWl3jEanWjUD657Ksl7ZzS5r6R7+f8bA6ToKxQIRiJCsQdmWOE
+	 F4gvMM6X2hyBkb7LYdG0JgNyquET78KF66d4PndQFObVMTQ9Yxg3rWjrq8jau1GuWq
+	 2xKL0Pq2eNUeU3ckpj11fTkpHbq9k/gf8Uo3m7u+6Z2gRo+oyW4+fyyoGp9HuLGMkW
+	 5C5i27F7g4UPIeMzwq41XRC3h+hoSdOLGddN+T6kDspsr5xAZCq/TTrgBXjx/uY8MW
+	 mXDNHkk1ljNz5dtPfbnnIIgy2xsMTsnqOWnqLUJpvPDolLko4etqUqc/W2c9F5vYLu
+	 Y7PHKbEd1+BrQ==
+Message-ID: <sashiko-outbox-218920@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 6/6] ARM: add the SiRF AT550 platform and YPL514si
+ board
+Reply-To: sashiko-reviews@lists.linux.dev
+To: yy-Local-LLM <yogo.0917.sabu@gmail.com>, devicetree@vger.kernel.org
+Cc: linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261117-at550-rfc-v1-v1-6-5879573cb825@gmail.com>
+References: <20261117-at550-rfc-v1-v1-0-5879573cb825@gmail.com>
+ <20261117-at550-rfc-v1-v1-6-5879573cb825@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 14:05:06 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,433 +60,179 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261117104414.1182364-2-tadilhusrev@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 17, 2026 at 01:44:14PM +0300, Adil Hüsrev Tepe wrote:
-> Add an IIO driver for the Imagis ISG5320A capacitive SAR/grip sensor
-> (I2C), as fitted on the Samsung Galaxy XCover5. It exposes one
-> IIO_PROXIMITY channel (the B-channel signal minus its baseline) and a
-> rising/falling threshold proximity event.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] ARM: at550: non-real name yy-Local-LLM in Signed-off-by and
+  MAINTAINERS
+- [High] ARM: at550: ARCH_AT550 selects CPU_V6 without !SMP dependency
+  in Kconfig
+- [High] ARM: dts: at550: /memreserve/ causes ioremap_wc() failure in
+  simplefb_probe()
+- [Low] ARM: at550_defconfig: missing CONFIG_ARCH_MULTI_V7 disablement
+- [Low] ARM: dts: unsorted subdir-y entry and missing newline in
+  Makefile
+--
 
-> v1 -> v2 (addressing Andy Shevchenko's and Sashiko AI's review of v1,
-> https://sashiko.dev/#/patchset/20261116074013.355363-1-tadilhusrev@gmail.com?part=2):
-> - Drop the unused #include <linux/kernel.h>; audit includes for the
->   IWYU principle (array_size.h, cleanup.h, errno.h, types.h for
->   symbols actually used).
-> - Use ACQUIRE(pm_runtime_active_auto_try_enabled)/ACQUIRE_ERR() in
->   isg5320a_get_sample() instead of open-coded
->   pm_runtime_resume_and_get()/pm_runtime_put_autosuspend().
-> - Make the Kconfig prompt, this file's top comment, and
->   MODULE_DESCRIPTION() use the same wording.
-> - Propagate the PROTECT-unlock write failure in isg5320a_reset()
->   instead of only warning (matches the existing SOFTRESET handling).
-> - isg5320a_wait_int() now reads the INT gpio with
->   gpiod_get_value_cansleep() (logical, polarity-aware) instead of
->   _raw_, and returns a real error instead of looping to -ETIMEDOUT on
->   a failed read.
-> - Cache device_may_wakeup() at isg5320a_events_on() time
->   (irq_wake_enabled) and use that cached value in
->   isg5320a_events_off(), instead of re-checking device_may_wakeup() at
->   disable time: toggling /sys/.../power/wakeup between enable and
->   disable no longer produces an unbalanced
->   enable_irq_wake()/disable_irq_wake() pair.
-> - isg5320a_shutdown() now calls isg5320a_events_off() (disables the
->   IRQ and takes data->lock around the IRQFUNC write) instead of
->   writing IRQFUNC unlocked with the IRQ still enabled, and only calls
->   isg5320a_mode_sleep() when the device isn't already
->   runtime-suspended.
-> - Register the isg5320a_teardown() devres action right after
->   isg5320a_mode_normal() succeeds instead of after the IRQ request, so
->   a later probe failure (e.g. devm_request_threaded_irq()) still puts
->   the chip back to sleep instead of leaving it scanning unbound.
-> - Use a named initializer in isg5320a_id[].
+commit 77bddca305316e26eed799b27f4f024275217704
+Author: yy-Local-LLM <yogo.0917.sabu@gmail.com>
 
-Changelog should be in the comment block, after the '---' line below.
+> ARM: add the SiRF AT550 platform and YPL514si board
+>
+> Add a minimal DT machine using standard IRQ, timer and simplefb paths.
+> Describe the SoC and the firmware-configured YPL514si display. Leave
+> usable memory and the divided counter rate for the bootloader to
+> populate. Keep optional peripheral nodes disabled until firmware hands
+> them over. Disable unvalidated board suspend; limit this board to SD PIO
+> at 25 MHz. Document the RAM-boot contract and the missing
+> cold-boot/clock-tree support.
+>
+> Signed-off-by: yy-Local-LLM <yogo.0917.sabu@gmail.com>
 
-> The driver was derived from the Samsung vendor driver during XCover5
-> mainline bring-up with the help of an AI coding assistant (Claude Code,
-> Anthropic), which drafted the mainline IIO driver; I reviewed every
-> line, built it (arm64, 0 warnings), ran checkpatch --strict (clean),
-> and tested it live on a Samsung Galaxy XCover5 (2026-11-17): the driver
-> binds and registers as iio:device4 "isg5320a", with a live
-> in_proximity0_raw read-back.
+[Severity: High]
+Documentation/process/submitting-patches.rst requires a real full human
+name in the Signed-off-by trailer and in MAINTAINERS rather than a handle
+or bot name (yy-Local-LLM).
 
-This paragraph has to be in the cover letter and not here.
+[ ... ]
 
-...
-
-> +#include <linux/array_size.h>
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/errno.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/irq.h>
-
-> +#include <linux/mod_devicetable.h>
-
-Nope. This should not be included in a new code.
-
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/pm.h>
-> +#include <linux/pm_runtime.h>
-
-> +#include <linux/pm_wakeup.h>
-
-Have you read what's written in the top of that file?
-Please, drop it here.
-
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/types.h>
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index 28fba538d5520..a4844a80b8d08 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -40,3 +40,5 @@ subdir-y +=3D vt8500
+>  subdir-y +=3D xen
+>  subdir-y +=3D xilinx
+>  subdir-y +=3D zte
 > +
-> +#include <linux/iio/events.h>
-> +#include <linux/iio/iio.h>
+> +subdir-y +=3D sirf
+> \ No newline at end of file
 
-...
+[Severity: Low]
+This isn't a bug, but the vendor subdirectories in this Makefile are kept
+in alphabetical order (between sigmastar and socionext), without a blank
+line, and the file is missing a trailing newline.
 
-> +#define ISG5320A_RESET_CONDITION	5000	/* reg.h :99, for cfcal_th */
+[ ... ]
 
-This is a cryptic comment. Either drop it, or better to explain on top of the
-definition.
-
-...
-
-> +#define ISG5320A_AUTOSUSPEND_MS		5000
-
-(5 * MSEC_PER_SEC)
-
-will require time.h to be included.
-
-...
-
-> +struct isg5320a_reg_data {
-> +	u8 addr;
-> +	u8 val;
+> diff --git a/arch/arm/boot/dts/sirf/at550-ypl514si.dts b/arch/arm/boot/dt=
+s/sirf/at550-ypl514si.dts
+> new file mode 100644
+> index 0000000000000..d45328fa09e82
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/sirf/at550-ypl514si.dts
+> @@ -0,0 +1,52 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +/dts-v1/;
+> +/memreserve/ 0xc0100000 0x40000;
+> +#include "at550.dtsi"
+> +
+> +/ {
+> +	model =3D "Yupiteru YPL514si";
+> +	compatible =3D "yupiteru,ypl514si", "sirf,at550";
+> +
+> +	memory@c0000000 {
+> +		device_type =3D "memory";
+> +		/* The bootloader supplies the region allocated for Linux. */
+> +		reg =3D <0xc0000000 0>;
+> +	};
+> +
+> +	chosen {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +		ranges;
+> +
+> +		framebuffer@c0100000 {
+> +			compatible =3D "simple-framebuffer";
+> +			reg =3D <0xc0100000 0x3fc00>;
+> +			width =3D <480>;
+> +			height =3D <272>;
+> +			stride =3D <960>;
+> +			format =3D "r5g6b5";
+> +			status =3D "disabled";
+> +		};
+> +	};
 > +};
 
-> +/*
-> + * Vendor setup_reg[] for "XCOVER5 ALL" (isg5320a_reg.h :283-435). The other
-> + * table (:130-282) is under CONFIG_SENSORS_ISG5320A_XCOVER5_KOR, which the
-> + * stock exynos850-xcover5xx_defconfig leaves unset; it differs only in
-> + * 0x9C (threshold low byte), 0xA0 (far hysteresis low byte) and 0xBA.
-> + */
-> +static const struct isg5320a_reg_data isg5320a_setup_reg[] = {
-> +	{ 0x05, 0xFC }, { 0x06, 0xF1 }, { 0x07, 0x13 }, { 0x08, 0x01 },
-> +	{ 0x09, 0x80 }, { 0x0A, 0x20 }, { 0x0B, 0x00 }, { 0x0C, 0x00 },
-> +	{ 0x12, 0x89 }, { 0x19, 0x8A }, { 0x1B, 0x28 }, { 0x1D, 0x20 },
-> +	{ 0x1E, 0x00 }, { 0x1F, 0x18 }, { 0x20, 0x05 }, { 0x21, 0x10 },
-> +	{ 0x22, 0x10 }, { 0x23, 0x00 }, { 0x24, 0x00 }, { 0x25, 0x05 },
-> +	{ 0x26, 0x05 }, { 0x27, 0x10 }, { 0x28, 0x20 }, { 0x29, 0x00 },
-> +	{ 0x2A, 0x20 }, { 0x2B, 0x00 }, { 0x2C, 0x00 }, { 0x2D, 0x20 },
-> +	{ 0x2F, 0x18 }, { 0x30, 0xC0 }, { 0x41, 0x11 }, { 0x60, 0xF0 },
-> +	{ 0x61, 0x8F }, { 0x62, 0x0C }, { 0x63, 0x00 }, { 0x64, 0x00 },
-> +	{ 0x65, 0x44 }, { 0x66, 0x3C }, { 0x67, 0x01 }, { 0x68, 0x00 },
-> +	{ 0x69, 0x00 }, { 0x6A, 0x10 }, { 0x6B, 0x00 }, { 0x6C, 0x10 },
-> +	{ 0x6D, 0x40 }, { 0x6E, 0x22 }, { 0x6F, 0x00 }, { 0x70, 0x01 },
-> +	{ 0x71, 0x60 }, { 0x72, 0xFF }, { 0x73, 0xFF }, { 0x74, 0xFF },
-> +	{ 0x7B, 0x08 }, { 0x7C, 0x00 }, { 0x7D, 0x0C }, { 0x7E, 0x00 },
-> +	{ 0x7F, 0xF8 }, { 0x80, 0xF8 }, { 0x81, 0x00 }, { 0x82, 0xF0 },
-> +	{ 0x83, 0xF0 }, { 0x84, 0xF0 }, { 0x85, 0xF0 }, { 0x86, 0xF0 },
-> +	{ 0x87, 0xF0 }, { 0x88, 0x00 }, { 0x89, 0x00 }, { 0x8A, 0x08 },
-> +	{ 0x8B, 0x00 }, { 0x8C, 0x02 }, { 0x8D, 0x00 }, { 0x99, 0x21 },
-> +	{ 0x9A, 0x3C }, { 0x9B, 0x01 }, { 0x9C, 0x2C }, { 0x9D, 0x00 },
-> +	{ 0x9E, 0x00 }, { 0x9F, 0x00 }, { 0xA0, 0x96 }, { 0xA1, 0xC0 },
-> +	{ 0xA2, 0x22 }, { 0xA3, 0x00 }, { 0xA4, 0x08 }, { 0xA5, 0x60 },
-> +	{ 0xA6, 0xFF }, { 0xA7, 0xFF }, { 0xA8, 0xFF }, { 0xA9, 0x00 },
-> +	{ 0xAF, 0x40 }, { 0xB0, 0x00 }, { 0xB1, 0x60 }, { 0xB2, 0x00 },
-> +	{ 0xB3, 0xD0 }, { 0xB4, 0x10 }, { 0xB5, 0x28 }, { 0xB6, 0xF0 },
-> +	{ 0xB7, 0xF6 }, { 0xB8, 0xFD }, { 0xB9, 0xDE }, { 0xBA, 0xFD },
-> +	{ 0xBB, 0xF0 }, { 0xBC, 0x00 }, { 0xBD, 0xFF }, { 0xBE, 0x01 },
-> +	{ 0xBF, 0x5E }, { 0xC0, 0x00 }, { 0xC1, 0x69 }, { 0xC2, 0xF0 },
-> +	{ 0xC3, 0x00 }, { 0xC4, 0x00 }, { 0xC5, 0x00 }, { 0x13, 0x3A },
-> +	{ 0x18, 0xF1 }, /* A ch : CS0, B ch : CS1 */
-> +	{ 0x1C, 0x18 }, { 0x35, 0x00 }, { 0x36, 0x00 }, { 0x3A, 0x0A },
-> +	{ 0x3B, 0x50 }, { 0x3C, 0x0A }, { 0x3D, 0x50 }, { 0x3E, 0x60 },
-> +	{ 0x94, 0x10 }, { 0x95, 0xA9 }, { 0x96, 0x11 }, { 0x2E, 0x14 },
-> +	{ 0x0E, 0xE0 }, { 0x0F, 0x1E }, { 0x10, 0xC0 }, { 0x11, 0xC1 },
-> +	{ 0xD0, 0xE0 }, { 0xD1, 0x08 }, { 0xD2, 0x00 }, { 0xD3, 0xFF },
-> +	{ 0xD4, 0xFF }, { 0xD5, 0x1E }, { 0xD6, 0x32 }, { 0xD7, 0xFF },
-> +	{ 0xD8, 0x20 }, { 0xD9, 0x70 }, { 0xDA, 0x7F }, { 0xDB, 0xE0 },
-> +	{ 0xDC, 0x00 }, { 0x76, 0x08 }, { 0x77, 0x00 }, { 0x79, 0x02 },
-> +	{ 0x7A, 0x00 }, { 0xAA, 0x36 }, { 0xAB, 0xB0 }, { 0xAD, 0x04 },
-> +	{ 0xAE, 0x00 },
-> +};
+[Severity: High]
+Will reserving the framebuffer with /memreserve/ cause simplefb_probe() to
+fail on 32-bit arm?
 
-...
+/memreserve/ only calls memblock_reserve() without setting MEMBLOCK_NOMAP,
+so map_lowmem() still maps 0xc0100000 into the kernel linear mapping when
+memory@c0000000 covers that range.  When simplefb_probe() then calls
+ioremap_wc(), __arm_ioremap_pfn_caller() hits a WARN_ON() and returns NULL
+to reject the mismatched memory attribute alias, failing probe with
+-ENOMEM:
 
-> +struct isg5320a_data {
-> +	struct device *dev;
-> +	struct regmap *regmap;
+arch/arm/mm/ioremap.c:__arm_ioremap_pfn_caller() {
+    ...
+	if (WARN_ON(memblock_is_map_memory(PFN_PHYS(pfn)) &&
+		    mtype !=3D MT_MEMORY_RW))
+		return NULL;
+    ...
+}
 
-One of the above is redundant.
+Reserving the region via a /reserved-memory child node with the no-map
+property excludes it from the linear mapping so ioremap_wc() succeeds.
 
-> +	struct gpio_desc *int_gpio;
-> +	int irq;
-> +	/* Serialises multi-register chip sequences and the cached sample. */
-> +	struct mutex lock;
-> +	/* Serialises event enable/disable (sleeps in disable_irq()). */
-> +	struct mutex ev_lock;
+[ ... ]
 
-> +	bool ev_enabled;
-> +	bool irq_wake_enabled;
-> +	bool close;
+> diff --git a/arch/arm/configs/at550_defconfig b/arch/arm/configs/at550_de=
+fconfig
+> new file mode 100644
+> index 0000000000000..698b2f67574d0
+> --- /dev/null
+> +++ b/arch/arm/configs/at550_defconfig
+> @@ -0,0 +1,34 @@
+> +# CONFIG_LOCALVERSION_AUTO is not set
+> +CONFIG_SYSVIPC=3Dy
+> +CONFIG_NO_HZ_IDLE=3Dy
+> +CONFIG_HIGH_RES_TIMERS=3Dy
+> +CONFIG_BLK_DEV_INITRD=3Dy
+> +CONFIG_ARCH_MULTI_V6=3Dy
+> +CONFIG_ARCH_AT550=3Dy
 
-If they are protected by the same lock or have no clashes, use
+[Severity: Low]
+Should at550_defconfig explicitly disable CONFIG_ARCH_MULTI_V7?
 
-	bool XXX:1;
+ARCH_MULTI_V7 defaults to y in arch/arm/Kconfig.platforms, so omitting
+"# CONFIG_ARCH_MULTI_V7 is not set" leaves CPU_V7, HAVE_SMP, multi-CPU/TLB
+dispatch, and a 64-byte L1 cache line shift enabled for this single-core
+ARM1136 target.
 
-to pack all of them into a single boolean. Move them to the end, so
-there will be a chance to reduce a gap. Check with `pahole`.
+[ ... ]
 
-> +	u16 cdc;
-> +	u16 base;
-> +	u16 thresh;
-> +	u16 close_hyst;
-> +	u16 far_hyst;
-> +	u32 cfcal_th;
+> diff --git a/arch/arm/mach-at550/Kconfig b/arch/arm/mach-at550/Kconfig
+> new file mode 100644
+> index 0000000000000..c6380e529641d
+> --- /dev/null
+> +++ b/arch/arm/mach-at550/Kconfig
+> @@ -0,0 +1,13 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +config ARCH_AT550
+> +	bool "SiRF AT550 platforms"
+> +	depends on ARCH_MULTI_V6
+> +	select ARM_ERRATA_411920
+> +	select AT550_IRQ
+> +	select CLKSRC_AT550
+> +	select CPU_V6
 
-Move it upper, before u16 ones.
+[Severity: High]
+Does selecting CPU_V6 without a !SMP dependency break multiplatform SMP
+builds?
 
-> +};
+In arch/arm/mm/Kconfig, CPU_V6 depends on !SMP.  Enabling CONFIG_ARCH_AT550
+in a configuration with CONFIG_SMP=3Dy (such as allmodconfig or a combined
+v6/v7 multiplatform kernel) triggers an unmet direct dependency warning for
+CPU_V6 and compiles out 1-byte and 2-byte __arch_xchg() and 2-byte
+__cmpxchg() in arch/arm/include/asm/cmpxchg.h, causing link failures with
+undefined references to __bad_xchg and __bad_cmpxchg (and smp_on_up when
+CONFIG_SMP_ON_UP=3Dn).
 
-...
+Other ARM1136 platforms either select CPU_ARM1136R1 (which selects CPU_V6K)
+or depend on !SMP when selecting CPU_ARM1136R0 / CPU_V6.
 
-> +static const struct regmap_config isg5320a_regmap_config = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.max_register = ISG5320A_MAX_REG,
-> +	.writeable_reg = isg5320a_writeable_reg,
-> +	.precious_reg = isg5320a_precious_reg,
-
-> +	.cache_type = REGCACHE_NONE,
-
-Why?! This has to be justified in the comment above.
-
-> +};
-
-...
-
-> +/* Wait for the INT line to reach @level: up to 10 x 5 ms (vendor :262, :281). */
-> +static int isg5320a_wait_int(struct isg5320a_data *data, int level)
-> +{
-> +	int cnt, val;
-> +
-> +	if (!data->int_gpio) {
-
-> +		msleep(50);
-
-All sleeps has to be explained.
-
-> +		return 0;
-> +	}
-> +
-> +	for (cnt = 0; cnt < 10; cnt++) {
-> +		/* Logical, not raw: honours the GPIO's DT polarity. */
-> +		val = gpiod_get_value_cansleep(data->int_gpio);
-> +		if (val < 0)
-> +			return val;
-> +		if (val == level)
-> +			return cnt;
-> +		usleep_range(5000, 5100);
-> +	}
-
-In iopoll.h you may find readx_poll_timeout().
-
-> +	return -ETIMEDOUT;
-> +}
-
-...
-
-> +static int isg5320a_reset(struct isg5320a_data *data)
-> +{
-> +	struct device *dev = data->dev;
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	usleep_range(5000, 5100);				/* :255-256 */
-
-Why?! Also use fsleep(5 * USEC_PER_MSEC).
-
-> +	ret = regmap_read(data->regmap, ISG5320A_REG_IRQSRC, &val);	/* :258 */
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "no response at IRQSRC\n");
-> +
-> +	ret = regmap_read(data->regmap, ISG5320A_REG_CHIPID, &val);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "CHIPID read failed\n");
-
-> +	if (val == ISG5320A_VENDOR_CHIP_ID)
-> +		dev_info(dev, "CHIPID 0x%02x\n", val);
-
-Useless.
-
-> +	else
-> +		dev_warn(dev, "CHIPID 0x%02x (vendor header says 0x%02x; not enforced)\n",
-> +			 val, ISG5320A_VENDOR_CHIP_ID);
-> +
-> +	if (isg5320a_wait_int(data, 1) < 0)			/* :262-266 */
-> +		dev_warn(dev, "INT did not go high before reset\n");
-> +
-> +	ret = regmap_write(data->regmap, ISG5320A_REG_PROTECT,	/* :268-271 */
-> +			   ISG5320A_PROTECT_UNLOCK);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "unlock protect failed\n");
-> +
-> +	ret = regmap_write(data->regmap, ISG5320A_REG_SOFTRESET,	/* :273-276 */
-> +			   ISG5320A_SOFTRESET_VAL);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "soft reset write failed\n");
-
-> +	usleep_range(1000, 1100);				/* :278 */
-
-fsleep (1 * USEC_PER_MSEC) and why?
-
-
-> +	ret = isg5320a_wait_int(data, 0);			/* :280-289 */
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, -EIO, "INT not asserted after soft reset\n");
-> +	dev_dbg(dev, "reset done, wait cnt %d\n", ret);
-> +
-> +	return 0;
-> +}
-
-...
-
-> +/* vendor isg5320a_initialize(), :614-660, without the /sdcard override */
-> +static int isg5320a_initialize(struct isg5320a_data *data)
-> +{
-> +	struct device *dev = data->dev;
-> +	unsigned int i, val, mismatch = 0;
-> +	u8 buf[6];
-> +	int ret;
-> +
-> +	guard(mutex)(&data->lock);
-> +
-> +	ret = regmap_read(data->regmap, ISG5320A_REG_IRQSRC, &val);	/* :625 */
-> +	if (ret)
-> +		return ret;
-> +	ret = regmap_write(data->regmap, ISG5320A_REG_SCANCTRL1,	/* :626 */
-> +			   ISG5320A_SCAN_STOP);
-> +	if (ret)
-> +		return ret;
-
-> +	msleep(30);						/* :627 */
-
-Do all this needs to be under the mutex?
-
-> +	for (i = 0; i < ARRAY_SIZE(isg5320a_setup_reg); i++) {	/* :631-637 */
-> +		const struct isg5320a_reg_data *r = &isg5320a_setup_reg[i];
-> +
-> +		ret = regmap_write(data->regmap, r->addr, r->val);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "init write 0x%02x failed\n",
-> +					     r->addr);
-
-Don't we have something like reg_defaults_raw field and the respective
-struct reg_default?
-
-> +		ret = regmap_read(data->regmap, r->addr, &val);
-> +		if (ret)
-> +			return ret;
-> +		if (val != r->val) {
-> +			mismatch++;
-> +			dev_dbg(dev, "reg 0x%02x wrote 0x%02x read 0x%02x\n",
-> +				r->addr, r->val, val);
-> +		}
-> +	}
-> +	dev_info(dev, "init table: %zu writes, %u read back different\n",
-> +		 ARRAY_SIZE(isg5320a_setup_reg), mismatch);
-> +
-> +	/* :646-650 reads the threshold; :890-897 reads all six bytes */
-> +	ret = regmap_bulk_read(data->regmap, ISG5320A_REG_B_PROXCTL3, buf,
-> +			       sizeof(buf));
-> +	if (ret)
-> +		return ret;
-
-> +	data->thresh = (buf[0] << 8) | buf[1];
-> +	data->close_hyst = (buf[2] << 8) | buf[3];
-> +	data->far_hyst = (buf[4] << 8) | buf[5];
-
-We have get_unaligned_?eXX(), we have ?eXX_to_cpu() and cpu_to_?eXX(), use them.
-
-> +	ret = regmap_read(data->regmap, ISG5320A_REG_DIGITAL_ACC, &val);	/* :653-657 */
-> +	if (ret)
-> +		return ret;
-> +	data->cfcal_th = ISG5320A_RESET_CONDITION * val / 8;
-> +
-> +	dev_info(dev, "threshold %u, close hyst %u, far hyst %u, cfcal_th %u\n",
-> +		 data->thresh, data->close_hyst, data->far_hyst, data->cfcal_th);
-> +
-> +	return 0;
-> +}
-
-...
-
-> +	/*
-> +	 * Registered now, with the chip already active, so that a later
-> +	 * failure (e.g. the IRQ request below) still puts it back to sleep
-> +	 * instead of leaving it scanning with nothing bound to it.
-> +	 */
-> +	pm_runtime_set_autosuspend_delay(dev, ISG5320A_AUTOSUSPEND_MS);
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_get_noresume(dev);
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_put_autosuspend(dev);
-> +
-> +	ret = devm_add_action_or_reset(dev, isg5320a_teardown, data);
-> +	if (ret)
-> +		return ret;
-
-Do you understand how it works? Why don't you use devn_pm_runtime*() calls?
-
-...
-
-> +	if (data->irq > 0) {
-> +		irqflags = irq_get_trigger_type(data->irq);
-> +		if (!irqflags)
-> +			irqflags = IRQF_TRIGGER_FALLING;	/* :1932 */
-
-Why?! It's a new driver, let the firmware to describe thing properly (and you
-never know if there is a NOT gate in the middle which make the default working
-in a wrong way (and on top, but I haven't checked this, the shared interrupt
-case if supported by HW).
-
-> +		ret = devm_request_threaded_irq(dev, data->irq, NULL,
-> +						isg5320a_irq_thread,
-> +						irqflags | IRQF_ONESHOT |
-> +						IRQF_NO_AUTOEN,
-> +						"isg5320a", indio_dev);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "irq request failed\n");
-
-Read mailing list and IIO Git history to understand what's wrong here.
-
-> +
-> +		if (device_property_read_bool(dev, "wakeup-source"))
-> +			device_init_wakeup(dev, true);
-> +	}
-
-...
-
-Overall impression, that this driver was written without enough understanding
-on what's going on. Take your time, check datasheet and corner cases, test them
-on real HW, et cetera.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-at550-rfc-=
+v1-v1-0-5879573cb825@gmail.com?part=3D6
