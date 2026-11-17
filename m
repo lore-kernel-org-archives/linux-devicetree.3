@@ -1,88 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794895205;
-	b=W5yWRvHPfSTpXcLeGideUebRpF8uElDTrVneHYvS7xByHtvLcvYnazBiPYh96138G1+q
-	 oiaw7U7SHdC6wLjCfGbIUXgXfZTGnVKomTqR0wh1gUi87i3tHPjXTHkya8X1KktNYuoCG
-	 Paob6jPkMdRrBXqlXDve7WbMDXbBt4soGhi5/dBrHlt+sWXvwXRCX+E+crMolYSPqRzUu
-	 8XzCFupj4cfQcTTP5WEGOCEkx67RrRqk5+Y+tCkt/trf7l/Q9csRvoJK6IHLTdzTmXMuO
-	 qtXcR3LeCb9mZTO49LqWqkFTxe428Jl4r1yod8pdL0vVIxzqgCOdAS+cDCx7Ncm3jHQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794895205;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794895390;
+	b=i5eS6IMFM0A/vuyHWcAb32Ohg/kAmjWI45fbyOrHyh0KjIWizm+q/+Y4cSksfU6L1uTT
+	 VCr+65eDEJk4++N9XyBj3JvTqj/VpU0KnkCfpvfzNpR1SzF07w6876isACUpL9NRVbj/S
+	 mJPUV6X4dpWUcV/hfAUxDHgtb8r9aEy43ObJQrI0+PqjepzWgZhQwh1LAWaequTD7zVS4
+	 JW6bM9sOxwtxYUqQqmcGht8ZwJD2XpeQYDHOWJUmOk8qpwT2S7f21E3uma1z0igiynZVQ
+	 aR3OoFMtKK5c2MlvqvFk30UpRY1XNi8Cmz0cHcyqb28/sBhWrx2ua9DHi+vPcC6WPDw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794895390;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=lkS32XPAkky3Y3UuvpRMfImoXnZGvPVVobvUu9A3i6o=;
-	b=WqA2n+2WbQKFu9jpGWOh6LNyFzZLs8I5SLCgq7hoa1trBY2BiMFHjK4EQSp3998UQ2Dz
-	 Gk1M20e/QNmy2ru6p7BFzXziKNcNzr3bz8+k4MtGc5m/L8qEZnGDXs+bKgrGYhj2j+mKE
-	 PuE602zraXRqtvOUu/UIeZEsdV7KzEt2yFKxb1Ito7/K2nBzHMslJBpG8M7qOs9h8GVdK
-	 zDhgnlHBFVP31r6YX23VdqnZTvSUgeZCZbFaAwvRB37V7FVwe/WPhgoj6pAD1Ub83nQL6
-	 keRgR1exGFGYXzxr6bKTGtm8kiuLZzNxBWTugE/bcFuS21F0nJjWr5T3PrcN3nBO/5g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rtMskDO3xi7yMmOKnTt+SllqsYFoqqAzPkEoXmAxvXU=;
+	b=e+DY79P32V3C2lR3c1gpqiDTVv6htL2WtGT2+jn9P7aFg1BmRWwiVaTrDuy3bbcSxFli
+	 AVtmXenmYKaIzS4XjK42gMJGjimjnZFWsenmvo7Erc7jWa+IkMbzDA7rtAdhonepBMEhe
+	 tjeCO/xkutx+mv/6KOt696h6VobAG3fGaZNq8vWiuommRJvsTvPZM5lLicUIHeKQ32yxF
+	 snVjN/nin25cCzOCalMUxbqYpcD3OswcKzMObgIodo5qqFuYOTacfs+5Jv4PF73CveKuf
+	 k6pRZdsfG0YEb81kgpywf+KvQJFnpVumjqzsGo9jayY0gFR3+TG21RhpkNd1G55DofQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gSW6fmSK;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oxu+q6fg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB6AB606A330
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 06:00:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB6AB606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855C3606A884
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 06:03:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 855C3606A884
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gSW6fmSK
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e9995ce866so40514315ad.0
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 22:00:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oxu+q6fg
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-37198ed3727so670026eec.0
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 22:03:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794895389; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CId2P6hIHFnmGpuGuOOd710OH4gZZz4j6hbgZPhGuamGbMj+C6Zpq9+9g149otLKPB
+         0nSSdvtz8zHlkRi4SyyJ4BsQaYaBXUgJ3XjexQQESN2af93iaR9S4UDXrDG2L5H5X/sR
+         rgTJW2TV+oJJ2QSgK2cQEf7mtC54x9wLvunxLLoWeljccckLYvkEUIBuaZ/Mf1GRsE3m
+         +VREuRH9uS6XZU4WiCi3CbV+UeN1nbYAAkeAYPH4i3jZX1sLmUenLL6a7AdOW7LAW3oK
+         os58dpOr7MTL5ofXeJEgaaTOopC93+5Oowx9SHlPBFlhgZM1RDbIdwYb/dW+N2gotyXJ
+         mYEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rtMskDO3xi7yMmOKnTt+SllqsYFoqqAzPkEoXmAxvXU=;
+        fh=xB8id+JLZ4gwCjUJmYYsBY4o/5El0O3TQRZYHxR5A6U=;
+        b=JFaPwr/0lgWpIoJ4gwHlE8ZE4bKQLGwMGd6Bm+wP6/KJ78Fug4nzBUKStj/CFyQYxf
+         vbaL6+Kkdd5EUXYVfIrCrUTi1Gla0ntnbxvVo43Av+PW2HzwzsthutVMF0ih9MkBcYCt
+         3smvGAltAzGwes9QifRstswcz6W2OydzFL15R2PzSrYwL2yXJ0vlcaY/gvOmy8nPAkp7
+         M4IeAjyMLjqrs67x1LNDPYdaJp/b3ICOWw/JM/BxI57WDeH7d6AXLnxVWYMEMvyjKLkp
+         3jyhdu5olwPXH7VvDrhILtJk1bt8hX3Q5h5C6GFX7x9BiKtBNbvxTPnqdvRpsqJN3+sJ
+         HKlA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794895204; x=1795500004; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lkS32XPAkky3Y3UuvpRMfImoXnZGvPVVobvUu9A3i6o=;
-        b=gSW6fmSKs8az8HHSrcImPPlh8twk0+ePtltPv5E9/XKh6yQ60ea+87EWBeYgXYakDp
-         cl4pL0mAZ4S2Mw3OXFkqXlGJLzUamT3IaMxRfUGZB3IpAfIBF8B9LjRuhbp2bGLIV/P5
-         tJlGG6gKf02e95BnNtwnWabddrCmPJ1gEUNSBjaJpTKo4KKd1TsWge1CU7DdCmrOU6WP
-         fs257DMVTNXpHyWjQABQaMwvEK80XDuSLtwKdtl9IDYJfWkMzB6YmLWv3WZf0+sFeGii
-         J8OR3b0nJY8CVpaVT/VcqhU8kYjYG9XkG7F0p26X/SmQwehaMnIrlqzIndR3GPu3xqJU
-         pSdA==
+        d=gmail.com; s=20260707; t=1794895389; x=1795500189; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rtMskDO3xi7yMmOKnTt+SllqsYFoqqAzPkEoXmAxvXU=;
+        b=oxu+q6fgYWKxtHBHw8FvEpHrsqniQ8qJPoMRxryaL1MyrshMDryi758XSD277qDFDE
+         6kQJ62qwIpdHfvwgQr8spoC/AFhwSMpfV9+iai3aUx0ROe87N+mIP3itcLpT80NDIawR
+         jOjqE9ASRmOMDoROtB6AtMQBEIMtUDZIF0lpBpu1/MewronKUFiRIT3diqzTzylgYFC9
+         pSHDQiLA9c/GONdGiNyXINVd26D3Bf2nK3FWnLoFMIjF+MR7LT8lMGuXmknfD8WCi9fR
+         CygUu8XtbTumvS3Bvez5qc4mmqosPXuR8SsKIcokDd/8fXeaslqx7tFkFeBvjhRh4cvA
+         AX5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794895204; x=1795500004;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=lkS32XPAkky3Y3UuvpRMfImoXnZGvPVVobvUu9A3i6o=;
-        b=uy9HQtu5zJOsUdxShQpId1M43qg/UaNUipVOYoEXgeVoVYsMXdZq2kEQ34ZzRgz5ff
-         QzS5qepbJoNf/c8hBbvkqTT2C1NMiJJR+zHAcZ98lvIXWK1hLeZjlYIIDh8cSRx0FCRf
-         90pA2BmKKT0usvX8YHS+VaGHT3eBGUmv/xt+PGaXShF+NNO4lw2aH9deIPDG1IZ7e/Xj
-         mb0iLxOgA6aIUyZ2xdmF5zCyeYRIyLZ8bQyI7HkTXrpUT3grqsBmo8DAtZS/e3P55B9S
-         V9ps2FkUaAIFxCtTnqjbXqZyj1Kn50wM2Vb4K+rr1OGWcuH3Jn5k4E/OQ/abkA4ObLpi
-         aCOA==
-X-Forwarded-Encrypted: i=1; AL+hErHU0uwlZK/09Z0xQykdnQdTcIDlHspRucgzqaTIavYaIIiKZIfGzNKdNCAAHCBqYxZvH0EUB9DZR/Pq@vger.kernel.org
-X-Gm-Message-State: APuU4Z/EWjvLsIyY+ajSkHdmN/1JhenSG/SJ8Pl/jvb3zDPB013AknFE
-	C4iszqGl2pJaXlQaBmNzMVJen1PISKHJ7mEX/w3AJE9vMFARxx8qCESC
-X-Gm-Gg: AZFdTZd68DteZ5pLklSJf47i2mOe5MxR/Cv9Y9ukhsAPZVjLKNzTKr/4Z4cTic3wtGR
-	sqv3YwNHI9FXPxJFFvsE/unu8JmvtO+cGuFrH+0YYpRYu4zzqieIeBKN+SZO13hVwvFx9uyQ6pd
-	sH4nBLX7d99Ixzp8WGIbEEB0ap9SmQdMjlh3d9CQ2W+Cj2wS+fKh23TjX8wEmDVaE4krvKM7Av6
-	5nt+drpYKU1flX+d1IVCZnGTMphXgUjqF287fkke5PdNdD6kR3Ot1G2Iy96U0n6N8Nu667kp6Pb
-	jwHAtoKGwuy2u6/Agi2vcv6CNEM3A66NScMI/1WLPkgnCeKzFw2RUFS+waknuWjaWnupfWr+ejM
-	o4KK9tr0r9sCBSU7RQnYVswoAuQLEk9ljhvRVaYdM3QE656lFjBQZCHizlkVIgaMrhq1DVa8eva
-	GE+OT0C+pn1IvziVTuPbRla/852G5tEh+4s8yQj3SXWoFKvFV1JIvlcx3P7lCW7fi+l7tWzhDC4
-	EJx/e8Ow/wW8QDGZnkP5cKNmuUmFT/yqTBGL83Fd/c4h4ZvMOVGmlsQvJIEElLCdqbhgremWpOn
-	fKG8f6T2+UQKaQd3IpzJO7aSR/5iaMfXPfOKfVx+Od4fVutR8Lpl1uj6mR45HHuXcLw8
-X-Received: by 2002:a17:903:1846:b0:2d9:599e:df95 with SMTP id d9443c01a7336-2ee0d6600acmr126536685ad.3.1794895204164;
-        Mon, 16 Nov 2026 22:00:04 -0800 (PST)
-Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a173fasm8264435ad.14.2026.11.16.22.00.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 22:00:03 -0800 (PST)
-From: Kyle Hsieh <kylehsieh1995@gmail.com>
-Date: Tue, 17 Nov 2026 14:04:38 +0800
-Subject: [PATCH v2] dt-bindings: iio: adc: lltc,ltc2497: Make vref-supply
- optional for LTC2305/LTC2309
+        d=1e100.net; s=20260707; t=1794895389; x=1795500189;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rtMskDO3xi7yMmOKnTt+SllqsYFoqqAzPkEoXmAxvXU=;
+        b=nuiaSSR1m9w4D3HirytB2h5HmwIN/iTbKuzxVbS0jrca0LG9rYFPC5T6d+ToGETH1o
+         mr/WEgBB20X5rBD+hpMHyOO9dPWtvi9YDMUULUr5x63ZYKW/1kCdvTaA7pOt5UDLWepg
+         lqb6y8aXvMfks/UvzTygtw3/z+56KLnMJjwd/0vZMjBYBKt1z6UWLOIYqfg3QIg3VLMe
+         fITFbqiCIG+NuFyJCN7RXqs6eBX7PdoeKntoAylbebaW/LriwRTYnedQ6d57LXzaoAHZ
+         oq+QV9qMVdvKz2wt/Hfm0tF5MvLoeHQrxKoFilTZOUIRRB+JK7CShn1r1yLK7HFueKR5
+         6l/A==
+X-Forwarded-Encrypted: i=1; AL+hErH6ySf3pmaWDqU4BqqptJfa1wMrSZ92/t6nBe1/ZquoXDNf9VMNQsksjW7sAKV0Ecx7HLL8ZMKTpF03@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZxJghEWZjDrhKoJKJBkhWo6LT70m1hXZ33hSGsNXbkhvxNgyS
+	8wBH/awpT1b/sKW7xYCtsNNkBIccsygQaSv0qykItm7/2kEdGCj+jpKjEPSvF/3RrFE/eQx6Hzb
+	tqSKY7nEYM8F+6gh9CqBlv92ylo/mFD4=
+X-Gm-Gg: AYBFou0c2ofXqJWg42rCH6dL8cnf0uKpU0OwswVPLVjUt3FpbEHJtw7YYtI/HoU9SqE
+	Z4KFICeJicZzb+GEg3U4HlsO3i/xjh8bGp1It6WrJoJr/E74KmSI34S7k5CA9SqmFcrcjF5f+cO
+	uiXmeAaVWgmMN17JNSfKaUMJ0537P2xZi3lzPzu/MPnBpdSK7I5BL1W5yAJqBc1jnyXoPGbinCs
+	d5mNgPbkZVPvKLBlGmaO+tGyzi4JbQNH7p6L0xAIDsQa/my70CR5xXUs+qL/pekqGLohUD4xUZW
+	qEw/1gnroWJgGytYAtjzaVuVIOzBI7aI6iagAix8ZqE/0mzRuG7QUk4uv9BWFsq3h+xps8U+BgU
+	6f5CmXwz01RsMO2SpKA1rQ4bq8Rgp4JEHGTiK+IQ=
+X-Received: by 2002:a05:701b:4586:20b0:1ab:cbd0:1c96 with SMTP id
+ a92af1059eb24-1b53a429876mr1337313c88.4.1794895388323; Mon, 16 Nov 2026
+ 22:03:08 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,107 +104,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-ltc2497-vref-optional-v2-1-62e9d1ac7400@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAHXu+2oC/4WNSw6DIBCGr2Jm3Wl4ibGr3qNxoQg6CYoBQ9oY7
- 17qBbr8/ucByUayCR7VAdFmShTWAuJWgZn7dbJIY2EQTGjOOUO/G6HaBnO0DsO2l3zvUQ1OqlE
- PUjIFpbsVl97X7qsrPFPaQ/xcN5n/1H+LmSNHWZtW142ThrnntPTk7yYs0J3n+QVtfMUyugAAA
- A==
-X-Change-ID: 20261110-ltc2497-vref-optional-4bf34d6b3304
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Beguin <liambeguin@gmail.com>
-Cc: Michael Hennerich <michael.hennerich@analog.com>, linux@analog.com, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Kyle Hsieh <kylehsieh1995@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2317;
- i=kylehsieh1995@gmail.com; h=from:subject:message-id;
- bh=Wrcor3O6J2UjW7XHhJfIbkXTOnZk7CENzM1MR5U2g1M=;
- b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBq++54Vs8iILbLbQM6li8beTDhF8wDz/11oiHts
- 1xfJ8LNU+mJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCavvueAAKCRClg0K3CVbE
- gSrAB/99AyqPTsJgRsc3MtdvJ16FxWGikkgo8KkE4A7okDvCiAnQd2QYvvw4J7TVVqHtbJLqRPq
- oTkV0QXJ45MYQ+CzjmvDORGPvbuKg9D1xLnft35neBjUgMFR3cl9u2snKFocW3vAOsKADfKugYW
- to625O7j7Sz+Ppyobz7JMo9iTSkZRUeV3hQqoehJIDAiitr70x9HcwL1eerU5sFPoWdQ60JH2Z6
- hxKY1+TtSDb2m0Mks9yaNn50puIfVloc+0FE3k+2IRTiDOwYfeq0wkezQbDFYHjywQSUKt0y3yF
- nYv/aZP5LiYhgI984COjA0ZHdb06CmJG+quqdG01VKvdanMt
-X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
- fpr=C91EC68D64E758F931C6A897A58342B70956C481
+References: <20261022-psci-fix-v3-0-9ce2133c5659@gmail.com>
+ <20261022-psci-fix-v3-2-9ce2133c5659@gmail.com> <CAPx+jO-qPAuOGnGfCyGnSYym8PBOaqUJptZh8duYJKZN4HARaw@mail.gmail.com>
+In-Reply-To: <CAPx+jO-qPAuOGnGfCyGnSYym8PBOaqUJptZh8duYJKZN4HARaw@mail.gmail.com>
+From: Reza Kurniawan <imkyufie@gmail.com>
+Date: Tue, 17 Nov 2026 13:02:52 +0700
+X-Gm-Features: AclHuK9yy_ki_wzibjw_yQRrzFByvuyKJxJWKjlXJNrv02S4I5fFrI_oRWpsa90
+Message-ID: <CAAq9HC6kCspxX8DyDXp2RuhFSXmU=1p0s6xdOmjhGZ9gZgmj=Q@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] cpuidle: psci: Allow skipping the suspend mode switch
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ulf Hansson <ulfh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Christian Loehle <christian.loehle@arm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Val Packett <val@packett.cool>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, Alejandro Tafalla <atafalla@dnyon.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The LTC2305 and LTC2309 have an internal 4.096V reference, so their REF
-pin does not need to be driven by an external supply. The LTC2493,
-LTC2497 and LTC2499 have no internal reference and require one.
+On Fri, Nov 13, 2026 at 8:14=E2=80=AFPM Ulf Hansson
+<ulf.hansson@oss.qualcomm.com> wrote:
+>
+> On Thu, Oct 22, 2026 at 11:41=E2=80=AFAM Reza Kurniawan <imkyufie@gmail.c=
+om> wrote:
+> >
+> > From: Alejandro Tafalla <atafalla@dnyon.com>
+> >
+> > On some SoCs (e.g. Qualcomm MSM8917 and MSM8937), PSCI reports that OSI
+> > mode is supported but rejects any PSCI_SET_SUSPEND_MODE call with
+> > NOT_SUPPORTED. psci_set_osi_mode() then fails with -EOPNOTSUPP and the
+> > probe is aborted:
+> >
+> >   psci-cpuidle-domain psci: probe with driver psci-cpuidle-domain faile=
+d
+> >   with error -95
+> >
+> > Add support for the "skip-suspend-mode-switch" property. When present,
+> > do not call psci_set_osi_mode() and continue with the topology that was
+> > already built.
+> >
+> > Signed-off-by: Alejandro Tafalla <atafalla@dnyon.com>
+> > [Reza Kurniawan: split out the patch, added log message for skip case, =
+renamed
+> >  the property, added property check at PSCI initialization]
+> > Co-developed-by: Reza Kurniawan <imkyufie@gmail.com>
+> > Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
+> > ---
+> >  drivers/cpuidle/cpuidle-psci-domain.c | 16 ++++++++++------
+> >  drivers/firmware/psci/psci.c          |  6 ++++--
+> >  2 files changed, 14 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/drivers/cpuidle/cpuidle-psci-domain.c b/drivers/cpuidle/cp=
+uidle-psci-domain.c
+> > index 5722365b94..cc9f14769b 100644
+> > --- a/drivers/cpuidle/cpuidle-psci-domain.c
+> > +++ b/drivers/cpuidle/cpuidle-psci-domain.c
+> > @@ -159,13 +159,17 @@ static int psci_cpuidle_domain_probe(struct platf=
+orm_device *pdev)
+> >         if (ret)
+> >                 goto remove_pd;
+> >
+> > -       /* let's try to enable OSI. */
+> > -       ret =3D psci_set_osi_mode(use_osi);
+> > -       if (ret)
+> > -               goto remove_pd;
+> > +       if (of_property_read_bool(np, "skip-suspend-mode-switch")) {
+>
+> Rather than reading this property here and in the psci fw driver, I
+> suggest we just do this in the fw driver.
+>
+> In other words, let's make psci_set_osi_mode() to succeed when
+> "skip-suspend-mode-switch" is set.
 
-Only require vref-supply for the LTC2493, LTC2497 and LTC2499, so boards
-using the internal reference can be described without a dummy regulator.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
----
-The ltc2309 driver already uses the internal reference when vref-supply
-is absent. This is needed by the Meta Ventura2 BMC devicetree, which
-describes LTC2305 ADCs that use their internal reference:
-https://lore.kernel.org/all/20261106-ventura2-dts-update-v1-0-b085ece9bf57@gmail.com/
----
-Changes in v2:
-- Also require vref-supply for the LTC2493, which has no internal
-  reference.
-- Add blank lines around vref-supply.
-- Link to v1: https://lore.kernel.org/r/20261110-ltc2497-vref-optional-v1-1-35c9657f3c0f@gmail.com
----
- .../devicetree/bindings/iio/adc/lltc,ltc2497.yaml   | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
-index 4df5aadd1e1d..93cc163b73c2 100644
---- a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
-@@ -47,14 +47,31 @@ properties:
-       - lltc,ltc2499
- 
-   reg: true
--  vref-supply: true
-+
-+  vref-supply:
-+    description:
-+      Reference voltage supply. The LTC2305 and LTC2309 have an internal
-+      4.096V reference which is used when this property is absent.
-+
-   "#io-channel-cells":
-     const: 1
- 
- required:
-   - compatible
-   - reg
--  - vref-supply
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - lltc,ltc2493
-+              - lltc,ltc2497
-+              - lltc,ltc2499
-+    then:
-+      required:
-+        - vref-supply
- 
- additionalProperties: false
- 
-
----
-base-commit: 1390ca4953a7400ca932cb49635f02c727f885a6
-change-id: 20261110-ltc2497-vref-optional-4bf34d6b3304
+Right, that makes a lot more sense. Thank you.
 
 Best regards,
--- 
-Kyle Hsieh <kylehsieh1995@gmail.com>
-
+Reza
