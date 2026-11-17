@@ -1,55 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920404;
-	b=nOtcqC1ml6j1eH5uxtZ5pybhrEF929DLbQB7WXd2ZaSbo2HUiIPjy0ELpZVIwaMG1ntJ
-	 Espv8TNzC+qkxTrXAoqp7Zxx4DX/c1jAXI/D4hFvOZo1Ha9m7kIOdHZKZyQXes+GGvwV7
-	 rQztUb+Vn/Na/WpjqW+CBHX6iwMKdtd8EaHnbu0rUDzdDc9o5OJJTae1uZHp9eBdsYEXI
-	 e0VrniYloJwIj248ORfSrWR43glOlAklB/ZuC0F6+5xPLVhE9A7Ix3GsQ86InwLN0oViP
-	 XbxJixTb3BQuZxcccHsGVCf1xH0BjCJ3HMJq0axU9cqtAE02BlG8tWV2kFpPp6+fdlw==
+	t=1794920410;
+	b=T5vu2EmmiYOKdny8zNz72572ywhe8j9nUSOEhJsG/GYNHYEm8quFCYM/NpU+lm4DUq1+
+	 f7R551tzuWAWmXvmmJ++IVYGaqGgWvNAs0PIfIS13JrlojKFroFp+qUyWuEFPZHZdwulX
+	 kUUhEgD7fSkGqwkNqdWtoeoY2hj/Xnn3BXPxsJJMeBnSgS148SKJKrd3Zu6GaiidRX7k0
+	 55cx0/R18InYojZUdk2vtHGd/W8bzMDJV8ORSUbCbESixcjcMHaSqHcCF53kgROvXMPtq
+	 Ihl/NvaV0yPOfZalfWZJxdkE7YN3I3WWpdOsYxaqGJlIuEWiNQtPBDqDSA38xlPn8/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920404;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=m6LIvCwP15mUBiDqs9Jzn5Z3nx7ThxnO5ejEh3LdSE0=;
-	b=IGRQvmRrQpZ5kL+o//q5Iqi/1/Ag3VQ4wjdxHNee0MqbO5ZjFNwFNn1ezlV8w8uVJSEC
-	 Hq8jZt/WlGiy8q0s48DGnjIpb3HXQB7DZgS5+G5lS8bR6hTgN9UHbTB16MMpdAFVbqH8p
-	 ZWvFwWG4UXUmYUBNmxywgr4tKc6eLrEOIyJNPZ43ZPbYfuMWZSyMKyoFVsCkcpsd7/+qE
-	 LqOggvbpCxuMJwa421vfzovrqpdtbAPiN1eF+wW2Pc/4y0vB7npYfNp5r66i5f19XgLxh
-	 h6CkZFEKY6fJU7MC9zQgCs7v7RFjnUhalI0ogUVvOi0YpX0RG+z8XT8Bb0EDN83jeXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920410;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=QHFqCnsPAP40ABSi/lHx2qUxkasVh8VfNqtA5qQ6pG8=;
+	b=c5VrI6ObeIfugA4D5prKxR1JLxjDP4L6K4e6sehf7lCxheTN3MgooqKi5QFNszuGUdmB
+	 v6NMkFbZCz88yiwfn1QdbUkXP/kN3akHP8O6NvYnG5lCq4FO3QtgAewtwp6YTdeurZQH3
+	 RjwIFQYA0/zPTp1hMKx74ROHjubpAmF4t8JC1WSQXc00V4ZqvJtqQ8S7aXgqma76t9Meh
+	 Tebrj3ajUTgqDARC/oYWt28sN7Kicvyr4mjQC7sJx5+uMQ37uUL0h3Z0256CXeuH1/hb8
+	 //36IDUdoiwFqkdf+vcWY1MUGT5iZmgcNifgF9zVaRiro8GtqKf/wQFFPiG1SmBDl0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="k54v/jqS";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b="f/sG3061";
+	arc=none smtp.remote-ip=209.85.222.173
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F4D606A88C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:00:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2926606A8B9
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:00:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2926606A8B9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k54v/jqS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F3A1F000C7;
-	Tue, 17 Nov 2026 13:00:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920404;
-	bh=m6LIvCwP15mUBiDqs9Jzn5Z3nx7ThxnO5ejEh3LdSE0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k54v/jqSEldKkdppPjDh3Gpn4WRl3hF4+GmlcHhxKVarYLrs0RHKo4mf7bRGUNnmF
-	 iUHAWiUSO2ewgc2GtndK+xBIIynAZPS/vmcrne7XFuJfz215WUeoRMImg3H34IrjID
-	 R+DRBLv1oBTNz0TWktTf8erCtKhKbuYAEvD2k+YdJYuNVtjWtGOsEs/tnLPvseraRf
-	 WfVTJzlLgtW/bEz70SFRLOhHgri3doA0ZhevorXUfDpEJaNmrzQrad9vac5f3/v7u9
-	 hgPixhq008A26cuNuNo4xAmA3Oe0Evmg2DAUS35T3qJ9v9ddKoysczLB5U4oVwRvzm
-	 H7WO7xEkImT1w==
-Message-ID: <sashiko-outbox-218823@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: mediatek: mt8167: Add DRM nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261117122802.728987-1-l.scorcia@gmail.com>
-References: <20261117122802.728987-1-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 13:00:03 +0000
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=f/sG3061
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-9495d543b91so218568985a.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 05:00:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1794920409; x=1795525209; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QHFqCnsPAP40ABSi/lHx2qUxkasVh8VfNqtA5qQ6pG8=;
+        b=f/sG3061BiDtzYbu/u9CMnLL3fCvqZDyjJyMktvEFUz3a2EL7GbMEblMaUGHRCccZb
+         amJ1tPmMY5qRz+xDbqHepfli9In09eKumZOL0YVJbC+kk+2Oz9/6s1IvGxQxvC9H1MRM
+         4utrNUgF2Ir4qMwPkcDmFSqDiHVbdj6Hw9ZpQ5tcC6UXm/cJzsd9tuHY1yPYuo/jI5UB
+         oInfS8kaWsmVfM2HsfGTm5UGLYaBmk9MDvcmBoLxAIOdDKZZR09vjlrn77Yf8d0bgeo6
+         KbD8o1R/mXI8WEeK3aorXTXQhIOXV8P3nUOyV2fCi2oPxWeVYClMWVk2QspiPzG92hbS
+         d4Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794920409; x=1795525209;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QHFqCnsPAP40ABSi/lHx2qUxkasVh8VfNqtA5qQ6pG8=;
+        b=wj5ep47K3H3cRPhxJ15SzsepIjlkz7eapBjm14MsZ0CvIhzdiYyfttYQfymtTQ3Jii
+         8xeIiSqQTuaBzWXTSbre6bbFozJauypm1H/RGjBLJKhdtP8BRelF3sngZklkqHFOXuJw
+         QGdtI/BTDWXtpdEggd80lQCTShWsUSPQVHIXh2S8TlRfv4ldS1NlHM1r10NqxRAvkM5A
+         biNXNu6UknIbIdQxXi3oQ3YqHCFXFkysWmHgx5vq23kcgM+ERbOEz2FhtPHo+Yyrgn8U
+         ExhJt5u5k9ml0wnRfjcg7RLanPWpc8/kAFYtJVzZSjE7+gMk+U2+yzzZjIvqevHwwfCi
+         uvQQ==
+X-Forwarded-Encrypted: i=1; AL+hErGRomqk9ijY7IlCL1q7mITGiRQvbN9f9ljR9Adff9zjTsAvqxSzms3HgvLjQLyu50ppYs3E3JCDjcaV@vger.kernel.org
+X-Gm-Message-State: APuU4Z+TUicOmzPOuYCMX49CcckgwyMgHorhftbLTmsYgNTNSQBsvpt3
+	QFr3rV6CTLBcCI+Hu/1ToLnl2h7BciXTz1Y9zsagzL4aUGT2gNQ94q26jtXwSWWR5qA=
+X-Gm-Gg: AYBFou0Vi8hiQJ2YlbbvREk/QxmRjwm+wxZyCrhTCc8LITsQaygthIeMAmXkppxzx65
+	V20vqC6KygE7a6ucq1nd9blbsX1CRDj+JdyxLD8Yz6Tc9vxfUNd2YYwuSFh8+OrrQAFBw6snQVO
+	dRFKNYB/ZSWDiFqsQXhBxx9HViwarMpdxm3FXEG7rDvH8E1VU/zeO8d+r2E5c3qOxyZCJAuyC2j
+	xDdf4f/K3M5pJ6e8Y38BqrY3u4mVsKwPyXfb6i4DAIkRFIRr6qS4MlvL9Y9hFcRRTVl6QSZ4ty9
+	DiroNp1kwNsR6l1HQJ2gV58AvVhlyRR8CfP/BGZvykVJiFKCPXnZZSaa8M5synub1sDxjkDwWVC
+	OTH/gGQLnjOIUnWZTcehOS23cA5oksRSEpfyxa59gkGgImgNKNs6PvjjJBidPL9CDtFh+N42DTP
+	roIe0i899bzXyybINrmPSXo8UH/pO9Z1js8may9AgCKCNqWDSZTAmB8b+5ljG4QehHXfuu4bXER
+	AAujwDxeS3lg46pjAA2LzjWyQJSnvN+Rq9uV4pFludPvQGwD1Q9WD1wTSwM6U0Wr5VFUXsIqN5w
+	qUxQZcF5X4oWKjFjEPRpuRNYcbY=
+X-Received: by 2002:a05:620a:a208:b0:949:5c62:e775 with SMTP id af79cd13be357-9495c62ea7emr1501690585a.15.1794920408653;
+        Tue, 17 Nov 2026 05:00:08 -0800 (PST)
+Received: from ziepe.ca ([142.166.156.71])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c803abbsm1067907885a.7.2026.11.17.05.00.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 05:00:07 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xTIn7-0000000CJGS-3fNi;
+	Tue, 17 Nov 2026 09:00:05 -0400
+Date: Tue, 17 Nov 2026 09:00:05 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Peng Fan <peng.fan@linux.dev>
+Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v6 0/9] dmaengine: add DMA channel bus and fsl-edma
+ per-channel IOMMU support
+Message-ID: <20261117130005.GC2606445@ziepe.ca>
+References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
+ <20261116193021.GB2452510@ziepe.ca>
+ <avwQl18smAW4R6ec@fedora>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,212 +118,65 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avwQl18smAW4R6ec@fedora>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] arm64: dts: mediatek: mt8167: missing reg =3D <1> on rdma1
-  endpoints breaks CRTC_EXT
-- [Medium] arm64: dts: mediatek: mt8167: undocumented
-  mediatek,mt8167-dpi compatible
-- [Medium] arm64: dts: mediatek: mt8167: unconnected rdma0_out breaks
-  mtk_drm_probe()
-- [Low] arm64: dts: mediatek: mt8167: non-generic display node names
-  with indices
---
+On Tue, Nov 17, 2026 at 04:30:15PM +0800, Peng Fan wrote:
+> On Mon, Nov 16, 2026 at 03:30:21PM -0400, Jason Gunthorpe wrote:
+> >On Thu, Nov 12, 2026 at 03:53:03PM +0800, Peng Fan (OSS) wrote:
+> >> I used iommu-map for eDMA, but iommu experts rejected it:
+> >> "Using iommu-map to describe synthetic dma_chan_dev devices that the
+> >> kernel creates is the same kind of DT abuse from over here:"
+> >> More info: https://lore.kernel.org/all/20260917144804.GI3196566@ziepe.ca/
+> >> 
+> >> So I followed here [2] as Krzysztof wrote for QCOM VPU:
+> >> "Thanks Jason for context and detailed arguments. Robin did not chime in
+> >> yet, but from what I understood the DT-child-node approach will be the
+> >> way we should go here.
+> >> 
+> >> I accept above point of view and I am fine with this, thus Vishnu and
+> >> Vikash - please go ahead with DT-child-node solution we had some time ago."
+> >> [2] https://lore.kernel.org/linux-iommu/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
+> >> 
+> >> This series adds per-channel DT child node support to fsl-edma and, as a
+> >> prerequisite, introduces a proper bus for DMA channel devices.
+> >
+> >To be fair this is discouraged too, now that I've seen 3-4 people
+> >trying to do exactly the same thing I'm not as positive about the
+> >DT-child-node hack.
+> 
+> I may not describe it clear in cover-letter.
+> 
+> I understand the concern. Let me explain why I believe it is justified here
+> rather than a hack.
+> 
+> On i.MX eDMA each channel has its own interrupt, its own register region,
+> and on i.MX8QM even its own power domain. Each channel may also have its
+> own Stream ID, or share one when SIDs are scarce. These are genuine
+> per-channel hardware resources, not software fiction.
+> 
+> In dmaengine each channel is already modeled as a channel device (see
+> dmaengine_chan_dev()), and this series puts those devices on a real bus
+> (dmaengine_chan_bus_type) as a prerequisite. The DT child node simply
+> describes that existing device, so its reg/interrupts/power-domains/iommus
+> are attached per channel instead of as index-matched flat lists on the
+> controller.
 
-commit 550fb79e6d290ccbb35fb88f6c76ac7ea3a27e5b
-Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+If they are real devices then why can't they come out as platform
+devices?
 
-arm64: dts: mediatek: mt8167: Add DRM nodes
+I think you are overstating how independent they are. Many single
+devices have per "channel" resources like MMIO and IRQs. That's
+totally normal. It doesn't make the sub resources independent devices.
 
-This commit adds the devicetree nodes and aliases for the display subsystem
-on the MediaTek MT8167 SoC.
+AFAICT what you have here is some HW designer used SID where they
+should have used SSID and you are trying to hack DT to make that
+usable because Linux does not support a SID as SSID model today.
 
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/d=
-ts/mediatek/mt8167.dtsi
-> index 27cf32d7ae35f..2bcdab2934f4f 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-[ ... ]
-> @@ -120,10 +136,325 @@ iommu: m4u@10203000 {
-[ ... ]
->  		mmsys: syscon@14000000 {
->  			compatible =3D "mediatek,mt8167-mmsys", "syscon";
->  			reg =3D <0 0x14000000 0 0x1000>;
-> +			power-domains =3D <&spm MT8167_POWER_DOMAIN_MM>;
->  			#clock-cells =3D <1>;
-> +
-> +			port {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				mmsys_main: endpoint@0 {
-> +					reg =3D <0>;
-> +					remote-endpoint =3D <&ovl0_in>;
-> +				};
-> +
-> +				mmsys_ext: endpoint@1 {
-> +					reg =3D <1>;
-> +					remote-endpoint =3D <&rdma1_in>;
-> +				};
-> +			};
-> +		};
-> +
-> +		ovl0: ovl0@14007000 {
+Again, since this is the 3rd - 4th case like this, it seems like a
+popular hardware choice and we should try to do better to make Linux
+support if we can.
 
-[Severity: Low]
-This isn't a bug, but ovl0@14007000, rdma0@14009000, rdma1@1400a000,
-wdma0@1400b000, and dpi1@14019000 include instance numbers in their node
-names.  Should these use generic node names without trailing indices
-(ovl@14007000, rdma@14009000, rdma@1400a000, wdma@1400b000, and
-dpi@14019000) to match dpi0 (dpi@14013000), the MediaTek display bindings,
-and other MediaTek devicetrees?
-
-[ ... ]
-
-> +		rdma0: rdma0@14009000 {
-> +			compatible =3D "mediatek,mt8167-disp-rdma", "mediatek,mt2701-disp-rdm=
-a";
-> +			reg =3D <0 0x14009000 0 0x1000>;
-> +			clocks =3D <&mmsys CLK_MM_DISP_RDMA0>;
-> +			interrupts =3D <GIC_SPI 162 IRQ_TYPE_LEVEL_LOW>;
-> +			iommus =3D <&iommu M4U_PORT_DISP_RDMA0>;
-> +			power-domains =3D <&spm MT8167_POWER_DOMAIN_MM>;
-> +
-> +			ports {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				port@0 {
-> +					reg =3D <0>;
-> +					rdma0_in: endpoint {
-> +						remote-endpoint =3D <&dither_out>;
-> +					};
-> +				};
-> +
-> +				port@1 {
-> +					reg =3D <1>;
-> +					rdma0_out: endpoint { };
-> +				};
-> +			};
-> +		};
-
-[Severity: Medium]
-Does leaving the main pipeline (ovl0 through rdma0) enabled while rdma0_out
-has no remote-endpoint cause mtk_drm_probe() to fail on boards that do not
-connect rdma0_out?
-
-When mtk_drm_of_ddp_path_build_one() walks the main pipeline from
-mmsys_main, it reaches rdma0_out, where of_graph_get_remote_port_parent()
-returns null and mtk_drm_of_get_ddp_ep_cid() fails with an invalid-argument
-error instead of a no-such-device error:
-
-drivers/gpu/drm/mediatek/mtk_drm_drv.c:mtk_drm_of_ddp_path_build_one() {
-	...
-	if (ret =3D=3D -ENODEV)
-		return ret;
-
-	/* If the last entry is not a final display output, the configuration is w=
-rong */
-	switch (temp_path[idx - 1]) {
-	case DDP_COMPONENT_DP_INTF0:
-	case DDP_COMPONENT_DP_INTF1:
-	case DDP_COMPONENT_DPI0:
-	case DDP_COMPONENT_DPI1:
-	case DDP_COMPONENT_DSI0:
-	case DDP_COMPONENT_DSI1:
-	case DDP_COMPONENT_DSI2:
-	case DDP_COMPONENT_DSI3:
-		break;
-	default:
-		dev_err(dev, "Invalid display hw pipeline. Last component: %d (ret=3D%d)\=
-n",
-			temp_path[idx - 1], ret);
-		return -EINVAL;
-	}
-}
-
-Because rdma0 is not a final display output, mtk_drm_of_ddp_path_build()
-aborts mtk_drm_probe() with an error on boards without a main display (such
-as mt8167-pumpkin.dts) and before evaluating the external pipeline on
-boards that only use rdma1.
-
-> +
-> +		rdma1: rdma1@1400a000 {
-> +			compatible =3D "mediatek,mt8167-disp-rdma", "mediatek,mt2701-disp-rdm=
-a";
-> +			reg =3D <0 0x1400a000 0 0x1000>;
-> +			clocks =3D <&mmsys CLK_MM_DISP_RDMA1>;
-> +			interrupts =3D <GIC_SPI 163 IRQ_TYPE_LEVEL_LOW>;
-> +			iommus =3D <&iommu M4U_PORT_DISP_RDMA1>;
-> +			power-domains =3D <&spm MT8167_POWER_DOMAIN_MM>;
-> +			status =3D "disabled";
-> +
-> +			ports {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				port@0 {
-> +					reg =3D <0>;
-> +					rdma1_in: endpoint {
-> +						remote-endpoint =3D <&mmsys_ext>;
-> +					};
-> +				};
-> +
-> +				port@1 {
-> +					reg =3D <1>;
-> +					rdma1_out: endpoint { };
-> +				};
-> +			};
-> +		};
-
-[Severity: High]
-Does omitting reg =3D <1> on the rdma1 endpoints break the external display
-pipeline whenever rdma1 is enabled?
-
-mmsys_ext has reg =3D <1>, so mtk_drm_of_ddp_path_build() builds that path
-with crtc_path set to 1.  When mtk_drm_of_ddp_path_build_one() steps from
-rdma1 to its output port, mtk_drm_of_get_ddp_ep_cid() looks up the endpoint
-whose reg matches crtc_path:
-
-drivers/gpu/drm/mediatek/mtk_drm_drv.c:mtk_drm_of_get_ddp_ep_cid() {
-	...
-	ep_out =3D of_graph_get_endpoint_by_regs(node, output_port, crtc_path);
-	if (!ep_out)
-		return -ENOENT;
-}
-
-Because rdma1_out has no reg property, its endpoint id defaults to 0, so
-of_graph_get_endpoint_by_regs(rdma1, 1, 1) returns null and
-mtk_drm_of_ddp_path_build_one() fails with an invalid pipeline error.
-Adding #address-cells =3D <1> and #size-cells =3D <0> to port@0 and port@1 =
-and
-using endpoint@1 with reg =3D <1> on rdma1_in and rdma1_out (as in
-mt8365.dtsi and mt8183.dtsi) would allow the driver to follow the external
-path.
-
-[ ... ]
-
-> +		dpi0: dpi@14013000 {
-> +			compatible =3D "mediatek,mt8167-dpi";
-> +			reg =3D <0 0x14013000 0 0x1000>;
-> +			clocks =3D <&mmsys CLK_MM_DPI0_PXL>, <&mmsys CLK_MM_DPI0_ENGINE>,
-> +				 <&apmixedsys CLK_APMIXED_LVDSPLL>;
-> +			clock-names =3D "pixel", "engine", "pll";
-> +			interrupts =3D <GIC_SPI 172 IRQ_TYPE_LEVEL_LOW>;
-> +			power-domains =3D <&spm MT8167_POWER_DOMAIN_MM>;
-> +			status =3D "disabled";
-
-[Severity: Medium]
-Is "mediatek,mt8167-dpi" missing from the devicetree bindings and MediaTek
-drm driver in this tree, or should dpi0 and dpi1 include a fallback
-compatible?
-
-Without a matching entry in Documentation/devicetree/bindings/display/
-mediatek/mediatek,dpi.yaml, mtk_dpi_of_ids, and mtk_ddp_comp_dt_ids,
-dtbs_check fails on both nodes and mtk_drm_of_get_ddp_comp_type() rejects
-the pipeline when either dpi node is enabled.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117122802.7289=
-87-1-l.scorcia@gmail.com?part=3D1
+Jason
