@@ -1,45 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907612;
-	b=4LupleApgUjixvNxs2hbqJaPZbpXvUghMt1GDOmNzcoS9lpRuCOkEwwofJgJmJDqT3km
-	 3/L1BVcgYKrD7FbD+DRLnd2dhkcZzZtQ9B7/v7F+jxxcs0Ze9OEo4YzJcTV56w8qGMIhi
-	 yco3j9mbw+G4W0HCwjA8/Zjyx5QAOFgA0WW2pgIylnH3cqqxNDOzlBNr9Jc/C/3QDRK7a
-	 CVCXkNgzx6t1vZHZT3frLh9QgvHy5me/tofWPZIk6oxfOQ/VwLK1yWHua6w8M5gTIHJM8
-	 JRRugR6sF71f3cLYjrqZL0+PiQk6e3Bpm4xOiDiA0RO1rmeMdhy2JTVKb3zPBcut14A==
+	t=1794907668;
+	b=Kjb/4P39M6StVWUamqtmluES8Yw0vnA0yDlaBUqZqofeODR26WszOPXcrFOVbEp6hIwy
+	 +LKl1X0HGHw91DF+49wzewOpqHikNWC0IHj6LIyFvmrHLqOI6eRV5qv2fwqGPoDYD6XHg
+	 JfxUXXzuBxf6sCKVfgIxeI4HBq5E8KOmLpoTpxjsNWzUwL7AaJKz6CnLM9jPJl2enC8e4
+	 sBcfCtV3SNcSPS0c6Xr0Brt4T0Jde0u7qQtkL9Haw4YZAGs87ORLnKmql0vOw17ttzYmK
+	 xLOCjJmnivizTy5KZAThP83fwTBDhHNuSqtXIZ/6H+SC0HrejefgkKu6Eu6gl9vFuYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907612;
-	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
-	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=tCNcpdYzS1h9z75uWV4JWMmPtilPLs2wyFyWlzfH1ro=;
-	b=aNQVMJbKSQQmoedQYK3FFhBiUenl9gDkjhH2lfCfrXMEgev/3B4agM5lIRXx2wI81G3E
-	 o2Na46cjXP4AmUiCIAjyBztMH4eNiLk0x3LnXwXs9R2pmnRIRAlbYd2GU4g1DWKPRMAxa
-	 Zqa6+m22/tfkyQVOwAh730a35Rds4/rujW5Z9BEeOUbd0reGPJ5Fytqoe6JDmttWMMWMK
-	 yGAcI+qxJAw1E7BRFVQOQ0He1Oan3rpvLfNzLVlXrGjLaVaAOkcmodJ9UIYMV5F7dzB+b
-	 5Jjy7CV32/pdDuwA6ImaqTILhu/Kr997wUAEFIoWDd0jzlHgkSje2JIjet+ai8DeHzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907668;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ITwwlYvfP5Zx1SwPrI9bFvqzw5Aia9EoYj13v8b1XFM=;
+	b=5Q042Hwl42ZuA5MDS1jNQy0YyDzzrXbs4/hDQjesCWWVQao7V3e0xkS8h8pT8MY9Ildx
+	 HevesuQCpCwcLRTJ/+/XgY6joclVNsK+cVTZUz8lehh3aacPsSuvdW+EQ8Gue1zoUwfeF
+	 Azgpvzzddf6zsmIJfipnjlvLcAkH6cDuSLLOYZdcyiGBcj2zEyGh3t8i9ZCvH/lkd2HNu
+	 YYOAomLG/uEY5FvX4y5m7KtwFoRGbMBFRt+8QdHTSSzsDGa3Et81s2+iJ0IdkdkXovcaA
+	 y8UV52fst9NASthkg5Gsyuvk82psrU69YuOFmfqvj80wwZXgJLcE8XI78ov+JU3bKow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	arc=none smtp.remote-ip=211.20.114.72
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nwz1nE2z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C77606A889;
-	Tue, 17 Nov 2026 09:26:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C77606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Tue, 17 Nov
- 2026 17:26:40 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
- Transport; Tue, 17 Nov 2026 17:26:40 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Tue, 17 Nov 2026 17:26:41 +0800
-Subject: [PATCH v6 4/4] MAINTAINERS: Step down as Aspeed AST2500 EDAC
- driver maintainer
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97915606A330;
+	Tue, 17 Nov 2026 09:27:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nwz1nE2z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1730E1F000C5;
+	Tue, 17 Nov 2026 09:27:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794907668;
+	bh=ITwwlYvfP5Zx1SwPrI9bFvqzw5Aia9EoYj13v8b1XFM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Nwz1nE2zc3zc5xldLvnMPuAHtAB+qg5StKJxeN/SbHK2iR6Xtr6znofcc8woCYHGN
+	 BXr8C+ArdTJn31N2pevFwNer/1qlTiJ256Mv9A3lwqgRFTR1aiWrufYSUmOI+/qJjb
+	 qJd/09Oii4LElL1Uzzdhp9lIonZ8L3c3doXqhuWGBeU7PO6Xix+B9naotN808PtwTJ
+	 7ptxciPC/pvtqfuJ9efc5mxdiVwGvg8VUqRNwrsVNjiHejfKRe6KThml82WubMD3Cn
+	 uPideC4XfEQsSN71T8l+jd52HsQ0NC+HU3hBUIaruI2oYnb3TTUy3jO91kx7z+wBOE
+	 RgAqPb9gV1lOQ==
+Message-ID: <sashiko-outbox-218483@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: allwinner: rg35xx: keep RTL8821CS powered
+ during suspend
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yang Siyuan" <hsyysy@163.com>
+Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261117092024.12163-1-hsyysy@163.com>
+References: <20261117092024.12163-1-hsyysy@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 09:27:47 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,109 +59,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261117-edac-v6-4-a2a747b95c3f@aspeedtech.com>
-References: <20261117-edac-v6-0-a2a747b95c3f@aspeedtech.com>
-In-Reply-To: <20261117-edac-v6-0-a2a747b95c3f@aspeedtech.com>
-To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, Billy Tsai
-	<billy_tsai@aspeedtech.com>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
-	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>, Ryan Chen
-	<ryan_chen@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794907599; l=2944;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=G3PC/QkgRIYDVHFsxEsU/LG3WHjKg5hH8g0SdTPjZw4=;
- b=KMCJnXPhve+kYZ2DEpKVTeP88yz8bHQQ2oNWm+Tsdn2iOFU7AHBCeaG+NRY5VT99nP4Jva8/K
- bxwD9zb/AsZDdNMWMe7KrRJoH0cDAqGE3FCBerM4Iikv3O5mpa4k5Bv
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-From: Stefan M Schaeckeler <sschaeck@cisco.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: allwinner: missing Fixes trailer on RG35XX-Plus
+  suspend fix
+--
 
-I am stepping down as a maintainer for drivers/edac/aspeed_edac.c and
-Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
+commit 6bc1ccf6bdee4d4322a5c25361fc4b5c6087cce2
+Author: Yang Siyuan <hsyysy@163.com>
 
-Move my entry from the MAINTAINERS file to CREDITS to reflect my past
-contributions.
+> arm64: dts: allwinner: rg35xx: keep RTL8821CS powered during suspend
+>
+> The RTL8821CS SDIO WiFi on the RG35XX Plus/SP is soldered and powered by
+> CLDO4.  rtw88's SDIO suspend callback asks the MMC host to keep power
+> during system suspend:
+>
+>     rtw88_8821cs mmc1:0001:1: Failed to host PM flag MMC_PM_KEEP_POWER
+>
+> sdio_set_host_pm_flags() only accepts MMC_PM_KEEP_POWER when the host's
+> pm_caps contains it, and mmc_of_parse() sets that flag from the
+> "keep-power-in-suspend" DT property.  Without it, the first s2idle
+> suspend aborts with -EINVAL before the system can enter suspend.
+>
+> Add keep-power-in-suspend to &mmc1 so the WiFi stays powered and s2idle
+> works.  Tested on an Anbernic RG35XX-SP: the board suspends and resumes
+> from the lid switch, and the WiFi reconnects after resume.
+>
+> Signed-off-by: Yang Siyuan <hsyysy@163.com>
 
-[ ryan: keep the EDAC-AST2500 entry and list myself as its reviewer
-  rather than removing it, and take over the binding's maintainers
-  field ]
+[Severity: Low]
+Since this fixes broken s2idle suspend on the RG35XX Plus/H/SP boards
+where &mmc1 was introduced without keep-power-in-suspend, should this
+include:
 
-Signed-off-by: Stefan M Schaeckeler <sschaeck@cisco.com>
-Link: https://lore.kernel.org/r/20260920225846.4039017-1-sschaeck@cisco.com
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
----
-Changes in v5:
-- Also hand over the maintainers field inside the binding, which
-  get_maintainer.pl reads directly for .yaml files.
+  Fixes: 398e5fdf60ed ("arm64: dts: allwinner: h700: Add RG35XX-Plus DTS")
 
-Changes in v4:
-- Merge Stefan's step-down patch into this one, keeping the MAINTAINERS
-  entry alive with a reviewer instead of removing it.
-
-Changes in v3:
-- New patch.
----
- CREDITS                                                           | 8 ++++++++
- .../devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml       | 2 +-
- MAINTAINERS                                                       | 2 +-
- 3 files changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/CREDITS b/CREDITS
-index c6c7b173b064..855062c309fe 100644
---- a/CREDITS
-+++ b/CREDITS
-@@ -3696,6 +3696,14 @@ D: I2O kernel layer (config, block, core, pci, net). I2O disk support for LILO
- D: XScale (IOP, IXP) porting and other random ARM bits
- S: Portland, OR
- 
-+N: Stefan Schaeckeler
-+E: sschaeck@cisco.com
-+E: schaecsn@gmx.net
-+D: Author and initial maintainer of the Aspeed AST2500 EDAC driver
-+S: 2253 Anna Dr.
-+S: Santa Clara, CA 95050
-+S: USA
-+
- N: Eric Schenk
- E: Eric.Schenk@dna.lth.se
- D: Random kernel debugging.
-diff --git a/Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml b/Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
-index 685b6815f293..971d4c862fe7 100644
---- a/Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
-+++ b/Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
-@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: Aspeed BMC SoC SDRAM EDAC controller
- 
- maintainers:
--  - Stefan Schaeckeler <sschaeck@cisco.com>
-+  - Ryan Chen <ryan_chen@aspeedtech.com>
- 
- description: >
-   The Aspeed BMC SoCs support DDR memory with and without ECC (error
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..323b2f90536d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9607,7 +9607,7 @@ F:	Documentation/devicetree/bindings/memory-controllers/marvell,mvebu-sdram-cont
- F:	drivers/edac/armada_xp_*
- 
- EDAC-AST2500
--M:	Stefan Schaeckeler <sschaeck@cisco.com>
-+R:	Ryan Chen <ryan_chen@aspeedtech.com>
- S:	Supported
- F:	Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
- F:	drivers/edac/aspeed_edac.c
-
--- 
-2.34.1
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117092024.1216=
+3-1-hsyysy@163.com?part=3D1
