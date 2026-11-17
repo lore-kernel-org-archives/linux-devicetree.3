@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794923193;
-	b=e20Pyqz0E+jeHzY1SHYef2kwlz8fqhWjQQCSEioKDYxSZ52BEb5M2FdxYgYBojShM22G
-	 l2M73zxWJW69M+YrfBHfwz9uDNEv6WI8Sz7yxPlCdMEAPAKYiRqyYatzOWujaqc+XH5H/
-	 YB74NQ8sOTLXKF1uvFqKyLesV7iKhvSgK1hkymrVAd4nnXaI7+XqhtiaaXHVMSvwKu75K
-	 r1gsM/BnjhWWMV8Hr+q08GwVqeLgm87J7V4zZyYMENLsKVu2RCNY8zKX4JHBKA3SahbMi
-	 1zB6WiXJIcg8OJnavgXBquhKvdIVQFZGtoeWD6KdNIpcGyAnDBScnl9ddwKO/DSQA+A==
+	t=1794923229;
+	b=0dRR2B1+AK/b2LE7+5OxEgiulLWTSk495BKd8ZT8ccgTxl2JMSfuPoGXHUzfRbatW2rP
+	 1y29R7enVfynwyxFXDjGU2bDNcWbhNLgg2OOQpzeH4ifXgmAFiEbnTu6cf2w5pxk3NmRG
+	 2DDmBN23ywGKpAAmp6yhw+KWaWtpWg1snmslYZTNkppeNvoLYEoVSiRKdCU13NQqKOI5i
+	 y2bYzpbw26ORgc5oYSsmmsXx8TQoWI4mM0Osdt6qi6+P7RGLyvnF8HKA5wVeFY/9o+dbu
+	 RUz24ZtELpS7HlYnB74YuA9mx44OhvI7epRzOEXYhZQrusNSuvTD2qNyL+qIFubBahA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923193;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794923229;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=LP94j3UlsH7aCoih1Uuu8wTFC9ZoMGfhYizU9HKsF+A=;
-	b=CPcbGXq7Rgv+An+Bt+4d/lNESsFwtgyW0y0guDmdVpTMPE6fZki/BEiEeVB8WZwzOgq0
-	 AMLH+iBah3Z7H3g3Pipg6aIuGPNiTf6YO7qy3/Ojbv7ohnHSCnHdYf2yEgN26M8PSYhfO
-	 CM1Eykah6ZTUqGp/viSeRvIwyzBC7sboGnYBLe6FpuyVj5g3tOVbkmBo3TtsYJvHXJg1Y
-	 jk4FoF9wKhPLJvctxvtrfnzHNQ3LjFQe3ckZIV7BxBKj1pXvihBR8VB6BgzWjj0Y3T2eU
-	 UQPW9rr7xrUHR3vhM6J2W69Vr+ioZXaoJciI73rbkuZuYtIN8LYniuzX3kun3hkE97A==
+	bh=torjikHP0BVQTE6I1JqnyTxusN1zOWPbhKxT8rRtI+Q=;
+	b=bXTv3Xh14ip2gcV8Q6wXRJe4LGP1/wQGUFJWZhOmkKfYUjRsWeRxJciiu/PocLbCgjFT
+	 PHCFncGafHS2pVP/8RbSmLJZ2uO+S1goQEBVqCfcRQ5EMI7GIb1dqiqXrGKQnGI+19my3
+	 qp4A5oCUmxu3kYI/G6HTeEo5Tdgi2v4KewBO8Y9tt4D13oUXJ5RtoQ2kQzOWJQaaH6hpn
+	 4Fv6o01gnJWiskgtLTrPZII+6pbzFnODFT/jzdxUjqS+SFaIPJSDSWmd3AiPS5N7qx/ao
+	 5z19phwIPGinlH3NHKYpKeuWMbGaO0jaWHpJ/MbvLXapCsWXHxqWDG7pwxXg9BMGApw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MG6/i1af";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eogk4Zxu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9417C606A329;
-	Tue, 17 Nov 2026 13:46:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E41606A335;
+	Tue, 17 Nov 2026 13:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MG6/i1af
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278B91F000C4;
-	Tue, 17 Nov 2026 13:46:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eogk4Zxu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02E271F000CA;
+	Tue, 17 Nov 2026 13:47:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794923193;
-	bh=LP94j3UlsH7aCoih1Uuu8wTFC9ZoMGfhYizU9HKsF+A=;
+	s=k20260515; t=1794923229;
+	bh=torjikHP0BVQTE6I1JqnyTxusN1zOWPbhKxT8rRtI+Q=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MG6/i1afZPDMMaCPlKd0YWju1LzBsvlHMehj5DRLGzL3wwuijHGNGKsHeA7xEoMF8
-	 jYO8umbiFGQpWRi6f90zyjSyUhHGGI4CfjTDJgFCGU2PBtCqb6TWthLX1esz+xiY/O
-	 5wp8wswaNplAcmZVvIvZDR2GmZ0IZprHTN/bGxL3hJH2A3utMdiqmmPrHu2SSyrpW8
-	 VTYFdy5UUqFVfWvdwlgBZHfwMhfgXDkyj+B1tJozueSkAmxRP+5d7CgI9JJDgcAwZg
-	 XHST6bGeAp0sgp01AFoO9OLhgy5ypEt6yY921u6tGkWotB3UtiROJNsXWrD0h5cRpt
-	 X31etdBhoj8Yg==
-Message-ID: <sashiko-outbox-218902@kernel.org>
+	b=Eogk4Zxu01fqtY5aGkbe9lr6VK+dpmDXaVjVfiZCexY1pVabpsI5rWYcsDa1DY0zG
+	 wTfFd4LLuA+GamSdDJqHL2QczQim716OiMSUe5vxkSfYbx495ONP3sqcWHBjdEx3yY
+	 M9wBCN6mTYC7tZcEdpO3J0H9x8yGubso27U3jK44uAsQfs/W3iLN1nvF66iqvSYOBz
+	 eYb3ye5/vuQpZdJTsYK1ugOAcaNkq6e7nwWoYraSLPJufVvZaN4MXgZmVMCx3lH22f
+	 5CPJfjOP8CdkWuT0KRQzyX3wZm+0Ygb5PdeQwc6adlPBrwy6sMbGGoLL73Vjfa96Gj
+	 jhh7UB1ECFxyA==
+Message-ID: <sashiko-outbox-218903@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 5/6] mmc: sdhci: add SiRF AT550 programmed-I/O
- support
+Subject: Re: [PATCH 2/2] arm64: dts: freescale: imx8q: Remove undocumented,
+ unapproved aliases
 Reply-To: sashiko-reviews@lists.linux.dev
-To: yy-Local-LLM <yogo.0917.sabu@gmail.com>, devicetree@vger.kernel.org
-Cc: linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261117-at550-rfc-v1-v1-5-5879573cb825@gmail.com>
-References: <20261117-at550-rfc-v1-v1-0-5879573cb825@gmail.com>
- <20261117-at550-rfc-v1-v1-5-5879573cb825@gmail.com>
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, imx@lists.linux.dev, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261117133842.245262-4-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261117133842.245262-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <20261117133842.245262-4-krzysztof.kozlowski@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 13:46:32 +0000
+Date: Tue, 17 Nov 2026 13:47:08 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,100 +61,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] mmc: sdhci-at550: non-real identity in Signed-off-by trailer
-- [Low] mmc: sdhci-at550: duplicated sdhci-pltfm helpers and premature
-  caps check
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] arm64: dts: imx8q: removing vpu-core aliases breaks
+  vpu_core_probe()
 --
 
-commit 9cd2cf298aedb4fdaa50a3e4221492eb7dc0dfa9
-Author: yy-Local-LLM <yogo.0917.sabu@gmail.com>
+commit 385fa226f80390e2f0c1af946f31494af8162727
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> mmc: sdhci: add SiRF AT550 programmed-I/O support
->
-> Add a platform SDHCI host with PIO because CPU-to-controller DMA address
-> translation has not been validated. Reject unsupported
-> capability/version combinations and use the current managed host
-> allocation API. Board discovery and frequency restrictions are described
-> by the DT, rather than forcing removable-SD policy in the controller
-> driver.
->
-> Signed-off-by: yy-Local-LLM <yogo.0917.sabu@gmail.com>
+arm64: dts: freescale: imx8q: Remove undocumented, unapproved aliases
+
+This commit removes the undocumented vpu-core aliases from the i.MX8QM and
+i.MX8QXP devicetree files.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8qm.dtsi b/arch/arm64/boot/=
+dts/freescale/imx8qm.dtsi
+> index 9f9b34153ad54..f9d1c166bfccd 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8qm.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8qm.dtsi
+> @@ -29,9 +29,6 @@ aliases {
+>  		spi1 =3D &lpspi1;
+>  		spi2 =3D &lpspi2;
+>  		spi3 =3D &lpspi3;
+> -		vpu-core0 =3D &vpu_core0;
+> -		vpu-core1 =3D &vpu_core1;
+> -		vpu-core2 =3D &vpu_core2;
+>  	};
+> =20
+>  	cpus {
+> diff --git a/arch/arm64/boot/dts/freescale/imx8qxp.dtsi b/arch/arm64/boot=
+/dts/freescale/imx8qxp.dtsi
+> index 7c4a50e0ec9e9..82f640efc74e5 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8qxp.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8qxp.dtsi
+> @@ -50,8 +50,6 @@ aliases {
+>  		spi1 =3D &lpspi1;
+>  		spi2 =3D &lpspi2;
+>  		spi3 =3D &lpspi3;
+> -		vpu-core0 =3D &vpu_core0;
+> -		vpu-core1 =3D &vpu_core1;
+>  	};
+> =20
+>  	cpus {
 
 [Severity: High]
-The Author header and Signed-off-by trailer use "yy-Local-LLM", which is a
-handle or LLM identifier rather than a real person's full name as required
-by the Developer's Certificate of Origin in
-Documentation/process/submitting-patches.rst.
+Does removing the vpu-core aliases before updating the in-tree Amphion VPU
+driver break VPU probing on all i.MX8QM and i.MX8QXP boards?
 
-> diff --git a/drivers/mmc/host/sdhci-at550.c b/drivers/mmc/host/sdhci-at55=
-0.c
-> new file mode 100644
-> index 0000000000000..100a0fdb2b106
-> --- /dev/null
-> +++ b/drivers/mmc/host/sdhci-at550.c
-> @@ -0,0 +1,62 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/* Standard SDHCI PIO only: do not assume CPU/PCI DMA address equivalenc=
-e. */
-> +#include <linux/module.h>
-> +#include <linux/mmc/host.h>
-> +#include <linux/platform_device.h>
-> +#include "sdhci-pltfm.h"
-> +static const struct sdhci_ops at550_sdhci_ops =3D {
-> +	.set_clock =3D sdhci_set_clock,
-> +	.set_bus_width =3D sdhci_set_bus_width,
-> +	.reset =3D sdhci_reset,
-> +	.set_uhs_signaling =3D sdhci_set_uhs_signaling,
-> +};
-> +static const struct sdhci_pltfm_data at550_sdhci_data =3D {
-> +	.ops =3D &at550_sdhci_ops,
-> +	.quirks =3D SDHCI_QUIRK_BROKEN_DMA | SDHCI_QUIRK_BROKEN_ADMA,
-> +	.quirks2 =3D SDHCI_QUIRK2_NO_1_8_V,
-> +};
-> +static int at550_sdhci_probe(struct platform_device *pdev)
-> +{
-> +	struct sdhci_host *host;
-> +	u32 caps;
-> +	int ret;
-> +
-> +	host =3D sdhci_pltfm_init(pdev, &at550_sdhci_data, 0);
-> +	if (IS_ERR(host))
-> +		return PTR_ERR(host);
-> +	caps =3D sdhci_readl(host, SDHCI_CAPABILITIES);
-> +	if ((sdhci_readw(host, SDHCI_HOST_VERSION) & SDHCI_SPEC_VER_MASK) >
-> +	    SDHCI_SPEC_200 || !(caps & SDHCI_CLOCK_BASE_MASK)) {
-> +		ret =3D -ENODEV;
-> +		return ret;
-> +	}
-> +	ret =3D mmc_of_parse(host->mmc);
-> +	if (ret)
-> +		return ret;
-> +	sdhci_get_property(pdev);
-> +	ret =3D sdhci_add_host(host);
-> +	if (!ret)
-> +		return 0;
-> +	return ret;
-> +}
-> +static void at550_sdhci_remove(struct platform_device *pdev)
-> +{
-> +	sdhci_pltfm_remove(pdev);
-> +}
+drivers/media/platform/amphion/vpu_core.c:vpu_core_probe() {
+	...
+	core->id =3D of_alias_get_id(dev->of_node, "vpu-core");
+	if (core->id < 0) {
+		dev_err(dev, "can't get vpu core id\n");
+		return core->id;
+	}
+	...
+}
 
-[Severity: Low]
-Does at550_sdhci_probe() need to read SDHCI_CAPABILITIES and
-SDHCI_HOST_VERSION here?  This runs before sdhci_add_host() ->
-sdhci_setup_host() -> __sdhci_read_caps() resets the controller and applies
-the sdhci-caps-mask and sdhci-caps device tree overrides, and
-sdhci_setup_host() already rejects a zero base clock when
-SDHCI_CLOCK_BASE_MASK is clear.
-
-Also, at550_sdhci_ops is identical to sdhci_pltfm_ops, which
-sdhci_pltfm_init() sets automatically when pdata->ops is NULL, and
-sdhci_pltfm_remove can be assigned directly to at550_sdhci_driver.remove
-without the at550_sdhci_remove() wrapper.
+Without these aliases, of_alias_get_id() returns -ENODEV and vpu_core_probe=
+()
+fails unconditionally, whereas vpu_imx8q_set_system_cfg_common() and
+vpu_imx8q_on_firmware_loaded() also rely on core->id to select the per-core
+register base and populate the firmware boot header.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-at550-rfc-=
-v1-v1-0-5879573cb825@gmail.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117133842.2452=
+62-3-krzysztof.kozlowski@oss.qualcomm.com?part=3D2
