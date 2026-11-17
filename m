@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913003;
-	b=BWyHL+K8wDGMeTR8FNQlJLcVTFwZP2yxNmlzqmA++rmLJL+coE4j0OxmIiXnuH2PAxl9
-	 7ECfdZRiaX0eN9foH+XN+O2Hq4oL0pt+t4w7QgbpMEG/+UkcMUq4bqh2Je/RbY99ewEXQ
-	 tPsxjwEBt5tNGKqZKVEhXemNPyLXROByUT6tV3o7C8ri2Y2pu8mJCUsPYEl1kelRCoEEF
-	 e9MFSN9mkSqdSvdyZ9tCVexPfMPfyxcGqahLUVo3eUcYn5HmMOWn9QBl1yI/Oa3Z9WT5/
-	 bSQwRbShtIQ4tYcaF6/By6whYLVeowwiwrMzsY38hFgoPVPyDm5cuNePYUJYaZgogMQ==
+	t=1794913080;
+	b=cqMmnrDxlyin+tsb83DmUzWUFv0g7hoaZHdpRzLyrUFVodwjsIM8J3jdcSXabv1ZjWqx
+	 ZVfJl0HUWfzLaGbQAvXDYkYj1gX+PPZX5Dbuhkzn6Yz39H8XDT2PKgTMnx7fD65ngNWz9
+	 06bAVfvJb/s97jiN1qU1X46jJPeBjB6mNUMiFf9VC9UQnkWF3ys4ndJ96cKAWOGOrWfNP
+	 UcSOybDYBTuxwxcf/6IlWTpcODdngWGuOGp8riRkRkysxX3Lk7MHG4uADbAwwMXrFFivQ
+	 Kk4m5tciMokrV4enknXwl3+oI4rD+vIlXCChuHiApFDDtgo+2iPJGYkgGZDhCXFdU9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913080;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=kRR0b/2CxLoJ3+wmiwkw4XNCa+7qpRwB3hSD0k5yFdE=;
-	b=43GUUGUIxYI7bRQd9t4e4PUJk/+KRB1ciP5CdGtDJ8d3bLFyZEv52kDKY0D5ibuNty0y
-	 QYCLtMCoF+Av0rYW3xQu48yvXq81qQm8yhp8pdAIO8y6oyJ5PQYbPkzsw+eOaVD17SAkx
-	 tXM5QG28EqiR3eE4VLpG5FokFXcmu0XNd1dZjBM4pBa5yHJdAQs1jcmAXfqdVjQR9tHqK
-	 72I+oBRvm1k4oQvGa7/7L3MvyKIBw6wdxvIklYqMAps2K6qrPsdT3jFAZuorUc36ReC1E
-	 p9Km4OiSt5ECJ1Gj3D7yjzLdCvzCu9/GVceTkmSBOrO7cWMhsIfenbU2arvgEF7OTSg==
+	bh=rnaiBVPQj6uMXrZvnEKuIpIoAtonZUFt2q6SMP8QNTo=;
+	b=xH7xirmeoXU6ECnEXt0swG+nT5u0OiQZ/72QE0OfSTtkhqT9NzpUeuELVYPMjLa36Wj5
+	 cuVXkbEF12xjz8v3WfnAfFhimOFxSxE3vEbEV7n+0i09OyMS/eWfa163k19JvDrZpRt25
+	 ODBJS8CPmfI2EkJb4j3K5/eq4QM2IxwDO9DFXvIuJ23GDDGdTnGbs4kINHX9N7aCSfSYO
+	 GTp2ioU7WiXOLkvrszRCkWf/JXLoIL8UK8D+sI1nqMzS43yIlXPMGzz98hde0YBizm56H
+	 YhiWHdPP0g8eAV2lKrVJ4+Hlequo6yaNzqYuPmqZ2UB+93n9K2PftyUNHDRyR3S13WA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XB5Tn/Ce";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YHSc/OXG";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21332606A31C;
-	Tue, 17 Nov 2026 10:56:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08259606A331;
+	Tue, 17 Nov 2026 10:58:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XB5Tn/Ce
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19A931F000C4;
-	Tue, 17 Nov 2026 10:56:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHSc/OXG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1711F000C4;
+	Tue, 17 Nov 2026 10:57:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794913002;
-	bh=kRR0b/2CxLoJ3+wmiwkw4XNCa+7qpRwB3hSD0k5yFdE=;
+	s=k20260515; t=1794913079;
+	bh=rnaiBVPQj6uMXrZvnEKuIpIoAtonZUFt2q6SMP8QNTo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XB5Tn/CegR7UQZf7ElAhz7WckJDzJysNV2WDnJLL+rkIBMiY39Ry7QNUMzJFYOwsL
-	 LcfFKAeX3LIh1kxXx+eUKLqfACY+9v41SCIwWtBvvhLh0VENBusztlk6+1b09xF7uW
-	 TSY6/qUeKkWTGHCjP0Gs3Uhfn/EqNrqXY82hPxoIxxjj1prLkXR6bEWNqjnS+QOyg+
-	 kob0oo5KDAy+tj/mLMxaVT90l0AefNkukAwG92ITwiqZqk+NU60o7IzCjk+gj9BBaY
-	 l7EqEs6At2omIJz0kgEhet5uUs1UeiEEy9oOINb6LRotmE9B+aaPxbUGoZM7yuAZlH
-	 PLbft3jGjCk2w==
-Message-ID: <eb25e99c-aa96-43d2-9d7d-61911310df14@kernel.org>
-Date: Tue, 17 Nov 2026 11:56:38 +0100
+	b=YHSc/OXGr1YY1fvobZ/khce1xC/Chcv0soqDsluIdSFqemh/cl0fEAOABc01/mzYa
+	 dxYdZQ4V9So+5z2Gj1k5ykEsZgptwTD+Dh5HJ8EuiERn/Bbx4plyDtN1jwFRw/Jlpk
+	 wpFAKL0RvFypChmHwGjMaYQe4gnU4G8JCz9k33+E1yZBaVdS/wdBGlhW1ikL6LNieg
+	 6UhnWB81mqEGukupR2BuYP8CNKA57QRnODtUWq3i64xJn3cth69DcHKgjr9s3nwEqI
+	 nTNY1yYDAymwUJaT6lBbdaKYRHQ8P/nbnjoh8/Jvo6QUSzB/L+66gqPqJn5MmDKTWv
+	 h7bss1woxLGkg==
+Message-ID: <caae1b85-79cd-48eb-b522-eebf124ad7de@kernel.org>
+Date: Tue, 17 Nov 2026 11:57:54 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,16 +52,22 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] arm64: dts: qcom: talos-lyra-evk: Wire up CYPD6129
- USB Type-C ports
-To: Akash Kumar <akash.kumar@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+Subject: Re: [PATCH v3 0/6] arm64: dts: qcom: talos-lyra-evk: Add display
+ overlays for EVK board
+To: anand.tiwari@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261116120623.1726089-1-akash.kumar@oss.qualcomm.com>
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Shashank Maurya <shashank.maurya@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261102-lyra-display-upstream-post-v3-0-7f660c3b622c@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -107,20 +113,42 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261116120623.1726089-1-akash.kumar@oss.qualcomm.com>
+In-Reply-To: <20261102-lyra-display-upstream-post-v3-0-7f660c3b622c@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16/11/2026 13:06, Akash Kumar wrote:
-> From: Akash Kumar <akakum@qti.qualcomm.com>
+On 02/11/2026 08:31, anand.tiwari@oss.qualcomm.com wrote:
+> Qualcomm Talos Lyra EVK SoC card are mounted on the Lyra carrier card.
+> The DSI0 interface from SoC card is routed to either the 22-pin DSI
+> connector on carrier card named as JDISP1 DSI0 or to the DSI0_B2B
+> connector, through a MUX which can be selected by a hardware DIP
+> switch. There are multiple daughter cards designed that can be
+> connected to this B2B connector.
 > 
-> This series wires up the CYPD6129 UCSI PD controller on the Talos
-> Lyra EVK carrier board, enabling USB Type-C role switching and
-> SuperSpeed/HS muxing on both USB-C connectors.
+> The below B2B display interfaces are enabled by default in base DTB:
+>   - DSI-to-HDMI using the LT9611UXD daughter card
 > 
+> Below overlay DTs are added for additional display configurations:
+>   - talos-lyra-evk-dlc0697: DLC0697 DSI panel for Lyra with DLC
+>     daughter card
+>   - talos-lyra-evk-raspberrypi-dsi-7inch: Raspberry Pi 7-inch DSI
+>     panel with touch via the 22-pin DSI connector for Lyra
+>   - talos-lyra-evk-waveshare-dsi-8inch: Waveshare 8-inch DSI panel
+>     with touch via the 22-pin DSI connector for Lyra
+>   - talos-lyra-evk-lvds-auo,g133han01: AUO G133HAN01 LVDS panel for
+>     Lyra with LVDS daughter card
+> 
+> These overlays are applied on top of the corresponding base board
+> DTBs.
+> Link: https://lore.kernel.org/all/20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com/
+> 
+> Dependencies:
+> https://lore.kernel.org/r/20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com
+> https://lore.kernel.org/all/20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com/
+> https://lore.kernel.org/all/20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com/
 
-Three versions per day is way too much. Even the base of this was not
-applied.
+How can you have three dependencies for DTS? Some of these are event
+drivers. DTS CANNOT depend on drivers, this is just unmanageable.
 
 Best regards,
 Krzysztof
