@@ -1,63 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922575;
-	b=xETgKiau9VWxS415JI8HcJhQxsnJI2m8S8eLiNouUwCJpIn+Wspdp/Jo8Ybp77DbAOBY
-	 KZbPwKE67UFMlmcpxWWCR99OOJKVnp2nnpDl3MdK7v7JmR2MEZq/VBUjOCUF7JDrakVLx
-	 L8sBXa3bIIGjnDJ0geYcwWkCmtxkCPcYH88DC5klESYY3qYVZgl+FTHp3Hm186wHncaWO
-	 aGPnQc87vq6yLcNX3AdHjdJ0JNDkccJnkaP/+TDrIqhKZ9R1TT6IrWDVwGF1HxNeOKluy
-	 VzTuz0mE/RujxjyaM5ocYZfG3iLS6xT3rEWDexQITxMVA5Q8W3gmffIrL0rWClDrTdw==
+	t=1794922665;
+	b=1xD5Y5Y1Z2At5HOFYD7MyPdjbXhYeBFsGiXPw8pw11a0l2GZ/a9CEzFD+Y9ThQL4S0VX
+	 V6QWosMBUNOr+tIDfdp9qY49lVKHaGvFVOh15/MMq7HSnqzF9A71cIxJxRa7bDEmfAyCt
+	 OY1Hr7TeGEjombJDaPgIIUz09i8fowWBXlpFDFv8wZF77x4wRA/NLaE25Cuj6oOVqKimF
+	 x34BgvbYRY5Pp4uT00nvWkEZqUEZoE9PnY/NB/cMoCHXLcZa2hri+gWLAL/GU08+OeOsN
+	 iAenTldGu2+R3Z9M8wJc/mG4I8irfsbeupZRMng2Q3I/caa1FBjgc4XXLZ54zbKFypQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922575;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=X/2BPYcmOvPNZZbRU++v01rC+kIhnNmGpFqU4z7Oxsc=;
-	b=OWFIslVyWA5bsSF8U6yx+HAB+edKsG2oh9s3EU8jr4mffZRaBsUulNc06ltnloZ4Hofx
-	 WBjGEOe4QbAyuR+rVwPMKdvRbB/+HFO3mtByxTKw1YCOhlizD3w2IhXNeI12eibATrCpr
-	 MJDci2254A81hyfIT9g5hHJ/JHFvCasLVo0rKQX9t111lSm91hKAmeC1WBca06ZajCwA8
-	 jf/dTKeUf9lbnmMRuGL37yKM8DMtx3BMTaT/KYUKgmBFZY/b4vueJ05qLipTNHFH6h+gS
-	 y0jeenx5UMDK3A81r8Y3OthdKupeumiotXkXfbSgmb6s8/WDgxv/TQlvY6P7nbYh9bQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922665;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:
+	 X-Last-TLS-Session-Version;
+	bh=rnB0xV40D7sFrEbhmOXs6h8oLu3ZRD0P5eWWboGxYiM=;
+	b=k8oATC7QlvTttthcaD/2Kp+DlHJhq322Y2JWMOGlzCuUXF/OsN5UEneTGPYumfQR6vj5
+	 skKPeGJqMG/cg8EOg1BBLunBu1iQJKOUaOLILaeHdjJO4XKyNytQDBYsgOCJw0Lnu/lXg
+	 ZBBGS25AgeHPfEAAZZGStsNEa3B9Uu62O7lvtv9oc3/EYCw8yIELTptM2vk+ZH5YacPYy
+	 mVszNZFvyogJdgCd7fPP5BOLzUg4u6aGBy4ehM+1JLyrCAyMjbYCTt6uNzHpCKrEP1uzK
+	 UNe0Vw8kh++RjK7P76ouyvSviRxKmBjmZC3BwAKEqAzipZJhZmv3UUiW5Uu/J5ODLmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=cHa5pIYV;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RyH6ZLwx;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF21A606A32F;
-	Tue, 17 Nov 2026 13:36:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF21A606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7829606A323;
+	Tue, 17 Nov 2026 13:37:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7829606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=cHa5pIYV
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=X/2BPYcmOvPNZZbRU++v01rC+kIhnNmGpFqU4z7Oxsc=; b=cHa5pIYVEjGDKHP3a9oo/XSAMY
-	2karsmE33psxJFXv8KK2DfED1Zj3HSwk75ikjjSKNI8ZV1AouUUOO88LanyGgtLj18gL/l7ijN/3r
-	av65dgsjmxHm/jjLGVte3ew15zvZUb+iI3X+6sCLYbiyKdS73wIDWu+RqGsXbZHGwSlc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xTJLx-00H9yH-47; Tue, 17 Nov 2026 14:36:05 +0100
-Date: Tue, 17 Nov 2026 14:36:05 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Artem Shimko <a.shimko.dev@gmail.com>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	maxime.chevallier@bootlin.com, pavel@ucw.cz,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-leds@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v2 4/4] net: phy: dap8211r: add PHY LED control
- support
-Message-ID: <052adff8-b1d4-4cf2-941c-cfb2725d13a0@lunn.ch>
-References: <20261117114432.2794961-1-a.shimko.dev@gmail.com>
- <20261117114432.2794961-5-a.shimko.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RyH6ZLwx
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id DC729C79A97;
+	Tue, 17 Nov 2026 13:37:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 77AAF5FC81;
+	Tue, 17 Nov 2026 13:37:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 699A411BC0024;
+	Tue, 17 Nov 2026 14:37:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794922662; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=rnB0xV40D7sFrEbhmOXs6h8oLu3ZRD0P5eWWboGxYiM=;
+	b=RyH6ZLwxdVYvCSRenJ86aNLOsQnB5ocRCEdI9Q9aUJFAPjnYv8vO4b8b2eW93RjASqIzhu
+	g9Sm7ISduvfnA1vaziz5XqZ9X6DPbnR1j1h+VDrQehW/qVRN0tVxJTq0FT+NBRN62OayRO
+	SpyzTb8yrS/njFRR+HNVqlfKUiM+JrT/nESQfsCFvvaJ8K/rsOq7E+DLtRDI1J4nh3/kEf
+	CcDxMy3W/Hc71rGIBkSEoA+qavUpI/KavKP6j1tXi9IrNbBQGxeEXNmnbjV1Rncv9TMfZJ
+	OHn/efXYZYeDfXZuTAJANjvx/zbs8+3NorWi4pEQUiy5XvXwsICTWC1jvA1oPw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, linux-mtd@lists.infradead.org, 
+ Simon Wunderlich <sw@simonwunderlich.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, 
+ Hauke Mehrtens <hauke@hauke-m.de>, Aleksander Jan Bajkowski <olek2@wp.pl>, 
+ John Crispin <john@phrozen.org>, Sebastien Decourriere <sebtx452@gmail.com>, 
+ Yangtao Li <frank.li@vivo.com>, linux-kernel@vger.kernel.org
+In-Reply-To: <20261114100608.3432120-1-sw@simonwunderlich.de>
+References: <20261114100608.3432120-1-sw@simonwunderlich.de>
+Subject: Re: [PATCH 0/5] mtd: maps: lantiq-flash: support boot loaders
+ using the EBU endianness swap
+Message-Id: <179492265833.2237190.2315954934306792460.b4-ty@bootlin.com>
+Date: Tue, 17 Nov 2026 14:37:38 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,23 +76,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117114432.2794961-5-a.shimko.dev@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-> +/*
-> + * LED_COMCON force mode bits:
-> + * bit 2   - FORCE_EN (enable force mode for this LED)
-> + * bit 1:0 - FORCE_MODE (00 = OFF, 01 = ON, 10/11 = blink mode1/mode2)
-> + *
-> + * Only ON/OFF is supported.
-> + */
-> +#define DAP8211R_LED_COMCON		0xA00B
-> +#define DAP8211R_LED_FORCE_EN_BIT	BIT(2)
-> +#define DAP8211R_LED_FORCE_ON_BIT	BIT(0)
+On Sat, 14 Nov 2026 11:06:02 +0100, Simon Wunderlich wrote:
+> Some Lantiq boards, like the bintec elmeg RS123 and RS353, have a boot
+> loader that enables the EBU's own endianness swapping for the NOR flash
+> chip select. lantiq-flash then fails to probe the flash. Patch 4 lets
+> such boards opt in to honouring that bit with a new
+> "lantiq,ebu-swap-check" property. The bit only works on VR9 from
+> revision 1.2 and on AR10, so the driver cannot rely on it on every SoC.
+> The property follows Hauke's review of an earlier attempt at this fix
+> in 2017 [1].
+> 
+> [...]
 
-Given your comment, this last one is not strictly correct.
+Applied to mtd/next, thanks!
 
-Otherwise, this looks O.K. Lets see what the LLM says.
+[1/5] mtd: maps: lantiq-flash: fix NULL pointer dereference on probe
+      commit: fd1cc5b1dc4f2f99917bc5c016a2593a951c2670
+[2/5] dt-bindings: mtd: Add lantiq,nor
+      (no commit info)
+[3/5] mips: lantiq: xway: sysctrl: export ltq_ebu_membase
+      (no commit info)
+[4/5] mtd: maps: lantiq-flash: honour the EBU's own endianness swap
+      (no commit info)
+[5/5] mips: lantiq: danube: rename NOR node on EASY50712 reference board
+      (no commit info)
 
-	   Andrew
+Patche(s) should be available on mtd/linux.git and will be
+part of the next PR (provided that no robot complains by then).
+
+Kind regards,
+Miquèl
+
