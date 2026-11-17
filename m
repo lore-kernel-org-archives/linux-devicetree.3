@@ -1,107 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794938638;
-	b=ql9awEF6MDmPd48TrDoXLWV0xh5vHmeZtr1DSDO3y48rpxLpMxw6BPpM3a6iIojDvZM1
-	 gYp/HcO4U4e8eCyfQVn0s9NfpuIGLcM6V4PGeEvggamjOwy5NnEndHElW2IAY+8YPtPdN
-	 0pTrS7SBi68IbSFGQBBn0wf75fZQ/CnGcfYwA1RYg5DOnEfGnusEJy3AcSbCQtZzGVPba
-	 Q6JjpMRnAES4XffWc8KY07JzLoygBo4UF4sNypFfRl06o5UZLNYOJg91kFcymcyaVlst1
-	 zynIisFskFV/0OnKiE6cS/P2dFWRrstmUscPngrrL8kG1+NUdzJ4IbMjbcz9augunsQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794938638;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0VS5qw0tDHXtIn5LwXxf+fwugty/kad7Ay611ZyzaX4=;
-	b=md9TSx1CGu3tG2o+WGaFYZbD2gmKVti41k6xnM28nA/z7r1EII+E+CXLtfFmQmaSzixn
-	 uqzcQeThXgfGz/qUMOl5ODhF5qmUAoTUWBfWfNycHu3WT+I4qWrJCtTE+bxioUutrI+W3
-	 AbKNpMFS0BsFCiVoM2ljPmxwUJDaUp/akNv58r1Z+jvqnQFRKIC3alijM+nzjjS1I5Pdv
-	 NCXNtZxjB5rwZP+8IBkBNd6xUKrvxxBKrkiN5JAlWID+EOOdDlyMX/KQczphMhaH3H24v
-	 gPLh+BwLKkJ+SllI9oyFEqUc25ljiprh2LeSl2swdIv5XCXIO9I27v8u8X/4Uzqe2lQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=YpD0FpDD;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794938918;
+	b=q8ZczAVDE8cySRJdWJpMXeX9g3/aYle6glOM9O4bctEk3pbfVF7wBURKLnQhNbeF6aKS
+	 sG1NfzhihqNvgyz3U3zlwKh7wHB3mUet8KH3BNzV4xNoGu+LQ1MXrYmpUCVBqSu81QCuO
+	 /j5QSDxjhJ5xutoH6uqFW2Ci6pihnQZoH5j3sLjPqdg/4vBQoQetIQ/abpCeYvvik5bE0
+	 wyPwyl5bCHJge+3KKSvr+hk5maJn5pYnWLPbE6zcezZ3sv3ek4IglUfn6gJiPBe8eweQM
+	 jU8Imu0VD7QH1pfffl60CqGURmVgXgW8tatPdKSQ+wPdM5kMashhzaBRMqwHaQLCRNg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794938918;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=85uilDky3vjfdfPy+HYkSRA0zAe9Gu855WzlPaah/vk=;
+	b=M5yvtyjSDoM8efs/uyGPcT6EA67Lk6ZC5ufQOL1BgIKBvhvOHYpNksUhzRuz3lrVtvKG
+	 j+3E+lLMA10Pu/TT/+oOAvdG2lC9zTKM6Uk0514V2IW2bSUFK3kIokwcUVu2lz5jj+RKn
+	 W7t2YwErsGqCuk7a5L5aYBkveNShFc4Ju6sS9Rt4v+k728qQbSwoHOUnScYe5s15s2DbT
+	 DDcpsgTVg5ydTu6HO4eF50BUwlmVL0SnZamhnQhdY+C0ZUulqdP091h7JRVTqn3Jl8ANj
+	 6+wV3pu7XXrf9tO7RbvSt4C56wKcKe61DK5KkdTJAY+edIKI6zocPPz4c5BR2PukozQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Z6q9/74y";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54638606A31C;
+	Tue, 17 Nov 2026 18:08:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6q9/74y
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794938918;
+	b=HzGRbJpP11kMOwKyxfVle0UMzln0sGRDWr3i7SJAChgpyHhPWIOFe8dQcmYdA/t6Kl2i
+	 tuRwyE0v2qedv4Fvn5MT+2VZPRDdhtcBK+XTHygPDZFNZupnZIpxdupivwEtHFZi8+Ztc
+	 HVPLPVYLWR2hjh30CzXRNTEvp+iAGxbYfB1LSIWnvxyf8iiAIXdtWy8h3TPVQk1CB93sK
+	 NYzVAUGPkKpoM/On8qaPxyLyt7ow7c92kpWQYxcKVrT8ruHMPJegD7EtIZqLzr6f+TROc
+	 soFq9D93PXLGfFIX6vGVeAxw1l04xEdYP2fWsTRPQVb6sNnBxjj9wbt9fZxXJvCagNA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794938918;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=85uilDky3vjfdfPy+HYkSRA0zAe9Gu855WzlPaah/vk=;
+	b=bjvjRR5ajyqPL5AbgclbDpMUP/OQ9tlQXWwkvQvS3Zfy1K1RbSYNjRn5PkM3pMSDCP31
+	 baYKQVX9CYioVzJy+KrBMSUuGgPuuRaiNyMOMKkkxP1QnfUJCsTJxGl9yEFUYVul02P15
+	 Yn41VOBhmNSE3IAGjBh0AZbOT/CGpLh2zup9JbksN56SdRR7cUjkSFxTvung2RxsWSXAS
+	 3y+CiK8nOmwgnsR0fJ12+11XTxBdcbvyD4VHtlbR/Tdm8MDkcfIZgoZ9V6rTXZdHHUXOw
+	 m6ih4+YYJxg845NlUx90Gw3wIBGe6j3DFFn5BztCmV3IpnZsUhzt+Rt4NL3kKwgsiUg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24657606A334
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 18:03:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24657606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=YpD0FpDD
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4bb64c99d2fso1633925e9.3
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 10:03:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794938635; x=1795543435; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0VS5qw0tDHXtIn5LwXxf+fwugty/kad7Ay611ZyzaX4=;
-        b=YpD0FpDDwRYk0+tTDmxkLlPBd1kyejPedJ5+xOxM/EcL4d4r+LLb1C5UTFjzFDbyHn
-         lc8CA8zc0kpx1QqrFK8MRm45z69yXPEqhaARuSnbcFGPXf3Nm01/FQG9hmhjRE0Tv44X
-         zlRDlB916srIukvu4S0uA24/EJktwNQboQh2nKfSB/sV4NNph8SJ2NzpwcXQPWC0YJOM
-         Jb5+XQj7vndiTD9RboYhHMRDqX3dUBW/3OK3h5jSoNG7549u7exgeuds6ElelV5mZlII
-         E4IVOAL70g4E4TawfnDbnk4kKgLd18gvQzUpvMGuT/GT+QYhyeBFkrUg2TFRLOjx+4y8
-         wCCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794938635; x=1795543435;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0VS5qw0tDHXtIn5LwXxf+fwugty/kad7Ay611ZyzaX4=;
-        b=GEYDWrsi8b4IDGuniicdL9VO9bxK5O9db4OFqXePIzn9OnpucxG3lwHjESm4gF+3GK
-         j6KO89lbsETDepX56zxb9XQKLlr7S+7qnnqEWjpdM0jfUlVEeJ9aKTuQ/pTnSDTxNkvf
-         wRF+3ZhhiKtkTSgqexcXl2FT5Yei0UcH2ZbHrEpI2oODyL8sPOs8ssWiLeN4T9hWdw/j
-         4hYcthATZZiHRnyvzdMp6l/3I5njEGilzFmFcT/r/8GgySndD8b+UIqkhkiRyGpHsIaZ
-         wrqjiUdm+bf6BurLafQ5BJNEORX3HEfAEJLLwPUe2MI7f5WL9UE7I3iJuAg66W3kFlFr
-         AaiA==
-X-Forwarded-Encrypted: i=1; AL+hErHCdVRDza+fuBBnFIlbaQWYnqMl0koZjvQ6hMiat8SB00b7sYsokhCYuJjvSbJJ5khjQOQMtuWU0uz7@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HK8ophEGCRpjm4LCO1112I605XKetmylTMiBFYrUaQRvyv/Zd
-	yYHI4x8qwgrevY03ZCBG5q3+o6QkRlMY4nJupv28q/YqueVEleiS4/Pj8JXSX7yRLY4=
-X-Gm-Gg: AYBFou07jKPVeJEW+Ko/kSgdNRpoHYkmWxT3QwRki8fraLvSAJPYfHl14mvVy40++Rf
-	Vf5AnKRR/GlPa9utUAHRGC9r/1T7CzZzVHQGGGVA3GX87bS+9o5DHX4gHlkX4y0AqAZiCwpna0W
-	zC+xH8sIkhDLyr2tpNYaOyOTx9Y/SNI2cv2B9ZinauSyov8RfJSCchEJ36ualoKeyuckbC2UgGt
-	xuNCEBFjzY01NgDsMGHlWCyFoslX7QQIDC91p06aGrMNjJAB7GX+PY9UKSURsxkMEZzBtaao2SQ
-	7ddNiREhBu7UCvE/kMc/d/hohUT7+j1AwNh8RDjYjcZB9WtYQYi/Xxvm58ougNYbatxdWWkFdYe
-	WIo4+ceWWL6BPsUKzTPWcqvqFUdWrO99RnLBvZNtCcUk7Pw0m1tHk0CrB0c3ZG/Sx1pckr5anCK
-	GkR5Lc6EU3Ib9yZ6UEbE4tPZfDMKESWjxrwJipZ/FoNk29PqXh/XcUK7JiY3lThepNG1sKsbhpe
-	8M8z/g9yiB0MuNitq1X6tV/UsBUlRN2Kujg+HM+ylTjIN7oP90XEp5H9sEzkdR84WY7Xzsjcizh
-	QpSY/O4Na8KfKcwpMfRz/FbcXucxOl2fhQ6fNTf9foAxVaF+
-X-Received: by 2002:a05:600c:3547:b0:4ba:73f:ef5 with SMTP id 5b1f17b1804b1-4bb55aa4fa9mr306817705e9.34.1794938635593;
-        Tue, 17 Nov 2026 10:03:55 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7843bd79sm81197935e9.14.2026.11.17.10.03.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 10:03:54 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Prashant Gaikwad <pgaikwad@nvidia.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>,
-	linux-clk@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] clk: tegra114: Add CSI pad clock gates
-Date: Tue, 17 Nov 2026 19:03:45 +0100
-Message-ID: <179493854888.412784.10630903001767923804.b4-ty@b4>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116150239.264139-1-clamor95@gmail.com>
-References: <20261116150239.264139-1-clamor95@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 9B4871F000C4;
+	Tue, 17 Nov 2026 18:08:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794938918;
+	bh=85uilDky3vjfdfPy+HYkSRA0zAe9Gu855WzlPaah/vk=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=Z6q9/74yxHoyVSyxz3fq1JF8B4ba/QRt8glHaRXvqBYBbEIhdIe9GTbjJbFiFZq2T
+	 oEqCaxoG+moBh0OTv9O6gcNsJxpaX+noKh+trQNCulIOrbKC7fmfYYyxNKFoWQdbQS
+	 SUxUAlO0QCqibERiUm+G4+vsIIo4pFC4Nzru2UhVCnuZ/qXCmP6AURn2LrGSQbP5Mz
+	 vEvSwTODAD9UycMb/+fh2Bj8ccXXEpC8/6C5rljKRxoLWW6094DpQcj8XJMGIepbRh
+	 OlYyYsAx6mqj22a89juuLKTWXVi6cNNXJ6z3dPuzsXKO2Jvu904qm4WRdwFcCOsukb
+	 Om8OAVtUct3vA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EDBCA4AA3B;
+	Tue, 17 Nov 2026 18:08:36 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Subject: [PATCH v2 0/4] iio: light: stk3310: stk3337 support + vdd supply
+Date: Tue, 17 Nov 2026 20:08:34 +0200
+Message-Id: <20261117-6768-stk3337-v2-0-92f4c7be3bc6@protonmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,17 +84,62 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNwQ6CMBAFf4X0bE3bJRQ8+R+GQymLrEpL2ko0h
+ H8XMB48TjJv3swiBsLITtnMAk4UybsV1CFjtjfuipzalZkSqpBSaF7oouQx3QFAc8g7bVTbgFE
+ 5WydjwI5ee+5Sfzk+mxvatDU2o6eYfHjvf5PcvF+6/E9PkgsuIBe2qhqBAOcx+OTdYOhxtH5g9
+ bIsH784dBa/AAAA
+X-Change-ID: 20261107-6768-stk3337-34f7a2db3a24
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794938915; l=1167;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=FAzYg1TpkGb7wV9Cp24G4J88VqcXA/Aizp5voUGpLIQ=;
+ b=6DmnmMwYtz0Vf7smueOV07bHGdtjBO13koGOuoiSbrCd7WOyFnkfDRXZu0zhA4D2qncrZwm7A
+ 5C3y9IwNJfuDkU/nM6IkztzB5J3h2KYLANT1/hWwPiUAvjELJ73IEI3
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
-Applied to clk/linux.git (clk-next), thanks!
+This patch series adds support for stk3337 light sensor, found in the
+Xiaomi Redmi Note 9 phone. The sensor is compatible with stk3310
+registers, while having Clear channel, similar to the stk36c61.
 
-[1/3] dt-bindings: clock: tegra114: Add IDs for CSI pad clocks
-      https://git.kernel.org/clk/linux/c/61b67dfc9c24
-[2/3] clk: tegra114: Add CSI pad clock gates
-      https://git.kernel.org/clk/linux/c/ecb755d4fe97
-[3/3] clk: tegra30: Remove CLK_SET_RATE_PARENT from CSI pad clock gates
-      https://git.kernel.org/clk/linux/c/4d55ffabc35d
+The series also adds vdd-supply property, since on this board the sensor
+is wired to the shared power supply.
+
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+Changes in v2:
+- Clarify that stk3337 is a subset of the stk36c61 in patch 4 commit message (Jonathan)
+- Link to v1: https://patch.msgid.link/20261108-6768-stk3337-v1-0-0340c99b0e33@protonmail.com
+
+---
+Roman Vivchar (4):
+      dt-bindings: iio: light: stk33xx: add power supply support
+      dt-bindings: iio: light: stk33xx: add stk3337
+      iio: light: stk3310: add vdd regulator support
+      iio: light: stk3310: add stk3337 support
+
+ .../devicetree/bindings/iio/light/stk33xx.yaml      |  3 +++
+ drivers/iio/light/stk3310.c                         | 21 +++++++++++++++++++++
+ 2 files changed, 24 insertions(+)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261107-6768-stk3337-34f7a2db3a24
 
 Best regards,
---
-Jerome
+--  
+rva3 <rva333@protonmail.com>
+
+
