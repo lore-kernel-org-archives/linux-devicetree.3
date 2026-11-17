@@ -1,99 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912216;
-	b=2g1/IXq+M2J6QvyWguqReLJ7F3aexxu8nMSlTDr1nSjHmBdvvCgO95AEdCHcH9mHCs7W
-	 wkGREYsUlRzJPXbHn13H1O+9/603i8vJhg6OJkOi/liE/iG8UtK3+wAOyBqisi9wb3RXt
-	 iYWfdyO42pxsLyRJEw9Qc3EeHzdhyriB4bbefg9lhOC3O25cSVYsHZkWmQUMzfqYneBnU
-	 ZJtVjRvmL2kv/+9LTsy57oupPvw3nHDOUX+Mhqk2m1RmFX+20Cwd27YcXS7DD8hiHtjpK
-	 nR01Kyjq3jzBF6SI64Kkly1vXf91Ge4sD1YRseWGwAwi0RBQy3nkkEv4P/N7DTbc5yw==
+	t=1794912238;
+	b=4/20Q2Bxl0EVFx4XPPupgraNQxoViTib387LVjeZTW6YvpPsGxYvDbXk3EOb47dQz7j2
+	 hc2w3zwIIHMBr0EJOKG1XMMIWhQ9j5I35wAM4nBOIJ13UiM3XjmGfEIbjxSjR8xEwOoaF
+	 NHeOZSHjoni2GcLR9saRcmjZPzyElJe3a7Xpj2D+XFyAF8TKhwMwOf3N9FVDkh5gwetip
+	 zWJE3ZFHVizl2QJt+iEXbeyQuRsZXp4FR2KQS/o9uVipBX965NE3kNFI8ahhn4TD8JcG1
+	 1gsignb+H3OrRzCB4y+TEqj3Qa0k+3pI5ulP/AjexDAilrdMcqeEvvlnNC6O/d97bdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912216;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912238;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fbLergfak+WMrqiKxAOYk5Uk7mKCg0A5nX4LTuRS+l8=;
-	b=Lw4a73/LFe8rFC71V7/+E+s1c98zpU7l684AV15OM9epq+LlP+EkQ8A1OqnfDrAN7AbA
-	 6GeiL/ZZy2aCisrQNpaLtjmNGYRHRZGi8c1Q/IW+17NTC4QN2hO/kECS1dLv9zZbbWS5a
-	 kLAJqEqXdvWfgfZnSzodMtXITY7ILv/zVHRsTChsOym+YW/bIzpl0YTYgJGn051EUgwzj
-	 gLxBhx8bFH33yHC8tJgQoiLpJNfHyRY1w6p8bBSQnbFAvKNgodW1hoJE6W8ThClsLiMjv
-	 9gxw4WyYB5ZEtkIn2/R+4rK9TnK/71GhnVoER/Va3cJdd1FxeSauFLJ2WyURxnmpKyw==
+	bh=8L7gbXkN1dILpBc2x0pUa9G4ccOQmCQZ8EESDwGPDFw=;
+	b=CLAJNPhf6Ng2AVwxWBIfMIFFXHx/JrzYwnb/HlXvxVstbxLXBCwGfiUAw+xzAbj6ZweM
+	 fY/7d+bM9DjiKZCdg5+Qhks7dxkDGqq4jH/FHGSIsyaZ57fi7m5AxYBwXrpRjFRG2A37H
+	 +e8GsTziraZSH9oKHZbZzC6g1Paq3c7jbOaTYZMt1FWmNqBw6BbOSkaQfzs7YtbAfjAIm
+	 GZ201om6fManHCuaLavnKd52kY9kFFo7s5jugfh8c2h8sbu1JQx9SqeRXK0Q9qNSyLjXb
+	 mYgEQirXdoKoU506ExnrDc6wgwx4bk0fa+ZVwR9C/YF4FKO2HUBvCcr7oTv6XTAwogg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R6YMjZNK;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sg8hLpSZ;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47342606A33E
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 10:43:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47342606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5670606A336
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 10:43:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5670606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R6YMjZNK
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e47347279so2197945f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 02:43:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sg8hLpSZ
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a14so26642245e9.1
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 02:43:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794912214; x=1795517014; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794912236; x=1795517036; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=fbLergfak+WMrqiKxAOYk5Uk7mKCg0A5nX4LTuRS+l8=;
-        b=R6YMjZNKpCPdCjunUUurKNtanrLhJAe6k5pvsGyzqb5Eul2emzA6h1NnWB0dIw8YLZ
-         SQXPhuLrIAi3dwaGXM1gcAu6AOG6VlX1ot8jSuq03eSjGkA9aiah9/qzueco4ZDokb+T
-         6R5BUQfudTDV2MpVQ5gndaYtt/a7YBuGVJxtPpSTNEoD74xi3iyd0YXlfrBRfDu75xHB
-         9hBYZjg5EzJzpLIhL5V6uWywVnjbI4mPTW5FTDBGqbAY/dcop83TDjF2jD8KoFYyCwwb
-         qZB1vhG8C2DfL0CoBGNsjdPj8rUaGwgymfyhzK7VDPcvdhZ24ilhs75BCuMKd0cVF2bk
-         wpYg==
+        bh=8L7gbXkN1dILpBc2x0pUa9G4ccOQmCQZ8EESDwGPDFw=;
+        b=Sg8hLpSZ0HmK+D2CsupmDYPK/3Sp28mNDyfjO9apUx79yFn7ynP1zi6k7lQiXHeDpp
+         6hY1ujjm67K5SSq3HkJJtAx5iw0Uf5h4RvXCdnI8RavSlZEDV5fJab7j33xoB03KR7tD
+         cqsU/H/p89TZTQQBv6TaUbk/THTj8r8rdtJZn0m8Ghb/ElZjAnKdly7vp0OEwzB/IrPE
+         63tB3HOMqYVJTIEh9gxslmCD4+qIniLdwfekpK7vVHPnytTuZiWcK6IvIkZyh07V8Kf9
+         3VcdMj8CAFWq4f824NHf5tmcnTrFbN29QphfwlZolfi/c9Vy7KGqFnRKRDRPpvzKPZG3
+         NsUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794912214; x=1795517014;
+        d=1e100.net; s=20260707; t=1794912236; x=1795517036;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fbLergfak+WMrqiKxAOYk5Uk7mKCg0A5nX4LTuRS+l8=;
-        b=BTB4V5ZSj/TZuwRuRvKSVLQxxwF1/sOPFP1mn2vDn3fp+fq8/bf640/xUxaaFZMnl9
-         TD7sDeoxNIta9Jmk94qAANqTYHlgLCT1GeB/phS+KwsmjlscThzUhpyxiZr0ZFdbdva6
-         PzwC25oCaW2X0Bq6I+SHOIoDqIm/OegOZrfovMeVy7tQDHlqUf2MGdKTKmdokqNgZ18t
-         hpUgXKy2bHzIqq6wJd8nFMkoSVgrEd+X9u0x9J2+tRvIlLw8+BaA4N41WYGfDL50plh0
-         tT4xLAvK12uJnKylgK53PBJerf8Xc3FXgvSkI+0py9zAFT9HTPvtmB8azgVuy0H4lYWv
-         NgRw==
-X-Forwarded-Encrypted: i=1; AL+hErHUWt4hbNUVMbD0VJ2aZJheweS+/bNrfKdoo+rMDBMZm41tHvQMjVdlsdYZfyn9MsFvO1/OjseZzbRM@vger.kernel.org
-X-Gm-Message-State: APuU4Z/fjbAJOoDQoEb+iGFZso3cEjQmRut/DFYNSO+rHkCjhiDvNM9x
-	2qj9OyIilL2nIq4uydE75EinSiccS/k5cw8FZD6cB2VBE7VblC6bSd6c
-X-Gm-Gg: AYBFou0shyO9XEakRXwiAk2MerJxCBqOQo2Af54wEOzUwqmte5VDBus8ZEgNhWAM08U
-	SKc5a4uEjuot97/bMnFQlYw4kEx+xPCys+eGhfJ+k3Tk9Rp0tqihMYAl8zKNHG3rkN2ldoOLojg
-	78NA2+hfgWnO9wIt1XRnxiJxJkKeBdQQc8f5rhoRO7VkmpIG678XAMHfYNhoqUCm84actoa+6d7
-	EoQMTRE7UblAx2RQBAzKQij5KiXDGXakuwAPM1s3gKlTbjrUrd2UQF+BFkriZDkKPWqq029yfQN
-	ILhsSv7e75cE9G+1WKjlCXJD/HoNOpDNTJlHW47VCMrYUmYz7UfSoccyYPQDBCJqKL6es157lUU
-	E8wN42HXwzKjG+YgrMxWXqJocuSAeWzAouq1JWE69vxmaMTlwgnWaQhG/zbkphqqCKUPHe99xfa
-	RTnSzRYmWwn0K1eULN8GwhErlKY3WC7wxGnKNOKn2K8MS4RJQe/RhzaBy4m0bsyI+GGPBa19K83
-	WtMzov3q+2rE45dU6vyQBEoqUhe05WGhc++MD+rKjp6IqirZORS1OiQwiqSVK/ghbIjBKqbzGDr
-	cnzgfiQKQBs=
-X-Received: by 2002:a05:600c:a302:b0:4bb:7347:d5c0 with SMTP id 5b1f17b1804b1-4bb7347d930mr88329715e9.9.1794912213572;
-        Tue, 17 Nov 2026 02:43:33 -0800 (PST)
+        bh=8L7gbXkN1dILpBc2x0pUa9G4ccOQmCQZ8EESDwGPDFw=;
+        b=oMz31/X+AkSC7ubDEPn3OVyrpoEfN+Ut4CKc4KQzt6IMqomZBvsYlrhvhDr6CKo/Zr
+         NCEfYUgnxhHT6m2zQMeR+k4Sd5NJQJO0p7hGYbNp9mH4wzhvn9bJ2MVD8oJucqmcuuyq
+         Tnv6wsMs3rygzJxvK8RTpGqFn33q3tEcQlhTm4vx/pDPHLWOmgWOmaZq+lKNJXm4oIXB
+         KCXqWnf4x2TFveYB877lTgViJy2IaV/Lk8MCx1H0m2FcxMUf8BmuWA3pybg+hZAsvW32
+         zJdBfZ46MfyxC5MPU1JROGTpf1+UWCOpPda8Rzh2WDlLx0k+fuCEUSd9V26hUqcKOZcK
+         DZPA==
+X-Forwarded-Encrypted: i=1; AL+hErE3GwkfGUA8/SnCI7iBEXtnfCoH8edHvr6k2WWl20b8jlVt3nF1bB2ZJADQqSWFbcJ+sgqJAnig+nnB@vger.kernel.org
+X-Gm-Message-State: APuU4Z8nx3OvET/5QF2Ug03GeZB5lkQbLO/6J5U40vAIqEn8vsPjr8sx
+	x9NO38rvVpC3TtoXGK54iBzaONNuVjJW97rqc5KJ+aEyb70v4m6dBw2G
+X-Gm-Gg: AYBFou1MC8nC1yhP0809jna9MTWWqy+H3VIe7sfqz1lqzOm0U2tZzVxn2JLwy2BmBGS
+	yYM0FaU1guEM76bNIjhaRKVKwSZI9GCi4rA1/j18G1CqOlwIeteGgLN60RwXLPb0NVANxRQY/XL
+	w6AlH/fH/I9cIozW6/Cuuq9WPP1yWc/W2vFUgAB/TKsud3Et7E2iZd+necNlAZq83fmResaAgmd
+	nRsi3tFXIwz0LTsi9Hm29jk24DhPPVQkRFkozZqLJP1kjMxCrQF58d21X6OHh1BUDabenKQXM5E
+	GwUfPGa5uV2qMvQZCHbLeydcARd9MVaGviR1usOtknXe1u4g+fkeJnGTvktghbwV3eeVuF9NCJM
+	wWsCSnoFPT6t9XBRyAS+gXGGLmJHCMB9OFg7WghbDF6Z4PmBcEybKNOvEmeSothqYb63Nf/FSwx
+	ETd6q+FeNy7Q9Ynw54xIaddILD62xzF0w2oXL8rPNClGrpbKTwRLKI+IHr7KNk4bxe07/ZR6xWc
+	rUrJ52+qGy+VpV1kNlo3MOM2KbMYKv6G4enno1SRD+Ws2WfNBuIP9g5sE+Nr2qYxEVW+F+EF/Yt
+	gpDckI15DPw=
+X-Received: by 2002:a05:600c:630f:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4bb55aa5795mr277386855e9.33.1794912236093;
+        Tue, 17 Nov 2026 02:43:56 -0800 (PST)
 Received: from dl360p ([130.61.107.245])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783e9288sm61091805e9.15.2026.11.17.02.43.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783f7eecsm104578445e9.3.2026.11.17.02.43.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 02:43:32 -0800 (PST)
+        Tue, 17 Nov 2026 02:43:55 -0800 (PST)
 From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-To: sre@kernel.org,
+To: neil.armstrong@linaro.org,
+	jesszhan0024@gmail.com,
 	robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org
-Cc: linux-pm@vger.kernel.org,
+Cc: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-Subject: [PATCH 2/2] power: supply: s2mu106-fuelgauge: add standalone driver
-Date: Tue, 17 Nov 2026 13:43:28 +0300
-Message-ID: <20261117104328.1176951-3-tadilhusrev@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: display: panel: novatek,nt36525: fix v1 review issues
+Date: Tue, 17 Nov 2026 13:43:52 +0300
+Message-ID: <20261117104353.1180634-1-tadilhusrev@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117104328.1176951-1-tadilhusrev@gmail.com>
-References: <20261117104328.1176951-1-tadilhusrev@gmail.com>
+In-Reply-To: <20261116070212.314228-1-tadilhusrev@gmail.com>
+References: <20261116070212.314228-1-tadilhusrev@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,318 +112,121 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add a standalone driver for the fuel gauge in the Samsung S2MU106
-PMIC, as fitted on the Samsung Galaxy XCover5 (own I2C address, 0x3b).
-It shares the S2MU005 fuel gauge's STATUS/RVBAT/RCURCC/RSOC register
-layout and scaling, which this driver reads directly with the stock
-fixed-point formulas; it has no MONOUT average-monitoring registers,
-so unlike s2mu005-battery.c it never reads VOLTAGE_AVG/CURRENT_AVG or
-uses current_avg to decide POWER_SUPPLY_STATUS.
+Addresses the issues Sashiko AI flagged on v1
+(https://sashiko.dev/#/patchset/20261116070212.314228-1-tadilhusrev@gmail.com?part=1):
 
-This replaces a previous version of this series
-(https://lore.kernel.org/all/20261116074000.355176-1-tadilhusrev@gmail.com/)
-that instead extended s2mu005-battery.c with a samsung,s2mu106-fuel-gauge
-fallback compatible; see "dt-bindings: power: supply: add
-samsung,s2mu106-fuelgauge" in this series for why that shape was
-dropped.
+- reset-gpios is the physical RESX pin, which is active-low (asserted
+  low, released high); describe it as such (GPIO_ACTIVE_LOW in the
+  example) instead of GPIO_ACTIVE_HIGH. The matching driver fix is in
+  "drm/panel: add Novatek NT36525 panel driver".
+- Add vpos-supply and vneg-supply: the driver requests three separate
+  regulators ("vdd", "vpos", "vneg"), but the binding only declared
+  "vdd-supply".
+- Add backlight: true so dtbs_check accepts the backlight property the
+  driver already parses via drm_panel_of_backlight(), instead of
+  switching additionalProperties to unevaluatedProperties (which would
+  also pull in every other panel-common.yaml property, not just this
+  one).
 
-The driver was drafted with an AI coding assistant (Claude Code,
-Anthropic) from this register map; I reviewed every line, built it
-(arm64, 0 warnings), ran checkpatch --strict (clean), and tested it on
-a Samsung Galaxy XCover5 (re-confirmed 2026-11-17, kernel
-7.4.0-rc1-00023-gdcb8b91fb779+ #30): it probes, and
-/sys/class/power_supply/s2mu106-battery/ reports plausible voltage,
-capacity and charging-status values that track the device's actual
-state (confirmed live, including across a flash/reboot cycle).
+Also fold the compatible string into a single, driver-matching value
+(novatek,nt36525-xcover5) instead of samsung,xcover5-nt36525, which
+never matched the driver's of_match_table at all.
 
 Signed-off-by: Adil Hüsrev Tepe <tadilhusrev@gmail.com>
 ---
- drivers/power/supply/Kconfig             |  13 ++
- drivers/power/supply/Makefile            |   1 +
- drivers/power/supply/s2mu106-fuelgauge.c | 240 +++++++++++++++++++++++
- 3 files changed, 254 insertions(+)
- create mode 100644 drivers/power/supply/s2mu106-fuelgauge.c
+ .../display/panel/novatek,nt36525.yaml        | 83 +++++++++++++++++++
+ 1 file changed, 83 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
 
-diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index 1eeb176b2..cc8fed03b 100644
---- a/drivers/power/supply/Kconfig
-+++ b/drivers/power/supply/Kconfig
-@@ -240,6 +240,19 @@ config BATTERY_S2MU005
- 
- 	  This driver, if built as a module, will be called s2mu005-fuel-gauge.
- 
-+config BATTERY_S2MU106
-+	tristate "Samsung S2MU106 PMIC fuel gauge driver"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Say Y here to build a driver for the fuel gauge block of the
-+	  Samsung S2MU106 PMIC, as fitted on the Samsung Galaxy XCover5.
-+	  It is a standalone I2C device at address 0x3b, reporting
-+	  voltage, current, capacity and charging status.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called s2mu106-fuelgauge.
-+
- config CHARGER_S2MU106
- 	tristate "Samsung S2MU106 charger driver (read-only)"
- 	depends on I2C
-diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index cd16c6e48..531a0b024 100644
---- a/drivers/power/supply/Makefile
-+++ b/drivers/power/supply/Makefile
-@@ -135,4 +135,5 @@ obj-$(CONFIG_CHARGER_QCOM_SMB2)	+= qcom_smbx.o
- obj-$(CONFIG_FUEL_GAUGE_MM8013)	+= mm8013.o
- obj-$(CONFIG_MACSMC_POWER)	+= macsmc-power.o
- obj-$(CONFIG_CHARGER_MAX77759)	+= max77759_charger.o
-+obj-$(CONFIG_BATTERY_S2MU106)	+= s2mu106-fuelgauge.o
- obj-$(CONFIG_CHARGER_S2MU106)	+= s2mu106-charger.o
-diff --git a/drivers/power/supply/s2mu106-fuelgauge.c b/drivers/power/supply/s2mu106-fuelgauge.c
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
 new file mode 100644
-index 000000000..2fdd72c80
+index 000000000..9158125c9
 --- /dev/null
-+++ b/drivers/power/supply/s2mu106-fuelgauge.c
-@@ -0,0 +1,240 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Samsung S2MU106 Fuel Gauge driver (XCover5)
-+ *
-+ * Register map confirmed against stock source AND live device dmesg:
-+ *   kernel_src/extracted/.../s2mu106_fuelgauge/s2mu106_fuelgauge.{c,h}
-+ *   hw_exhaustive/11_usb.txt + 20_kernel_base.txt (stock driver live on 0-003b @ i2c-0 0x3B)
-+ *
-+ * Confirmed registers (stock s2mu106_fuelgauge.h; defines are "addr>>1, R/W bit excluded"):
-+ *   0x00  FG_STATUS    — power-on / por bits
-+ *   0x04  RVBAT        — raw VBAT ADC (16-bit LE); mV = (raw*1000)>>13   [live: vbat 3899]
-+ *   0x06  RCUR_CC      — coulomb-counter current, 2's-comp 16-bit;
-+ *                        bit15 set = charging [live: -386 mA]
-+ *   0x08  RSOC         — raw SOC, 2's-comp 16-bit;
-+ *                        %*100 = (raw&0x7FFF)*10000/(1<<14) [live: SOC 67]
-+ *   0x2A  RSOC_R       — alternate SOC representation (NOT the main path; stock uses RSOC 0x08)
-+ *   0xC3  FG_PROP      — calibration mode (0x09 → normal)
-+ *
-+ * NOTE: earlier revs read RVBAT/RCUR from 0x26/0x28 citing a "live 3899 mV". That voltage was
-+ * real but came from the STOCK driver reading 0x04 (dmesg s2mu106_get_vbat) — 0x26/0x28 are not
-+ * fuel-gauge registers at all. Corrected to the stock 0x04/0x06/0x08 map.
-+ *
-+ * Exposed as a power_supply "s2mu106-battery" with:
-+ *   POWER_SUPPLY_PROP_VOLTAGE_NOW   (µV)
-+ *   POWER_SUPPLY_PROP_CURRENT_NOW   (µA, signed)
-+ *   POWER_SUPPLY_PROP_CAPACITY      (% int 0-100)
-+ *   POWER_SUPPLY_PROP_STATUS        (derived from current sign + SOC)
-+ *   POWER_SUPPLY_PROP_PRESENT
-+ *   POWER_SUPPLY_PROP_TECHNOLOGY    (LION)
-+ */
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
+@@ -0,0 +1,83 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/novatek,nt36525.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/power_supply.h>
-+#include <linux/regmap.h>
++title: Novatek NT36525 MIPI-DSI panel
 +
-+/* Register definitions */
-+#define S2MU106_FG_STATUS		0x00
-+#define  FG_STATUS_ACTIVE		BIT(7)
++maintainers:
++  - Adil Hüsrev Tepe <tadilhusrev@gmail.com>
 +
-+#define S2MU106_RVBAT_L			0x04	/* 16-bit LE: low byte first */
-+#define S2MU106_RVBAT_H			(S2MU106_RVBAT_L + 1)
++description:
++  A MIPI-DSI video-mode panel driven by a Novatek NT36525 controller,
++  720x1480. The first compatible string names the specific panel as fitted
++  in a device; the second is the NT36525 controller it is based on. The
++  panel reset (RESX) is active low.
 +
-+#define S2MU106_RCUR_CC_L		0x06	/* 2's-complement 16-bit LE coulomb counter */
-+#define S2MU106_RCUR_CC_H		(S2MU106_RCUR_CC_L + 1)
++allOf:
++  - $ref: panel-common.yaml#
 +
-+#define S2MU106_RSOC_L			0x08	/* 2's-complement 16-bit LE */
-+#define S2MU106_RSOC_H			(S2MU106_RSOC_L + 1)
++properties:
++  compatible:
++    items:
++      - enum:
++          - novatek,nt36525-xcover5
++      - const: novatek,nt36525
 +
-+/* Scaling is done with the stock fixed-point formulas inline (see get_property); the
-+ * old per-LSB constants were for the wrong registers and are gone.
-+ */
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
 +
-+struct s2mu106_fg {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	struct power_supply *psy;
-+	struct mutex lock;	/* serialises the two-register reads in get_property() */
-+};
++  reset-gpios:
++    maxItems: 1
 +
-+static int fg_read16(struct s2mu106_fg *fg, u8 lo_reg, s32 *val, bool is_signed)
-+{
-+	unsigned int lo, hi;
-+	int ret;
++  vdd-supply:
++    description: panel logic power supply (vdd_ldo28, 1.8V)
 +
-+	ret = regmap_read(fg->regmap, lo_reg, &lo);
-+	if (ret)
-+		return ret;
-+	ret = regmap_read(fg->regmap, lo_reg + 1, &hi);
-+	if (ret)
-+		return ret;
++  vpos-supply:
++    description: LCD positive bias supply
 +
-+	if (is_signed)
-+		*val = (s16)((hi << 8) | lo);
-+	else
-+		*val = (u16)((hi << 8) | lo);
-+	return 0;
-+}
++  vneg-supply:
++    description: LCD negative bias supply
 +
-+static int s2mu106_fg_get_property(struct power_supply *psy,
-+				   enum power_supply_property psp,
-+				   union power_supply_propval *val)
-+{
-+	struct s2mu106_fg *fg = power_supply_get_drvdata(psy);
-+	s32 raw;
-+	int ret = 0;
++  backlight: true
 +
-+	mutex_lock(&fg->lock);
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_VOLTAGE_NOW:
-+		ret = fg_read16(fg, S2MU106_RVBAT_L, &raw, false);
-+		if (!ret)
-+			/* stock s2mu106_get_vbat: mV = (raw*1000)>>13; expose as µV */
-+			val->intval = (((u32)raw * 1000) >> 13) * 1000;
-+		break;
-+	case POWER_SUPPLY_PROP_CURRENT_NOW: {
-+		u32 cc, mag;
-+		s32 ma;
++  port: true
 +
-+		ret = fg_read16(fg, S2MU106_RCUR_CC_L, &raw, false);
-+		if (ret)
-+			break;
-+		cc = (u16)raw;	/* RCUR_CC: 2's-complement coulomb-counter word */
-+		/*
-+		 * stock s2mu106_get_current: bit15 set => charging (positive),
-+		 * clear => discharging (negative). Scale mA = (mag*1000)>>12, then
-+		 * mA->µA in a second step so mag*1000000 can't overflow s32.
-+		 */
-+		if (cc & 0x8000) {		/* charging */
-+			mag = ((~cc) & 0xFFFF) + 1;
-+			ma = (s32)((mag * 1000) >> 12);
-+		} else {			/* discharging */
-+			mag = cc & 0x7FFF;
-+			ma = -(s32)((mag * 1000) >> 12);
-+		}
-+		val->intval = ma * 1000;	/* µA */
-+		break;
-+	}
-+	case POWER_SUPPLY_PROP_CAPACITY: {
-+		u32 soc;
++required:
++  - compatible
++  - reg
++  - reset-gpios
++  - vdd-supply
++  - vpos-supply
++  - vneg-supply
++  - port
 +
-+		ret = fg_read16(fg, S2MU106_RSOC_L, &raw, false);
-+		if (ret)
-+			break;
-+		soc = (u16)raw;
-+		/* stock s2mu106_get_rawsoc: %*100 = (raw&0x7FFF)*10000/(1<<14) */
-+		if (soc & 0x8000)
-+			val->intval = 0;	/* negative SOC -> treat as empty */
-+		else
-+			val->intval = clamp_val(((soc & 0x7FFF) * 10000 / (1 << 14)) / 100,
-+						0, 100);
-+		break;
-+	}
-+	case POWER_SUPPLY_PROP_STATUS: {
-+		u32 cc;
++additionalProperties: false
 +
-+		ret = fg_read16(fg, S2MU106_RCUR_CC_L, &raw, false);
-+		if (ret)
-+			break;
-+		cc = (u16)raw;
-+		/* bit15 set = charging (stock convention); independent of the µA scaling */
-+		if (cc & 0x8000)
-+			val->intval = POWER_SUPPLY_STATUS_CHARGING;
-+		else if ((cc & 0x7FFF) > 20)	/* small deadband (~5 mA) */
-+			val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
-+		else
-+			val->intval = POWER_SUPPLY_STATUS_NOT_CHARGING;
-+		break;
-+	}
-+	case POWER_SUPPLY_PROP_PRESENT:
-+		val->intval = 1;
-+		break;
-+	case POWER_SUPPLY_PROP_TECHNOLOGY:
-+		val->intval = POWER_SUPPLY_TECHNOLOGY_LION;
-+		break;
-+	default:
-+		ret = -EINVAL;
-+	}
-+	mutex_unlock(&fg->lock);
-+	return ret;
-+}
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
 +
-+static enum power_supply_property s2mu106_fg_props[] = {
-+	POWER_SUPPLY_PROP_VOLTAGE_NOW,
-+	POWER_SUPPLY_PROP_CURRENT_NOW,
-+	POWER_SUPPLY_PROP_CAPACITY,
-+	POWER_SUPPLY_PROP_STATUS,
-+	POWER_SUPPLY_PROP_PRESENT,
-+	POWER_SUPPLY_PROP_TECHNOLOGY,
-+};
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
 +
-+static const struct power_supply_desc s2mu106_fg_desc = {
-+	.name		= "s2mu106-battery",
-+	.type		= POWER_SUPPLY_TYPE_BATTERY,
-+	.properties	= s2mu106_fg_props,
-+	.num_properties	= ARRAY_SIZE(s2mu106_fg_props),
-+	.get_property	= s2mu106_fg_get_property,
-+};
++        panel@0 {
++            compatible = "novatek,nt36525-xcover5", "novatek,nt36525";
++            reg = <0>;
++            reset-gpios = <&gpa0 0 GPIO_ACTIVE_LOW>;
++            vdd-supply = <&panel_vdd>;
++            vpos-supply = <&panel_vpos>;
++            vneg-supply = <&panel_vneg>;
++            backlight = <&panel_backlight>;
 +
-+static const struct regmap_config s2mu106_fg_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = 0xFF,
-+};
-+
-+static int s2mu106_fg_probe(struct i2c_client *client)
-+{
-+	struct s2mu106_fg *fg;
-+	struct power_supply_config cfg = {};
-+
-+	fg = devm_kzalloc(&client->dev, sizeof(*fg), GFP_KERNEL);
-+	if (!fg)
-+		return -ENOMEM;
-+
-+	fg->dev = &client->dev;
-+	mutex_init(&fg->lock);
-+
-+	fg->regmap = devm_regmap_init_i2c(client, &s2mu106_fg_regmap_config);
-+	if (IS_ERR(fg->regmap))
-+		return PTR_ERR(fg->regmap);
-+
-+	i2c_set_clientdata(client, fg);
-+
-+	cfg.drv_data = fg;
-+	fg->psy = devm_power_supply_register(&client->dev, &s2mu106_fg_desc, &cfg);
-+	if (IS_ERR(fg->psy))
-+		return PTR_ERR(fg->psy);
-+
-+	dev_info(&client->dev, "S2MU106 fuel gauge registered (addr 0x%02x)\n",
-+		 client->addr);
-+	return 0;
-+}
-+
-+static const struct i2c_device_id s2mu106_fg_id[] = {
-+	{ "s2mu106-fuelgauge", 0 },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(i2c, s2mu106_fg_id);
-+
-+static const struct of_device_id s2mu106_fg_of_match[] = {
-+	{ .compatible = "samsung,s2mu106-fuelgauge" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, s2mu106_fg_of_match);
-+
-+static struct i2c_driver s2mu106_fg_driver = {
-+	.driver = {
-+		.name		= "s2mu106-fuelgauge",
-+		.of_match_table	= s2mu106_fg_of_match,
-+	},
-+	.probe		= s2mu106_fg_probe,
-+	.id_table	= s2mu106_fg_id,
-+};
-+module_i2c_driver(s2mu106_fg_driver);
-+
-+MODULE_DESCRIPTION("Samsung S2MU106 Fuel Gauge driver");
-+MODULE_AUTHOR("Adil Hüsrev Tepe");
-+MODULE_LICENSE("GPL");
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi_out>;
++                };
++            };
++        };
++    };
++...
 -- 
 2.53.0
 
