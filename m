@@ -1,90 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794905939;
-	b=k2L0PvWXiUP6ZAfXT/pUnwZtYINFLBLKfYPZxXLCnqxernaJGZYFAnjNgFHb4wT2GERS
-	 IjoANn5JfJQWCAoAeUoT36fqILzOgRKchLOXlgsw06LjhcHEL+lDAgpc/XbHMHIOoR873
-	 TbZ3WJ99eE8yEQ+9NlGEjALP+yO3tzMz8n6c6thAG9XctmSjetyDizw/9bmlNenya9lC4
-	 ELRhp0XmHrXBLKtCt9BGybrTIdVp6BTZYLqqmwAdK5i0L0VuKEqRxv86RWznXPFaiSac4
-	 NXLySSMOJD7UONNM8d/1flStjXwCuPt8/jmVSH9TEDJkvVRZF3hxbefsSe67i5GRtDQ==
+	t=1794906185;
+	b=P4FinoBq9PE+5KOwQ2Jk8mc01b7Oa09RaWLuK/ad89xTD4Ktsj/jE8gKfdNhzH+cRv9n
+	 UIiEWern2SPadntlv1DGdWsRVtZTH8OVEV0XxpMP8kpQRmIboVeo+TWK7wY56lyL6iNan
+	 2na+9lQXQliByE5gD3nmZbft0VzEGZodMS2pOjl+NfVlvSXpgVWV66DQpJavScpkYrSfc
+	 G1QEhz4amGIKEekVa/w6PRPdsK0rTytxULeKIjr/AiVQop+vE7NfdPHUogJU60xTNSmqw
+	 Ky+G2t4SWGK+oDNKFMC2uOrNEtrVb/9R2/di0Pyuc2xJSDeQYWZ+yJO+S05/Vwy5XyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794905939;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-MTK;
-	bh=MjkoJnpst7G6VGEXYYTLIfIiWtWhE+3drC8cmCbx6v8=;
-	b=iEZ7cipQmvUnOyQ2O5kniIItX31PF5HIe1V7ZITqCTsAb6uIkbCvrkRPCNn8G6gAlJpA
-	 r0FnGj1dpcafoUVav8CoqeUOzE0Q0AeYTY+x7IgWP9rsjE7oEn0NslNwrqpndWFhms/3I
-	 M5H/Zb1PO7tQeNTCOQqiTRxlJJCvdgaJqnSBLVzkK6oZ+pXXXXvSzkKsnQb3gZ3mbcriz
-	 o13x1kKwcD5327mc5VX2kJeTDBWerEMaEXonPLCRn+ZVkbUQCE+KiyjTA+oa8cHknSA/W
-	 DsMKadDNpoy6FltFOtc544ip5F+1AzSN0WHg4iwgXqkARI8mzLzEKDJm+/mhI3zeovg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906185;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rml9Tae3yUrPwjvQLyFAzHjGFjivfeaY5pWvQRSh8QM=;
+	b=JvatuWBlR2YXQVfuXgLkzSU4fd1jYGPTjPJ+IYHiFAVv22Ctc76lXfwYTJF1ftarff2z
+	 2N0JOPPIgXin7L2p06mgVgTPunovQkoffIFHDfk7NhpzNtKa7wYttAoe7OYaPtejeELVn
+	 i/xjWGrZKWgLjKRqKKg/dFiNtZgWFE2JOjPnGwbD3cOp/D1aSxWc/Cx5RkdkCiP2WMe/N
+	 g2rl9goRd0EaWwM8Evu+CsmTVV2anYnpsUKEbjjqnK66NFb60F8QHZLcZTHKs2hRF6r/B
+	 tFyuKL4SEB04ag+UyjP1WEwoaBh771rQuNTKFi11yDUTeGftqwgHjqA0jaRaNUi8q5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=sbgmN8Di;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P02okCnL;
+	arc=none smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49332606A33B;
-	Tue, 17 Nov 2026 08:58:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49332606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D7B606A32A
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 09:03:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78D7B606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=sbgmN8Di
-X-UUID: 1bbc9b56e26511f18dc8c9802ae25ab1-20261117
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=MjkoJnpst7G6VGEXYYTLIfIiWtWhE+3drC8cmCbx6v8=;
-	b=sbgmN8DiQMwTkuuad1GKYR4T3i+o0rsw/xthGs44N/0uSkU5MGcb5yHl7WXbZhkKgyQwtbTXNf+jON8Oencdu6k4xvKzSo9E/VDFcLC4OrwmK/G/jOCqbEvQKIv6P65I2F+nL4qE9/UWQL0MEM3yZoPdJOAoXs0PXnNh6h+3uHs=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:0bcb5dab-ffd4-46f0-80ff-cb077a65e49c,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:d138af19-ae4c-4a2b-b1c4-72e411efd0c9,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 1bbc9b56e26511f18dc8c9802ae25ab1-20261117
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw02.mediatek.com
-	(envelope-from <kyrie.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 159599932; Tue, 17 Nov 2026 16:58:51 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 17 Nov 2026 16:58:49 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 17 Nov 2026 16:58:48 +0800
-From: Kyrie Wu <kyrie.wu@mediatek.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
-	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>, Nicolas Dufresne
-	<nicolas.dufresne@collabora.com>, Nathan Hebert <nhebert@chromium.org>, Arnd
- Bergmann <arnd@arndb.de>, Irui Wang <irui.wang@mediatek.com>, George Sun
-	<george.sun@mediatek.com>, <linux-media@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
-CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
-	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>, Krzysztof
- Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH v12 09/10] dt-bindings: media: Add MT8189 mediatek,vcodec-encoder
-Date: Tue, 17 Nov 2026 16:58:32 +0800
-Message-ID: <20261117085834.1464723-10-kyrie.wu@mediatek.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117085834.1464723-1-kyrie.wu@mediatek.com>
-References: <20261117085834.1464723-1-kyrie.wu@mediatek.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P02okCnL
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8b6a88e4341so1793368b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 01:03:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794906185; x=1795510985; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rml9Tae3yUrPwjvQLyFAzHjGFjivfeaY5pWvQRSh8QM=;
+        b=P02okCnLOX7GQFg/FdyY1inxehwiUGMREuCWwjos/1ThOA4/pD0rqRQNGvoKrmJBLi
+         jrPE7mYXfKmBLqYxDEzlMN1iQMhpO4rwtnClO63o6PidRV6Q1UDy3qAQQet+KE5ddlU6
+         GhMPJ57s47bvZ3aty0Os6yO50Sacp7WmosuzBY8Yv7t5hLtXVX2gJrio3Ya6i2aluIyD
+         5hip/jBIn5QkgC3WesUImZ7jrwRLs3c4LK5lBH9plIYqZE0IqpOfDKX7BQSQ8bIX2xEK
+         3QGA2uwm02LMchE9oMe8vExBqjODkAwFXg42qRk1OAl7RV8wd1gsbSz8qxi0HcWONXVk
+         nPiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794906185; x=1795510985;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rml9Tae3yUrPwjvQLyFAzHjGFjivfeaY5pWvQRSh8QM=;
+        b=c5cT0cnFZux2N56cqSTWSHH4Kc7/FTpVi0BZEXb1EjQmRYuDbOiXfm2sTKjf1nvTe7
+         neRqMzKv2NvK6ZR02TSBHVKAU+Q5OmTEdesbcvgGiF1VInJ7PKJPCTnPqSy8yn6T7CVV
+         kmoEyo31s3NDBAQAPHNEV+u2gqCSMIQWO6c2EmG2cEGZL9C/Ffwj+6qO/WKDNEUB2BHg
+         RDGGsryzbzFH6lwUbQrrNdBt5WgH21XIcHL+E4jhpK7Hd+k+HwO8tDR+4W9N8gDHnehC
+         fRXNva6zdo4JyGJp0FJSraGDpcJF6vwDy/mHSXEgSbkTFFxC8NFql/PwS5gEx0xhkT8Y
+         RgOg==
+X-Forwarded-Encrypted: i=1; AL+hErHmAVCfwAfnQvgcb8OwIBJyj0ZEAjk2sxxJug8hxy+nEYgJbGGW49GAfzt9v/lrdhLNb4wm+FO86LGr@vger.kernel.org
+X-Gm-Message-State: APuU4Z+zRMDfhF2Bas1rHbgcZDu4z4ccWWxsPbc47b7xhl/MdZTwx+zM
+	V1mrm/PWP7JEexNx+flUEgmcXUURY3txogalfEJIoilxKaXUy9Nqgd8k
+X-Gm-Gg: AYBFou0jn9MO572kgvQYR9olHv+7d04lWPjotK1HIQBTlTyOIc211a71YQ3wMJocVVv
+	iHJyPIl6zIs2OCukXBaYVYO1YBzph3ZoeAL6WkjjtOuGHIb3yEOp0CImQTVcEvJKXiPJdihUF2K
+	kK9kllEys6q5Y2mYgsIUIMn00l2X85JFgtTRxNTyVIVcvF0hCp/GNNlP3FmrYMtnhW/EvXMUKdo
+	vLDX4XbfmekczIEwIoeh7uQgtzhH7QXR2neBe17yUhST12bjb2D9HGpWT5nKMyxYkJexLe7Ykkm
+	sftg0bhxb+3xjsUnob19Gnm0G7lLZIufa1TlxR6ojP4KZurcQB2fGFEDI6GlIedT3J6XdLH+sjm
+	k5XNTpbVwk5D08o0wrD2o0sw+5WzH7tk1PBiXB/eSwtKp80XRUz0xHnVnb779tsS+SvAwV3gba+
+	dlS0aXFXE5hNPZd0MWoMSYMOSWm6h1PcmjBwBYFHUyDj257Ls4vgNF6ViB+kG6U2DeVQhh/yhNv
+	w8SeNyUW2e2KYFdVaJpK1SSPa3FMY2kBPhKB2YSEe0Ot5I07Asw0F+UnmgjoIZ/uKBsu/xXy/tg
+	UesOYuR+LqKRxYlF2Qlqrz/7gSl+xst1imp2i+TXGMvyxqqihbatFKoEjKOA5BVpA4mO2ckQ8W6
+	vnfVMSA==
+X-Received: by 2002:a05:6a00:1c9c:b0:89d:5a80:5256 with SMTP id d2e1a72fcca58-8beb56cd05amr11614200b3a.9.1794906184648;
+        Tue, 17 Nov 2026 01:03:04 -0800 (PST)
+Received: from [172.19.1.51] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed2a20fc8sm4517468b3a.49.2026.11.17.01.03.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 01:03:04 -0800 (PST)
+Message-ID: <57e46e27-db98-4f9e-a657-1f224d3428b7@gmail.com>
+Date: Tue, 17 Nov 2026 17:02:45 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,45 +93,123 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: dma: nuvoton,ma35d1-pdma: Document
+ MA35D1 PDMA controller
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org,
+ Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, kees@kernel.org, gustavoars@kernel.org,
+ linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+References: <20261109052900.2960473-1-shanchun1218@gmail.com>
+ <20261109052900.2960473-2-shanchun1218@gmail.com>
+ <avtum_vwVClf7xhE@SMW015318>
+Content-Language: en-US
+From: Shan-Chun Hung <shanchun1218@gmail.com>
+In-Reply-To: <avtum_vwVClf7xhE@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add MT8189 encoder compatible string to distinguish former ICs
-MTK's. Compared with MT8196, the maximum resolution of MT8189
-encoder is only 4K, and the fps is only 30, which cannot reach
-the highest parameter of MT8196: level6.2, 8K@60fps.
-Compared with MT8188, the level can only support 5.1, which is less
-than 5.2 of MT8188. But the maximum bitrate is 100Mbps, which is twice
-that of MT8188. And MT8189 could support NBM mode.
+Hi Frank,
 
-Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- .../devicetree/bindings/media/mediatek,vcodec-encoder.yaml      | 2 ++
- 1 file changed, 2 insertions(+)
+Thanks for your review.
 
-diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-index 820cd8da4..4cb5b8fbb 100644
---- a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-+++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-@@ -22,6 +22,7 @@ properties:
-               - mediatek,mt8173-vcodec-enc
-               - mediatek,mt8183-vcodec-enc
-               - mediatek,mt8188-vcodec-enc
-+              - mediatek,mt8189-vcodec-enc
-               - mediatek,mt8192-vcodec-enc
-               - mediatek,mt8195-vcodec-enc
-               - mediatek,mt8196-vcodec-enc
-@@ -105,6 +106,7 @@ allOf:
-             enum:
-               - mediatek,mt8183-vcodec-enc
-               - mediatek,mt8188-vcodec-enc
-+              - mediatek,mt8189-vcodec-enc
-               - mediatek,mt8192-vcodec-enc
-               - mediatek,mt8195-vcodec-enc
- 
--- 
-2.51.0.windows.2
+Best Regards,
+Shan-Chun
+
+On 11/17/2026 4:59 AM, Frank Li wrote:
+> On Mon, Nov 09, 2026 at 01:28:59PM +0800, Shan-Chun Hung wrote:
+>> Add binding for Nuvoton MA35D1 PDMA controller.
+>>
+>> Signed-off-by: Shan-Chun Hung <shanchun1218@gmail.com>
+>> ---
+> 
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> 
+>>   .../bindings/dma/nuvoton,ma35d1-pdma.yaml     | 71 +++++++++++++++++++
+>>   1 file changed, 71 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml b/Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
+>> new file mode 100644
+>> index 000000000000..d05971662a5d
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
+>> @@ -0,0 +1,71 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/dma/nuvoton,ma35d1-pdma.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Nuvoton MA35D1 PDMA controller
+>> +
+>> +description:
+>> +  The MA35D1 SoC has four Peripheral DMA (PDMA) controllers. Each controller
+>> +  has 10 channels and performs memory-to-memory, memory-to-peripheral and
+>> +  peripheral-to-memory transfers.
+>> +
+>> +maintainers:
+>> +  - Shan-Chun Hung <shanchun1218@gmail.com>
+>> +
+>> +allOf:
+>> +  - $ref: dma-controller.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: nuvoton,ma35d1-pdma
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    maxItems: 1
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  resets:
+>> +    maxItems: 1
+>> +
+>> +  "#dma-cells":
+>> +    const: 2
+>> +    description:
+>> +      The first cell is the PDMA channel number. The second cell is the
+>> +      peripheral request source number, as listed in the reference manual.
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - clocks
+>> +  - interrupts
+>> +  - "#dma-cells"
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
+>> +    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
+>> +
+>> +    soc {
+>> +        #address-cells = <2>;
+>> +        #size-cells = <2>;
+>> +
+>> +        dma-controller@40080000 {
+>> +            compatible = "nuvoton,ma35d1-pdma";
+>> +            reg = <0x0 0x40080000 0x0 0x2000>;
+>> +            interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
+>> +            clocks = <&clk PDMA0_GATE>;
+>> +            resets = <&sys MA35D1_RESET_PDMA0>;
+>> +            #dma-cells = <2>;
+>> +        };
+>> +    };
+>> +
+>> +...
+>> --
+>> 2.25.1
+>>
 
