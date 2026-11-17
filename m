@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794893647;
-	b=ClrVzKs5oxe9Xe0CFg7QqCdhqpfZJkxHoeIP+VTxdA430x1jndNCHSRQbW1ddbWdNmMw
-	 Os+77fOZArzDSpq+xJ5aZxTnUSKTqX3PgQNaVN7ByumkLa9c6RQZ2WnF2vG2/tHZopmZo
-	 OaqbfWg/hXb2vHa6EQrPzKADZVuw/U29jljW9KQ1O1XuvfY+zavGLdJQlzPaN3m3MXDtc
-	 QQApZA3VDFXP1YBGTBnBqOtYM+Ba+KU5Dx03NvQPUtQmPnegila1P9JEx9faJsHAQlHt7
-	 DFt3iLo8KtAD3L90MIsN6mQTTQo6mdDHc1CIiOBg2Htl3ajVerj5AqiTR517bJ1jDvQ==
+	t=1794893860;
+	b=rxkJI2jpiXyoxkONalfm1Hu6jx9DScKzrH0VA3aT+YEmI3It3FJ6dhZTloBxldEzpYR6
+	 rgtKRXWw6qKZeaffadVHyLXKRgaL41rFg+Czr+qF/DDzeGz4j3oWgXHhHO60CzmgQC3v8
+	 WRLJKo6EAkpMERCBP2mpphu/6kVT7UHhioqQL71BofKkyOoqfFR7GxBC1tE9kY0rTnqG/
+	 OF5yoeK4KPYLmJLz005Y61k9LWZD+d0vmQ84Z+oYqvfMDxdEL0d6GDH7JUc8PagWGC4IQ
+	 6+01bGODaZ2RNZ2xOn5g+NAqKrMrPJCcwXo73qznZ7/hpPh4HXQa70r6WExnvgUbg1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794893647;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794893860;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=k6zzrnTBiQlFJzi0A5bMRklqdT38Fw3HcXLjgOgdN54=;
-	b=zYfi8unCA7IXhJOYTdNB5IsKFiaTbE+rzZS2MegX9Th1BnFJ07s68Hepadv4jXCKM1aA
-	 ZhJuIDKBnu+iDj+uhJkYXh+4luoziYKLROEd7LAjl0Hfvdz7P3cUPqkDHAaZbzkAgFnf7
-	 bBHlKiAhjJdpSUKKwAjLtMgah9XvGY3M5R+3KtQVogER2bxs9CO9MFVQ/wcwzkeqYyL2D
-	 1K2yPi67ns8M7ZWDHe2CjhZXBVpO1HRiX/oghovH3I124SP8MTpwnFMySvqfEJ34U68Jh
-	 akHQ2/bSr3U7/Ht3IMnzqTlMtp+GK/BQFKocS2d1/ewtdIQ3NZb6ddGsRiX1iIhTv3w==
+	bh=2fHyqSQEU0LVysgAlcuPFpGoPC4RtsPoQCQfkKxFkd8=;
+	b=AK57r0YsXvAtEC1FnKF9k8yZiVmjxVxO7zlGMDh4Py662KRs7T+8OcOM+4vveJs1Dqie
+	 JYbjXW8BLlRzshRi024u9stP7o2pJerauDZKRqankZFCLeKssoDTOJ3h2ltkmyi+EmSVX
+	 KpJK5ChlxlEBCQuaiM4FXKV98TAXG5o7GKl1u4qlNbnwgS4GbLaLo3DLVCK1uNlR/pKhr
+	 4PITUw9WYJDhSASyKDRMJ6hTmdUJQqps5QTRTvtRbdPe+/sXp0he8m4A3lHXg+NMVgcW5
+	 anJKQCrihN/jtpmUlxeIcZEEzqiyHpdrEMfEjBHwkZ3ji3553cvsIyIWSX7x9EZGOjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7lR7Wmt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X1ePo1bL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB03606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 05:34:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404DE606A31C;
+	Tue, 17 Nov 2026 05:37:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7lR7Wmt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EC921F000C4;
-	Tue, 17 Nov 2026 05:34:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X1ePo1bL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89A571F000C4;
+	Tue, 17 Nov 2026 05:37:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794893647;
-	bh=k6zzrnTBiQlFJzi0A5bMRklqdT38Fw3HcXLjgOgdN54=;
+	s=k20260515; t=1794893859;
+	bh=2fHyqSQEU0LVysgAlcuPFpGoPC4RtsPoQCQfkKxFkd8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G7lR7Wmt2TDxfYxDgNi+Z2dbDTqrkoX1sbJbyq+saXGPQVbN5STlNKQLhBYrMsv5b
-	 oudYlDset6FS6WTkohU4jl+YucgS+s0ar8a57UOiCnvrr9gZ0q9n5aKOOYUQlT73Z0
-	 tXrDohnMp5EoZcIP/yB3DggOZbfwX3ZYZeDJDGQf/JO62Y1pMGv02ygFvjLGNrT2Py
-	 IgyYSQWg3qt48iO5mKMSFZkayaJJj8i5xNLo6Q+MXL1w/CxFRL7FYWIub1tcmGz1DJ
-	 YaaJl1NsW16MDAvr8JoCIhKueHbpeTWBn6bRi/aHjg29ScZnruiLZp3ZN9bs05Axxk
-	 WCTXtUpaw8/bg==
-Message-ID: <sashiko-outbox-218214@kernel.org>
+	b=X1ePo1bL/vUM1mCEkdyFT8PkV1eK0QEDAiW8wHpk7d11fRLFVjXiLWPMaEl9wPFLD
+	 iR4Mxt2xqMIwrBnBagvhJjEtjs1yKrHXN51weKouO8QI2+u86z67+AduP1egwKZdoV
+	 ohpk7ph6OJvTjJkQoIwnrzB8ORLKEVHCdgTHbhXQa0dRMvFRwRwNiVUAZoJD2tn+i/
+	 evmQ43Wd8tsfRC3csin1B/XUzP+8YMNIdioEJEYB+toa7Ww82/2zaGnRxIqb2DwrLH
+	 XZ4W0FhHJL5bos7UTKIWRbncOYi+yEUBTKgzWN5SiN2iWb4lglGcVpmJZ/nK7+EqYy
+	 RNwrjDQ99yAzw==
+Message-ID: <sashiko-outbox-218216@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7] arm64: dts: qcom: sm8750-lenovo-elden: add Lenovo
- Legion Y700 Gen4, a Qualcomm SM8750-based tablet
+Subject: Re: [PATCH v9 3/3] usb: dwc3: select the shared HS data bus with a
+ mux controller
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261117052029.31900-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261117052029.31900-1-xiaqinghuan@mail.ustc.edu.cn>
+To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261117052137.32833-4-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261117052137.32833-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261117052137.32833-4-xiaqinghuan@mail.ustc.edu.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 05:34:06 +0000
+Date: Tue, 17 Nov 2026 05:37:39 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,152 +61,109 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [Medium] arm64: dts: qcom: undocumented lenovo,elden board compatible
-  in sm8750-lenovo-elden.dts
-- [Medium] arm64: dts: qcom: undocumented willsemi,wl2868c compatible
-  and missing driver for pmic@2f
-- [Medium] arm64: dts: qcom: sm8750-lenovo-elden.dts lacks core boot
-  infrastructure and regulator consumers
-- [Low] arm64: dts: qcom: non-alphabetical phandle node ordering in
-  sm8750-lenovo-elden.dts
+- [High] usb: dwc3: unbalanced mux_control_deselect() in
+  __dwc3_set_mode()
+- [High] usb: dwc3: missing mux_control_deselect() on teardown in
+  dwc3_drd_exit()
 --
 
-commit a64b24438a9a6e099bff47eb441ee5126bd53503
+commit 39e198f2d73c2b8bec2fad2df66d23ccb21f5a72
 Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-arm64: dts: qcom: sm8750-lenovo-elden: add Lenovo Legion Y700 Gen4, a Qualc=
-omm SM8750-based tablet
+usb: dwc3: select the shared HS data bus with a mux controller
 
-This commit adds a devicetree for the Qualcomm SM8750-based Lenovo Legion
-Y700 Gen4 tablet with board clocks, reserved GPIOs, and a Willsemi WL2868C
-camera PMIC on i2c10.
+This commit adds support for switching a shared High Speed USB data bus
+between two connectors using a mux controller and per-connector USB role
+switches.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm6=
-4/boot/dts/qcom/sm8750-lenovo-elden.dts
-> new file mode 100644
-> index 0000000000000..73f4452f46120
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-> @@ -0,0 +1,129 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) 2026, Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include "sm8750.dtsi"
-> +
-> +/ {
-> +	model =3D "Lenovo Legion Y700 Gen4";
-> +	compatible =3D "lenovo,elden", "qcom,sm8750";
-
-[Severity: Medium]
-Is the "lenovo,elden" board compatible documented in
-Documentation/devicetree/bindings/arm/qcom.yaml?  The qcom,sm8750 board
-entry currently lists only qcom,sm8750-mtp and qcom,sm8750-qrd, so make
-dtbs_check fails schema validation on sm8750-lenovo-elden.dtb.
+> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+> index fd5c2cd36c595..fe8e97d0398b1 100644
+> --- a/drivers/usb/dwc3/core.c
+> +++ b/drivers/usb/dwc3/core.c
 
 [ ... ]
 
+> @@ -233,8 +246,47 @@ static void __dwc3_set_mode(struct work_struct *work)
+>  		dwc3_writel(dwc, DWC3_GCTL, reg);
+>  	}
+> =20
 > +	/*
-> +	 * VSYS of the camera PMIC is the always-on system rail of the tablet.
-> +	 * The SPMI PMICs that generate it are not described yet, so it is
-> +	 * modelled as a fixed regulator without a voltage constraint.
+> +	 * The previous host or gadget instance has been torn down above, so the
+> +	 * shared High Speed data path can now be moved to the requesting
+> +	 * connector.  A failure here must not abort the mode change half-way:
+> +	 * the controller would be left with a torn-down role and a stale
+> +	 * current_dr_role, which the next request would tear down a second tim=
+e.
 > +	 */
-> +	wl2868c_vsys: regulator-vsys {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "wl2868c_vsys";
-> +		regulator-always-on;
-> +	};
-> +};
+> +	if (port_switch) {
+> +		/*
+> +		 * mux_control_select() sleeps while waiting for the controller, so
+> +		 * the switch is only done here, in the mode worker.  The mux is kept
+> +		 * selected between switches: dwc3 is its only consumer and always
+> +		 * drives one of the two connectors.
+> +		 */
+> +		mux_control_deselect(mux->ctrl);
+> +		ret =3D mux_control_select(mux->ctrl, mux_port);
+> +		if (ret)
+> +			dev_err_ratelimited(dwc->dev,
+> +					    "failed to select USB port %d: %d\n",
+> +					    mux_port, ret);
 > +
-> +&gpi_dma2 {
-> +	status =3D "okay";
-> +};
-> +
-> +&qupv3_2 {
-> +	status =3D "okay";
-> +};
-> +
-> +&i2c10 {
-> +	status =3D "okay";
+> +		spin_lock_irqsave(&dwc->lock, flags);
+> +		if (ret)
+> +			mux->ports[mux_port].errors++;
+> +		else
+> +			mux->active_port =3D mux_port;
+> +		spin_unlock_irqrestore(&dwc->lock, flags);
+> +	}
 
-[Severity: Low]
-This isn't a bug, but phandle node overrides in Qualcomm board devicetrees
-are kept in alphabetical order, so &i2c10 should come before &qupv3_2.
+[Severity: High]
+Does calling mux_control_deselect(mux->ctrl) unconditionally here cause an
+unbalanced deselect on the initial mode switch?
 
-> +
-> +	pmic@2f {
-> +		compatible =3D "willsemi,wl2868c";
-> +		reg =3D <0x2f>;
-> +		reset-gpios =3D <&tlmm 126 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&camera_pmic_default>;
-> +		vsys-supply =3D <&wl2868c_vsys>;
+dwc3_role_mux_init() initializes mux->active_port to -1 without selecting
+mux->ctrl.  When __dwc3_set_mode() runs for the initial mode request,
+port_switch is true and mux_control_deselect() runs on an unselected mux,
+driving idle_state without holding mux->ctrl->lock and calling up() on its
+already-unlocked semaphore.
 
-[Severity: Medium]
-Is there a devicetree binding schema or in-tree driver for
-"willsemi,wl2868c"?  Without a binding under
-Documentation/devicetree/bindings/, make dtbs_check fails on pmic@2f, and
-without a matching driver in the tree, the PMIC and its child regulators
-never bind at runtime.
+Also, if mux_control_select() fails after deselecting a previously active
+port, mux->active_port keeps the old port index even though no port is
+selected, so a subsequent switch either calls mux_control_deselect() again
+on the deselected mux or skips mux_control_select() when switching back to
+the old port.  Only call mux_control_deselect() when mux->active_port >=3D =
+0,
+and reset mux->active_port to -1 when mux_control_select() fails.
 
-> +
-> +		regulators {
-> +			/* Voltages include the offsets programmed by stock firmware. */
-> +			camera_ldo1: ldo1 {
-> +				regulator-name =3D "camera_ldo1";
-> +				regulator-min-microvolt =3D <1128000>;
-> +				regulator-max-microvolt =3D <1128000>;
-> +			};
-> +
-> +			camera_ldo2: ldo2 {
-> +				regulator-name =3D "camera_ldo2";
-> +				regulator-min-microvolt =3D <1288000>;
-> +				regulator-max-microvolt =3D <1288000>;
-> +			};
-> +
-> +			camera_ldo3: ldo3 {
-> +				regulator-name =3D "camera_ldo3";
-> +				regulator-min-microvolt =3D <2816000>;
-> +				regulator-max-microvolt =3D <2816000>;
-> +			};
-> +
-> +			camera_ldo4: ldo4 {
-> +				regulator-name =3D "camera_ldo4";
-> +				regulator-min-microvolt =3D <2824000>;
-> +				regulator-max-microvolt =3D <2824000>;
-> +			};
-> +
-> +			camera_ldo5: ldo5 {
-> +				regulator-name =3D "camera_ldo5";
-> +				regulator-min-microvolt =3D <2808000>;
-> +				regulator-max-microvolt =3D <2808000>;
-> +			};
-> +
-> +			/* LDO6 is not wired out on this board. */
-> +			camera_ldo7: ldo7 {
-> +				regulator-name =3D "camera_ldo7";
-> +				regulator-min-microvolt =3D <1800000>;
-> +				regulator-max-microvolt =3D <1800000>;
-> +			};
-> +		};
-> +	};
-> +};
+> diff --git a/drivers/usb/dwc3/drd.c b/drivers/usb/dwc3/drd.c
+> index f3e37d383627a..b6ca11e4c7b17 100644
+> --- a/drivers/usb/dwc3/drd.c
+> +++ b/drivers/usb/dwc3/drd.c
 
-[Severity: Medium]
-Can sm8750-lenovo-elden.dts boot to a usable system without core platform
-infrastructure such as the SPMI PMICs, apps_rsc RPMh regulators, console, or
-storage?  As added, the board devicetree omits the base platform nodes need=
-ed
-to boot and instead only describes the camera PMIC, feeding its vsys-supply
-from a voltage-less placeholder fixed regulator (wl2868c_vsys) while leaving
-camera_ldo1 through camera_ldo7 without any consumers.
+[ ... ]
+
+> @@ -597,6 +888,7 @@ void dwc3_drd_exit(struct dwc3 *dwc)
+>  {
+>  	unsigned long flags;
+> =20
+> +	dwc3_role_mux_exit(dwc);
+>  	if (dwc->role_sw)
+>  		usb_role_switch_unregister(dwc->role_sw);
+
+[Severity: High]
+Does dwc3_drd_exit() leave mux->ctrl selected when the driver is unbound or
+removed?
+
+__dwc3_set_mode() keeps mux->ctrl selected while a port is active, and
+devm_mux_control_get() only calls mux_control_put() on release without
+deselecting it.  After cancel_work_sync(&dwc->drd_work) and role teardown in
+dwc3_drd_exit(), mux_control_deselect(mux->ctrl) is never called when
+mux->active_port >=3D 0, leaving the mux idle state unrestored and
+mux->ctrl->lock held so a later re-probe or mux consumer blocks in
+mux_control_select().
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117052029.3190=
-0-1-xiaqinghuan@mail.ustc.edu.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117052137.3283=
+3-1-xiaqinghuan@mail.ustc.edu.cn?part=3D3
