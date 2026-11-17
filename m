@@ -1,62 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794957910;
-	b=DeR31WDJneqtFi/GuEvzxLny/BB5rJhWAcPX4wA+SywvcndaKMBhqGhQ5WpGhfUGfms0
-	 ImepUc2U8xmVQqGtyIu+ODVC0ZDWH25Sog69BkYxyCem+LhegqlkXoLbmuRDkWfpbbDqJ
-	 mSVLcvOhYACsJsOCMf7t4BI/nTrISq27pzVMf9p2wtX3DBhdQ0ClA5ncFZpVxzlAworPd
-	 x8SZ5JQst/aJkA6jnMijRIKHKDd9YD/ELsGYpwx0ue0IIUlF536UUn7/OgT+wcjkkxLwx
-	 dDLow8OGHYdwLte0VGNBnkmKoWme/JgyFwQjzNhdVeVMTAstLfRV7KkdeMSSktZIb8g==
+	t=1794958159;
+	b=JjGYIz7WvK2DhvIOBbiQDca568Wk7x+bBQBhgTc5KWNAifwlYPdXcxDNKR7g1p0zDIFB
+	 r5XvajAQuAoDOX2xruSNz0uoBiDc24EOZFT60Ba57UnzcyYfmiI4/m42uVTVh/Pbsm8Qa
+	 Vg7Pt6zoEY1vdk8lg3ft+rWzransphRiSkrFWuhXsw+Bld3NYIhJ4Hl8HS9YPlZHqPNBH
+	 4CkQdVYTzQPCkWpsGKbzqMMNysOXhusEk0Iwdzr/3c27QFQbLAOUtPM28l0MDN3blyama
+	 9wPcxEbbcvrJdYqB5werZfIhJSjjYGPijBhl+fncKYrsn0OjDDYDpORwv/IC/FygsJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794957910;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
-	 X-Pm-Original-To:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=+MzJUlSHy4eYz8k3I9+Z1/DrWgXW8jRa6k0Wz5zf8Es=;
-	b=Ln7mqVA2Be4SIVoQC74E//Vkx4qhgo3iMDKQY2gNggnOMkN+NxfI+x6irQX68DpTHSVr
-	 PO/dHX2s5U0fTMaImQVBVBMUUJvrJ809o4/2/TiQW6Yg8Ob1E2dQjk9Q8IAjoOkxV8Nv/
-	 Jofg88YchfV3l5MIl2LmL0TG4h7BOCQ4wEfG5XLJHhlz9UlRPJMOM1LmK2V2myKWfiYx3
-	 5Moz30zQd1zlyMXH0U88UEuhV4w15rvvq0RNF6HX4QqoSGqb2a1FuXQhsCH75KW4MEKem
-	 ifhsS/CiqFW62Pn3JPSfg+rdaXo37wffLUMOYj2ot+jDKX7tGBk2urkhe4eDxAD+G/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794958159;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=xWojjaEYs7k9MdSr3s8VPLG+k+lN/V+J6jjJUIs/rZs=;
+	b=11dsLpSBbNCc3tN+N3gbwh/X0lZ/hrDNWyElKSeTQUOfPk2URJhDbpm+MDPv1mdFgXiG
+	 d9fi2ws8RAhfm6jKBQbqD2GjbOIGchS9Hm5tJFVUbJCJnLQw+j7gMEDN/aeri7z2DIXzL
+	 Y0i49NpjQ6sj8wn61Uvr0SerOVCHGq01mVhZjLPGKb632H2TllMQ7Tn6fK6HPLdZTLu2o
+	 HiBKgAKy7uB9FtF5MFq07h/bFnekoy78x7Xs8Q28Km4/JpktaIx+xkOLyyQdZKFtiSXn2
+	 sDPXatU3j+vTb3ogqlCHF7dFPmSj4WZl6J/Zu34wtqf3HKWXUhP+wiFOXvutVAyx+iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sverdlin.org;
-	spf=pass smtp.mailfrom=sverdlin.org;
-	dkim=pass header.d=sverdlin.org header.i=@sverdlin.org header.a=rsa-sha256 header.s=purelymail1 header.b=MlnVnObC;
-	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail1 header.b=JvEiBCCF;
-	arc=none smtp.remote-ip=34.202.193.197
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RguWY5nw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FFC606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 23:25:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82FFC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sverdlin.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sverdlin.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D731E606A887;
+	Tue, 17 Nov 2026 23:29:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sverdlin.org header.i=@sverdlin.org header.a=rsa-sha256 header.s=purelymail1 header.b=MlnVnObC;
-	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail1 header.b=JvEiBCCF
-DKIM-Signature: a=rsa-sha256; b=MlnVnObCBZqCH2kEZrNce4+p2hQJguBuSDf8535IEZP5uq06sRAfiUmr/+4Nqsa7zgV1QwthqQhCc04HYH5d3bj+ND7fJlcJ/RSS+tkzsklu5Y/fJ7EYlxVgK91F7M/E6WueJSxpv45nRMKzUqC/AJaX+tBPFuGxfaoH75pIbaEKnixb0ik0+HLT/DlBasFi4pMBHueb4CptYHo0eiwpwF9owjdOD0gjQWXoTJMbUulOPEC9sJ8uYuxwBPfrlc2I/nV2S3OAxCVhT8DgBXAS4i4ySbBnyESH00Fdl7CDDkEyGYl8fAhOAaCNIoK4ME/PzqPBUaGunU+rVpIhTY1NIw==; s=purelymail1; d=sverdlin.org; v=1; bh=+MzJUlSHy4eYz8k3I9+Z1/DrWgXW8jRa6k0Wz5zf8Es=; h=Received:Message-ID:Subject:From:To:Date;
-DKIM-Signature: a=rsa-sha256; b=JvEiBCCFFI3HmL0ydlTlgWrchv77khmsFsDOYPbA7OBa9pAjlD5aSS//gQvsNgsbqgHnecjlVV9zO7d4OlUWUHBmQibjGww6PvlHxMnXrZI21ChoR8EzljicFg7dd332o4tEmefs/5ZDe/PuhmRITGFVUjxYBSEh8ROlFoOSAzsL/rsdcXgGP4cpMJjcrZY3kKqWFJXQmdpZiCfp1xveOr24t2womp0ehxBcADJRp8/hlua9RuMV4XHEKv5UQc42SiP7g1P8KNdcZUX0RiqY4lOw6WP03VtoFDHMeWWuefFbTBp7vJLlUKkN//+Byz9A2VtFCSGHyUvw72gI2JJzXA==; s=purelymail1; d=purelymail.com; v=1; bh=+MzJUlSHy4eYz8k3I9+Z1/DrWgXW8jRa6k0Wz5zf8Es=; h=Feedback-ID:Received:Message-ID:Subject:From:To:Date;
-Feedback-ID: 815097:39668:null:purelymail
-X-Pm-Original-To: devicetree@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 418562010;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Tue, 17 Nov 2026 23:25:05 +0000 (UTC)
-Message-ID: <9957d8679c44e695e22ba86224e4f853a0a65217.camel@sverdlin.org>
-Subject: Re: [PATCH v3 1/3] dt-bindings: arm: sunxi: document Radxa Cubie A7S
-From: Alexander Sverdlin <alex@sverdlin.org>
-To: Enzo Adriano <enzo.adriano.code@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Date: Wed, 18 Nov 2026 00:24:51 +0100
-In-Reply-To: <f1da763aca9c4978dd7cd9a363548b5e53314656.1794227241.git.enzo.adriano.code@gmail.com>
-References: <cover.1794227241.git.enzo.adriano.code@gmail.com>
-	 <f1da763aca9c4978dd7cd9a363548b5e53314656.1794227241.git.enzo.adriano.code@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.62.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RguWY5nw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 398E11F000C4;
+	Tue, 17 Nov 2026 23:29:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794958159;
+	bh=xWojjaEYs7k9MdSr3s8VPLG+k+lN/V+J6jjJUIs/rZs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=RguWY5nwU6o6w/MIbfNUGWqe2DvbBb2k7NjIle6kG40haaaf6BwtzeXuQNTJ0W9Yw
+	 ZVnwolLPXFeyrhdOcsjohRgC1ZuhW5Vyycxe6F9p6KXZ2ax/81gV6RRC2rhHqR3pZk
+	 OrGJnK790dM0kuLQsmZwg8O8btHuf8KTzn77tzudwgrdgL3F9p89HJ2/hdW8er84b+
+	 THH6gpS2yk/rIb/PTQj7r1zesHsM26dUlV49g3t8BZIOeiKNOYop0RxjLVyIomgwRd
+	 eZM8PQJaWlTohyA3Z7AGjN+6jbHpdrDXzcRt2Cza2cwVP+PYL7C/zm2yWZSJGzO+6Z
+	 kewmP2g4RjUJQ==
+Subject: Re: [PATCH net-next 2/9] netfilter: flowtable: reject non-host IPv4
+ packets before lookup
+From: netdev-bot+sashiko@kernel.org
+To: florian.fainelli@broadcom.com
+Cc: netdev@vger.kernel.org, rafal@milecki.pl,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, horms@kernel.org,
+ corbet@lwn.net, jonas.gorski@gmail.com, olteanv@gmail.com,
+ pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org
+Date: Tue, 17 Nov 2026 23:29:17 +0000
+Message-ID: <179495815781.3136.11457762484354834526@kernel.org>
+In-Reply-To: <20261116222519.1416501-3-florian.fainelli@broadcom.com>
+References: <20261116222519.1416501-3-florian.fainelli@broadcom.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,41 +69,140 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Hi Enzo,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-On Mon, 2026-11-09 at 23:45 -0500, Enzo Adriano wrote:
-> Document the Radxa Cubie A7S board and Allwinner A733 SoC compatibles
-> for the accompanying initial board device tree, so it can be identified
-> and validated.
->=20
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
+Critical: 0 · High: 2 · Medium: 0 · Low: 1
 
-Reviewed-by: Alexander Sverdlin <alex@sverdlin.org>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> ---
-> =C2=A0Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
-> =C2=A01 file changed, 5 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documenta=
-tion/devicetree/bindings/arm/sunxi.yaml
-> index 28437c47ac01..37a7d713ac71 100644
-> --- a/Documentation/devicetree/bindings/arm/sunxi.yaml
-> +++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
-> @@ -857,6 +857,11 @@ properties:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: rad=
-xa,cubie-a5e
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: all=
-winner,sun55i-a527
-> =C2=A0
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Radxa Cubie A7S
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: radxa,cu=
-bie-a7s
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: allwinne=
-r,sun60i-a733
+- [High] The new early return in nf_flow_offload_ip_hook()
+  (net/netfilter/nf_flow_table_ip.c:915) checks skb->pkt_type at netdev…
+- [High] The fix only covers IPv4.
+- [Low] The commit trailer reads 'Signed-off-by: FLorian Fainelli
+  <florian.fainelli@broadcom.com>', but the author is 'Florian Fainelli'…
+
+--
+
+netfilter: flowtable: reject non-host IPv4 packets before lookup
+
+This commit makes nf_flow_offload_ip_hook() return early when pkt_type is
+not PACKET_HOST. Those packets then go to the normal IPv4 stack before the
+flowtable lookup. The goal is to apply the same PACKET_HOST check that the
+classic IPv4 forwarding path uses.
+
+> Fixes: 97add9f0d66d ("netfilter: flow table support for IPv4")
+>
+> Signed-off-by: FLorian Fainelli <florian.fainelli@broadcom.com>
+
+[Severity: Low]
+This isn't a bug, but the Signed-off-by name has a typo ("FLorian") and
+does not match the author name ("Florian Fainelli"). There is also an
+extra blank line between the Fixes: tag and the Signed-off-by: tag.
+
+> diff --git a/net/netfilter/nf_flow_table_ip.c b/net/netfilter/nf_flow_table_ip.c
+> index 19cafae748abe..98bade1b82994 100644
+> --- a/net/netfilter/nf_flow_table_ip.c
+> +++ b/net/netfilter/nf_flow_table_ip.c
+> @@ -911,6 +911,10 @@ nf_flow_offload_ip_hook(void *priv, struct sk_buff *skb,
+>  	};
+>  	int ret;
+>  
+> +	/* The ingress hook runs before IPv4 rejects non-host Ethernet frames. */
+> +	if (unlikely(skb->pkt_type != PACKET_HOST))
+> +		return NF_ACCEPT;
+
+[Severity: High]
+Could this turn off the software fast path for flows that pass through a
+bridge or VLAN upper device?
+
+This hook runs at netdev ingress on the lower device. At that point
+pkt_type still holds what eth_type_trans() set by comparing h_dest with
+the lower device's own MAC. In __netif_receive_skb_core(), nf_ingress()
+runs before both places that reclassify the frame:
+
+__netif_receive_skb_core()
+    nf_ingress()          <- nf_flow_offload_ip_hook() runs here
+    vlan_do_receive()
+    rx_handler()          <- br_handle_frame()
+
+net/8021q/vlan_core.c:vlan_do_receive() {
+    ...
+	if (unlikely(skb->pkt_type == PACKET_OTHERHOST)) {
+		/* ... */
+		if (ether_addr_equal_64bits(eth_hdr(skb)->h_dest, vlan_dev->dev_addr))
+			skb->pkt_type = PACKET_HOST;
+	}
+    ...
+}
+
+net/bridge/br_input.c:br_handle_frame() {
+    ...
+	if (ether_addr_equal(p->br->dev->dev_addr, dest))
+		skb->pkt_type = PACKET_HOST;
+    ...
+}
+
+The flowtable supports DEV_PATH_BRIDGE and DEV_PATH_VLAN paths.
+nft_dev_path_info() puts the upper device's dev_addr in h_source, but the
+ingress ifindex is the lower port. Hosts therefore send routed traffic to
+the bridge or VLAN MAC.
+
+Two setups hit this:
+
+  - A bridge port whose MAC differs from the bridge MAC. This is common in
+    a multi-port bridge, because the bridge takes one port's MAC.
+  - A VLAN device with its own MAC.
+
+In both cases, every packet of an offloaded flow would be PACKET_OTHERHOST
+at this hook. It would return NF_ACCEPT before nf_flow_offload_lookup().
+The IPv4 stack later sees PACKET_HOST and forwards these packets.
+
+Given that, does the patch keep "the IPv4 input path's forwarding
+decision", as the commit message says? Would it work better to compare
+h_dest with the address the flow expects (for example after the tuple
+lookup) rather than test the lower device's raw pkt_type?
+
 > +
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Remix Mini PC
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: jid=
-e,remix-mini-pc
+>  	if (!nf_flow_skb_encap_protocol(&ctx, skb))
+>  		return NF_ACCEPT;
+>  
+
+[Severity: High]
+Is the same bypass still open for IPv6? In the same file,
+nf_flow_offload_ipv6_hook() has no pkt_type check. It goes straight to the
+lookup, forward and nf_flow_queue_xmit6() steps:
+
+net/netfilter/nf_flow_table_ip.c:nf_flow_offload_ipv6_hook() {
+    ...
+	if (!nf_flow_skb_encap_protocol(&ctx, skb))
+		return NF_ACCEPT;
+
+	if (unlikely(ctx.ether_type != htons(ETH_P_IPV6)))
+		return NF_ACCEPT;
+
+	tuplehash = nf_flow_offload_ipv6_lookup(&ctx, flow_table, skb);
+    ...
+}
+
+Classic IPv6 forwarding drops these frames:
+
+net/ipv6/ip6_output.c:ip6_forward() {
+    ...
+	if (skb->pkt_type != PACKET_HOST)
+		goto drop;
+    ...
+}
+
+nf_flow_offload_inet_hook() sends ETH_P_IPV6 to the unpatched hook. With
+this patch, an inet flowtable would reject non-host frames for IPv4. For
+IPv6 it would still forward frames sent to an unrelated unicast,
+broadcast or multicast MAC, as long as the 5-tuple matches an installed
+flow.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261116222519.1416501-1-florian.fainelli%40broadcom.com
