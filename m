@@ -1,150 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.31
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794906494;
-	b=dc2BGMCX3GSop2gJGq65EJIff8Rv1EA4qbSjeR5536OfxP7HA7OwlVEeaMNErTBFxXPv
-	 ccx5bbeJ57HCy4XRj/XOWKlCWxNNQ6GPasmbI0CX0WZFdxgBHZs7EaMHvVXPoOiuHvwOx
-	 eD9zGGTS8ZXF4pcz1+kQNJOz66LRPXUmhfMFxEG12hhOkMwaZzmbUroc74XelBcpA11VL
-	 R4Mj9HxzVOKLYQAK5GHaX+uRDXUuW40HybxPElmpgJg4cJsdRBGXn3s6VuE6KezOmXsNu
-	 RBpf6/5V3/X7UTO30N7kGdLhTN5Yw7oYISw+4F91Y6iDSOluLoWVWjwGME+oG+T3umg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906494;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=iIpYJPZimjQTGw3I5irovopL5vVDDsAT1H6lBRv7VCE=;
-	b=BTu6yJLMArvGgS+ei1LRcym4jWTBYq91jFeXwoqWtU2tHKT6Ajwmp56fIWBvTv6w+ZKf
-	 HOZOr2v0Ao6V64FnwRH5YMQXHb1ZJkxpjw8HmmxWM3IQr8SdHeq2cxCIW13d1wt589cDf
-	 RA8sAmWQy+vRAs1XofH2y+B9geS3ztdeNydK+5+ZUH0MJlOwc/PJGA6wa8lMPR+uPH0Av
-	 XfAB47R0USQ/KMC4AsfFp3hi0wjY1XVepBn/2kkFWepXzDmKIgSkNHGJwCC6oY5JBw0ta
-	 hIWvU1lo8hnCY819RDzUIL1ynlzNhKLcN3sXgOQk08ug6MvdOfYsvCMpLIOkh1WqPDg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=iKOlTySB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.31
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011031.outbound.protection.outlook.com [52.101.70.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794906580;
+	b=1zTPMDt3Jn7YAXHiTCSxDTuUh5rZNexXkXhMGlA2xK2zvSWUvzpTuWruiv4TC3Wqj2fe
+	 5H2hJVc4Mpeyj6cD85+A0JbV4aq0oyXro3cNdtADjdvun2GUz1CtJwMNXc+xPziMHSl5y
+	 cJFcBahafv2ZB3RCX12RIN8vlSCBSzF26tAi/7VGOsuzBX1UMA7jx2FZgqlSoJR9dBT+F
+	 UD3WyIzjhvT8hNjIuWCdqDXuGcgAIl/wok0VoAQf1U6eLiirxg1Ur0J/dtBF8Ieemmug+
+	 kdjAkkNMIHunVy8Y+C7LOKCRBdfPwaAhazG7GgXAQmxeqJMCSqrSXdbyWrCvbUJiWRQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906580;
+	h=DMARC-Filter:DKIM-Signature:Date:Mime-Version:X-Lms-Return-Path:To:
+	 From:X-Change-Id:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-Original-From:Received:Cc:Subject:X-Mailer:X-B4-Tracking;
+	bh=9kU6pzFrF0JRjF9S1nvwA7nlQ5cqugMZ9xHh5jZBAxQ=;
+	b=0DzJ5fAqj/ULB2vUIwqAxpSTagjvW+0eU+vCvvN2YJplfaUZKMyFpMjyH0U8Zqz1+MUn
+	 /mepHJQtB3zyR/a54H7rCISzitBkZrexjrlqmdLBTNlqJjo32GUWtV1NJmyfwHmhy1AAx
+	 k8+DTNb8Y/rAbMMnEI2cBNv08YUh+cZXEVp8JQAxNYG+inK4JXJFK/NXOFB+0NiyDDJdB
+	 h0PI2TlFEJHZrIngKCEcT+hYRe3gcMsu5gZxZbiQC4Lt8mZjbg+qwC63pabJrXKZ4Aj56
+	 KM6PfFdNczcy49gh604mnpADlBzbn51SMZoKV00qjfYpV/aJ6S1igGVdFWUKn3I1TzA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.cipunited.com;
+	spf=pass smtp.mailfrom=oss.cipunited.com;
+	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=EP8ylC9k;
+	arc=none smtp.remote-ip=209.127.231.44
+Received: from va-2-44.ptr.blmpb.com (va-2-44.ptr.blmpb.com [209.127.231.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35DBE606A31C;
-	Tue, 17 Nov 2026 09:08:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35DBE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED96606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 09:09:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ED96606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=iKOlTySB
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VKdM2V7waAJT4jRjveQpxiuktwi/9b0NUDYrn5xiOh7M3XhmJb+C/OBZqMdMHMXWp1XBhH0CdUF7U8LvERluXEN3zo6NYQIndUwxdHwH0NYcHxYyDViX0ZO2tVGV2kdiPGNktPEDkXvfGNhupphOZe7C40A7wVduORSiDyY+ktmwXsieVcYim40jc9lFFZXX3otRnnXiAP45mKJBQH3QNd3yOySceynNta/JHMud/Zx0tJbsK80m42Y0UdoXjoA3Hec/q68mgIdWUoTaaQUDEvZTvMdDlhQ9tzpohVO2hXN0rJAH4UonykDMoaBJqLeRDFEeKO/GOpYkCYBYKKMoNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iIpYJPZimjQTGw3I5irovopL5vVDDsAT1H6lBRv7VCE=;
- b=rSa6a0HRvAjIkfm7D2Wt9N9OnakuceJnIJABqznapiB6cvguiCc179iIRqBjTpMAZlZhCyLNfNDxgCV1xYhFB+vUKC+Sbtb5ousTlgqjFAkSQB45bUK/zLMpdGACmUFQ7khAisS2rc5eHKJzV/mXZ8oWV2Mh8Nf9MaaXOAkSZzt1MqbH8jH0ERXBtovCLAaGTNoye2e3XvfvHCbOi2pIMoZvVC9Nb6TLi2fFXLWyoUtfh11LbdkEd55QB8AaWDGLuEOjtLz8gphSuxH1Y6uv15L17Mv+Awq3Ps0S2P0lUJFsv3MLDHC4HMv6VoK/PfI2qWWJ/CJP2cmzXXCIkPI3cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iIpYJPZimjQTGw3I5irovopL5vVDDsAT1H6lBRv7VCE=;
- b=iKOlTySBwPQcMMeliGxNYoED5CRuNU4Wl0lKLoQjjwuDPzxqs4y5u1f4+MHXfQ7AJoQxqfmnpVlQU9epF0AyR9a+4+67tKz2hsuO4rn1SdvpGQPAItIdRkZCZLJO4Izoiw6w1DUnerURWm8oEpZ5WAKWTV1qchk1NN+dcUqZWtICC+aREEjxuAvH8HIrneG2Raff2LTQN8d0Rxy7ha0OIvO92H7iFunFujkwWv5dhYmzQ9HGcfX7NJDzR1GPPz+Xcnrs2AA2wKbEnxFXHVx4BC/r/d13HeGemiB61mJOq6XxBglHiQ/pvk2U7CPw9lf98u0T7biw2rNYsj+d6ZeKhg==
-Received: from GV2PR04MB11740.eurprd04.prod.outlook.com
- (2603:10a6:150:2cd::13) by AM9PR04MB8381.eurprd04.prod.outlook.com
- (2603:10a6:20b:3b5::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 09:08:11 +0000
-Received: from GV2PR04MB11740.eurprd04.prod.outlook.com
- ([fe80::ca5f:7e1c:a67a:a490]) by GV2PR04MB11740.eurprd04.prod.outlook.com
- ([fe80::ca5f:7e1c:a67a:a490%6]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 09:08:11 +0000
-From: Claudiu Manoil <claudiu.manoil@nxp.com>
-To: Russell King <linux@armlinux.org.uk>, "andrew@lunn.ch" <andrew@lunn.ch>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Vladimir Oltean
-	<vladimir.oltean@nxp.com>, Wei Fang <wei.fang@nxp.com>, Jakub Kicinski
-	<kuba@kernel.org>, Simon Horman <horms@kernel.org>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "Frank.Li@kernel.org"
-	<Frank.Li@kernel.org>, "sashiko-reviews@lists.linux.dev"
-	<sashiko-reviews@lists.linux.dev>
-Subject: RE: [PATCH net-next v4 1/6] net: enetc: Add pseudo-MAC support for
- ENETCv4 Ports via a fixed-link node
-Thread-Topic: [PATCH net-next v4 1/6] net: enetc: Add pseudo-MAC support for
- ENETCv4 Ports via a fixed-link node
-Thread-Index: AQHdc4nYhJFH1dmVTk6cQvCCjjel0rctr1QAgAQ9z8A=
-Date: Tue, 17 Nov 2026 09:08:11 +0000
-Message-ID:
- <GV2PR04MB11740CF1755A54ECCB6075434967B2@GV2PR04MB11740.eurprd04.prod.outlook.com>
-References: <cover.1794581338.git.claudiu.manoil@nxp.com>
- <4f51bfd237fa584c7d9187d7b82f36e261853ea3.1794581338.git.claudiu.manoil@nxp.com>
- <sashiko-outbox-214685@kernel.org>
-In-Reply-To: <sashiko-outbox-214685@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR04MB11740:EE_|AM9PR04MB8381:EE_
-x-ms-office365-filtering-correlation-id: e536ee52-fb55-4360-ab80-08df448a4dc8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|19092799006|376014|7416014|38070700021|10067099003|11063799006|260925021311599003|260925021911599003|56012099006|260925022911599003|4143699003|261026121527099003|261026140227099003|261028144727099003|261022075727099003|261022113327099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
-x-microsoft-antispam-message-info:
- 59+RAJjxLiUuiHpX+OgoFQL6qGoEZWo2hPAecDUOV5P5v69W9TuSjvZ1VjelQb27Q+igzC8XYg/7LyieoyHpxFAkq+bg+wpaWkzb3VnXveNXVCQWxVc4h9AP+hOkSpgCCY8wNBefheLw8BlyW4bEskr92Ywp5br87UGu5v2/WdPprtNJD6My/F0gGOUlvYFwaAvDzm7L7Ifz9B40Qsi+gaJvhMW6IQtL4JJpnwXwBm//KFFtqv2afkkpbRYGAXO+czEKBRAhMasvoP1kzCN+gjFBSGuW4Iy+RiGshqWqiYFrGZcMuLQMPVsbtOL8GSZL5CabYRPz4U8EqVvB4ubugoxUhX5Eq1p3QL0BWlAZo9qbVOITgRmtx1zVvkjPV46lxCWia/mpZB+AzInRVcC1dbZQUTVJ2KqfgFQgQQbRUyZMB83l5C87bJ4zUSkQ2VgtzNch9O9ry58Z+G1kVb7h70aEaOFa4d3da8ABQGPwZgvpkC1KSwcauTzF9hmF2tISBz/25SSWCL8Y+dyYC55NEHaBZhj6sZ+4Pt2XX2I/kY42ckQEaahdwI2wu0gd5y1ct2NKY/xgcTutnJqCAZnkhdG/5/JGyF83Lu7GXRv939EqTEa5mXXlEfK0IzADTH5xBO4ZdFrKzZGP/DEc/uFcMwLgoJtLddGVq584pmxLDi8=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11740.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(19092799006)(376014)(7416014)(38070700021)(10067099003)(11063799006)(260925021311599003)(260925021911599003)(56012099006)(260925022911599003)(4143699003)(261026121527099003)(261026140227099003)(261028144727099003)(261022075727099003)(261022113327099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?t5FM3+vBAB9GsCp0n5hV5Bz9omzptI1lnwpfCAdOpZeWDLhfN12xyLgJ0I6W?=
- =?us-ascii?Q?n0cgaYGZEXeCd6bwAWuDUHdPY6C94wPw0Iyh7peQq9LJNBBr/H5cTVvvBB4Q?=
- =?us-ascii?Q?2Gmp9n6dCD5ZG+FK7KQ+21s7cUKshZ7MSEO3AlNEXoFpXU2GDBpXDBxj+b+r?=
- =?us-ascii?Q?REpYi0S/ozclEFoDpwzSZAx1FjTNTnodnL4yUqJ9vM9tf2vqHYbjx81/L7q0?=
- =?us-ascii?Q?dPqJVyFCyoe+hHtFyRc3M1jkthf/ygQM/IBG7p0tZJ9YUy9HrQVcvln5m1PG?=
- =?us-ascii?Q?J5tWpgBa2MSXTvTnvD0yTSmRV8vNI9skZdRIXtFTAiCxI7PbLSGV0po/DFxw?=
- =?us-ascii?Q?s8C/0u/H+REvWq881HIyu2clwfXDerRRz/XFof3Dr1fBwoVBoJzWsaJCQwQa?=
- =?us-ascii?Q?RKtGKANDLfq1S9cYVLsiJzptjmdBAdtdx5h8KXoFgwGB8FliwO1oxRjNDyre?=
- =?us-ascii?Q?iuwWujkRSBUa/iY1ZZp41a5ccR0WlQ8KFGd37C6FT9se77gaGYmhc8YLqpW9?=
- =?us-ascii?Q?hgev+F1/KINbZ6KI8OKmxnmsYJvR3BvdGneGP7wZLt4TbDR4cXx5BOH8ez4H?=
- =?us-ascii?Q?CuAubySX9i1E4Li2LETyHQyP7PcpbUzutL6uj4pCsVz215nsGkNq3btYTUuA?=
- =?us-ascii?Q?W3oPzQB3D5f9mFTOaIYns//qJdlkOw7BzKbkNR2+esjmKaaKbTGBDBX+d2zo?=
- =?us-ascii?Q?+jD4OKtmgMJSx9A8ML5A0Oi5N9TLbB0IFAVHxDm37M/11KNxymDjGuHhnL3T?=
- =?us-ascii?Q?spsxKqFDOqSwrqEolHbfXtRETjyLhC2Hl4uyG/gL8gHT3DedDQUZWvkH7UC8?=
- =?us-ascii?Q?etHYM+B5bJlNTEpyPrqJ2Zmml1NJPdcXEiMMTIOvEwDo6SIdyZD2aAKNi59z?=
- =?us-ascii?Q?FbXgzSbbLOvo5wC6F4hDAPqwpyM3IDan9jTLzYJsD/QYWwziy2QxSDpWQWHg?=
- =?us-ascii?Q?3FQTZKNznU/2vZw48ByN1I3o6hxxBJ+clC0F5B0hBfM/eJ8yTQPijhzMxUvm?=
- =?us-ascii?Q?DLLlapf+rT0BjAnBXhXAyv2abbaNm+bPMlrHK9NB8w4diUBhGQN/j4ow0Mqm?=
- =?us-ascii?Q?TWTTr7l8jBaaUie952TZRt4ob0UM2OCE3gpjVPRRJf2ImUUUc731UfZjwpxV?=
- =?us-ascii?Q?kDyfLZwMfC2cm6Nyn/RM544wPbOHxlfUd2wdHN/wH4Wu1nlei8dpPp1Dxasx?=
- =?us-ascii?Q?euX6aAtOrsQrGnF1yfAYg+E9L5mHmkbr07onmiLbLsSNIkIc378JBMr4mlq8?=
- =?us-ascii?Q?YJRd3UPAd6OY1HRmzZ/VFvwM0leIZ8i81Cc90v4X8/L6vNPsrqzcz1mdVC+x?=
- =?us-ascii?Q?Zol02nJXa7UhCqDSFs5BnlFfzMqUPUMvWS6FE6cRgITTke1c3PS6h1gN7yY6?=
- =?us-ascii?Q?FRvRtcdMB5193LPyekhutjLk/3wfGOSF2n4qxSFMri3v236+Vgd4Bd78AcTl?=
- =?us-ascii?Q?D0FFskHNFSFHiAMwVA6f7/HoMWYUxTiK0jbhGNOIze5hYVmH9OdR4vN5V3GO?=
- =?us-ascii?Q?6omSDHK4vw4f6kFCvtW1SD5hPAqnOQmahJA4b/VPEO6/RAZgLfB/xPRG888U?=
- =?us-ascii?Q?qG8jthpD2OB+pohLS69nk/StvnK8w31vXxSlDEOcju56O5kgoZcDSx/L0efu?=
- =?us-ascii?Q?RYHfYMHZiYDKmfUt+wKWPIHdfFhPfGyZUc3hyhATdcnXoLSzwnyWXVIT1aKt?=
- =?us-ascii?Q?PHfvEPG0yp8WWLrKXCJJyoxJyloMRwb6SlowEsNeXnczvzdEbOLmvizKKcNY?=
- =?us-ascii?Q?cyGBfODe4A=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=EP8ylC9k
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2303200042; d=oss.cipunited.com; t=1794906574;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=9kU6pzFrF0JRjF9S1nvwA7nlQ5cqugMZ9xHh5jZBAxQ=;
+ b=EP8ylC9krx9iTbOzLJ157ycozWUfqxXe52eu+gxUPfkwAlUM6dEBQQbiWAOT8Rf93GEXe5
+ DKaJni8w8avNd1pvaUuvrsnDuVL5ecZDkTK+Xf9UEDYHX/FZMN8TUVG8o316k823rwgCX6
+ ++DgH8CpVbUDBOcV9SiE5PEWzLAFggunlWWrBp3q2o2hCyJeJFchb/YeKjDQz6Sr8oEdU2
+ 7DRFBdda8CzItKeCttLHlFicquUjgLQAmafGwJz/KqnZ2gwp0ELotoHT4wBpFpo2l+cPjr
+ ceFdz80iCoPyKGiQ1ZoaK7tXLXu3DxsCixgkvJsdHlQ4CYHJsQM52cznlZkRDA==
+Date: Tue, 17 Nov 2026 17:06:42 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -153,116 +52,93 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11740.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e536ee52-fb55-4360-ab80-08df448a4dc8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2026 09:08:11.0428
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zrqa/CM1ogvVoWKeEmzkp9VxTq+psviQhD8H+UIxV6gIujR4BHVCdcIpCM8Kn4TkexEHE0jbE8JgtN0nbmhnjg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8381
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26afc19cc+1aa41a+vger.kernel.org+rongrong@oss.cipunited.com>
+To: "Keguang Zhang" <keguang.zhang@gmail.com>, 
+	"Wim Van Sebroeck" <wim@linux-watchdog.org>, 
+	"Guenter Roeck" <linux@roeck-us.net>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Conor Dooley" <conor+dt@kernel.org>, 
+	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
+From: "Rong Zhang" <rongrong@oss.cipunited.com>
+X-Change-Id: 664fad58-mips-ls7a-wdt-1e614643b33d
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-mips-ls7a-wdt-v3-0-2e88f7e1d6c5@oss.cipunited.com>
+X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
+Received: from [127.0.1.1] ([171.15.157.139]) by smtp.feishu.cn with ESMTPS; Tue, 17 Nov 2026 17:09:31 +0800
+Cc: "Rong Zhang" <i@rong.moe>, "Yao Zi" <me@ziyao.cc>, 
+	"Icenowy Zheng" <uwu@icenowy.me>, 
+	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, <linux-mips@vger.kernel.org>, 
+	<linux-watchdog@vger.kernel.org>, <devicetree@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Rong Zhang" <rongrong@oss.cipunited.com>, 
+	"Conor Dooley" <conor@kernel.org>
+Subject: [PATCH v3 0/7] MIPS: Loongson64: Add Loongson-7A watchdog support
+X-Mailer: b4 0.17-dev-ce4c1
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23Nyw6CMBQE0F8hXVtCWyjoyv8wLvq4yDXyCBdQQ /h3KW4McTnJzJmZEfQIxE7RzHqYkLBt1qAOEXOVaW7A0a+ZaZ2WxmcFr7Ej/qDc8KcfuAAtUp0 qq5Rn66brocTX5l2u30yjvYMbAhIaFdLQ9u/tcBKhx2QitRAi2dmT4Ak/6sLaIhNSgj63RLHDb mxwAB+7tmbhY5K/itorclWgMNZrK8s8d/+UZVk+xMpljQoBAAA=
 
-From: sashiko-bot@kernel.org <sashiko-bot@kernel.org>
-Sent: Saturday, November 14, 2026 5:17 PM
-> To: Claudiu Manoil <claudiu.manoil@nxp.com>
-> Cc: imx@lists.linux.dev; devicetree@vger.kernel.org; robh@kernel.org;
-> conor+dt@kernel.org; Frank.Li@kernel.org
-> Subject: Re: [PATCH net-next v4 1/6] net: enetc: Add pseudo-MAC support f=
-or
-> ENETCv4 Ports via a fixed-link node
->=20
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [Medium] net: enetc: enetc_phylink_match_pseudo_mac_speed() returns
->   >10G fixed-link
-> --
->=20
-> commit 15e36db0338302292004a6cbf3727d8f9d63565f
-> Author: Claudiu Manoil <claudiu.manoil@nxp.com>
->=20
-> net: enetc: Add pseudo-MAC support for ENETCv4 Ports via a fixed-link nod=
-e
->=20
-> This commit adds pseudo-MAC support for ENETCv4 ports lacking static DT
-> nodes by synthesizing a fixed-link DT subnode at probe time with the spee=
-d
-> derived from PCR[PSPEED].
->=20
-> > diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-> b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-> > index 8facc8bf8693a..b032b586f07b4 100644
-> > --- a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-> > +++ b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
->=20
-[...]
-> [Severity: Medium]
-> Can phylink_parse_fixedlink() handle SPEED_20000 or SPEED_25000 when
-> enetc4_add_ppm_fixed_link() writes the result of
-> enetc_phylink_match_pseudo_mac_speed() into the fixed-link DT node?
->=20
-> When PCR[PSPEED] is configured for 20 Gbps or 25 Gbps at boot,
-> enetc_phylink_match_pseudo_mac_speed() returns 20000 or 25000, but
-> phylink_fill_fixedlink_supported() only populates linkmodes up to
-> 10000baseT_Full:
->=20
-> drivers/net/phy/phylink.c:phylink_fill_fixedlink_supported() {
->     ...
-> 	linkmode_set_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT,
-> supported);
-> 	linkmode_set_bit(ETHTOOL_LINK_MODE_5000baseT_Full_BIT,
-> supported);
-> 	linkmode_set_bit(ETHTOOL_LINK_MODE_10000baseT_Full_BIT,
-> supported);
-> }
->=20
-> As a result, phy_caps_lookup() in phylink_parse_fixedlink() returns NULL,
-> triggering a phylink warning ("fixed link full duplex 20000Mbps not
-> recognised") and leaving pl->supported, pl->link_config.advertising, and
-> pl->link_config.lp_advertising with no speed linkmode bits set.
->=20
-> --
+The Loongson-7A has a watchdog compatible with the one on Loongson
+2K0300. It uses an internal 50MHz clock source of the PCH, which is also
+shared among other miscellaneous peripherals in the PCH.
 
-Hello,
+Add a 50MHz fixed-clock node with label "pch_misc_clk" to represent the
+miscellaneous clock, and migrate existing miscellaneous peripherals
+(namely, ls7a_uart*) to use it rather than clock-frequency.
 
-This remains the only outstanding issue for this series introducing S32N79 =
-support [1],
-and I would prefer not to address this in this series, for two reasons:
+With that, add "loongson,ls7a-wdt" compatible to dt-bindings and the
+corresponding watchdog node to ls7a-pch.dtsi. Afterward, enable
+LOONGSON1_WDT in defconfig to make it work by default.
 
-1. It is not specific to the ENETC pseudo-MAC support. The ENETC driver
-   already advertises MAC_20000FD and MAC_25000FD for pseudo-MAC ports
-   (see 7c9a6ae0edb2 "net: enetc: differentiate phylink capabilities
-   for pseudo-MAC and standalone MAC"), so this series does not
-   introduce the situation. It only makes it reachable through a
-   fixed-link node, which is the same mechanism any other fixed-link
-   MAC would use for these speeds.
+Tested on Loongson-LS3A4000-7A1000-NUC-SE and Lenovo KaiTian M530Z.
 
-2. The limit sits in generic code and in the binding, not in this
-   driver. Besides phylink's supported mask, the "speed" property of
-   fixed-link in
-   Documentation/devicetree/bindings/net/ethernet-controller.yaml is
-   also restricted to 10, 100, 1000, 2500, 5000 and 10000. Limiting
-   fixed links to 10G looks arbitrary to me given that 20G and 25G are
-   standard speeds and are already handled by phylink's capability and
-   phy_caps tables for non-fixed-link MACs.
+Since the series modifies ls7a-pch.dtsi here and there, it also fixes
+the weird semi-dec-semi-hex style in ranges and reg properties and add
+the missing #address-cells = <0> properties to interrupt-controller
+nodes.
 
-Extending fixed-link to 20G and 25G therefore touches phylink and the
-DT binding. I think it deserves its own series, where it can be reviewed on
-its own merits by the phylink and DT maintainers, rather than being bundled
-with S32N79 enablement.
+Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
+---
+Changes in v3:
+- Do not add #address-cells to the lpc node (thanks Sashiko)
+- Strip applied material (rebase on top of watchdog-next)
+- Link to v2: https://patch.msgid.link/20261113-mips-ls7a-wdt-v2-0-e8abd6b2f77c@oss.cipunited.com
 
-This is the only outstanding issue I am aware of for this series. I'm open =
-to
-send the phylink and binding change as a separate follow-up once we agree
-on the approach, if no one else wants to do it.
+Changes in v2:
+- Add a fixed-clock node to represent the clock source for miscellaneous
+  peripherals instead of introducing a new clock-frequency node (thanks
+  Guenter Roeck, Conor Dooley)
+- With the above change, "loongson,ls7a-wdt" is now compatible with
+  "loongson,ls2k0300-wdt" (ditto)
+- Replace pre-existing clock-frequency nodes by utilizing the new
+  fixed-clock node (thanks Conor Dooley)
+  - Suppress warnings in lefi_fixup_fdt_serial() when the UART has a
+    clocks node
+- Fix weird semi-dec-semi-hex style addresses and ranges (ditto)
+  - Also fix pre-existing ones, as their context (clock-frequency) is
+    touched by the series due to the previous change
+- Rephrase commit messages (ditto)
+- Add missing #address-cells to interrupt controllers, as its absence
+  causes a flood of warning when verifying my changes
+- Link to v1: https://patch.msgid.link/20261110-mips-ls7a-wdt-v1-0-968bb85122e6@oss.cipunited.com
 
-Does that approach work for you?
+---
+Rong Zhang (7):
+      MIPS: Loongson64: env: Don't warn if UART has clocks node when fixing up FDT
+      MIPS: Loongson64: dts: ls7a-pch: Add missing #address-cells to pic node
+      MIPS: Loongson64: dts: ls7a-pch: Use hex in ranges and reg properties
+      MIPS: Loongson64: dts: ls7a-pch: Add miscellaneous clock node
+      MIPS: Loongson64: dts: ls7a-pch: Bind UART nodes to miscellaneous clock
+      MIPS: Loongson64: dts: ls7a-pch: Add watchdog node
+      MIPS: loongson3_defconfig: Enable LOONGSON1_WDT by default
 
-Regards
-Claudiu
+ arch/mips/boot/dts/loongson/ls7a-pch.dtsi | 49 +++++++++++++++++-----------
+ arch/mips/configs/loongson3_defconfig     | 54 ++++++-------------------------
+ arch/mips/loongson64/env.c                |  6 ++++
+ 3 files changed, 46 insertions(+), 63 deletions(-)
+---
+base-commit: 865c2d0f1dd3f0937865dd11819eeb59298a814c
+change-id: 664fad58-mips-ls7a-wdt-1e614643b33d
 
-[1] https://lore.kernel.org/netdev/cover.1794581338.git.claudiu.manoil@nxp.=
-com
+Thanks,
+Rong
