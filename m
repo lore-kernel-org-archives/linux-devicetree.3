@@ -1,99 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933479;
-	b=LP55xqhjZljDXx1vW/OaCW62nG3jq8iVQaPlZCetehjreEaNDNrzu7UwM8hAwa/YmAZR
-	 e88+C5q8Sm42sCY+uYWIsprizpoM1GF+8wPGEAbLSDewEIKJ85p8vs5LOnEhsx+p3ErIS
-	 TkVA6+Nm5KHepjfEsZxJEEiK6OxUWG/gt/HNlU5W6iFmFblsTr27vdE86PytQsOUt27yM
-	 mm3h2yU/f+pMjhUmptLuFMSIvGCoooq389zok10CHyL8grNPQ1yoFOTqBmDnNPkOIHBNh
-	 3hmPvgKNU2lrCXu+bOATFmoiz2vaNOAdJP+zen4jVSs5M/AuMU3WywHuYQQanwWL2Sw==
+	t=1794933516;
+	b=lYZCQeMoioD3ZLpReNGn1c2pLKrsRNq8nWPkkxJi1uceCTSPaZKiMlbZpcL61GvaHWVc
+	 SSHih/IlfqH8AgnACCwB1sZMlHF3hfwM9qFVKVMBuL4mBJ3vNp7d1NDJcyQhRoPn2IPQA
+	 ARc80cYwkdaTCJe8fBbE1Qk1G+AdO5m52GS2VIAc9vLnPf8lcJwdJswSAd78mnHBAslY2
+	 EoASURbCdNUQNYe0jv5XwhaEmP4j5m2S0JeWuH97mjQN9Lk8I09erNYGjhkVND+iz3U7E
+	 y532vQ7Nq5/HEyDu6AqjciGCfMOCrcy0pl2J9OQDRPkElXi6cWo9dO8yHMVxUsU5LdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933479;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=LBXiyQLy540aAEPtNSta6m8Ru37kUuPxCoM4iwVRxzo=;
-	b=Z1F5IGgYx7z0nqYZXaQ64wJmNnr0z6ZKmG+OIzospKlAJRx5p1MlS4Xa4mgHm00yGm66
-	 TdeEgjZmXxcJ7Xyc/IEc5WJKmjI2tH44m6/R1NGXle1PytqEfyTdzTYyANzCiYji4TVzA
-	 RGMkEioDlcJJQI4nvCtIMu4NvBohxMMSQa6F9N8fECwgzGS1S6S3rNOASH7nkDA2wUNQk
-	 zxTL8XipmjmkY1JlG3W4dppGCvQC5I8MFrcx3aXqlxJwee99j+WWwzbn/oi5pjJcmgzUW
-	 cPGzjr0Q8sbPkmR01L3Qi0AXenKQOSGDj9stH19MbklYd6E3agHJhyZTMNuUPT2AqRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933516;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=46X1A36lRITxJaTPLlxxVzXDY079oCIGjNdvfhIAUtU=;
+	b=zHhw8H3XGnXUJOGEw0RjffuugUeOP7czhNdgbb8Dc3ScJ/pMZwWkh2Gs3NK+kX31gJtv
+	 t7mxzc16P9jdn4DIviXTQ5C41V17zHbxFk75S4IZKEHatkvYDikRtcmAAFIX68qD8Q6R3
+	 QQthgL9DFAMRq2eNCI5We83YXLGiOkT27ypANqvMtwcoA71q6E3O+qG9j/vQueXvcNHHd
+	 skbuk9LxivS45swNjuLqY/CXf6ZnY/YkMMKEa+45DpWiALbgBV24Unlwhl34IMoTVFXKG
+	 /Z52MVULy5d/JsnSnG476hbfVBdXWaVUQtUXRvUJ3zMMqOzqILLL0hkwl1bRjAudFNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pu3VmwTq;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzXGWm54;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15CF606A32C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 16:37:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D15CF606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB38606A333;
+	Tue, 17 Nov 2026 16:38:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pu3VmwTq
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a210470b49so441495e9.2
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:37:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794933477; x=1795538277; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LBXiyQLy540aAEPtNSta6m8Ru37kUuPxCoM4iwVRxzo=;
-        b=pu3VmwTqFXhXYIDXsNaxCSy2vpYd9ciqG5Qt6dHE2Y2iR7/QaBDmkG/QTiFKGORlFx
-         vqaM505zEUTVNdgUH0LU4JJws9coXoENjeKKMkD3MxzCaus/FtSRCBebHbbVFHUbQ3NY
-         lTE0McxpDzkmZpIAdJsN7CLilTT6N+3D1lBEO5IgnIL/fFgVIxMBzPJI7JG+LayPWBCg
-         yHBPIjvajNZflGZLp7AKQYkrz4fswYvH2Pn+VA0+HvVvks/z8zY5yLeQKJD/ntVHGb3e
-         6v7zd2i/9US6SuQ4swNUiAicqOqhNHYyaa++H1uCpZXYMAE/V3RGOs5x5cKKwLbADWJK
-         8gfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794933477; x=1795538277;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LBXiyQLy540aAEPtNSta6m8Ru37kUuPxCoM4iwVRxzo=;
-        b=xTIx69+/qkaf34Kx6EyHC0VUQDT42rW/jnHx+gO9aOUZ6EvoMuvVpQh2eadM/yZALK
-         oUptGf8D1ETtqaIXNOnNyVZMFNdSLuXCwLO8kgnRSh0vDJqcoAtiFqS7mNwBpg0eM5JS
-         gcDdIzbPM5t5Ba2IUayrYuYqKj6J81T6NjCxObWoT2r0krc4Fj/S6zeuhIbIBOIPQGhx
-         WruLvQPJgRlkuMapAZ10dCah+68jZ5JpCgQ7Wzv7sP3vbG8tmtQ2b6G9TIgaAWeTKG+0
-         xckb1O3kk5/x+4446DgOzEEUdWY/PbH1a4GZ507umytCPlQ+XcSxqyg1oG6go8fG6p+o
-         yO/g==
-X-Forwarded-Encrypted: i=1; AL+hErEmk1ZkoztUXSEw8AsxtUvniBz4u6HHlYQRhgWrJz6kLeXoQ3GSUhWP3VBS2jfgV0diJ81fU6V8HDGe@vger.kernel.org
-X-Gm-Message-State: APuU4Z+SsPQzkdSuW+/6WENnrToP0Y/qvrF6mfB1EZlycqWZVXtxJkNw
-	BjM1QfHGyKzi4Xu8n9jP0/j1omSJun4Iq0k5xx1xfNVKmu9ClsJODiw0
-X-Gm-Gg: AYBFou39HUZmP/KGQ9/mHw2S+qafRKP1I5e3AX3r0acxjaowTxFz1ZOQznFYew8k967
-	TN3MDYDWw1sp08HS0S3ffP5zrDT3lrhtHj69/qzc1f1dbDorR6dQcZz9qwMsWJy2/4TVL3p8nLH
-	QmXYWFPeZJH0efnx37OqVj1do72D4mR3czdZR5GKZfR34DGvQ4p9Bb3anxT678zJ61S9NeIKBz6
-	iZ9svypwhG9zrV2pUYuJaS3TIaDztXoSHzO2uymYvyAeJ+9JzQvotpIu1QRSYdImZC8FCn00eOw
-	xgZlF+bRT137PkGISQPaMU/JinlBnt8dns1UrajcPnV++Cs5bRenKAv/PIUNv2z/kH9SXvBcnd2
-	uXrcX//jbbQzQvr9lhX3lB8mfgv77tpnf/bfY1hB6vV4UtVA9KrycdZVK8uzsUqKFb8n1UP4hkS
-	e1IdnkUtW2pAxG7LutgP31Q/WKWFPsJMSGxM1SEWx+oLPODC0k0btNZtbA4VKibeflc0NPbeqIK
-	5O5QYbPkD6QSx3A+qRgr5w3VPsbfsYG5xY2tTaYVUOhNHO94xoxnFESybucYoztHdh6HMcxM5nZ
-	riWz2oOFUb7GpIYCaAkxEaAbz2i0L1294VaU9hEUf0+48qmPlqAARoy344j2Ne080uqaCiR/dLk
-	7VfPjA8ULRmgwSYcKFysKxNfRVj98GtiH+JxOlifIPanst869VXfqc4vdAN/x8sqIGb819IBc/J
-	ul0rhq9z0/c+ORiQt2elSbTg/nRd+0qawz3ZZEGzd6OcEAkhUlJ12+lAmMd7PTbHB/BDhVLSr9g
-	0cGE0cVv5qiFd0opo4JJv/I19rLD3pFp0uqGP8hOlMp7x2d4TKIGqMfv5BygekuqGAt
-X-Received: by 2002:a05:600c:a0b:b0:4bb:6847:7927 with SMTP id 5b1f17b1804b1-4bb68477b90mr206657185e9.7.1794933477039;
-        Tue, 17 Nov 2026 08:37:57 -0800 (PST)
-Received: from jernej-laptop.localnet (95-143-148-21.dynamic.telemach.net. [95.143.148.21])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b104sm29882037f8f.6.2026.11.17.08.37.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 08:37:56 -0800 (PST)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Jun Yan <jerrysteve1101@gmail.com>
-Cc: Jun Yan <jerrysteve1101@gmail.com>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: allwinner: h6: taiqicat-a01: Enable Ethernet
-Date: Tue, 17 Nov 2026 17:37:55 +0100
-Message-ID: <n0Gb_HzYRTi_JMXR8vuZwg@gmail.com>
-In-Reply-To: <20261117142122.246986-1-jerrysteve1101@gmail.com>
-References: <20261117142122.246986-1-jerrysteve1101@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzXGWm54
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC3221F000CA;
+	Tue, 17 Nov 2026 16:38:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794933516;
+	bh=46X1A36lRITxJaTPLlxxVzXDY079oCIGjNdvfhIAUtU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CzXGWm54quJek4+WeGA5ThtKKio+wFJfPAJxfJsnaZdl5MOI9Vg0TJSV3hRZXUdPX
+	 sUcKZIOD0i2a9/5fWnivG9SLP5tKVLhvlQjgyz+u80wAPNx68KFoQQzMlPOYm9loQd
+	 sdezHyNDyWbiE8jkrTjtnTxitoye9PZaiwX5dizfOYhbBkhvgAIAi8/lrd2aqHlMQC
+	 +05ngZU3roLo4v6otfUoN+5I4PEeVFGs9QV8omgnYOwK0FwCUU1Zxpdm20Eu0lStOc
+	 oOVNCSE4CsrxNQCptGKN2U+he3l+cUPjZ5ZEPDzWXC0FXdDda4PoLhyx937L5Q+yfe
+	 Z6LwPS4U3BkHw==
+Date: Wed, 18 Nov 2026 00:18:12 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/8] dt-bindings: net: Add MDIO demultiplexer
+Message-ID: <avx-RO_K5h12HWx2@xhacker>
+References: <20261116135442.4827-1-jszhang@kernel.org>
+ <20261116135442.4827-2-jszhang@kernel.org>
+ <16ecb3ac-7876-4db5-9168-5ac9bf31d4b7@lunn.ch>
+ <avvgy_bmRSVApCHA@xhacker>
+ <bd19b55b-00b1-406d-a16b-d04c35efb7d3@lunn.ch>
+ <avxhJs-51vs2Icje@xhacker>
+ <6eb16cd9-27bd-4934-9621-b8928dce6902@lunn.ch>
+ <avx43Nv-DJCX5_Rr@xhacker>
+ <4d4dc86c-c947-40e2-bdaf-ed00a39f3771@lunn.ch>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,116 +76,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <4d4dc86c-c947-40e2-bdaf-ed00a39f3771@lunn.ch>
 
-Dne torek, 17. november 2026 ob 15:21:21 Srednjeevropski standardni =C4=8Da=
-s je Jun Yan napisal(a):
-> The TaiqiCat A01 has a 100 Mbit/s Ethernet port, which uses the EPHY
-> integrated into the co-packaged AC200 of the Allwinner H6 SoC.
->=20
-> The AC200 derives its 24 MHz reference clock from PWM1, so enable the
-> PWM controller and the pwm-clock node that supplies it. Also enable
-> I2C3, over which the AC200 is accessed, and describe the AC200 EPHY
-> package on the EMAC MDIO bus, with the EMAC operating in RMII mode.
->=20
-> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+On Tue, Nov 17, 2026 at 05:20:39PM +0100, Andrew Lunn wrote:
+> > > Each transaction?
+> > > 
+> > > Are you proposing to use both MDIO bus master? Why? To the outside
+> > > world, it is one MDIO bus, so you only need one active MDIO bus
+> > 
+> > Yep, both MDIO bus masters. I wanted to let each MAC uses its own
+> > MDIO rather than disturbe another MAC for dual MACs case.
+> 
+> How does this actually work? Each bus master sees each PHY. So one
 
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+This could work since the demux serializes two masters' access + only
+point to one phy phandle in one mac's DT node.
 
-Best regards,
-Jernej
+> hardware device is represented twice in Linux. Bad things are then
+> going to happen.
+> 
+> As i said, the outside world has one bus. So you need one MDIO bus
 
->=20
-> ---
-> The AC200 MFD and EPHY drivers/bindings and the sun50i-h6.dtsi AC200
-> description this depends on are already merged in sunxi/dt-for-7.5.
-> ---
->  .../dts/allwinner/sun50i-h6-taiqicat-a01.dts  | 40 +++++++++++++++++++
->  1 file changed, 40 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts b/a=
-rch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts
-> index 225f42bd3b9e..9b192caeecb2 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts
-> @@ -14,6 +14,7 @@ / {
->  	compatible =3D "ultrapower,taiqicat-a01", "allwinner,sun50i-h6";
-> =20
->  	aliases {
-> +		ethernet0 =3D &emac;
->  		ethernet1 =3D &sdio_wifi;
->  		serial0 =3D &uart0;
->  	};
-> @@ -87,6 +88,10 @@ wifi_pwrseq: wifi-pwrseq {
->  	};
->  };
-> =20
-> +&ac200_clk {
-> +	status =3D "okay";
-> +};
-> +
->  &cpu0 {
->  	cpu-supply =3D <&reg_dcdca>;
->  };
-> @@ -107,6 +112,14 @@ &ehci3 {
->  	status =3D "okay";
->  };
-> =20
-> +&emac {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&rmii_pins>;
-> +	phy-mode =3D "rmii";
-> +	phy-handle =3D <&ac200_ephy>;
-> +	status =3D "okay";
-> +};
-> +
->  &gpu {
->  	mali-supply =3D <&reg_dcdcc>;
->  	status =3D "okay";
-> @@ -123,6 +136,29 @@ hdmi_out_con: endpoint {
->  	};
->  };
-> =20
-> +&i2c3 {
-> +	status =3D "okay";
-> +};
-> +
-> +&mdio {
-> +	ethernet-phy-package@1 {
-> +		compatible =3D "x-powers,ac200-ephy-package";
-> +		reg =3D <1>;
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +		vcc-supply =3D <&reg_aldo2>;
-> +		nvmem-cells =3D <&ephy_calibration>;
-> +		nvmem-cell-names =3D "configuration";
-> +		x-powers,ac200 =3D <&ac200>;
-> +		x-powers,xmii-rx-clock-inverted;
-> +
-> +		ac200_ephy: ethernet-phy@1 {
-> +			compatible =3D "ethernet-phy-id0044.1400";
-> +			reg =3D <1>;
-> +		};
-> +	};
-> +};
-> +
->  &mmc0 {
->  	vmmc-supply =3D <&reg_cldo1>;
->  	cd-gpios =3D <&pio 5 6 GPIO_ACTIVE_LOW>; /* PF6 */
-> @@ -173,6 +209,10 @@ &pio {
->  	vcc-pg-supply =3D <&reg_bldo3>;
->  };
-> =20
-> +&pwm {
-> +	status =3D "okay";
-> +};
-> +
->  &r_i2c {
->  	status =3D "okay";
-> =20
->=20
-
-
-
-
+Yep, I will switch to one MDIO bus solution by coping with the selector
+in the sl2610 stmmac glue driver. A sample dts for dual MACs case has
+been shown in last email.
