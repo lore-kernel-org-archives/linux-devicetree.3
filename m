@@ -1,88 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936924;
-	b=K+CY1LH68nSfT3632VF3sSZDE+7sJWoJ4bE/i4fS8Ay37QndsmVb0tcoBOYC2QokfTVX
-	 MZ7La5BFwnASyNSj5glEJdQO4OHNpxDmjyrtJZCl9PZ6/aqmghr278PGVxU6u+uIYCqYx
-	 NY3/rqiYt9xWS3l9jbKQbgi/u7Vca7IbkMJBJmGaVNowoZhf1NOcgoBgzGhfDdb/lFfLw
-	 qRi/ytPXszNgLFibmiQKGbqy9HlkaV/289UiVxhSKpizi3deFZ+PZmli1MQk5XvMGZ6RO
-	 FM40NC5wfYoulWSsV5L+aF3fHfCzlzXpUxJFg+nZJ1wv1InmxMXvFxI+/eNr5aM0Ecg==
+	t=1794936925;
+	b=tWWtIy+Jvpny+ScdQjcSW4ZwtplQhsZOAi0+AN9dYTGa0OYnJz9WxB6JX73cqv9Vskqt
+	 1cBHAMXo81Ouu4bX93LC+sNaRZoQK2n8ZjqPAT3Z5LGIsaO41fEE5O2YQ+zaUAxkHDalZ
+	 IozClgPoURCtT5/bWe1JkZ9lNYCbt9punHWnn5NyDD5UD+nN2eodzGb3vDywndmGik+N3
+	 7Uj0Xig74R6/zJQQ2hMQGoFmO1ZfPirk3T2Pg42U28if3MeK+wK1v5GGy7Q6OVTRYP9Ep
+	 mfvJCwD6d8y+RIjceCqIgteHsWRzfLeUfiN8fucMOXWLkEaAK4/6mFyOUEw5mvzRNGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936924;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kaDKA5hattAHds8mPaKS6kzZBkSpzp9jS+jIHno12Zk=;
-	b=XDitWduOI0EXlKSrkJ2cE+18XP8AvPCDRS2h0rOnOeXNgjJ9ArV87XK4L/3Djo1F8dGF
-	 11ha1DrqxhuZdUXcSg3wutto4hEpJ/xYzXIHR2qm/aBOX4pH07CCnO8j6X5U6QjnKrL75
-	 XGs/L1QJxHmhtvNyEcoEr6432VZh8LvBtKb2JImoTtfDKAd6zs3kgarhTtsIwVXfmSmj/
-	 1DqSabHoN3V3owVnEK9wZBZ2tMTV7kQ14BUm1xS0nKprpF90yqghOQEjrzBaPkyYFQlm8
-	 P5vxj9qKriZqddy/xQATQOB5vsND3lK599heKtKgHZL9DN2kKfDYueum8GTs2OrsmhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936925;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=yZ3I9vRuX9ylJnvAv8Fd/DK7PqgzivRoTz54b66hM4s=;
+	b=aWPUgx0Tjl7d917UhLN7uzDS1ewVdy88d9eUzPz5uEFyx+3KJCaD1KitPZUt7HRnQ9Z1
+	 f6NZetGGsLYQT86l6fV845oqMEifGZqdkfgh46kdYypkXSmnNBYmJHl2ZvyZLQIw41jLw
+	 tW6qJYZkYVUzJ91nRU9wPP6MjiJScCGj0j6OMKRvJygcMHhcbd5iDyK43BkfnHJXWVyE/
+	 3ZFDEqgSyOdC9QyM2r8s3JXsgv55/hKyzn8zAYfugDFOYHqE0fOTDOJg51oSKnaeb5eEU
+	 bO8UdlWI7kbPXXAJmsu/QRcF2C8qj3jDO5/sm7usDQS/tMgV5487S/hLFh8pedWUs1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NYwZY+rj;
-	arc=none smtp.remote-ip=74.125.231.138
-Received: from mail-oo2-f10.google.com (mail-oo2-f10.google.com [74.125.231.138])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldprS0uN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A753E60A2623
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 17:35:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A753E60A2623
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14126606A8AB;
+	Tue, 17 Nov 2026 17:35:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NYwZY+rj
-Received: by mail-oo2-f10.google.com with SMTP id 46e09a7af769-862aa241d77so6283a34.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 09:35:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794936922; x=1795541722; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kaDKA5hattAHds8mPaKS6kzZBkSpzp9jS+jIHno12Zk=;
-        b=NYwZY+rjroQjkCW+S+pwjlaO1RVFDDHzNFUYWfiPpc2ZZOOV+GLWgZS5C4tNtKgcTj
-         R7+XKsaXt5IZE3jX+ON0+nMrNozdjYFfqWixuKZONperUFZzoSwB4v3eI02n8a9iyl6d
-         clwKBwSDL1EJf9jFrwZM+AUBNcW1GKM98Uleij51X8ZRZRvx9PRTOovTfIWHtMxZHIsI
-         ssNA0bcVyUQE9Nr+usc3Gharui1AwC64uf2TGdAVLHQOte88iJkOL+pIQ09CM5oiZJ1D
-         e2nBTUhrdkHfhieASi/MxHGdZp6qU2uW8WbDKDwUjJ0mfwYZ/HAdXDMc4D8bUZsBU/6C
-         qYbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794936922; x=1795541722;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kaDKA5hattAHds8mPaKS6kzZBkSpzp9jS+jIHno12Zk=;
-        b=1eD0PyevITgTY50pwcmWDeYjAfOWYvIIUBVKmyuYH0yVHlg9AEi8tq+O2EE2/zoFe+
-         eF2Ha2N0TgokJoiuWkOjUZqys+LbZLSZopFIRUgV60rGkcSnmbPKwhvqhoO/+bqi/3sO
-         DuKak1h4xfCLhXzjpKNsBz+A/4MZmtdtDl8tJ6M0eI1VrQRtNuZCIceet02gNl0aFbzv
-         QZo+NnDVfDMFtJLg5THo6LOnuU6gfdNx6iGhKVn5ZFg4LsdU39PVyKFWQDm9ZTN4Skv7
-         fkv2PsUcPIhYrq4ebk28sc8YYUKlX5owhmw2zs8lHK6VJaO1bPz/JPnT5Vqifna8btx2
-         /m6g==
-X-Forwarded-Encrypted: i=1; AL+hErHO+b5EilBVk0089/rmjkp3X01ok5IZKKUus92itSuXJpo2s+md+QH49v/9p4a9nIknq4cnanoBembI@vger.kernel.org
-X-Gm-Message-State: APuU4Z96XUqA3ErAw4wN60WCVUdbCeo4IOYaF54dUONrt5eyKJTGROHT
-	2YepA7aczJ+nX0o9OBRQ7jxjLMuNHS5aBwH/BhKRWfC2mriC0SFYTOwk
-X-Gm-Gg: AYBFou0+EHUswv0nsNYLiWrsS0+4+BWsYsrEd2c0pi98JRTBvcn8/Ccb/fDHosEwBEV
-	aP9lW084hiyLaxhnRkI8eKRVxWs0J3gbKKTsu6+J5QaPZXudMFgDYAg5TKPffrmWVvgHvoIaElx
-	6/sOy4NIdyZZIKQwt4Od1rlW/DA+qism8ztgd/QX2X+C3m246ixjQLUTd4cKM9/73MlNVktkbMs
-	Hs4vRDfR3LmW1QfvDEFmBLN3o1GX08uFkaFWwpVB2oxwHSFZuihjeLjUBtI28jAw185BPR8biep
-	pMg2DgxrtIM0VZTUMtWSjTeLB9Qah9pZXfwFRLtJ17pRVp/B/NpIU+HZisFtOWCDPUdMz7WGIGR
-	b0upixLsdckOiz3ahu5AnPmOSLvFo1a2hxRapFy3Y4fOuA19KRmXzEqn9pSEcYKZKZdmG+dsrhS
-	fQKFf8RqlBGHBjFruxiraObEPXq9kaDXFTfOUiBX3xtpueGfgvi6DUva/LCipT13Qqv3ULg6cbK
-	w/7R1LC1wEPYS1gxNFzvPpWmZB9UXu3fyYT6b/K1PjZJ7XsJM3S/K08P1uxppDq0Vr1CXJxJ0L6
-	VIcm9tDnPwEEjXlc28wuaS+i/Q8FzjRUO8qs5dY1+B3Acw==
-X-Received: by 2002:a05:6808:1925:b0:55c:888:30ff with SMTP id 5614622812f47-5774240c0a2mr429178b6e.45.1794936922568;
-        Tue, 17 Nov 2026 09:35:22 -0800 (PST)
-Received: from ?IPV6:2600:8804:5716:d800::d500? ([2600:8804:5716:d800::d500])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4b70bfeddffsm190834fac.4.2026.11.17.09.35.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 09:35:21 -0800 (PST)
-Message-ID: <4c64aa52-2b75-427e-8f26-c2ef7fc5b822@gmail.com>
-Date: Tue, 17 Nov 2026 11:35:20 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldprS0uN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 437971F00923;
+	Tue, 17 Nov 2026 17:35:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794936924;
+	bh=yZ3I9vRuX9ylJnvAv8Fd/DK7PqgzivRoTz54b66hM4s=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ldprS0uNwFt+H1U3be8E2gOLAGnw8BZl5s5GVpiNWByV+Ly/0OSD22JIeeAxEMp/g
+	 vajUIU0EUhPQ6Grik6d7HoZo4QrEZCG/qbdNGA2DeRmLimaYUz3G22jERtSf0rlEsJ
+	 XdkI0kkGlwRriDnm0fVfu4H+JZKAVemm7juPMN6KScB8unOvuReiocyYvXxlLxcjrI
+	 jGnyjhxSnD1caR+wZ8oWP9VduidgsFBMr6HkihNTcuMyt0h8DBOB+F4f0IMukeKkOM
+	 aNCUusgK+8Is7lqQdWI9scgMjEIbl0y4zrdB5uLRljVPhKN+GZHQu7GSdlgYDZS3NS
+	 pDxvT9nAn7D5Q==
+Subject: Re: [PATCH 9/9] arm64: dts: rockchip: Enable the RK3588 PHP SMMU
+From: netdev-bot+sashiko@kernel.org
+To: aiyengar1990@gmail.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, david.wu@rock-chips.com,
+ dlemoal@kernel.org, cassel@kernel.org, fancer.lancer@gmail.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org, praan@google.com,
+ will@kernel.org, robin.murphy@arm.com, iommu@lists.linux.dev,
+ shawn.lin@rock-chips.com, sebastian.reichel@collabora.com
+Date: Tue, 17 Nov 2026 17:35:22 +0000
+Message-ID: <179493692280.3136.14096741635369747694@kernel.org>
+In-Reply-To: <20261113-mmu600-php-v1-9-231196049a3b@gmail.com>
+References: <20261113-mmu600-php-v1-9-231196049a3b@gmail.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,57 +68,153 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/2] iio: adc: add mt6397 PMIC AUXADC support
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
-Cc: Roman Vivchar <rva333@protonmail.com>,
- Luca Leonardo Scorcia <l.scorcia@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-References: <20261025-rbrue-suez-upstreaming-mt6397-auxadc-v5-0-5c3c7a5a1851@gmail.com>
- <89c8cadb-0ccb-4aac-9b95-89f355beb24a@collabora.com>
- <60eeaaf9-57db-4ca7-b4f5-bdec111dcdbb@collabora.com>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <60eeaaf9-57db-4ca7-b4f5-bdec111dcdbb@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Angelo,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-On 11/17/26 5:02 AM, AngeloGioacchino Del Regno wrote:
-> I reiterate - I couldn't pick the series because, of course, that one 
-> depends
-> on the binding being merged, otherwise the header won't be there and 
-> the build
-> fails.
->
-> So I can't pick the DTS until the next cycle (granted that this series 
-> lands).
->
-> Cheers,
-> Angelo 
+Critical: 1 · High: 1 · Medium: 0 · Low: 1
 
-Thanks for the reviews, and for picking the binding and keypad patches.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The AUXADC series has already landed. Jonathan applied it to iio togreg 
-on 11-02 (the binding with the header is 8f809aa84698), and it's in 
-next-20261116, so it will be in 7.5-rc1 along with your tree.
+- [Critical] This patch enables mmu600_php on every RK3588 board, but the
+  kernel cannot restore the SMMU after deep suspend.
+- [High] This patch's commit message says "the SMMU has its clock", and
+  the earlier series commit "arm64: dts: rockchip: Add the clock and…
+- [Low] The mmu600_php node that this patch enables has `clocks = <&cru
+  ACLK_MMU_PHP>;` and `resets = <&cru SRST_A_MMU_PHP>;`…
 
-The board only uses the header once, for MT6397_AUXADC_BAT_TEMP (1). If 
-it helps, I can send a v3 of the board patch that uses the plain channel 
-number and drops the include - it builds on your v7.4-next/dts64, with 
-only the binding warnings you mentioned until the trees meet. I would 
-then switch it to the macro after 7.5-rc1.
+--
 
-Just let me know if that sounds reasonable :)
+arm64: dts: rockchip: Enable the RK3588 PHP SMMU
 
-Best Regards,
-Ryan Brue
+This commit removes status = "disabled" from the mmu600_php node in
+rk3588-base.dtsi. That enables the arm-smmu-v3 instance in front of the
+PHP masters (GMAC, SATA, USB3 host2) on all RK3588 boards. The commit
+message notes that PD_PHP loses power in deep suspend and that arm-smmu-v3
+system sleep support is needed.
+
+Link: https://lore.kernel.org/r/20260929034510.2023173-1-praan@google.com
+
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> index cb0a39f637887..0c3d59a391826 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> @@ -574,7 +574,6 @@ mmu600_php: iommu@fcb00000 {
+>  		clocks = <&cru ACLK_MMU_PHP>;
+>  		resets = <&cru SRST_A_MMU_PHP>;
+
+[Severity: High]
+
+The commit message says "the SMMU has its clock". Does anything actually
+enable ACLK_MMU_PHP for the SMMU?
+
+The arm-smmu-v3 driver has no clk_get()/clk_prepare_enable(), reset_control
+or pm_runtime handling. The node has no power-domains, so genpd pm_clk
+does not apply. The platform core does not enable DT clocks by itself
+either.
+
+In drivers/clk/rockchip/clk-rk3588.c the clock is a plain gate with no
+flags:
+
+	GATE(ACLK_MMU_PHP, "aclk_mmu_php", "aclk_php_root", 0,
+			RK3588_CLKGATE_CON(34), 8, GFLAGS),
+
+Its only enable references come from its children ACLK_GMAC0/1,
+ACLK_SATA0/1/2 and ACLK_USB3OTG2. Two things can turn it off:
+
+- clk_disable_unused at late_initcall_sync, when no master is bound
+  (modular drivers, or a board that enables only some PHP masters).
+- The last master disabling its ACLK on runtime suspend or remove.
+
+The SMMU driver still touches the hardware after that. It issues CMDQ
+TLBI/CFGI plus CMD_SYNC on unmap and on flush-queue timeouts, it runs the
+eventq/gerror handlers, and at reboot it runs:
+
+arm_smmu_device_shutdown()
+    arm_smmu_disable_action()
+
+That usually happens after the consumer masters have already shut down.
+
+Could this cause CMD_SYNC timeouts or a stalled bus access? The "Add the
+PHP GRF clock on RK3588" commit in this series describes a similar hang
+for pclk_php_root.
+
+The earlier commit "arm64: dts: rockchip: Add the clock and reset of the
+RK3588 PHP SMMU" says the clock was added "so the SMMU keeps its clock
+while its masters are idle". Does that need clock handling in the driver
+(plus a binding update), or the gate marked as critical or
+ignore-unused, rather than only the DT property?
+
+[Severity: Low]
+
+Will this node pass dtbs_check now that it is enabled? The binding in
+Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml does not define
+clocks, resets or power-domains, and it has:
+
+additionalProperties: false
+
+No patch in the series updates this binding, although the dwmac, ahci and
+grf bindings are updated.
+
+Also, the "Add the clock and reset..." commit says the reset is added "as
+for the PCIe SMMU". The sibling mmu600_pcie node, which uses the same
+compatible, has neither clocks nor resets.
+
+>  		#iommu-cells = <1>;
+> -		status = "disabled";
+
+[Severity: Critical]
+
+The commit message says:
+
+  PD_PHP is powered off in deep suspend and the SMMU resumes from reset
+  in bypass, so this needs arm-smmu-v3 system sleep support [1].
+
+Is that support in the tree this patch applies to? No earlier patch in
+the series seems to add it.
+
+In drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c, arm_smmu_driver has no
+.pm:
+
+static struct platform_driver arm_smmu_driver = {
+	.driver	= { ... },
+	.probe	= arm_smmu_device_probe,
+	.remove = arm_smmu_device_remove,
+	.shutdown = arm_smmu_device_shutdown,
+};
+
+The only code that programs the stream table, the queues and SMMUEN is
+arm_smmu_device_reset(), and only arm_smmu_device_probe() calls it. The
+syscore op added to drivers/soc/rockchip/grf.c earlier in the series
+restores only the PHP GRF StreamID registers.
+
+With this node enabled, the PHP masters get IOMMU DMA domains and their
+drivers program IOVAs. Those masters are usb_host2_xhci, gmac1, sata0 and
+sata2, plus gmac0 and sata1 from rk3588-extra.dtsi.
+
+After a deep suspend cycle, does the SMMU stay in its reset bypass state
+while stmmac, ahci and xhci keep using descriptor rings and buffers at
+their old IOVAs?
+
+If so, the IOVAs would be treated as physical addresses. On gmac RX the
+frame contents come from the network and would be written to whatever RAM
+or MMIO sits at that address. TX and SATA/USB reads could leak arbitrary
+memory.
+
+PD_PHP is also defined only in drivers/pmdomain/rockchip/pm-domains.c and
+the dt-bindings header. No DTS references it, and mmu600_php has no
+power-domains property, so genpd cannot order an SMMU save and restore
+either.
+
+Before this patch the node was disabled and these masters used direct
+DMA, so suspend did not hit this problem. Should enabling this node wait
+until the arm-smmu-v3 sleep support in [1] is merged?
+
+>  	};
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-mmu600-php-v1-0-231196049a3b%40gmail.com
