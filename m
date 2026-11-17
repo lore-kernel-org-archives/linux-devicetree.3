@@ -1,89 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794899113;
-	b=I1P/v1NLSpzw4gW6ERoAnslfNPUNaT7MogFx83YMoBUAQQMw7702wFMiNCLQw+uY4Ft5
-	 wdyV5RogjEyU0V59i6z5D6JZaPSoLQJ5yed81++JGo8yREl8x+i2mMAorORw+e61UGB0E
-	 EpDXJ61zf4J2VbKu9wRT/A3gIMPpiSoQrdUmfPMrcocO0DBmnFT4SHTUjhev9jfTHnetX
-	 l0Q9t7jzqnCqkhkr/eeNqIUIz/cdAyeYXEO9UZbpp/SgkKVBiQ9CcEkuarhUWOHOaWVz6
-	 IGhmCrHTf1lcmk9WP79cr6npcyFbLTO6N8nFuCw7WTOljNBZLCQCRFYUrHx0RFIo68g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899113;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=yREBUehJP9kZv0aqNbOFx6DIC/LJcLkZgW3MOZiPYBQ=;
-	b=NsCf/0MwbV/jN+gIAVywg+m51HmcOBh4+h3vZq8+Rin7Z0fydS7Er5gLOiiiXzfuLmH+
-	 HDOxLLI+w+TiQ3wENRkOl8lNDxNztLPr4uv5D+a8b/eypTjoashLsGEvWiHCGkkADMAYe
-	 +LzDDjsEzgj6DwL+zgmDPoThyftND9NUXJQYFizjM6aoszTexeDpBjy9hFG0tDDVcFw6I
-	 UKv4NOas2XXruUju69+29gWSA59ObUf3M2u0OM9ZR+bvYaRiGseCSZ/P3lJiGOzQhKOLF
-	 l7hlbw5vE1lngOiDxkWtRJC+FDcCB1lKiYDdB1lyhHZsM5fEC502l0OUuPBrxsx6Ojg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0vMpXKDm;
-	arc=none smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794899204;
+	b=QHmLN7jOxq4DnmOj+v2aiDB3z/rxwno7KAQujyjOjjfSOBJe3jXS0vWFVBgPJH3kqB30
+	 Gh7+iID7gFBjOKLEfmTfMYHbIDx/fm5wE1ENSoB9AA3tKFkl4BtwEg5yKei+9ZJJBcPTM
+	 gcbkBd9TtdNugc7q+92qkOWTZHeFYWnLHNCNbrM6DZtTRMFxVdPIlr5BlNRTdNzMbsH/F
+	 2M6NUOJM6Mn6yT0L3NR3MBBDiAeEnoB/QhD83YbVdhXhyoJZoIdw9Ars0PYaE87B7yDxH
+	 M4+Iu9A3yOs30wvDueM3g6/fuiGdy2ECQau0VYN0Z7/wMEoJwyCdZaPl+Ci+5SRDPlQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899204;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=ErqlT8uu9onJmD7kLeSehR88okZ582+yvXLiq/u8Efw=;
+	b=irCAp4xWks509yrlHqYrI2EvWaHjfUwEjLR9biiQO+OHMmyVhJX4iYL0184ioGkx2y7H
+	 UAqRhc0LwWsFS1zbsvg5yx6d0B1WTsb3o7wGHn6+X7XtZQ0ktbTGOl4zF1J8J9j4Ev0XR
+	 WMQtRWjcBE3mfVUjpXfvFCULYn9u0QXNYNkpfcguFiAYDVGvlCC/QCuaHzDTKiqqihFVF
+	 WfcTIogLyvQu4laBHowVPPZ3ZCAaSLsEv0/GAjAg7b+79k9mvUwjny/LCGPX9z81C85jR
+	 reAPCzJOkbEYfeFibBmXZ0ALnlfIbxEj931sMf4utz+7nPxIP1GpAfCKDO01DxQ4/Tw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsL2DkMN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C62606A339;
+	Tue, 17 Nov 2026 07:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsL2DkMN
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794899204;
+	b=oiQxN8SkiRVpnCxXDSzDtMQLSP2XfL/ASBgGzEhPQalVwzP6Lm0bNPXeQ7WXNfOT2l2H
+	 6+ytwxkOXTUvFpad4+W/rSOKcEC/fKZ+vUCOBibMwJYOe0JV3wIT2HxoBt4XeO0pXNb0N
+	 lusH+8pF4vS1ijb6esQe3Db+ISGmup2+Oy9BLujMDr2pnsDlx4dNRXwrfXW1uxuk/4oyB
+	 PaLOm/rz3/WYR9LAd3H2HFr9Rp9iDbacJOrJYWMU3x2XnIBA7LAkEpUC2nwyS3OgEZ3eL
+	 7rE7XVYTGOONNEGUqXUmMNSOz2rAIV68gjwHCXUnBONUTp7Rb1025bhJAg1QpN7H/Gw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794899204;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=ErqlT8uu9onJmD7kLeSehR88okZ582+yvXLiq/u8Efw=;
+	b=mMO2UOsDZRmc+N8rXDsUgkIH/NejDcYmXuUYgoOLtPhWChag7AZCOqArkkN5pKbpVheG
+	 6/iq+DJLAmK5HUuK5oncyIBCqCMafr5tXHHQw2QggQ26ypd//2ITQHgneCc/2eZmpNIrk
+	 DmwtOZnKDjWiNFTXKaG7l+gLCUkww1jQpYbbb9lwn9Gp1v3TOpQIQ6MEOVxY0t+kgxEju
+	 ck/DdPhotX74j7nvhb3shbnZ7okmkM+PQI5H8KSUHGnGLhMtYchcTEktxdWAPIWxT6/hf
+	 JcAxGSPJ39tuqmcmI8T6yl/zPAwHyimvGO6z914v/0I7UY3f9hUdAMY1cH8fbJ35iqw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0996B606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 07:05:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0996B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0vMpXKDm
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a60f90a924so1712444b3a.3
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 23:05:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794899112; x=1795503912; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yREBUehJP9kZv0aqNbOFx6DIC/LJcLkZgW3MOZiPYBQ=;
-        b=0vMpXKDmWrWSnUTCqI+tnT+VSVx6ybmG5WdvEc3g0F8DOg1ic4zSf1B0RNdyk2cgUB
-         YQBSLGSD9eicsOHS98cRxUq4IgqgGejQES70AUqL1ctm/CvQWCUXGO+07aqasQooJMbA
-         qaPqnoakiCcbxxqL41uGkxWjGy9OK0eSOUZZOkoB5nKCAmHXg/vy2Dd/Ul+8nWYwxB++
-         Jfjj/recsG+lOJLJQT8lJbsmpMOOzkburXvwEbLMkUf/9LmLN16dX0xwtcgZUGZuPOLA
-         LEIG82WLBb/vxKL0rw8V1qpTwF0mq4wf4US8TyTU2rCgEun1U+4Zb6yCY3LwYcid3hd+
-         3mRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794899112; x=1795503912;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yREBUehJP9kZv0aqNbOFx6DIC/LJcLkZgW3MOZiPYBQ=;
-        b=cYSG+xLSgneovVO8D9GhcaPPFlDltr8WSmjAgYSr5kFrQLkSRuAobSmP++ouyhyCqS
-         4S9WJDC/blqc9IqtHKpKJW3DUu11C9hJnXV8zc+mAfW2SU0mA4r+uBL2SHlo7Lk6Rtds
-         VoTNDi87kv6XVIsfR3uHWHBky/jsM5zY36luZEoafY3ZcLmtaHe7IWx65oYnN6HY1X+X
-         Ih7fLVPGpmL3Hn3uWZArLzrrzudPA8Epw7RuqDXQJZrZj8g4RAdnTe8KjTgPPDwyYst0
-         lJuXizifMEFRzO4Eks4qdADFVjjMgv/jhCuaRZFQGEJqzOpDLqjlFWpoI8PJzTcIkzvY
-         C+sw==
-X-Forwarded-Encrypted: i=1; AL+hErG2Zs6tyczR4Og207MaDGP8dTJmwup3oNFbwPidAyRTsGnNLUuuizovHrUwEIgdOYMKZxmotqiOc7zX@vger.kernel.org
-X-Gm-Message-State: APuU4Z8mItawIEFzpgAbbjEzsNAPCuWcAHBy7qbkSOuo2vRy9n4lJW68
-	qdJLQ9OZRok84silBAkXU8UJPMcAMI0LilrynQVbaZ7zJL+uaQ4s5/85/DWayKMd
-X-Gm-Gg: AYBFou2AKqWlrf7IjezxvliLQ1tdGfzD5nLWwAZobxk53ouaA6N+KYWB/1BH5kL79hU
-	2fHu7Qb7t3uQVMPhF8ZQgffJBlbVRp/9sZ6YteKIztyzxHbkfeqaIJcy3Xx09JM5an073XC+XME
-	RG0a74AgW0bvh8iFDT+vUBg4MzhNBte8T9YL/0z+LKu+FmlRaA+XoNZDLTxIwjtd7rAVyvCtj63
-	OlEa6gwG8RJU+cdn97c+lRRpe7iye12BY10sD3fWqMGkemm6NP6aoDIPTPfL4fIx/jwpPqfjvqY
-	+rtevN9WX+SCVMnO8anWrbGQBCtbtSR5PJPA2b8bqL6hwCYtYslT8Jcqo7olwVh9WNOYLTAbdWf
-	R8xS3oDECAbViJQ41wv0cq/C29B5wKwIbj2rAJGf9RKxLQLAUUebxTH+iEktpOnSVRpBSx2nLjN
-	ovbuZxKwkv8RrgRaIfXNOVWnX0v+OdbHM5v50WXzTp1t4QFrC+ocNV+qQP1b3nEVGVREei46oXf
-	cGYQ9FYSbZODxeFYiHEovRDOGz3avdy/pljTQ99l/7rZdJ0b+BLvP4/M9j34fvMhCswxBweqtwL
-	/avkTkIUyWbk4kfo4KxmvUNUIiXlEJ9syxcnNpmo33HWsnobteZKeJnKqne9ShmDDFMuJAciNt3
-	EBa9S
-X-Received: by 2002:a05:6a20:4304:b0:3fb:5869:81f1 with SMTP id adf61e73a8af0-3fb5878d154mr5449447637.26.1794899112171;
-        Mon, 16 Nov 2026 23:05:12 -0800 (PST)
-Received: from [172.19.1.51] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a902esm4641003b3a.16.2026.11.16.23.05.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 23:05:11 -0800 (PST)
-Message-ID: <17673b43-7975-41ac-8c0d-8fa12befa7a6@gmail.com>
-Date: Tue, 17 Nov 2026 15:04:52 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id 98F511F000CC;
+	Tue, 17 Nov 2026 07:06:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794899204;
+	bh=ErqlT8uu9onJmD7kLeSehR88okZ582+yvXLiq/u8Efw=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=AsL2DkMNFtg44Wb8r0PG4gpmQ4u/SA8pRXdj+p60UtV5oFzvnGYtbIK6oUwfNC43g
+	 ovFeZr+rNYsfy++CETfeaA4fVXnHQKWP82BwXxUhXjKfodcfSSlF07g1p1/46n6AYO
+	 xVKiBDiCUfwtwp+3YEfM42pKLzOCoUcwplJZHMInSNQIHYpw9DBdY3jLDPSQzNH8b0
+	 EZA83Rxwdp4u0mbmPSJTkzxdP362WAPtsp+KTsJ9vjAoju+g1JR2rd9SSfn109WU5z
+	 sju8Zf0iFQhyf9XMVcqyh+D0hcMblfh/ah6UdDpVf17KO3HpN9qc5bnDRpXEhY5KMj
+	 7r7oqw3Ma7E/w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 271E34A6FE;
+	Tue, 17 Nov 2026 07:06:43 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Subject: [PATCH v6 0/4] clk: rockchip: Add RK3572 clock and reset support
+Date: Tue, 17 Nov 2026 15:06:20 +0800
+Message-Id: <20261117-add-board-ok3572-c-clk-v6-0-cabad6610c5f@qq.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,546 +83,200 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org,
- Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, kees@kernel.org, gustavoars@kernel.org,
- linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-References: <20261109052900.2960473-1-shanchun1218@gmail.com>
- <20261109052900.2960473-3-shanchun1218@gmail.com>
- <avtyLPRZB3uC5G_A@SMW015318>
-Content-Language: en-US
-From: Shan-Chun Hung <shanchun1218@gmail.com>
-In-Reply-To: <avtyLPRZB3uC5G_A@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOz8+2oC/3XP3U4DIRAF4FdpuBYDw08Xr3wP0wtgwGJtsdAST
+ bPv7lKj2U3cy5PMfGfmRmooKVTytLmRElqqKZ+moB82xO/t6TXQhFMmwEBzBoJaROqyLUjzQag
+ tUE/9+4EywzCiUhDRkGn5o4SYPu/wy+4n16t7C/7StT6xT/WSy9e9ufE+91sC/5U0ThlljkUcl
+ BU8hOfz+dHnI+l6g/n+6pENJsMwZ4ZBaBf00hBzQ68aYjLQWRetMKgNLAw5N7arhuyG5AqcjAG
+ tXRhqZgi2aqj+i5VCMuEdl+bPGMfxG88zvdzXAQAA
+X-Change-ID: 20261023-add-board-ok3572-c-clk-090dfd552fd9
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Elaine Zhang <zhangqing@rock-chips.com>, 
+ Richard Cochran <richardcochran@gmail.com>
+Cc: Cunhao Lu <1579567540@qq.com>, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794899201; l=6582;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=6sJzRv9QfgUTJpwg5osDYEy1W96+xOk2+46BSTAQ4No=;
+ b=8W+pI4Yevr4J421AC89b1HF8Lu9LIzmIbOIV8npWuvlJUGDPxuBafflMcIwsZv4+g9gD1eDl0
+ Jj1XMpvtLCrDTbG5yBl9mwjlAxSbgCcO4okUeAjZ6aaD8qMAfn2O9N5
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
 
-Hi Frank,
+This is one of the subsystem submissions for RK3572 support.
 
-Thanks for your review.
+This series adds the CRU binding, clock and reset IDs, an internal
+Rockchip 24-bit fractional divider helper, a composite clock macro with
+mux-table support, and the RK3572 clock and reset driver. The shared
+helpers precede the driver that uses them.
 
-On 11/17/2026 5:14 AM, Frank Li wrote:
-> On Mon, Nov 09, 2026 at 01:29:00PM +0800, Shan-Chun Hung wrote:
->> Add a driver for the PDMA controller found in the Nuvoton MA35D1 SoC.
->> It supports up to 10 channels with memory-to-memory, slave scatter-gather
->> and cyclic transfers.
->>
->> Signed-off-by: Shan-Chun Hung <shanchun1218@gmail.com>
->> ---
-> ...
->> +
->> +static struct ma35d1_desc *ma35d1_desc_alloc(struct ma35d1_chan *ch, u32 sg_len)
->> +{
->> +	struct ma35d1_desc *d;
->> +
->> +	d = kzalloc(struct_size(d, sg, sg_len), GFP_ATOMIC);
->> +	if (!d)
->> +		return NULL;
-> 
-> Generally, we use dma_alloc_coherence() or dma pool for desc. There are
-> extra complex if use kzalloc and dma_map_single(), which will cause second
-> bounce buffer at swiotlb.
-I will use dma_alloc_coherent() for the hardware descriptors.
-> 
->> +
->> +	d->sg_len = sg_len;
->> +	d->dma_len = sizeof(*d->sg) * sg_len;
->> +	d->dma_addr = dma_map_single(ch->dev, d->sg, d->dma_len, DMA_TO_DEVICE);
->> +	if (dma_mapping_error(ch->dev, d->dma_addr)) {
->> +		dev_err(ch->dev, "dma mapping error for channel\n");
->> +		kfree(d);
->> +		return NULL;
->> +	}
->> +
->> +	return d;
->> +}
->> +
->> +static struct dma_async_tx_descriptor *
->> +ma35d1_desc_submit(struct ma35d1_chan *ch, struct ma35d1_desc *d, bool cyclic,
->> +		   unsigned long tx_flags)
->> +{
->> +	dma_sync_single_for_device(ch->dev, d->dma_addr, d->dma_len, DMA_TO_DEVICE);
->> +	d->cyclic = cyclic;
->> +	d->ch = ch;
->> +
->> +	return vchan_tx_prep(&ch->vc, &d->vd, tx_flags);
->> +}
->> +
->> +static struct dma_async_tx_descriptor *
->> +ma35d1_prep_dma_memcpy(struct dma_chan *chan, dma_addr_t dst, dma_addr_t src,
->> +		       size_t len, unsigned long tx_flags)
->> +{
->> +	int i;
->> +	size_t tlen, max_chunk;
->> +	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
->> +	struct ma35d1_desc *d;
->> +	u32 sg_len, width = 1;
->> +
->> +	if (ch->request != 0) {
->> +		dev_err(ch->dev, "%s: channel is bound to a peripheral request\n", __func__);
->> +		return NULL;
->> +	}
->> +
->> +	if (!len) {
->> +		dev_err(ch->dev, "invalid memcpy length\n");
->> +		return NULL;
->> +	}
->> +
->> +	if (IS_ALIGNED(src, 4) && IS_ALIGNED(dst, 4) && IS_ALIGNED(len, 4))
->> +		width = 4;
-> 
-> where are field copy_align, you check it here.
+The RK3572 SoC has eight CPU cores: two Cortex-A73 cores and six
+Cortex-A53 cores. It also integrates an Arm Mali-G310V2 MC1 GPU.
+The OK3572-C board provides two Gigabit Ethernet ports, three USB3 Type-A
+ports, a Type-C dual-role port, eMMC, microSD, and UART.
 
-The controller supports byte-wide transfers, so the minimum alignment
-is one byte. I will set copy_align to DMAENGINE_ALIGN_1_BYTE explicitly.
+The driver provides the peripheral clock and reset trees, including the
+three audio fractional clocks. It obtains the PMU0 GRF for the AUPLL
+reference mux. CPU frequency scaling is controlled through SCMI; BPLL
+and LPLL remain enabled for firmware use.
 
-The check selects a 4-byte transfer width when the source, destination,
-and length are aligned; otherwise, the driver uses a 1-byte width.
-> 
->> +
->> +	max_chunk = (size_t)PDMA_MAX_CHAN_BEATS * width;
->> +
->> +	sg_len = DIV_ROUND_UP_ULL(len, max_chunk);
->> +	d = ma35d1_desc_alloc(ch, sg_len);
->> +	if (!d)
->> +		return NULL;
->> +
->> +	for (i = 0; i < sg_len; i++) {
->> +		tlen = min_t(size_t, len, max_chunk);
->> +		d->sg[i].src = src;
->> +		d->sg[i].dst = dst;
->> +		d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_TXCNT(tlen / width) | PDMA_TBINTDIS |
->> +				PDMA_OP_SCATTER;
->> +		d->sg[i].next = d->dma_addr + PDMA_CH_OFFSET(i + 1);
->> +		src += tlen;
->> +		dst += tlen;
->> +		len -= tlen;
->> +	}
->> +	d->sg[sg_len - 1].ctl &= ~(PDMA_OP_MSK | PDMA_TBINTDIS);
->> +	d->sg[sg_len - 1].ctl |= PDMA_OP_BASIC;
->> +
->> +	return ma35d1_desc_submit(ch, d, false, tx_flags);
-> 
-> Prep() don't submit request, dmaengine_submit() do it, move it submit()
-> call back.
-The prep function does not submit the descriptor.
-ma35d1_desc_prep_done() (renamed from ma35d1_desc_submit()) prepares
-the descriptor and calls vchan_tx_prep(), which sets tx_submit to
-vchan_tx_submit. The actual submission happens when the client calls
-dmaengine_submit().
+Testing was performed with Debian 13 minimal and Linux 7.3 on the
+OK3572-C with the FET3572-C module. Shared peripheral tests were run with
+the system booted from SD, while eMMC validation covered the complete
+boot chain.
 
-I renamed the helper to avoid confusion; there is no functional change.
-> 
->> +}
->> +
->> +static struct dma_async_tx_descriptor *
->> +ma35d1_prep_slave_sg(struct dma_chan *chan, struct scatterlist *sgl,
->> +		     u32 sg_len, enum dma_transfer_direction dir,
->> +		     unsigned long tx_flags, void *context)
->> +{
->> +	int i, width;
->> +	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
->> +	struct ma35d1_desc *d;
->> +	struct scatterlist *sgent;
->> +
->> +	width = ma35d1_slave_width(ch, dir);
->> +	if (width < 0)
->> +		return NULL;
->> +
->> +	if (!sg_len) {
->> +		dev_err(ch->dev, "SG entry length is zero\n");
->> +		return NULL;
->> +	}
->> +
->> +	for_each_sg(sgl, sgent, sg_len, i) {
->> +		unsigned int len = sg_dma_len(sgent);
->> +
->> +		if (!len || len % width || len / width > PDMA_MAX_CHAN_BEATS) {
->> +			dev_err(ch->dev, "invalid SG segment length %u\n", len);
->> +			return NULL;
->> +		}
->> +
->> +		if (!IS_ALIGNED(sg_dma_address(sgent), width)) {
->> +			dev_err(ch->dev, "SG address not aligned to DMA width\n");
->> +			return NULL;
->> +		}
->> +	}
->> +
->> +	d = ma35d1_desc_alloc(ch, sg_len);
->> +	if (!d)
->> +		return NULL;
->> +
->> +	for_each_sg(sgl, sgent, sg_len, i) {
->> +		if (dir == DMA_MEM_TO_DEV) {
->> +			d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_DAFIX;
->> +			d->sg[i].src = sg_dma_address(sgent);
->> +			d->sg[i].dst = ch->cfg.dst_addr;
->> +		} else {
->> +			d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_SAFIX;
->> +			d->sg[i].src = ch->cfg.src_addr;
->> +			d->sg[i].dst = sg_dma_address(sgent);
->> +		}
->> +		d->sg[i].ctl |= PDMA_TXCNT(sg_dma_len(sgent) / width) | PDMA_TBINTDIS |
->> +				PDMA_TXTYPE | PDMA_OP_SCATTER;
->> +		d->sg[i].next = d->dma_addr + PDMA_CH_OFFSET(i + 1);
->> +	}
->> +
->> +	d->sg[sg_len - 1].ctl &= ~(PDMA_OP_MSK | PDMA_TBINTDIS);
->> +	d->sg[sg_len - 1].ctl |= PDMA_OP_BASIC;
->> +
->> +	return ma35d1_desc_submit(ch, d, false, tx_flags);
->> +}
->> +
->> +static struct dma_async_tx_descriptor *
->> +ma35d1_prep_dma_cyclic(struct dma_chan *chan, dma_addr_t dma_addr, size_t buf_len,
->> +		       size_t period_len, enum dma_transfer_direction dir,
->> +		       unsigned long flags)
->> +{
->> +	int i, sg_len, width;
->> +	size_t offset = 0;
->> +	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
->> +	struct ma35d1_desc *d;
->> +
->> +	width = ma35d1_slave_width(ch, dir);
->> +	if (width < 0)
->> +		return NULL;
->> +
->> +	if (!buf_len || !period_len || period_len / width > PDMA_MAX_CHAN_BEATS) {
->> +		dev_err(ch->dev, "Invalid buffer/period length\n");
->> +		return NULL;
->> +	}
->> +
->> +	if (buf_len % period_len) {
->> +		dev_err(ch->dev, "Buffer length not multiple of period length\n");
->> +		return NULL;
->> +	}
->> +
->> +	if (period_len % width) {
->> +		dev_err(ch->dev, "Period length must be a multiple of DMA width\n");
->> +		return NULL;
->> +	}
->> +
->> +	if (!IS_ALIGNED(dma_addr, width)) {
->> +		dev_err(ch->dev, "Buffer address not aligned to DMA width\n");
->> +		return NULL;
->> +	}
->> +
->> +	sg_len = buf_len / period_len;
->> +	d = ma35d1_desc_alloc(ch, sg_len);
->> +	if (!d)
->> +		return NULL;
->> +
->> +	/* Split the buffer into period size chunks. */
->> +	for (offset = 0, i = 0; offset < buf_len; offset += period_len, i++) {
->> +		if (dir == DMA_MEM_TO_DEV) {
->> +			d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_TXCNT(period_len / width) |
->> +					PDMA_DAFIX;
->> +			d->sg[i].src = dma_addr + offset;
->> +			d->sg[i].dst = ch->cfg.dst_addr;
->> +		} else {
->> +			d->sg[i].ctl = PDMA_WIDTH(width) | PDMA_TXCNT(period_len / width) |
->> +					PDMA_SAFIX;
->> +			d->sg[i].src = ch->cfg.src_addr;
->> +			d->sg[i].dst = dma_addr + offset;
->> +		}
->> +		d->sg[i].ctl |= PDMA_TXTYPE | PDMA_OP_SCATTER;
->> +		d->sg[i].next = d->dma_addr + PDMA_CH_OFFSET(i + 1);
->> +	}
->> +	d->sg[sg_len - 1].next = d->dma_addr;
->> +
->> +	return ma35d1_desc_submit(ch, d, true, flags);
->> +}
->> +
->> +static struct dma_chan *ma35d1_of_xlate(struct of_phandle_args *dma_spec, struct of_dma *of)
->> +{
->> +	struct ma35d1_pdmadev *pdmadev = of->of_dma_data;
->> +	struct dma_chan *chan;
->> +	unsigned int chan_id, reqsel;
->> +
->> +	if (dma_spec->args_count != 2)
->> +		return NULL;
->> +
->> +	chan_id = dma_spec->args[0];
->> +	reqsel = dma_spec->args[1];
->> +	if (chan_id >= PDMA_MAX_CHANS || reqsel > GENMASK(7, 0))
->> +		return NULL;
->> +
->> +	chan = dma_get_slave_channel(&pdmadev->channels[chan_id].vc.chan);
->> +	if (chan)
->> +		pdmadev->channels[chan_id].request = reqsel;
->> +
->> +	return chan;
->> +}
->> +
->> +static void ma35d1_free_chan_resources(struct dma_chan *chan)
->> +{
->> +	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
->> +
->> +	ma35d1_terminate_all(chan);
->> +	vchan_free_chan_resources(&ch->vc);
->> +	ch->request = 0;
->> +	memset(&ch->cfg, 0, sizeof(ch->cfg));
->> +}
->> +
->> +static void ma35d1_pdma_start(struct ma35d1_chan *ch)
->> +{
->> +	struct ma35d1_desc *d = ch->desc;
->> +
->> +	if (d->sg_len == 1 && !d->cyclic) {
->> +		writel(d->sg[0].src, ch->base + PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_SA);
->> +		writel(d->sg[0].dst, ch->base + PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_DA);
->> +		writel(d->sg[0].ctl, ch->base + PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_CTL);
->> +	} else {
->> +		writel(d->dma_addr, ch->base + PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_NEXT);
->> +		ma35d1_pdma_reg_clear(ch, PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_CTL, PDMA_OP_MSK);
->> +		ma35d1_pdma_reg_set(ch, PDMA_CH_OFFSET(ch->id) + PDMA_DSCT_CTL, PDMA_OP_SCATTER);
->> +	}
->> +
->> +	/* Memory-to-memory has no peripheral request, so trigger it by software. */
->> +	if (ch->request == 0)
->> +		writel(BIT(ch->id), ch->base + PDMA_SWREQ);
->> +}
->> +
->> +static void ma35d1_pdma_start_desc(struct dma_chan *chan)
->> +{
->> +	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
->> +	struct virt_dma_desc *vd;
->> +
->> +	vd = vchan_next_desc(&ch->vc);
->> +	if (!vd) {
->> +		ch->desc = NULL;
->> +		return;
->> +	}
->> +
->> +	list_del(&vd->node);
->> +	ch->desc = to_ma35d1_pdma_desc(vd);
->> +	ma35d1_pdma_setup_channel(ch);
->> +	ma35d1_pdma_start(ch);
->> +}
->> +
->> +static void ma35d1_issue_pending(struct dma_chan *chan)
->> +{
->> +	struct ma35d1_chan *ch = to_ma35d1_pdma_chan(chan);
->> +	unsigned long flags;
->> +
->> +	spin_lock_irqsave(&ch->vc.lock, flags);
->> +
->> +	if (vchan_issue_pending(&ch->vc) && !ch->desc)
->> +		ma35d1_pdma_start_desc(chan);
->> +
->> +	spin_unlock_irqrestore(&ch->vc.lock, flags);
->> +}
->> +
->> +static void ma35d1_pdma_complete(struct ma35d1_chan *ch)
->> +{
->> +	if (!ch->desc)
->> +		return;
->> +
->> +	vchan_cookie_complete(&ch->desc->vd);
->> +	ma35d1_pdma_start_desc(&ch->vc.chan);
->> +}
->> +
->> +static irqreturn_t ma35d1_pdma_interrupt(int irq, void *devid)
->> +{
->> +	int i;
->> +	bool handled = false;
->> +	struct ma35d1_pdmadev *pdmadev = devid;
->> +	struct ma35d1_chan *ch;
->> +
->> +	for (i = 0; i < PDMA_MAX_CHANS; i++) {
->> +		unsigned long flags;
->> +		bool done, abort;
->> +
->> +		ch = &pdmadev->channels[i];
->> +
->> +		spin_lock_irqsave(&ch->vc.lock, flags);
->> +
->> +		done = readl(ch->base + PDMA_TDSTS) & BIT(i);
->> +		abort = readl(ch->base + PDMA_ABTSTS) & BIT(i);
->> +
->> +		if (done || abort) {
->> +			handled = true;
->> +
->> +			/* Ack both flags first so a new descriptor is not completed twice. */
->> +			writel(BIT(i), ch->base + PDMA_TDSTS);
->> +			writel(BIT(i), ch->base + PDMA_ABTSTS);
-> 
-> 
-> done = readl(ch->base + PDMA_TDSTS);
-> abort = readl(ch->base + PDMA_ABTSTS);
-> writel(done, ch->base + PDMA_TDSTS);
-> writel(abort, ch->base + PDMA_ABTSTS);
-> 
-> for_each_bit(done | abort) {
-> 	...
-> }
-I will update the interrupt handler accordingly.>
->> +
->> +			if (ch->desc) {
->> +				if (abort) {
->> +					ch->desc->vd.tx_result.result = DMA_TRANS_ABORTED;
->> +					ma35d1_pdma_complete(ch);
->> +				} else if (ch->desc->cyclic) {
->> +					vchan_cyclic_callback(&ch->desc->vd);
->> +				} else {
->> +					ma35d1_pdma_complete(ch);
->> +				}
->> +			}
->> +		}
->> +
->> +		spin_unlock_irqrestore(&ch->vc.lock, flags);
->> +	}
->> +
->> +	return handled ? IRQ_HANDLED : IRQ_NONE;
->> +}
->> +
->> +static int ma35d1_pdma_probe(struct platform_device *pdev)
->> +{
->> +	int i, ret;
->> +	struct clk *pdma_clk;
->> +	struct reset_control *rst;
->> +	struct device *dev = &pdev->dev;
->> +	struct device_node *node = dev->of_node;
->> +	struct ma35d1_chan *ch;
->> +	struct ma35d1_pdmadev *pdmadev;
->> +	void __iomem *reg_base;
->> +
->> +	pdma_clk = devm_clk_get_enabled(dev, NULL);
->> +	if (IS_ERR(pdma_clk))
->> +		return dev_err_probe(dev, PTR_ERR(pdma_clk), "Failed to get clk\n");
->> +
->> +	rst = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
->> +	if (IS_ERR(rst))
->> +		return dev_err_probe(dev, PTR_ERR(rst), "Failed to get reset\n");
->> +
->> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
->> +	if (ret)
->> +		return ret;
->> +
->> +	pdmadev = devm_kzalloc(dev, sizeof(*pdmadev), GFP_KERNEL);
->> +	if (!pdmadev)
->> +		return -ENOMEM;
->> +
->> +	pdmadev->irq = platform_get_irq(pdev, 0);
->> +	if (pdmadev->irq < 0)
->> +		return pdmadev->irq;
->> +
->> +	reg_base = devm_platform_ioremap_resource(pdev, 0);
->> +	if (IS_ERR(reg_base))
->> +		return dev_err_probe(dev, PTR_ERR(reg_base),
->> +				     "Failed to map pdma global registers\n");
->> +
->> +	dma_cap_zero(pdmadev->ddev.cap_mask);
->> +	dma_cap_set(DMA_SLAVE, pdmadev->ddev.cap_mask);
->> +	dma_cap_set(DMA_PRIVATE, pdmadev->ddev.cap_mask);
->> +	dma_cap_set(DMA_MEMCPY, pdmadev->ddev.cap_mask);
->> +	dma_cap_set(DMA_CYCLIC, pdmadev->ddev.cap_mask);
->> +
->> +	pdmadev->ddev.dev = dev;
->> +	pdmadev->ddev.src_addr_widths = PDMA_SLAVE_BUSWIDTHS;
->> +	pdmadev->ddev.dst_addr_widths = PDMA_SLAVE_BUSWIDTHS;
->> +	pdmadev->ddev.directions = BIT(DMA_MEM_TO_DEV) | BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_MEM);
->> +	pdmadev->ddev.device_prep_dma_memcpy = ma35d1_prep_dma_memcpy;
->> +	pdmadev->ddev.device_prep_slave_sg = ma35d1_prep_slave_sg;
->> +	pdmadev->ddev.device_prep_dma_cyclic = ma35d1_prep_dma_cyclic;
->> +	pdmadev->ddev.device_free_chan_resources = ma35d1_free_chan_resources;
->> +	pdmadev->ddev.device_issue_pending = ma35d1_issue_pending;
->> +	pdmadev->ddev.device_tx_status = dma_cookie_status;
->> +	pdmadev->ddev.device_config = ma35d1_slave_config;
->> +	pdmadev->ddev.device_terminate_all = ma35d1_terminate_all;
->> +	pdmadev->ddev.device_synchronize = ma35d1_synchronize;
->> +
->> +	spin_lock_init(&pdmadev->lock);
->> +	INIT_LIST_HEAD(&pdmadev->ddev.channels);
->> +	for (i = 0; i < PDMA_MAX_CHANS; i++) {
->> +		ch = &pdmadev->channels[i];
->> +		ch->dev = dev;
->> +		ch->pdmadev = pdmadev;
->> +		ch->id = i;
->> +		ch->base = reg_base;
->> +		ch->vc.desc_free = ma35d1_pdma_desc_free;
->> +		vchan_init(&ch->vc, &pdmadev->ddev);
->> +	}
->> +
->> +	ret = devm_request_irq(dev, pdmadev->irq, ma35d1_pdma_interrupt, 0, pdev->name, pdmadev);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
-> 
-> Move irq request after register device()
-I will move the IRQ request after register device().
-> 
->> +
->> +	platform_set_drvdata(pdev, pdmadev);
->> +
->> +	ret = dma_async_device_register(&pdmadev->ddev);
-> 
-> dmaenginem_async_device_register();
-I will use dmaenginem_async_device_register().
-> 
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = of_dma_controller_register(node, ma35d1_of_xlate, pdmadev);
-> 
-> devm_of_dma_controller_register();
-I will use devm_of_dma_controller_register().
-> 
-> Frank
-> 
->> +	if (ret) {
->> +		dma_async_device_unregister(&pdmadev->ddev);
->> +		for (i = 0; i < PDMA_MAX_CHANS; i++)
->> +			tasklet_kill(&pdmadev->channels[i].vc.task);
->> +		return dev_err_probe(dev, ret, "of_dma_controller_register failed\n");
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static void ma35d1_pdma_remove(struct platform_device *pdev)
->> +{
->> +	struct ma35d1_pdmadev *pdmadev = platform_get_drvdata(pdev);
->> +	void __iomem *base = pdmadev->channels[0].base;
->> +	int i;
->> +
->> +	/* Stop new requests before the hardware is quiesced. */
->> +	of_dma_controller_free(pdev->dev.of_node);
->> +	dma_async_device_unregister(&pdmadev->ddev);
->> +
->> +	writel(0, base + PDMA_CHCTL);
->> +	writel(0, base + PDMA_INTEN);
->> +	synchronize_irq(pdmadev->irq);
->> +
->> +	for (i = 0; i < PDMA_MAX_CHANS; i++)
->> +		tasklet_kill(&pdmadev->channels[i].vc.task);
->> +}
->> +
->> +static const struct of_device_id ma35d1_pdma_match[] = {
->> +	{ .compatible = "nuvoton,ma35d1-pdma" },
->> +	{ /* sentinel */ }
->> +};
->> +MODULE_DEVICE_TABLE(of, ma35d1_pdma_match);
->> +
->> +static struct platform_driver ma35d1_pdma_driver = {
->> +	.probe = ma35d1_pdma_probe,
->> +	.remove = ma35d1_pdma_remove,
->> +	.driver = {
->> +		.name = "ma35d1-pdma",
->> +		.of_match_table = ma35d1_pdma_match,
->> +	},
->> +};
->> +module_platform_driver(ma35d1_pdma_driver);
->> +
->> +MODULE_DESCRIPTION("PDMA controller driver for Nuvoton MA35D1");
->> +MODULE_AUTHOR("Shan-Chun Hung <shanchun1218@gmail.com>");
->> +MODULE_LICENSE("GPL");
->> --
->> 2.25.1
->>
+Passed functionality:
 
-Best Regards,
-Shan-Chun
+- SD and eMMC complete the firmware, kernel, and root filesystem
+  boot chain.
+- UART console works at 1500000 baud.
+- SD read/write and data persistence checks pass.
+- All eight CPUs start; CPU frequency scaling and hotplug checks pass.
+- Both Ethernet ports obtain IPv4 addresses and pass bidirectional file
+  transfers.
+- All three Type-A ports pass USB2 and USB3 enumeration, data transfers,
+  and reconnect persistence checks.
+- Type-C host and device modes pass in both plug orientations. Physical
+  reconnects correctly select the expected device, host, and device roles
+  in sequence.
+
+Stability:
+
+- Repeated cold and software reboots complete on SD and eMMC without data
+  integrity failures.
+- A combined CPU, memory, network, SD, and USB3 stress test completes
+  without a crash, lockup, CPU offline event, or thermal shutdown.
+- Ethernet error and drop counters do not increase during bidirectional
+  network tests.
+
+Build and checks:
+
+- The kernel, modules, and board DTB build successfully.
+- Strict checkpatch reports the existing MAINTAINERS and Kconfig help
+  warnings and a macro argument-reuse check.
+
+Untested hardware and paths:
+
+- NPU
+- PCIe
+- GPU, video output, and audio
+- CPU rates above 1.2 GHz and voltage scaling
+- Other low-speed external interfaces
+
+Some files in this series are derived from the Forlinx OK3572-C BSP
+Alpha1. Thanks to Forlinx for their support.
+
+Thanks also to Rockchip's David Wu, Elaine Zhang, Finley Xiao, Frank
+Wang, William Wu, and Ye Zhang for providing the driver source files.
+
+AI assistance:
+
+- Codex / DeepSeek V4.1 Flash were used for:
+  - Reviewing and adjusting code style to follow community conventions
+  - Automating tests
+  - Collecting data
+
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+---
+Changes in v6:
+- Explain the v1/v2 fractional-divider differences.
+- Improve readability.
+- Link to v5:
+  https://patch.msgid.link/20261030-add-board-ok3572-c-clk-v5-0-9a43403cb149@qq.com
+
+Changes in v5:
+- Select encodable 24-bit fractional-divider ratios using the actual
+  compensation and field-width limits.
+- Keep fractional-divider rate determination, programming and rate
+  recalculation consistent after integer-Hz rounding.
+- Correct the clk_ddrphy_top_src and aclk_top parent selector mapping.
+- Link to v4:
+  https://patch.msgid.link/20261027-add-board-ok3572-c-clk-v4-0-d4152b4fedaa@qq.com
+
+Changes in v4:
+- Move COMPOSITE_MUXTBL into clk.h as a separate preparatory patch and
+  use it in the RK3572 driver.
+- Link to v3:
+  https://patch.msgid.link/20261026-add-board-ok3572-c-clk-v3-0-dbabfa39d692@qq.com
+
+Changes in v3:
+- Close the reset ID gap while preserving the register mapping of each
+  named reset.
+- Check fractional-divider scaling against the actual field widths and
+  reject unrepresentable compensated ratios during rate determination.
+- Use signed negative PLL coefficients in the RK3572 rate table.
+- Drop CLK_NR_CLKS from the binding and derive the provider size from
+  registered clocks, keeping the existing clock IDs.
+- Fix the indentation of the CRU binding example.
+- Link to v2:
+  https://patch.msgid.link/20261023-add-board-ok3572-c-clk-v2-0-90b98836be6e@qq.com
+
+Changes in v2:
+- Split the original RK3572 support series by subsystem.
+- Port the vendor 24-bit fractional divider to the internal Rockchip
+  clock helpers and adapt it to the determine_rate API.
+- Register audio frac0-2. Keep internal SPLL factors outside the DT
+  lookup so PPLL retains clock ID 0, and remove the unused xin12m factor.
+- Link to v1:
+  https://patch.msgid.link/20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com
+
+---
+Raw dmesg: see v2 cover letter.
+
+To: Stephen Boyd <sboyd@kernel.org>
+To: Brian Masney <bmasney+clk@redhat.com>
+To: Jerome Brunet <jbrunet+clk@baylibre.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+To: Elaine Zhang <zhangqing@rock-chips.com>
+To: Richard Cochran <richardcochran@gmail.com>
+Cc: linux-clk@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: netdev@vger.kernel.org
+
+---
+Elaine Zhang (4):
+      dt-bindings: clock: rockchip: Add RK3572 CRU
+      clk: rockchip: Add 24-bit fractional divider support
+      clk: rockchip: Add composite clock macro with mux table
+      clk: rockchip: Add RK3572 clock and reset support
+
+ .../bindings/clock/rockchip,rk3572-cru.yaml        |   57 +
+ drivers/clk/rockchip/Kconfig                       |    7 +
+ drivers/clk/rockchip/Makefile                      |    2 +
+ drivers/clk/rockchip/clk-fractional-divider-v2.c   |  371 ++++
+ drivers/clk/rockchip/clk-rk3572.c                  | 1983 ++++++++++++++++++++
+ drivers/clk/rockchip/clk.c                         |   10 +
+ drivers/clk/rockchip/clk.h                         |   83 +
+ drivers/clk/rockchip/rst-rk3572.c                  |  739 ++++++++
+ include/dt-bindings/clock/rockchip,rk3572-cru.h    |  560 ++++++
+ include/dt-bindings/reset/rockchip,rk3572-cru.h    |  713 +++++++
+ 10 files changed, 4525 insertions(+)
+---
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+change-id: 20261023-add-board-ok3572-c-clk-090dfd552fd9
+
+Best regards,
+--  
+Cunhao Lu <1579567540@qq.com>
+
+
