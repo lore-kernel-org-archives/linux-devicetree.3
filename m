@@ -1,78 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794938919;
-	b=s1xqUD6Q07OeO/v7xNsDuM+boeCsetqru6ukNIYXJ+9/WXJ/LP8ID1bvznN3VaU62OqF
-	 IKSKoioSdwrH9+qKhwU6l+jPqrApT/uJ0EYeXNZUSdBzQ1JZb2wxftY6u1pdCEkzIXM5f
-	 ebMzEsPsOk+ZG1nOt3C0N4K7snK0HbiUZY17qIghKvBDc70XGdR+XRUM5jsJSiufc87BY
-	 y+IlEGjYXiL20T6jRNzZLCb+fo7Po3p9LTn07+oG0TEy6YzQEJ7UxWxZi6dxGoTnKTyf9
-	 pozERZ+Pt26FXbh3T7AvMRs9CBuARTiycxxwUzH/ihZzinqwhapgK81SKqmuwNmSp2A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794938919;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=De7BqjSh3MyG8qLZsPPymWHHEpjTg4BbJeztDhyF0Wg=;
-	b=KMapVkxM9/AMWHz8oih+wCKwBnDiT3zCCPAIAHZ4VxS4xQ5BkM6QjYWRgxa8opOdbeqW
-	 XtMa1++hsKfaKrSlb/pzAl2glrU6LZKTBzcysX+YqSECopxZntrjTwb5Ps4D/h3C5UrJb
-	 UZ8Tktbs30uRAgPtqE7MZ32emg90ChfRibnYqyNDjow5BsJ5YSn2/hMrRRllI8eyAqJ3n
-	 Z/jYfBlzx9Qg6DN5cQ+NDAhWnhCAgVoWsbBKDo4drKxeDW/NBRdsoULXpxzNaEUi0PUpI
-	 5B2W5/rN5to2Ofub/3XmenddIF8OXSyH0bcOOrIHHlC8VDBQsQNuWE+54antKBI5LcA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="S9s/GKu/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF7A6606A33B;
-	Tue, 17 Nov 2026 18:08:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S9s/GKu/
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794938918;
-	b=1HuhBhsEsCalTx6IGB9ZGdjqBORxuiNrAsf8hw6qpRsAaKZ5h4mNuM0whc8xTYoXquCC
-	 qLYnIip6ANZmVIXGoBpXW3cvi3diOggVwOdnVVSPdXleQv/vcMdFk32vu9qs66uixL2Cd
-	 JojxXulQohKgb1ULhFzQAC9PhhfB7JdZ04LVWZKUAjn/46xSCCzdxtpGhgQkNBEBoFC33
-	 npAwSUUy19PLCpqfov76Xb/ecizgVT3WdmtTz7tTdnS2/W4nUfTq7KvfgNXgzhekAYwj5
-	 JM4vD5EBwDJcv3CtetID02KZu71ZYh/vqdPnL0PG/qyU5Q7WNw0fy9+S3L3biA5GQpA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794938918;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=De7BqjSh3MyG8qLZsPPymWHHEpjTg4BbJeztDhyF0Wg=;
-	b=FBq9VQwZQxugxdrei4IkB3EtixfpvOHuNoSm3Q68wUs87BIXyLYyrZL0sPG2YC5KWc9Z
-	 PAUb+QZinXL2LLbbEd0vyrr1AYABa0Hn8LyGOAKE/7g1l1LThMHSni4zN/LrXz89jJGEg
-	 f2AUHpbpqXvv2CjrrDhtNvu0KkZ4n/b097c/WVe1uoLimHcATsYve28U3wbYtmrPfh5D1
-	 fznyUWOLNBCdNeWGrvns2i3umf1HkHbeXhaAlRUtyKd92Y+zh3uMPgs0kmWYlZmFS62wU
-	 RHnYWO09dksqDGIt1s7ZUilKts8lYTcX7EFU8+alo/2G+H5MzriIFsdFiq9ZfvA4LOg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794938989;
+	b=CMUbtXWUTsdSvkSt3v85skQgiP+RKwDHTmU1DkWxwSaCTouKhEKbTM+PEqeE8nfdIylz
+	 mUPjESCJvJum32ngi0fmAaTFVsYXji9WqC7F1vh7BH6oNo9zCkodVKAInO6BhYBklZp08
+	 6NGYoQ0JASnhImMLuPzvNhxPcfmEqkQa8FTJOvfDw0TzubLgaSLYuYsyhQJ+UAxS8aikG
+	 cfPDlqRHM3qgzc2kUp9eRzaJUiQWZWYlDnzLC5GpgKSWqfRadqM2M499coIoB7w8P0LtY
+	 z1PEXZ7zd4W9teYHGfKvNarmY3sdzH2Yk3KvkpkzQlB/ON091C8BbGxfZ7/Dj6d2MjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794938989;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=TMrVATcUEwdpvgw6MI+dpJDmx6eLc4X7DAI9r1FJRWU=;
+	b=Rve7q8tja3Oani07kRMtB6hEEvrqOWluA/mvbszV/Ixtu32Waij+MIvR751ywOmM6Tq/
+	 y2mae0bdhBbZtjrmtfDC1uNrL1F0lllUZ+EnlMS2udznq3UwVh4LURFZ6KNJXqH8V/6RD
+	 jxxInyTPjUbJaysjHmy8vyMQ+S2SNmH8SpvODU9ISe1rXYFfhD7PapRurBXo25Ug2MIT/
+	 EegNMU50h68ws7GWLo4Huwxnyv+mmn92aFV61ayBQXG0mdsafzy7Y+augB7DFGdWJT4Vr
+	 I420wnkI61kcVk/sI5iOpmXgYDiN2o3uCbgp83Rg9GYzXK/r8mJVV/Ntnh74KoHm8jw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=YdgkGfVq;
+	arc=none smtp.remote-ip=209.85.222.173
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B7D1C1F000C7;
-	Tue, 17 Nov 2026 18:08:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794938918;
-	bh=De7BqjSh3MyG8qLZsPPymWHHEpjTg4BbJeztDhyF0Wg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=S9s/GKu/WL34d1h1jd8AdFAmDnd/IxeGCN4EHAlY0jqGDfSjGErWMY8mHb7HaNBWO
-	 TjfTmFJIoSfZuKgRIovUlEG11VgyICyW9lzg9dMg0o3liv26u5cL3IH0RGp0OUTyKl
-	 iTiMDKkjuQKHtQIppCIyMShIguKLbF48lhitdrNZdpkQAPd06t27JW+FEIbgEdytzk
-	 71V646lxXd0GvSsaBj5Ehid8yFXvbUOyiw5UDdUySTwb8miBgwUnU73Zw/VlXG1NRX
-	 3R/XFJvjejM8IzQVjqy5U+XM8C8jksic+rbdroQhTtTR3+5+fH+adSB0nVV0ALBdx7
-	 MrqbpEQkjFMPw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 43B5E4AA47;
-	Tue, 17 Nov 2026 18:08:37 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Tue, 17 Nov 2026 20:08:37 +0200
-Subject: [PATCH v2 3/4] iio: light: stk3310: add vdd regulator support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B0E0606A335
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 18:09:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B0E0606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=YdgkGfVq
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f22a8515eso13926585a.2
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 10:09:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1794938987; x=1795543787; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TMrVATcUEwdpvgw6MI+dpJDmx6eLc4X7DAI9r1FJRWU=;
+        b=YdgkGfVqKKui0aiLSvR6mWBKZ1+mzuRPsqTd1Sr0W+MZWL+4jDUMa6VxrqybHVoEOD
+         /J9StWy33w6SStG5yfMJ1osxetxqx0DcvagahjDxFaoR5bvIK/sTcU9tLwx5smKDKl8z
+         Thd3LDvAg2KozZedUmsFRZ7M/o2KonYaJ7dX9uNkiLmZm6olw5l3ytILQ2BH7q/LCTQZ
+         hklXu99iDf3yimqo438LAdEHeUhdpzKPK1S2nLYqC+CIJNx5UEsxm3OYqhNRy22HA1Hw
+         0o9ki1uwEKN/F5ZWTLAXZMa/9Jx7RmbhF5P3N2MbpK74vWTuOK4zl6bckElmrsmM0+vU
+         2VvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794938987; x=1795543787;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TMrVATcUEwdpvgw6MI+dpJDmx6eLc4X7DAI9r1FJRWU=;
+        b=juOOaIsVApq7uo0aBu2Nh0Ytk41oomqjL/RulEwBkiyUNrxgOjVOo2xG5j/1v7/gd7
+         9ixBXkMwGkKv2pf6eErEXOOWvaln9Mn76D5QzyY/aC/7RY7tpdv40PowKlrtZWUd7CSk
+         8oi6M/fDXF1YmN09N4U4y9r2rgU+CPW5ooG45/I1O82v2ngFjB06yeZ15kf9UvdwEmDx
+         FYljxa73VNEhYm6dQLoz97h2Y2JZPx1r799t+/pAJphyOltyY4tCayWQLZmcc31HMiij
+         IiIaBRgcIt+RunQ7BhnLYoeTFL7UQboC3dccOOnUCzcfsUB6MHVCG51alk0t6If5NxA/
+         3bLw==
+X-Forwarded-Encrypted: i=1; AL+hErEYuRHQr610KqTIh21abyeaZOxhr0a/QnUSIEvCavuen6et31bKKFJOhd8olKqE0GwwitEE0Wr0xA5r@vger.kernel.org
+X-Gm-Message-State: APuU4Z9BhMS3d04ypR9NqMH5liaPnp1bJXK3fU6hNaqt5JDggc0A0tAv
+	d8DIWAbdDg8z8KFWCtx1IRewK1VqW1wtRWuySDW5KKh+xwT3QcnfMzYfc89Fr0B7hTc=
+X-Gm-Gg: AYBFou1mQ02OSQ569jSDTZpVJcZWiFU2oAfGkfwIhBSzOjoWaDntrCSvNhlRczSBw0K
+	y6iMDdzK7NSzqJkHHSnvxdmaJsd4bwxNoN4Am/NRa6XKdBZ5Y9UMwdIYY4oVZ38eT1SJBjfmwVl
+	8S8jPHmLK4H4iehtaN+FPZgL81nlGaw5aZiIhBcG+1qMj6u9wbFren/RdRVIOvh1SilbPv/MdkD
+	ftOJq9YEbb6OBb6D41u3Trf2F49F16iy63HhaPAiwBYqLSoOCvlD8w1nKmb1dCurXx1B7Jel2VG
+	xsgYwFXEJxygZTWexBZ1c2PHlKYDqNvD4ihzTXQBW1ejalVDyJk4ghqwVvVIzFa1XxJRc6avjTP
+	8KP2yMGuh4vOdOAYs1skTCXxKxi8pVwFK/ZiKC1D1FnBZ00fcBXi5t5O38hvcVnCcl/NLNTvkMt
+	ednPsF8TlYiRom3Nx8scKCz+lXNByBo8A8JuX308GBooWDvPmuwDa3ObeXW4577B9+MY0UJbCij
+	m605K67NevCPl0bQcuLoh7ydrr/jsmBZmRCGy6PR6HAA/dZDI2MqvRVthjdYVprvRnO+Ctc3s3k
+	EHy9dKw=
+X-Received: by 2002:a05:620a:46a0:b0:949:6ec7:68e2 with SMTP id af79cd13be357-94999650610mr89698785a.79.1794938987121;
+        Tue, 17 Nov 2026 10:09:47 -0800 (PST)
+Received: from ziepe.ca ([142.166.156.71])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8b5c1dsm1155175385a.33.2026.11.17.10.09.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 10:09:46 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xTNcn-0000000D06D-1Abm;
+	Tue, 17 Nov 2026 14:09:45 -0400
+Date: Tue, 17 Nov 2026 14:09:45 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Peng Fan <peng.fan@linux.dev>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v6 0/9] dmaengine: add DMA channel bus and fsl-edma
+ per-channel IOMMU support
+Message-ID: <20261117180945.GE2606445@ziepe.ca>
+References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
+ <20261116193021.GB2452510@ziepe.ca>
+ <avwQl18smAW4R6ec@fedora>
+ <20261117130005.GC2606445@ziepe.ca>
+ <avyGI6QmuZ3DUqc9@SMW015318>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,70 +121,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-6768-stk3337-v2-3-92f4c7be3bc6@protonmail.com>
-References: <20261117-6768-stk3337-v2-0-92f4c7be3bc6@protonmail.com>
-In-Reply-To: <20261117-6768-stk3337-v2-0-92f4c7be3bc6@protonmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794938915; l=1100;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=P5EyD85VDfSXBEox0JnVub85ggLxUGhVypoOaimLv4g=;
- b=sGQ05nVPy4oABTud4kewoqVpxi+MNMAJcrf7Yr6J0+c+luB23bpoF5N9EDfV4icN1JJyqiLIc
- 9tdIblKgER9BdP2JWSqX/4+uPAGV0GodhnOezT5tWevCS15iIiZh1pV
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avyGI6QmuZ3DUqc9@SMW015318>
 
-From: Roman Vivchar <rva333@protonmail.com>
+On Tue, Nov 17, 2026 at 10:51:47AM -0600, Frank Li wrote:
+> > > In dmaengine each channel is already modeled as a channel device (see
+> > > dmaengine_chan_dev()), and this series puts those devices on a real bus
+> > > (dmaengine_chan_bus_type) as a prerequisite. The DT child node simply
+> > > describes that existing device, so its reg/interrupts/power-domains/iommus
+> > > are attached per channel instead of as index-matched flat lists on the
+> > > controller.
+> >
+> > If they are real devices then why can't they come out as platform
+> > devices?
+> 
+> It cause complex when consumer to bindle channel dynmatically.
+> 
+> for example:
+> 
+> consumer_A
+> {
+> 	dmas = <&dma_provider ID>;
+> }
+> 
+> if each channel is platform devices,
+> 
+> consumer_A
+> {
+>         dmas = <&dma_provider_chan0 ID>;
+> }
+> 
+> Consumer_A will have to bindle to chan0. Actually, dma engine support bind
+> to any free channel. It will be problem when there are not enough channels
+> for all peripheral.
 
-On some boards, the sensor is powered by shared power rail. If the rail
-is powered down, the chip can't function.
+That seems like something you should be able to fix in a better way,
+like by having the DT know which DMA devices are usable by a consumer
+so it can be pooled.
 
-Add vdd regulator support to ensure the power supply is enabled for the
-chip.
+> > I think you are overstating how independent they are. Many single
+> > devices have per "channel" resources like MMIO and IRQs. That's
+> > totally normal. It doesn't make the sub resources independent devices.
+> >
+> > AFAICT what you have here is some HW designer used SID where they
+> > should have used SSID and you are trying to hack DT to make that
+> > usable because Linux does not support a SID as SSID model today.
+> >
+> > Again, since this is the 3rd - 4th case like this, it seems like a
+> > popular hardware choice and we should try to do better to make Linux
+> > support if we can.
+> 
+> What's your prefer?
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
- drivers/iio/light/stk3310.c | 5 +++++
- 1 file changed, 5 insertions(+)
+If a PCI device implemented something like this it would use PASID.
 
-diff --git a/drivers/iio/light/stk3310.c b/drivers/iio/light/stk3310.c
-index e751e7c97bc1..2f4747c06f43 100644
---- a/drivers/iio/light/stk3310.c
-+++ b/drivers/iio/light/stk3310.c
-@@ -18,6 +18,7 @@
- #include <linux/pm.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/sysfs.h>
- #include <linux/types.h>
- 
-@@ -745,6 +746,10 @@ static int stk3310_probe(struct i2c_client *client)
- 	device_property_read_u32(&client->dev, "proximity-near-level",
- 				 &data->ps_near_level);
- 
-+	ret = devm_regulator_get_enable(dev, "vdd");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get vdd supply\n");
-+
- 	mutex_init(&data->lock);
- 
- 	ret = stk3310_regmap_init(data);
+I have one device with many DMA streams is what PASID is for.
 
--- 
-2.56.1
+Recasting your multi-SID as PASID somehow seems like an interesting direction.
 
-
+Jason
