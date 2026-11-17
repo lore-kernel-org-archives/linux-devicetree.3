@@ -1,91 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794951761;
-	b=zTn0QQk6dcb03trx13hEuji8wlFIdsbGmWr6lrijw/Q/Anu3t/0wZd4VceWwkc06JBW9
-	 yiHAvhPzIKwBB6PppYXQInwNY+d1HjcNt5Ms5kg3BXr9lIpkLGCGO2Nc3vPlNZcOp91dX
-	 Zd4vtgpO80w9RiMUoHoF5chpWHeWXmscxqx6+CO8ibzd6CA2uoy1dC0ywm/YAlJGZ+LCw
-	 XCXJ+cnhjXCgyMGBmPkfItu8atb3E26w5yBJ/mc0ogjm4tEaTydekQZCIEE0y0PPXkfLt
-	 tp4LG3nfVmA7qndp+jn8+cWfThETZhKSIlGRZt3pQHVbELslSC5cNH7i6z05VJCcWKw==
+	t=1794952088;
+	b=2xAjPBV4mV+nq0oL9sn69SHMXhnd3retkRlsNqF21hdgTpxoPhifkWg8J5vI30cwY6t7
+	 fkVNY3XWP/M3OiJb5MEvgXxzCftrHH/Zx5MLy+c7PKqg8RQiMZmy9jGkPv37jbVj7UNi0
+	 zMRCecUyIN4qqjbjc1ovavda8IDWR0rAitHzXpAgtXPDf2wxCayOZID7H1YTz0CGDVeBS
+	 FWSLzKf7dF6y17RR57ENZzMsnyQknEYuK1e3HWsZh4QI7690iDw+CSgADDPUxdrr1/Xrl
+	 JzmBkgNqD2yIShM0I2LGA2uGGPRMU9hzf7jeyQ16UBXghddzG6PacEs4HJ+dKxrJoCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794951761;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=6IozNtdf6HbKzKGMEo6l7v3ccDJ192jbBuLKZ0N87Pg=;
-	b=5AiyTLk9BC2H7bGsJKrmYiXoBLsx+KG8q8hrjt9Rt/qh/qj2AW2i8ypqUs5AzM2DRJJ1
-	 7ZqQ/fc6cIDr7/0nZLv+/iGbuZkK/SAbK2XKrIm+rRR7Wxb0UU2KtcZHO2NHTa6w3RAd8
-	 zpZjfI+lClOkAPIQOkD5nvxufjg97UTx0YqTDYE0VrZiU/r9NWR9M/bPPrv/JmrUK25+l
-	 H1v/4YsqbGW6u/AnzrIJNjwkuxDtYMqIwmdDk8CjohCQqIycbS4xOxEGRE9VksOAGBStV
-	 DUyu2BBX30pGGzuAoGfZx1CNLsLWJe7bug1KtlK4OOxSaBEQaaGEBRam1NVpro6qoxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794952088;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=gWhTP+MsEZH11Xk/IKOvm1ABoNQtFuyWT71ie9/W1Ho=;
+	b=RDP6sSelm4VJhzEuBecKvLnA7kULrY5weo8NTttw0sCP3nogrlCAnA0Ot0StvyVnsWBn
+	 J6KrCCfvGfcIglge/xoaszgO0+F7eHpRsyYBwS3/NgIDKhKsVkJvhypayteRUfFuiJEMX
+	 aRHNY09osT/lFDq/ztxkXqDONC8kC9sgICfGAGv/ic2McrWADwD+AYM9LwTXgDjIPWY9M
+	 FtRLYWCFcOo+pbbVL+20QtigHLnqlOtKhjc1UOe28CBsJDUsvS5AocJa50UyWfh+Xb5MD
+	 KI37BoIy/+A8cHqzq3+2oXCUYPnHFIe2AzTrzsCtSlqxJsecX0LEmFSC2li3qWp5BXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=DK60HOsv;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e24jyoO5;
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0656606A31C;
-	Tue, 17 Nov 2026 21:42:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0656606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D4D606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 21:48:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4D4D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=DK60HOsv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794951759;
-	bh=DAWQCPgIzEXdD/gx6UFSHeVExfzcx4VAtZ2MtqyfUWw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=DK60HOsvAA0/+ZyRO3J5fy8osZDPA14ty+SokRJI3jsLyf/Sj9cb4EzYHWw9kJRzW
-	 XzjIdg9OFznj+GKZJKXceaJacr/x6t8LMeHcxZ4RqIoh+HewI9ofPoEohHQmNOZIG9
-	 5Vzlf3UWf0rIrNofsKfu3pvkgeHHMHd2GYkQ70BpFttX9gahHlFLt3kh3SimzCOriH
-	 B3ay2SOyIF6koiwI3muBRXvZ2ha5SK/glTuzwooFjz5pRHxheA4+wsxHPLoVS317v7
-	 Zh9o5qwQtbcQ7LfRuq+JkbUTBjWh+OumaUEaLOj9+pdnnTQX9+orCRHDG7SAtHCA2a
-	 RizjA9w4pVsKw==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1336717E0406;
-	Tue, 17 Nov 2026 22:42:36 +0100 (CET)
-Message-ID: <980bbf45de0983f6b38a6b1f8dbf5a20310fc66c.camel@collabora.com>
-Subject: Re: [PATCH 09/14] media: verisilicon: Cancel job with runtime pm
- put/clk disable on failure
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Paul Kocialkowski <paulk@sys-base.io>, devicetree@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,  Pengutronix Kernel Team	
- <kernel@pengutronix.de>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	
- <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, Michael
- Tretter	 <m.tretter@pengutronix.de>
-Date: Tue, 17 Nov 2026 16:42:35 -0500
-In-Reply-To: <20260522101653.2565125-10-paulk@sys-base.io>
-References: <20260522101653.2565125-1-paulk@sys-base.io>
-	 <20260522101653.2565125-10-paulk@sys-base.io>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-nCR6jsSSCS1asrKum/3e"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e24jyoO5
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b4dd5cb4f6so1806477b3.2
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:48:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794952087; x=1795556887; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gWhTP+MsEZH11Xk/IKOvm1ABoNQtFuyWT71ie9/W1Ho=;
+        b=e24jyoO53YopgaSfOE/Fbsm5STwcDYn92WEUT2SbYFXEfZbdebuB9Uz4CNO+wMG10Y
+         Gv6TLPmp31f0I04qRwADQYTEIymhSy+cER/u+FlolWhft22RQe5c0V9BxS3hE7/b/Cez
+         W1CArqkceyzuR9xgeX22jpGyAAuOd0N1aMUX3XYYuv2GJFAcSdgJH68gkZyqVhs9awsS
+         mVPFopBZA29M6jIZHeAqYRw+H4g+/zFHUhsbWEuq9eryl/muCInH27hprXKW+8XbARw4
+         FmimRJiAEuJmofIyBp87dTHKXUyDm2XD0AGimHObRlVtMOhJB0FdT10oIecAelJM22UJ
+         U91w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794952087; x=1795556887;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gWhTP+MsEZH11Xk/IKOvm1ABoNQtFuyWT71ie9/W1Ho=;
+        b=LLpzPX17C0YKwYV0jbXM7W17qQuqLV53fs4U/eSt7ZqW3/rw3s/J+px6N818LPmQC6
+         yL5dcayhfBIW7vsok5Y91lv6jHRIw1i4yR1TeXjWNsakOkBwOi8H1JYdpa4pS6r1FBWj
+         2c2bMQ9mPXmqIIsqDw6/h+H2jh/AOAG0gADGF7gqubijAgzzvJPX1iXnD+OG2caXS5yQ
+         5snhKMAIKKM6pwYpZlWLkOd9wsZE3N4SXb56WSdU5e0XOoucOOwLQGO0TJNejOSeQGPV
+         l8oeI6MbOTrrgBWVW7c9+khDJPOIlJY7VW5rv7jit4YflwCw6NNu8y+hGeKn1nQ5Ttoi
+         scuw==
+X-Forwarded-Encrypted: i=1; AL+hErFSBUaHVTg3u0hiklSxnEZA31C9vfQiMvx9rz7HlOa/zajPk0TN1F64b+CS5Boat3OLdJ9qCBUYfzfZ@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nE9VaXEus+DmfpKWouNgZ7UctFmet83JaZvvmma3ppvuCkQg/
+	0Yno77vneTx9AEu4ZWaU52gTYMqHZ0nqfDGZqDaO63umw0kS5S8ddqbi
+X-Gm-Gg: AZFdTZfeI46/uszj4C1OvyJ8A139ZiYCMCyj83hWFT9nRcWpSz+Xb0U0odmwaESmsiZ
+	f7pcYmGUPwaX/DYFmMlXeISix8Eav9oYommtwTPVi4xO8AzdKnpONI2JNnNqSw7QkDe/lkmIc8E
+	z0nVmVOibuISsFLQ0p4XpUUthqQq8s/BKPpWMTQplp37wBAVCIsiHeO6Tf/6AXAgJY5ZuLK9vTz
+	h5HBFm6R2HnfFNJNWh7EW8dIXXoJP/xPjHkV1cfV1zBCtgwzfoR4rtQnRdMxq8zLwnHSOisc1ri
+	feAhy/dfKY3nqQ4KmxNlu9dq3fymraPBpqlYs71saMUu0p2IFlpY9u4TdCb8qSR5QILjGgx3Rbh
+	skJ95/ojJN5TjXMqR9ruo+sarD+MqemS3b3VAuls+YSy5mDLkytNiacMUQvpQbO5ZGnb8AwZ1gj
+	jlV+ABoAQhK22VhI45bVjD3bM4F8I/YdF/iPxlnaFTMnx3ykb7ZuAIsCGpLoAjhYgyf8jl8giLb
+	ymu3LYYbwS9FwGRRMlOuaQcJ+ihFD/qpiJ4xytGqryj8e7SbYk7vU1pEnLIMc3OYSSxzEOua4ul
+	tHaKU7XzO/B3QhnDphJ0imHq
+X-Received: by 2002:a05:690c:6502:b0:8b4:e2dc:3f2e with SMTP id 00721157ae682-8b4febccf0fmr3038007b3.8.1794952086607;
+        Tue, 17 Nov 2026 13:48:06 -0800 (PST)
+Received: from localhost ([120.244.9.31])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4fe030a65sm7195267b3.15.2026.11.17.13.48.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 13:48:06 -0800 (PST)
+Date: Tue, 17 Nov 2026 16:48:02 -0500
+Message-ID: <19ceb44df3141049a955c2c30fe64766.docular.xu@gmail.com>
+From: Guodong Xu <docular.xu@gmail.com>
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: Cody Kang <codykang.hk@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>,
+ Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ dri-devel@lists.freedesktop.org,
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v2 07/17] drm/spacemit: add Saturn DPU register model
+In-Reply-To: <edd7ae1b38ebc687d0b2bfb2509c40fb8a45e625.camel@icenowy.me>
+References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
+ <20260809-k3-display-v2-7-327d7910bf71@gmail.com>
+ <edd7ae1b38ebc687d0b2bfb2509c40fb8a45e625.camel@icenowy.me>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,87 +117,28 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-nCR6jsSSCS1asrKum/3e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Icenowy,
 
-Le vendredi 22 mai 2026 =C3=A0 12:16 +0200, Paul Kocialkowski a =C3=A9crit=
-=C2=A0:
-> The no-pm variant of hantro_job_finish is only good to use directly if
-> runtime pm get failed. In other cases, we need to do a runtime pm put
-> and bulk clk disable to correctly undo what was set up.
->=20
-> Fixes: 892bb6ecead9 ("media: hantro: do a PM resume earlier")
-> Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
+On Thu, 03 Sep 2026 20:08:10 +0800, Icenowy Zheng wrote:
+> 在 2026-08-09日的 21:14 +0800，Cody Kang via B4 Relay写道：
+> >  drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h |  25 ++
+>
+> Is the slightly different K1 Saturn DPU registers considered?
 
-Seems already fixed by 556ab0b2741d6 ("media: hantro: release runtime resou=
-rces
-when device_run fails".
+I compared them with the K1 BSP you mentioned offline [1]. Judging by
+the block, field and interrupt macro names, I agree with you that the
+K1 and the K3 use similar IP. But there are also important
+differences between the K1 and K3 registers, which is why I would not
+propose reusing these tables.
 
-> ---
->  .../media/platform/verisilicon/hantro_drv.c   | 19 ++++++++++++-------
->  1 file changed, 12 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
-dia/platform/verisilicon/hantro_drv.c
-> index e0c11fe8b55c..e21306f2bf2e 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -169,29 +169,34 @@ void hantro_end_prepare_run(struct hantro_ctx *ctx)
->  static void device_run(void *priv)
->  {
->  =09struct hantro_ctx *ctx =3D priv;
-> +=09struct hantro_dev *vpu =3D ctx->dev;
->  =09struct vb2_v4l2_buffer *src, *dst;
->  =09int ret;
-> =20
->  =09src =3D hantro_get_src_buf(ctx);
->  =09dst =3D hantro_get_dst_buf(ctx);
-> =20
-> -=09ret =3D pm_runtime_resume_and_get(ctx->dev->dev);
-> +=09ret =3D pm_runtime_resume_and_get(vpu->dev);
->  =09if (ret < 0)
-> -=09=09goto err_cancel_job;
-> +=09=09goto err_cancel_job_no_pm;
-> =20
-> -=09ret =3D clk_bulk_enable(ctx->dev->variant->num_clocks, ctx->dev->cloc=
-ks);
-> +=09ret =3D clk_bulk_enable(vpu->variant->num_clocks, vpu->clocks);
->  =09if (ret)
-> -=09=09goto err_cancel_job;
-> +=09=09goto err_cancel_job_pm;
-> =20
->  =09v4l2_m2m_buf_copy_metadata(src, dst, true);
-> =20
->  =09if (ctx->codec_ops->run(ctx))
-> -=09=09goto err_cancel_job;
-> +=09=09goto err_cancel_job_clk;
-> =20
->  =09return;
-> =20
-> -err_cancel_job:
-> -=09hantro_job_finish_no_pm(ctx->dev, ctx, VB2_BUF_STATE_ERROR);
-> +err_cancel_job_clk:
-> +=09clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-> +err_cancel_job_pm:
-> +=09pm_runtime_put_autosuspend(vpu->dev);
-> +err_cancel_job_no_pm:
-> +=09hantro_job_finish_no_pm(vpu, ctx, VB2_BUF_STATE_ERROR);
->  }
-> =20
->  static const struct v4l2_m2m_ops vpu_m2m_ops =3D {
+For example, the blocks sit at different addresses, and most fields
+are at a different word or bit. In dpu_int.h, CFG_RDY_CLR is bit 4 on
+the K1 and bit 5 on the K3, and the underrun bit is 9 and 8.
 
---=-nCR6jsSSCS1asrKum/3e
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+IMHO a K1 port should add its own compatible, its own field header
+and its own backend file next to the K3 ones. What do you think?
+Hopefully you agree with me.
 
------BEGIN PGP SIGNATURE-----
+[1] https://github.com/spacemit-com/linux-6.6/tree/k1-bl-v2.2.y/drivers/gpu/drm/spacemit/dpu/saturn_regs
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavzKSwAKCRDZQZRRKWBy
-9L+6AQDMKLPrZhSUG++b0MtI5ik0wMRxfL/1mxitEeqZmMEMPQD6A0XQSzZQJRLC
-7KBSAin35Q9wXNZx0/Tkx7GU4aMYcwk=
-=tZTf
------END PGP SIGNATURE-----
-
---=-nCR6jsSSCS1asrKum/3e--
+Guodong
