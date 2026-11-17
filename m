@@ -1,84 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936668;
-	b=rsqb8spjgy8+N09jLGGqu6QqhPQnBcXqz1U8q6gJjDKnVvGPtEkvdNLGtIfcEYAtsWoQ
-	 SL2QnxVaasNtSZ+vv5HhiGqIikMTrgqeQzqQ7a+xCP0ZPRGtocq7bGdxHLf7ZdmabN7es
-	 /CtRUy81UfjkjOufiYXBTPiF7t/ORQKx3EKN1KgzxM53rHCSthsoWirPV8xv2nQZ/zhjL
-	 SbY3KWOtdU7FtIUd/y04zeuEuXhjYPz3tmAXrsOMrZzqOLPSTYc7ueNBEoRKc1VIJu1co
-	 yNwRDKLRhHHZqiJoBesjwmMMsOKrCIHA/t7zzCavLSZTln7wkr3pgaZoEKgwQokPa6g==
+	t=1794936680;
+	b=YJlF0hGOMGJnpPbgz8wPC2AmL/HAFvpOKYSs+VAy1WTzPuhJTeIO34xXgKyUzvNzyxQN
+	 7bQZPLf1lO9A/VUZ4E3LOKRNoCvz7soutMdd26YaHrhZNE3axew1edMKOSvYQfQD2XzFs
+	 1c+ymuI9BzPQOeGAtxiITOFVCXIDycT5hMEsy0wZwgX33Er8KTlCP+0E8A6y3sERn4xql
+	 PIEjBoj5L7PfSiiIojVAATnm6Xx5fldllTS3F23ZnYx4V1MI1Rj7Z56ikon5vrwnV/Nhi
+	 O0mHFte0WK+HqOBC2bTHZNJqs8Z1cNrPAESsVal/IErIK6q5eauY+U0AWHZebrbgmsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936668;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LkTA2fZGKt54LgX0tsQgX09c7+dqTc8gL6HA9sc7mLs=;
-	b=P7hp4DQ+BOMELTWoGKN2MJkiTVEC3PPSp/Yqy8ECaFsQUSoVlWPAlWtDSumiRg1Z40k1
-	 TonhbplKcJ0LoXeYgnp3sdjMq6V1+ipCNYIqel6bMIAary8OqZh55ZX9nSV8S8NBtbCzI
-	 yzVK5nmWU8+E0QYTw14xjB4y1HjzggRj2d2SoQVAY/129k4v2blzZVf3OAMKuj/z1WQO3
-	 1P+hi3OfFn+AvHI7xPHh7HqQ5JRcsmC5kZWCYkeYaTlfWKRDgRNaxfEtG2MFawRCE9GPw
-	 XmUP3mmtHctnHq4cFKhU1fti1ctP7rOAHAMrRBsVGEsWIvxkvsI5WEzG+sJXpsBAxZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936680;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=PM+gGzOAYa/FTkiyD9xYa10o3sGPOU41PoOWcwMpxkI=;
+	b=XnCw3uRuhG4KbRJknh4NAs5j+CZDMlExQr2VWDnESevlmhaHwrsC8IvywcsAnI013bti
+	 j9iRkeVkm2+mx+6pe2WRFzAyyandXKH5CLTuj8hxxKcWSpuFlUpcYWwx4qaII0+LFzLV3
+	 egEBmO9KI/EfCzQ83faFdEbcEZ6PWpuymsG2UMv5g6OkwnASN8dqhjI3pHEVM5FMAVtHU
+	 SxbuSgvIYb5YwJz+RZ3hdS+8GlPpix1z9GHmTCZhMp0Tp0rIFI4RzWO2Kyy0VJsXp/jqm
+	 A/bKG3cwkKfqwquNhevofDssXPdYJHT8jzJpHAkfabAh4Ugsb4+oqJJP3BSPs0TbhTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcnglDbx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=B+kqnD5k;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C23A606A31C;
-	Tue, 17 Nov 2026 17:31:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62086606A32F
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 17:31:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62086606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcnglDbx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3FB61F000C4;
-	Tue, 17 Nov 2026 17:31:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794936668;
-	bh=LkTA2fZGKt54LgX0tsQgX09c7+dqTc8gL6HA9sc7mLs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WcnglDbxvWNx3BawIBmbTs6ZXBzryxbYuU6EJEGAOGS8UPG95ALzC/8nC5usZm/fM
-	 CIPGNaq3mNpdS3+L+IsX/68xcqFYhrR3+lOmCzvON8o1KJRoXCIyh24u/znihbQUlO
-	 G0dw42LOnRdcT5FM1u4uZ//DVzxUAo7c5d5pYgnjsebmEdw19rRvfcoWp2CeTbCCjn
-	 4QARIu4ZhvQ9wGj6PO4AKN1JfWnBdHwUmwjdd5X9sQTAdo98vw32OPf6vUoJRX4XUc
-	 hshP4bXmOKi05J1SyuJBd0sYRWpyIpRyrhNB2gxRky7p2usScFTOcjPlbXm+cBSaGC
-	 HGReg6oO5EyRw==
-Date: Tue, 17 Nov 2026 17:30:58 +0000
-From: Conor Dooley <conor@kernel.org>
-To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jun Chang <jun.chang@metanoia-comm.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Sebastian Reichel <sre@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Ben Zong-You Xie <ben717@andestech.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
-	CL Wang <cl634@andestech.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Minas Harutyunyan <hminas@synopsys.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Randolph Sheng-Kai =?utf-8?B?TGluKOael+iBluWHsSk=?= <randolph@andestech.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Paul Walmsley <paul.walmsley@sifive.com>, linux-mmc@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH 00/25] riscv: add support for the Metanoia MT2824 SoC and
- MT5824 EVB
-Message-ID: <20261117-calamity-quiver-96d0d568b338@spud>
-References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
- <f6bb6461-c9d0-4685-8c93-7e62691a93b8@sirena.org.uk>
- <_koitdIgQPmk89LDhlUlJQ@bootlin.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=B+kqnD5k
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb6c7b6dbdso2132375e9.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 09:31:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794936678; x=1795541478; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PM+gGzOAYa/FTkiyD9xYa10o3sGPOU41PoOWcwMpxkI=;
+        b=B+kqnD5kc2/BWpvolwBTSXR+Bk30wcbVAY1oJgbgsqey66UMmoa1kCyF1uR+ZYTfg/
+         p6gvAkNR0Do2+bYPWMRwa30Xq/6vmJTDsgGVQ6Bj1wpqQFJP0uGBD+m5YJJuuWMhdQ4F
+         mrQxPa3IUb6qWkvi+JMaIlLR06AagJpWF4/iHrhn9Zo0NEnImEEKnUdXsWHjWosjR+2c
+         NJXdstO7aIKGsn5HcMGfOHRSYjxr0t13YSYHX4wOD+pTQFFnttjp9N8DoxQrnsPdCWfL
+         Y3vEicdZw3G7xQyw01gKc50M+7jCi0AV2pB/70TPYsd3wsZPCsBvOiMitoXb/h72tiud
+         44lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794936678; x=1795541478;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PM+gGzOAYa/FTkiyD9xYa10o3sGPOU41PoOWcwMpxkI=;
+        b=0xN5NC7anNrnONyVfl2EafaEFLxEmGP8W9Iomrg6qIi1XcprVDFjtdBhGOtBW+IGPh
+         2dliGmvN4Go1uw68nc+RY14qBx4yxzC3dKKhEKxNt1Oov2bavLhW9UNEyBciJstua3Qe
+         UKXABqFOcv8SFVdP7bUU5GgbEfCO32RqB8pATt56Oag86ctej0j7j1w3yXad/FGkaXMC
+         nKaKob+f0QCXDdkJJGMM2dNNKWwsCR5+XuxO9gNi4XmZ7U0zNLSR9llZ3bQoUj2YqSUw
+         v7hz7Mj4mLseIIQWKhGBsvSbACw3EX77PJygy8SgFmUaIJYqKKp08F9sN6kqLIM4qU3K
+         Vr1g==
+X-Forwarded-Encrypted: i=1; AL+hErGk3lbzZLZEJQVr82kw0Hz5m2QnmHBb/bI1SmMcT6UdNBp4TMRr3X+GuuT4sPEE5e1hDJA5vbZWDhWm@vger.kernel.org
+X-Gm-Message-State: APuU4Z8//TlF7f8OB/tbFCZlTKEh8gEmrFKGP15HjVwzVdpxsPx6qapj
+	4di+Noq9NAV3MD8Cleul/iud3rhutSQn9lcAS5/52pDSoYaqomlgqlVZyBtDTSHAHD8=
+X-Gm-Gg: AYBFou35vEjXaYAdthRFdAOwQ1NnjLJyUD2hcfWxyAOYCGZ47gblEb0Q0H6QON8c+ec
+	zw3QIvK5dn2rhalrIJiUnejL7tppUel9bPm0e7o+hHFmF7MJ8MCOBJ/GSxijhLtS9t7t9m6vf/F
+	bln6tVBaeZh/GI+jijdlS2OKOjRtUpHaycn7syqn1UqOypgtwr9bgZh/O8griEvnGvYQ1ZsBvv8
+	7WDKfHHWp1hf5pojozdva9Yb7uxoY8BZK3iq5OCjUvpOk5ztZOlwQHsjWVxFzW3yH/I5NIdAP9A
+	HVHzHXdxCjqEy1FapXV4AY5ATD6SZc+qLcnx1JuMC2OHbuTPLpbqP4caDt2MAnrpW73JyV+E77u
+	jIrGHNMptdG/L3NwMm98ay43D+yvabGY82BGGD+l+UXS0ubzA8pknoCZKdwzJqqLG9KlfDc7/JW
+	3f0wxa9X+YmgQIwBh+4YkNoPlm4FsFl8YOSq1CO3LTkpIacsVQ/BJ2GEIBkxnTEFquKqAM/X2Uq
+	yls8TIQbgSHolRAGnFVBsmRt1KoHaAl02fr8YIRU7nvNV4vX0FYAkrF2m5N1EUo5Pm5CcHiJy33
+	s+NgtfZYAnw+HTlZZT6HgNUq8LHZ3Yzdnnh3fLnaf5b9bUHfnTPv8CAc
+X-Received: by 2002:a05:600c:6986:b0:4bb:6a2d:b438 with SMTP id 5b1f17b1804b1-4bb6a2db52fmr181094395e9.0.1794936677610;
+        Tue, 17 Nov 2026 09:31:17 -0800 (PST)
+Received: from [127.0.1.1] (82-230-44-19.subs.proxad.net. [82.230.44.19])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb7ad9426asm46870735e9.4.2026.11.17.09.31.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 09:31:15 -0800 (PST)
+From: Alexandre Mergnat <amergnat@baylibre.com>
+Subject: [PATCH 0/2] Add MediaTek MT8196 SMMU wrapper interrupt controller
+Date: Tue, 17 Nov 2026 17:31:03 +0000
+Message-Id: <20261117-mt8196-smmu-wrapper-v1-0-229f04d9f693@baylibre.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,86 +91,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BcuOzLdY9wrmX3Fk"
-Content-Disposition: inline
-In-Reply-To: <_koitdIgQPmk89LDhlUlJQ@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFeP/GoC/y2NQQ7CIBQFr9KwlgQoUOpVTBcf+FVMaCtQNWl6d
+ 9G6nGTevI1kTAEzOTcbSfgMOcxTBX5qiLvBdEUafGUimNCc847GYnivaY5xpa8Ey4KJGi+Y5KN
+ ArRypyyXhGN6/6mU4OK/2jq58U38j4WOtd+XQiIWM1M0xhnJuACwTKPuRWSWBmbZDZZzutOJOg
+ vXgObSCGTLs+wd5W3VKwwAAAA==
+X-Change-ID: 20261117-mt8196-smmu-wrapper-8d2041f2e65c
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+ Alexandre Mergnat <amergnat@baylibre.com>
+X-Mailer: b4 0.16.0
 
---BcuOzLdY9wrmX3Fk
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On MT8196, the multimedia SMMUv3 comes with a MediaTek wrapper that
+merges its interrupts into one GIC line, which stays asserted until
+each of them is acknowledged in the wrapper.
 
-On Tue, Nov 17, 2026 at 11:41:52AM +0100, Beno=EEt Monin wrote:
-> On Friday, 6 November 2026 at 12:15:09 CET, Mark Brown wrote:
-> > On Fri, Nov 06, 2026 at 10:29:57AM +0100, Beno=EEt Monin wrote:
-> >=20
-> > > The series is organised as:
-> >=20
-> > > - patches 1-14 add the device tree bindings, the Metanoia vendor pref=
-ix,
-> > >   the RISC-V board schema and the SoC block compatibles
-> > > - patch 15 adds ARCH_METANOIA and selects the AX45MP errata
-> > > - patches 16-23 add the reset, SPI, watchdog, MMC, PHY and USB changes
-> > >   needed to build and probe on this SoC
-> > > - patch 24 adds the MT2824 SoC and MT5824 EVB device trees
-> > > - patch 25 adds the MAINTAINERS entry
-> >=20
-> > This sort of thing tends to work better if you submit the patches for
-> > subsystems as separate serieses, it avoids enormous CC lists and keeps
-> > the individual serieses a managable size.
-> >=20
-> I agree, and I am reworking the series that way. Version 1 was intended
-> as an overview of the complete SoC support, but it ended up being too
-> big for a single series.
->=20
-> So version 2 of this current series will be only the platform basics
-> (2 patches):
->=20
->   - dt-bindings: vendor-prefixes: add Metanoia Communications
+This series describes the wrapper as an interrupt controller next to the
+SMMU node and adds its driver. System suspend is not handled: the
+wrapper and the SMMU lose their configuration if their power domain is
+turned off. This is to be revisited once arm-smmu-v3 supports runtime
+and system sleep [1].
 
->   - riscv: add ARCH_METANOIA Kconfig entry
+[1] https://lore.kernel.org/all/20260929034510.2023173-1-praan@google.com/
 
-Realistically, this does not need to be a prereq either, because you'll
-have "depends on ARCH_METANIOA || COMPILE_TEST".
+Signed-off-by: Alexandre Mergnat <amergnat@baylibre.com>
+---
+Alexandre Mergnat (2):
+      dt-bindings: interrupt-controller: Add MT8196 SMMU wrapper
+      irqchip: Add MediaTek SMMU wrapper driver
 
->=20
-> It will act as a prerequisite for the following new series, one per
-> subsystem:
->=20
->   - reset: binding + reset-simple support (the separate reboot binding
->     is dropped; the RST block is described as a single node)
->   - SPI: optional DMA/IRQ binding, MT2824 compatible, atcspi200 IRQ
->     support + Kconfig
->   - watchdog: compatible + Kconfig
->   - MMC: compatible + MT2824 support (split between SD, eMMC and
->     auto-detection) + tuning/HS400
->   - PHY: USB2 PHY binding + driver/Kconfig
->   - USB DWC2: binding + params
->=20
-> Finally, once the subsystem bindings are accepted and the drivers
-> are queued, I'll post the SoC DTS in its own series: board schema +
-> cache/PLIC/PLICSW/PLMT compatibles + the MT2824/MT5824 DTS and the
-> MAINTAINERS entry
->=20
-> Thanks everyone for the reviews, I will integrate the feedback in the
-> next iterations of each series.
->=20
-> Best regards,
-> Beno=EEt
->=20
->=20
->=20
+ .../mediatek,mt8196-smmu-wp.yaml                   |  70 ++++++++++
+ MAINTAINERS                                        |   7 +
+ drivers/irqchip/Kconfig                            |  11 ++
+ drivers/irqchip/Makefile                           |   1 +
+ drivers/irqchip/irq-mtk-smmu-wp.c                  | 145 +++++++++++++++++++++
+ 5 files changed, 234 insertions(+)
+---
+base-commit: aab02e49f0b54a0837e58c67651c4abdad1a3208
+change-id: 20261117-mt8196-smmu-wrapper-8d2041f2e65c
 
---BcuOzLdY9wrmX3Fk
-Content-Type: application/pgp-signature; name=signature.asc
+Best regards,
+--  
+Alexandre Mergnat <amergnat@baylibre.com>
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavyPUgAKCRB4tDGHoIJi
-0u31AP0dJRd3avDcA8zq/be2KJLowwp03Bx+1e11P7wMqhKhSgD+NGQuQVH14+ta
-vo0nqDQxea6EE+XzXZ9SOeXFMg+dqQ0=
-=Y40v
------END PGP SIGNATURE-----
-
---BcuOzLdY9wrmX3Fk--
