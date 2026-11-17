@@ -1,67 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917461;
-	b=A78a52J9yMFAeWYjK1/0aDcLLYvSEfSMu6p9H/ytSd1dCSCAZuKdhZYZRI2Orf1ROGMK
-	 TmZRKFgcMAEVnRopFMwqK2HF93fq0TR+xYeQNiW7yY1NjSsWKwLDdNoUuJMqJ85y/IPpg
-	 gkFxYe+d2vZD3aJWX/0zT2k3rpgpmzt3FYkDwWS5wG1h6STNXciZH1ynWGXMW8MmR9suy
-	 gqF9PsUakQ7sFcJaNSDSZvRKCESN5oLfPGZ4tJ0OtJO4wQO87BrGbLQT0nMXs3kwRtPx8
-	 jmAW4+2qK60Km5MSIaiTRMf9LdjBKQ2q9PQrMPh8LIeHvhBdZhCKgX1lDeCsruWUpQA==
+	t=1794917473;
+	b=WdtKjy9q225Dyzt+QyZStYbBO+u+jtd6a+f2iLEqdy83g7jULXFBwCbSBOczcR7rG908
+	 uxOZa8LGmjGUIT2aJPBlXosej7pi3jMn9G5bTdWJrFQNq/mSJrsAvDwAlDOkXzxIa+qG+
+	 tYnHacaUbYayMn2QRpY4eJmLtafzTDfZVvCFF5qCfvQHQlY9GFtEKvV3aWBGXc/Yl/J6f
+	 MWehcUDXz1Z96jnoLR81Kh01BMOUSiirswQ/Jkxz1ssHK78wC9mEzByNBHCTza4dsTSHg
+	 bssjHz/rCUD5gQwYgP5ipaDfyqWyI9bALshlpRXNvjUSd4DEASm0apUni+SpiHiaXNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917461;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+1BpRIRf2nPGKzJFdVk2a4hDpuZJr7hID0LUitYqiDA=;
-	b=emuCmcNd1qT9ByEOHxuJIUTfL9+NfsBmjhJ7eLBaIsIJn252YVOIDz9pTl5o0CH15zfx
-	 toJrBT0rRKGpWy2gec4izFKPnnXs/wQVydq8lQtV9XH8JC8TEf9uyngPYk/R1slqS3tPR
-	 CMoPgCayePsW7T0iKm62bVu2VHwlDUGW14PUxhf9LbZMRc98XtpXgyuhKAbY5lJXTmKm3
-	 eS9CQOTuzeboUJaytEzbv5lnxTn2t05tzfn+vChlXKv9rvtMnVjjExfdvHqqAKbo8b/Xw
-	 vQitFxMUk0WDeMygjRcEWPMNOj5O/PAUx/fAIlTFSp7vOnxpBEGPLZzrtp0ipY6x5cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917473;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=cWtgHE8VVeVY+BSW9SOQbCd+UmjyRbtL0IM9idnQATQ=;
+	b=eI5w4n3IuGXsMrwcCXDDrEK1TTI/qW1SPz3wN9MbLnczp3eBAig+eXAxE7kSY162xlOG
+	 Im7ZHt9J5T8ZHS04WV+D0n7D6yr2nWB8vrS85bucfoyvHNDM8g1EAqAuMPJ1dN4mf9sLy
+	 fkN8bVsa5uPqzhhaRvGuFfqVGfKcdwPYLynOiZiIgD1i1luwh8ri2AjQU0WqHey9QF8Ds
+	 SzA1RunpFB9MdMnq+xmLFXCRA5rYaExuMn5hlqbsZ7aVHUOHIvuT/f7gUYp4jtY5KdSCh
+	 mgv/xVUCuP3VORJZOIrVrBys7u9+oqgeESey8nOM+fut5PQZ7c/ZxLDGqgtYsiMV5tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JGxA30+L;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=03gGhD1o;
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26EB606A31C;
-	Tue, 17 Nov 2026 12:11:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53519606A323
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 12:11:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53519606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JGxA30+L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 327E31F000C4;
-	Tue, 17 Nov 2026 12:10:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794917461;
-	bh=+1BpRIRf2nPGKzJFdVk2a4hDpuZJr7hID0LUitYqiDA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JGxA30+LSayvTFpzFzaPwgAO/2s9/BHbbED1n1A/usLmbrL8nArMCz1gwId+3VYr4
-	 vDKe/KQ1paoenZ68G4/rpBjJOBgLm1Jt/NURy/TBxhC3xyeAfeVS86PTz1uK3W3WBC
-	 3Pj9cnWMyfS6WNMe4Kj9lyzaJ8v7GSCksmRx4dGex0aqXp11SvayvDc+kBic6z0WnF
-	 cUFYrsuZOnDwSdtj7U5I8ieqgeOFb+oVXM71vR3MitFPShxoU56q0nRteRXS2mhONc
-	 +fZqxCrtVWWe2Bkk4d/tJLyHLcgWF1/LDt/1dV/Zq0RXtOhJVV3GrLidOnBMZE6ETd
-	 RFBgOdKl7eLyQ==
-Date: Tue, 17 Nov 2026 12:10:54 +0000
-From: Will Deacon <will@kernel.org>
-To: Sven Peter <sven@kernel.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-efi@vger.kernel.org, asahi@lists.linux.dev
-Subject: Re: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel
- sharing EL2 for Apple Silicon
-Message-ID: <avxETlOGyr_WQ2zp@willie-the-truck>
-References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
- <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
- <apldL6Ml91GW-tE9@J2N7QTR9R3.cambridge.arm.com>
- <aplk2hHRB7Yw9FWW@willie-the-truck>
- <eb75b82a-8910-4198-b89a-5c8b487c0fd5@app.fastmail.com>
- <cadadedb-1de1-46f0-9bfd-35eb8bdfa85b@kernel.org>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=03gGhD1o
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c50cc7540b7so368564166b.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 04:11:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1794917472; x=1795522272; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cWtgHE8VVeVY+BSW9SOQbCd+UmjyRbtL0IM9idnQATQ=;
+        b=03gGhD1oXvzdNQ6GMOGFyWvweh+BeNUIH1kjQoSj5t5WVt6fEShCorX5Ah2vxim8jl
+         HZaxxotQyQi12H9UafUZsOniourPI+skSJUdnXsxuxLgXXTgKNDvqDylE6HEaWDIL6/L
+         FYZ2ES5zcAVUbYujkR8v6B5sdVmJR7LNi+9jbHBYjytKkGzh2eVmTI2hmUlmXjMlN7aN
+         4uVGgaJb0pn1E7+Kn//5pEJi3l1fvxcASfG87z7AjBqx2uiS2WbdDl/+d1o5mro4aMv7
+         sOR9ro+k/qlVfbs9479IMojiXwNER+sdygJQwu8tMzKsAsNf231XkXmmq1u6qrDUGtgP
+         f/TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794917472; x=1795522272;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cWtgHE8VVeVY+BSW9SOQbCd+UmjyRbtL0IM9idnQATQ=;
+        b=GJ9HIY6Jyjx3tK/Pmsm0j9+BN3fyuFEN8tRfSWqTrZLsqgYfQAd1iMb8NW707D9tXB
+         HIENz8AMdVfQRhEs4N7rQq+Ix1lwS6SnBBwdnNVg9ja4f8yS4y3MZSl91HaDdE9aEQz3
+         6SN7PeYKfqwlNRJE0mahVXzsNeKB2Hj4yTEVWAOj2NbVz3oS/BWBuZAVmt+8v7x/pqJl
+         Bl71BgsKYPSKWwePm4HvmulBfQ9P5Ct+S/J6zRm25kCfyoCatd5O873Kr6dw9pIav4UQ
+         1KKR1i6T54NuJvBjiNnnAS9fSA1c5VmHVVluJ1O9HXpCRzXKw1ZZAoifvSVbN6/Ws3Vj
+         Ztkg==
+X-Forwarded-Encrypted: i=1; AL+hErH2Kv4CM9U/8wxNVWqt6yxGyEyMkmUn08gvpRGaz4GBRBaAvGkVsk4aC7eetxC18YNC7KuYJ1XyP+Ix@vger.kernel.org
+X-Gm-Message-State: APuU4Z+eiXqt98od+ttkYTDPRfM/1G8uI5CZ+CcZsTq6BLzMtG1jIFvr
+	AdpJKa8i2f6Mj3AgxS59x4LI2pPt2k0yn025xBgn7BXHG4i/Zk9wjZKup36WNeSVJj8=
+X-Gm-Gg: AYBFou28w9VgAJYE+bvn+xupw9ntCuihvR95e7U4N0Bsh/J435Gva6z1zv5qkS21Lfz
+	9HuanvLIHqTzcpJbArkcFeLevNfpb8Pj35vd9pUL+R57h8l9WAR6DaG93J3bzws1mdesWm3gWu2
+	Qk27CtdC+3Y21kAw4Ml+t6iz36ghs88pIHGYViVNK7mfVuFs0XG5GZE+qgJdMLRqi3hxX/wi4yp
+	BI0DB/xqdCM0qmzTKfY0CS9V2kxawJhIg9hbbt4GVlgvyVWZ0qWbm3XhG7jXnPfCzS2F7uGYBet
+	7UArFYmmOPefhoZZoniJP1voRWQEteYejB1CuZa3kmArVlAG+np5a+u/1sdH9BwPcupKDVIdQbk
+	HgpPRihV1gOfr9wEi3qtvOHNKczRGmqe/qYalVRhK5DIDVTK2yQEqLEu7CKb8BRHOGNClkL7nCF
+	vBbS5Tp6Jb3nmlyFABDJn+dPUQL5tH2/N7u72iCTMWWRbVQ8ytHY5QyP9x7BxjSVm7G0+I5nlvM
+	1JcBv9yt2v6YOqBYnuErW0K4XaOEXK0mTkkcAImVkaY+y7ekLsOi1iTejaK6MZof1Lxj602yEkU
+	X+Du9YjBp6m+uZGlei/PBcQHdTFxuOMxc689b4QHK3jY9oGLzagOwqa/3PkTa9+payr6Q4tQF+1
+	0XOF2cSwdsurWnEkkB/I=
+X-Received: by 2002:a17:907:1b06:b0:c48:1977:e1c3 with SMTP id a640c23a62f3a-c509633f436mr1276035066b.21.1794917471802;
+        Tue, 17 Nov 2026 04:11:11 -0800 (PST)
+Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5c00fsm532002066b.3.2026.11.17.04.11.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 04:11:11 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,103 +88,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cadadedb-1de1-46f0-9bfd-35eb8bdfa85b@kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 17 Nov 2026 13:11:10 +0100
+Message-Id: <DMXH52GLPXUT.236KX5W7LSRY7@fairphone.com>
+Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <phone-devel@vger.kernel.org>, "Konrad Dybcio"
+ <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v5 12/12] arm64: dts: qcom: sm6350-lena: enable
+ remaining i2c busses
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "erebion" <erebion@erebion.eu>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-12-7318a19806eb@erebion.eu>
+In-Reply-To: <20261116-pdx213-upstream-3-v5-12-7318a19806eb@erebion.eu>
 
-On Sun, Nov 15, 2026 at 07:38:35PM +0100, Sven Peter wrote:
-> 
-> 
-> On 03.09.26 15:25, Ard Biesheuvel wrote:
-> > On Thu, 3 Sep 2026, at 14:15, Will Deacon wrote:
-> > > On Thu, Sep 03, 2026 at 12:42:39PM +0100, Mark Rutland wrote:
-> > > > On Thu, Sep 03, 2026 at 01:34:56PM +0200, Ard Biesheuvel wrote:
-> > > > > On Wed, 8 Jul 2026, at 09:15, Sven Peter wrote:
-> > > > > > This series adds a custom EFI table that points to a PSCI entry point
-> > > > > > (plus some other stuff that has to be available before EFI runtime
-> > > > > > services are set up) and adds support for this new conduit to the psci
-> > > > > > code. We can't directly use the normal EFI runtime path because that one
-> > > > > > takes a sleeping lock and we need to be able to call into PSCI from
-> > > > > > atomic context during e.g. cpu bringup or during idle.
-> > > > > > It also adds support for specifying the specific MAIR attributes for EFI
-> > > > > > runtime mappings as defined in the latest UEFI spec since Apple Silicon
-> > > > > > is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
-> > > > 
-> > > > > >        dt-bindings: arm: psci: Add EFI conduit
-> > > > > >        arm64/efi: Add and parse custom PSCI EFI configuration table
-> > > > > >        efi: Add EFI_MEMORY_ISA_{MASK,VALID}
-> > > > > >        arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
-> > > > > >        firmware/psci: Add EFI runtime conduit
-> > > > > >        arm64: dts: apple: t8103: Add PSCI and CPU idle states
-> > > > > > 
-> > > > > 
-> > > > > I've picked up patches #3 and #4, which are useful in their own right.
-> > > > > 
-> > > > > I'm not sure if the arm64 maintainers will want to consider this, but
-> > > > > I think it's a reasonable compromise, as it puts the abstraction in
-> > > > > the right place.
-> > > > 
-> > > > Sorry for the late reply; I've been away almost all of August and I'm
-> > > > slowly catching up on things.
-> > > > 
-> > > > As with last time this was proposed (in abstract), I am not happy about
-> > > > bodging an EFI conduit into PSCI, given that the manner in which state
-> > > > is managed is completely different from SMCCC.
-> > > > 
-> > > > If we need a mechanism for doing hotplug and/or idle without HVC/SMC,
-> > > > that's one thing we can consider. I don't think we should pretend that
-> > > > it is PSCI.
-> > > 
-> > > What do you have in mind for an alternative mechanism? I understand your
-> > > objection to this proposal, but at least it keeps the interface fairly
-> > > high-level and avoids opening the flood gates for a bunch of SoC-specific
-> > > idle routines. Are you thinking of extensions to the PSCI spec or
-> > > something else?
-> > > 
-> > 
-> > I can't speak for Mark, of course, but I could imagine EFI being used as a
-> > conduit to provide a callable set of interfaces (with a rigorously defined
-> > set of constraints such as the ones in this patch, i.e., reentrancy, no FP
-> > or SIMD, not relying on ISA features that the OS needs to know about and
-> > enable, etc).
-> > 
-> > There is prior art here in ACPI PRM, which does something similar, and this
-> > also relies on EFI runtime services.
-> > 
-> > You'd still need to implement the CPU ops and a cpuidle driver afaict (no
-> > expert here), but at least those would be coded against an interface that
-> > the kernel itself specified, and can be made as generic as we choose to.
-> > 
-> > Not saying this is all great, but it might be a worthwhile compromise to
-> > consider.
-> 
-> Finally getting back to this series...
-> 
-> 
-> I'd definitely like to keep mapping the resident firmware using EFI runtime
-> services because otherwise I'd have to duplicate a whole lot of tricky code
-> to do the same thing via some other means (e.g. a device tree nodes that
-> contains all mappings + callbacks) and I just don't see much value in that.
-> 
-> I'm happy to just drop the PSCI part though and replace that with a simple
-> and somewhat generic "efi-rt" (or similar) cpuidle driver and make that one
-> have similar requirements like I added for this RFC series and expose bunch
-> of generic callbacks (that will just happen to resemble PSCI functions very
-> much ;)) via a custom EFI table. That would keep PSCI out of all of this but
-> come at the cost of an additional cpuidle driver.
-> 
-> I don't think that would open any flood gates for SoC-specific drivers since
-> we could just point them to the generic one and tell them to use that one if
-> they can't do PSCI for some reason.
-> 
-> 
-> Now before I go off and prototype this: Would this approach be fine in
-> general with you, Mark and Will?
+On Mon Nov 16, 2026 at 11:50 PM CET, erebion wrote:
+> Enable all i2c busses where something is connected on this phone. Add
+> comments as placeholders for which components are still missing.
+>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: erebion <erebion@erebion.eu>
+> ---
+>  .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts   | 18 ++++++++++++=
+++++++
+>  1 file changed, 18 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
+b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> index b19e76b3c1a75..08647584af0ce 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> @@ -438,6 +438,13 @@ &gpi_dma1 {
+>  	status =3D "okay";
+>  };
+> =20
+> +&i2c0 {
+> +	clock-frequency =3D <400000>;
+> +	status =3D "okay";
 
-tbh, if the "efi-rt" thing is just PSCI with a different conduit and that
-conduit is properly documented, then I really don't see the point in keeping
-it separate. However. I suspect that we probably all have slightly different
-opinions here which isn't going to help you very much :(
+If you resend, add a newline before 'status', also with i2c10
 
-Will
+Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+
+> +
+> +	/* PN553 NFC @ 28 */
+> +};
+> +
+>  &i2c8 {
+>  	clock-frequency =3D <400000>;
+>  	status =3D "okay";
+> @@ -455,6 +462,17 @@ touchscreen@48 {
+>  	};
+>  };
+> =20
+> +&i2c10 {
+> +	clock-frequency =3D <400000>;
+> +	status =3D "okay";
+> +
+> +	/* PM8008 PMIC @ 8 and 9 */
+> +	/* SMB1395 PMIC @ 34 and 35 */
+> +	/* AW882xx amplifier @ 34 */
+> +	/* Foursemi FS16xx amplifier @ 35 */
+> +	/* FSA4480 Analog Audio Switch @ 42 */
+> +};
+> +
+>  &ipa {
+>  	firmware-name =3D "qcom/sm6350/Sony/lena/ipa_fws.mbn";
+> =20
+
+
