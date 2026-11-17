@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794920261;
-	b=xSko4rnZBqlzkR5FhnWqPbe2TutVIW5+a3lQ1ERQ3AuTKhtDGjeO1uKRnpWzZP//uhaK
-	 JBH9iMhWw7voRId7MJq/crHsgKWDoevPi0y07+W9+4o5F9RXtkDvz27bSCGqQ6uAlzAwJ
-	 fqnH3ZGGkaeQlLoCOwj/ogM/7DpVEKHlnMHyxaGVzzNLAORwr1rEgkycOI9EubMlIgggC
-	 29aZljjp7u38OV9l6rZR/qBBr8qpP2TLk+fHmFFxC2rrYMx0BziJltqsWkX/LD5uDDTPu
-	 4ld4RECKeR1O25K0YDXq2uYm7YBSybQcWtdsf8x02CwoCpBSRSn18jm9sGVh0n+VxaQ==
+	b=TAClAVYCDV2am/t58/Bgqh04gLvuHuWCtYAHIXofsUC9lpBF0XE65nZIQvgJnQ/36UFk
+	 tlDVyi6nBuWxvKUEEpsbUzO2q/1azvvCH+uWLnGblIxWrWhTEGCb9QKGl4+Cj+p0AfSJT
+	 VxUT5wEycWmISDr+QtCO11SaGOmapwaoBn6pOCFGmlFWWTnT+3fyOThg+2J7y1XSnGfOJ
+	 yGjaYN54q7KMTTctXrE2Yb17O4cJtL8wkQtDgtuLk34mCQZYxSanhhM7G+BW9IpOYe1tj
+	 WIUavPlKVqN816idLjfKsAp69cCL/u4LNOfT2eAoHeOsWdXsKfaJkkh3RC3bmSP7k9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794920261;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ayQX72Nthi45ceW7BH28qruuX+qLax3sWs6E3u3jR3I=;
-	b=cmbYtN99NlykFZnzCbPZJNI8UGwcwHfOwtY1tarF9cQUpZuOxa82NeQSgq7EqYB9RhOs
-	 K/1Z0hUc+n7Zzglx5xe0hhg531CUTLDsojn6sevzFKe/LLCc9m+diDzab0MQPlN3biBbU
-	 ACmiwiBGu9vDckj0jdUDvmiGFvnuH1ugZIIWwmMjaKpthNZTCccR3Kt27vVJ8lmtmzXn0
-	 GXqj3o34vJe60rMXvNVzFZrymLRLDPYXWPcfhZYSQGvjsgUPGKv8K8tfv7NMEEyEbFqOI
-	 AMRLJGWsYLKeubIvBGJqn4tcCd5fqeiU1lluOHRxWYnSYt05uPxIwCrF2RXW9fnKHZw==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=pq4AjLVwM19r78cOmsBTZmnW52I4hS/grHAe4MpsVsY=;
+	b=PGhtVgGNOM18e2UjhA05cdtTfJSyLKVfUMGDh+bUMn053qG0LaILXt8z8FbPoJ9fx5bZ
+	 Pstxc/sIfxtj3YMcFixDvli1UzNsGJZNJmVsTdIYZ2m1R1fghXmelRP5R195eY2n5AKb0
+	 ejlAoBC6zlL5uOABiBennX2KwdC+mItzLQdcCqJSNTyRQERDfsgkyIEbN9xTnPJXp5oEB
+	 Y5s8affFY/L9pPC9zsEiGuSgEtOyMsMo9AA3+7xb6KwEuwfSRG6fhXPXM2/Rhc7PrDLIs
+	 ZwAgO174J2ot5mJByaQwpJPrf3dPPrIEROqsMpSeUBZVTk7q5/nolfgKsAN7rJsiV2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="g/U+A7sV";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=hqbGnlds;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D423606A88E;
-	Tue, 17 Nov 2026 12:57:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85D5606A88C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 12:57:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A85D5606A88C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g/U+A7sV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 621901F000CA;
-	Tue, 17 Nov 2026 12:57:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920260;
-	bh=ayQX72Nthi45ceW7BH28qruuX+qLax3sWs6E3u3jR3I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=g/U+A7sVehbCN3t2ROWsGG8VZtSwhHoPYxtxMkZa/jmFugkuRPcAu7FWmd2RyOW16
-	 nSzdxFB49HVcj0PV+BL/6ybadeTuio5KbRcxWJK4mqxJeozaxlKKoGNDOLtK6NNMxV
-	 FvIOhSGTmH2bCjViQigBS9UzqhjhPRbITjUECbI8BUNInBOhP16C8HK2hgvWoswHfn
-	 ORNVDx8AVS10OiT7AMvz+wuTErV7O44f5n06AfUxldU0Yj4M0yODdXlUb3PJgHMa/y
-	 hQddk0n8UceQHOsMGsS891E2FxYcnvN7RDO8HF59+CNQQCaCPQAENv3W+1ltgkuodF
-	 djn658XlJ/23w==
-Message-ID: <sashiko-outbox-218814@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 03/11] arm64: dts: qcom: sm8250-lge-timelm: add
- reserved memory regions
-Reply-To: sashiko-reviews@lists.linux.dev
-To: rofikkerneldev <rofikcoga@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261117123946.668557-4-rofikcoga@gmail.com>
-References: <20261117123946.668557-1-rofikcoga@gmail.com>
- <20261117123946.668557-4-rofikcoga@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 12:57:40 +0000
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=hqbGnlds
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3282db206d3so12535020eec.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 04:57:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794920260; x=1795525060; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pq4AjLVwM19r78cOmsBTZmnW52I4hS/grHAe4MpsVsY=;
+        b=hqbGnldsRnNYQeeJ/LsOxnTjKzWYSBL3+tdT7EhSLvinL0tTzRB6p340IkMHV/b3t1
+         p8/5oMc7sOgO/k69d6xeQro9UlUOwxjJKD15HyuuLNvAf04ZelbrXzHWZmx2bj/IcNqb
+         cv3r6vpnls1OJYtYo08cymmRO1BTkKmpPodoTARMRyAmGkuYRbQhfi5sCQDDgmooPoz0
+         pBuu4RHR43lRX2EN8FIdUYHT6ogk4bILpwK6NYjanSs1FH22geOZ7WOrNlYBSS1/CMRF
+         Cbuz9xIvdlZJbSAtn9XQbeqOPkQC0cW2XmQDM/LWud6OFk8cIKUlHmhG0rmb/Tu/pCQg
+         CxQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794920260; x=1795525060;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pq4AjLVwM19r78cOmsBTZmnW52I4hS/grHAe4MpsVsY=;
+        b=lVFjgouQ+H39o3QIoGLRcH94JmPN2PFgBD/jGfuYIO6HwrqS4IJXmTQwQHQrwA4TeX
+         4S1d6NOrvTb2t2onbbtAqfILDsKd459Wi0UcyIdjmc+VGcC9vtsbueM55l974KST6P/5
+         6sxtX11//aWR1QzhUUak/RD5ijFQajAH758zVICZQ8pzD0QYIc63i2N0BhLfDG8BlM6n
+         +2trQMksGtzV/l5ckrObc5oGmt9koQvc/oEFzalPh0gpNQAk5REXEU/KNOWhMnp5d3bj
+         jwdufDQgoTXHTcLtFFw0JGD3gDwjad1KnEW99x8TiIR9T5gQmf4lxJEyAEHY0r9RmER3
+         Caxg==
+X-Forwarded-Encrypted: i=1; AL+hErEkuGWQuY3W8MUEcMQnlohbrENLUjTIeJzD23lN+UppiPlTwkC1XLXWUgye/2BMBXPoaSvYohkvnGya@vger.kernel.org
+X-Gm-Message-State: APuU4Z+QktNZjvJ/mvDzvo4sHFdB9rRv7RW20Qpjh698X/rniPJjcHWc
+	YP0rGL/2uxFdUeoBccvIK7ICCkacsO9nUpXenjvMFDi+Ji8w4y24SkynBXGZZ7liKlk=
+X-Gm-Gg: AZFdTZchAJEIvyEUv4rlmph4DcfH2rgMWKbVk5ftKqbuRC55nsruCe0dmDNGQhzGPQM
+	R31Y1JUTNXTQO8+Xncbdf7Glip2X8WwBe7QDth29N/FX9kSvruvAJgSR8GzdFjJ281uQTr+OZsn
+	pDq2RwBYsJTohkUCGdFr0p7qe/6KAPU1g65kKjsbCPIDz/mzjNHtXlOfQSuRcBZ1tcbMBOFbhXj
+	V5c0m9lpLpwdCGkNWYcvh7vShrBU7UMl/PgJqTc6SDOtQdwq6N+vzdlHMXAUWE+4OY/XGKT2Lyf
+	DId5uw3OBDHNYM5dbwOr0IKGf3vmj7lFxP/y2Hows18IsQTnC+CAEQQrQ99XaqgGz/iezG0b5xC
+	HxoZM+HXCrYSK2DScVtUKXz3Mg/Pgu/oLFHZnmiYlxtAYqBmARAhLd3tNsmJ0sNw+77iJ8y9/Ua
+	OFQ8hnw62Qg36O7LcJZ5+FVOLVCYGk3PzSgh9bzX7K/T/AvZlSw1AUhsY/nPgEjomyKjBdKw74u
+	qzCVOl6OQkCdd1TZcmQbVet+nV63T9lehIe9MyDPpqDRZeFQUGDS569Zar1YHLhFtpFTK6Uvbcn
+	ejUwx5dht2nS7ThZIU5NvZyqigOa8VWV3/5N8TOh3tSTVhbohGXBrosIK0rS6Mtuzq2q
+X-Received: by 2002:a05:693c:60ce:b0:36e:8410:ecf6 with SMTP id 5a478bee46e88-37966387d74mr15512381eec.13.1794920259546;
+        Tue, 17 Nov 2026 04:57:39 -0800 (PST)
+Received: from [127.0.1.1] ([2804:14c:4c5:8bf0::a1aa])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379559189e8sm44767034eec.11.2026.11.17.04.57.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 04:57:39 -0800 (PST)
+From: Hiago De Franco <hfranco@baylibre.com>
+Date: Tue, 17 Nov 2026 09:57:13 -0300
+Subject: [PATCH 1/3] dt-bindings: pwm: sophgo: add PWM controller for
+ CV1800B
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,98 +91,56 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-milkv-duo-pwm-v1-1-3f1786ea57b7@baylibre.com>
+References: <20261117-milkv-duo-pwm-v1-0-3f1786ea57b7@baylibre.com>
+In-Reply-To: <20261117-milkv-duo-pwm-v1-0-3f1786ea57b7@baylibre.com>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>, 
+ Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: Chen Wang <unicorn_wang@outlook.com>, linux-pwm@vger.kernel.org, 
+ devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
+X-Mailer: b4 0.16.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] arm64: dts: qcom: Signed-off-by and Author use handle instead
-  of real name
-- [Medium] arm64: dts: qcom: sm8250-lge-timelm: ramoops sub-buffers
-  leave 0 bytes for dmesg
-- [Low] arm64: dts: qcom: sm8250-lge-timelm: changelog omits
-  cont_splash_mem and ramoops
-- [Low] arm64: dts: qcom: sm8250-lge-timelm: reserved-memory nodes not
-  sorted by address
---
+The Sophgo CV1800B SoC has four PWM controller instances that are
+derived from the controllers found on the SG2042 and SG2044 SoCs.
 
-commit d0da8e8448ef005db2a8bdee2ccfef831c824926
-Author: rofikkerneldev <rofikcoga@gmail.com>
+Add the "sophgo,cv1800b-pwm" compatible string and update the binding
+title to cover all supported SoCs.
 
-> arm64: dts: qcom: sm8250-lge-timelm: add reserved memory regions
->
-> Reserve the XBL/UEFI log and DFPS data regions used by the firmware.
-> Keep these regions protected from kernel reuse.
->
-> Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
+Signed-off-by: Hiago De Franco <hfranco@baylibre.com>
+---
+ Documentation/devicetree/bindings/pwm/sophgo,sg2042-pwm.yaml | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-[Severity: High]
-The Author header, Signed-off-by trailer, and file copyright header in
-sm8250-lge-timelm.dts use the handle "rofikkerneldev" instead of a real
-human name, which does not meet the Developer's Certificate of Origin
-requirements in Documentation/process/submitting-patches.rst.
+diff --git a/Documentation/devicetree/bindings/pwm/sophgo,sg2042-pwm.yaml b/Documentation/devicetree/bindings/pwm/sophgo,sg2042-pwm.yaml
+index e0e91aa237ec..11544b47c1b3 100644
+--- a/Documentation/devicetree/bindings/pwm/sophgo,sg2042-pwm.yaml
++++ b/Documentation/devicetree/bindings/pwm/sophgo,sg2042-pwm.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/pwm/sophgo,sg2042-pwm.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Sophgo SG2042 PWM controller
++title: Sophgo SG2042/SG2044/CV1800B PWM controller
+ 
+ maintainers:
+   - Chen Wang <unicorn_wang@outlook.com>
+@@ -18,6 +18,7 @@ allOf:
+ properties:
+   compatible:
+     enum:
++      - sophgo,cv1800b-pwm
+       - sophgo,sg2042-pwm
+       - sophgo,sg2044-pwm
+ 
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts b/arch/arm64/=
-boot/dts/qcom/sm8250-lge-timelm.dts
-> index 74b673ebbeb9d..ecbff27976fc2 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
-> @@ -103,6 +103,12 @@ ramoops: ramoops@b0000000 {
->  			console-size =3D <0x40000>;
->  			ftrace-size =3D <0x40000>;
->  			pmsg-size =3D <0x200000>;
-> +			no-map;
-> +		};
+-- 
+2.53.0
 
-[Severity: Medium]
-Does ramoops@b0000000 leave any space for record-size =3D <0x1000>?
-
-The node sets reg =3D <0x0 0xb0000000 0x0 0x280000>, and console-size
-(0x40000), ftrace-size (0x40000), and pmsg-size (0x200000) already sum to
-the full 0x280000 bytes. In ramoops_probe(), dump_mem_sz is computed as
-cxt->size - cxt->console_size - cxt->ftrace_size - cxt->pmsg_size, which
-evaluates to 0 and causes ramoops_init_przs() to skip registering dmesg
-crash dump zones (PSTORE_FLAGS_DMESG).
-
-> +
-> +		res_xbl_uefi_log_region: memory@80880000 {
-> +			reg =3D <0x0 0x80880000 0x0 0x14000>;
-> +			no-map;
->  		};
-> =20
->  		adsp_mem: memory@8a100000 {
-
-[Severity: Low]
-This isn't a bug, but ramoops@b0000000 is placed ahead of memory@80880000
-and the other lower-addressed child nodes under /reserved-memory instead
-of being sorted in ascending unit-address order.
-
-> @@ -119,6 +125,16 @@ cdsp_secure_heap: memory@8c700000 {
->  			reg =3D <0x0 0x8c700000 0x0 0x4600000>;
->  			no-map;
->  		};
-> +
-> +		cont_splash_mem: memory@9c000000 {
-> +			reg =3D <0x0 0x9c000000 0x0 0x1200000>;
-> +			no-map;
-> +		};
-> +
-> +		dfps_data_mem: memory@9e300000 {
-> +			reg =3D <0x0 0x9e300000 0x0 0x100000>;
-> +			no-map;
-> +		};
->  	};
-> =20
->  	vph_pwr: vph-pwr-regulator {
-
-[Severity: Low]
-The commit message mentions only the XBL/UEFI log and DFPS data regions,
-omitting the addition of cont_splash_mem: memory@9c000000 and the no-map
-property on ramoops@b0000000. In addition, both /chosen/framebuffer@9c000000
-and ramoops@b0000000 were introduced in the preceding commit "arm64: dts:
-qcom: add LG V60 ThinQ 5G (timelm) support", so folding these reservations
-(and referencing &cont_splash_mem from framebuffer@9c000000) into the
-initial board commit would avoid leaving the framebuffer unreserved across
-commits in the series.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117123946.6685=
-57-1-rofikcoga@gmail.com?part=3D3
