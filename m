@@ -1,87 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794942973;
-	b=34tGbl7DCbVQCeHQGf6KEhjjpslVm2mxuERx14g5v8Thnjjv51jsxGfoeCPOWiEE0rjP
-	 VXh0/wBoIRGJWBWIs0vmAHNuTb/I6R8FsJtU33/DZGuxAzinU2II/PLpOmYmCkmmwAqoR
-	 w4U+k9dzY9/XeRKayNl0QwZSPKZgjY1gbVTYqYUpniSwDjnkpVTIu2bnZEl8gZ6yf+yD7
-	 MyHtsHabJ+PN8sknUFNsExFa5jd1VGYNi37eBsdjDNh+rTaEDtiiAco0odMyHV+D7BDGh
-	 2VX+zkUJSEd2hJS2snzt6L9DqWsDX6jByYQldJkpvajFT1HHU6wwEwj1vcmMqGndHSw==
+	t=1794943026;
+	b=cPnd0l4dkBmBGWcTHYwQdIqD+kuA/cU/kWuNLW+GHzaeFbDEd09f+n7H8zJYMITa++33
+	 HJrzEnBnGh8x47vPiOVMP79TWseVUpSTlTWREe2Fli2DDbYleFneXFJnxrc7hRVeIoxs8
+	 AsS0KxQ2IQD+a6orrRkSE1zDUhn9SnOe2sq4fpCp+Ex/f/dmXri0mi5e47Sdzq+YGjpe7
+	 +NsQ39TjGMaARQIDp2Bb5oqkO7Q71dVamqS4Kw9saadfbwQGQISztdEQLRT2HfgtXJcJd
+	 clN5jG6jhavlJ7LnhTyTn1Ihwt+wnLoINyWzDDShH8wfbAO2wN8Ql2WgF/Wb7jNHGjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794942973;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=lSmLsRsGHKysWf9eIOoeDWnk3aBAslOlmRQvenWBQVw=;
-	b=ajM1AHZ4L1XWUZU4TLuj1SGby5ZGfr6OvYXxL2LwhYCfoqvdU1KWcy40PUTqhRCIHC+4
-	 SiM5dbJN1H8gXyMt2Cwgwf5nY6y7kueh7syGEvTLpZ/wsUqwmjQt/YHYWR5APyBmB6l43
-	 poZjraTAZkSYZjktdTGx8hAGBEMHJMqSeOO0AT+ohZAxYsHRClSmmOZjta6Em79jXZIzp
-	 EHng1xXCBvlES9GCco3Mw01F0Uci39ubBG8kYfmf6uUi05V0w4vVqIQMBeL3QkZX2KQrm
-	 eytjEDRqi6URKxuqjr0MU/TryJDOjSahpFGCyy+k97q7C7+iGPtq1p9y6tCUcq6BtGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794943026;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=FYJEgbgWj1001DFbh2xaEfMnqumhuslKfSmLo2I8NaQ=;
+	b=YyiqJIKGl/HeDGX/yr/QHvcNLO5W9Rz5VUTV6DxQB4ijEkwmLGDLTHYY8jjpqneZGw6Q
+	 SYmYC/GMgbY4/9BoygB/F6KCFVa2zfzswguSck6ua5UyMav6nHR+q7r/GP/aDRNjKTPoe
+	 D/aA55oe0WdCi7pqTmiMzsbIpf3iS7ldI0tIJABZnnZWGUmNtBeBGeR8mKvZJG8xfvHSV
+	 0wZ7dxiJ2DZRfdPDOJyX7aab7tlBAfjV6xNyP+rMaH/2NueqzGCFS82w5UswwGGVoEC2s
+	 RA5fk/IVRtCLmqCa3LP4il0g+6wmJRChKEPigF8WH3UjZS2XjKSypSJJWSQPNSggT/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MQhSiGUi;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SjYhkCMJ;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DA1F606A336
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:16:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DA1F606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58395606A32A;
+	Tue, 17 Nov 2026 19:17:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58395606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MQhSiGUi
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso2057845e9.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 11:16:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794942971; x=1795547771; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lSmLsRsGHKysWf9eIOoeDWnk3aBAslOlmRQvenWBQVw=;
-        b=MQhSiGUiKYUNjsxYbJpr2H2peA6r5L/6blxVL+o7hYSjwkW9K51Dgg8z87VH/nu6KU
-         80618/BBuEQ2J91nD/FbYuADN3buxR3bYvtL2ydAsl29ILU8yYxz8J4TK5aVE4YiSZFP
-         NZqTgCAklUOHG0GCZKYsI9Grxd+st2Sl9KPPwagq6sLCxpiwCfdpGavgOgN+4nkwjWX7
-         olkjQKESHgYd1/or5dtLJDzahK5d9Dk4THXEg8bvZjviKMj2LwTFir9HumfUGfDN++ut
-         2Nuk0hpUipZyRYZPkVRyfVWNmYO4vx7Sy3HZN0w/eclaOS8gB0JiTL17ImgkEcUTZFNy
-         6s9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794942971; x=1795547771;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lSmLsRsGHKysWf9eIOoeDWnk3aBAslOlmRQvenWBQVw=;
-        b=kw99jPI6UmEO/4Q2T7l6o9GkgSF6uiqH4jdQIDfQYGY9cMvjYSAy+bfdTyrkLa3Yhx
-         35iRWWS8jX1nHPIyjfDhlmCKwlKg59x7rWT5ZNy49Aw3yCL3M6101Dojk7dP6oQesYVQ
-         6d/WyBN9X7ixiOH7JuHhfUr9g7JyNS/yFsnRmd0flgyRMQL0LuLz7TuXTnMzCKQLOOPh
-         mHZ4Ht10sebiMCP0J/kUZI0JMbuEXGzuDoXE0GnR8uWTVG6QOS4MSyU6Z882ky3k8kAT
-         uA8OYatz2ThZl/hB/Pu8H6/bn+ZBM9UolT137vergJBnE9xTZm+yTBKPFKC8jT9glYze
-         d6zQ==
-X-Forwarded-Encrypted: i=1; AL+hErGJcf3f5PozVztVlOSOHIf2P3ZHU8WLle09WcxnmgHjAfEgskrQ5LGRJSwpIQG3aQCxZSpAx8nXFhBt@vger.kernel.org
-X-Gm-Message-State: APuU4Z87Xx65iBZ1M5AP8XwS6QZc0WWG1W91iJIQXW8lUz6dMuFzjUsF
-	9gfxsC4cwpo/JglQvRlBnVB4deHJgr6qI85fq0MCLZ92C+/P8EPUjJdpz9vqhtHViVs=
-X-Gm-Gg: AYBFou0Z0Ywl07OUMiiafxT7b22JEckjBIx7D7VvWezcwU2m/sF68MbtK1L8ELRziZ7
-	GXUacTltSxY2g5cYDyn7T3GipYAQyulGOlj6dUC6waX1GMKlwojC3R0qQ5XEcN3NCPB1HfC4Lbl
-	HFsZMH8oLMOjQv39omevQgcSm+YYOfuAP4JXbgUFlE4n+q+ev9rF+jIiBEB2w5wFEYtq5an6QOU
-	+fDEoH47W0bPECDmlYjW+PTfu8FEL/FvnRWnRcWbBthnZnNoAOpIu29A+Fy42UVrqF0gr8Xki9A
-	uj09oBInYd2sIR476ybxjLaY+kO9VoepQNxxfnu515wYQlrqzSfpIMDOAsFOwSTQiFeJ9mVk5oY
-	lI/qbehR6MyItVE+t/FI0Lf2v+lPruNXtomuh6cWnFxznaXlV+QkAKqBG0gkcIF4dHykJl0TLw3
-	sL/ZMWH0n9c2wXq+VKxzIjXr+a5US27XjV3P6KaLKCXs+eavNHfJRzTzV6GJyxcXM4U1WQ7xcIa
-	5tU4JC2uWcKTbHB/AwMSkSAmVw/i1lVY4y16dXHzhuyztp39gof8pUcLN7+AF3tUEm+8pD2sZlu
-	HEL/aaYa/36IM4rIxMDWhhp9p5iRNqGb6aZWZKfclwYAMFKAYxYFP4lv
-X-Received: by 2002:a05:600c:4fc6:b0:4bb:6823:3d3c with SMTP id 5b1f17b1804b1-4bb7da26fc7mr2486695e9.20.1794942970661;
-        Tue, 17 Nov 2026 11:16:10 -0800 (PST)
-Received: from [127.0.1.1] (82-230-44-19.subs.proxad.net. [82.230.44.19])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb7d2b8032sm5658625e9.10.2026.11.17.11.16.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 11:16:10 -0800 (PST)
-From: Alexandre Mergnat <amergnat@baylibre.com>
-Date: Tue, 17 Nov 2026 19:16:04 +0000
-Subject: [PATCH 3/3] clk: mediatek: Add MT8196 PWM source muxes
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SjYhkCMJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794943026; x=1826479026;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KOV0DBczU4q1DkAermQBydrpIkEwz8s9NSQiCDYutP4=;
+  b=SjYhkCMJkGcW+iCNpMAr1fB5C0I/gqPu2xDcMNS3AjZzvpwmBpLmIuJk
+   E2xVrsK7s/FswZbLdB/L0B8UPNJRug8vNpJKd3NCgeB2/QqZcHPUGFAUx
+   FmfiG9zZLlbBeMOuUoZxWtzuUq8y5ZjkfS+ar98SbkjX1hn1pXZl6R/9D
+   dGks0GqubFZ/N8EBzhEQLh4D88gZ4bGTbHeI/+APMgLV5hwLiFxwRxYia
+   nYs7MKOyLaksSkyPeTJBs23ZdKuTQwRmPEIyrJununj83KUZd1zXmKfH7
+   X6zQIW/mGwtfT/bBsqI40epr3tLS5SpjQCvui79eSLSUt1IlckV5iUs0W
+   Q==;
+X-CSE-ConnectionGUID: vQh0G24QSlKh6UVhn8JZPg==
+X-CSE-MsgGUID: 5LyqOzCtTCKe0Y3ToHgmqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3763280"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3763280"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 11:17:06 -0800
+X-CSE-ConnectionGUID: w7GccVdkREq1mQzn5e0yFg==
+X-CSE-MsgGUID: 1bMSIU5TT3Cly5I4i3vbsg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9887442"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 11:17:03 -0800
+Date: Tue, 17 Nov 2026 21:17:00 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Daniel Campello <campello@chromium.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] Semtech SX9xxx: add a reviewer entry and binding
+ maintainer
+Message-ID: <avyoLGkkCkxu11TA@ashevche-desk.local>
+References: <20261117172612.25535-1-kapoorarnav43@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,105 +86,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-mt8196-pwm-clk-v1-3-d8725bcea9f4@baylibre.com>
-References: <20261117-mt8196-pwm-clk-v1-0-d8725bcea9f4@baylibre.com>
-In-Reply-To: <20261117-mt8196-pwm-clk-v1-0-d8725bcea9f4@baylibre.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>, 
- Laura Nao <laura.nao@collabora.com>
-Cc: Chris Chen <chris-qj.chen@mediatek.com>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- Alexandre Mergnat <amergnat@baylibre.com>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117172612.25535-1-kapoorarnav43@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The four MT8196 PWM channel clocks and X16W_BCLK each have a source
-selector in pericfg_ao, choosing between clk32k, clk26m and the
-topckgen pwm clock. The peri_ao driver models their gates as fixed
-children of the topckgen pwm clock, so when a selector picks another
-input, CCF reports the wrong rate. For the channel clocks, the PWM
-driver then computes wrong period and duty counters.
+On Tue, Nov 17, 2026 at 10:56:07PM +0530, Arnav Kapoor wrote:
+> Add a MAINTAINERS reviewer entry for the Semtech SX9310, SX9324, SX9360
+> and SX9500 proximity drivers, and add myself to the maintainers of their
+> DT bindings.
+> 
+> Jonathan agreed to a reviewer-only entry here:
+> https://lore.kernel.org/all/20261117031830.69ac22f5@jic23-hlaptop/
+> 
+> Changes in v3:
+> - Patch 2: replace the Link: tag and the reference to it with a
+>   Suggested-by: tag (Andy)
+> - Patch 2: drop the L: line, the IIO subsystem entry already provides
+>   linux-iio for these files (Andy)
 
-Model the five selectors as muxes and parent the gates on them, so
-CCF reports the rate of the selected input. The selection made at
-boot is kept, and consumers can change it with assigned-clock-parents.
-The selectors do not forward rate requests to the topckgen pwm clock,
-which all five share.
+> - Patch 2: drop the DT binding F: lines, patch 1 already lists me in
+>   the maintainers: field of the bindings (Andy)
 
-Fixes: 212779900009 ("clk: mediatek: Add MT8196 peripheral clock support")
-Co-developed-by: Chris Chen <chris-qj.chen@mediatek.com>
-Signed-off-by: Chris Chen <chris-qj.chen@mediatek.com>
-Signed-off-by: Alexandre Mergnat <amergnat@baylibre.com>
----
- drivers/clk/mediatek/clk-mt8196-peri_ao.c | 38 +++++++++++++++++++++++++++----
- 1 file changed, 33 insertions(+), 5 deletions(-)
+I was expressing my opinion, it was not an AR, it was rather the start for
+the discussion. I'm not DT maintainer, I don't know what the rules for the
+maintainer records there, OTOH I don't know if DT parts belong to the
+MAINTAINERS records that have only R: lines (and no M:).
 
-diff --git a/drivers/clk/mediatek/clk-mt8196-peri_ao.c b/drivers/clk/mediatek/clk-mt8196-peri_ao.c
-index f227a86c5d60..00873264c18e 100644
---- a/drivers/clk/mediatek/clk-mt8196-peri_ao.c
-+++ b/drivers/clk/mediatek/clk-mt8196-peri_ao.c
-@@ -85,11 +85,16 @@ static const struct mtk_gate peri_ao_clks[] = {
- 	GATE_PERI_AO0(CLK_PERI_AO_UART4_BCLK, "peri_ao_uart4_bclk", "uart", 4),
- 	GATE_PERI_AO0(CLK_PERI_AO_UART5_BCLK, "peri_ao_uart5_bclk", "uart", 5),
- 	GATE_PERI_AO0(CLK_PERI_AO_PWM_X16W_HCLK, "peri_ao_pwm_x16w", "p_axi", 12),
--	GATE_PERI_AO0(CLK_PERI_AO_PWM_X16W_BCLK, "peri_ao_pwm_x16w_bclk", "pwm", 13),
--	GATE_PERI_AO0(CLK_PERI_AO_PWM_PWM_BCLK0, "peri_ao_pwm_pwm_bclk0", "pwm", 14),
--	GATE_PERI_AO0(CLK_PERI_AO_PWM_PWM_BCLK1, "peri_ao_pwm_pwm_bclk1", "pwm", 15),
--	GATE_PERI_AO0(CLK_PERI_AO_PWM_PWM_BCLK2, "peri_ao_pwm_pwm_bclk2", "pwm", 16),
--	GATE_PERI_AO0(CLK_PERI_AO_PWM_PWM_BCLK3, "peri_ao_pwm_pwm_bclk3", "pwm", 17),
-+	GATE_PERI_AO0(CLK_PERI_AO_PWM_X16W_BCLK, "peri_ao_pwm_x16w_bclk",
-+		      "peri_ao_pwm_x16w_bclk_sel", 13),
-+	GATE_PERI_AO0(CLK_PERI_AO_PWM_PWM_BCLK0, "peri_ao_pwm_pwm_bclk0",
-+		      "peri_ao_pwm_pwm_bclk0_sel", 14),
-+	GATE_PERI_AO0(CLK_PERI_AO_PWM_PWM_BCLK1, "peri_ao_pwm_pwm_bclk1",
-+		      "peri_ao_pwm_pwm_bclk1_sel", 15),
-+	GATE_PERI_AO0(CLK_PERI_AO_PWM_PWM_BCLK2, "peri_ao_pwm_pwm_bclk2",
-+		      "peri_ao_pwm_pwm_bclk2_sel", 16),
-+	GATE_PERI_AO0(CLK_PERI_AO_PWM_PWM_BCLK3, "peri_ao_pwm_pwm_bclk3",
-+		      "peri_ao_pwm_pwm_bclk3_sel", 17),
- 	/* PERI_AO1 */
- 	GATE_HWV_PERI_AO1(CLK_PERI_AO_SPI0_BCLK, "peri_ao_spi0_bclk", "spi0_b", 0),
- 	GATE_HWV_PERI_AO1(CLK_PERI_AO_SPI1_BCLK, "peri_ao_spi1_bclk", "spi1_b", 2),
-@@ -117,9 +122,32 @@ static const struct mtk_gate peri_ao_clks[] = {
- 	GATE_PERI_AO2(CLK_PERI_AO_MSDC2_HCLK_WRAP, "peri_ao_msdc2_h_wrap", "peri_ao_msdc2", 13),
- };
- 
-+static const char * const pwm_src_sel_parents[] = {
-+	"clk32k",
-+	"clk26m",
-+	"pwm",
-+};
-+
-+static const u32 pwm_src_sel_table[] = { 0, 1, 3 };
-+
-+static const struct mtk_composite peri_ao_muxes[] = {
-+	MUX_FLAGS_INDEXED(CLK_PERI_AO_PWM_X16W_BCLK_SEL, "peri_ao_pwm_x16w_bclk_sel",
-+			  pwm_src_sel_parents, pwm_src_sel_table, 0x20, 6, 2, 0),
-+	MUX_FLAGS_INDEXED(CLK_PERI_AO_PWM_PWM_BCLK0_SEL, "peri_ao_pwm_pwm_bclk0_sel",
-+			  pwm_src_sel_parents, pwm_src_sel_table, 0x20, 8, 2, 0),
-+	MUX_FLAGS_INDEXED(CLK_PERI_AO_PWM_PWM_BCLK1_SEL, "peri_ao_pwm_pwm_bclk1_sel",
-+			  pwm_src_sel_parents, pwm_src_sel_table, 0x20, 10, 2, 0),
-+	MUX_FLAGS_INDEXED(CLK_PERI_AO_PWM_PWM_BCLK2_SEL, "peri_ao_pwm_pwm_bclk2_sel",
-+			  pwm_src_sel_parents, pwm_src_sel_table, 0x20, 12, 2, 0),
-+	MUX_FLAGS_INDEXED(CLK_PERI_AO_PWM_PWM_BCLK3_SEL, "peri_ao_pwm_pwm_bclk3_sel",
-+			  pwm_src_sel_parents, pwm_src_sel_table, 0x20, 14, 2, 0),
-+};
-+
- static const struct mtk_clk_desc peri_ao_mcd = {
- 	.clks = peri_ao_clks,
- 	.num_clks = ARRAY_SIZE(peri_ao_clks),
-+	.composite_clks = peri_ao_muxes,
-+	.num_composite_clks = ARRAY_SIZE(peri_ao_muxes),
- };
- 
- static const struct of_device_id of_match_clk_mt8196_peri_ao[] = {
+You need to clarify all this before blindly doing something.
+Also even for this patches, wait 24h hours before a respin.
 
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
