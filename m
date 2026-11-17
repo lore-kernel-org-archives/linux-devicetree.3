@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794923650;
-	b=4vBx52HdBbgcGHuK8rHUi75KrsQI1zyvNRvPevke/MbrWHaEoT6YeLJbmKaUKNjXHRMQ
-	 2CqRyCfr7/vt6B+e9qSsR/JHgnw/iFdc8CPfKs7AcrGgKQajPbFtGr28YbGPQYZnFUn4J
-	 ZHsEcn/M8JyL3AVgM/NoVkTWI8LrlqNH8nH0UXssd7lX5sKE94DjWBoBs8Kh1vxSLSOtG
-	 ENCy4KT6GR5yrd5HSVY3JDJR9AdWHWt7GN0NDgajTyWKSf0izXgcnmN6BF4S9gkiv39ff
-	 vd1UXLuT6b0bvrcLQhtYuu76gLywt9gQ7GuFU8LbYFjtl8HZTlG9QBntVLKaTrpGLYw==
+	t=1794923678;
+	b=MaV4ac1A5QwuqF/xlCy6EPUDNAobMIZK34UOI9CWm5V0SpWNy9MzOrWd7ZddAublqExz
+	 yQU0YEcXjY1SmUQZL13uHD4GE8yBUpdjpKZJekwEI2EnhtL09HUXkz6ZcilbbTTsPNne7
+	 kmzZTS22LgHG+iMnrx7EaX2kQJaEdOaeO7dO2a/nxjefnMJjnNUtvW5gh770HH5ts+RGP
+	 JeOZuyuS65zjGYyGjpqUhuOtuojLZx295xWbRzw/h4tiiOp7u3QW2hd44pDNIkURPHZz0
+	 ejNn7/LFjMZMARV/b7o8TSiOHwMn832OkvCp8EmxE4p61jLciDTdP0DMLj3eYAdk6Cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923650;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Kn4paL7msMkOQ0Yy8qxhjJ2SB6j2nayBwty9MQVkUYY=;
-	b=RERW7VC4SzNi8KxkTT6IV8FXaq5ZQKkZRoZ3vo+DqNRS7AP5mBFzx28vDqwDzuq6VawG
-	 FcgxvVmBeak0ARAzzlwydrvRt+ZXRCERQ45hedCbbqXpp9bXNZNmJr8kWoBkG5wchx81n
-	 Y/ri+KEft9vzLYqwo97e8DC5Acv4VxgIJL+w6pkyFcCT1GCcXRSWGOlNBEsCuPUTDKEA/
-	 c61b3wpffCvPZh1Brt2TXJdFWGMiL4dPqwi5/fQIDebWgg0HmR+IPn7ycn8I30mLLVyv0
-	 FxS8i9IbhPsJ3wYRGEJbK/ZGCS1CEkf6DLaeejLmS9JezcCyTtB6gutg8UHUBRs8ICA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794923678;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=zlxBEyM9x2eWCk1EhUwhvikiHUuD24IlRED5BT86hDg=;
+	b=3QGcjOT8wFqudGtApd9BFznAj3Htjtkg+i4EmJd6orqzsbQdjsMA//vy9TRXf7uvXsPQ
+	 NXnCdekhG2e4EEP9BLFpanI5aclv6mlSbhDlXNacdbNJ3YCfgh/JqAE2ZuPa0111so01O
+	 ReRB84J0+b4LY720WIfuu13qVaxCFUpDrEvVjEO0chiCJKrsYFE9w3yjcCEcbVP5eCO3i
+	 oQEOcDecFrq6vifLX/POqJOTY2vhJQpjCZaOoan+YTyRpmBahIiQzMFKS0JWeMKn1JV/a
+	 bm2lDVYa2+XCdL8N1S0/i5z6hcM019SfbMw8EBeQ+qE7EX2RJI/A48FZTjs6lEyAqlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BctFTCIV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gJGMT//F";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 03631606A329;
-	Tue, 17 Nov 2026 13:54:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A581606A323
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:54:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BctFTCIV
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 17C051F000CC;
-	Tue, 17 Nov 2026 13:54:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gJGMT//F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59451F000C5;
+	Tue, 17 Nov 2026 13:54:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794923649;
-	bh=Kn4paL7msMkOQ0Yy8qxhjJ2SB6j2nayBwty9MQVkUYY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BctFTCIVaO3q9cDaX5aXSwPrEldXrYYy3Qejg8T0RygJbuANtmltOX3+H+JkupAmM
-	 BvSaLZu0YJOFJsePljchqBc4Aj70CwqQF8f+TL4AtEFXhcf4/mrJoIzFMegt5YNnMS
-	 dtleKx9zSGzpY6np9JqzjMxM/C/ncVxCT1sxs07A0b5lmJY9lDqNRO/N8GB+eyeBG7
-	 msMejstzkxd/gK7BeEZ+D4g+WXWTz8jnvofnss0q52XjFuLGenalYJt1tCc2o5zYOi
-	 xTVDL3fZL1cDphQFpVdg1qaLnIHzk7x0oyq46efJyn+/MIA18LLGPj2AX6CpL9wzf6
-	 nI8yDIJUteZRA==
-Date: Tue, 17 Nov 2026 14:54:06 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: CL Wang <cl634@andestech.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, tim609@andestech.com
-Subject: Re: [PATCH 2/3] gpio: atcgpio100: Add ATCGPIO100 GPIO driver
-Message-ID: <22ifazqg6afr6rcybqg6foah3v554xu4px2c4et35y5xzpg74h@kesthgcvnlgk>
-References: <20261116040914.368298-1-cl634@andestech.com>
- <20261116040914.368298-3-cl634@andestech.com>
+	s=k20260515; t=1794923678;
+	bh=zlxBEyM9x2eWCk1EhUwhvikiHUuD24IlRED5BT86hDg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gJGMT//FU+/EuO4bd6AQsSKijY9H7JzN/tDExzENQyX+43dcU1zwf229dq8Ciu4RW
+	 byx6sM4oQ6NcdMCO1Pstpm79rpmBaww5aNtC0nbgkoeKdYm4xzCUbD4gi4ipOjo5lZ
+	 OTX2o8PuUdxqNb3DOJ5QRIPUx7rJpRRXNSW2GLx9Bgdqfon1z7qjcg3zw74RTyeCWK
+	 NMf3cUgLRgvptevBfGUfrPbYJOGvlxwwDToPvXKtU4wcPsA4T6P+qCvH46dSMyyUoW
+	 Apg1aTBTgbaQlkI9ChXzolUwy3ar7BbyD5G/fKYxIu4y0FGfebyYLmtAHRgiY2Vjkp
+	 fnEGi3GHvhPxg==
+Message-ID: <sashiko-outbox-218907@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: Remove deprecated hsuart aliases
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261117133825.245191-4-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261117133825.245191-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <20261117133825.245191-4-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 13:54:37 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,127 +59,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116040914.368298-3-cl634@andestech.com>
 
-On Mon, Nov 16, 2026 at 12:09:13PM +0800, CL Wang wrote:
-> Add a driver for the Andes ATCGPIO100 GPIO controller, found on
-> AndesCore-based platforms such as AE350.
-> 
-> The controller provides up to 32 lines. The data path is built on the
-> generic MMIO GPIO library (gpio-mmio), and the number of lines and the
-> optional pull, interrupt and debounce features are read from the
-> configuration register at probe time.
-> 
-> The driver supports:
->  - Input and output, reading the output latch back for output lines
->  - Pull-up and pull-down bias
->  - Edge (rising, falling, both) and level (high, low) interrupts
->  - Hardware input debounce with a period shared by all lines
->  - Wakeup through the parent interrupt for lines that their consumers
->    mark as wakeup sources
->  - System suspend and resume
-> 
-> Signed-off-by: CL Wang <cl634@andestech.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: qcom: missing serial1 alias for uart3 when
+  removing hsuart0
+--
 
-...
+commit 89fde105212b474add4ece5c8204ee69246c787d
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/clk.h>
-> +#include <linux/dev_printk.h>
-> +#include <linux/err.h>
-> +#include <linux/find.h>
-> +#include <linux/gpio/driver.h>
-> +#include <linux/gpio/generic.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/irq.h>
-> +#include <linux/irqchip/chained_irq.h>
-> +#include <linux/math.h>
-> +#include <linux/minmax.h>
-> +#include <linux/mod_devicetable.h>
+arm64: dts: qcom: Remove deprecated hsuart aliases
 
-Uwe would probably say you should only pull in the individual headers
-that you require from include/linux/device-id/.
+This commit removes the deprecated hsuart0 aliases from four SC7180 device
+tree files, replacing hsuart0 with serial0 in sc7180-ecs-liva-qc710.dts.
 
-...
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180-acer-aspire1.dts b/arch/arm6=
+4/boot/dts/qcom/sc7180-acer-aspire1.dts
+> index d9c70897b6f1c..fccd0931a9693 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180-acer-aspire1.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc7180-acer-aspire1.dts
+> @@ -21,7 +21,6 @@ / {
+> =20
+>  	aliases {
+>  		bluetooth0 =3D &bluetooth;
+> -		hsuart0 =3D &uart3;
+>  		serial0 =3D &uart8;
+>  		wifi0 =3D &wifi;
+>  	};
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180-ecs-liva-qc710.dts b/arch/ar=
+m64/boot/dts/qcom/sc7180-ecs-liva-qc710.dts
+> index 3100fab18787a..58b93c49ccf18 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180-ecs-liva-qc710.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc7180-ecs-liva-qc710.dts
+> @@ -21,7 +21,7 @@ / {
+> =20
+>  	aliases {
+>  		bluetooth0 =3D &bluetooth;
+> -		hsuart0 =3D &uart3;
+> +		serial0 =3D &uart3;
+>  		wifi0 =3D &wifi;
+>  	};
+> =20
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180-idp.dts b/arch/arm64/boot/dt=
+s/qcom/sc7180-idp.dts
+> index acfb9937651d6..7d830b25d8c66 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180-idp.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc7180-idp.dts
+> @@ -21,7 +21,6 @@ / {
+> =20
+>  	aliases {
+>  		bluetooth0 =3D &bluetooth;
+> -		hsuart0 =3D &uart3;
+>  		serial0 =3D &uart8;
+>  		wifi0 =3D &wifi;
+>  	};
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/bo=
+ot/dts/qcom/sc7180-trogdor.dtsi
+> index 0e0bc8543f714..560a650b09662 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+> @@ -90,7 +90,6 @@ mdata_mem: mpss-metadata {
+> =20
+>  	aliases {
+>  		bluetooth0 =3D &bluetooth;
+> -		hsuart0 =3D &uart3;
+>  		serial0 =3D &uart8;
+>  		wifi0 =3D &wifi;
+>  	};
 
-> +
-> +	config = (struct gpio_generic_chip_config) {
-> +		.dev = &priv->pdev->dev,
-> +		.sz = 4,
-> +		.dat = priv->base + REG_DATA_IN,
-> +		.set = priv->base + REG_DATA_OUT,
-> +		.dirout = priv->base + REG_CHAN_DIR,
-> +		.flags = GPIO_GENERIC_READ_OUTPUT_REG_SET,
-> +	};
+[Severity: Medium]
+Should sc7180-acer-aspire1.dts, sc7180-idp.dts and sc7180-trogdor.dtsi
+replace hsuart0 =3D &uart3 with serial1 =3D &uart3 instead of dropping the
+alias for &uart3?
 
-I think you could save even more code by using the gpio-regmap helper
-here instead. Could you see if that's possible here?
+In all three files &uart3 is enabled for the Bluetooth serdev, while
+serial0 points to &uart8.  Commit 08b0adb1ae54 ("serial: qcom_geni_serial:
+use DT aliases according to DT bindings") switched to looking up "serial"
+aliases, but qcom_geni_serial_probe() still required an alias and failed
+with -ENXIO for unaliased non-console UARTs until commit a53be6945f51
+("serial: qcom-geni: Remove alias dependency from qcom serial driver").
+Leaving &uart3 without a serial1 alias breaks Bluetooth on kernels and
+projects implementing the 2021 serial alias ABI, and shifts &uart3 from
+ttyHS0 to ttyHS1 via dynamic IDA allocation on newer kernels.
 
-> +
-> +	ret = gpio_generic_chip_init(&priv->chip, &config);
-> +	if (ret)
-> +		return dev_err_probe(&priv->pdev->dev, ret,
-> +				     "Failed to init generic GPIO chip\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static void atcgpio_init_controller(struct atcgpio_priv *priv)
-> +{
-> +	u32 cfg;
-> +
-> +	cfg = atcgpio_read(priv, REG_CONFIG);
-> +	priv->pull_option = !!(cfg & CONFIG_PULL_OPTION);
-> +	priv->int_option = !!(cfg & CONFIG_INT_OPTION);
-> +	priv->debounce_option = !!(cfg & CONFIG_DEBOUNCE_OPTION);
-> +	priv->chan_num = CONFIG_CHAN_NUM_GET(cfg);
-> +	if (priv->chan_num > ATCGPIO_CHAN_NUM_MAX || !priv->chan_num) {
-> +		dev_warn(&priv->pdev->dev,
-
-Use a local variable to store the adress of dev for better readability.
-
-> +			 "Invalid hardware GPIO number %d, forcing to %d\n",
-> +			 priv->chan_num,
-> +			 ATCGPIO_CHAN_NUM_MAX);
-> +		priv->chan_num = ATCGPIO_CHAN_NUM_MAX;
-> +	}
-> +
-> +	if (!priv->extclk_rate && !priv->pclk_rate) {
-> +		dev_warn(&priv->pdev->dev,
-> +			 "Disabling debounce: missing reference clock\n");
-> +		priv->debounce_option = 0;
-> +	}
-> +
-> +	if (priv->debounce_option)
-> +		atcgpio_write(priv, REG_DEBOUNCE_EN, 0);
-> +
-> +	if (priv->int_option) {
-> +		atcgpio_write(priv, REG_CHAN_INT_EN, 0);
-> +		atcgpio_write(priv, REG_INT_MODE0, 0);
-> +		atcgpio_write(priv, REG_INT_MODE1, 0);
-> +		atcgpio_write(priv, REG_INT_MODE2, 0);
-> +		atcgpio_write(priv, REG_INT_MODE3, 0);
-> +		atcgpio_write(priv, REG_CHAN_INT_STATE, GENMASK(31, 0));
-> +	}
-> +}
-> +
-> +static int atcgpio_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct gpio_irq_chip *gc_irq;
-> +	struct atcgpio_priv *priv;
-> +	struct gpio_chip *gc;
-> +	int ret;
-> +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-
-Use devm_kzalloc_obj(). Same elsewhere.
-
-Bart
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117133825.2451=
+91-3-krzysztof.kozlowski@oss.qualcomm.com?part=3D2
