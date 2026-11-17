@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910821;
-	b=SIZaCfhIOoz+/HUgmGwMFGODASsMWZmP0NQX/j6n5kzdFX+vS+EhC8IRlsO8gcVGHaHh
-	 +g45I0CkbqDqL/jAlhYD7HedCrhAq9ylYHkq3rd5LKKiWmR3h6IyjK+XUVB0osC07m29B
-	 qNpO0fE/a30Nvpi6IKhIz6N3evnWCDXnfkpqhOgXA7CWJG3JehV2L4HwZAtRd0XXEWkLE
-	 FS1okBhA+a1xWEd6xXVXid+FHJOJR4DNROHPLknr5E+1voRZUI5dn2oQRDe9nZ4eanNvm
-	 RPOO5T2f4zCtdeU+cohOaQ80/1LJ1ISwc5is08Rtp3KdFtCn2Ulx2pKzMpNZb3+77Mw==
+	t=1794910901;
+	b=XS5mIYxKTgsvGulSJ76hNy7fOwr+zNPCeZ5j97ZAnNZdjWlGM5VpBdIEoWqr46XlHDtl
+	 B9nqGySd9eB3tulmfo4sdxCCJAfsy0N8fpvITJCvbRNgGEb14YAzr/gDjCdmIJEHo/35q
+	 PLOgYvSTiDSuEClHHF+J0hobVoQ2nKJN44Pwf/cQ8Y1KbykDdWkSIpDYPcYQHjWTm2HTS
+	 +oJhVYOC6Ro/bbUQofv1w2toXj14tusUfM9PeWgtft6sue6FfrrhNi1prSZyUYWCf3n24
+	 0nDskcGHzLYmygxt800g/90SBlTQH//zz5mZEKYBsYMWmJLzzSZV/fiRpPgzWDmbMIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910821;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=LYjA64OY7mzK30+EmXCloZ1d2MnMctrR1lEa4XYe6Og=;
-	b=PynGeHGrbXYdMNvANmwE759xEJkaHyHu3UikPTtomsgfETYywzTt+AgKqPE6hnORz+Qa
-	 B5qD2czhj+ZGkIpsfPoyvJ4TmW1duVM0stxjbTnNQwcuGGRAQApi64daXVzh7FNipqQBo
-	 ExziPx+z9ri3WIfkgdPjX/5UTsF6cTCrll+OL9VgAHkojLZCM48qInOfOs2b9cs3Sv8Ys
-	 UlKu9ETGOqiU5Rl3iDoi+0aEIUytLkkHGoqf5c/DryvTuqdV83CvHtvsfxcPE9I4UYvQg
-	 3P2h56K85HetZ13yPcxkAL1jpDaydFSKAlHHV//8pcAkHIpgJUOjZA0hvfno+UBq+JQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910901;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=D942YyHXcVgnkkaU/11BZPN4JzbqpBRwvdb/nOY3osc=;
+	b=UZjUwf4ALFUjHS/32p8ia79c8wTkEVJzjMmVX36jYQWy65VaGqTit8/3XJDJdr4K/vle
+	 ljlXiYdQmVt1CXw/N6Z8DqnlS6dlxvMxSTTY4VW64HTbILUWPb7yaecj/CZYli1c2qENT
+	 gEo00oPCwW0vQS8P6KpkI1RfuSUXtuto8yTadg0Y9fdlH7MpebgnqoolUVpm4zGCNK16N
+	 wZouCKwHKf6IiOvfRqLGJstB+L+R5fc9VjhM1QtkoIe7zJDxkRo64RFUYP8A2H5HhnRPR
+	 MMY+r2J6yxrGZpWEmvOI9MGgeCfdzgy61mCKi94uDZ7CNCeLhPhEFoz3lFP+TBw4oAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VY+cEPzz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NaDwIaZj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAAB606A32C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 10:20:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47DF2606A883;
+	Tue, 17 Nov 2026 10:21:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VY+cEPzz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 253A41F000C8
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 10:20:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NaDwIaZj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B8741F000CA;
+	Tue, 17 Nov 2026 10:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794910821;
-	bh=LYjA64OY7mzK30+EmXCloZ1d2MnMctrR1lEa4XYe6Og=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=VY+cEPzzOeQl350iSplr3YTbz/NtmEMKg6hNuwMjP304qeTNTNVYjYn69bfPeDIrr
-	 lS7RhvYXF4dCg9CZ8zAIS1K9t+Ts2W6/CwaJXt+xpLSgkZ0KkEjPZXcp/4WYY1aOjX
-	 KgvvCBalfuTh7MDTCxX/lqDxO0eqA51GFCKXPRmVhjH860W+HS8ZWHfZiUv4Pdg1Ot
-	 NCKtr9f/uT0p7JoxmLwfDWgnAn25r4zqaX1A+yEahv/mz5de0wAQrWh37dAKryhSDf
-	 cNDA/Jg4XwFcxwYpEWDh98BL5zveMpdl6T3nP6EeJ1kkzMzwF5iA0j/fkoFcXeZHyS
-	 WTgYOuBxjFWFA==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5c17a1775fcso2833575e87.3
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 02:20:21 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHhcKl2oI38s2ulvDUa/2U876f/83Zjjue8qLjuaB7QNXpeOh5HeIH90jyM45IK47nIe2DNjrgbFY8L@vger.kernel.org
-X-Gm-Message-State: APuU4Z8uNxgCbZRVLX6Afs+MSa/0HRwaYZQxLCX1/M5dCVvY/HDyOicG
-	3Vix+tV63Qz82A5TsKDlIAcW9pc8U77DYstUpgbCyOKdZPFKzCbWgWPD6iPAfg0CPjv4/2bwXWt
-	xPhCjm2a5fESw4qzsmPAfHKYnF19rCOc=
-X-Received: by 2002:a05:6512:3c89:b0:5c1:57d3:efd0 with SMTP id
- 2adb3069b0e04-5c170b45aa9mr4736734e87.35.1794910819929; Tue, 17 Nov 2026
- 02:20:19 -0800 (PST)
+	s=k20260515; t=1794910901;
+	bh=D942YyHXcVgnkkaU/11BZPN4JzbqpBRwvdb/nOY3osc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NaDwIaZjAtMuIEkp98fdkOCUA7cozk999b994AOay8tjTHoGsKuVjDk5c7IE6GWs3
+	 oI0Z4VD/73ZXG31vMuuHr0FtPQs88NYXh2q+gaqouQJnVyYO04WKA69euwU+b710fF
+	 A+1WdNjEFVgQMfk9thjT4XsSLHSC4nf9gfkjxI1odqHAbW+2f7+Vzo2xdUzFZ0xDqG
+	 f9Yk3vwWmtXxjadVcd8FY0XIi2G5ovmsuJQE6ipFvl6w9gNMbV14IHRQFfpSEKqy2D
+	 Xn8rqrWjGLCWnOlrombXU+x35LGUIkXyRWR5zYluXCVDhX4aGy31IZCilZhkzv6oH0
+	 fvW/411LiEF0Q==
+Message-ID: <f290ccf7-1475-44c2-8152-b88db79d46fb@kernel.org>
+Date: Tue, 17 Nov 2026 11:21:36 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,44 +51,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-0-3aad0860b984@free.fr>
- <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-4-3aad0860b984@free.fr>
- <CAD++jL=Np+_+wTkuLCiqjNY5EBqn5qq8zKTJB6F-=1G0R+7=Ww@mail.gmail.com> <au9YgytCc4TKfETI@l3017727.home>
-In-Reply-To: <au9YgytCc4TKfETI@l3017727.home>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 17 Nov 2026 11:20:05 +0100
-X-Gmail-Original-Message-ID: <CAD++jLnWcVDbh-vf20w4nfvOSZik619XqoEjXTBZ29sJkX-bCQ@mail.gmail.com>
-X-Gm-Features: Aa3M54rAvJrdH2ioBjmTcd53sA32PoIoppu6eV1QG1zyBMjvlTxU-cDEh9WFtc0
-Message-ID: <CAD++jLnWcVDbh-vf20w4nfvOSZik619XqoEjXTBZ29sJkX-bCQ@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] pinctrl: freescale: add the LX2160A RCW pad-mux driver
-To: Vincent Jardin <vjardin@free.fr>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: pinctrl: qcom: Add QCS615 LPASS LPI
+ pinctrl bindings
+To: Karthik S <karthik.s@oss.qualcomm.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson
+ <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261117075100.272535-1-karthik.s@oss.qualcomm.com>
+ <20261117075100.272535-2-karthik.s@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261117075100.272535-2-karthik.s@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Nov 7, 2026 at 5:58=E2=80=AFPM Vincent Jardin <vjardin@free.fr> wro=
-te:
+On 17/11/2026 08:50, Karthik S wrote:
 
-> > Can this be applied separately once reviewed?
->
-> I do not see how: this 4th patch needs fsl_guts_rcw_read(), and
-> few other fsl_guts_*() which are from the patch 3.
+A nit, subject: drop second/last, redundant "bindings". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-OK
+> +    properties:
+> +      pins:
+> +        description:
+> +          List of gpio pins affected by the properties specified in this
+> +          subnode.
+> +        items:
+> +          pattern: "^gpio([0-9]|1[0-9]|2[0-9]|3[0-1])$"
+> +
+> +      function:
+> +        enum: [ dmic1_clk, dmic1_data, dmic2_clk, dmic2_data, gpio, i2s1_clk,
+> +                i2s1_data, i2s1_ws, spkr_i2s_mclk_a ]
 
-> Could an ack of Christophe Leroy be enough on patch 3 to 1...4 could land=
- into the pinctrl tree ?
-> Then, patch 5 could be managed apart.
+It's the first time spkr_i2s_mclk_a name appears. Are you sure that is
+the name of the pin function in the datasheet? You won't be able to
+change it later.
 
-OK let's try to do it like that.
 
-Yours,
-Linus Walleij
+
+Best regards,
+Krzysztof
