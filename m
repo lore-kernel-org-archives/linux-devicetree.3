@@ -1,70 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794885321;
-	b=tfvyW+LzaaCHeAx8FK1NjxsjsEI6drelZqIydAPX7zmrn/iLQ+VRoMuTzEeQZ20HNoEW
-	 b82nWt4h7l5ZcVIrb50iYfNp6MBd2rIeSqb2oLto644Wacv0UyIbcTjZop2itg5MfnmaO
-	 /YYRYcF9Rmd91cV3cfRKy9Vq7gsqPEttdkv84JtgRt1Qry9ub/xTzxHZJYKe8LC9cwq/l
-	 B+LXvR8dnhM/jcf3BoN60mr4WstrEcrOL7bFeRAbMYrI/F1XqTrYJjvfnVgnNwyVIOuly
-	 76HwhsQ/XK5AO5b+Ej0Fg4VMy6BUsNErkw73lFrtXEyMm76OU7A5HmsQRIYNdvhpJCg==
+	t=1794885343;
+	b=sdRN9RGBdNwDfbCq2bK1pDUrJDW2LxaJAdrWsayImAIEcSlLFmjrC7gY0pNPf8pcUbDn
+	 oqSRJb2yNHBqwcH/phLgtURkUrtBg5Jh9MbcjU1fmpjLvzXTy5WVoajzBLDalC51yfNsU
+	 An04ULZrQd/euwUarSvXtlNRwGvzsOG7IWkapEVFnwXal3mpIHLheD9I/Ih3CT6tuB/rU
+	 iF107TgR/Fx3nHXIPi8ld32MDVjKpuLQCz7s8e9ONZR2PMmB2wyoQk2bGjoGesv8OEw3M
+	 hBiBd8Cy8XM8OOvriyJSYD6mAizXb6FiepTY58xPTdhHGaFe8TFtLdl8Eh1P2DDOQWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794885321;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=VuiJz2eGPHLfGtyJsLjaVLF/Zzns0rxzByENBKBwsmc=;
-	b=QafxzCCd7hbNXgFicFQkEB0ZIQ3qZ3TyXNWFdCifruGRt3zSPpHfFp2q3hW7Iop+hAAr
-	 jCFJ1ZlrK89HYBm9g4mhywUupKMk5AystRSs3l55ZC09BeCA8Qa1k+51HRItrQDknoh5Z
-	 TnzDka+gjk3lZ6BZh3utYQScDk+4AFLb3xTW5Z5FjHYdKTYSTLLNvFknL4d+c01hiQynk
-	 3kLmgsipFg62pWwSyXh6DvcpozoXEnDVYgjHzDf+CS9iy7Fn5fmZ2ZfzM8TNq/U5sYJC+
-	 3OTUwvVzatRxIGwJy4gIJH3DgZM7N0q2bYyv3pfVK2Kbc1icWpHnNuwA+lrzP9Uycig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794885343;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=EXCkhC9s9bFU0Si5utMIhT8ww50iNweoVBMADooFS0g=;
+	b=IQZbPzDTNhWphiCsze3ptzAOAX/vmRVes0Nww04oQusNUEKuJ6vedsexeBj9phkbU2z2
+	 yp+PD9J0Gsywmfkd2djGmyvvpL/G4tG7SqPFVaF/5A1jCja7dej+gJjJ9a/uTFpox38+g
+	 vHmVJ1YCvOZ6FifwFWrG1vTM4uRL+96PHZCeuAR/RtRewDN1hBuBW+ejshIvSHnESi3fu
+	 Ri4OTXo9KedFKSea5pDN49vCtcEOOIDppyySHKYtbl55B6HSRDaHr4eIbQuwkMFD8a84Y
+	 qpb0mfqkCCa8oRD2OveYKcnr0leRjlMJ5jAxV/SuFoGaB3joG4OtM58NTr0wistCCdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIv68Yiu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XWIqAIVj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1504C606A31C;
-	Tue, 17 Nov 2026 03:15:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF237606A32F;
+	Tue, 17 Nov 2026 03:15:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIv68Yiu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0882F1F000C4;
-	Tue, 17 Nov 2026 03:15:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XWIqAIVj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4047A1F000C4;
+	Tue, 17 Nov 2026 03:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794885320;
-	bh=VuiJz2eGPHLfGtyJsLjaVLF/Zzns0rxzByENBKBwsmc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FIv68Yiu8XfrJRoOfreho7V9a5y0AZd8TJ3oRMmD56blLULU+yEcRPfkRVkNRvQCz
-	 b0rlWimhoQ9fZSHGwTUfbfM8PnZ4Un3D87e4yO7Fdb1Es3FuffU7v6HoRgPfI0odE3
-	 cOXxX5dja2Adrj+6Z8fiE6DNliIRbSQCUbrwh89ZBj3j1TxWq2d7925U+Q1SpfKmxQ
-	 Colugrk3US8k/94kEG/a7guJJTZ9RY2chsUmdWYDcm+18VbsEIXppxBXArP2L15PVb
-	 5VW4IRjqrS6tYNS7fgLLQvOMP6Z/hup74n+weQYVRxMO1PAaGpi8DfE1jXvjWmeYYx
-	 bFqU0pvn4G2wg==
-Date: Tue, 17 Nov 2026 03:15:09 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>
-Cc: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
- <Michael.Hennerich@analog.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, David
- Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Miclaus, Antoniu" <Antoniu.Miclaus@analog.com>,
- "Budai, Robert" <Robert.Budai@analog.com>, "Gradinariu, Ramona"
- <Ramona.Gradinariu@analog.com>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, linux <linux@analog.com>, Conor Dooley
- <conor.dooley@microchip.com>
-Subject: Re: [PATCH v6 0/8] iio: imu: Add support for the ADI ADIS16607
-Message-ID: <20261117031509.2dfbc85d@jic23-hlaptop>
-In-Reply-To: <LV9PR03MB84141F84CA155F8CDD2587FAF77C2@LV9PR03MB8414.namprd03.prod.outlook.com>
-References: <20261113-adis16607-v6-0-3f678719942a@analog.com>
-	<20261114002522.34f8aeff@jic23-hlaptop>
-	<20261114004955.71c7ed7f@jic23-hlaptop>
-	<LV9PR03MB8414D877E31EFC41535C9FF0F77C2@LV9PR03MB8414.namprd03.prod.outlook.com>
-	<LV9PR03MB84141F84CA155F8CDD2587FAF77C2@LV9PR03MB8414.namprd03.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794885343;
+	bh=EXCkhC9s9bFU0Si5utMIhT8ww50iNweoVBMADooFS0g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XWIqAIVjjIAho8++CPIxW518TPBy7Ej6zIsfwOiW7nYuWVVpnM9BKbiB3wQt2D6fV
+	 07ss7nY11+WLbtIs5jWwj38Lv6gf/WxjNhOQSmiT8lTsk+L+JBMI2xUwcpEpRbXvTt
+	 9NlE9c414zLau7WR7aYbaTsmgFWYUPICQhKo2DvwlUbkRW2NSa+yTjOpytfP60ChX9
+	 Hu3DHxemvtkxDX+WoW+KSkDbjG0CjGcwaAEtI0A2GB+eMa/mBmm0+pavfyEZ4sWmOi
+	 3fCKBIZ3hKVsN+BzUc2C66hWSFY3aeCWk4joNUY/AH6jUOfmQgqMXq3Oqn1P8NAVdV
+	 GaZ7AaLmMHqqw==
+Message-ID: <sashiko-outbox-218132@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/2] usb: cdns3: Add CIX Sky1 glue driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hongliang Yang" <hongliang.yang@cixtech.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261117021705.2202892-3-hongliang.yang@cixtech.com>
+References: <20261117021705.2202892-1-hongliang.yang@cixtech.com>
+ <20261117021705.2202892-3-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 03:15:42 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,78 +59,87 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 16 Nov 2026 12:18:27 +0000
-"Sabau, Radu bogdan" <Radu.Sabau@analog.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] usb: cdns3: cdnsp-sky1: pdata leak and silent child failure
+  in cdnsp_sky1_probe()
+--
 
-> > -----Original Message-----
-> > From: Sabau, Radu bogdan
-> > Sent: Monday, November 16, 2026 10:55 AM  
-> 
-> ...
-> 
-> > > >  
-> > > > > This series adds support for the Analog Devices ADIS16607, a precision
-> > > > > MEMS IMU with triaxial gyroscope, triaxial accelerometer, and
-> > > > > temperature sensor, communicating over a non-standard SPI Half-Duplex
-> > > > > protocol.  
-> > > >
-> > > > Applied 1-5 to the testing branch of iio.git.
-> > > >
-> > > > I 'think' the proposed changes for the fifo handling shouldn't affect
-> > > > those and I don't fancy reviewing a mega series with library changes
-> > > > and the new device support.  So build on the base of these first 5 patches.
-> > > >
-> > > > You will need to provide a base commit for dependency list though
-> > > > or sashiko may get confused.
-> > > >  
-> > > Change of plan. Dropped it over channel type issues in patch 5.  
-> > 
-> > Thank you guys again for the review, and sorry about patch 5. I'll move the
-> > scan_index/scan_type and the timestamp channel into the FIFO patch and
-> > resend.
-> > 
-> > On the FIFO side: adis16475's has_fifo variants register an IIO trigger
-> > today and are used through trigger/current_trigger. Converting them to a
-> > trigger-less kfifo buffer, as discussed for the library, would remove
-> > that attribute on the six ADIS1657x variants, so it is an ABI change on
-> > existing devices. Is that acceptable to you?
-The ABI change is not.  That's not to say you can't bypass it under
-the hood.  So have the whole current_trigger registered but ignore
-whatever it is set to.  We have another driver that does that
-(for same reason).  IIRC you can do it using one of the less
-obvious trigger modes.
+commit c575d53bf0eb9b8bf707582d20e9f670aee59e99
+Author: Hongliang Yang <hongliang.yang@cixtech.com>
 
-> > 
-> > If not, the alternative is a smaller fix in adislib: iio_trigger_poll_nested()
-> > for the has_fifo path, plus a prep patch taking the sample timestamp in
-> > the handlers instead of pf->timestamp (the nested path does not run the
-> > pollfunc top half). That keeps the ABI as is, and the adis16607 would
-> > then use the adislib trigger path again.  
-> 
-> Thinking about how to split this: sync and calibration bias do not depend
-> on the FIFO, so I could resend the series as the adislib patches, the
-> binding, the base driver (raw reads only), external clock sync and
-> calibration bias, with no FIFO. Then a follow-up series with the FIFO.
-> Would that work for you?
-> 
-> For that follow-up I would still like to know which way you prefer to
-> go for the adislib FIFO handling:
-> 
->  - kfifo helper: a trigger-less kfifo buffer with its own threaded IRQ,
->    used by the adis16607 and the adis16475 FIFO variants. It removes the
->    trigger/current_trigger attribute on those variants, so it is an ABI
->    change.
-This but without the visible ABI change.  We just make the ABI do
-nothing. :)
+usb: cdns3: Add CIX Sky1 glue driver
 
->  - iio_trigger_poll_nested(): a smaller fix in adislib for the has_fifo
->    path, plus a prep patch taking the sample timestamp in the handlers.
->    It keeps the ABI, and the adis16607 would use the trigger path again.
->    It is only two or three patches, so if you think it is the better
->    alternative it could also be done in this series.
-> 
+This commit adds a glue layer driver for the Cadence USBSSP controller on
+the CIX Sky1 SoC, managing its clocks, resets, mode straps, and child
+device creation.
 
+> diff --git a/drivers/usb/cdns3/cdnsp-sky1.c b/drivers/usb/cdns3/cdnsp-sky=
+1.c
+> new file mode 100644
+> index 0000000000000..7738ac7268de6
+> --- /dev/null
+> +++ b/drivers/usb/cdns3/cdnsp-sky1.c
+[ ... ]
+> +static int cdnsp_sky1_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	/*
+> +	 * platform_device_release() kfree()s dev.platform_data, so this
+> +	 * buffer belongs to the child device once it is created. It cannot be
+> +	 * devm-managed. cdnsp_sky1_check_children() guarantees that exactly one
+> +	 * child takes it over, so it is not released here, not even on failure:
+> +	 * a child that was created and then failed to register frees it on its
+> +	 * own.
+> +	 */
+> +	cdns_sky1_pdata =3D kzalloc(sizeof(*cdns_sky1_pdata), GFP_KERNEL);
+> +	if (!cdns_sky1_pdata) {
+> +		ret =3D -ENOMEM;
+> +		goto err_quiesce;
+> +	}
+> +	cdns_sky1_pdata->platform_suspend =3D cdns_sky1_platform_suspend;
+> +	cdns_sky1_pdata->quirks =3D CDNS3_DEFAULT_PM_RUNTIME_ALLOW;
+> +	cdns_sky1_auxdata[0].platform_data =3D cdns_sky1_pdata;
+> +	ret =3D of_platform_populate(node, NULL, cdns_sky1_auxdata, dev);
+> +	if (ret) {
+> +		dev_err(dev, "failed to create children: %d\n", ret);
+> +		goto err_quiesce;
+> +	}
+
+[Severity: Medium]
+Can this leak cdns_sky1_pdata and silently succeed when creating the child
+device fails?
+
+drivers/of/platform.c:of_platform_device_create_pdata() {
+	if (!of_device_is_available(np) ||
+	    of_node_test_and_set_flag(np, OF_POPULATED))
+		return NULL;
+
+	dev =3D of_device_alloc(np, bus_id, parent);
+	if (!dev)
+		goto err_clear_flag;
+	...
+	dev->dev.platform_data =3D platform_data;
+}
+
+drivers/of/platform.c:of_platform_bus_create() {
+	dev =3D of_platform_device_create_pdata(bus, bus_id, platform_data, parent=
+);
+	if (!dev || !of_match_node(matches, bus))
+		return 0;
+}
+
+If of_device_alloc() fails (or OF_POPULATED is already set),
+dev->dev.platform_data is never assigned, so platform_device_release()
+never frees cdns_sky1_pdata.  In addition, of_platform_bus_create()
+returns 0 when of_platform_device_create_pdata() returns NULL, so
+of_platform_populate() only returns a non-zero error before any child is
+created (such as -ENODEV when CONFIG_OF_ADDRESS is disabled), leaking
+cdns_sky1_pdata on the goto err_quiesce path as well, while a child
+creation failure causes cdnsp_sky1_probe() to return 0 with no child
+device registered and the clocks and resets left active.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117021705.2202=
+892-1-hongliang.yang@cixtech.com?part=3D2
