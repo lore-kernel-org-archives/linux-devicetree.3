@@ -1,18 +1,18 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.119
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.117
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794908623;
-	b=NP63YOk6Llvb1F+8EEX8NW8tGMC5J18kq0bCxKC9A9Uo88GeMd9TAbtAKnVSjMxPe51S
-	 0FFEUF03dAT2wIqX/ZKMKHeaP/Jv+lSCmuQIsklM7rUAUcfVRIlJ3lUdXNZTvkwA2qHF4
-	 bXgNKa/BOlORqHCRY+tU3HRCx4n6TcLYokiJMM5QPH3cDID089NZRP7sEwELtnXyVpB5A
-	 pblB27xoJQqwQOgVFxrysIrVsZJa9TWlOu26pVwwApvyd2gvX3fX/L+ztoz1n8xtFP5ug
-	 /8DB7aEmT9GgNeFz/gaA2QIduLF18sUk5u4/ynd+rJ3s89ePb3TYV1dNZP0FG3+Qa0g==
+	t=1794908628;
+	b=2m0WwgQtXNlglD/TjXV6ECutTxfhqoi6xX3lqBsRh7drjCRRSdJiKPllDVY9Sls6iJBo
+	 Aq9q/Deh2eqeiLsJYj96Sh3PX4tTSivSmZpjkW7K7t5p6ChqkJPviDCWQ+O6DvwDpzMjJ
+	 ZKYEo8LQLT3HpVdtiFEzoQ477r3LRiy8GMJkEs2iMFvM4Ouf1Jgq38pPqikE1CyQ+p6C4
+	 ckIdA54ra81ECiQC4zfkFDLDBH8Sj/6hUQvoOU3luAnjPuFvJALionxpkGxMi1Cgj1u6W
+	 lvHnRcXuiO50fKpHcCKV6eZWX+Rw1g6YZED4wry8aEglrxnTyUWz6POPSABI2nP8a3A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908623;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908628;
 	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
 	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
@@ -25,46 +25,46 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=B0aXqPBObMZ31AANkTYn/5/i94udRew4u5mp2Tjk+m0=;
-	b=t/MmYZa34PkYKaMAARKUV/nXDXVKHEVXebuS5DjB/WWO8UTaqsH4InBIZO0x1RoNLncx
-	 Qc20fUF9V5DRSGNHcV6FqPBAJAr4NugPWJvisixjRXSYPUGU4ml1QXox9CssNNE8QumNk
-	 x1YOHYm6n+CXBVLcWMhCMyuJFp1kjapoohERUj5z6UkSd2TFJozBQKGxjhgLMzHqUI9D9
-	 GFblOsnD+3lwDczGKdN9N8lxyT8ehRyNq8UBL3UiIRxAl2YBcTIPmtDeV1dG1BFTg4YrZ
-	 f6RP2HD0r0HFNPs6lqN+AqderKPKU9diJYnBlC24Jh8ewxTlw4tWsJu/Mlt5j7JZFWA==
+	bh=d4H+OH7K54UFf4VBdUBinKL5nXIA3ULBobd5mHhrMKM=;
+	b=tj/Hgs+0sF7lCcSAVv/ZfCKg0ZyBrrhTGWiRt1uPvIsCxtsOZXlvK09ni+ejMLlVukn1
+	 0jZr3JVI9eW1jhmFpqSG/PKq0rF2qcsjNZf9dsLNdl2etiisdRT5PmCjXuEP/Z+nRPr/8
+	 w8/LAoLo3fziQLlYBlaQqmdJENQoFSDBY8wsjQJ2mJRscf2BM/AKNwWK+FE5jN8DauCrC
+	 YQTzE7PX6VD+7G9WsA7XcYqnXSa6XvRGK9tsWoM50bOpGKt2EsyZt7LT9SBmW4/P2gErL
+	 T2wt9Nl13cEWOaEfOFCA1HoCBBceLY4t4htiZUuiSYB/sKgOS5yE/5bhIV5/DGbjtMg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=cixtech.com;
 	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.119
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022119.outbound.protection.outlook.com [40.107.75.119])
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.117
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022117.outbound.protection.outlook.com [40.107.75.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48799606A31C;
-	Tue, 17 Nov 2026 09:43:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48799606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC36606A8A7;
+	Tue, 17 Nov 2026 09:43:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DC36606A8A7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ap/oibB12Qe4KOGp5yFWEytNMfruI/Tb/XCiKcZDZYO7/SO5De2QlWIsKZWng3USdLiOsJcu5X7XwSjEfSdjRCNt8rgucVQXbco/94+gm0alD4nm1iF+GBjs/t8zNG7LkygwD5ke/GPpOwkRfiwudtygvZJtwdgmeqS7XPKfx39WyIL3WVCrEIParepj/XxVfrBo2DfWK6idpaZPE6NofuYya2gC1ujaZEaMRcQH9IIcapisM0V16Vq4PxLJfEixQHqAPmktfpyRj4EKCI9iCEjQwyOr0uYRNJGyXADWIiqHVzS3xTBmkGeGTejSQZg/qTQMLinWddtZoPvUhTs1HA==
+ b=L/H2x3Jthy4kMZ/0oVmRuSDV17XBSxJDFx+dax1o1k/URJLyhKiN+vjQCxLJnlCHzr4vloTJWW1Ifij/qRrawh0zYAMz3wwb+Gnlln3ymRLqty+D7j4Tg20FEZJC1Zx8XfNRP1I+fEGfIYgKMKW+2Ua2cm6/PogN8hXq21eUgwkgirHPQ9qmdZ2Ps4CPsSsFuBC9ctI3qWMLf4yymc8Rgzwf9PgmFOIm1aoD7mv6XUeimoHE3pCtHtDl+qO6rgb+B8Rsf/55lGT//6W6o+ZylrmWFgoOiTEzvZ7YCll9ysr2oUnI95BUnkeYEqypyC+avOsA+Hf/Ms7FJZwaKfcYJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B0aXqPBObMZ31AANkTYn/5/i94udRew4u5mp2Tjk+m0=;
- b=OVTE4lc1TLRhnUSk2sKOfutoKE/CSkidRPEULEB9Ns9vpPm3afsgf38Vdyj/sauwhYbMvR4O87tpSRySZ+hZZmoIRE9dWcsx+wDhVSK135LxppeoX4h8T9VNf6zlQ2oWRhSXqafElS/lCK3t4Dhc6+468xCoydy4IWdB+xfZoDgy9o3is2M+PZmMip5zEsq8mfTFduo8LQPncm+RO0EZH1gBSmDEX98jgyVBGyZViwAjAYqA/kYXFn7grberoQmrQUKNeibfIM3k19wm8HoAEE72kQqq/t37yEPjXVREUxxxydhCnLO6RIqbpXxC476bhs0MLZQhUobudi0wIYJyyw==
+ bh=d4H+OH7K54UFf4VBdUBinKL5nXIA3ULBobd5mHhrMKM=;
+ b=PQwuVY80qH3Sx1p8zRIQ2a+xrD3CX5st5V2qbQloksPi1fjY9FeodJURXXHVMO3waNfvChHIq+y25uheXDMQjYpMFxQtIdutvxoZZKDeOqDeGGAlrmTiKVqiO8ngQui87B8cPgI4/EBwzGNfKzht+MqZBRb2cGcCpVqxQd0Lxvx/r94v1MUm3UTf/RPHWh3O4PTj0M07wwYfDrQoNQ91A0zlShRcx3usoDlk7dalR8fAhOgZ1t11DMKCpBYQiBmhbZT3/HY7RFJnqRYBQLLCBH3V2XTSKLrqb7JHGQsJe6A+7VC56CC5i49uHpFREslBuKLzKgIlTci4ra64RyK20g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
  dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
  not signed); arc=none (0)
-Received: from OS3PR01CA0029.jpnprd01.prod.outlook.com (2603:1096:604:db::16)
- by SEYPR06MB7993.apcprd06.prod.outlook.com (2603:1096:101:2ce::8) with
+Received: from SI2P153CA0023.APCP153.PROD.OUTLOOK.COM (2603:1096:4:190::6) by
+ TYPPR06MB8280.apcprd06.prod.outlook.com (2603:1096:405:396::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Tue, 17 Nov
- 2026 09:43:37 +0000
-Received: from OSA0EPF000000C6.apcprd02.prod.outlook.com
- (2603:1096:604:db:cafe::17) by OS3PR01CA0029.outlook.office365.com
- (2603:1096:604:db::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
- 17 Nov 2026 09:43:37 +0000
+ 2026 09:43:44 +0000
+Received: from OSA0EPF000000C8.apcprd02.prod.outlook.com
+ (2603:1096:4:190:cafe::a8) by SI2P153CA0023.outlook.office365.com
+ (2603:1096:4:190::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.1 via Frontend Transport; Tue, 17
+ Nov 2026 09:43:43 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
  header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
@@ -72,12 +72,12 @@ Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
  222.71.101.198 as permitted sender) receiver=protection.outlook.com;
  client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
 Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000C6.mail.protection.outlook.com (10.167.240.52) with Microsoft
+ OSA0EPF000000C8.mail.protection.outlook.com (10.167.240.54) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 09:43:37 +0000
+ 15.21.639.5 via Frontend Transport; Tue, 17 Nov 2026 09:43:42 +0000
 Received: from ubuntu (unknown [172.20.64.99])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 0FF44427EFC5;
-	Tue, 17 Nov 2026 17:43:36 +0800 (CST)
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 959E740920E1;
+	Tue, 17 Nov 2026 17:43:39 +0800 (CST)
 From: Jelly Jia <Jelly.Jia@cixtech.com>
 To: vkoul@kernel.org,
 	Frank.Li@kernel.org,
@@ -90,11 +90,14 @@ Cc: devicetree@vger.kernel.org,
 	dmaengine@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Jelly.Jia@cixtech.com
-Subject: [PATCH v7 00/10] dmaengine: arm-dma350: Add slave support and Sky1 integration
-Date: Tue, 17 Nov 2026 17:43:25 +0800
-Message-ID: <20261117094335.1393735-1-Jelly.Jia@cixtech.com>
+	Jelly.Jia@cixtech.com,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH v7 10/10] dmaengine: arm-dma350: Support integration clocks and resets
+Date: Tue, 17 Nov 2026 17:43:35 +0800
+Message-ID: <20261117094335.1393735-11-Jelly.Jia@cixtech.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261117094335.1393735-1-Jelly.Jia@cixtech.com>
+References: <20261117094335.1393735-1-Jelly.Jia@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,86 +110,94 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000C6:EE_|SEYPR06MB7993:EE_
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C8:EE_|TYPPR06MB8280:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 979df2a9-99bb-4674-5518-08df448f4110
+X-MS-Office365-Filtering-Correlation-Id: e9b48bf4-0b63-4446-99e1-08df448f4491
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|36860700016|23010399003|82310400026|1800799024|261021123027099003|56012099006|261022113327099003|261022105027099003|261022075727099003|261026130827099003|261026121527099003|261028144727099003|261026140227099003|261022115727099003|261021121427099003|261021135927099003|261021133027099003|261021130227099003|261026135527099003|10067099003|261102123227099003|261009223027099003|18002099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|82310400026|23010399003|7416014|376014|36860700016|1800799024|56012099006|261026140227099003|10067099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	IxP6aYRt525XAbg/rr3OqjA6ERpc4O9YfAELxLz5OnGhRefEcsOrmxG1PSoBqr3HppsVcPLg8o5I3vb7wbZe/b34Mg+a0OboBnx8p686KtaJ6m/vkB8NaYAmjhSLip8BoSdwYzG4XZjoktDXdVqPU7KVw1MwTBcaKWtCBGNYGjk1D6QOZeJVaW0A4w6ANv0X6akH4gwH0uDOGPoFi5VdamnsHkhtW1iPBEjKxuKFLgUIzn4OFoFjhxX4eaah+/g30rMdH2Mz6lb60QU0eo3xbx6CSFH+ngQTtsn0JmmAbIYGth8MyrDgEA3W8xNBfDWdxIuxPFSiM9dkFIwQR5Rq6pgPo5IbPn81rLAXsccxXCxWySNPZdQlFYGNshajJqAGhq3qfx57Ajqxr+egKZCWmR23GRhH/c9XZVs/SAtmiqEOMCnfY8PhTN/YjXnXgWWspaWhQofzVTTllVGHSvkgv+s2TzpyIEKu8vb56kmr/dEaXlDjdD7XSo7GviC1iId865vi8LE5sg6sf/DTbR03mQfW4KNob84C/gpDi30NbAopfUemMTQCa3DMD+XwWazGxYE/l0MKZFFCH31fL3YebQGlzI5v4PnpLJE/F4u2DIvhX9lB8ef4bVqk1JPPS4PBjlPFARoVA3G0noGzTxGXWA==
+	LakMUA2C8yhd1XmFS0SFZS1KmpuE3hu3dYXWs6qJ/yI8wTuX4+nriC0wEal1ClJky2IXtf0Cwfi6qsYjxe4+fc/iN6wdyZGf0d/lU+9BYvKvNafVJLRmlCJ6c9PcKdR48kxVQLO/etVw3IybkEjcTNbJ7I5ynk6rifF3ZcPjhh/8eIiKsnzODcqQLv/BqJwna8hnfdCbxpJDQwtmksMRyjCRi7PkOVEzrUPgIRbfRD/I84MA+HnY9SJZJJcuruBSPbamTAVR4EnHCQQIJYKefRRDfbU6m8SksvrjVDdpDfR6uY/FGy3+3h2uml23VHLtPZrpXQMnzbc35JmA7dy0/FqIUmvu2xHm4Zwn411RZB0Y0lvzGJFGzcI8i9oBZnwA57ohvRqgbRtx5m2GOPpAQ/MFbTK7M0lh3hFTPB7g8fAHyD2KIzHbZy5qQI6NhhUcZtyL1/fhiVjcNgKDRvPMzhkwB5WA4/CoVegHox/YayiqomDSghXC/IGmmgNpLHOSKeYUJZtA/351o6UHgHA3im3DhFDiQmdKkAYZPsFJE0U57EE0pjDXx4m1gYzytbyfsWYqwXLQCJOKFBe09HSYj2XIAnncitz7QDrCfr35rCUE7Bydh8a0+3PRDXVWgWqZCyaiMpgW7jvpl/9Q6lb5wJDqoxCjTKkCsFjqOpXryk71U7yBJS190yTQ+72V/yk953ugS0z+e/ZUFqrdmjjOMA==
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700016)(23010399003)(82310400026)(1800799024)(261021123027099003)(56012099006)(261022113327099003)(261022105027099003)(261022075727099003)(261026130827099003)(261026121527099003)(261028144727099003)(261026140227099003)(261022115727099003)(261021121427099003)(261021135927099003)(261021133027099003)(261021130227099003)(261026135527099003)(10067099003)(261102123227099003)(261009223027099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(7416014)(376014)(36860700016)(1800799024)(56012099006)(261026140227099003)(10067099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	ukVFTLCohfycBmlO2bV266R7Xc/cH1zj7y2Wpxxj8M5V+9Tq+C3EjNlk/067GRvuJ4wrrkFZJ9DMeMUcfCLiK5rMFm1cYWivzPo4nsO0XwbVMS6g5uly8Bu7iVGTawbobQSPoVVn8nYGTvSfydFw8V+RyDrbw9ONI/bx9D4r+eFYrP0CZnkNp7rGpDmyaAMyrItaOx4Tv1czcxT1TA6QTpC0e/axZq5UkKLynJfliXlIbtSjXdrwZFIcItUWJRdugU+jbyxTbXvCg1wwd3KSwqNwX5QAVJ9+8eIDrzmfmznVRpCmxLmjSht83MEro9Qm2zSu2W2XJ10/e0b19PUnRabS/tXmitrk8gDL+Q6m+4byjxKmOULKgpDOprUF4LAHK5Fl+RwCh/pyaStd3sZSYr+tK5EpqBC2PnZkGTeIsljQvQx9XRt1DniqcfTWNdBZ
+	AyCkG6YiKSUSf83+pCYinhMYtAcYnA7sjf8Q8mK+M0apMVuYJP+zxfIlniHD7/cxDveeoGIM2DULFbZI4U0U5fGEgDR2Av2VCQ4byLxPd0t3LW0YNMiarSAFqcw1m2NEEayArAdQG9FEUcmY9+MED76D6znFw74pyHzn5i3blJCg2onwQgre3GrPskhDRZ0otAWUPaK8v4zVXHviA9F5AsDy0vYyQor6Ltiy+KGb8pR6isMyS89zT1VJm+2cfyindGCfxozgqjreKNxexFwCPJbHGFkuKdPs8qsrTcpYMTGHD7ftaZqaQJ13mu7VIhjNK2xmWcmd9RkzCNWSeZv/ub/zmbDbEu93Dgyp65Ddh/zNYX8A3rS3kSx0NK6uaxCFQonDHw+oqvV9mXbKnyr9zsZ/KKm7YZzerBM7lMAmFQPD2Vovgl/Pg2ZI1Mh9u5r/
 X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 09:43:37.0458
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 09:43:42.8820
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 979df2a9-99bb-4674-5518-08df448f4110
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9b48bf4-0b63-4446-99e1-08df448f4491
 X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	OSA0EPF000000C6.apcprd02.prod.outlook.com
+	OSA0EPF000000C8.apcprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB7993
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYPPR06MB8280
 
-Hello,
+DMA-350 integrations may gate the controller with a clock or hold it in
+reset. Enable an optional clock and deassert an optional reset before
+accessing the controller registers.
 
-This series adds scatter-gather and cyclic peripheral transfers to the
-Arm DMA-350 driver and describes the CIX Sky1 clock/reset integration.
-The companion AUDSS interrupt-path series builds on these changes.
+Use the deasserted reset helper rather than requesting a reset pulse.
+This also supports reset controllers that only implement assert and
+deassert operations.
 
-The first five patches fix existing trigger, DMA mask, coherency,
-IRQ/termination and queued-status handling. Patches 6 and 7 prepare
-managed registration and command bookkeeping before patch 8 adds slave
-and cyclic transfers. The final two patches describe and handle the
-integration clock and optional reset. DTS enablement is kept separate.
+Both resources remain optional, so existing integrations without them
+are unchanged.
 
-Linked commands use a coherent DMA pool and descriptor-owned peripheral
-resource mappings. Sky1 has no IOMMU on this path, but its RCSU windows
-still require CPU-to-DMA address translation through the DMA API.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
+---
+ drivers/dma/arm-dma350.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-Changes since v6:
-- Split existing fixes and memcpy/memset preparation out of the new
-  slave/cyclic support. (Frank.)
-- Use named little-endian hardware command fields and fill the coherent
-  pool directly. Keep CPU-endian memcpy/memset command storage and MMIO
-  handling; decode peripheral fields only when loading their registers.
-  Derive SG lengths from saved command sizes without cmd_len[]. (Frank.)
-- Remove the prep-time DMA write barrier; retain the final non-relaxed
-  channel-enable writel and normal descriptor publication locking.
-  Keep descriptor-owned peripheral address mappings and the distinction
-  between read-only interrupt flags and W1C status bits. (Frank.)
-- Use scoped guards consistently without extending critical sections,
-  consistent device_config/device_caps names and managed DMA/OF
-  registration. (Frank.)
-- Put the submitter's Signed-off-by after the retained Reviewed-by tags.
-  (Frank.)
-
-Previous version:
-https://lore.kernel.org/r/20261106013453.1134239-1-Jelly.Jia@cixtech.com
-
-Jelly Jia (10):
-  dmaengine: arm-dma350: Fix source trigger bit
-  dmaengine: arm-dma350: Check DMA mask setup errors
-  dmaengine: arm-dma350: Initialize channel coherency
-  dmaengine: arm-dma350: Serialize IRQ and termination state
-  dmaengine: arm-dma350: Report submitted descriptor status
-  dmaengine: arm-dma350: Use managed device registration
-  dmaengine: arm-dma350: Track descriptor byte lengths explicitly
-  dmaengine: arm-dma350: Add slave and cyclic transfer support
-  dt-bindings: dma: arm,dma-350: Describe the CIX Sky1 integration
-  dmaengine: arm-dma350: Support integration clocks and resets
-
- .../devicetree/bindings/dma/arm,dma-350.yaml  |  30 +-
- drivers/dma/arm-dma350.c                      | 946 ++++++++++++++++--
- 2 files changed, 886 insertions(+), 90 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
+index 7b46b4fdcf9c..ab68213d0bbb 100644
+--- a/drivers/dma/arm-dma350.c
++++ b/drivers/dma/arm-dma350.c
+@@ -6,6 +6,7 @@
+ #include <linux/bitops.h>
+ #include <linux/byteorder/generic.h>
+ #include <linux/cleanup.h>
++#include <linux/clk.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/dmaengine.h>
+ #include <linux/dmapool.h>
+@@ -17,6 +18,7 @@
+ #include <linux/of_dma.h>
+ #include <linux/overflow.h>
+ #include <linux/platform_device.h>
++#include <linux/reset.h>
+ #include <linux/scatterlist.h>
+ #include <linux/slab.h>
+ #include <linux/string.h>
+@@ -1270,12 +1272,24 @@ static void d350_free_chan_resources(struct dma_chan *chan)
+ static int d350_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
++	struct reset_control *reset;
++	struct clk *clk;
+ 	struct d350 *dmac;
+ 	void __iomem *base;
+ 	u32 reg;
+ 	int ret, nchan, dw, aw, r, p;
+ 	bool coherent, memset;
+ 
++	clk = devm_clk_get_optional_enabled(dev, NULL);
++	if (IS_ERR(clk))
++		return dev_err_probe(dev, PTR_ERR(clk),
++				     "failed to enable clock\n");
++
++	reset = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
++	if (IS_ERR(reset))
++		return dev_err_probe(dev, PTR_ERR(reset),
++				     "failed to deassert reset\n");
++
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
 -- 
 2.54.0
 
