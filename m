@@ -1,84 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794941075;
-	b=vIod1lAHhcQ4a+hOoXqL5yzUAvXwqL5eWai7c20eIZ58SVG1ldr1HUQ0/QR4kq+jTxHb
-	 YCTGAnF3iB7667noTuhZit9OgOBHQnlTIh5R93gtDsVEMBtruRTGl0hs5nfTV/aD/IbxC
-	 4PgExNQy333Qf/HbAynUk7HMe2q9NMGY5Prj9sTnx+z+dd9du9YyyAQWo8cvnFZmz0La9
-	 udMfVMzrXDuPkCUewiXrdIey9DzrVke9ZyJwRER4kRJ0tZ/zHZ5RHlsVceMZ11fxmoni0
-	 FJwNR9hIt7tdBp1F6RIINm5R+UxSoiRP5627bkAHbLhndglI9eMtB2AYtr3ARgJpDpg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794941075;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=9hjzhVbXqs8Uligd/Lom1QmoZlXUoRLSbbHcDr54RoE=;
-	b=g0jZFxHxNO0IZzZk1b2GPILQuN1BrqpJfmjHqy8bQIH+BmM4az0z5hLrrANT9gtSJkjd
-	 F9BtHNbiFs+NM4oT4P0hWl0gQS8pOQSCy8yttYtVfxnJXteBxTTxV6ZV0SEdMKEEdrDnS
-	 ObA5hwDKyQcQn7QX9ZI8iJigCqRIRXRANs+GGyvfw5fZP8jJI8l3HMboZYpPw318MNxuv
-	 idzDx6Q2IEZKUV0k5uG9WeESx7CDnny3REiIWlNrZXPG+AdLUFSPH/Eo4pDAO1dQr7Q+t
-	 dK1e/t7xphEA2TX//a5g5/WEWt5lePSAFpBHwYltGThrxqCS8vaLpF+dzmTJURHqkqw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="tAIgs0d/";
-	arc=none smtp.remote-ip=44.202.169.37
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.104
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794942643;
+	b=Y/Hs1Uty7TNFSJUYnr3iM6XZKRQFDp2z/4V2Ihx0nR69F+L9RVz/wHUTw7fx5SzWXrW7
+	 oErpowtDaHzykpIPEVJGvCQANOnpbyFsInEYvriiiY9fcdeDAZXnXiMQiDOEEfbhbRJp3
+	 UGKQLtM2iGqb0lXdIcyqVDWwy1agbZCqQil2kRJQnxYsVPQcmEOV5uLN0V5ArCXBQCpa6
+	 zYQ7fG6xt2Zqgfmfx4iZaSDJ5pyUxbwzHNJU2cddRshG6SbKxV9AtNJE5ktyhyM4TCwQv
+	 RroBPzY+10qNbOXR9Vrs6Y+3b4DIwp0Y4bpWDwc7nECPTAfXk0d8OpaPrXX4Y3o3OYQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794942643;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=EHVd5UrHjl2IgLOJFZjiPRJXW4hMjp2ffrPAnmqHhOM=;
+	b=H00LZCal48amap+npMFpDjo8gspmRzWUdYbdh2MYzqS0pzqwUsX/HEfcZjAPzbtt6MZn
+	 5lQ3Z5K9RUfp813TI37sc1ms3YWaJATZULrvcu1Kd3hWmPIrlVKIQecgDdUbPbo8EnEj6
+	 TaIxlg45nn9aCpjR0raWZxk94veoeLAsNwBzWIkWkFvFIJ3jQfIfhf3yXdsbmH563fTcS
+	 uEfyxPNkvR7BjLYAbeoXa9fh5QVBJm5rFX3ztoucutREdH9arAwUxHktE8L1zgotTm9Ww
+	 nkrpX2QNfx5PO55thhOcoxI+pNxvQBn9vYYfg1QY2OAoGvo0R03QeKhRfnwYuGJwJjA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=CpawlFgA;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b="XGSZxM/U";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.104
+Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de [85.215.255.104])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F5F606A337
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 18:44:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4F5F606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639B6606A336;
+	Tue, 17 Nov 2026 19:10:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 639B6606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=tAIgs0d/
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id TNUWxCJFPJFmFTOAUxMxIa; Tue, 17 Nov 2026 18:44:34 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id TOATx3mRwYskhTOATxUDgi; Tue, 17 Nov 2026 18:44:34 +0000
-X-Authority-Analysis: v=2.4 cv=CKMqXQrD c=1 sm=1 tr=0 ts=6afca092
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=gAnH3GRIAAAA:8
- a=H4YqvLFtAOgaTzI6erAA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=9hjzhVbXqs8Uligd/Lom1QmoZlXUoRLSbbHcDr54RoE=; b=tAIgs0d/6IPVjT5P1PwWJ8v437
-	FBXxaZGypmC5KM59zYPKFZNcdM4F5Nbhfvp59Dx4JjUJhua0e1M89ZJIrkVjawZgqMeq6sBcKlHRG
-	g/YkByGwGtdE9RqIacl8neED9BoWBA1yXpbBTqxDQIJ6ugigS1zNwy1c86jDZEnsc2lJPmsF9rR0m
-	kgrn1veQEygHbC5E38I6rZFMiosdWXIcrnG2dfpHwZTKcFQmgkJeQpwiJBXVH//l1wR/vees5vxwK
-	OGJ3BZGZzwh331DcVLK9uQwm7dI5p268WeUDyPDVXuGiNhgv+3om/UFktI0AdC2/FGh1AoUUn1rVN
-	N1rHDG8g==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:32940 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xTOAT-0000000090N-0AAL;
-	Wed, 18 Nov 2026 00:14:33 +0530
-Date: Tue, 17 Nov 2026 10:44:32 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Christopher de Guzman <christopher.deguzman@analog.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] hwmon: ltc2978: Remove LT7170 and LT7171 from
- curr1 iin documentation
-Message-ID: <548a8b85-e12f-457d-93ed-86475ac7938d@roeck-us.net>
-References: <20261110-upstream-lt7175-lt7176p-v2-0-dd60d28383bf@analog.com>
- <20261110-upstream-lt7175-lt7176p-v2-4-dd60d28383bf@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=CpawlFgA;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=XGSZxM/U
+ARC-Seal: i=1; a=rsa-sha256; t=1794942629; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=HHA4yXaNh9zJAh6K/BtGZ1sJPolIBk8O99o7Bsuehway19CAVMdlBrlcJUm2vNc5Xn
+    Rdvm4tRgkQgigWKFepxviO6RHEWytZlL+E2ShA/C47zmaN0/EvsTq8u9si7RzWG+Nmre
+    8FtEVcdPQ55nXMW8BEu+sPMJdLyk5EA0tOEipVz3fA2C3r0lZFeTpOZOEblPPYhvFvaM
+    63gT0h/i0vl4d0vqGtYf63QjuIhHeM239Axz+qNDS3/HeEyy2m8p4+yUnTCJFDc8TFlc
+    yEr3aSblHkN79+nAspqh4zwGBEdlxpT7k1mZWN4+TsFICRfR4eXGUKtA9tpW0+Vz9rmH
+    Josw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794942629;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=EHVd5UrHjl2IgLOJFZjiPRJXW4hMjp2ffrPAnmqHhOM=;
+    b=YT5MQiDWd+DI5BSBrFpV/V+6JMY8+LBJFQ97yKKy2UKeAvD0/SKOB4iCgM8dTg6kUB
+    KUp2e48Ni3zog5zdthwcirQLqBpUTjmRMyqY9KtcyfSfAYdx8mVjQxjPPlHecJuWUSzN
+    97eI49oJb1p67rkibrUWO3c5LHpg08cHWpdOmkWdkB157Z/W6Ux07fnWbLvKNDqXixJ3
+    b58kqJ7dkxy90otGVFIvrOwC0yQD98XeGHJw/2DR8+uiFmHHeuY1ORqdAuOucx6z1Cne
+    1N2Q9vK3InTCJEBqwnkl/ULcFCXjfrxw9qVZdE69xzUxW/fangaLnjcLxOy7mTItA2FX
+    gDEg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo03
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794942629;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=EHVd5UrHjl2IgLOJFZjiPRJXW4hMjp2ffrPAnmqHhOM=;
+    b=CpawlFgAkegLPW09Ttyz2i5jcoD6WQvsGb1BEKqnCNbk6Z1N99/YOWWgyODAljlr2M
+    qU3CmrN/9UXjkvCxJQkisPLnTmikONgbymRSlj5lmNXn7dAy22UaiRRs+8MWmYNAwNje
+    ntRRkZQHMUAcZjIaoau8jRn8JESE5aMFNt+T9YU+Rizj3ml70tVXuRm7NqsYbyFsJnBG
+    xuSSeZip+NZVAnppdEaSLsp+wQ3dC/m8HsRG8s4qYXXuq9a4rAmbU7KFoGw152wDZDeE
+    bL5zvZ+aNS2xq19OVl18bTIrw5qQrqsBJey+QvuWrE7wtRnEoWLgV1126mlKfoiZB9/e
+    UAaA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794942629;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=EHVd5UrHjl2IgLOJFZjiPRJXW4hMjp2ffrPAnmqHhOM=;
+    b=XGSZxM/U/OSKBRigDREPvOaSeHJe2tfzZ0MeMeBqHXWlUnmAMZoTMowwheJI8biWG2
+    1TH1ODauL9VUp9SSJuDg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ3ppelMiNKoEY92nD9kO01+3QZuyyF4VcrvHZ"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22AHJASYjA
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Tue, 17 Nov 2026 20:10:28 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,39 +93,118 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-upstream-lt7175-lt7176p-v2-4-dd60d28383bf@analog.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xTOAT-0000000090N-0AAL
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:32940
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 39
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfEq2jzKTev/clImfhlyB2DN4cMiRzujTsOnl86Fu3Y1WdxIdFK4gHzK2MVxXCw8VOwTGT4cSywlcJT54xJd0Ymt9wP9eJhbQNUpCniNXQEtZeimv+3ww
- jOYWv8wYwMfBW1Yz1e1Am3Onl+ve3+7wg13YgP+/IdNjr7na0yTFrvoDs+WdOBjbWcQD8hQSXO2o8DgwnikxMSlDA/79WYZTMCqkLZ9OfS9Wf+EUOwqqcN0c
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v2 2/7] pinctrl: ingenic: Fix hardware dual-edge
+ interrupts on X1600
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <sashiko-outbox-219369@kernel.org>
+Date: Tue, 17 Nov 2026 20:09:58 +0100
+Cc: linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ robh@kernel.org,
+ conor+dt@kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <24975DE6-A803-46E2-A975-1CA3CE935077@goldelico.com>
+References: <cover.1794940166.git.hns@goldelico.com>
+ <b87494f8bd72efe7d4c8b8c7c6a5f37686861aff.1794940167.git.hns@goldelico.com>
+ <sashiko-outbox-219369@kernel.org>
+To: sashiko-reviews@lists.linux.dev,
+ Paul Cercueil <paul@crapouillou.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-On Tue, Nov 10, 2026 at 06:00:43PM +0800, Christopher de Guzman wrote:
-> LT7170 and LT7171 do not set PMBUS_HAVE_IIN, so curr1 reports the
-> output current ("iout1") rather than the input current. Remove them
-> from the list of chips with an "iin" curr1_label.
-> 
-> Signed-off-by: Christopher de Guzman <christopher.deguzman@analog.com>
 
-Applied.
 
-Thanks,
-Guenter
+> Am 17.11.2026 um 19:38 schrieb sashiko-bot@kernel.org:
+>=20
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issues to consider:
+> - [Low] pinctrl: ingenic: redundant checks and duplicated branch in
+>  irq_set_type()
+> - [Low] pinctrl: ingenic: missing Fixes: trailers for X2000 and X1600
+>  dual-edge IRQ
+> --
+>=20
+> commit 478cc52f71c553d81f6fc71fbe29cdc01e47f147
+> Author: H. Nikolaus Schaller <hns@goldelico.com>
+>=20
+>> pinctrl: ingenic: Fix hardware dual-edge interrupts on X1600
+>>=20
+>> Use the hardware dual-edge detector on X1600 and X2000.
+>>=20
+>> Set PAT1 when configuring both edges and program EDG on X1600.
+>> Keep software edge switching for older SoCs without EDG.
+>>=20
+>> Tested on X1600 and X2000 using GPIO buttons and register readback.
+>>=20
+>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+>=20
+> [Severity: Low]
+> Should this bug fix include Fixes: tags for the commits that =
+introduced X2000
+> and X1600 GPIO support?
+>=20
+>  Fixes: 943e0da15370 ("pinctrl: Ingenic: Add pinctrl driver for =
+X2000.")
+>  Fixes: 4da56f9c6f14 ("pinctrl: ingenic: add x1600 support")
+>=20
+>> diff --git a/drivers/pinctrl/pinctrl-ingenic.c =
+b/drivers/pinctrl/pinctrl-ingenic.c
+>> index 7d3f34c4fb589..f718725d84d4a 100644
+>> --- a/drivers/pinctrl/pinctrl-ingenic.c
+>> +++ b/drivers/pinctrl/pinctrl-ingenic.c
+>> @@ -3622,6 +3622,10 @@ static void irq_set_type(struct =
+ingenic_gpio_chip *jzgc,
+>> break;
+>> }
+>>=20
+>> + if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
+>> +    is_soc_or_above(jzgc->jzpc, ID_X1600))
+>> + val2 =3D true;
+>> +
+>> if (is_soc_or_above(jzgc->jzpc, ID_JZ4770)) {
+>> reg1 =3D JZ4770_GPIO_PAT1;
+>> reg2 =3D JZ4770_GPIO_PAT0;
+>> @@ -3644,6 +3648,9 @@ static void irq_set_type(struct =
+ingenic_gpio_chip *jzgc,
+>> ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
+>> ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
+>> ingenic_gpio_shadow_set_bit_load(jzgc);
+>> +
+>> + if (is_soc_or_above(jzgc->jzpc, ID_X1600))
+>> + ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset, val3);
+>> } else {
+>> ingenic_gpio_set_bit(jzgc, reg2, offset, val1);
+>> ingenic_gpio_set_bit(jzgc, reg1, offset, val2);
+>=20
+> [Severity: Low]
+> This isn't a bug, but both callers of irq_set_type()
+> (ingenic_gpio_irq_set_type() and ingenic_gpio_irq_ack()) already =
+convert
+> IRQ_TYPE_EDGE_BOTH to level triggers when !is_soc_or_above(jzgc->jzpc,
+> ID_X1600).  Can case IRQ_TYPE_EDGE_BOTH set val2 =3D true directly =
+instead of
+> setting val2 =3D false and overriding it here?
+>=20
+> Also, with the ID_X1600 check added to the ID_X1000 branch, the =
+preceding
+> is_soc_or_above(jzgc->jzpc, ID_X2000) branch in irq_set_type() is now
+> identical and can be dropped:
+>=20
+> drivers/pinctrl/pinctrl-ingenic.c:irq_set_type() {
+>    ...
+> if (is_soc_or_above(jzgc->jzpc, ID_X2000)) {
+> ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
+> ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
+> ingenic_gpio_shadow_set_bit_load(jzgc);
+> ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset, val3);
+> } else if (is_soc_or_above(jzgc->jzpc, ID_X1000)) {
+>    ...
+> }
+>=20
+
+Thanks for the review. Both suggestions make sense.
+I'll simplify the shared shadow-register path, remove the
+redundant X2000 branch, and add the two Fixes trailers in
+the next revision.
+
+Nikolaus=
