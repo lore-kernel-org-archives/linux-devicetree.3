@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794904152;
-	b=oW1NLlfTsEQefgL+SyLS/Od7+V7P7TRCoMeRTS9S1Xud+lh/OR0wPCTdPE6rbyuRVOSY
-	 smlanDv4aJ6LinWCsoIrihnU1iCoOhwEYASPEKPRhItLzjD3+Lj+k3akIcKrHIZByEeb4
-	 Zh92tngCmzuWPCRu7K40pJzR4IWsG0xGMF+8Mda9fTMFb1Cl+D94AyxbxDWhK6+BZfYqi
-	 4NXOS86F+DF1VAWp1DCCUzYPW4wAylAZ0ExOReWX1/gZEGX/8yBVhsKaNQXtygKSBxCwc
-	 e7v6A8nr824RbckrlTKWjQUrLCqCgYQQquoM0fG9WVBGdSGjZ1fmTw26AteX9lDqU/A==
+	t=1794904169;
+	b=srecOKMvXbKZww6rieZ0ifL92H0/4BYzpwo2fjWq2+f5hQ097Y0V6ihZCck87KQSyzef
+	 54KEC6ovsuUAHVeWvb1M0YaNADg+RUwNOrPsVZco+R4zT/nODuQPIxxppxqQ/ozE/BF7Z
+	 eGoR6yfqbF8huKE6cOw9pCzHH6GJl3aBSSTBeF0hElPkdj6p0p035bXvb9LSSvx77kbXp
+	 vJmZT9nwTUB7vtM2/3gPtFWJ4YlJPZlrA3KDhnx+hFYhGnEFLpJdtnIIgQ+Q/hD6HA43j
+	 AFye3Zj9yl3VthX5MtPSaJdJ8+aqJ4cfJJFZGIzggE6Nea1PDHFxVep3YjHokbHVMaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794904152;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794904169;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6oO12UtU+mARzb/f/lHQkDV3mWLu+MrESDSJBwclKIw=;
-	b=5jdDMo6r7whUEXJzSfUH6phRfn3iCyyVOomi9We18quKWmlkeG5IEoBTXGcGx0IgVlWz
-	 Oo3aw5GIxdd/vSzh9lyFj6hqsFEwTG6D6SIQiD2JWFuByHs2FV18OZnTRSWEe9TGEZLL8
-	 m5hdX7ewAebwyGWxMK2iHQ7iw/mV3zx3In3LBKNtu1NKpUxxsPSnWf4ZkON0NQhgzLhqS
-	 SCRQ/4IxmNGS7NQ6AgN816+ubmWA80Z1cEEmYA1+G69bviQ1WJez2/Kc42uGwBq1xChSf
-	 sDT6JBO1pI5Up/Cnh3lbUOc2szayvkKO3mMdZIZ6PYvS3JGKirYAlc66Q43aywUEG7w==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6XcB4arin6kXu9NlMnDxTtU/2P/BU+JHWJo9WuFtq8g=;
+	b=wQ1IIPVxTJf+EyFpW3wHp9YDNe4jXDhZiUN+1oj9l8Nw28s2usu0y1kXRlJhrm6aRhap
+	 3QDRNeQfeXte9wlQxmmgQdJBLYg6KnHDDrrTa+oI2uRxftq+3VakM9Ttg9ewayAbBUved
+	 Mwla3HhIoL9kwNKap9bDT1lLvEO/3qQLPzZTYnrBwbSWVyRcT09gBVjlIuOPsD4mf31DP
+	 T6ntEnZaFvBmUJWWZYJiWrXbgqbJ5JAz7AO72OeHL7VgcZXgMCxIDz1xoWY2N+Bep5k5m
+	 TvOZdSObEsh9VqWPOslMidCCszm70uwmdcNHI8KfQHY7CCiwE5VwUeJ+ooD1h4CbAkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nB+Uumtt;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qiAqStaa;
+	arc=none smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0423F606A89C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:29:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0423F606A89C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB149606A899
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:29:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB149606A899
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nB+Uumtt
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so347328b3a.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 00:29:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qiAqStaa
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8b904d10882so1763349b3a.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 00:29:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794904150; x=1795508950; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6oO12UtU+mARzb/f/lHQkDV3mWLu+MrESDSJBwclKIw=;
-        b=nB+Uumtt8XY1eeIvqfgultY8e61E/Fz76yEglyiAPOuohIePvWCG6l3BUHRbvJeQYE
-         1AwlTYTRH8aa/s1WxPBtb8A7L7kbOkb2re0TgO0c/6F3p0ZqXhcqrfA6zqUugFKnCR4I
-         bJHIB+2nLROeqXWnVuFrFGUx4/6xLJXtxZ6XYyOCrBeqBMWD8+O3b67+vKoX1pyYTW5o
-         KPbt3ZQQQoAKNVzwmEXP3PMpxg/4lflWbSeXPNTQKeOgyf/LEiYm0JM9+DHDnbRgs67W
-         uPNOytV565o2Yg/irsmo3MOwBpI6cPX4qyRq780Yczzh1dBjRQFxivuH63AXISa0+3Nh
-         y/JA==
+        d=gmail.com; s=20260707; t=1794904161; x=1795508961; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6XcB4arin6kXu9NlMnDxTtU/2P/BU+JHWJo9WuFtq8g=;
+        b=qiAqStaa6W3hlpe3ZAs6sHR9yMPN6PLsFW6ZzeFt4hda0n5n3P0osrYWl5X/0kzotG
+         3AhUgsj6WcpJa/336qEOZmnrk1tjc0SDDNmWLO9GkuF5LjWn/4wGGPsuPkXp7j1I6g5r
+         nYivVY1sZdwguqOCAAG82rh/+4U2/l0D7WKTgOL/Vteth3vv33MHDNrdkwN5EKWrJN6V
+         EeqdeQewBBaHS+lSytJ5MjCiFFetHqpmjzExNAU+dkUvG/bNSyi55ZvHf+X9Vlw/fczt
+         Zxv5+P9rmnx8RRIEQ/jksaZj72uxFqhsjzbVwJWTgrglAUN9yly1I3f3SzYQ9q0KAoED
+         UGgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794904150; x=1795508950;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6oO12UtU+mARzb/f/lHQkDV3mWLu+MrESDSJBwclKIw=;
-        b=uTNzMAKEMn5knghVTpV4qNL205lqalpw3u9rK6dFxgPbX7A2K0OEdECJsaivtW8yr5
-         +I0kmUoZoQe0mIEVSIyc4YtFP4TSqSpbdOuMzAHvzVtLbsruNpDYAxiscLm4Dvbxtpik
-         F4a9u3qoR0JUp613AM1YBzabwOjNOSyjN26wfM0K161xKWfy7EW4Cm7gsE8H5MyHrjAC
-         RmPD3KlAGCjs+t4H37doa80GHA49zxyyGZ6fBhWJhEQmauOauuRqlhY9VblBKn6VLPlP
-         26TxChqjqx+LaiFH1gERDFs20lXhJ7J3xlywMXNkt098fFf1P7p+MKaKKhL9HWk0FtTM
-         rnTQ==
-X-Forwarded-Encrypted: i=1; AL+hErHh+mCrZpewEGWPc6XaSgr+ul/SrABx7qUxIFHysvxi8pcK6Qt+iJRoCCRdsRCyDxnI94ZtjOGH8llf@vger.kernel.org
-X-Gm-Message-State: APuU4Z99AEdlncqD8AWheO7Qt+Lpm3zkMz3BkgHnOAcqM/TWrHL+c593
-	DJiNP0oM9OuVfEPQPqA2McBZpt/KAsk8eolPWvZaRBMnbbmYwdOCHVvb
-X-Gm-Gg: AYBFou0UNhq0x6uL8/0G78hDxnfV6WKFkrh7+mpJ0XRaP6qJbd7ZbehAjrZx2AfWnLT
-	IJNF7RLpn9U7U0Z/pHRmBCzn7Kgv8pH5bfpjpu+rbI6U/2alFEp7L43D/5nwgcd65GXmaiGvToC
-	ozxg/nD7MGLMBpY4bWKwE0Z2U0ghGkaxaxurDjgVHLqoQGPghbLmAmhLqJzGDo7LXf/rYEkjw74
-	ETxntfsWnyxhz0XoiYA8FAVapozl3U2SVvdUBIEht/qBcv09IsQr28vKNh6Rdgjsq7e8i3Dux/G
-	o4l21qjxuqGDQgfr4LtiqVJPRJMvl9oZy1g7IsZD79wAygDeqpN4t+AjwgxWsnEgkpJ4EJ2WW8W
-	GVW0ffZ2gu3tXUmn8cZnyyJmBsNifXwig7+/YNL3Ck5AnDXGL6dCoaHyayO4VEcrjRD5PjkOpd4
-	kufh2k6yPmMiXStC4DuZeHgenavHQclcvSGSeSAXah7jhTVHOOVp7TTANmsVZKM1OtmVAYnumBi
-	lI9hasATmJX4K5bSm4aFr9GncOFAtOZQ5ZqDpSQPqr4QkcuP+cYNW+LIc8Og24nwISygTFnaFnw
-	iQtX8XOHB0Scsi491IQCAg7SlQsD/n1Q4dF2iL3mWik62lH7KEtQ2PRLq0AZ7jbflZl0x8Umj2P
-	oCMJON16N88Oe/yc=
-X-Received: by 2002:a05:6a20:431f:b0:3e2:3de2:5947 with SMTP id adf61e73a8af0-3fd2d7d033cmr1617615637.16.1794904150073;
-        Tue, 17 Nov 2026 00:29:10 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794904161; x=1795508961;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6XcB4arin6kXu9NlMnDxTtU/2P/BU+JHWJo9WuFtq8g=;
+        b=ADB75MHZS97AnsWL7b9iyX+aSC60yMNXmbJvTFGahN1k25TgH9Ve7LVUO7QE3V25C9
+         qfKZ2qJ7F90p/pJEa55OtNdyeZAVEKtDr2MQueOYtYv4Q+vynKT+tjwElu9pAlHNQ4C2
+         8K9RHnqvJsLgI3YAyf9YLWsNXQf35naz1AXV7QgiWEDV5lpA5JeA2TFtHNS319CgzmKa
+         y+i6YWt3wgwX8cB0DOmr0P6pxopbnz4VSpV23Fz+ivthbJ6+6wl7Wxz3j7xy6EcAP2yE
+         jtIsieQqQ89gnCMQItTPuvqqTF6t3k/TcIwtxKuiX8UO9XVu4SHZ+hzK5taL/8cBW0gO
+         EcpQ==
+X-Forwarded-Encrypted: i=1; AL+hErGhp+K03kSOkz7wVpe+DE0xRub3XglmvudKaGPLKxd/sQkWyYtp586h8wVsuNtqYizOHS6qEjLFI1TF@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0Ayhy9TC2t9xUU8TUt0YhLp6WdhkhY6A4SOjDsYCVLbV7cDB8
+	36oTYMqVA6acE72OJLJLPId4c0gv2H02HULG+XvC8uBJUV6EdyDTsx9G
+X-Gm-Gg: AYBFou1UeLmUnYB9GWB8dcxPw9aPSG0HzkabAGCClmui5GwVVKz6bOjrxb1o5RG52yU
+	QlMdTR8QVWRk+Lw/Zf7Q12+sTdlNPpoQqo4BcQgOW92GuH+PrwXZYI1MvVukkgrjI5hgK7JTr8Z
+	MuF2t+8vKfjWl/ZwdmrZApk4SKfM8zoIDXPXJGH7k7lWNLryfUYQcmMtwbqTt9UQjUMkr216fJ/
+	EVR5S8oy9Qs8yDtB9DNaRHNrKpSaxGGFaq28qs6GQt6iCY7PXpvPwRjwW+PAUDqWEnN0Wx1RwGK
+	pkpcgHjJ9gq6CTSiERFw+4cIQvHsDyOTrRMXZapUA3Xc0YmEGtOG/1s3yCeAD3gx5HNxIH8w8Wl
+	IXrKVyPjCk/SFz/CBqYDVAwUZsaMAzeJqLdEmyj2f7bpK8DfUbkzFqIAHg9Kd/On8z7Hqoi0+uM
+	b/6yrPv7T/XTukOoNRmjNmkILoNUJ33eqIBrOV9BG9GCBQWIRe0qiN3P5hXZhACzvhLV7Aeg/tK
+	BCLrBjy0jIuZUGplqNGq/GsKmrmDLenyd2aoAWD3D30LE9+3/9zyYQ3Ob8jtiElTl2bGv2pDCdt
+	VYmB4+NTv9m/h7ZviC5AwWwyU7UmApNU0aV/OCiH+WvekWnfrq0eDu+upDHITtYZg23Z48MrT7Z
+	eNmGBD4BH3PAHw8o=
+X-Received: by 2002:a05:6a20:431f:b0:3fa:f6c0:331a with SMTP id adf61e73a8af0-3faf6cf78b5mr6473329637.61.1794904161230;
+        Tue, 17 Nov 2026 00:29:21 -0800 (PST)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18a2191sm5422907a12.21.2026.11.17.00.29.06
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18a2191sm5422907a12.21.2026.11.17.00.29.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 00:29:09 -0800 (PST)
+        Tue, 17 Nov 2026 00:29:20 -0800 (PST)
 From: Chi-Wen Weng <cwweng.linux@gmail.com>
 To: jic23@kernel.org,
 	robh@kernel.org,
@@ -94,10 +94,12 @@ Cc: dlechner@baylibre.com,
 	chernyakin.victor.j@outlook.com,
 	cwweng@nuvoton.com,
 	cwweng.linux@gmail.com
-Subject: [PATCH v5 0/3] iio: adc: Add Nuvoton MA35D1 EADC support
-Date: Tue, 17 Nov 2026 16:28:29 +0800
-Message-Id: <20261117082832.1551574-1-cwweng.linux@gmail.com>
+Subject: [PATCH v5 1/3] dt-bindings: iio: adc: Fix channel property validation
+Date: Tue, 17 Nov 2026 16:28:30 +0800
+Message-Id: <20261117082832.1551574-2-cwweng.linux@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261117082832.1551574-1-cwweng.linux@gmail.com>
+References: <20261117082832.1551574-1-cwweng.linux@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,215 +109,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Chi-Wen Weng <cwweng@nuvoton.com>
 
-This series adds IIO support for the Enhanced Analog-to-Digital
-Converter (EADC) found on Nuvoton MA35D1 SoCs.
+The common ADC channel binding currently uses an anyOf constraint
+to require the reg property and select between single-channel and
+diff-channels.
 
-The EADC provides eight external analog inputs which may be used as
-single-ended inputs or as four fixed differential pairs: 0-4, 1-5,
-2-6 and 3-7. The VBAT input is internally connected and needs no
-devicetree description. It is not supported by this initial driver.
+However, the reg-only branch allows validation to succeed even when
+both single-channel and diff-channels are present, bypassing the
+intended mutual exclusion.
 
-The initial driver supports direct conversion and triggered buffered
-capture using sample module 0. Although the hardware provides multiple
-sample modules, this version uses only sample module 0 and therefore
-supports one active voltage channel per buffered scan.
+Replace the anyOf constraint with an explicit reg requirement and
+a not constraint that rejects channels specifying both properties.
 
-The series also fixes the common ADC channel validation to reject
-configurations specifying both single-channel and diff-channels. The
-corresponding redundant constraints are removed from the MA35D1 binding.
+This preserves support for reg-only, single-ended and differential
+channel descriptions while rejecting conflicting configurations.
 
-A reset control is required to put the EADC into a known state at
-probe and resume, and to recover from power-up failures without
-clearing ADCEN while the start-up sequence is still in progress.
+Fixes: dd471a2b7759 ("dt-bindings: iio: adc: Add single-channel property")
+Suggested-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
+---
+ .../devicetree/bindings/iio/adc/adc.yaml        | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
 
-The series is based on Linux v7.4-rc1.
-
-Changes in v5:
-- Fix the common adc.yaml channel validation by replacing the existing
-  anyOf constraint with an explicit reg requirement and a mutual-exclusion
-  constraint for single-channel and diff-channels, as suggested by
-  Rob Herring.
-- Remove redundant channel-level validation constraints from the
-  MA35D1 binding.
-- Require a reset control in the binding and driver to reset the EADC
-  during probe and resume and to recover from power-up failures.
-- Clarify that the VBAT input is internally connected and needs no
-  devicetree description.
-- Do not specify the internal reference voltage in the vref-supply
-  description.
-- Use folded YAML scalars for prose descriptions.
-- Reorganize register definitions so register addresses, fields and
-  values are grouped together.
-- Describe the individual INTSRC0 sample-module interrupt-enable bits
-  explicitly instead of treating them as a single field.
-- Add paired ADC interrupt enable and disable helpers and simplify the
-  conversion error paths.
-- Document the ordering used when aborting a timed-out conversion.
-- Correct the comment describing PDREF.
-- Remove the trivial differential sign-extension helper.
-- Validate the effective scan mask in update_scan_mode() so callback
-  buffers and merged masks cannot request multiple voltage channels.
-  Commit the selected channel only after validation.
-- Wait for PWRM.PWUPRDY after enabling the ADC.
-- Use a full module reset to recover from power-up failures instead of
-  clearing ADCEN before PWUPRDY is set. Preserve the original error and
-  report any reset failure.
-- Read DAT0 during timeout recovery to discard an unread result and
-  clear stale VALID and OV flags.
-- Reset the whole EADC module at the start of hardware initialization
-  in both probe and resume, replacing the control-circuit reset and the
-  register-by-register clearing of inherited interrupt, compare and
-  trigger configuration. This also removes the access to the
-  non-existent SCTL8 register.
-- Split single-ended and differential channel parsing into separate
-  helpers.
-- Initialize local channel-tracking bitmaps directly using = { } instead
-  of separate bitmap_zero() calls, as suggested by Victor Chernyakin.
-- Remove the unnecessary raw variable in the triggered capture path
-  and read the conversion result directly into scan.channel.
-- Rework suspend and resume hardware handling around scoped mutex
-  locking.
-- Remove the buffer predisable callback. Every conversion path already
-  leaves the ADC interrupt disabled and ADIF0 cleared, and the callback
-  could access EADC registers while the clock was gated after a failed
-  resume.
-- Make repeated suspend handling safe after an unsuccessful resume and
-  avoid unbalanced clock disable operations.
-- Only call iio_device_suspend_triggering() and
-  iio_device_resume_triggering() while the buffer is enabled.
-  pollfunc->irq is not initialized until the pollfunc is first attached
-  to a trigger, so calling them unconditionally, as v4 did, could pass
-  an uninitialized IRQ number to disable_irq() and enable_irq().
-- Drop the redundant clk_enabled flag pointed out by Andy Shevchenko;
-  the suspended flag already tracks whether the clock is gated.
-- Add a comment explaining why the EADC register map is left uncached.
-- Describe the readable, writable and precious EADC registers in the
-  regmap configuration.
-- Apply the requested structure layout, variable scope, formatting and
-  control-flow cleanups, including the if/else chain in init_vref().
-- Drop the unused linux/io.h and linux/iio/trigger.h includes.
-- Require at least one external channel child node.
-
-Changes in v4:
-- Use the common ADC diff-channels property to describe differential
-  inputs and keep reg as the logical channel index.
-- Restrict differential inputs to the four hardware-supported pairs.
-- Restrict channel child nodes to the ADC properties supported by the
-  MA35D1 EADC.
-- Prevent single-channel and diff-channels from being specified
-  together.
-- Document that each single-ended input and differential input pair
-  may be described only once.
-- Remove interrupt-names and simplify the interrupt descriptions.
-- Update the binding example to demonstrate separation of the logical
-  channel index from the physical ADC inputs.
-- Update channel parsing to match the revised binding semantics.
-- Store physical ADC inputs in the IIO channel/channel2 fields and use
-  address for the logical DT channel index.
-- Reject duplicate physical single-ended inputs and differential input
-  pairs.
-- Use the physical positive input when programming the sample-module
-  channel selection and the logical index for firmware-node channel
-  translation.
-- Use interrupt index 0 instead of looking up ADINT0 by name.
-- Add the standard one-hot scan-mask validation callback.
-- Use iio_for_each_active_channel() when selecting the buffered
-  channel.
-- Use a fixed scan structure for the single-channel buffered layout.
-- Limit conversion results to the 12-bit ADC data width.
-- Always report -ETIMEDOUT when a conversion times out.
-- Make timeout recovery best effort so interrupt disable, control reset,
-  IRQ synchronization and stale status cleanup are all attempted even
-  if an earlier recovery step fails.
-- Use devm_regulator_get_enable_read_voltage() for the optional
-  external reference supply.
-- Rework clock management to explicitly balance prepare/enable state
-  across probe, suspend, resume, error paths and driver teardown.
-- Improve suspend and resume error-path handling.
-- Remove the redundant explicit REGCACHE_NONE setting.
-- Split interrupt status read failures from interrupt-source checks and
-  handle failures when clearing the interrupt status.
-- Use symbolic definitions for the ADC resolution and differential
-  scale width.
-- Use cleanup guards for mutex handling in buffered capture and keep
-  trigger notification outside the locked section.
-- Use more specific error codes for channel capacity, duplicate channel
-  definitions and out-of-range physical inputs.
-- Apply the requested regmap, control-flow and coding-style cleanups.
-
-Changes in v3:
-- Document all four ADINT0 through ADINT3 hardware interrupt outputs
-  and add interrupt-names.
-- Document ADINT3 as the shared conversion and result-compare interrupt
-  output.
-- Remove the redundant minItems/maxItems constraints from the fixed
-  interrupts items list.
-- Rework the channel binding for the fixed differential pairs and use
-  single-channel for single-ended inputs.
-- Add #io-channel-cells so the EADC can be referenced by DT IIO
-  consumers, and define the cell as the logical channel index.
-- Add firmware-node channel translation so sparse or reordered channel
-  child nodes are mapped by their logical channel index.
-- Restrict unsupported generic ADC channel properties including bipolar,
-  common-mode-channel, settling-time-us and oversampling-ratio.
-- Explicitly configure INTPOS for end-of-conversion interrupt
-  generation.
-- Explicitly configure the ADINT0 sample-module source and clear unused
-  sample-module routing.
-- Reset the EADC control circuits during hardware initialization and
-  clear inherited ADC interrupt enables, result-compare interrupt
-  enables and sample-module trigger sources.
-- Add timeout recovery using the EADC control-circuit reset, followed by
-  IRQ synchronization and stale status/completion cleanup.
-- Use iio_push_to_buffers_with_ts() for triggered buffered capture.
-- Avoid mixing cleanup guards with goto paths in the trigger handler.
-- Add ARCH_MA35 || COMPILE_TEST and HAS_IOMEM Kconfig dependencies.
-- Drop redundant linux/bitops.h and linux/mod_devicetable.h includes.
-- Use direct regmap helpers, explicit REGCACHE_NONE and
-  regmap_assign_bits() where appropriate.
-- Use fixed-width register offsets and kernel time/unit helpers.
-- Use size_add() for channel array allocation.
-- Request ADINT0 by interrupt name.
-- Improve system suspend and resume handling.
-- Address review comments from Jonathan Cameron, Rob Herring,
-  Andy Shevchenko, Uwe Kleine-König and automated review/testing.
-
-Changes in v2:
-- Reworked the driver to use regmap.
-- Added optional external reference supply support and IIO scale
-  reporting.
-- Added optional reset handling.
-- Added externally triggered buffered capture.
-- Added signed differential conversion handling.
-- Added fixed differential-pair validation.
-- Added system sleep support.
-- Added optional DMA properties to the binding.
-
-Patch 1 fixes the common ADC channel property validation.
-Patch 2 adds the MA35D1 EADC devicetree binding.
-Patch 3 adds the MA35D1 EADC IIO driver.
-
-Chi-Wen Weng (3):
-  dt-bindings: iio: adc: Fix channel property validation
-  dt-bindings: iio: adc: Add Nuvoton MA35D1 EADC
-  iio: adc: Add Nuvoton MA35D1 EADC driver
-
- .../devicetree/bindings/iio/adc/adc.yaml      |   17 +-
- .../bindings/iio/adc/nuvoton,ma35d1-eadc.yaml |  174 +++
- drivers/iio/adc/Kconfig                       |   14 +
- drivers/iio/adc/Makefile                      |    1 +
- drivers/iio/adc/ma35d1_eadc.c                 | 1036 +++++++++++++++++
- 5 files changed, 1232 insertions(+), 10 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
- create mode 100644 drivers/iio/adc/ma35d1_eadc.c
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Documentation/devicetree/bindings/iio/adc/adc.yaml
+index b673eaa5d072..f2a16b896630 100644
+--- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
+@@ -114,15 +114,12 @@ properties:
+       Burn-out current sources provide current to the channel's input pins for
+       open-circuit or short-circuit detection.
+ 
+-anyOf:
+-  - oneOf:
+-      - required:
+-          - reg
+-          - diff-channels
+-      - required:
+-          - reg
+-          - single-channel
+-  - required:
+-      - reg
++required:
++  - reg
++
++not:
++  required:
++    - single-channel
++    - diff-channels
+ 
+ additionalProperties: true
 -- 
 2.25.1
 
