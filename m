@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794887596;
-	b=0VBnrxPzCkhTUK7B+pexj9gOyZPeEQv+WN9frVBjqzq4hE+lSYIKH+8GrRgNtXGXDH30
-	 GqeBlR01EeTERagfX8u34h5kW3SWHhPKyXERLQ+bz19yvGCBYeRXgP6DQCLlaGXnvasnx
-	 5VE8KsiOWQDt61oYGLWqie+0ONfTN2roTQtMWVNYGVk7qxAenD/6bpdcCg2qHtuG2S1TQ
-	 hbEoXzJykCQSBcCeLAsVdHuKaS44GQ3r3mvUH8/10CJ7C5GXSGL9CyTuTBXtc0PHobQo4
-	 +fBkrsL4CM+iWZgskbpjjv6yY9hkHwJJXG6OUcCuA4+DebCwm1hsmOcdVAizHn+2evg==
+	t=1794887760;
+	b=GVb8IntR7FjzE9WMSYajpri7LKPP81eHzyF7Ocng0LBAuC/8nWUWThw3w8iVNdSL8JeH
+	 h3tZMfCW4kb1Im+QCnuma8j03qlRtG0pAsjWB3oiFCu7immAKhPwGySKjJKVPtryds7F3
+	 BJv1mo4AwkqGvz2ov4nd3aZhA+a+C4tmf3EkfIbEr0DbR/VJRrEjrYWpE2hetfNRUE3lu
+	 LsDT+LAFLV3QRxaM+yPDQjERYoDtsZHkWTndtS1uRGmamsn7V0xXr5Dk9aXiPZY7BOHlZ
+	 0OOlswsHkEKOEnqiJuqp8bry7n1n6s+dzqK2DYW6qC+rhhn40+sfq0AjP4S9c+zG/RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887596;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887760;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=n9Ywp6KThLEffhUa4Ev+Bz23d29sLUyBrY7vcTocCwE=;
-	b=N+BbBWia++6CEepHVm+VQmkOrLgQk6hfhvri/9rYO1uUhthOxMhmpQ3cMLG0H1kXaquw
-	 OTP/45rtIVw9ZrM3z1/BncSOc/vRF2Ap7hRRZcFqvMFZiCZ0hpCD2RgCw/P0SrRpEQeEk
-	 Au/mNZJQIWGv30fjadLpC3Wmjc1aqfnubk+2RvyUXAZ4KsonUBr5XNgmGF7gubM3iFcEA
-	 aJz7BrfMwnMZ7424yCSe/iN6CVnu2OJ3RbH31J5F7ingEt4TdrlY17RJ2JXUwS47dphGR
-	 xc3QMe7ej4FsyenFs8DFaOzHgw461msF0CVQVBOO3eLF6LMt6v9AZ0sBvu432fveOdw==
+	bh=JYCIs+rvASLufs1uPh16h3X4+qcoze7bD1Onp+AQ2aA=;
+	b=dy/agboCRKcRKRrnZdRkeIXI9v1hULLqIBsrHJgzZ37mG8rxy/PXuPh0oT8XfXJTraED
+	 rrLo7czyOCF3qzRBLIfLrK6pIHYMACtZkAUx3gl8Fy0kQWExAc2xFy0iecQD/Lvfr0Ogu
+	 cwZfBt6fxRDpwZIojPlzlxsoy8PA9dDsmEh/rq8MH6weIYnLXIoJ2UKC/mi8dnD8tj2PJ
+	 tRSS37eD9aDzd8vxad5BgrJPLbkEgvuOD0Fg/jIMLdCzOX8baEzz77LRGKVRaUqC7tWI+
+	 0gMDs3YkMsAlWVbjtmspb/LTxV9ZYxiKEnJfd7flDpPmLnHwbxncal0NyHsnfm5kKFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ET6Rh3bw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C10S4nxe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0CB606A32C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 03:53:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50593606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 03:56:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ET6Rh3bw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 596501F000C5;
-	Tue, 17 Nov 2026 03:53:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C10S4nxe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9C571F000C4;
+	Tue, 17 Nov 2026 03:55:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794887596;
-	bh=n9Ywp6KThLEffhUa4Ev+Bz23d29sLUyBrY7vcTocCwE=;
+	s=k20260515; t=1794887760;
+	bh=JYCIs+rvASLufs1uPh16h3X4+qcoze7bD1Onp+AQ2aA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ET6Rh3bwWd/EUuDF/LTvAdjbNUAtBM/el/W7HOB7EDsmgCuKIkeBXENWHrNV1/FPa
-	 wepNeP0/fMUwDTbfebpmhJHow5YhSyqjbPhS/ioR15AMOlCFgu9e00tlOq+HMA8Pzb
-	 CoUK7XD5b8VpqwDnk3wVIS0U9hhifWksxp45v5gu9GoMprVLN2aU1GyYhE0c7BCLEY
-	 XyzY69w08gI/FscAiNYdWaH9i46yVpQ+jlT7S9SsPXTS8dEgEDEgC0ujcKsXezB0Jk
-	 BnUzV4Kbb77OMS0icxafP8079nnLrgotr604XF3y2WzVa9MlaCcF3XiY5bNde7gaW6
-	 +z7A0oljLk5rA==
-Message-ID: <sashiko-outbox-218168@kernel.org>
+	b=C10S4nxeoEvHc3K9Oc0K9Jk6kYo2A2aXSKN/EdJ5tBWfzHrqz2ibVRJEPxkbFmivY
+	 N88oI38NwCZdyujOCJfTwUxwp/g8z85FYFU/I2ei6rAnXzZNILMzy/qaJOBZ/I4FDp
+	 GTFWunTN058zEiLpt3JcjJ8SK4noGs2pfhI8hVsHCjHC6cZG1BDW4vUyMqhFoNAT7k
+	 gxGnfnckS58SDRjbAQmCJLUtP6DjYsn44TbYrCjohaatPx5AuDt5SXhEeGGm9A0l/z
+	 eo4L87h8qanvIu7lHqaIZfqddRlCeHA/kZrq8nrdDyHyyOuT2Uv0UVxKj4jOLBI+1z
+	 dLu5GtBhfwdjg==
+Message-ID: <sashiko-outbox-218172@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 03/14] media: mediatek: vcodec: add driver to support
- vcp encoder
+Subject: Re: [PATCH v9 02/14] media: mediatek: vcodec: add driver to support
+ vcp
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyrie Wu" <kyrie.wu@mediatek.com>, devicetree@vger.kernel.org
 Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261117032950.1425556-4-kyrie.wu@mediatek.com>
+In-Reply-To: <20261117032950.1425556-3-kyrie.wu@mediatek.com>
 References: <20261117032950.1425556-1-kyrie.wu@mediatek.com>
- <20261117032950.1425556-4-kyrie.wu@mediatek.com>
+ <20261117032950.1425556-3-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 03:53:15 +0000
+Date: Tue, 17 Nov 2026 03:55:59 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,114 +61,243 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] media: mediatek: vcodec: UAF in IPI handlers after VCP IPC
-  timeout
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] media: mediatek: vcodec: missing VCP headers and MTK_VCP_RPROC
+  Kconfig deps
+- [High] media: mediatek: vcodec: 10000-iteration modprobe loop in
+  mtk_vcodec_vcp_get_vcp_device()
+- [High] media: vcodec: vcp: IPC desync and UAF on late ACK after
+  ipi_send timeout
+- [Medium] media: mediatek: vcodec: unlocked ipi_id_ack read and signal
+  spin in mtk_vcodec_vcp_msg_ipi_send()
+- [Medium] media: vcodec: vcp: broken -ERESTARTSYS retry and unlocked
+  ipi_id_ack read
 --
 
-commit e54823b0eef88187197f04023f2a3956ba3b46d7
+commit c713bc7fb9740ba11c4b6d799c501d0a787e9d1f
 Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-media: mediatek: vcodec: add driver to support vcp encoder
+media: mediatek: vcodec: add driver to support vcp
 
-This commit extends the VCP firmware interface driver to support the video
-encoder by handling the encoder feature ID, memory ID, mailbox ID, and IPI
-message queue thread.
+This commit adds a VCP firmware interface for the MediaTek vcodec driver
+and updates the firmware selection callbacks to support VCP alongside VPU
+and SCP.
+
+> diff --git a/drivers/media/platform/mediatek/vcodec/Kconfig b/drivers/med=
+ia/platform/mediatek/vcodec/Kconfig
+> index bc8292232530b..d23dad5c78ce3 100644
+> --- a/drivers/media/platform/mediatek/vcodec/Kconfig
+> +++ b/drivers/media/platform/mediatek/vcodec/Kconfig
+> @@ -1,4 +1,7 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+> +config VIDEO_MEDIATEK_VCODEC_VCP
+> +	bool
+> +
+>  config VIDEO_MEDIATEK_VCODEC_SCP
+>  	bool
+> =20
+> @@ -21,6 +24,7 @@ config VIDEO_MEDIATEK_VCODEC
+>  	select V4L2_MEM2MEM_DEV
+>  	select VIDEO_MEDIATEK_VCODEC_VPU if VIDEO_MEDIATEK_VPU
+>  	select VIDEO_MEDIATEK_VCODEC_SCP if MTK_SCP
+> +	select VIDEO_MEDIATEK_VCODEC_VCP if MTK_VCP_RPROC
+>  	select V4L2_H264
+>  	select V4L2_VP9
+>  	select MEDIA_CONTROLLER
+
+[ ... ]
 
 > diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_=
 vcp.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-> index 3b85ae0e632a8..5ec7a67b51b67 100644
-> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+> new file mode 100644
+> index 0000000000000..3b85ae0e632a8
+> --- /dev/null
 > +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-[ ... ]
-> @@ -223,8 +225,13 @@ static int mtk_vcodec_vcp_msg_ipi_send(struct mtk_vc=
-odec_fw *fw, int id, void *b
->  	}
-> =20
->  	mutex_lock(&vcp->ipi_mutex);
-> -	feature_id =3D VDEC_FEATURE_ID;
-> -	mailbox_id =3D IPI_OUT_VDEC_1;
-> +	if (fw->fw_use =3D=3D ENCODER) {
-> +		feature_id =3D VENC_FEATURE_ID;
-> +		mailbox_id =3D IPI_OUT_VENC_0;
-> +	} else {
-> +		feature_id =3D VDEC_FEATURE_ID;
-> +		mailbox_id =3D IPI_OUT_VDEC_1;
-> +	}
-> =20
->  	timeout_jiffies =3D jiffies + msecs_to_jiffies(VCP_SYNC_TIMEOUT_MS);
->  	while (!vcp_device->ops->vcp_is_ready(vcp_device, feature_id)) {
+> @@ -0,0 +1,571 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) 2025 MediaTek Inc.
+> + * Author: Kyrie Wu <kyrie.wu@mediatek.com>
+> + */
+> +
+> +#include <linux/delay.h>
+> +#include <linux/dma-direction.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/iommu.h>
+> +#include <linux/remoteproc/mtk_vcp_public.h>
+> +#include <linux/firmware/mediatek/mtk-vcp-ipc.h>
 
 [Severity: High]
-Can a timeout or signal interruption in mtk_vcodec_vcp_msg_ipi_send() lead
-to a use-after-free in vpu_enc_ipi_handler() and vpu_dec_ipi_handler()?
+Does this build when CONFIG_VIDEO_MEDIATEK_VCODEC_VCP is enabled?
 
-mtk_vcodec_vcp_msg_ipi_send() ignores its wait argument (2000 ms) and waits
-with wait_event_interruptible_timeout() for 100 ms (IPI_TIMEOUT_MS), which
-includes both VCP firmware response time and scheduling delay for
-mtk_vcodec_vcp_msg_process_thread().  If a DEINIT IPI times out or is
-interrupted by a signal during device close, h264_enc_deinit()
-unconditionally frees inst (and fops_vcodec_release() frees ctx) while the
-ACK is still in flight or queued:
+Neither linux/remoteproc/mtk_vcp_public.h nor
+linux/firmware/mediatek/mtk-vcp-ipc.h exists in the tree, leaving struct
+mtk_vcp_device incomplete and symbols such as VDEC_FEATURE_ID,
+vcp_get_ipidev(), mtk_vcp_ipc_send(), and mtk_vcp_get_by_phandle()
+undeclared throughout mtk_vcodec_fw_vcp.c.
 
-drivers/media/platform/mediatek/vcodec/encoder/venc/venc_h264_if.c:h264_enc=
-_deinit() {
-	...
-	ret =3D vpu_enc_deinit(&inst->vpu_inst);
+In addition, VIDEO_MEDIATEK_VCODEC still has:
 
-	if (inst->work_buf_allocated)
-		h264_enc_free_work_buf(inst);
+  depends on VIDEO_MEDIATEK_VPU || MTK_SCP
+  depends on VIDEO_MEDIATEK_VPU || !VIDEO_MEDIATEK_VPU
+  depends on MTK_SCP || !MTK_SCP
 
-	kfree(inst);
-	...
-}
+without MTK_VCP_RPROC.  On VCP-only platforms VIDEO_MEDIATEK_VCODEC cannot
+be enabled, and a configuration with VIDEO_MEDIATEK_VCODEC=3Dy and
+MTK_VCP_RPROC=3Dm builds mtk_vcodec_fw_vcp.o into the kernel image and fails
+to link against modular MTK_VCP_RPROC symbols.
 
-drivers/media/platform/mediatek/vcodec/encoder/venc_vpu_if.c:vpu_enc_ipi_ha=
-ndler() {
-	...
-	mtk_venc_debug(vpu->ctx, "msg_id %x inst %p status %d", msg->msg_id, vpu, =
-msg->status);
-	if (!vpu_enc_check_ap_inst(enc_dev, vpu) || msg->msg_id < VPU_IPIMSG_ENC_I=
-NIT_DONE ||
-	    msg->msg_id > VPU_IPIMSG_ENC_DEINIT_DONE) {
-		mtk_v4l2_venc_err(vpu->ctx, "venc msg id not correctly =3D> 0x%x", msg->m=
-sg_id);
-		vpu->failure =3D -EINVAL;
-		goto error;
-	}
-	...
-error:
-	vpu->signaled =3D 1;
-}
+[ ... ]
 
-CPU0                                      vcp_enc_msq_thread
-fops_vcodec_release()
-  ...
-  h264_enc_deinit()
-    vpu_enc_deinit(&inst->vpu_inst)
-      mtk_vcodec_vcp_msg_ipi_send()
-        wait_event_interruptible_timeout()
-        /* times out or -ERESTARTSYS */
-    kfree(inst)
-  kfree(ctx)
-                                          mtk_vcodec_vcp_msg_process_thread=
+> +static int mtk_vcodec_vcp_msg_process_thread(void *arg)
+> +{
+> +	struct mtk_vcodec_fw *fw =3D arg;
+> +	struct vdec_vpu_ipi_ack *msg =3D NULL;
+> +	struct mtk_vcp_share_obj *obj;
+> +	struct mtk_vcp_msg_node *msg_node;
+> +	vcp_ipi_handler_t handler;
+> +	unsigned long flags;
+> +	int ret =3D 0;
+> +
+> +	do {
+
+[ ... ]
+
+> +		handler(msg, obj->len, fw->vcp->ipi_desc[obj->id].priv);
+> +		mtk_vcodec_vcp_ipi_unlock(fw->vcp, obj->id);
+> +
+> +		fw->vcp->msg_signaled[obj->id] =3D true;
+> +		wake_up(&fw->vcp->msg_wq[obj->id]);
+> +
+> +		mtk_vcodec_vcp_free_msg_node(fw, msg_node);
+> +	} while (!kthread_should_stop());
+> +
+> +	return ret;
+> +}
+
+[Severity: High]
+Can a delayed firmware ACK after a timeout or signal in
+mtk_vcodec_vcp_msg_ipi_send() cause a use-after-free and desynchronize
+subsequent IPI waits?
+
+CPU0                              CPU1 (vcp_vdec_msq_thread)
+vdec_h264_slice_init()
+  vpu_dec_init()
+    mtk_vcodec_vcp_msg_ipi_send()
+      wait_event_interruptible_timeout()
+        --> times out or -ERESTARTSYS
+      mutex_unlock(&vcp->ipi_mutex)
+  kfree(inst)
+                                  mtk_vcodec_vcp_msg_process_thread()
+                                    vpu_dec_ipi_handler()
+                                      vpu =3D (void *)msg->ap_inst_addr
+                                      vpu->failure =3D -EINVAL  <-- use-aft=
+er-free
+                                    fw->vcp->msg_signaled[id] =3D true
+                                    wake_up(&fw->vcp->msg_wq[id])
+
+When mtk_vcodec_vcp_msg_ipi_send() times out or aborts on a signal, the
+caller tears down and frees the codec instance while VCP is still
+processing the request.  When the late ACK arrives, vpu_dec_ipi_handler()
+still dereferences vpu->ctx and writes to vpu->failure and vpu->signaled
+even when vpu_dec_check_ap_inst() fails.  mtk_vcodec_vcp_msg_process_thread=
 ()
-                                            vpu_enc_ipi_handler()
-                                              mtk_venc_debug(vpu->ctx, ...)
-                                              vpu_enc_check_ap_inst() /* fa=
-lse */
-                                              mtk_v4l2_venc_err(vpu->ctx, .=
-..)
-                                              vpu->failure =3D -EINVAL;
-                                              vpu->signaled =3D 1;  <-- use=
--after-free
+then sets msg_signaled[obj->id] =3D true and wakes msg_wq[obj->id],
+prematurely completing the next caller waiting on the same IPI ID.
 
-When the delayed ACK is processed, vpu_enc_ipi_handler() dereferences
-vpu->ctx before calling vpu_enc_check_ap_inst(), and both
-vpu_enc_ipi_handler() and vpu_dec_ipi_handler() still dereference vpu->ctx
-and write to vpu->failure and vpu->signaled after the instance check fails.
+[ ... ]
+
+> +static int mtk_vcodec_vcp_msg_ipi_send(struct mtk_vcodec_fw *fw, int id,=
+ void *buf,
+> +				       unsigned int len, unsigned int wait)
+> +{
+
+[ ... ]
+
+> +wait_ack:
+> +	/* wait for VCP's ACK */
+> +	ret =3D wait_event_interruptible_timeout(*msg_wq, *msg_signaled,
+> +					       msecs_to_jiffies(IPI_TIMEOUT_MS));
+> +	if (!ret) {
+> +		vcp->ipi_id_ack[id] =3D VCODEC_IPI_MSG_STATUS_FAIL;
+> +		dev_err(&fw->pdev->dev, "wait ipi ack timeout! %d %d\n", ret, vcp->ipi=
+_id_ack[id]);
+> +	} else if (ret =3D=3D -ERESTARTSYS) {
+> +		if (retry_cnt++ < 5)
+> +			goto wait_ack;
+> +
+> +		dev_err(&fw->pdev->dev, "wait ipi ack err (%d)\n", vcp->ipi_id_ack[id]=
+);
+> +		vcp->ipi_id_ack[id] =3D VCODEC_IPI_MSG_STATUS_FAIL;
+> +	} else if (ret < 0) {
+> +		dev_err(&fw->pdev->dev, "wait ipi ack fail ret %d %d\n", ret, vcp->ipi=
+_id_ack[id]);
+> +		vcp->ipi_id_ack[id] =3D VCODEC_IPI_MSG_STATUS_FAIL;
+> +	}
+
+[Severity: Medium]
+Does jumping back to wait_ack on -ERESTARTSYS spin through all 5 retries
+without sleeping?
+
+Because the pending signal on current is not cleared before returning to
+userspace, each retry of wait_event_interruptible_timeout() immediately
+returns -ERESTARTSYS, aborting the wait with VCODEC_IPI_MSG_STATUS_FAIL
+while the firmware command is still in flight.  Also, vcp->ipi_id_ack[id]
+is read after mutex_unlock(&vcp->ipi_mutex) below, where a concurrent
+caller can overwrite it before this function returns.
+
+> +
+> +	dev_dbg(&fw->pdev->dev, "receive message: id %d len %d data 0x%x\n",
+> +		obj.id, obj.len, data[0]);
+> +
+> +	mutex_unlock(&vcp->ipi_mutex);
+> +
+> +	return vcp->ipi_id_ack[id];
+
+[Severity: Medium]
+Can a concurrent caller overwrite vcp->ipi_id_ack[id] after
+mutex_unlock(&vcp->ipi_mutex) before it is read for the return value?
+
+A second thread waiting on vcp->ipi_mutex can immediately acquire the lock
+and reset vcp->ipi_id_ack[id] (for example to VCODEC_IPI_MSG_STATUS_OK or
+-EINVAL) before the first thread returns, and the -ERESTARTSYS retry loop
+above returns immediately on all 5 attempts while a signal remains pending
+on current.
+
+[ ... ]
+
+> +static int mtk_vcodec_vcp_get_vcp_device(struct mtk_vcodec_fw *fw)
+> +{
+> +	struct device *dev =3D &fw->pdev->dev;
+> +	int retry =3D 0, retry_cnt =3D 10000;
+> +	phandle vcp_phandle;
+> +
+> +	while (!try_then_request_module(mtk_vcodec_vcp_driver_loaded(fw), "mtk-=
+vcp")) {
+> +		if (++retry > retry_cnt) {
+> +			dev_err(dev, "failed to load mtk-vcp module");
+> +			return -EPROBE_DEFER;
+> +		}
+> +		usleep_range(1000, 2000);
+> +	}
+
+[Severity: High]
+Does this loop invoke request_module("mtk-vcp") up to 10,001 times during
+V4L2 device open() if the mtk-vcp driver is not available?
+
+try_then_request_module() synchronously spawns /sbin/modprobe whenever
+mtk_vcodec_vcp_driver_loaded() returns false.  Because
+mtk_vcodec_vcp_get_vcp_device() is called from
+mtk_vcodec_vcp_load_firmware() during fops_vcodec_open() while holding
+dev->dev_mutex (rather than during probe like SCP and VPU), opening
+/dev/videoX when mtk-vcp is absent spawns 10,001 modprobe processes and
+blocks all V4L2 open and release calls for 10 to 20+ seconds before
+returning -EPROBE_DEFER (which mtk_vcodec_vcp_load_firmware() then turns
+into -EINVAL).  Furthermore, if the driver is unbound before open() is ever
+called, fw->vcp->vcp_device is still NULL and mtk_vcodec_vcp_release() logs
+a spurious error.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117032950.1425=
-556-1-kyrie.wu@mediatek.com?part=3D3
+556-1-kyrie.wu@mediatek.com?part=3D2
