@@ -1,77 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794944122;
-	b=gk7WuwCguk5Lt4h/Ghj3jYhw+zgrAPtDmC924UyGMKeJBDYWN+N2OisddEC3+YkT+Ik6
-	 wEv75ybaK0lDrebtKCcBqnwWG6mICeKWZ6Qkno+rR7FKxLRT6RI++nsJ0xoidZ46O0Fdp
-	 VUWUjbFoRXx+4NiFkTrejo7dUlQIl51ks5XXA/K1yEbNAa6Js3GsU0aC2B5bGLb/g/WGU
-	 JLBhkv/Z710HZrL/tNvMOmls7MCBuhjjNSc6m+3qs2teDnLpw+xfiQYDhuhGjWssYy6ru
-	 TdyQRPYoYQdSwJ+WN9IGTmWftzoAztJs3uZzebMy54YHBkstS+qNewW0YtdPnqwd7ug==
+	t=1794944341;
+	b=VpAhAKa3tmRjd1epUiPr81L/wKFhHMTnIwPWsA0Bbz4q8m5ZB7gar7bYMM37zILERPyL
+	 Sci5JcgJcatRs2rwidh/PmKMb7uCwU5ZrLBFr19zjgEds1x8ckwgq+JVATSkKdF/6mGQc
+	 9NEHPnI6+wlDeynDiIvXCMDj4ZA14/xIbiBYrzUcwKsljXmCcEelQfOGNxfdCImaG04n+
+	 rBYMMoNdxWa5OdHPkCMzXTbGfgu9kC6K1WsslK/KXcEwzGGsaPNsRrX2YuNVpluNcyuoW
+	 KZkKBLSVtCBLH8ACBtKtYggpIjEA8GVBzweTyY/imy5d6ytqBKOWIYY2MuC9VTIuVgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794944122;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=zZ7VovX7jN4uYMkhQWyK3ov4JdFyFshspRex+aWFMm0=;
-	b=lJ5HLWYtke/2cdeWQQLpxWylYS1DEJqWH9Kz97BBop6IO2lDh2I3v5hEegp4dALSiGrY
-	 y1OGMHSPTY2T6XVwWFbtokKv3UeHYUI6LqrHGb3v8fw/La5CYdg+3RYIClLguyEZSKE9K
-	 5YAJPfndUZzOMqMPHgb1uO9QERT8yF5F9VLflWbg4SbZ1myZLI2sPOIycTYYIpjRv63Ki
-	 MMuSzEsvoFyPBaska/59zw+fNym05gI7rmRSlIO+F9JrUyZ9+6tmzUyilJ6qa2tBghsii
-	 eABwvBBvnCt2YMsiultluqLFb8bQ0qz7Xkbt2F+utmiySVmByZpzhShHaeEeNilT2sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794944341;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=mCdB6Y2b1KlIUU0/RI1kPyC4zaNgqRo05w312NX8tBo=;
+	b=qQhheFdZrbH9GM3cnNe2uHynAka/HqROM6qjQ+n+ZCdYpF7urxKtkyHsy5Zni3V92KE1
+	 vp8GAMdYfaDso41BJGHbF3D9DnnJ5U4ksDmArrw+IygAXwhmQqTCwePhy9IsDm/zYmEDe
+	 ziDA7iahav4XruJt4QgYRpziyMOiK8kj2/YqCthT6R445PZ5cP2gXikZ0nDuNMkg1HMna
+	 NmLJJZCNl3pJ+k3KC+R0dOLIqQ4l+0CtaMUbKk4Wf0wOpPQ7rEUhcByEJgFwu+KzmRpXG
+	 edMYEXgrXwJJq13+01/vI5kq+XoJ0MSxNH5yTTn7ZnOGwQoTGUoK5w7jap97mrGWBhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QubTfkMQ;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6C8606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:35:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A6C8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0065606A33B
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:39:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0065606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b0e0e65adbso34170a91.3
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 11:35:22 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QubTfkMQ
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-492f0a1b685so98561f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 11:39:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794944339; x=1795549139; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mCdB6Y2b1KlIUU0/RI1kPyC4zaNgqRo05w312NX8tBo=;
+        b=QubTfkMQH+Ts0n7PGqp1tfezAFVn35HsdibP1yHdaShIti+vssRzeb7X3pVYVF3py+
+         N+TBbj+V55oqnTdry0GwJJn81ooSWONI1H4OqaGzjbVRKQNvVwNadF2Kw8BFNYXjyjkg
+         7A2OOy7g1wgh0ZIrLn/xljY8N126J8qBVJCgfw07L4yyljs2F80Jx0nA/+EXU22hUPvz
+         0MPB4eTkinZFKUyAnwCQn5TG1P5udaz5AeQEDvub8iZYc+Yj1e9RfOoDnFe2+RoOGw2z
+         kBySSvkQpUjLY+W/mH1PHjfnoTnXTNFZjTtcA7spK/+oGHCJU9JuT5UKcPWosDYI/uct
+         2VFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794944121; x=1795548921;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zZ7VovX7jN4uYMkhQWyK3ov4JdFyFshspRex+aWFMm0=;
-        b=syVyEg/HnXBC0QzEjOZv3KnkkL0wN6icXxkeVux5Cnh9u33lz4fJ0/LyT/6lz4saWM
-         fK2QdX6Xmn7m3uUY6v9krbdJzHqDHlvh1bofjiqUB4qLg5N6iR9WgDkDYoO4OSThrvo2
-         sf6Np8Zw7FkXUTnfbmZPL/RZV7136sI7j/L6fqrE99zFYe9x3pngk21tbNHKAUn3mtC7
-         WZB2VHmiJ0SkxUgYSLOKgmGpulGpATO171HpAojKMB0gmwOngscNwHA582uczWZBAkxa
-         AbF3aC9W4jnCEWvEkNjndU2IJcySSVM41Ayu5jFQnTeeCxxyzYESmYkJt/5cV7aqcTP8
-         CAeA==
-X-Forwarded-Encrypted: i=1; AL+hErHym0qP3OfKSJRIqeKoJWcKzB2jEjUMLjUQ/xyj2YI1130mGYIhbFEOw7ZbSosrDOxop63faVQSkw0u@vger.kernel.org
-X-Gm-Message-State: APuU4Z9f9itAOfPEi9hHDKTP6SDsCdGRp651fUfbZ9guBkN9UxiMyuzb
-	QZUX7SBZ5XGKVrXH9ijNEI/xgopE53VXCKSSDYWB8g8Zx8CJMSZ5BY0giZ46nBXn
-X-Gm-Gg: AZFdTZd66k9b5fK61Bm18S8WR/GNOGyyhE7fhV1zOjVGdGs8yE1kEC5msrMCzK6GKcj
-	/2a20xIBSiwT758LnDplJC99M28sooZEnSb2MYBd/DE3rRn1WkQB80Tp2tk2FsUCKDjugIBhPBI
-	NEIFqtgWwbMndAStX+ERvgY+H1vrCWpu0XjSRhn6xErg76DmBUQden/IQaf76NqjHiwyZmS81Pm
-	eVq5+RpZlFYkHMTCKjo/M6ajMXS5SE40QHFPaUwNPjaCZwboH3x/Yv1I8VSqZGMaVSepNo/cIfv
-	ESwBaNWPh8mUxXC8sAQu8w6bmm33EjgUtdkcxfkO1in1FO3fpPREQehzTdzGo47CdaR/pTq1nQE
-	1FNxAnEuCj2G4UExGF21IQchy+XgO/6TgwFKgE3LbTrnt/qQo6/jl++ZPm+ec05/jHj03ntkxui
-	VsWXtMkGPnDBU4UMHycXdvdKEqLnSokzimAsbU3xRlR4NdcK68k2vJdhnHMFvYw017KUZ9HW2lf
-	ZG1kKTdeXzwWZm5u7TSKd8hLJOsgb52mkwuZDmDw+32Oa/1En6M01tmKkf/rzNFJZaWduiG4uUM
-	/Zwy3GjFI3bPOcse7n5SC9yaMqgVxM/5d8/J+VBgzArFGpSEZlny/rIIt1kiVjKe/YV5Q+I7ZGZ
-	/QYaEcMfFs7V20jMe9TcYpAHPkw6gfz30faXiSElq
-X-Received: by 2002:a17:90b:4b05:b0:3b0:968f:fdee with SMTP id 98e67ed59e1d1-3b3d07ca11emr441511a91.55.1794944121438;
-        Tue, 17 Nov 2026 11:35:21 -0800 (PST)
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com. [74.125.82.47])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac6016c3sm5425126a91.15.2026.11.17.11.35.21
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 11:35:21 -0800 (PST)
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1b3acec6677so327088c88.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 11:35:21 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH3s+GvgJ8ggdyJDxGCO+IOgF9ATlD6rStM+1kmiSJY0hoK28v47WKmQnRdFvDbEH7eVFt78Al48+YC@vger.kernel.org
-X-Received: by 2002:a05:693c:42c9:b0:381:4b4b:f96c with SMTP id
- 5a478bee46e88-382827a7dfcmr296117eec.34.1794944120695; Tue, 17 Nov 2026
- 11:35:20 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794944339; x=1795549139;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mCdB6Y2b1KlIUU0/RI1kPyC4zaNgqRo05w312NX8tBo=;
+        b=S9ijAbVOl1AasNh2kJCOwkX66BSVhaAh+T9OFTiNRRQPBFdhogYF5HbAcpSZE8Jcjf
+         QXljeC13jeYs5QOD7Er7zoQ33FLn/Ug2rp4kR+yF6YXo9ZsOqpn9JzoSfJ/wNowlPxOP
+         Tc39HkTfKrno9yqVdINwhncZ/jKmGO7AiI3lnoJL80mbvSAa482V1DG0LUO+hb/y1y/o
+         KOqydlUZzjMKnptQUBSHD9kBZ5sBAIyhF0ORo6NSXdX4SnJLOce6xgzHozZlxsE2BGEf
+         Pvv5Iax2c6SfPx2szD5NBO1LuTdICVdaJ+wF4xlVTDW1UJi4w9mqK/acmw4n3OARifrx
+         Zalw==
+X-Forwarded-Encrypted: i=1; AL+hErEvphFv4JZS4IOn9AA/p15Z4NYMyPEEBc6IVZhKxihSzUxueJcOpW+X7VSrr40lepbie0kXf51x1aBa@vger.kernel.org
+X-Gm-Message-State: APuU4Z+BwvVkCJzjNBaEXQx3LXXs/sZsNwpgUg3oGz009cg+w+dzMTV3
+	9MRsZ6xsCF7RU7W3WyETVn0wWW7T7MzMuFw1qd64oSEVTXLWJ0gf/ZRY
+X-Gm-Gg: AZFdTZd56yD6lXL7QLGhda1qzFbZuPPWhxeI55819atxV21aSOdGI8MkwaxHKGRAc34
+	5zxMOxS6MlJ8J59kD8Yph9Q+IR4MevKjQflytnuPtyF9DGg3CdEFOYzEGMolzrQiQkN0a7526xE
+	cLg9OoGH8TpSTMiDqki5ybguvGCJP41WCOnr9G0ISQv6y+SXPDMNiCRw2NW+wXZdxPEkEcLZvwa
+	/c0TIfryNLXczf66Ir9ySE839V1nwNGHrGDpn1SXunwBiaZW3IOH/Je9dkBGcrhUrp7ffiWjtBh
+	tmq6JLbFF/f1WDoRkcqm3IBZldgGneM06Zeycl7IETS+Lq+XH0azgRoMcSxUm0WjsCM7mtSxh/n
+	lyvl0j55R0iQ8LCEoq4PWKZaSp/RK88TKD0XB1pd58RkW9H9H0VEOWzsB02sYHLVctszlTigtb6
+	5E2hnmx0EF/I+Z89x+gfdd9Hjz1FEWLFBaK0Q7VUhkCKlEBYyxbxTLW80eqoK8zQnG1bargEUYR
+	idVu/CHjXgKiXc37JIWlTa0yUnkx9LnFLtRxBpdUQw8RjEzTRpsLujl8G2CEWPa3H3knzEx8pKc
+	HU59m6Qx3nEMDO3iU2zZk9FfDZfmCp7THFDB5QB8M9cSi35t9FXxBpXlGqG81pJOX1naZzjPDuw
+	KnhwwY31XfgjPw/7EeaR0eNt2wF6LZF4czQ==
+X-Received: by 2002:a05:6000:178c:b0:490:9fe2:6a39 with SMTP id ffacd0b85a97d-4a6394756a8mr1002586f8f.20.1794944338756;
+        Tue, 17 Nov 2026 11:38:58 -0800 (PST)
+Received: from Ansuel-XPS24.localdomain (93-34-92-103.ip49.fastwebnet.it. [93.34.92.103])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4a64b60940csm509521f8f.0.2026.11.17.11.38.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 11:38:57 -0800 (PST)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/2] ASoC: Add support for AN7581 PCM driver
+Date: Tue, 17 Nov 2026 20:38:46 +0100
+Message-ID: <20261117193851.235272-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,28 +104,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
- <20261116-iio-ad5246-v1-2-ef6b7c06d4b0@telaak.dev> <avwMpV3sCvMQNA0b@ashevche-desk.local>
-In-Reply-To: <avwMpV3sCvMQNA0b@ashevche-desk.local>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Tue, 17 Nov 2026 14:35:09 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ7d4uZepoBqEJVcSb466fP=ZuRs=zREAcb3DzjvDA8Bjw@mail.gmail.com>
-X-Gm-Features: Aa3M54pMmKLdjA0jFJLnsDDkzCIUJ6YpdPFI8j8vMI3OjOODp7f3IahMKvJGlo8
-Message-ID: <CAPY4CJ7d4uZepoBqEJVcSb466fP=ZuRs=zREAcb3DzjvDA8Bjw@mail.gmail.com>
-Subject: Re: [PATCH 2/5] iio: potentiometer: mcp4018: Report the available
- wiper positions
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Peter Rosin <peda@lysator.liu.se>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026, Andy Shevchenko wrote:
-> Take a chance to add missing headers at the same time, id est
-> + array_size.h // ARRAY_SIZE()
-> + bits.h // BIT()
+The Airoha AN7581 SoC provides a PCM interface for VoIP applications,
+supporting playback and capture at sample rates of 8 kHz and 16 kHz.
+The driver configures the PCM bit clock to 2.048 MHz and supports
+8-bit and 16-bit samples, with up to 32 channels.
 
-Will do in v2.
+Add YAML and driver. This has been verified with loopback
+and confirmed by Airoha with ZSI voice chip.
+
+Changes v6:
+- Better handle IRQ with IRQ_NONE
+- Drop wrong DPCM values
+- Add comments about CHBF_OFFSET
+- Add comments for HW pointer reset
+- Validate that slot fit in the BCLK
+- Add INFO_BATCH
+- Fix wrong define name for 2048KHz
+- Drop unused header
+- Select CONFIG_REGMAP_MMIO
+
+Changes v5:
+- Use local reset variable
+- Fix validation for channel and bit mask
+- Drop use of threaded IRQ
+- Return if snd_pcm_hw_constraint_integer errors out
+
+Changes v4:
+- Add review by tag for DT patch
+- Address shashiko bot comments
+- Better protext tx pos
+- Set DMA mask for coherent DMA
+- Use more managed resource
+- Increase users in startup
+
+Changes v3:
+- Out of RFC
+- Add Documentation patch
+- Drop SLIC testing code
+- Add MAINTAINERS entry
+- Follow normal pattern for commit title
+- Improve commit description
+
+Changes v2:
+- Rentirely rework IRQ handling
+- Fix problem for timeslow configuration
+- Better support duplex mode
+- Better handle descriptor tracking
+- Move to Soc directory
+- General code fixup and cleanup
+
+Christian Marangi (2):
+  ASoC: dt-bindings: airoha: Add AN7581 PCM controller
+  ASoC: airoha: Add support for AN7581 PCM driver
+
+ .../bindings/sound/airoha,an7581-pcm.yaml     |  52 +
+ MAINTAINERS                                   |   7 +
+ sound/soc/Kconfig                             |   1 +
+ sound/soc/Makefile                            |   1 +
+ sound/soc/airoha/Kconfig                      |  11 +
+ sound/soc/airoha/Makefile                     |   3 +
+ sound/soc/airoha/an7581-pcm.c                 | 931 ++++++++++++++++++
+ 7 files changed, 1006 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/airoha,an7581-pcm.yaml
+ create mode 100644 sound/soc/airoha/Kconfig
+ create mode 100644 sound/soc/airoha/Makefile
+ create mode 100644 sound/soc/airoha/an7581-pcm.c
+
+-- 
+2.55.0
+
