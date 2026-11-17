@@ -1,57 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925973;
-	b=IAtUNydlEqiVM1DOOa5g/m+TvJbDjYKEG/HmsWwqFfmjqcqNTn1ANzLWO7XF0z9vnnJF
-	 +9hAqfoy24vTxKP0zQDA/SZ/i2dRo/8Jjzv/H+LC8Z7CWi/XRddpypq73q2wKsnW5KjKC
-	 DhQ+FjqbR8g57PiHX+KGtQ/wxtcJa5PrHKFg0AAy2byjVzvt2nDSMB/jLYZzCMTiXOVrn
-	 3nwCqcmAqdcPINsvNWSdzl6NL71QAc8cwd8fAQEMzhNoI7cFgu/Q8PlLhtEkoQeqrt14l
-	 4c3XCKAlXJlKnvem+XtX0jiecFMo99xkKkYCka40Yw3cI1CyEcyOZonxaZG5w4N//Jg==
+	t=1794926057;
+	b=HJKfq36WRk2S/G1RBv2k6UBltfY9/lOo2wLhwmE1x5NaQbJyqoQNRg6uyyQYhXKgxgEX
+	 qTuBXrTSvu1Vyf52B7q6QEU8mNZNESGupx+H71AJlRuaOlSbCiYb8PnEhofQCAcqvPW8r
+	 eWCyxn3gAuFGKSiUZZFvsCClQnEXu+0q1mPFOiY3lfjXpue2EsPpk70ie27GT3IkiNe0z
+	 OAQOfr4OQTSHcfnegdHS4vXJeWBx7TBreMUXRmAUs3KbY/5ySjB6pwBkS3OOMFnJ3ErlL
+	 zaCs+IRSBKUV+4uURC270pZBcdKz702sl6tL0Tse7nuoRzQZyHMBwZtxzYroIAEDmfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925973;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=RTqHAtDYMug8aKNf43ueqF5OhBLCVSRjCf9NzHVcOFs=;
-	b=Tm5WO01VRkFVUyovFtVBfqmp+xnHuJGVw6UMDWyWZWgKrw2IN0fqBVxMk+zGCyc9fGWW
-	 NT7X10UywanOt3Wg+gKRCEfomghSYEe669t4F383s4f913OslsWvBl+WDbzvPxUDujrJH
-	 BsJOALCZVKsix3acC97Eda9m6iNJA7XHeYTBF/+/mI5pZ1yIPkvxaoFWVZRtMtorTe1TM
-	 z51yYXPTXlUA2WBMc2DcDOtJ6DdjW8UXhvzIvoBdUpocqYsMXgAcGT7KueMlkAEqfm8Uu
-	 GA8wd+hdb5gHuJk8erFTtQBJuCymjdR1GCkIEaLWXdUM63q7cv5eHtj5JdHdwqbIsBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794926057;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ctl1tLaoM/IXjPWaua1GqsUJA8m8aPnpqJlW+uWtku4=;
+	b=P6x75JjuQmheqSOBlbpLr6yeZ8+CazQts21emqMtE3vmCoXI5zrHc49uQRE5K1/NBS10
+	 /dWldChGq2co+wRjHed7VKlOVELs/cpGkxvs6J3qqcl7ddMIPIYgKMioYOCLgcx+bGNt/
+	 1hAoOCV+YUgpajM+tin2RecvXQJT14RZbgyUjpxbz2UdHGTnPCPwn0v2cbyopf3anQ+z0
+	 pzontM8XnBHcrUJaCBwI7kxeZDhE9oj0Dsu+4dGnJfxvJd3fbVakYjNsWip+4BigTjys6
+	 I39xE63Xep5rqTBnEM0PsGU2OgzorYAEPol2R8pBp9kKFQ7QLxnD7LGx0bvPXciImUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RmUQRZZt;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQROSnmc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAD3606A330;
-	Tue, 17 Nov 2026 14:32:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DAD3606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB92606A888;
+	Tue, 17 Nov 2026 14:34:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RmUQRZZt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794925971;
-	bh=8JLKK52+o0i2JFWndjt7ZicRjZjcb4Br+OPe2B8YcKQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=RmUQRZZt1rxxETA+jlDkX8XADuYk6uwWqBssrHsHIbnNZCzD8bHvkD6bNDBu2npgG
-	 +vZ2IA2GYHqKm9MQ0ZHAbfFfreCfoXKgEivQC/UzYjmFnLSmFIsZbCtq3qU/ZPxQl5
-	 W66zm1vRWwuxvYQr2LVAzHnVdM7jKY1IEhtKLPuJ/ezL+5z1z8fMhCjTkZTQJP5agQ
-	 z6p2Iw13qab37PgcVczXG7eLaVB7zueEwKZlqcMxf5Mlqyd59FtYpiOhuIQODzqxNP
-	 FH4gbnzyy7qG232wfJk/oo/gDgAIZHeSXsgf4Qa6FsgpuV9IYZ8tp69hZT/m/pwG5H
-	 2IsroE+VCNJCw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1D20E17E07B5;
-	Tue, 17 Nov 2026 15:32:51 +0100 (CET)
-Message-ID: <ed484d74-98e8-4590-8466-17ca5a292025@collabora.com>
-Date: Tue, 17 Nov 2026 15:32:50 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQROSnmc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 440A81F000C6;
+	Tue, 17 Nov 2026 14:34:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794926057;
+	bh=ctl1tLaoM/IXjPWaua1GqsUJA8m8aPnpqJlW+uWtku4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AQROSnmc1Uipda2/MZtI5joUGrUdfqKIRPexALaTDcWEblXm8qQbC4ye291cfcQUO
+	 Ypn1BSFBZn7yAEtwDJ4TCXlOht7RvrHt/zoBOsieQ5gQDhtKKzHBAQ8EwKCK+udkSu
+	 2S3a0TKkzze3u6BHYZNmDqXiPOQgOXnJ67XFgSX/UWrIOXXw40F9GbSr0YjW7xBE5+
+	 3BdZlSULorJ1aB0MAy1bFtQjyu5FIQrgO1hk2NnpIiRhZKCvfCMtD80suVifctJBtg
+	 7r5lahPKDD/BopTPEX/QVDSyTuHMoEjSpuYxP2qS4fP2MSwsbfvZTN7EQPpGhh3GiP
+	 mLJOyhcGfEACQ==
+Date: Tue, 17 Nov 2026 22:13:58 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/8] dt-bindings: net: Add MDIO demultiplexer
+Message-ID: <avxhJs-51vs2Icje@xhacker>
+References: <20261116135442.4827-1-jszhang@kernel.org>
+ <20261116135442.4827-2-jszhang@kernel.org>
+ <16ecb3ac-7876-4db5-9168-5ac9bf31d4b7@lunn.ch>
+ <avvgy_bmRSVApCHA@xhacker>
+ <bd19b55b-00b1-406d-a16b-d04c35efb7d3@lunn.ch>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,33 +72,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] soc: mediatek: pwrap: Add support for MT8163
-To: bengris32@protonmail.ch, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Flora Fu <flora.fu@mediatek.com>, Alexandre Mergnat <amergnat@baylibre.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20261117-mt8163-pwrap-support-v1-0-b00fa10035a5@protonmail.ch>
- <20261117-mt8163-pwrap-support-v1-2-b00fa10035a5@protonmail.ch>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20261117-mt8163-pwrap-support-v1-2-b00fa10035a5@protonmail.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <bd19b55b-00b1-406d-a16b-d04c35efb7d3@lunn.ch>
 
-On 11/17/26 14:28, Ben Grisdale via B4 Relay wrote:
-> From: Ben Grisdale <bengris32@protonmail.ch>
+On Tue, Nov 17, 2026 at 02:24:16PM +0100, Andrew Lunn wrote:
+> On Tue, Nov 17, 2026 at 01:06:19PM +0800, Jisheng Zhang wrote:
+> > On Mon, Nov 16, 2026 at 04:06:25PM +0100, Andrew Lunn wrote:
+> > > On Mon, Nov 16, 2026 at 09:54:35PM +0800, Jisheng Zhang wrote:
+> > > > Assume we have the following implementation:
+> > > >           ----------
+> > > >           |mmio reg|
+> > > > 	  ----------
+> > > >              |
+> > > >  --------    |      -------
+> > > >  | MAC0 |--MDIO-----| PHY |
+> > > >  -------- |     |   -------
+> > > >           |     |
+> > > >  -------- |     |   -------
+> > > >  | MAC1 |--     ----| PHY |
+> > > >  --------           -------
+> > > > 
+> > > > Both MAC0 and MAC1 have MDIO bus masters, and tie together to
+> > > > a single set of clock and data lines, which go to some PHYs. While
+> > > > there's a mmio reg to control which MAC mdio master can operate
+> > > > the single mdio clock and data lines, so only one MAC can operate
+> > > > the mdio clock and data lines.
+> > > 
+> > > How does this differ from pinmux?
+> > > 
+> > 
+> > in my case, the two MAC MDIO bus masters share the same MDC and MDIO
+> > pins.
 > 
-> Add support for the PMIC wrapper on the MediaTek MT8163 SoC.
-> 
-> The register layout is identical to MT8516, so re-use its array.
-> 
-> Additionally, as all known MT8163 devices use the MT6323 PMIC,
-> re-use the reg clock init from MT2701.
-> 
-> Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
+> That does not answer my question. How is this different to pinmux?
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Let me explain the HW in details:
+The pad have their own pinmux configuation, which selects the MDC/MDIO
+fucntion instead of GPIO or another perif function. That pad
+configuration stays MDC/MDIO, I.E unchanged.
 
+The register discussed here is a separate selector between the two
+MACs' MDIO controllers. With the pads already configured for MDC/MDIO,
+it choose whether MAC0 or MAC1 drives the MDC and MDIO.
+
+So the proposed demux controls this internal selector and serializes
+selection plus the complete MDIO transaction across both MDIO
+controllers.
+
+Would you prefer model the selector as pinctrl states, with an MDIO
+demux selecting the appropriate state under a shared lock before each
+transaction?
+
+Thanks
