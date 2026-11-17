@@ -1,98 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794894081;
-	b=jBSX3oUuhJLqCtNmVRVdcn6LXz7LAZaq46t2QJdUo/c4iTDG23jGJX0bXOfoSyh9SzWl
-	 q3flLxL2OGk6BhAoonFvC0dyhI2EfLyAWLnwjPLX1yiYPe/l3+75NahSA+Audk94J5Kpk
-	 uQujzMj3W1yxvV7G+n2UgCwgWMDDPaoj0V7wGX0bMaMwNLhlYkMPcXBlthEkg5ld5iiD4
-	 UlkigVodfv3QtB/S+o/Ebqbco4dd4X4MuxRfk4Kbtd43d04Accs3asZ9EJF0vzhCs0NJe
-	 kHoA1M8RxKg3e9uVO+jUi5nnFDaRJTKWOu5hWaXPmK5TqUvkbtlmddv6I8X65tzwHPg==
+	t=1794894237;
+	b=Diog/+m/UpNPVm+XS/IuMDwf8rkEhuCbO2IZ9cbysiYRzYOWXxidiF65/qdtqNFpO/oO
+	 W2WjjhL7vX9r8dhdcJYjMLmnBVnoXeIX+f4TsentsAG7mVInhooVI37mmqThWgz3ZAB5v
+	 pZ/CfRg/OtR23lUyZJ6g+avCqDCGCkUeiBh+ZFJYcVTJgHVxrQ50A7q60WjaU4CkeS0cP
+	 Iu0kg9Zv+Ia6dTl0MA5wamQRl6aXk2TxG2ZHZB3NNWFGkaxFBfKAQaX8F194P13bw61/t
+	 ibkQH9q2D9bPtoRh2I9UwUDQ66kSlN0IGDpPCp5utoIo5oTGMAJYikWeEbBIZMsjt6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794894081;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=kgXAga4SQ2gGcYIcOPrgNzb4Xfca195d5V/zBY0TA5E=;
-	b=hR4mLhWuRSAKsWnJWFEiiJfb0kuz6TQLxlWPE/v8KaSJ0bu2LwMIE9PV8m7t1f0GfWb1
-	 0Q/hOFEXI40wCRE2iUB/u16EKRj4axJ0/spvq1B8KMGCDz3j/diKzVV3XQKMEQwazoyVW
-	 tAUgzIDGT/+j+01sYRhfqFBXbRr2NMVXfnC3E9/7r/BgwhMI61+O3/CfkVSamWz+72cvT
-	 6sDEoD6tuPkYfI8AAUjSjOowRhyj5pWk005pCxLkKXmUXxphydMKzbbQWBydyw9McLHvg
-	 JDZUDBS1fivNVlQAzQ7t0Al00Y2s2HILMnQT1DHHdPr10Dr7cKN9Ryo44JrLcvw4w1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794894237;
+	h=DMARC-Filter:DKIM-Signature:Received:X-Lms-Return-Path:Mime-Version:
+	 From:Date:Content-Transfer-Encoding:X-Mailer:To:X-Original-From:Cc:
+	 Message-Id:Content-Type:Subject;
+	bh=DsGLFo3Ah3ZqBE0pL0mtcci+TztznhZ6bWOpznuGZd8=;
+	b=oyfg+gcb/EnJsOSArDkYsTQ9QltX8Y/uiH4iUZQSkrgY/s2jq9HepyYp5Tk1AEu7FS4R
+	 Pqt7yJaCnVymvGe1ZMGZuuIbUKkfYDC629jkggtLDEO0tqL+euXrrDekWsSRmGS9ZploM
+	 hYITU429neuJvOC0kM+ihdKZJBdXSZoZ7WHcfpyJbrH90Wd4D6OY0DuQZzp71mGNmRMuu
+	 eEWg86dHNafabVcEaUoKFSkArCtdmB795eaQa2fE75pZgWarsB9iWijTWEQpBZc7pdVMp
+	 xJOqokc0SlYekclTOyyIosoLmcVMrgo27dSkQjOWbDkuAnEtznCPbLbsSfB2L+is+GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PQr3PgP+;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	dmarc=pass header.from=deepcomputing.io;
+	spf=pass smtp.mailfrom=deepcomputing.io;
+	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=JDC579OF;
+	arc=none smtp.remote-ip=209.127.231.28
+Received: from va-2-28.ptr.blmpb.com (va-2-28.ptr.blmpb.com [209.127.231.28])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C54606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 05:41:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5C54606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58136606A333
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 05:43:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58136606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PQr3PgP+
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1b244fb7fffso5149431c88.1
-        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 21:41:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794894080; x=1795498880; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kgXAga4SQ2gGcYIcOPrgNzb4Xfca195d5V/zBY0TA5E=;
-        b=PQr3PgP+hc6DT0aQU/F4mOKsRUSEulybv2c1ObP3i+DkihztlWEctX0OrUgl6usesp
-         LjVss/ez54+GKqptmSO447ZTgQARt4/Hqnxbxe4wKrARIDHxATiTAuXAUYnd5srby+N9
-         vIOlcV7Nd504l6AaiMlFfzLDi9l5+R6A7aeaaPeYS/SdAVWDOIhSPf47Riiy2R6M+m75
-         Ukgmqhi7cJ0OgnvcKLaHEGrytFD+SRwSV0uvePUfCnI6UPFqzp3h2OWF+CpLD3vPaxqN
-         L2GFjD1uwlGTm474BmzBxVLJXBEP3UcTQIALBo1pSXC6QfWbbogt02vvQ0hKRpb2TPsp
-         1BtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794894080; x=1795498880;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kgXAga4SQ2gGcYIcOPrgNzb4Xfca195d5V/zBY0TA5E=;
-        b=VijPfN/qK/hJ+zBu8Ios/XLzIxTuBI8wIOvxvoGGjWeA9p3LyPHYdwsAD2QPi3sgZI
-         8uz9eCfHSwd4zOr08wWH1DtWWj9vCrSQ6UjWpBYsIo0BpxnWAoDR6kb9UokLZz4xqufS
-         M6y/qJWRR53uZ70rfOYPAdVxfojXVpHtOQQD7IYKmO+PweTgQVjH9+YUfzApleIc8IMB
-         lxmCkz/ZYfZleZCwTdF5yPJ4RFrXjLvOjaGYeLhKnKx0rzfzu0kCDsALj/C8ifHy7gEE
-         6joGXZIj3v2LphCKC/etvbkd0RiSYXMPRSlxMhfG0gFWvJBC+bEONZorQyrGGgEMwXPn
-         y+Kg==
-X-Forwarded-Encrypted: i=1; AL+hErHpGx85CuFrB0yDvNtDMee6/qBuNV+CHjpfs6xIAjIVSxoQ09XI+gogzUZQe4PrpQa2T5CXwWxrUN/r@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tRMINSWSiRJO9gWWF2uxi6wCuQU5S8+NoVUMkY8aKK5KH7uaB
-	t83Io0MCTwwj0FKbIeRqe05nyj/m84O/4xzuwz/GWWJ1PIwwW3is48x3a42TU6qprsc=
-X-Gm-Gg: AYBFou1tw7094E5zefooyTqHfC1/uNqKIdE37lIMQcp8Zhb7/stcVvBMWuT0Pi5jYaB
-	gyOmD8istlgPN5dPtRMM/LsEZKEhXpaK/IPDpBL9z0NiD6ED12kZUhDxLfUlRA3/ISAzrMkJD0W
-	0HRdx9zrS5kB46uKcXdmRB/DckLaoljPZGwy7GR/MIwwccIgOJNkWzy33EvklszrRCnc5ksREZ/
-	YnMvM4JdffAWIsOkhxlWPLKVAE9cInrIy2JCfAgeqteuh2INp+mR/OjRr2y5pxpf435lc3kn/0B
-	kDwebju/WgxfhQcbmNAvBMeQf9MwRY1Om9ciQxcyHs6VtbZ3Vv6EQXU6PBBUOJ+LhkxfwCHbKsf
-	En42GJEaYXzZdkl+WbhPD0kmr2IvDRfK8rd/fFmrBZ9fZaQ4VfucH7tcHLZ4SRlydqOywnlWKWX
-	2tlRvI3paOjKngJrGvnOtQ0M/vonTuY29et4kdqCd9rAgT+fE6MT0lYgtqLIG/sxG/BkhjuCW2a
-	d9QVcq66H+ygmfOP9yixTsx83jgMWRH+FJkNiAKq20Kaq2SFUm1h6y+ldo7k3aP9sV7pvilQnxj
-	v4W/oIEXvEWi6VFSCIdgWWqiJjRyGA==
-X-Received: by 2002:a05:7022:290:b0:185:4ad4:3d15 with SMTP id a92af1059eb24-1b503068235mr10688010c88.1.1794894079483;
-        Mon, 16 Nov 2026 21:41:19 -0800 (PST)
-Received: from localhost ([122.172.83.36])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b524049e0asm17957878c88.4.2026.11.16.21.41.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 21:41:18 -0800 (PST)
-Date: Tue, 17 Nov 2026 11:11:15 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add cpufreq support for Qualcomm Halliday
- (SXR2250P)
-Message-ID: <avvo-0Gj9u4ZdCyh@vireshk-B250M-D3H>
-References: <20261116-halliday-cpufreq-v2-0-e518cc055457@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=JDC579OF
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794894226;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=DsGLFo3Ah3ZqBE0pL0mtcci+TztznhZ6bWOpznuGZd8=;
+ b=JDC579OFQHDMJLEY8/2cDuh+6kxCeH6CAuDCtZG/kNMcXsZG92uOASeqvqHvaNE0lR2ewi
+ qSGfFaqDIGqA4vAioanyMjnCwyapoUDQzuJIOQU7RAtOfUrnAz2xbmCkd6/u5g6B+vfcIn
+ dH9iLKb4DVF3iQmCjoBPnPSKBrgjlfSqT6NuHb2cNHmTeQEWVAvd4/zIIrT+GUun09Fte3
+ dang5QLOaX8hNW+DDNYvJVhEgP8s4yF7C99+0Rm3p7sH6lDciMNg5BAtz8FM5DaY/rkw/a
+ N0uNmxTGm4Qy9SU1E/M3O1tu9IoB704+dRQow/zwXLDwz7P+/qfmUGJ2nXpqAQ==
+Received: from roma-Laptop-12th-Gen-Intel-Core.. ([183.23.101.74]) by smtp.feishu.cn with ESMTPS; Tue, 17 Nov 2026 13:43:43 +0800
+X-Lms-Return-Path: <lba+26afbe990+6b1eeb+vger.kernel.org+sandie.cao@deepcomputing.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,41 +53,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116-halliday-cpufreq-v2-0-e518cc055457@gmail.com>
+Mime-Version: 1.0
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+Date: Tue, 17 Nov 2026 13:43:24 +0800
+Content-Transfer-Encoding: 7bit
+X-Mailer: git-send-email 2.43.0
+To: "Yixun Lan" <dlan@kernel.org>, 
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
+	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Sandie Cao" <sandie.cao@deepcomputing.io>
+Message-Id: <20261117054324.1048767-1-sandie.cao@deepcomputing.io>
+Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH v5 0/3] Enable USB and SD for Deepcomputing FML13V05 board
 
-On 16-11-26, 21:25, Stanislav Aleksandrov wrote:
-> Document the CPUFREQ hardware (EPSS) of the Qualcomm Halliday SoC and
-> keep cpufreq-dt from probing on it.
-> 
-> This is part of the bring-up of the Qualcomm Halliday SoC (SXR2250P)
-> in the Samsung Galaxy XR. The DT changes follow in a separate series.
-> 
-> This work was made together with Claude, ChatGPT and Gemini.
-> Reviewed and tested on my Galaxy XR, where cpufreq runs through
-> qcom-cpufreq-hw.
-> 
-> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-> ---
-> Changes in v2:
-> - Add the qcom-hw binding from the DT series (12/17 there), so that
->   the cpufreq patches are in one series:
->   https://patch.msgid.link/20261109-halliday-dts-v1-12-289114ab8197@gmail.com
-> - Use the "cpufreq: dt-platdev:" subject prefix (Zhongqiu)
-> - Link to v1: https://patch.msgid.link/20261109-halliday-cpufreq-v1-1-d87a397396fd@gmail.com
-> 
-> ---
-> Stanislav Aleksandrov (2):
->       dt-bindings: cpufreq: qcom-hw: Document Halliday CPUFREQ hardware
->       cpufreq: dt-platdev: Add Halliday to blocklist
-> 
->  Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml | 2 ++
->  drivers/cpufreq/cpufreq-dt-platdev.c                           | 1 +
->  2 files changed, 3 insertions(+)
+This series updates Deepcomputing FML13V05 Device Tree: Add P1 PMIC 
+regulator tree, add USB controller and USB phy, Enable SD card.
 
-Applied. Thanks.
+This series is rebased on next-20261116.
 
+---
+Changes in v5:
+- [patch2]
+  - Correct commit message.
+- [patch3]
+  - Remove Onboard SD Card comment.
+  - Change non-removable to broken-cd.
+- Link to v4: https://lore.kernel.org/all/20261109033154.361399-1-
+sandie.cao@deepcomputing.io/
+
+Changes in v4:
+- [patch1]
+  - Remove unused reg_aux_vcc3v3.
+  - Rename p1@41 to pmic@41.
+  - Add regulator-always-on for dldo4.
+- [patch3]
+  - Correct Onboard SD Card comment.
+- Link to v3: https://lore.kernel.org/all/20261102060012.100623-1-
+sandie.cao@deepcomputing.io/
+
+Changes in v3:
+- Remove useless gpio header.
+- Add Onboard SD Card comment.
+- Link to v2: https://lore.kernel.org/all/20261020081633.3673704-1-
+sandie.cao@deepcomputing.io/
+
+Changes in v2:
+- Remove usb3b, usb3c node define in k3.dtsi, it's already uploaded by 
+other patch.
+- Add phys and phys-name define for usb3b, usb3c, usb3d in 
+k3-deepcomputing-fml13v05.
+- Remove cd-gpios, use non-removable for sdhci0. 
+- Remove vmmc-supply for sdhci0.
+- Link to v1: https://lore.kernel.org/all/20260922110231.3426011-1-
+sandie.cao@deepcomputing.io/
+
+---
+
+Sandie Cao (3):
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add P1 PMIC regulator
+    tree
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller
+    and USB phy support
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card
+    support
+
+ .../spacemit/k3-deepcomputing-fml13v05.dts    | 215 ++++++++++++++++++
+ 1 file changed, 215 insertions(+)
+
+
+base-commit: 749a4de370409464cf8501ec5b2451df45c84eb4
 -- 
-viresh
+2.43.0
