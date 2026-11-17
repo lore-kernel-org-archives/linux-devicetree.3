@@ -1,66 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912399;
-	b=pCBNospL9ZA9O2m1R9b84NNAg/5dWMgcJtwQoe8LYs5H7rW6iDccDVhfsRf+jLqI9s7G
-	 CjD9LwrmLtVnYK9r8R388rb+staUuQ0k5dkZCpmdb25xdsUtTqSUZSB20teNty6P7sQjv
-	 g/iWlASDmVvxP14xueFSBTGWuKBPP6CNNbD6lO9sWL8BZoM2fH6Nowac8LSGQimOo43Ei
-	 Y1ssbD+pRA2s2PoXhx3HQwwGbuDLj/oKhWbO1fOBK6mKZhQg59iNYR1IMaY/Vgjayz8ha
-	 IyOuHsg+uKYyxrdu6i61J7rkfzi1uqnnabqN3Qd8JEQdZ0Lsfp3+YxN1a9CkP3Yr+Gw==
+	t=1794912479;
+	b=vHUBj8veriVoxKtT1GGntrUi1IX4s9vtaQ1gooAI40J9FPbuv8yqqPiEnfGe9Ga1xNlz
+	 50ooVPAwiDBmVl+Mwt4SdZlTIqcBACdeBm4qUqmSo+4CqUcGHhiTCssRoTXSRuhKgbZCR
+	 tk8pz2Z9zmtmaoHFzAJGiifWbM1CPuZnPk0n1ODfGJO0lOuaPbHRSA8WRo1glNsXMeI9t
+	 RJQ3lYMqAyEjGejGlEbI28hDP9GawbpBIZ4hu2gl+iHbnWLEBFnEZvLw22eQ2w76Aqawy
+	 jPOW09DNTMBKlhsbsB4p2UCzHpWmO9qaWmOCaNzNu4BzwoaeLawaoBpIJNnFyQlCTog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912399;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aDis8V/KVsikzKIBvDsHdyEbmMntZyFSoT1LoqQ4Fuc=;
-	b=myeK7cVsYhtPEsZVVstrEaqErzkuaM3KTQQW969eG3UXBFfmCqB+bHXnPVA4T8ycC78J
-	 QWh/Bt+NOVEF0UbH7zScT1P5O7BuYFe/rDxd7SBBpV+nDVcz4nTo7kWfzTPrLS0nnCK4W
-	 hG/AJDHMqo+24qfirHFqp9yBnK9a1UJV5GMICV2wQMEpa1p12BSdFjs1iIEfARR4BAPZD
-	 HDgHRsg1NsDGFsLTv/S+6fZ8hAnwQ0X+m85705dAykSM9SSZa2Chc3HzcCfU8Bw3JNpB0
-	 GLSlBWF1sZ/LzGYZbTCevBqs/wLXOHKbUakbbpk1rlucDuTw23wSEnIypx7bI4W7fOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912479;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ahdmS1KGJrdLiqNWtNVgWJXHsq/MxagFsO1X6Q0WazY=;
+	b=DbFVwdt46rsVCikSGBSVsjdWW02ezYV1fp/oZA+vgBfNE9N/pWDvlCi2xpPtBxC3e2uq
+	 Vw8eMwnbt+GuMNSAhH3BHbfvCX+RALsn3CHQjAUWwyEUpf93Vjm7YN5uypgfh96sySp1F
+	 9UvnX7io0gRt8apoaYz72e8itRku+70pxICZhBytDweAaguO5sqU0aI4Ev9hPhA34Nu0i
+	 Q7TC85idu88Z5Dl+FzBrGxAvAPQd6TdYBc36PcraipH09DEIuC0UnULPw1wZNf257yudu
+	 S3YGAVxGI6U7asplyAY2p7WUMfxbkpBDPqax/3/C2emdj3eRK1KEbT1mV3tl4nwfrKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOe5qFt4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L/j/M6oB";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 724D4606A31C;
-	Tue, 17 Nov 2026 10:46:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F60F606A323;
+	Tue, 17 Nov 2026 10:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOe5qFt4
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D78C81F000C4;
-	Tue, 17 Nov 2026 10:46:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L/j/M6oB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 921671F000C6;
+	Tue, 17 Nov 2026 10:47:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794912399;
-	bh=aDis8V/KVsikzKIBvDsHdyEbmMntZyFSoT1LoqQ4Fuc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WOe5qFt42uJK8YgtDTJm9LvnLmTNo5JoA40/u2CH6DON1DkzUCnp4kE0O3f0IFz/0
-	 zwmkh6pGNADvmDdQrPaAmnN8cwWQu25o9j3QkVDpgGw9U9jSqsP0pcXqwYxKJejF5H
-	 4hRJaIEIBiIZZElQaeI1oxrKcDf8y01CIqVwMw1T24IzfsZheIDdAHnq6zONExyQaC
-	 k80IoiicFea6bbhKr0QxPTSTtLAxFg42XfJipF1MEBQBX+nVOEK7uEDe1GwPuCyhQj
-	 N4M5wyRu4VTfVXtFXnOqQLore6NUBjKxH+tXFk+UD2fm/U2flpQZ2EqYDHQHA51QBh
-	 7fFiQnZC7iJcw==
-Date: Tue, 17 Nov 2026 11:46:35 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Johan Hovold <johan@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
-	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 10/10] gpio: shared: generalize most code to firmware
- nodes
-Message-ID: <ofjnhfxx32khew77khya2whrfg336qvfsxwq25gz2psckhducv@cnfhpk2uobg4>
-References: <20261113-fwnode-for-each-prop-v2-0-4edc23d5cf50@oss.qualcomm.com>
- <20261113-fwnode-for-each-prop-v2-10-4edc23d5cf50@oss.qualcomm.com>
- <avc4g9cbAOEElzRX@ashevche-desk.local>
- <riqrrdjxaygsphy2mxe5xbsrokjtw6kyrneiyzsh7kld4qnrwf@iaa73bchswrz>
- <avwrKmg3uyvP19pq@ashevche-desk.local>
+	s=k20260515; t=1794912478;
+	bh=ahdmS1KGJrdLiqNWtNVgWJXHsq/MxagFsO1X6Q0WazY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=L/j/M6oBc5qM/ZMVfZsSWlX1T5uJK3rCC3uKEgp7dQUFPWnlbPYx6dUOYzo+BwX0l
+	 lFajQDGy6auns7GMFAi3mRcRXWHcTdRx2EoPG7+r1cz0q5DPAGWrkWGPYCnVpWIZk9
+	 Znqw3xhU6RofgCyQau3hrZgoqMMxYHZQsL06tBdBPlgeTGf9lNnkKEVBPa5jHN0xEi
+	 QaDxrTtQ9xAApopRA+V03s5hOX7LTAQXq63gqnX9bY1roDmdY9RxTh5lUQKgIddc79
+	 HoioaLrxxFm+CckkROFTALPWmB3YHhgj5ti8UDdIpHj/iYkD/sEocSVIdIo4gDD2qT
+	 u5xnS8ILofHig==
+Message-ID: <af565a17-f7a1-4c24-bf2a-130a025c68e3@kernel.org>
+Date: Tue, 17 Nov 2026 11:47:53 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,62 +51,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avwrKmg3uyvP19pq@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/panel: novatek-nt36525: fix v1 review issues
+To: =?UTF-8?Q?Adil_H=C3=BCsrev_Tepe?= <tadilhusrev@gmail.com>,
+ neil.armstrong@linaro.org, jesszhan0024@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261116070212.314228-1-tadilhusrev@gmail.com>
+ <20261117104353.1180634-1-tadilhusrev@gmail.com>
+ <20261117104353.1180634-2-tadilhusrev@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261117104353.1180634-2-tadilhusrev@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 12:23:38PM +0200, Andy Shevchenko wrote:
-> On Tue, Nov 17, 2026 at 10:50:38AM +0100, Bartosz Golaszewski wrote:
-> > On Fri, Nov 13, 2026 at 06:19:15PM +0200, Andy Shevchenko wrote:
-> > > On Fri, Nov 13, 2026 at 04:47:10PM +0100, Bartosz Golaszewski wrote:
+On 17/11/2026 11:43, Adil Hüsrev Tepe wrote:
+> Addresses the issues Sashiko AI flagged on v1
+> (https://sashiko.dev/#/patchset/20261116070212.314228-1-tadilhusrev@gmail.com?part=2):
 > 
-> ...
-> 
-> > > > -static int gpio_shared_of_scan(void)
-> > > > +static __maybe_unused int gpio_shared_fwnode_traverse(struct fwnode_handle *curr)
-> > > >  {
-> > > > -	if (of_root)
-> > > > -		return gpio_shared_of_traverse(of_root);
-> > > > +	int ret;
-> > > > +
-> > > > +	if (gpio_shared_fwnode_ignore(curr))
-> > > > +		return 0;
-> > > > +
-> > > > +	ret = gpio_shared_fwnode_scan_properties(curr);
-> > > > +	if (ret)
-> > > > +		return ret;
-> > > > +
-> > > > +	fwnode_for_each_child_node_scoped(curr, child) {
-> > > > +		ret = gpio_shared_fwnode_traverse(child);
-> > > > +		if (ret)
-> > > > +			return ret;
-> > > > +	}
-> > > >  
-> > > >  	return 0;
-> > > >  }
-> > > > -#else
-> > > > +
-> > > >  static int gpio_shared_of_scan(void)
-> > > >  {
-> > > > +#if IS_ENABLED(CONFIG_OF)
-> > > > +	if (of_root)
-> > > > +		return gpio_shared_fwnode_traverse(of_fwnode_handle(of_root));
-> > > > +#endif
-> > > > +
-> > > >  	return 0;
-> > > >  }
-> > > > -#endif /* CONFIG_OF */
-> > > 
-> > > Hmm... What do you exactly get from the compiler without this uglyfication?
-> > 
-> > The alternative is an empty stub for gpio_shared_of_scan() and keeping
-> > CONFIG_OF around most of the code in that file. I think it looks better
-> > this way.
-> 
-> My question basically was what will go wrong if you drop that #if completely?
->
+> - Set prepare_prev_first = true before drm_panel_add(). Without it,
+>   drm_atomic_bridge_chain_pre_enable()/post_disable() call this panel's
+>   prepare()/unprepare() on the wrong side of the DSI host bridge's own
+>   enable/disable, which host_transfer() rejects on bridge-based hosts
+>   (e.g. samsung-dsim).
 
-Kernel will not link with !CONFIG_OF as of_root is defined and exported in
-drivers/of/base.c.
+v2 is the next version of patchset, not patch on top of v1. Please use
+git to manage your work correctly and b4 to send it, which also would
+solve it. Linaro had excellent guide, so please read it to avoid trivial
+mistakes like this one:
+https://www.linaro.org/blog/becoming-a-kernel-developer-part1-posting-your-first-patch/
 
-Bart
+Best regards,
+Krzysztof
