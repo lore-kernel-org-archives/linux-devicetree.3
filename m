@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930950;
-	b=0X6LQtcFGVrL0gpg7m7s1nRt2RkD5+nBWLb6GAKyXXgdEz361HZy4JjSr916GNlVFZ58
-	 JJI212ePDGiW8EPioxR79eJoECxzDXQWdxT060js6HyYtill6rCVqydJlzYTyx/jWkWIP
-	 Pjj24xeOIIvuAMvhiBy0aXs0vsn+q5+jlkReD5AHqDbhHLcjhVE5bm4rXSo+ACnmaGgGe
-	 YPs8Oj3UgVEh2yKROmCYD2Nlb/HZeNg5d1RtqcEYvggB37M9MXsVBOgNBb7ITR7oS/dpM
-	 D9yC/m2DNRGhpfKWxH6mUE77nL9uNdX153grHZ9gZP8LmpEbBTlKlxRe8/cDHOvNSNQ==
+	t=1794931233;
+	b=eUCYjTArzsDTRYCL3ZLkJQatLHYsNHKDSqgXE2qqQkgqWvrES8hnvK4IOhIp/bDbnrDo
+	 /VNJpBeKOIX5zZmjCtmlzBnlBMDHtWK0QhP/vguSBSbgskZs/gBl4/lCVDq0Z2mLkFH+R
+	 tCtVctCSxCkNuSA2Cyf0sjMDs/fwQi2Zj0CkWyi1fYMVHBw3FmUhW0fxlFUd9eUx6Ts+P
+	 KnFbkeOXkCp4Y9eMSXiRq1X6+4X4g/pbuNPXFBHTD8hoWiDf+9iCLnr4c7tNsC2MV6kOZ
+	 oxmwwg7EpuipgfSv7mVOBSQziSeqjadNi2RKtVbFj+zEmZ72azL9FDXUU3ixwUpVpAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930950;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+6OsAGsJJvhMgbe8Io4tzF4ZW1F6ZPIYM7lz/r3Om0g=;
-	b=1jL/VmtEEgS2Ee1CFYV3C5WsgzcTUS6HQfkeD9zA+m7rpesKvXjhd+QLX+cyiTTwf8uJ
-	 xhtDDC9FOnyTHmYKNGlt8hFe53uooyYes30tL+0cjAH98J15zEnzWjavwfa1Tzfe+jFGz
-	 VmBzaW5/xGyTqGdxBj4ZLZZI+qMbk6rnz+UgnfoAL5BiybJXtSVxQrz2sxxZ9JuqMlU5E
-	 v0nltUFnTaCoMaoxWUjzOrN9Krn0CyyopDdKNIwCcWGm7sXpuKwgvUEOUpOxed99uMWYO
-	 Sc5H9QjhaIuJJ/OmPGW2xsMx+4vpgxDmpF5JhQPWD3pB3FmHYCBDX86TX0L+EJ52vNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794931233;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/x+1/YRqE8Zusxp33H94lPbXoArQ2s0dgh4gGGEjxCA=;
+	b=Yaixq4ZInwPSqyI6S0/D5ZsxudvCv+LVojWrLcv+R/n2avRNb4dbfbtVTDfyTlyIHgcV
+	 Cq1yuAtQytmbjxLxEsvcjG7f011jwgRxeSbAmy8ao03Ro7UmVSa+deFIL/7Ohy3bdL/wL
+	 vSLCR4Cba2ueXcnodSwwpZ6zRy2IhMexSFqegwQucWaiHwJVoWnrcavmxoofW0r1ZiKuy
+	 X5gIKqOk1yEeDbG4xlZeltBXKEPfMnhLkDAKtkD1mSTEci5O8Nzz+qv3WQZUBOoM5kUPC
+	 z8magk8NzHquVqtph6SkwECLNGKaV0Nf3KXUTslAaqbbfEUOQizKbhvz2j/0EMT/9YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F+S/WL44";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EWjSB+JD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5249606A31C;
-	Tue, 17 Nov 2026 15:55:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB4D606A31C;
+	Tue, 17 Nov 2026 16:00:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F+S/WL44
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D9C1F000C5;
-	Tue, 17 Nov 2026 15:55:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EWjSB+JD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6DA1F000C5;
+	Tue, 17 Nov 2026 16:00:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794930950;
-	bh=+6OsAGsJJvhMgbe8Io4tzF4ZW1F6ZPIYM7lz/r3Om0g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F+S/WL44CP+J5NTBSzOm74yaLjx2CJVk6bnEDHAhvkFYC+c1SSZHOBwo8P9PQ/e0S
-	 0KhCqXhL5H1SoQrbOZ97c5yaqj7DYCPlcLNZHZVAc3D5Bi/N+AAshYKfm1eyKw2nqL
-	 Lsky0aAwkG+8xnQv6SaFw0w95ic/7ar3SDBz3yV750zo5RkwaZz0Vr4tcjutS6Q1UD
-	 6nB/cX6mpq87d1Ao0/ncN8+/cHNvuWzQb6Xjrcur8g6zMWgv52lp9ejH7XWcthpJL1
-	 ZYYN1QmbXmuCjrDFNCAZGCuhAZrmoKvjiIyYhA5oqQt0mHZt/f03pejKldUXrOmQw4
-	 p3GBhC1+mUK9g==
-Message-ID: <sashiko-outbox-219119@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/4] usb: dwc3: xilinx: Add Versal2 MMI USB 3.2
- controller support with flat probe model
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Radhey Shyam Pandey" <radhey.shyam.pandey@amd.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261117150219.1326693-4-radhey.shyam.pandey@amd.com>
-References: <20261117150219.1326693-1-radhey.shyam.pandey@amd.com>
- <20261117150219.1326693-4-radhey.shyam.pandey@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 15:55:48 +0000
+	s=k20260515; t=1794931233;
+	bh=/x+1/YRqE8Zusxp33H94lPbXoArQ2s0dgh4gGGEjxCA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EWjSB+JDp+qP5V7KsT50JdtiayD/niRQQs4Kfv0MNgY+vFhOcYiYIVdyaaTsJgoUR
+	 cYT+mElpY+qy0gO8aKDAp/Dp7zX7qZTMJ4V8BI/p96hZkwlo+vHCC7A2hNuGlP4oA8
+	 CzF2kZyuv1Ybf27EKEYCompQacfC1Xo7BxWE/4tvHB1EVt7an6EYFnivRGwkYNSfDy
+	 eEj2TEUxIPbTY06bgW1f3obd4XMnL5bQDp+vN025kIg5Ry/ZG5FtpTkuIfFP9I1FFo
+	 ILwbMJYG/AawWOZbN3Vwo8FUnnIj1c8XOUdY1ivHdkpO+GAdp8G+08R//14sOMt3Vn
+	 Mz9JMddBrVfSA==
+Message-ID: <94ed1340-94bd-49ee-ba31-9bb63164c89a@kernel.org>
+Date: Tue, 17 Nov 2026 17:00:26 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,231 +50,148 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] arm64: dts: mediatek: mt8167: Add DRM nodes
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ linux-mediatek@lists.infradead.org
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260921113914.779393-1-l.scorcia@gmail.com>
+ <20260921113914.779393-5-l.scorcia@gmail.com>
+ <bbefcf0b-b31e-4f74-bf79-b0ccc983f62b@kernel.org>
+ <200ef6c1-eced-4c36-832d-3fb409aac866@collabora.com>
+ <5715e9e5-857d-4104-aedd-9662da0fc0ab@kernel.org>
+ <911e4163-8a2c-4ca2-8903-8d3ddb7266e8@collabora.com>
+ <600165c4-eaa7-4b1e-806c-63d3b97d5064@kernel.org>
+ <63da5790-984b-4760-8e92-85b5d2269b30@collabora.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <63da5790-984b-4760-8e92-85b5d2269b30@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] usb: dwc3: xilinx: unclocked access and clk underflow in
-  dwc3_xlnx_suspend()
-- [High] usb: dwc3: xilinx: wrong gsbuscfg0_reqinfo 0xf0f0 in
-  dwc3_xlnx_probe_flat()
-- [High] usb: dwc3: xilinx: double usb3-phy management in flat probe
-  model
---
+On 17/11/2026 15:21, AngeloGioacchino Del Regno wrote:
+> 
+>>>
+>>> Any advice on how to possibly resolve this without rewriting the entire thing?
+>>>
+>>> Mapping that by mmio address in the driver seems too stupid/dirty/bad/etc.
+>>
+>> Driver needs that, so why exactly stupid?
+> 
+> Really feels like going back to the days when devicetree was not a thing and all of
+> the MMIOs (on ARM at least) were added into a mach file.
 
-commit 18ab81bda6f0f5fc8594e87f3a2015f5b9af6de1
-Author: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Well, adding an alias just to tell that device node with MMIO address
+0xdeadbeef is ID 0 is very similar, just placed differently. The
+"aliases" are the mapping between MMIO and ID. Driver code also can do
+the mapping between MMIO and ID.
 
-usb: dwc3: xilinx: Add Versal2 MMI USB 3.2 controller support with flat pro=
-be model
+> 
+>  >
+>> You do not represent any
+>> actual hardware information in DT with these aliases.
+> 
+> That depends on how you see it (as in, on the point of view), really, because well
+> technically the second ReadDMA IP is ... not the ... primary, as it's the secondary
+> one - as much as the third DPI is not the primary one (even though DRM can make it
+> so that it can be used as a primary output, but that's a software thing, not HW).
+> 
+> So... well, with that point of view... those aliases *are* representing information
+> about the hardware.
+> 
+> But I know that you're not complaining just about this, and this reply is not a way
+> to argue all that much, just a bit of thinking out loud.
 
-This commit adds a flat probe model to dwc3-xilinx that embeds struct dwc3
-in struct dwc3_xlnx and uses it to support the Versal Gen2 MMI USB 3.2 DRD
-controller.
+Being simply "second" is not alone useful information. It's pointless,
+it does not matter neither to hardware nor to drivers. If it matters,
+then probably that "second" has some other meaning and it maps to an
+actual hardware topology difference, then often it deserves its own
+compatible or property, depending on the difference.
 
-> diff --git a/drivers/usb/dwc3/dwc3-xilinx.c b/drivers/usb/dwc3/dwc3-xilin=
-x.c
-> index b58fe034a94d4..c68246921a4c9 100644
-> --- a/drivers/usb/dwc3/dwc3-xilinx.c
-> +++ b/drivers/usb/dwc3/dwc3-xilinx.c
+> 
+>  >
+>> You want to tell
+>> drivers how drivers should behave - that's not a job for DT,
+> 
+> I want to tell drivers what is the first or the second or the third hardware
+> instance of the same IP, I don't want to tell drivers how drivers should behave
+> from devicetree.
+> The drivers are behaving differently with different hardware (read as: hardware
+> that is *physically* located in front of something else, or somewhere else anyway)
+> as in with different hardware instances.
 
-[ ... ]
+Then alias is not the way to represent these differences.
 
-> @@ -113,6 +143,59 @@ static int dwc3_xlnx_init_versal(struct dwc3_xlnx *p=
-riv_data)
->  	return 0;
->  }
-> =20
-> +static void dwc3_xlnx_versal2_teardown(void *data)
-> +{
-> +	struct dwc3_xlnx *priv_data =3D data;
-> +
-> +	phy_power_off(priv_data->usb3_phy);
-> +	reset_control_assert(priv_data->usb_crst);
-> +	phy_exit(priv_data->usb3_phy);
-> +}
-> +
-> +static int dwc3_xlnx_init_versal2(struct dwc3_xlnx *priv_data)
-> +{
-> +	struct device *dev =3D priv_data->dev;
-> +	int ret;
-> +
-> +	priv_data->usb3_phy =3D devm_phy_optional_get(dev, "usb3-phy");
-> +	if (IS_ERR(priv_data->usb3_phy))
-> +		return dev_err_probe(dev, PTR_ERR(priv_data->usb3_phy),
-> +				     "failed to get USB3 PHY\n");
-> +
-> +	priv_data->usb_crst =3D devm_reset_control_get_exclusive(dev, NULL);
-> +	if (IS_ERR(priv_data->usb_crst))
-> +		return dev_err_probe(dev, PTR_ERR(priv_data->usb_crst),
-> +				     "failed to get reset signal\n");
-> +
-> +	ret =3D reset_control_assert(priv_data->usb_crst);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "failed to assert reset\n");
-> +
-> +	ret =3D phy_init(priv_data->usb3_phy);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret =3D reset_control_deassert(priv_data->usb_crst);
-> +	if (ret < 0) {
-> +		dev_err_probe(dev, ret, "failed to deassert reset\n");
-> +		goto err_phy_exit;
-> +	}
-> +
-> +	ret =3D phy_power_on(priv_data->usb3_phy);
-> +	if (ret < 0)
-> +		goto err_crst_assert;
+> 
+>> that's job
+>> for driver data. Of course if there is smarter way than MMIO->ID, I am
+>> all in.
+> 
+> You can't imagine how much I was hoping for you to say something about an
+> alternative solution to that.
+> 
+> As I said, it feels a bit like pre-DT times, but what I get from you is that this
+> is cleaner than just adding information about the real hardware instance number in
+> devicetree (no that's not just MediaTek, qcom also had similar issues as you said).
 
-[Severity: High]
-Does acquiring, initializing, and powering on "usb3-phy" here conflict with
-dwc3_core_probe() managing the same PHY in the flat model?
+Sure, I understand. This is an workaround and might be less applicable
+here. It might be possible that your hardware needs a dedicated
+property. Unfortunately, this cannot be a custom per-device alias.
 
-In the legacy wrapper model, "usb3-phy" is on the parent wrapper node while
-the DWC3 core is a child device.  In the flat model, priv_data->dev and
-priv_data->dwc.dev are the same device, so dwc3_core_probe() ->
-dwc3_core_init() -> dwc3_core_get_phy() also calls devm_phy_get(dev,
-"usb3-phy") into dwc->usb3_generic_phy[0] and calls dwc3_phy_init() and
-dwc3_phy_power_on(), bumping phy->init_count and phy->power_count to 2.
-
-During probe and dwc3_xlnx_resume(), the PHY is initialized and powered on
-before dwc3_core_init() runs dwc3_phy_setup(), dwc3_core_soft_reset(), and
-dwc3_config_soc_bus().  During dwc3_xlnx_runtime_suspend(),
-dwc3_runtime_suspend() drops only the core's reference while
-priv_data->usb3_phy is left active, so init_count and power_count stay at 1
-(and in host mode the extra runtime PM usage count from the second
-phy_power_on() remains held), preventing the PHY from powering off in
-runtime suspend or across direct_complete system suspend.
-
-[ ... ]
-
-> +static int dwc3_xlnx_probe_flat(struct platform_device *pdev,
-> +				struct dwc3_xlnx *priv_data)
-> +{
-> +	struct dwc3_probe_data probe_data =3D {};
-> +	struct device *dev =3D &pdev->dev;
-> +	struct resource *res;
-> +	int ret;
-> +
-> +	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!res) {
-> +		ret =3D -ENODEV;
-> +		goto err_clk_put;
-> +	}
-> +
-> +	priv_data->dwc.dev =3D dev;
-> +	probe_data.dwc =3D &priv_data->dwc;
-> +	probe_data.res =3D res;
-> +	probe_data.ignore_clocks_and_resets =3D true;
-> +	probe_data.properties =3D DWC3_DEFAULT_PROPERTIES;
-> +
-> +	if (of_dma_is_coherent(dev->of_node))
-> +		probe_data.properties.gsbuscfg0_reqinfo =3D 0xf0f0;
-
-[Severity: High]
-Should probe_data.properties.gsbuscfg0_reqinfo be 0xffff instead of 0xf0f0
-to match dwc3_set_swnode()?
-
-dwc3_config_soc_bus() writes gsbuscfg0_reqinfo into DWC3_GSBUSCFG0[31:16],
-covering DESWRREQINFO [31:28], DATWRREQINFO [27:24], DESRDREQINFO [23:20],
-and DATRDREQINFO [19:16].  Using 0xf0f0 marks descriptor accesses as
-cacheable but leaves data read and write accesses (DATWRREQINFO and
-DATRDREQINFO) as 0 while dma-coherent tells the DMA layer to skip CPU cache
-maintenance on data buffers, which can corrupt USB DMA data transfers.
-
-[ ... ]
-
-> @@ -414,13 +603,24 @@ static void dwc3_xlnx_remove(struct platform_device=
- *pdev)
->  	clk_bulk_disable_unprepare(priv_data->num_clocks, priv_data->clks);
->  	priv_data->num_clocks =3D 0;
-> =20
-> +	if (priv_data->plat->flat)
-> +		return;
-> +
->  	pm_runtime_put_noidle(dev);
->  	pm_runtime_set_suspended(dev);
->  }
-> =20
->  static int __maybe_unused dwc3_xlnx_runtime_suspend(struct device *dev)
->  {
-> -	struct dwc3_xlnx *priv_data =3D dev_get_drvdata(dev);
-> +	struct dwc3_xlnx *priv_data =3D dwc3_xlnx_get_priv(dev);
-> +	int ret;
-> +
-> +	/* Quiesce the core while its register interface is still clocked. */
-> +	if (priv_data->plat->flat) {
-> +		ret =3D dwc3_runtime_suspend(&priv_data->dwc);
-> +		if (ret)
-> +			return ret;
-> +	}
-> =20
->  	clk_bulk_disable(priv_data->num_clocks, priv_data->clks);
-> =20
-
-[ ... ]
-
-> @@ -443,12 +659,19 @@ static int __maybe_unused dwc3_xlnx_runtime_idle(st=
-ruct device *dev)
-> =20
->  static int __maybe_unused dwc3_xlnx_suspend(struct device *dev)
->  {
-> -	struct dwc3_xlnx *priv_data =3D dev_get_drvdata(dev);
-> +	struct dwc3_xlnx *priv_data =3D dwc3_xlnx_get_priv(dev);
->  	int ret;
-> =20
-> +	/* Quiesce the core while its register interface is still clocked. */
-> +	if (priv_data->plat->flat) {
-> +		ret =3D dwc3_pm_suspend(&priv_data->dwc);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	ret =3D phy_power_off(priv_data->usb3_phy);
->  	if (ret < 0)
-> -		return ret;
-> +		goto err_core_resume;
-> =20
->  	ret =3D phy_exit(priv_data->usb3_phy);
->  	if (ret < 0)
-> @@ -462,13 +685,16 @@ static int __maybe_unused dwc3_xlnx_suspend(struct =
-device *dev)
->  err_phy_power_on:
->  	if (phy_power_on(priv_data->usb3_phy))
->  		dev_err(dev, "failed to restore PHY power after suspend error\n");
-> +err_core_resume:
-> +	if (priv_data->plat->flat)
-> +		dwc3_pm_resume(&priv_data->dwc);
-> =20
->  	return ret;
->  }
-
-[Severity: High]
-What happens if the system suspends while the flat device is already
-runtime-suspended?
-
-Unlike dwc3_xlnx_probe_legacy(), which holds a runtime PM reference via
-pm_runtime_resume_and_get(), dwc3_core_probe() drops its reference at the
-end of probe so the flat device can enter dwc3_xlnx_runtime_suspend(),
-which disables priv_data->clks.
-
-When system suspend then runs while pm_runtime_suspended(dev) is true,
-dwc3_xlnx_prepare() -> dwc3_pm_prepare() returns 0 in host or OTG mode (or
-whenever a genpd power domain is attached, since genpd_prepare() returns 0)
-and the PM core calls dwc3_xlnx_suspend() without runtime-resuming the
-device:
-
-1. dwc3_pm_suspend() -> dwc3_suspend_common() calls dwc3_core_exit() in
-   host and OTG modes without checking pm_runtime_suspended(), accessing
-   DWC3 registers while priv_data->clks are disabled.
-2. dwc3_xlnx_suspend() unconditionally calls clk_bulk_disable() a second
-   time on priv_data->clks (and on error, err_core_resume calls
-   dwc3_pm_resume() with clocks disabled), whereas dwc3_xlnx_resume() only
-   enables them once and marks the device runtime active.
-3. Conversely, if direct_complete is ever used in device mode when
-   dwc3_pm_prepare() returns 1, dwc3_xlnx_suspend() is skipped and
-   priv_data->usb3_phy remains powered on across system sleep.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117150219.1326=
-693-1-radhey.shyam.pandey@amd.com?part=3D3
+Best regards,
+Krzysztof
