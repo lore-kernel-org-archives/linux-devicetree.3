@@ -1,78 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794945614;
-	b=1x3A+1RqQLZsVWl9bqlggFfuBWbXd4PVA7w0W9rfJmQFn0bmuGBfgdGMsNjuaV8PV9aP
-	 zRuTLyxmueO6AH0v/QhRvtqmEvInRd0hooXIOrONQGn53bdS8DAfY3LCxqeoPFZqnVI5I
-	 2ZsvJjA/g0DzhkmRIbBBJN2fY2tECEsE3D3QS5tOwM0Nw0GeUHMwjH6vKZPAQZ6g+ePtr
-	 fHFJakt1Qklx6ma9q9grA9RY9pDRF8X8LMGFfAkOE3MkTxEHdoOIe+iNTYvQ5fYd1FB+D
-	 BMQo+OG2aniDwoB44fGhVTq+DSPzctri1HTqI66zxj97O4AI5cHNF8F85aklB9KPs3A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794945614;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CfThdO8f/o1dN6kXq8y+xiket6A8mwn5DpRMwQpz1IM=;
-	b=Xw6MYLzFj73TvC4fQSnK/GVomXmkeikEMKDPGPJ1F0Aoigqx771BmAo9khqiA8dnOlOf
-	 84yVV4MGg/PiXP4rgA0TbjktXBFGb2RuhFXnr7tHs4x7NQxrHfJMhNAFjjpabEpVYpNPl
-	 Uv9bbd/UBy+9d3XKHyXkYASStidCxTUp5lrQcaOoYJrH0XXuI5k/M5W76oJF/VyV9LLfe
-	 LmIvUT9PEgkorckO5naVArlzCANRCatifHJ2xkXuP3LeHDgeTuk2D3AVea9Dgsn/9IvvC
-	 zaXBoSHeUnP6bgfGMtqmgj5iF+HypJD4JkuYA4Hc25dIF/Ev49J0MnjBD9675Kq4NLw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SERwcjTU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794945810;
+	b=S1Cp9EBWbXNv7M2PulSK8Ym1I5kA0dzcz45CEEJrULjjzmcnYqLhX3kfkc9exF8lolH7
+	 fNXH6VsYybJmkJFkMztKokwm3KZSsfX1SafkohqFnmNUS7f5BiqQTYvxbekozpa7/Z6dr
+	 QAGnDu8nXvvU04Am0DsKe/SM0kJd1cabzvMR5ftgDZXuRkBAuESLvf+A6hvLB/y6ydwpG
+	 dR8mSRQ5iQYNgawfh1Y4PBP5QJaDFrmQN/2aqpXpbklUuSYVwCkrsXv8OVcoV/jViyOI1
+	 L6C/x9nfqTZrr9atsv4wJZnO8TqKoNU6M67iuqh/9sdlQWHwhuywoDaNI1upLSeJWSw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794945810;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=UOaB9r1BwC8qkIBaPDUJRDEVjpKEaBIm7fbCfHTU9xA=;
+	b=V+oSXl+SDAYYB7NT1Wt0wU78+h8k0UyJewepe+RgKgVGKdCLLxamUCIk5U+8c0zH5BNM
+	 XA4kGtoeSmwlNxtWpREn1JIYtZhOoeCdkCwirbJjMDb6hXX6jCrmzZpBLhde2w+NPahf8
+	 z7Rq8iBQbPFCNpvPsU3YXWWD3tzPhZS/2rU7xcrHsYgKvomrG9TloklffzEf4Fa20M67e
+	 07KSLtJ2H1lf/MC6H/Qkjo8ZN+rqMeKeNVJi2H4dmtWeQEEO9aIeJGLjAgy7tpocWiGOu
+	 xYskgFjMjvNjAwFl+ILFXHFclWIVVcsd4DfO6DyOtqelQIH/5aOb01ZDq6s4ott+Dyg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RlK6jq/a";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233AF606A33A;
-	Tue, 17 Nov 2026 20:00:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87C6606A32F
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 20:03:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SERwcjTU
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794945614;
-	b=pgsZvkyc56bAVem7A7mTlB7udNZXtN2CLKMEILXBJ/jNgDJ3B5DrU+/zDXvs+O2uKKg0
-	 tEmJGJDa4iN8eSq+7ePHwqhiTj67InyF2dYE7+Dc8FdWj0mzn17fjeMCfwNNYUPZfwtyI
-	 rZIPtRHG+pLQDvVEDKZHL6YSXxga2WCzlT7SODlH4X+FFfZ1ydRa5rDQCbqUMlxVw7S8J
-	 55WnrONzaKnhAiUmQVlBeaXC/C2WPKU6C1LoePt4bV+P7xXYSsmBv8lzHlIRdb9j6udkO
-	 sxrLpVlG19BRYbtsOXK5cpS4jRhNJSNcDxsrOo7qs4fTvvoRo0b7FR50HFLQVaAPedg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794945614;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CfThdO8f/o1dN6kXq8y+xiket6A8mwn5DpRMwQpz1IM=;
-	b=chx92n9g8wfDTOVGkqBSwGyx7p72QwO4fDsAv49Fl2ZDDrp7U8YgTvD1IOvpicYwru1f
-	 jAM6M/PdkJyZzMlfoWjZaWxEAZtPnl0IPxRDYMncFa8KH+X9nMAMEwZ3xaWGd2fGmKlY+
-	 FW0vb3wdGbAyEb0Nb30sFkd5Xd8cjQ8rIxZVoPXjts1mNxjEbux7xNyhs32V/x4n2uVam
-	 qc8qGCPfn1iVUwL6W7GAsohcHxCKjHpVSPpNbfKRmsgiaDGrbO9CCyF85wWGBYeJYFUuC
-	 M9k9E7s9Q2Lh8VxtF2Uhy3fK6AjAjDarHIbvAXGByRqCcKOIPoQzQI0OpD1unZqjxPw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D226F1F000C7;
-	Tue, 17 Nov 2026 20:00:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RlK6jq/a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED6A1F000C4;
+	Tue, 17 Nov 2026 20:03:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794945613;
-	bh=CfThdO8f/o1dN6kXq8y+xiket6A8mwn5DpRMwQpz1IM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=SERwcjTUAax6Oi2NqUswhIBR0wMKqjgchMTu3pIHk1VMCeyQnArW5YrC1c6Io3zVL
-	 M2IGYtZkZVdubdrdhjCVN23+keW+1aOGi0G+8iskZDZ7R8JvJk42hDmtPtVAqk/9rN
-	 aLEEF+83XVxYE1ors+1lHrtd9txXrHlHhErSdjdTOv01m+UxPhYwg+iwH3nSbVJNBU
-	 oY9puOtDmiWtg+g9N1HT0ehrx9hymjRzB+O33ZR49/AoWCcBfH3Ux3lhEo08pjsXW1
-	 Xb/Arq860o0Y0kwbL0wtgJSOPtClNJmZYn/VNS+7n4vxmIFrDcAmTYKlx5zSGb+FRu
-	 75Z8KuWmrLWXw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5A12D4AAB9;
-	Tue, 17 Nov 2026 20:00:12 +0000 (UTC)
-From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Wed, 18 Nov 2026 04:00:06 +0800
-Subject: [PATCH v2 2/2] riscv: dts: eswin: Add Milk-V Megrez board
+	s=k20260515; t=1794945809;
+	bh=UOaB9r1BwC8qkIBaPDUJRDEVjpKEaBIm7fbCfHTU9xA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RlK6jq/aYybpjqXoxVre0+KbhhlOOPx2dX5oXhNUnj1jtW2aJcgcJSa8WYSNptHU5
+	 T6WV8PHaAJiTt1Cw36jNnrjQDM/MH4LNTE2OFmBr4XAN+T3j7W4/jIc8Aw0rlmDZoN
+	 8n00xhPM8PcQHCrO+WXxhZRwmxNtO2G9iquLWajh3BuixpuADyoGkngEJNZKWrhB9/
+	 pZR9Yt/rtoauxZRnM8GrNcKC49RXrh9tpfmBa0d27J5W2dLL4SVOdIT6Sc/2LGGVzf
+	 EqdnidMCJoASfm0QfzrBJm8TxSmMtDz2ZUsTBZU2tK1QZPVWwb3xz8TQ1WGxWifxEy
+	 yjFYiYqQQYgOA==
+Message-ID: <sashiko-outbox-219549@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 07/10] drm/meson: dw-hdmi: Use the generic PHY framework
+ for the HDMI TX PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, olteanv@gmail.com
+In-Reply-To: <20261117-meson-drm-create-hdmitx-phy-v1-7-9e0ac931381c@aliel.fr>
+References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
+ <20261117-meson-drm-create-hdmitx-phy-v1-7-9e0ac931381c@aliel.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 20:03:27 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,90 +60,209 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-eic7700-megrez-v2-2-0113ebc5b670@iscas.ac.cn>
-References: <20261118-eic7700-megrez-v2-0-0113ebc5b670@iscas.ac.cn>
-In-Reply-To: <20261118-eic7700-megrez-v2-0-0113ebc5b670@iscas.ac.cn>
-To: Min Lin <linmin@eswincomputing.com>, 
- Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>, 
- Pritesh Patel <pritesh.patel@einfochips.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: Han Gao <rabenda.cn@gmail.com>, devicetree@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Han Gao <gaohan@iscas.ac.cn>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794945611; l=1629;
- i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=QUGwPSZ5IJZOF55+jsHoXOrYxzxrVAnohOX9v3SFw5c=;
- b=8S3rk5VvyppR1x4KTay2bz5XR7TwdRtLNW9udJPa5eB/bNsqOYAZs8ZxYA48p3Snbe9prV8XH
- CuS4PbE2qHGBniA+nu0eQHITSdgiZm9UWsZq7XDDZAQkxy5gmKVtuFX
-X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
- pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
-X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
- auth_id=1262
-X-Original-From: Han Gao <gaohan@iscas.ac.cn>
-Reply-To: gaohan@iscas.ac.cn
-Content-Transfer-Encoding: 7bit
 
-From: Han Gao <gaohan@iscas.ac.cn>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] drm/meson: dw-hdmi: suspend/resume order breaks PHY state and
+  HDMI output
+- [Medium] drm/meson: dw-hdmi: missing phy_exit() on dw_hdmi_probe()
+  failure
+- [Medium] drm/meson: dw-hdmi: premature PHY teardown in
+  meson_dw_hdmi_unbind()
+--
 
-The Milk-V Megrez is a Mini-ITX board based on the ESWIN EIC7700X SoC.
+commit 91e31ad4e0b36171e791e7c0487c9a4c66b12b31
+Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Add a minimal device tree that enables UART0, which is connected to the
-USB-C debug port through a CH340 USB-to-UART bridge, and use it as the
-serial console.
+drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI TX PHY
 
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
- arch/riscv/boot/dts/eswin/Makefile                 |  1 +
- arch/riscv/boot/dts/eswin/eic7700-milkv-megrez.dts | 25 ++++++++++++++++++++++
- 2 files changed, 26 insertions(+)
+This commit converts meson_dw_hdmi from direct HHI_HDMI_PHY_CNTL0..5
+register writes to the generic PHY API, with a legacy fallback when the
+device tree lacks a "phys" property.
 
-diff --git a/arch/riscv/boot/dts/eswin/Makefile b/arch/riscv/boot/dts/eswin/Makefile
-index 224101ae471e8d89996f7cbfc616425f704af37e..5daade822e15eda43eee111cbf89bc386bb06f32 100644
---- a/arch/riscv/boot/dts/eswin/Makefile
-+++ b/arch/riscv/boot/dts/eswin/Makefile
-@@ -1,2 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_ARCH_ESWIN) += eic7700-hifive-premier-p550.dtb
-+dtb-$(CONFIG_ARCH_ESWIN) += eic7700-milkv-megrez.dtb
-diff --git a/arch/riscv/boot/dts/eswin/eic7700-milkv-megrez.dts b/arch/riscv/boot/dts/eswin/eic7700-milkv-megrez.dts
-new file mode 100644
-index 0000000000000000000000000000000000000000..a57cb61171087b20a39eb962f9c45d9c8ded3925
---- /dev/null
-+++ b/arch/riscv/boot/dts/eswin/eic7700-milkv-megrez.dts
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (c) 2026 Han Gao <gaohan@iscas.ac.cn>
-+ */
-+
-+/dts-v1/;
-+
-+#include "eic7700.dtsi"
-+
-+/ {
-+	compatible = "milkv,megrez", "eswin,eic7700";
-+	model = "Milk-V Megrez";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
+> diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meso=
+n/meson_dw_hdmi.c
+> index 20a821936b3af..f28cc1e6ee1df 100644
+> --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
+> +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
 
--- 
-2.47.3
+[ ... ]
 
+> @@ -590,13 +504,13 @@ static const struct meson_dw_hdmi_data meson_dw_hdm=
+i_g12a_data =3D {
+>  	.top_write =3D dw_hdmi_g12a_top_write,
+>  	.dwc_read =3D dw_hdmi_g12a_dwc_read,
+>  	.dwc_write =3D dw_hdmi_g12a_dwc_write,
+> -	.cntl0_init =3D 0x000b4242, /* Bandgap */
+> -	.cntl1_init =3D PHY_CNTL1_INIT,
+> +	.phy_soc =3D MESON_HDMI_PHY_G12A,
+>  };
+> =20
+> -static void meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
+> +static int meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
+>  {
+>  	struct meson_drm *priv =3D meson_dw_hdmi->priv;
+> +	int ret;
+> =20
+>  	/* Reset HDMITX APB & TX & PHY */
+>  	reset_control_reset(meson_dw_hdmi->hdmitx_apb);
+> @@ -624,8 +538,9 @@ static void meson_dw_hdmi_init(struct meson_dw_hdmi *=
+meson_dw_hdmi)
+>  	meson_dw_hdmi->data->top_write(meson_dw_hdmi, HDMITX_TOP_BIST_CNTL, BIT=
+(12));
+> =20
+>  	/* Setup PHY */
+> -	regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL1, meson_dw_hdmi->data->cntl1_=
+init);
+> -	regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0, meson_dw_hdmi->data->cntl0_=
+init);
+> +	ret =3D phy_init(meson_dw_hdmi->phy);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	/* Enable HDMI-TX Interrupt */
+>  	meson_dw_hdmi->data->top_write(meson_dw_hdmi, HDMITX_TOP_INTR_STAT_CLR,
+> @@ -634,6 +549,7 @@ static void meson_dw_hdmi_init(struct meson_dw_hdmi *=
+meson_dw_hdmi)
+>  	meson_dw_hdmi->data->top_write(meson_dw_hdmi, HDMITX_TOP_INTR_MASKN,
+>  				       HDMITX_TOP_INTR_CORE);
+> =20
+> +	return 0;
+>  }
+> =20
+>  static void meson_disable_clk(void *data)
+> @@ -746,7 +662,26 @@ static int meson_dw_hdmi_bind(struct device *dev, st=
+ruct device *master,
+>  		return ret;
+>  	}
+> =20
+> -	meson_dw_hdmi_init(meson_dw_hdmi);
+> +	meson_dw_hdmi->phy =3D devm_phy_optional_get(dev, "hdmi");
+> +	if (IS_ERR(meson_dw_hdmi->phy))
+> +		return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
+> +				     "failed to get HDMI PHY\n");
+> +
+> +	if (!meson_dw_hdmi->phy) {
+> +		/* DEPRECATED: DT without "phys" */
+> +		dev_warn(dev, "missing \"phys\", using legacy HDMI PHY\n");
+> +		meson_dw_hdmi->phy =3D meson_hdmi_phy_create_legacy(dev, priv->hhi,
+> +						meson_dw_hdmi->data->phy_soc);
+> +		if (IS_ERR(meson_dw_hdmi->phy))
+> +			return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
+> +					     "failed to create legacy HDMI PHY\n");
+> +
+> +		meson_dw_hdmi->legacy_phy =3D true;
+> +	}
+> +
+> +	ret =3D meson_dw_hdmi_init(meson_dw_hdmi);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	/* Bridge / Connector */
 
+[Severity: Medium]
+Does meson_dw_hdmi_bind() leak a phy_init() reference if dw_hdmi_probe()
+fails later in this function (for example with -EPROBE_DEFER when the DDC
+I2C bus is not ready)?
+
+When the PHY comes from the external PHY provider, devres cleanup on a
+failed component bind only calls phy_put(), leaving phy->init_count at 1.
+On the next bind attempt, meson_dw_hdmi_init() resets hdmitx_phy and calls
+phy_init(), which sees init_count > 0 and skips phy->ops->init(), leaving
+HHI_HDMI_PHY_CNTL0 and HHI_HDMI_PHY_CNTL1 uninitialized after the hardware
+reset.
+
+> @@ -784,6 +719,10 @@ static void meson_dw_hdmi_unbind(struct device *dev,=
+ struct device *master,
+>  	struct platform_device *pdev =3D to_platform_device(dev);
+>  	int irq =3D platform_get_irq(pdev, 0);
+> =20
+> +	phy_exit(meson_dw_hdmi->phy);
+> +	if (meson_dw_hdmi->legacy_phy)
+> +		devm_phy_destroy(dev, meson_dw_hdmi->phy);
+> +
+>  	devm_free_irq(dev, irq, meson_dw_hdmi);
+>  	dw_hdmi_unbind(meson_dw_hdmi->hdmi);
+>  	drm_bridge_put(meson_dw_hdmi->bridge);
+
+[Severity: Medium]
+Can tearing down meson_dw_hdmi->phy before devm_free_irq() and
+dw_hdmi_unbind() cause a use-after-free in dw_hdmi_top_thread_irq()?
+
+CPU0                                    CPU1
+meson_dw_hdmi_unbind()
+  phy_exit(meson_dw_hdmi->phy)
+  devm_phy_destroy(..., meson_dw_hdmi->phy)
+                                        dw_hdmi_top_thread_irq()
+                                          dw_hdmi_setup_rx_sense()
+                                            ...
+                                              dw_hdmi_phy_init()
+                                                phy_configure(dw_hdmi->phy,=
+ ...)
+                                                  <-- use-after-free
+  devm_free_irq(...)
+  dw_hdmi_unbind(...)
+
+In the legacy PHY path, devm_phy_destroy() immediately unregisters and
+frees meson_dw_hdmi->phy while the threaded HPD interrupt handler is still
+active and can invoke dw_hdmi_phy_init() or dw_hdmi_phy_disable().  Even
+with a DT PHY, HPD handling or dw_hdmi_unbind() can access the PHY after
+phy_exit().  Should phy_exit() and devm_phy_destroy() run after
+devm_free_irq() and dw_hdmi_unbind()?
+
+> @@ -801,6 +740,8 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(st=
+ruct device *dev)
+>  	if (!meson_dw_hdmi)
+>  		return 0;
+> =20
+> +	phy_exit(meson_dw_hdmi->phy);
+> +
+>  	/* Reset TOP */
+>  	meson_dw_hdmi->data->top_write(meson_dw_hdmi,
+>  				       HDMITX_TOP_SW_RESET, 0);
+> @@ -811,11 +752,14 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(=
+struct device *dev)
+>  static int __maybe_unused meson_dw_hdmi_pm_resume(struct device *dev)
+>  {
+>  	struct meson_dw_hdmi *meson_dw_hdmi =3D dev_get_drvdata(dev);
+> +	int ret;
+> =20
+>  	if (!meson_dw_hdmi)
+>  		return 0;
+> =20
+> -	meson_dw_hdmi_init(meson_dw_hdmi);
+> +	ret =3D meson_dw_hdmi_init(meson_dw_hdmi);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	dw_hdmi_resume(meson_dw_hdmi->hdmi);
+
+[Severity: High]
+Does calling phy_exit() in meson_dw_hdmi_pm_suspend() and phy_init() in
+meson_dw_hdmi_pm_resume() break HDMI output across system suspend/resume?
+
+Because the HDMI TX platform device sits after the VPU master device on
+dpm_list (both from DT node order and because devm_phy_optional_get() adds
+a stateless device link to the PHY that reorders the consumer to the tail
+of dpm_list), system suspend runs meson_dw_hdmi_pm_suspend() before
+meson_drv_pm_suspend(), and system resume runs meson_drv_pm_resume()
+before meson_dw_hdmi_pm_resume().
+
+On suspend, meson_dw_hdmi_pm_suspend() calls phy_exit() while the PHY is
+still powered on, before meson_drv_pm_suspend() ->
+drm_mode_config_helper_suspend() -> dw_hdmi_phy_disable() calls
+phy_power_off().
+
+On resume, meson_drv_pm_resume() -> drm_mode_config_helper_resume() ->
+dw_hdmi_phy_init() calls phy_configure() and phy_power_on() while
+phy->init_count is still 0.  Then meson_dw_hdmi_pm_resume() runs
+meson_dw_hdmi_init(), which resets hdmitx_phy and calls phy_init(); since
+phy->power_count > phy->init_count, phy_init() warns ("phy_power_on was
+called before phy_init") and runs meson_hdmi_phy_init(), overwriting
+HHI_HDMI_PHY_CNTL0 and HHI_HDMI_PHY_CNTL1 with cntl0_init and cntl1_init
+and clobbering the mode that meson_drv_pm_resume() just configured and
+powered on.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-meson-drm-=
+create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr?part=3D7
