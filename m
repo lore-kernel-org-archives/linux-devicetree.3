@@ -1,77 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794904246;
-	b=hJV6uryd/1mtyOXFycPD4Tj9bi8nVI8pCERjXSDxlRq0nBZxV1Z8eILbuLJ+Wsx2mu7i
-	 xcxHXcosHHqiWKZ6G1qUh0zfR7CJBUtRTPBc3uWYOVsFTk0nIbNbY/FW+YRqfZXSI6d6U
-	 rMt+hHJRUt6BGhECTW+ic0f0LFRu4NlUQtgGIz+EhwbxhpqMx4e+fLaAzYPSfgBEOHmTj
-	 OOI/CW8rKSUeso1g96r29T18rq4qx0KpvrkFZqXWQAZXhnVQ+CPBYVYRI2q2BWAbFzHbg
-	 tccTmZQKb172o/JCgNIezI5OCk2c+UWBqne2tVU3lmafw/FE7fin+BqaoTgjtaGsVLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794904246;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zheIQktVmbZG4c834zKCy7evdo7oC0W6fMu1Q7CHhCE=;
-	b=rVlUFd7Gx8AOPH8glUdAp3F24Mlnj+mgiegA73Ay9BEmkwBBhPZboHGJ2f4Yv+5dXIib
-	 K62IxKh3HDGt5+b7/CVljziJpg/XFFuVaDUb81xWWrUMFSGALNk3v8aBt7SLxxoZNpBU1
-	 SA7DpgxXTNP44Q2X2br9c7LGv/qmS6/GVde216VsD2jTtE8bEynkNepSm1aLs/KyMc/0i
-	 +3HjH5TMEbl0zp6sfooCt8gIDcwRMS3EvAtb/XeFD0RevjWm9DbuThXdiQk2/ODl7NaDC
-	 ePtBR2i3yTvQ2pdQMVFI/1QhuvnJX5GcKNE+SRsX5vNPkrbWxMPQxQ1tEFjOfP2gNtg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AqABhpm3;
-	arc=none smtp.remote-ip=91.218.175.179
-Received: from mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794904454;
+	b=JtZNNZ4r8u9CsEhWG7vp5GhmPVbpz/qWuQtIYVqSkdoIRbUVJJMGa0DSIA9jHHxMVYNf
+	 +rBUnzwLU4bCQI2GMf1TiXVh0+M6Gvn2gD9zSXrwykwYXJ3dQjpGwr72WdnTPXW41CspD
+	 e8ZfgRXvs9+V6wedUocCXPiZRu8Iw2EQwV6Q3Uikc4cIaCr5/nfMIWP1iLlBAtLX5DcKU
+	 tiY9+w85Jiul2KelHpEHVvA7/27kDY7Jzm5cQNp4GtN0u/f55UFMeADIHkPdPaCANW07J
+	 AR5+bh2vwQUCwKEDPSVAqxgI/GDDUrzvLyx2rVbemI7eOsS0Aw1xMc1p48X9tXkbtmA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794904454;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=i+cbThRTNxjogyv/ww4TVY1liYXgI6h7G9/7+Mzzb+Y=;
+	b=vCwEja9/WrAfnep6FopL7/Hn2CujeQ5EuXP1XtfgyRgxNRoSHOyqcAEZ9R//VSM84pdN
+	 mteROZXx0Z+HZxuLoIzg8OAePyh1lxYCGam0VgcwsZFSw27B1iqCLIaZ/KPU8XInzZsKY
+	 CFAbo9x9A5a4mf/habWAx4zpSeoviMZ0rZKQl4XxZLsCXn4jFdT9BSuTf7xU0QHnM6tld
+	 CLFNK3Cv2JtFTxjT0cPFcAS0han6EspuXu5uk3nj2K6tGB+hnMVNxjByv29HhP1/4MhHt
+	 8Yp7jFDUaK4BSs7ml2DzYsHeM8LOTTquneVljkxMbtQW9OXkYfH0cmX1oNlrVCnze3g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=ayUx2cCu;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=nmKMi2L6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D73606A8A2
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:30:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6D73606A8A2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C479A606A8A4;
+	Tue, 17 Nov 2026 08:34:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C479A606A8A4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AqABhpm3
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pyWTIi2y6JoIJ6IOmHBgjnTL/Q73eud7KJwC8hfFNgY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794904239; v=1; x=1795509039;
- b=AqABhpm3NiDW2u51rSlCew3nKj/O5rKF9XyNeS2Wd+I3pWwpWLJJx9V75Bs3D697t8fZDjpr
- DN5VoTfPu1d8qxDkgOwiKg0rDUkXd2Bwedu96VqZ0VXyo+CeeekOuk8G0w75Ebi/P41KTrtSZSf
- s200mf5lcIomdgDsM3MGzbhE=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 072b8882c51a40c5;
-	Tue, 17 Nov 2026 08:30:29 +0000
-X-Mizu-Trace-ID: 072b8882c51a40c5
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 17 Nov 2026 16:30:15 +0800
-From: Peng Fan <peng.fan@linux.dev>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v6 0/9] dmaengine: add DMA channel bus and fsl-edma
- per-channel IOMMU support
-Message-ID: <avwQl18smAW4R6ec@fedora>
-References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
- <20261116193021.GB2452510@ziepe.ca>
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=ayUx2cCu;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=nmKMi2L6
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH7vI0D2497886;
+	Tue, 17 Nov 2026 02:33:53 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=i+cbThRTNxjogyv/ww4TVY1liYXgI6h7G9/7+Mzzb
+	+Y=; b=ayUx2cCuodKSwbYwo6N6U++bSGMHruDFJQ7UUcm+AFRCW+qQ3pmZdP0zs
+	XbVgSjX1h5cA7plx7ZLWVGUVpGPH+klq5LaMbk1NB7+uEZUpgr7qIT4+dmL0PzQN
+	mvAv851kcx3ioH6X4ETCvV9RlP37JzZqCjPxgL77KBqNasK5mzOr7oPDLK8JQtZu
+	5YYvQKHYKRyH8G9YAk/6ibDLLHLT/xwKywxWK0+3K5LML8tOia8uQmGF8pA9EtnB
+	LR/cWT0WlZYQTmUIV77mEmPNeQmFeYWMr8ddcyoocNuNAqVtzZRryoqt5ihGljFn
+	Z80nq4YRQ6CpMcIw+/rg8vlrDLn3g==
+Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012059.outbound.protection.outlook.com [40.107.209.59])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4j0cbja72q-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 02:33:52 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R8cSid9pI4AoVniu/1Q3bokZ1t3NeZMnVy2npj0OZOD6RKoGpKGGNYAv+X1V2Pc85p5NrL1XrhR6ASZCdXswGO4QIzFRDoHE8b3+yPBDjy2+NmLcEx3v27+/MNSM/Cd0wpT9DFlqy0hZM84/EyuiPWU5hd9Oouq4tIYfOIa2DBHjhL9KtUpVZel15dP+p/19SZ4SQeth5CyLhKVv0WzbL+DJteVwJF0J+fudQY+qszQFVvxDBOSxAHH0IL3kaKsjxlORi9unx8sar42R7ZY4BJYiF9UnWSfi8gcmp0VvclAWSwvTU7cOK3N6h3lgzdxkuxOBRYPQH1R+uGIYYrCFPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i+cbThRTNxjogyv/ww4TVY1liYXgI6h7G9/7+Mzzb+Y=;
+ b=xuTgPUuY76xLl2iFiXHYj0J70ToEeaeRfHFZelePEZvuStBxq3O2UDEliG371kRn81O+J+yFmOQe9Tfe9Pxlm9qj/qMnAiJvxfUghNoXg5MhsUOaEjsgHSUDV8dxd2+B1TYFRq+uuEpzlfJpSQoP2ihvwJ/GTPvxpXCfcTHL4T7jYI3Scb7CGuf6ByvcZdWMnmIqK2TSetT6xSYLhmmpxqGQA6+M0nXDzg2Z4x3wZGvhJIkoKj8WWWq/4Pa9hSIMJtHpkoPyzivp1y+GYkx88I4+0ZoIBLbQhRxylPR1rjVHTJKfu7dgELtIotfmf8rNY5qsVjr+aVWw0DcmjkaLzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i+cbThRTNxjogyv/ww4TVY1liYXgI6h7G9/7+Mzzb+Y=;
+ b=nmKMi2L6IOPsxjYm26bIacxAX0ggMst3jAi1oJZudUzTlHQlbQgvpgk9fb6C9HMe1gqaXcehab0kEohgPEff8mL911hkz/1OQp6BD9vIJ1YN632cEoQ97gNeZHaheHF/9jCwUcfb/jS1sO9tDQAmFhh78LZ0MI0NQ2NYj7KNsm8=
+Received: from SJ0PR03CA0214.namprd03.prod.outlook.com (2603:10b6:a03:39f::9)
+ by MN7PR10MB104148.namprd10.prod.outlook.com (2603:10b6:208:637::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 08:33:50 +0000
+Received: from MW1PEPF00018892.namprd03.prod.outlook.com
+ (2603:10b6:a03:39f:cafe::12) by SJ0PR03CA0214.outlook.office365.com
+ (2603:10b6:a03:39f::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Tue,
+ 17 Nov 2026 08:33:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ MW1PEPF00018892.mail.protection.outlook.com (10.167.249.169) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 08:33:48 +0000
+Received: from DFLE200.ent.ti.com (10.64.6.58) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
+ 2026 02:32:58 -0600
+Received: from DFLE200.ent.ti.com (10.64.6.58) by DFLE200.ent.ti.com
+ (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
+ 2026 02:32:58 -0600
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE200.ent.ti.com
+ (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 17 Nov 2026 02:32:58 -0600
+Received: from [10.24.50.20] (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AH8WqE23540590;
+	Tue, 17 Nov 2026 02:32:53 -0600
+Message-ID: <047068ff-1a5b-4051-bb8c-5c781c6de0d4@ti.com>
+Date: Tue, 17 Nov 2026 14:02:51 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,59 +133,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116193021.GB2452510@ziepe.ca>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] dt-bindings: soc: ti: Document the
+ ti,tda54-mcu-scm-conf
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: <conor+dt@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <nm@ti.com>, <ssantosh@kernel.org>, <u-kumar1@ti.com>,
+        <gehariprasath@ti.com>, <vigneshr@ti.com>, <afd@ti.com>,
+        <a-limaye@ti.com>, <y-abhilashchandra@ti.com>, <johan@kernel.org>,
+        <kees@kernel.org>, <jm@ti.com>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+References: <20261112091027.1601122-1-m-shah@ti.com>
+ <20261112091027.1601122-2-m-shah@ti.com>
+ <20261113-fancy-trogon-of-saturation-16fc66@quoll>
+ <699420d5-28b8-4238-8fc4-3a4e762265ba@ti.com>
+ <a96974a6-fc56-4e05-be9e-9eb3776cc4fb@kernel.org>
+Content-Language: en-US
+From: Moteen Shah <m-shah@ti.com>
+In-Reply-To: <a96974a6-fc56-4e05-be9e-9eb3776cc4fb@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF00018892:EE_|MN7PR10MB104148:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc203f40-6463-4709-50af-08df4485804b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|82310400026|36860700016|10067099003|56012099006|4143699003|261026121527099003|261026140227099003|261028144727099003|261022105027099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	xLzC5wCZnTLHwvEeJBCyAX3xeWqJVR1Vpp8JNUzF4osy42SEVaBzmqSfwoi1I2BxBx9kGoBxllPuLerncPWEsDDPH8fcV1bR+ANV9TP42uc+DWwAN/zxhGuO2+b4rLQJM8DK+B2xcqPNl6qNUXAlLtPcOV6ugzJcIK1VgvT6KPHG1uJKdw3zI2K/XhGSuEC6UAfZYZQp8jk0W7WAK8xlXBEqHZb/IgZP3tT/xLLvQmNsy5pj+WJIQ1YNsTwj/nOpMg67MwC4dLc3B6dR1O5ZizoE6hmkdeqJ5WfXV1lC7mparxQ7HY95+BcvSnGqEpxZSygWN1fUlzOnNDbseYNS3MhzkbYrw7s1L3VtuohxqllROlBt4xc/bR2s+QrBEMYMoVsHajtU124QFHK2kRoFMThBNdpGpSoIHntMl7lJgt3jIrT7mxNQCtP2f15FvXFgJx9Dbi+3qoCdQ7UKNbMJawBNJhoDAmXRWn3lAsovTsre5bd80r2qu1xX0jERhk/hTiVH0eLq1A5NFgGFP2mqGyo/9HdOhMekd3wnNP9Xeec5s6gbbheYjbNBoKgDh7v6iofqrknhmyuN8jI23XxlizctE37Tb9FsfRr2zIwVur3ZSMyvjiFhFOsFkTDyIurVRG3BKzBlmmI4adtxhoYoClnbQcquCMH3THRv77homb7xylDqimsrP0H8zBrLSYX/UCm8zFdJZZnf1qKju1zbag==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(56012099006)(4143699003)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	IRWgJBGoLkq6dltXplLDKIoQTvqb49tMiMYgFkCzLRoHF3CIGCV1zFYPCRNuUBrL2MKYWF8T0OM8Z7T/A9j3NN9ucVXyizvvnFcC0ZpTKmrl9WV9L0+vyWg5jM+yZMVS+VuQjWT0Q6WHAccC522alVwGDiW9qPo6uRhBDgEqIHeOFFXzzlanKqwYGTlx4TA8QZ5WO4vUDC2hJjgWW+oP4tNeIu0dFhyyArDrY7xl/38NvWiiwusflGnxCi4ICCMnAgvUdxvKplNGVGeUSIbz3UA9n0W1EN8UD5mRXp6l9hSM5uAdV8LeHp//sRKCIGNVrj9Of1t73iMk1XG3u6NB2c7vWJnc0I+PA9cW01tp7yG8xY+bP9Hy2PtKn7+BSIDnTrAyG+St7s+uIGiCq5cqoygeimamAQlz2lCm59Ou/j4tC/2pon9M64O5h5MS2iUO
+X-Exchange-RoutingPolicyChecked:
+	RSVTUHqkwhM3BtokaaxWpFksgupxl6tLJMqgECjbCedOUJI4wsKL7STtlTcbVR8LOVymyMT+mZlJPlnczBMxnBblh0kX9tybogCq/D7eqVRMzBHukXXAb56cd0kAvMb3oxD13PZS2a4q4alrB0HB660Y9whL5BWl3DOrT63FiF89NSH0oCcc1vzPvTpzwREauP2LMbugh+IqyQIwYLZBsm7K0c6aysQy7v1tK0NOnztPwH5NkyHahNDn6RXZy5rJV8e9a4bpeue+JcFn9eRlfkiI4ZllJJxijT09wjTjes/hoCYY61mmY/fMS6E98fsuJA/AnKrGEoM9vNStKvCa5Q==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 08:33:48.2292
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc203f40-6463-4709-50af-08df4485804b
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW1PEPF00018892.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN7PR10MB104148
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAzMyBTYWx0ZWRfX15uF1xN/TcbV
+ OcRZNv3Whcah+qCjfDU8mtiH7IAogcZHZk9g8LMJLH4bZ0n9LgrAJFpajBvCmKVq+l64GIt2tov
+ rh+boGC+/cQVllOH2qPrlieTzv2UuuopmxswECCkIRtSTE5Zyk7f40ZnGj6cRqwpKnUy4Hwh2IW
+ Ctb2piJMGwqh640PF6HIFFwDmc9RRpXIrrszZLdDqb870WXnvAqRZ8nWsAa3R/uJ3H13M3kKxW7
+ 8SdJmLhG5w0P3WVFk62LRSooXNy2YGah/t2ZcN3xNInhazxebDX/agfZaOANMswkTEQy3haiFBG
+ 6hUTZM7Tf5x4bkk3KEHPeoYsU+9W99oMgXyFcRozsUpNqq6gG4kB+T2q/hDCCiqje3N5nmhdthM
+ SlxdPoA1Se49NjrRx6EQLjc1difo0Q1SKcfBxwLTWZja0Lb9qQNU08BooV3nIKzXQVGql/00hdR
+ xkjgPixPt5MOlEsKjBg==
+X-Proofpoint-GUID: N8nle48fHryavImwJoGMRZJpTJPbItyA
+X-Proofpoint-ORIG-GUID: N8nle48fHryavImwJoGMRZJpTJPbItyA
+X-Authority-Analysis: v=2.4 cv=F7fC5ahN c=1 sm=1 tr=0 ts=6afc1170 cx=c_pps
+ a=e24IK3jsPB00aLvKg+wNHQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=i9cz-9LAP14kPR8UPK0A:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAzMyBTYWx0ZWRfX+dAFXsPUm7Th
+ sf+b73bqO91bPdn2nqmChSO4a/zdt7TZIsUe90Y8l5FupVCkk1mPmE2I8ELglXt44RCq/W/Q7Qj
+ K4+lQK3dBubLi2CVOXn4CGc67Er6D+s=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 spamscore=0 bulkscore=0
+ clxscore=1015 malwarescore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170033
 
-On Mon, Nov 16, 2026 at 03:30:21PM -0400, Jason Gunthorpe wrote:
->On Thu, Nov 12, 2026 at 03:53:03PM +0800, Peng Fan (OSS) wrote:
->> I used iommu-map for eDMA, but iommu experts rejected it:
->> "Using iommu-map to describe synthetic dma_chan_dev devices that the
->> kernel creates is the same kind of DT abuse from over here:"
->> More info: https://lore.kernel.org/all/20260917144804.GI3196566@ziepe.ca/
->> 
->> So I followed here [2] as Krzysztof wrote for QCOM VPU:
->> "Thanks Jason for context and detailed arguments. Robin did not chime in
->> yet, but from what I understood the DT-child-node approach will be the
->> way we should go here.
->> 
->> I accept above point of view and I am fine with this, thus Vishnu and
->> Vikash - please go ahead with DT-child-node solution we had some time ago."
->> [2] https://lore.kernel.org/linux-iommu/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
->> 
->> This series adds per-channel DT child node support to fsl-edma and, as a
->> prerequisite, introduces a proper bus for DMA channel devices.
+
+On 16/11/26 17:52, Krzysztof Kozlowski wrote:
+> On 16/11/2026 12:33, Moteen Shah wrote:
+>> Hey Krzysztof,
+>>
+>> On 13/11/26 13:26, Krzysztof Kozlowski wrote:
+>>> On Thu, Nov 12, 2026 at 02:40:24PM +0530, Moteen Shah wrote:
+>>>> +  reg:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  ti,proxy-id:
+>>>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>>>> +    minimum: 0
+>>>> +    maximum: 7
+>>>> +    description:
+>>>> +      Proxy region (0-7) through which this node's clients access
+>>>> +      claimable registers and their fault status registers.
+>>> Partially continuing discussion from v2, IOW, device cannot access
+>>> entire address space and you need to limit the address space to specific
+>>> window of it? At least this is how it looks in driver code.
+>>>
+>>> This looks like the MMIO space is wrong. Listen, if you claim that the
+>>> DTB represents the host (or VM) view on hardware and based on that you
+>>> add proxy-id property to restrict the MMIO, then why do you claim that
+>>> entire MMIO is correct for this host (or VM) in the first place?
+>>
+>> Thanks for the review, I got your point.
+>> One thing I wanted to clarify before sending a revision: a nonzero proxy
+>> sets a bit in its CLAIM register to claim a register but for proxy 0 it
+>> shouldn't be doing that as per the hardware. If we choose to use proxy
+>> 0's reg window we just have to check if any other proxy has claimed it
+>> previously or no. Are you fine with having a property in the binding
+>> something like "proxy-0" or alternatively "ti,claim-required", because
+>> the driver won't be able to makeout which proxy it has the view of.
+> Dedicated property for proxy0 is fine. Maybe not calling it proxy-0 but
+> express that this one is shared with others so first you need to check
+> if it was not claimed.
 >
->To be fair this is discouraged too, now that I've seen 3-4 people
->trying to do exactly the same thing I'm not as positive about the
->DT-child-node hack.
+> But OTOH, can't the driver make the claim if if no one has claimed it in
+> every case? IOW, why for proxy1 you take the claim unconditionally, but
+> for proxy0 you check first?
 
-I may not describe it clear in cover-letter.
 
-I understand the concern. Let me explain why I believe it is justified here
-rather than a hack.
 
-On i.MX eDMA each channel has its own interrupt, its own register region,
-and on i.MX8QM even its own power domain. Each channel may also have its
-own Stream ID, or share one when SIDs are scarce. These are genuine
-per-channel hardware resources, not software fiction.
+Proxy 0’s CLAIM bits are fixed at zero, so it cannot claim a register. 
+The driver checks CLAIM_STATUS and writes only if the register is 
+unclaimed. For proxies 1–7, the driver requests a claim by setting the 
+bit in that proxy’s CLAIM register, then reads it back to verify the 
+claim. If the bit is not set, the claim attempt fails. Checking 
+CLAIM_STATUS alone would not tell whether the claim is already held by 
+this proxy.
 
-In dmaengine each channel is already modeled as a channel device (see
-dmaengine_chan_dev()), and this series puts those devices on a real bus
-(dmaengine_chan_bus_type) as a prerequisite. The DT child node simply
-describes that existing device, so its reg/interrupts/power-domains/iommus
-are attached per channel instead of as index-matched flat lists on the
-controller.
+About the property: does ti,unclaimed-write-access sounds ok?
 
-Given that context, do you agree that a child node per channel is the
-right description here?
+Regards,
+Moteen
 
-Thanks,
-Peng
 
 >
->Can all of you come up with a proposal that doesn't involve hacking up
->DT just to unbundle the SIDs?
->
->Jason
->
+> Best regards,
+> Krzysztof
