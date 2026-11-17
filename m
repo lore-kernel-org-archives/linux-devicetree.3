@@ -1,57 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921717;
-	b=CfytQ/FkjH6oN3LAkhGsCbklq3OJ8XfS3Jy5nuSlc0FswxtOcBpdhVsiWONfPeB76om4
-	 vE028zuVfl1m3r2ajXkiXi12vEISI7kBlSuppR4yxUYLYP+FFy0ocugesbAhh1oYOY48d
-	 iT1vyeb6lEL8LG2iB1zwVgm2Lj5V3avIAabb3BgAq8wjl6u+kflIzsxG1+YZ/DYL2YujG
-	 IywPpinL+J5AsBbRxeODM4GmsSlylRuuKNbsLnT0b+Kd+CirL7c+rrQ+j60GoQ09swYaF
-	 uZ1v8Tz/HQatuVa0+rz1W0unxlv/dsSG4X19UnxVO4SSu9DXeS82YVVNiUMquME/wbg==
+	t=1794921869;
+	b=VG7rOcPpSdrTDlwbBQvMjf/X1JMw7HExC8JV33VwdUdnQcawOcJrFlgbgI25hf6+azJg
+	 lI1FwW/Z2qUQmaxH8jqGch2H1D84UtxNbarwfUwuz0rzG7LXNRwUkC2LXq8q0eN9AFLRJ
+	 Pfq1htiCO7feHQNFpalTX37/18CoKlWrOED1GSV1urQ9zdH6F1aVRhdGWcRsDdaR8fqih
+	 k3tbwiFMuY3SNpeDIN4DSMX8uDotVopiKF6+up4mhCxOW2KM6YrwsVsrqH3mCOHQ6stUw
+	 DJ+eL2cX+VjYLdxmx/hYSutrKcB73aJpkTVL4QskuqjDruhmVDjPhkZVkinJqSRMYMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921717;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=fBFjmkON8jYjHlOo/RYAnQzCaJbcqc1Y4SIpfBAajuQ=;
-	b=T5X4gY4lDFLzeExUN9Z2eEW+mMoHznYnvtIgE0IK/rCcxQnNrVM3eSSF76EJXQlWl+pw
-	 2TMmOo8Q03aNDk0Rs0pPNCrmVdImyS9vqLlKHss3bZzkn8TftZn6lgmt3Bjwv2dKIw6S1
-	 xtBTBBkq6l8s/yGw6DMyzhCeb58yNasflA3XPYMSSwVunj67+dzUVtx3eYC8C3p7lWB3c
-	 p2klP7i1XXPHa8QlzMr3miWi0pr19UrZ8mW0a92FRXB7f8gx3kuzayG1e88LjvUWf8a50
-	 zqGLpHM37d/8rVVytTqx4l7TdG57IBjYbH/s3Su8rDKU1+j2tvPE2Ex7F3JY8+2Plpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921869;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=8VzTZhhpuj7dCBfLSfLDkkRJWWhBg0bTERm45L+Zsa0=;
+	b=jD0XY+ymD91Exnr/Ea5Q5zUBnmRz8mbWLNfbqtbfoUsMSwgAMPEQSNSaFBfH7asxUtgx
+	 OBcypBrAyTQ3W/yDBITw0RUVWAcgFZgedNfwB1SOL6FXpc76kPxh5bLe9HCxzXAW7H//W
+	 OSI72DlzQClZxre36gRIeEU/T6iyXFd4uJif5eMF988ZOQEAZ3H5YU1sIYlGyYPFr2MqZ
+	 dSs5ZQ05WchNoupkNXQmePui7x0KfJvyZ202bujLyypWrFvPs19yJogdokCscB0qWUejV
+	 sl1DWrLYldKUB7SBJhtadtft1NtB0fCaUGGXZwjC59UcG4r/2cAZkO+hOSMKSH+H8bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R17dOf5I;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=0YPkGJbx;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECD0606A329;
-	Tue, 17 Nov 2026 13:21:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C83606A31C;
+	Tue, 17 Nov 2026 13:24:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33C83606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R17dOf5I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9131A1F000C8;
-	Tue, 17 Nov 2026 13:21:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794921716;
-	bh=fBFjmkON8jYjHlOo/RYAnQzCaJbcqc1Y4SIpfBAajuQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R17dOf5IshNIzwJc7rhJfpaswx7D1oe+99Fgky4k9l1XmVrDTwREKOp/8qQxloK6V
-	 +suqu+41hvL6R4qhKF2TYqebWNJ0yCPKo7dKhkFDZYBLAttArJGIE2BQOADA+Gy01h
-	 WDpLhSUOPYsb21JIWFV+Hep/0kjVQggZkXUtcSemBiaygkmPWPWUhfoosl8YflxBjI
-	 q/9fdXJiKDWyS1nsG5uXJt2SVthBYw70qQ875pqZD/Wq8DpLFZmTZveVZsX2G3FxBf
-	 dTzRjLVN6qJuPDgzg6+o7izGCzqdRK8aQVehWCg6tNakqHl6f7LehcDrn4qR/8wlnW
-	 OZYrfIlvcvBaQ==
-Message-ID: <sashiko-outbox-218867@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 1/6] dt-bindings: add SiRF AT550 and Yupiteru
- YPL514si descriptions
-Reply-To: sashiko-reviews@lists.linux.dev
-To: yy-Local-LLM <yogo.0917.sabu@gmail.com>, devicetree@vger.kernel.org
-Cc: linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261117-at550-rfc-v1-v1-1-5879573cb825@gmail.com>
-References: <20261117-at550-rfc-v1-v1-0-5879573cb825@gmail.com>
- <20261117-at550-rfc-v1-v1-1-5879573cb825@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 13:21:56 +0000
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=0YPkGJbx
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=8VzTZhhpuj7dCBfLSfLDkkRJWWhBg0bTERm45L+Zsa0=; b=0YPkGJbxP7pVYdOvqSdmkAfrGr
+	5vgCglO7ERT0ltXGaz4AzJzb2KZb8hOhnugvFjv5+4q957CzP1rYz2/y4hZ+pJz3KTgMhROEcTjzO
+	EeaSjMh31G1YcEh+jeriKWEJFyldTNSc0xisP908w+UfKoAcfPc0GIctN9RuuC5cE+V0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xTJAW-00H9pL-IK; Tue, 17 Nov 2026 14:24:16 +0100
+Date: Tue, 17 Nov 2026 14:24:16 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/8] dt-bindings: net: Add MDIO demultiplexer
+Message-ID: <bd19b55b-00b1-406d-a16b-d04c35efb7d3@lunn.ch>
+References: <20261116135442.4827-1-jszhang@kernel.org>
+ <20261116135442.4827-2-jszhang@kernel.org>
+ <16ecb3ac-7876-4db5-9168-5ac9bf31d4b7@lunn.ch>
+ <avvgy_bmRSVApCHA@xhacker>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,178 +75,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avvgy_bmRSVApCHA@xhacker>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] dt-bindings: sirf: non-human handle yy-Local-LLM in
-  Signed-off-by and maintainers
-- [Medium] dt-bindings: sirf: AT550 schemas encode driver and firmware
-  limits instead of hardware
---
+On Tue, Nov 17, 2026 at 01:06:19PM +0800, Jisheng Zhang wrote:
+> On Mon, Nov 16, 2026 at 04:06:25PM +0100, Andrew Lunn wrote:
+> > On Mon, Nov 16, 2026 at 09:54:35PM +0800, Jisheng Zhang wrote:
+> > > Assume we have the following implementation:
+> > >           ----------
+> > >           |mmio reg|
+> > > 	  ----------
+> > >              |
+> > >  --------    |      -------
+> > >  | MAC0 |--MDIO-----| PHY |
+> > >  -------- |     |   -------
+> > >           |     |
+> > >  -------- |     |   -------
+> > >  | MAC1 |--     ----| PHY |
+> > >  --------           -------
+> > > 
+> > > Both MAC0 and MAC1 have MDIO bus masters, and tie together to
+> > > a single set of clock and data lines, which go to some PHYs. While
+> > > there's a mmio reg to control which MAC mdio master can operate
+> > > the single mdio clock and data lines, so only one MAC can operate
+> > > the mdio clock and data lines.
+> > 
+> > How does this differ from pinmux?
+> > 
+> 
+> in my case, the two MAC MDIO bus masters share the same MDC and MDIO
+> pins.
 
-commit 2d786eae9bbdb4eb26a31d6594cf77ebf8a38f4c
-Author: yy-Local-LLM <yogo.0917.sabu@gmail.com>
+That does not answer my question. How is this different to pinmux?
 
-dt-bindings: add SiRF AT550 and Yupiteru YPL514si descriptions
+    Andrew
 
-This commit adds Devicetree binding schemas for the SiRF AT550 platform,
-touchscreen, interrupt controller, SDHCI controller, and system timer, along
-with the Yupiteru vendor prefix and a MAINTAINERS entry.
-
-> diff --git a/Documentation/devicetree/bindings/input/touchscreen/sirf,at5=
-50-ts.yaml b/Documentation/devicetree/bindings/input/touchscreen/sirf,at550=
--ts.yaml
-> new file mode 100644
-> index 0000000000000..0458db2419c3c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/touchscreen/sirf,at550-ts.y=
-aml
-> @@ -0,0 +1,36 @@
-[ ... ]
-> +allOf:
-> +  - $ref: touchscreen.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: sirf,at550-ts
-> +  reg:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-[ ... ]
-> diff --git a/Documentation/devicetree/bindings/interrupt-controller/sirf,=
-at550-intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/si=
-rf,at550-intc.yaml
-> new file mode 100644
-> index 0000000000000..ec68afa805e94
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/interrupt-controller/sirf,at550-i=
-ntc.yaml
-> @@ -0,0 +1,46 @@
-[ ... ]
-> +description:
-> +  The AT550 controller routes 64 level-sensitive interrupt sources to the
-> +  ARM1136 IRQ input. Each source has a fixed active level; the single in=
-terrupt
-> +  cell is the source number. Firmware FIQ routes are not exposed by this=
- driver.
-[ ... ]
-> diff --git a/Documentation/devicetree/bindings/mmc/sirf,at550-sdhci.yaml =
-b/Documentation/devicetree/bindings/mmc/sirf,at550-sdhci.yaml
-> new file mode 100644
-> index 0000000000000..7129aaeec2bb7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mmc/sirf,at550-sdhci.yaml
-> @@ -0,0 +1,51 @@
-[ ... ]
-> +description:
-> +  AT550 removable SD controller. Initial support uses programmed I/O and
-> +  firmware-configured clocks and pin multiplexing. DMA address translati=
-on
-> +  and 1.8 V operation are not described by this binding.
-> +
-> +allOf:
-> +  - $ref: mmc-controller.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: sirf,at550-sdhci
-> +  reg:
-> +    maxItems: 1
-> +  interrupts:
-> +    maxItems: 1
-> +  bus-width:
-> +    enum: [1, 4]
-> +  no-1-8-v: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - no-1-8-v
-> +
-> +unevaluatedProperties: false
-[ ... ]
-> diff --git a/Documentation/devicetree/bindings/timer/sirf,at550-timer.yam=
-l b/Documentation/devicetree/bindings/timer/sirf,at550-timer.yaml
-> new file mode 100644
-> index 0000000000000..d1465d438d10e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/timer/sirf,at550-timer.yaml
-> @@ -0,0 +1,47 @@
-[ ... ]
-> +description:
-> +  A free-running counter with six match channels. The Linux driver uses =
-the
-> +  low 32 counter bits and match channel zero. Firmware configures the di=
-vider
-> +  before boot and supplies the resulting counter clock. A running watchd=
-og
-> +  must be disabled by firmware before this block is handed to Linux.
-> +
-> +properties:
-> +  compatible:
-> +    const: sirf,at550-timer
-> +  reg:
-> +    maxItems: 1
-> +  interrupts:
-> +    maxItems: 1
-> +  clocks:
-> +    items:
-> +      - description: Counter clock after the firmware-configured divider
-
-[Severity: Medium]
-Should these schemas describe the AT550 hardware capabilities rather than
-the current Linux driver implementation and firmware handoff state?
-
-In sirf,at550-ts.yaml, omitting interrupts and clocks while setting
-unevaluatedProperties: false causes dtbs_check to reject Devicetrees that
-describe the touchscreen interrupt or peripheral clock, since
-touchscreen.yaml does not define those properties.
-
-In sirf,at550-sdhci.yaml, clocks is similarly omitted under
-unevaluatedProperties: false, and the optional board property no-1-8-v is
-made required on all nodes even when 3.3 V-only signaling is implied by the
-sirf,at550-sdhci compatible string.
-
-In sirf,at550-timer.yaml, the clock input is defined as the rate after the
-firmware-configured divider even though the divider register is internal to
-the timer MMIO block, and interrupts is limited to maxItems: 1 despite the
-hardware providing six match channels.  The descriptions in
-sirf,at550-intc.yaml, sirf,at550-sdhci.yaml, and sirf,at550-timer.yaml also
-document Linux driver details rather than the hardware blocks.
-
-[ ... ]
-
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index d738990161bd0..6c3702cd8915a 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25847,6 +25847,15 @@ F:	drivers/gpio/gpio-siox.c
->  F:	drivers/siox/*
->  F:	include/trace/events/siox.h
-> =20
-> +SIRF AT550 PLATFORM
-> +M:	yy-Local-LLM <yogo.0917.sabu@gmail.com>
-> +S:	Odd Fixes
-> +F:	Documentation/devicetree/bindings/arm/sirf,at550.yaml
-> +F:	Documentation/devicetree/bindings/input/touchscreen/sirf,at550-ts.yaml
-> +F:	Documentation/devicetree/bindings/interrupt-controller/sirf,at550-int=
-c.yaml
-> +F:	Documentation/devicetree/bindings/mmc/sirf,at550-sdhci.yaml
-> +F:	Documentation/devicetree/bindings/timer/sirf,at550-timer.yaml
-
-[Severity: High]
-The commit Author, Signed-off-by trailer, MAINTAINERS entry, and the
-maintainers list in all five new binding schemas use the handle yy-Local-LLM
-instead of a known real human full name, which is required by the
-Developer's Certificate of Origin in
-Documentation/process/submitting-patches.rst.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-at550-rfc-=
-v1-v1-0-5879573cb825@gmail.com?part=3D1
+---
+pw-bot: cr
