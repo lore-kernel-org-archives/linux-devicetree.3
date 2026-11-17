@@ -1,79 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794879860;
-	b=omOTQc95g8Bv/dx70Gv+3M3ME1pKAO0ah00n8dPamPftZSw2QyXKGOJfmo1yVEs8GA04
-	 XYVehGZViGoZY34xS6049Ej+HjptPwpw3rLbfdDU1BQEqlJyBTSCEb68r+Dp/zVjBZR3q
-	 C5QqJiwhSwXLDCE278A7C9lpQgiSI33Y64hYe6VQIjjDyLa5I2xAMcanFGj3MJGcHo+EY
-	 baVIcf+26UBaA6xOeSRCaScRjazdCDB4U781BodXs0snwtAHAIGurFpQRGJUD1rmMAnt1
-	 FUrkAabtvP9CQT7eKz2j5cg0IgSKCTIW5rvQqr9whkr8HBXz6d2PLpJI+yOAGODT+7Q==
+	t=1794879958;
+	b=4fCGxZIcTUhuQprxBBMO68MhMAPYxfMjXbtEN2nkXbAKx3JRlINUJ+Qt6xdWQH/897Vb
+	 dyX65POWdQ0R5xQ4yjYkl7t/MeR2zDsP4EQdBtWsf6HusxF6G1Z5NcIYnexGGBx6Gycw2
+	 BgvyeU1Te2YRFBLRj5LjkpfinncspXAngK3bMSM8mz4rr4ERwR3tIeQ/UGNsgsWcmpRZS
+	 5t6NQruld7NVrPkIqOwNdY3dJxAmqZP9I4/lbOB3WIH++V6Dl1KPj6JMKJh40gHcgD7aZ
+	 sl7sRfKn/AvYMreh5Cnrv+oWiOyhzl5FvNQ0D8uLfkrp+ylfOtTlNw8ImZzs2QP7H3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794879860;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=yVWHC5K23Yhcew1l+apNuZkuTR0KSgVD8dUt51rQE2A=;
-	b=EZoFFJvxbx6euF2mntGQ09coqwRqFRyEh3T9sSqHYeJ4xIGeBrqelOrkEYtEgy7HWLl1
-	 BAWYFbMsVSKT3OuCkWignNAoEbQiMwLeyPLkOH6svFdOU/ZVswQAmm6zjInJddrAcRtzh
-	 6CUFrGOrXda5cQOWpnp0AxAYmphuOoTDchK4KCfAwnZ3v8oGrNEK3lnCehR/4IdoNAUSz
-	 xly3usl19ehKZFOhPnvx9V0O8MVJ0U0Hoq2BQZh3mTPt7Ms3eVeQoAZ9KbL6gSyxYehOa
-	 NzZupWTAGM1D32ElMiYbdTcLHUOJ+dSfyv+smhW4W1RtThknfQNnZ50dnJYCMGRuorQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794879958;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Jgmj84OGuWW+rS3vTnBmafWYIlnVidPPAMd6/tP2go8=;
+	b=TsqGxg7lBG7S8odfFKq2QXW8Rh9WUDxSBAOV/LDMXHkF0+RjCZw+VjIRqnbzzx5AZezp
+	 CVNCZsv6W3Y8IlVZQH+PtM46PcGHMMdfVrUQK8xCJ50zceTl9/URrdlY0kGFC5W+UQksO
+	 91X+K65njq1tK9rbrRVBoEUaTRDwU7K7AXYAyO9mnqDu1roGfm4zf79Xzw04YrupkuqMA
+	 arGitUWM4Bt6k7VJIQ8k/HChHdPeBSkNdWr/Q8nK1NVhi7JUn5FT7SNoT9k+iMSBUUor9
+	 a1etXN1IfecTmLusdWPsRZRsq+HcVmjFoTPt0dvghnkUs/HEJFix8X2xqoayoKLlFMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=NNmrYTu8;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEKv0zUi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69CB606A31C;
-	Tue, 17 Nov 2026 01:44:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E69CB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC68606A31C;
+	Tue, 17 Nov 2026 01:45:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=NNmrYTu8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=yVWHC5K23Yhcew1l+apNuZkuTR0KSgVD8dUt51rQE2A=; b=NNmrYTu8x4z5+/iGn/sd0w4VTG
-	FxLD3aWGB51FyflhetWzT2mzXSzkq1eO0Dxz0+gyPuaBOddtkQKGZ6u5RC8DWF8bQtsJjklYBAHFO
-	87Wt1Ld968TSdq7Q8Emm2LmuvcRuod9MFpB34YH5JGnA+oFTCjufr0QSvBiLPIKij2GQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xT8Er-00H31c-44; Tue, 17 Nov 2026 02:44:01 +0100
-Date: Tue, 17 Nov 2026 02:44:01 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEKv0zUi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D431F000C4;
+	Tue, 17 Nov 2026 01:45:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794879957;
+	bh=Jgmj84OGuWW+rS3vTnBmafWYIlnVidPPAMd6/tP2go8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cEKv0zUiEz62OgStT73XUpIgvqZyK2C8xXYM8lC1p2MFTTanLqUcoKK3QAil//SOX
+	 AVGzWzKptAI8V13napmpoNY4Ja/3J9IAVNdooYuV1zyng6t/dg36LPWFTUTQJP7Zk1
+	 kGQIvXKtJu3mKJMF3u1n6fkPEGEuXnWzYyzfWPtLGCO+MclJcTNUTMOna/2A05u9ba
+	 qFr02jkWm3Y4Qql6uzKYfT+nVZ0HzujIKNwH/GZBvThI6SE3FvHycypQjLgxxZPr6v
+	 3hOyeQ39tNMqld8VlHGJttVOp9NsC+JjpUpEVHTdlhVBz7gFSQ4LAoI3VaBYRG5zXY
+	 ZTE3xKqtot6Bw==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Piergiorgio Beruto <piergiorgio.beruto@gmail.com>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	Jerry Ray <jerry.ray@microchip.com>,
-	Ciprian Regus <ciprian.regus@analog.com>
-Subject: Re: [PATCH net-next v11 10/14] net: ethernet: onsemi: s2500: Add
- driver support for S2500
-Message-ID: <b98d498e-0574-4a6d-913b-739896b0065a@lunn.ch>
-References: <20261113-s2500-mac-phy-support-v11-0-7a186141952c@onsemi.com>
- <20261113-s2500-mac-phy-support-v11-10-7a186141952c@onsemi.com>
- <CH0PR02MB7867CE1D45CBC874F8E5FE2E837C2@CH0PR02MB7867.namprd02.prod.outlook.com>
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/3] arm64: dts: qcom: glymur: Add ASUS Ascent QN10
+Date: Mon, 16 Nov 2026 19:45:51 -0600
+Message-ID: <179487994758.441666.3385681371701994530.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261115-qn10-v2-0-19b11603e776@oss.qualcomm.com>
+References: <20261115-qn10-v2-0-19b11603e776@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,29 +67,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CH0PR02MB7867CE1D45CBC874F8E5FE2E837C2@CH0PR02MB7867.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 10:34:22PM +0000, Selvamani Rajagopal wrote:
-> Andrew/Paolo,
-> 
-> I am asking this because I have a concern/question about the state of my submission.
-> 
-> I realized I messed up the title (empty subject line for the cover letter) of the recent submission. I am wondering if Sashiko review is affected due to this mess up.
-> My recent submission: https://patchwork.kernel.org/series/1210784/
-> 
-> Why I suspect is that I got couple of AI review emails from AI review two days ago. 
-> 1) As you could see, not everyone is copied. See immediately below this email.
 
-There are two different bots. The bot you got a reply from is the
-general kernel bot. It does odd things with email addresses, and it is
-not as good as the netdev specific bot, it has more false positives
-etc. Hence we generally ignore it.
+On Sun, 15 Nov 2026 21:48:58 -0600, Bjorn Andersson wrote:
+> Introduce the ASUS Ascent QN10 compact desktop computer.
 
-The netdev bot will reply to everybody. It is also deliberately
-slower, to stop developers throwing patches at it as fast as they can,
-without engaging human brain, and burning through other peoples
-tokens.
+Applied, thanks!
 
-	Andrew
+[1/3] dt-bindings: arm: qcom: Add ASUS Ascent QN10
+      commit: cf0982c35b320bec37afa5aa799563026b325a1b
+[2/3] arm64: dts: qcom: glymur: Add ASUS Ascent QN10
+      commit: dde0308a2f8867806a444df1fdd7e685b1c56d5b
+
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
