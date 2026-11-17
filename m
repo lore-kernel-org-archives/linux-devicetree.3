@@ -1,69 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925612;
-	b=zPwTej/2Zdu5HVwiXuoqap17gV3/zUqz4tp3vBenspaPfujYHQrmi1UkbK440Nr1UdJQ
-	 h+mWASVzfx3mC7nCLwOHT4vD+EKqynNkssghKFuCY7+psB8wBSjCzfB9Tdd7iCgsVLTSf
-	 bzBGczZNaC0JO/jeRQBuF9brDjFhrs7dsvhNhlXT57UXvoI7nQ0pDrtRPFeggCwwttLEh
-	 OSwCzyAWXBq7zNY1U8KhECKsfB5lCunOktEavSHQfirut4qSgeMvUgrTpY8qyt0WFjyiH
-	 mlun0DDPDGmjbaOQEMdZTGlKOtUThgKnk9H/vQc41/u1xBbq0eNkcfLReaAz6ly3j9Q==
+	t=1794925939;
+	b=jqVSH9wgY3ctxtG2CLc0jgc+kZ7igsO5BO+YOwmJSyUxn82Wn+1w0SH0FP+AJ2qFbxGu
+	 PpKBIazlH+kZCPNrUvXzhRTqxmp9i0Mb1t63QFyVWTieGD2qIUuiCtJKQIhoD82jNoqyo
+	 iRizcT3rTma1dmv7/NXgGMJ75W2YLKLG7VrInlJmUT2zCDtbCS/jsTyyGnbIhSeNi0SYy
+	 Krv6Orswhbdbuvk0PxF2WXCEESdtXWmqgBSDXm9mzNgUQlnibCtBlnDyKc4eyPE5SPZaU
+	 HYYtgcxswDSYXn9VdcOhplASZ+AlmwGmyYpj0WyOOkkotxBceKpjGWwpSHNHAxS3WSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925612;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:In-Reply-To:
-	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=USsCTf90gGZ5jNlFeq762EOZvRFTNKa9FJSOYvXnXuw=;
-	b=2adJJh2SY+tJ0yXtn2D4WqayKqGzFQSw1VkWfvTF8n99JkbgXm9NKp4Z+ex9OI78fZgY
-	 ocIOn6HVx8PljAPxvdMpcCfSOFrQe6UK9vAwmd+cUqpV9e5R9zCudm9yRvc3d5HmXnnZU
-	 LHVnNOiUFzmuM+wBqdSsk5DcnN00cBbcXT0gqNlw8SWS2I81Jd1oLDHyqwKBkreomNuaB
-	 IC9u2UN9OHwTX+wM2kiVJMq3wJPAhmyDR6aqcj+j0ycR9gHvE0Zoojuj0MbPNH1Hr0/7+
-	 xBP0GBwZ1tnNXJToeCVzu4KyiniG++nhB7t+HmLx4vploBwJSbj43PhVo7CSdgOlHBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925939;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=lAoigsXFf7M/yibkKbnUHhQT3j3jKMVmefA5lOY4trI=;
+	b=caKToWGf4m+vYQUPaaTM135S5VlBB0jomRDeDFglzMHPjMWDpcWAEg2N41i0f4lGjWLy
+	 xwt6gjVEt5KhphKzDtoS4GmlRpiAsNRC6zqfcl3gDdHGRdze8TpOsaDmRVH8ufXMlXPvB
+	 MhQLA9e/J0H5BUZ/zDpudWvPfyOWKAlp+N64/ekgXYBs+Xw+xdCDWyVQv4XBSNInB5DaB
+	 hP0bbhvE4CQ0L/VIifGsiZj2kCoEVVcOt2kiGqENf7Mo76forZwPHMJoAIdq6ty0yxA9g
+	 T2m6VKHt5mOiuHA9NB9AJZSflJ/65tHoqR8RmvxalvxID5alWTs0fy8C3bdPB0d00pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ZPRfs8t+;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ChPoefq+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9CE606A329;
-	Tue, 17 Nov 2026 14:26:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD9CE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA35606A323;
+	Tue, 17 Nov 2026 14:32:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ZPRfs8t+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794925610;
-	bh=v9cXNV8E9rY8sB+kcXdolX/QfafWx2QvoQUp5369hBQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=ZPRfs8t+igeS59j3GyhUonxkM+rLJkDbIm6NDCg2JSfy4mmmmmElkyxmXyxK12aKu
-	 pqFTo5jGtVZj4ki6YbfRKxrVpsMCSk7OWDcWV9wB1p6HvbB+ugsrJyC1zWubsbLGyz
-	 Z7LKup9AHVqEuUgwQxJhlOITqNPQVlA4eaOVCKFIIKnBAgW15ysu38EMk3Ad1WEy64
-	 5xY4n8XolVaK/OKVkmhNZcAzsruq24DVoYf/tpPFWF1banf9NdzZF/wakuVr/WMdPX
-	 WcE+QdoB0oEOvK/1+TR/TD7s5ZWTjMJEPU2f8C2mhVWA7bucdZ2LG2/N7pYGi0tJ/d
-	 GK2e1txNaqwjg==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B5B5117E0A27;
-	Tue, 17 Nov 2026 15:26:49 +0100 (CET)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- Houlong Wei <houlong.wei@mediatek.com>, 
- Roman Vivchar <rva333@protonmail.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-In-Reply-To: <20260907-6572-gce-v2-0-412a5b037290@protonmail.com>
-References: <20260907-6572-gce-v2-0-412a5b037290@protonmail.com>
-Subject: Re: [PATCH v2 0/3] MediaTek mt6572 GCE support
-Message-Id: <179492560991.199072.1968120807944596875.b4-ty@b4>
-Date: Tue, 17 Nov 2026 15:26:49 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ChPoefq+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB1201F000C5;
+	Tue, 17 Nov 2026 14:31:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794925938;
+	bh=lAoigsXFf7M/yibkKbnUHhQT3j3jKMVmefA5lOY4trI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ChPoefq+x4qiVkQnlZzPxjrq0rPP1Hxs1FwjrlqmQ3Ej1A/FGCSWV24MrnyE67NVd
+	 zwotUju+txYF7P1DN6AnR1H0DHc45dHybFSxRVdvqjLzkhdnPTJBtOqVRPrO6rraGW
+	 0tEvQ1T/Gx2IE1Mavk1J5lms8ilTXPMo67GJQdXP3TO5TJ52BFeE1nn3X+p2m/JV2/
+	 tTElOhxKRUVHA9bqnpJAqPW8eENF9/ceArsGyEhNVHT/Tv6Wp2McIEYaysc1RS9WaO
+	 mTStax5H0VXyOn98EZIGa/CX8+HSf1HMnT8Sb+QIGzQduBjLmF/oq+uYdNmGj0+Ymg
+	 x2YMlkgLq3Ujw==
+Message-ID: <2412a591-1612-4fd1-a806-7918a3df98af@kernel.org>
+Date: Tue, 17 Nov 2026 15:31:44 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,32 +51,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 20/22] arm64: dts: apple: t8103: Add USB4 ACIO and NHI
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
+ <YehezkelShB@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-20-1f80085f93fb@kernel.org>
+ <ef65915b-7a61-4f59-926c-375d654ce2d0@kernel.org>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <ef65915b-7a61-4f59-926c-375d654ce2d0@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
 
-On Mon, 07 Sep 2026 21:03:04 +0300, Roman Vivchar wrote:
-> This patch series adds support for the Global Command Engine found in
-> the mt6572 SoC.
+
+
+On 17.11.26 13:39, Krzysztof Kozlowski wrote:
+> On 06/09/2026 20:36, Sven Peter wrote:
+>> Add the ACIO host router, NHI, DART and M3 mailbox nodes for both Type-C
+>> ports on t8103 and connect the host routers to the Type-C connectors.
+>> Also describe the USB3 path from each host router to its DWC3 controller
+>> so the NHI driver can create the required device link.
+>>
+>> Signed-off-by: Sven Peter <sven@kernel.org>
+>> ---
+>>   arch/arm64/boot/dts/apple/t8103-jxxx.dtsi |  95 ++++++++++++++-
+>>   arch/arm64/boot/dts/apple/t8103.dtsi      | 184 ++++++++++++++++++++++++++++++
+>>   2 files changed, 277 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi b/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
+>> index 686fb1dd215d..01c942b0a75b 100644
+>> --- a/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
+>> +++ b/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
+>> @@ -17,6 +17,10 @@ aliases {
+>>   		wifi0 = &wifi0;
+>>   		atcphy0 = &atcphy0;
+>>   		atcphy1 = &atcphy1;
+>> +		usb4-0-acio = &usb4_0_acio;
+>> +		usb4-0-nhi = &usb4_0_nhi;
+>> +		usb4-1-acio = &usb4_1_acio;
+>> +		usb4-1-nhi = &usb4_1_nhi;
 > 
-> Notably, the patch 2 introduces legacy ISA format, which is used on
-> mt6572, 6582 and 6592 SoCs. mt6577 doesn't have the GCE at all and
-> mt6595 is much more close to 6795/8173.
-> Patch 3 adds mt6572 platform data and legacy_isa forwarding to the
-> instruction JIT.
+> Sorry, but what is this all atcphy and usb4-foo doing here? You do not
+> get own undocumented aliases.
 > 
-> [...]
+> How did this sneaked through... where do you have DT bindings maintainer
+> acks on this ABI?
 
-Applied to v7.4-next/soc, thanks!
+Huh, I just wasn't aware of any specific requirements for aliases and 
+thought they were just there for convenience.
 
-[1/3] dt-bindings: mailbox: mediatek,gce-mailbox: add mt6572
-      commit: 7cb447b0f02bfc4a7c7446c4ee5c7a4fae494ea6
-[2/3] soc: mediatek: cmdq-helper: add legacy GCE ISA support
-      commit: 381549f189b46daff657f20575d9c46dc0b8ec2e
-[3/3] mailbox: mtk-cmdq: add mt6572 support
-      commit: 51dba4c52a1f7c242e9ce73187ec69254171d77f
-
-Cheers,
-Angelo
+But sure, I can just drop them and identify the correct nodes to which 
+we have to copy tunables in our bootloader by just walking the fdt 
+instead, no need to change anything in the dt-bindings for that (either 
+in this series or the atcphy one)
 
 
+
+Sven
