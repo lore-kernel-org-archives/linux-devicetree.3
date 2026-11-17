@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918913;
-	b=crYBB2qp7GJISf4prQHQEQ0brtZM7XiF53j2g5twgXlTkABQuUC6nSYRZr37BuBeaFlQ
-	 SntEyD1pG8+CUxYk0tt9Lt4Qjk3Wb3lJ2KUWGwVSnolvHnwzXNBD0pVwMzzFWIXsvM28p
-	 bSi7GiDl6RrpgZjcAOWapwyleJGtHm1YZMNZ9xOZDPFIGqmlJ7ayiL8e9VL1kA6BsBjBI
-	 uCypELp+P++tdAtiaHISBY+MVAFXg1tZ7mxVGng1PbKSuxQdnTvzEFg10+SQb5MB6eLME
-	 AkV731/bJRXXkwmskh58waamYs8OuhZcx6fD4nLOj9/uMmgdiCTdRI3tlpm+q0hJwrg==
+	t=1794918932;
+	b=axQfShJXxQvab0BGwh3bOHY38/zJo6CB+RuMvT+ZGABSD+MGheJxAFUVPwUjcADwr7jW
+	 CY4Hyi686iAVQztSSt1gkVe3XXmVedZJmfx4yeJ/Br7c3jFHTlhGoWQNckDld5J0PapYX
+	 QJZpxhpgNxYnUVAWCU5pxpim8J2/5DE3XOISEh0JYGX0kwYOSbKYZ3AlZF/JHTRisSwej
+	 GlxEayU0OxA88fWPUaWXZs40oyGZ2cxsq1tdJw88Ux2jnsduOFjDYwjmAhSK5/TYO7Sjx
+	 Q/Z/2N5/XWjYs+m+YhxW9qHmDcJEYWoUXMnhV6p477IyH5dOJoRZmTZkKmnIW8HampQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918913;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918932;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=FTSv6ihte4nmTksdoeFy+3LI3u1ABgbMWkzngS5Y3BU=;
-	b=j/Spoa4GpOzF/zrt8ura5VewEgT/9byMZKsTQiGgjfIR/DAmMcztb5XVlYCeFfjCEhnr
-	 OnMh8Ujsy44oTzPsdy/MkEFNFgOz8vD1rIe/AzxJQz2UTc1OqoLypBnr3l1az3ijDdLos
-	 hpj4tny1wu6HqCDUwmi0lRWImZsCqkHJ0Eok5SDKcZaYl++7UwTVQ59ObYjwpwkuMR4uq
-	 B0LXPRrwjfgXPH6Z5sECpWKtqxyHoJqRPdXqmjY9bFtGNWUYdodrIfZUD4cQ6mtuQ0+0Y
-	 gA1XzcbjL31P6zcGhG2SdXabMYPsVa5k7i68ZkL+ZxfRq3wC3l+V5thI9rG0NHM6UyA==
+	bh=jsPV85ju58AThY22ybSoCSGFxhGFAMEskuRonfrShTo=;
+	b=PdxAsoZD05Lssd3LtPA4MFJ9m7AcSFntedVR/ha/ZNFW9eUb9PXm7Ul2hbOLeOL0M6rS
+	 21pog+Aynq31XjaS0o+VbuSoWXqIQXfk2CrIngoCPB+kIpkfP2AW26qR2LNHhuelTU+Zi
+	 cqUUHahs1ST/vkwDEkAhR+JO3oDExoiWiFjrXAplUwYA6zZ1iKvx0OPHa5wN/KP+aa9du
+	 5isA3DR61J6chyXsGHdvgHfSZsAE+MUUr/2VN6EqfsGWcelXL+WAjfGrrH5CByVK4k9P3
+	 ypZEVbGvlRG8qdZUeUlGWJoOqXoCN/iPDbEgQ6B/hi2c0b0xroIdlu5ggodYYzI4gvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQNZIf2I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdjQOUDZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F91B606A31C;
-	Tue, 17 Nov 2026 12:35:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF3A606A323;
+	Tue, 17 Nov 2026 12:35:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQNZIf2I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75AFD1F000C9;
-	Tue, 17 Nov 2026 12:35:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdjQOUDZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8838E1F000C9;
+	Tue, 17 Nov 2026 12:35:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794918912;
-	bh=FTSv6ihte4nmTksdoeFy+3LI3u1ABgbMWkzngS5Y3BU=;
+	s=k20260515; t=1794918932;
+	bh=jsPV85ju58AThY22ybSoCSGFxhGFAMEskuRonfrShTo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JQNZIf2IbBsGUpKxUwUAcUCUxQVjWtwoWj0mJ4JjI4DYkjwVhxDpvQVDbRQeRB27w
-	 nJMI4zwPQEAceaO16Bqy/qTL2txb1WD9G+4/rl7kkjo2HbApPCm5vh9gK+Rtnd3MlA
-	 NDfFO4fL8EW3lz6pxI6ZbVsKq7Hii95cnd5pgpMpdqjcMgkcPbWCSbk+x+5EtbvdUk
-	 GTQXqKs/byesNrEzbq6MIqinphBvDajiI8f5wIFBNQyqGPNd7PxXE+7q+HEsyri3VG
-	 MxGclWeovo4ZNDS4Sq59m8PTZV9ViR8QPt980suOySFAjBemp6liDub42ik0FgLX5Z
-	 h9zZVzxV2jh5w==
-Message-ID: <bbefcf0b-b31e-4f74-bf79-b0ccc983f62b@kernel.org>
-Date: Tue, 17 Nov 2026 13:35:06 +0100
+	b=PdjQOUDZapt/y7rIWPfEmMnzN8N6SfcGSvGK9lp4B9/OmUx6J4NmhYGMHB72ALxds
+	 MN2EJ41qJzL4LGt1TKyggXuWygy6Ni3v6auXE/bg0DwXBhv8EUlkYWAd6Ep0ozn3MF
+	 LOv8AAgdmUfrIM7wzO7pTTrayPwFrnI9ihxpJbS6Y59S4zlbbKg2H1+Lx9XW7/zQxx
+	 /cyq5BxWqjkovCFOGbLSNsVNsmWqgCg1HlzxkveLelRZmHBxN0oIXCH0Yk0xK82nvY
+	 BNX1dtL7pqRpAolE5UlC+ESQuiTIK8SSELtNhTBrpRENMVhZ8jQeNR2R6lFTgrbCtI
+	 LZW7H/hj+5H3w==
+Message-ID: <d4ddb010-1722-4a77-9b59-68b625473559@kernel.org>
+Date: Tue, 17 Nov 2026 13:35:26 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,23 +52,19 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] arm64: dts: mediatek: mt8167: Add DRM nodes
+Subject: Re: [PATCH v4 1/2] arm64: dts: mediatek: mt8167: Add DRM nodes
 To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
  linux-mediatek@lists.infradead.org
 Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
- Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260921113914.779393-1-l.scorcia@gmail.com>
- <20260921113914.779393-5-l.scorcia@gmail.com>
+ <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org
+References: <20260505214541.333657-1-l.scorcia@gmail.com>
+ <20260505214541.333657-2-l.scorcia@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -114,24 +110,24 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260921113914.779393-5-l.scorcia@gmail.com>
+In-Reply-To: <20260505214541.333657-2-l.scorcia@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/09/2026 13:38, Luca Leonardo Scorcia wrote:
-> Add all the DRM nodes required to get DSI and DPI to work on MT8167 SoC.
+On 05/05/2026 23:44, Luca Leonardo Scorcia wrote:
+> Add all the DRM nodes required to get DSI to work on MT8167 SoC.
 > 
 > Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 > Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > ---
->  arch/arm64/boot/dts/mediatek/mt8167.dtsi | 369 +++++++++++++++++++++++
->  1 file changed, 369 insertions(+)
+>  arch/arm64/boot/dts/mediatek/mt8167.dtsi | 317 +++++++++++++++++++++++
+>  1 file changed, 317 insertions(+)
 > 
 > diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-> index 27cf32d7ae35..a50bae4307c1 100644
+> index 27cf32d7ae35..32d3895baaa6 100644
 > --- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
 > +++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-> @@ -16,6 +16,22 @@
+> @@ -16,6 +16,20 @@
 >  / {
 >  	compatible = "mediatek,mt8167";
 >  
@@ -140,8 +136,6 @@ On 21/09/2026 13:38, Luca Leonardo Scorcia wrote:
 > +		ccorr0 = &ccorr;
 > +		color0 = &color;
 > +		dither0 = &dither;
-> +		dpi0 = &dpi0;
-> +		dpi1 = &dpi1;
 > +		dsi0 = &dsi;
 > +		gamma0 = &gamma;
 > +		ovl0 = &ovl0;
@@ -150,8 +144,8 @@ On 21/09/2026 13:38, Luca Leonardo Scorcia wrote:
 > +		rdma1 = &rdma1;
 > +		wdma0 = &wdma;
 
-Folks, what is happening here? Why Mediatek is adding bunch of
-undocumented aliases? This should have never been accepted to Mediatek SoC.
+NAK
+
 
 Best regards,
 Krzysztof
