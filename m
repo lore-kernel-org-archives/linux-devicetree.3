@@ -1,99 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.72.192.75
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794905362;
-	b=0iqRnmw/J9WFQ4Efwv80lU5EKYs9wnrD4KsSSl5xOkzM1t9CRdwByrLvd8CMKHUg6/LT
-	 ylbKy1XGfBb0NKeZBOr5cGk6pQNN7fZYcQNl4lJ3uSAs1Ks9oNr6PX5GJ2WGk4748XDBP
-	 fr8W9tislXGZYhBoDyRIyQJUP2kmImXj3uKximnyYcyaMAHpgDYI5UyH0r7x22aDZiodh
-	 c1xqoxSoVUIIl0NVzQEoLd5ru6AWHvUHPUYx29FrVzR9HJVjVUDc/vnFTYT6yPsQ96yON
-	 9qDmAlgoYE27a+hPGyNHNf9Bz4qg7YWjgtzJKoV0ZSyr1c571YvF7lL6d2k4r4PkwZQ==
+	t=1794905363;
+	b=qqm5kLyd5v+OyGNt8Cs8tQ08RbwmUtCOlUCNSxSUHvZVHjle498ftFj2v8tdO0DO13JX
+	 xk41r4MRpH8sKvbLCiYpvXD/SIFeNdwtUHPddn2G0dhLCC+dFIJJr1/T3Neng1l7gvwc1
+	 Vej3uZQUfZzt8tMSPl3asNWYenMOsZfvbdpTSTjH5JxVBXXw4L3usXsy5ltKFSBK1iqa6
+	 YC940NNfLSj/ghFuNu4zQTVx+CESUCeJEjepJjzzewzDiPHRF/rgiIDS2Xp/BxLOTLb4t
+	 Ncr6/81+4FcDtUJqN1lLKlI84O5P36t4YOhSz8zyXmesXMaoqguXlEdb1Wp8espDeOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794905362;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=dDphXepmTf/DSdA6L5iPJVxN4NKPCh9r42nuQhCZVoM=;
-	b=t/8aWJovlzh1XTYbazK7TqpROya+jAIayGRy8zqyc3/ntgpEQjHNRJaBS3FJftoVbBPU
-	 hgN21hpQgyIuDVfflz83T/amqbAm0j8uYKe4+y+7If4gHOwkMe13S9tm+wSueWZtYe4nk
-	 h2/AcraPAEpkzfSckD5kOabBZPm3TRY51xqm7a/U+rMb76o1+MZvn9czxw3keIGKULS7C
-	 1BAUFGA5/++o64PTSrngFGM8XwLw3B7b1zXzq2aETcjPPp/x64KIH9Y8obX4AERQHlAcJ
-	 6nhcg/7vC+vlFr12DO8YW3HSS8dvgCsOp5Qlx2ju4di+hHmlxSr++DPNPLGfLVlbY+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794905363;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=F624hBP8nCq0U3Z4JN9NgFEkbbGSYRe06F8mXyDOOmA=;
+	b=2ZrDrqNDG43GnNlwQf02WPOYyYmOXBscaBjkrkgWfinXzdOCvlzuRIl0huD8PdeR9Eqr
+	 bm5I6UxaLgMFvmMV+bp3fWWuQqEVhlbzib+w+QssKcBcdzRqWKLy9UeJ0NMhpXx5u3ZNr
+	 hlkSFkXyuTYt6qD4LDAq9zqB1zrJaQQkTutcVObZs7t+YaK+VG88nCrHF2RuWrmsapY10
+	 9DuPFERGtOxn3T1Q5kBYHvn2K9OX1cdIC0PBQ4QGL2koAg6l7hBGrd5HBYyBfaB96XwqR
+	 IYdwkmuMl1gOrjusvQle4CczlEULtoJRQGz8+QKD0TzeuPOU3k80ff02aYWytimGlAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jonasjelonek.de;
-	spf=pass smtp.mailfrom=jonasjelonek.de;
-	dkim=pass header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=hWPvmLjd;
-	arc=none smtp.remote-ip=217.72.192.75
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b="WFwo/TNP";
+	arc=none smtp.remote-ip=54.206.34.216
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17274606A896
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:49:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17274606A896
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5AA606A89E;
+	Tue, 17 Nov 2026 08:49:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C5AA606A89E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=hWPvmLjd
-DKIM2-Signature:  i=1; m=1; t=1794905349;
- mf=PGpvbmFzQGpvbmFzamVsb25lay5kZT4=;
- rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
- d=jonasjelonek.de;
- s=s1-ionos:rsa-sha256:ZV8dQgkA4dV12qQQqO1A3o4bV6B+
-   QqHuyCJiqsjcWiCSbaNodtscTWROd63vsDeivqFV54aSofqlz84P+QOdgXpvn4JuN6D55rJ8Ij0
-   TPMOxyj8xISHek0KaBcDu5GWor8O9cEEJ84sAPqi74xDP5evlQxbfb0MLz21QXtGc2GNF442PnV
-   YP32D4lNI28Fls0IjrTidtKbBpKFJfiAmjbUiM74hydFO43yUjpM7hAa8VsdVWBob2n5IMmD3pa
-   rFQsXK1o0XKV75W6CLzNWVkFix2c4uGVDCrfEjTGfahNYuT7lpN4MIePT17pP4eog96faKn50VL
-   T6frSANVQifjIA==;
-Message-Instance:  m=1;
- h=sha256:
-   6jSxRpdrKNFVuIJ1JFQ1jjEIC0YmNnOqBgkrA5Q5wEo=:
-   5S00Mf9YRv4dtSRWDlxv3uk7E45ViznI6QfTF+tEijk=,
-  sha512:
-   EkuheOQNW+OQ3I1aJQ8tRMsfu+y1ZJUgykHrq+dE6SV60J1vpMMAC+hZgLy1nWfYCC7DNGvYWkHfq5X8zI5soQ==:
-   KvRlFwS9eEU7srxHQ848tEa/sX1K6k+NT2fJBt0+NcJn9Joh4Av1HHpHC3TvJ2egsdpa0os18PxoaCbkagH2Ng==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
-	s=s1-ionos; t=1794905281; x=1795510081; i=jonas@jonasjelonek.de;
-	bh=dDphXepmTf/DSdA6L5iPJVxN4NKPCh9r42nuQhCZVoM=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=hWPvmLjd7hsKZd+j618UV+7+A+G8R9K4bQSyHSsFqDr/f6ApXd52M/69gvKeLktx
-	 c670jf3vGb6qNW16aMWdc8Wol9sd9cw/BKbs0RSH/D3CqErQ4/Zt1l8xVE6X2U0wS
-	 J22cuJbv2tTIltjmBs7PZQ+1Ehjl4Wsx/r5UZUSH8D4qN3WBnr+FG6Zwaugnrex7L
-	 R2CVEQ7Zbb//miw46JqpaxKoHNIwSm4k++f1eyxO973KJBcHKmtqsXlTEE5CACQNP
-	 7xUSEuP0/0URcePIF4/But8rFMWLor3I424CnUl0OQTZs2CohZfCb/crfuf/MdZKH
-	 uvUGeNiXkMSZe219+g==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
- [213.165.67.113]) with ESMTPSA (Nemesis) id 1N4yyQ-1wSmJg3WMe-013gdd; Tue, 17
- Nov 2026 09:48:01 +0100
-From: Jonas Jelonek <jonas@jonasjelonek.de>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Jonas Jelonek <jonas@jonasjelonek.de>
-Subject: [RFC PATCH net-next 1/2] dt-bindings: net: add Realtek XSGMII interface mode
-Date: Tue, 17 Nov 2026 08:47:47 +0000
-Message-ID: <20261117084748.2387647-2-jonas@jonasjelonek.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117084748.2387647-1-jonas@jonasjelonek.de>
-References: <20261117084748.2387647-1-jonas@jonasjelonek.de>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=WFwo/TNP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794905342;
+	bh=F624hBP8nCq0U3Z4JN9NgFEkbbGSYRe06F8mXyDOOmA=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=WFwo/TNP7ACGHAFJBzTwN2lH1zBMxdbPieDuiFfdCGFdS+c8Oo5BIEvsMBkSDwrBF
+	 qbZ78f9hntXu3LUCqOW/wVqQDA7kiE844H2WDii3/0N/x5NX3YIm2k4hAE1R2McGbE
+	 c+MQ7cJLpGpKE0yhwWAYot+BorqETAC5sitG6AWQ=
+X-QQ-mid: esmtpsz20t1794905341td0a1e098
+X-QQ-Originating-IP: yAhYonpOo9gZVad2TwrxHzgW2nNrsyrheoL/P/zPnE4=
+Received: from = ( [183.48.247.191])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 17 Nov 2026 16:48:58 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 15463618535279915353
+EX-QQ-RecipientCnt: 15
+From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Date: Tue, 17 Nov 2026 08:48:51 +0000
+Subject: [PATCH v2 1/2] dt-bindings: riscv: spacemit: Add K3 CoM260 TQ
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,94 +63,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:rBcdlKiuMzWqqMqMx3j3k1snq8RgXxY6R4WvEE8/UO5VKiSjYP1
- kS6Umd45dbsyGH+W3/UcgT0Hil1paPtJxYU/jlIi8d/PQHBxzcF5PCO7ymy7oiMBN5UoLwH
- 8D1XkIYZ7C/VXGmlU3dHlYtJlv+nxBYeOc7+EAz9ALRgJIK0JENs37LIWpF6xyypYizIvI4
- 8ohxmgdGuEbPp+NSz3daA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:k/KB5u+1Fqk=;LvhFHHapjoWbfsknFWLvmzbcCdh
- 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
- DFw==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-k3-tq-dts-based-on-com260-v2-1-68b337bd8938@linux.spacemit.com>
+References: <20261117-k3-tq-dts-based-on-com260-v2-0-68b337bd8938@linux.spacemit.com>
+In-Reply-To: <20261117-k3-tq-dts-based-on-com260-v2-0-68b337bd8938@linux.spacemit.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Guodong Xu <docular.xu@gmail.com>, Yangyu Chen <cyy@cyyself.name>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=844;
+ i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
+ bh=d9pfWYq2YU39bcVp1bR7pPQWrfGG7CsUOEEvhbFyPng=;
+ b=kA0DAAoWmAnvgPkzNC8ByyZiAGr8FPah+Bx/KYpAGlInCBI0BKUIerhWz/0OzqErVgCaqfw6q
+ Yh1BAAWCgAdFiEEi+AMtnBMWj1wEHFNmAnvgPkzNC8FAmr8FPYACgkQmAnvgPkzNC8lzgEAm7Or
+ BMwoPtvdsblYg21rmukUfyuP8L/85KThsmidLmkBAK0l62JVO9a0p1wFVz1q2shkjFN7KWrMnb4
+ J1buKGwII
+X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NCgx7n94Yw/yLOHR7Ri9EYtw1Z3238RZlGe1PPa8IY6iSlS4UwtrFjS2
+	QHauFgcOMB48CPs07uxJx9pa/Rwh2NvtG1rJ5StVCYXv87wtWQOXoutK2YsElsVKfBP8LMG
+	fpjPz9Gdc19j9v42vhtbO4N1pLjdsXZGMWNmwiKITTallVbCl+V1mdL8+oUmqL31dksfwZs
+	YWVBccCoNbU2xnQtZpAnUXPRRbpo0BuZ95wCv2Cqt0hy7upwfZbHKXHoLxoFi8Jg62rMrYs
+	A5be/azpWcx5Ajh6AGBanpmTtY0trd0FzV8mmPxkByDRzhdvu/glUyDmuuHs1rTzYzpdztF
+	VIob0Siz8NEYnjH+W5RrlwRvLoxoyF0YBsriJK0iPeqUNzTjKqRgqT80Qd8uvYkGdMB+4Yl
+	jOLwisNc6VW6KmseBoZhw6bYtHyIDaNgP2cpgjMNoz1YUzVQilZRVGwO23nCgM5dBxJdQoC
+	Ldj2VMLAzI1owoxDl3beB0aDbQTvG779JHS7OhVBtXtBeuAaMx2oxyGpwBEM153/Bz9Sy2u
+	bXbcDxQu7ZWBRrsrYXI2zFgfEh3626eMy4+qgnaUA4JFkVDpbd5L+y+81UWJFUamzoTamcL
+	c+L82PKcEz3oBmOun91ZZciqwqNYaOZBioGaM5BZDuABtH7y3/ZP1+IWZEMn3QEFmzED+UE
+	rwGbutxOR5n3LmDcvj6Fh6o7L5Nf7XAvidM8ObbxLLAHoGq4eTiFHwJRRrIPND/sPjUhvzb
+	CJkA42vo+A4kj1/Kvex1ALMrm8/0GS2M/Lorpu244SyFBCnsIhvxus7qVZH1TfUmZgSkP2w
+	uEaZRi5lSK7ehJNl/loInPF3wpoiB/wCNSNJ9era9lNkWksMO+Ud/vecoAqd1UraPKAQEmE
+	e2aLvK3r7/tIcEK1RuaFM6nlA/330jUAMmKBiBB51pLsVoZ8NGfrbkd3w5RlpNEon69RdFv
+	is2ZD5iHssng7tBb/alcJfTTdsx04XlKaOx0SIdlCHRkOPzT5tNMCcr76VoxoNgWIYtNz1g
+	ECl4SMJCqb1cVCp+1zBqfHCS24JgPjfFYqPWYhlCl7mdIEmdX1Gc9VvdoPDYzWyqyQluuJV
+	Qevf/NWzjlgnQmqbyMvAh5CYxU050dm3+rgLfoa7yRv6kvSsKdyIITf2438eFbFKTprMCMB
+	OXrge640UCqi2oQ=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-Add xsgmii to the supported MAC-PHY connection types. Realtek's
-proprietary XSGMII interface carries eight 10/100/1000 Mbps ports over a
-single 10.3125 Gbaud SerDes lane and is distinct from USXGMII and
-10G-QXGMII.
+The K3 CoM260 TQ board combines a CoM260 module with the TQ carrier
+board. Add its board compatible with the CoM260 module and K3 SoC
+fallbacks.
 
-Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
-=2D--
- Documentation/devicetree/bindings/net/ethernet-controller.yaml | 1 +
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+---
+ Documentation/devicetree/bindings/riscv/spacemit.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/net/ethernet-controller.yam=
-l b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
-index 30b2a335116e..e9406ddd0fc0 100644
-=2D-- a/Documentation/devicetree/bindings/net/ethernet-controller.yaml
-+++ b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
-@@ -45,6 +45,7 @@ properties:
-       - psgmii
-       - qsgmii
-       - qusgmii
-+      - xsgmii
-       - tbi
-       - rev-mii
-       - rmii
-=2D-=20
-2.53.0
+diff --git a/Documentation/devicetree/bindings/riscv/spacemit.yaml b/Documentation/devicetree/bindings/riscv/spacemit.yaml
+index 4ee9c88984b4..9d1e1ff189ad 100644
+--- a/Documentation/devicetree/bindings/riscv/spacemit.yaml
++++ b/Documentation/devicetree/bindings/riscv/spacemit.yaml
+@@ -40,6 +40,7 @@ properties:
+       - items:
+           - enum:
+               - spacemit,k3-com260-ifx
++              - spacemit,k3-com260-tq
+           - const: spacemit,k3-com260
+           - const: spacemit,k3
+ 
+
+-- 
+2.56.0
 
