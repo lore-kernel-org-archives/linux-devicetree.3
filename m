@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794896027;
-	b=HpBb5Yf/X0tXmTdkCxwfTYpUyGXhbIU8GtHBDQrjl0bpsT8kBzzbNxYTdUGX5gE42AJi
-	 Q7iVVQb603VP4ZMD4EJSVm342u0SpXGlcdWrkbG8XMxzEGLRBcpbgpfbuAhno4JER6cBB
-	 WOKX0RKP5kWaOvKtP/BAa2iNE59K/0/WVqH4/BoD9e195eZwlZoA8bctf4gz/rO+kWo1O
-	 Nsz8iHNKdIKJX7/D40J03ip5LuFYlq2pxiOxpIQ9PsAT79Ay1QH58HAt1EecXL8Jh0gE1
-	 jgwSCwivokbMA+5g9xGpYI4xmfWdlSoiR9kvtIHaL7LCQG1PuHGMlQ7QwNVmkMAUlUg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794896027;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+tJ+JiUTPECwV4i42nwLG4U/QvHFDPZCK+MpETnx2mo=;
-	b=KBlIWlAeCgiAREAFQlZaNZvEt2XKOkD+Zn5E+JVNHVEsVoZk+LeAS3wROaD0A0wzgcVm
-	 g2GjnYZPx58G83wFbGCFDt39uKyzBZXtPGDbw5kZd+r8THHnLY8MRT2UuGsfIH1GuJo7w
-	 T0DsE51fWburqvUrVG9wm1j6JiNNDdbS05F3TTZMwLeeERqr/HlV1vb9ReCxLKV63aBg/
-	 tBKf3PTr9ksDv9p5H0ipEn41c8zSi2JRVk2UfGiezCjI488SHxTMReomx7jKwEF08bnIo
-	 cM4sW2NXmSV8dbHbQsTHZRdrntHkQPkk/rPHnOGdNIdM3P95pHJ0BejmnhHZJ3J39OQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T306VmVK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794896101;
+	b=yUpPiUMPvCMmyb5EuKoBg92yovIG+lfTHIe8VXeozgTj1k5dcAkZDZtij3tdIppmpYQo
+	 DtXpg36aHAsLSH5u1+vMQkwxB26sueaeJiZ3vCGRj0dxH12DDrKGgnfJeNJQ1yxbrRv3K
+	 IkmgaDbRvFIDbYLG6u6KYMqjmglTQdHH6ql/iVE83L2pSkrgyqV1xt5b7jMBn8b/0xy+X
+	 4O35VvsWD52gpvztpBfXHGeCjdoqJWwSfKd4CO+owDDgaDiD+xtR1TjBSSBCnwgCXt87h
+	 oKvgCS96QLqtl+0uKN03oeHyGytuZHlbUbtvqbCe8g/RazxAYIAImVHJbAUz0NTXe4g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794896101;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2tlG1uGoZcjaYy1xmlXhRKnsoUqHxLQ1mQdDaLWoWxw=;
+	b=jirS3amHTEcN0W5m9siH0NL9MQFWN+Wft+EgmFQ9pNyKVRqgIY0Mn+cZ/iGE3abdFb6N
+	 PV/4/4vF93lH7/JqeJCksQkF0c0Cbz0VM6hbt3J7BFYDG2cYVeAvJ7JJSgmoiv1Q9HsEg
+	 UJI1/ldOQlJYY/vbFWjbrrMq1pxA/Q7Hprl4lBbk8wV6QpXbKQEXiJP9/boLcQpqWVAO6
+	 0vckbVlg+l5BWKciznFXXP879xBuwhTaQI8PW9uEZgLHkl51MhR1z/WIGPYxFYbCr45Ly
+	 MfMpBvc53FNUABLQL/Uq/flXq8pjH1O1cEyEO2NLlJhquyzwwY0klSC16eJi0TVHcHA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BG4FZG5e;
+	arc=fail smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68842606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 06:13:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73885606A329
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 06:15:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73885606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T306VmVK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BAFC1F000C4;
-	Tue, 17 Nov 2026 06:13:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794896026;
-	bh=+tJ+JiUTPECwV4i42nwLG4U/QvHFDPZCK+MpETnx2mo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T306VmVKZGNOEjVRSjVVwCtX3+YSRYaucYyWDaQy0D61/a32oAgagc+G7pYrcgrCB
-	 v3DkfoMiQfZjeUGkw2jLGMnh8mvtWihxiW3WkVfT9zJbKtYzUyJdBvzQuw1oLgUzHv
-	 AFWTQwntwkFT5YTqNwb/6W5LbM9ol8yn4ph+acO+86zhAhTePYHg+6yXK8V2Lo02CU
-	 WtCQTp4s1WuHyxgdG0H2zDQ9s9bsNrvHNMXYTzFHg6ydysJJ1yDDEvlAEqpeHBXPOm
-	 GJM2Oup7CZYwpSE0YNcYXm2aq9E39T4hcCsEF3OlAsx1LU6Y7NBRzhsof5VUXGh4ly
-	 iOEb3ffa3mP5g==
-Message-ID: <sashiko-outbox-218243@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: nvmem: add byte-mask property for
- non-contiguous byte selection
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hongmei Xu" <hongmei.xu@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261117-nvmem-byte-mask-for-split-macaddr-v3-1-c02177658f66@oss.qualcomm.com>
-References: <20261117-nvmem-byte-mask-for-split-macaddr-v3-0-c02177658f66@oss.qualcomm.com>
- <20261117-nvmem-byte-mask-for-split-macaddr-v3-1-c02177658f66@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 06:13:46 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BG4FZG5e
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-170135e43c7so6858331c88.0
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 22:15:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794896100; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XuRmtASEaJ7ehA7TIyaQYBarAqovnX+dxivX1u+EDQPoXXHOdm+aj2XdGMlnK61PHQ
+         IPEbI6V2gQoc5LARTqJCArfAOZAOE8aOI3u//OcFTlxXDsm+tOHT0Qtmt3QSBpaYdxXt
+         upJL8fL9FHQqaT9OEzLaPVoqk2vA296uInOZJnrx6nC8seY/8RePZiCO/KBhcJm06JOG
+         HN2OFRYyWIZFjOhpNmzb8GvRsPGBqOxl0KYClS4g/I2BFVm+Q9z93/eQ0qMn3kpuYMKU
+         gVEfgRSSpnqlTpqXQfcmAVv4teRgVKYGoWHhfm86Ou+rh+g+ePCEY/NhrWzoU1c6Ztnx
+         OoIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2tlG1uGoZcjaYy1xmlXhRKnsoUqHxLQ1mQdDaLWoWxw=;
+        fh=/cTXwoZc0q/6UDSOdYPVWXr0gxC/DfqC+k+2EkvXHH8=;
+        b=J5Tbtsv/K5a7dePbIco6USzkkvNxOrb2r7sPC/Xg5kJCPZLqU/4I9RJJYx7/Jo65H5
+         bDAYxcPDPXSBq9a1XgABH7AEEt9KxSBAvwLjsjNqRS67SLzyuftxyyAHXiriqwFgOdRx
+         x7EOQ7aRgZBxHBbtuq8TruYs0IsaXz3t1efcoSsNTqttsWvmgYd471sbbYs9fMytrlL+
+         LfEoFWpDPIPgJu56m7gOaaQUqnom5LR+5cdBQ55d2o/h73dieLkhrjhKOihyzmG9lf8Z
+         Z/JeguFU9eiFYIp2bGNRe1HgBFeZSmlnNRu1ywmAcACdyWY39SeAbJfImonbrY9tTYUC
+         5rlg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794896100; x=1795500900; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2tlG1uGoZcjaYy1xmlXhRKnsoUqHxLQ1mQdDaLWoWxw=;
+        b=BG4FZG5ebLAflhDHW2u0yN8dm3eyrZXUYTLHo5JldGheWYi1fIsH2FaizeVmFA9kLI
+         +RyhuNCMrzqWS7kJhDGPo4BxJFoKyvf2IYtNVsgl0LkC/dmaN8aKXN2eml8i0ij6E0qs
+         BvT6Jk6X4MklIDZaKrqCiwvBjo61puWWfw2hdNfM48pEQ/LxtMvvxqI7j9nGjYxHmsE8
+         UrnoDT3FJLhp7ZFdLeDNpw5eLbBmuR/zTY+xxKAAgxqoGkfGsb9IZgXJmtfSEGleFcRE
+         ifTsOtpXm4n6cQW6dWpaKzDipKLQwPpnl/vqAnbpR0nin39ANrSZbIj8udtOVpcwRmkk
+         KvSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794896100; x=1795500900;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2tlG1uGoZcjaYy1xmlXhRKnsoUqHxLQ1mQdDaLWoWxw=;
+        b=wAA00eHiHw6v0gMnS86KyT3m0WK6qHdgcYus2gwznaS2vOoe4mrdV3YWdVx0Bly+JK
+         Kq9/AMkP6yTripFZxDNysB9fqhuUHtZLRerVbJhBWnOzcwW6oIkoBjCtKz7zsFs8ao8x
+         u8uL1UwKpiuK1eIw3JG4lr0JahDeyBluFaEpRyAGtuft7h5GaDX3KhfABtpybKlpLlG8
+         yz7J/ks/HmCkLufW78HrTw4f03z7HcQutyU3fqX5I+c7VzAKsWB/d74+qzKFzTcYPKgt
+         YLEGgueYFn99Q45q0jMHbAy/eekNp89jXxkbzWDraQPVIf+jy3f+h4AsnqurMszpvq/q
+         AeWQ==
+X-Forwarded-Encrypted: i=1; AL+hErEowLFX9J2tjv/kYr2I/LWfOATnxbuiCBdqW21SdZsmIzGFzXgn6+fHMBUF1GA/bkMDlN01EWb9dYbn@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9H3AZeBmVygUCCFUhOf18hV2K+gEyit2ZF2NfNGf2oRNSc4PC
+	lP2yzuVQy1gRLcBujF9zDyN53g6hyDgGsTaZ0WFmUSXV4ccs5p0fMnoVDFGyHbIDCxLcWIbUpSo
+	R/BTSUt5LBl5XhbT2gZohirhGxz76CT8=
+X-Gm-Gg: AYBFou1J/75hAV2jeVHMT5v22O3kRjgrKOedg0/gNiarhG2iig+vRhFudbuUOjPxttH
+	TElMZ6Mv6qQmgncxqFT0f+j34B/CtXKZD+rLk5nU1wYhbSpv0d7xZncdOHPBTai2nMgUtrullKh
+	hjkL/DeDElp55cP0n6Ba/wewdbnQO+TJFLaKUj4RgPrRmHvtJfd8b5/GaxhwOeNe6SbnqeIdy6S
+	Rw30L46FgILBQnlPo2pujPZDFegKVGjdwl0s62QrMTbq4tbtLShQeAtpYbOudqUAE0ldWxfCjgs
+	yds5LMY3WcNUlOJ/In+oWYihMC1rxrFeTFTnPswrHQYt1Gpd7huDNf6EZqVbTfuXnR1p9sbOyU1
+	HlKCMuGkAa7ui+SAiVi02vjKe3sljQKyQoEuoKfE=
+X-Received: by 2002:a05:701a:cccc:20b0:1b5:32d7:7d73 with SMTP id
+ a92af1059eb24-1b532d780bbmr3902889c88.30.1794896100415; Mon, 16 Nov 2026
+ 22:15:00 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,69 +103,106 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261022-psci-fix-v3-0-9ce2133c5659@gmail.com>
+ <20261022-psci-fix-v3-1-9ce2133c5659@gmail.com> <CAPx+jO-rMeg8BvemcMUcC10enjt0dkqWvsK+uRwc75rWpLXhMg@mail.gmail.com>
+In-Reply-To: <CAPx+jO-rMeg8BvemcMUcC10enjt0dkqWvsK+uRwc75rWpLXhMg@mail.gmail.com>
+From: Reza Kurniawan <imkyufie@gmail.com>
+Date: Tue, 17 Nov 2026 13:14:49 +0700
+X-Gm-Features: AclHuK-92z3C_GXFHu7R-8mmf-2cWRgFAIJrCVXLvNtI2-ZT_Yern3kmnNXQGro
+Message-ID: <CAAq9HC4doEs2v=aW0-tR+ARD8a1OGes8xDi2BV=T7m40YFBmww@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] dt-bindings: arm: psci: Add skip-suspend-mode-switch
+ property
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Christian Loehle <christian.loehle@arm.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Val Packett <val@packett.cool>, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	Alejandro Tafalla <atafalla@dnyon.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] dt-bindings: nvmem: byte-mask redefines reg size and reads
-  beyond reg
---
+On Fri, Nov 13, 2026 at 8:10=E2=80=AFPM Ulf Hansson
+<ulf.hansson@oss.qualcomm.com> wrote:
+>
+> + Sudeep
+>
+> On Thu, Oct 22, 2026 at 11:41=E2=80=AFAM Reza Kurniawan <imkyufie@gmail.c=
+om> wrote:
+> >
+> > From: Alejandro Tafalla <atafalla@dnyon.com>
+> >
+> > On some SoCs (e.g. Qualcomm MSM8917 and MSM8937), PSCI_FEATURES reports
+> > that OS-initiated mode is supported, but every PSCI_SET_SUSPEND_MODE
+> > call is rejected with NOT_SUPPORTED.
+> >
+> > PSCI provides no call to read back the current suspend mode, so the OS
+> > cannot tell which mode the firmware is operating in or why the switch
+> > is rejected.
+> >
+> > Add an optional flag that tells the OS not to issue
+> > PSCI_SET_SUSPEND_MODE on such firmware.
+>
+> I think it would be nice to further clarify what's going on in the
+> PSCI FW. If I understand correctly, the only supported mode is the
+> PSCI OS-initiated mode, hence it's always running in this mode, right?
 
-commit c8ae5b67172a64e8cfa54543074f9aaa24c7c23a
-Author: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
+That is correct.
 
-dt-bindings: nvmem: add byte-mask property for non-contiguous byte selection
+>
+> This is clearly a violation of the PSCI spec - and I guess updating
+> the FW isn't possible at this late state, or is it?
 
-This commit adds the byte-mask property to the fixed-cell NVMEM binding
-to allow selecting non-contiguous physical bytes within a 32-byte window.
+Just as Val stated, it's not possible sadly.
 
-> diff --git a/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.y=
-aml b/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-> index 38e3ad50ff4fb..46e1101ee98ae 100644
-> --- a/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-> +++ b/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-> @@ -34,6 +34,20 @@ properties:
->          description:
->            Size in bit within the address range specified by reg.
-> =20
-> +  byte-mask:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 1
-> +    description: >
-> +      Bitmask selecting which physical bytes within the NVMEM device reg=
-ion
-> +      contribute to this cell's output. Bit N set means physical byte N
-> +      relative to the cell's base offset is included; selected bytes are
-> +      packed into the output buffer in ascending byte order. Byte positi=
-ons
-> +      are relative to the cell's base offset and limited to a 32-byte wi=
-ndow.
-> +      The highest set bit must not reference a byte beyond the device si=
-ze.
-> +      The number of set bits must not exceed the cell's logical size giv=
-en by
-> +      reg. Cannot be used together with bits. Cells using byte-mask are
-> +      read-only; write operations are not supported.
+>
+> >
+> > Signed-off-by: Alejandro Tafalla <atafalla@dnyon.com>
+> > [Reza Kurniawan: split out the patch, rewrote the property description,
+> >  renamed the property]
+> > Co-developed-by: Reza Kurniawan <imkyufie@gmail.com>
+> > Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
+> > ---
+> >  Documentation/devicetree/bindings/arm/psci.yaml | 13 +++++++++++++
+> >  1 file changed, 13 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/arm/psci.yaml b/Document=
+ation/devicetree/bindings/arm/psci.yaml
+> > index 0d04389c81..2eee38d155 100644
+> > --- a/Documentation/devicetree/bindings/arm/psci.yaml
+> > +++ b/Documentation/devicetree/bindings/arm/psci.yaml
+> > @@ -98,6 +98,19 @@ properties:
+> >        [1] Kernel documentation - ARM idle states bindings
+> >          Documentation/devicetree/bindings/cpu/idle-states.yaml
+> >
+> > +  skip-suspend-mode-switch:
+>
+> Maybe a more descriptive name can be found?
+>
+> osi-mode-only or broken-suspend-mode-osi-only?
 
-[Severity: Medium]
-Does byte-mask redefine the size cell of reg as the logical output size
-instead of the physical address range spanned by the cell in the NVMEM
-device?
+I initially settled with a similar name before (with 'osi-only'
+phrasing). I ultimately went with 'skip-suspend-mode-switch' because
+the root cause was only due to the mode switch not functioning
+properly. This property doesn't do anything regarding the mode the
+firmware is stuck at as it's only fixing the failed call. Normally,
+the driver sets the PSCI to the preferred mode at driver probe (OSI if
+supported, PC otherwise). This property simply skips that part and
+assumes the FW is already in the preferred mode. It could
+theoretically work for firmware stuck at either OSI or PC mode, as long
+as the platform shows the same symptom, It is mode-agnostic essentially.
+That being said, I'm not completely against the 'osi-only' phrasing.
 
-In fixed-cell.yaml (such as the bits property right above) and nvmem.yaml,
-reg =3D <offset size> specifies the physical address range in the parent
-NVMEM device, and sub-range selection operates within that reg range.  For
-any non-contiguous selection of K bytes, the highest set bit H in
-byte-mask is at least K, spanning at least K + 1 physical bytes.
+What do you think of the above rationale? I'm open to suggestions.
 
-If a DT author sets reg =3D <offset K> to match the logical size, byte-mask
-reads physical bytes beyond the declared [offset, offset + K) reg range,
-hiding physical address overlaps between sibling cells from DT tooling and
-reviewers.  Conversely, if reg =3D <offset M> covers the full physical span
-(M >=3D K + 1), the number of set bits is smaller than reg, which leaves the
-remaining M - K trailing bytes unspecified in the binding and causes
-consumers expecting a K-byte cell (such as nvmem_get_mac_address() or
-nvmem_cell_read_u32()) to fail on the larger cell size.
+I admit that the word "skip" here isn't really helpful since it counts
+as an implementation detail. "broken" should better describe that it's
+a quirk.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-nvmem-byte=
--mask-for-split-macaddr-v3-0-c02177658f66@oss.qualcomm.com?part=3D1
+Best regards,
+Reza
