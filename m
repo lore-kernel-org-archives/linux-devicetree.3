@@ -1,90 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794903868;
-	b=VOVm8gXHlvkvlKLFidPX0pesvWl7EHtIw5YOiToUAJbruqgT+vX7pCEGNqJo3Fhgz8wb
-	 z42g9ayZAZwheux4GTivWkVAtmWQEjSbC5SGf28zzcY4VTRJG+YdCPlOlQFQbcasAMj4s
-	 Yjt3JNuh3jzFM5VT4RNOEsTf+oFXYVi3gYpcE/S8+5aDsNj+D0/O5k1cLzgu1yifIeBOY
-	 5jT/Sr7ap8HFgl9I4JFMnEDRbItejxCuGS6MYOgu4iCZIoGIOFmkJvzP5s85gp32Ga6a4
-	 5spQO9CprA57HqvQnv3IP4t5iGlTHo9YkzrmADiTuBYeVPviWhXVfsFvDL3yypMBzzg==
+	t=1794903943;
+	b=AbetzXgp9saUvR5epSwL+867dxBqbAR2u4tg2aNVT9wT/NGQjt3hqxQS+hBqcbuD7p2E
+	 Y0crkbROLFYBOvftcnRdqocY8iGdwTiTgYAPOhF4+DAgYDLKeF0Ob83NHoK3MYzDizjXZ
+	 rd5iO1wQjWm4dADZYt5H6FhmFuERX7Gi+2PBO2auoVxY9HVgDROU27FSXVqrRssA7xUOG
+	 ouMsGT//lAgDOSGeNRT0bMrR3CUve3G46V7jx+GhHwahOur3LJdrxt4CLICb6HPJ3T+C4
+	 iD1eReCGn+Oru4ZHQOlehs+0my8rxG9DDrVZXI+we/6StzUbo7Ayl3ha3rStiK0IsFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794903868;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=qnzy4BU7CFfQoiDwnU+oR7x0cJx2X4FyBHG/I6YKRMg=;
-	b=PPlEyuDW2n2FlnzSvOUngQyNuvvrMTnXv02rh4I4BVok/W+vbxSVs4bpwkmreRkBfoAz
-	 /rdUsT7S9jo+8RuhB8boY0efwCQXgwkMT0G/ldiEDzZBJe8G4vEWZnr4B0XFTJDbPG8PQ
-	 t28+82mDHHhggcbz66z792wc1X39LAmTxCtqaFoIKvwxiZ6IYDKK8GgoYAxPtMPr7YLP8
-	 yMtR6IyH1/UtEAod6rHr9aKdIk26HUQIKWkPti5Of2okP9O4KZor31EPNqw/3a2u+xrsi
-	 s/3eTiWLp7Gc7yiIeRalxG98XJeolwDWtz4YYjc41Nm2Mp11B5+MwfeZ4UshfaY5loQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794903943;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+hujyyJhAtV9+j0TPvcHHV2OIVquZfJfleCKzkG+n+Y=;
+	b=ufM7L9ychmJhvbJ3ZrzUQnjuc9rzb7ML4h6X74TZNu8CJh0qTgrp42tEL2K1DNDOlbwB
+	 YXi9sBUDbnKwE7Cw0o7BGs+Qpq2E9yGuQywkOmTkyiI2Gr3OITu7eeStGK+03BJOj/5KY
+	 A8ZVw6ih1ryT5N9q7FA21A3J6D30+6uZsA5fMvA2GWI0exIV18AYmttH42+I5xEFTnShe
+	 Zhlke9XBPLoTEM+RG8MIBdQLjBIHNtyztA+6cltLSlgsplQp878yRXXpexqZOc/stpeg9
+	 e2qrH3uzY1Uwrbflr7Q/y3EJq8WQtUsEkd2EMTZ2ROhPm40oGBeLpO4TE05QjhpMBTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=OOSmJG84;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ph5A7mc/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D108C606A32C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:24:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D108C606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3543606A880;
+	Tue, 17 Nov 2026 08:25:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=OOSmJG84
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c445c95d553so632664366b.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 00:24:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1794903866; x=1795508666; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qnzy4BU7CFfQoiDwnU+oR7x0cJx2X4FyBHG/I6YKRMg=;
-        b=OOSmJG84RijGLublSYWVTMpImlN/WVaYVWH8oU+ddcnl85mJ/nXFQyXqkaCNhDH+47
-         KhPkhKvIgNqhs/kM6bF4Bjnb8RAXPDNiq+6SRu1e4EJd5VM2sQCBSKFGSnfCqWk9sOeV
-         MIVJpk5h3nFj9f/1YrTEHJMEXcWrwO99d/pZ5BtX58KFjfbONFw225vcTxt9ec8AUS/y
-         2axT99gaXokVpb6sSCIlV0RXDZWOkSp2aDJuhAZhA3KYRVANLXZ0bHRnUjRTl+KsPlKC
-         aKx7YZKcZ3YEuWgllL/cLAeG8Fp9dk+/dWZQ1/7ZMIicNIKl+4smwKMlxNp6B8uf2lWw
-         hoig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794903866; x=1795508666;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qnzy4BU7CFfQoiDwnU+oR7x0cJx2X4FyBHG/I6YKRMg=;
-        b=S6Skiu5XpYIQVJC21fkrvRSmszID7zKva9QowmAXuA8ABv7VHPWNHCT+k/GUURfkw2
-         xkbhWAp7Gb7zhR3Xnje2TOmFNj7gNGvO8QCpAAWIUX5vh5XWerBPJhxC03XRoirnpEVF
-         EzROUJrRHdTe9/bWsf927EN3IZ0VRz5aggo9ZmSyxC+WwryeIMpEZO6zMdtm22fhyYSL
-         AXkD9rEaQDdmMUiWB4dpxuoMxskjgIfhJ1wDoEmiCytwgj9Xqows0NiZRHLbbTTCd6qo
-         NdbNLF4bGs+gLB296iPnjnuyxmxrAOLVwkfdTpoMoUUIYG8yyAX+I7NivFLhRJruKm1E
-         Az+A==
-X-Forwarded-Encrypted: i=1; AL+hErHGpdtysNTqJQR98qEBsPT7sjpiZGwi7WnOoYo9lZYjB5MVk+DrlHCxYY0+qVLUFqteFI2dwG2eDgx6@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Nm1jb0T/ghQmhmeCF/0hXs0FYHVdPzmqeEUi4JefbrPXIZGg7
-	A5eSh1YvBQULVIYwaNiz8Z9qfX4g+o0KCwHbSCp7N8zrNtEYJpB1jN1ANpxPOjRKT7E=
-X-Gm-Gg: AYBFou0UnDqtvj+N+PCEhM/pYwC7XJQj6raZS+qvNK62EV51YFW7OK4oJeWohmdLy7o
-	1iQYKeiIvEoUrMzMAUmvXQNh6pK9Ar0pgWt1++ABiSpan19Z/wqdzyjSqFVKt7rOIJ7S/VONDQY
-	bMN761a76PGm+LNSwpdTaXuMC/SCHB/O0ltzFbwcLh5jGBAIgYWza815TCoQV5CBwTQbxnhgPu/
-	y6DEfoqn061dzNFCJbP5R+NEaQzc4wnKqCP/8nYwx5oOMfVrjx1fsiFUpj0iHc6Vdu6KxeBwkFr
-	dOuv/IkP9zoMZQBkN/SAjp3KYlheVpn8t1kD+9PVSENUG/o4DJ7MMd04uQPSg73Qn4atu+5ManA
-	OyqxEr7XMsEQ8Csn1DOkdylEub/hSgv3WEj9t5Yg0DWNk+3UVBaP+h74vEWNtl3BXFO6eAoCaNn
-	oz4XjRKYiEQq6PEbOZm6CcKEAJKNqEeLfI8yXfujntfVUReaUgHxm/eR4wAdLYh/HnfV6bIL2xZ
-	M+Y5uvxBbwz6hNec/lm+/cijFuxGbi3V1eFUx1TLKPxz1bjz+WEgzH58rhp45qghhqyBcGO/W+N
-	9oUJ3yXMoFd+4q86Px1YNW5o1pZrSL6CwskGN77Bqy1bHIwhvM1zvRu6dmOM6oJFhDLab1PPp0c
-	9R+Rpul3ZZHlQVx8tFdkp7uXodMkrKViyHWOUM7AbACrxU4n4
-X-Received: by 2002:a05:6402:210d:b0:6b7:9ced:824 with SMTP id 4fb4d7f45d1cf-6b7c0c6f70amr9699533a12.26.1794903866141;
-        Tue, 17 Nov 2026 00:24:26 -0800 (PST)
-Received: from [192.168.101.179] (2001-1c04-0504-7401-4b2e-1820-6d24-b264.cable.dynamic.v6.ziggo.nl. [2001:1c04:504:7401:4b2e:1820:6d24:b264])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23611casm5616953a12.9.2026.11.17.00.24.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 00:24:25 -0800 (PST)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Tue, 17 Nov 2026 09:23:12 +0100
-Subject: [PATCH v4 2/5] dt-bindings: thermal: generic-adc: Document
- #io-channel-cells
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ph5A7mc/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5E651F000C5;
+	Tue, 17 Nov 2026 08:25:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794903942;
+	bh=+hujyyJhAtV9+j0TPvcHHV2OIVquZfJfleCKzkG+n+Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ph5A7mc/DTICXLffxM//Teh42HusVR1+ZEw2K90Oe2JJ35j0et/QAQtx13zhz5FXR
+	 jPn1TDkoxtDQat2UPHH1gn+PPTHKJAHcf04I/1TEYl68JGR3s5yoobb6KIsFknIotA
+	 YOKjf+wA8CGQlFWMcGp5biKG1WUBFsTpnP5v4vUUhhPJrwJ4n0TEaeGdLMYMMw88tP
+	 BSy2ccJivwOBwyZgEdF3nkH70HpiU/JCVtlQkwMt7wNdYIyQsBAmBw1hAC9cx5IFL8
+	 KhFsu+574EiUUQyiro0r+xrcgKopOYBdfMq+JZWJDBH511MRixEF9aGjmB+liMljx3
+	 8f6kJdO/+VsvQ==
+Message-ID: <eaabb4ff-c748-4123-93b8-f49684600c71@kernel.org>
+Date: Tue, 17 Nov 2026 09:25:36 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,73 +51,118 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-bat-temp-adc-v4-2-14d5d309ebfa@fairphone.com>
-References: <20261117-bat-temp-adc-v4-0-14d5d309ebfa@fairphone.com>
-In-Reply-To: <20261117-bat-temp-adc-v4-0-14d5d309ebfa@fairphone.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- Jens Reidel <adrian@mainlining.org>, 
- Casey Connolly <casey.connolly@linaro.org>, Val Packett <val@packett.cool>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794903862; l=1375;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=I/NJZJX7ehckBNBNEstT8hdZRvbJ5dgDjnQjjzYNTLs=;
- b=Va/ZiG9pLV9kgIqnenCHkblc6VfgP1Axc4rzf1uTf/VYu24H6meIDJzjF7cPq8pDHyZN9T6da
- Mb3xtpa7EcBDjzIwW6JQazspouxo37NOrWeZduY4MV8OdBzf5BelcoA
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] arm64: dts: rockchip: Add IEP2 deinterlacer to
+ RK3588
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Arun Iyengar <aiyengar1990@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Alex Bee <knaerzche@gmail.com>
+References: <20261115-iep2-v2-0-3d8798cd9a55@gmail.com>
+ <20261115-iep2-v2-3-3d8798cd9a55@gmail.com>
+ <20261116-luminous-heavenly-guan-b20f2e@quoll>
+ <yRxnTArhQFiS4u_tncJj-g@sntech.de>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <yRxnTArhQFiS4u_tncJj-g@sntech.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Document the property to allow using this sensor with io-channels.
+On 16/11/2026 19:32, Heiko Stübner wrote:
+> Am Montag, 16. November 2026, 13:35:28 Mitteleuropäische Normalzeit schrieb Krzysztof Kozlowski:
+>> On Sun, Nov 15, 2026 at 08:47:44AM +0000, Arun Iyengar wrote:
+>>> Add the IEP2 deinterlacer and its IOMMU to the RK3588 base dtsi. Both
+>>> share GIC SPI 117 and sit in the VDPU power domain.
+>>>
+>>> Addresses, clocks, resets and the interrupt are taken from the Rockchip
+>>> BSP rk3588s.dtsi (develop-6.1).
+>>>
+>>> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+>>> ---
+>>>  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 22 ++++++++++++++++++++++
+>>>  1 file changed, 22 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+>>> index aa69fd3793fd..5297519bd251 100644
+>>> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+>>> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+>>> @@ -1397,6 +1397,28 @@ vepu121_3_mmu: iommu@fdbac800 {
+>>>  		#iommu-cells = <0>;
+>>>  	};
+>>>  
+>>> +	iep: deinterlace@fdbb0000 {
+>>
+>> Why all these are outside soc node? That's more of a question to
+>> existing code...
+> 
+> Many years back, during the RK3288 addition I got the comment from the
+> arm-soc maintainer to drop the soc node [0]:
+> 
+> "[...] this isn't how we tend to do it any more (unless all devices
+> are physically on a bus, but then it should probably be named something else
+> than 'soc')."
+> 
+> So since then we didn't have soc nodes. Except in time for the RK3576, the
+> tune has changed, so socs from then on have a soc node again ;-) .
+> 
 
-This means that the output of generic-adc-thermal can be used as an
-input into a different node.
+I think the comment was misplaced and misunderstood. Indeed non-MMIO
+nodes were not supposed to be in soc. But the MMIO node are under
+MMIO-bus, which usually we call soc.
 
-As a specific example, generic-adc-thermal takes in an ADC io-channel in
-Volt, outputs temperature in degC, which can then be consumed by a fuel
-gauge driver to provide the battery temperature readings to user space.
+It's documented also writing-bindings, since 2019, though :)
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
- Documentation/devicetree/bindings/thermal/generic-adc-thermal.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+Well, not a blocker for this patch and I leave it to you what to do with
+existing and new DTSI.
 
-diff --git a/Documentation/devicetree/bindings/thermal/generic-adc-thermal.yaml b/Documentation/devicetree/bindings/thermal/generic-adc-thermal.yaml
-index 12e6418dc24d..317fc39ed46a 100644
---- a/Documentation/devicetree/bindings/thermal/generic-adc-thermal.yaml
-+++ b/Documentation/devicetree/bindings/thermal/generic-adc-thermal.yaml
-@@ -24,6 +24,9 @@ properties:
-   '#thermal-sensor-cells':
-     const: 0
- 
-+  "#io-channel-cells":
-+    const: 0
-+
-   io-channels:
-     maxItems: 1
- 
-@@ -58,6 +61,7 @@ examples:
-     thermal-sensor {
-         compatible = "generic-adc-thermal";
-         #thermal-sensor-cells = <0>;
-+        #io-channel-cells = <0>;
-         io-channels = <&ads1015 1>;
-         io-channel-names = "sensor-channel";
-         temperature-lookup-table = <
-
--- 
-2.56.1
-
+Best regards,
+Krzysztof
