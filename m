@@ -1,67 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913424;
-	b=MDlI9n8UrMFEm/YwAJ7WSTUIJC7dyiKVmStJZ43wW1KvMk62o3bUVSlQGaBPNObLQDrc
-	 l5FMMchBA2e5MtePx9YcOM27rIug/CMvC4mS5YU5SihRLgk3wWYKLI2bWFbvMk1FTjZxJ
-	 o228GLNv8bRo0zNUEApdcWhTa29ck+znYGn6OYoUyynEsI4MIJIDJkPg+s+CdZgZ77VQl
-	 Qr53/2BCg6SaoJa/yYDx9oWzN7stsZsNdf44MAvxfa6leX1u9woLEJwwvKsp1XFmkB79h
-	 YMezDg54JjgjIjqWjGjYNnWzzdGeuo3ltJ1J4z4wnR9pPUGk/oCuss9pN6cNfcvpQfQ==
+	t=1794913510;
+	b=f1dgJ69S9jRMYsnNI9r6NkZbdZ/nz/FgmJw1VkGTwbmtpyol5bEjvhDmD5i/L+gwQR6x
+	 WQ0/qVYr9/fj0HzUIv1xx+CjL9fgcoDPtlXJoY1DPgqKmVxjAud6tadN2naYH2KKzXd/6
+	 BeG2dMTpPeG42qrmMY6ksq0itqkpa0gWRv3Y1f+aJ9MDfDsBCjkzW9YC9WCRATKBF4dCv
+	 8d33ngZk9vO7MxqQ18CR+PXOAa8sks0PS3ncAIWeXCaMlDhTkNL/8nxDC0nNsdss+IlqG
+	 oj9osPzfvvEWyIELld/8R+2c62Gty2Tv5CC3s27vCwvzMWUUI3b5XbaNfXTnVMsL/4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913424;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913510;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:In-Reply-To:
 	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer;
-	bh=px2yzMZb+00ZKFAUheOTtZTROwrHpwZ9llnWmqj6+d8=;
-	b=mhzXHLXCeCHC2YGiNbXW1qV9uyoMfThcY5Okz7D00/y8jUpa6Xmd2WQAsBRCXI1eGZIu
-	 Mi/7J9htFjqrXT+xk9YkmUFqrJllHteh6mNNMkORkncVSomqFdwz6YrZiXsPVTtxyOghD
-	 +eeGsgRmE7pq4cfm4dlEpDlaFgfmNNsalaRbWyOVYgfKYn0NBZLPyr2Obuue3Rhn1RGoZ
-	 c3LO66HDkfaou2QZIYyBzL65OcSfV9S1dSuPR/uVcyHw/W4/EoTmIga8tfn0Fyef3rHWr
-	 fEZicuZ8VU144aJcsepPL1ZBPzOAHqbB7XO2YPzxabYK/dbWickJ1h0CfWY7PE7rgNA==
+	bh=Ed7lLF0CP7JeqyIekPCZLpbtKsM3+dJiy8vZ0Ay8D/w=;
+	b=vZ2Kw1FZsarVP8ScXdx4anRghvqhiNLAfJAYOB8L6sCitat2E2YkfuuEhnBPKMKMnMkF
+	 fahhQrxbGSivnIIEFg90qfFc6E7BU8Zbe4rdDNgmoYzPPaPYPg67s9CyFibWFDgfH54Ir
+	 Qi6bwBQZOvYEjgg7OxVk4l1J3Zaskm+MBPI5WTm89HPPmUxy+Ug/DHkQIFZEU75qRSGzl
+	 e30rlEOk7FZmsuZS4s5Y2VysS5ep9umwmuOdieNPmR92NJ53nVjoBrnAeM4K6E90QZlnW
+	 UsdnL/484ZePHfxPkwdpBA8+AdqJweY7g9QUx9RKNPfjeJA/smR3BN2p4ITZBqdccaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=dFPHcWSP;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="AlhkpnS/";
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C86606A31C;
-	Tue, 17 Nov 2026 11:03:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54C86606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBE1606A329;
+	Tue, 17 Nov 2026 11:05:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EBE1606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=dFPHcWSP
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AlhkpnS/
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794913422;
-	bh=I99eKTieG3r9N5pwxWknTLA2rNggoIxISoFLRuvf9gE=;
+	s=mail; t=1794913508;
+	bh=qD+A+5r0Pu5rX+NsDc5YpHGQypt4R2BcA7Y/dGhVwQ4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=dFPHcWSPFhEf3kOgHsix8TRHG5+yhF8Wde8U/dCcnkyNELHv0w8554s6O88KesVXg
-	 AH/wq8Rv92MFEapC3Uu0BXOaQCBvijSMDMSQgaHyllV/GO/21r45X+rvvH+RSIMK5e
-	 UTk+RzWp+CidMx6OrWM6Sm0DJBBhYgLroJ9FABTq+h8Wxf7w9ipAy7FJSxMA6XLOer
-	 97HQ84eKfeHWFN/QzweDZgEUmsJI9wyg/bZGV0lWTTfoem8rXGCiyhZr5IzaN/SGwJ
-	 Q4UyUV3HrDmsPKW9AB6pnPt8PnJr3g19w5jd6nycszO8bJIvKEGeHWzlatzN33MC5m
-	 wIRNQ0YNWZjAw==
+	b=AlhkpnS/onVNimPbPrBmaOEMj9/lUaCy+YIcEnteLP6km+nmS2zpGCFDaFacNKq7u
+	 5ZoOl1s6+XQKXzkVpzK9842JDliGu+WXMyccOEKN002T0d+7zrv06j9n1AjKqjHdVw
+	 T8y7JuGrpYakX3f8g5DrYedooFL9pi5Q9CtXWXG+qiJx5hUcsjKn4BzV4W7mGwcaow
+	 piZxWPhGnzCBR8u4ECs3dp0WSN1113Gz1AM/XS03kG3q3zSnMefRoctr3amQjvmusQ
+	 vcHtFyMe+NYLPm6lK0hwRZ901d+nn1kE2b7zilGaJJjEwSf/zQZqkzA2b8U4WB3V1O
+	 Q+fJM/Rje8Gow==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5754617E04B2;
-	Tue, 17 Nov 2026 12:03:42 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 38C1617E07EC;
+	Tue, 17 Nov 2026 12:05:08 +0100 (CET)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>, airjinkela@gmail.com
-Cc: linux-mediatek@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Frank Wunderlich <frank-w@public-files.de>, 
- Sjoerd Simons <sjoerd@collabora.com>
-In-Reply-To: <20261028134544.594888-1-airjinkela@gmail.com>
-References: <20261028134544.594888-1-airjinkela@gmail.com>
-Subject: Re: [PATCH] arm64: dts: mediatek: Fix malformed SRAM ranges
- property
-Message-Id: <179491342229.161638.8257695418556840247.b4-ty@b4>
-Date: Tue, 17 Nov 2026 12:03:42 +0100
+To: Matthias Brugger <matthias.bgg@gmail.com>, 
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
+In-Reply-To: <20261030103418.2355854-1-wenst@chromium.org>
+References: <20261030103418.2355854-1-wenst@chromium.org>
+Subject: Re: [PATCH 1/3] arm64: dts: mediatek: mt8192-asurada: Add
+ ramp-delay for MT6315 regulators
+Message-Id: <179491350817.164578.3923681659802112857.b4-ty@b4>
+Date: Tue, 17 Nov 2026 12:05:08 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,20 +74,26 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
-On Wed, 28 Oct 2026 21:45:44 +0800, airjinkela@gmail.com wrote:
-> The eth_sram nodes on MT7981, MT7986 and MT7988 sit under the soc
-> simple-bus, which provides #address-cells = <2> and #size-cells = <2>,
-> while the SRAM nodes themselves declare single-cell addressing:
+On Fri, 30 Oct 2026 18:34:15 +0800, Chen-Yu Tsai wrote:
+> On Asurada, the MT6315 buck regulators (Vbcpu, Vlcpu, and Vgpu) are
+> missing the regulator-ramp-delay property. Without the slew rate
+> specified, voltage increases may not have settled before switching CPU
+> or GPU to higher operating points, risking undervoltage crashes.
 > 
->     #address-cells = <1>;
->     #size-cells = <1>;
+> Add regulator-ramp-delay properties matching the slew rates configured
+> by firmware, with values provided by MediaTek: 8000 uV/us for Vbcpu, and
+> 4500 uV/us for Vlcpu and Vgpu.
 > 
 > [...]
 
 Applied to v7.4-next/dts64, thanks!
 
-[1/1] arm64: dts: mediatek: Fix malformed SRAM ranges property
-      commit: 55e9f03de754eb92e45404def36faaa5942a3877
+[1/3] arm64: dts: mediatek: mt8192-asurada: Add ramp-delay for MT6315 regulators
+      commit: 9c9f83e3368d27d1e0ba55827a171ebf551c3d0c
+[2/3] arm64: dts: mediatek: mt8195-cherry: Fix ramp-delay for Vgpu
+      commit: 04560888cde5fd8adc325a6ce47466f80b8c668f
+[3/3] arm64: dts: mediatek: mt8186-corsola-voltorb: Add MT6319 ramp-delay
+      commit: 929638df9f3b36665efd60ac71f1eed4ba36a0a5
 
 Cheers,
 Angelo
