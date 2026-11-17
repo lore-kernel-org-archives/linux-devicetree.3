@@ -1,57 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794945810;
-	b=S1Cp9EBWbXNv7M2PulSK8Ym1I5kA0dzcz45CEEJrULjjzmcnYqLhX3kfkc9exF8lolH7
-	 fNXH6VsYybJmkJFkMztKokwm3KZSsfX1SafkohqFnmNUS7f5BiqQTYvxbekozpa7/Z6dr
-	 QAGnDu8nXvvU04Am0DsKe/SM0kJd1cabzvMR5ftgDZXuRkBAuESLvf+A6hvLB/y6ydwpG
-	 dR8mSRQ5iQYNgawfh1Y4PBP5QJaDFrmQN/2aqpXpbklUuSYVwCkrsXv8OVcoV/jViyOI1
-	 L6C/x9nfqTZrr9atsv4wJZnO8TqKoNU6M67iuqh/9sdlQWHwhuywoDaNI1upLSeJWSw==
+	t=1794945879;
+	b=LXAg7ExYlbWhfyEmD5pQOfdtRDXq+gqtCfy+pPRiCYAyn8LJU1lkKcHxtdtAt1neTeG1
+	 gQlzUBOUcdy1Tusj/zaFB7SoTZZQLgQIZ5uzHCgSHUyz6e1yWrkIOncnPfP2dBCYXQtNl
+	 izTNk9sHal3qMMUK9asdzMd/xWo2cNMlvTZEcVX9GqlJOF6HYDPjnQxtHedeSZWUkeZBX
+	 bQ9SGGQOWlU+YS9LxQXS2Q2kMyPyzg/sRsZnLFV6fesK6BqW7SfeGjM06ZW+YLNSVkD6o
+	 BqFn4uAv+vv75Xhea+qOPRVspARwFNPdzp7h6B0QCQphcfW1kkkJ6P5y408I6f4XmRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794945810;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=UOaB9r1BwC8qkIBaPDUJRDEVjpKEaBIm7fbCfHTU9xA=;
-	b=V+oSXl+SDAYYB7NT1Wt0wU78+h8k0UyJewepe+RgKgVGKdCLLxamUCIk5U+8c0zH5BNM
-	 XA4kGtoeSmwlNxtWpREn1JIYtZhOoeCdkCwirbJjMDb6hXX6jCrmzZpBLhde2w+NPahf8
-	 z7Rq8iBQbPFCNpvPsU3YXWWD3tzPhZS/2rU7xcrHsYgKvomrG9TloklffzEf4Fa20M67e
-	 07KSLtJ2H1lf/MC6H/Qkjo8ZN+rqMeKeNVJi2H4dmtWeQEEO9aIeJGLjAgy7tpocWiGOu
-	 xYskgFjMjvNjAwFl+ILFXHFclWIVVcsd4DfO6DyOtqelQIH/5aOb01ZDq6s4ott+Dyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794945879;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=XjiiH9vEp71/nKv/afBhmdp7G4Z4pntmYOkq9YJDSd4=;
+	b=WHRFzgBiB+hyeHsCsidwy34TV0WQ46sbtYetzP6L1hkXlYGfr9UJgJ9n8i2DwDKyFMGv
+	 43u9OSnc0Lt21JV7JTQPz0vejLTkMPzmLa1jyGIJXlsthjEG9U7280F9zJOCWI8vmRipm
+	 ekRb3BM3UYH2mpU/vLc8F1NE1EyS7SJsPhIYmRpHH2Yrxdzz99U5BdynUsxEgePEWB8/i
+	 152o6AwZ58xDQUca9jNkgPESBfKBjyE7IEheC3b14fv2qXdEN6HkTGf5/2/1sKQXMBl3t
+	 0I0/ioPcABIGez0DHCTmPUAFPSR8Sm2q2vxWHatNHB6+4BpGjvSEJLJLJTeSGuEV9Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RlK6jq/a";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87C6606A32F
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 20:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RlK6jq/a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED6A1F000C4;
-	Tue, 17 Nov 2026 20:03:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794945809;
-	bh=UOaB9r1BwC8qkIBaPDUJRDEVjpKEaBIm7fbCfHTU9xA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RlK6jq/aYybpjqXoxVre0+KbhhlOOPx2dX5oXhNUnj1jtW2aJcgcJSa8WYSNptHU5
-	 T6WV8PHaAJiTt1Cw36jNnrjQDM/MH4LNTE2OFmBr4XAN+T3j7W4/jIc8Aw0rlmDZoN
-	 8n00xhPM8PcQHCrO+WXxhZRwmxNtO2G9iquLWajh3BuixpuADyoGkngEJNZKWrhB9/
-	 pZR9Yt/rtoauxZRnM8GrNcKC49RXrh9tpfmBa0d27J5W2dLL4SVOdIT6Sc/2LGGVzf
-	 EqdnidMCJoASfm0QfzrBJm8TxSmMtDz2ZUsTBZU2tK1QZPVWwb3xz8TQ1WGxWifxEy
-	 yjFYiYqQQYgOA==
-Message-ID: <sashiko-outbox-219549@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 07/10] drm/meson: dw-hdmi: Use the generic PHY framework
- for the HDMI TX PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
-Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, olteanv@gmail.com
-In-Reply-To: <20261117-meson-drm-create-hdmitx-phy-v1-7-9e0ac931381c@aliel.fr>
-References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
- <20261117-meson-drm-create-hdmitx-phy-v1-7-9e0ac931381c@aliel.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 20:03:27 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51A2606A32A
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 20:04:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E51A2606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8b5a6f2f27fso96802b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 12:04:38 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794945878; x=1795550678;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XjiiH9vEp71/nKv/afBhmdp7G4Z4pntmYOkq9YJDSd4=;
+        b=dopC35rg7ENLxCTXPtPgsUnUdI/fNKQ4rdBXnDX13GFNbf+jm7JkbtaGL+PcsoYjLG
+         K+N5oHlwFu697rrIKIpPNJKxiI9igyxnV6EW0X+JHRy3ghxKK5OCtpGGhV0AeQH2Rybr
+         XYGhDlXYdCRk5fy2Uc6PE0zKmKs1Z76Suz3CYoiwn9X0Kf2Lk6VPAbqeq4Ndkqu7Rdle
+         2RWFiHk6lLhA5YdHg6How8Eootey99e4IPVtBu3s/HoB/AsRP8MN7llz7SZ20IUvBylZ
+         5573cCRDf7kmDX+hQC1MV32XqZjbz+zaNxwTkqFAyT7MtapArO/MLk3N332d0e3EHsP3
+         xjUw==
+X-Forwarded-Encrypted: i=1; AL+hErFDAv33HgMzkkDHVfL2QTigKbS9G5QRUQvbiCtPIKyDuSL2HCrkfT/mTqqwfiCfIO/lU9V4qP5kADKi@vger.kernel.org
+X-Gm-Message-State: APuU4Z+jrKfmsIkN9zTgF4agtAw8xua9RaNtyk781TeBhrTyTPukYWJ0
+	Zy/oNgZZe3v5p7V9DiF0q50MGGkc5C+AbLvMJxAw9H+8H4GNDz3NSzK8Ktri+nEm
+X-Gm-Gg: AZFdTZfWoYUePhLtkLx6WJ+IIwo3fa9sAOPe4e1KKl6o3cn+nCXllidKHLZE2CaCh6C
+	A2M7R7M4Z7kHU4NMA5rUua7f73LjJJc4KM4k2/o2PyNP07IoY9KxQslKG90oDRzkSQSePMHH2HM
+	VMEGHuUrtHdl4wzzQluYXeCx7ZJ4puERJ5Jcln1P1fRnVCCQTvjGOnzF5oXI0qHbHm8fMQu6T5L
+	5tKNZDlNW9+t60HcE8Vl91fRRxpi5lw2fn4yzabgm6mKXUNnfAdMrZTC59qLYZNQqi8ESLcLfZY
+	QDG8JsRR5yFpbwksbPdKKGNpYyKSXOAcKuDr1ub7M/Q662zyEr3P7HCyhQhEjw5PeFALIqJeMeX
+	LNXJ7acHMxTxgxPp9PvMBIGmpnVSaW2XvGBFvY6NEJJ6raG8lsLjvfRtMc8lpbkTdlKGLGUFGhd
+	0Aj9xrvcCaqheS3RuS29CmXah8r/VV6duIz8y6dxp0y8qIIbv9ZEVV/G/qvij3EcNcnGTncmFir
+	CGEEFAnNXv9jkwDtAnF7g2WpO6PvCK6RvFYp8KC4e3+q67lFTT6rME8FWxXywJo2NgBlwcTrkSx
+	W+JpmFtxqMjIibKh5IJbjpn6G8YsEsDluMMEv+2gXLEeKlzewVd0SNduxg8c/1bICHtANVtta24
+	YWBFEdbC5OEWaFb75CuFlysl7D96x+XR71DC2ULE6vA+g
+X-Received: by 2002:a17:90b:3a47:b0:3b3:bf8f:9ccb with SMTP id 98e67ed59e1d1-3b3d074d7f0mr524910a91.18.1794945878255;
+        Tue, 17 Nov 2026 12:04:38 -0800 (PST)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com. [74.125.82.180])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d187df25sm449807a91.3.2026.11.17.12.04.37
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 12:04:37 -0800 (PST)
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3712b6d9843so377141eec.1
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 12:04:37 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGksMeb55bJwAde2/7hdiILPm/xC0zah2nOIIdx43fcoBFmWqsCq54vvf2x8eVLghSXkYwZxZT7ffFq@vger.kernel.org
+X-Received: by 2002:a05:7300:7314:b0:381:1580:cb4c with SMTP id
+ 5a478bee46e88-38281023cfemr582427eec.24.1794945876970; Tue, 17 Nov 2026
+ 12:04:36 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,209 +80,34 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
+ <20261116-iio-ad5246-v1-3-ef6b7c06d4b0@telaak.dev> <20261117-object-glutton-d948f8e36ae4@spud>
+In-Reply-To: <20261117-object-glutton-d948f8e36ae4@spud>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Tue, 17 Nov 2026 15:04:25 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ6dAt1YGcd_u6SJW6A_tBUZrZUZyie6W9Pc0Q3NHwXGYg@mail.gmail.com>
+X-Gm-Features: Aa3M54qec_C2Pi8qcev_6zb3aM3vk4ZjOhmwBtJpitJBxkWn2QAJ5tNJXdTE9jc
+Message-ID: <CAPY4CJ6dAt1YGcd_u6SJW6A_tBUZrZUZyie6W9Pc0Q3NHwXGYg@mail.gmail.com>
+Subject: Re: [PATCH 3/5] dt-bindings: iio: potentiometer: Add Analog Devices AD5246
+To: Conor Dooley <conor@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Peter Rosin <peda@lysator.liu.se>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] drm/meson: dw-hdmi: suspend/resume order breaks PHY state and
-  HDMI output
-- [Medium] drm/meson: dw-hdmi: missing phy_exit() on dw_hdmi_probe()
-  failure
-- [Medium] drm/meson: dw-hdmi: premature PHY teardown in
-  meson_dw_hdmi_unbind()
---
+On Tue, Nov 17, 2026, Conor Dooley wrote:
+> Why is there no fallback between devices? Do the different resistance
+> values affect the logic? Please note that.
 
-commit 91e31ad4e0b36171e791e7c0487c9a4c66b12b31
-Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Yes. The versions differ only in end-to-end resistance, which the
+driver reports as the channel's scale (R_AB / 128 per step), and the
+part can't report it, so none of them can stand in for another. I'll
+note that in the v2 commit message.
 
-drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI TX PHY
+> Filename matching a compatible please.
 
-This commit converts meson_dw_hdmi from direct HHI_HDMI_PHY_CNTL0..5
-register writes to the generic PHY API, with a legacy fallback when the
-device tree lacks a "phys" property.
-
-> diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meso=
-n/meson_dw_hdmi.c
-> index 20a821936b3af..f28cc1e6ee1df 100644
-> --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
-> +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-
-[ ... ]
-
-> @@ -590,13 +504,13 @@ static const struct meson_dw_hdmi_data meson_dw_hdm=
-i_g12a_data =3D {
->  	.top_write =3D dw_hdmi_g12a_top_write,
->  	.dwc_read =3D dw_hdmi_g12a_dwc_read,
->  	.dwc_write =3D dw_hdmi_g12a_dwc_write,
-> -	.cntl0_init =3D 0x000b4242, /* Bandgap */
-> -	.cntl1_init =3D PHY_CNTL1_INIT,
-> +	.phy_soc =3D MESON_HDMI_PHY_G12A,
->  };
-> =20
-> -static void meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
-> +static int meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
->  {
->  	struct meson_drm *priv =3D meson_dw_hdmi->priv;
-> +	int ret;
-> =20
->  	/* Reset HDMITX APB & TX & PHY */
->  	reset_control_reset(meson_dw_hdmi->hdmitx_apb);
-> @@ -624,8 +538,9 @@ static void meson_dw_hdmi_init(struct meson_dw_hdmi *=
-meson_dw_hdmi)
->  	meson_dw_hdmi->data->top_write(meson_dw_hdmi, HDMITX_TOP_BIST_CNTL, BIT=
-(12));
-> =20
->  	/* Setup PHY */
-> -	regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL1, meson_dw_hdmi->data->cntl1_=
-init);
-> -	regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0, meson_dw_hdmi->data->cntl0_=
-init);
-> +	ret =3D phy_init(meson_dw_hdmi->phy);
-> +	if (ret)
-> +		return ret;
-> =20
->  	/* Enable HDMI-TX Interrupt */
->  	meson_dw_hdmi->data->top_write(meson_dw_hdmi, HDMITX_TOP_INTR_STAT_CLR,
-> @@ -634,6 +549,7 @@ static void meson_dw_hdmi_init(struct meson_dw_hdmi *=
-meson_dw_hdmi)
->  	meson_dw_hdmi->data->top_write(meson_dw_hdmi, HDMITX_TOP_INTR_MASKN,
->  				       HDMITX_TOP_INTR_CORE);
-> =20
-> +	return 0;
->  }
-> =20
->  static void meson_disable_clk(void *data)
-> @@ -746,7 +662,26 @@ static int meson_dw_hdmi_bind(struct device *dev, st=
-ruct device *master,
->  		return ret;
->  	}
-> =20
-> -	meson_dw_hdmi_init(meson_dw_hdmi);
-> +	meson_dw_hdmi->phy =3D devm_phy_optional_get(dev, "hdmi");
-> +	if (IS_ERR(meson_dw_hdmi->phy))
-> +		return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
-> +				     "failed to get HDMI PHY\n");
-> +
-> +	if (!meson_dw_hdmi->phy) {
-> +		/* DEPRECATED: DT without "phys" */
-> +		dev_warn(dev, "missing \"phys\", using legacy HDMI PHY\n");
-> +		meson_dw_hdmi->phy =3D meson_hdmi_phy_create_legacy(dev, priv->hhi,
-> +						meson_dw_hdmi->data->phy_soc);
-> +		if (IS_ERR(meson_dw_hdmi->phy))
-> +			return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
-> +					     "failed to create legacy HDMI PHY\n");
-> +
-> +		meson_dw_hdmi->legacy_phy =3D true;
-> +	}
-> +
-> +	ret =3D meson_dw_hdmi_init(meson_dw_hdmi);
-> +	if (ret)
-> +		return ret;
-> =20
->  	/* Bridge / Connector */
-
-[Severity: Medium]
-Does meson_dw_hdmi_bind() leak a phy_init() reference if dw_hdmi_probe()
-fails later in this function (for example with -EPROBE_DEFER when the DDC
-I2C bus is not ready)?
-
-When the PHY comes from the external PHY provider, devres cleanup on a
-failed component bind only calls phy_put(), leaving phy->init_count at 1.
-On the next bind attempt, meson_dw_hdmi_init() resets hdmitx_phy and calls
-phy_init(), which sees init_count > 0 and skips phy->ops->init(), leaving
-HHI_HDMI_PHY_CNTL0 and HHI_HDMI_PHY_CNTL1 uninitialized after the hardware
-reset.
-
-> @@ -784,6 +719,10 @@ static void meson_dw_hdmi_unbind(struct device *dev,=
- struct device *master,
->  	struct platform_device *pdev =3D to_platform_device(dev);
->  	int irq =3D platform_get_irq(pdev, 0);
-> =20
-> +	phy_exit(meson_dw_hdmi->phy);
-> +	if (meson_dw_hdmi->legacy_phy)
-> +		devm_phy_destroy(dev, meson_dw_hdmi->phy);
-> +
->  	devm_free_irq(dev, irq, meson_dw_hdmi);
->  	dw_hdmi_unbind(meson_dw_hdmi->hdmi);
->  	drm_bridge_put(meson_dw_hdmi->bridge);
-
-[Severity: Medium]
-Can tearing down meson_dw_hdmi->phy before devm_free_irq() and
-dw_hdmi_unbind() cause a use-after-free in dw_hdmi_top_thread_irq()?
-
-CPU0                                    CPU1
-meson_dw_hdmi_unbind()
-  phy_exit(meson_dw_hdmi->phy)
-  devm_phy_destroy(..., meson_dw_hdmi->phy)
-                                        dw_hdmi_top_thread_irq()
-                                          dw_hdmi_setup_rx_sense()
-                                            ...
-                                              dw_hdmi_phy_init()
-                                                phy_configure(dw_hdmi->phy,=
- ...)
-                                                  <-- use-after-free
-  devm_free_irq(...)
-  dw_hdmi_unbind(...)
-
-In the legacy PHY path, devm_phy_destroy() immediately unregisters and
-frees meson_dw_hdmi->phy while the threaded HPD interrupt handler is still
-active and can invoke dw_hdmi_phy_init() or dw_hdmi_phy_disable().  Even
-with a DT PHY, HPD handling or dw_hdmi_unbind() can access the PHY after
-phy_exit().  Should phy_exit() and devm_phy_destroy() run after
-devm_free_irq() and dw_hdmi_unbind()?
-
-> @@ -801,6 +740,8 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(st=
-ruct device *dev)
->  	if (!meson_dw_hdmi)
->  		return 0;
-> =20
-> +	phy_exit(meson_dw_hdmi->phy);
-> +
->  	/* Reset TOP */
->  	meson_dw_hdmi->data->top_write(meson_dw_hdmi,
->  				       HDMITX_TOP_SW_RESET, 0);
-> @@ -811,11 +752,14 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(=
-struct device *dev)
->  static int __maybe_unused meson_dw_hdmi_pm_resume(struct device *dev)
->  {
->  	struct meson_dw_hdmi *meson_dw_hdmi =3D dev_get_drvdata(dev);
-> +	int ret;
-> =20
->  	if (!meson_dw_hdmi)
->  		return 0;
-> =20
-> -	meson_dw_hdmi_init(meson_dw_hdmi);
-> +	ret =3D meson_dw_hdmi_init(meson_dw_hdmi);
-> +	if (ret)
-> +		return ret;
-> =20
->  	dw_hdmi_resume(meson_dw_hdmi->hdmi);
-
-[Severity: High]
-Does calling phy_exit() in meson_dw_hdmi_pm_suspend() and phy_init() in
-meson_dw_hdmi_pm_resume() break HDMI output across system suspend/resume?
-
-Because the HDMI TX platform device sits after the VPU master device on
-dpm_list (both from DT node order and because devm_phy_optional_get() adds
-a stateless device link to the PHY that reorders the consumer to the tail
-of dpm_list), system suspend runs meson_dw_hdmi_pm_suspend() before
-meson_drv_pm_suspend(), and system resume runs meson_drv_pm_resume()
-before meson_dw_hdmi_pm_resume().
-
-On suspend, meson_dw_hdmi_pm_suspend() calls phy_exit() while the PHY is
-still powered on, before meson_drv_pm_suspend() ->
-drm_mode_config_helper_suspend() -> dw_hdmi_phy_disable() calls
-phy_power_off().
-
-On resume, meson_drv_pm_resume() -> drm_mode_config_helper_resume() ->
-dw_hdmi_phy_init() calls phy_configure() and phy_power_on() while
-phy->init_count is still 0.  Then meson_dw_hdmi_pm_resume() runs
-meson_dw_hdmi_init(), which resets hdmitx_phy and calls phy_init(); since
-phy->power_count > phy->init_count, phy_init() warns ("phy_power_on was
-called before phy_init") and runs meson_hdmi_phy_init(), overwriting
-HHI_HDMI_PHY_CNTL0 and HHI_HDMI_PHY_CNTL1 with cntl0_init and cntl1_init
-and clobbering the mode that meson_drv_pm_resume() just configured and
-powered on.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-meson-drm-=
-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr?part=3D7
+Will do, as adi,ad5246-005.yaml.
