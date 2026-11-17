@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794945613;
-	b=U/Wkw1gVL2TQEMogEZ/Ui21Hwjk8EDV86/5Wah4Pydf+Sh5WhIZOBAu+lLj+AIuyXPMY
-	 X/cDQcj1br7GwHaltiwqMEKvQDTZP9kaZIost4VJUmviGr6bhmzckomJ4A5fX+JGJ3QRn
-	 0zNnd/F/Auw3sGLAHNsU2zS4grefUVKAjpmRIGYD8sRnRiu0PPxYKNHlwqGkxkDHe3rdA
-	 VgvlEdKv8HcLnX4Z5xpm9396UXb9pPZ8WR2IZuRcVxk4I+Lds3Xp2/hNxBZit3eNsv7v/
-	 rFcnlCNXg+FGmVCn8/3A9fB1ueCBSWNd6mLg9TSy6/meKBFt60F7lcekbkmPqstSBRg==
+	t=1794945614;
+	b=1x3A+1RqQLZsVWl9bqlggFfuBWbXd4PVA7w0W9rfJmQFn0bmuGBfgdGMsNjuaV8PV9aP
+	 zRuTLyxmueO6AH0v/QhRvtqmEvInRd0hooXIOrONQGn53bdS8DAfY3LCxqeoPFZqnVI5I
+	 2ZsvJjA/g0DzhkmRIbBBJN2fY2tECEsE3D3QS5tOwM0Nw0GeUHMwjH6vKZPAQZ6g+ePtr
+	 fHFJakt1Qklx6ma9q9grA9RY9pDRF8X8LMGFfAkOE3MkTxEHdoOIe+iNTYvQ5fYd1FB+D
+	 BMQo+OG2aniDwoB44fGhVTq+DSPzctri1HTqI66zxj97O4AI5cHNF8F85aklB9KPs3A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794945613;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794945614;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4LbBB/2g75fJnlM1nVGDOVNBXnNl2+P7T1zrJSjDCkg=;
-	b=Fy0tKJSrCdTwO04K3WQW0pOl5ZoJFQaIOzaMOvkO+TxLyNKcquCCLvwphLSm3cvUvumG
-	 tQEw12AMe13lk/MUIa22UIAF514ctp8RioYr7a9p8JrQO8K2R+MLgZAkfcLen2mZ8q7AL
-	 wLw7UX3kLG1r1sZZChEBY/gggVmFPLxvs5Y+4AD7PjhPLdR4cjcx4VBtjsoHXJUeWwsrM
-	 /Y5VqS0GRJbV2i6+oXlIHVl2ytxHjAxaciY23fC9aeQ/eTNQC1I17DadwDw9/tuLZSK7o
-	 dSGaaCZAxoCXmVln3ufPhe6Away8WdUw7+JsiZOKhnDZPKu7uMTymzkpZ1dG46trXqg==
+	bh=CfThdO8f/o1dN6kXq8y+xiket6A8mwn5DpRMwQpz1IM=;
+	b=Xw6MYLzFj73TvC4fQSnK/GVomXmkeikEMKDPGPJ1F0Aoigqx771BmAo9khqiA8dnOlOf
+	 84yVV4MGg/PiXP4rgA0TbjktXBFGb2RuhFXnr7tHs4x7NQxrHfJMhNAFjjpabEpVYpNPl
+	 Uv9bbd/UBy+9d3XKHyXkYASStidCxTUp5lrQcaOoYJrH0XXuI5k/M5W76oJF/VyV9LLfe
+	 LmIvUT9PEgkorckO5naVArlzCANRCatifHJ2xkXuP3LeHDgeTuk2D3AVea9Dgsn/9IvvC
+	 zaXBoSHeUnP6bgfGMtqmgj5iF+HypJD4JkuYA4Hc25dIF/Ev49J0MnjBD9675Kq4NLw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ereGplTk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SERwcjTU;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99314606A330;
-	Tue, 17 Nov 2026 20:00:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233AF606A33A;
+	Tue, 17 Nov 2026 20:00:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ereGplTk
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SERwcjTU
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794945613;
-	b=ZO44xy3Ng+KHkddPA+tNCak5gKKT46bWJ5okNlOO7+QxLT3dotiKheLvGnpUeIOkrM+3
-	 rBmWOPSfvIUertcZ8sIq/lfqqLl+7wgwVLrBhKzwXdijm27VUHStXFxbv9ujdPkTULHwk
-	 lyyoxT9evokOezSakB9Fq2oPTtB/evadhQR7649DC8O/xAIjyu9JLwxqeeBzqL7g0C+HO
-	 5OHJPAWZsD/x1hzZdVKgjmyjv7vmLpV7RHu4bkHGlnHVxLRXMZu+RfPmA3EKQ9Q3kkFp0
-	 +dtMVSETiWZW+ywXLQHp8LNKMB5SHqY3VufisDVqSxoshBSTguNZroQStFn/foI7IDQ==
+	t=1794945614;
+	b=pgsZvkyc56bAVem7A7mTlB7udNZXtN2CLKMEILXBJ/jNgDJ3B5DrU+/zDXvs+O2uKKg0
+	 tEmJGJDa4iN8eSq+7ePHwqhiTj67InyF2dYE7+Dc8FdWj0mzn17fjeMCfwNNYUPZfwtyI
+	 rZIPtRHG+pLQDvVEDKZHL6YSXxga2WCzlT7SODlH4X+FFfZ1ydRa5rDQCbqUMlxVw7S8J
+	 55WnrONzaKnhAiUmQVlBeaXC/C2WPKU6C1LoePt4bV+P7xXYSsmBv8lzHlIRdb9j6udkO
+	 sxrLpVlG19BRYbtsOXK5cpS4jRhNJSNcDxsrOo7qs4fTvvoRo0b7FR50HFLQVaAPedg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794945613;
+	c=relaxed/relaxed; t=1794945614;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4LbBB/2g75fJnlM1nVGDOVNBXnNl2+P7T1zrJSjDCkg=;
-	b=mdlNLVEEE6+IgMrTJSBKS9Q5TvU9a+ZXk+ALRrA5zLuCu7giSScBxlvkuBV656yCiiTg
-	 hTyNKyc5kAobIyfZiG/DpDnBjbAt0dSEi1RkDPSYq44GdVdo1e51ITbkTp2q3O4KwD5Cn
-	 rcc6Kmu8nTfe0Hqz1x5j6vBjNYy4RW1+kQDePRGIbzjx/doCUJcJteBSPfUyOeoM0Ly+o
-	 32K3JbZplHwUokARcY9KyFNybRD/0F/4ksHceuU6Kz52WmzXABfI6xCIgMCePPdwfvyQf
-	 s4J5zXVdipbFUdD5Dfk+jBdsmrIDWR5ghRrFNqeo//AdUXhdUYbhRYh3ivgrCYb9ilw==
+	bh=CfThdO8f/o1dN6kXq8y+xiket6A8mwn5DpRMwQpz1IM=;
+	b=chx92n9g8wfDTOVGkqBSwGyx7p72QwO4fDsAv49Fl2ZDDrp7U8YgTvD1IOvpicYwru1f
+	 jAM6M/PdkJyZzMlfoWjZaWxEAZtPnl0IPxRDYMncFa8KH+X9nMAMEwZ3xaWGd2fGmKlY+
+	 FW0vb3wdGbAyEb0Nb30sFkd5Xd8cjQ8rIxZVoPXjts1mNxjEbux7xNyhs32V/x4n2uVam
+	 qc8qGCPfn1iVUwL6W7GAsohcHxCKjHpVSPpNbfKRmsgiaDGrbO9CCyF85wWGBYeJYFUuC
+	 M9k9E7s9Q2Lh8VxtF2Uhy3fK6AjAjDarHIbvAXGByRqCcKOIPoQzQI0OpD1unZqjxPw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CD3FB1F000C5;
+	by smtp.kernel.org (Postfix) with ESMTPS id D226F1F000C7;
 	Tue, 17 Nov 2026 20:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794945613;
-	bh=4LbBB/2g75fJnlM1nVGDOVNBXnNl2+P7T1zrJSjDCkg=;
+	bh=CfThdO8f/o1dN6kXq8y+xiket6A8mwn5DpRMwQpz1IM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ereGplTkSW/Yh33IuesonvJdSrt33lyCl9Gre9IGs7GumrolLfhdWnEa4BZB7jx4F
-	 OxA8n7olBku2ZxyqM7H5FSTBcj1Woyqt4o+RKnS67wGacVBM2MHAaclHrfWnjwhYyC
-	 tdrYL3EEf6qR6SUAw3iV4XzkbS1buwSGiP/9zNzEmtaoCeM9wIX/hBfU3FlFfGhKlJ
-	 S38a3D/nH3fDBTwZk8ZO2jzcA9cs73eH1ONjiBHGfBdAkCwP9tWqHLgvUV4LMl5ICq
-	 RLe7dve7Tt4G+/G75NH14omFUc9Zqe8uG14uTuVPEkKZkO5gD2eHCntDCVxjKm+KTM
-	 LYyhp5QJXdwzw==
+	b=SERwcjTUAax6Oi2NqUswhIBR0wMKqjgchMTu3pIHk1VMCeyQnArW5YrC1c6Io3zVL
+	 M2IGYtZkZVdubdrdhjCVN23+keW+1aOGi0G+8iskZDZ7R8JvJk42hDmtPtVAqk/9rN
+	 aLEEF+83XVxYE1ors+1lHrtd9txXrHlHhErSdjdTOv01m+UxPhYwg+iwH3nSbVJNBU
+	 oY9puOtDmiWtg+g9N1HT0ehrx9hymjRzB+O33ZR49/AoWCcBfH3Ux3lhEo08pjsXW1
+	 Xb/Arq860o0Y0kwbL0wtgJSOPtClNJmZYn/VNS+7n4vxmIFrDcAmTYKlx5zSGb+FRu
+	 75Z8KuWmrLWXw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 443CA4AAB6;
+	by lkml.kernel.org (Postfix) with ESMTP id 5A12D4AAB9;
 	Tue, 17 Nov 2026 20:00:12 +0000 (UTC)
 From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Wed, 18 Nov 2026 04:00:05 +0800
-Subject: [PATCH v2 1/2] dt-bindings: riscv: eswin: Add Milk-V Megrez
+Date: Wed, 18 Nov 2026 04:00:06 +0800
+Subject: [PATCH v2 2/2] riscv: dts: eswin: Add Milk-V Megrez board
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-eic7700-megrez-v2-1-0113ebc5b670@iscas.ac.cn>
+Message-Id: <20261118-eic7700-megrez-v2-2-0113ebc5b670@iscas.ac.cn>
 References: <20261118-eic7700-megrez-v2-0-0113ebc5b670@iscas.ac.cn>
 In-Reply-To: <20261118-eic7700-megrez-v2-0-0113ebc5b670@iscas.ac.cn>
 To: Min Lin <linmin@eswincomputing.com>, 
@@ -97,11 +97,11 @@ Cc: Han Gao <rabenda.cn@gmail.com>, devicetree@vger.kernel.org,
  linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Han Gao <gaohan@iscas.ac.cn>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794945611; l=781;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794945611; l=1629;
  i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=yEGqwvhItikCOim9M5s0hyGEeXn8c2umboDlEvC4XcE=;
- b=/0eh6mt7RCm5DEygEVRE4eamr6oWEncaZFrDhtKhfNokI0DADKhv7W1NbthjBnX2e66SW7wIb
- AQXaceinxMjDFk/DpZ/Eo1y/1Ez1V4FNTpwnqD5Lun/zUL+/aWkAuJu
+ bh=QUGwPSZ5IJZOF55+jsHoXOrYxzxrVAnohOX9v3SFw5c=;
+ b=8S3rk5VvyppR1x4KTay2bz5XR7TwdRtLNW9udJPa5eB/bNsqOYAZs8ZxYA48p3Snbe9prV8XH
+ CuS4PbE2qHGBniA+nu0eQHITSdgiZm9UWsZq7XDDZAQkxy5gmKVtuFX
 X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
  pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
 X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
@@ -112,26 +112,57 @@ Content-Transfer-Encoding: 7bit
 
 From: Han Gao <gaohan@iscas.ac.cn>
 
-Add the compatible for the Milk-V Megrez, a Mini-ITX board based on the
-ESWIN EIC7700X SoC.
+The Milk-V Megrez is a Mini-ITX board based on the ESWIN EIC7700X SoC.
+
+Add a minimal device tree that enables UART0, which is connected to the
+USB-C debug port through a CH340 USB-to-UART bridge, and use it as the
+serial console.
 
 Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- Documentation/devicetree/bindings/riscv/eswin.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/riscv/boot/dts/eswin/Makefile                 |  1 +
+ arch/riscv/boot/dts/eswin/eic7700-milkv-megrez.dts | 25 ++++++++++++++++++++++
+ 2 files changed, 26 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/riscv/eswin.yaml b/Documentation/devicetree/bindings/riscv/eswin.yaml
-index c603c45eef2252e760818e830e9dccdf0fdae6cf..f730f5ff91797d4c2f0610f9024a74611ffeae63 100644
---- a/Documentation/devicetree/bindings/riscv/eswin.yaml
-+++ b/Documentation/devicetree/bindings/riscv/eswin.yaml
-@@ -21,6 +21,7 @@ properties:
-     oneOf:
-       - items:
-           - enum:
-+              - milkv,megrez
-               - sifive,hifive-premier-p550
-           - const: eswin,eic7700
- 
+diff --git a/arch/riscv/boot/dts/eswin/Makefile b/arch/riscv/boot/dts/eswin/Makefile
+index 224101ae471e8d89996f7cbfc616425f704af37e..5daade822e15eda43eee111cbf89bc386bb06f32 100644
+--- a/arch/riscv/boot/dts/eswin/Makefile
++++ b/arch/riscv/boot/dts/eswin/Makefile
+@@ -1,2 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0
+ dtb-$(CONFIG_ARCH_ESWIN) += eic7700-hifive-premier-p550.dtb
++dtb-$(CONFIG_ARCH_ESWIN) += eic7700-milkv-megrez.dtb
+diff --git a/arch/riscv/boot/dts/eswin/eic7700-milkv-megrez.dts b/arch/riscv/boot/dts/eswin/eic7700-milkv-megrez.dts
+new file mode 100644
+index 0000000000000000000000000000000000000000..a57cb61171087b20a39eb962f9c45d9c8ded3925
+--- /dev/null
++++ b/arch/riscv/boot/dts/eswin/eic7700-milkv-megrez.dts
+@@ -0,0 +1,25 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright (c) 2026 Han Gao <gaohan@iscas.ac.cn>
++ */
++
++/dts-v1/;
++
++#include "eic7700.dtsi"
++
++/ {
++	compatible = "milkv,megrez", "eswin,eic7700";
++	model = "Milk-V Megrez";
++
++	aliases {
++		serial0 = &uart0;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++};
++
++&uart0 {
++	status = "okay";
++};
 
 -- 
 2.47.3
