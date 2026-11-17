@@ -1,57 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794948537;
-	b=nVjGKvuzbDi5Pqw3L5BuxKfGpLet81X2hG77MsiaqmXu6DMQrxUBRdr8MZi3paexdSNX
-	 EO+NzAdwoi2QGqnNVtt49Hk5qUWAQObALVI8BvN1hpWqfWpTx2SN5z4qOqKpgpfdmJMaN
-	 KWF5lrC/GIPoz1z4O/18wbgpdqM1BOYCEXkX/zN8VQMBKbt3InhEWfp6GEGL/hY6ejAHe
-	 LHiSm7CFvEVmR2BNjGnR96FC/E5ThLMq5TsY0QCIubbcBSAbV45dsPrIsBay+O/ZR0sfw
-	 /fvKp+Zll8KmyrEsP5BMOnZGRiA+Tylrc71QBxAsRpjQLAwsv9xldo1xLwB3Q+Bw38A==
+	t=1794948709;
+	b=BTsf8FJwcBdvtLdnRroXdMgvgpWv0/PhN9nTBM/Xf3kRgYPGIh5QSXcWtvZGYVHeBU1S
+	 dYWaRyA6XntZjERJ8CUr1oMEStrH8NSGGnPBktJywlCFR2AzSMwMkycivQX6Ir8DdIyBs
+	 HQLE3HXiGGn/QZP2An7G68rAoN/42Zizp2tZElmW8lDHNUDrqY8dG7030dXB0HQX1thNH
+	 d7OglIlZO00WcHnhLAvrQUzDXllXHz3s0E53Sr7D8v93c3dv2fDXepuDl42fEpgaFrg5d
+	 vA7PBmKS+6l0sQpbdi/8zf9aFsG3P1cS4lUbcPr2+Q74mYutyWS23ccDhZf6S5l0guA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794948537;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Y/1AyX037khND5HvlDpCq/vB9CjIk4JCmeojvWRF77M=;
-	b=BgUtwd2baD1SiCCqO247mKWAUaer56RrAHGvJHaEvgw51sxyuYZ8gkUU5nXn0BTr2eMh
-	 RA8B1ZhNQHPWRvdOCNMcRW+7fBGFolyfNMFhAmA+acdLS3mpxL6fG7Y9ehJXmbDEGDASH
-	 pf0zsUQCDrRyon2gHt9BIEagJJ+d0AVkBEtILKjb4k6249JGYI7ZNuPack5Ir3yR2ZPog
-	 CdjX3zJQl71Jm9jGzYh1p6ijwVxnauHjXhtCZqzt98J3ROm1nVC5nge+lnJpy7idy0I1H
-	 Uv6uQ3lBLKw6u7ix1/zuTjPYKIy3VjBZx0HtCCtmy7/Mlex0b9HBhyGxGBcUQxfZzyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794948709;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=H3h9IxdpOr+oov0x9AuL8BUQNJ9C7SGtsH7YFmYPEqA=;
+	b=ZiJHUSpgm0iWzr7SL7dpsHVPdA7htvOm/W0D4o40S07yiqWVO8q6XpNqJrgIKnGuou2l
+	 g6TSUf9ZLLq0tCIFTB/XrESk1ypQcORK8TGmuJzq0K4R0wtOyY9a89LAYQ22/AvcWY2eO
+	 6iHwLomYUuzv4Eno7ed8GXpyEZ9r0l3l53oQnkxE9TOW3pTdULyiCJOfffEVWs1g6+WCI
+	 yXxGOSnyX97GXaYRbO4cHUEsambJpeH6FjWQycLYFctAC/LHciYUNcmrtQ5Iw5rj69gRf
+	 ODMHgnDOYsI4lv+jibQMrR9H7ZzYRxXdbpnFJNZMbzkP2L9ZCLQE7MlrAIiMPW4y1gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rs6wRt1z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="PVf/MNIb";
+	arc=none smtp.remote-ip=209.85.128.178
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4211A606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 20:48:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5082606A32F
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 20:51:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5082606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rs6wRt1z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2F91F000C4;
-	Tue, 17 Nov 2026 20:48:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794948536;
-	bh=Y/1AyX037khND5HvlDpCq/vB9CjIk4JCmeojvWRF77M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Rs6wRt1zOWLbGr8V38PBVi7x6wIOBAz+Ae9avJ3BW9NHAA8ilDRB0syI4KrD5HpOu
-	 2fjV3p/0y6XYh9c0SNpLWPHYgapwzytjNBsOIQlL6pTzoy659xTA3Sjb+tfrkxn26J
-	 elM9PgS0qRdYrYrv/iWUPVZpIbk0S0XGGbBKz5l0ABIRIM5R7bM84bWe9Hgi4RbZO7
-	 CT1ax9fVPkIer376zXQgR1MKZtnP5DefDXT/AWVh0CjydRvwlqEa2B6W+/Wz7Upu5z
-	 UGJkRu7lp7yw4WAN0ilQwbhCsbYljXQM3kA7uCp9V/SNBpmJC4tTkFsW688k9Ose47
-	 wPZxSDUf8cYqA==
-Message-ID: <sashiko-outbox-219647@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] media: i2c: Add Samsung S5K3T2 image sensor
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Armandas Kvietkus" <armandas.kvietkus@proton.me>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261117-upstream-s5k3t2-v5-2-1f7f5fde9e2a@proton.me>
-References: <20261117-upstream-s5k3t2-v5-0-1f7f5fde9e2a@proton.me>
- <20261117-upstream-s5k3t2-v5-2-1f7f5fde9e2a@proton.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 20:48:56 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PVf/MNIb
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b4f4095a7aso2076447b3.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 12:51:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794948708; x=1795553508; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=H3h9IxdpOr+oov0x9AuL8BUQNJ9C7SGtsH7YFmYPEqA=;
+        b=PVf/MNIbC8a6bfWjqZsIxgcF6k2/UaWL3F+LZLDew2Ev/fZ2Lu81CYI2wWz7Stxkq7
+         L6ByZQ6Z42kEUj+NdNL4lNmZJK+zv89zA++4ek3zydtxjSKHyqJU+05UPBXCTOD2ZG2z
+         3vMal9prNOcq0SOcvs6A3Oq02OC0W8ncTrMwhoUQmiaXGVXbcf5cxEUO8dFV1hg1d70M
+         2HLVh9M7my3KAxVDfSULrJabCnwF5iqImeMt3Q+2htXO4Vrk/B7KKWbgqKWVj7gpL08j
+         OOWeeDVHafI94yxstctdFUyjan6C+EAof615/HWP1AlqJfwBGVOXnpZkm/+mPNuzwcRY
+         UN3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794948708; x=1795553508;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=H3h9IxdpOr+oov0x9AuL8BUQNJ9C7SGtsH7YFmYPEqA=;
+        b=d19Tt1ok6UiJeihTbsTWFPYulj7yPs+ryvymOajVh6X9SMi/oOeoUmhlWTWTzuMACT
+         jIbmMjnghVDf1Ktad4x1n1KPy3SZmncYFMYaJOTqaZunOEaz0ikIhDMIjEGJ1h5d6+EU
+         AOt57kCj33WhwhyYG6xkzaABLe7eO7IQzUkEQNuV4C/mGro4zv2qOuNmHD2nAzzD1wzc
+         vr+8Gti0gnoduYh24BF7I4Hw7DFsY1SByjgIXe5MNe6hDNJkyvCl8J9JAK+K0GNxTH9G
+         /oqPfS2GdAsfKoQ09LZAh5Dpxt4+EmRUH4FwS7FJ3yjyOdbu1atnOKE20vNejbOYpDhz
+         2bHw==
+X-Forwarded-Encrypted: i=1; AL+hErEbOTLKWWlqNO3ZbXUfcD+eCixRWbeIbpTPxh1HTsBPvrkCwHwNNgm3zWDusvrPpzvD8/senT16u9AJ@vger.kernel.org
+X-Gm-Message-State: APuU4Z/k1IN8duvmeOZXW088wr8w0UUDhw1vx+UdK57rnvv5BVhwdNeP
+	hPCFfS1llkPn0JRuqXM0PeqL+dg0dKyH/pyZnidN1THSzaSGXwd/bPcW
+X-Gm-Gg: AZFdTZfpCPMe38qDQJAV4ZKeUnfHRJdORXFFJTXBiUEOUecMvrPxFHtM6vYjKjesEh/
+	eJgucvvG0Lf7gcf8eFuqRmqpwEJVnreU/L1mzdCeSKTxLQIQs9FqHsqYMPkZM0vHrYQAS4nFh+Z
+	jPuCzBVAarPy0pDlzKDMqIrdKgVlBvEWUrf0ohnGKQmgGMkeRTHQ0Q/BKmrc8z9ljWPFv9htkvG
+	fv2K8UHm5WpdJtXO+bDh8/iwkusV27oglwnRDyKR78t7feSBraGTyXZRthuRoiw4Q3zWpmKAeXL
+	TLRn/OzenjshSVo6ZI209AFgqJjr5Bb1jdW5CSWppGuuYMMfJnv9OIC0dfNdDnyjdiPH3WqBgrN
+	f8xrQeq9L0wUO4kIBhVZYfCrdk0WAYg3lik3rV/NPkTVsta462Q6iUAApxGbOtObp1C136rgZCd
+	ct251HMybQU5/bzD3ujc5N/aJh8tKAvfbSsiqNCG+VlOoOqeskM46Z3Hfqkk7QCKs+nNRJtFBL8
+	szq5pfJAuOVjNpHFnsvEAsR3ASoV8WIWhlrLJ+Odp6AAPlxB/YJ7MqCBVk0uPnpGpLe7cUOP0z8
+	+Fwmoxz4/jj8lWZMroGyG/RX
+X-Received: by 2002:a05:690c:306:b0:8b0:e479:6872 with SMTP id 00721157ae682-8b4fed09583mr3173897b3.17.1794948707375;
+        Tue, 17 Nov 2026 12:51:47 -0800 (PST)
+Received: from localhost ([120.244.9.31])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4fe057c1esm6086647b3.20.2026.11.17.12.51.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 12:51:46 -0800 (PST)
+Date: Tue, 17 Nov 2026 15:51:42 -0500
+Message-ID: <f4b8c87eb0676500661ebea67363ac27.docular.xu@gmail.com>
+From: Guodong Xu <docular.xu@gmail.com>
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: Cody Kang <codykang.hk@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>,
+ Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ dri-devel@lists.freedesktop.org,
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v2 15/17] riscv: dts: spacemit: k3-pico-itx: enable the
+ DisplayPort output
+In-Reply-To: <576146d4f2752c3c3f6ec6c42812cb9956406383.camel@icenowy.me>
+References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
+ <20260809-k3-display-v2-15-327d7910bf71@gmail.com>
+ <576146d4f2752c3c3f6ec6c42812cb9956406383.camel@icenowy.me>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,76 +116,25 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] media: i2c: s5k3t2: update pad format code on flip in
-  s5k3t2_set_ctrl()
---
+Hi Icenowy,
 
-commit 1494222806e207d51c67e719677f2ad981aa484e
-Author: Armandas Kvietkus <armandas.kvietkus@proton.me>
+On Thu, 03 Sep 2026 20:09:42 +0800, Icenowy Zheng wrote:
+> The connector available on the Pico-ITX mainboard isn't a DisplayPort
+> port -- it's a USB Type-C port instead.
 
-media: i2c: Add Samsung S5K3T2 image sensor driver
+Right, it is a Type-C receptacle, and the commit message should say
+so.
 
-This commit adds a V4L2 subdevice driver for the Samsung S5K3T2 20MP CMOS
-image sensor.
+> I think you need to model the Type-C port and alt functions of it.
 
-> diff --git a/drivers/media/i2c/s5k3t2.c b/drivers/media/i2c/s5k3t2.c
-> new file mode 100644
-> index 0000000000000..1e504bf5fa24e
-> --- /dev/null
-> +++ b/drivers/media/i2c/s5k3t2.c
-[ ... ]
-> +static int s5k3t2_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct s5k3t2 *s5k3t2 =3D container_of_const(ctrl->handler, struct s5k3=
-t2,
-> +						   ctrl_handler);
-> +	const struct v4l2_mbus_framefmt *fmt;
-> +	struct v4l2_subdev_state *state;
-> +	s64 exposure_max, exposure_def;
-> +	int ret;
-> +
-> +	state =3D v4l2_subdev_get_locked_active_state(&s5k3t2->sd);
-> +	fmt =3D v4l2_subdev_state_get_format(state, 0);
-> +
-> +	if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
-> +		exposure_max =3D fmt->height + ctrl->val - S5K3T2_EXPOSURE_MARGIN;
-> +		exposure_def =3D min(s5k3t2->exposure->default_value,
-> +				   exposure_max);
-> +		ret =3D __v4l2_ctrl_modify_range(s5k3t2->exposure,
-> +					       s5k3t2->exposure->minimum,
-> +					       exposure_max,
-> +					       s5k3t2->exposure->step,
-> +					       exposure_def);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	if (!pm_runtime_get_if_active(s5k3t2->dev))
-> +		return 0;
-> +
-> +	switch (ctrl->id) {
-[ ... ]
-> +	case V4L2_CID_HFLIP:
-> +		ret =3D cci_write(s5k3t2->regmap, S5K3T2_REG_ORIENTATION,
-> +				(s5k3t2->hflip->val ? S5K3T2_HFLIP : 0) |
-> +				(s5k3t2->vflip->val ? S5K3T2_VFLIP : 0), NULL);
-> +		break;
+I am not sure that can be done on this board. The redriver/mux in
+front of the receptacle and the PD controller that steers it both
+sit on the EC's own I2C bus, and their interrupt goes to the EC too.
+The SoC has no bus to either chip; all it gets from that side is the
+DP1 HPD line.
 
-[Severity: Medium]
-Should s5k3t2_set_ctrl() also update fmt->code =3D
-s5k3t2_get_format_code(s5k3t2) before the pm_runtime_get_if_active() check
-when ctrl->id =3D=3D V4L2_CID_HFLIP?
+So a usb-c-connector node would have nothing to link to here.
 
-Both s5k3t2->hflip and s5k3t2->vflip advertise V4L2_CTRL_FLAG_MODIFY_LAYOUT
-and change the Bayer order returned by s5k3t2_get_format_code(), while
-s5k3t2_pad_ops uses v4l2_subdev_get_fmt() for .get_fmt.  Without updating
-fmt->code in the active subdev state when the flip controls change,
-VIDIOC_SUBDEV_G_FMT and media link validation see a stale media bus format
-code unless userspace calls VIDIOC_SUBDEV_S_FMT again.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-upstream-s=
-5k3t2-v5-0-1f7f5fde9e2a@proton.me?part=3D2
+Guodong
