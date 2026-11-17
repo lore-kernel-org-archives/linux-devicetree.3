@@ -1,62 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794937085;
-	b=v5re7Ql7DULU0dQrEsV3wR91Y0Ac9cRfvRhEgGg+E3mly0nMyynw0JnKF8SGmw91VeOG
-	 36ERBTzTVJjt7m2Cn4LAAlJ6JBBpN172KEsixDnqNf7WdhfPBVAi+CCbkjpsUOKXvyBzk
-	 SDC3bBrzKBIIiAMGaikiqlfYXxTPMhXNear1iO06gAyv3eylxVX4oflBDLPprop6uUzHk
-	 DLC9e/+bFD6IVe8Ns3NHa+3PQvW7Mbz/eUvuMEwbNoV4QLLefQPF9Z7o21g9m5QtueR6e
-	 g87MwKef2WJtHIeIF9/EfV8cSFR9CbZmBHTcrsGF8oTXUL2q2KkHYvaCjYdR1MoRUoA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794937085;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qId5oU6efIffOiA8tajVDPe+EXVi31e7RDD++IFkWI0=;
-	b=zltuRlnrfDAX2pTkXNC5D+z1ZCV262V+rUG2aTF77FLXOLZTRErPtUor0aBEaan1aO5W
-	 A4bznjg3gD+MXnko+uXD5T5WmoP9Jf4ESZ3jXHaz+kiPjVYzKFXEyEnh2Sfe7R9VjMUjd
-	 LYU1TiCX6K7/Yvn685SEx+SZ0l+LYgWuBzc7Andg6Vazbq9ByDPzuJgFe3akyNTv9gtt+
-	 FqNOUFRzOETUixnzx5p7XCbVevJG22saolh6FUIrMEKnfsJo+el8a3r6A57bzVlb/wEm/
-	 foUX9mqzQKwQCSg1kN+cBN5w1YW3GIWcsLEb9/YoGvlkJjiUatKH2BXBHcuaDj1nPlw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xd9eNF2S;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794937269;
+	b=wWdwA+ldmlI03FsnKfhNpU4d6h75HijqUz4OF1cTxvaU6SSM0iL8VhlOwQY0BxVGsoCQ
+	 mCs8u735mfRtIWHW+Jl78wknkCK1Mc99LGLg9u8UPl44/clV8a0mzKFIOFEmL/XqN0vYU
+	 CVj4ZXW00XPyXixq1hY7/7aEl1ZinIHy47FM4oWnVFVIEJLQ5PraBvqvTbbCNwUtvyw39
+	 82+OMeaWt2C3mRUbTlz56p3B5nFu3YeA+L7KRHnbTAFiJ3yDGfxNr1Mtrd0xyKQv/JqCN
+	 bRb+518Svkbq7uQXD/ceg34uTPnfRRt47rxaGEjHOKCvSq7KMiEq+0fBrnEHKZKtoCQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794937269;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=YXlDBZaIvHo1e8VAiEashHwtglIY0Ep4HLvUXrdMPlw=;
+	b=0mdiy90FQh0Sl9z/uQRCZLBIWnRSlhNlFy7AIJZ6BfxBsMQeEnrC3Cb70XK+ZMMjH/aC
+	 B74DVJgmezMwjfWt/ByXEsKYWXEdOrkaDLuTgz1e9rvJy5MJaUnBgEIc9KtBY7WkIVgg1
+	 OYCf6Hx/xd/yfduFV30OXGBGvS/7r3MOmdiukFXMgGc2I4h07PqHxHqbZ0ec8fn47DmWQ
+	 2ZkRYdDvu3JLabFkDSDRlMtw0ylNxAEZhpMnGBemnNJ5CAO6DUDXcG/OWMvcoS795uroC
+	 31A1vjPgbiJ4/KnFPAL+MO5tjkc1RiGkZcRh7F3c7CsuSTHVMEsIn/pIBmVwKimY7fA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYkSyXjE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5C2606A337;
-	Tue, 17 Nov 2026 17:38:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1944606A32F;
+	Tue, 17 Nov 2026 17:41:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xd9eNF2S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491531F000CC;
-	Tue, 17 Nov 2026 17:38:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYkSyXjE
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794937269;
+	b=I0BVdHDi2BfYv90RhlOr9Lr0bOayMAlSSAQ8LiPWg88locaZPtZ9G4xu0tGuvNFlEdiB
+	 BFuxfOzHEJGWw1bHBB+LAMkn/4NVxhqtW184YA+od36nlNfv9pPO8iGXiHWIfuxZBUrKP
+	 jVvTJ72JBMRYp+o+6c49SQqa7SMmyfxk/Qx8YSL/WkOBfhKCTGFRD6hNXPySiCHl5uV4T
+	 BPtC2/wm2CvmnQqNJ4lwIA+Tf9YSAryb3NN2d11vKClbxhALxkzrGoiNvbsczs6TkbrWt
+	 Nx1JvYJwRokemJkc+JOZjpMOW0DskjXJeB76QuKyGayNFSOWe1sMFaFFiDnE26DDvNw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794937269;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=YXlDBZaIvHo1e8VAiEashHwtglIY0Ep4HLvUXrdMPlw=;
+	b=r9XvizCuHIf6GQXjeb5Qt67MAs0cSRPs1EJzQ/U/BhvqbD4oeIiGogCJ2UYJR7tWHT0i
+	 RYLJUr/qK9oaCFWBoBS6f5Cqo+Igr9kCks2i09tGh+M12CcObPdZQPLkOLthFeyxLMbZH
+	 1PGBjB2p+3//VpSVypBfoWa60oyQp/s47dR8gG1uZ5lMqgjhD1iETFssArU1GgYfrT3av
+	 qV+lcX9Su7iBp/jwpCLwnxTjsjwzvBeZQT+ncBDlmPXRzlYPdc1Fv+lTLdYWss7OWU+2R
+	 0TU/4a7kcNx+w9gmfphnH7soFP5g1hIMsnIbgW5tWKs9LrA6Urjb0gmYfZHl+D8mkHg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id EE7131F000C6;
+	Tue, 17 Nov 2026 17:41:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794937085;
-	bh=qId5oU6efIffOiA8tajVDPe+EXVi31e7RDD++IFkWI0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Xd9eNF2S3oJf9M51r2Y/Hh74LuP3daNmTKtT+nlwtb2NzKaQdYQP9sBuAJSTxYHR9
-	 ES3WC9v2/wT609F1swgrUu0z86ub3Tlr+YkhfGeWdvTjrbH80AcGWFjU4WxVlhM3//
-	 7ZpTaNw0Ik6mai6S8PJNHdltg6Rd5aHhSAaUFAGMQIPByj0RP+i1tUNrkXvcPZO3rP
-	 8cKv2CgK2FiUHVYd09Wkpm0I2yeUg+lnA7Q8pCXy4cOSQIQq60QkJjIGWSaKqlwXsF
-	 3IFAAFuSN69OLyOVUp7bO3CtyPJVSnYYBZqtgOfPtcP9Y+9uCPo2m2NXQL/Bg4b0Dm
-	 1i4VABcTU0BjA==
-Date: Tue, 17 Nov 2026 17:37:59 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Mina Chou <minachou@andestech.com>
-Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, jic23@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be,
-	magnus.damm@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	randolph@andestech.com, cyyang772@andestech.com,
-	tim609@andestech.com, az70021@gmail.com
-Subject: Re: [PATCH v2 18/19] riscv: errata: andes: limit the IOCP workaround
- to RZ/Five
-Message-ID: <20261117-grape-skeletal-89da442523ce@spud>
-References: <20261113071143.1446167-1-minachou@andestech.com>
- <20261113071143.1446167-19-minachou@andestech.com>
- <20261113-helping-elsewhere-cbcf0c8f67ce@spud>
- <avwdT/vGjfsUCkHv@atcsi01.andestech.com>
+	s=k20260515; t=1794937269;
+	bh=YXlDBZaIvHo1e8VAiEashHwtglIY0Ep4HLvUXrdMPlw=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=RYkSyXjE9IAgeydM0LPE1fBgolP7L1M15dIEyE+OUkh1gfjutGEyAZA9406V/gtEm
+	 gbELMh/Oz9Te5GdelpTeIH0FNDS7GQO3CWpbDyY7EoQWNtsCGtNNzIqhoheaYnCKi/
+	 zqYLLjgtJDd4ZIc/7jKAFNG9SeFRL34qcpMUFjv3xKHMhv/FwgsTymuLkyIzjMr02E
+	 U5/RvpPSxs8sRfuX4qNJvRh9Q8oT9m5AM2N0+PQxuI73puYGJaVkn1Osp7ahTR/y+g
+	 QdSG/bhd/rzN6hC+HhNzbVANhFK3rOTZ1lsTMC526mARaCq/kuBLe1YwI1JuxNGKmi
+	 kcx0h5Mm701UQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4C6824AA16;
+	Tue, 17 Nov 2026 17:41:08 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Subject: [PATCH v3 0/2] backlight: add ktd3137 support
+Date: Tue, 17 Nov 2026 19:40:57 +0200
+Message-Id: <20261117-6768-ktd3137-v3-0-b4fd957e3b00@protonmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,49 +83,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xX4oY8xNNpMcBrcO"
-Content-Disposition: inline
-In-Reply-To: <avwdT/vGjfsUCkHv@atcsi01.andestech.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNTQ7CIBCG4asY1mL4aWlx5T2MC6BTi9rSABJN0
+ 7tL68ZoXL7JN89MKIC3ENB+MyEPyQbrhhx8u0GmU8MZsG1yI0aYoJQwLCpR42tsOOUVLsDIkoi
+ 61UKhfDJ6aO1j5Y6nd4e7voCJi7EsOhui88/1X6LL7g+dKCZYl7poJeGmFHAYvYtu6JW97Yzr0
+ eIn9iFQ8iWwLMhCClNSaEEVP8I8zy+sGjsXAQEAAA==
+X-Change-ID: 20261102-6768-ktd3137-4ec95068fb6a
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794937267; l=1886;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=FSVxmo57BknMiKWx0HlL7rvM1SWImH1ToEyr5Lg5KGA=;
+ b=6xP59/Y/AqYpXNqfijQP8uk+tItfqsnD/vfknkIo3xT6XvOWTesQ/9sLKcMSIUDVjHwFf5zuP
+ CVa7id8j4z9C+ndMYh7N5W4ZntdP/oHZI02bEPzdMo6rJGO3juJZXtN
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
---xX4oY8xNNpMcBrcO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This patch series adds support for Kinetic KTD3137 backlight IC. It
+supports linear brightness range from 0 to 2047.
 
-On Tue, Nov 17, 2026 at 05:24:31PM +0800, Mina Chou wrote:
-> On Fri, Nov 13, 2026 at 01:53:29PM +0000, Conor Dooley wrote:
-> > > Move the match into soc_is_r9a07g043f() and make it also require
-> > > ARCH_R9A07G043. Kernels without RZ/Five support then skip the SBI call
-> > > and take the generic Andes cache errata path. No other upstream-
-> > > supported SoC uses this AX45MP mimpid, so their behavior does not
-> > > change.
-> >=20
-> > But a device using this soc that doesn't have a dts in mainline won't
-> > function properly, so this is fragile. Why not just do it properly and
-> > check for RZ/Five specifically?
-> > Can check for of_machine_is_compatible() probably?
->=20
-> I will check for RZ/Five with of_machine_is_compatible("renesas,r9a07g043=
-"),
-> which on RISC-V is only used by RZ/Five, and drop the marchid/mimpid matc=
-h.
+While the chip supports PWM and MSB modes, they weren't included, since
+MSB mode supports only 8-bit brightness range, and PWM is not enabled on
+this board. I have checked other Xiaomi vendor kernels, and their
+configuration appear to be the same as on my board. I'm not aware if any
+device uses PWM mode with this chip.
 
-Looking at what is quoted, I wonder if my main point I forgot to
-include. Checking for ARCH_R9... (or any other SoC in that manner) will
-fall over on multiplatform kernels. Code needs to be written so that no
-matter what Kconfig options are enabled it will work.
-of_machine_is_compatible() solves that though.
+This series was developed and tested on the Xiaomi Redmi Note 9 board.
 
---xX4oY8xNNpMcBrcO
-Content-Type: application/pgp-signature; name=signature.asc
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+Changes in v3:
+- dt-bindings: bring back vin-supply (Krzysztof)
+- Driver:
+    - Move enable_gpio from the struct to local variable
+    - Use .name for i2c match (Sashiko)
+- Link to v2: https://patch.msgid.link/20261110-6768-ktd3137-v2-0-9496c51efea4@protonmail.com
 
------BEGIN PGP SIGNATURE-----
+Changes in v2:
+- dt-bindings: drop vin-supply from required list (Daniel)
+- Driver:
+    - Drop val variable in ktd3137_init() (Daniel)
+    - Replace KTD3137_DEFAULT_BRIGHTNESS with KTD3137_MAX_BRIGHTNESS (Daniel)
+    - Drop gpiod_set_value_cansleep() in ktd3137_remove() (Daniel)
+- Link to v1: https://patch.msgid.link/20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavyQ9wAKCRB4tDGHoIJi
-0qBvAP9+1RrfwGvdcMspPE/tS0MBvdZoS5zBpUQxasuB4VeMFQEAo9VQjBYpr8/L
-QPB6RwjCOmhkEDqVr7MkDkNYTdGuZgs=
-=h6tV
------END PGP SIGNATURE-----
+---
+Roman Vivchar (2):
+      dt-bindings: leds: backlight: add Kinetic KTD3137
+      backlight: add ktd3137 support
 
---xX4oY8xNNpMcBrcO--
+ .../bindings/leds/backlight/kinetic,ktd3137.yaml   |  64 +++++
+ MAINTAINERS                                        |   6 +
+ drivers/video/backlight/Kconfig                    |  11 +
+ drivers/video/backlight/Makefile                   |   1 +
+ drivers/video/backlight/ktd3137.c                  | 257 +++++++++++++++++++++
+ 5 files changed, 339 insertions(+)
+---
+base-commit: 5e6de6a2b522f659defacb1551d0465ba6ce13cf
+change-id: 20261102-6768-ktd3137-4ec95068fb6a
+
+Best regards,
+--  
+rva3 <rva333@protonmail.com>
+
+
