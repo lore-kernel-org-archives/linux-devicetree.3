@@ -1,47 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912101;
-	b=omci/7X8pkB5MGSRk2K2fTL0rnPtWbh2oz8JC4qM2Kq3eokaTrFO2xR/3hoSz4O9wQVw
-	 Xgh8HgFn7WRvjxRFbDaEivs2l5hDt/HmsnW6BjSZ92QLslIre3zuC9lsGngayVabUl4kY
-	 w+NHZEsXBSMJBvOfvJKwOcfCfxekAFrT+JfUhZrCny8mWTJAY2gOb+CxnMtTS4dIMz9L0
-	 QpoHNZtyNSyYKZave4Zf//so1kOp5PmhNSJAJfWbNjhwmMBcqM89eufkNJTc53Ieh2Lvw
-	 G5dCQm/Zymc+CApC1Txetz7VHm9cP9PHldNWcdxNQ77rBeu2iJE2fcQ8l0W2yoex2VA==
+	t=1794912122;
+	b=e5DQG9HwAi/qxaP3QCWRR5zgQIkzmb1spl9LhzGkiruZn584opVCn35GcayGhSqQ1Tym
+	 TcPS9Epgxd6CgOSLTHvcxIsgj+aaYTTEpLQ73h5iL+8Zz7QkmsjxM/4zV1tW8M75M3cpR
+	 YDbEf04RmDTv4/pwZp5TqSyZ4UWIGtcg1el1PXs5ktA6Fpz7fiDNYIph0rxPV4473UVyu
+	 IWvQc7bPKfRk/F7vUQ2lCb+T7++qb8Ei4PtEoOw7S3rWbohliAB+dLNIcgtnWVLQe1zju
+	 BCk17gQQgzDNCPxbkpmGayiZTe60uYpffWmb4rV7ZGUtXV8ZaEKad0PlmWz3FhYEXYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912101;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=fDDgnSW1FcakdvTmyMuFJCORZ23T3YvRFBXyHKMQyeA=;
-	b=00at5eASmXAyZ8qV2CUCoAXQ+RkY7ZiK8BZsPlMOkdqsUZ5hBHNr+aA1h67PqcsAA76C
-	 CzNrF86aaFYWH3d9Azz1c5mWDdPX+V3o6lIXVTmhfR9wi7TrmpXKODu9AsRFJ0LI09qNN
-	 PuKgwpDFRP7wDunbnmOsuuZ5Un5dNlSSB8BH7g5F1H4dECP1Eze6ffWWsFvL64pcUl8Bq
-	 37GVwYTqzY7TswvPeZLBxzLxHK07+VDC0RiKB076D32WgCyajTjUoiRJYOKd32TWLb560
-	 T0nhO6HbmjKtYfHTNCfR4z0q+8JLw89Pjc7yTGWnkcPRm0qMPfi8EiurIzaep1wcs7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912122;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=PS1VfaJQo8AXeb/IwzWbByg/SH2tTkW/13Vhf/xaBJI=;
+	b=d8ErRq4a35pz/i5oCJ78Xt50Mo36oFtOa6O+Qkg8LHQ9YMnzBwrNrIfC4sov6V2S1UC8
+	 lvAzFqeHMqrXdb0t6qLDAlGpmyuPcvSgsTWHQpIf/jNYTiOpSYwwDNCxWAXhLL9PvaL6N
+	 n6lxGRt0plClH9VgBVBWhbJIdINk1M4obkIyS+nImsl8qcMJqRygLCrB5FFCkgC45BrD1
+	 XSDy8+4F0MA0Iz4hDXwabxzJkkj/ijTa0VJ/gyW1Uq2DO2JaFQNHSuVf+2P4n9xuT6Qa5
+	 E6EMvF4F4sCDvI9OhJvHrrgyQTJ6hF5UMNeTsan4d3HQMUHe/HqbKE3WZmbsYSlBIvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCyD7lXg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u4QkVIy4;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62725606A31C;
-	Tue, 17 Nov 2026 10:41:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A7E606A333
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 10:42:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17A7E606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCyD7lXg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03B5C1F000C5;
-	Tue, 17 Nov 2026 10:41:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794912101;
-	bh=fDDgnSW1FcakdvTmyMuFJCORZ23T3YvRFBXyHKMQyeA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nCyD7lXgC/DCJDc2yB2ZR8HBmxOHQQU3PYHkGaveFzSQLILG86ZUcPLN6dCgUmNRx
-	 P04gXDM80Oi546sXdlOBmDwEUbzYAChYcI0YAfxXxUVNbmayCNxv/oA+MKnumrF7Lr
-	 APTD99RWqHRUDXvqH97AzUqkkRauuvCMaASGGr5mAQx50FFK+8b/5ofg71ZesQWtOg
-	 0OElvLE06kqFfZlVLavRI1InK3Azm6LUhJa/MFNBrsrxgWiuej/J8FFq5QY3iCrJLF
-	 +ZI0CpQwcY36TE9KvCnpBCNPKpRIyq0cM5u4NzC+QwpLpgXN3Q2zNPz+LIlaDdVUPM
-	 11hkdPbCY3zXg==
-Message-ID: <3fc512e9-c437-494f-b852-204d0d57e005@kernel.org>
-Date: Tue, 17 Nov 2026 11:41:35 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u4QkVIy4
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so31564905e9.1
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 02:42:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794912120; x=1795516920; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PS1VfaJQo8AXeb/IwzWbByg/SH2tTkW/13Vhf/xaBJI=;
+        b=u4QkVIy49fTaoNwvWvnjGQQRpk+tfWR6LLp+CW+T4swmBdd25jXMn3tdWpXy5yiFUu
+         vTuksHTy2xKLcetJrE5+cHPrQ7SxLWJnqPGTMN9w/ehtQfjowZWh/o0MvhKzh4Y/iS7O
+         6xYBLvzjnMShr5zzhLCdjsDSrscSIQQCSH02l/PcaqAJEQXPgl756vs05i3C9DwYCY5W
+         vczinvhPLm0CpccEU/4tRsoE1aQPqsbPf4TNZnjbs3G/vgRwXjcBxn0XjaCSs0vVERNJ
+         Gjc6kx/xzNqQLGXCep/9XGA84H7NXodhlQVV8d+mvDUdClsdwdAHAKjCq1WFYMkSzDsv
+         vHWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794912120; x=1795516920;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PS1VfaJQo8AXeb/IwzWbByg/SH2tTkW/13Vhf/xaBJI=;
+        b=D/AowPYNVFoMtdYkCp9zWRmrK/P54NcWNwIRW/vjaBFB5RtIMTEeBSWbOJ6NIWCp95
+         k/kaAey7nuiyRpS4f6bW5EbU2ga6hTxcRl20HN2r2nrPHQGbD0BmLEGMJ2lipp7BWdak
+         1/MCqiXRB4mJNynukVcFuQPLCXMFqKPTU7NzmK7RU42dfFfUaf1whJZDxkH2lLfcvHNI
+         Gu05dS+4pfH7ZXJ6FUQ6QiOj6zVWf8TlawNSQLObJzKf49HDRsG0nmGFQhSGRyo9tw7x
+         zNtlCj0ldiEGvmLnngyFHmalI8RbLXvpLujR9UPwj07uB7mYigSdt5BUjPUcFChQQU19
+         OOBA==
+X-Forwarded-Encrypted: i=1; AL+hErFYsvbxNzYtNPwv4KxQBvQ0MJ30vl6vzphpuL8MV970HIGAQVVQifly8dbEpRjZ+hFnu++BuIxkW/3d@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8n07fXcf2w1oaV5cIXzyslwmqlM+34dtT9/BCbhJdWTYVpPeE
+	EjblSRY38SX6wxCr/7MrSNcTriexTR7jOdUs3WwYvB0EjkkcicsHDl09ji+SOymTTVESZw==
+X-Gm-Gg: AYBFou0n3+h/7XJ2PW14O6VWCeN/DUBYN1DE5YAvSOpo22fovMAl0tYArt4ETxO2XQ0
+	T62hfp4fdMxmOdhI+vvOC5D9x7H9C9XHq6BsxdJuoroNnFTbWAcMH21a+lQoNeLhwPZd7IHcdBJ
+	jK0vGTDU0n3Z6rgwseD7Pn/LLYDE0pGw2x8dQic4RKe8PJKdgvhe4FtkoSHUZdL4Jkuauuuyj1O
+	XGnVx1cY7HdCJ8VVpRTNCCrVpOIuWc0LKEgPDLJ1pby2aJZQEAW7dzPqgHtq54t2rlhxg4AlSaR
+	fMkoolfGj/Flbu2JHB0e8GmkGgicjSKjKg4eU0UWFRq2DqGcYHCcI1yAFK6tqA3n/c+DgHZk5tg
+	PYJ6Yk1fV7DFt3kJKFV+djDMBQalRwccerfc/604ZQgw/f2nV+GC1JpqkzYrf1KQm4OJ138JNkV
+	opdpHEbgaK2P+15tUqZPzF+nsjHOV153gZGy13Nf2AO/eUSw/KIwWdMXqtWXmvUZBc/omHHE2eN
+	23qE0Z+2v1xOnUROW4DCBjDbJd0xi4k/A0zl3KezjUi
+X-Received: by 2002:a05:600c:8b11:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4bb55a6a53emr281079335e9.6.1794912120251;
+        Tue, 17 Nov 2026 02:42:00 -0800 (PST)
+Received: from [127.0.1.1] ([130.61.107.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783862d6sm52348035e9.2.2026.11.17.02.41.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 02:41:59 -0800 (PST)
+Message-ID: <6afc2f77.2bb6edcb.1518d5.5d4f@mx.google.com>
+Date: Tue, 17 Nov 2026 02:41:59 -0800 (PST)
+From: Adil =?utf-8?q?H=C3=BCsrev?= Tepe <tadilhusrev@gmail.com>
+To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Kaustabh Chakraborty <kauschluss@disroot.org>
+Cc: Yassine Oudjana <y.oudjana@protonmail.com>, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/3] power: supply: s2mu005-battery: add S2MU106
+ (Samsung Galaxy XCover5)
+In-Reply-To: <20261116074000.355176-1-tadilhusrev@gmail.com>
+References: <20261116074000.355176-1-tadilhusrev@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,117 +101,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] media: iris: add mahua platform data and enable
- qcom,mahua-iris
-To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261113-mahua_iris_enable-v1-0-b7107e1cbcaa@oss.qualcomm.com>
- <20261113-mahua_iris_enable-v1-3-b7107e1cbcaa@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261113-mahua_iris_enable-v1-3-b7107e1cbcaa@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 14/11/2026 04:09, Deepa Guthyappa Madivalara wrote:
-> Add qcom,mahua-iris compatible to initialize the hardware
-> and necessary Mahua platform data describing the needed clock
-> resets and powerdomain tables only for one core, vcodec0.
-> Most of the data is leveraged from Glymur as they are the same
-> Iris variant. Firmware, vpu ops, buffer sizes are the same as for
-> Glymur.
-> 
-> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/Makefile          |  1 +
->  .../platform/qcom/iris/iris_platform_common.h      |  1 +
->  .../media/platform/qcom/iris/iris_platform_mahua.c | 44 ++++++++++++++++++++++
->  .../media/platform/qcom/iris/iris_platform_mahua.h | 14 +++++++
->  .../media/platform/qcom/iris/iris_platform_vpu3x.c | 34 +++++++++++++++++
->  drivers/media/platform/qcom/iris/iris_probe.c      |  4 ++
->  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 10 +++++
->  7 files changed, 108 insertions(+)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/Makefile b/drivers/media/platform/qcom/iris/Makefile
-> index 48570da56aa052577e05ead12bd26df090d97454..6c187d25980eabcd1c789b132e2f0bffa62fc805 100644
-> --- a/drivers/media/platform/qcom/iris/Makefile
-> +++ b/drivers/media/platform/qcom/iris/Makefile
-> @@ -13,6 +13,7 @@ qcom-iris-objs += iris_buffer.o \
->               iris_hfi_gen2_response.o \
->               iris_hfi_queue.o \
->               iris_platform_glymur.o \
-> +             iris_platform_mahua.o \
->               iris_platform_vpu2.o \
->               iris_platform_vpu3x.o \
->               iris_power.o \
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> index 1024a2fd75a3ae2b7e194e583b91ec5f16e2773a..817b8a9e2712e7f1e335dbb8600dc033670c5cfa 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> @@ -58,6 +58,7 @@ extern const struct iris_firmware_data iris_hfi_gen1_data;
->  extern const struct iris_firmware_data iris_hfi_gen2_data;
->  extern const struct iris_firmware_data iris_hfi_milos_data;
->  
-> +extern const struct iris_platform_data mahua_data;
->  extern const struct iris_platform_data glymur_data;
->  extern const struct iris_platform_data milos_data;
+I'd like to withdraw this series rather than send a v2.
 
-That's random placement, no?
+A review bot (Sashiko AI) flagged that patch 1's fallback compatible
+(samsung,s2mu106-fuel-gauge falling back to samsung,s2mu005-fuel-gauge)
+is unsound: a board using that fallback binds to the S2MU005 driver as-is,
+which still reads the MONOUT average-monitoring registers for
+VOLTAGE_AVG/CURRENT_AVG and uses current_avg to help decide
+POWER_SUPPLY_STATUS. The S2MU106 doesn't have that path, so those reads
+return garbage, and garbage current_avg can flip the reported charging
+status. Patch 3's has_monout flag avoids calling into that path from the
+S2MU106 variant I added, but the binding still allows a device to bind
+through the plain samsung,s2mu005-fuel-gauge compatible with no
+has_monout gate at all, which is the actual hole.
 
->  extern const struct iris_platform_data qcs8300_data;
+On reflection, extending s2mu005-battery.c was the wrong shape for this
+chip regardless of that specific bug. The S2MU106 fuel gauge is a
+separate, standalone I2C device on the Galaxy XCover5 (own address,
+0x3b), not a drop-in register-compatible S2MU005 variant sharing a
+device tree node -- it only happens to reuse the same STATUS/RVBAT/
+RCURCC/RSOC register layout and scaling. A dedicated driver avoids the
+fallback-compatible construction entirely, since there's nothing to
+fall back to.
 
+I'll send that as a new series instead: a samsung,s2mu106-fuelgauge
+binding and a standalone drivers/power/supply/s2mu106-fuelgauge.c,
+with no changes to s2mu005-battery.c or its binding. Sorry for the
+noise -- I should have settled on this shape before sending v1.
 
-Best regards,
-Krzysztof
+Adil
