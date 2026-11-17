@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794877531;
-	b=z3AezKMYPXiW8lfUrMg1PmSl7Tp0AqbabMSoIQgxZd5W6W3ruv/ribhcOlNA0Oer3LuT
-	 uwdbSCn79L6xHBwiFviLTe1Q+SnuqmLR/zM9dB+8/B2KrBOQ+th8SsTvyxqJTyH/eY4J/
-	 PyDcJ1A2S5eaoW1ln/NS7ZOYvr/OQA7ExTOQWQlx/7aWE3Pb2+saIKTGHdOeKelKYu9W3
-	 nrsajLUZLbiTow+t+/YwQZ6/UTz5P+iU2Ix0DmF42N7unzOkdtaSPBKZd3saxTOK3MuZo
-	 HL6h9PsrY/PweHHFLhxLuwHfgyy8a2PZG7WzfZoWkyYmHBVX83CQAQgX1lJpdN58QVA==
+	t=1794877529;
+	b=psZhEUAPT21cPlDjFIQD6osE1lCVRfx3Uewu+HjwCZFghdYgdPfhWTTNVjtRUS6ane1Y
+	 3Ftii+Nep+OqS0VaLPv1cLibDFrm1R3o7XcXNcNBoLyOoSXVTCxSjs8kjUSXTlJN3xkt4
+	 Owc4cBqXKZT1EEzrL7hcuIYzs9/tXGrVuB/PzYQsdYxsw/lR7KlxfAKktC60pfSlAKJ43
+	 YA9GhiQAqkxHOcPqbGsoJ6Kk3UEQV9Rgug4EUbf0JTC1r+JnhRKdwW/kLiuKJ2kF5O7/t
+	 h6Skh/YcJYkdhxZMuVN+19KVdc8EyBQeFkD7gKDz7O1eWGn8Pe/jlRqC0PxmOoz6qMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794877531;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877529;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=yORlEJfFiuD0G1BfawAWzgWyXl067Uig3kmhAW3hIOI=;
-	b=JQNEQjq9o2wawKyl/Yh0YL5bBU6lIaZkrn610ng2ggydhY7ew96QB8qiRkv9UzXwO9D6
-	 Gn7NUfGPqNPMQHzXxylhQNLzHUtd4UzvJVMsysnbj2fmDRhe3SRtCnA/Egz99f4e90GjN
-	 aFqwD7u8Cqa5q0RN+t4pHKPRkEspDnz49dGusmCtr0q3ODEeZmXMHF3JeAfz6UPUTM2bj
-	 8hWnCVmPWC1+SIrEnqSKMaUa51pJtJsXtGEssItBFej2cLgSz5+atbjhnn/aWVuy0nItA
-	 9nr82ZCvyMI4vzwLiqy7kwV7kzfLBewSJt/Wt1QDz2u4qPYNcVDVtxfjAJNKbVIk7gA==
+	bh=aaneaYuk4zwfN2AHPfQmDqDldjV+rFAyh3wcKEZIRyU=;
+	b=222bqPQxicTcdX0Y1unc6JujA47A0SCjbRHIKKg8R1AmFnPJdNHC2h+R9gx/ssSJzgF5
+	 5qPzrBIo9Ut2MwcAQ8SOlYRmvDiCVGYWIVzH6kFiPE5IY2SiRDqQqbex9b+bc2CzcjCuc
+	 1w8bT4n0urHTKNRdeZE95q54y6SAyLmKu5I6nbUc8cjIqd6Ooc/FRO6D2YS4klnxhVhtM
+	 BybbXg1Xe3TjTuLJmCB5jR91FsA4EzQjFspMe4uJ3LZ0mqrOHA8Lgc/7rcFlxpC6OdZca
+	 D/P34g9Ywii+dzkG7uQRDN09A7AI4Jj/1YIb5Cel4egISMXL6WP6PwT9BDYsPRCOlHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VHGr6j3V;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EE19l0vg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6AB60A5BD5;
-	Tue, 17 Nov 2026 01:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VHGr6j3V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6B951F00931;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17B260A5BC0;
 	Tue, 17 Nov 2026 01:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EE19l0vg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C36C1F000CB;
+	Tue, 17 Nov 2026 01:05:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794877530;
-	bh=yORlEJfFiuD0G1BfawAWzgWyXl067Uig3kmhAW3hIOI=;
+	s=k20260515; t=1794877529;
+	bh=aaneaYuk4zwfN2AHPfQmDqDldjV+rFAyh3wcKEZIRyU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VHGr6j3VQDek8hXQDmswRX/Ew5gie3gw1k7bYp7jn4vPQTP3EvSdf6cu1HjC9A6BW
-	 NCSeCVfcCsFDNfjIZXGJcXe1VP0+WX2ewUG/eR3IVYFMi6dAA7x3gwMhozkc2dx5+q
-	 1AbvoVfhOzS0q0FC6ikVAZQ2nwXaWPo48GPTsTMo2KHF526CmFJPPIHZUnuFt+NzBt
-	 Ug9gkJlDnlLuE5OMCb5Kpp/lr1fhS3hVxivEkO3ktF1/fGWwtWmHik/pShz4PZcLVD
-	 nt7LVVpXir8jmvPrEf7MMwZHz96YXTi+ISaMi6FN6djSD6C8Z278LiQY3YLZkJvm73
-	 nKHZMsmHoTi0g==
+	b=EE19l0vgvJuStUePHPIWkMNZDe4JTq3vqeHuYqxyTful/0GqfxprPh0jPTAS5IPHn
+	 BM7ucTie6sR2q9sr7Q+GkxtWkN8ICjfy2VdrwoACNEkfYnZpibzjNv9VMhV6Q0x6Az
+	 lSUedX1mJ0dFKB7sP8OYTx+7bVyvmDOHwKYFQNxZNVbQhQgj/DBINOy5i/mP2RqgEL
+	 eywvG9WIyYRFnPzYWTcywYgEuFNLkGMo9ADJfXLw1QoiMwaAoNjb8CSNbU1+Bqof5w
+	 sWDmGLyYN5345eCu8o+UmpddV3zNn6gcQ9fnD9ylggaGEQ3D2BuNRjKxBSbNAF/9B8
+	 bMredddmb/04A==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 Cc: Konrad Dybcio <konradybcio@kernel.org>,
@@ -47,19 +47,18 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+	Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
 	Bartosz Golaszewski <brgl@kernel.org>,
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-	Yu Zhang <yu.zhang@oss.qualcomm.com>,
-	Shuai Zhang <shuai.zhang@oss.qualcomm.com>,
 	devicetree@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/7] arm64: dts: qcom: nord: Add PCIe and WLAN/BT support
-Date: Mon, 16 Nov 2026 19:04:56 -0600
-Message-ID: <179487749350.432567.14067004682370840525.b4-ty@b4>
+Subject: Re: (subset) [PATCH v3 0/6] arm64: dts: qcom: Introduce SA8255P as Lemans family SoC
+Date: Mon, 16 Nov 2026 19:04:55 -0600
+Message-ID: <179487749337.432567.17386126514457747489.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261111075141.3710366-1-shengchao.guo@oss.qualcomm.com>
-References: <20261111075141.3710366-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
+References: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,34 +72,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 11 Nov 2026 15:51:34 +0800, Shawn Guo wrote:
-> This series enables PCIe on the Qualcomm Nord SoC and brings up the
-> WLAN/BT modules on Ride and RRD board.
+On Sat, 31 Oct 2026 21:10:36 +0800, Shawn Guo wrote:
+> While the patchset [1] supports SA8255P as a standalone SoC, this series
+> offers an alternative by introducing SA8255P as a Lemans family SoC.
 > 
-> Nord has four PCIe controllers fed by a single quadfurcated Gen5 QMP
-> multi-PHY. The link topology (x16, x8+x8, x8+x4+x4 or x8+x4+x2+x2) is
-> selected by firmware through a TCSR register that the PHY driver reads at
-> probe time, so the DT only describes the PHY ports and hands the driver
-> the TCSR handle.
+> Lemans family has two variants: Embedded variant (IQ9/SA8775P) where
+> platform resources like clocks, regulators, interconnects etc. are
+> managed by HLOS, and GearVM variant (SA8255P) where they are managed by
+> a VM acting as SCMI server.  All Lemans family SoCs actually share the
+> same hardware configurations like memory maps, interrupts, DMAs, etc.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/7] arm64: dts: qcom: nord: Add PCIe PHY and controller nodes
-      commit: 1e1139747959611400023a4226902cdeab07a53b
-[2/7] arm64: dts: qcom: nord-rrd: Enable PCIe controllers and PHY
-      commit: 5088c1c7dbfa63aa9cc97d5b2cb59d13318e5ed9
-[3/7] arm64: dts: qcom: nord-ride-embedded: Enable PCIe controllers and PHY
-      commit: 752b8c57d9382926f3b360c9bc65b9640a72e021
-[4/7] arm64: dts: qcom: nord-ride-embedded: Add WCN7850 WLAN support
-      commit: b09eab861d000b4a60aa1dee549d1a51296617e5
-[5/7] arm64: dts: qcom: nord-ride-embedded: Add WCN7850 Bluetooth support
-      commit: 1c440c8a96038b7c34cc734242ab6e8ee047b88b
-[6/7] arm64: dts: qcom: nord-rrd: Add WCN7850 WLAN support
-      commit: 3bef9aecc88520734130f700d518df2742499b0e
-[7/7] arm64: dts: qcom: nord-rrd: Add WCN7850 Bluetooth support
-      commit: a06fafdfaf70232c2709a6c5402c3d86bf73ab75
+[6/6] arm64: dts: qcom: lemans: Enable lemans-sa8255p-ride board support
+      commit: e7a91614a2e3d6c7b436618b74f223fb41b7ed00
 
 Best regards,
 -- 
