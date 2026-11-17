@@ -1,68 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794926057;
-	b=HJKfq36WRk2S/G1RBv2k6UBltfY9/lOo2wLhwmE1x5NaQbJyqoQNRg6uyyQYhXKgxgEX
-	 qTuBXrTSvu1Vyf52B7q6QEU8mNZNESGupx+H71AJlRuaOlSbCiYb8PnEhofQCAcqvPW8r
-	 eWCyxn3gAuFGKSiUZZFvsCClQnEXu+0q1mPFOiY3lfjXpue2EsPpk70ie27GT3IkiNe0z
-	 OAQOfr4OQTSHcfnegdHS4vXJeWBx7TBreMUXRmAUs3KbY/5ySjB6pwBkS3OOMFnJ3ErlL
-	 zaCs+IRSBKUV+4uURC270pZBcdKz702sl6tL0Tse7nuoRzQZyHMBwZtxzYroIAEDmfw==
+	t=1794926289;
+	b=EgErD1PW7ueEtQA3wS8vU+o8J5RzYAWpS2Ai0acDilNP2XeSKnfMuzdgfHwo5inEcG3R
+	 sGFX9mbXcoXnlB5ppNzGB3+hEn5QOqrZvb8W3yOAOgoj2ZRPuRHQPC7Bdx6U4mpuycBKg
+	 iVL7tn74pyShmJ5UARslwff/ghetk2o1G1/AjBnTer6mn7ZnSKRprGsNp5aQ7/zIxJaKu
+	 j0imOth+2v0pv560CjgD/TIj+aUNk7iahzvW9gwZYDcQS1o1OBT5/EYqdNkVKyRdA1d4k
+	 P7W55V4thLCJ0w1lhcAU5XaAaXqRVwFajOXE8WUicnGLX69ela1ph9IvGgH77jCkw6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794926057;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ctl1tLaoM/IXjPWaua1GqsUJA8m8aPnpqJlW+uWtku4=;
-	b=P6x75JjuQmheqSOBlbpLr6yeZ8+CazQts21emqMtE3vmCoXI5zrHc49uQRE5K1/NBS10
-	 /dWldChGq2co+wRjHed7VKlOVELs/cpGkxvs6J3qqcl7ddMIPIYgKMioYOCLgcx+bGNt/
-	 1hAoOCV+YUgpajM+tin2RecvXQJT14RZbgyUjpxbz2UdHGTnPCPwn0v2cbyopf3anQ+z0
-	 pzontM8XnBHcrUJaCBwI7kxeZDhE9oj0Dsu+4dGnJfxvJd3fbVakYjNsWip+4BigTjys6
-	 I39xE63Xep5rqTBnEM0PsGU2OgzorYAEPol2R8pBp9kKFQ7QLxnD7LGx0bvPXciImUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794926289;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=VTFCUqWxMs/UMDKH+817AZEmJN866yvTu02EQIoOe/I=;
+	b=zVzG9YnfusADrwM+aoiWlA6e4SIephd7ICSPMigle5NFV4VpHEpQ1TZEZWOtGUip/LJO
+	 q0SUJeFLnbZ5G34BeBQbZMHeRoMcQF41oinU3VuU2FkeDkS88naWR9iF8cCcYhv74aRUD
+	 Z72RvSu9e8EHNesI0TOPXS6P2JF1b9FsNvKPfSZC94VXix4UiPxd9M/78qVmhrfmqZu8Q
+	 /JKYROtqLQKyZ8Pz9Zn0RvVVtcyDFebYrNYztQKK8ChgCVerc9KN6cH/bvyrUCp0EE5Ty
+	 KQoabioi0an9IqN3WSR6uw7GkAo2RUZTbDO/kKDP/lrBcd2XFUbOudgEwErKuhCrY7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQROSnmc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z1nhNWlq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB92606A888;
-	Tue, 17 Nov 2026 14:34:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDF1606A8B6;
+	Tue, 17 Nov 2026 14:38:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQROSnmc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 440A81F000C6;
-	Tue, 17 Nov 2026 14:34:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z1nhNWlq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E7C11F000C7;
+	Tue, 17 Nov 2026 14:38:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794926057;
-	bh=ctl1tLaoM/IXjPWaua1GqsUJA8m8aPnpqJlW+uWtku4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AQROSnmc1Uipda2/MZtI5joUGrUdfqKIRPexALaTDcWEblXm8qQbC4ye291cfcQUO
-	 Ypn1BSFBZn7yAEtwDJ4TCXlOht7RvrHt/zoBOsieQ5gQDhtKKzHBAQ8EwKCK+udkSu
-	 2S3a0TKkzze3u6BHYZNmDqXiPOQgOXnJ67XFgSX/UWrIOXXw40F9GbSr0YjW7xBE5+
-	 3BdZlSULorJ1aB0MAy1bFtQjyu5FIQrgO1hk2NnpIiRhZKCvfCMtD80suVifctJBtg
-	 7r5lahPKDD/BopTPEX/QVDSyTuHMoEjSpuYxP2qS4fP2MSwsbfvZTN7EQPpGhh3GiP
-	 mLJOyhcGfEACQ==
-Date: Tue, 17 Nov 2026 22:13:58 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 1/8] dt-bindings: net: Add MDIO demultiplexer
-Message-ID: <avxhJs-51vs2Icje@xhacker>
-References: <20261116135442.4827-1-jszhang@kernel.org>
- <20261116135442.4827-2-jszhang@kernel.org>
- <16ecb3ac-7876-4db5-9168-5ac9bf31d4b7@lunn.ch>
- <avvgy_bmRSVApCHA@xhacker>
- <bd19b55b-00b1-406d-a16b-d04c35efb7d3@lunn.ch>
+	s=k20260515; t=1794926289;
+	bh=VTFCUqWxMs/UMDKH+817AZEmJN866yvTu02EQIoOe/I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Z1nhNWlqY1OnylVb3wZwJgf6ufN9bST11jc+M+gJ+VpYt3jeQSRLaiKoQJmR6I9xT
+	 r283rI1qkjPr/XtUOIM2YrdJ3Sw1vv9gbQMVEW1L/4KsqzkdvwWANheFUBAmvirPhl
+	 D4kGaPwwKc/Pe/v+bDz5hZvxlFXGUjCO82tdZaKJgS1otK6MY+cz711Y3oKk0rTkkx
+	 tifZtNG8vCrgymisywzOKh5mB04lStNVaLdR44oUCbi08V/li3BLjnuCG1g4LZlJ/l
+	 WvUaP7EGRjDqAOiC9HOGtKBsElhcW0raUI/fkcAEZ4Q8rEI5Tr2QCFmoQaFr1HGcKA
+	 9nHg6hi6MxEhA==
+Message-ID: <sashiko-outbox-218973@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: allwinner: h6: taiqicat-a01: Enable
+ Ethernet
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jun Yan" <jerrysteve1101@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261117142122.246986-1-jerrysteve1101@gmail.com>
+References: <20261117142122.246986-1-jerrysteve1101@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 14:38:08 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,57 +59,91 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <bd19b55b-00b1-406d-a16b-d04c35efb7d3@lunn.ch>
 
-On Tue, Nov 17, 2026 at 02:24:16PM +0100, Andrew Lunn wrote:
-> On Tue, Nov 17, 2026 at 01:06:19PM +0800, Jisheng Zhang wrote:
-> > On Mon, Nov 16, 2026 at 04:06:25PM +0100, Andrew Lunn wrote:
-> > > On Mon, Nov 16, 2026 at 09:54:35PM +0800, Jisheng Zhang wrote:
-> > > > Assume we have the following implementation:
-> > > >           ----------
-> > > >           |mmio reg|
-> > > > 	  ----------
-> > > >              |
-> > > >  --------    |      -------
-> > > >  | MAC0 |--MDIO-----| PHY |
-> > > >  -------- |     |   -------
-> > > >           |     |
-> > > >  -------- |     |   -------
-> > > >  | MAC1 |--     ----| PHY |
-> > > >  --------           -------
-> > > > 
-> > > > Both MAC0 and MAC1 have MDIO bus masters, and tie together to
-> > > > a single set of clock and data lines, which go to some PHYs. While
-> > > > there's a mmio reg to control which MAC mdio master can operate
-> > > > the single mdio clock and data lines, so only one MAC can operate
-> > > > the mdio clock and data lines.
-> > > 
-> > > How does this differ from pinmux?
-> > > 
-> > 
-> > in my case, the two MAC MDIO bus masters share the same MDC and MDIO
-> > pins.
-> 
-> That does not answer my question. How is this different to pinmux?
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] arm64: dts: allwinner: unresolved AC200 labels in
+  sun50i-h6-taiqicat-a01.dts
+--
 
-Let me explain the HW in details:
-The pad have their own pinmux configuation, which selects the MDC/MDIO
-fucntion instead of GPIO or another perif function. That pad
-configuration stays MDC/MDIO, I.E unchanged.
+commit e13407bcadeb9e661561721128883210b4a0461e
+Author: Jun Yan <jerrysteve1101@gmail.com>
 
-The register discussed here is a separate selector between the two
-MACs' MDIO controllers. With the pads already configured for MDC/MDIO,
-it choose whether MAC0 or MAC1 drives the MDC and MDIO.
+arm64: dts: allwinner: h6: taiqicat-a01: Enable Ethernet
 
-So the proposed demux controls this internal selector and serializes
-selection plus the complete MDIO transaction across both MDIO
-controllers.
+This commit enables the EMAC, PWM, I2C3, and AC200 EPHY nodes in the
+TaiqiCat A01 device tree to support the onboard 100 Mbit/s Ethernet port.
 
-Would you prefer model the selector as pinctrl states, with an MDIO
-demux selecting the appropriate state under a shared lock before each
-transaction?
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts b/a=
+rch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts
+> index 225f42bd3b9e5..9b192caeecb23 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts
 
-Thanks
+[ ... ]
+
+> @@ -87,6 +88,10 @@ wifi_pwrseq: wifi-pwrseq {
+>  	};
+>  };
+> =20
+> +&ac200_clk {
+> +	status =3D "okay";
+> +};
+> +
+>  &cpu0 {
+>  	cpu-supply =3D <&reg_dcdca>;
+>  };
+> @@ -107,6 +112,14 @@ &ehci3 {
+>  	status =3D "okay";
+>  };
+> =20
+> +&emac {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&rmii_pins>;
+> +	phy-mode =3D "rmii";
+> +	phy-handle =3D <&ac200_ephy>;
+> +	status =3D "okay";
+> +};
+> +
+>  &gpu {
+>  	mali-supply =3D <&reg_dcdcc>;
+>  	status =3D "okay";
+> @@ -123,6 +136,29 @@ hdmi_out_con: endpoint {
+>  	};
+>  };
+> =20
+> +&i2c3 {
+> +	status =3D "okay";
+> +};
+> +
+> +&mdio {
+> +	ethernet-phy-package@1 {
+> +		compatible =3D "x-powers,ac200-ephy-package";
+> +		reg =3D <1>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		vcc-supply =3D <&reg_aldo2>;
+> +		nvmem-cells =3D <&ephy_calibration>;
+> +		nvmem-cell-names =3D "configuration";
+> +		x-powers,ac200 =3D <&ac200>;
+> +		x-powers,xmii-rx-clock-inverted;
+> +
+> +		ac200_ephy: ethernet-phy@1 {
+> +			compatible =3D "ethernet-phy-id0044.1400";
+> +			reg =3D <1>;
+> +		};
+> +	};
+> +};
+
+[Severity: High]
+Does building sun50i-h6-taiqicat-a01.dtb fail with unresolved phandle and
+label references here?
+
+arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi in this tree does not yet
+define ac200_clk, rmii_pins, i2c3, ephy_calibration, or ac200, so dtbs
+builds with CONFIG_ARCH_SUNXI enabled fail in dtc unless the prerequisite
+sun50i-h6.dtsi changes are present.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117142122.2469=
+86-1-jerrysteve1101@gmail.com?part=3D1
