@@ -1,60 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917811;
-	b=ncAKHeB48M928lX77owZFknyG8RLwTO2sMpDuGBqgV2qLwzURnMlMJOo4Ho8E726Cjjv
-	 8PoCQEvfIdUsmRwx0v9G1w+CQHe1Cp+Rrl7F2kUbaB379I6T6Px0TsIV0MpxyAToPDpkv
-	 7OHNj37T6kzvtbXQT6spkLmPZKGUIOkxHfqMzZT8zSBteXxdV3WmBhvzqaYGJWJ1lp9AI
-	 x3iPA3b8bzs/PYjgX4PIgB4axosDAqk2QtK6zEWNieu4CtVl8NRlcxpP7izMNn1koOlOo
-	 7vADohN9HFCZ+fMYGhOlHTvQUGbj79/VkZ9Q7jlMnc8hEZmQCLHE9abSv2EsEUZrjzw==
+	t=1794917846;
+	b=Fjpp11Us/Hx+u6WFq6Ez+kd6ewcF65fclEl/58S55xVkeyi3feFFpAOcA0ofpg1ertyJ
+	 pz3tiGNPtG6SZ2FRzXFdl/oHwouci49MaDB80v4QD7qAwN3ih6ZF3xW2S1OZEteamUmxO
+	 GsNxjvtAzMX529klCwa+fqAiG5ilSAH/YU97ontIhpH2KAmCMpzEUvkcw2QQemJlKdFQd
+	 NM6QovuCGoGXcKTICQ5Tu8gmZc4nS0S0r5QyCPf10Rv7sjJf964er20lyHHm5NTAYFG5s
+	 sN+3vRagK6/hD11YnnWPdsiZFVx27mD6UiLwcOBJLkrIxrI7dcWdCSTQys/te0489sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917811;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917846;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=oytSVZw7ZCXwq1tGZIXRUB86K7ksbFjm2HjimDVfr+o=;
-	b=ltAIaHJfH/JHQysyVYLR9xaw4uDirJPn7a35PFqz40YWbr1cbmMvmQJ2mfPUVYm8+x5R
-	 6sa97mYyps7PWfUEWqLIxdvc8AprB7qQAQ95SO3gh3opRnPSmqf6SO9unwSJ+CTZgw7e5
-	 CGyk9iWSOWoou/4eGZlnHdL0lDR7bhO1/QgDzSGTNhJbMb/04c5P+ojCsRVDJqfmhWzz3
-	 vY5aLQEFgRzl551ak9B5WX9NXu1Cg7StlQSM0cRtlU9I8eaHgGp+s+p9DSR+qm/MKFmTn
-	 gWlHX4kjLLaKAGMqnXeL5zGq4wNAoDas7czccy59mQF8XjDOn0C3UiMfdxs/NDiYJ5Q==
+	bh=FUvVAIYQ/KJjpiS9WJl1elr+LTBGSeYEuw9rsBBwZ7E=;
+	b=JodgNPFcIbKnGDe60r52G+GZiWKumj7I/XZhatUQ2pcBtOusszfKDEJ+sGxuqHS05f34
+	 zX+kvlLS4x+EJkWq9XCb4nrzJ+wc+6FY0zLqY74CIG1iZXKjlXcjHi2uqBaXtU+6DZC7M
+	 CkHEhqcUiChdYml6lTeAXy8ac0JbKr8HSUnV/GfXT5l46MxuNHW6PsO3ToHgBn9FghrTY
+	 dAq5yPQSKlD2TJHZhR8ndaqpSo9Qi7BTTzWBvkag2b29pHUdQfA88mn0YYuCVVeHS/PiI
+	 vrnMHxrf5dyMewpr5zqHH0qWJQMfDHkrgO+fBiOuryFjcB/f79tkKlK4dpkephaKKsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=gJDI6ysv;
-	arc=none smtp.remote-ip=79.135.106.30
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zis+QZZw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1280606A329;
-	Tue, 17 Nov 2026 12:16:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1280606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE959606A31C;
+	Tue, 17 Nov 2026 12:17:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=gJDI6ysv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794917807; x=1795177007;
-	bh=oytSVZw7ZCXwq1tGZIXRUB86K7ksbFjm2HjimDVfr+o=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=gJDI6ysv+wdI+SDlxMrJWOWEKZ7phoEHfS5PmswVJTZOEbtbGVNS/lHQf4voXPOWT
-	 VtNIoujXPSw4Q0FNWnFI95wQmLKWv4AokZmi+TntaMonsy680wVcQKeUZ3SJ9aaW/N
-	 3qq1jAri2D+Co8fRTCSEm15wtrBo2RdWJW5L3lCxmucaWBCP71GUBZrh01bt7ircUZ
-	 qfMYJpEXpcRy18BE5QtSJJLmBwh4C94MfBCymT4Q4BTj02VrtAZOCHxOXnuoyX7KTB
-	 Gbxd1jmoyc8R6j32VqsogcA1XI3MXxIs7r9Kdb0ATJbe6U/xm1wk70D3Pv5pVdzDS7
-	 Ocu7hrTT8JrVg==
-Date: Tue, 17 Nov 2026 12:16:40 +0000
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Lala Lin <lala.lin@mediatek.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH RESEND v5 3/4] nvmem: mtk-efuse: add CPU speedbin post-processing
-Message-ID: <HloHOTfn5uSaFV7GTvC6wE0WlkmHCnyVUIUmQ9LmSnsUGOXn6SZ6ilq-zC9KtWULMprm8ki_LR6qxwWLS0S6q5phg50aHxyE_xK4UzI57n0=@protonmail.com>
-In-Reply-To: <6935d7a4-2f91-4abf-81e9-f77c2b6c80d2@collabora.com>
-References: <20261117-6572-nvmem-v5-0-9b561a8a83e1@protonmail.com> <20261117-6572-nvmem-v5-3-9b561a8a83e1@protonmail.com> <b0fa129a-e9ad-4a7b-a2aa-2202bfa23232@collabora.com> <k8LLawty9o68P00hLr5LO1163o_m16f_vf8fBZvdD18nOatszy1i4Dp7DeC8Hv2--Q08YyZfhCRnQbVDps0lqB2zZrx-k_GxKUaqj6eT6r4=@protonmail.com> <6935d7a4-2f91-4abf-81e9-f77c2b6c80d2@collabora.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: bf6f75e33c8727bbe33e0b1401f772d263752cae
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zis+QZZw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54A71F000C7;
+	Tue, 17 Nov 2026 12:17:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794917846;
+	bh=FUvVAIYQ/KJjpiS9WJl1elr+LTBGSeYEuw9rsBBwZ7E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Zis+QZZwj8GI0jzlMdjMmRhaOGgNp5Hr/MYwDJ4aF3koaJaW2gXLjuAdYcqUjvydc
+	 xm/L/rrlqX7J2HVhGbrdWPVtPRbLu3hzZyyAScG3k9/Y5BmgeZOpHNb2J1uInMkCdo
+	 762j73l/BArmRnPfSRvTsEjwyAiUe1Nyw+XpIbtilzlp7+AHrjeOcf9ZT2zGIv0OBD
+	 cbkXkLXgdXNz1G6CcHLGThCagkZJ/JMtl2gTRE5vqWTnRpgOQLISFKo5li8Q1hdCCT
+	 ZAeDDOFaMtTO8dtQzc51X4vQ6qCp+EIrm/iVw/AzdswKZsPxRrj8S5ZoWsRBTQ6BEY
+	 4U36Xuj66MamA==
+Message-ID: <f21c77ee-44da-4a1a-a289-d4ea9cbe158f@kernel.org>
+Date: Tue, 17 Nov 2026 13:17:21 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,142 +51,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: talos: Add graph port
+ placeholders for USB Type-C muxing
+To: Akash Kumar <akash.kumar@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261116114411.1700153-1-akash.kumar@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261116114411.1700153-1-akash.kumar@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tuesday, November 17th, 2026 at 2:08 PM, AngeloGioacchino Del Regno <ang=
-elogioacchino.delregno@collabora.com> wrote:
+On 16/11/2026 12:43, Akash Kumar wrote:
+> Add empty port/endpoint nodes on the primary USB QMP PHY (usb_qmpphy)
+> and the usb_1/usb_2 dwc3 controllers, along with orientation-switch on
+> the PHY. These placeholders let board files wire up a USB-C PD
+> controller's HS/SS endpoints directly via
+> &label { remote-endpoint = <...>; }; instead of redeclaring the
+> port/ports structure on the shared nodes.
+> 
+> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
 
-> On 11/17/26 13:02, Roman Vivchar wrote:
-> > Hi Angelo,
-> >
-> > On Tuesday, November 17th, 2026 at 1:56 PM, AngeloGioacchino Del Regno =
-<angelogioacchino.delregno@collabora.com> wrote:
-> >
-> >> On 11/17/26 12:33, Roman Vivchar via B4 Relay wrote:
-> >>> From: Roman Vivchar <rva333@protonmail.com>
-> >>>
-> >>> MediaTek SoCs are often released under the same marketing name, but w=
-ith
-> >>> different suffix for the speedbin. For example, mt6572m has 1 GHz lim=
-it,
-> >>> mt6572a - 1.2 GHz, mt6572w - 1.4 GHz.
-> >>>
-> >>> Since the speedbin is stored as a number in the efuse, add support fo=
-r
-> >>> converting it to the bitmask for opp-supported-hw usage in the DT.
-> >>>
-> >>> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> >>> ---
-> >>>    drivers/nvmem/mtk-efuse.c | 19 +++++++++++++++++++
-> >>>    1 file changed, 19 insertions(+)
-> >>>
-> >>> diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
-> >>> index 980c29d01337..d2e5c69c580e 100644
-> >>> --- a/drivers/nvmem/mtk-efuse.c
-> >>> +++ b/drivers/nvmem/mtk-efuse.c
-> >>> @@ -70,6 +70,18 @@ static int mtk_efuse_gpu_speedbin_pp(void *context=
-, const char *id, int index,
-> >>>    =09return 0;
-> >>>    }
-> >>>
-> >>> +static int mtk_efuse_cpu_speedbin_pp(void *context, const char *id, =
-int index,
-> >>> +=09=09=09=09     unsigned int offset, void *data, size_t bytes)
-> >>
-> >> You can *literally* reuse mtk_efuse_gpu_speedbin_pp....
-> >
-> > No, I can't. On later SoCs CPU speedbin has different encoding.
-> > For example, on mt6768 it can be stored in either low or high 4 bits.
->=20
-> That's the part where you pass the right nbits in devicetree for the spee=
-dbin cell,
-> being it still 4 bits, that statement doesn't change the outcome.
->=20
-> > This is out of scope for this series, but I'd like if we kept this
-> > callback for the future SoCs.
->=20
-> All that the logic of your mtk_efuse_cpu_speedbin_pp is doing is assignin=
-g
->=20
-> BIT(val[0])
->=20
-> to val[0].
->=20
-> All that the logic of mtk_efuse_gpu_speedbin_pp is doing is assigning
->=20
-> BIT(val[0])
->=20
-> to val[0].
->=20
-> To me, that looks code duplication, and duplication is bad.
-
-This is true for this exact patch, but for newer SoC I have other code:
-
-if (val[0] & 0x0f)
-=09seg =3D val[0] & 0x0f;
-else
-=09seg =3D bitrev8(val[0]);
-
-if (seg >=3D 16)
-=09return -EINVAL;
-
-if (bytes >=3D 4)
-=09put_unaligned_le32(BIT(seg), data);
-else if (bytes >=3D 2)
-=09put_unaligned_le16(BIT(seg), data);
-else if (seg < 8)
-=09val[0] =3D BIT(seg);
-else
-=09return -EINVAL;
-
-return 0;
-
-If you prefer using GPU post-processing callback in this series and
-adding CPU only when newer SoC support arrives, please let me know.
-
->=20
-> >
-> >>
-> >>> +{
-> >>> +=09u8 *val =3D data;
-> >>> +
-> >>> +=09if (val[0] >=3D 8)
-> >>> +=09=09return -EINVAL;
-> >>> +
-> >>> +=09val[0] =3D BIT(val[0]);
-> >>> +=09return 0;
-> >>> +}
-> >>> +
-> >>>    static void mtk_efuse_fixup_dt_cell_info(struct nvmem_device *nvme=
-m,
-> >>>    =09=09=09=09=09 struct nvmem_cell_info *cell)
-> >>>    {
-> >>> @@ -83,6 +95,13 @@ static void mtk_efuse_fixup_dt_cell_info(struct nv=
-mem_device *nvmem,
-> >>>    =09if (cell->nbits <=3D 3 &&
-> >>>    =09    strncmp(cell->name, "gpu-speedbin", min(sz, strlen("gpu-spe=
-edbin"))) =3D=3D 0)
-> >>>    =09=09cell->read_post_process =3D mtk_efuse_gpu_speedbin_pp;
-> >>> +
-> >>> +=09/*
-> >>> +=09 * On mobile SoCs, the CPU speedbin is a number. Convert it to
-> >>
-> >> Other SoCs have got the same efuse style as mobile SoCs: anyway, all M=
-ediaTek
-> >> SoCs (apart from networking ones) are (in a way or another) variants o=
-f the
-> >> mobile ones.
-> >
-> > They're not really variants, some of them have no direct mt81xx/83xx si=
-bling.
-> >
-> Noone looked hard to find the siblings for some of them - though there mi=
-ght be
-> one (and just one) that has no sibling :-)
-
-Some like mt6595/6795 are indeed very close to 8173. Though most SoCs are
-usually mix of mt81xx, like mt6768 includes mt8183, 8186 and 8192 IPs.
+Why isn't this part of proper patchset using it? Why Talos Lyra has 5
+independent patches, all built on top of each other or cross-depending
+while nothing is merged?
 
 Best regards,
-Roman
+Krzysztof
