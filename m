@@ -1,54 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794878220;
-	b=uXwcHWBzMgKN4GryOkvShvVrDsgAOf9bZnYcCqTAZAOWFSTNChGO9E9wMm2w4KtVueGd
-	 0YuUlhA62Jg8HHNe/SpzYIHCUr0DxILPJX7PQp4MkWYdT22OWbNAyf0mcxL6j6NYCKPdq
-	 jAsRd6onFMLwpSxQEjfmVkbCK+jdJio8fziHqSDP+DQ+fV6Rp4StHp+htT1o4WkcBBWbb
-	 +F2XsVKeheRWWYut4ISEH7JZMWHjDpgF/1ve1mFK0HCpXhtxS7g3WCcneB5Qc5MBTCwu/
-	 QNZIcc+9CoR6b9VGJ0Oya2ZE4mBrLG1ddamvwmwIzIFu1Cp+Ln1sNSil/1c9Vwz+4CQ==
+	t=1794878277;
+	b=ERYwNZ4zpslsJm+/WS7aTuwspRAzST1aKwMb6lWZdUl14Br07n2R97JZ2cDaK8bXBuTs
+	 dKMNIBcb/j7ZebmaCkyijF/mXPGd05vytPI9/JlxnL/N+ISjZ95+0/o1cHoG8SUuXLqaD
+	 YjyxsCksbrWo0ykcqad/HSc288ME1Pb0Zb6oiXJ/BVeVIav/99Ru4aZftmRZZxzYFiwVU
+	 zXcGshGMB20uu6ADgGiSsjPAETLF1Acc/Q2N39993ZpDWW8mgm9LH4SVBs+wH9/LaMMz8
+	 mV8UTbTD8CyqjZEGxR7ffUHfsTt5aaLCGEoNeUYH9oAnMp1mif5Ytxhk4P2kQoRiXOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794878220;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=X+nUfP6dlR0AeNFc4ZQ30zV1RR6mfyZH2qqwq84ynOI=;
-	b=DqJiYxJPuGTuo5wyUK9w628ePoXY1SwUvc2A+zSCVKf9CzIuZDGuRN0GOXKdoPTSI1+x
-	 ae+GvYEwXqCPeKJ/oLca16wPadtLY2AetwZAsYKm89uRisv4MMTN0Te+7ZNZi8o7GRWPn
-	 9pKYrVj9jTlhOgLiqOtXr9oBWdSsXOHkW3hCypLwemQ6SAtsZIcuXtOeH6vXSEHqvfTF1
-	 25WY43DCjaquB/495R/jSc/jgN47v8Tp/FPrLjEP9IQe6ryooD7TE+C/3mmupYaQoVo/Y
-	 Q65KAytAmjpTWRtSwrLkeTK5iLfpZkPFy3Y7C2CR6jOzG5ZHq1KMd/W0mpvmxz3mBZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794878277;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=/DUl5nkubottrq+DmlqmVS5vhvOiDyY993sZh0Q2i6w=;
+	b=m20POWrW0nlUz+A4LmWdji0v2r5Hlsp54LtuasyOWLBuisaBanpjb4f5UwavFsYWPW2o
+	 dQe+AQvMJTgN8FZkPaaKZkK+n1tWvSsueMlTpEOhT0SFUS5Pf+rFI7j0PUO1pCvsDgbYq
+	 AdjJzI95iVvXQZXh9bveL2qjU01nZOH94q94ODs2EcO6jcpBI9LxFXU9ncq4mMlHyTBsN
+	 /8AICGbRuKfivC09+WgEbsSZiki2BaEws0CFQCoQSf0TUDjGYywTJ2zkCGSv28yh+PgKI
+	 Tv7ltNwdURakZLyqyCOFrP/Q0Rchs/lV+EeE5z4hsrdoaLI4fXF/yC3WefanlTmdUxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=freeshell.de;
-	spf=pass smtp.mailfrom=freeshell.de;
-	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b="KhS5gxV/";
-	arc=none smtp.remote-ip=116.202.128.144
-Received: from freeshell.de (freeshell.de [116.202.128.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P4YS2TRG;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7554606A31C;
-	Tue, 17 Nov 2026 01:16:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7554606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81893606A323
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 01:17:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81893606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=KhS5gxV/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1794878126;
-	bh=X+nUfP6dlR0AeNFc4ZQ30zV1RR6mfyZH2qqwq84ynOI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KhS5gxV/x4WvML2m+utDjTv9iwRh+57y17gFMflCou32zJQ6NvP5k4s6ja8UVRxsx
-	 DptR6aThqIoqvKUXbiK2NTvL6BkEWoCh94TUqzbBwR+ibLEr3PdkLjTZPXghiFD2tO
-	 AFiqfcUnkkI5ExEKrQK8ZDVTTJs0c/K6Mj+nZTc/9OYsQS6RUs4CRv5fx6kvi4CbXY
-	 uVCqlq7kKlwG9HPSeAusfbkvGRdmVPLI3v/nD6eX+xyLix0spSceLWHHzENfQ+Dj3w
-	 uQ31hVI7ET+9rvbaShdw+4gAjoMHKK8F1ERG/GvgWczI3zLGTlJq4lzG59JHEelsfD
-	 cPAcvSCqCNH5A==
-Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id 1BA67B22019F;
-	Tue, 17 Nov 2026 02:15:20 +0100 (CET)
-Message-ID: <8462a0d9-e9b7-467d-b2e1-7870c78e2691@freeshell.de>
-Date: Mon, 16 Nov 2026 17:15:08 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P4YS2TRG
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-38133db970bso607508eec.0
+        for <devicetree@vger.kernel.org>; Mon, 16 Nov 2026 17:17:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794878277; x=1795483077; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/DUl5nkubottrq+DmlqmVS5vhvOiDyY993sZh0Q2i6w=;
+        b=P4YS2TRGiYo+OE7Dv4hYMsPhD9R6X+IqEgqM1bI5izV7LBwohPF+81z9NiZdW67eJ1
+         m7XeaVnppGN5G37RPH6T4BqsCep6GsYY0TuTU10oc53Hump2xMM+VTdc27Tb5RgdLCPV
+         4+oL3WKazs1Amc+QYAp8rat3K7noIPd3NgTpasLSxWs7gpJofGMod6+CRuYQrn6DVHH2
+         7vd8KdTZDK5fV3vLSUu9lYdH9ooZce6ooqD9KXYv4KUb/oPqMtZ7K6h2QG1pWwRkYu3w
+         yku/uBmh7c6dXXJL6vgz+3VLjVaI/ShTyQT1+bs+4CNxmdDRq4Mc7GZ77BBRZ0dmRWKB
+         +zAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794878277; x=1795483077;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/DUl5nkubottrq+DmlqmVS5vhvOiDyY993sZh0Q2i6w=;
+        b=sH80EqkjgQK08XnQxxrimuGHnUXZ24ngO85puFKU6x2y5d9X2O7P4/VQLgjfIVaq1x
+         0xfXMBcf4t34NVFjWtFuTllaVK8iowBWOJHRFDAqTXkOxkpv1ecd0qP2/hmU0fgzFsbb
+         wENIcVCddKzdtCLGfEXzNo1XsHGQ9N6pDLDWS0jD8+ubte4Q/+EWokx1XO+8W78dG0qi
+         gOWck+8nwZ5etaCdXV8WWkuGvinE3PWyiAk3bBmNRiaEMHWd0ZFsT6/SkxZEza4lBfbp
+         e6iLgGK2frwv/tYYg/vMjlM5ARHqpjAZg8RSSsKewkF/4kLZmaB5BuMbNYTncArq+/zg
+         VOfw==
+X-Forwarded-Encrypted: i=1; AL+hErFFDiO3FBr+Wsj3svc7ZHczfrj2PThOXITEOy1Gn0LFLyH7+IwYGiaa96+Ex5uP/6XFacpHwPguDl39@vger.kernel.org
+X-Gm-Message-State: APuU4Z8fQLNTVb1IlPxVZn5CgLzq4GoJevfOCJVQMlYqdU1e0ekmirsD
+	ji8b3xLf41B7wyeIrhCKC9VpapCzKNqB8q07rDnUFp33fq6TrMn2Z+to
+X-Gm-Gg: AZFdTZewMEXg8fjHwFU++CkxAf7tkKKtzA9/z1nelWuq0jgUuGlprhPCMnnNPa7TdTJ
+	PbLqzvqIoClAcWSlfu5+lzBn+mlUaZDpAgo4JV8UliMQO1JxiPWAczatVS6bPP6J0YvYsDldgb1
+	UtZ/5MFvetyp90qm3St8BYzPj5LSd/L4plNR9OzozvWADitDJsIL3yW9HNJTbQPKyVJCufZDnbW
+	eJPt5e6kg9iKt1tl24eOshtaCvS7F2EUZKOcG4EMrIqnqPEC5q+MZ3obpiBaBnv8N180Grqi7VW
+	gpGIsdd/ZRh6bGWNwoHICVzAB0AzGAGdUMzvvPtkpbtc1MDtrDSQYQZgIPu3AbFVSvARuOdr2ri
+	HGBL72/eMY3MHylsQcZTf38Avz3IfYujZF/PX4YhydbqwdA7bm7rSOvejKAXSxTwQOIvETk8zhd
+	vZycARXp/8V0kzNkoAKiqZkZWSE2M36mSy0cP5eTdTLiVuv1f257Kd9aQ6GHn+Lk0P88hF7HaLo
+	Zzg9iqfgLdT3HwHcBe36lzkh6DFSXR/EGmmWwWkOgyLcEgQ5YTAQRdp/yG7LyV7yMl1rXapo4Kk
+	4tc/PYlBomzk/yzciOBWuLUMl1y3nd82lEaDk2/gHYnO9kC7FQpBdWRYhAbzggCF2bYDTYEV+BX
+	8BlOB
+X-Received: by 2002:a05:7300:540f:b0:380:c3d7:c263 with SMTP id 5a478bee46e88-380c3d7c590mr2579893eec.5.1794878276258;
+        Mon, 16 Nov 2026 17:17:56 -0800 (PST)
+Received: from smalls.localdomain (ip-198-145-71-161.az.bambroadband.net. [198.145.71.161])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm36639201eec.22.2026.11.16.17.17.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 17:17:55 -0800 (PST)
+From: Hunter Laux <hunterlaux@gmail.com>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>, Bartosz Golaszewski <brgl@kernel.org>,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
+ letux-kernel@openphoenux.org
+Subject: Re: [PATCH 3/3] pinctrl: ingenic: Add X2600 pin groups and functions
+In-Reply-To:
+ <afd42cc2ca2c93501ff1769b7d7a25559ef68a2f.1794557697.git.hns@goldelico.com>
+References: <cover.1794557697.git.hns@goldelico.com>
+ <afd42cc2ca2c93501ff1769b7d7a25559ef68a2f.1794557697.git.hns@goldelico.com>
+Date: Mon, 16 Nov 2026 18:17:55 -0700
+Message-ID: <179487827555.2153459.1199232821591145638@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,278 +106,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/2] Add UFS Host driver support for SpacemiT K3 SoC
-To: Yixun Lan <dlan@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, Alim Akhtar
- <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>,
- Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
- Stanley Jhu <stanleyjhu@google.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
- Aurelien Jarno <aurelien@aurel32.net>,
- Jennifer Berringer <jberring@redhat.com>,
- Trevor Gamblin <tgamblin@baylibre.com>, linux-scsi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org>
-Content-Language: en-US
-From: E Shattow <e@freeshell.de>
-In-Reply-To: <20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Yixun,
+Hi Nikolaus,
 
-On 11/15/26 19:46, Yixun Lan wrote:
-> This series try to add UFS support for SpacemiT K3 SoC, the controller
-> components consists of System Bus Interface Unit, UFS Host Controller
-> Interface, UFS Transport Protocol Layer, UFS Host Registers, Device
-> Management Entity (DME), Transport Layer, Network Layer, Data Link
-> Layer, PHY Adapter Layer, and M-PHY Interface. A more detail functional
-> block diagram can be found in SpacemiT website, chapter 9.7.3 [1]
-> 
-> The DTS patch has been dropped in this series [2], and will send
-> in separate series once this patch accepted. For people who want to
-> test UFS driver, please grab the DT patch from version v5 [3].
-> 
-> Enable UFSHCD_CAP_KEEP_AUTO_BKOPS_ENABLED_EXCEPT_SUSPEND,
-> This allows the device auto-bkops to be always enabled except
-> during suspend (both runtime and suspend), with this feature,
-> the BKOPS interrupt (log below) isn't reported anymore.
-> 
-> [  806.710763] ufshcd-spacemit c0e00000.ufshc: ufshcd_bkops_exception_event_handler: device raised urgent BKOPS exception for bkops status 1
-> 
-> Link: https://spacemit.com/community/document/info?nodepath=hardware/key_stone/k3/k3_docs/k3_usermanual/09_memory_storage.md&lang=en [1]
-> Link: https://lore.kernel.org/all/20260918-belligerent-succinct-kraken-7fa592@quoll/ [2]
-> Link: https://lore.kernel.org/all/20260916-08-k3-ufs-support-v5-3-1f5d71f1027d@kernel.org/ [3]
-> Signed-off-by: Yixun Lan <dlan@kernel.org>
-> ---
-> Changes in v8:
-> - enable UFSHCD_CAP_KEEP_AUTO_BKOPS_ENABLED_EXCEPT_SUSPEND
-> - rename to "ref_clk", see explanation in patch
-> - add delay between enable clk & deassert reset
-> - respect bRefClkGatingWaitTime, add wait delay
-> - drop comment of ufs_hba_spacemit_vops, which got CI complaint
-> - rebase to v7.4-rc1
-> - Link to v7: https://patch.msgid.link/20261002-08-k3-ufs-support-v7-0-bb39007ff9ae@kernel.org
-> 
-> Changes in v7:
-> - check err return value of ufs_spacemit_quirk_host_pa_saveconfigtime()
-> - Link to v6: https://patch.msgid.link/20260921-08-k3-ufs-support-v6-0-3479768a2299@kernel.org
-> 
-> Changes in v6:
-> - drop unused macro and dev_req_params
-> - use global PX_xx macros
-> - fix axi clock name
-> - drop dts patch
-> - collect tags
-> - Link to v5: https://patch.msgid.link/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org
-> 
-> Changes in v5:
-> - adjust clock names
-> - add runtime power support
-> - collect tags
-> - Link to v4: https://patch.msgid.link/20260908-08-k3-ufs-support-v4-0-22aa2bd97d3b@kernel.org
-> 
-> Changes in v4:
-> - fix clock and reset settings
-> - drop function which retrieve value of tx_lanes
-> - propagate return error of ufs_spacemit_dme_set()
-> - check return value ufs_spacemit_check_hibern8()
-> - drop call to ufshcd_vops_phy_initialization()
-> - handle compiling warning if CONFIG_OF not enabled
->  add __maybe_unused to ufs_spacemit_of_match
-> - Link to v3: https://patch.msgid.link/20260806-08-k3-ufs-support-v3-0-037fb322acdb@kernel.org
-> 
-> Changes in v3:
-> - collect tags
-> - fix dt-binding warning reported-by sashiko
-> - fix low freq in opp-2 table
-> - fix err checking in check_hibern8()
-> - propagate err code in link_startup_notify()
-> - update documents for event_notify()
-> - ufs clock driver is merged into v7.3-rc1, update cover letter
-> - Link to v2: https://patch.msgid.link/20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org
-> 
-> Changes in v2:
-> - fix missing interrupts property
-> - move ufs node to k3-com260.dtsi
-> - convert freq-table-hz to operating-points-v2
-> - rework reset_control, fix header and drop global variable
-> - drop dump_host_regs() debug interface
-> - converge and refactor dme_set() operations
-> - massive reduce of busy delay() loops
-> - drop vendor specific hce_enable_notify(), fallback to default
-> - drop unused member from struct ufs_spacemit_host
-> - add COMPILE_TEST support to Kconfig
-> - comment style fix
-> - Link to v1: https://patch.msgid.link/20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org
-> 
-> ---
-> Yixun Lan (2):
->       scsi: ufs: spacemit: dt-bindings: Add UFS controller for K3 SoC
->       scsi: ufs: spacemit: k3: Add UFS Host Controller driver
-> 
->  .../devicetree/bindings/ufs/spacemit,k3-ufshc.yaml |  56 ++
->  drivers/ufs/host/Kconfig                           |  12 +
->  drivers/ufs/host/Makefile                          |   1 +
->  drivers/ufs/host/ufs-spacemit.c                    | 655 +++++++++++++++++++++
->  drivers/ufs/host/ufs-spacemit.h                    |  77 +++
->  5 files changed, 801 insertions(+)
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20260605-08-k3-ufs-support-c8b308e415e2
-> 
-> Best regards,
-> --  
-> Yixun Lan <dlan@kernel.org>
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+On Fri, Nov 13, 2026 at 09:14:58AM +0100, H. Nikolaus Schaller wrote:
+> +	INGENIC_PIN_GROUP("uart1-data-c", x2600_uart1_data_c, 1),
+> +	INGENIC_PIN_GROUP("uart2-data", x2600_uart2_data, 1),
+> +	INGENIC_PIN_GROUP("uart4-data-b", x2600_uart4_data_b, 2),
+> +	INGENIC_PIN_GROUP("uart5-data-b", x2600_uart5_data_b, 2),
 
-Tested v7 and v8 successfully on Sipeed K3 Pico-ITX (32GiB DRAM / 128GiB
-UFS model). Build and test methodology:
+Per the X2600 PM, shouldn't these be 2, 0, 1 and 1?
 
-### build chimera debian-installer with patched mainline kernel
-### assume fresh Debian testing "forky" build environment
+> +static int x2600_slcd_ctrl_pins[] = {
+> +	0x34, 0x3c, 0x3d, 0x3e, 0x3f,
+> +};
 
-apt update
-apt install -y b4 bc bison ca-certificates cpio \
- crossbuild-essential-riscv64 curl debhelper fakeroot flex kmod \
- libdw-dev libssl-dev libssl-dev:riscv64 linux-config-7.2:riscv64 \
- python3 rsync
+PB20 (0x34) has no function 1. Did this come from the X2000 table?
+Should 0x34 be dropped?
 
-curl -L \
- https://git.kernel.org/torvalds/t/linux-7.4-rc3.tar.gz \
- | tar xz
+> +	INGENIC_PIN_GROUP("pcm", x2600_pcm, 3),
+[...]
+> +	INGENIC_PIN_GROUP("pwm11", x2600_pwm11, 0),
+> +	INGENIC_PIN_GROUP("pwm12", x2600_pwm12, 0),
+> +	INGENIC_PIN_GROUP("pwm13", x2600_pwm13, 0),
+> +	INGENIC_PIN_GROUP("pwm14", x2600_pwm14, 0),
+> +	INGENIC_PIN_GROUP("pwm15", x2600_pwm15, 0),
+> +	INGENIC_PIN_GROUP("pwm-trig-c", x2600_pwm_trig_c, 1),
+> +	INGENIC_PIN_GROUP("pwm-trig-d", x2600_pwm_trig_d, 1),
+[...]
+> +	INGENIC_PIN_GROUP("wait", x2600_wait, 3),
 
-pushd linux-7.4-rc3
-b4 am -v1 -o- \
- https://lore.kernel.org/all/20261115195112.32120-1-e@freeshell.de/ \
- | patch -p1
-b4 am -v5 -P3 -o- \
- https://lore.kernel.org/all/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org/ \
- | patch -p1
-b4 am -v8 -P1,2 -o- \
- https://lore.kernel.org/linux-riscv/20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org/ \
- | patch -p1
-xzcat /usr/src/linux-config-7.2/config.riscv64_none_riscv64.xz \
- > .config
-scripts/config \
- --module SCSI_UFS_SPACEMIT \
- --module SCSI_UFSHCD_PLATFORM \
- --module CONFIG_PHY_SPACEMIT_K3_COMBO_PHY \
- --enable DEBUG_INFO_NONE \
- --undefine CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT
-make ARCH=riscv olddefconfig
-make ARCH=riscv KDEB_CHANGELOG_DIST=unreleased LOCALVERSION=-k3ufs \
- -j$(nproc) bindeb-pkg
-popd
+These groups aren't in any function.
 
-curl -L \
- https://d-i.debian.org/daily-images/riscv64/daily/netboot/netboot.tar.gz \
- | tar xz ./debian-installer
-fakeroot  # enter fakeroot environment to preserve initrd permissions
+> +	0x000007ff, 0xffffffff, 0x7ffbfff, 0x0000ffff, 0x000ffffe,
+[...]
+> +	0x000007ff, 0xffffffff, 0x01ffff1, 0x0001e000, 0x000fffff,
 
-gzip -dc debian-installer/riscv64/initrd.gz \
- | cpio -id --directory=initrd
-dpkg -x linux-image-*k3ufs*_riscv64.deb initrd/custom
-gzip -dc initrd/custom/boot/vmlinuz-* \
- > debian-installer/riscv64/linux-custom
-mv initrd/lib/modules initrd/custom/
-mv initrd/custom/lib/modules initrd/lib/
-mv initrd/custom/usr/lib/* debian-installer/device-tree-custom
-find initrd -path initrd/custom -prune -o -printf '%P\0' \
- | cpio -0oH newc --directory=initrd \
- | gzip -c > debian-installer/riscv64/initrd-custom.gz
+Port C is missing a digit?
 
-exit  # leave fakeroot environment
+On port E, 0x80 is pull enable and 0x90 selects up/down (PEPE/PEPS).
+Doesn't that make the X2000 pull code wrong there?
 
-pushd debian-installer
-tar -czf ../debian-installer-k3ufs.tar.gz \
- --transform 's~^~debian-installer-k3ufs/~' \
- device-tree-custom \
- riscv64/linux-custom \
- riscv64/initrd-custom.gz \
- ../linux-image-*k3ufs*_riscv64.deb
-popd
-
-### end (build chimera debian-installer with patched mainline kernel)
-
-Then follow mainline U-Boot/OpenSBI build guide at:
-https://lore.kernel.org/u-boot/20261029001555.1890775-1-e@freeshell.de/
-
-with "python3 -m http.server 8000" to serve the files:
-
-u-boot> env set autoload no
-u-boot> dhcp
-u-boot> wget $kernel_addr_r http://host:8000/riscv64/linux-custom
-u-boot> wget $fdt_addr_r
-http://host:8000/device-tree-custom/spacemit/k3-pico-itx.dtb
-u-boot> wget $ramdisk_addr_r http://host:8000/riscv64/initrd-custom.gz
-u-boot> env set bootargs 'console=ttyS0,115200 debug rootwait earlycon=sbi'
-u-boot> bootefi $kernel_addr_r $ramdisk_addr_r:$filesize $fdt_addr_r
-
-before the very last step of debian-installer to reboot, go to console
-screen and use chroot to install the patched kernel to target and copy
-out the necessary files
-
-for i in /dev /dev/pts /proc /run /sys /tmp ; do mount -o bind $i
-/target$i ; done
-chroot /target sh -c 'scp
-user@host:/path/to/debian-installer-k3ufs/linux-image-*k3ufs*.deb /tmp'
-chroot /target sh -c 'dpkg -i /tmp/linux-image-*k3ufs*.deb'
-chroot /target sh -c 'scp /boot/initrd.img-*k3ufs
-user@host:/path/to/installed-debiank3'
-chroot /target sh -c 'scp /boot/vmlinuz-*k3ufs
-user@host:/path/to/installed-debiank3'
-chroot /target sh -c 'scp
-/lib/linux-image-*k3ufs/spacemit/k3-pico-itx.dtb
-user@host:/path/to/installed-debiank3'
-chroot /target sh -c 'scp /boot/grub/grub.cfg
-user@host:/path/to/installed-debiank3'
-for i in /dev/pts /dev /proc /run /sys /tmp ; do umount /target$i ; done
-
-... over network to some host later used to serve the bootloader these
-files via "python -m http.server 8000"
-
-u-boot> env set autoload no
-u-boot> dhcp
-u-boot> wget $kernel_addr_r http://host:8000/vmlinux-7.4.0-rc3-k3ufs
-u-boot> wget $fdt_addr_r http://host:8000/k3-pico-itx.dtb
-u-boot> wget $ramdisk_addr_r http://host:8000/initrd.img-7.4.0-rc3-k3ufs
-u-boot> env set bootargs 'root=UUID=<place UUID here from grub.cfg> ro
-quiet'
-u-boot> bootefi $kernel_addr_r $ramdisk_addr_r:$filesize $fdt_addr_r
-
-Workload for testing is to repeat the above build steps on-device from
-UFS-backed root filesystem. In v7 there would be the occasional BKOPS
-warnings, and v8 here now no such BKOPS warnings.
-
-I do notice some UFS-related warnings and errors in dmesg:
-
-journalctl --dmesg | grep ufshcd
-ufshcd-spacemit c0e00000.ufshc: freq-table-hz property not specified
-ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
-vdd-hba-supply regulator, assuming enabled
-ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
-vcc-supply regulator, assuming enabled
-ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
-vccq-supply regulator, assuming enabled
-ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
-vccq2-supply regulator, assuming enabled
-scsi host0: ufshcd
-ufshcd-spacemit c0e00000.ufshc: ufshcd_scsi_add_wlus: BOOT WLUN not found
-ufshcd-spacemit c0e00000.ufshc: DL error event, INT errors:0x4,
-DL_ERR:0x80000020
-
--E
+Hunter
