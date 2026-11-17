@@ -1,63 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794937441;
-	b=YUgcgr+sJibw6HgheF/rKifz21il0531sf1kDZ2xJ76fVgppOeRH5hzhcL8CQwBL3V2K
-	 vdBM5mdi0ZO8zj45TMeYdvq+DQ0sm8pdMHzObb5EM6ZIzDKimZ5TUb1ilKuHE720cu3wd
-	 aCbbmEEV8actJAwcpKU50Wgs1HfjSVbXiQOCYcbS45RmFSfHPWDJHLhsddq0ybbjsSn9X
-	 vAD7BE/wNHrKsZ1U5+8pBVOrAorrWI7Bh0KZGbRTaEsF5gGrUHjvYW4xinokA91Cl5qeW
-	 wC4X//k91ULgxpoYFoKSCFqSLi5AGsmQ/qyWzbuxbh6dl9ZmsSN14ssD3TysGWAwbrw==
+	t=1794937661;
+	b=yY3ib0C+zHiPjxJ8/uaThAZKUdv1dSrSyqT2EZobdzQaBtJ4HyCP1EF3Qg0bMM/deejB
+	 EUHeFxpcBCyfGL/hc3zNNkJjuvk58f5jiezJ6hJF5oTSYrMq72rBZNxpNEbdv6VDvq9qS
+	 au/WJtARCNXElmKbQghlYB+xdaPVe708Av7gAnTTloAUfVf4wCjdAL2weyEFXvyGs38MQ
+	 ahNrGnzW9dI2G8NlbWwc6m37Q9q7Kln6jsuBLbf+IL4GNxFO7qlCBDngTm3erB9y7libq
+	 3MdRF/wXKlZ4d790n1qxDLptUL6BDpXcSxUvb/0SqbJMiSLL/QE0T/BWNLEVMNAzgCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794937441;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794937661;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gZzKeqhqH2hRMxCkRHus6Rx5ByqjKAhbyrHLZlq6rzM=;
-	b=f0BlrouW7Q9aZvo+MBIH7A//EyboidDob5OEDVWRdGi04rprrdOdx2YUKfAWhk+tKf3q
-	 ygFuE5Id6qBRLNH2gbtR3TQbH1+kn0LZkgimLkVeFDEV0fKhCGBOt/ZAHDst5uS34TnFQ
-	 ogtkpnfvdZ8yzrtc92Nb1u2LE+TBpRbsr03wmgjc/b+umpivZEPb4eLPwxt4NCaReW+oo
-	 MCCLjd91pYbZfP81iOEV/PMiBsZPT7WcR4q+4z0Ss9+fx4v6WPLRPCH6xJ+Ic0JjcScs1
-	 RGoqH/685o/HQqEjBcvErpyxekR5RZ9/z9jqPDEhjp1Vug8ff23XO7+WOyrIeMEQZdg==
+	bh=cR2AOpEGYiKzlikyUl8O8YBDqVn1oEriwrxHwFqrRDc=;
+	b=oSCo3jrwxXU9UR+EQIf/NiznVD62nk8i4ChKWWt+asbij0UtbDxjPSPX5Ebv7JqJddoQ
+	 gmkCsEg742bycPFRAxX76RpPFcglpMXCN4hL2K2qv5Jyq6wyOO/yuJ8v0ktkd+m6qbI1x
+	 /MnLMt68d9+EVTPKWM4+Dgh6/6iH+kjozQ8ONGbVjTxhDogkgLCnzoTWSJt3Jq/YxM7fL
+	 RWiQ+3mFArUU4KOerTVdVH7hpWRT2ylNgh3IK35vJswVa7lS1RLLyr68nfSehYrSXa3wf
+	 EoDQ5c5hZs7p0iuKxCIPDp34OyaGMNs/UlTOkrrUTksSsA4BlbO4TcckSt2ToOCvpNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEh9yTUp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZEmtPG3s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58A99606A336;
-	Tue, 17 Nov 2026 17:44:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EFEE606A31C;
+	Tue, 17 Nov 2026 17:47:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEh9yTUp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A0841F000CB;
-	Tue, 17 Nov 2026 17:43:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZEmtPG3s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5B21F000C4;
+	Tue, 17 Nov 2026 17:47:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794937441;
-	bh=gZzKeqhqH2hRMxCkRHus6Rx5ByqjKAhbyrHLZlq6rzM=;
+	s=k20260515; t=1794937660;
+	bh=cR2AOpEGYiKzlikyUl8O8YBDqVn1oEriwrxHwFqrRDc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nEh9yTUpS9lEM+z4b+s+p2hYWiaLnad5KguJEp6RDH/KSVawUXiwJZ+HR6AuatdoS
-	 efFgP889Y+crzOGwlmRHji+VCV+n4mk643EsjbhjpNbFyrof8OxqkQUhzAU+w4Yn4o
-	 z0j0WbQwkERWb5CmrkbVD1apYZUBHdXi3chomKj69lAY4QrY7tiNspbkZQK9DduGCt
-	 eXyg0qL3e1BqS1t12Fp/XvHfUlXx63yD2od503y06bL7YLCVdwLO+czOMkUwFta7iD
-	 7yJVgtGXxB7RhqhDR0LEaTQ9o4CC1oVZXSAfSwbPxcFKrymEfQDwonaYGeyp0/Y+Zt
-	 mYSYEyYobPM/Q==
-Date: Tue, 17 Nov 2026 17:43:56 +0000
+	b=ZEmtPG3s6pzK3McY+POU0Zq2TtX9e07Rj1YqBffwbPVGP8TkDyQJCNbdPeg2omzxW
+	 faO2+XQKzaVmTsVMjy4bEJ9cWc0xGyqjv92fhd0DO2LTt3egZtGCtK7DzJMeS501eq
+	 mOzVO6yAQHf8dxcm57tesdPrPpt1U1REoMWk//2mNIlHiAmixSEY1FCMGteYEB+Tpk
+	 XBEEneUOaZCy5JVsvirYZWR/hreA139SsdaICnhvMAExt0Ey4XACSXIYgDooRh+qjd
+	 exUltOpX4iTIn8XI04WZwuCbRjG50FeYqJ5lv4u2+v5YgoGDyo/TrfO/aNiWXGugaq
+	 UGOcPA2xwfI0w==
+Date: Tue, 17 Nov 2026 17:47:35 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Peter Rosin <peda@lysator.liu.se>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 3/5] dt-bindings: iio: potentiometer: Add Analog Devices
- AD5246
-Message-ID: <20261117-object-glutton-d948f8e36ae4@spud>
-References: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
- <20261116-iio-ad5246-v1-3-ef6b7c06d4b0@telaak.dev>
+To: Mina Chou <minachou@andestech.com>
+Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, jic23@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be,
+	magnus.damm@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	randolph@andestech.com, cyyang772@andestech.com,
+	tim609@andestech.com, az70021@gmail.com
+Subject: Re: [PATCH v2 19/19] dt-bindings: riscv: add Andes A27L2 CPU
+ compatible
+Message-ID: <20261117-yippee-blissful-76204cadd922@spud>
+References: <20261116003937.1776888-1-minachou@andestech.com>
+ <20261116-dreamless-matador-3163d4abbf0b@spud>
+ <avvH6t8NHrya+hz6@atcsi01.andestech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,136 +66,64 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BP2Pm9HSuSzzqzlh"
+	protocol="application/pgp-signature"; boundary="yL4HbPHY7ZmtVyGZ"
 Content-Disposition: inline
-In-Reply-To: <20261116-iio-ad5246-v1-3-ef6b7c06d4b0@telaak.dev>
+In-Reply-To: <avvH6t8NHrya+hz6@atcsi01.andestech.com>
 
---BP2Pm9HSuSzzqzlh
+--yL4HbPHY7ZmtVyGZ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 16, 2026 at 05:59:52PM -0500, Joseph Telaak wrote:
-> The AD5246 is a 128-position digital rheostat on I2C, in 5, 10, 50 and
-> 100 kOhm versions. The compatible names the resistance in kOhm, as for
-> the AD5272. It uses the same protocol as the MCP4017/18/19, and the
-> mcp4018 driver supports it, so list the binding with that driver in
-> MAINTAINERS.
+On Tue, Nov 17, 2026 at 11:20:10AM +0800, Mina Chou wrote:
+> On Mon, Nov 16, 2026 at 06:26:33PM +0000, Conor Dooley wrote:
+> > [EXTERNAL MAIL]
 >=20
-> It gets its own binding rather than a trivial-devices entry so that it
-> can describe its supply and be an IIO channel provider
-> (#io-channel-cells) for a consumer such as dpot-dac. There is no
-> fallback to the MCP4017 compatibles: its resistance step is 1/128 of
-> the end-to-end value, not 1/127.
-
-Why is there no fallback between devices? Do the different resistance
-values affect the logic? Please note that.
-
+> > Date: Mon, 16 Nov 2026 18:26:33 +0000
+> > From: Conor Dooley <conor@kernel.org>
+> > To: Mina Hui-Min Chou <minachou@andestech.com>
+> > Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+> >  alex@ghiti.fr, jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+> >  conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
+> >  prabhakar.mahadev-lad.rj@bp.renesas.com, linux-riscv@lists.infradead.o=
+rg,
+> >  devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+> >  linux-kernel@vger.kernel.org, randolph@andestech.com,
+> >  cyyang772@andestech.com, tim609@andestech.com, az70021@gmail.com
+> > Subject: Re: [PATCH v2 19/19] dt-bindings: riscv: add Andes A27L2 CPU
+> >  compatible
+> >=20
+> > On Mon, Nov 16, 2026 at 08:39:37AM +0800, Mina Hui-Min Chou wrote:
+> > > Add the compatible string for the Andes A27L2 CPU core, which is used
+> > > in the Allwinner V821 sun300i SoC. The V821 devicetree will be submit=
+ted
+> > > separately by Allwinner.
+> >=20
+> > I'm going to apply this, on the basis that it will be used elsewhere.
+> > Ordinarily, it should come with the allwinner series.
+> >=20
 >=20
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
-> ---
->  .../bindings/iio/potentiometer/adi,ad5246.yaml     | 54 ++++++++++++++++=
-++++++
->  MAINTAINERS                                        |  1 +
->  2 files changed, 55 insertions(+)
+> Hi Conor,
 >=20
-> diff --git a/Documentation/devicetree/bindings/iio/potentiometer/adi,ad52=
-46.yaml b/Documentation/devicetree/bindings/iio/potentiometer/adi,ad5246.ya=
-ml
-> new file mode 100644
-> index 000000000000..a6642746f002
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/potentiometer/adi,ad5246.yaml
+> Got it, thanks for applying it~
 
-Filename matching a compatible please.
+Just to note, because this patch was separated, sashiko did not review the
+driver changes. They looked fine at a quick glance, but I would like to
+see another revision (with this patch excluded obviously and the things
+that have been commented on so far solved) so that it can take a look.
 
-pw-bot: changes-requested
-
-Cheers,
+Thanks,
 Conor.
 
-> @@ -0,0 +1,54 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/potentiometer/adi,ad5246.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices AD5246 digital rheostat
-> +
-> +maintainers:
-> +  - Joseph Telaak <joseph@telaak.dev>
-> +
-> +description: |
-> +  128-position digital rheostat with an I2C interface. The compatible
-> +  names the end-to-end resistance in kOhm.
-> +
-> +  Datasheet: https://www.analog.com/en/products/ad5246.html
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - adi,ad5246-005
-> +      - adi,ad5246-010
-> +      - adi,ad5246-050
-> +      - adi,ad5246-100
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vdd-supply: true
-> +
-> +  "#io-channel-cells":
-> +    const: 0
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        potentiometer@2e {
-> +            compatible =3D "adi,ad5246-010";
-> +            reg =3D <0x2e>;
-> +            vdd-supply =3D <&reg_3v3>;
-> +            #io-channel-cells =3D <0>;
-> +        };
-> +    };
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 9cb91ee8a56d..81069fdbd778 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -16680,6 +16680,7 @@ MCP4018 AND MCP4531 MICROCHIP DIGITAL POTENTIOMET=
-ER DRIVERS
->  M:	Peter Rosin <peda@lysator.liu.se>
->  L:	linux-iio@vger.kernel.org
->  S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/potentiometer/adi,ad5246.yaml
->  F:	drivers/iio/potentiometer/mcp4018.c
->  F:	drivers/iio/potentiometer/mcp4531.c
-> =20
->=20
-> --=20
-> Git-155)
->=20
-
---BP2Pm9HSuSzzqzlh
+--yL4HbPHY7ZmtVyGZ
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavySXAAKCRB4tDGHoIJi
-0s3uAP9hG1Djlf2Z6iAebyFau6YFaTpu3WhrEAh3Qgyo4oplugEAyqaHBLk8tlFy
-26QfAnVaPge9ksmYHSLOTvu8xtcB9g8=
-=BVRf
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavyTNwAKCRB4tDGHoIJi
+0nDfAPwKHrmXEY408835g7LwKKUsD3y2VAZE1B3oMkjVyjOigQD+NM5PZ2WItqP6
+lGZX8OLP+0WQqR6FozKNWS1q0T38KAg=
+=oYqq
 -----END PGP SIGNATURE-----
 
---BP2Pm9HSuSzzqzlh--
+--yL4HbPHY7ZmtVyGZ--
