@@ -1,50 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.28
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794894237;
-	b=Diog/+m/UpNPVm+XS/IuMDwf8rkEhuCbO2IZ9cbysiYRzYOWXxidiF65/qdtqNFpO/oO
-	 W2WjjhL7vX9r8dhdcJYjMLmnBVnoXeIX+f4TsentsAG7mVInhooVI37mmqThWgz3ZAB5v
-	 pZ/CfRg/OtR23lUyZJ6g+avCqDCGCkUeiBh+ZFJYcVTJgHVxrQ50A7q60WjaU4CkeS0cP
-	 Iu0kg9Zv+Ia6dTl0MA5wamQRl6aXk2TxG2ZHZB3NNWFGkaxFBfKAQaX8F194P13bw61/t
-	 ibkQH9q2D9bPtoRh2I9UwUDQ66kSlN0IGDpPCp5utoIo5oTGMAJYikWeEbBIZMsjt6Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794894237;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Lms-Return-Path:Mime-Version:
-	 From:Date:Content-Transfer-Encoding:X-Mailer:To:X-Original-From:Cc:
-	 Message-Id:Content-Type:Subject;
-	bh=DsGLFo3Ah3ZqBE0pL0mtcci+TztznhZ6bWOpznuGZd8=;
-	b=oyfg+gcb/EnJsOSArDkYsTQ9QltX8Y/uiH4iUZQSkrgY/s2jq9HepyYp5Tk1AEu7FS4R
-	 Pqt7yJaCnVymvGe1ZMGZuuIbUKkfYDC629jkggtLDEO0tqL+euXrrDekWsSRmGS9ZploM
-	 hYITU429neuJvOC0kM+ihdKZJBdXSZoZ7WHcfpyJbrH90Wd4D6OY0DuQZzp71mGNmRMuu
-	 eEWg86dHNafabVcEaUoKFSkArCtdmB795eaQa2fE75pZgWarsB9iWijTWEQpBZc7pdVMp
-	 xJOqokc0SlYekclTOyyIosoLmcVMrgo27dSkQjOWbDkuAnEtznCPbLbsSfB2L+is+GQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=JDC579OF;
-	arc=none smtp.remote-ip=209.127.231.28
-Received: from va-2-28.ptr.blmpb.com (va-2-28.ptr.blmpb.com [209.127.231.28])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794894290;
+	b=pccgi2NxcWCh/jY044X1AtSzmyEX/vVaAnK7G9PIqcoGY0qQABdz8QqqRJ3WVp2axiHF
+	 tIpkPiiWR1F4RJC+gFRz2U9A25xbJH/uL9pdKSIAu39b69m2vLW0xeKCjKsApSVZGTsJV
+	 oCA9CJsdCv/mpWopMVFU/KbfDAMq2mQZZG1sgmTnljzX+kJ7cb5rpehstYAg7XqSe8EPZ
+	 YTQjqZUC6b9iJvkOozqxMhx9MbMVVzZPguQEEOwXH89X0DEocwGY53MNqtGeXA2l82uT1
+	 Z5Oe2/PXUs7qt5InBKBLG2Ocl5Lxgm1Vy419SQqhZAsc5o6S95f9JQh3HlWwZE3fy+g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794894290;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=WnJxue8EGHSJoOXR71h438cN5FpREPyR7p6Z/X0PWZg=;
+	b=u1sv0t1ZgqEi/WCU0vIW3QLluMFsW9kU6hj5aHf1VXGfVD49woR/T/jtneX6UwuEmmim
+	 RcI/0Zb5/eDRZeHpNn9OtRF31xXRwyWE9JxFnB5AILZaFwemMptWkp89Ok46vvWYUZvdu
+	 NhTb3+bUFUZIHG2+ntCnUiIwdnnsoJDAW4xQrtPdS2nTBX7DnMMhR0ah/MdgqFtrb81f1
+	 xVRJt2BbouokXg/DDr5sbGNoIMOFCpZCoqAT3EpGPam1hqk5P4gzwULfoloFmBnRHdiJu
+	 toQ4gtTUndZ3U+kp9Ml0hREO1yWo4aGAABG4mqyHK3F2jOX227iRpOBX+bzLH8ZvFUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3M0QVwi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479BF606A335;
+	Tue, 17 Nov 2026 05:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3M0QVwi
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794894289;
+	b=GYX5rUsfIZm2eSBrYVtHJKkXTlkj62fUVLYIGRTbiSov/1ehb11ZmD6ObVPk6jhpIrg2
+	 SoWDqyDa60ncTg5UVnkt8WqyEA787jxQdwEKLre9lzu1XVpZoUhfKKMxuk//AWMK80Uj1
+	 MSCOA0XpfDjH4UpV8KBpa3bnaL0GKMjEBLpES5VD5BijjCZuycfAgK8LWw+v0cjB4Vp3q
+	 IDGpXaok9cUDT2xogbeyKPbGSvf8N2WIiaimlWh9ojbGfhTvUZtfdoHVLawTecFK0uiMl
+	 S6W68JbZ7VkoR79o/WcLL80QzLnyTa2GhZn88rQrOqb+4HYiRmNleVcomiP7t8QTK0A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794894289;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=WnJxue8EGHSJoOXR71h438cN5FpREPyR7p6Z/X0PWZg=;
+	b=m+3u7fBlyUsh09m+t3Z+yYfhf6pJH5Vo1QQdxNkfFvQoliV/ih8Si3pnu4FsDaKyOltx
+	 gXBlczhWenjKLy6p3Mp4CgX68WK3g95t+aBU0UiPpwcHW2Bsx82F1uNu2PNyG0FzkThEJ
+	 +IugBCCwQ/ke4NTyRDGxkNqGNr+EbsDOLUMBmBIbrhQ45jtHo8pQ776n/N0GfGxxSj/HF
+	 cJMJp7RMI1VhSpfSROHNaosFMMxv86qkPunprDTI1F5JoGn44/TLPuuKXGNuv+Q7ULLzL
+	 6d0KtfpPbQeuYhqEVm3CO32wSvV21xlxfplyQX6Q5uAnD8saICL3uigoFBlSfLI/5vw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58136606A333
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 05:43:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58136606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=JDC579OF
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794894226;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=DsGLFo3Ah3ZqBE0pL0mtcci+TztznhZ6bWOpznuGZd8=;
- b=JDC579OFQHDMJLEY8/2cDuh+6kxCeH6CAuDCtZG/kNMcXsZG92uOASeqvqHvaNE0lR2ewi
- qSGfFaqDIGqA4vAioanyMjnCwyapoUDQzuJIOQU7RAtOfUrnAz2xbmCkd6/u5g6B+vfcIn
- dH9iLKb4DVF3iQmCjoBPnPSKBrgjlfSqT6NuHb2cNHmTeQEWVAvd4/zIIrT+GUun09Fte3
- dang5QLOaX8hNW+DDNYvJVhEgP8s4yF7C99+0Rm3p7sH6lDciMNg5BAtz8FM5DaY/rkw/a
- N0uNmxTGm4Qy9SU1E/M3O1tu9IoB704+dRQow/zwXLDwz7P+/qfmUGJ2nXpqAQ==
-Received: from roma-Laptop-12th-Gen-Intel-Core.. ([183.23.101.74]) by smtp.feishu.cn with ESMTPS; Tue, 17 Nov 2026 13:43:43 +0800
-X-Lms-Return-Path: <lba+26afbe990+6b1eeb+vger.kernel.org+sandie.cao@deepcomputing.io>
+	by smtp.kernel.org (Postfix) with ESMTPS id B52A21F000C5;
+	Tue, 17 Nov 2026 05:44:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794894289;
+	bh=WnJxue8EGHSJoOXR71h438cN5FpREPyR7p6Z/X0PWZg=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=f3M0QVwiKSHFX/MD8zSYUHfGHkOgYzVUHFfdkXZMJbd/+Um6XlSmAikfBgcpP35J1
+	 yCVnsri3h+UDgYPy4bgIqjEAZAMXwN9NkWlIp1SVKoiJg9sWYMg2vL1A1WWAdjtucO
+	 sy3SCpEAMiu4wgO28KkAbzkvsAJIwS00dkGjR9GH6hBBvijLdkthZjwpEiR8AIVLfH
+	 AcGFmKdakoW72dg+b4II/t3y9Pmzth3qNjJIkfLMlqShwN5hkwI7S2tAL16o0etiJh
+	 eb0X2Sg41dT59Qmb1aazekZqbN14qeBiSs4f1qrrb7gW81MSSDpVv9i2P3BKFwdYhK
+	 Gouyvg26pAIMg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 17B894A6D3;
+	Tue, 17 Nov 2026 05:44:48 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Subject: [PATCH v9 0/2] i2c: Add driver support Amlogic A9 I2C
+Date: Tue, 17 Nov 2026 05:44:02 +0000
+Message-Id: <20261117-a9-i2c-v9-0-7b303c894fea@amlogic.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,81 +82,101 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-Date: Tue, 17 Nov 2026 13:43:24 +0800
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: git-send-email 2.43.0
-To: "Yixun Lan" <dlan@kernel.org>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>
-Message-Id: <20261117054324.1048767-1-sandie.cao@deepcomputing.io>
-Content-Type: text/plain; charset=UTF-8
-Subject: [PATCH v5 0/3] Enable USB and SD for Deepcomputing FML13V05 board
+X-B4-Tracking: v=1; b=H4sIAKLp+2oC/23QTW7DIBAF4KtErEvLDP9d9R5VF4CHBKmxKzuyU
+ kW5eyFqHVfOcuB9PDEXNtFYaGKvuwsbaS5TGfo6+KcdS4fQ74mXrs4MBRrhAXjwvGDiqJR1hEj
+ GSVbDMUzE4xj6dGjxGnlpsZ7Op3b9NVIu51vP+0edD2U6DeP3rXaGdvrbgOqvYQYueHSh81GZr
+ IJ7C8fPYV/ScxqOrD0y4wJBIC4QK1SaZKIMVse8hXIN/QJlhTZKkVISQku5heoOq1ygqlAHMB5
+ BR0d+C/UaygXqCp3J2KUOrO8e/NGs4X05pi0nBAMWMpr8ANrH0DYoK4pa5pDVFroVBLFAVyGQ7
+ 9A4zM7E//B6vf4A2cJK7kwCAAA=
+X-Change-ID: 20260911-a9-i2c-24478e22e683
+To: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Xianwei Zhao <xianwei.zhaol@amlogic.com>
+Cc: Junyi Zhao <junyi.zhaol@amlogic.com>, 
+ Markus Elfring <Markus.Elfring@web.de>, linux-i2c@vger.kernel.org, 
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794894285; l=2906;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=sKg+ezEKpqfPxRfUc62ziON7SyaA8QSFTl1n/ygHs3M=;
+ b=D15RfZwfZt+xczMQ+XV4t2xV4wyB8+IYyFZmII8TF6No9XA9ud9hMEv2dKvzPHg/GZRtqBUxY
+ MP/XR2b2TXNC71vkIjkLubwNBjzcaxACRrxVWumP0t8zrPYvN8yixrr
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-This series updates Deepcomputing FML13V05 Device Tree: Add P1 PMIC 
-regulator tree, add USB controller and USB phy, Enable SD card.
+Add a Device Tree binding and driver for the I2C controller found on the
+Amlogic A9 SoC.
 
-This series is rebased on next-20261116.
-
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
+Changes in v9:
+- Use guard(spinlock) instead of spinlock according to Markus's suggestions, no logic change.
+- Link to v8: https://lore.kernel.org/r/20261110-a9-i2c-v8-0-1e9d2682f86b@amlogic.com
+
+Changes in v8:
+- Reserve complete(done) into lock, and adjust the code process in irq func.
+- Link to v7: https://lore.kernel.org/r/20261104-a9-i2c-v7-0-b31f2b53faf4@amlogic.com
+
+Changes in v7:
+- Move complete(done) out of lock, and when state = idle not complete(done) in irq func.
+- Link to v6: https://lore.kernel.org/r/20261104-a9-i2c-v6-0-baa6171f26f8@amlogic.com
+
+Changes in v6:
+- use xfer instead of master_xfer interface, and when div=8 remain valid.
+- Optimized the function.
+- Link to v5: https://lore.kernel.org/r/20261103-a9-i2c-v5-0-86f2dcd179d8@amlogic.com
+
 Changes in v5:
-- [patch2]
-  - Correct commit message.
-- [patch3]
-  - Remove Onboard SD Card comment.
-  - Change non-removable to broken-cd.
-- Link to v4: https://lore.kernel.org/all/20261109033154.361399-1-
-sandie.cao@deepcomputing.io/
+- Mask out I2C_FUNC_SMBUS_QUICK and return I2C_FUNC_I2C | (I2C_FUNC_SMBUS_EMUL & ~I2C_FUNC_SMBUS_QUICK).
+- Link to v4: https://lore.kernel.org/r/20261102-a9-i2c-v4-0-5a169215b8e9@amlogic.com
 
 Changes in v4:
-- [patch1]
-  - Remove unused reg_aux_vcc3v3.
-  - Rename p1@41 to pmic@41.
-  - Add regulator-always-on for dldo4.
-- [patch3]
-  - Correct Onboard SD Card comment.
-- Link to v3: https://lore.kernel.org/all/20261102060012.100623-1-
-sandie.cao@deepcomputing.io/
+- Repocess xfer len equal 0 use I2C_AQ_NO_ZERO_LEN, and Optimized the function.
+- Disable A9_RX_THRESH_READ/A9_TX_THRESH_WRITE enables of irq when xfer timeout.
+- Use guard(spinlock_irqsave) instead for direct call spinlock in xfer timeout process.
+- Link to v3: https://lore.kernel.org/r/20261029-a9-i2c-v3-0-7b30ccc00533@amlogic.com
 
 Changes in v3:
-- Remove useless gpio header.
-- Add Onboard SD Card comment.
-- Link to v2: https://lore.kernel.org/all/20261020081633.3673704-1-
-sandie.cao@deepcomputing.io/
+- Based on the questions raised by the robot, the data flow was reorganized.
+- Some processing was optimized according to Andi's and Markus's suggestions.
+- Link to v2: https://lore.kernel.org/r/20261022-a9-i2c-v2-0-45e3cef175bf@amlogic.com
 
 Changes in v2:
-- Remove usb3b, usb3c node define in k3.dtsi, it's already uploaded by 
-other patch.
-- Add phys and phys-name define for usb3b, usb3c, usb3d in 
-k3-deepcomputing-fml13v05.
-- Remove cd-gpios, use non-removable for sdhci0. 
-- Remove vmmc-supply for sdhci0.
-- Link to v1: https://lore.kernel.org/all/20260922110231.3426011-1-
-sandie.cao@deepcomputing.io/
+- dtbinding: make some minor modifications, suggestted by Conor and robot.
+- driver: Make some adjustments, including macro definitions, format adjustments,
+          adding quirks, process optimization, and so on. According to Andi and robot's suggestion
+- Give up MAINTAINERS file the separate submission, make it together with the driver.
+- Link to v1: https://lore.kernel.org/r/20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com
 
 ---
+Junyi Zhao (1):
+      i2c: amlogic: Add Amlogic A9 I2C controller driver
 
-Sandie Cao (3):
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add P1 PMIC regulator
-    tree
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller
-    and USB phy support
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card
-    support
+Xianwei Zhao (1):
+      dt-bindings: i2c: add Amlogic A9 I2C controller
 
- .../spacemit/k3-deepcomputing-fml13v05.dts    | 215 ++++++++++++++++++
- 1 file changed, 215 insertions(+)
+ .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    |  56 +++
+ MAINTAINERS                                        |   9 +
+ drivers/i2c/busses/Kconfig                         |   8 +
+ drivers/i2c/busses/Makefile                        |   1 +
+ drivers/i2c/busses/i2c-amlogic-a9.c                | 429 +++++++++++++++++++++
+ 5 files changed, 503 insertions(+)
+---
+base-commit: 4ec2365c08de306f52650d8736aef5862baedb8d
+change-id: 20260911-a9-i2c-24478e22e683
 
-
-base-commit: 749a4de370409464cf8501ec5b2451df45c84eb4
+Best regards,
 -- 
-2.43.0
+Xianwei Zhao <xianwei.zhao@amlogic.com>
+
+
