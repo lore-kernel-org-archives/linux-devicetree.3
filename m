@@ -1,73 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930068;
-	b=Bomes+ldcaAb2VArHTwaQeo6XWV92OXxq4kG8MIjOabx+wH+GXSCakDslfN8U8EiZZ98
-	 rXj1yrYf/uk5CLiwcJQtijF8vwWVeMNjya26sAJ23m0mt9+u3e9xr8NCXi7wE3UuAxdYE
-	 V9/vMsyjsj74MD5pdGnlejXa/y/JSPrjs5b0m0Ptal0Ns5xP2rKwap4fA5JI1Vy6ntAku
-	 331IgqZ5/ldWfBPpx+wbar6xJcCb3SygVHC1a7JOle+O+MHUVgTmdsm/8OrtCEnlhVOiT
-	 DWqFMmEi7y5xvqmXVr3UGXnnjiG8bAOgOeJaESoHLc3YnZ4zlKbN4++nb5bEGnnkUXA==
+	t=1794930170;
+	b=QYNuj0XjaBQNlNSKj5j8uB9nIlbbsVwDtKfkUbQltiG3ny5kKgO7CRJBk1k2d6M7tiJi
+	 6rsZ+7SRQe6gbREsQLSh1JzdgsCUl9nQ9wGfTjT5X7ZRvHWYCdhr+9mpo5k9R3pL82uOO
+	 8d0TWEo9396Qs2bGQaOSFAJiQshXGdzzCGkx3IavJyKNoecIvzfvd9+LtV6kMGIs9fHVz
+	 TJq1k6Ac6BtUVcobUO6n9Gi0FGQVf9q5kKd9JkaH8DSt1KIXLFJtXzXwhNglcKws0eYM4
+	 RXgZGeRU4VFryUGrII6yIgWYMZpVFX8XPUX9LDQx7hXUB/u4xxbuRpuZ7P17q8+FBHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930068;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=ADeZTUG4nb3axn4kjrDhg1zAcLadBlUVGSnVkOKn6IA=;
-	b=WYKu+dQToy9hkESKGgnc1941O/scxVqSp74JceCfnbwkBhpi6bQhjK+PWCYHU0lk+d5A
-	 RPKQyvdetRy5MkkZzZWT2xSz06AyKnLVU3IMvDH0Jpf3MSy9lzX3bP3jRirb3ix2Eu0CL
-	 eb44TK5ew4jw+iF30KYJzigPu2OL3qtx8KBj7bKMIQQT8oDP4LucK2T3SvQyp1idBHXHk
-	 g8+eQozXKF6X4mboWEk3D2wrMoW5VUwkjOaRCTFm++J/bmukMhz0152Uern3uYqdNuo2t
-	 +je4M97Vg1YYPchehDzyt6AfqgpVPUbQjKH8tYIrnW5ET4wop0gC39w3oQLHalFvPgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930170;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=oxCMTX2ipRj8XtPAQ39UyCucIcbg/w2OmQAPrLbnTjc=;
+	b=ZaiFSQpYaHAwTUJQFJdbObuhPuAfAEQJBjbk6mn7VfJJnrYH4MwDfpQdvTXexqzpGmQ9
+	 nGBT9CNQ0+9WLaaFE2v3gxjsEz5LtUlzYtkF0QYphx5DiBwyvaUKgAnJURZd7l7bI0zCh
+	 AIBazfYRYerWbZixa7Inf/Jy/ZCYRuJOuYiehYu5Y3CTaWxKE+7FHpZvkkUdZkPXbbz8Q
+	 qCTbqFQtFAB2d0FkLh5AqNMgkB9rbRkHsAH3BaEcwgDCJCuPrn18fsxzPnCErIu+Lqy+p
+	 qpe6rHK7xw3MksKniW2262vyW6uEol/3yWWEJIagbYxPsZvE5WuUWJFg0T/MPjx/NLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IP54/r+V";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uur9NZUZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09387606A31C;
-	Tue, 17 Nov 2026 15:41:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C7B606A330
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 15:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IP54/r+V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D57FB1F000C6;
-	Tue, 17 Nov 2026 15:41:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uur9NZUZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2128C1F000C4;
+	Tue, 17 Nov 2026 15:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794930067;
-	bh=ADeZTUG4nb3axn4kjrDhg1zAcLadBlUVGSnVkOKn6IA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IP54/r+VWtpieoKrwFU/ZNX99gK/L1z3dz4iUGhYYXL1qwEiRW9xJse7SpdapBJEs
-	 qP7jIeNE92nAJN9aoh615SSz//YjG+sDSb0fpEttOJSpF3/B8W3aLyVTHVqE8mBXJK
-	 bfjIrCdZ4WsMXdBOHq0JsCh7aWzecmswWKdjxsRk96zjOOiYn9i9crP4PUnfUAaoj/
-	 NjD5uNN4iNO2cg20oZ8uBNXLPK5MOkRplzd2fqzBRKhssaTFUL1iGLt8BuYm0zYY19
-	 ditRSmDOOgXomGjMgttOd9XT9j4pZAH21hRKeutTKt7uEBFzWaI/fw9jgyBA6kXZy6
-	 4LzTdawDW7w+w==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xTLIv-0000000H5jg-3EL7;
-	Tue, 17 Nov 2026 15:41:05 +0000
-Date: Tue, 17 Nov 2026 15:41:05 +0000
-Message-ID: <86eccj1n5a.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/3] arm64: dts: qcom: glymur: Add ASUS Ascent QN10
-In-Reply-To: <20261115-qn10-v2-0-19b11603e776@oss.qualcomm.com>
-References: <20261115-qn10-v2-0-19b11603e776@oss.qualcomm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1794930170;
+	bh=oxCMTX2ipRj8XtPAQ39UyCucIcbg/w2OmQAPrLbnTjc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Uur9NZUZo+9CVD8A0LHwnHfd6/ou7c5cdhP+wE5CTirWx/A5N01/LBPM0Q1y7jalu
+	 fkNYb5RmBDJILreO3Ts5xjzirfbhThyAYl+nG3JFPAab7YUbPquVfQH6Zi0Z3cnXPo
+	 GVmNKUu+7t67rfLi97Acp7j1YGRIwdnRqffryVaRanpW/3mGkZR6i9fmA6irZ1RVF6
+	 9JqHU8XkPPQWMBqkBpwXVjq029Rm/HY7jURQIVuBGaX0s3k85pXHBm36E8JV6JW2g+
+	 RStjWoVrhG8ACOS+4F1P5F/3PEvj0G1KQLP1W4Dat49LpM35ZLK+pIR2SSjMsCGkRP
+	 LU16fgY//Hubw==
+Message-ID: <sashiko-outbox-219099@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/9] dt-bindings: devfreq: event: rockchip,dfi: add
+ rk3576
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-2-32ff1546b0e4@collabora.com>
+References: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
+ <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-2-32ff1546b0e4@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 15:42:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,52 +60,73 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: bjorn.andersson@oss.qualcomm.com, andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com, abel.vesa@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, 16 Nov 2026 03:48:58 +0000,
-Bjorn Andersson <bjorn.andersson@oss.qualcomm.com> wrote:
-> 
-> Introduce the ASUS Ascent QN10 compact desktop computer.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Move the RPMH regulator override below the SOCCP remoteproc node.
-> - Sort the GMU and GPU node overrides by label.
-> - Drop the unused EC interrupt pinctrl state.
-> - Link to v1: https://patch.msgid.link/20261113-qn10-v1-0-e09b2aa7ccbe@oss.qualcomm.com
-> 
-> ---
-> Bjorn Andersson (3):
->       dt-bindings: arm: qcom: Add ASUS Ascent QN10
->       arm64: dts: qcom: glymur: Add ASUS Ascent QN10
->       firmware: qcom: Allow QSEECOM on ASUS Ascent QN10
-> 
->  Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
->  arch/arm64/boot/dts/qcom/Makefile                  |   1 +
->  .../boot/dts/qcom/glymur-asus-ascent-qn10.dts      | 664 +++++++++++++++++++++
->  drivers/firmware/qcom/qcom_scm.c                   |   1 +
->  4 files changed, 667 insertions(+)
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: devfreq: rockchip,dfi: unwieldy per-compatible
+  conditionals
+--
 
-I've thrown this DT at the Ubuntu installer, and ended up with a (more
-or less) working machine, so something here must be good!
+commit bdcd31ac4a26427ac56de242bbee17f5338ad380
+Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-I get a 2-minute timeout in EFI services though, something that mostly
-speak to the quality of the firmware rather than the HW description,
-and is worked around with an 'efi=noruntime' on the command-line.
+dt-bindings: devfreq: event: rockchip,dfi: add rk3576
 
-Now off to locate the UART on the debug connector...
+This commit adds the rockchip,rk3576-dfi compatible string and its two
+required per-channel DFI monitoring clocks to the Rockchip DFI binding
+schema.
 
-FWIW:
+> diff --git a/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi=
+.yaml b/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
+> index d6e06a9bea19f..964f1827496ad 100644
+> --- a/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
+> +++ b/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
 
-Tested-by: Marc Zyngier <maz@kernel.org>
+[ ... ]
 
-	M.
+> @@ -68,6 +69,28 @@ allOf:
+>          - clocks
+>          - clock-names
+> =20
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - rockchip,rk3576-dfi
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description:
+> +                clock driving the DDR monitoring logic for memory channe=
+l 0
+> +            - description:
+> +                clock driving the DDR monitoring logic for memory channe=
+l 1
+> +        clock-names:
+> +          items:
+> +            - const: pclk_ddr_mon_ch0
+> +            - const: pclk_ddr_mon_ch1
+> +      required:
+> +        - clocks
+> +        - clock-names
+> +
+>    - if:
+>        properties:
+>          compatible:
 
--- 
-Without deviation from the norm, progress is not possible.
+[Severity: Low]
+This isn't a bug, but each SoC variant in this binding now has different
+clock requirements (one clock on rk3399, none on rk3568, two required
+per-channel clocks on rk3576, and four optional per-channel clocks on
+rk3588), and this block duplicates the per-channel clock descriptions and
+clock-names items already listed in the top-level properties and the
+rk3588 conditional. Would it be cleaner to split the diverging variants
+into separate schema documents, or define the per-channel items once at
+the top level and only constrain minItems/maxItems in the conditionals?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-rockchip-d=
+fi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com?part=
+=3D2
