@@ -1,89 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794952963;
-	b=AY0/vxzY4hZqm2EpXF0iSnMhJLgzzAz+W1WB3d+UHz0QpG2GyJPhpZgmEdoyoRAj9I0A
-	 NxGl28dFkMZItmTRUb/kdOmXDhyZnGpDACJH4oP5U3v8JUPYmIelzk95ujln5UbpKLJFS
-	 AxrO23Vit6ANKvjUjaxxSXlB9w42klVqKUL7oBxihgEo7Rpd29TuQFactV2A6vz3p4dO6
-	 UBcsZN8R3woS+fgNl15OVYWfPA1C5GQxacrubK5RcIr/PyQqRxKD2MbW3KDXG68qbBwga
-	 k3KM5RJUvvCtIw4ZUTGpBkdcSd4XoIR2Hj0UUfOy3dAboyuRLToU9FKuPVOJ/3wEHEA==
+	t=1794953653;
+	b=c10+HqY5myUIte3ZNoU0zRPnh8wqEOMvDO8RcmVP7m3ImUNLbAFnUZbmBXMOvSIGrhN4
+	 9iYwEnx4rirXm+dGDvkeyjUebXoRxshbI8+yozIu3VI2puoXPV1ljn36bZDYEJwwgFjDe
+	 6Yib455fWqR13Zp7sx5bE91101dQPvzDsZC/V27Vsuiq7rDQPWReIwc7Qm1JU1AmAjKtT
+	 F5SMSF5PO5niGNmNBFUin4vPrkP5si1fxx6Nf9PMHMTAuLW74d29STrmqDguvsZVwKy4I
+	 V2UhjqxX7TeOUm0fPix/fpsqRCQVjcWcUiXNs6bn5GqGsoFqXUHtM9nwEm4hc7zWm6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794952963;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=u+qNamCxkMzKl4KY6j5kHOZ4VWCPeD2SfTKkXZTtvl0=;
-	b=qt5BFqMa6QSKtyyP508BWlZBKzWGAQ9vuRHegjB0OeIyn8y+2nS2InczlNmLqhab+0Mf
-	 +px2pcI8PnXb3nDYH7P4dpLJzVkMz3XX/536O0njlkh1jUZtQ5YAUMYc+HH7uVcANHKdc
-	 jpq/EnodGUYeFZ4KJHxEsv17Jah5ud/tLOo+zHjJ3diC7wJVDUfYHDq0+36Oj/xZrzQ0K
-	 5flRxmM8DDc4jYRAlMzzycKUnrU/jXEOtZSLdZd0wnUq9I8N9gO2n9Ns3IWzyYVvhyoOd
-	 a+Y2rrliqg5VDTJfK6X5AMIpPV7KlahW1ycRmqUIin/Ty6V9LJJ7R/tP6+d7u2WSc2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794953653;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=5Sx6E2eGRV5SxQp5i7sVIsOeukXm/V4zepzrSLP5HDw=;
+	b=KxCqKFyMuHJTRvodgm0pw2j/NKi49sZWcwuacWPp4oyjdWD9pBbD10ivDPyR7RVFaGBW
+	 4JQuSmCq9STX+eUz8FL73vc6DNbiaLZIfH1QG6QHfNbYZs9k3ABVkj+8FxSZaja57Ond2
+	 6CHMRZ+kpssEuC6VjbF7rF8w6v2/aw7P3G4wW/f6Tav608/iThp8KPRQq5iJefrrKkgqJ
+	 zLIKM5egQTHH8o8gUKbo9DdCc+hCfrV2dmfNaK34+QPO1NwZvyirHTTh8vEw04XzMyfl0
+	 iYLjzs91P7suiuEvmbRu4CdAQlpo1pXWdsjFprDD9wJiQj4hVcx9Tx0jWcGHlrT7M3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VCvApCP4;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iWmW4Vqc;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gx3DMGuH;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C61606A330
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 22:02:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1C61606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC254606A338
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 22:14:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC254606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VCvApCP4
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4d5b2db4bbso53888466b.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 14:02:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iWmW4Vqc;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gx3DMGuH
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHKf9q71847284
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 22:14:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5Sx6E2eGRV5SxQp5i7sVIsOeukXm/V4zepzrSLP5HDw=; b=iWmW4VqczE3QyEmb
+	Swbt8vC3VUy+iyYxwzkQml92CjoJCXL0YeWGLkWxyro296gRj7V9rvvdRkurgB1P
+	yUcEbN1auMsw1st8lbi8CoNldZy3Jk6JxdT1pS630Ji6dFjleNFQYFkyuSKouRvp
+	0KGv5u0emOa0MY0DiNgZ4L77UQTkYBxabwuyWlrDoyQSVx4uT8LKSpfB7+dEO+8M
+	Lw2UDd/pA9vF6xSU7pmYyTSlJK8tfe2xnsKhrwT4zkwbPUZhbQINvbXHwhjyg0u6
+	phN5s5aryd91ARI4g/hk97PaCFJjUM4EV7OrbiPVQTTREgOHO3wKcY8HaAUO1KpL
+	qEa/9Q==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0s9t1qrm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 22:14:11 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-37549877380so344661eec.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 14:14:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794952961; x=1795557761; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u+qNamCxkMzKl4KY6j5kHOZ4VWCPeD2SfTKkXZTtvl0=;
-        b=VCvApCP4krmDZivhPp043n01C7iwdTQqCKtQ/5A708TdGit+0FtbECizzQX4m5LuE5
-         aehfHratggg4dCDRMWRzuemVKUJasBuQ6RWetxhuk8emIl24X9+9D+dpQOGqhS0D6Mr4
-         aK96SPhsV+W0RGCZYmDf6KU4FpyCZoXZThzu5KCs7FiTgS2TrcXhXRXrvfx1UPvzAX0z
-         RNcrM4Pntzoc+4ao3Sb6UDG6W/Ok6GAd3nWW0TI4CQUKTg6XKIPcngPFEND7fOVIYtU7
-         dDE0TFR1dww0Cnzp0Y0btPIeKBQzekcoYfcY3U0dVzzkRnsZhNpevCqklavHIPmAeIh2
-         lFFQ==
+        d=oss.qualcomm.com; s=google; t=1794953651; x=1795558451; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5Sx6E2eGRV5SxQp5i7sVIsOeukXm/V4zepzrSLP5HDw=;
+        b=gx3DMGuHpXqs2lDmqIvNAXqohkHNDifNlB1ZnYFjfcVkqz/bOyyx/HPL6tlYDu/QcR
+         PM4wDidIbpW73OcU9ZemxiYDyQ+t8cecj165oY3eN/2BpTENKWc7Sg3ls2ZsdKYZA4JY
+         NdVmJqIVA+0sElyylKtzeNPcG15dPwkMrmhlAWHB0dEJ/MtVaQIpsAbpoUJhs75KoouB
+         i0Kl3De18PCayaDPxgUXzUALo4fwviehNAmJP34lG5J1dbxF4PDyZzhqsWJIzhr9K1vb
+         sjq+yHKo9l2ho8+sGeFuWmbcZ2QLp6MuNZPA/HUhvwtUz1StwvZXRoxghWrBhzwioAWA
+         nAKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794952961; x=1795557761;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794953651; x=1795558451;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u+qNamCxkMzKl4KY6j5kHOZ4VWCPeD2SfTKkXZTtvl0=;
-        b=AmqJb4d0PAmGF0Doa3RT0qCmoXzsf6Z4VTnX3FROYw1B5s4vIQndDuHU3KR+T+j5Ve
-         qZYDHuB4rnVj7lDJADduGBZDkAsUJQhlbpoD3kStBqdH42TsMtA7RWw30MMqZhrpvnUK
-         nx+weIBnbm1NMChLIlS2CmzoBq6I4E+juNH4d3FH2FatcM2xCTqHiXxYeNlAYNnAoeKb
-         5wBiZOKb2i2peBGX6UkTeEhu5QRkGgEasNRh2qHuJJ42XWgVW980yrd2N6hK/0Mvkmc0
-         4Vp6ldqiEXE/19Ci9RbsA++eBgfb3nyfO8hVGjkskdzJgysBXy6kpjUdLzd8ANfkU3Zn
-         /KyQ==
-X-Gm-Message-State: APuU4Z8E0mqutEmj83onbHETjoh2nJmv3CZQAiYq9o3vS6OWkPtnTbTg
-	7IQ1w/kR6rPsj/X+gL8xm5x+dBoHSAQVitQWQGLhVt6aJeDzFjmwxL1F
-X-Gm-Gg: AYBFou22FNyrCPaiCz7LKCW3DcAdfc/hETFiOIM45yf39XgrNq06Ti9U0Yoh4bq2oFx
-	+oH0kPOFyfpG8P5stttfndMRag8Dx1o5gCvq9ab2/W8guqwofC5A4dP/8MrV1x2Pse3y5vvcZtD
-	8hQkv5Ku8o6m9gVP6H8NvyQeABEiePj7sOQsKa2pweBL0449MMufHIeJX3xjKQbZM3Rzpqvx54A
-	jsb2nwdpqoEEEyLRcbS2PUJCaYxstSb4qcZoVB6hbyD/HiV9u42mstlQpW5nGRhxwgRd+xEHOWW
-	5Lez8ntUTqfpvibisADS02RdDGd3vjoWrTMef0KQclRTWI8ESqTBYVOI2pCmnk+fuPuaWuCvy+c
-	5ytZfoj7q5sUTNbeG2yUlfW8/P7LDI/iSTluvKM4yccQf6QJJSNyA0l54QV9h/Q9xtZwx8IHq+v
-	ib02RphzEFu0S61bvoVF5g0kiFL9lI00B1EGHuhAdYo17GFpwamTELmF+eYyfHAqYkxicuCX07L
-	V/WqFhiRa9Lqk+B9V7isngGn9eufPnRToJyM2wIJdKbWTyn63CBDgSixct2xrvStpP5jg5PB7Hw
-	SINcXjv7HQzUXr/r5QXWE+BZUvwA9xuLloyyQIPM4JhlqKxPZHxaA4v0zw==
-X-Received: by 2002:a17:907:728a:b0:c50:6222:7b1c with SMTP id a640c23a62f3a-c510e3c9618mr45908366b.23.1794952960855;
-        Tue, 17 Nov 2026 14:02:40 -0800 (PST)
-Received: from rea.tail766d.ts.net ([194.9.79.79])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c510cb340fdsm25525266b.76.2026.11.17.14.02.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 14:02:40 -0800 (PST)
-From: ImAthanasia <pwnzorius@gmail.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ImAthanasia <pwnzorius@gmail.com>
-Subject: [PATCH] ARM: dts: armada-370: Add WD My Cloud EX2 (Gen1)
-Date: Tue, 17 Nov 2026 22:02:17 +0000
-Message-Id: <20261117220217.250710-1-pwnzorius@gmail.com>
-X-Mailer: git-send-email 2.39.5
+        bh=5Sx6E2eGRV5SxQp5i7sVIsOeukXm/V4zepzrSLP5HDw=;
+        b=bfN2Lq1HsQIk72B5GlogPWiiqZC0v9djHQ4gUdsmK2/jQQ7Qh7Y21zTcOqZkrsIl2v
+         H5d/w3hxbaehXuIvzZyK1D3fM8P8yYz8EUEYVFbjju50Sku7Sw2dIBO6Kt9BcuwiiVTp
+         quFwln21sHpfk6vgbwSLgr2LD0N6tlK3ZtsL5UP7OisHsqDsrDnBLJ7SyEZFhOthcvzs
+         SP93v8aaXNJ2ZBvHiDP+JSs71BllRwksxqolGVDkFegT7J+kUebBpjejazq877XQSWtb
+         4suxUpXHsI3AJDkUCeFKkVNRUxtZWAv/NXooUA3S60vVG6QtZAVf36a6yYodxEdDpbpO
+         UOtQ==
+X-Forwarded-Encrypted: i=1; AL+hErE7pmUhooZiJ9Cw5aQLeTzcu9jV35TF9L96sMM7BKqXWwlQNV9uuSFjoFczKO5blYjbs1xYsHEOIwnU@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Dt+4ar/NC2eBc5rbQ7a1V8G8g4ifbyaZu7SQndciNEeNDdz13
+	y6xkHtHhqEmXwj8GFU5GMKdQLS4WbiPnvjO4vcwrlbXytiTWqwgxkZUtu2BCw0v1kYTfylx0xSY
+	HdWRJbDriMmAfPCWgW3OA8CuabZbxfdvgUAHiEYojr43+7lVPgZ/OxcYyYedR3GoWs0ggKfu+
+X-Gm-Gg: AZFdTZcD9qXVwnR93gCteR+50OLqlkN/Kq+2Yy8bxVhxEW7YeHzNyuO3x1/WaNV/RNU
+	KCqCdgpHGFjB7nYqJzqJIJZ6qt4p3GM6MnRttnm6D+kCSjLPeZylJi8VNATyHX8nr3nv9M5SXy/
+	qwsZkgt3x+hER2tib0it5oEwgjJ5L2nZo9bi6WgbeMc2d2TSoFFfGwvTr86CwJCtiBC7dGOpBkj
+	5tQlPQfbqr3uJldFzdcdy+sC0VGijgNCoTRsGKnaMuJA0rvpnAVq9F+SppJo2VhyreQ7q/wEBkP
+	OWeCKxkED6QRbjToReKF6yXA8d0auh5WDjsnX248C+ZP99IImPL87Br6IiAe3Nh3wLxnqOHvyYN
+	x2MnWqE14RXhtgv1N1wf3iiT84t6dgHLN2f0VvVgxDHCEDi+iEx0GYK814z9NWegi6gX1vBQ7fA
+	==
+X-Received: by 2002:a05:7300:d117:b0:36d:394d:e690 with SMTP id 5a478bee46e88-38282cb705amr578478eec.40.1794953650652;
+        Tue, 17 Nov 2026 14:14:10 -0800 (PST)
+X-Received: by 2002:a05:7300:d117:b0:36d:394d:e690 with SMTP id 5a478bee46e88-38282cb705amr578453eec.40.1794953649982;
+        Tue, 17 Nov 2026 14:14:09 -0800 (PST)
+Received: from [192.168.1.12] ([106.222.233.152])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a72eb2f3sm1066399eec.18.2026.11.17.14.14.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 14:14:09 -0800 (PST)
+Message-ID: <079a8518-bca9-4f2a-89b5-eb2d17a910a8@oss.qualcomm.com>
+Date: Wed, 18 Nov 2026 03:44:01 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,363 +116,120 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] arm64: dts: qcom: nord: Add GPU cooling
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Aastha Pandey <aastha.pandey@oss.qualcomm.com>
+References: <20261009-nord-gpu1-v1-0-a06a6c57bde7@oss.qualcomm.com>
+ <20261009-nord-gpu1-v1-4-a06a6c57bde7@oss.qualcomm.com>
+ <assC2v74wpr3AzI6@QCOM-aGQu4IUr3Y>
+Content-Language: en-US
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+In-Reply-To: <assC2v74wpr3AzI6@QCOM-aGQu4IUr3Y>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-
-Hello,
-
-This adds a board file for the Western Digital My Cloud EX2 (Gen1) NAS
-(board RD-88F6710 "KingsCanyon", Marvell Armada 370 / 88F6710), which has
-no mainline board file today.
-
-Enabled by the board: both SATA ports, USB2 and USB3 hosts, gpio HDD
-status LEDs, the 4-GPIO chassis fan (gpio-fan, 1500/1700/1800/2100 rpm
-speed map), the rear reset button, mvneta ethernet with the Marvell
-88E1510 phy (rgmii-id), fixed regulators gating USB and SATA disk power,
-and the NAND controller with the stock fixed partition layout.
-
-The NAND node sets "marvell,nand-keep-config". This is required on this
-board: the stock bootloader programs controller timings that mainline does
-not reproduce, and reprogramming them corrupts reads and aborts writes.
-This is the established pattern for NAS boxes on this platform, not a WD
-quirk: the same property (with nand-on-flash-bbt and ECC 4/512) is used by
-armada-370-dlink-dns327l.dts, armada-370-netgear-rn102.dts and
-armada-370-netgear-rn104.dts, and by WD's own EX2 Ultra / Mirror Gen2 board
-file (arch/arm/boot/dts/marvell/armada-385-wd_cloud.dtsi in OpenWrt).
-
-The file is derived from the Armada 370 DB reference design with the
-community GPL description for the WD My Cloud Mirror Gen1 as the hardware
-reference, adjusted to the EX2: NAND moved to the mainline
-nand-controller + nand@0 binding (the legacy "nand@d0000" node has no reg
-resource), and the gpio-fan node does not claim an alarm gpio overlapping
-one of the fan speed GPIOs.
-
-Tested on hardware with 6.12.117: boots unattended from NAND with a USB
-root, RAID1 md0 assembles, LEDs/fan/ethernet/NAND operational; UBI/UBIFS
-volumes attach, mount and persist across reboots. The DTB passes
-dtbs_check with the same legacy-dtsi warning set as the existing
-armada-370 boards (57, identical to armada-370-netgear-rn102.dtb), with
-zero board-specific findings.
-
-Tool-assistance disclosure: portions of this patch were prepared with the
-help of an AI coding assistant; I reviewed, built, and tested the result on
-hardware and take full responsibility for its content. Signed-off-by is
-mine (human).
-
-Best regards,
-ImAthanasia
-https://github.com/ImAthanasia
+X-Proofpoint-ORIG-GUID: 48ch59VLCx-onF0y5F4AllmiJO175uyN
+X-Proofpoint-GUID: 48ch59VLCx-onF0y5F4AllmiJO175uyN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA4OCBTYWx0ZWRfXw+Q09PpzRVwZ
+ 7yiX5bNqE1rP+/a4aZIotBcqd7GtIrJZHD2/EQMfHtN+hVfKvACojudM0CYHDheiAcLObKSyPUz
+ QTyjjmDpkx7yeL6dxyo5von829M20JZxJQ0KFLf5FPWukXo94h6ht8AXB3ihdmR3CNqux6/DqSn
+ vsECfCa3SIRTBi2HYM+99nCsjtoRPIpOdcb6vIVa9jyoGwKSmJw+4FaSP+XIjqVK6o/QjgXLh7e
+ JinE7JMSy6bZOJJZDOUbR8KV5g3DDzIUUAzCNFPRy2dRE3NmTf9fLIrNgscjbtl0UodYmnopCPv
+ bNGw5u+9Ty0wfN4O0Yf+rW0uSp+Jc+M8PcMkfOfv7PUxRKGvTmdNGbHr7CfNXILUi682bagHLz9
+ Ibd2uD480Y4qnOg8d/RVbmp7SsrKWInQmUH6ZCigcZJjxbTwMwMd0CH1uB4fc99E0NfWIMxdoc5
+ uoCmXm+6xQgtw7srRmw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA4OCBTYWx0ZWRfX+TPIrK9jg2nD
+ FpQJGAYyy84XokxGTbDzcInZuErQWkukvn5aYIIkg0AtQFI7Svj6W+sxbDKldSik5qo8HIT4beL
+ G+iqssTJDiXUdz4GbowtHyIZIlBCUO0=
+X-Authority-Analysis: v=2.4 cv=d5xgWhjE c=1 sm=1 tr=0 ts=6afcd1b3 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Q9FbUFTPKQUszr4Og8UIjA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=CYWSrXY8TNIhK36ftfwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_04,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 bulkscore=0 adultscore=0
+ phishscore=0 impostorscore=0 malwarescore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170088
 
 
-Signed-off-by: ImAthanasia <pwnzorius@gmail.com>
----
- arch/arm/boot/dts/marvell/Makefile            |   1 +
- .../marvell/armada-370-wd-my-cloud-ex2.dts    | 285 ++++++++++++++++++
- 2 files changed, 286 insertions(+)
- create mode 100644 arch/arm/boot/dts/marvell/armada-370-wd-my-cloud-ex2.dts
 
-diff --git a/arch/arm/boot/dts/marvell/Makefile b/arch/arm/boot/dts/marvell/Makefile
-index fc4273b..e923397 100644
---- a/arch/arm/boot/dts/marvell/Makefile
-+++ b/arch/arm/boot/dts/marvell/Makefile
-@@ -164,6 +164,7 @@ dtb-$(CONFIG_MACH_KIRKWOOD) += \
- 	kirkwood-ts419-6281.dtb \
- 	kirkwood-ts419-6282.dtb
- 
-+dtb-$(CONFIG_MACH_ARMADA_370) += armada-370-wd-my-cloud-ex2.dtb
- dtb-$(CONFIG_MACH_ARMADA_370) += armada-370-wd-my-cloud-ex2-appliance.dtb
- dtb-$(CONFIG_MACH_ARMADA_370) += armada-370-wd-my-cloud-ex2-appliance-big.dtb
- dtb-$(CONFIG_MACH_ARMADA_370) += armada-370-wd-my-cloud-ex2-appliance-big-keepcfg.dtb
-diff --git a/arch/arm/boot/dts/marvell/armada-370-wd-my-cloud-ex2.dts b/arch/arm/boot/dts/marvell/armada-370-wd-my-cloud-ex2.dts
-new file mode 100644
-index 0000000..6394ba0
---- /dev/null
-+++ b/arch/arm/boot/dts/marvell/armada-370-wd-my-cloud-ex2.dts
-@@ -0,0 +1,285 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Device Tree file for the Western Digital My Cloud EX2 (Gen1)
-+ *
-+ * Board: RD-88F6710_Alpha_KingsCanyon, Marvell Armada 370 (88F6710)
-+ *
-+ * Derived from the Marvell Armada 370 DB reference design and the
-+ * community WD My Cloud Mirror Gen1 description.
-+ *
-+ * Copyright (C) 2012 Marvell
-+ *   Lior Amsalem <alior@marvell.com>
-+ *   Gregory C Clement <gregory.clement@free-electrons.com>
-+ *   Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
-+ *   Allester Fox <fox.axon@gmail.com>
-+ */
-+
-+/dts-v1/;
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include "armada-370.dtsi"
-+
-+/ {
-+	model = "WD My Cloud EX2 (Gen1)";
-+	compatible = "wd,my-cloud-ex2", "marvell,armada370", "marvell,armada-370-xp";
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@0 {
-+		device_type = "memory";
-+		reg = <0x00000000 0x20000000>; /* 512 MiB */
-+	};
-+
-+	soc {
-+		ranges = <MBUS_ID(0xf0, 0x01) 0 0xf1000000 0x100000
-+			  MBUS_ID(0x01, 0xe0) 0 0xfff00000 0x100000
-+			  MBUS_ID(0x09, 0x01) 0 0xf1100000 0x10000>;
-+
-+		internal-regs {
-+			sata@a0000 {
-+				nr-ports = <2>;
-+				status = "okay";
-+			};
-+
-+			usb@50000 {
-+				status = "okay";
-+			};
-+
-+			usb@51000 {
-+				status = "okay";
-+			};
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+		pinctrl-0 = <&reset_button_pin>;
-+		pinctrl-names = "default";
-+
-+		reset-button {
-+			label = "Reset Button";
-+			linux,code = <KEY_RESTART>;
-+			gpios = <&gpio2 1 GPIO_ACTIVE_LOW>;
-+		};
-+	};
-+
-+	gpio-leds {
-+		compatible = "gpio-leds";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&led_pins>;
-+
-+		led-0 {
-+			label = "hdd1-blue";
-+			gpios = <&gpio1 25 GPIO_ACTIVE_HIGH>;
-+			default-state = "keep";
-+		};
-+
-+		led-1 {
-+			label = "hdd2-blue";
-+			gpios = <&gpio1 23 GPIO_ACTIVE_HIGH>;
-+			default-state = "keep";
-+		};
-+
-+		led-2 {
-+			label = "hdd1-red";
-+			gpios = <&gpio1 21 GPIO_ACTIVE_HIGH>;
-+			default-state = "keep";
-+		};
-+
-+		led-3 {
-+			label = "hdd2-red";
-+			gpios = <&gpio1 20 GPIO_ACTIVE_HIGH>;
-+			default-state = "keep";
-+		};
-+	};
-+
-+	gpio-fan {
-+		status = "okay";
-+		compatible = "gpio-fan";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&fan_pins>;
-+
-+		gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>,
-+			<&gpio0 16 GPIO_ACTIVE_HIGH>,
-+			<&gpio1 0 GPIO_ACTIVE_HIGH>,
-+			<&gpio0 6 GPIO_ACTIVE_HIGH>;
-+		gpio-fan,speed-map = <0 0>,
-+				     <1500 1>,
-+				     <1700 2>,
-+				     <1800 3>,
-+				     <2100 4>;
-+	};
-+
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		pinctrl-0 = <&xhci_pwr_pin>;
-+		pinctrl-names = "default";
-+		regulator-name = "USB3.0 Port Power";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		enable-active-high;
-+		regulator-boot-on;
-+		regulator-always-on;
-+		gpio = <&gpio0 13 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	sata_1_power: regulator-sata1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "SATA-1 Power";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		startup-delay-us = <2000000>;
-+		enable-active-high;
-+		regulator-always-on;
-+		regulator-boot-on;
-+		gpio = <&gpio1 22 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	sata_2_power: regulator-sata2 {
-+		compatible = "regulator-fixed";
-+		pinctrl-0 = <&sata_2_pwr_pin>;
-+		pinctrl-names = "default";
-+		regulator-name = "SATA-2 Power";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		startup-delay-us = <4000000>;
-+		enable-active-high;
-+		regulator-always-on;
-+		regulator-boot-on;
-+		gpio = <&gpio1 24 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&pciec {
-+	status = "okay";
-+
-+	pcie@1,0 {
-+		status = "okay";
-+	};
-+
-+	pcie@2,0 {
-+		status = "okay";
-+	};
-+};
-+
-+&pinctrl {
-+	led_pins: led-pins {
-+		marvell,pins = "mpp52", "mpp53", "mpp57", "mpp55";
-+		marvell,function = "gpio";
-+	};
-+
-+	fan_pins: fan-pins {
-+		marvell,pins = "mpp6", "mpp8", "mpp16", "mpp32";
-+		marvell,function = "gpio";
-+	};
-+
-+	xhci_pwr_pin: xhci-pwr-pin {
-+		marvell,pins = "mpp13";
-+		marvell,function = "gpio";
-+	};
-+
-+	sata_1_pwr_pin: sata-1-pwr-pin {
-+		marvell,pins = "mpp54";
-+		marvell,function = "gpio";
-+	};
-+
-+	sata_2_pwr_pin: sata-2-pwr-pin {
-+		marvell,pins = "mpp56";
-+		marvell,function = "gpio";
-+	};
-+
-+	uart1_pins: uart1-pins {
-+		marvell,pins = "mpp60", "mpp61";
-+		marvell,function = "uart1";
-+	};
-+
-+	reset_button_pin: reset-button-pin {
-+		marvell,pins = "mpp64";
-+		marvell,function = "gpio";
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	pinctrl-0 = <&uart1_pins>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+&mdio {
-+	phy0: ethernet-phy@0 {
-+		reg = <0>;
-+	};
-+};
-+
-+&eth1 {
-+	phy = <&phy0>;
-+	phy-mode = "rgmii-id";
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	clock-frequency = <100000>;
-+	status = "okay";
-+};
-+
-+&nand_controller {
-+	status = "okay";
-+
-+	nand@0 {
-+		reg = <0>;
-+		label = "pxa3xx_nand-0";
-+		nand-rb = <0>;
-+		marvell,nand-keep-config;
-+		nand-on-flash-bbt;
-+		nand-ecc-strength = <4>;
-+		nand-ecc-step-size = <512>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			partition@0 {
-+				label = "u-boot";
-+				reg = <0x00000000 0x00500000>;
-+				read-only;
-+			};
-+
-+			partition@500000 {
-+				label = "uimage";
-+				reg = <0x00500000 0x00500000>;
-+			};
-+
-+			partition@a00000 {
-+				label = "ramdisk";
-+				reg = <0x00a00000 0x00500000>;
-+			};
-+
-+			partition@f00000 {
-+				label = "image.cfs";
-+				reg = <0x00f00000 0x0c900000>;
-+			};
-+
-+			partition@dd00000 {
-+				label = "rescue-firmware";
-+				reg = <0x0dd00000 0x00f00000>;
-+			};
-+
-+			partition@ec00000 {
-+				label = "config";
-+				reg = <0x0ec00000 0x01400000>;
-+			};
-+
-+			partition@d800000 {
-+				label = "reserve";
-+				reg = <0x0d800000 0x00500000>;
-+			};
-+		};
-+	};
-+};
--- 
-2.39.5
+On 10/11/2026 9:00 AM, Shawn Guo wrote:
+> On Fri, Oct 09, 2026 at 02:36:38AM +0530, Akhil P Oommen wrote:
+>> From: Aastha Pandey <aastha.pandey@oss.qualcomm.com>
+>>
+>> Unlike the CPU, the GPU does not throttle its speed automatically when
+>> it reaches high temperatures.
+>>
+>> Set up GPU cooling on Nord by throttling the Adreno 753 GPU when it
+>> reaches 105°C. Label the GPU thermal zones and their passive trip
+>> points, map them to the GPU as a cooling device, and add a passive
+>> polling delay so the thermal framework can monitor the zones while
+>> throttling.
+>>
+>> Signed-off-by: Aastha Pandey <aastha.pandey@oss.qualcomm.com>
+>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>> ---
+>>  arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 177 ++++++++++++++++++++++++++++
+>>  arch/arm64/boot/dts/qcom/nord.dtsi          |  80 ++++++-------
+>>  2 files changed, 217 insertions(+), 40 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+>> index 4379092b7bf8..23370007c974 100644
+>> --- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+>> @@ -17,6 +17,7 @@
+>>  #include <dt-bindings/interconnect/qcom,nord-rpmh.h>
+>>  #include <dt-bindings/power/qcom,rpmhpd.h>
+>>  #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+>> +#include <dt-bindings/thermal/thermal.h>
+>>  
+>>  #include "nord.dtsi"
+>>  
+>> @@ -2042,3 +2043,179 @@ opp-403000000 {
+>>  		};
+>>  	};
+>>  };
+>> +
+>> +&gpu_0_0_0_thermal {
+>> +	polling-delay-passive = <10>;
+>> +
+>> +	cooling-maps {
+>> +		map0 {
+>> +			trip = <&gpu_0_0_0_alert0>;
+>> +			cooling-device = <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+>> +		};
+>> +	};
+>> +};
+> 
+> I'm not sure why this is Embedded variant specific. Can we not just
+> update nord.dtsi as needed? Would that break GearVM variant in any way?
+
+Only Embedded variant support dvfs scaling. So passive thermal mitigations
+should be limited to that?
+
+-Akhil.
+
+> 
+> Shawn
 
