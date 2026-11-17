@@ -1,85 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794911867;
-	b=JqQ//z3mTpIzIqL9PHCL4Sx+TLI3CZ5X/WrX4tfwYYMd+BH77vj7hbgewNCyBqf38otm
-	 /tpLvQ/nv7pGJ1Vt40DPkpNw8i0KUpRJyzzKt/lmbtPvTO2Xg/yQi/qjPLWiNvPQdXKBK
-	 jo6ZmkvBOR1U1Sto7mtp7nHehcfaioBi3kifQpL2hZ7yL67Lj/CuV2lIrd1xtSUx6GuvA
-	 iMN31XrrsoVFGd5jVqWFkNT6Ndy8nT+NybTrv7SISPL/MLJwyI5iLfApCi6FXd3LO+F1D
-	 Pj4Z39altTLkLi7RwxnJvHH78GaUUeTVlz82/HapUldd4sMUdEhbCbEBmrHfAhSvRug==
+	t=1794911947;
+	b=FjqOC0KD3nWGPkmd091PbEzdgckhKlgrTxQki2RAnOQ/azqcJJsbhEVV7SAFCWYKXx0H
+	 aj4RsNZJWdl3zG9jRK3RY+LAWoAgysL8JZgWT2OPpzdzXLIjjkC6w71jADFmOZ2zJc6AD
+	 Rlw2gdK1H/D42SvHO52jEQLFi5OJOWNMpHeP5GRwRcf0vvtd+ZpBu6LFfwNdi8HQlKBrd
+	 VdV6HtaxVgHM2EEMxjlZktZtrstYI0lK/j4LEWRtJD3IkZ33OjSQDdDm+GT5ehb6c6Jen
+	 0ow0hxDG3+aHW20C4iCD5ijjraVk239gThC6rcLhN3gj9mdurjHzvO5QHzo8gaYdGqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911867;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=QoNY41bbnzpn0ZzzcjjJENFeSjOUK9Myq2AtLJ6qHJY=;
-	b=s5x62RqbJJvnoMWBjl9MSUIZ8dPEnRJi7IL+IDeWWRla/wn9O8BhxSFMOxjRl3EgOf3Y
-	 6Z5es5x/L+WGHgcvAXw6nZ/lKJVqBbajl6fpH6H9qkgzlJMawBNO0ZblfmtEwWC9uBrjh
-	 6kOSv1odugwg5AK6NUhHsncfw/edeF/VAcGqjeJy2lird286cFtYlxVFQlOLqpj9sFmLu
-	 sq8zVe+51kuZzwtgKIVhvS5OkjX+5p3KTUkSdQtwwsqBptsJemWFqBkuU9eFQGLOeIJPP
-	 pnI51OLJBnGFgpvxoc/zDtpWh3zjIeqayoDDlWSSjdbVF2tWixYkcHH12RX86nKlYwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911947;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=NuyW+LPkABdZOmh3sBu4i9JSnfftHozPE5xHuZU3CeI=;
+	b=q5xs0NHlbftRg7hrM80NW+YYOVp6WKj+3EJAACmIzuu6O8y1GsygbTWdkbjJjaoVqs02
+	 iR6Li7rGY1VUsGlABL9+Ekg1yI2Ei5sn+10yA2mxlQIiDv5Y0b4XAhDwCyZB2O1wLIG5L
+	 hHYXoMExU+T5gyvJl3ETEQyERTjk5fNX6fT7ibdDIyqKQ91wQq9Hougo+DNTnJLOtccJZ
+	 vifK/bp3uL0rpej4CvRcLmVGiyTN5+A+HLDB29yQs2zUtBUu46hHYa3ZeTm9nX/CT6yjM
+	 UBdSRiptC5O6w2j4fNXCCurA1bdebi04tib01TyAsCTOyGvrGW0zLDhtkjqi7l11EJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=HmF2mHi7;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kCMXh3Ru;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A3E606A8A5;
-	Tue, 17 Nov 2026 10:37:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9A3E606A8A5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57AA606A323
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 10:39:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=HmF2mHi7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794911864;
-	bh=zjAl5O9mbx/ZXUiLWzwrqKnIBURPVqzRQZrm4sbAV8s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=HmF2mHi7l0rRTsjxgk+X59KO7U/H0Cc6yprm0z2W3EwtxW5evwKVMndPQY+WQuXG/
-	 rbrmx8TlQ5u8Sv7sareD7mgvDIdadtqDavWYpYkVEtcf+zFQ1bfNyoYJzRPDpjDVe2
-	 3BBKcK5mmngHeosuE1EAbsR/ccq/A8Ien7gTfxEwnSi0SlkDVBwPO1kz1rtBZZ4jBx
-	 JuUcO4dGKrpCvEjgYdvBlwbv/MBRBiQ+pO02bA8J8jNZlMtTKz47hj4IyR5Wr5C7Ch
-	 EFpDyU0jNzOfWkR8P1XCqBtH5jykszAklLTYhGfuyV9+57hDbfgECiQ7ebWz1Y/RmW
-	 8ZFS9LJnryZAg==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8985E17E0BCC;
-	Tue, 17 Nov 2026 11:37:43 +0100 (CET)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	zoan37 <agentzoan@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Edward-JW Yang <edward-jw.yang@mediatek.com>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Irving-CH Lin <irving-ch.lin@mediatek.com>,
-	kernel@collabora.com,
-	linux-clk@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Brian Masney <bmasney@redhat.com>
-Subject: Re: [PATCH v6 00/27] MT8189: Add support for system and base clock controllers
-Date: Tue, 17 Nov 2026 11:37:31 +0100
-Message-ID: <179491184090.148303.2331159339305939434.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904-mt8189-clocks-system-base-v6-0-5df247f56938@collabora.com>
-References: <20260904-mt8189-clocks-system-base-v6-0-5df247f56938@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kCMXh3Ru
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C5F81F000D0
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 10:39:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794911947;
+	bh=NuyW+LPkABdZOmh3sBu4i9JSnfftHozPE5xHuZU3CeI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kCMXh3RuzFG0Ug/pEgPdThQxr6c4ceYwJwzJCgsccTaPx/IE81y5TbFtll09nr0Y4
+	 aqTBrPQVPxGZj56gp2+Qkp9bYLjjgaXtDBCrUpkj1sBEcodwqDBgHzf6+u9wbHDXQS
+	 N7KTYTmzj7EERVsE3wGws0Ur05cqGWBQ46VMs0oB+pEhhO0UY+IIa2WZDwH9bb9D7L
+	 d1sP3YHz4HOa9L6VKpc+AUSz4a0pIfATu90CQd53LCHolba+sJnvw6omsnBLrV2uBs
+	 7nJMUA22b4KI9eCp9bh5AMNk9KDDz4YDkngfaD1FPorh9JjZMzmAjxwqfFJJQYp7lv
+	 41nTwTwaGbcWQ==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be3cff0f6cso3022187e87.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 02:39:07 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFvrfkS6svu5tFw7LN2MvKK1W5eE4Xb5YJhZmlD4ZUoD1nMUdJJkn9tsAkigldzhK/TNDBuKuqRcFfR@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Mv2QRx4Gtd5vx3RiHkD1d79nmQ/iOIH2jP4O21ILlfJkXWyNI
+	JSRknoRcx8mhVtkdpHa1SE4/p7SE2jbtv0qWK7S+1Pjpi1PCLvTBWnRC5qNIc9hfzKOsciogFl0
+	CKaRPtnrKgJnUma5U7lmjj3zQCx268ns=
+X-Received: by 2002:a05:6512:1317:b0:5c1:57ee:1887 with SMTP id
+ 2adb3069b0e04-5c1709991c9mr5809743e87.13.1794911946039; Tue, 17 Nov 2026
+ 02:39:06 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,79 +59,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20261109-sf19a2890-gpio-v2-0-b885fbd84c4c@telaak.dev> <20261109-sf19a2890-gpio-v2-2-b885fbd84c4c@telaak.dev>
+In-Reply-To: <20261109-sf19a2890-gpio-v2-2-b885fbd84c4c@telaak.dev>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 17 Nov 2026 11:38:53 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkGavE9jL_EbPB2iPH=Aa=4Vdwj4nvHgiauJtq-dbwKZQ@mail.gmail.com>
+X-Gm-Features: Aa3M54ppfeS06feOaViTWRV8zuTIrQ_dO7MWlQDFZO4SKHToSwYpGEh5iS9tAzY
+Message-ID: <CAD++jLkGavE9jL_EbPB2iPH=Aa=4Vdwj4nvHgiauJtq-dbwKZQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] gpio: Add Siflower GPIO controller driver
+To: joseph@telaak.dev
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, 
+	Qingfang Deng <dqfext@gmail.com>, linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Qingfang Deng <qingfang.deng@siflower.com.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 04 Sep 2026 17:58:11 +0200, Louis-Alexis Eyraud wrote:
-> This series is a continuation by AngeloGioacchino Del Regno and I of a
-> previous series ([1]), that adds the clock controller support for
-> the Mediatek MT8189 SoC and its variants (MT8371, MT8391).
-> 
-> The first major changes is the split of the series in two:
-> - one for all basic clock controllers including system ones (this
-> series)
-> - one for the multimedia and graphics related clock controllers (to be
-> send in the future)
-> 
-> [...]
+Hi Joseph,
 
-Applied to v7.4-next/clk, thanks!
+On Mon, Nov 9, 2026 at 9:09=E2=80=AFPM Joseph Telaak via B4 Relay
+<devnull+joseph.telaak.dev@kernel.org> wrote:
 
-[01/27] dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8186
-        commit: 51928be3081a25842d66501b085dd6ee00d2fe0d
-[02/27] dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8192
-        commit: 1a2b86804febe4870956297188e8ccfa079f4d22
-[03/27] dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8195
-        commit: cb47a7976bb5e5e4a7df1df71d221b932af7b2b8
-[04/27] dt-bindings: clock: mediatek: reorder MT8186 compatibles
-        commit: 3b372542144aa2e6cb6925e6d8039abfbd9682a7
-[05/27] dt-bindings: clock: mediatek: regroup MT8188 dt-bindings into MT8186
-        commit: 09b156611b0a8fc480dc894f04a475c0c4313a98
-[06/27] dt-bindings: clock: mediatek: regroup MT8192 dt-bindings into MT8186
-        commit: 833dc5fe7832ff0d8e8935cafd09d530055d8126
-[07/27] dt-bindings: clock: mediatek: regroup MT8195 dt-bindings into MT8186
-        commit: dc3a6ae2eeab954820701713dc7d4b1556df7dc4
-[08/27] dt-bindings: clock: mediatek: Add MT8189 system/base clocks and resets
-        commit: 294637d60bc0dff970b51f32cf0a5d46bede0652
-[09/27] clk: mediatek: Harmonize mtk_pll_fenc related symbol names
-        commit: e998b6e82a481b204c097a6f24bf4d0523041ab1
-[10/27] clk: mediatek: pll: Add BAR reset register offsets
-        commit: 696eb5f8af066bd43dc2cea7c1557c39a9346f44
-[11/27] clk: mediatek: pll: Factorise pll power on/off sequences
-        commit: efa27fb6334209382fba265d1a0874fd35a5f7d6
-[12/27] clk: mediatek: pll: Add PLL stabilization delay definition
-        commit: b7285135ac89017d442941145f020eaa4664afef
-[13/27] clk: mediatek: pll: Add ops for PLLs using set/clr regs
-        commit: 7cbf375f78def36afc6a737c987e900c0b59a0ed
-[14/27] clk: mediatek: pllfh: Add configurable clock ops to mtk_pllfh_data
-        commit: 4587b6170ea5f091a456ac7613a26df798722b09
-[15/27] clk: mediatek: pllfh: Add ops for PLLs using set/clr regs
-        commit: 2def5260f4be10f60510a6a133368d52f2eb9ba8
-[16/27] clk: mediatek: Move fhctl_parse_dt call into mtk_clk_register_pllfhs
-        commit: a3ef44f33667dcef6a4487ed74fbafe2dd65cf37
-[17/27] clk: mediatek: pllfh: clear state data in mtk_clk_cleanup_pllfhs
-        commit: 6fe7aa32b1063c2c7c61261cdd5f378facae2e89
-[18/27] clk: mediatek: Add MT8189 apmixedsys clock support
-        commit: 874ab1eba81e795b8ae8bf26a5410cf80f3eab83
-[19/27] clk: mediatek: Add MT8189 topckgen clock support
-        commit: ad50e6912ab54da07142cb805283803f94f03be0
-[20/27] clk: mediatek: Add MT8189 vlpckgen clock support
-        commit: 9f5133b5d9f4fd18ec7d623b45614549f3dbae41
-[21/27] clk: mediatek: Add MT8189 vlpcfg clock support
-        commit: 67ef8994e541421b38d848cf3da88b75f241a7d6
-[22/27] clk: mediatek: Add MT8189 bus clock support
-        commit: ef1c46bbb81c4bcee613f9ca4ee8e4fcf4483e04
-[23/27] clk: mediatek: Add MT8189 dbgao clock support
-        commit: 4d2ff5667bf25203d8e898ff7931e7aaa1653ee5
-[24/27] clk: mediatek: Add MT8189 dvfsrc clock support
-        commit: 8051bf8c06a1b8224345637fe8656dc2abf97e94
-[25/27] clk: mediatek: Add MT8189 i2c clock support
-        commit: ab4fef2b58b3db345b9aadf6c806ae32ba15d2cf
-[26/27] clk: mediatek: Add MT8189 scp clock support
-        commit: e87051328cf23217e04236ceb6ee2ae72f6ddc45
-[27/27] clk: mediatek: Add MT8189 ufs clock support
-        commit: 633757ec0147497a11309e0bd877396cac5e64e1
+> From: Qingfang Deng <qingfang.deng@siflower.com.cn>
+>
+> Add a driver for the GPIO controller on Siflower SoCs.
+> This controller is found on all current Siflower MIPS and RISC-V
+> chips including SF19A2890, SF21A6826 and SF21H8898.
+>
+> Signed-off-by: Qingfang Deng <qingfang.deng@siflower.com.cn>
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+> [Joseph Telaak:
+>   - take it from Chuanhong's siflower-7.1 branch
+>   - depend on MACH_SIFLOWER_MIPS instead of OF_GPIO, longer Kconfig help
+>   - get the reset with devm_reset_control_get_exclusive_deasserted(),
+>     so it is asserted again only after the GPIO chip is removed, not in
+>     a .remove that ran first
+>   - drop .owner and the unused drvdata, and get priv with
+>     gpiochip_get_data()
+>   - drop the irq_set_affinity callback, which reached the parent
+>     through irq_to_desc(), not exported with SPARSE_IRQ
+>   - call gpiochip_disable_irq() and gpiochip_enable_irq() from mask
+>     and unmask, as an immutable irqchip must
+>   - find the group by its parent IRQ instead of assuming consecutive
+>     numbers
+>   - return 0 or 1 from .get
+>   - use readl() and writel() directly, without wrapper functions
+>   - take the number of lines from the match data, not from an
+>     ngpios property
+>   - include linux/math64.h, drop the unused linux/pinctrl/consumer.h,
+>     sort the includes, spell it "Siflower"
+>   - subject]
+> Co-developed-by: Joseph Telaak <joseph@telaak.dev>
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+(...)
 
-Cheers,
-Angelo
+> +static int sf_gpio_get_value(struct gpio_chip *gc, unsigned int offset)
+> +{
+> +       struct sf_gpio_priv *priv =3D gpiochip_get_data(gc);
+> +
+> +       return !!readl(priv->base + GPIO_IR(offset));
+> +}
+> +
+> +static int sf_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
+> +                            int value)
+> +{
+> +       struct sf_gpio_priv *priv =3D gpiochip_get_data(gc);
+> +
+> +       writel(value, priv->base + GPIO_OR(offset));
+> +       return 0;
+> +}
+> +
+> +static int sf_gpio_get_direction(struct gpio_chip *gc, unsigned int offs=
+et)
+> +{
+> +       struct sf_gpio_priv *priv =3D gpiochip_get_data(gc);
+> +
+> +       if (readl(priv->base + GPIO_OEN(offset)))
+> +               return GPIO_LINE_DIRECTION_IN;
+> +
+> +       return GPIO_LINE_DIRECTION_OUT;
+> +}
+> +
+> +static int sf_gpio_direction_input(struct gpio_chip *gc, unsigned int of=
+fset)
+> +{
+> +       struct sf_gpio_priv *priv =3D gpiochip_get_data(gc);
+> +
+> +       writel(1, priv->base + GPIO_OEN(offset));
+> +       return 0;
+> +}
+> +
+> +static int sf_gpio_direction_output(struct gpio_chip *gc, unsigned int o=
+ffset,
+> +                                   int value)
+> +{
+> +       struct sf_gpio_priv *priv =3D gpiochip_get_data(gc);
+> +
+> +       writel(value, priv->base + GPIO_OR(offset));
+> +       writel(0, priv->base + GPIO_OEN(offset));
+> +       return 0;
+> +}
 
+So this has one register per setting per GPIO line?
+
+This is ideally handled with select GPIO_REGMAP
+for gpio-regmap.c using regmap-mmio, see for example
+see for example gpio-mvebu.c that does this elegantly.
+
+Yours,
+Linus Walleij
