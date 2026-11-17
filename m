@@ -1,47 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929363;
-	b=Tq9DI89M8ILayjIZmbEjHeTW35bqxkATnP58Wd/LbjcnVSa/kEYWb+DJMvtgZ147znlo
-	 NzmJj0fjXyxYQE/Q7kJJipXkLVPYVlZZQr0iD74M7gHj/1R4bQMbiGA5PVuZqwkgGJ8hg
-	 bpO6Ie5uXdmEJTqBpJTAJVvhGXt1vFyGvcWN1T5q9ZXO4xR5KrUBuy6MGbe7AfkzOBoxs
-	 R/tH0vbZ4Ol4SnGFElWQfgoEANtVxepfkdQjN7iW47QezE5a2QfnoarJyqAzXhay7TbHm
-	 oN2g/cZAO2vb3oLhW9FGjcMm3+hn6Q1biWbA45jwi4llo1tGOsnM3zvTmlHo/Eb2q6g==
+	t=1794929787;
+	b=qh3n1rpELk5AwWdjhCJidlH6/87Y3endQFEaEFKar1RoZ5uEA88T8/L16PMUz/KFLYM9
+	 FdrIuYX+ga/y/yo+QZK4H3MV034pMJdtC9zK6YCsZPYwhHEraxU7FSWHEBDMrm/KKQqm5
+	 Mq15EL27ouXofZxQYq2cfG9Nh1dGQgs5X+N/tUBYViyA8KzRimz9qdXHvNyIv5LMjQW/c
+	 6D8al9dG4EImsYWqrrO0akq+ERaDF5V2sBqKy6HpvwrAObri7cWdAtnJaZhPuxSJqwHaF
+	 WkgkvrnMTFtNajPsWO+sNWV6cOT290bLMVaMget/zEFQsjk2YCn0zQR1NfgMaDN8GXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929363;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=c//08oLKUN6xm/CkkXLDy4uHaJyXCwLvzOGPbWmpfA8=;
-	b=eg2rOOlBs0WuW9+xFmdl5VzwUQek4t0qVAGPqXL3k5YEtDWhnBKPrCdM4UkJeZNkGzAp
-	 EgfJQguN2qh/fuIILKiJg/d7aVQPoVFojd46NR4m7HWLEpVRQ4p1EibolF/Ta8f7Qsile
-	 jU4+Xa/U1P9I/jpi9VWKB6h26PGHChrk8rN79oo34qA8MzEh6YtZJiCaFTCdA9fT1NY/O
-	 sMafeQd4XLUl5sdUdayxUIlDEgelFEAN69Qn1BeNYSClkDy5cevO75Rw49DrAo2LdFYd4
-	 g71/mGUfFpfZYTub+ImoHIGBc1NTqpGH7Gnw48gp5om2fenCMxahpdJBJS75v6ofX7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929787;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=eqH6cZQiGjLhuS/2ILWi+rrdkrrjhLjr/7WBe6GgEY8=;
+	b=0lHKFhza2Nvq6EQ2OdCGYiYnyO+KsDKRWO0SgeB2aoMGrb1Gy6Dsf6ul2GyIc96Q+j3s
+	 rNSygJ/KT65QIJr8QLDc+nFtGn5+xpiSBhJFIGJbg6XAyu2pQ48jyslIrt5Nzyk26eIl+
+	 7MSAVJgTCLmiPs1QrZEejrMYD6Ybz3P0IyF0pCh+pU/iN+zcEoI/abjpfxQ9bJTRVEqEf
+	 4ZFOA7ZMkBYrkni8RQxyhfpBdrN9w8Tn9QHNxM5ItPmkAiNZOTS+zNN2ABS0ya0DWmU0z
+	 ExY7l9/XdznIoHPBmMv3FDjgeSIIZe77xjlsPpqTqUuzJvO9ZNhY3oCDyurKC+NGlbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dWLNG3VB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=U0103C45;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6704606A31C;
-	Tue, 17 Nov 2026 15:29:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97F4606A331;
+	Tue, 17 Nov 2026 15:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C97F4606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dWLNG3VB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 032A71F000C5;
-	Tue, 17 Nov 2026 15:29:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794929363;
-	bh=c//08oLKUN6xm/CkkXLDy4uHaJyXCwLvzOGPbWmpfA8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dWLNG3VBH/rjT0MadYldbEJ8vI+clvBLuAl6iln/qcJzPYZZklcHHR6hNhhhQoprM
-	 H9r/T88RcASKYqGW9iWbNP3l8djY/qg7VGKNVvwD9uxcCuzND6Co5wwQLW8x657H+7
-	 YikxN/Gdnn/l+U42kz3SqoZNkGdJQoDThUxjgqpg3vz6i+X5t82MTSDHKu3ywD09Lm
-	 u6/7Hz5va1MNBL4cBCRssuC1ZkAIN7avPD8vNZtkFl/bdyiimjLvs3F58ukBf9E+yS
-	 gKFGZeFpb6rWn/eRl2ZHijEtPg21cXM58iI5XO37GrkahcptsRTkLyKSkIF1IUH5j2
-	 jdluo2JSMBMJA==
-Message-ID: <ef5c8902-2a55-4879-8deb-5109f7bd3cd2@kernel.org>
-Date: Tue, 17 Nov 2026 15:29:20 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=U0103C45
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794929785;
+	bh=EiBEmR3LHY+sgbARPDBZaZQ/gKkn1le95Y+SIanav9Q=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=U0103C45bXHqaXdtslgU/lln4Khf8Jn8Je14+x0F+uQlAQsOJALDbKShWPsiNtDfQ
+	 ibpU5xUzMAHb9RAAnnId1Cdae1OmzlV1jT1CwQ3AmQb8qR+QQi/k3PlhmmFUUDOQwK
+	 cmOvfWOINIBAhzBjrFVXQyLDEE2jJknnD/kNLdhI8a+OxuRsL5blQJYIf0/P1PqUWt
+	 HbRM/VPKEnoUgvrYttYqt5nnc8YVnYReoCwf29gL33/qi1HhVy4aVFiaPmuTa7t3Hn
+	 jUue0x3NRqSnyd/FpyViOsmY58nWAJlEb5m7Dx476aajGR/6LulVjL/y0YdVYHlIKg
+	 gj2jQ7yj+PBXg==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E228817E11EC;
+	Tue, 17 Nov 2026 16:36:24 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id A055A480035; Tue, 17 Nov 2026 16:36:24 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Tue, 17 Nov 2026 16:35:40 +0100
+Subject: [PATCH v3 4/9] PM / devfreq: rockchip-dfi: add NO_INTERRUPT perf
+ capability
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,89 +66,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: nvmem: add byte-mask property for
- non-contiguous byte selection
-To: Hongmei Xu <hongmei.xu@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261117-nvmem-byte-mask-for-split-macaddr-v3-0-c02177658f66@oss.qualcomm.com>
- <20261117-nvmem-byte-mask-for-split-macaddr-v3-1-c02177658f66@oss.qualcomm.com>
-From: Srinivas Kandagatla <srini@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20261117-nvmem-byte-mask-for-split-macaddr-v3-1-c02177658f66@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-4-32ff1546b0e4@collabora.com>
+References: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
+In-Reply-To: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
+To: Chanwoo Choi <cw00.choi@samsung.com>, 
+ MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1865;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=D5QqaQ5H3Rmhk0ZavI0Pf3JPtYfcwnNt6k7hxKDI/Gk=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr8dHgvCRs7tMBXBCK4g5Of2ePwScgpdOV96
+ mQHMZX4OaYV44kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq/HR4AAoJENju1/PI
+ O/qa86cP/0xndY5AkCv+lLJSeOWcAOT1yHGWXPr4LXZIY01COwNcac/mrdYD3CoJkewn8ZT/LW6
+ mbtci7U+g6+S54rNLgujECFlGg2ryfhyamV0cgWowOTVu+HBvrA3X5V/G+cg/vp6QPKJYELuH4P
+ DgWgso69jWWNgLuSYryy1wdXU/VvPdi/o22Rq7BM2VB3meEHwyTqtIQndDxDqcHguTDPlvgFCq0
+ HkcvNnMGsww3oCD5mpiekSIMP7wvhNp92NVxxW1sCkV10w8N+rTAXJwbrEuBcpj1SWiRbt1VDaH
+ zezvHwK5shoZyZ82YiWicPc1N4MMnBdA+xQQNFHeCJKn5lFcUGSehmC1C7KGWIavjiKVWN/viSW
+ vkOKM+f5X8aH7k2hmDcUIvB7yk/PZbsSjdy3gfGYKX85M7lX7UJNnFtAXN1jxMdUICheeyYl8eJ
+ Xp89G7UiKSWidx+DlaFEI6d+E9LruyeaoZ5dAu7RjjTHiNH9BPHfZJAC+uj4TIRHoInGhyoA2B5
+ J+101MUzGAkbnCecuseJbq3t5YTqxvj5S/zdDa3WVVTusRsubNcBTnOcgFCdmFVfDIbVZgekgub
+ uX7+bWtx+8pfklKEwFmHWVydWl8jVYhPhRAoA+GnHaIl4fsk60awvV5Uke38gGcIE2uv4RwXO2u
+ 6EUjM4/3Ti18Jb/18+lAssA==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
+The perf subsystem's PERF_PMU_CAP_NO_INTERRUPT is a bit of a
+misnomer.[1] Instead of meaning that the PMU has no interrupt, it
+actually means that the PMU does support sampling. On CPU PMUs, this is
+equivalent to not having an interrupt, but for uncore PMUs like the
+rockchip-dfi PMU is, no meaningful sample data could ever be generated
+regardless of whether or not there is an interrupt, as it is not a CPU.
 
-On 11/17/26 6:04 AM, Hongmei Xu wrote:
-> Add the byte-mask property to the fixed-cell binding. This allows
-> selecting non-contiguous physical bytes from an NVMEM region to form
-> a logical cell value.
-> 
-> Some SoCs (e.g. Qualcomm efuse controllers) store a logical value such
-> as a MAC address across non-contiguous physical bytes, with one or more
-> bytes in between reserved or unused. byte-mask lets the DT describe this
-> directly in the fixed-cell binding without requiring a device-specific
-> provider for a common pattern.
+Since rockchip-dfi doesn't seem to make use of the interrupt the DT
+provides it with anyway, this was probably never a confusion that
+existed in this case; the capability flag was likely just forgotten.
 
-Pl take a look at layouts, which does exactly what you are trying to do.
+Add PERF_PMU_CAP_NO_INTERRUPT to the set flags for the pmu struct's
+capabilities member, so that the perf core knows about this limitation.
 
---srini
+Fixes: 4d586b5724d3 ("PM / devfreq: rockchip-dfi: Add perf support")
+Link: https://lore.kernel.org/all/20250619140442.GH1613376@noisy.programming.kicks-ass.net/ [1]
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Acked-by: Chanwoo Choi <cw00.choi@samsung.com>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/devfreq/event/rockchip-dfi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> Bit N set in byte-mask means physical byte N relative to the cell's
-> base offset is included in the output; selected bytes are packed into
-> the output buffer in ascending byte order. The number of set bits must
-> not exceed the cell's logical size given by reg. byte-mask and bits are
-> mutually exclusive. Cells using byte-mask are read-only.
-> 
-> Signed-off-by: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-> ---
->  .../bindings/nvmem/layouts/fixed-cell.yaml          | 21 +++++++++++++++++++++
->  1 file changed, 21 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml b/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-> index 38e3ad50ff4f..46e1101ee98a 100644
-> --- a/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-> +++ b/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-> @@ -34,6 +34,20 @@ properties:
->          description:
->            Size in bit within the address range specified by reg.
->  
-> +  byte-mask:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 1
-> +    description: >
-> +      Bitmask selecting which physical bytes within the NVMEM device region
-> +      contribute to this cell's output. Bit N set means physical byte N
-> +      relative to the cell's base offset is included; selected bytes are
-> +      packed into the output buffer in ascending byte order. Byte positions
-> +      are relative to the cell's base offset and limited to a 32-byte window.
-> +      The highest set bit must not reference a byte beyond the device size.
-> +      The number of set bits must not exceed the cell's logical size given by
-> +      reg. Cannot be used together with bits. Cells using byte-mask are
-> +      read-only; write operations are not supported.
-> +
->  allOf:
->    - if:
->        properties:
-> @@ -48,6 +62,13 @@ allOf:
->            const: 1
->        required:
->          - "#nvmem-cell-cells"
-> +  - if:
-> +      required: [ byte-mask ]
-> +    then:
-> +      properties:
-> +        bits: false
-> +      description:
-> +        byte-mask and bits are mutually exclusive.
->  
->  required:
->    - reg
-> 
+diff --git a/drivers/devfreq/event/rockchip-dfi.c b/drivers/devfreq/event/rockchip-dfi.c
+index d02a01188ea2..eb47a1f622b1 100644
+--- a/drivers/devfreq/event/rockchip-dfi.c
++++ b/drivers/devfreq/event/rockchip-dfi.c
+@@ -648,7 +648,7 @@ static int rockchip_ddr_perf_init(struct rockchip_dfi *dfi)
+ 	seqlock_init(&dfi->count_seqlock);
+ 
+ 	pmu->module = THIS_MODULE;
+-	pmu->capabilities = PERF_PMU_CAP_NO_EXCLUDE;
++	pmu->capabilities = PERF_PMU_CAP_NO_EXCLUDE | PERF_PMU_CAP_NO_INTERRUPT;
+ 	pmu->task_ctx_nr = perf_invalid_context;
+ 	pmu->attr_groups = attr_groups;
+ 	pmu->event_init  = rockchip_ddr_perf_event_init;
+
+-- 
+2.53.0
 
