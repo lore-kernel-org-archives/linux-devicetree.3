@@ -1,54 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794940987;
-	b=py93sgLqI7fuLGEO3mycSuFMg8fd6YJ1KxJIy1LFHqQEHPCC9vhu7wwzklXp3Xxrj/ci
-	 HlIRr9BWZDHZL1yWYBQB9nYURXszEt1QevNJFfY88Xf0pAIUp81zx0P7LD17xEtIie32N
-	 I7J/0YrajLhkGds5wowODCTAx4Hb9V9i/ZV9kSaQw/tg9x0I5FJg+2ycYWQZUSb5AKLLP
-	 SZYeT23cb72iOroMcN1XFF92D4X/NcQoQrCTfhG/WI73FDEkKALHi05MvxQqASWa9mN8u
-	 eb5zFSYQJu5+R12a5Iy27H+I9RTyBMGBfFIGh9900QkXy7dEegv6AfT31E5Eri5MWGw==
+	t=1794941000;
+	b=w28khwdqrBXvZFdqyUi+aJkfCq7PQEHGSzZxW4qiSW+7nPbswp9ENGN/46OXYbKpZ1M4
+	 HGd5MvX7HkVV6xJZH98yqw6RgHqHTKNKI+Zxk+1pIVgdtcAJLNNQSGEgj39FkqW7DlsHV
+	 ZvEIejMknUY9KVpTvwdeF/LracdDvopyJiBCXh3EeD9nEQld+YxgFDjsb8of9qLpDboK9
+	 1Q9AiyCtt66X0BsQQpD5G/Sa21a1Tpqg0FW6lzWwLntuxQmz1B/O+L9uccki8bDXIUyEa
+	 gpI9CPmzqHVEzIPYB8t+BMVBAOTN+HB/KA/GWTxoVAjeG/odROp/yWRWP1VMoiF+9Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794940987;
-	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=zIGvUewNsRTdPr0jJVgj2QAD5kTHSSw3BLau696dnAk=;
-	b=D/X6odWVx+gRcCZh7cdjlQmjuM1hs6tmBABxiZlJxdDgPkd+5YzZjfx71EXuUdr/NkPL
-	 4k4w7oVb1EsixA9dZF8FnknflwDPpXuxHeQZnuUkAakt2YiYEauS1aThXWSSTIeM3Rsr2
-	 G3BQdybAkQY242pxpkbJHQzFVjHN5HYuIzPNo7pP2sSaiXYvLUGLnJS/l2mtRBsP5WEXz
-	 s4XIkGYjy07+9+NPrOaPHqRaFUdm/ZNssLQMHU5+ufvuuVZzOhlOK5Up2FdWO/U4O7Uuw
-	 q5MsmH2iS4lXKBJ2IkJnadPBSBHHbfqdwBfEU5rbN+2fKVBX878DlAWWLFqOt6adeTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794941000;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=lfQK1qZ4pCnARv91d8ZOSe1H7v7Ch00995WaHoda5R4=;
+	b=LSp3UjR2S3F0WVB0Ese/vstVN6KiYr9MhFe9VLQ1SWmSyy1/yWtJqqGLdQHZHDLr64fa
+	 Lw/jhpCwKEhyFhxS+IJonLQOgh7PPsq1xQLHEKyJ+8sxbTCnSdTz5G2NVVkGEOeeXAC5m
+	 0N2o8ZEd5fMWx5Lway4CrGLgOSnC6kZ9nDVy+bIQOTWdBfm9c4m67W4dB5E7D7T9kpYu9
+	 1o6xWDgMegDp+auwQxhVx3mglHzVuTUeAatIZ9RV6rQpgc7ruLxWZ1S4wQJ6xOePq9Cgo
+	 /fL8i3bweINvoVz+JAH+agOu20Ccd6eBhHemg4HxzAVJK3KYyRsvzhn58DA3789sYqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VF5p8wjL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=p5pQpwrG;
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC03606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 18:43:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA1D606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 18:43:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EA1D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VF5p8wjL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B4F21F000C7
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 18:43:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794940986;
-	bh=zIGvUewNsRTdPr0jJVgj2QAD5kTHSSw3BLau696dnAk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=VF5p8wjL7PL/JS3vl0S7ntAp2WJXS4DVnjQ5iGeuX57IRLW55+VTHQY55gkOe5SAm
-	 Vz0cKilSlQso0Lq+HiOli9QrY95s7qLVoWbcKxuENjYaEN7K23po4hzbt8YRttHuci
-	 VqGmtFQoYKK3ttjNKS0I4+C48BR2tFozew4H1L5QEKwederraqvMsJCSpuWZDMRS2a
-	 j0Iuxf2uo/5tdXINbqXNYBR7MhMWE6IeitmKG3I+iy0AC2slw0m3DLZGf42Lfvfdou
-	 ILCuwm1g21kjhUKdEH1dpwxWNFgS20PvU6TgfCNQ6KGDqW7BYUwJ6Og11/dLRlfc5c
-	 PSLXVMJdlpCfw==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5be3cff0f6cso61805e87.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 10:43:06 -0800 (PST)
-X-Gm-Message-State: APuU4Z8wM2CIDtpLvQNJz9zZuk9yGSCV7cV9yvHC2GYXMYqqmleja2Wi
-	5oD9r0JddEJcqs+rVVHfu7MyzRme6pWHfB20xOWoTEweyhCBM4wJlx7rUdfxgPw8VScncX8pzgl
-	gJh35NgXijFpVmRzzZTOxDq12NMuhcKA=
-X-Received: by 2002:a05:6512:2c09:b0:5c1:5bca:d210 with SMTP id
- 2adb3069b0e04-5c1a9f2d252mr12434e87.55.1794940985373; Tue, 17 Nov 2026
- 10:43:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=p5pQpwrG
+Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
+	by cmsmtp with ESMTPS
+	id TNTQxCImGJFmFTO9HxMweQ; Tue, 17 Nov 2026 18:43:19 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id TO9GxoSplGh2BTO9Gxi65h; Tue, 17 Nov 2026 18:43:18 +0000
+X-Authority-Analysis: v=2.4 cv=Aszu3P9P c=1 sm=1 tr=0 ts=6afca046
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=gAnH3GRIAAAA:8
+ a=KQfoQ390rSe1vipBtJIA:9 a=CjuIK1q_8ugA:10 a=GiPHQlO4o4oA:10
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=lfQK1qZ4pCnARv91d8ZOSe1H7v7Ch00995WaHoda5R4=; b=p5pQpwrGgNVXIksQWi7otCUCTH
+	xdUHmv3f8JO2JDwzVsxySrwUVOBvBxWVQGWq59lMMWIXLlyOM++4KdwI5tBIujcfJB7rD9Z0MMJTJ
+	mgXRw8zEt7ymetR9Xn0CyQKabEzGM6zGas3Ab3+L489vSR03rjO/NRSqsr2MmIKfidEVfRjTDJvHX
+	ZXNDo3gbqlecGX13wsKxn03NmtyOGht3GxJmNZsqGV9AP7Z9GEM7cC15UrYHcKtdwIsN+8jrP/LZ3
+	8y3DRCk2GxtNTQ7HMfP54SBhsL/au/KBg0msvGKC2Hil9GDb9J+D052C15pmKAS8vQAFNEnCnwx++
+	DB+3TCNQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:44568 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xTO9F-000000008EC-42KE;
+	Wed, 18 Nov 2026 00:13:18 +0530
+Date: Tue, 17 Nov 2026 10:43:17 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christopher de Guzman <christopher.deguzman@analog.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] hwmon: ltc2978: Document LT7175 and LT7176P
+ support
+Message-ID: <0e44793b-38e3-48e4-aff3-84e423ff63bb@roeck-us.net>
+References: <20261110-upstream-lt7175-lt7176p-v2-0-dd60d28383bf@analog.com>
+ <20261110-upstream-lt7175-lt7176p-v2-3-dd60d28383bf@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,30 +89,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-ux500-powerdomain-dts-v1-0-e0f4459c3ab1@kernel.org>
- <20261116-ux500-powerdomain-dts-v1-3-e0f4459c3ab1@kernel.org> <sashiko-outbox-216743@kernel.org>
-In-Reply-To: <sashiko-outbox-216743@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 17 Nov 2026 19:42:52 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkzqVLBa5fe3VvEpgnD6=x+uR3vxX_6sNkz5sCm5UcN+g@mail.gmail.com>
-X-Gm-Features: Aa3M54qKG1kvBA8YkzUjaHtAa5J5mSXGR9jjOgrpWVnYUeSb7Ffo_T-ts2cv138
-Message-ID: <CAD++jLkzqVLBa5fe3VvEpgnD6=x+uR3vxX_6sNkz5sCm5UcN+g@mail.gmail.com>
-Subject: Re: [PATCH 3/3] ARM: dts: ux500: Remove DB8500 EPOD regulators
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-upstream-lt7175-lt7176p-v2-3-dd60d28383bf@analog.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xTO9F-000000008EC-42KE
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:44568
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 27
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfE3I9XgQOyS6igWJWeNLqiOAFol57zyF5sQZTynbFO2LkgeuqLFU5/OSA7vzIgdzGVSVVfbTbEDxxNBwonxQuRR5xtpl3QWndICmIqCRBa++PLJ7SGOz
+ u4i+dWQNdAho+n5hWNe9saj9fsxRL6Ihh7dscoGbZtgYon3viq7CkV8F0o9Om4zgqvY/trFSza1yFPk13Upg9tebaJnFnX6laAzlmH+6IqdNXBqUI/NkfUMc
 
-On Mon, Nov 16, 2026 at 11:31=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+On Tue, Nov 10, 2026 at 06:00:42PM +0800, Christopher de Guzman wrote:
+> Document support for the LT7175 and LT7176P PMBus buck regulators.
+> 
+> Signed-off-by: Christopher de Guzman <christopher.deguzman@analog.com>
 
-> [Severity: Low]
-> Does dropping v-ape-supply from msp0 through msp3 break dtbs_check agains=
-t
-> Documentation/devicetree/bindings/sound/stericsson,ux500-msp-i2s.yaml?
-> That schema still lists v-ape-supply under required and sets
-> unevaluatedProperties: false without documenting power-domains.
+Applied.
 
-Patch for this has been sent in parallel.
-
-Yours,
-Linus Walleij
+Thanks,
+Guenter
