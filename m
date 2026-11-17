@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919965;
-	b=bDukq0C7JWSXI1hEfg9VpSu5O6EIXE3d6FGdDMf/bfMfb0CVYqgAnXCBYRnnjtPeMYA1
-	 snNEqvAwYyc0og+M7aHfFdUuan9COXgsdO5Vg8huu0U9A4gpy9LJknjNTK3zKh5BLIPe+
-	 PYhAbKwsJQte0KwxFzMG/6/nbt10OJbqRkiuzEpMxIdj9x/UddsnYASeccO2LGjboEU1Z
-	 IKmV2iIqe6HqVIv3PFWm71SqBZyDxFSV7BkPU8UR9N3cTXszOHYX3TE7qNo8ID77IrRRR
-	 xuvuN5IWbuWm6m1R86D1kHoA6djDKHncmjFN53hdInuA2xZi6z59BB6DVrleDsDjD5g==
+	t=1794919984;
+	b=an1XKBXw9FaGquZ4KIXZzBQeQ50tWS88nrE4rsCvA9Y1RchXPW967DdiKhu9FrOXBCFt
+	 Sj00khkLkQyyNbaiB8iBElREQF6NVBHiiTfrDwrIw53grBEDLoKRdAo8ZuXqIDN6n7jLv
+	 8RtsUjY3+wTOOtcG35a+DDj1bXFMQk1OZXDesGKvx1ezNU0XpKinfXeOifRlYl8FeGszZ
+	 qknoc4JV8zS8v6irowSxUyFg55YPyWoufjYw7VErc2NfAZZD/FIrXkfhMkUmIKXFy0NXI
+	 +AnD2D71HPXw7o2irF/sF7cYG2FFTxfmc/JSqNbJqVD6lf/LfdtWS+lt0yJapnizh6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919965;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919984;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=6o7TDKHkFTQmT81k6n559xmxvDMTMHvxHuzIWW6x61g=;
-	b=OTN5ILHlnmgtKbuCKfp8vCwPEdUaQg6GdmVdtE85gb4L090ky5mCMquPQm/3P1vYh/oU
-	 JLKhhGCt1BWIUe1frIrfHOfx7k4Q8WReIpyKBC7HvCfUTmmyj7exWgYKcuAF2khYo11we
-	 rV7CBNeqpnFEH2Ysbs4LNY7AD89hdgS+I6YqWefAS/4K6iRazfTZA+aF1QeUrhZ9JfMoI
-	 Hs9kxN9Mk9tjLzz7ekqHRM6UUVHw+5w7bQVtYXzmHB5jFdfyPA1KB5k+7j0nw3O2iUN9i
-	 pvmH0Smup9d+QKqxEvvB8tbbTb4xrS6hsKfd43AFHG2LMcRRMtsL2UUakOPfjQMiBRA==
+	bh=u5l11zhalUIUwop5aprXHlkgo0BhYi2tAcgYsKF037s=;
+	b=qiscCdKEGfVMjRZNq8mARFyvLeJD0Pu9gUexhwiR/eVtHD3/jCkIVaDsFG1pB4MpKxON
+	 uxWwirllb8OgyjN3eUlKqaqetat187XJizoj0hZKEDhNwA3GPqRS11AtaCz68xUtIm7RD
+	 9VLp3xIbnaX53kqiBB7DGRXOVIWGU5UFDuBKHRq2dxyb6CYh3+2MjB1N2XAnbLGwsb/cv
+	 euHoF4hB/mFpBx7wEvYOfNgKjRIr8Dd9gLnc+1Ec562pihzhQDUo5wjPfBl9y11gfJtss
+	 0YsO1eZpybR2VrwXbuEtb3jEIQNf+AvCOGiR4pKlkqmPq3H5ZYvmbKt2h6Njx8SILxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=imuRLrSg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKe9psCt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD09606A338;
-	Tue, 17 Nov 2026 12:52:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB8F606A31C;
+	Tue, 17 Nov 2026 12:53:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=imuRLrSg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C541F000C4;
-	Tue, 17 Nov 2026 12:52:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKe9psCt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE841F000C4;
+	Tue, 17 Nov 2026 12:52:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794919965;
-	bh=6o7TDKHkFTQmT81k6n559xmxvDMTMHvxHuzIWW6x61g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=imuRLrSgXqkUdax43NRoAuK3Vpfg25+EvcIQ1nLwKxoCiVn1gGy9M+gLFAHP8JgQF
-	 cqiH91XQ9JiWpSbZlJdi6XiHyig75UmspQkg9AGvhtz4mG9RU4RrQyn+CWU9CbgTK4
-	 m5nh1f/C6sZw7/ikVovsaJQwKv1nPt45+TxGvt8BESnBXTwobjKxsC//R3NvMeRhtE
-	 UYPtzEIdYcmz07Zn0jGOqETJ2b7dO/j7qJWF+if4QhpBUFaDaiTVgOU7I0QLH+6H3/
-	 2yr53EQAvEH/87n2Dug+rFZxNbLTwKj6EPs9WT5XqTrcxgLYhY9DlBwnw8/43OhuRu
-	 Q7U5HD4vD48XQ==
-Message-ID: <3701981f-cdda-46a7-8079-de5479ae9c27@kernel.org>
-Date: Tue, 17 Nov 2026 13:52:38 +0100
+	s=k20260515; t=1794919984;
+	bh=u5l11zhalUIUwop5aprXHlkgo0BhYi2tAcgYsKF037s=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=EKe9psCtdF5PvPdLuGaQUBhfvPdRLE5ItUNrRZGiGUeGf+LA3UzCyAvfrijAe32UQ
+	 CaEzVXn1mzlrGzV5weGOwFb/TjlysHiYmZORHCugDD4mdFku191jr3j5NAvm78zNe7
+	 1aUoLsNx4ockMr+TEKl+F7nPYUk5A3dN2u6IT1MsLgClzsd0nrtlWv2KrTYmPy2M6N
+	 +TA+wNJ9xD21oY/dAb8X5u3MwfwhLpMRhqYCVyfP+XVyMjX/LIwk1yv0/2Sld5gl51
+	 jbRld3qk3bFk5C82IlP4vaZFPfUFIBsoY4UZAgzlErIYsDWoUbLZO/kEgZjEKTQewR
+	 rxl/rECPskutQ==
+Message-ID: <506611fb-3f68-4e9e-af28-29f701f22d52@kernel.org>
+Date: Tue, 17 Nov 2026 13:52:58 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,9 +54,10 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 1/4] dt-bindings: display: mediatek: dpi: Add
  compatible for mt8167
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- linux-mediatek@lists.infradead.org
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Chun-Kuang Hu <chunkuang.hu@kernel.org>,
  Philipp Zabel <p.zabel@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -70,7 +71,7 @@ Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  linux-arm-kernel@lists.infradead.org
 References: <20260921113914.779393-1-l.scorcia@gmail.com>
  <20260921113914.779393-2-l.scorcia@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <20260925-inventive-crystal-firefly-0deffe@quoll>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -115,33 +116,26 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260921113914.779393-2-l.scorcia@gmail.com>
+In-Reply-To: <20260925-inventive-crystal-firefly-0deffe@quoll>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/09/2026 13:38, Luca Leonardo Scorcia wrote:
-> MediaTek mt8167 SoC has two Digital Parallel Interface (DPI) blocks,
-> one can be routed to a DPI display while the other is wired to the HDMI
-> block. They are not compatible with any other device, so add a new
-> compatible to describe them in the device tree.
+On 25/09/2026 15:24, Krzysztof Kozlowski wrote:
+> On Mon, Sep 21, 2026 at 01:38:55PM +0200, Luca Leonardo Scorcia wrote:
+>> MediaTek mt8167 SoC has two Digital Parallel Interface (DPI) blocks,
+>> one can be routed to a DPI display while the other is wired to the HDMI
+>> block. They are not compatible with any other device, so add a new
+>> compatible to describe them in the device tree.
+>>
+>> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+>> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> ---
+>>  .../devicetree/bindings/display/mediatek/mediatek,dpi.yaml       | 1 +
+>>  1 file changed, 1 insertion(+)
 > 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->  .../devicetree/bindings/display/mediatek/mediatek,dpi.yaml       | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
-> index eb4f276e8dc4..6cd96a5cd4ae 100644
-> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
-> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
-> @@ -21,6 +21,7 @@ properties:
->        - enum:
->            - mediatek,mt2701-dpi
->            - mediatek,mt7623-dpi
-> +          - mediatek,mt8167-dpi
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Turns out you bring here undocumented ABI. NAK.
+And un-acked. Undocumented ABI.
 
 Best regards,
 Krzysztof
