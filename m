@@ -1,69 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.128.198.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794885772;
-	b=JL2PcFat69hj5mY6NO2jIeIYLcKw1maqAlSEar/vLOjOjiOF4XmJcUXorg3TIuB2kb+O
-	 e/fkhtKZ8zacObOck+OntgaFbpkCjZV5wqjCQck+YheDTKcN7PW6ZJM+ZPJf5FiUqklhj
-	 WOFITX/E4I3STDQAic7w61yrJL0RwyUvNl7A/XldEtKhgVKG8jdnjcAm4u5lWYbdggFCC
-	 OQouW+tOkH0qGDOusrW6I1czvJ88y44Im4NevqVN3oBXHq22mmJRiPttozuIfj2zelO3b
-	 rw8syv4xJwcy6c25vv8S9GQT2wj97U4ojZV5mEn88C/qdqIaE7E2Of+eR5gUW+chpsw==
+	t=1794886130;
+	b=cUUMpRqICYSmhnv/2gS+m1O2NGIuse4b9FbsRlwqyNiMtk6RQrSnCkYy7mR31gTTJek2
+	 nhelDpjgIGqWMVypk2mt5PIpS+EiEgzuYLyVNegBxNdAhCYjtc2KdTXw+WrNtY6ijymeX
+	 llSREdmIcJp+wNhokbPg9emIY9g3ViQhz9gs1JrgKKvVrg2e23ke+UQ3H1wC2MXadZ34m
+	 Edm5ga0SIpUdEt/nFiftJ0cVkyINKCsO6E3Vb2FUiCFkhAsgKLPA+tFkMmiODiX3jegGp
+	 WUJHycJguGItgOjKkQIHoy6YVrKfPrFnFxfvnCTin5D+C0MIN79RQfkBzbB7HGTvGJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794885772;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=t/AjsBL1snAP5gb7R7uBEjYqzWe1X/S9wVxVGayJ7D8=;
-	b=aqEdxOBEcdhYUsUUTX2OPe+MhrjIRU5cc73Zimvf45U/ihYENHW8IviWPMWKrugYTu0u
-	 /alxlttZN1AlNSo7EifgG8Zc5Ti3n4cUDo/X42dL1grl7MLFSA2g/eCKLxjwtWT2Y6SOz
-	 bBQ3AO7Nt3VyqO8XOMBBJYhoRowy61q1IuipvOySZHakxaXGZ2uEJzzLwcNYOkiNmUl32
-	 SEou5Hy2tPWVSfB5/e1bxk+nt3iDns501ltOrdSHynyLZvBLffIUJsaPlKONysSAxoOry
-	 mLDeC7y7iyhBE9DKrSMm+1z0YBy+csXpQ9XUljQ8fuXdNgvAfNufdld5kR7jcDy7flA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794886130;
+	h=DMARC-Filter:Received:Received:Received:Date:From:To:CC:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:User-Agent:X-Originating-IP:X-ClientProxiedBy:
+	 X-DKIM-Results:X-DNSRBL:X-SPAM-SOURCE-CHECK:X-MAIL;
+	bh=X3ka1UWCQgHr7wAYA9U0lvn/SMltga41VCk5FtudeCg=;
+	b=tmZeaREbm0v9WpXn06/BRf68DPlTmzS6UCau1eMLh2peoZwpQUNcsjGLgADuzPwZ3+CW
+	 WXmR3GUJdiwDH26t6e1gpmSagPZLT4rWIfK2unDDnh9TE19X9QOekXMJfu1BXcARbou87
+	 lt4Kjd2e78SiGmnXX0u9xQ6drPi3/l7j0H1DFSLtegbhR0LI6bwzk7tsZXazJPQoK9DYa
+	 449E3vUgvSbYSRhuEGix/VMoWrFSoP2GDP1ai+eHmH2Mdtqtic7aXhOXWbxZTVCSefJ6w
+	 ykb4I1zWv7neCPFUHNaRiY020aAyo3IsUFzu4UUE7U9o0x3jWcflZWJFFAtpxw8cJyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bc1znfIV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=andestech.com;
+	spf=pass smtp.mailfrom=andestech.com;
+	arc=none smtp.remote-ip=220.128.198.184
+Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC1F606A331;
-	Tue, 17 Nov 2026 03:22:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bc1znfIV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EA431F000C4;
-	Tue, 17 Nov 2026 03:22:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794885771;
-	bh=t/AjsBL1snAP5gb7R7uBEjYqzWe1X/S9wVxVGayJ7D8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bc1znfIVMQznccauN9jlONfAol9goaOWdCPJSxbEMPFcHLv5l/6mKan1FcrVgCpt2
-	 YKJbJfLnuE4yb1TM/kjUhpfU7AYj5/2hspGPzWQdbOeFhPAxd9gbLAARFWygz1ErWO
-	 YKeDKCmsaSlKizBVBO08qRf2M4UqBMM5ZCexFYWXu55Mmq+DVYKTXSnTdr3kk2fSb6
-	 kqNpFREm4furlJVfyEjkWb0RFcKk1WYngCYWOlNAuqWXSCjPl9Fdh3KqaCeBwC5Eg5
-	 WZAmobKCtJjyMYWTXZmSx1PuBCnrX4atuZkWCBhoeHrvvoXjbvXTx9qmT55AFZ9aoQ
-	 ZQw+5S/TmBbag==
-Date: Tue, 17 Nov 2026 03:22:40 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michael Hennerich <Michael.Hennerich@analog.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux@analog.com, Conor Dooley <conor.dooley@microchip.com>, Marius Cristea
- <marius.cristea@microchip.com>, Andy Shevchenko
- <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v5 0/3] iio: adc: add support for the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <20261117032240.487a2b1b@jic23-hlaptop>
-In-Reply-To: <6cc41f58-970a-4a18-8a8d-dc6e7b42fe1e@linaro.org>
-References: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
-	<20261104021700.14e69abb@jic23-hlaptop>
-	<01fe2a71-ba6f-470b-b6bf-e536a1013b09@linaro.org>
-	<20261107230925.5e66b234@jic23-hlaptop>
-	<51eaa37a-9634-42cb-9aac-4c842ab2af07@linaro.org>
-	<20261114184622.5d47903f@jic23-hlaptop>
-	<6cc41f58-970a-4a18-8a8d-dc6e7b42fe1e@linaro.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB01D606A31C;
+	Tue, 17 Nov 2026 03:28:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB01D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
+Received: from mail.andestech.com (atcpcs53.andestech.com [10.0.1.153])
+	by Atcsqr.andestech.com with ESMTPS id 6AH3SFac027414
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 17 Nov 2026 11:28:15 +0800 (+08)
+	(envelope-from minachou@andestech.com)
+Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs53.andestech.com
+ (10.0.1.153) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Tue, 17 Nov
+ 2026 11:28:15 +0800
+Received: from atcsi01.andestech.com (10.0.15.32) by ATCPCS34.andestech.com
+ (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 17 Nov
+ 2026 11:28:15 +0800
+Date: Tue, 17 Nov 2026 11:28:15 +0800
+From: Mina Chou <minachou@andestech.com>
+To: Conor Dooley <conor@kernel.org>
+CC: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
+        <alex@ghiti.fr>, <jic23@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <geert+renesas@glider.be>,
+        <magnus.damm@gmail.com>, <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+        <linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <randolph@andestech.com>, <cyyang772@andestech.com>,
+        <tim609@andestech.com>, <az70021@gmail.com>
+Subject: Re: [PATCH v2 16/19] riscv: errata: andes: allow ERRATA_ANDES_CMO on
+ all Andes SoCs
+Message-ID: <avvJz262LYxrlaXU@atcsi01.andestech.com>
+References: <20261113071143.1446167-1-minachou@andestech.com>
+ <20261113071143.1446167-17-minachou@andestech.com>
+ <20261113-upon-unmarked-8f4a186bb656@spud>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,63 +70,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261113-upon-unmarked-8f4a186bb656@spud>
+User-Agent: Mutt/2.1.4 (2021-12-11)
+X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
+ ATCPCS34.andestech.com (10.0.1.134)
+X-DKIM-Results: atcpcs53.andestech.com; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:Atcsqr.andestech.com 6AH3SFac027414
 
-On Mon, 16 Nov 2026 10:34:30 +0100
-Neil Armstrong <neil.armstrong@linaro.org> wrote:
+On Fri, Nov 13, 2026 at 02:00:46PM +0000, Conor Dooley wrote:
+> [EXTERNAL MAIL]
 
-> On 11/14/26 19:46, Jonathan Cameron wrote:
-> > On Mon, 9 Nov 2026 10:52:22 +0100
-> > Neil Armstrong <neil.armstrong@linaro.org> wrote:
-> >   
-> >> On 11/8/26 00:09, Jonathan Cameron wrote:  
-> >>> On Wed, 4 Nov 2026 09:45:02 +0100
-> >>> Neil Armstrong <neil.armstrong@linaro.org> wrote:  
-> >>
-> >> <snip>
-> >>  
-> >>>> But for the other reports:
-> >>>> - [Medium] iio: adc: max34417: shared accumulators clobbered on CAM power/energy read
-> >>>>
-> >>>> This is a tough one, today if either we read power or energy, we erase the accumulated
-> >>>> power+count in the context, the context accumulator is only here to make sure we don't
-> >>>> loose data from other channels, like if we had a single HW channel.
-> >>>> This simulates this, if we had a single HW channel, at each UPDATE we would get back
-> >>>> to 0 in hardware anyway if we did read the power or energy.  
-> >>>
-> >>>
-> >>> I'm only half understanding this.  Let me see...
-> >>>
-> >>> I'd expect userspace to see accumulated values since we enabled the channel
-> >>> rather than since last read.  I think that's the final suggestion from
-> >>> sashiko.  
-> >>
-> >> Oh this changes quite a lot of things.
-> >> How do we handle overflow in this case ? we disable the channel and enable again to reset the state ?  
+> Date: Fri, 13 Nov 2026 14:00:46 +0000
+> From: Conor Dooley <conor@kernel.org>
+> To: Mina Hui-Min Chou <minachou@andestech.com>
+> Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+>  alex@ghiti.fr, jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+>  conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
+>  prabhakar.mahadev-lad.rj@bp.renesas.com, linux-riscv@lists.infradead.org,
+>  devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+>  linux-kernel@vger.kernel.org, randolph@andestech.com,
+>  cyyang772@andestech.com, tim609@andestech.com, az70021@gmail.com
+> Subject: Re: [PATCH v2 16/19] riscv: errata: andes: allow ERRATA_ANDES_CMO
+>  on all Andes SoCs
+> 
+> On Fri, Nov 13, 2026 at 03:11:40PM +0800, Mina Hui-Min Chou wrote:
+> > ERRATA_ANDES_CMO depends on ARCH_R9A07G043, so it can only be enabled
+> > for the Renesas RZ/Five, although other Andes SoCs such as those built
+> > on the A27L2 need it too. Drop the dependency, and select
+> > ANDES_LLCACHE and CACHEMAINT_FOR_DMA so that the errata always comes
+> > with its cache driver, which ARCH_R9A07G043 used to guarantee.
 > > 
-> > Is it possible to accumulate into a sufficiently large type that overflow won't happen in a feasible
-> > timescale?  Anything else is going to be a but unpredictable for userspace if it
-> > is expecting an accumulated number.   The other things that accumulate in IIO tend to be
-> > moderately small so it's never been an issue (things like step counters).  
-> 
-> The hardware can store up to 4.55h of data with it's 56bit with the default rate,
-> we store in 64bit in software, so we can store up to 256 times so up to 48.53 days.
-> 
-> It's possible to lower the SPS to 8, in this mode we can store up to 6211 days of data.
-> I plan to add this mode afterwards.
-> 
-> I'll switch to this and clear the overflow only if we disable the POWER channel.
-
-Hmm. Could use dual 64 bits values and a retry loop for theoretical tearing.
-Would then need custom code to report though which isn't ideal and
-it might rather surprise userspace.
-
-
-> 
-> Neil
-> 
+> > As ERRATA_ANDES_CMO is default y, it is now also enabled in the generic
+> > riscv defconfig. The errata only acts on Andes cores at boot, so other
+> > platforms are not affected.
 > > 
-> > Jonathan  
+> > RZ/Five still gets uncached memory for coherent DMA allocations from the
+> > DMA_GLOBAL_POOL that ARCH_R9A07G043 selects. This patch only covers
+> > cache maintenance for streaming DMA; how other platforms provide uncached
+> > memory stays platform specific.
+> > 
+> > Signed-off-by: Mina Hui-Min Chou <minachou@andestech.com>
+> > ---
+> >  arch/riscv/Kconfig.errata | 4 +++-
+> >  1 file changed, 3 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/arch/riscv/Kconfig.errata b/arch/riscv/Kconfig.errata
+> > index 4f77b3c6d7fd..3c43e065aa01 100644
+> > --- a/arch/riscv/Kconfig.errata
+> > +++ b/arch/riscv/Kconfig.errata
+> > @@ -12,7 +12,9 @@ config ERRATA_ANDES
+> >  
+> >  config ERRATA_ANDES_CMO
+> >  	bool "Apply Andes cache management errata"
+> > -	depends on ERRATA_ANDES && ARCH_R9A07G043
+> > +	depends on ERRATA_ANDES
+> > +	select ANDES_LLCACHE
+> > +	select CACHEMAINT_FOR_DMA
+> 
+> If you're selecting it here, can you not drop it from the renesas soc
+> Kconfig file?
 > 
 
+Thanks for catching that! ARCH_R9A07G043 selects ERRATA_ANDES_CMO,
+so the selects there are redundant now. I will drop them in v3, something like:
+
+diff --git a/drivers/soc/renesas/Kconfig b/drivers/soc/renesas/Kconfig
+@@ -465,8 +465,6 @@ config ARCH_R9A07G043
+...
+        select ARCH_RZG2L
+-       select ANDES_LLCACHE
+-       select CACHEMAINT_FOR_DMA
+
+Thanks,
+Mina
