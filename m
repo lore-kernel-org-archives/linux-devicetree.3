@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.27
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794948734;
-	b=cuN/6tWN1q1iU4TLtaUQ2zlAemiIg9Dh6qwFRDqOACYdEIZnxlkDRzafjfMaIXMFm8wl
-	 WHDeKT6ETF56m8sPieMMaOCKD3R1TmmiPtFIA6auYA6eSDCcvx+Pd/Kj8Qghk2ULB/1A1
-	 JJI/lIe6liSmMtH7Q4xjB+fQ/yybeb4dHiGY+kf5CWkdexJJlohagGYTXua6ZsaARtSTx
-	 H7Xj8JhO1IRRbN7C0gXutVRXK3Oh5J3JycIYnvmCoxhnJstGfQR3rXRIqow5GCy8iIFK0
-	 lbi47ak99oCZZyvGiNaoX1BUkW+Ncf6t89lMmWTep+lNP3V5NYFzd28+bF1G9TBGkFA==
+	t=1794948952;
+	b=q+ZQOw7U500wdJHZsr/4wSKJgHPTEgmxn3m5l+/5MgBaGixalccN4upvM0erJpRXXjg8
+	 Tprxy6GxVM96ZnvfcvbPFo/+ixwcSswPHkFbja8rp7Gn/uWFF7VON/+xdaAKt0qLXghuY
+	 9/rPBm0cYwBX5PQOoRRk3mMliZkPNW1yg/+hv8jhsiOQLujcVXPyxE5OtskMBX+ArWRag
+	 b7ErIyzM9rG/TlZN5wzb/cUqJVoCHx3h4Kfj7OlTNWQuOJFd/Ojkbl9XEb6q1bqMAS/b2
+	 FazIHynC3e0iiIHrRvUj49wr4Udbh1wGIhDxxSho2SglFlaSksmC9zCu/eKNkrHaZ8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794948734;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=qR4YTCRl+SUoV0TzOLZOa+5dovXafk3OxLj0xK/t+0Q=;
-	b=hW3dSNBTAhmb9KLoZfdr3QfRlCcm4c/LxivY9TYs1qKLEvTF0P/kHoMiyqMmwei3jQPD
-	 DSoqHGghhuBAvol+3nbxXWyleLPMIrYoc2295CGny1lga/r32hTtmxBX420NhLwPwoFkf
-	 +XGw8VWp3qfNXp6NpaB2K/q4x9KXKGHtTdVCW9JpqbXH8w6pHiyediuNrWsF8+lhH8nOc
-	 E4IrJwwscKbfMW/v4msB8EXs1v9u4E5kHu5d9d7H5op4ZNVwEbaMFGTjhsAwx3OajIKg8
-	 u5pbB9gNlnoI4yVzTlk5GIsTm1YNqcnJWflOjAvwRyoYyaD/LYEWomWxERvROZ91TxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794948952;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=HZkll7EezYeBdMYzyeDR41vXh/rItYPkuvoaq3vI55s=;
+	b=ot20hu8P7b2u7DfXkA+0yJEfWEy40wCEUJKRZc2lw2MCza2h3f/KosBtiZQrFgCD528c
+	 EmwUixl4S5WTFAfhc6yBBNYVoKtOx0AfiD4ptFiQQX00kbcWJ1RR0+oKssLPoxYGAk+cb
+	 b3WIbHARP8ntUt5xhGnOIpICHdnQEdDPa3XsXzpKaDNCa3gzEUQfPmjqN4HsPqai7QNPJ
+	 v3Gg8VNN7gCeXUZOahw/oiyiB77DtMgmhQQCUtaJjMuoADrbDxmwCBjL6yn3NOxKLL/k5
+	 UINomQPBUXlXf5OHEIztUhMkGtKtzqc4d6TcoidbHvisR02S32FtXf1w3z4mci/4Wvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UlHksZgA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=ttemJq85;
+	arc=none smtp.remote-ip=109.224.244.27
+Received: from mail-24427.protonmail.ch (mail-24427.protonmail.ch [109.224.244.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC78D606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 20:52:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9B5606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 20:55:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E9B5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UlHksZgA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ED631F000C4;
-	Tue, 17 Nov 2026 20:52:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794948734;
-	bh=qR4YTCRl+SUoV0TzOLZOa+5dovXafk3OxLj0xK/t+0Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UlHksZgA1iKKI1gW3EK2zUiBhMPAF+5rt3Z3zBzJmUjNx5M0yva5uhbHNQQTiPRaB
-	 oCLNAp1Vazz247VRfgBCd1oJGmzSVpSHEBhDZNHGRnqEaF+kJOIE8KQGvr0NgOwMAP
-	 CmshGK35zyrKZxb9pzO8X5+9WGjurB3yZK77vbTuMDnrRboYbhAIZUpzIgpeM9NrQd
-	 xkgIsSTKlwQteGY1eM4KJbEG2ybevaF6hL+THhDhDoryKJ2nxQw0Pz5DGz8nmB+D/Q
-	 3CNKCnLQ4pKvPW1p5wotaBz9lfcp9a3LtGDj8bf8ZwDqsmfjQzGgYReJlYi6O1y3pl
-	 +zPspg5aZs4wA==
-Message-ID: <sashiko-outbox-219661@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] irqchip: Add Cortina Systems CS75xx peripheral
- interrupt controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261117-cs75xx-intc-v4-2-0a678f35e5f3@gmail.com>
-References: <20261117-cs75xx-intc-v4-0-0a678f35e5f3@gmail.com>
- <20261117-cs75xx-intc-v4-2-0a678f35e5f3@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 20:52:13 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=ttemJq85
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1794948949; x=1795208149;
+	bh=HZkll7EezYeBdMYzyeDR41vXh/rItYPkuvoaq3vI55s=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ttemJq85Lx/HQJXgd4ocT/fUrs2E3qjkRxVQvJ+KompJqeCMO3/dRRCkKZ1HoNFgl
+	 KDVHAPHyPz1StnjNwoc+egzCKRXdb1fIdy11Kcyqf0nQeDrjMeMAd7+d7au5rpjHYd
+	 vj0HWq3huEgjwVOs8WX1HJxGX/7L/H8XwtABmrjlYVcNaBKKoNVExtH3HwlcU9HxEI
+	 TxaiokysznrhpwJoTg20K+GPKHHvZi3mxqJgZBZcPBiLOtuZoEsOxoTrOF27/lUHKk
+	 AzMwNlNbyziAvw6BZKV7LPHKeLV1rEszoeDxD2SNVZHbBIM5loah2hZrAGf7mUFCOT
+	 TQXHd32elahQg==
+Date: Tue, 17 Nov 2026 20:55:43 +0000
+To: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+From: "armandas.kvietkus" <armandas.kvietkus@proton.me>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 2/2] media: i2c: Add Samsung S5K3T2 image sensor driver
+Message-ID: <uj-7TS37Pvz6jDAyxdOYWJwLDB0LJ1NU0fxtvAdz6W5_mtR0uh4B5U044_IosBRKBu3Dlp0pR5F98Tf4vQlUwJ5cI-enEmTdMI-Y1M0VL8I=@proton.me>
+In-Reply-To: <PN3P287MB2188EEBDB68A82967833C8DB88772@PN3P287MB2188.INDP287.PROD.OUTLOOK.COM>
+References: <20261011-upstream-s5k3t2-v4-0-d33b12fb3263@proton.me> <20261011-upstream-s5k3t2-v4-2-d33b12fb3263@proton.me> <PN3P287MB2188EEBDB68A82967833C8DB88772@PN3P287MB2188.INDP287.PROD.OUTLOOK.COM>
+Feedback-ID: 164226125:user:proton
+X-Pm-Message-ID: 4bee14c2957ce7b0b86c1d83645e491b479fca16
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,144 +63,20 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] irqchip: CS75XX_INTC uses undefined ARCH_CORTINA_ACCESS and
-  lacks HAS_IOMEM
-- [Medium] irqchip: cs75xx: missing IRQ_LEVEL and wrong IRQ_NOPROBE in
-  cs75xx_intc_init()
-- [Medium] irqchip: cs75xx: leaked MMIO region reservation in
-  cs75xx_intc_init()
---
+Hi Elgin,
 
-commit 57fad06ce5781b2c6a356fbbe01aad10d8c69bd9
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+thanks for the review, and sorry for the late reply. I had to replace
+the battery on the test device lol.
 
-irqchip: Add Cortina Systems CS75xx peripheral interrupt controller
+The repeated 0x6028 writes come from the vendor register sequence. I copied=
+ the tables as the vendor writes them. The second write selects the page th=
+at is already selected, so it does nothing. I removed all four in v5 and te=
+sted again on the phone. All three modes work the same (thankfully lol), v4=
+l2-compliance passes and the frame rates did not change.
 
-This commit adds a chained interrupt controller driver for the low-speed
-peripheral interrupt combiner on Cortina Systems CS75xx SoCs.
-
-> diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-> index 136bab41f8011..db5edd4ec0927 100644
-> --- a/drivers/irqchip/Kconfig
-> +++ b/drivers/irqchip/Kconfig
-> @@ -187,6 +187,18 @@ config BRCMSTB_L2_IRQ
->  	select GENERIC_IRQ_CHIP
->  	select IRQ_DOMAIN
-> =20
-> +config CS75XX_INTC
-> +	bool "Cortina Systems CS75xx peripheral interrupt controller"
-> +	depends on ARCH_CORTINA_ACCESS || COMPILE_TEST
-> +	default ARCH_CORTINA_ACCESS
-> +	select GENERIC_IRQ_CHIP
-> +	select IRQ_DOMAIN
-
-[Severity: Medium]
-Is ARCH_CORTINA_ACCESS defined anywhere in the tree, and does CS75XX_INTC
-need to depend on HAS_IOMEM?
-
-Because ARCH_CORTINA_ACCESS is not defined in any Kconfig file,
-CS75XX_INTC cannot be enabled without COMPILE_TEST and its default always
-evaluates to n.  In addition, enabling CS75XX_INTC under COMPILE_TEST on
-architectures without HAS_IOMEM (such as s390 with PCI disabled) fails to
-build in cs75xx_intc_init() due to an implicit declaration of iounmap().
-
-[ ... ]
-
-> diff --git a/drivers/irqchip/irq-cs75xx.c b/drivers/irqchip/irq-cs75xx.c
-> new file mode 100644
-> index 0000000000000..f3d71b06c59de
-> --- /dev/null
-> +++ b/drivers/irqchip/irq-cs75xx.c
-> @@ -0,0 +1,100 @@
-
-[ ... ]
-
-> +static int __init cs75xx_intc_init(struct device_node *np, struct device=
-_node *parent)
-> +{
-> +	struct irq_chip_generic *gc;
-> +	struct irq_domain *domain;
-> +	void __iomem *base;
-> +	int parent_irq;
-> +	int ret;
-> +
-> +	base =3D of_io_request_and_map(np, 0, of_node_full_name(np));
-> +	if (IS_ERR(base)) {
-> +		pr_err("%pOF: unable to map registers\n", np);
-> +		return PTR_ERR(base);
-> +	}
-> +
-> +	/* Mask everything before the chained handler is installed */
-> +	writel(0, base + CS75XX_INTC_ENABLE);
-> +
-> +	parent_irq =3D irq_of_parse_and_map(np, 0);
-> +	if (!parent_irq) {
-> +		pr_err("%pOF: unable to map parent interrupt\n", np);
-> +		ret =3D -EINVAL;
-> +		goto err_unmap;
-> +	}
-> +
-> +	domain =3D irq_domain_create_linear(of_fwnode_handle(np), CS75XX_INTC_N=
-R_IRQS,
-> +					  &irq_generic_chip_ops, NULL);
-> +	if (!domain) {
-> +		ret =3D -ENOMEM;
-> +		goto err_dispose;
-> +	}
-> +
-> +	ret =3D irq_alloc_domain_generic_chips(domain, CS75XX_INTC_NR_IRQS, 1, =
-"cs75xx-intc",
-> +					     handle_level_irq, IRQ_NOREQUEST | IRQ_NOPROBE, 0,
-> +					     IRQ_GC_INIT_MASK_CACHE);
-
-[Severity: Medium]
-Should irq_alloc_domain_generic_chips() set IRQ_LEVEL | IRQ_NOPROBE in the
-set argument instead of passing 0 and clearing IRQ_NOPROBE?
-
-Because the interrupt specifiers have no trigger type cell and the chip
-does not implement .irq_set_type(), leaving IRQ_LEVEL out of the set flags
-means _IRQ_LEVEL and IRQD_LEVEL are never set on the mapped descriptors.
-As a result, check_irq_resend() treats these level interrupts as
-edge-triggered during enable_irq() and schedules software resends via
-irq_sw_resend().  Passing IRQ_NOPROBE in the clear mask also makes the
-interrupts probeable instead of preventing probing.
-
-> +	if (ret)
-> +		goto err_domain;
-> +
-> +	gc =3D irq_get_domain_generic_chip(domain, 0);
-> +	gc->reg_base =3D base;
-> +	gc->chip_types[0].regs.mask =3D CS75XX_INTC_ENABLE;
-> +	gc->chip_types[0].chip.irq_mask =3D irq_gc_mask_clr_bit;
-> +	gc->chip_types[0].chip.irq_unmask =3D irq_gc_mask_set_bit;
-> +
-> +	irq_set_chained_handler_and_data(parent_irq, cs75xx_intc_handler, domai=
-n);
-> +
-> +	return 0;
-> +
-> +err_domain:
-> +	irq_domain_remove(domain);
-> +err_dispose:
-> +	irq_dispose_mapping(parent_irq);
-> +err_unmap:
-> +	iounmap(base);
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Does the err_unmap path leak the memory region reserved by
-of_io_request_and_map()?
-
-of_io_request_and_map() reserves the physical range via
-request_mem_region() before mapping it, and iounmap() only drops the
-virtual mapping, leaving the region permanently reserved in iomem_resource
-if initialization fails.  Using of_iomap() or releasing the region on
-error would avoid the leak.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-cs75xx-int=
-c-v4-0-0a678f35e5f3@gmail.com?part=3D2
+Thanks,
+Armandas
