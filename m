@@ -1,56 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936190;
-	b=GcPu95TIlw3gJti4fyFZzAWMFbuFGVhxjtji3oNSe2EuqirDeM1WIg1MsIxOHaLtRohX
-	 v+JceXQw50coSuaQlmChxiGo+Rc6D3OCZWVIAZvSSx9UTpuITXXgsBEDytgdYRcsXMtcs
-	 nNRDU2Ivz3Hy7fKRhSkNeNgBnY1PQEZ6tTNhVRPrCEUmBzcpgEvnwF+c6TSZ5KTF0u1Jw
-	 j5uprqUibCNjWPPAiuV/QKlE4FSZ9UvL6P+RaSPlviaNb9LNNJRQeHH7DHzPlrtFd2++W
-	 EsvmJKPpC1lFcPuQvwVtHQthAZGITxhRka0RZ49klWqSgiIqZUR0YEpsEmMuWAgHvmw==
+	t=1794936241;
+	b=Ekm8piA58GkRkBv/gFdAav1SjC9HOqKwDw/lh2SHACY1noT4LnKozC+7QMyKSLwNh3cD
+	 fw+g/fOmhXatAt7osGmHcYZoFN4WvseQVV0i45BVcjvMAElATpnL4i1sELCwZPiulrM+d
+	 p4Hzjl1qF8Yk4EXZef+hT+kJIVO2iosPTHc8uJQiFN2rsC1VMJkDPbMfLiUmsOCftWWt0
+	 ITo9H/rnrDodUGdgi7yrR5QdywZm6jtSBTx8QmtPz9iJs6VpfWsL9yOgKnqttKu/hXu9W
+	 +SbZc5VCwAdJSexA7ga1ad5XDMMM6x5dP2JK2kA/PLOQkW66EcYqVrtkixemuNKlYJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936241;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1xPsU54hJeiHMuz5s3ANZmZSG1cvsb4sESiD5rFdM9c=;
-	b=QsXrpuXDx/pqnteD3Ug75FpQMvu5vDa4LfpZui5YzGvtT4iBdQl3XXeR3ogXgRWnziUH
-	 rDZMG/gyHkeQk0Cx6PG7wnMDDRTtMRHX1cA+ETrEoGFJVMwWGQzO5CV10TRAUZulznAau
-	 gZFqn9qjmhZAUQD+OfDINvWePajnQm3RMQpBltwg1yfN8x89Swv68P993kCWo4JyNGfkO
-	 s/ufogOUFpuxOqMuSKajvc4suRScgq/AkFshKTa5rZ4v/uLwbL7zJNIlQyBLbdMT36s/+
-	 SNC/4lHSw+TnmeAbupu0Td0fRb1+L0SQKMZQ9rqPWiZbnZ5V1y1B0MFsqhcKXe57fkg==
+	bh=gpbTjTJOw7ujZ3rRhUXfRGBVxlexIhsMVokvC2lfJKg=;
+	b=yBvPp+kr4d0kB0tsHGVntgATWVAyzzgZm3H9phqcoo/GVpEmMlNAiwKgiISF3IhSpQbC
+	 w/eN1DpaHT4euQXFLxLlEvdA0QCF2E8/1P4nDAJHL8rgIs7aahtX9l8G/u5w2R+5UmSEK
+	 0hFR+cmnM1PVUfGHhO52yht9P0WZPcXczf+KtKDoKtN5iLIuJvk+1UxvNsgmIQWCntM+F
+	 UH82sI6l0mTlBGYf2FeT3hvlEK4HBoIZEvqALizGlTYRdJ0c/DyQOjfAuxEKC4tqB8g/O
+	 gHc+HdPx0Zm2bAcjm7QsFuW/Q0lJfdSY3xfj9wMmqQGO1Lk0jA4okpHySg6R841XH1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=okOepPWP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWYKJv3M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AEB606A31C;
-	Tue, 17 Nov 2026 17:23:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92661606A31C;
+	Tue, 17 Nov 2026 17:24:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=okOepPWP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C021F000C4;
-	Tue, 17 Nov 2026 17:23:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWYKJv3M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFF851F000C5;
+	Tue, 17 Nov 2026 17:23:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794936190;
-	bh=1xPsU54hJeiHMuz5s3ANZmZSG1cvsb4sESiD5rFdM9c=;
+	s=k20260515; t=1794936241;
+	bh=gpbTjTJOw7ujZ3rRhUXfRGBVxlexIhsMVokvC2lfJKg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=okOepPWPDAEa/fLMSHEtq8RIGPhEkyThXI5rTj9Co98KzmksqzLsE7nq/3Pk+O0g/
-	 wyuC5nza1JoZusAMofsrgGy59SJ7C5QpjXmw6me2ekp7uMjQqs68pQ6I4JE9B1d5rI
-	 VA+j7ZKVyA6u1zNp6bEcLV7vOMV41NhtP/uBcMLCL84t+dc0YvD738YsfFAkW8/dBI
-	 eysiTjqiFdvRtThdK5ehi8MBfzGWcFg/c7YVrGRWgTvkOThoW6SOl3nI8Ow/gh6J0V
-	 SNq7UYtqnQMbde3JenA0aAwyY7s0bBqMIJLF2D7SQVN9j5WpnAiZ4F0DgrnPyjeE/o
-	 Iwc1PXn25u0Rg==
-Date: Tue, 17 Nov 2026 11:23:07 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Dinh Nguyen <dinguyen@kernel.org>
-Cc: bp@alien8.de, linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
-	tony.luck@intel.com, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, niravkumar.l.rabara@altera.com,
-	rounakdas2025@gmail.com, krzk+dt@kernel.org
-Subject: Re: [PATCHv4 2/4] dt-bindings: edac: altera: agilex5: document new
- edac support
-Message-ID: <179493618746.2836620.17399291348633315970.robh@kernel.org>
-References: <20261116202854.3087673-1-dinguyen@kernel.org>
- <20261116202854.3087673-2-dinguyen@kernel.org>
+	b=KWYKJv3MANrtT/7P6e2gCVNbNEBoBXQUtlZh8Mf56ybtul7cxMz8VaDdEbm9pi5Nc
+	 BfHrYzv2HEsWoBITaTkD1dwNc0IZP5t+AHr9r5/pBJgvAMxy/5TEQFqF6ZHsPHxNVG
+	 op9u27T4ICZalOyLu9Upd4tTFtitwI9B5xybTTBPKgeb74//jEypg5eyVy2IUWUzxl
+	 s229NTvD3oSDsgBOL25txWM/8lNYPn1n+FsYdI1WRVctaUXJvaHOOoTs1qIZvUTpJO
+	 PpN5jioXs+0HCutxntAveukt2INCYHu0rhNmEEJXl9l4H7rBz8E1vGRdNfnwx2Jetg
+	 t/uiur4VkyuEQ==
+Date: Tue, 17 Nov 2026 17:23:54 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: yogo.0917.sabu@gmail.com, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Drew Fustini <fustini@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	"linux-mmc @ vger . kernel . org" <linux-mmc@vger.kernel.org>,
+	linux-doc@vger.kernel.org, soc@lists.linux.dev
+Subject: Re: [PATCH RFC 6/6] ARM: add the SiRF AT550 platform and YPL514si
+ board
+Message-ID: <20261117-umpire-agency-f82c1415c09c@spud>
+References: <20261117-at550-rfc-v1-v1-0-5879573cb825@gmail.com>
+ <20261117-at550-rfc-v1-v1-6-5879573cb825@gmail.com>
+ <c3832ce3-4605-4810-9348-c6fee394fe04@app.fastmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,39 +76,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="V8Ki5c7P5QvUwrPE"
+Content-Disposition: inline
+In-Reply-To: <c3832ce3-4605-4810-9348-c6fee394fe04@app.fastmail.com>
+
+--V8Ki5c7P5QvUwrPE
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261116202854.3087673-2-dinguyen@kernel.org>
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Nov 17, 2026 at 02:17:58PM +0100, Arnd Bergmann wrote:
+> On Tue, Nov 17, 2026, at 14:06, yy-Local-LLM via B4 Relay wrote:
+> > From: yy-Local-LLM <yogo.0917.sabu@gmail.com>
+> >
+> > Add a minimal DT machine using standard IRQ, timer and simplefb paths.
+> > Describe the SoC and the firmware-configured YPL514si display. Leave
+> > usable memory and the divided counter rate for the bootloader to
+> > populate. Keep optional peripheral nodes disabled until firmware hands
+> > them over. Disable unvalidated board suspend; limit this board to SD PIO
+> > at 25 MHz. Document the RAM-boot contract and the missing
+> > cold-boot/clock-tree support.
+> >
+> > Signed-off-by: yy-Local-LLM <yogo.0917.sabu@gmail.com>
+>=20
+> Please use a real name for signoff and make sure you understand
+> the legal meaning of this.
 
-On Mon, 16 Nov 2026 14:28:52 -0600, Dinh Nguyen wrote:
-> The Agilex5 EDAC module supports ECC on a few additional peripherals. Along
-> with support for ocram, ethernet and USB, the Agilex5 EDAC adds support for
-> SDM QSPI, CRAM SEU and IO96B.
-> 
-> The Agilex5 EDAC also exposes up to 7 named interrupts on the manager
-> node. global_sbe and global_dbe are aggregate single/double-bit error
-> interrupts that fan-out through the manager's IRQ domain to the child
-> peripheral ECCs. The remaining named interrupts are routed directly from
-> dedicated controllers (IO96B memory controllers and Secure Device Manager)
-> to the GIC.
-> 
-> Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
-> ---
-> v4: constrained interrupts and interrupt-names to 7
-> v3: Add minItems for interrupts
->     Add constraint for interrupt-names
->     Add interrupt-name as false for non
->     "altr,socfpga-agilex5-ecc-manager" platforms
-> v2: add if/then to enforce maxItem of 2 interrupts for older platforms,
->     and 7 for Agilex5
->     add if/then to enforce interrupt-names as required property for
->     Agilex5
->     enum altr,socfpga-s10-ecc-manager and altr,socfpga-agilex5-ecc-manager
-> ---
->  .../edac/altr,socfpga-ecc-manager.yaml        | 90 ++++++++++++++-----
->  1 file changed, 66 insertions(+), 24 deletions(-)
-> 
+Given the wording in the cover letter, I have my suspicions the person
+behind this has had no interaction with the code at all.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+>=20
+> > +config ARCH_AT550
+> > +	bool "SiRF AT550 platforms"
+> > +	depends on ARCH_MULTI_V6
+> > +	select ARM_ERRATA_411920
+> > +	select AT550_IRQ
+> > +	select CLKSRC_AT550
+> > +	select CPU_V6
+>=20
+> Which CPU is this specifically? You need to select CPU_ARM1136R0,
+> CPU_ARM1136R1 or CPU_ARM1176 instead CPU_V6 since b5fdfa208175
+> ("ARM: deprecate support for ARM1136r0").
+>=20
+>      Arnd
 
+--V8Ki5c7P5QvUwrPE
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavyNpwAKCRB4tDGHoIJi
+0tg7AQDFyQE1l10KohugmjgKBSh/b/m8rMXAhDjSMG83Tw2ulgEAjZiuwL+/+iBt
+58axZW3SM/hB34QmaPbBaBb9n1xGzQE=
+=msXp
+-----END PGP SIGNATURE-----
+
+--V8Ki5c7P5QvUwrPE--
