@@ -1,57 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920776;
-	b=WA+CdDCgCMpOet3crTfgEYaEkfR97T2FMVLOMWMiamPKdfHLCRkXvaeXg+WcbToAabO2
-	 n40GfaqM7sbuBEmSOYh4rfm+kSt9tCiD6IWyOGSvsC6Kg0TofajVeYqf35YAj9mM/LoXm
-	 YwbaDCeNeuoy/5ZNnn7FDXn/ikMzUCTyBVq22GsJ8UxzPWzkVq2U+eH8czdRfyrFDCoS9
-	 ycqU6NJIRL6fOxXzo1xoEAH6SqkCV7tsL0+aUeun0k38kOg3CNuxZyW3TcajhuLCf75C3
-	 adoyaJItNNW3DZu/6pM+b1X5lGvl88E/ta0McqhPEU7qbmYvyf5jCMX4cGdfoNdg5mQ==
+	t=1794920787;
+	b=FRxD9vtQSN70gdlLWZ5p136ACgzdG89zVXJ2RAm4SuootOj9dwB2Kkvkwd43hSwMqLuO
+	 +SeO02oOHamnCBRY7qu1ryGT1YbTT/Vw0KHToiLNmT+D7v3sx6bG48SMfla0ZEyu2zG8E
+	 Xn1Ax4NJVYm7e2NqYkAcNskeVI/dgyrRBnAS2RJpeQ/4ZK7CH/0RkpSPsUR7qo6OR4Wa+
+	 bDKUyV1mgWEbAQJRkbNOtGBg8a1HY0LkHr6hIPt/zuvR+ZW0+mcRNfoyzTcz2Xw2529l+
+	 OQBww0ptr1KfZnKo1HIafuGNRRYDUBlnEOQut9zXvl/tBxmmANGHXM9zm+qy0/JPXJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920776;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=bEb8JE7H1WfLfSZIcuIT6DiE7p89Md6x6CunK0Ga4Mk=;
-	b=MEyPYYrSsYHhtehp1l3AqKrWglhBI7dB6Km/ShdfTYFuhmcj4kqklO3xrLIaX0osfQNA
-	 Ym/w9LL/ZU4ykMJrzluZDFAi/o6yWhMZwdmoc0IB/Q37A5yiWFkH+EyBqn8DLyG6bwMl4
-	 WYubgsnPTWIRf1Msl42BJkfesOc7Cg2ir0zxRaAvKHmkwKAvTUKqAt1isYSzRAl15oKEQ
-	 NRUVmrUVUjrrduIZP2J5sDIoXYYpNN4RViKfknqwBw2nK2ymt4hWf+B7LJFxBoNVgcqsG
-	 JI9E6lFO3NcrUOxGIdeHz1g9coeP5HuhZYczfSXqDsl0Y4sJHwsYmAAGUdgvG9k3sEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920787;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=CQNCc886Hmd2ERLzq4jw1PUvCGY+4w5fk+7KZKnHLwk=;
+	b=iCQ/OMLBCQPlCBh/1+7w5UyoqQU1x7Qc5IyZSIgSusCARgwy9DWuRK5iLQ2Lyaxtxkr4
+	 2hrHbxtSaPse643+gGgGUy5BC/uNdPt2hSEN89qzG5xFiouhQMbRw5VMqg79sAx1bRYaR
+	 y6S5h/ZxUvC4pTTCG4lYaYaR5oN4jbVGCQQaB1/KtLq11Ui89CcJE61rbk7nHaBOsajHx
+	 Al1pTnwnU4QRx+sVc//N80F7fTifX+o3+5IcW8tqcQfCGoguhlKs/C2g2XiIuOOrd86fM
+	 LT0pgrYE7L23NVZ4Slzb+/lsNOIVcnKLG27jG68jopTko2VJH0CPmAPBtYLb+m2wUmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WsRM+Bqb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GubjcS3W;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MY6jS2DG;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D50E606A335;
-	Tue, 17 Nov 2026 13:06:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F823606A334
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:06:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F823606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WsRM+Bqb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63CFF1F000CD;
-	Tue, 17 Nov 2026 13:06:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920775;
-	bh=bEb8JE7H1WfLfSZIcuIT6DiE7p89Md6x6CunK0Ga4Mk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WsRM+BqbWypLRj6qNSO/fCOHvpqpCIp8ZJLtXv8oxK3PGZgSkkfUEoGdBUb0GziRU
-	 FCihXTnzohUx0lqwQ6EV4BcooQ54o/k/DvDLOa+ErcJMPzsik1MERuqgJk8mxgzCUr
-	 bx+pKLd0PxPaYkO8HG7Bn26LZsTSqKqdsKn2K6QdyT4MsQ4vDPBdPawzIJ4OURS3R2
-	 U1CxN+G8ot+dKp2IYeXNZlId/K0z8YH1Qjbdarvqdiqnu9tgPmnb9XEh57xQLpvulE
-	 NBCY5dBSkXBHQ7COXP4xPQh4L7ma9sEb84SD5CyDiRTQUGNCsQYeoNcJfCTKduNymt
-	 HZeazdlJlEhmQ==
-Message-ID: <sashiko-outbox-218836@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 02/11] arm64: dts: qcom: add LG V60 ThinQ 5G (timelm)
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: rofikkerneldev <rofikcoga@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261117123946.668557-3-rofikcoga@gmail.com>
-References: <20261117123946.668557-1-rofikcoga@gmail.com>
- <20261117123946.668557-3-rofikcoga@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 13:06:14 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GubjcS3W;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MY6jS2DG
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC3uMF2096534
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:06:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=CQNCc886Hmd2ERLzq4jw1PUvCGY+4w5fk+7
+	KZKnHLwk=; b=GubjcS3WWE//GTAtNVooXD6Dfo7xWxMD0xQSB3+z4b/XkFtE2Vf
+	E5oEAbrcgvPs6Hg2rFUlGD60XPEVEPezlRL5Go1CnsIKU1IQu1oBqb9gbtRWB26y
+	/rmZOsQew60thQTNvoPXehcYgbmq2Ufxh7M1hs9LjHvrkRT21sVSdmBLv6YSLAIY
+	w4JgPgVwvDwSkZXL/g75UBPuJDh5mbUl2jKnxBpHXpRoUsPE3JuSVsVR0XL552vf
+	UEnIg2N7dWfx/FyMMkZauIDFsAjANGjP87iNJM4+M2RPvNmiREP5hvoKZv6G6fAl
+	C3l5emmzK/xAYe4hSaQelPUoxAceqpcUfYg==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0c7h2ndp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:06:22 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7cc01d48a1bso624810137.1
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 05:06:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794920782; x=1795525582; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CQNCc886Hmd2ERLzq4jw1PUvCGY+4w5fk+7KZKnHLwk=;
+        b=MY6jS2DGf7bBCYaUMV58mWVRaw7N0QsxvvJTtb/mwGEbJTlyKJCHFBcnpuIMd6qy7N
+         y459ewUh0gbgI2Sf8lbZPtT5dhGbWnrqGdTvbAOE5hviUYRZAoU9q3PFniYNwS04sexp
+         CtkVPR31oYctXCLO39WL4pcI57/DM3p9bb4jNyTxcNBVSRb4STTEtmMq7N1yg0E0Vsg+
+         7zILKEdHszbX5jp1JFIfPBYc+GpN4EbDOsER4fto0GDuGetxr2L02V8W/LlIO/a22f/z
+         oiBdYl763XjFXafYYuBxAlUUrye9OjAPRHhu77elawxUk1Y29j9PZb4S55JZvFGxsGHm
+         A+8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794920782; x=1795525582;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CQNCc886Hmd2ERLzq4jw1PUvCGY+4w5fk+7KZKnHLwk=;
+        b=c9z8o5p+8SaxJuPvhL6pVQqaFD3s0fizlNu9h/uo8yuEBH2PjVQoJ55BumMxCtW7c5
+         bVhC3CnTMfsozBrI5c2OmqI8tbCN1wt44vxE45aalGi3s4IiQs/QhJ6hFSXDt843DMDn
+         LjJW522hVWdCv6tpP7/7qUek2yHyuf0HzG7qCn30hzLqZmoI98PYcNmiORe0ymqnjIWG
+         ulqW947WwrEbvL2tW+5vTBIIZW78p2pBgz67V0anZXyYHYHW28yqg5JKpQKgxT0J1xge
+         /oYQNtQmnZeLnFxfS5/peX+c3B/RYy+Ubsr4hpyNP9n+fnLzW0Q4a4dsG0IqRR8fqNxG
+         k0Tg==
+X-Forwarded-Encrypted: i=1; AL+hErHXA80vv/Djw8RaAhItuPfIGrrm8Vk+ZFMSErN5ry4kJb8R1a/hf8unntep5goa7WJnEu7dvQapvVUE@vger.kernel.org
+X-Gm-Message-State: APuU4Z/iQTPrRbrXQe1BfzqHYTOOZo4F6TMqodtFxhqJirK91V9dBzQC
+	t7DXRrd6ToKJChz1TPI4Ua8jIrh7HA1udQI09Lq4tC7Lnw0DOEUvLZzTM3/O0+F4T8PjI0lM4Kx
+	9Ji2TXu++Q4HfAgurFhH3ircOH9n7EPY51F+Emjx4xYaqs8PBlpkzWhn1WSwtTU6k
+X-Gm-Gg: AYBFou320SBmIqBKU12cYAiuCD54nl2kZUjoBaa+nEkXgen7TsS13ZMMNZCY1xmQHRt
+	i8azkjrYvWXx6cISho3F/xo0woP7DvcWirkEWwn+pc5OoCZayLkv0tqT2sWcJPzi3GmHn9zt+41
+	XILKYqU6VQhY+hsAaXNHny6nNjupccF4GA3aTLps2PfGyij4ylSHqdeRy9PNQw4A6mZaq7BP8UE
+	RKFriBmW1KU6jrQC5jSD8qwAX4uPQDZHHA+hrKsDwHPXWcSmT831vbrYjC/sIEDxTsEgJ/UAvTq
+	XBNobOytUi5dn70VVNiwI0pfPeXIMuluTKoiUSyxT0rwxkZkg55OPFz14dxuHcKY0HNDq2FQb5A
+	5ZHrlzgYU2zhxpCf/ASwVzEbVKIS50SbmQgC9lgy8Cc0fzRWq4w3jFy49zXzdOQ==
+X-Received: by 2002:a05:6102:2920:b0:7d2:fdb9:b189 with SMTP id ada2fe7eead31-7d69f850c5emr659927137.34.1794920781719;
+        Tue, 17 Nov 2026 05:06:21 -0800 (PST)
+X-Received: by 2002:a05:6102:2920:b0:7d2:fdb9:b189 with SMTP id ada2fe7eead31-7d69f850c5emr659906137.34.1794920781161;
+        Tue, 17 Nov 2026 05:06:21 -0800 (PST)
+Received: from quoll ([195.50.164.66])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23611casm5835117a12.9.2026.11.17.05.06.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 05:06:20 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+        Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH] arm64: dts: apple: Remove undocumented, unapproved aliases
+Date: Tue, 17 Nov 2026 14:06:17 +0100
+Message-ID: <20261117130616.234953-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,242 +119,205 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5232; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=clfI8+19pJhAA+hV4S1Z6XrUeG5urAAHKTU1TXEfHlo=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq/FFJYgi+OqbMxgoQ89jlVKosb2EARn5KZIaER
+ f9mvb0IWpyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavxRSQAKCRDBN2bmhouD
+ 15HhD/9oH1BS9LqVZQUmtukQ4pBKCTUnveLA8banunKm54eECmroM6X+THHC/UIfkgTIp9t3WUn
+ FSAhCkt01Vr+dQbCnSu8lY0JPjnuMK2wOaKZZZPHzbmUchlIfqpOjq4pwoom4AkX4Es+RmEXl+j
+ 3LJQNF3/DGw6d+YsEHxGCl0WNBqqCrIdTR5USi8kFXSbmIh8uFOo8iSvTcpZEXHhsw4o/m29O6g
+ 5fyalqopdTAJslaGkcPPy9E3NeMmGWWz52a+CAvcw+p111gRGN1W+j9JWpsEiJ09ukzCofT+zQ+
+ 5b4BmJXEOPUs2GkA1d5TTbF6w96/IsN0DNRdqHHOTj8EztnF+k2+Jvx4GFFruuDI9nCvIh0snBD
+ x9PQTybp61IT07uCgumlUt4Hjfsl86eagESaE5Jo6xdDPPG38hvO4f60NY2r/sbayH6VETvYHD9
+ Iz+2mdtArDeIRmNrl3G7LtqmzAj8T9IZ1yJq8r9zPsHiD5zemQ5gPtSBOK+k/7Z3qtjpmJiMJC3
+ IGSdHVCHvrBRzXMFBS+bmH3TXODB+w588WrxwZ0Nr+3RMdUyb8lkWdsnwm6swZutHZsdrHl1+0A
+ OtNrIpUmuNoRSr0v7+QrE+J+kaaXEV01l7HPe+6ltJVVgj/OfTs2Tfw1F3DcQNEtxEbl8i9dG/k 34eoEYM979TDAuw==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 6NAgG9z0tr6BZKtMDc8qQHRSh24BYw_L
+X-Proofpoint-ORIG-GUID: 6NAgG9z0tr6BZKtMDc8qQHRSh24BYw_L
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA1MiBTYWx0ZWRfX34/3ifBKnSV4
+ dTW6SmkEplb4izxOI9Z7k9F9aDuxZEzNtT54PC7Cc79SCeCnGwkeYS4O2zfNTTmFf+077dL73dZ
+ sbh3NGoe0hnJpe6fOWIZlqXqk5OE8C52xWm09dx3jaabTBqvv0ZMJiUTr/ltnSf4xFREM/6Ywni
+ QukB/I842caOP8oNoCFy34CajgRtjKwf87tbuOj3D4i6WryMyfKzCQnoEm4vWE6s+BekVsH7yVi
+ l+bvqUpuD1lmZHfVee9+y4/Wtqpro8UihTQP9M+T0xhHfC9UN/2nBmaOOEhDcrZwPlM4o4VxvWC
+ dAEbmR46cfe3mum36JtciHABAqXe8KwlazODYGgmDCT8rk7LJmCX58WRaROise47cCkTOR1foGt
+ kvk0irM6J/DVVx1i12bj+jZhWDUQcv0unjjwLARqXbNKnoshRqMgSnyIs51oKaYPJIQdd+RQqbU
+ ZyhXu+lRZeeHK9ui9ww==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA1MiBTYWx0ZWRfX0AeJVNOebR22
+ zoW9NQM0ydKXseKblcftgOovhZUU+ISjKrO9rQX6hMH8UuwHb5E3PrSARzbuIVn+kLDjN13FiEy
+ Fh3BwoKV4hZjemq4xajQYh77PTvnicA=
+X-Authority-Analysis: v=2.4 cv=bobZl0ai c=1 sm=1 tr=0 ts=6afc514e cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=Zz3YpKYli0cBJYq3SAkA:9 a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
+ priorityscore=1501 phishscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170052
 
-Thank you for your contribution! Sashiko AI review found 8 potential
-issues to consider:
-- [High] arm64: dts: qcom: timelm: enabling gpu without gmu fails
-  a6xx_gmu_init()
-- [High] arm64: dts: qcom: timelm: invalid 1.05V constraint on PM8009
-  ldo4
-- [High] arm64: dts: qcom: handle used instead of real name in DCO and
-  MAINTAINERS
-- [Medium] arm64: dts: qcom: timelm: swapped vdda-phy and vdda-pll on
-  usb_1_qmpphy
-- [Medium] arm64: dts: qcom: timelm: missing pinctrl states on sdhc_2
-  node
-- [Medium] arm64: dts: qcom: ramoops sub-buffers exhaust region and
-  disable dmesg dumps
-- [Low] arm64: dts: qcom: missing DRMS properties on UFS supply
-  regulators
-- [Low] arm64: dts: qcom: unused dt-bindings headers in
-  sm8250-lge-timelm.dts
---
+The atcphy and touchbar aliases were never approved by Devicetree
+maintainers, because they were never documented as actual ABI.  Drop
+them, because no new custom aliases are allowed for years now.
 
-commit e0c6ddf610453315a993fcf369aad59d6f783910
-Author: rofikkerneldev <rofikcoga@gmail.com>
+This might break users of this undocumented ABI, so these should be
+updated to use only documented and approved ABI.
 
-arm64: dts: qcom: add LG V60 ThinQ 5G (timelm) support
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/apple/t6002-j375d.dts      | 4 ----
+ arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi | 4 ----
+ arch/arm64/boot/dts/apple/t600x-j375.dtsi      | 4 ----
+ arch/arm64/boot/dts/apple/t6022-j180d.dts      | 8 --------
+ arch/arm64/boot/dts/apple/t6022-j475d.dts      | 4 ----
+ arch/arm64/boot/dts/apple/t8103-j293.dts       | 8 --------
+ arch/arm64/boot/dts/apple/t8103-jxxx.dtsi      | 2 --
+ arch/arm64/boot/dts/apple/t8112-j493.dts       | 1 -
+ arch/arm64/boot/dts/apple/t8112-jxxx.dtsi      | 2 --
+ 9 files changed, 37 deletions(-)
 
-This commit adds initial device tree support and a MAINTAINERS entry for
-the Qualcomm SM8250-based LG V60 ThinQ 5G (timelm) smartphone.
+diff --git a/arch/arm64/boot/dts/apple/t6002-j375d.dts b/arch/arm64/boot/dts/apple/t6002-j375d.dts
+index e6eb6b6c386d..9f0476e1ae2f 100644
+--- a/arch/arm64/boot/dts/apple/t6002-j375d.dts
++++ b/arch/arm64/boot/dts/apple/t6002-j375d.dts
+@@ -15,10 +15,6 @@
+ / {
+ 	compatible = "apple,j375d", "apple,t6002", "apple,arm-platform";
+ 	model = "Apple Mac Studio (M1 Ultra, 2022)";
+-	aliases {
+-		atcphy4 = &atcphy0_die1;
+-		atcphy5 = &atcphy1_die1;
+-	};
+ };
+ 
+ /* USB Type C */
+diff --git a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
+index caded1636f3d..1a745c6593fa 100644
+--- a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
++++ b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
+@@ -15,10 +15,6 @@ / {
+ 	chassis-type = "laptop";
+ 
+ 	aliases {
+-		atcphy0 = &atcphy0;
+-		atcphy1 = &atcphy1;
+-		atcphy2 = &atcphy2;
+-		atcphy3 = &atcphy3;
+ 		bluetooth0 = &bluetooth0;
+ 		serial0 = &serial0;
+ 		wifi0 = &wifi0;
+diff --git a/arch/arm64/boot/dts/apple/t600x-j375.dtsi b/arch/arm64/boot/dts/apple/t600x-j375.dtsi
+index 8a1494949e4c..3540edc56b0d 100644
+--- a/arch/arm64/boot/dts/apple/t600x-j375.dtsi
++++ b/arch/arm64/boot/dts/apple/t600x-j375.dtsi
+@@ -13,10 +13,6 @@ / {
+ 	chassis-type = "desktop";
+ 
+ 	aliases {
+-		atcphy0 = &atcphy0;
+-		atcphy1 = &atcphy1;
+-		atcphy2 = &atcphy2;
+-		atcphy3 = &atcphy3;
+ 		bluetooth0 = &bluetooth0;
+ 		ethernet0 = &ethernet0;
+ 		serial0 = &serial0;
+diff --git a/arch/arm64/boot/dts/apple/t6022-j180d.dts b/arch/arm64/boot/dts/apple/t6022-j180d.dts
+index f76b887429dd..0b1f1bc46270 100644
+--- a/arch/arm64/boot/dts/apple/t6022-j180d.dts
++++ b/arch/arm64/boot/dts/apple/t6022-j180d.dts
+@@ -18,14 +18,6 @@ / {
+ 	chassis-type = "server";
+ 
+ 	aliases {
+-		atcphy0 = &atcphy0;
+-		atcphy1 = &atcphy1;
+-		atcphy2 = &atcphy2;
+-		atcphy3 = &atcphy3;
+-		atcphy4 = &atcphy0_die1;
+-		atcphy5 = &atcphy1_die1;
+-		atcphy6 = &atcphy2_die1;
+-		atcphy7 = &atcphy3_die1;
+ 		nvram = &nvram;
+ 		serial0 = &serial0;
+ 	};
+diff --git a/arch/arm64/boot/dts/apple/t6022-j475d.dts b/arch/arm64/boot/dts/apple/t6022-j475d.dts
+index 32938a3bf96a..4fc9a42160ea 100644
+--- a/arch/arm64/boot/dts/apple/t6022-j475d.dts
++++ b/arch/arm64/boot/dts/apple/t6022-j475d.dts
+@@ -17,10 +17,6 @@ / {
+ 	compatible = "apple,j475d", "apple,t6022", "apple,arm-platform";
+ 	model = "Apple Mac Studio (M2 Ultra, 2023)";
+ 
+-	aliases {
+-		atcphy4 = &atcphy0_die1;
+-		atcphy5 = &atcphy1_die1;
+-	};
+ };
+ 
+ &framebuffer0 {
+diff --git a/arch/arm64/boot/dts/apple/t8103-j293.dts b/arch/arm64/boot/dts/apple/t8103-j293.dts
+index 1d074b9e6018..779da65a66e3 100644
+--- a/arch/arm64/boot/dts/apple/t8103-j293.dts
++++ b/arch/arm64/boot/dts/apple/t8103-j293.dts
+@@ -18,14 +18,6 @@ / {
+ 	model = "Apple MacBook Pro (13-inch, M1, 2020)";
+ 	chassis-type = "laptop";
+ 
+-	/*
+-	 * All of those are used by the bootloader to pass calibration
+-	 * blobs and other device-specific properties
+-	 */
+-	aliases {
+-		touchbar0 = &touchbar0;
+-	};
+-
+ 	led-controller {
+ 		compatible = "pwm-leds";
+ 		led-0 {
+diff --git a/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi b/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
+index 686fb1dd215d..5304a5591984 100644
+--- a/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
++++ b/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
+@@ -15,8 +15,6 @@ aliases {
+ 		serial0 = &serial0;
+ 		serial2 = &serial2;
+ 		wifi0 = &wifi0;
+-		atcphy0 = &atcphy0;
+-		atcphy1 = &atcphy1;
+ 	};
+ 
+ 	chosen {
+diff --git a/arch/arm64/boot/dts/apple/t8112-j493.dts b/arch/arm64/boot/dts/apple/t8112-j493.dts
+index 7cea5c594810..b0c93788c72a 100644
+--- a/arch/arm64/boot/dts/apple/t8112-j493.dts
++++ b/arch/arm64/boot/dts/apple/t8112-j493.dts
+@@ -24,7 +24,6 @@ / {
+ 	 */
+ 	aliases {
+ 		bluetooth0 = &bluetooth0;
+-		touchbar0 = &touchbar0;
+ 		wifi0 = &wifi0;
+ 	};
+ 
+diff --git a/arch/arm64/boot/dts/apple/t8112-jxxx.dtsi b/arch/arm64/boot/dts/apple/t8112-jxxx.dtsi
+index 562e7a25a1e8..31d8d2aaf30b 100644
+--- a/arch/arm64/boot/dts/apple/t8112-jxxx.dtsi
++++ b/arch/arm64/boot/dts/apple/t8112-jxxx.dtsi
+@@ -11,8 +11,6 @@
+ 
+ / {
+ 	aliases {
+-		atcphy0 = &atcphy0;
+-		atcphy1 = &atcphy1;
+ 		serial0 = &serial0;
+ 		serial2 = &serial2;
+ 	};
+-- 
+2.53.0
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 222b7fc2c3aab..c88fc0e019296 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -15231,6 +15231,12 @@ Q:	http://patchwork.linuxtv.org/project/linux-me=
-dia/list/
->  T:	git git://linuxtv.org/mkrufky/tuners.git
->  F:	drivers/media/dvb-frontends/lgdt3305.*
-> =20
-> +LG V60 THINQ 5G (TIMELM) SUPPORT
-> +M:	rofikkerneldev <rofikcoga@gmail.com>
-> +L:	linux-arm-msm@vger.kernel.org
-> +S:	Maintained
-> +F:	arch/arm64/boot/dts/qcom/sm8250-lge-timelm*
-> +
->  LIBATA PATA ARASAN COMPACT FLASH CONTROLLER
->  M:	Viresh Kumar <vireshk@kernel.org>
->  L:	linux-ide@vger.kernel.org
-
-[Severity: High]
-The MAINTAINERS entry, commit author, Signed-off-by trailer, and
-sm8250-lge-timelm.dts copyright header use the account handle
-rofikkerneldev instead of a real name, which does not satisfy the
-Developer's Certificate of Origin in
-Documentation/process/submitting-patches.rst.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts b/arch/arm64/=
-boot/dts/qcom/sm8250-lge-timelm.dts
-> new file mode 100644
-> index 0000000000000..74b673ebbeb9d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
-> @@ -0,0 +1,543 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) 2026 rofikkerneldev <rofikcoga@gmail.com>
-> + * Device Tree for LG V60 ThinQ 5G (timelm / LM-V600)
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/input/input.h>
-> +#include <dt-bindings/leds/common.h>
-> +#include <dt-bindings/phy/phy.h>
-> +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-> +#include <dt-bindings/sound/qcom,q6afe.h>
-> +#include <dt-bindings/sound/qcom,q6asm.h>
-> +#include <dt-bindings/usb/pd.h>
-
-[Severity: Low]
-This isn't a bug, but dt-bindings/leds/common.h,
-dt-bindings/sound/qcom,q6afe.h, and dt-bindings/sound/qcom,q6asm.h are
-unused throughout the series, while dt-bindings/phy/phy.h and
-dt-bindings/usb/pd.h are only needed starting in commit "arm64: dts: qcom:
-sm8250-lge-timelm: enable SW43103 panel" and commit "arm64: dts: qcom:
-sm8250-lge-timelm: enable USB Type-C".
-
-[ ... ]
-
-> +	reserved-memory {
-> +		ramoops: ramoops@b0000000 {
-> +			compatible =3D "ramoops";
-> +			reg =3D <0x0 0xb0000000 0x0 0x280000>;
-> +			record-size =3D <0x1000>;
-> +			console-size =3D <0x40000>;
-> +			ftrace-size =3D <0x40000>;
-> +			pmsg-size =3D <0x200000>;
-> +		};
-
-[Severity: Medium]
-Does ramoops@b0000000 leave any space for record-size?
-
-console-size (0x40000), ftrace-size (0x40000), and pmsg-size (0x200000)
-consume the entire 0x280000 region, so ramoops_probe() computes
-dump_mem_sz as 0 and disables dmesg oops and panic dumps.  While commit
-"arm64: dts: qcom: sm8250-lge-timelm: add reserved memory regions" adds
-no-map to this node, the sizes remain unchanged.
-
-[ ... ]
-
-> +	regulators-2 {
-> +		compatible =3D "qcom,pm8009-rpmh-regulators";
-> +		qcom,pmic-id =3D "f";
-> +
-> +		vdd-s1-supply =3D <&vph_pwr>;
-> +		vdd-s2-supply =3D <&vreg_bob>;
-> +		vdd-l2-supply =3D <&vreg_s8c_1p2>;
-> +		vdd-l5-l6-supply =3D <&vreg_bob>;
-> +		vdd-l7-supply =3D <&vreg_s4a_1p8>;
-> +
-> +		vreg_s1f_1p2: smps1 {
-> +			regulator-name =3D "vreg_s1f_1p2";
-> +			regulator-min-microvolt =3D <1200000>;
-> +			regulator-max-microvolt =3D <1200000>;
-> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_s2f_0p5: smps2 {
-> +			regulator-name =3D "vreg_s2f_0p5";
-> +			regulator-min-microvolt =3D <512000>;
-> +			regulator-max-microvolt =3D <1100000>;
-> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l2f_1p3: ldo2 {
-> +			regulator-name =3D "vreg_l2f_1p3";
-> +			regulator-min-microvolt =3D <1304000>;
-> +			regulator-max-microvolt =3D <1304000>;
-> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l4f_1p05: ldo4 {
-> +			regulator-name =3D "vreg_l4f_1p05";
-> +			regulator-min-microvolt =3D <1050000>;
-> +			regulator-max-microvolt =3D <1050000>;
-> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-
-[Severity: High]
-Does vreg_l4f_1p05 cause rpmh_regulator_probe() to fail for the entire
-regulators-2 node?
-
-In pm8009_vreg_data, ldo4 uses pmic5_nldo, which has a 320000 uV base and
-an 8000 uV step.  Because 1050000 uV lies between the 1048000 uV and
-1056000 uV steps, machine_constraints_voltage() returns -EINVAL and aborts
-registration of all PM8009 regulators in regulators-2.  In addition,
-regulators-2 omits vdd-l4-supply.
-
-[ ... ]
-
-> +&gpu {
-> +	status =3D "okay";
-> +
-> +	zap-shader {
-> +		memory-region =3D <&gpu_mem>;
-> +		firmware-name =3D "qcom/sm8250/a650_zap.mbn";
-> +	};
-> +};
-
-[Severity: High]
-Does enabling &gpu without enabling &gmu cause GPU initialization to fail?
-
-In sm8250.dtsi, gmu has status =3D "disabled" by default, so no platform
-device is created for it and a6xx_gpu_init() -> a6xx_gmu_init() returns
--ENODEV.  Also, memory-region =3D <&gpu_mem> is already set on
-gpu_zap_shader in sm8250.dtsi.
-
-[ ... ]
-
-> +&ufs_mem_hc {
-> +	status =3D "okay";
-> +
-> +	vcc-supply =3D <&vreg_l17a_3p0>;
-> +	vcc-max-microamp =3D <800000>;
-> +	vccq-supply =3D <&vreg_l6a_1p2>;
-> +	vccq-max-microamp =3D <800000>;
-> +	vccq2-supply =3D <&vreg_s4a_1p8>;
-> +	vccq2-max-microamp =3D <800000>;
-> +};
-
-[Severity: Low]
-Should vreg_l17a_3p0, vreg_l6a_1p2, and vreg_s4a_1p8 set
-regulator-allow-set-load and regulator-allowed-modes?
-
-Without those properties on the regulator nodes, the max-microamp limits
-here have no effect when ufshcd calls regulator_set_load(), leaving the
-three UFS rails in RPMH_REGULATOR_MODE_HPM during UFS low-power states.
-
-[ ... ]
-
-> +&sdhc_2 {
-> +	status =3D "okay";
-> +
-> +	cd-gpios =3D <&tlmm 77 GPIO_ACTIVE_LOW>;
-> +	vmmc-supply =3D <&vreg_l9c_2p9>;
-> +	vqmmc-supply =3D <&vreg_l6c_2p9>;
-> +	bus-width =3D <4>;
-> +	no-sdio;
-> +	no-mmc;
-> +};
-
-[Severity: Medium]
-Should &sdhc_2 configure default and sleep pinctrl states?
-
-sdhc_2 in sm8250.dtsi does not define pinctrl properties, so the SDCC2
-pads (sdc2_clk, sdc2_cmd, sdc2_data) and card-detect pin (gpio77) are left
-unconfigured by the kernel and will not transition to sdc2_sleep_state
-across suspend and resume.
-
-[ ... ]
-
-> +&usb_1_qmpphy {
-> +	status =3D "okay";
-> +
-> +	vdda-phy-supply =3D <&vreg_l9a_1p2>;
-> +	vdda-pll-supply =3D <&vreg_l18a_0p9>;
-> +};
-
-[Severity: Medium]
-Are vdda-phy-supply and vdda-pll-supply swapped on &usb_1_qmpphy?
-
-On SM8250, the QMP PHY core rail (vdda-phy-supply) is powered by the 0.9V
-vreg_l18a_0p9 regulator and the PLL rail (vdda-pll-supply) is powered by
-the 1.2V vreg_l9a_1p2 regulator; swapping them applies the driver's
-21800 uA and 36000 uA load votes to the wrong LDOs.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117123946.6685=
-57-1-rofikcoga@gmail.com?part=3D2
