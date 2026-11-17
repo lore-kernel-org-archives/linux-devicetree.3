@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794892838;
-	b=pn91iwQgOXcOvNBd417wIKGMLwWXbyx6AxGzeKKjD6KGwYrEQPUppmJ3zAx3Z0RCFGH1
-	 LriFS/sw42MDKxv6u82p61V6c5soXoiBbDe9W7ROok9arIJT+nWwoyw6cbn4/DbqE+FWc
-	 u8IOOa0k62sdsE/d1YLdET0TS+/S6MIF2wd/cqoXTRUCJrS+HRxGX32fCXmiuCPHRjApR
-	 /P8IIqDr8AjNOolzoykeEdOP20oB2+EgpQNh/3ASxH9faa6A4yMt+k9viqZvi+7lbVe0v
-	 81fT+QusEYasNrzfeCbxp9nNaim2EN3P12BJ6ZFG8HgrXVCsnZcnAzwQv0b2049jEtw==
+	t=1794892847;
+	b=hW82zZr10Rgzbxc/r1aBQeKFvlfZyqydAz0KUKvZ//jH3QDI2f29F0KIwHmuDHqzh9rR
+	 8rXcrVnDY4JvsahuWqguEYqMlSwvaQy34hGCrQpbuYamLVB3a4nT3lxgosD3p+eM23fL4
+	 8LySmX02lmJIxiYCsmFcQ+W5gy99QVlRWZlmIqXUtIwlnbE0t2wrtNqGkKM5/espU50mz
+	 B9emO9kfFsQNiWcGtJ9tnr8MYE/NGg7gnfbCaksje0dBg2f+OXz0SH1P8SqD0wKBPUeWr
+	 Td9Y7sX2DfDNl2jxAOHkyMBMsAk0Ax+7oInSuM6nuRNI8r1W1hzk8Ol+Tl6y8+mtqzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794892838;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=MeX2wCG25+ulppvKacVi2s6680KmILyRd3QMQUPZHL8=;
-	b=USPPHVE9hmllSlf5sX7JASkT9XfpfGeIFq1nDmUtcxo+ACwc9BiZowLx1vZ1rcLYIjmN
-	 A5HjG4S7xdAUHcrQ9tdoTxkfNDvqooiZ8xLP6VuTRtw/WU64Ys9wgZZrZa+mSVXqgoiCo
-	 wGqhOL46Q2QR//UuqnX8alb1QRdj1btI/mx60Qzs6JJ05P87Ss/B8hsVshzafG9vD63GA
-	 fM23L8Wn2BA2wgU3m//p75Tgak0avHxuLgnx/Q/wEvFl+dX6SwCFKPSr1w9aTbbe7rmVE
-	 yDmrtJQIF2AsPR2aQEycE+l4r+TtOXjUsji+yvhfCqGphkIdwfzJSnzCdGLEXhOpR+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794892847;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=6XP1P1MaUHqmBLx1P7JlXwdoH9Xb14V9Uo/hAccbf/E=;
+	b=qQrXogOldKtj7LmGhMs4HDDXgUVnrntbvzXVNP09EaB+V5nQZe2DmoE5frdNd994fsPD
+	 Byzl9GsBVxbax4OY0r9EOG0WVsOcBOJdeW2u7Bw0ODpUG3/s7zNbIUGNDsbNb2An8fnRo
+	 A/tH6ZdDUB3OT9WYih3HUnoOq7VasLODkxKygcUDYemfGy/TCZUikpGHdFuS0wEHDB0Nt
+	 lMq5dmeJQqD+OUZyL3xYkJDP1UzadHIRSfVgcv041NaM/CJXpzcgvbY7+aFXJxzgY0NDm
+	 fbCHDDIYysyZaBpAHWn253ODZf3TWMfdhK5iSQOeblaXYRzQIray8eIoK5/uvqfdmjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=FsmQ+aK1;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9A32C606A31C;
-	Tue, 17 Nov 2026 05:20:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A32C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5PpOO67;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB26E606A31C;
+	Tue, 17 Nov 2026 05:20:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=FsmQ+aK1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=MeX2wCG25+
-	ulppvKacVi2s6680KmILyRd3QMQUPZHL8=; b=FsmQ+aK155KNZ2pHQGugblgDBh
-	nPK6R0QoRcMUb5ZO/0Gp6/VjPMgV1AgiMfAYzTdidSVp45XFYo4YNOEJecWLefQ4
-	kxNh+ePOLVy6/j2CamctNBtzkSks9i+/vwiFhW+9Gu7pTvd5b9j3mMnsPzZyw2q0
-	RZWg2MZplSfH0qOs8=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.190.181])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3rTEd5PtqzEHLAA--.1648S2;
-	Tue, 17 Nov 2026 13:20:29 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Subject: [PATCH v7] arm64: dts: qcom: sm8750-lenovo-elden: add Lenovo Legion Y700 Gen4, a Qualcomm SM8750-based tablet
-Date: Tue, 17 Nov 2026 13:20:28 +0800
-Message-ID: <20261117052029.31900-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5PpOO67
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65331F000C4;
+	Tue, 17 Nov 2026 05:20:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794892847;
+	bh=6XP1P1MaUHqmBLx1P7JlXwdoH9Xb14V9Uo/hAccbf/E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=n5PpOO67vAII8Vmjmnfi00D1cDngDkuHMFrN5cf8c0AruftqI7sZsQUqHdMMYKBh0
+	 jhO+gzgCpeymbyGl6m8xnlyjTYwxR+6cWhY1doKlBzhSg31ME9kvk0+hNDSzgumJpo
+	 ALg+S+ZLAhhHYLZdKfpfGs+xrpyqiAorSfzTh8K8zBNYoK2lSqbRMwyxUZBWGnKygh
+	 u0pYu494DmsTtxwFZLYG/oKL5ar/5zlxuY4Rl2zzWVcBP91oTsbicq76TZLuzzDV7V
+	 93KQkx6xaOPJEoZtEyiL2/6r7m3g6sWQ2sG5rv8KbnAWEszTIVn/t6t9yfcD8l/Dbe
+	 +rZeZxhDH1OKg==
+Message-ID: <sashiko-outbox-218197@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC] leds: DT: migrating existing labels to
+ function/color
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Cristian Filipescu" <filipescu.cristian@gmail.com>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org
+Cc: linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <179489221679.1.1429296960451969532.led-label-policy-rfc@gmail.com>
+References: <179489221679.1.1429296960451969532.led-label-policy-rfc@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 05:20:46 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,202 +59,131 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgA3rTEd5PtqzEHLAA--.1648S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtw45Kr47AryrAF4kAr4fZrb_yoW7Ar17pF
-	srZrs3Gr95uF1rtws8W3yIva95Wan5Gayvkr1qkFWrC3yYkFykGFsFyF1rAF18Jr4kZw4S
-	yFZxZr92yFn2v3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvFb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCY
-	02Avz4vE14v_GrWl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxV
-	Aqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q
-	6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6x
-	kF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
-	xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvj
-	xUg73vDUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2r7WdojVwAKs1
 
-The Lenovo Legion Y700 Gen4 (TB322FC) is an SM8750 tablet.  Add its
-devicetree with the board compatible, the chassis type, the GPIOs the boot
-firmware reserves and the board clocks, which the SM8750 dtsi consumes: the
-XO and sleep clocks and the two divided CXO derivatives, as on the other
-SM8750 boards.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] arm64: dts: allwinner: missing Signed-off-by trailer and RFC
+  commit format
+- [Medium] arm64: dts: allwinner: removing LED label changes sysfs and
+  GPIO names
+- [Low] arm64: dts: allwinner: inaccurate DTB count and Orange Pi 3 LTS
+  claim in log
+--
 
-The camera devices are powered by a WL2868C camera PMIC on i2c10: LDO1
-feeds the rear sensor DVDD, LDO2 the front sensor DVDD, LDO3 the front
-sensor AVDD, LDO4 the rear sensor AVDD, LDO5 the VCM VDD, LDO7 the DOVDD of
-both sensors and the VCM VDDIO, all at fixed voltages including the offsets
-programmed by the stock firmware.  LDO6 is not wired out on this board.
+commit 9235c19cbef601645f52663823784ba072327e48
+Author: Cristian Filipescu <filipescu.cristian@gmail.com>
 
-This is one logical action - "add this new hardware" - so the board and the
-regulators it carries are described in a single commit.
+> leds: DT: migrating existing labels to function/color
+>
+> Hi,
+>
+> The common LED binding deprecates label in favour of function and color.
+> Is removing existing labels desirable when it changes established LED cla=
+ss
+> names, or should existing board descriptions retain them for compatibilit=
+y?
+>
+> For example, the Orange Pi H6 descriptions could replace their labels with
+> LED_FUNCTION_POWER/STATUS and LED_COLOR_ID_RED/GREEN. With gpio-leds, this
+> would change the names under /sys/class/leds:
+>
+>   orangepi:red:power    -> red:power
+>   orangepi:green:status -> green:status
+>
+> The example below changes two files and affects Orange Pi 3, 3 LTS, Lite2
+> and One Plus. GPIOs, polarity, pinctrl, defaults and triggers are unchang=
+ed.
+> All four DTBs compile before and after; comparison found only the intended
+> label/function/color changes. The renamed LEDs have not been tested on
+> hardware.
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
-Changes in v7:
-- Fold the two devicetree patches of v6 (4/5 "add the Lenovo Legion Y700
-  Gen4" and 5/5 "describe the WL2868C regulators") into a single commit, as
-  asked in <20261104-elfish-booby-of-awe-27d2b6@quoll>: this is one logical
-  action, adding this new hardware, so it is one commit.  The resulting tree
-  is identical to applying both v6 patches in order; nothing was dropped.
-- No other change.  The compatible, the reserved GPIO ranges, the board
-  clocks and the WL2868C regulator voltages are exactly as in v6.
+[Severity: Low]
+Is the list of four affected DTBs accurate?
 
-Still open from the v6 thread (unchanged here, no way to validate them):
-SPMI PMIC, RPMh regulators and console are not described, so this is still
-the boot-infrastructure-less skeleton the v6 review commented on.
+arch/arm64/boot/dts/allwinner/Makefile only builds three H6 Orange Pi DTBs:
+sun50i-h6-orangepi-3.dtb (from sun50i-h6-orangepi-3.dts) and
+sun50i-h6-orangepi-lite2.dtb and sun50i-h6-orangepi-one-plus.dtb (which
+include sun50i-h6-orangepi.dtsi).  There is no Orange Pi 3 LTS device tree
+in the kernel tree.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 88230c4e00..e0b65a36c5 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -453,6 +453,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-valve-deckard.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-lenovo-elden.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
-diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-new file mode 100644
-index 0000000000..73f4452f46
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-@@ -0,0 +1,129 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026, Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include "sm8750.dtsi"
-+
-+/ {
-+	model = "Lenovo Legion Y700 Gen4";
-+	compatible = "lenovo,elden", "qcom,sm8750";
-+	chassis-type = "tablet";
-+
-+	clocks {
-+		xo_board: xo-board {
-+			compatible = "fixed-clock";
-+			clock-frequency = <76800000>;
-+			#clock-cells = <0>;
-+		};
-+
-+		sleep_clk: sleep-clk {
-+			compatible = "fixed-clock";
-+			clock-frequency = <32000>;
-+			#clock-cells = <0>;
-+		};
-+
-+		bi_tcxo_div2: bi-tcxo-div2-clk {
-+			compatible = "fixed-factor-clock";
-+			#clock-cells = <0>;
-+
-+			clocks = <&rpmhcc RPMH_CXO_CLK>;
-+			clock-mult = <1>;
-+			clock-div = <2>;
-+		};
-+
-+		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
-+			compatible = "fixed-factor-clock";
-+			#clock-cells = <0>;
-+
-+			clocks = <&rpmhcc RPMH_CXO_CLK_A>;
-+			clock-mult = <1>;
-+			clock-div = <2>;
-+		};
-+	};
-+
-+	/*
-+	 * VSYS of the camera PMIC is the always-on system rail of the tablet.
-+	 * The SPMI PMICs that generate it are not described yet, so it is
-+	 * modelled as a fixed regulator without a voltage constraint.
-+	 */
-+	wl2868c_vsys: regulator-vsys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "wl2868c_vsys";
-+		regulator-always-on;
-+	};
-+};
-+
-+&gpi_dma2 {
-+	status = "okay";
-+};
-+
-+&qupv3_2 {
-+	status = "okay";
-+};
-+
-+&i2c10 {
-+	status = "okay";
-+
-+	pmic@2f {
-+		compatible = "willsemi,wl2868c";
-+		reg = <0x2f>;
-+		reset-gpios = <&tlmm 126 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&camera_pmic_default>;
-+		vsys-supply = <&wl2868c_vsys>;
-+
-+		regulators {
-+			/* Voltages include the offsets programmed by stock firmware. */
-+			camera_ldo1: ldo1 {
-+				regulator-name = "camera_ldo1";
-+				regulator-min-microvolt = <1128000>;
-+				regulator-max-microvolt = <1128000>;
-+			};
-+
-+			camera_ldo2: ldo2 {
-+				regulator-name = "camera_ldo2";
-+				regulator-min-microvolt = <1288000>;
-+				regulator-max-microvolt = <1288000>;
-+			};
-+
-+			camera_ldo3: ldo3 {
-+				regulator-name = "camera_ldo3";
-+				regulator-min-microvolt = <2816000>;
-+				regulator-max-microvolt = <2816000>;
-+			};
-+
-+			camera_ldo4: ldo4 {
-+				regulator-name = "camera_ldo4";
-+				regulator-min-microvolt = <2824000>;
-+				regulator-max-microvolt = <2824000>;
-+			};
-+
-+			camera_ldo5: ldo5 {
-+				regulator-name = "camera_ldo5";
-+				regulator-min-microvolt = <2808000>;
-+				regulator-max-microvolt = <2808000>;
-+			};
-+
-+			/* LDO6 is not wired out on this board. */
-+			camera_ldo7: ldo7 {
-+				regulator-name = "camera_ldo7";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+			};
-+		};
-+	};
-+};
-+
-+&tlmm {
-+	gpio-reserved-ranges = <39 1>, <74 1>;
-+
-+	camera_pmic_default: camera-pmic-default-state {
-+		pins = "gpio126";
-+		function = "gpio";
-+		bias-disable;
-+	};
-+};
+> I was thinking of converting all the deprecated LED labels, but I wanted
+> to see if this was something maintainers wanted, since it would touch a l=
+ot
+> of files. Would you prefer retaining existing labels (potentially adding
+> function and color alongside them), or reviewing migrations with the name
+> changes explicitly documented?
+>
+> This is a discussion example, not a patch for inclusion. Preparation and
+> static checks were assisted by OpenAI Codex.
+>
+> Thanks,
+> Cristian
 
+[Severity: High]
+This commit has no Signed-off-by: trailer, uses an RFC email body instead
+of a declarative changelog, and uses "leds: DT: ..." rather than the
+"arm64: dts: allwinner: h6: ..." subject prefix.
+
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts b/arc=
+h/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
+> index ce82aa265cfd1..8e411705769b1 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
+> @@ -8,6 +8,7 @@
+>  #include "sun50i-h6-gpu-opp.dtsi"
+> =20
+>  #include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/leds/common.h>
+> =20
+>  / {
+>  	model =3D "OrangePi 3";
+> @@ -45,13 +46,15 @@ leds {
+>  		compatible =3D "gpio-leds";
+> =20
+>  		led-0 {
+> -			label =3D "orangepi:red:power";
+> +			function =3D LED_FUNCTION_POWER;
+> +			color =3D <LED_COLOR_ID_RED>;
+>  			gpios =3D <&r_pio 0 4 GPIO_ACTIVE_HIGH>; /* PL4 */
+>  			default-state =3D "on";
+>  		};
+> =20
+>  		led-1 {
+> -			label =3D "orangepi:green:status";
+> +			function =3D LED_FUNCTION_STATUS;
+> +			color =3D <LED_COLOR_ID_GREEN>;
+>  			gpios =3D <&r_pio 0 7 GPIO_ACTIVE_HIGH>; /* PL7 */
+>  		};
+>  	};
+
+[Severity: Medium]
+Does removing label here and in sun50i-h6-orangepi.dtsi cause a userspace
+regression by renaming the sysfs entries and GPIO consumer names?
+
+When gpio_leds_create() registers these nodes without label,
+led_compose_name() formats the LED names as "red:power" and "green:status"
+instead of "orangepi:red:power" and "orangepi:green:status", and passes the
+new kobject name to gpiod_set_consumer_name().  That breaks userspace
+scripts and board configurations that rely on the existing /sys/class/leds/
+paths and GPIO consumer labels on Orange Pi 3, Lite2, and One Plus.
+
+Documentation/devicetree/bindings/leds/common.yaml leaves "deprecated: true"
+off the label property so existing device trees can keep their established
+names without dtbs_check warnings.  Note also that adding function alongside
+an existing label has no effect, because led_parse_fwnode_props() returns
+immediately after reading label:
+
+drivers/leds/led-core.c:led_parse_fwnode_props() {
+	...
+	if (fwnode_property_present(fwnode, "label")) {
+		ret =3D fwnode_property_read_string(fwnode, "label", &props->label);
+		if (ret)
+			dev_err(dev, "Error parsing 'label' property (%d)\n", ret);
+		return;
+	}
+	...
+}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/179489221679.1.1429=
+296960451969532.led-label-policy-rfc@gmail.com?part=3D1
