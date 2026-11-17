@@ -1,78 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920876;
-	b=IEykIYfvSQUpCsxCMrY9wuRS5u9edAOu+dQSyvevUhXvpg6SWVkTYo3BqOitObDVwWhi
-	 ZfjRwdmYj7mb7GQuvy6SeBywAWGlf1BZ8cLXdy8nXyik4frSbnUvYNDzbwS7Q4JdPPiRQ
-	 HjVoIz7AnVAvSrhALsOImwIUedPD2foam354PhprI765eX+3+rvquujMrQ7ko5OG5N9LO
-	 WgTJ3Dt46b/45gKVjstV3sDiiTVM1HCRq/hLKH0lwe47mJhj6CXJ31iMhYOgsfWhJuOve
-	 g52gIkG36MLcLDv+skgQjuXrRiKnYoiMdoMcu0l3Nz1U2phExD1Atvsao0oW5uzLZag==
+	t=1794920877;
+	b=mZSMIm7KyhWGJ0E3wR4jHy5zTWwFegjoos6ztq9OSjtPldgJx7WtNOJFfWq+BrpLYgKA
+	 /0QppZRZszH7FHl2Hm/gnKwSW9xTdM/4vR1ThQEF2/CcyW3iudEti8naYTs9zW9dxrFxd
+	 dRkqeNL8E4E4JBBoPS4v4LGhFJbK5vYJwyDl8+aYTiHWFDHJY+sze7jkD+geMA9zx27Th
+	 pYOI8LdQx3CFU5TLyKW1VvhCo5C+MWEqifIizaaPQ9mvUZ7WLMm99TB4bDk/JUeVlCY1W
+	 CCVivdzkK71A7vqF8XxdQEYI7e76Z9weUjifFjA4BU1ZHH34nIOA1trnNfsqYwlcGDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920876;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=O3FlsByaFaxp+/zhfhE9AvQlMkAjbHT2mmcY3mRyRnk=;
-	b=M30M29z/+WdjGK4pxdkjvMy1J75ku88Aa48LFx4C5kxzHenh/zGChlX0tIfbrTPjak1v
-	 0a8xwI6zs0s9Ka4U6iR4x+0MSmODXfEM89i5L4fBd72rJ6Mg02y3tqB7nGJjc4UQaLLqX
-	 8/X5cerm6fhuDaGRlGmII1e6sUJCnC8X03mL+LXlgaBzEWWmNs0g9lRfkGK1dFTM3FuLG
-	 g2qQIhOuaw4MIQefcMQR3rd1qfCszfQtwVV7RSMfFBfvMBJcFK+J90kNVpAjiS0LWTnZo
-	 TBagFVuff6JyqqGL2wBZAUc9oe3A+wHienP5dy18CwhG05GVtebg57199lOUbWft8Gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920877;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=hLVYgScUX8HYdLVF2WVw1ZHAnwSTjR7HdEjiqI87gHo=;
+	b=JLOwwNOZ/xRa8cOUgpq5Z3s/vCyeNeRJ8A08ccQhv/3JKf5kmOA3FiOEAmVJMky3peqY
+	 uLHhhKK6bnhh7tR2rAzLtOJrxuqt5/QpNaMY/EfeBGwjiovfbmTFjMIhEF+fpS9bAY426
+	 xpP/3tuE3EodtjluXxDJFuceTX4RVax23ngTiqWlKusDMJuhXjSGPYUPbNRv+ruOx+LDg
+	 NJWk5vX2gM9McaSsQsJaQUCPd6NtJc1f9OZucdLt0HPoNky/Faz/SCt/K2JPVkqVRVC/u
+	 j8xpL/RVrlHVm0CoM+P/xZ/Iv0sMFtqy1rQZa0qeluqzR4ka1AbaPvLDYje41NjvpUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=w6BieCWK;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ErLxCPhF;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF95606A886
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:07:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FF95606A886
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E6C606A883
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:07:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5E6C606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=w6BieCWK
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 341734E4156F;
-	Tue, 17 Nov 2026 13:07:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 034AC5FC81;
-	Tue, 17 Nov 2026 13:07:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 40B7E11BC0035;
-	Tue, 17 Nov 2026 14:07:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794920872; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=O3FlsByaFaxp+/zhfhE9AvQlMkAjbHT2mmcY3mRyRnk=;
-	b=w6BieCWKAZYDm1VFVB+14gYHziDY1jrdhfbgyVSIJS1kShIuV2epq1Wrajx68AP9cCDfHq
-	0ZtESK7UcngAdJx5YZUkQMduOOXa72+flOFKXB+QvxO8Rk50XgM1/e9x6nxk3wINR0ctlo
-	zLkP/k8MuUsIaDpHYwKdEkQJacq1xKGMLTMMhQjJQCz+yxPUeTYK7K84ydSK3RVvE/7Sf8
-	sdEMJ/4Wj+fHXf+R2R1jWPwI2cC9mSHeX9uVnjx7Uvn6z0p02frke2DRVttCeAobA4ybLC
-	WfYymvqub0tCed2R5woNmvxTMPg0KYoFsIkXkbBreMYDsKOL8SsNDjWqucZ1Ew==
-From: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
-To: Nishanth Menon <nm@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>
-Cc: Tero Kristo <kristo@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ErLxCPhF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=hLVY
+	gScUX8HYdLVF2WVw1ZHAnwSTjR7HdEjiqI87gHo=; b=ErLxCPhFIJdgX8xgJ3aZ
+	54XXiMvtBy/AHNFoY3ZG0KFftEiqaHa99lKVyv1pb5an9MI0/ZNC5qbmuCi21edg
+	Uno/4M5J3dIN1ioXh5GhD2XD2BerSlwlAagehujTyyCYC6n8B2ua1ZiWERSDU6b1
+	eErm6rFFnFbV4GgNBn6jRBFC7Fl7KLOOEfEO2w8EM/LNQiELNv9LbBHkykGXu0QU
+	7dg1Inkw+PJ8DUQwQdFcj/lIscMCv/qiLSzx3M5JSgcn/0X9dd2JoGSWz8rr2jt+
+	nnQZkZRt9o/UcM10m1lDTdGnWROCz8bAZZHQuPJDRcVwdbHEyW2sN6ifhGQVFf02
+	CQ==
+Received: (qmail 250239 invoked from network); 17 Nov 2026 14:07:45 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Nov 2026 14:07:45 +0100
+X-UD-Smtp-Session: l3s3148p1@A8yWlHhg3IQujntI
+Date: Tue, 17 Nov 2026 14:07:45 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Udit Kumar <u-kumar1@ti.com>,
-	Abhash Kumar <a-kumar2@ti.com>,
-	Beleswar Padhi <b-padhi@ti.com>,
-	Thomas Richard <thomas.richard@bootlin.com>,
-	Gregory CLEMENT <gregory.clement@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-arm-kernel@lists.infradead.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-edac@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Richard Genoud <richard.genoud@bootlin.com>
-Subject: [PATCH v6 2/6] remoteproc: k3: skip mapping firewalled lpm-metadata memory region
-Date: Tue, 17 Nov 2026 14:07:33 +0100
-Message-ID: <20261117130737.141993-3-richard.genoud@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261117130737.141993-1-richard.genoud@bootlin.com>
-References: <20261117130737.141993-1-richard.genoud@bootlin.com>
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: Re: [PATCH v7 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
+Message-ID: <avxRnV7rn62YQMwo@ninjato>
+References: <20261019-paul-v7-3-rc1-edac-v7-0-84c76c6d7595@bootlin.com>
+ <20261019-paul-v7-3-rc1-edac-v7-2-84c76c6d7595@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,84 +73,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MOMQyM849DXDxoR2"
+Content-Disposition: inline
+In-Reply-To: <20261019-paul-v7-3-rc1-edac-v7-2-84c76c6d7595@bootlin.com>
 
-The region lpm-metadata is firewalled by TIFS on Jacinto devices, so it
-should not be mapped to prevent speculative access crashes
+--MOMQyM849DXDxoR2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Just skip this memory region during initialization.
+On Mon, Oct 19, 2026 at 04:43:26PM +0200, Paul Louvel wrote:
+> Add the Cadence EDAC driver found on Renesas RZ/N1x SoC.
+> The memory controller supports ECC, software scrubbing, and SECDED.
+>=20
+> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
 
-Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
----
- drivers/remoteproc/ti_k3_common.c | 36 +++++++++++++++++++++----------
- 1 file changed, 25 insertions(+), 11 deletions(-)
+Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-diff --git a/drivers/remoteproc/ti_k3_common.c b/drivers/remoteproc/ti_k3_common.c
-index f79ccb57a372..5b7881263b8c 100644
---- a/drivers/remoteproc/ti_k3_common.c
-+++ b/drivers/remoteproc/ti_k3_common.c
-@@ -464,7 +464,7 @@ int k3_reserved_mem_init(struct k3_rproc *kproc)
- 	struct device *dev = kproc->dev;
- 	struct device_node *np = dev->of_node;
- 	int num_rmems;
--	int ret, i;
-+	int ret, i, j;
- 
- 	num_rmems = of_reserved_mem_region_count(np);
- 	if (num_rmems < 0) {
-@@ -494,30 +494,44 @@ int k3_reserved_mem_init(struct k3_rproc *kproc)
- 		return -ENOMEM;
- 
- 	/* use remaining reserved memory regions for static carveouts */
--	for (i = 0; i < num_rmems; i++) {
-+	for (j = 0, i = 0; i < num_rmems; i++) {
- 		struct resource res;
-+		const char *region_name;
- 
- 		ret = of_reserved_mem_region_to_resource(np, i + 1, &res);
- 		if (ret)
- 			return ret;
- 
--		kproc->rmem[i].bus_addr = res.start;
-+		ret = of_property_read_string_index(np, "memory-region-names",
-+						    i + 1, &region_name);
-+		/*
-+		 * lpm-metadata is a firewalled region accessible only by TIFS.
-+		 * Skip mapping it to avoid speculative access crashes.
-+		 */
-+		if (!ret && !strcmp(region_name, "lpm-metadata")) {
-+			dev_dbg(dev, "Skipping firewalled memory region %s %pR\n",
-+				region_name, &res);
-+			continue;
-+		}
-+
-+		kproc->rmem[j].bus_addr = res.start;
- 		/* 64-bit address regions currently not supported */
--		kproc->rmem[i].dev_addr = (u32)res.start;
--		kproc->rmem[i].size = resource_size(&res);
--		kproc->rmem[i].cpu_addr = devm_ioremap_resource_wc(dev, &res);
--		if (IS_ERR(kproc->rmem[i].cpu_addr)) {
-+		kproc->rmem[j].dev_addr = (u32)res.start;
-+		kproc->rmem[j].size = resource_size(&res);
-+		kproc->rmem[j].cpu_addr = devm_ioremap_resource_wc(dev, &res);
-+		if (IS_ERR(kproc->rmem[j].cpu_addr)) {
- 			dev_err(dev, "failed to map reserved memory#%d at %pR\n",
- 				i + 1, &res);
- 			return -ENOMEM;
- 		}
- 
- 		dev_dbg(dev, "reserved memory%d: bus addr %pa size 0x%zx va %p da 0x%x\n",
--			i + 1, &kproc->rmem[i].bus_addr,
--			kproc->rmem[i].size, kproc->rmem[i].cpu_addr,
--			kproc->rmem[i].dev_addr);
-+			j + 1, &kproc->rmem[j].bus_addr,
-+			kproc->rmem[j].size, kproc->rmem[j].cpu_addr,
-+			kproc->rmem[j].dev_addr);
-+		j++;
- 	}
--	kproc->num_rmems = num_rmems;
-+	kproc->num_rmems = j;
- 
- 	return 0;
- }
+I enabled this on my board and found sensible results (according to my
+limited knowledge about this subsystem), e.g.:
+
+root@RZN1D-EB Board:~# cat /sys/bus/edac/devices/mc/mc0/rank0/dimm_*
+0
+x16
+SECDED
+Channel#0_DIMM#0
+csrow 0 channel 0=20
+Unbuffered-DDR3
+0
+
+
+--MOMQyM849DXDxoR2
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr8UZ0ACgkQFA3kzBSg
+KbaxfA//WvqDsbOvPH+AB1dURPsu7ZjR+BMQ9u/UklQn0JXVkj+BEm3tFMjbLbK0
+YKMNeyoflPgVYExD4vtJhNzdsJ2UvwZCaXHduQdGDSBRpXBjq2yj56dCJIloHD8u
+Glrq+WF27oPwFynxH37Du9Fiu/l7H6zqtkADJvMLKa/6p0zDMbdwfdhlka9eLVhx
+FHoraLAbsgJhjwR1/J7xhVk+w0/uWV73fDPP9udFtzzPnoB16pX+NLaTPkCfjfKv
+FMOCfg7wVBE4HodMYofy/M93inO0EKwzEYju3Y8d8jYo/nCduJRvQW57nfexwBAo
+nSWPlOTrCdIUcnC+bxeXcytoN4LcNbRONlFMy5xzPaxgL3OZDyVk/FXlk/xjw6hh
+h0gcsBNrlLIXHYbP59FvP+jWibBApAaO8dJT75nV8ErKjuea4uVngNOdq/hJmMzL
+wbUodkoRYngqZ+OAFEKlL3v/JxMNVP4wEn5RPxwT+lCQGbNh+0ntcVvC8QmB/W6/
+ied+mpYDDTAGRRYZb8p+Rt9aVbj6pZG7G7HqECPuePk6djOe+fq04Qtll9YVtFEC
+3ma6YAUDZ0wYMPfMnMk+DoHv2l5oFaR7e+HNJvnk8s3WT77HYriJPC9d8Rdobk1r
+3w443XxzzqioNMr9/YNOCKMSyIlf7/TkPfX0+yopsvcS7FUnQf8=
+=H9YQ
+-----END PGP SIGNATURE-----
+
+--MOMQyM849DXDxoR2--
