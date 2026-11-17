@@ -1,69 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920936;
-	b=EeoWun3PFlt+5tDViP2mUJccQxaknVHBm8+yOm1cGlAb+VLPVo3gob+nKiv1PIjhp3zo
-	 58GmwI+RhR8IrKtB11E6TqegVoi0MjRVCThIy+7zkC8lKoy4IAdn2+WuFzxzTCebJJWBe
-	 ZJIOhD0k3ST2a4hXfiqADBcx4HBuha47rGUrGQ4EX5XPb5tEvIIfhOAWwKFp4dVs+UciM
-	 0IVVMnIcQZm/M/wEgMGhow2CusiptCTmr1rZ9fDRHI0esHGHGs8Maz5S5mWHM92kv4Q4w
-	 Z0w6BuX/E8UqMZGvmjleT++zxHlVKoMGk/yK+YkOLEfiKP+jEgdanyEz9LCQ1LFp6TA==
+	t=1794920955;
+	b=fhxdrfMXpWKfQc/FVm+/GNuv5+3Azz+ty5/vmWzC1Yyev5eQ6Iu2gMvgfqB/8p08DzXm
+	 LQZJIrGMm+Pvqb+bFCbE+kCD33Y9CEmV3qxoW+Q9z+3DD1lAD2qr+ae6CciXrwl+STbIW
+	 2eJfakjyiFVu2Gt+jvDFteckoOBWk8qk8zSG09VspK6V1y7+QlAFB4TiV+DGIfoju2vGS
+	 CcFeCmD++sBYDbjKi3iKPcZ4st6rXJWkagg2kWZH5LdiUmkynEiiPvoFLDtngTo6X3vjG
+	 tyj/THk6P33TiIh6KAy4bIpFrmyltH/LseWrs7P0erhlorus6LHdTeMrPitIQlpouCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920936;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=2iFjUgAKS1DIXwm/dV+jDKyu7+bpHqIZgkCg+6u2Hy4=;
-	b=hyRoYkuqVZhLTpVEcjSCsqLy6+68Y7+k8eg5XNjcWdgCIyK4NsdeNDB76IfV6qshD9DO
-	 29NaKueCARWZTuc2uEP5ufHhPmYMxq7n+CeBtwr2eE/5mTl+i1Dafgnm0DAWyjkXr6JD7
-	 NysuNOxApEuQrg5Dl7CM2I0JOpoHeg5cwLiQaUG2ax2gyxPxLuGP8ca0Z7VLtVNqq/I14
-	 Nl+rs+pIr2krBOhx4MARNAS3pbL9J3bYV2e4tJ29vi07HZ3SnK1OxPB9rAjbZ3noD16mn
-	 Z9EcjV3WNyhEbC7Kdi6AVQn6cFvVMyeLriYpu2xFSkcliv1wWeeKW310Vge/lhefEcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920955;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=tqwfXbj3ZR7mRZUcNEreZ1uIDndR1OB4dKoeTEFs4pc=;
+	b=xGcFxmI8Q4L5WdyFXRXGizgqKKMSwSivXdWJuOpcBtAWHsoftIF/c1U3YbZ1Ve7VeWTC
+	 /NL9V8hTgFrJhShK6LjOCtoYuuPzTxBBDeAK3MwfTV+yNRKPpviKX8pKwrq4qiDiJs2oh
+	 869iRPjflXRAIQpjGha0IWZOBmzuwl1AymV3VExfeExcyJkt3EadMbpkRHJxjs5uiNyYX
+	 DtYUFWGphs0tlFFG4gd4l3rljBGnPiYRHVIMQt9rklKB1FrloufwimSJ/mzHUegWSzh+E
+	 Re+KkH0NmRJkbKvblqgL4KDVKqZGs+Jbxe3VkW3QGDYdlnII23XRzJlDIB73uQO++OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=czKroEIs;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFrkNRPC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5D8606A881
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:08:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD5D8606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AABE606A338;
+	Tue, 17 Nov 2026 13:09:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=czKroEIs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=2iFj
-	UgAKS1DIXwm/dV+jDKyu7+bpHqIZgkCg+6u2Hy4=; b=czKroEIs0gMYCrKxLNfQ
-	ncUPc5yBXm9OArl7EYy4PaEIzA/eC3KHnVm7Hl8nYM1J0udT7KaFFxYoWpEkmalC
-	w2sVWVl7KeuYXNH/I7O9yAyjFxH9NNdNZofKiI1Hj1bUPFSY00EuZDcF8g5Hw2bf
-	zHptczColY2vdiLwuH+KvV+qCWVmcVh8HNhpTrLzNSQ4mCFIbGGCPhFKbQrfuA+T
-	gOHPTDuo0W4/R14b+2rWc3kW+HWksh83QkLftO78hm9t+yFPFT1H36C5PHAMOh3a
-	EJRD8FjZF7f2k9OqUoZ+SD/Fm+iHWCXC+vRPg8AP0o3RH2KUh2qmco5Al8/zB0Ft
-	fA==
-Received: (qmail 250685 invoked from network); 17 Nov 2026 14:08:53 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Nov 2026 14:08:53 +0100
-X-UD-Smtp-Session: l3s3148p1@GUygmHhgrOoujntI
-Date: Tue, 17 Nov 2026 14:08:53 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-edac@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH v7 3/3] ARM: dts: renesas: r9a06g032: add EDAC node
-Message-ID: <avxR5VZESPLklIuG@ninjato>
-References: <20261019-paul-v7-3-rc1-edac-v7-0-84c76c6d7595@bootlin.com>
- <20261019-paul-v7-3-rc1-edac-v7-3-84c76c6d7595@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFrkNRPC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F9C1F000C4;
+	Tue, 17 Nov 2026 13:09:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794920954;
+	bh=tqwfXbj3ZR7mRZUcNEreZ1uIDndR1OB4dKoeTEFs4pc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QFrkNRPCLNgFrdbcUQ0CR0aOhr8TILgrCZCB9zl1CeqvFgJ9Pd8VYouqAp+b1j4Fv
+	 D3pLWlJPzbWTpiC3BMjY5RFWDXZRL6iE8LK5Z6/g9F0TenC3TkjL7/2lCNpN0Y3DYp
+	 MyWgT36FnxjBWJU5zGK9t6cX4xtjdUgCUM6ppDWj62eEXalVQtapTl7rquzdK+zmO0
+	 nZs2/EV8yXFaRx+IA5GDOPZBJkNXcwc+pmlCRMYSQpvQoKP3LCpAwE4S0zVilWMy/J
+	 OeslIAdIZPMeLlizPzZzl6Wa1IbS2ho+tYdYDoqRv6vpkF2hNrxG++vF/uC8DO+t7u
+	 tzohtIbAuLCjA==
+Message-ID: <sashiko-outbox-218840@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 11/11] arm64: dts: qcom: sm8250-lge-timelm: add
+ QCA6390 Bluetooth
+Reply-To: sashiko-reviews@lists.linux.dev
+To: rofikkerneldev <rofikcoga@gmail.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261117123946.668557-12-rofikcoga@gmail.com>
+References: <20261117123946.668557-1-rofikcoga@gmail.com>
+ <20261117123946.668557-12-rofikcoga@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 13:09:13 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,47 +60,71 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="acFh2L5ANEeBbCxf"
-Content-Disposition: inline
-In-Reply-To: <20261019-paul-v7-3-rc1-edac-v7-3-84c76c6d7595@bootlin.com>
 
---acFh2L5ANEeBbCxf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] arm64: dts: qcom: non-real-name handle in Signed-off-by trailer
+- [High] arm64: dts: qcom: sm8250-lge-timelm: under-volted QCA6390 PMU
+  supplies
+--
 
+commit c689e882729fccea2deb0c720da66bf756537580
+Author: rofikkerneldev <rofikcoga@gmail.com>
 
-> +		edac: memory-controller@4000d000 {
-> +			compatible = "renesas,r9a06g032-ddr-edac", "cdns,ddr-edac";
-> +			reg = <0x4000d000 0x1000>;
-> +			interrupts = <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&sysctrl R9A06G032_CLK_DDRC>, <&sysctrl R9A06G032_HCLK_DDRC>;
-> +			clock-names = "ddrc", "pclk";
-> +			status = "disabled";
-> +		};
+> arm64: dts: qcom: sm8250-lge-timelm: add QCA6390 Bluetooth
+>
+> Describe the QCA6390 power sequencer and its PMU regulators. Enable the
+> Bluetooth HCI controller on GENI UART6 with the supplies provided by the
+> PMU.
+>
+> Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
 
-On second thought, any reason we don't want this enabled by default?
+[Severity: High]
+The Author header and Signed-off-by trailer use an account handle
+(rofikkerneldev) instead of a known real human name, which does not meet
+the Developer's Certificate of Origin requirements in
+Documentation/process/submitting-patches.rst.
 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts b/arch/arm64/=
+boot/dts/qcom/sm8250-lge-timelm.dts
+> index 6b57c658cf918..38816268fcf53 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
+> @@ -95,6 +95,67 @@ key-assistant {
+>  		};
+>  	};
+> =20
+> +	qca6390-pmu {
+> +		compatible =3D "qcom,qca6390-pmu";
+> +
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&bt_en_state>, <&wlan_en_state>;
+> +
+> +		vddaon-supply =3D <&vreg_s6a_0p6>;
+> +		vddpmu-supply =3D <&vreg_s6a_0p6>;
+> +		vddrfa0p95-supply =3D <&vreg_s6a_0p6>;
+> +		vddrfa1p3-supply =3D <&vreg_s8c_1p2>;
+> +		vddrfa1p9-supply =3D <&vreg_s5a_1p9>;
+> +		vddpcie1p3-supply =3D <&vreg_s8c_1p2>;
+> +		vddpcie1p9-supply =3D <&vreg_s5a_1p9>;
+> +		vddio-supply =3D <&vreg_s4a_1p8>;
 
---acFh2L5ANEeBbCxf
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: High]
+Does wiring vddaon-supply, vddpmu-supply and vddrfa0p95-supply to
+vreg_s6a_0p6, and vddrfa1p3-supply and vddpcie1p3-supply to vreg_s8c_1p2,
+under-volt the QCA6390 PMU?
 
------BEGIN PGP SIGNATURE-----
+pwrseq-qcom-wcn only enables these regulators without calling
+regulator_set_voltage(), so the RPMh regulator driver initializes them to
+their regulator-min-microvolt constraints when enabled.  In this board DT,
+vreg_s6a_0p6 has regulator-min-microvolt =3D <600000> and vreg_s8c_1p2 has
+regulator-min-microvolt =3D <1200000>, with no other consumer voting a high=
+er
+voltage.  That drives the 0.95V PMU inputs at 0.6V (below the PMU's own
+0.8V and 0.85V LDO outputs) and the 1.35V inputs at 1.2V.  Should the
+minimum voltages on smps6 and smps8 be raised to ~950000 uV and ~1350000 uV
+like on other SM8250 QCA6390 boards?
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr8UeUACgkQFA3kzBSg
-KbYSLQ/9EyAHMw1TDuF8jEoiTYpwgMRQAdB4z53Fy/XTDuGmOyEHen4cEq3DPMe1
-ryE2pl8i+4JNBpBqTr4XLWCDZmk/zLyLbuw8dkSfxnDhrWOvvfZrXOgpO2AJF9AP
-CA+O8LqmnMoQfSHzzWJGQhKsJUNOI0oOPcUYnVW1cvgPihAwmbPIA0l5dRQvO6st
-C0oyr9jvSZAl8Gh80wZ9Q4MNcr47T1bPEnisabXsmpNYXI/KjddJ1RkbZvR6Cf1S
-LlTjmqvwQ2Mr+tPtQ89dXwE4f/6Lzj+JSBzwEc9I0cbBpZSEoFCm7jMYX1jHxQ23
-/CI4IKbXDTQ7vRdYDV2FXX1jl6kPDA89gA7JHUaka+fioyPzIKZtPeTaOa88aMTb
-bvL1DLJ7mrmdC4MZTZgxnqL8TpdMvBOo4RTUpDKWojh/V3unZd4ehx0M+5t1uPAQ
-i2S2SD12wx1nfU3aaEhOgF/xbpym5WAx1vDfi8NkikDglvQeHe8QiPpjN7uoyBD1
-PJvzAw6IPadjobF/KGPF+BCpjSXQCm+lCHlrDe4La931axuTVTyEfWcjQb/Wfx/Y
-5A7cH+6NXDFR2Xf86EMnGmU/jEgbPQYOJYSUNU7PY9nxU+ETAE9D/PeWH96r/vks
-OOWwAvir1m5H3CLsNhqMTVvhRo2bMnoJ1kBDZfe6XLmK/mgkgiQ=
-=BqAG
------END PGP SIGNATURE-----
-
---acFh2L5ANEeBbCxf--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117123946.6685=
+57-1-rofikcoga@gmail.com?part=3D11
