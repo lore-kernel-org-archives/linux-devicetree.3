@@ -1,77 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794943921;
-	b=i6bo87ijdMrXIDDVsm15tZvgrhnOld/1YSU0CT0ebHk/Z4POyOPGG8Wl5px8dZANCiQ1
-	 NGqT2+ROARSAENovsQtWqDi8YSz4uOqTCEdINAUXCTHoWKOpwjjIGT/HthtsMJucTSSu7
-	 DhM5bGC/+imqwdZLwgnDm+hfbtQ0D2s+5mlxU4yG3bw+dQIu6q0E8xnm16s7W0b5W6wxw
-	 7OvureqCkECwBEW1fjVyk7HxoDFXFg3lVe2cBBrN/NY7/pkVnNvbcjZ2hFD/8bsjs92fH
-	 glSm5re9msLxMY5JgHhoUAjeqJ/lEvnHAVbiI7zTrLN/iRYMdnPsdEQjW9qooaeYxpQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794943921;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=q2L8DXdCwld9OCOazUytyYg/1wnMDhs89QIOzCqPxzI=;
-	b=hhlTM3KZ6MOcsQHlWEJ0B/rRSrTHmgTaYzXQ63GWph/AEYLJuZnp9s4mdvavbmiJNk4G
-	 cGwYwuoRg26Cz5lOwD//eKOhkqd0OePy8g5zdKJLAirZ8bXQwiAwoI0sIDJEzF6iHVdu2
-	 EPkS9c7HXkw46HQww7RNDE3gZkbtyOcjqBJQJ0wolPGcsUDpw6TFAtUy1cqjHe7jI9jFB
-	 c1Th78qKDBr9fB+uMmWnT31QcbZVCSAEOTFmcip+0fB5HAgXRNFXF7yA04OYGOrRB2f0k
-	 g0ETQFlwTysITlwZbr2Udt+Y48pCUg/67P905Sricly/cmWtfCHi4zUAo+S03F1MBbw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794944015;
+	b=O6zHDnEsa1ot2uuKIfxjicQDOZlaH/Fzjy+/6EZLZgLb+e19k58Pz+Nvu/XBLcKtkbq/
+	 cOV2/nnqTYU1r8/INMWcYpTS5mEFxSJ9KaP8u5fk3hohc1AcjtF5iVARhuwOOpeIacFoy
+	 kVmMXcNyB6yIn2EC2U+0ZFJ+1HqrcrSNbkkYqYd3ibQrBfKYg19OzzHe8PeCv3cdI+EPm
+	 6XBZccmAQ1cElTrSqbHSdrKMFLJGrphjmx+4jUQbrUahTwJh6AGo/WWzMNYJ4vFreeiyO
+	 tEWCDqk/+PkcCaNT8W6zGzibB6h0bbHVl9f4T68A/LHWpDFmB0dZYPCZ7+GPDdViwZg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794944015;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=pi02oACzfdxXr2T3FmhOigKXGph09mYpGwByVOMN+iA=;
+	b=MZLwt9gfsRjd2KF498L4EN8NQ/OZtHC6Ct2OpBaNGynHFL7uO5YcZThwrC+eSSbDBo6p
+	 WQzItcaRV5Cc1BNtexVe4QmzQPXwRryY9YMu1UkpDLzuSPQvuen9n+6oBmsG1PR0DTo76
+	 DRuwXW0xT+cATFi3bqChVpGu20eeJOE8UJFeyQ7f+4HBPyR+BV0Gfue0VHOzAZsiCR/sZ
+	 nxMqj6L31yX5RPk9oGIfk1EoxLOFRSfXD8eNkXegxp+np6ygtVv5mx8vuQljK6N38ZyJa
+	 zUb/7Q+MNu3hGzW8/qx+AXOPFQfzCIot6oYlIDlv6EauFxdJymqdKwEg8d3ua7R1SOw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EuE/NPpm";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61576606A8B0;
+	Tue, 17 Nov 2026 19:33:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuE/NPpm
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794944015;
+	b=vY8WuBodXDcU+B42H6RWJWY3svgZ/F8F1qn3bqbQ8lMv4HaavagL2riskuKa8k7FBVHF
+	 FBIE4idypg44ZSeQSzAf8k+3LO5eyaS4Bh4PxlxYKc4RehXdlZ/PYsgyZuKbO9Nk82Lfa
+	 1Np8cQYc1JKO7mu0Ik2nY6cRg53H3zZMjZf09ktPbU3TY8+yPQAizyD9tORktiH84Nfbr
+	 5264w7q8SbGnnwjHJFe87tuH/Q6d9M9fyoBKDkiBH9yww431koyWJALvO1MYsVMRjOynA
+	 EcZLz5tprafJP7JiNzEYrP63Pm2LLj14wScziXTyG6QoF/+sijzqi16D36JJXn5k2MQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794944015;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=pi02oACzfdxXr2T3FmhOigKXGph09mYpGwByVOMN+iA=;
+	b=pNN1YMvPW0xCdAoMXIPvf8B4s0hMFNxOTKqABF2WR5ZgwodBZzC0CLZo20Sflbv2S85l
+	 rpfRssT4qE6xXqi/DPYo83RMAuj/UXt6L6LV41FkkewyJ7dGbz8FBASR3BmQYvyIEglYq
+	 LwxrteJI14b37zWe8t4aQs50o23dzhJKuOa42iu1pIBlllAo3SnjS/3cNOCRtDN9dsYar
+	 X1CIRGgIF42GSfvzSpA1XfkecxgQ+Vg4J+w6woEo1FlNATw/so93DGyCKke/07uNtrIIv
+	 wKHwIMwv4CZs31A/tkh2ohXCRC8fupIEPVFjBbfIaZfbYEF5GvKPIez5CjGks5Aj2xw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 023BD606A88D
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:32:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 023BD606A88D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso132416a12.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 11:32:00 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794943920; x=1795548720;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=q2L8DXdCwld9OCOazUytyYg/1wnMDhs89QIOzCqPxzI=;
-        b=RO/fFYgmVQ+Ly8t2DJIGq9gTdituMf7mksFhVHbc6vwjzTZnuoJ7V93bw9Rrrxh1RM
-         S15Pz0Xllua5dIkjuJD4+wnrLkQoPMqMHRZJhcs35c5rED00rkKipS2o5LGjbdirMPCJ
-         bpiQRH61kmStW1OhPTpXTCfDUlmQIwLXjqx16RUT2x6rF6uPoupJTB7RmtppV/VZupGu
-         7lwnMnJHmYGC3vP5MtziNxW6E8r1aBK16L3qInnICZVOIfW1IA9rj30Y0v8jpdD3nFCg
-         AONg9qI1Fz2BSXkso8yT+ftV8WoIGjhNP5Owj8PueeuyHwVIMfikIscjYUQaBD1O4KxX
-         RHFw==
-X-Forwarded-Encrypted: i=1; AL+hErEEOXZizs1JwjUmr3EwoTm3Oc54au3TzJFB6ALp3iBgAKGldY7SdmN1O2HTW72ZRHxkuramm/HYk+yQ@vger.kernel.org
-X-Gm-Message-State: APuU4Z8AObqMagqgysng7PVzsV9rWbwsEKAkynT/StXyVzx6764R1U5I
-	PqSXdSnjQberXvoRwxNRB7leC6I/Q723FmUfF4KN0Skss52nGp30LpNfXQ/XkbX3
-X-Gm-Gg: AZFdTZegXKgmgJMK0Mfy613MdTDzQs9OPXNUuwdmkiILi7PfI2TFf0s57HJpWFpy1EG
-	siDQMAkNznsBkLi8PXM8AZ120HFclO0d6GB3HD0Zjd+W+GIXFuTlNO3DbOtAXEFiKuP+1ZO8nCM
-	Q/DECsODIEVA8FsM/qLgAJm+Mhy/Ml90n5nUTccUA34B0l6HU1Zdy96JBG7Qpq5TKn6X60Mw0Co
-	OEyBO13zV14hs4iy8oqUpl8VRK0RLuvTGRdoeioWfeVU46pCc8kFBf9mgOP+kGlFVz8pGPmsn7b
-	td0wd0xliBfzHjOENUi83zQKaGi8+Wg3G7e/kQjDykNDof0gDtf1AS615bAO6BYaYcf1QyNIZ+m
-	+gmi3QQ92eoGiq7xsbh9Bw0VUpGdGqjLqiQnnXLV6qlaHXfyHza/ya3hTtkKrpiO+q+v6IEbljl
-	VKpAe1ZgeLidovSgZR1EaQsF8zsNrB0Q/AIPfgXJe4HRx35Jz28CTXTj3EoNNgdaPL9eLMTvkA+
-	MzILDbQmnpiDqK6YvPdAgz7377PeBYvfbfzYjWTN7VEFcWaircyq+YpbPzDWj/3y25f79n2vKAl
-	auxwzjdb1Jsvog5vUVUUV7ud5i0fRtnci5+w32BLzpRCjhkPTcamE0bvf3BrpsqiTi8cDlwNn1/
-	kg1zKyDzNh05yACqkZR8NLrb3pPYmRNBSyln1genk
-X-Received: by 2002:a17:90b:2d86:b0:3ac:6e91:3f22 with SMTP id 98e67ed59e1d1-3b3d0828c40mr318855a91.52.1794943920316;
-        Tue, 17 Nov 2026 11:32:00 -0800 (PST)
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com. [74.125.82.52])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eff627f421sm1823515ad.57.2026.11.17.11.32.00
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 11:32:00 -0800 (PST)
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-15dd124bbe7so405312c88.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 11:32:00 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFGcD3UBS+ve7W1zEucHBfsCQMEoGj2oIAfNA6F1QqwAwrPyPTYoSADw4SoRD6kLxyrBdL0oCJWuOjq@vger.kernel.org
-X-Received: by 2002:a05:7300:c382:b0:35d:4185:5395 with SMTP id
- 5a478bee46e88-38280c3453amr432872eec.16.1794943919489; Tue, 17 Nov 2026
- 11:31:59 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 52F2B1F000C5;
+	Tue, 17 Nov 2026 19:33:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794944014;
+	bh=pi02oACzfdxXr2T3FmhOigKXGph09mYpGwByVOMN+iA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EuE/NPpm0JbsCfiQB4W8YZN/Zqr6e+/6FKO1NgP/WspzEc/M6pBDiVitgnJE5grc5
+	 lhiBvf/W0GbvfeRQZpKDPcQZ7Fglnzy32VCDHxRVE+DGhx1QFJ+FjPbP7ggMOXXdZV
+	 y+Eu1c0I7BFK92bFFWnjjBHxaNJC7WSw0IImVtaTXlJ8nd8sE8KTnD9Q5Ml277RqRc
+	 CFHckku0k+qFaWKDM5NTG525UEYt/ugQY2hJBshSPtwc0BoU+tCP4hv3e4iTxjUNvS
+	 //HuefQ2wevv0Q1Skw2uQ7vX6kQTS4yWxXRn7Pc3KxP5lmzcJR7XvAw+cdlLQHKA6h
+	 TgkRZ0BZEYRAg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CE16C4AA76;
+	Tue, 17 Nov 2026 19:33:33 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Tue, 17 Nov 2026 20:33:06 +0100
+Subject: [PATCH 01/10] dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Fix
+ compatible matching in conditionals
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,46 +83,142 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
- <20261116-iio-ad5246-v1-5-ef6b7c06d4b0@telaak.dev> <avwP2P1zTgFteODM@ashevche-desk.local>
-In-Reply-To: <avwP2P1zTgFteODM@ashevche-desk.local>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Tue, 17 Nov 2026 14:31:48 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ4zHV-wCszetvFnVNA=v5O_rhY1YAeMNhS8r3nWC5wJCw@mail.gmail.com>
-X-Gm-Features: Aa3M54rCns0V1-iSP2as8kRCd3gnBbNDEFw_nlMpPdbVKkD4iVYzP69Wrp7Z5RM
-Message-ID: <CAPY4CJ4zHV-wCszetvFnVNA=v5O_rhY1YAeMNhS8r3nWC5wJCw@mail.gmail.com>
-Subject: Re: [PATCH 5/5] iio: potentiometer: mcp4018: Add Analog Devices AD5246
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Peter Rosin <peda@lysator.liu.se>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261117-meson-drm-create-hdmitx-phy-v1-1-9e0ac931381c@aliel.fr>
+References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
+In-Reply-To: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3283;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=x0gAaIsGyNXcvLzc+ccXQ6Xun/9RxOJpIfK6iHxxYkw=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9af1X+FP0QstiwV5zUz3THZc8LbKLuUecJZs17bBPDtt
+ jdNOP69o5SFQYyLQVZMkaV/ruWJd5ePnvm6Rz0FZg4rE8gQBi5OAZiIzztGhnk3lXjfneNo9WAt
+ 0BE5uk7sseMrM85F8bL2agZvXRocfBgZ/hvdlCzYsenNohvTX6/3Z3ZXvKYwYYqhdDLr4T/zer8
+ dYwIA
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026, Andy Shevchenko wrote:
-> Make it shorter and more generic, in this way you spread the same text to the
-> top comment in the file
-> ...
-> and to MODULE_DESCRIPTION().
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Will do in v2, with your wording.
+The conditional schemas select on "compatible" with a bare enum. On a
+list such as:
 
-> And here make it list that is scalable to expand
+  compatible = "amlogic,meson-gx-hhi-sysctrl", "syscon", "simple-mfd";
 
-Will do.
+an enum applied to the whole array only matches single-entry lists, so
+the if: blocks never match as intended and the per-variant constraints
+are not applied reliably.
 
-> Keep it sorted.
+Wrap the enums in "contains" so that the conditions match on any entry
+of the compatible list.
 
-Will do, for the DEVID comment, the enum and the cfg table.
+Doing so exposes the "phy" child node of "amlogic,meson-gx-hhi-sysctrl":
+it was forbidden (phy: false), but some DT legitimately describe an
+"amlogic,g12a-mipi-dphy-analog" PHY node under this system controller,
+which resulted in dtbs_check warnings such as:
 
-> Why signed? Can the HW return something negative?
+  system-controller@0 (amlogic,meson-gx-hhi-sysctrl): False schema does
+  not allow {'compatible': ['amlogic,g12a-mipi-dphy-analog'],
+  '#phy-cells': 0, ...}
 
-No, I'll make it unsigned int in v2.
+Allow the phy child node for amlogic,meson-gx-hhi-sysctrl by referencing
+the amlogic,g12a-mipi-dphy-analog binding instead of rejecting it.
 
-> Strictly speaking this patch can be split to two:
-> - adding 'div' member and providing it for the existing chips
-> - adding new chip support
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ .../soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml  | 32 +++++++++++++---------
+ 1 file changed, 19 insertions(+), 13 deletions(-)
 
-Will split it in v2.
+diff --git a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml
+index f3a85c67ce8a..285edac4c082 100644
+--- a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml
++++ b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml
+@@ -40,8 +40,9 @@ allOf:
+   - if:
+       properties:
+         compatible:
+-          enum:
+-            - amlogic,meson-hhi-sysctrl
++          contains:
++            enum:
++              - amlogic,meson-hhi-sysctrl
+     then:
+       properties:
+         clock-controller:
+@@ -53,9 +54,10 @@ allOf:
+   - if:
+       properties:
+         compatible:
+-          enum:
+-            - amlogic,meson-gx-hhi-sysctrl
+-            - amlogic,meson-axg-hhi-sysctrl
++          contains:
++            enum:
++              - amlogic,meson-gx-hhi-sysctrl
++              - amlogic,meson-axg-hhi-sysctrl
+     then:
+       properties:
+         clock-controller:
+@@ -67,9 +69,10 @@ allOf:
+   - if:
+       properties:
+         compatible:
+-          enum:
+-            - amlogic,meson-gx-ao-sysctrl
+-            - amlogic,meson-axg-ao-sysctrl
++          contains:
++            enum:
++              - amlogic,meson-gx-ao-sysctrl
++              - amlogic,meson-axg-ao-sysctrl
+     then:
+       properties:
+         clock-controller:
+@@ -81,17 +84,20 @@ allOf:
+   - if:
+       properties:
+         compatible:
+-          enum:
+-            - amlogic,meson-gx-hhi-sysctrl
++          contains:
++            enum:
++              - amlogic,meson-gx-hhi-sysctrl
+     then:
+       properties:
+-        phy: false
++        phy:
++          $ref: /schemas/phy/amlogic,g12a-mipi-dphy-analog.yaml
+ 
+   - if:
+       properties:
+         compatible:
+-          enum:
+-            - amlogic,meson-axg-hhi-sysctrl
++          contains:
++            enum:
++              - amlogic,meson-axg-hhi-sysctrl
+     then:
+       properties:
+         phy:
+
+-- 
+2.43.0
+
+
