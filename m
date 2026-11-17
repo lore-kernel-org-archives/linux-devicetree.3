@@ -1,56 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921568;
-	b=GIbGaLvc4ffDr71y8j0IDpsfLfNbdFp/0X6reWlZhrB5j2PBLvCV7HI3v3JNACPck+AF
-	 uV82UqEoxMKSPYP4McNQji+il9fLWjoQZvu8RTgos5P9OFwQqQmuvNc15Z1gEY7lqBAHM
-	 1co1L3xr1xA/7k/KGQlsM9E2YHbQS2s8Si8q+lHpz7dU95aZ6psSMxUpCe3go+cQvwlLJ
-	 Uu5mUp/tsIoQ3OofVn4Sffcd0mcVA0mhxydla3me+QihmoeUIUHeWh85awDkm2g61sWWC
-	 t75eG5kn1GHBNE7HQCxHsm9351+X26k7yvudYlMo1YrW8Nz3B5IhdAOoNV3YG3xM1NQ==
+	t=1794921677;
+	b=E99fUVXXwDasMsYFRfT34rz51prOOeFydaLRPutyvO3mEv/eYBeTeIlU2zCJe9r4BZ6c
+	 2hEknN1F9UqAVKSOjOSmAnAdDrgSBYnDG6kPY3DBu7mLiPFl8VqYp5enjNfHaRevSAjqb
+	 TJNWJ6j4OewEwusa5hh934t0AxD/roMCKu3eu5nI7sKCylt7xWrBLm51SKexFuJIYLnA7
+	 sUD8Sp5hlbE3UfgNChfnWnqa7ptgjlE/uay/YkhSZfb78KYc3rIhQGW50+2JlBfNT4XX2
+	 yrhxYJXZsD5Es2DXUpVgAk0yOxvLmbR/yQx0A1LWxBMAX1q5KC2VGuA31+JK/o2RAjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921568;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=dRGo5xumnUP8vIU3Tw1GjODyGdlorvN8l5AvimJt9qQ=;
-	b=w9pFQ/izByRL0yzFBVCS/fbdKUjQaMOFWF0I0SJkedOPQ5wvbp6cYc+JvudiaaeHDyye
-	 CY5tlIa/z0LubklgLGp7bD5D5YhX2Gsnax6et9K0keonDnCsjtWCQMYCbX9OjyBOuNjYj
-	 513sMljBX8v/rA0at9ikOad5p9t1UJnhUOAAoOSMVmkJDG9NzZ7pbWuOcb4mFGvGa9Vd3
-	 qsKU1uumu0y89BlSv+SrEc1oQx6HeCnCPKbWn2Vkh7z+yScMudNE6Z0dL4JxlHUdK5oUm
-	 4tTt89hisYRVHah3cQCu7JNyEpesr2KwiU8FnIOhZGw1QfElYQmo8LZgw2RBWHEoY5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921677;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
+	 UI-OutboundReport;
+	bh=O15KmHjK/IjChmIg1MswoAKQRe54mKR/YNVKMpoI2GE=;
+	b=Ei/uCfpPvtG5f3e+1WtqveoEjzLTJ73qedzfQ3UpDWUFTKa6DRuCGZKzQTR832Oa1Y/L
+	 ia/OX4fjfUN10LSnGac9WZ+HVIuIWPKl3fPQp0Uxko0fLW7+0Xj+/nk0DWtnEmOZ8eeyh
+	 q1KHtjpMi6R8YsiYsG6Gwb4/FJifK2UYHsE0MV/9G31lilRGpj/t8Fwtkdd6lRoooBj70
+	 A6BYtRLzlpxLKZPYKPxIXzXoUWA4GIHZ2SlVyGbsx5vMi7Jjc2/DtteeRe4OEYrraIDfq
+	 tfMHySNmojpvIrNxCPUv99jnm8h4+ca7wdK5HMmtn+eUrvtmR2kx/W7M4dwgqOy/Gwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AUgsktPn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=aPLpo4Y8;
+	arc=none smtp.remote-ip=212.227.15.14
+Received: from mout.web.de (mout.web.de [212.227.15.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A70ED606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:19:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD719606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:21:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD719606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AUgsktPn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C31E1F000C4;
-	Tue, 17 Nov 2026 13:19:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794921568;
-	bh=dRGo5xumnUP8vIU3Tw1GjODyGdlorvN8l5AvimJt9qQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AUgsktPnxUcW+Pq5i+cXNfKhktCveq5KNyn8KilqCRTdUACUSakFLL1elcjGa+s6G
-	 n3z3lGYiHTBCw8GV9ih6yASUMUiuLtVmLI2oWjty+yCUkFUbPToHP//IxvTRhvbuBX
-	 v3CVftG5LEcVjKyiB+LFy17KVSNO1xjb11ynpJXqRcFE17wvsoZPwNoklAoBcYTplH
-	 gWtVrqka/lfza5ENDTYuKPgG42je/YErm0vvZgBhgsCc2dZc7All6/rJ7CarUQqySK
-	 wy3ikTiY7TpX6TI5gRjwGGrIpltAjhqc0SlsGDPjgWAMjmcRPV/pV/m2tJUnS9fNkd
-	 RVzvOP+zi9mRQ==
-Message-ID: <sashiko-outbox-218859@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: mediatek: Remove undocumented, unapproved
- aliases
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261117130556.234785-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261117130556.234785-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 13:19:27 +0000
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=aPLpo4Y8
+DKIM2-Signature:  i=1; m=1; t=1794921668;
+ mf=PE1hcmt1cy5FbGZyaW5nQHdlYi5kZT4=;
+ rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+ d=web.de;
+ s=s29768273:rsa-sha256:DUUvc5q6IRJNwz1f//SPc3YTa07o
+   URIbqMkuKi+GRBKwDX1JnoyBR55wq1S5h0owuJtlwIMnF6jbipZU4pmuYQal7dHmY5uLSsgoSlg
+   Kt8HCW6fE8y6UfAAD5k03GLpQystuAbZ4tybXc32ighuRBRJvNaR3rTSriPEG/VN4K49lwMa96+
+   ZE5O/GYdisGHbZp/A1fjeMU9k4tRGmKVDoo+0U7h17bcxIjbOGExfwGuko56tCgD7ESH1/tJvLB
+   fHPDgCRuPF0zDLI4r22MZnpsuDHCi758AnvWkqkXMqq0/WQjIO4GIbEgh1kFk+3xk/VuuJhl9CQ
+   uSc/UapGq8JgYw==;
+Message-Instance:  m=1;
+ h=sha256:
+   wk8Ebnxj9+uopn4oAfe8XpNBl4GkL+Ot7cX4DU6EhPY=:
+   S8Svh5yjcoWGeKVpnzI1TFn8gCquX/Z15gpJRqPt1ZA=,
+  sha512:
+   8eXnFb3w2Nkab4Z+20FZIBTTnw0F9c+jvS27XhdGtw7lliSG6/ZuKQxlxjGaeXBQIHAKAn2souTmbnt1zZeCdA==:
+   UMcSWdpUjOx21yU3m9ZtF4VAL4Bhqao2FLpjla4ft5MnND5cAUB0Goe3D2UTUhc6WdqxmI2fGmu2nIV3tvqpPg==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1794921668; x=1795526468; i=markus.elfring@web.de;
+	bh=O15KmHjK/IjChmIg1MswoAKQRe54mKR/YNVKMpoI2GE=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=aPLpo4Y8DtSyFl7Mthdr+W+ylySNgZTQrZ58sb5NGgqFj++PK30a++2re0BR5bNi
+	 kHyq963u5ID0J6uvg7/xalaJlbmaWR4P+kMmZWo487/b9e6jYpRqpejAYvU69fGGB
+	 xHDPZCjO06OTE71k8ng6BCFoqaaOpHYr0b1u8HO6U6aPKlSB3TI/VLD2YqqXLKDb7
+	 FWJ5mGL57y4lVWyAScHYHhXHO4aoyhShuqgsn7ZysVCgc7wYYaA1MYLg8w82FKnXL
+	 OyvUEyydaGWYpRBSlJQbwK7WdV7Vt6dIVAQLEtxNPXnNd0oMMCXVj9ApjVJscIG/7
+	 DN7ewQI4V+tOv4vHHg==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MNwjc-1x520i1eFU-00Puxo; Tue, 17
+ Nov 2026 14:21:08 +0100
+Message-ID: <23a72c5e-7eb7-4a4e-9f06-fdc4976b05bc@web.de>
+Date: Tue, 17 Nov 2026 14:21:06 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,207 +80,165 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 2/2] i2c: amlogic: Add Amlogic A9 I2C controller
+ driver
+To: Junyi Zhao <junyi.zhao@amlogic.com>,
+ Xianwei Zhao <xianwei.zhao@amlogic.com>, linux-amlogic@lists.infradead.org,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ Andi Shyti <andi.shyti@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>
+References: <20261117-a9-i2c-v10-0-33ea9aefce20@amlogic.com>
+ <20261117-a9-i2c-v10-2-33ea9aefce20@amlogic.com>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261117-a9-i2c-v10-2-33ea9aefce20@amlogic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:yeW+56fcqwFFgnUzBcgflsIOb76VlxacHTsho9siUjw90d9mZHr
+ dxav4ru3MrzMawKzrlfhN95X+hCUY5BaAYCNL8np5RMU0dDbKHJcmS2wbMebvFXgONnUlOV
+ B3Qfk5dh/HntvJU5BUcxq5/6A6Zrgk02MbN3K4POWPqD4Zpr/bwhUeXE+EXmNUn5+dWgeWD
+ QkocangnXLGbMPiABL3uQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:HIpqy9YjjqI=;apDQbC5a7Xs5fGXisT7dSxx9Hdl
+ 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
+ F/mz2v8wPPH2F566/h+HFA=
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] arm64: dts: mediatek: removing gce aliases causes unclocked
-  MMIO in cmdq_init()
-- [High] arm64: dts: mediatek: removing ovl_adaptor aliases breaks
-  ovl_adaptor_comp_init()
-- [High] arm64: dts: mediatek: removing ddp and mutex aliases breaks
-  mtk_drm_probe()
-- [Low] arm64: dts: mediatek: mt8173: incomplete removal of undocumented
-  mdp-* aliases
---
+=E2=80=A6
+> +++ b/drivers/i2c/busses/i2c-amlogic-a9.c
+> @@ -0,0 +1,428 @@
+=E2=80=A6
+> +static int aml_i2c_xfer_msg(struct aml_i2c *i2c, struct i2c_msg *msg, b=
+ool last)
+> +{
+=E2=80=A6
+> +	spin_lock_irqsave(&i2c->lock, flags);
+> +	i2c->state =3D (msg->flags & I2C_M_RD) ? A9_STATE_READ : A9_STATE_WRIT=
+E;
+=E2=80=A6
+> +	/* Start the transfer */
+> +	aml_i2c_do_start(i2c, msg);
+> +	spin_unlock_irqrestore(&i2c->lock, flags);
+=E2=80=A6
+> +	if (!time_left) {
+> +		guard(spinlock_irqsave)(&i2c->lock);
+=E2=80=A6
+> +	}
+> +
+> +	return i2c->error;
+> +}=E2=80=A6
 
-commit 0c6075438efac906bb8687313653fb8c36767eef
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Will development interests grow also for the application of another scoped=
+ lock guard?
+https://elixir.bootlin.com/linux/v7.4-rc1/source/include/linux/cleanup.h#L=
+325-L328
 
-arm64: dts: mediatek: Remove undocumented, unapproved aliases
-
-This commit removes undocumented display and mailbox device tree aliases fr=
-om
-several MediaTek SoC and board dtsi files.
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/d=
-ts/mediatek/mt8173.dtsi
-> index 6ec50125cea02..868b0fb844499 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-> @@ -22,22 +22,6 @@ / {
->  	#size-cells =3D <2>;
-> =20
->  	aliases {
-> -		ovl0 =3D &ovl0;
-> -		ovl1 =3D &ovl1;
-> -		rdma0 =3D &rdma0;
-> -		rdma1 =3D &rdma1;
-> -		rdma2 =3D &rdma2;
-> -		wdma0 =3D &wdma0;
-> -		wdma1 =3D &wdma1;
-> -		color0 =3D &color0;
-> -		color1 =3D &color1;
-> -		split0 =3D &split0;
-> -		split1 =3D &split1;
-> -		dpi0 =3D &dpi0;
-> -		dsi0 =3D &dsi0;
-> -		dsi1 =3D &dsi1;
-> -		mdp-rdma0 =3D &mdp_rdma0;
-> -		mdp-rdma1 =3D &mdp_rdma1;
->  		mdp-rsz0 =3D &mdp_rsz0;
->  		mdp-rsz1 =3D &mdp_rsz1;
->  		mdp-rsz2 =3D &mdp_rsz2;
-
-[Severity: Low]
-This isn't a bug, but should mdp-rsz0..2, mdp-wdma0, and mdp-wrot0..1 also =
-be
-dropped here?  Like mdp-rdma0 and mdp-rdma1, they are undocumented custom
-aliases that are unused by drivers/media/platform/mediatek/mdp/.
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8188.dtsi b/arch/arm64/boot/d=
-ts/mediatek/mt8188.dtsi
-> index 14a320f0c70cb..f14b23dd57aa7 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt8188.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt8188.dtsi
-> @@ -23,39 +23,6 @@ / {
->  	#address-cells =3D <2>;
->  	#size-cells =3D <2>;
-> =20
-> -	aliases {
-> -		dp-intf0 =3D &dp_intf0;
-> -		dp-intf1 =3D &dp_intf1;
-> -		dpi1 =3D &dpi1;
-> -		dsc0 =3D &dsc0;
-> -		ethdr0 =3D &ethdr0;
-> -		gce0 =3D &gce0;
-> -		gce1 =3D &gce1;
-
-[Severity: High]
-Does removing gce0 and gce1 on MT8188 and MT8195 cause cmdq_init() to perfo=
-rm
-MMIO writes with the GCE clocks disabled?
-
-On both SoCs, cmdq->pdata->gce_num is 2, so cmdq_get_clocks() looks up the
-clocks via the "gce" alias and silently skips nodes with a negative alias_i=
-d:
-
-drivers/mailbox/mtk-cmdq-mailbox.c:cmdq_get_clocks() {
-	...
-	for_each_child_of_node_scoped(parent, node) {
-		int alias_id =3D of_alias_get_id(node, gce_name);
-
-		if (alias_id < 0 || alias_id >=3D cmdq->pdata->gce_num)
-			continue;
-
-		clks =3D &cmdq->clocks[alias_id];
-	...
-	return 0;
-}
-
-Without gce0 and gce1, cmdq_get_clocks() returns 0 with cmdq->clocks[].clk
-left NULL.  clk_bulk_prepare() and clk_bulk_enable() then succeed as no-ops
-before cmdq_init() and cmdq_runtime_resume() write to GCE registers, hanging
-the bus or triggering an SError on boot.
-
-> -		merge0 =3D &merge0;
-> -		merge1 =3D &merge1;
-> -		merge2 =3D &merge2;
-> -		merge3 =3D &merge3;
-> -		merge4 =3D &merge4;
-> -		merge5 =3D &merge5;
-> -		mutex0 =3D &mutex0;
-> -		mutex1 =3D &mutex1;
-
-[Severity: High]
-Does removing the mutex and DDP component aliases break multi-instance
-component matching and leak device_node references in mtk_drm_probe()?
-
-In mtk_drm_probe(), MTK_DISP_MUTEX nodes are matched with:
-
-drivers/gpu/drm/mediatek/mtk_drm_drv.c:mtk_drm_probe() {
-	...
-		if (comp_type =3D=3D MTK_DISP_MUTEX) {
-			int id;
-
-			id =3D of_alias_get_id(node, "mutex");
-			if (id < 0 || id =3D=3D private->data->mmsys_id) {
-				private->mutex_node =3D of_node_get(node);
-	...
-}
-
-When mutex0 and mutex1 are removed on MT8188 and MT8195, id is -ENODEV for
-both sibling mutex nodes, so VDOSYS0 (mmsys_id 0) matches mutex0 and then
-overwrites private->mutex_node with mutex1, binding VDOSYS0 to VDOSYS1's
-hardware disp-mutex and leaking mutex0's OF node reference.
-
-Similarly, mtk_ddp_comp_get_id() accepts id < 0 as matching the first entry
-of that component type in mtk_ddp_matches[]:
-
-drivers/gpu/drm/mediatek/mtk_ddp_comp.c:mtk_ddp_comp_get_id() {
-	int id =3D of_alias_get_id(node, mtk_ddp_comp_stem[comp_type]);
-	int i;
-
-	for (i =3D 0; i < ARRAY_SIZE(mtk_ddp_matches); i++) {
-		if (comp_type =3D=3D mtk_ddp_matches[i].type &&
-		    (id < 0 || id =3D=3D mtk_ddp_matches[i].alias_id))
-			return i;
-	}
-	...
-}
-
-Without the DDP aliases (ovl*, ovl-2l*, rdma*, color*, dpi*, dsi*, dp-intf*,
-merge*, etc.), secondary component instances collapse onto instance 0's
-comp_id, overwriting private->comp_node[comp_id] (leaking the prior
-device_node reference) and private->ddp_comp[comp_id] while leaving their o=
-wn
-component slots unpopulated.
-
-> -		padding0 =3D &padding0;
-> -		padding1 =3D &padding1;
-> -		padding2 =3D &padding2;
-> -		padding3 =3D &padding3;
-> -		padding4 =3D &padding4;
-> -		padding5 =3D &padding5;
-> -		padding6 =3D &padding6;
-> -		padding7 =3D &padding7;
-> -		vdo1-rdma0 =3D &vdo1_rdma0;
-> -		vdo1-rdma1 =3D &vdo1_rdma1;
-> -		vdo1-rdma2 =3D &vdo1_rdma2;
-> -		vdo1-rdma3 =3D &vdo1_rdma3;
-> -		vdo1-rdma4 =3D &vdo1_rdma4;
-> -		vdo1-rdma5 =3D &vdo1_rdma5;
-> -		vdo1-rdma6 =3D &vdo1_rdma6;
-> -		vdo1-rdma7 =3D &vdo1_rdma7;
-> -	};
-
-[Severity: High]
-Does removing the ethdr, merge, padding, and vdo1-rdma aliases break probing
-of mediatek-disp-ovl-adaptor on MT8188 and MT8195?
-
-ovl_adaptor_comp_get_id() requires a non-negative alias ID matching
-comp_matches[]:
-
-drivers/gpu/drm/mediatek/mtk_disp_ovl_adaptor.c:ovl_adaptor_comp_get_id() {
-	int alias_id =3D of_alias_get_id(node, private_comp_stem[type]);
-	int i;
-
-	for (i =3D 0; i < ARRAY_SIZE(comp_matches); i++)
-		if (comp_matches[i].type =3D=3D type &&
-		    comp_matches[i].alias_id =3D=3D alias_id)
-			return i;
-
-	dev_warn(dev, "Failed to get id. type: %d, alias: %d\n", type, alias_id);
-	return -EINVAL;
-}
-
-When those aliases are removed, of_alias_get_id() returns -ENODEV for every
-sub-component, causing ovl_adaptor_comp_init() to skip all children and fail
-probe with -ENODEV.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117130556.2347=
-85-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
+Regards,
+Markus
