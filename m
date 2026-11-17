@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920107;
-	b=MWYKbk1b21plxkZ1xDGpIEudXCElY3d5axqC6gtiyXoTzlETqWXAvtwFnHvB85prG4V8
-	 3nEuZ/5hFrZ3sw32uFbNGR1Ode2K3Xd/reqsmE3LvUTMv7bXO66OhKKMiar8TNf7rkOBE
-	 8KV56nC4CBXNxClBYq8FODeuOLcKsQFWdO0+ZLiaghoeTvruAc1IGdzjIx2LqLd/4gJBx
-	 sBmAdL2a8lHicHgv64+FCssOUg7FMOyUHxvNMyJfTX0Q+omeS8GClg1p4ud9IosWhVcIY
-	 8HK5efPAy1m00L9eTOxI2qhJnlF6008cGU5Yn0dHb5HODPFukq/RLbQgToc/8LBXlUQ==
+	t=1794920188;
+	b=rhHID4GoJlpQ4GJneAzkyfcLnK15FSwN5UnMDflUEQ0NJKZk2K40SxU4mSi6SrEwEZKV
+	 K91UZptuf4Xx57tW1objbl/vSIc2MdChhyDedr5YTDaFrgLfva/HjS3i2Do1XxDVyaQjO
+	 HeiTGckMgtEsQ/Z4gnfWLQBrOQYs8S/eNv3Ng0m8jq7uiivvgNyZykRM3PvmRONWj0bwE
+	 oNZMSf2euqs11F/qSJdLpA+GhZmP1WbA5dRLyMLFobMkYlClj//WgiWxFRBEl1NgSHBLC
+	 QvqFOXvJ74YDNhOpKs+BVvLpYjFcORATxYSs+p35SEI76LqzzsaS/7F0JPBbi96924Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920107;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=MjM9a2xFb8MPFLTY6jIPJpNAq4yybBIJdDduQ7afHf4=;
-	b=Zu7bIVNUIROJocf/D4dQtn9SxQ8BozOWO/SQw1x+fmULsu+rtMpv/myQc5x9nIl0TmSs
-	 5OVYm55ISEwgDracwEQTgQezhDdiv/bnv9bI/D7VtbRQ4JEHo7pUFq9wSxON0N61K2La2
-	 74u5tj7TlIs4tBv3xEO4G2tIr25yWDiap5ufdjlzbt03ybqPUUIMZJUwevz71OUXP65lq
-	 Uoe0a0kaNM7xcGa6BHZcXB8/CZMRajKGWudfK//LSMHpljtPtU8qbozAQpq1odaICDZ9z
-	 mbjxIxdguQIvlPSIAtb/qdef/ac+wbzVdJY1bvQO+8TgB8gXtpDJ6jV3BYKjy/FTqBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920188;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=7vsiONFVWdrbmVygvYmrT2Iwf/VJLJ6R2Ay7M90Ttno=;
+	b=IXpolPZBdTP76v5z4Y6/mLON+ScQkhIEY/kautcSFnXDT1aiWlZd8cVx6hDXNdBHuv/c
+	 kp+7ATdar+ftxKTnWaFmDkJyRuFbfbR0fxXLmpvaSpLwUKTNFShH3JmuJc60br/sfjzke
+	 Rho76i0NMxQo9EvAtZhtcnE6S2GeGbX0INdY9HmLYFxBJlEEU+nPQxXfAn/kfttRYzx2j
+	 hc0SfTt/Pqj+MhQDumsj2p7i/a8octrPg4Q+o4OMY00GAsAY3FUmtRg4GnWXKVcc33tAW
+	 oEMUAakSouq6X71vYMtr2C1NPYtEYU0Zoa+odDOFsK5j8iXHfWTb1pTZVg8Lp9mGK+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=imeUiSSh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQ3PdbvX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC48606A884;
-	Tue, 17 Nov 2026 12:55:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA06606A323;
+	Tue, 17 Nov 2026 12:56:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=imeUiSSh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F32C81F000C4;
-	Tue, 17 Nov 2026 12:55:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQ3PdbvX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4233F1F000C4;
+	Tue, 17 Nov 2026 12:56:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920107;
-	bh=MjM9a2xFb8MPFLTY6jIPJpNAq4yybBIJdDduQ7afHf4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=imeUiSShRGSJhzubYnr3DdmCV4I3siWXnwOrcuE97MmnMdw9tazPy6tfl9q5ZtNtZ
-	 pSE6P/zv4/9p0tKubH8BqKzlkYIKzf/mslpgoq8lj0ReYYoGa9XgH8newtjFFJGSxv
-	 tc1VmqIDVsulm1bL2OgSZEqJxKoV0xfnz8Sr81ZMDVYNYQs8EpjBI8JiKP2RsyeKFM
-	 C4pcWKAKuukSssDarl0jBa6Roh4KEQDiYrmTBr9knduMIgZh3KIJUMi0U8I1rqv1Nd
-	 R7k7JFNs7gzwE7CfBy3qL+nf1te3fmSSkv7AmZWrgbYL3uHVlxKEsTp64IdCGCZAvd
-	 7rWxQe4uXlCoA==
-Message-ID: <5715e9e5-857d-4104-aedd-9662da0fc0ab@kernel.org>
-Date: Tue, 17 Nov 2026 13:55:00 +0100
+	s=k20260515; t=1794920188;
+	bh=7vsiONFVWdrbmVygvYmrT2Iwf/VJLJ6R2Ay7M90Ttno=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EQ3PdbvXHf+m42BTDypbhdvcNktzmIxq8Bk9aDNKwLeZnwSIpPrSP7SbLQSpkDw6o
+	 T5QdCbCM/zSS3iySF1la7gFPb0H/ijpqZ5HWWGZybnBWZtx2t3d23oI564VZ3vlmDV
+	 UWwhuhKJ3xbUXuwMJ++nB/+3J7PakH+obMyO+Yu1KOFHjwe4n5eHwAFeltpHMHeihO
+	 Dty/VLsQXrKAvSu8RfnT4fqJeHLNYOYUZsyN11RiPejImTY3dcejnwO+8Z6eQ2jU5z
+	 ENyluKdnY54dFJrH++A5V3iXlbQOp0sofmlGvK5vnyJJ2w7ooEX9srFSQ3VgxMUKQ3
+	 efdI2NLKn5fjQ==
+Message-ID: <sashiko-outbox-218812@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 09/11] arm64: dts: qcom: sm8250-lge-timelm: add
+ SW42902 touchscreen
+Reply-To: sashiko-reviews@lists.linux.dev
+To: rofikkerneldev <rofikcoga@gmail.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261117123946.668557-10-rofikcoga@gmail.com>
+References: <20261117123946.668557-1-rofikcoga@gmail.com>
+ <20261117123946.668557-10-rofikcoga@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 12:56:27 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,121 +60,86 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] arm64: dts: mediatek: mt8167: Add DRM nodes
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- linux-mediatek@lists.infradead.org
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
- Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260921113914.779393-1-l.scorcia@gmail.com>
- <20260921113914.779393-5-l.scorcia@gmail.com>
- <bbefcf0b-b31e-4f74-bf79-b0ccc983f62b@kernel.org>
- <200ef6c1-eced-4c36-832d-3fb409aac866@collabora.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <200ef6c1-eced-4c36-832d-3fb409aac866@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 17/11/2026 13:53, AngeloGioacchino Del Regno wrote:
-> On 11/17/26 13:35, Krzysztof Kozlowski wrote:
->> On 21/09/2026 13:38, Luca Leonardo Scorcia wrote:
->>> Add all the DRM nodes required to get DSI and DPI to work on MT8167 SoC.
->>>
->>> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
->>> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->>> ---
->>>   arch/arm64/boot/dts/mediatek/mt8167.dtsi | 369 +++++++++++++++++++++++
->>>   1 file changed, 369 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
->>> index 27cf32d7ae35..a50bae4307c1 100644
->>> --- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
->>> +++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
->>> @@ -16,6 +16,22 @@
->>>   / {
->>>   	compatible = "mediatek,mt8167";
->>>   
->>> +	aliases {
->>> +		aal0 = &aal;
->>> +		ccorr0 = &ccorr;
->>> +		color0 = &color;
->>> +		dither0 = &dither;
->>> +		dpi0 = &dpi0;
->>> +		dpi1 = &dpi1;
->>> +		dsi0 = &dsi;
->>> +		gamma0 = &gamma;
->>> +		ovl0 = &ovl0;
->>> +		pwm0 = &disp_pwm;
->>> +		rdma0 = &rdma0;
->>> +		rdma1 = &rdma1;
->>> +		wdma0 = &wdma;
->>
->> Folks, what is happening here? Why Mediatek is adding bunch of
->> undocumented aliases? This should have never been accepted to Mediatek SoC.
->>
-> 
-> It's always been like this on MediaTek from day 1, what's up with that!?
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] arm64: dts: qcom: Signed-off-by and Author use handle instead
+  of real name
+- [Low] arm64: dts: qcom: sm8250-lge-timelm: i2c13 and tlmm nodes out of
+  order
+--
 
-I wrote what is wrong - they are undocumented. You were never allowed to
-add undocumented ABI, never. Even 10 years ago.
+commit c8220e43d297448ae1467ca0fc69fcaa8385a92a
+Author: rofikkerneldev <rofikcoga@gmail.com>
 
-I don't know what is day 1 in this context, but for a few (5-8 years?)
-we do not allow more custom aliases. Neither new DTS users of these.
+> arm64: dts: qcom: sm8250-lge-timelm: add SW42902 touchscreen
+>
+> Describe the SW42902 on GENI I2C13 with its interrupt, reset,
+> power-enable GPIOs, pinctrl, and native 1080x2460 touch area.
+>
+> Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
 
-Best regards,
-Krzysztof
+[Severity: High]
+Both the commit Author and the Signed-off-by trailer use the account
+handle "rofikkerneldev" instead of a real human name.  Under the
+Developer Certificate of Origin in
+Documentation/process/submitting-patches.rst, patches must be authored
+and signed off using a known real name rather than a pseudonym or
+username.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts b/arch/arm64/=
+boot/dts/qcom/sm8250-lge-timelm.dts
+> index fca48472f5dfe..a094aa81ad225 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
+> @@ -596,3 +596,39 @@ &mdss_dsi0_phy {
+>  	phy-type =3D <PHY_TYPE_DPHY>;
+>  	status =3D "okay";
+>  };
+> +
+> +&i2c13 {
+> +	clock-frequency =3D <400000>;
+> +	status =3D "okay";
+> +
+> +	touchscreen@28 {
+> +		compatible =3D "lg,sw42902";
+> +		reg =3D <0x28>;
+> +
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&touch_reset_default &touch_irq_default>;
+> +		interrupt-parent =3D <&tlmm>;
+> +		interrupts =3D <39 IRQ_TYPE_LEVEL_LOW>;
+> +		reset-gpios =3D <&tlmm 38 GPIO_ACTIVE_LOW>;
+> +		vcl-gpios =3D <&tlmm 67 GPIO_ACTIVE_HIGH>;
+> +		vdd-gpios =3D <&tlmm 68 GPIO_ACTIVE_HIGH>;
+> +		touchscreen-size-x =3D <1080>;
+> +		touchscreen-size-y =3D <2460>;
+> +	};
+> +};
+> +
+> +&tlmm {
+> +	touch_reset_default: touch-reset-default-state {
+> +		pins =3D "gpio38";
+> +		function =3D "gpio";
+> +		drive-strength =3D <6>;
+> +		bias-pull-up;
+> +	};
+> +
+> +	touch_irq_default: touch-irq-default-state {
+> +		pins =3D "gpio39";
+> +		function =3D "gpio";
+> +		drive-strength =3D <2>;
+> +		bias-pull-up;
+> +	};
+> +};
+
+[Severity: Low]
+This isn't a bug, but &i2c13 and &tlmm are appended at the bottom of the
+file after &mdss_dsi0_phy rather than in alphabetical order (&i2c13
+after &gpu and &tlmm before &uart12) as expected by
+Documentation/devicetree/bindings/dts-coding-style.rst and the rest of
+this board file.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117123946.6685=
+57-1-rofikcoga@gmail.com?part=3D9
