@@ -1,64 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936925;
-	b=tWWtIy+Jvpny+ScdQjcSW4ZwtplQhsZOAi0+AN9dYTGa0OYnJz9WxB6JX73cqv9Vskqt
-	 1cBHAMXo81Ouu4bX93LC+sNaRZoQK2n8ZjqPAT3Z5LGIsaO41fEE5O2YQ+zaUAxkHDalZ
-	 IozClgPoURCtT5/bWe1JkZ9lNYCbt9punHWnn5NyDD5UD+nN2eodzGb3vDywndmGik+N3
-	 7Uj0Xig74R6/zJQQ2hMQGoFmO1ZfPirk3T2Pg42U28if3MeK+wK1v5GGy7Q6OVTRYP9Ep
-	 mfvJCwD6d8y+RIjceCqIgteHsWRzfLeUfiN8fucMOXWLkEaAK4/6mFyOUEw5mvzRNGg==
+	t=1794936954;
+	b=HO2ZjFErixeL7TnQQVWCX8Mz/qg6/b5BSiRuZ0XqBHR54krs1/TzwoOltcPvD+mWhTqv
+	 6EgjCqIwThA3BRIZCkftBizym96XitzqcMMShepdIXGRVZlAr4G3w/nTbS9kHMjF1LJKT
+	 CChN5ZYc1PaRyITJxztFPMB0tIxD/q+V+0oeon1iyVuHpAYxA7evQnejILzhVhyTU5dt0
+	 7Gj4+kDUVqyugYpgRMl6FND5usdwBmX6zaTbmqbpKMNUjkbkVrVwiscr44XiMTm/tWgi5
+	 ImSgkhkdt01UX9PhylHpfcqYaao+zITnoWwX8uEIWBFKB0qjoKfgYqoCpNjrxCKnzQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936925;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=yZ3I9vRuX9ylJnvAv8Fd/DK7PqgzivRoTz54b66hM4s=;
-	b=aWPUgx0Tjl7d917UhLN7uzDS1ewVdy88d9eUzPz5uEFyx+3KJCaD1KitPZUt7HRnQ9Z1
-	 f6NZetGGsLYQT86l6fV845oqMEifGZqdkfgh46kdYypkXSmnNBYmJHl2ZvyZLQIw41jLw
-	 tW6qJYZkYVUzJ91nRU9wPP6MjiJScCGj0j6OMKRvJygcMHhcbd5iDyK43BkfnHJXWVyE/
-	 3ZFDEqgSyOdC9QyM2r8s3JXsgv55/hKyzn8zAYfugDFOYHqE0fOTDOJg51oSKnaeb5eEU
-	 bO8UdlWI7kbPXXAJmsu/QRcF2C8qj3jDO5/sm7usDQS/tMgV5487S/hLFh8pedWUs1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936954;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ehDPQMS1CgUNGIZmcAtlpOqErWJKhsWUSWC8X9QQDz4=;
+	b=tmdDVvCSLzPmmwiW0UAzdrHzHa2bXMXfWGCtBIGlkeI6HFbwDOpU7Gd8ASq26OSmb4ZX
+	 ND/alrUTPAFdUgvJBgGTX5bUpwioOmyG2jL7Sd+89uwcoMTyBAKe6sDA7dpV13cOiqCeo
+	 45k+JS82YTT3IHvILJBkWIQ8zR1MB+oZQwjW2P89BC9IdLYGGdq0qNYZ6cYMA7sL4pLTC
+	 KkC8dGwP5QwbfKLqrajacia1SeUgBs6Ej/rNsCunJ869vHSbDUgSGcjcQwzH5IrsJlYmG
+	 /FZlzb9Aer8VbGxglccP3fxPCyuLz3m1UtEoCrmhKgwtwh7Ak/5f+k3XPgycQ3qOcJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldprS0uN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gpwZ0hRI;
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14126606A8AB;
-	Tue, 17 Nov 2026 17:35:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB321606A32C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 17:35:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB321606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldprS0uN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 437971F00923;
-	Tue, 17 Nov 2026 17:35:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794936924;
-	bh=yZ3I9vRuX9ylJnvAv8Fd/DK7PqgzivRoTz54b66hM4s=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ldprS0uNwFt+H1U3be8E2gOLAGnw8BZl5s5GVpiNWByV+Ly/0OSD22JIeeAxEMp/g
-	 vajUIU0EUhPQ6Grik6d7HoZo4QrEZCG/qbdNGA2DeRmLimaYUz3G22jERtSf0rlEsJ
-	 XdkI0kkGlwRriDnm0fVfu4H+JZKAVemm7juPMN6KScB8unOvuReiocyYvXxlLxcjrI
-	 jGnyjhxSnD1caR+wZ8oWP9VduidgsFBMr6HkihNTcuMyt0h8DBOB+F4f0IMukeKkOM
-	 aNCUusgK+8Is7lqQdWI9scgMjEIbl0y4zrdB5uLRljVPhKN+GZHQu7GSdlgYDZS3NS
-	 pDxvT9nAn7D5Q==
-Subject: Re: [PATCH 9/9] arm64: dts: rockchip: Enable the RK3588 PHP SMMU
-From: netdev-bot+sashiko@kernel.org
-To: aiyengar1990@gmail.com
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, david.wu@rock-chips.com,
- dlemoal@kernel.org, cassel@kernel.org, fancer.lancer@gmail.com,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org, praan@google.com,
- will@kernel.org, robin.murphy@arm.com, iommu@lists.linux.dev,
- shawn.lin@rock-chips.com, sebastian.reichel@collabora.com
-Date: Tue, 17 Nov 2026 17:35:22 +0000
-Message-ID: <179493692280.3136.14096741635369747694@kernel.org>
-In-Reply-To: <20261113-mmu600-php-v1-9-231196049a3b@gmail.com>
-References: <20261113-mmu600-php-v1-9-231196049a3b@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gpwZ0hRI
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c50e9408873so294610966b.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 09:35:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794936952; x=1795541752; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ehDPQMS1CgUNGIZmcAtlpOqErWJKhsWUSWC8X9QQDz4=;
+        b=gpwZ0hRIJ0pid42fGOtKDjmjtS+n1dGRHvIVeP0VJdOUEpwL+S3/+EMKHqIKY+8nVJ
+         ZCwrjZnS3Do5vVK5klQrHrzBTZzCOAJZrqi04dVLBtdAjtfXksm2Icwsax73K9CaaP+D
+         hgcdQwC/a37TF3bjUlYprcF1uLFRETn66xIXLjy+KiloUcJ0oFKBJudbT3nZjWkAL/CP
+         nCt5p97NnObGwHllTgYBPz6W5H9AdOLDcAclWmvZ1VvyGJ2oz+wai3iKln/NO0QBZ7Zq
+         EnT/k+XLPnRZkmlRRqU412/gDWlOzI31rmuU9H19XRhPH9aSIKh1xuKZalopbRABi7dN
+         jnag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794936952; x=1795541752;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ehDPQMS1CgUNGIZmcAtlpOqErWJKhsWUSWC8X9QQDz4=;
+        b=Qy2xjTWu5JezNJstS5WZuRfZyn/U/x5B9ArxEWHW4KnhGeeO7do75fEzQZ7weTdFRS
+         vZeeY+urLltrGjCEBPV7SkYljakl+vU30sRZirteJ2BA3ZGeHBmu7AmAS7EzyX5vwszC
+         pAyhb0qN3ZS7mNwBXf/97Y2gYeUV+2Cc816lnNxgGxC+L7a/gFyHtB5kJ4axMP0Hb1Cu
+         ANQUbvNwBXxYdtOK0mf8CkRUQs/Y6SxD5WL/DVeMTqg7Pp710RcTnaC4bXdTgmAcqigk
+         LXPNvPOAt/2jpSBTHl7U7izqcpeUZsWh+FVg7JfjdYLmy0zvSAsSwd+5aW4jA1y6r338
+         TUPQ==
+X-Forwarded-Encrypted: i=1; AL+hErG5a/KMUU6zYxNa1hrZ8nJmJVhDdwXd+wrMS4cmY7wqi8ndXcljHoEAyNhqxRLImCwyjE2bFCrUvBGW@vger.kernel.org
+X-Gm-Message-State: APuU4Z/zpEUGkAXAu8hOr4nwuYj7otCVksYL5oV2Gto43szpoy04/QSa
+	dcDK00kXMqAWDeu41EtWG8lp/j5jqglyw8jEUYJbKom/EQYgDnPYPTM=
+X-Gm-Gg: AYBFou1o6wWtS643fAAgnbhZNtUk5GDKCM4sQR1y9ZytPS8fhaUIFdlwDCRXjbRM9Kd
+	WcDaraA/geKNndvMRyyTCjQ37409k+rSxn5I1JewxGqhll1OD9Ui2EjDlrlf3LQmKW+vrdhznLK
+	uyu59Byc8bdIEx+S3A9xtihiYJQZBW/b6uDAiCER16zLiGs1C2sSpSAz0I/4w/TI3wmGXVRU8kg
+	z9BFjcVrt5GmxWwLIF6U1sGfsZyyi3OkNrV8WWbB4absRK5a1gqGW/fS9JlrjAD6r1VwpuWHa8e
+	JM8RO6Nqnbs/8z3r+JNYXMDih5io6e4HjcAejCpTPLguFeGETxLwD2W3fSsRS71sDLe8IYYS3n4
+	LOiaUlJWB3Sx3IUxFA24xWzWBTCMjMneKW5Ttu8NkCq3dx2kpfGosLkQUO7MytaLfq0uWZuYbyK
+	br6BNQj+U2hsscOchhEgBsVjzzfPmfylmckGueWLgbNYEtzwCBfXDwfIo2RZa66TG46SWVx7CDg
+	Ujr8V6TYF4Vi0gISmAlUwJ0n81rmArczCoQGi8FKx7Cew+Y5P9WEs6M7niLmX0fNAKwB4W2miLt
+	ELM/Mk28fl2OP7hHiPBeT5kErsfHCg1CEDEQrYhT0p9/ThCNzOn5HMZgbbwCVStiQwhU3/bOAEc
+	4Y5wP5i4opj14YFjQsVrJH8jc7A==
+X-Received: by 2002:a17:906:794c:b0:c41:7e99:c6c2 with SMTP id a640c23a62f3a-c5096409d32mr1211919466b.44.1794936951974;
+        Tue, 17 Nov 2026 09:35:51 -0800 (PST)
+Received: from sohrab-omarchy.fritz.box (2a02-a44e-4ae7-1-c0e-6d5a-8ae2-915.fixed6.kpn.net. [2a02:a44e:4ae7:1:c0e:6d5a:8ae2:915])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c510ca049c7sm6863166b.20.2026.11.17.09.35.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 09:35:51 -0800 (PST)
+From: Majid Hajiheidari <majidhhdri@gmail.com>
+To: barnabas.czeman@mainlining.org
+Cc: andersson@kernel.org,
+	konradybcio@kernel.org,
+	rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	abelvesa@kernel.org,
+	mani@kernel.org,
+	admin@mswin.me,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: sm6125: Add cpufreq-hw node
+Date: Tue, 17 Nov 2026 18:35:44 +0100
+Message-ID: <20261117173547.1656090-1-majidhhdri@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <a3cbbfa897e960db0d671098be710032@mainlining.org>
+References: <a3cbbfa897e960db0d671098be710032@mainlining.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,153 +111,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Hi Barnabás,
 
-Critical: 1 · High: 1 · Medium: 0 · Low: 1
+thanks for the review, and for your answer on the cover letter. Both
+mails reached me but neither shows up on lore, so I am answering both
+here and quoting the relevant parts.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On 2026-11-16 14:41, Barnabás Czémán wrote:
+>> +			reg = <0x0 0x0f521000 0x0 0x1000>,
+>> +			      <0x0 0x0f523000 0x0 0x1000>;
+> If you check the available sources SM6125 is different from SM6115 the
+> size is 0x1400 instead of 0x1000.
 
-- [Critical] This patch enables mmu600_php on every RK3588 board, but the
-  kernel cannot restore the SMMU after deep suspend.
-- [High] This patch's commit message says "the SMMU has its clock", and
-  the earlier series commit "arm64: dts: rockchip: Add the clock and…
-- [Low] The mmu600_php node that this patch enables has `clocks = <&cru
-  ACLK_MMU_PHP>;` and `resets = <&cru SRST_A_MMU_PHP>;`…
+You are right. The downstream trinket device tree has 0x1400 for both
+regions; I took 0x1000 over from sm6115.dtsi. I will fix that in v2.
 
---
+>> +			clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>, <&gcc GPLL0_OUT_EARLY>;
+> There is no proof GPLL0_OUT_EARLY is related to cpufreq, the driver
+> using the clocks for getting the initial rate from them, it is working
+> because this clock have similar rate but i am not sure it is logically
+> correct to bind a clock without proof it is related. That is why i
+> have made changes in the driver to make the clocks optional.
 
-arm64: dts: rockchip: Enable the RK3588 PHP SMMU
+Agreed that downstream does not tell us where the 300 MHz row comes
+from; it has OSM_INIT_RATE and XO_RATE as constants. But that is the
+same file and the same constants for every SoC it serves, and the
+mainline binding still requires both clocks ("XO Clock", "GPLL0 Clock")
+for all of them, SM6115 included. I followed that:
 
-This commit removes status = "disabled" from the mmu600_php node in
-rk3588-base.dtsi. That enables the arm-smmu-v3 instance in front of the
-PHP masters (GMAC, SATA, USB3 host2) on all RK3588 boards. The commit
-message notes that PD_PHP loses power in deep suspend and that arm-smmu-v3
-system sleep support is needed.
+- SM6115 uses <&gcc GPLL0>, which in gcc-sm6115 is the alpha PLL
+  itself. gcc-sm6125 has no index with that name; the PLL is
+  GPLL0_OUT_EARLY, with OUT_MAIN and OUT_AUX2 as its /2 outputs. On my
+  phone it runs at 600 MHz, so the driver's /2 gives the 300 MHz row.
 
-Link: https://lore.kernel.org/r/20260929034510.2023173-1-praan@google.com
+- The mainline driver uses "xo" for every PLL row (xo_rate * lval), not
+  only for the initial rate, so I think at least that one should stay a
+  real clock rather than a constant in the driver.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> index cb0a39f637887..0c3d59a391826 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> @@ -574,7 +574,6 @@ mmu600_php: iommu@fcb00000 {
->  		clocks = <&cru ACLK_MMU_PHP>;
->  		resets = <&cru SRST_A_MMU_PHP>;
+So with the binding as it is today the DT in this series is what the
+schema asks for, and a node without clocks would need a binding change
+first. Whether the clocks should become optional for these SoCs is
+something I would leave to Viresh, Konrad and Krzysztof.
 
-[Severity: High]
+From your mail on the cover letter (2026-11-15):
+> Also i have added a new SoC data because SM6125 and SM6115 have less
+> LUT entries (12) [2] and there are no throttling IRQs there.
 
-The commit message says "the SMMU has its clock". Does anything actually
-enable ACLK_MMU_PHP for the SMMU?
+That part I agree with, the trinket fixup in downstream is clear. On
+laurel the generic data happens to stop at the repeated row before it
+gets that far, but nothing guarantees that. Would you send your soc
+data with lut_max_entries = 12 as a driver patch? It does not depend on
+the clock question. Your branch as a whole already ran fine on laurel
+(see my mail of 15 November), and once the patch is on the list I will
+boot it on top of this series and reply with a Tested-by. If the
+maintainers prefer that to go in first, or prefer your DT, I am fine
+with either and will rebase or drop my cpufreq patch accordingly.
 
-The arm-smmu-v3 driver has no clk_get()/clk_prepare_enable(), reset_control
-or pm_runtime handling. The node has no power-domains, so genpd pm_clk
-does not apply. The platform core does not enable DT clocks by itself
-either.
-
-In drivers/clk/rockchip/clk-rk3588.c the clock is a plain gate with no
-flags:
-
-	GATE(ACLK_MMU_PHP, "aclk_mmu_php", "aclk_php_root", 0,
-			RK3588_CLKGATE_CON(34), 8, GFLAGS),
-
-Its only enable references come from its children ACLK_GMAC0/1,
-ACLK_SATA0/1/2 and ACLK_USB3OTG2. Two things can turn it off:
-
-- clk_disable_unused at late_initcall_sync, when no master is bound
-  (modular drivers, or a board that enables only some PHP masters).
-- The last master disabling its ACLK on runtime suspend or remove.
-
-The SMMU driver still touches the hardware after that. It issues CMDQ
-TLBI/CFGI plus CMD_SYNC on unmap and on flush-queue timeouts, it runs the
-eventq/gerror handlers, and at reboot it runs:
-
-arm_smmu_device_shutdown()
-    arm_smmu_disable_action()
-
-That usually happens after the consumer masters have already shut down.
-
-Could this cause CMD_SYNC timeouts or a stalled bus access? The "Add the
-PHP GRF clock on RK3588" commit in this series describes a similar hang
-for pclk_php_root.
-
-The earlier commit "arm64: dts: rockchip: Add the clock and reset of the
-RK3588 PHP SMMU" says the clock was added "so the SMMU keeps its clock
-while its masters are idle". Does that need clock handling in the driver
-(plus a binding update), or the gate marked as critical or
-ignore-unused, rather than only the DT property?
-
-[Severity: Low]
-
-Will this node pass dtbs_check now that it is enabled? The binding in
-Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml does not define
-clocks, resets or power-domains, and it has:
-
-additionalProperties: false
-
-No patch in the series updates this binding, although the dwmac, ahci and
-grf bindings are updated.
-
-Also, the "Add the clock and reset..." commit says the reset is added "as
-for the PCIe SMMU". The sibling mmu600_pcie node, which uses the same
-compatible, has neither clocks nor resets.
-
->  		#iommu-cells = <1>;
-> -		status = "disabled";
-
-[Severity: Critical]
-
-The commit message says:
-
-  PD_PHP is powered off in deep suspend and the SMMU resumes from reset
-  in bypass, so this needs arm-smmu-v3 system sleep support [1].
-
-Is that support in the tree this patch applies to? No earlier patch in
-the series seems to add it.
-
-In drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c, arm_smmu_driver has no
-.pm:
-
-static struct platform_driver arm_smmu_driver = {
-	.driver	= { ... },
-	.probe	= arm_smmu_device_probe,
-	.remove = arm_smmu_device_remove,
-	.shutdown = arm_smmu_device_shutdown,
-};
-
-The only code that programs the stream table, the queues and SMMUEN is
-arm_smmu_device_reset(), and only arm_smmu_device_probe() calls it. The
-syscore op added to drivers/soc/rockchip/grf.c earlier in the series
-restores only the PHP GRF StreamID registers.
-
-With this node enabled, the PHP masters get IOMMU DMA domains and their
-drivers program IOVAs. Those masters are usb_host2_xhci, gmac1, sata0 and
-sata2, plus gmac0 and sata1 from rk3588-extra.dtsi.
-
-After a deep suspend cycle, does the SMMU stay in its reset bypass state
-while stmmac, ahci and xhci keep using descriptor rings and buffers at
-their old IOVAs?
-
-If so, the IOVAs would be treated as physical addresses. On gmac RX the
-frame contents come from the network and would be written to whatever RAM
-or MMIO sits at that address. TX and SATA/USB reads could leak arbitrary
-memory.
-
-PD_PHP is also defined only in drivers/pmdomain/rockchip/pm-domains.c and
-the dt-bindings header. No DTS references it, and mmu600_php has no
-power-domains property, so genpd cannot order an SMMU save and restore
-either.
-
-Before this patch the node was disabled and these masters used direct
-DMA, so suspend did not hit this problem. Should enabling this node wait
-until the arm-smmu-v3 sleep support in [1] is merged?
-
->  	};
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-mmu600-php-v1-0-231196049a3b%40gmail.com
+Thanks,
+Majid
