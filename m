@@ -1,45 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794956785;
-	b=CbT3Ee8UPQJa1LjRyJK3Wd0oIsb/iKZAFwKbfHgYJNXEcYVVUcqreyRxBKvaJSRRvDJD
-	 Z7e+dcnUqZm/YNXcBfbPYLUeYiFGzGiHNlwQStsVeqTPBAvfYF8qEYS/Wslxbm9UUhhJk
-	 Rh8a7UIydOZdeA3Snmi+j2tvPnU9XjUaCdnnJ5vSQhBPu+dYVSCF7dXh7SlkGhcQI/bjk
-	 4IFiQ+QoFc/ckjECx87n9o2ltBehCmvVWk7foGU/sedv2XGpHf5YeKeiLUGOEHcCop0qa
-	 l6ofG4onIX3vx2hBsrUIPa8diaFKsfbBiYHy8FSqh2C8nfTejHYdbm+9jtoenNGfGZw==
+	t=1794957433;
+	b=iu637ChnQtRO88LeMTsa7zZ66fqzr63odvst0fHNLg0+2vAFue5hCByVfKX/e/MDQemP
+	 ik8Z8EO79qqumhHjJO1a7/OB6s281bS+7RDZ5R23IMsLbMofggtXSYZN0WCDLWcvKyBC2
+	 NZuGr0zZLrjA8Xh1AQoLJ0qQ/aBvyxtK24TdQEp0eAdMPCOHy6UYYte0+g7MIDK91bVZB
+	 NV8Trpz1yemi8JlCTE5pGfwscbXmdlXKyAgNt1lBgU/9uvn5OQEgyonFZuZHqG4flIn5K
+	 v2W0s7911UHGrFQ9dJtHjWRljecQU181X7MYGh8XwUXAqKpOsrf3xAeIq6WMDmxhMjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794956785;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=CVXN+qwLQ/4ILSHfByjoRfxLA0JPwlmXH8qZtCGxHvY=;
-	b=iGvrO7XrEEKiLGClWoqEHb1TWjh4Er2HEBhl9uBrLbHnak7pVNvWhLKK4038D3hBZYqA
-	 uto/gU7SJOZG9KGYBMzQi/Ha8X3BHXu+1vgEFattPFZzE21KxS5UFTco6/vddz3biaECk
-	 iNRFZzMrizoHujzxvppmJ9xVKxasjgVA4HEjK+3QP8e+iRtxQEjaFzXiIlfMQdkq530xj
-	 oCw3epo+xOR896pFyEiP77kKFms7eNt2A5MJlwk4foXq7YQWjxHBTrT5G2RQHKYM5FpXx
-	 TPBMv0bqL67lLoCJNz2CzH0Ghu7/UEf6bpmuwHys5PabyW1bWmyrDjetN7k4Qy9/1ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794957433;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Lrd7pfsA/gpXWlBfBjdzCjvJ1tm4d5drbCLNvWvxMes=;
+	b=csP+Ql8ghZ/iopdFHfji1Jbwu1HY6hiiVig+fy7OlYcTJ8y6OfqZSHICM81zgbf0lQ5X
+	 ePvgc/djXjkE3sF+L19JYm82BxaKvuvwE9utrCIjRqzI0QQMAZ0SbrojxclE6kGv6sHC0
+	 ADMyRdSCIfCHrGlyuEad4cEfVWnD1+tIu6fyrgQJ2J+MXURbaAnQMAqDHRhuoLTDOrTHs
+	 iqW8M4KojiMn5H7zSWacXApRD8Ao7koF02j5iVK8S7uTrK32ulEO2aS9PZTfoqVAkEdCc
+	 DwxLEplwk+1NuvgP9vac+5oMatsbywmLQ8k3RPxhJxcBWrzTfcB6Mv6kNvwQx3ZE0jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FU4EajTC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVPuSeeV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C0F606A31C;
-	Tue, 17 Nov 2026 23:06:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39670606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 23:17:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FU4EajTC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DFD21F000C4;
-	Tue, 17 Nov 2026 23:06:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVPuSeeV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A5C1F000C4;
+	Tue, 17 Nov 2026 23:17:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794956785;
-	bh=CVXN+qwLQ/4ILSHfByjoRfxLA0JPwlmXH8qZtCGxHvY=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=FU4EajTClbk+UNGRJaIu1Fbqw/8Hlb9cInBWDZULvl+q5Rs0S9qyU46IjlKdFjfjg
-	 tmtvhxfT5lSi689rW8I0/EySPCSr7OENtQOzvVhomrJ+Rj2nYyMnbXuyxt3a+NF/ZP
-	 YXH9WEoWQ8nKDwK4zNW2pV/3psrPMMnZwY6k1NF3wHOw7za+yw2RWxU9P03w+jyj8H
-	 kL6Luv5t69SO4ekKAK+JghYzzU0QRppFvexoAHYu9riMCUnxQPd3cAXg30rNdR7jgj
-	 9wEzxbMscwibkuPJUILSh5tzWdbKRl9gURWzUr4IG/SpUVmQ4KJJyNjRHft/wE5aHM
-	 uSfEsrTJulRPQ==
+	s=k20260515; t=1794957432;
+	bh=Lrd7pfsA/gpXWlBfBjdzCjvJ1tm4d5drbCLNvWvxMes=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZVPuSeeV6/vOpG+ZW6fLzLbLJaUfF9VRv9j9Tjw2RmnUfhFqcdsfeHIvEvyJxmz3Z
+	 RZQBmhy36TCVgcW7C3c8QlI0bk73ZdVVXLyOBC7LyHaSB6iI8wS0VxirgENg2XQNo1
+	 phadhNaOqOTHqwXlV97dWD1f2qzzLciSf6vv2x+AZm/DFAylw6fPv0YSrs6Mxs4Vig
+	 QC9v9TxIVEeYYvuR1ksHZ2foDQ3VEAuNheEKFLgM6gXIlQ+jNiYuHydZ7isd73pFUx
+	 1gURT7sGwo106zjvtrglSEa87EYdWPXYIm6nHlSH+i3Au5tueNTXg7aQD81z526s9p
+	 csUz7RsBR0gfA==
+Message-ID: <sashiko-outbox-219788@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/5] drm/msm/a6xx: Add Adreno 753 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Akhil P Oommen" <akhilpo@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261118-nord-gpu1-v2-1-8d6d9908b7c5@oss.qualcomm.com>
+References: <20261118-nord-gpu1-v2-0-8d6d9908b7c5@oss.qualcomm.com>
+ <20261118-nord-gpu1-v2-1-8d6d9908b7c5@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 23:17:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,85 +59,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 2/2] ASoC: airoha: Add support for AN7581 PCM driver
-From: Mark Brown <broonie@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261117193851.235272-3-ansuelsmth@gmail.com>
-References: <20261117193851.235272-1-ansuelsmth@gmail.com>
- <20261117193851.235272-3-ansuelsmth@gmail.com>
-Date: Tue, 17 Nov 2026 23:06:20 +0000
-Message-Id: <179495678063.2707353.15768423590934276319.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1724; i=broonie@kernel.org;
- h=from:subject:message-id; bh=qrOI7FlHanErllct5TLZyyoHEFtyXcHacENy1NTm72M=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL+3H3btndd62z+xVemHfos+rP5RvH8fwJHfzS7S3YwL
- Ync3mAt0FHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJnDZj+B/K5jS/z+zxHc7F
- XV3TH3e+bvrLyf9XNJ4vPO3OdQa2OasZ/jucYbteI6ny5VFTQeUjRoU9s6tmBN7i7LwdImLqZX6
- riwUA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> The Airoha AN7581 SoC provides a PCM interface for VoIP applications,
-> supporting playback and capture at sample rates of 8 kHz and 16 kHz.
-> The driver configures the PCM bit clock to 2.048 KHz and supports
-> 8-bit and 16-bit samples, with up to 32 channels.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/msm/a6xx: missing UBWC L2/L3 swizzle disable in
+  a6xx_set_ubwc_config()
+--
 
-> +++ b/MAINTAINERS
-> @@ -796,6 +796,13 @@ F:	Documentation/devicetree/bindings/sound/airoha,an7581-afe.yaml
->  F:	Documentation/devicetree/bindings/sound/airoha,an7581-wm8960.yaml
->  F:	sound/soc/mediatek/an7581/*
->  
-> +AIROHA PCM CONTROLLER DRIVER
-> +M:	Christian Marangi <ansuelsmth@gmail.com>
-> +L:	linux-sound@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/sound/airoha,an7581-pcm.yaml
-> +F:	sound/soc/airoha/*
-> +
+commit 0728c6891f9936a41b152874415dd989fc9326a8
+Author: Shivam Rawat <shivrawa@qti.qualcomm.com>
 
-> --- /dev/null
-> +++ b/sound/soc/airoha/an7581-pcm.c
-> @@ -0,0 +1,931 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Airoha ALSA SoC PCM platform driver for AN7581
-> + *
-> + * Copyright (C) 2026 Christian Marangi <ansuelsmth@gmail.com>
-> + */
+drm/msm/a6xx: Add Adreno 753 support
 
-Please keep the entire comment block C++.
+This commit adds an A7xx catalog entry, an adreno_is_a753() helper, and
+hardware initialization adjustments for the Adreno 753 GPU in the Qualcomm
+Nord SoC.
 
-> +static irqreturn_t an7581_pcm_irq_handler(int irq, void *data)
-> +{
-> +	struct snd_pcm_substream *substream;
-> +	struct an7581_pcm_priv *priv = data;
-> +	unsigned long flags;
-> +	u32 status, isr = 0;
-> +	int ret;
+> diff --git a/drivers/gpu/drm/msm/adreno/a7xx_catalog.c b/drivers/gpu/drm/=
+msm/adreno/a7xx_catalog.c
+> index 6f704898cea6e..9465ffa3dd12e 100644
+> --- a/drivers/gpu/drm/msm/adreno/a7xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a7xx_catalog.c
+> @@ -451,6 +451,41 @@ static const struct adreno_info a7xx_gpus[] =3D {
+>  			},
+>  		},
+>  		.preempt_record_size =3D 3572 * SZ_1K,
+> +	}, {
+> +		.chip_ids =3D ADRENO_CHIP_IDS(0x43051701), /* "C523v2" */
+> +		.family =3D ADRENO_7XX_GEN3,
+> +		.fw =3D {
+> +			[ADRENO_FW_SQE] =3D "gen71300_sqe.fw",
+> +			[ADRENO_FW_GMU] =3D "gen71300_gmu.bin",
+> +		},
+> +		.gmem =3D 3 * SZ_1M,
+> +		.inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> +		.quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT |
+> +			  ADRENO_QUIRK_HAS_HW_APRIV |
+> +			  ADRENO_QUIRK_PREEMPTION |
+> +			  ADRENO_QUIRK_IFPC,
+> +		.funcs =3D &a7xx_gpu_funcs,
 
-This should be irqreturn_t and needs to be initialized in case we didn't
-see anything we recognise.
+[Severity: High]
+Does a6xx_set_ubwc_config() need to disable level 3 UBWC bank swizzling
+and program the swizzle disable bits into REG_A7XX_GRAS_NC_MODE_CNTL for
+Adreno 753 on Nord?
 
-> +static struct platform_driver an7581_pcm_driver = {
-> +	.driver = {
-> +		   .name = "an7581-pcm",
-> +		   .of_match_table = an7581_pcm_dt_match,
-> +	},
-> +	.probe = an7581_pcm_probe,
-> +	.remove = an7581_pcm_remove,
-> +};
-> +module_platform_driver(an7581_pcm_driver);
+In drivers/soc/qcom/ubwc_config.c, "qcom,nord" maps to glymur_data, which
+sets both UBWC_FLAG_DISABLE_SWIZZLE_LVL2 and
+UBWC_FLAG_DISABLE_SWIZZLE_LVL3.  That configuration is exposed to
+userspace via MSM_PARAM_UBWC_SWIZZLE and programmed into MDSS and Iris,
+and a8xx_set_ubwc_config() writes both level2_swizzling_dis and
+level3_swizzling_dis for other glymur_data platforms.
 
-You should set snd_soc_pm_ops too.
+Adreno 753 uses a7xx_gpu_funcs -> hw_init() -> a6xx_set_ubwc_config(),
+which only checks UBWC_SWIZZLE_ENABLE_LVL2 and omits level 3 swizzle
+disable from REG_A6XX_RB_NC_MODE_CNTL, REG_A6XX_TPL1_NC_MODE_CNTL and
+REG_A6XX_SP_NC_MODE_CNTL, and writes neither level2_swizzling_dis nor
+level3_swizzling_dis to REG_A7XX_GRAS_NC_MODE_CNTL:
 
--- 
-Mark Brown <broonie@kernel.org>
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c:a6xx_set_ubwc_config() {
+	...
+	u32 level2_swizzling_dis =3D !(qcom_ubwc_swizzle(cfg) & UBWC_SWIZZLE_ENABL=
+E_LVL2);
+	...
+	if (adreno_is_a7xx(adreno_gpu)) {
+		for (u32 pipe_id =3D PIPE_BR; pipe_id <=3D PIPE_BV; pipe_id++) {
+			gpu_write(gpu, REG_A7XX_CP_APERTURE_CNTL_HOST,
+				  A7XX_CP_APERTURE_CNTL_HOST_PIPE(pipe_id));
+			gpu_write(gpu, REG_A7XX_GRAS_NC_MODE_CNTL,
+				  FIELD_PREP(GENMASK(8, 5), hbb_lo));
+		}
+	...
+}
+
+Leaving level 3 swizzling enabled in RB/TPL1/SP and both level 2 and
+level 3 swizzling enabled in GRAS mismatches the rest of the SoC and
+userspace, corrupting UBWC surfaces during rendering and buffer sharing.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-nord-gpu1-=
+v2-0-8d6d9908b7c5@oss.qualcomm.com?part=3D1
