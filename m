@@ -1,113 +1,112 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794943133;
-	b=KMBLbgnvPyfTJqeZjgPrv8ST/x1AL9gmKRYyBt8ZojfxNqMLvrQ47XgEY+2vHxgGzv4T
-	 opslIGqdzDRyMcpKH3YUyhBT85No8sEr9UoaPhvYvzzcZNE1M5ZyUhR3pRJIoaPC1kWEX
-	 M+sVrWflRSqu5yigJuftM7fQjEZ8QfMKz3JesX4vqhdzs9ziKmUAx3fx6gq97M79timKo
-	 STTYRJSid768UzlKinCVI+krTengxryoAfzK7l4M23RAdqRF1dUnJehdW4hgZigi5xKPR
-	 B+3MOR4Qs111VdO+KkOiBLKMsLU8TAdyVMXK1TmN/GEnFB3zWeeYsfMBeKmKCoP1qZQ==
+	t=1794943142;
+	b=2W17VSsrcnum0jzQiIX4d0BMSHhapbtQq/x/MSmm0NWpikyeB52eV29vL95ICGnAdvqN
+	 LzKQs4KX/PCcSNFX2be3ak9Ltfuehr6YSSNeSOmXI/cA8UIa8cx6FBhuk4n2g5VK/idpZ
+	 b/ZFDKIgS/qbA1D8XYfD1pfr+mTuohiFHihQ4bglqT/Jr6wq2wb0Me5LBKavi0aPsGgoS
+	 f02KYoj3JFB5DO+y1MlwdsLFSw0vHj6qNf8/A48O7Etz0LDWubc8DxqAoDYKK7r+BK95W
+	 qbX8chlxLbtncYQ5CIddfVB9qzw1KuotLFOmBnSb9BwVaAPncboH8FuU84//sEcRTGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794943133;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794943142;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=6WtNEBbnNONmenOZy/udY419hxtAl9Rorvbbwtls2Jk=;
-	b=1qFy3SoFBoEyuZ15HxkCDYbgCPAcH095AzUNbKjhZ6UDpJXmP8qLy4Qqwx+aDEKblqhp
-	 dgbNApYQZBepPKGmN1WDelXp/32FvHNuYojrvV2OXPJ2oofvdMFyZ6qGxTN1O9tF2MSJu
-	 spzTMvIM7f3JeropqUkGNg9GFtmV3mWLsSagyNmMagPwdbSld6qIf1SEv7iPnBwZH5A/P
-	 R4bgDecorfzUslrbvgSVntBhBlU4Ai01HNyEnldPtzZRu/Gg1JXc7QmO5sCXU1unMrEMc
-	 PplSp6xXekhc8TTpacrWpZKRSrcpKoGU+MC2eAx0qYu8VZgTmyNp86ohZ0vW6R3v2pA==
+	bh=KPHTWd9iAHWemteejR12WVzHkTcvAkIXFYlVZZE2Gzw=;
+	b=skbGv6jpChHTtyda0mBdg0a8OUo/Qdr5jOzN7BvhelY4K0YqxoH9hJWMdOfEmN8YvqqQ
+	 WOd/S92PSIjDXWgp6bHCeg4WLTIxtl+Y9viJXs9Al9VaqHwVDVdkmT4lhZiI6y5l+BrML
+	 43kJisJhtcJ/akvJTs3D8Rg9ohVYziFisupaQV+x22UXPMNL+74pxSoux64LxSv1nz4Kb
+	 XXKvBvCwG9mF4vPNLsRjvznxQgDgbp3ZP/GSQKPFcOJzC4jE94/aQNdF/bmgNALKYV+lx
+	 B6lkoI52SaWI82GvICbXP7NutJV/vGvLR4o1zO9wbcNwl+r0PwgQ8Pd0KEZX8iaLBEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=d3TXfaxo;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=D91nJgkH;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dLP1ki0B;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RVVNd8MS;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F42606A32A
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:18:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95F42606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73238606A32F
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:19:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73238606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=d3TXfaxo;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=D91nJgkH
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHJ6CBe3702587
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:18:51 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dLP1ki0B;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RVVNd8MS
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHJ6N9v2160953
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:19:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6WtNEBbnNONmenOZy/udY419hxtAl9Rorvbbwtls2Jk=; b=d3TXfaxohU+UGELs
-	rUaS8C24inW+N1r8qXo1ev31vnfAzxglCnk7PBk92XhoF9xGsG8GrWZQ/CDuaIvx
-	0MQbuXSpRZo6I1nAGIkH4A261xpoV3ge9aXIrdNrGu0vmNiWya5q4g8ehu/ufGWJ
-	L83XsUworFJ6xABgRqfvEyzI0mzd2Qs4XK6yGcg5VFkgIBtNrs11K3QmEn12+pmc
-	GuGBqAYMt9BvAtyTgXqEqvbMEe65mbJADf2lAD/veE9OSs6OC4fqx+q/x1oQYega
-	2bsntFTvJZj7wUJgVuJRMxKl/e/3NqG65zmDnD/z6rnXgLe9sRVQHTyVckgROFlX
-	sp75MA==
+	KPHTWd9iAHWemteejR12WVzHkTcvAkIXFYlVZZE2Gzw=; b=dLP1ki0BPPq2LGgo
+	VyVXC7oxByohw61fkS1tqRYqEXgagznui+Ke8alEn9dtJFdOCBJyaa1TTp7H/RTK
+	8TpymRaV/VPOHlJD+UjE1OJ/ey5dnasjveEXQKjY6IhQbr7joAC6O8Cvt4c1N1lE
+	F5R+c6FHRxTmhdiAlUIi2TJ7n9dupGYsp3WYl+SsDnBIc7s7bHQ4RZ9aVDg2MZQp
+	065IgE3FvzsAFg43FEY7FPOOBjqZ9eDppgMCNA2yC2f+EMtPdt73Rm9s7HyZideG
+	WI9lXPloYKVNg4R1XgI6rOPdN69EBE4rh+aCoZ/iD1hLnYS3HYdYUNL03G4lS6Vg
+	9hlREQ==
 Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0tbarsx4-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0kccaqqm-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:18:51 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30c58d35c0aso53334eec.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 11:18:51 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:19:00 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30c58d35c0aso53382eec.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 11:19:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794943130; x=1795547930; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794943139; x=1795547939; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6WtNEBbnNONmenOZy/udY419hxtAl9Rorvbbwtls2Jk=;
-        b=D91nJgkHI0+LeDRXZlDxstbNadzvvMa5leQHfe/83Jbhm6C5LdEbHpOTK962gHX4M3
-         7DEtPh8G6l7OIRAT3FWAN5EnCyzD0kJmRWhMzvGWPiVLOYSTBYTDal4k4IMT2ByhdbGT
-         ZrCcoPkaDw+gUlYXFXxmPAV6+ocryfMVcoffcFA83XH2XgzEP/upIhY8EA8r9lTPxeMd
-         vrMzRdbuQR5W33Vye9x5xlqzX2z0sSnW8dSGPNzP2YbbU7z54h9PrP9C21j9tT4BJTen
-         XyzGGKCGrqrtBWlkKzBT0nv3PzZz/01d3mX1V2ca1i63+dvARWD/Bd8XB5OFG3msYumE
-         nuDA==
+        bh=KPHTWd9iAHWemteejR12WVzHkTcvAkIXFYlVZZE2Gzw=;
+        b=RVVNd8MS4mXHhACVWDZ7fZBMRdEgLQJs95Lh85ta511USb7hR2YdLEqcEpPPdQ9jgD
+         i30OQ8lCx5HgEg8+Ig4YK5xizhSSkLBslifVqF7+e0n4Lz9TEBQZQUU2uwxqDnhug842
+         FdWLYJqBPN5W/wScP6sZvR/T/611FLjV1mvy0zOjWwcovdKYL5kQS+BJZCAoI32M3dNc
+         9posEIaSCndf31H4rdaGlDsXbr7h+0HqR7gMkfR0zBy1rL30MXTKnqCdXy3K3Tv1LNgN
+         HOscyQz6deP7fNAV8Ac/b+via/wF9YAITdEH+mBuCXeAEv1hycUmFvo0bUGJOSftbb8P
+         crfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794943130; x=1795547930;
+        d=1e100.net; s=20260707; t=1794943139; x=1795547939;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6WtNEBbnNONmenOZy/udY419hxtAl9Rorvbbwtls2Jk=;
-        b=LeOlCUTzkINP9dxQTVn2fbC0G8xI27n0KZB6v8e8nQsrAtW0KqNujjf0ndbPPYb1wd
-         J1u8JnKA+OhKzLGCivsKZjNyln6zenuZZ6bv+NnVFkTzHUIIonKL1kUcCNxkIlIOsp/h
-         sAdHvANfGcokaEidb2Y/lYqbHUQR5uKDWTe9V0fkE4IWmBB0F+AK8AdXyQxpdXY+Vr28
-         1sgj13+Sh7G67cNFq21pfGtTozSobGqScYJAxLEllruSjSPTi/ooBlRmYpm/uyJjO/1q
-         F1lkn29z+z6yvpwxBdk+K7uHjyQ25OTm4OAwJcaO976B84FJZDapYD8uGVQWCRdvyrL1
-         ndxw==
-X-Forwarded-Encrypted: i=1; AL+hErFhjY1w8CFZzdIBBYHtpklcLKpd5hv1c8n62RBF3NPiyTfuPdHsAZFTgd0CSo9iMhkc5WogvtYOxWPA@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pome6jpVlUPgfXIyKKaJjBGSN6yHBwRN+fFU9QYDXpKVDAk0Y
-	ITV8Qn0M3GJP2nf0LYcSObKoupPAF/gL/eCo2g6fSGtbHrDmo7R8lFrFwnILdqV8KV0AwD7dBht
-	+6jILujonRXFdX3E2hjfwLZuHpyAP8KUEm7dHU0+9qMHsM6utG667J5LPGE02btei
-X-Gm-Gg: AZFdTZcjQ8e1CqEIMY2BCflygjlCixHgeriTVGyJ8/dLSHucneF8NpxVqSjMP5djmjv
-	ovIPCK/fDV4Bpr9SkwkUjcvj8rKh2qv6kq2yGNe+tqXG4JUw9ZTrjgyZgzn1FVt7o9dIqKxAwRQ
-	hZJyRXUiTGh0i1A0DrB9Xtz7LSO3usPmyo/09wmmzIFwdywd15SrMQzoTpUJB6luHpTk1Z0d+MZ
-	u0aSBkIgVnQH7tUxLDW8++2aFuwcr4+SJ7+JDAQGAuek6JjRZmceXrqy8+peJTSO8TYuOlZRXyV
-	bNSYZYUfpd3IX110u/uFqXk53mfAJMmDcXzWuwRvGQBCm6+HhxQgCfBs3cK5tdr5pJ0Vb9NO/Iz
-	qrAM3VWtGebO8eSUn9VNAUx6Z6w08VyHbtErp6lDZN1yg9FwC6/eHrWqOYR1X1c2xzVGB/dmQ2e
-	AMcU1R
-X-Received: by 2002:a05:7300:ce88:b0:36e:66d8:1424 with SMTP id 5a478bee46e88-3827b0ca41dmr541526eec.0.1794943130179;
-        Tue, 17 Nov 2026 11:18:50 -0800 (PST)
-X-Received: by 2002:a05:7300:ce88:b0:36e:66d8:1424 with SMTP id 5a478bee46e88-3827b0ca41dmr541493eec.0.1794943129531;
-        Tue, 17 Nov 2026 11:18:49 -0800 (PST)
+        bh=KPHTWd9iAHWemteejR12WVzHkTcvAkIXFYlVZZE2Gzw=;
+        b=enKVFGan8FFI7hiSlI1YPapNqZKtJaQ0E7i1n/2H/SvBiMilx/rTFiTyN1W89CZWGK
+         Mp28+ugRjE0nQ245vWl54+DrF1hfYDYoqiRuWiXhE6RWep++A711IiBJftMDUGbh7G47
+         f35E4fxBxwYixfZ4iCajWvoCblESJifBMyUr8+S1aIpCec9eQrTIFQcHlNi4q8fTDFKD
+         6lsR9U1DfkFR1fYzMz9EplrmLM3/uP1+brGCchkzblMCU22UJWgABPj2J9Bkp0pKIUCx
+         kVUyKyQ8fo9b08nQ1XV7RZKgV4BHlU3K1KF6iXtQCDTGsu5jPkdW7kopQtG/+0wj0b2u
+         rnkw==
+X-Forwarded-Encrypted: i=1; AL+hErENwcGLCEkHy1pFf3QQg2hNzgu6/gq2D9LsHqJKjp+Li1eKiPktLWhpx8rk54Kmj+xLas6nDjbDUk6c@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3pev/kdUu9Dz/0cfahtlHNlcQjlWtz6KDhSI1QWJDh2rk8STo
+	TV6ppxfxELnbvHfIlfI32pyknOtfN676HK/TyaRQvCCilhGmo8IHAEWdVZdw00rhPKO0dXGA2+u
+	G0GHDXgDKdwtjEJFdCvJp1Fwa+qsAtbSmwl7JxuFsOWqTByV8mAIoL+z0Pym0FVTP
+X-Gm-Gg: AYBFou2naL8IxJWcDl/QCB6z9Hbwp7p+rqRlbAVfIlNqdYZ5vUh4whJvcT44lzUm0ri
+	TXQMH4xlNqdivplnhqNTB/vSKPSBcNrX7/KDR7SvVd0X3BZypnqoB3oLGVubP1lkNvq5O+ygqtS
+	nHsTAaNp2N9IwUhEADhJfZKbGXqo++I4ux/x7R+1tqNjmJh3Amd+un04g7aCuubKZ7ywYgpwRbj
+	jfEnhPIsECyjmyC/R3p9pzP2RT7K1Kiu/JYeAaPUJvaVJnpjHqE1IOjk+FBpSBvTeYfb76+iJ2T
+	cU5ZszoUZn2eIzuv+zY4/T5o09MpqL/Cnbu7J7n6oos1MNJmcM5BxzXKxJsjfUqTzTu5WDXIncI
+	uEOCgqdz+MDy52KIBtXDSWlxTe/0OsLlo3tKV8Xd7a80NVuPt783A+iN5MunOsVu/IGfkVlSrtL
+	h97I84
+X-Received: by 2002:a05:7022:698b:b0:1b2:5884:a039 with SMTP id a92af1059eb24-1b543a1715bmr1033667c88.0.1794943138683;
+        Tue, 17 Nov 2026 11:18:58 -0800 (PST)
+X-Received: by 2002:a05:7022:698b:b0:1b2:5884:a039 with SMTP id a92af1059eb24-1b543a1715bmr1033587c88.0.1794943137888;
+        Tue, 17 Nov 2026 11:18:57 -0800 (PST)
 Received: from hu-uchheda-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a63059f8sm32197eec.9.2026.11.17.11.18.40
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a63059f8sm32197eec.9.2026.11.17.11.18.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 11:18:48 -0800 (PST)
+        Tue, 17 Nov 2026 11:18:57 -0800 (PST)
 From: Umang Chheda <umang.chheda@oss.qualcomm.com>
-Date: Wed, 18 Nov 2026 00:48:20 +0530
-Subject: [PATCH v4 1/5] dt-bindings: arm: ras: Introduce ARM RAS error
- sources
+Date: Wed, 18 Nov 2026 00:48:21 +0530
+Subject: [PATCH v4 2/5] arm64: ras: Add Device Tree frontend
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261118-aest-devicetree-support-v4-1-936587251e8f@oss.qualcomm.com>
+Message-Id: <20261118-aest-devicetree-support-v4-2-936587251e8f@oss.qualcomm.com>
 References: <20261118-aest-devicetree-support-v4-0-936587251e8f@oss.qualcomm.com>
 In-Reply-To: <20261118-aest-devicetree-support-v4-0-936587251e8f@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -144,317 +143,496 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
         Avaneesh Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794943110; l=9889;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794943110; l=14332;
  i=umang.chheda@oss.qualcomm.com; s=20260328; h=from:subject:message-id;
- bh=79NjS3d8FLkHxoX2p2VWA63uMGScO/3PHtatyFaIXEo=;
- b=uf86oRyACdFsVDW/dEEUvCcvSDDZBrw3rFI3RVRe7znb15liCX7q1jett7B1hlljwmD49D5lB
- qS+iiOqhRfUBYpvWl20SNSWD56T5cT/IQcu8OJno9wmX5ZAPtDCNVew
+ bh=SA+WFB18bCBLL8m5hfHN69rlj4xnrx6aPqTp76I1liI=;
+ b=CZYAriH/5s8birLHoX/eamOwfPL/jDsMiTkIZhSeAKVf4RBaCAS9zS67OlI+25M9jNebL4dJ7
+ 1x2f3UfFBruCnOd8Oq8fPz7vNSXGvXI4lLAC2akzcAvZLpuWrMqZQhZ
 X-Developer-Key: i=umang.chheda@oss.qualcomm.com; a=ed25519;
  pk=3+tjZ+PFFYphz0Vvu4B14pBQSzqcG0jZAQspTaDRQYA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA3NiBTYWx0ZWRfX9z+PY2qAmC6+
- HQnUT99+eaLnVRa7AT28uQio/rEryk8Z9obX90PfTpraS9Gve/sbqajlCmzCEAEWXT2AwXN2iSG
- tw+VxcXkeMCBr0cTNuJoh5KzsnOsKoa3OH78PyAyFptwmA1wJMg7AzeBO0y+pFT0VUHQ+nvENpz
- ePPPu4IbSan7Pz2pbk9wuhRVw8ujuc3NLE5KGJWLuEwWibB/dbgWLruU0c6zWxUZDCg7Ykl2Tpu
- HkMzx5W/eTxW9FRWvHkyVQp/YXU5UEj2n++qPAV1QLgx8OWYwQTrB708x8xrI1COVqVjThp3Gkd
- uaxIwzK/QwxynlI5V0dJ74GtpXshc3PNuSlC5zufnFfPy2ho9msquoTvPhNpBul9Rl0L+g3C+iy
- 4+KgG11rt3PpyGsi7nnfh28z/E2R0R7wrW/JPzcT+rd+7dUEwHcaUB//Skl/f4AXpQxPGy6Kyni
- 4yeWz6nJsaVM8J+7qXw==
-X-Proofpoint-ORIG-GUID: _1qu3H6FzVxMHjHnYfJPx5h4CF-XpVMH
-X-Authority-Analysis: v=2.4 cv=Vsy2kO2n c=1 sm=1 tr=0 ts=6afca89b cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA3NiBTYWx0ZWRfXyuQLw5kYoup7
+ vj46RJa6jqTtHe+x/uTkexe64KbMs2/C+lVHmZdLkX6Y7ViCZxFss5xfFVRNfssLJdFw/Y4EthM
+ WjePhizFQ21mnM7vVC+kpLl2urRUNS0=
+X-Proofpoint-ORIG-GUID: 9NHMWO0xTahsES-1T1YEHG3oweFcIvxk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA3NiBTYWx0ZWRfX76ccRc2/WfRe
+ OIH0lfXcT3gGwwm9zTc8P0kug7aNN/vg6Bkk4OiOQuquhO4TrZQrgnAHjx+2PifRkBlKP1eg7gB
+ LdjX0rYr93ivR69x4aiOoakMBKabmWL/a3lNdBUdKcvMlpOzG4j+mcDWGIPyPrRQsDjvfU97oRV
+ CpFAFT74gdfH+X4CQhYAvBPpgBwY0xHPK/uTG7bxh3nbkfAa2DhbTdz07UuB3EATV6TuWJI5QJ4
+ qNgHtYHyyOTbd2eZH2fobnToGtOm5vrqtxOoNTUVS9qidkpX+nXNVC81NOGgeQDnncxf2yhEjmi
+ ijdxSXVLyaPZH4laYv3UPYidk+FYjOjU1PXYDGGHlOsNW4bujBW/4b92hJ/ETJVKh1Y56P96ILt
+ 9iTdQ+xvS6bB031YQGHF4hyOfyqWpLNUj/lg597aJWZY5S1prQCcBsqxcN1TDe3jqk3myKwWF2f
+ lFNNpIhc6CKmhgVL3JA==
+X-Proofpoint-GUID: 9NHMWO0xTahsES-1T1YEHG3oweFcIvxk
+X-Authority-Analysis: v=2.4 cv=ZP1CCn7b c=1 sm=1 tr=0 ts=6afca8a4 cx=c_pps
  a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=Lrng1kJLq-4Mmy5ilNsA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-GUID: _1qu3H6FzVxMHjHnYfJPx5h4CF-XpVMH
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA3NiBTYWx0ZWRfX1oKZVIUViJM+
- cYYbto/sO4270yKSLoW98y71cNaIm/FiKpmRkqDmMgR9PYOBS7EGZQ965wX6rrBcSwTnvIifSbN
- iEu3viBgxyT0KigjhpR6mx0T1QKQhRY=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=aBVxLUBa_37c2xUlyAEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-17_04,2026-11-16_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 spamscore=0 clxscore=1015 adultscore=0
- malwarescore=0 bulkscore=0 suspectscore=0 priorityscore=1501 phishscore=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 spamscore=0 bulkscore=0
+ adultscore=0 malwarescore=0 clxscore=1015 phishscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170076
 
-ARMv8 and later processors implement the RAS (Reliability,
-Availability and Serviceability) extensions, exposing hardware
-error records through a standardised register interface.
+Add a Device Tree frontend for the ARM64 RAS driver, allowing it
+to be used on platforms without ACPI firmware.
 
-Add Device Tree bindings to describe RAS error sources.
+The error sources defined in DT are registered as arm64_ras platform
+devices at boot. The frontend produces the same software fwnode properties
+as the ACPI path, so the core driver probes DT and ACPI nodes identically
+without any firmware-specific knowledge.
 
 Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/arm/arm,ras.yaml | 241 +++++++++++++++++++++
- include/dt-bindings/arm/arm,ras.h                  |  11 +
- 2 files changed, 252 insertions(+)
+ drivers/ras/arm64/Kconfig  |  25 ++-
+ drivers/ras/arm64/Makefile |   2 +
+ drivers/ras/arm64/ras-of.c | 383 +++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 405 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/arm,ras.yaml b/Documentation/devicetree/bindings/arm/arm,ras.yaml
+diff --git a/drivers/ras/arm64/Kconfig b/drivers/ras/arm64/Kconfig
+index dcdeaa216d67..8bdb219bc90f 100644
+--- a/drivers/ras/arm64/Kconfig
++++ b/drivers/ras/arm64/Kconfig
+@@ -1,16 +1,31 @@
+ # SPDX-License-Identifier: GPL-2.0
+ #
+-# ARM Error Source Table Support
++# ARM RAS driver
+ #
+ # Copyright (c) 2025, Alibaba Group.
+ #
+ 
++config ARM64_RAS_DT
++	bool "ARM64 RAS Device Tree support"
++	depends on ARM64_RAS_EXTN && OF
++	help
++	  Enable Device Tree support for the ARM64 RAS driver.
++
++	  When selected, RAS error sources described in the Device Tree
++	  (arm,ras-processor, arm,ras-smmu, arm,ras-gic etc) are registered
++	  as platform devices at boot, allowing the driver to be used on
++	  platforms without ACPI firmware.
++
+ config ARM64_RAS_DRIVER
+ 	tristate "ARM64 RAS Driver"
+-	depends on ARM64 && ACPI_AEST && RAS
++	depends on ARM64 && (ACPI_AEST || ARM64_RAS_DT) && RAS
+ 	help
+-	  This is the RAS driver for the arm64 architecture. It depends on
+-	  the Arm Error Source Table (AEST) to provide basic register and
+-	  interrupt information.
++	  This is the RAS driver for the arm64 architecture. It uses the
++	  ARMv8 RAS extension register interface to discover, configure,
++	  and handle hardware errors from processor caches, SMMUs, and GICs.
++
++	  On ACPI systems the error source topology is provided by the AEST
++	  ACPI table (requires ACPI_AEST).  On Device Tree systems it is
++	  provided by "arm,ras-*" nodes in the DT root (requires ARM64_RAS_DT).
+ 
+ 	  If set, the kernel will report and process hardware errors.
+diff --git a/drivers/ras/arm64/Makefile b/drivers/ras/arm64/Makefile
+index 6897798f7314..aee2f9de37f6 100644
+--- a/drivers/ras/arm64/Makefile
++++ b/drivers/ras/arm64/Makefile
+@@ -7,3 +7,5 @@ arm64_ras-y		+= ras-sysfs.o
+ arm64_ras-y		+= ras-inject.o
+ arm64_ras-y		+= ras-cmn.o
+ arm64_ras-y		+= ras-storm.o
++
++obj-$(CONFIG_ARM64_RAS_DT)	+= ras-of.o
+diff --git a/drivers/ras/arm64/ras-of.c b/drivers/ras/arm64/ras-of.c
 new file mode 100644
-index 000000000000..257a5f5375c3
+index 000000000000..d876031f2474
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/arm/arm,ras.yaml
-@@ -0,0 +1,241 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/arm/arm,ras.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/ras/arm64/ras-of.c
+@@ -0,0 +1,383 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2026 Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
 +
-+title: ARM RAS error source
++#include <linux/acpi.h>
++#include <linux/of.h>
++#include <linux/of_address.h>
++#include <linux/of_irq.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++#include <linux/slab.h>
 +
-+maintainers:
-+  - Umang Chheda <umang.chheda@oss.qualcomm.com>
++#include <linux/acpi_aest.h>
 +
-+description: |
-+  ARMv8 and later processors implement the Reliability, Availability and
-+  Serviceability (RAS) extensions.  Hardware blocks that support RAS expose
-+  one or more error records through a standardised register interface.  Each
-+  error record captures information about a detected hardware error (cache
-+  ECC fault, TLB parity error, interconnect error, etc.) and can optionally
-+  signal the OS via an interrupt.
++#undef pr_fmt
++#define pr_fmt(fmt) "DT RAS: " fmt
 +
-+  Each DT node described by this binding represents one RAS error source —
-+  a hardware block that exposes a set of error records.  Error records are
-+  accessed either through system registers (for processor-local resources
-+  such as L1/L2 caches and TLBs) or through a memory-mapped register window
-+  (for shared or off-core resources such as L3 caches, SMMUs and GICs).
++/* Maximum number of software fwnode properties per RAS node */
++#define RAS_OF_MAX_PROPS	20
 +
-+properties:
-+  compatible:
-+    description:
-+      Identifies the class of hardware block this error source belongs to.
-+      arm,ras-processor covers processor error sources (cache, TLB, etc.).
-+      arm,ras-smmu covers SMMU error sources.
-+      arm,ras-gic covers GIC error sources.
-+    enum:
-+      - arm,ras-processor
-+      - arm,ras-smmu
-+      - arm,ras-gic
++static const unsigned long ras_of_type_processor __initconst =
++	ACPI_AEST_PROCESSOR_ERROR_NODE;
++static const unsigned long ras_of_type_smmu __initconst =
++	ACPI_AEST_SMMU_ERROR_NODE;
++static const unsigned long ras_of_type_gic __initconst =
++	ACPI_AEST_GIC_ERROR_NODE;
 +
-+  reg:
-+    description:
-+      Register windows for this error source.  When absent the error records
-+      are accessed through system registers (ERRSELR_EL1 + ERX*_EL1).
-+      When present, each range must have a corresponding entry in reg-names.
-+      The primary error-record window is named "err-records"; additional
-+      optional windows are named "err-group", "fault-inject", and "irq-config".
-+    minItems: 1
-+    maxItems: 4
++static const struct of_device_id ras_of_match[] __initconst = {
++	{ .compatible = "arm,ras-processor", .data = &ras_of_type_processor },
++	{ .compatible = "arm,ras-smmu",      .data = &ras_of_type_smmu      },
++	{ .compatible = "arm,ras-gic",       .data = &ras_of_type_gic       },
++	{ }
++};
 +
-+  reg-names:
-+    description:
-+      Names for the register windows listed in reg. The first entry must be
-+      "err-records" for the primary error-record window.
-+      err-group is the error group status register window (ERRGSR).
-+      fault-inject is the fault injection register window (ERXPFG*).
-+      irq-config is the interrupt routing configuration window.
-+    minItems: 1
-+    maxItems: 4
-+    items:
-+      enum:
-+        - err-records
-+        - err-group
-+        - fault-inject
-+        - irq-config
++static const char * const __initconst ras_of_irq_res_names[] = {
++	[ACPI_AEST_NODE_FAULT_HANDLING] = AEST_FHI_NAME,
++	[ACPI_AEST_NODE_ERROR_RECOVERY] = AEST_ERI_NAME,
++};
 +
-+  interrupts:
-+    minItems: 1
-+    items:
-+      - description:
-+          Fault Handling Interrupt (FHI), fired when a corrected error
-+          counter overflows or a deferred error is detected.
-+      - description:
-+          Error Recovery Interrupt (ERI), fired when an uncorrected
-+          recoverable error is detected.
++static const char * const __initconst ras_of_dt_irq_names[] = {
++	"fhi", "eri"
++};
 +
-+  interrupt-names:
-+    minItems: 1
-+    items:
-+      - const: fhi
-+      - const: eri
++static int __init ras_of_build_node_data(struct device_node *np,
++					 u8 node_type, int index,
++					 int fhi_virq,
++					 u8 **data_out, u32 *size_out)
++{
++	*data_out = NULL;
++	*size_out = 0;
 +
-+  arm,group-format:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Layout of the memory-mapped error-record group window.
-+      Determines the number of ERRGSR registers available.
-+      A 4 KiB group provides 1 ERRGSR, a 16 KiB group provides
-+      4 ERRGSRs, and a 64 KiB group provides 14 ERRGSRs.
-+      Each ERRGSR reports status for up to 56 error records.
-+    enum: [0, 1, 2]
++	switch (node_type) {
++	case ACPI_AEST_PROCESSOR_ERROR_NODE: {
++		/*
++		 * Allocate the processor header plus the cache sub-structure.
++		 * resource_type is inferred from the presence of the 'cache'
++		 * phandle: if present the resource is a cache, otherwise it
++		 * is treated as a generic processor resource.
++		 * flags (SHARED/GLOBAL) are inferred from the interrupt type:
++		 * a PPI is per-PE (global); an SPI is shared across a cluster.
++		 */
++		size_t total = sizeof(struct acpi_aest_processor) +
++			       sizeof(struct acpi_aest_processor_cache);
++		struct acpi_aest_processor_cache *c;
++		struct acpi_aest_processor *proc;
++		struct device_node *cache_np;
++		u8 pflags;
 +
-+  arm,num-records:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Total number of error records in this error source, including both
-+      implemented and unimplemented slots.
-+    minimum: 1
++		proc = kzalloc(total, GFP_KERNEL);
++		if (!proc)
++			return -ENOMEM;
 +
-+  arm,record-impl:
-+    $ref: /schemas/types.yaml#/definitions/uint64-array
-+    description:
-+      Bitmap of implemented error records.  Bit N set to 1 means error
-+      record N is present and active in this error source.  Bit N set to 0
-+      means record N is not implemented and must be skipped.  The array
-+      length must equal the number of ERRGSRs implied by arm,group-format
-+      (1 element for 4K, 4 for 16K, 14 for 64K).  For system-register
-+      nodes (no reg property) a single u64 element is used.
-+    minItems: 1
-+    maxItems: 14
++		cache_np = of_parse_phandle(np, "arm,cache-ref", 0);
++		if (cache_np) {
++			proc->resource_type = ACPI_AEST_CACHE_RESOURCE;
++			c = (struct acpi_aest_processor_cache *)(proc + 1);
++			/*
++			 * alloc_ras_node_name() reads c->cache_reference as
++			 * the name disambiguator for shared/global nodes.
++			 */
++			c->cache_reference = cache_np->phandle;
++			of_node_put(cache_np);
++		} else {
++			proc->resource_type = ACPI_AEST_GENERIC_RESOURCE;
++		}
 +
-+  arm,status-reporting:
-+    $ref: /schemas/types.yaml#/definitions/uint64-array
-+    description:
-+      Bitmap indicating which implemented error records require direct
-+      polling of ERX_STATUS by software. Bit N set to 1 means error
-+      record N is not represented in an ERRGSR status register and must
-+      be checked by reading ERX_STATUS directly. Bit N set to 0 means
-+      error record N is represented in an ERRGSR status register and can
-+      be discovered through the ERRGSR scan path.
-+      For system-register error sources (no reg property), ERRGSR
-+      registers are not present. Therefore all implemented error records
-+      must be polled directly and arm,status-reporting shall be identical
-+      to arm,record-impl.
-+      The number of array elements shall match arm,record-impl.
-+    minItems: 1
-+    maxItems: 14
++		/*
++		 * Infer scope from the FHI interrupt type: a PPI is
++		 * per-PE (set GLOBAL); an SPI is cluster-shared (set SHARED).
++		 * alloc_ras_node_name() uses flags to choose the name format.
++		 */
++		pflags = irq_is_percpu(fhi_virq) ?
++			 ACPI_AEST_PROC_FLAG_GLOBAL :
++			 ACPI_AEST_PROC_FLAG_SHARED;
++		proc->flags        = pflags;
++		proc->processor_id = (u32)index;
 +
-+  arm,addressing-mode:
-+    $ref: /schemas/types.yaml#/definitions/uint64-array
-+    description:
-+      Bitmap indicating the address type reported in ERR_ADDR for each
-+      implemented error record.  Bit N set to 1 means error record N
-+      reports a Logical Address (LA); bit N set to 0 means it reports a
-+      System Physical Address (SPA).  When absent all records are assumed
-+      to report SPA.  The number of array elements shall match
-+      arm,record-impl.
-+    minItems: 1
-+    maxItems: 14
++		*data_out = (u8 *)proc;
++		*size_out = (u32)total;
++		break;
++	}
++	case ACPI_AEST_SMMU_ERROR_NODE: {
++		struct acpi_aest_smmu *smmu;
++		struct device_node *smmu_np;
 +
-+  # Processor error source properties (arm,ras-processor only)
-+  arm,cache-ref:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    minItems: 1
-+    description:
-+      List of phandles to the cache nodes (L1, L2, or L3) that this
-+      processor error source monitors.  A single error source may cover
-+      multiple cache instances (e.g. one per-core L2 error record group
-+      that monitors all L2 caches in the SoC).  Each entry is a bare
-+      phandle with no additional cells.
-+    items:
-+      maxItems: 1
++		smmu = kzalloc_obj(*smmu, GFP_KERNEL);
++		if (!smmu)
++			return -ENOMEM;
 +
-+  # SMMU error source properties (arm,ras-smmu only)
-+  arm,smmu-ref:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to the SMMU node that this error source monitors.
++		smmu_np = of_parse_phandle(np, "arm,smmu-ref", 0);
++		if (smmu_np) {
++			smmu->iort_node_reference = smmu_np->phandle;
++			of_node_put(smmu_np);
++		}
 +
-+  # GIC error source properties (arm,ras-gic only)
-+  arm,gic-ref:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to the GIC node that this error source monitors.
++		*data_out = (u8 *)smmu;
++		*size_out = sizeof(*smmu);
++		break;
++	}
++	case ACPI_AEST_GIC_ERROR_NODE: {
++		struct acpi_aest_gic *gic;
++		struct device_node *gic_np;
 +
-+required:
-+  - compatible
-+  - arm,num-records
-+  - arm,record-impl
-+  - arm,status-reporting
++		gic = kzalloc_obj(*gic, GFP_KERNEL);
++		if (!gic)
++			return -ENOMEM;
 +
-+dependentRequired:
-+  reg: ['arm,group-format']
++		gic_np = of_parse_phandle(np, "arm,gic-ref", 0);
++		if (gic_np) {
++			gic->instance_id = gic_np->phandle;
++			of_node_put(gic_np);
++		}
++		*data_out = (u8 *)gic;
++		*size_out = sizeof(*gic);
++		break;
++	}
++	default:
++		return -EINVAL;
++	}
 +
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: arm,ras-processor
-+    then:
-+      required:
-+        - arm,cache-ref
-+    else:
-+      properties:
-+        arm,cache-ref: false
++	return 0;
++}
 +
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: arm,ras-smmu
-+    then:
-+      required:
-+        - arm,smmu-ref
-+    else:
-+      properties:
-+        arm,smmu-ref: false
++/*
++ * Determine the register access type from the DT node:
++ *   no reg  -> system-register access (ERRSELR_EL1 + ERX*_EL1)
++ *   1 range -> memory-mapped access
++ *   2+ ranges -> single-record memory-mapped access
++ */
++static u8 __init ras_of_interface_type(struct device_node *np)
++{
++	int addr_cells, size_cells, reg_len;
 +
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: arm,ras-gic
-+    then:
-+      required:
-+        - arm,gic-ref
-+    else:
-+      properties:
-+        arm,gic-ref: false
++	if (!of_property_present(np, "reg"))
++		return ACPI_AEST_NODE_SYSTEM_REGISTER;
 +
-+unevaluatedProperties: false
++	addr_cells = of_n_addr_cells(np);
++	size_cells = of_n_size_cells(np);
++	if (addr_cells <= 0 || size_cells <= 0)
++		return ACPI_AEST_NODE_SYSTEM_REGISTER;
 +
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/arm/arm,ras.h>
++	reg_len = of_property_count_elems_of_size(np, "reg", sizeof(u32));
++	if (reg_len <= 0)
++		return ACPI_AEST_NODE_SYSTEM_REGISTER;
 +
-+    cache-error-l2 {
-+        compatible = "arm,ras-processor";
-+        arm,num-records = <1>;
-+        arm,record-impl = /bits/ 64 <0x1>;
-+        arm,status-reporting = /bits/ 64 <0x1>;
-+        arm,cache-ref = <&l2_0>, <&l2_1>, <&l2_2>, <&l2_3>;
-+        interrupts = <GIC_PPI 0 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-names = "fhi";
-+    };
++	if (reg_len <= addr_cells + size_cells)
++		return ACPI_AEST_NODE_MEMORY_MAPPED;
 +
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/arm/arm,ras.h>
++	return ACPI_AEST_NODE_SINGLE_RECORD_MEMORY_MAPPED;
++}
 +
-+    gic-error@17a00000 {
-+        compatible = "arm,ras-gic";
-+        reg = <0x0 0x17a00000 0x0 0x10000>;
-+        reg-names = "err-records";
-+        arm,group-format = <ARM_RAS_GROUP_4K>;
-+        arm,num-records = <1>;
-+        arm,record-impl = /bits/ 64 <0x1>;
-+        arm,status-reporting = /bits/ 64 <0x0>;
-+        arm,gic-ref = <&gic>;
-+        interrupts = <GIC_SPI 200 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-names = "fhi";
-+    };
-diff --git a/include/dt-bindings/arm/arm,ras.h b/include/dt-bindings/arm/arm,ras.h
-new file mode 100644
-index 000000000000..cd11e360fdae
---- /dev/null
-+++ b/include/dt-bindings/arm/arm,ras.h
-@@ -0,0 +1,11 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++static resource_size_t __init ras_of_mem_size(u32 gfmt)
++{
++	switch (gfmt) {
++	case ACPI_AEST_NODE_GROUP_FORMAT_16K:
++		return SZ_16K;
++	case ACPI_AEST_NODE_GROUP_FORMAT_64K:
++		return SZ_64K;
++	default:
++		return SZ_4K;
++	}
++}
 +
-+#ifndef _DT_BINDINGS_ARM_RAS_H
-+#define _DT_BINDINGS_ARM_RAS_H
++static u32 __init ras_of_virq_to_gsiv(int virq)
++{
++	struct irq_data *irqd = irq_get_irq_data(virq);
 +
-+/* arm,group-format - error record group register window layout */
-+#define ARM_RAS_GROUP_4K		0	/* 4 KiB,  1 ERRGSR  */
-+#define ARM_RAS_GROUP_16K		1	/* 16 KiB, 4 ERRGSRs */
-+#define ARM_RAS_GROUP_64K		2	/* 64 KiB, 14 ERRGSRs */
++	return irqd ? (u32)irqd->hwirq : 0;
++}
 +
-+#endif /* _DT_BINDINGS_ARM_RAS_H */
++static int __init ras_of_attach_fwnode(struct device_node *np,
++				       struct platform_device *pdev,
++				       u8 node_type, u8 itype, u32 gfmt,
++				       int index, int fhi_virq,
++				       u32 fhi_gsiv, u32 eri_gsiv)
++{
++	u64 rec_impl[14] = { };
++	u64 stat_rep[14] = { };
++	u64 addr_mode[14] = { };
++	u64 err_group_base = 0, fault_inject_base = 0, irq_cfg_base = 0;
++	struct property_entry props[RAS_OF_MAX_PROPS] = { };
++	struct resource res;
++	u8 *node_data = NULL;
++	u32 node_data_size = 0;
++	u32 nrec = 1;
++	int group_len, p = 0, i, ret;
++
++	of_property_read_u32(np, "arm,num-records", &nrec);
++
++	switch (gfmt) {
++	case ACPI_AEST_NODE_GROUP_FORMAT_16K:
++		group_len = 4;
++		break;
++	case ACPI_AEST_NODE_GROUP_FORMAT_64K:
++		group_len = 14;
++		break;
++	default:
++		group_len = 1;
++		break;
++	}
++
++	of_property_read_u64_array(np, "arm,record-impl",      rec_impl,  group_len);
++	of_property_read_u64_array(np, "arm,status-reporting", stat_rep,  group_len);
++	of_property_read_u64_array(np, "arm,addressing-mode",  addr_mode, group_len);
++
++	/*
++	 * DT binding: bit=1 means record IS implemented.
++	 * ras-core.c uses for_each_clear_bit() on record_implemented, so
++	 * bit=0 means implemented internally.  Invert before storing.
++	 */
++	for (i = 0; i < group_len; i++)
++		rec_impl[i] = ~rec_impl[i];
++
++	/* Named MMIO windows — only present on memory-mapped nodes */
++	if (itype != ACPI_AEST_NODE_SYSTEM_REGISTER) {
++		int idx;
++
++		idx = of_property_match_string(np, "reg-names", "err-group");
++		if (idx >= 0 && !of_address_to_resource(np, idx, &res))
++			err_group_base = res.start;
++
++		idx = of_property_match_string(np, "reg-names", "fault-inject");
++		if (idx >= 0 && !of_address_to_resource(np, idx, &res))
++			fault_inject_base = res.start;
++
++		idx = of_property_match_string(np, "reg-names", "irq-config");
++		if (idx >= 0 && !of_address_to_resource(np, idx, &res))
++			irq_cfg_base = res.start;
++	}
++
++	ret = ras_of_build_node_data(np, node_type, index, fhi_virq,
++				     &node_data, &node_data_size);
++	if (ret)
++		return ret;
++
++	props[p++] = PROPERTY_ENTRY_U8("arm,node-type",      node_type);
++	props[p++] = PROPERTY_ENTRY_U8("arm,interface-type", itype);
++	props[p++] = PROPERTY_ENTRY_U8("arm,group-format",   (u8)gfmt);
++	props[p++] = PROPERTY_ENTRY_U32("arm,error-records-count", nrec);
++	props[p++] = PROPERTY_ENTRY_U32("arm,error-records-index", 0);
++	props[p++] = PROPERTY_ENTRY_U32("arm,interface-flags",     0);
++	props[p++] = PROPERTY_ENTRY_U64_ARRAY_LEN("arm,record-implemented",
++						  rec_impl,  group_len);
++	props[p++] = PROPERTY_ENTRY_U64_ARRAY_LEN("arm,status-reporting",
++						  stat_rep,  group_len);
++	props[p++] = PROPERTY_ENTRY_U64_ARRAY_LEN("arm,addressing-mode",
++						  addr_mode, group_len);
++	props[p++] = PROPERTY_ENTRY_U64("arm,error-group-base",      err_group_base);
++	props[p++] = PROPERTY_ENTRY_U64("arm,fault-inject-base",     fault_inject_base);
++	props[p++] = PROPERTY_ENTRY_U64("arm,interrupt-config-base", irq_cfg_base);
++	props[p++] = PROPERTY_ENTRY_U32("arm,fhi-gsiv", fhi_gsiv);
++	props[p++] = PROPERTY_ENTRY_U32("arm,eri-gsiv", eri_gsiv);
++
++	if (node_data && node_data_size)
++		props[p++] = PROPERTY_ENTRY_U8_ARRAY_LEN("arm,node-specific-data",
++							 node_data, node_data_size);
++
++	ret = device_create_managed_software_node(&pdev->dev, props, NULL);
++
++	kfree(node_data);
++	return ret;
++}
++
++static int __init ras_of_init_one_node(struct device_node *np, u8 node_type,
++				       int index)
++{
++	struct resource res[AEST_MAX_INTERRUPT_PER_NODE + 1] = { };
++	struct platform_device *pdev;
++	u32 gfmt = ACPI_AEST_NODE_GROUP_FORMAT_4K;
++	u32 gsiv[AEST_MAX_INTERRUPT_PER_NODE] = { };
++	int virq[AEST_MAX_INTERRUPT_PER_NODE] = { };
++	int nres = 0, ret, i;
++	u8 itype;
++
++	itype = ras_of_interface_type(np);
++	of_property_read_u32(np, "arm,group-format", &gfmt);
++
++	pdev = platform_device_alloc("arm64_ras", PLATFORM_DEVID_AUTO);
++	if (!pdev)
++		return -ENOMEM;
++
++	if (itype != ACPI_AEST_NODE_SYSTEM_REGISTER) {
++		struct resource mmio_res;
++
++		ret = of_address_to_resource(np, 0, &mmio_res);
++		if (ret) {
++			pr_err("node %pOF: missing 'reg' for MMIO interface\n", np);
++			goto err_put;
++		}
++		res[nres].name  = AEST_NODE_NAME;
++		res[nres].start = mmio_res.start;
++		res[nres].end   = mmio_res.start + ras_of_mem_size(gfmt) - 1;
++		res[nres].flags = IORESOURCE_MEM;
++		nres++;
++	}
++
++	for (i = 0; i < AEST_MAX_INTERRUPT_PER_NODE; i++) {
++		int irq_num = of_irq_get_byname(np, ras_of_dt_irq_names[i]);
++
++		if (irq_num <= 0)
++			continue;
++
++		gsiv[i] = ras_of_virq_to_gsiv(irq_num);
++		virq[i] = irq_num;
++
++		res[nres].name  = ras_of_irq_res_names[i];
++		res[nres].start = irq_num;
++		res[nres].end   = irq_num;
++		res[nres].flags = IORESOURCE_IRQ;
++		nres++;
++	}
++
++	ret = platform_device_add_resources(pdev, res, nres);
++	if (ret)
++		goto err_put;
++
++	ret = ras_of_attach_fwnode(np, pdev, node_type, itype, gfmt, index,
++				   virq[ACPI_AEST_NODE_FAULT_HANDLING],
++				   gsiv[ACPI_AEST_NODE_FAULT_HANDLING],
++				   gsiv[ACPI_AEST_NODE_ERROR_RECOVERY]);
++	if (ret)
++		goto err_put;
++
++	ret = platform_device_add(pdev);
++	if (ret)
++		goto err_put;
++
++	pr_debug("registered RAS node %pOF as arm64_ras.%d\n", np, pdev->id);
++	return 0;
++
++err_put:
++	platform_device_put(pdev);
++	return ret;
++}
++
++static int __init ras_of_init(void)
++{
++	const struct of_device_id *match;
++	struct device_node *np;
++	int index = 0, ret;
++
++	if (!acpi_disabled)
++		return 0;
++
++	for_each_matching_node_and_match(np, ras_of_match, &match) {
++		u8 node_type = *(const unsigned long *)match->data;
++
++		ret = ras_of_init_one_node(np, node_type, index++);
++		if (ret) {
++			pr_err("failed to register RAS node %pOF: %d\n",
++			       np, ret);
++			of_node_put(np);
++			return ret;
++		}
++	}
++
++	if (index)
++		pr_info("registered %d RAS error source(s) from DT\n", index);
++
++	return 0;
++}
++subsys_initcall_sync(ras_of_init);
 
 -- 
 2.34.1
