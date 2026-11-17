@@ -1,103 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913789;
-	b=fj79+Z/OrewK/FO3RBFf6fy1aE6UWdGD0XdY5Eo6Dh2e+R3kMeOfnObVBvIhemsh1vwS
-	 MfVW6/x2Ve4k1EgZ4ssIK6QBSWVxBj5ydsOuZJP1+JrJ0wsrx6ndwXG7i1BfGI0HFoXLZ
-	 vDU7t4oZ3Ut+eoNJP3WqUjzFETMNRUz0eHZW41Fk3KBBZx/QPrBKs2KDpLYm0hVVJrBG/
-	 kW8WIhM0ZlzpL6x3uu9ljtM10OlWRN2fEkj/OuHHnJyAGxhCNBdHUdI+a4K03hMNWGNgI
-	 1qdx1sf5wOvcmJivN2D8daRgvOmeQFvX62P2Fzd+0ZDTRy8wEQqG2gFq9Ym6LsYk0GQ==
+	t=1794913796;
+	b=h1HvtrfPWN6wvClc9nigzAH4G7WyUmXxeMoVcg3WGZYTFQJIlZDxJXb7V3PKzqyd/7aT
+	 4SqZtW/PDZyEJG2oqUACxLrrARxKTeCWTnPuqgYEVQNsXqN0C1rFy0K7Rukt45Db6GZHH
+	 +WBBjyMyPajmghbOmQkPiCrMbSZAYspKJ7171yvaGGgODF9u7GyjFvFNvILe5Tm9RxDSS
+	 lWdrINJ7j3mkcweKx+eykBBfNGgKQvDaSP7h+YSBL04b0x1+vXuYGNoCCJkbvGg2dzcol
+	 Y0UqIdCmHpj3J59bRZ5TvtSUJjmx2+usZTcug3FIXqmma3z4AI/EzpzfIFDDaqSEh9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913789;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913796;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hpmM4eFRun76lvi2NsX7aNzz4o3nnQQCjWbpPZyMB+o=;
-	b=tHpLY43bdg/tSzKC0WS1BebPoChFm0wGv8RzNEgsn/U8vobEm2hEIhpMjWughMNUK8F4
-	 krbb14V7h1xafFsQzn1c4Rgzg0O2Pje9Y4MqEjEF0PxA50kyO5vrUmWxoJ9Fyj05V/piP
-	 yUYFsh5uRd/JdNePEd5h69Oub7c9p8WFB0LBNkbla56VDt4Uly52g/UZUkR9C5Vx4d8wj
-	 Bq0/tKbz4ePt9mmEe6e5uzWHSJADTegKAZs8oHzCoX8yzSqXW95KhVIBJ7BOzdQUKBwEi
-	 /u8OXN1zyL9ACorblenEUBGQwQXd5y5B87WhbsbCggoSyU4AwgAjrvB1XfnLDlpbdmQ==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=/EqLZTUDMhPlkceDIaWpBG7Dtr/l00OcSGXeCW+uLTE=;
+	b=crm7ngxm6IKk59mKEpTunxTyvXrXKPCX79ujBt6s/4+Lqhj+dzzTwhfgj039twLEqraf
+	 qWFM9P6ArukYPekqK1Zju/IAOV5vTTe8SuJ1AvbV0Rk5Dbsv29xs3U1X+sRfGQwRzBxNg
+	 NmT3ify2FzC3bU/imGqA43v8gT3ki0KB3b92jxYZVRz6CKRw79LbpWFdiHS8hfrtUbnK8
+	 SjdUMQyXGRd2HVs8hsTAXIMCDm/uJtFJff151RcaRtd/wR6M27KWwjVPLr0/8SzKeNlua
+	 He9SCOFU0Cvb77GSaSt2E4CKW+WvIYsOgIgPsp6GHqYPI9oRxv4X7YkLOZ2oHbaIbDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MD3kGh8N;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b="1paC/UZe";
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556B6606A330
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 11:09:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 556B6606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E8C606A329
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 11:09:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38E8C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MD3kGh8N
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-38190551625so680421eec.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 03:09:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=1paC/UZe
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b596afb4c5so5141607a12.1
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 03:09:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794913788; x=1795518588; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hpmM4eFRun76lvi2NsX7aNzz4o3nnQQCjWbpPZyMB+o=;
-        b=MD3kGh8NkCjvXmoC1i4w2PtRphlsb24xAOL+9ggH1ZTFw0LQ6UvUoCXyiAzNaJp4/u
-         6xwiO6o780CNXl7+Vga8jetTnOWcpaQra54nhden1ttLqc2oaMawb2LTaCTQhmiymPsV
-         G24D4X4DmnUlcs8CYBjq4F4HGAYoKvpAuEe/IRJaIR2WdQKHXYUxk64Ceq9dUnA5mDwP
-         WOcCwdEHVLuAWzSPRUK6sN8TvqE6G8LKtHNfn9TyoJjv+RLd6gss4AATY0u+4J6N2+rQ
-         h7I/p+m5/2VBSQjS+Fcn45nyrTJpXD1qHAtWPHqqep+oBhuF6iwc+CJ5Uiogkh2Y1hqA
-         l+Iw==
+        d=fairphone.com; s=fair; t=1794913793; x=1795518593; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/EqLZTUDMhPlkceDIaWpBG7Dtr/l00OcSGXeCW+uLTE=;
+        b=1paC/UZe7AOB1VNol45f0EVVlCQSmD48EMl+iRZ/V9Qe9JARGUIrTf6QIxI1RIVYD2
+         7Yck65VF+Ev2boLZg9xgfX1MJ8bYraMhevW3X8pvCf6XSBFoE8eFLNyg/WIitI2siKgd
+         tJyWOfxHoEOW5ods623LCo/Es4A+gtXev6T0glcX7CMo1gyDmJJxgDJwrXJqxM2vH5p/
+         paAScXeGRWZ35Sq6wIVWkw9YcWrn/2DIRifgypED+LmArDa4yWSKKYIlv0gyNwjKXmMH
+         ZyHQgZemAdfd6g5ZuwSSvBY7rqw3ThiUujWcT24d0PT5z95xU+pJRNPmdPfVx27vQOel
+         n2cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794913788; x=1795518588;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hpmM4eFRun76lvi2NsX7aNzz4o3nnQQCjWbpPZyMB+o=;
-        b=i5+93N17HF6XPEKnMqUeT8g9Y7gfSi8aLc6VF+fAX+JEPVy5SNg3Ob69UooItMdkHG
-         4nYCgb85dkEbhm5izBRuwEAagAIE6/SUIkNETPJpn8vyFSJfledcgJbdvv1DTkMcynoy
-         3YL2GV4YXgMgoxqK8ONMKuFAq7++1pwbTNcw9swlCokM8zjMA5IIW5hNBedfYS80fOd3
-         uQy5MACA3mwPn19/UFR7JUtAwoPaNhva4+ou5LUmlwpmuQWXb4bH2qu5tpznM3me4qvQ
-         EktTLfaPeQKr88xpRX/ZkN4A7XlGOxO3MjrE3KCWSchQiTmVViBjfv+FJHAoRPVGowvn
-         rR1g==
-X-Forwarded-Encrypted: i=1; AL+hErGNmtdtGAyikNwwLS2Enx6aBY+JXu8JkMjBFbBWrnXGk9k0OxwM9y1+ks3KlTnco8OwF+sfip0jxi18@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5pCwT0tcYXSsHpghQdWlsBNcHavehzxXtZw5BaIYrdMzDFWoh
-	xi9XC3kh9K7ioQ3SVPQ9YJtPzfzLPtJn/X54FIkewwLk8EPUzIbuwVLl
-X-Gm-Gg: AZFdTZetObGyHdNk/tC/LFaBQqZ14uAT0/GPl0Whjl2qzlyDYZIZNSYvE78EHgtkdry
-	Gjwh4hpVygqXRqsYja0K7cYAYvcWCtipP0OiZVZovMwZvwYOMrBq014Yp0AkYToMtoFvTDS9Qju
-	lVfIohPpHxN83rNoWc7DWtPPMHCyQDxaRMCHfGfOqfhnczZ5VweGtSqxk/Y3ZzjTr6PdgAENh0+
-	pouWuO0ECFx60cGlX0V92T/B+y1j750fS5Z2emua2bmiq34faCnuuiB6urjbGPxmAYy+oscoXL9
-	pX7fX/vFxfAQ/PTtqod3IoEDu57OuDMfhT6T5sghUpUp9tEFtCiaXO76JuxJt888wYixtiZp9nL
-	DZszsZWrHW8pdebugG/az/f5WJSy6Zq1orwCEavIOZTEsyDuu+Vy8C5s+A3md2KmrtQ89Nw5Ocm
-	EhdsnozZHWhI0YBib1qss+QR1pvHsA4gLIQoTOXPMEQNG5lSwcfTa6QUTbzQksR9LzMtI1+K+MO
-	RrlSWFY8g2oJivueK0UtSJ01NdoWXO8FN20M/GVp+JcDdQs7eGNQ/xws/6CnzPeeRjbHhvLTBIC
-	RIGjRs3jiTtctQ9aSAGfp0s9OqOgcokEW1S3xCqwmxJOhT5ocbF35RH75TNE9HVp52TUT9zFMjg
-	8PnnrrzsbMoCAntA0f9sp4cuBJ0nca0ppjlYDdnCdjdqyL09S0FzYLNuLOe7tlomtOgB+22Np9U
-	XC1pA9Je9SmXmThjt/baSWkvY4uBO6Wv/Y5FsmHgKfxg==
-X-Received: by 2002:a05:7301:70f:b0:381:eb93:81b9 with SMTP id 5a478bee46e88-381eb9383c7mr522846eec.34.1794913788282;
-        Tue, 17 Nov 2026 03:09:48 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-381a55555dbsm5560475eec.10.2026.11.17.03.09.43
+        d=1e100.net; s=20260707; t=1794913793; x=1795518593;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=/EqLZTUDMhPlkceDIaWpBG7Dtr/l00OcSGXeCW+uLTE=;
+        b=UFi5qVfev5ECTRtS7LqWEeCX1V6gsR+vehsWDaMN9269BRtUUdnI2liQ48iDH6d0fb
+         o7l0bSdmj38+S04NlEURoVT8nm8Pld4UqvPO1frCHx4rWexJnvpYt+DeufWtKJ85bCu7
+         8Bhy+QIDJHEoIxUF4ieXNn9u7AlmfWQw0m09TVSIwcATJncpsC3LP17jFIdUwPtBRelY
+         GnjSPZnvFHtWh2/SMttrAV6ZLfaU1DTkrsZ3/lIkEXdQFYNNH0o52FEbIEAYVbu63Tm5
+         ZZYRXvfHOAVDb9x+t9GQkaQuZCIV38lx20ClbMpNSkazPb/BDHephe4JReI3PsDjzsaE
+         LF7w==
+X-Forwarded-Encrypted: i=1; AL+hErEQy8C7xz9KwOXZVjAD1WzME3pcgIzsoabezHlqy/t4g0i/ZV9bMZcFCH8qDV16NATlvdcwo/0sBeKc@vger.kernel.org
+X-Gm-Message-State: APuU4Z/kPjGKTkjVNb+0Uhqn/EMC6Y9pk2HMvh552ITDiYW2ntC5JedU
+	dfc+kXem9p/5lmw/YR/DEkf/9dzI5L7f8fDiz+DCYN3K52b+O9WLQKgoQwyHMeWQvXc=
+X-Gm-Gg: AYBFou0fiSuxf/cZ+pyAHIr6SUIAyOqgVuUKolZz1GQoa41nzE212ZzVtnEe/oYTVRC
+	u65IAhHspaWzi6zpVMgLxxjO4E1Ny4QX9epNUZJCy+I2/549aGku58LA3Zm4zYTn4kryfKmaNQk
+	arsTjSqNNq+zCF2xAA65cWH1M1lcDgAFpUNt/zpFPbt1IVjPVYDav/1A3ew6RevUYPb0Z/Y8QKy
+	MCNH5Nvc45Ranb3AfjlxK6EcpynS/o3JU4nwGCJgff5ofaaL+wKN1lwLtHOOPna4DDGBSRUf95B
+	M+kJ4ezLK+atbBokT5lFqw3ec0M357oic9V/sUsoFjQ2+BBxRZregd7/kQoHAFpLCMkwb3uarKJ
+	pqpeUflW0WYvaeeH2HieL2w6uhescTAzY3XhUu8VvpqxRKJJK4taoRskEWCk3O1YpKF/sOEFkmW
+	rLtTrF7X6HpddTLa4rQD6cBZ3Jum30orj+35d2ptUVd3npztAXA6Xo7m1pKTZNV//L4tNxrfkNL
+	BcXPghiSIC3TxWzmjz7Ui9yBK6YqQGk6p5iTJvecP0Ee74IugzNFS8Kp6c/W9J4NgQiiTcQ/t0Z
+	ekw1XGc7z3FWMmBeUeHhp/AHsbB+kIySxtyuIpY52P2sh3yJrExgqMWqa0DE0p3cFTnPwq1C4id
+	22ayRa/g=
+X-Received: by 2002:a05:6402:5630:b0:6b6:e857:19d8 with SMTP id 4fb4d7f45d1cf-6b7c0bbf8ffmr7846372a12.10.1794913793290;
+        Tue, 17 Nov 2026 03:09:53 -0800 (PST)
+Received: from [172.16.240.105] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23c757esm5803509a12.17.2026.11.17.03.09.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 03:09:47 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Gwendal Grignou <gwendal@chromium.org>,
-	Daniel Campello <campello@chromium.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH v2 0/2] Semtech SX9xxx: add a reviewer entry and binding maintainer
-Date: Tue, 17 Nov 2026 16:39:33 +0530
-Message-ID: <20261117110939.214932-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Tue, 17 Nov 2026 03:09:52 -0800 (PST)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Tue, 17 Nov 2026 12:09:29 +0100
+Subject: [PATCH v2] arm64: dts: qcom: sm7225-fairphone-fp4: Add parent
+ supply for regulators
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,34 +93,149 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-fp4-regulator-supply-v2-1-d6585849821c@fairphone.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0Jm7ZjSkEJdeQ/DouAUxiBtWiASw
+ t0teACXL/nvvw0iBaYIt2yDQAtHdmMCecmg7c3YEfIzMUghldAiR+sLDNTNg5lcwDh7P6xYWtV
+ orUkrWUBSfSDLn/P2Uf84zs2L2un4OhY9x+SvZ3fJj92fxJKjQFXJqjJNKQzR3RoOvncjXVv3h
+ nrf9y+SRewIzgAAAA==
+X-Change-ID: 20260901-fp4-regulator-supply-7f6b999e9624
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794913791; l=3743;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=bNSXLD8R7osoKkLGMtIbMenLvf8i5vfZneGntJkMw8E=;
+ b=FfB8C2ZPRRcId2mEBxFyqZw3SUgOavnm3FscUT3lfYHiRffRLkjc3jcbKYFgj0XgHbAIqrFX9
+ 3b5Z4oEKHu+Agvk4hGamlAn66l4MZdvhaomh9DSYo54itKAWGcLeYbS
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-Add a MAINTAINERS reviewer entry for the Semtech SX9310, SX9324, SX9360
-and SX9500 proximity drivers, and add myself to the maintainers of their
-DT bindings, as Andy suggested on v1.
+Add the vdd-*-supply properties to the rpmh-regulators nodes, so that
+the parent regulators can be enabled when needed.
 
+While not strictly necessary - I was told the RPMh is handling enabling
+the parents - this adds the hierarchy to regulator_summary and not
+parent them to regulator-dummy and really ensuring they're on when they
+should be on.
+
+The regulators s4a and s6a are a bit special. They feed back into
+PM6350, but are not modelled as regulators (or anything else?), so they
+also can't be added as vdd-*-supply. It would seem to be possible to add
+them with their "Default on booting voltage" from the PM6350 Data Sheet
+in the dts, but I'm not sure this is desired.
+
+And document what the "missing" regulators are used for.
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
 Changes in v2:
-- New patch 1: add myself to the maintainers: lists of the four
-  bindings (Andy)
-- Patch 2: refer to the Link: tag in the commit message, and use
-  sx_common.* instead of listing both files (Andy)
+- Drop applied patches
+- Expand commit message (Bjorn)
+- Link to v1: https://patch.msgid.link/20260901-fp4-regulator-supply-v1-0-68288ab70aee@fairphone.com
+---
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 46 +++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
-v1: https://lore.kernel.org/all/20261117094737.15253-1-kapoorarnav43@gmail.com/
+diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+index 37aa272019cc..aa68a827a308 100644
+--- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
++++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+@@ -80,6 +80,17 @@ lcdb_dummy: regulator-lcdb-dummy {
+ 		regulator-max-microvolt = <5500000>;
+ 	};
+ 
++	vph_pwr: regulator-vph-pwr {
++		compatible = "regulator-fixed";
++
++		regulator-name = "vph_pwr";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
++
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
+ 	reserved-memory {
+ 		/*
+ 		 * The rmtfs memory region in downstream is 'dynamically allocated'
+@@ -298,6 +309,15 @@ &adsp {
+ &apps_rsc {
+ 	regulators-0 {
+ 		compatible = "qcom,pm6350-rpmh-regulators";
++
++		vdd-l2-l5-l7-supply = <&vreg_s2a>;
++		vdd-l3-l6-l8-l9-l10-supply = <&vreg_bob>;
++		vdd-l11-supply = <&vreg_s2a>;
++		vdd-l12-l14-supply = <&vreg_s2a>;
++		vdd-l15-l19-l22-supply = <&vreg_s8e>;
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s2-supply = <&vph_pwr>;
++
+ 		qcom,pmic-id = "a";
+ 
+ 		vreg_s1a: smps1 {
+@@ -312,6 +332,14 @@ vreg_s2a: smps2 {
+ 			regulator-max-microvolt = <2048000>;
+ 		};
+ 
++		/*
++		 * s3a (smps3) is gfx.lvl
++		 * s4a (smps4) is supply for vdd-l4 & vdd-l13
++		 * s5a (smps5) is mx.lvl
++		 * s6a (smps6) is supply for vdd-l16 & vdd-l18-l20-l21
++		 * l1a (ldo1) is lcx.lvl
++		 */
++
+ 		vreg_l2a: ldo2 {
+ 			regulator-name = "vreg_l2a";
+ 			regulator-min-microvolt = <1503000>;
+@@ -410,6 +438,8 @@ vreg_l16a: ldo16 {
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
++		/* l17a (ldo17) is lmx.lvl */
++
+ 		vreg_l18a: ldo18 {
+ 			regulator-name = "vreg_l18a";
+ 			regulator-min-microvolt = <788000>;
+@@ -448,8 +478,24 @@ vreg_l22a: ldo22 {
+ 
+ 	regulators-1 {
+ 		compatible = "qcom,pm6150l-rpmh-regulators";
++
++		vdd-bob-supply = <&vph_pwr>;
++		vdd-l1-l8-supply = <&vreg_s2a>;
++		vdd-l2-l3-supply = <&vreg_s8e>;
++		vdd-l4-l5-l6-supply = <&vreg_bob>;
++		vdd-l7-l11-supply = <&vreg_bob>;
++		vdd-l9-l10-supply = <&vreg_bob>;
++		vdd-s8-supply = <&vph_pwr>;
++
+ 		qcom,pmic-id = "e";
+ 
++		/*
++		 * s1e-s2e (smps1-smps2) is cx.lvl
++		 * s3e-s4e (smps3-smps4) is VDD_APC1
++		 * s5e (smps5) is VDD_APC0
++		 * s6e-s7e (smps6-smps7) is mss.lvl
++		 */
++
+ 		vreg_s8e: smps8 {
+ 			regulator-name = "vreg_s8e";
+ 			regulator-min-microvolt = <313000>;
 
-Arnav Kapoor (2):
-  dt-bindings: iio: proximity: semtech: add myself as maintainer
-  MAINTAINERS: add a reviewer entry for the Semtech SX9xxx proximity
-    drivers
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+change-id: 20260901-fp4-regulator-supply-7f6b999e9624
 
- .../bindings/iio/proximity/semtech,sx9310.yaml      |  1 +
- .../bindings/iio/proximity/semtech,sx9324.yaml      |  1 +
- .../bindings/iio/proximity/semtech,sx9360.yaml      |  1 +
- .../bindings/iio/proximity/semtech,sx9500.yaml      |  1 +
- MAINTAINERS                                         | 13 +++++++++++++
- 5 files changed, 17 insertions(+)
-
-
-base-commit: 20ce8ef9c9e04cd6c5ae0422e251a9b5936c6b7c
--- 
-2.53.0
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
 
