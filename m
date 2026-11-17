@@ -1,86 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930315;
-	b=YhHwqydTB6FpgnEUh8INVYcgKMk2O2+gJ981KunElgjFLPD8VF8dqISJK5QYI7iaYLmG
-	 bnL0m1iLT9VXVmgOsu4NSWsBtor4jYA35cNZGLw8vTslbQIYENH2GpuFR9awJ2r2FztNR
-	 357AhjzXYOCz2F2iwP19Utm19eFGI1aGHAWO0HlSNdPGpy53IUW1MOXCBvP6QjjgpmFWd
-	 xtCXzX9/Yzehts3YcbumIXfvOrADqd5Aw/36r+2/y8PfatMc4aU2/QZ4iJ0BovVgvk7mC
-	 VeM0Vznkn/vQHyhL6E4X4izfKJcp6KUoaZKr7HjvtnD2x+egqJUiNLVGMFikgE0rk/Q==
+	t=1794930497;
+	b=iCncGVpXtmNCY6Me7q7zJ7lyT30/swEg6Ff1v039jfMaScJLx6GgYkjcCttXTjNUe6md
+	 HZYATOVrampllT2ad/oVEIbMOUj+XJidZd00wfv4nkdmehb54QAVg4utD63WYl4zIevGx
+	 ZULR2pyiOVziFq5X7/sNn2gmTZTUys5yu4WP+pBn4IOrA/jZCrwX5ry1TIQcGdTzRXCjw
+	 yQYCTWzwapu6Ko8zbB0TIOiMlbZKhRV/+PZKjGh20rIDWdv/zJMbfYgOsQTZZuSglWE/T
+	 ITckSjpF/5dThuyevzIhpOLVL9HwRs6XZFx4GlVXD5ok76vjVUfEsFetCny8g7zS0gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930315;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=yx0f3Yir639syvYfkg79O7Kpd9xzBO9aaexbdF9atUs=;
-	b=izB1FUCNGMrwxHcIZjpnwC1s2oUedyCZZITd0m7/wgMoerXdp2hkp1yzWyqUo7z+hlFw
-	 y6uvXq22q+w3ubakcRXyXcSweedHNdhWvQr2zN/zcOu9qrwxegdLLq08VjZxvd+tR43cF
-	 sCq31I8NeImohJdFYBvqzvSbl1k8VvEGkOSOnJMX8GEuwFGzabaZ4ZZkxQsK+Ni2eISMh
-	 +EK9xWu5RrXS7jLpITGyrSM51epQaapmMHGMqIAZYlDjHZAxr7aQYxSHCKMmFWkNasMdY
-	 EqPqJdvKYp0lhduxM8YCUTF15wYq19B5HtzG3c0z7LOD5RbtXK6ydJCxn11VInEbyWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930497;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=606mrV7NXxp3v4lx9Vet4gGxElTK6AqBs5xPL0gMyEA=;
+	b=CKSsLA2GnoK96Wp5k6IDdswv9tEWqAfnT4QgpgASHyGYb5ZfLJy9dFJDSNO39AUyELQp
+	 gy+vv9hwXYE/7Qyy8EneEmer8GeFe0C+1Jlqf+0waC19e7kIRpzzgDjIicIqzgycjUpKY
+	 hwMozz/EU6Xg0IesvMNhw2aTYoiETyJyGauOJLhUt/Fgq9Gme3OPHjkfAdOdbdgRLxQ+a
+	 BJ1tQYo5dkHnn/h/WlH5fIXsx90C6/3eL1k5LrlmND/2OGU5LECuDru8AI/Xl9nb4J283
+	 oHIExGNs66xeY5xOQAQE1sYRRcb+30RtThjge3U7SJFyfrlKmY7+bl10t2/ICf/+SlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUFEc8xz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XRUQuhAW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A514606A32C;
-	Tue, 17 Nov 2026 15:45:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09318606A32A
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 15:48:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUFEc8xz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5285A1F000C4;
-	Tue, 17 Nov 2026 15:45:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XRUQuhAW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CC2F1F000C4;
+	Tue, 17 Nov 2026 15:48:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794930315;
-	bh=yx0f3Yir639syvYfkg79O7Kpd9xzBO9aaexbdF9atUs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=FUFEc8xz6COW3EN33vCksYZgW8fYeid15xpqnE6bkjYb8ds8GnfyBq3Jbse/StGin
-	 aFc60FNTgNgw3W7d5QemIGS0no4qXZ1Y57Q9TPuawziXH2c0TuhNEaoDdCicQt1eXO
-	 mLINKQJOly7zZT9EFWEI89QXybe9XKEKLynkfDPWAdsbnbF1QJFyvbCGaJTiW5m1kG
-	 XV+aUd9kYT4zdS55zGYU4rzkdTaIqOWm/F3pmctvLM4fIiS4R5++zvkDuE/N2nVRgc
-	 xtB6/ntvlXr7/lq7RG0/fxX7qf/mQPblvAEk0mrhKHaLqmggThe5uOeR1czsdpOvVx
-	 mwyhL/Fo9nomA==
-From: Srinivas Kandagatla <srini@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, 
- Rajendra Nayak <quic_rjendra@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
- linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
-References: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
-Subject: Re: (subset) [PATCH v8 00/11] Add Initial Support For MSM8952, Add
- General Mobile Shamrock
-Message-Id: <179493030479.124445.18019484431206678491.b4-ty@kernel.org>
-Date: Tue, 17 Nov 2026 15:45:04 +0000
+	s=k20260515; t=1794930496;
+	bh=606mrV7NXxp3v4lx9Vet4gGxElTK6AqBs5xPL0gMyEA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XRUQuhAWyrIwpXUrUMlL3JgW7cBDkrz1rx8EBlYUIVRI1Wq0nVvoSjnWNz9ywhE9k
+	 X4m5QyKUKhSQRRukpuFB2XxGNbcfV8fZUj7/haciyaXtPL7HGHQfmPuWqWsLq+Ak0X
+	 Y5bRfUQIWmT+0t3Nij2UE3BR1GAtKgehfWe0J5MmQJ8Ikvlt1tsO+k74QeqVbxXeW4
+	 yKd9akEUaS4/cmbg4ZYk6GndyhsGuGNxDhSxmBI92ZF0DEHyTzalaDJPZsGCLdTRnb
+	 TkCqb4VImPJqOwHaeQ8SjOzBiERrwh9szh9sDhg1OkehlW4FV4/tp2a+OlfxaATYaj
+	 TA3M4AKzXm3gw==
+Message-ID: <sashiko-outbox-219109@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 6/9] PM / devfreq: rockchip-dfi: make RK3588 use its
+ clocks
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-6-32ff1546b0e4@collabora.com>
+References: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
+ <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-6-32ff1546b0e4@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 15:48:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,29 +60,62 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] PM / devfreq: rockchip-dfi: kernel-doc mismatch on
+  rockchip_dfi_variant
+--
 
-On Thu, 05 Nov 2026 13:54:04 +0300, Muzaffer Kadir wrote:
-> MSM8952 is a SoC with 8 core cpu and Adreno 405 gpu.
-> 
-> Ported without uart connection. ramoops and usb
-> mainly used to debug.
-> USB is not enabled in this series because it
-> depends on the not yet upstreamed (and not developed by me)
-> pmi8950_smbcharger.
-> 
-> [...]
+commit 56dc07283d381b00e4f393e46c72f76812bee4d3
+Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-Applied, thanks!
+PM / devfreq: rockchip-dfi: make RK3588 use its clocks
 
-[01/11] dt-bindings: nvmem: Add compatible for MSM8952
-        commit: a3543a8b163f1edb45f0e631ea0f5905256a3684
+This commit adds optional bulk clock support to struct rockchip_dfi_variant
+and populates the four DDRMON clocks for the RK3588 variant.
 
-Best regards,
--- 
-Srinivas Kandagatla <srini@kernel.org>
+> diff --git a/drivers/devfreq/event/rockchip-dfi.c b/drivers/devfreq/event=
+/rockchip-dfi.c
+> index 150fdf577e119..a97c63cdab57d 100644
+> --- a/drivers/devfreq/event/rockchip-dfi.c
+> +++ b/drivers/devfreq/event/rockchip-dfi.c
+> @@ -117,6 +117,18 @@ struct rockchip_dfi {
+>  	const struct rockchip_dfi_variant *variant;
+>  };
+> =20
+> +/**
+> + * struct rockchip_dfi_variant
+> + * @init: pointer to the variant-specific initialisation function
+> + * @stride: address offset between the DDRMON per-channel instances
+> + * @ctrl_single: whether only one DDRMON instance monitors multiple chan=
+nels
+> + * @max_channels: maximum number of memory channels for this SoC
+> + * @clk_names: pointer to a constant array of constant clock name strings
+> + * @num_clk: the number of elements in the @clk_names array
+> + * @clocks_optional: whether not finding the clocks is non-fatal. Set if=
+ the
+> + *                   DT binding for this variant didn't require clocks i=
+n the
+> + *                   past, so that the driver remains compatible with ol=
+d DTs.
+> + */
+>  struct rockchip_dfi_variant {
+>  	int (*init)(struct rockchip_dfi *dfi);
+>  	int stride;
+> @@ -124,6 +136,7 @@ struct rockchip_dfi_variant {
+>  	unsigned int max_channels;
+>  	const char * const *clk_names;
+>  	unsigned int num_clks;
+> +	bool clocks_optional;
+>  };
 
+[Severity: Low]
+In the kernel-doc comment for struct rockchip_dfi_variant, @num_clk does
+not match the member name num_clks, and the struct header line is missing
+a short description, which triggers W=3D1 kernel-doc warnings.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-rockchip-d=
+fi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com?part=
+=3D6
