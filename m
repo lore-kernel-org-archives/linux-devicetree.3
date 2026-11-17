@@ -1,69 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920877;
-	b=mZSMIm7KyhWGJ0E3wR4jHy5zTWwFegjoos6ztq9OSjtPldgJx7WtNOJFfWq+BrpLYgKA
-	 /0QppZRZszH7FHl2Hm/gnKwSW9xTdM/4vR1ThQEF2/CcyW3iudEti8naYTs9zW9dxrFxd
-	 dRkqeNL8E4E4JBBoPS4v4LGhFJbK5vYJwyDl8+aYTiHWFDHJY+sze7jkD+geMA9zx27Th
-	 pYOI8LdQx3CFU5TLyKW1VvhCo5C+MWEqifIizaaPQ9mvUZ7WLMm99TB4bDk/JUeVlCY1W
-	 CCVivdzkK71A7vqF8XxdQEYI7e76Z9weUjifFjA4BU1ZHH34nIOA1trnNfsqYwlcGDg==
+	t=1794920878;
+	b=BRHsaoO/4n12gfJebjqlA1nNpWkctIrmimayGdyciv+f3t6Ag0tqJOls60N3Xzh7Nn5H
+	 WTWIMNrLk3rGrcQ6MYdySbxyeHP5lqNRUVSmzzhnVAdXmzbMNhd4F7j0eSyz9QDdg8lFi
+	 LrYWDvYXaim1VksTaeZuwkRQh0+whMlD6EOCtMqQ6poVNONeaq2PuMvXFazkmYoJHI/E6
+	 gL8er0TQ7p/VTBGEWr7gu0+yIACx86X2PZ2u6iB6+b7elRXuFEqFwBh+0GYOW9YbeQJjk
+	 jOsH3fpivIl2FFt7ZtgrBk9lJc1cq1s4iB+wnXFecMlN6ky5Bb+Fb2xgZ2W1mq+37eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920877;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=hLVYgScUX8HYdLVF2WVw1ZHAnwSTjR7HdEjiqI87gHo=;
-	b=JLOwwNOZ/xRa8cOUgpq5Z3s/vCyeNeRJ8A08ccQhv/3JKf5kmOA3FiOEAmVJMky3peqY
-	 uLHhhKK6bnhh7tR2rAzLtOJrxuqt5/QpNaMY/EfeBGwjiovfbmTFjMIhEF+fpS9bAY426
-	 xpP/3tuE3EodtjluXxDJFuceTX4RVax23ngTiqWlKusDMJuhXjSGPYUPbNRv+ruOx+LDg
-	 NJWk5vX2gM9McaSsQsJaQUCPd6NtJc1f9OZucdLt0HPoNky/Faz/SCt/K2JPVkqVRVC/u
-	 j8xpL/RVrlHVm0CoM+P/xZ/Iv0sMFtqy1rQZa0qeluqzR4ka1AbaPvLDYje41NjvpUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920878;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=fEXjbUD3amkNKeHH7e/GPwXDSWv2ghLrxMI2EJ9KtIY=;
+	b=QSl4wZnqvR3xa7UNkVnP7q8sI0ShnpBYwjGZDrXC3twnZ5Lg6Ty4accZ69s0teqYq4bn
+	 Oqyr9rGcVt8Tce1Yv8UeWNbUWF96PxG51oFDw3LVuVrqi7Gi0ZG+vWX4BhIloQ3axziFc
+	 BnVLlPRg/iNhALPJqRXxgxzGZSn+uWjMQA1SAMRyp9tC9RYNXqAu1uthyiWkKA1v1eSu2
+	 9/5X+oukUyDkWfUrBjK6W4XGwWHJcxNhYZLhCuaWpqXKNGBv74CbmNurhfiAgmEx/TkIv
+	 702ONKMXXpw2zQpC1h5j1jl+4okZsYGVhhgUTXcURMmplAfgdDPPvxWHWHrAWmLzREg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ErLxCPhF;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=KOnDB1Gg;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E6C606A883
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:07:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5E6C606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E9B606AF76;
+	Tue, 17 Nov 2026 13:07:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98E9B606AF76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=ErLxCPhF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=hLVY
-	gScUX8HYdLVF2WVw1ZHAnwSTjR7HdEjiqI87gHo=; b=ErLxCPhFIJdgX8xgJ3aZ
-	54XXiMvtBy/AHNFoY3ZG0KFftEiqaHa99lKVyv1pb5an9MI0/ZNC5qbmuCi21edg
-	Uno/4M5J3dIN1ioXh5GhD2XD2BerSlwlAagehujTyyCYC6n8B2ua1ZiWERSDU6b1
-	eErm6rFFnFbV4GgNBn6jRBFC7Fl7KLOOEfEO2w8EM/LNQiELNv9LbBHkykGXu0QU
-	7dg1Inkw+PJ8DUQwQdFcj/lIscMCv/qiLSzx3M5JSgcn/0X9dd2JoGSWz8rr2jt+
-	nnQZkZRt9o/UcM10m1lDTdGnWROCz8bAZZHQuPJDRcVwdbHEyW2sN6ifhGQVFf02
-	CQ==
-Received: (qmail 250239 invoked from network); 17 Nov 2026 14:07:45 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Nov 2026 14:07:45 +0100
-X-UD-Smtp-Session: l3s3148p1@A8yWlHhg3IQujntI
-Date: Tue, 17 Nov 2026 14:07:45 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=KOnDB1Gg
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 6E33D4E41570;
+	Tue, 17 Nov 2026 13:07:56 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3CFB65FC81;
+	Tue, 17 Nov 2026 13:07:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 19FA011BC0008;
+	Tue, 17 Nov 2026 14:07:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794920874; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=fEXjbUD3amkNKeHH7e/GPwXDSWv2ghLrxMI2EJ9KtIY=;
+	b=KOnDB1GgE7MLArtta/b25Xnbi3iTBg3GvvDpSueA7h+TE1sz1Kdwcd0zkTF2fNMWqv0fXd
+	S25TzKR6jvBsiRyxapr/xrymMXPUOlj/dv354Q9Bd2zM6BWyaITdtwOiy39opJ4lPy4Ymv
+	zHxS3pitBs126PvEnuYKtqNZK5yYwwL/2J21pI8hP8w1Ht0Yo7oEBrxhGQiviAMjSA0gJS
+	pxGggCqVlH7UOor/N0211lHzK+vJRUKRBoVn3qIlkntYUZRSNX5+qQ6z2nMtKlYCYDE7ie
+	jdWEkGO04F3wNZvks/Mtg+m2v18IRIX9zEfGWkksTOjh8zOFSaO4HSEKUm4BqA==
+From: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
+To: Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Tero Kristo <kristo@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-edac@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	Udit Kumar <u-kumar1@ti.com>,
+	Abhash Kumar <a-kumar2@ti.com>,
+	Beleswar Padhi <b-padhi@ti.com>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Gregory CLEMENT <gregory.clement@bootlin.com>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH v7 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
-Message-ID: <avxRnV7rn62YQMwo@ninjato>
-References: <20261019-paul-v7-3-rc1-edac-v7-0-84c76c6d7595@bootlin.com>
- <20261019-paul-v7-3-rc1-edac-v7-2-84c76c6d7595@bootlin.com>
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Richard Genoud <richard.genoud@bootlin.com>
+Subject: [PATCH v6 3/6] arm64: dts: ti: k3-j7200-ti-ipc-firmware: Reserve memory for LPM metadata
+Date: Tue, 17 Nov 2026 14:07:34 +0100
+Message-ID: <20261117130737.141993-4-richard.genoud@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261117130737.141993-1-richard.genoud@bootlin.com>
+References: <20261117130737.141993-1-richard.genoud@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,55 +82,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MOMQyM849DXDxoR2"
-Content-Disposition: inline
-In-Reply-To: <20261019-paul-v7-3-rc1-edac-v7-2-84c76c6d7595@bootlin.com>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
---MOMQyM849DXDxoR2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Declare a carveout memory region to store LPM metadata on J7200.
 
-On Mon, Oct 19, 2026 at 04:43:26PM +0200, Paul Louvel wrote:
-> Add the Cadence EDAC driver found on Renesas RZ/N1x SoC.
-> The memory controller supports ECC, software scrubbing, and SECDED.
->=20
-> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
+For Jacinto devices, this memory region is needed for saving ATF context
+and the certificate information of ATF and OPTEE and DM image. This LPM
+metadata area is firewalled to be accessed only by TIFS.
 
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+U-Boot R5 SPL/TIFS will use this area to save and restore:
+- ATF context
+- ATF certificate information
+- OPTEE certificate information
+- DM image (which has been copied in memory at boot time by U-Boot
+  R5-SPL)
 
-I enabled this on my board and found sensible results (according to my
-limited knowledge about this subsystem), e.g.:
+At resume, U-Boot R5 SPL is executed and detects that the board is
+resuming (with a flag set in the PMIC), then it:
+- brings out of retention the DDR
+- retrieves the LPM memory region from DTS
+- authenticates certificates from LPM memory region and applies firewalls
+- asks TIFS to restore TFA and its own minimal context
+- starts TFA on remote proc
+- loads back DM image from memory and jumps to DM
 
-root@RZN1D-EB Board:~# cat /sys/bus/edac/devices/mc/mc0/rank0/dimm_*
-0
-x16
-SECDED
-Channel#0_DIMM#0
-csrow 0 channel 0=20
-Unbuffered-DDR3
-0
+https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
 
+As this is used by U-Boot SPL, bootph-pre-ram is added.
 
---MOMQyM849DXDxoR2
-Content-Type: application/pgp-signature; name=signature.asc
+NB: This memory region is not part of DM memory (which is not retained
+at suspend)
 
------BEGIN PGP SIGNATURE-----
+Signed-off-by: Prasanth Babu Mantena <p-mantena@ti.com>
+Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
+---
+ arch/arm64/boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr8UZ0ACgkQFA3kzBSg
-KbaxfA//WvqDsbOvPH+AB1dURPsu7ZjR+BMQ9u/UklQn0JXVkj+BEm3tFMjbLbK0
-YKMNeyoflPgVYExD4vtJhNzdsJ2UvwZCaXHduQdGDSBRpXBjq2yj56dCJIloHD8u
-Glrq+WF27oPwFynxH37Du9Fiu/l7H6zqtkADJvMLKa/6p0zDMbdwfdhlka9eLVhx
-FHoraLAbsgJhjwR1/J7xhVk+w0/uWV73fDPP9udFtzzPnoB16pX+NLaTPkCfjfKv
-FMOCfg7wVBE4HodMYofy/M93inO0EKwzEYju3Y8d8jYo/nCduJRvQW57nfexwBAo
-nSWPlOTrCdIUcnC+bxeXcytoN4LcNbRONlFMy5xzPaxgL3OZDyVk/FXlk/xjw6hh
-h0gcsBNrlLIXHYbP59FvP+jWibBApAaO8dJT75nV8ErKjuea4uVngNOdq/hJmMzL
-wbUodkoRYngqZ+OAFEKlL3v/JxMNVP4wEn5RPxwT+lCQGbNh+0ntcVvC8QmB/W6/
-ied+mpYDDTAGRRYZb8p+Rt9aVbj6pZG7G7HqECPuePk6djOe+fq04Qtll9YVtFEC
-3ma6YAUDZ0wYMPfMnMk+DoHv2l5oFaR7e+HNJvnk8s3WT77HYriJPC9d8Rdobk1r
-3w443XxzzqioNMr9/YNOCKMSyIlf7/TkPfX0+yopsvcS7FUnQf8=
-=H9YQ
------END PGP SIGNATURE-----
-
---MOMQyM849DXDxoR2--
+diff --git a/arch/arm64/boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi b/arch/arm64/boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi
+index d65f68c7d432..a6043970715a 100644
+--- a/arch/arm64/boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi
+@@ -47,6 +47,12 @@ rtos_ipc_memory_region: memory@a4000000 {
+ 		alignment = <0x1000>;
+ 		no-map;
+ 	};
++
++	lpm_memory_region: memory@a4800000 {
++		reg = <0x00 0xa4800000 0x00 0x00300000>;
++		no-map;
++		bootph-pre-ram;
++	};
+ };
+ 
+ &mailbox0_cluster0 {
+@@ -99,8 +105,10 @@ &mcu_r5fss0 {
+ &mcu_r5fss0_core0 {
+ 	mboxes = <&mailbox0_cluster0 &mbox_mcu_r5fss0_core0>;
+ 	memory-region = <&mcu_r5fss0_core0_dma_memory_region>,
+-			<&mcu_r5fss0_core0_memory_region>;
+-	memory-region-names = "dma", "firmware";
++			<&mcu_r5fss0_core0_memory_region>,
++			<&lpm_memory_region>;
++	memory-region-names = "dma", "firmware", "lpm-metadata";
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
