@@ -1,70 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794888076;
-	b=zuVB2KJS+aiN/qxqz33UryXcLPxlBHZ4NqdgiW9YgK2zEyom4tbTRxFERq/OazC10+u6
-	 goVMnXCKe9dsXrlDD/8lW0CzeQJNTHvbtfFNxNfp4UzEgxM+ddJqANu56a/+TbS6Qe6QS
-	 t0mQEAe+rZWyLiWMl5SNjFNd1mx1oMVvGtKtmj9tBQHP8ofs8txvq1F+qRSAull837oEE
-	 rsPQJLVm0sFKgqOStQD2Z55B1HU4J6Q4BmwNKIWqkoJyahBMKDl54lC7F37choISHZWgN
-	 S2dD5JKsNJ0AINnSgyZG9rD4yuU0cRUFtatW8/iAdEhTsh13VjK0h17ZBdnJeh9jJuA==
+	t=1794888299;
+	b=UO17dYc8xZnzninEZ2zmC8srpOb7tzRmyga5DOVn6G5MHK831NJWRItxn7bQHKWOiblA
+	 K8wbUlLV+cmMVdrAWQE7g69yE2910CCMiTdi3gABnDqXZEzMPs7J63C1bQQaFIBZguzZI
+	 ghzjmVvnIprRsE5OV+H0nsI9waye7AB4sRZ9e2MiP33pS9PkiPMDZPl6Ms9Do7q1/i8Bp
+	 rQVBmxpslCeRY+WfBkBz4ZS5Q1MhmYboR6s//dVVXJeI0EpRkL4XQpXK3yTDuMvW16Vs0
+	 ySuDrGSMeIDcOcYtHTa9L5yieqG0TuaqyYYQz6pbHfBJVliBaXHmBjxZSHo1815HHNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794888076;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=/6A8MZ+VEy2cx7JzeZShTroUqqKoj4R+X/thRFeMnNc=;
-	b=weScmegINiYKVGCWjIOrSmcm9Z/dFLeFFxeDmJJpEkw2UQrHRq0MoCC8oVpjUCN7USlE
-	 MzF2Go42y0imnCmqlO1TyMwQ1/axkmC9JV8tNFVjRUA0HTRcQVJ2Qvy1VFD6gTC4EbtIB
-	 vO2wqRsqqjE9Jb0jyTwPb+6iCQkrmeczx9GEy6B0DjPtv/hrLBujOspycfW3qIJwz21ju
-	 7ZNXYANu2UIOuyG16jgp3Bj2ArO5LYJ0RwSDq1kjRzEazbcKvMTfEMPdGzWpjTxdqTLop
-	 A0gSA4QAaAUcrA4dudZHso+bsOQBwLDDCPOeHUmW5g2JBW5VPacsIsdVszMfzwyjSww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794888299;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Vq5se2PbBT44b9b9gXYtBAicer31fx91JuywtuJLWUY=;
+	b=MtUuucxADYt/lHJ3ROThNcHSjL4LixmQiHgoVgLb684FpaUbMvJDU/0lNo+cjwEc12fU
+	 s1D+SytwC//fLZkPPOW5FwmGQACMvhBsTfpA78D7jiteVhNuWKvrFfYz74TohixUZAF0z
+	 Um7QTZxD+lfcBMoowWM/jeBcUToPCf4ETP1vrG/xOJ0MAD7b1fDaXPwqTF+PindbzwnYw
+	 Z4std+vQCsau4bNNY6yOACvJith4EwUz9FgAc3ptNsa6ODG9lwngCV8f7gEM/r90XcZ4D
+	 k4f8UmJsXBiTDiZ7nru/B45H5onRdgBCBb7qyUhPeN5BYmW9fz1KRZ9oRxkCRtI1ydw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=mIrvRVrt;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qygh+pFO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BEA0606A31C;
-	Tue, 17 Nov 2026 04:01:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BEA0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79042606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 04:04:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=mIrvRVrt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1794888074;
-	bh=/6A8MZ+VEy2cx7JzeZShTroUqqKoj4R+X/thRFeMnNc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mIrvRVrtok2jJ++oc3LXmNVYv6lGPKW3cOX4pqFssVaWrPaWoyLOvPervdU8M/piJ
-	 jcscZkA8R7yDHPct15OqkKUSqZEs0v7yhv0itJ3b8gqjnpTpJHwmXJVbtHPSNLSygt
-	 2V8Zz653/gjhGd4AY2W0Yhf4zTeJqeq78+GL8TCSfavEJoj1bFwZNWhJji8Gx3AyaR
-	 XTLbU7xpoW2nrFXDdBXyS7U6fMolJ/VrO6EKXi1q3AHMSCV2dwBDSysGuCuP1e8HPi
-	 yjUfJPWEqqzcrzrBNlCK9CKn2l9TISC3Pd0W4/Ys03O5OScdNcoprbMnHGMJ9WyFzA
-	 7qjXxvZxbcZdQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jT9yL5qYkz4wT2; Tue, 17 Nov 2026 15:01:14 +1100 (AEDT)
-Date: Tue, 17 Nov 2026 15:01:10 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Douglas Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Julius Werner <jwerner@chromium.org>
-Subject: Re: [PATCH v4 00/14] fdtfactor: Introduce fdtfactor to auto-factor
- overlays
-Message-ID: <avvRheLq5yGnHU50@gractus.seuss>
-References: <20261116205320.1621386-1-dianders@chromium.org>
- <avvOmgFusDlAGLrw@gractus.seuss>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qygh+pFO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F501F000C4;
+	Tue, 17 Nov 2026 04:04:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794888299;
+	bh=Vq5se2PbBT44b9b9gXYtBAicer31fx91JuywtuJLWUY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Qygh+pFOgV9y4VQite6Ft+tolgldOELgBZuvkE12S334Y+uG+Ea1PU5a03lPlFINs
+	 Hv3Uoik0/oYMgsdBttIt+pq1ssuq73M3rEMoWCygjzp8EbNVltYGa8ztvUoM2rj4zR
+	 faAJB+vK79MBTgXnigeQ4FZ0r4teFjUr1foWMZwtcoyW+4h3f4LyRkOf63RjnCMVn6
+	 PaNFjupk5slv1ui1GOgcbvKFRK5cethqmCSWrJ5OvEF+eTKlLik/1udSNHPYqcHkP3
+	 jUhrtH428+EJFXapyRKlosqnx1u//+ShvfEaACs/8rhJuoi0qo6Nnk8zhitRFkKYNW
+	 xazr5IKmi5L/Q==
+Message-ID: <sashiko-outbox-218177@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 12/14] media: mediatek: vcodec: clean xpc status
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261117032950.1425556-13-kyrie.wu@mediatek.com>
+References: <20261117032950.1425556-1-kyrie.wu@mediatek.com>
+ <20261117032950.1425556-13-kyrie.wu@mediatek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 04:04:58 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,53 +59,86 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uUn+pt05xsgizILC"
-Content-Disposition: inline
-In-Reply-To: <avvOmgFusDlAGLrw@gractus.seuss>
 
---uUn+pt05xsgizILC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] media: mediatek: vcodec: NULL deref in mtk_vdec_hw_clean_xpc()
+  on 1-reg DT
+--
 
-On Tue, Nov 17, 2026 at 02:48:43PM +1100, David Gibson wrote:
-> On Mon, Nov 16, 2026 at 12:52:57PM -0800, Douglas Anderson wrote:
-> >=20
-> > Devicetree overlays exist at both the source level (via `/include/` and
-> > `.dtsi` files) and the binary level (where a compiled `.dtbo` overlay is
-> > applied to a "base" `.dtb` at runtime to add or modify nodes).
->=20
-> Patches 1..4 are all nice cleanups regardless of the rest of the
-> series, so I've merged them.  Still looking at the remainder.
+commit 3c6ea2c7c9930e2a80beb78bf3ec55deb1a4a89a
+Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-Sorry, meant to say 1..5.  I've now applied 8 as well.
+media: mediatek: vcodec: clean xpc status
+
+This commit clears the XPC status register in the decoder subdev interrupt
+handler on MT8196 platforms.
+
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
+c_hw.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
+> index fa0e13145252b..e75fe79d02d7a 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
+> @@ -61,6 +61,34 @@ static int mtk_vdec_hw_prob_done(struct mtk_vcodec_dec=
+_dev *vdec_dev)
+>  	return 0;
+>  }
+> =20
+> +static void mtk_vdec_hw_write_reg_mask(void __iomem *reg_base, u32 reg_o=
+ffset, u32 val, u32 mask)
+> +{
+> +	void __iomem *reg_addr =3D reg_base + reg_offset;
+> +	u32 reg_val;
+> +
+> +	reg_val =3D  readl(reg_addr);
+> +	reg_val &=3D ~mask;
+> +	reg_val |=3D (val & mask);
+> +	writel(reg_val, reg_addr);
+> +}
+> +
+> +static void mtk_vdec_hw_clean_xpc(struct mtk_vdec_hw_dev *dev)
+> +{
+> +	unsigned long flags;
+> +	u32 val, mask, addr =3D VDEC_XPC_CLEAN_ADDR;
+> +
+> +	if (dev->main_dev->chip_name !=3D MTK_VDEC_MT8196)
+> +		return;
+> +
+> +	val =3D dev->hw_idx =3D=3D MTK_VDEC_LAT0 ? VDEC_XPC_LAT_VAL : VDEC_XPC_=
+CORE_VAL;
+> +	mask =3D dev->hw_idx =3D=3D MTK_VDEC_LAT0 ? VDEC_XPC_LAT_MASK : VDEC_XP=
+C_CORE_MASK;
+> +
+> +	spin_lock_irqsave(&dev->main_dev->irqlock, flags);
+> +	mtk_vdec_hw_write_reg_mask(dev->reg_base[VDEC_HW_XPC], addr, val, mask);
+> +	mtk_vdec_hw_write_reg_mask(dev->reg_base[VDEC_HW_XPC], addr, 0, mask);
+> +	spin_unlock_irqrestore(&dev->main_dev->irqlock, flags);
+> +}
+
+[ ... ]
+
+> @@ -166,6 +196,7 @@ static int mtk_vdec_hw_probe(struct platform_device *=
+pdev)
+>  	subdev_dev->hw_idx =3D hw_idx;
+>  	subdev_dev->main_dev =3D main_dev;
+>  	subdev_dev->reg_base[VDEC_HW_SYS] =3D main_dev->reg_base[VDEC_HW_SYS];
+> +	subdev_dev->reg_base[VDEC_HW_XPC] =3D main_dev->reg_base[VDEC_HW_MISC];
+
+[Severity: High]
+Can dev->reg_base[VDEC_HW_XPC] be NULL when mtk_vdec_hw_clean_xpc() runs in
+the interrupt handler?
+
+The mediatek,vcodec-subdev-decoder binding allows the parent decoder node to
+specify a single reg entry (minItems: 1), and mtk_vcodec_get_reg_bases()
+accepts reg_num =3D=3D 1, leaving main_dev->reg_base[1] as NULL.  When a de=
+code
+interrupt fires on MT8196 with such a Device Tree, mtk_vdec_hw_clean_xpc()
+passes NULL to mtk_vdec_hw_write_reg_mask(), causing a NULL pointer
+dereference in hard IRQ context while holding dev->main_dev->irqlock.
+
+Also, main_dev->reg_base is indexed by enum mtk_hw_reg_idx (VDEC_MISC)
+rather than enum mtk_vdec_hw_reg_idx (VDEC_HW_MISC).
 
 --=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---uUn+pt05xsgizILC
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmr70YUACgkQzQJF27ox
-2Gd4Og//bymO9mG91o8yUC2bF+j5qSwLVjgNiOkwYj8Cm85JfnccAEmtnm8ILwul
-HWPkIeHKm1TPLcIDBaJ9fQlm02xDF5xJEwLJqed4QIj6RP+cTL0o2wMCpbydofgA
-XCttHQqJGSh1sM/FMgmhjPNNTzWdZRE6hhKckVl5YDsuq4b46/egKFWd5tGAAqrP
-w+nzpCdR1+3XLvGRwQ0E3HvBdKAOqQp+AvoFOUmrGRlqPixNLfOwFQxrYNol8aCt
-4jakCOD+ETLjX3DwJhgPlTulatzlfqYsUJohPZUBZ7eILinCE1V9CRP47yh//MqA
-E46ufi1E7TGVdco+ufAWjjCgnI5NCeR0YGF0VjdCNUxCV+nhDtJCbBl7R/UYN23m
-a8zhJ9Xaus2PknnZzve4iBCklFJKRWI4kLWKq13kmONNiDHxDp6ZR06XLbRoXbMP
-ifEkQ1vGskgORGg+7sXx3INVWmB7N4YgfFvRFsUJkMikP/9xCRvE5KOKHz4If9RE
-uQNZ6th2kANUhJTvTAXA+ET38dqF53XDo+YCnka0MBNQBmSXlqv6BfVl6RW5aAKl
-0W/Bc14lQ1X3AwDGWSpVDrrDb1Kv2gxp8JLzD/Tmb8a1dWy5Fh4rjFCZ3G59Xmxu
-PR0jdzG9is+Xr0lbH/fXsp53u5f/vIMPRJI8Ir/m3rQU3vlcUWE=
-=b5M2
------END PGP SIGNATURE-----
-
---uUn+pt05xsgizILC--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117032950.1425=
+556-1-kyrie.wu@mediatek.com?part=3D12
