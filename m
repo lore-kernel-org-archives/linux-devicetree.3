@@ -1,76 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922299;
-	b=r+SmvOixA+WLKv/oNKc/pFleCMJOIKXu6krq0j8n1gY95hqkLJBtyZ9/x6Wf0ighjLmB
-	 /bOLC5pviQdDjiUpPLoZDgv+/yaLCuQyKB/L627xqYxNAFpPCtm70xruCKFNW8OJBo52w
-	 e6b4lw9ZRRnCOAW/TV0jXxIN94yayOcCi5yiqemANznAXfgkmfgeyWJbW3hx8OGGJq+db
-	 GF2yubDxzNXKllWlnmnHo3WoZ1TAkifw56ZdPZdUDt75+Yx343FsYrY0LEN1Yfp4HeoCK
-	 KUb0tMhYEsy7dsDjBiC4F6JCoXSORwF4fJ4ElQeKICnJv3k+sl5d/s9H+uWsQrYNl4g==
+	t=1794922575;
+	b=xETgKiau9VWxS415JI8HcJhQxsnJI2m8S8eLiNouUwCJpIn+Wspdp/Jo8Ybp77DbAOBY
+	 KZbPwKE67UFMlmcpxWWCR99OOJKVnp2nnpDl3MdK7v7JmR2MEZq/VBUjOCUF7JDrakVLx
+	 L8sBXa3bIIGjnDJ0geYcwWkCmtxkCPcYH88DC5klESYY3qYVZgl+FTHp3Hm186wHncaWO
+	 aGPnQc87vq6yLcNX3AdHjdJ0JNDkccJnkaP/+TDrIqhKZ9R1TT6IrWDVwGF1HxNeOKluy
+	 VzTuz0mE/RujxjyaM5ocYZfG3iLS6xT3rEWDexQITxMVA5Q8W3gmffIrL0rWClDrTdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922299;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=EeCtp7snYUo/kEjz5Jxk/wAX9V5PpdKoukdWg5ioibg=;
-	b=kJ+liWx3iFnl7klEKJLYX8AV8FjVntQPgLrVwWNjWpziML2bIoUKWfet+H8j7juIhtlb
-	 Ad3vcgo2i4hPStwx+kJvmH2gUlTtCLlFeg4uvMUCxIDMrly4wNbNYsVWA5VO9PuXOcnbz
-	 qaSOcwkXUaODZXyVJmK8KjKCgqmM/GI1+zqM9PzwlsiZ3u+VxPtgpn37ewo9k5Lk6sKg9
-	 /nkpBMyb0z65UPkih5KFLQwSIvdLI9yVoUE0z1wfAQTjQi6Mqudb2KSqct/VB1TS7OosT
-	 4DKtQ3lpgfM8zZzuFQwbZSolQ0az3gBKU1SNLjGreBfHgz9TCewvAsNfeCFdYLHEKlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922575;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=X/2BPYcmOvPNZZbRU++v01rC+kIhnNmGpFqU4z7Oxsc=;
+	b=OWFIslVyWA5bsSF8U6yx+HAB+edKsG2oh9s3EU8jr4mffZRaBsUulNc06ltnloZ4Hofx
+	 WBjGEOe4QbAyuR+rVwPMKdvRbB/+HFO3mtByxTKw1YCOhlizD3w2IhXNeI12eibATrCpr
+	 MJDci2254A81hyfIT9g5hHJ/JHFvCasLVo0rKQX9t111lSm91hKAmeC1WBca06ZajCwA8
+	 jf/dTKeUf9lbnmMRuGL37yKM8DMtx3BMTaT/KYUKgmBFZY/b4vueJ05qLipTNHFH6h+gS
+	 y0jeenx5UMDK3A81r8Y3OthdKupeumiotXkXfbSgmb6s8/WDgxv/TQlvY6P7nbYh9bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.179
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=cHa5pIYV;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09C7606A31C
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 13:31:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D09C7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5eaa5e03c47so711732e0c.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 05:31:38 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794922297; x=1795527097;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EeCtp7snYUo/kEjz5Jxk/wAX9V5PpdKoukdWg5ioibg=;
-        b=P+Ac1VaGK6OfIojgnvauA6P2usR3IsKwKj3rPRbhoA0oohC0z1ene4t7mI55fb3g70
-         FVP+rtRICX2E2JJO9WgNmc/vqBiFWnnwDNieUkrtu9/7V6qwfOcGAfyBsD5v5mpBrOS+
-         CIcw1ZM+Gk+Tu6IxEzoFP/8vFEXF4IR548WA0nArfVND3xwn50wX6gZBJnq+aBpGmILM
-         HO9o+DS5WeX9xMLaZcitw0v9qVg9BxYSklTBNgybLNJFzWXyXJnx15SfKwZ7oEqCGKJS
-         1P9eLITNl5bb4MIe3+glRle67SvQuHXQM/vSJeFAWkBywieBXc/riacRyVwUXWse4gJI
-         P3Ug==
-X-Forwarded-Encrypted: i=1; AL+hErENh6kQ6arUP8L3sLPQwJP8+WiEFqymhYkupYmftRgRU+ddg8VrPMaYZvJ+OQfdzFfn9LfbqA3Cs971@vger.kernel.org
-X-Gm-Message-State: APuU4Z/u4zgFhscvhRaHRleOhqNxFzqVBOLNugKjI7LB7FQOajf4TbIc
-	Ovl5k5yHsROcWLLOLyNq046Eaeu4i++POWGbpQir3unrnk7euHGpycWyIn/dKMvc
-X-Gm-Gg: AYBFou2Up9qtxW+MJh04dBVXKaLQXJGPifvJkhkL+A2gDtU2wpVBXl1Hixnowlr3PyW
-	e1Jfg/2uqruFhYV1FzuphW2LXnXzprX9zvIgmhx2wISurMRat4FIcAiEXAy51zWYekJFz3kIUGz
-	/VCK1I+FrHJvltDv6MGl1kiX2xXZcaNyjwkPOflAp7M2rpboCET3AL2gj8Q/yvpKC8NtzrnWdwV
-	nSMaXNWiygl8ri+/elvYbAESrRhcpGCeNFCjukUCAJk5ISl+hEeT/ZGcQbGPRGNllgC0jK8/Z0T
-	BV5hZVtypyspAxI86jzu8QOr+8vCXTFsAt1uIqbcCgWzWnLu1LnKO6RrFJoR7Rer5t6zfA1YkxV
-	MIm9PoXc2B6CXQYD3HNQdjEgpOrol+EHbQ5Hcm8amICmAk8COICa5df7sfvpRXl6sZ+psM0of7V
-	exzyXGGiG+5mihGbhR5tVk27aTs0ZArcYj1w3ZkuwL9ctggwK131ApyT9Yer1kqtJ4+AWhErO/t
-	fQlL3suyEcQK/g/dZnLUzcNNKqhyjCQrxipEXDRFXGsZIvjQqaBFveOdgPO1c70O45Rx/0Vob+F
-	pRWbBsKhg49xPtDAuRBjqlb8f+Q92+yOY2SSm2sRLEPSSTc7Mk4/qk3YwEvc9qe/NAdPUU18
-X-Received: by 2002:ac5:c011:0:10b0:5ec:e45b:b5a6 with SMTP id 71dfb90a1353d-5ee5b79f589mr487468e0c.13.1794922297476;
-        Tue, 17 Nov 2026 05:31:37 -0800 (PST)
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com. [209.85.221.172])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e3389bb37sm1961605241.3.2026.11.17.05.31.37
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 05:31:37 -0800 (PST)
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5ec3561b07dso568395e0c.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 05:31:37 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFaibZSb2tmzkIJK0rFOHA+gjL3jvr0Y42+lk2+Bt+L/Uop2ZF/7nCYDavUYfOBiJnfBkytY8UeqSIj@vger.kernel.org
-X-Received: by 2002:a05:6122:680e:10b0:5e9:54b9:40a with SMTP id
- 71dfb90a1353d-5ee5b70f820mr569387e0c.3.1794922296878; Tue, 17 Nov 2026
- 05:31:36 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF21A606A32F;
+	Tue, 17 Nov 2026 13:36:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF21A606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=cHa5pIYV
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=X/2BPYcmOvPNZZbRU++v01rC+kIhnNmGpFqU4z7Oxsc=; b=cHa5pIYVEjGDKHP3a9oo/XSAMY
+	2karsmE33psxJFXv8KK2DfED1Zj3HSwk75ikjjSKNI8ZV1AouUUOO88LanyGgtLj18gL/l7ijN/3r
+	av65dgsjmxHm/jjLGVte3ew15zvZUb+iI3X+6sCLYbiyKdS73wIDWu+RqGsXbZHGwSlc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xTJLx-00H9yH-47; Tue, 17 Nov 2026 14:36:05 +0100
+Date: Tue, 17 Nov 2026 14:36:05 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Artem Shimko <a.shimko.dev@gmail.com>
+Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	maxime.chevallier@bootlin.com, pavel@ucw.cz,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-leds@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v2 4/4] net: phy: dap8211r: add PHY LED control
+ support
+Message-ID: <052adff8-b1d4-4cf2-941c-cfb2725d13a0@lunn.ch>
+References: <20261117114432.2794961-1-a.shimko.dev@gmail.com>
+ <20261117114432.2794961-5-a.shimko.dev@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,94 +67,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112204944.1427733-2-oss.patchbox@gmail.com>
-In-Reply-To: <20261112204944.1427733-2-oss.patchbox@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 17 Nov 2026 14:31:24 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUKKAVhPZ=473QzM6pQ_3GAhnDte2WSBLj5c+gAni-5xw@mail.gmail.com>
-X-Gm-Features: Aa3M54pQZqX6BYtGrH7PmQPQgi-XDFTxO2MIGthzf4F_ODNzK-JgBMe7vBScNM4
-Message-ID: <CAMuHMdUKKAVhPZ=473QzM6pQ_3GAhnDte2WSBLj5c+gAni-5xw@mail.gmail.com>
-Subject: Re: [PATCH v3] irqchip/gic-v3-its: Drop ITS node reference on
- its_of_probe() errors
-To: Yuho Choi <oss.patchbox@gmail.com>
-Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117114432.2794961-5-a.shimko.dev@gmail.com>
 
-Hi Yuho,
+> +/*
+> + * LED_COMCON force mode bits:
+> + * bit 2   - FORCE_EN (enable force mode for this LED)
+> + * bit 1:0 - FORCE_MODE (00 = OFF, 01 = ON, 10/11 = blink mode1/mode2)
+> + *
+> + * Only ON/OFF is supported.
+> + */
+> +#define DAP8211R_LED_COMCON		0xA00B
+> +#define DAP8211R_LED_FORCE_EN_BIT	BIT(2)
+> +#define DAP8211R_LED_FORCE_ON_BIT	BIT(0)
 
-CC devicetree
+Given your comment, this last one is not strictly correct.
 
-On Thu, 12 Nov 2026 at 22:47, Yuho Choi <oss.patchbox@gmail.com> wrote:
-> its_of_probe() walks the ITS nodes with of_find_matching_node(), which
-> drops the reference on the previous node and returns the next one with
-> its reference count raised. The loops are balanced when they run to the
-> end, but the three error returns (a failed its_reset_one(), a failed
-> its_node_init() and a failed its_probe_one()) leave with the current
-> node still referenced.
->
-> Declare the iterator in each loop with __free(device_node), so that the
-> reference is dropped whichever way the loop is left.
->
-> Fixes: c733ebb7cb67 ("irqchip/gic-v3-its: Reset each ITS's BASERn register before probe")
-> Fixes: 9585a495ac93 ("irqchip/gic-v3-its: Split allocation from initialisation of its_node")
-> Suggested-by: Marc Zyngier <maz@kernel.org>
-> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
-> Acked-by: Marc Zyngier <maz@kernel.org>
+Otherwise, this looks O.K. Lets see what the LLM says.
 
-Thanks for your patch, which is now commit aab02e49f0b54a08
-("irqchip/gic-v3-its: Drop ITS node reference on its_of_probe()
-errors") in irqchip/irq/drivers.
-
-> --- a/drivers/irqchip/irq-gic-v3-its.c
-> +++ b/drivers/irqchip/irq-gic-v3-its.c
-> @@ -5572,7 +5572,6 @@ static void its_node_destroy(struct its_node *its)
->
->  static int __init its_of_probe(struct device_node *node)
->  {
-> -       struct device_node *np;
->         struct resource res;
->         int err;
->
-> @@ -5582,7 +5581,7 @@ static int __init its_of_probe(struct device_node *node)
->          * reset, don't even try to go any further, as this could
->          * result in something even worse.
->          */
-> -       for (np = of_find_matching_node(node, its_device_id); np;
-> +       for (struct device_node *np __free(device_node) = of_find_matching_node(node, its_device_id); np;
->              np = of_find_matching_node(np, its_device_id)) {
-
-So the old code was just an open-coded copy of the existing
-for_each_matching_node() helper.
-The new code is the open-coded original for a future
-for_each_matching_node_scoped() helper?
-
->                 if (!of_device_is_available(np) ||
->                     !of_property_read_bool(np, "msi-controller") ||
-> @@ -5594,7 +5593,7 @@ static int __init its_of_probe(struct device_node *node)
->                         return err;
->         }
->
-> -       for (np = of_find_matching_node(node, its_device_id); np;
-> +       for (struct device_node *np __free(device_node) = of_find_matching_node(node, its_device_id); np;
->              np = of_find_matching_node(np, its_device_id)) {
-
-Likewise.
-
->                 struct its_node *its;
->
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+	   Andrew
