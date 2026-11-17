@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.76
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.106
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794897782;
-	b=CK2hs9v0cjPXWwXI63yEZv+B5S5tau0A+JyTXQ2MTBFMMJPkK3hu8ZruqnkLa2bcguPk
-	 FRrb0o3QrAqQIrRoiLBoltMeOLI2HdTQYVwWhadkOdPYz+Fmz9bFNTYMxurAgCWn5UROf
-	 t9Z4mk3CbDwvQKV3ihwdOJgp0O7rEmqGDzIUA3NUknsEuGIjfj7wTTV1w3PoPhuO+ro+B
-	 fRrL93HnvMZAeI346Zi+Et6HMORi3QRaULTWxQP0QNb1zk5Rr4M9Wds4DP4ZTBD90AMju
-	 bcB3OGo/UC4GpQcGKHkAnx8zw0517kNXZowfMcK4sIU3QMr4C0B3HPV025YsTne6ZOQ==
+	t=1794897960;
+	b=RzLnjxx5gsV2Uz3HnyqkaxxtlriNHugTYcUfBoSG4EsVOt5GZ/6e3CMaRisbh+Ye6JPP
+	 hR+vNUUyPRPC92jxOXBkdG770pMbY9Sd5edqQGmfo7g3bF4hC2lH0S+QdM3yxVmhUIe1I
+	 lJkrgIZ0FmgXmQTiFH7E9vPbtKzhsgV4AGUPV9oSy0aXk88HKIJ1Rc5g4e5uTlndnX/fp
+	 pJvSersvhZqkd5NWfh1NpZ4qKv22OcjWPDCo94kdYiGmPTmc455Q2f69e9d4UzwGEPgL+
+	 if8zb07Ue6VVK1hYQElh0Ft7BgapYL24wdx0E+SEwC8OZV4ySh0PllAIgOUTeGtrJeQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794897782;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794897960;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GzD2rTdF/Ab+5p2lZ90KS7PzdunsaFcU6Gnmi5fplSg=;
-	b=ntMqiKB6obLTvKBrZQd8Kavs0hCshcTdphHkczs9skj7Wzrb4wjgaseRrkh1fAQF+/c0
-	 P+0h2PfEQVfFNxc36gYfsJFtOC+Kr+wgwdY4JjCsDyasbWOoBl1RbHqciGo9Ci7anh2e2
-	 d41RqQFzs15pAoQyMhnvIxkgpggH/8GAdyk6wvIFdKNKDJakiR3U+AlOkrWoUgxd2vwWB
-	 Ou9SLBddI4ffZ6WnLdfzS0Yah8JyiYyDrGVZZdRMFsc6f5UCwACbfksgN8v1CJw6cgeeZ
-	 f4iYtANPDSmF9Jcp7HO8JQSB3cWt/GxD5WkVaDITdN7ga8IUvMB9EeTDdDlDtasKdbQ==
+	bh=FMhcDjam5eaaapNz1y/vNDuMgiDLts6GqtNhLn295aY=;
+	b=KV0peUNk99oNBh/F6d0tsaYl8Nb17NrxKaFlSOMs0QAKQfgySgugisp3cbNv4v2hcHXU
+	 RQVtrXzmAnXyblmcL18pL6iABSOPK9xI3UkaW8mnzKBFXg5LvsO6TXSy4YEvyqMcSGnI4
+	 QhNJsBGJBVlMwkCqQTnCESV8WIOkO+jVqPoRJAaH3rRLyVDBLdLQYNHlKfI6YYiVKfou/
+	 yBNZ3PINNTmQjZFoe5WHQdpxta+3l2fPU+yXXZWFo/cwYKabQ0hIAXX8UErGx1y6cw1Ib
+	 ntFSEMesHNnWyLBAxnmVmobgLgR+DvIjOlyk9zjLbkiAVzBiUPaShqkT3YUk4MWS4Dw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=UydagVMA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.76
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023076.outbound.protection.outlook.com [52.101.127.76])
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.106
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022106.outbound.protection.outlook.com [52.101.126.106])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A50F606A880;
-	Tue, 17 Nov 2026 06:42:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A50F606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=UydagVMA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32ADC606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 06:45:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32ADC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eP1esgTTIdbePz+l/x7sOJA6M7lA3t+kltz/o9H840DlEfkhP2AwEODwCLCHDtIz2sZLUHrEHqkpWZ12oXkOC628ekxs6IWzb39UOqizaIe4s/b4xAhUbCmDAt6DCa9Yc9WKVGi7CRt7yywrdz2aVoH3QEWMJI0FffT8ZjvQaElJ62MXmNZ6zynvxX/raAAzBrYkDDnyViUEimdp3L5/ktmdu4+YL6NCevKIBuWBtd9PxjmjmPUANqZvyr8/sAvoErMj5M5I0LMei7oGf76MIlJhvr2/S9YLrcrEsNTIDsokqOyt4NSDrxUhXnu0liJiuQpUId3pH0YjtarcBfat7A==
+ b=Iwl3Z39WH/lc32/ACSBhYZwG8O05YDOkMXhZtADmt22+sKUpn+048CuH+1ZGLXibsC9osHwhmnTtPsdCG03KELQvI11cuiLi+5+p/4ma3OlQE3jwksBPCXujZIJaW0iSqGhnIt4uMV6gTpZ3VFK/FwjXWlL4t0R3pd2BE6o2LlUjdmYSeDHwFfynpsyjfYfuzvxK8KALuS6naleFBE4j3QWa6O9K0LxSWZ5P5jpwXEYfdpqjQSI2lY5KtTmhXINYH45n2PDi7nuAUMXp8G87FlyBni4w6VkHlEJfAr9gPm1yMU79pB3+xQQw8L6f851hShBSnh5SYphQmFkmjx/ghQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GzD2rTdF/Ab+5p2lZ90KS7PzdunsaFcU6Gnmi5fplSg=;
- b=unxmvTZjphdxKcf9UyVSFqMD+Fc5PqbJrduQeTSjFiYbzanc/OWgFh7esp6cfKmmDN+hO7ztAsb2ErOkuynZcuhnTOyoyb8bl+CvmMYrp6nFC0DlfQ38O6MS/A3dw3IDEVzjvbNnLeT4+dCdBBsSPVHX2Ay7ZzDDpE9GADZpm9DOtItNzTu7B7yLrDXGqi4HPJTTu7bqntYuNr7m5aUjqCJHFBKGNNU2qwuRhT+IL9deoUxHEwEbOBAyHAo5rmv6+TWwGwMp8E74fQ0NhSe7uWUHfgpn6wnwXxokg069anYL7K0THl+jrbQbuznqesVQOi/VWy71vE4LSdUOKcPDDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GzD2rTdF/Ab+5p2lZ90KS7PzdunsaFcU6Gnmi5fplSg=;
- b=UydagVMA42TYb9J2geTpNGAfb6UUTJ1APIcyCaUq0UN4M6wu6iloKsw7o7147OLjXh4bnJJ1RulQ56p75vTuQBPvUjgH7e6t7rCqyY9361h2PfIfKElQHIpTXxecihjxfR8x8yqBCDlfhiRA4j5+V2mkXRmpcEFsf3LbcN4ICE7z+FT1m9G/EcD5RoEkZLX13EQdvkkTE770+u7Uc8TZCNI/E9QuHMbjOMYI6pajIr692v2JxmFUlSqWElBFQfDBb1O6MnTVl2u4htSYp6jhNkEAn4CFXrnA9d8/HksorI7JhvtZCIvlRBqjjvGjtYD7kKbDExA7O611HpwsmjSCtg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
- by OSNPR03MB9798.apcprd03.prod.outlook.com (2603:1096:604:46f::20) with
+ bh=FMhcDjam5eaaapNz1y/vNDuMgiDLts6GqtNhLn295aY=;
+ b=BAkx+EdOQWqfEgE7FlTVwK9TmaG3QYyJ0XXPUSzinR81h3/kmMuEzr4kQ2KwSHipQ6Er39KrEcjY76H9nr++lLd2k80c1DJcaBcU4YFO1l3MfYNRdG8m8OnYE1A3/Zo/zeXovujg87nVhQG/OmIEil1RVTsxnGO920n2nqh889KQ3XbalyeDcj1WTG9yTod0hXhotJ6wCCTbym7kIs1ZaDdUWl8jMW3FOfMEu4YYzJtcW7SbwLqKtddlnQ6Thqj0OrZuSuSua9HsTn30MHJtxjTQeiVrAksS4D+2VlqBZMX26xHqeynCbCMFF7O1dMIDt/+OHpWBgipZJuQJBHgrBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SG2PR02CA0132.apcprd02.prod.outlook.com (2603:1096:4:188::15)
+ by TY0PR06MB5681.apcprd06.prod.outlook.com (2603:1096:400:275::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 06:42:51 +0000
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 06:42:50 +0000
-Message-ID: <01bd407a-46a2-47f9-98fa-1255845103ab@amlogic.com>
-Date: Tue, 17 Nov 2026 14:42:48 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 4/6] decoder: Add V4L2 stateless H.264 decoder driver
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
- <20261022-b4-s4-vdec-upstream-v12-4-616240978792@amlogic.com>
- <efdc99694c36ed26c8475e31c4e90773c8b0f53f.camel@collabora.com>
-From: Zhentao Guo <zhentao.guo@amlogic.com>
-In-Reply-To: <efdc99694c36ed26c8475e31c4e90773c8b0f53f.camel@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI2PR02CA0031.apcprd02.prod.outlook.com
- (2603:1096:4:195::16) To KL1PR03MB5521.apcprd03.prod.outlook.com
- (2603:1096:820:51::12)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Tue, 17 Nov
+ 2026 06:45:55 +0000
+Received: from OSA0EPF000000C9.apcprd02.prod.outlook.com
+ (2603:1096:4:188:cafe::7d) by SG2PR02CA0132.outlook.office365.com
+ (2603:1096:4:188::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Tue,
+ 17 Nov 2026 06:45:54 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000C9.mail.protection.outlook.com (10.167.240.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 06:45:53 +0000
+Received: from localhost.localdomain (unknown [172.16.66.33])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id CAC0740920E2;
+	Tue, 17 Nov 2026 14:45:52 +0800 (CST)
+From: Luo Liu <Luo.Liu@cixtech.com>
+To: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	Luo.Liu@cixtech.com,
+	wuyi.shen@cixtech.com,
+	cix-kernel-upstream@cixtech.com
+Subject: [PATCH v2 2/2] drm/cix: add Sky1 DisplayPort transmitter driver
+Date: Tue, 17 Nov 2026 14:45:52 +0800
+Message-Id: <20261117064552.85256-3-Luo.Liu@cixtech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261117064552.85256-1-Luo.Liu@cixtech.com>
+References: <20261117064552.85256-1-Luo.Liu@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,1609 +105,3814 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|OSNPR03MB9798:EE_
-X-MS-Office365-Filtering-Correlation-Id: bbfc3234-0365-409b-6610-08df4475ffcf
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C9:EE_|TY0PR06MB5681:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 50941482-3d7e-482b-9013-08df44766d4c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|4022899009|366016|23010399003|261022105027099003|261021121427099003|4143699003|5023799004|11063799006|10067099003|56012099006|261026121527099003|261026140227099003|261028144727099003|261021135927099003|261022075727099003|261022115727099003|261102123227099003|261021123027099003|261009221727099003|261009223327099003|261009221227099003|261009223027099003|18002099003|6133799003|22082099003|261009220027099003|3023799007;
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|42112799006|36860700016|23010399003|6133799003|18002099003|18092099006|22082099003|261009221227099003|261009221727099003|261009220027099003|261009223027099003|261009223327099003|3023799007|261021123027099003|261022105027099003|261022075727099003|261022113327099003|261021121427099003|261026140227099003|261026121527099003|261028144727099003|56012099006|10067099003|5023799004|261102123227099003;
 X-Microsoft-Antispam-Message-Info:
-	ppe8S9xLU27YAbNIlgGnLLPvhxyIJq3DlxRAoGkiejpr12EDFTGI7I9mPHr6B5lDJXBzbbeW37oiW0Lw/4ZfmWUzQVFrlzIBpUJPo84Qti1lt3xenFlzrb+TtyXnlIC02ZIfrp5ySjXTw3tRbjKnb/0WFtMT4r1x7fqAr2oTT7Uj6xOlmlP3Zk0GpfK1Gz7Ov6StfJj35+q6zU8KIfmUI6OlP86LQq6whcUXMpW2vQU+XPVongXUI7s2cWWUHDiAyexxWGSvCvRLSMBOz84+PqXx89NS2S54Rgvl5xOstKpeScWGdaLnL06PZUWq9CoRAQ5/7YA79iJqW82da+8a5rdjK3Un6cNw05MFPuRy/CYAEcTpwRVfdbYAcDRHPDHyBN89Wjhknk1wfBlzOO7G/bjLnygpXaxKiS5N+qxzdK7LJ4m5raoZ/bHXHeKQzRuelfepc7paLRtIVmnpmjSG9bEF27cUXgA3/OjcX9QlxPrkrWilZEudc9/vTxUzymMpfBZ4KIKKGXTE/VF7u9O3IoBgcHj+v7N7a4C3U+9ArvmpXKDC0UYmFMbB3iPUFO5Y3AYquHlgKvUVZkVG/pmNqSrq1TiozXYVBjx6M9lKQ8kVuWRqjxdyYiBqlaIZwh362Ug5ohhZ+0yjJz1H8N/kp34bWA5JJ+PqLxoyAcGq04w=
+	LMR7pSqCPCl6621aXt3Q6fD8radLbQJ9kuT1TtSon1oIm0AAabDzok2UHcdPnu41+pRRH6kq1Nvz9m9yVrH1IHmuJJ8diY7+L41J9g6X5+KHafJnU/oQ1bvxtnHfttcxGcRJQeZgHZT9BAhfzV2lUU0zShPmvlX8Yiyy51Q9EmQPVohQqTiTxLZWiTjul3sgOWPezustzMGOoDuWJhiBl7e2uwadMkmj9cL0wx1my7HjlzgNF/6odabiSEOE6/+KyyNZj1GPZnDnNkrBB9sYgYYXtXWBxZAwr7itA0/Un3YqA7r26Rtu5Y0ZofHxSJU/8GuNSxOC6+UQSyAOjzFi8PRvE/WnhHtJXZQtTnrJTrFO38nG+b5iEf7ZfwaNsYjdkgVAOZB+Be1U50bLe9FszQOcnP29KsNMMnCevQdFm3ccIzGgtLLCCoAm6RMNZKnr//ygKCflo/bJEZCqC2N6L88FBK3w5nZxrVgu+0XlNYImcCPKb+CwF8ms6ps1mEdwAwNbIwXnXxN4NCefGHIOIE8lYz12OXKk/p+8mIOqJTzgl3lMIC29BObe50If7DlmlPzEcdFDGroM/94tR1PWz5O7+tT7Da+vMLqn4EHWyariwGe0jRtV+me84Ld04UHLTL+B1Y5IeAsc452LMTE0Urdm6CpK4O4iEn9icxt+yccKXs0c6kWSVbC8CZobVF/0kr6+ymsXT2MKXpOD4w5WVg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(4022899009)(366016)(23010399003)(261022105027099003)(261021121427099003)(4143699003)(5023799004)(11063799006)(10067099003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261021135927099003)(261022075727099003)(261022115727099003)(261102123227099003)(261021123027099003)(261009221727099003)(261009223327099003)(261009221227099003)(261009223027099003)(18002099003)(6133799003)(22082099003)(261009220027099003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(42112799006)(36860700016)(23010399003)(6133799003)(18002099003)(18092099006)(22082099003)(261009221227099003)(261009221727099003)(261009220027099003)(261009223027099003)(261009223327099003)(3023799007)(261021123027099003)(261022105027099003)(261022075727099003)(261022113327099003)(261021121427099003)(261026140227099003)(261026121527099003)(261028144727099003)(56012099006)(10067099003)(5023799004)(261102123227099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dnFjTTJzQVVuTTZGc2wrOTkxMUlaMGRsbVdpaThiNWFQS3V4VnBXTUJ4M2or?=
- =?utf-8?B?LzREdk5sM0l5SXExell2RFp2NUsvT2dGd0tjK08waWFrKy9NN3dPdHVEaG4z?=
- =?utf-8?B?ZkRlREdub0xsVVdBcHJ3WlpiWmJCRk5peGl3RXlKTlM3YklJWFRUb1ltdHhF?=
- =?utf-8?B?NjhjWGR3V213NlFvSmFEWjBRb1lkbDFOQ1QzamVzR1pWc3BVZVUwUFQ3RXZk?=
- =?utf-8?B?cTluZXRlUmFsWHUwY1dBcUJTSEU4RFBpUkZ6eUxJdjdvUC9QVkJsV2JlN1Vo?=
- =?utf-8?B?L3RJRjE3MGF3dGRFbTdRcHM1b3dSNVl1TFR0SjBjcDBiNTFoN1VpN2pYWDRr?=
- =?utf-8?B?WkNyVG1EK1RCeUNPbms0cWFrM01OT25Odnh3dTJxTzZMUm5oN1BxZndVZVI0?=
- =?utf-8?B?QUVXQmthS1dZUFlGTm5EV1VXNU92Mnd2V1ZiNG1BTFI0bGJwSHpzbmdXV2VE?=
- =?utf-8?B?S2NMVkxCTldKL0tOSGNmM01hck0vemZ3dUJqMkRlaysvejE2M3dIcGNvT3g4?=
- =?utf-8?B?a1AwVDdXMFlKUkdYV0hzemtxbTdPS2xmY20zLyswTzM2VGg1Y3hObVg0cTZn?=
- =?utf-8?B?Um53SlZkS2MyN1lwdW1scmlYeVplY0dMWGFsejdpUFFzLzR4aDUyUFJCN0xl?=
- =?utf-8?B?a21zTUVMRlJReHNWeVRVMTU5UTZjRFFHV3VxVGFoMjM0OGdzcUxCUkFTN2Fs?=
- =?utf-8?B?V3FTNmwxc0NjeldUaElidnI3WHd4RFlaeDVtNlVTRmdGRnFvSmV3eS9GWUJD?=
- =?utf-8?B?UXNBSzNtbGJ5YzY0SU9UUFB1cmt5Z0pQVUpnRVN4NFJ2TXdZL0tWek5nYjF4?=
- =?utf-8?B?a3JDNVdoN2lWTTAxRWJlTDhRNWZIeDNsUnd6cE40WFh3UUNTUThZQktTdWY5?=
- =?utf-8?B?Z05oVkpQR2JOUkJEdGhkZ0JwV3p4aGxEZnNXUFJGQmRCTGM3NTR6amlmTHQ5?=
- =?utf-8?B?R0hlN01YSmpzRGh5Y1YzejUvSUNDSkZoOUlIdTBxU1VqZVlmU0dDV2JIVmdz?=
- =?utf-8?B?R2tCT2FmMWlScXQydy8rN1FHY3o1cUQzcGE3RkxGUUdFVnEwUzNQUXVNWm1l?=
- =?utf-8?B?U0FxTUxrRzNpK045aUgrNURiVVVFUndGVGZsZEF4eTZmZU95bTc5dzJHZ3Va?=
- =?utf-8?B?aEl6MkFjM1llK0NPdEM4d0paZGc5ZlYwSERNbW1hbDNna1ZRSWtMamFtckIv?=
- =?utf-8?B?QllIRXVod3VmeGE3NlZPQzBuMFBReHhGUERqa3Fab04zZjRhMHNZc243NlJY?=
- =?utf-8?B?ZnlxTFcwVW1GRmVWQWNNOHh6UjZIRkFWVHdYc3I1Qm9ubWhwSXRMOG1GNlhZ?=
- =?utf-8?B?b1JEcGM3MHRmYkZPbHV0c2g5WlhlUEM1bC8vblNrNTM1MXR3aUZiK1lIRTN0?=
- =?utf-8?B?bmJvVUJnbDJCVUNncXJTbk9CS2VqWmp6czZZRDhDc0ttOGo3TURUdG9aYk8v?=
- =?utf-8?B?VGNzcVFoOWxMdzcyMkZpL1VCZi8rcHhmZXN3YmQ5elB6RndPMUZpbk8yVko2?=
- =?utf-8?B?WXBob05oNmoyN0U0WnErZTQyY1lyUzJGbENpM2loelBKYzlaT1BYOWVpanhn?=
- =?utf-8?B?TmMvOGh2aFZLZENyaDVSQVRGWG9peUJVK2tjTHU5S3FBdmdVOG4zd0wzQ1RG?=
- =?utf-8?B?NGkxNTZPY1YxdnhGa0tualFORE54ZWRNTFlLWnZVaVR6S3llWEpNS1hkWVcx?=
- =?utf-8?B?ekVaQkpVQXZvVEMwRW94TTZodGY2Q2E2ankxRHhaK0pFUnJuU3NJM3RVdDFv?=
- =?utf-8?B?N3c5NlNOYW9kREtrdmhYbnFzMC96VWwzY2hMYlhWQlU3d1hWRE1LMWFCdkp1?=
- =?utf-8?B?VGo3dDAxdjA4K1VCR2QrbVVTY3N5bFgyY0NuRENuQWdudk0rMCtMMGphUHBv?=
- =?utf-8?B?WFo4MjFZcCtRczBlSjgxZkNCSFk1clZWMVlCN2owaXQrc056dWlSUytlSStr?=
- =?utf-8?B?azZQVjRjLzhGZVJDUzFwc083VkhJMy95eGpmNnJUYVdHMEY0WGxSTDVsSW9o?=
- =?utf-8?B?K3V2QUJGamlQVGVZc2d4dnlPQjhKZ0NkQjVnUWZyM3p2OUdiZWlTYWcvWDR5?=
- =?utf-8?B?bGs3QVZKbWFENExmWU9oWWZJaTBUMGlxUHhUQ1FpcnQ5VEsyVWJzdlVBQnNY?=
- =?utf-8?B?eXUxN1RZanNXOUQ2eXVyZTBmM3JLVUZYcDlLckFTb3ovRGJ2L0Fqdmhyd2JV?=
- =?utf-8?B?c042TWwxVnFDSVJJNUQ3K3NZZ3BjUE1hYUg5VzJDNUE1YzZ0bFVMYW9HUFZF?=
- =?utf-8?B?ditDbFFTMnd5OEVtSWNrL3N4a1BMeUpPTzROYm0wbkszWGxyblp5UHM1cGRm?=
- =?utf-8?B?WFo0SjZXeFY3clFVUUt3M1dxNGNRcVBKV2pRbnI4bjF0dXhDekpiQT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbfc3234-0365-409b-6610-08df4475ffcf
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 06:42:50.8090
+	UaX1FMfhGFZsg+5zk2JiE0Af3Z6fe/bYR2hNkprWlPONuz48GUXTKmvY8hERoeSUob8v4HH+rAqP6vF+P5W0wQFl2484KIvoAK1JQVMLzjeWeSqpj3Y334YySt7nuqiIAt7wVYc7b1QKX3xnCnr5GaKDvmsMuTa1o6Yf+pp34VPkM+yo9S1nkV37Ih+R8VjgmLHwkNU2bnGycziKY21B5ftTJglUY1rLBMGtfR5Wy6P0S47DJYjpoupDlx0K0ye/lj3/shhKZt4OKCfds7hm9KY42ymlewbNAoiBsWEqP1F4dVXvmplIR49UWEiLI+Aqq3T4XeueH49XleC2m/KMLlttFkTOaAQsLnffWLIzHBQzZqscU6iGqJkZcfApJsL+ot56N06qNx4CvfZqYycPC+LUUXaelgqpi3AS2yGLEtiIq+ZiuRRb/u18LrEeMqu8
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 06:45:53.8010
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FxX2hsGeab5S3OGkKw6DH2TFDot4iH3xr35cFV7XHSHS5UaEDILUoEfy2rdqjdqVFp5kAXXsasKkdvKiXDuK2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSNPR03MB9798
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50941482-3d7e-482b-9013-08df44766d4c
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000C9.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB5681
 
-Hi Nicolas,
+Add a DRM bridge driver for the CIX Sky1 DisplayPort transmitter. The
+controller implements the DP link training and the source side of the
+DisplayPort protocol, and is fed by one of the SoC display pipelines.
 
-> Hi,
->
-> Le jeudi 22 octobre 2026 à 13:27 +0800, Zhentao Guo via B4 Relay a écrit :
->> From: Zhentao Guo <zhentao.guo@amlogic.com>
->>
->> Add initial support for V4L2 stateless video decoder
->> driver on Amlogic S4(S805X2) platform. In phase 1,
->> it supports 8bit H.264 bitstreams decoding. Currently
->> only progressive streams are supported.
->>
->> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
->> ---
->>   MAINTAINERS                                        |    7 +
->>   drivers/media/platform/amlogic/Kconfig             |    1 +
->>   drivers/media/platform/amlogic/Makefile            |    1 +
->>   drivers/media/platform/amlogic/vdec/Kconfig        |   18 +
->>   drivers/media/platform/amlogic/vdec/Makefile       |    4 +
->>   drivers/media/platform/amlogic/vdec/TODO           |    7 +
->>   drivers/media/platform/amlogic/vdec/aml_vdec.c     |  846 ++++++++
->>   drivers/media/platform/amlogic/vdec/aml_vdec.h     |   33 +
->>   drivers/media/platform/amlogic/vdec/aml_vdec_drv.c |  260 +++
->>   drivers/media/platform/amlogic/vdec/aml_vdec_drv.h |  168 ++
->>   drivers/media/platform/amlogic/vdec/aml_vdec_hw.c  |  570 +++++
->>   drivers/media/platform/amlogic/vdec/aml_vdec_hw.h  |  161 ++
->>   .../platform/amlogic/vdec/aml_vdec_platform.c      |   81 +
->>   .../platform/amlogic/vdec/aml_vdec_platform.h      |   46 +
->>   .../media/platform/amlogic/vdec/aml_vdec_tee_fw.c  |  249 +++
->>   .../media/platform/amlogic/vdec/aml_vdec_tee_fw.h  |   27 +
->>   drivers/media/platform/amlogic/vdec/h264.c         | 2209 ++++++++++++++++++++
->>   drivers/media/platform/amlogic/vdec/h264.h         |  299 +++
->>   drivers/media/platform/amlogic/vdec/reg_defines.h  |  177 ++
->>   19 files changed, 5164 insertions(+)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 149bc44003bd..58df555ae864 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -1458,6 +1458,13 @@ S:	Maintained
->>   F:	Documentation/devicetree/bindings/spi/amlogic,a4-spisg.yaml
->>   F:	drivers/spi/spi-amlogic-spisg.c
->>   
->> +AMLOGIC VDEC DRIVER
->> +M:	Zhentao Guo <zhentao.guo@amlogic.com>
->> +L:	linux-media@vger.kernel.org
->> +S:	Maintained
->> +F:	Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
->> +F:	drivers/media/platform/amlogic/vdec/
->> +
->>   AMPHENOL CHIPCAP 2 DRIVER
->>   M:	Javier Carrasco <javier.carrasco.cruz@gmail.com>
->>   L:	linux-hwmon@vger.kernel.org
->> diff --git a/drivers/media/platform/amlogic/Kconfig b/drivers/media/platform/amlogic/Kconfig
->> index 458acf3d5fa8..7c541ac0d0c3 100644
->> --- a/drivers/media/platform/amlogic/Kconfig
->> +++ b/drivers/media/platform/amlogic/Kconfig
->> @@ -4,3 +4,4 @@ comment "Amlogic media platform drivers"
->>   
->>   source "drivers/media/platform/amlogic/c3/Kconfig"
->>   source "drivers/media/platform/amlogic/meson-ge2d/Kconfig"
->> +source "drivers/media/platform/amlogic/vdec/Kconfig"
->> diff --git a/drivers/media/platform/amlogic/Makefile b/drivers/media/platform/amlogic/Makefile
->> index c744afcd1b9e..7409de674c0b 100644
->> --- a/drivers/media/platform/amlogic/Makefile
->> +++ b/drivers/media/platform/amlogic/Makefile
->> @@ -2,3 +2,4 @@
->>   
->>   obj-y += c3/
->>   obj-y += meson-ge2d/
->> +obj-y += vdec/
->> diff --git a/drivers/media/platform/amlogic/vdec/Kconfig b/drivers/media/platform/amlogic/vdec/Kconfig
->> new file mode 100644
->> index 000000000000..2c5dd8452962
->> --- /dev/null
->> +++ b/drivers/media/platform/amlogic/vdec/Kconfig
->> @@ -0,0 +1,18 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR MIT)
->> +
->> +config VIDEO_AMLOGIC_VDEC
->> +    tristate "Amlogic Video Decoder Driver"
->> +    depends on ARCH_MESON || COMPILE_TEST
->> +    depends on VIDEO_DEV
->> +    depends on V4L_MEM2MEM_DRIVERS
->> +    depends on TEE
->> +    depends on MESON_SM
->> +    select VIDEOBUF2_DMA_CONTIG
->> +    select V4L2_H264
->> +    select V4L2_MEM2MEM_DEV
->> +    select MESON_CANVAS
->> +    help
->> +      This is a v4l2 driver for Amlogic video decoder driver.
->> +      This driver is designed to support V4L2 M2M STATELESS
->> +      interface.
->> +      To compile this driver as a module choose m here.
->> diff --git a/drivers/media/platform/amlogic/vdec/Makefile b/drivers/media/platform/amlogic/vdec/Makefile
->> new file mode 100644
->> index 000000000000..f752716cbf9e
->> --- /dev/null
->> +++ b/drivers/media/platform/amlogic/vdec/Makefile
->> @@ -0,0 +1,4 @@
->> +# SPDX-License-Identifier: GPL-2.0-only
->> +aml-vdec-drv-objs := aml_vdec.o aml_vdec_drv.o aml_vdec_hw.o aml_vdec_platform.o h264.o aml_vdec_tee_fw.o\
->> +
->> +obj-$(CONFIG_VIDEO_AMLOGIC_VDEC) += aml-vdec-drv.o
->> diff --git a/drivers/media/platform/amlogic/vdec/TODO b/drivers/media/platform/amlogic/vdec/TODO
->> new file mode 100644
->> index 000000000000..54c60145770e
->> --- /dev/null
->> +++ b/drivers/media/platform/amlogic/vdec/TODO
->> @@ -0,0 +1,7 @@
->> +TODO list for Amlogic V4L2 stateless decoder driver:
->> +
->> +1. Support decoding for HEVC, VP9, AV1, and MPEG-2.
->> +2. Support more SoCs, including the new T7/S7 series and legacy SoCs (e.g., GXL, SM1, G12B).
->> +3. Support 10-bit decoding and P010 output.
->> +   Note: P010 output requires hardware support.
->> +4. Support interlaced stream decoding for H.264, HEVC, and MPEG-2.
->> diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec.c b/drivers/media/platform/amlogic/vdec/aml_vdec.c
->> new file mode 100644
->> index 000000000000..e65ebb2ce311
->> --- /dev/null
->> +++ b/drivers/media/platform/amlogic/vdec/aml_vdec.c
->> @@ -0,0 +1,846 @@
->> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
->> +/*
->> + * Copyright (C) 2025 Amlogic, Inc. All rights reserved
->> + */
->> +
->> +#include <media/v4l2-mem2mem.h>
->> +#include <media/v4l2-ctrls.h>
->> +#include <media/v4l2-event.h>
->> +#include <media/videobuf2-v4l2.h>
->> +#include <media/videobuf2-dma-contig.h>
->> +
->> +#include "aml_vdec.h"
->> +#include "aml_vdec_hw.h"
->> +#include "aml_vdec_platform.h"
->> +#include "aml_vdec_tee_fw.h"
->> +
->> +#define VCODEC_DRV_NAME "aml-vdec-drv"
->> +
->> +static const struct aml_vdec_v4l2_ctrl controls[] = {
->> +	{
->> +		.codec_type = CODEC_TYPE_H264,
->> +		.cfg = {
->> +			.id = V4L2_CID_STATELESS_H264_DECODE_PARAMS,
->> +		},
->> +	}, {
->> +		.codec_type = CODEC_TYPE_H264,
->> +		.cfg = {
->> +			.id = V4L2_CID_STATELESS_H264_SPS,
->> +		},
->> +	}, {
->> +		.codec_type = CODEC_TYPE_H264,
->> +		.cfg = {
->> +			.id = V4L2_CID_STATELESS_H264_PPS,
->> +		},
->> +	}, {
->> +		.codec_type = CODEC_TYPE_H264,
->> +		.cfg = {
->> +			.id = V4L2_CID_STATELESS_H264_SCALING_MATRIX,
->> +		},
->> +	}, {
->> +		.codec_type = CODEC_TYPE_H264,
->> +		.cfg = {
->> +			.id = V4L2_CID_STATELESS_H264_DECODE_MODE,
->> +			.min = V4L2_STATELESS_H264_DECODE_MODE_FRAME_BASED,
->> +			.def = V4L2_STATELESS_H264_DECODE_MODE_FRAME_BASED,
->> +			.max = V4L2_STATELESS_H264_DECODE_MODE_FRAME_BASED,
->> +		},
->> +	}, {
->> +		.codec_type = CODEC_TYPE_H264,
->> +		.cfg = {
->> +			.id = V4L2_CID_MPEG_VIDEO_H264_LEVEL,
->> +		},
->> +	}, {
->> +		.codec_type = CODEC_TYPE_H264,
->> +		.cfg = {
->> +			.id = V4L2_CID_STATELESS_H264_START_CODE,
->> +			.min = V4L2_STATELESS_H264_START_CODE_ANNEX_B,
->> +			.def = V4L2_STATELESS_H264_START_CODE_ANNEX_B,
->> +			.max = V4L2_STATELESS_H264_START_CODE_ANNEX_B,
->> +		},
->> +	}, {
->> +		.codec_type = CODEC_TYPE_H264,
->> +		.cfg = {
->> +			.id = V4L2_CID_MPEG_VIDEO_H264_PROFILE,
->> +			.min = V4L2_MPEG_VIDEO_H264_PROFILE_BASELINE,
->> +			.max = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH,
->> +			.def = V4L2_MPEG_VIDEO_H264_PROFILE_MAIN,
->> +		},
->> +	}
->> +};
->> +
->> +static const struct aml_dec_type dec_type_name[] = {
->> +	{
->> +		.codec_type = CODEC_TYPE_H264,
->> +		.name = "H264",
->> +	},
->> +};
->> +
->> +static const char *dec_type_to_name(unsigned int type)
->> +{
->> +	int i;
->> +	int size = ARRAY_SIZE(dec_type_name);
->> +
->> +	for (i = 0; i < size; i++) {
->> +		if (dec_type_name[i].codec_type == type)
->> +			return dec_type_name[i].name;
->> +	}
->> +
->> +	return "ERR";
->> +}
->> +
->> +int aml_vdec_ctrls_setup(struct aml_vdec_ctx *ctx)
->> +{
->> +	int i;
->> +	int ret;
->> +	int ctrls_size = ARRAY_SIZE(controls);
->> +
->> +	v4l2_ctrl_handler_init(&ctx->ctrl_handler, ctrls_size);
->> +	for (i = 0; i < ctrls_size; i++) {
->> +		v4l2_ctrl_new_custom(&ctx->ctrl_handler, &controls[i].cfg, NULL);
->> +		if (ctx->ctrl_handler.error) {
->> +			dev_info(&ctx->dev->plat_dev->dev, "add ctrl for (%d) failed%d\n",
->> +				 controls[i].cfg.id, ctx->ctrl_handler.error);
->> +			v4l2_ctrl_handler_free(&ctx->ctrl_handler);
->> +			return ctx->ctrl_handler.error;
->> +		}
->> +	}
->> +	ctx->fh.ctrl_handler = &ctx->ctrl_handler;
->> +
->> +	ret = v4l2_ctrl_handler_setup(&ctx->ctrl_handler);
->> +	if (ret)
->> +		v4l2_ctrl_handler_free(&ctx->ctrl_handler);
->> +
->> +	return ret;
->> +}
->> +
->> +static void m2mops_vdec_device_run(void *m2m_priv)
-> Namespaces are inconsistant since the start of this patch.
-Ok, I'll rename this and check elsewhere.
->> +{
->> +	struct aml_vdec_ctx *ctx = (struct aml_vdec_ctx *)m2m_priv;
->> +	struct aml_vdec_dev *dev = ctx->dev;
->> +	struct vb2_v4l2_buffer *src_buf, *dst_buf;
->> +	struct media_request *src_req;
->> +	int ret = 0;
->> +
->> +	src_buf = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
->> +	dst_buf = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
->> +	dev_dbg(&dev->plat_dev->dev, "device run : src buf : %d dst buf %d\n",
->> +		src_buf->vb2_buf.index, dst_buf->vb2_buf.index);
->> +	if (WARN_ON_ONCE(!ctx->codec_ops->run))
-> It looks like a BUG_ON to me, any reason they may happen and would require fail-
-> safety ?
-In theory this should basically never happen (there's no hardware or 
-firmware anomaly that could lead into this case). If it ever does 
-trigger, it means something has gone seriously wrong, so you're right 
-that BUG_ON is appropriate.
->
->> +		goto err_cancel_job;
->> +
->> +	src_req = src_buf->vb2_buf.req_obj.req;
->> +	if (src_req)
->> +		v4l2_ctrl_request_setup(src_req, &ctx->ctrl_handler);
->> +
->> +	/*
->> +	 * Claim the hardware initialization window: curr_ctx has a
->> +	 * strictly per-frame lifecycle (set by the codec run callback,
->> +	 * cleared when the frame completes) and cannot cover the
->> +	 * bring-up below. The claim tells a concurrent aml_h264_exit()
->> +	 * from another instance to leave the hardware alone; it is
->> +	 * handed over to curr_ctx when the frame starts.
->> +	 */
->> +	mutex_lock(&dev->dec_hw->ctx_mutex);
->> +	dev->dec_hw->init_ctx = ctx->codec_priv;
->> +	mutex_unlock(&dev->dec_hw->ctx_mutex);
-> Sounds like "the claim" refer to some sashiko report ? Might be nice to
-> reference it, but also, I don't understand a thing here. How is init_ctx pointer
-> safer because you copied codec_priv under a mutex? Normally, to fix such a
-> lifetime issue, we'd opt for kref.
+The transmitter is exposed as a DRM bridge. The Komeda display pipeline
+(ARM Mali DPU on Sky1) that feeds these outputs is not part of this
+series. Komeda calls drm_bridge_attach() with attach flags 0 and does
+not register a connector, so this driver registers a DisplayPort
+drm_connector from .attach(). That matches how Sky1 is integrated today
+and gives userspace a connector on the encoder.
 
-Yes, here is the reference of sashiko's review :
+The connector reads EDID, validates modes against link bandwidth,
+supports YCbCr 4:2:0 and signals hotplug through
+drm_helper_hpd_irq_event().
 
- >>>[High] media: amlogic: unprotected dos_enable in device_run races 
-with aml_h264_exit
+The DisplayPort PHY is driven through the generic PHY API: link-rate and
+voltage-swing updates are forwarded to the PHY and the link is retrained
+when the sink requests it. Audio and DSC are not supported yet.
 
- >>>Does this execute hardware setup before curr_ctx is assigned and 
-without cross-instance locking?
+Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
+---
+ MAINTAINERS                             |    1 +
+ drivers/gpu/drm/Kconfig                 |    1 +
+ drivers/gpu/drm/Makefile                |    1 +
+ drivers/gpu/drm/cix/Kconfig             |    3 +
+ drivers/gpu/drm/cix/Makefile            |    3 +
+ drivers/gpu/drm/cix/dptx/Kconfig        |   17 +
+ drivers/gpu/drm/cix/dptx/Makefile       |    4 +
+ drivers/gpu/drm/cix/dptx/cix_dptx.c     | 2434 +++++++++++++++++++++++
+ drivers/gpu/drm/cix/dptx/cix_dptx.h     |  408 ++++
+ drivers/gpu/drm/cix/dptx/cix_dptx_drm.c |  771 +++++++
+ drivers/gpu/drm/cix/dptx/cix_dptx_drm.h |   16 +
+ 11 files changed, 3659 insertions(+)
+ create mode 100644 drivers/gpu/drm/cix/Kconfig
+ create mode 100644 drivers/gpu/drm/cix/Makefile
+ create mode 100644 drivers/gpu/drm/cix/dptx/Kconfig
+ create mode 100644 drivers/gpu/drm/cix/dptx/Makefile
+ create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx.c
+ create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx.h
+ create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx_drm.c
+ create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx_drm.h
 
- >>>If another decoding instance is concurrently stopped via 
-VIDIOC_STREAMOFF, its aml_h264_exit() could see (!dec_hw->curr_ctx || 
-dec_hw->curr_ctx == h264_ctx) evaluate to true, locking ctx_mutex and 
-shutting down the hardware while this instance is >>>simultaneously 
-trying to initialize it.
-
-device_run() powers up the hardware before the codec run callback sets 
-curr_ctx, so a concurrent aml_h264_exit() can stop the hardware in that 
-window.  One way to fix this would be to assign curr_ctx earlier in 
-device_run(), but I think it would be better
-to let the lifetime of curr_ctx is strictly tied to a single frame. So, 
-instead, I added a separate init_ctx to prevent the power from being 
-shutted down after powered on and before the curr_ctx is set. I'll look 
-into using kref to protect these resources as you proposed.
-
-
->> +
->> +	dos_enable(dev->dec_hw);
->> +	/* incase of bus hang in stop_streaming */
->> +	ctx->dos_clk_en = 1;
-> The code in aml_h264_exit() uses mutex, which hint that it is maybe running in a
-> concurrent thread and so dos_enable() + setting dos_clk_en should be serialized
-> under the ctx_mutex. The race might not exist in practice, but the locking seems
-> to be an after thought, make it safe by design, you always pay the cost.
-Yes, it makes sense, I'll add the lock.
->
->> +	ctx->curr_frm_err_flag = 0;
->> +
->> +	if (ctx->curr_dec_type == CODEC_TYPE_H264)
->> +		aml_vdec_reset_core(dev->dec_hw);
->> +
->> +	if (load_firmware(dev->dec_hw, ctx->curr_dec_type) < 0)
->> +		goto err_load_fw;
->> +
->> +	ret = ctx->codec_ops->run(ctx);
-> We encourage not doing this synchronously, as this introduce an extra context
-> switch from the threaded IRQ to here. Only handle synchronous failures (like bad
-> parameters) in the lower part, finish the job in the threaded IRQ. Its not
-> invalid, just not optimal.
-Yes, this is currently handled synchronously, device_run() blocks until 
-the hardware has completely finished processing before returning. I'll 
-try to rework this way: device_run() returns immediately after the 
-hardware is started, the ctrl and m2m resources will be cleaned up there 
-in threaded irq and a watchdog will be used to handle hardware exceptions.
-
->> +	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
->> +	if (src_req)
->> +		v4l2_ctrl_request_complete(src_req, &ctx->ctrl_handler);
->> +	if (ret < 0 || ctx->curr_frm_err_flag)
->> +		goto err_cancel_job;
->> +	v4l2_m2m_buf_done_and_job_finish(dev->m2m_dev_dec, ctx->m2m_ctx,
->> +					 VB2_BUF_STATE_DONE);
->> +	return;
->> +
->> +err_load_fw:
->> +	mutex_lock(&dev->dec_hw->ctx_mutex);
->> +	dev->dec_hw->init_ctx = NULL;
->> +	mutex_unlock(&dev->dec_hw->ctx_mutex);
->> +	if (src_req)
->> +		v4l2_ctrl_request_complete(src_req, &ctx->ctrl_handler);
->> +err_cancel_job:
->> +	v4l2_m2m_buf_done_and_job_finish(dev->m2m_dev_dec, ctx->m2m_ctx,
->> +					 VB2_BUF_STATE_ERROR);
-> There is clear cases, like err_load_fw where nothing has been written in the
-> CAPTURE buffer. And ret < 0 might be another one ? In these cases, which are
-> unlike missing slices or missing references, set the payload size to 0. This
-> will tell userspace this is a frame to be discarded. I'm working on GStreamer
-> fix for failed frame discard, and corrupted frame marking, other implementation
-> such as chromium have it.
-I wasn't aware that setting the payload size to 0 could be used to 
-signal userspace to discard the frame. I will make the change accordingly.
->
->> +}
->> +
->> +const struct v4l2_m2m_ops aml_vdec_m2m_ops = {
->> +	.device_run = m2mops_vdec_device_run,
->> +};
->> +
->> +static int vidioc_vdec_querycap(struct file *file, void *priv,
->> +				struct v4l2_capability *cap)
->> +{
->> +	strscpy(cap->driver, VCODEC_DRV_NAME, sizeof(cap->driver));
->> +	strscpy(cap->card, "platform:" VCODEC_DRV_NAME, sizeof(cap->card));
->> +
->> +	return 0;
->> +}
->> +
->> +static int vidioc_vdec_enum_fmt(struct aml_vdec_ctx *ctx,
->> +				struct v4l2_fmtdesc *f, bool is_output)
->> +{
->> +	struct aml_vdec_dev *dev = ctx->dev;
->> +	const struct aml_video_fmt *fmt;
->> +	int i = 0, j = 0;
->> +
->> +	for (; i < dev->pvdec_data->num_fmts; i++) {
->> +		fmt = &dev->pvdec_data->dec_fmt[i];
->> +		if (is_output && fmt->type != AML_FMT_DEC)
->> +			continue;
->> +		if (!is_output && fmt->type != AML_FMT_FRAME)
->> +			continue;
->> +
->> +		if (j == f->index) {
->> +			f->pixelformat = fmt->fourcc;
->> +			strscpy(f->description, fmt->name,
->> +				sizeof(f->description));
->> +			return 0;
->> +		}
->> +		++j;
->> +	}
->> +	return -EINVAL;
->> +}
->> +
->> +static const struct aml_video_fmt *aml_vdec_get_video_fmt(struct aml_vdec_dev
->> +							  *dev, u32 format)
->> +{
->> +	const struct aml_video_fmt *fmt;
->> +	unsigned int k;
->> +
->> +	for (k = 0; k < dev->pvdec_data->num_fmts; k++) {
->> +		fmt = &dev->pvdec_data->dec_fmt[k];
->> +		if (fmt->fourcc == format)
->> +			return fmt;
->> +	}
->> +
->> +	return NULL;
->> +}
->> +
->> +static int aml_vdec_init_dec_inst(struct aml_vdec_ctx *ctx)
->> +{
->> +	struct aml_vdec_dev *dev = ctx->dev;
->> +	struct aml_video_fmt *fmt_out = &ctx->dec_fmt[AML_FMT_SRC];
->> +	int ret = -1;
->> +
->> +	ctx->codec_ops = &dev->pvdec_data->codec_ops[fmt_out->codec_type];
->> +	/*
->> +	 * The codec instance is only released when both queues are
->> +	 * streamed off: do not allocate a new one (leaking the previous
->> +	 * instance) when the output queue is restarted while the
->> +	 * capture queue is still streaming.
->> +	 */
->> +	if (ctx->codec_ops->init && !ctx->codec_priv) {
->> +		ret = ctx->codec_ops->init(ctx);
->> +		if (ret < 0)
->> +			return ret;
->> +	}
->> +	ctx->curr_dec_type = fmt_out->codec_type;
-> That's not much symmetrical. My worry now is that maybe we endup with
-> curr_dec_type not matching the codec_priv, which will lead to memory corruption.
-Yes, the two should be assigned more consistently, or at least have a 
-check to make sure they stay in sync. I will rework this.
->> +	dev_info(&dev->plat_dev->dev, "%s set curr_dec_type %s\n",
->> +		 __func__, dec_type_to_name(ctx->curr_dec_type));
->> +
->> +	return ret;
->> +}
->> +
->> +static void set_pic_info(struct aml_vdec_ctx *ctx,
->> +			 struct v4l2_pix_format_mplane *pix_mp,
->> +			 enum v4l2_buf_type type)
-> This is used once, either fold or move next to its users which is not
-> vidioc_vdec_enum_framesizes().
-Ok, got that.
->
->> +{
->> +	if (V4L2_TYPE_IS_OUTPUT(type)) {
->> +		ctx->pic_info.output_pix_fmt = pix_mp->pixelformat;
->> +		ctx->pic_info.coded_width = ALIGN(pix_mp->width, 64);
->> +		ctx->pic_info.coded_height = ALIGN(pix_mp->height, 64);
-> The coded size alignment in H.264 is 16 steps, this isn't a coded width/height
-> you store here, but a padded_width/height.
-Ok, they are used by the HW, I will rename them.
->
->> +		ctx->pic_info.fb_size[0] =
->> +		    ctx->pic_info.coded_width * ctx->pic_info.coded_height;
->> +		ctx->pic_info.fb_size[1] = ctx->pic_info.fb_size[0] / 2;
-> All this is duplication of the dst_fmt. Size should be pixel format dependent,
-> not hard coded to NV12 (which is not even commented here). Check other driver,
-> but basically, s_fmt should fait if the capture queue is busy, and reset the
-> dst_fmt to a valid value otherwise. The calculation of NV12 stride and sizes
-> should not be open coded but use v4l2_common. This means using
-> v4l2_apply_frmsize_constraints() and v4l2_fill_pixfmt_mp().
-Ok, since the HW only support NV12/21 output, so I hard coded here. I 
-will use the helpers to calculate, and will check other drivers.
->
->> +	}
->> +}
->> +
->> +static int vidioc_vdec_enum_framesizes(struct file *file, void *priv,
->> +				       struct v4l2_frmsizeenum *fsize)
->> +{
->> +	const struct aml_video_fmt *fmt;
->> +	struct aml_vdec_dev *dev = video_drvdata(file);
->> +
->> +	if (fsize->index != 0)
->> +		return -EINVAL;
->> +
->> +	fmt = aml_vdec_get_video_fmt(dev, fsize->pixel_format);
->> +	if (!fmt)
->> +		return -EINVAL;
->> +
->> +	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
->> +	fsize->stepwise = fmt->stepwise;
->> +
->> +	return 0;
->> +}
->> +
->> +static int vdec_try_fmt_mp(struct aml_vdec_ctx *ctx, enum v4l2_buf_type type,
->> +			   struct v4l2_pix_format_mplane *pix_mp,
->> +			   const struct aml_video_fmt *dec_fmt)
->> +{
->> +	int i, align;
->> +
->> +	pix_mp->field = V4L2_FIELD_NONE;
->> +	align = dec_fmt->align;
->> +
->> +	if (V4L2_TYPE_IS_OUTPUT(type)) {
->> +		pix_mp->num_planes = dec_fmt->num_planes;
->> +		pix_mp->pixelformat = dec_fmt->fourcc;
->> +		if (!pix_mp->plane_fmt[0].sizeimage)
->> +			pix_mp->plane_fmt[0].sizeimage =
->> +			    (pix_mp->height * pix_mp->width * 3) / 2;
-> Comment that this is bitstream default size.
-OK
->
->> +		pix_mp->height = ALIGN(pix_mp->height, align);
->> +		pix_mp->width = ALIGN(pix_mp->width, align);
-> Why do you need this, you call v4l2_apply_frmsize_constraints() right below. If
-> you configured the stepwise properly, it would just work.
-Yes, this should be removed, it is superfluous here.
->> +	} else {
->> +		pix_mp->height = ctx->pix_fmt[AML_FMT_SRC].height;
->> +		pix_mp->width = ctx->pix_fmt[AML_FMT_SRC].width;
->> +	}
->> +
->> +	v4l2_apply_frmsize_constraints(&pix_mp->width, &pix_mp->height,
->> +				       &dec_fmt->stepwise);
->> +	dev_dbg(&ctx->dev->plat_dev->dev,
->> +		"%s type %d four_cc %d pix_mp->width %d pix_mp->height %d\n",
->> +		__func__, type, dec_fmt->fourcc, pix_mp->width, pix_mp->height);
->> +
->> +	v4l2_fill_pixfmt_mp(pix_mp, dec_fmt->fourcc, pix_mp->width,
->> +			    pix_mp->height);
->> +
->> +	for (i = 0; i < pix_mp->num_planes; i++)
->> +		memset(&pix_mp->plane_fmt[i].reserved[0], 0x0,
->> +		       sizeof(pix_mp->plane_fmt[0].reserved));
->> +
->> +	memset(pix_mp->reserved, 0x0, sizeof(pix_mp->reserved));
->> +	pix_mp->flags = 0;
-> Drop this, should be filled by the core already.
->
->> +
->> +	dev_dbg(&ctx->dev->plat_dev->dev,
->> +		"%s type %d fmt %d num_plane %d sizeimage0 %d sizeimage1 %d\n",
->> +		__func__, type, pix_mp->pixelformat, pix_mp->num_planes,
->> +		pix_mp->plane_fmt[0].sizeimage, pix_mp->plane_fmt[1].sizeimage);
-> This is all traced by the code and application can enable/disable this, please
-> drop.
-Got it, for both two up here.
->
->> +
->> +	return 0;
->> +}
->> +
->> +static int vdec_s_fmt_output(struct aml_vdec_ctx *ctx, struct v4l2_format *f)
->> +{
->> +	struct v4l2_pix_format_mplane *pix_mp = &f->fmt.pix_mp;
->> +	struct v4l2_pix_format_mplane *cap_fmt = &ctx->pix_fmt[AML_FMT_DST];
->> +	const struct aml_video_fmt *out_fmt;
->> +	struct vb2_queue *vq, *peer_vq;
->> +	int ret;
->> +
->> +	vq = v4l2_m2m_get_vq(ctx->m2m_ctx, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
->> +	if (vb2_is_busy(vq) &&
->> +	    pix_mp->pixelformat != ctx->pix_fmt[AML_FMT_SRC].pixelformat)
->> +		return -EBUSY;
->> +
->> +	/*
->> +	 * Since s_fmt output will reset the width and height in the capture queue,
->> +	 * s_fmt_output with resolution change should not take effect when capture
->> +	 * queue is busy.
->> +	 */
->> +	peer_vq = v4l2_m2m_get_vq(ctx->m2m_ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
->> +	if (vb2_is_busy(peer_vq) &&
->> +	    (pix_mp->width != cap_fmt->width ||
->> +	    pix_mp->height != cap_fmt->height))
-> As a future precaution, add fmt compare too.
-Yes, fmt comparison should be added here.
->
->> +		return -EBUSY;
->> +
->> +	out_fmt = aml_vdec_get_video_fmt(ctx->dev, pix_mp->pixelformat);
->> +	if (out_fmt && out_fmt->type != AML_FMT_DEC)
->> +		out_fmt = NULL;
->> +	if (out_fmt) {
->> +		ctx->dec_fmt[AML_FMT_SRC] = *out_fmt;
->> +	} else {
->> +		out_fmt = &ctx->dec_fmt[AML_FMT_SRC];
->> +		dev_dbg(&ctx->dev->plat_dev->dev,
->> +			"%s fmt %d not supported, use default\n", __func__,
->> +			pix_mp->pixelformat);
->> +	}
->> +
->> +	ret = vdec_try_fmt_mp(ctx, f->type, pix_mp, out_fmt);
->> +	set_pic_info(ctx, pix_mp, f->type);
-> Check other driver, what I'm trying to suggest it to store the src/dst_fmt, and
-> reset the dst_fmt instead of duplicating things with the pic info.
-Ok, I'll check other drivers carefully about this.
->
->> +
->> +	ctx->pix_fmt[AML_FMT_SRC] = *pix_mp;
->> +	cap_fmt->width = pix_mp->width;
->> +	cap_fmt->height = pix_mp->height;
->> +	v4l2_fill_pixfmt_mp(cap_fmt, ctx->dec_fmt[AML_FMT_DST].fourcc,
->> +			    cap_fmt->width, cap_fmt->height);
->> +	cap_fmt->colorspace = pix_mp->colorspace;
->> +	cap_fmt->quantization = pix_mp->quantization;
->> +	cap_fmt->ycbcr_enc = pix_mp->ycbcr_enc;
->> +	cap_fmt->xfer_func = pix_mp->xfer_func;
->> +
->> +	return ret;
->> +}
->> +
->> +static int vdec_s_fmt_capture(struct aml_vdec_ctx *ctx, struct v4l2_format *f)
->> +{
->> +	struct v4l2_pix_format_mplane *pix_mp = &f->fmt.pix_mp;
->> +	const struct aml_video_fmt *cap_fmt;
->> +	struct vb2_queue *vq;
->> +	int ret;
->> +
->> +	vq = v4l2_m2m_get_vq(ctx->m2m_ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
->> +	if (vb2_is_busy(vq))
->> +		return -EBUSY;
->> +
->> +	cap_fmt = aml_vdec_get_video_fmt(ctx->dev, pix_mp->pixelformat);
->> +	if (cap_fmt && cap_fmt->type != AML_FMT_FRAME)
->> +		cap_fmt = NULL;
->> +	if (cap_fmt) {
->> +		ctx->dec_fmt[AML_FMT_DST] = *cap_fmt;
->> +	} else {
->> +		cap_fmt = &ctx->dec_fmt[AML_FMT_DST];
->> +		dev_dbg(&ctx->dev->plat_dev->dev,
->> +			"%s fmt %d not supported, use default\n", __func__,
->> +			pix_mp->pixelformat);
->> +	}
->> +
->> +	ret = vdec_try_fmt_mp(ctx, f->type, pix_mp, cap_fmt);
->> +
->> +	ctx->pix_fmt[AML_FMT_DST] = *pix_mp;
->> +
->> +	return ret;
->> +}
->> +
->> +static int vdec_try_fmt_output(struct aml_vdec_ctx *ctx, struct v4l2_format *f)
->> +{
->> +	struct v4l2_pix_format_mplane *pix_mp = &f->fmt.pix_mp;
->> +	const struct aml_video_fmt *out_fmt;
->> +	int ret;
->> +
->> +	out_fmt = aml_vdec_get_video_fmt(ctx->dev, pix_mp->pixelformat);
->> +	if (out_fmt && out_fmt->type != AML_FMT_DEC)
->> +		out_fmt = NULL;
->> +	if (!out_fmt) {
->> +		out_fmt = &ctx->dec_fmt[AML_FMT_SRC];
->> +		dev_dbg(&ctx->dev->plat_dev->dev,
->> +			"%s fmt %d not supported, use default\n", __func__,
->> +			pix_mp->pixelformat);
->> +	}
->> +
->> +	ret = vdec_try_fmt_mp(ctx, f->type, pix_mp, out_fmt);
->> +
->> +	return ret;
->> +}
->> +
->> +static int vdec_try_fmt_capture(struct aml_vdec_ctx *ctx, struct v4l2_format *f)
->> +{
->> +	struct v4l2_pix_format_mplane *pix_mp = &f->fmt.pix_mp;
->> +	const struct aml_video_fmt *cap_fmt;
->> +	int ret;
->> +
->> +	cap_fmt = aml_vdec_get_video_fmt(ctx->dev, pix_mp->pixelformat);
->> +	if (cap_fmt && cap_fmt->type != AML_FMT_FRAME)
->> +		cap_fmt = NULL;
->> +	if (!cap_fmt) {
->> +		cap_fmt = &ctx->dec_fmt[AML_FMT_DST];
->> +		dev_dbg(&ctx->dev->plat_dev->dev,
->> +			"%s fmt %d not supported, use default\n", __func__,
->> +			pix_mp->pixelformat);
->> +	}
->> +
->> +	ret = vdec_try_fmt_mp(ctx, f->type, pix_mp, cap_fmt);
->> +
->> +	return ret;
->> +}
->> +
->> +static void reset_output_fmts(struct aml_vdec_ctx *ctx)
->> +{
->> +	struct aml_vdec_dev *dev = ctx->dev;
->> +	const struct aml_video_fmt *out_fmt;
->> +	struct v4l2_pix_format_mplane fmt;
->> +
->> +	/* reset default output fmt to V4L2_PIX_FMT_H264_SLICE */
->> +	out_fmt = aml_vdec_get_video_fmt(dev, V4L2_PIX_FMT_H264_SLICE);
->> +	if (!out_fmt)
->> +		return;
->> +
->> +	ctx->dec_fmt[AML_FMT_SRC] = *out_fmt;
->> +
->> +	memset(&fmt, 0, sizeof(struct v4l2_pix_format_mplane));
->> +
->> +	fmt.height = out_fmt->stepwise.min_height;
->> +	fmt.width = out_fmt->stepwise.min_width;
->> +	/* reset bytesperline to 0 for output fmts */
->> +	fmt.plane_fmt[0].bytesperline = 0;
->> +	fmt.colorspace = V4L2_COLORSPACE_DEFAULT;
->> +	fmt.ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
->> +	fmt.quantization = V4L2_QUANTIZATION_DEFAULT;
->> +	fmt.xfer_func = V4L2_XFER_FUNC_DEFAULT;
->> +	vdec_try_fmt_mp(ctx, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE, &fmt,
->> +			out_fmt);
->> +
->> +	ctx->pix_fmt[AML_FMT_SRC] = fmt;
->> +}
->> +
->> +static void reset_capture_fmts(struct aml_vdec_ctx *ctx)
->> +{
->> +	struct aml_vdec_dev *dev = ctx->dev;
->> +	const struct aml_video_fmt *cap_fmt;
->> +	struct v4l2_pix_format_mplane fmt;
->> +
->> +	/* reset default output fmt to V4L2_PIX_FMT_NV12 */
->> +	cap_fmt = aml_vdec_get_video_fmt(dev, V4L2_PIX_FMT_NV12);
->> +	if (!cap_fmt)
->> +		return;
->> +
->> +	ctx->dec_fmt[AML_FMT_DST] = *cap_fmt;
->> +
->> +	memset(&fmt, 0, sizeof(struct v4l2_pix_format_mplane));
->> +
->> +	fmt.height = cap_fmt->stepwise.min_height;
->> +	fmt.width = cap_fmt->stepwise.min_width;
-> Don't hardcode this, derive from the coded src_fmt (OUTPUT format). This way you
-> can properly implement reset on s_fmt(OUTPUT).
-Ok, maybe another helper might need here to derive the fmt here.
->
->> +	fmt.colorspace = V4L2_COLORSPACE_DEFAULT;
->> +	fmt.ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
->> +	fmt.quantization = V4L2_QUANTIZATION_DEFAULT;
->> +	fmt.xfer_func = V4L2_XFER_FUNC_DEFAULT;
->> +	vdec_try_fmt_mp(ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE, &fmt,
->> +			cap_fmt);
->> +
->> +	ctx->pix_fmt[AML_FMT_DST] = fmt;
->> +}
->> +
->> +void aml_vdec_reset_fmts(struct aml_vdec_ctx *ctx)
->> +{
->> +	ctx->m2m_ctx->q_lock = &ctx->v4l2_intf_lock;
->> +	reset_output_fmts(ctx);
->> +	reset_capture_fmts(ctx);
-> Resetting output imply resetting capture, you can embed them.
-OK, they can be combined.
->
->> +}
->> +
->> +static int vdec_g_fmt(struct aml_vdec_ctx *ctx, struct v4l2_format *f)
->> +{
->> +	struct v4l2_pix_format_mplane *pix_mp = &f->fmt.pix_mp;
->> +
->> +	if (V4L2_TYPE_IS_OUTPUT(f->type))
->> +		*pix_mp = ctx->pix_fmt[AML_FMT_SRC];
->> +	else
->> +		*pix_mp = ctx->pix_fmt[AML_FMT_DST];
-> I personally prefer to not use an array, and have src_fmt and dst_dmt. It will
-> also make other code path easier to read.
-Do you mean seprate them into to fileds? Like pix_fmt_src and pix_fmt_dst.
->> +
->> +	dev_dbg(&ctx->dev->plat_dev->dev,
->> +		"%s fmt %d num planes %d\n", __func__, pix_mp->pixelformat,
->> +		pix_mp->num_planes);
->> +
->> +	return 0;
->> +}
->> +
->> +static int vidioc_try_fmt_cap_mplane(struct file *file, void *priv,
->> +				     struct v4l2_format *f)
->> +{
->> +	struct aml_vdec_ctx *ctx = fh_to_dec_ctx(file);
->> +
->> +	return vdec_try_fmt_capture(ctx, f);
->> +}
->> +
->> +static int vidioc_try_fmt_out_mplane(struct file *file, void *priv,
->> +				     struct v4l2_format *f)
->> +{
->> +	struct aml_vdec_ctx *ctx = fh_to_dec_ctx(file);
->> +
->> +	return vdec_try_fmt_output(ctx, f);
->> +}
->> +
->> +static int vidioc_vdec_s_fmt_out_mplane(struct file *file, void *priv,
->> +					struct v4l2_format *f)
->> +{
->> +	struct aml_vdec_ctx *ctx = fh_to_dec_ctx(file);
->> +
->> +	return vdec_s_fmt_output(ctx, f);
->> +}
->> +
->> +static int vidioc_vdec_s_fmt_cap_mplane(struct file *file, void *priv,
->> +					struct v4l2_format *f)
->> +{
->> +	struct aml_vdec_ctx *ctx = fh_to_dec_ctx(file);
->> +
->> +	return vdec_s_fmt_capture(ctx, f);
->> +}
->> +
->> +static int vidioc_vdec_g_fmt_out_mplane(struct file *file, void *priv,
->> +					struct v4l2_format *f)
->> +{
->> +	struct aml_vdec_ctx *ctx = fh_to_dec_ctx(file);
->> +
->> +	return vdec_g_fmt(ctx, f);
->> +}
->> +
->> +static int vidioc_vdec_g_fmt_cap_mplane(struct file *file, void *priv,
->> +					struct v4l2_format *f)
->> +{
->> +	struct aml_vdec_ctx *ctx = fh_to_dec_ctx(file);
->> +
->> +	return vdec_g_fmt(ctx, f);
->> +}
->> +
->> +static int vidioc_vdec_enum_fmt_out_mplane(struct file *file,
->> +					   void *priv, struct v4l2_fmtdesc *f)
->> +{
->> +	struct aml_vdec_ctx *ctx = fh_to_dec_ctx(file);
->> +
->> +	return vidioc_vdec_enum_fmt(ctx, f, 1);
->> +}
->> +
->> +static int vidioc_vdec_enum_fmt_cap_mplane(struct file *file,
->> +					   void *priv, struct v4l2_fmtdesc *f)
->> +{
->> +	struct aml_vdec_ctx *ctx = fh_to_dec_ctx(file);
->> +
->> +	return vidioc_vdec_enum_fmt(ctx, f, 0);
->> +}
->> +
->> +const struct v4l2_ioctl_ops aml_vdec_ioctl_ops = {
->> +	.vidioc_querycap = vidioc_vdec_querycap,
->> +	.vidioc_enum_framesizes = vidioc_vdec_enum_framesizes,
->> +
->> +	.vidioc_enum_fmt_vid_cap = vidioc_vdec_enum_fmt_cap_mplane,
->> +	.vidioc_try_fmt_vid_cap_mplane = vidioc_try_fmt_cap_mplane,
->> +	.vidioc_s_fmt_vid_cap_mplane = vidioc_vdec_s_fmt_cap_mplane,
->> +	.vidioc_g_fmt_vid_cap_mplane = vidioc_vdec_g_fmt_cap_mplane,
->> +
->> +	.vidioc_enum_fmt_vid_out = vidioc_vdec_enum_fmt_out_mplane,
->> +	.vidioc_try_fmt_vid_out_mplane = vidioc_try_fmt_out_mplane,
->> +	.vidioc_s_fmt_vid_out_mplane = vidioc_vdec_s_fmt_out_mplane,
->> +	.vidioc_g_fmt_vid_out_mplane = vidioc_vdec_g_fmt_out_mplane,
->> +
->> +	.vidioc_reqbufs = v4l2_m2m_ioctl_reqbufs,
->> +	.vidioc_querybuf = v4l2_m2m_ioctl_querybuf,
->> +	.vidioc_qbuf = v4l2_m2m_ioctl_qbuf,
->> +	.vidioc_dqbuf = v4l2_m2m_ioctl_dqbuf,
->> +	.vidioc_prepare_buf = v4l2_m2m_ioctl_prepare_buf,
->> +	.vidioc_create_bufs = v4l2_m2m_ioctl_create_bufs,
->> +
->> +	.vidioc_expbuf = v4l2_m2m_ioctl_expbuf,
->> +
->> +	.vidioc_decoder_cmd = v4l2_m2m_ioctl_stateless_decoder_cmd,
->> +	.vidioc_try_decoder_cmd = v4l2_m2m_ioctl_stateless_try_decoder_cmd,
->> +
->> +	.vidioc_subscribe_event = v4l2_ctrl_subscribe_event,
->> +	.vidioc_unsubscribe_event = v4l2_event_unsubscribe,
->> +
->> +	.vidioc_streamon = v4l2_m2m_ioctl_streamon,
->> +	.vidioc_streamoff = v4l2_m2m_ioctl_streamoff,
->> +};
->> +
->> +static void aml_vdec_release_instance(struct aml_vdec_ctx *ctx)
->> +{
->> +	if (ctx->codec_ops && ctx->codec_ops->exit)
->> +		ctx->codec_ops->exit(ctx);
->> +}
->> +
->> +static int vb2ops_vdec_queue_setup(struct vb2_queue *vq,
->> +				   unsigned int *nbuffers,
->> +				   unsigned int *nplanes,
->> +				   unsigned int sizes[],
->> +				   struct device *alloc_devs[])
->> +{
->> +	struct aml_vdec_ctx *ctx = vb2_get_drv_priv(vq);
->> +	struct v4l2_pix_format_mplane *pix_fmt;
->> +	unsigned int i;
->> +
->> +	if (V4L2_TYPE_IS_OUTPUT(vq->type))
->> +		pix_fmt = &ctx->pix_fmt[AML_FMT_SRC];
->> +	else
->> +		pix_fmt = &ctx->pix_fmt[AML_FMT_DST];
->> +
->> +	if (*nplanes) {
->> +		if (*nplanes != pix_fmt->num_planes)
->> +			return -EINVAL;
->> +
->> +		for (i = 0; i < *nplanes; i++) {
->> +			if (sizes[i] < pix_fmt->plane_fmt[i].sizeimage) {
->> +				dev_err(&ctx->dev->plat_dev->dev,
->> +					"not supported sizeimage\n");
->> +				return -EINVAL;
->> +			}
->> +			alloc_devs[i] = &ctx->dev->plat_dev->dev;
->> +		}
->> +	} else {
->> +		if (vq->type == V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
->> +			*nplanes = pix_fmt->num_planes;
->> +		else if (vq->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
->> +			*nplanes = 1;
->> +
->> +		for (i = 0; i < *nplanes; i++) {
->> +			alloc_devs[i] = &ctx->dev->plat_dev->dev;
->> +			sizes[i] = pix_fmt->plane_fmt[i].sizeimage;
->> +		}
->> +	}
->> +
->> +	if (*nplanes) {
->> +		dev_dbg(&ctx->dev->plat_dev->dev,
->> +			"type: %d, plane: %d, buf cnt: %d, size: [Y: %u, C: %u]\n",
->> +			vq->type, *nplanes, *nbuffers, sizes[0], sizes[1]);
->> +		return 0;
->> +	}
->> +
->> +	return -EINVAL;
->> +}
->> +
->> +static int vb2ops_vdec_buf_prepare(struct vb2_buffer *vb)
->> +{
->> +	struct aml_vdec_ctx *ctx = vb2_get_drv_priv(vb->vb2_queue);
->> +	struct v4l2_pix_format_mplane *pix_fmt;
->> +	unsigned int sizeimage = 0;
->> +	int i;
->> +
->> +	if (V4L2_TYPE_IS_OUTPUT(vb->vb2_queue->type))
->> +		pix_fmt = &ctx->pix_fmt[AML_FMT_SRC];
->> +	else
->> +		pix_fmt = &ctx->pix_fmt[AML_FMT_DST];
->> +
->> +	for (i = 0; i < pix_fmt->num_planes; i++) {
->> +		sizeimage = pix_fmt->plane_fmt[i].sizeimage;
->> +		if (vb2_plane_size(vb, i) < sizeimage)
->> +			return -EINVAL;
->> +
->> +		if (V4L2_TYPE_IS_CAPTURE(vb->type)) {
->> +			vb2_set_plane_payload(vb, i,
->> +					      pix_fmt->plane_fmt[i].sizeimage);
->> +			dev_dbg(&ctx->dev->plat_dev->dev,
->> +				"%s type: %d set plane: %d, sizeimage: %d\n",
->> +				__func__, vb->vb2_queue->type, i,
->> +				pix_fmt->plane_fmt[i].sizeimage);
->> +		}
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static int vb2_ops_vdec_buf_init(struct vb2_buffer *vb)
->> +{
->> +	return 0;
->> +}
->> +
->> +static void vb2_ops_vdec_buf_queue(struct vb2_buffer *vb)
->> +{
->> +	struct aml_vdec_ctx *ctx = vb2_get_drv_priv(vb->vb2_queue);
->> +	struct vb2_v4l2_buffer *vb2_v4l2 = to_vb2_v4l2_buffer(vb);
->> +
->> +	v4l2_m2m_buf_queue(ctx->fh.m2m_ctx, vb2_v4l2);
->> +}
->> +
->> +static void vb2_ops_vdec_buf_finish(struct vb2_buffer *vb)
->> +{
->> +}
->> +
->> +static int vb2ops_vdec_start_streaming(struct vb2_queue *q, unsigned int count)
->> +{
->> +	struct aml_vdec_ctx *ctx = vb2_get_drv_priv(q);
-> You seem to be missing:
-> 	v4l2_m2m_update_start_streaming_state(ctx->fh.m2m_ctx, q);
-Yes, it's missing. Thanks for reminding me.
->
->> +
->> +	if (V4L2_TYPE_IS_OUTPUT(q->type)) {
->> +		struct vb2_v4l2_buffer *src_buf;
->> +
->> +		if (aml_vdec_init_dec_inst(ctx) < 0) {
->> +			while ((src_buf = v4l2_m2m_src_buf_remove(ctx->m2m_ctx)))
->> +				v4l2_m2m_buf_done(src_buf, VB2_BUF_STATE_QUEUED);
->> +			return -EINVAL;
->> +		}
->> +		ctx->is_output_streamon = 1;
-> Are these state really needed ? Looks like vb2_is_streaming() will do the same.
-Ok, I'll use the helper instead.
->
->> +	} else {
->> +		ctx->is_cap_streamon = 1;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static void vb2ops_vdec_stop_streaming(struct vb2_queue *q)
->> +{
->> +	struct aml_vdec_ctx *ctx = vb2_get_drv_priv(q);
->> +	struct vb2_v4l2_buffer *src_buf = NULL, *dst_buf = NULL;
->> +	
->> +	if (V4L2_TYPE_IS_OUTPUT(q->type)) {
->> +		while ((src_buf = v4l2_m2m_src_buf_remove(ctx->m2m_ctx)))
->> +			v4l2_m2m_buf_done(src_buf, VB2_BUF_STATE_ERROR);
-> P.s. once your driver is async, you'll also have to call
-> v4l2_ctrl_request_complete().
-Noted, if I use asynchronous instead, I'll call 
-v4l2_ctrl_request_complete here.
->
->> +		ctx->is_output_streamon = 0;
-> This seems redundant with vb2.
-I'll get rid of them and used the vb2 helper to check the queue status 
-instead.
->
->> +	} else {
->> +		while ((dst_buf = v4l2_m2m_dst_buf_remove(ctx->m2m_ctx)))
->> +			v4l2_m2m_buf_done(dst_buf, VB2_BUF_STATE_ERROR);
->> +		ctx->is_cap_streamon = 0;
->> +	}
->> +
->> +	if (!ctx->is_output_streamon && !ctx->is_cap_streamon)
->> +		aml_vdec_release_instance(ctx);
-> You seem to be missing something like this (picked from Hantro as an example):
->
->      20   │       v4l2_m2m_update_stop_streaming_state(ctx->fh.m2m_ctx, q);
->      21   │
->      22   │       if (V4L2_TYPE_IS_OUTPUT(q->type) &&
->      23   │           v4l2_m2m_has_stopped(ctx->fh.m2m_ctx))
->      24   │       │       v4l2_event_queue_fh(&ctx->fh, &hantro_eos_event);
-Yes, the EOS process is lack here, thanks for the reminder.
->
->> +}
->> +
->> +static int vb2ops_vdec_out_buf_validate(struct vb2_buffer *vb)
->> +{
->> +	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
->> +
->> +	vbuf->field = V4L2_FIELD_NONE;
->> +	return 0;
->> +}
-> Add a fixme comment, or just implement interlace.
-Interlaced will be implemented in the next version.
->
->> +
->> +static void vb2ops_vdec_buf_request_complete(struct vb2_buffer *vb)
->> +{
->> +	struct aml_vdec_ctx *ctx = vb2_get_drv_priv(vb->vb2_queue);
->> +
->> +	v4l2_ctrl_request_complete(vb->req_obj.req, &ctx->ctrl_handler);
->> +}
->> +
->> +static const struct vb2_ops aml_vdec_vb2_ops = {
->> +	.queue_setup = vb2ops_vdec_queue_setup,
->> +	.start_streaming = vb2ops_vdec_start_streaming,
->> +	.stop_streaming = vb2ops_vdec_stop_streaming,
->> +
->> +	.buf_init = vb2_ops_vdec_buf_init,
->> +	.buf_prepare = vb2ops_vdec_buf_prepare,
->> +	.buf_out_validate = vb2ops_vdec_out_buf_validate,
->> +	.buf_queue = vb2_ops_vdec_buf_queue,
->> +	.buf_finish = vb2_ops_vdec_buf_finish,
->> +	.buf_request_complete = vb2ops_vdec_buf_request_complete,
->> +};
->> +
->> +int aml_vdec_queue_init(void *priv, struct vb2_queue *src_vq,
->> +			struct vb2_queue *dst_vq)
->> +{
->> +	struct aml_vdec_ctx *ctx = (struct aml_vdec_ctx *)priv;
->> +	struct aml_vdec_dev *dev = ctx->dev;
->> +	int ret = 0;
->> +
->> +	src_vq->type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
->> +	src_vq->io_modes = VB2_MMAP | VB2_DMABUF;
->> +	src_vq->mem_ops = &vb2_dma_contig_memops;
->> +	src_vq->drv_priv = ctx;
->> +	src_vq->ops = &aml_vdec_vb2_ops;
->> +	src_vq->lock = &ctx->v4l2_intf_lock;
->> +	src_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
->> +	src_vq->supports_requests = true;
->> +	src_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
->> +	ret = vb2_queue_init(src_vq);
->> +	if (ret) {
->> +		v4l2_info(&dev->v4l2_dev,
->> +			  "Failed to initialize videobuf2 queue(output)");
->> +		return ret;
->> +	}
->> +
->> +	dst_vq->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
->> +	dst_vq->io_modes = VB2_MMAP | VB2_DMABUF;
->> +	dst_vq->drv_priv = ctx;
->> +	dst_vq->mem_ops = &vb2_dma_contig_memops;
->> +	dst_vq->ops = &aml_vdec_vb2_ops;
->> +	dst_vq->lock = &ctx->v4l2_intf_lock;
->> +	dst_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
->> +	dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
->> +	ret = vb2_queue_init(dst_vq);
->> +	if (ret) {
->> +		v4l2_info(&dev->v4l2_dev,
->> +			  "Failed to initialize videobuf2 queue(capture)");
->> +		vb2_queue_release(src_vq);
->> +	}
->> +
->> +	return ret;
->> +}
->> diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec.h b/drivers/media/platform/amlogic/vdec/aml_vdec.h
->> new file mode 100644
->> index 000000000000..32f7fa245f7e
->> --- /dev/null
->> +++ b/drivers/media/platform/amlogic/vdec/aml_vdec.h
->> @@ -0,0 +1,33 @@
->> +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
->> +/*
->> + * Copyright (C) 2025 Amlogic, Inc. All rights reserved
->> + */
->> +
->> +#ifndef _AML_VDEC_H_
->> +#define _AML_VDEC_H_
->> +
->> +#include "aml_vdec_drv.h"
->> +
->> +/**
->> + * struct aml_vdec_v4l2_ctrl - helper type to declare supported ctrls
->> + * @codec_type: codec id this control belong to (CODEC_TYPE_H264, etc.)
->> + * @cfg: control configuration
->> + */
->> +struct aml_vdec_v4l2_ctrl {
->> +	unsigned int codec_type;
->> +	struct v4l2_ctrl_config cfg;
->> +};
->> +
->> +struct aml_dec_type {
->> +	unsigned int codec_type;
->> +	const char *name;
->> +};
->> +
->> +extern const struct v4l2_m2m_ops aml_vdec_m2m_ops;
->> +extern const struct v4l2_ioctl_ops aml_vdec_ioctl_ops;
->> +
->> +int aml_vdec_ctrls_setup(struct aml_vdec_ctx *ctx);
->> +int aml_vdec_queue_init(void *priv, struct vb2_queue *src_vq,
->> +			struct vb2_queue *dst_vq);
->> +void aml_vdec_reset_fmts(struct aml_vdec_ctx *ctx);
->> +#endif
->> diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec_drv.c b/drivers/media/platform/amlogic/vdec/aml_vdec_drv.c
->> new file mode 100644
->> index 000000000000..1870d56659cf
->> --- /dev/null
->> +++ b/drivers/media/platform/amlogic/vdec/aml_vdec_drv.c
->> @@ -0,0 +1,260 @@
->> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
->> +/*
->> + * Copyright (C) 2025 Amlogic, Inc. All rights reserved
->> + */
->> +
->> +#include <linux/dma-mapping.h>
->> +#include <linux/module.h>
->> +#include <linux/platform_device.h>
->> +#include <media/v4l2-device.h>
->> +#include <media/v4l2-ioctl.h>
->> +
->> +#include "aml_vdec.h"
->> +#include "aml_vdec_hw.h"
->> +#include "aml_vdec_platform.h"
->> +
->> +#define AML_VDEC_DRV_NAME "aml-vdec-drv"
->> +
->> +static int fops_vcodec_open(struct file *file)
->> +{
->> +	struct aml_vdec_dev *dec_dev = video_drvdata(file);
->> +	struct aml_vdec_ctx *ctx = NULL;
->> +	int ret = 0;
->> +
->> +	ctx = kzalloc_obj(*ctx, GFP_KERNEL);
->> +	if (!ctx)
->> +		return -ENOMEM;
->> +
->> +	mutex_lock(&dec_dev->dev_mutex);
-> Why?
-The lock is redundant, there is no concurrent access here. I'll remove it.
->
->> +	ctx->dev = dec_dev;
->> +	v4l2_fh_init(&ctx->fh, video_devdata(file));
-> hmm.
-> 	v4l2_fh_init(&ctx->fh, dec_dev);
->
->> +	file->private_data = &ctx->fh;
-> Why ?
-Ah, thes are also redundant. Only v4l2_fh_init(&ctx->fh, 
-video_devdata(file)) is needed.
->
->> +	v4l2_fh_add(&ctx->fh, file);
->> +	mutex_init(&ctx->v4l2_intf_lock);
->> +	init_waitqueue_head(&ctx->queue);
-> I believe this goes away once device_run() is asynchronous.
-Yes, a asynchronous device_run doesn't need a waitqueue.
->
->> +	ctx->int_cond = 0;
->> +
->> +	ctx->m2m_ctx = v4l2_m2m_ctx_init(dec_dev->m2m_dev_dec, ctx,
->> +					 &aml_vdec_queue_init);
->> +	if (IS_ERR(ctx->m2m_ctx)) {
->> +		ret = PTR_ERR((__force void *)ctx->m2m_ctx);
->> +		v4l2_err(&dec_dev->v4l2_dev, "Failed to v4l2_m2m_ctx_init() (%d)", ret);
->> +		goto err_m2m_ctx_init;
->> +	}
->> +
->> +	ctx->fh.m2m_ctx = ctx->m2m_ctx;
->> +	ret = aml_vdec_ctrls_setup(ctx);
->> +	if (ret) {
->> +		v4l2_err(&dec_dev->v4l2_dev, "Failed to init all ctrls (%d)", ret);
->> +		goto err_ctrls_setup;
->> +	}
->> +
->> +	aml_vdec_reset_fmts(ctx);
->> +	mutex_unlock(&dec_dev->dev_mutex);
-> Everything in this function is modifying ctx only, dev_dec have to have a
-> lifetime guarantied by the caller (holding on dev and its private data until the
-> open call have complete). I don't see a reason, from a driver point of view why
-> we'd need that mutex here. If there is a real issue here, it would need fixing
-> elsewhere.
-Yes, only ctx would be modified here and it's tied to every file. 
-dec_dev is about the hardware resources, it's lifetime is very close to 
-the plarform device. A mutex is no need here, I'll remove it in the next 
-version
->
->> +
->> +	return ret;
->> +
->> +err_ctrls_setup:
->> +	v4l2_m2m_ctx_release(ctx->m2m_ctx);
->> +err_m2m_ctx_init:
->> +	v4l2_fh_del(&ctx->fh, file);
->> +	v4l2_fh_exit(&ctx->fh);
->> +	kfree(ctx);
->> +	mutex_unlock(&dec_dev->dev_mutex);
->> +
->> +	return ret;
->> +}
->> +
->> +static int fops_vcodec_release(struct file *file)
->> +{
->> +	struct aml_vdec_ctx *ctx = fh_to_dec_ctx(file);
->> +
->> +	v4l2_m2m_ctx_release(ctx->m2m_ctx);
->> +	v4l2_ctrl_handler_free(&ctx->ctrl_handler);
->> +	v4l2_fh_del(&ctx->fh, file);
->> +	v4l2_fh_exit(&ctx->fh);
->> +	kfree(ctx);
->> +
->> +	return 0;
->> +}
->> +
->> +static const struct v4l2_file_operations aml_vdec_fops = {
->> +	.owner        = THIS_MODULE,
->> +	.open        = fops_vcodec_open,
->> +	.release    = fops_vcodec_release,
->> +	.poll        = v4l2_m2m_fop_poll,
->> +	.unlocked_ioctl    = video_ioctl2,
->> +	.mmap        = v4l2_m2m_fop_mmap,
->> +};
->> +
->> +static const struct video_device dec_dev = {
->> +	.name = "aml_dev_drv",
->> +	.fops = &aml_vdec_fops,
->> +	.ioctl_ops = &aml_vdec_ioctl_ops,
->> +	.release = video_device_release,
->> +	.vfl_dir = VFL_DIR_M2M,
->> +	.device_caps = V4L2_CAP_VIDEO_M2M_MPLANE | V4L2_CAP_STREAMING,
->> +};
->> +
->> +static const struct media_device_ops aml_m2m_media_ops = {
->> +	.req_validate = vb2_request_validate,
->> +	.req_queue = v4l2_m2m_request_queue,
->> +};
->> +
->> +static int aml_vdec_drv_probe(struct platform_device *pdev)
->> +{
->> +	struct aml_vdec_dev *dev;
->> +	struct video_device *vfd_dec;
->> +	struct aml_vdec_hw *hw;
->> +	int ret = 0;
->> +
->> +	dev = devm_kzalloc(&pdev->dev, sizeof(*dev), GFP_KERNEL);
->> +	if (!dev)
->> +		return -ENOMEM;
->> +
->> +	dev->plat_dev = pdev;
->> +	mutex_init(&dev->dev_mutex);
->> +
->> +	/*
->> +	 * The decoder hardware registers take 32-bit addresses only;
->> +	 * make sure DMA allocations (bitstream buffers, frame buffers
->> +	 * and firmware workspaces) stay below 4GB.
->> +	 */
->> +	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
->> +	if (ret)
->> +		return dev_err_probe(&pdev->dev, ret,
->> +				     "Failed to set 32-bit DMA mask\n");
->> +
->> +	ret = v4l2_device_register(&pdev->dev, &dev->v4l2_dev);
->> +	if (ret)
->> +		return dev_err_probe(&pdev->dev, ret, "v4l2_device_register err\n");
->> +
->> +	vfd_dec = video_device_alloc();
->> +	if (!vfd_dec) {
->> +		v4l2_err(&dev->v4l2_dev, "Failed to allocate video device\n");
->> +		ret = -ENOMEM;
->> +		goto err_device_alloc;
->> +	}
->> +	*vfd_dec = dec_dev;
->> +	vfd_dec->v4l2_dev = &dev->v4l2_dev;
->> +	vfd_dec->lock = &dev->dev_mutex;
->> +	video_set_drvdata(vfd_dec, dev);
->> +	dev->vfd = vfd_dec;
->> +	platform_set_drvdata(pdev, dev);
->> +
->> +	hw = devm_kzalloc(&pdev->dev, sizeof(*hw), GFP_KERNEL);
->> +	if (!hw) {
->> +		ret = -ENOMEM;
->> +		goto err_dec_mem_init;
->> +	}
->> +	dev->dec_hw = hw;
->> +
->> +	dev->pvdec_data = of_device_get_match_data(&pdev->dev);
->> +	if (!dev->pvdec_data) {
->> +		dev_err(&pdev->dev, "no match data for this device\n");
->> +		ret = -ENODEV;
->> +		goto err_hw_init;
->> +	}
->> +
->> +	ret = dev->pvdec_data->req_hw_resource(dev);
->> +	if (ret < 0)
->> +		goto err_hw_init;
->> +
->> +	dev->m2m_dev_dec = v4l2_m2m_init(&aml_vdec_m2m_ops);
->> +	if (IS_ERR(dev->m2m_dev_dec)) {
->> +		v4l2_err(&dev->v4l2_dev, "Failed to init mem2mem dec device\n");
->> +		ret = PTR_ERR((__force void *)dev->m2m_dev_dec);
->> +		goto err_m2m_dev_init;
->> +	}
->> +
->> +	ret = video_register_device(vfd_dec, VFL_TYPE_VIDEO, -1);
->> +	if (ret) {
->> +		v4l2_err(&dev->v4l2_dev, "Failed to register video device");
->> +		goto err_vid_dev_register;
->> +	}
->> +
->> +	dev->mdev.dev = &pdev->dev;
->> +	strscpy(dev->mdev.model, AML_VDEC_DRV_NAME, sizeof(dev->mdev.model));
->> +	media_device_init(&dev->mdev);
->> +	dev->mdev.ops = &aml_m2m_media_ops;
->> +	dev->v4l2_dev.mdev = &dev->mdev;
->> +
->> +	ret = v4l2_m2m_register_media_controller(dev->m2m_dev_dec, vfd_dec,
->> +						 MEDIA_ENT_F_PROC_VIDEO_DECODER);
->> +	if (ret) {
->> +		v4l2_err(&dev->v4l2_dev, "Failed to init mem2mem media controller\n");
->> +		goto error_m2m_mc_register;
->> +	}
->> +
->> +	ret = media_device_register(&dev->mdev);
->> +	if (ret) {
->> +		v4l2_err(&dev->v4l2_dev, "Failed to register media device");
->> +		goto err_media_dev_register;
->> +	}
->> +	vdec_enable(dev->dec_hw);
->> +	return 0;
->> +
->> +err_media_dev_register:
->> +	v4l2_m2m_unregister_media_controller(dev->m2m_dev_dec);
->> +error_m2m_mc_register:
->> +	media_device_cleanup(&dev->mdev);
->> +	video_unregister_device(dev->vfd);
->> +	/* video_unregister_device() has released the video_device,
->> +	 * set the vfd_dec to NULL to avoid double free in err_dec_mem_init
->> +	 */
->> +	vfd_dec = NULL;
->> +err_vid_dev_register:
->> +	v4l2_m2m_release(dev->m2m_dev_dec);
->> +err_m2m_dev_init:
->> +	dev->pvdec_data->destroy_hw_resource(dev);
->> +err_hw_init:
->> +	dev->dec_hw = NULL;
->> +err_dec_mem_init:
->> +	/* In case of double-freeing the video_device from error_m2m_mc_register */
->> +	if (vfd_dec)
->> +		video_device_release(vfd_dec);
->> +err_device_alloc:
->> +	v4l2_device_unregister(&dev->v4l2_dev);
->> +	return ret;
->> +}
->> +
->> +static void aml_vdec_drv_remove(struct platform_device *pdev)
->> +{
->> +	struct aml_vdec_dev *dev = platform_get_drvdata(pdev);
->> +
->> +	/*
->> +	 * The IRQ is devm-managed and only released after remove()
->> +	 * returns: mask it and wait for any in-flight threaded handler
->> +	 * before powering off the VDEC domain, otherwise the handler
->> +	 * could access powered-down registers.
->> +	 */
->> +	disable_irq(dev->dec_hw->dec_irq);
->> +	vdec_disable(dev->dec_hw);
->> +	media_device_unregister(&dev->mdev);
->> +	v4l2_m2m_unregister_media_controller(dev->m2m_dev_dec);
->> +	video_unregister_device(dev->vfd);
->> +	media_device_cleanup(&dev->mdev);
->> +
->> +	v4l2_m2m_release(dev->m2m_dev_dec);
->> +	dev->pvdec_data->destroy_hw_resource(dev);
->> +	v4l2_device_unregister(&dev->v4l2_dev);
->> +}
->> +
->> +static const struct of_device_id aml_vdec_match[] = {
->> +	{ .compatible = "amlogic,s4-vdec", .data = &aml_vdec_s4_pdata },
->> +	{ }
->> +};
->> +
->> +static struct platform_driver aml_vcodec_dec_driver = {
->> +	.probe    = aml_vdec_drv_probe,
->> +	.remove   = aml_vdec_drv_remove,
->> +	.driver   = {
->> +		.name    = AML_VDEC_DRV_NAME,
->> +		.of_match_table = aml_vdec_match,
->> +	},
->> +};
-> Breaking my review here. Note on the best way to be reviewer friendly is to
-> split the low level driver helpers in its own patch. This way we can sort out
-> the HW access and give you an RB on it, and focus on the v4l2 part. It makes
-> respinning patch set and reviewing revision a lot faster. An example of patchset
-> for you could have been:
->
-> 1. Core loadable driver, resource allocation, IRQ registration, PM, etc.
-> 2. Low level common helpers (non codec specifics)
-> 3. V4L2 implementation and codec specific ops interface
-> 4. H.264 implementation
->
-> Patches must build, it does not have to fully work until the full set is
-> applied. But it is very good habit to use the split to cover error handling
-> testing.
->
-> You may notice not getting a lot of human review, you spun a lot of revision,
-> and each time you endup at the bottom of the maintainer human review queue, as
-> you patch is seen like in active development. I think its explain how you ended
-> in v12 so quickly with so much work left to do.
-
-Thank you so much for all your comments for this part. In the next 
-version, I'll address the review comments you raised above, add the 
-interlaced feature, and split this large decoder patch as you suggested.
-
-I think the constant stream of Sashiko review comments may have 
-distracted me. I initially assumed that we needed to clear all of the 
-Sashiko comments, or at least keep the amount at a fairly low level 
-before the maintainers would review the driver. Thanks for pointing this 
-out; I'll adjust the pace of my patch submissions going forward.
-
->
-> I have a lot of comments coming on the H.264 implementation, including bug
-> report I have received from individual. I will come back tomorrow with these.
-> Meanwhile I wanted to highlight this big one, which imply a large amount of
-> unrorted conformance failure (you forget about JVT-FR-EXT existance it seems).
->
->> +
->> +	ctrls->scaling =
->> +		(struct v4l2_ctrl_h264_scaling_matrix *)aml_h264_get_ctrl(&ctx->ctrl_handler,
->> +			V4L2_CID_STATELESS_H264_SCALING_MATRIX);
->> +	if (WARN_ON(!ctrls->scaling))
->> +		return -EINVAL;
-Yes, also thanks for pointing out this. Currently only streams using the 
-default scaling list are supported, the custom scaling matrix obtained 
-through the ctrl is not actually used. This will also be fixed in v13.
-> This is being set but not used. Its not covered by JVT-AVC_V1, but JVT-FR-EXT
-> do. The following test (420 only) are likely failing for you due to this bug.
-> Please address in v13.
->
->        brcm_freh3
->        brcm_freh4
->        brcm_freh5
->        brcm_freh6
->        brcm_freh8
->        brcm_freh9
->        brcm_freh10
->        brcm_freh11
->        freh1_b
->        freh2_b
->        freh7_b
->        freh12_b
->        FREXT01_JVC_D
->        FREXT02_JVC_C
->        FRExt1_Panasonic_D
->        FRExt2_Panasonic_C
->        FRExt3_Panasonic_E
->        FRExt4_Panasonic_B
->        FRExt_MMCO4_Sony_B
->        HCAFF1_HHI_B
->        HCAFR1_HHI_C
->        HCAFR2_HHI_A
->        HCAFR3_HHI_A
->        HCAFR4_HHI_A
->        HCAMFF1_HHI_B
->        HPCADQ_BRCM_B
->        HPCALQ_BRCM_B
->        HPCAMAPALQ_BRCM_B
->        HPCAMOLQ_BRCM_B
->        HPCAQ2LQ_BRCM_B
->        HPCVMOLQ_BRCM_B
->        HVLCFI0_Sony_B
->        HVLCMFF0_Sony_B
->        HVLCPFF0_Sony_B
->
-> I would also like to mention that I notice the presence of per-slice reference
-> list calculation. This tells me you might have implemented the wrong decoding
-> mode. All this driver code is not required if you implement:
->
-> - V4L2_CID_STATELESS_H264_SLICE_PARAMS
-> - V4L2_STATELESS_H264_DECODE_MODE_SLICE_BASED
->
-> As an alternative, we have that for HEVC but not yet for H264, is to require
-> V4L2_CID_STATELESS_H264_SLICE_PARAMS in MODE_FRAME_BASED, though you'll endup
-> with a bit more friction with existing userspace implementation. For that
-> reason, I would not recommend, and suggest to follow the cedrus driver.
-Currently, only V4L2_STATELESS_H264_DECODE_MODE_FRAME_BASED is 
-supported. Some h264 streams have the 
-ref_pic_list_modification_flag_l0/l1 equal to 1 in the slice header 
-(such as CABA2_SVA_B). In such scenario, we can only get the reference 
-list before modification from the ctrl, as a result of which, we need to 
-do the reodrer ourself. I think the userspace (like gstreamer) won't 
-parse the slice header in framebased mode. I'll check the cedrus driver.
->
-> Nicolas
-
-Best regards,
-
-Zhentao
-
+diff --git a/MAINTAINERS b/MAINTAINERS
+index e3557e931c94..3cc8c8865793 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -6529,6 +6529,7 @@ R:	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>
+ L:	dri-devel@lists.freedesktop.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
++F:	drivers/gpu/drm/cix/dptx/
+ 
+ CLANG CONTEXT ANALYSIS
+ M:	Marco Elver <elver@google.com>
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 61111d50b1c6..a1808db8b9c8 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -311,6 +311,7 @@ source "drivers/gpu/drm/aspeed/Kconfig"
+ source "drivers/gpu/drm/ast/Kconfig"
+ source "drivers/gpu/drm/atmel-hlcdc/Kconfig"
+ source "drivers/gpu/drm/bridge/Kconfig"
++source "drivers/gpu/drm/cix/Kconfig"
+ source "drivers/gpu/drm/etnaviv/Kconfig"
+ source "drivers/gpu/drm/exynos/Kconfig"
+ source "drivers/gpu/drm/fsl-dcu/Kconfig"
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 2c6bc093a923..6ed7456bb993 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -169,6 +169,7 @@ obj-y			+= tests/
+ obj-$(CONFIG_DRM_MIPI_DBI) += drm_mipi_dbi.o
+ obj-$(CONFIG_DRM_MIPI_DSI) += drm_mipi_dsi.o
+ obj-y			+= arm/
++obj-y			+= cix/
+ obj-y			+= clients/
+ obj-y			+= display/
+ obj-$(CONFIG_DRM_TTM)	+= ttm/
+diff --git a/drivers/gpu/drm/cix/Kconfig b/drivers/gpu/drm/cix/Kconfig
+new file mode 100644
+index 000000000000..6cbaa5bf9fe9
+--- /dev/null
++++ b/drivers/gpu/drm/cix/Kconfig
+@@ -0,0 +1,3 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++source "drivers/gpu/drm/cix/dptx/Kconfig"
+diff --git a/drivers/gpu/drm/cix/Makefile b/drivers/gpu/drm/cix/Makefile
+new file mode 100644
+index 000000000000..a93591fc49e8
+--- /dev/null
++++ b/drivers/gpu/drm/cix/Makefile
+@@ -0,0 +1,3 @@
++# SPDX-License-Identifier: GPL-2.0
++
++obj-$(CONFIG_DRM_CIX_DP) += dptx/
+diff --git a/drivers/gpu/drm/cix/dptx/Kconfig b/drivers/gpu/drm/cix/dptx/Kconfig
+new file mode 100644
+index 000000000000..547d50209612
+--- /dev/null
++++ b/drivers/gpu/drm/cix/dptx/Kconfig
+@@ -0,0 +1,17 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++config DRM_CIX_DP
++	tristate "Cix DisplayPort Controller Driver"
++	depends on ARCH_CIX || COMPILE_TEST
++	depends on COMMON_CLK && DRM && OF
++	depends on GENERIC_PHY
++	select DRM_KMS_HELPER
++	select DRM_DISPLAY_HELPER
++	select DRM_DISPLAY_DP_HELPER
++	help
++	  DRM/KMS driver for the Cix DisplayPort controller. It implements
++	  the standard DRM bridge interface and drives an external
++	  DisplayPort PHY through the generic PHY framework.
++
++	  To compile this driver as a module, choose M here: the module will
++	  be called cix-dptx.
+diff --git a/drivers/gpu/drm/cix/dptx/Makefile b/drivers/gpu/drm/cix/dptx/Makefile
+new file mode 100644
+index 000000000000..d156178d9a34
+--- /dev/null
++++ b/drivers/gpu/drm/cix/dptx/Makefile
+@@ -0,0 +1,4 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++cix-dptx-y := cix_dptx.o cix_dptx_drm.o
++obj-$(CONFIG_DRM_CIX_DP) += cix-dptx.o
+diff --git a/drivers/gpu/drm/cix/dptx/cix_dptx.c b/drivers/gpu/drm/cix/dptx/cix_dptx.c
+new file mode 100644
+index 000000000000..882c4a92f511
+--- /dev/null
++++ b/drivers/gpu/drm/cix/dptx/cix_dptx.c
+@@ -0,0 +1,2434 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * CIX Sky1 DisplayPort transmitter driver
++ *
++ * Copyright (C) 2026 Trilinear Technologies
++ * Copyright 2026 Cix Technology Group Co., Ltd.
++ */
++
++#include <linux/bitfield.h>
++#include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/iopoll.h>
++#include <linux/irq.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/reset.h>
++#include <linux/sched.h>
++
++#include <drm/drm_probe_helper.h>
++
++#include "cix_dptx.h"
++#include "cix_dptx_drm.h"
++
++#define DEFAULT_DP_POWER_ON_DELAY_MS 4
++#define AUX_READ_BIT 0x1
++#define DP_HPD_MAX_TRIES 100
++
++#define CFG_ADAPTER_VIDEO0_OFFSET 0x300
++#define CFG_ADAPTER_VIDEO1_OFFSET 0x304
++#define CFG_ADAPTER_VIDEO_OFFSET_DP2 0x320
++#define DPTX_SDP_DB_MAX 32
++#define DPTX_MST_SOURCE_NUMBER 2
++
++/*
++ * Frequency of the DPC APB clock. The AUX channel divider is derived from it
++ * (see cix_dp_aux_clk_divider()), and the DP PHY registers are only reachable
++ * while it runs at this rate.
++ */
++#define CIX_DP_APB_CLK_RATE 200000000UL
++
++/* RCSU adapter video-config bits, per (port, pipe) */
++struct cix_rcsu_video_bits {
++	u32 fmt_mask;	/* mask of the format field */
++	u32 yuv422;	/* YCbCr422 value to set */
++	u32 yuv420;	/* YCbCr420 value to set */
++	u32 ppc_bit;	/* 2 pixels/cycle flag */
++};
++
++enum {
++	LINK_TRAIN_CLOCK_RECOVERY = 100,
++	LINK_TRAIN_CHANNEL_EQUALIZATION,
++};
++
++static const char * const stream_clk_names[] = {
++	"vid0", "vid1",
++};
++
++struct cix_dp_soc_data {
++	bool native_dp;
++};
++
++static unsigned int cix_dp_power_on_delay_ms = DEFAULT_DP_POWER_ON_DELAY_MS;
++module_param_named(power_on_delay_ms, cix_dp_power_on_delay_ms, uint, 0444);
++MODULE_PARM_DESC(power_on_delay_ms,
++		 "Delay after powering the sink up, in msec (default: 4)");
++
++static void cix_dp_write(struct cix_dp *dp, int offset, u32 val)
++{
++	writel(val, dp->dp_iomem + offset);
++}
++
++static u32 cix_dp_read(struct cix_dp *dp, int offset)
++{
++	return readl(dp->dp_iomem + offset);
++}
++
++static bool cix_dp_get_hpd_state(struct cix_dp *dp)
++{
++	return (cix_dp_read(dp, CIX_DPTX_HPD_INPUT_STATE) & 0x01) ||
++	       (READ_ONCE(dp->force_hpd) == connector_status_connected);
++}
++
++/*
++ * Serialize link training, HPD work and host register access on one mutex.
++ * A path that keeps the mutex across several internal steps takes it once at
++ * the top level; helpers that expect it to be held use the _locked suffix.
++ */
++static void cix_dp_session_lock(struct cix_dp *dp)
++{
++	mutex_lock(&dp->session_lock);
++}
++
++static void cix_dp_session_unlock(struct cix_dp *dp)
++{
++	mutex_unlock(&dp->session_lock);
++}
++
++/* Caller holds session_lock. apb_clk stays on until that section ends. */
++static bool cix_dp_regs_accessible(struct cix_dp *dp)
++{
++	lockdep_assert_held(&dp->session_lock);
++
++	return !(dp->state & DPTX_STATE_SUSPENDED) &&
++	       (dp->state & DPTX_STATE_INITIALIZED);
++}
++
++static int cix_dp_phy_link_rate_update(struct cix_dp *dp, u8 bw_code)
++{
++	union phy_configure_opts opts = { 0 };
++
++	opts.dp.link_rate = drm_dp_bw_code_to_link_rate(bw_code) / 100;
++	opts.dp.set_rate = 1;
++
++	return phy_configure(dp->phy, &opts);
++}
++
++static int cix_dp_phy_vs_emph_update(struct cix_dp *dp)
++{
++	union phy_configure_opts opts = { 0 };
++	u8 train;
++	int i;
++	int ret = 0;
++
++	opts.dp.lanes = dp->mode.lane_cnt;
++	for (i = 0; i < opts.dp.lanes; i++) {
++		train = dp->train_set[i];
++		opts.dp.voltage[i] =
++			(train & DP_TRAIN_VOLTAGE_SWING_MASK) >>
++			DP_TRAIN_VOLTAGE_SWING_SHIFT;
++		opts.dp.pre[i] = (train & DP_TRAIN_PRE_EMPHASIS_MASK) >>
++			DP_TRAIN_PRE_EMPHASIS_SHIFT;
++	}
++
++	opts.dp.set_voltages = 1;
++	ret = phy_configure(dp->phy, &opts);
++
++	return ret;
++}
++
++static int cix_dp_phy_ready(struct cix_dp *dp)
++{
++	u32 value;
++	u32 ready;
++
++	ready = (1 << dp->num_lanes) - 1;
++
++	return readl_poll_timeout(dp->dp_iomem + CIX_DPTX_PHY_STATUS, value,
++				  (value & ready) == ready, 1000, 100 * 1000);
++}
++
++static void cix_dp_mode_set(struct cix_dp *dp, u8 bw_code, int link_rate,
++			    u8 lane_cnt, int pclock)
++{
++	dp->mode.bw_code = bw_code;
++	dp->mode.link_rate = link_rate;
++	dp->mode.lane_cnt = lane_cnt;
++	dp->mode.pclock = pclock;
++}
++
++static int cix_dp_get_lanes(struct cix_dp *dp, int link_rate, int pclk, u8 bpp)
++{
++	int max_lanes = dp->link_config.max_lanes;
++	int i;
++
++	for (i = 1; i <= max_lanes; i <<= 1) {
++		if (pclk <= CIX_DP_MAX_RATE(link_rate, i, bpp ? bpp : 24))
++			return i;
++	}
++
++	return 0;
++}
++
++static int cix_dp_mode_configure(struct cix_dp *dp, int pclk, u8 bw, u8 bpp,
++				 bool downshift)
++{
++	int max_rate = dp->link_config.max_rate;
++	int lane_cnt;
++	int bw_code;
++	int link_rate;
++
++	if (!downshift)
++		bw_code = bw;
++	else
++		switch (bw) {
++		case DP_LINK_BW_8_1:
++			bw_code = DP_LINK_BW_5_4;
++			break;
++		case DP_LINK_BW_5_4:
++			bw_code = DP_LINK_BW_2_7;
++			break;
++		case DP_LINK_BW_2_7:
++			bw_code = DP_LINK_BW_1_62;
++			break;
++		case DP_LINK_BW_1_62:
++			bw_code = DP_LINK_BW_1_62;
++			break;
++		default:
++			bw_code = drm_dp_link_rate_to_bw_code(max_rate);
++			break;
++		}
++
++	link_rate = drm_dp_bw_code_to_link_rate(bw_code);
++	lane_cnt = cix_dp_get_lanes(dp, link_rate, pclk, bpp);
++	if (!lane_cnt)
++		return -EINVAL;
++
++	cix_dp_mode_set(dp, bw_code, link_rate, lane_cnt, pclk);
++
++	return 0;
++}
++
++static void cix_dp_adjust_train(struct cix_dp *dp, u8 *link_status)
++{
++	u8 voltage = 0;
++	u8 preemphasis = 0;
++	u8 v;
++	u8 p;
++	int i;
++
++	for (i = 0; i < dp->mode.lane_cnt; i++) {
++		v = drm_dp_get_adjust_request_voltage(link_status, i);
++		p = drm_dp_get_adjust_request_pre_emphasis(link_status, i);
++		if (v > voltage)
++			voltage = v;
++		if (p > preemphasis)
++			preemphasis = p;
++	}
++
++	if (voltage >= DP_TRAIN_VOLTAGE_SWING_LEVEL_3)
++		voltage |= DP_TRAIN_MAX_SWING_REACHED;
++
++	if (preemphasis >= DP_TRAIN_PRE_EMPH_LEVEL_2)
++		preemphasis |= DP_TRAIN_MAX_PRE_EMPHASIS_REACHED;
++
++	for (i = 0; i < dp->mode.lane_cnt; i++)
++		dp->train_set[i] = voltage | preemphasis;
++}
++
++static int cix_dp_update_vs_emph(struct cix_dp *dp)
++{
++	int ret;
++
++	ret = drm_dp_dpcd_write(&dp->aux, DP_TRAINING_LANE0_SET, dp->train_set,
++				dp->mode.lane_cnt);
++	if (ret < 0)
++		return ret;
++
++	return cix_dp_phy_vs_emph_update(dp);
++}
++
++static int cix_dp_link_set_pattern(struct cix_dp *dp, int phase)
++{
++	u32 pattern;
++
++	switch (phase) {
++	case LINK_TRAIN_CLOCK_RECOVERY:
++		pattern = DP_TRAINING_PATTERN_1;
++		break;
++	case LINK_TRAIN_CHANNEL_EQUALIZATION:
++		if (dp->caps.tps4_supported)
++			pattern = DP_TRAINING_PATTERN_4;
++		else if (dp->caps.tps3_supported)
++			pattern = DP_TRAINING_PATTERN_3;
++		else
++			pattern = DP_TRAINING_PATTERN_2;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	if (pattern == DP_TRAINING_PATTERN_4) {
++		cix_dp_write(dp, CIX_DPTX_TRAINING_PATTERN_SET, 0x4);
++		cix_dp_write(dp, CIX_DPTX_DISABLE_SCRAMBLING, 0);
++
++	} else {
++		cix_dp_write(dp, CIX_DPTX_TRAINING_PATTERN_SET, pattern);
++		pattern = pattern | DP_LINK_SCRAMBLING_DISABLE;
++	}
++
++	return drm_dp_dpcd_writeb(&dp->aux, DP_TRAINING_PATTERN_SET, pattern);
++}
++
++static int cix_dp_link_configure(struct cix_dp *dp)
++{
++	u8 bw_code = dp->mode.bw_code;
++	u8 lane_cnt = dp->mode.lane_cnt;
++	int ret;
++
++	cix_dp_write(dp, CIX_DPTX_LANE_COUNT_SET, lane_cnt);
++
++	if (dp->caps.enhanced_framing) {
++		cix_dp_write(dp, CIX_DPTX_ENHANCED_FRAMING_ENABLE, 1);
++		lane_cnt |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
++	}
++
++	if (dp->dpcd[DP_MAX_DOWNSPREAD] & DP_MAX_DOWNSPREAD_0_5) {
++		cix_dp_write(dp, CIX_DPTX_DOWNSPREAD_CONTROL, 1);
++		drm_dp_dpcd_writeb(&dp->aux, DP_DOWNSPREAD_CTRL,
++				   DP_SPREAD_AMP_0_5);
++	} else {
++		cix_dp_write(dp, CIX_DPTX_DOWNSPREAD_CONTROL, 0);
++		drm_dp_dpcd_writeb(&dp->aux, DP_DOWNSPREAD_CTRL, 0);
++	}
++
++	ret = drm_dp_dpcd_writeb(&dp->aux, DP_LANE_COUNT_SET, lane_cnt);
++	if (ret < 0)
++		return ret;
++
++	ret = drm_dp_dpcd_writeb(&dp->aux, DP_MAIN_LINK_CHANNEL_CODING_SET,
++				 DP_SET_ANSI_8B10B);
++	if (ret < 0)
++		return ret;
++
++	ret = drm_dp_dpcd_writeb(&dp->aux, DP_LINK_BW_SET, bw_code);
++	if (ret < 0)
++		return ret;
++
++	cix_dp_write(dp, CIX_DPTX_LINK_BW_SET, bw_code);
++	ret = cix_dp_phy_link_rate_update(dp, bw_code);
++	if (ret)
++		return ret;
++
++	return cix_dp_phy_ready(dp);
++}
++
++static int cix_dp_link_train_clock_recovery(struct cix_dp *dp)
++{
++	u8 link_status[DP_LINK_STATUS_SIZE];
++	u8 lane_cnt = dp->mode.lane_cnt;
++	bool train_done = false;
++	u8 prev = 0;
++	int tries = 0;
++	int i;
++	int ret;
++
++	ret = cix_dp_link_set_pattern(dp, LINK_TRAIN_CLOCK_RECOVERY);
++	if (ret < 0)
++		return ret;
++
++	for (i = 0; i < 512; i++) {
++		ret = cix_dp_update_vs_emph(dp);
++		if (ret)
++			return ret;
++
++		drm_dp_link_train_clock_recovery_delay(&dp->aux, dp->dpcd);
++		ret = drm_dp_dpcd_read_link_status(&dp->aux, link_status);
++		if (ret < 0)
++			return ret;
++
++		train_done = drm_dp_clock_recovery_ok(link_status, lane_cnt);
++		if (train_done)
++			break;
++
++		if ((dp->train_set[0] &
++		     (DP_TRAIN_VOLTAGE_SWING_MASK |
++		      DP_TRAIN_PRE_EMPHASIS_MASK)) == prev)
++			tries++;
++		else
++			tries = 0;
++
++		if (tries == DP_MAX_TRAINING_TRIES)
++			break;
++
++		prev = dp->train_set[0] &
++		       (DP_TRAIN_VOLTAGE_SWING_MASK |
++			DP_TRAIN_PRE_EMPHASIS_MASK);
++		cix_dp_adjust_train(dp, link_status);
++	}
++
++	if (train_done)
++		return 0;
++
++	return -EIO;
++}
++
++static int cix_dp_link_train_channel_equalization(struct cix_dp *dp)
++{
++	u8 link_status[DP_LINK_STATUS_SIZE];
++	u8 lane_cnt = dp->mode.lane_cnt;
++	bool train_done = false;
++	int i;
++	int ret;
++
++	ret = cix_dp_link_set_pattern(dp, LINK_TRAIN_CHANNEL_EQUALIZATION);
++	if (ret < 0)
++		return ret;
++
++	for (i = 0; i < DP_MAX_TRAINING_TRIES; i++) {
++		ret = cix_dp_update_vs_emph(dp);
++		if (ret)
++			return ret;
++
++		drm_dp_link_train_channel_eq_delay(&dp->aux, dp->dpcd);
++		ret = drm_dp_dpcd_read_link_status(&dp->aux, link_status);
++		if (ret < 0)
++			return ret;
++
++		train_done = drm_dp_channel_eq_ok(link_status, lane_cnt);
++		if (train_done)
++			break;
++
++		cix_dp_adjust_train(dp, link_status);
++	}
++
++	if (train_done)
++		return 0;
++
++	return -EIO;
++}
++
++static void cix_dp_train_end(struct cix_dp *dp)
++{
++	drm_dp_dpcd_writeb(&dp->aux, DP_TRAINING_PATTERN_SET, 0);
++
++	cix_dp_write(dp, CIX_DPTX_TRAINING_PATTERN_SET, 0);
++	cix_dp_write(dp, CIX_DPTX_DISABLE_SCRAMBLING, 0);
++}
++
++static int cix_dp_train(struct cix_dp *dp)
++{
++	int ret;
++
++	ret = cix_dp_link_configure(dp);
++	if (ret < 0)
++		return ret;
++
++	cix_dp_write(dp, CIX_DPTX_DISABLE_SCRAMBLING, 1);
++	memset(dp->train_set, 0, sizeof(dp->train_set));
++
++	ret = cix_dp_link_train_clock_recovery(dp);
++	if (ret)
++		goto end;
++
++	ret = cix_dp_link_train_channel_equalization(dp);
++
++end:
++	cix_dp_train_end(dp);
++
++	return ret;
++}
++
++static void cix_dp_mode_set_transfer_unit(struct cix_dp *dp,
++					  int stream_id,
++					  struct drm_display_mode *mode,
++					  int bpp)
++{
++	u32 tu = CIX_DPTX_MSA_TRANSFER_UNIT_SIZE_TU_SIZE_DEF;
++	u32 bw;
++	u32 video_kbytes;
++	u32 bytes_per_tu_scaled;
++	u32 symbols_per_tu;
++	u32 frac_symbols_per_tu;
++
++	video_kbytes = mode->clock * bpp / 8;
++	bw = drm_dp_bw_code_to_link_rate(dp->mode.bw_code);
++
++	/*
++	 * Scaled by 1000 (fixed point) so the fraction below can be split
++	 * into integer symbols + 1/16 fractional symbols without floating
++	 * point.
++	 */
++	bytes_per_tu_scaled = video_kbytes * tu /
++			      (dp->mode.lane_cnt * bw / 1000);
++
++	/* bit 23:16 - SYMBOLS_PER_TU */
++	symbols_per_tu = (bytes_per_tu_scaled / 1000) & 0xff;
++	tu |= (symbols_per_tu << 16);
++
++	/*
++	 * bit 27:24 - FRAC_SYMBOLS_PER_TU: sets the fractional number of
++	 * valid symbols per TU in units of 1/16th. An accumulator is used
++	 * to increase the number of data per transaction unit by 1 every
++	 * 1/N TUs.
++	 */
++	frac_symbols_per_tu = ((bytes_per_tu_scaled % 1000) * 16 / 1000) & 0x0f;
++	tu |= (frac_symbols_per_tu << 24);
++
++	cix_dp_write(dp, CIX_DPTX_TU_CONFIG(stream_id), tu);
++}
++
++static void cix_dp_mode_set_timing(struct cix_dp *dp, int stream_id,
++				   struct drm_display_mode *mode, int bpp)
++{
++	u8 lane_cnt = dp->mode.lane_cnt;
++	u32 data_control = CIX_DPTX_DATA_CONTROL_DEFAULT;
++	u32 value;
++
++	if (dp->pixel_per_cycle == 2 && dp->mode.lane_cnt == 4 &&
++	    dp->mode.link_rate == 810000)
++		data_control = CIX_DPTX_DATA_CONTROL_2PPC_4LANE_HBR3;
++
++	cix_dp_write(dp, CIX_DPTX_MAIN_STREAM_HTOTAL(stream_id), mode->htotal);
++	cix_dp_write(dp, CIX_DPTX_MAIN_STREAM_VTOTAL(stream_id), mode->vtotal);
++
++	value = (!!(mode->flags & DRM_MODE_FLAG_PVSYNC)
++		 << CIX_DPTX_MAIN_STREAM_POLARITY_VSYNC_SHIFT) |
++		(!!(mode->flags & DRM_MODE_FLAG_PHSYNC)
++		 << CIX_DPTX_MAIN_STREAM_POLARITY_HSYNC_SHIFT);
++
++	cix_dp_write(dp, CIX_DPTX_MAIN_STREAM_POLARITY(stream_id), value);
++	cix_dp_write(dp, CIX_DPTX_USER_SYNC_POLARITY(stream_id),
++		     CIX_DPTX_MAIN_STREAM_POLARITY_DATAENABLE_HIGH | value);
++
++	cix_dp_write(dp, CIX_DPTX_MAIN_STREAM_HSWIDTH(stream_id),
++		     mode->hsync_end - mode->hsync_start);
++	cix_dp_write(dp, CIX_DPTX_MAIN_STREAM_VSWIDTH(stream_id),
++		     mode->vsync_end - mode->vsync_start);
++	cix_dp_write(dp, CIX_DPTX_MAIN_STREAM_HRES(stream_id), mode->hdisplay);
++	cix_dp_write(dp, CIX_DPTX_MAIN_STREAM_VRES(stream_id), mode->vdisplay);
++	cix_dp_write(dp, CIX_DPTX_MAIN_STREAM_HSTART(stream_id),
++		     mode->htotal - mode->hsync_start);
++	cix_dp_write(dp, CIX_DPTX_MAIN_STREAM_VSTART(stream_id),
++		     mode->vtotal - mode->vsync_start);
++
++	value = ((mode->hdisplay * bpp + 7) / 8 + lane_cnt - 1) / lane_cnt;
++	cix_dp_write(dp, CIX_DPTX_USER_DATA_COUNT(stream_id), value);
++
++	value = (mode->htotal - mode->hdisplay) *
++		(dp->mode.link_rate / 40) * 9 / mode->clock;
++
++	cix_dp_write(dp, CIX_DPTX_SECONDARY_DATA_WINDOW(stream_id), value);
++	cix_dp_write(dp, CIX_DPTX_DATA_CONTROL(stream_id), data_control);
++	cix_dp_write(dp, CIX_DPTX_USER_PIXEL_COUNT(stream_id),
++		     dp->pixel_per_cycle);
++}
++
++static struct drm_display_mode *cix_dp_get_mode(struct cix_dp *dp,
++						int stream_id)
++{
++	struct drm_crtc *crtc;
++
++	if (stream_id < 0 || stream_id >= dp->max_streams)
++		return NULL;
++
++	if (!dp->active_panels[stream_id] || !dp->bridge.encoder)
++		return NULL;
++
++	crtc = dp->bridge.encoder->crtc;
++	if (!crtc || !crtc->state)
++		return NULL;
++
++	return &crtc->state->adjusted_mode;
++}
++
++/*
++ * Link retraining can lower the bandwidth or the lane count while a stream
++ * is already enabled. TU and timing were programmed for the previous link,
++ * so write them again from the trained mode.
++ */
++static void cix_dp_update_active_streams(struct cix_dp *dp)
++{
++	struct cix_dp_panel *panel;
++	struct drm_display_mode *mode;
++	int bpp;
++	int i;
++
++	for (i = 0; i < dp->max_streams; i++) {
++		panel = dp->active_panels[i];
++		if (!panel || !panel->connector)
++			continue;
++
++		mode = cix_dp_get_mode(dp, i);
++		if (!mode)
++			continue;
++
++		bpp = panel->connector->config.bpp;
++		cix_dp_mode_set_transfer_unit(dp, panel->source_id, mode,
++					      bpp);
++		cix_dp_mode_set_timing(dp, panel->source_id, mode, bpp);
++	}
++}
++
++static int cix_dp_train_loop(struct cix_dp *dp)
++{
++	struct cix_dp_mode *mode = &dp->mode;
++	u8 bpp = dp->connector.config.bpp;
++	u8 prev_bw = mode->bw_code;
++	u8 prev_lanes = mode->lane_cnt;
++	u8 bw_code = mode->bw_code;
++	int i;
++	int j;
++	int ret;
++
++	for (i = 0; i < DP_MAX_TRAINING_LOOP; i++) {
++		for (j = 0; j <= 3; j++) {
++			if (!(dp->state & DPTX_STATE_READY))
++				return 0;
++
++			ret = cix_dp_train(dp);
++			if (!ret) {
++				if (dp->active_stream_cnt &&
++				    (mode->bw_code != prev_bw ||
++				     mode->lane_cnt != prev_lanes))
++					cix_dp_update_active_streams(dp);
++				return 0;
++			}
++
++			ret = cix_dp_mode_configure(dp, mode->pclock, bw_code,
++						    bpp, true);
++			if (ret < 0)
++				break;
++
++			bw_code = dp->mode.bw_code;
++		}
++
++		ret = cix_dp_mode_configure(dp, mode->pclock, 0, bpp, true);
++		if (ret < 0)
++			return ret;
++
++		bw_code = dp->mode.bw_code;
++	}
++
++	return -EIO;
++}
++
++static int cix_dp_aux_cmd_submit(struct cix_dp *dp, u32 cmd, u32 addr,
++				 u8 *buf, u32 bytes, u8 *reply)
++{
++	bool is_read = cmd & AUX_READ_BIT;
++	u32 value;
++	int i, ret;
++
++	value = cix_dp_read(dp, CIX_DPTX_AUX_STATUS);
++	if (value & (CIX_DPTX_AUX_STATUS_REQUEST_IN_PROGRESS |
++		     CIX_DPTX_AUX_STATUS_REPLY_IN_PROGRESS))
++		return -EBUSY;
++
++	cix_dp_write(dp, CIX_DPTX_AUX_ADDRESS, addr);
++
++	if (!is_read)
++		for (i = 0; i < bytes; i++)
++			cix_dp_write(dp, CIX_DPTX_AUX_WRITE_FIFO, buf[i]);
++
++	value = cmd << CIX_DPTX_AUX_COMMAND_CMD_SHIFT;
++	if (!buf || !bytes)
++		value |= CIX_DPTX_AUX_COMMAND_ADDRESS_ONLY;
++	else
++		value |= (bytes - 1) << CIX_DPTX_AUX_COMMAND_BYTES_SHIFT;
++
++	cix_dp_write(dp, CIX_DPTX_AUX_COMMAND, value);
++
++	ret = readl_poll_timeout(dp->dp_iomem + CIX_DPTX_AUX_STATUS, value,
++				 value & (CIX_DPTX_AUX_STATUS_REPLY_RECEIVED |
++					  CIX_DPTX_AUX_STATUS_REPLY_ERROR),
++				 1000, 4000);
++	if (ret)
++		return -ETIMEDOUT;
++	if (value & CIX_DPTX_AUX_STATUS_REPLY_ERROR)
++		return -ETIMEDOUT;
++	if (!(value & CIX_DPTX_AUX_STATUS_REPLY_RECEIVED))
++		return -ETIMEDOUT;
++
++	value = cix_dp_read(dp, CIX_DPTX_AUX_REPLY_CODE);
++	if (reply)
++		*reply = value;
++
++	if (is_read &&
++	    (value == CIX_DPTX_AUX_REPLY_CODE_AUX_ACK ||
++	     value == CIX_DPTX_AUX_REPLY_CODE_I2C_ACK)) {
++		value = cix_dp_read(dp, CIX_DPTX_AUX_REPLY_DATA_COUNT);
++		if ((value & CIX_DPTX_REPLY_DATA_COUNT_MASK) != bytes)
++			return -EIO;
++
++		for (i = 0; i < bytes; i++)
++			buf[i] = cix_dp_read(dp, CIX_DPTX_AUX_REPLY_DATA);
++	}
++
++	return 0;
++}
++
++static ssize_t cix_dp_aux_transfer(struct drm_dp_aux *aux,
++				   struct drm_dp_aux_msg *msg)
++{
++	struct cix_dp *dp = container_of(aux, struct cix_dp, aux);
++	size_t to_access = 0;
++	size_t accessed_bytes = 0;
++	u32 reply_mask;
++	u32 reply_ack;
++	u32 state;
++	ssize_t ret;
++
++	/*
++	 * AUX has its own lock instead of session_lock: the driver calls
++	 * drm_dp_*() helpers while holding session_lock, and those helpers
++	 * re-enter aux->transfer. host_init() and host_deinit() take this
++	 * lock while they enable or gate the APB clock.
++	 */
++	mutex_lock(&dp->aux_lock);
++
++	state = READ_ONCE(dp->state);
++	if (!(state & DPTX_STATE_INITIALIZED) ||
++	    (state & DPTX_STATE_SUSPENDED) ||
++	    (!cix_dp_get_hpd_state(dp) && !READ_ONCE(dp->aux_ignore_hpd))) {
++		ret = -ENODEV;
++		goto out;
++	}
++
++	/*
++	 * A native transaction only reports the native reply; an I2C-over-AUX
++	 * transaction reports both the native and the I2C reply. Check only
++	 * the reply fields that the request type actually uses.
++	 */
++	switch (msg->request) {
++	case DP_AUX_NATIVE_WRITE:
++	case DP_AUX_NATIVE_READ:
++		reply_mask = DP_AUX_NATIVE_REPLY_MASK;
++		reply_ack = DP_AUX_NATIVE_REPLY_ACK;
++		break;
++	default:
++		reply_mask = DP_AUX_NATIVE_REPLY_MASK | DP_AUX_I2C_REPLY_MASK;
++		reply_ack = DP_AUX_NATIVE_REPLY_ACK | DP_AUX_I2C_REPLY_ACK;
++		break;
++	}
++
++	do {
++		to_access = min_t(size_t, DP_AUX_MAX_PAYLOAD_BYTES,
++				  msg->size - accessed_bytes);
++		ret = cix_dp_aux_cmd_submit(dp, msg->request,
++					    msg->address + accessed_bytes,
++					    msg->buffer + accessed_bytes,
++					    to_access, &msg->reply);
++		if (ret) {
++			ret = accessed_bytes ? (ssize_t)accessed_bytes : ret;
++			goto out;
++		}
++
++		/*
++		 * NACK and DEFER are reported through msg->reply. Stop here
++		 * so a later chunk cannot overwrite that reply.
++		 */
++		if ((msg->reply & reply_mask) != reply_ack) {
++			ret = accessed_bytes;
++			goto out;
++		}
++
++		accessed_bytes += to_access;
++	} while (accessed_bytes < msg->size);
++
++	ret = msg->size;
++out:
++	mutex_unlock(&dp->aux_lock);
++	return ret;
++}
++
++static int cix_dp_aux_register(struct cix_dp *dp)
++{
++	int ret;
++
++	dp->aux.name = "Cix DP AUX";
++	dp->aux.dev = dp->dev;
++	dp->aux.drm_dev = dp->drm;
++	dp->aux.transfer = cix_dp_aux_transfer;
++
++	ret = drm_dp_aux_register(&dp->aux);
++	if (ret)
++		return ret;
++
++	dp->aux_registered = true;
++
++	return 0;
++}
++
++static void cix_dp_aux_clk_divider(struct cix_dp *dp)
++{
++	unsigned int rate;
++
++	rate = dp->aux_clock_divider;
++	if (!rate) {
++		if (!IS_ERR_OR_NULL(dp->apb_clk))
++			rate = clk_get_rate(dp->apb_clk) / (1000 * 1000);
++		if (!rate)
++			rate = 25;
++		dp->aux_clock_divider = rate;
++	}
++
++	cix_dp_write(dp, CIX_DPTX_AUX_CLOCK_DIVIDER, rate);
++}
++
++static void cix_dp_aux_cleanup(struct cix_dp *dp)
++{
++	if (!dp->aux_registered)
++		return;
++
++	drm_dp_aux_unregister(&dp->aux);
++	dp->aux.drm_dev = NULL;
++	dp->aux_registered = false;
++}
++
++static int cix_dpcd_power_up(struct cix_dp *dp)
++{
++	struct drm_dp_aux *aux = &dp->aux;
++	u8 value;
++	int ret;
++
++	ret = drm_dp_dpcd_readb(aux, DP_SET_POWER, &value);
++	if (ret < 0)
++		return ret;
++
++	value = (value & ~DP_SET_POWER_MASK) | DP_SET_POWER_D0;
++
++	ret = drm_dp_dpcd_writeb(aux, DP_SET_POWER, value);
++	if (ret < 0)
++		return ret;
++
++	msleep(cix_dp_power_on_delay_ms);
++
++	return 0;
++}
++
++static int cix_dpcd_power_down(struct cix_dp *dp)
++{
++	struct drm_dp_aux *aux = &dp->aux;
++	u8 value;
++	int ret;
++
++	if (!cix_dp_get_hpd_state(dp))
++		return 0;
++
++	ret = drm_dp_dpcd_readb(aux, DP_SET_POWER, &value);
++	if (ret < 0)
++		return ret;
++
++	value = (value & ~DP_SET_POWER_MASK) | DP_SET_POWER_D3;
++
++	ret = drm_dp_dpcd_writeb(aux, DP_SET_POWER, value);
++	if (ret < 0)
++		return ret;
++
++	usleep_range(200, 205);
++
++	return 0;
++}
++
++static void cix_dp_update_misc(struct cix_dp *dp, int stream_id,
++			       struct cix_dp_config *config)
++{
++	cix_dp_write(dp, CIX_DPTX_MAIN_STREAM_MISC0(stream_id), config->misc0);
++	cix_dp_write(dp, CIX_DPTX_MAIN_STREAM_MISC1(stream_id), config->misc1);
++	cix_dp_write(dp, CIX_DPTX_MAIN_STREAM_OVERRIDE(stream_id),
++		     config->override);
++}
++
++static bool cix_dp_needs_vsc_sdp(enum cix_dp_format output_format,
++				 int colorspace)
++{
++	if (output_format == CIX_DP_FORMAT_YCBCR420)
++		return true;
++
++	switch (colorspace) {
++	case DRM_MODE_COLORIMETRY_SYCC_601:
++	case DRM_MODE_COLORIMETRY_OPYCC_601:
++	case DRM_MODE_COLORIMETRY_BT2020_YCC:
++	case DRM_MODE_COLORIMETRY_BT2020_RGB:
++	case DRM_MODE_COLORIMETRY_BT2020_CYCC:
++		return true;
++	default:
++		break;
++	}
++
++	return false;
++}
++
++static int cix_dp_set_misc(struct cix_dp *dp,
++			   struct cix_dp_panel *dp_panel)
++{
++	struct cix_dp_config *config;
++
++	if (!dp_panel || !dp_panel->connector)
++		return -EINVAL;
++
++	config = &dp_panel->connector->config;
++
++	/*
++	 * YCbCr 4:2:0 is only signalled by a VSC SDP. Programming it into the
++	 * RCSU adapter without that SDP leaves the sink with no pixel format.
++	 */
++	if (config->format == CIX_DP_FORMAT_YCBCR420 &&
++	    !dp->caps.vsc_supported)
++		return -EINVAL;
++
++	config->misc0 &= ~CIX_DPTX_STREAM_MISC0_SYNC_LOCK;
++	config->misc1 &= ~CIX_DPTX_VSC_COLORIMETRY_EN;
++	config->override = 0;
++
++	if (dp->caps.vsc_supported &&
++	    cix_dp_needs_vsc_sdp(config->format, config->colorspace)) {
++		config->misc1 |= CIX_DPTX_VSC_COLORIMETRY_EN;
++
++		switch (config->bpc) {
++		case 6:
++			config->override = CIX_DPTX_STREAM_OVERRIDE_BPC_6;
++			break;
++		case 8:
++			config->override = CIX_DPTX_STREAM_OVERRIDE_BPC_8;
++			break;
++		case 10:
++			config->override = CIX_DPTX_STREAM_OVERRIDE_BPC_10;
++			break;
++		case 12:
++			config->override = CIX_DPTX_STREAM_OVERRIDE_BPC_12;
++			break;
++		case 16:
++			config->override = CIX_DPTX_STREAM_OVERRIDE_BPC_16;
++			break;
++		default:
++			config->override = CIX_DPTX_STREAM_OVERRIDE_BPC_8;
++			break;
++		}
++
++		switch (config->format) {
++		case CIX_DP_FORMAT_YCBCR444:
++			config->override |= CIX_DPTX_STREAM_OVERRIDE_YCbCR_444;
++			break;
++		case CIX_DP_FORMAT_YCBCR422:
++			config->override |= CIX_DPTX_STREAM_OVERRIDE_YCbCR_422;
++			break;
++		case CIX_DP_FORMAT_YCBCR420:
++			config->override |= CIX_DPTX_STREAM_OVERRIDE_YCbCR_420;
++			break;
++		default:
++			break;
++		}
++
++		config->override |= CIX_DPTX_STREAM_OVERRIDE_ENABLE;
++		config->dynamic_range = DP_DYNAMIC_RANGE_CTA;
++
++		goto end;
++	}
++
++	config->misc0 &= ~CIX_DPTX_STREAM_MISC0_COMP_FORMAT_MASK;
++	config->misc1 &= ~CIX_DPTX_STREAM_MISC1_Y_ONLY_EN;
++
++	switch (config->format) {
++	case CIX_DP_FORMAT_RGB:
++		config->misc0 |= CIX_DPTX_STREAM_MISC0_COMP_FORMAT_RGB;
++		break;
++
++	case CIX_DP_FORMAT_YCBCR444:
++		config->misc0 |= CIX_DPTX_STREAM_MISC0_COMP_FORMAT_YCRCB_444;
++		break;
++
++	case CIX_DP_FORMAT_YCBCR422:
++		config->misc0 |= CIX_DPTX_STREAM_MISC0_COMP_FORMAT_YCRCB_422;
++		break;
++
++	case CIX_DP_FORMAT_YONLY:
++		config->misc1 |= CIX_DPTX_STREAM_MISC1_Y_ONLY_EN;
++		break;
++
++	default:
++		return -EINVAL;
++	}
++
++	config->misc0 &= ~CIX_DPTX_STREAM_MISC0_BPC_MASK;
++
++	switch (config->bpc) {
++	case 6:
++		config->misc0 |= CIX_DPTX_STREAM_MISC0_BPC_6;
++		break;
++	case 8:
++		config->misc0 |= CIX_DPTX_STREAM_MISC0_BPC_8;
++		break;
++	case 10:
++		config->misc0 |= CIX_DPTX_STREAM_MISC0_BPC_10;
++		break;
++	case 12:
++		config->misc0 |= CIX_DPTX_STREAM_MISC0_BPC_12;
++		break;
++	case 16:
++		config->misc0 |= CIX_DPTX_STREAM_MISC0_BPC_16;
++		break;
++	default:
++		config->misc0 |= CIX_DPTX_STREAM_MISC0_BPC_8;
++		break;
++	}
++
++end:
++	cix_dp_update_misc(dp, dp_panel->source_id, config);
++	return 0;
++}
++
++static void cix_dp_cfg_adapter(struct cix_dp *dp, int pipe_id)
++{
++	struct cix_rcsu_video_bits fmt_bits;
++	u32 value;
++	int offset;
++
++	if (dp->native_dp) {
++		/* Native DP/eDP transmitter */
++		offset = CFG_ADAPTER_VIDEO_OFFSET_DP2;
++		if (pipe_id == 0) {
++			fmt_bits.fmt_mask = GENMASK(18, 17);
++			fmt_bits.yuv422 = FIELD_PREP(GENMASK(18, 17), 2);
++			fmt_bits.yuv420 = FIELD_PREP(GENMASK(18, 17), 3);
++			fmt_bits.ppc_bit = BIT(16);
++		} else {
++			fmt_bits.fmt_mask = GENMASK(21, 20);
++			fmt_bits.yuv422 = FIELD_PREP(GENMASK(21, 20), 2);
++			fmt_bits.yuv420 = FIELD_PREP(GENMASK(21, 20), 3);
++			fmt_bits.ppc_bit = BIT(19);
++		}
++	} else {
++		/* USB-C DP transmitter */
++		offset = pipe_id == 0 ? CFG_ADAPTER_VIDEO0_OFFSET :
++				       CFG_ADAPTER_VIDEO1_OFFSET;
++		if (pipe_id == 0) {
++			fmt_bits.fmt_mask = GENMASK(31, 30);
++			fmt_bits.yuv422 = FIELD_PREP(GENMASK(31, 30), 2);
++			fmt_bits.yuv420 = FIELD_PREP(GENMASK(31, 30), 3);
++			fmt_bits.ppc_bit = BIT(29);
++		} else {
++			fmt_bits.fmt_mask = GENMASK(20, 19);
++			fmt_bits.yuv422 = FIELD_PREP(GENMASK(20, 19), 2);
++			fmt_bits.yuv420 = FIELD_PREP(GENMASK(20, 19), 3);
++			fmt_bits.ppc_bit = BIT(18);
++		}
++	}
++
++	value = readl(dp->rcsu_iomem + offset);
++
++	value &= ~fmt_bits.fmt_mask;
++	if (dp->connector.config.format == CIX_DP_FORMAT_YCBCR422)
++		value |= fmt_bits.yuv422;
++	else if (dp->connector.config.format == CIX_DP_FORMAT_YCBCR420)
++		value |= fmt_bits.yuv420;
++
++	if (dp->pixel_per_cycle == 2)
++		value |= fmt_bits.ppc_bit;
++	else
++		value &= ~fmt_bits.ppc_bit;
++
++	writel(value, dp->rcsu_iomem + offset);
++}
++
++static void dptx_infoframe_write_content(struct cix_dp *dp, u32 stream_id,
++					 struct dp_sdp *sdp)
++{
++	int i;
++
++	cix_dp_write(dp, CIX_DPTX_INFOFRAME_DATA(stream_id),
++		     sdp->sdp_header.HB0);
++	cix_dp_write(dp, CIX_DPTX_INFOFRAME_DATA(stream_id),
++		     sdp->sdp_header.HB1);
++	cix_dp_write(dp, CIX_DPTX_INFOFRAME_DATA(stream_id),
++		     sdp->sdp_header.HB2);
++	cix_dp_write(dp, CIX_DPTX_INFOFRAME_DATA(stream_id),
++		     sdp->sdp_header.HB3);
++
++	for (i = 0; i < DPTX_SDP_DB_MAX; i++)
++		cix_dp_write(dp, CIX_DPTX_INFOFRAME_DATA(stream_id),
++			     sdp->db[i]);
++}
++
++static void dptx_infoframe_select_buffer_pre(struct cix_dp *dp,
++					     u32 stream_id, u32 select)
++{
++	u32 value;
++
++	value = cix_dp_read(dp, CIX_DPTX_INFOFRAME_ENABLE(stream_id));
++	cix_dp_write(dp, CIX_DPTX_INFOFRAME_ENABLE(stream_id),
++		     value & ~(1 << select));
++	cix_dp_write(dp, CIX_DPTX_INFOFRAME_SELECT(stream_id), select);
++}
++
++static void dptx_infoframe_select_buffer_end(struct cix_dp *dp,
++					     u32 stream_id, u32 select)
++{
++	u32 value;
++
++	value = cix_dp_read(dp, CIX_DPTX_INFOFRAME_ENABLE(stream_id));
++	cix_dp_write(dp, CIX_DPTX_INFOFRAME_ENABLE(stream_id),
++		     value | (1 << select));
++}
++
++static void dptx_infoframe_rate(struct cix_dp *dp, u32 stream_id, u32 select,
++				u32 rate)
++{
++	u32 value = cix_dp_read(dp, CIX_DPTX_INFOFRAME_RATE(stream_id));
++
++	if (rate)
++		cix_dp_write(dp, CIX_DPTX_INFOFRAME_RATE(stream_id),
++			     value | (1 << select));
++	else
++		cix_dp_write(dp, CIX_DPTX_INFOFRAME_RATE(stream_id),
++			     value & ~(1 << select));
++}
++
++static void infoframe_write_packet(struct cix_dp *dp, u32 stream_id,
++				   u32 select, struct dp_sdp *sdp, u32 rate)
++{
++	if (stream_id >= DPTX_MST_SOURCE_NUMBER)
++		return;
++
++	if (select >= CIX_MAX_SDP)
++		return;
++
++	dptx_infoframe_select_buffer_pre(dp, stream_id, select);
++	dptx_infoframe_write_content(dp, stream_id, sdp);
++	dptx_infoframe_rate(dp, stream_id, select, rate);
++	dptx_infoframe_select_buffer_end(dp, stream_id, select);
++}
++
++static enum dp_pixelformat cix_dp_vsc_pixelformat(enum cix_dp_format format)
++{
++	switch (format) {
++	case CIX_DP_FORMAT_YCBCR444:
++		return DP_PIXELFORMAT_YUV444;
++	case CIX_DP_FORMAT_YCBCR422:
++		return DP_PIXELFORMAT_YUV422;
++	case CIX_DP_FORMAT_YCBCR420:
++		return DP_PIXELFORMAT_YUV420;
++	case CIX_DP_FORMAT_YONLY:
++		return DP_PIXELFORMAT_Y_ONLY;
++	case CIX_DP_FORMAT_RGB:
++	default:
++		return DP_PIXELFORMAT_RGB;
++	}
++}
++
++static enum dp_colorimetry cix_dp_vsc_colorimetry(enum cix_dp_format format,
++						  u32 colorspace)
++{
++	switch (colorspace) {
++	case DRM_MODE_COLORIMETRY_BT709_YCC:
++		return DP_COLORIMETRY_BT709_YCC;
++	case DRM_MODE_COLORIMETRY_XVYCC_601:
++		return DP_COLORIMETRY_XVYCC_601;
++	case DRM_MODE_COLORIMETRY_XVYCC_709:
++		return DP_COLORIMETRY_XVYCC_709;
++	case DRM_MODE_COLORIMETRY_SYCC_601:
++		return DP_COLORIMETRY_SYCC_601;
++	case DRM_MODE_COLORIMETRY_OPYCC_601:
++		return DP_COLORIMETRY_OPYCC_601;
++	case DRM_MODE_COLORIMETRY_BT2020_CYCC:
++		return DP_COLORIMETRY_BT2020_CYCC;
++	case DRM_MODE_COLORIMETRY_BT2020_RGB:
++		return DP_COLORIMETRY_BT2020_RGB;
++	case DRM_MODE_COLORIMETRY_BT2020_YCC:
++		return DP_COLORIMETRY_BT2020_YCC;
++	case DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
++	case DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
++		return DP_COLORIMETRY_DCI_P3_RGB;
++	default:
++		break;
++	}
++
++	/* Unspecified RGB is sRGB. Unspecified YCbCr is BT.709. */
++	if (format == CIX_DP_FORMAT_RGB)
++		return DP_COLORIMETRY_DEFAULT;
++
++	return DP_COLORIMETRY_BT709_YCC;
++}
++
++static int dptx_setup_vsc_sdp(struct dp_sdp *sdp,
++			      struct cix_dp_config *config)
++{
++	struct drm_dp_vsc_sdp vsc = {};
++	ssize_t len;
++
++	vsc.sdp_type = DP_SDP_VSC;
++	vsc.revision = 0x5;
++	vsc.length = 0x13;
++	vsc.pixelformat = cix_dp_vsc_pixelformat(config->format);
++	vsc.colorimetry = cix_dp_vsc_colorimetry(config->format,
++						 config->colorspace);
++	switch (config->bpc) {
++	case 6:
++	case 8:
++	case 10:
++	case 12:
++	case 16:
++		vsc.bpc = config->bpc;
++		break;
++	default:
++		vsc.bpc = 8;
++		break;
++	}
++	vsc.dynamic_range = config->dynamic_range;
++	vsc.content_type = config->content_type;
++
++	/*
++	 * drm_dp_vsc_sdp_pack() clears the packet, so a later modeset cannot
++	 * keep the previous pixel format or colorimetry.
++	 */
++	len = drm_dp_vsc_sdp_pack(&vsc, sdp);
++	if (len < 0)
++		return len;
++
++	return 0;
++}
++
++static int cix_dp_panel_setup_colorimetry_sdp(struct cix_dp *dp,
++					      struct cix_dp_panel *dp_panel)
++{
++	struct cix_connector *conn = dp_panel->connector;
++
++	if (conn->config.override & CIX_DPTX_STREAM_OVERRIDE_ENABLE) {
++		int ret;
++
++		ret = dptx_setup_vsc_sdp(&conn->sdp[CIX_VSC_SDP],
++					 &conn->config);
++		if (ret)
++			return ret;
++
++		infoframe_write_packet(dp, dp_panel->source_id, CIX_VSC_SDP,
++				       &conn->sdp[CIX_VSC_SDP], 1);
++	}
++
++	return 0;
++}
++
++static int cix_dp_ctrl_enable_stream_clocks(struct cix_dp *dp,
++					    int stream_id, bool enable)
++{
++	struct clk *stream_clk;
++	int ret;
++
++	if (stream_id < 0 || stream_id >= DP_STREAM_MAX)
++		return -EINVAL;
++
++	stream_clk = dp->stream_clk[stream_id];
++	if (IS_ERR_OR_NULL(stream_clk))
++		return -EINVAL;
++
++	if (enable) {
++		ret = clk_prepare_enable(stream_clk);
++		if (ret)
++			return ret;
++	} else {
++		clk_disable_unprepare(stream_clk);
++	}
++
++	return 0;
++}
++
++static int cix_dp_panel_hw_cfg(struct cix_dp *dp, int stream_id)
++{
++	struct cix_dp_panel *dp_panel = dp->active_panels[stream_id];
++	struct drm_display_mode *mode = cix_dp_get_mode(dp, stream_id);
++	struct cix_connector *conn;
++	int ret;
++
++	if (!mode)
++		return -EINVAL;
++
++	conn = dp_panel->connector;
++
++	ret = cix_dp_set_misc(dp, dp_panel);
++	if (ret)
++		return ret;
++
++	cix_dp_cfg_adapter(dp, stream_id);
++
++	ret = cix_dp_panel_setup_colorimetry_sdp(dp, dp_panel);
++	if (ret)
++		return ret;
++
++	cix_dp_mode_set_transfer_unit(dp, dp_panel->source_id, mode,
++				      conn->config.bpp);
++	cix_dp_mode_set_timing(dp, dp_panel->source_id, mode, conn->config.bpp);
++	return 0;
++}
++
++static int cix_dp_ctrl_stream_on(struct cix_dp *dp, int stream_id)
++{
++	struct drm_display_mode *mode;
++	struct clk *stream_clk;
++	unsigned long rate;
++	int ret;
++
++	if (stream_id < 0 || stream_id >= dp->max_streams)
++		return -EINVAL;
++
++	mode = cix_dp_get_mode(dp, stream_id);
++	if (!mode)
++		return -EINVAL;
++
++	/*
++	 * Firmware only pre-programs the video clock of the port it drove
++	 * during boot; the others come up without a rate, which leaves the
++	 * stream with no pixel clock. Reading the rate first also refreshes
++	 * the SCMI clock state, without which setting it fails.
++	 */
++	stream_clk = dp->stream_clk[stream_id];
++	if (!IS_ERR_OR_NULL(stream_clk)) {
++		rate = (unsigned long)mode->clock * 1000;
++		if (clk_get_rate(stream_clk) != rate) {
++			ret = clk_set_rate(stream_clk, rate);
++			if (ret)
++				return ret;
++		}
++	}
++
++	ret = cix_dp_ctrl_enable_stream_clocks(dp, stream_id, true);
++	if (ret)
++		return ret;
++
++	ret = cix_dp_panel_hw_cfg(dp, stream_id);
++	if (ret) {
++		cix_dp_ctrl_enable_stream_clocks(dp, stream_id, false);
++		return ret;
++	}
++
++	cix_dp_write(dp, CIX_DPTX_VIDEO_STREAM_ENABLE(stream_id), 1);
++	cix_dp_write(dp, CIX_DPTX_SECONDARY_STREAM_ENABLE(stream_id), 1);
++
++	dp->active_stream_cnt++;
++	return 0;
++}
++
++static int cix_dp_ctrl_stream_off(struct cix_dp *dp, int stream_id)
++{
++	if (stream_id < 0 || stream_id >= dp->max_streams)
++		return -EINVAL;
++
++	cix_dp_write(dp, CIX_DPTX_INFOFRAME_ENABLE(stream_id), 0);
++	cix_dp_write(dp, CIX_DPTX_INFOFRAME_SELECT(stream_id), 0);
++	cix_dp_write(dp, CIX_DPTX_INFOFRAME_RATE(stream_id), 0);
++	cix_dp_write(dp, CIX_DPTX_SECONDARY_STREAM_ENABLE(stream_id), 0);
++	cix_dp_write(dp, CIX_DPTX_VIDEO_STREAM_ENABLE(stream_id), 0);
++
++	cix_dp_ctrl_enable_stream_clocks(dp, stream_id, false);
++
++	dp->active_stream_cnt--;
++	return 0;
++}
++
++static int cix_dp_panel_read_sink_caps(struct cix_dp *dp)
++{
++	struct drm_dp_aux *drm_aux = &dp->aux;
++	struct cix_dp_link_config *config = &dp->link_config;
++	u8 value = 0;
++	u8 lanes;
++	int ret;
++
++	/* Never leave the previous sink's capabilities behind on failure. */
++	memset(&dp->caps, 0, sizeof(dp->caps));
++
++	ret = drm_dp_read_dpcd_caps(drm_aux, dp->dpcd);
++	if (ret)
++		return ret;
++
++	ret = drm_dp_read_downstream_info(drm_aux, dp->dpcd,
++					  dp->downstream_ports);
++	if (ret)
++		return ret;
++
++	dp->caps.enhanced_framing = drm_dp_enhanced_frame_cap(dp->dpcd);
++	dp->caps.tps3_supported = drm_dp_tps3_supported(dp->dpcd);
++	dp->caps.tps4_supported = drm_dp_tps4_supported(dp->dpcd);
++
++	/*
++	 * DP_DPRX_FEATURE_ENUMERATION_LIST is DP 1.3+. A NACK here just means
++	 * an older sink, so degrade to "unsupported" instead of failing.
++	 */
++	if (dp->dpcd[DP_DPCD_REV] >= DP_DPCD_REV_13 &&
++	    drm_dp_dpcd_readb(drm_aux, DP_DPRX_FEATURE_ENUMERATION_LIST,
++			      &value) == 1)
++		dp->caps.vsc_supported =
++			!!(value & DP_VSC_SDP_EXT_FOR_COLORIMETRY_SUPPORTED);
++
++	lanes = drm_dp_max_lane_count(dp->dpcd);
++	if (lanes > 0) {
++		config->max_lanes = min_t(u8, lanes, dp->num_lanes);
++		config->max_rate = min_t(int, drm_dp_max_link_rate(dp->dpcd),
++					 dp->max_rate);
++	}
++
++	return 0;
++}
++
++static int cix_dp_core_on(struct cix_dp *dp)
++{
++	int enable_sources = (1 << dp->dp_panel.source_id);
++	int i;
++	int ret;
++
++	if (dp->state & DPTX_STATE_READY)
++		return 0;
++
++	dp->state |= DPTX_STATE_READY;
++
++	for (i = 0; i < dp->max_streams; i++)
++		cix_dp_write(dp, CIX_DPTX_VIDEO_STREAM_ENABLE(i), 0);
++
++	ret = phy_power_on(dp->phy);
++	if (ret)
++		goto err;
++
++	ret = cix_dpcd_power_up(dp);
++	if (ret)
++		goto err_power;
++
++	ret = cix_dp_panel_read_sink_caps(dp);
++	if (ret)
++		goto err_power;
++
++	ret = cix_dp_train_loop(dp);
++	if (ret)
++		goto err_power;
++
++	cix_dp_write(dp, CIX_DPTX_SOFT_RESET, enable_sources);
++	cix_dp_write(dp, CIX_DPTX_SOURCE_ENABLE, enable_sources);
++	cix_dp_write(dp, CIX_DPTX_FORCE_SCRAMBLER_RESET, enable_sources);
++	cix_dp_write(dp, CIX_DPTX_MST_ENABLE, 0);
++	cix_dp_write(dp, CIX_DPTX_SST_SOURCE_SELECT, dp->dp_panel.source_id);
++
++	dp->state |= DPTX_STATE_INIT_TRAIN;
++
++	return 0;
++
++err_power:
++	phy_power_off(dp->phy);
++err:
++	dp->state &= ~DPTX_STATE_READY;
++	return ret;
++}
++
++static int cix_dp_core_off(struct cix_dp *dp)
++{
++	if (!(dp->state & DPTX_STATE_READY))
++		return 0;
++
++	cix_dpcd_power_down(dp);
++
++	phy_power_off(dp->phy);
++
++	cix_dp_write(dp, CIX_DPTX_MST_ENABLE, 0);
++	cix_dp_write(dp, CIX_DPTX_SOURCE_ENABLE, 0);
++	cix_dp_write(dp, CIX_DPTX_SOFT_RESET, 0);
++	cix_dp_write(dp, CIX_DPTX_FORCE_SCRAMBLER_RESET, 0);
++
++	dp->state &= ~(DPTX_STATE_READY | DPTX_STATE_INIT_TRAIN);
++
++	return 0;
++}
++
++static int reset_dp_and_reinit(struct cix_dp *dp)
++{
++	int ret;
++
++	reset_control_assert(dp->reset);
++	usleep_range(10, 20);
++	reset_control_deassert(dp->reset);
++
++	ret = phy_reset(dp->phy);
++	if (ret)
++		return ret;
++
++	usleep_range(100, 200);
++
++	cix_dp_write(dp, CIX_DPTX_TRANSMITTER_ENABLE, 1);
++	cix_dp_write(dp, CIX_DPTX_INTERRUPT_MASK, CIX_DPTX_INTERRUPT_CFG);
++	cix_dp_aux_clk_divider(dp);
++
++	ret = phy_init(dp->phy);
++	if (ret)
++		return ret;
++
++	return ret;
++}
++
++static int cix_dp_host_init(struct cix_dp *dp)
++{
++	int ret;
++
++	if (dp->state & DPTX_STATE_INITIALIZED)
++		return 0;
++
++	mutex_lock(&dp->aux_lock);
++
++	/*
++	 * APB is shared with the DP PHY. Enable it before phy_init/phy_reset
++	 * and pair phy_init with phy_exit in host_deinit(). Link bring-up uses
++	 * phy_power_on/off from core_on/off only.
++	 */
++	if (!IS_ERR_OR_NULL(dp->apb_clk)) {
++		/*
++		 * Firmware leaves the APB clock of ports the bootloader never
++		 * brought up without a rate, so the whole DP block is dead
++		 * until we program it ourselves.
++		 */
++		if (!clk_get_rate(dp->apb_clk)) {
++			ret = clk_set_rate(dp->apb_clk, CIX_DP_APB_CLK_RATE);
++			if (ret) {
++				dev_err(dp->dev,
++					"failed to set apb clock rate: %d\n",
++					ret);
++				goto out;
++			}
++		}
++
++		ret = clk_prepare_enable(dp->apb_clk);
++		if (ret)
++			goto out;
++	}
++
++	ret = reset_dp_and_reinit(dp);
++	if (ret)
++		goto err_clk;
++
++	dp->state |= DPTX_STATE_INITIALIZED;
++	goto out;
++
++err_clk:
++	if (!IS_ERR_OR_NULL(dp->apb_clk))
++		clk_disable_unprepare(dp->apb_clk);
++out:
++	mutex_unlock(&dp->aux_lock);
++	return ret;
++}
++
++static void cix_dp_host_deinit(struct cix_dp *dp)
++{
++	if (dp->active_stream_cnt)
++		return;
++
++	/* Suspend can arrive before the failed enable rolls the PHY back. */
++	if (dp->state & DPTX_STATE_READY)
++		cix_dp_core_off(dp);
++
++	if (!(dp->state & DPTX_STATE_INITIALIZED))
++		return;
++
++	mutex_lock(&dp->aux_lock);
++
++	/* Drop DPTx state while APB is still held by this driver. */
++	cix_dp_write(dp, CIX_DPTX_TRANSMITTER_ENABLE, 0);
++	cix_dp_write(dp, CIX_DPTX_INTERRUPT_MASK,
++		     CIX_DPTX_INTERRUPT_MASK_ALL);
++
++	phy_exit(dp->phy);
++
++	/*
++	 * Balance host_init; do not use __clk_is_enabled() with a shared
++	 * clock.
++	 */
++	if (!IS_ERR_OR_NULL(dp->apb_clk))
++		clk_disable_unprepare(dp->apb_clk);
++
++	dp->state &= ~(DPTX_STATE_INITIALIZED | DPTX_STATE_INIT_TRAIN);
++
++	mutex_unlock(&dp->aux_lock);
++}
++
++/*
++ * Undo cix_dp_pm_prepare(). The display controller can enable the pipeline
++ * before this device's resume callback runs, so both paths share it.
++ * enable_irq() stays paired with that one disable_irq().
++ */
++static int cix_dp_resume_locked(struct cix_dp *dp)
++{
++	int ret;
++
++	lockdep_assert_held(&dp->session_lock);
++
++	if (!(dp->state & DPTX_STATE_SUSPENDED))
++		return 0;
++
++	ret = cix_dp_host_init(dp);
++	if (ret)
++		return ret;
++
++	if (READ_ONCE(dp->irq_suspended)) {
++		enable_irq(dp->irq);
++		WRITE_ONCE(dp->irq_suspended, false);
++	}
++
++	dp->state &= ~DPTX_STATE_SUSPENDED;
++	return 0;
++}
++
++static int cix_dp_handle_connect_locked(struct cix_dp *dp)
++{
++	int ret;
++
++	lockdep_assert_held(&dp->session_lock);
++
++	if (dp->state & DPTX_STATE_CONNECTED)
++		return 0;
++
++	if (dp->state & DPTX_STATE_SUSPENDED)
++		return 0;
++
++	ret = cix_dp_panel_read_sink_caps(dp);
++	if (!ret)
++		dp->state |= DPTX_STATE_CONNECTED;
++
++	return ret;
++}
++
++static int cix_dp_handle_disconnect_locked(struct cix_dp *dp)
++{
++	lockdep_assert_held(&dp->session_lock);
++
++	dp->state &= ~DPTX_STATE_CONNECTED;
++
++	return 0;
++}
++
++/*
++ * Report the HPD level and, when a sink is present, read its DPCD before
++ * mode validation.  cix_dp_handle_connect_locked() is a no-op once that read
++ * has succeeded, so poll and atomic check can call this freely.
++ *
++ * The host is initialized by probe, resume and cix_dp_prepare().  Bail out
++ * loudly if this runs before that: cix_dp_read() is a plain readl() and would
++ * hang on a gated APB clock.  __cix_dp_detect() expects session_lock held so
++ * host_deinit() cannot gate the clock between the check and the readl().
++ */
++static int __cix_dp_detect(struct cix_dp *dp)
++{
++	int ret;
++
++	lockdep_assert_held(&dp->session_lock);
++
++	/*
++	 * This task is the HPD worker and suspend is already published.
++	 * Leave the IRQ and the host down. A modeset on another task still
++	 * goes through cix_dp_resume_locked().
++	 */
++	if ((dp->state & DPTX_STATE_SUSPENDED) &&
++	    READ_ONCE(dp->hpd_worker) == current)
++		return -EBUSY;
++
++	ret = cix_dp_resume_locked(dp);
++	if (ret)
++		return ret;
++
++	if (!(dp->state & DPTX_STATE_INITIALIZED)) {
++		dev_warn_once(dp->dev, "detect with uninitialized host\n");
++		return -ENODEV;
++	}
++
++	if (!cix_dp_get_hpd_state(dp))
++		return -ENODEV;
++
++	cix_dp_handle_connect_locked(dp);
++
++	return 0;
++}
++
++static int cix_dp_detect(struct cix_dp *dp)
++{
++	int ret;
++
++	cix_dp_session_lock(dp);
++	ret = __cix_dp_detect(dp);
++	cix_dp_session_unlock(dp);
++
++	return ret;
++}
++
++static void cix_dp_sw_hpd_irq_work_func(struct work_struct *work)
++{
++	struct cix_dp *dp =
++		container_of(work, struct cix_dp, sw_hpd_irq_work.work);
++
++	if (READ_ONCE(dp->hpd_stopped) ||
++	    (dp->state & DPTX_STATE_SUSPENDED))
++		return;
++
++	/*
++	 * The out-of-band hotplug callback only reports the Type-C plug
++	 * event; handle it like any other IRQ_HPD and let the generic link
++	 * status check decide whether a retrain is needed.
++	 */
++	queue_delayed_work(system_freezable_wq, &dp->hpd_irq_work, 0);
++}
++
++/*
++ * USB-C combo PHY only. Its HPD pin is not wired to this controller, so a
++ * sink that was plugged in before the connector existed never raises
++ * HPD_EVENT. Replay that plug once the PHY is already in DP mode and AUX
++ * answers.
++ *
++ * A native DP port wires HPD to the controller and leaves the PHY mode at
++ * PHY_MODE_INVALID, so the checks below skip it. That port is reported by
++ * the HPD interrupt instead.
++ */
++static void cix_dp_replay_deferred_hotplug(struct cix_dp *dp)
++{
++	struct phy *phy = dp->phy;
++	union phy_configure_opts opts = { 0 };
++	u8 dpcd_rev;
++	ssize_t ret;
++	bool hpd;
++
++	cix_dp_session_lock(dp);
++	if (!cix_dp_regs_accessible(dp) ||
++	    dp->force_hpd != connector_status_unknown) {
++		cix_dp_session_unlock(dp);
++		return;
++	}
++	hpd = cix_dp_get_hpd_state(dp);
++	cix_dp_session_unlock(dp);
++	if (hpd) {
++		/*
++		 * Native HPD may have fired before the connector existed.
++		 * Read the DPCD from the work now that it does.
++		 */
++		schedule_delayed_work(&dp->hpd_event_work, 0);
++		return;
++	}
++
++	phy_validate(phy, PHY_MODE_DP, 0, &opts);
++	if (phy_get_mode(phy) != PHY_MODE_DP)
++		return;
++
++	/*
++	 * The combo PHY is already muxed to DP, so the sink may have been
++	 * plugged in before the connector existed. HPD is unwired here, so
++	 * admit this one AUX transaction before force_hpd is set.
++	 */
++	cix_dp_session_lock(dp);
++	if (!cix_dp_regs_accessible(dp) ||
++	    dp->force_hpd != connector_status_unknown) {
++		cix_dp_session_unlock(dp);
++		return;
++	}
++	dp->aux_ignore_hpd = true;
++	cix_dp_session_unlock(dp);
++
++	ret = drm_dp_dpcd_readb(&dp->aux, DP_DPCD_REV, &dpcd_rev);
++
++	cix_dp_session_lock(dp);
++	dp->aux_ignore_hpd = false;
++	if (ret < 0 || !cix_dp_regs_accessible(dp)) {
++		cix_dp_session_unlock(dp);
++		return;
++	}
++	dp->force_hpd = connector_status_connected;
++	dp->status = connector_status_unknown;
++	cix_dp_session_unlock(dp);
++
++	schedule_delayed_work(&dp->hpd_event_work, 0);
++}
++
++static void cix_dp_hpd_event_work_func(struct work_struct *work)
++{
++	struct cix_dp *dp = container_of(work, struct cix_dp,
++					 hpd_event_work.work);
++	struct phy *phy = dp->phy;
++	union phy_configure_opts opts = { 0 };
++	enum drm_connector_status old_status;
++	enum drm_connector_status status;
++	enum phy_mode mode;
++	bool hpd;
++	int i;
++
++	WRITE_ONCE(dp->hpd_worker, current);
++
++	if (READ_ONCE(dp->hpd_stopped) || !dp->dp_panel.connector)
++		goto out;
++
++	/*
++	 * Sample before the PHY wait. A probe during that wait updates
++	 * dp->status, and reading it afterwards drops the hotplug uevent.
++	 */
++	cix_dp_session_lock(dp);
++	old_status = dp->status;
++	if (READ_ONCE(dp->hpd_stopped) || !dp->dp_panel.connector ||
++	    !cix_dp_regs_accessible(dp)) {
++		cix_dp_session_unlock(dp);
++		goto out;
++	}
++	hpd = cix_dp_get_hpd_state(dp);
++	cix_dp_session_unlock(dp);
++
++	/*
++	 * On a USB-C DP alt-mode PHY the hotplug only becomes valid once the
++	 * PHY has been switched to DP mode, so wait for the mode change.
++	 * A native DP PHY has no ->set_mode() operation, which leaves the
++	 * mode at PHY_MODE_INVALID forever; there is nothing to wait for.
++	 */
++	if (hpd && phy_get_mode(phy) != PHY_MODE_INVALID) {
++		for (i = 0; i < DP_HPD_MAX_TRIES; i++) {
++			phy_validate(phy, PHY_MODE_DP, 0, &opts);
++			mode = phy_get_mode(phy);
++			if (mode == PHY_MODE_DP)
++				break;
++			msleep(100);
++		}
++	}
++
++	cix_dp_session_lock(dp);
++	if (READ_ONCE(dp->hpd_stopped) || !dp->dp_panel.connector ||
++	    !cix_dp_regs_accessible(dp)) {
++		cix_dp_session_unlock(dp);
++		goto out;
++	}
++	cix_dp_session_unlock(dp);
++
++	drm_helper_probe_detect(&dp->connector.base, NULL, false);
++
++	cix_dp_session_lock(dp);
++	status = dp->status;
++	if (READ_ONCE(dp->hpd_stopped) || !dp->dp_panel.connector ||
++	    !cix_dp_regs_accessible(dp)) {
++		cix_dp_session_unlock(dp);
++		goto out;
++	}
++	if (status == connector_status_connected)
++		cix_dp_handle_connect_locked(dp);
++	else
++		cix_dp_handle_disconnect_locked(dp);
++	cix_dp_session_unlock(dp);
++
++	if (old_status != status && dp->drm)
++		drm_helper_hpd_irq_event(dp->drm);
++out:
++	WRITE_ONCE(dp->hpd_worker, NULL);
++}
++
++static void cix_dp_hpd_irq_work_func(struct work_struct *work)
++{
++	struct cix_dp *dp = container_of(work, struct cix_dp,
++					 hpd_irq_work.work);
++	u8 status[DP_LINK_STATUS_SIZE + 2];
++	int ret;
++
++	cix_dp_session_lock(dp);
++
++	if (READ_ONCE(dp->hpd_stopped) ||
++	    !cix_dp_regs_accessible(dp) ||
++	    !(dp->state & DPTX_STATE_ENABLED) ||
++	    !cix_dp_get_hpd_state(dp))
++		goto end;
++
++	ret = drm_dp_dpcd_read(&dp->aux, DP_SINK_COUNT, status,
++			       DP_LINK_STATUS_SIZE + 2);
++	if (ret < 0)
++		goto end;
++
++	if (drm_dp_clock_recovery_ok(&status[2], dp->mode.lane_cnt) &&
++	    drm_dp_channel_eq_ok(&status[2], dp->mode.lane_cnt))
++		goto end;
++
++	cix_dp_train_loop(dp);
++
++end:
++	cix_dp_session_unlock(dp);
++}
++
++/*
++ * INTERRUPT_CAUSE read clears all pending bits (Sky1 DPTX TRM). Do not use
++ * INTERRUPT_STATE for acknowledge; that register is poll-only.
++ */
++static irqreturn_t cix_dp_irq_handler(int irq, void *data)
++{
++	struct cix_dp *dp = data;
++	u32 value;
++	u32 mask;
++
++	value = cix_dp_read(dp, CIX_DPTX_INTERRUPT_CAUSE);
++	mask = cix_dp_read(dp, CIX_DPTX_INTERRUPT_MASK);
++	if (!(value & ~mask))
++		return IRQ_NONE;
++
++	if (value & CIX_DPTX_INTERRUPT_GP_TIMER_IRQ)
++		dev_dbg_ratelimited(dp->dev, "gp tmr\n");
++
++	if (value & CIX_DPTX_INTERRUPT_REPLY_TIMEOUT)
++		dev_dbg_ratelimited(dp->dev, "reply timeout\n");
++
++	if (value & CIX_DPTX_INTERRUPT_REPLY_RECIEVED)
++		dev_dbg_ratelimited(dp->dev, "reply received\n");
++
++	if (READ_ONCE(dp->hpd_stopped))
++		return IRQ_HANDLED;
++
++	if (value & CIX_DPTX_INTERRUPT_HPD_EVENT)
++		queue_delayed_work(system_freezable_wq, &dp->hpd_event_work, 0);
++
++	if (value & CIX_DPTX_INTERRUPT_HPD_IRQ)
++		queue_delayed_work(system_freezable_wq, &dp->hpd_irq_work, 0);
++
++	return IRQ_HANDLED;
++}
++
++/* disable_irq() nests. A failed resume leaves the line already off. */
++static void cix_dp_irq_off(struct cix_dp *dp)
++{
++	if (READ_ONCE(dp->irq_suspended))
++		return;
++
++	disable_irq(dp->irq);
++	WRITE_ONCE(dp->irq_suspended, true);
++}
++
++/* sw_hpd queues hpd_irq, so it has to finish before that work is cancelled. */
++static void cix_dp_cancel_hpd_works(struct cix_dp *dp)
++{
++	cancel_delayed_work_sync(&dp->sw_hpd_irq_work);
++	cancel_delayed_work_sync(&dp->hpd_irq_work);
++	cancel_delayed_work_sync(&dp->hpd_event_work);
++}
++
++/*
++ * Stop hotplug works before the connector goes away. The IRQ line stays
++ * enabled afterwards: the next interrupt still reads (and clears) CAUSE,
++ * but hpd_stopped suppresses scheduling new HPD work.
++ */
++static void cix_dp_quiesce_hpd(struct cix_dp *dp)
++{
++	bool irq_was_off;
++
++	cix_dp_session_lock(dp);
++	WRITE_ONCE(dp->hpd_stopped, true);
++	cix_dp_session_unlock(dp);
++
++	irq_was_off = READ_ONCE(dp->irq_suspended);
++	if (!irq_was_off)
++		disable_irq(dp->irq);
++
++	cix_dp_cancel_hpd_works(dp);
++
++	if (!irq_was_off)
++		enable_irq(dp->irq);
++}
++
++static int cix_dp_pm_prepare(struct cix_dp *dp)
++{
++	if (dp->drm && dp->drm->mode_config.poll_enabled)
++		drm_kms_helper_poll_disable(dp->drm);
++
++	cix_dp_irq_off(dp);
++
++	/*
++	 * Publish SUSPENDED before the cancel. oob and a running HPD
++	 * worker then leave the IRQ and the host down.
++	 */
++	cix_dp_session_lock(dp);
++	dp->state |= DPTX_STATE_SUSPENDED;
++	cix_dp_session_unlock(dp);
++
++	cix_dp_cancel_hpd_works(dp);
++
++	cix_dp_session_lock(dp);
++	if (!dp->active_stream_cnt)
++		cix_dp_host_deinit(dp);
++	dp->status = connector_status_unknown;
++	dp->state &= ~DPTX_STATE_CONNECTED;
++	cix_dp_session_unlock(dp);
++
++	return 0;
++}
++
++static int cix_dp_pm_complete(struct cix_dp *dp)
++{
++	int ret = 0;
++
++	cix_dp_session_lock(dp);
++
++	ret = cix_dp_resume_locked(dp);
++	if (!ret && dp->drm && dp->drm->mode_config.poll_enabled)
++		drm_kms_helper_poll_enable(dp->drm);
++	cix_dp_session_unlock(dp);
++	if (ret)
++		return ret;
++
++	/*
++	 * Suspend cleared DPTX_STATE_CONNECTED. Probe again so mode
++	 * validation sees this sink's DPCD before the next modeset.
++	 */
++	if (!READ_ONCE(dp->hpd_stopped) && dp->dp_panel.connector)
++		schedule_delayed_work(&dp->hpd_event_work, 0);
++
++	return 0;
++}
++
++static int cix_dp_prepare(struct cix_dp *dp)
++{
++	int ret;
++
++	cix_dp_session_lock(dp);
++
++	ret = cix_dp_resume_locked(dp);
++	if (ret)
++		goto end;
++
++	if (dp->state & DPTX_STATE_ENABLED) {
++		ret = 0;
++		goto end;
++	}
++
++	if (!(dp->state & DPTX_STATE_INITIALIZED)) {
++		ret = cix_dp_host_init(dp);
++		if (ret)
++			goto end;
++	} else if (dp->state & DPTX_STATE_READY) {
++		/* core_on() finished, but the stream never became ENABLED. */
++		cix_dp_core_off(dp);
++	}
++
++	if (cix_dp_get_hpd_state(dp) &&
++	    !(dp->state & DPTX_STATE_CONNECTED))
++		cix_dp_handle_connect_locked(dp);
++
++	/*
++	 * Mode selection reads this link_config. Training runs later, after
++	 * that selection, from cix_dp_start_link_locked().
++	 */
++	if (!(cix_dp_get_hpd_state(dp) && (dp->state & DPTX_STATE_CONNECTED))) {
++		ret = -ENODEV;
++		goto end;
++	}
++
++	ret = 0;
++
++end:
++	cix_dp_session_unlock(dp);
++	return ret;
++}
++
++static int cix_dp_unprepare_locked(struct cix_dp *dp)
++{
++	lockdep_assert_held(&dp->session_lock);
++
++	if (dp->active_stream_cnt)
++		return 0;
++
++	if (!(dp->state & (DPTX_STATE_ENABLED | DPTX_STATE_READY)))
++		return 0;
++
++	cix_dp_core_off(dp);
++
++	if (dp->state & DPTX_STATE_SUSPENDED)
++		cix_dp_host_deinit(dp);
++
++	dp->state &= ~DPTX_STATE_ENABLED;
++
++	return 0;
++}
++
++static int cix_dp_unprepare(struct cix_dp *dp)
++{
++	int ret;
++
++	cix_dp_session_lock(dp);
++	ret = cix_dp_unprepare_locked(dp);
++	cix_dp_session_unlock(dp);
++
++	return ret;
++}
++
++static int cix_dp_enable_locked(struct cix_dp *dp, int stream_id)
++{
++	struct cix_dp_panel *dp_panel;
++	int ret;
++
++	lockdep_assert_held(&dp->session_lock);
++
++	if (stream_id < 0 || stream_id >= dp->max_streams)
++		return -EINVAL;
++
++	dp_panel = &dp->dp_panel;
++
++	if (!(dp->state & DPTX_STATE_INITIALIZED) ||
++	    !(dp->state & DPTX_STATE_READY)) {
++		dev_dbg(dp->dev, "enable skipped, state=0x%x\n", dp->state);
++		return 0;
++	}
++
++	dp->active_panels[stream_id] = dp_panel;
++	ret = cix_dp_ctrl_stream_on(dp, stream_id);
++	if (ret) {
++		dp->active_panels[stream_id] = NULL;
++		return ret;
++	}
++
++	dp->state |= DPTX_STATE_ENABLED;
++
++	return 0;
++}
++
++static int cix_dp_disable_locked(struct cix_dp *dp, int stream_id)
++{
++	struct cix_dp_panel *dp_panel;
++	struct cix_connector *conn;
++
++	lockdep_assert_held(&dp->session_lock);
++
++	if (stream_id < 0 || stream_id >= dp->max_streams)
++		return -EINVAL;
++
++	dp_panel = &dp->dp_panel;
++
++	if (!(dp->state & DPTX_STATE_ENABLED))
++		return 0;
++
++	if (!(dp->state & DPTX_STATE_INITIALIZED))
++		return 0;
++
++	if (dp->active_stream_cnt && dp->active_panels[stream_id]) {
++		cix_dp_ctrl_stream_off(dp, stream_id);
++		dp->active_panels[stream_id] = NULL;
++	}
++
++	conn = dp_panel->connector;
++	if (conn)
++		memset(conn->sdp, 0, sizeof(conn->sdp));
++
++	return 0;
++}
++
++static int cix_dp_start_link_locked(struct cix_dp *dp)
++{
++	lockdep_assert_held(&dp->session_lock);
++
++	if (!cix_dp_regs_accessible(dp) ||
++	    !(dp->state & DPTX_STATE_CONNECTED))
++		return -ENODEV;
++
++	return cix_dp_core_on(dp);
++}
++
++static int cix_dp_encoder_enable(struct cix_dp *dp, int stream_id, int enable)
++{
++	int ret;
++
++	cix_dp_session_lock(dp);
++
++	if (enable) {
++		ret = cix_dp_start_link_locked(dp);
++		if (ret)
++			goto out;
++
++		ret = cix_dp_enable_locked(dp, stream_id);
++		if (ret)
++			cix_dp_unprepare_locked(dp);
++	} else {
++		if (!(dp->state & DPTX_STATE_INITIALIZED)) {
++			ret = 0;
++			goto out;
++		}
++
++		ret = cix_dp_disable_locked(dp, stream_id);
++		if (ret)
++			goto out;
++
++		ret = cix_dp_unprepare_locked(dp);
++	}
++
++out:
++	cix_dp_session_unlock(dp);
++	return ret;
++}
++
++static int cix_dp_init(struct cix_dp *dp)
++{
++	int ret;
++
++	INIT_DELAYED_WORK(&dp->hpd_event_work, cix_dp_hpd_event_work_func);
++	INIT_DELAYED_WORK(&dp->hpd_irq_work, cix_dp_hpd_irq_work_func);
++	INIT_DELAYED_WORK(&dp->sw_hpd_irq_work, cix_dp_sw_hpd_irq_work_func);
++
++	mutex_init(&dp->session_lock);
++	mutex_init(&dp->aux_lock);
++	dp->state |= (DPTX_STATE_CONFIGURED);
++
++	ret = cix_dp_host_init(dp);
++	if (ret)
++		goto end1;
++
++	irq_set_status_flags(dp->irq, IRQ_DISABLE_UNLAZY);
++	ret = devm_request_threaded_irq(dp->dev, dp->irq, NULL,
++					cix_dp_irq_handler, IRQF_ONESHOT,
++				       dev_name(dp->dev), dp);
++	if (ret < 0)
++		goto end2;
++
++	return 0;
++
++end2:
++	cix_dp_session_lock(dp);
++	cix_dp_host_deinit(dp);
++	cix_dp_session_unlock(dp);
++end1:
++	dp->state &= ~DPTX_STATE_CONFIGURED;
++	mutex_destroy(&dp->session_lock);
++	mutex_destroy(&dp->aux_lock);
++	return ret;
++}
++
++/*
++ * Drop video and pixel clocks before host_deinit() powers the PHY down.
++ * active_stream_cnt stays in step with those clocks.
++ */
++static void cix_dp_stop_streams_locked(struct cix_dp *dp)
++{
++	struct cix_connector *conn;
++	int i;
++
++	lockdep_assert_held(&dp->session_lock);
++
++	if (!(dp->state & DPTX_STATE_INITIALIZED))
++		return;
++
++	for (i = 0; i < dp->max_streams; i++) {
++		if (!dp->active_panels[i])
++			continue;
++
++		conn = dp->active_panels[i]->connector;
++		cix_dp_ctrl_stream_off(dp, i);
++		dp->active_panels[i] = NULL;
++		if (conn)
++			memset(conn->sdp, 0, sizeof(conn->sdp));
++	}
++
++	if (!dp->active_stream_cnt)
++		dp->state &= ~DPTX_STATE_ENABLED;
++}
++
++static void cix_dp_deinit(struct cix_dp *dp)
++{
++	if (!(dp->state & DPTX_STATE_CONFIGURED))
++		return;
++
++	cix_dp_session_lock(dp);
++	WRITE_ONCE(dp->hpd_stopped, true);
++	cix_dp_session_unlock(dp);
++
++	cix_dp_irq_off(dp);
++	cix_dp_cancel_hpd_works(dp);
++
++	cix_dp_session_lock(dp);
++	cix_dp_stop_streams_locked(dp);
++	cix_dp_host_deinit(dp);
++	dp->state &= ~(DPTX_STATE_CONFIGURED);
++	cix_dp_session_unlock(dp);
++
++	mutex_destroy(&dp->session_lock);
++	mutex_destroy(&dp->aux_lock);
++}
++
++static void cix_dptx_dev_release(struct device *dev, void *res)
++{
++	struct cix_dp *dp = res;
++
++	cix_dp_deinit(dp);
++}
++
++static int cix_dp_parse_dt(struct cix_dp *dp)
++{
++	struct device *dev = dp->dev;
++	struct platform_device *pdev = to_platform_device(dev);
++	int i;
++
++	dp->dp_iomem = devm_platform_ioremap_resource_byname(pdev, "dp");
++	if (IS_ERR(dp->dp_iomem))
++		return dev_err_probe(dev, PTR_ERR(dp->dp_iomem),
++				     "failed to map dp registers\n");
++
++	dp->rcsu_iomem = devm_platform_ioremap_resource_byname(pdev, "rcsu");
++	if (IS_ERR(dp->rcsu_iomem))
++		return dev_err_probe(dev, PTR_ERR(dp->rcsu_iomem),
++				     "failed to map rcsu registers\n");
++
++	dp->phy = devm_phy_get(dev, NULL);
++	if (IS_ERR(dp->phy))
++		return dev_err_probe(dev, PTR_ERR(dp->phy),
++				     "failed to get dp phy\n");
++
++	dp->reset = devm_reset_control_get(dev, NULL);
++	if (IS_ERR(dp->reset))
++		return dev_err_probe(dev, PTR_ERR(dp->reset),
++				     "failed to get reset\n");
++
++	dp->apb_clk = devm_clk_get(dev, "apb");
++	if (IS_ERR(dp->apb_clk))
++		return dev_err_probe(dev, PTR_ERR(dp->apb_clk),
++				     "failed to get apb clock\n");
++
++	for (i = 0; i < dp->max_streams &&
++	     i < ARRAY_SIZE(stream_clk_names); i++) {
++		dp->stream_clk[i] = devm_clk_get(dev, stream_clk_names[i]);
++		if (IS_ERR(dp->stream_clk[i]))
++			return dev_err_probe(dev, PTR_ERR(dp->stream_clk[i]),
++					     "failed to get %s\n",
++					     stream_clk_names[i]);
++	}
++
++	dp->irq = platform_get_irq(pdev, 0);
++	if (dp->irq < 0)
++		return dev_err_probe(dev, dp->irq, "failed to get irq\n");
++
++	return 0;
++}
++
++static const struct cix_dp_ops cix_dp_hw_ops = {
++	.detect				= cix_dp_detect,
++	.prepare			= cix_dp_prepare,
++	.unprepare			= cix_dp_unprepare,
++	.session_lock			= cix_dp_session_lock,
++	.session_unlock			= cix_dp_session_unlock,
++	.encoder_enable			= cix_dp_encoder_enable,
++	.mode_configure			= cix_dp_mode_configure,
++	.aux_register			= cix_dp_aux_register,
++	.aux_cleanup			= cix_dp_aux_cleanup,
++	.replay_deferred_hotplug	= cix_dp_replay_deferred_hotplug,
++	.quiesce_hpd			= cix_dp_quiesce_hpd,
++};
++
++static int cix_dptx_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	const struct cix_dp_soc_data *soc_data;
++	struct cix_dp *dp;
++	int ret;
++
++	soc_data = of_device_get_match_data(dev);
++	if (!soc_data)
++		return -ENODEV;
++
++	dp = cix_dp_bridge_alloc(dev);
++	if (IS_ERR(dp))
++		return PTR_ERR(dp);
++
++	dp->dev = dev;
++	dp->native_dp = soc_data->native_dp;
++	dp->ops = &cix_dp_hw_ops;
++	dp->status = connector_status_unknown;
++	dp->force_hpd = connector_status_unknown;
++	dp->num_lanes = CIX_DPTX_MAX_LANES;
++	dp->max_rate = CIX_DP_LINK_RATE_HBR2;
++	dp->max_streams = DPTX_MST_SOURCE_NUMBER;
++	dp->dp_panel.source_id = 0;
++	dp->state = DPTX_STATE_DISCONNECTED;
++	dp->pixel_per_cycle = 1;
++
++	ret = cix_dp_parse_dt(dp);
++	if (ret)
++		return ret;
++
++	dp->link_config.max_lanes = dp->num_lanes;
++	dp->link_config.max_rate = dp->max_rate;
++
++	ret = cix_dp_init(dp);
++	if (ret)
++		return ret;
++
++	ret = devm_add_action_or_reset(dev, cix_dptx_dev_release, dp);
++	if (ret)
++		return ret;
++
++	dev_set_drvdata(dev, dp);
++
++	dp->bridge.of_node = dev->of_node;
++
++	drm_bridge_add(&dp->bridge);
++
++	return 0;
++}
++
++static void cix_dptx_remove(struct platform_device *pdev)
++{
++	struct cix_dp *dp = dev_get_drvdata(&pdev->dev);
++
++	if (!dp)
++		return;
++
++	drm_bridge_remove(&dp->bridge);
++}
++
++static int cix_dptx_pm_suspend(struct device *dev)
++{
++	struct cix_dp *dp = dev_get_drvdata(dev);
++
++	if (!dp)
++		return 0;
++
++	return cix_dp_pm_prepare(dp);
++}
++
++static int cix_dptx_pm_resume(struct device *dev)
++{
++	struct cix_dp *dp = dev_get_drvdata(dev);
++
++	if (!dp)
++		return 0;
++
++	return cix_dp_pm_complete(dp);
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(cix_dptx_pm_ops, cix_dptx_pm_suspend,
++				cix_dptx_pm_resume);
++
++static void cix_dptx_shutdown(struct platform_device *pdev)
++{
++	struct cix_dp *dp = platform_get_drvdata(pdev);
++
++	if (dp) {
++		cix_dp_session_lock(dp);
++		cix_dp_stop_streams_locked(dp);
++		cix_dp_session_unlock(dp);
++		cix_dp_pm_prepare(dp);
++	}
++}
++
++static const struct cix_dp_soc_data sky1_usbdp_data = {
++	.native_dp = false,
++};
++
++static const struct cix_dp_soc_data sky1_dp_data = {
++	.native_dp = true,
++};
++
++static const struct of_device_id cix_dptx_dt_ids[] = {
++	{ .compatible = "cix,sky1-usbdp", .data = &sky1_usbdp_data },
++	{ .compatible = "cix,sky1-dp", .data = &sky1_dp_data },
++	{ /* sentinel */ },
++};
++MODULE_DEVICE_TABLE(of, cix_dptx_dt_ids);
++
++static struct platform_driver cix_dp_driver = {
++	.probe  = cix_dptx_probe,
++	.remove = cix_dptx_remove,
++	.shutdown = cix_dptx_shutdown,
++	.driver = {
++		.name = "cix-dptx",
++		.of_match_table = cix_dptx_dt_ids,
++		.pm = pm_sleep_ptr(&cix_dptx_pm_ops),
++	},
++};
++
++module_platform_driver(cix_dp_driver);
++
++MODULE_AUTHOR("Luo Liu <Luo.Liu@cixtech.com>");
++MODULE_AUTHOR("Wuyi Shen <wuyi.shen@cixtech.com>");
++MODULE_DESCRIPTION("Cix DisplayPort Controller Driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/gpu/drm/cix/dptx/cix_dptx.h b/drivers/gpu/drm/cix/dptx/cix_dptx.h
+new file mode 100644
+index 000000000000..cfac8fa2b413
+--- /dev/null
++++ b/drivers/gpu/drm/cix/dptx/cix_dptx.h
+@@ -0,0 +1,408 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * CIX Sky1 DisplayPort transmitter driver
++ *
++ * Copyright (C) 2026 Trilinear Technologies
++ * Copyright 2026 Cix Technology Group Co., Ltd.
++ */
++
++#ifndef CIX_DPTX_H
++#define CIX_DPTX_H
++
++#include <linux/bits.h>
++#include <linux/phy/phy.h>
++
++#include <drm/display/drm_dp_helper.h>
++#include <drm/drm_bridge.h>
++#include <drm/drm_connector.h>
++
++struct task_struct;
++
++#define CIX_DP_MAX_RATE(rate, lanes, bpp) ((rate) * (lanes) * 8 / (bpp))
++
++#define bridge_to_dp(_bridge) \
++	container_of(_bridge, struct cix_dp, bridge)
++#define connector_to_cix(connector) \
++	container_of(connector, struct cix_connector, base)
++
++#define CIX_DP_MAX_FREQ 600000
++/*
++ * DP link rates in units of 10 kbit/s, i.e. the DPCD bandwidth code
++ * (0x06, 0x0a, 0x14, 0x1e) times 27000, as returned by
++ * drm_dp_bw_code_to_link_rate(). For these 8b/10b rates the value also
++ * equals the link symbol clock in kHz.
++ */
++#define CIX_DP_LINK_RATE_RBR 162000
++#define CIX_DP_LINK_RATE_HBR 270000
++#define CIX_DP_LINK_RATE_HBR2 540000
++#define CIX_DP_LINK_RATE_HBR3 810000
++#define DP_MAX_TRAINING_TRIES 5
++#define DP_MAX_TRAINING_LOOP 3
++
++#define CIX_VSC_SDP 1
++#define CIX_MAX_SDP 7
++
++#define CIX_DPTX_MAX_LANES 4
++
++#define DP_STREAM_MAX 4
++
++/* ------------------------------------------------------------------------ */
++/*  Register offsets */
++/* ------------------------------------------------------------------------ */
++/* link configuration */
++#define CIX_DPTX_LINK_BW_SET			0x000ul
++#define CIX_DPTX_LANE_COUNT_SET		0x004ul
++#define CIX_DPTX_ENHANCED_FRAMING_ENABLE	0x008ul
++#define CIX_DPTX_TRAINING_PATTERN_SET	0x00cul
++#define CIX_DPTX_DISABLE_SCRAMBLING		0x014ul
++#define CIX_DPTX_DOWNSPREAD_CONTROL		0x018ul
++
++/* core enables */
++#define CIX_DPTX_TRANSMITTER_ENABLE	0x080ul
++#define CIX_DPTX_SOFT_RESET			0x090ul
++#define CIX_DPTX_SOURCE_ENABLE		0x094ul
++
++/* misc control */
++#define CIX_DPTX_FORCE_SCRAMBLER_RESET	0x0c0ul
++
++/* AUX channel */
++#define CIX_DPTX_AUX_COMMAND			0x100ul
++#define CIX_DPTX_AUX_WRITE_FIFO		0x104ul
++#define CIX_DPTX_AUX_ADDRESS			0x108ul
++#define CIX_DPTX_AUX_CLOCK_DIVIDER	0x10cul
++#define CIX_DPTX_HPD_INPUT_STATE		0x128ul
++#define CIX_DPTX_AUX_REPLY_DATA		0x134ul
++#define CIX_DPTX_AUX_REPLY_CODE		0x138ul
++#define CIX_DPTX_INTERRUPT_CAUSE		0x140ul
++#define CIX_DPTX_INTERRUPT_MASK		0x144ul
++#define CIX_DPTX_AUX_REPLY_DATA_COUNT	0x148ul
++#define CIX_DPTX_AUX_STATUS			0x14cul
++
++/* PHY status */
++#define CIX_DPTX_PHY_STATUS			0x280ul
++
++/* MST / SST control */
++#define CIX_DPTX_MST_ENABLE			0x500ul
++#define CIX_DPTX_SST_SOURCE_SELECT		0x50cul
++
++/* main stream control, virtual source 0 (bases for per-stream helpers) */
++#define CIX_DPTX_SRC0_VIDEO_STREAM_ENABLE	0x800ul
++#define CIX_DPTX_SRC0_SECONDARY_STREAM_ENABLE	0x804ul
++#define CIX_DPTX_SRC0_SECONDARY_DATA_WINDOW	0x808ul
++#define CIX_DPTX_SRC0_DATA_CONTROL		0x810ul
++#define CIX_DPTX_SRC0_MAIN_STREAM_OVERRIDE	0x814ul
++#define CIX_DPTX_SRC0_MAIN_STREAM_HTOTAL	0x820ul
++#define CIX_DPTX_SRC0_MAIN_STREAM_VTOTAL	0x824ul
++#define CIX_DPTX_SRC0_MAIN_STREAM_POLARITY	0x828ul
++#define CIX_DPTX_SRC0_MAIN_STREAM_HSWIDTH	0x82cul
++#define CIX_DPTX_SRC0_MAIN_STREAM_VSWIDTH	0x830ul
++#define CIX_DPTX_SRC0_MAIN_STREAM_HRES	0x834ul
++#define CIX_DPTX_SRC0_MAIN_STREAM_VRES	0x838ul
++#define CIX_DPTX_SRC0_MAIN_STREAM_HSTART	0x83cul
++#define CIX_DPTX_SRC0_MAIN_STREAM_VSTART	0x840ul
++#define CIX_DPTX_SRC0_MAIN_STREAM_MISC0	0x844ul
++#define CIX_DPTX_SRC0_MAIN_STREAM_MISC1	0x848ul
++#define CIX_DPTX_SRC0_TU_CONFIG		0x850ul
++#define CIX_DPTX_SRC0_USER_PIXEL_COUNT	0x858ul
++#define CIX_DPTX_SRC0_USER_DATA_COUNT	0x85cul
++#define CIX_DPTX_SRC0_USER_SYNC_POLARITY	0x864ul
++
++/* secondary channel, source 0 */
++#define CIX_DPTX_SEC0_INFOFRAME_ENABLE	0x910ul
++#define CIX_DPTX_SEC0_INFOFRAME_RATE		0x914ul
++#define CIX_DPTX_SEC0_INFOFRAME_SELECT	0x934ul
++#define CIX_DPTX_SEC0_INFOFRAME_DATA		0x938ul
++
++/* spacing between consecutive virtual source register blocks */
++#define CIX_DPTX_SOURCE_OFFSET		0x200ul
++
++/* per-stream helpers, indexed by source/stream id */
++#define CIX_DPTX_INFOFRAME_ENABLE(stream_id) \
++	(CIX_DPTX_SEC0_INFOFRAME_ENABLE + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_INFOFRAME_SELECT(stream_id) \
++	(CIX_DPTX_SEC0_INFOFRAME_SELECT + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_INFOFRAME_RATE(stream_id) \
++	(CIX_DPTX_SEC0_INFOFRAME_RATE + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_INFOFRAME_DATA(stream_id) \
++	(CIX_DPTX_SEC0_INFOFRAME_DATA + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_VIDEO_STREAM_ENABLE(stream_id) \
++	(CIX_DPTX_SRC0_VIDEO_STREAM_ENABLE + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_SECONDARY_STREAM_ENABLE(stream_id) \
++	(CIX_DPTX_SRC0_SECONDARY_STREAM_ENABLE + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_MAIN_STREAM_MISC0(stream_id) \
++	(CIX_DPTX_SRC0_MAIN_STREAM_MISC0 + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_MAIN_STREAM_MISC1(stream_id) \
++	(CIX_DPTX_SRC0_MAIN_STREAM_MISC1 + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_MAIN_STREAM_OVERRIDE(stream_id) \
++	(CIX_DPTX_SRC0_MAIN_STREAM_OVERRIDE + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_MAIN_STREAM_HTOTAL(stream_id) \
++	(CIX_DPTX_SRC0_MAIN_STREAM_HTOTAL + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_MAIN_STREAM_VTOTAL(stream_id) \
++	(CIX_DPTX_SRC0_MAIN_STREAM_VTOTAL + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_MAIN_STREAM_POLARITY(stream_id) \
++	(CIX_DPTX_SRC0_MAIN_STREAM_POLARITY + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_MAIN_STREAM_HSWIDTH(stream_id) \
++	(CIX_DPTX_SRC0_MAIN_STREAM_HSWIDTH + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_MAIN_STREAM_VSWIDTH(stream_id) \
++	(CIX_DPTX_SRC0_MAIN_STREAM_VSWIDTH + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_MAIN_STREAM_HRES(stream_id) \
++	(CIX_DPTX_SRC0_MAIN_STREAM_HRES + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_MAIN_STREAM_VRES(stream_id) \
++	(CIX_DPTX_SRC0_MAIN_STREAM_VRES + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_MAIN_STREAM_HSTART(stream_id) \
++	(CIX_DPTX_SRC0_MAIN_STREAM_HSTART + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_MAIN_STREAM_VSTART(stream_id) \
++	(CIX_DPTX_SRC0_MAIN_STREAM_VSTART + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_TU_CONFIG(stream_id) \
++	(CIX_DPTX_SRC0_TU_CONFIG + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_USER_DATA_COUNT(stream_id) \
++	(CIX_DPTX_SRC0_USER_DATA_COUNT + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_SECONDARY_DATA_WINDOW(stream_id) \
++	(CIX_DPTX_SRC0_SECONDARY_DATA_WINDOW + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_DATA_CONTROL(stream_id) \
++	(CIX_DPTX_SRC0_DATA_CONTROL + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_USER_PIXEL_COUNT(stream_id) \
++	(CIX_DPTX_SRC0_USER_PIXEL_COUNT + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++#define CIX_DPTX_USER_SYNC_POLARITY(stream_id) \
++	(CIX_DPTX_SRC0_USER_SYNC_POLARITY + \
++	 CIX_DPTX_SOURCE_OFFSET * (stream_id))
++
++/* ------------------------------------------------------------------------ */
++/*  Register CIX_DPTX_AUX_COMMAND bits */
++/* ------------------------------------------------------------------------ */
++#define CIX_DPTX_AUX_COMMAND_CMD_SHIFT 8
++#define CIX_DPTX_AUX_COMMAND_ADDRESS_ONLY BIT(12)
++#define CIX_DPTX_AUX_COMMAND_BYTES_SHIFT 0
++#define CIX_DPTX_AUX_STATUS_REPLY_ERROR BIT(3)
++#define CIX_DPTX_AUX_STATUS_REQUEST_IN_PROGRESS BIT(2)
++#define CIX_DPTX_AUX_STATUS_REPLY_IN_PROGRESS BIT(1)
++#define CIX_DPTX_AUX_STATUS_REPLY_RECEIVED BIT(0)
++#define CIX_DPTX_AUX_REPLY_CODE_AUX_ACK (0)
++#define CIX_DPTX_AUX_REPLY_CODE_I2C_ACK (0)
++
++/* ------------------------------------------------------------------------ */
++/*  Register CIX_DPTX_REPLY_DATA_COUNT bits */
++/* ------------------------------------------------------------------------ */
++#define CIX_DPTX_REPLY_DATA_COUNT_MASK 0xff
++
++/* ------------------------------------------------------------------------ */
++/*  Register CIX_DPTX_MAIN_STREAM_MISC0 bits */
++/* ------------------------------------------------------------------------ */
++#define CIX_DPTX_STREAM_MISC0_SYNC_LOCK BIT(0)
++#define CIX_DPTX_STREAM_MISC0_COMP_FORMAT_RGB (0 << 1)
++#define CIX_DPTX_STREAM_MISC0_COMP_FORMAT_YCRCB_422 (5 << 1)
++#define CIX_DPTX_STREAM_MISC0_COMP_FORMAT_YCRCB_444 (6 << 1)
++#define CIX_DPTX_STREAM_MISC0_COMP_FORMAT_MASK (7 << 1)
++#define CIX_DPTX_STREAM_MISC0_BPC_6 (0 << 5)
++#define CIX_DPTX_STREAM_MISC0_BPC_8 BIT(5)
++#define CIX_DPTX_STREAM_MISC0_BPC_10 (2 << 5)
++#define CIX_DPTX_STREAM_MISC0_BPC_12 (3 << 5)
++#define CIX_DPTX_STREAM_MISC0_BPC_16 (4 << 5)
++#define CIX_DPTX_STREAM_MISC0_BPC_MASK (7 << 5)
++
++/* ------------------------------------------------------------------------ */
++/*  Register CIX_DPTX_MAIN_STREAM_MISC1 bits */
++/* ------------------------------------------------------------------------ */
++#define CIX_DPTX_STREAM_MISC1_Y_ONLY_EN BIT(7)
++
++#define CIX_DPTX_VSC_COLORIMETRY_EN BIT(6)
++#define CIX_DPTX_STREAM_OVERRIDE_ENABLE BIT(6)
++/*
++ * Pixel format in bits [5:3]. 0 is RGB. 4:2:2 and 4:4:4 use the same
++ * component-format codes as MISC0 bits [2:1]. 4:2:0 cannot be carried
++ * in MISC0, so it has its own value.
++ */
++#define CIX_DPTX_STREAM_OVERRIDE_YCbCR_422 (1 << 3)
++#define CIX_DPTX_STREAM_OVERRIDE_YCbCR_444 (2 << 3)
++#define CIX_DPTX_STREAM_OVERRIDE_YCbCR_420 (4 << 3)
++#define CIX_DPTX_STREAM_OVERRIDE_BPC_6 (0)
++#define CIX_DPTX_STREAM_OVERRIDE_BPC_8 (1)
++#define CIX_DPTX_STREAM_OVERRIDE_BPC_10 (2)
++#define CIX_DPTX_STREAM_OVERRIDE_BPC_12 (3)
++#define CIX_DPTX_STREAM_OVERRIDE_BPC_16 (4)
++
++#define CIX_DPTX_MSA_TRANSFER_UNIT_SIZE_TU_SIZE_DEF 64
++#define CIX_DPTX_MAIN_STREAM_POLARITY_HSYNC_SHIFT 0
++#define CIX_DPTX_MAIN_STREAM_POLARITY_VSYNC_SHIFT 1
++#define CIX_DPTX_MAIN_STREAM_POLARITY_DATAENABLE_HIGH 0xc
++
++#define CIX_DPTX_DATA_CONTROL_DEFAULT		(BIT(13) | BIT(2))
++#define CIX_DPTX_DATA_CONTROL_2PPC_4LANE_HBR3	BIT(2)
++
++#define CIX_DPTX_INTERRUPT_GP_TIMER_IRQ BIT(4)
++#define CIX_DPTX_INTERRUPT_REPLY_TIMEOUT BIT(3)
++#define CIX_DPTX_INTERRUPT_REPLY_RECIEVED BIT(2)
++#define CIX_DPTX_INTERRUPT_HPD_IRQ BIT(1)
++#define CIX_DPTX_INTERRUPT_HPD_EVENT BIT(0)
++
++#define CIX_DPTX_INTERRUPT_MASK_ALL 0x3f
++#define CIX_DPTX_INTERRUPT_CFG 0x1c
++
++enum cix_dp_format {
++	CIX_DP_FORMAT_RGB,
++	CIX_DP_FORMAT_YCBCR444,
++	CIX_DP_FORMAT_YCBCR422,
++	CIX_DP_FORMAT_YCBCR420,
++	CIX_DP_FORMAT_YONLY,
++};
++
++enum cix_dptx_state {
++	DPTX_STATE_DISCONNECTED = 0,
++	DPTX_STATE_CONFIGURED = BIT(0),
++	DPTX_STATE_INITIALIZED = BIT(1),
++	DPTX_STATE_READY = BIT(2),
++	DPTX_STATE_CONNECTED = BIT(3),
++	DPTX_STATE_ENABLED = BIT(6),
++	DPTX_STATE_SUSPENDED = BIT(7),
++	DPTX_STATE_INIT_TRAIN = BIT(8),
++};
++
++struct cix_dp_link_config {
++	int max_rate;
++	int max_lanes;
++};
++
++struct cix_dp_mode {
++	u8 bw_code;
++	u8 lane_cnt;
++	int pclock;
++	int link_rate;
++};
++
++struct cix_dp_config {
++	u8 misc0;
++	u8 misc1;
++	int bpp;
++	int bpc;
++	u8 override;
++	enum cix_dp_format format;
++	u32 colorspace;
++	u8 dynamic_range;
++	u8 content_type;
++};
++
++/* Output configuration and SDP packets of the DisplayPort link. */
++struct cix_connector {
++	struct drm_connector base;
++	struct cix_dp *dp;
++	struct cix_dp_config config;
++	struct dp_sdp sdp[CIX_MAX_SDP];
++};
++
++struct cix_dp_link_caps {
++	bool enhanced_framing;
++	bool tps3_supported;
++	bool tps4_supported;
++	bool vsc_supported;
++};
++
++struct cix_dp_panel {
++	u32 source_id;
++	struct cix_connector *connector;
++};
++
++struct cix_dp;
++
++struct cix_dp_ops {
++	int (*detect)(struct cix_dp *dp);
++	int (*prepare)(struct cix_dp *dp);
++	int (*unprepare)(struct cix_dp *dp);
++	void (*session_lock)(struct cix_dp *dp);
++	void (*session_unlock)(struct cix_dp *dp);
++	int (*encoder_enable)(struct cix_dp *dp, int stream_id, int enable);
++	int (*mode_configure)(struct cix_dp *dp, int pclk, u8 bw, u8 bpp,
++			      bool downshift);
++	int (*aux_register)(struct cix_dp *dp);
++	void (*aux_cleanup)(struct cix_dp *dp);
++	void (*replay_deferred_hotplug)(struct cix_dp *dp);
++	void (*quiesce_hpd)(struct cix_dp *dp);
++};
++
++struct cix_dp {
++	struct drm_bridge bridge;
++	struct cix_connector connector;
++	struct device *dev;
++	struct drm_device *drm;
++	struct clk *apb_clk;
++	struct clk *stream_clk[DP_STREAM_MAX];
++	void __iomem *dp_iomem;
++	void __iomem *rcsu_iomem;
++	struct reset_control *reset;
++	struct drm_dp_aux aux;
++	bool aux_registered;
++	struct phy *phy;
++	int irq;
++	/*
++	 * disable_irq() is outstanding. pm_prepare() and deinit must not
++	 * disable again until a resume path has called enable_irq().
++	 */
++	bool irq_suspended;
++	/* detach/remove: do not queue HPD work or touch the connector. */
++	bool hpd_stopped;
++	/* HPD event task. Its detect must not undo suspend. */
++	struct task_struct *hpd_worker;
++	u32 max_rate;
++	u32 num_lanes;
++	u32 max_streams;
++	u32 aux_clock_divider;
++	bool native_dp;
++	u8 dpcd[DP_RECEIVER_CAP_SIZE];
++	u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
++	struct delayed_work hpd_event_work;
++	struct delayed_work hpd_irq_work;
++	struct delayed_work sw_hpd_irq_work;
++	enum drm_connector_status status;
++	enum drm_connector_status force_hpd;
++	/* USB-C plug probe may issue one AUX transfer before HPD is known. */
++	bool aux_ignore_hpd;
++	struct cix_dp_link_config link_config;
++	struct cix_dp_mode mode;
++	struct cix_dp_link_caps caps;
++	enum cix_dptx_state state;
++	u32 pixel_per_cycle;
++	u8 train_set[CIX_DPTX_MAX_LANES];
++	u32 active_stream_cnt;
++	/*
++	 * Serializes link training, HPD, stream enable and register access.
++	 * Top-level entry points take it once and call the _locked helpers.
++	 *
++	 * Lock order: session_lock -> aux_lock. aux_transfer() takes only
++	 * aux_lock, so the reverse order never happens.
++	 */
++	struct mutex session_lock;
++	/*
++	 * Serializes AUX transfers with host_init()/host_deinit(), which
++	 * enable and gate the APB clock under this lock. Kept separate from
++	 * session_lock because drm_dp_*() helpers called with session_lock
++	 * held re-enter aux->transfer.
++	 */
++	struct mutex aux_lock;
++	struct cix_dp_panel dp_panel;
++	struct cix_dp_panel *active_panels[DP_STREAM_MAX];
++	const struct cix_dp_ops *ops;
++};
++
++#endif /* CIX_DPTX_H */
+diff --git a/drivers/gpu/drm/cix/dptx/cix_dptx_drm.c b/drivers/gpu/drm/cix/dptx/cix_dptx_drm.c
+new file mode 100644
+index 000000000000..5fc350daebfd
+--- /dev/null
++++ b/drivers/gpu/drm/cix/dptx/cix_dptx_drm.c
+@@ -0,0 +1,771 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * CIX Sky1 DisplayPort DRM bridge helpers
++ *
++ * Copyright 2026 Cix Technology Group Co., Ltd.
++ */
++
++#include "cix_dptx_drm.h"
++
++#include <linux/device.h>
++#include <linux/kernel.h>
++#include <linux/math64.h>
++#include <linux/mutex.h>
++
++#include <drm/drm_atomic.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_bridge.h>
++#include <drm/drm_edid.h>
++#include <drm/drm_probe_helper.h>
++
++#include "cix_dptx.h"
++
++#define CIX_DPTX_MIN_H_BACKPORCH 12
++#define CIX_DP_MIN_BPP		(6 * 3)
++
++#define connector_to_dp(connector) (connector_to_cix(connector)->dp)
++
++struct fmt_prio_entry {
++	int format;
++	int bpc;
++};
++
++/* SST: RGB -> YUV422 10 -> YUV422 8 -> RGB 6 -> YUV420 8 */
++static const struct fmt_prio_entry fmt_prio[] = {
++	{ DRM_OUTPUT_COLOR_FORMAT_RGB444, 0 },   /* use suggest_bpc (8 or 10) */
++	{ DRM_OUTPUT_COLOR_FORMAT_YCBCR422, 10 }, /* YUV422 10bit second */
++	{ DRM_OUTPUT_COLOR_FORMAT_YCBCR422, 8 },  /* YUV422 8bit third */
++	{ DRM_OUTPUT_COLOR_FORMAT_RGB444, 6 },    /* RGB 6bit fourth */
++	{ DRM_OUTPUT_COLOR_FORMAT_YCBCR420, 8 },  /* YUV420 8bit last */
++};
++
++static const int dp_common_link_rates[] = {
++	CIX_DP_LINK_RATE_RBR,
++	CIX_DP_LINK_RATE_HBR,
++	CIX_DP_LINK_RATE_HBR2,
++	CIX_DP_LINK_RATE_HBR3
++};
++
++static enum drm_connector_status
++cix_dp_connector_detect(struct drm_connector *connector, bool force)
++{
++	struct cix_dp *dp = connector_to_dp(connector);
++	enum drm_connector_status status;
++
++	if (dp->ops->detect(dp))
++		status = connector_status_disconnected;
++	else
++		status = connector_status_connected;
++
++	dp->ops->session_lock(dp);
++	dp->status = status;
++	dp->ops->session_unlock(dp);
++	drm_dp_set_subconnector_property(connector, status, dp->dpcd,
++					 dp->downstream_ports);
++
++	return status;
++}
++
++static void cix_dp_oob_hotplug_event(struct drm_connector *connector,
++				     enum drm_connector_status hpd_state)
++{
++	struct cix_dp *dp = connector_to_dp(connector);
++
++	dp->ops->session_lock(dp);
++	if (READ_ONCE(dp->hpd_stopped)) {
++		dp->ops->session_unlock(dp);
++		return;
++	}
++
++	if (dp->state & DPTX_STATE_SUSPENDED) {
++		dp->force_hpd = connector_status_disconnected;
++		dp->ops->session_unlock(dp);
++		return;
++	}
++
++	if (dp->force_hpd != hpd_state) {
++		dp->force_hpd = hpd_state;
++		schedule_delayed_work(&dp->hpd_event_work, 0);
++	}
++
++	if (hpd_state == connector_status_connected)
++		schedule_delayed_work(&dp->sw_hpd_irq_work, 1);
++	dp->ops->session_unlock(dp);
++}
++
++static int cix_dp_connector_get_modes(struct drm_connector *connector)
++{
++	struct cix_dp *dp = connector_to_dp(connector);
++	const struct drm_edid *edid;
++	struct drm_display_mode *mode;
++	int ret;
++
++	edid = drm_edid_read_ddc(connector, &dp->aux.ddc);
++	if (!edid) {
++		drm_edid_connector_update(connector, NULL);
++
++		mode = drm_dp_downstream_mode(connector->dev, dp->dpcd,
++					      dp->downstream_ports);
++		if (!mode)
++			return 0;
++
++		drm_mode_probed_add(connector, mode);
++		return 1;
++	}
++
++	drm_edid_connector_update(connector, edid);
++	ret = drm_edid_connector_add_modes(connector);
++	drm_edid_free(edid);
++
++	return ret;
++}
++
++static struct drm_encoder *
++cix_dp_connector_best_encoder(struct drm_connector *connector)
++{
++	struct cix_dp *dp = connector_to_dp(connector);
++
++	return dp->bridge.encoder;
++}
++
++static u32 cix_dp_pick_ppc(const struct drm_display_mode *mode,
++			   enum cix_dp_format format)
++{
++	if (mode->clock > CIX_DP_MAX_FREQ &&
++	    mode->clock < CIX_DP_MAX_FREQ * 2 &&
++	    format != CIX_DP_FORMAT_YCBCR420)
++		return 2;
++
++	return 1;
++}
++
++static enum drm_mode_status
++cix_dp_connector_mode_valid(struct drm_connector *connector,
++			    const struct drm_display_mode *mode)
++{
++	const struct drm_display_info *info = &connector->display_info;
++	struct cix_dp *dp = connector_to_dp(connector);
++	int max_lanes = dp->link_config.max_lanes;
++	int max_rate = dp->link_config.max_rate;
++	int clock = mode->clock;
++	u32 pixel_per_cycle = cix_dp_pick_ppc(mode, CIX_DP_FORMAT_RGB);
++	int minbpp = CIX_DP_MIN_BPP;
++
++	if (drm_mode_is_420_only(info, mode)) {
++		if (!connector->ycbcr_420_allowed || !dp->caps.vsc_supported)
++			return MODE_NO_420;
++
++		minbpp = 8 * 3 / 2;
++		pixel_per_cycle = 1;
++	}
++
++	if (pixel_per_cycle == 1 && clock > CIX_DP_MAX_FREQ) {
++		drm_mode_debug_printmodeline(mode);
++		return MODE_CLOCK_HIGH;
++	}
++
++	if (clock > CIX_DP_MAX_RATE(max_rate, max_lanes, minbpp)) {
++		drm_mode_debug_printmodeline(mode);
++		return MODE_CLOCK_HIGH;
++	}
++
++	return MODE_OK;
++}
++
++static bool cix_dp_bt2020_colorspace(const struct drm_connector_state *state)
++{
++	return state->colorspace >= DRM_MODE_COLORIMETRY_BT2020_CYCC &&
++	       state->colorspace <= DRM_MODE_COLORIMETRY_BT2020_YCC;
++}
++
++static int cix_dp_cal_bpc(struct drm_connector_state *connector_state, int bpc)
++{
++	struct drm_display_info *info =
++		&connector_state->connector->display_info;
++
++	/*
++	 * BT.2020 stays at 10 bpc when the caller asks for more. A lower
++	 * value is a bandwidth fallback and has to be left alone.
++	 */
++	if (cix_dp_bt2020_colorspace(connector_state) && bpc > 10)
++		bpc = 10;
++
++	if (info->bpc && bpc > info->bpc)
++		bpc = info->bpc;
++
++	if (connector_state->max_requested_bpc &&
++	    bpc > connector_state->max_requested_bpc)
++		bpc = connector_state->max_requested_bpc;
++
++	return bpc;
++}
++
++static int cix_dp_cal_bpp(struct cix_dp *dp, int bpc, int format)
++{
++	int bpp = bpc * 3;
++
++	switch (format) {
++	case DRM_OUTPUT_COLOR_FORMAT_RGB444:
++	case DRM_OUTPUT_COLOR_FORMAT_YCBCR444:
++		bpp = bpc * 3;
++		break;
++	case DRM_OUTPUT_COLOR_FORMAT_YCBCR422:
++		bpp = bpc * 2;
++		break;
++	case DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
++		bpp = bpc * 3 / 2;
++		break;
++	default:
++		dev_warn(dp->dev, "invalid color format %d\n", format);
++	}
++	return bpp;
++}
++
++static void cix_dp_adjust_mode(struct drm_display_mode *mode,
++			       struct drm_display_mode *adjusted_mode)
++{
++	int diff = mode->htotal - mode->hsync_end;
++
++	/*
++	 * Cix DP requires horizontal backporch to be greater than 12.
++	 * This limitation may not be compatible with the sink device.
++	 *
++	 * Everything below is derived from @mode instead of accumulating on
++	 * @adjusted_mode, so that repeated atomic checks of the same state
++	 * produce the same result.
++	 */
++	if (diff < CIX_DPTX_MIN_H_BACKPORCH) {
++		adjusted_mode->htotal = mode->htotal +
++					CIX_DPTX_MIN_H_BACKPORCH - diff;
++		adjusted_mode->clock =
++			div_u64(mul_u32_u32(mode->clock, adjusted_mode->htotal),
++				mode->htotal);
++	}
++
++	/* The sync polarities are inverted with respect to the source mode. */
++	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
++		adjusted_mode->flags &= ~DRM_MODE_FLAG_PVSYNC;
++	else
++		adjusted_mode->flags |= DRM_MODE_FLAG_PVSYNC;
++
++	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
++		adjusted_mode->flags &= ~DRM_MODE_FLAG_PHSYNC;
++	else
++		adjusted_mode->flags |= DRM_MODE_FLAG_PHSYNC;
++}
++
++static int compute_available_clock_rate(struct cix_dp *dp,
++					struct drm_connector_state *conn_state,
++					int suggest_bpc, int clock,
++					int color_format, int *rt_bpc,
++					int *rt_bpp)
++{
++	int max_lanes = dp->link_config.max_lanes;
++	int max_rate = dp->link_config.max_rate;
++	int rate;
++	int bpc;
++	int bpp;
++
++	bpc = cix_dp_cal_bpc(conn_state, suggest_bpc);
++	bpp = cix_dp_cal_bpp(dp, bpc, color_format);
++	rate = CIX_DP_MAX_RATE(max_rate, max_lanes, bpp);
++
++	/* clock is adjusted_mode->clock, also in kHz */
++	if (clock <= rate) {
++		*rt_bpc = bpc;
++		*rt_bpp = bpp;
++
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
++/*
++ * @mode still has the CEA timings and sync flags. adjusted_mode has had
++ * its polarities inverted, so it no longer matches a VIC.
++ */
++static bool cix_dp_format_ok(struct cix_dp *dp,
++			     const struct drm_display_info *info,
++			     const struct drm_display_mode *mode,
++			     const struct drm_display_mode *adjusted_mode,
++			     int info_formats, int format)
++{
++	if (format == DRM_OUTPUT_COLOR_FORMAT_YCBCR420) {
++		if (!dp->caps.vsc_supported)
++			return false;
++
++		/*
++		 * Y420VDB sets the sink-wide 420 bit for every mode. This
++		 * VIC has to be 420-only or 420-also. 420 is one pixel
++		 * per cycle.
++		 */
++		if (!drm_mode_is_420(info, mode))
++			return false;
++
++		return adjusted_mode->clock <= CIX_DP_MAX_FREQ;
++	}
++
++	if (drm_mode_is_420_only(info, mode))
++		return false;
++
++	return info_formats & BIT(format);
++}
++
++static int cix_dp_pick_format_bpc(struct cix_dp *dp,
++				  struct drm_connector_state *conn_state,
++				  const struct drm_display_mode *mode,
++				  struct drm_display_mode *adjusted_mode,
++				  int info_formats, int suggest_bpc,
++				  int *color_format, int *bpc, int *bpp)
++{
++	struct drm_display_info *info =
++		&conn_state->connector->display_info;
++	int curr_bpc;
++	int format;
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(fmt_prio); i++) {
++		format = fmt_prio[i].format;
++		curr_bpc = fmt_prio[i].bpc ? fmt_prio[i].bpc : suggest_bpc;
++
++		if (!cix_dp_format_ok(dp, info, mode, adjusted_mode,
++				      info_formats, format))
++			continue;
++
++		/*
++		 * First entry (RGB): prefer 10bit before falling back to
++		 * suggest_bpc, and step down to 8bit before giving up on RGB.
++		 * BT.2020 also tries 10 first when suggest_bpc is lower.
++		 * The DPU always outputs RGB, so a lower RGB depth is still
++		 * preferable to a converted YUV format.
++		 */
++		if (i == 0) {
++			if (cix_dp_bt2020_colorspace(conn_state) &&
++			    suggest_bpc < 10 &&
++			    !compute_available_clock_rate(dp, conn_state, 10,
++							  adjusted_mode->clock,
++							  format, bpc, bpp)) {
++				if (color_format)
++					*color_format = format;
++				return 0;
++			}
++
++			if (suggest_bpc > 10 &&
++			    !compute_available_clock_rate(dp, conn_state, 10,
++							  adjusted_mode->clock,
++							  format, bpc, bpp)) {
++				if (color_format)
++					*color_format = format;
++				return 0;
++			}
++
++			if (!compute_available_clock_rate(dp, conn_state,
++							  suggest_bpc,
++							  adjusted_mode->clock,
++							  format, bpc, bpp)) {
++				if (color_format)
++					*color_format = format;
++				return 0;
++			}
++
++			if (suggest_bpc > 8 &&
++			    !compute_available_clock_rate(dp, conn_state, 8,
++							  adjusted_mode->clock,
++							  format, bpc, bpp)) {
++				if (color_format)
++					*color_format = format;
++				return 0;
++			}
++
++			continue;
++		}
++
++		if (!compute_available_clock_rate(dp, conn_state, curr_bpc,
++						  adjusted_mode->clock,
++						  format, bpc, bpp)) {
++			if (color_format)
++				*color_format = format;
++			return 0;
++		}
++	}
++
++	return -EINVAL;
++}
++
++static enum cix_dp_format cix_dp_drm_format_to_dp(int color_format)
++{
++	switch (color_format) {
++	case DRM_OUTPUT_COLOR_FORMAT_YCBCR444:
++		return CIX_DP_FORMAT_YCBCR444;
++	case DRM_OUTPUT_COLOR_FORMAT_YCBCR422:
++		return CIX_DP_FORMAT_YCBCR422;
++	case DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
++		return CIX_DP_FORMAT_YCBCR420;
++	default:
++		return CIX_DP_FORMAT_RGB;
++	}
++}
++
++static int cix_dp_pick_link_rate(struct cix_dp *dp,
++				 struct drm_display_mode *adjusted_mode,
++				 int bpp)
++{
++	int max_rate = dp->link_config.max_rate;
++	int max_lanes = dp->link_config.max_lanes;
++	int link_rate = max_rate;
++	int rate;
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(dp_common_link_rates); i++) {
++		if (dp_common_link_rates[i] > max_rate)
++			break;
++		rate = CIX_DP_MAX_RATE(dp_common_link_rates[i], max_lanes, bpp);
++		if (adjusted_mode->clock <= rate) {
++			link_rate = dp_common_link_rates[i];
++			break;
++		}
++	}
++
++	return link_rate;
++}
++
++static int cix_dp_pick_config(struct cix_dp *dp,
++			      struct drm_connector_state *conn_state,
++			      const struct drm_display_mode *mode,
++			      struct drm_display_mode *adjusted_mode,
++			      int *color_format, int *bpc, int *bpp)
++{
++	struct drm_display_info *info = &conn_state->connector->display_info;
++	u32 color_formats = info->color_formats;
++	int suggest_bpc;
++
++	/*
++	 * RGB444 is mandatory for DP sources and some sinks do not advertise
++	 * it in their EDID, so always keep it in the candidate set.
++	 */
++	color_formats |= BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
++
++	/* bpc 0 is unspecified. Start at 8, and never below 6. */
++	suggest_bpc = info->bpc ? info->bpc : 8;
++	if (suggest_bpc < 6)
++		suggest_bpc = 6;
++
++	return cix_dp_pick_format_bpc(dp, conn_state, mode, adjusted_mode,
++				      color_formats, suggest_bpc,
++				      color_format, bpc, bpp);
++}
++
++static int cix_dp_bridge_mode_set(struct cix_dp *dp,
++				  struct drm_crtc_state *crtc_state,
++				  struct drm_connector_state *conn_state)
++{
++	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++	struct cix_connector *cix_conn = &dp->connector;
++	int color_format;
++	int link_rate;
++	int bw_code;
++	int bpc;
++	int bpp;
++	int ret;
++
++	/*
++	 * prepare() has read the sink DPCD into link_config. Refresh it
++	 * outside session_lock; detect() takes the lock itself.
++	 */
++	ret = dp->ops->detect(dp);
++	if (ret)
++		return ret;
++
++	/*
++	 * Hold the session lock across the mode write so a retrain cannot
++	 * observe a torn dp->mode or connector config.
++	 */
++	dp->ops->session_lock(dp);
++
++	ret = cix_dp_pick_config(dp, conn_state, &crtc_state->mode,
++				 adjusted_mode, &color_format, &bpc, &bpp);
++	if (ret)
++		goto out;
++
++	cix_conn->config.format = cix_dp_drm_format_to_dp(color_format);
++	cix_conn->config.colorspace = conn_state->colorspace;
++	cix_conn->config.content_type = conn_state->content_type;
++	cix_conn->config.bpc = bpc;
++	cix_conn->config.bpp = bpp;
++	dp->pixel_per_cycle = cix_dp_pick_ppc(adjusted_mode,
++					      cix_conn->config.format);
++
++	link_rate = cix_dp_pick_link_rate(dp, adjusted_mode, bpp);
++	bw_code = drm_dp_link_rate_to_bw_code(link_rate);
++
++	ret = dp->ops->mode_configure(dp, adjusted_mode->clock, bw_code,
++				      bpp, false);
++	if (ret)
++		goto out;
++
++	dev_dbg(dp->dev,
++		"%dx%d@%d fmt=%d bpc=%d bpp=%d link=%u lanes=%u ppc=%u\n",
++		adjusted_mode->hdisplay, adjusted_mode->vdisplay,
++		drm_mode_vrefresh(adjusted_mode), cix_conn->config.format,
++		bpc, bpp, bw_code, dp->mode.lane_cnt,
++		dp->pixel_per_cycle);
++out:
++	dp->ops->session_unlock(dp);
++	return ret;
++}
++
++static int cix_dp_bridge_atomic_check(struct drm_bridge *bridge,
++				      struct drm_bridge_state *bridge_state,
++				      struct drm_crtc_state *crtc_state,
++				      struct drm_connector_state *conn_state)
++{
++	struct cix_dp *dp = bridge_to_dp(bridge);
++	int bpc;
++	int bpp;
++	int ret;
++
++	cix_dp_adjust_mode(&crtc_state->mode, &crtc_state->adjusted_mode);
++
++	/*
++	 * The DPU always outputs RGB, so only validate that the mode fits the
++	 * link. The colour format used to drive the sink is picked again when
++	 * the bridge is enabled. Read the sink first: this check runs before
++	 * the encoder enable path.
++	 */
++	dp->ops->detect(dp);
++
++	ret = cix_dp_pick_config(dp, conn_state, &crtc_state->mode,
++				 &crtc_state->adjusted_mode,
++				 NULL, &bpc, &bpp);
++	if (ret)
++		return ret;
++
++	/*
++	 * The colour space is programmed through a VSC SDP, so a change of
++	 * the requested colour space requires a full modeset.
++	 */
++	if (dp->caps.vsc_supported) {
++		const struct drm_connector_state *old_conn_state;
++
++		old_conn_state =
++			drm_atomic_get_old_connector_state(bridge_state->base.state,
++							   conn_state->connector);
++		if (old_conn_state &&
++		    old_conn_state->colorspace != conn_state->colorspace)
++			crtc_state->mode_changed = true;
++	}
++
++	return 0;
++}
++
++static void
++cix_dp_bridge_atomic_enable(struct drm_bridge *bridge,
++			    struct drm_atomic_commit *state)
++{
++	struct cix_dp *dp = bridge_to_dp(bridge);
++	struct drm_connector_state *conn_state;
++	struct drm_crtc_state *crtc_state;
++	struct drm_connector *connector;
++	int ret;
++
++	connector = drm_atomic_get_new_connector_for_encoder(state,
++							     bridge->encoder);
++	if (!connector)
++		return;
++
++	conn_state = drm_atomic_get_new_connector_state(state, connector);
++	if (!conn_state || !conn_state->crtc)
++		return;
++
++	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
++	if (!crtc_state)
++		return;
++
++	ret = dp->ops->prepare(dp);
++	if (ret) {
++		if (ret != -ENODEV)
++			dev_err(dp->dev, "failed to prepare DP output: %d\n",
++				ret);
++		return;
++	}
++
++	ret = cix_dp_bridge_mode_set(dp, crtc_state, conn_state);
++	if (ret) {
++		dev_err(dp->dev, "failed to set DP mode: %d\n", ret);
++		goto err_unprepare;
++	}
++
++	ret = dp->ops->encoder_enable(dp, dp->dp_panel.source_id, true);
++	if (ret) {
++		dev_err(dp->dev, "failed to enable DP output: %d\n", ret);
++		goto err_unprepare;
++	}
++
++	return;
++
++err_unprepare:
++	dp->ops->unprepare(dp);
++}
++
++static void
++cix_dp_bridge_atomic_disable(struct drm_bridge *bridge,
++			     struct drm_atomic_commit *state)
++{
++	struct cix_dp *dp = bridge_to_dp(bridge);
++
++	dp->ops->encoder_enable(dp, dp->dp_panel.source_id, false);
++}
++
++static int cix_dp_connector_atomic_check(struct drm_connector *conn,
++					 struct drm_atomic_commit *state)
++{
++	struct drm_connector_state *new_con_state =
++		drm_atomic_get_new_connector_state(state, conn);
++
++	if (!new_con_state)
++		return 0;
++
++	/* PSR is not implemented, so never advertise self refresh support. */
++	new_con_state->self_refresh_aware = false;
++
++	return 0;
++}
++
++static const struct drm_connector_funcs cix_dp_connector_funcs = {
++	.detect = cix_dp_connector_detect,
++	.fill_modes = drm_helper_probe_single_connector_modes,
++	.destroy = drm_connector_cleanup,
++	.reset = drm_atomic_helper_connector_reset,
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
++	.oob_hotplug_event = cix_dp_oob_hotplug_event,
++};
++
++static const struct drm_connector_helper_funcs
++cix_dp_connector_helper_funcs = {
++	.get_modes = cix_dp_connector_get_modes,
++	.best_encoder = cix_dp_connector_best_encoder,
++	.mode_valid = cix_dp_connector_mode_valid,
++	.atomic_check = cix_dp_connector_atomic_check,
++};
++
++static void cix_dp_add_properties(struct drm_connector *connector)
++{
++	if (!drm_mode_create_dp_colorspace_property(connector, 0))
++		drm_connector_attach_colorspace_property(connector);
++
++	drm_connector_attach_max_bpc_property(connector, 8, 10);
++	drm_connector_attach_dp_subconnector_property(connector);
++	drm_connector_attach_content_type_property(connector);
++}
++
++static int cix_dp_connector_create(struct cix_dp *dp,
++				   struct drm_encoder *encoder)
++{
++	struct cix_connector *conn = &dp->connector;
++	struct drm_connector *connector = &conn->base;
++	int ret;
++
++	conn->dp = dp;
++
++	connector->polled = DRM_CONNECTOR_POLL_HPD;
++	connector->ycbcr_420_allowed = true;
++
++	ret = drm_connector_init_with_ddc(encoder->dev, connector,
++					  &cix_dp_connector_funcs,
++					  DRM_MODE_CONNECTOR_DisplayPort,
++					  &dp->aux.ddc);
++	if (ret)
++		return ret;
++
++	drm_connector_helper_add(connector, &cix_dp_connector_helper_funcs);
++
++	drm_atomic_helper_connector_reset(connector);
++
++	ret = drm_connector_attach_encoder(connector, encoder);
++	if (ret)
++		goto err_cleanup;
++
++	cix_dp_add_properties(connector);
++
++	dp->dp_panel.connector = conn;
++
++	return 0;
++
++err_cleanup:
++	drm_connector_cleanup(connector);
++	return ret;
++}
++
++static int cix_dp_bridge_attach(struct drm_bridge *bridge,
++				struct drm_encoder *encoder,
++				enum drm_bridge_attach_flags flags)
++{
++	struct cix_dp *dp = bridge_to_dp(bridge);
++	int ret;
++
++	dp->drm = bridge->dev;
++	WRITE_ONCE(dp->hpd_stopped, false);
++
++	ret = dp->ops->aux_register(dp);
++	if (ret)
++		goto err_clear_drm;
++
++	/*
++	 * Komeda (ARM Mali DPU on Sky1, not in this series) calls
++	 * drm_bridge_attach() with attach flags 0 and does not register a
++	 * connector; create one here so userspace gets a DP output.
++	 */
++	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
++		return 0;
++
++	ret = cix_dp_connector_create(dp, encoder);
++	if (ret)
++		goto err_aux;
++
++	/* The bridge may have been attached long after the sink was plugged. */
++	dp->ops->replay_deferred_hotplug(dp);
++
++	return 0;
++
++err_aux:
++	dp->ops->aux_cleanup(dp);
++err_clear_drm:
++	dp->drm = NULL;
++	return ret;
++}
++
++static void cix_dp_bridge_detach(struct drm_bridge *bridge)
++{
++	struct cix_dp *dp = bridge_to_dp(bridge);
++
++	/* Stop workers before the connector goes away. */
++	dp->ops->quiesce_hpd(dp);
++
++	dp->dp_panel.connector = NULL;
++
++	if (dp->connector.base.dev)
++		drm_connector_cleanup(&dp->connector.base);
++
++	dp->ops->aux_cleanup(dp);
++
++	dp->drm = NULL;
++}
++
++static const struct drm_bridge_funcs cix_dp_bridge_funcs = {
++	.attach = cix_dp_bridge_attach,
++	.detach = cix_dp_bridge_detach,
++	.atomic_check = cix_dp_bridge_atomic_check,
++	.atomic_enable = cix_dp_bridge_atomic_enable,
++	.atomic_disable = cix_dp_bridge_atomic_disable,
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
++	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++};
++
++struct cix_dp *cix_dp_bridge_alloc(struct device *dev)
++{
++	return devm_drm_bridge_alloc(dev, struct cix_dp, bridge,
++				     &cix_dp_bridge_funcs);
++}
+diff --git a/drivers/gpu/drm/cix/dptx/cix_dptx_drm.h b/drivers/gpu/drm/cix/dptx/cix_dptx_drm.h
+new file mode 100644
+index 000000000000..3ac57faa349e
+--- /dev/null
++++ b/drivers/gpu/drm/cix/dptx/cix_dptx_drm.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * CIX Sky1 DisplayPort DRM helpers
++ *
++ * Copyright 2026 Cix Technology Group Co., Ltd.
++ */
++
++#ifndef CIX_DPTX_DRM_H
++#define CIX_DPTX_DRM_H
++
++struct cix_dp;
++struct device;
++
++struct cix_dp *cix_dp_bridge_alloc(struct device *dev);
++
++#endif /* CIX_DPTX_DRM_H */
