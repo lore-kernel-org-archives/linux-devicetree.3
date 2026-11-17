@@ -1,112 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908542;
-	b=EZcyWwRz0sAD5CEg/A9E9Omq3OBiZNBUnG981YGxY0C9NHAJOnAwjfdhVrZEM9C5Q6aw
-	 VRdjbS8F3ich6UhzDovVY9c8FeIIXOS0ZyoesBU7g3D6DOBi+oxNhjn5hqGses+eHnfEC
-	 XUdUA0HHNXKpNPT1AHVk4C3+Dxo/V+s1yZKA2NHIm9J5pPA8Y4b4srgeGMEdoWm9ppRHs
-	 rQY+VvZNzHM4UwPXHlhBBNMftJHiDlFPXdXuCiJVcr3y8+cz8ewVzuhem4wJGtszwcmX7
-	 ZSmPKx1kU/Xxe4fj738Qg7TWTLFr27s5bICdchZqNdMjEBlobZo7FG4iVt6Q9V9dhMQ==
+	t=1794908597;
+	b=3DkSOI3bj8tJMfOlQx/L3IJzdAvX8XklepdZC9B6DEksAGV28TELYTafeMB24O31WCui
+	 FTBsHzHu9K0WGqeaFnCQpoyGkvqJ80TQUyLTbqrLfHYzWrpIW8f/cfJb1yo1Yre4F+p+X
+	 sjSLn16O1nylaLVtXG55Jth4Rr7rUYxksSWfBQikifAoNofPbCMtBuJT9ApA1mvsW5eEz
+	 BcJ1hBbG36drxUibuZP9Nbs/y6vb1fKq1WCud8S8g1U1q5pk3SFZdbmVYYRP+iz0WHhZA
+	 7RZp8FZYCt4atEECYhqrtAWECfFLAz63B7iiWJm9C0IIi8wQyyz0IbofULMV6Xhj/wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908542;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=FR0f5F7yPxxa4E3yXHiVVcQsrkarnwS9sLGa/aVW6YE=;
-	b=DN74kYlnpykJIZ6yN6zp9x8OiwLdtIJIbi3RfE+EkE0AzfsxOE13n7y3eY2TzsJjQ3uv
-	 Chz/Q/fW/dNYsOeFuwnAxirMKrOtfUWx80w7QQDtvKBbQciqGGvN9s9wemu2KbUD8nDYF
-	 Nb36h60skLieyIdAjpE5EAOCcggsFaS2IjKDw9+C+R3feW9k1dj3IFv3o1Hm4ruZjTEpv
-	 zGp2viMFWpxVBHQhYphv1SCPB1gDJeoZt9fZa0V8RfHKDVkfW9E7diMYGEzCwTAViHEy9
-	 9rc+gCbFs5moCiTutIj3XgIW4MOnW7cvTJ2QvUzB2vgCzuA/ETLvAF3vSs04O0gjmwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908597;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=1JFZCHrxuZbSUWndPTw9K3y86Gq6Tb/RKCBBhoAAS0M=;
+	b=b055v1DoXR1ToFZ/XIcmWHREVAZXw5OXZdMtbR8hYBkcHDUG1TnNZvMQ9RbScjQ0XQ97
+	 RAaV4Lsa3d1+LHqxVXb1z76OEgWs5n5Uh15vbJrR1R+GYA5gZ7AQfSr76NgKWRxJGMjLU
+	 QSfOky53qa3vg9blocgivO6cc6BYLy3eK0P93LrgIu6he4waF8ZRbAYllFo/UG6vKs6LG
+	 tsHzbecG3EKrrvqt25WUjxF+e8pZdTFVRaeJnPOrfe1NIyGEvjpzdwro87W4Hn9aAJvGd
+	 3vYaZY1lX4nK/U2Plo5K/a5rSFfjaZB/sGoRzwhjfd7eb2MfOG2YL4+a9tJAW+ehAWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fOlt6srD;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c1XVcWe8;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PUg8uSDm;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE29606A332
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 09:42:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAE29606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09991606A31C;
+	Tue, 17 Nov 2026 09:43:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09991606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fOlt6srD;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c1XVcWe8
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH55h4M3350164
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 09:42:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FR0f5F7yPxxa4E3yXHiVVcQsrkarnwS9sLGa/aVW6YE=; b=fOlt6srDR6s+9QNV
-	raHd50uRti9e2P8itcOQ+YgNPDJz2rh4x2xz4XYA2gDiA1hDj83jTr6FUTO5VEZf
-	zC0Xf12Vcx+etOXBOVGhqukUzp/ZxwrXzuYL10ip77mubOq2nUBLYMfYWmGJFvcm
-	m/AQhCua9zSdriOfR0OVsjm4Yl17KO6Vzdmq2hJCpXPXs2wdjKIoaV8vlTLpiXa+
-	DGsIXq4ogr807/F6WshzoZ51dFEWNnFQzWfNkQ6ugE6BBQwQGqWZW2YrJpKbqYAC
-	Wi/PCT9s5dghS8xq7eRKo1TUVtJgkZjND5etQRQDc3FNzwHmYL2etL7FTLXFpVL8
-	fP7vtA==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0gfr10x6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 09:42:20 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cdaf2073b0cso2236729a12.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 01:42:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794908540; x=1795513340; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FR0f5F7yPxxa4E3yXHiVVcQsrkarnwS9sLGa/aVW6YE=;
-        b=c1XVcWe8ts58GvviucNhJs5LqeOWAihVIIParR7/Y4Q+lc96mY6FE+aC+gChl8IGuM
-         DYcYIqm3ZhSeMFLEyHLh48TU0Ey19+YpkBlCjP95/CAQD9e+h++xbXxnHOWmTqGsPaQp
-         ZQ6GEqsP5gwqclpZGvG7uGsXRCX4nW9ZgQyOUSPPxogzZGevHJGQ+JQqwhrZO+CSQOI+
-         CAwOZHn1lHVyj8qP5LUNzfNG4JhpJzqDdPNh/mGa4PPtzSXYX/bxsJZp4esYADeWX7D3
-         vvCOmcz45jDUqj9zrsIwmcKHWS+Ompoyj6kuc85xexQHeIplmCQH/JnjpObPdzHfeYh+
-         h1Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794908540; x=1795513340;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FR0f5F7yPxxa4E3yXHiVVcQsrkarnwS9sLGa/aVW6YE=;
-        b=eDL0Cq5VZQ/NztSH+DGTaGgwjH5A5FjJheed1+lHLhT+wozf4ZC2AB8xb3VsoolfJo
-         BgObD3q4ZQfgQnM/9b8Ve5TIt223lHkMTYVKYdBxGeT6PnKy/d2UTKH+fF+n87A9vPnP
-         AIjK6n2NQ+sc5cvFC5z3fIkN9QWq+lfViBKFrjYaJ6bO9f2WgNcpL/rnOgUNIsk0ov6L
-         /B3kwl1fxX5EoVhXrCAF4m+0WuKlTzkB9SNG7x/nIHjeca4HMhsUj63B72/aoRtma+d2
-         fFsIci6S5hLGP6Di2pM2WPqICYaBv0nsxe9276Tw7Nzfi3L/+1bIO0eKBgxevXxZBA8G
-         XN8w==
-X-Forwarded-Encrypted: i=1; AL+hErF1L5RJ+BNXgMF30KM6OyiFCERNxzYv+I6Rswi3/Y9vUQDEhAqAoHOKi70YJBRR0dHgc5B6wnWVowwP@vger.kernel.org
-X-Gm-Message-State: APuU4Z9o4y7BdyPQ7PAlEw+t0OT60ETEg/ogrkOrjBign3egCTa5fIga
-	I8q7Dxivwug2ziISVcfQT8ggRyiNvxJbHMVF50jXQrCZGak63yMx5fxMYrvcr4DFyKRG1W660B6
-	a5BU3i3Af0eKEYH0emGsIMjLHClfpysgbwuLCWpQXkiKVmSnhXqCCj8Zx0oF+24lEJuhzfkke
-X-Gm-Gg: AZFdTZfKbZCDTPk7FWbotwZ+mRJBS1+Bvf2Yk1M0HMbRZiXPWQojela+CzsdxSqQq6y
-	IaVJGU9MJXSahhqBxHAsDJf6iEk3jfR35MUFT/YN+pAszedBSD6Krcj5TWCFUw7u5MQnPRf2q4A
-	LjKyUUB2mFMNsh3z4px8P44Z67XHgZwJw3ICJFVwbR1PuHaIX4UrtLESMrwDazCLKdZT+tI1HSV
-	380YxEVTm0C2ZgNWKTEVHj4V4/RFJNlBUG+NcdTGMHbuRqXboye+FsyVgHC6MgVp2Oq7WLFy9VY
-	B6tQu/yQFO8xKYYtfQ5S7wlHOsnxdHaMW7q7LwJ5/oiCotbhMlvKdTiKb0juuoRbONv27DUqQ/b
-	HeVJ86RUnTRDxXMGXkg4Hd22OI88QB8LSZN7jryL2rXbUP/2LCZbW8BmuN9Z/CkOjhZaqddOkED
-	KdXvlaJAUbhTVPVaqmd6fGmjBwu8JwPClOrWpAwYtba8fSholuKk6z4HUSYJk/
-X-Received: by 2002:a17:90b:4c10:b0:3a4:6e84:e7f6 with SMTP id 98e67ed59e1d1-3b1b07ff57fmr13204635a91.5.1794908539559;
-        Tue, 17 Nov 2026 01:42:19 -0800 (PST)
-X-Received: by 2002:a17:90b:4c10:b0:3a4:6e84:e7f6 with SMTP id 98e67ed59e1d1-3b1b07ff57fmr13204605a91.5.1794908539106;
-        Tue, 17 Nov 2026 01:42:19 -0800 (PST)
-Received: from [10.79.117.97] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b245f0c3sm10640263a91.0.2026.11.17.01.42.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 01:42:18 -0800 (PST)
-Message-ID: <2634a358-59a0-45e2-b2bd-2c404db3389c@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 15:12:13 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PUg8uSDm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794908598; x=1826444598;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=/GI53b4sXCSiU9qDVUDU1ic+ORGhD0l/yLB4uV7dWQk=;
+  b=PUg8uSDmb4ajJ6QsnmmnkrbAJsv5FfSFxkHDpfwhAO+pm2XkgFA6hBrN
+   e037FAI/ETNLZ73TpnuX708UuzEb25KhRM3Sfh1LyZ3/dpuUL2Y24RTTW
+   9uwLkD/zXGWoNKG2qcXy4dynKytIrjkMebupz3IV6/689RoL5GZZzo4sl
+   tn9nP0f/5grugP1vAIw/02f6ywEAmBAW+/S69IqY4YjbhCTx2wtdZl2iZ
+   PMO0wOp0ynD3g4oF1BIxMeMwpO6eAS5nO0kKx7hkXBL4gS9/3YZM0x5gb
+   FIxTmekX75wjHWZQ8Fvi5Tp+Hgsf4nMtnK3WWMlbAF6UtC+eCYgl9Cnyh
+   w==;
+X-CSE-ConnectionGUID: c9kawMAzTeOXsvQh1yvEyg==
+X-CSE-MsgGUID: Stg4fDpWSBmYPQrxSrIMeg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3709672"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3709672"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:43:17 -0800
+X-CSE-ConnectionGUID: YkQDCuzQSRy3DqkoiJVpUA==
+X-CSE-MsgGUID: +4chQQiAQuG/Z452xZTgMg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="10013561"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:43:13 -0800
+Date: Tue, 17 Nov 2026 11:43:10 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chi-Wen Weng <cwweng.linux@gmail.com>
+Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	andy@kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, chernyakin.victor.j@outlook.com,
+	cwweng@nuvoton.com
+Subject: Re: [PATCH v5 3/3] iio: adc: Add Nuvoton MA35D1 EADC driver
+Message-ID: <avwhriewntd6_F8u@ashevche-desk.local>
+References: <20261117082832.1551574-1-cwweng.linux@gmail.com>
+ <20261117082832.1551574-4-cwweng.linux@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,113 +83,228 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] remoteproc: qcom: pas: Add Glymur OOBMSS PAS
- parameters
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-References: <20261015-oob-support-glymur-v2-0-715435f52dd7@oss.qualcomm.com>
- <20261015-oob-support-glymur-v2-4-715435f52dd7@oss.qualcomm.com>
- <20261116184727.oscwnaurivcxrg5b@hu-mojha-hyd.qualcomm.com>
-Content-Language: en-US
-From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-In-Reply-To: <20261116184727.oscwnaurivcxrg5b@hu-mojha-hyd.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=X/rHu2Te c=1 sm=1 tr=0 ts=6afc217c cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=P_9HZXhiIeUehgLQJ04A:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-GUID: 0RYiz6LBX5rdlJW5JR4FB2v7khNUpG2G
-X-Proofpoint-ORIG-GUID: 0RYiz6LBX5rdlJW5JR4FB2v7khNUpG2G
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAzOCBTYWx0ZWRfX9uJL/gUJGPSv
- skG2iyVkQrOkMsF6hPf8D0boN/MFojJSFHif/nkEZ8aVj5nGn8QciXTBZW39BE7EN4492t/0dfY
- nbbBsbTZqG2n0pGz8F8kaSWmxlqTZP/RVQ2FfIGZB+hcl2tYVkGxZgDtn2vlSV3VnQO87N6IiCu
- koLcCj0+uq8921yEE5JpX+3nkG+erLQcwyF7eOP8xYopM6XdemuqIS/BFSFd6tPUytgxpKU7hBt
- TKwa52348GvYi6VxySyviCOhP3Z7Jyeu/BocLW53uQeFzRozN6EhXXRlGQBQRUTVH8yEBwp2PLS
- or9f3c2ne9Rc/7XRdslRPyo3iSRX6tWcBkiGmBSzasxeFphRa69ZPP5t78EX+jeuOCwxwOn3MsY
- OjELH602+NuGcjP0e9PxFelzfNF3S0yeMDmCGqgvErRZ/r7y5/4tbLw6RQcHYmArSZ1p+7/6nN9
- bs+moV6J5uGFbrphPwQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAzOCBTYWx0ZWRfX3NO5sGBk9rsd
- AkabdYKgqMpagaiMRHVVXcNNVxPC+KOeSwi756lRLMOYljE8mTKsKSqW8fAZaXWRyNmoZsBaWdL
- HEVLJMtvethTcaQwnGhfFmy/824UPak=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 spamscore=0 suspectscore=0 bulkscore=0
- lowpriorityscore=0 impostorscore=0 priorityscore=1501 phishscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611170038
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117082832.1551574-4-cwweng.linux@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-
-
-On 11/17/2026 12:17 AM, Mukesh Ojha wrote:
-> On Thu, Oct 15, 2026 at 11:25:52AM +0530, Anvesh Jain P wrote:
->> The OOBMSS consists of separate OOB-TEE and OOB-NS Zephyr subsystems,
->> each with its own firmware, DTB, and dedicated PAS ID. Add support for
->> the OOBMSS PAS loader on Glymur platforms.
->>
->> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
->> ---
->>  drivers/remoteproc/qcom_q6v5_pas.c | 25 +++++++++++++++++++++++++
->>  1 file changed, 25 insertions(+)
->>
->> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
->> index 374cafd04b62..ecefc6a72fd2 100644
->> --- a/drivers/remoteproc/qcom_q6v5_pas.c
->> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
->> @@ -2080,6 +2080,30 @@ static const struct qcom_pas_data glymur_soccp_resource = {
->>  	.needs_tzmem = true,
->>  };
->>  
->> +static const struct qcom_pas_data glymur_oobmss_resource = {
->> +	.crash_reason_smem = 669,
->> +	.firmware_name = "oobmss_tee.mbn",
->> +	.dtb_firmware_name = "oobmss_qc_dtb.mbn",
->> +	.secondary_firmware_name = "oobmss_ns.mbn",
->> +	.secondary_dtb_firmware_name = "oobmss_oem_dtb.mbn",
->> +	.pas_id = 0x42,
->> +	.dtb_pas_id = 0x43,
->> +	.secondary_pas_id = 0x44,
->> +	.secondary_dtb_pas_id = 0x45,
->> +	.proxy_pd_names = (char *[]){
->> +		"cx",
->> +		"mx",
->> +		NULL
->> +	},
->> +	.ssr_name = "oobmss",
->> +	.sysmon_name = "oobmss",
->> +	.ssctl_id = 0x21,
->> +	.auto_boot = true,
->> +	.early_boot = true,
->> +	.needs_tzmem = true,
->> +	.decrypt_shutdown = true,
->> +};
+On Tue, Nov 17, 2026 at 04:28:32PM +0800, Chi-Wen Weng wrote:
 > 
-> You can move this alphatically before glymur soccp .
+> Add an IIO driver for the Enhanced Analog-to-Digital Converter found on
+> Nuvoton MA35D1 SoCs.
+> 
+> Support single-ended and fixed differential inputs, direct conversion,
+> and triggered buffered capture. This initial implementation uses sample
+> module 0 and therefore supports one active voltage channel per buffered
+> scan.
 
-Ack, I will reorder this alphabetically.
+...
 
-> 
-> With that change
-> 
-> Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> 
+> +static int ma35d1_adc_read_raw(struct iio_dev *indio_dev,
+> +			       const struct iio_chan_spec *chan,
+> +			       int *val, int *val2, long mask)
+> +{
+> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
+> +	u16 raw;
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW: {
+> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +			return -EBUSY;
+> +
+> +		guard(mutex)(&adc->lock);
+> +
+> +		if (adc->suspended)
+> +			return -EBUSY;
+> +
+> +		ret = ma35d1_adc_read_conversion(adc, chan, &raw);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (chan->differential)
+> +			*val = sign_extend32(raw, MA35D1_EADC_RESOLUTION - 1);
+> +		else
+> +			*val = raw;
+> +
+> +		return IIO_VAL_INT;
+> +	}
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*val = adc->vref_mV;
+> +		/* Differential mode has a VREF / 2048 LSB; single-ended uses /4096. */
+> +		*val2 = chan->differential ? MA35D1_EADC_DIFF_SCALE_BITS : MA35D1_EADC_RESOLUTION;
+
++ blank line as it's done elsewhere.
+
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +static int ma35d1_adc_update_scan_mode(struct iio_dev *indio_dev,
+> +				       const unsigned long *scan_mask)
+> +{
+> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
+> +	const struct iio_chan_spec *scan_chan = NULL;
+> +	int bit;
+> +
+> +	if (!iio_validate_scan_mask_onehot(indio_dev, scan_mask))
+> +		return -EINVAL;
+> +
+> +	iio_for_each_active_channel(indio_dev, bit) {
+> +		const struct iio_chan_spec *chan = &indio_dev->channels[bit];
+> +
+> +		if (chan->type != IIO_VOLTAGE)
+> +			return -EINVAL;
+> +
+> +		scan_chan = chan;
+> +		break;
+> +	}
+> +
+> +	if (!scan_chan)
+> +		return -EINVAL;
+
+> +	adc->scan_chan = scan_chan;
+
+So, this is only valid when scan_chan is not NULL, and this is the only case
+inside the loop, hence temporary 'scan_chan' variable is not required at all.
+
+	iio_for_each_active_channel(indio_dev, bit) {
+		const struct iio_chan_spec *chan = &indio_dev->channels[bit];
+
+		if (chan->type != IIO_VOLTAGE)
+			return -EINVAL;
+
+		adc->scan_chan = chan;
+
+		return 0;
+	}
+
+	return -EINVAL;
+
+> +	return 0;
+> +}
+
+...
+
+> +static void ma35d1_adc_trigger_capture(struct iio_poll_func *pf)
+> +{
+> +	struct iio_dev *indio_dev = pf->indio_dev;
+> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
+> +	struct {
+> +		u16 channel;
+> +		aligned_s64 timestamp;
+> +	} scan = { };
+> +	int ret;
+> +
+> +	guard(mutex)(&adc->lock);
+> +
+> +	if (adc->suspended || !adc->scan_chan)
+> +		return;
+> +
+> +	ret = ma35d1_adc_read_conversion(adc, adc->scan_chan,
+> +					 &scan.channel);
+
+This fits a single line.
+
+> +	if (ret)
+> +		return;
+> +
+> +	iio_push_to_buffers_with_ts(indio_dev, &scan, sizeof(scan), pf->timestamp);
+> +}
+
+...
+
+> +static int ma35d1_adc_parse_single_channel(struct device *dev,
+> +					   struct fwnode_handle *child,
+> +					   struct iio_chan_spec *chan,
+> +					   unsigned long *used_single_inputs,
+> +					   bool has_single, u32 reg,
+> +					   unsigned int scan_index)
+> +{
+
+	const char *propname = "single-channel";
+
+> +	u32 input = reg;
+> +	int ret;
+> +
+> +	if (has_single) {
+> +		ret = fwnode_property_read_u32(child, "single-channel", &input);
+
+		ret = fwnode_property_read_u32(child, propname, &input);
+
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "invalid single-channel for index %u\n",
+> +					     reg);
+
+			return dev_err_probe(dev, ret, "invalid %s for index %u\n",
+					     propname, reg);
+
+Similar approach can be used for differential channel parser.
+
+Or even supply that as a parameter, so you will have defined that only once
+in _parse_channels().
+
+> +	}
+> +
+> +	if (input >= MA35D1_EADC_MAX_EXT_CHANNELS)
+> +		return dev_err_probe(dev, -ECHRNG, "invalid ADC input %u\n", input);
+> +
+> +	if (test_and_set_bit(input, used_single_inputs))
+> +		return dev_err_probe(dev, -EEXIST, "duplicate ADC input %u\n", input);
+> +
+> +	*chan = (struct iio_chan_spec) {
+> +		.type = IIO_VOLTAGE,
+> +		.indexed = 1,
+> +		.channel = input,
+> +		.address = reg,
+> +		.scan_index = scan_index,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +		.scan_type = {
+> +			.format = IIO_SCAN_FORMAT_UNSIGNED_INT,
+> +			.realbits = MA35D1_EADC_RESOLUTION,
+> +			.storagebits = 16,
+> +			.endianness = IIO_CPU,
+> +		},
+> +	};
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int ma35d1_adc_init_vref(struct ma35d1_adc *adc, struct device *dev)
+> +{
+> +	int ret;
+> +
+> +	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
+> +	if (ret == -ENODEV) {
+> +		adc->vref_mV = MA35D1_EADC_INTERNAL_VREF_mV;
+> +	} else if (ret < 0) {
+> +		return dev_err_probe(dev, ret, "failed to get VREF supply\n");
+> +	} else if (ret > 0) {
+> +		adc->external_vref = true;
+> +		adc->vref_mV = ret / (MICRO / MILLI);
+> +	} else {
+> +		return dev_err_probe(dev, -EINVAL, "invalid VREF voltage\n");
+
+What to do, if ret is < 1000 and > 0 and the above will simply make vref_mV == 0?
+Wouldn't the same constraint be applied and respective error message issued?
+
+> +	}
+> +
+> +	return 0;
+> +}
 
 -- 
-Best Regards,
-Anvesh
+With Best Regards,
+Andy Shevchenko
+
 
