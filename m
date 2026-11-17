@@ -1,89 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932272;
-	b=ac37zTp2XgqBrjGq/AVIQfVkJpQ46s0EeG4WH9QPuPUvIKTQfwG9nof+LxZbvQufBP4K
-	 OubO/lZ7XZ1hfk/9bep52QnQtyicN/uYnov/kBkNSA0yCVzKJX+DNDwkyCSUfAEI/fEbT
-	 a14iCni8dpVFKdIuPyesnUDDloKTsIE1qoU/z0Y3mlp5M+VmDH30rEZLY9NK7ct2CSI0d
-	 CUGn7VzzUvTbUZckfkNRIyIOENZXyTrq8xJKSiP4Qyf3m1t0rSZgbktfMUoO5EvwqwwjD
-	 25SE38x6mhLBiZZ7MRjgIYuyE0VkMbmthTqFIRBlcoYFIpBiVkyqLsENSgVxJvZfT2Q==
+	t=1794932357;
+	b=v29FpJTUw5iiUt4gbKYDiyFTreH9HYQ+zbmQIETrDKDc2NMjrteMDdMrwo6mN862SXh9
+	 oIlVTUNuB6pwnj0BIH2+5iOf7m4BCpMSpdBOcIeuJPU7KqI8Veuu/Auzns1pMNaJqFAaq
+	 CqsEBL949gYWNzXP6L7CATBos5EW1jBD+xxqgM1U9QRfMi+iIvMXu6JCaS3xKk0vL8A0O
+	 Jv9ybLXtJ0n4GnRYMowEzMCIr7sV4Cuq/lqLK0HKdLJIx0S9f/MyAgL9nz8lRfj8dOvVK
+	 EEsoeVpDFVM9rG5flCv8WQSDGNfp+olzqtZGBHfkQ3N8K9N1028cwGkz0KvfGYrcypw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932272;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=JRkNuO7f+W9Ho8PIBHE7MaDQUw/2iOTiv6p4KY7Nkys=;
-	b=bGKEJAE9xnyv1kB4nw8okMRFXo/QdBd/XrhBrEy3CCHrRQdlsAVZByFTOLdwoo7WiQF1
-	 Gp8rpyu6aFXCFZ69Le+zLKfYvWRIh8/CbnMrtiLnppLCKSDQ/Jga59K7JojvPAGKn6PGS
-	 /nSzYyXX0Lqx95IAjMYrvjqG+lE02/2Mw9qrvLhQ0b96z9kdcHUDu5eZJBvNU1H2wqKtd
-	 8EKiTfnrd3qTaJt0VYyOz1OjfcE9E25u3BiH0sUF8NTE9nudDrDlx/fkLvkU2AFpQzn7Y
-	 Z3nLx6S0xqRzp6Fy8rNissuQ7L7QiG0jL0uGETM2kJ9ZhWOPmIOKpVChGqTGcsltFjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932357;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=PoydfNflc37spVuYW+Qn3aq9PQN/sV/Z8s/hao3VHYk=;
+	b=TzCETn7fwIbh6QyCZaBzTf28ETQpmHfe8cy9ZfssW91wyLZfAwLFy9/4TjLYTUYYqcKJ
+	 K5omvz/pwtYpIqATe69j/aN9MP2lAD9eG0bPT6MJWuPY5shKWJHNrdE8dBj7+RxPzz9Io
+	 zLUm1IjhDYQ9AkLxB8wCRmDMdHMJa+Ru5yJy99/XLhdbVqRJcqtvzYJlOsPA5ETmkE+nN
+	 kQZglvMqZHGiEUlbzzN4qm9EDYj8pS5xwA5+oij0+Xw5aqOcKjNjfQuVAFBSabVXMNmYA
+	 i38AzmoYUz4D6eALDctc0ob0wqguHp00zAoyyP/chs8WV1+V9931reIviGEE6pt0A9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=JLJT2jYq;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XYWAiliC;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AN7Kxuo+;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054FE606A33A
-	for <Devicetree@vger.kernel.org>; Tue, 17 Nov 2026 16:17:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 054FE606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D90606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 16:19:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37D90606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=JLJT2jYq
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c50933bdf4bso260469766b.1
-        for <Devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:17:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XYWAiliC;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AN7Kxuo+
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHFR23w3503886
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 16:19:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=PoydfNflc37spVuYW+Qn3aq9
+	PQN/sV/Z8s/hao3VHYk=; b=XYWAiliCsqFDfQmgDEgLMBFs5w3ewAqotIg/w28g
+	CvkVNqkn3B2gfqbOfqQ8WFSTaC5hLc9DM3pbbKf4U4uhrd2TqkOriWTEY+SKmFc1
+	FRWpVg9r1FA9PMPExtBvOCboddjvjP1jPvTnFUMCYrWZ24E7PZxawrTxBwaAWNpA
+	iDSTI1qAswQSUNuM2+buMCWPotRapEJLJYzy38Bf+qZkdzAoJ+IzmKRxWy5wiQPy
+	apcy9XzZB070kVX1ll5hzTacFY8nI96kpuBohOgDxmURkDhcsdx4FiQkW9ynoXvZ
+	CPOAu5UNNonEitoFwsP9cT6hCU9997EVBQtLFSIMFsLehA==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0mv11j5j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 16:19:15 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3821eb27024so33117eec.1
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:19:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794932270; x=1795537070; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JRkNuO7f+W9Ho8PIBHE7MaDQUw/2iOTiv6p4KY7Nkys=;
-        b=JLJT2jYqv4c9sMaodXg5HMSIhRlsPLMyNXf5bL1vJxEpK1eo38m3TSyA5VRRFr88e7
-         u0zzjgyksFlvo6euYYqE4gvPTHvmmgzwJMhgPqDcotd0Ja+WH+ll9q2PeBh3OeWSwNjI
-         K9DfqYzfR1+5YhxrxmYMcuX1JYmS1H6TYrsSU=
+        d=oss.qualcomm.com; s=google; t=1794932354; x=1795537154; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PoydfNflc37spVuYW+Qn3aq9PQN/sV/Z8s/hao3VHYk=;
+        b=AN7Kxuo+tSZpS6y64y5dQOkZqTvZ4B0YxzyJbVXWN8I+FLW1D1sh6YtgLfmtK0zvNs
+         cEd6+dxeDAEQDK419tqJLiQrhdCpay/MQ4bgynUHO+9Pi1xEozCG2SODyBfsakicFwQn
+         cuiRLIllhnBsSNdzBJXJxMlS5TvixtD+H5HVBXjURQx7GCNcMAbyAljfe6pqGc1S5BHf
+         xvDrNiG2zT+V/GL3+S8YPC/OddXKfYQ6ApM4MYZLdn7fqSv8a6lLWWwlAfHm76g4oNKm
+         TtRx1Jp2lc6cXMjM++kmV02H0BXdBOlk8Hxx5RZfT0IN8Y+gWklKCPZ2O78OrZVUsSqC
+         d/cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794932270; x=1795537070;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JRkNuO7f+W9Ho8PIBHE7MaDQUw/2iOTiv6p4KY7Nkys=;
-        b=idCxJL1xaPH4G7KV2UXDeA1IQAi+/qSOSv9dVXncopOy4XoWL6jUGqWohbuCbkOFOG
-         n24Z7lbzNQ9XRfdyJI6BhyVOLguPR05jMW/TFmghi+75vXLRh1MnyDTTE/+848uA53YJ
-         VanfGxGvjf1SxaU/DRAG+mQwrS3rm3KmtUcqxLJl0Gg+c5OhktiLsEgT5qHfX+4sHZw7
-         /bCPoJzxSxLkT4zcdLCzmH6iZTZQRgOBHhgrZITaqd96nvOcJ2KIzPspYWN/8Ij93ugk
-         4kIWm+nsnOFjtNkWkBRLaOBFRyfiyWEsvNNGdOzsRmD/dwfLiOqagi/UAtRkiwuFEEfm
-         tEXA==
-X-Forwarded-Encrypted: i=1; AL+hErHBfy60uL0S5oczqCJQG/8ApGgsT6YGS6lSj8go8dlbQQHFVqc4UGnWTzOFeeK0lws1GYzRmsFmSl1i@vger.kernel.org
-X-Gm-Message-State: APuU4Z8WOibQjW7wNHxJdlCy7DIojxwKKvlMnMQlUiFaZIDnMhcQSJUU
-	l1CGWs9PIh6DSZoPUK3Xe1M7b86huMs5b7nkFQxuPvoQGicKoSROWBKYoPFRbiHnnJWNGR6hbvP
-	ITyb5Ww==
-X-Gm-Gg: AYBFou3xC0YOtHM1MS1DqXl1L73wuWPp39GJpexO5IIB6f2R2eZ0VdU/w8Q3zlpfCU/
-	zLYT/lhR05bU5xQwjiuNdeswiqPnUXFH4YAbV5h3xS6vDEzMvsP6GoeP3IN+Vg1gN42Kl3YrQTb
-	AZ6qTrd7yZ9nmX9qYK/MCpuL4rjAxJu4sZK8og3zazwrvO8C4JYvjnCeRq05jvUm48j+DfIBUhJ
-	dXCX7za0WXk8wvmriMfxN4z+8Fq36ycFrgiWFE3hMljV4559IBz2ASz6DdJ4c7PCNhfm+cBBy92
-	dHvEghzv7JT0BGJCae8rsyD2x4YGkR/fUfyTDjcKcfnishYgN+v1PwNiKX0NmS0wdi/8FH8wDHg
-	X8M9ykNgznSraPFWW2w8UpGb3NIShd6L+29rGvQ3HdxowW7dfMdzPSqyEazEF4HEbHwozA/99DP
-	yBBUJK4EPz5N+HrLIdkLLLorZ8UhcGLdhvub2DisnYfaxZ91a7g5lqBDA0E3BAQKRvufZiTP7AE
-	EMd2Ki5geu7u5A8++dxu4v72VAU0JJx5ZafnMJRsO8CrhV+O2Zpjva6Yz2RlNcaY2nVvCxxw/eQ
-	75P6NVLYd4gRQ/FZ2YAu1QfLw7kTcX3MgMI/ZVAa+0b+nDsjDw3Jbll+oA3JXs10ZtPx
-X-Received: by 2002:a17:907:d88:b0:c36:777f:824c with SMTP id a640c23a62f3a-c50f320cef8mr311735166b.4.1794932270352;
-        Tue, 17 Nov 2026 08:17:50 -0800 (PST)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com. [209.85.221.49])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b886a827casm3388a12.10.2026.11.17.08.17.47
-        for <Devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 08:17:48 -0800 (PST)
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4a5024b3c28so389480f8f.0
-        for <Devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:17:47 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGDmm/XnXU2VlLBTchUKx2OgWmb32ba3mUtz02G0hw2GqtvZdUzbD94uXDK10iXSUAnB9cOBPStKfHk@vger.kernel.org
-X-Received: by 2002:a05:6000:2201:b0:495:728a:5f6f with SMTP id
- ffacd0b85a97d-4a36fc5d49bmr7617593f8f.19.1794932265537; Tue, 17 Nov 2026
- 08:17:45 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794932354; x=1795537154;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PoydfNflc37spVuYW+Qn3aq9PQN/sV/Z8s/hao3VHYk=;
+        b=UAfWqIIDpa4/C2WWpi1VCjVVGY/pCUhp9jCDR5I3hLu/gCjd97WXgt+Zimhq4BrIv/
+         DvLC84R5ICilJfjEDHGvEBZ1wNcqP3K/35VLX/5mpfhbyYpETCPDm963deLuP6j3PI1h
+         2Ti19Aj5y7l7Pn6sjSh1owr5F223bc2iJlUDCGSrQNIZ5gjQVwdvPWw1clbXGuKRDGNA
+         36WN4pVGeYzJIF1oOQNjolGSTxofetf0TkRYPyQWeJl0Lgtgkbo1qfoc0Q0wb+BuePZ5
+         UYPQ8H+UYCCzT1pAa93UvueQDEZolzBCOAdNEuVKZokG07EYWP83v0uRjG81flePZaZH
+         z3ew==
+X-Forwarded-Encrypted: i=1; AL+hErF8cwCztxZtCeKhbT7hHhOxg1TwqPFPw11tXlDIr8ks/d4GdiFhFLlz9j3QspKRa57nvOM+AWKKiicj@vger.kernel.org
+X-Gm-Message-State: APuU4Z+nQbgfVH4sjFW6WSMDwGhWM3rwKYAbRtxVtPi4CkqHt0AZb6AZ
+	e/Ub+5lEdzxYUEeU3CB8OOnVb5tjwgNBNFLeTiXnk3YFFXCX07TIG5UXhRqBH0Dy4aWBZj81ZkR
+	DHSH2OgtQPNBkbCgqSvrrKb/7klGqtgqBn2VeKXkSjYbF18dt5RkeaXZxqOFlxuU9
+X-Gm-Gg: AZFdTZf+A6E9lkHXoncec8+7hl/ADiyuhCoKZElEHfNwk2L3ePRCESBrJedsQeKlVEm
+	Uqrrt56pRROh//oJewQidChViaBqDI5/2Qg6weO0/IbcoC+sBy8lVVxfLgksMIYcfouUEKefHXp
+	qkCwKt6LtKr2bnN/type3aeOvQvWCfDIPeVbRXGerWJcgab12/0aaZtZm8Ou+p0Tl9Rko+ORUWc
+	EqvU1N/in7+3M7Gr/IeDh9a8pHvwmcolJRy/keCF8zngN1JdDDRSAZDX7OynzGILvyJpkJXtjh7
+	ihLNCbvWcQy3o3BT2PHDllsH1v8sf56bBk8FCfo4J1iGvUDOR9ZzR3FWCHgQUgFSq0U+Vq0Giaw
+	/wQB+0SSaohvbDr5FtTqSm3ZAwmSjvKtNAvuqdJmmhmLgvXmJXAOaQgguvifz0rPHGCN8RKzpDM
+	E=
+X-Received: by 2002:a05:693c:894e:20b0:379:c9e5:cf0e with SMTP id 5a478bee46e88-379c9e5daddmr12866903eec.38.1794932354363;
+        Tue, 17 Nov 2026 08:19:14 -0800 (PST)
+X-Received: by 2002:a05:693c:894e:20b0:379:c9e5:cf0e with SMTP id 5a478bee46e88-379c9e5daddmr12866871eec.38.1794932353720;
+        Tue, 17 Nov 2026 08:19:13 -0800 (PST)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm68613294eec.8.2026.11.17.08.19.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 08:19:13 -0800 (PST)
+Date: Tue, 17 Nov 2026 21:49:04 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Xueyao An <xueyao.an@oss.qualcomm.com>,
+        Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+        Monish Chunara <quic_mchunara@quicinc.com>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, bibek.patro@oss.qualcomm.com
+Subject: Re: [PATCH] arm64: dts: qcom: shikra: Mark RPM message RAM as
+ no-memory-wc
+Message-ID: <20261117161904.2hecbffviqjz2dub@hu-mojha-hyd.qualcomm.com>
+References: <20261117-rpm-memory-non-wc-v1-1-e246fc6bc66c@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,185 +132,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116205320.1621386-1-dianders@chromium.org>
- <20261116205320.1621386-7-dianders@chromium.org> <avvOUIIn9t00XqY_@gractus.seuss>
-In-Reply-To: <avvOUIIn9t00XqY_@gractus.seuss>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 17 Nov 2026 08:17:33 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=WAWUn4t8nyjyFP1if=i1ik1uQ4w=w=28i2MKPr=zsvXg@mail.gmail.com>
-X-Gm-Features: Aa3M54oBu4xzuKNJkEO-tZuQ5G1JdKIa1DFQA984jaIf5jsKQ9Mw1Z6-99t_t0I
-Message-ID: <CAD=FV=WAWUn4t8nyjyFP1if=i1ik1uQ4w=w=28i2MKPr=zsvXg@mail.gmail.com>
-Subject: Re: [PATCH v4 06/14] pylibfdt: Speed up FdtRo.properties() with a C helper
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Chen-Yu Tsai <wenst@chromium.org>, 
-	Saravana Kannan <saravanak@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org, 
-	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Julius Werner <jwerner@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117-rpm-memory-non-wc-v1-1-e246fc6bc66c@oss.qualcomm.com>
+X-Proofpoint-GUID: VjaT65wl9pyY98_03figgtpFULCu8cxx
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA2NCBTYWx0ZWRfX6dsnukS+7JSi
+ 5t91vxq78YCIHmNzVemrKX5pIM6GDuOupJQQDpl+FcjlRdy1SuLU2HzrgRPjL9+3KnKLaUuG3Fw
+ RMtBSB5tVT3TnhRp/VNOVOLc8cUTCrA=
+X-Proofpoint-ORIG-GUID: VjaT65wl9pyY98_03figgtpFULCu8cxx
+X-Authority-Analysis: v=2.4 cv=Cuwq4X4D c=1 sm=1 tr=0 ts=6afc7e83 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=I6c21bvp6He-TJasAPkA:9 a=CjuIK1q_8ugA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA2NCBTYWx0ZWRfX0Rb/P1x2lXVx
+ sVq1PcR7ohwpyfA94d75zH4GO45a2OUnYQa8/ytxb+86rgCJPx+AqDe8rnO6bc/azgMKBWEqTyE
+ kOc4b1sRJIZuhXiN6Vzv/woQ5Uyip1Utw8miAfi7hQuIn+KGeZ9DayU9qbf3iN+71C1F59yQses
+ nwj/lDXDBeR6URCDXl2R8KeH2vzKbDFhDXlprkuaosLUnbKJgyzEwljWj1ZtEme02AyqTSahYYG
+ 7cav2/gw5zGRyX3Gj6lw7DY39DXtfiHqEcPsS1baGDITstW4vqRgZIQ4vP4jmyMa3mizRY9Omxu
+ 8B9MgXW2fvND19dRwQ7OdQe5E0JusV85BQT0DhzFzzLe4pKapqQH3beqPhivzGLpxbgJJOaveX7
+ Lb8GFn9gIE7fZLfcjviFTAZLwerbhp4rV7dfMEZSfeh+z4D35D47qyf1Rfuzmllzw5KB3fbYEOJ
+ yueqQc8TRdSDE8lErAw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_03,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ spamscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170064
 
-Hi David,
+On Tue, Nov 17, 2026 at 01:35:50PM +0530, Vishnu Santhosh wrote:
+> The RPM message RAM is shared with other subsystems, and parts of it
+> are not accessible to the APSS. It is expected to be mapped as Device
+> memory.
+> 
+> The "mmio-sram" compatible makes the SRAM driver map the region as
+> write-combined (Normal Non-cacheable) memory instead, which allows
+> speculative reads into the protected parts and results in XPU
+> violations.
+> 
+> Add no-memory-wc so the region is mapped as Device memory.
+> 
+> Fixes: 66664b5701da ("arm64: dts: qcom: Introduce Shikra SoC base dtsi")
+> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 
-On Mon, Nov 16, 2026 at 7:47 PM David Gibson
-<david@gibson.dropbear.id.au> wrote:
->
-> > On one stress test (walking all ~573k nodes and ~2.06M properties across
-> > 438 arm64 Qualcomm DTBs) this reduced `FdtRo.properties()` time by
-> > ~1.8x.
->
-> Hm, optimizing pylibfdt has never been a focus, on the general
-> assumption that if speed is really important to you, you shouldn't be
-> using Python.  I'm happy enough with patch 4, because it's a speed win
-> with a very small and simple change.  This optimization is a much
-> larger chunk of code, so I'm not so convinced this is worth the source
-> complexity we pay for it.
->
-> That's not an outright rejection, but I'd need convincing this is
-> worth it.
+Why only for Shikra ? 
 
-Right, if we're trying to get the absolute maximum speed then of course
-we wouldn't choose Python. For a tool like `fdtfactor`, speed is
-certainly not the top priority and Python is the superior choice.
-Writing it in C would have been a much bigger pain.
+> ---
+> A similar issue was fixed for the Tegra SYSRAM in commit 61192a9d8a63
+> ("arm64: tegra: Mark BPMP channels as no-memory-wc"):
+> https://lore.kernel.org/all/20220622132300.1746201-2-cyndis@kapsi.fi/
+> ---
+>  arch/arm64/boot/dts/qcom/shikra.dtsi | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
+> index 2623e139196f6398c57b616879a37f84b83d59ac..597aaf490519e605d50e24c090bbfb1e47b1f28c 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+> @@ -1347,6 +1347,8 @@ rpm_msg_ram: sram@45f0000 {
+>  			compatible = "qcom,rpm-msg-ram", "mmio-sram";
+>  			reg = <0x0 0x045f0000 0x0 0x7000>;
+>  
+> +			no-memory-wc;
+> +
+>  			#address-cells = <1>;
+>  			#size-cells = <1>;
+>  			ranges = <0x0 0x0 0x045f0000 0x7000>;
+> 
+> ---
+> base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+> change-id: 20261117-rpm-memory-non-wc-c93a6ff3e432
+> 
+> Best regards,
+> -- 
+> Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+> 
 
-That all being said, just because speed isn't the top priority doesn't
-mean it doesn't matter at all. When I started looking at optimizations I
-was seeing my 438-DTB run take ~25 seconds, which is just a bit too
-much. With all the optimizations I ended up with ~12 seconds. That's
-still a lot and it would be nice to make it even better, but it also
-starts getting into the realm of acceptable.
-
-`FdtRo.properties()` stood out in profiling because
-`DeviceTree.unflatten()` calls it on every node (~573k nodes / ~2.06M
-properties across the 438 Qualcomm DTBs). In the pure-Python generator,
-each node makes `1 + 2 * num_props` SWIG calls (~4.7M boundary
-crossings, each going through Python `check_err` / `check_err_null`
-wrappers and generator suspension/resumption) and allocates a fresh
-non-interned `str` for repeated property names like `compatible`, `reg`,
-`status`, and `phandle`.
-
-Below is a small standalone script (`bench_properties.py`) that builds a
-1,300-node (~140 KB) DTB in memory via `FdtSw` and walks it 400 times
-(~520k nodes, ~2.08M properties) with patch 06/14 applied. On my
-machine:
-* Default `meson setup build` (`-O0`):
-  - `FdtRo.properties()`: `2.52s -> 1.50s` (1.68x faster)
-  - Full tree walk: `3.35s -> 2.25s` (1.49x faster)
-* `meson setup --buildtype=release` (`-O3`):
-  - `FdtRo.properties()`: `1.76s -> 0.98s` (1.81x faster)
-  - Full tree walk: `2.24s -> 1.43s` (1.57x faster)
-
-On the source-complexity side, roughly half of
-`fdt_node_properties_stub()` in v4 is repetitive `Py_DECREF`
-error-cleanup boilerplate -- using `PyObject_CallFunction(prop_cls,
-"Oy#", ...)` and a single `err:` label trims it from 55 lines down to
-~30 lines. That said, as noted in the patch notes, ~1 second on a
-400-DTB run isn't make-or-break, so if you'd still rather not carry the
-C helper in `pylibfdt/libfdt.i` I'm totally fine dropping this patch in
-v5 (or trimming it to the ~30-line version if that tips the balance).
-
----8<---
-#!/usr/bin/env python3
-# SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
-# Run from the dtc repo root after applying patch 06/14 and building:
-#   meson compile -C build && python3 bench_properties.py
-import os
-import sys
-import time
-
-if os.path.isdir('build/pylibfdt') and 'build/pylibfdt' not in sys.path:
-    sys.path.insert(0, 'build/pylibfdt')
-
-import libfdt
-from libfdt import QUIET_NOTFOUND
-
-
-def old_properties(fdt, nodeoffset):
-    poff = fdt.first_property_offset(nodeoffset, quiet=QUIET_NOTFOUND)
-    while poff >= 0:
-        yield fdt.get_property_by_offset(poff)
-        poff = fdt.next_property_offset(poff, quiet=QUIET_NOTFOUND)
-
-
-def unflatten_walk(fdt, props_fn):
-    off, depth = 0, 0
-    while depth >= 0:
-        props = {p.name: p for p in props_fn(fdt, off)}
-        if depth > 0:
-            fdt.get_name(off)
-        off, depth = fdt.next_node(off, depth)
-    return props
-
-
-def make_sample_dtb(num_nodes=1300):
-    sw = libfdt.FdtSw()
-    sw.finish_reservemap()
-    with sw.add_node(''):
-        sw.property_string('compatible', 'example,board')
-        sw.property_u32('#address-cells', 2)
-        sw.property_u32('#size-cells', 2)
-        with sw.add_node('soc@0'):
-            for i in range(num_nodes):
-                with sw.add_node(f'dev@{i:x}'):
-                    sw.property_string('compatible', 'vendor,periph')
-                    sw.property('reg', b'\x00\x00\x00\x00' * 4)
-                    sw.property_string('status', 'okay')
-                    sw.property_u32('phandle', i + 1)
-    return sw.as_fdt()
-
-
-def main():
-    if not hasattr(libfdt, 'fdt_node_properties_stub'):
-        sys.exit('Apply patch 06/14 and rebuild pylibfdt first')
-
-    fdt = make_sample_dtb()
-    offsets = []
-    off, depth = 0, 0
-    while depth >= 0:
-        offsets.append(off)
-        off, depth = fdt.next_node(off, depth)
-
-    iters = 400  # ~520k nodes, ~2.08M props (similar to 438 arm64 DTBs)
-
-    t0 = time.perf_counter()
-    for _ in range(iters):
-        for o in offsets:
-            for _ in old_properties(fdt, o):
-                pass
-    dt_old = time.perf_counter() - t0
-
-    t0 = time.perf_counter()
-    for _ in range(iters):
-        for o in offsets:
-            for _ in fdt.properties(o):
-                pass
-    dt_new = time.perf_counter() - t0
-
-    t0 = time.perf_counter()
-    for _ in range(iters):
-        unflatten_walk(fdt, old_properties)
-    dt_unf_old = time.perf_counter() - t0
-
-    t0 = time.perf_counter()
-    for _ in range(iters):
-        unflatten_walk(fdt, libfdt.FdtRo.properties)
-    dt_unf_new = time.perf_counter() - t0
-
-    sz = fdt.totalsize()
-    print(f'{len(offsets)} nodes ({sz:,} B) x {iters} trees:')
-    print(f'  FdtRo.properties() old (SWIG loop): {dt_old:.3f} s')
-    print(f'  FdtRo.properties() new (C helper):  {dt_new:.3f} s '
-          f'({dt_old / dt_new:.2f}x faster)')
-    print(f'  Full tree walk     old:             {dt_unf_old:.3f} s')
-    print(f'  Full tree walk     new:             {dt_unf_new:.3f} s '
-          f'({dt_unf_old / dt_unf_new:.2f}x faster)')
-
-
-if __name__ == '__main__':
-    main()
---->8---
-
--Doug
+-- 
+-Mukesh Ojha
