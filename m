@@ -1,124 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794903523;
-	b=VqaohY6QOYkArmhlmuUtHUwG0hOM15wi+s1tMSOb3D/PCi2N4mO6GndNSpI+7IFCBRhH
-	 5mwX7kMwxngUcgbrvrN/H5y4QBuUJV+JKTmC2H7gXNnrE/RSc+2Yzp3ECdhzaUgafWebH
-	 hijskvrsfqZk797tUfVw/GQ6SGMU90Ac8irs/GzZNBc6SK5nVoeM2jTs0vS4eF/L7KrJ9
-	 du+jQtFOJgqbM4x6GF42pnirG3BavYfzyHTIqrJCfYR3P0OKqRltIIpGmUgrIL5Af4Gb+
-	 BY8qByzhe7wUzEHDthOa8HioLwL3eYr4+l+u1QSph53eSAcRCYxc6NALzs650B6zmtw==
+	t=1794903598;
+	b=nYL0veqh22bvGVuheyRi89TO9eiisUMNHoU6sG3mgNkvoLSQtAz3RDYxwuj+1iPabCfl
+	 7kEmBHL+DEM42JnY1wXfhCZtI6THqOmRHpa7l+SIGCwZ9HPjgR7V7J9JfKEB83oY/w4QD
+	 wifZ5r60/kk5QkTjApzzkBTwAMovK4qbrOrmBiV8bcf4efd7Q89GByLEnffcLjhCeBiD3
+	 t2+xypccu/jIbecA3ozGGHiNh4/GQn7Sq8qDUeCnZLlaX/xXkvncN52+wZzAIJpVjZc6y
+	 JzeEm9wEik1nOwbB8dxTz33hCyaSyMdbow1XkYsQLdmVNcagpu2liKMUgulUujRczdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794903523;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=iqqBYT2o0voYJAEWiV2QpKz7FUCuNKLcKQcPAzyGKuU=;
-	b=fNBRH44K7Wy4+/himFATlNjzqlzwnEVEkABe0VLR+Yngo2h0FM7EDbxn7CNeeo2YNtKU
-	 lsbH9DQ7VCD8d47KHzGdaBX+civLiGqwR5DiGtGCMgUzVlxphlAMaTxMfDw5SbYzaqRuh
-	 e3bczGAb9RxbDDQqfF+8RuZh0QZLswVLFN9twvR6qTV/WE/RWniZiAthfmH30UrHfy9Ih
-	 ShD/U1g45rMZu5bTbJU2P3S75TdDuimWWR6gbe8/flzWvfAokWWAJodReqxT63So+eL75
-	 A5Pq0TotqiCS7+QNxluptzM3oNtZtdaz7CsSWvx4QINzFQSq25y1E63bMqa4vJHqlMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794903598;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=I3Fkl9XyeBJ93i7we3bJ3zegOituPdovXvhT1Oiv6l4=;
+	b=qpHvn4W8sIPs7qFRjG2GyIzRiAshio7Udnj1j3prksal+zstYQxAEZatbK09rP8Okgji
+	 fdWujzwx6n7a6ZCbY/C8PBrnS8V+5YfejRRGhNinm2v2y/Ag8jo90M2skB8L1kYWXKiUl
+	 FhNRK6Vc5lcFLnmzZb1VOeKJ1QAQBCKlhzHZA6iKHPeddKbwhhiSBBJM1HifRBc5RdsvE
+	 sUaVbdJ6MOGA1+9+do1QBerjk1llF/CoSgYUHzs/eQCsVLR7PsBW9Cv7Ybai8HYYiSGlv
+	 AleAx5dGFwgK480OASzHq54a3HnW4cZUqDLqCFuE39lr5aNB58dFAqxR05tb+fwncYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UrZv0HG1;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iKMz2X4V;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i7y+9rDn;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3108606A329
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:18:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3108606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F20606A31C;
+	Tue, 17 Nov 2026 08:19:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85F20606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UrZv0HG1;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iKMz2X4V
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH2amNu1801789
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:18:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	iqqBYT2o0voYJAEWiV2QpKz7FUCuNKLcKQcPAzyGKuU=; b=UrZv0HG1/5tiJl7o
-	QYUgONRGH/Ftc1BNXgagMHZZt79S3RXOh1w/gGDO4dMcyhW3POOU9bxRm9FTkSCz
-	lbYlivEUItvQuMtZs7XHpbeixpE7aT532Rp4FYiwT5kjhIr6vggPWTlJXZbYQQPn
-	gvCSL6gzxWO8Zs1sLHVpoXnNxwvCKKF1CyU3pB/32JwhXY4df38PbDJYP8B4byNH
-	LnudeoSo9oWspfsZzZJAke7rEzVeAPzr0qdnPncibo+aB/XSb6hhcomGLKAlADl5
-	XoQbY6M7ejT619jnXoWfCwGPzeWEZ0f23WsHjEUYiKdXVVTUF3AlIpR9gFtdgOm9
-	jrDWtA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j034y3tub-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:18:42 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f559420f3so466651185a.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 00:18:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794903521; x=1795508321; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iqqBYT2o0voYJAEWiV2QpKz7FUCuNKLcKQcPAzyGKuU=;
-        b=iKMz2X4VFJRyYwloOVlwUiRSAG9le+Wu4h0v4sQSfW+YvZ3DcSWv3hg1rOYkV+OrbH
-         WRfSdCeLDEgZgIkY+I8+roOW+5uzPbZkBnV+wDaL8gieCmh4bPgOvbaJS61ZqRdMTOvh
-         EzLwpstrMGdrtF4Iyh8n56Sw44b8EHa4mYwW8erd0ohCeuP8xUg1sVCvaeSGKpm3VOsR
-         F2Ik1dzdHeU/eHKtQobFgYQD3QU282SLVlgfEYMfzaP8OCFWCkl9sXx/1XzNt7Pt2/R+
-         KWdyh0E1HRRJtS+FNhJgCwiWaLDxlCz98cJj3kgcznr9IAW3pdNfGljwrmR2JCJbTNze
-         ltMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794903521; x=1795508321;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iqqBYT2o0voYJAEWiV2QpKz7FUCuNKLcKQcPAzyGKuU=;
-        b=d3XVc+/CEpL4zpBEKLI8ONe8imDjU/AoPU1NazFmrLZF0p5Zsh/4J0SWj92DMHiXaY
-         uYcvgxtr5KGypW39vD2cTD0KitdM52fTuKP58OVoUXNeP4y+Zh1ddtwaIWS2IVIjdspC
-         8vh6LfMe6Naf7IR3suViTyZAZgrC0navyM+UBZVh5AhT0GycP0lEVUD2+EfrrMVm22WP
-         R30OMcdk9+DWCegI9tErP9ErzGbeE3aQq2QJj5AxSdOhFupYNY6OeccMYUBbGO2KNEnl
-         C+LjpteZcWnJgqe/7WYxpL6vdvjdBDff3opyGp1b++Avot1kHVuSZ75dIaPIIWCiq0tQ
-         etQA==
-X-Forwarded-Encrypted: i=1; AL+hErETJA0X/NsDK7YgEccoCcMR6rsZ+Hjbl10VdrjNjTN64fzJ6HJkOxvlxq6/0DzrkiwUCXCOj3fjvMTz@vger.kernel.org
-X-Gm-Message-State: APuU4Z8HJAsMHvNaKMoBbo1mHKe08NZi81GpIOwlLmWwa+mi689axYzD
-	Wav6ByiRjpoSCzMMcycuOMs0eA4ntdrKtyb5tbOrx4C7NWL9EMv6lg6XaVhuHVNJD8x6pNYTtYW
-	Vv9Nw/QIX0hUCVl7l19FgPL0Pg+VbCI44DGr76MtdK2ZLkU7dHRuM2ebUiLdq/b1k
-X-Gm-Gg: AYBFou1uiEAu7t4nHz7reo6tly4gR99F6EA6P1O0fi2jXJORYdCwKQo5l72EInckDIG
-	n2TZr8QDypD9h210Cwq+NHuUqbru4wvJJWMedeSegdFxeWtUN06A3wOlXABPtgjZ5QASW8eyzNY
-	SAJSjV88+7un3jVIPC7QdKZZVJOzestbjzoJK6CqugtT0+azSdbk9ZRcsU42nzxANRojyOmv9gc
-	X2LHckRmQ67syKUdRHsMp6BCEQ6lvFKoxudU+180jYEC4lUpUvKuIdThhXlwV0Rx/RqgQ0gv9Je
-	hsaYO60sm0oK+hVgpREXN92YVEgw3kMZs6Epmb9/6DdvvuCJ3O6DccfNaausVQ6rkpmASA7CNS3
-	L+rCLkrYPEP77m7A61B81RZ3XKSC+WVYfIZwG9GaMUqMqZkyf8FaTtKl7OgN6y4cSUVTmpj7jTg
-	s=
-X-Received: by 2002:a05:620a:a212:b0:949:60f3:1cdc with SMTP id af79cd13be357-94960f31e90mr1296400485a.10.1794903521011;
-        Tue, 17 Nov 2026 00:18:41 -0800 (PST)
-X-Received: by 2002:a05:620a:a212:b0:949:60f3:1cdc with SMTP id af79cd13be357-94960f31e90mr1296399085a.10.1794903520642;
-        Tue, 17 Nov 2026 00:18:40 -0800 (PST)
-Received: from brgl-qcom.local ([195.50.164.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78344ddbsm54700015e9.0.2026.11.17.00.18.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 00:18:39 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        linux-gpio@vger.kernel.org,
-        Joshua Scott <joshua.scott@alliedtelesis.co.nz>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-        Sander Vanheule <sander@svanheule.net>, Bert Vermeulen <bert@biot.com>,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] gpio: realtek-otto: Add RTL9311B support
-Date: Tue, 17 Nov 2026 09:18:37 +0100
-Message-ID: <179490351545.13804.18132721202337342128.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109052808.3035449-1-joshua.scott@alliedtelesis.co.nz>
-References: <20261109052808.3035449-1-joshua.scott@alliedtelesis.co.nz>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i7y+9rDn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794903597; x=1826439597;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DOlTHnyUnnAelhHtUudZM11kzmmgyaQhPXcXCXIAF+k=;
+  b=i7y+9rDnK6VPLXqYgCoARYac67/tchHd3BmVjZe9TAsTM1cgUi495iYN
+   nqsOnJRWBw9M2WqEY25j/qm+BrqGEBk5qWhbJVi9g2pSC3j/ApkFpd82c
+   1i3s1MGxvBKrIwDZukSrnndkpaNCzG9MNUpXXIj3mh3gdGq6UXbSR+kwF
+   f5JRCjqGdanbfDJB5quyQQdL0BOq/b4B9LCuZZNbBpnOxCHw5BjFeilW4
+   Y+eXnqshQcHA9pwkVNPlU+bOKIizb7bg2zDCwN4FawHCFPudp7hOL0kNh
+   Q/W3KSCrIEIeFNMCbirisPW/Kxih5aWj7OBX22eZWR25pjC4O7o47OoCY
+   Q==;
+X-CSE-ConnectionGUID: 7g/bQgUyQqmsUkoX+VqdHw==
+X-CSE-MsgGUID: WC2ch5NFQLuGdAgg4WJ3Rw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3675968"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3675968"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 00:16:29 -0800
+X-CSE-ConnectionGUID: b9k/il8sRMGH0E3V6Vysag==
+X-CSE-MsgGUID: j9iOPpV3RBSvNCi32ETp4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="10125478"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 00:16:26 -0800
+Date: Tue, 17 Nov 2026 10:16:24 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Peter Rosin <peda@lysator.liu.se>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 4/5] iio: potentiometer: mcp4018: Turn on the vdd supply
+Message-ID: <avwNWJnsOQaZSWi8@ashevche-desk.local>
+References: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
+ <20261116-iio-ad5246-v1-4-ef6b7c06d4b0@telaak.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -128,58 +88,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: ImG4spDZDkSZCABR9UYgP1HBiw45p5kA
-X-Authority-Analysis: v=2.4 cv=aNZlOr9m c=1 sm=1 tr=0 ts=6afc0de2 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=PLZoExqmlYKt_qTplwoA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: ImG4spDZDkSZCABR9UYgP1HBiw45p5kA
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAzMiBTYWx0ZWRfX0n9CNOfcSKa1
- vAZVQem/45R8xw/SrY2g9Q76q7du+3nGNMqRhlACaFAIA1y2HutfYVWp5WEdAkQATSLrU+7mUkh
- zRSR+IxOCEvfp1U0TyntM27ykODMS8c=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAzMiBTYWx0ZWRfX+wPQ2gLkVsgM
- BWGqLp0tUXZtu5wtHknjJpIX4XXWDnZtN0f6yHAWNlVYAtDyRCcvccSsok8QWiDs7bx9FIwf5BO
- eWV7qhSyzp4yjILq/v5jVIFlqogd8n7gfO7xw/ccht2GGH2AaQaY2kEGo/NuzBylNm5UdcO1GQB
- xViYtqEV91k9NcwA6Q2Q503Z4DZQ4OomTWZUsA6lCUANNWXVKgXHa1QXh50d9gUbHyrNm6wktuL
- 0GiRfezGM57R2GuDT3VGasBXbOu8rFKwZ9k9YSgPb3rKT8vfkPZTNaKDuJ8lnFKW0WVb9pPpSV8
- mesgBzL0vci+2KMrJn9umixKATWV5JJMq1vDDJL2DpyK4IMauWNffgHhAUKkvnQH27QWCymSglc
- sMBelE08cso+WyUhQFzRZpiuhZRZ4JbfwV4fZ4y9bnHBW1D3cYI/haZX+6JFlkZYa0E9hxSo9Hf
- mte6BaL17YdaMF0mUXg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611170032
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-iio-ad5246-v1-4-ef6b7c06d4b0@telaak.dev>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Mon, Nov 16, 2026 at 05:59:53PM -0500, Joseph Telaak wrote:
+> Get and enable the vdd supply at probe, so a board that switches the
+> potentiometer's supply gets it powered before the wiper is used. On
+> boards that describe no supply, this gets the dummy regulator.
 
 
-On Mon, 09 Nov 2026 18:28:06 +1300, Joshua Scott wrote:
-> The Realtek RTL9311B is a network switch with integrated ARMv8 CPU. Its
-> GPIO controller is the same as the RTL9310's. This series adds a
-> compatible for it, with the RTL9310 compatible as a fallback, and lets
-> the driver be built for ARCH_REALTEK.
-> 
-> The RTL9311B node lists "realtek,rtl9311b-gpio", "realtek,rtl9310-gpio",
-> "realtek,otto-gpio". The driver binds through "realtek,rtl9310-gpio",
-> which keeps the interrupt controller; "realtek,otto-gpio" alone would
-> bind with interrupts disabled.
-> 
-> [...]
++ dev_printk.h // dev_err*()
 
-Applied, thanks!
+>  #include <linux/iio/iio.h>
+>  #include <linux/module.h>
+>  #include <linux/property.h>
+> +#include <linux/regulator/consumer.h>
 
-[1/2] dt-bindings: gpio: realtek-otto: Add RTL9311B
-      https://git.kernel.org/brgl/c/13c7bc6932c08d6c170b4a8108d3faacf7cfff71
-[2/2] gpio: realtek-otto: Allow building for the RTL9311B
-      https://git.kernel.org/brgl/c/6884633429d1581ecdf1329ff11f8e34a83264ab
-
-Best regards,
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+With Best Regards,
+Andy Shevchenko
+
+
