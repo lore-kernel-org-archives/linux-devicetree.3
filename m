@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.58
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927899;
-	b=LLbOYogGmWAAZVHBh78t0LmLBCC/WhD2FTveIhu8klIKjLIHQ+DQAXzy6qXsG6VMl7o6
-	 j4z8Dio7sBnSNnLhMV6EGxEktFQMQm7R+t5K0xP2VyejhZ7Wn58xTBp+2JI2sHzCOViOR
-	 8d8qfZaKEaT8JUc+QEBmNvH9bsHQgTLZJBWGBQPf//1h8KFdMdKi066QTmOd30cPZU7Mt
-	 ZxpwndsWc5ucRfTiuO+eOT2njLsBIxe/hL/mJsARIAHtmOfjkmMed+55rsEJVFWU42lkl
-	 3ltEtR3+goKj7b8Xyx2UH9KyOq4XXJDUtuACrBcWx+IvkO6DK7IDpTxbLJwqdXuj8jQ==
+	t=1794928182;
+	b=UhbxatJrsNnHhrCIQ+XmgmUFNYLmjcI8vVn5tryWN1GuitvLTsfDQxB9+2JZXIxmP2gs
+	 2k8LTirepb7470W+3LvmlV393dLrQxnW6XL9XU1QBbWeQXGX4l8N3qhFgmdxiERanY8Km
+	 XuQGyTqooLizmN4kbbRBOyq8OnC8IF6Gt6jj6Q0N3Ltt+x14yy219zLRKSF73xvovOl04
+	 Lbvft0yJ2m6NDx68UysNJH1g7UdB/HM5Ub3RlP4KORjzxrYV0fRUEdbYCfstcqrZ7LCtq
+	 QEjF+rS88QYgYSH9RykX6F9AxN0wB3eJaJbd0A+WUleW9rsKb1xyLcZmEjbWljyK6SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927899;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=YGp9PC/3VbbJew7o6lt7FFNFnWRQ4swf3eWUT365kY4=;
-	b=TOy1RgKUskD1byhHUbGqa2V+xw6neonzWmP3UUhzZ3jbgjfad5KU0yOKPcPIqlmItD+T
-	 RZxOlvNp6UUHXrzTih9rqVxvpTA/VpgkcpD/5BbAaLmncB6iyYEa2rPiQ/mBAyyW6/qDa
-	 ucEPFtRX4YLUsHX7mIHrV9IjipTDfopf9w7FWPSSba+tRHQ14/fhfQUEVPlHtX1lo6OUD
-	 7z4V2eHr6bOShyhzZHx4oD88AwbL1o+bnKDut6yM6KMgztb9CJVhx9tKE/9ZCzYuY8fLS
-	 gXzg6VkyRk5snYhhg7EAdGY5HAIHkh7KeXd5RGgFGJ6OI45tfycQM8xaLskbdFafpvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794928182;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0sIqEz1LaF2+KzKunroBAMsjb5ekTIA0W1B9PutTqFc=;
+	b=XWzgfgxYioNQFvO8210fv5AqcaY494fn3W57HJi76UeiKWjdgN5n2u3MsAy2KnAdXnWJ
+	 HvKL//L0oc2qFe9XCh2qVvaFBYLQD/mCPI95toym0M2WO/AX5UBS4PqO+8tZfCtmnBEZ/
+	 7TH1anUwG49WBc1HcdonX+ORr3oL0cwrNDc5hZHvin9ACrLsO4y//KHgJl8U8qN6gqRSE
+	 Acmoq7jbpZwzofM7shdGxJJy4rlcucGc/dev3FVcdyRlEXXNO+cSrRdOYbacstXwbUOjb
+	 TqD/oEnMZ3rydgg//rw8g4wznO/Q58sd6jnmZVb8hiNYvPiothIJGbQ/qox6j6jwxLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Gd6ZY2Up;
-	arc=none smtp.remote-ip=95.215.58.58
-Received: from mta1.migadu.com (out-58.mta1.migadu.com [95.215.58.58])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nU+uJ0Kr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED303606A333
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 15:04:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED303606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2E9606A31C;
+	Tue, 17 Nov 2026 15:09:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Gd6ZY2Up
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EF8PbkYJiw2SNYIbhXqCwRQsFcWPdAKgl4U2nMsfivM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794927896; v=1; x=1795532696;
- b=Gd6ZY2UpdrZJMbZpVdKAc3uir6WaMVnLKdTjum8VXcuGFY1YPLjTTyGn2Ktuoh2tal6aJY3t
- 0/60LtM700/6qvKKkA2U7OEHtJl9Kz5xQtyU3g/QWrW6Zcgl7ps2kqOUXU3Ptm4TPtdYd97xYQZ
- g4KmAm0xJpKl8qE1T91IgtLA=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b65b25fb13c5725a;
-	Tue, 17 Nov 2026 15:04:55 +0000
-X-Mizu-Trace-ID: b65b25fb13c5725a
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 17 Nov 2026 23:04:29 +0800
-From: Peng Fan <peng.fan@linux.dev>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v6 0/9] dmaengine: add DMA channel bus and fsl-edma
- per-channel IOMMU support
-Message-ID: <avxs_TU6FHn7MMx8@fedora>
-References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
- <20261116193021.GB2452510@ziepe.ca>
- <avwQl18smAW4R6ec@fedora>
- <20261117130005.GC2606445@ziepe.ca>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nU+uJ0Kr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69EC71F000C4;
+	Tue, 17 Nov 2026 15:09:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794928181;
+	bh=0sIqEz1LaF2+KzKunroBAMsjb5ekTIA0W1B9PutTqFc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nU+uJ0Krv/p0zWWmbRGyr1cPRYUXNvjVxk5FBIqRmMr8PQf7JbrD3NugbmbwUvj7o
+	 oY3tq8uk4EIvesVz5P4WZFmIWC13vtmkuD/qiH1SMu2Rh/+AdT0fOCA+ldPuFH8a/h
+	 WIBmH/4LtxT/Fhnn2gEAqF7m4Y/RQXKH3uHLsWkJcqPP43Bh3TY3IdeSh7YEhRUoUL
+	 2Kxl8N5om3m/klIYFP+K68MrfRDpPv4dxpZHH4qPsApOrh9drc2S3hzza9iue/8UiN
+	 imdSMvgmyWtOzsAXTNUgWqJfOGgGA00oFWZuBN1twaWfVpEbCfCibZc5wprRCerWyf
+	 fO3yHxVFLPUFw==
+Message-ID: <53298044-3595-4231-a498-d78052799727@kernel.org>
+Date: Tue, 17 Nov 2026 16:09:35 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,108 +51,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117130005.GC2606445@ziepe.ca>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: mediatek: dpi: Add
+ compatible for mt8167
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260921113914.779393-1-l.scorcia@gmail.com>
+ <20260921113914.779393-2-l.scorcia@gmail.com>
+ <3701981f-cdda-46a7-8079-de5479ae9c27@kernel.org>
+ <CAORyz2+wF=VDTFkRFU7jBu-zNTW7T8mnPrJZAj8ZVD-Yyr2b6A@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAORyz2+wF=VDTFkRFU7jBu-zNTW7T8mnPrJZAj8ZVD-Yyr2b6A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026 at 09:00:05AM -0400, Jason Gunthorpe wrote:
->On Tue, Nov 17, 2026 at 04:30:15PM +0800, Peng Fan wrote:
->> On Mon, Nov 16, 2026 at 03:30:21PM -0400, Jason Gunthorpe wrote:
->> >On Thu, Nov 12, 2026 at 03:53:03PM +0800, Peng Fan (OSS) wrote:
->> >> I used iommu-map for eDMA, but iommu experts rejected it:
->> >> "Using iommu-map to describe synthetic dma_chan_dev devices that the
->> >> kernel creates is the same kind of DT abuse from over here:"
->> >> More info: https://lore.kernel.org/all/20260917144804.GI3196566@ziepe.ca/
->> >> 
->> >> So I followed here [2] as Krzysztof wrote for QCOM VPU:
->> >> "Thanks Jason for context and detailed arguments. Robin did not chime in
->> >> yet, but from what I understood the DT-child-node approach will be the
->> >> way we should go here.
->> >> 
->> >> I accept above point of view and I am fine with this, thus Vishnu and
->> >> Vikash - please go ahead with DT-child-node solution we had some time ago."
->> >> [2] https://lore.kernel.org/linux-iommu/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
->> >> 
->> >> This series adds per-channel DT child node support to fsl-edma and, as a
->> >> prerequisite, introduces a proper bus for DMA channel devices.
->> >
->> >To be fair this is discouraged too, now that I've seen 3-4 people
->> >trying to do exactly the same thing I'm not as positive about the
->> >DT-child-node hack.
->> 
->> I may not describe it clear in cover-letter.
->> 
->> I understand the concern. Let me explain why I believe it is justified here
->> rather than a hack.
->> 
->> On i.MX eDMA each channel has its own interrupt, its own register region,
->> and on i.MX8QM even its own power domain. Each channel may also have its
->> own Stream ID, or share one when SIDs are scarce. These are genuine
->> per-channel hardware resources, not software fiction.
->> 
->> In dmaengine each channel is already modeled as a channel device (see
->> dmaengine_chan_dev()), and this series puts those devices on a real bus
->> (dmaengine_chan_bus_type) as a prerequisite. The DT child node simply
->> describes that existing device, so its reg/interrupts/power-domains/iommus
->> are attached per channel instead of as index-matched flat lists on the
->> controller.
->
->If they are real devices then why can't they come out as platform
->devices?
->
->I think you are overstating how independent they are. Many single
->devices have per "channel" resources like MMIO and IRQs. That's
->totally normal. It doesn't make the sub resources independent devices.
->
->AFAICT what you have here is some HW designer used SID where they
->should have used SSID and you are trying to hack DT to make that
->usable because Linux does not support a SID as SSID model today.
+On 17/11/2026 14:26, Luca Leonardo Scorcia wrote:
+>> Turns out you bring here undocumented ABI. NAK.
+> 
+> Hi, I'm sorry but I don't see the relation between this commit you
+> just NAKed and the bigger issue about mediatek-drm alias usage. It's
+> not like I'm introducing anything new in these DPI specific patches
+> and the individual display block drivers do not depend on the aliases
+> (they're used by mediatek-drm for building the pipeline).
 
-Thanks Jason, that clarifies the core issue.
+To clarify: you do introduce a new compatible here and in the DTS. Here
+it is documented. This is correct.
 
-Anyway, I agree that per-channel MMIO/IRQ/power-domains do not by themselves
-make the channels independent devices. The real problem is that the eDMA could
-have separate SIDs for channels that are logically part of one controller, i.e.
-it uses SID where an SSID/substream would be the natural model, and Linux
-does not support that today.
+However your DTS introduces also new usage of the ABI - aliases - and
+that part is not documented. New DTS cannot use undocumented ABI. This
+means that the binding was not complete. There is a mismatch or missing
+pieces between the binding and DTS.
 
-So I'd like to step back from the DT child-node shape and propose a
-generic direction:
+> 
+> I understand why the commit to the dtsi that includes the aliases is
+> NAKed, and the eventual fix is going to require a change in all of
+> Mediatek SoCs dtsi. I am fine with the dtsi changes being blocked
+> until an appropriate solution is found. I just don't understand the
+> NAKs on the DPI components.
 
-- Keep the DMA controller as one device and describe its channel Stream
-  IDs in the controller node (ordered list, no per-channel child nodes and
-  no requester-ID map).
-- Add a generic dmaengine/IOMMU mechanism that assigns one of those
-  Stream IDs to each dma_chan_dev, so the channel gets its own IOMMU
-  context/domain without inventing a DT device.
-- Use the SMMUv3 shared-SID support (still under reviewing) for channels that
-  must share a SID.
+Because this binding in relation to your DTS is incomplete. Of course if
+you drop the aliases from your DTS and this will be your final and
+working solution (bindings and DTS should be complete) then this NAK is
+not relevant and can be ignored. But in current form your bindings are
+incomplete and DTS after correcting won't work...
 
-This keeps DT describing real hardware (the controller's SIDs) and moves
-the Linux-specific unbundling into the core instead of a per-driver
-binding. Each channel occupies 64KB MMIO region and works independently.
-With separate DT node, it will be easy for us to do channel device passthrough
-when using Xen hypervisor. Now moving away from this, the remaining question is
-how to expose a channel for Xen/per-channel passthrough without a per-channel
-DT node, seems I need to add some code in Xen hypervisor to support channel
-passthrough.
-
-Would that direction be acceptable, or do you see SID-as-SSID support in
-the IOMMU core as the required longer-term fix?
-
-Vinod, Frank, from dmaengine perspective, do you have any comments?
-Rob, you reviewed DT binding patch, do you have any comments?
-
->
->Again, since this is the 3rd - 4th case like this, it seems like a
->popular hardware choice and we should try to do better to make Linux
->support if we can.
-
-Yeah, I saw QCOM VPU case and thought child node usage was agreed from
-Krzysztof's reply. So I use same idea here.
-
-Thanks,
-Peng
-
->
->Jason
+Best regards,
+Krzysztof
