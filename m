@@ -1,47 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907688;
-	b=CfXgCdK7GcFrsgEY7UgKjNdXXsHVVhdZij8FVKZCUMfuL30Fys+EEPT5knovw5QorI08
-	 8Ugd3mMWyYdUAV19pW4KPSetUt4TpV95K9vK/dJBONIRFyqx+HwgQQCyBTUqY+ALDsmrz
-	 +5qUjuvhuiY1hvPKYvfFjeDxn/gdEXdJ/glhOS5xD4Lf+MJJJeb5rdyRO0OU9XhfU/nfE
-	 tAvgbgjENPJpU8QmV2dyIaDW4qIiHgtTJEaQXwF0ilR+4Q5FRP5SM+yGh0EUg3x93t3Io
-	 CP1JG93wL4YO7mR/fd1VBemx/UDDaJwIGGa+jEAymcHqDEpwEPuCHFz9S6KtQ+deTWQ==
+	t=1794907752;
+	b=jqkilJu51IQ+IyhH5ZmdIR1F7y5e7aO/5hrJ4xefzYKwpVFRtbe2iGkozd1tkNDiuvcL
+	 DkhFYFAC0xDiMB3uO/2gjmXXPEhZACa8UohkeFHBkPUfU9EeLoes3SIIusX2vlsSQyaXR
+	 PHtNYKQGcnmZ1e0KiFLkP7hLtRhVTTsgCDNDVGGDUr+7z3sv+9AwGIgxbh3+uJUCMkewK
+	 amexntZdHxc2iPG5o9o7JQLE8oR7UbcNbHBUlhbXGDOwS6ic0WBdBFZf8PJf3nypfrLin
+	 RyyFWwCvEmGSP0XPVNSCKPNvwFNybwZkiRIUWbPToQGSq5CsNhx5B2RXE9XM6zXvYmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907688;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bMwZ98tR+fJ2rsFy4jjt5sBVqkBsJ0OsgXXatx5V4Do=;
-	b=yFYzfn0nJmrpW0M6cpHOy8yGUJaY2mb34DNAd3O6AnR5tmcXJ6M2zLuV4RwbpUKUEANh
-	 WMkDl751YBrFs4sh5+xGmSaYd2AZwAMfnfXtWGMW798kgVcT5RLsWKGo4cqhh0KAlYNwo
-	 iZi+aFvfAbT+b4EbTLl5vrj2vmQh1Ix+EDEsVE13jjNiG9KIbd9/TjN7mCfucZcrzKkwS
-	 Y7V+m/n2t7SQMiAJbp458GuGvnrgDOHgg1PNG6W6u2CL9z+hnowinNNPk6/6mezMpVEqA
-	 qcN5fB5I+YLtkm1yJ1UR8GQYDaw4zQWVzA6syzKhMqW1ushQIFjEyUtprjjKZWUQy7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907752;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=dF5MViTg8YOEEudif96/pwRP0E0s9rCachj6JTmLUVQ=;
+	b=3EV+I7ojmK6D0vn+5gObrcXtjlqlBioATAFDYURN9kc5YTfxrDFebrVMqOsgMRqdGxkg
+	 QAo9pLe+p1wy29iqUmV2+Ybdgqs8T8H/h7hFQOpn+77MsDt+GMQg+DGjShnDFc0AnjPn6
+	 p/5S342zbL38FOmRYBqpwOgCCAkO6XTBbE7JDLJXhEzOGLgy24YsEpHrtC2BxpZlvtPOV
+	 wT8j962iU5koLJBdOifmmP8jDvrOktWhKTqJ+hMcdx6mOq3rZe7LOtVQL0pQXhGh/MWWj
+	 qQ7bFpJf/9exPjrjtMvSDZIyEcD52dlwvQceftPRqttL1F5rtyiHToly0z4V7SpHQIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wn9O5Rbi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29474606A31C;
-	Tue, 17 Nov 2026 09:28:07 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=msinmYKc;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9AE2A606A31C;
+	Tue, 17 Nov 2026 09:29:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE2A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wn9O5Rbi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D52171F000C4;
-	Tue, 17 Nov 2026 09:28:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794907687;
-	bh=bMwZ98tR+fJ2rsFy4jjt5sBVqkBsJ0OsgXXatx5V4Do=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Wn9O5RbifV6CDOuyzqofXPRk9RurQUJRV+ImB8vP4/0Vzt9xDcPQ1/JXuX+X1g1WB
-	 P0XMMaJbp+zrcRqdZRr0UIFzMO0NeAE50dBB7EfyZcg6rek/04LEEj7h1545JVQWMh
-	 0uJRREJ1JuEvbWLFJlFMLUM7jvBSxsa367UonGjhS7pT4EBNveDbuO/F8KQkYybqh+
-	 LTEAoOLqgFEb8Gs7ePPzFejjkMlK3crwXCSKKcfwhZXJL03yEYuKQFTBA60e0czE05
-	 5YzI9R7Wr+tBI+s2rCYF1rY02LM6Fikgg2Ua8NL6B3e4kg7zLJDIlOFXtLum5VP62g
-	 FbpGbAFifvsCQ==
-Message-ID: <9078a957-c183-42cb-84a8-0f15661fd23d@kernel.org>
-Date: Tue, 17 Nov 2026 10:28:03 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=msinmYKc
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9C4DE339;
+	Tue, 17 Nov 2026 01:29:07 -0800 (PST)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2934E3F673;
+	Tue, 17 Nov 2026 01:29:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794907750; bh=kYJCY4Q16lrxSHjHkE75I7AzcqNZxfjGXDBq1dW4/kA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=msinmYKcP7h/+3CgM+h7kdrK5GrIERhYbL2MsSCCh1EfKnt2NPt+3ozymW9Fx2nYe
+	 iv+ISEGOMpbrbvls5z4OD/fBZ9jT03+KQ7sDkm5g44QFKIvp3D85WWc0SnEgvw/yyd
+	 2MoU69TEdUGgBjY+MbRsUB7Qo6QPuOg9X0UHLyXE=
+Date: Tue, 17 Nov 2026 09:29:08 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Marc Zyngier <maz@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Al Grant <al.grant@arm.com>, "Johnny.Fan" <johnny.fan@cixtech.com>,
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH 1/8] device property: Add firmware node IRQ affinity
+ callbacks
+Message-ID: <20261117092908.GU9176@e132581.arm.com>
+References: <20261116-acpi_arm_pmu_registration_hmp-v1-0-0371d4eca626@arm.com>
+ <20261116-acpi_arm_pmu_registration_hmp-v1-1-0371d4eca626@arm.com>
+ <avwFYMdr7g4r6Z9y@ashevche-desk.local>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,82 +86,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] ASoC: codecs: nau8310: Add support for NAU83G10
- amplifier
-To: YLCHANG2 <neo.chang70@gmail.com>, Neo Chang <YLCHANG2@nuvoton.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, robh@kernel.org,
- krzk+dt@kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, kchsu0@nuvoton.com, sjlin0@nuvoton.com,
- lkp@intel.com
-References: <20261109051251.471879-1-YLCHANG2@nuvoton.com>
- <20261109051251.471879-3-YLCHANG2@nuvoton.com>
- <20261109-myna-of-noble-downpour-e09d3e@quoll>
- <6d7f4ecd-bac0-44d6-a704-57cdd2877729@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <6d7f4ecd-bac0-44d6-a704-57cdd2877729@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <avwFYMdr7g4r6Z9y@ashevche-desk.local>
 
-On 17/11/2026 04:38, YLCHANG2 wrote:
->>> +static void nau8310_i2c_remove(struct i2c_client *client)
->>> +{
->>> +	struct nau8310 *nau8310 = i2c_get_clientdata(client);
->>> +
->>> +	cancel_work_sync(&nau8310->load_fw_work);
->> This looks safe, but still error-prone and discouraged. Use same order
->> of cleanup as order of init/allocation in probe.
->>
->> See also include/linux/devm-helpers.h
-> Got it. I will use devm_work_autocancel() in probe instead of manual 
-> cancellation in remove().
+On Tue, Nov 17, 2026 at 09:42:24AM +0200, Andy Shevchenko wrote:
+> On Mon, Nov 16, 2026 at 06:21:28PM +0000, Leo Yan wrote:
+> > Platform IRQ affinity lookup currently selects the OF or ACPI helper
+> > directly. Add fwnode_irq_get_affinity() and an irq_get_affinity operation
+> > implemented by both firmware types.
+> > 
+> > Use the new helper for platform devices, preserving the existing fallback
+> > to cpu_possible_mask when affinity information is unavailable.
+> 
+> From this commit message it's unclear why we do that. Is it any helpful in the
+> future? If yes, for what?
 
-To clarify: use reversed order of the cleanup, obviously, to match the
-probe in a reversed way.
+This refactoring lets platform devices backed by swnode provide IRQ
+affinity through the common fwnode interface. Patch 02 provides swnode's
+IRQ affinity callback.
 
-Best regards,
-Krzysztof
+I will reply your comments in patch 02 for why we need swnode to
+store IRQ affinity.
+
+> ...
+> 
+> > static const struct cpumask *get_irq_affinity(struct platform_device *dev,
+> 
+> >  {
+> >  	const struct cpumask *mask = NULL;
+> >  #ifndef CONFIG_SPARC
+> 
+> > -	struct fwnode_handle *fwnode = dev_fwnode(&dev->dev);
+> > -
+> 
+> Might be unneeded churn — you can leave these two lines being untouched.
+> 
+> > -	if (is_of_node(fwnode))
+> > -		mask = of_irq_get_affinity(to_of_node(fwnode), num);
+> > -	else if (is_acpi_device_node(fwnode))
+> > -		mask = acpi_irq_get_affinity(ACPI_HANDLE_FWNODE(fwnode), num);
+> 
+> > +	mask = fwnode_irq_get_affinity(dev_fwnode(&dev->dev), num);
+> 
+> 	mask = fwnode_irq_get_affinity(fwnode, num);
+> 
+> >  #endif
+> 
+> >  	return mask ?: cpu_possible_mask;
+> 
+> But I understand the point as we have only a single user left. So I am not
+> objecting the proposed approach, just pointed out on an alternative.
+
+I'll keep the local fwnode variable as you suggest.
+
+> ...
+> 
+> > +++ b/include/linux/fwnode.h
+> 
+> >  struct fwnode_operations;
+> >  struct device;
+> > +struct cpumask;
+> 
+> Yes, it's a bit disordered, can you place the new one before the 'device'
+> to follow alphabetical order?
+
+Will do.
+
+Thanks,
+Leo
