@@ -1,65 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794923400;
-	b=TLtx7mkLJgSkcDfkJXVvPglI2A3YpheH9ra6kM6VYlHKOFCHH1oLt9A6NAYzuxjJTJkW
-	 foPaLHKtW2IU2l8B4UiAutGCV99VJ1nfSsMb9PI95Y1ZVPuHkDYWGLiBMNpjLR9TuEZn3
-	 8x3OAFaaIN11Gz4uHk68xeVrKH4u2Acw8Exlb6UMUzOUWh4TS2OAfbsy/TUNsij58vsuu
-	 1NXIQI9Jj6pzHz3XgQLUN0WIG132rSr3IHSIvOdvLaO5HO2PW6/P7A+mJ7skvhMUMUFFi
-	 k4sm03f2MFQiUZpW5gwxtBFtbFyesTJ0J9lyjcyIM5eqcbwKXyfYXchTu2AxcnapOsQ==
+	t=1794923444;
+	b=0qPq9iwg+RgrW4/KDVbfV+sO1HZp/lzWEfV3+gfemWcXvpPqKfjWq8KeJRe9s8GXuSX6
+	 CnwYYdl4nrk567cJ+exIBYzE86A3IX5Wcq5/wv9iQip5V/Y4MYV9rDHSwxI8X4Gdc4jMf
+	 jHJYU1TvgCL5xVIBR/HtNTgmCU4Z686LZ54npWvzzsJBWAanmhVpThvo7GkMvzprA3u+V
+	 Xm8vXBZEcByNLROppUE6I5RgoIxMXu7U2mmiE4fLcZOeSP5XE0lrRs8F3zAjE6DhpxRh4
+	 S/MLHdN6d/a+FE54zvtXN4aW2anR5/mLvzV7LU3u5TqQbdLtqenvANCnT4B+vK0a+dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923400;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=DFplsQOv3v82j6NbtcpaRb2ryRhCol3Ad4OVMtYAhGA=;
-	b=dBM9JmtjrpZcZ945OSqD3d+LcXA1MB+pXgpkKGjWpIGNUO+wVe6+z8NVIgmsNNSlgPzp
-	 ayMcSgt6wN/l9m0AuedGwG+wRGXk/A+HuExzswFSewpqug9G7EYnTEuXRofcAEhmIeEIB
-	 mM1zBYdVgDkGj0Qn4yMkBB1OYFIObCQGNO6fnmF78k4tS2nQd0/ecSH2ojyBo6ySOJe4N
-	 fho0Ei6+eZ6QRruKAZaFJ4ZnMXLiwjRVFSWkhugsCUDu2rhsUA0ZAAT+aEPuXeiTVk9JD
-	 we5oVLSUvD/+kJeGI/7uaQUXWLKdSBkObY6Cds7oVZyz58JVfGOJolggXsi+inxDrXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794923444;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=wmFVfvCnnhAnhNO4rEUhI4H5IUGmRAkPA7MnRyun0Wc=;
+	b=gT9KBGIxx9NIbAn0Kg8aSIUCw4daspCYIwQPGMKsNJTl8zoIyKmxW5xIYXBFupFvVpLE
+	 cd/ESvCwjCcMMdlJhSviUEn+fiUCI0xTYoVP/pG1zDSincdi0lQMM6GLsl4v7a8Iciufa
+	 PA6x9Hu2bHgWi35jWNAJi6pCFIHCOSF7IbHqpUkSKhvYF5HP6pzuhDxq8O5jTt7lXIQnX
+	 mH+eDdyynoLnsQYZxVvbEL+cIstukMogm9UmEWKchBjGYFY89o9kVZ0Ss2HpdyrKV+k5A
+	 ODdKd9t+WCJJEhOzifKqMSMs/fvPB1Uqcz50BTpl9ngnXWmUv1pIqDr8CeOJiIkpwQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=z0ONRwrw;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oxUoMaS4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1222E606A323;
-	Tue, 17 Nov 2026 13:49:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1222E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C07606A31C;
+	Tue, 17 Nov 2026 13:50:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=z0ONRwrw
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=DFplsQOv3v82j6NbtcpaRb2ryRhCol3Ad4OVMtYAhGA=; b=z0ONRwrwycZllFmldL4Fw9EVZF
-	vfJ9tmHLwpVm/hNXHqfiw4i9MYaay8AHA6w8ZyiVfA+MnnOHAFObC9jLq0EL3esj4bQTERnWbnI1t
-	PrL11IV4sERQIb+4A9nsEg/sEnj0dOrhLyTHV04SWVFg8566PgbyYFdBGNoT9Ikr/zZE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xTJZH-00HA9g-7W; Tue, 17 Nov 2026 14:49:51 +0100
-Date: Tue, 17 Nov 2026 14:49:51 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Artem Shimko <a.shimko.dev@gmail.com>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	maxime.chevallier@bootlin.com, pavel@ucw.cz,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-leds@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v2 4/4] net: phy: dap8211r: add PHY LED control
- support
-Message-ID: <6b2ffa4d-b99c-42d1-8729-00f180b955b2@lunn.ch>
-References: <20261117114432.2794961-1-a.shimko.dev@gmail.com>
- <20261117114432.2794961-5-a.shimko.dev@gmail.com>
- <052adff8-b1d4-4cf2-941c-cfb2725d13a0@lunn.ch>
- <CAOPX745DQDpYh=PNQxDkH1DbfwMRwD8DV81TaX33mNk-9aX3oQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oxUoMaS4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD2B61F000C4;
+	Tue, 17 Nov 2026 13:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794923444;
+	bh=wmFVfvCnnhAnhNO4rEUhI4H5IUGmRAkPA7MnRyun0Wc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oxUoMaS4JxJax7gMzNM29ujPcZ312rmGTno7FlycYRef95xdhYkED8UxMgYIKp7km
+	 HPUDBgDyLO6W0a8REVW5VZRdgmeZEZgqv8d/Hc6k+2DknVonUNyHfqetezN0Is2adh
+	 9A0XSVQDKBZiL0ZL6aaDIew0V5fYmOs96kcN/LPgL6iQJ4C+r87v8eMv6OOkURnjBQ
+	 q0p/z4WoklLbWXQ+SnPQTyyLV/TzGW2fMBXU9Rdlbw134hLX5VfJRKuAjhL8MoAa7s
+	 3cYg4A7qo9xBhw9RBxQk52YQ/rhV96VZKOMqRyGsmTe+CPLpsQiqjeUE2e0vTozaNL
+	 KN7B2YLVG5J8w==
+Message-ID: <sashiko-outbox-218905@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] arm64: dts: freescale: fsl: Remove undocumented,
+ unapproved aliases
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, imx@lists.linux.dev, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261117133842.245262-3-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261117133842.245262-3-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 13:50:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,16 +59,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAOPX745DQDpYh=PNQxDkH1DbfwMRwD8DV81TaX33mNk-9aX3oQ@mail.gmail.com>
 
-> Sashiko said only [1]: Sashiko has reviewed this patch and found no issues
-> For some reason it replied only to me and linux-leds.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: freescale: incomplete alias cleanup in
+  fsl-ls1046a-qds.dts
+--
 
-There are two different bots. The netdev one send emails using
-netdev-bot+sashiko@kernel.org, and it gets the reply addresses
-correct. It is also more accurate, less false positives.
+commit 54e57023b3aee0e459e326a808c4fb4cbc55b171
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-	Andrew
+arm64: dts: freescale: fsl: Remove undocumented, unapproved aliases
+
+This commit removes undocumented custom aliases such as dpmac, rtic-,
+qsgmii-, sgmii-riser-, rgmii-, and emi1-slot* from several Freescale
+Layerscape devicetree files.
+
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-ls1043a-qds.dts b/arch/arm=
+64/boot/dts/freescale/fsl-ls1043a-qds.dts
+> index e850551b16acb..ea4863c9686c7 100644
+> --- a/arch/arm64/boot/dts/freescale/fsl-ls1043a-qds.dts
+> +++ b/arch/arm64/boot/dts/freescale/fsl-ls1043a-qds.dts
+> @@ -24,22 +24,6 @@ aliases {
+>  		serial1 =3D &duart1;
+>  		serial2 =3D &duart2;
+>  		serial3 =3D &duart3;
+> -		sgmii-riser-s1-p1 =3D &sgmii_phy_s1_p1;
+> -		sgmii-riser-s2-p1 =3D &sgmii_phy_s2_p1;
+> -		sgmii-riser-s3-p1 =3D &sgmii_phy_s3_p1;
+> -		sgmii-riser-s4-p1 =3D &sgmii_phy_s4_p1;
+> -		qsgmii-s1-p1 =3D &qsgmii_phy_s1_p1;
+> -		qsgmii-s1-p2 =3D &qsgmii_phy_s1_p2;
+> -		qsgmii-s1-p3 =3D &qsgmii_phy_s1_p3;
+> -		qsgmii-s1-p4 =3D &qsgmii_phy_s1_p4;
+> -		qsgmii-s2-p1 =3D &qsgmii_phy_s2_p1;
+> -		qsgmii-s2-p2 =3D &qsgmii_phy_s2_p2;
+> -		qsgmii-s2-p3 =3D &qsgmii_phy_s2_p3;
+> -		qsgmii-s2-p4 =3D &qsgmii_phy_s2_p4;
+> -		emi1-slot1 =3D &ls1043mdio_s1;
+> -		emi1-slot2 =3D &ls1043mdio_s2;
+> -		emi1-slot3 =3D &ls1043mdio_s3;
+> -		emi1-slot4 =3D &ls1043mdio_s4;
+>  	};
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-ls1046a-qds.dts b/arch/arm=
+64/boot/dts/freescale/fsl-ls1046a-qds.dts
+> index 48a6c08fcea82..8c095aafd5968 100644
+> --- a/arch/arm64/boot/dts/freescale/fsl-ls1046a-qds.dts
+> +++ b/arch/arm64/boot/dts/freescale/fsl-ls1046a-qds.dts
+> @@ -24,10 +24,6 @@ aliases {
+>  		gpio1 =3D &gpio1;
+>  		gpio2 =3D &gpio2;
+>  		gpio3 =3D &gpio3;
+> -		qsgmii-s2-p1 =3D &qsgmii_phy_s2_p1;
+> -		qsgmii-s2-p2 =3D &qsgmii_phy_s2_p2;
+> -		qsgmii-s2-p3 =3D &qsgmii_phy_s2_p3;
+> -		qsgmii-s2-p4 =3D &qsgmii_phy_s2_p4;
+>  		serial0 =3D &duart0;
+>  		serial1 =3D &duart1;
+>  		serial2 =3D &duart2;
+
+[Severity: Low]
+Should the emi1-slot* and sgmii-s* aliases in this node also be removed, as
+was done for fsl-ls1043a-qds.dts above?
+
+Because the aliases in fsl-ls1046a-qds.dts are sorted alphabetically around
+gpio0..3 and serial0..3, only the middle qsgmii-s2-p* group was dropped,
+leaving the other undocumented MDIO mux and PHY aliases introduced by
+63c396414bfc ("arm64: dts: ls1046a-qds: add mmio based mdio-mux nodes for
+FPGA"):
+
+arch/arm64/boot/dts/freescale/fsl-ls1046a-qds.dts:
+	aliases {
+		emi1-slot1 =3D &ls1046mdio_s1;
+		emi1-slot2 =3D &ls1046mdio_s2;
+		emi1-slot4 =3D &ls1046mdio_s4;
+		...
+		serial3 =3D &duart3;
+		sgmii-s1-p1 =3D &sgmii_phy_s1_p1;
+		sgmii-s1-p2 =3D &sgmii_phy_s1_p2;
+		sgmii-s1-p3 =3D &sgmii_phy_s1_p3;
+		sgmii-s1-p4 =3D &sgmii_phy_s1_p4;
+		sgmii-s4-p1 =3D &sgmii_phy_s4_p1;
+	};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117133842.2452=
+62-3-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
