@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794937661;
-	b=yY3ib0C+zHiPjxJ8/uaThAZKUdv1dSrSyqT2EZobdzQaBtJ4HyCP1EF3Qg0bMM/deejB
-	 EUHeFxpcBCyfGL/hc3zNNkJjuvk58f5jiezJ6hJF5oTSYrMq72rBZNxpNEbdv6VDvq9qS
-	 au/WJtARCNXElmKbQghlYB+xdaPVe708Av7gAnTTloAUfVf4wCjdAL2weyEFXvyGs38MQ
-	 ahNrGnzW9dI2G8NlbWwc6m37Q9q7Kln6jsuBLbf+IL4GNxFO7qlCBDngTm3erB9y7libq
-	 3MdRF/wXKlZ4d790n1qxDLptUL6BDpXcSxUvb/0SqbJMiSLL/QE0T/BWNLEVMNAzgCg==
+	t=1794938105;
+	b=O73car/m8VIPa5dzBI3gF7toXBz1TR/JvaeJW+PdypEmg02BzNbMbOwAUcgnR9Ry3dwM
+	 G7MzBGEDv+5kq1MYddS1q85WE4nSzTmrSX1JCfJ0CDsYY7vGgXxIXIDPyYJkGq79QlySL
+	 FA1yRC00xfHOybsZ+hGWtDYINgmufTXBykzXgW8ns8uR1UKpRbjrURaXXjUfzpKtv8vje
+	 wwHerD/7AN/VOqAJ57Lr9JJBzJfxlFkXg9F6p/5Z1QXXxrPCHOxXPiINQ5XueyRoXo+Ff
+	 uvZiQCvKKUMoYPc0WRs9eSD+JN+sb1q3085I0epSYaxs2wno+K8Vyaf0wNT1j66f18A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794937661;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cR2AOpEGYiKzlikyUl8O8YBDqVn1oEriwrxHwFqrRDc=;
-	b=oSCo3jrwxXU9UR+EQIf/NiznVD62nk8i4ChKWWt+asbij0UtbDxjPSPX5Ebv7JqJddoQ
-	 gmkCsEg742bycPFRAxX76RpPFcglpMXCN4hL2K2qv5Jyq6wyOO/yuJ8v0ktkd+m6qbI1x
-	 /MnLMt68d9+EVTPKWM4+Dgh6/6iH+kjozQ8ONGbVjTxhDogkgLCnzoTWSJt3Jq/YxM7fL
-	 RWiQ+3mFArUU4KOerTVdVH7hpWRT2ylNgh3IK35vJswVa7lS1RLLyr68nfSehYrSXa3wf
-	 EoDQ5c5hZs7p0iuKxCIPDp34OyaGMNs/UlTOkrrUTksSsA4BlbO4TcckSt2ToOCvpNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794938105;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=YbCmz5nOuFiGTV5Lz3nwRsBcysEs1dYTr6WkkrqcuVk=;
+	b=lJ46PnWzckvU5S8IKCHkQBl/feLncRiNFS5dLKWE5wKm/zKujMS3tYd+l+w76V1jMQxv
+	 yfWO1lyFNhQOcodb8NyHXIqwC442DfJwPZwPDJ6HpgyZFpHop4IwiGFgkEwAUHS9/qMX6
+	 SPPmdTxbB2k1Hpy95GE+xgdfd7Had1uJtSq/fUWqVlfm+VBDuTXrxbtlUoR3vz4Qndngw
+	 p9n9Hiy/IkjkBCPXOzs27iYzmVe4d/K9cG4a3W9WEkDNqViDzl2oYLIdx+kit97RD7TfJ
+	 ypOgHQ207CeQd4wNWMSGDVvHUQj5Jbj0CJIi/J9mfxAVUwG39IeqCw7/P/ex9T+C+eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZEmtPG3s;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rx9i4rzk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EFEE606A31C;
-	Tue, 17 Nov 2026 17:47:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66939606A31C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 17:55:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZEmtPG3s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5B21F000C4;
-	Tue, 17 Nov 2026 17:47:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rx9i4rzk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D681F000C5;
+	Tue, 17 Nov 2026 17:55:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794937660;
-	bh=cR2AOpEGYiKzlikyUl8O8YBDqVn1oEriwrxHwFqrRDc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZEmtPG3s6pzK3McY+POU0Zq2TtX9e07Rj1YqBffwbPVGP8TkDyQJCNbdPeg2omzxW
-	 faO2+XQKzaVmTsVMjy4bEJ9cWc0xGyqjv92fhd0DO2LTt3egZtGCtK7DzJMeS501eq
-	 mOzVO6yAQHf8dxcm57tesdPrPpt1U1REoMWk//2mNIlHiAmixSEY1FCMGteYEB+Tpk
-	 XBEEneUOaZCy5JVsvirYZWR/hreA139SsdaICnhvMAExt0Ey4XACSXIYgDooRh+qjd
-	 exUltOpX4iTIn8XI04WZwuCbRjG50FeYqJ5lv4u2+v5YgoGDyo/TrfO/aNiWXGugaq
-	 UGOcPA2xwfI0w==
-Date: Tue, 17 Nov 2026 17:47:35 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Mina Chou <minachou@andestech.com>
-Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, jic23@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be,
-	magnus.damm@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	randolph@andestech.com, cyyang772@andestech.com,
-	tim609@andestech.com, az70021@gmail.com
-Subject: Re: [PATCH v2 19/19] dt-bindings: riscv: add Andes A27L2 CPU
- compatible
-Message-ID: <20261117-yippee-blissful-76204cadd922@spud>
-References: <20261116003937.1776888-1-minachou@andestech.com>
- <20261116-dreamless-matador-3163d4abbf0b@spud>
- <avvH6t8NHrya+hz6@atcsi01.andestech.com>
+	s=k20260515; t=1794938105;
+	bh=YbCmz5nOuFiGTV5Lz3nwRsBcysEs1dYTr6WkkrqcuVk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Rx9i4rzkNTnT8Ae5bBJA1SFrSSTTJlO+SamcwBHHfK1pWvvI/Ig2TBmcEFEsw6HfC
+	 1/Ifrw6LqhN0pu174CaCTNhk8prgSl/DVmuFFvVP0NREBQ9tny1ZPeNQYCV0GEKAYm
+	 PC+QepUekxmeUbXVPQvprNJBwwwhPgjKnXqJPzX7vrb5DAUHlG3apQSP/q2pVGkus0
+	 AmeGA/dlsv0UMDnF6SPA4TyattuYgofKfeeUL/wnvb09E7knLYjO6i4qhHavskRsA3
+	 yeLFsdHsoH9YdBxKHPiSXwKFIP3GHnwf5RZRdNCHQKDV/miqOEtOoby5b0rkf4SAb2
+	 LW9SX69OfuDew==
+Message-ID: <sashiko-outbox-219292@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] iio: proximity: add Imagis ISG5320A SAR sensor
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?QWRpbCBIw7xzcmV2IFRlcGU=?= <tadilhusrev@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261117173333.1853986-3-tadilhusrev@gmail.com>
+References: <20261116074013.355363-1-tadilhusrev@gmail.com>
+ <20261117173333.1853986-1-tadilhusrev@gmail.com>
+ <20261117173333.1853986-3-tadilhusrev@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 17:55:04 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,66 +61,138 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yL4HbPHY7ZmtVyGZ"
-Content-Disposition: inline
-In-Reply-To: <avvH6t8NHrya+hz6@atcsi01.andestech.com>
 
---yL4HbPHY7ZmtVyGZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] iio: proximity: isg5320a: missing teardown on IRQ error in
+  isg5320a_probe()
+- [Low] iio: proximity: isg5320a: disable runtime PM in
+  isg5320a_shutdown()
+--
 
-On Tue, Nov 17, 2026 at 11:20:10AM +0800, Mina Chou wrote:
-> On Mon, Nov 16, 2026 at 06:26:33PM +0000, Conor Dooley wrote:
-> > [EXTERNAL MAIL]
->=20
-> > Date: Mon, 16 Nov 2026 18:26:33 +0000
-> > From: Conor Dooley <conor@kernel.org>
-> > To: Mina Hui-Min Chou <minachou@andestech.com>
-> > Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-> >  alex@ghiti.fr, jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-> >  conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
-> >  prabhakar.mahadev-lad.rj@bp.renesas.com, linux-riscv@lists.infradead.o=
-rg,
-> >  devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-> >  linux-kernel@vger.kernel.org, randolph@andestech.com,
-> >  cyyang772@andestech.com, tim609@andestech.com, az70021@gmail.com
-> > Subject: Re: [PATCH v2 19/19] dt-bindings: riscv: add Andes A27L2 CPU
-> >  compatible
-> >=20
-> > On Mon, Nov 16, 2026 at 08:39:37AM +0800, Mina Hui-Min Chou wrote:
-> > > Add the compatible string for the Andes A27L2 CPU core, which is used
-> > > in the Allwinner V821 sun300i SoC. The V821 devicetree will be submit=
-ted
-> > > separately by Allwinner.
-> >=20
-> > I'm going to apply this, on the basis that it will be used elsewhere.
-> > Ordinarily, it should come with the allwinner series.
-> >=20
->=20
-> Hi Conor,
->=20
-> Got it, thanks for applying it~
+commit baa300415c1a96074ec67b396caa0dfe08ba9dae
+Author: Adil H=C3=BCsrev Tepe <tadilhusrev@gmail.com>
 
-Just to note, because this patch was separated, sashiko did not review the
-driver changes. They looked fine at a quick glance, but I would like to
-see another revision (with this patch excluded obviously and the things
-that have been commented on so far solved) so that it can take a look.
+iio: proximity: add Imagis ISG5320A SAR sensor driver
 
-Thanks,
-Conor.
+This commit adds an IIO driver for the Imagis ISG5320A I2C capacitive
+SAR/grip sensor, exposing a proximity channel and threshold events.
 
---yL4HbPHY7ZmtVyGZ
-Content-Type: application/pgp-signature; name=signature.asc
+> diff --git a/drivers/iio/proximity/isg5320a.c b/drivers/iio/proximity/isg=
+5320a.c
+> new file mode 100644
+> index 0000000000000..4df0e09d39143
+> --- /dev/null
+> +++ b/drivers/iio/proximity/isg5320a.c
+[ ... ]
+> +static int isg5320a_probe(struct i2c_client *client)
+> +{
+[ ... ]
+> +	ret =3D isg5320a_mode_normal(data);			/* :1621 */
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "start failed\n");
+> +
+> +	/*
+> +	 * The chip is already active, so a later failure (e.g. the IRQ
+> +	 * request below) must still put it back to sleep instead of leaving
+> +	 * it scanning with nothing bound to it.
+> +	 */
+> +	pm_runtime_set_autosuspend_delay(dev, ISG5320A_AUTOSUSPEND_MS);
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_get_noresume(dev);
+> +	pm_runtime_enable(dev);
+> +	pm_runtime_put_autosuspend(dev);
+> +
+> +	if (data->irq > 0) {
+> +		irqflags =3D irq_get_trigger_type(data->irq);
+> +		if (!irqflags)
+> +			irqflags =3D IRQF_TRIGGER_FALLING;	/* :1932 */
+> +
+> +		ret =3D devm_request_threaded_irq(dev, data->irq, NULL,
+> +						isg5320a_irq_thread,
+> +						irqflags | IRQF_ONESHOT |
+> +						IRQF_NO_AUTOEN,
+> +						"isg5320a", indio_dev);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "irq request failed\n");
+> +
+> +		if (device_property_read_bool(dev, "wakeup-source"))
+> +			device_init_wakeup(dev, true);
+> +	}
+> +
+> +	/*
+> +	 * Registered after the IRQ request, so devm's LIFO unwind runs this
+> +	 * teardown (which may disable_irq()/disable_irq_wake() the IRQ in
+> +	 * isg5320a_events_off()) before the IRQ itself is freed, not after.
+> +	 */
+> +	ret =3D devm_add_action_or_reset(dev, isg5320a_teardown, data);
+> +	if (ret)
+> +		return ret;
 
------BEGIN PGP SIGNATURE-----
+[Severity: Medium]
+Does a failure in devm_request_threaded_irq() skip isg5320a_teardown()?
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavyTNwAKCRB4tDGHoIJi
-0nDfAPwKHrmXEY408835g7LwKKUsD3y2VAZE1B3oMkjVyjOigQD+NM5PZ2WItqP6
-lGZX8OLP+0WQqR6FozKNWS1q0T38KAg=
-=oYqq
------END PGP SIGNATURE-----
+isg5320a_mode_normal() has already started the sensor and runtime PM is
+enabled with an armed autosuspend timer, but isg5320a_teardown() is only
+registered after devm_request_threaded_irq() succeeds.  If the IRQ request
+fails (for example with -EPROBE_DEFER), the chip is left scanning, runtime
+PM stays enabled on the unbound device, and the pending autosuspend timer
+can fire isg5320a_runtime_suspend() while devres is freeing data->regmap
+and indio_dev.
 
---yL4HbPHY7ZmtVyGZ--
+Requesting the IRQ (which uses IRQF_NO_AUTOEN) before calling
+isg5320a_mode_normal() and enabling runtime PM would let
+isg5320a_teardown() be registered immediately after pm_runtime_enable()
+while still unwinding before the IRQ is freed.
+
+[ ... ]
+> +/* vendor isg5320a_shutdown(), :2071-2080, synchronized like isg5320a_te=
+ardown() */
+> +static void isg5320a_shutdown(struct i2c_client *client)
+> +{
+> +	struct isg5320a_data *data =3D iio_priv(i2c_get_clientdata(client));
+> +	struct device *dev =3D data->dev;
+> +
+> +	guard(mutex)(&data->ev_lock);
+> +
+> +	if (data->ev_enabled) {
+> +		isg5320a_events_off(data);
+> +		pm_runtime_put_noidle(dev);
+> +	}
+> +
+> +	if (!pm_runtime_status_suspended(dev))
+> +		isg5320a_mode_sleep(data);
+> +}
+
+[Severity: Low]
+Can a concurrent sysfs access resume the sensor or re-enable events during
+or after isg5320a_shutdown()?
+
+Unlike isg5320a_teardown(), isg5320a_shutdown() runs while indio_dev is
+still registered and does not call pm_runtime_disable(dev).  A concurrent
+isg5320a_read_raw() -> isg5320a_get_sample() does not take data->ev_lock
+and can runtime-resume the chip back into normal mode, or a later
+isg5320a_write_event_config() call can re-enable the interrupt and wakeup
+source after shutdown finishes:
+
+CPU0                                  CPU1
+isg5320a_shutdown()
+  guard(mutex)(&data->ev_lock)
+  !pm_runtime_status_suspended(dev)
+  isg5320a_mode_sleep(data)
+                                      isg5320a_read_raw()
+                                        isg5320a_get_sample()
+                                          pm_runtime_resume_and_get(dev)
+                                            isg5320a_runtime_resume()
+                                              isg5320a_mode_normal(data)
+                                                <-- chip left scanning
+
+Calling pm_runtime_disable(dev) before checking
+pm_runtime_status_suspended(dev) and pm_runtime_set_suspended(dev) after
+isg5320a_mode_sleep(data), as in isg5320a_teardown(), would prevent
+later runtime resumes and event enables.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117173333.1853=
+986-1-tadilhusrev@gmail.com?part=3D2
