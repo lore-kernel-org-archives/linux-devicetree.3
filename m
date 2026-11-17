@@ -1,63 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936731;
-	b=Q1L/1j8Nuhz1rLlyX6pN/cxdsRnUR7P6+PgeOpmJkqR/siUHz/gzXShy1ZdiVChhigLR
-	 CnHVrX505sdkflREFBJghE5S6CFxrkIc/VS6z3WxLXAFvsoX1sJg4uZfBoIqxTAhjmzOK
-	 4VkWLVdPcmCy7m97tu6SPlBRF0HzT3BZKbUnpaadhPD5kHLexg1fQQ428eJZAKwh6dV4z
-	 8Tjq9+W7mIjWHzbB/jwWZH/1LMEYMCUoQOHKUrM7W6Pnx0LX71Etdj9IVTww1pbRwNBu3
-	 noqHxakXV12ioS/rot1NGr3UoaAzZ8JsQivkJzZxJQkH3KBzwvwclqo94hlOY5BjGTQ==
+	t=1794936793;
+	b=rXUVKm8Xo7ryn0VDY9U9eNtw3Sjj4JMvTTiB3tZppLlS7i8QaFRC9WjoB+uEn/7zwggf
+	 qYMfG+gR4CtP4t2KsudLm/Crmk2gFGmxM0EAuTD5Moyu2Vim77F8MpVe1wbxKFwuzd20r
+	 11KNa9wAjOSmD4qnAvTnuj9zW+0tijZ/s7q21Zdn46ol3uuVpbK6dPVfEnwUOwV1d/eii
+	 hA5fRrfnA921Ltn7+pATiYCf5wf+VsHi3IXcNRmRg4twBG+ERXf4tWnYYsRGKBFUyz1jD
+	 S/CQw5DWxua2GoGWqJeQmkKQus0z1Pc2vwoYIBTVslwhvx4ZGO0ZQSpkwLBWEu79Tpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936731;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=SX9Zi7NY4J8KuGZWjjWNN3iulz2Qoe+4jXdOY+ezcbE=;
-	b=N2+oVwX0Nv7con5yyxvu3RqhD2cVq6cAltmKQojWtYY+JGX94ufuFfbI0SL5DHZCYc+x
-	 /zBKLcZmGO6RTa/ACGBpb7Eqnd7rsAAKACCLvaPMGKPS6oODZUzA3byb7lIf86Z3CMsnE
-	 PKjh8W9xB6IsSj/CEBiAO0obyyOH9Tcqm+TPF1XqC9uUSlf+21bgxeP0GMKC2CIdKNfDn
-	 7KkXJtxYT5+99WtrufLX3VJNGjUIoH1SkpaYUiMMv8rxurRYkme/KiIDbewuRUBoNLXV/
-	 vk8Df2xL/PQgmenvcjSmFdFQ4laQdQ+igGeew8C5W5w6Dcn0q+b7YAGbkU755pbnk1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936793;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=wClEush0em0gomV0MbpA2Fe3wVn1p16r90QsMPKpJmk=;
+	b=X388CEYsUn1Zv6vrlNpUYS3HPjw7QulPsvs4/XF8UvDLJoMl7Z3mYVijLL+TYFlta25S
+	 8Cxan4x+EbixSkOcZ0gzWy1jbEoydc4N4V4V67WEXyY0DFJFHrP4kANNzyQo7C1T0dmxH
+	 VWVXHuWReZz/RQG9V50qq6gkvgpOgmFl/JmeuIH2RYX6r0nUsjElu0USpHU4f8u3HYVob
+	 glO3bygbtOTYd/LsbNriywusfImTwhBeDowdWyVa0ftYQDBldq7GdbNNs0iLKRZjwNi+0
+	 vKETci07aE18ctSFno1Xh+hIXiKy8tx03ZplB1hy2+3QMLDcDTKCbpvhUTcIPB+se6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FnL4jEBq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e72OyF4m;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BCC606A31C;
-	Tue, 17 Nov 2026 17:32:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D372F606A32A
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 17:33:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D372F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FnL4jEBq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B6271F000C6;
-	Tue, 17 Nov 2026 17:32:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794936730;
-	bh=SX9Zi7NY4J8KuGZWjjWNN3iulz2Qoe+4jXdOY+ezcbE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FnL4jEBqMmo1Tm13i3F3Tctwn2yptPxG+RHBaq/ZLxtY4tJFHdHDPnQYpH4buLVd7
-	 MyjaKO8/+SRdkrgAko/D2lUJSLbQdhSalUwfAdDLE5wdna3vvAAZurz2Uu3X76hwkr
-	 vKckrsv5X0dMCf10Yp/6LwI8gtzE3b5IT9rQOsHaJMezBMiBrH4Ih1N23ESQ/8DBtg
-	 IGoLXLHikvJW7p5k1x6bLt02W2Q0iuI91LlbnMLcDTt8hA202E6nLyM6noRw4SGCIp
-	 KhitF5A52/weplifIqUOURu+mGBTASoy3BzV8rGfaNVmPpk9021wAXYURzJ5G9wYe4
-	 GTgh1+mnRpnbw==
-From: Sven Peter <sven@kernel.org>
-To: Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Sven Peter <sven@kernel.org>
-Subject: Re: [PATCH] arm64: dts: apple: Remove undocumented, unapproved aliases
-Date: Tue, 17 Nov 2026 18:31:45 +0100
-Message-ID: <179493661268.33444.17877290451078457632.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261117130616.234953-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261117130616.234953-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e72OyF4m
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-497614c95f0so8119f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 09:33:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794936791; x=1795541591; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wClEush0em0gomV0MbpA2Fe3wVn1p16r90QsMPKpJmk=;
+        b=e72OyF4mYU4s54zIGzNwRXjE+lIsOYo44pmtsBZB3POuY4luLULw/JUV0oZBzRSs/a
+         D4+O2TLbP9hQjTcVPW6VDtQIy8aFJWIidI0d/8PWVt33gM5zv/HLYU8j4dw5BCEdLq54
+         aSD9wn6d3++LWjcr5BoWSea1i7q4NZCpDVC95HTHs4HBHhMwvrvUfXsvkcMQ474CrStA
+         7C9zblCBS6dcabzOOvxYed5wIQOrn1S5S1iuhqU3FfJl0KUgH0EWW/V/HHBXB//JZlRt
+         RVMe7jwqiWk8Xh+ypYR9h3z/CcmAevvJe/w659Ee1NwQ84ApWcBRZ2uQQ4XaZIWkL05l
+         lCYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794936791; x=1795541591;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wClEush0em0gomV0MbpA2Fe3wVn1p16r90QsMPKpJmk=;
+        b=2UGNr5P0mXKqGtDPQ4VyMSxFkBQJ9x9DPm30yLsDSgdm2YKoZdoNmPKBZ9Mx7Rj4kq
+         CO5dgVK+CJKX8LbOHC3vtg9z6HDpg7soAZJgwwHLRdN6Rn0A8iKvdgdIfIaefI1lZ7K3
+         oGGhXR5TCyKCGCE8Jg3mZQssUH3SQFwhUIYa0OTGoUczrsHHqEUMfJJuD1KA9NfK+HkT
+         5T+6hupR+4VZZWzmykraF8DKa2LfElrvWfvpANGOLRWUDdKVnbmvjXXYJvDxJBLXua5T
+         X5zc+oqK+8N2Xg8HjfCAZPBNfu+CfqLTE/O/whUbcRJZXBuwJ4wGNwznfR0CuU6SX5gq
+         12QA==
+X-Forwarded-Encrypted: i=1; AL+hErHOXavvXLMIe74JL4VFMKAYLkhIB9NG64/zwl7ZRuVKzkPEk51NWGN+/Bir6quazAoO4zFtatzXE2Sk@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LlVCQuexoUG66oznEuCTEzC4NlxOWJmZsiSTpibkn4oVkYM9e
+	9cM2FOuv7dlUZlkkh//ra1zoTj/Hi8sd0NowiitEPLUNjecjYFiO1E33
+X-Gm-Gg: AZFdTZewQorTdjvdElGNBymQfwjn+KAV4JhbkwWu61e3CDe1I0JMbluTMdmhlnDQTnE
+	nYCSEAQjyf4uNFGnoBB188kPYbFWt9Wf/XMflAtAoKZwaezep0XJr06NqucL6cteNH8zXm/HJKx
+	LY+sEX+5W4rgSRygvVWPd+cToR6T+omvm3RlUEdGhTV6WPaJTlwcrqTS7p4oHv6kwgbg+LyMF+1
+	7KQ9FNBOy0s03wrqm1O7X3AaHASAbybb621JlYiNyliQ2XIcVYo2xKqtBm/51VdNgHfTwf4t4E/
+	j9hLcyNXIROQTnqh0OdVbf4uOCXPud8ggtbKV8vjMi/wJcBFUkMm0j2Zf1+cZi4OXcMWKH/szbK
+	a+H4eLPYKCLbPPop5mDdbkkEqcc57FwbXZIdwewQIkGTEEt/XLr8ReoyC4Fha8CDTeY+xdXHq30
+	/t1Uk7lfAdcf4a4C0FUp/Xol2v8rikzXZi7BJaoXgBt+aBQdO0B3BZ5fI5PN2bmq+kpFmOwh9FZ
+	lBFC8FYKsYmmQK9Zs9EqCaYHitaLvVIjujZ7fnE4Iix
+X-Received: by 2002:a05:6000:24ca:b0:486:f907:ebec with SMTP id ffacd0b85a97d-4a63a2d70dfmr399933f8f.31.1794936791043;
+        Tue, 17 Nov 2026 09:33:11 -0800 (PST)
+Received: from [127.0.1.1] ([130.61.107.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a38b9b986esm5691057f8f.59.2026.11.17.09.33.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 09:33:10 -0800 (PST)
+Message-ID: <6afc8fd6.f0979b8b.2e230b.cf66@mx.google.com>
+Date: Tue, 17 Nov 2026 09:33:10 -0800 (PST)
+From: Adil =?utf-8?q?H=C3=BCsrev?= Tepe <tadilhusrev@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] drm/panel: novatek-nt36525: fix v1 review issues
+In-Reply-To: <af565a17-f7a1-4c24-bf2a-130a025c68e3@kernel.org>
+References: <af565a17-f7a1-4c24-bf2a-130a025c68e3@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,25 +100,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
-On Tue, 17 Nov 2026 14:06:17 +0100, Krzysztof Kozlowski wrote:
-> The atcphy and touchbar aliases were never approved by Devicetree
-> maintainers, because they were never documented as actual ABI.  Drop
-> them, because no new custom aliases are allowed for years now.
-> 
-> This might break users of this undocumented ABI, so these should be
-> updated to use only documented and approved ABI.
-> 
-> [...]
+You're right, and I'm sorry - that was a git-management mistake on my
+part, not a deliberate choice. v2 should have been a complete,
+standalone patch against mainline; instead I sent a diff on top of
+v1's own (unmerged) patch, which is exactly the kind of thing git and
+b4 are supposed to prevent when used properly.
 
-Applied to git@github.com:AsahiLinux/linux.git (apple-soc/dt-7.5), thanks!
+I've just sent v3 as a proper, self-contained two-patch series
+(cover letter + binding + driver), each patch applying cleanly to
+v7.4-rc1 on its own, with the full v1->v2->v3 changelog moved below
+the "---" line per your and Andy Shevchenko's feedback instead of in
+the commit message body. Thanks for catching it - I'll pay closer
+attention to this going forward.
 
-[1/1] arm64: dts: apple: Remove undocumented, unapproved aliases
-      https://github.com/AsahiLinux/linux/commit/477f3d0f46b0
-
-Best regards,
--- 
-Sven Peter <sven@kernel.org>
-
+Adil
