@@ -1,88 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936682;
-	b=vzc6K8ZgsUUfkzrpNqffd08ktsGW2W/InWrE043Kx8bTnFQzd3OE1+jzlZUL6XMBEzE0
-	 1yCGOJX/PN2P7LoTidch5gBhSj+rX+WV3et3yDSqumiK5o7uzSxjd84wxjQghWntohdpT
-	 IqfaK3fh420b8J/tEOSQ2nAOzzQvM9h5Icdw8WaBw1+Vm9THW4GFxTOl1/jB78YR+dFZS
-	 V2jvipjzlXztqUSGz0x77WGasUNV5G4ampOnnZx64ORrPRqjMyis05QSo/SpCi/t8wr3O
-	 oO/QgqmXHA5KdfUIkoGBlZqhqFImODAW2YuigGBd6bzSzju8P2D4ZijxfdECCpTFosA==
+	t=1794936688;
+	b=zZC0A59dn4B2pt/3DGxq3IgkfFNHRUWpvoFK2IPK66xzEw0KS4jWik1UCyDVehyA/fXq
+	 m7xjd0g/F4lqeCFi8gIUZb7unDGhU7ENocKKXD6C6T/nN9MJw5JDhlk1C8nDyN1i5HFdh
+	 gKa/tF8AeyBHDWNx4VWfDBklDObTgsTBM7HHDs5/nwRfReXkMfiJ5+Qck9Ouh6uf3XYqT
+	 +W1lzK8ZS0wDPRZx+IsMC9b6hODwsqaZR3QATcv9GRaUeuAvniNt0zP0rnw5SA6qc80cJ
+	 P/PvRSt7PvN4m3zvP0kxpT5bSW6w5EXtUllLYMKr+OR4lDTPxp9ykE7AsQkJzbtASGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936688;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=+5KzUYY/vcXfemi9waz3d6wiZ68aHIzdXI9cSdmvu0U=;
-	b=4XjUA+ml3D+7UPbYYuJSgCnCSGXP++clmsKbyHAWSIe320IBRT4lcUZPqWjYYUkHGDmZ
-	 fZsLbplqFh0La2O/bJ/eTzA1OaA9hIESreDbD2uGAIpVrT9Vdo++dcKS7ZpE2K+z8hhJH
-	 CcVhVR10r4ybDYO7XI03PnONaH2tzhfWaYSLB/wZ2CbQP6P1ujXwGgB3sJgpkpZK6tQj9
-	 dkstyJEBhaKLyHMmMm2dNIToyCmUa5TJ1Qo/etXBzHbgZV0URox/LdKzMX2jiO+KuoHzA
-	 /ueoC9sPQSyZqf+MytyJcGvnA9lyoXg5+ERP7XZenaBTip9w9MFr44g01RUFJH1MVSA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=5cYrB3RoftR9+ZJufZSneOA3rg0mkVzJBEfjOWndr34=;
+	b=zzg62QhHQHB5i2nXMm/lhRkrkyMX16Uxmsc+XC97UZkx/haeN3ZphXKoxdsy/GFndBR6
+	 VcruW7U8kIJOxq9swpp44mab9glYsGs05eeEFKIiLw8rjZHaN563RlAITI6SNqjbWYxzp
+	 Gbc4r1BoYrjdzUdMyKspXKSTi/T70fTyQyIj8Km2b0LqQDNjdeS9lkSBaxa7GXaISkoCV
+	 JeUV5VQh+GhObQUx+P6ACSEnuq6N4Gw+3Wbv0hwSAZmItG7lL4LoU7GAzU6X11m2srIB9
+	 UG/1uXUV9PSkYxfdZM7JFUJgLwC2bW/4MMXk6Z/gk7sQCEmxv1Q8+BJGh1nPlNxOnXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Vp0WSGLp;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=e5Zp8ZAy;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B113606A32F
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 17:31:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B113606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53F3606A32C
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 17:31:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B53F3606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Vp0WSGLp
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso1165915e9.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 09:31:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=e5Zp8ZAy
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdd9d0c9bbdso82877a12.1
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 09:31:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794936680; x=1795541480; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+5KzUYY/vcXfemi9waz3d6wiZ68aHIzdXI9cSdmvu0U=;
-        b=Vp0WSGLpBVkp6PdcnPNAFI5j2X9aeAu+wVvQL5/FEq927aIDbZ/vYe69aK7U4faq3A
-         cXzF2cdHPz5OOkxdDc1BH+vhD4JbTMRXUWRdnNDskHLBQMuXJxGggNYt0Ojyou/0954+
-         NTLxwjzSCyy6CAlaLL+zhH8u6VE2o5F/WGRFx5ex+CwVFTzHZyNmyQi9zfX1+Y+SmEs8
-         3rzpqkupqzASZUScuPzsnoQlO8eKVeVtObijIAnibqc6oMyIIuNsaq8nqC1itnI3tw44
-         9/63Ldkbnc5JNCICprAkOun90Pyqq1db79uYHelsvEOreS7+G5o5bJ6Zc6vY58ONyS1v
-         F0tA==
+        d=linaro.org; s=google; t=1794936687; x=1795541487; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5cYrB3RoftR9+ZJufZSneOA3rg0mkVzJBEfjOWndr34=;
+        b=e5Zp8ZAytFfxgwA1egXYSHtX5reKgsfJ9Yi8rapzShoui1aILV3DByS1TjDMzLv4QD
+         lT7xAdJd6OhO49AB3wpGJtkRzAPmLynrM3S4a8HP4r9BLCLH57FaKmub6533kkM2+vmC
+         pip7BlKK6g+frBZnTZqQQa+C+9epFUILmgZNm/jyrumxPDWTO/qYUOa/u/AJX3haQPA9
+         paLLOHVRuff7J5v5d34M8QcyelhR9WuHvUr4blvROXbt1pavYmgWo9VVxHVJ5qJGpDiC
+         7I7qMLYH0yPJtZD80GBIJ18hbthI/+QCFL7Lf9cJWiVFnhWPUCb7Udaan5GrzXrInloi
+         Y24g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794936680; x=1795541480;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794936687; x=1795541487;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+5KzUYY/vcXfemi9waz3d6wiZ68aHIzdXI9cSdmvu0U=;
-        b=2GpwRjCEqCMN1ddx9Z9t2rLCVq5DQXLc4bObROdN7e7PEfyghvUNiMsUlTopck4icE
-         j6ybnmpHja1yAnftDq8cR0XBjiIsYeYbNasmbQcdh0lVqo0tFPcVxZ8B0KP+q56oQhoY
-         W0hBOj+c75mTkheSnfJWbX7c+W9PBstWUuHCZ9GJb3pU6T13iLcMmAE6tPM1+ryTaqVb
-         /jNrGRARSCyJ6hgmypDOa1ziaeWYD2OuWEJftfPui85C7jGZWgTYclh/TRMO6C4Q4s1u
-         60+hymj9F5SJw9NAgayCIfZP7lUvOsO/Bf4ZYsVxiVYy6LnQQaEBRwbfkfVGL1U546nu
-         TkeA==
-X-Forwarded-Encrypted: i=1; AL+hErFs0Hu3uZlPLgS2bZygRAsw6nqEdlgUmPdSTG+BFhy+cEv2pIwBCrSm/InqhsE3GRoPbi1kzK9VUvws@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MqGscGIbc7i/kBT3BeJJfK8PHBzvN+w6i2NzWQZxYcnAlZ8PL
-	odBGgxAbKy4GALvo6fKcYjrRwqD4s5z45sPtpaSqt9C9qp09+T3xACA3skIvJ0TZJL8=
-X-Gm-Gg: AYBFou0pVKZqagJkJDTBv3K+gWxJDn2FY1ck8cN32P66aNFRKuvNmrQcDP1ixeR3Y9i
-	qkb3HGJDZA3UxeA0UgDsjLzaUNJ4VL7bn+wZgsET48ZZlnBuL7ehsPhBZxFBGVblTMU4lp+acUu
-	JdebUuJM9bM5aasKTzEcMkJH7Pn2S3pdR3ytjqAjJ6Aick83QKhiA+/TPs3p4M6IAU+B3DreG+p
-	fpANj+wZLXYpHp+3K72VCZPkUCJTJ1qZY4x4BRVXMo55UZExq79e5dG1S5Pggu1eRpckZDBv0LH
-	esW5Q1xtt0weRP8SUBiVU0aIAIhYzokBKksZgNuAhPfv29CF/G7hS1XaLFfFTF5mfgMkr02WKp9
-	lUikFLu4n4ORn0gQgAokM8ZygtXJtfbre9oJ17i6R1zcKpR+N6krHjS9kj0q/GExiD9MFCUkPCK
-	+SnLaEfx6F5gkDNeY5qvijasnD2jjHV1EftzIJgACNN2LY1F2tQnmVMEXGQZxw9LUaOmDicYbTC
-	FRaAVdCfTI6iaf1BiSMigYH3Ygk+ExcOCGqLMKT3ByZMzHJ0+opCsYelFYUYQ5gaX4UTpkaxjxx
-	Ry0cxb34YooAFQN3Fx1L2XisqaDAEIIfzPp1PA/wDKySWPfnK/Qcy197e8BnI7/9IsD6KCYTp8t
-	d3w==
-X-Received: by 2002:a05:600c:3111:b0:4bb:6118:4c9a with SMTP id 5b1f17b1804b1-4bb61184db8mr281583825e9.30.1794936680498;
-        Tue, 17 Nov 2026 09:31:20 -0800 (PST)
-Received: from [127.0.1.1] (82-230-44-19.subs.proxad.net. [82.230.44.19])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb7ad9426asm46870735e9.4.2026.11.17.09.31.18
+        bh=5cYrB3RoftR9+ZJufZSneOA3rg0mkVzJBEfjOWndr34=;
+        b=vMtkKb4aQBn6/TFoAViB3ADR5l8/efGRytCEEV/e/Jsujg8LQ0UIvbABUUeoYfrbbj
+         tZBURPNC66Dp88dFeU6Dn23gxc1Ff5QLMnSdH1v0BUE72z69r7mZ8oe6pzPneLHFyTuI
+         uOHfifoIVfvi6Dyq5j6hsiV4ibCDZ0Rvt5GTFi5n8Ojy9f4Sfe+Hs30rE+sUs08kVNtW
+         yDAeziZ48AL2Y4IYC831Pea+Rqamb+ENoD4fCaL348iy1l1jCfVSPJODi2bw9wK3KQNB
+         bIoKSSmESfFDZRdHFXjM6UN5yUPCoYzTa0hA/RTYE1cHwhxJn32VPRcZ4fTlejkANsTb
+         DOyw==
+X-Forwarded-Encrypted: i=1; AL+hErFuo2qNEiSkDnKU+JXZNh1YuZiRpU8kKktvi0eg9wMtJKceRM4hSVmyT9oO+4iN0sI8Ez/5BifKidMj@vger.kernel.org
+X-Gm-Message-State: APuU4Z9oZJWHXPbSIAaFk/mdLy95rlmeCuWh+9FVwZ/3qvQGGk7Q/rOh
+	yyi8PKsip+52gH72AX0P5lihXc+TxHWlN3blhjl2bL68lgjZraJSEoPL6VigIF4EhjQ=
+X-Gm-Gg: AZFdTZce5dzCqBLlUyoI6iC9KZ2pk4u+Mrwiy4CRCq+dtvFc7PPEaEQ02y6SqVuOzwC
+	tK8GF+TlkOvNebZwuSgElUkdVpL7WmghKzSjkNjFuSPj3yQlaB/kR/dG6kRfCYN7FlHUg6EUHp8
+	SXGLqiGwtpUvEQ/6eFlo0WWcRwHpNPGyarzoc02XADAmfk7BKCRkTGHkQAU9Cdnqo5aOaA1VNwC
+	736EdhjAxvjlyknt5TZePSrGSD/+JLAY6fdsPh4HIY9kTnjXYa0pOUgC6PEIiEvb7b86/8uhim3
+	yMZKmja15Q9imu9fR2OfMQSVw8tDT8ASntwznfwOQ0spJSZJ39zQnXzmDH4Gwf5uHlAhspxqghG
+	haUiwEyK7nPUNUkAmDlo0wehSYNPj2TTiqTNef7yWd1QIgNlRFr6uQov5i1PDmzr40upBsb28Wd
+	JFqYPl2Qun8rSU/wjGxQXYoUexXEpIyP3wyr8uYMFAfJ+P/9C/TpY+sFPiE0xAQEV+AO5uX4K9W
+	JU/vH+VhZwhFKKHsg3qoIEemaapWUPTzIHn7bs2w8Q/I77Hqhm7MTb+eOSJCHbNeFxTJYse3dIy
+	ztEZR/oDHwR4Q0IcJ5USB7aUaKHkS+T6J+WJP42ZRWMbQfyuCuu0ow==
+X-Received: by 2002:a17:90b:3892:b0:3ac:9f24:44be with SMTP id 98e67ed59e1d1-3b3d07becb8mr123850a91.29.1794936686801;
+        Tue, 17 Nov 2026 09:31:26 -0800 (PST)
+Received: from p14s ([2604:3d09:148c:c800:61f7:13ac:b599:b52c])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abeaf532sm4936578a91.14.2026.11.17.09.31.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 09:31:19 -0800 (PST)
-From: Alexandre Mergnat <amergnat@baylibre.com>
-Date: Tue, 17 Nov 2026 17:31:05 +0000
-Subject: [PATCH 2/2] irqchip: Add MediaTek SMMU wrapper driver
+        Tue, 17 Nov 2026 09:31:26 -0800 (PST)
+Date: Tue, 17 Nov 2026 11:31:23 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Francesco Valla <francesco@valla.it>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC v2 08/11] Documentation: remoteproc: expand virtio
+ support section
+Message-ID: <avyPa5rSx9rhf9yO@p14s>
+References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it>
+ <20261102-remoteproc_virtio_map-v2-8-26b300e01c62@valla.it>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,230 +112,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-mt8196-smmu-wrapper-v1-2-229f04d9f693@baylibre.com>
-References: <20261117-mt8196-smmu-wrapper-v1-0-229f04d9f693@baylibre.com>
-In-Reply-To: <20261117-mt8196-smmu-wrapper-v1-0-229f04d9f693@baylibre.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org, 
- Alexandre Mergnat <amergnat@baylibre.com>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-remoteproc_virtio_map-v2-8-26b300e01c62@valla.it>
 
-On MT8196, each interrupt of the multimedia SMMUv3 must be acknowledged
-in a MediaTek wrapper, which otherwise keeps its GIC line asserted.
+On Mon, Nov 02, 2026 at 12:26:45AM +0100, Francesco Valla wrote:
+> Expand the section on virtio support over remoteproc with details on
+> memory allocation setup and constraints.
+> 
+> Signed-off-by: Francesco Valla <francesco@valla.it>
+> ---
+>  Documentation/staging/remoteproc.rst | 99 +++++++++++++++++++++++++++++++++++-
+>  1 file changed, 98 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/staging/remoteproc.rst b/Documentation/staging/remoteproc.rst
+> index c117b060e76c..4b42ed582fb4 100644
+> --- a/Documentation/staging/remoteproc.rst
+> +++ b/Documentation/staging/remoteproc.rst
+> @@ -354,7 +354,104 @@ it supports. A firmware may support any number of virtio devices, and
+>  of any type (a single remote processor can also easily support several
+>  rpmsg virtio devices this way, if desired).
+>  
+> +Memory carveouts
+> +----------------
+> +
+> +For a virtio device at position ``X`` among the RSC_VDEV resources declared by
+> +the resource table, the remoteproc framework will search for memory carveouts
+> +for:
+> +
+> +* all the vrings the specific virtio device requires (as ``vdevXvringY``);
+> +* the memory area to allocate communication buffers from (as ``vdevXbuffer``).
+> +
+> +The carveouts can be provided by the remote processor itself as RSC_CARVEOUT
+> +resources inside the resource table and/or supplied by the remoteproc driver
+> +and will be indexed by their name.
 
-Add a driver for the wrapper as a chained interrupt controller.
+The remoteproce driver doesn't supply carvouts, it gets them from the device
+tree.
 
-Signed-off-by: Alexandre Mergnat <amergnat@baylibre.com>
----
- MAINTAINERS                       |   1 +
- drivers/irqchip/Kconfig           |  11 +++
- drivers/irqchip/Makefile          |   1 +
- drivers/irqchip/irq-mtk-smmu-wp.c | 145 ++++++++++++++++++++++++++++++++++++++
- 4 files changed, 158 insertions(+)
+> +If a carveout with the same name is provided through both means, the one
+> +supplied by the remote processor should be marked as dynamically allocable,
+> +i.e., with the device address set to ``FW_RSC_ADDR_ANY`` (-1).
+> +
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5cc65a753ad2..36866ba47912 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17228,6 +17228,7 @@ M:	Alexandre Mergnat <amergnat@baylibre.com>
- L:	linux-mediatek@lists.infradead.org (moderated for non-subscribers)
- S:	Maintained
- F:	Documentation/devicetree/bindings/interrupt-controller/mediatek,mt8196-smmu-wp.yaml
-+F:	drivers/irqchip/irq-mtk-smmu-wp.c
- 
- MEDIATEK SWITCH DRIVER
- M:	Chester A. Unal <chester.a.unal@arinc9.com>
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index 2edf121c7841..2773515f1dd4 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -866,4 +866,15 @@ config IRQCHIP_XILINX_SMMU_CSR
- 	  ZynqMP-class platforms where a vendor CSR block mediates SMMU
- 	  interrupts.
- 
-+config MTK_SMMU_WP
-+	bool "MediaTek SMMU wrapper interrupt controller"
-+	depends on (ARCH_MEDIATEK && ARM64) || COMPILE_TEST
-+	default ARCH_MEDIATEK && ARM64
-+	select IRQ_DOMAIN
-+	help
-+	  Support for the wrapper block that MediaTek integrates
-+	  with the multimedia SMMUv3 of MT8196.
-+	  The interrupts of that SMMU do not work without this
-+	  driver.
-+
- endmenu
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index eb539d41251e..573b6c06fe06 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -73,6 +73,7 @@ obj-$(CONFIG_BRCMSTB_L2_IRQ)		+= irq-brcmstb-l2.o
- obj-$(CONFIG_KEYSTONE_IRQ)		+= irq-keystone.o
- obj-$(CONFIG_MIPS_GIC)			+= irq-mips-gic.o
- obj-$(CONFIG_MTK_IRQ)			+= irq-mtk-sysirq.o irq-mtk-cirq.o
-+obj-$(CONFIG_MTK_SMMU_WP)		+= irq-mtk-smmu-wp.o
- obj-$(CONFIG_ARCH_DIGICOLOR)		+= irq-digicolor.o
- obj-$(CONFIG_ARCH_SA1100)		+= irq-sa11x0.o
- obj-$(CONFIG_INGENIC_IRQ)		+= irq-ingenic.o
-diff --git a/drivers/irqchip/irq-mtk-smmu-wp.c b/drivers/irqchip/irq-mtk-smmu-wp.c
-new file mode 100644
-index 000000000000..6e5172d18b14
---- /dev/null
-+++ b/drivers/irqchip/irq-mtk-smmu-wp.c
-@@ -0,0 +1,145 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * MediaTek SMMU wrapper interrupt controller
-+ *
-+ * Copyright (C) 2026 BayLibre, SAS
-+ *
-+ * The wrapper latches each SMMUv3 interrupt source in IRQ_STA and keeps its
-+ * single output line asserted while a latched source is not acknowledged.
-+ * An acknowledgment clears every pending occurrence of the source, so each
-+ * source is handled as an edge, acknowledged before its handler reads the
-+ * SMMU state. No mask register is known.
-+ */
-+
-+#include <linux/bitops.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/io.h>
-+#include <linux/irq.h>
-+#include <linux/irqchip.h>
-+#include <linux/irqchip/chained_irq.h>
-+#include <linux/irqdomain.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+
-+#define MTK_SMMU_WP_IRQ_STA		0x80
-+#define MTK_SMMU_WP_IRQ_ACK		0x84
-+#define MTK_SMMU_WP_IRQ_ACK_CNT		0x88
-+#define MTK_SMMU_WP_IRQ_ACK_CNT_MASK	GENMASK(7, 0)
-+
-+#define MTK_SMMU_WP_NR_IRQS		8
-+
-+struct mtk_smmu_wp {
-+	struct device		*dev;
-+	void __iomem		*base;
-+	struct irq_domain	*domain;
-+};
-+
-+static void mtk_smmu_wp_ack_source(struct mtk_smmu_wp *wp, unsigned int src)
-+{
-+	writel_relaxed(BIT(src), wp->base + MTK_SMMU_WP_IRQ_ACK);
-+	/* Flush the posted ACK before the SMMU is read */
-+	readl(wp->base + MTK_SMMU_WP_IRQ_STA);
-+}
-+
-+static void mtk_smmu_wp_irq_ack(struct irq_data *d)
-+{
-+	mtk_smmu_wp_ack_source(irq_data_get_irq_chip_data(d), d->hwirq);
-+}
-+
-+static const struct irq_chip mtk_smmu_wp_chip = {
-+	.name		= "mtk-smmu-wp",
-+	.irq_ack	= mtk_smmu_wp_irq_ack,
-+};
-+
-+static void mtk_smmu_wp_handler(struct irq_desc *desc)
-+{
-+	struct mtk_smmu_wp *wp = irq_desc_get_handler_data(desc);
-+	struct irq_chip *chip = irq_desc_get_chip(desc);
-+	unsigned long pending;
-+	unsigned int src;
-+
-+	chained_irq_enter(chip, desc);
-+
-+	pending = readl_relaxed(wp->base + MTK_SMMU_WP_IRQ_STA);
-+	for_each_set_bit(src, &pending, MTK_SMMU_WP_NR_IRQS) {
-+		if (generic_handle_domain_irq(wp->domain, src)) {
-+			/* Release an unused source, which would hold the line */
-+			mtk_smmu_wp_ack_source(wp, src);
-+			dev_warn_ratelimited(wp->dev, "unexpected source %u\n", src);
-+		}
-+	}
-+
-+	chained_irq_exit(chip, desc);
-+}
-+
-+static int mtk_smmu_wp_map(struct irq_domain *d, unsigned int virq, irq_hw_number_t hwirq)
-+{
-+	irq_set_chip_and_handler(virq, &mtk_smmu_wp_chip, handle_edge_irq);
-+	irq_set_chip_data(virq, d->host_data);
-+	return 0;
-+}
-+
-+static const struct irq_domain_ops mtk_smmu_wp_domain_ops = {
-+	.map	= mtk_smmu_wp_map,
-+	.xlate	= irq_domain_xlate_onecell,
-+};
-+
-+static void mtk_smmu_wp_setup(struct mtk_smmu_wp *wp)
-+{
-+	u32 val;
-+
-+	/* Make each IRQ_ACK write clear every pending occurrence */
-+	val = readl_relaxed(wp->base + MTK_SMMU_WP_IRQ_ACK_CNT);
-+	val |= MTK_SMMU_WP_IRQ_ACK_CNT_MASK;
-+	writel_relaxed(val, wp->base + MTK_SMMU_WP_IRQ_ACK_CNT);
-+}
-+
-+static int mtk_smmu_wp_probe(struct platform_device *pdev, struct device_node *parent)
-+{
-+	struct irq_domain_info info = {
-+		.fwnode		= dev_fwnode(&pdev->dev),
-+		.size		= MTK_SMMU_WP_NR_IRQS,
-+		.hwirq_max	= MTK_SMMU_WP_NR_IRQS,
-+		.ops		= &mtk_smmu_wp_domain_ops,
-+	};
-+	struct device *dev = &pdev->dev;
-+	struct mtk_smmu_wp *wp;
-+	unsigned long pending;
-+	unsigned int src;
-+	int parent_irq;
-+
-+	wp = devm_kzalloc_obj(dev, *wp);
-+	if (!wp)
-+		return -ENOMEM;
-+
-+	wp->dev = dev;
-+
-+	wp->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(wp->base))
-+		return PTR_ERR(wp->base);
-+
-+	parent_irq = platform_get_irq(pdev, 0);
-+	if (parent_irq < 0)
-+		return parent_irq;
-+
-+	mtk_smmu_wp_setup(wp);
-+
-+	/* Release the sources that an earlier boot stage left latched */
-+	pending = readl_relaxed(wp->base + MTK_SMMU_WP_IRQ_STA);
-+	for_each_set_bit(src, &pending, MTK_SMMU_WP_NR_IRQS)
-+		mtk_smmu_wp_ack_source(wp, src);
-+
-+	info.host_data = wp;
-+	wp->domain = devm_irq_domain_instantiate(dev, &info);
-+	if (IS_ERR(wp->domain))
-+		return PTR_ERR(wp->domain);
-+
-+	irq_set_chained_handler_and_data(parent_irq, mtk_smmu_wp_handler, wp);
-+
-+	return 0;
-+}
-+
-+IRQCHIP_PLATFORM_DRIVER_BEGIN(mtk_smmu_wp)
-+IRQCHIP_MATCH("mediatek,mt8196-mm-smmu-wp", mtk_smmu_wp_probe)
-+IRQCHIP_PLATFORM_DRIVER_END(mtk_smmu_wp)
+Right, as per my comment in the previous patch, carveouts at the virtio level
+should be distinct from those declared at the remote processor level.  Hopefully
+this will keep the remoteproc core simple and make it easy to differentiate
+between code paths that handle legacy and authentic rproc-virtio devices.
 
--- 
-2.43.0
-
+> +If a ``vdevXvringY`` carveout is not provided, the remoteproc framework will
+> +try to allocate it using dma_alloc_coherent(), which will resort to allocate it
+> +either from the first ``restricted-dma-pool`` region associated to the virtio
+> +device's parent (i.e., the remote processor device), if present, or the global
+> +DMA pool.
+> +
+> +.. WARNING::
+> +
+> +    This fallback mechanism can result in a vring being allocated using a
+> +    ``vdevXbuffer`` area meant for another vdev, so a particular care shall be
+> +    adopted when defining the carveouts. In particular, ``restricted-dma-pool``
+> +    memory regions should be specified inside the virtio device's devicetree
+> +    nodes and not attached to the parent remote processor.
+> +
+> +If a ``vdevXbuffer`` carveout is not provided, the remoteproc framework will
+> +use the memory region declared by the virtio device's own devicetree node (see
+> +Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml), if any.
+> +Otherwise, it will try to replace it with the first memory region (of any type)
+> +associated to the virtio device's parent (i.e., the remote processor device);
+> +if no such memory region is present, it will be replaced with the global DMA
+> +pool.
+> +
+> +If both a ``vdevXbuffer`` carveout and a memory region inside the virtio
+> +device's devicetree node are present, the carveout takes precedence and the
+> +memory region is ignored.
+> +
+> +Declaring the memory region inside the virtio device's devicetree node is the
+> +preferred method for ``restricted-dma-pool`` regions, since listing them among
+> +the memory regions of the remote processor device would make the first of them
+> +the (forced) bounce buffer for the remote processor device itself as well.
+> +
+> +Buffer allocation
+> +-----------------
+> +
+> +There are different kinds of buffer allocation scenarios:
+> +
+> +* if the remote processor can access the whole DMA memory area of the host, no
+> +  special arrangement needs to be performed, since either the drivers (in case
+> +  of rpmsg and rproc-serial devices) or the DMA APIs (in case of any other
+> +  virtio device type) will take care of any necessary translation;
+> +* if the remote processor has limited access to the host memory space, for
+> +  example because of a different addressing scheme or for memory isolation
+> +  constraints, the memory reserved for buffer allocation shall be selected
+> +  depending on the virtio device type:
+> +
+> +  - for rpmsg and rproc-serial devices, a simple contiguous memory region
+> +    (e.g.: one declared in devicetree as ``shared-dma-pool``) is sufficient and
+> +    should be preferred, since it allows zero-copy message transmission between
+> +    the host and the remote processor;
+> +  - for any other virtio device type, a swiotlb-enabled memory region (e.g.:
+> +    one declared in devicetree as ``restricted-dma-pool``) is required, because
+> +    such devices need bounce buffering to work correctly.
+> +
+> +For virtio devices other than rpmsg and rproc-serial, the remoteproc framework
+> +offers the ``VIRTIO_F_ACCESS_PLATFORM`` feature, so the buffer addresses written
+> +in the vring descriptors are the DMA addresses returned by the DMA APIs for the
+> +virtio device. The virtio device inherits the DMA mask and the DMA range map
+> +(i.e., the translation described by the ``dma-ranges`` devicetree property) of
+> +the remote processor device, and is never attached to an IOMMU: these DMA
+> +addresses are therefore host physical addresses, translated only through the
+> +DMA range map. The remote processor must be able to access the buffers at
+> +these addresses.
+> +
+> +.. WARNING::
+> +
+> +    For remote processors that access memory through an IOMMU managed by the
+> +    remoteproc framework (i.e., with ``has_iommu`` set), the IOMMU domain only
+> +    contains the mappings created for the RSC_CARVEOUT and RSC_DEVMEM entries
+> +    of the resource table, at the device addresses they specify; no mapping is
+> +    created for the buffers of the virtio devices. Such remote processors are
+> +    supported only if all the memory that can hold virtio buffers (e.g., the
+> +    ``restricted-dma-pool`` region associated to the virtio device) is mapped
+> +    with its device address equal to its physical address, for example through
+> +    an RSC_DEVMEM entry. The same constraint applies to any fixed address
+> +    translation applied by the remote processor that is not described by the
+> +    DMA range map of the remote processor device.
+> +
+> +Allocation of virtio devices
+> +----------------------------
+> +
+>  Of course, RSC_VDEV resource entries are only good enough for static
+>  allocation of virtio devices. Dynamic allocations will also be made possible
+>  using the rpmsg bus (similar to how we already do dynamic allocations of
+> -rpmsg channels; read more about it in rpmsg.txt).
+> +rpmsg channels; read more about it in Documentation/staging/rpmsg.rst).
+> 
+> -- 
+> 2.56.0
+> 
