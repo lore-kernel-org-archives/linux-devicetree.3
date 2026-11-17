@@ -1,59 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794905367;
-	b=Irb9OGQZTwXJjnhTsY9zPVeP5/Un1Ss2HvV2h0GZsp9/lfpa6RvN3K0kngYbdrl6QzH/
-	 8DS5et01TS7/0kivCoG9g88P4NYAd3jVPAv+Y7xpZipD0BHnyxwt2qBjc6JcFJqfgm32w
-	 22juGkRjC1CyOo5H3l3Ps+Z84xCccAxsUZzSA6NCduR+20E1Fd9kTCmztBREflfxvMIK7
-	 GV/jWXGUXKYrw+DhlLjr2zwoiJXZ49OApu+EdcDHSyehIgbMF74qWWxG5JdNkZ3383XGg
-	 v9aB6n09ea42nwmgKeiavtNXEp1IO2iRqGEOODqlw4426B0StumW597wQnrEOrVPQZA==
+	t=1794905377;
+	b=Zszwr4tccGfEo+ZzTlPO+yEj/0Ly+vIo3Bc1+8QeAaSVktSpyDCYkD7kpdzYsrKYtHJ5
+	 asRNRzyTT6LRZ8qALRG759Pm+pY/l43AJXLq964AXczgpwEFlQhK13Pa3/5R5Yil+2QeU
+	 SduJQy7KPghE5F1W8FT1IEc+Z+GXnu5FxvTAVJ9Kr6xOFe5FSpaEQ/1u69wsgnRk/dwDR
+	 V84xooUmXUaMNb98zpbzFRy4mzxeUjAMtWBvWG9L0DSZ8kW4anoVwiJGabCgNqUwddcWa
+	 OMPWspXzN0SisobpW1g8NK0hK+s+9t9q9lMt3oJxf/ohrX165IGlZS5JO1FJqZRinbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794905367;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=wU4xhqWl4USAlYADvxoZPgburqO26mwdbOZt/lIipRQ=;
-	b=qDGoBs9leH+/5a8iJ6zLYu5VNffx/Wbk2bOotRhZVGlfH821R1WbMpiMQ5akadzAjLmv
-	 zFr4lg5u/IfZMngK04hmlITHD8EM5E5x298h2QFI7UZdrSU2es2n4oDT0nYEV6DwN17V6
-	 Px81/fo7rIoI0/Wpv78BNkxnov0PLo4RHONvkK1r37VHHRWiDJEkUVU3ChCC8t4Y7flbo
-	 su4y4F6kSrTSa4jSpx1FFYfG4QyEyvDnGpFHsYDJX6Ny6RWqg/0EnyQ0Uy7XappO2p2MJ
-	 nWjEbrgfauBN7mXTCRib9qgeJ3w2IPxMSy0saJ09JJAzp/uB041dYGTM8ked4Ptpxfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794905377;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=E/RFP3wsLpPNC+geMO+1/yPZx+YppweJwf0WP+dI9gc=;
+	b=zxc/ftK00YLhqzuLHBxJs9ERESpGRg4ZVaQ03tDa3BlMGgKB2IhfGHT9Kd5HHOMWoWZA
+	 y2NDOoQDrF6HzIpc+Z1kOwqqXwFHpd8aziZoNpDiKEQwtm9PipnjKg/4O5eZxL/31xqvP
+	 7skenXIyurHtOwi3ZerCnCxJIbcLzpOSXn2lnsKgSjIuSqdZOtHHkYQoMMuAjjhdTK3w5
+	 nSMY5RSNRNeeJV8lfVy+D8us/nI09EVXLUO8e335HFFL6giPt1fJZ1u2tPl0gnEiksyso
+	 PQawFL0X2bIiBl3bcR+GZ2VpjsBgcWdBXnwJAm9r1FZ9bmgvb+zWwUMmZikqkZFxr6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=fpGsOHNO;
-	arc=none smtp.remote-ip=54.92.39.34
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=jonasjelonek.de;
+	spf=pass smtp.mailfrom=jonasjelonek.de;
+	dkim=pass header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=vqrld4rA;
+	arc=none smtp.remote-ip=212.227.17.13
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF53606A895;
-	Tue, 17 Nov 2026 08:49:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DF53606A895
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92209606A899
+	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 08:49:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92209606A899
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=fpGsOHNO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794905346;
-	bh=wU4xhqWl4USAlYADvxoZPgburqO26mwdbOZt/lIipRQ=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=fpGsOHNOKhtYsvIM5B7UpuheRHlYpgXktnsP04qPqy3m+Az1zk1KYdr3gS2RGpYDe
-	 DtBnlA7q/klnUMXBMu73vQ5hC7wLVCuwUJcfl8+b39btBuAzFSNC/ClPUOQCALd5J5
-	 TGsrZbGV5L58oxbyeTnMrmal0RdeqIF+MxyDa350=
-X-QQ-mid: esmtpsz16t1794905345t39b49035
-X-QQ-Originating-IP: 8i72p43sCJOlZh+xmUN2PACtZiedRJUMSKKHKChrVCg=
-Received: from = ( [183.48.247.191])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 17 Nov 2026 16:49:02 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3412498541306828585
-EX-QQ-RecipientCnt: 15
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Tue, 17 Nov 2026 08:48:52 +0000
-Subject: [PATCH v2 2/2] riscv: dts: spacemit: Add K3 CoM260 TQ support
+	dkim=pass (2048-bit key, unprotected) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=vqrld4rA
+DKIM2-Signature:  i=1; m=1; t=1794905369;
+ mf=PGpvbmFzQGpvbmFzamVsb25lay5kZT4=;
+ rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+ d=jonasjelonek.de;
+ s=s1-ionos:rsa-sha256:l6mk1qyX1+2H0qObZZqQ5hXtiXox
+   kPue5liXlyHQ3IFD6bxnLQ+XrQa+GqVm0kGQCwcqzxKFs4usjOxILUOgwiINl7+XApT6ckb8DJd
+   aSp6zvTf1VCdcBdeQC+8sQ3H6ZF9KUUYG6kcneuVb4qsUmOx3ru2BAWoD8q2klzipllJWi4L12G
+   v67lOpZJaHPEhJrRZ4H3MnQ+R2BSv6TV2TR6L6ts0o/d9pNz6Sq7NeCdQYCnB4Byr/sGuAqu1XY
+   qSrgZqWHx2N60R3rJhnXjeImcIVJh+QRKbgLvqN4e91EGMyAk75Jm0HNdc1KVdcw7DKQPGYdmDu
+   M5SVzUa8d3ssnA==;
+Message-Instance:  m=1;
+ h=sha256:
+   aFN7WPqU9k+V5anpWemxAEZ9Ygd345uxr3sVYkqCkdg=:
+   mgQEqV6Qa+9ciGJucJIqoAeYrahEWEFblmyXCxYmFlE=,
+  sha512:
+   n4a9BFIYm7gxL9pSeyeaxDA0lvLkhcB9gQDzPemaV1ZHtB9k5nb7uClNF0Kmf+hWWZHhXNLDEM0GUnpFDNfZTA==:
+   HkD1caWtXrhOC5szqlQD6TcqIwrUB8T45F4MVt0GhgmCh3ApWNMm8lHh2UO1tcM3Y6ARDGM1yraWxyIXmw8EJg==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
+	s=s1-ionos; t=1794905283; x=1795510083; i=jonas@jonasjelonek.de;
+	bh=E/RFP3wsLpPNC+geMO+1/yPZx+YppweJwf0WP+dI9gc=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=vqrld4rAE89GSKJyeJMXrapjoZmgWR5Ww16UIULWl0V+V+c1rjXKvDNZD6dqd5bg
+	 aIJWTZvWiIDZC3yEeZ0yaG/WedJVhg0MCnZP/JquFhcBQJxxAmuuzxU6pPakqy7Ue
+	 3h+ImmSxPoaLgr6gIG0VKuV3p17GJjgxl25v8JHG0Tzrv1QYxXYChQkoD6VZkwUUc
+	 W6u94C3ZDG7S3BSGN5k7jcSNY/xuHzOPSN0nm25ZtWHYuli4HdNEe7T0/euMmK42l
+	 xZByYfft/Tve5l0bPF2afVm1gR7rq6IRtV6t+iVl2ybe0NQNhtqqgBmV+oX9p5BiB
+	 W2AMRG5Qs6lBBJA85g==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
+ [213.165.67.113]) with ESMTPSA (Nemesis) id 1Mate1-1wsoZt4BdD-00Zcms; Tue, 17
+ Nov 2026 09:48:03 +0100
+From: Jonas Jelonek <jonas@jonasjelonek.de>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Jonas Jelonek <jonas@jonasjelonek.de>
+Subject: [RFC PATCH net-next 2/2] net: phy: add Realtek XSGMII interface mode
+Date: Tue, 17 Nov 2026 08:47:48 +0000
+Message-ID: <20261117084748.2387647-3-jonas@jonasjelonek.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261117084748.2387647-1-jonas@jonasjelonek.de>
+References: <20261117084748.2387647-1-jonas@jonasjelonek.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,134 +103,203 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-k3-tq-dts-based-on-com260-v2-2-68b337bd8938@linux.spacemit.com>
-References: <20261117-k3-tq-dts-based-on-com260-v2-0-68b337bd8938@linux.spacemit.com>
-In-Reply-To: <20261117-k3-tq-dts-based-on-com260-v2-0-68b337bd8938@linux.spacemit.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Guodong Xu <docular.xu@gmail.com>, Yangyu Chen <cyy@cyyself.name>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2698;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=dIRJzVDA8Y7pxPhVjGCYcpGvvNVKuQnpBBe7ZGfT2hM=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFl/RL6FGigeUDT49KTO6c1ar76Tx6/oidRVvJdQ3Wi1S
- HL3//XzOkpZGMS4GGTFFFm6H/BsK/CJsi0QKPSFmcPKBDKEgYtTACaicYeR4cETg/3vezneNGrL
- 8UtI/lSOCV149n7g95U2Vw9t2W8rrsXwP76j827YvJZqiU2t+24fbYjQzdS70KLPqb6/657Yb6W
- XbAA=
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NsKw77UaNFtD2M9a+2gpYKmDeJbF2t8gO868qIGbpH0hENPhLgMhfbHG
-	lkgGWf6t3mzKfNcONKxHpGulfGuVYqh5/KWyIRRgix8mVand/Qd65D95S5TNPIjmXUh/GcP
-	Kihb/cK+Ec3WLkElQ3XSZkidB8VKtpBhMwCJieY8oDKUwjTX5IspSnOErTlQC2Ko/Dy3pHv
-	sacrOfZyPg08ZJkD7QT5SY11QTswyW1g3hqnS+nXFSYGVIMWpsAvmyBVzD+RpQAIQxV/i8J
-	QyyWpmGJ04zXWLO50hxgnP+5P/rwc3cBE44eXMUnnHW4rrJiGaeEDwFZgvpC8qBJ54lUFdX
-	s/CYBR20cH6hJndcrd8+jgtiUtqN8JY24eVPMDUb+d5QtsRTdT33A/B9Kz5ZQXjfh+8iUoQ
-	42/61IZnzbKQkoLV7zZRsxAdDjdCqo1/sfxPTn0NOsLdkviYodZkflVYnp1e/SQxBHZS8X3
-	/ll5/I2slELWr7t31sXk10M56Ggf8YsRzICBTGsONSY0bhC27/McngU6zfc1ryjez8LYw0s
-	pn+cDd5kkfcinc/SY5Nnu9B4FPyO84sA0t5Y3XZRVJcnZi2GBeytU/G/O07qFriNSY8ZLx5
-	lnvYwk+kGMWbBDtLMFKYRvi6/s6MXiUb9s+1Z9IzOD4qOYzkGXemg3DA4qzve/jfB7AOfq7
-	iUZSrwbzQPE4X4JcTU3BOgW0idS/L+RgIYN2AVqz9xnidg4a0qF2L1GL+DRX+uemwhrKR3c
-	nU6x4yrpRyH9GOt9EF8Jl6tyETsqknXcKWPvHwTpnehAnk6A9shLHSQEcbVKLyPhO53WJBA
-	HNj6AAxvU1O4wYXBaxk+SxZBX+gvkjEyJaqpYcjjoEUKJz9CjxOnr+ejfIQMQdKqzVImWwO
-	iPn6OsuEiKvUHUWnGKVq6fjnPOJ0P16kmFmzmDYwvGRKNuLUgMVO4Qzm5mnlNNUxpOU4psP
-	lLQSIrtDpogvE2FKbukq8zCh0DqAgSxoHZ2APWGDzznVfocTIDywdlFGnYrvu8zSAwv0D7R
-	jmsXvHpzrKthDtGMk1Jtkp8R1oe6tYc5uud3fAeKalQGiT+ikPgI9vL9DqO7PKllhL3u7lM
-	Kf6w8bXshEcjwTdzEIy7/ch3e+PwIAit2CUE2vncoOZncqEVQnIkJAK0V5I1AJX3EAcFXB1
-	xes/
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:fyTWJNMXZOGI2apJLpiMdC1QqQowHr0FYkXcz+aRyO2S4BcvyG5
+ OsH4l0LJQ6iPPP3C/S/mieZn9v/CYqSMWsPC7mECQ3qFqKhPi3mRLWci9itI4fpprmedrme
+ +eC8gZvfP+8oUE+QEXI0SzXL6t9835RMBYgiC/dplSEzBkTQV/kSqv3UwK8KKNriP5v4uuz
+ mR27H2Pbp4N/UQ04NgTLg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:8HrvPPkEzUk=;h0anzsgWv8oLWxkLTEWZjVpzFpl
+ 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
+ OVg==
 
-Add a device tree for the K3 CoM260 TQ board, a K3 CoM260 module on the
-TQ carrier board. It reuses the CoM260 module description for the UART
-console, Ethernet, module EEPROM and PMIC.
+Introduce PHY_INTERFACE_MODE_XSGMII for Realtek's proprietary eight-port
+MAC-PHY interface. Append the enum value before PHY_INTERFACE_MODE_MAX
+and provide the xsgmii string mapping.
 
-Describe the carrier's green and yellow Ethernet PHY LEDs while keeping
-their existing hardware state, and enable ALDPS power saving on the
-RTL8211F PHY with its unused CLKOUT output disabled.
+Report eight carried ports and per-port 10/100/1000 Mbps capabilities.
+Handle XSGMII as a PHY-status interface in phylink, accepting in-band
+status and limiting the maximum per-port speed to 1 Gbps.
 
-The TQ carrier board is built with one of two power schemes for the CPU
-clusters. The bootloader programs those regulators and Linux keeps the
-voltages it leaves, so this description covers both variants. Once the
-regulators are supported, the power schemes can be described as
-overlays and applied to this device tree at build time.
+Document that XSGMII's transport capacity is independent of the number
+of enabled ports. A dedicated mode distinguishes it from USXGMII and
+10G-QXGMII without inferring the wire protocol from the active port count.
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
----
- arch/riscv/boot/dts/spacemit/Makefile         |  1 +
- arch/riscv/boot/dts/spacemit/k3-com260-tq.dts | 44 +++++++++++++++++++++++++++
- 2 files changed, 45 insertions(+)
+Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
+=2D--
+ Documentation/networking/phy.rst | 7 +++++++
+ drivers/net/phy/phy-core.c       | 2 ++
+ drivers/net/phy/phy_caps.c       | 1 +
+ drivers/net/phy/phylink.c        | 3 +++
+ include/linux/phy.h              | 4 ++++
+ 5 files changed, 17 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/spacemit/Makefile b/arch/riscv/boot/dts/spacemit/Makefile
-index 851b701e5da4..bac9dcb5efe5 100644
---- a/arch/riscv/boot/dts/spacemit/Makefile
-+++ b/arch/riscv/boot/dts/spacemit/Makefile
-@@ -6,5 +6,6 @@ dtb-$(CONFIG_ARCH_SPACEMIT) += k1-musepi-pro.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-r2s.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-rv2.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-com260-ifx.dtb
-+dtb-$(CONFIG_ARCH_SPACEMIT) += k3-com260-tq.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-deepcomputing-fml13v05.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-pico-itx.dtb
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-tq.dts b/arch/riscv/boot/dts/spacemit/k3-com260-tq.dts
-new file mode 100644
-index 000000000000..758347f30b3c
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260-tq.dts
-@@ -0,0 +1,44 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/* Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd */
+diff --git a/Documentation/networking/phy.rst b/Documentation/networking/p=
+hy.rst
+index d53067ab1a61..675787c4ab52 100644
+=2D-- a/Documentation/networking/phy.rst
++++ b/Documentation/networking/phy.rst
+@@ -327,6 +327,13 @@ Some of the interface modes are described below:
+     This is the Penta SGMII mode, it is similar to QSGMII but it combines=
+ 5
+     SGMII lines into a single link compared to 4 on QSGMII.
+=20
++``PHY_INTERFACE_MODE_XSGMII``
++    This is Realtek's proprietary eight-port MAC-PHY interface. A single
++    SerDes lane operating at 10.3125 Gbaud carries eight ports, each supp=
+orting
++    speeds of 10Mbps, 100Mbps and 1Gbps. The interface describes the tran=
+sport
++    capacity, independently of how many ports are enabled. It is distinct
++    from USXGMII and 10G-QXGMII.
 +
-+#include <dt-bindings/leds/common.h>
-+
-+#include "k3-com260.dtsi"
-+
-+/ {
-+	model = "SpacemiT K3 CoM260 TQ";
-+	compatible = "spacemit,k3-com260-tq", "spacemit,k3-com260", "spacemit,k3";
-+
-+	aliases {
-+		serial0 = &uart0;
-+		ethernet0 = &eth1;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&phy1 {
-+	realtek,aldps-enable;
-+	realtek,clkout-disable;
-+
-+	leds {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		led@1 {
-+			reg = <1>;
-+			function = LED_FUNCTION_LAN;
-+			color = <LED_COLOR_ID_GREEN>;
-+			default-state = "keep";
-+		};
-+
-+		led@2 {
-+			reg = <2>;
-+			function = LED_FUNCTION_LAN;
-+			color = <LED_COLOR_ID_YELLOW>;
-+			default-state = "keep";
-+		};
-+	};
-+};
-
--- 
-2.56.0
+ ``PHY_INTERFACE_MODE_10G_QXGMII``
+     Represents the 10G-QXGMII PHY-MAC interface as defined by the Cisco U=
+SXGMII
+     Multiport Copper Interface document. It supports 4 ports over a 10.31=
+25 GHz
+diff --git a/drivers/net/phy/phy-core.c b/drivers/net/phy/phy-core.c
+index d7a4a977fc8a..2dd36fa18e2c 100644
+=2D-- a/drivers/net/phy/phy-core.c
++++ b/drivers/net/phy/phy-core.c
+@@ -201,6 +201,8 @@ int phy_interface_num_ports(phy_interface_t interface)
+ 		return 4;
+ 	case PHY_INTERFACE_MODE_PSGMII:
+ 		return 5;
++	case PHY_INTERFACE_MODE_XSGMII:
++		return 8;
+ 	case PHY_INTERFACE_MODE_MAX:
+ 		WARN_ONCE(1, "PHY_INTERFACE_MODE_MAX isn't a valid interface mode");
+ 		return 0;
+diff --git a/drivers/net/phy/phy_caps.c b/drivers/net/phy/phy_caps.c
+index 558e4df4d63c..0de12c42c47b 100644
+=2D-- a/drivers/net/phy/phy_caps.c
++++ b/drivers/net/phy/phy_caps.c
+@@ -313,6 +313,7 @@ unsigned long phy_caps_from_interface(phy_interface_t =
+interface)
+ 	case PHY_INTERFACE_MODE_QUSGMII:
+ 	case PHY_INTERFACE_MODE_SGMII:
+ 	case PHY_INTERFACE_MODE_GMII:
++	case PHY_INTERFACE_MODE_XSGMII:
+ 		link_caps |=3D BIT(LINK_CAPA_1000HD) | BIT(LINK_CAPA_1000FD);
+ 		fallthrough;
+=20
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index e885da1c2831..0028b543c788 100644
+=2D-- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -263,6 +263,7 @@ static int phylink_interface_max_speed(phy_interface_t=
+ interface)
+ 	case PHY_INTERFACE_MODE_PSGMII:
+ 	case PHY_INTERFACE_MODE_QSGMII:
+ 	case PHY_INTERFACE_MODE_QUSGMII:
++	case PHY_INTERFACE_MODE_XSGMII:
+ 	case PHY_INTERFACE_MODE_SGMII:
+ 	case PHY_INTERFACE_MODE_GMII:
+ 		return SPEED_1000;
+@@ -812,6 +813,7 @@ static int phylink_parse_mode(struct phylink *pl,
+ 		case PHY_INTERFACE_MODE_PSGMII:
+ 		case PHY_INTERFACE_MODE_QSGMII:
+ 		case PHY_INTERFACE_MODE_QUSGMII:
++		case PHY_INTERFACE_MODE_XSGMII:
+ 		case PHY_INTERFACE_MODE_RGMII:
+ 		case PHY_INTERFACE_MODE_RGMII_ID:
+ 		case PHY_INTERFACE_MODE_RGMII_RXID:
+@@ -1046,6 +1048,7 @@ static enum inband_type phylink_get_inband_type(phy_=
+interface_t interface)
+ 	case PHY_INTERFACE_MODE_PSGMII:
+ 	case PHY_INTERFACE_MODE_QSGMII:
+ 	case PHY_INTERFACE_MODE_QUSGMII:
++	case PHY_INTERFACE_MODE_XSGMII:
+ 	case PHY_INTERFACE_MODE_USXGMII:
+ 	case PHY_INTERFACE_MODE_10G_QXGMII:
+ 		/* These protocols are designed for use with a PHY which
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 21afc2082b17..ffff2a6313d3 100644
+=2D-- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -107,6 +107,7 @@ extern const int phy_basic_ports_array[3];
+  * @PHY_INTERFACE_MODE_LAUI: 50 Gigabit Attachment Unit Interface
+  * @PHY_INTERFACE_MODE_100GBASEP: 100GBase-P - with Clause 134 FEC
+  * @PHY_INTERFACE_MODE_MIILITE: MII-Lite - MII without RXER TXER CRS COL
++ * @PHY_INTERFACE_MODE_XSGMII: Realtek proprietary eight-port SGMII over =
+10G
+  * @PHY_INTERFACE_MODE_MAX: Book keeping
+  *
+  * Describes the interface between the MAC and PHY.
+@@ -152,6 +153,7 @@ typedef enum {
+ 	PHY_INTERFACE_MODE_LAUI,
+ 	PHY_INTERFACE_MODE_100GBASEP,
+ 	PHY_INTERFACE_MODE_MIILITE,
++	PHY_INTERFACE_MODE_XSGMII,
+ 	PHY_INTERFACE_MODE_MAX,
+ } phy_interface_t;
+=20
+@@ -286,6 +288,8 @@ static inline const char *phy_modes(phy_interface_t in=
+terface)
+ 		return "100gbase-p";
+ 	case PHY_INTERFACE_MODE_MIILITE:
+ 		return "mii-lite";
++	case PHY_INTERFACE_MODE_XSGMII:
++		return "xsgmii";
+ 	default:
+ 		return "unknown";
+ 	}
+=2D-=20
+2.53.0
 
