@@ -1,85 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917419;
-	b=L5Vd34ebDBA0XnBTfGdJfyphqt3+1LSLq3uhdiRP64fxM0Hg5/2lTZPtIwbtnsGevZtU
-	 7d4N5uftKdh1PXUury+3IcO2xpoeu3q3cSJpjlrd5MnEyNLhZ4UFct3NvhRIih0Lds9ZK
-	 DNf25RWXsJ4PzEpG3PWbsOSgDVv7gKwfeu9yQ2hmNfbDv97hO+RTr0IiS9LRwsCpF9J0y
-	 0+agwmi42Oam/CZ80sMoBRPQc3dG9qXrc0sSJO6MMOQpkqUJq7ko8+plKEZw1daE5KdLQ
-	 8Vw2C/T3Zug9Z2KTzjAN1Ce51edvpWa57xFfXpBMGA+5wtp4TzjqIasxg374Ys/kgjQ==
+	t=1794917461;
+	b=A78a52J9yMFAeWYjK1/0aDcLLYvSEfSMu6p9H/ytSd1dCSCAZuKdhZYZRI2Orf1ROGMK
+	 TmZRKFgcMAEVnRopFMwqK2HF93fq0TR+xYeQNiW7yY1NjSsWKwLDdNoUuJMqJ85y/IPpg
+	 gkFxYe+d2vZD3aJWX/0zT2k3rpgpmzt3FYkDwWS5wG1h6STNXciZH1ynWGXMW8MmR9suy
+	 gqF9PsUakQ7sFcJaNSDSZvRKCESN5oLfPGZ4tJ0OtJO4wQO87BrGbLQT0nMXs3kwRtPx8
+	 jmAW4+2qK60Km5MSIaiTRMf9LdjBKQ2q9PQrMPh8LIeHvhBdZhCKgX1lDeCsruWUpQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917419;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=dfaypAa6ppfXfClsoWfeiFIIEjS/QTWnqdCEZYeNYh8=;
-	b=jZmgAnvtJQMq1U8ssjmcf/RQfuJuLW29jUMXv5v9/Gdwu3AyzW6oYU+izOxeQjT7dyV+
-	 OMDj2UKPFWAfgrYZYfFF8r4yajHlpyUxvyjyjRldXJkYvVSR6X8zupS1GtPn/koxA0ixV
-	 bRb0Iv0YNzZjyt/NKfRpd2SVzj9bDIvFSfQWp7s/8HJ47KIbpIxb3i8X7q7gHIizb5UC+
-	 +gFbbrC3PUNt7HdvXtD64ZAnGdVmUpPzcTwcCtrk/YEnDBkNG9SxFRQoGar6JDd/GG9Bq
-	 sHW45ia+6MOLwnReIEB7Oa77r9l8alDWUDEzymr6saJ0zxsSaxuPQ0UhE78XEoERgsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917461;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+1BpRIRf2nPGKzJFdVk2a4hDpuZJr7hID0LUitYqiDA=;
+	b=emuCmcNd1qT9ByEOHxuJIUTfL9+NfsBmjhJ7eLBaIsIJn252YVOIDz9pTl5o0CH15zfx
+	 toJrBT0rRKGpWy2gec4izFKPnnXs/wQVydq8lQtV9XH8JC8TEf9uyngPYk/R1slqS3tPR
+	 CMoPgCayePsW7T0iKm62bVu2VHwlDUGW14PUxhf9LbZMRc98XtpXgyuhKAbY5lJXTmKm3
+	 eS9CQOTuzeboUJaytEzbv5lnxTn2t05tzfn+vChlXKv9rvtMnVjjExfdvHqqAKbo8b/Xw
+	 vQitFxMUk0WDeMygjRcEWPMNOj5O/PAUx/fAIlTFSp7vOnxpBEGPLZzrtp0ipY6x5cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=r0YTNcD3;
-	arc=none smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JGxA30+L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64078606A329
-	for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 12:10:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64078606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26EB606A31C;
+	Tue, 17 Nov 2026 12:11:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=r0YTNcD3
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c505186727fso271700066b.3
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 04:10:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1794917417; x=1795522217; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dfaypAa6ppfXfClsoWfeiFIIEjS/QTWnqdCEZYeNYh8=;
-        b=r0YTNcD3IlklysrapoNfdmqdrM8LOOK9EMn7Nsy+6hzp4drGhZ5dviCBiP+Znk8coK
-         +i2GYMy+6eh+IyQCb2yIih7T5pgtgxYvpxaHL7ZPDRtlwKiZTMWVQgZHaX/jI+SJaUAQ
-         JbucQOvhMd99aeRNtPvV6jc3x7fq0LQQbHRsGXiQz8DDAV8FtMf3YLS2de6eDcqaYoRF
-         6elq9U85D5Q33IrDX735kH1qsA0vxVs0AnK9TlyQ5UeBbjhmalypF0nerwB6gH/NMHSe
-         Tt0rNN/oyfGbjbN9pmH1gs2B3EAB3bWdm5J1rTbR8ccpjK/kY/v/XPIj3GCkPjqabgPq
-         z1hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794917417; x=1795522217;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dfaypAa6ppfXfClsoWfeiFIIEjS/QTWnqdCEZYeNYh8=;
-        b=jne9jiYyAUlpTPfUiGIrm4nyF0JEak2HCQhv4Qk0aGZku1BT3ZEcKyhNtHqiTbHIyc
-         NVB+0p1Vl0hkmac/jAdHJ2ax+q4wf16tgkMuJV84BGy37C/JejdJBAAAmZrl3FidDg81
-         cKkwh/RGaVs0cTujqzb8MaWDfZymoBWB90GAtI/I/D2Qa4RjkrLl1Xo+y4KbRuvUIhrT
-         y2git1t5xVsmaRJdUUyU5Yp3PINmd3i9mWbuDq/zln00+GWFD8bPHDDX7mcZJRs9nxTI
-         NSGpDltv9iurYYRP8bZvm2yBzEqncG0fIXvMJcg0BGvA7MALhiiS/S5I8j0+hf/A7G69
-         BXcA==
-X-Forwarded-Encrypted: i=1; AL+hErGsmrxg8txCsvyBmLDLmkJi3w7gfkbLCws1f0IUIcV8zciLARtoVBvgYEsts7ZOfW8cmg5nVlg6Q5ow@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1/CsNrknp/OtnvExsF2q0pjaDRI7/irooGNRlVd279Asm1zwH
-	is7sHJOtNjTOTGhMeTnA3k+QUTHfUv1cQ3WG+jAP9VDezM+Reuvpji5Q15ySkzWAZxs=
-X-Gm-Gg: AYBFou2Ymc8vYR/upedBTDfvLsK8crMTPXce/fGjRG+kTK5U+LQ85PlfP/WFtoEp+wT
-	eCz59t3xLuTxN+44RI/xfuEsWjyxLvhkLOzoeY4lEwWCg6SIT+DThovOGTvMUWPonldXbukKtGx
-	6PaNYlWcrAXVPvdOX3Z9KPHiCqSICdTLdq2krpsBRvfY/xpdf+Z7ULEWRJiVHMldJU7rm7/VBNo
-	xHP9eOGRVppfGRYgspkb8Sym1Ff7Q7ypOM/E82UrjzPZZRvLtVG+ovxISCyQPJpB8KfCCpDL+aO
-	rLq32lB5OueakLO1c+Rco+366zP/WQ4CrryC7d26DnMfU6a84y91NBIpSX3G8iBlZS59jReRlgW
-	Iu47CaQ1OhU/v3fPOqD6jF0WOJzQZya5iUTjjGYFIqUwQnl77B53romfOgN6NVUwTeoJdXhkqg2
-	GVhwOQBh+NkmvxDRL/uQgx5QWi0Q1E3jzFJRoeSzyOj27nz2Aqb63x8EecRYxhZJhXq4Ek2XAsS
-	8d35o/iv0p6fMnxpe0F/lEtyim5mrX+FSM70I/9ELZVAXO1UqhbxiqbSi3RrgxNDFRJxwZTeMZm
-	jqbdmkaiFCyaj3YlH30+bzC0ZDN17N4u+cWJh33PCYCFQ4NAIhoo6jRl6XteQ4WfP9raU9b8Ag=
-	=
-X-Received: by 2002:a17:907:94c2:b0:c41:26b8:c49d with SMTP id a640c23a62f3a-c50963cccbdmr1064546666b.38.1794917416774;
-        Tue, 17 Nov 2026 04:10:16 -0800 (PST)
-Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b685b0sm531579666b.60.2026.11.17.04.10.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 04:10:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JGxA30+L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 327E31F000C4;
+	Tue, 17 Nov 2026 12:10:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794917461;
+	bh=+1BpRIRf2nPGKzJFdVk2a4hDpuZJr7hID0LUitYqiDA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JGxA30+LSayvTFpzFzaPwgAO/2s9/BHbbED1n1A/usLmbrL8nArMCz1gwId+3VYr4
+	 vDKe/KQ1paoenZ68G4/rpBjJOBgLm1Jt/NURy/TBxhC3xyeAfeVS86PTz1uK3W3WBC
+	 3Pj9cnWMyfS6WNMe4Kj9lyzaJ8v7GSCksmRx4dGex0aqXp11SvayvDc+kBic6z0WnF
+	 cUFYrsuZOnDwSdtj7U5I8ieqgeOFb+oVXM71vR3MitFPShxoU56q0nRteRXS2mhONc
+	 +fZqxCrtVWWe2Bkk4d/tJLyHLcgWF1/LDt/1dV/Zq0RXtOhJVV3GrLidOnBMZE6ETd
+	 RFBgOdKl7eLyQ==
+Date: Tue, 17 Nov 2026 12:10:54 +0000
+From: Will Deacon <will@kernel.org>
+To: Sven Peter <sven@kernel.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-efi@vger.kernel.org, asahi@lists.linux.dev
+Subject: Re: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel
+ sharing EL2 for Apple Silicon
+Message-ID: <avxETlOGyr_WQ2zp@willie-the-truck>
+References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
+ <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
+ <apldL6Ml91GW-tE9@J2N7QTR9R3.cambridge.arm.com>
+ <aplk2hHRB7Yw9FWW@willie-the-truck>
+ <eb75b82a-8910-4198-b89a-5c8b487c0fd5@app.fastmail.com>
+ <cadadedb-1de1-46f0-9bfd-35eb8bdfa85b@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,244 +70,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 13:10:15 +0100
-Message-Id: <DMXH4DEA8NRH.2HZPS0S9ASHN9@fairphone.com>
-Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <phone-devel@vger.kernel.org>
-Subject: Re: [PATCH v5 11/12] arm64: dts: qcom: sm6350-lena: Add PM6150L
- thermals
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "erebion" <erebion@erebion.eu>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
- Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
- <20261116-pdx213-upstream-3-v5-11-7318a19806eb@erebion.eu>
-In-Reply-To: <20261116-pdx213-upstream-3-v5-11-7318a19806eb@erebion.eu>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cadadedb-1de1-46f0-9bfd-35eb8bdfa85b@kernel.org>
 
-On Mon Nov 16, 2026 at 11:50 PM CET, erebion wrote:
-> Configure the thermals for the PA_THERM1, MSM_THERM, PA_THERM0,
-> CAM_FLASH_THERM and QUIET_THERM thermistors connected to
-> PM6150L.
->
-> Due to hardware constraints we can only register 4 zones with
-> pm6150l_adc_tm, the other 2 we can register via generic-adc-thermal.
->
-> RFC_CAM_THERM is intentionally omitted for now and will have to be
-> added once it is clear how it should be added.
->
-> The trip points can really only be considered as placeholders, more
-> configuration with cooling etc. can be added later.
+On Sun, Nov 15, 2026 at 07:38:35PM +0100, Sven Peter wrote:
+> 
+> 
+> On 03.09.26 15:25, Ard Biesheuvel wrote:
+> > On Thu, 3 Sep 2026, at 14:15, Will Deacon wrote:
+> > > On Thu, Sep 03, 2026 at 12:42:39PM +0100, Mark Rutland wrote:
+> > > > On Thu, Sep 03, 2026 at 01:34:56PM +0200, Ard Biesheuvel wrote:
+> > > > > On Wed, 8 Jul 2026, at 09:15, Sven Peter wrote:
+> > > > > > This series adds a custom EFI table that points to a PSCI entry point
+> > > > > > (plus some other stuff that has to be available before EFI runtime
+> > > > > > services are set up) and adds support for this new conduit to the psci
+> > > > > > code. We can't directly use the normal EFI runtime path because that one
+> > > > > > takes a sleeping lock and we need to be able to call into PSCI from
+> > > > > > atomic context during e.g. cpu bringup or during idle.
+> > > > > > It also adds support for specifying the specific MAIR attributes for EFI
+> > > > > > runtime mappings as defined in the latest UEFI spec since Apple Silicon
+> > > > > > is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
+> > > > 
+> > > > > >        dt-bindings: arm: psci: Add EFI conduit
+> > > > > >        arm64/efi: Add and parse custom PSCI EFI configuration table
+> > > > > >        efi: Add EFI_MEMORY_ISA_{MASK,VALID}
+> > > > > >        arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
+> > > > > >        firmware/psci: Add EFI runtime conduit
+> > > > > >        arm64: dts: apple: t8103: Add PSCI and CPU idle states
+> > > > > > 
+> > > > > 
+> > > > > I've picked up patches #3 and #4, which are useful in their own right.
+> > > > > 
+> > > > > I'm not sure if the arm64 maintainers will want to consider this, but
+> > > > > I think it's a reasonable compromise, as it puts the abstraction in
+> > > > > the right place.
+> > > > 
+> > > > Sorry for the late reply; I've been away almost all of August and I'm
+> > > > slowly catching up on things.
+> > > > 
+> > > > As with last time this was proposed (in abstract), I am not happy about
+> > > > bodging an EFI conduit into PSCI, given that the manner in which state
+> > > > is managed is completely different from SMCCC.
+> > > > 
+> > > > If we need a mechanism for doing hotplug and/or idle without HVC/SMC,
+> > > > that's one thing we can consider. I don't think we should pretend that
+> > > > it is PSCI.
+> > > 
+> > > What do you have in mind for an alternative mechanism? I understand your
+> > > objection to this proposal, but at least it keeps the interface fairly
+> > > high-level and avoids opening the flood gates for a bunch of SoC-specific
+> > > idle routines. Are you thinking of extensions to the PSCI spec or
+> > > something else?
+> > > 
+> > 
+> > I can't speak for Mark, of course, but I could imagine EFI being used as a
+> > conduit to provide a callable set of interfaces (with a rigorously defined
+> > set of constraints such as the ones in this patch, i.e., reentrancy, no FP
+> > or SIMD, not relying on ISA features that the OS needs to know about and
+> > enable, etc).
+> > 
+> > There is prior art here in ACPI PRM, which does something similar, and this
+> > also relies on EFI runtime services.
+> > 
+> > You'd still need to implement the CPU ops and a cpuidle driver afaict (no
+> > expert here), but at least those would be coded against an interface that
+> > the kernel itself specified, and can be made as generic as we choose to.
+> > 
+> > Not saying this is all great, but it might be a worthwhile compromise to
+> > consider.
+> 
+> Finally getting back to this series...
+> 
+> 
+> I'd definitely like to keep mapping the resident firmware using EFI runtime
+> services because otherwise I'd have to duplicate a whole lot of tricky code
+> to do the same thing via some other means (e.g. a device tree nodes that
+> contains all mappings + callbacks) and I just don't see much value in that.
+> 
+> I'm happy to just drop the PSCI part though and replace that with a simple
+> and somewhat generic "efi-rt" (or similar) cpuidle driver and make that one
+> have similar requirements like I added for this RFC series and expose bunch
+> of generic callbacks (that will just happen to resemble PSCI functions very
+> much ;)) via a custom EFI table. That would keep PSCI out of all of this but
+> come at the cost of an additional cpuidle driver.
+> 
+> I don't think that would open any flood gates for SoC-specific drivers since
+> we could just point them to the generic one and tell them to use that one if
+> they can't do PSCI for some reason.
+> 
+> 
+> Now before I go off and prototype this: Would this approach be fine in
+> general with you, Mark and Will?
 
-Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+tbh, if the "efi-rt" thing is just PSCI with a different conduit and that
+conduit is properly documented, then I really don't see the point in keeping
+it separate. However. I suspect that we probably all have slightly different
+opinions here which isn't going to help you very much :(
 
-> Signed-off-by: erebion <erebion@erebion.eu>
-> ---
->  .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 160 +++++++++++++++=
-++++++
->  1 file changed, 160 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
-b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> index b86fe11fd5296..b19e76b3c1a75 100644
-> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> @@ -81,6 +81,13 @@ memory@fe901000 {
->  		};
->  	};
-> =20
-> +	msm_therm_sensor: thermal-sensor-msm {
-> +		compatible =3D "generic-adc-thermal";
-> +		#thermal-sensor-cells =3D <0>;
-> +		io-channels =3D <&pm6150l_adc ADC5_AMUX_THM2_100K_PU>;
-> +		io-channel-names =3D "sensor-channel";
-> +	};
-> +
->  	thermal-zones {
->  		chg-skin-thermal {
->  			thermal-sensors =3D <&pm7250b_adc_tm 0>;
-> @@ -106,6 +113,74 @@ active-config0 {
->  			};
->  		};
-> =20
-> +		pa0-thermal {
-> +			thermal-sensors =3D <&pm6150l_adc_tm 1>;
-> +
-> +			trips {
-> +				active-config0 {
-> +					temperature =3D <125000>;
-> +					hysteresis =3D <1000>;
-> +					type =3D "passive";
-> +				};
-> +			};
-> +		};
-> +
-> +		pa1-thermal {
-> +			thermal-sensors =3D <&pm6150l_adc_tm 0>;
-> +
-> +			trips {
-> +				active-config0 {
-> +					temperature =3D <125000>;
-> +					hysteresis =3D <1000>;
-> +					type =3D "passive";
-> +				};
-> +			};
-> +		};
-> +
-> +		quiet-thermal {
-> +			thermal-sensors =3D <&pm6150l_adc_tm 3>;
-> +
-> +			trips {
-> +				active-config0 {
-> +					temperature =3D <125000>;
-> +					hysteresis =3D <1000>;
-> +					type =3D "passive";
-> +				};
-> +			};
-> +		};
-> +
-> +		rfc-flash-thermal {
-> +			thermal-sensors =3D <&pm6150l_adc_tm 2>;
-> +
-> +			trips {
-> +				active-config0 {
-> +					temperature =3D <125000>;
-> +					hysteresis =3D <1000>;
-> +					type =3D "passive";
-> +				};
-> +			};
-> +		};
-> +
-> +		sdm-skin-thermal {
-> +			polling-delay-passive =3D <1000>;
-> +			polling-delay =3D <5000>;
-> +			thermal-sensors =3D <&msm_therm_sensor>;
-> +
-> +			trips {
-> +				trip0 {
-> +					temperature =3D <45000>;
-> +					hysteresis =3D <0>;
-> +					type =3D "passive";
-> +				};
-> +
-> +				trip1 {
-> +					temperature =3D <55000>;
-> +					hysteresis =3D <0>;
-> +					type =3D "critical";
-> +				};
-> +			};
-> +		};
-> +
->  		xo-thermal {
->  			thermal-sensors =3D <&pmk8350_adc_tm 0>;
-> =20
-> @@ -392,6 +467,83 @@ &mpss {
->  	status =3D "okay";
->  };
-> =20
-> +&pm6150l_adc {
-> +	pinctrl-0 =3D <&pm6150l_adc_default>;
-> +	pinctrl-names =3D "default";
-> +
-> +	channel@4d {
-> +		reg =3D <ADC5_AMUX_THM1_100K_PU>;
-> +		label =3D "pa_therm1";
-> +		qcom,hw-settle-time =3D <200>;
-> +		qcom,pre-scaling =3D <1 1>;
-> +		qcom,ratiometric;
-> +	};
-> +
-> +	channel@4e {
-> +		reg =3D <ADC5_AMUX_THM2_100K_PU>;
-> +		label =3D "msm_therm";
-> +		qcom,hw-settle-time =3D <200>;
-> +		qcom,pre-scaling =3D <1 1>;
-> +		qcom,ratiometric;
-> +	};
-> +
-> +	channel@4f {
-> +		reg =3D <ADC5_AMUX_THM3_100K_PU>;
-> +		label =3D "pa_therm0";
-> +		qcom,hw-settle-time =3D <200>;
-> +		qcom,pre-scaling =3D <1 1>;
-> +		qcom,ratiometric;
-> +	};
-> +
-> +	channel@54 {
-> +		reg =3D <ADC5_GPIO3_100K_PU>;
-> +		label =3D "rear_cam_flash_therm";
-> +		qcom,hw-settle-time =3D <200>;
-> +		qcom,pre-scaling =3D <1 1>;
-> +		qcom,ratiometric;
-> +	};
-> +
-> +	channel@55 {
-> +		reg =3D <ADC5_GPIO4_100K_PU>;
-> +		label =3D "quiet_therm";
-> +		qcom,hw-settle-time =3D <200>;
-> +		qcom,pre-scaling =3D <1 1>;
-> +		qcom,ratiometric;
-> +	};
-> +};
-> +
-> +&pm6150l_adc_tm {
-> +	status =3D "okay";
-> +
-> +	pa-therm1@0 {
-> +		reg =3D <0>;
-> +		io-channels =3D <&pm6150l_adc ADC5_AMUX_THM1_100K_PU>;
-> +		qcom,hw-settle-time-us =3D <200>;
-> +		qcom,ratiometric;
-> +	};
-> +
-> +	pa-therm0@1 {
-> +		reg =3D <1>;
-> +		io-channels =3D <&pm6150l_adc ADC5_AMUX_THM3_100K_PU>;
-> +		qcom,hw-settle-time-us =3D <200>;
-> +		qcom,ratiometric;
-> +	};
-> +
-> +	rear-cam-flash-therm@2 {
-> +		reg =3D <2>;
-> +		io-channels =3D <&pm6150l_adc ADC5_GPIO3_100K_PU>;
-> +		qcom,hw-settle-time-us =3D <200>;
-> +		qcom,ratiometric;
-> +	};
-> +
-> +	quiet-therm@3 {
-> +		reg =3D <3>;
-> +		io-channels =3D <&pm6150l_adc ADC5_GPIO4_100K_PU>;
-> +		qcom,hw-settle-time-us =3D <200>;
-> +		qcom,ratiometric;
-> +	};
-> +};
-> +
->  &pm6150l_flash {
->  	status =3D "okay";
-> =20
-> @@ -405,6 +557,14 @@ led-0 {
->  	};
->  };
-> =20
-> +&pm6150l_gpios {
-> +	pm6150l_adc_default: adc-default-state {
-> +		pins =3D "gpio7", "gpio10";
-> +		function =3D PMIC_GPIO_FUNC_NORMAL;
-> +		bias-high-impedance;
-> +	};
-> +};
-> +
->  &pm6350_gpios {
->  	vol_down_n: vol-down-n-state {
->  		pins =3D "gpio2";
-
-
+Will
