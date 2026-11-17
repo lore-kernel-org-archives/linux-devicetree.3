@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918678;
-	b=0ttMdPI6rZwtXJ/qKh03zQ4f7Ev/jCYIi+v1LYW+idaGS2XzAhQ0yFyR6LtgfYrrAvIK
-	 cUXgPj28hF91EJjQqdVDWxpCreolqkdhhYUKhQI/uLyo2RDXqa54KcZh6U0f4AI7E3ryx
-	 WOIf/OcrYmvGJTa67zK4pJ/oBEowjPjdOkS8BZVO9pf4vgOYn3aj9xMnhS0hX0aNOuErb
-	 6Rjm5OOTm9/e0c36pfThgVm0nI7TBomMIXrKDlmFVyLnODujOY7Y0u68AmZJqrQzoXw9l
-	 V03f8Kbesx3uVjDcCs4UpWkslHydpS/Aqem1Kl1oTz6ohtCmYa5NGQpI1abyrF0DSuQ==
+	t=1794918913;
+	b=crYBB2qp7GJISf4prQHQEQ0brtZM7XiF53j2g5twgXlTkABQuUC6nSYRZr37BuBeaFlQ
+	 SntEyD1pG8+CUxYk0tt9Lt4Qjk3Wb3lJ2KUWGwVSnolvHnwzXNBD0pVwMzzFWIXsvM28p
+	 bSi7GiDl6RrpgZjcAOWapwyleJGtHm1YZMNZ9xOZDPFIGqmlJ7ayiL8e9VL1kA6BsBjBI
+	 uCypELp+P++tdAtiaHISBY+MVAFXg1tZ7mxVGng1PbKSuxQdnTvzEFg10+SQb5MB6eLME
+	 AkV731/bJRXXkwmskh58waamYs8OuhZcx6fD4nLOj9/uMmgdiCTdRI3tlpm+q0hJwrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918678;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918913;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=B4BbyGDYOdxgrwH11x1TPj5dZD9FRkdewUB3279Jnp0=;
-	b=3/Dp3uSqlwAe0QK8Pap5cGWaRVHeQzQWcFkIEAyQDeAOs5yRiQXN2KAKNVHMc8JcE4EA
-	 9w7bqrcvv78IICdSvUceyG9BtG2g6hAckjN2seg2Vi7dPdQ5cqUNGkGkl8ZCe/g595xHh
-	 tXVQ2ERRrCRQJag/i6OfM9tlvQjO1BzGSHhrEBts72j/i4KHuXDMn/RbE9k7pnzwlb219
-	 +kSfVrifWHSh0JbhTYZQLfFMPR5pu/49Z1dRi4j0Ly3UTSkYTpYOzeXhwJeLtjeUj0crC
-	 bIZ70anGT80Sms6TVUd3scI0dtr7n1GXw5xbdmw1SEVN/oncLYyzR9YTUac3dD68rSQ==
+	bh=FTSv6ihte4nmTksdoeFy+3LI3u1ABgbMWkzngS5Y3BU=;
+	b=j/Spoa4GpOzF/zrt8ura5VewEgT/9byMZKsTQiGgjfIR/DAmMcztb5XVlYCeFfjCEhnr
+	 OnMh8Ujsy44oTzPsdy/MkEFNFgOz8vD1rIe/AzxJQz2UTc1OqoLypBnr3l1az3ijDdLos
+	 hpj4tny1wu6HqCDUwmi0lRWImZsCqkHJ0Eok5SDKcZaYl++7UwTVQ59ObYjwpwkuMR4uq
+	 B0LXPRrwjfgXPH6Z5sECpWKtqxyHoJqRPdXqmjY9bFtGNWUYdodrIfZUD4cQ6mtuQ0+0Y
+	 gA1XzcbjL31P6zcGhG2SdXabMYPsVa5k7i68ZkL+ZxfRq3wC3l+V5thI9rG0NHM6UyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlnMQN4o;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQNZIf2I;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8C5606A31C;
-	Tue, 17 Nov 2026 12:31:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F91B606A31C;
+	Tue, 17 Nov 2026 12:35:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlnMQN4o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57EE1F000C4;
-	Tue, 17 Nov 2026 12:31:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQNZIf2I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75AFD1F000C9;
+	Tue, 17 Nov 2026 12:35:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794918678;
-	bh=B4BbyGDYOdxgrwH11x1TPj5dZD9FRkdewUB3279Jnp0=;
+	s=k20260515; t=1794918912;
+	bh=FTSv6ihte4nmTksdoeFy+3LI3u1ABgbMWkzngS5Y3BU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MlnMQN4oD+wELQv465iIaWTgpdJXpYlMIzOz4lMQTZVkQjj/lbakefSLwDiWtMwai
-	 oD9kmxFh51nfrOJg1hr5hEFzPc0azk9Cj9jLXeycBdPw4ysM1AmHfF9YraqfFdxKIT
-	 hAc6DRc6B71jDjRLwrJguq+YbWhviPQJfmtXZ8aSHQ4cEQP3WomqsJp6Y+V/Aqz79Y
-	 oESNoh6ZOkQjGkeehtCSuiGr6+j/OdroHJ95D2c25Msnb7x0/rDImo6+nGWTcYcGL8
-	 lDy1wjztW0glyZZu6q3IDnT1YjvAqTmEmT6d4ay9/EeINQPK52sp/vKsi1HClcL/Z1
-	 YxkdEArmTNSlg==
-Message-ID: <f860d2c6-25e3-495f-9cb5-d91d5585d969@kernel.org>
-Date: Tue, 17 Nov 2026 13:31:14 +0100
+	b=JQNZIf2IbBsGUpKxUwUAcUCUxQVjWtwoWj0mJ4JjI4DYkjwVhxDpvQVDbRQeRB27w
+	 nJMI4zwPQEAceaO16Bqy/qTL2txb1WD9G+4/rl7kkjo2HbApPCm5vh9gK+Rtnd3MlA
+	 NDfFO4fL8EW3lz6pxI6ZbVsKq7Hii95cnd5pgpMpdqjcMgkcPbWCSbk+x+5EtbvdUk
+	 GTQXqKs/byesNrEzbq6MIqinphBvDajiI8f5wIFBNQyqGPNd7PxXE+7q+HEsyri3VG
+	 MxGclWeovo4ZNDS4Sq59m8PTZV9ViR8QPt980suOySFAjBemp6liDub42ik0FgLX5Z
+	 h9zZVzxV2jh5w==
+Message-ID: <bbefcf0b-b31e-4f74-bf79-b0ccc983f62b@kernel.org>
+Date: Tue, 17 Nov 2026 13:35:06 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,15 +52,23 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: mediatek: mt8167: Add DRM nodes
+Subject: Re: [PATCH v2 4/4] arm64: dts: mediatek: mt8167: Add DRM nodes
 To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
  linux-mediatek@lists.infradead.org
 Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261117122802.728987-1-l.scorcia@gmail.com>
+ <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260921113914.779393-1-l.scorcia@gmail.com>
+ <20260921113914.779393-5-l.scorcia@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -106,27 +114,21 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261117122802.728987-1-l.scorcia@gmail.com>
+In-Reply-To: <20260921113914.779393-5-l.scorcia@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17/11/2026 13:26, Luca Leonardo Scorcia wrote:
+On 21/09/2026 13:38, Luca Leonardo Scorcia wrote:
 > Add all the DRM nodes required to get DSI and DPI to work on MT8167 SoC.
 > 
 > Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 > Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > ---
-> Since the DPI patches have been applied to CK Hu's -next branch, this
-> patch is the sole leftover of the previous mt8167 display series [1].
-> I am resending it separately as it now contains an additional fix to the
-> disp_pwm clocks that it took me months to figure out and was causing
-> random missing display output.
-> 
 >  arch/arm64/boot/dts/mediatek/mt8167.dtsi | 369 +++++++++++++++++++++++
 >  1 file changed, 369 insertions(+)
 > 
 > diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-> index 27cf32d7ae35..2bcdab2934f4 100644
+> index 27cf32d7ae35..a50bae4307c1 100644
 > --- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
 > +++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
 > @@ -16,6 +16,22 @@
@@ -148,7 +150,8 @@ On 17/11/2026 13:26, Luca Leonardo Scorcia wrote:
 > +		rdma1 = &rdma1;
 > +		wdma0 = &wdma;
 
-You do not get own aliases. Where are these documented (and approved)?
+Folks, what is happening here? Why Mediatek is adding bunch of
+undocumented aliases? This should have never been accepted to Mediatek SoC.
 
 Best regards,
 Krzysztof
