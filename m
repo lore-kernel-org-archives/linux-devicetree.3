@@ -1,102 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795013020;
-	b=DeqxEtPy9jQS5bLtMENqf7+u7PybAtHOG5sXlC4BpcMzoD59Dx41tN4itz5DkA9fRXVj
-	 dL8Ht8OMu/FSn/F+PfHDD9ubpz6nx9K8ztsjYrl++QsaFLZ8pLsvzNPV2wKEu+BBjo5ze
-	 GQY5JtzJY++Tfg9stTqB9XS3uNDOb3Q0WEL+9Vy1Aah1LdRjdM26PzEfZrtbqtRwQZKao
-	 OIymeY8P02YSQVrTtz7efLwsqRsNhJ2LeCmzC8Us5i+kvFORXxTYL4lNrr8IPfLWcUz82
-	 RTQF69nheAnXVWICB+fILvP/8pftxk1fKvMad9jhgUi3LhSop2bjBSOjwYBxpm5/qbg==
+	t=1795013135;
+	b=jDlyzM+4RHBvPNMMIfl+Nag3Jjsy/62w3ON9Ae8hjDoHatzB3eBNsS05BSyrGnUN8Y5M
+	 r5NyLWPSKJ8WAWE8dvl9IWpz+3Gc0ki8umbdYaNfO4VuVU55uuXEBthkv8byrwzTZd1AF
+	 yHTH/btSGMZIMY1UFp2IEPfkF28nHnuomXnMdwkM16SA7wqya3x/pYhdD+3pNp8kiwWHH
+	 naue3WcNc4j4hsedpjGNnyHk44k4jA3Mh+Sn4bfC29dXwGi8J/Gi/GCJJOg1MMY2AFl3u
+	 2T+WpfQZXXNroRAnjWn0ZfXvdNIJAoKYAHJEJnkx4wsD4ShW8Ch7T1akM2AwdIYa7zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795013020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795013135;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type;
-	bh=lofE1i0lcl9nIDZVdZhTFR9XGUpRnG24017uwCNl4OI=;
-	b=gG+Qtiky9rHM/PvYfnvPJI5HDDqdUrX9HXYnCEodv4qC6PjMX6YmsqQOiv5CxFejhdRb
-	 dhqqrkhxHnV4I4ooI5Ndzuk0W4QX2mmNZrazqgyXP1xuShS/qRCj7Xx3g4fjKypKxydy4
-	 rNkcfmpSvMj3oQA4ltajKnDPKlMtUGeg7oI/DRFBZjZEF/P8XpKULO+uo1o8ydxHZ8kwR
-	 dSGV6JdW3acy7xklX5mR9KNCxRudH7Aq29Wxn6bNTnIygWRBLjp1Tg/Jd4jUeQ8jI395T
-	 XNH5Xg4ASHfqL3n3A37bYhTbv4SDrCAOlrdl2/PlaU9BWUXyoJAOho54nKZNFKwjAHQ==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dW8jz8AGPYPy5zw3TfeSNEgxlfsTPgtxmP0tja/c/ok=;
+	b=o1iXMcV3/OBPuQKRstcmtkm4sEI6InIGTENA1sZ4+Xhy0z/Gm80uSZezH2dRFLzEebeC
+	 t1T3u64meNh5uUiYzeLSmOh9m/wX6QLdWPah2KTRs6nNVgqthsD1gF6HIPNpOySwb0v+s
+	 diRkFtDaEqt3MFCk7p8NuMXJCinoJSX7TqbyVaOW+tOjYUISsYDG3NCsTWYvIQOF2Y8KR
+	 UwLD0lfkX//6M72S5+4j3YCT3Gymn7Ibo7dWjgjKsWuGJYEZtrGKSvlwKzbAMjVjUsewe
+	 8r6A8FOqDfl437WVlI6jqsbeoFxw+/IToD36N0O5jFPBJXhSGnUw9wqS/XPXVYH/Bsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=dwmBcbth;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="h/V3GnQq";
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C42606A32F
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 14:43:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47C42606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CB5606A32A
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 14:45:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42CB5606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=dwmBcbth
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a14so10967335e9.1
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 06:43:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=h/V3GnQq
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso7549265e9.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 06:45:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795013017; x=1795617817; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1795013132; x=1795617932; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lofE1i0lcl9nIDZVdZhTFR9XGUpRnG24017uwCNl4OI=;
-        b=dwmBcbthvsOhg0BMX/WUPjZxJfLOtywE+LnL/i36T6xenrhO4k/DBOfdcAzV42w5Hw
-         g6WrY964j8f8iJU3SPok0C/1aq2y9kAYI23N0YBDuRF74H/2nt5R43dk4KAGNkYJs1jE
-         fdFL4jE8D/LMoJYVFcrtDI3gfMtZDRviRFxD4mGfWCQQUFWG1cHSjRa3YY4gKpCuhCbN
-         axHcHFGJCac3wLUTg+Rj6x5Qp5Xel5RKPALHaO7dHDTa5J31LOYnwSRnlZbZMMyCEZID
-         TvFUUO5DCJMLUjmwi43B58XiEMJYdkmTGuqy1unsmbByIT3TWGMAgDwFJxhnZGjZ9GLo
-         ivgQ==
+        bh=dW8jz8AGPYPy5zw3TfeSNEgxlfsTPgtxmP0tja/c/ok=;
+        b=h/V3GnQqzDYq2+Ocl+djVXBVuyWbqmvHG+OGYyfMN89qcxr7EWLd11cyani+5hjlv1
+         WLNecqE7293/zllCuLdsKFoIFMM8fcNJhcpMs9c+7mypY5kOnCv1FIDJ+YaUg1Xmxldp
+         xTrQX5ZC55Zklzxax1U7EhQWJSm+Yroo0mTyRZqMN29tezP9MUxPsKYS4KpzSHzOm8yX
+         6pn/YAWEWzVXbVG2bLDqsqQxO8aZammeB8kymZOGTipwM1P7qrkPXfJBGBeXaJ7kSOL4
+         upQU6siI/bA+SESuz/5YB89xWVFNdnooK7OWh86cdfYljPk/Pxoe1NRaJDHI9bGm3I5u
+         JPuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795013017; x=1795617817;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lofE1i0lcl9nIDZVdZhTFR9XGUpRnG24017uwCNl4OI=;
-        b=X+4+J8l5e/fDn/s71UhiulDMpqmV1jyCdUL6mMWfbq9/dmqLUkBBAgPmIzFYqISwWB
-         8sQzkqq4/F9NEiPwA6tGQjhYcnjepkmkH6lBIxrsAeu2EX8ZXYe1HkinmJ6ZuJugjxHm
-         8sSPXn61KdQmSRAGHu921Ilx3Y1PM8sNL6hay0gPlSAmv1i/LuI9qoTO1GnPlVFZU9iM
-         WM97D74VfB5X0z8n1hi52M5kgTOpSXrN5GToiQp9Wcb+i8V/4Jra2ZgcMFEIMFZLJgRx
-         9FV4D6Cv4CwBpnEz7TF7Gy+OPsZKoNf0Rx6NcDQfyYRv7RvxCVdLivDnGQIPZtWqP65Z
-         sYUQ==
-X-Forwarded-Encrypted: i=1; AL+hErG1VdolHFThGtadWFCu701SrHp3TXCPxzbNzjD0VWW6+MSWfFBA0XZGlk/ZvtKMvK1GM/LdJQ1yPBbY@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7sNP7yblopfzgzRUXGKQhBrW+nYbCLngm5Cl7gVICFi+lJwuP
-	e9vW/u6nC+eolFb138COqJ5xIX4f2+Os42x1bAaHg1n9gOOugQ0+fftbGJxzGLQBZR8=
-X-Gm-Gg: AYBFou26qIyDK/Vhax/RZFYx97wc/qrDLnFKfjqq/lwx6P+Lo7uoY8JEUA/2f13iTW/
-	DHvIM9WQudp1pfRvitB3Rs0b6GWgH1U74TyS4pN+r0fIJuUbegPd5URAQJrCczLdaVVOXgJXex0
-	/r5li3PPTPBeDUAYc2kN3vNNv7s6+bKpwh9wTUskBUT6pqPQ+d6RTFlREIDUJXCy6xUmyIVKzd3
-	BGKKhyCHmuF/zrC+tLcjTz08hJDFVhvz+3eJRVGLIVaSNTv7doPa45ebpTNSW/8LoW/O6Der+Yp
-	S6txEXLF2njZX7msJQx70i/+YPwf9xvhy6+VH9UVaqpf0NlDO9xWP+1zMAPvA9j5YlkMXwvYFwy
-	GOZkzDU0mb2ZxO5M9b8nhOOMO7qqniopRhAmALr4+qAGTaQBlCDf4PyuGPbCAdcSuG/S7YGzu0X
-	AfrtnYF2UnACjO1PwJ/xHRi1Amk+LlutXy8jp0DyZy0s9hG+T/PxoO3Hbz9mWwe6bOrfX5Mvcrq
-	AwNpVdmVolxsu6H/nxyvkLAEoLolgHBkG4/jiCBECv54vwskkZhZ29BAr4ZK4GyFUfoSgnmhRDf
-	mGFu/PUkGH02mv2yBcVv+is5timCRvNjdEPT9ozxXOqDWx+b/VxvBW7YZM+Q7mhwax848Q==
-X-Received: by 2002:a05:600c:81c5:b0:4a1:f720:74cd with SMTP id 5b1f17b1804b1-4bb7da38bd0mr52621935e9.24.1795013017611;
-        Wed, 18 Nov 2026 06:43:37 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7e5919c5sm29710375e9.3.2026.11.18.06.43.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 06:43:37 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Andre Przywara <andre.przywara@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Hans de Goede
- <hansg@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- linux-sunxi@lists.linux.dev, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v8 2/5] mfd: axp20x-i2c: Fix i2c instantiation
-In-Reply-To: <1ja4ogfp5l.fsf@starbuckisacylon.baylibre.com>
-References: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
- <20260910-axp318-regulator-v8-2-e906a61a7f3d@baylibre.com>
- <20260924082705.GO3864833@google.com>
- <1jy0cq94na.fsf@starbuckisacylon.baylibre.com>
- <20261014104801.GI199624@google.com>
- <1ja4ogfp5l.fsf@starbuckisacylon.baylibre.com>
-Date: Wed, 18 Nov 2026 15:43:36 +0100
-Message-ID: <1jh5he2o9z.fsf@starbuckisacylon.baylibre.com>
+        d=1e100.net; s=20260707; t=1795013132; x=1795617932;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dW8jz8AGPYPy5zw3TfeSNEgxlfsTPgtxmP0tja/c/ok=;
+        b=O9Q3z08EFAewLqKX8TZ0uXrOmOxG6JVwevfbiP+uxi3z3HxiobVWMRPqVZ56Hgum8f
+         2lbGQnCG/CEteLu7NHi/xA/RefsCPINR615GXViKxw2kdvBDMnBT0WfNz3p1g8mPZJTt
+         4YEem/MJ6v2scLEbZMgRwGXqMawYIYgP2DtT3vh2sSzzxI0BQGx0z/zY7iaOQZxE+JH/
+         TTvx9GsQpUz7wePGs1v32wC4CQ7ey7xecoIufx2aTxwsNd7xbLkiWVDv1EzUc4BnkoFz
+         Vz5Jo114gqhg1S4ul8NwNBxA/IZzCkjVvTtfsivu4F2BPej6VR4pUMD5HyNk9vUPcR9X
+         sCmw==
+X-Forwarded-Encrypted: i=1; AL+hErH31gB2SivjO9WOWMATdOZ5XGqYQRoeSRD7Gs04kmAcBZzBorExW0jEbFJ3oN+I0tQdv8XiscwabKzN@vger.kernel.org
+X-Gm-Message-State: APuU4Z962OWdK979Zpd3ie/4aUG3T3g1Tk6+HCQwXwB1lmnSxw63IOq7
+	GNQgKyBGB8g/jIkDX2rS/MgGgeVdwJ84W0rf1BAzPV6bv6XoG7EBLhguuf+uQwGWpD4=
+X-Gm-Gg: AYBFou2ercgDCzdvAFqmUVh5afVMYNkUMNPvTgbiUjGKvdxZyLdUEXVWcAsKjJi9KUY
+	2vQPSikKSmaUe4TcN05uk2BJHniD4rebBUdx9zb7zaMt2ZMHczONKmqXKBM4y2fCd0wiETbBp7O
+	3oyKwNbr20GZmqmxojfHs1BMI/DbTyJIRnklOzHFHoDo6T7b/PGaupDGJhKuLyVa6362zsTQ65U
+	0xnYIHbcC+raS8NUyvd5Hp02RuPcqGBG6rPenheo9dPJ73UgTwJfc+4MC33c2F3EzqiNh9ip71F
+	Je/j7CNUG7/SaK1jDu9aoJpra28lrZMSVQNE1h9AzO3MyTZq14zSrWN0TOkcBW4NX3pU0PgTZs5
+	I/Ka+ncfFb4BC6X4KqkQLomTLGIxhzZZFOhGfZvVbjryoYWzNfkEhGMyJIh7ZA8yLIXDSksWmHq
+	3Ezi5qkZPVdnRP8dQ+U2UUh0cnV7/TfEvkOH5W8hxY8D2ShO4CTtj8JUTmGWyJAiPt/nMBR/Rs1
+	EsvX8Pkrb/wX27nIPqeYV3ukbFlS9pfiUGqw7w98kdx2jCL1Bl0LvmyFQnBsDYY8v5Iwl9+cmVN
+	mo0eJh36VNQVhdlDlkAAfVm/gVx/MhZLVw1coTc=
+X-Received: by 2002:a05:600c:8b51:b0:4a4:fc8c:cfd9 with SMTP id 5b1f17b1804b1-4bb7da3a65fmr52309385e9.25.1795013132472;
+        Wed, 18 Nov 2026 06:45:32 -0800 (PST)
+Received: from [192.168.0.252] ([82.76.204.26])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a6560962adsm5382230f8f.41.2026.11.18.06.45.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2026 06:45:32 -0800 (PST)
+Message-ID: <ee73f5ce-906f-4411-9449-d17c3abfa11d@linaro.org>
+Date: Wed, 18 Nov 2026 16:45:30 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,117 +92,90 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: thermal: gs101-tmu: add Exynos850
+ compatible
+To: Alexey Klimov <alexey.klimov@linaro.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Juan Yescas <jyescas@google.com>
+Cc: Mateusz Majewski <m.majewski2@samsung.com>,
+ Thomas Turner <tturner@lineageos.org>,
+ Peter Griffin <peter.griffin@linaro.org>, linux-pm@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261118-acpm-tmu-e850-support-v2-0-19848c0d97e5@linaro.org>
+ <20261118-acpm-tmu-e850-support-v2-1-19848c0d97e5@linaro.org>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <20261118-acpm-tmu-e850-support-v2-1-19848c0d97e5@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On mer. 14 oct. 2026 at 14:21, Jerome Brunet <jbrunet@baylibre.com> wrote:
 
-> On mer. 14 oct. 2026 at 11:48, Lee Jones <lee@kernel.org> wrote:
->
->> Note:
->>
->> --- checkpatch.pl (3 issues) ---
->> Line 2: WARNING: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
->> Line 3: ERROR: Invalid commit separator - some tools may have problems applying this
->> ----------------------------------
->
-> I've checked before sending and checked again now, I don't have those
-> warning. I don't see anything long on line 2 or a separator near line 3.
->
-> Any specific way I should run the tool reproduce the problem if there is
-> one ?
->
->>
->> On Thu, 24 Sep 2026, Jerome Brunet wrote:
->>
->>> On jeu. 24 sept. 2026 at 09:27, Lee Jones <lee@kernel.org> wrote:
->>> 
->>> > On Thu, 10 Sep 2026, Jerome Brunet wrote:
->>> >
->>> >> Apparently this device never really supported i2c instantiation via
->>> >> sysfs, because the driver does not even look at the i2c device data,
->>> >> which are not set. It would only probe if the device matched through DT.
->>> >> 
->>> >> Fix that for correctness, even-though it is probably useless.
->>> >> Add the missing AXP323 while at it.
->>> >> 
->>> >> Reported-by: Sashiko <sashiko-bot@kernel.org>
->>> >> Closes: https://lore.kernel.org/r/20260717090209.2A09B1F000E9@smtp.kernel.org
->>> >> Fixes: 41751b033aaa ("mfd: axp20x-i2c: Add i2c-ids to fix module auto-loading")
->>> >> Acked-by: Chen-Yu Tsai <wens@kernel.org>
->>> >> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
->>> >> ---
->>> >>  drivers/mfd/axp20x-i2c.c   | 24 +++++++++++++-----------
->>> >>  drivers/mfd/axp20x-rsb.c   |  1 +
->>> >>  drivers/mfd/axp20x.c       |  1 -
->>> >>  include/linux/mfd/axp20x.h |  3 +--
->>> >>  4 files changed, 15 insertions(+), 14 deletions(-)
->>> >> 
->>> >> diff --git a/drivers/mfd/axp20x-i2c.c b/drivers/mfd/axp20x-i2c.c
->>> >> index 5c93136f977e..a76bec5604c4 100644
->>> >> --- a/drivers/mfd/axp20x-i2c.c
->>> >> +++ b/drivers/mfd/axp20x-i2c.c
->>> >> @@ -35,6 +35,7 @@ static int axp20x_i2c_probe(struct i2c_client *i2c)
->>> >>  	axp20x->irq = i2c->irq;
->>> >>  	dev_set_drvdata(axp20x->dev, axp20x);
->>> >>  
->>> >> +	axp20x->variant = (kernel_ulong_t)i2c_get_match_data(i2c);
->>> >
->]>> > device_get_match_data() is bus agnostic and should still work from the
->>> > core driver.  What's the purpose of splitting it out and adding
->>> > additional call-sites?
->>> 
->>> device_get_match_data() works when the data comes through that path,
->>> which is generally the case.
->>> 
->>> i2c_get_match_data() calls device_get_match_data() then fallback to the
->>> i2c_device_ids. It covers the instanciation from sysfs mainly, not
->>> something usual.
->>> 
->>> As explained in the description, this changes plugs a hole identified by
->>> sashiko that technically exists but I highly doubt anyone will
->>> instanciate the PMIC through that interface. Those things do not really
->>> come as breakout boards ... That being said, it is cheap to fix.
->>
->> I'm confused.
->>
->> We already call device_get_match_data() in axp20x_match_device().
->
-> Not anymore with this change. It is the point.
->
->>
->> So if you populate .driver_data in axp20x_i2c_id[], you should be
->> able to drop these changes altogether, no?
->
-> device_get_match_data() only goes through the DT tables.
-> Not the i2c_driver.id_table which is purpose here.
->
-> My understanding is that if you instanciate the device
-> through sysfs (which nobody does for these devices) and you only call
-> device_get_match_data(), you will get NULL because there is no fwnode
-> associated with the device, which in this case silently translate to
-> AXP152_ID.
->
-> device_get_match_data() does not go through the i2c_driver.id_table.
-> Only the i2c code does, with i2c_get_match_data() and after trying with
-> device_get_match_data() internally, which is exactly what we want.
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/i2c/i2c-core-base.c?h=v7.3-rc7#n121
->
-> As noted earlier, this a problem reported by sashiko that is real but
-> extremely unlikely to show up in real world. I'd happy to drop
-> the change if you don't want it. It is not need to support the axp318.
->
 
-Hi Lee,
+On 11/18/26 3:51 PM, Alexey Klimov wrote:
+> Document the `samsung,exynos850-tmu-top` compatible string for the
+> Exynos850 SoC.
+> 
+> Unlike the GS101, where the ACPM firmware handles most of the TMU
+> initialization and threshold configuration, the Exynos850 firmware
+> implements a significantly smaller subset of TMU IPC commands.
+> Consequently, the Application Processor requires broader direct
+> MMIO access to initialize the thermal unit, configure thresholds,
+> clear interrupts and collect calibration data.
+> 
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
 
-How could progress on this ? I genuinely do not understand the problem.
-This change is fixing a sashiko reported issue, in the appropriate
-manner I think. device_get_match_data() just does not care for i2c
-.id_table so i2c_get_match_data() is needed.
+Reviewed-by: Tudor Ambarus <tudor.ambarus@linaro.org>
 
-At the same time, what we really care for to progress on the Allwinner
-a733 HW support is the rest of the series. So if this bothers you,
-I'm happy to re-submit without this fix. Please let me know.
+> ---
+>  .../bindings/thermal/google,gs101-tmu-top.yaml     | 26 +++++++++++++++-------
+>  1 file changed, 18 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml b/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
+> index 75560ebca48d..bea208cd4619 100644
+> --- a/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
+> +++ b/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
+> @@ -15,17 +15,27 @@ description:
+>    both direct register-level access and firmware-mediated management
+>    via the ACPM (Alive Clock and Power Manager) firmware.
+>  
+> -  On these platforms, the hardware is managed in a hybrid fashion. The
+> -  Application Processor (AP) maintains direct memory-mapped access
+> -  exclusively to the interrupt pending registers to identify thermal
+> -  events. All other functional aspects - including sensor
+> -  initialization, threshold configuration, and temperature acquisition
+> -  - are handled by the ACPM firmware. The AP coordinates these
+> -  operations through the ACPM IPC protocol.
+> +  On these platforms, the hardware is managed in a hybrid fashion, though
+> +  the distribution of responsibilities between the Application Processor
+> +  (AP) and the ACPM firmware varies by SoC.
+> +
+> +  On the GS101, the AP maintains direct memory-mapped access exclusively
+> +  to the interrupt pending registers to identify thermal events. All other
+> +  functional aspects - including sensor initialization, threshold
+> +  configuration, and temperature acquisition - are handled by the ACPM
+> +  firmware. The AP coordinates these operations through the ACPM IPC protocol.
+> +
+> +  On the Exynos850, the ACPM firmware implements a smaller subset of TMU IPC
+> +  commands (mainly temperature querying, basic TMU initialization, and power
+> +  state management). Consequently, the AP is responsible for register-level
+> +  access to initialize the thermal unit, configure thresholds and handle
+> +  interrupts via MMIO.
+>  
+>  properties:
+>    compatible:
+> -    const: google,gs101-tmu-top
+> +    enum:
+> +      - google,gs101-tmu-top
+> +      - samsung,exynos850-tmu-top
+>  
+>    reg:
+>      maxItems: 1
+> 
 
-Cheers
-Jerome
