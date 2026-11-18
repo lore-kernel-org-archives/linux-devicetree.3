@@ -1,69 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795035851;
-	b=W9XrZDr1XtJrSraGwaUqFd92waR0+JSzOesyWT6KQHRd0cWUmaKIr9zDxBVTeBUHbp9S
-	 6s01Xer4JGMhTobHIOrAHCQcyIUERcWnRd9IFkNAr+3G4TehSMXaM9XiHSVErecYp15IB
-	 nh3GHUpCp4iDeTVxOBv7n8UF15vWDWPpf4L+RfevJiNhHKKr3qRAyFT0hOFP4A2psd+UB
-	 nw9ODolVTuyFf7je4pOD/TaIbdyFLo+Ycg8tIO541BiCKZUHCey+PaNZviV/bxUYxv7kZ
-	 UxR5fPcCMZ0bSejl219hsd/1tWHBtCWX1MMyFtVLem+OS8S6bihIiFRdTDCrv/kKVhw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795035851;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=dLelpa7Ur+2lYbuxtI4MMSCNnQruI8JNBFJnmaiXdUg=;
-	b=eLFVncgv0mMiyvYC4fVgRdYpF7PntQcSN7YYK5ePFo3zV0hASkxZGzmujskr8siZ8EEW
-	 8rEvPfyS5znJrUGI5tHDSwzYgJrY+O8JJyimJMBG9E9R1z+5vl971nuftFwA6PtAJknoR
-	 gr/Vk8cyFF2NxItP23vYcu5bqtEaP8ig9sFVcKLLdcblTeJaC/6FLsgvld9tSXR3bUq2/
-	 eeY8GERdr+Jb1cCpQCyC3nT5GWFtsocpgQNxSY/YO4cw6zGTdk5vgMevYeNt8NhNENqXL
-	 XDzR7XE6cgkvwxSeKqEM+oFqLBNnrJSu4I4vLl58oi4bHTyl+bxsnUrXFb4NlYST/Gg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=A+sUyO8s;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795036213;
+	b=40B7Eyjiuoy9FSaBFCw4YqfV5uPhkmJG4FYUEnk2iZAF1u4tNKiHBvuWxIx3sLyCTq/W
+	 8ufWrbEEpEmYtBSQSH/2Dl7lhfKbLjgIlfWbGgjlD4KbOiAUyCQAFAoP3m4iyKvCVLFBe
+	 Htnv+pT2kYfhhuQT8OAF6ELZucmAQdFqwObwkUBpKeRe/9QIEWMAtuXXeR+4gcU7ves5I
+	 aOxE+vTZbScKI1DCjep9DBdvab2vAheKJ8llkgrb+jv2jLUSd4XKJHsz1L2KoMTCKoPgj
+	 ReI34xeud1HiI5Z8MMp/KO/ND7sw3Co+ROdarIN4bGmQkX89hMw3BD8M7OoLA+9TswA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795036213;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=XigeT5uf/wY83tegE/CRnA1U4KFWVArSIQzQylrRCCA=;
+	b=iHFRTS76En9lxoHzakZlN36EbnzwwX9UoxJc+4mykMMba+G/M4LKItPseAeMIAmcYFIl
+	 lTEuzfZ8EIa9AXxb7xrDh1OF/7RGjKknx47usrx2HNxl7DxDpfIh4EgQnJNEPSK4dsnLk
+	 y5oBcAD9HnVSmk2V1RN8SKvTszqZZ/sAMogbddvIg+8X87o9UWHAZPuAE8J8qcyOlhOfr
+	 9qEsGyiBAF005Thryx58JbWFiEqf9XY7movBXgeutiq70Bl4UxaQ3bj1se+pWCIn4ym4d
+	 D5QISyGwmNtEyf3ttDefnvGP1+YelsxpNiAcSG4YKnPmx3AiyH5ecn59DaVrWlX2pLw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duYSkf2f;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4FC606BE17;
-	Wed, 18 Nov 2026 21:04:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E4FC606BE17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A76606A32C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 21:10:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=A+sUyO8s
-ARC-Seal: i=1; a=rsa-sha256; t=1795035823; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=hc4ewlGfHygjkjHma7t2hBesu+p+lTd6AfgxnMiGRSkxewr3hqXdbJbTYGWO+bQBoH4sXv2//LOMhZgdJECVIOGu3RROZRpMsHlQKoGGjy6HO7KVqSTygO4xkbwYNCp7k7dFy1f2Gpq1uYXHpTjXxVYtQJXXyM149p5EpJxALFU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795035823; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=dLelpa7Ur+2lYbuxtI4MMSCNnQruI8JNBFJnmaiXdUg=; 
-	b=AsdypB3cqX+AvLVGi7GI8UXF4ult2Lg8+UMeV6vKaqQKrIIQJvah3CJo1GbCaWlwnMYmrh6hdvu/wsppfa/Chjx9ppGb1S2tqwZ/nj5kYzuQHlrpQeprcauY4D+dFhoprO7E1MI29tBT5AS8df3tKCkqmmvLSxtz5AvXmbYBFDA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=A+sUyO8sq4pk5d0jrPE4wRvNsK5aAQYae7sfxIbHiCHuwjof0HgqNWOF0TRFxM8gv5OUi/1rWp6SLVhNrZqqxX7SyOtSws+jJcU9xkuISTaq301jh7G1HiQNjw6wBT5/CjpZ0DdcFPPyf+keFkPeLyfKzZYsRflkYgOAMwDsX0M=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=dLelpa7Ur+2lYbuxtI4MMSCNnQruI8JNBFJnmaiXdUg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795035820106725.7828212239302;
-	Wed, 18 Nov 2026 13:03:40 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id 5734618044A; Wed, 18 Nov 2026 22:03:35 +0100 (CET)
-Date: Wed, 18 Nov 2026 22:03:35 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Chanwoo Choi <cw00.choi@samsung.com>, 
-	MyungJoo Ham <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com
-Subject: Re: [PATCH v3 0/9] PM / devfreq: rockchip-dfi: cleanups and RK3576
- support
-Message-ID: <av4SU8KEtldHnJeR@venus>
-References: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duYSkf2f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E75C1F000C6;
+	Wed, 18 Nov 2026 21:10:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795036212;
+	bh=XigeT5uf/wY83tegE/CRnA1U4KFWVArSIQzQylrRCCA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=duYSkf2f/5AlY4K6FA+L3S5MCBURqDOdhI1NNNLNT3Jpind21LyxvyfMS6abmke6l
+	 n+dK607PKwm0IQS5a+AWOHDYVXU9c9Sj8QNrUTfVi3N29PWutCO762RjSEQtvZaDYb
+	 tK/CTTa/JmOaSvxywUiWYkvr6rpUAvYj86ciDCltIq32TmKgoyPOUW8DjcAdDiYnX6
+	 9lSyZ3/WOR7jG5iWvTV/tZyI4HxQ65y+2nEsBooU3BG4zQigkgywlSQ6b/p6Vs6G1L
+	 3rfT3meMhWHChi/Bnlra8y80S5Zpyj1perQZdflgZBNGD1wqQ0sd9kJrElccbVypcR
+	 38B/xLazMpG0g==
+Message-ID: <sashiko-outbox-221973@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/4] i2c: omap: add DMA support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antoni Pokusinski" <apokusinski01@gmail.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261118205213.88778-5-apokusinski01@gmail.com>
+References: <20261118205213.88778-1-apokusinski01@gmail.com>
+ <20261118205213.88778-5-apokusinski01@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 21:10:12 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,65 +59,253 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3ekhknmpesexcibk"
-Content-Disposition: inline
-In-Reply-To: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/295.17.74
-X-ZohoMailClient: External
 
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] i2c: omap: DMA wait ordering and cmd_err gating in
+  omap_i2c_xfer_msg()
+- [Medium] i2c: omap: NULL dereference in omap_i2c_dma_free() on probe
+  error
+- [Medium] i2c: omap: uninitialized pio_irq_mask and missing DMA cleanup
+  on timeout
+--
 
---3ekhknmpesexcibk
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 0/9] PM / devfreq: rockchip-dfi: cleanups and RK3576
- support
-MIME-Version: 1.0
+commit 7af8eb0f57b65f48015dfec1a234f795398aca59
+Author: Antoni Pokusinski <apokusinski01@gmail.com>
 
-Hi,
+i2c: omap: add DMA support
 
-On Tue, Nov 17, 2026 at 04:35:36PM +0100, Sebastian Reichel wrote:
-> This is a combination of the DFI driver patches from the following two
-> series to ease applying to devfreq tree. It is based on devfreq-next
-> and there are no other dependencies.
->=20
->  * https://lore.kernel.org/linux-rockchip/20260921-rockchip-dfi-cleanup-v=
-2-0-43ff34ac8599@collabora.com/
->  * https://lore.kernel.org/linux-rockchip/20260921-b4-rockchip-dfi-rk3576=
--support-v2-0-04f847016321@collabora.com/
->=20
-> Changes since PATCHv2:
->  * split out DFI driver patches from both series and merge them into a
->    new one; clock controller and DT patches will be send separately.
+This commit adds TX and RX DMA transfer support to the OMAP I2C driver for
+messages of at least 8 bytes whose length is a multiple of the configured
+FIFO threshold.
 
-Sorry, I accidently took the v1 patches for this. I will send
-corrected v4 tomorrow.
+> diff --git a/drivers/i2c/busses/i2c-omap.c b/drivers/i2c/busses/i2c-omap.c
+> index 3f7060d57a869..acff27f3f4385 100644
+> --- a/drivers/i2c/busses/i2c-omap.c
+> +++ b/drivers/i2c/busses/i2c-omap.c
+[ ... ]
+> @@ -663,8 +837,8 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
+>  {
+>  	struct omap_i2c_dev *omap =3D i2c_get_adapdata(adap);
+>  	unsigned long time_left;
+> -	u16 w;
+> -	int ret;
+> +	u16 w, pio_irq_mask;
+> +	int ret, use_dma;
+> =20
+>  	dev_dbg(omap->dev, "addr: 0x%04x, len: %d, flags: 0x%x, stop: %d\n",
+>  		msg->addr, msg->len, msg->flags, stop);
+[ ... ]
+> @@ -692,6 +874,27 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *ada=
+p,
+>  		reinit_completion(&omap->cmd_complete);
+>  	omap->cmd_err =3D 0;
+> =20
+> +	if (use_dma) {
+> +		ret =3D omap_i2c_dma_xfer(omap, msg);
+> +		if (ret) {
+> +			omap_i2c_reset(omap);
+> +			__omap_i2c_init(omap);
+> +			return ret;
+> +		}
+> +
+> +		omap_i2c_dma_enable_req(omap);
+> +	} else {
+> +		pio_irq_mask =3D OMAP_I2C_IE_XRDY | OMAP_I2C_IE_RRDY |
+> +			       ((omap->fifo_size) ? (OMAP_I2C_IE_RDR |
+> +						    OMAP_I2C_IE_XDR) : 0);
+> +
+> +		if (omap->scheme =3D=3D OMAP_I2C_SCHEME_0)
+> +			omap_i2c_write_reg(omap, OMAP_I2C_IE_REG,
+> +					   omap->iestate | pio_irq_mask);
+> +		else
+> +			omap_i2c_write_reg(omap, OMAP_I2C_IE_REG, pio_irq_mask);
+> +	}
+[ ... ]
+> @@ -727,6 +930,16 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *ada=
+p,
+>  			if (time_after(jiffies, delay)) {
+>  				dev_err(omap->dev, "controller timed out "
+>  				"waiting for start condition to finish\n");
+> +
+> +				if (omap->scheme =3D=3D OMAP_I2C_SCHEME_0)
+> +					omap_i2c_write_reg(omap,
+> +							   OMAP_I2C_IE_REG,
+> +							   omap->iestate);
+> +				else
+> +					omap_i2c_write_reg(omap,
+> +							   OMAP_I2C_IP_V2_IRQENABLE_CLR,
+> +							   pio_irq_mask);
+> +
+>  				return -ETIMEDOUT;
+>  			}
+>  			cpu_relax();
 
-Greetings,
+[Severity: Medium]
+Is pio_irq_mask used uninitialized here when use_dma is true?
 
--- Sebastian
+pio_irq_mask is only assigned in the !use_dma branch, which triggers a
+-Wmaybe-uninitialized warning on this timeout path.  If this timeout is
+reached during a DMA transfer, returning directly also leaves the DMA
+channel active and leaks the DMA mapping and bounce buffer without calling
+dmaengine_terminate_sync(), omap_i2c_dma_cleanup() and
+omap_i2c_dma_disable_req().
 
---3ekhknmpesexcibk
-Content-Type: application/pgp-signature; name="signature.asc"
+> @@ -742,8 +955,15 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *ada=
+p,
+>  	 * into arbitration and we're currently unable to recover from it.
+>  	 */
+>  	if (!polling) {
+> -		time_left =3D wait_for_completion_timeout(&omap->cmd_complete,
+> -							OMAP_I2C_TIMEOUT);
+> +		time_left =3D OMAP_I2C_TIMEOUT;
+> +
+> +		if (use_dma)
+> +			time_left =3D wait_for_completion_timeout(&omap->dma->complete,
+> +								time_left);
+> +
+> +		if (time_left && !omap->cmd_err)
+> +			time_left =3D wait_for_completion_timeout(&omap->cmd_complete,
+> +								time_left);
+>  	} else {
+>  		do {
+>  			omap_i2c_wait(omap);
+> @@ -753,7 +973,23 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *ada=
+p,
+>  		time_left =3D !ret;
+>  	}
+> =20
+> -	if (time_left =3D=3D 0) {
+> +	if (use_dma) {
+> +		if (!time_left || omap->cmd_err)
+> +			dmaengine_terminate_sync(omap->dma->chan_using);
+> +
+> +		omap_i2c_dma_cleanup(omap, time_left && !omap->cmd_err);
+> +
+> +		omap_i2c_dma_disable_req(omap);
+> +	} else {
+> +		if (omap->scheme =3D=3D OMAP_I2C_SCHEME_0)
+> +			omap_i2c_write_reg(omap, OMAP_I2C_IE_REG,
+> +					   omap->iestate);
+> +		else
+> +			omap_i2c_write_reg(omap, OMAP_I2C_IP_V2_IRQENABLE_CLR,
+> +					   pio_irq_mask);
+> +	}
+> +
+> +	if (!time_left && likely(!omap->cmd_err)) {
+>  		omap_i2c_reset(omap);
+>  		__omap_i2c_init(omap);
+>  		return -ETIMEDOUT;
 
------BEGIN PGP SIGNATURE-----
+[Severity: High]
+Does waiting on omap->dma->complete before omap->cmd_complete stall for
+the full OMAP_I2C_TIMEOUT (1 second) whenever a DMA transfer encounters a
+NACK or arbitration loss?
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr+EqYACgkQ2O7X88g7
-+ppGAQ/9Gt2sZalCruHyi9gTFVOa94sbuNWqb0I7PxB66i4FTrom2gql22oOX8j8
-a/w/Sn7iEzdUqpOxECjrCZ8D1XwNEI1x1KMqLqQhZsHLNcicrBE+LX4ss0wItIJ8
-GxoSlqlycc2UL7NObovUeY+WgXG5kX+WAGpy4sHLKllRR3bnby/MH9vTIstRTS9/
-IpMad1rH8EgEcnSga47gpjxDwJXnxkHTnQW2U4J4QpOxcJ5vCTK8tMVPC21rS91+
-eUM0i/LF1JmE/GseIARua1DQEuxv2NWHDDIZhe15ykV+UIcVwlNt8l7BoFUBk2tq
-1CitNEs/OzmBK/LdcBsB2evwo1J7Bj8rwrfqXYfLThArwH6pCKO61jEDRfocGujL
-Jrr9e7dQYxcIWm8z/V9L6E40y+G3ZawVmjGy84npYFU2bm9g7Ww7A25H7+2EWAxa
-9eomyY25G3BejRCuWuYk6ZY7k54tgHc3mwAdg8QjKst43RAIOX/9xrIcme1UYz/s
-/3Zx9bFmmeTF5Uv5tBEsA9s7gOVG5yROj3hxqqbooEHu+cGmuIiaHP+00Ud+V+V0
-w2pMKFe7gXTdMG9u2am86+kuiOsN2RwtHUBqrbf2qeCBFgtjzunKOs33Zp7XtWXB
-bcR/7557fhD/MPlGQpFsmLCTCcq9fvsKQb7ECs6tNauASMYxwXA=
-=5zr2
------END PGP SIGNATURE-----
+When a bus error occurs before all bytes are transferred (for example, on
+any RX DMA transfer or multi-burst TX DMA transfer), the controller stops
+asserting DMA requests and the IRQ handler signals omap->cmd_complete via
+omap_i2c_complete_cmd(), while omap->dma->complete is never signaled.
 
---3ekhknmpesexcibk--
+Additionally, in omap_i2c_xfer_data(), a standalone NACK interrupt sets
+omap->cmd_err |=3D OMAP_I2C_STAT_NACK and returns -EAGAIN to wait for the
+subsequent ARDY interrupt before completing omap->cmd_complete:
+
+drivers/i2c/busses/i2c-omap.c:omap_i2c_xfer_data() {
+    ...
+		if (stat & OMAP_I2C_STAT_NACK) {
+			omap->cmd_err |=3D OMAP_I2C_STAT_NACK;
+			omap_i2c_ack_stat(omap, OMAP_I2C_STAT_NACK);
+
+			if (!(stat & ~OMAP_I2C_STAT_NACK)) {
+				err =3D -EAGAIN;
+				break;
+			}
+		}
+    ...
+}
+
+Guarding wait_for_completion_timeout(&omap->cmd_complete, ...) with
+!omap->cmd_err causes omap_i2c_xfer_msg() to skip waiting for ARDY if the
+standalone NACK IRQ has already set omap->cmd_err, accessing controller
+registers before hardware is ready and leaving a stale completion on
+omap->cmd_complete when ARDY later fires.  Similarly, changing the timeout
+check to if (!time_left && likely(!omap->cmd_err)) skips
+omap_i2c_reset() and fails to return -ETIMEDOUT when waiting for ARDY
+times out after a standalone NACK interrupt (and even returns 0 if
+I2C_M_IGNORE_NAK is set).
+
+[ ... ]
+> @@ -1336,10 +1562,70 @@ static struct i2c_bus_recovery_info omap_i2c_bus_=
+recovery_info =3D {
+>  	.recover_bus		=3D i2c_generic_scl_recovery,
+>  };
+> =20
+[ ... ]
+> +static void omap_i2c_dma_free(struct omap_i2c_dev *omap)
+> +{
+> +	struct omap_i2c_dma *dma =3D omap->dma;
+> +
+> +	dma->dma_buf =3D 0;
+> +	dma->dma_len =3D 0;
+> +
+> +	dma_release_channel(dma->chan_tx);
+> +	dma->chan_tx =3D NULL;
+> +
+> +	dma_release_channel(dma->chan_rx);
+> +	dma->chan_rx =3D NULL;
+> +
+> +	dma->chan_using =3D NULL;
+> +}
+[ ... ]
+> @@ -1476,6 +1762,22 @@ omap_i2c_probe(struct platform_device *pdev)
+>  		goto err_unuse_clocks;
+>  	}
+> =20
+> +	if (omap->scheme !=3D OMAP_I2C_SCHEME_0) {
+> +		omap->dma =3D omap_i2c_dma_init(omap, (dma_addr_t)res->start);
+> +		if (PTR_ERR(omap->dma) =3D=3D -EPROBE_DEFER) {
+> +			r =3D -EPROBE_DEFER;
+> +			dev_err_probe(&pdev->dev, r,
+> +				      "can't get DMA channels\n");
+> +			goto err_unuse_clocks;
+> +		} else if (PTR_ERR(omap->dma) =3D=3D -ENODEV) {
+> +			dev_dbg(omap->dev, "DMA setup failed\n");
+> +			omap->dma =3D NULL;
+> +		} else if (IS_ERR(omap->dma)) {
+> +			r =3D PTR_ERR(omap->dma);
+> +			goto err_unuse_clocks;
+> +		}
+> +	}
+> +
+>  	adap =3D &omap->adapter;
+>  	i2c_set_adapdata(adap, omap);
+>  	adap->owner =3D THIS_MODULE;
+> @@ -1491,7 +1793,7 @@ omap_i2c_probe(struct platform_device *pdev)
+>  	adap->nr =3D pdev->id;
+>  	r =3D i2c_add_numbered_adapter(adap);
+>  	if (r)
+> -		goto err_unuse_clocks;
+> +		goto err_dma_free;
+> =20
+>  	dev_info(omap->dev, "bus %d rev%d.%d at %d kHz\n", adap->nr,
+>  		 major, minor, omap->speed);
+> @@ -1500,6 +1802,8 @@ omap_i2c_probe(struct platform_device *pdev)
+> =20
+>  	return 0;
+> =20
+> +err_dma_free:
+> +	omap_i2c_dma_free(omap);
+
+[Severity: Medium]
+Can err_dma_free trigger a NULL pointer dereference in
+omap_i2c_dma_free()?
+
+When omap->scheme =3D=3D OMAP_I2C_SCHEME_0 or omap_i2c_dma_init() returns
+ERR_PTR(-ENODEV), omap->dma is NULL.  If i2c_add_numbered_adapter() then
+fails, omap_i2c_dma_free(omap) is called without an if (omap->dma) check
+and dereferences omap->dma.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118205213.8877=
+8-1-apokusinski01@gmail.com?part=3D4
