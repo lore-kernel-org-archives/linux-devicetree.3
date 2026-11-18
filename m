@@ -1,112 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795027845;
-	b=UB5zZ9EFrU92acRq/46sWSBkgdoty9jokZ63JMFqOnphu2n2bEVkXYZlWDHn4RykZtlk
-	 ugIWzRxejrAr14HdzEJH1moFw49Y6llbNdzfEopjh9C+rNRYSzNNUxsy7euIct9rJYLrr
-	 Uq0SKlvqR6ifNSpLBoMMEtbYlEj99ojnF0M61UXD/LOoH/9fz6OhEeZX9AIqxMbULWKEf
-	 t5KnbMxhLxlWGGDE0KGOhK0APiY2YrdH1jA+U2vs68CKlmXwq/zlt5ZVMBZO6Xe5OTbf3
-	 58GNK1NhT9zvan9/TcKLQJT0Lh6n3unKQR0yoij1rvId79gl2CxpP0lgr0q+MlT7LWg==
+	t=1795027908;
+	b=ujzWdKeTc57wXV9rVoxadXyq+M01sIyD6S2r+PfWVo5GqDbl1cnUTqdlcxLPVIAWtoGF
+	 vEgF09+gEt0W3GLby5ZFYUMVV+ZoQ0Osf3+GOvLRgxKFZgdDsmaXRYL7tcDP4iyPi61Vo
+	 fatHWZuxV+q6c4nxIZvRvxGBcGqDDeQNJhvnQJYqzMt4uaAVnqEFGyFFLPWkT9StwCaJB
+	 4LJJpYxfeO7o/z8PKr026K2WY8VHVOBbdioOP8oN11fi1XEsyu4KqPxoFp3e/bwXOq0eb
+	 zWVAF/03ob5DXEeOvNtt1nR49j6+wf677huLwqz9I7tUDXqzaBVrIoV6wC8NVvt558g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795027845;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=G6fSMtRefayhZI5g3aR9XsfohDmCy0PJvzpqSftD5bQ=;
-	b=SGIBL3qnwnNq8CxAupPIR23uOgXTXmFmPUtGj9UfsXwRk3vuA/F5ez2xdSnXtisdOMsI
-	 OvLHY6F67C90uSpE7r72qwbqiFwUKVLmi0ztxIBlYWePsGYlujxFpVyFP6PF0oYhCoJVz
-	 +R0KSJgGHSOCGPvkNx63H2cWQ2hLeFder27dU05Wpgd2yS8z6AKSg9uFPwzfZ2gM84boI
-	 9bYdV8YZ2KymEh2wgx8Eabmd+j4cXVL9TfruLPsnCqKMlYoXNoJyqjdZd4HWUh6Ce4Fpe
-	 8oj0stYlrx4m1qXfC2DPk++fglM3TfDACIy2Iv7x1ioAtwizBY2rRyckosmMNGs+zAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795027908;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Xr3ARsn3HSOBe/bAlEDhSRHDkU6XOfuvo4/af9LL+fg=;
+	b=aME9ovlQljczVIKm/1tBADgQVhmJhgoKwxXll+U0QW0BdQjo9AxRUk6DjGWIPrQwYFcG
+	 ytwCaQT3jrsn3R9TUsXv89AYNj5k0lIXCX5LBUiNtrxkuJO3NAslWiNROkVKAVbidlvEO
+	 A0RfSkt5+GQlsgW8Q30cnI6cCltgn/Y1Dh30aNQU4crHN2SacmyMM3RuMaozA14/p3pjR
+	 4PUQAju1gaVCW7cRjYEgP9qecgYnP83VLfv7t2AEuKJS94EPN4lGmR1V2X4lAkhpweA60
+	 PH4UaFL5ok/d0Iiu5EEIzcG7cjpLBauBFYjqJ+KfDzJO1TVFxCIl1sWL/+/jl75TEcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iHsP0uPW;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MmTpeerB;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=OCJgcmaN;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6F7606A32C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 18:50:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D6F7606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE9C606A335
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 18:51:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CE9C606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iHsP0uPW;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MmTpeerB
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AII1PaX275474
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 18:50:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	G6fSMtRefayhZI5g3aR9XsfohDmCy0PJvzpqSftD5bQ=; b=iHsP0uPWNbZEl11k
-	Q8Uuy0Ax70dRrgth9uQGkV9jWJCgNxJu9cKOmwRTbNJ+trEEMyMZextqDFnJkNCQ
-	e9q1XghSK+7klBiQJvmB06OdHje5QRvR2J0hjMQlj8QgNQ9nosh9PV0YsmBpcA28
-	0DpAHl4B/EhHU9XJUITKSdpZzktgBCPXflWFetqvKUnhoKdUZ8bmCAOI5qsr2fyy
-	KuCwgX4DEYttanATHwSeMp4bL7LmzAbk3vsFY1aaI4hm50MArsxWoqSWmFQDMbEE
-	K5nITVOPH93HT8ElbuFzXit7+26i+hjFvLlrO+295XTqZbGhvsQHLedkExmialxs
-	R0bEUw==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j1gxcr794-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 18:50:43 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b3b74351a4so1389451a91.2
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:50:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=OCJgcmaN
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e10a70540so882741f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:51:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795027843; x=1795632643; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G6fSMtRefayhZI5g3aR9XsfohDmCy0PJvzpqSftD5bQ=;
-        b=MmTpeerBx3ZM5y7+v0at/sAF7oavwOpRJD/PxgLjHXPCfCJm2zXoSVm0wWxn4rT8rJ
-         OnpTGgL7lPPdqqeWDRfko9ohvnNXj5PXLeNV4BywFOZ2tzWtlgxc4ov9/vRHcfTLErb5
-         egCWLaNbKhhkZBMaXE3InpTQSEvD2ZNwtFnl87VMeJnDQ0e3jgntyNXaQUHC1GIgfUUu
-         dX1cspyYBWwzyOvMIYo/WI/UzTsZYue8ang1qDxi8IR/VZiPtVzOGmcfbzkI4bP2xoiY
-         F26LfFTkHiC4e7sFfBC4VPSuGIxAD+pzG6ZozCzONLVgBZTsCyu7FFzufokm45K9DtH0
-         xusQ==
+        d=baylibre.com; s=google; t=1795027905; x=1795632705; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Xr3ARsn3HSOBe/bAlEDhSRHDkU6XOfuvo4/af9LL+fg=;
+        b=OCJgcmaNzv3idZo573FNrHHp69nwKZzTQnu0bP5Y/fzVXXfdWzfTxcWT+P2+QpOXFT
+         IqA4wKP4EsZbDeKuyUmVYCtFRA45khDU3Ug39QiBJHvwH2DdI5o1Ddx/uVRFTFqIkMG0
+         rvpJXaX/M3ozh3e5QC8bNKIkBGYpylLLDlcFK8pcY9jd6NDWAOxDKlFz3yP+/JDplbFx
+         YD/pLZ90E8wITqvbW0gWMIZ3rSRag/uJGI7xFUS3IkImR3CyBGRXdtoWVDYDPuilRhcI
+         q6jOBnAGrzOmfs+I2L23YUjqeFXhUdtSDeen3h5uLpU6+bOVWvQgATfreTMIMhVpPDU+
+         D3/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795027843; x=1795632643;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G6fSMtRefayhZI5g3aR9XsfohDmCy0PJvzpqSftD5bQ=;
-        b=1MwJxcwcbZk4exsQuKhh9cB/MFjOuLrcvZtIBthouGNpg3RmxiIx6ndpcQ+xBmYH7e
-         yMb70gp1I1uWZ9zfhrBiRB2UXs2blnufinQkDkY7zFbMe7IR6QbS0kWh7xu2H9l0GOHR
-         veKRFBfvr/3d2ZTy+T7LpGy5Renv4DMjt5ByW72KXlOh2eNH4K/bFXmpmGPH2Hvz23Mc
-         s0MWt3XYJcCdRTexqelo79ZsmVpiccptJvrUfBza8HCkaFtJd3bmA4Wc37KcJl976/I9
-         9TG+TBXfwqqCTx3g7uFGZO9sjjXR22hdbKT2nMAEdosqPOec/1FziIpFP7yKb2gJ8Y6u
-         NGgA==
-X-Forwarded-Encrypted: i=1; AL+hErEGBsjSOC1/LUp9dUBbb89g94QSxQ5cUeVaX8BNO+TzVcaNsxrIKTCUYjuUpZu4m5jA1tmDS1BIsfUa@vger.kernel.org
-X-Gm-Message-State: APuU4Z+UN3ZVgdOj2rBv7LhQdg/oJaYM2fH7LOT3M2qks+Vb7Tysoow/
-	sxjTKpDJvDyTu9MT85drDx0vTGd4QF2yEYFvvICtliX3YpXZWo6YphvOLM+rq/H7CJQ+nBJu9+J
-	YxwHDanpDnMUQWp0cjFIf/jh8NzZ2bo2SktKWrkAzTyedwyJnn2T3sMbc7j7fbGnJ
-X-Gm-Gg: AZFdTZdHxiiqJLlDBCnObLfUDv8ozfzV5HjiswCEAZtUCz93YTX2iUgcCR8IEQTBHFE
-	BlVUm268A1zLq3BPMlM1i61MeFzbG0E76scGjNq+Vt/gF3Lg6S0O0FcTFQCM59fdmxsMdHw2vfm
-	6R1fq/KXqJR5JFO9zT2zj5z8wCoW2gA5pcrNNbDzHLfkLGv9BvdYDm88jBomnJCV1+byrxYuBNv
-	GfIT+BnexRxDJ72ZdNZKE/Kc77hF2Fsh4bbMsTgJBL4ouSFOWSXJIZ0jcO/cVSaVz4eYkTVgEKH
-	jCFV7pbC6uRK0Rd/9Onh2nVCv330WeuWtGICpFKLeFw5NSKHpMLSlT7IO2GxInyaK6gRrNLXQSf
-	28mbXJtkAadQ6qSVYTFkgVytvm+g9lD3KwXZ2p+l7OcBxJZmdz076sXxbU9uOtsq/AbV4aea5hw
-	==
-X-Received: by 2002:a17:90a:fc50:b0:3a8:185:cf40 with SMTP id 98e67ed59e1d1-3b3d07598f0mr3522911a91.10.1795027842665;
-        Wed, 18 Nov 2026 10:50:42 -0800 (PST)
-X-Received: by 2002:a17:90a:fc50:b0:3a8:185:cf40 with SMTP id 98e67ed59e1d1-3b3d07598f0mr3522890a91.10.1795027842199;
-        Wed, 18 Nov 2026 10:50:42 -0800 (PST)
-Received: from [10.204.104.211] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3f6bbe469sm469942a91.11.2026.11.18.10.50.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 10:50:41 -0800 (PST)
-Message-ID: <3b9e65b1-2b7e-4310-924f-ca190a0ce91d@oss.qualcomm.com>
-Date: Thu, 19 Nov 2026 00:20:33 +0530
+        d=1e100.net; s=20260707; t=1795027905; x=1795632705;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xr3ARsn3HSOBe/bAlEDhSRHDkU6XOfuvo4/af9LL+fg=;
+        b=hesUZh0prRKG3GQNn5ghjunTC4Yp0aANTvNZBnT9/GOmGzNoKyt0ioaRkWc058/i+z
+         0P8YBGlQqU21t2mRLV0ypkYJ21Pp8RQfzVjU8gy0qNqkgyZUQqWJ7Z36kgEUMviVSP4G
+         e18dAL5au1P1zYteVD06FlTlhvQVrFkLerosDOFN4qLAJQ5ZoyTxNr7XFSrpttQF7yKj
+         3ExjHU6R67gns3+xCFA0kdDS0EN8Uhfr8Ja5bGPmgeEv+gTX6rM6NEyBslPWdvkRtIXN
+         y9R6fzUj4ZA0ADJ/RvppsWZGSBgCTm4dl926bvHypx21YaXMefBiaPZWEgUhMiwYfo1h
+         bHyA==
+X-Forwarded-Encrypted: i=1; AL+hErExXzjE7kbrOmybaDogm65N2TM61OMHhgURyb8UEdz2nH2DIJfzv/SWpQOdGiu+KgKVeDqcybeMaKUA@vger.kernel.org
+X-Gm-Message-State: APuU4Z92x9KalrnqK+Uk4RqFvipY3CeoJyWol+NvCySMQ/wcIvRlm2xT
+	fOC7Z5QUPNvmrxUTScZik/4DKR2LKO5f9+mCNspUPIWZu9bDfmhGaGaMyQv3sUaU7Ko=
+X-Gm-Gg: AZFdTZfVfuJZrlJGQAt0d4Yi5TKiNh1UYlmnPC+wIC8iO7CP4mnhCwyz3BNaEmlrFeU
+	uzkaavo7Xjs/kZVBMJeOqYyj/O+DcvwhwE4da0+qr3FbN6tMkW0NnUr3c7UWYwjN7yeLgO8POuv
+	1f6ruHUTgJPkO6LRO35FFs3g5tUm3udRoB/KB/byldqywM8FoD6m1A3E43xCU0zAfac+amKyE1C
+	ZcbHAuoQZrBJZiGh079wV1OGShVk6m3T9H42801Tag8MCrFqIgqKxbt8PxMBMlVAdHvFKvqxKiG
+	wu2cQXTUiA+zhjOMBid55EUxhBTf2begFABHUXFsz/+qFhhfDxy5tdhIQvy4B2LVNOHMCyuQUFO
+	cxkqPJFSXSdcadCemAqYXKM2R+CvKyJ1uK+iJSiIFWEbAD/0scpkc/Eqi1lzMzquOe99NiKyBc3
+	hjuslydoOvW7jHjdalBvUYJt64r6UEcjRaxX/mFofix4EOFqyG4lbVoU9x+3rx/+AEMQ7D4dwfW
+	TqkL38vw8MqueOafakfcirovt8vlDZFaUgt40pcU3NzNwzdePHAJ54reHp+onAamIrFabLeXist
+	H2pEKTYKqdEkn0HMT2fr4fhUytbc/IAgLMg3m6J0J12x6k3oHghsLkLIQiNTClWOVtGN/0UKwVk
+	t3YQ8lXh6bSEHhLFUnSbetN44/g7hAT4M47mPcya03GFsBg==
+X-Received: by 2002:a05:6000:2601:b0:4a8:647c:f965 with SMTP id ffacd0b85a97d-4a8648c3f15mr2958154f8f.41.1795027905569;
+        Wed, 18 Nov 2026 10:51:45 -0800 (PST)
+Received: from macbook.homenet.telecomitalia.it (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a654b807fesm5807868f8f.10.2026.11.18.10.51.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 10:51:45 -0800 (PST)
+Date: Wed, 18 Nov 2026 19:51:41 +0100
+From: Carlo Caione <ccaione@baylibre.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 5/7] clk: amlogic: Add S7 PLL clock controller driver
+Message-ID: <av2kitSLJNxlAKiv@macbook.homenet.telecomitalia.it>
+References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
+ <20261106-upstream-s7-clk-v1-5-7d501d62621f@baylibre.com>
+ <179499607256.413320.18141155995846183804.b4-review@b4>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,96 +104,107 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] arm64: dts: qcom: shikra: Describe the GPU CX SMMU
- aperture
-To: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261118-adreno-scm-fallback-v1-0-e99cdbf3121d@oss.qualcomm.com>
- <20261118-adreno-scm-fallback-v1-6-e99cdbf3121d@oss.qualcomm.com>
-Content-Language: en-US
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-In-Reply-To: <20261118-adreno-scm-fallback-v1-6-e99cdbf3121d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=LZapeTfi c=1 sm=1 tr=0 ts=6afdf383 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=2DaYFnQSzUVrrlYHPwYA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: lTB1JPfzXaXwHjMZObd_n5r73r4NdQNB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA3NSBTYWx0ZWRfX7nQxoRV/zgKP
- tAVq/Lw8XfkYXi7PAuQr0tfpD8d3z5o/9rMTUd1EdiLbzE5z5kEnBKm4FVPSWtCOpArssOA3RGT
- Ht/egDk+Gv7Ao+hJZMFaVRF0ldpmo6dVqGGUfWxCeGM+uB9er5ul0iz/pgdJYxvOpJHQmcZIYFO
- MgS4pRChjGkin6hsEC7pofqsU0p75qAx3Z4qbNFeLXipOXZmw75+6XkebKDz1YonBDXhGTrbw69
- BBUr6Pk1IB4pPLir2VlL8MMGD4JqdT26JyVpFFFdC2lc14WnT+SObLYtxOLP54/vuLaIsydti75
- z/kpViPuvm4q8LmIs8K7wm1tvynIdlu2Mn/9NGH4wpi1orpoTmTtUXshXshH6t4PXVPavHTjaH/
- TWWGoeq/G8KE4Z4nHBxtyiopXWyQB6vC5yS6PWZqhm6u+ICR78tuTrp/rpijqPS56WD9SCtDdG9
- 6dE4Af6cL6HWalYBUWg==
-X-Proofpoint-GUID: lTB1JPfzXaXwHjMZObd_n5r73r4NdQNB
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA3NSBTYWx0ZWRfX6uj9W9slWGTk
- AyI5VqeM0K34MD3LMqEwaVhVoPKR4SPOLdCuvV207GFVEqXZpYCMNCBCySNR/wrQrl3EYhk2hv/
- EVP79xyt7MxGhoMtiPhZUo/HHN1pgeU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-18_05,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 phishscore=0 priorityscore=1501 suspectscore=0
- bulkscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180075
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179499607256.413320.18141155995846183804.b4-review@b4>
 
+On Wed, Nov 18, 2026 at 11:01:12 +0100, Jerome Brunet wrote:
+> > The S7 PLL controller provides the fixed PLL with its fclk dividers,
+> > the GP0, HIFI0 and HIFI1 PLLs, and the HDMI PLL.
+> > 
+> > Add a driver for it. The GP0 and HIFI PLLs are expected to run with
+> > their input divided by 2 (div0p5) and the HDMI PLL without it, as the
+> > firmware and the init sequences set them up.
+> > 
+> > Signed-off-by: Carlo Caione <ccaione@baylibre.com>> > +
 
-
-On 11/18/2026 6:38 PM, Puranam V G Tejaswi wrote:
-> Add the CX SMMU aperture register region to the GPU node.
+[...]
+> > +/* The datasheet documents FIXPLL_CTRL1[30:26] as a single fclk_en field */
 > 
-> Signed-off-by: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>
+> Not sure what this imply ?
 
-Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+It means that each of the five bits enables one divider, while the
+datasheet only documents the five bits as a single field. I'll reword
+the comment to say that.
 
--Akhil
-
-> ---
->  arch/arm64/boot/dts/qcom/shikra.dtsi | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+> > +S7_FCLK(fclk_div2, 1, 2, FIXPLL_CTRL1, 30);
+> > +S7_FCLK(fclk_div3, 1, 3, FIXPLL_CTRL1, 26);
+> > +S7_FCLK(fclk_div4, 1, 4, FIXPLL_CTRL1, 27);
+> > +S7_FCLK(fclk_div5, 1, 5, FIXPLL_CTRL1, 28);
+> > +S7_FCLK(fclk_div7, 1, 7, FIXPLL_CTRL1, 29);
+> > +S7_FCLK(fclk_div2p5, 2, 5, FIXPLL_CTRL0, 25);
+> > +
+> > +static const struct pll_mult_range s7_pll_mult_range = {
+> > +	.min = 134,
+> > +	.max = 265,
+> > +};
+> > +
+> > +static const struct reg_sequence s7_gp0_pll_init_regs[] = {
+> > +	{ .reg = GP0PLL_CTRL0,	.def = 0x02520800 },
+> > +	{ .reg = GP0PLL_CTRL1,	.def = 0x09900322 },
+> > +	{ .reg = GP0PLL_CTRL2,	.def = 0x00000000 },
+> > +	{ .reg = GP0PLL_CTRL3,	.def = 0x00000006 },
+> > +};
+> > +
+> > +static struct clk_fixed_factor s7_gp0_pll_div0p5 = {
+> > +	.mult = 1,
+> > +	.div = 2,
+> > +	.hw.init = &(struct clk_init_data) {
+> > +		.name = "gp0_pll_div0p5",
+> > +		.ops = &clk_fixed_factor_ops,
+> > +		.parent_data = &(const struct clk_parent_data) {
+> > +			.fw_name = "gp0",
+> > +		},
+> > +		.num_parents = 1,
+> > +	},
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> index 0a95ad5a5582..ebbe5e23d173 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> @@ -2647,10 +2647,12 @@ gpu: gpu@5900000 {
->  			compatible = "qcom,adreno-07000400", "qcom,adreno";
->  			reg = <0x0 0x05900000 0x0 0x40000>,
->  			      <0x0 0x0599e000 0x0 0x1000>,
-> -			      <0x0 0x05961000 0x0 0x800>;
-> +			      <0x0 0x05961000 0x0 0x800>,
-> +			      <0x0 0x05960000 0x0 0x1000>;
->  			reg-names = "kgsl_3d0_reg_memory",
->  				    "cx_mem",
-> -				    "cx_dbgc";
-> +				    "cx_dbgc",
-> +				    "aperture";
->  
->  			interrupts = <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH 0>;
->  
+> Is it the good old predivider here ? Shouldn't it be modelled with
+> a read-only divider rather that a fixed factor ? just in case whatever
+> came before did not leave things as we first expected ?
 > 
+> Applies to the other PLL instances
 
+Nope, not the good old provider, this is separate from N: N is in CTRL0
+and our init sequence sets it to 1. This is CTRL1[27], div0p5_en.
+
+Now, it was indeed a read-only divider in an earlier (messier and
+unpublished) version. The problem was that with a cold PLL it could
+cache the power-on setting (/1) at registration, then the VCO init
+sequence would enable /2 without updating that cached parent rate
+basically breaking both rate reporting and set_rate. The fixed factor
+avoids this mismatch when Linux initializes the PLL.
+
+After dropping NOINIT_ENABLED from the HIFI PLLs, the remaining
+assumption is that an already-running GP0 has div0p5 enabled. That
+matches the firmware I tested, but the driver does not check it.
+
+I could (in theory) return to read-only dividers but with probe-time
+setup before registering the clocks to establish the divider setting for
+PLLs Linux will initialize, and selecting suitable multiplier limits for
+any inherited setting we preserve (the current limits assume /2).
+
+Any preference (or any other approach at all)?
+
+[...]
+> > +/* hifi is HIFI0 in the datasheet */
+> 
+> What is stopping us from calling that then ?
+
+Nothing, I kept the S4 name.
+
+[...]
+> > +/*
+> > + * The datasheet documents HDMIPLL_CTRL2[22:19] and [18:15] as single fields:
+> > + * each is two power-of-two dividers.
+> 
+> This comment is somehow confusing because it only partialy matches the clocks
+> defined bellow. Please clarify.
+
+Riiight. [22:19] holds od0 [20:19] and od1 [22:21], and [18:15] holds
+the hdmi_pll divider [16:15] plus [18:17], which isn't modelled. I'll
+clarify.
+
+Thanks,
+
+--
+Carlo Caione
