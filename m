@@ -1,47 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795007379;
-	b=pIKL+boEtBW1KAioI2Q6jcii88xtX42RTmzduL2bVOzx5I5rvdPZtEAXu/3iXXi/6Jet
-	 qAu5xVJueKqSqzxgtMA4DqSQNNf2RgYPkf8KQRbFAsj4UyJ70M4Nt0jPpzcnVQBMNfYP/
-	 pNUrjhklAkSRSnjSHUUum7R/DrjXH/T8u5AH3eYBhN0WisIwzZ4Ep/HJ9NEHRyJ6YQYei
-	 ZeB44kk5JB0H5GhMk5yGvR2fplYTXC8Zeh9ajcWzT9mrJgEDfctv37uudX6FYQXwfRnF0
-	 EuL0rXbPn1fNvjhktgXUOii+iaUgpJI1zeXGzhjAi5cmjPXk1Nbf9dPZGQakZy6CV/Q==
+	t=1795007445;
+	b=rcq8cn3zU9KRkRNITGXRYJdnAfOUODQRawponVR0qUrCbTHtHk+ciuQAMKEPXoCCE+08
+	 97e2iLa2Y+V97pVwYG31rhm+fv0rm7z1x/rzR8zj+ajPIvxPDqOI4IXxNGBJRiP6fOtVp
+	 ri5era/xPlqNGrjiISRXWWC23IpiErEEpilqV8ZcqIBigC5o3/yDHF4+CELsDkplHlakj
+	 rKD6CalM/uJYnSAjYzHezyzTa3V5nijFJavsANueNDkwMvJi02fKMdTJLIl9EoUOfNXjQ
+	 q/CVN6+knMomM7jutpkuzw98e6fDu18lGyz7IGtA4CIJSEmedeY4VYTU1/0YmfXh+xQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795007379;
-	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=Jv7xiOwj7vNDJYc94swhTjLaxDuF+oYg+FR9gK6fY2k=;
-	b=B/vYij58ms++tTqOcbVC8A80gmeee7fjil4lJ/QjLMSQRroEzrScWteNMM3OcDtLgiP2
-	 4h4lncQ3WIaQkf7L+dXtEVcvYVzNDhoSD25Sr1l33t4e8N8v+ZYAGg6216xlRYp6zwa6Q
-	 fNReEMadWq2XogFYoFUFNe2Q/IbIHwdkLNM144jzyG9xGSz67WCtZjwH85/awoQ1pWrJy
-	 9YoPAKVTwvpFwiekcSumwYQQdq73Rs506YU0jHVAME1KI8lg5KZ2fCAadPhaaUXFH3EOJ
-	 4GOpBgGhVl7xXwb08l5t4ZrXdBABWdH8WKUm6MKHK8X7k4zZpOo6K2KMuuCisaaRU7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795007445;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=OV06CLl8OOdgdpg8BFRH5p75zlrKtpNqJrmClfjwDec=;
+	b=NWr3l3NgFj11SO4WA9KJJXJg44SxCrlUl1UekJXVeZ/AhOiLGmt2nyGA3KsYDDN/LTeM
+	 Y9S1Q0NIh21rh9+NfQQiax8A+tGr0Vy5Ezo91blzEJWYBBBQAb+cieqxj6bj07BTjAWqm
+	 iIMwh1Wmtmcfh1ryDUzCUAIAy3uwhYIjZGKVBOFwEQ+SeuXIPrn5ucw+m/I+ic2gZk0jM
+	 8bhk3/WGR7dXrsCq9c/MLS95n39asptM+/Y6pWxTVAUELMsUxI09d0IniAa/MmdSwXgIH
+	 4xzmYZruaX5F6EydBPI2YhV9gaG5zjfAm+rDqvE3ywCw74b7SrD97d4Tlc5LaH+pjrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UIFRxVfh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=c6mW8uTi;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7682E606A320;
-	Wed, 18 Nov 2026 13:09:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5161F606A31C;
+	Wed, 18 Nov 2026 13:10:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5161F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UIFRxVfh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17311F000C4;
-	Wed, 18 Nov 2026 13:09:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795007379;
-	bh=Jv7xiOwj7vNDJYc94swhTjLaxDuF+oYg+FR9gK6fY2k=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=UIFRxVfhZOBpR58i+xWgwvJgi6ckSkf4VwBHNoJ3oGbBDCcSsuXkCOfPMo4zrzi3e
-	 BfE+/OETp17fb1q6nTdCw8/NFY9jPBp5etRRCTPBfhPM5lgZI5otxcQtzM1TOLy0rq
-	 FgZF5Zul7iQw3weqflU0XlPuIrhdbodrWdIBEJ5dT2wuTjUlHDYsGThmQOtlkG7RNh
-	 csA/Fd/GsKvMRZ2QK8cLgpNzMUKxDVTxZZXrgrSXr5afa6TpDblOzW+G3nuflrU0HK
-	 J/V8m8RCEbki+pCvMVlkUPH7RGxR4eBYXnsw8N6RhaToUrfDdkOYA3wy9AzVDxma7c
-	 jUGaDT3OmqMuA==
-Date: Wed, 18 Nov 2026 07:09:36 -0600
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=c6mW8uTi
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 1D89BC4F77E;
+	Wed, 18 Nov 2026 13:10:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 388B05FE9B;
+	Wed, 18 Nov 2026 13:10:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0D01C11BC1F63;
+	Wed, 18 Nov 2026 14:10:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795007436; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=OV06CLl8OOdgdpg8BFRH5p75zlrKtpNqJrmClfjwDec=;
+	b=c6mW8uTijMvY1u+q/ndfIhhb1kDgwTGQw2FcUjppnSMBuU++Xyt+psPM2vuszpV7hwFXWK
+	I5RwxPdHuYq43NJ6pEeVd2DYl+TKpKOsgSLnEbW7tVys7CSltQlLejZTJpmwh3EG8MNs13
+	0gdjarX5VrBwBquZaTbTgPfJeZAXnRooX9mEvXkjT6xXZ0bkHP3zERS8EWC5fLZ0gVrMTk
+	8W/QC4VxdJeH8j+8NRemoF/5XoYlNyfuPTDA7EFPflNOFJcocbAQ/U6SqIKrXkaD2NnUv0
+	pw9ZpSEOHJqWIpEnr4HTnDA0+IA4u7IQH0Lnm22uWR9DfgXe3Iy1wbLADdr5qw==
+Date: Wed, 18 Nov 2026 14:10:28 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Svyatoslav Ryhel <clamor95@gmail.com>, Rob Herring <robh@kernel.org>,
+ Luca Ceresoli <luca@lucaceresoli.net>, Andi Shyti <andi.shyti@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Peter Rosin <peda@axentia.se>, =?UTF-8?B?TWljaGE=?=
+ =?UTF-8?B?xYIgTWlyb3PFgmF3?= <mirq-linux@rere.qmqm.pl>, Jonas
+ =?UTF-8?B?U2Nod8O2YmVs?= <jonasschwoebel@yahoo.de>,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/2 RESEND] i2c: muxes: Add GPIO-detected hotplug I2C
+Message-ID: <20261118141028.24179f5c@bootlin.com>
+In-Reply-To: <av2Nb_likDLz1u2c@shikoro>
+References: <20251013060018.43851-1-clamor95@gmail.com>
+	<w3bn5bqxqjhf4uvxov47rwlvmnbic6xnlk25xbpnbmi2eyup7q@tjuiu7pl3mmo>
+	<CAPVz0n1-jN5WLFq4e0CZrneExrN_A=GNeGTwGHTCj14NAta+jQ@mail.gmail.com>
+	<aPCfiJxyKOXsgNJe@shikoro>
+	<20251021132529.GA4133357-robh@kernel.org>
+	<CAPVz0n3jt04xEwGr1aiDTJ7OonYYgOy3QneteLXgdGruXGMP_A@mail.gmail.com>
+	<20261118091334.3d51a5f0@bootlin.com>
+	<CAPVz0n3=rL9jVc7DtG9FmcH0zs11+LXg1+HRRf9aagUqZf=+_g@mail.gmail.com>
+	<av2Nb_likDLz1u2c@shikoro>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,66 +85,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Kyungmin Park <kyungmin.park@samsung.com>, linux-pm@vger.kernel.org, 
- Chanwoo Choi <cw00.choi@samsung.com>, linux-arm-kernel@lists.infradead.org, 
- kernel@collabora.com, Heiko Stuebner <heiko@sntech.de>, 
- devicetree@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, linux-rockchip@lists.infradead.org, 
- Conor Dooley <conor+dt@kernel.org>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-In-Reply-To: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-1-32ff1546b0e4@collabora.com>
-References: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
- <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-1-32ff1546b0e4@collabora.com>
-Message-Id: <179500707079.165885.1994428844573235279.robh@kernel.org>
-Subject: Re: [PATCH v3 1/9] dt-bindings: devfreq: event: rockchip,dfi: add
- clocks to rk3588
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+On Wed, 18 Nov 2026 12:35:15 +0100
+Wolfram Sang <wsa+renesas@sang-engineering.com> wrote:
 
-On Tue, 17 Nov 2026 16:35:37 +0100, Sebastian Reichel wrote:
-> From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> Hi Svyatoslav, and Hervé, and all,
 > 
-> RK3588's DFI has pclks for each channel. They just weren't noticed as
-> missing until now because nothing ever gates them, and they're ungated
-> by default on power-on.
+> > > > > > So, if you want upstream supported I2C hot-plugging, you need to wait
+> > > > > > for Luca's and Herve's work being accepted. Or provide a superior
+> > > > > > solution. Or, if you want, join the ride. You already have experience in
+> > > > > > this field (and hardware plus use case), you would be a very welcome
+> > > > > > contributor, I would say.  
+> > > > >
+> > > > > Agreed.
+> > > > >
+> > > > > What really slows things down is when there is only 1 user of a new
+> > > > > binding. Too many times have I accepted one only for the 2nd user to
+> > > > > show up right after accepting it and wanting something different. So
+> > > > > now I just require more than 1 user and it is on the submitter(s) to do
+> > > > > that. After all, it is their itch, not mine.  
 > 
-> The RK3399 clock situation needs no changes, as there the hardware
-> really just has one monitoring unit for both channels.
+> For completeness, let me emphasize the above paragraphs again.
 > 
-> Add these clocks to the binding, so that drivers for this device can
-> properly know about their existence.
+> > > No new advancements. I moved on a prerequisite: Having support for addon
+> > > format in dtb in order to have support for a list of exported symbols
+> > > resolution when an dtb is applied on a live devicetree.  
 > 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
->  .../bindings/devfreq/event/rockchip,dfi.yaml       | 84 ++++++++++++++++++----
->  1 file changed, 72 insertions(+), 12 deletions(-)
+> Well, I would consider advancements in prerequisites also advancements.
+> 
+> > > Anyway, the v3 series [1] need to be updated and a new iteration need to be
+> > > sent. Also, same operations need to be done on the SPI version [2].  
+> 
+> Hervé, is that the next planned step or are there prerequisites needed
+> still?
+
+I think this is a planned step. Is it the next one, I don't know.
+
+Support for addon dtb format is a huge topic and I need to move forward on this
+topic before switching back to i2c-bus-extension.
+
+Even if we could avoid the need for i2c-bus-extension for I2C with addons, IHMO
+decoupling things and having devices that belong on a extension board clearly
+identified in a devicetree is a good thing to keep, i2c-bus-extension provides
+this decoupling.
+
+On SPI, no way to do without a spi-bus-extension. Chip selects must be translated
+between chip select numbers provided by a base board SPI bus, wired to the connector
+and chip select numbers seen from the extension board (i.e. chip select numbers at
+connector level).
+
+Having extension bus for both I2C and SPI make sense and keep things consistent
+between both busses.
+
+Working on extension busses can be done without addon dtb feature. I am just
+too busy to work on both topics in parallel.
+
+Best regards,
+Hervé
+
+> 
+> > Rob, Wolfram, since the DT Addon framework is not mature yet, may
+> > i2c-hotplug-gpio be accepted in some form? Maybe a staging driver or  
+> 
+> I vote against it. Accepting intermediate solutions will slow down the
+> proper solution even more.
+> 
+> > with notes that ABI may be changed and are unstable or maybe as a
+> > device specific driver only for transformers like
+> > "asus-transformer-dock" etc?  
+> 
+> Which kernel are you using? Can't you use your driver downstream instead
+> of upstream unless Herve's work is usable?
+> 
+> Happy hacking,
+> 
+>    Wolfram
 > 
 
-My bot found errors running 'make dt_binding_check' on your patch:
 
-yamllint warnings/errors:
 
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml: properties:clock-names: {"required":["maxItems"]} is not allowed for {"minItems":1,"maxItems":4,"items":[{"enum":["pclk_ddr_mon","pclk_ddr_mon_ch0"]},{"const":"pclk_ddr_mon_ch1"},{"const":"pclk_ddr_mon_ch2"},{"const":"pclk_ddr_mon_ch3"}]}
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-1-32ff1546b0e4@collabora.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+-- 
+Hervé Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
