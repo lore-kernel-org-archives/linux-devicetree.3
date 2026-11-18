@@ -1,71 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795029946;
-	b=1cGUxfmZ/sK/NbrzuEialHlSQD5DsOdC3SqiwKS2lEFqgHDrAaH2W+NlZQu26qDMN4t0
-	 CJwLjRu1GbMrTTCiyk/NUdGLlJbmBxzIB9c7bgpG8LS+U2HmQfel4L0u0xR8Ssak6LkLQ
-	 PNGV27+61foOnAoJelB55SKoBs1xowRYhcqXhZoYkjTWlePWCprUkJwQfIddQ+x5F0b8Q
-	 bM8fT9T2tc121NziHhLfZWrMQzOXxLSbtdq61gsZqQZcw21iUnjwA2NR1xCuOfsTNl8Bu
-	 cP+cLncTNGTCfMCC7c7U16fOsXWr0wY03Sj4nJR2lIFP3zTpZgaSCEGaTewSVakS7fQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795029946;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=n6Pt66wYYAB7YiGLR+iun8iZYXIL16iCn4Z4QJ39GVY=;
-	b=Tvtivne7RaLhZDEx9+oyq9+X8V0e+YKxyhipcewktblAaeaM4/RQfAf3dUIyl/rJHyK1
-	 dObcCbWLOoP4OFhjsnHu+6EftZiXI1Qs7AZ21/nu0Fql/OlrQVVCBhcgFOpnYdItq+9fu
-	 nRswEYiFm/283pU+W56VqblyXAFyIcHSF2PhLii/OX/XTlcEtwMB7B/HcsTyXOTWUuKjW
-	 Vjsf9zXVjrA7nXBithzL5A+Wms5hiuGD1KdsHks9CYOAnLpxQGqptybKObDCcAjqlA8Vf
-	 0QWEErAJi2res0E2UE7F9GjgG4+98uUhKrD9ZZHVqstCFoPWjR8fZ/XNzinpuVpruoA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ct64jBlu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795030266;
+	b=zJ7qoNkhGOPk0X7Aj0DGHeAKhfTX1hgSPZQ9+u5Ob5nJKRJO/lpqHorASPvw5WIad/PK
+	 IaYMWXDCCAEnmqTv+Jmox+Vqvn5aqcbyaMGBCgmzaeFGYNVrxR+7pJQ0jYvkWaGhJO9yB
+	 WDByfJpT+lkboNcJfZvH5GUh6grCZnzYIw2H3/5YmoNkCg4eMg0a1pqc1mnvoCtM3LL16
+	 IwYhdyEACA4Z2kFdNJsTfeMuVzzxoPmuoJmlwlLajm1TH5kLlqi/Wi4gHXUKq8p/R6/fz
+	 jnnLy/KHgSrJDz1Ix5dZMve+M1h4NK1hjyswRrQNg43wWo6uCIgtx+2GfxyZIzdIS8w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795030266;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=iAbjlXus0iw2LllxqZoryy58tCqmnnXTzlAaD4u02/I=;
+	b=A1fguzubnMjMFakSxBOCGOqHjyZ6DX/W3DMhCj/j/GyuJpubbrIdwU+QJ5R30ASJPHZ+
+	 cY25LogZHACdCGE9GXjH+vtpDzMuNn0tv6XiEhoCvTZA1dk7CapNIgV3zXXcUuq4OCT8J
+	 dEmPDZ0ENaOgmLyE3TF47ERYG3z+bKJP4dJ+dOkK6OQyeZuqNU5sDhbAV/0DEnT83IihW
+	 XF9O5fPj2UhWW08Z++aZvY3bAv8aR+3vP5OG+ZRDvGyxZW2XMKud7OfIr2EFMzrPP4HXm
+	 YV2mWD3rqqZFV7oSAKoN4XP1maDdg/60Jw5jf/LWHJXpgvERFzIiP+xr1JUYkYvu6XQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YYTxxlax;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD89606A320;
-	Wed, 18 Nov 2026 19:25:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7852606F533
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 19:31:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7852606F533
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ct64jBlu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88BAF1F000C6;
-	Wed, 18 Nov 2026 19:25:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795029945;
-	bh=n6Pt66wYYAB7YiGLR+iun8iZYXIL16iCn4Z4QJ39GVY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ct64jBlu1GaovN6tR0kD0NzNn4ECw12nH75D56VTO9j075dMnchB1RF2dRY9GrNcO
-	 XiFvikK3lRo+Zpel5LhcFkbVu41sdSblJU4WeUoHXp9xrE0Yh4x3r14jZa8DKqKSVK
-	 CIQefNNYidVYzuQy6DWiSxcyWDJOFU5f1DEM1t7RSGbnUvPFaDg1WZW8hB59nsa6K4
-	 2mQTFn2mKo2mIOByQson+9dti65Ln/AsGik80r9shhl+2BPNee9b5RRJzGhoSrIsSv
-	 CwYinvF7KsNzC3zG+u1SDwCPpb9UwADEisCwX+n1U1nJoCWuM0ZiMiadtoMJ2D8PjX
-	 v01FMsH+4MWzA==
-Date: Wed, 18 Nov 2026 13:25:43 -0600
-From: Rob Herring <robh@kernel.org>
-To: Umang Chheda <umang.chheda@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ruidong Tian <tianruidong@linux.alibaba.com>,
-	Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	James Morse <james.morse@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
-	Avaneesh Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
-Subject: Re: [PATCH v4 2/5] arm64: ras: Add Device Tree frontend
-Message-ID: <20261118192543.GA261024-robh@kernel.org>
-References: <20261118-aest-devicetree-support-v4-0-936587251e8f@oss.qualcomm.com>
- <20261118-aest-devicetree-support-v4-2-936587251e8f@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YYTxxlax
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c445c95d553so200904466b.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 11:31:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795030264; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qKjFix2+NX/Lf1ryYivWgXevc+8d9X3/rC2H7azHU0YsF58NDwonYrJDDZFBhyD2ga
+         p72trk4v4IsgtQdkdwtJBpGAe41unnakRXNi0wfcr7ko52wKPqh06daVm1eEvY43G4oR
+         3aHf7XexLYZdFL+Bq24yZONFzGyqJ/6YQUmD5ixYGNexx8e5WggG1EosSic6+thLjpF9
+         ZpioAjGg2syQf93KAgnxEDYbJcYoqwlAN+7CmGXhRQOu9gMKTVHHYD8xXfqDExOY6Bg4
+         +CnD2VHZb/iYgl7yeK69vIfK6PIAG9DtdDHG2VqmNZaVvyq7+UKkKg0B7lBViK0M+iXn
+         1mfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=iAbjlXus0iw2LllxqZoryy58tCqmnnXTzlAaD4u02/I=;
+        fh=xRzbeue0Zbw6m3aE+Qu23XJEY8oIgWQ0wcDWNwFxqyo=;
+        b=C/WH6hGThZJ3OmashZl2EeCme64lqx+dZW90Tj3p49lRhFPF/ZKguePp1lkTppA8BB
+         S5/n2n2KRV4XpuAaduWCKsp6AxO09Rsf8xWCz3cj8ySFNhvAkCTfZtouOKa7VAHesj6G
+         +Yon8CeSAO0cspTUI9dk6phK4f5z59dE7RGPJ1fRvyaEnbgzXdVgbupA3CSNLG37q7js
+         5EmsOPDdZSAdopJJEf+erJPtuKLOQk+TCcIMg2/9gJQ2EnJjX8/8slma+lZF3zjOSIkf
+         ii4T3YTp2SJ92jErDcQyFMOfqb/cHzef1Ax9yOxHOUIFwDZVjbZLOaNjLzIjgGtUgCMM
+         wvGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795030264; x=1795635064; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iAbjlXus0iw2LllxqZoryy58tCqmnnXTzlAaD4u02/I=;
+        b=YYTxxlaxQ2WfhHso/oEI2r56Wf/FngEvX4IGgjBf48e9sct9kQaN5+W9clSYP5LlZW
+         9lGoVnhGTEg9+TUbmq/jjF0sC+rmU+Buy7VOy6sH/tPxGdqjjnXGgl2MbLOCk/+k9Rho
+         IZJxpHNo6bOT5jZstLoYdAJHZylRxqvtOwCldTOD8whfdnvEhqKJXAdU83+/L7lRIx9v
+         fzcCiYcUTwNu01GC9OfJiH6YaqiVEysh0kMaSWmSU8YUIYlmG2BvarbXEefoJFvoMsw5
+         PH5l2eEIFL9NtYcZ9lHXeSizazga9SFSOqqZtZ+ipAiyUSM6RiF73meQ1GDoIrwk7+Wd
+         OScA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795030264; x=1795635064;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iAbjlXus0iw2LllxqZoryy58tCqmnnXTzlAaD4u02/I=;
+        b=WL3OAEYZBORlrQpcSuvQHvS3zjJk58ekw0NqM3xKvZR3BE9HTNn43+iApWtAIgUIMd
+         lQoR1KFQB3AOujmn+4Qyi/FCMGVqT5CQ2a4s6O7yXAvCTuxqfEVcOYDPRCZxZMmHN2jS
+         5NT6yEjtGth8qlO8YYt38gEY3OZvsP389KNO0/leLebsi8b5xMX3D2jv4CwM/H/3vG8C
+         Ldr9f7wxHA9Ff/25FoY4zJ5rDaKmFyufwplxBHeNoFMFQPdegSn6wspdq0amqwo4R3Sk
+         XMtSCFPMXp4q3mraf48NcalmZBPJIv5HzcNIoqzhrYi+n70/v03KSWIZpVFS/QcRCWiI
+         Bfww==
+X-Forwarded-Encrypted: i=1; AL+hErEwc8U3dFq7Hiqo7rEFIeG2ggoMAuBBWDoccG7/k0MHK54HiLfXTkgBkWBinCmn+lcPpBRdvuNKyH3D@vger.kernel.org
+X-Gm-Message-State: APuU4Z9S6iGhVmNhrpHed7KcuOfa74SZD+dCaQgbc3KFH4OPhIc2/yHj
+	8DV+f/gVF59y0pZW61FlKEHNkD60S2Unar+uXgJ/Dbl9a2KgC2KUtOZWFrEd7+YLYqamvsoCGfY
+	WZqMZYYq6eZTbFcSnBkNp8aK0et1s7n8=
+X-Gm-Gg: AYBFou1KfMdiCNG2l1FDKraM0j163Qu+fzcZvUy4ZxB1Ekutl8w4iPKYgyrXn41UPpK
+	ELs/W0ohBDqGUT9dKj68CI+u1Yq2hDap3ABNSx2wYCsDFl+E6bd+0ed8gYKtiQEDA2owACp1IV9
+	V9nLXrkzdxJ4ubiHuLuLbNOYQX4KBLNvM9fMsDqPC+VqFMu3nwcH3iAG3PUl1/tdUXZh/ibhpRp
+	7CEukarlY3GHkNfEh5bqE38V+huOLM268x73xcu0JYKQQeASpzL2nWUb+t/ltPYyI7TrN+Ecv3u
+	dJE0qSaAJsTgb+t4hMZWcjosQKIxd3F84V8BQBbZ08sUZ9JUIQF24tix8+e/angYtIwxKR2Jkeh
+	mvaEbwZLQiKr0hOFWcStkzP4KQeZipYr30s4=
+X-Received: by 2002:a17:907:f816:b0:c2e:317e:d711 with SMTP id
+ a640c23a62f3a-c510e398889mr303013866b.27.1795030263845; Wed, 18 Nov 2026
+ 11:31:03 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,55 +103,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118-aest-devicetree-support-v4-2-936587251e8f@oss.qualcomm.com>
+References: <20261105194426.1113050-1-l.scorcia@gmail.com> <20261118152346.GC98456@joneslee-macbookpro.roam.internal>
+In-Reply-To: <20261118152346.GC98456@joneslee-macbookpro.roam.internal>
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Date: Wed, 18 Nov 2026 20:30:52 +0100
+X-Gm-Features: AclHuK-Q_ZR_eSDZWgs8r4i-RTkFZUMV5FI3ZV4LgWAQGQjLtUrjcLbEIObtllI
+Message-ID: <CAORyz2+7q3BTeW3NsaiwN9riAbHV0Q_tCm6bBV7RoiDeAbcLrg@mail.gmail.com>
+Subject: Re: [PATCH v12 0/8] Add support for MT6392 PMIC
+To: Lee Jones <lee@kernel.org>, Mark Brown <broonie@kernel.org>
+Cc: linux-mediatek@lists.infradead.org, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>, 
+	Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, Val Packett <val@packett.cool>, 
+	Fabien Parent <parent.f@gmail.com>, Akari Tsuyukusa <akkun11.open@gmail.com>, 
+	Chen Zhong <chen.zhong@mediatek.com>, linux-input@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 18, 2026 at 12:48:21AM +0530, Umang Chheda wrote:
-> Add a Device Tree frontend for the ARM64 RAS driver, allowing it
-> to be used on platforms without ACPI firmware.
-> 
-> The error sources defined in DT are registered as arm64_ras platform
-> devices at boot. The frontend produces the same software fwnode properties
-> as the ACPI path, so the core driver probes DT and ACPI nodes identically
-> without any firmware-specific knowledge.
-> 
-> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
+> MFD looks okay now.  How many more Acks do you need?
+Still need the regulator Ack. Mark Brown provided an Ack for the first
+version (almost a year ago) of the regulator patch [1], but it was
+substantially modified in later revisions so I dropped that Ack.
+I'll move Mark Brown from Cc to To tag in this email for a gentle
+ping, I hope that's not against the ML etiquette.
 
-[...]
+> NB: This patch-set looks split in two in my inbox?
+Now that you mention it, I see the split too. Weird, I sent it using
+git send-email as always. I can resend it if it's an issue.
 
-> +	ret = platform_device_add(pdev);
-> +	if (ret)
-> +		goto err_put;
-> +
-> +	pr_debug("registered RAS node %pOF as arm64_ras.%d\n", np, pdev->id);
-> +	return 0;
-> +
-> +err_put:
-> +	platform_device_put(pdev);
-> +	return ret;
-> +}
-> +
-> +static int __init ras_of_init(void)
-> +{
-> +	const struct of_device_id *match;
-> +	struct device_node *np;
-> +	int index = 0, ret;
-> +
-> +	if (!acpi_disabled)
-> +		return 0;
-> +
-> +	for_each_matching_node_and_match(np, ras_of_match, &match) {
-> +		u8 node_type = *(const unsigned long *)match->data;
-> +
-> +		ret = ras_of_init_one_node(np, node_type, index++);
+Thank you
 
-Why are you rolling your own platform device creation? The DT 
-infrastructure will create devices for you. And likely you are getting 2 
-devices for every node because you are not setting flags on the nodes to 
-prevent that. But setting the flag is not the right thing. Moving all 
-this code to driver probe is the right thing. That probably means some 
-refactoring have a common probe function that the DT and ACPI probe 
-functions can call (assuming there can't just be one common probe).
+[1] https://lore.kernel.org/linux-mediatek/20261105195206.3440-5-l.scorcia@gmail.com/
 
-Rob
+--
+Luca Leonardo Scorcia
+l.scorcia@gmail.com
