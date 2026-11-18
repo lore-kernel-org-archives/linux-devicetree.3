@@ -1,57 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795017965;
-	b=oBEeUBtLGsDWcTNMT1OPASc4f1AJ+K0oUlYI6c+hVFO96arhv9ru3VwjK0mcp+o37/u/
-	 jlkFKXsqSncOJ43Dbpl0Sd6BGXW0QQDbWDi7aVLKd8fEIjPtSbXyO4vDF207OJPNubDjf
-	 XkbxkUifnfNVc4xDm9eTdI0FXATsQx2uevqnLR4/uZLY+AaSQHytH/aK6T63bHD/jmsY+
-	 pKf/xoNtz7GGBVDcRP0wTSFjMkFGs3YwIc6Hq94LFxAprVP5jO3MELWPi5T0GUiRfp5cx
-	 LH4Y+AiKAxjgkopaZQFAiaU4nMDnsYmilpg06zT21iqnUtD4wwPvXn+lFkwgpjqAHow==
+	t=1795018135;
+	b=GNNhSr5yrd1sGFRRvTLroH2RrfU/CHDUw/g61k6RShStDrW1Ww5ad3M2wAaRGs02438Z
+	 K0/VUvjpaG8NIY86PaYoTjZ9RxKYWq3RnSoNrfZePDYB2W4fS18zmh0UMi2A01HbbvdCX
+	 AZSYGv2m5+Vk5sYj9r5+euVfi1tPc45DAAgWpM+3J+DDxQV2X7tw3k2o8ICZY5WYLziyS
+	 DDUdISHtT3jg/ANg/m7gZqA1FVuWgmexXYJ0z/4QaN/5udNkhWIv71QFMKH0NsWciHHtO
+	 IEylyMZKRyaDp7VpyWKAEkpzQ692G/LQProES1SFnJJ+NZ93WTqlvLglcUsU6+PnMCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795017965;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=oKFR3bZi6v5pv8+3J77rAPs59izk8whRqH7B/hgm/+g=;
-	b=tM2tYM6AWapXnA73S88s4na4Ix/L6FPbzl4ombAbktX+bPjb9MQY97h7Ek9T5zZYBKk7
-	 +/4mK6yGotlHPH+MCnhiwBPLUHm4ri/MylaorD8Zsu5ugzVUz93Ah+lohyHySoYZJxMSC
-	 U6XEEk90215n1lJqe5xM+sUPK9BF6F5sisQEeM7ghoMsRwosCgnps2rYi9BVAn6LT+zQi
-	 yUJ9x+dQFHpJKsa0XO8ZC9rlhUZKTmt0laIx0wLXPGWy400HWP+OHp4sj9kLBL7fEnrC8
-	 7fI7Ecri1jXoEeU1x4Q0pYitF3aH2kEY0EGpocyoOh53CH/ydKrMBshIUb6T4INottg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795018135;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Last-TLS-Session-Version;
+	bh=NyruYRmBJ333KKsYOsJfBubBYnjFdFekZpcsS68Afoo=;
+	b=kjHaUg5ZmhefzwqeIF+u0ekH1qiQCO21ypTZwPFaiCq+mS17Eai6IWFXh3mOG44j3Rxa
+	 p16EFnzBmNUQH2xqmvxpo+sAjENR2+bbcx7+MvYTwUxHNjFBhcp61BuMvxVZe+osWvAiQ
+	 rJZX+muU3MPWiRH80cpy4QIMswzB+QyA2JkNKsfLJGARXF0OcTFzYtmuHOY7YO7Qd3AxY
+	 U44tx0zmby9mL0HEPV7glPikHNa/O7A6ziFAWmM9NCtcOAbg7su0aCKn5mEX6SqTJs0+p
+	 uxFqy6bVIMKcGYZhXBST6ZUPwVPlG+/X0pRoK1UDVLHzMJJhpiz3bAhywdaCtWky+uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BEsSZ/LL";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=X6cEgtil;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E83606A325;
-	Wed, 18 Nov 2026 16:06:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E066606A32F;
+	Wed, 18 Nov 2026 16:08:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E066606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BEsSZ/LL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67D051F000C5;
-	Wed, 18 Nov 2026 16:06:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795017964;
-	bh=oKFR3bZi6v5pv8+3J77rAPs59izk8whRqH7B/hgm/+g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BEsSZ/LLc9TIpPGshcx6KgoMX0pl9XPhtr9ssiQDYkhcqppT9yve6scnGjYfR4p6T
-	 FOCyx55/f5kxgz0pBzKGCVysl7A9tRqxWzzT2YJsk16mcLG2fbCfPEiKN5Djvbh+1V
-	 9xWL+bACejYse/E/m2vjKyhTRLIPalwtSq14Fwde+i3fSru4GJ6pj4REMMtD7vkEcM
-	 p18Cw5TkVaKAgERpfFyhB+t+N9z1Tm8wbdUlIy0dBasD2pbGJ2PeThv/ihfOIdYNXV
-	 DzNKoCUqE08+FYzpyPj1RcIZca8s/LBRB9W+nh62obVoQ4IqzoXIqyjXYN95oypP43
-	 8bKLB7MQKmrbw==
-Message-ID: <sashiko-outbox-221421@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/11] iio: adc: stm32-mdf: add dmic audio filter
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Olivier Moysan" <olivier.moysan@foss.st.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261118-upstream_mdf_v2-v2-10-7939d3c3720a@foss.st.com>
-References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
- <20261118-upstream_mdf_v2-v2-10-7939d3c3720a@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 16:06:03 +0000
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=X6cEgtil
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 6702A1A16D4;
+	Wed, 18 Nov 2026 16:08:53 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 299BD5FE9B;
+	Wed, 18 Nov 2026 16:08:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BD37011BC244F;
+	Wed, 18 Nov 2026 17:08:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795018130; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=NyruYRmBJ333KKsYOsJfBubBYnjFdFekZpcsS68Afoo=;
+	b=X6cEgtil8ijijO0rJLXA2fM6mfOKCqDSKEpQnIZl8O7QDvCmAFq44iTLtGiRg59T6tim+9
+	BkfAmw+/K2LmZlkCdVN2sYKaDDdw/b0/mTAmoK6EDNyam9WvPm2KyqSsK6FFH80ZrBBRbl
+	fOuG3P4fgquqDyFTbuhX5QPxzAzzTotAL3yURPLSCZ75iuwuF5fR7obk1dgbOVKjz5XyHU
+	usLAW0L1/qdVNqF382CZu2aco6xcOyG4qofdf/C4tljy9+Ib67sXLpy0J5bWTKyaLMICZ9
+	hf3TVLYsrb2HPg/gXOz12/t9aAj1TndcLvng+XJYM9BoHm2TlIq0tO3MLsgbzA==
+From: =?UTF-8?B?QmVub8OudA==?= Monin <benoit.monin@bootlin.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jun Chang <jun.chang@metanoia-comm.com>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Sebastian Reichel <sre@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+ Samuel Holland <samuel.holland@sifive.com>,
+ Ben Zong-You Xie <ben717@andestech.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ Jisheng Zhang <jszhang@kernel.org>, CL Wang <cl634@andestech.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>, Adrian Hunter <adrian.hunter@intel.com>,
+ Minas Harutyunyan <hminas@synopsys.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Randolph Sheng-Kai =?UTF-8?B?TGluKOael+iBluWHsSk=?= <randolph@andestech.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-phy@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>,
+ linux-mmc@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-watchdog@vger.kernel.org
+Subject:
+ Re: [PATCH 00/25] riscv: add support for the Metanoia MT2824 SoC and MT5824
+ EVB
+Date: Wed, 18 Nov 2026 17:08:33 +0100
+Message-ID: <tSRWYJl8QRO6qpOrYOmeTA@bootlin.com>
+In-Reply-To: <20261117-calamity-quiver-96d0d568b338@spud>
+References:
+ <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+ <_koitdIgQPmk89LDhlUlJQ@bootlin.com>
+ <20261117-calamity-quiver-96d0d568b338@spud>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,289 +95,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] iio: adc: stm32-mdf: race updating cb and cb_priv in
-  stm32_mdf_get_buff_cb()
-- [Medium] iio: adc: stm32-mdf: out-of-bounds or uninitialized channel
-  in stm32_mdf_audio_init()
-- [Medium] iio: adc: stm32-mdf: unlocked freq reset in
-  stm32_mdf_adc_write_raw()
-- [Medium] iio: stm32-mdf: bad mask and bypass in
-  stm32_mdf_adc_apply_filters_config()
-- [Low] iio: adc: stm32-mdf: inaccurate kernel-doc Return for
-  stm32_mdf_get_sub_channels_nb()
---
+On Tuesday, 17 November 2026 at 18:30:58 CET, Conor Dooley wrote:
+> On Tue, Nov 17, 2026 at 11:41:52AM +0100, Beno=C3=AEt Monin wrote:
+> > On Friday, 6 November 2026 at 12:15:09 CET, Mark Brown wrote:
+> > > On Fri, Nov 06, 2026 at 10:29:57AM +0100, Beno=C3=AEt Monin wrote:
+> > >=20
+> > > > The series is organised as:
+> > >=20
+> > > > - patches 1-14 add the device tree bindings, the Metanoia vendor pr=
+efix,
+> > > >   the RISC-V board schema and the SoC block compatibles
+> > > > - patch 15 adds ARCH_METANOIA and selects the AX45MP errata
+> > > > - patches 16-23 add the reset, SPI, watchdog, MMC, PHY and USB chan=
+ges
+> > > >   needed to build and probe on this SoC
+> > > > - patch 24 adds the MT2824 SoC and MT5824 EVB device trees
+> > > > - patch 25 adds the MAINTAINERS entry
+> > >=20
+> > > This sort of thing tends to work better if you submit the patches for
+> > > subsystems as separate serieses, it avoids enormous CC lists and keeps
+> > > the individual serieses a managable size.
+> > >=20
+> > I agree, and I am reworking the series that way. Version 1 was intended
+> > as an overview of the complete SoC support, but it ended up being too
+> > big for a single series.
+> >=20
+> > So version 2 of this current series will be only the platform basics
+> > (2 patches):
+> >=20
+> >   - dt-bindings: vendor-prefixes: add Metanoia Communications
+>=20
+> >   - riscv: add ARCH_METANOIA Kconfig entry
+>=20
+> Realistically, this does not need to be a prereq either, because you'll
+> have "depends on ARCH_METANIOA || COMPILE_TEST".
+>=20
+True but checkkconfigsymbols.py will then complain about a referenced but
+undefined Kconfig symbol in the following series.
 
-commit dd4cd2a4f3dd0be22589f1468dca26c3807bd280
-Author: Olivier Moysan <olivier.moysan@foss.st.com>
+> >=20
+> > It will act as a prerequisite for the following new series, one per
+> > subsystem:
+> >=20
+> >   - reset: binding + reset-simple support (the separate reboot binding
+> >     is dropped; the RST block is described as a single node)
+> >   - SPI: optional DMA/IRQ binding, MT2824 compatible, atcspi200 IRQ
+> >     support + Kconfig
+> >   - watchdog: compatible + Kconfig
+> >   - MMC: compatible + MT2824 support (split between SD, eMMC and
+> >     auto-detection) + tuning/HS400
+> >   - PHY: USB2 PHY binding + driver/Kconfig
+> >   - USB DWC2: binding + params
+> >=20
+> > Finally, once the subsystem bindings are accepted and the drivers
+> > are queued, I'll post the SoC DTS in its own series: board schema +
+> > cache/PLIC/PLICSW/PLMT compatibles + the MT2824/MT5824 DTS and the
+> > MAINTAINERS entry
+> >=20
+> > Thanks everyone for the reviews, I will integrate the feedback in the
+> > next iterations of each series.
+> >=20
+> > Best regards,
+> > Beno=C3=AEt
+> >=20
+> >=20
+> >=20
+>=20
 
-iio: adc: stm32-mdf: add dmic audio filter support
 
-This commit extends the STM32 MDF filter driver to support digital
-microphone audio filters and adds callback and sub-channel helpers for
-audio consumers.
-
-> diff --git a/drivers/iio/adc/stm32-mdf-adc.c b/drivers/iio/adc/stm32-mdf-=
-adc.c
-> index 97099b4adffc6..27c47bef71a42 100644
-> --- a/drivers/iio/adc/stm32-mdf-adc.c
-> +++ b/drivers/iio/adc/stm32-mdf-adc.c
-[ ... ]
-> @@ -1128,6 +1129,42 @@ static const struct iio_buffer_setup_ops stm32_mdf=
-_buffer_setup_ops =3D {
->  	.predisable =3D &stm32_mdf_adc_predisable,
->  };
-> =20
-> +/**
-> + * stm32_mdf_get_sub_channels_nb() - Get the number of MDF sub-channels
-> + * @indio_dev: MDF IIO device
-> + *
-> + * Return: 0 on success, or a negative error code on failure.
-> + */
-
-[Severity: Low]
-The Return description in the kernel-doc says this returns 0 on success or
-a negative error code on failure, whereas stm32_mdf_get_sub_channels_nb()
-returns an unsigned int sub-channel count (nb_interleave or 1).
-
-> +unsigned int stm32_mdf_get_sub_channels_nb(struct iio_dev *indio_dev)
-> +{
-> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
-> +
-> +	if (MDF_IS_FILTER0(adc) && adc->mdf->nb_interleave)
-> +		return adc->mdf->nb_interleave;
-> +
-> +	return 1;
-> +}
-> +EXPORT_SYMBOL_GPL(stm32_mdf_get_sub_channels_nb);
-
-[Severity: Medium]
-Does stm32_mdf_adc_apply_filters_config() misconfigure MDF_DFLTCICR_REG and
-drop rsflt_bypass on secondary interleaved filters?
-
-drivers/iio/adc/stm32-mdf-adc.c:stm32_mdf_adc_apply_filters_config() {
-	if (MDF_IS_FILTER0(adc) && adc->mdf->nb_interleave) {
-		list_for_each_entry(adc_inter, &adc->mdf->filter_list, entry) {
-			if (MDF_IS_INTERLEAVED_FILT_NOT_0(adc_inter)) {
-				adc_inter->datsrc =3D adc->datsrc;
-				adc_inter->cicmode =3D adc->cicmode;
-				adc_inter->decim_cic =3D adc->decim_cic;
-				adc_inter->nbdis =3D adc->nbdis;
-				adc_inter->hpf_cutoff =3D adc->hpf_cutoff;
-
-				stm32_mdf_adc_apply_filters_config(adc_inter, scale);
-				cnt++;
-			}
-		}
-    ...
-	/* Configure CICR */
-	msk =3D MDF_SITFCR_SCKSRC_MASK | MDF_DFLTCICR_CICMOD_MASK |
-	      MDF_DFLTCICR_MCICD_MASK | MDF_DFLTCICR_SCALE_MASK;
-	val =3D FIELD_PREP(MDF_SITFCR_SCKSRC_MASK, adc->datsrc) |
-	      FIELD_PREP(MDF_DFLTCICR_CICMOD_MASK, adc->cicmode) |
-	      FIELD_PREP(MDF_DFLTCICR_MCICD_MASK, adc->decim_cic - 1) |
-	      FIELD_PREP(MDF_DFLTCICR_SCALE_MASK, scale);
-
-	ret =3D regmap_update_bits(adc->regmap, MDF_DFLTCICR_REG, msk, val);
-}
-
-When programming MDF_DFLTCICR_REG, msk and val use MDF_SITFCR_SCKSRC_MASK
-(GENMASK(2, 1)) instead of MDF_DFLTCICR_DATSRC_MASK (GENMASK(1, 0)), which
-shifts adc->datsrc into bits [2:1] and leaves bit 0 untouched.  In
-addition, the interleaved filter loop does not copy adc->rsflt_bypass to
-adc_inter->rsflt_bypass, leaving the reshape filter enabled on secondary
-interleaved filters when filter 0 has st,rs-filter-bypass set.
-
-[ ... ]
-
-> @@ -1474,6 +1514,13 @@ static int stm32_mdf_adc_read_label(struct iio_dev=
- *indio_dev, const struct iio_
->  	return sysfs_emit(label, "%s\n", name);
->  }
-> =20
-> +static const struct iio_info stm32_mdf_info_audio =3D {
-> +	.hwfifo_set_watermark =3D stm32_mdf_set_watermark,
-> +	.write_raw =3D stm32_mdf_adc_write_raw,
-> +	.read_raw =3D stm32_mdf_adc_read_raw,
-> +	.read_label =3D stm32_mdf_adc_read_label,
-> +};
-
-[Severity: Medium]
-Does stm32_mdf_adc_write_raw() reset adc->requested_sample_freq outside
-the direct-mode lock on error?
-
-drivers/iio/adc/stm32-mdf-adc.c:stm32_mdf_adc_write_raw() {
-    ...
-	{
-		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-		if (IIO_DEV_ACQUIRE_FAILED(claim))
-			return -EBUSY;
-
-		/* Set requested_sample_freq right now, as used by mdf_adc_set_samp_freq(=
-) */
-		adc->requested_sample_freq =3D val;
-
-		if (adc->dev_data->type =3D=3D STM32_MDF_IIO) {
-			ret =3D stm32_mdf_core_lock_kclk_rate(adc->mdf);
-			if (!ret) {
-				ret =3D mdf_adc_set_samp_freq(indio_dev);
-
-				stm32_mdf_core_unlock_kclk_rate(adc->mdf);
-			}
-		}
-	}
-
-	if (ret)
-		adc->requested_sample_freq =3D 0;
-    ...
-}
-
-The IIO_DEV_ACQUIRE_DIRECT_MODE() guard releases direct mode at the end of
-the inner block, before adc->requested_sample_freq is cleared.  If
-stm32_mdf_core_lock_kclk_rate() or mdf_adc_set_samp_freq() fails, a
-concurrent direct-mode writer or buffer enable can observe the failed
-frequency or have its own valid update overwritten by 0.
-
-> @@ -1530,6 +1577,38 @@ static irqreturn_t stm32_mdf_irq(int irq, void *ar=
-g)
->  	return IRQ_HANDLED;
->  }
-> =20
-> +static int stm32_mdf_audio_init(struct device *dev, struct iio_dev *indi=
-o_dev)
-> +{
-> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
-> +	struct iio_chan_spec *ch;
-> +	int ret;
-> +
-> +	ch =3D devm_kzalloc(&indio_dev->dev, sizeof(*ch), GFP_KERNEL);
-> +	if (!ch)
-> +		return -ENOMEM;
-> +
-> +	adc->channels =3D devm_kzalloc(&indio_dev->dev, sizeof(*adc->channels),=
- GFP_KERNEL);
-> +	if (!adc->channels)
-> +		return -ENOMEM;
-> +
-> +	ret =3D stm32_mdf_adc_chan_init(indio_dev, ch);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Channels init failed\n");
-> +
-> +	indio_dev->num_channels =3D 1;
-> +	indio_dev->channels =3D ch;
-
-[Severity: Medium]
-Can stm32_mdf_adc_chan_init() write past ch and adc->channels or leave them
-uninitialized here?
-
-stm32_mdf_audio_init() allocates a single element for ch and adc->channels,
-but stm32_mdf_adc_chan_init() loops over every child node without a
-compatible property and indexes channels[chan_idx] and
-adc->channels[chan_idx] without checking the count.  If a dmic node has
-more than one channel child node, stm32_mdf_adc_chan_init_one() writes out
-of bounds on both allocations.  If there are no channel child nodes (such
-as on a secondary interleaved filter), stm32_mdf_adc_chan_init() returns 0,
-leaving indio_dev->num_channels set to 1 with ch[0] and adc->channels[0]
-uninitialized.
-
-[ ... ]
-
-> @@ -1599,11 +1678,77 @@ static const struct stm32_mdf_dev_data stm32h7_md=
-f_adc_data =3D {
->  	.init =3D stm32_mdf_adc_init,
->  };
-> =20
-> +static const struct stm32_mdf_dev_data stm32_mdf_audio_data =3D {
-> +	.type =3D STM32_MDF_AUDIO,
-> +	.init =3D stm32_mdf_audio_init,
-> +};
-> +
-> +/**
-> + * stm32_mdf_get_buff_cb() - register a callback that will be called when
-> + *                           DMA transfer period is achieved.
-> + *
-> + * @iio_dev: Handle to IIO device.
-> + * @cb: Pointer to callback function:
-> + *      - data: pointer to data buffer
-> + *      - size: size in byte of the data buffer
-> + *      - private: pointer to consumer private structure.
-> + * @private: Pointer to consumer private structure.
-> + *
-> + * Return: 0 on success, or a negative error code on failure.
-> + */
-> +int stm32_mdf_get_buff_cb(struct iio_dev *iio_dev,
-> +			  int (*cb)(const void *data, size_t size, void *private), void *priv=
-ate)
-> +{
-> +	struct stm32_mdf_adc *adc;
-> +
-> +	if (!iio_dev)
-> +		return -EINVAL;
-> +	adc =3D iio_priv(iio_dev);
-> +
-> +	if (!adc)
-> +		return -EINVAL;
-> +
-> +	adc->cb =3D cb;
-> +	adc->cb_priv =3D private;
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(stm32_mdf_get_buff_cb);
-> +
-> +/**
-> + * stm32_mdf_release_buff_cb() - Unregister the buffer callback
-> + *
-> + * @iio_dev: Handle to IIO device.
-> + *
-> + * Return: 0 on success, or a negative error code on failure.
-> + */
-> +int stm32_mdf_release_buff_cb(struct iio_dev *iio_dev)
-> +{
-> +	struct stm32_mdf_adc *adc;
-> +
-> +	if (!iio_dev)
-> +		return -EINVAL;
-> +	adc =3D iio_priv(iio_dev);
-> +
-> +	if (!adc)
-> +		return -EINVAL;
-> +
-> +	adc->cb =3D NULL;
-> +	adc->cb_priv =3D NULL;
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(stm32_mdf_release_buff_cb);
-
-[Severity: High]
-Can stm32_mdf_get_buff_cb() and stm32_mdf_release_buff_cb() race with
-stm32_mdf_adc_dma_buffer_done() and cause a NULL pointer dereference?
-
-In the ASoC consumer driver, iio_channel_start_all_cb() is called during
-DAI prepare, which runs stm32_mdf_adc_postenable() and starts cyclic DMA
-before PCM trigger start, keeping it running across trigger stop.  As a
-result, the DMA completion callback stm32_mdf_adc_dma_buffer_done() is
-already running when stm32_mdf_get_buff_cb() and
-stm32_mdf_release_buff_cb() update adc->cb and adc->cb_priv without locking
-or ordering:
-
-CPU0                                  CPU1
-stm32_mdf_get_buff_cb()
-  adc->cb =3D cb;
-                                      stm32_mdf_adc_dma_buffer_done()
-                                        if (adc->cb)
-                                          adc->cb(..., adc->cb_priv);
-                                            <-- cb_priv is still NULL
-  adc->cb_priv =3D private;
-
-Similarly, stm32_mdf_release_buff_cb() clears adc->cb and adc->cb_priv
-without synchronizing with stm32_mdf_adc_dma_buffer_done(), so CPU1 can
-pass a cleared adc->cb_priv or jump through a NULL adc->cb after the
-if (adc->cb) check.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-upstream_m=
-df_v2-v2-0-7939d3c3720a@foss.st.com?part=3D10
