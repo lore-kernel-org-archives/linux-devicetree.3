@@ -1,49 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795007234;
-	b=iM7EMTpPoAz3bS0oc9FSb9kaBQAg+vzviSHS4rFRioisYMKEJbZz+HnMicLP93vTx6ML
-	 2oR/74DCySxguDlTVMX15L4KHKoAABtBl8ilu9rwn8QPP5PvQ9rZ0Dt39PFot3qsCtU/9
-	 Ed+0oP6MeUJVbB5P4z8MZBP3fcTGLJmXYH67Lm0RFEajcjpYqeqtVFyFDtQxx5X9zowGs
-	 FVa0zB9kgeOBNRi5ylFMWeVOzHkcxpIoA6tLa4lTFR6GyFt4r1NB/MHIXJ9PPFUV6W3z6
-	 Y8ceGsv0JhL1FVpOQyuUinG4Fbr2eiQdJKEOG6x/HLVSeHGcMenlZBXcB3cmXAa3VEA==
+	t=1795007262;
+	b=xma/Y2/aYRpII01BWgk+An0Ly9HAbNtxbE0B4n3F/+9462n2n7kvcwzAcGA1j5skU46F
+	 2FQuiS1FJgXTyWzle7FNgAxo5LJmWZXfCL9mtMOucM3vNOFuplQYEeBNPfrfQGxx0GqZK
+	 ZAZTuQYTVZh6fNyOrfxMXRYyZFWGlJmJvPtcT4jaRXUqy7JBh5JeN6RAkp3BH9mQv4WmO
+	 lC4w3DL/Hx73ziVFXbxZk3SLhRLZgo9OwzuxU8iOa3rCWFH85IgObuBpw0gIeyem27Pub
+	 7gtiPkcafAdheUResqGllUgUtUDjCm5e5emOMXlAPF1PPaQjorYEj7ozzp0SDtnJDJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795007234;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=jqZDsw4/Pv9G6TuHSSZvax905ZGFTyfcu7eywgbZg64=;
-	b=ysyYIFAtFxZt1Hg0IjIeB8KrGmoCeKcOYWMVjTG5/WkQfvDitMXwxJ+5oDyKwvSAlL1o
-	 Kzwnk0mhughfAdZsJNgvZoAQ8/+nfR/FTCfP4HoNGfZboy7IE0ypmkSqrZZRl///NL+Ti
-	 aENINSqVw+A6wVuzCrAESQ70CDMGZqdYriMK6R68yWuQNYjxWA05Pbcd39gtNK1lz8W7P
-	 2h9MMkkxY7jINMURgp0FjIu9F6dlS73tTHJW9zn9N0K4e+Z3uFhLYJpiIT5eqyJjTGpaq
-	 vYVvpPRRCWoC6RDxLtz2hcZDpDuoBzZeM5TS32Ju9mPPcsXxcdNqngwrqguPsTakSww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795007262;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=RKlNE273qsLLyD+9WVGHZwPIwnj09V8yBbpoARQKCtU=;
+	b=sIIdjLuFVlH7nOzzxGoQvxKq810zPUH/i4lRxVZ3wq5wFF/C5Xg9M2/PHChJrSgOxVwK
+	 oJqJ34+SNKP1qQAwoKziuiyn8HLCShwMb0ryOOm0J/FiVSyeSV/PBNMy6xyyzOwu9ngD4
+	 Bxvukr1K5t4mXkuhl+R9APnXCuNOUb6i1joeTtYZ/OqIHwQIOrhAqnvw/0Nq3syySj+CF
+	 2SQbqKpfGuW7xoXMNQkm4x0G9IgHWtDbZmys+5TW4IPFfKjOWMHxigpOT/Eud1096vS+o
+	 2vGo5b/4c1nMlduLmOP1LP7AdRKI5U3gUWK8UAwCAjVJvt2FoddtTtIhAjjpKExSyBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QupW6SWA;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A308E606A31C;
-	Wed, 18 Nov 2026 13:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A308E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QupW6SWA
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AB2A21596;
-	Wed, 18 Nov 2026 05:07:08 -0800 (PST)
-Received: from [10.57.92.80] (unknown [10.57.92.80])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 96E0D3F673;
-	Wed, 18 Nov 2026 05:07:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795007231; bh=HEpShK6JaeOW8psRd/l3RPEF82DAOAZP4AgLiMMwhBU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=QupW6SWAiFEoX/bwQ9NysNdamPSKgk89MHHXCd0ACOkYEIz954lHFV8MRL+DE8cVG
-	 YvCIPkg66Qttzfq0/Yl5ggwKsbTyrwVYlkPbhyQ4vl5CspuegAHlQidKIHDBtY6SOC
-	 9bEqTQJAqeft2gn5jMI19CDKxiclG9Aly36P/81I=
-Message-ID: <08d06f8c-026c-4503-8783-6b8a1b59d620@arm.com>
-Date: Wed, 18 Nov 2026 13:07:06 +0000
+	dmarc=none header.from=makrotopia.org;
+	spf=pass smtp.mailfrom=makrotopia.org;
+	arc=none smtp.remote-ip=185.142.180.65
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A97606A338;
+	Wed, 18 Nov 2026 13:07:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9A97606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xTfNm-000000004Qx-3Wtz;
+	Wed, 18 Nov 2026 13:07:27 +0000
+Date: Wed, 18 Nov 2026 13:07:16 +0000
+From: Daniel Golle <daniel@makrotopia.org>
+To: joseph@telaak.dev
+Cc: Hauke Mehrtens <hauke@hauke-m.de>, Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4 2/2] net: dsa: mxl-gsw1xx: reset the switch
+ through reset-gpios
+Message-ID: <av2jBEtrEq96xV2-@makrotopia.org>
+References: <20261115-mxl-gsw1xx-reset-v4-0-4ecd18c922e2@telaak.dev>
+ <20261115-mxl-gsw1xx-reset-v4-2-4ecd18c922e2@telaak.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,63 +62,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: perf: arm,smmu-v3-pmcg: Allow
- power-domains
-To: Amita Mishra <amitamishra@google.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261118101913.3135869-1-amitamishra@google.com>
- <20261118101913.3135869-2-amitamishra@google.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261118101913.3135869-2-amitamishra@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115-mxl-gsw1xx-reset-v4-2-4ecd18c922e2@telaak.dev>
 
-On 2026-11-18 10:19 am, Amita Mishra wrote:
-> On some SoCs, SMMUv3 Performance Monitor Counter Groups (PMCGs) reside
-> in switchable power domains rather than an always-on domain.
+On Sun, Nov 15, 2026 at 05:33:46PM -0500, Joseph Telaak via B4 Relay wrote:
+> From: Joseph Telaak <joseph@telaak.dev>
 > 
-> Document the optional power-domains property so that runtime power
-> management can manage the PMCG power state.
-
-Isn't power-domain-consumer one of the common schemas that's 
-automatically applicable to any node anyway? I would think that unless 
-we have a specific expectation and description of what each 
-power-domains entry should represent - which we cannot reasonably do in 
-a binding that is for the architectural PMCG interface rather than any 
-specific implementation of such - we'd be better off just leaving it 
-implicit.
-
-> Signed-off-by: Amita Mishra <amitamishra@google.com>
-> ---
->   Documentation/devicetree/bindings/perf/arm,smmu-v3-pmcg.yaml | 3 +++
->   1 file changed, 3 insertions(+)
+> The switch keeps the configuration the bootloader left in it, and the
+> driver never resets it. The MDIO core asserts and releases reset-gpios
+> only for PHY devices, so a reset line described on the switch node has
+> no effect either.
 > 
-> diff --git a/Documentation/devicetree/bindings/perf/arm,smmu-v3-pmcg.yaml b/Documentation/devicetree/bindings/perf/arm,smmu-v3-pmcg.yaml
-> index a4b53a6a1ebf..aea6623bb98c 100644
-> --- a/Documentation/devicetree/bindings/perf/arm,smmu-v3-pmcg.yaml
-> +++ b/Documentation/devicetree/bindings/perf/arm,smmu-v3-pmcg.yaml
-> @@ -36,6 +36,9 @@ properties:
->   
->     msi-parent: true
->   
-> +  power-domains:
-> +    maxItems: 1
+> On the GL.iNet GL-SFT1200, nothing answers at internal MDIO address 0
+> after the bootloader, and the PHY that answers at each port's address
+> belongs to the neighboring port, so port 0 fails with "failed to
+> connect to PHY: -ENODEV". Describing the PHYs at the addresses they
+> answer at is not enough: with them at 1 to 3 and no reset, neither LAN
+> port passes traffic. After a hardware reset every PHY is back at its
+> port's address and all ports work. GL.iNet's own firmware resets the
+> switch from Linux too.
+> 
+> Get the reset through the reset controller API and pulse it before the
+> first register access. The reset core hands a reset-gpios property to
+> the reset-gpio driver, so a board that wires the reset this way needs
+> CONFIG_RESET_GPIO; without it the reset is skipped. Imply it, so it is
+> enabled by default, and say so in the help text. The timing follows the
+> vendor's driver for the GSW150: asserted for 250 ms, then 1 s before the
+> switch is accessed. No timing is known for the other GSW1xx parts, so
+> they get the same.
+> 
+> The reset also returns the RGMII slew rates to their power-on defaults,
+> so a board that uses reset-gpios sets the ones it needs in its device
+> tree.
+> 
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 
-Even for existing implementations it would be quite possible for a PMCG 
-to be functionally dependent on multiple power domains (yes some of them 
-should usually be hierarchical, but still...) - what justifies 1 being 
-the only "correct" number?
-
-Thanks,
-Robin.
-
-> +
->   required:
->     - compatible
->     - reg
-
+Reviewed-by: Daniel Golle <daniel@makrotopia.org>
