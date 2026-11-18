@@ -1,103 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.66
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794997415;
-	b=ML46yqyn++OrWbY9EdFY00/lxwXzgHh54lnew1n9m2K2L3vd8l/kSbu0DTpTE5Q3T5af
-	 UXj6wOIjzdyGB8/vZgxPh5xkPr9rgQoNyS2BSeokNmt8MyC/glarZAlEjJ7fIGU7IS2Wv
-	 hSmChV75u0/qSeFIdxD50wU0qgxYMowZNMhQxmkylOe2u0a7RHlW0XW7hk93dZkoPBqOi
-	 +FuAwjPR0EzTD3CBhxhPel5KyrBDRbMiTh+5tqPRRZ35WnsjqEfhQF2HiATKa17QA357P
-	 6EqSDrk7SpwyBFntaGv2/klBiAd7GtqFKh968Hb/RS0DQHSrv6BOo4ssuHLhAQBDXFQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794997415;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=kOjwt34NHmodrfdsvdjqxDdfAB4m9Px3jjTXOf1Z3C8=;
-	b=esLXnq4tz2KN6XFVROxkdhcOQUzEHL4NjWt4UWuIcXEKpS7uYsoMqN+/kW2CQFG2Yc1/
-	 EBjhpVP0xONz9M39NVqybid6Ez9qlJUcpdXK/V2a1ar/nUj84LvshqUrda8ROIxaOqyZW
-	 Mj+lXbdUk/JgaQBe2ItdUKM9wZi8MvJ3M26UAL7Wtsk72iOq7/tEInHwwvFQBmrA/mgY+
-	 eIVq2tMrP/k2qzsGoy7ZQhfy2fUGeRwdH45q8XwmK/n8GAMSYSjlUp2xyx+6o93rHf5eA
-	 2Cb1+37yyKgU4ZgYrSD7vCbQYgXf9DP5726meIL3sw97TqJi5dU25RVFb3pxkJaZBfg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=I6UXkWQ5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.66
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010066.outbound.protection.outlook.com [52.101.69.66])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794997488;
+	b=thhChJPm/VBKxOAnMsHHQ8Zfa4XZ6mGZ6OcW73C8udmDl+RH4a53lMJqWbgRKcdez7FB
+	 edxJ4vsrq9NyHIwQd9flV+PjmHgYrWR/8TYs/SConCyOV04QlqcmqBYiZt2EJhffVi2Fq
+	 euk7igY15Z2HI4DP3g/01w3KQOgDOPj1Yi9ndR1aIrKek6/iiIJTXdqvsEsAxRPeeJvHX
+	 er1+dwbJEaYkbmS+KAhPAm0Te4COoqldVzNWiAiNMsJFMNpLJjECfNK59KCSocO9vnqs/
+	 dHjrzaInwTJ5wfdvKd8BcYw7Z68KeYlE/mzgEcuqfmM7l7AUra6r4HfZgV8iZ+wmucg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794997488;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=gUALAb4dOixABff1qebcrIY3GrqgLqorGu0AMOZmGBA=;
+	b=1T4D3RO7OlSSmYhxZDktaMT0DaHFyacECvevEG7CL9f530SF8wWbNh7wkGFFqfNAtZ72
+	 6YRgxIODqhHKdAH5C0qTmSM5cepARmj7Cm7kiICuOqG4Um3EVFu8HqTaGOsdM55FaDAiR
+	 OzUyn/pEsklOEGO3yzGgaEg9eUosjej2MP+2mwirtrosDR7kwDxDEZn9D2XmAUC2h9yAw
+	 HZMs0Pq0+DNmQeg2BxkDa6zKe06Pww4tisGXlpWDvWY85ajj1OzLYZ42/KjQ0LpRUV/ev
+	 4KFun+9LQfUWC0+le5STduQ6BenjsAB6I75E4/qGxPK8f6U1t3gISfV3RGzxJOVca1A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2Pph0Kc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11F7606A320;
-	Wed, 18 Nov 2026 10:23:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F11F7606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 631EF606A31C;
+	Wed, 18 Nov 2026 10:24:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=I6UXkWQ5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mtZ8rtuZhxFScnMGpbrLR+w9r6bWQqMPlovKUfMY+2KNIOF2mz7w+7hhYGPb6a3TLIdoSkT+WzIVUtJeOe+EtbA59UDJs3lbqP7f8QOyOdW0g01Fz9EwjpSW18JKQTFLNPxGSz1n71dbiT+ZEy3ZKuj2Z2IFOP/XytbDoIVcez3d5w7KmD2pAStvAjbwkCYzsd4fJGch+0/G2NzmpFqfQoGJ/XURkrmMsTZK304I35Ope4p3rr4sdd18j2vJBk4i+wRANHJf9pk4yFxJAp4QTJ9eN1IShD0igRJJqVrnMu5HZ40rLx1RGIpVmsetwQZI65DBlDIylFU9rE6rX9oR6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kOjwt34NHmodrfdsvdjqxDdfAB4m9Px3jjTXOf1Z3C8=;
- b=aa/WeFHV2sslk9C981AD/mvydylXkVydwKXNKUA+Nzml/rr92b/R7LgA4xbBqtb4JWqc0SBffkXcym2gXGO+qhJzNW6Ypp0bF9oCQyBp/tcckp+3E4NH3THWVNsQGakCUkII8ETE5sMni14CyCSaXpagDghaa/freJpztECW/yxJjKaCvuRZypi1t4Lnyc1dPfWhbQzW+8Oue2Fqby22h3LtKS94YJ+29vI+/mRdrUP0YTA3439hWbMie455jXSmkDZkUs0B7Uz+vZs7/aplqevt/0U5JeOzX9+33TyQiFX6USwhChZ18SRh7bjBwJlWxxQv5F2IucnOyUxXOzc+EQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kOjwt34NHmodrfdsvdjqxDdfAB4m9Px3jjTXOf1Z3C8=;
- b=I6UXkWQ5XuELUvoHseGyjHxfo2dOU/z9Am4b6HSnBWPDn0iua7U/XGwgS3WPpUiEcD19YrVfYDhkd8koq5ivS6WbHmgWukuMWT7rZXZuVLkZd1CP2R5LPBU/XMonhtxo5dwD+gq4afyXi2j81etfM9VNkRAxahrBHaRctx+IqdnYhs16WlxR2S7cF5cPh7QNURKBRk19kdKLENnkyEq8HK2+mx8PoDVNd8qXbv/ybIPomUffrGoT1zgbX5NL6OGaUXvwtIEDeVLan3I9DkTm5EE9DA2FqLn8LDFsPNO0hQDvlFaL25gZHd4UNe0fQpinRfw2DyOfBALfy00wDoXvtA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
- by VI0PR04MB10974.eurprd04.prod.outlook.com (2603:10a6:800:269::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Wed, 18 Nov
- 2026 10:23:29 +0000
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
- 10:23:28 +0000
-Date: Wed, 18 Nov 2026 12:23:24 +0200
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Vincent Jardin <vjardin@free.fr>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, 
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
-Subject: Re: [PATCH v7 1/6] dt-bindings: pinctrl: add the NXP LX2160A RCW pad
- mux
-Message-ID: <av18VNI7IjVFO-JF@lxl00025.wbi.nxp.com>
-References: <20261117-for-upstream-lx2160a-rcw-pinmux-v1-v7-0-5d7201970629@free.fr>
- <20261117-for-upstream-lx2160a-rcw-pinmux-v1-v7-0-5d7201970629@free.fr>
- <20261117-for-upstream-lx2160a-rcw-pinmux-v1-v7-1-5d7201970629@free.fr>
- <20261117-for-upstream-lx2160a-rcw-pinmux-v1-v7-1-5d7201970629@free.fr>
- <avzBgDksGfXb-MxZ@lxl00025.wbi.nxp.com>
- <av120SMcb31YLAWK@L30177.local>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <av120SMcb31YLAWK@L30177.local>
-X-ClientProxiedBy: AS4P192CA0002.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:20b:5da::9) To AM0PR04MB6900.eurprd04.prod.outlook.com
- (2603:10a6:208:17d::10)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2Pph0Kc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34B71F000C4;
+	Wed, 18 Nov 2026 10:24:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794997488;
+	bh=gUALAb4dOixABff1qebcrIY3GrqgLqorGu0AMOZmGBA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=P2Pph0KcSWXbu7X1dEm75JT7DNeckjgDwtMDa4Kj0kxAHvZw8yfPOgmchRtsrkpMV
+	 FixMUXCQF4P0rbG7NdfF6on5i2kGQT2JkTd/KC9CNaN9HrMcAP7EyJr/MRItC8eTpE
+	 BPRkmWdCQ7jb0nkTXbixW8rWXXkZFQmqAToGy/apDzBIuiQlIk3HV8VoVg0AHGSfAc
+	 /IvPvPYT9xah4/ZMbp9otAgla5nrbfaNcofrs60fo5sMJV3Pq4SJFjI4GfRKHioI9k
+	 W47WOBQQRLqm7S7MItuglGNHckv4RzNEOSVio8RauToTz/tTkbeR+KOvd2arOjYMlg
+	 rGNYO1sys2WRA==
+Message-ID: <sashiko-outbox-220685@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 7/7] dt-bindings: riscv: add Sxctr ISA extension
+ description
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vikram Singh" <vikram.singh3@oss.qualcomm.com>
+Cc: linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261118095053.3871267-8-vikram.singh3@oss.qualcomm.com>
+References: <20261118095053.3871267-1-vikram.singh3@oss.qualcomm.com>
+ <20261118095053.3871267-8-vikram.singh3@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 10:24:47 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,80 +60,352 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|VI0PR04MB10974:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbef2509-01a8-4f3f-8290-08df455dfc8f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|19092799006|23010399003|10067099003|4143699003|56012099006|261026140227099003|11063799006|261028144727099003|261021121427099003|261022105027099003|261021123027099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003|3023799007|41080700001;
-X-Microsoft-Antispam-Message-Info:
-	//K7K+UWez+5itQXRLPGcJ/CrwJIGN1hH2M7d6v7dsZ8xcv7Cf/a+zRiFDdOkVv1WykoUe7/EvxZOxUd/VZTizA2DdWLywdQ+hyP1pz8KaummygFxAfoDmZjvcmxeR0xw1wN9rNnHD7iAQYyj7Dp5TjuWwO/tqItuE4/K05pGLjeQQYkNC4tK+UBMCtdjZwn4p8imTX6whOHjgNysM6Bynkyou84TI6sL/5T6qyick3/aajCNnPmkhK9Tulgp4S6quLeP7ma/rvYH6xZGBmSxgPURAx47eqiyWw6i+Bb+jDu/iCydNjM1om5oaQULm/aoiIXYZun+dvcCe3jv/O9Ony/0qa+NrMRu2npPGoj5VXtjA1b7fCXnao+chLpQUdQaN9QvWMTaGeltkmjvuKnRxAzjwP4iBD3xmK2BoSEeKr5yHyx7yi7RVtAYZosgZe2i5wll53tmmxqFM/zA7GwLHR+2P1vCJJqPs/zmfc1oot0ua1zHQd796691qCOEvEz3n26tt46JQXKZJGZT+hT/MK1U9mSizZJc+3Lz/Urau3k1NVEUYRMtW2+QMMnIVJIgzHSD5kV+fZ1pHUgQuz4B4U3QT1P0UHNzMtZ5Vxzt/zHQcCof14gKw13lGjjxdBf+EpqTPKevFt7KW17nc89REBkomqbJHuWyy2JV1qvO9qbhs9Uddv0di0T5bmURHd4GN9dzmKVsHiCiSL8Ja9wWMHib8YI9Z7I3r7GMmyDoME=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(19092799006)(23010399003)(10067099003)(4143699003)(56012099006)(261026140227099003)(11063799006)(261028144727099003)(261021121427099003)(261022105027099003)(261021123027099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003)(3023799007)(41080700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?LTCkoT3BFJW0jqXNITeNVYaVGFa/vnFF4bX+0+b4iM1nEm3jJo4lGsPqjj3+?=
- =?us-ascii?Q?KDKngqC/iAC4g9ksNXcwenUPNinYNlvGaCV961cwiqYo7u10sDirK3gWBsHk?=
- =?us-ascii?Q?eSKZW9BnAy7yoqFE75bl6HwAJEOq2Mdqp1uumCTJxVPEN/epP/pVFq1JPIRW?=
- =?us-ascii?Q?6X2Emdeb6+xm0YJ0gcnqYoYox/QYnvMmbI7NEj4sVWfSys4sr7HEZxE0VJUf?=
- =?us-ascii?Q?gs2nxY8A+3+gDdVm26t03OQzFg+BYROxhhtQ7SmXaDwGgp3Z9ZiY7J6g9NaI?=
- =?us-ascii?Q?1G0e52bDV2oiRCh09PLs0NB/8mWBvtWUhdpmFji3ZLrEZqMaS+SQ5teygLMb?=
- =?us-ascii?Q?PdGwweWreU0G7qwr9uYWtDmz6DwHGd/3tYRQCLZOtFFJM39MARD6THj0MPmG?=
- =?us-ascii?Q?rVaClTjWV+kQdpMxwZq9Fm/zGOgsYxQ8FywTooyao/+VCdyjgDfbKDHYBf6J?=
- =?us-ascii?Q?whe+bK+xrJn1tAkqvhVDip0cUpiXKRwSFiK6j4/OJtoYu0KGpGOgXPrwQLg5?=
- =?us-ascii?Q?APFR220bRblDZ/Udv/Xwbob4A88/iyx3ZE6U3uzu85i6zAg5F/ELXXtD4/Gl?=
- =?us-ascii?Q?eEgBUADkzZfWivPBqQBfcFS86iIG1mvnD0KO2bm9AjYFBVph09KQf+U9GWYm?=
- =?us-ascii?Q?+toXwzil4iE3NekLCCrzN++sFdhPee8fwpB9dWafVTGyVNkyubf/w9lICLkO?=
- =?us-ascii?Q?J3WjHIw98MlcdvfP9NDkTAVetSSZotn0z+rds92XdqfruE0Z/+9HuleAO6Ov?=
- =?us-ascii?Q?Ugf1XF7UdSt77ztJgDTlhd8XsCXJebLoo0AiZ4ImcHleLmDUd0ZibgZ/iOEJ?=
- =?us-ascii?Q?Gebpamo/degRlOfgoxt0Tgg5/iJCXj+Qf2OU3NU8SMfKbVHDrPUWwGwKE2vp?=
- =?us-ascii?Q?kZhnTjXjs+OimfKVkn9WjaNKtrLKlu3FN9gBf3X8yL7xFliwdkTuNYTBSN9F?=
- =?us-ascii?Q?dH+EUHx/OTrvdf9TMunnGT9y1SrxtjHxJoq+P1hSPDhBC2Ozy26RauJMPDfT?=
- =?us-ascii?Q?cmF/V/dX0fXYGgMmqWJW1wXYM1WMapO+EDTVA/w558p/3JVG2i0Zw/t7dyaE?=
- =?us-ascii?Q?wIaCqa77Ljn/OgVCv1F4x4dM3YzOFqNEFbV4Xvec5HpX+RFQ61VgZrUsi/sy?=
- =?us-ascii?Q?I5KTa64LTXb05xJTvK7dw+rFjZWBSc3NRI4oE/vG1XqZDz84TkZUhk4RSxm1?=
- =?us-ascii?Q?DlrFzEhaWA2TEbGNTYSIUvM4HbXt0Y+hACOc3YVQVYzaDs8p8oRF7dXOocJh?=
- =?us-ascii?Q?22Fk8vcXGMXAmscw0ci86Mnu8zZTSaaBTV0eSygQD8/+2csNM/9puQxaQWG7?=
- =?us-ascii?Q?bgSx5+hOd2eltsRZH64oGWipoTbIzRzlZZl4jwO9yuTp5wZ0c/C1meDo9P9l?=
- =?us-ascii?Q?LfT5337qmyOFhH05KUERYH7kZdhWm2wDSVv/6lRUmClDLNAJmsiQrbVNcbCo?=
- =?us-ascii?Q?0sMwZgQiuDhBdIknrVKOS+p7COwC03fjKDl5OA4nUEm4NIUG+FO+XS7XWX7H?=
- =?us-ascii?Q?aBE1ry8s1pnO3vB3jip1g5zGOI7KkmsEw/Vhxy3LDZdbSTLBYpk2bRky9F/+?=
- =?us-ascii?Q?mTypDxyVrnNVAyhxJS8eRe8HWnOB2vfx1N2dXqnpyjsvO8ef+6gQEHkxr2OI?=
- =?us-ascii?Q?23O72s6YPzNI0gwDwfzBC4XFi8kB7xNq2E7yIZnqVp0mUnOYSbSyfdg9hphV?=
- =?us-ascii?Q?qszwha6HCUbHGZsqSkbkBey8g0gdXsdTC0HvQRWWunF6pHloHpDuPqcnMXYe?=
- =?us-ascii?Q?G15Aony2fQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbef2509-01a8-4f3f-8290-08df455dfc8f
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 10:23:28.2712
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9ou2iT56u8X+U8z10yiaen7qGi/gAlLR4q1Yj4WGeCF/8dNeuTftUWULtdAY5u3dvZG5DTButY6Oa10XslmzsQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10974
 
-On Wed, Nov 18, 2026 at 10:58:41AM +0100, Vincent Jardin wrote:
-> Hi Vladimir,
-> 
-> > It's a bit difficult to manually follow all the constraints, which are
-> > listed in the opposite way as the RM would have them (function -> valid pads
-> > rather than pad -> valid functions), but AI says it's OK and I'm not
-> > spotting any obvious problems either.
-> 
-> I am trying a small update into the yaml file, that should be easier to
-> follow. You are right that this serie is having an heritage that
-> should be simplified to ease the maintenance. I'd prefer to improve
-> it before merging it.
-> 
-> I'll send the update later today.
-> 
-> best regards,
->   Vincent
+Thank you for your contribution! Sashiko AI review found 8 potential
+issues to consider:
+- [Critical] perf: riscv: out-of-bounds slab corruption via direct cast
+  of perf_ctx_data
+- [High] perf: riscv: duplicate cpuhp_state_add_instance() in
+  pmu_sbi_device_probe()
+- [High] perf: riscv: NULL event->ctx->task dereference in
+  riscv_pmu_ctr_add() and del()
+- [High] perf: riscv: Kconfig redefines RISCV_M_MODE without !MMU
+  dependency
+- [Medium] perf: riscv: skipped riscv_pmu_ctr_reset() when
+  riscv_pmu_ctr_restore() aborts
+- [Medium] perf: riscv: missing inline on riscv_pmu_ctr_add() and del()
+  stubs
+- [Medium] perf: riscv: per-CPU branch_records leak in
+  branch_records_alloc()
+- [Medium] perf: riscv: missing SxCSRIND check and hardcoded CSR_SIREG*
+  in CTR accessors
+--
 
-Please be aware of the fact that I started copying this model for the
-bindings of other SoCs as well.
-https://github.com/vladimiroltean/linux/tree/layerscape-pinctrl-v7
+commit 7e8027524e26d037976ef2abf89eb8bdde55ea3d
+Author: Vikram Singh <vikram.singh3@oss.qualcomm.com>
+
+dt-bindings: riscv: add Sxctr ISA extension description
+
+This series adds support for the RISC-V Control Transfer Records (Smctr and
+Ssctr) ISA extensions to the RISC-V PMU driver and device tree bindings.
+
+Link: https://lore.kernel.org/r/20261106173942.3175069-8-vikram.singh3@oss.=
+qualcomm.com
+
+> diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
+> index 245e7bb763b99..0b4c04c50c227 100644
+> --- a/drivers/perf/Kconfig
+> +++ b/drivers/perf/Kconfig
+> @@ -129,6 +129,22 @@ config ANDES_CUSTOM_PMU
+> =20
+>  	  If you don't know what to do here, say "Y".
+> =20
+> +config RISCV_CTR
+> +	bool "Enable support for Control Transfer Records (CTR)"
+> +	depends on PERF_EVENTS && RISCV_PMU
+> +	default y
+> +	help
+> +	  Enable support for Control Transfer Records (CTR) which
+> +	  allows recording branches, Jumps, Calls, returns etc taken in an
+> +	  execution path. This also supports privilege based filtering. It
+> +	  captures additional relevant information such as cycle count,
+> +	  branch misprediction etc.
+> +
+> +config RISCV_M_MODE
+> +		bool "Enable M Mode"
+> +		depends on RISCV_CTR
+> +		default n
+
+[Severity: High]
+Does defining config RISCV_M_MODE here conflict with the architecture-wide
+RISCV_M_MODE symbol in arch/riscv/Kconfig?
+
+In arch/riscv/Kconfig, RISCV_M_MODE depends on !MMU and RISCV_SBI depends
+on !RISCV_M_MODE.  Adding a second definition that depends only on
+RISCV_CTR allows CONFIG_RISCV_M_MODE=3Dy on CONFIG_MMU=3Dy kernels (such as
+allyesconfig and allmodconfig), which disables CONFIG_RISCV_SBI and switches
+CSR macros to M-mode, breaking the build.
+
+> diff --git a/drivers/perf/riscv_ctr.c b/drivers/perf/riscv_ctr.c
+> new file mode 100644
+> index 0000000000000..1af8a304dd699
+> --- /dev/null
+> +++ b/drivers/perf/riscv_ctr.c
+
+[ ... ]
+
+> +static inline u64 get_ctr_src_reg(unsigned int ctr_idx)
+> +{
+> +	return csr_indirect_read(CSR_SIREG, CTR_ENTRIES_FIRST, ctr_idx);
+> +}
+> +
+> +static inline void set_ctr_src_reg(unsigned int ctr_idx, u64 value)
+> +{
+> +	return csr_indirect_write(CSR_SIREG, CTR_ENTRIES_FIRST, ctr_idx, value);
+> +}
+> +
+> +static inline u64 get_ctr_tgt_reg(unsigned int ctr_idx)
+> +{
+> +	return csr_indirect_read(CSR_SIREG2, CTR_ENTRIES_FIRST, ctr_idx);
+> +}
+> +
+> +static inline void set_ctr_tgt_reg(unsigned int ctr_idx, u64 value)
+> +{
+> +	return csr_indirect_write(CSR_SIREG2, CTR_ENTRIES_FIRST, ctr_idx, value=
+);
+> +}
+> +
+> +static inline u64 get_ctr_data_reg(unsigned int ctr_idx)
+> +{
+> +	return csr_indirect_read(CSR_SIREG3, CTR_ENTRIES_FIRST, ctr_idx);
+> +}
+> +
+> +static inline void set_ctr_data_reg(unsigned int ctr_idx, u64 value)
+> +{
+> +	return csr_indirect_write(CSR_SIREG3, CTR_ENTRIES_FIRST, ctr_idx, value=
+);
+> +}
+
+[Severity: Medium]
+Should these accessors use CSR_IREG, CSR_IREG2, and CSR_IREG3 instead of
+CSR_SIREG, CSR_SIREG2, and CSR_SIREG3, and should riscv_pmu_ctr_init() also
+check that SxCSRIND is available?
+
+csr_indirect_read() and csr_indirect_write() write CSR_ISELECT, which maps
+to CSR_MISELECT under CONFIG_RISCV_M_MODE, so hardcoding CSR_SIREG*
+mismatches the indirect select CSR in M-mode.  In addition,
+riscv_pmu_ctr_init(), riscv_pmu_ctr_starting_cpu(), and
+riscv_pmu_ctr_dying_cpu() check SxCTR and SSCOFPMF without checking
+riscv_isa_extension_available(NULL, SxCSRIND), which causes an illegal
+instruction trap if SxCTR is advertised without SxCSRIND.
+
+[ ... ]
+
+> +static void riscv_pmu_ctr_restore(void *ctx)
+> +{
+> +	if (task_context(ctx)->stack_state =3D=3D CTR_STATE_NONE ||
+> +	    task_context(ctx)->callstack_users =3D=3D 0) {
+> +		return;
+> +	}
+> +
+> +	riscv_pmu_ctr_reset();
+> +	__riscv_pmu_ctr_restore(ctx);
+> +
+> +	task_context(ctx)->stack_state =3D CTR_STATE_NONE;
+> +}
+
+[ ... ]
+
+> +void riscv_pmu_ctr_sched_task(struct perf_event_pmu_context *pmu_ctx, st=
+ruct task_struct *task,
+> +			      bool sched_in)
+> +{
+> +	struct riscv_pmu *rvpmu =3D to_riscv_pmu(pmu_ctx->pmu);
+> +	struct cpu_hw_events *cpuc =3D this_cpu_ptr(rvpmu->hw_events);
+> +	void *task_ctx;
+> +
+> +	if (!cpuc->ctr_users)
+> +		return;
+> +
+> +	/* Save branch records in task_ctx on sched out */
+> +	task_ctx =3D pmu_ctx ? task->perf_ctx_data : NULL;
+> +	if (task_ctx) {
+> +		if (sched_in)
+> +			riscv_pmu_ctr_restore(task_ctx);
+> +		else
+> +			riscv_pmu_ctr_save(task_ctx, rvpmu->ctr_depth);
+> +		return;
+> +	}
+> +
+> +	/* Reset branch records on sched in */
+> +	if (sched_in)
+> +		riscv_pmu_ctr_reset();
+> +}
+
+[Severity: Medium]
+When sched_in is true and task_ctx is non-NULL, does returning early from
+riscv_pmu_ctr_restore() skip resetting the CTR registers?
+
+If stack_state is CTR_STATE_NONE (for example on the task's first
+schedule-in) or callstack_users is 0, riscv_pmu_ctr_restore() returns
+before calling riscv_pmu_ctr_reset(), and riscv_pmu_ctr_sched_task() then
+returns immediately without reaching the fallback riscv_pmu_ctr_reset().
+That leaves the previous task's branch records in the hardware registers
+across the context switch.
+
+> +
+> +static inline bool branch_user_callstack(unsigned int br_type)
+> +{
+> +	return (br_type & PERF_SAMPLE_BRANCH_USER) &&
+> +		(br_type & PERF_SAMPLE_BRANCH_CALL_STACK);
+> +}
+> +
+> +void riscv_pmu_ctr_add(struct perf_event *event)
+> +{
+> +	struct riscv_pmu *rvpmu =3D to_riscv_pmu(event->pmu);
+> +	struct cpu_hw_events *cpuc =3D this_cpu_ptr(rvpmu->hw_events);
+> +
+> +	if (branch_user_callstack(event->attr.branch_sample_type) &&
+> +	    event->ctx->task->perf_ctx_data)
+> +		task_context(event->ctx->task->perf_ctx_data)->callstack_users++;
+> +
+> +	perf_sched_cb_inc(event->pmu);
+> +
+> +	if (!cpuc->ctr_users++)
+> +		riscv_pmu_ctr_reset();
+> +}
+> +
+> +void riscv_pmu_ctr_del(struct perf_event *event)
+> +{
+> +	struct riscv_pmu *rvpmu =3D to_riscv_pmu(event->pmu);
+> +	struct cpu_hw_events *cpuc =3D this_cpu_ptr(rvpmu->hw_events);
+> +
+> +	if (branch_user_callstack(event->attr.branch_sample_type) &&
+> +	    event->ctx->task->perf_ctx_data)
+> +		task_context(event->ctx->task->perf_ctx_data)->callstack_users--;
+
+[Severity: Critical]
+Does casting task->perf_ctx_data directly to struct riscv_perf_task_context
+in riscv_pmu_ctr_sched_task(), riscv_pmu_ctr_add(), and
+riscv_pmu_ctr_del() corrupt struct perf_ctx_data and adjacent slab memory?
+
+task->perf_ctx_data is a struct perf_ctx_data __rcu * wrapper whose void
+*data member holds the object allocated from pmu->task_ctx_cache:
+
+include/linux/perf_event.h:
+struct perf_ctx_data {
+	struct rcu_head rcu_head;
+	refcount_t refcount;
+	struct kmem_cache *ctx_cache;
+	void *data;
+};
+
+Treating task->perf_ctx_data itself as struct riscv_perf_task_context *
+without dereferencing cd->data under RCU overwrites struct perf_ctx_data
+(starting at rcu_head.next when updating callstack_users and stack_state)
+and writes up to 256 struct ctr_regset entries (~6 KB) out of bounds past
+the 48-byte struct perf_ctx_data slab object during __riscv_pmu_ctr_save().
+
+[Severity: High]
+Can event->ctx->task be NULL in riscv_pmu_ctr_add() and
+riscv_pmu_ctr_del()?
+
+For a CPU-wide perf event opened with PERF_SAMPLE_BRANCH_USER |
+PERF_SAMPLE_BRANCH_CALL_STACK, event->ctx->task is NULL, so evaluating
+event->ctx->task->perf_ctx_data causes a NULL pointer dereference when the
+event is added or deleted.
+
+> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+> index 21a2078eab98a..637b9d97e20a4 100644
+> --- a/drivers/perf/riscv_pmu_sbi.c
+> +++ b/drivers/perf/riscv_pmu_sbi.c
+
+[ ... ]
+
+> @@ -1353,7 +1391,30 @@ static void riscv_pmu_destroy(struct riscv_pmu *pm=
+u)
+>  		cpuhp_state_remove_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
+>  }
+> =20
+> -static void pmu_sbi_event_init(struct perf_event *event)
+> +static int branch_records_alloc(struct riscv_pmu *pmu)
+> +{
+> +	struct branch_records __percpu *tmp_alloc_ptr;
+> +	struct branch_records *records;
+> +	struct cpu_hw_events *events;
+> +	int cpu;
+> +
+> +	if (!riscv_pmu_ctr_supported(pmu))
+> +		return 0;
+> +
+> +	tmp_alloc_ptr =3D alloc_percpu_gfp(struct branch_records, GFP_KERNEL);
+> +	if (!tmp_alloc_ptr)
+> +		return -ENOMEM;
+> +
+> +	for_each_possible_cpu(cpu) {
+> +		events =3D per_cpu_ptr(pmu->hw_events, cpu);
+> +		records =3D per_cpu_ptr(tmp_alloc_ptr, cpu);
+> +		events->branches =3D records;
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Does branch_records_alloc() leak the per-CPU allocation from
+alloc_percpu_gfp()?
+
+tmp_alloc_ptr is a local __percpu pointer that is discarded when
+branch_records_alloc() returns, and only the resolved per-CPU pointers are
+stored in events->branches.  If pmu_sbi_device_probe() fails at a later
+step or the PMU is torn down, there is no __percpu pointer saved to pass to
+free_percpu(), leaking the per-CPU branch_records memory.
+
+[ ... ]
+
+> @@ -1517,6 +1592,11 @@ static int pmu_sbi_device_probe(struct platform_de=
+vice *pdev)
+>  	pmu->event_mapped =3D pmu_sbi_event_mapped;
+>  	pmu->event_unmapped =3D pmu_sbi_event_unmapped;
+>  	pmu->csr_index =3D pmu_sbi_csr_index;
+> +	pmu->sched_task =3D pmu_sbi_sched_task;
+> +
+> +	ret =3D cpuhp_state_add_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->no=
+de);
+> +	if (ret)
+> +		goto out_ctr_finish;
+> =20
+>  	ret =3D riscv_pm_pmu_register(pmu);
+>  	if (ret)
+
+[Severity: High]
+Does adding cpuhp_state_add_instance(CPUHP_AP_PERF_RISCV_STARTING,
+&pmu->node) here register &pmu->node twice during pmu_sbi_device_probe()?
+
+The existing cpuhp_state_add_instance() call later in pmu_sbi_device_probe()
+is still present:
+
+drivers/perf/riscv_pmu_sbi.c:pmu_sbi_device_probe() {
+	...
+	register_sysctl("kernel", sbi_pmu_sysctl_table);
+
+	ret =3D cpuhp_state_add_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
+	if (ret)
+		goto out_unregister;
+	...
+}
+
+Calling cpuhp_state_add_instance() twice with the same hlist_node invokes
+pmu_sbi_starting_cpu() a second time on each online CPU and re-inserts
+&pmu->node at the head of the hotplug state list while it is already the
+head, corrupting the list into a circular self-loop.
+
+> diff --git a/include/linux/perf/riscv_pmu.h b/include/linux/perf/riscv_pm=
+u.h
+> index ecaa40370830a..848977ecf319f 100644
+> --- a/include/linux/perf/riscv_pmu.h
+> +++ b/include/linux/perf/riscv_pmu.h
+
+[ ... ]
+
+> +#else
+> +
+> +static inline bool riscv_pmu_ctr_valid(struct perf_event *event) { retur=
+n false; }
+> +static inline void riscv_pmu_ctr_consume(struct cpu_hw_events *cpuc,
+> +					 struct perf_event *event) { }
+> +static inline void riscv_pmu_ctr_sched_task(struct perf_event_pmu_contex=
+t *,
+> +					    struct task_struct *task, bool sched_in) { }
+> +static void riscv_pmu_ctr_add(struct perf_event *event) { }
+> +static void riscv_pmu_ctr_del(struct perf_event *event) { }
+
+[Severity: Medium]
+Should riscv_pmu_ctr_add() and riscv_pmu_ctr_del() be marked static inline
+in the !CONFIG_RISCV_CTR block?  Without inline, any translation unit that
+includes include/linux/perf/riscv_pmu.h without calling both helpers emits
+-Wunused-function warnings when CONFIG_RISCV_CTR is disabled.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118095053.3871=
+267-1-vikram.singh3@oss.qualcomm.com?part=3D7
