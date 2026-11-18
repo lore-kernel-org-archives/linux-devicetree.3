@@ -1,56 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795017368;
-	b=TwXic+Pr8UuReWtNeNYWYaPdywhrN4UdXxjwMiIH8RHz/NNGk2yCnIY0pUMGsXoSzj7b
-	 vqdaEv7kc3vV5cLdmiss00uzelCbXuMrbagwZ+FUgdKd+xIG5krVt1hE1DcnA2qWkAt9n
-	 lGa80nOvPV3/64uwMHZ9Z4gUhiv6nOzuJQayiLfH9pGjdP2910l52+DNMVJ22B723IEwz
-	 Xn2sUXSp5qnc4xOb0tokJn735ygTJyxexny3wbeRyfSsvLYnmaKvGe9PnZqVH2axkMFMr
-	 HXRlweDcyEEw4N7EiEVip0TRRYl80TRzffyqlQd/AX/jwznQP2b62lkUVQVtMs4Omxw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795017368;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=fJyS5eA4WoNYZTtkx3UVYJzyNFD1DkUvgnHaNnM4fKI=;
-	b=AKMfL36ixapk7gI0HMlnwmjRvmIf4Mc5BzEOglIlnXQjbg5ZPtHYHqyG+eFxMDeszjOJ
-	 q7TA8VgQG8CaVo+sCoKUaQC1Wb7lzYCWhBi75/2WjDimB7svU77q59OSQvDeD4IIxUst/
-	 ezeCBxYmO0TdPWD1MpND2aBsaWH7qWGk2NsNrKAzhjeppMvqIh74XBP7VO/KelfAlVD0y
-	 atsDd1CbOKvzpQUePsFV9u8o9yeO/cEQwjmxlZydVx0CLZ/P6E1O0TJASIh/7QXI6Zpl7
-	 tzP6Ha5ZAtf66Lfe1Zsv7KPo9Vs0ImHSccPZ1fd0YTFcrEkAWeBmfT9DDpAiaEHGc1Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jdFp1rbC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=165.173.182.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1795017500;
+	b=FaYcNpPcpjb3qFN0A2/CiXKOz3UlSdX5wWFBat/ExS0CtH3axYdhOWGNCdfzGKJGuxfS
+	 lxttLZuIiUo+IvmL+0UeR00vHoyNOJ8A7Wjq0ONrmc06iYWRJ8sQyA0He3NFqxj3iS3rS
+	 gwsowkkA8yCxEXiR/OVCStsCz0jL2aem4mVC042lmzqZgeM1x0YyEFj0j9GeRbZhjHaE0
+	 p+ubb0P+Ew2wUtvDi64QXjjXb2EcuFktDUcNnTM+gN7o0Be/+U0l0ad6cAdx53zJKBH0o
+	 CYwVKmAgYxJyWpChZL0UAWKzogbnnUESg+cZwuX8NILb7RzX0QCWUaPhuNGix+T7K5A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795017500;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Zoho-Virus-Status:
+	 X-Zoho-AV-Stamp:X-ZohoMailClient;
+	bh=Usg8X43Ws7OPUhBE58OKMyvzlPQGZ0CY7Z/mpX0bURc=;
+	b=A9lQcSj7besrOoraEzaOiQauBsOvxNKmAhU7RTYocUYsK94QbpxiD6ET8ouhSwygWK6i
+	 /UraGkDSgTcfu3WdNl/O0XfmG523PX4445sLc3x/0i9kLSdMXrn4xxSh2O9Xz7dESe40S
+	 O8C7zWXAMkdZLbKLrdsmgc5SpJykjsxb8Meoqk1Thu7HPBMs3dhd4Wi5JIrnb2gJlqgiF
+	 atepGSzkyt+WyrMeiZUa7/Lzb3hYlmnUrnRQ4ZKU7KUNx5qUSUv5NUXmzf7IVsx2Y9mUo
+	 aQ9Y1Puueh04E2YxWZAYJQ6zOdJPSNv9j/xfpbHWt4LOZOD1Hqw33IMM3gJcTfINagA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ziyao.cc;
+	spf=pass smtp.mailfrom=ziyao.cc;
+	dkim=pass header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=mXGxqpWZ;
+	arc=fail smtp.remote-ip=165.173.182.15
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17307606A320
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 15:56:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2663606A32C;
+	Wed, 18 Nov 2026 15:58:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2663606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jdFp1rbC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692201F000C4;
-	Wed, 18 Nov 2026 15:56:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795017367;
-	bh=fJyS5eA4WoNYZTtkx3UVYJzyNFD1DkUvgnHaNnM4fKI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jdFp1rbCPaoQeQ+kF+VNwp4GS8VGCMlM7bTPudCMoIurx5IyYI+6pALWdEKcK0dML
-	 Ulbkslx9AhrcoMpAOE9kK7brVJuxEGsw+DtT8kk+OMP8zfN98AN8AjFlc4+DWk5gsh
-	 EJkqg/jL8aXmiVWDymLmpxkbwk944Mn6M6/T4AvRI+gYpdsUePyKYFadtQt3eqyhZP
-	 mPpJsLPmvLAu2Z3xUTlvWzwWkRoVKKq1Ty8R9mP64b3UGSk3mK7qTitE485KhxWBFo
-	 Ha7SzZax84Uk/KbrqnzG/jfcAyyQ9fKveETLu7j3Pat1LtIr36fqkB1raof46dEeMn
-	 b4ZGYjL+wlBcA==
-Message-ID: <sashiko-outbox-221390@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/4] remoteproc: qcom: pas: Support secondary images
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-oob-support-glymur-v3-2-2cbdfe208d56@oss.qualcomm.com>
-References: <20261118-oob-support-glymur-v3-0-2cbdfe208d56@oss.qualcomm.com>
- <20261118-oob-support-glymur-v3-2-2cbdfe208d56@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 15:56:07 +0000
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=mXGxqpWZ
+ARC-Seal: i=1; a=rsa-sha256; t=1795017478; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=aKZyVK/iul+awmkjrZ4kuKN+OjodgmfQHc1HR5F/rOku5wpVcBcGoNgE6xS6qEYjmpalvWBkcRTs6nHxmVTHCt7QU7A1xazObShsDMcV3AG2rifwZ/4KVqKwal8wx9TRNx2wQJvc3rQfpnEgm4boXPeyh2XZ52Wd43uFWjIIJoE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795017478; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=jz/3H3A3oChBMYXVW8k3ME6DCqxX/fivj94e4R405A8=; 
+	b=Gksh+Ce5o5nrckoOiOmG43DdjBFNHTT8gI4YnDCHhmIFxgkVLuStLR/Lz+XsPcxIkgCqTlzcQhETZEp/TJ0RAP5tefuMrsaUZmKoIqA13CVVd3UyS1+u9JPzeHE4fJFXiuxljjXYhAfJ3NcThvKRfVLS7CpkFWLSRlSddHVb6Go=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: a=rsa-sha256; b=mXGxqpWZsXT6I8C5aBcHiUxgAzoAL9pA3MtLq4B/joxYe8Bl4z8ZJlHLifcX0H3KKu8mEv0fwDQTJzPMHMTTLjzv61m/Y95MATStaMAcf4A5Oz/dxCNXNr9e5qZhCzsWqXAJ2mN7L5ag++9GRahDBCLdceN/1O4zuAh+q6+rIdI=; c=relaxed/relaxed; s=zmail; d=ziyao.cc; v=1; bh=Usg8X43Ws7OPUhBE58OKMyvzlPQGZ0CY7Z/mpX0bURc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 17950174745448.173778142830997;
+	Wed, 18 Nov 2026 07:57:54 -0800 (PST)
+Date: Wed, 18 Nov 2026 15:57:44 +0000
+From: Yao Zi <me@ziyao.cc>
+To: Yixun Lan <dlan@kernel.org>,
+	=?iso-8859-1?Q?Fr=E9d=E9ric_Mah=E9?= <frederic.mahe@cirad.fr>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.co>,
+	Haylen Chu <heylenay@4d2.org>,
+	Hung-Chun Tseng <alan.tseng.cs@gmail.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Yao Zi <me@ziyao.cc>
+Subject: Re: [PATCH 2/6] clk: spacemit: k1: Keep pll1_aud_245p7 enabled
+Message-ID: <av3K-MIfagKY1CcV@pie>
+References: <20261117205951.140146-1-frederic.mahe@cirad.fr>
+ <20261117205951.140146-3-frederic.mahe@cirad.fr>
+ <20261118111528-GKD156369@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,274 +78,53 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261118111528-GKD156369@kernel.org>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.994.34
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] remoteproc: qcom: pas: masked secondary shutdown errors in
-  qcom_pas_stop()
-- [Medium] remoteproc: qcom: pas: unauthenticated PAS shutdown in
-  qcom_pas_start()
-- [Medium] remoteproc: qcom: pas: firmware leak on boot failure after
-  qcom_pas_load()
---
+On Wed, Nov 18, 2026 at 11:15:28AM +0000, Yixun Lan wrote:
+> Hi Frédéric,
+> 
+> I will forward to SpacemiT people, and ask them to clarify..
+> 
+> On 21:59 Tue 17 Nov     , Frédéric Mahé wrote:
+> > Accesses to the RCPU2 block (0xc0888000) hang once pll1_aud_245p7 is
+> Access which register? is the PWM register in RCPU2?
+> 
+> > gated: the CPU stops responding, even to NMIs. Nothing claims this
+> > clock in mainline, so clk_disable_unused() turns it off at boot, and
+> > probing an RCPU2 PWM afterwards hangs the board. The RCPU2 clock and
+> > reset registers live in the same block.
+> > 
+> Usually access IP block with clock gated off will cause system bus hang,
+> exactly the same scenario as you see here..
+> 
+> > Mark it critical, as was done for the K3 RCPU clock.
+> > 
+> It just happen to fix the issue, but doesn't sound like a correct fix,
+> usually, it can be fixed with correct clock topology 
+> 
+> > Tested on a BPI-F3: without this, probing an RCPU2 PWM hangs the
+> > board; with it, no hang, also with no PWM in use.
+> > 
+> ..
+> > Written with help from Claude (Anthropic); reviewed and tested on hardware.
+> > 
+> maybe just "Assisted-by: LLM"
 
-commit f4e5bc32dd6dbd8e248f2fc47b7078b505ef5dfc
-Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+I think this tag has been deprecated in commit 1e035297ffda ("docs:
+remove Assisted-by references"), but mentioning code origin is still
+required by process/generated-content.rst.
 
-remoteproc: qcom: pas: Support secondary images
+The notice could indeed be moved to the cover letter instead.
 
-This commit adds PAS remoteproc support for loading, authenticating,
-mapping, shutting down, and releasing a secondary image and its DTB.
+-- 
+Thanks,
+Yao Zi
 
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
-_q6v5_pas.c
-> index e7dfad27e5263..1c8c0c22c34d1 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-
-[ ... ]
-
-> @@ -252,6 +288,10 @@ static int qcom_pas_unprepare(struct rproc *rproc)
->  	qcom_pas_metadata_release(pas->pas_ctx);
->  	if (pas->dtb_pas_id)
->  		qcom_pas_metadata_release(pas->dtb_pas_ctx);
-> +	if (pas->secondary_pas_id)
-> +		qcom_pas_metadata_release(pas->secondary_pas_ctx);
-> +	if (pas->secondary_dtb_pas_id)
-> +		qcom_pas_metadata_release(pas->secondary_dtb_pas_ctx);
-> =20
->  	return 0;
->  }
-> @@ -269,19 +309,29 @@ static int qcom_pas_load(struct rproc *rproc, const=
- struct firmware *fw)
->  	if (pas->lite_dtb_pas_id)
->  		qcom_pas_shutdown(pas->lite_dtb_pas_id);
-> =20
-> -	if (pas->dtb_pas_id) {
-> -		ret =3D request_firmware(&pas->dtb_firmware, pas->dtb_firmware_name, p=
-as->dev);
-> +	if (pas->secondary_dtb_pas_id) {
-> +		ret =3D request_firmware(&pas->secondary_dtb_firmware,
-> +				       pas->secondary_dtb_firmware_name, pas->dev);
->  		if (ret) {
-> -			dev_err(pas->dev, "request_firmware failed for %s: %d\n",
-> -				pas->dtb_firmware_name, ret);
-> +			qcom_pas_release_firmware(pas);
->  			return ret;
->  		}
-> +	}
-> =20
-> -		ret =3D qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firmware,
-> -					pas->dtb_firmware_name, &pas->dtb_mem_reloc);
-> +	if (pas->secondary_pas_id) {
-> +		ret =3D request_firmware(&pas->secondary_firmware,
-> +				       pas->secondary_firmware_name, pas->dev);
-> +		if (ret) {
-> +			qcom_pas_release_firmware(pas);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	if (pas->dtb_pas_id) {
-> +		ret =3D request_firmware(&pas->dtb_firmware, pas->dtb_firmware_name,
-> +				       pas->dev);
->  		if (ret) {
-> -			qcom_pas_metadata_release(pas->dtb_pas_ctx);
-> -			release_firmware(pas->dtb_firmware);
-> +			qcom_pas_release_firmware(pas);
->  			return ret;
->  		}
->  	}
-
-[Severity: Medium]
-Can this leak pas->secondary_dtb_firmware, pas->secondary_firmware, and
-pas->dtb_firmware if boot fails after qcom_pas_load() succeeds?
-
-qcom_pas_release_firmware() is only called in qcom_pas_start() on success
-or under the disable_irqs error label.  If rproc_prepare_subdevices()
-fails in rproc_start() before rproc->ops->start() is reached, or if
-qcom_q6v5_prepare() fails at the top of qcom_pas_start() and returns early,
-none of those firmware objects are released and pas->firmware is not
-cleared.  A later boot or recovery attempt will then overwrite those
-pointers in qcom_pas_load().
-
-Calling qcom_pas_release_firmware(pas) and clearing pas->firmware in
-qcom_pas_unprepare() (or jumping to the cleanup path when
-qcom_q6v5_prepare() fails) would avoid the leak.
-
-> @@ -338,10 +388,51 @@ static int qcom_pas_start(struct rproc *rproc)
->  			goto disable_cx_supply;
->  	}
-> =20
-> +	if (pas->secondary_dtb_pas_id) {
-> +		ret =3D qcom_mdt_pas_load(pas->secondary_dtb_pas_ctx,
-> +					pas->secondary_dtb_firmware,
-> +					pas->secondary_dtb_firmware_name,
-> +					&pas->secondary_dtb_mem_reloc);
-> +		if (ret)
-> +			goto release_secondary_dtb_metadata;
-> +
-> +		ret =3D qcom_pas_map_carveout(rproc, pas->secondary_dtb_mem_phys,
-> +					    pas->secondary_dtb_mem_size);
-> +		if (ret)
-> +			goto release_secondary_dtb_metadata;
-> +
-> +		ret =3D qcom_pas_prepare_and_auth_reset(pas->secondary_dtb_pas_ctx);
-> +		if (ret)
-> +			goto unmap_secondary_dtb_carveout;
-> +	}
-> +
-> +	if (pas->secondary_pas_id) {
-> +		ret =3D qcom_mdt_pas_load(pas->secondary_pas_ctx,
-> +					pas->secondary_firmware,
-> +					pas->secondary_firmware_name,
-> +					&pas->secondary_mem_reloc);
-> +		if (ret)
-> +			goto release_secondary_metadata;
-> +
-> +		ret =3D qcom_pas_map_carveout(rproc, pas->secondary_mem_phys,
-> +					    pas->secondary_mem_size);
-> +		if (ret)
-> +			goto release_secondary_metadata;
-> +
-> +		ret =3D qcom_pas_prepare_and_auth_reset(pas->secondary_pas_ctx);
-> +		if (ret)
-> +			goto unmap_secondary_carveout;
-> +	}
-> +
->  	if (pas->dtb_pas_id) {
-> +		ret =3D qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firmware,
-> +					pas->dtb_firmware_name, &pas->dtb_mem_reloc);
-> +		if (ret)
-> +			goto release_dtb_metadata;
-> +
->  		ret =3D qcom_pas_map_carveout(rproc, pas->dtb_mem_phys, pas->dtb_mem_s=
-ize);
->  		if (ret)
-> -			goto disable_px_supply;
-> +			goto release_dtb_metadata;
-> =20
->  		ret =3D qcom_pas_prepare_and_auth_reset(pas->dtb_pas_ctx);
->  		if (ret) {
-> @@ -372,13 +463,17 @@ static int qcom_pas_start(struct rproc *rproc)
->  	ret =3D qcom_q6v5_wait_for_start(&pas->q6v5, msecs_to_jiffies(5000));
->  	if (ret =3D=3D -ETIMEDOUT) {
->  		dev_err(pas->dev, "start timed out\n");
-> -		qcom_pas_shutdown(pas->pas_id);
->  		goto unmap_carveout;
->  	}
-> =20
->  	qcom_pas_metadata_release(pas->pas_ctx);
->  	if (pas->dtb_pas_id)
->  		qcom_pas_metadata_release(pas->dtb_pas_ctx);
-> +	if (pas->secondary_pas_id)
-> +		qcom_pas_metadata_release(pas->secondary_pas_ctx);
-> +	if (pas->secondary_dtb_pas_id)
-> +		qcom_pas_metadata_release(pas->secondary_dtb_pas_ctx);
-> +	qcom_pas_release_firmware(pas);
-> =20
->  	/* firmware is used to pass reference from qcom_pas_start(), drop it no=
-w */
->  	pas->firmware =3D NULL;
-> @@ -386,16 +481,37 @@ static int qcom_pas_start(struct rproc *rproc)
->  	return 0;
-> =20
->  unmap_carveout:
-> +	qcom_pas_shutdown(pas->pas_id);
->  	qcom_pas_unmap_carveout(rproc, pas->mem_phys, pas->mem_size);
->  release_pas_metadata:
->  	qcom_pas_metadata_release(pas->pas_ctx);
-> -	if (pas->dtb_pas_id)
-> -		qcom_pas_metadata_release(pas->dtb_pas_ctx);
-> -
->  unmap_dtb_carveout:
-> +	if (pas->dtb_pas_id) {
-> +		qcom_pas_shutdown(pas->dtb_pas_id);
-> +		qcom_pas_unmap_carveout(rproc, pas->dtb_mem_phys,
-> +					pas->dtb_mem_size);
-> +	}
-> +release_dtb_metadata:
->  	if (pas->dtb_pas_id)
-> -		qcom_pas_unmap_carveout(rproc, pas->dtb_mem_phys, pas->dtb_mem_size);
-> -disable_px_supply:
-> +		qcom_pas_metadata_release(pas->dtb_pas_ctx);
-> +unmap_secondary_carveout:
-> +	if (pas->secondary_pas_id) {
-> +		qcom_pas_shutdown(pas->secondary_pas_id);
-> +		qcom_pas_unmap_carveout(rproc, pas->secondary_mem_phys,
-> +					pas->secondary_mem_size);
-> +	}
-> +release_secondary_metadata:
-> +	if (pas->secondary_pas_id)
-> +		qcom_pas_metadata_release(pas->secondary_pas_ctx);
-> +unmap_secondary_dtb_carveout:
-> +	if (pas->secondary_dtb_pas_id) {
-> +		qcom_pas_shutdown(pas->secondary_dtb_pas_id);
-> +		qcom_pas_unmap_carveout(rproc, pas->secondary_dtb_mem_phys,
-> +					pas->secondary_dtb_mem_size);
-> +	}
-> +release_secondary_dtb_metadata:
-> +	if (pas->secondary_dtb_pas_id)
-> +		qcom_pas_metadata_release(pas->secondary_dtb_pas_ctx);
-
-[Severity: Medium]
-Does jumping to the unmap_*_carveout labels when
-qcom_pas_prepare_and_auth_reset() fails call qcom_pas_shutdown() on a PAS
-context that failed authentication?
-
-Each image maps its carveout before calling
-qcom_pas_prepare_and_auth_reset(), and on failure jumps to its own
-unmap_*_carveout label, which now executes qcom_pas_shutdown() before
-qcom_pas_unmap_carveout().  That issues an unbalanced PAS shutdown call to
-TrustZone for an image that was never authenticated or brought out of
-reset.  Separating the shutdown labels from the unmap_*_carveout labels
-would ensure qcom_pas_shutdown() is only called for PAS IDs whose
-qcom_pas_prepare_and_auth_reset() succeeded.
-
-> @@ -440,9 +557,30 @@ static int qcom_pas_stop(struct rproc *rproc)
->  	if (ret =3D=3D -ETIMEDOUT)
->  		dev_err(pas->dev, "timed out on wait\n");
-> =20
-> +	if (pas->secondary_pas_id) {
-> +		ret =3D qcom_pas_shutdown(pas->secondary_pas_id);
-> +		if (ret && pas->decrypt_shutdown)
-> +			ret =3D qcom_pas_shutdown_poll_decrypt(pas->secondary_pas_id);
-> +		if (ret)
-> +			dev_err(pas->dev, "failed to shutdown secondary: %d\n", ret);
-> +
-> +		qcom_pas_unmap_carveout(rproc, pas->secondary_mem_phys,
-> +					pas->secondary_mem_size);
-> +	}
-> +
-> +	if (pas->secondary_dtb_pas_id) {
-> +		ret =3D qcom_pas_shutdown(pas->secondary_dtb_pas_id);
-> +		if (ret)
-> +			dev_err(pas->dev,
-> +				"failed to shutdown secondary dtb: %d\n", ret);
-> +
-> +		qcom_pas_unmap_carveout(rproc, pas->secondary_dtb_mem_phys,
-> +					pas->secondary_dtb_mem_size);
-> +	}
-> +
->  	ret =3D qcom_pas_shutdown(pas->pas_id);
->  	if (ret && pas->decrypt_shutdown)
-> -		ret =3D qcom_pas_shutdown_poll_decrypt(pas);
-> +		ret =3D qcom_pas_shutdown_poll_decrypt(pas->pas_id);
-> =20
->  	if (ret)
->  		dev_err(pas->dev, "failed to shutdown: %d\n", ret);
-
-[Severity: Medium]
-Won't `ret =3D qcom_pas_shutdown(pas->pas_id)` overwrite any error returned
-when shutting down pas->secondary_pas_id or pas->secondary_dtb_pas_id?
-
-If secondary PAS shutdown fails in TrustZone while the primary PAS shutdown
-succeeds, qcom_pas_stop() returns 0 to rproc_stop().  During crash recovery
-in rproc_boot_recovery(), a zero return from rproc_stop() lets execution
-proceed to rproc->ops->coredump() while the secondary memory region is
-still locked by TrustZone, whereas pas->dtb_pas_id below uses a separate
-variable to preserve earlier shutdown errors.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-oob-suppor=
-t-glymur-v3-0-2cbdfe208d56@oss.qualcomm.com?part=3D2
+Meow-mrrp-mrow, I'm a cat.
