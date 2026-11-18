@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795030266;
-	b=zJ7qoNkhGOPk0X7Aj0DGHeAKhfTX1hgSPZQ9+u5Ob5nJKRJO/lpqHorASPvw5WIad/PK
-	 IaYMWXDCCAEnmqTv+Jmox+Vqvn5aqcbyaMGBCgmzaeFGYNVrxR+7pJQ0jYvkWaGhJO9yB
-	 WDByfJpT+lkboNcJfZvH5GUh6grCZnzYIw2H3/5YmoNkCg4eMg0a1pqc1mnvoCtM3LL16
-	 IwYhdyEACA4Z2kFdNJsTfeMuVzzxoPmuoJmlwlLajm1TH5kLlqi/Wi4gHXUKq8p/R6/fz
-	 jnnLy/KHgSrJDz1Ix5dZMve+M1h4NK1hjyswRrQNg43wWo6uCIgtx+2GfxyZIzdIS8w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795030266;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=iAbjlXus0iw2LllxqZoryy58tCqmnnXTzlAaD4u02/I=;
-	b=A1fguzubnMjMFakSxBOCGOqHjyZ6DX/W3DMhCj/j/GyuJpubbrIdwU+QJ5R30ASJPHZ+
-	 cY25LogZHACdCGE9GXjH+vtpDzMuNn0tv6XiEhoCvTZA1dk7CapNIgV3zXXcUuq4OCT8J
-	 dEmPDZ0ENaOgmLyE3TF47ERYG3z+bKJP4dJ+dOkK6OQyeZuqNU5sDhbAV/0DEnT83IihW
-	 XF9O5fPj2UhWW08Z++aZvY3bAv8aR+3vP5OG+ZRDvGyxZW2XMKud7OfIr2EFMzrPP4HXm
-	 YV2mWD3rqqZFV7oSAKoN4XP1maDdg/60Jw5jf/LWHJXpgvERFzIiP+xr1JUYkYvu6XQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YYTxxlax;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.21.61.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795030531;
+	b=OiOgkGmtOSBiup16HcnazkY8bUGu9ynbAYrHGbSAvwXRUnDugirSeXMKa6eK9w42Jz2l
+	 8UVddBPJaRzJoWZh0iTxDRhP2d80tCi3bNYWKcInS5dlAWpEK+ogv6UhTybSdWs52oSRf
+	 mLKg88OcHSiT3NvzRPg6n5A8IhqGR5L2zDb+6SQZRpxu4duycpq4ZR8KuGDefFRHUaLVW
+	 CqD92zypb89n3tqObtLVdF85e0fvWp8XpXCmx9V5hxVXxACFCkjpnCw78HEgIuHVRAWuV
+	 g65f+K/Ao9m+ulUBFmdYEQwJXCttcXUv99fr/hapum5uysVuFrUrQpVfrnvlBvxawXA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795030531;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:Date:MIME-Version:User-Agent:
+	 From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mm0Tlr+mV6dnPz8Xs2eWla4wTBomddtD84Q9Vn5aR0U=;
+	b=G/MJLJh0aWA3fJ5ZOLa4DkuVm8buhpSKUxuxjg20JbzCDp8Yv9ckdodcZuMqXkyFS/3E
+	 e1WszcuRKu55LfnrUem5spRcEE2fF2F6lsVy9pWR7OzZdSzLpKBw171EfccTa3jB79bZu
+	 Ul4GCxVY3okolEpdnnb8lL7A5Ibut34zwGKQ3RypYEQcsoYXGJVfCZfkPj2o11x3QH0Or
+	 SgJbUWenyBNgvuxCKnDPO6LzIqFmSPdH0cgWSTv++QJ59mGYnUWDt2cgMLBVaHYQ6C9tH
+	 WRKhQHldrpZX0tpEs3k1qkKRvqL87NgQHXexAeYr6X2ALw5UROyXvuTlnDkUh/8qorQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=aliel.fr;
+	spf=pass smtp.mailfrom=aliel.fr;
+	dkim=pass header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=ndG0zBXt;
+	arc=none smtp.remote-ip=65.21.61.41
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7852606F533
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 19:31:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7852606F533
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE5E606C419;
+	Wed, 18 Nov 2026 19:35:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DE5E606C419
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YYTxxlax
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c445c95d553so200904466b.1
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 11:31:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795030264; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qKjFix2+NX/Lf1ryYivWgXevc+8d9X3/rC2H7azHU0YsF58NDwonYrJDDZFBhyD2ga
-         p72trk4v4IsgtQdkdwtJBpGAe41unnakRXNi0wfcr7ko52wKPqh06daVm1eEvY43G4oR
-         3aHf7XexLYZdFL+Bq24yZONFzGyqJ/6YQUmD5ixYGNexx8e5WggG1EosSic6+thLjpF9
-         ZpioAjGg2syQf93KAgnxEDYbJcYoqwlAN+7CmGXhRQOu9gMKTVHHYD8xXfqDExOY6Bg4
-         +CnD2VHZb/iYgl7yeK69vIfK6PIAG9DtdDHG2VqmNZaVvyq7+UKkKg0B7lBViK0M+iXn
-         1mfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=iAbjlXus0iw2LllxqZoryy58tCqmnnXTzlAaD4u02/I=;
-        fh=xRzbeue0Zbw6m3aE+Qu23XJEY8oIgWQ0wcDWNwFxqyo=;
-        b=C/WH6hGThZJ3OmashZl2EeCme64lqx+dZW90Tj3p49lRhFPF/ZKguePp1lkTppA8BB
-         S5/n2n2KRV4XpuAaduWCKsp6AxO09Rsf8xWCz3cj8ySFNhvAkCTfZtouOKa7VAHesj6G
-         +Yon8CeSAO0cspTUI9dk6phK4f5z59dE7RGPJ1fRvyaEnbgzXdVgbupA3CSNLG37q7js
-         5EmsOPDdZSAdopJJEf+erJPtuKLOQk+TCcIMg2/9gJQ2EnJjX8/8slma+lZF3zjOSIkf
-         ii4T3YTp2SJ92jErDcQyFMOfqb/cHzef1Ax9yOxHOUIFwDZVjbZLOaNjLzIjgGtUgCMM
-         wvGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795030264; x=1795635064; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iAbjlXus0iw2LllxqZoryy58tCqmnnXTzlAaD4u02/I=;
-        b=YYTxxlaxQ2WfhHso/oEI2r56Wf/FngEvX4IGgjBf48e9sct9kQaN5+W9clSYP5LlZW
-         9lGoVnhGTEg9+TUbmq/jjF0sC+rmU+Buy7VOy6sH/tPxGdqjjnXGgl2MbLOCk/+k9Rho
-         IZJxpHNo6bOT5jZstLoYdAJHZylRxqvtOwCldTOD8whfdnvEhqKJXAdU83+/L7lRIx9v
-         fzcCiYcUTwNu01GC9OfJiH6YaqiVEysh0kMaSWmSU8YUIYlmG2BvarbXEefoJFvoMsw5
-         PH5l2eEIFL9NtYcZ9lHXeSizazga9SFSOqqZtZ+ipAiyUSM6RiF73meQ1GDoIrwk7+Wd
-         OScA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795030264; x=1795635064;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iAbjlXus0iw2LllxqZoryy58tCqmnnXTzlAaD4u02/I=;
-        b=WL3OAEYZBORlrQpcSuvQHvS3zjJk58ekw0NqM3xKvZR3BE9HTNn43+iApWtAIgUIMd
-         lQoR1KFQB3AOujmn+4Qyi/FCMGVqT5CQ2a4s6O7yXAvCTuxqfEVcOYDPRCZxZMmHN2jS
-         5NT6yEjtGth8qlO8YYt38gEY3OZvsP389KNO0/leLebsi8b5xMX3D2jv4CwM/H/3vG8C
-         Ldr9f7wxHA9Ff/25FoY4zJ5rDaKmFyufwplxBHeNoFMFQPdegSn6wspdq0amqwo4R3Sk
-         XMtSCFPMXp4q3mraf48NcalmZBPJIv5HzcNIoqzhrYi+n70/v03KSWIZpVFS/QcRCWiI
-         Bfww==
-X-Forwarded-Encrypted: i=1; AL+hErEwc8U3dFq7Hiqo7rEFIeG2ggoMAuBBWDoccG7/k0MHK54HiLfXTkgBkWBinCmn+lcPpBRdvuNKyH3D@vger.kernel.org
-X-Gm-Message-State: APuU4Z9S6iGhVmNhrpHed7KcuOfa74SZD+dCaQgbc3KFH4OPhIc2/yHj
-	8DV+f/gVF59y0pZW61FlKEHNkD60S2Unar+uXgJ/Dbl9a2KgC2KUtOZWFrEd7+YLYqamvsoCGfY
-	WZqMZYYq6eZTbFcSnBkNp8aK0et1s7n8=
-X-Gm-Gg: AYBFou1KfMdiCNG2l1FDKraM0j163Qu+fzcZvUy4ZxB1Ekutl8w4iPKYgyrXn41UPpK
-	ELs/W0ohBDqGUT9dKj68CI+u1Yq2hDap3ABNSx2wYCsDFl+E6bd+0ed8gYKtiQEDA2owACp1IV9
-	V9nLXrkzdxJ4ubiHuLuLbNOYQX4KBLNvM9fMsDqPC+VqFMu3nwcH3iAG3PUl1/tdUXZh/ibhpRp
-	7CEukarlY3GHkNfEh5bqE38V+huOLM268x73xcu0JYKQQeASpzL2nWUb+t/ltPYyI7TrN+Ecv3u
-	dJE0qSaAJsTgb+t4hMZWcjosQKIxd3F84V8BQBbZ08sUZ9JUIQF24tix8+e/angYtIwxKR2Jkeh
-	mvaEbwZLQiKr0hOFWcStkzP4KQeZipYr30s4=
-X-Received: by 2002:a17:907:f816:b0:c2e:317e:d711 with SMTP id
- a640c23a62f3a-c510e398889mr303013866b.27.1795030263845; Wed, 18 Nov 2026
- 11:31:03 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=ndG0zBXt
+Message-ID: <bb027d3b-6a43-4dd3-9771-3448c86996b5@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1795030528;
+	bh=q1cF5XXNw8wayh7tmwKgKYk42pA4x2pEosRpTQBiONs=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=ndG0zBXtIkXmu8cIOYlH+3B1SMMIDc0k+dvgANzIY8Ozgmjct+TTGgEoa7gSphunO
+	 0AXufkyeSVgWo3D6KVe6HRmfyLS3iX46o/Pl+5HbAgr5n5x9SLYhGz28KNTSqlOcPY
+	 MsHPzH5KILeT1ZpzQl3i4QUKSPEqHlbunwygoMmE=
+Date: Wed, 18 Nov 2026 20:35:26 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,43 +51,132 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105194426.1113050-1-l.scorcia@gmail.com> <20261118152346.GC98456@joneslee-macbookpro.roam.internal>
-In-Reply-To: <20261118152346.GC98456@joneslee-macbookpro.roam.internal>
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Date: Wed, 18 Nov 2026 20:30:52 +0100
-X-Gm-Features: AclHuK-Q_ZR_eSDZWgs8r4i-RTkFZUMV5FI3ZV4LgWAQGQjLtUrjcLbEIObtllI
-Message-ID: <CAORyz2+7q3BTeW3NsaiwN9riAbHV0Q_tCm6bBV7RoiDeAbcLrg@mail.gmail.com>
-Subject: Re: [PATCH v12 0/8] Add support for MT6392 PMIC
-To: Lee Jones <lee@kernel.org>, Mark Brown <broonie@kernel.org>
-Cc: linux-mediatek@lists.infradead.org, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>, 
-	Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, Val Packett <val@packett.cool>, 
-	Fabien Parent <parent.f@gmail.com>, Akari Tsuyukusa <akkun11.open@gmail.com>, 
-	Chen Zhong <chen.zhong@mediatek.com>, linux-input@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: linux-kernel-dev@aliel.fr
+Subject: Re: [PATCH 00/10] phy/drm: amlogic: Extract Meson HDMI TX PHY into a
+ dedicated driver
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
+ <51831581-525f-418c-86ea-3b5c6a80709b@linaro.org>
+Content-Language: en-US
+In-Reply-To: <51831581-525f-418c-86ea-3b5c6a80709b@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> MFD looks okay now.  How many more Acks do you need?
-Still need the regulator Ack. Mark Brown provided an Ack for the first
-version (almost a year ago) of the regulator patch [1], but it was
-substantially modified in later revisions so I dropped that Ack.
-I'll move Mark Brown from Cc to To tag in this email for a gentle
-ping, I hope that's not against the ML etiquette.
+On 11/18/26 13:38, Neil Armstrong wrote:
+> Hi,
+> 
+> On 11/17/26 20:33, Ronald Claveau via B4 Relay wrote:
+>> This series moves the Amlogic Meson HDMI TX PHY handling (covering GXBB,
+>> GXL, GXM, and G12A SoCs) out of the meson_dw_hdmi DRM driver and into a
+>> dedicated generic PHY driver.
+>>
+>> Until now, meson_dw_hdmi directly manipulated the HHI system controller
+>> registers (HHI_HDMI_PHY_CNTL0..5) to configure analog parameters, toggle
+>> resets, and manage power states, as well as manually ungating HDMI
+>> clocks and power domains already described in the DT.
+>>
+>> By extracting this logic into a standalone PHY driver under
+>> drivers/phy/amlogic/:
+>> - Hardware representation in the DT is cleaner, modeling the HDMI TX PHY
+>>    as a child node of the HHI syscon referenced via standard "phys" and
+>>    "phy-names" properties.
+>> - The DRM bridge driver relies on the standard generic PHY API
+>>    (phy_init, phy_configure, phy_power_on/off, phy_exit) rather than
+>>    touching syscon registers directly.
+>> - Legacy DTs lacking the "phys" property remain supported via a
+>>    temporary fallback helper (meson_hdmi_phy_create_legacy) to preserve
+>>    backward compatibility to be removed on next phase of component
+>>    removal.
+>>
+>> Overview of the series:
+>> - Patches 1-3: Fix compatible matching in meson-gx-hhi-sysctrl bindings,
+>>    add the new amlogic,meson-hdmi-tx-phy DT schema, and allow the
+>>    "hdmi-phy" child node under the HHI syscon.
+>> - Patch 4: Add the new Meson HDMI TX PHY driver implementing the HDMI
+>>    PHY configuration ops, along with the temporary legacy creation
+>>    helper.
+>> - Patch 5: Document the optional "phys" and "phy-names" properties in
+>>    the amlogic,meson-dw-hdmi binding.
+>> - Patches 6-7: Clean up manual HHI clock/power-domain writes in
+>>    meson_dw_hdmi (relying on runtime PM instead) and convert the driver
+>>    to use the generic PHY framework.
+>> - Patches 8-10: Add the "hdmi-phy" child node and wire up the "phys"
+>>    phandle for G12, GXBB, and GXL Device Trees.
+>>
+>> Tested on:
+>> - Khadas VIM1 (GXL)
+>> - dtbs_check and dt_binding_check run cleanly with no new warnings.
+>>
+>> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>> ---
+>> Ronald Claveau (10):
+>>        dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Fix compatible
+>> matching in conditionals
+>>        dt-bindings: phy: amlogic: Add Meson HDMI TX PHY binding
+>>        dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Add hdmi-phy
+>> child node
+>>        phy: amlogic: Add Meson HDMI TX PHY driver
+>>        dt-bindings: display: amlogic,meson-dw-hdmi: Add phys and phy-
+>> names
+>>        drm/meson: dw-hdmi: Drop manual HHI clock and memory PD setup
+>>        drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI
+>> TX PHY
+>>        arm64: dts: amlogic: Add HDMI TX PHY node for G12
+>>        arm64: dts: amlogic: Add HDMI TX PHY node for GXBB
+>>        arm64: dts: amlogic: Add HDMI TX PHY node for GXL
+>>
+>>   .../bindings/display/amlogic,meson-dw-hdmi.yaml    |   8 +
+>>   .../bindings/phy/amlogic,meson-hdmi-tx-phy.yaml    |  33 +++
+>>   .../soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml  |  43 ++-
+>>   arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi  |   7 +
+>>   arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi        |   7 +
+>>   arch/arm64/boot/dts/amlogic/meson-gxl.dtsi         |   7 +
+>>   drivers/gpu/drm/meson/Kconfig                      |   1 +
+>>   drivers/gpu/drm/meson/meson_dw_hdmi.c              | 203 ++++++--------
+>>   drivers/phy/amlogic/Kconfig                        |  11 +
+>>   drivers/phy/amlogic/Makefile                       |   1 +
+>>   drivers/phy/amlogic/phy-meson-hdmi-tx.c            | 309 +++++++++++
+>> ++++++++++
+>>   include/linux/phy/phy-meson-hdmi-tx.h              |  19 ++
+>>   12 files changed, 513 insertions(+), 136 deletions(-)
+>> ---
+>> base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
+>> change-id: 20261115-meson-drm-create-hdmitx-phy-4ac40a654d09
+>>
+>> Best regards,
+>> -- 
+>> Ronald Claveau <linux-kernel-dev@aliel.fr>
+> 
+> Overall it's very good, but I would've prefered a more sequencial move
+> to the PHY driver, with an exact copy of the code and simplification
+> towards the current PHY code.
+> 
+> Anyway, the sashiko review comments are good, especially the one on
+> patch 6 to keep the driver working on old DTs, sorry my bad...
+> 
+> Neil
 
-> NB: This patch-set looks split in two in my inbox?
-Now that you mention it, I see the split too. Weird, I sent it using
-git send-email as always. I can resend it if it's an issue.
+Thanks for your feedback, I am analyzing/testing sashiko feedback.
 
-Thank you
+About the suspend/resume unbind/bind, I do not have any issue on my
+side, but I can change the orders.
 
-[1] https://lore.kernel.org/linux-mediatek/20261105195206.3440-5-l.scorcia@gmail.com/
+About patch 6 and the old DTs, I will reintroduce them with the legacy
+check. Do you know what would be a good timeline to add a require on
+those elements and drop the fallback code ?
 
---
-Luca Leonardo Scorcia
-l.scorcia@gmail.com
+-- 
+Best regards,
+Ronald
