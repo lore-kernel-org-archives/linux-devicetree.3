@@ -1,85 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.82
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794987719;
-	b=baxXEHdoKqIzfY3gH/2osD8hdW5JoWgxfxUKrWY4Ir3O3+KLIO7qF/x81Lq2pQhnvRBZ
-	 Z07HNjYuPGo+U2TB6xfJOXBJwo1n/VtOVOaTg+eZIaLTrfBO3SUsJLk+4Ucx56v86nsWW
-	 Uz0Z0raYU5cnvZ4al7Y6mB2mAdTv8gT8+QEpqSQT3HTvDu6CHuhTAjDLtH33VqZdY+a+Z
-	 YW24h/cm4FEjtLAdG3yMFvRzeeUTaCbQ8H1y2mPNRFXEq0j637tSrJxQEydtbmI/602ff
-	 2HHDJIRX6SbBcb6yeIV6GHmhMw/dOh7xOBfAuZOWzujqtcgiaDbJ4Tvf2zM69zzsLJQ==
+	t=1794987715;
+	b=T26sDHTRT3qoiTIQLpXzcinj0B0m9FMAPOgITkKI+v6IoSPcOnkF8nIP1LsLkwAlPDrt
+	 +TJ//Q4+vRll6wdtsBvKvu64P6765vpa6U4rwKHPj9rr3hwJy3SmZHUv62H7wo0t57eQT
+	 gCueSGpKpwIQLIOz26lwb8WIk6ZqWHYzVh3AwQM3S1cMQ4lBeA2rJds9ACgNmpMwQtdqu
+	 UDLRpTCnJRNSHc7ibAam98IBS//f0MhPC0Uv1aQlpF1sYcU8h4S2CsU+AgF1a53IZKt9P
+	 DKW0+XwbpgWBUPZnnIUljo95x6IJz+hm7Q+o+kMGjay+34fYJ8V0Y5BUK4BW3kBDwqg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794987719;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794987715;
 	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=uyLUm9fc948/r7gEJkjNRR0H+BFJUsBW+sfJUwZgwMo=;
-	b=WEkQsouRBkvo4vdXPFi+vsQgQj4nWpZTtw7JnwlLtT5FdOm64Xd3FuOgxVE3g539AJaO
-	 QG6acY8gpI4Ky2XgAd4yWclgn1VMMo/nDDbfv+xx8h4EEGpUet5gDgfTXelwOdUxBYjeg
-	 8bhcKEWjyn8V3xbR+hzuhV84i4i5sIIUJdnhcJTLRn2kx3hTOPOe4etzlxHn1UeJahJZh
-	 aCszVUXmI8AqUv8E26wQF8Cs/zinEXPXjML+qRQPR+yw4G+TjBwm+Se7GoGv0pKhWM0u6
-	 hMblyYPJ9BdJOqH6blLreN2ov1NcrSuiJ3pIVikk1QXNqQh/tEEp26hnOrJd7NGOfuA==
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=6oBLyv/ZmsMRrgMoLIe2vqMXwIBGmKnUBqqAVt6dBSY=;
+	b=KJfB154k5a3i2dEaboYCRUFu0SVsqn2Egj+Yd/CvvRWwmrsOWQ3VVZ9O4QPPLB1LYkeM
+	 zjw2LaoUVwo1C9ImiVXgfQRUCX/A206Vzi6tub+2tOZhMf9n6TRm5MO0s80NqPiGS3cHm
+	 TbWoWeuLi0ijMnILIEFJkJf8Huh4BnHasBzZr5BEkAYIrS6MYzMHwmR08ZG4TtAqxNO0u
+	 niKWqZQQ8ByvPU8skL4ElroZRm0KZDGsjd2zVCLfo1OZQNKGfh6JkZ11ievLjACRPrnHh
+	 Va7cDrjDcRw/OIF9wQJaB26IWNreqcPrvRFLur/mLhkM76BB6BM9+6yR3OPUWDVFPCg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=goldelico.com;
 	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=FFo9fk1w;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=z+59Xh0C;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=HKK+FeVB;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=VB1f5hDT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.82
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.82])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE71C606A894;
-	Wed, 18 Nov 2026 07:41:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE71C606A894
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4912606A33D;
+	Wed, 18 Nov 2026 07:41:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4912606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=FFo9fk1w;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=z+59Xh0C
-ARC-Seal: i=1; a=rsa-sha256; t=1794987702; cv=none;
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=HKK+FeVB;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=VB1f5hDT
+ARC-Seal: i=1; a=rsa-sha256; t=1794987704; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=XRD7O4vv7g8JA3dGp2EBfQEjQGkokjRydtuktv5tVZKUeQ1vmTNvTiKjuMAjVCxxaK
-    psbP9cGYtUYyezXqloC+y9RODUAmPUqAkrR+1sZgBos+TlO23P6QgYkk69TqGF9DJoH8
-    iHw/y1COLAQKk0sgN7w+96m896mxwHluXkVwH5XOlD96MgFjQ/5KKX4EY9sj2RFqxZFv
-    pDTOY+XFBWbCMf6aSv+SbhuKR3rsKXkU5B6gk4wQwGIzhGx8WHssSziRc9YlnNQL/Z6E
-    peyY41yPsSXQ9iLUIi2cnLwJb3gkQDtdKExdHlMptoKPzRfNw5h2P10nZcBAbn+TmiDx
-    Erdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794987702;
+    b=rDdpVRfLfz9wqxcpqRFim3Hg3vm/oThLq/qqYx31FdWgB/wCegaQqRVV1jOjeN2Uct
+    WqXsEydFIB0MyQdfP19T6hxkjQss9SiFArsytc7Y444GNdyl4Oqr2Nau/sv4+j1TpzQ1
+    S8GV+WvFX29WtokCbuW49MYUlNOQD+Os1yEsfJjQ0Rt915lBizxlPp5PsA8sYeqHYaII
+    GIVqWDkRRmBct1fbsy3lO8vBoQDFGLK8YXKQAofAysjWEtIC2acfoqBwS+xNW1Op9y31
+    IUNrR0xSrQCmBC2VTnIH2I5rBKl/D/3/EhBODcZ9a7FrB8W4h+oqz5qNXzy/umkqNMxG
+    Z0EQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794987704;
     s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=uyLUm9fc948/r7gEJkjNRR0H+BFJUsBW+sfJUwZgwMo=;
-    b=n28E38k2bU3JnZ0TymkP9kw04P9Bb4Sh85Ar06geqJx829aFktNqUKS/CNqD6c8r/e
-    OSsnrSaZsU2mJEMmR7uzY4RURWbzAIoEG+6+U90PNDW+gBpCBh4gbHiHVQPC4VTBnxeP
-    FR8Q1d6sOLppNjR+jwNNpSp0SnNDlbv0S8A0VJ9+ecTK1/m9P+DEI81CBY/VSV9bcs4L
-    kKEePSSP1PjLiRmDjivWQo9Xf6dcHsr3KeC0+nKoFARqDyrcISfMypIzXRaM+H5Iuh9v
-    trkN8LB6X1MTqwpYoPMwBYeUme++10VA9syUUKJ3xfA5ZM4+ALvv/DDDVWI6pD6Oy99Y
-    j6bA==
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=6oBLyv/ZmsMRrgMoLIe2vqMXwIBGmKnUBqqAVt6dBSY=;
+    b=qC1EM1ElYmbG//Q5B8cp2nRUnhzhsPBZ+qstc5pSbEdAFpO9Ob+00Lyb6WbjCOCNWX
+    z5fl6kQllA8PRLbAApvUz7+SvHeCH5XIJF7sSE5keUh0HeY7x+PuacRsPIVSekxr3D1r
+    u/dy0jhzlj7SHTH3hFBntOb+sZBK9222H0qa6ag5m4gq/zjbKO3xeYT0EYj0vU8TxlTC
+    ndyK3ZZ/BVcZN+JFd2VMaOHy7qY5BxUGw0NKuVGvP2P17QwSV83KskrSiN4Ir80emsGS
+    b9RZwdDNW1HbsdeXc31MJ7yfuQTNQ77k19jHujNdAFmm3kL+9U3kq14rgrf+JAAIzmJB
+    TBlg==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794987702;
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794987704;
     s=strato-dkim-0002; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=uyLUm9fc948/r7gEJkjNRR0H+BFJUsBW+sfJUwZgwMo=;
-    b=FFo9fk1wzRTDpp0XPV0JxuUpZALSPfeNkQxHgELKBv39RetEG83z+yV3H3oxm5u8vo
-    0jaCg4GePx5JUKaPKU5PzkqD6qK+H5czLngOh82QqHknl9pyy4LgafiSmHt2hgojn+M9
-    953xvFBBEdQLZqO0n42mWkAGjEw0kKJhX9gaxp3bKt2sy6YKOFqSnwAH2ttiaPRfQuwE
-    pcZjSUlSUYv5303ey3hJKIlj9P8tU4As+0OvcZsEKd1vIOn9kPugoK5FIB9QhHKOHeQ2
-    OjbhOjMbfvTkkB1CRwIArl76lQTsLXZ3qk/22AbtNA6jyjR01Sj95/eHIleaY/WH8Y5S
-    0XOw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794987702;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=6oBLyv/ZmsMRrgMoLIe2vqMXwIBGmKnUBqqAVt6dBSY=;
+    b=HKK+FeVBWZ++O6TuhydQ3yskd7bq4ID09u9kkGjZBhiQ41OqWodgs06muK4+KFvjR+
+    PktmUH1orHSLhUiA0pGsy9S58vL3vvfBvBgG7GvGCygUDlNvmXj1RZv3rxvRLrr9GG00
+    poG6qdF1ZbjKkMXr+vl3XwlESN0lWf/ojEHc2sVkJnJA3oL/E3YnT4g0QGnOvg8YSCpJ
+    vJ0dkYkIrl9lFTinaontqHzU2bm+Lzx9fHBFFOGILqZXhqgpM+QD7drqp1JE+l5rVGON
+    4nkr7PrAgVcNQ/EmH/VKZ19e8SmDaHDGKhjMw7LijjsKRt8fBTSknPhSRBwH0grcgmTT
+    hA2w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794987704;
     s=strato-dkim-0003; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=uyLUm9fc948/r7gEJkjNRR0H+BFJUsBW+sfJUwZgwMo=;
-    b=z+59Xh0CEUT7cxZQNIHBUAJmwvM5L/PhlQHUaMEXa8rFaWBI1t4CVtDV65T49M0U2k
-    eZEwBsoNHLO7/umVXgDw==
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=6oBLyv/ZmsMRrgMoLIe2vqMXwIBGmKnUBqqAVt6dBSY=;
+    b=VB1f5hDT8YIrKxq1PJuamXBhcJipguV24sxbRMBfeyDQrd+pMhMlxLbW9nkKRQlo3u
+    dyt7WCdUatiYOY6Jw5CQ==
 X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2Jpcm8iNZLZ2IBizV+3wFb55dglUeZzcEX9J"
 Received: from iMac.fritz.box
     by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22AI7fgaVW
+    with ESMTPSA id Qb56a22AI7fiaVb
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
-    Wed, 18 Nov 2026 08:41:42 +0100 (CET)
+    Wed, 18 Nov 2026 08:41:44 +0100 (CET)
 From: "H. Nikolaus Schaller" <hns@goldelico.com>
 To: Linus Walleij <linusw@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -93,10 +96,12 @@ Cc: linux-gpio@vger.kernel.org,
 	linux-mips@vger.kernel.org,
 	letux-kernel@openphoenux.org,
 	"H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: [PATCH v3 0/7] pinctrl: ingenic: Add X2600 support
-Date: Wed, 18 Nov 2026 08:41:34 +0100
-Message-ID: <cover.1794987700.git.hns@goldelico.com>
+Subject: [PATCH v3 5/7] pinctrl: ingenic: Add X2600 pin groups and functions
+Date: Wed, 18 Nov 2026 08:41:39 +0100
+Message-ID: <965a8bd55f6e88b19d4a5e0f1d4fdf8881abf1cb.1794987700.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1794987700.git.hns@goldelico.com>
+References: <cover.1794987700.git.hns@goldelico.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,86 +114,568 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="us-ascii"
 
-PATCH V3 2026-11-18 08:41:40:
-This series adds pinctrl and GPIO support for the Lumissil X2600 SoC.
-It extends the devicetree bindings, supports the X2600 GPIO register
-layout with 0x1000 bank spacing and per-port shadow registers, and adds
-pin groups and mux functions.
+Add X2600 pin groups, mux functions and GPIO configuration.
 
-The series also fixes hardware dual-edge GPIO interrupt handling on
-X1600 and X2000 in a separate patch, following review feedback.
-X2600 Port E uses different pull enable/selection semantics and has
-an additional Schmitt trigger control bit; these are handled separately.
+Use the documented GPIO pin ranges for pull capability masks:
+PA0-11, PB0-31, PC0-30, PD0-16 and PE0-20. Add the PCM, PWM,
+PWM trigger and WAIT function mappings and remove the empty LCD group.
 
-Hardware testing reported by the author:
-  X1600: GPIO button press/release and dual-edge register readback
-  X2000: GPIO button press/release and dual-edge register readback
-  X2600: GPIO button press/release and dual-edge register readback
-  JZ4780 (CI20): regression testing
+Define separate UART1 hardware flow-control groups for ports B and C,
+which use different pinmux function values.
 
-Changes since v2:
-  - suggested by https://sashiko.dev/#/patchset/cover.1794940166.git.hns@goldelico.com?part=2
-    - add Fixes: tags
-    - remove redundant check for is_soc_or_above(jzgc->jzpc, ID_X2000)
+Apply the UART mux corrections and SLCD pin correction suggested
+during review by Hunter Laux.
 
-PATCH V2 2026-11-17 19:29:26:
-Changes since v1:
-  - Reorder the X1600 and X1830 IDs using Paul Cercueil's change.
-  - Isolate hardware dual-edge corrections from X2600 support.
-  - Correct GPIO mux function associations and remove empty lcd-none.
-  - Adjust UART mux selectors and SLCD pins following review feedback.
-  - Extend X2600 pull capability masks to documented GPIO pin ranges.
-  - Handle X2600 Port E pull enable/selection and Schmitt controls.
-  - Remove redundant X2600 IRQ flag-clear special case.
-  - Add JZ4780/CI20 regression test coverage.
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+---
+ drivers/pinctrl/pinctrl-ingenic.c | 520 ++++++++++++++++++++++++++++++
+ 1 file changed, 520 insertions(+)
 
-Thanks to Paul Cercueil for the SoC ID reordering proposal and review,
-and to Hunter Laux for reviewing the pinmux definitions and identifying
-several incorrect pin assignments. Thanks also to the Sashiko bot for
-additional automated review findings.
-
-This series is based on the pinctrl-ingenic driver after Brian Masney's
-subsys_platform_driver_probe() conversion, which has already been accepted
-upstream.
-
-The author used ChatGPT to assist with source review, patch organization
-and commit-message wording. Development and hardware testing was performed
-by the author.
-
-PATCH V1 2026-11-13 09:13:47:
-
-This series adds pinctrl and GPIO support for the Lumissil X2600
-SoC.
-
-It introduces the devicetree bindings, adapts the register access
-and GPIO interrupt handling to the X2600 hardware, and adds the
-pin groups and mux functions.
-
-The changes also correct hardware dual-edge GPIO interrupt
-configuration on X1600 and X2000.
-
-The updated driver has been tested on X1600, X2000, and X2600
-hardware including GPIO dual-edge interrupt handling by a
-gpio-button.
-
-The code has been tested by ChatGPT which also helped to formulate
-the messages.
-
-H. Nikolaus Schaller (6):
-  pinctrl: ingenic: Fix hardware dual-edge interrupts on X1600
-  dt-bindings: pinctrl: ingenic: Add X2600 support
-  pinctrl: ingenic: Add X2600 register and GPIO IRQ support
-  pinctrl: ingenic: Add X2600 pin groups and functions
-  pinctrl: ingenic: Handle X2600 Port E Schmitt trigger
-  pinctrl: ingenic: Handle X2600 Port E pull configuration
-
-Paul Cercueil (1):
-  pinctrl: ingenic: Swap ID_X1600 and ID_X1830
-
- .../bindings/pinctrl/ingenic,pinctrl.yaml     |  10 +-
- drivers/pinctrl/pinctrl-ingenic.c             | 650 +++++++++++++++++-
- 2 files changed, 629 insertions(+), 31 deletions(-)
-
+diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-ingenic.c
+index 4f1b096a3ac8e..05ef31604dc58 100644
+--- a/drivers/pinctrl/pinctrl-ingenic.c
++++ b/drivers/pinctrl/pinctrl-ingenic.c
+@@ -3520,6 +3520,521 @@ static const struct ingenic_chip_info x2100_chip_info = {
+ 	.access_table = &x2000_access_table,
+ };
+ 
++static const u32 x2600_pull_ups[5] = {
++	0x00000fff, 0xffffffff, 0x7fffffff, 0x0001ffff, 0x001fffff,
++};
++
++static const u32 x2600_pull_downs[5] = {
++	0x00000fff, 0xffffffff, 0x7fffffff, 0x0001ffff, 0x001fffff,
++};
++
++static int x2600_can0_pins[] = { 0x47, 0x48, };
++static int x2600_can1_pins[] = { 0x49, 0x4a, };
++
++static int x2600_cim_pins[] = {
++	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
++	0x08, 0x09, 0x0a, 0x0b,
++};
++
++static int x2600_clk_pins[] = { 0x82, };
++
++static int x2600_dmic_pins[] = { 0x44, 0x45, 0x46, };
++
++static int x2600_i2c0_c_pins[] = { 0x40, 0x41, };
++static int x2600_i2c0_d_pins[] = { 0x64, 0x63, };
++
++static int x2600_i2c1_b_pins[] = { 0x20, 0x21, };
++static int x2600_i2c1_c_pins[] = { 0x42, 0x43, };
++
++static int x2600_i2c2_b_pins[] = { 0x23, 0x22, };
++static int x2600_i2c2_c_pins[] = { 0x53, 0x54, };
++static int x2600_i2c3_c_pins[] = { 0x55, 0x56, };
++static int x2600_i2c3_e_pins[] = { 0x85, 0x86, };
++
++static int x2600_i2s_clk_rx_pins[]  = { 0x4f, }; /* PC15 */
++static int x2600_i2s_sysclk_pins[]  = { 0x50, }; /* PC16 */
++static int x2600_i2s_clk_tx_pins[]  = { 0x51, }; /* PC17 */
++static int x2600_i2s_data_pins[] = { 0x52, 0x53, }; /* PC18, PC19 */
++
++static int x2600_lcd_16bit_pins[] = {
++	0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b,
++	0x2c, 0x2d, 0x2e, 0x2f, 0x30, 0x31, 0x32, 0x33,
++};
++
++static int x2600_lcd_18bit_pins[] = { 0x34, 0x35, };
++
++static int x2600_lcd_24bit_pins[] = {
++	0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b,
++};
++
++static int x2600_lcd_sync_pins[] = { 0x3c, 0x3d, 0x3e, 0x3f, };
++
++static int x2600_mac_pins[] = {
++	0x4f, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58,
++};
++
++static int x2600_msc0_1bit_pins[] = { 0x60, 0x61, 0x62, };
++static int x2600_msc0_4bit_pins[] = { 0x63, 0x64, 0x65, };
++static int x2600_msc0_8bit_pins[] = { 0x81, 0x82, 0x83, 0x84, };
++
++static int x2600_msc1_1bit_c_pins[] = { 0x59, 0x5a, 0x5b, };
++static int x2600_msc1_4bit_c_pins[] = { 0x5c, 0x5d, 0x5e, };
++
++static int x2600_msc1_1bit_d_pins[] = { 0x66, 0x67, 0x68, };
++static int x2600_msc1_4bit_d_pins[] = { 0x69, 0x6a, 0x6b, };
++
++static int x2600_otg_pins[] = { 0x81, };
++
++static int x2600_pcm_pins[] = { 0x40, 0x41, 0x42, 0x43, }; /* PC0-PC3 (Func3) */
++
++static int x2600_pwm0_pins[] = { 0x2c, }; /* PB12 (Func2) */
++static int x2600_pwm1_pins[] = { 0x2d, }; /* PB13 (Func2) */
++static int x2600_pwm2_pins[] = { 0x2e, }; /* PB14 (Func2) */
++static int x2600_pwm3_pins[] = { 0x2f, }; /* PB15 (Func2) */
++static int x2600_pwm4_pins[] = { 0x30, }; /* PB16 (Func2) */
++static int x2600_pwm5_pins[] = { 0x31, }; /* PB17 (Func2) */
++static int x2600_pwm6_pins[] = { 0x32, }; /* PB18 (Func2) */
++static int x2600_pwm7_pins[] = { 0x33, }; /* PB19 (Func2) */
++static int x2600_pwm8_pins[] = { 0x47, };  /* PC07 (Func0) */
++static int x2600_pwm9_pins[] = { 0x48, };  /* PC08 (Func0) */
++static int x2600_pwm10_c_pins[] = { 0x49, }; /* PC09 (Func0) */
++static int x2600_pwm10_e_pins[] = { 0x82, }; /* PE02 (Func2) */
++static int x2600_pwm11_pins[] = { 0x4a, }; /* PC10 (Func0) */
++static int x2600_pwm12_pins[] = { 0x4b, }; /* PC11 (Func0) */
++static int x2600_pwm13_pins[] = { 0x4c, }; /* PC12 (Func0) */
++static int x2600_pwm14_pins[] = { 0x4d, }; /* PC13 (Func0) */
++static int x2600_pwm15_pins[] = { 0x4e, }; /* PC14 (Func0) */
++static int x2600_pwm_trig_c_pins[] = { 0x54, }; /* PC20 (Func1) */
++static int x2600_pwm_trig_d_pins[] = { 0x6c, }; /* PD12 (Func1) */
++
++static int x2600_sfc_d0_pins[] = { 0x60, 0x61, 0x62, 0x63, 0x64, 0x65, };
++static int x2600_sfc_d6_pins[] = { 0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, };
++
++static int x2600_slcd_8bit_pins[] = {
++	0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b,
++};
++
++static int x2600_slcd_16bit_pins[] = {
++	0x2c, 0x2d, 0x2e, 0x2f, 0x30, 0x31, 0x32, 0x33,
++};
++
++static int x2600_slcd_ctrl_pins[] = {
++	0x3c, 0x3d, 0x3e, 0x3f,
++};
++
++static int x2600_ssi0_dt_b_pins[] = { 0x22, };
++static int x2600_ssi0_dr_b_pins[] = { 0x21, };
++static int x2600_ssi0_clk_b_pins[] = { 0x23, };
++static int x2600_ssi0_ce0_b_pins[] = { 0x20, };
++
++static int x2600_ssi0_dt_d_pins[] = { 0x61, };
++static int x2600_ssi0_dr_d_pins[] = { 0x62, };
++static int x2600_ssi0_clk_d_pins[] = { 0x60, };
++static int x2600_ssi0_ce0_d_pins[] = { 0x65, };
++
++static int x2600_ssi1_dt_c15_pins[] = { 0x50, };
++static int x2600_ssi1_dr_c15_pins[] = { 0x51, };
++static int x2600_ssi1_clk_c15_pins[] = { 0x4f, };
++static int x2600_ssi1_ce0_c15_pins[] = { 0x52, };
++
++static int x2600_ssi1_dt_c25_pins[] = { 0x5a, };
++static int x2600_ssi1_dr_c25_pins[] = { 0x5b, };
++static int x2600_ssi1_clk_c25_pins[] = { 0x59, };
++static int x2600_ssi1_ce0_c25_pins[] = { 0x5e, };
++
++static int x2600_ssi_slv_dt_pins[] = { 0x3d, }; /* PB29 (Func2) */
++static int x2600_ssi_slv_dr_pins[] = { 0x3e, }; /* PB30 (Func2) */
++static int x2600_ssi_slv_clk_pins[] = { 0x3c, }; /* PB28 (Func2) */
++static int x2600_ssi_slv_ce0_pins[] = { 0x3f, }; /* PB31 (Func2) */
++
++static int x2600_tcu0_in0_pins[] = { 0x34, }; /* PB20 (Func2) */
++static int x2600_tcu0_in1_pins[] = { 0x35, }; /* PB21 (Func2) */
++static int x2600_tcu1_in0_pins[] = { 0x36, }; /* PB22 (Func2) */
++static int x2600_tcu1_in1_pins[] = { 0x37, }; /* PB23 (Func2) */
++static int x2600_tcu2_in0_pins[] = { 0x38, }; /* PB24 (Func2) */
++static int x2600_tcu2_in1_pins[] = { 0x39, }; /* PB25 (Func2) */
++static int x2600_tcu3_in0_pins[] = { 0x3a, }; /* PB26 (Func2) */
++static int x2600_tcu3_in1_pins[] = { 0x3b, }; /* PB27 (Func2) */
++
++static int x2600_tcu4_in0_pins[] = { 0x47, }; /* PC07 (Func1) */
++static int x2600_tcu4_in1_pins[] = { 0x48, }; /* PC08 (Func1) */
++static int x2600_tcu5_in0_pins[] = { 0x49, }; /* PC09 (Func1) */
++static int x2600_tcu5_in1_pins[] = { 0x4a, }; /* PC10 (Func1) */
++static int x2600_tcu6_in0_pins[] = { 0x4b, }; /* PC11 (Func1) */
++static int x2600_tcu6_in1_pins[] = { 0x4c, }; /* PC12 (Func1) */
++static int x2600_tcu7_in0_pins[] = { 0x4d, }; /* PC13 (Func1) */
++static int x2600_tcu7_in1_pins[] = { 0x4e, }; /* PC14 (Func1) */
++
++static int x2600_uart0_data_c_pins[] = { 0x57, 0x58, };
++static int x2600_uart0_hwflow_c_pins[] = { 0x55, 0x56, };
++static int x2600_uart0_data_e_pins[] = { 0x89, 0x8a, };
++static int x2600_uart0_hwflow_e_pins[] = { 0x8b, 0x8c, };
++
++static int x2600_uart1_data_b_pins[] = { 0x20, 0x21, };
++static int x2600_uart1_data_c_pins[] = { 0x42, 0x43, };
++static int x2600_uart1_hwflow_b_pins[] = { 0x22, 0x23, };
++static int x2600_uart1_hwflow_c_pins[] = { 0x44, 0x45, };
++
++static int x2600_uart2_data_pins[] = { 0x6d, 0x6c, };
++
++static int x2600_uart3_data_b_pins[] = { 0x37, 0x36, };
++static int x2600_uart3_data_c_pins[] = { 0x50, 0x4f, };
++
++static int x2600_uart4_data_b_pins[] = { 0x38, 0x39, };
++static int x2600_uart4_data_c_pins[] = { 0x51, 0x52, };
++static int x2600_uart5_data_b_pins[] = { 0x3a, 0x3b, };
++static int x2600_uart5_data_c_pins[] = { 0x47, 0x48, };
++static int x2600_uart6_data_c_pins[] = { 0x40, 0x41, };
++static int x2600_uart7_data_c_pins[] = { 0x44, 0x45, };
++static int x2600_uart7_data_e_pins[] = { 0x83, 0x84, };
++
++static int x2600_wait_pins[] = { 0x6b, };
++
++static const struct group_desc x2600_groups[] = {
++	/* CAN (Controller Area Network) */
++	INGENIC_PIN_GROUP("can0-data", x2600_can0, 2),
++	INGENIC_PIN_GROUP("can1-data", x2600_can1, 2),
++
++	/* CIM (Camera) */
++	INGENIC_PIN_GROUP("cim-data", x2600_cim, 0),
++
++	/* EXCLK (externel clock output) */
++	INGENIC_PIN_GROUP("ex-clk", x2600_clk, 1),
++
++	/* DMIC */
++	INGENIC_PIN_GROUP("dmic-data", x2600_dmic, 0),
++
++	/* I2Cs */
++	INGENIC_PIN_GROUP("i2c0-data-c", x2600_i2c0_c, 1),
++	INGENIC_PIN_GROUP("i2c0-data-d", x2600_i2c0_d, 2),
++	INGENIC_PIN_GROUP("i2c1-data-b", x2600_i2c1_b, 3),
++	INGENIC_PIN_GROUP("i2c1-data-c", x2600_i2c1_c, 1),
++	INGENIC_PIN_GROUP("i2c2-data-b", x2600_i2c2_b, 3),
++	INGENIC_PIN_GROUP("i2c2-data-c", x2600_i2c2_c, 2),
++	INGENIC_PIN_GROUP("i2c3-data-c", x2600_i2c3_c, 2),
++	INGENIC_PIN_GROUP("i2c3-data-e", x2600_i2c3_e, 1),
++
++	/* I2S (Audio) & PCM */
++	INGENIC_PIN_GROUP("i2s-clk-rx", x2600_i2s_clk_rx, 1),
++	INGENIC_PIN_GROUP("i2s-sysclk", x2600_i2s_sysclk, 1),
++	INGENIC_PIN_GROUP("i2s-clk-tx", x2600_i2s_clk_tx, 1),
++	INGENIC_PIN_GROUP("i2s-data", x2600_i2s_data, 1),
++	INGENIC_PIN_GROUP("pcm", x2600_pcm, 3),
++
++	/* LCD & SLCD */
++	INGENIC_PIN_GROUP("lcd-16bit", x2600_lcd_16bit, 0),
++	INGENIC_PIN_GROUP("lcd-18bit", x2600_lcd_18bit, 0),
++	INGENIC_PIN_GROUP("lcd-24bit", x2600_lcd_24bit, 0),
++	INGENIC_PIN_GROUP("lcd-sync", x2600_lcd_sync, 0),
++	INGENIC_PIN_GROUP("slcd-8bit", x2600_slcd_8bit, 1),
++	INGENIC_PIN_GROUP("slcd-16bit", x2600_slcd_16bit, 1),
++	INGENIC_PIN_GROUP("slcd-ctrl", x2600_slcd_ctrl, 1),
++
++	/* MAC (Ethernet) */
++	INGENIC_PIN_GROUP("mac", x2600_mac, 0),
++
++	/* MMCs (MSC) */
++	INGENIC_PIN_GROUP("mmc0-1bit", x2600_msc0_1bit, 0),
++	INGENIC_PIN_GROUP("mmc0-4bit", x2600_msc0_4bit, 0),
++	INGENIC_PIN_GROUP("mmc0-8bit", x2600_msc0_8bit, 0),
++	INGENIC_PIN_GROUP("mmc1-1bit-c", x2600_msc1_1bit_c, 0),
++	INGENIC_PIN_GROUP("mmc1-4bit-c", x2600_msc1_4bit_c, 0),
++	INGENIC_PIN_GROUP("mmc1-1bit-d", x2600_msc1_1bit_d, 1),
++	INGENIC_PIN_GROUP("mmc1-4bit-d", x2600_msc1_4bit_d, 1),
++
++	/* OTG (Vbus driver) */
++	INGENIC_PIN_GROUP("otg-vbus", x2600_otg, 1),
++
++	/* PWMs */
++	INGENIC_PIN_GROUP("pwm0", x2600_pwm0, 2),
++	INGENIC_PIN_GROUP("pwm1", x2600_pwm1, 2),
++	INGENIC_PIN_GROUP("pwm2", x2600_pwm2, 2),
++	INGENIC_PIN_GROUP("pwm3", x2600_pwm3, 2),
++	INGENIC_PIN_GROUP("pwm4", x2600_pwm4, 2),
++	INGENIC_PIN_GROUP("pwm5", x2600_pwm5, 2),
++	INGENIC_PIN_GROUP("pwm6", x2600_pwm6, 2),
++	INGENIC_PIN_GROUP("pwm7", x2600_pwm7, 2),
++	INGENIC_PIN_GROUP("pwm8", x2600_pwm8, 0),
++	INGENIC_PIN_GROUP("pwm9", x2600_pwm9, 0),
++	INGENIC_PIN_GROUP("pwm10-c", x2600_pwm10_c, 0),
++	INGENIC_PIN_GROUP("pwm10-e", x2600_pwm10_e, 2),
++	INGENIC_PIN_GROUP("pwm11", x2600_pwm11, 0),
++	INGENIC_PIN_GROUP("pwm12", x2600_pwm12, 0),
++	INGENIC_PIN_GROUP("pwm13", x2600_pwm13, 0),
++	INGENIC_PIN_GROUP("pwm14", x2600_pwm14, 0),
++	INGENIC_PIN_GROUP("pwm15", x2600_pwm15, 0),
++	INGENIC_PIN_GROUP("pwm-trig-c", x2600_pwm_trig_c, 1),
++	INGENIC_PIN_GROUP("pwm-trig-d", x2600_pwm_trig_d, 1),
++
++	/* SFC (Serial Flash Controller) */
++	INGENIC_PIN_GROUP("sfc-d0", x2600_sfc_d0, 1),
++	INGENIC_PIN_GROUP("sfc-d6", x2600_sfc_d6, 0),
++
++	/* SSIs (SPI) */
++	INGENIC_PIN_GROUP("ssi0-dt-b", x2600_ssi0_dt_b, 0),
++	INGENIC_PIN_GROUP("ssi0-dr-b", x2600_ssi0_dr_b, 0),
++	INGENIC_PIN_GROUP("ssi0-clk-b", x2600_ssi0_clk_b, 0),
++	INGENIC_PIN_GROUP("ssi0-ce0-b", x2600_ssi0_ce0_b, 0),
++	INGENIC_PIN_GROUP("ssi0-dt-d", x2600_ssi0_dt_d, 2),
++	INGENIC_PIN_GROUP("ssi0-dr-d", x2600_ssi0_dr_d, 2),
++	INGENIC_PIN_GROUP("ssi0-clk-d", x2600_ssi0_clk_d, 2),
++	INGENIC_PIN_GROUP("ssi0-ce0-d", x2600_ssi0_ce0_d, 2),
++	INGENIC_PIN_GROUP("ssi1-dt-c15", x2600_ssi1_dt_c15, 2),
++	INGENIC_PIN_GROUP("ssi1-dr-c15", x2600_ssi1_dr_c15, 2),
++	INGENIC_PIN_GROUP("ssi1-clk-c15", x2600_ssi1_clk_c15, 2),
++	INGENIC_PIN_GROUP("ssi1-ce0-c15", x2600_ssi1_ce0_c15, 2),
++	INGENIC_PIN_GROUP("ssi1-dt-c25", x2600_ssi1_dt_c25, 1),
++	INGENIC_PIN_GROUP("ssi1-dr-c25", x2600_ssi1_dr_c25, 1),
++	INGENIC_PIN_GROUP("ssi1-clk-c25", x2600_ssi1_clk_c25, 1),
++	INGENIC_PIN_GROUP("ssi1-ce0-c25", x2600_ssi1_ce0_c25, 1),
++	INGENIC_PIN_GROUP("ssi-slv-dt-b", x2600_ssi_slv_dt, 2),
++	INGENIC_PIN_GROUP("ssi-slv-dr-b", x2600_ssi_slv_dr, 2),
++	INGENIC_PIN_GROUP("ssi-slv-clk-b", x2600_ssi_slv_clk, 2),
++	INGENIC_PIN_GROUP("ssi-slv-ce0-b", x2600_ssi_slv_ce0, 2),
++
++	/* TCUs (Timer & Counter Units) */
++	INGENIC_PIN_GROUP("tcu0_in0", x2600_tcu0_in0, 2),
++	INGENIC_PIN_GROUP("tcu0_in1", x2600_tcu0_in1, 2),
++	INGENIC_PIN_GROUP("tcu1_in0", x2600_tcu1_in0, 2),
++	INGENIC_PIN_GROUP("tcu1_in1", x2600_tcu1_in1, 2),
++	INGENIC_PIN_GROUP("tcu2_in0", x2600_tcu2_in0, 2),
++	INGENIC_PIN_GROUP("tcu2_in1", x2600_tcu2_in1, 2),
++	INGENIC_PIN_GROUP("tcu3_in0", x2600_tcu3_in0, 2),
++	INGENIC_PIN_GROUP("tcu3_in1", x2600_tcu3_in1, 2),
++	INGENIC_PIN_GROUP("tcu4_in0", x2600_tcu4_in0, 1),
++	INGENIC_PIN_GROUP("tcu4_in1", x2600_tcu4_in1, 1),
++	INGENIC_PIN_GROUP("tcu5_in0", x2600_tcu5_in0, 1),
++	INGENIC_PIN_GROUP("tcu5_in1", x2600_tcu5_in1, 1),
++	INGENIC_PIN_GROUP("tcu6_in0", x2600_tcu6_in0, 1),
++	INGENIC_PIN_GROUP("tcu6_in1", x2600_tcu6_in1, 1),
++	INGENIC_PIN_GROUP("tcu7_in0", x2600_tcu7_in0, 1),
++	INGENIC_PIN_GROUP("tcu7_in1", x2600_tcu7_in1, 1),
++
++	/* UARTs */
++	INGENIC_PIN_GROUP("uart0-data-c", x2600_uart0_data_c, 1),
++	INGENIC_PIN_GROUP("uart0-hwflow-c", x2600_uart0_hwflow_c, 1),
++	INGENIC_PIN_GROUP("uart0-data-e", x2600_uart0_data_e, 1),
++	INGENIC_PIN_GROUP("uart0-hwflow-e", x2600_uart0_hwflow_e, 1),
++	INGENIC_PIN_GROUP("uart1-data-b", x2600_uart1_data_b, 1),
++	INGENIC_PIN_GROUP("uart1-data-c", x2600_uart1_data_c, 2),
++	INGENIC_PIN_GROUP("uart1-hwflow-b", x2600_uart1_hwflow_b, 1),
++	INGENIC_PIN_GROUP("uart1-hwflow-c", x2600_uart1_hwflow_c, 2),
++	INGENIC_PIN_GROUP("uart2-data", x2600_uart2_data, 0),
++	INGENIC_PIN_GROUP("uart3-data-b", x2600_uart3_data_b, 1),
++	INGENIC_PIN_GROUP("uart3-data-c", x2600_uart3_data_c, 3),
++	INGENIC_PIN_GROUP("uart4-data-b", x2600_uart4_data_b, 1),
++	INGENIC_PIN_GROUP("uart4-data-c", x2600_uart4_data_c, 3),
++	INGENIC_PIN_GROUP("uart5-data-b", x2600_uart5_data_b, 1),
++	INGENIC_PIN_GROUP("uart5-data-c", x2600_uart5_data_c, 3),
++	INGENIC_PIN_GROUP("uart6-data-c", x2600_uart6_data_c, 2),
++	INGENIC_PIN_GROUP("uart7-data-c", x2600_uart7_data_c, 1),
++	INGENIC_PIN_GROUP("uart7-data-e", x2600_uart7_data_e, 1),
++
++	/* WAIT */
++	INGENIC_PIN_GROUP("wait", x2600_wait, 3),
++};
++
++static const char * const x2600_can0_groups[] = { "can0-data", };
++static const char * const x2600_can1_groups[] = { "can1-data", };
++
++static const char * const x2600_cim_groups[] = { "cim-data", };
++
++static const char * const x2600_clk_groups[] = { "ex-clk", };
++
++static const char * const x2600_dmic_groups[] = { "dmic-data", };
++
++static const char * const x2600_lcd_groups[] = {
++	"lcd-16bit", "lcd-18bit", "lcd-24bit", "lcd-sync",
++};
++
++static const char * const x2600_i2c0_groups[] = { "i2c0-data-c", "i2c0-data-d", };
++static const char * const x2600_i2c1_groups[] = { "i2c1-data-b", "i2c1-data-c", };
++static const char * const x2600_i2c2_groups[] = { "i2c2-data-b", "i2c2-data-c", };
++static const char * const x2600_i2c3_groups[] = { "i2c3-data-c", "i2c3-data-e", };
++
++static const char * const x2600_i2s_groups[] = {
++	"i2s-data", "i2s-clk-rx", "i2s-clk-tx", "i2s-sysclk",
++};
++
++static const char * const x2600_pcm_groups[] = { "pcm", };
++
++static const char * const x2600_mac_groups[] = { "mac", };
++
++static const char * const x2600_msc0_groups[] = { "mmc0-1bit", "mmc0-4bit", "mmc0-8bit", };
++
++static const char * const x2600_msc1_groups[] = {
++	"mmc1-1bit-c", "mmc1-4bit-c", "mmc1-1bit-d", "mmc1-4bit-d",
++};
++
++static const char * const x2600_otg_groups[] = { "otg-vbus", };
++
++static const char * const x2600_pwm0_groups[] = { "pwm0", };
++static const char * const x2600_pwm1_groups[] = { "pwm1", };
++static const char * const x2600_pwm2_groups[] = { "pwm2", };
++static const char * const x2600_pwm3_groups[] = { "pwm3", };
++static const char * const x2600_pwm4_groups[] = { "pwm4", };
++static const char * const x2600_pwm5_groups[] = { "pwm5", };
++static const char * const x2600_pwm6_groups[] = { "pwm6", };
++static const char * const x2600_pwm7_groups[] = { "pwm7", };
++static const char * const x2600_pwm8_groups[] = { "pwm8", };
++static const char * const x2600_pwm9_groups[] = { "pwm9", };
++static const char * const x2600_pwm10_groups[] = { "pwm10-c", "pwm10-e", };
++
++static const char * const x2600_pwm11_groups[] = { "pwm11", };
++static const char * const x2600_pwm12_groups[] = { "pwm12", };
++static const char * const x2600_pwm13_groups[] = { "pwm13", };
++static const char * const x2600_pwm14_groups[] = { "pwm14", };
++static const char * const x2600_pwm15_groups[] = { "pwm15", };
++static const char * const x2600_pwm_trig_groups[] = { "pwm-trig-c", "pwm-trig-d", };
++static const char * const x2600_wait_groups[] = { "wait", };
++
++static const char * const x2600_sfc_groups[] = { "sfc-d0", "sfc-d6", };
++
++static const char * const x2600_slcd_groups[] = { "slcd-8bit", "slcd-16bit", "slcd-ctrl", };
++
++static const char * const x2600_ssi0_groups[] = {
++	"ssi0-dt-b", "ssi0-dr-b", "ssi0-clk-b", "ssi0-ce0-b",
++	"ssi0-dt-d", "ssi0-dr-d", "ssi0-clk-d", "ssi0-ce0-d",
++};
++
++static const char * const x2600_ssi1_groups[] = {
++	"ssi1-dt-c15", "ssi1-dr-c15", "ssi1-clk-c15", "ssi1-ce0-c15",
++	"ssi1-dt-c25", "ssi1-dr-c25", "ssi1-clk-c25", "ssi1-ce0-c25",
++};
++
++static const char * const x2600_ssi_slv_groups[] = {
++	"ssi-slv-dt-b", "ssi-slv-dr-b", "ssi-slv-clk-b", "ssi-slv-ce0-b",
++};
++
++static const char * const x2600_tcu_groups[] = {
++	"tcu0_in0", "tcu0_in1",
++	"tcu1_in0", "tcu1_in1",
++	"tcu2_in0", "tcu2_in1",
++	"tcu3_in0", "tcu3_in1",
++	"tcu4_in0", "tcu4_in1",
++	"tcu5_in0", "tcu5_in1",
++	"tcu6_in0", "tcu6_in1",
++	"tcu7_in0", "tcu7_in1",
++};
++
++static const char * const x2600_uart0_groups[] = {
++	"uart0-data-c", "uart0-hwflow-c", "uart0-data-e", "uart0-hwflow-e",
++};
++
++static const char * const x2600_uart1_groups[] = {
++	"uart1-data-b", "uart1-data-c",
++	"uart1-hwflow-b", "uart1-hwflow-c",
++};
++
++static const char * const x2600_uart2_groups[] = { "uart2-data", };
++static const char * const x2600_uart3_groups[] = { "uart3-data-b", "uart3-data-c", };
++static const char * const x2600_uart4_groups[] = { "uart4-data-b", "uart4-data-c", };
++static const char * const x2600_uart5_groups[] = { "uart5-data-b", "uart5-data-c", };
++static const char * const x2600_uart6_groups[] = { "uart6-data-c", };
++static const char * const x2600_uart7_groups[] = { "uart7-data-c", "uart7-data-e", };
++
++static const struct pinfunction x2600_functions[] = {
++	INGENIC_PIN_FUNCTION("can0", x2600_can0),
++	INGENIC_PIN_FUNCTION("can1", x2600_can1),
++	INGENIC_PIN_FUNCTION("cim", x2600_cim),
++	INGENIC_PIN_FUNCTION("exclk", x2600_clk),
++	INGENIC_PIN_FUNCTION("dmic", x2600_dmic),
++	INGENIC_PIN_FUNCTION("i2c0", x2600_i2c0),
++	INGENIC_PIN_FUNCTION("i2c1", x2600_i2c1),
++	INGENIC_PIN_FUNCTION("i2c2", x2600_i2c2),
++	INGENIC_PIN_FUNCTION("i2c3", x2600_i2c3),
++	INGENIC_PIN_FUNCTION("i2s", x2600_i2s),
++	INGENIC_PIN_FUNCTION("pcm", x2600_pcm),
++	INGENIC_PIN_FUNCTION("lcd", x2600_lcd),
++	INGENIC_PIN_FUNCTION("mac", x2600_mac),
++	INGENIC_PIN_FUNCTION("mmc0", x2600_msc0),
++	INGENIC_PIN_FUNCTION("mmc1", x2600_msc1),
++	INGENIC_PIN_FUNCTION("otg", x2600_otg),
++	INGENIC_PIN_FUNCTION("pwm0", x2600_pwm0),
++	INGENIC_PIN_FUNCTION("pwm1", x2600_pwm1),
++	INGENIC_PIN_FUNCTION("pwm2", x2600_pwm2),
++	INGENIC_PIN_FUNCTION("pwm3", x2600_pwm3),
++	INGENIC_PIN_FUNCTION("pwm4", x2600_pwm4),
++	INGENIC_PIN_FUNCTION("pwm5", x2600_pwm5),
++	INGENIC_PIN_FUNCTION("pwm6", x2600_pwm6),
++	INGENIC_PIN_FUNCTION("pwm7", x2600_pwm7),
++	INGENIC_PIN_FUNCTION("pwm8", x2600_pwm8),
++	INGENIC_PIN_FUNCTION("pwm9", x2600_pwm9),
++	INGENIC_PIN_FUNCTION("pwm10", x2600_pwm10),
++	INGENIC_PIN_FUNCTION("pwm11", x2600_pwm11),
++	INGENIC_PIN_FUNCTION("pwm12", x2600_pwm12),
++	INGENIC_PIN_FUNCTION("pwm13", x2600_pwm13),
++	INGENIC_PIN_FUNCTION("pwm14", x2600_pwm14),
++	INGENIC_PIN_FUNCTION("pwm15", x2600_pwm15),
++	INGENIC_PIN_FUNCTION("pwm-trig", x2600_pwm_trig),
++	INGENIC_PIN_FUNCTION("sfc", x2600_sfc),
++	INGENIC_PIN_FUNCTION("slcd", x2600_slcd),
++	INGENIC_PIN_FUNCTION("ssi0", x2600_ssi0),
++	INGENIC_PIN_FUNCTION("ssi1", x2600_ssi1),
++	INGENIC_PIN_FUNCTION("ssi-slv", x2600_ssi_slv),
++	INGENIC_PIN_FUNCTION("uart0", x2600_uart0),
++	INGENIC_PIN_FUNCTION("uart1", x2600_uart1),
++	INGENIC_PIN_FUNCTION("uart2", x2600_uart2),
++	INGENIC_PIN_FUNCTION("uart3", x2600_uart3),
++	INGENIC_PIN_FUNCTION("uart4", x2600_uart4),
++	INGENIC_PIN_FUNCTION("uart5", x2600_uart5),
++	INGENIC_PIN_FUNCTION("uart6", x2600_uart6),
++	INGENIC_PIN_FUNCTION("uart7", x2600_uart7),
++	INGENIC_PIN_FUNCTION("tcu", x2600_tcu),
++	INGENIC_PIN_FUNCTION("wait", x2600_wait),
++};
++
++static const struct regmap_range x2600_access_ranges[] = {
++	regmap_reg_range(0x0000 + 0x000, 0x0000 + 0x0e8),
++	regmap_reg_range(0x0000 + 0x170, 0x0000 + 0x190),
++	regmap_reg_range(0x0000 + 0x200, 0x0000 + 0x210),
++	regmap_reg_range(0x0000 + 0x814, 0x0000 + 0x8f0),
++	regmap_reg_range(0x0000 + 0x974, 0x0000 + 0x978),
++
++	regmap_reg_range(0x1000 + 0x000, 0x1000 + 0x0e8),
++	regmap_reg_range(0x1000 + 0x170, 0x1000 + 0x190),
++	regmap_reg_range(0x1000 + 0x200, 0x1000 + 0x210),
++	regmap_reg_range(0x1000 + 0x814, 0x1000 + 0x8f0),
++	regmap_reg_range(0x1000 + 0x974, 0x1000 + 0x978),
++
++	regmap_reg_range(0x2000 + 0x000, 0x2000 + 0x0e8),
++	regmap_reg_range(0x2000 + 0x170, 0x2000 + 0x190),
++	regmap_reg_range(0x2000 + 0x200, 0x2000 + 0x210),
++	regmap_reg_range(0x2000 + 0x814, 0x2000 + 0x8f0),
++	regmap_reg_range(0x2000 + 0x974, 0x2000 + 0x978),
++
++	regmap_reg_range(0x3000 + 0x000, 0x3000 + 0x0e8),
++	regmap_reg_range(0x3000 + 0x170, 0x3000 + 0x190),
++	regmap_reg_range(0x3000 + 0x200, 0x3000 + 0x210),
++	regmap_reg_range(0x3000 + 0x814, 0x3000 + 0x8f0),
++	regmap_reg_range(0x3000 + 0x974, 0x3000 + 0x978),
++
++	regmap_reg_range(0x4000 + 0x000, 0x4000 + 0x0e8),
++	regmap_reg_range(0x4000 + 0x100, 0x4000 + 0x118),
++	regmap_reg_range(0x4000 + 0x170, 0x4000 + 0x190),
++	regmap_reg_range(0x4000 + 0x200, 0x4000 + 0x210),
++	regmap_reg_range(0x4000 + 0x814, 0x4000 + 0x8f0),
++	regmap_reg_range(0x4000 + 0x974, 0x4000 + 0x978),
++};
++
++static const struct regmap_access_table x2600_access_table = {
++	.yes_ranges = x2600_access_ranges,
++	.n_yes_ranges = ARRAY_SIZE(x2600_access_ranges),
++};
++
++static const struct ingenic_chip_info x2600_chip_info = {
++	.num_chips = 5,
++	.reg_offset = 0x1000,
++	.version = ID_X2600,
++	.groups = x2600_groups,
++	.num_groups = ARRAY_SIZE(x2600_groups),
++	.functions = x2600_functions,
++	.num_functions = ARRAY_SIZE(x2600_functions),
++	.pull_ups = x2600_pull_ups,
++	.pull_downs = x2600_pull_downs,
++	.access_table = &x2600_access_table,
++};
++
+ static u32 ingenic_gpio_read_reg(struct ingenic_gpio_chip *jzgc, u8 reg)
+ {
+ 	unsigned int val;
+@@ -4445,6 +4960,7 @@ static const struct of_device_id ingenic_gpio_of_matches[] __initconst = {
+ 	{ .compatible = "ingenic,x1830-gpio" },
+ 	{ .compatible = "ingenic,x2000-gpio" },
+ 	{ .compatible = "ingenic,x2100-gpio" },
++	{ .compatible = "ingenic,x2600-gpio" },
+ 	{},
+ };
+ 
+@@ -4706,6 +5222,10 @@ static const struct of_device_id ingenic_pinctrl_of_matches[] = {
+ 		.compatible = "ingenic,x2100-pinctrl",
+ 		.data = IF_ENABLED(CONFIG_MACH_X2100, &x2100_chip_info)
+ 	},
++	{
++		.compatible = "ingenic,x2600-pinctrl",
++		.data = IF_ENABLED(CONFIG_MACH_X2600, &x2600_chip_info)
++	},
+ 	{ /* sentinel */ },
+ };
+ 
 -- 
 2.56.0
 
