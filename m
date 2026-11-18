@@ -1,57 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795023434;
-	b=a0/pp6CjTElpViZEdPGPXIdaxyOyndF/qH40GYefBxEfqJZVp8o0G3EjMcYLzDnB4RnW
-	 EbeE0BKh6a9miPcX0UoPXo5byyfwuhJ988AjPhKHD4uu90pUQCjzGJx//hCpkxN+9r189
-	 Jnrju37mSrEKzog8vce7kSYDCR37tjZHzZaVYRoEBXps/GGuroMS5C1eM1i3mR9WzPt+l
-	 TT1K2Hf5KC1G0BJhwo7mpKKZyjeoQRSjcdgNQET/v/XfjqVoNe28ibQQwJzZ+rM3c2T3p
-	 r5BAVPY7pKq2/E1yt9hFxYbljlYFTSc6sRSTSWIx+MtPGXTP6flzqbTlHNpCixR6dvg==
+	b=3P+6SvQdRsVY5U4aQCkMu6TogOvXoGRDsUOaJoUaFsuECkyHF7P1BaS9TTChFBgixh0q
+	 ZAruV7fQW12ivG3qhyG16o1v5ScY5CXAudNSoU1ZMnW1sIUxDIfMoA73wbkTZDZem2El6
+	 rOLT/YuEpNQXS/BV7EqAJlKJ9g9PbalfPFhyXikd5IhDuOzEnsBohY0svHbhRzPI6pfSS
+	 40GZQqKa0sJKjA7ZgX+JKErohCkanRUH1DPDsOBGKha6STLHAFpzFlaaZKvVnD/u8v3XD
+	 ldMYq5hBxwdcAERu38cANdmsAN5HUgqCoHGR8/59zzlVclmbT62AYCD9MI4QqA9VW1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795023434;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ShLC17P8YWO1TsZERqx/vi8oGgh36RSBBtzFBkxcMQw=;
-	b=Zt73HuPyKxRM/InNY+8D/c8UMk+CcIkYGsaAGahz9XhtiXpbaPAO6IVUGy2AiwVcmUh1
-	 bWrhAqoZ4mB+JtqMXqAGWaXYTYKfmIcSZKVVYoZyRbZHSGs1QoafbecNlzPgr2AYCPmMW
-	 d+pz5E/W8Dvl8o8eYC4nf+BGvbRDN3sMq/ZkI+3700ybwGe9s75dEXeubzh5u+c8n5CWC
-	 KlEE4LDk1tz/pmMHXPqb+17xHyMKtVBwSpllycWCnisbyhXLnliqa6M/iLUw3qE51QaYr
-	 F8xkyUI2CnWuIxtGZya9Vsn0/vZOIg0yWOXdHYM/zZB4jOh8cnQJc2XLaeJahs1smtw==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gvDDaubiK4xTOcbQm0youXVmrD0ANoAaeBKAg/I3LXM=;
+	b=qUTa6lkNWcNxVYN1IjHhrin82Pj7tqxMe873HS8AwgMEoWspiey5rs1EQlLF0bhh8Ma0
+	 wN7sCzvxXrU5efM/7oEGSCDN2fLhsAGhNl3VWpnbfm4d2SAUhDU6rZvzIby/Icz7MTZLw
+	 RTt95sb4psdMJ6mUtOZMRwzpYaavTcsYDiNeL+vXUP7235oNw5mIp6MqLrqpI+0Fl9tnj
+	 k1RbPwv3qY3ym9jitJTdKS9QQPBv+WYldlkMLt1kDahG0RWS4YCPBmMfx2v/wZUtamn7q
+	 JyPfv2E9qM5QY/lmerRqdLgE1i025tUvnUEPJMzA7/WgXZbup3TTV5Shsgjv4F+/7Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HvH6kCYz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YPCkEvYr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50124606CA78
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:37:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1886606CA43;
+	Wed, 18 Nov 2026 17:37:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HvH6kCYz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB6FD1F000C6;
-	Wed, 18 Nov 2026 17:37:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YPCkEvYr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93D341F000C5;
+	Wed, 18 Nov 2026 17:37:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795023434;
-	bh=ShLC17P8YWO1TsZERqx/vi8oGgh36RSBBtzFBkxcMQw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HvH6kCYzWqKFxSFx82Yf2opEJhXYwtqxpSpNkL/XfOymjD49H9kPs7Gw4ysxF8k+M
-	 CVLu3k1CNOoPynwpoWi98cDvLi0PcIQZGWjk4u5fQCCx/dQHLqn1QZdzw/uNPJss6e
-	 CEquwk4LgevFdWu4AxKwO+oAwryGVfP5scDIeQKFumOBTkPkFU8U8s6OcAe1dYDmS7
-	 ap5CmJdrBeFxNqRcyIf2kwwzFVdolw+LYTKW8sKxYBhqoMnkWLgF4uG3IxfSeVsycR
-	 zmSG6PqhlvXr6Q+ZeZJxRvvacdjCWMYiXqfPIyGyjBS4l27O8ziKXIe4jWWaMzJcsC
-	 3zRkqeP9pE+0w==
-Message-ID: <sashiko-outbox-221667@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 12/12] arm64: dts: qcom: sdm670-google: Enable vbus
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg" <david@ixit.cz>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-pmi8998-vbus-v2-12-3c77a72b280a@ixit.cz>
-References: <20261118-pmi8998-vbus-v2-0-3c77a72b280a@ixit.cz>
- <20261118-pmi8998-vbus-v2-12-3c77a72b280a@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 17:37:13 +0000
+	bh=gvDDaubiK4xTOcbQm0youXVmrD0ANoAaeBKAg/I3LXM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YPCkEvYrYZi+pDD6DfGqiZBK+vUi7ax0Nk0QazWmmDmSwugCXj306PcXuUVnlfO+e
+	 Av91dDmnAUWr8Udmh0JLrOIrCoduW7pWUEjfYCyWQ6ZE+mFLqWvD4hEWoo1hP/pPIv
+	 6hbt6PIxbByk2aRIGfNE7xXApddOiiuPiISHT3Vhi61B/rrsY0Ebjf6jmMNvkM3Qus
+	 GDo1Leg5038dwvxDTXDkosJLazYCNWK59U983H+gY5ricm5jaOyEZFhoMGi6grV/8S
+	 +Z7pqPjEje0xnImd25EGlmIohGpbGP/cTrb8X+ROtkVsAmQRtRaNiqmA0aE3oF7BLh
+	 XfGVrS03miEhQ==
+Date: Wed, 18 Nov 2026 17:37:08 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Matti Vaittinen <matti.vaittinen@linux.dev>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Radu Sabau <radu.sabau@analog.com>,
+	Janani Sunil <janani.sunil@analog.com>,
+	Salih Erim <salih.erim@amd.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Jakub Szczudlo <jakubszczudlo40@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: Support ROHM BD79111
+Message-ID: <20261118-ancient-ominous-4f2a4a37369b@spud>
+References: <cover.1795009599.git.mazziesaccount@gmail.com>
+ <f69b996cc07fad1712871fb8b0436c71abd435b9.1795009599.git.mazziesaccount@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,48 +72,187 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IjquCaiCLr6jpdok"
+Content-Disposition: inline
+In-Reply-To: <f69b996cc07fad1712871fb8b0436c71abd435b9.1795009599.git.mazziesaccount@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] arm64: dts: qcom: sdm670-google: enabling pm660_vbus fails
-  dtbs_check
---
+--IjquCaiCLr6jpdok
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 6df670bdbe84094d0f566a1be877a69fbfe53de2
-Author: David Heidelberg <david@ixit.cz>
+On Wed, Nov 18, 2026 at 04:19:11PM +0200, Matti Vaittinen wrote:
+> From: Matti Vaittinen <mazziesaccount@gmail.com>
+>=20
+> ROHM BD79111 is very similar to the BD79112. Both are ADC/GPIO devices,
+> where pins can be configured to be either used as GPIO or ADC inputs.
+> ADCs are 12-bit SAR ADCs and GPIOs support input/output but not being IRQ
+> sources.
+>=20
+> The main difference is amount of channels/GPIOs. The BD79112 has 32 pins
+> for this use, the BD79111 has 16. Furthermore, the BD79111 data-sheet
+> promises 0.5 MSPS sample rate with maximum of 10 MHz SPI clock,  whereas
+> the BD79112 data-sheet mentioned 1MSPS rate with maximum of 20 MHz SPI
+> clock.
+>=20
+> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+>=20
+> ---
+>=20
+> Note, I had to change the 'root-level' additionalProperties: false to
+> unevaluatedProperties: false in order to allow the properties in the new
+> allOf:
+>   - if:
+>      ...
+>=20
+> section. It seems to me this is what a few other bindings in IIO do, but
+> I suppose it makes this "less strict". Well, since I am terrible with
+> writing bindings, I'd better point this out and ask if it's ok, or if
+> there are better way(s) to handle this?
 
-arm64: dts: qcom: sdm670-google: Enable vbus support
+I don't think you should have to do that though, since the children are
+described in the same file.
+If you instead retained the pattern properties section, and lowered the
+restriction to channel@<any number> with reg with the max of 31 and in
+the conditional section constrained reg to a max of 16 does it work
+without the unevaluatedProperties change? We typically want properties
+defined at the top level and constrained in conditional sections anyway.
 
-This commit enables the pm660_vbus regulator with current limits on
-Google SDM670 devices.
+Chees,
+Conor.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/ar=
-m64/boot/dts/qcom/sdm670-google-common.dtsi
-> index 8f91faf8a9cc5..9c95855b56e7b 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-> @@ -609,6 +609,13 @@ &pm660_rradc {
->  	status =3D "okay";
->  };
+> ---
+>  .../bindings/iio/adc/rohm,bd79112.yaml        | 72 +++++++++++++------
+>  1 file changed, 50 insertions(+), 22 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/adc/rohm,bd79112.yaml =
+b/Documentation/devicetree/bindings/iio/adc/rohm,bd79112.yaml
+> index aa8b07c3fac1..4f105124ee6f 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/rohm,bd79112.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/rohm,bd79112.yaml
+> @@ -4,18 +4,21 @@
+>  $id: http://devicetree.org/schemas/iio/adc/rohm,bd79112.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
 > =20
-> +&pm660_vbus {
-> +	regulator-min-microamp =3D <500000>;
-> +	regulator-max-microamp =3D <1500000>;
+> -title: ROHM BD79112 ADC/GPO
+> +title: ROHM BD79111 and BD79112 ADC/GPIO
+> =20
+>  maintainers:
+>    - Matti Vaittinen <mazziesaccount@gmail.com>
+> =20
+>  description: |
+> -  The ROHM BD79112 is a 12-bit, 32-channel, SAR ADC. ADC input pins can =
+be
+> -  also configured as general purpose inputs/outputs. SPI should use MODE=
+ 3.
+> +  The ROHM BD79112 is a 12-bit, 32-channel, SAR ADC. The ROHM BD79111 is
+> +  a 12-bit, 16-channel, SAR ADC. ADC input pins can be also configured as
+> +  general purpose inputs/outputs. SPI should use MODE 3.
+> =20
+>  properties:
+>    compatible:
+> -    const: rohm,bd79112
+> +    enum:
+> +      - rohm,bd79111
+> +      - rohm,bd79112
+> =20
+>    reg:
+>      maxItems: 1
+> @@ -37,23 +40,6 @@ properties:
+>    "#size-cells":
+>      const: 0
+> =20
+> -patternProperties:
+> -  "^channel@([0-9]|[12][0-9]|3[01])$":
+> -    type: object
+> -    $ref: /schemas/iio/adc/adc.yaml#
+> -    description: Represents ADC channel. Omitted channels' inputs are GP=
+IOs.
+> -
+> -    properties:
+> -      reg:
+> -        description: AIN pin number
+> -        minimum: 0
+> -        maximum: 31
+> -
+> -    required:
+> -      - reg
+> -
+> -    additionalProperties: false
+> -
+>  required:
+>    - compatible
+>    - reg
+> @@ -62,7 +48,49 @@ required:
+>    - spi-cpha
+>    - spi-cpol
+> =20
+> -additionalProperties: false
+> +unevaluatedProperties: false
 > +
-> +	status =3D "okay";
-> +};
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: rohm,bd79112
+> +    then:
+> +      patternProperties:
+> +        "^channel@([0-9]|[12][0-9]|3[01])$":
+> +          type: object
+> +          $ref: /schemas/iio/adc/adc.yaml#
+> +          description: Represents ADC channel. Omitted channels' inputs =
+are GPIOs.
+> +
+> +          properties:
+> +            reg:
+> +              description: AIN pin number
+> +              minimum: 0
+> +              maximum: 31
+> +
+> +          required:
+> +            - reg
+> +
+> +          additionalProperties: false
+> +    else:
+> +      # BD79111 has only 16 channels
+> +      patternProperties:
+> +        "^channel@([0-9]|1[0-5])$":
+> +          type: object
+> +          $ref: /schemas/iio/adc/adc.yaml#
+> +          description: Represents ADC channel. Omitted channels' inputs =
+are GPIOs.
+> +
+> +          properties:
+> +            reg:
+> +              description: AIN pin number
+> +              minimum: 0
+> +              maximum: 15
+> +
+> +          required:
+> +            - reg
+> +
+> +          additionalProperties: false
+> =20
+>  examples:
+>    - |
+> --=20
+> 2.56.1
+>=20
 
-[Severity: Low]
-Does enabling pm660_vbus cause dtbs_check to fail on sdm670-google DTs?
 
-In arch/arm64/boot/dts/qcom/pm660.dtsi, pm660_vbus uses compatible =3D
-"qcom,pm660-vbus-reg", "qcom,pmi8998-vbus-reg", matching the driver,
-whereas Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator=
-.yaml
-requires const: qcom,pm8998-vbus-reg (missing the "i") and omits
-qcom,pm660-vbus-reg and qcom,pmi8998-vbus-reg from the allOf rule for
-regulator-min-microamp and regulator-max-microamp.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-pmi8998-vb=
-us-v2-0-3c77a72b280a@ixit.cz?part=3D12
+--IjquCaiCLr6jpdok
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCav3iRAAKCRB4tDGHoIJi
+0hj9AQCEZ5DA/0TOVe/Xv7/ev89OfSbx9vS5R3o/+rE/Vt/XegD/f6ThrkSEfTut
+aC/xeEqi8kwKw0VLYAsywOHlxiqS7wQ=
+=JZv0
+-----END PGP SIGNATURE-----
+
+--IjquCaiCLr6jpdok--
