@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794990042;
-	b=tyYDz8Mm+F95KgHBHEEMJapuMBp3FDs/AC/TDBHMB5Et8W1wsjPkrdSy744LFXSGg2Bs
-	 mYWUHmfY5H1Yvl8x8arZHe49GlnXKT5DMPtnSob/bQGBAUaccLv64vcj+2C48fIlMom6o
-	 jUQKjHFyEu4J4i7gG9U+T0qmYf9qW1nFeoObW6PsmHee9Bz1PAgFX3FDxlfLRZw4Y3j0n
-	 WxdXkHfvrILpT9HNj9Cyaxc4G2pIyg9glejVnx9aqFJyyVh0gNrxuDM4aySHjqu259VWD
-	 TUGVlxc9NCNNCsiKE+isgistL4QUep5qJUdpsewiOEK4e26VhE1V6Sm/ojQehvyEKsw==
+	t=1794990103;
+	b=xuA801NTUYIkGoV90kXh17Jsa4vgV+DeYVPh/dRz13Tvb5GNkB7+3A6C/vSyOBpdaW5W
+	 sHxtqsNSPZQLOAI8Clm6K3PgyhbG31bbIc/9leG/6UeFp8y+WB+DLgMg6NejQ0OtPe7xW
+	 nHQHvod0sYqM6xaNkwa0Hmn3N/dljI1iNfU221BQpVS5xQrGh722QiYFXIfOq8QGe4RjW
+	 R1gjxT5ujz1/5XR+dflcPxJVj9iIedQKQGZ6tebIpQqTeZzHOR9CgBnllYapy85bLIyKX
+	 dhFI7YGPOo6rRigX2GOPuMSMyVfw0C470St7Wyh6yecD6vbrFQy7gJRlU5ei8x+GdvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794990042;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=8MyJeE7jEQBoCmRfqffK2sFweiGpDiddk2TOmES2R9Q=;
-	b=hdpCluqs1ZMlQszm2efm0AYFutCaMN1O5yxzjkJAVWbwp6HGznAVqSBUKKtDV6tsDJ7M
-	 IIWIECowGzxJvqn57pVxFR686c+pITn+7RmirI4sE909wJCcYZY2XMKRyaNC+ObkZ4ZO1
-	 rWTqqHulTapAI/5D/jobUDV21p59QsMf7IdQba7SCWTPd9Yn0L8h6kJ9FYss3FC59Z7ae
-	 a/xEFnpuCNGqSw9ywlGKUidqi1rx/ddENR8RiTlEJk9JzaEG3Rhjacd+sKfQ69yjpFnmn
-	 h9O1CEn7Lw39gz/ubPjM6Owfhd6FjsugHRKnz090RqUfcwNFlwswREWYhYuIFqEEenA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794990103;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fDgvd2bO7Xp9qpMeR7EvFEr4dO1CNV2TCx7+94vVafk=;
+	b=PObEag7ZWWTe8x5/+NMdgXXyrUofZfiwySOU604HdDh4vhhyVhcj0VEv8y1Glx7ojbTf
+	 IzcyQcPZlQT3mjgScDfpLE+aBmdpJ6LCYEL+jxGxIiEwlnwtnCwHfPma5/cSkEJd5+D6w
+	 YQKLdjdMcf8YAvPB0OStxZ4tooHburH3fQvKWfie9o9PPPdF5/2jgIQRFXbyPnFnT2VWQ
+	 zMUDsvdW+2QjaLd6s2sT41vbh+Hx5h8KcNFeH86xRCu3nZbvj+thG1vSToU9p+so23hwl
+	 r1L7i4bWG3+T9dJsNHaCi5y6RD9Pu7/A/7rE0qfBRSGXiSuGdgFk9+nEDdnFNxqI7Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ls1+Duge;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P+cY+lTo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA79606A325
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:20:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA3B606A31C;
+	Wed, 18 Nov 2026 08:21:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ls1+Duge
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC521F000C4;
-	Wed, 18 Nov 2026 08:20:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P+cY+lTo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40F7B1F000C4;
+	Wed, 18 Nov 2026 08:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794990042;
-	bh=8MyJeE7jEQBoCmRfqffK2sFweiGpDiddk2TOmES2R9Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ls1+DugegXmymlgKE9a5C8F4B6duaYyu7vJSA/Qmv6DBuq7yalyMS21vdhKh3N9ha
-	 sz6FKRg4/CxoMeVve7dGPnh5sHjeORy0MmMcTJ/qgXkXPeZV2bE29jEN7uB9Q5/FM2
-	 9aqvnd4LYjvI1bNraoSndKrgeoq3NjQmeTK/XoEAbZMm5D75f6LwAmOkkbqfi80elO
-	 rVX4aDYjSVi7xk7aptbOG59ODSTQrR78/CdA2EEH94zz2gv3OWaYX4EleQL7rhnWQ6
-	 3nt3ocPg+BchR1LpwytCZbZ5SRKxkN2ob2MrS0DXc/giacoR2IqNOaeDKzBjyZHrAH
-	 e4CitThhaE0ew==
-Message-ID: <sashiko-outbox-220427@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v23 3/8] coresight: tmc: add a function to switch the
- ETR to a free etr_buf
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jie Gan" <jie.gan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-enable-byte-cntr-for-ctcu-v23-3-67fd9db6bc0e@oss.qualcomm.com>
-References: <20261118-enable-byte-cntr-for-ctcu-v23-0-67fd9db6bc0e@oss.qualcomm.com>
- <20261118-enable-byte-cntr-for-ctcu-v23-3-67fd9db6bc0e@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 08:20:41 +0000
+	s=k20260515; t=1794990103;
+	bh=fDgvd2bO7Xp9qpMeR7EvFEr4dO1CNV2TCx7+94vVafk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=P+cY+lToslaZalIsnJyT7cQJ8dOg6T2eNMw0sOcPi6FeVR7PRVeEvNFxCw0cgjsCg
+	 9x3ImY10mVKVdPd8QS/H7WO4AjwhFa7XlTCvUNBg4H/ZSmFIlXd8k9WQby9UewHwwx
+	 ojbFmmc7GBMw/dIEINlxzuzkbIN5j124FDP0DCXmH3EnG6DWNWiqLCcWS498AGCVPv
+	 8claF5gHCGrv8mt4lfBYmWmJo0nBDKRya1YH6MuzwIz6ZTqwiaBNPQSsyGJZ//J/JM
+	 lkzR25nqdlS4LcSG2r4+hnr+tao56xp1I4HbLvr16FBbufyc/ulsJUikhd/wx8lvQv
+	 AldS6b0GSC3vQ==
+Message-ID: <cd8934e9-8feb-43fb-92b6-9033fef92af7@kernel.org>
+Date: Wed, 18 Nov 2026 09:21:37 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,138 +50,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: arm: samsung: Document greatlte board
+ binding
+To: nhansp <nhan.094.vn@gmail.com>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+References: <20261116-upstream-greatlte-dts-v1-0-768d49fb7d85@gmail.com>
+ <20261116-upstream-greatlte-dts-v1-1-768d49fb7d85@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261116-upstream-greatlte-dts-v1-1-768d49fb7d85@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] coresight: tmc: unhandled enable failure in
-  tmc_etr_switch_buf_node()
-- [Low] coresight: tmc: redundant register writes in
-  tmc_etr_reset_sysfs_buf()
---
+On 16/11/2026 15:50, nhansp wrote:
+> Add a compatible for the Samsung Galaxy Note8 (SM-N950N), codenamed
+> greatlte, which is based on the Exynos 8895 SoC.
+> 
+> Signed-off-by: nhansp <nhan.094.vn@gmail.com>
 
-commit 4182b8271c7f6d8ac88e30050f83e36bc405e320
-Author: Jie Gan <jie.gan@oss.qualcomm.com>
+Please read submitting patches and understand what you are signing off.
+We don't take anonymous contributions.
 
-coresight: tmc: add a function to switch the ETR to a free etr_buf
-
-This commit adds tmc_etr_switch_buf_node() to stop the ETR, switch
-drvdata->sysfs_buf and drvdata->etr_buf to a free buffer node from
-etr_buf_list, and restart the ETR under drvdata->spinlock.
-
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hw=
-tracing/coresight/coresight-tmc-etr.c
-> index e9213f4568341..5032f5598e15b 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> +++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> @@ -1224,6 +1224,71 @@ static void __tmc_etr_disable_hw(struct tmc_drvdat=
-a *drvdata)
-> =20
->  }
-> =20
-> +static void tmc_etr_reset_sysfs_buf(struct tmc_drvdata *drvdata)
-> +{
-> +	u32 sts;
-> +
-> +	CS_UNLOCK(drvdata->base);
-> +	tmc_write_rrp(drvdata, drvdata->sysfs_buf->hwaddr);
-> +	tmc_write_rwp(drvdata, drvdata->sysfs_buf->hwaddr);
-> +	sts =3D readl_relaxed(drvdata->base + TMC_STS) & ~TMC_STS_FULL;
-> +	writel_relaxed(sts, drvdata->base + TMC_STS);
-> +	CS_LOCK(drvdata->base);
-> +}
-
-[Severity: Low]
-Is tmc_etr_reset_sysfs_buf() needed when __tmc_etr_enable_hw() is called
-immediately afterwards?
-
-__tmc_etr_enable_hw() already resets TMC_RRP, TMC_RWP, and TMC_STS_FULL
-after waiting for tmc_wait_for_tmcready() and updating TMC_DBA when the
-device has TMC_ETR_SAVE_RESTORE:
-
-drivers/hwtracing/coresight/coresight-tmc-etr.c:__tmc_etr_enable_hw() {
-    ...
-	if (tmc_etr_has_cap(drvdata, TMC_ETR_SAVE_RESTORE)) {
-		tmc_write_rrp(drvdata, etr_buf->hwaddr);
-		tmc_write_rwp(drvdata, etr_buf->hwaddr);
-		sts =3D readl_relaxed(drvdata->base + TMC_STS) & ~TMC_STS_FULL;
-		writel_relaxed(sts, drvdata->base + TMC_STS);
-	}
-    ...
-}
-
-Calling tmc_etr_reset_sysfs_buf() before __tmc_etr_enable_hw() duplicates
-those writes without checking TMC_ETR_SAVE_RESTORE or waiting for
-TMCReady.
-
-> +
-> +/**
-> + * tmc_etr_switch_buf_node - switch the ETR to a free buffer of the etr_=
-buf_list.
-> + * @drvdata:	drvdata of the TMC device.
-> + *
-> + * Stop the ETR, hand over the current buffer for reading, switch to a f=
-ree
-> + * buffer and restart the ETR. All of this is done with @drvdata->spinlo=
-ck held,
-> + * so it can't race with the sink disable path.
-> + *
-> + * Return: the node of the switched out buffer, or NULL if the sink isn'=
-t in
-> + * sysfs mode or there is no free buffer. The ETR is left untouched in b=
-oth
-> + * cases.
-> + */
-> +struct etr_buf_node *tmc_etr_switch_buf_node(struct tmc_drvdata *drvdata)
-> +{
-> +	struct etr_buf_node *nd, *curr_node =3D NULL, *picked_node =3D NULL;
-> +	unsigned long flags;
-> +
-> +	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
-> +	if (coresight_get_mode(drvdata->csdev) !=3D CS_MODE_SYSFS)
-> +		goto out;
-> +
-> +	list_for_each_entry(nd, &drvdata->etr_buf_list, link) {
-> +		if (nd->sysfs_buf =3D=3D drvdata->sysfs_buf)
-> +			curr_node =3D nd;
-> +		else if (!picked_node && nd->is_free && !nd->reading)
-> +			picked_node =3D nd;
-> +	}
-> +
-> +	if (!curr_node || !picked_node) {
-> +		curr_node =3D NULL;
-> +		goto out;
-> +	}
-> +
-> +	__tmc_etr_disable_hw(drvdata);
-> +
-> +	/* The switched out buffer is free again once it has been read */
-> +	curr_node->is_free =3D true;
-> +	curr_node->pos =3D 0;
-> +	curr_node->reading =3D true;
-> +	picked_node->is_free =3D false;
-> +	drvdata->sysfs_buf =3D picked_node->sysfs_buf;
-> +	drvdata->etr_buf =3D picked_node->sysfs_buf;
-> +
-> +	tmc_etr_reset_sysfs_buf(drvdata);
-> +	if (__tmc_etr_enable_hw(drvdata))
-> +		dev_err(&drvdata->csdev->dev, "Failed to restart the ETR\n");
-
-[Severity: Medium]
-What happens if __tmc_etr_enable_hw() fails when tmc_wait_for_tmcready()
-times out?
-
-__tmc_etr_enable_hw() returns early before programming TMC_DBA or
-re-enabling the ETR, but drvdata->sysfs_buf and drvdata->etr_buf are left
-pointing to picked_node->sysfs_buf while the sink mode stays
-CS_MODE_SYSFS.  A later tmc_disable_etr_sink() or
-tmc_etr_switch_buf_node() call will run __tmc_etr_disable_hw() ->
-tmc_etr_sync_sysfs_buf() and sync picked_node->sysfs_buf against stale
-hardware registers from the previous session.  In flat buffer mode,
-tmc_etr_sync_flat_buf() computes etr_buf->offset =3D rrp - etr_buf->hwaddr
-using the old RRP, which can exceed etr_buf->size and underflow
-etr_buf->size - offset in tmc_etr_buf_get_data(), leading to an
-out-of-bounds memory access.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-enable-byt=
-e-cntr-for-ctcu-v23-0-67fd9db6bc0e@oss.qualcomm.com?part=3D3
+Best regards,
+Krzysztof
