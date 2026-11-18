@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795007867;
-	b=2JjkSShJJ31cpUfsQBkgNYthzyeY760QG88wcL8YpKPYTgY+Dxs5X/b7pqdYrweY76By
-	 W84IjM8uWmjsHTF/5mgfJ4Fm0bTtDzE55+YYF0lVR7D3TRzRX9rW2hxIJn67G63nQVmgL
-	 bLYJpPLZyEK4ZhKNw5Gblfmnsje/77V2J78ITKxCpsADpBkEKt63SfXAI5akZA8n0Cx6Q
-	 mmTH+kxYwEkXqP0DgpZ8mTYlWld5ZMyoi2cMX+ViIM665BCE6ZMqlZG0F8V0V8k1PPu1q
-	 hQ96zbtv1ueajae8s4wLzB9cj61q0I423+tNSgeW+Odwfu3g150tt6b9hVkyufdkNoA==
+	t=1795007868;
+	b=p4EQuUIGLhCVlQ/Q93JjhBtQBkbk7pGjlBF6JlyXQohhX24SvuxOF+1iFM6NboAO5fxs
+	 /XddgWJ9827e8tLskZTHTV4B6tEjBZiiXXoF8wOkxHrZtAo1kJTiwk665R5E5ZIdtAr8G
+	 PxEtiR7KmLV9xPEkY4cKTgKfwFOOPVPyscHqXcTh0jOdf9xXYIetYhYof3e/MQWLZYJGA
+	 TF4foXvIzFB9y3kXe4Kr7xDX3gHuf1VqluY8xsJCN5uSqwJGKuNztVlgeNNFBcQ9w+xb3
+	 TuECFUIOJaZAo4IYICcmsY9cMNGitsTERPbYcORUSZlabwR6NM0aPUNfvKapp30fsaQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795007867;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795007868;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LSMose7FrhY6I+Ycp2huiawH1d1GE6nqj8yLgiqCN5g=;
-	b=QIAYR9hwynRINgiEVz8LNm8bBM644YVKjYGji5p8v8c2hPxdh40S9yQklqqFE5/EQX2K
-	 M3ntXHmjd8s4BGmUX0r+zSJ8/l0RvzVeaH8kqq9hdIThSqyfF2SzfkMXNrlSsx/+mTfmu
-	 y4Av6waJOd6Od+iW9DVaUsSio0uKAPK1Bq7vj1WP83aeaJA1CDHfvI0ow7h+ajs6CdeaX
-	 5dMHVoZnvttji+4ZLXUh51bXZmewd6GYZy6ioLhoXK1OmmHLpVOjYCgqlFF2KhgRnqFB/
-	 MfbV9ChxnKWj70R8ipgTUAsODBrPCbFPnXurkKgc702iNsdzLtB1RqudP8Oqbbix3EQ==
+	bh=KABoEQ6oOeZnkbi23GW6NJ3GnOO7bT2WVCVPECPyMPA=;
+	b=AjhJb60SlKjqW+LH29t4xaD6gEFSr+Mkp2pwfnQr/bsca4advvrsKXi+3YEYuOd+Rpyj
+	 b1zDG+V7rMg4U3FYkzSaK6N/oKmcTWcFLO3WrIrFBqbm0XAKMPFJqnOZnH6V8r+MDAlgl
+	 7Ou0TCjyOYude+0vv9pLDnVhiOpYOoHbOdENAuRDPSBLHse6WTGUHCbb3yEACiuAtGoGI
+	 uWcjWj+plJvxYyZTWeYbVxHZchki7UFOeQ/zGjs+wOtzj91pFIUt/q53u8MnWDRLvBqC3
+	 /Nvby/hIQoSLXBHL+IESlBqshmfjszqpOxbxuzljw9o4f6qulRkwqWfxBLmf/4Dd3SQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NeaSVjkh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XDP2B/2D";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC3A606A33F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B6C606A339;
 	Wed, 18 Nov 2026 13:17:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NeaSVjkh
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XDP2B/2D
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1795007867;
-	b=kE7CbEG1hiPaz6BpFuBN9cOobyGLdeWa8SKq6XiD5gRXi8aj8dhOY5qmfs5OJh7I+epg
-	 nVjnAg7JO6Jlw6SVfM2lwHojFk+vBXi64PcMMSeE5k5b/wBSLUzEjhRpmC159H1dwVQN/
-	 gCZqI2z08TXRPBwNjAa+g391JnTRJeH5m9EjbVPZJm5PPIEZZmqfJor4oOvAJCXbaa67n
-	 puUfnKMZGcIrx/YrNQQqeCm3IAbEak857wyG0iYTRle5oil9QmIRtDyL0sspEQBhBlE6v
-	 /fJEtGF4+a0MonikmnM22B6QWfuvvmh9qZxBoBpy4y9HZY6c1/oVHN0JPL7PbIvyIlw==
+	b=wsS8gNX4gjXJycWiI5O/BWY8oNQDpUsPkmyJb2xTixlyN8wtYAyzCgxUdTL9WG7fPviu
+	 GyuS2R52v3lrRakvD/o4ULqGuxPcVeA4XzW0rezqMfsB7UB+WKnL7U3A6/VuhYNPrGTie
+	 ueEwDJXbaGejX6HkGbjolmAQuOIgKwRVqPiP0zO+C6/x26g+QxRBy+JJZ/NamuGPtw50B
+	 vOYl1uVnyGtUewmAQ8idGx6sEcG9JFzhCMhy54lAqaUBIm0IEbZk6mTi60OVNX5wsKsHf
+	 Si4wXI1Zo3F4aav9JVtONjX4O/Db63cwNOXvYGalXjPyXSCA6/2dFirar9UgrtYnmGQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1795007867;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LSMose7FrhY6I+Ycp2huiawH1d1GE6nqj8yLgiqCN5g=;
-	b=VLtpT6QI6+jRAEJcK8TNIFusDlpp/krbIVvDAVQQPd5It5qEkz59vIR9zCivVrOSzYe3
-	 oVt9YVBd9uUkgzL+Mw704exg/4vvaOKskSdJoo3UODIjxOBywmgImmBVcGLsnuuS2rrmJ
-	 FjN5rMbPV8krdoRgEIJIywtDOnOxUH/J/hz1Z1QcDuRBc98LDo0CXuSIM74CQzxvwMD96
-	 M7bnHxyrqVe2W4cNBkaLYIBym8VntmgmxEszKa1p4h6jkPCGtmitsvOeDkbbsUhe90qma
-	 sv0Zc/b4AKpLx2WV8MqhKj0xAyPCARTMrHHUBT9IYawFO9nvmk2HPPVB7xCYhGbm8Hg==
+	bh=KABoEQ6oOeZnkbi23GW6NJ3GnOO7bT2WVCVPECPyMPA=;
+	b=Lvkdes5A0Yh1rVjmKATIkX7FDuszqVQC9sI45THX5TT07BpVdeDy7CHiNLY9eHOQMWG6
+	 yTDALq711YAIdS0Vq01F/j8LrAsQXA/rrAX90FSg3v2TFxXMwG0EBH/IuFFz+rtimaA1t
+	 P8/LlbwOA2NFikIfS8AO5HI7EOImaIlMmjbEcO5GZPSyN/mYA/ymZnT12Bq993IaYyhE2
+	 cV1m9BnwYs0xLzvdpx5g6A/jJW50EQV3yGeV/t79Niz+nWGMux2BDe7nNCr9pYuBPssLI
+	 PErj2k5wxA/49HyNGbLTU5icLS4rglSiqARyFDc1bahL1Cw4ecEouQ3FwZ6C7jo5dfw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DAFF01F000C6;
+	by smtp.kernel.org (Postfix) with ESMTPS id F269D1F000D2;
 	Wed, 18 Nov 2026 13:17:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795007867;
-	bh=LSMose7FrhY6I+Ycp2huiawH1d1GE6nqj8yLgiqCN5g=;
+	bh=KABoEQ6oOeZnkbi23GW6NJ3GnOO7bT2WVCVPECPyMPA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=NeaSVjkhX1tXxUxo2vDS2oZegPufDZYRW7UVyN64XPg+TQfe8YSGaod47Xmik2LY2
-	 OOXqQ4TmYvBexeSwvik/lzcafGhKTqwtaByXFOWl1qo9gEWFEjmabOcAt124G8d+im
-	 8RvgZEvdpIJk2L+yHtk2kLDVPP7O8H7ACNb7GIOI8X7Iq44hwdm0yhkBgyxgB/xnuO
-	 lzINjwPL4dJojiBNTdXFUV21VG4b2rsr9C7eTex6lXEEHzOYYTkHtqCgcSf5wcOxC5
-	 q14jaL5yw0/SqsUF4/a9WMaUP+CxZB+TaU9LRahIbXF2eYdrJxGHkFYY8TyA9amMAU
-	 Y4eVqB3FaOXfg==
+	b=XDP2B/2Df2/QJ9jKNHRv3lEHKD4FOdHwvy3z5pvxYMiSooEuMvVkgFW85ejoMd5Z9
+	 mET/kqeuEF+NaxtoENCSJJRZ3h4krn/5x4fh/hob1Q1fmfYyUWXMNntUbzOaGMmuhY
+	 0h/cALMWaa6mznQ8S0HH4Q980AUrseHJ3n9JWd3KSS19XTpUGxJAcVQHaspCqyCinA
+	 yjvd2tLfSBeBn6/cabt/0hnj9sZkpIWBHY72Q0R9vPp7sHQu3xvlQDKXwWqRTgXps5
+	 FdLaFaam5Pccs1NcQ/wHwYid6tL1pSI5TsLZHRJumqkH9AGS+Et4JTLsLgmsjFtqFE
+	 FR7aTBawareiQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6362F4AD9C;
+	by lkml.kernel.org (Postfix) with ESMTP id 7B31A4ADA0;
 	Wed, 18 Nov 2026 13:17:45 +0000 (UTC)
 From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Date: Wed, 18 Nov 2026 15:17:44 +0200
-Subject: [PATCH v7 2/7] iio: imu: adis: Add optional self_test callback
+Date: Wed, 18 Nov 2026 15:17:45 +0200
+Subject: [PATCH v7 3/7] iio: imu: adis: Add optional init callback
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-adis16607-v7-2-707609737691@analog.com>
+Message-Id: <20261118-adis16607-v7-3-707609737691@analog.com>
 References: <20261118-adis16607-v7-0-707609737691@analog.com>
 In-Reply-To: <20261118-adis16607-v7-0-707609737691@analog.com>
 To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
@@ -100,72 +100,75 @@ Cc: linux-iio@vger.kernel.org, linux@analog.com,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  Jonathan Cameron <jic23@kernel.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795007863; l=2180;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795007863; l=2194;
  i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
- bh=tkzZy4kOyhyn9i1xmuSSgwdCRKGw+8zTfZiJqELNqH0=;
- b=1n3SayWj8/hOgOU+vMli2hY+T8/nVKjzYQr8GhtNb/pCcfYeRM2jWHa0HYsrD9X9uFpFPiY7K
- 09oyfBZbm1xC/s1gFzC4w4qKfix3MFbtcmLVaCqHbO7j9sDTLUVYNNR
+ bh=SjMU42Lj85caa9S//To07byzpthfksaMvSiYpZwwChI=;
+ b=F1YwaQR89yDUJO84jC1UZyn77TMVwYuz5mqTGedqirZclje4cy9twPnfYzhkQA9QwGDdifW8E
+ Q1yxllycP+uDtB0MyqAlZHL6Z+ZCWRjGIDqg/4QkZc3DPND7tWbRj9i
 X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
  pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
 X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
  auth_id=1094
 X-Original-From: Radu Sabau <radu.sabau@analog.com>
 Reply-To: radu.sabau@analog.com
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 From: Radu Sabau <radu.sabau@analog.com>
 
-Add an optional self_test callback to struct adis_data, for devices
-whose self-test doesn't fit the generic mask-write/sleep/check-status
-sequence. Purely additive: defaults to NULL, no change for existing
-drivers.
+Add an optional init callback to struct adis_data, called right
+after reset and before self-test. Not all ADIS devices need extra
+bring-up between reset and self-test (SPI mode locking, status or
+bootloader checks, pin or burst-mode configuration, etc.) - purely
+additive: defaults to NULL, no change for existing drivers.
 
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
 Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 ---
- drivers/iio/imu/adis.c       | 3 +++
+ drivers/iio/imu/adis.c       | 6 ++++++
  include/linux/iio/imu/adis.h | 7 +++++++
- 2 files changed, 10 insertions(+)
+ 2 files changed, 13 insertions(+)
 
 diff --git a/drivers/iio/imu/adis.c b/drivers/iio/imu/adis.c
-index 793e3b6b0ea7..5c3bb7259037 100644
+index 5c3bb7259037..e2cf42b8b946 100644
 --- a/drivers/iio/imu/adis.c
 +++ b/drivers/iio/imu/adis.c
-@@ -357,6 +357,9 @@ static int adis_self_test(struct adis *adis)
- 	int ret;
- 	const struct adis_timeout *timeouts = adis->data->timeouts;
+@@ -419,6 +419,12 @@ int __adis_initial_startup(struct adis *adis)
+ 		msleep(timeouts->sw_reset_ms);
+ 	}
  
-+	if (adis->data->self_test)
-+		return adis->data->self_test(adis);
++	if (adis->data->init) {
++		ret = adis->data->init(adis);
++		if (ret)
++			return ret;
++	}
 +
- 	ret = __adis_write_reg_16(adis, adis->data->self_test_reg,
- 				  adis->data->self_test_mask);
- 	if (ret) {
+ 	ret = adis_self_test(adis);
+ 	if (ret)
+ 		return ret;
 diff --git a/include/linux/iio/imu/adis.h b/include/linux/iio/imu/adis.h
-index 97323b8d1cb3..c09b381eb619 100644
+index c09b381eb619..c9016f636530 100644
 --- a/include/linux/iio/imu/adis.h
 +++ b/include/linux/iio/imu/adis.h
 @@ -52,6 +52,12 @@ struct adis_timeout {
   * @self_test_mask: Bitmask of supported self-test operations
   * @self_test_reg: Register address to request self test command
   * @self_test_no_autoclear: True if device's self-test needs clear of ctrl reg
-+ * @self_test: Optional device-specific self-test override. When set,
-+ *		it is called instead of the generic mask-write/sleep/
-+ *		check-status sequence. The callback owns its own pass/fail
-+ *		determination entirely (it should call __adis_check_status()
-+ *		itself if it wants status-register checks). Must return 0 on
-+ *		success, a negative error code otherwise.
-  * @status_error_msgs: Array of error messages
-  * @status_error_mask: Bitmask of errors supported by the device
-  * @timeouts: Chip specific delays
-@@ -82,6 +88,7 @@ struct adis_data {
++ * @init: Optional device-specific hook called after reset,
++ *		before self-test. Not all ADIS devices need extra bring-up
++ *		between reset and self-test (SPI mode locking, status or
++ *		bootloader checks, pin or burst-mode configuration, etc.) -
++ *		only called when set. Must return 0 on success, a negative
++ *		error code otherwise.
+  * @self_test: Optional device-specific self-test override. When set,
+  *		it is called instead of the generic mask-write/sleep/
+  *		check-status sequence. The callback owns its own pass/fail
+@@ -88,6 +94,7 @@ struct adis_data {
  	unsigned int self_test_mask;
  	unsigned int self_test_reg;
  	bool self_test_no_autoclear;
-+	int (*self_test)(struct adis *adis);
++	int (*init)(struct adis *adis);
+ 	int (*self_test)(struct adis *adis);
  	const struct adis_timeout *timeouts;
  
- 	const char * const *status_error_msgs;
 
 -- 
 2.43.0
