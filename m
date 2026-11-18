@@ -1,62 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.54.77.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795110704;
-	b=iglj1rXLrEuAEbwpfP4rL157mX23WUTvmI9WVgqpjJ66orXIv343KIaCmELVszpCCUnE
-	 wp/5gloL/JGSkpeM+611Hw1dLUxi5AU/HnVtApc0xyGwbJKevnDoqBcPfxlD1zwSOho+s
-	 ZsOFqc7M/7r282UD6ttDoyIo2Z0QO7t7E4r4mje51VucXhp2b5m+dtVgo6asJZe9fRVjU
-	 y5+rruLNxFD4EROcSEEWalIuqk/e/GKQ4ofJUpt1RfQq1w6hJvdMlCYsnAySWcMV4rBI0
-	 aZ+cn6POtQoiERF+V7poyhs7qNT2WP9bZ0Zsr9x2jibt5F4rk9vscyNtVJXv+eCrJSQ==
+	t=1795110757;
+	b=cqZXHk9Dhb3kSuDE5VmVjQ8HCznOa0hRiVzfjgQJ2q9vbCTAAVXS78FqhFvj4OyipdJm
+	 JNAJx+TwJ0Ggsr2bLEW6hTCiOuU47Gwd61xs6hCnHxFb1JwugrGkCWYkFR0xxt6v1cjzA
+	 neaSZGnHft4FDW/39BzSuj59VgrZemK7UMyInV1IqzHQr57rVDDp9idbZTiIjL0mMGqf/
+	 iiKG+0XnAmr65ABUYVAV9fM5tnTUymxZrRE02TrwkvqkhWNQO7I1brF+xFTroNZWUqLdH
+	 dx4GaQu/OaMJ+GLfzOm1b8clT46Y7zVFs4y4EX6DvNEbggCHKh0NZfDlkR4QDoEStGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795110704;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=CedYSSN4VmRSUUDOCoWWB86uIFN22b2CcBsb82DlUJU=;
-	b=d+IPVAhdgTtIiVAh5GRNaOdjOn4c3mn7o35ezyAFL+CSOsI5EgQsQe+9rOWMA7PTeIKi
-	 JwlajaWmZsbW80SpOKFIwvgankXnqHFDjO0TKWSYQgjARmbJvCbq2IOMunrh45D30HL3f
-	 uxNTpTFNv/2T9Qdm7RfnODp63tOTqMpcRvvg0OuYk940DrybRum/OoTdkkfwNViY7bWqe
-	 h1wVAvUdms2xw1mvmrDlIcDFX7Ii0Xf7ch8mt/90xpMNPb8o1M7tPB5QL/wLMb2dmkIls
-	 2fcggwlUSKqy7e4MF8f7VBOF7OkA4V6yh4k0OgUJOJuQjEDAdbL3H9VvDZyoUZaD/pQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795110757;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=2PIgSFGZIOA7RCocQEjv8m60+BoHOv5Uk4uIIDHFGZc=;
+	b=ky72HTh8FD72FRqGY3m7y9krYW1BUJp4PeZzcb7sl3FZTHKZ+TcI+iSKVVk8Lma0Czh2
+	 MivKm7nucBt8F+e1tGvdX6V2DDdEga17uyLddEUMWR78oO3IMdIM1pA3jtPM2TcLw9+fK
+	 dHi6SXFYJVB+Y8eoUQPfUcu8Jqzf2brWpANt9M6iGixr5xcgTZaRgXShl3IkirvgIyvDG
+	 67twkrdEKXm9AwySEQ0zCLfyBYWJzUyL+Y6GdfJANMZnJRaCRZqpz8XewZkZ20mJaorpV
+	 q3zDH8sGu5n/WQfyq27Lr3KaizLnuj5jN8ZYx6iBPAOngrYxoIkVPaTvolZI2G8X1MQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mobileye.com;
-	spf=pass smtp.mailfrom=mobileye.com;
-	arc=none smtp.remote-ip=207.54.77.171
-Received: from esa4.hc555-34.eu.iphmx.com (esa4.hc555-34.eu.iphmx.com [207.54.77.171])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85F3C60A2618;
-	Thu, 19 Nov 2026 17:51:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85F3C60A2618
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1795110712; x=1826646712;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=L7G8bdD9wp+VJx4bnBPXDO6O3hytAVV8cw1v6jTr0PA=;
-  b=PbCu881Mh4+Otz2MznkISUvEzfLBfXti29wOhu7m69vL1NL8/KogC6Ui
-   qtV+xdx+myUzJd4vhqt4gbduUMbNpM/h0Oz/fhUEEXKqEV9tZgn8MdIcs
-   0sgB3KOAATecjP6LcGBisJ+9mkr9wa+kb43Yffw6RL3AE+IpuCAsNRsbS
-   7IdHPdCKOTfzVq8/z9R/WcsjlXhfkbdJVHk12ddDc1WDVt10BBMGcQLNe
-   Td9CrQ8BUxlvDRE3P2a7jvbq/f3De01RBlujvNK7Fxs1GrSYHXZdlUAGB
-   QKWHDe9JVl6P990H9BYey23L8lRewH0xY9v4pURmD7OmeLI/qq3GEHd+w
-   g==;
-X-CSE-ConnectionGUID: BQEgh7P3RNS5g6MzTVOYDA==
-X-CSE-MsgGUID: zyYqJ1ClTeyj2XiO/Q49CA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces04_data.me-crop.lan) ([146.255.191.134])
-  by esa4.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 19:51:40 +0200
-X-CSE-ConnectionGUID: zePeCnaBSnuCurSiN3xmsw==
-X-CSE-MsgGUID: TgesIyceQZm3mT7ScHrYig==
-Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.3])
-  by ces04_data.me-crop.lan with SMTP; 19 Nov 2026 19:59:47 +0200
-Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Thu, 19 Nov 2026 19:51:31 +0200
-From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Date: Thu, 19 Nov 2026 19:51:27 +0200
-Subject: [PATCH v3 1/7] mips: {cm,cpc}: Make cm_core_lock, cpc_core_lock
- raw spinlocks
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SH+eTjrm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0190606A324;
+	Thu, 19 Nov 2026 17:52:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SH+eTjrm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58B351F000C5;
+	Thu, 19 Nov 2026 17:52:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795110757;
+	bh=2PIgSFGZIOA7RCocQEjv8m60+BoHOv5Uk4uIIDHFGZc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=SH+eTjrmj9v1S3b736MuPBFkDpWNZfc3vuF3MX9ObpTPrJn310dlWG+d7Am4Md3p4
+	 DvaiNfFb/wy1z+84c6FO3BY3O2qo/PDW7GO1rpEUySNwaPr6ol6881S1oWE+0jGwAE
+	 4GSKvOl5kkvY3MEzp48VhT9ay5ID96cKPBAuC01KBef7o8svRUPJR3q88KoiYmZOo5
+	 dweoGq1WX7zFv72DuEId5bOqkLAYGMXW0/I9WWn08fK9F9sF8Wt0iBJAmOCL/BiEuv
+	 gZYkTUqI4+ZmO3yC9C4MXA96dZlmc22GQQiTv85EnCGbKDsmOOLrupwgSS092VpuCR
+	 ZyrCMnndfWMTw==
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261116-vantage-sndcard-v1-0-df69a8759833@yahoo.com>
+References: <20261116-vantage-sndcard-v1-0-df69a8759833@yahoo.com>
+Subject: Re: [PATCH 0/2] ASoC: qcom: Add the sound card of the Motorola
+ Signature
+Message-Id: <179502753783.810609.2343542801510355835.b4-ty@b4>
+Date: Wed, 18 Nov 2026 18:45:37 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,153 +66,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261119-i6500-cm3-pmu-v3-1-c86410934b51@mobileye.com>
-References: <20261119-i6500-cm3-pmu-v3-0-c86410934b51@mobileye.com>
-In-Reply-To: <20261119-i6500-cm3-pmu-v3-0-c86410934b51@mobileye.com>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jiaxun Yang <jiaxun.yang@flygoat.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Fu Chao-Ying <chao-ying.fu@globalfoundries.com>
-Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-perf-users@vger.kernel.org, linux-hardening@vger.kernel.org, 
- Paul Burton <paulburton@kernel.org>
-X-Mailer: b4 0.16.0
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1582; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=2fg8Q7J2dXp3QwM6Z90qmZl51rG9Op1l5flEdiXHvkc=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL+myd2WM0slukWO2jhtsvO+u66PZomU9dIK3LIBbw+H
+ 1F1o+FJRykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACYifIvhn/rnLWGvX/Z+n2J4
+ IPpIWdGM60f8M3xCDjK3u8oFr/p6SYnhvx97liM/85OsmKCzpem8iaWXhMve5FmsDUu7t3t+7QV
+ DZgA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Paul Burton <paul.burton@mips.com>
+On Mon, 16 Nov 2026 01:50:27 +0530, Venkat Yadlapati wrote:
+> ASoC: qcom: Add the sound card of the Motorola Signature
+> 
+> The Motorola Signature has two TFA9865 amplifiers on the senary MI2S
+> interface. They expect 32-bit I2S slots, which the sc8280xp machine
+> driver does not support so far. This series documents the sound card
+> compatible and adds an option for 32-bit MI2S backends together with the
+> card.
+> 
+> [...]
 
-cm_core_lock and cpc_core_lock are used to protect access to a CPU's
-core-other/redirect CM and CPC register blocks. Since each CPU sees
-its own copy of this block, we need to ensure that critical sections
-holding a cm_core_lock run on one CPU - ie. we need to disable
-preemption.
+Applied to
 
-Use raw_spinlock_t to implement cm_core_lock and cpc_core_lock in
-order to provide the guarantees we need on PREEMPT_RT systems.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-Signed-off-by: Paul Burton <paul.burton@mips.com>
-[added CPC part]
-Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
----
- arch/mips/kernel/mips-cm.c  | 20 ++++++++++----------
- arch/mips/kernel/mips-cpc.c | 12 ++++++------
- 2 files changed, 16 insertions(+), 16 deletions(-)
+Thanks!
 
-diff --git a/arch/mips/kernel/mips-cm.c b/arch/mips/kernel/mips-cm.c
-index 7c9c5dc38823..3bfe85e86a9a 100644
---- a/arch/mips/kernel/mips-cm.c
-+++ b/arch/mips/kernel/mips-cm.c
-@@ -179,7 +179,7 @@ static char *cm3_causes[32] = {
- 	"0x19", "0x1a", "0x1b", "0x1c", "0x1d", "0x1e", "0x1f"
- };
- 
--static DEFINE_PER_CPU_ALIGNED(spinlock_t, cm_core_lock);
-+static DEFINE_PER_CPU_ALIGNED(raw_spinlock_t, cm_core_lock);
- static DEFINE_PER_CPU_ALIGNED(unsigned long, cm_core_lock_flags);
- 
- phys_addr_t __weak mips_cm_phys_base(void)
-@@ -309,7 +309,7 @@ int mips_cm_probe(void)
- 	mips_cm_is64 = IS_ENABLED(CONFIG_64BIT) && (mips_cm_revision() >= CM_REV_CM3);
- 
- 	for_each_possible_cpu(cpu)
--		spin_lock_init(&per_cpu(cm_core_lock, cpu));
-+		raw_spin_lock_init(&per_cpu(cm_core_lock, cpu));
- 
- 	return 0;
- }
-@@ -347,8 +347,8 @@ void mips_cm_lock_other(unsigned int cluster, unsigned int core,
- 		 * mips_cm_lock_other() leading to a deadlock or a nice warning
- 		 * with lockdep enabled.
- 		 */
--		spin_lock_irqsave(this_cpu_ptr(&cm_core_lock),
--				  *this_cpu_ptr(&cm_core_lock_flags));
-+		raw_spin_lock_irqsave(this_cpu_ptr(&cm_core_lock),
-+				      *this_cpu_ptr(&cm_core_lock_flags));
- 	} else {
- 		WARN_ON(cluster != 0);
- 		WARN_ON(block != CM_GCR_Cx_OTHER_BLOCK_LOCAL);
-@@ -359,8 +359,8 @@ void mips_cm_lock_other(unsigned int cluster, unsigned int core,
- 		 * race with us.
- 		 */
- 		curr_core = cpu_core(&current_cpu_data);
--		spin_lock_irqsave(&per_cpu(cm_core_lock, curr_core),
--				  per_cpu(cm_core_lock_flags, curr_core));
-+		raw_spin_lock_irqsave(&per_cpu(cm_core_lock, curr_core),
-+				      per_cpu(cm_core_lock_flags, curr_core));
- 
- 		val = FIELD_PREP(CM_GCR_Cx_OTHER_CORENUM, core);
- 	}
-@@ -380,11 +380,11 @@ void mips_cm_unlock_other(void)
- 
- 	if (mips_cm_revision() < CM_REV_CM3) {
- 		curr_core = cpu_core(&current_cpu_data);
--		spin_unlock_irqrestore(&per_cpu(cm_core_lock, curr_core),
--				       per_cpu(cm_core_lock_flags, curr_core));
-+		raw_spin_unlock_irqrestore(&per_cpu(cm_core_lock, curr_core),
-+					   per_cpu(cm_core_lock_flags, curr_core));
- 	} else {
--		spin_unlock_irqrestore(this_cpu_ptr(&cm_core_lock),
--				       *this_cpu_ptr(&cm_core_lock_flags));
-+		raw_spin_unlock_irqrestore(this_cpu_ptr(&cm_core_lock),
-+					   *this_cpu_ptr(&cm_core_lock_flags));
- 	}
- 
- 	preempt_enable();
-diff --git a/arch/mips/kernel/mips-cpc.c b/arch/mips/kernel/mips-cpc.c
-index 3e386f7e1545..4b50c58628dc 100644
---- a/arch/mips/kernel/mips-cpc.c
-+++ b/arch/mips/kernel/mips-cpc.c
-@@ -15,7 +15,7 @@
- 
- void __iomem *mips_cpc_base;
- 
--static DEFINE_PER_CPU_ALIGNED(spinlock_t, cpc_core_lock);
-+static DEFINE_PER_CPU_ALIGNED(raw_spinlock_t, cpc_core_lock);
- 
- static DEFINE_PER_CPU_ALIGNED(unsigned long, cpc_core_lock_flags);
- 
-@@ -74,7 +74,7 @@ int mips_cpc_probe(void)
- 	unsigned int cpu;
- 
- 	for_each_possible_cpu(cpu)
--		spin_lock_init(&per_cpu(cpc_core_lock, cpu));
-+		raw_spin_lock_init(&per_cpu(cpc_core_lock, cpu));
- 
- 	addr = mips_cpc_phys_base();
- 	if (!addr)
-@@ -97,8 +97,8 @@ void mips_cpc_lock_other(unsigned int core)
- 
- 	preempt_disable();
- 	curr_core = cpu_core(&current_cpu_data);
--	spin_lock_irqsave(&per_cpu(cpc_core_lock, curr_core),
--			  per_cpu(cpc_core_lock_flags, curr_core));
-+	raw_spin_lock_irqsave(&per_cpu(cpc_core_lock, curr_core),
-+			      per_cpu(cpc_core_lock_flags, curr_core));
- 	write_cpc_cl_other(FIELD_PREP(CPC_Cx_OTHER_CORENUM, core));
- 
- 	/*
-@@ -117,7 +117,7 @@ void mips_cpc_unlock_other(void)
- 		return;
- 
- 	curr_core = cpu_core(&current_cpu_data);
--	spin_unlock_irqrestore(&per_cpu(cpc_core_lock, curr_core),
--			       per_cpu(cpc_core_lock_flags, curr_core));
-+	raw_spin_unlock_irqrestore(&per_cpu(cpc_core_lock, curr_core),
-+				   per_cpu(cpc_core_lock_flags, curr_core));
- 	preempt_enable();
- }
+[1/2] ASoC: dt-bindings: qcom,sm8250: Add Motorola Signature sound card
+      https://git.kernel.org/broonie/sound/c/f107e9a0a423
+[2/2] ASoC: qcom: sc8280xp: Add Motorola Signature sound card
+      https://git.kernel.org/broonie/sound/c/6d6edbcd6e3e
 
--- 
-2.43.0
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
