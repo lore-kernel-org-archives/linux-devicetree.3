@@ -1,55 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794980913;
-	b=cVqoAClQKZHPE6bxx5dNLZRlZTNhFkMJe+skdLrOit9Z41rTC88KhYy7gW8gVmF7yznJ
-	 CIratqQRzXuZ3RQAk/VlFjer6lJ7Lx4QX/XTfy34IdlxIaokSygSnoBh4/4SA3VNcBweX
-	 vp3E5uk4JoSasa3XYaPGRfT2RYZ7fSTqEEpyoXvjTsuPS9NGap7hUW5eny2vqELqxbZOe
-	 hclmsnTF+gNpG836+zvUeq4SCAoafBgzprGYYlThgagZvvTQU0YkJJX7Invv7ptW/dpEJ
-	 FYHno2aNoJgJ/66hDJJ1SRfKlcoJdu/gylGastaO6F+rS2uznJ5+LlSt3cTEvh/rT0Q==
+	t=1794980919;
+	b=IXcTUThLfjJBF7FkGx3CCOwiu2/VSY2p8q6xlifJhmvvfAo+vnFk5S4Cx2xES9e83w7G
+	 JGyzdbAqxHyhOmB8kYWyZIcsBD9S83edHxfHvLWVVe76Rs1BPQFrc6MFnnkd7ybWK7Sw7
+	 b21FZfMu2B1s57LdkbYwBcRJBuUnnb5Fb35ztVW1VJ/GRwEAPUUBLvwtcUJT1qNbKxCjf
+	 hcLzcENQq3HizONMyH3hdjR4R5AyX6QMoXAGRC33FO3dtcMOl1H3JUJVKsposImdcJRhn
+	 dpPDcYg2+0TmL2nzvuprquACCsK7dkOSPn8TAvVsqb9Wxi2dyNiBYDSkCU4pYrSsstw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794980913;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=3Ql1Gr7XMzmIYBbEO+a9ghZlVqPmLxdm3zP1UNICVgI=;
-	b=wEcZvfNVis0tlbGvGYoGk2UYgKk4jhDhYkT0CakhRileOx9mYMfhr6lCsIY+BpiyOjpx
-	 6ZE6nqeEuq5iXPpwmKAnFKOHspZsdOcjHk1zbA7Wgjm3s0bt9gz4yPDobWTOysr4BF+/5
-	 0DiCfxKXiBO8mMK0X1MvWS3UbMcwJHpJP5kbxTWThr54hMhIhCnF1v4Vksyw+sIUojgmN
-	 k+GPxohsogIxxuwlcJvBJaq78jj6dGhI/GeFgGnU54xWcx+/+FlvgfpMiUzDPYex2KF2w
-	 1qyiPxn4gtJ7C0WaB5upptADkgVrpTbcksBJwGHwBzb29r8+nlf+OFGMDr45xJeWzgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794980919;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=eIFevFDGAP/WEwAEGTiR4DGoC6c6i0A/XzAhuHxSskI=;
+	b=Xavg/Ud2q6FK2NEEK0cNdCfGA22Q4ufhSVvlYjTz49aoZO5Gd4clw+pIL1I/HcLjRAb+
+	 B7R8GItQUKaTS8Wau7+AmtB7nAVvkcE94usiIklwZuEgwXcuF2XzhWhAtOQtLgtWDxJQb
+	 PDba9tQuO54oU851vWxBzqq2Iy1PQg7NbSt0eog1BqqpkV7VsJLH/cObw9gcgrjs0Lqgm
+	 y9kXAKgT6oAf7TQIoKsD9hSES9yGJyr8a2OsHni7bJakYVwa6Bs1tZh5bSzWL7QLKHh4Y
+	 yRyJlD5ym4c8r7P+LRLgkF//D8B4l+GIi0v+oSVDVNA3H04OArB3yQ8k4LMtNuIXfGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=ZCJ16S+p;
-	arc=none smtp.remote-ip=18.194.254.142
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FKWZWQ7s;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043CA606A32C;
-	Wed, 18 Nov 2026 05:48:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 043CA606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4906606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 05:48:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4906606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=ZCJ16S+p
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794980868;
-	bh=3Ql1Gr7XMzmIYBbEO+a9ghZlVqPmLxdm3zP1UNICVgI=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=ZCJ16S+pRKus4/MhUuggytURC9+Oy87x/0tUm7jmxCA82pieK2ZUEenMnIbBmbkq3
-	 hyLWRAOi8cGUhpwOeSbGMKgbpaoi5AW02jrBpk3v+uKxMxzrsqvFBksbcZUICRtMvJ
-	 vzd8D48c30npOfzXbSuxs0bU5U7umt6oQN5L0XBQ=
-X-QQ-mid: esmtpgz11t1794980867td74787de
-X-QQ-Originating-IP: WqBZLnoXOwmHGTghcgp5ZEgWINbdmL0mzbXNLz00OgM=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 18 Nov 2026 13:47:44 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13421804356627132485
-EX-QQ-RecipientCnt: 16
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FKWZWQ7s
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-381f65e4e4bso1081075eec.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 21:48:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794980918; x=1795585718; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eIFevFDGAP/WEwAEGTiR4DGoC6c6i0A/XzAhuHxSskI=;
+        b=FKWZWQ7sStetqAFEd73RFTxoMDIssXQhB5aNyFTUWPvK/KlQIXmbO8PWwn995GuwLv
+         4XXOmYaJ262mJW6ns1ekSmOwiZxcHXW0QulSnZj3fbJ4x6Mt09or/RcAXY/wedExavMF
+         M61QWmojfppjqF/YaiYYMFSpxwSr48rosWdxnM98jI4oDSCJVHsfHlhRymNmXtz9UE5E
+         bPx1Zbwk+HMeP/CBjQ6HsHVcAgCwGNrNyPqssPiRfMFACEUxHj0CAjOWQ+u83OJ4oXoW
+         pK2qeu8i60BnitplCu36eQXUxw52bO4aB+9OiyeOQpYQ7rNYLiSi0yy1irzKL4Bv9eVg
+         mlBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794980918; x=1795585718;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eIFevFDGAP/WEwAEGTiR4DGoC6c6i0A/XzAhuHxSskI=;
+        b=A+PDcD+V5nhu1NSfbdlb4/QBBHv4gaAHlXa3FXnu/5knbL3n5Nr8ZbHJuYZqaQ1/ZN
+         2GmtCp1TCxeMLe2MHNgigl8B0nXNku90X9bZl0uYZllYFa/GUD2bA2FbLLpGuD8pJz3T
+         GtV1NYSODk910LmH7iXKepyAVFP6sfp4JNbkS8upKJUKfgpEw++BWtQsD+r8SGU02y1q
+         PuT+Xjs0mJ1McLwz8AXThSyCVucmDvWN0Z91Q+AgMLFecFHV5P16C9xTB6pdSGGinHMW
+         OYkBSaszySiK2heGrwLpINgztSNy50PtfEwqmNzrtnJJZINnf1xZqJvjManFCCbGFsnq
+         denA==
+X-Forwarded-Encrypted: i=1; AL+hErERGpC05PIvR+R7enJdvBYwZKUjYJgmXnM2oVZPhsMKrLPkCO3MP1YLHDLiU9yHh55OOaGI51RjwokZ@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KUpbcmJzkQ2f42aCHdFU6awIWjhkS+mTp+3MVgPBD/fVOO0wS
+	NFooq5ZspD1T1KlQpzDXKRIrAhzdE0NIwJCLftKLrVPr9o/Nrg1dfFXu
+X-Gm-Gg: AZFdTZfD7IW7KRlWafrgWkLCYiOBQrNKzSzBSyj/VApgbmSN2IXpjKwlOoJ/pYlWrUq
+	dubbJ92EaY2mxiHyvdrUjo+6U7gN5gP7TGaDkylsN2d+Jn+lpnihRHdXvVgw7cf9Qketr2Sm7ra
+	7/MvU7DFOM1FVcuMWPO8GggutoMMxjtUXZX9rIeJXCHkNnTdozJP9KSfEQSoQz7ym+kwG4qsDts
+	8scta9pRDFYB2kHrFKGoog8jtYG56YgkvdESqHnokiq/nGh68atZjHAPOK5su3JXWI2xAccWRLr
+	jv/MPFxjZdj6I4DS/YsJB4PEtDqq3JRpxq0196MwbCcTpZV+CQsIgUQ1hfq0EO/BA7ibOBPMHQo
+	nO3ElHUtOJQjr7s/IouYnqnDjCJw9mzYZxUBi/d4IJmuZm/Oj9aalrwUbTyyGZQ1acFsMKBgSpB
+	aXU24HlfTDhreziGlSIpyXBwDcqYGI90d+UUv23L4jmcS4nrwlyEjkNyKJk8S5sfM+yr4r2oQbQ
+	guLvbWcCWYNrUvtNO/BMidH4hKaQHrvOOm6oHkCSRVjJb2cLL66JVY3htTtTrXJXqjUie5nc8m+
+	n31Cek46nlUQSbF69Xcs0hewNyWvF+pj6pC/FZZKGW0XipzVFNsrrZsGsqNcazoutby7G2BDapy
+	84JxZLTU6pz6NcYjeWlgvxfcFnXLMFVuwrPDtSoSO+CTJX7azi1SriGvNthB+bhia621wBi6jGs
+	DIcwkueiCwPhVHrMxIHXNvAWU=
+X-Received: by 2002:a05:7301:da17:b0:378:314:402c with SMTP id 5a478bee46e88-382814260bamr1567467eec.28.1794980917821;
+        Tue, 17 Nov 2026 21:48:37 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a680032dsm3408116eec.10.2026.11.17.21.48.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 21:48:37 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 15/17] ARM: dts: BCM5301X: Meraki MR26/MR32: use gmac2
+Date: Tue, 17 Nov 2026 21:47:56 -0800
+Message-ID: <20261118054758.132233-16-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261118054758.132233-1-rosenp@gmail.com>
+References: <20261118054758.132233-1-rosenp@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,73 +105,118 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=cf9fb9b6f5c1d24682a98b33195572b11c62bd4410fa3cbe45ce94883370;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 18 Nov 2026 05:47:43 +0000
-Message-Id: <DMY3M0ZQ168B.2V9AQM1FXCHY6@linux.spacemit.com>
-Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Daniel Lezcano"
- <daniel.lezcano@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>
-Subject: Re: [PATCH v2 2/5] clocksource/drivers/spacemit: Add K1 timer
- support
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Philipp Zabel" <p.zabel@pengutronix.de>
-In-Reply-To: <8b5be415e255b5387099d9f8a9b8f5f05d4cb038.camel@pengutronix.de>
-References: <20261117-spacemit-soc-timer-v2-0-9264d0ea7755@linux.spacemit.com> <20261117-spacemit-soc-timer-v2-2-9264d0ea7755@linux.spacemit.com> <8b5be415e255b5387099d9f8a9b8f5f05d4cb038.camel@pengutronix.de>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OYpbVsTx4C81k6RhXicVSquGdMhCcixoLt6YOvj7Cv+KZrK6oOMg23T4
-	UFsSreF82J1hoqhkEoW0UxjPrkjPQQ/DRJQ7/DAQ80y3OgoCHGowW/lorBG+DgrvPEODNdh
-	Q4H/j5h8DIeZikQ4+liZCnghL52Wi50wcTrPjLaYiAV+WcPBFUuEDvPDFwBm/pq7e2C5ZCt
-	HfLKZBwpMH313XipgtfSvv2S+eSZjx8sRVKEj7r1wyVll/RkrCkFVppKPGgU3aADWhact1I
-	6VcZO+Wmh/oTEVVxM8jyMMS+1DH4Ty3aJKIO4n4vpcjKcPGwVGBMLGtg+YNt3CJD9vMHbvY
-	H0ymnnIuJyKc19K90yQQpp8T1tdJlFsBPIRvh+cexKjZaxbvKaJov3p1tZTHmrxmoMBPPk1
-	bExk77hPpuCQBEcCGxOF6d/07T6wlxEDv7ThSAokiqAtWfBls0R71t8ee+V2tijdDPbjbcX
-	bsRb2nVltPxELnRYgTzZJOsSxgmqaMDCzRDb9CcGWoftDNVrr46kji1v90KBi0hDYSgIykW
-	Z7Ft2dHfZakh5faZAG421rVsIZjCw+aWXzXkoqHizwFbJd18VZz8YIA3AnB0H5DnEqm8yS6
-	JntgQC3uik49AiEK8qQ2T243zFJrUaSEM/LxQG7CcwRy+Kc/+9Zyk4n2kzuxFKMJ4CJzdaG
-	sxzZyhPAjG/m3npuPYAzatEtnFINcFYiVAyW1ivxM5AGXBbugtOyRdzQaIfxYBlegREwkrP
-	0JhU/sGyStCEG7RhO+Z40NSaxr4qo9OgwxC/CcLmPgHjq3NzvSwnH2ZNhGHnSE4m+5KzlCs
-	dsUE8HuRRBw/RaoY/PE5h24izDIukknP2aZjr1pWQCI0/F4qjjddoHls3kfW8VBnAVodIJx
-	d2Vlu1ezFHqGx+HF187b1kAGprPeXBGUh/WnuXMieYCEDhSjXgD9PC3Ij9vvq3Z+Q8s7yZi
-	9fikNyG5tJN9U3ATmLaOh95Ln3r85Qq+NgNJLR3vQJMhnKeDpkZ8/Nn+qhaw8r+9hijTqWa
-	YicTLCNBsZwfIBFZyeQ0nqBz1ckMamBYtF5vi69UFymRlt3YZ+VRl7R738NMNuZU98h558X
-	A==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
 
---cf9fb9b6f5c1d24682a98b33195572b11c62bd4410fa3cbe45ce94883370
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Use switch port 8 as the CPU port instead of port 5. Port 8 is the
+switch's IMP port and connects to gmac2, which is present on all
+Northstar SoCs. Move the MAC address from gmac0 to gmac2 to match.
 
-On Tue, 17 Nov 2026 10:52:27 +0100, Philipp Zabel wrote:
-> > +	depends on OF && COMMON_CLK && RESET_CONTROLLER && HAS_IOMEM
->
-> Drop the unnecessary RESET_CONTROLLER dependency, the reset controller
-> API has stubs for consumers.
-Will drop it in v3, thanks.
+The port 5 fixed-link only repeated the bcm-ns.dtsi default, and
+bcm-ns.dtsi already describes the port 8 fixed-link.
 
---=20
-Troy Mitchell
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ .../dts/broadcom/bcm53015-meraki-mr26.dts     | 19 +++++++------------
+ .../dts/broadcom/bcm53016-meraki-mr32.dts     | 15 +++++----------
+ 2 files changed, 12 insertions(+), 22 deletions(-)
 
---cf9fb9b6f5c1d24682a98b33195572b11c62bd4410fa3cbe45ce94883370
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/arch/arm/boot/dts/broadcom/bcm53015-meraki-mr26.dts b/arch/arm/boot/dts/broadcom/bcm53015-meraki-mr26.dts
+index 08abfdc63d18..890945a5690b 100644
+--- a/arch/arm/boot/dts/broadcom/bcm53015-meraki-mr26.dts
++++ b/arch/arm/boot/dts/broadcom/bcm53015-meraki-mr26.dts
+@@ -58,17 +58,17 @@ &uart1 {
+ };
+ 
+ &gmac0 {
+-	status = "okay";
+-
+-	nvmem-cells = <&macaddr_board_config_66>;
+-	nvmem-cell-names = "mac-address";
++	status = "disabled";
+ };
+ 
+ &gmac1 {
+ 	status = "disabled";
+ };
+ &gmac2 {
+-	status = "disabled";
++	status = "okay";
++
++	nvmem-cells = <&macaddr_board_config_66>;
++	nvmem-cell-names = "mac-address";
+ };
+ &gmac3 {
+ 	status = "disabled";
+@@ -137,12 +137,7 @@ port@0 {
+ 		};
+ 
+ 		port@5 {
+-			label = "cpu";
+-
+-			fixed-link {
+-				speed = <1000>;
+-				full-duplex;
+-			};
++			status = "disabled";
+ 		};
+ 
+ 		port@7 {
+@@ -150,7 +145,7 @@ port@7 {
+ 		};
+ 
+ 		port@8 {
+-			status = "disabled";
++			label = "cpu";
+ 		};
+ 	};
+ };
+diff --git a/arch/arm/boot/dts/broadcom/bcm53016-meraki-mr32.dts b/arch/arm/boot/dts/broadcom/bcm53016-meraki-mr32.dts
+index 45bd27906f29..d6dc448b2849 100644
+--- a/arch/arm/boot/dts/broadcom/bcm53016-meraki-mr32.dts
++++ b/arch/arm/boot/dts/broadcom/bcm53016-meraki-mr32.dts
+@@ -104,15 +104,15 @@ &uart2 {
+ };
+ 
+ &gmac0 {
+-	nvmem-cell-names = "mac-address";
+-	nvmem-cells = <&mac_address>;
++	status = "disabled";
+ };
+ 
+ &gmac1 {
+ 	status = "disabled";
+ };
+ &gmac2 {
+-	status = "disabled";
++	nvmem-cell-names = "mac-address";
++	nvmem-cells = <&mac_address>;
+ };
+ &gmac3 {
+ 	status = "disabled";
+@@ -178,12 +178,7 @@ port@0 {
+ 		};
+ 
+ 		port@5 {
+-			label = "cpu";
+-
+-			fixed-link {
+-				speed = <1000>;
+-				full-duplex;
+-			};
++			status = "disabled";
+ 		};
+ 
+ 		port@7 {
+@@ -191,7 +186,7 @@ port@7 {
+ 		};
+ 
+ 		port@8 {
+-			status = "disabled";
++			label = "cpu";
+ 		};
+ 	};
+ };
+-- 
+2.56.1
 
------BEGIN PGP SIGNATURE-----
-
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCav07/yEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC+lUQEAthB6oPUi2jXt
-IqbHKSVLLDvTw/RU7hb22TAJ38TsUmcBAMLwBrw6KEtlygOnqJaK3gXV/J5oro6Q
-qQd0Uc3YEowE
-=qCKP
------END PGP SIGNATURE-----
-
---cf9fb9b6f5c1d24682a98b33195572b11c62bd4410fa3cbe45ce94883370--
