@@ -1,110 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794995213;
-	b=l3pUAe0Wq6pJm8Y5F7axVAoXC/5sTY4dqHI8cVuuOAwlk/Q87euKPy+WtNfqUCcbMi/d
-	 6XjXV2BEGv3eMacKgp6ncT9KlVmFYPyh8oxTLiP+ynQdfivqHINYGw7NvIH5/49G7HeIC
-	 X/NQl6YEht1K1osie0V4rlvKCWFA2F+bXCUvHN57enSYDHH5Qz9Rprz8cUG6WMAtZMQ+v
-	 1B8YiCpk7FP2j6lPufZj78/WMhTJ+iJLl5jdrU02NniUICu5KTi14wG/r7cb+wbMpmWZP
-	 TXpawcovXbbCnLonq3BgT/uUJdt9lP1L+RsVK0Np/6Iq9D57C+6I0FALQe1kJnLvLBA==
+	t=1794995297;
+	b=Nq68KjbKIDY86Qw4vrD3sPgzHc870Xvpmy3At7wpYpx+n6M8AHx5GPpVmHTmhqq3aPLw
+	 R21dFG4GnFGMh+XTU00vTbxEgDhfoA6PY/nilOr/ZnB1ZvKfUTuhDn/yib60UkTrZ8KnG
+	 mFD+WbJuwj5iWk4D0ymOpfwAhNlRjnVCrKtLgL/JxOlvTzIpHaxw+e0Z1h01k/tEm+XpZ
+	 IA4/JzIEyb4wu+pBV0iD6l21ZQEsKQkHZFc2XjCnbDo5xPdeVZRjQSLwKUjJsWZzebzS0
+	 geioAWHuhhQV8hhrZGz5bp2rsrjg2CGZbV4QtpHT/hor4YFxNGOEPqL0W/NU70ap+Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794995213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794995297;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
 	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=QGFUyamvIl2yJRsbYSWhNWIMz1t3j23zUvCObGtz6cQ=;
-	b=zMqiwp4ysGebtI8CxbeYvW/NWf6qj15vQk0MPToxD11Co2S5FgQOQeBIAStgPSM/IBYa
-	 5M7RZrECD5LBBGMKgIidsyb5+uh378MQcW8QxIYfjv03EowPL6eIVQ+QVWpVxqqIjtiuh
-	 5/sp9PalnzjqwMOuUiAH8aEszTX2C3w4QaHHpxZodggAXS0upTDJ1zGK/c7+oE3adJ2f6
-	 sTVtV5Pwc89AfxnQC8ONZICPOG97DF9R3XTlRuWXCb6p5vwAkHD8mV2QXkJ3RFq/0koPu
-	 siaW7k7aUKzWdFylHzbo7PsTsO3VUVfXOs8tl+48kg6KCcB5mGY5VfDO4//ub4GCIcQ==
+	bh=kLnvSYRMn2ne36NTXb1nZYBaoMvTs9kFclp6tyj7WCY=;
+	b=XzygT65Xrt6W5tTcjKtrupf9C1EkcXdIYmuH+ID47uihwBXPHeiXxROYLuRGpQDcTabH
+	 FLpBOC7QrsjB2dxgvwRkX/9EFu3lnhnfaKRYR8iaLmAH+PRKNnxoLgSRY8xji0dONDvhB
+	 gC9NdDz2eP+VgNsb1K5xI0F/BlS8z3f9kbZjTu7f5+cj+CmaxItEDTOZ1jZ0HXWSdK2jH
+	 7Wpc1OZ38py3wWaHhoHCSDwShKMet+ZjNepAGQO3vaIEwDc4nUMtyUXRz11LmriYXLPhQ
+	 a/mPldtK1FLPImRlUywVmDXEhXVWwA1WUkAo4Up2jYjOKFOykVxKX4IP9whPP4pD/QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IyI11t28;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="g4i5eb//";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hFVEUO5W;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=drA6BBiF;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65741606A32F
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:46:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65741606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AB4606A334
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:48:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8AB4606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IyI11t28;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=g4i5eb//
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AI9k8EW2398689
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:46:51 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hFVEUO5W;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=drA6BBiF
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AI9lerT835341
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:48:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QGFUyamvIl2yJRsbYSWhNWIMz1t3j23zUvCObGtz6cQ=; b=IyI11t28fN4HBTr9
-	qINYBmOuGTmdnvFb4xOCmmd1a1+3c8F0FOXkpznPEfC+GlorLrAEQ6wVjZF/LoNm
-	QzhVRB/4L/lhSwRLge97aXpyEZbrOOEbycd90OmWumsCAM0cXnxC6qNK4HM5Iyvt
-	03mmdN4kTU2FBUJkgcno0AETEIL6TtkMSR7BbwYmqSebbyNsKZijBoLptmHJDbQq
-	mAhB45p/bz/fIT5OjCLPFINCZ36Sd+FTPCVTqJJpdNLHZfA4A+1gNRMwbnwoxqJP
-	cvDHU/JGozTDluFkHYN5bNTMnvBZ/YwWcHvwP7NZjUSE3SE6FIZRF8wzCOzVlxg3
-	Cgwuzw==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yv92d74-1
+	kLnvSYRMn2ne36NTXb1nZYBaoMvTs9kFclp6tyj7WCY=; b=hFVEUO5WeSIobojN
+	UVIw2O6MToBWX4CaZBcpZxtQT820QajyDdXRy9Td4vVQvTRIrizSrsWqOn6o3XdK
+	mCy5dhWkjoqFP/1KPXqA7Kj6uwsXz2HHuMtmc2GlfWwUKfKVY2M9RxAzEdJ9dNMb
+	qvXAs5AZ+WWCHY+sI5Z0etjtbE3iyLI+hvwnDhE/Q6dkEqPX/jHDMY7jONEedr/p
+	XrS/9PjpuiOlCxdS7NgTLWz+nyZjaTGK8XrVjLrJELW7yreeIvdb7rYfdbuWncg3
+	ZaZLtZimYJWULfgwezkXIpGgMfkik7d5s9PuQpSOuOmtDKYdG7daBxUCL+X4siD6
+	zXm5lQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yvcjdqy-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:46:51 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cdd48746a49so582559a12.0
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 01:46:51 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:48:15 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-89e05d31e54so714300b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 01:48:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794995211; x=1795600011; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794995294; x=1795600094; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QGFUyamvIl2yJRsbYSWhNWIMz1t3j23zUvCObGtz6cQ=;
-        b=g4i5eb//RlFhkoLTlBSWNxojtiPkunYriFnjCID3lr/biFvASjpuFDsj3kf6COj35t
-         WIZRRKAc0fqskuo7BXb/2scTK/8dNwKF1m1qzlmi0T91cMaoxGNdNQeMWWOV+C80yg18
-         J18tZQm0fvY09eDdcdmE8/qmwXA4GI9T3ICOpmpNLRXsa6PP7cKqojUwu7vmYfSrntVe
-         nGXlJaf63mTx+jQ480Mz7Y7cK7JJFBw81mEW+ykcUeB6yXq3PqS9j1vfTpNdYvVl6iuw
-         11U85/4FQ3wJd/nSkoNtimyC/mb53tKk92LMMWR1N5XJ1vwzaialTJkxp1S3K1oktAXG
-         kleQ==
+        bh=kLnvSYRMn2ne36NTXb1nZYBaoMvTs9kFclp6tyj7WCY=;
+        b=drA6BBiFKQRvXjawVSxnk0rsv3v2tUC5+6fTjFIzJZlxgNiYjn3beKYb6ZDiTCCMXl
+         Rd6Ew513IL+0exjvSG824u3na/grMh5w9dQ5uirOzfe0QAIvERiSezA55AkUzoqrx32A
+         hxkxsoxjwHUUva1MXGOm5LvOBc1LsGRp1DY8FST9EQ0iKm9eMbOYNENPTET+KlhXEx1x
+         67QONNl3vStJLPkN1hG4LEG61S52VT8+79gIC/dlQblcNkmPSbmZjtbs9k9KHOju+/mP
+         WT85mALYaA82UlmWOa8+rvYP+84C8AX3dYbN7337SvLVBjj/Rmh9noEQj06h7E8lYIKr
+         tugg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794995211; x=1795600011;
+        d=1e100.net; s=20260707; t=1794995294; x=1795600094;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QGFUyamvIl2yJRsbYSWhNWIMz1t3j23zUvCObGtz6cQ=;
-        b=ExszELo+SMfHcV+QBEOd1sfT1Qo+68g6MCByOYQidsUOzVOi8a4BgXTSs34H3w3YlK
-         jBcuhzQFCwhbm3dxY7JCeWPDm9x1y5skjzqsM00xQ/PdcsnlaaNFojxBF6aC/5t2s291
-         hJO7pn3xOfZ7p/zIdvRSG4yXe1uPNtT8ylAk8PNyB5j5AfuVDQK+aXga/BAGPejJLZUR
-         4Sj1mKMxgXVQ0oRjjKklqXjOU/s68Qma8m6zq01zhM8jfQk28nyeH23Vfkbb0p5h/tlk
-         6fIW0HKfqh8lC1ibyTqVXDp8Uh9se4cAfmGTssaAI/DlxAt2MH0PKTHP8Ei1yo8kGHFE
-         1++Q==
-X-Gm-Message-State: APuU4Z/lKJCWrQY6USZxh3FgNL6eTmwsik3nlob1cPHDXQxd6ppW6piT
-	iUrkKO1jvZdr2EKcDTPQpWu27eXTxLAe+x1nhwfsPr3xjkxEf1dbG9g92VYD97ychvMD3TXvzPp
-	uxMlxbLzoqQMUtjwTYGkLRqzCMMmg0eLTwa5uH7COhOhf5aLGr8iZtrU/EjiCB3Cs
-X-Gm-Gg: AZFdTZdAP5fAq+VJPj5wO9WET6RntQUOwRhAO6Lol4jdIZAebXeR5Q9XG3tIS8rKfOb
-	Vf2ZqUga0kVHdetcPqgsNZAPjRooyPJ0zaFZJLSLlmt10rE+wEjxsYv32F4yZkqsmmeG7ihAC4K
-	usc0NMKu1pP64gcskLTfxFbogU8qPWshgjbx2DGnDXLNKdJrRZrjMk0g6JQTh1AcF06u2mPl13b
-	8okg0ohkbqmSClwz72eS9ua1i+z0sAqG5cGqWo1CJoekB+jVpVb9WaDD/2fvUIYQm945emuz6Qe
-	R8azNzk+Cshs576C1kfsec3pZ8Bwb9hq4DUEem6OceTN9ZmSp8JfKPvzI3a/btqEy0O9HzjvcEc
-	rrIIerltc+OjbEMknQ1rRNd7u03ndupNd5o7Tk9xB66zLhh3MzL4vQ6tBxwIR0eqedjmvEOfZB6
-	+DEhTbeXhINLyUBtDXjErZB2/w4P4aYNrv5M24
-X-Received: by 2002:a17:90b:4fc1:b0:3b3:ba43:54bf with SMTP id 98e67ed59e1d1-3b3d07b9008mr1957490a91.27.1794995210608;
-        Wed, 18 Nov 2026 01:46:50 -0800 (PST)
-X-Received: by 2002:a17:90b:4fc1:b0:3b3:ba43:54bf with SMTP id 98e67ed59e1d1-3b3d07b9008mr1957467a91.27.1794995209924;
-        Wed, 18 Nov 2026 01:46:49 -0800 (PST)
-Received: from [10.133.33.89] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d1c03df9sm3576852a91.16.2026.11.18.01.46.47
+        bh=kLnvSYRMn2ne36NTXb1nZYBaoMvTs9kFclp6tyj7WCY=;
+        b=iC6wEQifAF0YA3cVUCHW+3AcgF/6FriAMqyQqxBPjoPiLK8RMj+g7QPTsuY1j5EER/
+         wuQDDV9w4SQBgK18pk2ORfvHWCWsP+b1U4Dk1H21l03XKnDZVXsO+SIzYmywAtSM7yBC
+         ww4mkOEMAv8MEDx18GInMKoUAYFL+MdX1hrKaZkXxs3KlxQkkK2juv6iu/Q54KmIctSY
+         vrzOTBtbjA1F3dIc97fjnUsmJrSSJ32/3BE5VucwUbfqCi+3wJxc4MIVE6biHzFFisMe
+         CFnVrsRj8h9t5/7bBS/07zVlKlIcxxxeFQ6aZK8zzC15TX2Yes/oPsuZbA+/JeV28f9U
+         ivuw==
+X-Forwarded-Encrypted: i=1; AL+hErHwJMyz0/bypoZKBzNnqWVIvs0EvYHQIE/JTkZ0zVjOse4bNtEku4kKrmtQMtU39S0IFH7Am0vbfVHG@vger.kernel.org
+X-Gm-Message-State: APuU4Z+o9UF4nUaFsIx9Lyj2Aiv2F3rwsCiIjQv7irCmGtIYJQ7NP+3X
+	OwD1SJolpUOGF07QL+XACNyQ70O7LbzJmyOE4X2IfApPpmeTEMq8ahZFIzvMNtOVQETMArlz+91
+	ypdIFQmDL1BUff78xd4PPjPkLBwdWJ00wwYkvEe+CZysR+IDV+Vg7HP3XY77D364+
+X-Gm-Gg: AYBFou0XknZ9qrmhOgL81y7HQpiqbRxodeae2fLeIQX0YbkFCR0YBTQvDQN9wGrE5Ko
+	qeat6iIypLAqLr6fCc/PSlgHhb5bU2gallot6eyGpAXSEX6LJtPowOhzcbkdXf/THfWZ7Q5Xo9/
+	EnGHJOoECaK6GISb297WBW12mspRwxeQ41xR0SZperGdux12X51Bdr79a9T3Y4hBFy1elwqg4UF
+	LEd9m+sobImuhdtrYxv7R0CTlgT57fWUtHyPJ7E4Qzcz4+jpjFjXsNXhQKE6/r+ol1LcD11+5In
+	cy8Bh7z1qBSyPKeS7RajITahLxos3lxTDGq2v8BTWBeTxWVy7DItQBlxKH6agChZ6csv+gfQjzN
+	y6tKGhWymB6Wlb3KiNV4Auz/42JnyLQBb7lptb/yej2ZnlqVMlU5Gi538oFbhBoZkue6QuojoGJ
+	qcq8I=
+X-Received: by 2002:a05:6a20:6a08:b0:3e2:7a40:a566 with SMTP id adf61e73a8af0-3fe8acfad99mr2273417637.45.1794995294249;
+        Wed, 18 Nov 2026 01:48:14 -0800 (PST)
+X-Received: by 2002:a05:6a20:6a08:b0:3e2:7a40:a566 with SMTP id adf61e73a8af0-3fe8acfad99mr2273388637.45.1794995293773;
+        Wed, 18 Nov 2026 01:48:13 -0800 (PST)
+Received: from [10.218.31.125] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c5cb54e413sm938597b3a.43.2026.11.18.01.48.09
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 01:46:49 -0800 (PST)
-Message-ID: <2ace0e0a-6710-4551-95e1-0524ff8d3681@oss.qualcomm.com>
-Date: Wed, 18 Nov 2026 17:46:47 +0800
+        Wed, 18 Nov 2026 01:48:13 -0800 (PST)
+Message-ID: <61542423-9ad8-4791-abac-3745e032cbf0@oss.qualcomm.com>
+Date: Wed, 18 Nov 2026 15:18:07 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,570 +117,66 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 7/8] coresight: ctcu: enable byte-cntr for TMC ETR
- devices
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20261118-enable-byte-cntr-for-ctcu-v23-0-67fd9db6bc0e@oss.qualcomm.com>
- <20261118-enable-byte-cntr-for-ctcu-v23-7-67fd9db6bc0e@oss.qualcomm.com>
- <sashiko-outbox-220466@kernel.org>
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: glymur: Add ICE node for UFS
+ inline encryption
+To: Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20261118-glymur_ufs_ice-v2-0-7ef4556eea15@oss.qualcomm.com>
+ <20261118-glymur_ufs_ice-v2-2-7ef4556eea15@oss.qualcomm.com>
 Content-Language: en-US
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-In-Reply-To: <sashiko-outbox-220466@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+In-Reply-To: <20261118-glymur_ufs_ice-v2-2-7ef4556eea15@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAzOCBTYWx0ZWRfX7RmM96ogZqLS
- wSiM2JuNMLs+EPfseXBBJCOWNF6MAvjFGNoFcOfA59vQyZX4Sg94kZBRcWwmLD2/n56weoiO7kw
- A+ReyQj6HbJRV3j4nbWwGSpjLHNxM8Iz8sRK1c6fXAI2xYvJMgR0D01dtdflFsucQskwhtPQr8o
- gBeAzQ1+eb6gvBAHXZtNKxZiMDFLOK16ppBa7LwtnItwc4wZGdBs8hkrBQOYiw+XHRZsyzdG/kv
- oB1G5djb8EZq/APevLi0FNIbZtgjIFOJQyNSckotpF+0bwmi/F+QxJuUjdZDPZ2BZTsKkPwwlpK
- sSsXf8ZXQZpG6a8AbUJ5XJnnTGNFmvH39ZP6USssSICZtgW9tQjk8z/Nkbh8ApVLqBnLlxzRFxg
- gf6FjQXTkUpXAvHps7AOkf9BiRnq5iRn68+hbsVHwS9seJlrv0KbNkmj7Mz1H+B85E6qjM/sdvA
- 4s6ZMyGQZR96DWUMjIA==
-X-Proofpoint-GUID: YsqNQH3S04QPLfFg7WgFNwYH1xxyfAxB
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAzOCBTYWx0ZWRfXzXfwvM+MpA5w
- 0Wf4cQLYSsL0+ig0SaWXH/Lhy6rXeW/ZwEu9lxQDFp4Zoqx+wWGGC6EMiM740j0F2a1+5DbzLSW
- 0/Yusny1SCPuXtRM5XL7zOXkpF/JkMo=
-X-Authority-Analysis: v=2.4 cv=LuQHWXdc c=1 sm=1 tr=0 ts=6afd740b cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Authority-Analysis: v=2.4 cv=R5OWitRX c=1 sm=1 tr=0 ts=6afd745f cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=K0rlx_LeU6MIbl2n6VwA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-ORIG-GUID: YsqNQH3S04QPLfFg7WgFNwYH1xxyfAxB
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=SooqmcQUKh5i17ny3PUA:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-GUID: ATU2bzJzBd3ApFpw1vMEnFBDuNtndMIj
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAzOCBTYWx0ZWRfX/0xwBvuTRwX1
+ iVe/O8/eJce2Z5F7pVAzysPcmnw+3glkCqV31H8Xv+WOasXFRk1NGrbxP875gUsNPoKaQeV5VwZ
+ aI96W5bXELabDzJ6XdPzsPxdnGl7L2s=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAzOCBTYWx0ZWRfX4RKJVQk/TyW4
+ TE2RlFYna8DecnbXQnyOG5kFyceeUNnxRZ7knxuTwmIoh+8ydVcLOLfBCDsBl/rm8P3uKgzxtyg
+ DqhbmYSmhWd4eHtxQkMwtM7c30Gkl2Gr+DEDcwJQn+g5PwgJtKyBq3OrVbD16sPgJ4JNoETQIXi
+ ABVbx4yKamEr8rZPWZ5p+q7MeQF6aMp/pw39qjOE4VLroNsMPf6fO3d//8c3OahpljC1qYm5xSC
+ 5Od4x9Mmg3nDqYCp4Lqshxi8ZNF/7g4ohhdjKCi+0ccydpvtgDvXzoJ4VI9giX4yhgt5hsgmnaK
+ 3NqE4LkwzrOQ4J5TWZw0lNlCCj3NjDylaKuZd8wFp8Ej+vcOLqzfpTnOxxBqRrKJg+K9nm/ywFH
+ brksoKrCCieXR6jPos6cpxTXycO04HNbupJauA4Bh6b1TjOvW5JX2tA4vQrghVuPowHlZNMIHfD
+ iLntMQiT2V0moN7MoiA==
+X-Proofpoint-ORIG-GUID: ATU2bzJzBd3ApFpw1vMEnFBDuNtndMIj
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-18_02,2026-11-16_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 malwarescore=0 suspectscore=0 clxscore=1015
- adultscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501 bulkscore=0
+ clxscore=1015 impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 adultscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180038
 
+On 18-11-2026 14:38, Wenjia Zhang wrote:
+> Add the Inline Crypto Engine (ICE) device node to describe the
+> hardware-accelerated inline encryption for UFS storage on the
+> Glymur QCB board.
+> 
+> Signed-off-by: Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>
 
+ICE addr/reg and other values are correct as per hardware spec.
 
-On 11/18/2026 4:40 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 7 potential
-> issues to consider:
-> - [Medium] coresight: ctcu: premature release of read_lock in
->    tmc_byte_cntr_get_data()
+Reviewed-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
 
-read_lock not affected the tmc_read.
-
-> - [Medium] coresight: ctcu: use-after-free on buf_node in
->    tmc_byte_cntr_get_data()
-
-looks valid, will check.
-
-> - [Medium] coresight: ctcu: byte_cntr_data->enable leaked on generic
->    read fallback
-
-looks valid, will check.
-
-> - [Medium] coresight: ctcu: unordered enable and removing stores in
->    ctcu_platform_remove()
-
-looks valid, will check.
-
-> - [Medium] coresight: ctcu: UAF race between byte_cntr_sysfs_ops and
->    CTCU teardown
-
-looks possible but window is very small.
-
-> - [Medium] coresight: tmc: tmc_read() converts byte-cntr negative errors
->    into EOF
-
-leave as-is.
-
-> - [Low] coresight: ctcu: race in tmc_read_unprepare_byte_cntr() skips
->    byte-cntr start
-
-looks valid, will check.
-
-Thanks,
-Jie
-
-> --
-> 
-> commit e2d99652345f219b25f03926606cfb55a2d0509a
-> Author: Jie Gan <jie.gan@oss.qualcomm.com>
-> 
-> coresight: ctcu: enable byte-cntr for TMC ETR devices
-> 
-> This commit enables the CTCU byte-counter interrupt mechanism to transfer
-> trace data from switched ETR buffers to userspace while the ETR continues
-> tracing.
-> 
->> diff --git a/drivers/hwtracing/coresight/coresight-ctcu-byte-cntr.c b/drivers/hwtracing/coresight/coresight-ctcu-byte-cntr.c
->> new file mode 100644
->> index 0000000000000..688fe6342c042
->> --- /dev/null
->> +++ b/drivers/hwtracing/coresight/coresight-ctcu-byte-cntr.c
->> @@ -0,0 +1,465 @@
-> 
-> [ ... ]
-> 
->> +static ssize_t tmc_byte_cntr_get_data(struct tmc_drvdata *etr_drvdata, loff_t pos,
->> +				      size_t len, char **bufpp)
->> +{
->> +	struct coresight_device *ctcu = tmc_etr_get_ctcu_device(etr_drvdata);
->> +	struct device *dev = &etr_drvdata->csdev->dev;
->> +	struct ctcu_byte_cntr *byte_cntr_data;
->> +	struct etr_buf *sysfs_buf;
->> +	atomic_t *irq_cnt;
->> +	ssize_t actual;
->> +	int ret;
->> +
->> +	/* No byte-cntr read session, let the caller use the generic read */
->> +	byte_cntr_data = ctcu_get_byte_cntr(ctcu, etr_drvdata->csdev);
->> +	if (!byte_cntr_data || !byte_cntr_data->irq_enabled ||
->> +	    !byte_cntr_data->reading)
->> +		return -EINVAL;
->> +
->> +	/*
->> +	 * A zero-length read must not be treated as the end of the buffer,
->> +	 * otherwise the unread data of the current buffer would be dropped.
->> +	 */
->> +	if (!len)
->> +		return 0;
->> +
->> +	/*
->> +	 * Multiple readers of one file descriptor can't get a meaningful trace
->> +	 * sequence, serialize them to protect the buf_node.
->> +	 */
->> +	ACQUIRE(mutex_intr, read_guard)(&byte_cntr_data->read_lock);
->> +	ret = ACQUIRE_ERR(mutex_intr, &read_guard);
->> +	if (ret)
->> +		return ret;
-> 
-> [ ... ]
-> 
->> +	pos = byte_cntr_data->buf_node->pos;
->> +	sysfs_buf = byte_cntr_data->buf_node->sysfs_buf;
->> +	actual = tmc_etr_read_sysfs_buf(sysfs_buf, pos, len, bufpp);
->> +	if (actual <= 0) {
->> +		/* Reset buf_node upon reading is finished or failed */
->> +		byte_cntr_data->buf_node->reading = false;
->> +		byte_cntr_data->buf_node = NULL;
->> +
->> +		/*
->> +		 * Nothing in the buffer, waiting for the next buffer
->> +		 * to be filled.
->> +		 */
->> +		if (actual == 0)
->> +			goto wait_buffer;
->> +	}
->> +
->> +	return actual;
->> +}
-> 
-> [Severity: Medium]
-> Does releasing byte_cntr_data->read_lock on return from
-> tmc_byte_cntr_get_data() leave copy_to_user() and
-> tmc_etr_update_buf_node_pos() unserialized in tmc_read()?
-> 
-> Because /dev/tmc_etrX is a character device opened with
-> nonseekable_open(), the VFS does not hold file->f_pos_lock across
-> vfs_read().  Once tmc_byte_cntr_get_data() returns, read_guard drops
-> byte_cntr_data->read_lock before tmc_read() copies from bufp or advances
-> buf_node->pos:
-> 
-> CPU0                                    CPU1
-> tmc_read()
->    tmc_byte_cntr_get_data()
->      lock(&byte_cntr_data->read_lock)
->      pos = buf_node->pos
->      tmc_etr_read_sysfs_buf(..., &bufp)
->      unlock(&byte_cntr_data->read_lock)
->    copy_to_user(data, bufp, actual)
->                                          tmc_read()
->                                            tmc_byte_cntr_get_data()
->                                              ...
->                                            tmc_etr_update_buf_node_pos()
->                                              nd->pos += actual
->                                          tmc_read()
->                                            tmc_byte_cntr_get_data()
->                                              actual == 0:
->                                              buf_node->reading = false
->                                              buf_node = NULL
->                                              tmc_etr_switch_buf_node()
->                                                <-- ETR DMAs into bufp while
->                                                    CPU0 is in copy_to_user()
->    tmc_etr_update_buf_node_pos()
->      nd->pos += actual  <-- advances the newly switched buf_node->pos
-> 
-> [ ... ]
-> 
->> +static int tmc_read_unprepare_byte_cntr(struct tmc_drvdata *etr_drvdata)
->> +{
->> +	struct coresight_device *ctcu = tmc_etr_get_ctcu_device(etr_drvdata);
->> +	struct ctcu_byte_cntr *byte_cntr_data;
->> +
->> +	/*
->> +	 * Do the unprepare operation only when the byte_cntr_data->reading
->> +	 * is truly set
->> +	 */
->> +	byte_cntr_data = ctcu_get_byte_cntr(ctcu, etr_drvdata->csdev);
->> +	if (!byte_cntr_data || !byte_cntr_data->irq_enabled ||
->> +	    !byte_cntr_data->reading)
->> +		return -EINVAL;
->> +
->> +	tmc_clean_etr_buf_list(etr_drvdata);
->> +
->> +	/* disable_irq_wake() may sleep on slow-bus irqchips, call it unlocked */
->> +	disable_irq_wake(byte_cntr_data->irq);
->> +
->> +	/*
->> +	 * The byte-cntr register is not accessed here: the trace path, which
->> +	 * keeps the CTCU powered, may have been released already. It is reset
->> +	 * when the path is disabled.
->> +	 */
->> +	scoped_guard(raw_spinlock_irqsave, &byte_cntr_data->spin_lock) {
->> +		byte_cntr_data->buf_node = NULL;
->> +		byte_cntr_data->reading = false;
-> 
-> [Severity: Medium]
-> Can freeing etr_buf_list before clearing byte_cntr_data->buf_node and
-> byte_cntr_data->reading cause a use-after-free in
-> tmc_byte_cntr_get_data()?
-> 
-> If a byte-cntr read session closes while byte_cntr_data->buf_node still
-> points to a partially read buffer and the trace stops before
-> tmc_read_unprepare_byte_cntr() acquires byte_cntr_data->spin_lock, a
-> concurrent open() and read() on /dev/tmc_etrX can enter
-> tmc_byte_cntr_get_data() while byte_cntr_data->reading is still true:
-> 
-> CPU0                                    CPU1
-> tmc_read_unprepare_byte_cntr()
->    tmc_clean_etr_buf_list()
->      __tmc_clean_etr_buf_list()
->        tmc_etr_free_sysfs_buf(buf_node->sysfs_buf)
->        kfree(buf_node)
->    disable_irq_wake()
->                                          /* trace stops */
->                                          tmc_open()
->                                            tmc_read_prepare_etr()
->                                              tmc_read_prepare_byte_cntr()
->                                                mode != CS_MODE_SYSFS -> -EINVAL
->                                              /* falls back to generic read */
->                                              drvdata->reading = true
->                                          tmc_read()
->                                            tmc_etr_get_sysfs_trace()
->                                              tmc_byte_cntr_get_data()
->                                                pos = buf_node->pos
->                                                  <-- use-after-free
-> 
->> +		/*
->> +		 * Complete the session with reading cleared in one critical
->> +		 * section, so that a new session can't start in between.
->> +		 * ctcu_platform_remove() may free byte_cntr_data after this,
->> +		 * don't use it anymore.
->> +		 */
->> +		complete_all(&byte_cntr_data->session_done);
->> +	}
->> +
->> +	module_put(THIS_MODULE);
->> +
->> +	return 0;
->> +}
->> +
->> +static const struct tmc_sysfs_ops byte_cntr_sysfs_ops = {
->> +	.read_prepare	= tmc_read_prepare_byte_cntr,
->> +	.read_unprepare	= tmc_read_unprepare_byte_cntr,
->> +	.get_trace_data	= tmc_byte_cntr_get_data,
->> +};
->> +
->> +/* Start the byte-cntr function when the path is enabled. */
->> +void ctcu_byte_cntr_start(struct coresight_device *csdev, struct coresight_path *path)
->> +{
->> +	struct coresight_device *sink = coresight_get_sink(path);
->> +	struct tmc_drvdata *etr_drvdata;
->> +	struct ctcu_byte_cntr *byte_cntr_data;
->> +
->> +	byte_cntr_data = ctcu_get_byte_cntr(csdev, sink);
->> +	if (!byte_cntr_data)
->> +		return;
->> +
->> +	etr_drvdata = dev_get_drvdata(sink->dev.parent);
->> +	guard(raw_spinlock_irqsave)(&byte_cntr_data->spin_lock);
->> +	/*
->> +	 * Don't start byte-cntr function when irq_enabled is not set, when the
->> +	 * CTCU device is being removed, or when the read of the previous trace
->> +	 * is still in progress: the sink can't be enabled until it is finished.
->> +	 */
->> +	if (!byte_cntr_data->irq_enabled || byte_cntr_data->removing ||
->> +	    byte_cntr_data->reading)
->> +		return;
-> 
-> [Severity: Low]
-> Can a trace path enabled while tmc_read_unprepare_byte_cntr() is running
-> start the ETR sink without starting byte-cntr?
-> 
-> The check on byte_cntr_data->reading assumes that enabling the ETR sink
-> will fail while the previous byte-cntr read session is still active.
-> However, tmc_etr_get_sysfs_buffer() only checks
-> !list_empty(&drvdata->etr_buf_list), and tmc_read_unprepare_byte_cntr()
-> empties etr_buf_list in tmc_clean_etr_buf_list() (and calls
-> disable_irq_wake()) before clearing byte_cntr_data->reading:
-> 
-> CPU0                                    CPU1
-> tmc_read_unprepare_byte_cntr()
->    tmc_clean_etr_buf_list()
->      /* etr_buf_list is now empty */
->    disable_irq_wake()
->                                          coresight_enable_path_from_to()
->                                            ctcu_enable()
->                                              ctcu_byte_cntr_start()
->                                                byte_cntr_data->reading == true
->                                                return;  <-- skips byte-cntr
->                                            tmc_enable_etr_sink()
->                                              tmc_etr_get_sysfs_buffer()
->                                                list_empty(&etr_buf_list) == true
->                                                /* sink enables */
->    byte_cntr_data->reading = false
-> 
->> +
->> +	/*
->> +	 * The etr_bufs of the reserved mode share one memory region, they
->> +	 * can't be switched by byte-cntr.
->> +	 */
->> +	if (etr_drvdata->etr_mode == ETR_MODE_RESRV)
->> +		return;
-> 
-> [ ... ]
-> 
->> +/* Stop the byte-cntr function when the path is disabled. */
->> +void ctcu_byte_cntr_stop(struct coresight_device *csdev, struct coresight_path *path)
->> +{
->> +	struct coresight_device *sink = coresight_get_sink(path);
->> +	struct ctcu_byte_cntr *byte_cntr_data;
->> +
->> +	if (coresight_get_mode(sink) == CS_MODE_SYSFS)
->> +		return;
-> 
-> [Severity: Medium]
-> Can byte_cntr_data->enable remain stuck at true after the trace path is
-> released if a session falls back to generic read?
-> 
-> ctcu_byte_cntr_start() runs before the ETR sink is enabled and only checks
-> etr_drvdata->etr_mode == ETR_MODE_RESRV.  However,
-> tmc_etr_get_sysfs_buffer() can reuse an existing drvdata->sysfs_buf whose
-> mode is still ETR_MODE_RESRV (after buf_mode_preferred was changed without
-> changing buffer_size), or buf_mode_preferred can be set to resrv after the
-> trace starts.  When /dev/tmc_etrX is then opened,
-> tmc_create_etr_buf_list() returns -EINVAL and tmc_read_prepare_etr() falls
-> back to generic read, setting drvdata->reading = true while
-> byte_cntr_data->enable remains true.
-> 
-> If the trace source is disabled while that generic read file descriptor is
-> open, tmc_disable_etr_sink() sees drvdata->reading == true and returns
-> -EBUSY without clearing CS_MODE_SYSFS on the sink.  ctcu_byte_cntr_stop()
-> then sees coresight_get_mode(sink) == CS_MODE_SYSFS and returns early
-> without zeroing irq_ctrl_offset or clearing byte_cntr_data->enable, right
-> before coresight_release_path() drops the CTCU runtime PM reference.  From
-> that point on, irq_enabled_store() permanently fails with -EBUSY and
-> ctcu_platform_remove() will write to the CTCU register while the CTCU is no
-> longer kept powered by an active path.
-> 
->> diff --git a/drivers/hwtracing/coresight/coresight-ctcu-core.c b/drivers/hwtracing/coresight/coresight-ctcu-core.c
->> index 739105acb0a13..94283661f10d4 100644
->> --- a/drivers/hwtracing/coresight/coresight-ctcu-core.c
->> +++ b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-> 
-> [ ... ]
-> 
->> @@ -244,10 +356,65 @@ static int ctcu_platform_probe(struct platform_device *pdev)
->>   static void ctcu_platform_remove(struct platform_device *pdev)
->>   {
->>   	struct ctcu_drvdata *drvdata = platform_get_drvdata(pdev);
->> +	struct ctcu_byte_cntr *byte_cntr_data;
->> +	unsigned long flags;
->> +	int i;
->>   
->>   	if (WARN_ON(!drvdata))
->>   		return;
->>   
->> +	/*
->> +	 * Signal all active byte-cntr readers to exit, then wait for them to
->> +	 * finish before resetting the ops pointer and freeing driver data.
->> +	 * Without this, a reader blocked in wait_event_interruptible_timeout()
->> +	 * would access the freed ctcu_drvdata wait-queue head (use-after-free).
->> +	 *
->> +	 * The wait ends only when the userspace closes the tmc_etr file, so an
->> +	 * unbind with the file left open blocks until then. Unloading the module
->> +	 * is rejected with -EBUSY while a read session is open, so only a manual
->> +	 * unbind can block here.
->> +	 */
->> +	for (i = 0; i < ETR_MAX_NUM; i++) {
->> +		byte_cntr_data = &drvdata->byte_cntr_data[i];
->> +		/* The port was not initialized by ctcu_byte_cntr_init() */
->> +		if (!byte_cntr_data->irq)
->> +			continue;
->> +
->> +		raw_spin_lock_irqsave(&byte_cntr_data->spin_lock, flags);
->> +		/*
->> +		 * Set enable=false to signal teardown to racing readers, and
->> +		 * removing=true to keep a new path from enabling byte-cntr again.
->> +		 * ctcu_byte_cntr_stop() won't touch the register once enable is
->> +		 * cleared, so disable the IRQ here. The CTCU is powered as long as
->> +		 * enable is set, which is cleared when the path is disabled.
->> +		 */
->> +		if (byte_cntr_data->enable)
->> +			ctcu_program_register(drvdata, 0,
->> +					      byte_cntr_data->irq_ctrl_offset);
->> +		byte_cntr_data->enable = false;
->> +		byte_cntr_data->removing = true;
->> +		raw_spin_unlock_irqrestore(&byte_cntr_data->spin_lock, flags);
-> 
-> [Severity: Medium]
-> Can tmc_byte_cntr_get_data() observe byte_cntr_data->enable == false before
-> byte_cntr_data->removing == true and fall back to reading the unsynced live
-> ETR buffer?
-> 
-> tmc_byte_cntr_get_data() checks byte_cntr_data->enable and
-> READ_ONCE(byte_cntr_data->removing) without holding
-> byte_cntr_data->spin_lock:
-> 
-> CPU0                                    CPU1
-> ctcu_platform_remove()
->    byte_cntr_data->enable = false
->                                          tmc_etr_get_sysfs_trace()
->                                            tmc_byte_cntr_get_data()
->                                              wait_event_interruptible_timeout()
->                                                /* sees !enable */
->                                              if (byte_cntr_data->enable) ...
->                                              else {
->                                                if (READ_ONCE(removing) && ...)
->                                                  /* sees !removing */
->                                                return 0;
->                                              }
->                                            /* ret == 0 falls through */
->                                            tmc_etr_read_sysfs_buf(sysfs_buf, ...)
->                                              <-- reads live unsynced ETR buffer
->    byte_cntr_data->removing = true
-> 
-> Setting byte_cntr_data->removing = true before clearing
-> byte_cntr_data->enable (with paired release/acquire or barrier ordering)
-> would ensure the reader sees removing set once it observes enable cleared.
-> 
->> +
->> +		/* Wake up the blocked reader, then wait for the session to end */
->> +		wake_up_all(&byte_cntr_data->wq);
->> +		wait_for_completion(&byte_cntr_data->session_done);
->> +
->> +		/*
->> +		 * The ending session completes it with the lock held. Take the
->> +		 * lock once more, to be sure that it has released the lock
->> +		 * before byte_cntr_data is freed.
->> +		 */
->> +		raw_spin_lock_irqsave(&byte_cntr_data->spin_lock, flags);
->> +		raw_spin_unlock_irqrestore(&byte_cntr_data->spin_lock, flags);
->> +	}
->> +
->> +	/*
->> +	 * No byte-cntr session is left and a new one can't start now. Stop the
->> +	 * tmc driver from calling the byte-cntr ops before the CTCU device is
->> +	 * unregistered and freed.
->> +	 */
->> +	ctcu_byte_cntr_put_ops(drvdata);
->> +
->> +	ctcu_remove(pdev);
-> 
-> [Severity: Medium]
-> Can an in-flight byte_cntr_sysfs_ops call race with ctcu_platform_remove()
-> and cause a use-after-free on ctcu and drvdata?
-> 
-> byte_cntr_data->session_done is initialized as completed in
-> ctcu_byte_cntr_init() and is only reinitialized inside
-> tmc_read_prepare_byte_cntr() after tmc_etr_get_ctcu_device() and
-> ctcu_get_byte_cntr() have already run.  In addition,
-> tmc_read_prepare_etr(), tmc_etr_get_sysfs_trace(), and
-> tmc_read_unprepare_etr() read byte_cntr_sysfs_ops with READ_ONCE() and call
-> into it on every ETR open, read, and close (even during generic reads when
-> session_done is completed and THIS_MODULE is not pinned), while
-> ctcu_byte_cntr_put_ops() simply clears byte_cntr_sysfs_ops with
-> WRITE_ONCE() without waiting for in-flight callers:
-> 
-> CPU0                                    CPU1
-> tmc_read_prepare_etr()
->    byte_cntr_ops = READ_ONCE(byte_cntr_sysfs_ops)
->    tmc_read_prepare_byte_cntr()
->      ctcu = tmc_etr_get_ctcu_device()
->                                          ctcu_platform_remove()
->                                            wait_for_completion(&session_done)
->                                              /* already complete */
->                                            ctcu_byte_cntr_put_ops()
->                                            ctcu_remove()
->                                              coresight_unregister(csdev)
->                                            /* devres frees drvdata */
->      ctcu_get_byte_cntr(ctcu, ...)
->        dev_get_drvdata(ctcu->dev.parent)
->        coresight_get_in_port(etr, ctcu)  <-- use-after-free
-> 
->> diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
->> index 4b40b692be4d8..6ad09995ba87c 100644
->> --- a/drivers/hwtracing/coresight/coresight-tmc-core.c
->> +++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
->> @@ -293,7 +293,8 @@ static ssize_t tmc_read(struct file *file, char __user *data, size_t len,
->>   		return -EFAULT;
->>   	}
->>   
->> -	*ppos += actual;
->> +	if (!tmc_etr_update_buf_node_pos(drvdata, actual))
->> +		*ppos += actual;
->>   	dev_dbg(&drvdata->csdev->dev, "%zu bytes copied\n", actual);
->>   
->>   	return actual;
-> 
-> [ ... ]
-> 
->> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hwtracing/coresight/coresight-tmc-etr.c
->> index cc341cdf8d8e5..d856f0a190f72 100644
->> --- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
->> +++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
->> @@ -1178,23 +1181,44 @@ static int tmc_etr_enable_hw(struct tmc_drvdata *drvdata,
-> 
-> [ ... ]
-> 
->> +ssize_t tmc_etr_get_sysfs_trace(struct tmc_drvdata *drvdata,
->> +				loff_t pos, size_t len, char **bufpp)
->> +{
->> +	ssize_t ret;
->> +	const struct tmc_sysfs_ops *byte_cntr_ops = READ_ONCE(byte_cntr_sysfs_ops);
->> +
->> +	if (byte_cntr_ops) {
->> +		ret = byte_cntr_ops->get_trace_data(drvdata, pos, len, bufpp);
->> +		/*
->> +		 * -EINVAL means byte-cntr has no active read session. 0 means
->> +		 * byte-cntr has no more data because the sink has stopped, the
->> +		 * last etr_buf is read by the generic read. Anything else is
->> +		 * the result of the byte-cntr session.
->> +		 */
->> +		if (ret != -EINVAL && ret != 0)
->> +			return ret;
->> +	}
->> +
->> +	return tmc_etr_read_sysfs_buf(drvdata->sysfs_buf, pos, len, bufpp);
->>   }
-> 
-> [Severity: Medium]
-> Does tmc_read() swallow the negative error codes returned by
-> tmc_byte_cntr_get_data() and turn them into EOF?
-> 
-> tmc_etr_get_sysfs_trace() propagates negative errors from
-> tmc_byte_cntr_get_data() such as -ERESTARTSYS (when
-> wait_event_interruptible_timeout() is interrupted by a signal), -EINTR,
-> -ENOMEM, and -ENODEV.  However, the caller in tmc_read() converts all
-> non-positive values to 0:
-> 
-> drivers/hwtracing/coresight/coresight-tmc-core.c:tmc_read() {
-> 	actual = tmc_get_sysfs_trace(drvdata, *ppos, len, &bufp);
-> 	if (actual <= 0)
-> 		return 0;
-> 
-> When a signal arrives while userspace is blocked waiting for trace data,
-> read() returns 0 (EOF) instead of restarting or returning -EINTR, causing
-> the reader to terminate trace collection prematurely while the ETR sink is
-> still running.
-> 
+-- 
+Regards
+Kuldeep
 
