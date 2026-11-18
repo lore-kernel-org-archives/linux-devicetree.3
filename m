@@ -1,85 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795018473;
-	b=eALdevcBFJ6UZTiI87dhvmcuQ4SSW0xTN/UyzsfeMx9vhl2QRgQv4UJ+xWPdPi3zBrFd
-	 SfLhosmTvCdIscjSpHf54sOrQ1cBmyfF+BZGEhn/QIKWq1mwyW4VqCIX6U9JWJVn8iP6k
-	 hcdi5oTm+Rut7m4ir54uWpZXakSM9N+fwirnkeB3TOyPoBKx/4TYvfRk/Ce/zJodEao7w
-	 KSLz8Ji7ilK3IMwnXxO2BzaX3eQA0bmfHo7NE4iyVGS7LaeKDs/GK5OsTXracSJP3rOER
-	 2s4xQ0AjU3/QloRDBu0LXHj4q7GqWfZJXu6ZJMii+h/Z50813dDnfATSAGvAM4Dg/4g==
+	t=1795018678;
+	b=BWTqB/J2V+IrmqD147Tsp6n7r/DJDDBwNw+qASnPmY7LacfmalbrpY+v3Hu5OuCWPO2j
+	 oFlacI8AxJ1JAtiuFeok1MtfNNaNELxFuAoy60QjfgI0D3rELobmrpYaFlLAAfKrvF4x+
+	 L1msLtcactpIxyPMQhQBZ3e5UHEnNaNNCRXKIieHL3AMPSY6jkzFLp+rKrKCKJwQ0zQGG
+	 Px129cxVj1wftX3I9FlmTlgPTc8IP3J3xsdigjyBCrAhfSkETWB4+vo9NqNdQv8fym48/
+	 w4pX2jBWxmWYlz78tVkJ4FhJjjnS73Y57PoAQHJXL2peaRaMiwJY9GZ6HZwRD4kinHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795018473;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795018678;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=Q0xjTpI07HlgviMHo4KyWLXIxNMlTqAZgoOaTK7mdCg=;
-	b=o4umSuIIcSap6Su1bY9JedtdjUxlUAwXzQ1nhXLPWz34I8wwAIsA+qGIz868jBfZaCz0
-	 n2G7r5cc4oPq2OW2FcrXElL/8WoY2cbnDmPixkosyoKbUs8D421KRd+4MIX+0THSZUt+k
-	 bXDr5lSFwChhjchMQNmZ5iniwSnJlgN1PE0XaJ6kgUIjhnf8jPzx6SYzyhWuvwzTo4dDp
-	 7gd6ocwHKsqR9jSLM+62j+4nYBNN+qTPVNDZWuWJ1ImoiH4uBAqvm56abZrkF/jIx5ihS
-	 nbAC1DxfTgmuDkD9qr9ZSD4FX9xhLEyKHvurarTdzTrYAas56luQoazQZaAdItcGwLg==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=ta3st23k7aJtViHx8b5Y0gwAd71zJE3W0PZkE87cjbA=;
+	b=vjf2LzOKQvuV9tv/m5S+RqtsD5dwvFwk/JunD+AEO21mz++QDZwjHRmpfAYjmJHh+5EJ
+	 CqeSug775ivi7k4bzYJUzpEcs0dx20p/hLrfJcha2lkWnDO63e+z8dPYjMVDyHTkccOca
+	 3szgm+4tGZWehHf4Tbn7nGdCR2VDEEd/cBhPNwtzPX65zcUuYCXkIHKo7qOS1N0Z7GRWJ
+	 tblSYogWJzTW15A+s9s9vSsDAEmmu/ycV1IjkAAZKhPSEOreeBhMXLwr9NZ5LGeuns7RS
+	 TppKiGvM8kZEA+/ZYA73RxVJbSjZyKE4lejqEr4qNYwPYiZ1KrNFFrFzMqk/D/pKWiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=N8cHuzSG;
-	arc=none smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xc6Xxqmy;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E036606A32A
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 16:14:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E036606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5831C606A32F
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 16:17:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5831C606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=N8cHuzSG
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b8c60e0d39so563894a12.2
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:14:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xc6Xxqmy
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4a32576da88so639474f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:17:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1795018471; x=1795623271; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Q0xjTpI07HlgviMHo4KyWLXIxNMlTqAZgoOaTK7mdCg=;
-        b=N8cHuzSGx59kCzVaVvnnVDk+m0o/5FzrJte3k8qYPYBAfARJ7jS1mCpj1MFBk/8ZW9
-         X+OfTRhuYHACV1grTRV7ntmN2SlvUZzZLFp5CtIoyP9ooDJ5c08mcoBgez6alR64ZtL/
-         9XL20VL0fme5aCnLjXWVBXb4+AyWV1RYbTssZAZXTtlL5OdCBWcb3NChgu7RSw0TRJJd
-         pS+Wz11rnhsmi4o3ezQuy/xAtokMN7lW+v1CRT0nFs+ZsUlkJWacXB46MHijaOdI4Mi9
-         mrskFTmQmTk9qbVPdP1K0DZsXpX+Mi3+phzqlcnyfTe5JHGMeNY53i2/JiYH36bJsvNk
-         e2xA==
+        d=gmail.com; s=20260707; t=1795018677; x=1795623477; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ta3st23k7aJtViHx8b5Y0gwAd71zJE3W0PZkE87cjbA=;
+        b=xc6XxqmyzRj7lQBrNXY5fekJIw0z3FkGPGRktiNOzf5zUKTVp6yeg/YY8ZOXrUVjhu
+         Ll5mMFWWkIV3ZzAXWggdOiVJQK6UxbCQobIv14PllnAqt+8uPjZvuE/ZQkWgB070Mum3
+         UErfPdO2l80nUj+spYZORvtk2dYswb5fwR4YQwfZMtMxJzrASV9Ums7hlAoDxGiP5POO
+         5efc2QK/CbafNHSwkOA47uHHJ+TeYlRVKI9S8opug/tym5mDQ6pLfH4uguCWARHyG8Cb
+         qiUGE5t+qdf2fd5uBlSqE5ocA7YMKDwSmE9UffnoUr5Z46Mv9S4PAfu/B8w6cGZFeoyu
+         uXpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795018471; x=1795623271;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q0xjTpI07HlgviMHo4KyWLXIxNMlTqAZgoOaTK7mdCg=;
-        b=jibky2oksNynReZHydUWkm85gPuYxqAZT8kW5TY9iJaXaJrQo/rZVHGdzvoMH3J72p
-         ysHYMFQLLgGnOJhChiwZomGp0UbI6ah8B21yGf4JOagcfXJIUrbuB1pRDlFXM927Anpq
-         V7hvjhR433MdWRJvytQnTNmzig6JQu8ap5oqdmCyhHCFA3zpGN3kBWgqUT+anNdUUGPJ
-         27EJF8/mPoN/xJSUd7b3POI3QXkuhnTlOeCbDOBCIB/uhQP4n+yzB64RGBmHNfhkVeda
-         nrz/GJ5tCAtbUFdxfMabyIkWQuCaFlHAfPpNvGZGMUeOYRfr++OeZnHdkLcrCSdsvAQU
-         6iZw==
-X-Forwarded-Encrypted: i=1; AL+hErExREAdA2V6dj1RFae4edR3/p+zkZa5Nml2EZ1AbwA82si4SW4b58cgYB5j2AsMixfptwK9P7FJv8Xi@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2nrS0AYm1K7/eAEfwtfL2Mpl9sgHFSDMKMPLT5rTv+SvQ6Mgi
-	CuEZzP8qlZlcmfCZyWbIftLtFQgeam90h6eLamL/4T9QvWMPDP1WtBvQkRz0DVSltas=
-X-Gm-Gg: AYBFou3+TAeGTR51RKBEHU702yGsdcGptaveCaOs1GEfHbdtm8S8OjX3IOlnm5KIB/a
-	evmtvnursHgLm6s7XDXW4FS8FdHwClRR3jX23ROSpV9jAZSCd/6J/voBWtjz91RhXc4+m3LSQs+
-	bJEmkiNSuVccQ16f8AgQNstf4k/LtMzkqFz4KaQv3FjlTDz1QEwYRXX6Ay++ZlQv15tq0nbevj2
-	WLo+ixUXsC3ePfgM94BDA4QZbMwoEhwjFzbIt9ZOOEnUj05zI3fTai64ByQ/DSvhgBQhq5O3jpZ
-	iEE31uKUHFOQ7wLj2WnWEzYSmG3BEhm9e2m+s/s38Itn0322tDrXx0YWkjqXolVYdWG8zE3cW7K
-	Hea2IXWDnAGlb2gf8xYKtVht4iSUawcBKplqryTNmM4GlRn8ABdMunvV4dCPQQMasLFX+CmFRb1
-	YHVoeF0NBAbTVInwE34qY5UKsINiVgQ+gpX7Oa6wrikLeTBMrdddlSMl3ZH8A9tvfTT7EqicYUf
-	AWEted11sCMeRwLJy+0EWb9uqz/udMjnCQ3kqeVKiAWkEP/k2UO8ufiDA/XjQF05PNHpmD//u79
-	93WbJ8HJDh+b6B3J4bHsnPPUAwi5Zn9++bau6K8cPyBrLktXRV6i7put1O/Pc9hVe7i7mvGoHg=
-	=
-X-Received: by 2002:a05:6402:5409:b0:6b6:7231:7ebc with SMTP id 4fb4d7f45d1cf-6b887e50d5emr2734312a12.14.1795018470789;
-        Wed, 18 Nov 2026 08:14:30 -0800 (PST)
-Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b888ef94b0sm1356826a12.5.2026.11.18.08.14.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 08:14:30 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795018677; x=1795623477;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ta3st23k7aJtViHx8b5Y0gwAd71zJE3W0PZkE87cjbA=;
+        b=B9GoCgMveAar04WoU7L3lQ0l+DvAeZ4RyF0SgOSDge2GWkVN5K6uKVdxSGVEJQCym+
+         WYwey3dIhpkissy0TE2oW8usCYzi0YoWyw1YplVG6LsJId/KiHRZI6GPIjW52g3adsbi
+         h3KrCwvJoJkKL+t4Ccd1SN7bMqLftQJ7bncpDlDFyHafXyM9n5Fk11xhFQsDWu2AzNft
+         J0IQp/SoN69szWoweZrtvaSDw1wfkZjB+eieJzYBLpEaOU9LN9X8od0TF2UocgRSbsTF
+         UaRRtmb8SW7r7ftVM8tWt8UCMsN0ZKk2M/9fP+s1BAk1L/cXNK5cZNgQU4bnIuiVBXvK
+         YaUQ==
+X-Forwarded-Encrypted: i=1; AL+hErF8ars5WX291xebrqYPiM0Z1/e+9VnF24ZecqcmjFD5NpF12s21MiORJw39iIDmAYPhJqgiJiTvV8Jf@vger.kernel.org
+X-Gm-Message-State: APuU4Z/n2xQAOV7SvgL0MqM7IbZgoVKiff2rXvdd9A0Xdwhpy6QFmjFf
+	HOtQ5tw5+TezoEveYIZg+HM5mfow235S0fP2ENcEpaR27ST0+2f8h9F5
+X-Gm-Gg: AZFdTZe788fmBvsz2YuOeBt+XS+OcdjVSyuh7Ib9rXKANFDdm8WZa1ObI6dYeA4EvuW
+	dUk8PyepqpQu9QTzzv3gXWzIXDfQUjbaNgMbDEIEQHxRi4T1iy8mopxDUuJsvvRQgOeeObe+Ovq
+	QiACkUoPhPmnIB/UkRmGAc4sR/gIatrTYeIcAmn8o2R8cHAcPiXMpRCRXRUw7e/tX5Ki9e7nfL1
+	oEjwTCPcuTwYJWEjDeXVR3pUtgj811kRlTM5heIZthliXQ2fhISVdqci36vYl4PWzuKhv4UHgNI
+	zZayRFQF7zBHHEr1UKqX3IyBVMQuFZlF3fzaZEPnMgtWMbFWdcX3DtyNMe5CUoTdmRzYRb/1i5N
+	BW9KVxALpRpYN0hdpV6A1gFscW1nTJ5DflxZ5OjsV3EbzTQXiYqc8lePKCTiINK3JG6VJGil4wY
+	zFPwDi8bYzoZnDVrvQhtIaUziXIrNelISq9qM1NZeHF5V7GrZPpFcbimHFIPgabdeJSqDrJsEg2
+	t8g4wOTxp63trWGErlOx3hDZmNjxhyVUmArnCKPN3nE+PK/jEpfPBxlbA4IJg7GxIrp3IpytVDZ
+	k6aPxvPL0Ik/+5/hXgEAcmzSvMPyXCIiYAJoyrCSpPeybkYUY7AW/jW2C+9QyjNHWZeYNfP91XB
+	wpyPWXbQ61v/5RmEcR1loESef8aL/TGgF3w==
+X-Received: by 2002:a05:6000:3104:b0:4a7:557:fcc with SMTP id ffacd0b85a97d-4a705665645mr5379933f8f.53.1795018676598;
+        Wed, 18 Nov 2026 08:17:56 -0800 (PST)
+Received: from [10.161.246.232] (host-164-37-100-34.net.onlyservers.com. [164.37.100.34])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a65100bf42sm5329699f8f.1.2026.11.18.08.17.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 08:17:56 -0800 (PST)
+From: Alexander Letuchiy <asalde.le1@gmail.com>
+Subject: [PATCH v2 0/2] pinctrl: mediatek: Add MT6895 support
+Date: Wed, 18 Nov 2026 19:17:35 +0300
+Message-Id: <20261118-pinctrl-mt6895-v2-0-0728c4eddcac@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,63 +91,70 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 18 Nov 2026 17:14:30 +0100
-Message-Id: <DMYGXX4GAHRV.2I4NFHBVVJG0V@fairphone.com>
-Cc: <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <wcn36xx@lists.infradead.org>,
- <linux-wireless@vger.kernel.org>
-Subject: Re: [PATCH 1/3] ARM: dts: qcom: msm8974: Fix WCNSS wifi interrupt
- trigger type
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: <arapaille@atlr-engineering.com>, "Bjorn Andersson"
- <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Abel
- Vesa" <abelvesa@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Loic Poulain" <loic.poulain@oss.qualcomm.com>, "Luca Weiss"
- <luca@lucaweiss.eu>, "Eugene Krasnikov" <k.eugene.e@gmail.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20261118-wcnss-series-v1-v1-0-a64d82e151bf@atlr-engineering.com> <20261118-wcnss-series-v1-v1-1-a64d82e151bf@atlr-engineering.com>
-In-Reply-To: <20261118-wcnss-series-v1-v1-1-a64d82e151bf@atlr-engineering.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6DIBQFr2L+ujSAVKmr3qNxgRT1NwoGqGlju
+ HvFrrucZN68DYLxaAI0xQberBjQ2R34qQA9KjsYgo+dgVNeMUYlWdDq6Ccyx0peL0QKyTmndS+
+ Uhn20eNPj+wje2x+HV/c0OuZKNkYM0fnP8biy7P2Nr4xQ0tdUaCHKrmTqNswKp7N2M7QppS+y8
+ HwtvgAAAA==
+X-Change-ID: 20261108-pinctrl-mt6895-84822207f4ac
+To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Sean Wang <sean.wang@kernel.org>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, 
+ Alexander Letuchiy <asalde.le1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Wed Nov 18, 2026 at 3:57 PM CET, Alexandre Rapaille via B4 Relay wrote:
-> From: Alexandre Rapaille <arapaille@atlr-engineering.com>
->
-> wcn36xx requests tx/rx as IRQF_TRIGGER_HIGH, overriding this edge type, s=
-o
-> the re-probe after a WCNSS restart fails ("type mismatch, failed to map
-> hwirq-177") and wlan0 never returns. Use level high like other WCNSS SoCs=
-.
+This series adds the pin controller of the MediaTek Dimensity 8000/8100
+(MT6895) SoC: the binding and a driver on top of the common Paris code.
 
-Looks sane, I've had plenty issues like this before with other SoCs.
+The pinmux macro header and the pio node are part of v2
+of the MT6895 / Xiaomi Poco X4 GT initial support series [1].
 
-Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+The tables come from the MediaTek driver in the Xiaomi kernel source
+release [2]. They were checked field by field against that driver and
+against register dumps from the device running the vendor kernel.
 
->
-> Fixes: c7c0edecfba8 ("ARM: dts: msm8974: Introduce the wcnss remoteproc n=
-ode")
-> Signed-off-by: Alexandre Rapaille <arapaille@atlr-engineering.com>
-> ---
->  arch/arm/boot/dts/qcom/qcom-msm8974.dtsi | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi b/arch/arm/boot/dts=
-/qcom/qcom-msm8974.dtsi
-> index f300de74c4..b9666feb8b 100644
-> --- a/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi
-> +++ b/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi
-> @@ -814,8 +814,8 @@ bluetooth {
->  					wifi {
->  						compatible =3D "qcom,wcnss-wlan";
-> =20
-> -						interrupts =3D <GIC_SPI 145 IRQ_TYPE_EDGE_RISING>,
-> -							     <GIC_SPI 146 IRQ_TYPE_EDGE_RISING>;
-> +						interrupts =3D <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>,
-> +							     <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
->  						interrupt-names =3D "tx", "rx";
-> =20
->  						qcom,smem-states =3D <&apps_smsm 10>, <&apps_smsm 9>;
+Tested on a Xiaomi Poco X4 GT (xaga) on top of next-20261117: pinmux,
+pin configuration, GPIO and EINT.
 
+[1] https://patch.msgid.link/20261113-initial-mt6895-v2-0-4ab0aa9fa391@gmail.com
+[2] https://github.com/MiCode/Xiaomi_Kernel_OpenSource/tree/56ec519f6
+    (branch xaga-s-oss)
+
+Assisted-by: Claude:claude-opus-5-5
+
+---
+Changes in v2:
+- pinctrl-mt6895: pad mt6895_pull_type[] with entries for the virtual
+  EINT pins 227-246 to avoid an out-of-bounds read from
+  mtk_pinconf_bias_get_combo() (e.g. via debugfs pinconf-pins)
+  (Sashiko)
+- Rebased on next-20261117
+- Link to v1: https://patch.msgid.link/20261108-pinctrl-mt6895-v1-0-f704c443b31a@gmail.com
+
+---
+Alexander Letuchiy (2):
+      dt-bindings: pinctrl: mediatek: Document MT6895 pin controller
+      pinctrl: mediatek: Add support for MT6895 pinctrl
+
+ .../bindings/pinctrl/mediatek,mt6895-pinctrl.yaml  |  228 ++
+ drivers/pinctrl/mediatek/Kconfig                   |   10 +
+ drivers/pinctrl/mediatek/Makefile                  |    1 +
+ drivers/pinctrl/mediatek/pinctrl-mt6895.c          | 1638 ++++++++++++
+ drivers/pinctrl/mediatek/pinctrl-mtk-mt6895.h      | 2717 ++++++++++++++++++++
+ 5 files changed, 4594 insertions(+)
+---
+base-commit: 7cfbf79c66c63e807ea452abf0546e6f6d6833a6
+change-id: 20261108-pinctrl-mt6895-84822207f4ac
+
+Best regards,
+--  
+Alexander Letuchiy <asalde.le1@gmail.com>
 
