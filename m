@@ -1,91 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.199.235.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795022190;
-	b=CvHP4wcN5ZOkCjkmNpOt4E8juo8iKqIgk4rLc1LAJvMLj8rTfN1qr0Ztti5fX6T5p0Kq
-	 lJ81HSmQhcrz+gX5Ak2kIjm/xqU0hO9QeSyzfBEJ3UGdH6q2yMOXdqP8BmseGOF/q8VJV
-	 l/NLdLxkEqVkx5FsDNVcrtX4kbuc7qM897JTAXYBb5n5d4F/04FMgClu2wnlGSD3oW3gx
-	 lS/FMWlROq8MVGBIHhutGIYkU3lS+NqJdT3sAYD+KUZ3d9uTpop9QiceYDkpXRkutXlKW
-	 SiyFoicv2LJG6uh9d3kZRya7VBvA4/iGwMGT/xdKHV7iOj2Tcl8IwBOhdOeVW4YQzog==
+	t=1795022239;
+	b=c4eqrxePcYUBiOWRiBeFu+HXcuTtPxaQFo0hooDDGcfUhc40bwh8dEuX/kNaw6tExO1p
+	 A5eg5nI0udpBdcSRuYZXdJ942NdHO/aTc8HU8IkoutouQESYoJcddZkdR4ymx4btpQqra
+	 RnwFshiEEiK4P1cZNTrwRwuoCfirH2aLai7TKVBV5vQy6PW5QmZt+YWDOiFDTK1BQzEic
+	 KGNZ/SOzyYHde6K3aQy+lpISaKp+vHUqqWUUrVp4xO0mUKOhs9oZighcKv7uyCF0Vv9yg
+	 SMihXklVFA8fREGPgHdnLKh9nA4NulVF3STyCm8AzJ4dbXOzvYQKV4qSGVIRzr4cbmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795022190;
-	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:
-	 X-Virus-Scanned:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JcG5i3n/enYidgqlQ6vBgqJiTw2tRlwgEdU7NIgWq/M=;
-	b=Cq0+fWWur9bVYzAVIZXo/MyJT/0fSs9Us/KpwwvIEm+HWHKmJK0MQL4epiBudUd3oPK+
-	 VrOVL7A+cM59iMrCmjw/EWRJkKEmw1f8eRLW1aTIo+de1T1t7x/g01lGuOUFZWILGnJza
-	 0Qjhc6dO1Byf2fIvUusKZYvUSnSyzscBXsBa+HbsTm4imqZSf0BkwxEprQDrq2ZncW4+C
-	 OgKmeelSpBD8kNMzhu5Lx3RItRk5j7+FUFA5Z3Klm96lr1x+Etc+32SaaBBQ5Urophz1T
-	 WlC4V0FQBVMHu3XMcLwhX4ekjkc8+e5nJAx/bh8e2pQIYNhN6ybO1RBxQG/zhgzttdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795022239;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=36meyhPIqK9Ps95TgiUOB1YGnRp5qxit1sRmbEIMNlc=;
+	b=hm9RsH+IJbRv8woI8ME+/uhfKIIQDRChvKaJJj3/w5gAeB1pQeJuxwueNjLZVCbjL1Jq
+	 Wjf1Cv7eP7GrFzRjt7GMElj4nPQkbz/Vq/YWnuBJXpGSGgtpSF4NNBP46iYv3WILH/Jyy
+	 gBbA33IbYyhWiKPupJtRpbWjsvZMOATeSINoCIL8keOFGWl/Uqfe+oqFIxCThYOC4tmX2
+	 ZQOlZ767bGwxrVb2HnxMmOlKKj8dYIzWM2+k4UCoI1M147jotXKoa/uUZh5Hw3lZuHh+I
+	 7QuJ5+6jWxcYGTS4tTzZtDKCntN8IBNYjCTEMLJiCLYhFdQsPow56Pimkp47NE+TFbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cirad.fr;
-	spf=pass smtp.mailfrom=cirad.fr;
-	dkim=pass header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=MDMIV7gp;
-	arc=none smtp.remote-ip=194.199.235.221
-Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STWFNSyP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AD5606A325;
-	Wed, 18 Nov 2026 17:16:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75AD5606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cirad.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cirad.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E811606A331
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:17:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=MDMIV7gp
-Received: from retz.cirad.fr (localhost [127.0.0.1])
-	by retz.cirad.fr (Postfix) with ESMTPS id D5B9920DC666;
-	Wed, 18 Nov 2026 18:16:20 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by retz.cirad.fr (Postfix) with ESMTP id B40A120D4CAF;
-	Wed, 18 Nov 2026 18:16:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr B40A120D4CAF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
-	s=573E3878-7916-11F1-BF4B-F68474317960; t=1795022180;
-	bh=JcG5i3n/enYidgqlQ6vBgqJiTw2tRlwgEdU7NIgWq/M=;
-	h=From:To:Date:Message-ID:MIME-Version;
-	b=MDMIV7gpFlG4nWKnXQsyR2H8laq+en+JwUex05lJFXzBzE0m+pZAMpTmHq/mYFnhX
-	 ETt2+pNDvKWDTSFUo+QIDbBiH5KXmQ/ESS/M8HGhZpr35hqRj9md3ip3C1KlgZb5eZ
-	 vUBQ5j4R3PV8UE2Y4TaqWB2pjPohKozY+8duYsblm5XGZDmTbZtWNT66SaQP6mPk/+
-	 zV9JEGy4wvx/EKCF/SFdcMG2MibDwPegaIXv/gBw52RmACqBES8sxqAJBZGZNiLe2m
-	 Zg0qEf9Lnc2jIs6CIlT0liTD241SrtMPfIrAGKUrwQGzk5+NXbTZE8YYCgewBmLOBR
-	 FT2Ro6bq5hdCg==
-X-Virus-Scanned: amavis at retz.cirad.fr
-Received: from retz.cirad.fr ([127.0.0.1])
- by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
- id BA7VGU8kKTYl; Wed, 18 Nov 2026 18:16:20 +0100 (CET)
-Received: from localhost.localdomain (78-196-243-100.subs.proxad.net [78.196.243.100])
-	by retz.cirad.fr (Postfix) with ESMTPSA id 9AC0920DC666;
-	Wed, 18 Nov 2026 18:16:19 +0100 (CET)
-From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
-To: Yixun Lan <dlan@kernel.org>
-Cc: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Yao Zi <me@ziyao.cc>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Haylen Chu <heylenay@4d2.org>,
-	Hung-Chun Tseng <alan.tseng.cs@gmail.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/6] clk: spacemit: k1: Keep pll1_aud_245p7 enabled
-Date: Wed, 18 Nov 2026 18:15:35 +0100
-Message-ID: <20261118171536.197538-1-frederic.mahe@cirad.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261118111528-GKD156369@kernel.org>
-References: <20261117205951.140146-3-frederic.mahe@cirad.fr> <20261118111528-GKD156369@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STWFNSyP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F8681F000C6;
+	Wed, 18 Nov 2026 17:17:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795022239;
+	bh=36meyhPIqK9Ps95TgiUOB1YGnRp5qxit1sRmbEIMNlc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=STWFNSyPje7wYDQpWwLYrjF7spNAP3WXqvusxW8lKlO1PJiaxZmMuvv23UTI/bt20
+	 SQmjNgPTaSljSTV6B1EvoLpVUYF/8T3S1TjzqiVFObhtuxPA8ajlv5AMyV8W+sXdv9
+	 Iskaz+5I9K6CNo+Mp6bV02sQcUoDDI00U9JmGgu6w6OR9SBrwr4/nOGoZCEokJxH89
+	 gODPG8OVdZimJCf7Xpm8eNBBf+tV5xqAlRJ6If+V3rkFzNGL++TjE5p3ZZBHZjHHCv
+	 cPBSzyBTwF/BYTOzVe7erYmzVN98bgklBG1SB9DiW7jVN/+WE3Wh+Y58VdvyCeW2JB
+	 4nkhvi8gVzLEw==
+Message-ID: <sashiko-outbox-221635@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] arm64: dts: mediatek: Add MT8173 Amazon suez
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ryan Brue" <ryanbrue.dev@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261118-rbrue-suez-upstreaming-amazon-suez-dts-v3-1-c1a8b0febf35@gmail.com>
+References: <20261118-rbrue-suez-upstreaming-amazon-suez-dts-v3-1-c1a8b0febf35@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 17:17:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,73 +58,50 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-Hi Yixun,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: mediatek: undocumented mediatek,mt8173-keypad
+  compatible enabled
+--
 
-Thanks for forwarding it to SpacemiT.
+commit c33790cfc531e5cd7fbd7f7174f861a419969c8c
+Author: Ryan Brue <ryanbrue.dev@gmail.com>
 
-On Wed, Nov 18, 2026 at 11:15:28AM +0000, Yixun Lan wrote:
-> Access which register? is the PWM register in RCPU2?
+arm64: dts: mediatek: Add MT8173 Amazon suez
 
-No, the hang comes before any PWM register access. The PWM probe
-first deasserts the reset and enables the clock, both in
-RCPU2_PWM2_CLK_RST (0xc0888008, in the syscon_rcpu2 range), and that
-access hangs. The PWM registers (0xc0888300) are never reached. I
-have not tested each register on its own (every hang needs a power
-cycle), but I can do it if that helps.
+This commit adds the device tree for the MT8173-based Amazon Fire HD 10
+(2017) tablet (codename suez).
 
-> It just happen to fix the issue, but doesn't sound like a correct fix,
-> usually, it can be fixed with correct clock topology
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8173-amazon-suez.dts b/arch/a=
+rm64/boot/dts/mediatek/mt8173-amazon-suez.dts
+> new file mode 100644
+> index 0000000000000..68ccf10d1521b
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/mediatek/mt8173-amazon-suez.dts
 
-Agreed. The vendor kernel never gates this clock either
-(CLK_IGNORE_UNUSED in ccu-spacemit-k1x.c). If pll1_aud_245p7 is the
-bus clock of the RCPU2 block, it could become a clock of the
-syscon_rcpu2 node, and the CCU driver would enable it before its
-first register access. I will wait for SpacemiT's answer before v2.
+[ ... ]
 
-> maybe just "Assisted-by: LLM"
+> +&keyboard {
+> +	/* Each key is reported in all eight rows of its column */
+> +	keypad,num-rows =3D <8>;
+> +	keypad,num-columns =3D <9>;
+> +	linux,keymap =3D <MATRIX_KEY(0, 0, KEY_VOLUMEUP)
+> +			MATRIX_KEY(0, 1, KEY_VOLUMEDOWN)>;
+> +	debounce-delay-ms =3D <32>;
+> +	wakeup-source;
+> +	status =3D "okay";
+> +};
 
-That tag was removed (1e035297ffda), so in v2 I will move the note
-to the cover letter, as Yao Zi suggests.
+[Severity: Low]
+Does enabling &keyboard cause dtbs_check to fail on mt8173-amazon-suez.dtb
+in this tree?
 
-Fr=C3=A9d=C3=A9ric
+arch/arm64/boot/dts/mediatek/mt8173.dtsi sets keyboard@10010000's
+compatible to "mediatek,mt8173-keypad", "mediatek,mt6779-keypad", while
+Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml does
+not yet list "mediatek,mt8173-keypad" in its compatible enum.
 
-From frederic.mahe@cirad.fr Mon Sep 17 00:00:00 2001
-From: =3D?UTF-8?q?Fr=3DC3=3DA9d=3DC3=3DA9ric=3D20Mah=3DC3=3DA9?=3D <frede=
-ric.mahe@cirad.fr>
-To: Yao Zi <me@ziyao.cc>
-Cc: Stephen Boyd <sboyd@kernel.org>, Yixun Lan <dlan@kernel.org>, Troy Mi=
-tchell <troy.mitchell@linux.spacemit.com>, Brian Masney <bmasney+clk@redh=
-at.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kern=
-el.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt=
-@kernel.org>, Haylen Chu <heylenay@4d2.org>, Hung-Chun Tseng <alan.tseng.=
-cs@gmail.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dab=
-belt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti=
-.fr>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-riscv@=
-lists.infradead.org, spacemit@lists.linux.dev, linux-kernel@vger.kernel.o=
-rg
-Subject: Re: [PATCH 0/6] riscv: spacemit: k1: RCPU2 PWM clocks and the BP=
-I-F3 fan
-In-Reply-To: <av3MI0wgou3pbab8@pie>
-References: <20261117205951.140146-1-frederic.mahe@cirad.fr> <av3MI0wgou3=
-pbab8@pie>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=3DUTF-8
-Content-Transfer-Encoding: 8bit
-
-Hi Yao Zi,
-
-On Wed, Nov 18, 2026 at 04:02:43PM +0000, Yao Zi wrote:
-> I think spacemit,k1-syscon.yaml should probably be updated to make
-> '#clock-cells' property mandatory for rcpu2 node? And probably also
-> the other blocks capable of clock stuff as fix...
-
-Right. In v2, #clock-cells will be required for
-spacemit,k1-syscon-rcpu2 (on its own, since rcpu2 takes no
-osc/vctcxo inputs). For the other blocks, I will check which ones
-provide clocks and send a separate fix.
-
-Fr=C3=A9d=C3=A9ric
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-rbrue-suez=
+-upstreaming-amazon-suez-dts-v3-1-c1a8b0febf35@gmail.com?part=3D1
