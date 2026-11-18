@@ -1,56 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795036213;
-	b=40B7Eyjiuoy9FSaBFCw4YqfV5uPhkmJG4FYUEnk2iZAF1u4tNKiHBvuWxIx3sLyCTq/W
-	 8ufWrbEEpEmYtBSQSH/2Dl7lhfKbLjgIlfWbGgjlD4KbOiAUyCQAFAoP3m4iyKvCVLFBe
-	 Htnv+pT2kYfhhuQT8OAF6ELZucmAQdFqwObwkUBpKeRe/9QIEWMAtuXXeR+4gcU7ves5I
-	 aOxE+vTZbScKI1DCjep9DBdvab2vAheKJ8llkgrb+jv2jLUSd4XKJHsz1L2KoMTCKoPgj
-	 ReI34xeud1HiI5Z8MMp/KO/ND7sw3Co+ROdarIN4bGmQkX89hMw3BD8M7OoLA+9TswA==
+	t=1795036259;
+	b=OCzDhqC+F/TSp8n0/c87VrK3DhE0nRnbQKc0buD2VtzSPUx/bSqLTFQy3GJSBgXyiUxK
+	 r1bBiFrGXTxkRQFnexjmnKMkAJSYZ9hvWv8JTSfH4P4eV5AO5mCmM2aGxNgVxrxz49fL2
+	 AJAc5NuXkRPX2UUQP7bIBciDPjHROSzH9WRjm85wGPkLSMJ96lqn3VFztbcv02vsWam7I
+	 XfV6M07TXCvZCUJws6/ZH2U2HveU/EyAesOn5RnoBHoeb7898uWv1GVrl5CS8viIJFfgV
+	 fprElAp6AqqsjjRJv2ogT9jiyKAl7oUV/MfiMD1n+k+ghOKlCKVU2Tv/sGuSKCVdSXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795036213;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=XigeT5uf/wY83tegE/CRnA1U4KFWVArSIQzQylrRCCA=;
-	b=iHFRTS76En9lxoHzakZlN36EbnzwwX9UoxJc+4mykMMba+G/M4LKItPseAeMIAmcYFIl
-	 lTEuzfZ8EIa9AXxb7xrDh1OF/7RGjKknx47usrx2HNxl7DxDpfIh4EgQnJNEPSK4dsnLk
-	 y5oBcAD9HnVSmk2V1RN8SKvTszqZZ/sAMogbddvIg+8X87o9UWHAZPuAE8J8qcyOlhOfr
-	 9qEsGyiBAF005Thryx58JbWFiEqf9XY7movBXgeutiq70Bl4UxaQ3bj1se+pWCIn4ym4d
-	 D5QISyGwmNtEyf3ttDefnvGP1+YelsxpNiAcSG4YKnPmx3AiyH5ecn59DaVrWlX2pLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795036259;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:User-Agent;
+	bh=tIKDVSjVcHAwPM4Udn/N9uTGDPYtfcGsqelMKv/u8Vw=;
+	b=QQeQZQ8NaOXFkuSlOCoJwKufXa44Sqitd0H2uMZpsqz0iGP5P1GHFMkp0JU+C07QXYhG
+	 VUwnFzjqSa9JpxkBOf01Gqg/hRUy8CV5HKQAPpz4vIOy1zYsrgf+L1oXG9Ghpm/p1Tpnn
+	 7h8eQmJGaKTnoZtDrcBKl4HAMjEb4x9NaMxhe7wzR0QDMr8qP7fhSAzdiVP6dqns3QEVn
+	 DR5xBXPgYC1nwpk0bmQUE5WMJtY6A5mmI5X7fC9c7ADl/F+IB6t9hqSI94LKCtc9osVfs
+	 lqo+3OzDKJGXfLjUPvO654rQ+4fH4Rw+tzonSOYsfGA5M9MFqeF4NQE2p9avUjE5O5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duYSkf2f;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=aurel32.net;
+	spf=pass smtp.mailfrom=aurel32.net;
+	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=YMwfenKF;
+	arc=none smtp.remote-ip=195.154.119.183
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A76606A32C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 21:10:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C1A606A32C;
+	Wed, 18 Nov 2026 21:10:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8C1A606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duYSkf2f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E75C1F000C6;
-	Wed, 18 Nov 2026 21:10:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795036212;
-	bh=XigeT5uf/wY83tegE/CRnA1U4KFWVArSIQzQylrRCCA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=duYSkf2f/5AlY4K6FA+L3S5MCBURqDOdhI1NNNLNT3Jpind21LyxvyfMS6abmke6l
-	 n+dK607PKwm0IQS5a+AWOHDYVXU9c9Sj8QNrUTfVi3N29PWutCO762RjSEQtvZaDYb
-	 tK/CTTa/JmOaSvxywUiWYkvr6rpUAvYj86ciDCltIq32TmKgoyPOUW8DjcAdDiYnX6
-	 9lSyZ3/WOR7jG5iWvTV/tZyI4HxQ65y+2nEsBooU3BG4zQigkgywlSQ6b/p6Vs6G1L
-	 3rfT3meMhWHChi/Bnlra8y80S5Zpyj1perQZdflgZBNGD1wqQ0sd9kJrElccbVypcR
-	 38B/xLazMpG0g==
-Message-ID: <sashiko-outbox-221973@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/4] i2c: omap: add DMA support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antoni Pokusinski" <apokusinski01@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261118205213.88778-5-apokusinski01@gmail.com>
-References: <20261118205213.88778-1-apokusinski01@gmail.com>
- <20261118205213.88778-5-apokusinski01@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 21:10:12 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=YMwfenKF
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
+	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=tIKDVSjVcHAwPM4Udn/N9uTGDPYtfcGsqelMKv/u8Vw=; b=YMwfenKFu77Rd4cA50Ct4iw/xK
+	+YUal108UpuW7zj8Ytkx7sxnfwT9P/GPoDsTDnNRgGysory7cLx829c4tlj8lUvBJ8a114rtvkZ+l
+	aEgauDnKaKDcWfZt8WRyRuJyvGccC2GgEH35dI9hiWNqk2VxjIOOiDQ6lGOBHiRDAC7DqFfVPgrK3
+	cjJ/qSKM8G0FqFda/sKjhmBNbBG5yAP2KaFU1EEFglmpdlDn4DK9XZHILHYUvHcptdyYfyhGewxTL
+	sysJ4pUIxw9tOdKTuxo5WGfzysSwbAEJTsWYOr7lm1EcRX6weP1/daTWtZhfnxbMxQsKYFN0Uirr7
+	Z9CQDg5w==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1xTmvU-00000000TjL-0wR2;
+	Wed, 18 Nov 2026 22:10:44 +0100
+Date: Wed, 18 Nov 2026 22:10:43 +0100
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: Wang Yang <yang.wang@deepcomputing.io>
+Cc: Yixun Lan <dlan@kernel.org>, Benson Leung <bleung@chromium.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Guenter Roeck <groeck@chromium.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Sandie Cao <sandie.cao@deepcomputing.io>,
+	devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/9] bus: Add SpacemiT K3 eSPI controller support
+Message-ID: <av4UUyCtDBJNU0h5@aurel32.net>
+Mail-Followup-To: Wang Yang <yang.wang@deepcomputing.io>,
+	Yixun Lan <dlan@kernel.org>, Benson Leung <bleung@chromium.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Guenter Roeck <groeck@chromium.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Sandie Cao <sandie.cao@deepcomputing.io>,
+	devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+References: <20261118085742.1817536-1-yang.wang@deepcomputing.io>
+ <20261118085742.1817536-4-yang.wang@deepcomputing.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,253 +89,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118085742.1817536-4-yang.wang@deepcomputing.io>
+User-Agent: Mutt/2.4.1 (2026-07-04)
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] i2c: omap: DMA wait ordering and cmd_err gating in
-  omap_i2c_xfer_msg()
-- [Medium] i2c: omap: NULL dereference in omap_i2c_dma_free() on probe
-  error
-- [Medium] i2c: omap: uninitialized pio_irq_mask and missing DMA cleanup
-  on timeout
---
+Hi,
 
-commit 7af8eb0f57b65f48015dfec1a234f795398aca59
-Author: Antoni Pokusinski <apokusinski01@gmail.com>
+On 2026-11-18 16:57, Wang Yang wrote:
+> Initialize and recover the K3 eSPI peripheral channel before populating
+> its children. Keep controller register programming, clock and reset
+> handling in the controller driver rather than in the EC transport.
+> 
+> Port the existing vendor-derived implementation separately from the EC
+> client. The controller logic comes from the vendor BSP at revision
+> 29b78afb484b, authored by goumin <min.gou@spacemit.com>. Preserve its
+> register programming and link-recovery behavior.
+> 
+> No matching SpacemiT eSPI submission was found in the archived SPI,
+> RISC-V and Chrome platform searches used for this port.
 
-i2c: omap: add DMA support
+While this is correct, please note that there was a try from AMD to 
+define a eSPI bus framework back in August [1]. However I haven't 
+spotted any further progress.
 
-This commit adds TX and RX DMA transfer support to the OMAP I2C driver for
-messages of at least 8 bytes whose length is a multiple of the configured
-FIFO threshold.
+Anyway thanks for your work, I guess this can also be useful for the EC 
+controller on the K3 Pico-ITX boards, which drives among other things 
+the fan PWM.
 
-> diff --git a/drivers/i2c/busses/i2c-omap.c b/drivers/i2c/busses/i2c-omap.c
-> index 3f7060d57a869..acff27f3f4385 100644
-> --- a/drivers/i2c/busses/i2c-omap.c
-> +++ b/drivers/i2c/busses/i2c-omap.c
-[ ... ]
-> @@ -663,8 +837,8 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
->  {
->  	struct omap_i2c_dev *omap =3D i2c_get_adapdata(adap);
->  	unsigned long time_left;
-> -	u16 w;
-> -	int ret;
-> +	u16 w, pio_irq_mask;
-> +	int ret, use_dma;
-> =20
->  	dev_dbg(omap->dev, "addr: 0x%04x, len: %d, flags: 0x%x, stop: %d\n",
->  		msg->addr, msg->len, msg->flags, stop);
-[ ... ]
-> @@ -692,6 +874,27 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *ada=
-p,
->  		reinit_completion(&omap->cmd_complete);
->  	omap->cmd_err =3D 0;
-> =20
-> +	if (use_dma) {
-> +		ret =3D omap_i2c_dma_xfer(omap, msg);
-> +		if (ret) {
-> +			omap_i2c_reset(omap);
-> +			__omap_i2c_init(omap);
-> +			return ret;
-> +		}
-> +
-> +		omap_i2c_dma_enable_req(omap);
-> +	} else {
-> +		pio_irq_mask =3D OMAP_I2C_IE_XRDY | OMAP_I2C_IE_RRDY |
-> +			       ((omap->fifo_size) ? (OMAP_I2C_IE_RDR |
-> +						    OMAP_I2C_IE_XDR) : 0);
-> +
-> +		if (omap->scheme =3D=3D OMAP_I2C_SCHEME_0)
-> +			omap_i2c_write_reg(omap, OMAP_I2C_IE_REG,
-> +					   omap->iestate | pio_irq_mask);
-> +		else
-> +			omap_i2c_write_reg(omap, OMAP_I2C_IE_REG, pio_irq_mask);
-> +	}
-[ ... ]
-> @@ -727,6 +930,16 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *ada=
-p,
->  			if (time_after(jiffies, delay)) {
->  				dev_err(omap->dev, "controller timed out "
->  				"waiting for start condition to finish\n");
-> +
-> +				if (omap->scheme =3D=3D OMAP_I2C_SCHEME_0)
-> +					omap_i2c_write_reg(omap,
-> +							   OMAP_I2C_IE_REG,
-> +							   omap->iestate);
-> +				else
-> +					omap_i2c_write_reg(omap,
-> +							   OMAP_I2C_IP_V2_IRQENABLE_CLR,
-> +							   pio_irq_mask);
-> +
->  				return -ETIMEDOUT;
->  			}
->  			cpu_relax();
+Regards
+Aurelien
 
-[Severity: Medium]
-Is pio_irq_mask used uninitialized here when use_dma is true?
+[1] https://lore.kernel.org/all/20260804115259.4065638-1-krishnamoorthi.m@amd.com/
 
-pio_irq_mask is only assigned in the !use_dma branch, which triggers a
--Wmaybe-uninitialized warning on this timeout path.  If this timeout is
-reached during a DMA transfer, returning directly also leaves the DMA
-channel active and leaks the DMA mapping and bounce buffer without calling
-dmaengine_terminate_sync(), omap_i2c_dma_cleanup() and
-omap_i2c_dma_disable_req().
-
-> @@ -742,8 +955,15 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *ada=
-p,
->  	 * into arbitration and we're currently unable to recover from it.
->  	 */
->  	if (!polling) {
-> -		time_left =3D wait_for_completion_timeout(&omap->cmd_complete,
-> -							OMAP_I2C_TIMEOUT);
-> +		time_left =3D OMAP_I2C_TIMEOUT;
-> +
-> +		if (use_dma)
-> +			time_left =3D wait_for_completion_timeout(&omap->dma->complete,
-> +								time_left);
-> +
-> +		if (time_left && !omap->cmd_err)
-> +			time_left =3D wait_for_completion_timeout(&omap->cmd_complete,
-> +								time_left);
->  	} else {
->  		do {
->  			omap_i2c_wait(omap);
-> @@ -753,7 +973,23 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *ada=
-p,
->  		time_left =3D !ret;
->  	}
-> =20
-> -	if (time_left =3D=3D 0) {
-> +	if (use_dma) {
-> +		if (!time_left || omap->cmd_err)
-> +			dmaengine_terminate_sync(omap->dma->chan_using);
-> +
-> +		omap_i2c_dma_cleanup(omap, time_left && !omap->cmd_err);
-> +
-> +		omap_i2c_dma_disable_req(omap);
-> +	} else {
-> +		if (omap->scheme =3D=3D OMAP_I2C_SCHEME_0)
-> +			omap_i2c_write_reg(omap, OMAP_I2C_IE_REG,
-> +					   omap->iestate);
-> +		else
-> +			omap_i2c_write_reg(omap, OMAP_I2C_IP_V2_IRQENABLE_CLR,
-> +					   pio_irq_mask);
-> +	}
-> +
-> +	if (!time_left && likely(!omap->cmd_err)) {
->  		omap_i2c_reset(omap);
->  		__omap_i2c_init(omap);
->  		return -ETIMEDOUT;
-
-[Severity: High]
-Does waiting on omap->dma->complete before omap->cmd_complete stall for
-the full OMAP_I2C_TIMEOUT (1 second) whenever a DMA transfer encounters a
-NACK or arbitration loss?
-
-When a bus error occurs before all bytes are transferred (for example, on
-any RX DMA transfer or multi-burst TX DMA transfer), the controller stops
-asserting DMA requests and the IRQ handler signals omap->cmd_complete via
-omap_i2c_complete_cmd(), while omap->dma->complete is never signaled.
-
-Additionally, in omap_i2c_xfer_data(), a standalone NACK interrupt sets
-omap->cmd_err |=3D OMAP_I2C_STAT_NACK and returns -EAGAIN to wait for the
-subsequent ARDY interrupt before completing omap->cmd_complete:
-
-drivers/i2c/busses/i2c-omap.c:omap_i2c_xfer_data() {
-    ...
-		if (stat & OMAP_I2C_STAT_NACK) {
-			omap->cmd_err |=3D OMAP_I2C_STAT_NACK;
-			omap_i2c_ack_stat(omap, OMAP_I2C_STAT_NACK);
-
-			if (!(stat & ~OMAP_I2C_STAT_NACK)) {
-				err =3D -EAGAIN;
-				break;
-			}
-		}
-    ...
-}
-
-Guarding wait_for_completion_timeout(&omap->cmd_complete, ...) with
-!omap->cmd_err causes omap_i2c_xfer_msg() to skip waiting for ARDY if the
-standalone NACK IRQ has already set omap->cmd_err, accessing controller
-registers before hardware is ready and leaving a stale completion on
-omap->cmd_complete when ARDY later fires.  Similarly, changing the timeout
-check to if (!time_left && likely(!omap->cmd_err)) skips
-omap_i2c_reset() and fails to return -ETIMEDOUT when waiting for ARDY
-times out after a standalone NACK interrupt (and even returns 0 if
-I2C_M_IGNORE_NAK is set).
-
-[ ... ]
-> @@ -1336,10 +1562,70 @@ static struct i2c_bus_recovery_info omap_i2c_bus_=
-recovery_info =3D {
->  	.recover_bus		=3D i2c_generic_scl_recovery,
->  };
-> =20
-[ ... ]
-> +static void omap_i2c_dma_free(struct omap_i2c_dev *omap)
-> +{
-> +	struct omap_i2c_dma *dma =3D omap->dma;
-> +
-> +	dma->dma_buf =3D 0;
-> +	dma->dma_len =3D 0;
-> +
-> +	dma_release_channel(dma->chan_tx);
-> +	dma->chan_tx =3D NULL;
-> +
-> +	dma_release_channel(dma->chan_rx);
-> +	dma->chan_rx =3D NULL;
-> +
-> +	dma->chan_using =3D NULL;
-> +}
-[ ... ]
-> @@ -1476,6 +1762,22 @@ omap_i2c_probe(struct platform_device *pdev)
->  		goto err_unuse_clocks;
->  	}
-> =20
-> +	if (omap->scheme !=3D OMAP_I2C_SCHEME_0) {
-> +		omap->dma =3D omap_i2c_dma_init(omap, (dma_addr_t)res->start);
-> +		if (PTR_ERR(omap->dma) =3D=3D -EPROBE_DEFER) {
-> +			r =3D -EPROBE_DEFER;
-> +			dev_err_probe(&pdev->dev, r,
-> +				      "can't get DMA channels\n");
-> +			goto err_unuse_clocks;
-> +		} else if (PTR_ERR(omap->dma) =3D=3D -ENODEV) {
-> +			dev_dbg(omap->dev, "DMA setup failed\n");
-> +			omap->dma =3D NULL;
-> +		} else if (IS_ERR(omap->dma)) {
-> +			r =3D PTR_ERR(omap->dma);
-> +			goto err_unuse_clocks;
-> +		}
-> +	}
-> +
->  	adap =3D &omap->adapter;
->  	i2c_set_adapdata(adap, omap);
->  	adap->owner =3D THIS_MODULE;
-> @@ -1491,7 +1793,7 @@ omap_i2c_probe(struct platform_device *pdev)
->  	adap->nr =3D pdev->id;
->  	r =3D i2c_add_numbered_adapter(adap);
->  	if (r)
-> -		goto err_unuse_clocks;
-> +		goto err_dma_free;
-> =20
->  	dev_info(omap->dev, "bus %d rev%d.%d at %d kHz\n", adap->nr,
->  		 major, minor, omap->speed);
-> @@ -1500,6 +1802,8 @@ omap_i2c_probe(struct platform_device *pdev)
-> =20
->  	return 0;
-> =20
-> +err_dma_free:
-> +	omap_i2c_dma_free(omap);
-
-[Severity: Medium]
-Can err_dma_free trigger a NULL pointer dereference in
-omap_i2c_dma_free()?
-
-When omap->scheme =3D=3D OMAP_I2C_SCHEME_0 or omap_i2c_dma_init() returns
-ERR_PTR(-ENODEV), omap->dma is NULL.  If i2c_add_numbered_adapter() then
-fails, omap_i2c_dma_free(omap) is called without an if (omap->dma) check
-and dereferences omap->dma.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118205213.8877=
-8-1-apokusinski01@gmail.com?part=3D4
+-- 
+Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+aurelien@aurel32.net                     http://aurel32.net
