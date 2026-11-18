@@ -1,63 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795036418;
-	b=fchwUFnhCsSspCe0ktHSnTkvxaTBaDgaeOy6P42ReSiZPKozU0x2e/ocS+5n6FDdebUU
-	 JIiYs2aH8jS8fi3vmqM+hExV8f7D17bjoPzQL12PCwGDwYiQPABBUSZ5UiYB+OPaKB9er
-	 Jz5vrWS5CtPFPziXZdzd7JR8VALQgOR7OcTwfVT6Pd3sAmFS2weqjH/HlPJY0JyU8ceMh
-	 P2Nk/vh1txgsUr2oOdmD5BP2V6NCt3firPO2TAOQftJmaeV0rIj9SH5JoRyyJM5gVFsXS
-	 cHTjRT3fSpuNBcC21qzqlVLMT4pdgV16h56meEBLYN4WLZrKChwYhAZYX8ZtA+sK4aw==
+	t=1795036533;
+	b=SM1ur7gu6PnWtcDfMTY9YR/iGPTJ5Vki5aEM4ZLBI6t881lzF7LoXwDKJLcH6aZdBBZB
+	 boTP8Ya37bJldX4MLiWSAcsjWf0LpLnfOgtPRBPnjOqIlvaGvvle+dm85X95TtLKnG6Kn
+	 Juu4o0C5SD1yAySRMP3I3FOkNzMS+k2TjqF7whnSbnG4iLWk1HX0No2qhFdJ0toLeRB4g
+	 BHihcrVPtXe4sh1bI8bpbeewroNKgV58GdDGz8eLPXzcLZjd96NkPAJhZvJj57V6eG/ug
+	 AM1UU8CbS3HpoCrKc0jppVhHt3ls3ka8WpeQwB5mGl1D4iEwjBehYWA5Kyr6vwX1y7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795036418;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lstpkAIMdhIw+8kIInQTbIFSQvVqWAgkCSm9ri4rJmg=;
-	b=bSdR8lfxZiR1EmmrptaSLWOYObmiNnTo7DkfGkoFvpqgoyUMHN1geHrwdz3iPyfOBqKc
-	 +TKkwnGXW9zBal8QW85U4zq6ADuo5U5Aza1HuEgrf82G5DbuyyzGkMvP4zzbkvv5qpI2l
-	 hT4V7tSupMtQI45UFCc33hJXTFTqFgdgr45XIC9rQ4KV+YIny5mEBdqcTCjLZzXITIqi1
-	 fU9+9whWPfkKQi5hHRr6HFt8lRDimgktZt68MWTNO9GVdqpldrC/zI6aisNIUcM6iM48P
-	 jXCJKI1/CSEurJdp5CyTi6NP5oONVOezBX6QLb5v3+8bu4yD7/sVMxpdVGnA1lKL+IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795036533;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=jXpHBT1/WDmLp0zpzRIxDl44SN5leSzeHP8wCtpU/Po=;
+	b=BTq5OtaNB2Y4jd+ItKbRgxVSuI7c5KAoHP6mZE7/WKiR7KsFS6QqxypSJYm7BnbAnB0T
+	 L/ijzh8UjPn1h4ZIhlGDIs8gh7e41Gd+H3d/s/EoB5w1I5yq1sqk3cKpX/AkfTHHIR069
+	 b/1UTP0f70XirkLg085dfcaNre1hDJ0MuR+SLlWl5shGUNRD5Qc+LtiCXnOk7KIPSZAVd
+	 I7HH7nAuaOjiyFsijgrBQ09OM57KVsP1y9z8ntF97Dkr/QJ4T+L8DZKEUNF8vkHLj2NMY
+	 RxqHPzHLw44HAJ75WQY8lt8KPNjwh5NYI9eJ7OKvZsgILJ7DVFLsazsAXyiQkTyN9FQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omuiVZJh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjSyc0l2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C18606A320;
-	Wed, 18 Nov 2026 21:13:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D7E606A325
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 21:15:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omuiVZJh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34C421F000C4;
-	Wed, 18 Nov 2026 21:13:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjSyc0l2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6833D1F000C7
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 21:15:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795036418;
-	bh=lstpkAIMdhIw+8kIInQTbIFSQvVqWAgkCSm9ri4rJmg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=omuiVZJhZM6x9teRUwaSK7YbBaY600rkORp2u2GDqoekPAKmsJ6G8Ka5+5mq4vFxP
-	 jn0IR2UqCzS2BP99PhVTj3jIMgzRQ7Grt8rTmBlqCQQAhsOOMUDMK0LiLGsTXZfNKY
-	 fZlV2NHg271oRxu5Fy+E0DuJKRXX7iluhp50der5q2Jp8llNkQrsjUmWGxvGkkFdiS
-	 Eg6BdLRyIYAd8YjHQjSC4Z1PM7yQwpKA8kmkHQXjcl1ky5JNj4QqhKr+irC3PiyBtc
-	 IWWZLuGbMwRAFhvkn42J1QNYYMEFMCCa12btmQz34oKbia9o9Mwn2dZgrRKe3Iph9T
-	 LkketrxYjMRGg==
-Date: Wed, 18 Nov 2026 15:13:36 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: airlied@gmail.com, jbrunet+clk@baylibre.com,
-	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org,
-	Chen-Yu Tsai <wens@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
-	bmasney+clk@redhat.com, simona@ffwll.ch, linux-clk@vger.kernel.org,
-	tzimmermann@suse.de, sboyd@kernel.org,
-	Andre Przywara <andre.przywara@arm.com>,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
-	krzk+dt@kernel.org
-Subject: Re: [PATCH v3 7/8] dt-bindings: display: allwinner: Split H616 DE33
- layer reg space
-Message-ID: <179503641576.1032413.14291544816555567669.robh@kernel.org>
-References: <20261115061102.229680-1-jernej.skrabec@gmail.com>
- <20261115061102.229680-8-jernej.skrabec@gmail.com>
+	s=k20260515; t=1795036533;
+	bh=jXpHBT1/WDmLp0zpzRIxDl44SN5leSzeHP8wCtpU/Po=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kjSyc0l2jgfTa1Gr7mPOfzuP6tLnKgnN3OKAYB/HxNNqyFZcDFB46+L21kpljI9ky
+	 tJ9h+IalPk9axrIlGCBbpRHL6+29YZuB0IVHAKxz0bo4UY+/W/P9jT12kdqWlun20T
+	 2HxNcbk4DkYpClX+2W+G1UfwlY6KHQC5fEW0hNuGW6HVROF5lZNd2YIi+YBww4Uot9
+	 Moc3q1Tx7Y0K5G0dZt7BtpTCDpZnSHAZI9DehbqOkkDjGZ7F5pRKWwoKvj6xqWciWf
+	 NaL5g8qzFQNgtN34F5iEG1VxHl+YOFKpbN90QuJjw7Ir/pF7E7bE9cpA46y6plbFkh
+	 HI60rU5SAnfxw==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ac97e45a79so13240001fa.3
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 13:15:33 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErH35rbYxY5Z4oqR/SDXwwCfIyZH6iAsubHI2Z8xRv/M2zNyhzXnzlIrJxJ+xnhFRPYS7z365OWe9S8n@vger.kernel.org
+X-Gm-Message-State: APuU4Z+63f0mZfhvWPfNtPl8cau+NDxHyl4Fyfn3XyYfQ2ObKQVlSW4H
+	+YCuFSOFzwGu27146azoNZCLbEWb6Og8U6SHhmKveLI/a0NHa9eupJqIzkwxGG8SJZ7twc5O38/
+	0HdcjPHZsIBM/fHGHzcFtbPSxi3zmif8=
+X-Received: by 2002:a05:6512:1102:b0:5bf:f7e7:85eb with SMTP id
+ 2adb3069b0e04-5c1aa0736aamr1346704e87.21.1795036532194; Wed, 18 Nov 2026
+ 13:15:32 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,55 +59,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115061102.229680-8-jernej.skrabec@gmail.com>
+References: <20261110094339.749110-1-zhengping.zhang@airoha.com> <695991a0-ae67-4ce0-9b92-f191ae97a468@iopsys.eu>
+In-Reply-To: <695991a0-ae67-4ce0-9b92-f191ae97a468@iopsys.eu>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 18 Nov 2026 22:15:15 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=_q3SWsh6AW6PLOC=h-z-h-N8AcC8SRCPVKsbzEPktfg@mail.gmail.com>
+X-Gm-Features: Aa3M54omwiJF0rg8LzwHPSiyolxNp74aN1hJ5GJPEJYrBTD3qh4Hbo9mWipBH1I
+Message-ID: <CAD++jL=_q3SWsh6AW6PLOC=h-z-h-N8AcC8SRCPVKsbzEPktfg@mail.gmail.com>
+Subject: Re: [PATCH 00/12] pinctrl: airoha: configure GPIO muxes explicitly
+ and fix pad mappings
+To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Cc: Zhengping Zhang <zhengping.zhang@airoha.com>, lorenzo@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, brgl@kernel.org, naseefkm@gmail.com, 
+	benjamin.larsson@genexis.eu, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, lei.dong@airoha.com, ansuelsmth@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sun, Nov 15, 2026 at 3:10=E2=80=AFPM Mikhail Kshevetskiy
+<mikhail.kshevetskiy@iopsys.eu> wrote:
 
-On Sun, 15 Nov 2026 07:11:01 +0100, Jernej Skrabec wrote:
-> As it turns out, current H616 DE33 binding was written based on
-> incomplete understanding of DE33 design. Namely, planes are shared
-> resource and not tied to specific mixer, which was the case for previous
-> generations of Display Engine (DE3 and earlier).
-> 
-> This means that current DE33 binding doesn't properly reflect HW and
-> using it would mean that second mixer (used for second display output)
-> can't be supported.
-> 
-> Remove layer register space, which will be represented with additional
-> node, and replace it with phandle, which will point to that new, shared
-> node. That way, all mixers can share same layers.
-> 
-> This change is intentionally not backward compatible and the old binding
-> will not be supported by the driver, for the following reasons:
-> 
-> - It can't describe the hardware. Plane register space is shared
->   between all mixers, but the old binding puts it in the mixer node, so
->   only one mixer can ever claim it. The second mixer can't be supported
->   with the old binding at all. It also has no way to reference plane to
->   mixer mapping registers, which live in display clocks register space.
-> 
-> - Supporting it would mean keeping a second, mixer-local plane
->   management path in the driver, with hardcoded plane mapping, which
->   doesn't match the hardware and which can't be tested, since nothing
->   uses it.
-> 
-> - It was never used. Upstream H616 DT has no Display Engine nodes and
->   the rest of H616 display pipeline (TCON, HDMI, PHY) is not supported
->   upstream yet, so the old binding never produced a working display.
->   Vendor BSP kernels use a completely different DT structure and no
->   other known DT consumer (U-Boot, *BSD, Zephyr, TF-A, ...) implements
->   H616 display support. Only out of tree WIP patches used it and those
->   are updated together with the kernel.
-> 
-> The driver will print an error, asking to update the device tree, when
-> the old binding is detected.
-> 
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> ---
->  .../display/allwinner,sun8i-a83t-de2-mixer.yaml  | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
-> 
+> Hello Zhengping Zhang,
+>
+> Please fix your patches. Looks like you insert patches to the e-mail body=
+,
+> thus your patches were converted to "mail encoding"
+> * tabs was replaced by spaces
+> * unchanged empty lines "<space>\n" were converted to just "\n"
+> * long lines were split with "=3D\n"
+> * "=3D" were replaced with "=3D3D"
+>
+> and so on. So please use "git send-email" for patch sending.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+I agree, I can't work with this, maybe review a little.
 
+If possible use the b4 tool to manage your patch set(s).
+
+Yours,
+Linus Walleij
