@@ -1,101 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.128
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794999167;
-	b=vu57FqhUuvXmhEuXJWCBDkGkVVV68RLG6MCWFbD2VaJGUNZ/LLhPAz66MjajT+hXKmMx
-	 bF9TJfP4SMCr0dQnLeGQxEBwIMToHeUgKwh5jFRVsR8OTD8n01gtKty4A82V2Of9ZQYt/
-	 7EFPOX/aDTbTwIvpQn1YBnqTnnr7XbMtzLgE/HaO8My50wtqepb8f7Xe2RELFfO2NuM2g
-	 4lZxAXq1NltcZSnexp2DHiR78sAOp0gcpfYiFYrFOX43GUYQf1p9DmfZQwdZ5FBqU5bCh
-	 mfEV7jr5a0YWCUcaC/Cge+5TW1tOJaPwmi3lN1vQbvEgs4No+oBy4ZhatIdHjwLrWGQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794999167;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=q/WHeFAnSrfqnBVadbFI/Flt1XMD0leQD6vZBgePXEI=;
-	b=gKgjhnn6OsA7bZawfd4ZYpx9i5I7eu2bTGK6VxiSsrYzrS/ASW3QSmXRTeczBBsXfeIC
-	 7TGJ1nMjBAg3HGMMRPN8fWlI5DLs8/ZcxLAB9HLGRAnuJQtjXtln6pvC7pIB+7VJkrG2Z
-	 DhZkpo+jA9xLJL8m8PIV6XlIl9JR7Rdr858VzivcYiQHGcMlm0/Z8hyYvbjVXQTttRGyy
-	 c0WOV7WyxQ2tzvdjZs+KhKGKL3chBqczPnWuBtyTYe8IHYaXt7Q7hvPNegybNA+6LemsA
-	 RuPSpMPCE1ACseY2dW9bcB/2gONyejxVHZUjpzyMAczTcCxRRHPFrTBrdbxWPzK7f1Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kontron.de;
-	spf=pass smtp.mailfrom=kontron.de;
-	dkim=pass header.d=kontron.de header.i=@kontron.de header.a=rsa-sha256 header.s=selector1 header.b=hjn50alu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.128
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11021128.outbound.protection.outlook.com [52.101.65.128])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A766606A339;
-	Wed, 18 Nov 2026 10:52:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A766606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kontron.de
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.76.78.106
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794999448;
+	b=FP06v+h3UE1gR+SpYE/tZzRGtjcGdUtr4I430w7pz17nmwntaZcKg+SYBVoYXeZPOmAx
+	 Q6YCWFkQqajqZZFpK8MpGqAdAbUGi41DSr9kHJKlmkRWvnq+md11Ev+W5d44Z7dgKMoCJ
+	 T32YsdaVyanygevRZFOmE85v4CzpBjZSnacZ1fJc//sTE6sxu5G/IeWjnsBxmUq816Zuu
+	 62xxGY3Y9t5+/an4JnpTXl8/pq0OmayWYD5IlS020318lN1plzFAVHRI43vM2qhu0wXR8
+	 JrgauDie1AQ5TK/J8KDOscxQ4N3N4Es0k9MZ4aZ2+pkFVdmSRz/ImAdtQTtH4AduzBA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794999448;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=5vccRsej6U4a/ZHe+hzTCUcNdodK+DAuno/TNDFubxo=;
+	b=AvP3me1wWi0RpIEPbx2DAOS7HWSMiUslfxiK64Ce1jK/1Qfa8PdYgmL0OkiJMNbiafZR
+	 7Pib2/s+BXkVGXubekegfpfUPhtqx7dBFS1YIpHxrCoaA6k6R8vTB1dnCNn2203wSxNqt
+	 3Hj/Zhx1eNcKO5z45+I+u6r4BzySg77DyG3Rb6TINzrkymvfwdu6xQdasOlmMfnGPtJer
+	 6fMtbpj83FQYzLcv2qkuz7MRvD2CfB902dMLpMxbzCDLbyj4A37FfAyDyX7/jWU0UD/oT
+	 UtWP+dfmb71NZyZwgJX615V/bQOQsPY0iScA/Qfjxfw5+T8jHzGGrfjqUfkyR9YelXw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=eswincomputing.com;
+	spf=pass smtp.mailfrom=eswincomputing.com;
+	dkim=pass header.d=eswincomputing.com header.i=@eswincomputing.com header.a=rsa-sha256 header.s=dkim header.b=TLujzcJr;
+	arc=none smtp.remote-ip=13.76.78.106
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DCD5C606A320;
+	Wed, 18 Nov 2026 10:57:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCD5C606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kontron.de header.i=@kontron.de header.a=rsa-sha256 header.s=selector1 header.b=hjn50alu
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KWFmVX6Uceuou7ZmlkjZf7g3dDuIJwHzvfu5HEWSXOMYd2VsRWUAwAOJiT9gd0HrFa+hqIuPDxj09Z6c7r7PuxWU2thxr4xf31/IR2BO8SrFgkl+Yp4Y81bOi8HioberErPUOyjkwNX4CjHJvQt+Q11e0Hc6ASpPNkrmOEizdPAa4KfXua8qab7rJlnb4OwsMqum+GYKUcOqfk3rPSrau3Ucfx75vuKY98/aeScywd5b7WpgLUSmosh+Y8Vhn2Qyt6n5FCkCtaQdudHCCbxYlsCgVtBZ0BxmETVLgLBE0eam7iTUrEkdNoe+UC504HalIN+CJDQugnfjgLtzFACKAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q/WHeFAnSrfqnBVadbFI/Flt1XMD0leQD6vZBgePXEI=;
- b=TbG/M5pCKrDtaM2ETrOblqjVrVKaKBz82PRkqkpkTV14ny8ewCrJJkDWvsMCflC4abYPNGd2TL7WSUaKDG0LKHuoo0IgQagN3LwTtDESgEcnbZkrow/52qbNdGPxdAqJ789j91kk8dCCLCdZLmdNyMT+Uz0F3/vPu81ZamGjrvL1C+XFaaGmnUHBtZG3tb7OvqoII0JHzM5HJCU0v34eaeiZGZ9Ojv6/5U1YCZArxlWefQQMJZY/DvlqAzXA+I4zVOvT69TBoyNbBQqsGhays0MCc206BFhH7FV0uI/duAFAObbwqtLzvkXWkAcqMVxyLDukf/Eq4Idwn25BwjAURQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
- dkim=pass header.d=kontron.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q/WHeFAnSrfqnBVadbFI/Flt1XMD0leQD6vZBgePXEI=;
- b=hjn50aluvuqLEmdcn/6ovMKoRnXuHU+otD6kbacjMaoyCRznKZUMP2YHY7ZaMwTXLujWCiIL0HnVEXXsefvfMlZinbYXNKLKrTcsLMHTPvotkejWiaeUWnvM6WhVJDyfuLKKumx0wjF2bOTywhmAaYyHYK21QKciIZWYV3ZpJDkU9QG2+Bt+68R9EXcEAW3uxY9xSn2vSUGJalFMMUrzSEaGu+3ma7lxf5VqYFRV7PFi1I+3YjgNHDVp+C8puF6o8uveF74NSi5aBmGG9J6D8+2JbFN6cw+FDcjc+Y5DbbLL/suTWXaSHBNjfBXMPebuRaGH9jy/wIy8rboGYhghPg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=kontron.de;
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
- by VI3PR10MB177098.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:378::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.8; Wed, 18 Nov
- 2026 10:52:41 +0000
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22%3]) with mapi id 15.21.0639.006; Wed, 18 Nov 2026
- 10:52:41 +0000
-Message-ID: <dd940fd7-7950-4074-be80-5bf129a57772@kontron.de>
-Date: Wed, 18 Nov 2026 11:52:39 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 0/4] net: enetc: add i.MX952 NETC v4.6 support
-To: xiaoning.wang@oss.nxp.com, netdev@vger.kernel.org
-Cc: Claudiu Manoil <claudiu.manoil@nxp.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>, Wei Fang <wei.fang@nxp.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>, imx@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Clark Wang <xiaoning.wang@nxp.com>
-References: <20261104092217.1730351-1-xiaoning.wang@oss.nxp.com>
-Content-Language: en-US, de-DE
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
-In-Reply-To: <20261104092217.1730351-1-xiaoning.wang@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PAZP264CA0041.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:1fc::12) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:1fb::23)
+	dkim=pass (1024-bit key, unprotected) header.d=eswincomputing.com header.i=@eswincomputing.com header.a=rsa-sha256 header.s=dkim header.b=TLujzcJr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=eswincomputing.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=5vccRsej6U
+	4a/ZHe+hzTCUcNdodK+DAuno/TNDFubxo=; b=TLujzcJr94kTWqv3zompplZjyp
+	JJifaWWpcbjg1yZPbHKP47SsjUEIBRtLvXYNLwnu33crjK+ckxIZAWP7TVauSj1u
+	+yfdqlZITz8TY7Js3aFcc9gl7ilPEr9IC1tMcdmRKU3ocpQrpaolURQPXflxH6Gr
+	9xFCGTJ22d+3kUv9k=
+Received: from E0007865LT.eswin.cn (unknown [10.64.112.9])
+	by app1 (Coremail) with SMTP id TAJkCgDn1eSOhP1qLCEAAA--.181S2;
+	Wed, 18 Nov 2026 18:57:20 +0800 (CST)
+From: Donghui Zhao <zhaodonghui@eswincomputing.com>
+To: linux-pci@vger.kernel.org,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhengyu@eswincomputing.com
+Subject: [RFC] PCI: dwc: eswin: proposal for a separate EGC-series driver
+Date: Wed, 18 Nov 2026 18:57:17 +0800
+Message-ID: <20261118105717.1364-1-zhaodonghui@eswincomputing.com>
+X-Mailer: git-send-email 2.55.0.windows.4
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,83 +63,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|VI3PR10MB177098:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3c496be-34e8-4b76-555f-08df456211a6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|18002099003|22082099003|11063799006|56012099006|10067099003|261022113327099003;
-X-Microsoft-Antispam-Message-Info:
-	fde6oRCs1dw8WDG+dWyLsWy77vE2+hcD0AJWCdVC3sAEAoPerkberzQ08WXK2ohtjVIlSypjAha5XkisO8oOL25tH9/wI0hyQ+qMzdIX9X4W5S3z7lqtFvYfDOS4naArmO+fhI7icWV4UIAcNKgR2NP1Eh1YpQO7aPNhIag+DTdDs87N+9nT6urSFYUEQcA7lGHc2KWC3pCM2XWhMIuCtc5JasBTCxiKjVgKI9eE6gIyf78NxIJz0rAe0lfZIcHzxxaV13q8pdsW/OJ+4E4SrTlfvykinmLKEk33qLSEPTZoE5IUMN+/FAgWdt2WdZYV+c5hQq2xBKjhRuppHiz2HZKCtN7MYSJVpMjl+ZywmdHP6+xshFsJ1I6aXgedx+iLLR2AvEtxqSJWRtGidXU67Ro7xEMe9f35DggVftETM6l4nC+AlIXv/BaptP4zOBmsDARLKn3hRN4VvzQFlSPtzVCIuxtQzBY9yCOgMDWTV3MHs7qTSwICila8eCxzHhfTbUdFrIsQs2jP6koGb4U2PZA0Sg03GNxemw5E9DKOzesuFLxtIaRFBn21Yc9zhMLUQyOsaQdHDEtUDw3eyBcPUEgO5iGrgd3iryWC0TOsin28K+ZAeI5ghQvY0MXo+EbEDiXP8Jx8yCwgDPvhBLgn5kY1nQngwBUO8ZYeg/f1VRk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003)(261022113327099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QXl1QW44WkM1aFovRlJkMXZ5L3M5d3N4SzBDTStnRUNKemlGZWRqcU53dXZL?=
- =?utf-8?B?bXdacjRiNjZ5a3hpMzMwUkNLdnFHT1pjczFzV1ZsMUljYy9sRFZSV3VxUVRh?=
- =?utf-8?B?bCtVMnhsUWZ5eVpIRTlMWU9JNXZHSjBjQVB3QTlKN244MGFPdXovb004dk9I?=
- =?utf-8?B?d25BeEdPMDd2eUsrVXJUYXBRekFsL2EzMmhZL1dQdldNMElzODlYVzdqeVRl?=
- =?utf-8?B?SUp5YjZDRmFUWUUyYmRmQWNIZkZ3UGxnd2tGZUxDV0owcWlkWDFDWlFFTTF5?=
- =?utf-8?B?cGV2WjlCcXFUaWRhcGx3bmsrTVlnRWZGUVNqNmQydHBiamlpVllpTFd2bjdY?=
- =?utf-8?B?bjlqakVxdjFvNE5ISzJpMFlMcDhnOXZnOGJwQjYzSnlNcS9hS3pzblQrWGpl?=
- =?utf-8?B?OFVOL2hzVThnOWV1eC9iVG5RWEkrM0svdFN3M2N4WnpCclNiS3picktJMVVV?=
- =?utf-8?B?NzNxT1Bpa0JTSFdIb0toTCt3dmlXUk5Md3BuaFZHRUxRTkg4WldoR3pDbHVM?=
- =?utf-8?B?dHRQUFVkNktVaXJWL21ZaDBLcHlDclJKajRCOFVvNkxqVTJCRE1yMnFsbHli?=
- =?utf-8?B?S3liSUJwdExZN0QvWER2aG5ZV2xvOFhBbTd5NTRCZE9zZXdjeDhmeTM0QzBR?=
- =?utf-8?B?cVhGbVE3dFpGM29QY3I4TzdoRndYcVhvZFVFOHBzcU9VSTVUZm1WWTlOOFR3?=
- =?utf-8?B?cHltdGg5a0h3NnVsVEtmTVNMOXBnOGZoV2hXTmlsSmNxVHRaaC9yOVR3d3RV?=
- =?utf-8?B?VEx0L1Jna05STm1qSU9hSEl2Y1JyeUpMQ3pGbmMxcDFZZ1hXYU9TR1MvcGxl?=
- =?utf-8?B?dDVaeVdvTy8wdDZwa1J3NmtUWHFVREJEU0pqN2R4c2FoNE1oUlNnNXMyRFR2?=
- =?utf-8?B?Skl4YnF5cnV0QzBTZGtteTVyYThWZm1ISWgxWDVTTzdRVGRuY0hocHF5SUNk?=
- =?utf-8?B?SkVsSUZmc013NUpZVXNCY00wUTdHbGs2blRTRm1zcjdqSE83Z0dJY3pkc1p2?=
- =?utf-8?B?Z0M3bE4rd1dVMk5CbkgrU0V5akVxbHpQVml6ZUlnc3dIbUtoZmdaMzdBWmNS?=
- =?utf-8?B?N2JnZTJEbE9zZ0plZlEwemgxRVg5RXlIZEpGcjQyTlIwWVdQWk1JUFdxMWdw?=
- =?utf-8?B?SnNLSUR1OElFREQvNWJPZWs0OU0yOS9YbnRJd0NKNDgrakZQNWp3dSswWjRm?=
- =?utf-8?B?M01LYUl3RmcrTHd0eUNhSmN0dkNoNEpsOGxyUFpVUGxCLzdwQlZUdXJRdVVN?=
- =?utf-8?B?SWpSWDNERloydEZHTWlDOE1WTkt5eEtCQXVIdVN6SEJWOGROc3dYMWFkYWhI?=
- =?utf-8?B?L29Dek44VDNmV1RTRE5UZXBkbjZRRlplUTJJdDFlU3RLSlY5bFpaVXQwSTZL?=
- =?utf-8?B?SHFKUDZpeGVTdkd3aVp1MkFxaVE1Nk5sdndkbnZPWC9PdEVvSkVuN2ZHRTYz?=
- =?utf-8?B?K2VMcm56TE50ZG5EZFBOb0JmVElpcWp6a2lnQjlaUEQrVVNmUVZzUlh4RWpQ?=
- =?utf-8?B?T1JLb1Y2ODJXMUJCLzdsdmpPL0FXblpUa1F4Q3NIdXUyZVJsVmU4ck9mbUFM?=
- =?utf-8?B?N2NDQUJ2QUxwdC9id2llMU5oTTByMWprR1Brc2hZZWhJcGRNMDdVMVNteEpN?=
- =?utf-8?B?VFluZ3pHM3FsTnhMT25SOFMzNXlRNUxiaUNLcHovUlVoNTJwYjk4SDlkQm03?=
- =?utf-8?B?OVkwU3FPVC8xOFdCTGN3SnZJak54YUxxRk56UElpVFBPeTZGOStlS0tFTGgx?=
- =?utf-8?B?YnBJUkVTU0pESTR3MmVlRTZPVWVZZVJNZFNlMDhTWHRPKzBVYjczc0FnZUhj?=
- =?utf-8?B?Um8xTVp5SzhVRHptSlorQ3pKZ2ozVEZVVms2OXhteGRTdnFRRklTQ0dWbDJs?=
- =?utf-8?B?RmZHN1h1TkNlNTZDRTdxZHA4N1NSak1NYVdzeENmVDJzZmI1akQ3Z1RseVpj?=
- =?utf-8?B?b0p4U2UyOVdzWkZCN3A3alpYMTYrNGtuSUU5YXhlcDlRdDZlSkE3Z05RU0NJ?=
- =?utf-8?B?ZHlsNGJkeWRVU1R4YTMxMlFHelNSd1hOZ2E0OXZ0alp3NjUzVEtTeTUvUHBV?=
- =?utf-8?B?RXcvaW03QVRmYW11VU9Uc2xQeFh6ZXVGSkllZ1cvUUp1M05IcGRIVlZRZFpU?=
- =?utf-8?B?OCsvL3BxTmxtZGY5SDRMM3RIR3NKK2lLQzZLajJ4ZW0zWmZpMkhhOVdTV0JX?=
- =?utf-8?B?YnpZNEtiN0Q1TlQ2UDdYMmNvTU96cmszdUtXVncrWi9ScXBvWkJIbmQ2amll?=
- =?utf-8?B?VWVyS0FJQk10UlA0NTlvc1RQSjR2ZFRTTTNPSU1hVkNQVDJxbEhpWS9JclIy?=
- =?utf-8?B?eXRMdjV5MGIyZkQxSVhocngwVmxsa3hhSVJLQ2FlcytxbXFTbGU1RG9mWDVa?=
- =?utf-8?Q?s0Wz/UvJbsoyEww0=3D?=
-X-OriginatorOrg: kontron.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3c496be-34e8-4b76-555f-08df456211a6
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 10:52:41.7295
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qLURPbnzu/095jym3fdKHMJCObJxLJ9i/YVWqehICEQy6HncoYcXWDZOqK5U0AwCT092KoZPsiWll9eOa7AZdLBkh8TX+cQ84U+WdjnERO8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI3PR10MB177098
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TAJkCgDn1eSOhP1qLCEAAA--.181S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJr1rGFW7ZFWDJr15uw1xXwb_yoW8Gr1rpF
+	W5Way8AFn7JF43u3WkZF4vyFyIvwn3CFyUKws5Gw10v3WfCa4UXr4aqF1FqF1DGF1qgw4j
+	qryYva4UZr4YyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUva14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	tVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
+	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
+	6r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
+	IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
+	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyT
+	uYvjfUonmRUUUUU
+X-CM-SenderInfo: p2kd0vxrqjx33l6h245lqf0zpsxwx03jof0z/
 
-On 04.11.26 10:22, xiaoning.wang@oss.nxp.com wrote:
-> From: Clark Wang <xiaoning.wang@nxp.com>
-> 
-> This series adds Ethernet support for the NXP i.MX952, whose NETC is
-> revision 4.6. Its NETC integration differs from i.MX95 and i.MX94 in
-> the following ways:
->  - there are two standalone ENETCs and no switch: ENETC 0 on PCIe bus 0
->    (RMII/RGMII) and ENETC 1 on PCIe bus 1 (RMII/RGMII/SGMII), plus a
->    single IEEE 1588 timer;
->  - the NETC system clock is 133 MHz instead of 333 MHz;
->  - the reset value of the ENETC 0 Tx byte credit registers is too small
->    for jumbo frames.
-> 
-> The DTS patch set will be sent separately after this series is applied.
-Tested-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+Hello PCI maintainers,
+
+ESWIN Computing is preparing support for a new EGC series of SoCs.  The
+PCIe controllers in these SoCs are still based on the Synopsys DesignWare
+core, but the SoC integration around the core differs considerably from
+the EIC7700 controller supported by
+drivers/pci/controller/dwc/pcie-eswin.c.  Reusing the existing driver
+would require a large amount of per-SoC conditional code, so we would
+prefer to keep the new support in a separate driver.
+
+Before posting the full series, could you confirm the preferred upstream
+structure?
+
+  a) Add a new host-only driver in
+     drivers/pci/controller/dwc/pcie-eswin-egc.c, with a separate
+     CONFIG_PCIE_ESWIN_EGC Kconfig symbol and Makefile entry, while
+     reusing the common DesignWare host code.
+
+  b) Extend pcie-eswin.c with additional of_device_id data and per-SoC
+     operations, so that a single ESWIN driver covers both controller
+     generations.
+
+If (a) is acceptable, is pcie-eswin-egc.c the preferred file name?  The
+differences from EIC7700 are at the SoC-integration level rather than in
+the DesignWare core programming; a detailed list will be included in the
+cover letter of the full series.
+
+We will follow up with the driver, the DT binding and the MAINTAINERS
+update as a complete series once the direction is agreed.
+
+Thanks,
+Donghui Zhao
+
