@@ -1,78 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794995964;
-	b=LkBCJ5+nPlerof91gH/gY8+wLHDwYjerrPV3R6jhka9aVGrMG5/iIKUHK5kcMBv1qcZ7
-	 S2+Xmws1v4/OCdFC3foo+thrDWdLjRFyZ4T/Pwet7IWseM3heGHGvV++IN9/Ley4wL6O8
-	 oKlcFpElKvcbElytkLpZy5+h1DXqkXny/fj3lOriu39SsXuHNALG2z5tN+s+dmJ6LUnnv
-	 wh9CzBIlLMcm4S2OIqIA+r9VRBcNXA+JmfUQ4ophaOxDo4+qVBwUVmF449ArWNQF7vBmO
-	 X5JV61kBpPrEEdZc3PC07hYhQrhisuDQLsgAYxG/6KQu8W/MCXHBOjet1XTM/SwDIgw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794995964;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hzfOUTtrb4gURy/ze3K34NDYNNCwcpFVgEVGom5qxcU=;
-	b=YabB5Gi8rkIhz3+d+/LnPr5vh2OWY2YF7tZ4GGInHwh+LhdfA4R814kpe9DetEcKwcpq
-	 ojUxoVo2yTy5SIWWaCx9gtsyNjA0QVjQmz/NzEhBEAQaMeVEtWAVb0Xst4e0chGuySTYg
-	 njd2Km6XeigNteEPJOQO6l1w75qEis1CY9xLPB/tqjf9Le4xtjMPdeGRsvB7OQjsKvv2V
-	 Yuxb87Gql7bpvjdc68XJRVtz19pHWRYgTHurJ7C8RO/+IQgVeQJeYl3xb/MzYViJ95zem
-	 M5MdvXevaTbKUMlf7qe1fblk++MMeLZhH4g8g0M6AhlEuUcmPhppTgxFlcSgSwbhGfw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LYNUAt+J;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794996027;
+	b=tyHlclRmZ2gP4qVPhch3UDA0R/h2i0oRbivwsVh8xp+HFCCqYzOLLUTOC8p/6GrBlqeO
+	 WomhmUI5EO/8stqpAymINW+A0OPaEQaSycxEvwKQZyWgHFA4Kr2VnlxmmtCosBy4OBcCF
+	 PDB4S7N8i1OX/Lykv3zut7bo2AKOgMmJ+bTM8HLKOHpTq/RGN4UzmKvMNrL/quM8MsfOL
+	 vmUgEsMznAQv7s2lg+rUDNPRcjRiZ/mmWBzW9M0Mt98XX+/8HrZOP4Xm1uBP9mKjvdBSX
+	 ODgDNO4qMLd2lC/tFh7zFsJgM2m9gwyjjFJw+ZuTgHLbl1a2n4kclZxCC4t0ld0b76w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794996027;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-QQ-SENDSIZE:
+	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=gE+8GEkhiQjCVNt58Aswex/BStQyLxbPhNALcBXdKZU=;
+	b=JGTIJA0Xqa5q4ujNr9k5bFux92Y2hEght664tykey6OP3fL8NimgmKQUK+QEJDRZ70t2
+	 v9HQfMoUgIRI/9Yw+HupFNoxnDKE30iXRJA48IF2PTWmfE5OV4YWPJYgVtjC4XgeNTDiF
+	 4cfA1KyyisB0UDUIVsOAge4TAISaTnpq2RtOZpbvxz/LFv6HHCZJFbC8nwYT+7ySCcq6z
+	 rKdaUGfuXFoJW5fUda37LBeAYH7xgytJNDtaXTjIlAK1KYAdgkKhDQVK1AuA3l/bxLDri
+	 vE65FezQtXDiYW7LzYDQezKsf4MBILSBr5BLLdAruXKcJ8Ql10jQxUx/fWDN8pv2IsA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=so8kePXX;
+	arc=none smtp.remote-ip=54.92.39.34
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECA7606A31C;
-	Wed, 18 Nov 2026 09:59:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF53F606A32C;
+	Wed, 18 Nov 2026 10:00:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF53F606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LYNUAt+J
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794995963;
-	b=hBjEs4cp9Hkhl0nOZg7PAP18h6PtOdOQdf5jWDZed6pg1EYoxmpXRrq3rDsV5uYwN4KW
-	 0v+uwIDGB9JUvvAOcw8l/u9f1SVlc3rdGE8DfuhyKhOGQRNMoi7yVQ0b4NzU9iS1UNIYy
-	 Dx+bq0iYXfCtOtGbz3V9DmzA8ILoH9oPDnEw8mUkKRD8ctj7tXgjkS0ypeP/ekIHmeuRE
-	 EiohC55cE9OcDesCdIGFJ8e5g+CaW4fqiatNGZbOpyeWwHno9hQN2VgdVUi9omT8+Aj6y
-	 lmxsXhuq7A5Z/KGRq054CjR06EcNfXKJc07Km6mIDoRUmIsP/yMUpOwqIVGh+VpxE/Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794995963;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hzfOUTtrb4gURy/ze3K34NDYNNCwcpFVgEVGom5qxcU=;
-	b=kiLbMZ3ZWZV5Rp7BMa6VNh9PbtucfSk5dEiyd+WdETJe7REEqKs+l9Swoo25+BgyvbC0
-	 FFFTXDdUIqJuYB/IJJ/22ZFdLYyl5GBOeDZ5pMyx+0wpq1GMnkdo3O23MJNjJJRQK0L2C
-	 0hXmritsF9vsUsUhSQbVkozV0QUY6f68tKoRM9ZoTNi5GkKu7LjDTf/sVQeCLoZmDhquP
-	 TjHHrAy04a18te/yqlnm/3GA9lSmNrFeSnBpBvlkeeOo4VAX5gyPOYnApmvTi3UMRh4HM
-	 3YXay44bW4NzaGCtn16FcLr/BQyweHYPz9NMc1bkLXNCCTgOVdM9ZLb2j74yXKMt4qQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 409741F000C4;
-	Wed, 18 Nov 2026 09:59:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794995963;
-	bh=hzfOUTtrb4gURy/ze3K34NDYNNCwcpFVgEVGom5qxcU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=LYNUAt+J9tfZqneIu6AxW6U2vctfvtencgTN29AXEy98efJl+bfciwGXedBYHmOII
-	 ZYNd1C+9gnCh/NekTtdI7iWscYgf0W4wAwiK8mzyE+Vv+Yv7wGoCRY+Ubwfn0eLyTG
-	 3Yidewc+RsLIRgWPG7mOT4h6X3K3kAOj+y/Kw4P1kQRvHNtWWBaoWdf+/t11Tsi16w
-	 XhErzTW7H5ada/8LwnsI1GyqeugmW40pyO/hzawn+pDu3Y9FD+ECqO4Ag8L6R/xdcz
-	 QYX1sZA+SJvmd+UhKY+SV1LzxquZvSJc6Fxp0SqttaPhDSindBXJmjks4PJ0FBjwI7
-	 9FyNtopwZ64Gw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B0FD44ACDE;
-	Wed, 18 Nov 2026 09:59:22 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Wed, 18 Nov 2026 09:59:18 +0000
-Subject: [PATCH v12 1/2] dt-bindings: i2c: add Amlogic A9 I2C controller
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=so8kePXX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794995962;
+	bh=gE+8GEkhiQjCVNt58Aswex/BStQyLxbPhNALcBXdKZU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=so8kePXXHRypKZVceMcjV/jbHYViLPMhOi8gOs8BP86Dvle/bVthdnNPQYDQvWCgJ
+	 yVCwbiag3L9tLWVH3QBiL2dEfUL124spgbA7QWl0DJpa517ZbsaDpDHOJyGk8r8V4d
+	 dMOCVHUchYnzRtk3IF3mrtJ99MQabf32zqclAi8s=
+X-QQ-mid: esmtpgz13t1794995955t2c2fa096
+X-QQ-Originating-IP: kXND7tW+yULMcxeWAiHy4oMknukShfEgdiMgPHresxI=
+Received: from [192.168.1.100] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 18 Nov 2026 17:59:12 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 5513837278433707905
+EX-QQ-RecipientCnt: 20
+Message-ID: <361218E417AE4AE5+e47a92b4-850d-4a36-9e4b-6f5f62c8b379@linux.spacemit.com>
+Date: Wed, 18 Nov 2026 17:59:12 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,108 +61,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-a9-i2c-v12-1-fc83c53121e6@amlogic.com>
-References: <20261118-a9-i2c-v12-0-fc83c53121e6@amlogic.com>
-In-Reply-To: <20261118-a9-i2c-v12-0-fc83c53121e6@amlogic.com>
-To: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Xianwei Zhao <xianwei.zhaol@amlogic.com>
-Cc: Junyi Zhao <junyi.zhaol@amlogic.com>, 
- Markus Elfring <Markus.Elfring@web.de>, linux-i2c@vger.kernel.org, 
- linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794995960; l=1772;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=iah66EzLU1pEytVqMNVVA1xNmz2D/VOvKtLvjcbBFk4=;
- b=NUUGiwuu8R+EiZs7mBRBt4pBtx3gjWNLc9VC55v1I3Dtxf2C9knWF/pf7724GQjWE7DKnHKvD
- NaMrTw92yLcBme4NJvPkahJH2ae9TmWeVxeMn4MwVBAiI+Uo73rIxht
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 7/9] riscv: dts: spacemit: enable USB2.0 controllers on
+ BananaPi F3
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+ Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev
+References: <20261117-b4-spacemit-k1-usb2-v5-0-52c3829cca69@linux.spacemit.com>
+ <20261117-b4-spacemit-k1-usb2-v5-7-52c3829cca69@linux.spacemit.com>
+ <18756bf6-3eef-4de8-a091-c5218458fd99@kernel.org>
+Content-Language: en-US
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+In-Reply-To: <18756bf6-3eef-4de8-a091-c5218458fd99@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: NcfXIs+Ms1qH7EEllHGrSeSohN7d2J/lmg6HBn1lBNC5NV7ipzSmg3GQ
+	y0Gsm0/8d/cddtTuzcQzDeXwy6pAc5wBVP0xMX4gsRaI3twHCCKu96QeudpRjGfQXOTFQlb
+	tQIeObuo8zWsNB5OJq49Wu4At06FsGUCLdKHaepuSwjDiez6GNBrTL6KdupU4WcgBGizYIc
+	8pp8DhKTc6llXfr/LZTxf0y0CxM1+v+ARQyKaZJqd+NsDJgoewjAgeEylj/Z3sMw0jb81Ez
+	YW1/Db8heU5HW7MzWhr7a+aea9Pr4Bqx6P7d5NJowTDPv011zN84Lw/HVrGrF7mOh925WZp
+	nuCjUA1RKpNSsVyvyhsBsHunp142JJ5QcnxZo64m3e30SNoWAFun1zW5wUdZgqUJ+Fg37QT
+	Yu2IjOTiryeXYmyJN536MALpzW8eS6EwB7Vnfqbcu/Ssjhtcc6TcuRh0c7VYob9oZyyTfKT
+	9K2kvDTR7gZ/8CKU3xLw+OqZGuVihuKSgEQcUzjKEUmzNcP/bCHOKNnOabrb7XmV8uuEk6D
+	9vwfluEtPc7grLOxuyBAY0YmWDcme8mW9XZQzYxz8DijuVV5fWJct5XIwjmruFYu7qISFSP
+	zj/V5dGdqHsiz50PHKHyKW3UsrsjElvZ8xr4D2oZnO1t4tc53nxTQJl5gP/FekVDLqn6uTc
+	J6EaXUKrRD8om+pWeRkW8L55JcE6OvU93isRBMDHuEezBiS2UpGDUAO0ahZOTIYqk408wjS
+	h81AHht1sOlB+dGKH3AyR6tezvlANIamR9pEdXEoNIPkYzSoI33Tk5yO3gPMuzmAoQ2IvKp
+	O0N5Vz8PT8EwCbCuCYKk5sghnKZjc20TDfYJ0kM77lRECdke3z0rfZIFWluVYz1OZWFUByo
+	Lut+tQz/i7chQxEh2iPRC+eaS2Y4fOgvLRFnkTJtIS1zgQ4NXuSytO0AOGhQvcjzWQ19FHA
+	xmctMS2bozsmRoO0A1D1pEFJnhtyUF5ibfIatgN3bRZjQBTg7lwQrIOLgiNQNgb6PDsn38J
+	TFbyNbhvaPAxQ+UPeUXo/tg3olhGsKCK7uuhEBJ/NLtaiHEU+ah3eG9eHFdgE=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+On 11/18/2026 4:18 PM, Krzysztof Kozlowski wrote:
+> On 17/11/2026 13:38, Junzhong Pan wrote:
+>> On BananaPi F3, usb2_0 is connected to a Type-C connector at device
+>> mode by default. This port have no VBUS supply capability, thus host
+>> mode only works with self-powered device or hub. User could switch the
+>> role in sysfs.
+>>
+>> And the usb2_1 is connected to the USB2.0 pins of the Mini PCIe slot to
+>> support cellular modules.
+>>
+>> Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+>> Reviewed-by: Yixun Lan <dlan@kernel.org>
+>> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+> 
+> DTS cannot be combined in this patchset and must be split. Don't mix
+> patches from independent subsystems when you send something explicitly
+> targeting only one subsystem.
+> See also: Documentation/devicetree/bindings/submitting-patches.rst
+> 
 
-Add a device tree binding for the I2C controller found on the
-Amlogic A9 SoC.
+Thanks for pointing this out! I'll split them in the next revision.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
- .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    | 56 ++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
+> 
+> Best regards,
+> Krzysztof
+> 
 
-diff --git a/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml b/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
-new file mode 100644
-index 000000000000..31ddc6d23732
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
-@@ -0,0 +1,56 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i2c/amlogic,a9-i2c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Amlogic A9 I2C Controller
-+
-+maintainers:
-+  - Xianwei Zhao <xianwei.zhao@amlogic.com>
-+  - Junyi Zhao <junyi.zhao@amlogic.com>
-+
-+allOf:
-+  - $ref: /schemas/i2c/i2c-controller.yaml#
-+
-+properties:
-+  compatible:
-+    const: amlogic,a9-i2c
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  dmas:
-+    items:
-+      - description: DMA controller phandle and request line for RX
-+      - description: DMA controller phandle and request line for TX
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+      - const: tx
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c@3a4400 {
-+        compatible = "amlogic,a9-i2c";
-+        reg = <0x3a4400 0x3c>;
-+        interrupts = <0 164 1>;
-+        clocks = <&clkc_periphs 11>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+    };
-
--- 
-2.52.0
-
-
+Best regards,
+Junzhong Pan
