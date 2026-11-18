@@ -1,101 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.128
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795012972;
-	b=a5I1e+lGrotLxjQEcdGEwOV1Qu65N2+tEZY+oGK7v6R+4ja6HhfZNmv7mB9j5DG++FCL
-	 Qn+seJ2ZBJgNHJpLR7NuxfoiDedbD8isH+At7vOB3hL60QEVxVr8YE4tUOfh4TTNG9j1+
-	 6hfsBLqiYMSUjhRLWswYi9srL7CC3PMkqoqGuf2qSR6lHTzACfr5QWb4wqnNCpBktOsAd
-	 k+bPIqnOh43FNYifzj7/3i2aFctAZorJ5NCJWfP6OQtyiyU8ejK5FcRTSLC4YfKcvf0bX
-	 4jF3lh1VUcHaS9+SaYpDf8JM6v4l9roXQVmrwBE/uPYvli2gHLE+H543YOZ6R0DXdTg==
+	t=1795013016;
+	b=uHgDfeRBnaGw4m4c4L/KrKsslJk+OmKFcCAmcHXlOAjvl2nhW9umnD5o9mA7ZDih3m1I
+	 J3/9FhquYCTohqkowYE58eom+EzcAUelsHYJiekJ7Vc4C5+a0Sxg1lRc1zdrKp5KsRx11
+	 045PF49GNLIq/nQtA3D8K9F9Jn/S4LB31devVzEysvzW7K1BlOjn/GXt838w0q7ezzfzM
+	 v2FZ8mi0+rBomKDD3j11jXfkjMvbqpRf+AGrH/EL3z+PoALKOpVL1QSI0P5HTa0L/8rOf
+	 +tZrF5G/uk1FX7mUPPQJ/Kix0AHMAtNx5cRWlP3zOK3p7qOZ/56i9xSyRToTC49SLyQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795012972;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=XUoJPQ+bQcBMLjchQg2sOom+qhVfJBoy/IZRsgGe9ys=;
-	b=aE3/3B6ARwR5V2QAZvHFa9/OcsPV/lwqMpeoJvluRk8ljGSqRJw9CZ4Xjyu+wG5wKgbK
-	 VDiekmHEZOgQUdtFe2rLlCBjD6Z6LxzEjqg0MorLBFNJV/82/kMeUTaq31GoQn9EyZniI
-	 8MTEr3oIMKzpevMw9qmu0Kf6exnPp3/hILSBOIW0beD4JRpSWgQtD5E9oqW4ZQPWq0ynv
-	 mLyQHI1IPxJHj+YFw+axxjdpiWCM5QPfAZPLwNTwwLx8the9XfXZbxgmvEsx7xh948+KF
-	 accOkYsW0TjIY3CiBEJPNOoH4UDZCbPDUaLAag1zH1zKiuLVj8qqywkOwNqUtfhDL0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795013016;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ud3LUPWviqrkNe/6Y9W998nhZrksDrjzieWE/+DBwl8=;
+	b=Z4HDd3IRC/OWiKTS8e+z7bzmIktKGM4I3CGjXgiEswd5w6jOxwz/WFv8M5OymVT2jF7E
+	 W+8/1F/CVEmcJf1hASYxFMMl/XppAxqw61e+fGdCAdD3ZJusj71uLdfz2ZxoPzqJXjj3F
+	 lQUAnlow0zKuwsFAY0wHP4xNv8sMvtE46H5Q3e9D5ARO8yv/JLEBLER3aZp0X4LvH2N24
+	 9i5cOt6MGxoW2uuD3zpGTFa8Rdf7mCDlB5/3MmpDecyUAjaKpyuXUq7SOUgU9fgrLCqgT
+	 JdOUHRYHRCPlww8YDTTXL6bNtI2GJaKiM7MeCtubaUXuMFy48wzSkC2EDkZRsrm73UQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="jTiQDbi/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=kontron.de;
+	spf=pass smtp.mailfrom=kontron.de;
+	dkim=pass header.d=kontron.de header.i=@kontron.de header.a=rsa-sha256 header.s=selector1 header.b=QOJwJpdh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.128
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11021128.outbound.protection.outlook.com [52.101.70.128])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A70A7606A320
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 14:42:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A70A7606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DF0606A32F;
+	Wed, 18 Nov 2026 14:43:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1DF0606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kontron.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jTiQDbi/
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c50604721c8so157558666b.3
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 06:42:51 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795012970; cv=none;
-        d=google.com; s=arc-20260327;
-        b=l9sa/0NhrFScushrnAzC9Q7d3sis0iYcrL94DyHSec7JmybKwk/QRUJungnZ2zNWgk
-         8ulamfWFhvkMTXlzu2niS0Zt4KSDnZJfB3+sP7eqZBTqQzQKk+7h57D7X5Oa7phgqOgM
-         CFFR2q9bBRCiHUrfUcFGzR+AVprLfSDVr4HdAKKHM03DlBHAYBf9yeY21q/512K0eGgu
-         jtyNjdFqiI+jQjDN9yTnY/ExvveioKwic4TitpMOCSj1avI2/GVv3Ppz50Syk3F4jmcu
-         EsuyZ3behOasb2zs8ca38N91yzjhlbMI/FSBWAYq78MBy6uYwRP9HSIlmMXuS0BFRad2
-         HqxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XUoJPQ+bQcBMLjchQg2sOom+qhVfJBoy/IZRsgGe9ys=;
-        fh=FGOg0xSNcZ19gsWHP0SP+RYXlG4HFX7jeWodr6/E2X4=;
-        b=IradS2x/naqSM/utqcR+toKSkAydMKmUxo2Gvh4ujwUIQy8dDAfF2byGSvJN2YFD5S
-         wBGfbWFNRdD1vi9lbKXB28ZYep7oPdIllLmWHbEYWpSoBizyU/S/csOid+3IbokLbHyW
-         SiYl+fs58BTrfhfZ6L9TZKoWUatgjylRBz95MdVSw4cu+9+CwKA34sftghHDJF2cuAMq
-         L1eBjiHC6TSHjywUBlg2YEIJeEutK4dg0xVqWDbkcfYVvCbdcC3EM1jKKbrdUDggruCe
-         mXixSlXrzuEz3Jyn9fnO/KSw9HsVKslvQl5yK9/MgMzgir/mWk7PuMPuMT+GvSsZW+Gf
-         rnAg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795012970; x=1795617770; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XUoJPQ+bQcBMLjchQg2sOom+qhVfJBoy/IZRsgGe9ys=;
-        b=jTiQDbi/ZtDF9t7SdZiTQkBZF6ofbKF1K/q0w7e3sDchHSUAOksiNycNOD7xKOPLqg
-         zhnYNkawYM2wCk380hedn5Rd00ZQCh4tOqAUmiix3gR+AyyaiA+eDJ/E3PlvsFYJYzC3
-         BE5HqaDLzWfvWJS3Hry0BVCbMDMI5JnmBMXQHsPnZUpnpwRYbt/Inu1lk5gxec8XS/tJ
-         RgIcD4ZkSKHPIeYSAzprNwYjsKa6lt2s/20I5DNtB+ZNJC/bEB1+JGDUHI75kO2qkRK+
-         jsqtJb/tW9GUrFzizei7Y9LEWjJjsSv3KmCtAV9m1v0QIPJwfAItP6FbSgZWRCz/WfjH
-         PTpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795012970; x=1795617770;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XUoJPQ+bQcBMLjchQg2sOom+qhVfJBoy/IZRsgGe9ys=;
-        b=0CMOOHRJV0n3zeaR+WRK6vCAP/r+xNfJeCn6AVqSvNIWlCR09Un/0jk+g9EzfQVZZz
-         9DW3rzciJaUuqrwKZ/0O4wYE/iG9VZnB6efD+2CSXT6/LNaTmo9sFTNYQxKoCk+Infp2
-         KTCgHWH24Xilj5eja3xELWIDhqpFYMoU+lthhLkm2sKvTSJrqf291mHpH8xvAcArCSYv
-         wLRKnyqPmJ5kExfSba+nC7PTuPtfgXf+cPRG6bbTOIillYYN61p2zzjhZacAPj5MdhFy
-         R4vu/DipHmIfNO/gVZ7ZEDTos3E1UiVQ0JkHVyZU/bT0BTzVZhF3oBz8KpC7MtdlNnoq
-         rNuw==
-X-Forwarded-Encrypted: i=1; AL+hErEvrgPIj8m1fF/J5b429Mb/+IKPLgE16xlnQtVBx8CnfxiGTWdi+PgLpFd9fYb6W/7J6uoeeGk4sf5N@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1TSMNzmnxCcr1VGEy95wapyFod26Rx9lZ/T115pvP7p7WHmf9
-	8j9J63DPH0cHVVI5W4p2/f8R3EYJzgk+Zn4BxxZ3L8akuzHOmoYBwoJJ9kergdkmlcMiZjFN4+g
-	8d2DzzqlPliKG08SSeXyU+RqBHz+2BpA=
-X-Gm-Gg: AYBFou1XhOVHb/+DHuofcWYdL5Xy+Q7paPzNEw+tUglQPpMIJ3vHV95TBl0UQhwtLrw
-	h6vSKNjGPGirhL5JLzZAZd6TM6SSinbvI4ees+isKMQCFwmXes9Vg6sK9KJ9xKKEk8l5fXRzm7N
-	Jal1PO0uJgzsTE4JNigVDuGyIjsZV0fhUjLRNlzWt3KKdnNbKGHrxQZ8lvq7heUN7eeWpCP+3b5
-	/l/Y+RS8zjorLoSnt/ABwGV0iRSNHXsd2QmXOvL7EsMFXs4hGwyHRF8kNCRRJ8Iu+z2fgehGdoI
-	Sx2YdyfW9Pj/dGjqakqglUfzqn1PHW+X4X8Jeixv9Gi0xgfC4AgB6ea6txdGZHsqhg0ihorI/xX
-	FrRLu09Ru8r2yW9w1Bo6rJtIbBHU6ZriMlLZrNng6wZw4Tksd89+XfqUF9X8l/k1FzDLTq/AALl
-	C6J9p+CoWZgOqsmft15S7UXx+PbgtAWg==
-X-Received: by 2002:a17:907:940b:b0:c29:f5d8:9c73 with SMTP id
- a640c23a62f3a-c510e324a07mr241805366b.34.1795012969839; Wed, 18 Nov 2026
- 06:42:49 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kontron.de header.i=@kontron.de header.a=rsa-sha256 header.s=selector1 header.b=QOJwJpdh
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XirDRV+zZM4YIgDfU42eTiX1tKMiAekMT5Je82Ff6NWg4C8cFrI2zEdZCAVJBcTbJy585U96d+g7V6OlTqZY0C+458K2Ew9/cJV6ObQyJnEvGA4u3Uh2OcykvNGHtU9HxB06BON44907XQ8Tx6/1gsKbea/KntUlfa1wGUWXwWfJlEDfgGZ4nXzAgEpjDbVwv5L32YbianenK28VrXPTYc6rym2kIaGl96PAgWS5dzBXhWeK7sXYJ7hQQ1DzhC69yckANksRCmD+quveVuRP8uSHi8/q8WW5gsiFLgJqmfB/vW/lTG1qp6GQ0pL2sWA/PQPv9PeLUdQz6vbdhJB2zw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ud3LUPWviqrkNe/6Y9W998nhZrksDrjzieWE/+DBwl8=;
+ b=U86h/Wc9oPLhVMwUp7EgClSQ2zH8cXdV0Sm2YjmRJ3+cETDaEWUuZ6c2ADCZk+hnEO751V+fnoroEslRGPdJQ1xLd28c1RZ9YWeiBq7cyCvMeuTwaQ20VeVdxxSK0jNu/mITbNDCpY70q/ZKfCpS9pP2JZcxwDNyBaysllrbdy5TD9L0uHZUVKtyTivhxcMJsOK3sTdn/R6f16DaAkiDdCin5UGcbHPfm3o35vAs0pcAgrC1AfhSQqfOCCja/uC+ewvouaFFU+SkKsouHnZww73SzJCdPdEoRAk96yey/cJALd0/OmRnlJ6aU5Cttr2yEDFdoBSyqEFWGWg5woPrSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
+ dkim=pass header.d=kontron.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ud3LUPWviqrkNe/6Y9W998nhZrksDrjzieWE/+DBwl8=;
+ b=QOJwJpdhCD2UbLggq0oA5PrpvltPVSiIjgsH9W4glS8Tbbk7l0ozOjuJ5mLxNMRWfDFO8MPmVC4BPG/pyvCJ5mbxuZ8pq0pjUnac83TS7THUw0RCEVsQWASjipjzRlBURGZfrr6pszqF3BpgH7xbYy7e+NfQ2pAOWEryiv+yuLNP8G3cfhpCvc1viVe2LoBDax4CLgqjHp6W4yrv0cj4HIL22k+Oq2/NAXhrMM2/QDVGp9I7eG2fwZzCnfNQZG9XYndOndDUrMCkVGi9ghGerIUf99upWVB9kEllUCDhamwD5htZNybfocEeogeqwW6Kv9RLwxYmmtX67tIX/a/BWQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=kontron.de;
+Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
+ by PA1PR10MB9385.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:4fb::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Wed, 18 Nov
+ 2026 14:43:29 +0000
+Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::a276:4ad7:962:da22%3]) with mapi id 15.21.0639.006; Wed, 18 Nov 2026
+ 14:43:29 +0000
+Message-ID: <3acc652b-d2e2-4a18-b70a-2656b309d798@kontron.de>
+Date: Wed, 18 Nov 2026 15:43:28 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v51 5/7] firmware: imx: adds miscdev
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
+To: Frank Li <Frank.li@oss.nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+ pankaj.gupta@oss.nxp.com
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Pankaj Gupta <pankaj.gupta@nxp.com>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ Peng Fan <peng.fan@nxp.com>
+References: <20260915-imx-se-if-v51-0-4a7dac612cb5@nxp.com>
+ <20260915-imx-se-if-v51-5-4a7dac612cb5@nxp.com>
+ <2034fb2f-f169-46a5-85e8-fa723ddb0360@app.fastmail.com>
+ <aqqqDnOMmlfqit6u@SMW015318>
+ <f3e1e3de-6abf-48cb-aba7-7b231c38ec5c@kontron.de>
+ <180d2335-e328-48a4-b376-a90464279027@kontron.de>
+Content-Language: en-US, de-DE
+In-Reply-To: <180d2335-e328-48a4-b376-a90464279027@kontron.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0113.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9d::8) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:1fb::23)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,59 +111,132 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261118134555.195479-1-clamor95@gmail.com> <20261118134555.195479-2-clamor95@gmail.com>
- <av24x_dcu2hggP5y@shikoro>
-In-Reply-To: <av24x_dcu2hggP5y@shikoro>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 18 Nov 2026 16:42:35 +0200
-X-Gm-Features: AclHuK93fhxoBlMqicbFK9Gc1HJyqVV4hippm2euH0OtywPbIka7CYKr7EMAras
-Message-ID: <CAPVz0n2jSrZ+ya=7JgARDRTFZ8-cu=209GGiOK8KYAwph1hGDg@mail.gmail.com>
-Subject: Re: [PATCH v1 1/2] dt-bindings: i2c: Document ASUS Transformer's Dock
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Hans de Goede <hansg@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|PA1PR10MB9385:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56ac1683-2708-4e6e-4690-08df45824fa2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|261026140227099003|261022105027099003|261026121527099003|4143699003|11063799006|56012099006|10067099003|261009223027099003|261021135927099003|261022075727099003|261028144727099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	x5KB99ir7SnITgR9ViZwjqfspHicvH0tofO2STxmX7RtibfvYi/fG7GqZOAEjoDWSTlsxU1NUQKyJxvGkzS/1cfc1yhrjxpg4wid/ajrNVo5+19a3085vHZKwP3Fodz9xrwAK9Nu4FFntfvxiFLGI1mIfn6kqzNRavVa7Pz2a2SQY12Xu+y5PWeekT1iQ5qkGS7MudmLcyUAOAEKYySVMKUQqQXZ3bGDMTwojZR7Gdvxwv9zfRzJmi8jCnZ7zDU90E+y/4UkLTDrpxWgxZEbXjrr6/ZXJJTYWbVwHdLATnHtoEwWi3aZvbE/Vj8KinBq6I1esfEZarz+VIgVmA+D7rPG8m2OVedRWZJ7G+UoPdmd5/t68ivKrvbU18VMaiZaA+6gWihGZgIKjPtzxRihQGI7ezAXdvuvGg8GizNbuH8JmCPG0PVvovXVNVJR7jOdf/aaBTk+vpZ12BP8l4flQKGKEZhZbdO4FEMUzF1UB1nGGFDXzTqbW7ub0W3RXyzkIpcRzVDzG5XoJIdhKVEA8aakVGUXHUlhVF5QJCj+aeG3ULO+RaD2+r2bkqZ0LtyCM1pZ76CS0wFWFREPJ0AJR0/MZJ7Wy0ogmJe5NRIJ6/YpkZL3KgZ10IoHzXe2+D/Q
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(261026140227099003)(261022105027099003)(261026121527099003)(4143699003)(11063799006)(56012099006)(10067099003)(261009223027099003)(261021135927099003)(261022075727099003)(261028144727099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WDF0c0FITWNkc0trTzJCbG92QVg0TjFJVEJFODNvZUdZTnR1RERoK2dXTXZY?=
+ =?utf-8?B?MlBUcHMzY3BPTitsMWEwSDB1T3BFOWdGV1FhZ0VNYmY1WVA5dmJoSGtrUjVz?=
+ =?utf-8?B?dzNtNzhvQUdQTEN1ZEp5MmVoYjlQa2szRHhiYzFBTCt4MWZidDJ1RkYzeXor?=
+ =?utf-8?B?WnZFb0lhVW1xaW8reGo0cmVSblN2RlF6T1Y1VDFDODdYZUdjcndsYjlBUWNB?=
+ =?utf-8?B?cFV5dC9GRWlUZWJSdlhPeGkxdnVtdVlQVW13L3dDQTkrSHIydE1yR3QrZWtv?=
+ =?utf-8?B?Zk9US0JHUnB3QlhHdVUxdExoMHNMNnVrdGdDNG43M2pYSkZqR1Y3S2Z1eXRq?=
+ =?utf-8?B?cE5tQlNvekEwSzVRMVBZblZUQW1HenNRb0hmSHV2ZVB6TmNtOHhGVmZPaHB2?=
+ =?utf-8?B?MkNEVlpoQTdBNDI5S05BOXlIditCTHljZFFkL1hKa3BGcjNwNERjcm1QcGsy?=
+ =?utf-8?B?YlZhZjZVVU9hTnZxcHNKQ05OMUtBZCtEWkc4QlJkaHBrOGd3Mk9GU3dSbVRx?=
+ =?utf-8?B?aHIwd1pXU0hNTWROeHBnUU5yUTlnT1pIUEJmRUUvS0xodlBwTjQwejRYb1hp?=
+ =?utf-8?B?bkVjc2xUMWlkMDNIcE5TeXVyY1hSdXpMdmdZZXNJdW9DUnc5cTg3YVBpV0Vh?=
+ =?utf-8?B?QnF5UEJMQVdzZTk4amdqbXpGOFRJMTRhTzhVUHJzNW9tUmVreEZiWTdGenVq?=
+ =?utf-8?B?QUVRMGZhVSt3VXhpWTJ0VW5oRGJvdU1UbU5SREprQXJmYkdZWWVlWUVOSVBv?=
+ =?utf-8?B?b3B4eXhKc1F0c3hwbW9hUVVZUnVVbUtZTzJLTVAvSUdJTGRMRUlhSm1oVnRl?=
+ =?utf-8?B?VXViLytaakFmSG9BT1QrdTA5cU56cXVwNTNuT25WamVBVVpTblJucHpCUE1j?=
+ =?utf-8?B?QUR2aExvbUpLR2Jya0VEbmJwNDF5SUZTTCtsT1ZVR2tkOXVHNmNucGNvdS9D?=
+ =?utf-8?B?aEhoZ3FERCtkd2FQcmI5ZEMxUU5halpGc3J4eHZMQjM2dFhiK0ZmVU5SV0Zq?=
+ =?utf-8?B?L0RCcUdVVGl4QWsyVG1jbDV1M0g4V09OVHkxRlhvS2FiZ2ZFY0NZaStNZVJs?=
+ =?utf-8?B?NENiS1p6WjdTNHIxWFFJeU9lMkxCbnZvYXZINUpLeWh1Y1NvUzh2SE0zMXlh?=
+ =?utf-8?B?ZXFwZkpJUHJaYlBFU3NFUUxYNGUxRW1yY0V1WGgzVm9xcGtNV2FGVFQwNDhW?=
+ =?utf-8?B?SjBvSTd5cUd4N0p5MlhnSlVzd2FwVFJvMG9PQngxSWpQUmtadmNEV05FWEFI?=
+ =?utf-8?B?OG42bERsbXNEN1hSeXpBNmZWbUpFem9TaHFRam9UNEd1MEZhZS9taENTejV0?=
+ =?utf-8?B?TEVPTFFJbVZsall3MnF6QjVHeGtYSDFVV0VlR0JTVlJiaEFVcmVCMU9lN2hS?=
+ =?utf-8?B?V0pSK3JrRHcvelhyc3BYVnQ3ZHltNlNuVkhMWUlYUFVVbmVYdkF6MnFJeExy?=
+ =?utf-8?B?L1lyMHc2MGF1d29QYmcrM0ZMU0lHZktSdnYrMEtiaVVuYzZ5TDl0eUpMWEsv?=
+ =?utf-8?B?TDFvYzdDZ1RlZTdFV3JoRVpWWldmQ2xqZ1JJV1lWa3o5NmZJQjJQVFRQY2cx?=
+ =?utf-8?B?Q1ZUakNjaVBrYXRLRW0xRkVoQXpLczhESXhNTXQ0TWpNcUw5eHlhRGFEYnJs?=
+ =?utf-8?B?WnQ1cmdCYkJFSWpkVTFDOE0xb1pLMDVQdGh0YktYQ2tUOGpBMWpZaTdMQ0RD?=
+ =?utf-8?B?dGlXcUFrTk1IdUk1ZUw2UmhCT1VDTUp0STdDNEIxQzdEQnVzU2M4RFBzc01l?=
+ =?utf-8?B?VUJwRWlvTGhKMk9mRndObk9KNnBONk1tN2pGay90cmkxaVRQYjI3RlhJTVM4?=
+ =?utf-8?B?TEJzTkcydDI3QUxHVmp1eWlpdi82Y05VMjVEM1poS1VQNXZzK013eUY2bVVN?=
+ =?utf-8?B?UVlVL0dEOXNLUURINldWVFVWUGc3amt2VXRoYmxBckpFV3RYR2ZpRmtBNnI5?=
+ =?utf-8?B?RXEwT0dJR0YyTTc1cCtlZmwwTjY1M3MrSUE4Rkd5TjQ1YVlpYjBOVVpMdDlT?=
+ =?utf-8?B?Y09SeDh2YXZiV0xOTmdmTXJsYnNTTU1NaVdhSHZ6Z3RnMFR5aXlYZkxNTXU4?=
+ =?utf-8?B?RzA2TG53TktKVExCbGt0ZUlEUWEvdlZRM0tvZWJVWS9TeG01aFdFQ1NyRGhn?=
+ =?utf-8?B?bGE3OFFjSG13ZXRkbXpzYXNOc3N3MlJWcTdtcXp5VEpxM1FRUk11czdIVkN6?=
+ =?utf-8?B?NTdncE1MY24yN1J1d2htU0FXMUY0Q0ExWktkL29OTlVWVDREb0Z0YkJPV29R?=
+ =?utf-8?B?M0xXbEljQzdLS2VtMnU4Rm5VdXBNbm95ZnFqUitSYmVWTk9UVDBmeVBuOVFt?=
+ =?utf-8?B?OENoZlpySDRsT2t2QkRXdEVHYWl0dHlieDlIRFl4VGF5RXJEWmRUczRtRm1T?=
+ =?utf-8?Q?BHBZKwfR8SqxMpqA=3D?=
+X-OriginatorOrg: kontron.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56ac1683-2708-4e6e-4690-08df45824fa2
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 14:43:29.6168
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BB//Y3QV7hoeNPAvbTGk/R2R3s5cWgPa7ma9Sndl+Chv4yGycC8CElS0gHL1Vm+0aXHdTEQxi4CTTcQPhrA4ZaeHaobdJsTVcY4k2j/7uvo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR10MB9385
 
-=D1=81=D1=80, 18 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:4=
-0 Wolfram Sang
-<wsa+renesas@sang-engineering.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
->
-> >  .../bindings/i2c/asus,transformer-dock.yaml   | 56 +++++++++++++++++++
-> >  1 file changed, 56 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/i2c/asus,transfor=
-mer-dock.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/i2c/asus,transformer-doc=
-k.yaml b/Documentation/devicetree/bindings/i2c/asus,transformer-dock.yaml
-> > new file mode 100644
-> > index 0000000000000..5f4a40539c2b4
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/i2c/asus,transformer-dock.yaml
->
-> This is not an I2C controller, so "i2c" is not the proper directory, I'd
-> say. "connector" maybe? DT maintainers may have another suggestion.
->
+On 18.11.26 13:46, Frieder Schrempf wrote:
+> +Cc: Peng
+> 
+> Hi NXP developers,
+> 
+> On 05.10.26 16:28, Frieder Schrempf wrote:
+>> On 16.09.26 16:39, Frank Li wrote:
+>>> On Wed, Sep 16, 2026 at 03:16:13PM +0200, Arnd Bergmann wrote:
+>>>> On Mon, Sep 14, 2026, at 21:40, pankaj.gupta@oss.nxp.com wrote:
+>>>>> From: Pankaj Gupta <pankaj.gupta@nxp.com>
+>>>>>
+>>>>> Adds the driver for communication interface to secure-enclave, that
+>>>>> enables exchanging messages with NXP secure enclave HW IP(s)
+>>>>> like EdgeLock Enclave, from:
+>>>>> - User-Space Applications via character driver.
+>>>>>
+>>>>> ABI documentation for the NXP secure-enclave driver.
+>>>>
+>>>> I just saw this in linux-next, where it has caused a build failure
+>>>> for a missing include of linux/slab.h. I hadn't see the series
+>>>> before (even though it is a v51, which seems crazy), but I am
+>>>
+>>> It is in linux-next about v37, but build bot find many problems, I dropped
+>>> it and request to fix it. And sashiko is online recently and also find many
+>>> risk. I request to clean up it, and local AI environment have difference
+>>> with sashiko, so bump to v51.
+>>>
+>>> I put to linux-next again to make sure that pass all build test.
+>>>
+>>> Other two problems, need more time to check whole review history. reply
+>>> you later.
+>>
+>> So this is still in linux-next, but was not sent in the pull request for
+>> 7.4. It's rather confusing to me that maintainers add stuff to
+>> linux-next for build-testing and then leave it there, neither removing
+>> it, nor continuing the mainlining process.
+>>
+>> Frank, what is the plan?
+>>
+>> I'm currently rebasing my work for the NVMEM driver onto linux-next, but
+>> as there have been so many iterations and this whole thing took so long,
+>> I want to make sure that this is not another dead end where I'm wasting
+>> my time on.
+> 
+> I need to ping here, again. What is the plan at NXP to move on with
+> this? This is blocking multiple features that depend on ELE firmware
+> support for i.MX9 and similar platforms from being upstreamed.
+To be more constructive, here is a proposal: let's get the
+kernel-internal part of this series merged first (patch 2-4, DT patches
+6-7, doc patch 1 reduced to kernel side). I currently don't see any
+objections or issues with those.
 
-I have placed it here arbitrary. I am perfectly fine with any place
-schema maintainers point to.
+This would unblock drivers using the in-kernel API, such as the NVMEM
+driver and this is also the part I already tested when working on [1].
 
-> > +allOf:
-> > +  - $ref: /schemas/i2c/i2c-controller.yaml
->
-> Hmm, this bindings only uses "i2c-parent" which is not even described in
-> the above file. Not your fault / problem, but we should describe it
-> somewhen somewhere central maybe? I guess the above $ref could be
-> dropped still.
->
+The somewhat more controversial uAPI in patch 5 can then be further
+discussed until there is a consensus on it.
 
-Child nodes too. IIRC i2c-controller.yaml covers those.
+Arnd, Frank, would that work for you?
 
-> No comments on the general approach, I'll leave this to DT and Asus
-> platform maintainers.
->
+Pankaj, can you prepare such a reduced series?
+
+[1]
+https://patchwork.kernel.org/project/linux-arm-kernel/cover/20260727-upstreaming-next-20260609-imx-ocotp-ele-v4-0-1a515de33093@kontron.de/
