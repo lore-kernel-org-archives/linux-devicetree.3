@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794990236;
-	b=XV7Q+WGoZgF8gq1QuEBAXIpf+dcmJpTlgDjOYXsH5dOgy4S8b7vxjfkUWg9Y2/ruUEaG
-	 NGWH8rtUX3YclnT7VipvzhakYTrN1RubtbmIdpgLURXuATWY5CyROT7qDBHZ0IeX50SJN
-	 5Nb85xtNwmvQD/UwJBBuOvn/9Zpnr1RDf9f53fRP7s9DSpLaJCs/UWLr4Qa1ht541SfJB
-	 vYbK7pW0/ax54oDtb/w3kmlcABmZI47YqqKH64k8LSPC2QtNaR2WoB/n/ARCkz1fjnHYi
-	 4SvWvLHxHhWRxVTUVVniaWerfhEWIklcP8g/nzAcFmpS72ai647KXq8BjJMfUkhQT0w==
+	t=1794990305;
+	b=oUTdmSk3ifgZSLyKXpW5GJwRyg/2qbHOWBRemW5XkYU3tlXOeD6SsaZ+I2OeD6Gf21/y
+	 ZbzDVAuoPmWWILwmw4l8pd6/1LM4LgL49/mukcUV/s7LGx7sgX5wVKw65FwsS9pbviVsy
+	 I2+QQTGq27r7M6y0MTT+aM+Q1LVCj2IKqaMzvxxUadUUV89Z/uBLgDUhhiJtRFk73bjaI
+	 foSkKayPI0Ws/tcctldqxDFjr6G6VKaiwKTR/vJgdCz6nAtAtRk7VIlo1ona3yIk9HEq5
+	 NLd1S7gGH6FpryLFku9oM9zDZyK9EoGBAPtFYpd3g/WnzpLtOXyFS7BP2YMDpnY/+iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794990236;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=W34DDB2cLnsAExSKGg1C86iBQOL5I+MWli8p7NMuBbs=;
-	b=F+9dk54KD4mf7CsZdjw+aeUVoOSH09CEJ84hlxcl82EENChS1cPJ9vEn03790txuE/Az
-	 87fxqmiJCjhzYn+5P8LDnYO3mnto/tU4gBaQSnMijHNQXGqQb29GtsxvNdx8KhRD3vLdI
-	 PNePsCF2gN6TQ1AqrUwhBCFLJeYbBvDSBXO/nGYySONANO9XyOyyRZvwY6X1uU4J0QJdq
-	 cWfrIswWPMyXIlwq5afeTi7L90inLG3PQxBtv0OUPy3TlXn7kuJa2O2S33lf34djUHZrA
-	 Vwe6SxOb54+bLscL8RJdMtqyOPwXp0Z0ybJMxOAKL0rw+5F+m13WnVsOHXl8JSrN5EQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794990305;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=1bMN+CY6S4aBdokjPDOGEH0UePsHivYO8WuNYflhkCA=;
+	b=Jm+KYe786e4/OFtzR+a35Zk8HDSQAICy9QVk6yaSOgB8+VSg7zblDwGjhG9XR6C8iY8g
+	 SK+g4bIruAIrvH2Nxv3kkxtJE7uH7NGCE1oC5+aV069SRI1NOjoxtS5/ABF9v0VEwnnKX
+	 dfw+WHx7MMzVMHoQI6tg0BSu5pzwYwIe+hWM/ov+M3Z4OSwi1icKXwhcJOL3YaaeumV2I
+	 MTlZwAryUx1KFDeH8oW4AQS0/vmmXh7Ysu3S3gA7VAxAwGICSM594DzLaLMjJSZwzVP+/
+	 TJhkPUw1XhrhRvLuje5Rb7DaO4bLm4ibp4fVsIZq8fAZMA4QWaa3Zb+oztFObl3KnMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T7l0I5Ut;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omycNkeW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5893606A31C;
-	Wed, 18 Nov 2026 08:23:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544C0606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:25:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T7l0I5Ut
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A84D1F000C4;
-	Wed, 18 Nov 2026 08:23:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omycNkeW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C49D1F000C4;
+	Wed, 18 Nov 2026 08:25:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794990236;
-	bh=W34DDB2cLnsAExSKGg1C86iBQOL5I+MWli8p7NMuBbs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=T7l0I5UtBLZnK2lk3AF7CxS691KFZVgFUzzAPZy8+aDGgoY1Eqg2ON+PtbMrOW6WX
-	 glYV6pPkUQc4SNPZjJrnZRJc4x3O1vXciX7pKs61CFGS0feijmNChr6C4L2omWHDN3
-	 pE7+Iph73a6OVRBC40p6jtkSkz/Rx/0Vt0vyEZ9snHls1EXA8I+Z1fYKSUuMjU5Wue
-	 1CopnkXs6qfUk3ICvFi4umn071UZ+0yfmOCn1cH/IJmniGAsQvPE+iLN/wMpKTtXdb
-	 cstPbKCQZNVDc1KVmVtFl/fBISEj4ATrzZs9LhfkGcFmur5FeXQf50Ed82E9tWLUgC
-	 A0aN6XIixOJyg==
-Message-ID: <27677095-4f84-453b-934e-4451d8c549c6@kernel.org>
-Date: Wed, 18 Nov 2026 09:23:48 +0100
+	s=k20260515; t=1794990304;
+	bh=1bMN+CY6S4aBdokjPDOGEH0UePsHivYO8WuNYflhkCA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=omycNkeWQeaxqUBPTi6BJMCMCrsU4za2IuhlWjqGQ/mKjMuTAkupT3WkJLjC6rYvi
+	 khXrCop0xTV/Gve/7rzFVA4f5OPDfJRAxEKJts4EZKHiKX4BwiXz4/g2dXUpRwG4s+
+	 UDZhmDaYchJxLrdGBAEasElkpxIu+bYc6cg+W00rUuDu9M7YekcK5ncJ5LD6xxpiWm
+	 gW1CxLGOT6Pn5rgeGy28Z3JxiG0uv7DgRbskcyC83rWS8jE2i3Ry95ovAZTzJxoHna
+	 ELluHlPvE5RBstPLALhxEDzqFsEXxrdIZYvWs6/INU3YKkok37Ra2wJDKdFhea2BSC
+	 xCrDgfweveXiQ==
+Message-ID: <sashiko-outbox-220438@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v23 8/8] arm64: dts: qcom: lemans: add interrupts to
+ CTCU device
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jie Gan" <jie.gan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261118-enable-byte-cntr-for-ctcu-v23-8-67fd9db6bc0e@oss.qualcomm.com>
+References: <20261118-enable-byte-cntr-for-ctcu-v23-0-67fd9db6bc0e@oss.qualcomm.com>
+ <20261118-enable-byte-cntr-for-ctcu-v23-8-67fd9db6bc0e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 08:25:04 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,106 +60,99 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/14 RESEND] Add clock support for Exynos8855 SoC
-To: Peter Griffin <peter.griffin@linaro.org>
-Cc: Raghav Sharma <raghav.s@samsung.com>, s.nawrocki@samsung.com,
- cw00.choi@samsung.com, alim.akhtar@samsung.com, sboyd@kernel.org,
- bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
- conor+dt@kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- is.gandhi@samsung.com, ts.amit@samsung.com, pokala.reddy@samsung.com
-References: <CGME20261113104829epcas5p13695795bc337b89816b05eec610a0dba@epcas5p1.samsung.com>
- <20261113110612.3265841-1-raghav.s@samsung.com>
- <a7b901f4-59d1-4671-bfed-0d11f9e505e2@kernel.org>
- <CADrjBPpecGbRo2PhH_zqGfNf3L=bNf81q3SMXnSvD2n0Lx-cbA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CADrjBPpecGbRo2PhH_zqGfNf3L=bNf81q3SMXnSvD2n0Lx-cbA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 16/11/2026 19:06, Peter Griffin wrote:
-> Hi Krzysztof,
-> 
-> On Mon, 16 Nov 2026 at 10:02, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On 13/11/2026 12:05, Raghav Sharma wrote:
->>> This patch series adds clock support for below blocks
->>> found in Exynos8855 SoC
->>> TOP & PERIC
->>> PERIS
->>> HSI
->>> USB
->>> There are many other blocks, for which the support will be
->>> added in a forthcoming patch series.
->>> Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
->>> ---
->>
->>
->> Thanks, entire set applied (even if b4 thank-you letters show partial).
->> for-next will be updated later today after builds.
->>
-> 
-> Just FYI, there were a couple of outstanding review points on this series.
-> https://lore.kernel.org/lkml/CADrjBPoR7_LDZmxC_bOFigvqDaagVihmybfX5AdvSPr9-FVb8w@mail.gmail.com/
-> https://lore.kernel.org/lkml/CADrjBPrzHP_97OgAYacJKKqeCcp9FURoi6=Dmopk6nisTdEbdA@mail.gmail.com/
-> https://lore.kernel.org/lkml/CADrjBPoAVMdxgU4P+shh+9O5rGJp+m3sRQMDd2c-7zbJ8qhiBQ@mail.gmail.com/
-> 
-> I guess the main thing that would be intrusive to fix in a follow up
-> patch was introducing a slightly different naming scheme (compared to
-> most existing Exynos SoCs). The clock names being
-> "gout_<IP-clock_name>-<block-name>" as opposed to
-> "gout_<block-name>_<IP-clock-name>" that we have for many SoCs. That
-> also applies to the dt-bindings header "CLK_GOUT_WDT0_PERIS" not
-> "CLK_GOUT_PERIS_WDT0" etc.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] coresight: ctcu: premature read_lock release in
+  tmc_byte_cntr_get_data()
+- [Medium] coresight: tmc: negative error codes swallowed as EOF in
+  tmc_read()
+--
 
-Oh, I completely missed these. I'll drop the series.
+commit edad46341b45ed2bbca9daa024c7d236792c6c79
+Author: Jie Gan <jie.gan@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+arm64: dts: qcom: lemans: add interrupts to CTCU device
+
+This commit adds the byte-cntr interrupt lines to the CTCU device node on
+Qualcomm Lemans (SA8775P) to enable TMC ETR byte-cntr trace reading.
+
+> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/q=
+com/lemans.dtsi
+> index 1fdb72fa55184..852a1142100fa 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+> @@ -3132,6 +3132,9 @@ ctcu@4001000 {
+>  			clocks =3D <&aoss_qmp>;
+>  			clock-names =3D "apb";
+> =20
+> +			interrupts =3D <GIC_SPI 270 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 262 IRQ_TYPE_EDGE_RISING>;
+> +
+>  			in-ports {
+>  				#address-cells =3D <1>;
+>  				#size-cells =3D <0>;
+
+[Severity: Medium]
+In commit "coresight: ctcu: enable byte-cntr for TMC ETR devices" that this
+DT change enables, does tmc_byte_cntr_get_data() release
+byte_cntr_data->read_lock too early before tmc_read() finishes copying from
+byte_cntr_data->buf_node and updating its position?
+
+Because /dev/tmc_etr* is a misc character device opened with
+nonseekable_open(), concurrent read() calls on the same open file
+descriptor are not serialized by file->f_pos_lock.  tmc_byte_cntr_get_data()
+scopes read_guard to itself, so copy_to_user() and
+tmc_etr_update_buf_node_pos() in tmc_read() run after read_lock is dropped:
+
+CPU0                                    CPU1
+tmc_read()
+  tmc_get_sysfs_trace()
+    tmc_byte_cntr_get_data()
+      lock(&byte_cntr_data->read_lock)
+      pos =3D buf_node->pos
+      tmc_etr_read_sysfs_buf(...)
+      unlock(&byte_cntr_data->read_lock)
+  copy_to_user(data, bufp, actual)
+                                        tmc_read()
+                                          tmc_get_sysfs_trace()
+                                            tmc_byte_cntr_get_data()
+                                              ...
+                                              actual =3D=3D 0:
+                                              buf_node->reading =3D false
+                                              buf_node =3D NULL
+                                              goto wait_buffer
+                                              tmc_etr_switch_buf_node()
+                                                <-- restarts ETR DMA into
+                                                    bufp while CPU0 copies
+  tmc_etr_update_buf_node_pos()
+    nd->pos +=3D size  <-- advances newly switched buf_node->pos
+
+While CPU0 sleeps in copy_to_user(), CPU1 can read from the unadvanced
+buf_node->pos, drain the buffer, clear buf_node->reading, and call
+tmc_etr_switch_buf_node(), handing the buffer back to the ETR hardware for
+active DMA while CPU0 is still copying from it and leaving CPU0 to add its
+read size to the newly switched buffer's nd->pos.
+
+[Severity: Medium]
+Also in commit "coresight: ctcu: enable byte-cntr for TMC ETR devices",
+does tmc_read() turn negative error codes from tmc_byte_cntr_get_data()
+into EOF?
+
+drivers/hwtracing/coresight/coresight-tmc-core.c:tmc_read() {
+	...
+	actual =3D tmc_get_sysfs_trace(drvdata, *ppos, len, &bufp);
+	if (actual <=3D 0)
+		return 0;
+
+tmc_etr_get_sysfs_trace() propagates negative errors from
+byte_cntr_ops->get_trace_data(), such as -ERESTARTSYS when
+wait_event_interruptible_timeout() is interrupted by a signal, -EINTR,
+-ENOMEM, or -ENODEV.  Because tmc_read() returns 0 whenever actual <=3D 0,
+a signal or failure during a byte-cntr read reports EOF and terminates trace
+collection early instead of restarting the syscall or returning the error to
+userspace.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-enable-byt=
+e-cntr-for-ctcu-v23-0-67fd9db6bc0e@oss.qualcomm.com?part=3D8
