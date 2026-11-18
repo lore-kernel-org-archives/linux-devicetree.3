@@ -1,160 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794998265;
-	b=GgtoTbGDEF3t2ZPe0cVEp426V0UVZzlxUDyESitfqs9DO7/D1tC/mMW1cpOO4cu6Ad4B
-	 Ae8R65febVbbLAW7ffdUaIFm8hYPgerDVokhBtXMfrhFeMZ93wGBkRr2OZW+SF7GRL/QG
-	 4eGnMBk5FCENI2gqCkDj39vCPpJG91Dp2PxdrAHPt/j+6bYT1YNpbMq+bC91i9roTZ1S8
-	 mnzM4IdsqwoNjWhKKJswD/VLCOuPIHbqVXLIrVWOef+/SljPkZhWwpC9pbVkkK/4ZflY3
-	 KT1Drpm7an0UDp3TZdcbNWOneCX/P5VCBzgVAIK/oj9AZG7wOKl3qosE3BOAvX9bQNg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794998265;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=qVuosTlWGj4yo9UvB/1uhIWyYCMNhTaMS/MakMN9ePo=;
-	b=qzs812tmwdsc3RcxJEebivx2N/Ho9ysUxE5a/FmvXD+qIInMBVvaWM+mSZoQUp/aq9CH
-	 tH+pWTk6qWO71L1yOzcenninou+zAk7Wndb+vFTRoOnRZPrFxcpiu/0qAMa1/irk+1KF9
-	 X7+ZkSTusvUC3V7zZpDuOQxlCHgkRBnNFIaeG1lp0jpWWVMgvBYxyPkLYKhHAbRUTMx4D
-	 dGtsl5/AVdQBBvTTkWERr5n3bVWQEzUjndYPpd5uWtXMA4AooaxEu6585uEnjHRi5k+Ej
-	 xebupgH4dV5tkJ4eC8b53p3/j+pVDaqhw+1cTXxjERIS49fPF2yPEqdZDCBhszupYRw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=selector1 header.b=pmtNwclY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.49
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013049.outbound.protection.outlook.com [40.93.196.49])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794998269;
+	b=jLKY30zDG4PWRN8o3OIxpM6zuQZ3lOLM87rcDUAWBz0VNYCmcoGotph9+52tB8vYYCuD
+	 yHEMNQkmLDP061Tgp4PKFdBodhueUf8CWPdTnlRJj+O8zOTnmZaSeDZu1TRdRRl5LsNML
+	 FDX3knU4UGvFgRk/brjzfeE3HvMEA7USILl14FgMetlIyUDKo4RGreoItCck/q93528qc
+	 nZb2xujF47zw/W3KLs/5LPbK4YBzERFbIhxSwsF/JUwNHdc7nBaEiuxOCgh/L5ND+3WcR
+	 tij7F9xQX434T9UW5BLkZEShJstWoeXejMgVUKSXTibEAATxLel/UsKpRoR/AqzSPCg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794998269;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=AUc/aWqjfy+x7+1G544wdZ17hqcM38kwLCl4C3DOAac=;
+	b=ZsBBc3HyBfPkRIXVswtl/Gm3g49RUfdYGF9vzw0IvVN5mzcF9gda5JyXrwT3J7rUISEM
+	 6yCrYHAVjIOo8qXo+UJzxA9lAi8zBBbGs4Ayo4b+TxxTJT7v24t6YCo3tcNGg2LC77L7y
+	 IW8OO/fJ8hfPYc83fUufxnUPP0a8plQe794/ZCXd43TNwUVwEVfNyQNh5D/s9P314Roz1
+	 rc/jrdaBVbavUhDZiXP10CpqZ7P9MyPWaXBLFb+SKsew7FLQwQJpt8VQfxBYI9fomvWTV
+	 hs+9A5QfEnw81bVEQYBfcKP6vs1diB3xoz3yFVjT96/1KUmKlPrlmDMVkWZsly8scjA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSYd5HTA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA5B606A334
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:37:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FA5B606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48AB9606A325
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:37:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=selector1 header.b=pmtNwclY
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HEW/XnoDggFsrv5OLQmOvAZXTQ66MFbT/dzuwmOG1Dn6J73WHQMoOiwB6efpyJq+6umOXE9p3qivQBBukRF9sErpi3eKzRXshrrIUI+M+oOAq/78BzA+Ql/J2R7wkRffIMRwlKUT9hM4MrTG8DRBGqh4S6/1FyHlY8XrylJl0OWrq25fI2z3DvaN58P+sPLYxNPMdyVknI3ldqibIDB8p9ssQwoBge8HzfG6Gim1jsRRxp3yPdp5W61SmJh6WmMe7xM0KHqSFosFMa3cMCuyFVDuiMoqnEQamL8R7vZMU7d5rQAEHTnJ/SRTBL/DWPEiW2df2wszEWuUt4N8V/1q9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qVuosTlWGj4yo9UvB/1uhIWyYCMNhTaMS/MakMN9ePo=;
- b=xSRw5aBAd0EJbxS4qJPO0FjsYCoHJH/2VHO1OiRUJVjnO2RZra+xfoL5/Bp5t/sH28E3iXtt7EqUGiG7KtoSFWebgq6PW4PjaJl2dxy/NzbinHDPS8GjL8J5RouJWk3juX/D3bBkGjVohMETF/wj9lvcv4F/HfkVi+FyZQ3+TziYzmiMJKtIznBQkQJBCfpfeyFYEC41Z7iipGikvaSd2mCe5jdpe9hQvFK6qqB8eKAEtiM+EF1hzrHBoodiFDx3yotu59QY/FDq50YwnF/V4z/0Jk3wNzE4O7SOVhZZlo21QiiND9yWOOpKM7zsCKqDZnBlyHpqxJq1VRZjHlWQYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qVuosTlWGj4yo9UvB/1uhIWyYCMNhTaMS/MakMN9ePo=;
- b=pmtNwclYF+qfFCUc5s3ZxNa0r6e9fvgywCcdTTU5NNGpTqd9t2RcTN5Gej1B/DMLZZbYyh7Fop4AJluxoSmla7BnaLB8VnJYOk6LkDqtL2lmioMLaNUE67cCT2I7fwNywRUe/TSVRA3nXPh2YrP2dX1GIUgGpKVwTp9EcsONnZ9LuCyS5bfXdrFGzrn/6hcPV7l+gZ54ZPO+LWHd1T3n7o1xr1O8inaTtlXFKfoCW9XOz83+aUOKbIQcV96IFZ6SfHweeEPk7nXKhyw2uPEpI6IlGi4J8iV7OZVIiFNMFbioxF45ANJy3m7Fkfp1Tv3pyA89C3KY9fNSt6ir1hNDuw==
-Received: from DS6PR11MB523643.namprd11.prod.outlook.com (2603:10b6:8:468::12)
- by DS0PR11MB7216.namprd11.prod.outlook.com (2603:10b6:8:11c::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Wed, 18 Nov
- 2026 10:37:40 +0000
-Received: from DS6PR11MB523643.namprd11.prod.outlook.com
- ([fe80::1cc0:e019:a70b:f954]) by DS6PR11MB523643.namprd11.prod.outlook.com
- ([fe80::1cc0:e019:a70b:f954%4]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
- 10:37:40 +0000
-From: <Manikandan.M@microchip.com>
-To: <sashiko-reviews@lists.linux.dev>, <pratyush@kernel.org>,
-	<mwalle@kernel.org>, <takahiro.kuwano@infineon.com>,
-	<miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<srini@kernel.org>, <Nicolas.Ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
-	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <arnd@arndb.de>,
-	<linusw@kernel.org>, <enelsonmoore@gmail.com>, <aaro.koskinen@iki.fi>,
-	<pengpeng@iscas.ac.cn>, <mathieu.dubois-briand@bootlin.com>,
-	<gregkh@linuxfoundation.org>, <michael@walle.cc>,
-	<linux-mtd@lists.infradead.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v10 4/8] mtd: spi-nor: sfdp: expose the SFDP as a
- read-only NVMEM device
-Thread-Topic: [PATCH v10 4/8] mtd: spi-nor: sfdp: expose the SFDP as a
- read-only NVMEM device
-Thread-Index: AQHdcdO2kPEFYCk2dEWhlBkcI51Wi7cqVk4AgAlXtYA=
-Date: Wed, 18 Nov 2026 10:37:40 +0000
-Message-ID: <35119b3f-518d-4cb2-acfc-ad08c6465bee@microchip.com>
-References: <cover.1794391660.git.manikandan.m@microchip.com>
- <d0cc3945cf8ef204d920efbe776828477bfde469.1794391660.git.manikandan.m@microchip.com>
- <sashiko-outbox-211057@kernel.org>
-In-Reply-To: <sashiko-outbox-211057@kernel.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS6PR11MB523643:EE_|DS0PR11MB7216:EE_
-x-ms-office365-filtering-correlation-id: 8c7dda45-7632-43a0-ec68-08df455ff8b8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|921020|261022105027099003|38070700021|261021121427099003|4143699003|260925021311599003|260925021911599003|56012099006|260925022911599003|10067099003|261026140227099003|261022075727099003|261028144727099003|11063799006|261102123227099003|261026121527099003|261009223027099003|22082099003|18002099003|6133799003;
-x-microsoft-antispam-message-info:
- 6NeL02GA+og4cwdiiMmvPKkWEfLVkjV62ZvN64DbEc3HkUlD+f1XB06dadtPdeefu17n2FqyJf0XpDz21j9tbIUWKtwp97Be7EhSQ1gDfqzW7AGnAnSTYJVr5G7DsAz2Vmyl0gob2HYNNAL5926b0COxKTetesS2UeqVfkd10qy3gFlVioaxDxsH2uKMyfDaO4tJPfUKyIIS/Lg9JyRyAKdnKiMvrFksJvfbasU5S/W41unX67OgySaubrvcwfMjKbgx8EIFQYyyTOFMVvJeMhrNFwCNRwS95ZEq7ttwOeMHBEE/xAxoeEmx7GxKCBLgtZcJhyE+91owEZ+/lGt0On2mBVlPwZz+HvhdHggyxJTUmH0aX3gT9DrpAVUeQDvKiATDpDRZPKjIksFX/fBxGNn/ELuCt723+dpCeWqbtgiybhHSuPXMQWlVt6PfG4pq1CIxr8He8DIVcNLCHWqq/3C0jD2rY9d4+UIt50r687ofbHhEcLU6qJC4nf9YHBe/oK7ZYiD72SzN3CckO3uIxk5YxYR77SfRSWDNgIBuVk0KoGxoLzWhsHi6Jzn8bdQyO2GKEYIDuRdP8pnKxx+54/c0tZ0x0drEhshko8AueUjMbcv3hl4LXBCSEzz+Azk0HnsdmVFq0IYPw5Cfu9Y0vRVd7LdXxR9mBDiP8nhX7E3ynovI+fvB3kFvDhPjcpv7
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS6PR11MB523643.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(921020)(261022105027099003)(38070700021)(261021121427099003)(4143699003)(260925021311599003)(260925021911599003)(56012099006)(260925022911599003)(10067099003)(261026140227099003)(261022075727099003)(261028144727099003)(11063799006)(261102123227099003)(261026121527099003)(261009223027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?eUxpRDhVTk9XYWl4ZVdvNTRmQlNmVFVHekN3dkRvUTBTcEJFSThGSnNBNm91?=
- =?utf-8?B?SFpvRkpFUUJEWUdGK2k5SGJYQzVDbFBJTjZ4OTJWdUptcDhTZkNMeVpvWEpN?=
- =?utf-8?B?WWpxWEtJREUwcUJtdVVxa2JRL1VhUVVpelljempWSENkUWhMd3M1U0k3NzMz?=
- =?utf-8?B?TzRNd1hqQ1RJMUhXUGo2WkN0b1NCOHNQTFRCc1JFUjNxZlI0NEdOQ0tFVkg0?=
- =?utf-8?B?bWdzWFBmdll6WHQ4Tkc4OExvaURENEx3M1ZHWVlNbHNqWmtNZ3dTZjVGdXJl?=
- =?utf-8?B?MmlTU2xTQ0hZWVN4RDd2d3E3LzFONmJHV01LS1d0ZjRkMWZTazBXWDdjWC9m?=
- =?utf-8?B?RlN1WUhwU0NpTE4vMjN3b3QvcnBXOE5qTER4dVVyL29LTUU0TmhVM0t6cUFX?=
- =?utf-8?B?L3hwbjFnejVFK29MQU52eFN0aVlaUEQzczRsQjdKdm1yck1maFNOb1dWTVJK?=
- =?utf-8?B?Ums3Qmp1V1BBMVhTSGtwS2l6STBOZWxXZE5zRHowQU5ZRS94VWdJSjFQZmN0?=
- =?utf-8?B?RjEzWHJ4ek5YRzVvM0pZQ2ZiRVFrMHZLU0NaQkF3enQ1NHBSSTRUbWtVWVc3?=
- =?utf-8?B?TU10eEUvUEpzK0gxOUNReEFOaXh1WGQzWW9iWnRUL0J6SnIzOWFDRHZwZmlm?=
- =?utf-8?B?TmZ2Y1A3TXNPcG5JdVdwSzdXeHVwaWlqMGNBY3h4ejhXRDd2LzBsWHdXVE82?=
- =?utf-8?B?RkJ0NFZ6aWJ6NmxIbE85ei9vK0pJelZLQ0ROb3lOTk52amZuVDQ4Vm9QUzQx?=
- =?utf-8?B?eVV5ZWlpRko3V0R5ZjlrYXdkRXJPQ3MyWlc1NlhEMXoyMUU3OENyQXpLTWtB?=
- =?utf-8?B?T3FNTXhPdFpLMmZJa1d5N0cwTWtnSVBaOE1aTXAyZ1gvbVZMWVFFbWhmWU5q?=
- =?utf-8?B?SlhZbi9EUDNiYncvMTJ6NlJHbkhqdWl5Ymd6c2hIM3N2YldhdVFTZWhZcGtl?=
- =?utf-8?B?eHF0MUhIdi9rZjc1bG9LLzFXVTRFMXBIM1psQkJHaHNkZ3hNQld0djUxazBW?=
- =?utf-8?B?am5LMTZQM2pQUTNQUXFGTXF4RDN1c2ZvWG51K2lXYnd1eE51MTFZYmw4QUlZ?=
- =?utf-8?B?U0hoWGlKSnVmSmJHTG5Qc3JFeDRCWktaZjR1dGEzVFZRRmcyUi9aZWM5SHpU?=
- =?utf-8?B?Q3NzejRaZGRxeVBTS2kyaUVjTi9RdmZTb0h6WitCV3AvdHNWMWxwVjB6dUtt?=
- =?utf-8?B?SjMvMlVYY0V4NnJ0TW1MQjk2QVdxc2JPY0hVSnVtNjI4S3FJT3JyaXdCRkVp?=
- =?utf-8?B?ejRnU3JpdG9mMHd2MEJFc3p5dG40TW9XVTJ3aVA2eHh4RmJSMzlCelpLWHZm?=
- =?utf-8?B?Mytjb3lCQ1RDZVYxcS8xOHhzbVZBMThwak5jbW9BbStjOTE4eWRyTXhLZXRj?=
- =?utf-8?B?ZHcvaTlTNHdmMjFhSlM5QmVuRENsNVBTcVhHZllRenpCcUx2c0UyWGw2dzhl?=
- =?utf-8?B?VVlXZzRoYUI3MEpSdUlFVWh6RTcxcGdQTmY3blV2RlRXb0t3eURIbWRwUlZz?=
- =?utf-8?B?bXlKc2VwOGlIZmVObUZNR0hTcjY4amlJM0h4czdvU1lzS29LWld5Z1pEalVY?=
- =?utf-8?B?TnM4T1FuWDZTQktmYUNRd1RoTEJ4bXNZa3dFUFlJQzdQVHNBYlB0V0tuNGhT?=
- =?utf-8?B?NjhmV0dTV2RaY3dMV2xDUDRHVHBkeks2eStONG13MUk2WGlGdU1ZeVgyVHJ2?=
- =?utf-8?B?bEI1WlFTRnZBbmhuRTJuT1h1YXpDeVk4R3paRlhoNG5XdUk1MndDZlNZMm10?=
- =?utf-8?B?VWQxQWgvYUlaZHVRNUlqQU9SaTlDZ0NGMXhKSUFhNnp6b1htSWtONFRkMk8z?=
- =?utf-8?B?NnM1WnBrV3MrUkk4UmdBczBJRGp2UWwwdWNUMEd4QjlwRzV3bE5BSXlQRFpS?=
- =?utf-8?B?ZEI0TmoyS0NWNjlOemE0eVFsZjRCRFR5allhMnQvQmQwd2F4SU4rL0pkTno3?=
- =?utf-8?B?VzdTcWk1WDZTQUxYWW1hZStOSFFaek8rSkYyUkNnNnhOZUpPa2NPY2w1SStW?=
- =?utf-8?B?aDBPNHVSOFNza2g4SmxEd3hQMmZuNDVEcFNYY3hwZVgvWkdsN01nUE1ES1Np?=
- =?utf-8?B?d1M3dkwwbjB5OFphaVpPLzBGWk9qb1NSdVpBbjMzMjFGMGYrbFFCQmVnakFl?=
- =?utf-8?B?dHJCUkl4M3R5NHVzaC9WL2NTZURpZDdONFlNUGNIMTRrVit6TFdOODhaTTF5?=
- =?utf-8?B?UkpFMGp0QW9TTkVwUEJYcCtRSnRrUzRmMnpXVXFaVWFzanVGalZHeXgvZFZE?=
- =?utf-8?B?QWtTdndjMmtQdkUvVjJEY0d4T2NYSzhjOWRtLzhlcGNNeDR2SG9DTlJtQVNL?=
- =?utf-8?B?OTlYREs3bzJqN20wYU5ISzhqZU5laUJFRmNSWm1MWnpZTW1qRjV2Zz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <E25F49426A646441BDF0D971C688E600@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSYd5HTA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AE0B1F000C4;
+	Wed, 18 Nov 2026 10:37:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794998268;
+	bh=AUc/aWqjfy+x7+1G544wdZ17hqcM38kwLCl4C3DOAac=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eSYd5HTAyVgRwaZ++T1h363iiBmvhA3o/G/vmtZcLoCQfumN+yqZqwrCdZaGfMaYR
+	 GAdEsCCpyOSpVHVXQ7FKwFs/Ln9iLx9K/Xm8tLMFNQZyDDuWdH+ftr1gxapUGkDYOF
+	 v7MrYoWO3BmuVDjdsJ3LN/PVt+1Zq5w/ZxN68q0NPDYT9SUDfwd6YBbeED/FboYJzG
+	 muYG0wde/THLwOfraVYJDFrO18aDDr4qGKKDVJG19U+EFm91Umpx3NMu105qmrM5ao
+	 vfwLoUsCR3Q2oeCs3MWIccaMjpArJEZQLpJjg3InO3lcN8oLcHwIXlbz/U1CufNObq
+	 SrAZWOGbtLsxA==
+Message-ID: <sashiko-outbox-220720@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Paul Louvel" <paul.louvel@bootlin.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20261118-paul-v7-3-rc1-edac-v8-2-ed791084cc19@bootlin.com>
+References: <20261118-paul-v7-3-rc1-edac-v8-0-ed791084cc19@bootlin.com>
+ <20261118-paul-v7-3-rc1-edac-v8-2-ed791084cc19@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 10:37:48 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -163,101 +59,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-OriginatorOrg: microchip.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS6PR11MB523643.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c7dda45-7632-43a0-ec68-08df455ff8b8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2026 10:37:40.6476
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fQ8mxZYyrFLGSPfif6ZnQvo3zmYjN+vFHYBUo6DMrmVcLfbXSagAZ0IL2y9MvCPm9ZE3KimIHmbzLDAsTCwlkdewXtgGSOPru4a5roAAHAI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7216
 
-SGksDQoNCmNvbmZpZy5ub19vZl9ub2RlIHdhcyByZW1vdmVkIGJ5IGNvbW1pdCBmNGNmNGU1ZGIz
-MzEgKCJSZXZlcnQgIm52bWVtOiANCmFkZCBuZXcgY29uZmlnIG9wdGlvbiIiKSwgc28gaXQgaXMg
-bm8gbG9uZ2VyIGF2YWlsYWJsZS4gUmVnaXN0ZXJpbmcgDQp3aXRob3V0IGEgImplZGVjLHNmZHAi
-IG5vZGUgaXMgaW50ZW5kZWQsIGFzIGRpc2N1c3NlZCBvbiB2OS4gVGhlIA0KZmFsbGJhY2sgdG8g
-ZGV2LT5vZl9ub2RlIGlzIG52bWVtIGNvcmUgYmVoYXZpb3VyIGFuZCBpcyBvdXQgb2Ygc2NvcGUg
-Zm9yIA0KdGhpcyBzZXJpZXMuDQoNClRoZSBvdGhlciB0d28gY29tbWVudHMgYXJlIHZhbGlkIGFu
-ZCB3aWxsIGJlIGFkZHJlc3NlZCBpbiB2MTE6IHRoZQ0KImplZGVjLHNmZHAiIGxvb2t1cCB3aWxs
-IHVzZSBzcGlfbm9yX2dldF9mbGFzaF9ub2RlKCksIGFuZCBpZ25vcmVfd3ANCndpbGwgYmUgc2V0
-Lg0KDQpPbiAxMS8xMi8yNiA1OjI3IFBNLCBzYXNoaWtvLWJvdEBrZXJuZWwub3JnIHdyb3RlOg0K
-PiBFWFRFUk5BTCBFTUFJTDogRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMg
-dW5sZXNzIHlvdSBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUNCj4gDQo+IFRoYW5rIHlvdSBmb3Ig
-eW91ciBjb250cmlidXRpb24hIFNhc2hpa28gQUkgcmV2aWV3IGZvdW5kIDMgcG90ZW50aWFsDQo+
-IGlzc3VlcyB0byBjb25zaWRlcjoNCj4gLSBbSGlnaF0gbXRkOiBzcGktbm9yOiBzZmRwOiBmYWxs
-YmFjayB0byBmbGFzaCBvZl9ub2RlIHdoZW4gamVkZWMsc2ZkcA0KPiAgICBub2RlIGlzIGFic2Vu
-dA0KPiAtIFtNZWRpdW1dIG10ZDogc3BpLW5vcjogc2ZkcDogd3JvbmcgRFQgbm9kZSBsb29rdXAg
-aW4NCj4gICAgc3BpX25vcl9yZWdpc3Rlcl9zZmRwX252bWVtKCkNCj4gLSBbTWVkaXVtXSBtdGQ6
-IHNwaS1ub3I6IHNmZHA6IG1pc3NpbmcgaWdub3JlX3dwIGluDQo+ICAgIHNwaV9ub3JfcmVnaXN0
-ZXJfc2ZkcF9udm1lbSgpDQo+IC0tDQo+IA0KPiBjb21taXQgZDZiMWY1ZDY4OTY4ODE5Y2QwMmYy
-NWRkMTg1MjY3MjU2NjFmNzU0Mg0KPiBBdXRob3I6IE1hbmlrYW5kYW4gTXVyYWxpZGhhcmFuIDxt
-YW5pa2FuZGFuLm1AbWljcm9jaGlwLmNvbT4NCj4gDQo+IG10ZDogc3BpLW5vcjogc2ZkcDogZXhw
-b3NlIHRoZSBTRkRQIGFzIGEgcmVhZC1vbmx5IE5WTUVNIGRldmljZQ0KPiANCj4gVGhpcyBjb21t
-aXQgZXhwb3NlcyB0aGUgY2FjaGVkIFNGRFAgdGFibGUgb2YgYSBTUEkgTk9SIGZsYXNoIGFzIGEg
-cmVhZC1vbmx5DQo+IE5WTUVNIGRldmljZSByb290ZWQgYXQgdGhlIGZsYXNoJ3MgImplZGVjLHNm
-ZHAiIGNoaWxkIG5vZGUuDQo+IA0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbXRkL3NwaS1ub3Iv
-Y29yZS5jIGIvZHJpdmVycy9tdGQvc3BpLW5vci9jb3JlLmMNCj4+IGluZGV4IDkwNTI0YzU4NjAy
-ZTEuLmEwMzRkY2U3YzgzOWUgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL210ZC9zcGktbm9yL2Nv
-cmUuYw0KPj4gKysrIGIvZHJpdmVycy9tdGQvc3BpLW5vci9jb3JlLmMNCj4gDQo+IFsgLi4uIF0N
-Cj4gDQo+PiArc3RhdGljIGludCBzcGlfbm9yX3JlZ2lzdGVyX3NmZHBfbnZtZW0oc3RydWN0IHNw
-aV9ub3IgKm5vcikNCj4+ICt7DQo+PiArICAgICBzdHJ1Y3QgZGV2aWNlICpkZXYgPSBub3ItPmRl
-djsNCj4+ICsgICAgIHN0cnVjdCBudm1lbV9jb25maWcgY29uZmlnID0geyB9Ow0KPj4gKyAgICAg
-c3RydWN0IG52bWVtX2RldmljZSAqbnZtZW07DQo+PiArICAgICBzdHJ1Y3QgZGV2aWNlX25vZGUg
-Km5wOw0KPj4gKw0KPj4gKyAgICAgaWYgKCFub3ItPnNmZHApDQo+PiArICAgICAgICAgICAgIHJl
-dHVybiAwOw0KPj4gKw0KPj4gKyAgICAgbnAgPSBvZl9nZXRfY29tcGF0aWJsZV9jaGlsZChkZXZf
-b2Zfbm9kZShkZXYpLCAiamVkZWMsc2ZkcCIpOw0KPiANCj4gW1NldmVyaXR5OiBNZWRpdW1dDQo+
-IFNob3VsZCB0aGlzIGxvb2sgdXAgdGhlIGNoaWxkIG5vZGUgdW5kZXIgc3BpX25vcl9nZXRfZmxh
-c2hfbm9kZShub3IpIGluc3RlYWQNCj4gb2YgZGV2X29mX25vZGUoZGV2KT8NCj4gDQo+IEluIFNQ
-SSBOT1IgY29udHJvbGxlciBkcml2ZXJzIHN1Y2ggYXMgaGlzaS1zZmMgYW5kIG54cC1zcGlmaSwg
-bm9yLT5kZXYgaXMgdGhlDQo+IGNvbnRyb2xsZXIgZGV2aWNlIHdoaWxlIHRoZSBmbGFzaCBub2Rl
-IGlzIGEgY2hpbGQgRFQgbm9kZSBzdG9yZWQgdmlhDQo+IHNwaV9ub3Jfc2V0X2ZsYXNoX25vZGUo
-KS4gIFVzaW5nIGRldl9vZl9ub2RlKGRldikgc2VhcmNoZXMgdGhlIGNvbnRyb2xsZXIncw0KPiBE
-VCBub2RlIGFuZCBtaXNzZXMgdGhlIGZsYXNoJ3MgImplZGVjLHNmZHAiIGNoaWxkIG5vZGUuDQo+
-IA0KPj4gKw0KPj4gKyAgICAgY29uZmlnLmRldiA9IGRldjsNCj4+ICsgICAgIGNvbmZpZy5vZl9u
-b2RlID0gbnA7DQo+IA0KPiBbU2V2ZXJpdHk6IEhpZ2hdDQo+IFdoZW4gdGhlIGZsYXNoIERUIG5v
-ZGUgaGFzIG5vICJqZWRlYyxzZmRwIiBjaGlsZCBub2RlLCBucCBpcyBOVUxMLCBidXQNCj4gc3Bp
-X25vcl9yZWdpc3Rlcl9zZmRwX252bWVtKCkgc3RpbGwgcmVnaXN0ZXJzIHRoZSBOVk1FTSBkZXZp
-Y2Ugd2l0aA0KPiBjb25maWcub2Zfbm9kZSA9IE5VTEwgYW5kIGNvbmZpZy5kZXYgPSBkZXYuICBJ
-biBudm1lbV9yZWdpc3RlcigpLCBhIE5VTEwNCj4gY29uZmlnLT5vZl9ub2RlIGZhbGxzIGJhY2sg
-dG8gY29uZmlnLT5kZXYtPm9mX25vZGU6DQo+IA0KPiBkcml2ZXJzL252bWVtL2NvcmUuYzpudm1l
-bV9yZWdpc3RlcigpIHsNCj4gICAgICAuLi4NCj4gICAgICAgICAgaWYgKGNvbmZpZy0+b2Zfbm9k
-ZSkNCj4gICAgICAgICAgICAgICAgICBudm1lbS0+ZGV2Lm9mX25vZGUgPSBvZl9ub2RlX2dldChj
-b25maWctPm9mX25vZGUpOw0KPiAgICAgICAgICBlbHNlDQo+ICAgICAgICAgICAgICAgICAgbnZt
-ZW0tPmRldi5vZl9ub2RlID0gb2Zfbm9kZV9nZXQoY29uZmlnLT5kZXYtPm9mX25vZGUpOw0KPiAg
-ICAgIC4uLg0KPiB9DQo+IA0KPiBCZWNhdXNlIHNwaV9ub3JfcmVnaXN0ZXJfc2ZkcF9udm1lbSgp
-IHJ1bnMgZHVyaW5nIHNwaV9ub3Jfc2NhbigpIGJlZm9yZQ0KPiBtdGRfZGV2aWNlX3BhcnNlX3Jl
-Z2lzdGVyKCkgcmVnaXN0ZXJzIHRoZSBtYWluIE1URCBhbmQgT1RQIE5WTUVNIGRldmljZXMsIGRv
-ZXMNCj4gdGhpcyBiaW5kIHRoZSBTRkRQIE5WTUVNIGRldmljZSB0byB0aGUgcGFyZW50IGZsYXNo
-IERUIG5vZGUgZmlyc3Q/DQo+IA0KPiBPbiBhbnkgU1BJIE5PUiBmbGFzaCB3aXRoIFNGRFAgd2hv
-c2UgRFQgbm9kZSBoYXMgbm8gImplZGVjLHNmZHAiIHN1Ym5vZGUsIHRoZQ0KPiBTRkRQIE5WTUVN
-IGRldmljZSBjbGFpbXMgYW55IG52bWVtLWxheW91dCBvbiB0aGUgZmxhc2ggbm9kZSAoc2V0dGlu
-Zw0KPiBPRl9QT1BVTEFURURfQlVTIHNvIG10ZF9udm1lbV9hZGQoKSBza2lwcyBpdCkgYW5kIHNo
-YWRvd3MgdGhlIGZsYXNoIE1URCBhbmQNCj4gT1RQIE5WTUVNIHByb3ZpZGVycyBpbiBvZl9udm1l
-bV9jZWxsX2dldCgpIGFuZCBvZl9udm1lbV9kZXZpY2VfZ2V0KCksIGNhdXNpbmcNCj4gY2VsbCBs
-b29rdXBzIG9uIHRoZSBmbGFzaCBub2RlIHRvIGZhaWwgb3IgcmV0dXJuIFNGRFAgYnl0ZXMgaW5z
-dGVhZCBvZiBmbGFzaA0KPiBkYXRhLg0KPiANCj4gSWYgcmVnaXN0ZXJpbmcgd2l0aG91dCBhICJq
-ZWRlYyxzZmRwIiBzdWJub2RlIGlzIGludGVuZGVkLCBzZXR0aW5nDQo+IGNvbmZpZy5ub19vZl9u
-b2RlID0gIW5wIHByZXZlbnRzIG52bWVtX3JlZ2lzdGVyKCkgZnJvbSBmYWxsaW5nIGJhY2sgdG8N
-Cj4gZGV2LT5vZl9ub2RlLg0KPiANCj4+ICsgICAgIGNvbmZpZy5uYW1lID0gInNmZHAiOw0KPj4g
-KyAgICAgY29uZmlnLmlkID0gTlZNRU1fREVWSURfQVVUTzsNCj4+ICsgICAgIGNvbmZpZy5vd25l
-ciA9IFRISVNfTU9EVUxFOw0KPj4gKyAgICAgY29uZmlnLnJlYWRfb25seSA9IHRydWU7DQo+PiAr
-ICAgICBjb25maWcud29yZF9zaXplID0gMTsNCj4+ICsgICAgIGNvbmZpZy5zdHJpZGUgPSAxOw0K
-Pj4gKyAgICAgY29uZmlnLnNpemUgPSAoaW50KShub3ItPnNmZHAtPm51bV9kd29yZHMgKiBzaXpl
-b2YoKm5vci0+c2ZkcC0+ZHdvcmRzKSk7DQo+PiArICAgICBjb25maWcucmVnX3JlYWQgPSBzcGlf
-bm9yX3NmZHBfcmVnX3JlYWQ7DQo+PiArICAgICBjb25maWcucHJpdiA9IG5vcjsNCj4gDQo+IFtT
-ZXZlcml0eTogTWVkaXVtXQ0KPiBEb2VzIGNvbmZpZyBhbHNvIG5lZWQgaWdub3JlX3dwID0gdHJ1
-ZSwgbGlrZSBtdGRfbnZtZW1fYWRkKCkgYW5kDQo+IG10ZF9vdHBfbnZtZW1fcmVnaXN0ZXIoKT8N
-Cj4gDQo+IFdoZW4gY29uZmlnLmlnbm9yZV93cCBpcyBmYWxzZSwgbnZtZW1fcmVnaXN0ZXIoKSBj
-YWxscw0KPiBncGlvZF9nZXRfb3B0aW9uYWwoY29uZmlnLT5kZXYsICJ3cCIsIEdQSU9EX09VVF9I
-SUdIKSBldmVuIGZvciByZWFkLW9ubHkNCj4gcHJvdmlkZXJzLiAgU2luY2UgdGhlIFNGRFAgcHJv
-dmlkZXIgb25seSByZWFkcyBmcm9tIHRoZSBjYWNoZWQNCj4gbm9yLT5zZmRwLT5kd29yZHMgYnVm
-ZmVyLCBsZWF2aW5nIGlnbm9yZV93cCB1bnNldCBjbGFpbXMgYW55IHdwLWdwaW9zDQo+IHByb3Bl
-cnR5IG9uIG5vci0+ZGV2IGFuZCBkcml2ZXMgdGhlIHdyaXRlLXByb3RlY3QgbGluZSBoaWdoLCBv
-ciBmYWlscyBwcm9iZQ0KPiB3aXRoIC1FQlVTWSBpZiB0aGUgR1BJTyBpcyBhbHJlYWR5IGNsYWlt
-ZWQuDQo+IA0KPiAtLQ0KPiBTYXNoaWtvIEFJIHJldmlldyDCtyBodHRwczovL3Nhc2hpa28uZGV2
-LyMvcGF0Y2hzZXQvY292ZXIuMTc5NDM5MTY2MC5naXQubWFuaWthbmRhbi5tQG1pY3JvY2hpcC5j
-b20/cGFydD00DQoNCg0KLS0gDQpUaGFua3MgYW5kIFJlZ2FyZHMsDQpNYW5pa2FuZGFuIE0uDQo=
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] EDAC/cadence: cdns_setup_mc() reports SECDED mode when ECC is
+  disabled
+- [Medium] EDAC/cadence: missing memory base PFN offset in
+  cdns_mc_err_handler()
+--
+
+commit 75a0021a276efa3f6b0c9a800bd2617eb0141dff
+Author: Paul Louvel <paul.louvel@bootlin.com>
+
+EDAC/cadence: Add Cadence DDR EDAC driver
+
+This commit adds an EDAC driver for the Cadence DDR memory controller on
+Renesas RZ/N1x SoCs, supporting SECDED error reporting, software
+scrubbing, and debugfs error injection.
+
+> diff --git a/drivers/edac/cadence_edac.c b/drivers/edac/cadence_edac.c
+> new file mode 100644
+> index 0000000000000..a3b72116ba129
+> --- /dev/null
+> +++ b/drivers/edac/cadence_edac.c
+[ ... ]
+> +static irqreturn_t cdns_mc_err_handler(int irq, void *dev_id)
+> +{
+> +	struct mem_ctl_info *mci =3D dev_id;
+> +	struct mc_priv *priv =3D mci->pvt_info;
+> +	u32 status, err_addr, syndrome, reg;
+> +
+> +	status =3D readl(priv->io_base + CDNS_ECC_INT_STAT);
+> +	if (!status)
+> +		return IRQ_NONE;
+> +
+> +	/*
+> +	 * Hardware is not exposing how many CE / UE occurred since last ACK in
+> +	 * case of multiple errors. Always set the error count to 1.
+> +	 */
+> +
+> +	if (status & (CDNS_ECC_INT_STAT_UE | CDNS_ECC_INT_STAT_MULTIPLE_UE)) {
+> +		reg =3D readl(priv->io_base + CDNS_ECC_U_ERR_STAT);
+> +		syndrome =3D CDNS_ECC_ERR_STAT_GET_SYNDROME(reg);
+> +
+> +		err_addr =3D readl(priv->io_base + CDNS_ECC_U_ERR_ADDR);
+> +
+> +		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, 1, err_addr >> PAG=
+E_SHIFT,
+> +				     err_addr & ~PAGE_MASK, syndrome, 0, 0, -1, mci->ctl_name, "");
+> +	}
+> +
+> +	if (status & (CDNS_ECC_INT_STAT_CE | CDNS_ECC_INT_STAT_MULTIPLE_CE)) {
+> +		reg =3D readl(priv->io_base + CDNS_ECC_C_ERR_STAT);
+> +		syndrome =3D CDNS_ECC_ERR_STAT_GET_SYNDROME(reg);
+> +
+> +		err_addr =3D readl(priv->io_base + CDNS_ECC_C_ERR_ADDR);
+> +
+> +		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci, 1, err_addr >> PAGE_=
+SHIFT,
+> +				     err_addr & ~PAGE_MASK, syndrome, 0, 0, -1, mci->ctl_name, "");
+> +	}
+
+[Severity: Medium]
+Does passing err_addr >> PAGE_SHIFT directly to edac_mc_handle_error()
+miss the physical memory base offset?
+
+On Renesas RZ/N1 (r9a06g032), system DDR starts at physical address
+0x80000000, while the Cadence/Denali controller logs 0-based DRAM offsets
+in CDNS_ECC_U_ERR_ADDR and CDNS_ECC_C_ERR_ADDR.  cdns_setup_mc() fetches
+the /memory resource into res and enables SCRUB_SW_SRC, but discards
+res.start and leaves mci->ctl_page_to_phys unset.  Without adding
+PHYS_PFN(res.start), edac_mc_handle_error() reports a 0-based PFN and
+edac_mc_scrub_block() fails pfn_valid(), silently skipping software ECC
+scrubbing.
+
+[ ... ]
+> +	reg =3D readl(priv->io_base + CDNS_ECC_STAT);
+> +	if (!CDNS_ECC_STAT_IS_ENABLED(reg))
+> +		mci->edac_cap =3D EDAC_FLAG_NONE;
+> +	else
+> +		mci->edac_cap =3D EDAC_FLAG_SECDED;
+> +
+> +	mci->mtype_cap =3D MEM_FLAG_DDR2 | MEM_FLAG_DDR3;
+> +	mci->edac_ctl_cap =3D EDAC_FLAG_NONE | EDAC_FLAG_SECDED;
+> +	mci->mod_name =3D pdev->dev.driver->name;
+> +	mci->ctl_name =3D "cdns-ddr-ctrl";
+> +	mci->dev_name =3D dev_name(&pdev->dev);
+> +	mci->scrub_mode =3D SCRUB_SW_SRC;
+> +
+> +	dimm =3D *mci->dimms;
+> +	dimm->nr_pages =3D PFN_UP(mem_sz);
+> +	dimm->grain =3D 4;
+> +	dimm->edac_mode =3D EDAC_SECDED;
+
+[Severity: Medium]
+Should cdns_setup_mc() set dimm->edac_mode to EDAC_SECDED and continue
+probing when CDNS_ECC_STAT_IS_ENABLED(reg) is false?
+
+When the bootloader has not enabled ECC, mci->edac_cap is set to
+EDAC_FLAG_NONE, but dimm->edac_mode is still hardcoded to EDAC_SECDED.
+Because EDAC sysfs exposes dimm->edac_mode via dimm_edac_mode, userspace
+monitoring tools will see SECDED reported as active while the driver also
+requests the ECC interrupt, unmasks CDNS_ECC_INT_EDAC, and exposes debugfs
+error injection on a controller with ECC disabled.  Failing probe with
+-ENODEV (as documented in Kconfig that ECC must be configured by the
+bootloader) or setting dimm->edac_mode =3D EDAC_NONE would avoid reporting
+active ECC.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-paul-v7-3-=
+rc1-edac-v8-0-ed791084cc19@bootlin.com?part=3D2
