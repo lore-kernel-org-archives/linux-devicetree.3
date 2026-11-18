@@ -1,56 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795018137;
-	b=OcYrvZQeLdDbMqEekN3CDEe5EMP51ida9daAL15bayMzbnnu4vNVngTf2uK6LzrMJV2a
-	 0t6F69UIYL/HLwfNVLwuPV+kHxEMG93jWebRILCzZvufz/J6t6YWAZfTi6xndrBlhAu9z
-	 LbHg1XB1v7pPTphwNjWiQKSVA/Ul/MnGcFuBkTG/zdam5YhQ6BdkdaxCEHu334rb4PQ1/
-	 7IcyOdgsqnYCVFCJlYSgua0o4fqDc3/Qb+WrEB47UbFS6hTpm9OSKKcVpkoC0KnG4Gkjh
-	 /rTjRd9U7AchK5dqGhBR7f7pbYTgNhfZRmUPgiEQ8cSqG11T9SrvYHS2MRhR/QIpViw==
+	t=1795018404;
+	b=nZZjvlIHv0zopz4kg6VJmx02LMxF2NjmlTQZS31ra2O4/fAC3dxpen/Atf0+IgoOOCQB
+	 Op60UOB3V2KWfKmc84gSiyNxlffYGnQ2Lvawj5QHJrNmhzxrS9P9nzk5hOWA0JApCemoa
+	 WrzMyabyn0FAS51FXWGxJj+eM830P8R6JKYXfgMtjJYvThjoavhepPWRDxFxkQB/EzDHS
+	 c3WjErGx/9pX/jU8ueExB6kxAzGQAOGHSSqg3irv+jOQadsuiAqENaV7gWPGajkHxoLH4
+	 N2qlODubPVUwZZDzI+P8SdS8iuFdXrH+U6hefY322uM6KUKxwgE0zvqePKQReCVMoUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795018137;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Q/4w059UF8AfVKJqVmLzXM8ozDPCMJbMNmkCPBpCX28=;
-	b=XPsWYIXiWrsHkp1vZGTt5x4ivsz+YA4H3+lTy6WQZyGtTsOpyLlqDSb5nZhADBzwq3/e
-	 roRTNwAsNOmUXAwTYzQDSgB9icgX0d7kz66CZQJm+eXNFbspsQbRixwCJm4j78Z1l5cYg
-	 vlZO0Ju7YM14poet4ChyG2GXvJe6vcanxiNC2Cm+vLe7d+0lr4reY1sFSAm0dUpjXeMGJ
-	 YoaK732/lcAFYTmqflvTvfe9l0nDW4pAuHjnhJlnWxYAScUoJnVuX+nyVXWy0IQl3NUzX
-	 t/+Ix/iNC+VXGKB2lNOt8n8Yi35jlR+VX+P/lZvgq2i4+opmiRC5CuLkSeFCOq0sedg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795018404;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=3Lq/7sTlAJbfIIqLa7wmAuF2tMNPuQ+wGipfJEmlBdE=;
+	b=hwkwowGftlDOU2dxolbJ4fAdPqocITAfzdUOt5g+db9bKCcQ68K36pawFD+qoYDr9Wip
+	 lGCTrIV1RcXm9rfqE2zI7a2Xdmp3wf1jMLWSW7oD5bdqS0tsg0CFc8spiBvernqzzYq8p
+	 NMux768MoTpv3SF5HHl7Jek9qDMEQdOpGXvSh7yX2IkhKksruAVG+4gbTJeW/iDDsQ2uI
+	 7HxMgQNUjC2zFBGnGIz+0i9dDs+jWOmW5j0ZNPozALi/ATQI17GjLElDYx9tWGLDeCx9l
+	 UV/dLHNTH2k3R6paBHVmgO81wpTW+xc5qhOv1MtexOH7TlECrJnvHVPGp5omiMrclRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXamzbMt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=FV0bltX0;
+	arc=none smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828BC60A260C;
-	Wed, 18 Nov 2026 16:08:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F32A606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 16:13:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F32A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXamzbMt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAADD1F000C4;
-	Wed, 18 Nov 2026 16:08:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795018137;
-	bh=Q/4w059UF8AfVKJqVmLzXM8ozDPCMJbMNmkCPBpCX28=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iXamzbMtZKYt1Q1yTYBkq+Tw9c1abfJ4WFUueghaBf8xVLqJgt04wtP/UKf0S6S2e
-	 LC8FLWnQ3AgtdpA/JIXGIeONA2VopIsKV8VYGJ8pXf3cfdapdP6PqonOfDsWKAjtHC
-	 J7hyHwpCE/g4JI294U8idwvjxBrkcEe9A/YpOtSaX4wbeFUhH5UDfq/EWZMqM4Dy+X
-	 LKYe8y8GvNItrALQ4BdHBrFa63rzKlsJJvM8o56I0saW9P+tWA8dGTimzknw3wgpvl
-	 /uN4V9+QwkcLWQWDQapsjYiTREfBzSa7XYzWYde8DICQTdIgEgp+h9q4rABojO4F+0
-	 4eJNa45AYF2Cw==
-Message-ID: <sashiko-outbox-221427@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 11/11] ASoC: stm32: add mdf dai support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Olivier Moysan" <olivier.moysan@foss.st.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261118-upstream_mdf_v2-v2-11-7939d3c3720a@foss.st.com>
-References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
- <20261118-upstream_mdf_v2-v2-11-7939d3c3720a@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 16:08:56 +0000
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=FV0bltX0
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so2045766a12.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:13:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1795018401; x=1795623201; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3Lq/7sTlAJbfIIqLa7wmAuF2tMNPuQ+wGipfJEmlBdE=;
+        b=FV0bltX0oekj6/9f3wa9B0/l8zl9COMFFyQ5EAruEn6+3u8/cdTM5/fAof+ws1va0+
+         9V7ZDTR58f1agBhb7jH2ZL23CYfYjNxO9GWe5UnzWp/TDmnnGY2nLr8Kic0Ewgy0cvoj
+         0YFwCl6ZFhMviqdtHWJ7uNUE7iVBQ9qja0BQtawatKhVTmELVv/qTlkkbMn7FFPzE7+t
+         eXoRoWgCAjRLWh80ANeC3KOnPoeMh687hvXa8XsLwshJmADDY3F0N9ej++7BVjTBWgni
+         JzCzrJrBRgmsz6I5zgmhaUZ9e6xoF5WOnjD/Gel1Oxr/msrr91dJmbK9CBW/d0LiXQ9B
+         CBhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795018401; x=1795623201;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3Lq/7sTlAJbfIIqLa7wmAuF2tMNPuQ+wGipfJEmlBdE=;
+        b=egxA+Sn8OrEWMleBgiHattMGpWAQurzMQWp/Yl+1Ydj6GEvewxGBMuXK8X9j5sTjsa
+         5doiPOK7bRU59WvvJwNcUuGI/zwR8EqSq91YPonKRKovMq8yloPNd9CiF/xeW9GvYRJD
+         mqn947QoWxpgJRiF7hRwS5xtotCYo9MYlkPSE3UsxlWt9Yq060Cmyb2OlXEPUttAneO/
+         K4TNZB5PfOORpF99XcpTUlXK7gVq6++3eJoOl1vy4SioMwYdQ5fYblNadlxxRVe9X/BI
+         6jLjb9fqscDuzpUnvAUAUtGP81qP09QZ2IACNTw2STSODsjgK6n/zaKpDn86t+5eL+a6
+         pH9g==
+X-Forwarded-Encrypted: i=1; AL+hErFC2gyPcMKzedy46j28invpD0FrDN3SZQB1dIV/nHbVUYmKUOfYVAleg78mH3IdRFiRmwc+2jifh/yu@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hgFgXKIB+VQwgpJvE1ZNUqyjYA8l6/pXFQC0GtkvdAyhlN8xW
+	GuI297p55sHfvqw+lNl7/63eHEFUQN61CLDm7bBPZ/sA5U5UeKoNCUv2RKXtxmkOLAk=
+X-Gm-Gg: AYBFou1iU/ff282r0uZtzUxAhviaC4Sv3k3k8Vt6nyHTI50AnL2Egx/CpIo9gk7rSca
+	YB2fBTSVgYVdOShFIRN4Phto0Fw7/9UP/EP8yT4HKCeUNsDzQiJ0mXCfnjkUVsQjNbH+RPR8JTl
+	KhA00G8LE7AHAdS9XuLWd3LjmZqhUrGqHCze/06QbjcjtRVoG2AyEBHeZz0uptcV8wnjTZTS9wk
+	MaQwQWUa5/QCIpWQLuc8ZwcU4dTPJ/OFJmLeRSgbD22XGc+WrWndaswfi3/eVH77W80V4WwnCw4
+	xyCBScEPifJFQEtgvoiEFNpzDMdTwB9R9327+0Vyk/214HMuDWvtYa8lmBoW4fNMMY2K8cvAAkp
+	ha5WTh9MXjS+o8ojnnDMczmdeEL6ykRQz9G4/OL8zigUKjtma1YZq1YvzpeFXuxg9Gd81RvdwRN
+	26CSneRMwrVXaZR5Ip1/iW6OIokgTuOgfWU+QF7RhWuiInAQVMX4XUhvWL9OjnWPeqvDS246hin
+	6mg+nRHVu73hgCFIJVNAsQ+Qgg6MTCOLLVVlONJg68/QNr7vrwOT1GIXSz1EnIhBgSm+vB4tEnb
+	CKEG2SlqYvxghpNX0RAvATeyjJF4/6NeE2fLBqaLDcA/AopKbryH5uYzoGLuj3xViYgmZbQWXw=
+	=
+X-Received: by 2002:a05:6402:693:b0:6b7:5712:f13e with SMTP id 4fb4d7f45d1cf-6b887e9a998mr2171788a12.21.1795018401363;
+        Wed, 18 Nov 2026 08:13:21 -0800 (PST)
+Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b88a6fc230sm1256698a12.36.2026.11.18.08.13.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2026 08:13:21 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,286 +88,73 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 18 Nov 2026 17:13:20 +0100
+Message-Id: <DMYGX16XPQEY.PD4MUZN1IINL@fairphone.com>
+Cc: <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <wcn36xx@lists.infradead.org>,
+ <linux-wireless@vger.kernel.org>
+Subject: Re: [PATCH 2/3] wifi: wcn36xx: Do not enforce interrupt trigger
+ type
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: <arapaille@atlr-engineering.com>, "Bjorn Andersson"
+ <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Abel
+ Vesa" <abelvesa@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Loic Poulain" <loic.poulain@oss.qualcomm.com>, "Luca Weiss"
+ <luca@lucaweiss.eu>, "Eugene Krasnikov" <k.eugene.e@gmail.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20261118-wcnss-series-v1-v1-0-a64d82e151bf@atlr-engineering.com> <20261118-wcnss-series-v1-v1-2-a64d82e151bf@atlr-engineering.com>
+In-Reply-To: <20261118-wcnss-series-v1-v1-2-a64d82e151bf@atlr-engineering.com>
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issues to consider:
-- [High] ASoC: stm32: amdf: wrong S16_LE source offset on wrap in
-  stm32_afsdm_pcm_cb()
-- [High] ASoC: stm32: amdf: broken period elapsed condition in
-  stm32_afsdm_pcm_cb()
-- [High] ASoC: stm32: amdf: broken watermark and channel limits in
-  interleaved mode
-- [High] ASoC: stm32: amdf: unsynchronized DMA callback registration,
-  stop, and pos update
-- [Medium] ASoC: stm32: amdf: SNDRV_PCM_INFO_PAUSE set without pause
-  trigger handling
-- [Low] ASoC: stm32: amdf: invalid %pK format in dev_dbg() in
-  stm32_afsdm_pcm_cb()
-- [Low] ASoC: stm32: amdf: missing period_bytes_min in stm32_amdf_pcm_hw
---
+On Wed Nov 18, 2026 at 3:58 PM CET, Alexandre Rapaille via B4 Relay wrote:
+> From: Alexandre Rapaille <arapaille@atlr-engineering.com>
+>
+> Forcing IRQF_TRIGGER_HIGH over the DT type makes the re-probe after a WCN=
+SS
+> restart fail ("type mismatch, failed to map hwirq"). Rely on the DT, as
+> commit 1ee6c5abebd3 ("ath10k: do not enforce interrupt trigger type") did=
+.
 
-commit 2a312f0d863bc42aba2f6fceb749066af9dab645
-Author: Olivier Moysan <olivier.moysan@foss.st.com>
+Worth noting, that all upstream dts files that use qcom,wcnss-wlan
+(apart from msm8974.dtsi which is getting updated in this series) are
+already using IRQ_TYPE_LEVEL_HIGH, so this should not change behavior
+for any other SoC.
 
-ASoC: stm32: add mdf dai support
+>
+> Fixes: 8e84c2582169 ("wcn36xx: mac80211 driver for Qualcomm WCN3660/WCN36=
+80 hardware")
+> Signed-off-by: Alexandre Rapaille <arapaille@atlr-engineering.com>
+> ---
+>  drivers/net/wireless/ath/wcn36xx/dxe.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/net/wireless/ath/wcn36xx/dxe.c b/drivers/net/wireles=
+s/ath/wcn36xx/dxe.c
+> index 801f1218ef..7852f71368 100644
+> --- a/drivers/net/wireless/ath/wcn36xx/dxe.c
+> +++ b/drivers/net/wireless/ath/wcn36xx/dxe.c
+> @@ -552,14 +552,14 @@ static int wcn36xx_dxe_request_irqs(struct wcn36xx =
+*wcn)
+>  {
+>  	int ret;
+> =20
+> -	ret =3D request_irq(wcn->tx_irq, wcn36xx_irq_tx_complete,
+> -			  IRQF_TRIGGER_HIGH, "wcn36xx_tx", wcn);
+> +	ret =3D request_irq(wcn->tx_irq, wcn36xx_irq_tx_complete, 0,
+> +			  "wcn36xx_tx", wcn);
+>  	if (ret) {
+>  		wcn36xx_err("failed to alloc tx irq\n");
+>  		goto out_err;
+>  	}
+> =20
+> -	ret =3D request_irq(wcn->rx_irq, wcn36xx_irq_rx_ready, IRQF_TRIGGER_HIG=
+H,
+> +	ret =3D request_irq(wcn->rx_irq, wcn36xx_irq_rx_ready, 0,
+>  			  "wcn36xx_rx", wcn);
+>  	if (ret) {
+>  		wcn36xx_err("failed to alloc rx irq\n");
 
-This commit adds an ASoC DAI and platform driver for PDM digital
-microphones connected to the STM32 Multi-function Digital Filter (MDF)
-IP via the IIO consumer buffer interface.
 
-> diff --git a/sound/soc/stm/stm32_amdf.c b/sound/soc/stm/stm32_amdf.c
-> new file mode 100644
-> index 0000000000000..a733a7a2997fa
-> --- /dev/null
-> +++ b/sound/soc/stm/stm32_amdf.c
-> @@ -0,0 +1,375 @@
-
-[ ... ]
-
-> +static const struct snd_pcm_hardware stm32_amdf_pcm_hw =3D {
-> +	.info =3D SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_BLOCK_TRANSFER |
-> +		SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_PAUSE,
-> +	.formats =3D SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_LE,
-> +
-> +	.channels_min =3D 1,
-> +	.channels_max =3D 1,
-> +
-> +	.periods_min =3D 2,
-> +	.periods_max =3D MDF_MAX_PERIODS,
-> +
-> +	.period_bytes_max =3D MDF_MAX_PERIOD_SIZE,
-> +	.buffer_bytes_max =3D MDF_MAX_PERIODS * MDF_MAX_PERIOD_SIZE
-> +};
-
-[Severity: Low]
-Should stm32_amdf_pcm_hw define .period_bytes_min?
-
-Without .period_bytes_min, SNDRV_PCM_HW_PARAM_PERIOD_BYTES has a minimum
-of 0.  An unconstrained hw_params request can then fail during interval
-refinement with -EINVAL, or userspace can configure a 1-frame period and
-set the IIO watermark to 1, generating a DMA interrupt on every frame.
-
-[ ... ]
-
-> +static void stm32_memcpy_32to16(void *dest, const void *src, size_t n)
-> +{
-> +	unsigned int i =3D 0;
-> +	u16 *d =3D (u16 *)dest, *s =3D (u16 *)src;
-> +
-> +	s++;
-> +	for (i =3D n >> 1; i > 0; i--) {
-> +		*d++ =3D *s++;
-> +		s++;
-> +	}
-> +}
-> +
-> +static int stm32_afsdm_pcm_cb(const void *data, size_t size, void *priva=
-te)
-> +{
-> +	struct stm32_amdf_priv *priv =3D private;
-> +	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(priv->subs=
-tream);
-> +	u8 *pcm_buff =3D priv->pcm_buff;
-> +	u8 *src_buff =3D (u8 *)data;
-> +	unsigned int old_pos =3D priv->pos;
-> +	size_t buff_size =3D snd_pcm_lib_buffer_bytes(priv->substream);
-> +	size_t period_size =3D snd_pcm_lib_period_bytes(priv->substream);
-> +	size_t cur_size, src_size =3D size;
-> +	snd_pcm_format_t format =3D priv->substream->runtime->format;
-> +
-> +	if (format =3D=3D SNDRV_PCM_FORMAT_S16_LE)
-> +		src_size >>=3D 1;
-> +	cur_size =3D src_size;
-> +
-> +	dev_dbg(rtd->dev, "%s: buff_add :%pK, pos =3D %d, size =3D %zu\n",
-> +		__func__, &pcm_buff[priv->pos], priv->pos, src_size);
-
-[Severity: Low]
-Does %pK work in stm32_afsdm_pcm_cb()?
-
-This callback runs from the DMA completion handler in softirq or hardirq
-context, where %pK prints "pK-error" when kptr_restrict is 1; commit
-4db4ce15706d ("ASoC: stm32: dfsdm: don't use %pK through printk")
-switched the same debug print in stm32_adfsdm.c to %p.
-
-> +
-> +	if ((priv->pos + src_size) > buff_size) {
-> +		if (format =3D=3D SNDRV_PCM_FORMAT_S16_LE)
-> +			stm32_memcpy_32to16(&pcm_buff[priv->pos], src_buff, buff_size - priv-=
->pos);
-> +		else
-> +			memcpy(&pcm_buff[priv->pos], src_buff, buff_size - priv->pos);
-> +		cur_size -=3D buff_size - priv->pos;
-> +		priv->pos =3D 0;
-> +	}
-> +
-> +	if (format =3D=3D SNDRV_PCM_FORMAT_S16_LE)
-> +		stm32_memcpy_32to16(&pcm_buff[priv->pos], &src_buff[src_size - cur_siz=
-e], cur_size);
-> +	else
-> +		memcpy(&pcm_buff[priv->pos], &src_buff[src_size - cur_size], cur_size);
-
-[Severity: High]
-Does the second stm32_memcpy_32to16() call read from the wrong offset in
-src_buff when the ring buffer wraps in SNDRV_PCM_FORMAT_S16_LE mode?
-
-When format is SNDRV_PCM_FORMAT_S16_LE, src_size and cur_size are halved
-to measure 16-bit destination bytes, while src_buff holds 32-bit samples
-and stm32_memcpy_32to16() consumes 2 * n source bytes to write n
-destination bytes.  After the first copy writes buff_size - priv->pos
-destination bytes, indexing &src_buff[src_size - cur_size] advances
-src_buff by only half the consumed source bytes instead of
-2 * (src_size - cur_size), re-copying earlier samples and misaligning
-the 16-bit word offset whenever an odd number of samples was copied
-before the wrap.
-
-> +
-> +	priv->pos =3D (priv->pos + cur_size) % buff_size;
-> +
-> +	if (cur_size !=3D src_size || (old_pos && (old_pos % period_size < size=
-)))
-> +		snd_pcm_period_elapsed(priv->substream);
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Does this skip snd_pcm_period_elapsed() whenever old_pos is 0?
-
-At stream start (and at the start of every new buffer cycle when
-buff_size is a multiple of period_size), old_pos is 0 and cur_size
-equals src_size, so the condition evaluates to false and drops the first
-period notification of every buffer cycle.  When old_pos is non-zero,
-old_pos % period_size < size also compares the pre-copy PCM byte offset
-against the unscaled 32-bit DMA size (which is twice the PCM byte count
-in S16_LE mode) rather than checking whether advancing by src_size bytes
-crossed a period boundary.
-
-> +
-> +static int stm32_amdf_trigger(struct snd_soc_component *component,
-> +			      struct snd_pcm_substream *substream, int cmd)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(substream);
-> +	struct stm32_amdf_priv *priv =3D
-> +		snd_soc_dai_get_drvdata(snd_soc_rtd_to_cpu(rtd, 0));
-> +
-> +	switch (cmd) {
-> +	case SNDRV_PCM_TRIGGER_START:
-> +	case SNDRV_PCM_TRIGGER_RESUME:
-> +		priv->pos =3D 0;
-> +		return stm32_mdf_get_buff_cb(priv->iio_ch->indio_dev, stm32_afsdm_pcm_=
-cb, priv);
-> +	case SNDRV_PCM_TRIGGER_SUSPEND:
-> +	case SNDRV_PCM_TRIGGER_STOP:
-> +		return stm32_mdf_release_buff_cb(priv->iio_ch->indio_dev);
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-
-[Severity: Medium]
-Does stm32_amdf_trigger() fail with -EINVAL on pause requests despite
-stm32_amdf_pcm_hw advertising SNDRV_PCM_INFO_PAUSE?
-
-SNDRV_PCM_TRIGGER_PAUSE_PUSH and SNDRV_PCM_TRIGGER_PAUSE_RELEASE are not
-handled in the switch and fall through to return -EINVAL.  In addition,
-SNDRV_PCM_TRIGGER_RESUME resets priv->pos to 0 instead of preserving the
-buffer position across suspend/resume.
-
-[Severity: High]
-Can stm32_amdf_trigger() race with an active DMA completion callback in
-stm32_mdf_adc_dma_buffer_done()?
-
-stm32_amdf_dai_prepare() starts cyclic IIO DMA via
-iio_channel_start_all_cb() before trigger() is called, and DMA continues
-running until stm32_amdf_shutdown().  While DMA callbacks are firing,
-stm32_mdf_get_buff_cb() and stm32_mdf_release_buff_cb() set or clear
-adc->cb and adc->cb_priv without locking or stopping DMA:
-
-drivers/iio/adc/stm32-mdf-adc.c:stm32_mdf_adc_dma_buffer_done() {
-    ...
-		if (adc->bufi >=3D adc->buf_sz) {
-			if (adc->cb)
-				adc->cb(&adc->rx_buf[old_pos], adc->buf_sz - old_pos, adc->cb_priv);
-			adc->bufi =3D 0;
-			old_pos =3D 0;
-		}
-		if (adc->dev_data->type =3D=3D STM32_MDF_IIO)
-			iio_push_to_buffers(indio_dev, buffer);
-		available -=3D indio_dev->scan_bytes;
-	}
-	if (adc->cb)
-		adc->cb(&adc->rx_buf[old_pos], adc->bufi - old_pos, adc->cb_priv);
-}
-
-CPU0                                      CPU1 (<softirq>)
-stm32_amdf_trigger(..., STOP)
-  stm32_mdf_release_buff_cb()
-                                          stm32_mdf_adc_dma_buffer_done()
-                                            if (adc->cb)
-    adc->cb =3D NULL;
-    adc->cb_priv =3D NULL;
-                                              adc->cb(..., adc->cb_priv)
-                                                <-- NULL deref
-
-The same NULL dereference can happen on a single CPU if
-snd_pcm_period_elapsed() during the first adc->cb() call in
-stm32_mdf_adc_dma_buffer_done() triggers an XRUN stop before the second
-adc->cb() call, or on START if CPU1 observes adc->cb before adc->cb_priv
-is written.  Because STOP does not wait for in-flight callbacks to
-finish, stm32_afsdm_pcm_cb() can also keep writing to priv->pcm_buff
-after hw_free, and setting priv->pos =3D 0 mid-copy in stm32_afsdm_pcm_cb()
-exposes a transient 0 offset to concurrent lockless
-stm32_amdf_pcm_pointer() readers.
-
-[ ... ]
-
-> +static int stm32_amdf_pcm_hw_params(struct snd_soc_component *component,
-> +				    struct snd_pcm_substream *substream,
-> +				    struct snd_pcm_hw_params *params)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(substream);
-> +	struct stm32_amdf_priv *priv =3D
-> +		snd_soc_dai_get_drvdata(snd_soc_rtd_to_cpu(rtd, 0));
-> +
-> +	priv->pcm_buff =3D substream->runtime->dma_area;
-> +
-> +	return iio_channel_cb_set_buffer_watermark(priv->iio_cb,
-> +						   params_period_size(params));
-> +}
-
-[ ... ]
-
-> +static int stm32_amdf_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	channels_max =3D stm32_mdf_get_sub_channels_nb(priv->iio_ch->indio_dev);
-> +	priv->dai_drv.capture.channels_max =3D channels_max;
-
-[Severity: High]
-Does multi-channel interleaved capture misconfigure the IIO watermark and
-channel constraints when channels_max > 1?
-
-In stm32_mdf_audio_init(), the audio IIO device always sets
-indio_dev->num_channels =3D 1 with 32-bit storage, so indio_dev->scan_bytes
-is 4 bytes (one sample) rather than a multi-channel frame:
-
-drivers/iio/adc/stm32-mdf-adc.c:stm32_mdf_set_watermark() {
-    ...
-	watermark =3D min(val, MDF_DMA_BUFFER_SIZE / (2 * scan_bytes));
-	adc->buf_sz =3D 2 * watermark * scan_bytes;
-}
-
-Passing params_period_size(params) (in frames) instead of
-params_period_size(params) * params_channels(params) sizes each DMA
-period to 1 / channels of the ALSA period.  Also, stm32_amdf_pcm_hw
-keeps .channels_max =3D 1 (overriding the DAI's channels_max in
-stm32_amdf_pcm_open()), and priv->dai_drv.capture.channels_min is left
-at 1 even though the MDF hardware always interleaves all channels_max
-filters into the DMA stream.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-upstream_m=
-df_v2-v2-0-7939d3c3720a@foss.st.com?part=3D11
