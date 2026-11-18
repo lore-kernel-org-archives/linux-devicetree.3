@@ -1,78 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795015341;
-	b=tvioyXeSSnzHOHLT++7jTuXG5bxfDzYKpeM0wwoES5Dt74HtAy12EaXsHAK/731VxNFl
-	 CEeokMVsAFX9ERja/Ayqpmt9sOb75Ecu0sY15iadSWj1RoUap2NYDB9r3K11RnPbzDYnT
-	 zWZEHp8EhnX4eMNZFcYfsStZPlmk+DQpZZ3xZ/oTUhA6MBIlu38y/hmPoa+G35Wxm1by6
-	 3VY9sX6VIPPcpEU84VFH3sJZelDEJmL8od3rz9L5SgxCInuBqgLdP051QzrDqTzsS3Pln
-	 2eMz8gMZK4qF6T7RF1G4wKEaD5XmgMALiNEpZWPyMWT0VQZk4uxf8eKnQ0dfgcIKJGg==
+	t=1795015434;
+	b=AxGom84yK/umtKyI2Ycd+PxJTelBB+8j2GQ9ATgUibOB2j46MS4509uR1PoNhUTEWE+r
+	 hHUwtESGaFEV/rkPWEVGUm4BNLgTpwFPHATRCr4ghWPC9r/h+MloNSoldDWNRaet9I+jw
+	 aIpR5Eqi/LEumMvaI9aTQx/1UUogOXFjl0CdxOmjKXjBHkfG9cFhr2qaB+6ctSJv6X3CK
+	 zsVkKELOa9FXNK6EaTcsfttrGYpiQwBM9/DGXZB6fCM7qau0Zju1K5O75rZY32WuqLoyE
+	 gXVFMoAiLTE+tn0kncB9tNIpvWt5P5mGFq6x9nZLJ3ciyoL/BwL4WwMkKOq2VmNcsqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795015341;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015434;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CQtt6NUcccISSbdyEpvPqzDH+yf6OBeSB8twsD4QtO8=;
-	b=ERBX+NdJ/Tf+7iAusTC8uCQcxOLfbuO2HpZs56uJqK0IcLJOBirpG/irqDcH+DftWlCT
-	 Ud18+mAa7y9EQxtCAZXeyT3WIFUiVBwQaNOG9UFuO50zV0dAQ2jh8fmH+P6qDPAdW7C0m
-	 iXKqTl3lBQe+wZhiMI1NhXIQnnRGD12coVSx1pHZf2AojoXuLRqyi4MZbqRTD9EV+PX/l
-	 0tcyi4ipXzodAj7xYeVbl+2id0WxwUlOpabSMhXaiuqDw7HITj7tXiB8U+if3dK3DmFkC
-	 qlzu40Cr9GDp6QD9o2ntRyQ5h/P44eGefpofOa2ONRhXBb4bbryoExJhKAhQl2Tzr2Q==
+	bh=oKUUXTVJS/LFVlMihYz3ZWqF9UHg5n3wCBX0shTUj3s=;
+	b=3zMwLeL6b4WyZcZnAi8S4+BS6G4t7jGk4KsJU4o2dnIa3CNdsXgOJVPWfAWDmmwRBwfC
+	 iurJvVQQeYQDd0AwQ/2HiD1gcAnpz/nQ1+bNlbuvx06eNzLWI9uYLvbbp7ztp2c13obKQ
+	 ELYWFF0RHqm2ablo5mCvD73grSIjIYu52pmQScmN9ikarwCNkK048r999jO13HADlcfes
+	 oxcW9VyVV6V/NvXYPmmaCxnIT41kWpRlTk+bTHmAlCri3scZc8dP/SekfAvjFBdGAsoZo
+	 Nh0iO8l3sbfhLy6JkzgtNThbhHuLRoIXYvi2tk0F9KYF62r2gXfdcK+pSSOzOYSPB+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W8zw2Mm6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UwezS82B;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427D960A263A;
-	Wed, 18 Nov 2026 15:22:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC94606A331;
+	Wed, 18 Nov 2026 15:23:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W8zw2Mm6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C27A51F00927;
-	Wed, 18 Nov 2026 15:22:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UwezS82B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 474E81F000C4;
+	Wed, 18 Nov 2026 15:23:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795015341;
-	bh=CQtt6NUcccISSbdyEpvPqzDH+yf6OBeSB8twsD4QtO8=;
+	s=k20260515; t=1795015434;
+	bh=oKUUXTVJS/LFVlMihYz3ZWqF9UHg5n3wCBX0shTUj3s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W8zw2Mm6V6Fv+uT0ZNqI1Cvw9GEO2JwPmKoZHpbqqWsKoXlB8W8+sHkz8Senji5ca
-	 7o6fygfYkLnYcO+fxJ4og/OtywPoDINQIJz8I05NbErdclxqvVKDB8rhmXSACnQqM5
-	 xZGF2BFxKR5DhmubJtiyDIrQTLzRGxJqCaKfKoB7PPXpa4J0KJXl3qVwBMYG47txsY
-	 pAt29173IoOHxUpZ0tylehRSEX75aeIGvIAP+5zyzgNpoKudptSsnrGWg3uFWS23Oe
-	 gsqspEiqKGuBIslxCEH7WfK+5Lw0iIJKj9n/qSxQXUHyjEr9TBsTVsT3jCdrV+Hain
-	 +ZGuc0so4b3nw==
-Date: Wed, 18 Nov 2026 09:22:19 -0600
-From: Rob Herring <robh@kernel.org>
-To: Kyrie Wu <kyrie.wu@mediatek.com>
-Cc: Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	b=UwezS82BdpUqMBy6fK1UgkbsZuFIzeYBAHayDD/gHgjNKwteAV2kDw6lP/s8WB/NS
+	 uFYMT3oyayM+8iacAsp3s09qOWnYngmh2Or5c2BtPU2iAPrb2Kq5YjwOv6X0LUlIG5
+	 QD2BI7vedjejC0Kcb1nFhR1YuVhV8YJ4hIPKCj2Bhgz0zR4YGP2iNdVB46kZ/B8naV
+	 gt66QUhOjmUbeK3Hqij0aZlR+oZWjXPajS9gXG8CUx808RdK0K6BmeSNbBTp9WmtWN
+	 ujAQqkV2RVk2jF/Ir/CFHuarhIT7ypMfUzRRpHQWdiw7mULKhlA67SBziSrWogtWO1
+	 s003oniKbOejw==
+Date: Wed, 18 Nov 2026 15:23:46 +0000
+From: Lee Jones <lee@kernel.org>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Ricardo Ribalda <ribalda@chromium.org>, Kees Cook <kees@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Fei Shao <fshao@chromium.org>,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	Tomasz Figa <tfiga@chromium.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Qianfeng Rong <rongqianfeng@vivo.com>,
-	Irui Wang <irui.wang@mediatek.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Fan Wu <fanwu01@zju.edu.cn>, linux-media@vger.kernel.org,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Val Packett <val@packett.cool>, Fabien Parent <parent.f@gmail.com>,
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	Chen Zhong <chen.zhong@mediatek.com>, linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: Re: [PATCH v9 08/14] media: dt-bindings:
- mediatek,vcodec-subdev-decoder: Add MT8196
-Message-ID: <20261118152219.GA1746506-robh@kernel.org>
-References: <20261117032950.1425556-1-kyrie.wu@mediatek.com>
- <20261117032950.1425556-9-kyrie.wu@mediatek.com>
+	linux-pm@vger.kernel.org, mfd@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v12 0/8] Add support for MT6392 PMIC
+Message-ID: <20261118152346.GC98456@joneslee-macbookpro.roam.internal>
+References: <20261105194426.1113050-1-l.scorcia@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,26 +73,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261117032950.1425556-9-kyrie.wu@mediatek.com>
+In-Reply-To: <20261105194426.1113050-1-l.scorcia@gmail.com>
 
-On Tue, Nov 17, 2026 at 11:29:44AM +0800, Kyrie Wu wrote:
-> Compared to previous ICs, the MT8196 supports a 10-bit decoder
-> and has a decoding capability of 4K@120fps. It also supports
-> 36-bit DRAM IOVA address and Video Power Control to optimize
-> bandwidth and voltage usage.
-> 
-> MT8196 uses VCP to run the decoder firmware, so require mediatek,vcp
-> for MT8196 and move the mediatek,scp requirement into the condition
-> for the existing SoCs.
-> 
-> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-> Acked-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> ---
->  .../media/mediatek,vcodec-subdev-decoder.yaml | 52 ++++++++++++++++++-
->  1 file changed, 51 insertions(+), 1 deletion(-)
+On Thu, 05 Nov 2026, Luca Leonardo Scorcia wrote:
 
-This patch should be based on this one:
+> The MediaTek MT6392 PMIC is usually found on devices powered by
+> the MT8516/MT8167 SoC and is yet another MT6323/MT6397 variant.
 
-https://lore.kernel.org/20261019212431.4109371-1-robh@kernel.org
+[...]
 
-Rob
+>  .../bindings/input/mediatek,pmic-keys.yaml    |   1 +
+>  .../bindings/mfd/mediatek,mt6397.yaml         |   6 +
+>  .../regulator/mediatek,mt6392-regulator.yaml  | 112 +++
+>  arch/arm64/boot/dts/mediatek/mt6392.dtsi      | 145 ++++
+>  .../boot/dts/mediatek/pumpkin-common.dtsi     |  82 ++
+>  drivers/input/keyboard/mtk-pmic-keys.c        |  18 +
+>  drivers/mfd/mt6397-core.c                     |  97 ++-
+>  drivers/mfd/mt6397-irq.c                      |   8 +
+>  drivers/pinctrl/mediatek/pinctrl-mt6397.c     |  37 +-
+>  drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h |  64 ++
+>  drivers/regulator/Kconfig                     |   9 +
+>  drivers/regulator/Makefile                    |   1 +
+>  drivers/regulator/mt6392-regulator.c          | 764 ++++++++++++++++++
+>  .../regulator/mediatek,mt6392-regulator.h     |  23 +
+>  include/linux/mfd/mt6392/core.h               |  43 +
+>  include/linux/mfd/mt6392/registers.h          | 488 +++++++++++
+>  include/linux/mfd/mt6397/core.h               |   1 +
+>  include/linux/regulator/mt6392-regulator.h    |  42 +
+>  18 files changed, 1913 insertions(+), 28 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
+>  create mode 100644 arch/arm64/boot/dts/mediatek/mt6392.dtsi
+>  create mode 100644 drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h
+>  create mode 100644 drivers/regulator/mt6392-regulator.c
+>  create mode 100644 include/dt-bindings/regulator/mediatek,mt6392-regulator.h
+>  create mode 100644 include/linux/mfd/mt6392/core.h
+>  create mode 100644 include/linux/mfd/mt6392/registers.h
+>  create mode 100644 include/linux/regulator/mt6392-regulator.h
+
+MFD looks okay now.  How many more Acks do you need?
+
+NB: This patch-set looks split in two in my inbox?
+
+-- 
+Lee Jones
