@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794991630;
-	b=2GpLU4p8vkJ8XhzbYXHixz6f0bYNkKdExsl/m6cIttldC1z2JyJ9CTEPAZ6wx+N5CYuM
-	 G0gYAfghSJNU/upAHp+HY5XT8bYoYzOfdjvu4JbBGbOKE/iUvL8ypapU1J5VWoBsm9Y73
-	 E15oqCzW8LN3+RMrEWsNaCmdnd2qEcBVlLRVWBBur9f2RzGG8naVGznDEtGfUvnTc02CN
-	 THgVaOTJ1wfLC12Ac8w8izZoqBhhUdcokPHS9SLowOxivOUOcDS9x5Riuc6nFGCZWJf1d
-	 lRDSV/wv90RU4wCdLqSWGifhMsMafmd5Teb8NXiJ+YrlU8sq23DZei1CWO3wZ0qbbRQ==
+	t=1794991636;
+	b=FwslFgCq58kEPL4ZBItrOI6CD4afvxSYSCpbpnswwi7Sm4jOAlcE524PI15KukIXztXX
+	 iNX7YkbQuSYVdyZFLR95Y3IB2cVxDA/oG8OW5COOAbclZWSCnX9WJGbx7SJi4uuH3D53i
+	 lmvPlu9KjAvwQfFgOgF6HWa6CnNsHTnr04gjFWJ1l3GV0xAYg5uc7bDyqqp6hCrRYAXnl
+	 dhKz4Va7biiUhC6fzWS0cDsZz3eQuSk0dMBDxx4t18GtUpBdz+Zv6RvWrcQTNTUl4EbFS
+	 2zuHx/eyQO5Vh4JsTX3iD3xYfBFKdLtL3aLoKp4u9PRBhOgylJV03XWyZlAp2bmz9QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794991630;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794991636;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=uYwSNnb7OA+GCMgTJIkrtvCSV/hKTuQm/TCR4lvd0JE=;
-	b=OqqrResvJO4oCWtkCBfs+QIEi5yawlJ7qVQCSnEmr/7HMTly/6k6a3i//EpovEAcJsIA
-	 QCxwPP/82gsn0ghHd5fh/mKQs8ljSEmV/fapw4+YmsyIsySTCQMkLmiu1dmZNmirpbBx6
-	 CwPzuYxvtVQKYHKHm2Lai1BzTQPqfbSRawwItT9VJv7XTKwNi6CGTukrNPKeL0A/I1Uvi
-	 pF+JUZJjZ+JZ0Qjha0jbCMBo3+Vtu9toJywpzMVLhPfybxxOk2kAKMHseR935vPcRNtRQ
-	 /yhIrADua23GgBoVUCdsnpPv6aaDcTuGtWQzbePFfWrom42rQ2Ydo3osPu11op8DL+w==
+	bh=YSFz3xr0Ka3dIWuBgo2VhzXnoDe5BqscI5is3FqVKAI=;
+	b=a1mid9cpqwkAKWSi5+6hv2CosENkeN56AzCtIr7zimV31LoazFnu6iVO55wvTjzxsL3o
+	 b8+JG8ZW7FEGxKlKUS/L8SVJncLQI9cfRgPmF2imOidfeqyqGmwoFpHyfeSi5Jf2LMieq
+	 K3OeHHtvf7q+6seOangsEOCg6XN+0IOlnMhWsF0rvFiWwTMqxJVHn3+0R0iwEDkjouugS
+	 SFvOA9ZzcArmiyA/O2v7lZVDjs1hPFQCa9bpCQNcCruRwZLwzYtIROzymSSVFoa4jAey+
+	 ocgvwsEE/7BO4mi3PCmhgim3M4MaudaXDNxB/2zkuV95W4UAyzJ0liFKlIBnOMC8/xQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdHFvCC1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ekqywKje;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8862D606A31C;
-	Wed, 18 Nov 2026 08:47:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A826606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:47:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdHFvCC1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D50E71F000C4;
-	Wed, 18 Nov 2026 08:47:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ekqywKje
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7D71F000C9;
+	Wed, 18 Nov 2026 08:47:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794991630;
-	bh=uYwSNnb7OA+GCMgTJIkrtvCSV/hKTuQm/TCR4lvd0JE=;
+	s=k20260515; t=1794991635;
+	bh=YSFz3xr0Ka3dIWuBgo2VhzXnoDe5BqscI5is3FqVKAI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hdHFvCC1WPamkRXXXdud9djAk7xMgrMdJOMeOMRXCkiFmRqPUfpggrsjEwsr22pA9
-	 NPk/uQxxLQ2wv1ESL1EIHXfJ+XOZng3bDNtip2jsvtTr/2/vBcf6hbn6M+5tGgdRwy
-	 sMCQuwmMTu0NVZndUUPSZ/tFb5x4GmG93YoVIjC2SvGPXvigsG7GRKB6sOU969XxIF
-	 bgRdi3bOOxu9xmnAL9A/4oS4u8T0mV+rVuk8fDrOUZ+3tKLgGksbIJa15UVlVCOovf
-	 t57h7C6e5FmPdj9yPx0IFL11Q+0CIlSg9nwM1e6bdmM8259pl8v09bQNWZu2DdiHfk
-	 eiJ/MtNb3Rl+A==
-Message-ID: <sashiko-outbox-220493@kernel.org>
+	b=ekqywKjeJvoyawRGvDtOTomKo1Exw26Ao9kBYU8yDNCXI4JcbDULrtajC1yy5jK2N
+	 n+oyVenqn+XZS0BQFJa2227X29RHkwWNGLrpQPyFg/d5S398Q2cpeh5itusuWyiQw5
+	 +qmszHIzvVkVb3JcYJQmI55iTaPtpl3UUVyc+k7LpIZwlGkc3LhmOByu4KrlB0QGgr
+	 DBGE69ZGaNn4Waw5zxeooBSGCTZKqoGXouJy6osTGxnqX7By091FNMwt8fOG3vKwPj
+	 VRYCFxtMeEyCCaCle8WhERGrb+qdZZv8cxuoEx4A2MrsaIFTcF5CLEz49uH6VjvLs1
+	 eI/6GSyrJaI5g==
+Message-ID: <sashiko-outbox-220498@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v1 5/5] perf: riscv: Deliver PDIS samples through
- the SBI PMU interrupt
+Subject: Re: [PATCH net-next v4 05/10] net: stmmac: qcom-ethqos: add
+ DLL-bypass for PHY-managed RGMII delays
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zhanpeng Zhang" <zhangzhanpeng.jasper@bytedance.com>, linux-perf-users@vger.kernel.org
+To: "Mohd Ayaan Anwar" <mohd.anwar@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118081327.10684-12-zhangzhanpeng.jasper@bytedance.com>
-References: <20261118081327.10684-7-zhangzhanpeng.jasper@bytedance.com>
- <20261118081327.10684-12-zhangzhanpeng.jasper@bytedance.com>
+In-Reply-To: <20261117-shikra_ethernet-v4-5-c41902e5f2fa@oss.qualcomm.com>
+References: <20261117-shikra_ethernet-v4-0-c41902e5f2fa@oss.qualcomm.com>
+ <20261117-shikra_ethernet-v4-5-c41902e5f2fa@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 08:47:09 +0000
+Date: Wed, 18 Nov 2026 08:47:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,192 +61,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] perf: riscv: transient pdis_cpus clear in
-  pdis_cpu_pm_notify() on idle exit
-- [Medium] perf: riscv: pmu_sbi_ovf_handler() restarts stopped counters
-  on PDIS IRQ
-- [Medium] perf: riscv: pcpu->ready left enabled on failure in
-  riscv_pdis_register()
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] net: stmmac: missing phy_managed_delays check in
+  ethqos_set_clk_tx_rate()
 --
 
-commit cd24c079596cb117f90d17389f647a0a1991c1b3
-Author: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+commit 5b51c98eb57ae32a708640c644714299b1e6a312
+Author: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 
-perf: riscv: Deliver PDIS samples through the SBI PMU interrupt
+net: stmmac: qcom-ethqos: add DLL-bypass for PHY-managed RGMII delays
 
-This commit wires up PDIS overflow handling into the shared SBI PMU
-interrupt handler, registers a CPU PM notifier to preserve PDIS state
-across idle states, and registers the PDIS test PMU from the SBI PMU
-probe path.
+This commit adds DLL-bypass and IO_MACRO configuration for PHY_INTERFACE_MO=
+DE_RGMII_ID
+guarded by a platform descriptor flag, and updates ethqos_set_clk_tx_rate()=
+ to
+avoid doubling the link clock rate at 100M/10M in bypass mode.
 
-> diff --git a/drivers/perf/riscv_pdis.c b/drivers/perf/riscv_pdis.c
-> index 9a8fe5e4ab828..60c9ece22dfce 100644
-> --- a/drivers/perf/riscv_pdis.c
-> +++ b/drivers/perf/riscv_pdis.c
-
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/dr=
+ivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> index f2428f0467bbb..99ea7e0cfb00d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 [ ... ]
-
-> @@ -413,6 +480,32 @@ void riscv_pdis_cpu_dying(void)
->  	cpumask_clear_cpu(smp_processor_id(), &pdis_cpus);
+> @@ -189,7 +193,15 @@ static int ethqos_set_clk_tx_rate(void *bsp_priv, st=
+ruct clk *clk_tx_i,
+>  	if (rate < 0)
+>  		return rate;
+> =20
+> -	return clk_set_rate(ethqos->link_clk, rate * 2);
+> +	/* Clock Rate Requirements:
+> +	 * MAC added delay: 250/50/5 MHz for 1G/100M/10M
+> +	 * No MAC delay (DLL bypass): 250/25/2.5 MHz for 1G/100M/10M
+> +	 */
+> +	if (ethqos->phy_mode !=3D PHY_INTERFACE_MODE_RGMII_ID ||
+> +	    speed =3D=3D SPEED_1000)
+> +		rate *=3D 2;
+> +
+> +	return clk_set_rate(ethqos->link_clk, rate);
 >  }
-> =20
-> +static int pdis_cpu_pm_notify(struct notifier_block *nb, unsigned long c=
-md, void *v)
-> +{
-> +	struct pdis_cpu *pcpu =3D this_cpu_ptr(&pdis_cpu);
-> +	struct perf_event *event =3D pcpu->event;
-> +
-> +	if (!pcpu->ready)
-> +		return NOTIFY_DONE;
-> +	if (cmd =3D=3D CPU_PM_ENTER) {
-> +		pcpu->pm_resume =3D event && !(event->hw.state & PERF_HES_STOPPED);
-> +		if (event)
-> +			pdis_stop(event, PERF_EF_UPDATE);
-> +		else
-> +			pdis_quiesce();
-> +	} else if (cmd =3D=3D CPU_PM_EXIT || cmd =3D=3D CPU_PM_ENTER_FAILED) {
-> +		riscv_pdis_cpu_starting();
-> +		if (pcpu->pm_resume && pcpu->ready && event)
-> +			pdis_start(event, PERF_EF_RELOAD);
-> +		pcpu->pm_resume =3D false;
-> +	}
-> +	return NOTIFY_OK;
-> +}
 
 [Severity: Medium]
-Can calling riscv_pdis_cpu_starting() on CPU_PM_EXIT or
-CPU_PM_ENTER_FAILED cause concurrent perf_event_open() calls targeting the
-waking CPU to fail spuriously with -ENODEV?
+Should this condition also check !ethqos->data->phy_managed_delays?
 
-riscv_pdis_cpu_starting() clears the CPU from pdis_cpus before re-probing
-device tree properties and CSRs:
-
-drivers/perf/riscv_pdis.c:riscv_pdis_cpu_starting() {
-	pcpu->ready =3D false;
-	pcpu->counter_valid =3D false;
-	cpumask_clear_cpu(cpu, &pdis_cpus);
-	...
-	pcpu->ready =3D true;
-	cpumask_set_cpu(cpu, &pdis_cpus);
-}
-
-Because CPU_PM_EXIT runs on every deep cpuidle wakeup without serializing
-against pdis_event_init() or cpumask_show() on other CPUs, a concurrent
-reader can observe the online CPU missing from pdis_cpus:
-
-CPU0                              CPU1
-pdis_cpu_pm_notify(CPU_PM_EXIT)
-  riscv_pdis_cpu_starting()
-    cpumask_clear_cpu(0, &pdis_cpus)
-    pdis_test_model_matches(0)
-                                  perf_event_open(..., cpu=3D0)
-                                    pdis_event_init()
-                                      !cpumask_test_cpu(0, &pdis_cpus)
-                                        --> returns -ENODEV
-    cpumask_set_cpu(0, &pdis_cpus)
-
-[ ... ]
-
-> @@ -444,3 +537,22 @@ static struct pmu pdis_pmu =3D {
->  	.check_period =3D pdis_check_period,
->  	.sched_task =3D pdis_sched_task,
->  };
-> +
-> +int riscv_pdis_register(struct device *parent)
-> +{
-> +	int ret;
-> +
-> +	if (cpumask_empty(&pdis_cpus)) {
-> +		if (pdis_test)
-> +			dev_info(parent, "PDIS test PMU unavailable on all online CPUs\n");
-> +		return -ENODEV;
-> +	}
-> +	ret =3D cpu_pm_register_notifier(&pdis_cpu_pm_nb);
-> +	if (ret)
-> +		return ret;
-> +	pdis_pmu.parent =3D parent;
-> +	ret =3D perf_pmu_register(&pdis_pmu, "riscv_pdis_test", -1);
-> +	if (ret)
-> +		cpu_pm_unregister_notifier(&pdis_cpu_pm_nb);
-> +	return ret;
-> +}
-
-[Severity: Medium]
-If riscv_pdis_register() fails, does it leave pcpu->ready and pdis_test
-enabled while the SBI PMU continues running without pdis_cpu_pm_nb
-registered?
-
-pmu_sbi_device_probe() calls cpuhp_state_add_instance() before
-riscv_pdis_register(), which sets pcpu->ready =3D true on online CPUs via
-pmu_sbi_starting_cpu() -> riscv_pdis_cpu_starting(), and ignores
-registration errors from riscv_pdis_register().  If
-cpu_pm_register_notifier() or perf_pmu_register() fails (or if
-riscv_pdis_register() returns -ENODEV and a PDIS-capable CPU is brought
-online later), riscv_pdis_irq_prepare() still runs on every SBI PMU
-interrupt and executes an unguarded csr_clear(RISCV_PDIS_CSR_CTL,
-RISCV_PDIS_CTL_OF) without pdis_cpu_pm_notify() registered to quiesce or
-re-probe PDIS CSRs across non-retentive CPU idle transitions.
-
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index 545b8becf90ae..af86a30aae835 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
-> @@ -1092,24 +1092,23 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, v=
-oid *dev)
-
-[ ... ]
-
-> @@ -1128,7 +1127,7 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, voi=
-d *dev)
-> =20
->  	/* No overflow bit is set */
->  	if (!overflow)
-> -		return IRQ_NONE;
-> +		goto restart;
-> =20
->  	regs =3D get_irq_regs();
-> =20
-> @@ -1181,10 +1180,20 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, v=
-oid *dev)
->  		hw_evt->state =3D 0;
->  	}
-> =20
-> -	pmu_sbi_start_overflow_mask(pmu, overflowed_ctrs);
-> -	perf_sample_event_took(sched_clock() - start_clock);
-> +	handled =3D true;
-> =20
-> -	return IRQ_HANDLED;
-> +restart:
-> +	/* A PDIS-only interrupt must also resume the ordinary HPM counters. */
-> +	pmu_sbi_start_overflow_mask(pmu, overflowed_ctrs);
-
-[Severity: Medium]
-Does jumping to restart on a PDIS-only interrupt start SBI hardware
-counters that perf has stopped or throttled?
-
-When an SBI PMU event is stopped via riscv_pmu_stop() (for example by
-PERF_EVENT_IOC_DISABLE or perf_event_throttle()), event->hw.state has
-PERF_HES_STOPPED set, but its bit in cpu_hw_evt->used_hw_ctrs remains set
-until riscv_pmu_del().  pmu_sbi_start_overflow_mask() starts every counter
-in used_hw_ctrs & ~ctr_ovf_mask without checking PERF_HES_STOPPED:
-
-drivers/perf/riscv_pmu_sbi.c:pmu_sbi_start_ovf_ctrs_sbi() {
-	for (i =3D 0; i < BITS_TO_LONGS(RISCV_MAX_COUNTERS); i++) {
-		ctr_start_mask =3D cpu_hw_evt->used_hw_ctrs[i] & ~ctr_ovf_mask;
-		/* Start all the counters that did not overflow in a single shot */
-		if (ctr_start_mask) {
-			sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_START, i * BITS_PER_LONG,
-				  ctr_start_mask, 0);
-		}
-	}
-}
-
-When a PDIS-only interrupt fires on a CPU with a stopped SBI HPM event,
-overflow is 0 and overflowed_ctrs is 0, so pmu_sbi_start_overflow_mask()
-restarts the stopped hardware counter behind perf's back.
+In ethqos_fix_mac_speed_rgmii(), the new DLL-bypass path
+ethqos_configure_rgmii_id() is only taken when both
+ethqos->data->phy_managed_delays and PHY_INTERFACE_MODE_RGMII_ID are set.
+On existing platforms where phy_managed_delays is false, a board using
+rgmii-id still takes the non-bypass path in ethqos_rgmii_macro_init(),
+which programs DDR mode and expects the 2x clock rate (50 MHz / 5 MHz),
+while ethqos_set_clk_tx_rate() will now set link_clk to 25 MHz / 2.5 MHz
+at 100M and 10M.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118081327.1068=
-4-7-zhangzhanpeng.jasper@bytedance.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-shikra_eth=
+ernet-v4-0-c41902e5f2fa@oss.qualcomm.com?part=3D5
