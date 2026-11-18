@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795004877;
-	b=R+2dLcSkGQvRxZ8H9eWX7/l4TRQB8bURmBFbwm/QDUw4KrtsiRlBf+D+JtpWQoCMN05o
-	 KGX0gk0nECsUtz+9gs5MIosgYDFGou4HnTq+XGkj9J4vLz8oRQodiiizky+rDkTVOtBzu
-	 7iRoAh1vDOSpl7znC2UE5GynoryqNl8G+V+Gkt+5waKoCrmjRNeI3+qaRRCASoWT1sOEn
-	 YmouUDBySC7hDMxIP7RY/8F/9thH6AhGjXtBR3npG9I3TF5mbQuka7TE0UyZg4p8hMOYz
-	 jT/LluwXk30lLZ6K342+kmvEq2yeb1S0t+5lcq8C2PGvNdaeSNlXhwcUQ7JLAsNPyqg==
+	t=1795004887;
+	b=MWCfbkY4GAdTqsxyLDCHBMIIgbZRoICcKxNp01T5tdrQFjvkFZCdeEoluQmar8MDlnv8
+	 th4pIRYQCeWKDrqjg6OckPEGXVOfvJUO4EzWcXl+xZPXm7x2z3G+WQDobdY9a49gci57v
+	 6Jc5sBSOVm2YEk5zyzac+JWBeAeOf4zdTcRE/QYAMFpS/hI/AUzON4qQHiEftDgBfLxA0
+	 QDdwlRAmEoyK8kyUNe5xo2lH/8bwikxZhTZDy0Q1z9N/TgcQbV/fpQgSgkHB2BMRi8+vq
+	 0yFg28lTEKKCtwEK3WAF76uXDxnWeXR7jiiIgDzzUA/L1nBKJYGOnyXg+Sa+q16rG5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795004877;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795004887;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
 	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=pWhnfvWenZjOfquzYUSnlcmZobUEBcHEFf7Qs3x3jIo=;
-	b=g20B69WuWMnIwjPhTOIgX2cTvijoChSsnODLN6ijE7hSFYIA3Ke7/O/mRI44koqYSPcD
-	 Mp1AboHeS/3e/i87aLXc1VzUAf1Qd7nrP0woSQlyYPGGl/SZY3ouvl+t0vllBvDd/1XD3
-	 osec8Fs0amJgxHY9ceB4GPNQBKB0ThjJMhzaUoqEZ9zPiZtGmFjbhnz+6Q+8DMTFXOOzU
-	 yI/Uy53ZYtIHfZUS65rhxj3/oK6F6srieh3zAEFqhGdTh4Kd+6bN7k7pOQGvK4faoFtMO
-	 nqCvFZjz6/HRBiv5HoqexOIffs8ZJjmK7ppP/IgBkireCQPT7zuZr0Gmf+fVD/FMPAg==
+	bh=8ByWoUJOn8xt5bIjc/DgDVb/Znhr0IJHP27C3VPG/e4=;
+	b=eSrcBp9V5W6f37L9cU4NQcVbyMmkC4wI9CH+/t4Z2iW4PTmyURDsf7xuDO0NptUOJhAt
+	 vNVY/Q5CYnIbw/Xi2UGdtWbnwRVR3r5zCkec+sm66RkuXY96NSkgRHbR5h145VX1GPrNO
+	 acsYdZ1SvOEntUMHwp/H8Z6UmKRGhG7CYAevrDo364n5021UOODvVI/M/4meSMRDjn7SN
+	 3+0cBGDlJnKDkq5P/X2K7gx2Lcy9ca8OiFx5A/92VjaIhM4iM1wRYLpvDgZf+6D+pLD4E
+	 K1qhk5zOCFRJ167RQeDw/P4qhKc7VaSGL1m9Rp9GobjCGPuBb86/JOZWKFalouTTwvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gnUqbuf3;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=dnVm0iMu;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14411606A31C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:27:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14411606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230F6606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:28:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 230F6606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gnUqbuf3
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-49465892f7bso653873f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 04:27:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=dnVm0iMu
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e46e449e8so556257f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 04:28:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795004875; x=1795609675; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1795004885; x=1795609685; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :references:cc:to:subject:from:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pWhnfvWenZjOfquzYUSnlcmZobUEBcHEFf7Qs3x3jIo=;
-        b=gnUqbuf3d57Xuwjq9mArqq7froWGp0MlQS9x6IlNT2NGP3q3w0Sjo/kyiHGRTKiB4q
-         P92nJhojgEV0yC+rIzGu8L1gqaBLRdfnpQ/GixH8reLCB3FQyZOp2jEL3KxKSJL/Pg2W
-         XpgDghUzVyPVrApQ+sPpAAFyZ2Aeo2PF2N0w0Qz1WukGOaa3CSp8SpYNcCRJi0JqSTpw
-         kdxcDlbsA4BPzGLa8nc5dSe85aI+2nGCi9owQInYgrxQBbn+gXTI7eUgLzyrhhFjbeZQ
-         KfZ4jYflBxgYv4XHeP37RUp+6rVc7fKTxM3p/9uHjaYt3O2RxDTnNOeL2E2HxSOjIEc4
-         XCOw==
+        bh=8ByWoUJOn8xt5bIjc/DgDVb/Znhr0IJHP27C3VPG/e4=;
+        b=dnVm0iMusTVZbWBGatNwsGk6hXJItGdBDtoycC83d5TcCKDiXmqk53H28++FqZOpWg
+         sEy77ThBd3zr+JYDthizOa/Ef4up+kU/sEk9gWZ0EKQNXNTkUHZ0Qt0R5/h1CZpo0O4D
+         HRrdZdEnfQpVJqSCOuOfiEkxtgkykjYwnK+5F7wpyGnuDEhUc7ecgdj3uz5Lieo3i/3w
+         ey9N3gNim8Xh+TivB83e5BAQHPQHVOb+j2YM4ybFqLOYbWPsHZS+5GV+KGVdSnrfBhw9
+         ULHSWXepTCZshnNubZQmqHROdOtpzVJ62YljmAaUndhAU3CjrdIq8LXgBdLVPvb+JloT
+         Ao8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795004875; x=1795609675;
+        d=1e100.net; s=20260707; t=1795004885; x=1795609685;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :references:cc:to:subject:from:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pWhnfvWenZjOfquzYUSnlcmZobUEBcHEFf7Qs3x3jIo=;
-        b=JF4tjG+vuAglNGtYl0EqiVg/IMwbEslsftBL0IqxxuLZzhBVzPBWDrX7fIEwLiawEl
-         RYKA7mk3VZOyVtDhHIxXx+voFTUCkQo9k7ejJMHdYsRzR2W0Ewh/R0XOZsxKlc5tK/0X
-         Q6+sSoc0qNJ1V12z7AEbUle9daGY6em/Amklob52KI5JC7AbWjdi1FswxcG6gdfzoAo6
-         C3zZWfatZuAF5WdguLePL4rxY574hQDeF43Pbi5l7wNecoqzhIWwYMct1GErQGpCZGGn
-         utMJRLcjdVXQucG2brU+A6PTC4kSKeO50xS3V8a5la2TG1uSOpzxN/jNgNzVT3TsTwG9
-         3Omw==
-X-Forwarded-Encrypted: i=1; AL+hErHhospruZk9QAKWnw4+a+qDYlEyOjqPBhTOsWKKmokPPZPw0cmwFuu9DU2acqAb2MH+RsVm7G14dpye@vger.kernel.org
-X-Gm-Message-State: APuU4Z9puKeVmy2cNdddsvJCPf0SoJQZj59scdC7q/dyc4zs1e31LXuN
-	+muau6BFDJBtHeCTwXUUspDg8oypVu8wekOw6nKMLK8E9CD4jx/VZaHv76qNMBjBlGA=
-X-Gm-Gg: AZFdTZfuydgPB6a3nS2oXfsVTM5FtwWCw2cDmctgxbGTXrTeCSVmkSRGbSjWuRLaMxp
-	wjYZw0AVFSqunFX7f9TRNUScf0YJrMoHfBVjf9jNkS96XKLarxHIq+3DDTHMe5FHd6lSkDX+8Z9
-	p8pGgYGIAo5S52coLMQbqTYywvUrdAqZ6j46kZ0g89WPdo+3NgcgqCm0KiX1kt1gkO+JJw7Z93t
-	2ssG98h5SpDh3xT6wDwaI62jtUuUAz0CL6RfvaCjIBvuhqQhSuRvq8hoItKTxT5KENowYSba21N
-	vrNKIGtDbhHVtB7ckhh7d4XOkR1/U7w6IuvE4LaYUaEYKCPm3fg7AJUWOdVS9ld3oA9R9n7oOmt
-	6m5IJdjOBoZ/2sZq7Wj7yt2oahhheaMmnXJaLovUpdl72Wwy0e/k7CH/HfeAtydawZDlvupbGji
-	cYa88toNLM8/nYpmL7OR52HBg2JBZniUjUB2EGSdnNo4ROKGlzrNWacGkcsY0SzS+PxKCNg7eLj
-	Bv4hbxH8SjS9KCwcZad25aYAQmKtR2da7dwz0u9t0W4xSENLIYpaIoqAXCW6xkqxquGWvZ62pEd
-	vL1FfU9gXt/Ltf9vmJGiyYQce1jILq19joDcqm80tlgLorsl/OaaG26pBm+3CsziA0HykRSdnTC
-	tfAtqZfxZrsv1tHHoHY5wpCc=
-X-Received: by 2002:a5d:5d0f:0:b0:4a7:9630:7b32 with SMTP id ffacd0b85a97d-4a7963080d9mr2359433f8f.46.1795004875475;
-        Wed, 18 Nov 2026 04:27:55 -0800 (PST)
+        bh=8ByWoUJOn8xt5bIjc/DgDVb/Znhr0IJHP27C3VPG/e4=;
+        b=sdzK1ieox7JS6reZncxxgtIQopayILFZ4YFGeKjLBrjLCDfOEqofsQz4gJbIIJFzSy
+         DUqsHN5rQJ2Kd/Ao0tHKLAFWShZl1qf20MqyEjmm+eUPsU++Xg74LGLbujYvw+e4SqJB
+         c/usjuCgVLVfEiZW+5TSKZoOG4EZ9M9J4vK7/66j0ESxJlHJGdGXxgWDHR3cqWdUlqzS
+         Ce1WYTA+g6oOQVqhfkJ4tEerjNheFQYPnJ5kzmHYkmzwDl03zEB1xQUKoqjrfKWy45KD
+         MXWkDLTHf6SQzgPgACbK+NttW+CyG6A2fween0gkM07Eb/cGqVTlyf/CzxBdYjGYdxDh
+         L3KQ==
+X-Forwarded-Encrypted: i=1; AL+hErEUn27Piga8t6S4wxKVPpKqDJwGtEnHD4/l6ziMAgGp+WpmiYKbLVJjaaPoMEHAfnF8LBA7jvS15X0j@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lWx0KREnp7x/KKaYB4kpmsHB1vkzzyPGGWhDBSSAt/KbfJBqr
+	BlAstFxPQI5k4MYvUJbK45EClHm2fevHV30dLdXDUpzKoOHfyOnOVHXmg/JoA8x3f1M=
+X-Gm-Gg: AZFdTZf7m+37+YHeE1phgxsbtPXJgZHlbCRGQzZHPZrkcLorMd6nYp4Vq86wEAaotYS
+	5XYu7zJ+WNhBmj2x7sjblh7go1uRB5JUE1/v91M5xVVx/6wlO/fW0yJG5WZ0iVh1eq0jjuIEBrS
+	Os2pmIC/7mM+b0FI3gvhnqPO8AOA6s0lmh6uT8xnWR7Xb36nauX1z9ehCMYTErcWNtuLvKf0T3u
+	6EPPYUDYviw+jrDtt+ASc15qAThM1nTaDqo1aUXuDtz+yghh3bET7JPwe1vFYUN7oRF4OPY2f20
+	+5Tvd7KxoCIjqryalTyWnVwG0AdnsT/QHpFX/gFb+UGBZNNZEFuA9ymfCe4pFw+RHrJNSDlWHsz
+	70NrmY9tDmcHRiMj3uvILIBcuHEmLa84Nh82bkIAfusCp/vNeB7fw7CiTrfO4K1hSxrWWKAMuse
+	SnWtj/yNx0qSVogdFdAk0Ym3RyXEIHSuiI8C1bcZZfGsJT/YdsKXQQDzf1RCE5hi45MEZWFlt7V
+	DIJCKSYtoWNYQHn6lkSBapmCJHgK9LnJYUQbAhS4ZPnA88SoLE15EvV5/HyexG5uDdMmIQHVzUp
+	x/x/Vcse4CSDATaJ0AZaDbhgfClfycFiG+L0ek7+WLrA8ackjGgUgZGXm/g2RSocvWoW+GQ/Jtr
+	YLg==
+X-Received: by 2002:a05:6000:2608:b0:4a6:8012:198 with SMTP id ffacd0b85a97d-4a6801202dbmr3938687f8f.31.1795004885474;
+        Wed, 18 Nov 2026 04:28:05 -0800 (PST)
 Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a655f9f4a7sm4675322f8f.34.2026.11.18.04.27.53
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a654a8c23bsm4011448f8f.12.2026.11.18.04.28.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 04:27:55 -0800 (PST)
-Message-ID: <0bcd84bb-6a87-453f-9b68-04dfa95f34a4@baylibre.com>
-Date: Wed, 18 Nov 2026 12:27:53 +0000
+        Wed, 18 Nov 2026 04:28:05 -0800 (PST)
+Message-ID: <c5068359-e155-4374-9f3a-1b89106c6fb4@baylibre.com>
+Date: Wed, 18 Nov 2026 12:28:02 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,8 +93,7 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Daniel Drake <ddrake@baylibre.com>
-Subject: Re: [PATCH v17 08/12] accel/rocket: select the per-core clock and
- reset counts from match data
+Subject: Re: [PATCH v17 09/12] accel/rocket: add RK3576 NPU (RKNN) support
 To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
  heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
  joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
@@ -110,42 +109,64 @@ Cc: royalnet026@gmail.com, ulf.hansson@oss.qualcomm.com,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
 References: <cover.1794615324.git.gahing@gahingwoo.com>
- <fcdd7117d3d7fe99ea1658c39b6d1a05428823f4.1794615323.git.gahing@gahingwoo.com>
+ <57874e7459ed84ad47b2e31a62871ff535da249b.1794615323.git.gahing@gahingwoo.com>
 Content-Language: en-US
-In-Reply-To: <fcdd7117d3d7fe99ea1658c39b6d1a05428823f4.1794615323.git.gahing@gahingwoo.com>
+In-Reply-To: <57874e7459ed84ad47b2e31a62871ff535da249b.1794615323.git.gahing@gahingwoo.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+Hi,
+
 On 14/11/2026 03:05, Jiaxing Hu wrote:
-> The RK3576 and the RK3588 use the same NPU block, but with different
-> numbers of clocks and resets.
-> 
-> Take the number of clocks and resets for each core from soc_data in the
-> match data, so the driver uses the right count on each SoC.
+> # Conflicts:
+> #	drivers/accel/rocket/rocket_core.c
+> #	drivers/accel/rocket/rocket_core.h
+
+This needs to be removed from the commit message.
 
 
-Rather than these clock and reset count rules via soc_data here, can we
-just rely on the DT validation that is almost equivalent?
+> diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/rocket_device.c
+> index db137e2ec15e..868af86d00ce 100644
+> --- a/drivers/accel/rocket/rocket_device.c
+> +++ b/drivers/accel/rocket/rocket_device.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/of.h>
+>  
+>  #include "rocket_device.h"
+> +#include "rocket_drv.h"
+>  
+>  struct rocket_device *rocket_device_init(struct platform_device *pdev,
+>  					 const struct drm_driver *rocket_drm_driver)
+> @@ -27,7 +28,7 @@ struct rocket_device *rocket_device_init(struct platform_device *pdev,
+>  	ddev = &rdev->ddev;
+>  	dev_set_drvdata(dev, rdev);
+>  
+> -	for_each_compatible_node(core_node, NULL, "rockchip,rk3588-rknn-core")
+> +	for_each_matching_node(core_node, rocket_dt_match)
+>  		if (of_device_is_available(core_node))
+>  			num_cores++;
 
-Then we can use devm_clk_bulk_get_all() and
-devm_reset_control_array_get_exclusive() and not worry about checking
-counts and names within the driver.
+I think it would be a little cleaner to do the counting in rocket_drv.c,
+and pass it in as a parameter to rocket_device_init().
+Then you don't need to share the dt_match over two files.
 
-dtbs_check will already catch cases where the wrong number of clocks or
-resets is provided, or where the names don't match the ones expected in
-the bindings.
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+> index 68df1596014e..59a6f548e108 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -31,6 +31,11 @@
+>  /* Bits 3:0 of PC_BASE_ADDRESS hold the mode selection bit and reserved bits */
+>  #define ROCKET_REGCMD_ALIGN	16
+>  
+> +#define RK3576_PC_TASK_CON_TASK_NUMBER(n)	((n) & 0xffff)
+> +#define RK3576_PC_TASK_CON_PP_EN		BIT(16)
+> +#define RK3576_PC_TASK_CON_COUNT_CLEAR		BIT(17)
+> +#define RK3576_PC_TASK_CON_LAST_LAYER_CLEAR	BIT(18)
 
->   static int rocket_probe(struct platform_device *pdev)
->   {
-> +	const struct rocket_soc_data *soc = of_device_get_match_data(&pdev->dev);
->   	int ret;
->   
-> +	if (!soc) {
-> +		dev_err(&pdev->dev, "no match data for this device\n");
-> +		return -ENODEV;
-> +	}
+This introduces an inconsistency in the way registers are handled. All
+other reg definitions are in rocket_registers.h (originating from mesa
+xml) but this one is placed here.
 
-
-Since this would only be caused by a programming error, no print is
-necessary.
+I think you should add it to mesa as some kind of register variant, and
+then regenerate rocket_registers.h
 
