@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795023864;
-	b=kFOL4Z2/f+SdjHo6fdbPJK9Uqgcr7b7YFRmdCwItymqczcT7x5hUajLBhV6ORx3/vtkD
-	 qeuVQMGtFoYpvufsIuj0hL3fNnSOdZ8qDxLHmUpjg0sF9qYCBEfe0mwtiub2dNIXoaqS+
-	 ym/XbY8HMkNf/cV2K+PsTvJNjoM3GyZYmg0AgldT6PKnSdXptb7SCxx5+LMUEE8ptm8V7
-	 sCpqBEEPCNaCCr250B5THJtX/I2zJFJf+sA+U83RmumG5owtGX/J0lZC+foxtvyfS8ROc
-	 vJpQoXaJEZDKaphzqYIdohdB15lTSYFeDnuT5vxyr3YfjruL4Vw+m0sRQAPqSlMiHHA==
+	t=1795023867;
+	b=NdHsZuOqhBd4f26f/NemlvA+QRN6VwMfFfrYHumlpPkTnmuDkb4aVlFzHeYSm7PU5nQX
+	 g9mqAdVWN9RGv50Wc4YgIZSuPnB9dERqP9V8LTuGQbweSntzAjNbyEq1N70lfFjW6A861
+	 nZCzP84odfv+4F5Ntem/AnXIx1B60zZOazW20Hxr1v8P+AJBuYkr6zniDnrNVQxvUxWw3
+	 aQ0yv/7jTYZZR9eqk1w8FnFLm6Cv+ki3bBUdumeZc/I4tpZu7JIT58tarBQvPoGoMd8iE
+	 5XbY1LzW9qEqqzq6FMxJmdlpFs8fKpVye5aGCRqPk4mM264nKE2HZSBTps4yy/NoCWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795023864;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795023867;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=sCmHtrQ+6XrvMRrdRCPqx5sKsj7rGGNMbxIOJEi2aPQ=;
-	b=Adb2OulD4odDBV39Fdo3SXaDFXSC27GQ1xDLmZDmdIaBtweaxUEmCvtLVCDRSxnmkgQL
-	 IFAd2g8IPLtTOWPSGcU3C1uLNMmBOvtCzCw1r1KsXAkLxPHmJRogK0/dhLEgKuNpR8C1f
-	 uKVEmCiidbxn1Poz2zPcCrkwr/puXU2IACJ9xkHjwhVxQbaz99HSiiXZgipKgracxe7bY
-	 em1BPl90BRc9yaiY7dC2cv3Q12+LmaN3cVhfHJDJqiEHWWPap3V0mofo6wHdueKlmkTgy
-	 7Z4+N+xOsZSpvZtGxTVtJJbljWqJgI307wKsPGZwg4j8jW9hN4E86Gcj1NVBCgX9wfA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=4soOe8J5RcbwJ9ZjXDdzfBU9+cvbWhpoPlwod6HNRmE=;
+	b=1tK/EyscundfqJxEjAQGT02SRxCIhjcafpaJQFZO8yw5UsmPcpAwKZViRTqhZYLJJEw2
+	 z7u5o7uVuC6Bkdm/8AI3hVb4x1oUmicso5oh+qEKEMJ7nyMwrV54y5eiuGOinLhBFvjcQ
+	 Zv8PoTD/m7TVshvwadleafUNdK7cg/JNPN7wTKxMVYQVo2e5kPBWQKsta3IYl//PlWpGF
+	 6/TVX/s9OsVOAMBQoz2Rlf/rKlRFjsAZ5FX5Ce/uHNE9w8KPkrXkhJW3dTeVe1ziEk20/
+	 AlHhcXUifDaVd/uq+rRN6/ZNx28HkF3D8Ye5tFjwVTJUqQCXUCBXRDLbZBAHDVx/LXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0cWDo1b0;
-	arc=none smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sQFpT8U3;
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20E1606A325
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:44:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D20E1606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED35A606A325
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:44:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED35A606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0cWDo1b0
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so202902666b.2
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:44:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sQFpT8U3
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c511cdd5a82so98252566b.3
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:44:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795023862; x=1795628662; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sCmHtrQ+6XrvMRrdRCPqx5sKsj7rGGNMbxIOJEi2aPQ=;
-        b=0cWDo1b0Vz8NKj50u6qJhSdLYhHKP89Oa7NiQCl3Mzi6rEGcDWBIvlmv1Ps9NB6RhJ
-         H5VT0LvBm7v8pMiM9gzrsa3leqeTEpB8QsoCdloW4ikHpV7B/i7FNAuprxbmy4C/40Kc
-         AH1kAKabhVplQ5dKgPWCZD4ewibVjJnb0MGve5PVGgwocRJ7oYfd2pEQyUR2OwqIr4FR
-         xNbAVTOQXvyF6Qwk4ToYTpuqnKTAWUk87h1pnaW96D4TL073dSjeBlvNOEhP+BiZwcyy
-         bYKzYNTfxpp4bQOQOGcNr8pXtg8CysDPaU86LUwvEcvhXMJ00exZ+AMKKVNu74J3uHfg
-         ou8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795023862; x=1795628662;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795023865; x=1795628665; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sCmHtrQ+6XrvMRrdRCPqx5sKsj7rGGNMbxIOJEi2aPQ=;
-        b=pnKLemqrFNnfYQGvHCEFvjsFZ/O0kp3wJoKjAjB/FnxSqwugvSqYwYpW9vNi7aVHPh
-         TuHP93ASf3r2wK0waJ5cEitQAZT7wGIqkh7j568LqX4ydGtAtdwgh1y9OuUbBfhaxoBB
-         /4eBORnqrJewzGg8YlNqqsVKr4+D0+bkKwgBdvvwdSnduMLoNEwYFkhPi8LsnDC6H0H6
-         RRgKgmU4aJb+BowEzZYrj6gbSqS+B9G6YsciPch8tK4Kx9YWWKdtH+Osp2BIPBFaBifR
-         Y8FSPTBquUtBMTLYOgBWgbdvHaIUyfLKD87UQYXpMDAEV6WDV89QKlCE3I3Y3H47Pf06
-         mW9w==
-X-Forwarded-Encrypted: i=1; AL+hErGfzI78t+aDN3QiVxVTHgjg9yt0NltWvMSSV0pHzmUw/GAf7P3EU/8r2z5Nspg4+T40AUivABxcwgGN@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ziQ57sciOqlY7rviIgfRFzEOtAz5S24eQ5+xcmK7JaBMQfjgi
-	asge+TiEYTWt1LlyOrZXbpeUpun+O1l+E5CmEeORhZiwceNp5QbHzDqo
-X-Gm-Gg: AYBFou1+w29r4HFy0JaAYahZG/LJrGaXK4bKGacy4ugWo0C5gvPulS1cHLAUjhCICRU
-	qDwToH9J3j8Jwidaq5t4QhioAEULVSWR1Q6zXNyr21bRdpCc5R/tpSGog8X8JEDEaPb84NQ0gBy
-	vbNbe6QRuRwVIkcyAAao/RwcMaCYHHgq7dacStmg0mFA0blKVWiyzWYgFR17hlFh3/rgqLnES4R
-	pl5GO6g2b5hnT9NpUHsRywpoIkQMr7v04ANll/RS+LWvJSG3o3Oeh5Muovn8lFpMSw0zyWjXdfs
-	KnkGY1SY+xrr2ymJvLssCf7BL7J717+E4wah0XJZ6Ho7izD2WNgIg0W1hDTfsTqTDSgtxE2suJK
-	LaMBD28a/Fe6uepgfBiA7omJj120qr/aDo+ZohNk0b+sTMEGJIAAdY/AZ55FjWYb7Eu5/pKKwVJ
-	2j15w/p8+1wGMpPWQ/Ww2W6XgggH5owxxD9JpUD0HwFQmyTIPk3eLghmkr74yhkKivXKH8IBQzc
-	LUTQR0r8JLkZ7ScJaa/xLFPsD7meRpBRnQ/KKFKZT/lEHgEf7Cwjl304i+3M3OqIUIJnRtr9JRn
-	65zhrw7EaH4Z+A6AdeNZLaWPwf/2ViuMF0U2AsY91Jr8UbuxExoUi3ri6s7ZLZweWiDKP4Xvnko
-	MxCsLCbc29sDO6b1x5UArSueODkBUEpywSA==
-X-Received: by 2002:a17:907:d406:b0:c49:cfcf:8d7f with SMTP id a640c23a62f3a-c510e3bd593mr314327866b.46.1795023862016;
-        Wed, 18 Nov 2026 09:44:22 -0800 (PST)
+        bh=4soOe8J5RcbwJ9ZjXDdzfBU9+cvbWhpoPlwod6HNRmE=;
+        b=sQFpT8U3U9tJRgjpg5itqRYSIhcz1jOA3BfYS3mw5xEQsjb1u9bj7zm1AjegHjvG3y
+         vw/W6x6GK+AC8oprqO91tn5Ef3ptmE1o3muJqlUkKXLZMcqjkcHUp1DJlZR8chyx2yil
+         UAkTLub3VBgXc6dtgZVA1gpGQQEtu/Z3Z/LT4iZLJd8lID2QsT5lEpuiXW7cZXBdzEkx
+         OZNg4thCfF4qisSB1rBFDPyZ4a4Z8CDOIA/m9zyyMz8AlRASw1be3zkr6LPE8gOsytnE
+         AKZQG0dknLHc1j3GxEk5ncxdYaD9FwfIZIWvYgDzrBhEqEtjBLkNrs/AL1Cs8X8sacYF
+         pQ2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795023865; x=1795628665;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4soOe8J5RcbwJ9ZjXDdzfBU9+cvbWhpoPlwod6HNRmE=;
+        b=KyL+1G0eVh2zfZD2W7mL78mMqGBuoMePGpViMlrIhgWOdZfydZAAu9rqMQs7Q4BjBm
+         tgMJoWkX3slNkg/gobkNHP/e+FmfYT9LruA1uVRIe3o/Pj8ygLMfRQ3zWLAbTi5znjB2
+         wDrwgbzYgOjSW7eNkg/+H+eFRnd5vIYZPH32Z2VSl4ZsvtGEJT4g03y0Ymf9NAbsEDZo
+         DO+pB2HLuWtiZcHbOPllsNB1LbDMk6p0bsppFic+1ESeM+lQqaWHdz99pKj9B22/GhNV
+         0Qf5X7RPJBwknAtSJl2x+FHTPDxLZuaQKggy2cnCglwid59XYkz0hmWk3sH5x4O7FY3b
+         fyYg==
+X-Forwarded-Encrypted: i=1; AL+hErFltVXaryPTzwnIFWrn1Hj93bv2JvS4oMtF8Qpo8LuaDczKI7JLXOQ6IvKJRDI61/N0D1cNwrXSab7j@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nr/yNGFK1wIgcASsqN5zg7dAwxf6GSCLQzseZIL8AZwyFCQaM
+	UieUW6rO/s4UiEDjfoOFFEwvaTkVSLCdA5qQUvWNtm38X5OHIUy7wq83
+X-Gm-Gg: AYBFou0LJbF1mj8mj+rVmw5oZ6qRH4h7Y1t2dhZzWxCnE0Ubdy1jc5OFZ0ryJk3iEte
+	4f22lBRr3dDXcPPQaRtrBqbAMDH+zZkOMELd2RrWmVc0fWL8TraOotoHG2SyaOfyNImeu/L8hGZ
+	to/S7uZbmiABASxxfIB2Ki04dW258b2KwX2aCTNIIeJCSojm55pU/d8eRAkB5kd4lvl8X2/DW8u
+	QCOhOcv+XxhcnD/ZkuUkA8Y5V2uUtZR6Ov3pcQgBEU5g6tbhPEFnifsVwlzkvUPpXL1Z8QDpcgL
+	/E/9ih7P/NjPtnrcGBXs2SOkvgofx4unSQOTAviN94ep1UmPg+DtFYqJ4SWlq9rZdfikHzT2eHl
+	q0RRwwn4IyeQZMHhtNXMR3PFme8dFcYhYdA7P224RCF4yRJR1NPs+qoN1YK4OBQlwrJTycPAq4J
+	Ft/IZuimyJo6d2GS/PvXRD1qlffAr+B5t67i7/GbJh6+WIeRDgPKYGBWwQasWdYyJeIm+wL68/k
+	7E9Modn4VZE+agmf5w32M3qdE6J/lOcGnuiM/1FHrWmjrNPq4sSYckY4m1v+rAHb8WXuZZ4TA5b
+	Ifx/QqS+HMhXKSfcIuPbLvwF7c5STEwETqgZtUlpSkJ8cOkyBHr2aIJIo26VAV3DgiUe38B7HTf
+	tqy8fhKw+emiKjsZk1xHNXAHesbuVIM6Y
+X-Received: by 2002:a17:907:6d1f:b0:c46:8b87:c1f4 with SMTP id a640c23a62f3a-c510e2d4ee1mr313457266b.20.1795023864719;
+        Wed, 18 Nov 2026 09:44:24 -0800 (PST)
 Received: from fedora.tux.internal (85.191.71.118.dynamic.dhcp.aura-net.dk. [85.191.71.118])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51233c3befsm25904066b.26.2026.11.18.09.44.20
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51233c3befsm25904066b.26.2026.11.18.09.44.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 09:44:21 -0800 (PST)
+        Wed, 18 Nov 2026 09:44:24 -0800 (PST)
 From: Bruno Thomsen <bruno.thomsen@gmail.com>
 To: linux-hwmon@vger.kernel.org,
 	devicetree@vger.kernel.org
@@ -86,10 +87,12 @@ Cc: Guenter Roeck <linux@roeck-us.net>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Bruno Thomsen <bruno.thomsen@gmail.com>
-Subject: [PATCH v2 1/2] dt-bindings: hwmon: ti,tmp401: Add channel nodes with label property
-Date: Wed, 18 Nov 2026 18:43:33 +0100
-Message-ID: <20261118174334.18759-1-bruno.thomsen@gmail.com>
+Subject: [PATCH v2 2/2] hwmon: (tmp401) add channel label support
+Date: Wed, 18 Nov 2026 18:43:34 +0100
+Message-ID: <20261118174334.18759-2-bruno.thomsen@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118174334.18759-1-bruno.thomsen@gmail.com>
+References: <20261118174334.18759-1-bruno.thomsen@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,122 +104,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-TMP401, TMP411, TMP431 and TMP435 have one local and one remote
-temperature channel; TMP432 has two remote channels. The local channel
-measures the board where the chip sits and a remote channel measures
-whatever diode is wired to it, so only the board design says what each
-channel is.
+Read the optional per-channel label from the device tree and expose it
+through tempX_label, so user space can select a temperature sensor by
+the name the board gives it instead of hardcoding a sysfs index.
 
-kam,am335x-emperor-mini fits a TMP431 in place of the NXP SA56004 on
-kam,am335x-emperor, at the same I2C address. On both boards the local
-channel measures the baseboard and the remote channel the FPGA's
-thermal diode. national,lm90.yaml already lets the SA56004 name its
-channels through channel nodes with a label property; add the same
-nodes to ti,tmp401 so the TMP431 channels get the same names.
+The channel index comes from the child node reg property. Reject a reg
+value that the detected chip does not implement, since only TMP432 has
+a second remote channel; accepting it would add a tempX_label with no
+matching tempX_input.
+
+This mirrors what lm90 already does.
 
 Signed-off-by: Bruno Thomsen <bruno.thomsen@gmail.com>
 ---
-v1: https://lore.kernel.org/linux-hwmon/20260730133058.14731-1-bruno.thomsen@gmail.com/
-
 Changes in v2:
-- Rewrite commit message around the board that needs per-channel
-  labels, rather than referring to other bindings. (Krzysztof)
-- Quote '#address-cells' and '#size-cells' consistently with the
-  patternProperties key. (Krzysztof)
-- Drop the new example and extend the existing ti,tmp431 example with
-  the channel nodes instead. (Krzysztof)
-- Reword subject: the patch adds channel nodes, not just a property.
-- Rebase on the new "#thermal-sensor-cells" property, which moved
-  the patternProperties context.
-
-The "kam,am335x-emperor" device tree series that consumes this is at
-https://lore.kernel.org/linux-devicetree/20260318085420.7680-1-bruno.thomsen@gmail.com/
-Its v2 adds "kam,am335x-emperor-mini", which uses these channel nodes.
+- Fix continuation-line alignment in tmp401_read_string() reported by
+  checkpatch --strict.
+- Expand commit message: the channel index comes from the child node
+  reg property, and a reg value the detected chip does not implement is
+  rejected so no tempX_label is created without a tempX_input.
+- Skip child nodes not named "channel", as lm90 and tmp421 do.
 ---
- .../devicetree/bindings/hwmon/ti,tmp401.yaml  | 48 +++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ drivers/hwmon/tmp401.c | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml b/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml
-index f283b567d5b6..b162bf8c043a 100644
---- a/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml
-@@ -30,6 +30,12 @@ properties:
-   reg:
-     maxItems: 1
+diff --git a/drivers/hwmon/tmp401.c b/drivers/hwmon/tmp401.c
+index 2fceeacdc88c..7b645d982c9a 100644
+--- a/drivers/hwmon/tmp401.c
++++ b/drivers/hwmon/tmp401.c
+@@ -117,6 +117,7 @@ struct tmp401_data {
+ 	struct hwmon_channel_info temp_info;
+ 	const struct hwmon_channel_info *info[3];
+ 	struct hwmon_chip_info chip;
++	const char *channel_label[4];
+ };
  
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-   ti,extended-range-enable:
-     description:
-       When set, this sensor measures over extended temperature range.
-@@ -53,6 +59,26 @@ properties:
-   "#thermal-sensor-cells":
-     const: 1
+ /* regmap */
+@@ -467,6 +468,16 @@ static int tmp401_read(struct device *dev, enum hwmon_sensor_types type,
+ 	}
+ }
  
-+patternProperties:
-+  "^channel@([0-2])$":
-+    type: object
-+    description: Represents channels of the device and their specific configuration.
++static int tmp401_read_string(struct device *dev, enum hwmon_sensor_types type,
++			      u32 attr, int channel, const char **str)
++{
++	struct tmp401_data *data = dev_get_drvdata(dev);
 +
-+    properties:
-+      reg:
-+        description: The channel number. 0 is local channel, 1-2 are remote channels.
-+        items:
-+          minimum: 0
-+          maximum: 2
++	*str = data->channel_label[channel];
 +
-+      label:
-+        description: A descriptive name for this channel, like "ambient" or "psu".
++	return 0;
++}
 +
-+    required:
-+      - reg
-+
-+    additionalProperties: false
-+
- allOf:
-   - if:
-       properties:
-@@ -75,6 +101,16 @@ allOf:
-       properties:
-         ti,beta-compensation: false
+ static int tmp401_write(struct device *dev, enum hwmon_sensor_types type,
+ 			u32 attr, int channel, long val)
+ {
+@@ -502,6 +513,7 @@ static umode_t tmp401_is_visible(const void *data, enum hwmon_sensor_types type,
+ 		case hwmon_temp_fault:
+ 		case hwmon_temp_lowest:
+ 		case hwmon_temp_highest:
++		case hwmon_temp_label:
+ 			return 0444;
+ 		case hwmon_temp_min:
+ 		case hwmon_temp_max:
+@@ -521,6 +533,7 @@ static umode_t tmp401_is_visible(const void *data, enum hwmon_sensor_types type,
+ static const struct hwmon_ops tmp401_ops = {
+ 	.is_visible = tmp401_is_visible,
+ 	.read = tmp401_read,
++	.read_string = tmp401_read_string,
+ 	.write = tmp401_write,
+ };
  
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              const: ti,tmp432
-+    then:
-+      properties:
-+        channel@2: false
+@@ -531,6 +544,7 @@ static int tmp401_init_client(struct tmp401_data *data)
+ 	struct regmap *regmap = data->regmap;
+ 	u32 config, config_orig;
+ 	int ret;
++	u32 ch;
+ 	u32 val = 0;
+ 	s32 nfactor = 0;
+ 
+@@ -590,6 +604,28 @@ static int tmp401_init_client(struct tmp401_data *data)
+ 			return ret;
+ 	}
+ 
++	for_each_child_of_node_scoped(data->client->dev.of_node, child) {
++		if (!of_node_name_eq(child, "channel"))
++			continue;
++		ret = of_property_read_u32(child, "reg", &ch);
++		if (ret) {
++			dev_err(&data->client->dev, "missing reg property of %pOFn\n", child);
++			return ret;
++		}
++		if (ch >= ARRAY_SIZE(data->temp_channel_config) ||
++		    !data->temp_channel_config[ch]) {
++			dev_err(&data->client->dev, "invalid reg %u of %pOFn\n", ch, child);
++			return -EINVAL;
++		}
++		ret = of_property_read_string(child, "label", &data->channel_label[ch]);
++		if (ret == -ENODATA || ret == -EILSEQ) {
++			dev_err(&data->client->dev, "invalid label property in %pOFn\n", child);
++			return ret;
++		}
++		if (data->channel_label[ch])
++			data->temp_channel_config[ch] |= HWMON_T_LABEL;
++	}
 +
- required:
-   - compatible
-   - reg
-@@ -103,5 +139,17 @@ examples:
-         ti,extended-range-enable;
-         ti,n-factor = <0x3b>;
-         ti,beta-compensation = <0x7>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        channel@0 {
-+          reg = <0x0>;
-+          label = "mainboard";
-+        };
-+
-+        channel@1 {
-+          reg = <0x1>;
-+          label = "fpga";
-+        };
-       };
-     };
-
-base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
