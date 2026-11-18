@@ -1,59 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.76.78.106
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794999448;
-	b=FP06v+h3UE1gR+SpYE/tZzRGtjcGdUtr4I430w7pz17nmwntaZcKg+SYBVoYXeZPOmAx
-	 Q6YCWFkQqajqZZFpK8MpGqAdAbUGi41DSr9kHJKlmkRWvnq+md11Ev+W5d44Z7dgKMoCJ
-	 T32YsdaVyanygevRZFOmE85v4CzpBjZSnacZ1fJc//sTE6sxu5G/IeWjnsBxmUq816Zuu
-	 62xxGY3Y9t5+/an4JnpTXl8/pq0OmayWYD5IlS020318lN1plzFAVHRI43vM2qhu0wXR8
-	 JrgauDie1AQ5TK/J8KDOscxQ4N3N4Es0k9MZ4aZ2+pkFVdmSRz/ImAdtQTtH4AduzBA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794999448;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=5vccRsej6U4a/ZHe+hzTCUcNdodK+DAuno/TNDFubxo=;
-	b=AvP3me1wWi0RpIEPbx2DAOS7HWSMiUslfxiK64Ce1jK/1Qfa8PdYgmL0OkiJMNbiafZR
-	 7Pib2/s+BXkVGXubekegfpfUPhtqx7dBFS1YIpHxrCoaA6k6R8vTB1dnCNn2203wSxNqt
-	 3Hj/Zhx1eNcKO5z45+I+u6r4BzySg77DyG3Rb6TINzrkymvfwdu6xQdasOlmMfnGPtJer
-	 6fMtbpj83FQYzLcv2qkuz7MRvD2CfB902dMLpMxbzCDLbyj4A37FfAyDyX7/jWU0UD/oT
-	 UtWP+dfmb71NZyZwgJX615V/bQOQsPY0iScA/Qfjxfw5+T8jHzGGrfjqUfkyR9YelXw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=eswincomputing.com;
-	spf=pass smtp.mailfrom=eswincomputing.com;
-	dkim=pass header.d=eswincomputing.com header.i=@eswincomputing.com header.a=rsa-sha256 header.s=dkim header.b=TLujzcJr;
-	arc=none smtp.remote-ip=13.76.78.106
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DCD5C606A320;
-	Wed, 18 Nov 2026 10:57:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCD5C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794999618;
+	b=lvCaoarRgmg6+L4zGh6Mhs0yhv9U7lceL8mWY2seoALoPklQfTIIMancrgq9c5NhcZkf
+	 Vt6KraAoFX1cz+y8+GBxQpfk6C10ZTKwtoRV2bK9Rmv/k2/c9ZqHK7gkBENScGDTbjoSC
+	 IP9TvMTxJmz/dMTNl2l1O/qgexh67NAnrfVC88Bas36orplAO0kSV5V+y/WIcBqjIJhOr
+	 OcEkcRzVVTx11dYodCAJizE3NxGNuAAFK+QOAWaVXs2rvmaQgHq8zceqOY32XiefWy2n1
+	 oBmzQ+rF/IzJ8jeMTa3Y0eEuWtLYHfbCT61/tM6ivgxQWLkuHXVUBbR6OjLxG1nBCjg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794999618;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Mwq+iu5CW36e5IgB7HRxeUVlsDlGieQ1iNgZ9f4H8eI=;
+	b=5C57/XaOTrYkr/5Dv2w5tuCxf4NyUSzdPz3uqeEScD2ucZlQqov8Pydxl60xV3uC4/pr
+	 QxGrYc9aY0uNY1aObne5aenEMFnSSTgrFpZTkhPcDw6XRum6wdLqP2C3mu+NyzY+M6kET
+	 YIB6ge2Nj41hHn/RUTdyUDYb7HhRFLwzM+CkSmofh0vx+d70yUUm4388sQr8Eu+bE0WRh
+	 r6X1E9ql7UJEZwFQPUNzOCmACqPykyuXNzDCThin1xRIiUM4RlWUtqDYoJ5nCFQFuLebG
+	 C53IzVrz9PJM3MBQA4egq8Tw3ZtaNOx6ZZJXvWQMnG6k6/TwSf1uaCg8UK+pFYGvf+A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZGjsGKxa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C7560A2600;
+	Wed, 18 Nov 2026 11:00:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=eswincomputing.com header.i=@eswincomputing.com header.a=rsa-sha256 header.s=dkim header.b=TLujzcJr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=eswincomputing.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=5vccRsej6U
-	4a/ZHe+hzTCUcNdodK+DAuno/TNDFubxo=; b=TLujzcJr94kTWqv3zompplZjyp
-	JJifaWWpcbjg1yZPbHKP47SsjUEIBRtLvXYNLwnu33crjK+ckxIZAWP7TVauSj1u
-	+yfdqlZITz8TY7Js3aFcc9gl7ilPEr9IC1tMcdmRKU3ocpQrpaolURQPXflxH6Gr
-	9xFCGTJ22d+3kUv9k=
-Received: from E0007865LT.eswin.cn (unknown [10.64.112.9])
-	by app1 (Coremail) with SMTP id TAJkCgDn1eSOhP1qLCEAAA--.181S2;
-	Wed, 18 Nov 2026 18:57:20 +0800 (CST)
-From: Donghui Zhao <zhaodonghui@eswincomputing.com>
-To: linux-pci@vger.kernel.org,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zhengyu@eswincomputing.com
-Subject: [RFC] PCI: dwc: eswin: proposal for a separate EGC-series driver
-Date: Wed, 18 Nov 2026 18:57:17 +0800
-Message-ID: <20261118105717.1364-1-zhaodonghui@eswincomputing.com>
-X-Mailer: git-send-email 2.55.0.windows.4
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZGjsGKxa
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794999618;
+	b=yBLp3dkMKIZKmImwGV47hwuWG7HCjrI87ann4Vvz9b11gRbSLuOS5PRuZwYY46SMp90s
+	 cWHfFcaU8ks9cdQjVDJxHP7U52nAWUIWibL9A+gqF80PpH55dPuaqGYf3OO2q9gIBie6R
+	 kTsU4ZYpz42jAuoF2waGqPa+3vUY+mWGirZbiismc/fYtSTXQL0ahwpiiZkIpGxHRmyso
+	 zkNTfED4ET+hM5U1GiSy2lTPIywKfsUpGBGa4QwWL2/MgT4sXDFHCOgGtFW05hZSRtEqF
+	 wYvbbbR2BZmKl637/gQn7NHW15v4CXzq3iIX1Qp7SfTdQSEPQu3MLnic28iHCwYdxAQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794999618;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Mwq+iu5CW36e5IgB7HRxeUVlsDlGieQ1iNgZ9f4H8eI=;
+	b=0ZL/L3dLQijKZPpuRDusYSlli5azWnUevjZ8ZUTv1YCR6PlSuniylAaAlw2lHi0ZfBiP
+	 xmsdjtSt0WwNk3tzgSpX5Z1LMUxNNBdJOCIXBHPBvk5LaEixIEoW2oblNnrSLuuEIy0Iw
+	 nMVkLxS0164mSrwOquQpKZD2cuEM50jOFXXywUHQa7v/vQB1IEVeQVztQYncweb2k6RL7
+	 0yq5Mxu2vfYvyUCY9H8IisRdxGTzWcO+B2IZiRl8eK/GTj9zhk5oFchr4KSWKuCyY6/Fs
+	 U/m2iZA5fiHU/gfubg2R07+oZu40Qe4/sov/K9fUBZlyUywKRNRtSWG3jTPs97a9fOA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4F05D1F000C6;
+	Wed, 18 Nov 2026 11:00:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794999617;
+	bh=Mwq+iu5CW36e5IgB7HRxeUVlsDlGieQ1iNgZ9f4H8eI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ZGjsGKxa6BXUpeDoykyhXpFmRTvOCc5az+WLgnRF2pySDMp9ES6NeywL5NdBUqfxE
+	 nroXkx1lMLDj/oEjhWEQa6VasYlZ40rhV+fWgVsjS5hQEZA73eEtmxKWrPmO0mL1ri
+	 uQgM/qGxXDkXV1dDzweMHziO+DQaHs9AMi1u7xDW4uOxdWzL6i8by1Bzh+7UGyQZWM
+	 3ZJdJ4EpvBrPTVsU8BT/VWVBWz8PYPRCFNRLZg9UpEOFqaoYPq68DLmYAIm/SNcUA+
+	 z8dGLu0m1ZVbtRGAPYAStZE8CBw94Xwylhpu0TSAUVDZMchwVujeVvQcUUMWzZBrdK
+	 I5iPe1wD6MBmg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CA46E4AD20;
+	Wed, 18 Nov 2026 11:00:16 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Wed, 18 Nov 2026 12:00:16 +0100
+Subject: [PATCH v8 2/6] dt-bindings: soc: fsl: layerscape-dcfg: add the
+ LX2160A pad-mux child
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,56 +83,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TAJkCgDn1eSOhP1qLCEAAA--.181S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr1rGFW7ZFWDJr15uw1xXwb_yoW8Gr1rpF
-	W5Way8AFn7JF43u3WkZF4vyFyIvwn3CFyUKws5Gw10v3WfCa4UXr4aqF1FqF1DGF1qgw4j
-	qryYva4UZr4YyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUva14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
-	tVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
-	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
-	6r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
-	IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
-	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyT
-	uYvjfUonmRUUUUU
-X-CM-SenderInfo: p2kd0vxrqjx33l6h245lqf0zpsxwx03jof0z/
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261118-for-upstream-lx2160a-rcw-pinmux-v1-v8-2-d01bc837593e@free.fr>
+References: <20261118-for-upstream-lx2160a-rcw-pinmux-v1-v8-0-d01bc837593e@free.fr>
+In-Reply-To: <20261118-for-upstream-lx2160a-rcw-pinmux-v1-v8-0-d01bc837593e@free.fr>
+To: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
+ Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ Vladimir Oltean <vladimir.oltean@nxp.com>, 
+ Ioana Ciornei <ioana.ciornei@nxp.com>, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794999615; l=1775;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=NHu8sncarMX+DwnkZ0QuY5r1sPX18dxzAlIoWpTi0Fk=;
+ b=aDQ/XuT5vQhItfSF2MrzCy6Euqi6AuJMNHrWgeXCGLK426QpHfhniwQBd8afVUhcdZcJ7poDJ
+ 3Fmsqd4vMvfAtlUqdlNhB3tR4IB07ht4xfSRGf2vwGDaInUmL+H1JXn
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 7bit
 
-Hello PCI maintainers,
+From: Vincent Jardin <vjardin@free.fr>
 
-ESWIN Computing is preparing support for a new EGC series of SoCs.  The
-PCIe controllers in these SoCs are still based on the Synopsys DesignWare
-core, but the SoC integration around the core differs considerably from
-the EIC7700 controller supported by
-drivers/pci/controller/dwc/pcie-eswin.c.  Reusing the existing driver
-would require a large amount of per-SoC conditional code, so we would
-prefer to keep the new support in a separate driver.
+On the LX2160A the DCFG node holds the pad mux, overridden through its
+DCSR view. Allow fsl,lx2160a-dcfg with simple-mfd, so that the child is
+populated, and the pinctrl child, on the LX2160A only.
 
-Before posting the full series, could you confirm the preferred upstream
-structure?
+Reviewed-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+ .../bindings/soc/fsl/fsl,layerscape-dcfg.yaml          | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-  a) Add a new host-only driver in
-     drivers/pci/controller/dwc/pcie-eswin-egc.c, with a separate
-     CONFIG_PCIE_ESWIN_EGC Kconfig symbol and Makefile entry, while
-     reusing the common DesignWare host code.
+diff --git a/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml b/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
+index fc14fd0bf84b1..bb9dbcfec1881 100644
+--- a/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
++++ b/Documentation/devicetree/bindings/soc/fsl/fsl,layerscape-dcfg.yaml
+@@ -32,6 +32,7 @@ properties:
+       - items:
+           - enum:
+               - fsl,ls1028a-dcfg
++              - fsl,lx2160a-dcfg
+           - const: syscon
+           - const: simple-mfd
+ 
+@@ -66,10 +67,27 @@ patternProperties:
+   "^clock-controller@[0-9a-f]+$":
+     $ref: /schemas/clock/fsl,flexspi-clock.yaml#
+ 
++  "^pinctrl@[0-9a-f]+$":
++    $ref: /schemas/pinctrl/fsl,lx2160a-rcw-pinmux.yaml#
++    description:
++      The pad muxes of the RCW on the LX2160A, at their RCWSR12 to RCWSR14
++      and RCWSR27 windows, overridden through the DCSR view of this block.
++
+ required:
+   - compatible
+   - reg
+ 
++allOf:
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              const: fsl,lx2160a-dcfg
++    then:
++      patternProperties:
++        "^pinctrl@[0-9a-f]+$": false
++
+ additionalProperties: false
+ 
+ examples:
 
-  b) Extend pcie-eswin.c with additional of_device_id data and per-SoC
-     operations, so that a single ESWIN driver covers both controller
-     generations.
+-- 
+2.43.0
 
-If (a) is acceptable, is pcie-eswin-egc.c the preferred file name?  The
-differences from EIC7700 are at the SoC-integration level rather than in
-the DesignWare core programming; a detailed list will be included in the
-cover letter of the full series.
-
-We will follow up with the driver, the DT binding and the MAINTAINERS
-update as a complete series once the direction is agreed.
-
-Thanks,
-Donghui Zhao
 
