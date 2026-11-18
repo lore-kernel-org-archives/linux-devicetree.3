@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794987759;
-	b=ZWxuYNvH5oeMm4JPesUCTe3eHWneo2HZvhAmxwwNWbvWLRqLgXvnMjcW0j+eyiFJlidM
-	 O0efpoAMjXmlCTfTuAn5qXIRML0W+Wkudr7CsN2T9QG4zTwBPsdFbR7mOke6awmRNwokM
-	 vPAOwXEPqSx6W9h3Y7xyMfYLAtSFSnIQL2f6/9xgy3lLFx+9mp8T3+UerkAv5ZK7eYoHB
-	 1ACfCnn1MVcmWt0o0y5pgiImiEYELvltNu/vNtxM4qTu1gRFG4EqMNoyBd0xCtB9sAopv
-	 BcwOuWZWGN7HrgJDu9lbICjVJqByBf2OmWuCoxvz2ZAg2UgBV32m/OuLp5qfnTLa3hg==
+	b=OB9oCmjlXaKafndmVl2A0grPfk4JsdyIDdERpaokEiH2hgn58Mr8Ej2mTJ020QgBRamk
+	 LIYl9SC9xhQWV0XvTiDEXV4NJ7Tb83afDl5ILXWgF/OxFlViuqRXhk4Jh8jZCtUbdRdIS
+	 HakFhxit39MYveWjB10PIVt60z3umYo6MVSLNXR+tCLDAgzwB8OqIry0roRnQjqI8ACdW
+	 G64oDminzK9JiD2aV7GK3c+8MpQiKWy0L8ZwuQ9yqAeg/YP2MQh9wwXZPEdVWkJzI5j5M
+	 bBUoJcPOWbI5aH2hoOqxgsejx+RhvvaGUkhvJ4ihHORs6iaBe9ZEQhCohoRLLWcXu6A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794987759;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=uf6P9pV+6Dk965yxtIrtMuGc2HAONCerIiu7f7QAa0k=;
-	b=O7fco+BOd/yqfTgzY3qfwSWMaVN8ADM7mdkFa0mg0mnuXJP1C+aO+tzUBb8u2/Tb4ak+
-	 duRH5AbcY9E6x7S6YfjZuWhFipC7s3LhgMiqw0gQAvSRds1LPGH0KRBGddkgscOvUmvr6
-	 wC6ifcNO1jZKB7CjneZ8tuMz9rK2oeY7hIus7Ue/2QceBkdrvb3gh5AUZQdvlkw9bAksT
-	 7JGMlAW1q7rYhLZZscB2mGSR41bCfZwvA3E63jXbKVVpOpCN1vZ0PyErMa5WogHib3fql
-	 EnkK3qi2LJyWxdGNUPr8HHR1M4iNRREd2lRQATE3h4CtD8xtIqeeciQCBSLdqFDOzoA==
+	bh=HeIjXjaNOFF9xA1RhXhE/ePL/urDZPveh4V5J9FyOxg=;
+	b=zwgoSSE7rD/BoJac/9mUQU3FfuAbpXN9GQaJKvp3d1Ke6vGc8X+iLLWl3EMuoHdEJLkd
+	 e5DPU4tXUZZ1XIdyjeYZqYo7SfDXxLUrLxmxLW6L9FWyPf5ZRh2bCNpa4QU/GMpMjGuGF
+	 /zOKIKfGU7Ul/0ytX0LJyx+t8V9kdz/TZ7dEOfXsH1pxZOxivHL6jA8Wwd4hszqGbQ6xf
+	 3xMlrWWAjMfRbbnEAmQgqKSdr/qyNL9R6QQSnFlZhE9xwyoE/eafgWYRcljnU6H502tc5
+	 4cVbgacXLlUQRGZHkC9IZZUIa1gj+hx8uSEUS0/BV6WmfC0oMBVC+sJnf/VWghHl7ZA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j5I6v5as;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhjv5Yrc;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D20D60A262C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB58160A3812;
 	Wed, 18 Nov 2026 07:42:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j5I6v5as
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhjv5Yrc
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794987759;
-	b=If3LoXNtAjqyB/Gn1BB38x1+gWJgHnoX/JQ4aMaQFc97SIO57Lmaw0V3K2YcVKUqUlqn
-	 HOt2DqxnptPajBlD7kUpVSoyzLmCGnY6Ds90hIuRbSlzBcv8RkZL9sARvwy6CxsRELoZb
-	 kbyX4cDZT4XabOHkKjXCZLJiF69a7U40FI0fty2/d46TswwEkxZeh+hegeRcZOhspdLkI
-	 xFkFTdm2lksK9a06Vs5UZup753NFYPt0z2MAQwc9QYB7xog+2NXZyxTWLS5mHfc8od0QZ
-	 nWR1vQLdTylwjVZI9ivO2w7dw7JTTz/eKlgJM0Ua7QzN+fJ5K8kEPC/k/JFG3rKQMcQ==
+	b=Nhm7WXMlfyvY/oJO4HSiIU4dWdrpl99Y3MnYkUsOSTPeGEM+o0anC2H6r7zQDbz2OjaK
+	 QsUrHKtHOGPQDENyf1IYjQzDNmJTNhuze4X+tUeVdXV+e19FA2/u5QYSk+u1w44qZDadX
+	 +y+KT3Nyghedp6SiuPgtFefbFyDpDL2sZIjmlIfZzTQZwsGv5PYRaGx+8V2dcf+aXzQm/
+	 xdupZn1YOntQzOYJg/OT8LOUw7JQttcWp7hLmBly0E/6WTiBIeAa/zAUYS7rqqOIwda2Q
+	 Ff+Lex2gh4WYahbzGHy9kF+bNIqZKek1bKZUTkA6CSdi5Tnh3uTCHWXVJKkq62yVnFA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794987759;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=uf6P9pV+6Dk965yxtIrtMuGc2HAONCerIiu7f7QAa0k=;
-	b=szYYfxDs61N/+hoowDlLDb1E+DOlra5JncvybzQCACmAscQAD5vwmVeR5f7fxiGHHXfS
-	 i6RUyGdytZN1CXExlSlwrYfChuHL1XFc48W5dxGrkvynvoyARU6V4z5omi+KLUJMGWSHq
-	 O9vRd9eMMh+MskqTksLlgmAnVdvbMKrxH+O/BAzjrGuGRtkynSZGN6e1Gm+UfzeW6X6j6
-	 rbrhuhbFe7oAQ/Xt8tE63KFaLKMLBrjn3ZcAGmwsGTqqoZ1hyGMGEYJFAQYgDlkbuzx1U
-	 Xi5dQ1yY6rcgX+JNsqc27kLHa5uKe+bxOGy19jL3bilx2EUJr7cTz7BiHGnc2dq5s/g==
+	bh=HeIjXjaNOFF9xA1RhXhE/ePL/urDZPveh4V5J9FyOxg=;
+	b=aKdV/cdBsjmcL50eXEiRKT9JCkzmf/QmGgQIL+diqC69Uch6melMTKXTtgxET7226zux
+	 iVExPFkJyIGNVEqHNVvA0OXeFa4cK4/GH5qAZ0Ee8qKsahSRPVoLsi/BBmf/TtVCQUx29
+	 ulcRIiDBf99PMban3chtU3nQRkA8KrEgHoPzMitQ5ycyZSLQvyTB7+TiEUUgckr5pZm1F
+	 s/UqPJcEoK6jC5lquNDJ8p9yylCXihtoyrE8x7057QudSI5NQS8T1efTEMOfa+w7c5QMM
+	 /p3khe2/S/TV0JaysMuFYhvcvTGym++F8B66zQQ+KY3u+JtMJS4FuK8XtDH11yNjLHw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 56F071F0092A;
+	by smtp.kernel.org (Postfix) with ESMTPS id 9FBB51F00929;
 	Wed, 18 Nov 2026 07:42:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794987759;
-	bh=uf6P9pV+6Dk965yxtIrtMuGc2HAONCerIiu7f7QAa0k=;
+	bh=HeIjXjaNOFF9xA1RhXhE/ePL/urDZPveh4V5J9FyOxg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=j5I6v5asvod3/RHufJ5G3tlXRgnXzjL1RQSUm2r7O8jAJniMuzSKKSnNVHoUVjy5H
-	 zyE63Ktw6ljUCus8ijpts1pQD4vVnx57TUrrKZyvAdzoqMRu2WrDUkYzbdAsC19b6q
-	 iGGZRoadGNINoJ0QnQWG+mKzOSmPQHexK9LrXNln1ftvZQMbBjg2uPbE6SCF792+FL
-	 cOyZNFYXjTkJZzFaEAtnlo7oWJNgZd80XyEtN9j5XbAfBKVdX+LiDXShXsxlkGcKWg
-	 Zm+smdHOfjzW2sbnQiqaRjuECQPAl8THjGvv7x5KyJZ/Z5yQOHsvMw8LJ5DpkrfPkS
-	 UpSe0P3+fYJ1A==
+	b=dhjv5Yrc/36l/AV8YCdfTRvsBfS82oz7tBo5/4Frz3ziBYRFAGCz2CO6aGX/opEUQ
+	 yT39pGeJcO4ASV9wgSEF1QTKgc+KMw8dnX8cu17TsFrxSLuwJUtKsKzozP4gsw1YUu
+	 YLZ1n0YnJAjtSoaoNaaRQaQCaMqcgqgOCZ/Ge/QbuxfRcmrKLe9d6tw1xB/qI0yUFS
+	 OvUdZxbOnSwBRSQtkUBOB3EQO9mYSXqx1irl+S6PlDm70IBPoNDIrzlLYQT6nBvb7D
+	 orV0IaJ34dpYMb7pDQJe4DprXhS6lPAAZdOfE7TOZB6e+Le1FL+e88ySkY5W3+XCqD
+	 1umx1jXpQfAXw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 943594AC82;
+	by lkml.kernel.org (Postfix) with ESMTP id C1EB74AC8A;
 	Wed, 18 Nov 2026 07:42:35 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Wed, 18 Nov 2026 15:42:29 +0800
-Subject: [PATCH v15 12/14] gpio: pl061: tidy up IRQ trigger logging
+Date: Wed, 18 Nov 2026 15:42:31 +0800
+Subject: [PATCH v15 14/14] gpio: pl061: use string_choices helpers for IRQ
+ trigger logging
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-cv75-gpio-v15-12-e3c563673fe1@ambarella.com>
+Message-Id: <20261118-cv75-gpio-v15-14-e3c563673fe1@ambarella.com>
 References: <20261118-cv75-gpio-v15-0-e3c563673fe1@ambarella.com>
 In-Reply-To: <20261118-cv75-gpio-v15-0-e3c563673fe1@ambarella.com>
 To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
@@ -96,11 +97,11 @@ Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>,
  devicetree@vger.kernel.org, Long Zhao <longzhao@ambarella.com>, 
  Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794987752; l=970;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794987752; l=1532;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=p7Z9u3ngOc5syILLflVzIV7nyZ9es9xNruSYn8Vifgo=;
- b=JW8SztEkB04l0RIgtqVTn3y8xilwHRd0c6dolhWdf+M29eWt7TJ5UmZ8Ku9/SnC9gaauOAJ/x
- zNEnLHUOX5JDgNPYtXMB1N09JtziDKvr5OCeCU4uHczvuq01AgpfC+6
+ bh=a7Zv7sWhRswQKnzwxIZzyUGJlVmYrAux3J9xHm6ovBY=;
+ b=6qiYfngffnWoupTneWyngvaVnY/7ggJ2hXJcNyxhfBWOH/NWcTe0C750Eff/tHBbvFR6t36QB
+ O7wFizjARRID8eydCX9qWuO+U7IWckIIEZkuYx4DUkGbZ7J1+W4PleW
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -111,30 +112,48 @@ Content-Transfer-Encoding: 7bit
 
 From: Long Zhao <longzhao@ambarella.com>
 
-Join the level-and-edge dev_err() into one string literal so a grep
-for "edge detection" finds it.
+Use str_high_low() and str_rising_falling() for the level and edge
+debug lines.
 
 Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- drivers/gpio/gpio-pl061.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpio/gpio-pl061.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
-index c0a3a8b5c2c1..332fa51f8ccf 100644
+index 332fa51f8ccf..47a804cea2de 100644
 --- a/drivers/gpio/gpio-pl061.c
 +++ b/drivers/gpio/gpio-pl061.c
-@@ -172,8 +172,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+@@ -27,6 +27,7 @@
+ #include <linux/regmap.h>
+ #include <linux/seq_file.h>
+ #include <linux/spinlock.h>
++#include <linux/string_choices.h>
  
- 	if ((trigger & IRQ_TYPE_LEVEL_MASK) && (trigger & IRQ_TYPE_EDGE_BOTH)) {
- 		dev_err(parent,
--			"trying to configure line %d for both level and edge "
--			"detection, choose one!\n",
-+			"trying to configure line %d for both level and edge detection, choose one!\n",
- 			offset);
- 		return -EINVAL;
- 	}
+ #define GPIODIR 0x400
+ #define GPIOIS  0x404
+@@ -197,8 +198,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 			gpioiev &= ~bit;
+ 		irq_set_handler_locked(d, handle_level_irq);
+ 		dev_dbg(parent, "line %d: IRQ on %s level\n",
+-			offset,
+-			polarity ? "HIGH" : "LOW");
++			offset, str_high_low(polarity));
+ 	} else if ((trigger & IRQ_TYPE_EDGE_BOTH) == IRQ_TYPE_EDGE_BOTH) {
+ 		/* Disable level detection */
+ 		gpiois &= ~bit;
+@@ -221,8 +221,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 			gpioiev &= ~bit;
+ 		irq_set_handler_locked(d, handle_edge_irq);
+ 		dev_dbg(parent, "line %d: IRQ on %s edge\n",
+-			offset,
+-			rising ? "RISING" : "FALLING");
++			offset, str_rising_falling(rising));
+ 	} else {
+ 		/* No trigger: disable everything */
+ 		gpiois &= ~bit;
 
 -- 
 2.34.1
