@@ -1,113 +1,112 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794994922;
-	b=vVGtPROu8t+W3/qgnRKpCd6XNsNKAGSvBGW8H90hvmB+yr4vIK+p1CwYn4+hfz5cu0CZ
-	 orb/0ToL2uAEWGv10PFywvQwsOypr+UfDRwBhTT6CdyGTEPrEpZUPaRbYS7eRa/doxbVS
-	 1Zr90hvzerQFBFbakMPXuXCuzH+oKaXRHFdk4hMjbdswmbFB8bOhc/akUK0hVIaTKp8BU
-	 yhb5ByflYZC7XCHVsu5/lbw/5rISksEXEpoC6oXN/vsehci403jCf8aKsKs5aUl2+vDY/
-	 oAU95xUcThNkXCj9qvOWGPetH6yu2cMkYtik+FR/O9IfCCmyixqk1lMsgIH6bApe79A==
+	t=1794994927;
+	b=vFt5WezvLhI3Nv5NooHc8ZNiHg5BPzE/uux1RZBYWBm1wawxPuhTEPVumm5E5yjVtCwp
+	 MvVchjPlIutz0hNTPL9p2sLD3rn+tR6yBBbe02nKmojzFFngfxUChkxRwYe5Jhe6kPekD
+	 hfoUxZH3bJL5b/r7HQLBMPDvCoCdhhSZIa/FsvQA1hPSpKPHeL5ro0CMdPXb5AsTp6beE
+	 IUYFMACX3+iMuUTt5GgPuFClfLbtAh2F9wzTeE2WHFLd//M4W/nJAvQ2BryCEHTAkKndx
+	 mP0yLLt1EO+QR+8lO4oYGSEWsNS6mYxP/OKw+770hBQSzxsmeVT+xxBfPE9HsjtG3Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794994922;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794994927;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=6QHaFIDZx7qovoKETDKtt+j1Cug7B4ShsOzETEfDwns=;
-	b=A1M0AJzTYNL5cf1hfnQK/kb4muJr6blv1Es5rTslWrFpdb1brjdBvp7uEcd9y/GebJbQ
-	 pZm8pig2Qjll6ZcbfvcQzEmt4FKfA9xCiwegkUEF3WtysAwL6pR1olRQNEYMfnrmjtCOd
-	 +ecxvPy6Ncy+U4Z6F1wAaFv6HVN8P1EGMKeLXSCFJlifvrNOvJIaJ9zIsaMg9gnk4mg9U
-	 2uBUZ86aDejskm/egTZg/4Nufn5e4m2JapwoWVBw4tdJ4hXZKGinuQCX5K6nSYGOMT7UA
-	 2QWQ9PntKXErnfpSZ5Fy/9ZAk5NkIbj96XG8UVB9DsoF6kofn7OuzldR2CZ8p7TGlpw==
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=J3TKIv/Ak1BJN4kBm+mXFw3Nx1zEXqeHLbvlL3jhk74=;
+	b=3sZX1PgZjukP+hlaWuMcrV5IR9LXnBGeJQFNuaZj95nCSsEb2W6Nd3wrFBH1FGWYoPxU
+	 52jfA1mECoPCkaBo+D14fPq40eRT/8aP32b4hCBHSGgPiCWMQRFX82aPVqd+FW17Dv+El
+	 wQJZZBlgoXu3xrVDywwYSnVKeam+SkS/z10Hjj99JYHcNpTvR9/qpU72mJWOl7UmAo0I4
+	 WJmkEvrAgYsq5cCIzjS0L66+/KGn6vXHjdR4bc/x5kL5Tg7NAKaRQgeIQafEWnvw+qede
+	 WxWiwioKKPrRT8nc7m4YYk63XlZzx+AZuAvQ1PVeAS35yjPGyloRL4OGlYLVLORByjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JamLDpMk;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ROY1ide4;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NHomdapk;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P5lBWs8O;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19193606A332
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:42:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19193606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C29A606A332
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:42:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C29A606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JamLDpMk;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ROY1ide4
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AI8Jpfb3371421
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:42:01 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NHomdapk;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P5lBWs8O
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AI8NpEl764232
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:42:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6QHaFIDZx7qovoKETDKtt+j1Cug7B4ShsOzETEfDwns=; b=JamLDpMkmpHOtkP1
-	8WN7iZ7WeOmXVcV96Su/SsZXREuGJSK3Kn0xtrLI8LukiaY/F79XyOLmHKITnN5+
-	YSEc+BAgLF1v8HwL4HKNKRpCu0GmLg/rEJtRoyXVqlX9k+MYI0Q0sD2wqB1/zlxU
-	J+tf4qZGs6REeRUEHqpUHj4bxv4rE7PA1dbHxENdXLNDeKbdLmSkSO1LU+CdVgdP
-	FK87Do7/EH0dt7b+tGh/X9HE+19bc4UOQgOYCajJ4m74CsT4wKX3KlJ6nAdqohMV
-	S5h94miWL1tBHivtS+74bxaSw3tsBhdUjMxrA+DtAh8OzQd/nML8CidrZ1HaSpgs
-	RR4GgA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yv8tb6k-1
+	J3TKIv/Ak1BJN4kBm+mXFw3Nx1zEXqeHLbvlL3jhk74=; b=NHomdapk1j52RpX8
+	sr7keOG7i+AVBw0Y9/KH8lcQEJmAyg8hQj1InHiQ3WIWCrO5FlPq0m0R6s6dkrP8
+	a6RmCZ4O77stgbO8jq32atDqpIe5YWPXB2IRea6lw2UnSzYrBrwDULlFFsd7s/4W
+	AzdCuONPKUatyXil9k9YKWsdsMEnNR9VOXokXMk/o7C6qJ5zTQkh6RR0HdE9D6C6
+	U9iaKes5DLwaoprfRMDQDUlNij2cemJmkIobedaTiP5ZBEXzxrhy/KcKuAda4T9j
+	3Vs3MxiwS9Snva4UmbV3fkE1m11Edb9/u7tklSccQ4N4mkdTHGGRF3uu1A32nf9M
+	jDxQ5A==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yvbacjg-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:42:01 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2eb5375cd68so8583235ad.0
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 01:42:01 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:42:05 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2efdd509c6bso10545735ad.0
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 01:42:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794994921; x=1795599721; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794994925; x=1795599725; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6QHaFIDZx7qovoKETDKtt+j1Cug7B4ShsOzETEfDwns=;
-        b=ROY1ide4w4NGLvJxiSEuG1eEw5wD4zJLGLZTsnV2L29dlPzK/DKzNwgJyzaMEMej9u
-         mENBb48PdBX5WSJdQc6xGHEijThgFvu1Zv89L967pHHbni4WBUWXe4w8sm/sgH2aE7vu
-         0e+D7aBNVC+P0DkKabHakeZcP/VKrHRf6Pw0trd+X181zZZTbiThmORhZBw/9twRyG9n
-         nIdbl/Pc8CrZbDcmkKoiA27LweLu8yRFpDOF5o2Xzubv+QcgCG2mqzK6tQQemnK8eyXu
-         3Jx4Hv50jRE8WMn3AtMnHt0WA5yQ3bmUEnarDrJzKO4hJBJy7QZAjfjGLCJtHYpuAsTz
-         oVEw==
+        bh=J3TKIv/Ak1BJN4kBm+mXFw3Nx1zEXqeHLbvlL3jhk74=;
+        b=P5lBWs8Om4WVpOYZIA9c2ewYl3F3TZ/03JjRLR/dneqNT0kgJ53KWWArvWXOvg0OSC
+         ck5XC2VcDDd0qgzjUSY1dqkPTfPnI4z/sCwxHn5ZUElIveJYgic2ZUO7oXH4aZEbHT91
+         m0XonpnEOFUW6suyLbybtLdCPuwzpDeQn5DtkVHszI5QJFh53/mF21RfjB0H4IdX5+5I
+         GaWwGFiGBMXxeDvJNZkSUdTeUshx466/6BEffLigwgv9g8HADF7ODT3bIURAuoYxsy2k
+         2wc/VcLYLwU2UwupUOQ/T+FdV2HWMXfqiwZa7N32DfCdzTCnwjpGcKcS8tqWOwiz7KM/
+         uung==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794994921; x=1795599721;
+        d=1e100.net; s=20260707; t=1794994925; x=1795599725;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6QHaFIDZx7qovoKETDKtt+j1Cug7B4ShsOzETEfDwns=;
-        b=vMM1dSzSb406qT4YQ4Z2NhzZd+kfRo47fJ7cXasT1a3lIdwHGG+VJOinjzQuKW/9+E
-         fcFNtTNnC9tvfd+PlVem942TB2Rwh7ZkpX/KfprvGn6ajJr9E6cXyEvwx3z6KRmM6O6k
-         T5jogtTrJEiVXJweaQ4DMJGJeiFGL/tnfnJtO125a/PgTr2G27NX/DEIBs+nyOZAeuF8
-         H+YeZ+KGPnnC94AzZs03/lvRCIFlTKkLuKs4iFyGKCrXuJk2R/gRCDM0BhqLa+KfAMOK
-         D89XWmzCeAosHZyr09w4a9nfCq+aXkSEDDGVkvgb1KvDehcMhqkTgGHTc0cKH2Iv4O3Y
-         WYHw==
-X-Forwarded-Encrypted: i=1; AL+hErGsOZgJ3kcDN3MGRkkHvopxBAJANRypnEqGidb/cq5cnFbfTti70qRpks4slOm+uArKmN7WfbFerFTL@vger.kernel.org
-X-Gm-Message-State: APuU4Z9A86i0KHCTgTOkFx+/o2qACKl+mru6n1jeJ7w6l5baQDItWXvQ
-	H3Cj7H7re5RqMTV17sBQvRza7RRT9Fo34GnZzSc0xY01WXEbBVXQWcK5pUbbCFLxxwVHsR7qrEX
-	ZNFhGFrWZP7dL6HS1CzbNKY476UnrroKVF6VOZgxDqNSYs/X1ocAAwJiN+Xo73cO9
-X-Gm-Gg: AZFdTZdmR0n/10uClqVuBz2cBkUqziv8/jmb3heJe2yGZHmr/u/SwcLWrunBMYALMiU
-	ekcofl+a5PXuohCuChhTw9SbnenPyUcyiNODp1WMY4KoNQ0SuyYDhvXkuuzaHIvbujTdJx1boy6
-	D52EoVyf4GRoqGeRNe+gl6my8nJWER0O4pM3uX0qYJTaeY1UZoC3mUzgL2jFtlNPApJ/ryTtRg5
-	+RTzKaeuRJvOJx/oVEh1+h0bKGlDz4Ia0OFtBuDdTuXIjI7rdy9+a2hoTR6Rngc3dgpQoMcKe3u
-	+iicdKy0wkE5ia5h2x9jVbzOCusDA37xgk6z5Zdq634JXaV5bRr93NwO5y2mVttwVvWhfQsnPzD
-	lMZLSrJCGkvmv4aPgK+EfJKdVtvDeIXeLgISYhKwqRxOJqK895feve68qb3Wb69lm7K8LbZbMol
-	JrdREM597USJ6WWUkaJUPlWELDtkFhEFtGZ/uTZQe94E01CI1u
-X-Received: by 2002:a17:903:41cc:b0:2ea:7180:3aba with SMTP id d9443c01a7336-2eff741d7b0mr18635985ad.39.1794994920567;
-        Wed, 18 Nov 2026 01:42:00 -0800 (PST)
-X-Received: by 2002:a17:903:41cc:b0:2ea:7180:3aba with SMTP id d9443c01a7336-2eff741d7b0mr18635695ad.39.1794994920060;
-        Wed, 18 Nov 2026 01:42:00 -0800 (PST)
+        bh=J3TKIv/Ak1BJN4kBm+mXFw3Nx1zEXqeHLbvlL3jhk74=;
+        b=GY6srDf/gYKgas0ForfpBBbBCWoQVBChi2+sUVQ1lJNC0LGMZf+cK4ArwRY0BB4/E4
+         oPDyxgmPQFwrG9dkJOYYyb5VNzZ1/+hd07/xktKNCO2IYLbpSG/p/FxxDnFc75vMP2/T
+         MzFujIucz8gWApFuJS9Pshku+GyKKR2wrTefAk+kKLPtTtc7sor3ocMDxJb1ZZ2wpnCg
+         isiJJsJDOiuHJqxcXPm3KHhcvtEVq3DV0emhSK2Wab+3xMjFMJxk2CHwmUCtU+SUJKe9
+         ha83q2RmoDVW3yJ2Nm+rStG+tlDmuBkGCCLqTtwo89bUrRFTk3tpSkgoPBSp30r3MrbI
+         r/XA==
+X-Forwarded-Encrypted: i=1; AL+hErEWqppEivdmfUqq7Ges9YgrnsR/j0aLLmhlyTkZwNslfM0XbaybJoWRiQxECFaJ5i3g85kCuD0xoiX0@vger.kernel.org
+X-Gm-Message-State: APuU4Z8VG39vkVZJTARfW0gSqd7R7jYruNa3Z8BuoBNQjE/6z+FPFT6c
+	xrOlj3OIy4aFc7wleVBpAXZlBGcg4SPBkhRE2JyI9dB9f4EjmjQGawrU3HHwuC/hf45eb+TyKm9
+	t3v37mE0y2EJop7yB5zhdY7g7vMHgj2FN18oqrNCPqIX+JMm1Gypmp46ZTOkRwJTu
+X-Gm-Gg: AZFdTZf9gNb/tckgPKDfUqgLj8U8FMEIO+MS0FLnV1WNJdsBTgkbmFqON0eqoLO/jV0
+	wh8D9mmjg3LayCqx+XnQxk7wWUML0+TfSPn92BFwvRIRk4LyBH4hGhEsd1FCrYOPsTNJm5psl/M
+	FV4w3f7S2qmtPWCgtcGMMN78WyE+ossi8JC4JH+MxHXbcQPzVm8vW3Oi7YNDqsztUBtPPsW3xSD
+	VD1UTBHO3fzI+vJtFEGRDBNuuYiQJj0AsRZ8rsCVn6UcC156/ux+Qz0NUcq9r9c82mYTREcHMoK
+	OPhbPlhp9K19E9lkh0u8AHAgOm98LADedYcUcRmxtOVOXvHAot8KzGqX9qhI1Ud99RiV7DsuWzI
+	NDONXE3re4kBhfpQg2avG+KjumB78jj+sjE7EetY1XI0XEmRMLm0jVTYw4CLGQqBSovXW9bIEcL
+	AbRtB9gfVhs+/Q6OQQ21Ycdnr2ceEeWEeC8lV8mW21RNDHOGZ1
+X-Received: by 2002:a17:903:3d0f:b0:2ef:dcfd:afe3 with SMTP id d9443c01a7336-2eff74013a9mr21435195ad.34.1794994924671;
+        Wed, 18 Nov 2026 01:42:04 -0800 (PST)
+X-Received: by 2002:a17:903:3d0f:b0:2ef:dcfd:afe3 with SMTP id d9443c01a7336-2eff74013a9mr21434895ad.34.1794994924176;
+        Wed, 18 Nov 2026 01:42:04 -0800 (PST)
 Received: from WANGAOW-LAB01.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f008044f26sm2947575ad.70.2026.11.18.01.41.56
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f008044f26sm2947575ad.70.2026.11.18.01.42.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 01:41:59 -0800 (PST)
+        Wed, 18 Nov 2026 01:42:03 -0800 (PST)
 From: Wangao Wang <wangao.wang@oss.qualcomm.com>
-Date: Wed, 18 Nov 2026 17:41:42 +0800
-Subject: [PATCH v3 3/8] dt-bindings: media: qcom,hawi-iris: Add Hawi video
- codec
+Date: Wed, 18 Nov 2026 17:41:43 +0800
+Subject: [PATCH v3 4/8] media: iris: add VPU5x hardware ops
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,8 +117,8 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-add_iris_for_hawi-v3-3-51786f6d4057@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261118-add_iris_for_hawi-v3-4-51786f6d4057@oss.qualcomm.com>
 References: <20261118-add_iris_for_hawi-v3-0-51786f6d4057@oss.qualcomm.com>
 In-Reply-To: <20261118-add_iris_for_hawi-v3-0-51786f6d4057@oss.qualcomm.com>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
@@ -136,318 +135,559 @@ Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Wangao Wang <wangao.wang@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794994903; l=8957;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794994903; l=18411;
  i=wangao.wang@oss.qualcomm.com; s=20251021; h=from:subject:message-id;
- bh=+rmEOu8jwbySGTgVv5UO0yGs2DJOOwC3xcgHzPVUKHI=;
- b=AT9to/y5B3LwZz9hT2ySQVpJABakW8H+zm900MEzmaQsTUanB6HHZlINeXm0Bxx2tQk7dOe/Q
- HO4okzqDztrA+VPMtywyDsWDUqKSwyjGC1uLD1ZMeW1s4uirkeNZ1Uv
+ bh=jMfCmakKTHFA+bAi9OM1osQytcRIiEOqIOQorTaOjlA=;
+ b=mU8Crny3q+6rGGf1/pJJdbVz8kVQx5uo6qdbB7y+7396L3HNIcLVpXOnjKEhDdrcHmDbBL4/H
+ URGLhd6cm4UCjvv68ed4OpLHdSFGHsWN595AveQh3Cr7nAUTuyk2TpL
 X-Developer-Key: i=wangao.wang@oss.qualcomm.com; a=ed25519;
  pk=bUPgYblBUAsoPyGfssbNR7ZXUSGF8v1VF4FJzSO6/aA=
-X-Authority-Analysis: v=2.4 cv=Eu1HPicA c=1 sm=1 tr=0 ts=6afd72e9 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Proofpoint-GUID: BHHAxmUx-ogevSdEJvkDLSmZ0qTwUfm-
+X-Proofpoint-ORIG-GUID: BHHAxmUx-ogevSdEJvkDLSmZ0qTwUfm-
+X-Authority-Analysis: v=2.4 cv=YfgodARf c=1 sm=1 tr=0 ts=6afd72ed cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=Z9fkTJdRl1zmM-sw7WcA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-GUID: oqqZXSwBGmov1_C3V5mcuJTfcLnTSl5v
-X-Proofpoint-ORIG-GUID: oqqZXSwBGmov1_C3V5mcuJTfcLnTSl5v
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAzOCBTYWx0ZWRfX75SqjbKXVAK9
- fFsTSIvJlNbSMNlfO0ZC1FJIgY78X66I0TSwgjkG3aPrD7gOg1nYH01d0e6Ft5KNV2l7IY3aKf1
- KIg9qOBq6LZgYQkD9IgfqW0rxEhFi4+oLViZEfaPWsUc4SOR2zge7qar8P0e5L6NI1B/gVcp72X
- LNDMkuy7LW85HeiFCdjobpr2NN2xyvZNGJyyBV54twthb1Aa4gxjtIQ0tsqwBcLU/QIrSW5Do1s
- kk71FeFbzCZa1d4NkvZSw8GjyvMrZkLlXhFavTXeMEGeoCCaMiPk4Qacj+J9yQDOi8xEbiuv808
- CH7zkbFmTg/2ccX8uBoV4852wLxAGNWqyheMvgFRWLQXuQEu29CO/YlVl7/a7M4XR0XOCdI/BD/
- kSAVZY6OtWmBF0G3o67kMX5j+ZrbKv+udUMeY23YnLF1LsDZLd1k2wTmclrGjJJKpYQMmOy834s
- ot1j9IsfcXBoipX3ltQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAzOCBTYWx0ZWRfX/o9A8Fhd0yyp
- Rvgudagjjqx9gD27l8vEkdjtBrhap4+aKyApV3ClErlNWfHX9QD0q/rVY3Zx4gs/9tADamQ34nK
- mB4RBD6hfaVR4xtnbgh41v7r0okYD2Y=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=SpjvXzj0ZUdBEPdxxcEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAzOCBTYWx0ZWRfX91XMQEt1IR4q
+ /+B+OpPFS+xmIEhJE2sQXK8UQa1MFEStl7wqULReAofZ8IPH1Irh74YNFNfSIidgBFfeCaahsUV
+ RSEfjIEBR2hgIRUf79NTkKar9fTmHNU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAzOCBTYWx0ZWRfX73yOas+AnGzG
+ T1nKpYZgf1DEbzeKI9vS/PZf4Ys4yAhBi1fQznQI+TWZp5ll8EHR3epfTvLrVVeV8hrAsJ/znAq
+ vg6yeYN3J7ruMvx+JgpCWEAfenlzXb9XkrWJ1k84CSSErTKqj9s06A+b2cgvpHpADpbti2DWtfI
+ r7Aqj7+zol2bMO9jUiHqIebtFS2neqMiNftL8mwsqZ5JoeWSIwWq5TFbr88clXpBomU+xg5+zdP
+ D1/z1qiZCHzxWSUJqVHwlF1HuXH4WWNQ6ZjM3pYLbL4iKLx0DipLc+TOc8BjvEPAWKMW7IlFK/l
+ 5rOocRwjjsDC2KUclM0dnpyguI00+9zuj/PB3DoytNA9l80qOJY7N/gXIEYwlOYqa6TOOx4+9Me
+ wiAwjJwwgOuMt8WLXALCwHqw7NDGbFRnYtRWD2MGqqTpMdvHBjVnzLzkDPF2emaxDc1zbtJ3t50
+ 5eXfM+WQuUnza6wmcoA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-18_01,2026-11-16_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 suspectscore=0 bulkscore=0
- lowpriorityscore=0 malwarescore=0 priorityscore=1501 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611180038
+ clxscore=1015 lowpriorityscore=0 phishscore=0 impostorscore=0 malwarescore=0
+ adultscore=0 priorityscore=1501 spamscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180038
 
-Add a devicetree binding for the Iris5 video encoder and decoder block
-found on the Qualcomm Hawi SoC.
+The Hawi SoC uses the VPU5x generation of the Iris video hardware, which
+requires handling for two new power domains — mm-int for the internal
+memory interconnect and cx-int for the CX domain AXI interface — as well
+as additional generation-specific clocks. Without a VPU5x vpu_ops
+implementation the Iris driver cannot power on or off the hardware on
+Hawi.
 
-Compared to the Iris4 generation, this block has
-- additional power domains for internal NoC(cx & mm).
-- additional clock for internal NoC(cx_iface).
-- additional power domain and clock for apv codec.
-- different reset lines.
+Move the shared idle and core power status definitions to the common
+register header so they can be used by both VPU4x and VPU5x code.
 
 Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
 ---
- .../devicetree/bindings/media/qcom,hawi-iris.yaml  | 256 +++++++++++++++++++++
- 1 file changed, 256 insertions(+)
+ drivers/media/platform/qcom/iris/Makefile          |   1 +
+ drivers/media/platform/qcom/iris/iris_core.h       |   4 +
+ drivers/media/platform/qcom/iris/iris_vpu5x.c      | 448 +++++++++++++++++++++
+ drivers/media/platform/qcom/iris/iris_vpu_common.h |   1 +
+ 4 files changed, 454 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,hawi-iris.yaml b/Documentation/devicetree/bindings/media/qcom,hawi-iris.yaml
+diff --git a/drivers/media/platform/qcom/iris/Makefile b/drivers/media/platform/qcom/iris/Makefile
+index bbd1f724963e66d45d9b52e5158c593f4061fd95..faaebea4a9afd9620c31fb9daeb8b4b500ecee82 100644
+--- a/drivers/media/platform/qcom/iris/Makefile
++++ b/drivers/media/platform/qcom/iris/Makefile
+@@ -27,6 +27,7 @@ qcom-iris-objs += iris_buffer.o \
+              iris_vpu2.o \
+              iris_vpu3x.o \
+              iris_vpu4x.o \
++             iris_vpu5x.o \
+              iris_vpu_ar50lt.o \
+              iris_vpu_buffer.o \
+              iris_vpu_common.o \
+diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
+index 5267d4be84902d655418479367e115536329698f..e6a883adf04bd086008f8b48bb880316f70da92c 100644
+--- a/drivers/media/platform/qcom/iris/iris_core.h
++++ b/drivers/media/platform/qcom/iris/iris_core.h
+@@ -63,6 +63,8 @@ struct qcom_ubwc_cfg_data;
+  * @vcodec_vpp0: power domain and clocks for the vcodec VPP0
+  * @vcodec_vpp1: power domain and clocks for the vcodec VPP1
+  * @apv: power domain and clocks for the APV hardware block
++ * @mm_int: power domain and clocks for the MM interconnect block
++ * @cx_int: power domain and clocks for the CX interconnect block
+  * @opp_pmdomain_tbl: table of opp power domains
+  * @resets: table of iris reset clocks
+  * @controller_resets: table of controller reset clocks
+@@ -111,6 +113,8 @@ struct iris_core {
+ 	struct iris_power_domain		*vcodec_vpp0;
+ 	struct iris_power_domain		*vcodec_vpp1;
+ 	struct iris_power_domain		*apv;
++	struct iris_power_domain		*mm_int;
++	struct iris_power_domain		*cx_int;
+ 	struct dev_pm_domain_list		*opp_pmdomain_tbl;
+ 	struct reset_control_bulk_data		*resets;
+ 	struct reset_control_bulk_data		*controller_resets;
+diff --git a/drivers/media/platform/qcom/iris/iris_vpu5x.c b/drivers/media/platform/qcom/iris/iris_vpu5x.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..13e346414a231af9a146076de6a3fa9e9c488624
+index 0000000000000000000000000000000000000000..7a4ed4b3a81dbf8ddd446411ca6114c675d57102
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/media/qcom,hawi-iris.yaml
-@@ -0,0 +1,256 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/qcom,hawi-iris.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/media/platform/qcom/iris/iris_vpu5x.c
+@@ -0,0 +1,448 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
 +
-+title: Qualcomm Hawi SoC Iris video encoder and decoder
++#include <linux/iopoll.h>
++#include <linux/pm_opp.h>
++#include <linux/reset.h>
 +
-+maintainers:
-+  - Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-+  - Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
++#include "iris_instance.h"
++#include "iris_vpu_common.h"
++#include "iris_vpu_register_defines.h"
 +
-+description:
-+  The Iris video processing unit on Qualcomm Hawi SoC is a video encode and
-+  decode accelerator.
++/*
++ * iris5 specific register defines.
++ * Many base offsets are shared with prior generations:
++ *   WRAPPER_BASE_OFFS = 0x000B0000
++ *   AON_BASE_OFFS     = 0x000E0000
++ *   AON_MVP_NOC_RESET = 0x0001F000
++ *   CPU_BASE_OFFS     = 0x000A0000
++ */
 +
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,hawi-iris
++#define WRAPPER_MVP_NOC_LPI_CONTROL		(WRAPPER_BASE_OFFS + 0x110)
++#define WRAPPER_MVP_NOC_LPI_STATUS		(WRAPPER_BASE_OFFS + 0x114)
++#define WRAPPER_MVP_NOC_CX_LPI_CONTROL		(WRAPPER_BASE_OFFS + 0x118)
++#define WRAPPER_MVP_NOC_CX_LPI_STATUS		(WRAPPER_BASE_OFFS + 0x11C)
 +
-+  reg:
-+    maxItems: 1
++#define AON_WRAPPER_MVP_NOC_ARCG_CONTROL	(AON_BASE_OFFS + 0x10)
 +
-+  interrupts:
-+    maxItems: 1
++#define AON_WRAPPER_MVP_VIDEO_CTL_NOC_LPI_CONTROL	(AON_BASE_OFFS + 0x2C)
++#define AON_WRAPPER_MVP_VIDEO_CTL_NOC_LPI_STATUS	(AON_BASE_OFFS + 0x30)
 +
-+  clocks:
-+    maxItems: 13
++#define CPU_NOC_BASE_OFFS			0x000D0000
++#define CPU_NOC_ERRORLOGGER_MAINCTL_LOW		(CPU_NOC_BASE_OFFS + 0x08)
++#define CPU_NOC_SBM_FAULTINEN0_LOW		(CPU_NOC_BASE_OFFS + 0x240)
 +
-+  clock-names:
-+    items:
-+      - const: iface
-+      - const: ifacec
-+      - const: core
-+      - const: core_freerun
-+      - const: core_ctl_freerun
-+      - const: core_debug
-+      - const: cx_iface
-+      - const: vcodec0_core
-+      - const: vcodec_vpp0
-+      - const: vcodec_vpp1
-+      - const: vcodec_vpp0_vpp1_gating
-+      - const: vcodec_apv
-+      - const: vcodec_bse
++#define NOC_BASE_OFFS				0x00010000
++#define NOC_ERL_ERRORLOGGER_MAINCTL_LOW		(NOC_BASE_OFFS + 0xA008)
++#define NOC_ERL_ERRORLOGGER_ERRCLR_LOW		(NOC_BASE_OFFS + 0xA018)
++#define NOC_SBM_FAULTINEN0_LOW			(NOC_BASE_OFFS + 0x7040)
 +
-+  firmware-name:
-+    maxItems: 1
++#define NOC5_RESET_VPP0_ONLY_DISABLED		0x36010E
++#define NOC5_RESET_VPP1_DISABLED		0x35000F
++#define NOC5_RESET_ALL_VPP_ENABLED		0x37010F
 +
-+  interconnects:
-+    maxItems: 2
++#define NOC_LPI_PD_QREQ				BIT(0)
++#define NOC_SBM_FAULTINEN0_PORT0		BIT(0)
++#define NOC_ERRORLOGGER_MAINCTL_FAULTEN		BIT(0)
++#define NOC_ERL_ERRORLOGGER_ERRCLR		BIT(0)
++#define AON_MVP_NOC_ARCG_OVERRIDE		BIT(0)
 +
-+  interconnect-names:
-+    items:
-+      - const: cpu-cfg
-+      - const: video-mem
++#define WRAPPER_INTR_MASK_SS_CPU_NOC		BIT(6)
++#define WRAPPER_INTR_MASK_SS_NOC		BIT(5)
 +
-+  power-domains:
-+    maxItems: 9
++static bool iris_vpu5x_hw_power_collapsed(struct iris_core *core)
++{
++	u32 value = readl(core->reg_base + WRAPPER_CORE_POWER_STATUS);
 +
-+  power-domain-names:
-+    items:
-+      - const: venus
-+      - const: vcodec0
-+      - const: mxc
-+      - const: mmcx
-+      - const: vpp0
-+      - const: vpp1
-+      - const: apv
-+      - const: mm-int
-+      - const: cx-int
++	return !(value & CORE_PWR_ON);
++}
 +
-+  resets:
-+    maxItems: 2
++static int iris_vpu5x_genpd_set_hwmode(struct iris_core *core, bool hw_mode, u32 efuse_value)
++{
++	int ret;
 +
-+  reset-names:
-+    items:
-+      - const: bus0
-+      - const: core
++	ret = iris_genpd_set_hwmode(core->vcodec, hw_mode);
++	if (ret)
++		return ret;
 +
-+  iommus:
-+    maxItems: 4
++	if (!(efuse_value & DISABLE_VIDEO_VPP0_BIT)) {
++		ret = iris_genpd_set_hwmode(core->vcodec_vpp0, hw_mode);
++		if (ret)
++			goto restore_hw_domain_mode;
++	}
 +
-+  dma-coherent: true
++	if (!(efuse_value & DISABLE_VIDEO_VPP1_BIT)) {
++		ret = iris_genpd_set_hwmode(core->vcodec_vpp1, hw_mode);
++		if (ret)
++			goto restore_vpp0_domain_mode;
++	}
 +
-+  operating-points-v2: true
++	if (!(efuse_value & DISABLE_VIDEO_APV_BIT)) {
++		ret = iris_genpd_set_hwmode(core->apv, hw_mode);
++		if (ret)
++			goto restore_vpp1_domain_mode;
++	}
 +
-+  opp-table:
-+    type: object
++	ret = iris_genpd_set_hwmode(core->mm_int, hw_mode);
++	if (ret)
++		goto restore_apv_domain_mode;
 +
-+required:
-+  - compatible
-+  - dma-coherent
-+  - interconnects
-+  - interconnect-names
-+  - power-domain-names
-+  - resets
-+  - reset-names
++	ret = iris_genpd_set_hwmode(core->cx_int, hw_mode);
++	if (ret)
++		goto restore_mm_int_domain_mode;
 +
-+allOf:
-+  - $ref: qcom,venus-common.yaml#
++	return 0;
 +
-+unevaluatedProperties: false
++restore_mm_int_domain_mode:
++	iris_genpd_set_hwmode(core->mm_int, !hw_mode);
++restore_apv_domain_mode:
++	if (!(efuse_value & DISABLE_VIDEO_APV_BIT))
++		iris_genpd_set_hwmode(core->apv, !hw_mode);
++restore_vpp1_domain_mode:
++	if (!(efuse_value & DISABLE_VIDEO_VPP1_BIT))
++		iris_genpd_set_hwmode(core->vcodec_vpp1, !hw_mode);
++restore_vpp0_domain_mode:
++	if (!(efuse_value & DISABLE_VIDEO_VPP0_BIT))
++		iris_genpd_set_hwmode(core->vcodec_vpp0, !hw_mode);
++restore_hw_domain_mode:
++	iris_genpd_set_hwmode(core->vcodec, !hw_mode);
 +
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,hawi-gcc.h>
-+    #include <dt-bindings/clock/qcom,hawi-videocc.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interconnect/qcom,icc.h>
-+    #include <dt-bindings/interconnect/qcom,hawi-rpmh.h>
-+    #include <dt-bindings/power/qcom,rpmhpd.h>
++	return ret;
++}
 +
-+    video-codec@2000000 {
-+        compatible = "qcom,hawi-iris";
-+        reg = <0x02000000 0xf0000>;
++static int iris_vpu5x_set_hwmode(struct iris_core *core)
++{
++	u32 efuse_value = readl(core->reg_base + WRAPPER_EFUSE_MONITOR);
 +
-+        interrupts = <GIC_ESPI 238 IRQ_TYPE_LEVEL_HIGH>;
++	if (!(efuse_value & DISABLE_VIDEO_APV_BIT))
++		iris_vpu_ahb_sync_reset_apv(core);
 +
-+        clocks = <&gcc GCC_VIDEO_AXI0_CLK>,
-+                 <&gcc GCC_VIDEO_AXI0C_CLK>,
-+                 <&videocc VIDEO_CC_MVS0C_CLK>,
-+                 <&videocc VIDEO_CC_MVS0C_FREERUN_CLK>,
-+                 <&videocc VIDEO_CC_MVS0C_CTL_FREERUN_CLK>,
-+                 <&videocc VIDEO_CC_MVS0C_DEBUG_CLK>,
-+                 <&videocc VIDEO_CC_CX_AXI0_CLK>,
-+                 <&videocc VIDEO_CC_MVS0_CLK>,
-+                 <&videocc VIDEO_CC_MVS0_VPP0_CLK>,
-+                 <&videocc VIDEO_CC_MVS0_VPP1_CLK>,
-+                 <&videocc VIDEO_CC_MVS0_VPP0_VPP1_GATING_CLK>,
-+                 <&videocc VIDEO_CC_MVS0A_CLK>,
-+                 <&videocc VIDEO_CC_MVS0B_CLK>;
-+        clock-names = "iface",
-+                      "ifacec",
-+                      "core",
-+                      "core_freerun",
-+                      "core_ctl_freerun",
-+                      "core_debug",
-+                      "cx_iface",
-+                      "vcodec0_core",
-+                      "vcodec_vpp0",
-+                      "vcodec_vpp1",
-+                      "vcodec_vpp0_vpp1_gating",
-+                      "vcodec_apv",
-+                      "vcodec_bse";
++	iris_vpu_ahb_sync_reset_hardware(core);
 +
-+        dma-coherent;
++	return iris_vpu5x_genpd_set_hwmode(core, true, efuse_value);
++}
 +
-+        interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+                          &config_noc SLAVE_IRIS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
-+                        <&mmss_noc MASTER_VIDEO_MVP QCOM_ICC_TAG_ALWAYS
-+                          &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+        interconnect-names = "cpu-cfg",
-+                              "video-mem";
++/*
++ * Perform an LPI power-down handshake on a single NOC interface.
++ *
++ * Sets QREQ and polls for the status DONE bit. On a busy response the request
++ * is toggled and, when @errclr_offs is non-zero, the NOC error-log clear
++ * register at that offset is written between retries to unblock the fabric.
++ * Pass @errclr_offs = 0 for interfaces that do not require error clearing.
++ */
++static void iris_vpu5x_noc_lpi_handshake(struct iris_core *core,
++					 u32 ctrl_offs, u32 status_offs,
++					 u32 busy_mask, u32 errclr_offs,
++					 const char *name)
++{
++	bool handshake_done, handshake_busy;
++	u32 value, count = 0;
++	int ret;
 +
-+        memory-region = <&video_mem>;
++	do {
++		if (errclr_offs) {
++			value = readl(core->reg_base + errclr_offs);
++			value |= NOC_ERL_ERRORLOGGER_ERRCLR;
++			writel(value, core->reg_base + errclr_offs);
++		}
 +
-+        power-domains = <&videocc VIDEO_CC_MVS0C_GDSC>,
-+                        <&videocc VIDEO_CC_MVS0_GDSC>,
-+                        <&rpmhpd RPMHPD_MXC>,
-+                        <&rpmhpd RPMHPD_MMCX>,
-+                        <&videocc VIDEO_CC_MVS0_VPP0_GDSC>,
-+                        <&videocc VIDEO_CC_MVS0_VPP1_GDSC>,
-+                        <&videocc VIDEO_CC_MVS0A_GDSC>,
-+                        <&videocc VIDEO_CC_MM_INT_GDSC>,
-+                        <&videocc VIDEO_CC_AXI0_CX_INT_GDSC>;
-+        power-domain-names = "venus",
-+                              "vcodec0",
-+                              "mxc",
-+                              "mmcx",
-+                              "vpp0",
-+                              "vpp1",
-+                              "apv",
-+                              "mm-int",
-+                              "cx-int";
++		value = readl(core->reg_base + ctrl_offs);
++		value |= NOC_LPI_PD_QREQ;
++		writel(value, core->reg_base + ctrl_offs);
++		usleep_range(10, 20);
 +
-+        resets = <&gcc GCC_VIDEO_AXI0C_CLK_ARES>,
-+                 <&videocc VIDEO_CC_MVS0C_CTL_FREERUN_CLK_ARES>;
-+        reset-names = "bus0",
-+                      "core";
++		value = readl(core->reg_base + status_offs);
++		handshake_done = value & NOC_LPI_STATUS_DONE;
++		handshake_busy = value & busy_mask;
 +
-+        operating-points-v2 = <&iris_opp_table>;
++		if (handshake_done || !handshake_busy)
++			break;
 +
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        dma-ranges = <0x0 0x0 0xffc00000>;
++		value = readl(core->reg_base + ctrl_offs);
++		value &= ~NOC_LPI_PD_QREQ;
++		writel(value, core->reg_base + ctrl_offs);
++		usleep_range(10, 20);
 +
-+        non-pixel {
-+            iommus = <&apps_smmu 0x1540 0x0000>,
-+                     <&apps_smmu 0x1620 0x0000>,
-+                     <&apps_smmu 0x1544 0x0000>;
-+            iommu-ranges = <0x32000000 0xcdc00000>;
-+        };
++	} while (++count < 1000);
 +
-+        pixel {
-+            iommus = <&apps_smmu 0x1543 0x0000>;
-+        };
++	if (!handshake_done && handshake_busy)
++		dev_err(core->dev, "%s NOC LPI handshake timeout\n", name);
 +
-+        iris_opp_table: opp-table {
-+            compatible = "operating-points-v2";
++	ret = readl_poll_timeout(core->reg_base + status_offs,
++				 value, value & NOC_LPI_STATUS_DONE, 200, 2000);
++	if (ret)
++		dev_err(core->dev, "%s NOC LPI status timeout\n", name);
 +
-+            opp-150000000 {
-+                opp-hz = /bits/ 64 <150000000 150000000 150000000 225000000>;
-+                required-opps = <&rpmhpd_opp_low_svs_d2>,
-+                                <&rpmhpd_opp_low_svs_d2>;
-+            };
++	value = readl(core->reg_base + ctrl_offs);
++	value &= ~NOC_LPI_PD_QREQ;
++	writel(value, core->reg_base + ctrl_offs);
++}
 +
-+            opp-285000000 {
-+                opp-hz = /bits/ 64 <285000000 240000000 240000000 360000000>;
-+                required-opps = <&rpmhpd_opp_low_svs>,
-+                                <&rpmhpd_opp_low_svs_d0>;
-+            };
++static int iris_vpu5x_power_on_cx_int(struct iris_core *core)
++{
++	u32 value;
++	int ret;
 +
-+            opp-338000000 {
-+                opp-hz = /bits/ 64 <338000000 338000000 338000000 507000000>;
-+                required-opps = <&rpmhpd_opp_low_svs>,
-+                                <&rpmhpd_opp_low_svs>;
-+            };
++	ret = iris_enable_power_domain_and_clocks(core, core->cx_int);
++	if (ret)
++		return ret;
 +
-+            opp-420000000 {
-+                opp-hz = /bits/ 64 <420000000 420000000 420000000 630000000>;
-+                required-opps = <&rpmhpd_opp_svs_l1>,
-+                                <&rpmhpd_opp_svs>;
-+            };
++	value = readl(core->reg_base + WRAPPER_MVP_NOC_CX_LPI_CONTROL);
++	value &= ~NOC_LPI_PD_QREQ;
++	writel(value, core->reg_base + WRAPPER_MVP_NOC_CX_LPI_CONTROL);
 +
-+            opp-444000000 {
-+                opp-hz = /bits/ 64 <444000000 444000000 444000000 666000000>;
-+                required-opps = <&rpmhpd_opp_svs_l1>,
-+                                <&rpmhpd_opp_svs_l1>;
-+            };
++	readl_poll_timeout(core->reg_base + WRAPPER_MVP_NOC_CX_LPI_STATUS,
++			   value, !(value & NOC_LPI_STATUS_DONE), 200, 2000);
 +
-+            opp-560000000 {
-+                opp-hz = /bits/ 64 <560000000 533000000 533000000 800000000>;
-+                required-opps = <&rpmhpd_opp_svs_l1>,
-+                                <&rpmhpd_opp_nom>;
-+            };
++	return 0;
++}
 +
-+            opp-630000000 {
-+                opp-hz = /bits/ 64 <630000000 630000000 630000000 1104000000>;
-+                required-opps = <&rpmhpd_opp_nom>,
-+                                <&rpmhpd_opp_turbo>;
-+            };
++static void iris_vpu5x_power_off_cx_int(struct iris_core *core)
++{
++	iris_vpu5x_noc_lpi_handshake(core,
++				     WRAPPER_MVP_NOC_CX_LPI_CONTROL,
++				     WRAPPER_MVP_NOC_CX_LPI_STATUS,
++				     NOC_LPI_STATUS_DENY | NOC_LPI_STATUS_ACTIVE,
++				     NOC_ERL_ERRORLOGGER_ERRCLR_LOW, "CX");
 +
-+            opp-800000000 {
-+                opp-hz = /bits/ 64 <800000000 710000000 710000000 1260000000>;
-+                required-opps = <&rpmhpd_opp_turbo>,
-+                                <&rpmhpd_opp_turbo_l1>;
-+            };
++	iris_disable_power_domain_and_clocks(core, core->cx_int);
++}
 +
-+            opp-1000000000 {
-+                opp-hz = /bits/ 64 <1000000000 710000000 850000000 1260000000>;
-+                required-opps = <&rpmhpd_opp_turbo>,
-+                                <&rpmhpd_opp_turbo_l3>;
-+            };
-+        };
-+    };
++static int iris_vpu5x_power_on_mm_int(struct iris_core *core)
++{
++	u32 value;
++	int ret;
++
++	ret = iris_enable_power_domain_and_clocks(core, core->mm_int);
++	if (ret)
++		return ret;
++
++	value = readl(core->reg_base + WRAPPER_MVP_NOC_LPI_CONTROL);
++	value &= ~NOC_LPI_PD_QREQ;
++	writel(value, core->reg_base + WRAPPER_MVP_NOC_LPI_CONTROL);
++
++	readl_poll_timeout(core->reg_base + WRAPPER_MVP_NOC_LPI_STATUS,
++			   value, !(value & NOC_LPI_STATUS_DONE), 200, 2000);
++
++	return 0;
++}
++
++static void iris_vpu5x_power_off_mm_int(struct iris_core *core)
++{
++	u32 value;
++
++	value = readl(core->reg_base + WRAPPER_MVP_NOC_LPI_CONTROL);
++	value &= ~NOC_LPI_PD_QREQ;
++	writel(value, core->reg_base + WRAPPER_MVP_NOC_LPI_CONTROL);
++
++	value = readl(core->reg_base + WRAPPER_MVP_NOC_CX_LPI_CONTROL);
++	value &= ~NOC_LPI_PD_QREQ;
++	writel(value, core->reg_base + WRAPPER_MVP_NOC_CX_LPI_CONTROL);
++
++	iris_vpu5x_noc_lpi_handshake(core,
++				     WRAPPER_MVP_NOC_LPI_CONTROL,
++				     WRAPPER_MVP_NOC_LPI_STATUS,
++				     NOC_LPI_STATUS_DENY | NOC_LPI_STATUS_ACTIVE,
++				     NOC_ERL_ERRORLOGGER_ERRCLR_LOW, "MM");
++
++	iris_disable_power_domain_and_clocks(core, core->mm_int);
++}
++
++static int iris_vpu5x_power_on_hardware(struct iris_core *core)
++{
++	u32 efuse_value = readl(core->reg_base + WRAPPER_EFUSE_MONITOR);
++	int ret;
++
++	ret = iris_vpu5x_power_on_cx_int(core);
++	if (ret)
++		return ret;
++
++	ret = iris_vpu5x_power_on_mm_int(core);
++	if (ret)
++		goto err_disable_cx_int;
++
++	ret = iris_enable_power_domain_and_clocks(core, core->vcodec);
++	if (ret)
++		goto err_disable_mm_int;
++
++	if (!(efuse_value & DISABLE_VIDEO_VPP0_BIT)) {
++		ret = iris_enable_power_domain_and_clocks(core, core->vcodec_vpp0);
++		if (ret)
++			goto err_disable_hw_power;
++	}
++
++	if (!(efuse_value & DISABLE_VIDEO_VPP1_BIT)) {
++		ret = iris_enable_power_domain_and_clocks(core, core->vcodec_vpp1);
++		if (ret)
++			goto err_disable_vpp0_power;
++	}
++
++	if (!(efuse_value & DISABLE_VIDEO_APV_BIT)) {
++		ret = iris_vpu_power_on_apv(core);
++		if (ret)
++			goto err_disable_vpp1_power;
++	}
++
++	return 0;
++
++err_disable_vpp1_power:
++	if (!(efuse_value & DISABLE_VIDEO_VPP1_BIT))
++		iris_disable_power_domain_and_clocks(core, core->vcodec_vpp1);
++err_disable_vpp0_power:
++	if (!(efuse_value & DISABLE_VIDEO_VPP0_BIT))
++		iris_disable_power_domain_and_clocks(core, core->vcodec_vpp0);
++err_disable_hw_power:
++	iris_disable_power_domain_and_clocks(core, core->vcodec);
++err_disable_mm_int:
++	iris_vpu5x_power_off_mm_int(core);
++err_disable_cx_int:
++	iris_vpu5x_power_off_cx_int(core);
++
++	return ret;
++}
++
++static void iris_vpu5x_power_off_hardware(struct iris_core *core)
++{
++	u32 efuse_value = readl(core->reg_base + WRAPPER_EFUSE_MONITOR);
++	u32 noc_reset_mask;
++	u32 value;
++	int ret;
++
++	iris_vpu5x_genpd_set_hwmode(core, false, efuse_value);
++
++	if (!(efuse_value & DISABLE_VIDEO_APV_BIT))
++		iris_vpu_power_off_apv(core);
++
++	if (iris_vpu5x_hw_power_collapsed(core))
++		goto disable_clocks_and_power;
++
++	value = readl(core->reg_base + WRAPPER_CORE_CLOCK_CONFIG);
++	if (value & CORE_CLK_HALT)
++		writel(CORE_CLK_RUN, core->reg_base + WRAPPER_CORE_CLOCK_CONFIG);
++
++	readl_poll_timeout(core->reg_base + VCODEC_SS_IDLE_STATUSN,
++			   value, (value & VPU_IDLE_BITS) == VPU_IDLE_BITS, 2000, 20000);
++
++	if (efuse_value & DISABLE_VIDEO_VPP0_BIT)
++		noc_reset_mask = NOC5_RESET_VPP0_ONLY_DISABLED;
++	else if (efuse_value & DISABLE_VIDEO_VPP1_BIT)
++		noc_reset_mask = NOC5_RESET_VPP1_DISABLED;
++	else
++		noc_reset_mask = NOC5_RESET_ALL_VPP_ENABLED;
++
++	writel(noc_reset_mask, core->reg_base + AON_WRAPPER_MVP_NOC_RESET_REQ);
++	ret = readl_poll_timeout(core->reg_base + AON_WRAPPER_MVP_NOC_RESET_ACK,
++				 value, (value & noc_reset_mask) == noc_reset_mask, 200, 2000);
++	if (ret)
++		dev_err(core->dev, "MVP NOC reset ack timeout\n");
++
++	writel(noc_reset_mask, core->reg_base + AON_WRAPPER_MVP_NOC_RESET_SYNCRST);
++	writel(0x0, core->reg_base + AON_WRAPPER_MVP_NOC_RESET_SYNCRST);
++	writel(0x0, core->reg_base + AON_WRAPPER_MVP_NOC_RESET_REQ);
++
++	ret = readl_poll_timeout(core->reg_base + AON_WRAPPER_MVP_NOC_RESET_ACK,
++				 value, value == 0x0, 200, 2000);
++	if (ret)
++		dev_err(core->dev, "MVP NOC reset deassert timeout\n");
++
++	writel(CORE_BRIDGE_SW_RESET | CORE_BRIDGE_HW_RESET_DISABLE,
++	       core->reg_base + CPU_CS_AHB_BRIDGE_SYNC_RESET);
++	writel(CORE_BRIDGE_HW_RESET_DISABLE, core->reg_base + CPU_CS_AHB_BRIDGE_SYNC_RESET);
++	writel(0x0, core->reg_base + CPU_CS_AHB_BRIDGE_SYNC_RESET);
++
++disable_clocks_and_power:
++	if (!(efuse_value & DISABLE_VIDEO_VPP1_BIT))
++		iris_disable_power_domain_and_clocks(core, core->vcodec_vpp1);
++
++	if (!(efuse_value & DISABLE_VIDEO_VPP0_BIT))
++		iris_disable_power_domain_and_clocks(core, core->vcodec_vpp0);
++
++	iris_disable_power_domain_and_clocks(core, core->vcodec);
++	iris_vpu5x_power_off_mm_int(core);
++	iris_vpu5x_power_off_cx_int(core);
++}
++
++static int iris_vpu5x_power_on_controller(struct iris_core *core)
++{
++	u32 mask_val;
++	int ret;
++
++	ret = iris_enable_power_domain_and_clocks(core, core->ctrl);
++	if (ret)
++		return ret;
++
++	mask_val = readl(core->reg_base + CPU_NOC_SBM_FAULTINEN0_LOW);
++	mask_val |= NOC_SBM_FAULTINEN0_PORT0;
++	writel(mask_val, core->reg_base + CPU_NOC_SBM_FAULTINEN0_LOW);
++
++	mask_val = readl(core->reg_base + CPU_NOC_ERRORLOGGER_MAINCTL_LOW);
++	mask_val |= NOC_ERRORLOGGER_MAINCTL_FAULTEN;
++	writel(mask_val, core->reg_base + CPU_NOC_ERRORLOGGER_MAINCTL_LOW);
++
++	mask_val = readl(core->reg_base + WRAPPER_INTR_MASK);
++	mask_val &= ~WRAPPER_INTR_MASK_SS_CPU_NOC;
++	writel(mask_val, core->reg_base + WRAPPER_INTR_MASK);
++
++	mask_val = readl(core->reg_base + NOC_SBM_FAULTINEN0_LOW);
++	mask_val |= NOC_SBM_FAULTINEN0_PORT0;
++	writel(mask_val, core->reg_base + NOC_SBM_FAULTINEN0_LOW);
++
++	mask_val = readl(core->reg_base + NOC_ERL_ERRORLOGGER_MAINCTL_LOW);
++	mask_val |= NOC_ERRORLOGGER_MAINCTL_FAULTEN;
++	writel(mask_val, core->reg_base + NOC_ERL_ERRORLOGGER_MAINCTL_LOW);
++
++	mask_val = readl(core->reg_base + WRAPPER_INTR_MASK);
++	mask_val &= ~WRAPPER_INTR_MASK_SS_NOC;
++	writel(mask_val, core->reg_base + WRAPPER_INTR_MASK);
++
++	return 0;
++}
++
++static int iris_vpu5x_power_off_controller(struct iris_core *core)
++{
++	u32 ctrl_rst_tbl_size = core->iris_platform_data->controller_rst_tbl_size;
++	u32 value;
++
++	writel(MSK_SIGNAL_FROM_TENSILICA | MSK_CORE_POWER_ON,
++	       core->reg_base + CPU_CS_X2RPMH);
++
++	iris_vpu5x_noc_lpi_handshake(core,
++				     WRAPPER_IRIS_CPU_NOC_LPI_CONTROL,
++				     WRAPPER_IRIS_CPU_NOC_LPI_STATUS,
++				     NOC_LPI_STATUS_DENY, 0, "CPU");
++
++	iris_vpu5x_noc_lpi_handshake(core,
++				     AON_WRAPPER_MVP_VIDEO_CTL_NOC_LPI_CONTROL,
++				     AON_WRAPPER_MVP_VIDEO_CTL_NOC_LPI_STATUS,
++				     NOC_LPI_STATUS_DENY | NOC_LPI_STATUS_ACTIVE, 0, "Video CTL");
++
++	writel(0x0, core->reg_base + WRAPPER_DEBUG_BRIDGE_LPI_CONTROL);
++	readl_poll_timeout(core->reg_base + WRAPPER_DEBUG_BRIDGE_LPI_STATUS,
++			   value, value == 0x0, 200, 2000);
++
++	value = readl(core->reg_base + AON_WRAPPER_MVP_NOC_ARCG_CONTROL);
++	value |= AON_MVP_NOC_ARCG_OVERRIDE;
++	writel(value, core->reg_base + AON_WRAPPER_MVP_NOC_ARCG_CONTROL);
++
++	iris_disable_power_domain_and_clocks(core, core->ctrl);
++
++	reset_control_bulk_assert(ctrl_rst_tbl_size, core->controller_resets);
++	usleep_range(400, 500);
++	reset_control_bulk_deassert(ctrl_rst_tbl_size, core->controller_resets);
++
++	return 0;
++}
++
++const struct vpu_ops iris_vpu5x_ops = {
++	.power_off_hw		  = iris_vpu5x_power_off_hardware,
++	.power_on_hw		  = iris_vpu5x_power_on_hardware,
++	.power_off_controller	  = iris_vpu5x_power_off_controller,
++	.power_on_controller	  = iris_vpu5x_power_on_controller,
++	.program_bootup_registers = iris_vpu35_vpu4x_program_bootup_registers,
++	.calc_freq		  = iris_vpu3x_vpu4x_calculate_frequency,
++	.set_hwmode		  = iris_vpu5x_set_hwmode,
++	.interrupt_init		  = iris_vpu_interrupt_init,
++	.set_preset_registers	  = iris_vpu_set_preset_registers,
++};
+diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.h b/drivers/media/platform/qcom/iris/iris_vpu_common.h
+index 126555877561e3a9bbaef7fa4da329bbe6645d46..783e2429be28dffe829b0adba998a9a02a7b883b 100644
+--- a/drivers/media/platform/qcom/iris/iris_vpu_common.h
++++ b/drivers/media/platform/qcom/iris/iris_vpu_common.h
+@@ -13,6 +13,7 @@ extern const struct vpu_ops iris_vpu3_ops;
+ extern const struct vpu_ops iris_vpu33_ops;
+ extern const struct vpu_ops iris_vpu35_ops;
+ extern const struct vpu_ops iris_vpu4x_ops;
++extern const struct vpu_ops iris_vpu5x_ops;
+ extern const struct vpu_ops iris_vpu_ar50lt_ops;
+ 
+ struct vpu_ops {
 
 -- 
 2.43.0
