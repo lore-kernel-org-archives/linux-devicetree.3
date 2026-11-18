@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005771;
-	b=CNnBysSwbKHKgOvy9Wolao1ig1khG1SVDulY0FywfLyt+7JR54XVFz5IMR1dZyv/fRQ1
-	 u4axI8z21FmiFTv1DHbgsJXUEw6wY23lcaMKMPuD2Dida7XVJp6krBQEisaqRA9QjFdAP
-	 wLaIdLhsaBfBl1ynvMwTZ7amIGgKb3gDc6tuL/kYGiNTVgeKqlD6vDXo3o+WBg1PS7j7T
-	 p1ANUAY5j6pab4t2RL4S29QvHezm/gezJNQCa6K432mtu1ABJgZTuGJrY8btlW8T/EYgy
-	 gESgWgRTw1J+ondOUI7je6NAqPvZ2MUCyt2cCoWVmLr2vhEzCcAAtrg2B5l8Mi9Jg2w==
+	t=1795005772;
+	b=AJt7XBw7CSshDS7gAA1vekMYfyXSUFxeW1JaiF0tgoAdxkKxRf7ZunJnzNWCF4XerIpU
+	 Fq64hwJtc/9e8sgVG0+HU6S7jHiR5ihoS1eByfHe9WLODWEsTRC8hWA0d1QflM3/yoXtm
+	 O+xwE6Fql2UPdOFnHA6ibG8Ga9k4nunvC0NQKsqW7cvRj2K3LbKf1vXzJSLJiQoXx+wBy
+	 1iEVvO0uYYSUVG7zBJ3/fcD87qlCgW2hXl6fEMra0L3kd65OoOeyV+f564dc+IqLyMwap
+	 6KGvP/brtVVlC4r2ZK/K/oGuD5ieTsUEmFAjdtt0xv459YQXD3IPUUjnMpdWfHUBQNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005771;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005772;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ZxjKuxP4xwGnLaSk1WXKp7EUu3HlmDxynOFeGJnyll8=;
-	b=eH6GplBzt2vs29VpHp7QSLpmDDdm2r6rr9tfZE08KCASyM+vQhkL8AYEZMUtQrPuNndz
-	 lyGbYxf0fvNTTSaSmNl6pOgxJu27C/xiNb2lRvubf1t1ugFfrVNuHFzeUmj0E/WzEzHx7
-	 Taby01xkfNxDCxDYv/ZAE1uDt8W3yUqudt+NVehI/ecUGFWyIIwz9MD/M4q1poGKGzs+E
-	 QkovMcseR/4bmCoWhYaoDGTQlfLmDm4S4IhhBNo9NUfLcoEM39Ntw6XscIERvj7FSMqZk
-	 0gLtKqPF72qy3wFMdqM+vvlEFpvwU3tM9qY9ViozZI/MjWXek8tTfsU8lB5ysGvJRnQ==
+	bh=hUFzebIGxgCE8AUoV1cM1JeiWcDiyfb1Fv4fG/tGfyU=;
+	b=36GG/vbt+IlHxXMO70lrCdkEt+xpmewLFM8IsqyNvYqPWtCTO043WYV/ft1JpYYJbdJO
+	 qAlZvJ2fpQn2K47ZRCwWSjWxyJBuA7hNYkkBj8eZAJPxsCCCJHAceQlSj6qZC0dHi9mhe
+	 WdRtRfkzCrlOHtB+SVZeIM8IlvHenmHvTe63ifS4iP/r2zc4x0qvgGMWlf8CuDffNqPTN
+	 Q9UB9GuJ0u84C0VX+r7boMXdov2SD1lWGi8YjsXLv5i5YUdv3xFqgFWts2jMouBiriUZP
+	 pjtZmd7WUICn33kVEEfUTZo2QZKDCMw0hD2bcO72A91kjqWJsRVcjLS6QOL5WxBldWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4zMjTb3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iebXyfHD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792E960A2609
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:42:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15CB960A2601
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:42:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4zMjTb3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8A9A1F000C5;
-	Wed, 18 Nov 2026 12:42:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iebXyfHD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25A01F000C5;
+	Wed, 18 Nov 2026 12:42:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795005771;
-	bh=ZxjKuxP4xwGnLaSk1WXKp7EUu3HlmDxynOFeGJnyll8=;
+	bh=hUFzebIGxgCE8AUoV1cM1JeiWcDiyfb1Fv4fG/tGfyU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a4zMjTb3UbFLpmNfdY2PgAbfEBWeUqBXRJdhIXQjwox9Hb/G/uj+lHbu5/wmC6N3x
-	 9Cgpgxyo6KI0gI3vmyW2hvXLO6MmNz+HFcatsL3NnQFOpMpCdSf3FptOXFPPRy3m+a
-	 IcYtLmpd6h5LKcTFmpN5pBySdBv27Z1xglkOTtNIyEsJiXxuQviGqfHYM7TvNU0nPy
-	 lV/blZYGqB39JQUfXwC5OdbYXuV3+tSfFlVcT/oWYOon6rFYCxPOEdQIBOgMQnoIAd
-	 JKC+XO87cgZuxVXVWEzroJvvNFEFzJK69VS5u7Yr/N0tBp/W1URMPI0BIkcC+DYDyz
-	 HBhQFwYwBQ6Rw==
-Message-ID: <sashiko-outbox-220928@kernel.org>
+	b=iebXyfHDKKavg5c0riHIxUAgP4cxNswJbBDBlUndxBIlUhb/XutAetY7oXEG54cpb
+	 airBZYJXuJAY9tHRYUVxII1G3ayzyovJqIC3c90CNyPXftKVYbx3nrasOg97W/u6OS
+	 RXyev8c1rE1pP3wu98sD3C8/GS4D/J7s8QPo7RRg++09K5ADGZhVZVmsyAQWH+w+cF
+	 +mTLjfzZwkSrK0R6CzLLC0bikSZv64sGf2vs16XKLziJ0LlYA0Z2Kfhz0RhowZX3rE
+	 RkOsRuo5l85VOceRoo+9tz0vK0erw0nvJANqkWzImufJqp48d8jykEXAlik926SDiO
+	 qCDJn2w1wc75A==
+Message-ID: <sashiko-outbox-220929@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v22 08/15] net: phylink: support PCS provider
- release
+Subject: Re: [PATCH net-next v22 09/15] net: phylink: support late PCS
+ provider attach
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Christian Marangi" <ansuelsmth@gmail.com>, devicetree@vger.kernel.org
 Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261117123956.11981-9-ansuelsmth@gmail.com>
+In-Reply-To: <20261117123956.11981-10-ansuelsmth@gmail.com>
 References: <20261117123956.11981-1-ansuelsmth@gmail.com>
- <20261117123956.11981-9-ansuelsmth@gmail.com>
+ <20261117123956.11981-10-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 12:42:50 +0000
+Date: Wed, 18 Nov 2026 12:42:51 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,302 +61,346 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 7 potential
 issues to consider:
-- [Medium] net: phylink: broken capability recalculation in
+- [High] net: phylink: pcs_provider_notify() misses PCS reconfig on late
+  attach
+- [High] net: phylink: unreachable SFP revalidation in
   phylink_update_capabilities()
-- [Medium] net: phylink: mishandled force_major_config with
-  phylink_disable_state
-- [Medium] net: phylink: race between pcs_provider_notify() and
-  phylink_create()
-- [Medium] net: phylink: missing hardware advertisement update in
+- [High] net: phylink: broken supported_interfaces refresh in
   pcs_provider_notify()
+- [Medium] net: phylink: phylink_resolve() passes wrong state to
+  phylink_major_config()
+- [Medium] net: phylink: missing SFP interface selection in
+  phylink_update_capabilities()
+- [Medium] net: phylink: missing PHY aneg reconfig in
+  pcs_provider_notify()
+- [Low] net: phylink: unlocked mode and fixed-link parse in
+  phylink_create()
 --
 
-commit 43bb91371f247055f063dc4ec828173d12f85adf
+commit df5385a2562b3f337c319241b34f5895e1000a4c
 Author: Christian Marangi <ansuelsmth@gmail.com>
 
-net: phylink: support PCS provider release
+net: phylink: support late PCS provider attach
 
-This commit adds a blocking notifier chain for fwnode PCS provider removal
-and updates phylink to detach removed PCS instances, recalculate supported
-interfaces and capabilities, and trigger link resolution.
+This commit adds FWNODE_PCS_PROVIDER_ADD notifier handling and SFP
+interface tracking so phylink can attach PCS providers registered after
+phylink_create() and revalidate capabilities.
 
 > diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index 921c227a5b3c0..094a15f3dbcd0 100644
+> index 094a15f3dbcd0..8768d8220a134 100644
 > --- a/drivers/net/phy/phylink.c
 > +++ b/drivers/net/phy/phylink.c
 
 [ ... ]
 
-> @@ -2350,6 +2371,11 @@ static void phylink_update_capabilities(struct phy=
-link *pl,
->  							config->interface);
->  			linkmode_copy(pl->supported, supported);
->  			linkmode_copy(pl->advertising, config->advertising);
-> +		} else {
-> +			/* No SFP modes remain usable with the current interfaces. */
-> +			linkmode_zero(pl->supported);
-> +			linkmode_zero(pl->advertising);
-> +			linkmode_zero(config->advertising);
->  		}
-> =20
+> @@ -2358,11 +2383,24 @@ static void phylink_update_capabilities(struct ph=
+ylink *pl,
 >  		goto exit;
+>  	}
+> =20
+> -	/* Revalidate the SFP module modes against every available interface. */
+> +	/* Revalidate SFP modes against interfaces currently supported by the
+> +	 * MAC and PCS. Keep the module's interface list intact so a later PCS
+> +	 * addition can make an interface usable again.
+> +	 */
+>  	if (pl->sfp_bus && !pl->phydev && config->interface &&
+> -	    !phy_interface_empty(pl->sfp_interfaces)) {
+> +	    !phy_interface_empty(pl->sfp_module_interfaces)) {
 
-[Severity: Medium]
-Can this else branch ever be reached when a PCS is removed, and what
-happens to the non-SFP branches in phylink_update_capabilities() when
-validation fails?
+[Severity: High]
+Is this SFP revalidation block reachable on standard SFP ports configured
+with managed =3D "in-band-status" or default_an_inband?
 
-First, phylink_update_capabilities() passes unmasked pl->sfp_interfaces to
-__phylink_validate_mask(), and in phylink_validate_mac_and_pcs() a missing
-PCS in pl->pcs_list leaves pcs as NULL without returning -EINVAL:
+Just above this hunk, phylink_update_capabilities() checks
+pl->cfg_link_an_mode =3D=3D MLO_AN_INBAND and jumps to exit:
 
-drivers/net/phy/phylink.c:phylink_validate_mac_and_pcs() {
+drivers/net/phy/phylink.c:phylink_update_capabilities() {
     ...
-	} else if (test_bit(state->interface, pl->config->pcs_interfaces)) {
-		struct phylink_pcs *tmp;
-
-		list_for_each_entry(tmp, &pl->pcs_list, list) {
-			if (!phylink_validate_pcs_interface(tmp, state->interface)) {
-				pcs =3D tmp;
-				break;
-			}
-		}
+	if (pl->cfg_link_an_mode =3D=3D MLO_AN_INBAND) {
+		phylink_parse_inband_capabilities(pl, config);
+		goto exit;
 	}
-
-	if (pcs) {
     ...
 }
 
-Because pcs is NULL, phylink_validate_mac_and_pcs() skips PCS validation
-and succeeds against the MAC capabilities alone, so
-__phylink_validate_mask() still returns 0 after the PCS is removed.
+When an SFP module is inserted on an in-band port, pl->cfg_link_an_mode
+remains MLO_AN_INBAND.  As a result, pcs_provider_notify() runs
+phylink_parse_inband_capabilities() instead of this SFP block, leaving
+pl->sfp_interfaces stale and overwriting pl->supported and
+pl->advertising with generic in-band MII link modes instead of filtering
+against pl->sfp_module_interfaces and pl->sfp_support.
 
-Second, when validation does return -EINVAL (for example, when
-state->interface is no longer in pl->supported_interfaces), none of the
-other branches in phylink_update_capabilities() clear the capability masks:
-the generic fallback presets pl->supported and config->advertising with
-linkmode_fill(), ignores the -EINVAL return from __phylink_validate(), and
-leaves all linkmode bits set in pl->supported and pl->advertising;
-similarly, the pl->phydev, MLO_AN_FIXED, and MLO_AN_INBAND paths leave
-stale or unvalidated linkmodes in pl->supported and pl->advertising.
-
-> @@ -2425,6 +2451,133 @@ void phylink_update_mac_pause_capabilities(struct=
- phylink *pl, unsigned long mac
->  }
->  EXPORT_SYMBOL_GPL(phylink_update_mac_pause_capabilities);
+>  		__ETHTOOL_DECLARE_LINK_MODE_MASK(supported);
 > =20
-> +static void phylink_del_pcs(struct phylink *pl, struct phylink_pcs *pcs)
-> +{
-> +	ASSERT_RTNL();
-> +
-> +	lockdep_assert_held(&pl->state_mutex);
-> +
-> +	rcu_assign_pointer(pcs->phylink, NULL);
-> +	synchronize_rcu();
-> +	list_del(&pcs->list);
-> +
-> +	/*
-> +	 * Check if we are removing the PCS currently
-> +	 * in use by this phylink instance. If this is the case,
-> +	 * tear down the link, force phylink resolve to reconfigure the
-> +	 * interface mode, disable the current PCS and set the
-> +	 * phylink PCS to NULL.
-> +	 */
-> +	if (pl->pcs =3D=3D pcs) {
-> +		if (pl->old_link_state) {
-> +			phylink_link_down(pl);
-> +			pl->old_link_state =3D false;
+> +		phy_interface_and(pl->sfp_interfaces,
+> +				  pl->sfp_module_interfaces,
+> +				  pl->supported_interfaces);
+> +		if (phy_interface_empty(pl->sfp_interfaces)) {
+> +			linkmode_zero(pl->supported);
+> +			linkmode_zero(pl->advertising);
+> +			linkmode_zero(config->advertising);
+> +			goto exit;
 > +		}
-> +		if (pl->cfg_link_an_mode =3D=3D MLO_AN_INBAND)
-> +			timer_delete_sync(&pl->link_poll);
 > +
-> +		if (pl->pcs_state !=3D PCS_STATE_DOWN)
-> +			phylink_pcs_disable(pl->pcs);
+>  		linkmode_copy(supported, pl->sfp_support);
+>  		linkmode_copy(config->advertising, pl->sfp_support);
+>  		if (!__phylink_validate_mask(pl, NULL, supported, config,
+
+[Severity: Medium]
+When pl->sfp_interfaces changes here, does phylink_update_capabilities()
+also need to re-select config->interface via phylink_choose_sfp_interface()
+and restrict config->advertising to that single interface with
+__phylink_validate()?
+
+Without re-selecting config->interface and validating against it (as
+phylink_sfp_config_optical() does), __phylink_validate_mask() leaves link
+modes from all interfaces in pl->sfp_interfaces advertised in
+pl->advertising, and if a PCS removal drops the active config->interface
+while another interface in pl->sfp_interfaces remains usable,
+config->interface stays set to the removed mode.
+
+In addition, if an optical SFP module is inserted before its PCS provider
+probes and pl->supported_interfaces has no overlap with
+pl->sfp_module_interfaces yet, phylink_sfp_config_optical() returns
+-EINVAL before setting pl->link_config.interface (putting the SFP state
+machine into SFP_MOD_ERROR with config->interface =3D=3D PHY_INTERFACE_MODE=
+_NA),
+so this config->interface check will skip the SFP module when the PCS
+provider later attaches.
+
+> @@ -2494,6 +2532,7 @@ static int pcs_provider_notify(struct notifier_bloc=
+k *self,
+>  	struct phylink_pcs *pcs, *tmp;
+>  	struct phy_device *phydev;
+>  	bool resolve =3D false;
+> +	int count, i;
+> =20
+>  	rtnl_lock();
+>  	mutex_lock(&pl->phydev_mutex);
+> @@ -2506,16 +2545,44 @@ static int pcs_provider_notify(struct notifier_bl=
+ock *self,
+>  	if (pl->pcs_state =3D=3D PCS_STATE_DETACHING)
+>  		goto exit;
+> =20
+> -	/*
+> -	 * Loop all the PCS for phylink instance and check if
+> -	 * this notification is relevant for some of them.
+> -	 */
+> -	list_for_each_entry_safe(pcs, tmp, &pl->pcs_list, list) {
+> -		if (!fwnode_pcs_matches_provider(pp, pl->fwnode, pcs))
+> -			continue;
+> +	switch (val) {
+> +	case FWNODE_PCS_PROVIDER_ADD:
+> +		count =3D fwnode_phylink_pcs_count(pl->fwnode);
+> +		for (i =3D 0; i < count; i++) {
+> +			pcs =3D fwnode_pcs_get_from_provider(pp, pl->fwnode, i);
+> +			if (IS_ERR_OR_NULL(pcs))
+> +				continue;
 > +
-> +		if (!pl->phylink_disable_state)
+> +			/* Trigger a resolve only if a PCS is actually added */
+> +			if (phylink_add_pcs(pl, pcs))
+> +				resolve =3D true;
+> +		}
+> +
+> +		/*
+> +		 * Force an interface reconfig if major config failed.
+> +		 * Configure link_failed to retrigger a resolve a
+> +		 * second time to reevaluate AN mode with the new
+> +		 * PCS if selected.
+> +		 */
+> +		if (resolve && pl->major_config_failed) {
 > +			pl->force_major_config =3D true;
-> +
-> +		WRITE_ONCE(pl->pcs, NULL);
-> +	}
-> +}
+> +			pl->link_failed =3D true;
+> +		}
+
+[Severity: High]
+Can gating pl->force_major_config and pl->link_failed solely on
+pl->major_config_failed miss reattaching the PCS after a provider removal
+and re-addition?
+
+When an active PCS is removed, phylink_del_pcs() sets pl->pcs =3D NULL, but
+pl->major_config_failed is only set later when the asynchronous
+pl->resolve work item runs phylink_major_config().  If
+pl->phylink_disable_state is non-zero when FWNODE_PCS_PROVIDER_DEL fires
+(for example, PHYLINK_DISABLE_LINK on an SFP cage with no signal),
+phylink_del_pcs() does not set pl->force_major_config and
+phylink_run_resolve() does not run pl->resolve, so pl->major_config_failed
+remains false; when the PCS provider is re-added and optical signal later
+returns, phylink_resolve() never runs phylink_major_config() and pl->pcs
+stays NULL.  Likewise, if FWNODE_PCS_PROVIDER_ADD runs before the queued
+pl->resolve work from FWNODE_PCS_PROVIDER_DEL has executed,
+pl->major_config_failed is still false, so pl->link_failed is not set and
+phylink_resolve() does not retrigger a second pass after attaching
+pl->pcs in phylink_major_config().
 
 [Severity: Medium]
-Does setting pl->force_major_config based on !pl->phylink_disable_state
-interact safely with phylink_stop() and PHYLINK_DISABLE_LINK?
+When pl->major_config_failed is true in MLO_AN_PHY or MLO_AN_FIXED mode,
+does setting both pl->force_major_config =3D true and pl->link_failed =3D t=
+rue
+cause phylink_resolve() to run phylink_major_config() with the wrong
+link_state?
 
-If pl->phylink_disable_state is 0 when phylink_del_pcs() sets
-pl->force_major_config =3D true, and phylink_stop() runs after
-pcs_provider_notify() drops rtnl_lock() but before pl->resolve executes,
-phylink_stop() calls timer_delete_sync(&pl->link_poll) and then flushes
-pl->resolve via phylink_run_resolve_and_disable().  In phylink_resolve(),
-pl->force_major_config triggers phylink_major_config() even when
-pl->phylink_disable_state is non-zero, reconfiguring stopped hardware and
-potentially re-arming pl->link_poll via phylink_pcs_poll_start() after
-phylink_stop() already deleted it.
+In phylink_resolve(), the pl->link_failed branch runs before the
+MLO_AN_FIXED and MLO_AN_PHY branches and copies link_state from
+pl->link_config:
 
-Conversely, if the active PCS is removed while the instance is started
-(pl->pcs_state =3D=3D PCS_STATE_STARTED) but PHYLINK_DISABLE_LINK is set (s=
-uch
-as when SFP LOS is asserted), !pl->phylink_disable_state is false, so
-pl->pcs is set to NULL without setting pl->force_major_config.  When
-PHYLINK_DISABLE_LINK is later cleared on the same interface,
-phylink_resolve() skips phylink_major_config() and calls phylink_link_up()
-with pl->pcs =3D=3D NULL.
+drivers/net/phy/phylink.c:phylink_resolve() {
+    ...
+	} else if (pl->link_failed) {
+		link_state =3D pl->link_config;
+		link_state.link =3D false;
+		retrigger =3D true;
+	} else if (pl->act_link_an_mode =3D=3D MLO_AN_FIXED) {
+		phylink_get_fixed_state(pl, &link_state);
+		mac_config =3D link_state.link;
+	} else if (pl->act_link_an_mode =3D=3D MLO_AN_PHY) {
+		link_state =3D pl->phy_state;
+		mac_config =3D link_state.link;
+	}
+    ...
+	if ((mac_config && link_state.interface !=3D pl->link_config.interface) ||
+	    pl->force_major_config) {
+		...
+		phylink_major_config(pl, false, &link_state);
+		pl->link_config.interface =3D link_state.interface;
+		pl->force_major_config =3D false;
+	}
+    ...
+}
+
+In MLO_AN_PHY mode, the PHY's rate_matching, pause, and current interface
+live in pl->phy_state, whereas pl->link_config has rate_matching =3D
+RATE_MATCH_NONE.  Because the first resolve pass consumes
+pl->force_major_config while link_state holds pl->link_config, the
+retriggered second pass will not re-run phylink_major_config() if the
+interface matches or the PHY link is still down.
 
 > +
-> +static int pcs_provider_notify(struct notifier_block *self,
-> +			       unsigned long val, void *data)
-> +{
-> +	struct phylink *pl =3D container_of(self, struct phylink, fwnode_pcs_nb=
-);
-> +	struct fwnode_pcs_provider *pp =3D data;
-> +	struct phylink_pcs *pcs, *tmp;
-> +	struct phy_device *phydev;
-> +	bool resolve =3D false;
-> +
-> +	rtnl_lock();
-> +	mutex_lock(&pl->phydev_mutex);
-> +	phydev =3D pl->phydev;
-> +	if (phydev)
-> +		mutex_lock(&phydev->lock);
-> +	mutex_lock(&pl->state_mutex);
-> +
-> +	/* phylink instance is being destroyed, ignore any event */
-> +	if (pl->pcs_state =3D=3D PCS_STATE_DETACHING)
-> +		goto exit;
-> +
-> +	/*
-> +	 * Loop all the PCS for phylink instance and check if
-> +	 * this notification is relevant for some of them.
-> +	 */
-> +	list_for_each_entry_safe(pcs, tmp, &pl->pcs_list, list) {
-> +		if (!fwnode_pcs_matches_provider(pp, pl->fwnode, pcs))
-> +			continue;
-> +
-> +		phylink_del_pcs(pl, pcs);
-> +		resolve =3D true;
-> +	}
-> +
-> +	/* Exit early if nothing has changed */
-> +	if (!resolve)
-> +		goto exit;
-> +
-> +	/* Refresh supported interfaces */
-> +	phy_interface_copy(pl->supported_interfaces,
-> +			   pl->config->supported_interfaces);
-> +	list_for_each_entry(pcs, &pl->pcs_list, list)
-> +		phy_interface_or(pl->supported_interfaces,
-> +				 pl->supported_interfaces,
-> +				 pcs->supported_interfaces);
-> +
-> +	/* Recalculate capabilities */
-> +	phylink_update_capabilities(pl, &pl->link_config);
-> +
-> +exit:
-> +	mutex_unlock(&pl->state_mutex);
-> +	if (phydev)
-> +		mutex_unlock(&phydev->lock);
-> +	mutex_unlock(&pl->phydev_mutex);
-> +	rtnl_unlock();
-> +
-> +	if (resolve)
-> +		phylink_run_resolve(pl);
-> +
-> +	return resolve ? NOTIFY_OK : NOTIFY_DONE;
-> +}
+> +		break;
+> +	case FWNODE_PCS_PROVIDER_DEL:
+> +		/*
+> +		 * Loop all the PCS for phylink instance and check if
+> +		 * this notification is relevant for some of them.
+> +		 */
+> +		list_for_each_entry_safe(pcs, tmp, &pl->pcs_list, list) {
+> +			if (!fwnode_pcs_matches_provider(pp, pl->fwnode, pcs))
+> +				continue;
+> =20
+> -		phylink_del_pcs(pl, pcs);
+> -		resolve =3D true;
+> +			phylink_del_pcs(pl, pcs);
+> +			resolve =3D true;
+> +		}
+> +		break;
+>  	}
+> =20
+>  	/* Exit early if nothing has changed */
+
+[Severity: High]
+right below this hunk, pcs_provider_notify() refreshes
+pl->supported_interfaces and revalidates capabilities:
+
+drivers/net/phy/phylink.c:pcs_provider_notify() {
+    ...
+	/* Refresh supported interfaces */
+	phy_interface_copy(pl->supported_interfaces,
+			   pl->config->supported_interfaces);
+	list_for_each_entry(pcs, &pl->pcs_list, list)
+		phy_interface_or(pl->supported_interfaces,
+				 pl->supported_interfaces,
+				 pcs->supported_interfaces);
+
+	/* Recalculate capabilities */
+	phylink_update_capabilities(pl, &pl->link_config);
+    ...
+}
+
+How is pl->supported_interfaces expected to change when a PCS is added or
+removed if pl->config->supported_interfaces is copied unconditionally
+without stripping unavailable pl->config->pcs_interfaces?
+
+When a MAC driver includes PCS-backed modes in
+config->supported_interfaces (which phylink_create() requires to be
+non-empty even when all MAC modes need a PCS, as in airoha_setup_phylink()
+and Documentation/networking/pcs.rst), pl->supported_interfaces retains
+every mode in config->supported_interfaces even when pl->pcs_list is
+empty, and phylink_validate_mac_and_pcs() does not fail when no matching
+PCS is present in pl->pcs_list.  Conversely, if a MAC driver omits
+config->pcs_interfaces from config->supported_interfaces until a PCS
+attaches, phylink_parse_mode() in phylink_create() and
+phylink_bringup_phy() fail validation with -EINVAL whenever the PCS
+provider probes late.
 
 [Severity: Medium]
-When phylink_update_capabilities() restricts phydev->advertising or
-pl->link_config.advertising after a PCS is removed, what updates the
-hardware advertisement?
+Also in pcs_provider_notify(), when pl->phydev is attached,
+phylink_update_capabilities() -> phylink_phy_update_capabilities() updates
+phy->advertising in memory, but nothing calls _phy_start_aneg() or
+phy_config_aneg().  Won't the PHY hardware keep advertising the stale link
+modes after a PCS provider is added or removed?
 
-phylink_phy_update_capabilities() copies the restricted mask into
-phy->advertising in memory, but once the PHY state machine has moved past
-PHY_UP to PHY_NOLINK or PHY_RUNNING, phylib will not reprogram the PHY
-autonegotiation registers unless _phy_start_aneg() is called.  Similarly,
-if an unused PCS is removed in in-band mode without setting
-pl->force_major_config, phylink_resolve() does not call
-phylink_change_inband_advert().  An attached PHY can then continue
-advertising and negotiating link modes that require the removed PCS,
-causing phylink_major_config() to fail when the link comes up.
-
-[ ... ]
-
-> @@ -2515,10 +2668,18 @@ struct phylink *phylink_create(struct phylink_con=
-fig *config,
->  	__set_bit(PHYLINK_DISABLE_STOPPED, &pl->phylink_disable_state);
->  	timer_setup(&pl->link_poll, phylink_fixed_poll, 0);
+> @@ -2681,10 +2748,6 @@ struct phylink *phylink_create(struct phylink_conf=
+ig *config,
 > =20
-> +	/* First register notifier for hotplug PCS events */
-> +	if (!phy_interface_empty(config->pcs_interfaces)) {
-> +		pl->fwnode_pcs_nb.notifier_call =3D pcs_provider_notify;
-> +		register_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
-> +	}
-> +
->  	/* Fill the PCS list with available PCS from phylink config */
->  	ret =3D phylink_fill_available_pcs(pl, config);
->  	if (ret < 0)
-> -		goto free_pl;
-> +		goto unregister_pcs_notify;
-> +
-> +	mutex_lock(&pl->state_mutex);
+>  	mutex_lock(&pl->state_mutex);
 > =20
->  	/* Link available PCS to phylink */
->  	list_for_each_entry(pcs, &pl->pcs_list, list)
-> @@ -2533,13 +2694,13 @@ struct phylink *phylink_create(struct phylink_con=
-fig *config,
->  				 pl->supported_interfaces,
->  				 pcs->supported_interfaces);
-> =20
-> -	mutex_lock(&pl->state_mutex);
->  	phylink_update_capabilities(pl, &pl->link_config);
-> +
->  	mutex_unlock(&pl->state_mutex);
-> =20
->  	ret =3D phylink_parse_mode(pl, fwnode);
->  	if (ret < 0)
-> -		goto unlink_pcs_list;
-> +		goto unregister_pcs_notify;
+> -	/* Link available PCS to phylink */
+> -	list_for_each_entry(pcs, &pl->pcs_list, list)
+> -		rcu_assign_pointer(pcs->phylink, pl);
+> -
+>  	phy_interface_copy(pl->supported_interfaces,
+>  			   pl->config->supported_interfaces);
 
-[Severity: Medium]
-Can pcs_provider_notify() race with phylink_create() before pl
-initialization is finished?
+[Severity: Low]
+In phylink_create(), register_fwnode_pcs_notifier() is called before
+pl->state_mutex is released and before phylink_parse_mode() and
+phylink_parse_fixedlink() run unlocked:
 
-phylink_create() is called without rtnl_lock() held and registers
-pl->fwnode_pcs_nb before pl->pcs_list, pl->supported_interfaces,
-pl->cfg_link_an_mode, and pl->link_config are initialized, dropping
-pl->state_mutex between steps:
+drivers/net/phy/phylink.c:phylink_create() {
+    ...
+	phylink_update_capabilities(pl, &pl->link_config);
 
-CPU0                                  CPU1
+	mutex_unlock(&pl->state_mutex);
+
+	ret =3D phylink_parse_mode(pl, fwnode);
+	if (ret < 0)
+		goto unregister_pcs_notify;
+
+	if (pl->cfg_link_an_mode =3D=3D MLO_AN_FIXED) {
+		ret =3D phylink_parse_fixedlink(pl, fwnode);
+    ...
+}
+
+With FWNODE_PCS_PROVIDER_ADD now firing pcs_provider_notify() when a PCS
+provider registers on another CPU, can pcs_provider_notify() race with
+phylink_parse_mode() and phylink_parse_fixedlink()?
+
+CPU0                                    CPU1
 phylink_create()
   register_fwnode_pcs_notifier()
-  phylink_fill_available_pcs()
-    mutex_lock(&pl->state_mutex)
-    ...
-    mutex_unlock(&pl->state_mutex)
-  mutex_lock(&pl->state_mutex)
   ...
-  mutex_unlock(&pl->state_mutex)
   phylink_parse_mode()
-    pl->cfg_link_an_mode =3D ...
-                                      fwnode_pcs_del_provider()
-                                        pcs_provider_notify()
-                                          mutex_lock(&pl->state_mutex)
-                                          phylink_update_capabilities()
+    pl->cfg_link_an_mode =3D MLO_AN_FIXED;
   phylink_parse_fixedlink()
-    pl->link_config.speed =3D ...
-    __set_bit(..., lp_advertising)        <-- concurrent access to link_con=
-fig
+    pl->link_config.duplex =3D DUPLEX_HALF;
+                                        fwnode_pcs_add_provider()
+                                          pcs_provider_notify()
+                                            mutex_lock(&pl->state_mutex);
+                                            phylink_update_capabilities()
+                                              phylink_parse_fixedlink_capab=
+ilities()
+                                                /* reads DUPLEX_HALF and
+                                                 * modifies lp_advertising =
+*/
+    if (full-duplex)
+      pl->link_config.duplex =3D DUPLEX_FULL;
+    __set_bit(..., lp_advertising);  <-- data race
 
-If pcs_provider_notify() runs after phylink_fill_available_pcs() unlocks
-pl->state_mutex, it can also observe entries in pl->pcs_list before their
-pcs->phylink pointer or pl->supported_interfaces is initialized.
-Registering the notifier after pl is initialized (or keeping initialization
-under pl->state_mutex before publishing the notifier) would avoid these
-races.
+Holding pl->state_mutex across phylink_parse_mode() and
+phylink_parse_fixedlink(), or registering the notifier after initial
+parsing completes, would avoid this race.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117123956.1198=
-1-1-ansuelsmth@gmail.com?part=3D8
+1-1-ansuelsmth@gmail.com?part=3D9
