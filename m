@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005435;
-	b=xK1ryjC0JZKfc9qS5mTQgkJkf9e1rslH8GVmJkMXzt2zDUIEv4wEEzP/wRAJccFW66N+
-	 2BL3SIU5ZIY6yLBsGLrAE35u68jTXR228fH0adjGDswfLtk3F7+7N5UCcKy3fRd1qWzMW
-	 rZ/XCWhSH3YvgxAtBWiv+TWxfR+rsO5w755vKbeX6RQOCrq1y2NcZRNthatZniEAXgFLp
-	 cZtZkByGTpHtDn3neSulscgj3Vq1oYg9zj6dbjlD5ajaDhk5Zrh3LRGy3Vg6FAqrWav60
-	 WxIxb7Jp77WF3ZmfsWVNmSG3Q1TR0QI3aVawVPLAas0wlm+8I8Qmq91zINaDbEFYRIA==
+	t=1795005467;
+	b=rttkXgQcDawnfodp9uQcdrybkHejMM7pholsEOUWqD8SmW4ooI5uP0WvrSGz8o03QNJT
+	 AcvU93nPsSEdK+Uglz513PZOe8u140wy5p1bfDH+n032cvAWYQVGeC8K6Nl6T5iIgumHp
+	 7gz55wSWf0PaEwwIM+JXvSJydw6v8LML9SNA4MUfAUDQyVr9jySrNQzcjxTrZ58l1acHd
+	 phDhGICoaSNBk99IlL1XWwmrmD5pycuSrKxxDizhnXqojKhDdkmWH8EkKlhZLFwN9MAeE
+	 DDLXu0bUQqHIWcv3g4Wu9pmV1cWXLflC7HoqVzGD6kCM1knbPX5W2JnEBynaknTiklw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005435;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=jSREI4xVzC4eLiiJGIJsm9Z8aTlDSjYCXz8XIyOzlgE=;
-	b=j9F1OXHtfrDVYsbkLWAGEnh8EQsAiSHSb80LMiIHj4YNnb4lTKn2pYHcvHbWjT8Yw4Xb
-	 z0pNfPsin/ysW6uVUzUQ8Hv91IjbTINeyfztVpGuivurH/DRUpDe4TflVr4TdjNDSUOLL
-	 48LaBbYMT+sD4bJug+kC+MHM9fkPZN+LjiVueq7CAyBOEwZvPLRr/oXvQIMZZx8eRnG3/
-	 LZDnJJEdgrrI3XzOzTs3Tm19kKzySBMtwheMetnBIreCZp29ZHFkaV3h2xl35R9tcaDj6
-	 njV7uuplKQCoIs+fxtbVyr3SwbWb2yKDCIy4nQ13xQmN1LTtWmxUw2jEBqjvqtpU6mQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005467;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=N5CGwXkDYC7ZHZF12AdVjIxEK6seoaUVe8eVp3p/csI=;
+	b=j7fVlcpVl2rsLrupQaqlOiHCtpOu3eQu7SXmEqQxkLEns6EKf41dEGd5zFxRnd7rTA9j
+	 Cq8X473EuqP4RQTKlIafDPCz8Avco6N95xJbwEYeWQUBWZ1kAzcWrf7u4G3z/5t+dXdbB
+	 w+zjF+nnuvcvbHmFLMheJ5d13R9x2Qk9Ysxa37MW0CgJxemzZVxwx0R52I6n7AeGWOgsP
+	 Jjy3DKMWb/mu9yHEmfRnkiPcRmtkyYZMe2R2Pc6WlqakeY6EUdTK+CrAF9RoWXLRpw02j
+	 9kDbYF7N/R5QCDfM92OIGxRTUlZDDY+LEHGm9XFkGjmsDrCnMRHqxXt5doLbrEaHijw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCklFraS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YzqS5r0S;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D0F606A31C;
-	Wed, 18 Nov 2026 12:37:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6626606A320;
+	Wed, 18 Nov 2026 12:37:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCklFraS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E93451F000C4;
-	Wed, 18 Nov 2026 12:37:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YzqS5r0S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBD621F000C4;
+	Wed, 18 Nov 2026 12:37:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795005435;
-	bh=jSREI4xVzC4eLiiJGIJsm9Z8aTlDSjYCXz8XIyOzlgE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eCklFraSWKy2xd84VKGRtj6uMO/agDG3AfpWvyqYOSXall9PA7xUx2drQkWvaHotx
-	 uoMp6S5CK0EKKRRPodmfcsr29DIYjAcuh5Z2mA60k1h0YHaj7HeiW4l94uvwtdcETh
-	 jI4k/5J39+0QMbz4mKSzEO3/y7U8tV/OoNgYRpu35E3Q1NuRrghNHCZsqwlXZhFkc7
-	 O6vu2LOFIh184r3DF0XFmnEuqEdnCKs2X3mIVbl2oEdbaX4lznjSLTjIvQ6icnqpo+
-	 zaI80cPsPXNUYJLbv8IObzjcaHrlx2Vqg+/wZvHUgAlNkjHZHxqYa6st7wGxMqr9+B
-	 K/oM9zosUZYvA==
-Message-ID: <sashiko-outbox-220918@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/6] soc: st: stm32mp2-syscfg: register the syscon
- regmap
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gabriel Fernandez" <gabriel.fernandez@foss.st.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-ups_mp25_clk_syscfg-v3-2-935de791a4ce@foss.st.com>
-References: <20261118-ups_mp25_clk_syscfg-v3-0-935de791a4ce@foss.st.com>
- <20261118-ups_mp25_clk_syscfg-v3-2-935de791a4ce@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 12:37:14 +0000
+	s=k20260515; t=1795005467;
+	bh=N5CGwXkDYC7ZHZF12AdVjIxEK6seoaUVe8eVp3p/csI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YzqS5r0SUs/wsxWZsq5PkMXx1btPUd6pNUmdAZRrxFjDvPs4/67ZtV+EplWQsoJQh
+	 Y0ekpMB//ArEyiOCEoFEBRDQIi6vqSsYSqiJab6aKIRxu+k25YlrSCUkSy5drmC2c9
+	 0EU44tZPQFYmLg7aq3PKtDmO6t8K7Cq4Lfvg8STljzUYNtaAUGpVBzpy/bMv6sW2eO
+	 zgUIftfyqoSCSZo1z+ooOwmg+eDs5+zbl6Kowxcata+cfPfXGOW+s96GBlvRHkU2OW
+	 yWT5PlPwY5uOd1KDJ3D97celi7EyezXs8A7KNu/mtHliFixfv5BwqVEUpsJcHxt8Vv
+	 l6IQUNu7DVkzQ==
+Message-ID: <f3d38cc6-112a-4d48-b0e6-f26d7819aa1b@kernel.org>
+Date: Wed, 18 Nov 2026 13:37:40 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,152 +50,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: proximity: semtech: add myself
+ as maintainer
+To: Arnav Kapoor <kapoorarnav43@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Cc: Gwendal Grignou <gwendal@chromium.org>,
+ Daniel Campello <campello@chromium.org>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261117172612.25535-1-kapoorarnav43@gmail.com>
+ <20261117172612.25535-2-kapoorarnav43@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261117172612.25535-2-kapoorarnav43@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] soc: st: leak of ioremap and regmap on -EEXIST in
-  stm32mp2_syscfg_probe()
-- [Medium] soc: st: dangling regmap in syscon_list on
-  stm32mp2_syscfg_probe() failure
-- [Medium] soc: st: stm32mp2-syscfg: fw_devlink and initcall order let
-  consumers create clock-attached syscon regmap first
---
+On 17/11/2026 18:26, Arnav Kapoor wrote:
+> I'm adding a reviewer entry for the Semtech SX9xxx proximity drivers to
+> MAINTAINERS. Add myself to the maintainers of their bindings as well,
+> so changes to them reach me.
+> 
 
-commit 3074d10104a5aee141b2e91cda96d7c4ea358a2e
-Author: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Why? Same comments as for cover letter. Looks premature, you were just a
+few months ago sending multiple same patches, clearly not even checking
+what you are about to send:
 
-soc: st: stm32mp2-syscfg: register the syscon regmap
+https://lore.kernel.org/all/20260624044610.69708-1-kapoorarnav43@gmail.com/
 
-This commit creates an MMIO regmap in stm32mp2_syscfg_probe() and registers
-it with the syscon core before populating subnodes so that syscon does not
-attach the node's first clock to the regmap.
+https://lore.kernel.org/all/20260624042543.38925-1-kapoorarnav43@gmail.com/
 
-> diff --git a/drivers/soc/st/stm32mp2-syscfg.c b/drivers/soc/st/stm32mp2-s=
-yscfg.c
-> index 770321a4a6f71..0d45fdef46b73 100644
-> --- a/drivers/soc/st/stm32mp2-syscfg.c
-> +++ b/drivers/soc/st/stm32mp2-syscfg.c
-> @@ -3,13 +3,55 @@
->   * Copyright 2026 Marek Vasut
->   */
-> =20
-> +#include <linux/mfd/syscon.h>
->  #include <linux/module.h>
->  #include <linux/of_platform.h>
->  #include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +
-> +static const struct regmap_config stm32mp2_syscfg_regmap_config =3D {
-> +	.reg_bits =3D 32,
-> +	.val_bits =3D 32,
-> +	.reg_stride =3D 4,
-> +};
-> =20
->  static int stm32mp2_syscfg_probe(struct platform_device *pdev)
->  {
-> -	return devm_of_platform_populate(&pdev->dev);
-> +	struct regmap_config config =3D stm32mp2_syscfg_regmap_config;
-> +	struct device *dev =3D &pdev->dev;
-> +	struct regmap *regmap;
-> +	struct resource *res;
-> +	void __iomem *base;
-> +	int ret;
-> +
-> +	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!res)
-> +		return -ENODEV;
-> +
-> +	/* Not requested: the SDMMC delay blocks lie in the SYSCFG range */
-> +	base =3D devm_ioremap(dev, res->start, resource_size(res));
-> +	if (!base)
-> +		return -ENOMEM;
-> +
-> +	config.max_register =3D resource_size(res) - config.reg_stride;
-> +
-> +	regmap =3D devm_regmap_init_mmio(dev, base, &config);
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(dev, PTR_ERR(regmap),
-> +				     "failed to init the regmap\n");
-> +
-> +	/*
-> +	 * The SYSCFG registers need no clock, but the generic syscon regmap
-> +	 * would enable the first clock of the node, the LTDC kernel clock
-> +	 * which is only a parent of the pixel clock mux, around each access.
-> +	 */
-> +	ret =3D of_syscon_register_regmap(dev->of_node, regmap);
-> +	if (ret =3D=3D -EEXIST)
-> +		dev_warn(dev, "syscon regmap already created, its clock stays attached=
-\n");
+Your patches were never even built by you:
 
-[Severity: Medium]
-Does the -EEXIST path leave the newly mapped base and regmap allocated on
-dev?
+https://lore.kernel.org/all/20260621045340.65872-1-kapoorarnav43@gmail.com/
 
-When a consumer has already called syscon_node_to_regmap(),
-stm32mp2_syscfg_probe() logs a warning and returns 0 via
-devm_of_platform_populate(dev) without releasing regmap or unmapping base.
-Because the driver is built-in with suppress_bind_attrs =3D true, the
-duplicate 64 KiB mapping, regmap, and debugfs entry remain allocated for
-the lifetime of the system, and dev_get_regmap(dev, NULL) points to the
-unused regmap instead of the active one in syscon_list.
+Building code is... well, we do not have to even discuss that. You were
+simply sending LLM slop.
 
-> +	else if (ret)
-> +		return dev_err_probe(dev, ret, "failed to register the regmap\n");
-> +
-> +	return devm_of_platform_populate(dev);
+LLM slop senders are not maintainers. It's doing everything opposite to
+maintainers.
 
-[Severity: Medium]
-If devm_of_platform_populate(dev) fails after of_syscon_register_regmap()
-has succeeded, can syscon_list be left with a dangling regmap pointer?
-
-There is no API to unregister a regmap from syscon_list, while a negative
-return from stm32mp2_syscfg_probe() triggers devres_release_all(dev),
-freeing regmap and unmapping base.  Any later syscon lookup for this node
-then returns the freed regmap pointer and causes a use-after-free.
-
->  }
-> =20
->  static const struct of_device_id stm32mp2_syscfg_ids[] =3D {
-> @@ -23,10 +65,12 @@ static struct platform_driver stm32mp2_syscfg_driver =
-=3D {
->  	.driver =3D {
->  		.name	=3D "stm32mp2_syscfg",
->  		.of_match_table =3D stm32mp2_syscfg_ids,
-> +		/* The consumers keep using the regmap */
-> +		.suppress_bind_attrs =3D true,
->  	},
->  	.probe =3D stm32mp2_syscfg_probe,
->  };
-> -module_platform_driver(stm32mp2_syscfg_driver);
-> +builtin_platform_driver(stm32mp2_syscfg_driver);
-
-[Severity: Medium]
-Will consumers still create the clock-attached syscon regmap before
-stm32mp2_syscfg_probe() runs?
-
-Once the SYSCFG DT node lists clocks =3D <&rcc CK_KER_LTDC>, <&lvds>,
-<&clk_dsi_txbyte>, fw_devlink creates supplier links from rcc (and lvds
-when enabled) to syscfg.  Because rcc depends on scmi_clk, it is not bound
-when device_initcall runs through drivers/phy/, drivers/pci/, and
-drivers/soc/.  Built-in consumers such as phy-stm32-combophy and
-pcie-stm32 defer on rcc ahead of syscfg, have no fw_devlink dependency on
-syscfg (they look it up via syscon_regmap_lookup_by_compatible() or vendor
-properties), and probe first once rcc binds.  Because the syscfg node
-retains "syscon" in its compatible list, syscon_node_to_regmap() creates
-the generic regmap with CK_KER_LTDC attached instead of returning
--EPROBE_DEFER:
-
-drivers/mfd/syscon.c:syscon_node_to_regmap() {
-	return device_node_get_regmap(np, of_device_is_compatible(np, "syscon"), t=
-rue);
-}
-
-As a result, stm32mp2_syscfg_probe() hits -EEXIST and CK_KER_LTDC stays
-prepared and toggled on every SYSCFG access; in addition, if lvds is
-enabled without a consumer cycle (for example when CONFIG_DRM_STM_LVDS is
-disabled or modular), fw_devlink blocks stm32mp2_syscfg_probe() and delays
-populating the USB2 PHY child nodes.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-ups_mp25_c=
-lk_syscfg-v3-0-935de791a4ce@foss.st.com?part=3D2
+Best regards,
+Krzysztof
