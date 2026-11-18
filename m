@@ -1,57 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794991636;
-	b=f3NgLAwZ/xjFfMaXfuDVmPiXZae4JX5FL/1fdjA4AK8jdv5S8Kx6wQE4zgpQrHBQoKst
-	 nC3lKEh3eiyj+974V6xOsXR1mG1eRX0xSGi3wnB/yVamzlO1Z/ZrQU46y4vha1xR/UuFu
-	 ldsOT6xgcKtIm6fo1a5N3CGzff+B861UioYRVM0AwV1h4gEXOYxaRiSN/YjNnIHKzGApj
-	 y4AH/v9xegIQo/oJgO4tBXkYaMpxeP40XKL54oE0xa8kdX9IjLoV9cewzwXaHLPFSJ7T1
-	 JvaXgKM3Yre2RDtGDqGsTLbLKEGlx/ZxCytuBozzEbUDCJ8rCtKXHCIgyTEubILOJAQ==
+	t=1794991656;
+	b=0PMDVy1GNSwEawllNcgoKzqmxbECFfXEPj7zDR2I/7b17KVscuOhlsZitDhpviwCm1mB
+	 QXHBeO1TF4Qzvdhg/cc8h92cLBTuQckiuzPFjn0XNbPKMuiJC+zFdrrosX9QvrOJ+8HZV
+	 1dBz4j0dHjzE6oeEt8K1NeWRLoTTpyO6OAG9MjnhXfwfF8+lHKGW6WlZffIDlm7EohWyZ
+	 eQnrSWMe53lwwSMibTMrF5S9kxe8stAoIlcnx0tBb3jS1dIkOzf1FqK1004BQuq+IWKEp
+	 NLnZmQMekKPUCKh/j63xOoYDLvzwm6YjLmYXPKIyt0Hik/wVN38DWMlhQ2HJnSvDt7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794991636;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=PqXnRl6D2EmP+yuu1aqseAlmBHUq5E5+AWqO6186dvg=;
-	b=xgYG+Nd1qjdP3DE2Rg36ySu8oEp9NPvDrKLqishk0csIBCNV+yJl8kYjxzveRYMvzyjV
-	 zZqpz2bIlJGajPNf8gPTWgTi92aUv92sN8St6cEsbORQL6BIp8YIpfmQuLRjojoJCM1mG
-	 g07wgutTg65U0jDH121R5FAc6ywDGCldzjUsIrOWauhmaE20XeRHxKlEqm4wtpWhv3kqS
-	 gMr9obl3Ljv5o+Neyl/5MGNygarJ3U2j8i3WUBw6BKZy4AZExMr4G5G/nCpyq2AKCR3Er
-	 TbitJnlRTSjoIwfis9IAoJc6ABbD0L3BDhliuWQePO/Luk9QePiodAkgev8kF2G2z7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794991656;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=kGrHNZsv8k17WyDtcN0KoKiEb8AAC/oHWu//7fo5faM=;
+	b=DpugTZWrR9ZpMXXiSOmvgMa8eVReSoYgfB96LTRMuU4Ej/tTV7U8+vwVMWuaSESIuWd3
+	 hWbzu7WnykL6Lt00ZiJulXjR8gwrNQYicZBlkFkKHixsRfilASDcUE1iyMUWhbeuaodg8
+	 Ox7+MXZ9cIOfXvsBj6s38u3Sko56wZctJQI5X0vfF9BNcQ7A+LnutYEyG8ErJztZ0R2lQ
+	 p7hYxhLRxUA1Ug+ryerSMkEk1tzuOcjn6TjFh8b+tTobFGd0hOK5OAPQ47OSKEwd8wzxm
+	 E3OxeVFV1GrIoqaHnFRek80Khgr6fvO94HX0JGWEZGmWMorchuYua0jlmRRFaypSi6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kE67CvA6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=SefnjUk3;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6CB606A31C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:47:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5EE1606A32A;
+	Wed, 18 Nov 2026 08:47:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5EE1606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kE67CvA6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C2E81F000C9;
-	Wed, 18 Nov 2026 08:47:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794991636;
-	bh=PqXnRl6D2EmP+yuu1aqseAlmBHUq5E5+AWqO6186dvg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kE67CvA6MMFjryD/9b4aCqPkEQhLXJuIhES/KqC5lMw3jxWtLQ+WbwYRu1UrDKkp/
-	 Y/9PHvyv4VBYNoCnG7PIcCco5wB5tPhQWQgSmw3fQgL5sASHSziEAiwE0R4KIdA99L
-	 op1LrbavXgP+6GpC/O6rkBr8C3xw4Kz/zYJAxwcT6s+HQA3cFcJMRaoPdZR82gCvEz
-	 +sXnbSITjWl5V97QNJ+5cKt//dFEKlNBLkB3bD4OIAE4s5u5NAtCH+OTPuMSBBVM3r
-	 rX3tobziXhbw40TUbstJZ8XH+G8eie/DoSXrDlqmY06o7yVCLGpTbp74gr+2ikM6Y6
-	 iF6GcOHIldmQg==
-Message-ID: <sashiko-outbox-220503@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v4 10/10] net: stmmac: qcom-ethqos: add QCS615
- EMAC support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mohd Ayaan Anwar" <mohd.anwar@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261117-shikra_ethernet-v4-10-c41902e5f2fa@oss.qualcomm.com>
-References: <20261117-shikra_ethernet-v4-0-c41902e5f2fa@oss.qualcomm.com>
- <20261117-shikra_ethernet-v4-10-c41902e5f2fa@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 08:47:16 +0000
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=SefnjUk3
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 3DE0E4E4160A;
+	Wed, 18 Nov 2026 08:47:34 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1107D5FE9B;
+	Wed, 18 Nov 2026 08:47:34 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ED02411BC0B1A;
+	Wed, 18 Nov 2026 09:47:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794991653; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=kGrHNZsv8k17WyDtcN0KoKiEb8AAC/oHWu//7fo5faM=;
+	b=SefnjUk3W69idot9zlT4yJ6DKWi198Tgr1TgEoP1D48Q04zWbpCJZjGgCen4SwBPVj4ljf
+	/yEc5B4h7eMQxoBBvjOCc8vFCmdXgNxXbQ/IOTdXu2/lBr5NoO22F9tMShnqbvThwWk4++
+	JUNOnk7jleWX0Y+Y+3htuXY5KEj/tp2U8MuO2H8lmPX1pFW2fnQYFrSolgPSOgvva1n7dO
+	Khu9BQsdc8WSUq5l33NU6LEB+MxV3t8JAEEQQqtOejFev1xDk2O1IQNcvsfZs61x0NPPQ7
+	g6oefbEVfytz21Eo9SnxDoHzGt7mUwxYLYe8VO3pH/W7qf8WODOm0jpAL/mBCQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Simon Wunderlich <sw@simonwunderlich.de>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  linux-mtd@lists.infradead.org,  Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
+ Dooley <conor+dt@kernel.org>,  devicetree@vger.kernel.org,  Thomas
+ Bogendoerfer <tsbogend@alpha.franken.de>,  linux-mips@vger.kernel.org,
+  Hauke Mehrtens <hauke@hauke-m.de>,  Aleksander Jan Bajkowski
+ <olek2@wp.pl>,  John Crispin <john@phrozen.org>,  Sebastien Decourriere
+ <sebtx452@gmail.com>,  Yangtao Li <frank.li@vivo.com>,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] dt-bindings: mtd: Add lantiq,nor
+In-Reply-To: <5155531.6YUMPnJmAY@prime> (Simon Wunderlich's message of "Tue,
+	17 Nov 2026 17:45:36 +0100")
+References: <20261114100608.3432120-1-sw@simonwunderlich.de>
+	<20261114100608.3432120-3-sw@simonwunderlich.de>
+	<87fqwzn3tq.fsf@bootlin.com> <5155531.6YUMPnJmAY@prime>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 18 Nov 2026 09:47:28 +0100
+Message-ID: <87qzgijzkv.fsf@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,78 +79,33 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] net: stmmac: qcom-ethqos: missing rgmii_por in qcs615_data
-  breaks non-rgmii-id
-- [Medium] net: stmmac: qcom-ethqos: missing delay check in
-  ethqos_set_clk_tx_rate()
---
 
-commit ff8ea751ebe2e9565a1a5cafb4eabe2a1f08cfa9
-Author: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+> About physmap: you were right, and this was actually a great hint. I test=
+ed on=20
+> the my RS123: with the EBU swap that its boot loader enables, the flash i=
+s=20
+> simply a plain CFI flash. With compatible =3D "cfi-flash" and the generic=
+ physmap=20
+> driver, probing, reads (identical to what lantiq-flash reads, unaligned r=
+eads=20
+> included), erase and write all work. So this board needs no lantiq-flash =
+change=20
+> at all, and I'm dropping patches 2 to 5. There won't be a v2.
+>
+> Turning lantiq-flash itself into a physmap variant for the boards with th=
+e=20
+> classic U-Boot setup would probably be the cleaner model, but I don't hav=
+e=20
+> such a board to test it, so I'm leaving that alone for now.
+>
+> Thank you again!
+>      Simon
 
-net: stmmac: qcom-ethqos: add QCS615 EMAC support
+Excellent, thanks for the feedback!
 
-This commit adds a dedicated qcom,qcs615-ethqos match entry and driver
-data descriptor with phy_managed_delays enabled for QCS615.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/dr=
-ivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index a7fdba73da2ba..790159ae1be7a 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -250,6 +250,13 @@ static const struct ethqos_emac_driver_data emac_v2_=
-3_0_data =3D {
->  	.setup =3D ethqos_hlos_setup,
->  };
-> =20
-> +static const struct ethqos_emac_driver_data qcs615_data =3D {
-> +	.rgmii_config_loopback_en =3D true,
-> +	.phy_managed_delays =3D true,
-
-[Severity: Medium]
-Should ethqos_set_clk_tx_rate() also check ethqos->data->phy_managed_delays
-before skipping the clock rate doubling for PHY_INTERFACE_MODE_RGMII_ID?
-
-drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c:ethqos_set_clk_tx_r=
-ate() {
-    ...
-	if (ethqos->phy_mode !=3D PHY_INTERFACE_MODE_RGMII_ID ||
-	    speed =3D=3D SPEED_1000)
-		rate *=3D 2;
-
-	return clk_set_rate(ethqos->link_clk, rate);
-}
-
-ethqos_fix_mac_speed_rgmii() only uses the DLL-bypass path when both
-ethqos->data->phy_managed_delays and PHY_INTERFACE_MODE_RGMII_ID are set.
-On platforms where phy_managed_delays is false (such as QCS404), using
-rgmii-id still configures the MAC for non-bypass mode (expecting 50 MHz and
-5 MHz at 100M and 10M), but ethqos_set_clk_tx_rate() requests the
-DLL-bypass rates of 25 MHz and 2.5 MHz, causing clk_set_rate() to fail on
-clock controllers that do not support those rates.
-
-> +	.has_emac_ge_3 =3D false,
-> +	.setup =3D ethqos_hlos_setup,
-> +};
-
-[Severity: Medium]
-Does omitting .rgmii_por and .num_rgmii_por from qcs615_data break RGMII
-modes other than rgmii-id on QCS615?
-
-Previously, QCS615 matched the qcom,qcs404-ethqos fallback
-(emac_v2_3_0_data), which sets .rgmii_por =3D emac_v2_3_0_por and
-.num_rgmii_por =3D ARRAY_SIZE(emac_v2_3_0_por).  When ethqos->phy_mode is
-PHY_INTERFACE_MODE_RGMII, PHY_INTERFACE_MODE_RGMII_RXID, or
-PHY_INTERFACE_MODE_RGMII_TXID, ethqos_fix_mac_speed_rgmii() does not take
-the ethqos_configure_rgmii_id() path and instead relies on the rgmii_por
-loop to reset RGMII_IO_MACRO_CONFIG, SDCC_HC_REG_DLL_CONFIG, and
-SDCC_HC_REG_DDR_CONFIG before applying speed-specific bits via
-read-modify-write helpers.  With num_rgmii_por left as 0, those registers
-are never initialized or cleared across link speed changes.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-shikra_eth=
-ernet-v4-0-c41902e5f2fa@oss.qualcomm.com?part=3D10
+Miqu=C3=A8l
