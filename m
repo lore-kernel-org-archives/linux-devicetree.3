@@ -1,75 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794989122;
-	b=DNIXVoarFz9gxBTbD7mhyN7DordbMoulVIXrHRluEDRLeqQmCuTRnVkHLKzOgamGPtKv
-	 HCL9bpcn5Isd27FTY4Os0xFILOAfLxV1JvBOvTY7JXQ6vlKjUJjezt8mz6YDUWJQYFNa2
-	 ch0/N719PUKRm2x1u4c34VkakEZH0YYT/oNmMpumtipsotAG/6mdWKV5he3++b/m2sKMD
-	 LcFsv1cCwtfLrmVPekSGWEXePdaShIskY0IM107Ec5h0RWR+RyC4/QLB9LX9+5aVTfaMc
-	 imi3ltCfXZ+gC4x3mt0JLtYcT/g48oc9VbIpJHRnrdtglmtNYwU5LQ3ffOZhVsgsJDw==
+	t=1794989621;
+	b=LatwQO24r/1cCw80Nj7y4r7hJeNks9naOMGi173+8CSbiRSkEFb+xC0WJsd45eB5Vu+E
+	 LKT7bT9/6pcqJ43cN/auGxtxnQLxAL6QGaIPsH9i9YpVaJYA369ll2UK/LnN9MrJrJSHW
+	 h4kY93spb/4ewbge1jPJHTWJXNRGJzpS5T50UJrf6cxWl05RTLn0o9hCbMx/ednOr9he4
+	 eHgUIRAtHH68lA8+9rDUYJGOrggGZaUwZ5KUfUcvmvH2xR7w5fzu7UKnmrfHvy7VGKxdl
+	 Bz+HABtx1zOHjbs4x0H0ZmG4sCs8tILamcJJFqqX7vzKR+l/6zrYlcMaKJxjg3olUvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794989122;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=9r24x4AvFep4SRTSxqwwJtX4FnlmcF/WqDIfgX1BsR0=;
-	b=N1Vhk5M15qQSqH0JDlRoVTagRF5You7gy+NM5a2YbFsN61/XFY4zjGLLiE7mloHa2BG9
-	 d5GkkS3c6ReJX+u+VBqxyL/QeSQ5NbMeuXYjm/q/oyqEwDgyHUpOe3U/4JPFnKW62GW5a
-	 t8rn42VeH95nRBVnnqn4I6ZLQ9AxH9ai4ygqjDzUeEpHsMZxgp+GS3NFOlnff0xKdbqa+
-	 HwRbdch1J/Xrm3gdmv5JIATgRQD1VMGTo7ON03E7fAIeqAeiRTUboPyCQ38knbdKKL1JV
-	 XmJJXctI+Ic8JlZbuoO2Mr5uBJ+oIURTpg5JHNNiZS+ih56E8h6vgQpyhRb0eOpOcvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794989621;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nc6nwc4TT4bEx1YMsfrowaduwiJkniqcrnPDD8g2hKo=;
+	b=EpWusl+Tykq87AMnt3sY5stUdJ23BjvFe9b/+CE2oM5oGImDmlNsy9z0IDidz3BQT9fU
+	 vrB4kEY4HsOCCacJAGHyScmvyPFd/ygyAXljIAM01blgmBgx5LjdjlVTKjxgK5hD8ITiI
+	 IxNnhHZXqaM8GRtZ64giCXBAkgTeRKV/AN4fCpdg7Qo2T3yety52mZ8yNPRCNVlTpZuag
+	 2JKoKvmrkQIk6asjWRDVejmiOf/sDJ+RkOvgMZ0fbnEp50KQVOLtTHW2t2CLFyXtAvZrb
+	 xL9dHd1c7ACvrvRmsg7jFc8NNgLKvbdlmcdX5T9aF594wZt1uLq/P5UP6YVs0W126Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=FOB7Ll2v;
-	arc=none smtp.remote-ip=162.62.58.211
-Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=TThBMSZi;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056FD606A31C;
-	Wed, 18 Nov 2026 08:05:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 056FD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1534606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:13:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1534606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=FOB7Ll2v
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794989109; bh=9r24x4AvFep4SRTSxqwwJtX4FnlmcF/WqDIfgX1BsR0=;
-	h=From:To:Cc:Subject:Date;
-	b=FOB7Ll2vhOrnRM18YPbbzj2l++aF5+nydYIBsgaxECk+h8oD0Z1DWqx1fNQaxPkJm
-	 8qKdGlUaJ7Xo3xWMtyTGP0D34S8E5HHTOOSctN1GzuUxcSJMD8rsVSCOgSX20w2kki
-	 PApJ1jnlfSJsWLXHMdZPy6PCvzPVZisiyh9S0b4Y=
-Received: from pjhArchLinux ([211.64.159.198])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 14686251; Wed, 18 Nov 2026 16:05:06 +0800
-X-QQ-mid: xmsmtpt1794989106tsczewprc
-Message-ID: <tencent_B11DE1495C3C54CE186ED508E2CE5CE41106@qq.com>
-X-QQ-XMAILINFO: MJ4PQBQ4NCwQCGFB+6Z4DhkxdCyfshmz6pnwnOpq5sPsd1g2TtWB3VMWP0FtLN
-	 eAin0HQwBBBvSLthkLFRSAZ+Nqawz+qC+4UFHZsvNF8I78AmcDu5nJL4ZKz0i4GcqNf/qL47EqUu
-	 Dz5WQpPGv114SikADnj4ic7jyjMeB5nyG/l0mdpGSibZQldazsONYuxu0vKhH+eWhpCHTSwYwkBI
-	 vA+1dHjxZDMTJ7QAvHpg0p1NuIpoOCyGkzStDlIeOwE6qOKmusMHqGtP+2EpLSng3tdXfvLbasP3
-	 3MWFPB0nmWufQNfcA/O+l5trepT9tjKBlKK//39/ry16otaQOnU8bQpIz/iKbGl3Wy05hQAGRsYB
-	 CId0G1r01vA36gWfUWqPGCiATMXDMY3kH3EAIMtOOhFPn8r8jpO0QpsotEgHsQmoRBZYZ/AoxIia
-	 3lcvZ6B6X9GSF2YWzGlhqvl2v3TsB9ZkamCYKOXXgHceTxdNedKWzJA45+PYggIenDlHIxZMa0ed
-	 FuV437zVvTw7eIaSqrLdYO51zu5aBZ8JSSwEqHs0MHivJSBVuhGG1rGST5U+nS/0UltpP+hLFwXF
-	 uYLna2gokmi11zFc91Y6FG60s3Xv+wdG5WuGroGMy3HCP4wy3ynwrpM+cIds5in24Z0yd5DUKWKh
-	 A26TF1Sa4u3yyD8Ht+XzqWcOEDn0ggg7fLryWpNP6nFealvSdNU/N8dZBxyLrb2Ntcm5yTyaJc+p
-	 kZYuImBzouSeW/0ROqUrFp6OQcjOJKnlyHXzkyakclQaFow/gXlTxDgBkGx4qmK1KgoxJ0OzB3BR
-	 BL3sCc1vQVP6I3oXKw4dHY37/9DFD38wb6WwKChgLHOv5tCj751Ybi+YY4AP5QJYEtY8OK74Gjj2
-	 XPPjYd/xSUE9R+oBE4MeL8au2WjjzUImW9zVfifRKsXfP6vXX3bgatRa3zEwOGhkVNxGPM0G1LvN
-	 TiXtALts+mW3H8gWQ50nLfdkikUFvHpcDWPfkWb+ASFMsSUoGdh5loP/6/1KnrF9WALpbTOrezMZ
-	 GJuDVA4/qMKYcj2j3NCjrJfx3ayVkClsshoaIRWg==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-From: pjh456 <147148383@qq.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=TThBMSZi
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cdb45e96d2bso491378a12.0
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 00:13:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1794989620; x=1795594420; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nc6nwc4TT4bEx1YMsfrowaduwiJkniqcrnPDD8g2hKo=;
+        b=TThBMSZiw+PvnG1b8LSQGrJhYWQLRlegUJo62gfBKApKXvwtolZ6O6Qr6A53nqBwq2
+         LBzovfqsF64ns6YJeynIyYQZElNYUVIxUpoQRkgmaGeCzDInMv9y+Ps6WUw9/y6tlMxY
+         bO3xaiqwqwT1NO6cQ0wS/2lfvQDqAHLd/6wHctWZB+oOvpHZDOuDdoGsApmRGzmBwm0p
+         /Vu45GoKhe8VGmWQMvjqcLn358ZZfTYdLmxeW9eBLLeepQvMy0UfOXBjeqBtYa/0JpVb
+         W9yb0cj2CSzzDSJikBrAana++PjJ9XMaDcFW/xj9f9DVcMR8vIa5yHB+l3di9arMs6mS
+         5Xgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794989620; x=1795594420;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nc6nwc4TT4bEx1YMsfrowaduwiJkniqcrnPDD8g2hKo=;
+        b=kJmnKa1lJdM4jHUgp2dkN+nPpozEN+nqg4CMeu8ehNJOpg5t6Ir3jSJJkr+Q7wLbVs
+         v//XfhKRR2q0NGALPH45TFa1x/8xU9OPFhMUddLre7Vl9aS3kPn9p3kkiCni5gN0cj8N
+         yKTwPFGgm5XGASBOSsXTNUjEcIIcTfbFhnLJJmEYj/IIqWWjuD/gJIinpnR70IvrtyYW
+         MlZVrYOVqT7JKpF5Ej0+Kv6VBn8iH03bqkDMsk+tzqK6Zu83bNOtKCS4KXsbGdj5U+Xk
+         urIQdAmagYuPXSKaS9uhqHc5xvdEltWXz5ssO1syyAFLR4NkGHABPibxFUME38DdDKcJ
+         Bt/w==
+X-Forwarded-Encrypted: i=1; AL+hErFtaTKnZEct+GE7mfynpSg+gQyIsKnqXvWaC2EqlKQ7LrxB6gTbqv5EsXIERGfXNU2ffyMUjxpOdGej@vger.kernel.org
+X-Gm-Message-State: APuU4Z8XLgOT0iRDrMCyKV31tIAq3+3ZKFo8q2/PY6eQDYxM733fzNKs
+	9IEb8DBU+eyFMA31pjpAfrN+QBQNW+PcJHTS2pPEGHBP1+I170e9hBkYLxSEz+2QeAQ=
+X-Gm-Gg: AZFdTZeek+pCrJEtbTqTrH7M9Ahso6s1OBEtuKLKBMWqUXeJlX4R8dA1rkeBbJ4TXt7
+	NF2UBJ0mN0q/7QlTrPkts9hWSL7P6ATM9YizH0TXkmk6FX2GvGnw+ku7U7hdXHLhxHzBi09AqLb
+	FQDWqG4y5jXgz03+0Q3+ZCx0WgUoU/G1S4K+nos+YJOTO0DBj6OyEo+cmzPsnu5538QC14+TLK+
+	V1gozvQIh03Hjswf3vXoq9ovlUj+43LFU3P3Dze1yvBACyl3FnmwTSSj37MOJJ6J9IgOf3B/Ndc
+	01i0mZPS82fuTSFLUIM0gjrAwUiNS/xXdWhH6iBYqdxk8dnkGaKRjLUuHbDuaemuv4cxKqEt8Im
+	0Kx2soHeFl0tdaw/WiHBoLvkSFcpQwcRRda38TejuVaTUiuTOhvpnG1hGy/a98gqw3KV4qY0MBS
+	DUgCY6WIsMtLXUtifoqkQFJ6bCZ/RuZrInwVWtpUpAN4Z9ItQxwKCoBkHMATcyCqNrYip6yVmlt
+	KMOJp4abkQwF3ZEanOCaRLPMJ+suF8+ZS9rQxmtq4fHkKPg/cjchFd6b7+CXUT34xOqZOWcay7p
+	akxmtqztXf+aCFV8WtX59PThG8hLFSOApSgm2hvtXsLpqtBFkyC7uHe9hILPNg5acyHPFGx2AK/
+	9Ivn5u2A=
+X-Received: by 2002:a17:90b:2642:b0:3b3:a982:6e0d with SMTP id 98e67ed59e1d1-3b3d07da366mr1810223a91.61.1794989619995;
+        Wed, 18 Nov 2026 00:13:39 -0800 (PST)
+Received: from FJ7FR2JRQ3.bytedance.net ([186.240.245.239])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d1acde50sm3254680a91.14.2026.11.18.00.13.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 18 Nov 2026 00:13:39 -0800 (PST)
+From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+To: linux-riscv@lists.infradead.org,
+	linux-perf-users@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: [PATCH] dt-bindings: rtc: haoyu,hym8563: document vcc-supply
-Date: Wed, 18 Nov 2026 16:05:02 +0800
-X-OQ-MSGID: <20261118080502.525530-1-147148383@qq.com>
-X-Mailer: git-send-email 2.56.1
+	andrew.jones@linux.dev,
+	linux-doc@vger.kernel.org,
+	corbet@lwn.net,
+	atish.patra@linux.dev,
+	anup@brainfault.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	yuanzhu@bytedance.com,
+	cuiyunhui@bytedance.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org,
+	mark.rutland@arm.com,
+	will@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Subject: [RFC PATCH v1 0/5] RISC-V: Add perf support for PDIS
+Date: Wed, 18 Nov 2026 16:13:28 +0800
+Message-ID: <20261118081327.10684-7-zhangzhanpeng.jasper@bytedance.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,32 +118,111 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The HYM8563 has an optional VDD supply.  Document it so boards can
-describe the regulator and defer probe until it is available.
+This RFC exposes Precise Decoded Instruction Sampling (PDIS) as a
+per-CPU perf event on RV64. It targets the Smpdis/Sspdis draft at
+2de60e18118ce78e2da82ec33296345c94d8560c:
 
-Assisted-by: DeepSeek:deepseek-v4.1-flash
-Assisted-by: Qwen:Qwen3.8-Flash-Next
-Signed-off-by: pjh456 <147148383@qq.com>
----
- Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+  https://github.com/riscv/riscv-performance-event-sampling/blob/2de60e18118ce78e2da82ec33296345c94d8560c/modules/ROOT/pages/spdis.adoc
 
-diff --git a/Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml b/Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml
-index 0b9f39ef0edc..b27b250d3c2e 100644
---- a/Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml
-+++ b/Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml
-@@ -29,6 +29,9 @@ properties:
-   wakeup-source:
-     description: Enables wake up of host system on alarm.
- 
-+  vcc-supply:
-+    description: Main power supply (VDD).
-+
- allOf:
-   - $ref: rtc.yaml
- 
+The draft defines two destinations for sample records. With MEM=0,
+hardware records samples in indirect supervisor control and status
+registers (CSRs). With MEM=1, hardware writes records to the PDIS Memory
+Buffer. This series implements the MEM=0 path and reads records from
+the sample data CSRs.
 
-base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
+PDIS selects instructions with its own counter and delivers records on
+the local counter overflow interrupt shared with the SBI PMU. The
+driver samples at a fixed period and reports the recorded PC. Each
+event selects either host user mode or host supervisor mode. CSR
+numbers and the state-enable bit are provisional. Probing requires a
+matching CPU node and explicit boot opt-in.
+
+Open questions
+--------------
+
+- The driver registers a dedicated perf PMU for per-CPU sampling. Is
+  this a reasonable starting point for PDIS support in perf?
+
+- The model cancels in-flight selections when software sets inhibit and
+  clears spdisctl. What sequence guarantees that an old selection can no
+  longer publish a record before Linux switches tasks or events?
+
+- The CSR record lacks a privilege field. If user and supervisor
+  sampling are enabled together, how should perf determine the mode of
+  the sampled instruction? Would it make sense to include the mode in
+  the record itself?
+
+- The driver reports the recorded PC but rejects perf's precise_ip
+  requests. What guarantees about instruction selection and the recorded
+  PC would justify advertising a precise_ip level for PDIS?
+
+- COUNT can reload several times before software reads it, while OF is
+  a single sticky bit. What should read() on a PDIS perf event report
+  when the driver can only estimate the number of matching instructions?
+
+On firmware supporting SBI PMU snapshots, restarting ordinary counters
+also requires the existing counter_idx_base fix posted by liutong:
+
+  https://lore.kernel.org/r/20260823044337.517125-1-liutong@iscas.ac.cn/
+
+The reference OpenSBI firmware uses the non-snapshot path.
+
+Reproduction
+------------
+
+The matching experimental trees are:
+
+  QEMU: https://github.com/bows7ring/qemu/tree/4ce5dec939149ccef78358d68ddc15df1fc0c55d
+  OpenSBI: https://github.com/bows7ring/opensbi/tree/1cdbbd84f83d80fdc6d62ea3347a4417b388784c
+
+Build generic OpenSBI with CONFIG_XPDIS_TEST=y and Linux with
+CONFIG_RISCV_PDIS_CSR=y. Boot virt with the resulting fw_dynamic.bin,
+Image and a guest initramfs containing perf and the workload.
+
+Use these QEMU options:
+
+  -machine virt -accel tcg -smp 2 -m 512M -icount shift=0,sleep=off
+  -cpu rv64,smstateen=on,smcsrind=on,sscsrind=on,sscofpmf=on,smcdeleg=off,ssccfg=off,x-pdis-regs=on,x-pdis-sample=on
+
+In the test DT, append sspdis to each CPU's riscv,isa-extensions and
+set riscv,pdis-test-model = "csr-v1". Add riscv_pdis_test=1 to the
+kernel command line. This setup uses provisional CSR encodings.
+
+The test ran the following from a CPU 1-pinned init. The /workload
+binary pins itself to CPU 0 and loops over a labelled load instruction
+400,000 times (one load and one store per iteration).
+
+  /perf record --no-inherit -m 8 -a -C 0 \
+    -e 'riscv_pdis_test/select=1/u' -c 4099 \
+    -o /tmp/pdis-u.data -- /workload
+  /perf script -i /tmp/pdis-u.data -F ip,event
+
+On the QEMU model, perf received the expected PDIS samples in both
+user-mode and kernel-mode runs.
+
+Zhanpeng Zhang (5):
+  dt-bindings: riscv: Add Smpdis and Sspdis ISA extensions
+  riscv: Detect Smpdis and Sspdis ISA extensions
+  perf: riscv: Probe the experimental PDIS CSR layout on matching CPUs
+  perf: riscv: Add PDIS event and counter callbacks
+  perf: riscv: Deliver PDIS samples through the SBI PMU interrupt
+
+ .../admin-guide/kernel-parameters.txt         |  10 +
+ .../devicetree/bindings/riscv/extensions.yaml |  19 +
+ MAINTAINERS                                   |   1 +
+ arch/riscv/include/asm/hwcap.h                |   2 +
+ arch/riscv/kernel/cpufeature.c                |   2 +
+ drivers/perf/Kconfig                          |  13 +
+ drivers/perf/Makefile                         |   1 +
+ drivers/perf/riscv_pdis.c                     | 558 ++++++++++++++++++
+ drivers/perf/riscv_pdis.h                     |  23 +
+ drivers/perf/riscv_pmu_sbi.c                  |  43 +-
+ 10 files changed, 660 insertions(+), 12 deletions(-)
+ create mode 100644 drivers/perf/riscv_pdis.c
+ create mode 100644 drivers/perf/riscv_pdis.h
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.56.1
+2.50.1 (Apple Git-155)
 
