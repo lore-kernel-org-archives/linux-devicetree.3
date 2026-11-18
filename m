@@ -1,79 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795038373;
-	b=OK+8+Q1cWYeCXC7whFj8dd2fBk92p+YT1M3Uxbk6j3D1nbWOiVg3JCMAtXJV0xsEZiw6
-	 A4yAgxAwOHLCDj9vy5DXI2VXsm6z0SGgAsqJZkgeiOvSQ0FfNiJEJrN7rRj/OeVdpzf1Q
-	 yG3LwjyRh2lVe8QZkFEfAPYbkAttct8/NendL1bjN72EMq/bRT2VVN6TXRhE6ydadh9UY
-	 VXXJv6Dw2PjG8sKwd1KjbJ83Y9PTfIRR8mkcC7zQ27OZcnXhlG4kbr09dMPL/UkV+/b5x
-	 d65wTDDpY3BapvAYb8HB2+EoX7vTkY7ZGmGMfZ1k96hs7acW0XIDHNPOmsOZ1wJlCqA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795038373;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=UYCzXL6/0dZ8X2NJb8r8x4jhecKOjPKN/Z3O1wEqXoE=;
-	b=s7dD7ecE8zN2/0Nn00c5c5vtJL/ICuDjSf2vaxsDXvHFoizyXfUGkQ9pxV2gq9NXv9WT
-	 rqnxFmYOPi5Nyl6SynLDLOUiBj6l4c/RqiGLN2qA0iAJOZsDkYOiexbdtNKnXUreBjx7m
-	 bWdEDtbF/06PbwIVKG4csT7KZ9FhNJbpP2VL1cyoa88ZA9/kkGVxidXg3s7P1z7onJn5F
-	 uJ46gf3O8LNPE0Dug4BcjLD6paPR806TNE3YZulGQbBZc+MPL1MmHRw7zQUuo1deaxB5j
-	 +fO03LPqTrmyaWyZ0PdzcUTrJAZGA8Ku2FMrolsWYDqLuHP8FbXauzY6sbx/Yx4bZfw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NtKxG7XQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795038712;
+	b=lhEcyzGipyTcDnOnS8ZKsItUqBeyKEWiQO9HCqx6j6Vi0W4aWpmE24KfmaHAj1/7bt2y
+	 KB0JgR7wEu0ulqXelzW760svE7lcgEnRf98AFu1RR4WK/sTOLMpHjydyAJQLduNoniULH
+	 HkPbvp4gCmGOl4+1RQIHzxyLAGxkOIoiiGQ7hHhqXO5NibnL9X11cI5PBpaBS5TQOWSr9
+	 xkU4avpzas2AqsmdXwiliJ8+lMOYoanAzKH5oDkp1LL+wIX5xqNNLwtyIGt7mZrwkcVXj
+	 rxn8iA0jehwKWkcwv2ZnKOZQgefRtt/iJWKA/84iJxGLcZjkNzfbtMD4JWjP5hEENoA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795038712;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rvE6rq5sOnP8SXR/s3Rz5NZJQ0oCtKnvfp4hDVDsKYE=;
+	b=X8JuyMNM+newCvOcBQH8wFrxh862dor3fYwl7mp8Y4+Cn/PVOjPgMNU5XXjgrSJhKD1I
+	 sTbRG2vpd5VkIVvaJhkz74+3BM1oCvw89oGFlh4nP3tDpeDri2l9w1vbETsNYewidy9Jl
+	 gPOH47aKeW7EtR2PT7enpOfFUUh/zvGnwZNbXKXX7CpalFcMZbIFqSPtCMi/24Ot7A01F
+	 G6E/n1pwvG+XxccwixoXcu6X8Dr+wqdcv0M3gX8tasj46qvjTDaIB+oR29uHHLPWzWYB0
+	 a0mVUMoeWD5oBtu44IzqjcCOK2k2iW57tRYNYK40CESB4JGrKkZ/95RtD3jEBQqGFAw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ejm1WQUf;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0A1606A335
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 21:46:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C74606A31C;
+	Wed, 18 Nov 2026 21:51:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NtKxG7XQ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795038373;
-	b=xpR+nkbt8CO251WZpr3In+Zdmd0akzAF55lbOau2ccBBbAFrmIo1JOoxLBczBXrP6H0N
-	 f9ra42B+LjyoRVhGCZIRltAjG271vRyGW4V3cJITlC5A7dvuBTZm50iGah6dNkrFeCXCc
-	 kO54zb4Za31dE/q700w1wJaLH7SHMnqvbUlLgxpGJsN59gEzwwUfFyMrXb5WJrNG3RqQX
-	 gv0HwXz+d6QF6D37+U2+BUyfLLCLL6v06q7x4tbjCBJJy5vY4pHvwAB2Muh60GWgKJWPD
-	 q+5wZ7wLTyHyReENKKJqmhbSdco4GVPYZ+2q2J7+ej25suzE9ZIO0JzszIS8eTZyplw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795038373;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=UYCzXL6/0dZ8X2NJb8r8x4jhecKOjPKN/Z3O1wEqXoE=;
-	b=2FKf9ff1fGD/raTZ7c1eZf9ILKpDMzXlWn13EidUsj1CsbJp7Nb6Ls4x6FGAqs06wp8r
-	 MshtoCfbeiVlvnHtOarinCTPOxMZDiYsrnDN5JG26Jl0xKQkU6HoIdXCOpbAkA08lbNbF
-	 Z0JrIiSy0ND5xB2OasqJq8OMASiJC5ca6+VdpfzJaN5rxAHeJFo8x1C/xA5iswPC/jIvw
-	 k+1nMgdLVD35sRcge+C2v4wIEpckedoqVXj42OLQR3C53Tp3OxQ4ra/Kethir71AbvAO7
-	 sLY9HrMYs92LN2/s8jIMTiLi4IO5VJgf9MM9xVhnmhkvzSNePjKiEMAa2LH9mpmyh8g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 32B131F000C8;
-	Wed, 18 Nov 2026 21:46:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ejm1WQUf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F291F000C4;
+	Wed, 18 Nov 2026 21:51:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795038373;
-	bh=UYCzXL6/0dZ8X2NJb8r8x4jhecKOjPKN/Z3O1wEqXoE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=NtKxG7XQkvwn5unUUAqUMFIZbag8Nm/Qo1NW6RETai45wTTcEOneyZkVMLxnl1Dt/
-	 Z9US/8D/t+O3lJorxJTilg8N41LvOiJxeGprQ2O9udTEd8k1l9h0ZJ0aAkjNJV7rfk
-	 K/7keCUsVyM7gHla7KHhbKQW2dIoF499YeLNWANEvI9YzyYjvjTdjeOHzNiW2sE75z
-	 q2u/axNVC18cdCBe6XBkVUHkmJBmn/bqe2qcJjfAfdufTFNWT7tL55nEEF41nYsvWH
-	 dJ2Iv4bSin9u1Jv2EBZEyJ5PXje/l8if5MzmWgJO2Lll6qV/ryIccS3eR01kziI5oZ
-	 QdsupgDA7SdGw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B90724AFD9;
-	Wed, 18 Nov 2026 21:46:11 +0000 (UTC)
-From: Joachim Eastwood via B4 Relay <devnull+joachim.eastwood.gmail.com@kernel.org>
-Date: Wed, 18 Nov 2026 22:45:31 +0100
-Subject: [PATCH 4/4] arm64: dts: rockchip: enable hdmi sound on
- rk3588-h96-max-v58
+	s=k20260515; t=1795038712;
+	bh=rvE6rq5sOnP8SXR/s3Rz5NZJQ0oCtKnvfp4hDVDsKYE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Ejm1WQUfifQ88eirtG6eRgm1/oeom0Xu4GnaKZOojLY7DlwCPXjr29Y0/9qdAc4Lw
+	 952wAsTzKJIRa8N9fnOQ024wy3lYPHLuRvf/zmJIXfCuxubCnXkG0dCc7Vh6u4+ifC
+	 4s8bGNeSUT5q1GCheWyUxW2Gmj2zQx1+SVKGvXCY07TT5tuVoh9VwrV/dEcRcnFt1+
+	 qOvjVQb1zEfusu7ZoSYlX9yMFK9uyJsVt8W5sB7NB8a9cANZW5Nivg9tpN2SNWgGx7
+	 DvaekMK6iUV0c3p2RkHxk2VG84k1ELw9ZUqisLsC56eP60J3UjbV/AIUijfIo5oN2a
+	 9vgF8rNP6/nsA==
+Date: Wed, 18 Nov 2026 21:51:44 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, Roman
+ Vivchar <rva333@protonmail.com>, Luca Leonardo Scorcia
+ <l.scorcia@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v5 0/2] iio: adc: add mt6397 PMIC AUXADC support
+Message-ID: <20261118215144.301c2467@jic23-hlaptop>
+In-Reply-To: <4c64aa52-2b75-427e-8f26-c2ef7fc5b822@gmail.com>
+References: <20261025-rbrue-suez-upstreaming-mt6397-auxadc-v5-0-5c3c7a5a1851@gmail.com>
+	<89c8cadb-0ccb-4aac-9b95-89f355beb24a@collabora.com>
+	<60eeaaf9-57db-4ca7-b4f5-bdec111dcdbb@collabora.com>
+	<4c64aa52-2b75-427e-8f26-c2ef7fc5b822@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,78 +71,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-dw-hdmi-qp-bridge_attach-v1-4-e370920bc7f3@gmail.com>
-References: <20261118-dw-hdmi-qp-bridge_attach-v1-0-e370920bc7f3@gmail.com>
-In-Reply-To: <20261118-dw-hdmi-qp-bridge_attach-v1-0-e370920bc7f3@gmail.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alexey Charkov <alchark@gmail.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Joachim Eastwood <joachim.eastwood@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795038370; l=838;
- i=joachim.eastwood@gmail.com; s=20260701; h=from:subject:message-id;
- bh=Olvh2LZXh8fwddYqdBGYqLRZSxdXzrxttsogQiNz044=;
- b=+rBsl+l7IxeVv/QH09lai1TD/u5HoNCnxlTLKxgYu1V3vc3HHrgm7mebshsZbQVpZmgFuMJtE
- bOzsqqGuVLXBxOpqr3SQ/NERCfJSzRqjNasrbGxdvb4yJFOU/7PH+ZL
-X-Developer-Key: i=joachim.eastwood@gmail.com; a=ed25519;
- pk=ZN/8xWtdYaSd5oEfloYSZ1a+/ri0n0VZqjlEeHlbXFU=
-X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
- with auth_id=846
-X-Original-From: Joachim Eastwood <joachim.eastwood@gmail.com>
-Reply-To: joachim.eastwood@gmail.com
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-From: Joachim Eastwood <joachim.eastwood@gmail.com>
+On Tue, 17 Nov 2026 11:35:20 -0600
+Ryan Brue <ryanbrue.dev@gmail.com> wrote:
 
-Enable hdmi0_sound and i2s5_8ch to get sound over HDMI.
+> Hi Angelo,
+> 
+> On 11/17/26 5:02 AM, AngeloGioacchino Del Regno wrote:
+> > I reiterate - I couldn't pick the series because, of course, that one 
+> > depends
+> > on the binding being merged, otherwise the header won't be there and 
+> > the build
+> > fails.
+> >
+> > So I can't pick the DTS until the next cycle (granted that this series 
+> > lands).
+> >
+> > Cheers,
+> > Angelo   
+> 
+> Thanks for the reviews, and for picking the binding and keypad patches.
+> 
+> The AUXADC series has already landed. Jonathan applied it to iio togreg 
+> on 11-02 (the binding with the header is 8f809aa84698), and it's in 
+> next-20261116, so it will be in 7.5-rc1 along with your tree.
+> 
+> The board only uses the header once, for MT6397_AUXADC_BAT_TEMP (1). If 
+> it helps, I can send a v3 of the board patch that uses the plain channel 
+> number and drops the include - it builds on your v7.4-next/dts64, with 
+> only the binding warnings you mentioned until the trees meet. I would 
+> then switch it to the macro after 7.5-rc1.
+> 
+> Just let me know if that sounds reasonable :)
+That's indeed a common solution to cases where a binding header
+is involved. So I'd do this - then chase with a patch next cycle
+to use the define.
 
-Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
----
- arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts b/arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts
-index da6282c105255..5dd3f71932ec1 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts
-@@ -239,6 +239,10 @@ hdmi0_out_con: endpoint {
- 	};
- };
- 
-+&hdmi0_sound {
-+	status = "okay";
-+};
-+
- &hdptxphy0 {
- 	status = "okay";
- };
-@@ -299,6 +303,10 @@ hym8563: rtc@51 {
- 	};
- };
- 
-+&i2s5_8ch {
-+	status = "okay";
-+};
-+
- &gmac1 {
- 	clock_in_out = "output";
- 	phy-handle = <&rgmii_phy1>;
-
--- 
-2.56.0
-
+J
+> 
+> Best Regards,
+> Ryan Brue
+> 
 
