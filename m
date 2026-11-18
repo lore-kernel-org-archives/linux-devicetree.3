@@ -1,63 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795037505;
-	b=Lt9kIDRBS6BzuHr2TOT2fXBZxJugrnd51WKaJQBT8O+IYFfZJa7tBMDuu2mDCKHhwHV2
-	 6s3L9VCQn20tMViHogAv3R600dNvMZd9fCM+WZzrQvt47iP+/BozQMEYKaN5ZDbSNZdG1
-	 dlb3dKXzSJl4gXBgWJCMr3z8A3clH6ROxVJrDbhpUCQ3CchqDauInB5+OdQ+xJDTY/VAV
-	 /PtS4TyUo3Z0Z8ILlI/OpTMcXcjwG/YvSF+6Z6WWTji2TM4Xy2y9eZEMLhDCNPjBy/jue
-	 djPfZjGKLatkLPNv2P+45cIu+fAdsxzXohgiyTwKLSVPlZoFCHSrrFSyewdz3C0ei0A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795037505;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mdkhViCmxHPHXtPAzeJjBMbiylUhANODZG9eH04+n2k=;
-	b=db6oSK9S0laOyHzcQ5ht6KKdQbvPrFbTbtZ6uwhJ1s3mH+kefgBh8mgNtnKYEkOdqUG5
-	 uPg/F7kA4ARmHJnT+oC7GUmwj7gG/4ljZLdmy5cmTJa+E7RupenyA/MasNtXRt0NTZjzs
-	 RjKCp8Nc9vnwq9J5057G52vL+ljUoCh4lbkQe8qZEWyKNAefE7l2cYh8oTVcMbzRL6rWu
-	 WQ7gcusifWp+NGqnyMYl0t4pcxt6km7uPowQZFx5+hCEgvDUJeGxYSK1FCCnxTcvwjnSL
-	 Cyaj+l5/ipsLdns82ED3EA/oqUlzcVxXJ0dr3A1nKDufMfaphkx5xLGlpFe/JxvpOvg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1fT7cjh;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795038372;
+	b=DmLQnUvmCZ/KChWb9XW+V3S7si5+/9RuOjHDzFsd/+pEX8d12UF2fQxVYTYuqupcLkBi
+	 u8CjrXJXesp12XDsFU2/YTU5SQLoUWD05f5SqvFZvWvsXnSVnfXLnv2homNEcR82K1UQ5
+	 QMd6tD6L20rwQx87urCrpbW0JnACkC+h7hU3UBmRECvqv/0Ku1is6tl77tXDGMmoy3EIN
+	 t+vsXsAPxbmOsAxFvSm+wNH26RCc11ERAQ+gz5ZJGgd8Ul803hZ/mHr79Vw4tffLTA299
+	 zuSxPN0Dc11FnAI5CBfU8sTaoSpztDAJfNsiGGlr8QD9MLGVor1Gn2l3yxseQk/pSdg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795038372;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=PLbFsZjlW9Fgd0b7uazzqvhlWAMluE6KMHEmsSBUhsY=;
+	b=mQPJXE7J8PY4zVi4lprylmDxcW0yZBN03ekAl7Rmw3O+N9hEm6aSAvDZWsTZugggMcfj
+	 bk5wrrgjFokko1QoS4tXAVjQ3DOqFj3CQjHsatLEECfZZn8kObKfLfYKmFrFxqvqlWyS7
+	 T0Zdox2+lMl65o3H7WfGQXXXwVSweRJFqwEte6UzPi2dArDcQsWnr4c5u/lseHZXcGbRJ
+	 sl7Tb1kMVRs1mz4qD7FIW7qustKrBGl2ONQVPJ0tQG/u7gqgn/oHd4ej4a0kW3Rp+YcGD
+	 QCALWMKy0JGjQ0XHObSWeV2ACH2EM3QqDO3SkvNy0DLTDWwAUnTaiRCZT23swaQeHgQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WVchp0/w";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC2A606A32A;
-	Wed, 18 Nov 2026 21:31:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF9C606A325
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 21:46:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1fT7cjh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E0961F000C6;
-	Wed, 18 Nov 2026 21:31:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WVchp0/w
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795038372;
+	b=U2RRlYd/jgBAVflnzxa1eeNr/jv8JqH50al/LFymeEau6VH9HH6S6nAp1RRZZ3TRGqb8
+	 Clrt95iOdY07NnweNfIOmzYUZuuWja1XFj+YYWgi8ruHJz0+PIj7CV/TyuwzU4kbyw0h7
+	 OFeXGGgqc8eq5qOhbY6hxwgOwiurGA/aIfbD6M32cEeN9Ege2kTME1jXWSiyLCSAMNDal
+	 I35upFRGvAc+hfzuSfUJLdxy4e2X9XMJQxWyt10QGS0jS5ql4mp+ykgMgDTr3VhzDzc7P
+	 LUxtEAS/EvvrE8jyOkNznl+MMWcRkU7TcOINDI/oa0+SzUwF8aYIL2kk7o1S1g0mHUw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795038372;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=PLbFsZjlW9Fgd0b7uazzqvhlWAMluE6KMHEmsSBUhsY=;
+	b=KxNPn8luUb+MDZ0dx5PE6ZfVWqfq//AgFvGZGwRFmiUXIEtOQ5SIDJMme+z5UX9WG4qp
+	 HlovW8hjG7BDXnImULC+8+2DNWk+tBNnJ/Ybz+QRJrEkJndeTTyQOBRh2/hZx3Tn2KAhJ
+	 2gSnpahf+iYirbTBfz4Mh/PQX9M5NuWfE9s4293ag+B8FIJ9Nw5ZMjrTd5rpwUH4ilMx6
+	 iyw149yxAZlqeixeizlNeEiPmtXE3JuAKQqRy6G5Q5VHWUw4ZT09xE3ZkyWqaMol5eQsP
+	 TnUKl8C8YgY1AViuVLPdc1hx4B2g7YOuzdmo5JAsEqukPnffDVOZVxI9hT2xnthfevA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 031241F000C4;
+	Wed, 18 Nov 2026 21:46:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795037505;
-	bh=mdkhViCmxHPHXtPAzeJjBMbiylUhANODZG9eH04+n2k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=f1fT7cjhk+5dNPB0HxhpbrfQFDRbFCM/NQnTblXNfdI1K7GSA1cQT7O1dE4OtyynP
-	 p3uF3KdgGG51lale/hPw1glbT2Ail6zoLLAcl2PDMQGibHDa+xLxlryyRkT6XRFL2I
-	 Z+4pyCGA/sPI2Wln20kXmD8WUCeWSWQtux/2ksJuAdG0loaRgyYi/wwhrItj/0ppu5
-	 4UX1TWtgXU3ruGPaYJT0w53X/X6A0la6V38Hg4P/HsKFVtkOyYN8B94t13AdcrWAxt
-	 G914L6OoQydGHLnAWCi7zYau88yuvfTxW3Vdn8fxhADJw3BOdweUIeeJND4rz3frcn
-	 5i8KNXFE3lMgQ==
-Date: Wed, 18 Nov 2026 15:31:42 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: David Heidelberg <david@ixit.cz>
-Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, phone-devel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Richard Acayan <mailingradian@gmail.com>,
-	linux-arm-msm@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>,
-	devicetree@vger.kernel.org,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	linux-remoteproc@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-kernel@vger.kernel.org, Miro Mraz <mraz.miro@seznam.cz>,
-	Bjorn Andersson <andersson@kernel.org>
-Subject: Re: [PATCH v3 1/3] dt-bindings: remoteproc: qcom,msm8996-mss-pil:
- Document google,require-socinfo
-Message-ID: <179503750248.1112860.10353200603959842423.robh@kernel.org>
-References: <20261116-modemsmem-v3-0-24ebc7ed6eb9@ixit.cz>
- <20261116-modemsmem-v3-1-24ebc7ed6eb9@ixit.cz>
+	s=k20260515; t=1795038372;
+	bh=PLbFsZjlW9Fgd0b7uazzqvhlWAMluE6KMHEmsSBUhsY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=WVchp0/w4K2OY6jU1p2fTFghGq6MXmIxpnh/AInNa6mdAhxpBXFDcvz1MbORjbPrT
+	 XxiDgJUv2Q/ndcO3uiVPGRGUezI0GBZIAq0FVE11b8izFrR52xpRqGKPniZcTVYTGn
+	 d3Mg2EV7wjot1XAoTAcl8ccFbm7q62VAsoBESLiRk0VZp92KCmjKCOnbvC+Fu0PhDx
+	 1yCPcBP1Zjqf5pTS+kGnVAie6Aq+X/1dHtQ9h2yaZ7SCFNTNGjbyVvF6YcmEYTCDAk
+	 Jueh7ncrBxeGLFsR/9k3HEe4w8lSbFQ4BDTi6m/0XuUJDXGtLYM/NLOrM/gwz0TEzk
+	 pHFFZiEbH+UPQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 768344AFCF;
+	Wed, 18 Nov 2026 21:46:11 +0000 (UTC)
+From: Joachim Eastwood via B4 Relay <devnull+joachim.eastwood.gmail.com@kernel.org>
+Date: Wed, 18 Nov 2026 22:45:28 +0100
+Subject: [PATCH 1/4] drm/bridge: synopsys: dw-hdmi-qp: Propagate the bus
+ format to the bridge input
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,27 +83,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116-modemsmem-v3-1-24ebc7ed6eb9@ixit.cz>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261118-dw-hdmi-qp-bridge_attach-v1-1-e370920bc7f3@gmail.com>
+References: <20261118-dw-hdmi-qp-bridge_attach-v1-0-e370920bc7f3@gmail.com>
+In-Reply-To: <20261118-dw-hdmi-qp-bridge_attach-v1-0-e370920bc7f3@gmail.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alexey Charkov <alchark@gmail.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Joachim Eastwood <joachim.eastwood@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795038370; l=1192;
+ i=joachim.eastwood@gmail.com; s=20260701; h=from:subject:message-id;
+ bh=nDJvSyZzGdE5qngozS/m2hFt6NKpTw1uO/xm8cw5j3s=;
+ b=JFd+Zi0dC98JQcizj9hNwpmDvrJlcpUfvhPeVkS2AWTJFlVRJpK98ox/5bgN8QespKtpcmmpM
+ tOKQMAg02ILBPLPcTg/EUCrZ005csilIyVwrppOhgIXsgRm7EEs5Kme
+X-Developer-Key: i=joachim.eastwood@gmail.com; a=ed25519;
+ pk=ZN/8xWtdYaSd5oEfloYSZ1a+/ri0n0VZqjlEeHlbXFU=
+X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
+ with auth_id=846
+X-Original-From: Joachim Eastwood <joachim.eastwood@gmail.com>
+Reply-To: joachim.eastwood@gmail.com
+Content-Transfer-Encoding: 7bit
 
+From: Joachim Eastwood <joachim.eastwood@gmail.com>
 
-On Mon, 16 Nov 2026 16:50:43 +0100, David Heidelberg wrote:
-> The modem firmware on Google Pixel boards (Pixel 3 through Pixel 5a)
-> expects the application processor to publish the SoC platform type,
-> subtype and revision in the first vendor-reserved SMEM item before the
-> modem is started. Represent that requirement as a boolean property on
-> the MSS remoteproc node so the MSS driver can publish the data before
-> booting the modem, instead of carrying a separate node and driver for
-> it.
-> 
-> This patch was written with assistance from a large language model.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  .../devicetree/bindings/remoteproc/qcom,msm8996-mss-pil.yaml     | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
+Propagate the output format to the input, so the negotiated format is
+available no matter what follows the bridge. There is no functional
+change when dw-hdmi-qp is the last bridge, as the glue already uses the
+output format in that case.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index 9842209288369..eed249aca1e23 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -1026,6 +1026,7 @@ static void dw_hdmi_qp_bridge_hpd_disable(struct drm_bridge *bridge)
+ 
+ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
+ 	.atomic_get_output_bus_fmts = drm_atomic_helper_bridge_get_hdmi_output_bus_fmts,
++	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+
+-- 
+2.56.0
+
 
