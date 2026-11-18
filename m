@@ -1,57 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795017787;
-	b=u4ihrEvNez1Y4uKr5qRs+BmIM+XX/Ez2afBlkV2PrtYwH0YNQVExraEEEy+ZPJJkm0ge
-	 SiJyplyyOdQu5DAxvTk8mCrXUrP3hyPRK4HPTnRC6UbR3rKlkFAjE3MrxiC07jdlEy/ku
-	 WY6lOZA+8DCi7rqYjOREsIkLbC7Ex1PW2ffflaDPw9G+nackyzVgbKUk6Y0REI95aqbbm
-	 AJouO1KTpExUi1vo8aNxTtqxCr0xnvvnHOgwZ1EYpnkKYBcsVZzTtlKEuBe6i6iNYC38w
-	 /BBoTTy/nLUmEfnlE1zEm+CX7MeFKaq11sq0weYGyIVrMd0JlvDBHcq8Pj3cue4osMA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795017787;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=SfxkgkklZFDwMiQmRqpsbaDI/SFDH4vGbJf1ROYYmDM=;
-	b=WI9Sv1pOjw5SVWf4mPnBI/OcJXjn4u2MfvouXxfVQxj7JV93RIibWFpQ1TG3xU4/Ug6v
-	 I1fasekkpq3UTfB+CdG/mCKHjK196sWnzfEN82DAyM14aRClxC7ekXELUKQORnT7wq30q
-	 y2R1Ek9LYPj4xc3DPgfQTW6/Wxozwmw5YoZ2BSl/l/h2yF/HULj883Ly4abVXm3u/DrNk
-	 fCDcJQ+pQLn87Vb1cQQGiHY7iqV+Zh2LYv1/AK2a+UStL7FFydrs2eOciijHnYYjW+Jwb
-	 ouTRFzX8roD85jvu+6+Ti6erqyQccBz9axNuvdFrwJBckHU9oc4a8N15OWstOaOBX1w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iUMKDXME;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=165.173.180.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1795017805;
+	b=tPZqG+lrB2JYK5yHzKCjqvyZevoZ9BcATtevAEiEJH2iEKT5SqY4KpebDcp3tUY3L5Z4
+	 b/soa03Nd5HwJOO2biBIAL/F5Zss5YtyMqQxmzTCxEiT1xgd83KWVWdZZdc+0bv564xDm
+	 QKI13xqzQkRqKcNHFhQHTTHWX7V7Hkb+8aSAf5LQuhphMVf6Zi74+1jErnOuY3G9os5hr
+	 YR5zFZ0GXIHYddmpdRO7eeDgWMSZO8oeMlLRvHs4cwGVDXkBOH7T4u2hfS3prdl4EVLCj
+	 DhQP9YnI952dCIq94ZivrDqJx03u31a2qY1fiTU54Uhk4xQnfk6xpJVfcRJK3AIgjqw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795017805;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Zoho-Virus-Status:
+	 X-Zoho-AV-Stamp:X-ZohoMailClient;
+	bh=lvK9tuIpxKgDgpYO7x8VbuolpPM0n5OGltXSZRjUgJ8=;
+	b=YyXvpVCwbOrBNUrw/YtuQt68trZ8tDofpNqSOlHoU5pa0exGljU/fjPq7Ri9MtQkCgXy
+	 QmRa4lb/SuZSyCiusEFwgue52p3dy+wk3n7eCQ3t+5gmKNGmVA785ePzLQNbgOxniOLiV
+	 9LHlJQi/JVPbBqJoV7+L4TZl0xfoBbfvdNvSSOfwMd9C919nmNR3og5QaBBLFuzX5DzOX
+	 1yMwNAtdh8gaNDLuOBV4c/jahEetVnMJFdayYWWBgYj3jlsrMLQ3zyg18AdtigKle2Mow
+	 GG1uAqBncaZ2+jDywvnLidv3BWGFTLfdnsNst5xO9jfT2BWlFp2fjvLt6U7WsP+lHGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ziyao.cc;
+	spf=pass smtp.mailfrom=ziyao.cc;
+	dkim=pass header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=cBzRIq3k;
+	arc=fail smtp.remote-ip=165.173.180.15
+Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BBA0606A31C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 16:03:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F411F606A334;
+	Wed, 18 Nov 2026 16:03:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F411F606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iUMKDXME
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7FD71F000C4;
-	Wed, 18 Nov 2026 16:03:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795017787;
-	bh=SfxkgkklZFDwMiQmRqpsbaDI/SFDH4vGbJf1ROYYmDM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iUMKDXMEWEYAkXnQ/zf0rZ4XxfMSQDnfVwuEWZWayhr5x8mXYz3d/bieSfAIsCVmR
-	 mGnxEwQqEaKOaE90Oyjl8njLpag1BgWfIQ28e7yQnzb7bZtJTulOnuOSNE42sKxywh
-	 lBO4ITX/UP4UeslHpi7vhqHZ0ZHL4pkBuDjV977RaKrIQtGaz0Q+8nqmSvD3WgsZaK
-	 z9q/K3zW5FfAhoYVoJ1uvz9Qj289z4FjVCxuQv4Rq9uL+ypLqQ2am/1Qhw+JN+WeJt
-	 J1gpH32OXwX0uXb/jsY0qvagRFF9LgQEDkjRCC/ZYLuJpYPh5Llab5ciwH+8hs7o5D
-	 rzZJ070f8McBA==
-Message-ID: <sashiko-outbox-221408@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] remoteproc: qcom: pas: Add coredump support for
- secondary processors
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-oob-support-glymur-v3-3-2cbdfe208d56@oss.qualcomm.com>
-References: <20261118-oob-support-glymur-v3-0-2cbdfe208d56@oss.qualcomm.com>
- <20261118-oob-support-glymur-v3-3-2cbdfe208d56@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 16:03:06 +0000
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=cBzRIq3k
+ARC-Seal: i=1; a=rsa-sha256; t=1795017777; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=DSGObvRuVfYHe9SPWi3DqDIgiYIldCXNqh1t+Zl00inX7x7i4f+eV1cq4wzsvlo86V17Dn23wGvSW1t07EXrholfCFxxPKGaij/5zbn70TAJEb0LBkpdLmQiXDDKQgFHprfMLaziAnTTKCZVVASEMI7uO4iuJvVIVSlFkGWx/h0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795017777; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=SwGyqM8fKkj7sRpo7lsvMTTp7Ch2ClbA8Qn5X5Zgelw=; 
+	b=ZYWXKgyx53JzR0+YODEWbeooFlcwA6c/+xMowA+BxuljXu5YPCzBy6l0pF1y+zb8kI7UTln+6jbKfSEWLrJcAzQYZuQHc3tngfPr6j18V8KfaXfQlLCiYjqqC6f4EAMuw548RDPc36yF3DBDCnKW5ifBohM7I1mjvuSLNdIDkf8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: a=rsa-sha256; b=cBzRIq3kEbo4izYjricXxCxci6PaCtbycrEGqIvCAEKBY0o6AKexzsYMH6bqRdVYgmH6sSUxhWB9tVf5agQD9OynAuwPmFKzxrcP1TcpFUrlEsg2aQsfOczSvBqk1zepyamp4NpdJ7Yl7Eh368529V7T2mO4VzWMvM0oLcZYZIg=; c=relaxed/relaxed; s=zmail; d=ziyao.cc; v=1; bh=lvK9tuIpxKgDgpYO7x8VbuolpPM0n5OGltXSZRjUgJ8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795017774093467.4763197419518;
+	Wed, 18 Nov 2026 08:02:54 -0800 (PST)
+Date: Wed, 18 Nov 2026 16:02:43 +0000
+From: Yao Zi <me@ziyao.cc>
+To: =?iso-8859-1?Q?Fr=E9d=E9ric_Mah=E9?= <frederic.mahe@cirad.fr>,
+	Stephen Boyd <sboyd@kernel.org>, Yixun Lan <dlan@kernel.org>
+Cc: Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.co>,
+	Haylen Chu <heylenay@4d2.org>,
+	Hung-Chun Tseng <alan.tseng.cs@gmail.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Yao Zi <me@ziyao.cc>
+Subject: Re: [PATCH 0/6] riscv: spacemit: k1: RCPU2 PWM clocks and the BPI-F3
+ fan
+Message-ID: <av3MI0wgou3pbab8@pie>
+References: <20261117205951.140146-1-frederic.mahe@cirad.fr>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,120 +77,62 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261117205951.140146-1-frederic.mahe@cirad.fr>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.994.34
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] remoteproc: qcom: pas: duplicate dump segments in
-  qcom_pas_load() on recovery
-- [Medium] remoteproc: qcom: pas: secondary coredump after masked
-  shutdown failure
---
+On Tue, Nov 17, 2026 at 09:59:45PM +0100, Frédéric Mahé wrote:
+> The BPI-F3 fan header (J27) has a PWM line driven by an RCPU2 PWM
+> (GPIO 79). This series adds the RCPU2 PWM clocks and DT nodes and
+> enables the fan on the BPI-F3.
+> 
+> Patch 2 keeps pll1_aud_245p7 enabled: once clk_disable_unused() gates
+> it, accesses to the RCPU2 block hang the CPU (the vendor kernel keeps
+> it on through its RCPU firmware). It may be better tied to a power
+> domain once the K1 power domain driver lands; comments welcome.
+> 
+> Tested on a BPI-F3 on v7.4-rc1 (no fan with a PWM input at hand, so
+> with a multimeter on J27 pin 3): 0.86, 1.76, 2.74 and 4.66 V at 25,
+> 50, 75 and 100% duty (0.04 V off), as with the vendor kernel, and
+> the fan goes to level 1 when the package reaches 40 C under load.
+> 
+> Trees: 1-3 clk, 4-5 SpacemiT DT (4 needs the IDs from 1), 6 riscv
+> defconfig. Depends on "reset: spacemit: Fix the RCPU2 PWM reset
+> registers" (reset/fixes).
+> 
+> Written with help from Claude (Anthropic); reviewed and tested on
+> hardware.
+> 
+> Signed-off-by: Frédéric Mahé <frederic.mahe@cirad.fr>
+> 
+> 
+> Frédéric Mahé (6):
+>   dt-bindings: clock: spacemit: k1: Add RCPU2 PWM clocks
+>   clk: spacemit: k1: Keep pll1_aud_245p7 enabled
+>   clk: spacemit: k1: Add RCPU2 PWM clocks
+>   riscv: dts: spacemit: k1: Add RCPU2 PWM nodes
+>   riscv: dts: spacemit: k1-bananapi-f3: Add PWM fan
+>   riscv: defconfig: Enable PWM fan support
+> 
+>  .../boot/dts/spacemit/k1-bananapi-f3.dts      | 63 +++++++++++++
+>  arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi  |  7 ++
+>  arch/riscv/boot/dts/spacemit/k1.dtsi          | 91 +++++++++++++++++++
+>  arch/riscv/configs/defconfig                  |  1 +
+>  drivers/clk/spacemit/ccu-k1.c                 | 45 ++++++++-
+>  .../dt-bindings/clock/spacemit,k1-syscon.h    | 12 +++
+>  6 files changed, 218 insertions(+), 1 deletion(-)
 
-commit 18ab6cc078bc90d357be63c7984c43a899ef428d
-Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+I think spacemit,k1-syscon.yaml should probably be updated to make
+'#clock-cells' property mandatory for rcpu2 node? And probably also
+the other blocks capable of clock stuff as fix...
 
-remoteproc: qcom: pas: Add coredump support for secondary processors
+-- 
+Thanks,
+Yao Zi
 
-This commit adds coredump support for PAS remoteproc instances with a
-secondary processor by registering dump segments for the secondary
-firmware and mapping the secondary carveout during coredump collection.
-
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
-_q6v5_pas.c
-> index 1c8c0c22c34d1..a167bd6072c94 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-[ ... ]
-> @@ -336,6 +342,17 @@ static int qcom_pas_load(struct rproc *rproc, const =
-struct firmware *fw)
->  		}
->  	}
-> =20
-> +	if (pas->secondary_pas_id) {
-> +		ret =3D qcom_register_dump_segments(rproc, pas->secondary_firmware);
-> +		if (ret) {
-> +			dev_err(pas->dev,
-> +				"failed to register secondary dump segments: %d\n", ret);
-> +			rproc_coredump_cleanup(rproc);
-> +			qcom_pas_release_firmware(pas);
-> +			return ret;
-> +		}
-> +	}
-> +
->  	return 0;
->  }
-
-[Severity: Medium]
-Does registering secondary dump segments in qcom_pas_load() append
-duplicate rproc_dump_segment entries to rproc->dump_segments on every
-crash recovery?
-
-Primary dump segments are registered in qcom_pas_parse_firmware(), which
-runs only during rproc_fw_boot().  On crash recovery,
-rproc_boot_recovery() runs rproc->ops->coredump() and then calls
-rproc_start() -> rproc_load_segments() -> qcom_pas_load() without
-clearing rproc->dump_segments, so each recovery allocates and appends
-another copy of the secondary segments and produces corrupted coredump
-ELFs with duplicate PT_LOAD headers.  In addition, if
-qcom_register_dump_segments() fails here during recovery,
-rproc_coredump_cleanup(rproc) wipes the primary segments that were
-registered at initial boot and will not be re-registered on later
-recoveries.
-
-[ ... ]
-
-> @@ -748,11 +787,28 @@ static void qcom_pas_coredump(struct rproc *rproc)
->  {
->  	struct qcom_pas *pas =3D rproc->priv;
-> =20
-> -	pas->mem_region =3D qcom_pas_ctx_map(pas->pas_ctx);
-> +	if (list_empty(&rproc->dump_segments))
-> +		return;
-> +
-> +	if (!pas->mem_region)
-> +		pas->mem_region =3D qcom_pas_ctx_map(pas->pas_ctx);
->  	if (!pas->mem_region)
->  		return;
-> =20
-> +	if (qcom_pas_has_secondary(pas) && !pas->secondary_mem_region) {
-> +		pas->secondary_mem_region =3D
-> +			qcom_pas_ctx_map(pas->secondary_pas_ctx);
-> +		if (!pas->secondary_mem_region)
-> +			dev_err(pas->dev, "unable to map secondary memory for coredump\n");
-> +	}
-> +
->  	rproc_coredump(rproc);
-
-[Severity: Medium]
-Can rproc_coredump() read pas->secondary_mem_region while the secondary
-carveout is still locked by TrustZone or the hypervisor if shutting down
-pas->secondary_pas_id failed?
-
-rproc_boot_recovery() only skips coredump when rproc_stop() returns an
-error, as fixed for primary and DTB PAS IDs in commit 9db31edf92dd
-("remoteproc: qcom_q6v5_pas: Fix error masking in qcom_pas_stop()").
-However, qcom_pas_stop() overwrites the return value of
-qcom_pas_shutdown(pas->secondary_pas_id) with the subsequent shutdown
-calls:
-
-drivers/remoteproc/qcom_q6v5_pas.c:qcom_pas_stop() {
-	...
-	if (pas->secondary_pas_id) {
-		ret =3D qcom_pas_shutdown(pas->secondary_pas_id);
-		if (ret && pas->decrypt_shutdown)
-			ret =3D qcom_pas_shutdown_poll_decrypt(pas->secondary_pas_id);
-		if (ret)
-			dev_err(pas->dev, "failed to shutdown secondary: %d\n", ret);
-	...
-	}
-	...
-	ret =3D qcom_pas_shutdown(pas->pas_id);
-}
-
-If the secondary shutdown fails while the primary shutdown succeeds,
-qcom_pas_stop() returns 0 and rproc_coredump() reads the still-protected
-secondary carveout, triggering an XPU or stage-2 access violation.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-oob-suppor=
-t-glymur-v3-0-2cbdfe208d56@oss.qualcomm.com?part=3D3
+Meow-mrrp-mrow, I'm a cat.
