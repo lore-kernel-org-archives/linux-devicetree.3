@@ -1,100 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794988019;
-	b=FcS4nLfwIMnUji0maWz9iWwxO+MKxmP4baqYWo+2mk8MRrzIfYD7KZ7otCIBafEu53nV
-	 xbx9NBynkdWYmUDAzpBaATpMin4Gk1AJkVXWYJx0iLLkYop7xXHO3NJdpvaCyNim8Za+H
-	 I1AUaXlamMjjKhUs6qV3BwJrS4Wo0JJ/DIKNyU6MVQ7lu4QNco0NPEZ2hKUjiP6U6gE3o
-	 8Bb/Id5y1F6b95qIoTpAbXnlUSxor/tLSU/aFouTa6lNBZN9J7EVI8zfoZF5Gd45OAUuf
-	 AUFizadgG0ut1nu2D2HGm5iA6NdMCWoJrGggsLYSQvY0qOy/zhB+b+8vt+am65EO76g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794988019;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Pnx/XKeGh94aieoFZrCY2NwwXx3i4N4YVNZK0i3sHOs=;
-	b=1uaf3s7IfY0tXJ8RdSDJFx9tocrdBUlSBVVkqTzijIWq5xBqkJPJNWgquXr4UVBPPNq/
-	 ke3S3m0eNnFUbsiWuxNbkNasl3ofhReWmikUeYt1jH3ySNjEkCTz0ewkYN6uSD0omU76h
-	 HcdMRIaN4htV7s3eBujV0ycVLi+O1UA7fYthuiMaDrHYuFiss0GsFlYI3+Mn9nPxEDmN3
-	 uhnZe2DNVSHL4MnEhJEwMc7gVp+SiQm+rTbiErdOTqb7iIQme8gtvov6JKL8NyPSpQ2GS
-	 0BABM6p2upmTISrAr2yc1un+EaOQ5IxUaT20oMv+W0/PkoiLAGL5R6WKXKk2y+xhMRQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=KwxIBuS9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794988082;
+	b=sbAO9+sPHuDTeRTSfwoPhw4ZupkLn0RRGK1xr3gwMNgIGMGAI6BnA/lzxvq9Lm09uXcb
+	 7GBA/jAnpPUceDtDUMIhK/fYLbhONFpL/bLAynJuqY22oEAyta5aMC+R/B0JfBGJF2Ynk
+	 RmfP+NASEy3XYd8nrcp2wpBj9JWivq3EQIMn98BAfD7J3fKtKT7EOdk1ypunMIpMQS/L9
+	 TajPZ8b6uzPZ3qUiy9q3Wx0uWB5ftsdIYtSBOhKZgGsN7Lqk7IgYoNRVJnT4HgW7LCiAc
+	 IhNq2tr0heJO3aPAYZWo+XQdhAopOIh8gBK7MV51X5sij+z4oecYG7q8VRkG/7DRDUQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794988082;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=cvc+bBzzP+Ja0Kt8fwKbYhV41RIku4RbGFRhXc5aZdU=;
+	b=gqwO0wj4kARHPc47QwXUrZUvuAM0sCxWygj7XzM2h1EflqJe3uOSnB3DIgVh0DqUqTsT
+	 RHnL5YgLQ9EU/cYHsXNswnZLGfhABEXYw6xvSw5WNt8pghoKY5wnYiItVCFIOwcnOMPge
+	 8uOsJ2DnsIHx4mv3BadYB2M0JfvzrIqrBCy5hNZCYVvHEMl0rx6Nd15OQ3DYwa69m7Ic6
+	 aQUt4ZxRGF6SlUEOM4mzeKuUcUN1xLU/ZupNrlqBx6vYage1TtQCBZULCZUT8GWCDCiTX
+	 oi8yuEciF8RmpiwBMaHSZGcH4quq+Oo1aEz/67Iag3SPhdxO1jP4q3yFu6qRKMXaBMw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EMoIJ04z;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d3fkUXF+;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35155606A325
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:46:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35155606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E943606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:48:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E943606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=KwxIBuS9
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c50aaad19fbso66687866b.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 23:46:58 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794988017; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mHcUEmwsyzPYf28H0CwXgCg24cfna349Uei0fzkh/DFf99tiE6UsDodubu8qQ7118j
-         LRQyxy3bNH/8lGOAs2h92u5nMrZiV1kEZwsFUrvRfoQkVP2MyhbtjSOgzRqaakS9g0+g
-         L21ec1lLPUgcQ7jru/z6fciEA4hzXDdncaMDYN9DUrDPFFETUTa+B2WTlrgwooh+fUoQ
-         ygbkMh3nCXxeFkMu9Qx6g4Zcip63zzlOu2IQ4xxuoq689tQSNy4hj/1dtAZjwkbK5nJF
-         CLmkRHv+SjgDXZnV4tYCf5q11wfyGE3y6qXhr0MctHIu5+nyyHnJZGjFX5BdQw4SJkw1
-         uN6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Pnx/XKeGh94aieoFZrCY2NwwXx3i4N4YVNZK0i3sHOs=;
-        fh=M89f9fNEPHwATUWSWNqeiauW6fCciH5Ryl45cxl1Tq0=;
-        b=fV4Ab8N9a94+IGDUZEtYeujbo3aDw4gCfOf/5NFJUKy7VcDtTqYm1YWfE3j193aAwG
-         b33UipSWjYaQeNQnWzLHOWDcLC5Th2KHX995Yw6WDUPggNGDo7TjosnAs1cmm1jSiNEf
-         9B49HQ3ba9b1Btvb5T6JIMEtPa8W2f5Ttw23j9ersHoyF7dNhSluWIU4DXOaO/MgsEYn
-         SwyWUR1aj9rTtspwraoh7K09aLZqH+fk6jG1PGDzt1MmHuzPWjA5mdbSJ67CM6MwH1o+
-         1MYXViwyb2hIrDMroDjhkWTmZXU81QxW2ZNIRv3Z+UxaXVJH9kjgC0sGeSE4mQPmfLM/
-         HkPQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EMoIJ04z;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d3fkUXF+
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AI2Vwkb4059979
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:48:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cvc+bBzzP+Ja0Kt8fwKbYhV41RIku4RbGFRhXc5aZdU=; b=EMoIJ04zMJ+x4Dur
+	nu7Q/vwSXSXeJKheGCEBsks/aA+GpUdVImCiuZVi3wxG20q/5ZOYDrXXAFjeDjXR
+	OoA1G7ECZE7RToacBh8icG5ybTSecc1YpHmDMRW/Sceh06Jw4Cb5s5ovCS6VKwpo
+	/Z0H28YESEnq4OXfEEkf1HBqRLMERmxCyLgPAfFnEVsQYaXDXIVl8aTygtFZbBCU
+	7v5rmYjDRDv7rig8zWVNNfTiM+/ACeyKV4VcD4aTKH+DvQXr7TLzopF3p+X9omlm
+	ddy2HNrMeTrVtMD+O/2cvkdOt2AJNzYCky+/b0WNfmBvKIbrYEOUWvIOzfN0Wqsd
+	uVIFKw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yvchwmr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:48:00 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e9995cea88so5761335ad.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 23:47:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1794988017; x=1795592817; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Pnx/XKeGh94aieoFZrCY2NwwXx3i4N4YVNZK0i3sHOs=;
-        b=KwxIBuS92KiVES7EPspJTIkt+Vyfny/uZgiUrllnoPC8h5ws2iqgOx6IGqU3bdxpJF
-         dTh+jwl6pe/Mg2vFUsOi2NsXr//POfNQZwoZGHxLw8YE2AypIZN05YQ++EvnjV5+l1NT
-         +NATB2riwpwfALaIqHaZQcMqilv4NY7h7Kd93KIg1VEqkvhv9rwn/bFvmZomybfh0gk0
-         dxSxiw2IovXsuFbv+f5Qhxzv2Q5O4vL3W/pYQc9KJe02/JYqpLW7h7bxxzji6Z2SsDLR
-         Ul+uqGPAIPJHrYy7FkTC4ddPTvtIgQQ6nMTZCUHj0DGq1S9fjp9CUECwLscDn+TXP/oJ
-         8b1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794988017; x=1795592817;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1794988079; x=1795592879; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Pnx/XKeGh94aieoFZrCY2NwwXx3i4N4YVNZK0i3sHOs=;
-        b=rT6BlN8D4LgK+rPQRqa82OTaB2FqsQcP8U9xTDxVSG0gwbV2F//5SJ3YO+h0evxIHr
-         qbos8l3QHGqbscfPhUfW+ArYzv5S4H40JFeAGLDFPvTMQJHmm351+KkKj8RCinPaZnYj
-         oLyieX/yuUMcg9aRTphiAFwDjDhrPwHJ3q4qOhrcD9m8roOPqqOpSJ7Lt5Y7a4CW82co
-         1HoFVoRZkXju62NrhPRJ8Q6CUUhDBinYLj74SIqjQ9V8vKQnfjGOBGsJ/0uIQ3QEP6BO
-         5NifKoeWwi59GjAFWz4RadJZr5/DZYRTLsAgG15tDEL1kaOOtsDWArl7YnTFiHhU/8C+
-         jMUA==
-X-Forwarded-Encrypted: i=1; AL+hErH9BOS62ITGzE0+brR6hBRNL8ZtwZ8jML9qo2yiv8G28k8QXnWsPWYVVXubJbk8RWawQwAq0zLQqv34@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JgPqubmljouLqYLmFh9KoIUKof1hCYwO5Xs+m7STc9e7d4fD3
-	NDx31AFu9QoGr7iUuV2ScGVl4UzXgqWdd41okEabCHSscmDiH9PviaXKZVI6wxsE5oGRvQA9yk9
-	VEjVNivuf7NL7HilenGG2mNJnK6Zo1SzghdDZKTIruw==
-X-Gm-Gg: AYBFou0zxijYJ4Kcs6Pb2DXNKHyXu2foLPedPo/BrnOh2ctr8Z9mnerib33nDaUAytb
-	yJsH1JuPJCTsRnqFMD+wBPlAy3SaSyL/5v1h5wB2SczRZryuB0buC2jEr5Ej2/AfxkWGmL9XbLo
-	A1/j/V5IEkdWCSo/LnV4e0wQSyCYukIEA3Yvkldn4pYoB0wKYCuIRhUdNPvQHGFmsrsj/6+Tu8V
-	ccYoVBN+zvnNCKdutHgWED9/9NauslByda28zthXMSMu+8DG3vB/AR9c3j/PCv5GmpLqJJtGOji
-	6JYw3hPj2G2rPLBGtxnGdNlE51oml6+s6BvO15mrHYHfI8z6rkjs44DTFYEKZ2+ipV7sgEfZ0wE
-	clfggMvUJcN0358QW1pLkAfnqRwCmgPjmZNfvhLbGufJVfJArp0CM9MMIHeL2iOyUPCPEiQ==
-X-Received: by 2002:a17:907:9446:b0:c4d:456c:4a29 with SMTP id
- a640c23a62f3a-c510e16a720mr128985866b.14.1794988017524; Tue, 17 Nov 2026
- 23:46:57 -0800 (PST)
+        bh=cvc+bBzzP+Ja0Kt8fwKbYhV41RIku4RbGFRhXc5aZdU=;
+        b=d3fkUXF+ZLAxxSNtVEgZj2anaoSBLWKE/Yu9dhup7B3r8S6Uu5KqqsiHIb2jjsVQbt
+         rQfj020+Bry+R3F8dL6SSxlh3BOaANETfUqHMsREsCfAydWXtBz24XDjGWksFbKjTf/B
+         7UYYvu0EHnPvUhuTRHXAhPj8+bVZj4qVlzycuMOpMCNlYqRFJuKc7aXqcfA1uc+gvT/w
+         UywYk4N75Qx71eDl+C+rBEHuuzv9PEpt2O6s3vW5q736lCbEDfhc58qN2wzGBableaq9
+         2ZR6zVS9fIGGGkdipozViZNp+2HSyaEBDDf95Dl1fJ6+BNG/R3sSs3slsYjV7J9YXSRZ
+         JD5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794988079; x=1795592879;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cvc+bBzzP+Ja0Kt8fwKbYhV41RIku4RbGFRhXc5aZdU=;
+        b=E75NBie0z2O+1Rnge8NBFHItSR81mG+FUB+mE/ezFmgGvOM+K3oQWOLVSAi8SPzD5L
+         NebrX8g1nWQsf4Y917Z+Ejrr2Eh9B4VNLPLPovYqsllqobx/g70RPi4iFL8FZHEEfIxc
+         g4m4msp1G/Upf3leNQMNSNWcYmTLMKoyHSSAEyFXRdv1cnKxpNbrKHeYVS+EqYyr0y1O
+         9y+tMDNJgOVmwptgXhJm+1yH4g0rfLne1A2FJyavmzGfwLMn42K2ubxSSra+mGFsbOI4
+         qShm+MuMP0S2kyOXzczh+gYCtYuxrEoI75O2dzKRCNz0ImXdEUHWIMYoA/QXE3/oFqRC
+         jHbg==
+X-Gm-Message-State: APuU4Z/e9rpNfwAE7e9hp671gkOcLfpKc5A/mriUG7cx7NJdV7jQlFJE
+	FJvBpW3AoK7Ay4J/sFBtDV3IGC0kyvcGSKcRw7Yrm0BAFLTa1bTx0fQOYUsqXmkxLbuX/L0jt7x
+	EXnCeugRN+4YWmxnv0/jxCQAf0bo2VMUJYZXWQ9MmU4nqE0JTjeTAhoaILsQVS2dT
+X-Gm-Gg: AZFdTZcrzaHS92+qfjTrMQifTrQ2wL4YYSlozmbeuzDvHZZVPlNIvxIox+WisQvjeG7
+	ZOzjsg7YcsVwQRFcv6X5kh9aCHbGiHqcenCqmPy/2GYtyk3875vRF0HcZepap78yq3V5htVqwkI
+	iZMscV5wYGG9rGhVZFfItdIYEDMh9YYxnIuQCgZJZtZrvgZlp4wkz7m4uxqZqZhn5CTs2nWEbWK
+	djTJKtz2vTeOb2CV5mVPyeCjMd6dmeuOqg5ke2grav+aJQnrgysyjPrsCmIP/rkqXqdDxJd3jNb
+	DMIWJdhtcOBHtf36i8dkdB1pAcxq3+Orvg6K4RCKyUZEl6XR8gvRWQfGMmKl/13vSOHt4D3tA98
+	EeWRJJUxRdxrcmX+AdK6t0l80Rf/WFSdcEa9e46RAubkjZilc9DPx5mbsDaages8RER5YGcPB1i
+	8nUYYtZrdHs7XQWs9f/f6FZWsuoant
+X-Received: by 2002:a17:903:41d0:b0:2ef:f51c:7b09 with SMTP id d9443c01a7336-2eff740853dmr17435635ad.28.1794988079016;
+        Tue, 17 Nov 2026 23:47:59 -0800 (PST)
+X-Received: by 2002:a17:903:41d0:b0:2ef:f51c:7b09 with SMTP id d9443c01a7336-2eff740853dmr17435445ad.28.1794988078527;
+        Tue, 17 Nov 2026 23:47:58 -0800 (PST)
+Received: from [10.133.33.36] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eff611630asm8883545ad.17.2026.11.17.23.47.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 23:47:58 -0800 (PST)
+Message-ID: <d5a60d18-b467-49e1-8c1a-809803c4ca66@oss.qualcomm.com>
+Date: Wed, 18 Nov 2026 15:47:54 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,215 +114,119 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021-pcie6_fix-v1-0-ad37134c35a3@oss.qualcomm.com>
- <20261021-pcie6_fix-v1-1-ad37134c35a3@oss.qualcomm.com> <CAKTNdwG5XA_chr2ZM9qTnr2RaDMzOjdb85bRdCr4aJCr1EGy7Q@mail.gmail.com>
- <398a1d12-c28b-418c-bbcc-170d781223d6@oss.qualcomm.com> <CAKTNdwEzbYAqM5ABxU+tfh4juU=wgYp=QXyjvdA1haanU0e8tQ@mail.gmail.com>
- <861b48b3-32e2-459a-a6e1-75d93f10e1c9@oss.qualcomm.com>
-In-Reply-To: <861b48b3-32e2-459a-a6e1-75d93f10e1c9@oss.qualcomm.com>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Wed, 18 Nov 2026 11:46:46 +0400
-X-Gm-Features: AclHuK-mzUUyPR_nvHlWIkQreDiwLH9wtGyUE6yWiokuHebhGdjJ_j61S1Ijpdw
-Message-ID: <CAKTNdwEOiPzvziW5VsNrHcFXEr1E7YjbabMfC3fsG6q+5-TnzA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: connector: Add PCIe M.2 Mechanical Key B connector
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-pci@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: dts: qcom: maili-mtp: Add WCN7850 WLAN support
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261118-wlan-bt-v1-0-18bb1b059a17@oss.qualcomm.com>
+ <20261118-wlan-bt-v1-1-18bb1b059a17@oss.qualcomm.com>
+ <sashiko-outbox-220055@kernel.org>
+Content-Language: en-US
+From: Yijie Yang <yijie.yang@oss.qualcomm.com>
+In-Reply-To: <sashiko-outbox-220055@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=R5OWitRX c=1 sm=1 tr=0 ts=6afd5830 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=lllB74_2-GDN1I7oraoA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: Y5YxB6zTJqJExrnpLL0Tcmo3jb7_BEgW
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAzMCBTYWx0ZWRfX1zw2FUxH3NUX
+ vLXKrbqfIPlENiWtpMOJLQfRXGKpgAH71CHqEktL85VJABTAWPsCdQtXvQGYsmCdnv/PqUhkskl
+ b2Rq44qtXwLSWQ2LRi3GFhgDETrJpMA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAzMCBTYWx0ZWRfX+pY4Giqjs4rn
+ GtdQcSFwjUIjPV44vJQSWW/B/6tnvLFsHVEOQlxq9mhFyaE5d3MxYtHr3l7I1D1fhxPNByEpdJP
+ yayHcL3ppUeN3qHbVn8MTciHxl3QkNRN+tuQreAGX2hED57sU5oziVbOu/oZcQriVDDKszmEt7x
+ l3rsxQUeAK77aUx8oVAeHOTS0iWdMPZHloVhJxsXCc764LT8ymWGdJd9Yjeb+by55tSiH2mXeYE
+ EKMBGpHwlWLaM4q/U8n8OFUNH/tBZES2eKXxJBR2Z5HzpcVsdatAXZkBcbbvvPE3c0AvUZek3Vq
+ WdQPUIVPU+dLxM24HPJa9vUS4e4tDxapQ1v0trxwF5oydN+Ezd2Qz59Vh8CtUMWif5du6nixygd
+ jklfBTxxoyMieJDapgCJTsjD/+FX2YN6a6IfmTGmcZVoCOGQu6153o1kMiSa3gLqC/jpFgFkQxE
+ +n3KdK7kWPIgxPrkk3Q==
+X-Proofpoint-ORIG-GUID: Y5YxB6zTJqJExrnpLL0Tcmo3jb7_BEgW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-18_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180030
 
-Hi Krishna,
 
-On Sat, Nov 14, 2026 at 5:45=E2=80=AFAM Krishna Chaitanya Chundru
-<krishna.chundru@oss.qualcomm.com> wrote:
-> On 10/22/2026 2:56 PM, Alexey Charkov wrote:
-> > On Thu, Oct 22, 2026 at 8:27=E2=80=AFAM Krishna Chaitanya Chundru
-> > <krishna.chundru@oss.qualcomm.com> wrote:
-> >>
-> >>
-> >> On 10/21/2026 9:14 PM, Alexey Charkov wrote:
-> >>> Hi Krishna,
-> >> Hi Alexey,
-> >>
-> >> Thanks for the thorough review, this is helpful.
-> >>> On Wed, Oct 21, 2026 at 5:51=E2=80=AFPM Krishna Chaitanya Chundru
-> >>> <krishna.chundru@oss.qualcomm.com> wrote:
-> >>>> Add the devicetree binding for PCIe M.2 Mechanical Key B connector
-> >>>> defined in the PCI Express M.2 Specification, r4.2, sec 3.2.19.1. Th=
-is
-> >>>> connector is used to attach WWAN Adapters to the host machine over
-> >>>> interfaces such as PCIe, USB3.1 Gen1, SSIC, or USB 2.0, selected by =
-the
-> >>>> Adapter's configuration pins.
-> >>>>
-> >>>> The connector provides a primary power supply of 3.3V/VBAT, along wi=
-th
-> >>>> optional GPIO signals for WWAN-specific power/radio control:
-> >>>> FULL_CARD_POWER_OFF#, RESET#, W_DISABLE1#/2#, WAKE_OQN_WWAN#, and DP=
-R.
-> >>>>
-> >>>> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualco=
-mm.com>
-> >>>> ---
-> >>>>  .../bindings/connector/pcie-m2-b-connector.yaml    | 146 ++++++++++=
-+++++++++++
-> >>>>  MAINTAINERS                                        |   1 +
-> >>>>  2 files changed, 147 insertions(+)
-> >>>>
-> >>>> diff --git a/Documentation/devicetree/bindings/connector/pcie-m2-b-c=
-onnector.yaml b/Documentation/devicetree/bindings/connector/pcie-m2-b-conne=
-ctor.yaml
-> >>>> new file mode 100644
-> >>>> index 000000000000..a7f4bcbc5119
-> >>>> --- /dev/null
-> >>>> +++ b/Documentation/devicetree/bindings/connector/pcie-m2-b-connecto=
-r.yaml
-> >>>> @@ -0,0 +1,146 @@
-> >>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> >>>> +%YAML 1.2
-> >>>> +---
-> >>>> +$id: http://devicetree.org/schemas/connector/pcie-m2-b-connector.ya=
-ml#
-> >>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> >>>> +
-> >>>> +title: PCIe M.2 Mechanical Key B Connector
-> >>>> +
-> >>>> +maintainers:
-> >>>> +  - Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> >>>> +
-> >>>> +description:
-> >>>> +  A PCIe M.2 B connector node represents a physical PCIe M.2 Mechan=
-ical Key B
-> >>>> +  connector. Mechanical Key B connectors are used to connect WWAN d=
-evices to
-> >>>> +  the host machine over interfaces like PCIe, USB3.1 Gen1, SSIC, or=
- USB 2.0,
-> >>>> +  selected by the Adapter's configuration pins.
-> >>>> +
-> >>>> +properties:
-> >>>> +  compatible:
-> >>>> +    const: pcie-m2-b-connector
-> >>>> +
-> >>>> +  vpcie3v3-supply:
-> >>>> +    description: A phandle to the regulator for the 3.3v/VBAT suppl=
-y.
-> >>>> +
-> >>>> +  full-card-power-off-gpios:
-> >>>> +    description: GPIO output to FULL_CARD_POWER_OFF# signal. This s=
-ignal is
-> >>>> +      used by the host system to turn off the entire Adapter. Refer=
-, PCI
-> >>>> +      Express M.2 Specification r4.0, sec 3.2.13.1 for more details=
-.
-> >>>> +    maxItems: 1
-> >>>> +
-> >>>> +  reset-gpios:
-> >>>> +    description: GPIO output to RESET# signal. This signal is used =
-by the
-> >>>> +      host system to place the WWAN Adapter into a power-on reset c=
-ondition.
-> >>>> +      Refer, PCI Express M.2 Specification r4.0, sec 3.2.13.2 for m=
-ore
-> >>>> +      details.
-> >>>> +    maxItems: 1
-> >>>> +
-> >>>> +  w-disable1-gpios:
-> >>>> +    description: GPIO output to W_DISABLE1# signal. This signal is =
-used by
-> >>>> +      the host system to disable the WWAN radio on the Adapter. Ref=
-er, PCI
-> >>>> +      Express M.2 Specification r4.0, sec 3.1.12.3 for more details=
-.
-> >>>> +    maxItems: 1
-> >>>> +
-> >>>> +  w-disable2-gpios:
-> >>>> +    description: GPIO output to W_DISABLE2# signal (default functio=
-n of
-> >>>> +      GPIO_10). This signal is used by the host system to disable a=
- second
-> >>>> +      radio on the Adapter. Refer, PCI Express M.2 Specification r4=
-.0,
-> >>>> +      sec 3.1.12.3 for more details.
-> >>>> +    maxItems: 1
-> >>>> +
-> >>>> +  wowwan-gpios:
-> >>>> +    description: GPIO input to WAKE_ON_WWAN# (WoWWAN#) signal. The =
-Adapter
-> >>>> +      asserts this signal to wake up the host system. Refer, PCI Ex=
-press M.2
-> >>>> +      Specification r4.0, sec 3.2.13.3.6 for more details.
-> >>>> +    maxItems: 1
-> >>>> +
-> >>>> +  dpr-gpios:
-> >>>> +    description: GPIO output to the Dynamic Power Reduction (DPR) s=
-ignal.
-> >>>> +      This signal is provided by a host system proximity sensor to =
-the
-> >>>> +      Adapter to trigger a reduction in the radio transmit output p=
-ower to
-> >>>> +      meet regulatory SAR requirements. Refer, PCI Express M.2 Spec=
-ification
-> >>>> +      r4.0, sec 3.2.13.4 for more details.
-> >>>> +    maxItems: 1
-> >>> This seems to be missing the four CONFIG_* pins, which are quite
-> >>> crucial in these connectors, as they define which interfaces the
-> >>> module asks the host to provide on the respective pins. Without those
-> >>> module type detection is impossible.
-> >> Agreed, thanks for catching this. I will add a config-gpios property  =
-(4 GPIO
-> >> inputs, one per CONFIG_0..3 pin) to v2. It's optional, not required - =
-a board
-> >> that always has a known, fixed card type in a given socket (e.g. QCOM
-> >> glymur-crd's WWAN-only slot) can just describe that fixed wiring via t=
-he ports
-> >> property and skip CONFIG decode entirely; config-gpios is only needed =
-when the
-> >> host wants to detect the card type/host-interface at runtime. Kept it =
-as plain
-> >> sensed GPIOs with no decode semantics imposed by the schema - the prop=
-erty
-> >> description documents the full Table 3-18 state table inline (all 16 s=
-tates)
-> >> so the binding is self-contained, but turning the sensed 4-bit pattern=
- into
-> >> "this is a WWAN-PCIe Adapter in port config 0" is left to driver code,
-> >> consistent with how the rest of the connector's sensed straps (e.g.
-> >> viocfg-gpios on the E-connector) are already handled.
-> > Agreed that the logic of turning the 4-bit pattern into
-> > enabling/disabling interfaces sounds like a driver realm, although we
-> > probably need to consider if the connector should accept pinctrl-0
-> > through pinctrl-15 to hint the host about which pin muxes should
-> > follow from each of the 16 4-bit CONFIG_* pin states. This mapping is
-> > hard to recover outside the connector's context.
->  I'd put the pinctrl states on the connector, one per CONFIG_0..3 value (=
-Table
-> 3-18), selected after the driver reads config-gpios. The CONFIG-to-mux ma=
-pping
-> can't be recovered from the interface providers, as you said. Providers w=
-ould
-> keep only their own default pinctrl. What I'm unsure about is how much is
-> SoC-muxed in practice. The high-speed pairs are often fixed by PHY or lan=
-e
-> routing, so the states may mostly matter for GPIO_0..11. Do you know of a=
- case
-> where they cover more than that?
 
-Thanks, that makes sense.
+On 11/18/2026 11:53 AM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [High] arm64: dts: qcom: maili-mtp: wrong vddrfa supplies in
+>    wcn7850-pmu
+> --
+> 
+> commit 0117df6375848f6603dc465badcac7a530d4ecbc
+> Author: Yijie Yang <yijie.yang@oss.qualcomm.com>
+> 
+> arm64: dts: qcom: maili-mtp: Add WCN7850 WLAN support
+> 
+> This commit adds the WCN7850 PMU node, PCIe Wi-Fi node, and associated
+> pinctrl configuration to enable WLAN on the Maili MTP board.
+> 
+>> diff --git a/arch/arm64/boot/dts/qcom/maili-mtp.dts b/arch/arm64/boot/dts/qcom/maili-mtp.dts
+>> index 5409d0a7ec2e0..a3c2016eb9053 100644
+>> --- a/arch/arm64/boot/dts/qcom/maili-mtp.dts
+>> +++ b/arch/arm64/boot/dts/qcom/maili-mtp.dts
+>> @@ -142,6 +142,63 @@ sdcard_vdd_3p0: sdcard-vdd-3p0 {
+>>   
+>>   		vin-supply = <&vreg_bob1>;
+>>   	};
+>> +
+>> +	wcn7850-pmu {
+>> +		compatible = "qcom,wcn7850-pmu";
+>> +
+>> +		pinctrl-0 = <&wlan_en>, <&sw_ctrl_default>;
+>> +		pinctrl-names = "default";
+>> +
+>> +		wlan-enable-gpios = <&pmh0104_c_e0_gpios 7 GPIO_ACTIVE_HIGH>;
+>> +
+>> +		vdd-supply = <&vreg_s1j_0p8>;
+>> +		vddio-supply = <&vreg_l2d_1p8>;
+>> +		vddio1p2-supply = <&vreg_l4g_1p2>;
+>> +		vddaon-supply = <&vreg_s9d_1p0>;
+>> +		vdddig-supply = <&vreg_s3c_1p2>;
+>> +		vddrfa1p2-supply = <&vreg_s9d_1p0>;
+>> +		vddrfa1p8-supply = <&vreg_s7g_1p2>;
+> 
+> [Severity: High]
+> Are vddrfa1p2-supply and vddrfa1p8-supply shifted off by one rail here?
+> 
+> vddrfa1p2-supply is wired to the 1.0V vreg_s9d_1p0 rail (duplicating
+> vddaon-supply) instead of the 1.2V vreg_s7g_1p2 rail, while vddrfa1p8-supply
+> is wired to the 1.2V vreg_s7g_1p2 rail instead of the 1.8V vreg_s4c_1p8 rail
+> defined on pmh0104_c_e0:
+> 
+> arch/arm64/boot/dts/qcom/maili-mtp.dts:
+> 		vreg_s4c_1p8: smps4 {
+> 			regulator-name = "vreg_s4c_1p8";
+> 			regulator-min-microvolt = <1808000>;
+> 			regulator-max-microvolt = <2040000>;
+> 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> 		};
+> 
+> Because pwrseq_qcom_wcn_vregs_enable() only calls regulator_bulk_enable()
+> without setting voltages, the mismatch is not caught at probe time; instead,
+> vreg_s4c_1p8 is never enabled when powering on WCN7850 and can be disabled
+> as an unused rail by regulator_late_cleanup(), breaking WCN7850 bring-up.
+> 
+The supply names vddrfa1p2-supply and vddrfa1p8-supply are fixed by the 
+DT binding and only reflect the nominal voltages. They don't describe 
+the actual rail. Which regulator feeds each input, and the voltage the 
+PMU needs, can differ across WCN7850 variants and board designs.
 
-Regarding the high-speed pairs, the Rockchip based boards that I know
-about route one PCIe lane muxed with SATA to the connector, with the
-SoC combo-PHY managing the interface muxing (including the polarity
-swap for the SATA-B pair). I don't know how people deal with the
-second PCIe lane vs. USB SS muxing though, or if such devices have
-been made available at all. Either way, it sounds like those could be
-modeled as one port per muxed pin group - i.e., port@0 for SATA+PCIe
-lane 0 (as two endpoints), port@1 for PCIe lane 1+USB SS+SSIC (as
-three endpoints), etc. A PHY driver for a dual-lane PCIe interface
-would then have to figure out whether its OF graph has one or two
-links and configure the PHY and the controller accordingly.
+On Maili MTP, the mapping follows the board schematic: VDD_RFA_1P2 is 
+supplied by vreg_s9d_1p0 and VDD_RFA_1P8 by vreg_s7g_1p2. This is 
+intentional, and vreg_s4c_1p8 does not feed WCN7850 on this board.
 
-Best regards,
-Alexey
+-- 
+Best Regards,
+Yijie
+
