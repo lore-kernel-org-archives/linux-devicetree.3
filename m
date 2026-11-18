@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795007867;
-	b=oWGbbE1+a9SG+L94fY3iXohxxvbeSLyyungoN7JP1JP0LrjuRJwXVbvuBWNdXdq8HU2C
-	 bQ54EJAhXQ7+V3Ky45b24VZnM9pUnuN35BIPfN81C8Jk6Kl8Kqb6kG17+AGz2XNKW9ON6
-	 7yeEU4vL0P0AXvnRknO2gQEksd9LWPpYkYI9+eQAvUe+PRJ+B+ayOawygeCUaKeBFWAui
-	 2PlGzRQwN6aJ9OxuEoBBmNTIqy2huAqLh4xxDmok5Xz77qyM4yRyzz94kU4MlWn+d9ZUI
-	 1j3kp4ERSJvj8zA9E1a3OF0MqxzL08UV1jpEBUtenuI/Aeghg9jeC8dO++ZCCGlGjFA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795007867;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=E9Y6nNGHJugVcqKOZKUfSAKqOS2/UKJtdJBYK5Mn9fs=;
-	b=N0x5GNCDcMENflM+8h21pqVAeebdubbdya4MkooiPqC6V0Zk0h5yEXhZ2oGuAY5LVMuc
-	 3PKu7mk/fFVf0XyPzcLAHuHzpSYe6eVl6ixs0Qvm2lDQbSZB6kKqlVSiVIYYGraX2EptP
-	 RdJXon/fHfdUPp1H90UW79Ohyrsao1R3xSqmhEm7qRA0NlRsebxLs0gGrqjAHCabD1iNN
-	 5i0afWO8A0lJ87fiYQpdrGBpJGMKp+Fpf5RqmdmZCajOdCww5xnhWJh9Isn15Xt/VT8xQ
-	 +Lym1J85ai2cC+VUO5B2sfJZdaeJo1PaKMOQm9zjMERg8k7crZsrHQ2IvXo/Vxn+y2A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPjgkS8n;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795008436;
+	b=MrcybxIJm0XOWjD0lHGX+c0yEHA/Otgmn+VShp06XlBjdylrEC30g9GoYGbA5tqyVX9l
+	 4d1lKAc60s1eKoUAixrpILfo6M4KLGRH/lWHFgTXinC9nCnUBpU/saZ9WT49AkSziaEEt
+	 Zo9VvCfVK7NLEs4ueT044Wa/D45tJ9JuBrk9w/XSvn6ttvcNRtOPlf1t8FoSzQCoe2h5Y
+	 xEguUM18dK6bxuWeULHsQ38qkFYI6HQ12tS0viGD0yhwKjFhsxjAGomU3urJWOqyZW0kg
+	 Vy6uh/iChuBn7nl8tqAwV8LYkPzU5ABa0h1411eI1Bnyk7WgdaNTRl1xHFf6eLZrfUA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795008436;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=bZYs97AX4VCrgBDWkEzza1DLKnl0W3+YlTZqKILg3TY=;
+	b=od8EorItvU7N3kDwpOID5QekxA6/dnEmNR2/Ged1tfepT3yErFG535dxn49jO15/nVIv
+	 M9SpaEEPeTB1HNM+lg+m+eUO3+8994xT3ygpaiNGqw7CizqfRLO50nGfdX1+mhCUUX9N4
+	 WUe0fTjwnYD/e0cPuPhS4d4akhmt3j7fbx5/eFbz6JqUy9kcwGJOCF3L+FdgpGdXkkPUO
+	 xZRSnhA91eB8r63SXNOGZ4I4vG4LvgMTu+fqb/Jub7p1ncoXXT6WvYgt8vutx9bLrKwxN
+	 9vvXNMD6p0CH5MiOxgF1zLE8nvFRmqFLwnkaw78t8r4JfIsh3J0ktcZXMqXhRhrnUEg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YjIaZ/C3";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68FA60A2608;
-	Wed, 18 Nov 2026 13:17:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CAAF606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 13:27:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPjgkS8n
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795007867;
-	b=HMv0piO3d22/epBI4Kflb3NqDkVl4rsMPIz8Q+/Lt06bnDyNo2klm7zbBu8oVctA+LBZ
-	 VyqOpV7k8im16BDxZR5/vCy5FYc+Vflq/BXtKj6YlD3yMeKw5ncMtW2LyJmAweRE3K2Ia
-	 xFrko5AAEG0GJPiESwBPSA2qb1eeAWuCQz44Jr34sNGaMgjVlFzOtxaoehMSJlYnA1vh0
-	 IgKh0TQ3+xY0aQS0qhZsCmrVNE70eFoMF5iyl6ndiitLiBNvniyi+EzoBZLFgO7xULmoA
-	 YrW1YgoVR1wArlKoBBChIHf92qyEr88+UpPtWtHHGTcKTO7+3BSy0dfEkrPgSkgt6nA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795007867;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=E9Y6nNGHJugVcqKOZKUfSAKqOS2/UKJtdJBYK5Mn9fs=;
-	b=HFbuxxT0AuGZKlOdW21oPkpCIDFqmdg9JcaHK8IPM7+dkhk1lVVqKC++MnqYCfykBpRi
-	 4G7+IQ5w5O89MuMJZ6Uzrx4xbyXhCtNkx+Nl+cKdF8tjtIMzpoKAa+Eg2A9fZE43/9vuC
-	 bAHQ091Dd2NB7+96Rzi2N4AhSvd90tB19A38bdNesWTeosfne6QgKH506Ct3HOb5jiLha
-	 Bmj2BEIrFIbwys5TyQ1G6FyP5amO9M7w9QupRjt2m0DtrvPHnEFBQEYA4GzMpkmxKtnzx
-	 ulNPGVC8JOP0RtWqlF1YKm5IJ8z8LFXzR0widW585TaKknsLSkMZDDBhDnpib8rJQ+A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 163721F000C4;
-	Wed, 18 Nov 2026 13:17:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YjIaZ/C3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABB811F000C4;
+	Wed, 18 Nov 2026 13:27:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795007867;
-	bh=E9Y6nNGHJugVcqKOZKUfSAKqOS2/UKJtdJBYK5Mn9fs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OPjgkS8n9tqZ5ZfFjBCpd70p1avxx2wbj+OOMLczaROYR4/O2O7VfUBkhFW4cGi+5
-	 j85+QUZB1pVDg3tPD/RpwNfSHeAvBckt1gXzNlLE2XANjP/no9ctfYwx3ndntXEmYf
-	 DxRPfJDs1o7iRWndB/CU9aVsvHXnQEDH9oy/ILwH639lCiahU9WxY3BDuu5ygMCmfa
-	 0Q5zklWHnuGAOlngQrB/ZlmzNtwJL9neKgpdgp0icEEYmPOKAIpQtX7e7Vqq++CS8w
-	 POURFXEyBU153fyk2FNhKnhj/gQrUzpZoZuO9RLL2jaY+A/KTVvphNAPCAaDUWitR6
-	 HTS/v8jRjTZNg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9250A4ADA4;
-	Wed, 18 Nov 2026 13:17:45 +0000 (UTC)
-From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Date: Wed, 18 Nov 2026 15:17:46 +0200
-Subject: [PATCH v7 4/7] dt-bindings: iio: imu: Add bindings for ADI
- ADIS16607
+	s=k20260515; t=1795008435;
+	bh=bZYs97AX4VCrgBDWkEzza1DLKnl0W3+YlTZqKILg3TY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YjIaZ/C3qO3d1pZijcDIZWKVvOXXicMfsR/LVlG3GMlUZSp30S/rROERURJ9HIryY
+	 0WhvwIJorcDqaDaqytkcjPTZ9hXlYe7LtlrTYu59FxGvfc7Y9AQ7ok9SMRY/1/Npam
+	 a/dKam7Mag/8iz71c6EZMnXdhMA3i1T1QwqGg54mGUMupqhY8v0XShH8rLzKdclREF
+	 Teaw/dZ2UL7bVGRUz/ZyrW9jE4wZQKmPXSkCDnPh0xQo0PDvFn/mPpiRM+D3ZFdp86
+	 UKB07eQSmqfjuF2GStMPdwYNkuj6OgMFSQ7aE8d9zQvTOBJYoMev+pXf326lxgdFc/
+	 +5tMHCpbJdeZw==
+Message-ID: <sashiko-outbox-221011@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 5/5] iio: adc: Add support for ADA4355 and similar
+ ADCs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <2f5e83aa17aea08bbff69ca6ef7d32b11368f518.1795003864.git.marcelo.schmitt@analog.com>
+References: <cover.1795003864.git.marcelo.schmitt@analog.com>
+ <2f5e83aa17aea08bbff69ca6ef7d32b11368f518.1795003864.git.marcelo.schmitt@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 13:27:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,183 +60,267 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-adis16607-v7-4-707609737691@analog.com>
-References: <20261118-adis16607-v7-0-707609737691@analog.com>
-In-Reply-To: <20261118-adis16607-v7-0-707609737691@analog.com>
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Antoniu Miclaus <antoniu.miclaus@analog.com>, 
- Robert Budai <robert.budai@analog.com>, 
- Ramona Gradinariu <ramona.gradinariu@analog.com>, 
- Radu Sabau <radu.sabau@analog.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux@analog.com, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795007863; l=4547;
- i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
- bh=dtrcj1XsEm2I9niI4lfK23LNsNQBo2BdJFRP4omBKms=;
- b=DqZhyh7lN/F55QaomC8Nr63XwU4Id44+rP3lUR+pMKj+kdnaWSQQeEMiGQRMgCppcSuszVrrV
- MZUpMjiL2vKCMgcftVGg29+EW3iJBqrz2mc4PvdEREqiS01q2LBsbqq
-X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
- pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
-X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
- auth_id=1094
-X-Original-From: Radu Sabau <radu.sabau@analog.com>
-Reply-To: radu.sabau@analog.com
-Content-Transfer-Encoding: 8bit
 
-From: Radu Sabau <radu.sabau@analog.com>
+Thank you for your contribution! Sashiko AI review found 6 potential
+issues to consider:
+- [High] iio: adc: ada4355: backend channel 0 left disabled after
+  calibration
+- [High] iio: adc: ada4355: 1000x scale error in ada4355_fill_scale_tb()
+- [Medium] iio: adc: ada4355: negative sampling freq wraps in
+  ada4355_write_raw()
+- [Medium] iio: adc: ada4355: missing cleanup on error in
+  ada4355_calibrate()
+- [Medium] iio: adc: ada4355: power supply regulators not enabled in
+  ada4355_probe()
+- [Low] iio: adc: ada4355: inconsistent st->lock usage in read and
+  debugfs paths
+--
 
-Add device tree bindings for the Analog Devices ADIS16607 Precision
-MEMS Inertial Measurement Unit. The ADIS16607 integrates a triaxial
-gyroscope, triaxial accelerometer, and temperature sensor, and
-communicates over SPI Half-Duplex.
+commit 3d8753d370ebe3f8cd0cc6198719fc1f9fb5fb1d
+Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-Two variants are supported, adis16607-2 and adis16607-3, differing
-only in gyroscope full-scale range (±450°/s and ±2000°/s
-respectively).
+iio: adc: Add support for ADA4355 and similar ADCs
 
-The binding exposes optional properties for:
-  - An external clock for sync mode (falling back to the internal 8 kHz
-    clock when absent)
-  - A hardware reset GPIO (active low)
+This commit adds an IIO ADC driver for the Analog Devices ADA4355 and
+ADA4356 current-input ADCs, using SPI for configuration and an IIO backend
+for LVDS data capture.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Radu Sabau <radu.sabau@analog.com>
----
- .../devicetree/bindings/iio/imu/adi,adis16607.yaml | 94 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 ++
- 2 files changed, 101 insertions(+)
+> diff --git a/drivers/iio/adc/ada4355.c b/drivers/iio/adc/ada4355.c
+> new file mode 100644
+> index 0000000000000..7f9f58a143856
+> --- /dev/null
+> +++ b/drivers/iio/adc/ada4355.c
 
-diff --git a/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-new file mode 100644
-index 000000000000..4545f942365c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-@@ -0,0 +1,94 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/imu/adi,adis16607.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices ADIS16607 IMU
-+
-+maintainers:
-+  - Radu Sabau <radu.sabau@analog.com>
-+
-+description: |
-+  Analog Devices ADIS16607 Precision MEMS Inertial Measurement Unit (IMU)
-+  with a triaxial gyroscope, triaxial accelerometer, and temperature sensor.
-+  Uses SPI Half-Duplex communication protocol.
-+
-+  The device has five GPIO pins (GPIO0-GPIO4 in the datasheet), each
-+  independently selectable for a single fixed function. This binding
-+  exposes GPIO0's reset function as reset-gpios; GPIO2's sync function
-+  is modeled via the clocks property, and GPIO4's DEV_NOK interrupt via
-+  the interrupts property. GPIO3 (data-ready) is required internally
-+  regardless of board wiring and isn't exposed. GPIO1 (wake) gates
-+  whether the bootloader auto-loads its NVM contents after reset; it
-+  defaults to enabled with a weak pull-up, which already gives normal
-+  operation with no configuration needed, so it isn't exposed either.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,adis16607-2
-+      - adi,adis16607-3
-+
-+  reg:
-+    maxItems: 1
-+
-+  spi-cpha: true
-+
-+  spi-cpol: true
-+
-+  spi-max-frequency:
-+    maximum: 10000000
-+
-+  vdd-supply: true
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    description:
-+      Optional external clock for sync mode. If not provided, the internal
-+      8 kHz clock is used.
-+    maxItems: 1
-+
-+  reset-gpios:
-+    description:
-+      Optional GPIO for hardware reset, active low. Routes to the
-+      device's GPIO0 pin, which can be independently set to the reset
-+      function or left idle via an on-chip register.
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - spi-cpha
-+  - spi-cpol
-+  - vdd-supply
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/gpio/gpio.h>
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        imu@0 {
-+            compatible = "adi,adis16607-2";
-+            reg = <0>;
-+            spi-cpha;
-+            spi-cpol;
-+            spi-max-frequency = <10000000>;
-+            vdd-supply = <&vdd>;
-+            interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
-+            interrupt-parent = <&gpio>;
-+            clocks = <&sync_clk>;
-+            reset-gpios = <&gpio 10 GPIO_ACTIVE_LOW>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d3c..d5679e8d0ffd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1792,6 +1792,13 @@ S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml
- 
-+ANALOG DEVICES INC ADIS16607 DRIVER
-+M:	Radu Sabau <radu.sabau@analog.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Supported
-+W:	https://ez.analog.com/linux-software-drivers
-+F:	Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-+
- ANALOG DEVICES INC ADL8113 DRIVER
- M:	Antoniu Miclaus <antoniu.miclaus@analog.com>
- L:	linux-iio@vger.kernel.org
+[ ... ]
 
--- 
-2.43.0
+> +/* ADC differential input span, =C2=B11 V with the 1 V internal referenc=
+e. */
+> +#define ADA4355_ADC_SPAN_mV			2000
+> +/* ADC differential input with no input current flowing. */
+> +#define ADA4355_ADC_BIAS_mV			825
+> +
+> +#define ADA4355_NUM_GSEL_GPIOS			2
+> +
+> +enum ada4355_tz_options {
+> +	ADA4355_TZ0,
+> +	ADA4355_TZ1,
+> +	ADA4355_TZ2,
+> +};
+> +
+> +static const unsigned int ada4355_tz_options_ohms[] =3D {
+> +	[ADA4355_TZ1] =3D 2000, /* -80 to +800 uA input range */
+> +	[ADA4355_TZ2] =3D 20000, /* -8.0 to +80 uA input range */
+> +	[ADA4355_TZ0] =3D 200000, /* -0.8 to +8.0 uA input range */
+> +};
 
+[ ... ]
 
+> +static int ada4355_debugfs_reg_access(struct iio_dev *indio_dev, unsigne=
+d int reg,
+> +				      unsigned int writeval, unsigned int *readval)
+> +{
+> +	struct ada4355_state *st =3D iio_priv(indio_dev);
+> +
+> +	if (readval)
+> +		return regmap_read(st->regmap, reg, readval);
+> +
+> +	return regmap_write(st->regmap, reg, writeval);
+> +}
+> +
+> +/*
+> + * The ADC output code decreases as the input current increases so the s=
+cale to
+> + * milliamps is sign reversed.
+> + */
+> +static void ada4355_fill_scale_tb(struct ada4355_state *st,
+> +				  struct ada4355_chip_info const *chip_info)
+> +{
+> +	u64 numerator, denominator;
+> +	u32 rem;
+> +
+> +	st->scale_tb_size =3D chip_info->gain_options_size;
+> +	for (unsigned int i =3D 0; i < st->scale_tb_size; i++) {
+> +		numerator =3D (u64)ADA4355_ADC_SPAN_mV * NANO * MILLI;
+> +		denominator =3D BIT_ULL(st->chan->scan_type.realbits) * chip_info->gai=
+n_options[i];
+> +		numerator =3D div64_u64(numerator, denominator);
+> +		st->scale_tb[i][0] =3D div_u64_rem(numerator, NANO, &rem);
+> +		st->scale_tb[i][1] =3D -(int)rem;
+> +	}
+> +}
+
+[Severity: High]
+Does multiplying ADA4355_ADC_SPAN_mV by MILLI here make st->scale_tb[][]
+1000 times too large?
+
+ADA4355_ADC_SPAN_mV is already in millivolts (2000 mV) and
+chip_info->gain_options[i] is in Ohms, so dividing ADA4355_ADC_SPAN_mV by
+gain_options[i] directly gives the full-scale current in milliamps.  The
+extra MILLI factor reports microamps per LSB instead of milliamps per LSB
+(for example, -0.061035156 mA/LSB instead of -0.000061035 mA/LSB at 2000
+Ohms).
+
+> +
+> +static int ada4355_get_scale(struct ada4355_state *st, int *val, int *va=
+l2)
+> +{
+> +	*val =3D st->scale_tb[st->scale_idx][0];
+> +	*val2 =3D st->scale_tb[st->scale_idx][1];
+> +
+> +	return IIO_VAL_INT_PLUS_NANO;
+> +}
+> +
+> +static int ada4355_set_scale(struct ada4355_state *st, int val, int val2)
+> +{
+> +	unsigned long gsel;
+> +	int ret;
+> +
+> +	guard(mutex)(&st->lock);
+
+[Severity: Low]
+Should ada4355_get_scale() and ada4355_debugfs_reg_access() also take
+st->lock?
+
+ada4355_set_scale() and ada4355_update_clock() both run under
+IIO_DEV_ACQUIRE_DIRECT_MODE() in ada4355_write_raw() and take st->lock,
+whereas ada4355_get_scale() reads st->scale_idx twice without st->lock and
+ada4355_debugfs_reg_access() accesses st->regmap without serializing
+against the multi-register reset and calibration sequences in
+ada4355_update_clock().
+
+[ ... ]
+
+> +static int ada4355_calibrate_prepare(struct ada4355_state *st)
+> +{
+
+[ ... ]
+
+> +	return iio_backend_chan_enable(st->back, 0);
+> +}
+> +
+> +static int ada4355_calibrate_stop(struct ada4355_state *st)
+> +{
+> +	int ret;
+> +
+> +	ret =3D iio_backend_calibration_source_set(st->back,
+> +						 IIO_BACKEND_CALIB_SOURCE_NONE,
+> +						 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D iio_backend_chan_disable(st->back, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return ada4355_testmode_set(st, ADA4355_TEST_MODE_OFF);
+> +}
+
+[Severity: High]
+Does disabling backend channel 0 in ada4355_calibrate_stop() leave the
+channel disabled during buffered captures?
+
+Nothing else in the driver calls iio_backend_chan_enable(st->back, 0):
+ada4355_iio_info does not implement update_scan_mode and no buffer setup
+ops are registered.  Once ada4355_calibrate_stop() disables channel 0 (or
+if the backend does not set IIO_BACKEND_CAP_CALIBRATION and skips
+ada4355_calibrate() altogether), backend channel 0 stays disabled when
+userspace starts a buffered capture.
+
+[ ... ]
+
+> +static int ada4355_calibrate(struct ada4355_state *st)
+> +{
+> +	unsigned int lane;
+> +	int ret;
+> +
+> +	/* all points invalid */
+> +	bitmap_fill(st->calib_map, st->calib_map_size);
+> +
+> +	ret =3D ada4355_calibrate_prepare(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * The frame signal has to be aligned first: the pattern match block
+> +	 * only reports meaningful per-lane errors once the word boundary is
+> +	 * known.
+> +	 */
+> +	ret =3D ada4355_calibrate_lane(st, IIO_BACKEND_CALIB_SOURCE_FRAME,
+> +				     ADA4355_FRAME_LANE,
+> +				     ADA4355_MAX_DATA_LANES * ADA4355_MAX_TEST_POINTS);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (lane =3D 0; lane < ADA4355_MAX_DATA_LANES; lane++) {\
+> +		ret =3D ada4355_calibrate_lane(st,
+> +					     IIO_BACKEND_CALIB_SOURCE_DATA_LANE,
+> +					     lane,
+> +					     lane * ADA4355_MAX_TEST_POINTS);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return ada4355_calibrate_stop(st);
+> +}
+
+[Severity: Medium]
+If ada4355_calibrate_lane() fails during a runtime clock update in
+ada4355_update_clock(), does returning early here leave the ADC in
+ADA4355_TEST_MODE_USER and the backend calibration source enabled?
+
+[ ... ]
+
+> +static int ada4355_write_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int val, int val2, long mask)
+> +{
+> +	struct ada4355_state *st =3D iio_priv(indio_dev);
+> +	long r_clk;
+> +
+> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +		return -EBUSY;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		r_clk =3D clk_round_rate(st->clk, val);
+> +		if (!in_range(r_clk, 1, ADA4355_MAX_SAMP_RATE_SPS))
+> +			return -ERANGE;
+> +
+> +		return ada4355_update_clock(st, r_clk);
+
+[Severity: Medium]
+Can a negative or zero val in ada4355_write_raw() reprogram the clock
+instead of returning an error?
+
+clk_round_rate() takes an unsigned long rate, so a negative val sign-extends
+to a large unsigned value and rounds down to the clock provider's maximum
+rate (and 0 rounds up to its minimum rate).  If that rounded rate falls
+within [1, ADA4355_MAX_SAMP_RATE_SPS], ada4355_update_clock() applies it.
+
+[ ... ]
+
+> +	st->clk =3D devm_clk_get_enabled(dev, NULL);
+> +	if (IS_ERR(st->clk))
+> +		return PTR_ERR(st->clk);
+> +
+> +	indio_dev->name =3D chip_info->name;
+> +	indio_dev->channels =3D &ada4355_channel;
+> +	indio_dev->num_channels =3D 1;
+> +	indio_dev->info =3D &ada4355_iio_info;
+> +	st->chan =3D &ada4355_channel;
+> +
+> +	ret =3D ada4355_setup(st, chip_info);
+
+[Severity: Medium]
+Should ada4355_probe() enable the vcc-supply, vea-supply, and ved-supply
+regulators before accessing the device in ada4355_setup()?
+
+The DT binding in Documentation/devicetree/bindings/iio/adc/adi,ada4355.yaml
+requires vcc-supply and lists vea-supply and ved-supply as optional
+supplies, but the driver never requests or enables them, leaving the chip
+unpowered on boards where those regulators are not always-on.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795003864.gi=
+t.marcelo.schmitt@analog.com?part=3D5
