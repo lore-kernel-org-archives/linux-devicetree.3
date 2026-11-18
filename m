@@ -1,57 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794997265;
-	b=KnnTGCcj1/HO4dnVys/aJrAGrNwXsUTaEjKzEc8AfqPJuP8E/l6v/QDHTosKzap2H9on
-	 Bew3rDfHsPru3fZ/fZWIBQEdFelaBBd4zVdN73sdff0MNkpieH5wYxthzPbzZIqgc5qud
-	 3I3Wn5E6f7Sfel/vK/XUadMfm9196OVuHhZ4JwyiSNnm1doLXUz7uK2dprZVZXG3OIfSJ
-	 vDT/+aKj7O2tpieVzpG3PN5cQl66kNiWRgnMoBRA61lZB+npc8TfaxC7GBf6Dqw458FXG
-	 +a8J9FgGZBcCBiWatPbYZpWsLPaWjo9b19fPv5IIWdDO1hLi2q+TO1n5Iyjx5dIvqtQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794997265;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=0M6aVKYAC6Jxq7rRd52mMLorBjhnnY2bShYRqWVVp28=;
-	b=bok9TsBBhbQHzY6xON7n/C4bujvrBpyfPJvgjfPUCGsc+aoqAoe35lH5lEJ4aGsmhiI/
-	 1Hfadeyq73rDc6NnyQ7MNwvinDy8bfAuzj6RYvTQLAfUKAx5oohxow1KCR67alhP5OoCU
-	 7c/mzXlMRcHNMf86B2p1fdWH4jlT2DhILE3X5Nr6wEao1mcaJLI0VAjI3gmAY5NzHuIHz
-	 L+TI3glPxfzP4S2BrUWy8KUgQ0XwCpXoLhrzYfd+YU2VkXKYu/mHO9DUH6txQIURgMm3K
-	 aADccYx3V3u7+tA3Zonn79/emNdfR801a9sqveQbAZx9bbyjrNlpxuub2+doV6Urxag==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXCnX32h;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.66
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794997415;
+	b=ML46yqyn++OrWbY9EdFY00/lxwXzgHh54lnew1n9m2K2L3vd8l/kSbu0DTpTE5Q3T5af
+	 UXj6wOIjzdyGB8/vZgxPh5xkPr9rgQoNyS2BSeokNmt8MyC/glarZAlEjJ7fIGU7IS2Wv
+	 hSmChV75u0/qSeFIdxD50wU0qgxYMowZNMhQxmkylOe2u0a7RHlW0XW7hk93dZkoPBqOi
+	 +FuAwjPR0EzTD3CBhxhPel5KyrBDRbMiTh+5tqPRRZ35WnsjqEfhQF2HiATKa17QA357P
+	 6EqSDrk7SpwyBFntaGv2/klBiAd7GtqFKh968Hb/RS0DQHSrv6BOo4ssuHLhAQBDXFQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794997415;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=kOjwt34NHmodrfdsvdjqxDdfAB4m9Px3jjTXOf1Z3C8=;
+	b=esLXnq4tz2KN6XFVROxkdhcOQUzEHL4NjWt4UWuIcXEKpS7uYsoMqN+/kW2CQFG2Yc1/
+	 EBjhpVP0xONz9M39NVqybid6Ez9qlJUcpdXK/V2a1ar/nUj84LvshqUrda8ROIxaOqyZW
+	 Mj+lXbdUk/JgaQBe2ItdUKM9wZi8MvJ3M26UAL7Wtsk72iOq7/tEInHwwvFQBmrA/mgY+
+	 eIVq2tMrP/k2qzsGoy7ZQhfy2fUGeRwdH45q8XwmK/n8GAMSYSjlUp2xyx+6o93rHf5eA
+	 2Cb1+37yyKgU4ZgYrSD7vCbQYgXf9DP5726meIL3sw97TqJi5dU25RVFb3pxkJaZBfg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=I6UXkWQ5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.66
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010066.outbound.protection.outlook.com [52.101.69.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E690606A320;
-	Wed, 18 Nov 2026 10:21:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11F7606A320;
+	Wed, 18 Nov 2026 10:23:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F11F7606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXCnX32h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1711F000C4;
-	Wed, 18 Nov 2026 10:21:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794997264;
-	bh=0M6aVKYAC6Jxq7rRd52mMLorBjhnnY2bShYRqWVVp28=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CXCnX32hQGaMlYGlzYjU/lMISTBlfiuU9C5N/rp1PoqoaDMKA5ua9SON7nfQNQA/N
-	 4t9B23cG4l5N9C+OUB6hYmF7HgBzuL7WhXMIdhqv0RTPvRykKubyMvcFz6N+ph5txt
-	 W7jcFNPA2Q8/vnOxj8sjF/1L8cRIkrA/dNWRZZHDPUjJoeIRgqdEoptLJvFjplY9QS
-	 21DP9Q2511sNIa3m4s+gJh7JCRFabO/6uEGgS7XfLvUD8Ln3do+FYnWhTMYBUxbnJM
-	 a7BIyXhaa+5Tm1RIV3TjJvuvt4U5xxL22DZaW4tgpssEUVFgsP1uSb/RVOgoYQL+ld
-	 mPJITBsOYBQ7w==
-Message-ID: <sashiko-outbox-220678@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 6/7] riscv: pmu: Integrate CTR Ext support in
- riscv_pmu_dev driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vikram Singh" <vikram.singh3@oss.qualcomm.com>
-Cc: linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118095053.3871267-7-vikram.singh3@oss.qualcomm.com>
-References: <20261118095053.3871267-1-vikram.singh3@oss.qualcomm.com>
- <20261118095053.3871267-7-vikram.singh3@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 10:21:03 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=I6UXkWQ5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mtZ8rtuZhxFScnMGpbrLR+w9r6bWQqMPlovKUfMY+2KNIOF2mz7w+7hhYGPb6a3TLIdoSkT+WzIVUtJeOe+EtbA59UDJs3lbqP7f8QOyOdW0g01Fz9EwjpSW18JKQTFLNPxGSz1n71dbiT+ZEy3ZKuj2Z2IFOP/XytbDoIVcez3d5w7KmD2pAStvAjbwkCYzsd4fJGch+0/G2NzmpFqfQoGJ/XURkrmMsTZK304I35Ope4p3rr4sdd18j2vJBk4i+wRANHJf9pk4yFxJAp4QTJ9eN1IShD0igRJJqVrnMu5HZ40rLx1RGIpVmsetwQZI65DBlDIylFU9rE6rX9oR6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kOjwt34NHmodrfdsvdjqxDdfAB4m9Px3jjTXOf1Z3C8=;
+ b=aa/WeFHV2sslk9C981AD/mvydylXkVydwKXNKUA+Nzml/rr92b/R7LgA4xbBqtb4JWqc0SBffkXcym2gXGO+qhJzNW6Ypp0bF9oCQyBp/tcckp+3E4NH3THWVNsQGakCUkII8ETE5sMni14CyCSaXpagDghaa/freJpztECW/yxJjKaCvuRZypi1t4Lnyc1dPfWhbQzW+8Oue2Fqby22h3LtKS94YJ+29vI+/mRdrUP0YTA3439hWbMie455jXSmkDZkUs0B7Uz+vZs7/aplqevt/0U5JeOzX9+33TyQiFX6USwhChZ18SRh7bjBwJlWxxQv5F2IucnOyUxXOzc+EQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kOjwt34NHmodrfdsvdjqxDdfAB4m9Px3jjTXOf1Z3C8=;
+ b=I6UXkWQ5XuELUvoHseGyjHxfo2dOU/z9Am4b6HSnBWPDn0iua7U/XGwgS3WPpUiEcD19YrVfYDhkd8koq5ivS6WbHmgWukuMWT7rZXZuVLkZd1CP2R5LPBU/XMonhtxo5dwD+gq4afyXi2j81etfM9VNkRAxahrBHaRctx+IqdnYhs16WlxR2S7cF5cPh7QNURKBRk19kdKLENnkyEq8HK2+mx8PoDVNd8qXbv/ybIPomUffrGoT1zgbX5NL6OGaUXvwtIEDeVLan3I9DkTm5EE9DA2FqLn8LDFsPNO0hQDvlFaL25gZHd4UNe0fQpinRfw2DyOfBALfy00wDoXvtA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by VI0PR04MB10974.eurprd04.prod.outlook.com (2603:10a6:800:269::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Wed, 18 Nov
+ 2026 10:23:29 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
+ 10:23:28 +0000
+Date: Wed, 18 Nov 2026 12:23:24 +0200
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: Vincent Jardin <vjardin@free.fr>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, 
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, 
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
+Subject: Re: [PATCH v7 1/6] dt-bindings: pinctrl: add the NXP LX2160A RCW pad
+ mux
+Message-ID: <av18VNI7IjVFO-JF@lxl00025.wbi.nxp.com>
+References: <20261117-for-upstream-lx2160a-rcw-pinmux-v1-v7-0-5d7201970629@free.fr>
+ <20261117-for-upstream-lx2160a-rcw-pinmux-v1-v7-0-5d7201970629@free.fr>
+ <20261117-for-upstream-lx2160a-rcw-pinmux-v1-v7-1-5d7201970629@free.fr>
+ <20261117-for-upstream-lx2160a-rcw-pinmux-v1-v7-1-5d7201970629@free.fr>
+ <avzBgDksGfXb-MxZ@lxl00025.wbi.nxp.com>
+ <av120SMcb31YLAWK@L30177.local>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <av120SMcb31YLAWK@L30177.local>
+X-ClientProxiedBy: AS4P192CA0002.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5da::9) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,327 +106,80 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|VI0PR04MB10974:EE_
+X-MS-Office365-Filtering-Correlation-Id: fbef2509-01a8-4f3f-8290-08df455dfc8f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|19092799006|23010399003|10067099003|4143699003|56012099006|261026140227099003|11063799006|261028144727099003|261021121427099003|261022105027099003|261021123027099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003|3023799007|41080700001;
+X-Microsoft-Antispam-Message-Info:
+	//K7K+UWez+5itQXRLPGcJ/CrwJIGN1hH2M7d6v7dsZ8xcv7Cf/a+zRiFDdOkVv1WykoUe7/EvxZOxUd/VZTizA2DdWLywdQ+hyP1pz8KaummygFxAfoDmZjvcmxeR0xw1wN9rNnHD7iAQYyj7Dp5TjuWwO/tqItuE4/K05pGLjeQQYkNC4tK+UBMCtdjZwn4p8imTX6whOHjgNysM6Bynkyou84TI6sL/5T6qyick3/aajCNnPmkhK9Tulgp4S6quLeP7ma/rvYH6xZGBmSxgPURAx47eqiyWw6i+Bb+jDu/iCydNjM1om5oaQULm/aoiIXYZun+dvcCe3jv/O9Ony/0qa+NrMRu2npPGoj5VXtjA1b7fCXnao+chLpQUdQaN9QvWMTaGeltkmjvuKnRxAzjwP4iBD3xmK2BoSEeKr5yHyx7yi7RVtAYZosgZe2i5wll53tmmxqFM/zA7GwLHR+2P1vCJJqPs/zmfc1oot0ua1zHQd796691qCOEvEz3n26tt46JQXKZJGZT+hT/MK1U9mSizZJc+3Lz/Urau3k1NVEUYRMtW2+QMMnIVJIgzHSD5kV+fZ1pHUgQuz4B4U3QT1P0UHNzMtZ5Vxzt/zHQcCof14gKw13lGjjxdBf+EpqTPKevFt7KW17nc89REBkomqbJHuWyy2JV1qvO9qbhs9Uddv0di0T5bmURHd4GN9dzmKVsHiCiSL8Ja9wWMHib8YI9Z7I3r7GMmyDoME=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(19092799006)(23010399003)(10067099003)(4143699003)(56012099006)(261026140227099003)(11063799006)(261028144727099003)(261021121427099003)(261022105027099003)(261021123027099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003)(3023799007)(41080700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?LTCkoT3BFJW0jqXNITeNVYaVGFa/vnFF4bX+0+b4iM1nEm3jJo4lGsPqjj3+?=
+ =?us-ascii?Q?KDKngqC/iAC4g9ksNXcwenUPNinYNlvGaCV961cwiqYo7u10sDirK3gWBsHk?=
+ =?us-ascii?Q?eSKZW9BnAy7yoqFE75bl6HwAJEOq2Mdqp1uumCTJxVPEN/epP/pVFq1JPIRW?=
+ =?us-ascii?Q?6X2Emdeb6+xm0YJ0gcnqYoYox/QYnvMmbI7NEj4sVWfSys4sr7HEZxE0VJUf?=
+ =?us-ascii?Q?gs2nxY8A+3+gDdVm26t03OQzFg+BYROxhhtQ7SmXaDwGgp3Z9ZiY7J6g9NaI?=
+ =?us-ascii?Q?1G0e52bDV2oiRCh09PLs0NB/8mWBvtWUhdpmFji3ZLrEZqMaS+SQ5teygLMb?=
+ =?us-ascii?Q?PdGwweWreU0G7qwr9uYWtDmz6DwHGd/3tYRQCLZOtFFJM39MARD6THj0MPmG?=
+ =?us-ascii?Q?rVaClTjWV+kQdpMxwZq9Fm/zGOgsYxQ8FywTooyao/+VCdyjgDfbKDHYBf6J?=
+ =?us-ascii?Q?whe+bK+xrJn1tAkqvhVDip0cUpiXKRwSFiK6j4/OJtoYu0KGpGOgXPrwQLg5?=
+ =?us-ascii?Q?APFR220bRblDZ/Udv/Xwbob4A88/iyx3ZE6U3uzu85i6zAg5F/ELXXtD4/Gl?=
+ =?us-ascii?Q?eEgBUADkzZfWivPBqQBfcFS86iIG1mvnD0KO2bm9AjYFBVph09KQf+U9GWYm?=
+ =?us-ascii?Q?+toXwzil4iE3NekLCCrzN++sFdhPee8fwpB9dWafVTGyVNkyubf/w9lICLkO?=
+ =?us-ascii?Q?J3WjHIw98MlcdvfP9NDkTAVetSSZotn0z+rds92XdqfruE0Z/+9HuleAO6Ov?=
+ =?us-ascii?Q?Ugf1XF7UdSt77ztJgDTlhd8XsCXJebLoo0AiZ4ImcHleLmDUd0ZibgZ/iOEJ?=
+ =?us-ascii?Q?Gebpamo/degRlOfgoxt0Tgg5/iJCXj+Qf2OU3NU8SMfKbVHDrPUWwGwKE2vp?=
+ =?us-ascii?Q?kZhnTjXjs+OimfKVkn9WjaNKtrLKlu3FN9gBf3X8yL7xFliwdkTuNYTBSN9F?=
+ =?us-ascii?Q?dH+EUHx/OTrvdf9TMunnGT9y1SrxtjHxJoq+P1hSPDhBC2Ozy26RauJMPDfT?=
+ =?us-ascii?Q?cmF/V/dX0fXYGgMmqWJW1wXYM1WMapO+EDTVA/w558p/3JVG2i0Zw/t7dyaE?=
+ =?us-ascii?Q?wIaCqa77Ljn/OgVCv1F4x4dM3YzOFqNEFbV4Xvec5HpX+RFQ61VgZrUsi/sy?=
+ =?us-ascii?Q?I5KTa64LTXb05xJTvK7dw+rFjZWBSc3NRI4oE/vG1XqZDz84TkZUhk4RSxm1?=
+ =?us-ascii?Q?DlrFzEhaWA2TEbGNTYSIUvM4HbXt0Y+hACOc3YVQVYzaDs8p8oRF7dXOocJh?=
+ =?us-ascii?Q?22Fk8vcXGMXAmscw0ci86Mnu8zZTSaaBTV0eSygQD8/+2csNM/9puQxaQWG7?=
+ =?us-ascii?Q?bgSx5+hOd2eltsRZH64oGWipoTbIzRzlZZl4jwO9yuTp5wZ0c/C1meDo9P9l?=
+ =?us-ascii?Q?LfT5337qmyOFhH05KUERYH7kZdhWm2wDSVv/6lRUmClDLNAJmsiQrbVNcbCo?=
+ =?us-ascii?Q?0sMwZgQiuDhBdIknrVKOS+p7COwC03fjKDl5OA4nUEm4NIUG+FO+XS7XWX7H?=
+ =?us-ascii?Q?aBE1ry8s1pnO3vB3jip1g5zGOI7KkmsEw/Vhxy3LDZdbSTLBYpk2bRky9F/+?=
+ =?us-ascii?Q?mTypDxyVrnNVAyhxJS8eRe8HWnOB2vfx1N2dXqnpyjsvO8ef+6gQEHkxr2OI?=
+ =?us-ascii?Q?23O72s6YPzNI0gwDwfzBC4XFi8kB7xNq2E7yIZnqVp0mUnOYSbSyfdg9hphV?=
+ =?us-ascii?Q?qszwha6HCUbHGZsqSkbkBey8g0gdXsdTC0HvQRWWunF6pHloHpDuPqcnMXYe?=
+ =?us-ascii?Q?G15Aony2fQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbef2509-01a8-4f3f-8290-08df455dfc8f
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 10:23:28.2712
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9ou2iT56u8X+U8z10yiaen7qGi/gAlLR4q1Yj4WGeCF/8dNeuTftUWULtdAY5u3dvZG5DTButY6Oa10XslmzsQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10974
 
-Thank you for your contribution! Sashiko AI review found 9 potential
-issues to consider:
-- [Critical] riscv: pmu: perf_ctx_data type confusion and OOB write in
-  CTR callbacks
-- [High] riscv: pmu: duplicate cpuhp_state_add_instance() in
-  pmu_sbi_device_probe()
-- [High] riscv: pmu: NULL ctx->task deref in riscv_pmu_ctr_add() on CPU
-  events
-- [Medium] riscv: pmu: IRQ cleanup bypassed on error in
-  pmu_sbi_device_probe()
-- [Medium] riscv: pmu: per-CPU branch_records leak in
-  pmu_sbi_device_probe()
-- [Medium] riscv: pmu: broken CTR state across concurrent events in SBI
-  PMU
-- [Medium] riscv: pmu: premature -EOPNOTSUPP in pmu_sbi_event_map()
-  before type check
-- [Medium] riscv: pmu: section mismatch calling __init
-  check_available_filters()
-- [Medium] riscv: pmu: missing inline on riscv_pmu_ctr_add() and del()
-  stubs
---
+On Wed, Nov 18, 2026 at 10:58:41AM +0100, Vincent Jardin wrote:
+> Hi Vladimir,
+> 
+> > It's a bit difficult to manually follow all the constraints, which are
+> > listed in the opposite way as the RM would have them (function -> valid pads
+> > rather than pad -> valid functions), but AI says it's OK and I'm not
+> > spotting any obvious problems either.
+> 
+> I am trying a small update into the yaml file, that should be easier to
+> follow. You are right that this serie is having an heritage that
+> should be simplified to ease the maintenance. I'd prefer to improve
+> it before merging it.
+> 
+> I'll send the update later today.
+> 
+> best regards,
+>   Vincent
 
-commit e244663b591d7b5c6a7f72d19726b56679ea8ed0
-Author: Vikram Singh <vikram.singh3@oss.qualcomm.com>
-
-riscv: pmu: Integrate CTR Ext support in riscv_pmu_dev driver
-
-This commit integrates Control Transfer Records (CTR) extension support
-into the RISC-V SBI PMU driver to enable branch stack sampling on PMU
-events.
-
-Link: https://lore.kernel.org/r/20261106173942.3175069-7-vikram.singh3@oss.=
-qualcomm.com
-
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index b14b3acf75674..637b9d97e20a4 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
-> @@ -678,6 +678,9 @@ static int pmu_sbi_event_map(struct perf_event *event=
-, u64 *econfig)
->  	 */
->  	flush_work(&check_std_events_work);
-> =20
-> +	if (needs_branch_stack(event) && !riscv_pmu_ctr_valid(event))
-> +		return -EOPNOTSUPP;
-> +
->  	return riscv_pmu_get_event_info(type, config, econfig);
->  }
-
-[Severity: Medium]
-Does returning -EOPNOTSUPP before riscv_pmu_get_event_info() break PMU
-iteration in perf_init_event() for events targeting another PMU?
-
-struct pmu::event_init must return -ENOENT when event->attr.type is not
-handled by this PMU.  Checking riscv_pmu_ctr_valid() before
-riscv_pmu_get_event_info() validates type causes perf_init_event() to
-abort searching other registered PMUs whenever a non-CPU event requests
-branch filters outside allowed_filters.
-
-> @@ -827,10 +830,14 @@ static void pmu_sbi_reset_scounteren(void *arg)
-> =20
->  static void pmu_sbi_ctr_add(struct perf_event *event, int flags)
->  {
-> +	if (needs_branch_stack(event))
-> +		riscv_pmu_ctr_add(event);
->  }
-
-[Severity: High]
-Does riscv_pmu_ctr_add() (and riscv_pmu_ctr_del()) cause a NULL pointer
-dereference when scheduling a per-CPU event with
-PERF_SAMPLE_BRANCH_USER | PERF_SAMPLE_BRANCH_CALL_STACK?
-
-For a CPU-wide event (pid =3D=3D -1), event->ctx->task is NULL, but
-riscv_pmu_ctr_add() and riscv_pmu_ctr_del() dereference event->ctx->task
-unconditionally:
-
-drivers/perf/riscv_ctr.c:riscv_pmu_ctr_add() {
-	if (branch_user_callstack(event->attr.branch_sample_type) &&
-	    event->ctx->task->perf_ctx_data)
-		task_context(event->ctx->task->perf_ctx_data)->callstack_users++;
-...
-}
-
->  static void pmu_sbi_ctr_del(struct perf_event *event, int flags)
->  {
-> +	if (needs_branch_stack(event))
-> +		riscv_pmu_ctr_del(event);
->  }
-
-[Severity: Medium]
-When CONFIG_RISCV_PMU=3Dy and CONFIG_RISCV_CTR=3Dn, do the
-riscv_pmu_ctr_add() and riscv_pmu_ctr_del() stubs in
-include/linux/perf/riscv_pmu.h trigger -Wunused-function warnings in
-other translation units?
-
-include/linux/perf/riscv_pmu.h:
-static void riscv_pmu_ctr_add(struct perf_event *event) { }
-static void riscv_pmu_ctr_del(struct perf_event *event) { }
-
-Both stubs are missing the inline keyword, so files such as
-drivers/perf/riscv_pmu.c and arch/riscv/kvm/vcpu_pmu.c that include this
-header without calling them fail to build under CONFIG_WERROR=3Dy.
-
-[ ... ]
-
-> @@ -864,6 +875,9 @@ static void pmu_sbi_ctr_stop(struct perf_event *event=
-, unsigned long flag)
->  	struct cpu_hw_events *cpu_hw_evt =3D this_cpu_ptr(pmu->hw_events);
->  	struct riscv_pmu_snapshot_data *sdata =3D cpu_hw_evt->snapshot_addr;
-> =20
-> +	if (needs_branch_stack(event) && flag !=3D RISCV_PMU_STOP_FLAG_RESET)
-> +		riscv_pmu_ctr_disable(event);
-> +
->  	if ((hwc->flags & PERF_EVENT_FLAG_USER_ACCESS) &&
->  	    (hwc->flags & PERF_EVENT_FLAG_USER_READ_CNT))
->  		pmu_sbi_reset_scounteren((void *)event);
-> @@ -896,7 +910,7 @@ static void pmu_sbi_ctr_stop(struct perf_event *event=
-, unsigned long flag)
->  static void pmu_sbi_sched_task(struct perf_event_pmu_context *pmu_ctx, s=
-truct task_struct *task,
->  			       bool sched_in)
->  {
-> -	/* Call CTR specific Sched hook. */
-> +	riscv_pmu_ctr_sched_task(pmu_ctx, task, sched_in);
->  }
-
-[Severity: Critical]
-Does wiring up riscv_pmu_ctr_sched_task() alongside
-PERF_ATTACH_TASK_DATA in pmu_sbi_event_init() cause an out-of-bounds
-heap write into task->perf_ctx_data?
-
-When PERF_ATTACH_TASK_DATA is set, core perf allocates a 40-byte
-struct perf_ctx_data wrapper at task->perf_ctx_data and places the
-struct riscv_perf_task_context allocation in task->perf_ctx_data->data.
-However, riscv_pmu_ctr_sched_task(), riscv_pmu_ctr_add() and
-riscv_pmu_ctr_del() cast task->perf_ctx_data directly to
-struct riscv_perf_task_context * without RCU protection or dereferencing
-->data:
-
-drivers/perf/riscv_ctr.c:riscv_pmu_ctr_sched_task() {
-...
-	/* Save branch records in task_ctx on sched out */
-	task_ctx =3D pmu_ctx ? task->perf_ctx_data : NULL;
-	if (task_ctx) {
-		if (sched_in)
-			riscv_pmu_ctr_restore(task_ctx);
-		else
-			riscv_pmu_ctr_save(task_ctx, rvpmu->ctr_depth);
-		return;
-	}
-...
-}
-
-When a task monitored with PERF_SAMPLE_BRANCH_CALL_STACK schedules out,
-riscv_pmu_ctr_save() overwrites the struct perf_ctx_data fields
-(including ctx_cache and data) and writes up to 6144 bytes of branch
-records past the end of the 40-byte slab object.  Compare with
-intel_pmu_lbr_sched_task(), which accesses
-rcu_dereference(task->perf_ctx_data)->data under rcu_read_lock().
-
-> @@ -1179,6 +1193,12 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, vo=
-id *dev)
->  		hw_evt->state |=3D PERF_HES_UPTODATE;
->  		perf_sample_data_init(&data, 0, hw_evt->last_period);
->  		if (riscv_pmu_event_set_period(event)) {
-> +			if (needs_branch_stack(event)) {
-> +				riscv_pmu_ctr_consume(cpu_hw_evt, event);
-> +				perf_sample_save_brstack(&data, event,
-> +							 &cpu_hw_evt->branches->branch_stack, NULL);
-> +			}
-> +
-
-[Severity: Medium]
-How is CTR hardware state managed when multiple events are active on the
-same CPU?
-
-First, in pmu_sbi_ctr_stop(), riscv_pmu_ctr_disable() clears CSR_CTRCTL
-unconditionally even when other active events on the CPU still have
-needs_branch_stack(event) set.  Second, because CTRCTL_LCOFIFRZ is set,
-any local counter overflow interrupt freezes CTR by setting
-SCTRSTATUS_FROZEN, but pmu_sbi_ovf_handler() only clears
-SCTRSTATUS_FROZEN inside riscv_pmu_ctr_consume(); if a non-branch event
-overflows (or riscv_pmu_event_set_period() returns 0), CTR remains
-frozen for active branch-sampling events.  Third, riscv_pmu_ctr_consume()
-re-enables CSR_CTRCTL and clears SCTRSTATUS_FROZEN before
-perf_event_overflow() and pmu_sbi_start_overflow_mask() run, so kernel
-branches during overflow handling are recorded while the PMU counters are
-still stopped.
-
-[ ... ]
-
-> @@ -1367,7 +1391,30 @@ static void riscv_pmu_destroy(struct riscv_pmu *pm=
-u)
->  		cpuhp_state_remove_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
->  }
-> =20
-> -static void pmu_sbi_event_init(struct perf_event *event)
-> +static int branch_records_alloc(struct riscv_pmu *pmu)
-> +{
-> +	struct branch_records __percpu *tmp_alloc_ptr;
-> +	struct branch_records *records;
-> +	struct cpu_hw_events *events;
-> +	int cpu;
-> +
-> +	if (!riscv_pmu_ctr_supported(pmu))
-> +		return 0;
-> +
-> +	tmp_alloc_ptr =3D alloc_percpu_gfp(struct branch_records, GFP_KERNEL);
-> +	if (!tmp_alloc_ptr)
-> +		return -ENOMEM;
-> +
-> +	for_each_possible_cpu(cpu) {
-> +		events =3D per_cpu_ptr(pmu->hw_events, cpu);
-> +		records =3D per_cpu_ptr(tmp_alloc_ptr, cpu);
-> +		events->branches =3D records;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does branch_records_alloc() leak the per-CPU tmp_alloc_ptr allocation if
-pmu_sbi_device_probe() fails later?
-
-tmp_alloc_ptr is only resolved via per_cpu_ptr() into events->branches,
-and the __percpu base pointer is discarded on return, so neither the
-probe error path nor riscv_pmu_destroy() ever calls free_percpu() on it.
-
-[ ... ]
-
-> @@ -1516,9 +1568,16 @@ static int pmu_sbi_device_probe(struct platform_de=
-vice *pdev)
->  		pmu->pmu.capabilities |=3D PERF_PMU_CAP_NO_EXCLUDE;
->  	}
->  	irq_requested =3D (ret =3D=3D 0);
-> -
->  	pmu->pmu.attr_groups =3D riscv_pmu_attr_groups;
->  	pmu->pmu.parent =3D &pdev->dev;
-> +	ret =3D riscv_pmu_ctr_init(pmu);
-> +	if (ret)
-> +		goto out_free;
-
-[Severity: Medium]
-Does calling riscv_pmu_ctr_init() from pmu_sbi_device_probe() cause a
-section mismatch with check_available_filters()?
-
-pmu_sbi_device_probe() and riscv_pmu_ctr_init() are in .text, but
-riscv_pmu_ctr_init() calls check_available_filters(), which is marked
-__init in drivers/perf/riscv_ctr.c.  This triggers a modpost section
-mismatch warning and will execute freed initmem if the platform device
-is probed after boot.
-
-> +
-> +	ret =3D branch_records_alloc(pmu);
-> +	if (ret)
-> +		goto out_ctr_finish;
-> +
->  	bitmap_copy(pmu->cmask, cmask, RISCV_MAX_COUNTERS);
->  	pmu->ctr_add =3D pmu_sbi_ctr_add;
->  	pmu->ctr_del =3D pmu_sbi_ctr_del;
-> @@ -1535,6 +1594,10 @@ static int pmu_sbi_device_probe(struct platform_de=
-vice *pdev)
->  	pmu->csr_index =3D pmu_sbi_csr_index;
->  	pmu->sched_task =3D pmu_sbi_sched_task;
-> =20
-> +	ret =3D cpuhp_state_add_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->no=
-de);
-> +	if (ret)
-> +		goto out_ctr_finish;
-> +
-
-[Severity: High]
-Doesn't this register &pmu->node with cpuhp_state_add_instance() a
-second time?
-
-pmu_sbi_device_probe() already registers &pmu->node with
-CPUHP_AP_PERF_RISCV_STARTING after register_sysctl():
-
-drivers/perf/riscv_pmu_sbi.c:pmu_sbi_device_probe() {
-...
-	register_sysctl("kernel", sbi_pmu_sysctl_table);
-
-	ret =3D cpuhp_state_add_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
-	if (ret)
-		goto out_unregister;
-...
-}
-
-Adding the same hlist_node twice corrupts the CPUHP_AP_PERF_RISCV_STARTING
-instance list into a circular self-loop (pmu->node.next =3D &pmu->node) and
-runs pmu_sbi_starting_cpu() twice per online CPU (with the first pass
-running before SBI PMU snapshot setup).
-
->  	ret =3D riscv_pm_pmu_register(pmu);
->  	if (ret)
->  		goto out_destroy;
-> @@ -1592,6 +1655,9 @@ static int pmu_sbi_device_probe(struct platform_dev=
-ice *pdev)
->  		riscv_pmu_irq =3D 0;
->  	}
-> =20
-> +out_ctr_finish:
-> +	riscv_pmu_ctr_finish(pmu);
-> +
->  out_free:
->  	free_percpu(pmu->hw_events);
->  	kfree(pmu_ctr_list);
-
-[Severity: Medium]
-Do the error paths jumping to out_ctr_finish and out_free bypass freeing
-riscv_pmu_irq?
-
-pmu_sbi_setup_irqs() requests the per-CPU IRQ with pmu->hw_events as the
-dev_id token before riscv_pmu_ctr_init() and branch_records_alloc() run.
-Because out_ctr_finish and out_free are placed below the irq_requested
-cleanup block in out_destroy, failing in riscv_pmu_ctr_init(),
-branch_records_alloc(), or the new cpuhp_state_add_instance() call frees
-pmu->hw_events while the per-CPU IRQ remains registered with that freed
-pointer.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118095053.3871=
-267-1-vikram.singh3@oss.qualcomm.com?part=3D6
+Please be aware of the fact that I started copying this model for the
+bindings of other SoCs as well.
+https://github.com/vladimiroltean/linux/tree/layerscape-pinctrl-v7
