@@ -1,115 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794989630;
-	b=p3nvbhdJm9T6vZ4X+EkYmvQFSxhVMce7m9bpbH1qOD/y0fAds98PHEAGdSlzj4E60nhT
-	 afefGTgRp6zJiCLvnnTHIgWQyMrU23BBkJbFURfjkbW5K7rdCPCxCCbZ0gNSKOLtU3OR+
-	 KXKzxVUWTkKJ2phTUKjMC869P1pIsyK6pXe221XFD7iW8sNm6+gN3vImyAeu2MmHReMiV
-	 JUlJ+NU2+0n6OKlMkwfR9u5xxe9uwI8tt7MeldMZfquWIMub6HE/DDTeKk6NJkYDsyKV7
-	 /dld5YqLFcavozOvrTcS0oEol+Er3Lx3WY47aYgt52PwLT/IrWhxUYvfgbjcvSH/18g==
+	t=1794989625;
+	b=4CpDUDXIAYPUX4b/IhzVjhTSAo63GF4pP0eZN8FfNmNBvtMNa+/WXpjaYjgY3W2WFxr8
+	 jLXXvvlLFr/cZsl2I/6GjDH58NHmHRuYHBh59rmKEYMRHLIBKiKjZFtbuG6cNYdLoP8AQ
+	 79RyASukRMjcBESgLdhiRMvQLeAVUp3yOma7nalnqigJ66FVHk7PXp89t/nR5RkM8c7z5
+	 7QcmjWdplu6adYN7dwo3hoUXVB/M+VC7k3LWTE5Laq6XjG1rj8Y+dmybhNuit8MoBU+jQ
+	 24z33emqbQGVGK9hixP5rpmax60zli0PaYLxJaKuw7As3M+tdWLiaviwZdi9qIvhv7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794989630;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LrvbirXIkv4em6QifUd4OnpixRUwowvXHi+8bl2oRk4=;
-	b=Y0gXIgnCadyXrhSaqMesksT3eDzXxSq+SaOExq7HgfJKOerrDuTv2hV97luT1cNRxjr0
-	 BbR3TjgD+CaKRU/r37Nhqh2eN1uiO2BjNiZ4HRfZvEmFdWOXbCjGilz86U4FeaW9tFSmv
-	 8zVle5XjzA398SCPeAXUI4zPq8yHmSHC3witmpJLaBdb2JuEd4Cey2cGfdp3mo+U9l0mx
-	 szjoXW9UkLp2qobcvynotamhpTUKEikxZj5hUF/j+ifb6up9sAA9n8XYqEt6IXD+nQx0L
-	 GJNpenZUj0N5dMy9J/3rn45azW2DXKIAl/ZsetvoiWBZ872oA3Nmv4Kccl1+3g47Ysw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794989625;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=WYyTzxO2ETRiJUcj33BfWavJfCzA6eXVlj29pjh6uOk=;
+	b=pPN6n+dGM/UwBioqZUtHzHspmqzSyy+WjaFegBL062AM3qrzXXjeY/lFfZx4FzMpuaMT
+	 0kJtXtbfI1aaHnPkA/qlS7tTRyTib0YMTsmVrMfKq1bojJdd+10OEOIBbKhoHBlBf1y7L
+	 MWiDPSmANpX2IVjt9gN/szLxHimQyt9azVO6o8cTAKDqZ+2lhbtY4cI+UVM1WuuqXTIrJ
+	 3D39UhX3Oa9C8ggXHz/12/+rsV1aQuLfxqLXMiQPjOas8n1watymi/hqYFi7MD4/9MCsX
+	 1JpI2O0BWBqoW+cdwChFZTlM8U4ieUZN2AKkfbfNX+O255zFnyEe+Z6he1hldXe2u5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b="F16/qyxe";
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JpUBqGod;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA325606A337
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:13:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA325606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B93606A330
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:13:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15B93606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=F16/qyxe
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b3d4d3bba3so279430a91.3
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 00:13:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794989629; x=1795594429; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LrvbirXIkv4em6QifUd4OnpixRUwowvXHi+8bl2oRk4=;
-        b=F16/qyxeJCnpp8cEUhvsIzwqbJ3dET3mcVkZCGuvG84FDRLSUKSXvBkFC/dcL95h3O
-         nH+PR4V5h9u/CXPhFMsj2uTIAQIRtXn9Cs1Qc/obD1SHjPm/7cFXYoBKt0lWew4PsVZv
-         Nkpu6WKaEpUTkfV/bxzun+N3aGLK08cjIVlgVcr3l+1DTbZCgg/jynXsSXRv4Tb1f8Wd
-         0jYwQESDhgu9TfRoJ8wWU03yiHbjIPY74faHqETp1xJiWE+6/NB0rxJ7NGS/x48BzyGh
-         1H1KNf+bmnqCe57I/4C9YZGtKmqRqeBA9oS2Uu+UmUlnQiI0uSKN2Rv8yBHqPAacLIN0
-         yjgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794989629; x=1795594429;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LrvbirXIkv4em6QifUd4OnpixRUwowvXHi+8bl2oRk4=;
-        b=0AzkykfEEJhYdJ6KT3hkMqe3bovw1+vEYoQu0MlaFI00nSBSqcyXnY87aXf8PBfNuv
-         fqUxFnugEOykenvdD5FMDbnAbyKg6EK4spC5kIVXRNr6/QeaiFIWGuSQ+vw/zbCOXOBl
-         cZktKnd4GfZqA2mwDju4HFQyNv5kXb79C6TIQH6NS9k8FDzj2VMgHZfuVMDGv6MwHn45
-         qBS2J9metqGf7rZnP/U8IVWM2sYD4GqVQW3pdwAV0+OHaFze6gZVtzeA7RlKFfmTq1jF
-         AU125hD5ltBp6En9yzlHDHo6DzrfdVuf7QV8pfsWJRTwKfBik1TIWP6mx1hDQi9casuM
-         ZlsQ==
-X-Forwarded-Encrypted: i=1; AL+hErH5YGE9wEVn5porSAIMI47ZeZabkzk02Enmafw0J8ZvjzdrW+cJf1rY76OjI1amWqPeuxAm84DYd9HO@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lTOPa0Ug/i1WZU5QQNi1jSyz0k/1kb84RdYrVHA/tISH+2rdH
-	OJTXl5qxcEsqz0VFlzx7QQ2O8Md2a1fdpmZQsZliLLOCQmagz/ce5HefdfvwJqI1VP4=
-X-Gm-Gg: AZFdTZdw4rKcc4SiNzREkbSWWlICWiIIlRq8EiCf2ZhUlNqkStKflNY2XpOMDfDflnC
-	+5qcrV7wPe4v9nfAfRyTt6hYW0ZquE1sLG1Zbv+QsCgThYBW2l7rcOZNsanb5MWstQ3mK5fVwNv
-	Fn6KWw2PgcdDM3Eo80cQHkurqvw7TUx9TJqwE8Q8w+B8AfkVRmtSJRXvYYrawtVNYLz0fZ0STt7
-	WiaWQuxXLlY28Gq/gzjkMChfUetJLIHTXe8E8W8CxCP5hXjOJdZ4CdmP1Ic3eCuwq1iJ4bUmhvq
-	dcGCMftAppHfVoMu0zCWC/ZhsVCtdg0/fs095JzVK9TFznVuEsd4Fa4V+nRiCMfFJOMbrqeqx/r
-	7LjdY2A1zyD72oTpdrdZVq2fudYYIpdcD87e5X1ca78SmBT04nK+ps1KmKBhtIY2pwLU+mfYc5g
-	XPRblxem/CemiE6C1xggwcEJC3OqNsGi/IkHVWw+Yd32CFNoxt11sDFSmY1m0KMrSM+OCVwKkN4
-	lPUYjQPUso1S2awA8KvXBZmsUXskgn97aui2zWSWR9Q1LtiFR4ihlcx3Y/V3WMfFep7f1qZI3p0
-	ybw7Dg6/z2nuJx7LVkS/j9YS3ztGJMWLcfJpMFC3P4MIsUaN4gkGeGAXJ/OQelaMAJXHlBQ/Wr7
-	zYJdbJaA=
-X-Received: by 2002:a17:90b:3943:b0:3b0:a7b5:c046 with SMTP id 98e67ed59e1d1-3b3d07e09f4mr2098689a91.54.1794989628976;
-        Wed, 18 Nov 2026 00:13:48 -0800 (PST)
-Received: from FJ7FR2JRQ3.bytedance.net ([186.240.245.239])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d1acde50sm3254680a91.14.2026.11.18.00.13.40
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 18 Nov 2026 00:13:48 -0800 (PST)
-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-To: linux-riscv@lists.infradead.org,
-	linux-perf-users@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	andrew.jones@linux.dev,
-	linux-doc@vger.kernel.org,
-	corbet@lwn.net,
-	atish.patra@linux.dev,
-	anup@brainfault.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	yuanzhu@bytedance.com,
-	cuiyunhui@bytedance.com,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	mark.rutland@arm.com,
-	will@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Subject: [RFC PATCH v1 1/5] dt-bindings: riscv: Add Smpdis and Sspdis ISA extensions
-Date: Wed, 18 Nov 2026 16:13:29 +0800
-Message-ID: <20261118081327.10684-8-zhangzhanpeng.jasper@bytedance.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261118081327.10684-7-zhangzhanpeng.jasper@bytedance.com>
-References: <20261118081327.10684-7-zhangzhanpeng.jasper@bytedance.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JpUBqGod
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 65A944E4160A;
+	Wed, 18 Nov 2026 08:13:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2EA455FE9B;
+	Wed, 18 Nov 2026 08:13:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C022C11BC07B0;
+	Wed, 18 Nov 2026 09:13:36 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794989622; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=WYyTzxO2ETRiJUcj33BfWavJfCzA6eXVlj29pjh6uOk=;
+	b=JpUBqGodIl5ANwxil/ZfClbFcF4GJqmoPYauYylAL1OeFCrSY4BOsOFB1uYA7twru1jWRH
+	i+H5bcmdoWe4H/CJ+Nv+8c15EEVxHupjaEuzDjruNlMebQFpsYOILj6Hmj4XP7k+5HAvMD
+	u//04/Mq01Esj/TZIq4zGhujzIHk4+L0+i5Q73Jl/VIzuztupAYVjrcKGHqB+DayZYRFNe
+	i6GZc0a/3Kuag3X8KK+CDn9QubDCPLK1nw0K5YZOpRKeAH0iGfHc3+q6IAlzd0GG2z0zak
+	2fIitc71vXpZ2aoz7oRGGX4Vy+yn0ePwPodaj4ZtW7L5JXlPfu6DlrQlLoTLhQ==
+Date: Wed, 18 Nov 2026 09:13:34 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, Luca Ceresoli
+ <luca@lucaceresoli.net>, Rob Herring <robh@kernel.org>, Andi Shyti
+ <andi.shyti@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Peter Rosin <peda@axentia.se>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Jonas
+ =?UTF-8?B?U2Nod8O2YmVs?= <jonasschwoebel@yahoo.de>,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/2 RESEND] i2c: muxes: Add GPIO-detected hotplug I2C
+Message-ID: <20261118091334.3d51a5f0@bootlin.com>
+In-Reply-To: <CAPVz0n3jt04xEwGr1aiDTJ7OonYYgOy3QneteLXgdGruXGMP_A@mail.gmail.com>
+References: <20251013060018.43851-1-clamor95@gmail.com>
+	<w3bn5bqxqjhf4uvxov47rwlvmnbic6xnlk25xbpnbmi2eyup7q@tjuiu7pl3mmo>
+	<CAPVz0n1-jN5WLFq4e0CZrneExrN_A=GNeGTwGHTCj14NAta+jQ@mail.gmail.com>
+	<aPCfiJxyKOXsgNJe@shikoro>
+	<20251021132529.GA4133357-robh@kernel.org>
+	<CAPVz0n3jt04xEwGr1aiDTJ7OonYYgOy3QneteLXgdGruXGMP_A@mail.gmail.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,54 +82,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Describe the machine and supervisor PDIS extensions using the pinned
-sampling draft. Machine support alone does not grant supervisor access.
-These are draft bindings, not ratified extension or CSR allocations.
+Hi Svyatoslav,
 
-Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
----
- .../devicetree/bindings/riscv/extensions.yaml | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+On Sat, 17 Oct 2026 20:17:39 +0300
+Svyatoslav Ryhel <clamor95@gmail.com> wrote:
 
-diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Documentation/devicetree/bindings/riscv/extensions.yaml
-index 79491ef8f86a..afda76b9c7c4 100644
---- a/Documentation/devicetree/bindings/riscv/extensions.yaml
-+++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-@@ -214,6 +214,15 @@ properties:
-             ratified at commit d70011dde6c2 ("Update to ratified state")
-             of riscv-j-extension.
- 
-+        - const: smpdis
-+          description: |
-+            The draft Smpdis machine-level extension for Precise Decoded
-+            Instruction Sampling, as described at commit
-+            2de60e18118ce78e2da82ec33296345c94d8560c of the
-+            riscv-performance-event-sampling specification. It defines
-+            instruction selection, filtering and sample collection across
-+            privilege levels. This does not imply supervisor access to PDIS.
-+
-         - const: smstateen
-           description: |
-             The standard Smstateen extension for controlling access to CSRs
-@@ -269,6 +278,16 @@ properties:
-             ratified at commit d70011dde6c2 ("Update to ratified state")
-             of riscv-j-extension.
- 
-+        - const: sspdis
-+          description: |
-+            The draft Sspdis supervisor-level extension for Precise Decoded
-+            Instruction Sampling, as described at commit
-+            2de60e18118ce78e2da82ec33296345c94d8560c of the
-+            riscv-performance-event-sampling specification. It provides the
-+            supervisor-visible PDIS registers and behavior, excluding the
-+            machine-only state. Firmware must make this state accessible to
-+            supervisor software before reporting this extension.
-+
-         - const: ssqosid
-           description: |
-             The standard Ssqosid extension for Quality of Service ID is
--- 
-2.50.1 (Apple Git-155)
+> вт, 21 жовт. 2025 р. о 16:25 Rob Herring <robh@kernel.org> пише:
+> >
+> > On Thu, Oct 16, 2025 at 09:32:24AM +0200, Wolfram Sang wrote:  
+> > > Hi Svyatoslav,
+> > >  
+> > > > Herve and Luca did not come up with anything meaningful, they provided
+> > > > just a few rough ideas. It will take an inconsiderate amount of time  
+> > >
+> > > Well, IIRC they said that your use case can be mapped onto their
+> > > approach. Which is meaningful in my book.
+> > >  
+> > > > before there will be any consensus between them and schema
+> > > > maintainers, and even more time would be requited to settle this into
+> > > > schemas and implement into drivers. Why should I suffer from this? Why
+> > > > should changes I need be halted due to some incomplete 'ideas'? This
+> > > > driver uses existing i2c mux framework and fits into it just fine.  
+> > >
+> > > I am sorry to bring you bad news, but you need to suffer because this is
+> > > how development goes. If I get presented a generic solution (see Herve's
+> > > mail) and a specific solution (your driver), for this case I as a
+> > > maintainer will prefer the generic solution. Generic solutions need more
+> > > time because there are more things to handle, of course. This is typical
+> > > for development, I would say, it is not Linux or Free Software specific.
+> > >
+> > > I appreciate that you tackled your issue and were open to share it with
+> > > the community. I see the work being done there. However, there are so
+> > > many things going on independently that I can't really prevent double
+> > > development from happening despite it having a high priority for me. As
+> > > soon as I get aware of people working on similar issues, I connect them.
+> > > That's what I did here as well.
+> > >
+> > > So, if you want upstream supported I2C hot-plugging, you need to wait
+> > > for Luca's and Herve's work being accepted. Or provide a superior
+> > > solution. Or, if you want, join the ride. You already have experience in
+> > > this field (and hardware plus use case), you would be a very welcome
+> > > contributor, I would say.  
+> >
+> > Agreed.
+> >
+> > What really slows things down is when there is only 1 user of a new
+> > binding. Too many times have I accepted one only for the 2nd user to
+> > show up right after accepting it and wanting something different. So
+> > now I just require more than 1 user and it is on the submitter(s) to do
+> > that. After all, it is their itch, not mine.
+> >
+> > Rob  
+> 
+> Hello there!
+> 
+> Were there any advancements with i2c-bus-extension so that I could
+> finally configure and make my tablet work? Could anyone point me in
+> the right direction? Thanks.
 
+No new advancements. I moved on a prerequisite: Having support for addon
+format in dtb in order to have support for a list of exported symbols
+resolution when an dtb is applied on a live devicetree.
+
+Anyway, the v3 series [1] need to be updated and a new iteration need to be
+sent. Also, same operations need to be done on the SPI version [2].
+
+[1] https://lore.kernel.org/all/20250618082313.549140-1-herve.codina@bootlin.com/
+[2] https://lore.kernel.org/all/20250729-spi-bus-extension-v1-0-b20c73f2161a@beagleboard.org/
+
+Best regards,
+Hervé
