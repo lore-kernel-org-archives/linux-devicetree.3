@@ -1,78 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794986266;
-	b=5Wn3czWsX0QRIsQnFjcJCYNp273skL48yQQXq2KcLmMBrsgxrJKi6tn4KUMwK2KytFzc
-	 mgy7dIN+oSaPfTht1aYP7o0jYsDMLCZkYZ944XrLkwkU0QfrH7MMCl67tUJCmPhRuoguv
-	 lmZcZDdv2sI3eYo1rT/Fy9CMLPaprZ2Txl8IfwC24Yd2sp8a8I3+HcDXt8aWfyx/DRJnV
-	 l56+4ZFl1mi4x5wAmg+SV3EoONhsAVZ435qZlcduJ0Dinxal28tuQU/5kSFi1jTzqfjp3
-	 aoGUG7Cji0myqJj6YMD1A7Xo6MQD7v3erdQbNT8QZ6mHu+a9TFjsKk68/4qBgdYFrOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794986266;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=uKmuBFpEiw66MXnI8T1l4F67pHhIlBzuv++dtOFj+7Q=;
-	b=HyN26t2h/aPFV1asjyNTAy3PKi7n5mHDZdAZnTse+cGPcJAH5hTeCnRi5qdVwoEszw4f
-	 EabkgJNBhitCbGrEVbfAogKVYA/HcgfdzPeqASFCOmjl0VIsd7zj9vMCjusVdO6hkkldx
-	 ek6xMOELsJkSRvvVlmvgduzsRCb1cbY/quu6C5VvxsK6wi862MKqZSwe6h6nzm4KMfsf5
-	 KtO7hRYe0IGjkegQjOp3RHKs90lYiHMde22I49dS473XchStYwgrgePUhBNtR9ppKkm6g
-	 JUCrj3a+dVX3M+pM5i/9Yh3Tv4d4TWByDll4h9oTf3Y+duhTD2HQ0aB/FjivdoV3RMg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4ss1nWM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE16606A337;
-	Wed, 18 Nov 2026 07:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4ss1nWM
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794986265;
-	b=2iB8QAtj2mNLFjweflpLmQhEpEKUt0CiM8IDI23bnrYn0OwZqaqWjA/otvaO1I+KkiHf
-	 /OoiiCAdptojrnNMwG7RtXjHkwRFC4R+NLRBqePXd+bI6KdP5iENvIk1JvaNKIIHBvRTn
-	 b+9bwvhOfa/kRx3zD45NjcfmZDby8achv1fG7k0t6Cj5a9yQ144rhK//1ji7kmc6/cwsE
-	 NlUiXN4JnKm9gwD20dxVUPUc7z7DrM9QRpXxVkTfrCyEwOYkOxzuFpamVnHNzPagYieYP
-	 Gf0BZAV5EiMazmJpjV6YpqxRRahEYMSd0PJBGgKpf3E1M6OjEdUorUb0xuemAdjvQ4Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794986265;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=uKmuBFpEiw66MXnI8T1l4F67pHhIlBzuv++dtOFj+7Q=;
-	b=ed+Klgv2CatXaqJwIgmJIvMSXAXwwt0HP9vq5t398v6icdIJ4jUvzFBkatb10GQfP1wm
-	 MQMhbBwUMOSuj6XDIPr1LhO6IBjpikM7MKhFIDmj2JBgI/+vUdOIudC7yUbEMOYHq574F
-	 /JKCOho2xV7hejFRfZARim2UJO023naIj5ggRye8ROQUE+JNdu1dtBoHi+ij0c3edVevg
-	 7p0msGn5gOTTJPjCOdYwaoHRPLLzYWVXxNIe3z5ho7OhJ/iE/e9zF1lREGMpJ41StcbID
-	 qKn9sy2qCTSLl3xu3ECDir79NpQnwkXQwSrSkm3G8S5EVOC9tjYYIK5HZ4PhNvZPXUw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794987218;
+	b=sHvAyeKDFvsAK10jRKqPnQ40ma3U1FrYSSzcrNuHl77gT1WU7GwFDFK/p4H8tkHxBjc9
+	 MCJSgxQozoJN0LCDF9SOdKCFcwqSUpALMNM2OnmvLeQm8HIAcs4Snunv2zdS532u1/SGp
+	 BY/H6GZ8dXEYmnqHRV54IgLh84j+DHJ4RoeptttcHBOivEfSkWhB7hycsh3WFn+qPEF9z
+	 UdvXDZxQLw4PUumH5fOy61mVQMxGMnLyQiTTug1RAd6rN7qUYS5LIowldGASnx7481MuG
+	 u00y+185ea1tNQq+9CUciCOrsV6OtiTjIk1zn1n5D/FfsElktJAeukQIU3GYvmhtWWQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794987218;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=fKiQf0NBcUBsU2pcKcQNNnQnxuzDCkqCYxmq+8T0PdI=;
+	b=ZQnYrLEXcSeISDCL7dlOQfPmxyqXCb3CrDjskzqeEbPW2NtdF/jYNohihWJHk5BIgqCZ
+	 ztCcsejU/8Fldd3+rST/eINmLAkzylREs9m+t4UpXY1iMTO4CYnUpVzQaOJV6veHVG+D3
+	 24AhaKJTac/xIDdldoC5yr23c6QldBCGoglOH0CySC/l/BNhY4HhkrA0liD1YMYRbnnfm
+	 YX+PIDxogcDsVXflYuLa1vToa/3KKiPGNfKm4NXW81L390F5Dq6NZcHy0ts/v5R5UhYC0
+	 cajzsK8ykqxhAf9YXiBsMLDZC/rqZi3ioCNkpIKNuelXvbnjOIB2M8nzxijDwpXKMeQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dTrpUWTA;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cuKxOopH;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 701921F000C5;
-	Wed, 18 Nov 2026 07:17:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794986265;
-	bh=uKmuBFpEiw66MXnI8T1l4F67pHhIlBzuv++dtOFj+7Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=a4ss1nWMb4oh0HLXb9GEIMMlY6sf/sfcyR7tXwxGZlBxdIUOtkAmTpDDGrJ9AF6y+
-	 BXas7lXuoS5DTKG+3UHLYz9VInwrf0iny5IfNiBRLYdcCnavbIBTS44PMfigUIGVdS
-	 JhzP7gozPyLbLHG5qDivbxlEU1S8rsDuH1Vhi8KwQNskfbi1Myfz+/d+xwEJ4rSWww
-	 S9pj8P81AbiFlQ/NRKe9ruaswm+7rNfzAIp7hW0zxzJrTAV5NtpX8LFmEPciqxAPWj
-	 uCww2ogleklInNt3NuwxvMixlfExNl+Gs80cwwF9rBGSvFTD3M7uDzAqI07EOlR3TS
-	 LxyR9WLOnx9HQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F1A114AC3F;
-	Wed, 18 Nov 2026 07:17:43 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Wed, 18 Nov 2026 07:17:36 +0000
-Subject: [PATCH v11 2/2] i2c: amlogic: Add Amlogic A9 I2C controller driver
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D366606A32A
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:33:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D366606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dTrpUWTA;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cuKxOopH
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AI2V1MN3121824
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:33:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fKiQf0NBcUBsU2pcKcQNNnQnxuzDCkqCYxmq+8T0PdI=; b=dTrpUWTAkiaRQcEq
+	QzzQnlzKTT48wbMM/ogzmRK2Rg1c75MStcXKS+eS4QoBa5WY/s86QC7C069MAiob
+	K4Uq/TS40RNvfDKKmSHBftY121sqlfUHFViQxi8rVDPRwFmKqe1kZbHfapR3rQvM
+	iipMjKi2lO+8cJYl4GdmClX2g+09Ml4lrIOdWbkc/10hTKF8dufXL2j9LSRYm6wN
+	1S9sNhvPDAEhgSEXWvU8bFkKTQUp6VR9AxtFaz++BHRDAGnbICQdvTsO7L/k8BgZ
+	Fdv7n1eWpdBjzb4gmOEYb3k66JN1NQmpP3kl+t/14ynb+Qu/WVYR1XwZRXtu4OZl
+	rLNUQg==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yv9hsvq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:33:36 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b0a9de9c2aso424249a91.2
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 23:33:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794987215; x=1795592015; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fKiQf0NBcUBsU2pcKcQNNnQnxuzDCkqCYxmq+8T0PdI=;
+        b=cuKxOopHBmn4XPkeJeWs02POvNjhJoUVEiuBzWmrWUOB66h5qj1pWilC7xMARces9H
+         DfB86yLxIKLEgGuucfhVUGomK72CwEWZO3V9X/fs50i1ziVgzYJGNFhq/jQV+Zg+Tv0N
+         u0ebJclBSvsCXHcOD9kQNTqRbxGJC/UkFeLYZv3lULYQj7mA1Re+5cgGAFf4UB+aOSe7
+         XfjgAJDXpP5w+2Nd0pSASZfvXvdsKBblmCGbwAvvE/PrBuPbIFYzT/FjonEUs7Pi+jL4
+         q92LMNax7AZTfyWnYw3rDoxJdXHhXiolylSRQE3vJyg3Rc5i03gZPCX1DxkbZJyfN/Vb
+         Ce1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794987215; x=1795592015;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fKiQf0NBcUBsU2pcKcQNNnQnxuzDCkqCYxmq+8T0PdI=;
+        b=TPHp7Vk+96IZ7jQ2V672t0i65ICMQ5xwB0jzbRCGGpGMVfXGm+DUpokf9N/Wi+N+Gy
+         GgyfG09AfcCbayqprXZ4p990YMCMCgNIb/oJVQ4vE3hJJQC2wxbqFpay+mIw3VYjVCrf
+         NRpDcu4ixj4bkX7fSYB7XbYL9ukJkiJSpq2ORA4v+yO6px6x5JT8mnJ6IzCnJYvOHHfi
+         34xBKLGRs30FwQf2an78crDiiAwkgpRSsUvXlYhA3q96KoDqJsIn9774NNaPHBpfasTE
+         gdUY4UMxWC92D9K//kUp4dLODhxBLG9TPYE7ZZV/0j1QvwsQ/svNWQyz1QweCW2zlF5s
+         D/rg==
+X-Gm-Message-State: APuU4Z84X00BRwkoZijPNlOP00z6TsLHbU5AEl9nu4qOjevGmCk8TZJ4
+	0Nny4ILP8IB6FONaaWYg/uiXyx9u7rAkQAc5BkfbFyHHJ6CzwPIr0wElPyGw7mLmoCLru+7yMZ7
+	OE9sDX+3iyJEShRe5aCFCIS2cKPLazq0aAvtMMojYNKNggP5RkTk/wzxXKaleOSrHCgpXbP8L
+X-Gm-Gg: AZFdTZfvisrIhd6JOT9L5lPBAigC8WH8ChUN93Z5fvruxRuAt4NCjt8vRd3JiOUHfN0
+	Wki+odcGJtAfeBJEE5zpKsp3xn3C/8KICaaJBBKePNJ76Wjud+jZ6blMz1GFAo/nX4mLhxlQJPS
+	wV0cNeoFjk21mPHn/hZu2cawO/HwIPqrkD554Oew4wad0Yqu8B6BxnwjQcDIa9B7MKliyyRX6DO
+	IaZnzY9tczBQky5v6/JAKREvMmsgwjH3RMBCvKIPFrLgdtH5mzUJS0btWdeVTG5oeZPP2+ONpH8
+	PSdQBXl5At5qVivIHw/DJjMUxqT3XhDCYf+SYE/zn2KuRA0atWf4A5L5EP5dBt/NS07zmgFLP+w
+	fOeMDuMnIlsuRnAbaMr5YSEVelPg79kMkd1O/Teh8FJxluClJjNSUmI220h58NB43hAFQuP8TNs
+	qP6sDEg+lttw==
+X-Received: by 2002:a17:90b:2243:b0:3a7:82ef:bcdd with SMTP id 98e67ed59e1d1-3b3d07a44a5mr1948877a91.41.1794987214681;
+        Tue, 17 Nov 2026 23:33:34 -0800 (PST)
+X-Received: by 2002:a17:90b:2243:b0:3a7:82ef:bcdd with SMTP id 98e67ed59e1d1-3b3d07a44a5mr1948847a91.41.1794987214019;
+        Tue, 17 Nov 2026 23:33:34 -0800 (PST)
+Received: from [10.152.203.150] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d1acde50sm3056463a91.14.2026.11.17.23.33.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 23:33:33 -0800 (PST)
+Message-ID: <e085eb40-64fc-44a7-a2e1-45209c73752e@oss.qualcomm.com>
+Date: Wed, 18 Nov 2026 13:03:30 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,536 +114,101 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next v2 02/15] wifi: ath12k: refactor PCI window
+ selection to per-device layout
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261118-wifi8_qcn9575_bringup-v2-0-d81a3046290e@oss.qualcomm.com>
+ <20261118-wifi8_qcn9575_bringup-v2-2-d81a3046290e@oss.qualcomm.com>
+ <sashiko-outbox-220253@kernel.org>
+Content-Language: en-US
+From: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+In-Reply-To: <sashiko-outbox-220253@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-a9-i2c-v11-2-68a3e79ff43a@amlogic.com>
-References: <20261118-a9-i2c-v11-0-68a3e79ff43a@amlogic.com>
-In-Reply-To: <20261118-a9-i2c-v11-0-68a3e79ff43a@amlogic.com>
-To: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Xianwei Zhao <xianwei.zhaol@amlogic.com>
-Cc: Junyi Zhao <junyi.zhaol@amlogic.com>, 
- Markus Elfring <Markus.Elfring@web.de>, linux-i2c@vger.kernel.org, 
- linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794986262; l=14806;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=zLKnjoRXPP0EKe30/532tk2j0529oqUzOVKwzNg8Cis=;
- b=S/xa42hLQxWSBAVb22/bXyd9CxXtz45Q3op89bM2zATh0EY5Va+bs4RVLHQgOvriUNDFrliJi
- nGbexJJzUe7DEb2TsC7aBbTEG4IcvinEhw+2gxrCklm1BsCpMJ/atWl
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
-
-From: Junyi Zhao <junyi.zhao@amlogic.com>
-
-Add support for the new I2C controller used by Amlogic A9 SoCs.
-
-Add a dedicated Kconfig option and Makefile entry for the A9 I2C
-controller driver. And add Amlogic I2C controller entry to MAINTAINERS
-to clarify the maintainers.
-
-Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
- MAINTAINERS                         |   9 +
- drivers/i2c/busses/Kconfig          |   8 +
- drivers/i2c/busses/Makefile         |   1 +
- drivers/i2c/busses/i2c-amlogic-a9.c | 428 ++++++++++++++++++++++++++++++++++++
- 4 files changed, 446 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a2d702919ef3..a56bdfefabad 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1371,6 +1371,15 @@ F:	Documentation/devicetree/bindings/perf/amlogic,g12-ddr-pmu.yaml
- F:	drivers/perf/amlogic/
- F:	include/soc/amlogic/
- 
-+AMLOGIC I2C DRIVER
-+M:	Junyi Zhao <junyi.zhao@amlogic.com>
-+M:	Xianwei Zhao <xianwei.zhao@amlogic.com>
-+L:	linux-i2c@vger.kernel.org
-+L:	linux-amlogic@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
-+F:	drivers/i2c/busses/i2c-amlogic-a9.c
-+
- AMLOGIC ISP DRIVER
- M:	Keke Li <keke.li@amlogic.com>
- L:	linux-media@vger.kernel.org
-diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-index 275aaa7f3583..50e031d97ed3 100644
---- a/drivers/i2c/busses/Kconfig
-+++ b/drivers/i2c/busses/Kconfig
-@@ -885,6 +885,14 @@ config I2C_MESON
- 	  If you say yes to this option, support will be included for the
- 	  I2C interface on the Amlogic Meson family of SoCs.
- 
-+config I2C_AMLOGIC_A9
-+	tristate "Amlogic new I2C controller"
-+	depends on ARCH_MESON || COMPILE_TEST
-+	depends on COMMON_CLK
-+	help
-+	  If you say yes to this option, support will be included for the
-+	  I2C interface on the new Amlogic family of SoCs.
-+
- config I2C_MICROCHIP_CORE
- 	tristate "Microchip FPGA I2C controller"
- 	depends on ARCH_MICROCHIP_POLARFIRE || COMPILE_TEST
-diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
-index e5440de0fe14..343eec4b0889 100644
---- a/drivers/i2c/busses/Makefile
-+++ b/drivers/i2c/busses/Makefile
-@@ -82,6 +82,7 @@ obj-$(CONFIG_I2C_LPC2K)		+= i2c-lpc2k.o
- obj-$(CONFIG_I2C_LS2X)		+= i2c-ls2x.o
- obj-$(CONFIG_I2C_LS2X_V2)	+= i2c-ls2x-v2.o
- obj-$(CONFIG_I2C_MESON)		+= i2c-meson.o
-+obj-$(CONFIG_I2C_AMLOGIC_A9)	+= i2c-amlogic-a9.o
- obj-$(CONFIG_I2C_MICROCHIP_CORE)	+= i2c-microchip-corei2c.o
- obj-$(CONFIG_I2C_MPC)		+= i2c-mpc.o
- obj-$(CONFIG_I2C_MT65XX)	+= i2c-mt65xx.o
-diff --git a/drivers/i2c/busses/i2c-amlogic-a9.c b/drivers/i2c/busses/i2c-amlogic-a9.c
-new file mode 100644
-index 000000000000..db1a081b2a14
---- /dev/null
-+++ b/drivers/i2c/busses/i2c-amlogic-a9.c
-@@ -0,0 +1,428 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
-+/*
-+ * Copyright (C) 2026 Amlogic, Inc. All rights reserved
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/completion.h>
-+#include <linux/cleanup.h>
-+#include <linux/i2c.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+
-+/* Amlogic I2C register map */
-+#define REG_CFG_RDY		0x00
-+#define REG_CFG_I2C		0x04
-+#define REG_CFG_START		0x08
-+#define REG_CFG_BUS		0x0c
-+#define REG_TX_RD_ADDR		0x10
-+#define REG_TX_WR_ADDR		0x14
-+#define REG_RX_RD_ADDR		0x18
-+#define REG_RX_WR_ADDR		0x1c
-+#define REG_CFG_TX		0x20
-+#define REG_CFG_RX		0x24
-+#define REG_CFG_IRQ_STATE	0x30
-+#define REG_CFG_IRQ_ENABLE	0x34
-+#define REG_SHAKE_BLK_CNT	0x38
-+
-+/* CFG RDY fields */
-+#define RDY_TEE_ONLY		BIT(1)
-+#define RDY_IF			BIT(0)
-+
-+/* CFG I2C fields */
-+#define I2C_RX_THR		GENMASK(23, 16)
-+#define I2C_TX_THR		GENMASK(15, 8)
-+
-+/* CFG BUS fields */
-+#define BUS_NO_STOP		BIT(18)
-+
-+/* SCL = clk/b_ratio	if b_ratio<=8, SCL = clk/8 */
-+#define BUS_RATIO_MASK		GENMASK(11, 0)
-+
-+/* CFG START fields */
-+#define START_START		BIT(31)
-+#define START_LEN		GENMASK(23, 12)
-+#define START_LEN_SHIFT		12
-+#define START_SLAVE_ADDR	GENMASK(10, 1)
-+#define START_SADDR_SHIFT	1
-+#define START_READ		BIT(0)
-+
-+/* CFG TX_RX fields */
-+#define TX_RX_DATA		GENMASK(7, 0)
-+
-+/* CFG IRQ fields */
-+#define IRQ_ALL_MASK		GENMASK(15, 0)
-+#define A9_NCK_ERROR		BIT(0)
-+#define A9_RX_THRESH_READ	BIT(5)
-+#define A9_TX_THRESH_WRITE	BIT(6)
-+#define A9_PHY_DONE		BIT(7)
-+#define A9_TASK_DONE		BIT(8)
-+#define A9_ALL_DONE		BIT(9)
-+
-+#define A9_TRANS_DONE		(A9_PHY_DONE | A9_NCK_ERROR)
-+#define A9_TRANS_ERROR		(A9_NCK_ERROR)
-+#define A9_ENABLE_IRQ_BIT	(A9_NCK_ERROR | A9_PHY_DONE)
-+#define THRESH_MODE		(A9_RX_THRESH_READ | A9_TX_THRESH_WRITE)
-+
-+#define A9_I2C_FIFO_DEPTH	32
-+#define A9_I2C_HALF_FIFO	(A9_I2C_FIFO_DEPTH >> 1)
-+
-+#define A9_I2C_MAX_XFER_SIZE	0xfff
-+
-+#define I2C_TIMEOUT_MS		500
-+
-+enum {
-+	A9_STATE_IDLE,
-+	A9_STATE_READ,
-+	A9_STATE_WRITE,
-+};
-+
-+enum fifo_fill_mode {
-+	A9_FIFO_FILL_FULL,
-+	A9_FIFO_FILL_HALF,
-+};
-+
-+/**
-+ * struct aml_i2c - Amlogic I2C device private data
-+ *
-+ * @adap:	I2C adapter instance
-+ * @dev:	Pointer to device structure
-+ * @regs:	Base address of the device memory mapped registers
-+ * @clk:	Pointer to clock structure
-+ * @msg:	Pointer to the current I2C message
-+ * @state:	Current state in the driver state machine
-+ * @pos:	Current position in the send/receive buffer
-+ * @error:	Flag set when an error is received
-+ * @lock:	To avoid race conditions between irq handler and xfer code
-+ * @done:	Completion used to wait for transfer termination
-+ * @clk_rate:	Clock source rate of I2C module
-+ * @frequency:	Operating frequency of I2C bus clock
-+ */
-+struct aml_i2c {
-+	struct i2c_adapter	adap;
-+	struct device		*dev;
-+	void __iomem		*regs;
-+	struct clk		*clk;
-+
-+	struct i2c_msg		*msg;
-+	int			state;
-+	int			pos;
-+	int			error;
-+	/* protect reg access */
-+	spinlock_t		lock;
-+	struct completion	done;
-+	unsigned long		clk_rate;
-+	unsigned int		frequency;
-+};
-+
-+static void aml_i2c_set_mask(struct aml_i2c *i2c, int reg, u32 mask, u32 val)
-+{
-+	u32 data;
-+
-+	data = readl(i2c->regs + reg);
-+	data &= ~mask;
-+	data |= val & mask;
-+	writel(data, i2c->regs + reg);
-+}
-+
-+/*
-+ * SCL = clk/b_ratio. if b_ratio<=8, SCL = clk/8
-+ */
-+static int aml_i2c_set_clk_div(struct aml_i2c *i2c)
-+{
-+	unsigned long clk_rate = i2c->clk_rate;
-+	unsigned int div;
-+
-+	div = DIV_ROUND_UP(clk_rate, i2c->frequency);
-+
-+	/* clock divider has 12 bits */
-+	if (div >= (1 << 12)) {
-+		dev_err(i2c->dev, "requested bus frequency too low\n");
-+		return -EINVAL;
-+	} else if (div < 8) {
-+		dev_err(i2c->dev, "requested bus frequency too high\n");
-+		return -EINVAL;
-+	}
-+	/* CFG_BUS reg:11 - 0 bits */
-+	aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_RATIO_MASK, div);
-+
-+	return 0;
-+}
-+
-+static void reset_fifo_pos(struct aml_i2c *i2c)
-+{
-+	writel(0x00, i2c->regs + REG_TX_RD_ADDR);
-+	writel(0x00, i2c->regs + REG_TX_WR_ADDR);
-+	writel(0x00, i2c->regs + REG_RX_WR_ADDR);
-+	writel(0x00, i2c->regs + REG_RX_RD_ADDR);
-+}
-+
-+static void clear_irq_status(struct aml_i2c *i2c, u32 irq_bits)
-+{
-+	writel(irq_bits, i2c->regs + REG_CFG_IRQ_STATE);
-+}
-+
-+static int aml_i2c_init(struct aml_i2c *i2c)
-+{
-+	clear_irq_status(i2c, IRQ_ALL_MASK);
-+	aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_NO_STOP, BUS_NO_STOP);
-+	aml_i2c_set_mask(i2c, REG_CFG_I2C, I2C_RX_THR | I2C_TX_THR,
-+			 (A9_I2C_FIFO_DEPTH << 16) | (A9_I2C_HALF_FIFO << 8));
-+	reset_fifo_pos(i2c);
-+
-+	return aml_i2c_set_clk_div(i2c);
-+}
-+
-+static void aml_i2c_prepare_xfer(struct aml_i2c *i2c, enum fifo_fill_mode mode)
-+{
-+	bool write = !(i2c->msg->flags & I2C_M_RD);
-+	int i, count;
-+
-+	if (!write)
-+		return;
-+
-+	count = min(i2c->msg->len - i2c->pos,
-+		    mode == A9_FIFO_FILL_FULL ? A9_I2C_FIFO_DEPTH : A9_I2C_HALF_FIFO);
-+
-+	for (i = 0; i < count; i++)
-+		writel(i2c->msg->buf[i2c->pos++], i2c->regs + REG_CFG_TX);
-+}
-+
-+static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
-+{
-+	struct aml_i2c *i2c = dev_id;
-+	u8 *buf = NULL;
-+	u32 rd_len, i;
-+	u32 rd_val;
-+	u32 irq_state;
-+
-+	guard(spinlock)(&i2c->lock);
-+	irq_state = readl(i2c->regs + REG_CFG_IRQ_STATE);
-+	if (i2c->state == A9_STATE_IDLE) {
-+		dev_warn(i2c->dev, "i2c irq triggered abnormally, irq_state:0x%x,irq_en:0x%x\n",
-+			 irq_state, readl(i2c->regs + REG_CFG_IRQ_ENABLE));
-+		goto irq_trans_out;
-+	}
-+
-+	if (irq_state & A9_TRANS_ERROR) {
-+		i2c->error = -ENXIO;
-+		goto complete_irq_out;
-+	}
-+
-+	switch (i2c->state) {
-+	case A9_STATE_READ:
-+		buf = i2c->msg->buf;
-+		rd_len = min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
-+		for (i = 0; i < rd_len; i++) {
-+			rd_val = readl(i2c->regs + REG_CFG_RX);
-+			buf[i2c->pos++] = rd_val & TX_RX_DATA;
-+		}
-+		/* Rx must clear thresh after read fifo */
-+		clear_irq_status(i2c, A9_RX_THRESH_READ);
-+		break;
-+	case A9_STATE_WRITE:
-+		aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_HALF);
-+		if (i2c->pos == i2c->msg->len)
-+			aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_TX_THRESH_WRITE, 0);
-+		/* Tx must clear thresh after write fifo */
-+		clear_irq_status(i2c, A9_TX_THRESH_WRITE);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	if (!(irq_state & A9_TRANS_DONE) ||
-+	    (i2c->state == A9_STATE_READ && i2c->pos < i2c->msg->len))
-+		return IRQ_HANDLED;
-+
-+complete_irq_out:
-+	i2c->state = A9_STATE_IDLE;
-+	reset_fifo_pos(i2c);
-+	aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, 0);
-+	complete(&i2c->done);
-+irq_trans_out:
-+	clear_irq_status(i2c, IRQ_ALL_MASK);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static void aml_i2c_do_start(struct aml_i2c *i2c, struct i2c_msg *msg)
-+{
-+	unsigned int reg_val;
-+	unsigned int trans_len;
-+
-+	trans_len = msg->len;
-+	reg_val = (unsigned int)(((msg->addr & 0x7f) << START_SADDR_SHIFT) |
-+				((msg->flags & I2C_M_RD) ? START_READ : 0) |
-+				((trans_len & 0xfff) << START_LEN_SHIFT) | START_START);
-+	aml_i2c_set_mask(i2c, REG_CFG_START,
-+			 START_START | START_SLAVE_ADDR | START_READ | START_LEN, reg_val);
-+	clear_irq_status(i2c, IRQ_ALL_MASK);
-+	/* enable thresh mode */
-+	if (trans_len > A9_I2C_FIFO_DEPTH) {
-+		reg_val = (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH_WRITE;
-+		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
-+				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
-+	}
-+}
-+
-+static int aml_i2c_xfer_msg(struct aml_i2c *i2c, struct i2c_msg *msg, bool last)
-+{
-+	unsigned long time_left;
-+
-+	i2c->msg = msg;
-+	i2c->pos = 0;
-+	i2c->error = 0;
-+
-+	scoped_guard(spinlock_irqsave, &i2c->lock) {
-+		i2c->state = (msg->flags & I2C_M_RD) ? A9_STATE_READ : A9_STATE_WRITE;
-+		aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_FULL);
-+		reinit_completion(&i2c->done);
-+
-+		aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_NO_STOP, (last ? 0 : BUS_NO_STOP));
-+
-+		/* Start the transfer */
-+		aml_i2c_do_start(i2c, msg);
-+	}
-+
-+	time_left = msecs_to_jiffies(I2C_TIMEOUT_MS);
-+	time_left = wait_for_completion_timeout(&i2c->done, time_left);
-+
-+	/*
-+	 * Protect access to i2c struct and registers from interrupt
-+	 * handlers triggered by a transfer terminated after the
-+	 * timeout period
-+	 */
-+
-+	if (!time_left) {
-+		guard(spinlock_irqsave)(&i2c->lock);
-+		i2c->state = A9_STATE_IDLE;
-+		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
-+				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, 0);
-+		clear_irq_status(i2c, IRQ_ALL_MASK);
-+		reset_fifo_pos(i2c);
-+		return -ETIMEDOUT;
-+	}
-+
-+	return i2c->error;
-+}
-+
-+static int aml_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
-+{
-+	struct aml_i2c *i2c = adap->algo_data;
-+	int i, ret = 0;
-+
-+	for (i = 0; i < num; i++) {
-+		ret = aml_i2c_xfer_msg(i2c, msgs + i, i == num - 1);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return i;
-+}
-+
-+static u32 aml_i2c_func(struct i2c_adapter *adap)
-+{
-+	return I2C_FUNC_I2C | (I2C_FUNC_SMBUS_EMUL & ~I2C_FUNC_SMBUS_QUICK);
-+}
-+
-+static const struct i2c_adapter_quirks aml_i2c_quirks = {
-+	.max_read_len = A9_I2C_MAX_XFER_SIZE,
-+	.max_write_len = A9_I2C_MAX_XFER_SIZE,
-+	.flags = I2C_AQ_NO_ZERO_LEN,
-+};
-+
-+static const struct i2c_algorithm aml_i2c_algorithm = {
-+	.xfer	= aml_i2c_xfer,
-+	.functionality	= aml_i2c_func,
-+};
-+
-+static int aml_i2c_probe(struct platform_device *pdev)
-+{
-+	struct device_node *np = pdev->dev.of_node;
-+	struct aml_i2c *i2c;
-+	struct i2c_timings timings;
-+	int irq, ret;
-+
-+	i2c = devm_kzalloc(&pdev->dev, sizeof(struct aml_i2c), GFP_KERNEL);
-+	if (!i2c)
-+		return -ENOMEM;
-+
-+	i2c_parse_fw_timings(&pdev->dev, &timings, true);
-+	i2c->frequency = timings.bus_freq_hz;
-+
-+	i2c->dev = &pdev->dev;
-+	platform_set_drvdata(pdev, i2c);
-+
-+	spin_lock_init(&i2c->lock);
-+	init_completion(&i2c->done);
-+
-+	i2c->regs  = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(i2c->regs))
-+		return PTR_ERR(i2c->regs);
-+
-+	i2c->clk = devm_clk_get_enabled(&pdev->dev, NULL);
-+	if (IS_ERR(i2c->clk))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(i2c->clk), "can't get enable clock\n");
-+
-+	i2c->clk_rate = clk_get_rate(i2c->clk);
-+	if (i2c->clk_rate == 0)
-+		return dev_err_probe(&pdev->dev, -EINVAL, "failed to get clk rate\n");
-+
-+	ret = aml_i2c_init(i2c);
-+	if (ret < 0)
-+		return dev_err_probe(&pdev->dev, ret, "fail init i2c\n");
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return dev_err_probe(&pdev->dev, irq, "can't find IRQ\n");
-+
-+	ret = devm_request_irq(&pdev->dev, irq, aml_i2c_irq, 0, dev_name(&pdev->dev), i2c);
-+	if (ret < 0)
-+		return dev_err_probe(&pdev->dev, ret, "can't request IRQ\n");
-+	/* Enable error & done irq */
-+	writel(A9_ENABLE_IRQ_BIT, i2c->regs + REG_CFG_IRQ_ENABLE);
-+	strscpy(i2c->adap.name, "Amlogic I2C adapter",
-+		sizeof(i2c->adap.name));
-+	i2c->adap.owner = THIS_MODULE;
-+	i2c->adap.algo = &aml_i2c_algorithm;
-+	i2c->adap.quirks = &aml_i2c_quirks;
-+	i2c->adap.dev.parent = &pdev->dev;
-+	i2c->adap.dev.of_node = np;
-+	i2c->adap.algo_data = i2c;
-+
-+	return i2c_add_adapter(&i2c->adap);
-+}
-+
-+static void aml_i2c_remove(struct platform_device *pdev)
-+{
-+	struct aml_i2c *i2c = platform_get_drvdata(pdev);
-+
-+	i2c_del_adapter(&i2c->adap);
-+}
-+
-+static const struct of_device_id aml_i2c_match[] = {
-+	{	.compatible = "amlogic,a9-i2c",},
-+	{ }
-+};
-+
-+MODULE_DEVICE_TABLE(of, aml_i2c_match);
-+
-+static struct platform_driver aml_i2c_driver = {
-+	.probe   = aml_i2c_probe,
-+	.remove  = aml_i2c_remove,
-+	.driver  = {
-+		.name  = "amlogic-i2c",
-+		.of_match_table = aml_i2c_match,
-+	},
-+};
-+
-+module_platform_driver(aml_i2c_driver);
-+
-+MODULE_DESCRIPTION("Amlogic I2C Bus driver");
-+MODULE_AUTHOR("Junyi Zhao <junyi.zhao@amlogic.com>");
-+MODULE_AUTHOR("Xianwei Zhao <xianwei.zhao@amlogic.com>");
-+MODULE_LICENSE("GPL");
-
--- 
-2.52.0
+X-Proofpoint-GUID: yGAooP1sBtzKcmSpAD5m4jERTtha9h1b
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAyOSBTYWx0ZWRfX++gvnTzBjBe8
+ PlmjiACI2TxdN69pBzYKWlmbnMxsVnus7KAAuq/wIl+v7tL0ajtSyIXEANg5tZ2ShyA+gGHfbVl
+ uHh30SUf6DvLvfwfctR7E2ylTJoxWG4=
+X-Proofpoint-ORIG-GUID: yGAooP1sBtzKcmSpAD5m4jERTtha9h1b
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAyOSBTYWx0ZWRfXyhcXM4gMPR3q
+ 4yodry5IdeA06HyY07+zVj4lRd7/ENeuoPJVYSvcCnUUDBPQmabkXmPhaOXOQ9jjNzie6N8U9/j
+ hMxxLZk1fsDpPTK9bmC38k1fp1/3JOywu9MJT3G7b7Zye/DQlSNzxiOfr49/tZKruwyad/n0i5M
+ YDHdCkK8hTm3xKWRNLQCk37Lo7CcPY/cYthrt/NTtELefHnX5d35I+fdt8kWPWIDba2WonRz8pp
+ HnmBmE05sZCj5iDMsWCJT9ZaDk2lEgBZ87wPwcvCdvkO2HhPTv9RO/rK1vsomW/+Pu3+fSjZgvM
+ vJANwdTMCVWEZ5ml2vJITvtontvIZlHrQlwr1ARC5DbgoqCbxO/yZ0W8c7ioifTratRpy8XJL0i
+ 5WlM62Qc97hbK6zImIOXgjBg30nzdHWkOhLq7/cSp5Em49dBIw8lqPXkAWovbMLcfnmIWP5fHsr
+ 1QluPaebbKh9yVfQw/g==
+X-Authority-Analysis: v=2.4 cv=RYIFmFtv c=1 sm=1 tr=0 ts=6afd54d0 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=WK7bwhHvCB5DiU98bBAA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-18_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 priorityscore=1501 phishscore=0 impostorscore=0
+ adultscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180029
 
 
+
+On 11/18/2026 12:01 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [High] wifi: ath12k: runtime mask passed to u32_replace_bits() in
+>    pcic.c
+> --
+> 
+> commit fea0a3bf22c9a4872fcffbf9f6c11d790f370851
+> Author: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+> 
+> wifi: ath12k: refactor PCI window selection to per-device layout
+> 
+> This commit moves PCI and AHB register window masks and addresses into
+> per-device structures so device families with different window layouts can
+> configure their own mappings.
+> 
+>> diff --git a/drivers/net/wireless/ath/ath12k/pcic.c b/drivers/net/wireless/ath/ath12k/pcic.c
+>> index b6d306fd3b99f..c10e21d688303 100644
+>> --- a/drivers/net/wireless/ath/ath12k/pcic.c
+>> +++ b/drivers/net/wireless/ath/ath12k/pcic.c
+> 
+> [ ... ]
+> 
+>> @@ -32,20 +38,21 @@ static int ath12k_pcic_select_static_window(struct ath12k_base *ab, u32 addr)
+>>   	const int max_retries = 10;
+>>   	int i;
+>>   
+>> -	window_bits = u32_get_bits(addr, WINDOW_VALUE_MASK);
+>> +	window_bits = field_get(ab_ahb->reg_base->window_value_mask, addr);
+>>   
+>> -	/* Update window bits [5:0], preserving other bits */
+>> -	new_window = u32_replace_bits(ab_ahb->static_window_reg, window_bits, 0x3f);
+>> +	/* Update the dynamic window bits, preserving the static window configuration */
+>> +	new_window = u32_replace_bits(ab_ahb->static_window_reg, window_bits,
+>> +				      ~ab_ahb->reg_base->window_static_mask);
+> 
+> [Severity: High]
+> Does passing ~ab_ahb->reg_base->window_static_mask to u32_replace_bits()
+> break the build when CONFIG_ATH12K_AHB is enabled?
+> 
+> u32_replace_bits() calls u32_encode_bits() -> field_multiplier(), which
+> requires a compile-time constant mask to eliminate the __compiletime_error
+> call to __bad_mask().  Because ab_ahb->reg_base is a runtime pointer, the
+> mask check cannot be folded at compile time.
+> 
+> Updating new_window with field_prep(~ab_ahb->reg_base->window_static_mask,
+> window_bits) | (ab_ahb->static_window_reg &
+> ab_ahb->reg_base->window_static_mask), or masking static_window_reg
+> directly as in ath12k_pci_select_window(), would avoid u32_replace_bits()
+> on a runtime mask.
+> 
+
+u32_replace_bits() requires a compile-time-constant mask. but 
+window_static_mask is a runtime per-device value, so this fails to 
+build. I will fix it in next version.
