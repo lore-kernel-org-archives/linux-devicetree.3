@@ -1,75 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794997179;
-	b=sihDMtNf57/aJv0lZVU+uceQHsJ+ScCckUykSsd6VjmXzCBJ6vxeAMmv7+XGsRsvHd+0
-	 vXHjhLj4gIifG3UbksTebL2fpd7/htziwseHg87vgWnDyuffxKQAtcaHMEq+pVweRjdW1
-	 OfqVduqGwNGx5fhRL4xIqLAJssn3mzjnJJfjO2u2BjqQEBcVG+k4rg4mNlKiKUrqeQ2xM
-	 S4d0nzbshHrsc43CfkfACFH7UsXAKePumSzLZ17j7eEcoEE6KXZS5liEVvpsRpzBZZ/O3
-	 9MdfdGp2hpn5TOWg037vAxsN4Q2gqZIi+iCyfSvCLVlH+fYco8sA6UMDQIrIDKjIz0A==
+	t=1794997206;
+	b=uDOC1Xpl3tshd6l2QtCiG2TvaQ3tQ3C8FNUay5MJmb25VUnKc0pkNVoTR+GyWmHkHQs7
+	 V/q1qCNPvo/51af1Dxc8ERZCO/cGhr/WygjD4lTrEsA5a34HGT5l/2QHCKgS9rQH3N96I
+	 oJKWuHCtbRPBkoQNkadxpVBCkbRbYRlUBm5GD4eXD4oky9Hn6SJBrE1FRwWodfd/9jzBk
+	 RBZVPlt+JDTBmQGP+jj84wHyjhVtkSgIy+obE+tbDWaR6yFdsU8BAiK50IKzglU7+a2U+
+	 iphVDj91n+3QDVs2OaE2iUalVsJSB1bSKmqheEaYBkq49Njet0bMVT9W/tIBUaV1LHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794997179;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=aIQPF6ydugV2EGXv5JJhtxIj0diRuKvsDMJ8C4tUohY=;
-	b=dbH+hGYEb17LSpUoWe4f1bhviopnJ+KY0esMwm3Kxl/86x1CYpktuXVq+YnymBLdueNX
-	 k74OPGnZXSzU+vlWYkRmO5Yw5S01tXfGxR/QRDNpyRpzhCmbZhE51liPgsFvQgRKj7VAH
-	 Txw8i/u7gNCcNORH+Ue5zxQnJurP1e4PoQH1tWHkw8v7lzSX+gFLqZztW0LeW4U5y4lRb
-	 r/o4Ww7c+f3kS1AMuvl9R7hfVXkc1pHPyCCSmdh/T08XgoGLNoKFxFRok/IDQSskR9mJY
-	 8Lk4obWhX7QeZVSocFAD4N0ARVA7IGYEvePFnBnSzm7De5nI7xfRmbHutYrunWwq4rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794997206;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=JnsQmCXjRdvCfa7rFtMJClu/GumOzSB9b5qlE0ziBHA=;
+	b=OPfepUygW1O3H1UCabNFGwqHhLgF53/0XsnOHdi/9d8+dupbcjed1qaRAprUZ1FVMK72
+	 VCd/cb8orQqcLYKo6QDxoN0ByUU6vjWEGeEkj7kM3jsdqwGMBtb3OvvkoeKGEl5MTB+35
+	 rMPL7Za2DPu91y4RI3tyjOcA/tK+cYA9W1Yiycrrv48rnBEE7ymJy0QycWASKQVKBeil1
+	 dF2gUUCUCJWgmwbQbazaVPK5k/9uWvK+M2c18cAWnusavoeJMr5ni24EN4vExHYawf//A
+	 Mm61N3+RIG+3CZF4GhgpiGOb4MwgdMMeA7LPrf+pWiaDgG27uJVmx3t5KLIZbnQghjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--amitamishra.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kGuSBzQP;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOkxgQz+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F53606A332
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:19:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65F53606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--amitamishra.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFBE606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:20:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kGuSBzQP
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8b7cc3f8a4aso660751b3a.3
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 02:19:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794997179; x=1795601979; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aIQPF6ydugV2EGXv5JJhtxIj0diRuKvsDMJ8C4tUohY=;
-        b=kGuSBzQPqR73UQ+SGKRjOX8oLuG9EwlBHQKV3g/DHqgxGEVHyZe/3ykcj7rzU0X0A4
-         boNxg91EUULSLh50irY1L+CuXQXukUWrppioiaSh/Ien7bCXwdYNa7QZW1u6ox2iKnDf
-         gfdylC0bzajYQF4uaufCQcVl66sKKt0tFYLIBpN9Ne0UiVqFDXXTO4VmeQCyVTT3+joS
-         fxVMul2295AjOiXonOrvQX6ku5HI631yzDCKBAXc5uvAtDOxkYmj+KqqlL02kUuVTT0f
-         nHvLxMbdNfhuYC9OIGng2L7S76T628NcsmrysB6Ge8ZsdY4k3P5+xVuIHxNiRtS0QX+C
-         //kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794997179; x=1795601979;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aIQPF6ydugV2EGXv5JJhtxIj0diRuKvsDMJ8C4tUohY=;
-        b=ljSmelQdTD9Wb6ETWOVUvSSuC1/J+utn+Gg0fIAti45Xe+XD8Nfa+rufbeOuEBonrB
-         94Fta2+qpYEPZ1WsxBrxhumyNZFcJZPCBsftP5IFewj+WdAty2VjmOl//JzdQimS4IwA
-         gb4lV5PGrd/TVNXP/j+Q2m4QQvjxOqkeC7/ujADwh54eamqNP3+A3NN18WRkcwOrXSSy
-         prUTw2AdQvbuXQjF4qHISJqU/lxnHgM15BBoBzMJWwh/wpRWPMnrk4SNH7hnTERaooLJ
-         MX6ebizqAdA3bhHEXnvnicKNTxwHH5fY3ef7Pn6SIIDVVLLQ64yfmtFEY3OI2UtCfwjT
-         PSwg==
-X-Forwarded-Encrypted: i=1; AL+hErH4B864HVCKxPCUnJpsIu54wshxDW7uwLLlJFdAv5NF92TXdkr4CoUFsYYt345cpyCI2Ox0BdV/JVVc@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XLjRZF8a0SvTytpxvr7sY3e5VGq4pHIg1r+xA4PL6XhTbRZ7h
-	VubDk1oXC/KofKqLV/bMqkYHyZ0G/THfuYMvC7Td1iCM3DCt+AFBaiwVubkbRwGU4/uOleSMfQ1
-	PSdXgwUJb+gPoznMoADUeYJvqpQ==
-X-Received: from pffm11-n1.prod.google.com ([2002:a05:6a00:c30b:10b0:8c5:614:d2c8])
- (user=amitamishra job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:f08:b0:899:465d:c8ef with SMTP id d2e1a72fcca58-8c5d268fcfamr1976341b3a.14.1794997178562;
- Wed, 18 Nov 2026 02:19:38 -0800 (PST)
-Date: Wed, 18 Nov 2026 10:19:13 +0000
-In-Reply-To: <20261118101913.3135869-1-amitamishra@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOkxgQz+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AF201F000C6;
+	Wed, 18 Nov 2026 10:20:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794997205;
+	bh=JnsQmCXjRdvCfa7rFtMJClu/GumOzSB9b5qlE0ziBHA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DOkxgQz+JPegfqu3sirjOmlV2+as8VLnUcmyRcgOm4CXt5YEQj4Nc5XoxTL9xGnnv
+	 YyStur6uB9erivrqnaW3AqbP3xoTvpvSlUb2HySJBQw37utjj4xnWp6RTHyOjq7ens
+	 KW06u74VURVhTn/E1SvTuRYdeylAsNqYAeQggzN54gRIo3Fhs4Nu5+kYwBCI6qFSaZ
+	 GCnTU1MTej7z7CA34HOXUXDRCXQ07eZ0TzLTg0rJMZ3+WQWlbxAjDaR6IP+P3usCaX
+	 BsF/dSfDj1i+Iu9QjidxMdjXHgBlrDlxsvmQ6O3bAEKYunF7+ZlirI/TpcEZGDnopF
+	 5YKQeKfOTNy/g==
+Message-ID: <sashiko-outbox-220673@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 2/2] i2c: amlogic: Add Amlogic A9 I2C controller
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261118-a9-i2c-v12-2-fc83c53121e6@amlogic.com>
+References: <20261118-a9-i2c-v12-0-fc83c53121e6@amlogic.com>
+ <20261118-a9-i2c-v12-2-fc83c53121e6@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 10:20:04 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,301 +60,191 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261118101913.3135869-1-amitamishra@google.com>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261118101913.3135869-3-amitamishra@google.com>
-Subject: [PATCH 2/2] perf/smmuv3: Add runtime PM support
-From: Amita Mishra <amitamishra@google.com>
-To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	amitamishra@google.com
-Content-Type: text/plain; charset="UTF-8"
 
-On SoCs where an SMMUv3 PMCG resides in a switchable power domain,
-probing the PMCG attaches and powers on the domain, but without runtime
-PM support the domain remains permanently powered on even when no perf
-events are active.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] i2c: amlogic-a9: transfer started before IRQ setup in
+  aml_i2c_do_start()
+- [Medium] i2c: amlogic-a9: stale irq_state and edge IRQ miss in
+  aml_i2c_irq()
+--
 
-Add runtime PM support for PMCG devices attached to a PM domain:
-- Enable runtime PM while holding a reference before setting up the IRQ
-  and registering the PMU, then drop the reference once probe completes
-  so an idle PMCG can suspend.
-- Resume and hold a runtime PM reference in smmu_pmu_event_init() for
-  each active event and release it in event->destroy().
-- Register runtime PM callbacks to disable the PMU on suspend and reset
-  it on resume.
-- Guard smmu_pmu_enable(), smmu_pmu_disable(), and smmu_pmu_handle_irq()
-  with smmu_pmu_in_use() because perf_ctx_enable()/perf_ctx_disable()
-  and shared or late IRQs can still run after the last event is removed
-  and the PMCG is powered off. Keep unconditional register disable in
-  __smmu_pmu_disable() for reset, runtime suspend, and active shutdown.
+commit ce6e05692c16fd50e5f34df38eaf42209813110e
+Author: Junyi Zhao <junyi.zhao@amlogic.com>
 
-Signed-off-by: Amita Mishra <amitamishra@google.com>
----
- drivers/perf/arm_smmuv3_pmu.c | 134 +++++++++++++++++++++++++++++-----
- 1 file changed, 115 insertions(+), 19 deletions(-)
+i2c: amlogic: Add Amlogic A9 I2C controller driver
 
-diff --git a/drivers/perf/arm_smmuv3_pmu.c b/drivers/perf/arm_smmuv3_pmu.c
-index 97440b6233c6..e9da99b4a086 100644
---- a/drivers/perf/arm_smmuv3_pmu.c
-+++ b/drivers/perf/arm_smmuv3_pmu.c
-@@ -50,6 +50,7 @@
- #include <linux/of.h>
- #include <linux/perf_event.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/smp.h>
- #include <linux/sysfs.h>
- #include <linux/types.h>
-@@ -151,15 +152,33 @@ SMMU_PMU_EVENT_ATTR_EXTRACTOR(filter_stream_id, config1, 0, 31);
- SMMU_PMU_EVENT_ATTR_EXTRACTOR(filter_span, config1, 32, 32);
- SMMU_PMU_EVENT_ATTR_EXTRACTOR(filter_enable, config1, 33, 33);
- 
--static inline void smmu_pmu_enable(struct pmu *pmu)
-+static inline void __smmu_pmu_enable(struct smmu_pmu *smmu_pmu)
- {
--	struct smmu_pmu *smmu_pmu = to_smmu_pmu(pmu);
--
- 	writel(SMMU_PMCG_IRQ_CTRL_IRQEN,
- 	       smmu_pmu->reg_base + SMMU_PMCG_IRQ_CTRL);
- 	writel(SMMU_PMCG_CR_ENABLE, smmu_pmu->reg_base + SMMU_PMCG_CR);
- }
- 
-+/*
-+ * perf keeps calling ->pmu_enable()/->pmu_disable() for a PMU in a CPU context
-+ * after its last event there is gone, and a shared or late interrupt can call
-+ * the IRQ handler. Without counters in use, no event holds a runtime PM
-+ * reference and the PMCG may be powered off, so its registers must not be
-+ * touched. used_counters only changes in ->add()/->del() on the event's CPU.
-+ */
-+static inline bool smmu_pmu_in_use(struct smmu_pmu *smmu_pmu)
-+{
-+	return !bitmap_empty(smmu_pmu->used_counters, smmu_pmu->num_counters);
-+}
-+
-+static inline void smmu_pmu_enable(struct pmu *pmu)
-+{
-+	struct smmu_pmu *smmu_pmu = to_smmu_pmu(pmu);
-+
-+	if (smmu_pmu_in_use(smmu_pmu))
-+		__smmu_pmu_enable(smmu_pmu);
-+}
-+
- static int smmu_pmu_apply_event_filter(struct smmu_pmu *smmu_pmu,
- 				       struct perf_event *event, int idx);
- 
-@@ -174,12 +193,18 @@ static inline void smmu_pmu_enable_quirk_hip08_09(struct pmu *pmu)
- 	smmu_pmu_enable(pmu);
- }
- 
-+static inline void __smmu_pmu_disable(struct smmu_pmu *smmu_pmu)
-+{
-+	writel(0, smmu_pmu->reg_base + SMMU_PMCG_CR);
-+	writel(0, smmu_pmu->reg_base + SMMU_PMCG_IRQ_CTRL);
-+}
-+
- static inline void smmu_pmu_disable(struct pmu *pmu)
- {
- 	struct smmu_pmu *smmu_pmu = to_smmu_pmu(pmu);
- 
--	writel(0, smmu_pmu->reg_base + SMMU_PMCG_CR);
--	writel(0, smmu_pmu->reg_base + SMMU_PMCG_IRQ_CTRL);
-+	if (smmu_pmu_in_use(smmu_pmu))
-+		__smmu_pmu_disable(smmu_pmu);
- }
- 
- static inline void smmu_pmu_disable_quirk_hip08_09(struct pmu *pmu)
-@@ -392,6 +417,14 @@ static bool smmu_pmu_events_compatible(struct perf_event *curr,
-  * the core perf events code.
-  */
- 
-+static void smmu_pmu_event_destroy(struct perf_event *event)
-+{
-+	struct smmu_pmu *smmu_pmu = to_smmu_pmu(event->pmu);
-+
-+	/* Only set when smmu_pmu_event_init() took a reference. */
-+	pm_runtime_put(smmu_pmu->dev);
-+}
-+
- static int smmu_pmu_event_init(struct perf_event *event)
- {
- 	struct hw_perf_event *hwc = &event->hw;
-@@ -439,18 +472,26 @@ static int smmu_pmu_event_init(struct perf_event *event)
- 
- 	hwc->idx = -1;
- 
--	if (event->group_leader == event)
--		return 0;
-+	if (event->group_leader != event) {
-+		for_each_sibling_event(sibling, event->group_leader) {
-+			if (is_software_event(sibling))
-+				continue;
- 
--	for_each_sibling_event(sibling, event->group_leader) {
--		if (is_software_event(sibling))
--			continue;
-+			if (!smmu_pmu_events_compatible(sibling, event))
-+				return -EINVAL;
- 
--		if (!smmu_pmu_events_compatible(sibling, event))
--			return -EINVAL;
-+			if (++group_num_events > smmu_pmu->num_counters)
-+				return -EINVAL;
-+		}
-+	}
- 
--		if (++group_num_events > smmu_pmu->num_counters)
--			return -EINVAL;
-+	/* The same condition smmu_pmu_probe() enables runtime PM on. */
-+	if (dev->pm_domain) {
-+		int ret = pm_runtime_resume_and_get(dev);
-+
-+		if (ret < 0)
-+			return ret;
-+		event->destroy = smmu_pmu_event_destroy;
- 	}
- 
- 	return 0;
-@@ -692,6 +733,9 @@ static irqreturn_t smmu_pmu_handle_irq(int irq_num, void *data)
- 	u64 ovsr;
- 	unsigned int idx;
- 
-+	if (!smmu_pmu_in_use(smmu_pmu))
-+		return IRQ_NONE;
-+
- 	ovsr = readq(smmu_pmu->reloc_base + SMMU_PMCG_OVSSET0);
- 	if (!ovsr)
- 		return IRQ_NONE;
-@@ -779,7 +823,7 @@ static void smmu_pmu_reset(struct smmu_pmu *smmu_pmu)
- {
- 	u64 counter_present_mask = GENMASK_ULL(smmu_pmu->num_counters - 1, 0);
- 
--	smmu_pmu_disable(&smmu_pmu->pmu);
-+	__smmu_pmu_disable(smmu_pmu);
- 
- 	/* Disable counter and interrupt */
- 	writeq_relaxed(counter_present_mask,
-@@ -910,10 +954,21 @@ static int smmu_pmu_probe(struct platform_device *pdev)
- 
- 	smmu_pmu_reset(smmu_pmu);
- 
-+	/*
-+	 * Runtime PM must be enabled before the IRQ handler and the PMU go
-+	 * live: from then on ->event_init() takes a reference for each event.
-+	 * Hold one until probe is done.
-+	 */
-+	if (dev->pm_domain) {
-+		pm_runtime_get_noresume(dev);
-+		pm_runtime_set_active(dev);
-+		pm_runtime_enable(dev);
-+	}
-+
- 	err = smmu_pmu_setup_irq(smmu_pmu);
- 	if (err) {
- 		dev_err(dev, "Setup irq failed, PMU @%pa\n", &res_0->start);
--		return err;
-+		goto out_rpm;
- 	}
- 
- 	smmu_pmu_get_iidr(smmu_pmu);
-@@ -922,7 +977,8 @@ static int smmu_pmu_probe(struct platform_device *pdev)
- 			      (res_0->start) >> SMMU_PMCG_PA_SHIFT);
- 	if (!name) {
- 		dev_err(dev, "Create name failed, PMU @%pa\n", &res_0->start);
--		return -EINVAL;
-+		err = -EINVAL;
-+		goto out_rpm;
- 	}
- 
- 	if (!dev->of_node)
-@@ -947,7 +1003,7 @@ static int smmu_pmu_probe(struct platform_device *pdev)
- 	if (err) {
- 		dev_err(dev, "Error %d registering hotplug, PMU @%pa\n",
- 			err, &res_0->start);
--		return err;
-+		goto out_rpm;
- 	}
- 
- 	err = perf_pmu_register(&smmu_pmu->pmu, name, -1);
-@@ -962,10 +1018,19 @@ static int smmu_pmu_probe(struct platform_device *pdev)
- 		 smmu_pmu->global_filter ? "Global(Counter0)" :
- 		 "Individual");
- 
-+	if (dev->pm_domain)
-+		pm_runtime_put_sync(dev);
-+
- 	return 0;
- 
- out_unregister:
- 	cpuhp_state_remove_instance_nocalls(cpuhp_state_num, &smmu_pmu->node);
-+out_rpm:
-+	if (dev->pm_domain) {
-+		pm_runtime_disable(dev);
-+		pm_runtime_set_suspended(dev);
-+		pm_runtime_put_noidle(dev);
-+	}
- 	return err;
- }
- 
-@@ -975,15 +1040,45 @@ static void smmu_pmu_remove(struct platform_device *pdev)
- 
- 	perf_pmu_unregister(&smmu_pmu->pmu);
- 	cpuhp_state_remove_instance_nocalls(cpuhp_state_num, &smmu_pmu->node);
-+	if (pdev->dev.pm_domain)
-+		pm_runtime_disable(&pdev->dev);
- }
- 
- static void smmu_pmu_shutdown(struct platform_device *pdev)
- {
- 	struct smmu_pmu *smmu_pmu = platform_get_drvdata(pdev);
- 
--	smmu_pmu_disable(&smmu_pmu->pmu);
-+	if (pdev->dev.pm_domain) {
-+		if (pm_runtime_get_if_active(&pdev->dev) <= 0)
-+			return;
-+		__smmu_pmu_disable(smmu_pmu);
-+		pm_runtime_put(&pdev->dev);
-+		return;
-+	}
-+
-+	__smmu_pmu_disable(smmu_pmu);
-+}
-+
-+static int smmu_pmu_runtime_suspend(struct device *dev)
-+{
-+	struct smmu_pmu *smmu_pmu = dev_get_drvdata(dev);
-+
-+	__smmu_pmu_disable(smmu_pmu);
-+	return 0;
- }
- 
-+static int smmu_pmu_runtime_resume(struct device *dev)
-+{
-+	struct smmu_pmu *smmu_pmu = dev_get_drvdata(dev);
-+
-+	smmu_pmu_reset(smmu_pmu);
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops smmu_pmu_pm_ops = {
-+	RUNTIME_PM_OPS(smmu_pmu_runtime_suspend, smmu_pmu_runtime_resume, NULL)
-+};
-+
- #ifdef CONFIG_OF
- static const struct of_device_id smmu_pmu_of_match[] = {
- 	{ .compatible = "arm,smmu-v3-pmcg" },
-@@ -996,6 +1091,7 @@ static struct platform_driver smmu_pmu_driver = {
- 	.driver = {
- 		.name = "arm-smmu-v3-pmcg",
- 		.of_match_table = of_match_ptr(smmu_pmu_of_match),
-+		.pm = pm_ptr(&smmu_pmu_pm_ops),
- 		.suppress_bind_attrs = true,
- 	},
- 	.probe = smmu_pmu_probe,
--- 
-2.56.1.703.gf848ed807c-goog
+This commit adds the I2C controller driver for Amlogic A9 SoCs along with i=
+ts
+Kconfig, Makefile, and MAINTAINERS entries.
 
+> diff --git a/drivers/i2c/busses/i2c-amlogic-a9.c b/drivers/i2c/busses/i2c=
+-amlogic-a9.c
+> new file mode 100644
+> index 0000000000000..d25bd50e78f6d
+> --- /dev/null
+> +++ b/drivers/i2c/busses/i2c-amlogic-a9.c
+[ ... ]
+> +static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
+> +{
+> +	struct aml_i2c *i2c =3D dev_id;
+> +	u8 *buf =3D NULL;
+> +	u32 rd_len, i;
+> +	u32 rd_val;
+> +	u32 irq_state;
+> +
+> +	guard(spinlock)(&i2c->lock);
+> +	irq_state =3D readl(i2c->regs + REG_CFG_IRQ_STATE);
+> +	if (i2c->state =3D=3D A9_STATE_IDLE) {
+> +		dev_warn(i2c->dev, "i2c irq triggered abnormally, irq_state:0x%x,irq_e=
+n:0x%x\n",
+> +			 irq_state, readl(i2c->regs + REG_CFG_IRQ_ENABLE));
+> +		goto irq_trans_out;
+> +	}
+> +
+> +	if (irq_state & A9_TRANS_ERROR) {
+> +		i2c->error =3D -ENXIO;
+> +		goto complete_irq_out;
+> +	}
+> +
+> +	switch (i2c->state) {
+> +	case A9_STATE_READ:
+> +		buf =3D i2c->msg->buf;
+> +		rd_len =3D min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
+> +		for (i =3D 0; i < rd_len; i++) {
+> +			rd_val =3D readl(i2c->regs + REG_CFG_RX);
+> +			buf[i2c->pos++] =3D rd_val & TX_RX_DATA;
+> +		}
+> +		/* Rx must clear thresh after read fifo */
+> +		clear_irq_status(i2c, A9_RX_THRESH_READ);
+> +		break;
+> +	case A9_STATE_WRITE:
+> +		aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_HALF);
+> +		if (i2c->pos =3D=3D i2c->msg->len)
+> +			aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_TX_THRESH_WRITE, 0);
+> +		/* Tx must clear thresh after write fifo */
+> +		clear_irq_status(i2c, A9_TX_THRESH_WRITE);
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	if (!(irq_state & A9_TRANS_DONE) ||
+> +	    (i2c->state =3D=3D A9_STATE_READ && i2c->pos < i2c->msg->len))
+> +		return IRQ_HANDLED;
+
+[Severity: Medium]
+Can aml_i2c_irq() miss A9_TRANS_DONE on multi-chunk transfers and cause
+wait_for_completion_timeout() to time out?
+
+The binding specifies a rising-edge interrupt (IRQ_TYPE_EDGE_RISING), which
+requires (REG_CFG_IRQ_STATE & REG_CFG_IRQ_ENABLE) to drop to 0 and transiti=
+on
+back to 1 to latch a new interrupt in the GIC:
+
+Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml:
+    ...
+        interrupts =3D <0 164 1>;
+    ...
+
+On a multi-chunk read whose length is a multiple of A9_I2C_FIFO_DEPTH (32),
+such as 64 bytes, A9_RX_THRESH_READ remains enabled for the final 32-byte
+chunk and fires as soon as the 32nd byte enters the RX FIFO, before the fin=
+al
+NACK and STOP finish on the bus:
+
+CPU0                              I2C HW
+aml_i2c_irq()
+  irq_state =3D readl(REG_CFG_IRQ_STATE)
+  /* A9_RX_THRESH_READ only */
+  read 32 bytes from REG_CFG_RX
+                                  STOP finishes:
+                                  REG_CFG_IRQ_STATE |=3D A9_PHY_DONE
+  clear_irq_status(A9_RX_THRESH_READ)
+  /* A9_PHY_DONE keeps IRQ line high; no new rising edge */
+  !(irq_state & A9_TRANS_DONE)
+    return IRQ_HANDLED            <-- completion missed, hangs 500 ms
+
+Because irq_state is not re-read after draining or filling the FIFO, the sa=
+me
+miss happens if A9_PHY_DONE or A9_NCK_ERROR asserts while A9_STATE_WRITE is
+filling REG_CFG_TX before clear_irq_status(i2c, A9_TX_THRESH_WRITE).
+
+Similarly, if both A9_RX_THRESH_READ and A9_PHY_DONE are already set in
+irq_state when more than 32 bytes remain to be read, aml_i2c_irq() reads on=
+ly
+32 bytes, clears only A9_RX_THRESH_READ, and returns early because
+i2c->pos < i2c->msg->len, leaving A9_PHY_DONE continuously asserted with no
+further rising edge to read the remaining bytes or complete the transfer.
+
+> +
+> +complete_irq_out:
+> +	i2c->state =3D A9_STATE_IDLE;
+> +	reset_fifo_pos(i2c);
+> +	aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_RX_THRESH_READ | A9_TX_THR=
+ESH_WRITE, 0);
+> +	complete(&i2c->done);
+> +irq_trans_out:
+> +	clear_irq_status(i2c, IRQ_ALL_MASK);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void aml_i2c_do_start(struct aml_i2c *i2c, struct i2c_msg *msg)
+> +{
+> +	unsigned int reg_val;
+> +	unsigned int trans_len;
+> +
+> +	trans_len =3D msg->len;
+> +	reg_val =3D (unsigned int)(((msg->addr & 0x7f) << START_SADDR_SHIFT) |
+> +				((msg->flags & I2C_M_RD) ? START_READ : 0) |
+> +				((trans_len & 0xfff) << START_LEN_SHIFT) | START_START);
+> +	aml_i2c_set_mask(i2c, REG_CFG_START,
+> +			 START_START | START_SLAVE_ADDR | START_READ | START_LEN, reg_val);
+> +	clear_irq_status(i2c, IRQ_ALL_MASK);
+> +	/* enable thresh mode */
+> +	if (trans_len > A9_I2C_FIFO_DEPTH) {
+> +		reg_val =3D (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH=
+_WRITE;
+> +		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
+> +				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
+> +	}
+> +}
+
+[Severity: Medium]
+Can clear_irq_status(i2c, IRQ_ALL_MASK) wipe out interrupt status bits for
+the transfer that was just started by writing START_START to REG_CFG_START?
+
+CPU0                              I2C HW
+aml_i2c_xfer_msg()
+  aml_i2c_do_start()
+    writel(..., REG_CFG_START)
+                                  address NACK or fast transfer finishes:
+                                  REG_CFG_IRQ_STATE |=3D A9_NCK_ERROR
+                                  GIC latches rising-edge IRQ
+    clear_irq_status(IRQ_ALL_MASK)
+  spin_unlock_irqrestore()
+aml_i2c_irq()
+  irq_state =3D readl(REG_CFG_IRQ_STATE) /* 0 */
+  switch (i2c->state)
+    /* reads empty RX FIFO or writes extra TX FIFO bytes */
+  !(irq_state & A9_TRANS_DONE)
+    return IRQ_HANDLED            <-- never completes, times out
+
+If the CPU is delayed between writing REG_CFG_START and clearing
+REG_CFG_IRQ_STATE (for example under CONFIG_PREEMPT_RT where spinlock_t is
+preemptible, or on a vCPU), clearing IRQ_ALL_MASK after asserting START_STA=
+RT
+discards the newly asserted status bits.  When aml_i2c_irq() runs for the
+already-latched edge interrupt, it sees irq_state =3D=3D 0, misses A9_TRANS=
+_ERROR,
+unconditionally accesses the FIFO in the switch (i2c->state) block, and
+returns without completing i2c->done.
+
+Clearing REG_CFG_IRQ_STATE and enabling the threshold interrupts in
+REG_CFG_IRQ_ENABLE before asserting START_START in REG_CFG_START would avoid
+this race.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-a9-i2c-v12=
+-0-fc83c53121e6@amlogic.com?part=3D2
