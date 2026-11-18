@@ -1,65 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794993241;
-	b=XtOrm100FhrDjqjKXpRDVur/++eHYYwDU8Wuu/O6J1JP1Ym0cidRYD3gH+QXrLTrCvOT
-	 BkWnSVa3cb0z83NYcMbo2UyOFODQ1C89whN0pPi6n+tJFkgZFy4MRqKlJXZ1ZWSfqi6IA
-	 FwFTDIJPaotWhc02bXROKi411AguTlWq3g4utRqtp1oHGunf/VZ45Nv4GkEPumCk+YY5u
-	 szgztjUlF4A+AYsbn8ErwHNNwzqwvUJWxnY55mrTjX0Q16z9S8zACGoDqfosPKarB7+3z
-	 C94ep+sqxFRMZGyA4f8lzdhCZwJQK9G0pBCnhp3JST+RZSRiFL/p0cIKk3P20tzIblA==
+	t=1794993497;
+	b=GMkGhAi6I6E/ffKuMolRw7185Nfwff0IKXfVtVPe+Yj63Bpy34bzsahHvixuxxWZXaAw
+	 olzAHWYRAakSSRInetWiTceOB3d2S9TwwRG0ebHysGjFzJlCiVjzfUDT5n+sAoxtN7bWj
+	 tFx5O/Ocu5fERA+amQYm+u9BET1YtEs/9zWTSP7il3G874MhH4OBfWrSXlWz1hCO4J7fF
+	 67921K+X2Sc6jlN8upGO0a4nCj9Gus92+MywLTpCAhJ5uXzIk5Rt0+e9iTfWCY/k+D7Fq
+	 aKJvUEHt9PjCFdY32lsOteXxWea6tP3Biw7Nk6NGidHXJH2VtaXGnuM5h1DVQ1+V7sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794993241;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=1Mj/7zNTFxvoo0YnADhIrDpQzE4e1mgOjutHuCj90zM=;
-	b=BptG5MOkiQX8RYQWtne+jd9+Q/SuFu+QV+St4gq2e2i5OWWQ3E9+yayDHaKQN5f4VfNk
-	 ScTENpps1dBxkiJk2euvdw+rUcbmARj+N1WhnPxUCNJEG8HmpKDXDmGOiH4TnuxA0s+yN
-	 JELeMR+847w8RH3v/3zKSgwzcFwesFAVf/S/Qb/YykqmIQfBV/VJhMY0hJJ69sPPSa4Ox
-	 J81zgnrWAhgtLSr5Am4JUn98osEPHbo7imv9IXb8Ip3ZQaNYznGGHml4u6Ux5dHpzJ2pr
-	 fyKciN/N0cWPXwWptK3d2Lr57s20aDUdkQQxBD6HjCWlj68SCRvSmtUn/xGOBUuJRzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794993497;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Vafyfr2jluO3rup5Bc7ra9IowMgBRMg/Oeq1u+WFKSM=;
+	b=Ro6xN6wUdSN24yF/6K8LO4PIhE0jdPMd+p74f+T0t53Enu5owwOKxz2YqxR1yah8TW8Y
+	 /kWY5Jixt0/9/UclmBmsDF1GxFotWnudbHzKj/HtEMKh0CnVsiQAiyvDayUWJdYP85X6E
+	 9MzOUvd1f3gXFCmaZ4C/Pjox1gN47wlm6/nTQB/NITdjCowt9L4hFSHR+O5ZWA8a0RzOj
+	 JDWiFXc6LIydzieNfnukAYOVFtn3gu2Usl+Jp8hc3vgv65RXbPiT5sdrFb2+qaaQWT5Gp
+	 q369NVtIPiip3EUtUHATp7gKu4GR5G2RP9qlRyBao1KCgIYqhNzHX2cUM77WztFViaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=oA37q7RK;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y47gHwDn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38CAF606A31C;
-	Wed, 18 Nov 2026 09:13:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38CAF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E31D606A32A
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:18:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=oA37q7RK
-Received: from francesco-nb (93-38-173-255.ip71.fastwebnet.it [93.38.173.255])
-	by mail11.truemail.it (Postfix) with ESMTPA id C841A1FB3F;
-	Wed, 18 Nov 2026 10:13:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794993236;
-	bh=1Mj/7zNTFxvoo0YnADhIrDpQzE4e1mgOjutHuCj90zM=; h=From:To:Subject;
-	b=oA37q7RKSzbZUDsZ4P4vc1g/8RuFjYJGzYdlZK7kKB4Ii+UXppDWqV40OmEqk9lr3
-	 vw/nFFOfLGJQzf2guxqLNOvDWLiHaDAA1okMAL062eG9Fn1tpB3DtsC3s8iWcAiC9K
-	 8/Cd360XxMCEtFqBM7ODnlcS4/pOH/YLz6bM7JWILQrkWjUSnWCLrULkWZSKfZjpRC
-	 07n7PHWYie0II1fhplVPwyiNK/ZM32je0lX/RjO0QG2NcxpHDoR6z6kNvTHmtfh3zm
-	 LdnnX5Qdy5lrWMR4l1L07jzNYs1EzuOsZhlrLD8WxK11JnFYHXKHQSgA/s7bvcpcPR
-	 gm3OycSQdzKcA==
-Date: Wed, 18 Nov 2026 10:13:50 +0100
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Vitor Soares <ivitro@gmail.com>
-Cc: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vitor Soares <vitor.soares@toradex.com>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: ti: k3-am69-aquila: Add ath12k
- calibration variant
-Message-ID: <20261118091350.GA133044@francesco-nb>
-References: <20261117174154.549590-4-ivitro@gmail.com>
- <20261117174154.549590-6-ivitro@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y47gHwDn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 958211F000C4;
+	Wed, 18 Nov 2026 09:18:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794993496;
+	bh=Vafyfr2jluO3rup5Bc7ra9IowMgBRMg/Oeq1u+WFKSM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Y47gHwDndWLbgZmHbqBS0YEAMe/pBbgTo1UBLaJ8Xwcxjxtw6ypK4srIHX69KfIVT
+	 8Y6wNYTVfMCPiTVFpYPQbTM3hKwPDCla45NjfCQseWN7heAf5C/cfwil81nDo58idw
+	 DLwWfOAWSktMzn8fBxe56Pk6S3o4f/8bfuPYuAEFbMRwzMlrIv89NJTjJfBwncBHzE
+	 bIF3KYHqKIohDw0GQwv94W2FFjEVyiFIlbuBo/HxdTZ7Dxhwrfls3aXDQIwHQtedsR
+	 +1Ao/oE2bNa5M4tqkbmesH1VQQBMa74yk2ljwzxt/W7IM2l+eGDRy7o1aPZYcB5RGE
+	 8pnXe8fYwo/Rg==
+Message-ID: <sashiko-outbox-220540@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/9] dt-bindings: bus: Add SpacemiT K3 eSPI controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wang Yang" <yang.wang@deepcomputing.io>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261118085742.1817536-2-yang.wang@deepcomputing.io>
+References: <20261118085742.1817536-1-yang.wang@deepcomputing.io>
+ <20261118085742.1817536-2-yang.wang@deepcomputing.io>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 09:18:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,24 +59,108 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117174154.549590-6-ivitro@gmail.com>
 
-On Tue, Nov 17, 2026 at 05:41:56PM +0000, Vitor Soares wrote:
-> From: Vitor Soares <vitor.soares@toradex.com>
-> 
-> The Aquila AM69 has a Silex SX-PCEBE Wi-Fi module (WCN7850). The
-> module reports the same PCI and QMI IDs as other WCN7850 designs,
-> and its board data also comes in variants for different regulatory
-> domains (US/EU/JP, UK/CA low and high). The IDs alone therefore
-> cannot identify the right board data.
-> 
-> Describe the Wi-Fi device behind the PCIE3 root port and set
-> qcom,calibration-variant to the US/EU/JP board data.
-> 
-> Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: bus: spacemit,k3-espi: unprefixed vendor properties
+  and MHz units
+--
 
-Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+commit d42a1666765549829c0c9df0a5e923d2f92c4eb4
+Author: Wang Yang <yang.wang@deepcomputing.io>
 
+dt-bindings: bus: Add SpacemiT K3 eSPI controller
+
+This commit adds the Devicetree binding schema for the SpacemiT K3 eSPI
+controller, describing its peripheral memory translation window, clocks,
+resets, and link configuration properties.
+
+> diff --git a/Documentation/devicetree/bindings/bus/spacemit,k3-espi.yaml =
+b/Documentation/devicetree/bindings/bus/spacemit,k3-espi.yaml
+> new file mode 100644
+> index 0000000000000..30985ee0a61a1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/bus/spacemit,k3-espi.yaml
+> @@ -0,0 +1,146 @@
+
+[ ... ]
+
+> +  pr-mem-base0:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: First peripheral memory translation base.
+> +
+> +  pr-mem-base1:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Second peripheral memory translation base.
+> +
+> +  operating-frequency:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Requested link clock frequency in MHz.
+> +    enum: [20, 25, 33, 50, 66]
+> +    default: 20
+> +
+> +  io-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: Requested number of eSPI data lines.
+> +    enum: [single, dual, quad]
+> +    default: single
+> +
+> +  alert-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: Use the shared IO1 line or the dedicated alert pin.
+> +    enum: [io1, pin]
+> +    default: io1
+> +
+> +  alert-type:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: Electrical mode of the dedicated alert pin.
+> +    enum: [open-drain, push-pull]
+> +    default: open-drain
+> +
+> +  watchdog-timeout:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Controller watchdog counter value.
+> +    maximum: 65535
+> +    default: 65535
+> +
+> +  crc-enable:
+> +    type: boolean
+> +    description: Enable link CRC checking.
+> +
+> +  auto-gating-enable:
+> +    type: boolean
+> +    description: Enable automatic controller clock gating.
+> +
+> +  peripheral-channel-enable:
+> +    type: boolean
+> +    description: Enable the peripheral channel.
+> +
+> +  vwire-channel-enable:
+> +    type: boolean
+> +    description: Enable the virtual-wire channel.
+> +
+> +  oob-channel-enable:
+> +    type: boolean
+> +    description: Enable the out-of-band channel.
+> +
+> +  flash-channel-enable:
+> +    type: boolean
+> +    description: Enable the flash access channel.
+
+[Severity: Low]
+Should these controller-specific properties use the spacemit, vendor
+prefix or standard Devicetree properties and unit suffixes?
+
+Defining pr-mem-base0 through flash-channel-enable without a vendor prefix
+puts 13 device-specific property names into the global DT property
+namespace, contrary to Documentation/devicetree/bindings/writing-bindings.r=
+st.
+In addition, operating-frequency uses bare MHz numbers instead of a
+standard frequency property in Hz (such as max-frequency or a -hz suffix),
+and pr-mem-base0 and pr-mem-base1 encode raw peripheral memory base
+addresses that duplicate the address translation already described by
+ranges.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118085742.1817=
+536-1-yang.wang@deepcomputing.io?part=3D1
