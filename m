@@ -1,112 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.52.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794973655;
-	b=fKuq7MWHQCSlM3JKsN7yreXjhTigMLVSA5Prjhel+V+En4yv/PKZd3n4fX5H10CnmoKj
-	 P/TlkU1qa4UYZatksiGNEF2zQNR785RZSPfwT2g2OUmBd8DQrKRC4foynxWRv9G1cbUqc
-	 z5Fwbam7MBacxYdxPX61hIonZ3W5PEqON66xmP5HIPTuBvOvX7mpfS3ufyxVNggfHcJBc
-	 gZL02CcVte7iZ424dZ3f1FSGvgqjVQOzu2Ac7+NlPDrb1taw8l3zG/Ru+uXcQMpUKU1tF
-	 LEKFVLPKu0SAa9+CjkXxhNH6qvPNPz7CJ99KcTc5ukDl5GbTMH05x9VKRYb+dr47Qqg==
+	t=1794973985;
+	b=yczPJWIrlEFoD9NN+eoiCQnBabCnYAJaqAH+a9I4VcrjEh6aywaiXDkAHp9l4xHJxih2
+	 7xPiB9b8ZsAQ+iqdzd+f/3BYaz+1Vzq9EQzBM0xmyX2YxMW6Abq2IvPhJRpg8WAzXNLxS
+	 SNGPRvXbctwr7V8pim+LCAhoP7ZejTprHSttvqNQ5NRM5FuS319mJByoLKPbISqsl7y2B
+	 Uh4I/DV5ow2DFwxwbxPmoPPq8+55ELIz5y5TmB+QCEeBZROkUOsqUMdSlcAOU+c/UHXnR
+	 Zdc7gxUsrnEhqRacL4ZzUqOyNfR9f+XeojwflrNq1Oodzeivw8ZZOdKQIJFbdKsFsIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794973655;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=AYtjnP2yQm0onoxAY31O2Z/NVjo75NmF1Hpq5N3hnXw=;
-	b=DrPmuGUDLg130sRV8CiHRptTRCheF0WUdebkuJsw9Cmtu/h9PfWprqa5JVPdidf/yf9b
-	 wZBV6kz9AEo8/xAabIRb0WzFIO61gPW+HDR4FHy27TUdk+D0CvmGVNJ1d5WScHadsJyNZ
-	 ABgwOh8EWkggBR8MOLKxufdDE4pfk+HxcJP+XuKF10v3SfWvUvr4fr2IABP11t/OzOJWh
-	 Q56cAA2Zs/bC2nchrIu5ELzmRlwotIjXQgcmJ9mDrYcQWftN0FLaod8kAyv/qdmc6D85b
-	 Ms3faHlWFfDz7Z6sLbqALov5TW0C73JmAIRjWBrc97OGvrK9N80Jyi2PBQouX+5Keqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794973985;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=FFbYvwJylowvATKKMyhGAeQ1YJ7gYnu+kU9DLvDCkGU=;
+	b=M0pNAzdI5LVsziF57VnXseg9/Tuh0Ha6ZQaIebt/Yc+poYSqVHpI+JHb6IvDg4eL2qaf
+	 QEWYYulaypOoipZCIvVGshvtXnxwBBApbdm/rZgnmri524fia4MbQU777OeghWUfAJ5Oe
+	 ydC/dK2+GhtniKEshVIG+rw6k4k6ysNZLJpcefgnWvSZzwOOLC8zuNHSFcq/eu27fBwsV
+	 +oTx2DZ7Gw3lep+TU6ic8v7wTzi7wRlMnTY/EupHIQdWS0YPeHGKK/Pj2noL6gr5cMd7v
+	 NDSpCI06b578D1Zw6THdJCHCFk5Z7IHVZrxNB/cBOVFFPwRmt7xa4bayhB6ZhEvp1BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=URdO5GDu;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NuGOEOMn;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=QQB35mp6;
+	arc=none smtp.remote-ip=160.236.52.227
+Received: from mail-m16023652227.xmail.ntesmail.com (mail-m16023652227.xmail.ntesmail.com [160.236.52.227])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1713606A32A
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 03:47:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1713606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D72A606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 03:53:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D72A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=URdO5GDu;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NuGOEOMn
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AI2VvDH4059972
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 03:47:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AYtjnP2yQm0onoxAY31O2Z/NVjo75NmF1Hpq5N3hnXw=; b=URdO5GDumrbt7yQi
-	t45ph71r36BGnxp4xR6UAasTVy+UyOXBD2UD+McP94p1qiI2LXt7+njAIdrVvR/r
-	DWGGlXx4eMfHepT/zs/FXi1HQ9y8m2DGmIBZnKQVdWesbwvKIybwUrfO5NeJ/w/J
-	47RwzofSmx/Qz0cxhFOzP/2kIEviNsxu4C6x7CadeUanaQZzdKkK2Fl8n7OJl6aD
-	T5sqkCYbC/QhnJBb3pHute4G8Yh7F2/Xr53abuIXLQetzpCyJZyLsQuur9AW/KN/
-	qkGrzHqmPMwzQC3vA+KevsSWJGvE1DEplBiDf6nzziTswmeOaODFjJBppY0al+L7
-	BXSiQQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yvch2tu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 03:47:33 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b191f8a9b3so643548a91.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:47:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794973653; x=1795578453; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AYtjnP2yQm0onoxAY31O2Z/NVjo75NmF1Hpq5N3hnXw=;
-        b=NuGOEOMnTZcVlrXyoF2+B4DqmvSA+y3upE8mnAhcwNFO8pcrb+HfNj+yNJstPIU53Y
-         UOoH11REDeIismjafSNl0JLM33SFhT/ixSZ0yN70XZdFXTKl5i7ixtBgGwz67iAQodsK
-         FaNqGDgOaFRMZ0qKNOPybEGEcICSXlFa2dfPmeFHXC6/gaaGwTUsuhc7SOn0mhFVxowE
-         SU8njdvNbBQxYW5xmYmAedKWZwACGzTI21QX49nHoZCDRrwQyR8LLq4wph6AdPG8osma
-         NuH5qkkN7ikezFclLT3mPfLqx2CJx012CBLcSHnq2riiYUV0v+aQ6W2MSIFsi1SjYW5S
-         wMwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794973653; x=1795578453;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AYtjnP2yQm0onoxAY31O2Z/NVjo75NmF1Hpq5N3hnXw=;
-        b=UE5YFdJMSIH+iVtR8UT9E7YFZDoc4Jmf2G3v2s5vMxL8q21BZCsuFyfTf6NzH4zUiR
-         lSmrHDfOjXDUPz8Ucoy4OylNOy2j6TrkWO+efGW250ck3/PRZQ0lhGk1oCf6yb752mo7
-         KKr1r8H339XZeRTOqImmyvfdFw2hNvyFyhWZ8dODTo0RY4yWPOI9qmWilMCALoM/g+GC
-         YFKHEgVc02Vuuiocl337kWDXAMD8IsNDqOzblYs6t4Jh2WcoVJXjIJXB1g6fDH0cR3W2
-         xjPfhkCLPv6WYczS6jP91i1ViLAKXunlXxz4ZfoJMEBeQgDl1cmYEwRC224JzIEzLm+u
-         wQgQ==
-X-Forwarded-Encrypted: i=1; AL+hErGbVw01s7RSFp65Lbb/5+xUq7v0GKvfV0uJJNPAO67Cf4D1bh5j0TpgMMRD+lJ2mi/B42ikzFeKcgCQ@vger.kernel.org
-X-Gm-Message-State: APuU4Z9oeMiApxWrX4waKwgEQoinY083melDNupgbiGNG7OKLpEdtWB2
-	p1XCVLvzzDN6qfH5GSDyRPz4IzuR+n/twOM9dCqBqmJnPqFbmMHUbN3AZYqRTlSODY2dA75cezz
-	FJJCxu4OYTSh5zcm0k9JfhZkWjEYf+XZor92SI5UZHaT4yNECkhsu0lnfaEAonbrH
-X-Gm-Gg: AZFdTZedCEVxwUsCnFvKT0CCB1YqKRVDf8xF/BLsgP6Qsoy0Y7GfnA/sGcnL3zDsnfN
-	Sqg4tzz36XAe9TPcPNC3myrFYz2Iv5wt1IEJW0s1ZS6OYeCupUSIyebBHKHqIyvzoN1fMU3KKvT
-	n/a+E4nXPPWXNzwd1KqOmtdBewDliWjnP2cVKtzMHz3P6NqvBe8cewpTOvr0i9FPdXxY1PbKvmx
-	HWNCuJrF/7nHobA6OIBjO2JRJclccuSE3D9qqqsfHxuVMbIv1aAomR6EVJDRrLs0gpXZ7zsOEfw
-	Dh1JA07rMXwkO943MS/EnfqG3RPbEGKg0gcIUzu/ubb3Plt2ZKWE44azIpoZhdAtJn5kL6UawGK
-	2LZBgzGu4oieGSSEyIW7briHljNrZa9aUiBatTfvR4ONUczNsGp5eaSW0MptihvdGLqcbdARoYH
-	N6m3s6h9W6IUxcEudO9tT7nlsfju9jCCtJWc9Whinx02Q=
-X-Received: by 2002:a17:90b:2684:b0:3b3:b71e:b2ef with SMTP id 98e67ed59e1d1-3b3d07c83f9mr1488927a91.50.1794973652564;
-        Tue, 17 Nov 2026 19:47:32 -0800 (PST)
-X-Received: by 2002:a17:90b:2684:b0:3b3:b71e:b2ef with SMTP id 98e67ed59e1d1-3b3d07c83f9mr1488907a91.50.1794973652066;
-        Tue, 17 Nov 2026 19:47:32 -0800 (PST)
-Received: from [10.133.33.86] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d187dc82sm2003736a91.6.2026.11.17.19.47.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 19:47:31 -0800 (PST)
-Message-ID: <6452ab41-2d7c-4995-9f6f-1e8207767cdb@oss.qualcomm.com>
-Date: Wed, 18 Nov 2026 11:47:27 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=QQB35mp6
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5513be7dc;
+	Wed, 18 Nov 2026 11:52:51 +0800 (GMT+08:00)
+Message-ID: <538ff4a1-b50a-47a7-a3ba-ecb0ec3c0666@rock-chips.com>
+Date: Wed, 18 Nov 2026 11:52:49 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,95 +49,373 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 8/9] cpufreq: tegra194: Add support for Tegra264
-To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
-        viresh.kumar@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, treding@nvidia.com, jonathanh@nvidia.com,
-        linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Cc: bbasu@nvidia.com, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-References: <20261117154954.625126-1-sumitg@nvidia.com>
- <20261117154954.625126-9-sumitg@nvidia.com>
+Subject: Re: [PATCH v2 2/2] drm/cix: add Sky1 DisplayPort transmitter driver
+To: Luo Liu <Luo.Liu@cixtech.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, wuyi.shen@cixtech.com,
+ cix-kernel-upstream@cixtech.com
+References: <20261117064552.85256-1-Luo.Liu@cixtech.com>
+ <20261117064552.85256-3-Luo.Liu@cixtech.com>
 Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20261117154954.625126-9-sumitg@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261117064552.85256-3-Luo.Liu@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=R5OWitRX c=1 sm=1 tr=0 ts=6afd1fd5 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=Ikd4Dj_1AAAA:8 a=jyGxVx0bnOFcdHMOUhQA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: _Hvg9ppWO5tkjTWx5ciFFoiwUPUJ-X7R
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAxNCBTYWx0ZWRfX314Ge+rZ/4Wm
- ztnyo6DP3nrHtiGE/Sps4l19o10q1JDrCdgXUZw/GWvLIb9E0tLFLOtSBBSlSjnOT2OweGKBHIg
- AHfFTne2bUKHfuRg9eqaltJhWKocA6s=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAxNCBTYWx0ZWRfXz7uMH+UMmUmT
- QeYki57lx8yXgCFkecbJGuFN2YEGzqs5SqM+cbRjfOGdfPMm2uzn6DT8I84eBBgXxZkmZxhbAeD
- IVkYo8vB7LvdyBjqt1vy0Drbh4cmk3ygCy38/Dn63+AQ6btGQ+S/sLD0YBHfCcSerkkMgUPgd5c
- eEIwWxA2Y045dLfpwE2sQ81SzxArvUcKOo5UDiaJpxTz5xo39aDHs0V/Y42ullcnLTq4cquBbV/
- LLcKyNE0v/+0ljH2zuYSDSOSDt129g8QUvdRqB9As/JtkqrTaVx5XmaFEN+ZuK8u5PN1/7vbmK6
- 7nMoXIPeoCAWfhkpBWXC/X3ruYoePiTKNwUTBEx9Esu8zutbgf9NfgA6WMB37IXMbOBpH9wzT/r
- lMgZAvG5hDL9LSvNU8pqk64RKc4J2495H5bI2HZm6IMIkM5uU/VARZt/SHbLNWjNLvuQSbewsyk
- BxoYMe/p8GVVZAnDYug==
-X-Proofpoint-ORIG-GUID: _Hvg9ppWO5tkjTWx5ciFFoiwUPUJ-X7R
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-18_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- malwarescore=0 priorityscore=1501 bulkscore=0 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180014
+X-HM-Tid: 0aa1ecc934f703a7kunm9194bfba6181c2
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGE8dVkIdT0pOSElMHkIZHVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=QQB35mp6g1xmfPP/VDFMCjMHDqFzBueNW5lapXcf3/g5KiCtGSKyvReiiy14o+WgE8AKKqTjLONDA4iB7Cx7spGwOQv0C7EVygQxsmB9k9wqZgL+dZAiK7RefKI4Ggt9GcOKQScujqOUWDBJFCvxkq8LJLQjPgBiFmQibnvk1M0=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=FFbYvwJylowvATKKMyhGAeQ1YJ7gYnu+kU9DLvDCkGU=;
+	h=date:mime-version:subject:message-id:from;
 
-On 11/17/2026 11:49 PM, Sumit Gupta wrote:
-> Add cpufreq support for Tegra264. It requests and reads the CPU
-> frequency differently from earlier SoCs.
+Hi,
+
+On 11/17/2026 2:45 PM, Luo Liu wrote:
+> Add a DRM bridge driver for the CIX Sky1 DisplayPort transmitter. The
+> controller implements the DP link training and the source side of the
+> DisplayPort protocol, and is fed by one of the SoC display pipelines.
 > 
-> To request a frequency, the driver writes NDIV to a core_freq_req
-> register in the CCPLEX register space. Two clusters share a clock and
-> its register, so they always run at the same frequency. The driver
-> exposes each pair as one performance domain and one cpufreq policy.
-> Each CPU's "performance-domains" property gives the domain index, which
-> selects the register. If the CCPLEX node declares
-> "#performance-domain-cells", probe fails if any CPU lacks the property.
+> The transmitter is exposed as a DRM bridge. The Komeda display pipeline
+> (ARM Mali DPU on Sky1) that feeds these outputs is not part of this
+> series. Komeda calls drm_bridge_attach() with attach flags 0 and does
+> not register a connector, so this driver registers a DisplayPort
+> drm_connector from .attach(). That matches how Sky1 is integrated today
+> and gives userspace a connector on the encoder.
 > 
-> To read the frequency, the driver samples the per-CPU 64-bit AMU
-> counters through system registers. The AMU constant counter is the
-> reference. It ticks at the system counter rate, so the driver takes the
-> reference rate from CNTFRQ instead of the fixed 408 MHz clock. Probe
-> fails if CONFIG_ARM64_AMU_EXTN is disabled or a CPU lacks AMU.
+> The connector reads EDID, validates modes against link bandwidth,
+> supports YCbCr 4:2:0 and signals hotplug through
+> drm_helper_hpd_irq_event().
 > 
-> Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
+> The DisplayPort PHY is driven through the generic PHY API: link-rate and
+> voltage-swing updates are forwarded to the PHY and the link is retrained
+> when the sink requests it. Audio and DSC are not supported yet.
+> 
+> Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
 > ---
->   drivers/cpufreq/Kconfig.arm        |   4 +-
->   drivers/cpufreq/tegra194-cpufreq.c | 161 ++++++++++++++++++++++++++++-
->   2 files changed, 158 insertions(+), 7 deletions(-)
-> +}
+>  MAINTAINERS                             |    1 +
+>  drivers/gpu/drm/Kconfig                 |    1 +
+>  drivers/gpu/drm/Makefile                |    1 +
+>  drivers/gpu/drm/cix/Kconfig             |    3 +
+>  drivers/gpu/drm/cix/Makefile            |    3 +
+>  drivers/gpu/drm/cix/dptx/Kconfig        |   17 +
+>  drivers/gpu/drm/cix/dptx/Makefile       |    4 +
+>  drivers/gpu/drm/cix/dptx/cix_dptx.c     | 2434 +++++++++++++++++++++++
+>  drivers/gpu/drm/cix/dptx/cix_dptx.h     |  408 ++++
+>  drivers/gpu/drm/cix/dptx/cix_dptx_drm.c |  771 +++++++
+>  drivers/gpu/drm/cix/dptx/cix_dptx_drm.h |   16 +
+>  11 files changed, 3659 insertions(+)
+>  create mode 100644 drivers/gpu/drm/cix/Kconfig
+>  create mode 100644 drivers/gpu/drm/cix/Makefile
+>  create mode 100644 drivers/gpu/drm/cix/dptx/Kconfig
+>  create mode 100644 drivers/gpu/drm/cix/dptx/Makefile
+>  create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx.c
+>  create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx.h
+>  create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx_drm.c
+>  create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx_drm.h
+
+This patch is too large. At least consider splitting it into two parts: 
+cix_dptx_drm.c and cix_dptx.c.
+
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index e3557e931c94..3cc8c8865793 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -6529,6 +6529,7 @@ R:	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>
+>  L:	dri-devel@lists.freedesktop.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
+> +F:	drivers/gpu/drm/cix/dptx/
 > +
 > +/*
-> + * The AMU counters are per-CPU system registers, so this must run on the CPU
-> + * it samples. tegra194_calculate_speed() queues it there with queue_work_on().
+
+[...]
+
+> +/*
+> + * USB-C combo PHY only. Its HPD pin is not wired to this controller, so a
+> + * sink that was plugged in before the connector existed never raises
+> + * HPD_EVENT. Replay that plug once the PHY is already in DP mode and AUX
+> + * answers.
+> + *
+> + * A native DP port wires HPD to the controller and leaves the PHY mode at
+> + * PHY_MODE_INVALID, so the checks below skip it. That port is reported by
+> + * the HPD interrupt instead.
 > + */
-> +static void tegra264_sample_counters(struct tegra194_cpufreq_data *data,
-> +				     struct tegra_cpu_ctr *c)
+> +static void cix_dp_replay_deferred_hotplug(struct cix_dp *dp)
 > +{
-> +	c->coreclk_cnt = read_sysreg_s(SYS_AMEVCNTR0_CORE_EL0);
-> +	c->refclk_cnt = read_sysreg_s(SYS_AMEVCNTR0_CONST_EL0);
+> +	struct phy *phy = dp->phy;
+> +	union phy_configure_opts opts = { 0 };
+> +	u8 dpcd_rev;
+> +	ssize_t ret;
+> +	bool hpd;
+> +
+> +	cix_dp_session_lock(dp);
+> +	if (!cix_dp_regs_accessible(dp) ||
+> +	    dp->force_hpd != connector_status_unknown) {
+> +		cix_dp_session_unlock(dp);
+> +		return;
+> +	}
+> +	hpd = cix_dp_get_hpd_state(dp);
+> +	cix_dp_session_unlock(dp);
+> +	if (hpd) {
+> +		/*
+> +		 * Native HPD may have fired before the connector existed.
+> +		 * Read the DPCD from the work now that it does.
+> +		 */
+> +		schedule_delayed_work(&dp->hpd_event_work, 0);
+> +		return;
+> +	}
+> +
+> +	phy_validate(phy, PHY_MODE_DP, 0, &opts);
+> +	if (phy_get_mode(phy) != PHY_MODE_DP)
+> +		return;
+> +
+> +	/*
+> +	 * The combo PHY is already muxed to DP, so the sink may have been
+> +	 * plugged in before the connector existed. HPD is unwired here, so
+> +	 * admit this one AUX transaction before force_hpd is set.
+> +	 */
+> +	cix_dp_session_lock(dp);
+> +	if (!cix_dp_regs_accessible(dp) ||
+> +	    dp->force_hpd != connector_status_unknown) {
+> +		cix_dp_session_unlock(dp);
+> +		return;
+> +	}
+> +	dp->aux_ignore_hpd = true;
+> +	cix_dp_session_unlock(dp);
+> +
+> +	ret = drm_dp_dpcd_readb(&dp->aux, DP_DPCD_REV, &dpcd_rev);
+> +
+> +	cix_dp_session_lock(dp);
+> +	dp->aux_ignore_hpd = false;
+> +	if (ret < 0 || !cix_dp_regs_accessible(dp)) {
+> +		cix_dp_session_unlock(dp);
+> +		return;
+> +	}
+> +	dp->force_hpd = connector_status_connected;
+> +	dp->status = connector_status_unknown;
+> +	cix_dp_session_unlock(dp);
+> +
+> +	schedule_delayed_work(&dp->hpd_event_work, 0);
+> +}
+> +
+> +static void cix_dp_hpd_event_work_func(struct work_struct *work)
+> +{
+> +	struct cix_dp *dp = container_of(work, struct cix_dp,
+> +					 hpd_event_work.work);
+> +	struct phy *phy = dp->phy;
+> +	union phy_configure_opts opts = { 0 };
+> +	enum drm_connector_status old_status;
+> +	enum drm_connector_status status;
+> +	enum phy_mode mode;
+> +	bool hpd;
+> +	int i;
+> +
+> +	WRITE_ONCE(dp->hpd_worker, current);
+> +
+> +	if (READ_ONCE(dp->hpd_stopped) || !dp->dp_panel.connector)
+> +		goto out;
+> +
+> +	/*
+> +	 * Sample before the PHY wait. A probe during that wait updates
+> +	 * dp->status, and reading it afterwards drops the hotplug uevent.
+> +	 */
+> +	cix_dp_session_lock(dp);
+> +	old_status = dp->status;
+> +	if (READ_ONCE(dp->hpd_stopped) || !dp->dp_panel.connector ||
+> +	    !cix_dp_regs_accessible(dp)) {
+> +		cix_dp_session_unlock(dp);
+> +		goto out;
+> +	}
+> +	hpd = cix_dp_get_hpd_state(dp);
+> +	cix_dp_session_unlock(dp);
+> +
+> +	/*
+> +	 * On a USB-C DP alt-mode PHY the hotplug only becomes valid once the
+> +	 * PHY has been switched to DP mode, so wait for the mode change.
+> +	 * A native DP PHY has no ->set_mode() operation, which leaves the
+> +	 * mode at PHY_MODE_INVALID forever; there is nothing to wait for.
+> +	 */
+> +	if (hpd && phy_get_mode(phy) != PHY_MODE_INVALID) {
+> +		for (i = 0; i < DP_HPD_MAX_TRIES; i++) {
+> +			phy_validate(phy, PHY_MODE_DP, 0, &opts);
+> +			mode = phy_get_mode(phy);
+> +			if (mode == PHY_MODE_DP)
+> +				break;
+> +			msleep(100);
+> +		}
+> +	}
 
+It seems you've used quite a few tricks for USB-C Alt-mode. Both the 
+deferred_hotplug above and the polling here to wait for the PHY status
+to become ready. 
 
-The core cycle counter and the constant counter are read separately
-here, with interrupts enabled. An interrupt, or a preemption after it,
-between the two reads skews the pair, and the resulting error in the
-computed frequency becomes more significant as the gap increases. How
-about reading both with local_irq_save(), like arm64 does in
-amu_read_core_const_ctrs()?
+Given that, why not consider using DRM's native bridge notifications to
+accomplish this? Please take a look at aux-hpd-bridge.c.
 
+> +
+> +	cix_dp_session_lock(dp);
+> +	if (READ_ONCE(dp->hpd_stopped) || !dp->dp_panel.connector ||
+> +	    !cix_dp_regs_accessible(dp)) {
+> +		cix_dp_session_unlock(dp);
+> +		goto out;
+> +	}
+> +	cix_dp_session_unlock(dp);
+> +
+> +	drm_helper_probe_detect(&dp->connector.base, NULL, false);
+> +
+> +	cix_dp_session_lock(dp);
+> +	status = dp->status;
+> +	if (READ_ONCE(dp->hpd_stopped) || !dp->dp_panel.connector ||
+> +	    !cix_dp_regs_accessible(dp)) {
+> +		cix_dp_session_unlock(dp);
+> +		goto out;
+> +	}
+> +	if (status == connector_status_connected)
+> +		cix_dp_handle_connect_locked(dp);
+> +	else
+> +		cix_dp_handle_disconnect_locked(dp);
+> +	cix_dp_session_unlock(dp);
+> +
+> +	if (old_status != status && dp->drm)
+> +		drm_helper_hpd_irq_event(dp->drm);
+> +out:
+> +	WRITE_ONCE(dp->hpd_worker, NULL);
+> +}
+> +
+> +static void cix_dp_hpd_irq_work_func(struct work_struct *work)
+> +{
+> +	struct cix_dp *dp = container_of(work, struct cix_dp,
+> +					 hpd_irq_work.work);
+> +	u8 status[DP_LINK_STATUS_SIZE + 2];
+> +	int ret;
+> +
+> +	cix_dp_session_lock(dp);
+> +
+> +	if (READ_ONCE(dp->hpd_stopped) ||
+> +	    !cix_dp_regs_accessible(dp) ||
+> +	    !(dp->state & DPTX_STATE_ENABLED) ||
+> +	    !cix_dp_get_hpd_state(dp))
+> +		goto end;
+> +
+> +	ret = drm_dp_dpcd_read(&dp->aux, DP_SINK_COUNT, status,
+> +			       DP_LINK_STATUS_SIZE + 2);
+> +	if (ret < 0)
+> +		goto end;
+> +
+> +	if (drm_dp_clock_recovery_ok(&status[2], dp->mode.lane_cnt) &&
+> +	    drm_dp_channel_eq_ok(&status[2], dp->mode.lane_cnt))
+> +		goto end;
+> +
+> +	cix_dp_train_loop(dp);
+> +
+> +end:
+> +	cix_dp_session_unlock(dp);
+> +}
+> +
 
+[...]
 
+> +
+> +static int cix_dptx_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	const struct cix_dp_soc_data *soc_data;
+> +	struct cix_dp *dp;
+> +	int ret;
+> +
+> +	soc_data = of_device_get_match_data(dev);
+> +	if (!soc_data)
+> +		return -ENODEV;
+> +
+> +	dp = cix_dp_bridge_alloc(dev);
+> +	if (IS_ERR(dp))
+> +		return PTR_ERR(dp);
+> +
+> +	dp->dev = dev;
+> +	dp->native_dp = soc_data->native_dp;
+> +	dp->ops = &cix_dp_hw_ops;
+> +	dp->status = connector_status_unknown;
+> +	dp->force_hpd = connector_status_unknown;
+> +	dp->num_lanes = CIX_DPTX_MAX_LANES;
+> +	dp->max_rate = CIX_DP_LINK_RATE_HBR2;
+> +	dp->max_streams = DPTX_MST_SOURCE_NUMBER;
+> +	dp->dp_panel.source_id = 0;
+> +	dp->state = DPTX_STATE_DISCONNECTED;
+> +	dp->pixel_per_cycle = 1;
+> +
+> +	ret = cix_dp_parse_dt(dp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	dp->link_config.max_lanes = dp->num_lanes;
+> +	dp->link_config.max_rate = dp->max_rate;
+> +
+> +	ret = cix_dp_init(dp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_add_action_or_reset(dev, cix_dptx_dev_release, dp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	dev_set_drvdata(dev, dp);
+> +
+> +	dp->bridge.of_node = dev->of_node;
+> +
+> +	drm_bridge_add(&dp->bridge);
+> +
+> +	return 0;
+> +}
 
+It looks like this part is platform-specific, so I think Andy's suggestion
+to split it out into a bridge from the beginning is reasonable.
+
+https://lore.kernel.org/all/15d12979.26c5.1a1d9c981a5.Coremail.andyshrk@163.com/
+
+> +
+> +static void cix_dptx_remove(struct platform_device *pdev)
+> +{
+> +	struct cix_dp *dp = dev_get_drvdata(&pdev->dev);
+> +
+> +	if (!dp)
+> +		return;
+> +
+> +	drm_bridge_remove(&dp->bridge);
+> +}
+> +
+
+[...]
+
+> +
+> +static int cix_dp_bridge_attach(struct drm_bridge *bridge,
+> +				struct drm_encoder *encoder,
+> +				enum drm_bridge_attach_flags flags)
+> +{
+> +	struct cix_dp *dp = bridge_to_dp(bridge);
+> +	int ret;
+> +
+> +	dp->drm = bridge->dev;
+> +	WRITE_ONCE(dp->hpd_stopped, false);
+> +
+> +	ret = dp->ops->aux_register(dp);
+> +	if (ret)
+> +		goto err_clear_drm;
+> +
+> +	/*
+> +	 * Komeda (ARM Mali DPU on Sky1, not in this series) calls
+> +	 * drm_bridge_attach() with attach flags 0 and does not register a
+> +	 * connector; create one here so userspace gets a DP output.
+> +	 */
+
+Please drop this comment.
 
 -- 
-Thx and BRs,
-Zhongqiu Han
+Best, 
+Chaoyi
