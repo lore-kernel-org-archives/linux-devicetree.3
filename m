@@ -1,104 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794995662;
-	b=z4Fc/uzB+HmGz+thdE2w+XIImq6G9EiFkrUh38mr+XEgKQ3Di6D086Rn0O4XOzneN6/5
-	 qBmFy+SUXvmgkTJlPALa4gBBSRCpLA9eggzZxw5u5thrtqxkmJXo+KjKgTiPpqMEAZVwW
-	 BS6ZqOIBooNPD7Xg3JkXhxObMSqmB5F++v0s4/A+l78PbyNJjUW+3EOj9yeOQBEJrlqSu
-	 BI6UR0UQ/fa3NiHf3GPEv1F3swLXRZeESSu/D5XiU3aw8gK3eWRnQdr1FYL8nRc5UwhPm
-	 en2upNjaSRKwOvBPJutHXSGEF78bvp5VIbiD4hrGq5RIwsP9eRpgUM82z1ZLDMZVclA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794995662;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=z0FxgduUeYAAYLU+x3UO1uC70A6tSSO4t+ElS8hcreI=;
-	b=eLPmTsWxh2P2b5Z75HyWzJDSOlF9AYaXzXViQZT1qfBiD3YYB1VUuve2FV4N/2Ks5Jfx
-	 EtLpcSb5sSNZ3/kFJhJCCkJRfx3o4TggoPEGIqZ1GPODLQjwpRHCTUlmPO/oOc0Fnedvr
-	 TsZjQkiZTPEjYZN9BidG7sgRBO0PA6ttWBeUlUGw6Hl9/+LnZPBx/5dbD9OK4YO2LH3sy
-	 xqIePzFwBjUtXBIKPeFyUsrt85DgA1jlWnc+C9xhnnimlpO7E1aKXwh9iUEi5SxMpoQ2e
-	 AWUxfR80k0gBLRjIqyKSuxzk6sRxjysmfzA1hJX1HGtuSHgN5Nm2miTjLFbHFKfI4ZQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z5eaYciq;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794995657;
+	b=QQGOEqwmapN+5i/1guOfW90r7/ajrcZ/j5fNTOsJp/fh8zW+0SU2pJwJEGm0kfD2CFtz
+	 iYT+3UHKIJ+ZvrWgiel+jBf6GkiAX9qZiVGibKRc9IfYdams9JRdeC0bSI7vjamsroSJ8
+	 GyqPz+JTltSff6W78i83pkEA7SWn0Yht8FUw0O3OmdkPDD9/0BrNnJOF8wNcKuT7dP4ud
+	 e9lWFy8Wql2XdRNwiV9WhWV1t6y5L+gI/rRFhDv9bLBafWF5Dzjgn2BjQdup9QsokYU3W
+	 cdmK3jHnnfg7U3qaAjrR7EP6JWC81ZSgRwDuJDs75PSoTwlr7gq1jJaCxkKQUrNb1kg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794995657;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jrHImS6SHFxEvgyllHNHiRZqjIpVpWkFh/6yzStVAp8=;
+	b=JkM66/qHlJGmWV8y51Nmp5gxhATliTmEWfDF77Og7VieT2BEMaKTo8U+6L34rZixFRLF
+	 jFt7maU83v3gHjlkVzuqCzFpRYZPMwIyoIqhxIl9oxeQWwvZCx5sAGdxZDvvdCd8whyS3
+	 NTAVog1AswdbszE5xKva1qqiRF3XQOk737PpA4sn6T1s22tKUxbKB8xVyGeCJXbHwU6/E
+	 Jz5+llnOHUdT8kMmRWyDKi912pYsSwIGcAo/USm3y0qyYxCxNL5Iz+gvm3vqxFL41Bs27
+	 pzbVoxNs/QrB0IFLeRldsZTFxoK58RO/LssMxNTOXSz9nL8FHks6nxZ2DQ4b7vdNHDQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggAreje6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2D4606A32F
-	for <Devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:54:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB2D4606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9373C606A31C;
+	Wed, 18 Nov 2026 09:54:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z5eaYciq
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso7380835e9.3
-        for <Devicetree@vger.kernel.org>; Wed, 18 Nov 2026 01:54:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794995660; x=1795600460; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z0FxgduUeYAAYLU+x3UO1uC70A6tSSO4t+ElS8hcreI=;
-        b=Z5eaYciqucY9tPvMWgtwpa6lHfPYOF2Xzo8ZpymIHEeYaM7ceXUy4cwkRDQH1/WaFo
-         fKdLexn2Uo3Dq4t5efXPTUnGy/bRRy2QwmHyxG5iH/vKXImjNoqooAjOOPP7L34/nZqJ
-         0SlDYecanghmzXaqkIKNSHvk9bG+A96Cqr9B5DJQ5NeHjJ3ehlKt5v7IIqVtl1Hy8f7f
-         4ey+5qQT4d+CVRauLztzDPPOwNR5Z7d3LU4h2Y73wKsvSkAdYlN6fJA9P6e1XYnq6oQD
-         SqeB3QBksir95uLM3TPA0ItzV/6IR/+55FRnZktc3DB/sa/vikwo+v54XfpkHBNUrYry
-         KvdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794995660; x=1795600460;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z0FxgduUeYAAYLU+x3UO1uC70A6tSSO4t+ElS8hcreI=;
-        b=ZyFig//W63j5ji24iClwk2a11odu4eywfBUfmtfHC/NV9o5rFJZtpg99oBEiT51J12
-         acEmBLqK/pJYtQyEvQ+KpAe5DK+ZimHGGeOWfmDVX6QDIzfH/GiXbCxOkJOa8htW71EP
-         5E7JUKc2aazAGO6wVXlRWwEqZX4uWzDoAu1J7lIYyh9XiUVRK6jho97rvxFummLBc+uS
-         4qZShUP/XZEnM0fZERvm8YlCDfvfbv9155GQybpkdnRSc/j6n2uCyA6AX/o8cppzbcmn
-         tLGfQF8PKOXpD+BXYRtUCT6Mj9cgnQc+tAK0XQRDA00HwbjFWMldtV1VfFdd2eHfKRUO
-         2PUg==
-X-Forwarded-Encrypted: i=1; AL+hErElIS0UDM7JC3xqfObE5jiMIQDM6+ayyA6jBGJbtZAB2ZDIlzODRPFxLjXGs/YQ8rg3UV8VfRGulSiH@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xUCIdAAk5EjmHeM/f9hVqD8eK5s653/rV/1ARrd2NlEMQKaOC
-	P5gI5jY3GY67l7y2nwMkrfqQCttU7abqV1qmZZ7ABRffvdIpzbUU/d81
-X-Gm-Gg: AYBFou1P5mfdc8vw0gIoQj7MyiKdYQMBgZnWLVR/2AwXpcS6H5obN9hhVh75tDwyV4G
-	4PNa5Pf/iBsZJcAucZVEH/vmSoDalZoTVkOAnpJsmwAgT5ilf2+suO4+mqPT7m3E+vpDgb+Mkju
-	PuvnVp/kKNygqcEiuKXXBueIpIBeXnevQgwXv+mx1SStE5YZEx2FggZYM2vkQkg+/+e7kmmtHX4
-	vSwQpbqXdBZtxDGLpG0/Fjx+0nxaH9hy0JJ5teJcE0/q1it/WceAnO3I445V2n0kxkGBEBF1UOr
-	/A5R6wKBJp44qPgOXAVPrGMuQyWhqTBU2h1k+eRO1RdzZI0lZLL7TwyR+/4tm1ne7DeB5nbSLat
-	uP0CwAYdSonduF+7VAi3tUAhAy1wDsV3udZsyU4l7bkYKVWlpwfQ6k29mgZK2yH/UUyQS1WS21C
-	JrIfTpYh4IID9Kq3Wei8rTusF1Ti1CW8t75G7bGLkIll8G6mVCAagf5Y7VUQ/a7WJiKcWtCPcyr
-	KX8hgXT8hDixtiR/xpzFXmSr8W/khMgRUA9EcUYpxvPyvrQKCIYd20sYJq0miydISrKmAAT9qG9
-	q+A3q1ixq6CEbkJHAsdGm5dKmun9iEipcnKEeMO1iBEA7zWDutnEpUo9RE8N1T+P/g==
-X-Received: by 2002:a05:600c:4fc6:b0:4a1:dade:f049 with SMTP id 5b1f17b1804b1-4bb7da23baemr38830375e9.15.1794995660149;
-        Wed, 18 Nov 2026 01:54:20 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7e50e992sm24034685e9.0.2026.11.18.01.54.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 01:54:19 -0800 (PST)
-Date: Wed, 18 Nov 2026 09:54:18 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Douglas Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Devicetree@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>,
- Chen-Yu Tsai <wenst@chromium.org>, Saravana Kannan <saravanak@kernel.org>,
- David Gibson <david@gibson.dropbear.id.au>, =?UTF-8?B?QW5kcsOp?= Draszik
- <andre.draszik@linaro.org>, Simon Glass <sjg@chromium.org>,
- linux-kernel@vger.kernel.org, Brian Norris <briannorris@chromium.org>,
- Peter Griffin <peter.griffin@linaro.org>, Julius Werner
- <jwerner@chromium.org>
-Subject: Re: [PATCH v4 08/14] libfdt: Speed up fdt_find_string_len_() with
- memchr()
-Message-ID: <20261118095418.51d30ee8@pumpkin>
-In-Reply-To: <20261116205320.1621386-9-dianders@chromium.org>
-References: <20261116205320.1621386-1-dianders@chromium.org>
-	<20261116205320.1621386-9-dianders@chromium.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggAreje6
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794995657;
+	b=M7mlOdMvJVSz6jkGQQI71D3Ph9xg1c/3dzx/P4IA+RkRPJ0hrPXYeSNVuI1Euh9Nz+wS
+	 D0hkNG0QBe3JmEAkaE2gsAT6VAJEmi1Gssp1gXuS1u1uUeIN66PCREcfXe0VWShY1X/oz
+	 3HT+fL1hoa4RTXbKeaSUjLO6+QS09nW9fyy9JAmlPaSoAW1djMcj/jAfpcMPfQ21U14wG
+	 TX6+kdluzXC3LhMgM986kD+zG6ezMYDSbqBuGfP+yX+Nx4e2u6KZU/c6fu/6b//CU3fXx
+	 plAaBAigogbhQg8P4I1dGZ64o3dABqerKKAO1CT8J5DvVtYPwdBiFkk+DvWuNZm90/Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794995657;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jrHImS6SHFxEvgyllHNHiRZqjIpVpWkFh/6yzStVAp8=;
+	b=xOGtPT951aU0ojFGi4S1HY1kqswmFLkcHvFiL+F1MvjTPS3U1N2z4UBrrY4BrC62Ic77
+	 G7EZQTIiwCmUFrevV5qlfAR3tXRAKNUJ1Dve4oZPnTW1D1f9kcBPUc3Vl42lyHL/wKxfZ
+	 NQQxYa5IacK2aSPuuIstBMiEqrxmh+6aGyjo/SBhTXy1VT8kR4dswy7EYvXKzoDgmK5Rt
+	 YJf5Zz+uZ5RkdtVGc2Tr6/HnX/dpf7DlMWtABT7Iv/zTM2gjGLbkBDg9lku/w/8ikKrro
+	 0Jsd/VGndEqZ2h+Cd9FV/98mZ5kxwKqO9pqPwRpuuIVzjjTJo8LQcZ/ntgbdLSlfI7g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id 2D6AA1F000C4;
+	Wed, 18 Nov 2026 09:54:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794995657;
+	bh=jrHImS6SHFxEvgyllHNHiRZqjIpVpWkFh/6yzStVAp8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ggAreje69HeKmUNj7QLYnWTcM1DRY0614y63fRvhzs/73o7AklVKRspSRVaDh/X9Q
+	 ClU9yIXu7Nb1eT0KjLstTb7h9OKIKINscabKoP5GqyJGibsbK8nT88qW7Cb9qeYpZl
+	 nviC+XD6spTUENFNBphnZNQ/3zCgZF7VYw9DAgtDYOrCw2KJWB3W0F30cl1q5I0Jo8
+	 sKJnBChlQd7yC0dDlNJ0zGL5BDmB77AMgAPnBlnyURhiGoL7icawZ6CndaJurDmhsX
+	 muXZqrlct9+5nhpO9k7NZmZwjjeiSiaqzlZF1vqZv1cXiBXwTMRY+SuTyraCDlOOLX
+	 V1myAQzCMaEww==
+Date: Wed, 18 Nov 2026 10:53:39 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Adil =?ISO-8859-1?Q?H=FCsrev?= Tepe <tadilhusrev@gmail.com>
+Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andy@kernel.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: proximity: add Imagis ISG5320A SAR sensor
+ driver
+Message-ID: <20261118105339.00001bab@kernel.org>
+In-Reply-To: <20261117173333.1853986-3-tadilhusrev@gmail.com>
+References: <20261116074013.355363-1-tadilhusrev@gmail.com>
+	<20261117173333.1853986-1-tadilhusrev@gmail.com>
+	<20261117173333.1853986-3-tadilhusrev@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,78 +89,513 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 16 Nov 2026 12:53:05 -0800
-Douglas Anderson <dianders@chromium.org> wrote:
+On Tue, 17 Nov 2026 20:33:33 +0300
+Adil H=FCsrev Tepe <tadilhusrev@gmail.com> wrote:
 
-> `fdt_find_string_len_()` currently calls `memcmp()` at every byte offset
-> across the string table (`for (p = strtab; p <= last; p++)`). When
-> building or modifying trees with large string tables (such as DTBs and
-> overlays with hundreds of `/__symbols__` or `/__fixups__` labels via
-> `fdt_sw` or `fdt_rw`), scanning multi-kilobyte string tables byte by
-> byte dominates serialization time.
-
-Are those symbols just in a linear list with embedded '\0' ?
-That doesn't scale well at all :-)
-
-> 
-> Advance `p` between candidate first-byte matches using `memchr()` (with
-> an explicit `slen == 0` check for empty property names and a `tabsize <
-> slen + 1` bounds check before computing `last`), preserving identical
-> suffix-sharing behavior.
-
-Might it be better to scan for the '\0' that terminated/separates the strings?
-Then you do one memcmp() for each string/symbol rather than for each time
-the first character appears in any string.
-
-Even with the code below you want to do the !p[slen] check before the memcmp().
-
-David
-
-> 
-> On one stress test (running the fdtfactor tool across 438 arm64 Qualcomm
-> DTBs) this reduced `fdt_property()` time by ~5.6x.
-> 
-> Assisted-by: Gemini:gemini-pro-prerelease
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> Add an IIO driver for the Imagis ISG5320A capacitive SAR/grip sensor
+> (I2C), as fitted on the Samsung Galaxy XCover5. It exposes one
+> IIO_PROXIMITY channel (the B-channel signal minus its baseline) and a
+> rising/falling threshold proximity event.
+>=20
+> Tested on a Samsung Galaxy XCover5 (re-confirmed 2026-11-17, kernel
+> 7.4.0-rc1-00023-gdcb8b91fb779+ #30): the driver binds, registers as
+> iio:device4 "isg5320a", and in_proximity0_raw tracked a live
+> hand-proximity test (baseline ~0, swinging to -12817/9748/10759 as a
+> hand approached/withdrew the sensor).
+>=20
+> Signed-off-by: Adil H=FCsrev Tepe <tadilhusrev@gmail.com>
 > ---
-> Found this speedup while benchmarking fdtfactor. It's not critical to
-> functionality, but seems like a nice win.
-> 
-> Changes in v4:
-> - New patch speeding up fdt_find_string_len_() with memchr()
-> 
->  libfdt/fdt.c | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
-> 
-> diff --git a/libfdt/fdt.c b/libfdt/fdt.c
-> index d9ccb70345d0..c7cedfba7815 100644
-> --- a/libfdt/fdt.c
-> +++ b/libfdt/fdt.c
-> @@ -348,12 +348,20 @@ int fdt_next_subnode(const void *fdt, int offset)
->  const char *fdt_find_string_len_(const char *strtab, int tabsize, const char *s,
->  				 int slen)
->  {
-> -	const char *last = strtab + tabsize - (slen + 1);
-> -	const char *p;
-> +	const char *last;
-> +	const char *p = strtab;
->  
-> -	for (p = strtab; p <= last; p++)
-> +	if (tabsize < slen + 1)
-> +		return NULL;
-> +	if (slen == 0)
-> +		return memchr(strtab, '\0', tabsize);
-> +
-> +	last = strtab + tabsize - (slen + 1);
-> +	while (p <= last && (p = memchr(p, s[0], last - p + 1)) != NULL) {
->  		if (memcmp(p, s, slen) == 0 && p[slen] == '\0')
->  			return p;
-> +		p++;
-> +	}
->  	return NULL;
->  }
->  
 
+Hi Adil, some comments inline.
+
+...
+
+> diff --git a/drivers/iio/proximity/isg5320a.c b/drivers/iio/proximity/isg=
+5320a.c
+> new file mode 100644
+> index 000000000..4df0e09d3
+> --- /dev/null
+> +++ b/drivers/iio/proximity/isg5320a.c
+> @@ -0,0 +1,848 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Imagis ISG5320A capacitive SAR/grip sensor.
+> + *
+> + * Register map, init table and every write sequence below come from the
+> + * Samsung vendor driver (drivers/sensors/isg5320a.c + isg5320a_reg.h,
+> + * Galaxy XCover5 5.10 tree, Copyright (C) Imagis Technology). Citations=
+ of
+> + * the form "vendor :NNN" refer to lines in that isg5320a.c. This driver
+> + * writes no register the vendor driver does not write, and only with the
+> + * values the vendor writes; regmap enforces that through writeable_reg.
+> + *
+> + * The chip is used as one proximity channel: the vendor's "diff" value
+> + * (CDC16_T - BSL16_B, i.e. the B-channel signal minus its baseline) is
+> + * exposed as in_proximity0_raw, and the chip's CLOSE/FAR interrupt is
+> + * exposed as IIO threshold events (rising =3D grip, falling =3D release=
+).
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/errno.h>
+
++ err.h
+
+> +#include <linux/i2c.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/irq.h>
+> +#include <linux/mod_devicetable.h>
+
+Remove this, i2c.h includes the correct device tables.
+
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/pm.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/pm_wakeup.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/types.h>
+> +
+
+Otherwise good to see that IWYU is slowly catching on in new
+submissions :)
+
+> +#include <linux/iio/events.h>
+> +#include <linux/iio/iio.h>
+> +
+
+...
+
+> +
+> +struct isg5320a_data {
+> +	struct device *dev;
+> +	struct regmap *regmap;
+> +	int irq;
+> +	/* Serialises multi-register chip sequences and the cached sample. */
+> +	struct mutex lock;
+> +	/* Serialises event enable/disable (sleeps in disable_irq()). */
+> +	struct mutex ev_lock;
+> +	bool ev_enabled;
+> +	bool irq_wake_enabled;
+> +	bool close;
+> +	u16 cdc;
+> +	u16 base;
+> +	u16 thresh;
+> +	u16 close_hyst;
+> +	u16 far_hyst;
+> +	u32 cfcal_th;
+> +};
+
+I ran pahole and found this layout to be optimal without any holes:
+
+        struct device *            dev;                  /*     0     8 */
+        struct regmap *            regmap;               /*     8     8 */
+        struct mutex               lock __attribute__((__aligned__(8))); /*=
+    16    24 */
+        struct mutex               ev_lock __attribute__((__aligned__(8)));=
+ /*    40    24 */
+        /* --- cacheline 1 boundary (64 bytes) --- */
+        int                        irq;                  /*    64     4 */
+        u32                        cfcal_th;             /*    68     4 */
+        u16                        cdc;                  /*    72     2 */
+        u16                        base;                 /*    74     2 */
+        u16                        thresh;               /*    76     2 */
+        u16                        close_hyst;           /*    78     2 */
+        u16                        far_hyst;             /*    80     2 */
+        bool                       ev_enabled;           /*    82     1 */
+        bool                       irq_wake_enabled;     /*    83     1 */
+        bool                       close;                /*    84     1 */
+
+> +
+> +static bool isg5320a_writeable_reg(struct device *dev, unsigned int reg)
+> +{
+> +	unsigned int i;
+> +
+> +	switch (reg) {
+> +	case ISG5320A_REG_OSCCON:
+> +	case ISG5320A_REG_IRQFUNC:
+> +	case ISG5320A_REG_BS_ON_WD:
+> +	case ISG5320A_REG_SCANCTRL1:
+> +	case ISG5320A_REG_SCANCTRL2:
+> +	case ISG5320A_REG_PROTECT:
+> +	case ISG5320A_REG_SOFTRESET:
+> +		return true;
+> +	}
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(isg5320a_setup_reg); i++)
+
+for (unsigned int i =3D 0; ...
+
+> +		if (isg5320a_setup_reg[i].addr =3D=3D reg)
+> +			return true;
+> +
+> +	return false;
+> +}
+> +
+> +static bool isg5320a_precious_reg(struct device *dev, unsigned int reg)
+> +{
+> +	/* Reading IRQSRC acknowledges the interrupt; keep debugfs off it. */
+> +	return reg =3D=3D ISG5320A_REG_IRQSRC;
+> +}
+> +
+> +static const struct regmap_config isg5320a_regmap_config =3D {
+> +	.reg_bits =3D 8,
+> +	.val_bits =3D 8,
+> +	.max_register =3D ISG5320A_MAX_REG,
+> +	.writeable_reg =3D isg5320a_writeable_reg,
+> +	.precious_reg =3D isg5320a_precious_reg,
+> +	.cache_type =3D REGCACHE_NONE,
+> +};
+> +
+> +/* vendor isg5320a_reset(), :247-292, plus a CHIPID read the vendor neve=
+r does */
+> +static int isg5320a_reset(struct isg5320a_data *data)
+> +{
+> +	struct device *dev =3D data->dev;
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	usleep_range(5000, 5100);				/* :255-256 */
+
+fsleep() would be better. Same goes for other usleep_range() calls.
+
+> +
+> +	ret =3D regmap_read(data->regmap, ISG5320A_REG_IRQSRC, &val);	/* :258 */
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "no response at IRQSRC\n");
+
+Do we need these dev_err_probe() calls at each regmap operation? return ret=
+ is good
+enough.
+
+> +
+> +	ret =3D regmap_read(data->regmap, ISG5320A_REG_CHIPID, &val);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "CHIPID read failed\n");
+> +	if (val =3D=3D ISG5320A_VENDOR_CHIP_ID)
+> +		dev_info(dev, "CHIPID 0x%02x\n", val);
+> +	else
+> +		dev_warn(dev, "CHIPID 0x%02x (vendor header says 0x%02x; not enforced)=
+\n",
+> +			 val, ISG5320A_VENDOR_CHIP_ID);
+> +
+> +	msleep(50);						/* :262-266 */
+> +
+> +	ret =3D regmap_write(data->regmap, ISG5320A_REG_PROTECT,	/* :268-271 */
+> +			   ISG5320A_PROTECT_UNLOCK);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "unlock protect failed\n");
+> +
+> +	ret =3D regmap_write(data->regmap, ISG5320A_REG_SOFTRESET,	/* :273-276 =
+*/
+> +			   ISG5320A_SOFTRESET_VAL);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "soft reset write failed\n");
+> +
+> +	usleep_range(1000, 1100);				/* :278 */
+> +
+> +	msleep(50);						/* :280-289 */
+> +	dev_dbg(dev, "reset done\n");
+> +
+> +	return 0;
+> +}
+> +
+> +/* vendor isg5320a_initialize(), :614-660, without the /sdcard override =
+*/
+> +static int isg5320a_initialize(struct isg5320a_data *data)
+> +{
+> +	struct device *dev =3D data->dev;
+> +	unsigned int i, val, mismatch =3D 0;
+> +	u8 buf[6];
+> +	int ret;
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	ret =3D regmap_read(data->regmap, ISG5320A_REG_IRQSRC, &val);	/* :625 */
+> +	if (ret)
+> +		return ret;
+
+Blank lines between each function call + if statement group, it improves re=
+adability.
+
+> +	ret =3D regmap_write(data->regmap, ISG5320A_REG_SCANCTRL1,	/* :626 */
+> +			   ISG5320A_SCAN_STOP);
+> +	if (ret)
+> +		return ret;
+> +	msleep(30);						/* :627 */
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(isg5320a_setup_reg); i++) {	/* :631-637 */
+
+unsigned int i =3D 0 as well.
+
+> +		const struct isg5320a_reg_data *r =3D &isg5320a_setup_reg[i];
+> +
+> +		ret =3D regmap_write(data->regmap, r->addr, r->val);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "init write 0x%02x failed\n",
+> +					     r->addr);
+> +		ret =3D regmap_read(data->regmap, r->addr, &val);
+> +		if (ret)
+> +			return ret;
+> +		if (val !=3D r->val) {
+> +			mismatch++;
+> +			dev_dbg(dev, "reg 0x%02x wrote 0x%02x read 0x%02x\n",
+> +				r->addr, r->val, val);
+> +		}
+> +	}
+> +	dev_info(dev, "init table: %zu writes, %u read back different\n",
+> +		 ARRAY_SIZE(isg5320a_setup_reg), mismatch);
+> +
+> +	/* :646-650 reads the threshold; :890-897 reads all six bytes */
+> +	ret =3D regmap_bulk_read(data->regmap, ISG5320A_REG_B_PROXCTL3, buf,
+> +			       sizeof(buf));
+> +	if (ret)
+> +		return ret;
+> +	data->thresh =3D (buf[0] << 8) | buf[1];
+> +	data->close_hyst =3D (buf[2] << 8) | buf[3];
+> +	data->far_hyst =3D (buf[4] << 8) | buf[5];
+> +
+> +	ret =3D regmap_read(data->regmap, ISG5320A_REG_DIGITAL_ACC, &val);	/* :=
+653-657 */
+> +	if (ret)
+> +		return ret;
+> +	data->cfcal_th =3D ISG5320A_RESET_CONDITION * val / 8;
+> +
+> +	dev_info(dev, "threshold %u, close hyst %u, far hyst %u, cfcal_th %u\n",
+> +		 data->thresh, data->close_hyst, data->far_hyst, data->cfcal_th);
+> +
+> +	return 0;
+> +}
+> +
+
+...
+
+> +static int isg5320a_read_event_config(struct iio_dev *indio_dev,
+> +				      const struct iio_chan_spec *chan,
+> +				      enum iio_event_type type,
+> +				      enum iio_event_direction dir)
+> +{
+> +	struct isg5320a_data *data =3D iio_priv(indio_dev);
+> +
+> +	if (type !=3D IIO_EV_TYPE_THRESH || dir !=3D IIO_EV_DIR_EITHER)
+> +		return -EINVAL;
+> +
+> +	return READ_ONCE(data->ev_enabled);
+> +}
+> +
+> +/* vendor isg5320a_set_enable(), :681-742 (minus the work items) */
+> +static int isg5320a_events_on(struct isg5320a_data *data)
+> +{
+> +	struct device *dev =3D data->dev;
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(dev);
+
+You could use PM_RUNTIME_ACQUIRE_AUTOSUSPEND() to ensure the device is susp=
+ended
+on scope exit. It works on the same cleanup.h magic as guard().
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	scoped_guard(mutex, &data->lock) {
+> +		ret =3D regmap_read(data->regmap, ISG5320A_REG_IRQSTS, &val);	/* :700 =
+*/
+> +		if (ret)
+> +			break;
+
+With the macro mentioned above you could just return here and don't need th=
+e if (ret)
+check below.
+
+> +		data->close =3D val & ISG5320A_IRQSTS_PROX;		/* :708-713 */
+> +		isg5320a_read_sample(data);				/* :704 */
+> +		ret =3D regmap_read(data->regmap, ISG5320A_REG_IRQSRC, &val);	/* :718 =
+*/
+> +		if (ret)
+> +			break;
+> +		ret =3D regmap_write(data->regmap, ISG5320A_REG_IRQFUNC,	/* :719 */
+> +				   ISG5320A_IRQFUNC_ENABLE);
+> +	}
+> +	if (ret) {
+> +		pm_runtime_put_autosuspend(dev);
+> +		return ret;
+> +	}
+> +
+> +	WRITE_ONCE(data->ev_enabled, true);
+> +	enable_irq(data->irq);						/* :721 */
+> +	/*
+> +	 * Cache the decision: device_may_wakeup(dev) may change before
+> +	 * events_off(), and we must only clear a wake enable we actually
+> +	 * set, so only mark it enabled if enable_irq_wake() succeeded.
+> +	 */
+> +	if (device_may_wakeup(dev))
+> +		data->irq_wake_enabled =3D !enable_irq_wake(data->irq);	/* :722 */
+> +
+> +	dev_dbg(dev, "events on, initial state %s\n", data->close ? "close" : "=
+far");
+> +
+> +	return 0;
+> +}
+> +
+
+...
+
+> +/* vendor isg5320a_remove(), :2030-2033 */
+> +static void isg5320a_teardown(void *arg)
+> +{
+> +	struct isg5320a_data *data =3D arg;
+> +	struct device *dev =3D data->dev;
+> +
+> +	pm_runtime_disable(dev);
+> +
+> +	if (data->ev_enabled) {
+> +		isg5320a_events_off(data);
+> +		pm_runtime_put_noidle(dev);
+> +	}
+> +
+> +	if (!pm_runtime_status_suspended(dev))
+> +		isg5320a_mode_sleep(data);
+> +
+> +	pm_runtime_set_suspended(dev);
+
+> +	pm_runtime_dont_use_autosuspend(dev);
+
+No need for this, I've changed the PM runtime core to call this automatical=
+ly
+on driver exit :)
+
+> +}
+> +
+> +static int isg5320a_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev =3D &client->dev;
+> +	struct isg5320a_data *data;
+> +	struct iio_dev *indio_dev;
+> +	unsigned long irqflags;
+> +	int ret;
+> +
+> +	indio_dev =3D devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data =3D iio_priv(indio_dev);
+> +	data->dev =3D dev;
+> +	data->irq =3D client->irq;
+> +	i2c_set_clientdata(client, indio_dev);
+> +
+> +	ret =3D devm_mutex_init(dev, &data->lock);
+> +	if (ret)
+> +		return ret;
+
++ blank line
+
+> +	ret =3D devm_mutex_init(dev, &data->ev_lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* The vendor node has no supply; the board relies on an always-on LDO.=
+ */
+> +	ret =3D devm_regulator_get_enable_optional(dev, "vdd");
+> +	if (ret && ret !=3D -ENODEV)
+> +		return dev_err_probe(dev, ret, "failed to enable vdd\n");
+> +	/*
+> +	 * If the rail was just switched on, give the chip time to come out
+> +	 * of power-on reset. The vendor never switches it, so this value
+> +	 * (10 ms) is a guess, not from the vendor source.
+> +	 */
+> +	if (!ret)
+> +		usleep_range(10000, 11000);
+
+fsleep()
+
+> +
+> +	data->regmap =3D devm_regmap_init_i2c(client, &isg5320a_regmap_config);
+> +	if (IS_ERR(data->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(data->regmap), "regmap init failed\n=
+");
+> +
+> +	ret =3D isg5320a_reset(data);				/* :1915 */
+> +	if (ret)
+> +		return ret;
+> +
+> +	msleep(300);			/* vendor runs init_work 300 ms later, :1981 */
+> +
+> +	ret =3D isg5320a_initialize(data);			/* :1620 */
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "init failed\n");
+> +
+> +	ret =3D isg5320a_mode_normal(data);			/* :1621 */
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "start failed\n");
+> +
+> +	/*
+> +	 * The chip is already active, so a later failure (e.g. the IRQ
+> +	 * request below) must still put it back to sleep instead of leaving
+> +	 * it scanning with nothing bound to it.
+> +	 */
+> +	pm_runtime_set_autosuspend_delay(dev, ISG5320A_AUTOSUSPEND_MS);
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_get_noresume(dev);
+> +	pm_runtime_enable(dev);
+> +	pm_runtime_put_autosuspend(dev);
+> +
+> +	if (data->irq > 0) {
+> +		irqflags =3D irq_get_trigger_type(data->irq);
+> +		if (!irqflags)
+> +			irqflags =3D IRQF_TRIGGER_FALLING;	/* :1932 */
+> +
+> +		ret =3D devm_request_threaded_irq(dev, data->irq, NULL,
+> +						isg5320a_irq_thread,
+> +						irqflags | IRQF_ONESHOT |
+> +						IRQF_NO_AUTOEN,
+> +						"isg5320a", indio_dev);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "irq request failed\n");
+
+Duplicate error call, devm_request_threaded_irq() already does this on fail=
+ure.
+
+> +
+> +		if (device_property_read_bool(dev, "wakeup-source"))
+> +			device_init_wakeup(dev, true);
+> +	}
+> +
+> +	/*
+> +	 * Registered after the IRQ request, so devm's LIFO unwind runs this
+> +	 * teardown (which may disable_irq()/disable_irq_wake() the IRQ in
+> +	 * isg5320a_events_off()) before the IRQ itself is freed, not after.
+> +	 */
+> +	ret =3D devm_add_action_or_reset(dev, isg5320a_teardown, data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	indio_dev->name =3D "isg5320a";
+> +	indio_dev->modes =3D INDIO_DIRECT_MODE;
+> +	if (data->irq > 0) {
+> +		indio_dev->info =3D &isg5320a_info;
+> +		indio_dev->channels =3D isg5320a_channels;
+> +		indio_dev->num_channels =3D ARRAY_SIZE(isg5320a_channels);
+> +	} else {
+> +		indio_dev->info =3D &isg5320a_info_noirq;
+> +		indio_dev->channels =3D isg5320a_channels_noirq;
+> +		indio_dev->num_channels =3D ARRAY_SIZE(isg5320a_channels_noirq);
+> +	}
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
+--=20
+Kind regards,
+Joshua Crofts
