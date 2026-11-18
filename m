@@ -1,57 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795023828;
-	b=Z++ww2Mw9nO9TT2I/x2wuvOfdTTK/xMSU1WRSH0p2l2zSABuK8wglnP3eQ1zdFuKTTKq
-	 M/TC6aX2l+rpLKyRf2A92ZK2C6h2nQkozPrtMMjGS+jQ1F1HPRLKdt+wflztwM1KsZtus
-	 A++AXSiMCFc14Ln1HpSNw6y5nhyy/5VLHW7rFmq/vwabEvVh5RZrmJua/uTd+TSemy5Rx
-	 AR+Rc1nJaASkOVG9wcYMYfrlQdSw98dWuzeUOHODOhoTFYdkbyVl0TrY5+xLpUhQNCQM8
-	 OMxmttudeQ02rSu2UHysxiTzttUbpmDYTw78h5on+p9zg0EC2w5Uq5bICkbMLXHufeQ==
+	t=1795023864;
+	b=kFOL4Z2/f+SdjHo6fdbPJK9Uqgcr7b7YFRmdCwItymqczcT7x5hUajLBhV6ORx3/vtkD
+	 qeuVQMGtFoYpvufsIuj0hL3fNnSOdZ8qDxLHmUpjg0sF9qYCBEfe0mwtiub2dNIXoaqS+
+	 ym/XbY8HMkNf/cV2K+PsTvJNjoM3GyZYmg0AgldT6PKnSdXptb7SCxx5+LMUEE8ptm8V7
+	 sCpqBEEPCNaCCr250B5THJtX/I2zJFJf+sA+U83RmumG5owtGX/J0lZC+foxtvyfS8ROc
+	 vJpQoXaJEZDKaphzqYIdohdB15lTSYFeDnuT5vxyr3YfjruL4Vw+m0sRQAPqSlMiHHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795023828;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=COurVYN7VwQB9vUgl9HBc7zsOV81YbLQ0D1bLT2S93Y=;
-	b=kRARhk9e70mFOUBKwYLEjbMH+nN//8kvauknFqOPyvIMEf9aO2KTDydOMR9EjJaYGMvh
-	 gR6Cpcr3wivV/Cx6ra0YTUKgCCF1aavxenYio6jWGthXuAOui8mOXnvDLYRRlp93SwnKS
-	 rMhRbtI78VdAHb/2Q0BiPC9piV79ZzSPCU9fBIUDqPazgr9P0DoU++KHb6FGQ42iI7j51
-	 A4UZylbQMFr6Tr45npJU9Mhp+DXxvSD/l4WkGD/VDAEeDEaoMW4Pg3N/qW4z3KieljCcF
-	 U/1HNWferlfF0vzU9WNrLGVWQiol58YV6194irtpn7J4m7TGYLkl7qtjTzjvAGBRKog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795023864;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=sCmHtrQ+6XrvMRrdRCPqx5sKsj7rGGNMbxIOJEi2aPQ=;
+	b=Adb2OulD4odDBV39Fdo3SXaDFXSC27GQ1xDLmZDmdIaBtweaxUEmCvtLVCDRSxnmkgQL
+	 IFAd2g8IPLtTOWPSGcU3C1uLNMmBOvtCzCw1r1KsXAkLxPHmJRogK0/dhLEgKuNpR8C1f
+	 uKVEmCiidbxn1Poz2zPcCrkwr/puXU2IACJ9xkHjwhVxQbaz99HSiiXZgipKgracxe7bY
+	 em1BPl90BRc9yaiY7dC2cv3Q12+LmaN3cVhfHJDJqiEHWWPap3V0mofo6wHdueKlmkTgy
+	 7Z4+N+xOsZSpvZtGxTVtJJbljWqJgI307wKsPGZwg4j8jW9hN4E86Gcj1NVBCgX9wfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="k/z4Ggrk";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0cWDo1b0;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4850E606A31C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:43:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20E1606A325
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:44:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D20E1606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k/z4Ggrk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB5E01F000C7;
-	Wed, 18 Nov 2026 17:43:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795023828;
-	bh=COurVYN7VwQB9vUgl9HBc7zsOV81YbLQ0D1bLT2S93Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k/z4Ggrkh9xBOcaBNw5v1iIWKhSFpADTVyWSJjnpMZoWlKlkxujzXStiIU8IzMW+v
-	 yopXXn3TbjwgBdCNopWsUsSOu5nG0m7Wbl3SbHwcoOugm81OK50Yzh8orjOydBactR
-	 vQZ4lAXvV27NRlMQW0mYJYU7pEvd/4ZlQKelHZA8ttv++e8P6LpYv2oiRf41yditkU
-	 5/ql8UJDZuntbbOaIunK9dRrFv2K3tPlu/Z14rdJ07z1uFi/c7zx8HKJwa8jLV7X2C
-	 9ZbDVYxqGEP0uehgKh6COnztX2WLdksXuwqRRX67gd/fr+4kSCQ+2WfE3J2W7+xb+D
-	 SwyXbJym6dIbQ==
-Message-ID: <sashiko-outbox-221681@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/12] regulator: qcom_usb_vbus: Add support for
- pmi8998
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg" <david@ixit.cz>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-pmi8998-vbus-v2-2-3c77a72b280a@ixit.cz>
-References: <20261118-pmi8998-vbus-v2-0-3c77a72b280a@ixit.cz>
- <20261118-pmi8998-vbus-v2-2-3c77a72b280a@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 17:43:47 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0cWDo1b0
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so202902666b.2
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:44:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795023862; x=1795628662; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sCmHtrQ+6XrvMRrdRCPqx5sKsj7rGGNMbxIOJEi2aPQ=;
+        b=0cWDo1b0Vz8NKj50u6qJhSdLYhHKP89Oa7NiQCl3Mzi6rEGcDWBIvlmv1Ps9NB6RhJ
+         H5VT0LvBm7v8pMiM9gzrsa3leqeTEpB8QsoCdloW4ikHpV7B/i7FNAuprxbmy4C/40Kc
+         AH1kAKabhVplQ5dKgPWCZD4ewibVjJnb0MGve5PVGgwocRJ7oYfd2pEQyUR2OwqIr4FR
+         xNbAVTOQXvyF6Qwk4ToYTpuqnKTAWUk87h1pnaW96D4TL073dSjeBlvNOEhP+BiZwcyy
+         bYKzYNTfxpp4bQOQOGcNr8pXtg8CysDPaU86LUwvEcvhXMJ00exZ+AMKKVNu74J3uHfg
+         ou8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795023862; x=1795628662;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sCmHtrQ+6XrvMRrdRCPqx5sKsj7rGGNMbxIOJEi2aPQ=;
+        b=pnKLemqrFNnfYQGvHCEFvjsFZ/O0kp3wJoKjAjB/FnxSqwugvSqYwYpW9vNi7aVHPh
+         TuHP93ASf3r2wK0waJ5cEitQAZT7wGIqkh7j568LqX4ydGtAtdwgh1y9OuUbBfhaxoBB
+         /4eBORnqrJewzGg8YlNqqsVKr4+D0+bkKwgBdvvwdSnduMLoNEwYFkhPi8LsnDC6H0H6
+         RRgKgmU4aJb+BowEzZYrj6gbSqS+B9G6YsciPch8tK4Kx9YWWKdtH+Osp2BIPBFaBifR
+         Y8FSPTBquUtBMTLYOgBWgbdvHaIUyfLKD87UQYXpMDAEV6WDV89QKlCE3I3Y3H47Pf06
+         mW9w==
+X-Forwarded-Encrypted: i=1; AL+hErGfzI78t+aDN3QiVxVTHgjg9yt0NltWvMSSV0pHzmUw/GAf7P3EU/8r2z5Nspg4+T40AUivABxcwgGN@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ziQ57sciOqlY7rviIgfRFzEOtAz5S24eQ5+xcmK7JaBMQfjgi
+	asge+TiEYTWt1LlyOrZXbpeUpun+O1l+E5CmEeORhZiwceNp5QbHzDqo
+X-Gm-Gg: AYBFou1+w29r4HFy0JaAYahZG/LJrGaXK4bKGacy4ugWo0C5gvPulS1cHLAUjhCICRU
+	qDwToH9J3j8Jwidaq5t4QhioAEULVSWR1Q6zXNyr21bRdpCc5R/tpSGog8X8JEDEaPb84NQ0gBy
+	vbNbe6QRuRwVIkcyAAao/RwcMaCYHHgq7dacStmg0mFA0blKVWiyzWYgFR17hlFh3/rgqLnES4R
+	pl5GO6g2b5hnT9NpUHsRywpoIkQMr7v04ANll/RS+LWvJSG3o3Oeh5Muovn8lFpMSw0zyWjXdfs
+	KnkGY1SY+xrr2ymJvLssCf7BL7J717+E4wah0XJZ6Ho7izD2WNgIg0W1hDTfsTqTDSgtxE2suJK
+	LaMBD28a/Fe6uepgfBiA7omJj120qr/aDo+ZohNk0b+sTMEGJIAAdY/AZ55FjWYb7Eu5/pKKwVJ
+	2j15w/p8+1wGMpPWQ/Ww2W6XgggH5owxxD9JpUD0HwFQmyTIPk3eLghmkr74yhkKivXKH8IBQzc
+	LUTQR0r8JLkZ7ScJaa/xLFPsD7meRpBRnQ/KKFKZT/lEHgEf7Cwjl304i+3M3OqIUIJnRtr9JRn
+	65zhrw7EaH4Z+A6AdeNZLaWPwf/2ViuMF0U2AsY91Jr8UbuxExoUi3ri6s7ZLZweWiDKP4Xvnko
+	MxCsLCbc29sDO6b1x5UArSueODkBUEpywSA==
+X-Received: by 2002:a17:907:d406:b0:c49:cfcf:8d7f with SMTP id a640c23a62f3a-c510e3bd593mr314327866b.46.1795023862016;
+        Wed, 18 Nov 2026 09:44:22 -0800 (PST)
+Received: from fedora.tux.internal (85.191.71.118.dynamic.dhcp.aura-net.dk. [85.191.71.118])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51233c3befsm25904066b.26.2026.11.18.09.44.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 09:44:21 -0800 (PST)
+From: Bruno Thomsen <bruno.thomsen@gmail.com>
+To: linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bruno Thomsen <bruno.thomsen@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: hwmon: ti,tmp401: Add channel nodes with label property
+Date: Wed, 18 Nov 2026 18:43:33 +0100
+Message-ID: <20261118174334.18759-1-bruno.thomsen@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,60 +98,125 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] regulator: qcom_usb_vbus: pmi8998_data duplicates pm8150b_data
-  verbatim
---
+TMP401, TMP411, TMP431 and TMP435 have one local and one remote
+temperature channel; TMP432 has two remote channels. The local channel
+measures the board where the chip sits and a remote channel measures
+whatever diode is wired to it, so only the board design says what each
+channel is.
 
-commit 236079d01ccf3acd0da063e72d90d4189d163862
-Author: David Heidelberg <david@ixit.cz>
+kam,am335x-emperor-mini fits a TMP431 in place of the NXP SA56004 on
+kam,am335x-emperor, at the same I2C address. On both boards the local
+channel measures the baseboard and the remote channel the FPGA's
+thermal diode. national,lm90.yaml already lets the SA56004 name its
+channels through channel nodes with a label property; add the same
+nodes to ti,tmp401 so the TMP431 channels get the same names.
 
-regulator: qcom_usb_vbus: Add support for pmi8998
+Signed-off-by: Bruno Thomsen <bruno.thomsen@gmail.com>
+---
+v1: https://lore.kernel.org/linux-hwmon/20260730133058.14731-1-bruno.thomsen@gmail.com/
 
-This commit adds compatible string and register configuration data for
-the PMI8998 USB VBUS regulator.
+Changes in v2:
+- Rewrite commit message around the board that needs per-channel
+  labels, rather than referring to other bindings. (Krzysztof)
+- Quote '#address-cells' and '#size-cells' consistently with the
+  patternProperties key. (Krzysztof)
+- Drop the new example and extend the existing ti,tmp431 example with
+  the channel nodes instead. (Krzysztof)
+- Reword subject: the patch adds channel nodes, not just a property.
+- Rebase on the new "#thermal-sensor-cells" property, which moved
+  the patternProperties context.
 
-> diff --git a/drivers/regulator/qcom_usb_vbus-regulator.c b/drivers/regula=
-tor/qcom_usb_vbus-regulator.c
-> index 88f5a6ba79e6e..0617106a82cda 100644
-> --- a/drivers/regulator/qcom_usb_vbus-regulator.c
-> +++ b/drivers/regulator/qcom_usb_vbus-regulator.c
-> @@ -68,6 +68,17 @@ static const struct qcom_usb_vbus_reg_data pm8150b_dat=
-a =3D {
->  	.ops =3D &qcom_usb_vbus_reg_ops,
->  };
-> =20
-> +static const struct qcom_usb_vbus_reg_data pmi8998_data =3D {
-> +	.cmd_otg =3D CMD_OTG,
-> +	.otg_cfg =3D OTG_CFG,
-> +	.otg_en_src_cfg =3D OTG_EN_SRC_CFG,
-> +	.csel_reg =3D OTG_CURRENT_LIMIT_CFG,
-> +	.csel_mask =3D OTG_CURRENT_LIMIT_MASK,
-> +	.curr_table =3D curr_table,
-> +	.n_current_limits =3D ARRAY_SIZE(curr_table),
-> +	.ops =3D &qcom_usb_vbus_reg_ops,
-> +};
-> +
->  static const struct regulator_ops qcom_usb_vbus_pm4125_reg_ops =3D {
->  	.enable =3D regulator_enable_regmap,
->  	.disable =3D regulator_disable_regmap,
-> @@ -166,6 +177,7 @@ static int qcom_usb_vbus_regulator_probe(struct platf=
-orm_device *pdev)
->  static const struct of_device_id qcom_usb_vbus_regulator_match[] =3D {
->  	{ .compatible =3D "qcom,pm8150b-vbus-reg", .data =3D &pm8150b_data },
->  	{ .compatible =3D "qcom,pm4125-vbus-reg",  .data =3D &pm4125_data },
-> +	{ .compatible =3D "qcom,pmi8998-vbus-reg", .data =3D &pmi8998_data },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, qcom_usb_vbus_regulator_match);
+The "kam,am335x-emperor" device tree series that consumes this is at
+https://lore.kernel.org/linux-devicetree/20260318085420.7680-1-bruno.thomsen@gmail.com/
+Its v2 adds "kam,am335x-emperor-mini", which uses these channel nodes.
+---
+ .../devicetree/bindings/hwmon/ti,tmp401.yaml  | 48 +++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
-[Severity: Low]
-Since pmi8998_data is identical to pm8150b_data defined right above it,
-could the qcom,pmi8998-vbus-reg entry in qcom_usb_vbus_regulator_match
-point directly to &pm8150b_data instead of duplicating the descriptor?
+diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml b/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml
+index f283b567d5b6..b162bf8c043a 100644
+--- a/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml
++++ b/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml
+@@ -30,6 +30,12 @@ properties:
+   reg:
+     maxItems: 1
+ 
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 0
++
+   ti,extended-range-enable:
+     description:
+       When set, this sensor measures over extended temperature range.
+@@ -53,6 +59,26 @@ properties:
+   "#thermal-sensor-cells":
+     const: 1
+ 
++patternProperties:
++  "^channel@([0-2])$":
++    type: object
++    description: Represents channels of the device and their specific configuration.
++
++    properties:
++      reg:
++        description: The channel number. 0 is local channel, 1-2 are remote channels.
++        items:
++          minimum: 0
++          maximum: 2
++
++      label:
++        description: A descriptive name for this channel, like "ambient" or "psu".
++
++    required:
++      - reg
++
++    additionalProperties: false
++
+ allOf:
+   - if:
+       properties:
+@@ -75,6 +101,16 @@ allOf:
+       properties:
+         ti,beta-compensation: false
+ 
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              const: ti,tmp432
++    then:
++      properties:
++        channel@2: false
++
+ required:
+   - compatible
+   - reg
+@@ -103,5 +139,17 @@ examples:
+         ti,extended-range-enable;
+         ti,n-factor = <0x3b>;
+         ti,beta-compensation = <0x7>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        channel@0 {
++          reg = <0x0>;
++          label = "mainboard";
++        };
++
++        channel@1 {
++          reg = <0x1>;
++          label = "fpga";
++        };
+       };
+     };
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-pmi8998-vb=
-us-v2-0-3c77a72b280a@ixit.cz?part=3D2
+base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+-- 
+2.53.0
+
