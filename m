@@ -1,88 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794987378;
-	b=agO0V44EJ/spB0j1piMCiw2tJ8H88GN+jzEg6JSSIb79ntA/hJCsUvFCEVyOvKUcECns
-	 pRqbc4w3AvsxEIraOyXn4V6NYbuh52wSXRZLOl4WkAVJCvgCreY6W1/IALV4jAsG7YNOc
-	 xOfQXZXNYOiHBgTN/us+1cQksJbNfceHyVOosXuqdBrAiTcNwEaUbqJp1PpR5jG6XY1vr
-	 QJQL2tLkqRz+gZDaMRi4HZjMI5xIv/kT3WAxWeHuJUqWriwo+E2C+tpcvLWO3FL44exOx
-	 Xzlq79fX3TUkOMUrjqBqNxBzfu78H6tZZlZTBZzpelI+nZ+U/GnnQ6+4e+gGrD46yzQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794987378;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tlHhRAfzkWbwkJr+SuFjHMNnba6hLyqJvRyg5XvaArs=;
-	b=cpTv3buxZXrpwMHaavTtPr1koROxpnfUt1x1lwHPtGxTXha+ZW0jivOLJxQ0Jwoo1HUn
-	 DI90InxfbclTe9SPd/rr8/nB5jnXdifCPk2vOM3vO7oawU4jkoyeJkf31AmuT3Lbt5lhH
-	 Gn9Xj6BPHEto3Ac3IoKpWFrDnPPnp5AaGNjVhiz+R3ZnQff+gXlfBoyRt5jXXkwUVzE5u
-	 etRuU3/1UiBs1wl7Qk8GAREN0evY1LeojkqhD2Z3ENcFQetMA8OxtdxrK77DK+detPWEx
-	 I2F8Q0d7QXqFa9COHeAqHGbMsZ3jR5IoPOe9Fw/kDBe1GucEwH9QicTqDArbbef7CKg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3p+Yyw4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794987645;
+	b=WsmgZCIG7TQ9TOkGR3dU9kw7SHdrrl8RGIbcjDwaiNyVprNIZDL2Vjcxghp6f3gWL8mh
+	 +6mxhb7RX2Y1T0QcJhV/3af/FI3HG4ZTtSdrwP2TyG337eTX4OMAbghROKdqNwkel2QRH
+	 5j7nJko0vWZY4jsudDdF8lcA0irXjQ7SWDmcKL/sH85sHpxcOvIlBwqp9cRPp1OqqKVDC
+	 USLUAh8YCgRjDLtlFZipGlFg9yMoCOaElJ6F271yfECDAMbIOMOJnvwx9daHXzVqUZxZv
+	 OXX2LkmUlGePckTNOR8TXbIhqd/cjny3gDEpLcw711fl+prwaV5/Z45sPMwgtQce+gg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794987645;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=fwcTKS4wj4k6U6GuJD2rx7VTQUh26juZW+bkpxx6fFc=;
+	b=ocJkpSgsOpDEJyLEZhKI62BoB9cuKeKfz27kZvu3bKCA9VTPvEoo3a2Q7o91/xH8Bgre
+	 YGhnotmrsFbQnAsaMWlUoRnz9XiPi9dUpCC6G8Z1Ov/a9xRYj4+u+VgdUCmLxCKVCewjk
+	 A3ihwh6NWTnlgvIuaOSR2qDcPliuJg/te9J7+D4HbLCSKlXbuuBe979/jIxKuTRARkLl3
+	 YqrblA6vALV8WiA6WFwN2kTQxpIEYx3SPciAeWcKSpjsQT8Udcl751Lq3Ha6GazDFYfX8
+	 tmykUBU5Bu5qTyEtSKyqEGgSeJhXzU9qm05MyNaTC5AOAd0oh/fShIorXBLPVR/rWkg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGk1klND;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938ED606A31C;
-	Wed, 18 Nov 2026 07:36:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1FC606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:40:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3p+Yyw4
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794987378;
-	b=WV3i1Kb9lfRSesp3ScJsW7d/Qjt+jl1MnZRbgJBe1teNdfEhGubmbFMmrKxSahK+Bu7M
-	 gy8s6Iwahh/tcmiI6SI/8O350mljyo2/1JGtfk/U2ilnH/vcRBt4SK90WSP0D+cLcnEhF
-	 dom6bJgEXBsRx4b5KOIzMYCL6i+hByHL1jOEpp7YVlmY14tbQBoEYvPFzfQaJWhRJcpqk
-	 Cu11JFwXMl4cxEYtKnm5OXZu4iSRluPM+pJWAjat8NSkBZO60yQZD2uzqpr8BHVZN5wDB
-	 Pe9vkqMmbPQv/BQ9OOQMgO1NdeBHg3ZmHYzwZfy2vnDaFGvfy985sE1+fxwmUvfA4Ww==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794987378;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tlHhRAfzkWbwkJr+SuFjHMNnba6hLyqJvRyg5XvaArs=;
-	b=ymx4wS/Jb2Dbu81D8beWlsC7y4feDWQ8WebPfRpR44wjnKNeesYyopF0NJLtCMX5L0QF
-	 WKTmchl2F+jU/Bg2dB3epFpfJuzCqMRMsSriu5iOMNQAK26srFuc9gALxTDJTCdIfyUCM
-	 8u/YfP4K63YtIi0wJ1FENWoirVV0S+/G2I4UX43WZ+fB8OsyI3tb0fXeRrNPdUQYfD+fU
-	 NvJF0hSSzQ5aux4dJN1PImzfgSZYIu2WAiVPiDb4qVIi9jFha7ufn/UdCkyQNaerGdpM1
-	 zyPiMpx9y5zC1ZeKymYrP9dXbJlcx/rqae1qyVLz1JxMP6uBOobTBrfD/orjADxT5Pw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id D37151F000C5;
-	Wed, 18 Nov 2026 07:36:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGk1klND
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 749F61F000C4;
+	Wed, 18 Nov 2026 07:40:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794987378;
-	bh=tlHhRAfzkWbwkJr+SuFjHMNnba6hLyqJvRyg5XvaArs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=g3p+Yyw4BO4hgQnDf/Iqdi9hznw9UcvRq6jIRxry5dgUXhfEyHuI3NAmghbECsbv6
-	 AGCjvZx2jlTr84mzJibGW0PsVA1MM6xSdjUuoufa7EbsXY+9vaYh3c9i58on4P5hZJ
-	 pLbawHy2vAB/Gio28knyDSQwEahDpR9EihRgGq3KVt5XWmXMKMMnnJkwVuOrOELe+r
-	 k0Ua+dim1gv6/9uaLgSqFXhF03Rfkdd0xMWWp6Xc0YOZTtvOuUSbq61u/iejCP6L3q
-	 mA/XG01UrsCCy27Peavtez5bhH0+73Cmwe+uphWVib0xRlaGVirAAYYUo6s1pTlBgG
-	 Gq2uLgMoLEa2w==
-Date: Wed, 18 Nov 2026 08:36:06 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Arnav Kapoor <kapoorarnav43@gmail.com>, Jonathan Cameron
- <jic23@kernel.org>, Gwendal Grignou <gwendal@chromium.org>, Daniel Campello
- <campello@chromium.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] Semtech SX9xxx: add a reviewer entry and binding
- maintainer
-Message-ID: <20261118083606.00005f7e@kernel.org>
-In-Reply-To: <avyoLGkkCkxu11TA@ashevche-desk.local>
-References: <20261117172612.25535-1-kapoorarnav43@gmail.com>
-	<avyoLGkkCkxu11TA@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	s=k20260515; t=1794987644;
+	bh=fwcTKS4wj4k6U6GuJD2rx7VTQUh26juZW+bkpxx6fFc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KGk1klNDRPdTEvZetYbAqPP9OvCM8p7hO+NiZwDYQqPSa2yFejbupZwhp5N+O9cL8
+	 AqGJJCXwCxX7U4AYNTZb/zT0MEaqFRAMMkbozOGVQ9030AbwUGTUH+ZOIl9RI0EDgA
+	 bt0Krb4hHXGSVuEr9XI6OMAkdZJJICeSm0mk+dfYo3jLXjYBrGZ9AR12TLJOGHaqb+
+	 BSvJHSJ1x2z7QfruiWazNJjBX9346Nih4xs9s9RUvYDe0j0TQLhfxudmmwRaut/7mn
+	 SoPKuVnJZcQlFNeNcGXSuVuok95IRFCtbA0G4l4LrVPt+vNQFbRsjRGUdWaWjsb1vL
+	 n7a8sgb+oK+aA==
+Message-ID: <sashiko-outbox-220323@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 2/2] i2c: amlogic: Add Amlogic A9 I2C controller
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261118-a9-i2c-v11-2-68a3e79ff43a@amlogic.com>
+References: <20261118-a9-i2c-v11-0-68a3e79ff43a@amlogic.com>
+ <20261118-a9-i2c-v11-2-68a3e79ff43a@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 07:40:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,39 +60,170 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Tue, 17 Nov 2026 21:17:00 +0200
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] i2c: amlogic-a9: transfer started before IRQ setup in
+  aml_i2c_do_start()
+- [Medium] i2c: amlogic-a9: stale irq_state and edge IRQ miss in
+  aml_i2c_irq()
+--
 
-> On Tue, Nov 17, 2026 at 10:56:07PM +0530, Arnav Kapoor wrote:
-> > Add a MAINTAINERS reviewer entry for the Semtech SX9310, SX9324, SX9360
-> > and SX9500 proximity drivers, and add myself to the maintainers of their
-> > DT bindings.
-> > 
-> > Jonathan agreed to a reviewer-only entry here:
-> > https://lore.kernel.org/all/20261117031830.69ac22f5@jic23-hlaptop/
-> > 
-> > Changes in v3:
-> > - Patch 2: replace the Link: tag and the reference to it with a
-> >   Suggested-by: tag (Andy)
-> > - Patch 2: drop the L: line, the IIO subsystem entry already provides
-> >   linux-iio for these files (Andy)  
-> 
-> > - Patch 2: drop the DT binding F: lines, patch 1 already lists me in
-> >   the maintainers: field of the bindings (Andy)  
-> 
-> I was expressing my opinion, it was not an AR, it was rather the start for
-> the discussion. I'm not DT maintainer, I don't know what the rules for the
-> maintainer records there, OTOH I don't know if DT parts belong to the
-> MAINTAINERS records that have only R: lines (and no M:).
+commit f0387049df50978b17672f0e9a9fea887c6cbc34
+Author: Junyi Zhao <junyi.zhao@amlogic.com>
 
-Not sure if R: makes a difference, nevertheless better to have the
-dt-binding files under the MAINTAINERS entry as well (i.e. grep -b5a5 SX9*
-MAINTAINERS if I'm looking for a specific sx9xxx binding file).
+i2c: amlogic: Add Amlogic A9 I2C controller driver
 
--- 
-Kind regards,
-Joshua Crofts
+This commit adds a driver for the I2C controller on Amlogic A9 SoCs along
+with Kconfig, Makefile, and MAINTAINERS entries.
+
+> diff --git a/drivers/i2c/busses/i2c-amlogic-a9.c b/drivers/i2c/busses/i2c=
+-amlogic-a9.c
+> new file mode 100644
+> index 0000000000000..db1a081b2a148
+> --- /dev/null
+> +++ b/drivers/i2c/busses/i2c-amlogic-a9.c
+> @@ -0,0 +1,428 @@
+
+[ ... ]
+
+> +static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
+> +{
+> +	struct aml_i2c *i2c =3D dev_id;
+> +	u8 *buf =3D NULL;
+> +	u32 rd_len, i;
+> +	u32 rd_val;
+> +	u32 irq_state;
+> +
+> +	guard(spinlock)(&i2c->lock);
+> +	irq_state =3D readl(i2c->regs + REG_CFG_IRQ_STATE);
+> +	if (i2c->state =3D=3D A9_STATE_IDLE) {
+> +		dev_warn(i2c->dev, "i2c irq triggered abnormally, irq_state:0x%x,irq_e=
+n:0x%x\n",
+> +			 irq_state, readl(i2c->regs + REG_CFG_IRQ_ENABLE));
+> +		goto irq_trans_out;
+> +	}
+> +
+> +	if (irq_state & A9_TRANS_ERROR) {
+> +		i2c->error =3D -ENXIO;
+> +		goto complete_irq_out;
+> +	}
+> +
+> +	switch (i2c->state) {
+> +	case A9_STATE_READ:
+> +		buf =3D i2c->msg->buf;
+> +		rd_len =3D min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
+> +		for (i =3D 0; i < rd_len; i++) {
+> +			rd_val =3D readl(i2c->regs + REG_CFG_RX);
+> +			buf[i2c->pos++] =3D rd_val & TX_RX_DATA;
+> +		}
+> +		/* Rx must clear thresh after read fifo */
+> +		clear_irq_status(i2c, A9_RX_THRESH_READ);
+> +		break;
+> +	case A9_STATE_WRITE:
+> +		aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_HALF);
+> +		if (i2c->pos =3D=3D i2c->msg->len)
+> +			aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_TX_THRESH_WRITE, 0);
+> +		/* Tx must clear thresh after write fifo */
+> +		clear_irq_status(i2c, A9_TX_THRESH_WRITE);
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	if (!(irq_state & A9_TRANS_DONE) ||
+> +	    (i2c->state =3D=3D A9_STATE_READ && i2c->pos < i2c->msg->len))
+> +		return IRQ_HANDLED;
+
+[Severity: Medium]
+Can multi-chunk transfers miss the completion interrupt and time out when
+A9_PHY_DONE asserts before clear_irq_status() clears the threshold bit?
+
+The devicetree binding specifies a rising-edge interrupt
+(IRQ_TYPE_EDGE_RISING), which needs the controller's interrupt output to
+drop to 0 and transition back to 1 to latch a new interrupt in the GIC:
+
+Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml:
+    interrupts =3D <0 164 1>;
+
+On a 64-byte read, the 32nd byte of the second chunk asserts
+A9_RX_THRESH_READ as soon as it enters the RX FIFO, before the NACK and
+STOP condition finish on the bus.  If A9_PHY_DONE asserts in
+REG_CFG_IRQ_STATE while the loop is reading the 32 bytes from REG_CFG_RX,
+clearing A9_RX_THRESH_READ afterward leaves the interrupt line
+continuously high without generating a new rising edge.  Because
+irq_state was sampled only once at entry, the check against A9_TRANS_DONE
+sees the stale value without A9_PHY_DONE and returns IRQ_HANDLED without
+completing i2c->done, hanging wait_for_completion_timeout() for 500 ms.
+
+Similarly, if both A9_RX_THRESH_READ and A9_PHY_DONE are already set at
+entry when more than 32 bytes remain to be read, aml_i2c_irq() reads only
+32 bytes, clears only A9_RX_THRESH_READ, and returns early because
+i2c->pos < i2c->msg->len.  With A9_PHY_DONE still asserted and fewer than
+32 tail bytes left in the FIFO, the interrupt output stays high and no
+further edge interrupt fires to drain the rest of the message.
+
+> +complete_irq_out:
+> +	i2c->state =3D A9_STATE_IDLE;
+> +	reset_fifo_pos(i2c);
+> +	aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_RX_THRESH_READ | A9_TX_THR=
+ESH_WRITE, 0);
+> +	complete(&i2c->done);
+> +irq_trans_out:
+> +	clear_irq_status(i2c, IRQ_ALL_MASK);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void aml_i2c_do_start(struct aml_i2c *i2c, struct i2c_msg *msg)
+> +{
+> +	unsigned int reg_val;
+> +	unsigned int trans_len;
+> +
+> +	trans_len =3D msg->len;
+> +	reg_val =3D (unsigned int)(((msg->addr & 0x7f) << START_SADDR_SHIFT) |
+> +				((msg->flags & I2C_M_RD) ? START_READ : 0) |
+> +				((trans_len & 0xfff) << START_LEN_SHIFT) | START_START);
+> +	aml_i2c_set_mask(i2c, REG_CFG_START,
+> +			 START_START | START_SLAVE_ADDR | START_READ | START_LEN, reg_val);
+> +	clear_irq_status(i2c, IRQ_ALL_MASK);
+> +	/* enable thresh mode */
+> +	if (trans_len > A9_I2C_FIFO_DEPTH) {
+> +		reg_val =3D (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH=
+_WRITE;
+> +		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
+> +				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
+> +	}
+> +}
+
+[Severity: Medium]
+Can clear_irq_status(i2c, IRQ_ALL_MASK) wipe out status bits for the
+transfer that START_START just launched?
+
+aml_i2c_do_start() writes START_START to REG_CFG_START while
+A9_ENABLE_IRQ_BIT (A9_NCK_ERROR | A9_PHY_DONE) is already enabled in
+REG_CFG_IRQ_ENABLE, and only then clears IRQ_ALL_MASK and enables the
+threshold interrupts.  If the CPU is delayed between those MMIO writes
+(for example under CONFIG_PREEMPT_RT or vCPU preemption) and an address
+NACK or short transfer completes in the meantime:
+
+aml_i2c_xfer_msg()
+  aml_i2c_do_start()
+    aml_i2c_set_mask(..., REG_CFG_START, ..., START_START)
+    /* hardware finishes or NACKs, asserting A9_NCK_ERROR / A9_PHY_DONE */
+    clear_irq_status(i2c, IRQ_ALL_MASK)  <-- clears new status bits
+  unlock(&i2c->lock)
+  <hardirq>
+    aml_i2c_irq()
+      irq_state =3D readl(... + REG_CFG_IRQ_STATE)  /* reads 0 */
+      /* misses A9_TRANS_ERROR, reads garbage from REG_CFG_RX */
+      if (!(irq_state & A9_TRANS_DONE) || ...)
+        return IRQ_HANDLED;  <-- never completes i2c->done
+
+wait_for_completion_timeout() then stalls for 500 ms and fails with
+-ETIMEDOUT.  Clearing REG_CFG_IRQ_STATE and enabling the threshold
+interrupts before setting START_START avoids this race.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-a9-i2c-v11=
+-0-68a3e79ff43a@amlogic.com?part=3D2
