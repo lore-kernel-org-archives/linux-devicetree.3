@@ -1,47 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794998487;
-	b=d6mxaCRU5/+q+NU63fql4ausVUlGEOZDsheuHyejS10DcsyYC483tSZh7Q+VyZ231MB0
-	 gH3qYQr4rworTYDg44fVcd9LWB0CngZWwtPamIuvudeL2G5axuR1FL3TT0K6fZS3PD+7d
-	 4s+b6V9XqRDd3dF5K7puth+KKIs/2wsgleiSus5spWkiQPC94oiVeM/OQXlKUCUxwGOqQ
-	 Q5XzDG1W/9MTX2kOFkGWoR03dP5t4xElgF7XD75a2Au7CUE7UX248LKwPpAsuZkVCJNCG
-	 fxh/ldTHDpbCPSGK15hDKuUZSNVMIYQ/qLYvPli454pJB/AxZJ8K0K0Lz/j0+ANC2Mw==
+	t=1794998489;
+	b=gNY0X3aU9A6jjKHut1kb92ZoCcRCm/oeVXeKboq5onlci1Rn98PQFqh5TfDd6Rpnjdm2
+	 9ro/rg4wgkliD8bKYOG2wBJ8fO2pSAQH0pvkwr3rYXArEedZmic0it9mgs9x54R3cguKK
+	 xw3gTzHzN7uSIi5ZO9Y0TSF0nllZDfyRiB82JYrTP9rB+5mpy5+cHOqYfpBrl+u10C+qU
+	 +BCn0wty2Z6QIR9EPKPXsrKR9ONc4Jbl1dZP+m5aj71U4l2A99OpdBRJf03Oi2/L+KlFY
+	 x2aIUcREMdf9WpXunaAE5ykmiO9C/MB+jkEp+qrDalmIC+O7CuqHW1szkiPcixoDjIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794998487;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794998489;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=eA5bJYl2DX4B2F944LFo8gIjbAOwIGsts+2iJmGpa8o=;
-	b=JtIgB0uWoMhcAoltRaA8ZRE2niTz70TzrAtIR71JW171j08Xr1kWc8953cyHNL7g/oNX
-	 klLgqycnSjEFNSOHjn+yTvUzmni5cQwfF2C/AvuUdTFDN5ZJuy+dqp3KeUF2ruHjaNu8m
-	 h8Uxg2tdZkElK2tsIqqXWPnglsVV45k3P2x7ZzQ+o/l5GLf1fPXkl5CIRN3FeZwaCywiD
-	 lBpyO0iQhuh4AsmZvWU0B9XAjLYdJLysWfM+khLrwxc7NUiDem9RsxkKPLACRIaFC3e0R
-	 WZmeDCjLXI5dVM5VLII98j1mqCvXNFve1fsRth8ai/N2h8/W7OaMexcbvCbn9huCaEg==
+	bh=wtOLIIGy2V2qdHSm0s3wSDnD9BTWQqmLjRaYH3bZpf0=;
+	b=zpM2LLy+edQ+MvzQV1ZumIUNruEqEiA2LNOGEJtCndF7z2uWUUJwJJnBmAsDYC9Ddv21
+	 ru77PhOZFguAORxh/YxN/cxyzrnBCI8IVb4Z8mCU5fFet1DSenTv5cCFAhzSvGiGvpYAK
+	 ct9Hx/GzDJjOV9ka1du7ig3HttkypzR1CytADqcp3TW4VHrEaqduESOgXtMjJsnHd/XL2
+	 V/g1cXoig6IP0uFFhz1O4NVeci3NdCbL374+lNQbJL8vyAgJqv+R9C6GJCqyGbfp7gsHg
+	 Ulyfx2txjgn4Zzu6u3lRNDJjhLjV8LE+ke1qqAN6NxRXaidmPc4axhXexkVxaQfc3fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aHzdJmhr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A7MKf6u5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F5D606A331;
-	Wed, 18 Nov 2026 10:41:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7FF60A2613;
+	Wed, 18 Nov 2026 10:41:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aHzdJmhr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 050011F000C4;
-	Wed, 18 Nov 2026 10:41:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A7MKf6u5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4AF91F000C4;
+	Wed, 18 Nov 2026 10:41:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794998487;
-	bh=eA5bJYl2DX4B2F944LFo8gIjbAOwIGsts+2iJmGpa8o=;
+	s=k20260515; t=1794998488;
+	bh=wtOLIIGy2V2qdHSm0s3wSDnD9BTWQqmLjRaYH3bZpf0=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=aHzdJmhrk8AvQMP52KBWR3kJhhJe6X/JHFc7uTrs9EDvrY43MMWzcSg5DDKNd2TY5
-	 6o2+AfxvyYC0wvWPhtioeeS0TzXrzwWBeqs4qeehRlvKjTFHoihcYFt2rJyz3FOJ22
-	 Mdx+krFvoBCZYVDZZo/aZrQMAxJCfP46uOBojDxMd58fnNCzkhB1hUeGBypRZRzuk7
-	 ZjZtgXSsIL5Hexl/KsBsLkpP+UD5XrRX0Z+GIhhXcpKvC9oOh9SxGH8qo0vp6w/mYt
-	 soRJFkgckm2aA04YpxiUPCsy/LEeKZ+g5LJEkC1NYrxwuiqH7Qfb22CTIHU40+qbpi
-	 Yq01+xFRqcPzg==
-Subject:
- Re: [PATCH net-next v3 1/2] dt-bindings: net: rockchip-dwmac: Add RK3572
+	b=A7MKf6u5BHKVv1R+Sujt5r3gCGRPLDpsQh5UyGBQWLTwhrw3HU8TlJiyxwPrUE3mN
+	 Huj5qK6DeLVXVLYA4MUu6uJHwaTzAeA+CEXzTZNAu2UhXHdjFUHRIgu8HQrEvGmcEH
+	 OBlCpLIIxDmCKpsZGWhV9kZD+3YGtisvctqk2/zqx21lL5Kl7XEBE/EiCYfFE5Mf3W
+	 Mv+wRB9fNsgyp1QBEKvscVcTygexfmL0BQqXcGhxQh+OVks8SezcqxTi9vLPCsALop
+	 2e37kfKZM7MZLokOefBdu8+tkkdC8OQtDqVyUQGZrbtO7vjktfCYKz3qvR+lrXdGLa
+	 f3FGIt0Qr74/Q==
+Subject: Re: [PATCH net-next v3 2/2] net: stmmac: dwmac-rk: Add RK3572 support
 From: netdev-bot+sashiko@kernel.org
 To: 1579567540@qq.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
@@ -52,10 +51,10 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
  netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 18 Nov 2026 10:41:25 +0000
-Message-ID: <179499848555.3136.11343853995146230295@kernel.org>
-In-Reply-To: <20261116-add-board-ok3572-c-net-v3-1-a957fdcd9c7a@qq.com>
-References: <20261116-add-board-ok3572-c-net-v3-1-a957fdcd9c7a@qq.com>
+Date: Wed, 18 Nov 2026 10:41:27 +0000
+Message-ID: <179499848737.3136.8604402338812509621@kernel.org>
+In-Reply-To: <20261116-add-board-ok3572-c-net-v3-2-a957fdcd9c7a@qq.com>
+References: <20261116-add-board-ok3572-c-net-v3-2-a957fdcd9c7a@qq.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -69,10 +68,10 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -80,89 +79,57 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] In rockchip-dwmac.yaml, this patch adds an allOf block that
-  sets `rx_delay: false` and `tx_delay: false` for rockchip,rk3572-gmac.
-- [Low] Under the subject "Add RK3572", the patch adds `deprecated: true`
-  to the top-level tx_delay and rx_delay definitions in rockchip-…
+- [Medium] RK3572 RGMII delay lines get fixed values that the DT is not
+  allowed to describe.
 
 --
 
-dt-bindings: net: rockchip-dwmac: Add RK3572
+net: stmmac: dwmac-rk: Add RK3572 support
 
-This adds the rockchip,rk3572-gmac compatible, with snps,dwmac-4.20a as
-the fallback, and requires rockchip,php-grf for it. It also marks
-tx_delay and rx_delay as deprecated and disallows them for RK3572.
+This patch adds RK3572 support to the Rockchip dwmac glue driver. It
+covers the register layout for the two GMAC controllers in the PHP and
+NVM0 GRFs, plus a set_to_rgmii callback that programs the RGMII delay
+lines through the IOC.
 
-> diff --git a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
-> index e8dda1961ab31..d7b7bb0082357 100644
-> --- a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> index a37df5767d84e..c9d8d8bf51f7b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
 
 [ ... ]
 
-> @@ -112,6 +114,7 @@ properties:
->      minimum: 0
->      maximum: 0x7F
->      default: 0x30
-> +    deprecated: true
->  
->    rx_delay:
->      description: Delay value for RXD timing.
-> @@ -119,6 +122,7 @@ properties:
->      minimum: 0
->      maximum: 0x7F
->      default: 0x10
-> +    deprecated: true
-
-[Severity: Low]
-These deprecated: true lines are on the top-level tx_delay and rx_delay
-definitions. Doesn't that deprecate them for every Rockchip GMAC compatible
-(px30, rk3128 through rk3588, rv1108, rv1126), and not only for RK3572?
-
-The binding doesn't name a replacement. dwmac-rk.c also doesn't read any
-standard alternative such as rx-internal-delay-ps or tx-internal-delay-ps.
-On the older SoCs, a board that needs MAC-side RGMII delay has no
-non-deprecated way to describe it.
-
-If a DT leaves the properties out, rk_gmac_setup() logs errors and falls
-back to hidden defaults:
-
-drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:rk_gmac_setup() {
-    ...
-	ret = of_property_read_u32(dev->of_node, "tx_delay", &value);
-	if (ret) {
-		bsp_priv->tx_delay = 0x30;
-		dev_err(dev, "Can not read property: tx_delay.");
-    ...
-}
-
-Could this binding-wide deprecation go in a separate patch with a rationale
-and a successor that the driver supports? Alternatively, could it be limited
-to compatibles where a replacement exists?
-
-> @@ -141,11 +145,22 @@ required:
->  allOf:
->    - $ref: snps,dwmac.yaml#
->  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: rockchip,rk3572-gmac
-> +    then:
-> +      properties:
-> +        rx_delay: false
-> +        tx_delay: false
+> +static void rk3572_set_to_rgmii(struct rk_priv_data *bsp_priv,
+> +				int tx_delay, int rx_delay)
+> +{
+> +	u32 val = GRF_FIELD(14, 8, rx_delay) | GRF_FIELD(6, 0, tx_delay) |
+> +		  GRF_FIELD(15, 15, !!rx_delay) | GRF_FIELD(7, 7, !!tx_delay);
+> +
+> +	if (bsp_priv->id == 1) {
+> +		regmap_write(bsp_priv->php_grf, RK3572_VCCIO0_3_VO_IOC_CON1, val);
+> +		regmap_write(bsp_priv->php_grf, RK3572_VCCIO5_6_IOC_MISC0, val);
+> +	} else {
+> +		regmap_write(bsp_priv->php_grf, RK3572_VCCIO1_2_4_VI_IOC_CON1, val);
+> +	}
+> +}
 
 [Severity: Medium]
-With rx_delay and tx_delay set to false, how does an RK3572 board control
-the MAC-side RGMII delay? phy-mode isn't restricted, so "rgmii",
-"rgmii-rxid" and "rgmii-txid" still pass validation.
+Where are the tx_delay and rx_delay values for RK3572 meant to come from?
 
-The companion commit "net: stmmac: dwmac-rk: Add RK3572 support" binds
-rockchip,rk3572-gmac to rk3572_ops. That uses the shared rk_gmac_setup()
-and rk_gmac_powerup() paths. rk_gmac_setup() always reads both properties.
-On a valid RK3572 DT they are always missing, so it falls back to 0x30/0x10:
+The companion binding change in rockchip-dwmac.yaml forbids the legacy
+properties for this compatible:
+
+  - if:
+      properties:
+        compatible:
+          contains:
+            const: rockchip,rk3572-gmac
+    then:
+      properties:
+        rx_delay: false
+        tx_delay: false
+
+That means a schema-valid RK3572 node never has them. rk_gmac_setup() then
+falls back to the old defaults and logs an error on every probe:
 
 drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:rk_gmac_setup() {
     ...
@@ -170,58 +137,39 @@ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:rk_gmac_setup() {
 	if (ret) {
 		bsp_priv->tx_delay = 0x30;
 		dev_err(dev, "Can not read property: tx_delay.");
-		dev_err(dev, "set tx_delay to 0x%x\n",
-			bsp_priv->tx_delay);
     ...
 	ret = of_property_read_u32(dev->of_node, "rx_delay", &value);
 	if (ret) {
 		bsp_priv->rx_delay = 0x10;
+		dev_err(dev, "Can not read property: rx_delay.");
     ...
 }
 
-That gives four dev_err() lines on every probe of every RK3572 GMAC,
-rgmii-id included.
+rk_gmac_powerup() passes these defaults on for "rgmii" (both delays),
+"rgmii-rxid" (tx_delay) and "rgmii-txid" (rx_delay). Since bits 15 and 7
+are set from !!rx_delay and !!tx_delay, rk3572_set_to_rgmii() switches on
+the IOC delay lines with 0x30/0x10 taps for every RGMII mode except
+"rgmii-id".
 
-Then the set_mode switch in rk_gmac_powerup() passes those fallbacks into
-ops->set_to_rgmii():
+The 0x30/0x10 defaults come from older Rockchip SoCs. Do they match the
+RK3572 tap size?
 
-	case PHY_INTERFACE_MODE_RGMII:
-		...
-			bsp_priv->ops->set_to_rgmii(bsp_priv,
-						    bsp_priv->tx_delay,
-						    bsp_priv->rx_delay);
-	...
-	case PHY_INTERFACE_MODE_RGMII_RXID:
-		...
-						    bsp_priv->tx_delay, 0);
-	...
-	case PHY_INTERFACE_MODE_RGMII_TXID:
-		...
-						    0, bsp_priv->rx_delay);
+A board can't override them without failing schema validation. The driver
+also doesn't read rx-internal-delay-ps or tx-internal-delay-ps.
 
-In the companion commit, rk3572_set_to_rgmii() does:
+Consider a board that uses "rgmii" with PCB delays, or a PHY that adds its
+own delay. Could this leave the RX/TX sampling skewed, with no supported
+way to fix it in DT?
 
-	u32 val = GRF_FIELD(14, 8, rx_delay) | GRF_FIELD(6, 0, tx_delay) |
-		  GRF_FIELD(15, 15, !!rx_delay) | GRF_FIELD(7, 7, !!tx_delay);
+Would it make sense to either zero the MAC-side delays for RK3572 when the
+legacy properties are absent, or take them from the standard
+*-internal-delay-ps properties? If not, should the binding keep allowing
+tx_delay/rx_delay for now?
 
-So the non-zero fallbacks switch on the php_grf IOC delay lines. The delay
-values are fixed, and the DT can't tune them or turn them off. Before this
-change, tx_delay = <0> was how to turn the delay off, and the schema now
-rejects that. Only phy-mode = "rgmii-id" ends up with zero MAC delay.
-
-The commit message says the goal is "so new designs do not use the legacy
-delay properties". The schema does that, but the driver still applies
-legacy delay values through its hidden defaults.
-
-The standard tx-internal-delay-ps and rx-internal-delay-ps properties
-validate through snps,dwmac.yaml and ethernet-controller.yaml. But
-dwmac-rk.c never reads them, so setting them does nothing and gives no
-error.
-
-Would it make sense to either restrict RK3572 to rgmii-id (with the driver
-skipping the reads and dev_err() calls for RK3572), or to add driver
-support for tx-internal-delay-ps and rx-internal-delay-ps before banning
-the legacy properties?
+> +
+> +static const struct rk_gmac_ops rk3572_ops = {
+> +	.init = rk3572_init,
+> +	.set_to_rgmii = rk3572_set_to_rgmii,
 
 [ ... ]
 
