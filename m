@@ -1,68 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.58
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.59
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794992307;
-	b=ht7NQDHzGWdJAee239RTeBeOgfPwttK98eX15DlH9qA7lG8616NgcbLnlRf+/IDa88X2
-	 E9RRcqlR0UDE/xEIOT8QsbwjuADBSNsOJ384kzSbwIP89zyJ28a88av7Nb5vFCFRMwqqC
-	 p8qe4DVSIOtAOeWj2yRFTTyOFiRI1/4A3kfzNOmYfV5n9a1m3JCsjxSjJ9DiQX41soTWN
-	 tQOn7j2Dm8ez0HjlaOcZJYqJFRBfseREv8M4oG9oX/ljksm2CjwM+/9Kt1DS4A9C17EOG
-	 hl/DFdTG1Wuxkd8tVGo4fZVUcLV7VtqloHFmg3RG8fR+jMePKgv7B+83szLBPqd9BdQ==
+	t=1794992332;
+	b=HjE2c9WiJ/QaixnL7ha9YdfMSihIunefMIRwWno3AYUDcgZSYwxKicOnzWrVUKKTEdRj
+	 Ip/q7Hg0TmdeLAHOK/HvkIB7Ds4whTjZqaI9Tar+7ZY6/6OMnUnaTWZdyMb31grpYkANG
+	 bHbnyRoCWnqcNyHJ3siGfDzBaROyCwuE8GQfE7rIcDIHMfXcJxU2D/XynKzx0WhQfb9C6
+	 nb+poH3vz7FPV5SquhqUTIH3mCifGoAC/8tlk/iXtmwufAqQIAvvOWNjbH6q4O4MUHT1U
+	 5fth8+PJADBqqWBh6vR/FBIp6ZVDWjdirEgQM3u8M0W88pvD7gBGSWa574ibUk7cG7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794992307;
-	h=DMARC-Filter:DKIM-Signature:Cc:X-Lms-Return-Path:X-Original-From:
-	 Date:Message-Id:Content-Transfer-Encoding:Received:Content-Type:To:
-	 From:Subject:Mime-Version:In-Reply-To:References:X-Mailer;
-	bh=kEr9Wg+aGMoays9Uh761p22Cq/vcC6/mglbKhWQGwFU=;
-	b=lzMm9R/2r0vxBR2IfyD0kzfRICyOXCUKepdBqUJgqmr3tNy/8O17zyykHyxahdMDHcU9
-	 tsDOVnx4fZBdc1AhprFFhk834nQy9zpOoQszjPl8j6KhS++PD6Ffml8mrmrnEh7ARlbTa
-	 h633lPX1BA9VTzTAMkf2eoomKz9FcPi3OAa1avnhDNu32cW8kr2JaFqICzYG3L/oGVdCF
-	 +TY9gLh5i0Chqr1E/sY5pvYJiJbF5Ny94hC7bU+5lYGUOY2F2KOuN7XPgfrSAyr9wiam4
-	 nVFLu2pGj9ls15Z3xDDDdh/1YpI3RuzhzR65vvHVgE9ff9yiD9zgRFyEjNqsjz5Dcxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794992332;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:Message-ID:
+	 References:X-Pmail-ID:From:To:Cc:Subject:Content-Transfer-Encoding:
+	 Date:MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
+	bh=jVVXS/jnDco2P/3gCjkpEAukeO5Fs2fg9YH9GXORFA4=;
+	b=lyvVBq3ZPdpUY1vzuEw7ySenjCQcbTqr4zXtLWmDKWS6vofrEXxqVhTVqgayBjp8rvNh
+	 jmXWG+a60dpIECCdx5BtcUFIZ2bqIGrpR/SLeEmGKj2yU+4h3WUZwtv3eTGBo7scQefVY
+	 laMxrEzWCel9rsHetXoheVFkYTKfHLJylpwcmhSgp/XhcnWrLaBUHfW33uEQYa0m6W+gX
+	 ygRwPtM0DqmQAkWTjMTDXoatA7N/KV1xzTc53xnGPOyt7qoWiRhE3n18AAWS4VWA7agvf
+	 1YUZdwiTbDDBbmncbZmeG7j0ACJU4LZ8CFChDSXkuBwBlQ2RKh/vUWmFWCPWhaLyKpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=NT7Fwi35;
-	arc=none smtp.remote-ip=209.127.231.58
-Received: from va-2-58.ptr.blmpb.com (va-2-58.ptr.blmpb.com [209.127.231.58])
+	dmarc=pass header.from=brar.si;
+	spf=pass smtp.mailfrom=rsend.brar.si;
+	dkim=pass header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=hjpjwlBm;
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=V9PT4V0S;
+	arc=none smtp.remote-ip=23.251.234.59
+Received: from e234-59.smtp-out.ap-northeast-1.amazonses.com (e234-59.smtp-out.ap-northeast-1.amazonses.com [23.251.234.59])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4933D606A325
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:58:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4933D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80C3606A336;
+	Wed, 18 Nov 2026 08:58:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B80C3606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=brar.si
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsend.brar.si
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=NT7Fwi35
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794992302;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=kEr9Wg+aGMoays9Uh761p22Cq/vcC6/mglbKhWQGwFU=;
- b=NT7Fwi35WYG8eyjqbJshaEWz596512Btcq5FAovqfyWG4z9R3fBynpDhhAUJVSYkJSFWYq
- tQfxvAG1xUe0H1C5pq1f7J1TlzavnFd19gXQZZrdzx9CHyH1WjAG2CmlFfyUmlb+xiAIyP
- hPBj+7fSEoa0scvO1ZWCj/lnTqI4CJGEilYo9zxiL/EvWmhb/Z54+Ae67io5GkQpBCzY9f
- l+1WV5zGH6Cc0TxxPeqcY2y2xNpDUMxkuQVZWc0wJH0ztU+ruWrPb+MEqN3iLQSZEDGt4a
- 8eEjgu80RzNAwWigtK+Kh4CeJDIZv7Gt5q1m4dPgX0UEERrhV9Smu9qQaWfzhA==
-Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Tzung-Bi Shih" <tzungbi@kernel.org>, 
-	"Guenter Roeck" <groeck@chromium.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, 
-	"Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>, <devicetree@vger.kernel.org>, 
-	<chrome-platform@lists.linux.dev>, <linux-riscv@lists.infradead.org>, 
-	<spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-X-Lms-Return-Path: <lba+26afd68ac+f19979+vger.kernel.org+yang.wang@deepcomputing.io>
-X-Original-From: Wang Yang <yang.wang@deepcomputing.io>
-Date: Wed, 18 Nov 2026 16:57:42 +0800
-Message-Id: <20261118085742.1817536-10-yang.wang@deepcomputing.io>
-Content-Transfer-Encoding: 7bit
-Received: from ubuntu.. ([183.23.101.74]) by smtp.feishu.cn with ESMTPS; Wed, 18 Nov 2026 16:58:19 +0800
-Content-Type: text/plain; charset=UTF-8
-To: "Yixun Lan" <dlan@kernel.org>, "Benson Leung" <bleung@chromium.org>
-From: "Wang Yang" <yang.wang@deepcomputing.io>
-Subject: [PATCH 9/9] riscv: defconfig: Enable the FML13V05 EC keyboard modules
+	dkim=pass (1024-bit key, unprotected) header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=hjpjwlBm;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=V9PT4V0S
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=brar.si; t=1794992330;
+	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=97yb+XIW0xH5i2iuGi731NFZ8TW93don90Pf7fYJALw=;
+	b=hjpjwlBmzHy2vy3M7hV2FvwX2hIiNGdIWg+iubTHkFn4I0zpytsYwEJwwxibpMuy
+	R6p/L5eItZAZ+RUWsjLRhP7cZRP8OEIQ63sGFbC0S5UQGHYaff9vWCwECK3yxAR3cHq
+	XUZi9idEm4H+ZNcD7oYN4X6r4PdoSgUPPidH6TXM=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1794992330;
+	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=97yb+XIW0xH5i2iuGi731NFZ8TW93don90Pf7fYJALw=;
+	b=V9PT4V0SC74g8fWZ0KowtlTtnbORYLbuX2gE/b6VhOxHzkWnT6uG4JViDZ0/l/4O
+	/798JE9ySI/q/gYAUrYSme+RZAdj+3lqAclXl29hsxEkgbqRHX/qNrZMjzK2UfPswe7
+	RixYk5iVpJ5PjwueQ8VYD0H4GoFmjIt7oRGGTBeU=
+In-Reply-To: <20261116-furious-powerful-nightingale-8adcad@quoll>
+Message-ID: <010601a1ede155ce-82682568-1b1f-4897-8096-50a959f8a483-000000@ap-northeast-1.amazonses.com>
+References: <20261116-icc-sm7250-v5-0-506be082a3c5@brar.si>
+ <20261116-icc-sm7250-v5-1-506be082a3c5@brar.si>
+ <20261116-furious-powerful-nightingale-8adcad@quoll>
+X-Pmail-ID: <1794992329438.f8b425439611@brar.si>
+From: Ishu Brar <patches@brar.si>
+To: krzk@kernel.org
+Cc: djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-pm@vger.kernel.org, konradybcio@kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/2] dt-bindings: interconnect: qcom: Add SM7250
+ RPMh NoC
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 08:58:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,47 +73,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-In-Reply-To: <20261118085742.1817536-1-yang.wang@deepcomputing.io>
-References: <20261118085742.1817536-1-yang.wang@deepcomputing.io>
-X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.5YL5VvZ+qZ0e19wo5UdMspzrKjMAjMWs/SlfuwHJq77JVCQWpVGwyETo7FaXf+sztO4bYMxF6WHssrYHSY+K7X2T1EZhOskwm44pQQStdKG0Jdj3d5ybzIXFkMTcPBXllY63oWIrFhJN26LFqLzTuHiXuqj9UCHxIuFhxi7IM0GCfceBHtKocmWdFsR9dK9X:1.ap-northeast-1.TOS0vxEE3Ar6ai29fkp2i/jb+l2iigajCGeLfF7S3sk=:AmazonSES
+X-SES-Outgoing: 2026.11.18-23.251.234.59
 
-Enable the eSPI controller and Chrome platform configuration menu. Build
-the EC core, memory transport and keyboard driver as modules so OF
-modaliases can load them on boards that describe this hardware.
+On Mon, 16 Nov 2026 12:03:41 +0100, Krzysztof Kozlowski wrote:
+> On Mon, Nov 16, 2026 at 11:58:00AM +0530, Ishu Brar wrote:
+>  +
+>> +  clocks:
+>> +    items:
+>> +      - description: aggre UFS PHY AXI =
+clock
+>> +      - description: aggre USB3 PRIM AXI clock
+>> +
+>> +  interconnect:
+>> +    type: object
+>> +    description:
+>> +      The interconnect providers do not have a separate QoS register =
+space,
+>> +      but share parent's space.
+>
+> Sashiko claims these do not =
+share address space.
 
-Keep all configuration choices in this final standalone patch.
+Right, the description is wrong for two of the three =
+children. Only
+compute-noc (under aggre2-noc) has QoS registers, and they =
+are inside
+the aggre2-noc register space. mc-virt (under gem-noc) and =
+qup-virt
+(under system-noc) are virtual BCM voters with no registers at all=
+.
 
-Prepared with Codex assistance from the existing DC-linux EC support.
+v6 will describe it like that, allow each child only under its own
+parent, and also add the IPA clock to aggre2-noc, which the second
+Sashiko point is right about (the IPA port QoS registers need it).
 
-Signed-off-by: Wang Yang <yang.wang@deepcomputing.io>
----
- arch/riscv/configs/defconfig | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-index 383fdd07a..1ddb8cd5f 100644
---- a/arch/riscv/configs/defconfig
-+++ b/arch/riscv/configs/defconfig
-@@ -145,7 +145,9 @@ CONFIG_MICREL_PHY=y
- CONFIG_MICROSEMI_PHY=y
- CONFIG_MOTORCOMM_PHY=y
- CONFIG_INPUT_MOUSEDEV=y
-+CONFIG_SPACEMIT_ESPI_BUS=y
- CONFIG_INPUT_EVDEV=y
-+CONFIG_KEYBOARD_CROS_EC=m
- CONFIG_KEYBOARD_GPIO=y
- CONFIG_KEYBOARD_SUN4I_LRADC=m
- CONFIG_SERIAL_8250=y
-@@ -277,6 +279,9 @@ CONFIG_PHY_SUN4I_USB=m
- CONFIG_PHY_STARFIVE_JH7110_DPHY_RX=m
- CONFIG_PHY_STARFIVE_JH7110_PCIE=m
- CONFIG_PHY_STARFIVE_JH7110_USB=m
-+CONFIG_CHROME_PLATFORMS=y
-+CONFIG_CROS_EC=m
-+CONFIG_CROS_EC_SPACEMIT_K3=m
- CONFIG_LIBNVDIMM=y
- CONFIG_NVMEM_SUNXI_SID=y
- CONFIG_EXT4_FS=y
--- 
-2.43.0
+Best regards,
+Ishu
