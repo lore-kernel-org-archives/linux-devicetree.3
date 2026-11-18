@@ -1,79 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795019093;
-	b=dZn9U0/T/4dCjs9JbT7gAQ92kMd8JltStzW/YZFUsQIxp432Vwf6yWopmD7DbCoJoS+N
-	 zTYpTubSwKprCGjSYn5mrfcutlNz/fVP014yrZq8ml+QLCZqKYCelM5W4IbpotVpUXmp2
-	 POcz7OjwhRZaopsRGYetQMXVOUT9ZWHKCM62ETORjyk0Cwdg6X+GprDKtOdb75O/nsu5Z
-	 RZsHrCzqD1CbIVmRmKQIj2qrRWMFeGJNK/ZypKJX6+TjK9NqNOVgspJz/UhWdxiGHZ118
-	 kCuZgp7grHIrx9FoEImTD3z+F6KgUVINE/FySE5IXY0ujInf6QVidC9OT+3dbEDLQEw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795019093;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sAap6/oLo209oGEQs/2vMifUGcUqmldYQ/uCZjY/EzA=;
-	b=eMG4LpHNErZ6drheHPING97Z1hjOy0m5gYTV1DonANWJeAFpjiiU93OeFkZi8JSq8ihv
-	 acYBKhBxyKXiy4j4+U9k1IaioiWySdeIp3qw6fWWdhLJi/k191HKHFquSy5O2Q8WWBHgq
-	 2n0HhgbJgZJRYH6Qcb08IIqC7Yo471ahcBYG4oUT6HANqkV4oH/O9e38nFncEsbf2116W
-	 tWk19TeiprYWNPRjcVMv5A4YHHxjqzvCmKE+/8MkXflCCTcs86ue8GnyUp9yA0u4u5KS1
-	 wTMzsaLV9aFtP+AxAnq6x+3o+wkgQoRtoIscTtxVdW5rHb7alN1bQeAQunDN+Qso2Zg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZDUfJXy6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795019329;
+	b=qrjfDQmH02NqBOmN6Ge5sNLdjiOTSYI02wQioGrucrLNsGJAMuXkSh3mQ83g+4PQUrAy
+	 ULoSx3N+DkuE3iX/tG2kZ3HFvYd4r1hAVD0DudahljCykbTNL4qkjo5Z/y9oor3MhZVk7
+	 pLQ/E9+aBtTYDIG5FxboMzxeFn8C3H7w+gEzrC5Am3rqTHEthz6H9+ZvlmN9ofvV6L17V
+	 nXAkRMSNEpw1PnLBw9gNUnbhEQHGP9LfruesUNen9FI0TSVBP0YfPCa+EheNsjVFOCtKB
+	 Bl5TdXTyTddXDDnsBS5VmJ+8/O/7lTZxqiEPEMDAKq5100Pu1traqqoIsQSjOser7vw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795019329;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xMfIcPgaVZTBupxAWvjD3tsTuymj4i3EzJ8xT6VI/p4=;
+	b=xCQOhIaUNqGBQxk6Nz4hoMFrM/4AOq+ajn9LsN5cppaRoeUEOCukPvH/RIJpIzlKFp6R
+	 8+1PDV383HXG344P8hdPVIdxxuYyPghAFKwDLGZdCcAnt8O5vyAtJLzfbpFSWNXkSxJoz
+	 ktu3KBYSMJg3lFUf/eN8kUtLWg8e9PFM6+CIdr3x2LYlrmIE9+QWAXwwFoQVtKERwXeOl
+	 JHVJ2MdI8/FmtYg0jUDCabl9OKO0/6mzK9WD8kZYruge0cPZwGEPHu18Gp59EaLi1sjOF
+	 4ti7h5RmT1AJ2/xR0GSwPphwUXDzzHrwjabAClFyZr9/iHJ6LaTeAYadEqH8zgPbk6Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PklrzH67;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A396606A333;
-	Wed, 18 Nov 2026 16:24:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B7560A260E;
+	Wed, 18 Nov 2026 16:28:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZDUfJXy6
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795019093;
-	b=GH001fVZqfTQwm/PqKoy01JpkwmrOvwnas+6ohdrnEvxyjxYdm4glivw1N+21FaFNIFB
-	 nH256JqfcXWt/CY+CymtUpLzu9YiyM5FoSXPBO1Ir+B4FxZJUnHHZndXwU0ntUUrHSP/z
-	 quEX7ZqWjtRgKPGGYJn/hMowCsrpgRizMwwDU7wp5IT/IuZgGHxh/U7+Aq9mff3ZaTYsD
-	 IZCexKHrctbOBjbHfW7ZgmsG1pXxXq4zFKH0ZwweIlsUl0e/oUtAwQ+j3Cdwu6Q0LYaKA
-	 Q0wQJ14pHDoa5eACyBxaIc3D1B8Yisxo0If+HtmVjgHBvsdeOqEGL/OMl0JHk3uCWZg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795019093;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sAap6/oLo209oGEQs/2vMifUGcUqmldYQ/uCZjY/EzA=;
-	b=pdtShhr6DyAh4EApZO2mw1eaJWF519kPeG8y6/8fyrViRX910HYxtgVteAbsWuSfb37L
-	 eP8Eyk5eUZY9ugfUf62JaAl+e2ztu6qXOX3cKgCWdzMLqiR5rJ9B+HQCdri1DAZ9fpQM3
-	 ex8DR1ABzXgm/jFIf/l8mPGwL7S1F7uQ3FSYJHkVMA/zFjzLQsXpOZ/e5P2NMaR8Rgsal
-	 p+8P4O/qsy8QtUjn6Igb9kSUXN2O+ojBcKjwLgsgv3LIqaAOODs1n4/HwHQxqhXT7pYRn
-	 G9bWnrflL0FQnTeB+wVX6G76/vELSv1yasa5BKSRZZ1BUYrdgVZIEayFO2gIJVeUskg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1A2A21F000C4;
-	Wed, 18 Nov 2026 16:24:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PklrzH67
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 323E21F000C5;
+	Wed, 18 Nov 2026 16:28:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795019093;
-	bh=sAap6/oLo209oGEQs/2vMifUGcUqmldYQ/uCZjY/EzA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ZDUfJXy6U9xamxBjVtjeVQOjHZt8w41C36FKeIb+QhNTv7OwSSVuLi9v4MhRXTP2u
-	 qhq6NUWT86fBTw1Na993H7cuHffEf8OqgrTW1tk3WPGXBZ4RpPzyjTaKSDXjjtCMyh
-	 hgbVgPIyIeHiSV56xuULjjiQhDnsMyFhprC/rboOy3uy1QQr6ZcKPd5bXA4VhCRlDV
-	 DA2BZ1iSymvSs0mzT55j0mJbI4WFEoVUkzoDgVL1VlENqaskU2N8HU0XkQKvc0sn9d
-	 6+TyJfpQEHnxFe+7LWtdDDLDNNEAKETWUFUi0EiA2Pi/yYzK/73XNa/6mp1H3ejXnT
-	 NwEJLC9/bflDg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8CE8A4AE26;
-	Wed, 18 Nov 2026 16:24:51 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 18 Nov 2026 17:23:56 +0100
-Subject: [PATCH RESEND v6 1/3] dt-bindings: media: i2c: dongwoon,dw9714:
- Document DW9714A and V variant
+	s=k20260515; t=1795019329;
+	bh=xMfIcPgaVZTBupxAWvjD3tsTuymj4i3EzJ8xT6VI/p4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PklrzH67Sm6BG0wMKCibEmN0wipTMtwuYNQTaO0oROI/MLEYX0dxwEq7Fj3dAYGUg
+	 TvWFvjHfnOQiSSOvCF1kUX+UY6tAJEhmaD+DQWkLhKK1W3qnSryXdhQdL5K7qQSOXF
+	 k7qH+KNrTQzKAPN6dA1Nr9AcJn2fwH+T7WbtolbXXCpzX2gd0LaBQ6TDQY3QsO9ixu
+	 9RsmTdVwvaG/ieur/RamGcDyW6ka7+v27m98sRaj7BY9gEuZZcG+buikf1nifjRadX
+	 i8bBa7Ql+jkMlAizPEMkCES303wwSlANuqatezeo05bDhkSsBVyx7q+mA6/wI4XbXn
+	 oogAb2VkVQaMw==
+Date: Wed, 18 Nov 2026 10:28:47 -0600
+From: Rob Herring <robh@kernel.org>
+To: Suraj Gupta <suraj.gupta2@amd.com>
+Cc: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v5 2/6] dt-bindings: net: xlnx,xxv-ethernet: Add
+ Xilinx XXV 10G/25G Ethernet
+Message-ID: <20261118162847.GA2433918-robh@kernel.org>
+References: <20261114182947.2908628-1-suraj.gupta2@amd.com>
+ <20261114182947.2908628-3-suraj.gupta2@amd.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,107 +67,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-dw9714v-v6-1-48cfd8ee4c4c@ixit.cz>
-References: <20261118-dw9714v-v6-0-48cfd8ee4c4c@ixit.cz>
-In-Reply-To: <20261118-dw9714v-v6-0-48cfd8ee4c4c@ixit.cz>
-To: Alexander Martinz <amartinz@shiftphones.com>, 
- Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2393; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=MctnB/YBUlKBkfY6HkmVWzrj67EeGRulizfUpQ/8RY4=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq/dFSfbanzBkVKEUdzbIRWUm26RyYZMeX/trR9
- fWxIc3JZ6SJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCav3RUgAKCRBgAj/E00kg
- cu43D/wM3kahxulqMtdpQMfZlethaBetxXfjD1Rudb0vrDeQajTyb9okO8MeqEjgSa0JkTkw/TX
- Tydpf++oqQ4zp8XlU4X2v3/pLz3iGzxLomNX2wEuOWpAQK4pY6ZN0SrL5x0RJY6c3FoiSttfp24
- O2413uemhzLGTFcypS2jpwksl3GJuc4SDVygIrd4ucARmV77eNqL5mDIadMaRXtTfbMPpXKwFTh
- tF0EALpBUvUmz/nbK23GblqSQIFkN+pNG+5JIegRCzO8abgUQTrvdGjB9epNdRvzhVxt0xw5vKK
- eGoq/ACHq3j6xdMlnd49ET77C6XG8pUyF1KFnECsx91zssENgXG4OifPlruhRKYGgvEbW8017Ph
- 7RckOpob7/DAUSmgrwatw27DwX3Tk3yVl3iD6vMg6nRgoxbUiAlFNK153sN93qxSB6w3EqEJpvq
- PG4r69F+QK/AgqshE2TTLO+BP+Z117R8h9PwCgKbN0fECV1jODJFKzDDexxtU+JOrMNtGtE5kqb
- 8ETGCe7sd6cp0uyHRhzc5p60/X3RHoqMS7A45fwS7bGBSyr4nUF/j5mRX22vMAsSy3BOzr/vAK+
- xi4C/Wz/+TEpvRpnwMv8Y5opwtFYipdW333vi12DzkO8kQtX6lFzQeb2mFFQvLSAioU0c8yK+pi
- mwy4n7R0rjgjo8A==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261114182947.2908628-3-suraj.gupta2@amd.com>
 
-From: David Heidelberg <david@ixit.cz>
+On Sat, Nov 14, 2026 at 11:59:43PM +0530, Suraj Gupta wrote:
+> The XXV Ethernet IP integrates a 10G/25G Ethernet MAC with an in-core
+> PCS/PMA driving a high-speed serial transceiver. Its payload is moved by
+> an external AXI DMA (or multichannel DMA) controller referenced through
+> the dmas/dma-names properties. Document the IP in a dedicated schema
+> file.
+> 
+> Add the "xlnx,xxv-ethernet-1.0" compatible with the 10gbase-r and
+> 25gbase-r phy-modes, the rx_core/drp/s_axi clocks and the AXI DMA
+> channel properties. The GT transceiver reference clock is described as
+> an optional fourth "ref" clock, for boards where it is supplied by a
+> Linux-managed clock provider rather than a fixed oscillator.
+> 
+> Add "xlnx,has-statistics-counters" as well. The statistics counters are
+> an optional part of the IP, selected by the "Include Statistics Counters"
+> build option (PG210), and unlike the 1G MAC the subsystem has no ability
+> register that reports whether they were included, so the devicetree has
+> to describe it.
+> 
+> Require "xlnx,rxmem". The driver reads it unconditionally at probe time
+> and fails if it is absent, and the value is what bounds the largest frame
+> the device accepts, both when validating a new MTU and when deciding
+> whether jumbo frames can be enabled.
+> 
+> Disallow phy-handle, its deprecated phy and phy-device spellings, and
+> pcs-handle. All are inherited from ethernet-controller.yaml, so
+> unevaluatedProperties does not reject them, but the subsystem has no MDIO
+> bus master and its PCS is in-core, so neither an external PHY nor an
+> external PCS can be attached. Constrain managed to in-band-status for the
+> same reason; it stays optional, as the link is always managed in-band.
+> 
+> Signed-off-by: Suraj Gupta <suraj.gupta2@amd.com>
+> ---
+>  .../bindings/net/xlnx,xxv-ethernet.yaml       | 146 ++++++++++++++++++
+>  MAINTAINERS                                   |   1 +
+>  2 files changed, 147 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml b/Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml
+> new file mode 100644
+> index 000000000000..caf582c72a8d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml
+> @@ -0,0 +1,146 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/xlnx,xxv-ethernet.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Xilinx XXV 10G/25G Ethernet Subsystem
+> +
+> +maintainers:
+> +  - Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+> +  - Suraj Gupta <suraj.gupta2@amd.com>
+> +
+> +description:
+> +  The Xilinx XXV Ethernet Subsystem implements a 10G/25G Ethernet MAC with an
+> +  in-core PCS/PMA driving a high-speed serial transceiver. It supports the
+> +  10GBASE-R and 25GBASE-R line rates, with 25G operation following the 25G
+> +  Ethernet Consortium specification. Because the PCS/PMA is integrated into
+> +  the IP, the subsystem has no MDIO bus master and is not managed through an
+> +  external MDIO PHY; link state is read from the MAC's own status registers.
+> +  As there is no PHY to manage, the link is always managed in-band.
+> +  Any SFP module management (e.g. I2C) is handled by separate IP outside this
+> +  binding. Its payload is moved by an external AXI DMA (or multichannel DMA)
+> +  controller referenced through the "dmas" property.
+> +
+> +properties:
+> +  compatible:
+> +    const: xlnx,xxv-ethernet-1.0
 
-DW9714A is a successor of DW9714 and DW9714V is a successor of DW9714A.
+I hope you based 1.0 on something? Looks made up to me.
 
-All three are compatible in their normal mode: a 10-bit DAC with the same
-Direct/LSC/DLC slew rate control. DW9714V additionally has an "advanced
-mode", which exposes Smart Actuator Control (SAC2/SAC3/SAC3.5/SLSC) and
-soft start/landing. Out of reset the DW9714V comes up in normal mode
-with ringing control disabled, i.e. behaving as a plain DW9714,
-so nothing has to be configured for it to work today.
+From here[1], looks like you are missing some versions:
 
-Should SAC support be added later, it is board data rather than a userspace
-knob: the mode and the vibration period (SAC_CFG/PRESC/SACT) have to match
-the mechanical tVIB of the actuator and lens assembly of the given camera
-module. Those properties are left out until there is driver support and
-measured values.
+The offset of user configuration registers in the IP was updated (and 
+removed in case of USER_REG_1) which breaks backward compatibility of 
+any custom user config application code with newer versions of the IP. 
+Please make sure to use the correct offset as per the IP version as 
+specific below and ignore "XXE_USR0_OFFSET". Please note that this has 
+NO impact on the example as this definition is not used.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- .../devicetree/bindings/media/i2c/dongwoon,dw9714.yaml     | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+    Upto IP Version 2.2 https://docs.xilinx.com/v/u/2.2-English/pg210-25g-ethernet, USER_REG_0 is at offset 0x184 and USER_REG_1 is at offset 0x188
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
-index 66229a3dc05d6..7c2769e6c4880 100644
---- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
-@@ -5,22 +5,30 @@ $id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9714.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
- title: Dongwoon Anatech DW9714 camera voice coil lens driver
- 
- maintainers:
-   - Krzysztof Kozlowski <krzk@kernel.org>
- 
- description:
--  DW9174 is a 10-bit DAC with current sink capability. It is intended for
--  driving voice coil lenses in camera modules.
-+  10-bit DAC with current sink capability. It is intended for driving
-+  voice coil lenses in camera modules.
- 
- properties:
-   compatible:
--    const: dongwoon,dw9714
-+    oneOf:
-+      - items:
-+          - const: dongwoon,dw9714v
-+          - const: dongwoon,dw9714a
-+          - const: dongwoon,dw9714
-+      - items:
-+          - const: dongwoon,dw9714a
-+          - const: dongwoon,dw9714
-+      - const: dongwoon,dw9714
- 
-   reg:
-     maxItems: 1
- 
-   powerdown-gpios:
-     description:
-       XSD pin for shutdown (active low)
- 
+    IP Version 2.3 and above https://docs.xilinx.com/v/u/2.3-English/pg210-25g-ethernet, USER_REG_0 is at offset 0x134 and USER_REG_1 is removed
 
--- 
-2.55.0
+Rob
 
-
+[1] https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18842542/Baremetal+XXV+Ethernet+driver
