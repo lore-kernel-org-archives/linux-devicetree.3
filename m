@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005269;
-	b=fInQdM5fqAPE6kOuBkfQJq9/x79J/XXNMKiWpCbMFCUliLOJZBt43ZCPEOtRZFIIAIxQ
-	 UylE0eT/odkl/FGexZIdl0kv0OfsMZ32tpatcb5SdjTzgUX4nkox8T3fPd2BSuEuaYtvz
-	 N8QSQ70njVW3kST8o14zbpp45/FbeimWqE69QK/LGlc2NPHU5L+HRSPvd6hqNwhrr2yd9
-	 lU270uvkeulb3vdeo6Q0IBXtP91YxX488yLJz3p/RDlHj1OVh9lmYXvXiC/ti+jig+VG0
-	 P4vY0IYqWoAEUHT+KshZhkDbQWdIRkdVBfC5jJPZ+n6DW34EoO9VsaV2SahoucX5Wbg==
+	t=1795005277;
+	b=2st+FOLjUUyCB4LPW91srX0lpE58/lJuRdjCl1Jks8vlR/m660VBbwfaM++SU7lbZKD8
+	 bwkHgtIAfwCm6bNs7dMSxdYfUIRPliyGFDBQezS8qZWOg2c4hn0MFFKrSodZTjpniLRPr
+	 98mIMV9G4M/x3iQlHGcCWdyjhzNbz0q8LQJV+gjpR0TaxWztB8OnC1a7OROyjsgk5xu6s
+	 HLibNBUhi1C3obENTQnV/GLPW4TbSLJZOTYEH5FC4jGBPWlCdFh2U/W7QqOo8xb/8XI8w
+	 H0lA0qQ3BBY8r1VSxdvvzq56dq5dNhY9iDeNElaohdgbirinFjpUl7z491+Npd0O+MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005269;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:References:
-	 Content-Language:Autocrypt:Organization:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=nvPt3fCk+CsXSOqBkgE7UtRZc1xZmTaUxS/+53ef6bE=;
-	b=Gz/96v115lYzBNwk8b7zQdxna/AXeiqJoT1TClBR56Q6HH1GNB1RVPxKOHu/CUvTmfKf
-	 tTuKjzaYL24Wrf7eorO5fOLKy/Gr32oW2gS64QAmveBiW4In31S1M7B6CrAzpekXMrb5P
-	 /flaeG+sMHHRIg04nH2saMEWhEg4XkPAY28uxt6OccIT4tktgTMaqPYaB0c7abw1fBTEp
-	 S7MtKZcEmkB2oU4sl2kCjBOPiZwJa6KBWu7rL6Mf0vcTSjFk6FOqDXceAXsS70/jGvE5H
-	 DFDHOmzkiyjlDxrljzG8A7qOlrUV5v8fWpgA8MQcaoggaWmVc3YFa8N1bwX+T+WiPkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005277;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=lktbLBklJwQf8hwjdm6Yk4jM0MyEUN1O1EqIfdIn/2A=;
+	b=Em6UkL38hTlWbTCVqAs8XjukQpgMemVhoNWM3Kjym52Uyx1WR8Sg5ohnUXZ7QEEXduFY
+	 R5FQ2wTilkXT1Cm4TUd7fE59L+8vmDLJ2MdOLotNQn+dhsaTji4cZbGnZaJD+MdFUmLIv
+	 5xvgUPydgdx/osPgZvAIuU5UxL2LTzkftQsuugfYVuRFvU76SMQTmOhJpLh/i5Wm87tu9
+	 iFbk5y4fF0Cbarn1DoX/8pAf5vxYsfgbt6RG+R7drcOWavZuXcl9nyfcDy+oDwu5aBYx4
+	 j7kefqQWVIX+l3p10aZ5gZPAzFmfSkb/eLBaUBKbIM2jEcVGzQIila8eo22Ol4XsScA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zkKo2LEP;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbyqgNP4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18F5606A320
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:34:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C18F5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BF1606A31C;
+	Wed, 18 Nov 2026 12:34:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zkKo2LEP
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a210470b49so8329795e9.2
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 04:34:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795005267; x=1795610067; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nvPt3fCk+CsXSOqBkgE7UtRZc1xZmTaUxS/+53ef6bE=;
-        b=zkKo2LEP3/ymgPRDW9n8rWDi1g8Go0sY5onHwOFAaXSRwN0FeYcbFR8oy0arRLA2gR
-         GltSRRjONi/WfGI/e4ofJt8RaPzofSLBoAfjo4Tw814qvqon3h/OckCmAuE4A3XNcwGD
-         pZQwucXTC+Sg99gQlZFOy1vjMY4daODSag09sPgmiFi+DE2dTyNyyE0k56imBNjIRD2P
-         P4vxRJkbVUosV2i4p/hf7jjZfZ7BPqf96LJR5L2qFqlIWkVhvAB9DQGiSPNUDFi5WbSU
-         tA5jUuwM9pQ3J+hWkkh1sIf+1Je58wUVIlEzvzLkZBMwx4K+U6GzMt28ODqIcRBszzHx
-         E6YA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795005267; x=1795610067;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nvPt3fCk+CsXSOqBkgE7UtRZc1xZmTaUxS/+53ef6bE=;
-        b=GoM1ajTwtfr8EHB1P3DbdVyKim5c6Eoyn06X8n0nqrXm1CyjJ2HyXnOQuj/tRLoUBe
-         RErbNNfe/xpmKsEW9dDjVyjBrgfzTcFKN352UF1IHbOALpK0QNKrCyeHi7aLfATLKjaz
-         2V3pcNmRaX0ODN81G3okBIDYLdy5/hINsJwjkX6OG37se6QaTyGjPD1ThTf+Q/CF5Phf
-         X7B4TaG0TMfym4zeC/U/BTOAtNquJaALVvi+4m0A/xvnP2Q1Mm1ha8+xIV0EpV+be9VE
-         efTRY6PVnaJyDyxtGAb/DzIPBVnrmOzVHMX1WYmkeQPe8rOVTljY/dz9U4r4xuL7n0hu
-         5OPA==
-X-Gm-Message-State: APuU4Z+kRO55do12WJ5gmeuOjXWHVFFjZlMW/eu+1MpBVG/uicSbweUn
-	PgeGKsE05o2sDA1rj734UnrE7BMPp1GrWCKovsCpzcDqpT49F1KvEH0BvkcuXEvUWQE=
-X-Gm-Gg: AYBFou3rFVQWPVtGta02BPgJzd4iUCVxcPeIbueaMvJc9rbC8PIkpnDLY/CuiyFvbX9
-	B3ZQpsGK5SRC9d8kmQCbjcNUv9b5WbhYJgwDBFI1BEfjljYd9R/jQHAXLSayamPpDB4PV3JntBz
-	IyRMe+UtQ6ieGkQ7qGXWiASKNbxw5G9vfnUOwaaUxOf0XHgPyhIr46NRAB8zPlf51EjZ/tSj8bV
-	kxsCcwf/yAaASU4F3ulyWTQ/uixaxm24YmaDUGpsQpjAq3mtBH3z856MlU+O76ezS4hLiVY+nK5
-	zmJGwpScc6ravQkNHY75TmMXO8rubCxmbVWvWJ3deH0PkkZnfxeonpbxwQsoTfS79snBmRKvRt0
-	a6XPfsuPsdtnXkN87Myzz1My06K9NiLFPrN0Pb5FbjYuG59PA3Zt9TtrO8xI8bdLTcnzPtqG4M7
-	0nJwwBvusNbnwOFz3ilrHdCYJQMioUuh7ZaLGkqkH5Zgjk8BNAQlMtCdW3YSq/YFKTS3VD3Wtnj
-	YSm70g1QlGmzx0nrs/aRU3XZ91fhLTb++zFywEA+KgNHG1A/z0NLD7T5ULchTE4TYM0EXfjmnyw
-	3OsEzLYfcx890MBGV89Il/nPw0hPWe3EjBvoQ9uBkFXjL0fYNpc8QIiWF0aNUv9SSfyrNrEo49d
-	OLovh/BNK
-X-Received: by 2002:a05:600c:1d06:b0:4bb:6a5a:783d with SMTP id 5b1f17b1804b1-4bb7da25158mr46260185e9.18.1795005266845;
-        Wed, 18 Nov 2026 04:34:26 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:6ca2:2772:9e53:115b? ([2a01:e0a:106d:1080:6ca2:2772:9e53:115b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7e57664esm26749835e9.1.2026.11.18.04.34.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 04:34:26 -0800 (PST)
-Message-ID: <3e82658f-1152-4c98-b996-242abc203f74@linaro.org>
-Date: Wed, 18 Nov 2026 13:34:25 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbyqgNP4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C2511F000C4;
+	Wed, 18 Nov 2026 12:34:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795005276;
+	bh=lktbLBklJwQf8hwjdm6Yk4jM0MyEUN1O1EqIfdIn/2A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mbyqgNP4SMYfP6QfUxJ4gd1LP3/kNvHDZLNFfPYnu3nqHQMobuoVtOdYjCXOOspRq
+	 fPHm92vLWFyPju0KHlh3o+zN8aW5jt2ZMpZjUA8YwD4lHEaqi4gWIdcxXHCCJVkuWi
+	 X2R4Rpjimy3N2SHwexOfBZUauVowyolVDTh+fxX1kyamkIpUTaQSeql73Mv9UhKCE3
+	 9Ou1enU0LPjXFz0c+qAeXDbIFuN7h7J0t5YlUKCRJypPABZ3/EX0GX8dlepwkf3Im4
+	 +nkpgwN1Di3z4cYEphSFqX5puokj/fZdcOQ6Lh1P3SdcZmvMjKsyucPgtqoaetCRS6
+	 /em9Ift1ph/jw==
+Message-ID: <bbdef966-c5dc-4101-9246-b668e00f62b7@kernel.org>
+Date: Wed, 18 Nov 2026 13:34:31 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,101 +52,96 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 05/10] dt-bindings: display: amlogic,meson-dw-hdmi: Add
- phys and phy-names
-To: linux-kernel-dev@aliel.fr, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org
-References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
- <20261117-meson-drm-create-hdmitx-phy-v1-5-9e0ac931381c@aliel.fr>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261117-meson-drm-create-hdmitx-phy-v1-5-9e0ac931381c@aliel.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v3 0/2] Semtech SX9xxx: add a reviewer entry and binding
+ maintainer
+To: Arnav Kapoor <kapoorarnav43@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Cc: Gwendal Grignou <gwendal@chromium.org>,
+ Daniel Campello <campello@chromium.org>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261117172612.25535-1-kapoorarnav43@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261117172612.25535-1-kapoorarnav43@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/17/26 20:33, Ronald Claveau via B4 Relay wrote:
-> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+On 17/11/2026 18:26, Arnav Kapoor wrote:
+> Add a MAINTAINERS reviewer entry for the Semtech SX9310, SX9324, SX9360
+> and SX9500 proximity drivers, and add myself to the maintainers of their
+> DT bindings.
 > 
-> The HDMI TX PHY now has its own binding and driver. Describe the link
-> between the HDMI TX controller and its PHY with a "phys" property
-> holding a single phandle, named "hdmi" through "phy-names", and update
-> the example accordingly.
+> Jonathan agreed to a reviewer-only entry here:
+> https://lore.kernel.org/all/20261117031830.69ac22f5@jic23-hlaptop/
 > 
-> The properties are optional so that existing DT, which do not describe
-> the PHY, keep validating; the driver falls back to creating the PHY
-> itself in that case.
+> Changes in v3:
+> - Patch 2: replace the Link: tag and the reference to it with a
+>   Suggested-by: tag (Andy)
+> - Patch 2: drop the L: line, the IIO subsystem entry already provides
+>   linux-iio for these files (Andy)
+> - Patch 2: drop the DT binding F: lines, patch 1 already lists me in
+>   the maintainers: field of the bindings (Andy)
 > 
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> ---
->   .../devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml        | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml b/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
-> index 416fe263ac92..5a033fec21b0 100644
-> --- a/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
-> +++ b/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
-> @@ -108,6 +108,12 @@ properties:
->   
->     sound-name-prefix: true
->   
-> +  phys:
-> +    maxItems: 1
-> +
-> +  phy-names:
-> +    const: hdmi
+> v2: https://lore.kernel.org/all/20261117110939.214932-1-kapoorarnav43@gmail.com/
+> v1: https://lore.kernel.org/all/20261117094737.15253-1-kapoorarnav43@gmail.com/
 
-I don't think phys-name is necessary here.
+I think it is premature. You just started contributing and your early
+submissions were clearly showing that you did not read kernel docs
+before posting.
 
-Neil
+https://lore.kernel.org/all/20260621044410.57823-1-kapoorarnav43@gmail.com/
 
-> +
->   required:
->     - compatible
->     - reg
-> @@ -136,6 +142,8 @@ examples:
->           power-domains = <&pd_vpu>;
->           #address-cells = <1>;
->           #size-cells = <0>;
-> +        phys = <&hdmi_tx_phy>;
-> +        phy-names = "hdmi";
->   
->           /* VPU VENC Input */
->           hdmi_tx_venc_port: port@0 {
-> 
+Also many postings were LLM products with poor supervision. Reviews are
+welcomed, but first please gain experience before you add yourself as
+maintainer after 5 months of LLM postings.
 
+Best regards,
+Krzysztof
