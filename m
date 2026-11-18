@@ -1,118 +1,112 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795001062;
-	b=j6Anp54189yLu8fQNKHBJI9QiDHyQExxG0pH18Qn9jIP+voXK/4wkQUPhAbTtNEkp3dl
-	 30RQxaFtxPGYkVFgpu+1LBqMIaHddiv9r0N7UKQ4VMqTGcKlBVgIHK6JhkMzwTjOrzDLR
-	 R40/ObgbdebV7vWnI+PvVfRHwlWRJT8JCN0NzFJ0vYaPLDKgs92scm1UlhkEUQuGqTGZt
-	 ZU+6zwLjuE9HXosRAFbLKDpAH83fAhrBv75FGsRAg7daRxYvbYJE4W5rnmxNGII9VOteD
-	 PCxcXdogyA8I4wrAjk6FH2ZMVgQkXZTDc876Nv6906VxNKKyNqT+rK4+/TmX3wL7NHg==
+	t=1795001327;
+	b=yn+BQLUbUj4SJU7YgEUFnUz+9GRpuPJIIB64WHqgzJKz9ydPs7gq3ZWhtb1QglDMJP/n
+	 YqWCBh6oA8ZZUaDy2vtqiImK9NvAxJ7J6d7iqllLoYJT5kwpF+fxHhrcOvU2Nk9rv6FoE
+	 0qpdpQAFLV6aTQdxPmvDyaFJCKS32c3K86rvO2FN9nxD+uUHaRJN9t8o7NMdCiibpBTOD
+	 HBLJ5jnUrI//HuQIVPrOQbTam0tzxqxfCIoRPxyEbps/ZzV+oAgj6KJ5SHxmmqfk2bOzK
+	 qRjmxjQln0kvWhz3155oUOKs214jQRV0DynpXsZKus9uWqxQfHhc5mZA3Z6O3CgyOTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795001062;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795001327;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
 	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
 	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=2I+DHXwITsm8CNgQHFnpSZNFTs3D/P5SlVGIf4B/W3Y=;
-	b=w3oclwUnVGKUFfjJbJ9OsutQMDPSN6jQWiw3F6jLRCZgX2HpvY/pVVmLUu2WQGmd3YQP
-	 MnCpFP7Yhnzf/yeCGuM5EY5mYjD5FMxLgycUCbbv8GGJnOwMf/fcojfvBr8HyA63E/e3K
-	 wIiakIBrcwFaRu7PAZ7QAYRqFxiEskOZ46ekqGXlqsCB5mW8f4RBWuZ283q8RNL5hioIk
-	 8AI/9A8/jNERjmlkpAT56XqWp2pAfMXrZNF/vH+NNK+uvLfQZP9QFRq5QGnu2PRVCPbrQ
-	 0JFVMn5U/pfw1ZByE9mAj6XzjgP88vbMp8/SXSGoAYHObXzeBquzOs5iBNeCUS7Fi1Q==
+	bh=nG1apVdiiVH5xMYZQ+1A0shEqwCnl5EZjE+Zf2il+6o=;
+	b=GkaNaZfnLLDOAYhCWh6NkQ+6ZL/5baTMjwL6YJ6R3qIauuqGnZWJWI2hDyTmZQRskhBc
+	 38O23evQPd2G7QHVg2K6cxDTAf/+mG4P1mDG/2hMgv4Y6iShesTcjteXNScqJuBZpSU1T
+	 qYIvr6ID+SCkSz3ZW5x0EGaZ+TrydaShcPC9cdPkXBu5eoDT47h6jFAzLf76xSZHAxL/w
+	 zqKnrtZ1qHj8jOvQFsiqLkeLJkkb3PSbvNd5A/B66nPYh739ONQPikcMZZpFwfuX0++ic
+	 k0ycBvoiAf8gyeI5DElW8bWBFftowjGAG8J4fZBi1OEjKC2gM0hFuFgEAWtUaJlApBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k65oliZF;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NRhIqWgt;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ntylGciU;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NoTaO4RE;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C84E606A325
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 11:24:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C84E606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AAE7606A338
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 11:28:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AAE7606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k65oliZF;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NRhIqWgt
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ntylGciU;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NoTaO4RE
 Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AIBL1Ib2610402
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 11:24:20 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AIBL1IT2610395
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 11:28:45 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=2I+DHXwITsm8CNgQHFnpSZNFTs3D/P5SlVG
-	If4B/W3Y=; b=k65oliZFrcUSmKlMQQG0970K6+RRHzEVQE/jbIm21Qs74HDRrle
-	zk7z3VuDmuVgvRlzWMsjr0dNmetUHQkyiQkgmJ8MDtIb6GcRcHVx5sEVqyqUmY2U
-	eRNusZfULBOqmiSk+iYMpiScyhwmAdcjZHMseiFP8Zy4BEC9C8zhUbJkxLbYrf5r
-	pKpaGuKPNqz1475lfeO3O7++iM3bskuQEC11lBBMVbgrS7ejTA4gFbQpTPXgsNNO
-	zfODdU7MkLMVsqXhQClCTPK71vh0BZEWn2+ghEqUNLbUFmLTZSX96su1LZCpHyCA
-	PLcBglxIZipZYThm79ZZffa7SD5PFdUm2Bw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yv92sre-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	nG1apVdiiVH5xMYZQ+1A0shEqwCnl5EZjE+Zf2il+6o=; b=ntylGciUuJZfpWf0
+	c9UM6MyqepvVZTCUP0ikndK0p570RLatJXjQ8tNCA42mvik8m09Q7kgxjCpYLS5w
+	3be24pUUqP+OfFXhNIl/dv7A8fLLeH6RfrBGHOO/30xV0aBqh2ZfzKxI677TTEDd
+	KcbZ5VbENV+w640ft3HbjuEvm/246WpbBNMsmpm1min/ZK1eV/GhMmmg5YZH3KU0
+	zAgVZSwH03j1TilDVNNqaeyEAJ8AqtYa9gTsWf9+netIh/R8bQgtN/NKSM5Ri6RX
+	MunrHSIsDg22tgIDcwR6X4XJZb2Z0OVbk665hfMAIpeETNnFmWOLuL8vK6pqqlau
+	GQpvbQ==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yv92t51-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 11:24:20 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f20addba1so162791685a.1
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 03:24:20 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 11:28:45 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso1256478eec.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 03:28:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795001059; x=1795605859; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2I+DHXwITsm8CNgQHFnpSZNFTs3D/P5SlVGIf4B/W3Y=;
-        b=NRhIqWgtO4nLX6FM64tnJQlfYegwEK5bVWKg2IFmzoIg2d4VY2vpMftA9+vAw1LcYB
-         cFEj9BzEVzw55HHR/+Ei9M8T53bTGjqBryklpflt3G5fYcvPBHjGnLBL4U4lgvw+szt1
-         0ZL9dZK8Qhbx2GJ6SSrG5apXD0MsLKnygxgl8irFukPgYjM5iaJlIn9UtHT7JFdLvJgz
-         oTx0I+ubvvmLwZA4Hn/1UkGvHWrqhJA072CJz6Pgx+uXeIte3kHMOyk5ScS1h3s9PcsJ
-         efb5X7ElZGmllaOqQqz9jyzlL4tmo9Ykbs9umuSC/vI1zhfp7j1+XxSF7zWByr+hyFjn
-         8Ohg==
+        d=oss.qualcomm.com; s=google; t=1795001325; x=1795606125; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nG1apVdiiVH5xMYZQ+1A0shEqwCnl5EZjE+Zf2il+6o=;
+        b=NoTaO4REEb9T1/yy2aYwwQCVR409nQ7wTShxB4gtJ8U/OW5PfgaUONKvVLtTb2CVr1
+         50RcLXlF9+Z4pz9bDGYoRvXFLT9/Y8aj2FBnBKaMtkXH0qsCjRnPXqezeEvlBJwb0IcT
+         Yt82bwHCyTUFZmqrvjOc6iyS8ZyWip5ebCafzkfi+uzk8HYYl2U4gDjhEVnoz4einNBo
+         QyoNokoRzRhxBRxU6L/w4hFCpMDKANZrvcN2XQV5GsCejOLwMCYtADaE2w2p0EGhurHq
+         4MUcjK1AaEPZiYe2vQEm6S98XFI40IdBDf9a/UfWVDzjx+ltweHFBzx2XFz2FvjxyXct
+         VVtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795001059; x=1795605859;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795001325; x=1795606125;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2I+DHXwITsm8CNgQHFnpSZNFTs3D/P5SlVGIf4B/W3Y=;
-        b=YR3b62qbI5+4CzamzB3mJp8HGHPntYmIxE0/+W/FmFbyf9yc830/eWATXZFVEmHb81
-         reW67dTuF5O+oC/QQCYQBj/D485PkTbd2v96XWMvNFaVAGVHc8hqhPD2mmQZkh7h8bbn
-         0KT+qbKs4L7JrOpeO9F2JU8WLXS1IwGYnRCCG9wyYP5s9fi4UFgCarWqtoOlBZDQOr8t
-         B1jyUg+34W4qYE6xhmJf8ABa19eWa/dJyg5Rycrx4tr4lrEVdrzondXkNRZO3xYlcoNk
-         +EPPcBrE/oc6wejza63SjDHYsfdNw6ef+5kSOZ9QIoE/lNZnbZFx0CmlDpkhawzW3gHk
-         eg6w==
-X-Forwarded-Encrypted: i=1; AL+hErEuJb1tmXv1a5QQZbnfM9HqcGLs3W3+FUJ7MNjulmRaPN3IInhNXUrMK1zl0xsPdBkULihyZJ0KDJDe@vger.kernel.org
-X-Gm-Message-State: APuU4Z/gLJ/2mjLRUHEkpx3YIfRexXd6eP8TL2+K7ippfkurix+ZOrue
-	3TX6X3f1cssb2zAKquyZ6+OH/Q2jwhi30b94Rl9hofBKF/TSW+SV6DlS83vQKc2dIBHwMiKCkB/
-	f8Bktc8e2aypUdnnCmcrRpIAZaPHvRRfofKjswZ58TGrxgkVSxklK1lVz2LQL6ai7
-X-Gm-Gg: AYBFou1LSfUwFlcPxdEL11f4dfwBRszrcoRb3b2TOL2lyR28v3gLGGno74sUGbRqMUe
-	UUAesTxjxfWXH3plR8qaGNtFlLJ+ks82gKHHmduihI3M7DCplHvqtXldHkZcu/5/69lsPX24lPt
-	e0ghtTYt8SQT4fhKdrqsYewFU2yjoMIqRRxEZH8F0dDSHC8Ko6LatcR8VaorfLsKrUtDrroHHOK
-	l8DcgoKn0AMfiyitv2EmBYFB+GQ6fK89Z+UWqfhKx3RooDqw2ZA2gPRfCErL1L7FKqc6lkKI11G
-	IooOXnfUfpweLNT7HkvkB5DCVESbzeMWpuJdcCvDX6DQpMayfWG2qbaAlxWfIaQhVW9XHVj4Mfq
-	mLg+XX0G6NzcNdDZMHsySbabxptxDezyfUNO1R8WbZhmTDWQ4sBQouqRAp5k5vdEmCbvXhtExZg
-	EMeMKpscE=
-X-Received: by 2002:a05:620a:1b93:b0:949:7572:e76f with SMTP id af79cd13be357-94999759b2amr437535385a.46.1795001059367;
-        Wed, 18 Nov 2026 03:24:19 -0800 (PST)
-X-Received: by 2002:a05:620a:1b93:b0:949:7572:e76f with SMTP id af79cd13be357-94999759b2amr437529785a.46.1795001058768;
-        Wed, 18 Nov 2026 03:24:18 -0800 (PST)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com ([195.50.164.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a654a8c3a7sm4569411f8f.9.2026.11.18.03.24.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 03:24:18 -0800 (PST)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: qcom: nord: Fix GPI DMA wiring of QUP SPI engines
-Date: Wed, 18 Nov 2026 12:24:07 +0100
-Message-ID: <20261118112407.103412-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+        bh=nG1apVdiiVH5xMYZQ+1A0shEqwCnl5EZjE+Zf2il+6o=;
+        b=2yI4M26AnoYo3jffyojh2c36qzHSrJLAPkAxu8KGpP5tthRLQ2j9rnfAX8Hsz+irXq
+         Ejfpw1bgni4WaaBGabJn3LgkMM5EZN9a9I5LSiiUTESBql25XRKsT9Z6XGkXgGnt9+6N
+         2xcpRbKWC3dfkE0/xf4kOk+6zfLsiklVQroQ5U4INFf254k6KHkOYHEgqiBdSH+2eEEs
+         6RCSGAeifc7Bbuu4mPbHJVGkRKq/fR+i3Zu8qWRIvRgaVA1X65JTTGiHeZVD5tc0AY7q
+         OiapWCyJnd7GejBRkzVueAv0VDLFJrEyrkp0z7EcstzUKZ1+p+USdDB6h7B9Nl1uYhq8
+         W2Ww==
+X-Forwarded-Encrypted: i=1; AL+hErFMstlOxFJn2jItOjo78TzUybTP5lqDiqJiuVLCJSk4JnQ7EuaOXqdxWE+GjUY0zFDKziUua/cbP0O2@vger.kernel.org
+X-Gm-Message-State: APuU4Z+423Y4zKa9jbsTx8cnHiNX6+LU5tUfDUMQhgX9uBbUJJ/k9gLm
+	UhA88g9Jne8YM/bKmQboymhPvGNq/E3jgZkKCiJQKIJLHMUKp4vz7q4WytyML3ne1x0Ghd5OFQ2
+	0eIG597l8Wm4xA9OTooqGQEg+fAdNdZGInAShRH2n9ZQ9EM1JTZFLfDUxN7oPmkob
+X-Gm-Gg: AZFdTZeyUEMwy2g9FE4L03kDjhoiQLLrFxWhYMueihoqG+Z4cQp91M1u2meRgXyUIrQ
+	YLz1UD9YRIUKbHZujGfUfgVXRLETjf2xkVQbjr9KXS4+wfUnl/qBFlmUs0ydSK/RQUeafVQeErw
+	kMO56s1BQ1psSIXykGfgW3biXLRF90RRse8HMaAmq2lqMztVsw9BbDnvkTldSDc4JO/XIiC/3rQ
+	Uh05kQfiDkw37iD/S87BUZX12og+gV1OnhA2hpRiPeUOuAW007CkREN0R2/dOa0F6171TennegQ
+	8ZI3bj/5xfDFdJT1J/MRsIkQNul5B8Fy347HihD2j/DXF1FgyK8h98lR0viK/ympcTVq7zEwMN4
+	AzdeOVUoFIdHfvTrf3+A15WnXLEr64nZWhkE11ESM+IZgkkPhYFfRrlKygwLlTDCxbFylUbS/B9
+	F3IKBGug==
+X-Received: by 2002:a05:7301:18aa:b0:381:e45d:be08 with SMTP id 5a478bee46e88-38280a3c1e2mr2400853eec.21.1795001323964;
+        Wed, 18 Nov 2026 03:28:43 -0800 (PST)
+X-Received: by 2002:a05:7301:18aa:b0:381:e45d:be08 with SMTP id 5a478bee46e88-38280a3c1e2mr2400813eec.21.1795001323169;
+        Wed, 18 Nov 2026 03:28:43 -0800 (PST)
+Received: from [10.204.100.88] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a72eb2f3sm8539071eec.18.2026.11.18.03.28.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2026 03:28:42 -0800 (PST)
+Message-ID: <1fcd89e4-feaa-4072-a5c4-56318b1d8475@oss.qualcomm.com>
+Date: Wed, 18 Nov 2026 16:58:32 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -122,25 +116,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA0NSBTYWx0ZWRfX8HGslrwL2/JZ
- +LW6qNFaAKJgHbGOmdatJhEwEfx2wuzB2K0job8YZMI8gPtB8AEx6auTkFJ7Z1HeX1VVsLAime1
- 4gJZo0KfVK1R5Esw7U4fWM+I+K6JRXfnXlYpSKhZv0Jof6u61XAdRbVnMGGRh0n21filDtI5pda
- zpJ7/LNgVolQLZ8xVO6zRyH/GDVsrsXbbtiWt/6lwre0FEsQmcKgWuUo2wFWLtu6gzl97xxLgBf
- ZabHoXapvw+93bkbSl/Hff90ZqRAvhdg+UAANEubqpxph+w77sggQUDQEDBPyzbkE8JSH824xQV
- No9LGwZZi1chPckUbyzUEXcZUpZOVBxVFfCYsLq1Yt0QUeYmmvMCR75WWst0CFn0LSQq4SE9hLR
- 4cL9+k/2fjU7wCYPfzPtLz07zD8EIeiZyzbIWXyFQjum9IuEPBHbuC166JG720FgxjN8GYhovW5
- slyKsQYnasxO34RU7cg==
-X-Proofpoint-GUID: _TqAA_gBPRp2VSTADQMwS4QF31OFa54p
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA0NSBTYWx0ZWRfXx+M3GoDl1cDt
- +fp5qoTeiYjRdRB3TptuEekR9IzKVfR6qVDP3oyMlygBZHQGh5P9S+ALa7Q97qhWjhpkcqfvNU0
- 8xzubiNKSJCyd5eqUzn2z8tLZl/6Vk4=
-X-Authority-Analysis: v=2.4 cv=LuQHWXdc c=1 sm=1 tr=0 ts=6afd8ae4 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=if-8UaqqpKS-Wo8cnIYA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: _TqAA_gBPRp2VSTADQMwS4QF31OFa54p
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/5] iommu/of: Make OF_IOMMU depend on OF_ADDRESS
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
+        Vasant Hegde <vasant.hegde@amd.com>,
+        Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        David Woodhouse <dwmw2@infradead.org>,
+        Lu Baolu <baolu.lu@linux.intel.com>,
+        Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+        Eric Auger <eric.auger@redhat.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Joerg Roedel
+ <jroedel@suse.de>,
+        Srinath Mannam <srinath.mannam@broadcom.com>,
+        Oza Pawandeep <quic_poza@quicinc.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev,
+        linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
+        devicetree@vger.kernel.org, kvm@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
+ <20261106-add_iommu_ranges-v7-3-5c0f72083e52@oss.qualcomm.com>
+ <yvkcq3zirv5tz2amfbk52a7smbsqs7jrzdisq3qxzw6xkoxklu@rplx3gvxhcoz>
+ <dd62aee3-4f23-4904-827c-7f776c4be60a@oss.qualcomm.com>
+ <vwg74npvbwdhepp4uownnzlj2ybpiknfktfvrpy6462rdw7snd@tj4vgnn3dtml>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <vwg74npvbwdhepp4uownnzlj2ybpiknfktfvrpy6462rdw7snd@tj4vgnn3dtml>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA0NSBTYWx0ZWRfX7CRmzii74fS0
+ liBkB6ZMVpW0JSksNiqWo9nzOHT9DZlG+6Y9bczKyYYHA+4W9Lvmw4JrkLkK6ulHk/qnC6MWgi2
+ 76vsm0jZCKd0+VIJl2/XlBEU+LNj2BRH238CjoxK5JQUIfx77mGzDPao8SUWq4PRf9PtVo2XI7N
+ yfGhKqKR1HoaK+jedxvavm5COXZII2ahJKrHf1sP/Ej/a5gKksGjCj0F4dMh9EXOeEV3W42WmfI
+ auhXWJCDHK0uP+AdsoKHbON3B5iND5ME1oIwxwQ5eksQ3F00ZU4oRbbnGstERXc4lcPopox2bmd
+ dTIpq1le5uSiYXj+t7KA5V6Yiif2G2VQP4FWuXL66+EdMyzjxxUJTjiie2yJcX9rc/Td8adYWb0
+ uJOx79AIbDkyTyCh9GZcCOxyu2vpYIfVHJFT+XexN9Vb6jgRCG8eO2dzusPmFSD4WBv5UtoP4pS
+ x/xpqk5XtrOWpWwzClQ==
+X-Proofpoint-GUID: oxbgoBhJnoLQJBvd6U5epXk4nU56gr04
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA0NSBTYWx0ZWRfX8MKhjlfy+k45
+ mM9T58EFbckJxAPsRunbavlecSxAZbj/G2KEbhSBJeU2DTOo09KaWlhUwVjWJFdf/iADz3c9TpH
+ EO3Jv2POJmuvn2cashdjo3zdBDUjkGA=
+X-Authority-Analysis: v=2.4 cv=LuQHWXdc c=1 sm=1 tr=0 ts=6afd8bed cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=HfRq2NBFtK1Lh0_1ebIA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-ORIG-GUID: oxbgoBhJnoLQJBvd6U5epXk4nU56gr04
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-18_03,2026-11-16_01,2025-10-01_01
@@ -150,279 +179,60 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180045
 
-Commit d8005dd04efc ("arm64: dts: qcom: nord: wire up GPI DMA for QUP
-I2C/SPI engines") put the QCOM_GPI_SPI channels of SE 0-3, 7, 8, 11
-and 12 into the uartN nodes instead of their spiN siblings, and left
-spi4 and spi14..spi19 without any. The UART nodes now carry dmas
-properties the GENI UART binding doesn't allow, and 15 of 18 SPI
-engines can't use GPI DMA.
 
-Move the channels from the UART nodes to the SPI nodes, and add the
-missing ones for spi4 and spi14..spi19.
 
-Fixes: d8005dd04efc ("arm64: dts: qcom: nord: wire up GPI DMA for QUP I2C/SPI engines")
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/nord.dtsi | 92 +++++++++++++++++++-----------
- 1 file changed, 60 insertions(+), 32 deletions(-)
+On 11/18/2026 2:32 PM, Dmitry Baryshkov wrote:
+> On Thu, Nov 12, 2026 at 07:10:38PM +0530, Vikash Garodia wrote:
+>>
+>> On 11/11/2026 6:33 PM, Dmitry Baryshkov wrote:
+>>> On Fri, Nov 06, 2026 at 10:44:26PM +0530, Vikash Garodia wrote:
+>>>> The OF_IOMMU code relies on OF address parsing helpers, but the
+>>>> dependency on OF_ADDRESS is not expressed in Kconfig. As a result,
+>>>> of_iommu.c contains CONFIG_OF_ADDRESS guards and a __maybe_unused
+>>>> annotation to handle configurations where OF_ADDRESS is disabled.
+>>>>
+>>>> Make OF_IOMMU depend on OF_ADDRESS and remove the now unnecessary
+>>>> preprocessor guards and __maybe_unused annotation.
+>>>
+>>> Why? What's the problem that you are solving? Why is the current code
+>>> bad?
+>>>
+>>
+>> The commit describes the problem as "The OF_IOMMU code relies on OF address
+>> parsing helpers, but the dependency on OF_ADDRESS is not expressed in
+>> Kconfig"...and instead the code had checks for config or __maybe_unused for
+>> cases like sparc.
+> 
+> What is wrong with this approach? What is the problem? There is one, but
+> please state it in the commit message. Something is wrong, otherwise you
+> wouldn't be fixing it.
+> 
+>>
+>> It was discussed in prior rev
+>> https://lore.kernel.org/all/20261104160346.GD3951195-robh@kernel.org/
+> 
+> That's fine, but the reason must be capturedd
+> 
 
-diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
-index 39de48e5bff0..256bc766ea6e 100644
---- a/arch/arm64/boot/dts/qcom/nord.dtsi
-+++ b/arch/arm64/boot/dts/qcom/nord.dtsi
-@@ -1136,6 +1136,10 @@ spi14: spi@880000 {
- 				reg = <0x0 0x00880000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 373 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 0 QCOM_GPI_SPI>,
-+				       <&gpi_dma2 1 0 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1167,6 +1171,10 @@ spi15: spi@884000 {
- 				reg = <0x0 0x00884000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 1 QCOM_GPI_SPI>,
-+				       <&gpi_dma2 1 1 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1198,6 +1206,10 @@ spi16: spi@888000 {
- 				reg = <0x0 0x00888000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 584 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 2 QCOM_GPI_SPI>,
-+				       <&gpi_dma2 1 2 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1229,6 +1241,10 @@ spi17: spi@88c000 {
- 				reg = <0x0 0x0088c000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 585 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 3 QCOM_GPI_SPI>,
-+				       <&gpi_dma2 1 3 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1260,6 +1276,10 @@ spi18: spi@890000 {
- 				reg = <0x0 0x00890000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 586 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 4 QCOM_GPI_SPI>,
-+				       <&gpi_dma2 1 4 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1291,6 +1311,10 @@ spi19: spi@894000 {
- 				reg = <0x0 0x00894000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 587 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 5 QCOM_GPI_SPI>,
-+				       <&gpi_dma2 1 5 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1387,6 +1411,10 @@ spi0: spi@980000 {
- 				reg = <0x0 0x00980000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 0 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 0 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1395,10 +1423,6 @@ uart0: serial@980000 {
- 				reg = <0x0 0x00980000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
- 
--				dmas = <&gpi_dma0 0 0 QCOM_GPI_SPI>,
--				       <&gpi_dma0 1 0 QCOM_GPI_SPI>;
--				dma-names = "tx", "rx";
--
- 				status = "disabled";
- 			};
- 
-@@ -1422,6 +1446,10 @@ spi1: spi@984000 {
- 				reg = <0x0 0x00984000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 1 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 1 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1430,10 +1458,6 @@ uart1: serial@984000 {
- 				reg = <0x0 0x00984000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH>;
- 
--				dmas = <&gpi_dma0 0 1 QCOM_GPI_SPI>,
--				       <&gpi_dma0 1 1 QCOM_GPI_SPI>;
--				dma-names = "tx", "rx";
--
- 				status = "disabled";
- 			};
- 
-@@ -1457,6 +1481,10 @@ spi2: spi@988000 {
- 				reg = <0x0 0x00988000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 2 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 2 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1465,10 +1493,6 @@ uart2: serial@988000 {
- 				reg = <0x0 0x00988000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH>;
- 
--				dmas = <&gpi_dma0 0 2 QCOM_GPI_SPI>,
--				       <&gpi_dma0 1 2 QCOM_GPI_SPI>;
--				dma-names = "tx", "rx";
--
- 				status = "disabled";
- 			};
- 
-@@ -1492,6 +1516,10 @@ spi3: spi@98c000 {
- 				reg = <0x0 0x0098c000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 3 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 3 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1500,10 +1528,6 @@ uart3: serial@98c000 {
- 				reg = <0x0 0x0098c000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH>;
- 
--				dmas = <&gpi_dma0 0 3 QCOM_GPI_SPI>,
--				       <&gpi_dma0 1 3 QCOM_GPI_SPI>;
--				dma-names = "tx", "rx";
--
- 				status = "disabled";
- 			};
- 
-@@ -1527,6 +1551,10 @@ spi4: spi@990000 {
- 				reg = <0x0 0x00990000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 516 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 4 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 4 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1623,6 +1651,10 @@ spi7: spi@a80000 {
- 				reg = <0x0 0x00a80000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 0 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 0 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1631,10 +1663,6 @@ uart7: serial@a80000 {
- 				reg = <0x0 0x00a80000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
- 
--				dmas = <&gpi_dma1 0 0 QCOM_GPI_SPI>,
--				       <&gpi_dma1 1 0 QCOM_GPI_SPI>;
--				dma-names = "tx", "rx";
--
- 				status = "disabled";
- 			};
- 
-@@ -1658,6 +1686,10 @@ spi8: spi@a84000 {
- 				reg = <0x0 0x00a84000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 1 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 1 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1666,10 +1698,6 @@ uart8: serial@a84000 {
- 				reg = <0x0 0x00a84000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
- 
--				dmas = <&gpi_dma1 0 1 QCOM_GPI_SPI>,
--				       <&gpi_dma1 1 1 QCOM_GPI_SPI>;
--				dma-names = "tx", "rx";
--
- 				status = "disabled";
- 			};
- 
-@@ -1739,6 +1767,10 @@ spi11: spi@a90000 {
- 				reg = <0x0 0x00a90000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 4 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 4 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1747,10 +1779,6 @@ uart11: serial@a90000 {
- 				reg = <0x0 0x00a90000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
- 
--				dmas = <&gpi_dma1 0 4 QCOM_GPI_SPI>,
--				       <&gpi_dma1 1 4 QCOM_GPI_SPI>;
--				dma-names = "tx", "rx";
--
- 				status = "disabled";
- 			};
- 
-@@ -1774,6 +1802,10 @@ spi12: spi@a94000 {
- 				reg = <0x0 0x00a94000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 5 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 5 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1782,10 +1814,6 @@ uart12: serial@a94000 {
- 				reg = <0x0 0x00a94000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
- 
--				dmas = <&gpi_dma1 0 5 QCOM_GPI_SPI>,
--				       <&gpi_dma1 1 5 QCOM_GPI_SPI>;
--				dma-names = "tx", "rx";
--
- 				status = "disabled";
- 			};
- 
--- 
-2.43.0
+Ack.
+
+>>
+>> Regards,
+>> Vikash
+>>>>
+>>>> The only architecture supporting OF without OF_ADDRESS is SPARC, which
+>>>> does not use OF_IOMMU, so no functional change is intended.
+>>>>
+>>>> Suggested-by: Rob Herring <robh@kernel.org>
+>>>> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>>>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>>>> ---
+>>>>    drivers/iommu/Kconfig    | 2 +-
+>>>>    drivers/iommu/of_iommu.c | 4 +---
+>>>>    2 files changed, 2 insertions(+), 4 deletions(-)
+>>>>
+>>>
+>>
+> 
 
