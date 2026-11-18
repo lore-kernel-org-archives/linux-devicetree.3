@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016953;
-	b=oSDktmVtEonr3JCc2pEM5aDpCg8cuBz2BDNJDf1eG4b1yi2Xp14pKRy3wtp7rPKG5kcv
-	 zKxxgJ2yG4aJEsq3t564aJB9hfRtD3Chy7TZiGLZPjyLoUDq3vx/m1rEiwqwF61i2Y40h
-	 Zogl0rDuOYHJFpiudzSztxhBIQfbpIfgYlydcJmaWOEJk++sDvkZj4jZW1M26ODWNUnuA
-	 BBJ1qTW2YvksawpvPNY9VGz57pbmYbwaYme3ynK+GczEjYmv3i82VJcndGjiX2/fQhIIW
-	 42nt32OzXMTA7jdrtcmKuKBKEfhuH11tSt1F64zSRwqYwXq51LiDq1DsoqV2bb9oKJQ==
+	t=1795017028;
+	b=ImdLqZQVzOSflxBOg9Ype8PxlGss0cyk2GJUCloguYcGHQLRmDeKfm4CWRCLgqtd6xJp
+	 YoPClza5e3NabAopdrbrhUkbZ5ZmRjiBiqYkIVLSkaGAY5ITvPRFIIM586VKr5SYmrgvd
+	 yfwLbYvHRhAbB6FbWQqor45nG+/oAYBag22Ruu5VqIzh0SES0LhaC6ikWVvcX78t3rncJ
+	 M8haD9UQ36fK1B80OQriGIpegZiV98ufksXsNLS7SekoGsRq+y19Yu9+CjAPVRZyx6i4X
+	 lbe3V5QjCdrCNIlqejp5T7c8GE5k4ndJSwNV01hRvqDDquuBT/6Zt07NWHG7SDrzolA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016953;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795017028;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
 	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=cer8YfO6jgJ8rX/jlVTUPHJd3RGw4HKBsstgFxqYGYA=;
-	b=hfqg0F8FGGWeNbUixBJdBfIxQUW2di7bdbG/Xm3nQizQqWBojF94ChKgOUM3PD0ozQBx
-	 ID/+6Xy55a4XShQ0rQ/zksw/RsYvt7JPI8otYQMjYJfkNPiqyey+lLBEKAvwdJOt4OXPm
-	 QVQbZE/zUvLC11hOQUNIH3ynSfUxfQ5/1sT3BXNlRS2GDqGRdWG8fE2xQk/kKE2wNaRy3
-	 kXNJlLG/f+2StqMbffkslxbJZl0K5+hUiqumW0ydCNF7Sg+qu7RIdql8RaCgOIXsSNRbN
-	 xAe7MH+cJ6wFRbXmtwcvPrqhnT0x1wUqrKYWcIt+TwJ7F+SLckG+WXOtwUCC3UIgoyg==
+	bh=4lLupD4z98CK9UrD3eQfsjdZUJgyZTecsH4A98HzZRA=;
+	b=1it9RHWo0oDhINiptRSjgxIw6OFaVtt/VMZbRfFxY3aCk5nNonTGxWgeqctj/6tw0nel
+	 OLgXQ8iXX9JmLb9IM9OPGR6d/clUjYPuKypNqNO8y67oFLNWOyF8QcKGH1I3F1H3LtqEs
+	 7KNw8oGjdWkCYOBw2wvjBoIIt9QHVrpLrFjMUspJXW7AF7aK4OEHdmrRzHI1WOe07g6k9
+	 9iyF9tDjcnBoT6FO+ylBeN5TvYsMY3Lcj4JOjzJEUyCKg0760bRq1iIEuhEBoNwt+NX0T
+	 AMpuM1SCJtiepheV+b5NKfT+lSa+BTgOqcGUpsF/KhfU92YC6XTZje8gwA7I53lt73g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ypGDTFJV;
-	arc=none smtp.remote-ip=74.125.227.197
-Received: from mail-pi2-f5.google.com (mail-pi2-f5.google.com [74.125.227.197])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MSO35Hm6;
+	arc=none smtp.remote-ip=74.125.227.131
+Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7569606A338
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 15:49:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7569606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B543606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 15:50:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B543606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ypGDTFJV
-Received: by mail-pi2-f5.google.com with SMTP id 41be03b00d2f7-cdb9382f3baso306958a12.0
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:49:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MSO35Hm6
+Received: by mail-pj2-f3.google.com with SMTP id 98e67ed59e1d1-3adc0ac3566so219733a91.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:50:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795016952; x=1795621752; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795017028; x=1795621828; darn=vger.kernel.org;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=cer8YfO6jgJ8rX/jlVTUPHJd3RGw4HKBsstgFxqYGYA=;
-        b=ypGDTFJVbxylofrs7RPLtLRc+FST4V+oVKo6JjaYkTo2SZwK/1/t7hQq+hoGa0E0M9
-         ira0rz4fUFlP/11ZukY6PdKsJGNIHGFSNKTnyMwGyIRUYpdjmCDun9yrsZOOmxyNJ7A4
-         mWf8cFYeCvso0ggjDvnSaGm6LkHSa/zZhaIB8UCWcOSiO/ZqP8ZUeCHWqje+I/Oz93qr
-         i9zWR9IrnK8zUAsTiP/DT+5Obv9xGaAbt3lf34ZJ2Te/Tv0Wujfkt5Q6dEEcn5sUR7xB
-         mf1c1PH0a3QLvm0hFIpUx4yPYUE/q33sRgG5293/ASc/kBcq+0uCL3YELc17ADVzBqwT
-         2gLA==
+        bh=4lLupD4z98CK9UrD3eQfsjdZUJgyZTecsH4A98HzZRA=;
+        b=MSO35Hm6I/4kMAm6rw/yxcLf4rXYh1V8nShplW0798fPwvqCSiPt6Q6viUQuxOWdSa
+         DyUQrEukZoLJ6rxQwsHQbvzI89LmfNKBmSjiwWbwXEHGbmhvAudUjl+7HahYcdqoE67W
+         VB2ehkQHIxUfqpiD/4BlgAuK1gu1LrsWI7Ml1ahXovIaXVDUj5OMvIjAvFcc/XOG4iFt
+         eH9VteH5wHSfuh7G3AayJU+egp6im8+fKsbpPe2uxVWftUhmK2dIJtsxDzVeP5hPU67D
+         t1h5lsPSrR09qZErNDCpKhBFmtChIoTnhCdgYBkJcW4iYINPBhjETDS0Q7y08j9EJLcj
+         5PRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795016952; x=1795621752;
+        d=1e100.net; s=20260707; t=1795017028; x=1795621828;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cer8YfO6jgJ8rX/jlVTUPHJd3RGw4HKBsstgFxqYGYA=;
-        b=mpHnynEZvk/KbBhOCLoTUJzfyVPkm+VwsOeBOOGAKSDsFW1n40o7mMRwEarckyrCQe
-         47t/jE2Se3cQJk+fhzXgo9NDjXpmeI5CRPbHZ47L/jFy20CqxKGe7qYeVniQarFgnSO8
-         j5lQYQfdaHA5PrTt29pKnFS4FsKj3Q73oR7aBy2iiTRD68DqBFNiO0S91nWebGgmRkbm
-         OcjYNuVq0/qzS/RimkxX7JS/yj32X0P1NtJxjlMVlxu7VoWB6ZQ7Vtn3z4ebfy73KtXZ
-         lGa2w5pyM3IJjgC0vE5DTi1nTLhI61KWKxbNXQwI+NlE5OoAJGJwizsVJCSxDukISm4Y
-         ZFBA==
-X-Forwarded-Encrypted: i=1; AL+hErG47sVSvg+MFr3zTwaYSZfeykQ99wYxlo2qylCWOZ/+QdKemLeH2K6vk4yrI3u3nvbA5qT495FZOUz1@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kKCMI8BPy64YShBLwrnDNjsIUnQpjkWWfHZMk8BLOup5aSELt
-	5anOk98tnRKfZCqgN2Ts34bJW2snTZYuJVRmv7z1g8SMm2DrGBZWtLpx
-X-Gm-Gg: AYBFou2rHLl9OFri9fGqi1+tMcfqjiKkZS6mLnZZ66GVh05+Rq3KBHsW4CZYFZIu80N
-	OzuKxgys/CpCAdB9jkgMMlziEebzuUKd4KFeMLUeerb6v5OGNAT3xQ1OlHUP+KRbWNDnM45/C0T
-	7F0Rk6h6RCOD+U9YKZG/7tMX75G5ez7UFLUQ+anwEGgxTCbJw/1VI+Mx9gl1gCeBl7dWq0pZB8F
-	nTB74LRPtJjW1c2NR9lklvUhOsQLoooQw0jasqS46PuGtnMZCiFV4YXYI0kOwqi9nlg0b0dd/re
-	iHAoB3JhZGdgJIFcVHa6P/2WHOnDlKjJuYbQ6R3Woz9tHIdqGmWG2UnV1+KYXvJ+ybAWj45Y5xM
-	Q9gD4794FIJpOfkgUfi4TCBptMupy6OenNhgupe5yVt3sofrv346f7NFg6Qq063NwJGDXqp6mQt
-	3poVcvHbBE4eGbDC5w6KJ7xIofK7lWKZHlnA4bZPuxqJI/gMs/AXC4CNW/1RFQu5e3R5Z2q8GNS
-	JY99ZkjufazBV/313P6sLmdoPhTddlxIBKVq8tI3Zr9yjLF6gJotTpnBA3bW/dWQgbBAarhSkNq
-	rrw=
-X-Received: by 2002:a05:6a21:6e0c:b0:3e1:bb35:476c with SMTP id adf61e73a8af0-3fe8bdd7c38mr2965829637.72.1795016951931;
-        Wed, 18 Nov 2026 07:49:11 -0800 (PST)
+        bh=4lLupD4z98CK9UrD3eQfsjdZUJgyZTecsH4A98HzZRA=;
+        b=JiyX3lC0oqJ3a2PyWj63J82EhqyRd4FxpS5W8aCIZnom4TpOsOVVDGlTAzGFUK1igw
+         8O17khZDjGdpeV/gP+F4HLGRgNWZzJXZQ1hbi/Tycyh0PCNh3BCLUo7ckOURoM9bae8v
+         +J5do+lS0iLyMx7yXxRXJ3Rd5KA3YG5uGAN+qSB4bvnCEkvHHJ78dCtX6pR9affVif2j
+         k3DiacvccsTY0EFdKh/jq1E7gCvW35plxhif6yLkfhKIcKXDPo12fq5NIWk8VGYRM7ek
+         3g1rTTOM/8gEKiqEdAvcWyRcM/SzYDIL6DFNU+ZcxRbvqLjQYwTIMrHXFwAqVDOjsOLa
+         JO1w==
+X-Forwarded-Encrypted: i=1; AL+hErEc+MxaJMHkFAVq9Lw2AMPnM13UNAXcTU09XEqKWyaEy3JDNfnNWZ9DbT+A0mNX4Cm4GthF4rqIjhrL@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Ts0HuAp4C0nDdCa3G+wjTMO4xxLREJD0Os76di/0jw1PBhMCB
+	23vAo43Y+JPy6vARusZIZDy3Zc+NfqCf4K/DcXs/Ba3GeiWSau1USNtQ
+X-Gm-Gg: AZFdTZeQXveGHlygN/wKfWocBrwvZlcbhm9hRUmym3bjOrDpStLMDMfi1h5HsKaSZDo
+	6PPZLJYO1V1wFxdOU+xOV26dHYyx2oF9dnGAmWNIypxvChLw06SrWCU046UASIxUC1WoYwHn0e6
+	AFfJVUEf53y/yUt/KWGUf5pWfhHFclCXbZ9RmnsZVmYj7lrUEXkQWWmRKw7fGu7Men+D9+69B7n
+	eFQc+DVwxmcqqJQkPLc0vm0H3F0Dc5T8pZBVXUZJs17jZR4GQOX+PuLj6Z1DG9iTXrMK/4r/Hys
+	MqUVnGX1Nm92d5GUPYTdv4bxSs1vT2zqtWwhXghkhMAJo3pg/qbtQBf2xCdDiU7q+1f1afL9HSJ
+	TtPRlP1lKHw7qQ9IVB1ku6gj8BZgQPNrjTYre7AYFtLH3TSEQJRpnC4cm6TuAe0dUA8+r5l8eNu
+	RsbR1/vr65pNemwPzMCgXFZthLAV4R4u1SjFQrNhuwfG8L4RGCSYQYVhYhDLV740cvtam83Nlgd
+	XX66jrqYc8/zXDGnmXhdb6Iq/SDD7QsHyBeScsTAvq7OflVoW+BALzuqBdzO+VVVaGGcKXsHzwV
+	L1g=
+X-Received: by 2002:a17:90a:dfcf:b0:3ac:9d14:feb1 with SMTP id 98e67ed59e1d1-3b3d07c9ca5mr3201351a91.43.1795017027692;
+        Wed, 18 Nov 2026 07:50:27 -0800 (PST)
 Received: from localhost ([2403:2c80:6::107b])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c6660c2e4csm1055183b3a.22.2026.11.18.07.49.10
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde534ae0edsm193214a12.21.2026.11.18.07.50.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 07:49:11 -0800 (PST)
-Date: Wed, 18 Nov 2026 23:49:05 +0800
-Message-ID: <e4eb5f5b7ed8b3b6bf47d709e4344e0a.codykang.hk@gmail.com>
+        Wed, 18 Nov 2026 07:50:27 -0800 (PST)
+Date: Wed, 18 Nov 2026 23:50:21 +0800
+Message-ID: <aee275aa2ebf093d8518e53c5d264064.codykang.hk@gmail.com>
 From: Cody Kang <codykang.hk@gmail.com>
-To: Icenowy Zheng <uwu@icenowy.me>, Guodong Xu <docular.xu@gmail.com>
+To: Icenowy Zheng <uwu@icenowy.me>
 Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -95,18 +95,15 @@ Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
  Alexandre Ghiti <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>,
  Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- dri-devel@lists.freedesktop.org,
+ Guodong Xu <docular.xu@gmail.com>, dri-devel@lists.freedesktop.org,
  linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
  spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v2 15/17] riscv: dts: spacemit: k3-pico-itx: enable the
- DisplayPort output
-In-Reply-To: <9d97d5dbcc619a9c52904ff8c6704a91fe8351e7.camel@icenowy.me>
+Subject: Re: [PATCH v2 11/17] drm/spacemit: add Saturn DPU DRM device driver
+In-Reply-To: <e492222feabaa5c72229c93ce75f9500e4346da1.camel@icenowy.me>
 References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
- <20260809-k3-display-v2-15-327d7910bf71@gmail.com>
- <576146d4f2752c3c3f6ec6c42812cb9956406383.camel@icenowy.me>
- <f4b8c87eb0676500661ebea67363ac27.docular.xu@gmail.com>
- <9d97d5dbcc619a9c52904ff8c6704a91fe8351e7.camel@icenowy.me>
+ <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
+ <e492222feabaa5c72229c93ce75f9500e4346da1.camel@icenowy.me>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -119,37 +116,31 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Hi Icenowy, Guodong,
+Hi Icenowy,
 
-On Wed, 18 Nov 2026 14:25:38 +0800, Icenowy Zheng wrote:
-> 在 2026-11-17二的 15:51 -0500，Guodong Xu写道：
-> > On Thu, 03 Sep 2026 20:09:42 +0800, Icenowy Zheng wrote:
-> > > The connector available on the Pico-ITX mainboard isn't a
-> > > DisplayPort
-> > > port -- it's a USB Type-C port instead.
-> >
-> > Right, it is a Type-C receptacle, and the commit message should say
-> > so.
-
-Agreed; v3 will say Type-C receptacle in the commit message.
-
-> > > I think you need to model the Type-C port and alt functions of it.
-> >
-> > I am not sure that can be done on this board. The redriver/mux in
-> > front of the receptacle and the PD controller that steers it both
-> > sit on the EC's own I2C bus, and their interrupt goes to the EC too.
-> > The SoC has no bus to either chip; all it gets from that side is the
-> > DP1 HPD line.
+On Thu, 03 Sep 2026 20:07:32 +0800, Icenowy Zheng wrote:
+> 在 2026-08-09日的 21:14 +0800，Cody Kang via B4 Relay写道：
+> > From: Cody Kang <codykang.hk@gmail.com>
+[...]
+> > +	drm->mode_config.min_width = 1;
+> > +	drm->mode_config.min_height = 1;
+> > +	/* K3 user manual: each DPU scans out at most 3840x2160@60
+> > */
+> > +	drm->mode_config.max_width = 3840;
+> > +	drm->mode_config.max_height = 2160;
 >
-> The ChromeOS EC firmware exposes some control for a Type-C port, you
-> can search for `google,cros-ec-typec` and `google,extcon-usbc-cros-ec`
-> compatible string in arch/arm64/boot/dts for more details.
+> This is for the biggest possible framebuffer instead of the possible
+> scanout pixel count.
 >
-> Although the K3 Pico ITX hardware connects the EC to the SoC with some
-> not-so-embedded interface (eSPI), which needs to be handled first.
+> The width here should be based on the maximum allowed pitch of the
+> display controller instead of the single-GPU maximum size, otherwise it
+> won't be able to drive two 3840x2160 screens in a side-by-side
+> configuration because this will create a 7680x2160 framebuffer.
 
-Thanks for the pointers, and thanks both for the review. With that, I
-think in v3 I will leave the dp1_out endpoint unconnected, as it is in
-v2. Let me know if you disagree.
+Thanks for the review. Agreed; will fix in v3.
+
+v3 will take max_width/max_height from what the RDMA registers can
+address (a 16-bit byte stride and 16-bit image dimensions), and move
+the 3840x2160 limit into the CRTC's mode_valid.
 
 Cody
