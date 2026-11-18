@@ -1,55 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795036533;
-	b=SM1ur7gu6PnWtcDfMTY9YR/iGPTJ5Vki5aEM4ZLBI6t881lzF7LoXwDKJLcH6aZdBBZB
-	 boTP8Ya37bJldX4MLiWSAcsjWf0LpLnfOgtPRBPnjOqIlvaGvvle+dm85X95TtLKnG6Kn
-	 Juu4o0C5SD1yAySRMP3I3FOkNzMS+k2TjqF7whnSbnG4iLWk1HX0No2qhFdJ0toLeRB4g
-	 BHihcrVPtXe4sh1bI8bpbeewroNKgV58GdDGz8eLPXzcLZjd96NkPAJhZvJj57V6eG/ug
-	 AM1UU8CbS3HpoCrKc0jppVhHt3ls3ka8WpeQwB5mGl1D4iEwjBehYWA5Kyr6vwX1y7g==
+	t=1795036693;
+	b=q9CVKuW3NGrGjPNa8QSsbs+ByQebZpf+XQPiUJH9weOp8JMu2MYr3hiTHa/McCeCnMUX
+	 bY5Luh3GbMiJY0CamCFI4UsrwffUSP1AHcd8H5dB8IW7cxX+0M+VVKUZRAdTCwyv3wbL5
+	 s23H4F0GR1a6xb2UXH69xCgx8ve4TQmOBQn1uHQkvW0+rb5TmXgiWK6xNV8gebSDuQy1Z
+	 eJpF92ngriLylykxp+lsuMay5uQLaCkiPy3Yw/uL2MRV3SVYNly8wtJJwKue9eHGScxTg
+	 I1/A6ay6f1o8+D+BlNfQZAFIAvyO7zqIwyocC8Zq3dyqPy6zBO6ArUvz35/Z2oYJANg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795036533;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=jXpHBT1/WDmLp0zpzRIxDl44SN5leSzeHP8wCtpU/Po=;
-	b=BTq5OtaNB2Y4jd+ItKbRgxVSuI7c5KAoHP6mZE7/WKiR7KsFS6QqxypSJYm7BnbAnB0T
-	 L/ijzh8UjPn1h4ZIhlGDIs8gh7e41Gd+H3d/s/EoB5w1I5yq1sqk3cKpX/AkfTHHIR069
-	 b/1UTP0f70XirkLg085dfcaNre1hDJ0MuR+SLlWl5shGUNRD5Qc+LtiCXnOk7KIPSZAVd
-	 I7HH7nAuaOjiyFsijgrBQ09OM57KVsP1y9z8ntF97Dkr/QJ4T+L8DZKEUNF8vkHLj2NMY
-	 RxqHPzHLw44HAJ75WQY8lt8KPNjwh5NYI9eJ7OKvZsgILJ7DVFLsazsAXyiQkTyN9FQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795036693;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LKlJADHwH5NqUO0o0wdmoyXzEqNGvmRzK8dmHnsCwl0=;
+	b=d/C0ZZlK0bf28jOdcXO2Wif78MrrR6Vxc8tDgYFhBn3lCUWCqLobSTa2Bs6TcwdCn6s7
+	 39NTxvl6F4i+SkjkgMEPLNS5qw+b/kCaGa+QvjWe8BhtYaQdZ/8HwxPqnt7eY2rUiusrz
+	 w5XRQosWFvo220GtH4cp8JtOHUwh0CzajW9lVLjhDW+TFaquNtNp8FZs1WXO1nJLWy4r5
+	 TBqTc0BASUHSX18sSXyBe3uohT7BCI69Z3SdzQ3pzIBGx4mVPbIR/vwoBk404OlAsMTfV
+	 LjB89R5Cq6Lb7FytdjrBf4vL1ktPVm5SX1SWiRissTCVqCtQyc5d//TbL5iYzvsHK7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjSyc0l2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=COdceWXC;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D7E606A325
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 21:15:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27163606A320
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 21:18:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27163606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjSyc0l2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6833D1F000C7
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 21:15:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795036533;
-	bh=jXpHBT1/WDmLp0zpzRIxDl44SN5leSzeHP8wCtpU/Po=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kjSyc0l2jgfTa1Gr7mPOfzuP6tLnKgnN3OKAYB/HxNNqyFZcDFB46+L21kpljI9ky
-	 tJ9h+IalPk9axrIlGCBbpRHL6+29YZuB0IVHAKxz0bo4UY+/W/P9jT12kdqWlun20T
-	 2HxNcbk4DkYpClX+2W+G1UfwlY6KHQC5fEW0hNuGW6HVROF5lZNd2YIi+YBww4Uot9
-	 Moc3q1Tx7Y0K5G0dZt7BtpTCDpZnSHAZI9DehbqOkkDjGZ7F5pRKWwoKvj6xqWciWf
-	 NaL5g8qzFQNgtN34F5iEG1VxHl+YOFKpbN90QuJjw7Ir/pF7E7bE9cpA46y6plbFkh
-	 HI60rU5SAnfxw==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ac97e45a79so13240001fa.3
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 13:15:33 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH35rbYxY5Z4oqR/SDXwwCfIyZH6iAsubHI2Z8xRv/M2zNyhzXnzlIrJxJ+xnhFRPYS7z365OWe9S8n@vger.kernel.org
-X-Gm-Message-State: APuU4Z+63f0mZfhvWPfNtPl8cau+NDxHyl4Fyfn3XyYfQ2ObKQVlSW4H
-	+YCuFSOFzwGu27146azoNZCLbEWb6Og8U6SHhmKveLI/a0NHa9eupJqIzkwxGG8SJZ7twc5O38/
-	0HdcjPHZsIBM/fHGHzcFtbPSxi3zmif8=
-X-Received: by 2002:a05:6512:1102:b0:5bf:f7e7:85eb with SMTP id
- 2adb3069b0e04-5c1aa0736aamr1346704e87.21.1795036532194; Wed, 18 Nov 2026
- 13:15:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=COdceWXC
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1a2af4c8d00so3028647c88.0
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 13:18:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795036692; x=1795641492; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LKlJADHwH5NqUO0o0wdmoyXzEqNGvmRzK8dmHnsCwl0=;
+        b=COdceWXC1oh1o3WBBgewEsNco92OICaTqVnIacXcPxsH5zYtwtdhg+uwnQrB9fqxqB
+         g/xHfyRSnGghl54HHGs9f3vY2LQahFBzTBRY6tQJu46ysB9zMQsXdiqL6v+zg9smlOZm
+         0J0AEzGJPWTDRw2LHN/dorK9Lvg5NT9Ne9hBJOMP7ffNNIlMGPMSR0u4S0yWgMHo9jUS
+         iHHJ6AtBIR3otH3Cx85uE098MAv1AOU/WO6xBGvDp5uzuADZhkpWVrOdjejG76SQlgtU
+         JU73EyAzRY+rO+V/ZgyZNU4xzpYG6X56E0QmqV3SoVfOwpPpV+rFTczzVYKCawS945oY
+         0zCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795036692; x=1795641492;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LKlJADHwH5NqUO0o0wdmoyXzEqNGvmRzK8dmHnsCwl0=;
+        b=YmKOHXQd6GMqpMkseedsR3Egebes1buJyaZDdkhc2V4p0Lodlz4ooalFUi3P0Gf24d
+         VZa6XeVSvHw/hQJTuvvbqVZJLfQLelVfWa33kYwSCPQuxiIlDAP0NfG/xbTvpskvZBLR
+         +qKtz5OeBgSvws3mkTzqI8zH7SElu6fn6P4REAqU0B4taDiCN4+0sg77HLdFfX9F1LKi
+         JP/kzVVYNIFC3X0t6dMX7ckw1jv/3dl7B/Wq2hmKsK/hvUjSpYg6jvJXcDnnIWG+1YdC
+         K3/pbG/DsUBn/R6qE2LkW8ko6aiFfArSdUOJ8p0oLJcKE+xGAwiHmwyTQWTwRkP9KYbh
+         RoiA==
+X-Forwarded-Encrypted: i=1; AL+hErF+AMgrgQp4Yv2HHrpkTPmfBgUj7kPluxeJVzcpg6HZpbATovlcq0hzCl4pXCiT2fcPzHb+nmkLzlUl@vger.kernel.org
+X-Gm-Message-State: APuU4Z+AA79ikEGQoIelgrVnmcH0Plp7fuJ5i9vkdevBijEoH+FGMust
+	ocoTL+2nDvMdejOQeTwZVP6Wv+wUewMKWFDvnwlVGZ+oNDuygkO0ll5/
+X-Gm-Gg: AYBFou25nyzpU7qsbQ5r+jsbxkCl0pwv0GfkDkDAJd0h1WFJxH/Q13e9a5jHVqjipS/
+	lzBF+hMMx3E/qA6z8iVdc85DBc4y/ergGA1IZHV76QuUv6Pn/GtRqlGo0sJ5luTqC7SgmA41Bv7
+	gX8hyhDLoiR82/qH9ho7IH4xmRJo+beFMBlxlkneZvPHtTtRrfGViQN1DltnlxLBMiGQJvafqZC
+	LqHCy/b6zjAVOhL0WkW6rUgptXfkyg4w62JBD71VPhC9/w8m+qofuXggY7HPgJS/pTC5E3o90zH
+	IT6cGvEYtoj4JHfb9dlbVeOKUZFY7hNdXxAWh/ls7WtK7gf/00TOS8Q2tBrNRe30puk9CLPgrhQ
+	kJh07OuN/nnkpWlYuFhyL5ijWbR0IOiaEz7QkUdV9FBnMaNH2/FqXSpXLKxFjFETUL517Qh0ZWG
+	DiNEklxyK9/inMazQyP2WOEcCY70YRUSNLkWAxhVKUp9jPAHrHi2PkPXJhZmJarg1M2Rd5CmlLs
+	75lsv3wSWjaYcGbvZDqiUU/6/YDgKuDzjsWCUFZFvyAnBRdKSVzsmuj1N9Bt5CO/an1qppJGvoi
+	9Fi6QkK7+MniHFOkXxfhkF7fzJAu0JFoEO2094bO0TRqEzEuCCY0AA1z1lLkuCDSJ9GWz9mKBq2
+	HpY4mqnuTA002ZD7e50wwug==
+X-Received: by 2002:a05:701a:ccde:20b0:1a5:9abb:fdd7 with SMTP id a92af1059eb24-1b543ce5e34mr3635627c88.9.1795036692103;
+        Wed, 18 Nov 2026 13:18:12 -0800 (PST)
+Received: from fabio-X870-EAGLE-WIFI7.tail2bb604.ts.net ([2804:1b3:a803:1afe:2fea:c6f8:d30d:433])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b544784017sm8736807c88.4.2026.11.18.13.18.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 13:18:11 -0800 (PST)
+From: Fabio Estevam <festevam@gmail.com>
+To: broonie@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	shenghao-ding@ti.com,
+	kevin-lu@ti.com,
+	baojun.xu@ti.com,
+	sen@ti.com,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Fabio Estevam <festevam@nabladev.com>
+Subject: [PATCH 1/2] ASoC: dt-bindings: pcm512x: Add mute-gpios property
+Date: Wed, 18 Nov 2026 18:17:59 -0300
+Message-ID: <20261118211800.63292-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,42 +103,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110094339.749110-1-zhengping.zhang@airoha.com> <695991a0-ae67-4ce0-9b92-f191ae97a468@iopsys.eu>
-In-Reply-To: <695991a0-ae67-4ce0-9b92-f191ae97a468@iopsys.eu>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 18 Nov 2026 22:15:15 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=_q3SWsh6AW6PLOC=h-z-h-N8AcC8SRCPVKsbzEPktfg@mail.gmail.com>
-X-Gm-Features: Aa3M54omwiJF0rg8LzwHPSiyolxNp74aN1hJ5GJPEJYrBTD3qh4Hbo9mWipBH1I
-Message-ID: <CAD++jL=_q3SWsh6AW6PLOC=h-z-h-N8AcC8SRCPVKsbzEPktfg@mail.gmail.com>
-Subject: Re: [PATCH 00/12] pinctrl: airoha: configure GPIO muxes explicitly
- and fix pad mappings
-To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-Cc: Zhengping Zhang <zhengping.zhang@airoha.com>, lorenzo@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, brgl@kernel.org, naseefkm@gmail.com, 
-	benjamin.larsson@genexis.eu, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, lei.dong@airoha.com, ansuelsmth@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 3:10=E2=80=AFPM Mikhail Kshevetskiy
-<mikhail.kshevetskiy@iopsys.eu> wrote:
+From: Fabio Estevam <festevam@nabladev.com>
 
-> Hello Zhengping Zhang,
->
-> Please fix your patches. Looks like you insert patches to the e-mail body=
-,
-> thus your patches were converted to "mail encoding"
-> * tabs was replaced by spaces
-> * unchanged empty lines "<space>\n" were converted to just "\n"
-> * long lines were split with "=3D\n"
-> * "=3D" were replaced with "=3D3D"
->
-> and so on. So please use "git send-email" for patch sending.
+Document the optional GPIO connected to the active-low XSMT soft-mute
+input.
 
-I agree, I can't work with this, maybe review a little.
+Signed-off-by: Fabio Estevam <festevam@nabladev.com>
+---
+ Documentation/devicetree/bindings/sound/ti,pcm512x.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-If possible use the b4 tool to manage your patch set(s).
+diff --git a/Documentation/devicetree/bindings/sound/ti,pcm512x.yaml b/Documentation/devicetree/bindings/sound/ti,pcm512x.yaml
+index 21ea9ff5a2bb..58ea52e79860 100644
+--- a/Documentation/devicetree/bindings/sound/ti,pcm512x.yaml
++++ b/Documentation/devicetree/bindings/sound/ti,pcm512x.yaml
+@@ -42,6 +42,10 @@ properties:
+   '#sound-dai-cells':
+     const: 0
+ 
++  mute-gpios:
++    description: GPIO connected to the active-low XSMT soft-mute input.
++    maxItems: 1
++
+   pll-in:
+     description: GPIO pin used to connect the pll using <1> through <6>. The
+       device will be configured for clock input on the given pll-in pin.
+-- 
+2.43.0
 
-Yours,
-Linus Walleij
