@@ -1,57 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016274;
-	b=AKRqXxvtjsxhaj/3MP6J2PvPjQAxFRD5OsvCuyTIud5W6aK9nat04s7XrkqKHg1jdpeT
-	 /4MxG+TKIDpg9ZQrVn0/LLIb3Tw6jm/6TFd7SHLwjkw8BPvy5yXghDNlNVrb2KNdY2OsT
-	 AYE0O3acM4fX4mcVx6l4KBrJ710UzzezrYVJCOdXQzTxsZU89kDjhwDR3KtZJz9G1o8lB
-	 lw9m7c76u+61FcrNnVy4ZQbkkMbuIle8sQa5X/JVmMXEZy5ccYp47WnWtCkRV06QyQB78
-	 icIBigTLEdDGKqfwfqbR0C7x+hm5s5tzjXWoCbPGMJ8n0oBAKc6pOeTRwQBPqOa3GKw==
+	t=1795016276;
+	b=Y+C7QFWZRhYZG6C02KXvc+i23HJhaKa6DAsa834zPoEWKr1b0EEK+S8IC5wiYqL86ewz
+	 y+1wJttlN+lbJ+81agmVA/mB6G7Iaos34uTtXLa5gvTKQ70LAlkZxSJT1m01slZ4sw66e
+	 yN2MB3pyMLY5cHDdCrzUgjzEjRVaW2IUPSJyvu3D7OKNwvbuYSNuRsPwSkLSZPapfk6fh
+	 EgYn7VF9HMkILwS2fBzdlG2CtUDwfYNqVmB0Tw9q1bsYUjR/xtKr+rrhYcd63QyiYCBAq
+	 JkrkE5N7IMFKd9AH6PyU3Y0SdWnE/a2TTCS9w3sfKgw9WHI0rysMfneNXVL/iQOdwew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016274;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=uYDwVl6WgEztGK/K6YA4WjnFs33A5/iiD4AppXIep7I=;
-	b=RN3PwPWrhs8o+vqw3YSJ3tygZ+xj8J6/t2t+q4gwTLQ8bhajBcV3dTkLww08nVMaPUsF
-	 6TTd2g3GFquMbpHdkvw4yEg9TQnVs8gLCE7BLZTFw9qgSi6KKetQzYPMr5gqNltJs7ts4
-	 57kArLmDwFa3yJrZXbVxh3jIQaSfx9qTwQEi2e0Z8Jr7BvAj7XaRSuUHnFi2hkNlFOKFz
-	 T+f0r9vO4S5NtGYy8TSLgGKa9yG/45d6/0EScFQYOT2fEDJn2tAVpoovOQ4tvSexQ9NNH
-	 pq1KSezL0q9+2WFknxmaiTjUabdAKV2HXIUGChKCww8IdR+jeu1vzTIb7ryjbhRKkmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795016276;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=BaMEnEGWN9tyrQN7WvHqNpg/qVu1ssxg9ENoEbzB81g=;
+	b=PJ03K/Q5slLqypAOJ9KM/EUW9UHdZ0xzPshhFdJswMwJcY7FFZ87XQpvTLbRK1GTdrgs
+	 15Yedo93shNCoaho43eFL9Z8KXexARnF2pxLJIEEYrsAxYiY4Hs1DVWBhcCqvbhRpd3Qv
+	 ltcn7RtDW+iaTYXOO7vYfdP+IK7QOO6bWfyfWkStHw2wkkyfVExxOlW01hwp6+t+ATGJF
+	 p4nkWI+1JBzdETXJ/AqrIvglJaVYp0bYIRJ14FLV5q7eA5+KKrlKqwb0rYox3FmJTv8ux
+	 s6MCMOQHqlHjQDUL7e4U5Nt+l9gvYUQ41ryQdyv3IVheH11c8eVnYDOK0YFh6ImeNsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQL1hrLA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nsgyjhGt;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CB2anaPO;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4448F60A2625;
-	Wed, 18 Nov 2026 15:37:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8FE60A261E
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 15:37:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C8FE60A261E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQL1hrLA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89B5C1F000C5;
-	Wed, 18 Nov 2026 15:37:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795016274;
-	bh=uYDwVl6WgEztGK/K6YA4WjnFs33A5/iiD4AppXIep7I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IQL1hrLArtFSbgncixMpZuIxsfMPUuFcRqFZieXJ5M9Z8mPlHZsuESOkieyW6iEGg
-	 GFp4qrFDN4l3tUg0k8mhtlvbwGzilTMHUq59gAo38DqeXKynK2zOwfORAHlLf/7sLt
-	 NhU6vw05YSdQe040fHejJNewnIVdj+Ac0AbJIzzaYUidsLunYmmMBr79vxWuj+qQtY
-	 83CNxsZ43tetdAN651wTVy4t7RchKWW2k9+5vuV2HlpPUTQaF+Mi7746W2npAUn6EB
-	 Lb6uwV4efTFJMNB3tSjdryhjnr/iGVasQ0xI1nDmdKQlc6eB7rd7J9d9/L5h90l3iC
-	 y1PMOeP6QYFpg==
-Message-ID: <sashiko-outbox-221349@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/11] iio: adc: stm32-mdf: add external timer
- trigger support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Olivier Moysan" <olivier.moysan@foss.st.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261118-upstream_mdf_v2-v2-9-7939d3c3720a@foss.st.com>
-References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
- <20261118-upstream_mdf_v2-v2-9-7939d3c3720a@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 15:37:53 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nsgyjhGt;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CB2anaPO
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AIDQLeV2226371
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 15:37:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BaMEnEGWN9tyrQN7WvHqNpg/qVu1ssxg9ENoEbzB81g=; b=nsgyjhGtawXQfqSQ
+	uRW3wApuuD+4jPLNC5PmxvPAbkA1HEcQT362Aul+2pAnK+gtANEH+p34LuxvxHL+
+	6y2zOGEO2dd8M3itwIUm2mKhyyEBiYz5OkVMpHoY2HseWxNzIckEfgxoO62LOb2V
+	Fdra3Ifjwn0J7f2F8F7a6Jbqi8OLb2nDg0D2b7KzWOTlQiesNRRuyJCfOpzz9vH8
+	3HPhLIdHGrYuK+YJJ8g8ffCYJOW6TXQc2ZKRuUwxr4llENlzqhK/mY4ZLeHcrCUI
+	YAxOho+GDxXwFAoTw63dh5tfctfk/2ui5AUZEc7o79nlVzd9fp8Z693mBcJqSS9F
+	onnreQ==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yvbbr1b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 15:37:55 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9211f05706bso6067036d6.2
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:37:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795016274; x=1795621074; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BaMEnEGWN9tyrQN7WvHqNpg/qVu1ssxg9ENoEbzB81g=;
+        b=CB2anaPOl7mK/Uxx/NyAKF2ubX79GrVEM25AGkSto2ugNCvviLRU7cWEcrFa2AvyWq
+         ylRxo2wAzqGQ1QKm3RxK/gcbsqtkRYHQ/PU77lVDh0mm63+fzxOefwPa8aruw9u/sAL9
+         VCByh/SRZ1EXizO3ftQr9kBj5c4XZhenx9NyfSu35ajjx85Drya07Tnlzfue1xI2bYVh
+         OEJt/hnktuL7ntvDsl9jTFwA0KWgulKGVzbZmWbio7Bdwk76mMH6o25nlxX3xy2zoPVv
+         kPGZOPvVyihRkWmUEdcBHT3mkCrLraBS8yxc8TGVqUlVAf/jf2eUFYCBa/lLUfEogfez
+         3ywA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795016274; x=1795621074;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BaMEnEGWN9tyrQN7WvHqNpg/qVu1ssxg9ENoEbzB81g=;
+        b=VFkAiUxgGDsiu0LYtey6QXtsFDLM4Zbq5cjKl4PR1TQ0XX+rqjH8OdiLm/Roscd3Sw
+         rFWiOZ55towFUIbUHn/JbTrIsVTp59+HqBWFzUvcXEMxymVBRlvs+3T0EIcYL3T4ZOVc
+         EtLYKQ05hqhfacd1T3X9iXmYEpcBBNNeyGJwoGVoWVlzgR4E4qf16KdOLCeuQoY4or4O
+         kvz3c0z3miUSJRElwjCSX2M+bfCV1P2xHkarmXYA8pYf1Tx041lXjkUV6DmZDXsnUE8T
+         p45JgBRmzt7XREJs7+4xzLrQmstHAyu4TZIdJO1D3L+NA0eaUep6SYwv2a9LprwNcPWT
+         EzKQ==
+X-Forwarded-Encrypted: i=1; AL+hErHNwRgmByRhJAE/O8bnsfA0roNUdB0XSRy84svnI23cV+cF12XylrFcP7FkKhfHzHy3bXIYelWiwxkj@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SFmefqhD2qy3kSZBgF6BfKw1E1ANeGQJ0B6xX3G5sj8woE/L3
+	OQoqnLCKFYCH0xDSaiZpk1wijvyGBnNeB5au8jWSRZ82OphEmBqzGlF/Ez1LmpRwcHYRsmnxpbU
+	fvui1WKtJso68Wu7l9rUNLQEY5MggEni6oEne4qsL0GyL+rgk5cOoA6qqVNv7omu7
+X-Gm-Gg: AZFdTZeM04bZiPiSDEE19OjrrK1OdmweekZGvITVGazdNmghl5QhDPZ8xkyAwvyS/cj
+	bjk/LYAEdRs55al6s+UynN4V1q+ZPS+UT8QhvEkg+VtgcMSqLINJjtgGDIc+nX6cwMb61bJtDel
+	QhByjsDpPLfFUGZEZ9pQ1fuAJwZfTGmEsNxe+vxn3yQs4eAL9ouVfXfV4Xz1bikeBz4h0DA+jte
+	FXWKKXIcOG2IfvsQ91XCAoyz8kFG/zqplO8sx7hbwxQMaPrjxxbN9J2vwpti7ZE4scjUAUmo/8o
+	TnrgBLWKlj0TKsakobMalFf9LjLGQcGgBVj9AzTxpiGTaH4ZJ64Pbud8eu36XHcDRJ8pU6cobHN
+	MytTkEvFUx96zR5Vd1OlmM4rQFbrrz6l84A9gmx+YYgxQy+RZQ60gKWct7DY8HDEXUYED81K8Zh
+	g2UoP409scXF1ITYj5yLTERCRqofgCktUvtF/IQkLXQ7LADxMwuJX5K3wDAKFO
+X-Received: by 2002:a05:6214:478f:b0:921:1cc7:809 with SMTP id 6a1803df08f44-9211cc71d61mr19714896d6.33.1795016274415;
+        Wed, 18 Nov 2026 07:37:54 -0800 (PST)
+X-Received: by 2002:a05:6214:478f:b0:921:1cc7:809 with SMTP id 6a1803df08f44-9211cc71d61mr19714526d6.33.1795016273763;
+        Wed, 18 Nov 2026 07:37:53 -0800 (PST)
+Received: from hu-ajainp-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-92114d0d879sm24569676d6.12.2026.11.18.07.37.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 07:37:53 -0800 (PST)
+From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+Date: Wed, 18 Nov 2026 21:06:45 +0530
+Subject: [PATCH v3 4/4] remoteproc: qcom: pas: Add Glymur OOBMSS PAS
+ parameters
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,129 +116,110 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261118-oob-support-glymur-v3-4-2cbdfe208d56@oss.qualcomm.com>
+References: <20261118-oob-support-glymur-v3-0-2cbdfe208d56@oss.qualcomm.com>
+In-Reply-To: <20261118-oob-support-glymur-v3-0-2cbdfe208d56@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jain P <anvesh.p@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795016249; l=2115;
+ i=anvesh.p@oss.qualcomm.com; s=20260313; h=from:subject:message-id;
+ bh=h1HpQR5ft0SmfNIj7EEF/Ykdj6Ugo2udF2gXOOZSwLE=;
+ b=4LJ4JoCJ5vF0dlcaZOh6pc1mBEyyFDEK3gN1kjiaE9mFiz2etIWuN4fPCr3ld2PwU1GUj7X+j
+ Q3BLr42J80CCUnuDE0UQZ4rdnIO4g0RZFFdRUxx+lNDdrgKDFmD1+CA
+X-Developer-Key: i=anvesh.p@oss.qualcomm.com; a=ed25519;
+ pk=8o9EG7gkPe2Er9y9UVCx8MTdcFCwU8Pa54hBZPuduXE=
+X-Proofpoint-GUID: MlkH3oRZ4wldSMXSp5eCEnzXHXfzsBCq
+X-Proofpoint-ORIG-GUID: MlkH3oRZ4wldSMXSp5eCEnzXHXfzsBCq
+X-Authority-Analysis: v=2.4 cv=YfgodARf c=1 sm=1 tr=0 ts=6afdc653 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=PB0afdDVj_GKkQGSUhQA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA2MiBTYWx0ZWRfX7outr7EYfAPT
+ rB1SpS6or+P6azmPH4hDgOV+IA2gUa9JAfRFiOPGXIJ6toTZmmEzRu2fgcHEZStrwORsHM1rqEZ
+ W6JaQEZgY5snAFSAJn0f7j3Cl+pOwKI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA2MiBTYWx0ZWRfX7+QN9pxdFsdd
+ zXeEfs7qLzMsrReRBPPOL1LDZneopvUvhmBdhfS0jfdPvClln9h5yRrFYF+oc45ou5NvikBP8K4
+ Nuw34gd4MX8PYc6P6ifpcD0+Wbofr7sHBv6pIifRkRus4n/wLejuRyYfgTcIkBRsIAO18ZGyuee
+ ttMlxrbZKwPj1Dp7KGJ2VUhlQ3DMLJfZZsn9X4VHC9p1l6QQTApj3H0zg7XCkMRNpF60F8HZiTm
+ qDWpy5KXFiiSNkmkkwKRPui7Htu8jHIpkAK0EIJWUOm9O/aR2fdvDQFu9T6us64DQnRXf7TmGew
+ FdiXStn5wqdZ4kPidCvWq94CE38NyroaHHxo8w3Esb0f2q/+VaohvYTCyEr9X1iX5/ZQbFBfNfW
+ ozH/6QLumsRU3S5lhzIjY1UqNrTBeEQg+4e/o91iWFRBxiiez0XGCYQUONJ/qVlKNQunYPUCp7P
+ ICH1sDqRGgc+K0GyVqg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-18_04,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 phishscore=0 impostorscore=0 malwarescore=0
+ adultscore=0 priorityscore=1501 spamscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180062
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] iio: adc: stm32-mdf: non-zero return in
-  stm32_mdf_adc_get_trig() rejects trig
-- [High] iio: adc: stm32-mdf: unassigned trgsrc in
-  stm32_mdf_adc_filter_set_trig()
-- [Medium] iio: adc: stm32-mdf: unpropagated trigger in
-  stm32_mdf_adc_filter_set_trig()
---
+The OOBMSS consists of separate OOB-TEE and OOB-NS Zephyr subsystems,
+each with its own firmware, DTB, and dedicated PAS ID. Add support for
+the OOBMSS PAS loader on Glymur platforms.
 
-commit 2310fd550deab336f6cec980952473a0c65d6371
-Author: Olivier Moysan <olivier.moysan@foss.st.com>
+Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+---
+ drivers/remoteproc/qcom_q6v5_pas.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-iio: adc: stm32-mdf: add external timer trigger support
+diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+index a167bd6072c9..5cc529e2923c 100644
+--- a/drivers/remoteproc/qcom_q6v5_pas.c
++++ b/drivers/remoteproc/qcom_q6v5_pas.c
+@@ -2182,6 +2182,30 @@ static const struct qcom_pas_data kaanapali_soccp_resource = {
+ 	.early_boot = true,
+ };
+ 
++static const struct qcom_pas_data glymur_oobmss_resource = {
++	.crash_reason_smem = 669,
++	.firmware_name = "oobmss_tee.mbn",
++	.dtb_firmware_name = "oobmss_qc_dtb.mbn",
++	.secondary_firmware_name = "oobmss_ns.mbn",
++	.secondary_dtb_firmware_name = "oobmss_oem_dtb.mbn",
++	.pas_id = 0x42,
++	.dtb_pas_id = 0x43,
++	.secondary_pas_id = 0x44,
++	.secondary_dtb_pas_id = 0x45,
++	.proxy_pd_names = (char *[]){
++		"cx",
++		"mx",
++		NULL
++	},
++	.ssr_name = "oobmss",
++	.sysmon_name = "oobmss",
++	.ssctl_id = 0x21,
++	.auto_boot = true,
++	.early_boot = true,
++	.needs_tzmem = true,
++	.decrypt_shutdown = true,
++};
++
+ static const struct qcom_pas_data glymur_soccp_resource = {
+ 	.crash_reason_smem = 656,
+ 	.firmware_name = "soccp.mbn",
+@@ -2255,6 +2279,7 @@ static const struct qcom_pas_data eliza_cdsp_resource = {
+ static const struct of_device_id qcom_pas_of_match[] = {
+ 	{ .compatible = "qcom,eliza-adsp-pas", .data = &sm8550_adsp_resource },
+ 	{ .compatible = "qcom,eliza-cdsp-pas", .data = &eliza_cdsp_resource },
++	{ .compatible = "qcom,glymur-oobmss-pas", .data = &glymur_oobmss_resource },
+ 	{ .compatible = "qcom,glymur-soccp-pas", .data = &glymur_soccp_resource },
+ 	{ .compatible = "qcom,hawi-cdsp-pas", .data = &hawi_cdsp_resource },
+ 	{ .compatible = "qcom,kaanapali-soccp-pas", .data = &kaanapali_soccp_resource },
 
-This commit adds STM32 timer and low-power timer trigger definitions, a
-trigger validation callback, and filter trigger source and polarity
-configuration for the STM32 MDF ADC driver.
+-- 
+2.34.1
 
-> diff --git a/drivers/iio/adc/stm32-mdf-adc.c b/drivers/iio/adc/stm32-mdf-=
-adc.c
-> index 046ca3943a397..97099b4adffc6 100644
-> --- a/drivers/iio/adc/stm32-mdf-adc.c
-> +++ b/drivers/iio/adc/stm32-mdf-adc.c
-[ ... ]
-> @@ -365,9 +405,63 @@ static void stm32_mdf_adc_stop_filter(struct stm32_m=
-df_adc *adc)
->  				stm32_mdf_adc_stop_filter(adc_inter);
->  }
-> =20
-> +static int stm32_mdf_adc_get_trig(struct iio_dev *indio_dev, struct iio_=
-trigger *trig)
-> +{
-> +	int i;
-> +
-> +	/* lookup triggers registered by stm32 timer trigger driver */
-> +	for (i =3D 0; stm32_mdf_trigs[i].name; i++) {
-> +		/**
-> +		 * Checking both stm32 timer trigger type and trig name
-> +		 * should be safe against arbitrary trigger names.
-> +		 */
-> +		if ((is_stm32_timer_trigger(trig) ||
-> +		     is_stm32_lptim_trigger(trig)) &&
-> +		     !strcmp(stm32_mdf_trigs[i].name, trig->name)) {
-> +			dev_dbg(&indio_dev->dev, "Trigger [%d] found\n", i);
-> +			return stm32_mdf_trigs[i].trgsrc;
-> +		}
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
-> +static int stm32_mdf_adc_filter_set_trig(struct iio_dev *indio_dev)
-> +{
-> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
-> +	struct iio_trigger *trig =3D indio_dev->trig;
-> +	u32 trgsrc =3D 0;
-> +	/* set trigger polarity to rising edge by default */
-> +	u32 trgsens =3D STM32_MDF_TRGSENS_RISING_EDGE;
-> +	int ret;
-> +
-> +	if (trig) {
-> +		ret =3D stm32_mdf_adc_get_trig(indio_dev, trig);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
-> +	dev_dbg(adc->dev, "Set trigger source [%d] on filter [%d]\n", trgsrc, a=
-dc->fl_id);
-> +
-> +	return regmap_update_bits(adc->regmap, MDF_DFLTCR_REG,
-> +				  MDF_DFLTCR_TRGSRC_MASK | MDF_DFLTCR_TRGSENS,
-> +				 FIELD_PREP(MDF_DFLTCR_TRGSRC_MASK, trgsrc) |
-> +				 FIELD_PREP(MDF_DFLTCR_TRGSENS, trgsens));
-> +}
-
-[Severity: High]
-Does stm32_mdf_adc_filter_set_trig() leave trgsrc at 0 when a trigger is
-attached?  The return value of stm32_mdf_adc_get_trig() is checked in ret
-but never assigned to trgsrc, so MDF_DFLTCR_REG is always programmed with
-trigger source 0 (TRGO) instead of the selected external timer trigger.
-
-> +
-> +static void stm32_mdf_adc_filter_clear_trig(struct iio_dev *indio_dev)
-> +{
-> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
-> +
-> +	regmap_update_bits(adc->regmap, MDF_DFLTCR_REG,
-> +			   MDF_DFLTCR_TRGSRC_MASK | MDF_DFLTCR_TRGSENS, 0);
-> +}
-
-[Severity: Medium]
-In interleaved mode, should stm32_mdf_adc_filter_set_trig() and
-stm32_mdf_adc_filter_clear_trig() also update the secondary interleaved
-filters in adc->mdf->filter_list, and should stm32_mdf_adc_start_conv()
-skip pulsing MDF_GCR_TRGO when indio_dev->trig is set?
-
-Unlike stm32_mdf_adc_filter_set_mode(), these helpers only write filter 0's
-MDF_DFLTCR_REG, leaving secondary interleaved filters configured for
-TRGSRC =3D 0 (TRGO).  Because adc->trgo is set at probe time for interleaved
-and synchronized master filters, stm32_mdf_adc_start_conv() still calls
-stm32_mdf_core_trigger(adc->mdf) during buffer enable, starting the
-TRGO-triggered filters immediately while filter 0 waits for the external
-timer edge.
-
-[ ... ]
-
-> @@ -1377,6 +1479,7 @@ static const struct iio_info stm32_mdf_info_adc =3D=
- {
->  	.write_raw =3D stm32_mdf_adc_write_raw,
->  	.read_raw =3D stm32_mdf_adc_read_raw,
->  	.read_label =3D stm32_mdf_adc_read_label,
-> +	.validate_trigger =3D stm32_mdf_adc_get_trig,
->  };
-
-[Severity: High]
-Will wiring stm32_mdf_adc_get_trig() directly as .validate_trigger reject
-every valid trigger?  stm32_mdf_adc_get_trig() returns a positive trgsrc
-value (0x2..0xc) on match, whereas current_trigger_store() in
-drivers/iio/industrialio-trigger.c treats any non-zero return from
-validate_trigger() as an error and aborts assigning indio_dev->trig.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-upstream_m=
-df_v2-v2-0-7939d3c3720a@foss.st.com?part=3D9
