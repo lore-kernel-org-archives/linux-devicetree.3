@@ -1,124 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795033274;
-	b=bUxFxkMe+Ihfj8c9w87OPP1zTp0oaS/cQgJHhZmC2icbnRykYcUhCzcbxu38ADq53aVw
-	 GGtmxgm2z4VgcryUdDZXkLWrC+QfFFEg4pJvHM9pXpqFwjiEcEpifY2l28iAvrvWjb9QW
-	 5Nl1eSrl6jJ0fwZA8yq5dP1lDEETSlLpaDx7eslCfNl7iZf2VB9h6uQAuEgD9lwKjx6E1
-	 paHBGGVnVug/EkqQDleDPGLywcq0eHKdtYoij6oYk9OLLiXw6uO1X5gzpcvI+SKmqvR4v
-	 85Pdd1ZPmLQqCRAv1TqsyhOHq2sWdySNZ/pnFHx2Gy7xWrdH1u9cVa/LMYCx0jn0ATQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795033274;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=PhqPn/ICV8v/KU7lWAnokH2D84rMdKB99wdgjfIsDhg=;
-	b=F83jqoIWQQU71nZ4NhArTdn1Rx32Rw0aYXMdkou6fUWjZW9kiZ7ZzhUUEZUrsyGQbyPT
-	 KwgL0YxYqIVu0GKpBVc26bsBQhZoEJ4DqzuZtrwEfgqgVUGz+sYBQp3nvhhIKTAMxxQeE
-	 hIiLonvdId+m77z5SbWyX4KqbNOFpwEvhD1Mgx5qKrDRTfvbqj7R0AIcwY41yn+r9dzEL
-	 lX0ng3wCkSA7WmtHsxWuufv+fnNZSCq2ubWOyZvORwq8+Fb+1gKUhL8mvIDc1NwISrP5k
-	 EHXPiOCF2uUYa7ghSSEMvL8Jal/jCpdpJ7XXjOSLkOnlZwE9P2QJBGT/ERwtF/Lgn+Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dpAEJXdc;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KCJfUviT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795033327;
+	b=c9o1uToGD9QP/GJehBXy+azfDBnsOXUy+jsrOsTi0RDzGsnG3zutMNqzfxHMdIvS9x20
+	 ed+J3GXTpZRTGD8COTelvKHAZ+uXPiJM2up30NsZU8y3omCLFf5rQGWXFjDmWjJRHIBzR
+	 hSD6u0ZbmuMDatAHraaTVRgpA9SI7D2911G+cDHx7mxp8KpEIpbrKO2v/Mp2wAxZFd5fT
+	 soGr+VFi00dKDHTLOSvGeFmH4sEz12Mnu2ylDIJD/9xpz31XP/ZUOziamMP6z52QK7cd4
+	 T79XLjNBaqzHpM/Qp+9jtLc6K1G6S1599KI4+yO5e40F2H3zliU+7BvYH+h6rw5X78w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795033327;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=iP6H1R9//lSGzYtE8e3/NGtYHMNBBprSpDdNynqBbhg=;
+	b=l8wNri7DDzRHDFA9bLmRTScCnUJd02S4YkdBSuoHevmw/k0E43JGtKCt9GxIKB52vxaw
+	 fVK5jSIv7lhpCoOB/AnNa4C8+E8apvdMQjN51URrMSkj4C08glWoJKPWZ443Emc7yhpCO
+	 9cEYRi4Fqn/+VxU2ad6kFn6hcCyvIr0Hs8kvDWI1eih6Zgh0vAyBJb5p95vayqnUYJINR
+	 8U9MQv74HIx02pxkVOkp6miVqDcMapsDDANB5CCQ0phJMNLEJW8LLjAOzPpXVlHUKOiJI
+	 /4E6NlB8lhKULyMbPNuOaKH/23Z4JPBo+SytmnJKPuE5zvBQSKYVp5zPIAsKApznrAQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nV/vNx7J";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1200606A32A
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 20:21:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1200606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE94606A32C;
+	Wed, 18 Nov 2026 20:22:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dpAEJXdc;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KCJfUviT
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AIJMIYa687037
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 20:21:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PhqPn/ICV8v/KU7lWAnokH2D84rMdKB99wdgjfIsDhg=; b=dpAEJXdcPnatspnA
-	S07G/YQ2IRII6ORHQHfRa4t6sTEhkDMP8EzaOYLCCYd8MPoJ7T0kqoWsDfrOtmk7
-	6HRVGsbhPx4SZZdnzsxpyOtL5cuXMSV+umJcz0xfn8WFdZfa0jLgci+cgiVjv1dX
-	uNPiWEqeZgZuZROeXXlT5I5SmOHz03O4hwfL83+9CzAJ4HQyZotN7hm4OpZez4Cm
-	41gcZBYfOp3+UKmBo54LFxe951vllosKAzrmMLMrDNPOcm1M5fqAhLCYknC7k9bx
-	C7N2U+d/g43036aqxGdaJYnQ9bjtXCRAngwotBRdDQ3P2cTxjx5zR1NZY92q6SZb
-	H/MGDQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j1e5qsewd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 20:21:12 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-94607500fb0so220163485a.2
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:21:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795033272; cv=none;
-        d=google.com; s=arc-20260327;
-        b=C1G5TLYNW//vWADLqBXoMNObfZOgfeyNVGEki0q7I5z7sfmx7sIe6jJZdjlr97688a
-         eTVTGzVC4gasXnIQr0q/Dd6r6OLHBt11EWDWansW5jzFcjACETHpf03/ytSKW9MSUr/8
-         Q4UbMYxXmik19wKyFf7GZ+gcxeeFdjXHdr/Yq0R03WyjJfmWBNjmKohX4qM411HJNZHV
-         TQnr1J3CVupoggqr2vHwXVdXCCzgeyrEDcCn/U4/Wzn6iFWdNCxMJSJHsFdPPLqRMcfh
-         hsh0t6eb/spmiokG46PFoOzGOK7WstJ1Hd7rD0wcQhLTmkIKHiN/UF3ehR0YFxpW/W+g
-         5EIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PhqPn/ICV8v/KU7lWAnokH2D84rMdKB99wdgjfIsDhg=;
-        fh=pQVFLc+7rTwJ1NxPbHuoUWM15mLw+pojZfZn7M/zodo=;
-        b=Aj2vGkHsBzhirodBlsrWLWD3iuP7/PAPQJ3UBqpnVMZTK5lxAS/QXc0iOxVJFSmJLb
-         Jr390F93Eh4STh3G7lOL5QISa/L4zFn71VJb+veJ5/aYC4m188i0TlgPf+rE+aW40cg5
-         kD0REsVwxxnYrXLmcDmCEmaQjxPqAI2ax+d0+3XvgIx/4KNKJfsQY+mtI72lLjRYQNC6
-         RQ12Nhr98ShoMQizhvgitzr4UvheWK0Z3clfwiBydthan6Ew4usMZKQaitiSV7/ia5f8
-         NzNd4gjk9j+1y640ZL4vxuXQmyJjtz8rO49S4YBfOTXKyWRr4gZfK8Onmd14pztu2EMg
-         3Pqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795033272; x=1795638072; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PhqPn/ICV8v/KU7lWAnokH2D84rMdKB99wdgjfIsDhg=;
-        b=KCJfUviTRuV0Z7GTWfJz8XO/IdaEFc/kZo7ZFTnhZ/1KdZO7yn8/wBSX339eyWgWSF
-         glGlX4CU8lIRL3Hl4kB0HtpSekhmcoHmfiNhCcjenifEds5OwxfvsRSkMlsI0g/7V8nE
-         zAQoeSGVX7/oHMJ/l54qXNkkywvWnc7J+j+HHPJOSSOL2lkHcM4UJgTyLh9i5CkPQ4SM
-         ZoE9frnyTeBUxy7ppoE0InR7S4C6d372/gp+S6lb9rpeQM31tOlutCjHpd6MI1+okeA/
-         YibCvUyoAYFB4JgIg8udrHt0VGmja1RQw4L7EUnWfFsX2dp1w0K6jk+3NCh6ycMYnor9
-         8VWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795033272; x=1795638072;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PhqPn/ICV8v/KU7lWAnokH2D84rMdKB99wdgjfIsDhg=;
-        b=ETDeuw8amQmMA5DXL34ZmhLT46KxVv57g15FJlUCfr3WVD9x1z/ieOC33gUNZDF87x
-         kQ3srnKcCa9ECTuCHBW6OCSg656G+mXwn5ogftPMA/ARytQsaZkQpwnSm5IuobevXK+T
-         RQsH/gSp2u31RB3nEH54p3CDeWvpCSo2mKaLCjQB4NghwVYLpjiKZ6rUMmYmEcnOwZTT
-         9Lxw/nBaMojBupip66IU4s7KXF8cw+IRlQ6J7Go4Y9FbaolglW6jhJlXSn5oLJzqy0do
-         IZDQAQKvTkaqMW6hOld3bjQ+toA15tNffb7PYYfrMA8m649TkP0PFVk90omRotgiLJym
-         6YMw==
-X-Forwarded-Encrypted: i=1; AL+hErHok1PEmqzgSwzfkZ+2emkIKldCvhXrPxPJWsY9MY6/7XskDIOhSuRAL08JMbtUWIdHa2Afoh9DU7Yo@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qNrSOT8EIk0wHsUgiHhF6S0mQf/Vgrkx2jiN4cdn3ir9Iqc+Q
-	VI9gfCf03ef38Kdsc8b7SOX0YcejJhvMp9QFKQcXSTwNIQ6rP/S5ysECF0Qe1bdVzV/FmmVcO3e
-	yjSCKQNkkIqpd+m2+Fb12iEYosR0hO8IQlb1UCY9UMhmc7UsMg8u5QvqsxPADj4gjDp1RTyeUIx
-	hRGDfT9kSdTzqGjc7KrlHmW5ynxT/S6WW2dlN1c1E=
-X-Gm-Gg: AYBFou3Xs2KJMkzCD+bfX6K1oPiTBGheQOGWBqjpv4SMbf/ubL6Pn6wDFB2slBSHinv
-	zzPwmXZnWkpzSBaODMKOKgBEcXxeyN/DxTH1rNrw5iQwQ+MmvNq8fSof7Lyu0FKrY5HIwXSTtdH
-	c6AUK8iS9jF4Amm0meUCwVrwTexym7BCuF0377Y+Dq40JD+B6X9Hb21CO0XuwfE2cWYQwAp6Vnw
-	+w/mCtZnAJPTMmflOUH49KnoPRVZvUadC8KucD54C7bKr1kJ3VH8COKG1kw5oKZAJHtJK3CmIM=
-X-Received: by 2002:a05:620a:2b92:b0:93f:3e45:a419 with SMTP id af79cd13be357-949995b362fmr665350285a.38.1795033271712;
-        Wed, 18 Nov 2026 12:21:11 -0800 (PST)
-X-Received: by 2002:a05:620a:2b92:b0:93f:3e45:a419 with SMTP id
- af79cd13be357-949995b362fmr665343785a.38.1795033270937; Wed, 18 Nov 2026
- 12:21:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nV/vNx7J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 948E31F000C6;
+	Wed, 18 Nov 2026 20:22:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795033326;
+	bh=iP6H1R9//lSGzYtE8e3/NGtYHMNBBprSpDdNynqBbhg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nV/vNx7JQJu1AmJAi1lpXXu+PggZsMpYm5B1vFz5xHSZaAvW4sbpw5O8Pf+ZTAa7p
+	 oaY1aMN8eBkEkSndpk1qa49nimIZ9qACTpk83q46u5Ce78TS1ETmNwcPDSdKL2yvYM
+	 WPYAxk2Qd1ChjmQJ4VlXcDRwAPoqDt+9puLFgqHYU3C9iUVh6nJk1pxopDKIaXA5XE
+	 A9VA2ZzbjPJmxmXDwyQhE8uJDheS/aqO3/GAm5ORy3knFQD73CbMvEJ7TLcEZ/TkkZ
+	 4ThP9Z+TLxoZhTy+6zOAx8EZZUB2Mpol+AwBiEBSo8mlanxp8CSb0xlPLm6emd+iYp
+	 hiV5FBGUPeO2Q==
+Message-ID: <sashiko-outbox-221928@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 14/15] pmdomain: renesas: r8a78000: Add SCMI
+ remapping support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Geert Uytterhoeven" <geert+renesas@glider.be>
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <e6816327da51f9fbeef67f13aac723b891e5042f.1795029012.git.geert+renesas@glider.be>
+References: <cover.1795029012.git.geert+renesas@glider.be>
+ <e6816327da51f9fbeef67f13aac723b891e5042f.1795029012.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 20:22:06 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -127,101 +60,224 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261118-wcnss-series-v1-v1-0-a64d82e151bf@atlr-engineering.com> <20261118-wcnss-series-v1-v1-2-a64d82e151bf@atlr-engineering.com>
-In-Reply-To: <20261118-wcnss-series-v1-v1-2-a64d82e151bf@atlr-engineering.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Wed, 18 Nov 2026 21:20:59 +0100
-X-Gm-Features: AclHuK-LczRUNo-ZjKC-18fa_PbQ7l34X57L0f_tADLZJQVkzCFWJzXtV3xPheA
-Message-ID: <CAFEp6-0sYs0mEm+4E_zEgXcSjoYKwtW_YJSa601gb=717Gec4A@mail.gmail.com>
-Subject: Re: [PATCH 2/3] wifi: wcn36xx: Do not enforce interrupt trigger type
-To: arapaille@atlr-engineering.com
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca@lucaweiss.eu>,
-        Eugene Krasnikov <k.eugene.e@gmail.com>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        wcn36xx@lists.infradead.org, linux-wireless@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: uM0YVr_SpZsBjQFM2Gnp7i82Vf2WN7Ke
-X-Authority-Analysis: v=2.4 cv=c5Q+0h9l c=1 sm=1 tr=0 ts=6afe08b8 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=Knk3v0qlAAAA:8
- a=cZ8Ya61OWEQOVQFXRIkA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=L2g3GqtBoyQv0ocsUjqh:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA3NyBTYWx0ZWRfX1j734GVM2Ta/
- xmCtnuEqqSUMp89PuB8Qd/zBb/l5Qr99sXm1CxPs+poy8hCgZmr7foLwbzmCPgs50lvsQJZMcrH
- b1PImbIlO1gY9DLyxr1/0izZfTKEN8Y=
-X-Proofpoint-GUID: uM0YVr_SpZsBjQFM2Gnp7i82Vf2WN7Ke
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA3NyBTYWx0ZWRfX7Pyl7a22XYLH
- lQtwY0tMTvMSO6pEhg66xFpn1lyjJ3mc3aLNkkB4FVau2fksFYINEW2d/mwDD2SO94Bo/h69WPM
- wCOr6BODsAcBMsAEgb2VLw9jp/lMEhlywk2tRZJZ7LR64XimQ968mO7QAzjLbDXj8uxP4UI7DFV
- GUwY3TNlPwGs5CQv9AXEo3KpKy8cEQtgO2qU8OE9Se94hL93Y7he3k0hKcua8g/+lreBBSQQr3z
- C7YykvSCsjDpplMCNFA8NGInqO75+F+7jNJ1wo6fXHe1Vje1kkI7bg3++y0iT5Nm6fcAZm6DSLR
- bQ9iYD1W13aadOMb3z0617mmYSlMWGZ9oHwWkAXTY4dGA9j3+dVrcIZ2dEtcNWpQVsc7IP4WlHB
- DPkUzjcIAvE5rEXaPwedO0kiFXC0aINu4mW2DmuYwkAHIWAoVkPOKLQXJ9umrg6ePE7o15BTwJ1
- 1bEwfUlhe9/85RImcmQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-18_06,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
- phishscore=0 priorityscore=1501 malwarescore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180077
 
-On Wed, Nov 18, 2026 at 3:58=E2=80=AFPM Alexandre Rapaille via B4 Relay
-<devnull+arapaille.atlr-engineering.com@kernel.org> wrote:
->
-> From: Alexandre Rapaille <arapaille@atlr-engineering.com>
->
-> Forcing IRQF_TRIGGER_HIGH over the DT type makes the re-probe after a WCN=
-SS
-> restart fail ("type mismatch, failed to map hwirq"). Rely on the DT, as
-> commit 1ee6c5abebd3 ("ath10k: do not enforce interrupt trigger type") did=
-.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] pmdomain: renesas: leak of exclusive reset controls in
+  r8a78000_mdlc_probe()
+- [Medium] pmdomain: renesas: leak of scmi_clk_np reference in
+  r8a78000_mdlc_probe()
+- [Low] pmdomain: renesas: mixed scoped_guard() and goto in
+  r8a78000_mdlc_attach_dev()
+--
 
-Can you explain why it fails? Is the fix at the right layer here?
+commit 35d53b7b58584e545d3609ea7bb1ae4726d2bdc8
+Author: Geert Uytterhoeven <geert+renesas@glider.be>
 
->
-> Fixes: 8e84c2582169 ("wcn36xx: mac80211 driver for Qualcomm WCN3660/WCN36=
-80 hardware")
-> Signed-off-by: Alexandre Rapaille <arapaille@atlr-engineering.com>
-> ---
->  drivers/net/wireless/ath/wcn36xx/dxe.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/net/wireless/ath/wcn36xx/dxe.c b/drivers/net/wireles=
-s/ath/wcn36xx/dxe.c
-> index 801f1218ef..7852f71368 100644
-> --- a/drivers/net/wireless/ath/wcn36xx/dxe.c
-> +++ b/drivers/net/wireless/ath/wcn36xx/dxe.c
-> @@ -552,14 +552,14 @@ static int wcn36xx_dxe_request_irqs(struct wcn36xx =
-*wcn)
->  {
->         int ret;
->
-> -       ret =3D request_irq(wcn->tx_irq, wcn36xx_irq_tx_complete,
-> -                         IRQF_TRIGGER_HIGH, "wcn36xx_tx", wcn);
-> +       ret =3D request_irq(wcn->tx_irq, wcn36xx_irq_tx_complete, 0,
-> +                         "wcn36xx_tx", wcn);
->         if (ret) {
->                 wcn36xx_err("failed to alloc tx irq\n");
->                 goto out_err;
->         }
->
-> -       ret =3D request_irq(wcn->rx_irq, wcn36xx_irq_rx_ready, IRQF_TRIGG=
-ER_HIGH,
-> +       ret =3D request_irq(wcn->rx_irq, wcn36xx_irq_rx_ready, 0,
->                           "wcn36xx_rx", wcn);
->         if (ret) {
->                 wcn36xx_err("failed to alloc rx irq\n");
->
-> --
-> 2.43.0
->
->
+pmdomain: renesas: r8a78000: Add SCMI remapping support
+
+This commit extends the R-Car X5H Module Controller driver to remap
+hardware power domain, module clock, and reset IDs to SCMI power domains,
+clocks, and resets when SCMI firmware support is available.
+
+> diff --git a/drivers/pmdomain/renesas/r8a78000-mdlc.c b/drivers/pmdomain/=
+renesas/r8a78000-mdlc.c
+> index 733bf68dab2ce..79f6f1a9ae95d 100644
+> --- a/drivers/pmdomain/renesas/r8a78000-mdlc.c
+> +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
+[ ... ]
+> @@ -178,8 +280,148 @@ static int r8a78000_mdlc_attach_dev(struct generic_=
+pm_domain *domain,
+>  		return -ENOENT;
+>  	}
+> =20
+> -	dev_dbg(dev, "Ignoring HW module 0x%x\n", id);
+> +	if (!priv->scmi_clk_np) {
+> +		dev_dbg(dev, "Ignoring HW module 0x%x\n", id);
+> +		return 0;
+> +	}
+> +
+> +	entry =3D &priv->mod_map->entries[idx];
+> +	dev_dbg(dev, "Mapping HW module 0x%x to SCMI clock %d fck parent %d\n",
+> +		id, entry->fw_id, entry->fw_fck_parent);
+> +
+> +	clk =3D scmi_get_clk(dev, priv->scmi_clk_np, entry->fw_id);
+> +	if (IS_ERR(clk))
+> +		return PTR_ERR(clk);
+> +
+> +	parent =3D scmi_get_clk(dev, priv->scmi_clk_np, entry->fw_fck_parent);
+> +	if (IS_ERR(parent)) {
+> +		ret =3D PTR_ERR(parent);
+> +		goto fail_put_clk;
+> +	}
+> +
+> +	if (!clk && !parent) {
+> +		/* Ignore missing SCMI clocks */
+> +		return 0;
+> +	}
+> +
+> +	ret =3D pm_clk_create(dev);
+> +	if (ret)
+> +		goto fail_put_parent;
+> +
+> +	if (parent) {
+> +		ret =3D pm_clk_add_clk(dev, parent);
+> +		if (ret) {
+> +			pm_clk_destroy(dev);
+> +			goto fail_put_parent;
+> +		}
+> +	}
+> +	if (clk) {
+> +		ret =3D pm_clk_add_clk(dev, clk);
+> +		if (ret) {
+> +			pm_clk_destroy(dev);
+> +			goto fail_put_clk;
+> +		}
+> +	}
+>  	return 0;
+> +
+> +fail_put_parent:
+> +	clk_put(parent);
+> +fail_put_clk:
+> +	clk_put(clk);
+> +	return ret;
+> +}
+
+[Severity: Low]
+This isn't a bug, but r8a78000_mdlc_attach_dev() already uses
+scoped_guard(mutex, &r8a78000_mdlc_lock), and adding goto-based error
+unwinding in the same function mixes cleanup.h helpers with goto labels.
+Factoring either the list lookup or the PM clock setup into a helper
+would keep them separate.
+
+[ ... ]
+
+> +static struct reset_control **get_rstcs(struct r8a78000_mdlc_priv *priv,
+> +					struct fwnode_handle *scmi_reset_fwnode)
+> +{
+> +	const struct mod_id_map *map =3D priv->mod_map;
+> +	struct fwnode_reference_args scmi_spec;
+> +	struct reset_control **rstcs, *rstc;
+> +	struct device *dev =3D priv->dev;
+> +	s16 fw_id;
+> +
+> +	if (!map)
+> +		return NULL;
+> +
+> +	rstcs =3D devm_kzalloc_objs(dev, *rstcs, map->size);
+> +	if (!rstcs)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	for (unsigned int i =3D 0; i < map->size; i++) {
+> +		fw_id =3D map->entries[i].fw_id;
+> +		if (!scmi_reset_fwnode || fw_id < 0)
+> +			continue;
+> +
+> +		scmi_spec.fwnode =3D scmi_reset_fwnode;
+> +		scmi_spec.nargs =3D 1;
+> +		scmi_spec.args[0] =3D fw_id;
+> +
+> +		rstc =3D reset_control_get_from_provider_exclusive(&scmi_spec);
+> +		if (IS_ERR(rstc)) {
+> +			while (i--)
+> +				reset_control_put(rstcs[i]);
+> +
+> +			return dev_err_cast_probe(dev, rstc,
+> +					"Failed to get SCMI reset %u\n", fw_id);
+> +		}
+> +
+> +		rstcs[i] =3D rstc;
+> +	}
+> +
+> +	return rstcs;
+>  }
+
+[Severity: Medium]
+Does r8a78000_mdlc_probe() leak the exclusive reset_control objects in
+priv->rstcs if a later registration step fails?
+
+reset_control_get_from_provider_exclusive() returns unmanaged references,
+and get_rstcs() only calls reset_control_put() when its own loop fails.
+If a subsequent call in r8a78000_mdlc_probe() such as
+of_genpd_add_provider_onecell() or devm_reset_controller_register() fails,
+the reset controls are leaked and remain marked exclusively acquired, so a
+later probe retry will fail with -EBUSY.  Registering a
+devm_add_action_or_reset() callback in get_rstcs() would release them on
+probe failure.
+
+[ ... ]
+
+> @@ -249,6 +500,47 @@ static int r8a78000_mdlc_probe(struct platform_devic=
+e *pdev)
+>  	priv->dev =3D dev;
+>  	priv->np =3D np;
+> =20
+> +	if (!IS_ENABLED(CONFIG_ARM_SCMI_POWER_DOMAIN) ||
+> +	    !IS_ENABLED(CONFIG_COMMON_CLK_SCMI) ||
+> +	    !IS_ENABLED(CONFIG_RESET_SCMI)) {
+> +		dev_dbg(dev, "SCMI pmdomain/clock/reset support is disabled\n");
+> +		goto fallback;
+> +	}
+> +
+> +	scmi =3D of_find_compatible_node(NULL, NULL, "arm,scmi");
+> +	if (!scmi) {
+> +		dev_dbg(dev, "Cannot find SCMI firmware node\n");
+> +		goto fallback;
+> +	}
+> +
+> +	if (!of_device_is_available(scmi)) {
+> +		dev_dbg(dev, "SCMI firmware node is not available\n");
+> +		goto fallback;
+> +	}
+> +
+> +	scmi_power_np =3D scmi_find_proto(scmi, SCMI_PROTOCOL_POWER);
+> +	if (!scmi_power_np) {
+> +		dev_dbg(dev,
+> +			"Cannot find SCMI power domain management protocol\n");
+> +		goto fallback;
+> +	}
+> +
+> +	scmi_clk_np =3D scmi_find_proto(scmi, SCMI_PROTOCOL_CLOCK);
+> +	if (!scmi_clk_np) {
+> +		dev_dbg(dev, "Cannot find SCMI clock management protocol\n");
+> +		goto fallback;
+> +	}
+> +
+> +	scmi_reset_np =3D scmi_find_proto(scmi, SCMI_PROTOCOL_RESET);
+> +	if (!scmi_reset_np) {
+> +		dev_dbg(dev, "Cannot find SCMI reset management protocol\n");
+> +		goto fallback;
+> +	}
+> +
+> +	priv->scmi_clk_np =3D scmi_clk_np;
+> +	info =3D mdlc_data->fw_info;
+> +
+> +fallback:
+
+[ ... ]
+
+> @@ -295,11 +604,14 @@ static int r8a78000_mdlc_probe(struct platform_devi=
+ce *pdev)
+>  		return dev_err_probe(dev, ret,
+>  				     "Failed to register reset controller\n");
+> =20
+> +	/* Retained in priv->scmi_clk_np */
+> +	retain_and_null_ptr(scmi_clk_np);
+> +
+>  	return 0;
+>  }
+
+[Severity: Medium]
+Does retain_and_null_ptr(scmi_clk_np) leak the scmi_clk_np device_node
+reference when the fallback path is taken after scmi_clk_np has been
+found?
+
+If scmi_find_proto(scmi, SCMI_PROTOCOL_CLOCK) succeeds but
+scmi_find_proto(scmi, SCMI_PROTOCOL_RESET) returns NULL, probe jumps to
+fallback before setting priv->scmi_clk_np =3D scmi_clk_np, and then
+unconditionally clears scmi_clk_np via retain_and_null_ptr(scmi_clk_np)
+at the end of r8a78000_mdlc_probe().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795029012.gi=
+t.geert+renesas@glider.be?part=3D14
