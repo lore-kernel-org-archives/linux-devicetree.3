@@ -1,56 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795019606;
-	b=PYy2XxY6boeWcrtybS6tzbZGQ4DZieeH3+U4yyPIJSRzjByl570UREQifWFwUw5gN5xW
-	 V0q2tn3fHSRNE0N4H6LBUA36xZfMWSVhF5zDbMjKOxzggENGkHqp9BoAOswMnLOsrZE4O
-	 unGuRDdGbww5r0lQz5MYiPaUzWonJlplVnOr5FwAqrmrSZ4An5xnJuxKyU2oOBWz7aLLy
-	 5OCaKyH5UxEo2irAHV+heZ72fPHhYWY/+mijdFa3a+4r5sECiJLPM85F89ePLUR2u3hq0
-	 R2Vi/w2vfA202aRO6YFep3ehGFQQETmdwQjwFusTz3pYBvPyMThkh/v9sBS3HgQZEbg==
+	t=1795019842;
+	b=y1ySnsLXSLhtL+P3zdo1PKVY+5NnDh7a03TtdAeqQTNBx5IRaNiBl5gv2lO3voaM02zB
+	 FUgYp20OfAByge6dL9HOW6udY7SZCn/DKsL2cAx3HLk7g4xSi8bOVNz4nXWU5Ciy77kOj
+	 ydymuYcrKthoDXLhfrbQORY7243drDw0lPsaXpOAtUmfHaFTN/KitjFwwYk6zfNKl+GKk
+	 wlqPLE7I8DYiKza9ibTdknhHbkc6UatInZhp6fA3FlBuxugTppaRLanq6/DLFVQwlskQR
+	 nOKB96yPcaNknDYO1hxz0bMLNMm2cgM/E4ASFee/OII1/lROjHza07SZdJLu380xTdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795019606;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795019842;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TPQ4r972gb6bSnqkwDpeMVJfD/XRQzGlY4Q97PPUyYo=;
-	b=Wud73vb3rqJlEjAgR6k3xxHgFDd7YemAjS0CbMVNg9kwHGQyIERZHzmQSPi1AQ0mOUzs
-	 lu/88SbqRtYyFc5JpZi346qQ1y34sS88yWAV2eBGPP/TDQPxM1D0hgGk8bE9hv6bwCRVU
-	 DIndbQoudy1aFWUoX2V3aFwBFyyDiXTjS1B84uKeGBxDNlzLOgezjd2y+oG01dG1SxOZm
-	 D0o9+ZslQDTtC3i0nl38fOvdlF2itocPsuv+rmlfKUC7IhRo1MDC6Lij0oDFWl+JvR9FF
-	 D/m2dD70go1wTqk+aNrUuUhDW+z5w5Fbm1OXuJBasbNakOr09yiMwleYIYAM5T40vtg==
+	bh=3PuxUg1W68XqcVeQwdFsUJ1UdoYaIGk5p/NFYNEmsqI=;
+	b=l7r/rP7SsYH5Y739PDJljwsd+E8Hol4eXU1XE84fJottLp3CJqb8pxghUNXhMnhG8ouE
+	 neUDWSyPN3pOeUuohOryPsJqkMrVWnuQVtPdpwHuAWfUm15ONAd+qC4UTOjkKMJRyFxnX
+	 5iVPEJZ1Fb7JtTS+RFdQGVXvK9A6png4m0OVWOZBfIDb7febawBT2ZySuvJVzxizqDNbH
+	 fYt8iSj3WOXhw95+y145L+FE9c5ccqtMkfyWfLnCe6HYF1CL21mPTa+a2Qr4fOzCg252s
+	 ZjPuPjEozJllZTfWaWkpLBAwO6i08JpwPCfiuN5ZMzANlO1AdLKwfVd3Z+dI71zvr1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HQqV9Ijm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dHi4w3mk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440B0606A331;
-	Wed, 18 Nov 2026 16:33:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D576F606A31C;
+	Wed, 18 Nov 2026 16:37:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HQqV9Ijm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0EAC1F000C5;
-	Wed, 18 Nov 2026 16:33:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dHi4w3mk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D881F000C8;
+	Wed, 18 Nov 2026 16:37:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795019606;
-	bh=TPQ4r972gb6bSnqkwDpeMVJfD/XRQzGlY4Q97PPUyYo=;
+	s=k20260515; t=1795019842;
+	bh=3PuxUg1W68XqcVeQwdFsUJ1UdoYaIGk5p/NFYNEmsqI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HQqV9Ijm/7Ci1l5XNmScFxz0OaYN7HbdfdDKUAQAWJuJiUe61iK7RZye9oXw5PD4J
-	 Kn1OhIimTn2qo1bkZptDjQn8zB1qo1Lt4bi+j4aSM5iIlkcvs+G7Rh5zlsL5H3epER
-	 pHIwry3MNYnu98eEEcGIWJ/Mm3aqGs7mxUHZVL2HiN8Fk8ilZUUckyqghNrPqPOCst
-	 MQGrqei1qFNLW2wMsH8iD855p6J0ce2GBQ3iLfnvs22x3MO37IO6SwbYEpmG3EPCBo
-	 b1XEcmMGAYYZU9dOCXbFw1ONbaYMW4cl/k69TsL1Kc8zad7/iSEfWkHJMIZGLsfG9e
-	 jktwobo1GteOw==
-Date: Wed, 18 Nov 2026 10:33:24 -0600
+	b=dHi4w3mktKxZKBR1jENFnTDvtk0OFCuIffS1Qy1+yvVPh6ZnusJAqE0i7QzQpsjbj
+	 jUjdxWg7RMTI/xHAAi1NmRfjEK8Af7Fc2ckpfrw3JEDirV+XF7E1edY6H5Ng8XSC0r
+	 17dmY4BLbpsi74rxY9jaSEelrlgVsqpsf6inteVkE4xOiCy34R8w0jUjNKuMdyla97
+	 WGRqC7HUCoO+rcwKBYVJw89fUaOU5yVymq7sSq2NoF9xUOl+UWprlLZEmdnZtA3acZ
+	 UIyiL7W6GephTCaa7GcFvlGJqI/tbMNl/ZEg3CjIm1psJ4mkSdY47kJefi52zZyTEP
+	 CE4Xy4j1u555Q==
+Date: Wed, 18 Nov 2026 10:37:20 -0600
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org,
-	chernyakin.victor.j@outlook.com, cwweng@nuvoton.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	dlechner@baylibre.com, jic23@kernel.org, nuno.sa@analog.com,
-	conor+dt@kernel.org, andy@kernel.org, linux-iio@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] dt-bindings: iio: adc: Add Nuvoton MA35D1 EADC
-Message-ID: <179501960376.2868004.4446551155644027981.robh@kernel.org>
-References: <20261117082832.1551574-1-cwweng.linux@gmail.com>
- <20261117082832.1551574-3-cwweng.linux@gmail.com>
+To: Antonio Borneo <antonio.borneo@foss.st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Christophe Roullier <christophe.roullier@foss.st.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Amelie Delaunay <amelie.delaunay@foss.st.com>,
+	linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org,
+	Russell King <linux@armlinux.org.uk>,
+	Yannick Fertre <yannick.fertre@foss.st.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	=?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>
+Subject: Re: [PATCH v4 07/15] dt-bindings: watchdog: st,stm32-iwdg: add
+ access-controllers property
+Message-ID: <179501983985.2891459.3666177158331281459.robh@kernel.org>
+References: <20261116132416.1184447-1-antonio.borneo@foss.st.com>
+ <20261116132416.1184447-8-antonio.borneo@foss.st.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,26 +73,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261117082832.1551574-3-cwweng.linux@gmail.com>
+In-Reply-To: <20261116132416.1184447-8-antonio.borneo@foss.st.com>
 
 
-On Tue, 17 Nov 2026 16:28:31 +0800, Chi-Wen Weng wrote:
-> From: Chi-Wen Weng <cwweng@nuvoton.com>
+On Mon, 16 Nov 2026 14:24:08 +0100, Antonio Borneo wrote:
+> Add the optional access-controllers property to reference one
+> domain access controllers protecting the watchdog peripheral.
 > 
-> Add a binding for the Enhanced Analog-to-Digital Converter found on
-> Nuvoton MA35D1 SoCs.
-> 
-> The controller provides eight external analog inputs that can be used
-> as single-ended inputs or as the four fixed differential pairs 0-4,
-> 1-5, 2-6 and 3-7. The VBAT input is internally connected and needs no
-> devicetree description.
-> 
-> Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20261106163429.618392-1-antonio.borneo%40foss.st.com?part=5
+> Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
 > ---
->  .../bindings/iio/adc/nuvoton,ma35d1-eadc.yaml | 174 ++++++++++++++++++
->  1 file changed, 174 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
+>  Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
