@@ -1,56 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795044752;
-	b=A5Q3LoYPz+Fhl1gqUV1YD63w/jT6Mj+kgZzKa0EBW2thSKkxZ1y3bbYPpriqm0E1RaJd
-	 38bM06e9SyWh3OKyhqjpAUph+hChbhd1bNxPjo/t//uYbkpbNkYhkKAnd8yzk/crv1N3j
-	 KXvrs0kbMwBd00AAl8yl2KQBzXV3/wuiFQomHzWXz8RQSDs1HnVx0Zoqf+Rsi/vZEr/WN
-	 u8UOMgzdLFzRR91ZLMs78dDQnqrMtn6KOlRRB6Fg/6y91VY7PgHPzi3REAUkhkmC9u037
-	 thhdWlBe+o7tz8HGCN8pQvzP+/my9h+VaqB3vVe463QoKs7DMALgvJ843oigxPV3/iQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795044752;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=mofTz53POTjAAlmpN5LbXKg8OOA6eil30/eUWllOPsw=;
-	b=mXo/27hA0iwbRiOQU7aiKiUs78UhvFjeJXaAwlHHdNKOoFgW9bIQZZIkH3Ar0UJVItia
-	 D1XbO1tMBtSZY9cV2o8OLcu1zfiZ/L7CyWR4FNMg1Wtob+UPE8f6NtnCjs19RaRTxD6NP
-	 KZix35AEK9Jn1tyh+hULEaxwJeQNooLB7A+feECbohpsJc80q3f8Z6U7TqV1mSSgXHkVq
-	 lVrQ+qjzLQIQ7Y0Zgyh2jMfRcCLnNxpxBiOuErmuyn3KWHBNTF7X/QXbFNvJCgR1ITAuo
-	 8nyBDjWbg4rZFmjMNmU7LreGVDvDNJ+fKxgiVULDdzuhQUwEphx4H3L5yJc6aL396QA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ihOKCEIe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.65
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795044756;
+	b=BdLgr1GpGJ3kO2u205+559reDnNuh7jrlWENoya3LuYptrrb6sZt4g3EEToyMmhqn2/y
+	 B7fQMWrJakrotscwBGXfzpSDFSkWH/7zh3dA0nqwF+aZTW3I6OcKcAzKY3+5HPmraLFBD
+	 OM2psHR37R13wU9xwf2GxxIeCyHdVwmhqI2N56nkz+QwmqZqoUVkNrKnRmZ0UBo214cPQ
+	 F8gkH+CdTrsFHpxBvc7Y4hpTJdAyYfWK8kw1Gze7PgNjhT1AIgJVAhPiu8OXLSfjyPp9w
+	 t+HMI7Phlj0MC3iex5iWjbG/SKAaUMUV+if0uSSLZ8RI3y4lePI9a+PqT6xy8K8E5rw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795044756;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=AMeR6NDUiz18N+Bo2DvJOVGkvlTFuB6dauhlohGe6GI=;
+	b=hXvynRVcLBOhmQ7p9EycUFRhtjrSo5892EmfuzrnTlwSJg3sbwHR9OJqoGanli72jNpF
+	 XDHjNw1//289kgdD3uZeu6bzsuYyZg4qdH44jUrl43rn25MFlF8eX8+MWIqlynwn2VymM
+	 8NU74kJ7d4UapRIRWIaCWln+KPu9j3LMQiwm024rG+KdTd1x9uP3EwSfc/lt7favcl16l
+	 eQUi1yiahHRzosEg+EIZfY04oWXL69Yg8FXLz3zNB26JzJCRfjLZZzh/GdIuvRsrAgAsi
+	 9jxOSJUiFAw7FPMqnATGrzLjLTj44t2YswlBW8H/v5OLYDKpxUSu44MXVAN8j2WBQfg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4ItbNvjn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.65
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012065.outbound.protection.outlook.com [40.107.209.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D6E60A2612
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 23:32:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3643606A32C;
+	Wed, 18 Nov 2026 23:32:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3643606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ihOKCEIe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A74C1F0089E;
-	Wed, 18 Nov 2026 23:32:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795044752;
-	bh=mofTz53POTjAAlmpN5LbXKg8OOA6eil30/eUWllOPsw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ihOKCEIelzAiWZf/YxR8T5PfoJqTXxAMvvCu4UJrZloPZ25iix8R8smUzSoF5QO8C
-	 kSGXicpQGSLPHLWPbl8ILaWYAKiojaZtN21vAYqqfv7nV3XuXiLGBKAHCBWovNkisi
-	 ZE+FHjs/caF0GHAi9Xcw2pX+IFQymy2vthl5ze/zvUnjtfzzAv93LXEStD6XaZDQLr
-	 s5H1qXgpn46VWW3u/Jx2EHH3oTGZCjzZnnJ4N8+Az4+XzHyiHRKOa2n2krkAf2C1Px
-	 xHLcoNX7EA8MjN9xtj3wVbaXL0QYNRXwl7muIeM7nGaEvXKt7Jq7rITcyR4EPK7o5i
-	 tznWGOfK8w1NQ==
-Message-ID: <sashiko-outbox-222182@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] pmdomain: spacemit: Add power domain driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yixun Lan" <dlan@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-04-k3-pm-support-v5-2-42394acdf3e3@kernel.org>
-References: <20261118-04-k3-pm-support-v5-0-42394acdf3e3@kernel.org>
- <20261118-04-k3-pm-support-v5-2-42394acdf3e3@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 23:32:31 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4ItbNvjn
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lgaTxgAgC47PvFh9ipQOmHdz69slJKmMzh3w/BImDtkI5fqp4YPdElL/E5lorWPVXgrlqS6lAGr6BKUoexbOzKCtdKMOaAYujudgsF4Fw4B5YwatFxpUTewt0LovIgeEbzQuvA40PCY5nMux7lPCW1xLhDV6aj+5qaK1MI5u5FitrfQmELUmRQ9X4vyqivCap7tQtH5m77ufNXrAFuG19f3GLjnTxGmeMV0BoUT1giKi/BLbo0Z1g5CKC6Jea9HnuSEA15ZY0SVTpRCIuf91Jdu31dCQ5zzKWWj1ADFEk27T57n7W+CHz6qvc1QhK4v56DBNxiqdI9Q+FZeyzAy3lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AMeR6NDUiz18N+Bo2DvJOVGkvlTFuB6dauhlohGe6GI=;
+ b=wPLUyLHC9MtVApaEdhpf3l73XalGH2TE7GDodU3d8p17E1qbhb1H2J34GJhPjV7SwyPEGB6YriNauyB8J0WVvcGZ29WWyWMT8dzOsB9k7X8fVbWFYTMkCBTpQGiiKtrkr6wLYFz4jtMumE6TIrvYA16ObIJqNgbOoXFf3Z5DBEpQByR+eUJzmFma121FTRGZc7ZL/aej+1vHUb2wfIloCF7sLY8MiM8x0t5uowsuLNEJ97o4YcSiATXtPwusjOo4deeUbx/YolxMKC6N01cMttk5vIW44DhwHU5/l2wveyA1nULKOC0Ly7iUW9AHwS7urSZHtmG/zsFUvlPURfoS9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AMeR6NDUiz18N+Bo2DvJOVGkvlTFuB6dauhlohGe6GI=;
+ b=4ItbNvjnwiPdu9WUJqKsOlHwrPWpDlI1Bhil4KF3C3FHlJ5UbI+DY5y1Yi0ljZkVAVT7FH2WxUtl89M0wM4iDsNap/HvKjQv2Y8oGTrX9GYXlv5wt4CMSCzyo9yCPsKn1Nsp1gxaJYxVu8fBmrksdluLYlqOcQyXDpQ7+AwWWIA=
+Received: from BL1PR13CA0083.namprd13.prod.outlook.com (2603:10b6:208:2b8::28)
+ by DS7PR12MB8323.namprd12.prod.outlook.com (2603:10b6:8:da::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.14; Wed, 18 Nov 2026 23:32:32 +0000
+Received: from IA0PEPF0000003C.namprd03.prod.outlook.com
+ (2603:10b6:208:2b8:cafe::3f) by BL1PR13CA0083.outlook.office365.com
+ (2603:10b6:208:2b8::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.8 via Frontend Transport; Wed, 18
+ Nov 2026 23:32:32 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ IA0PEPF0000003C.mail.protection.outlook.com (10.167.249.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 23:32:32 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
+ 2026 17:32:29 -0600
+Received: from xsjgregoryw50.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
+ Transport; Wed, 18 Nov 2026 17:32:28 -0600
+From: Gregory Williams <gregory.williams@amd.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 11/15] dt-bindings: soc: xilinx: Add Versal AI Engine DT binding
+Date: Wed, 18 Nov 2026 15:32:07 -0800
+Message-ID: <20261118233211.4121361-12-gregory.williams@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261118233211.4121361-1-gregory.williams@amd.com>
+References: <20261118233211.4121361-1-gregory.williams@amd.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,120 +108,116 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PEPF0000003C:EE_|DS7PR12MB8323:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71174006-f00d-49ba-a19c-08df45cc37bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|1800799024|82310400026|23010399003|261022075727099003|261102123227099003|261026121527099003|261028144727099003|56012099006|11063799006|261026140227099003|10067099003|261022105027099003|261021121427099003|261009223027099003|22082099003|18002099003|6133799003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	QZDtI8lXDvxX9zdXX6xeiYKN2pcukiz+dNHomft0GadG2MWZ0IfGAkXEa5daXash7/lJlbYq+igFlCdN9So3cdnLWQ2KqRFNNCtrS0DolGRGvHcDdctlRp3vVakfxG+TIi+PIDk0/oaS561Pb4N8nOhfFeTxG/PScgbpku+Sd84XnFX9m1YlQ8I5Yfpob9cRKJ+CGOKY+svl68V7fHtv98e3eL+Rx2v0S/1yCbi4z+c6K+sUiImNV+HTJ81OoLxFVaA8ZRCkoev93U8xU5b0oW6PcIWqmwlIB5jUR3HpYXZaLTKZ3uPUFz+RagXl2m/VgnOuY+CYe+Ms/k6tL3SJgWYlfxyjadwTDfZ+0V2gfqrFHQTa/a8nqOUxSJivRvdz1yGJYpx4p8ZtgOWAerWo2a+49QzM39QzmMRfpCFK1A77at2Fa3h9KYz5OBWbVNJpZ5ao2KNtmDSuiGnjve4hBt0jGqoa6TG/HCwn1QO6KghNS9lpAR4Ao/vEz4ofPNDsmyEGTv3YmaGtS/eq+3Cq50H7ZviOmc6ltXkgqM+VmdztLJZKWtBIr4ygZ3FH6qfUYwgXytvdkAk/dOKmHDWoYEV96OmIOe0aGpYgtxOXc8d2S8BZFJF3Hxr/ie2lkU4MzE0pGYb8xbRFD/SzNSbceg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(261022075727099003)(261102123227099003)(261026121527099003)(261028144727099003)(56012099006)(11063799006)(261026140227099003)(10067099003)(261022105027099003)(261021121427099003)(261009223027099003)(22082099003)(18002099003)(6133799003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	LuYvtbEVt9fhXXt52ql6EPe0wsoVnGuf3S9OFDNl4DAkmkFC7SMsXY4k40E6I4hx7OtLmGPw8VK2pTqAZZgELIYFYwofYmkLqgX/YnRBTPGNGnm7uSrcHWBLhPxu54tqHSf8RCpV61xMOyrLRAjD3YjEH/QEkWkOqOmguVJ+gyuqmrPkJq0ZuH621qneluXFJ0F52foSBkv8RCjyVYrH4/h4+m0zVLqiq4HpEZUeYRaPfVIAebukwQSeFWdL6/i3/QqAM4ZPD9WJg+V7BEMezb0f31yhtdd3xmX5DmbW5aFoJrnubd0lmqC0DNquOzs8yPKTnbQb6yea8EnagGwFaQPWRjWM+GHftAjzRD+SsZGH+AlTnYGJL3TbdLFAXI+yIvc+E3vqMbWtVm7arJdNKlOnX8HnT/9y87QsF6z8+fdlI3vbr+WAzWkBEpWUi9xQ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 23:32:32.0497
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71174006-f00d-49ba-a19c-08df45cc37bf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	IA0PEPF0000003C.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8323
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] pmdomain: spacemit: devres frees active domains when
-  pm_genpd_remove() fails
-- [Medium] pmdomain: spacemit: unpowered always-on domain in
-  spacemit_pm_add_one_domain()
---
+Add documentation to describe Versal AI Engine device tree bindings. AI
+Engine is a tile array based processor with many cores and local memory
+cache. Data routing between the cores is done through internal switches,
+interface tiles are used to connect to external sources such as memory
+or PL. Configuration registers of the device are accessed through a
+memory mapped AXI address space.
 
-commit 3dbb7292ceae5fc8cd5471f6a58e884045deb2ec
-Author: Yixun Lan <dlan@kernel.org>
+Signed-off-by: Gregory Williams <gregory.williams@amd.com>
+---
+ .../bindings/soc/xilinx/xlnx,ai-engine.yaml   | 61 +++++++++++++++++++
+ 1 file changed, 61 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
 
-pmdomain: spacemit: Add power domain driver
+diff --git a/Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml b/Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
+new file mode 100644
+index 000000000000..6c97b5f0fb03
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
+@@ -0,0 +1,61 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++# Copyright(C) 2026 Advanced Micro Devices, Inc. All rights reserved.
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/soc/xilinx/xlnx,ai-engine.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: AMD AI Engine for Versal SoCs
++
++maintainers:
++  - Gregory Williams <gregory.williams@amd.com>
++
++description:
++  The AMD AI Engine is a tile processor with many cores (up to 400) that
++  can run in parallel with some devices containing local cache (memory tiles).
++  The data routing between cores is configured through internal switches, and
++  shim tiles interface with external interconnect, such as memory or PL.
++
++properties:
++  compatible:
++    enum:
++      - xlnx,versal2-aieml
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    const: aclk0
++
++  xlnx,firmware-device-id:
++    description:
++      Device identifier as defined by Versal firmware interface. This value is
++      passed unchanged to firmware calls.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - xlnx,firmware-device-id
++
++additionalProperties: false
++
++examples:
++  - |
++    soc {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      ai_engine: ai-engine@20000000000 {
++        compatible = "xlnx,versal2-aieml";
++        reg = <0x200 0x00 0x01 0x00>;
++        clocks = <&aclk0>;
++        clock-names = "aclk0";
++        xlnx,firmware-device-id = <0x18224072>;
++      };
++    };
+-- 
+2.34.1
 
-This commit adds a generic PM domain driver on the auxiliary bus for
-SpacemiT K1 and K3 SoCs, supporting software and hardware power-on/off
-sequences.
-
-> diff --git a/drivers/pmdomain/spacemit/spacemit-pm-domains.c b/drivers/pm=
-domain/spacemit/spacemit-pm-domains.c
-> new file mode 100644
-> index 0000000000000..9d77d3f4c182b
-> --- /dev/null
-> +++ b/drivers/pmdomain/spacemit/spacemit-pm-domains.c
-> @@ -0,0 +1,422 @@
-
-[ ... ]
-
-> +static int spacemit_pm_add_one_domain(struct spacemit_pmu *pmu, int id,
-> +				      const struct spacemit_pm_domain_param *param)
-> +{
-> +	struct spacemit_pm_domain *pd;
-> +	int ret;
-> +
-> +	pd =3D devm_kzalloc(pmu->dev, sizeof(*pd), GFP_KERNEL);
-> +	if (!pd)
-> +		return -ENOMEM;
-> +
-> +	pd->param           =3D param;
-> +	pd->pmu             =3D pmu;
-> +	pd->genpd.name      =3D param->name;
-> +	pd->genpd.flags     =3D param->flags;
-> +	pd->genpd.power_off =3D spacemit_pd_power_off;
-> +	pd->genpd.power_on  =3D spacemit_pd_power_on;
-> +
-> +	ret =3D pm_genpd_init(&pd->genpd, NULL, spacemit_pm_is_off_state(pmu, p=
-d));
-> +	if (ret)
-> +		return ret;
-> +
-> +	pmu->domains[id] =3D &pd->genpd;
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Can pm_genpd_init() fail with -EINVAL for a GENPD_FLAG_ALWAYS_ON domain
-such as K3_PMDOMAIN_AUDIO if it is powered off at boot?
-
-pm_genpd_init() requires always-on domains to already be powered on
-(is_off =3D=3D false) and rejects them with -EINVAL otherwise, aborting
-spacemit_pm_domain_probe().  Also, because genpd never powers an
-always-on domain off or on after initialization, the power control
-parameters defined on K3_PMDOMAIN_AUDIO are unused unless
-spacemit_pm_add_one_domain() powers the domain on before calling
-pm_genpd_init() (note that spacemit_pd_power_on() logs with &domain->dev,
-which is not initialized until pm_genpd_init(), so pmu->dev would need to
-be used for logging).
-
-> +
-> +static void spacemit_pm_domain_cleanup(struct spacemit_pmu *pmu)
-> +{
-> +	struct spacemit_pm_domain *pd;
-> +	int i, ret;
-> +
-> +	for (i =3D 0; i < pmu->genpd_data.num_domains; i++) {
-> +		if (!pmu->domains[i])
-> +			continue;
-> +
-> +		pd =3D to_spacemit_pd(pmu->domains[i]);
-> +		ret =3D pm_genpd_remove(pmu->domains[i]);
-> +		if (ret)
-> +			dev_err(pmu->dev, "failed to remove domain %s: %d - state may be inco=
-nsistent\n",
-> +				pd->param->name, ret);
-> +	}
-> +}
-
-[ ... ]
-
-> +static void spacemit_pm_domain_remove(struct auxiliary_device *adev)
-> +{
-> +	struct spacemit_pmu *pmu =3D auxiliary_get_drvdata(adev);
-> +	struct device *dev =3D &adev->dev;
-> +
-> +	of_genpd_del_provider(dev->of_node);
-> +	spacemit_pm_domain_cleanup(pmu);
-> +}
-
-[Severity: High]
-As reported by Troy Mitchell on v3 [1], can unbinding the driver or
-unloading the module while a consumer device is attached cause a
-use-after-free on pd->genpd?
-
-Because adev->dev shares the parent CCU device's of_node, fw_devlink
-links consumers to the parent CCU platform device rather than adev->dev,
-so unbinding spacemit_pm_domain_driver does not detach consumer devices
-first.  When genpd->device_count > 0, pm_genpd_remove() fails with -EBUSY
-and leaves pd->genpd linked in the global gpd_list and referenced by
-consumers' dev->pm_domain pointers right before devres frees the
-devm_kzalloc()-allocated struct spacemit_pm_domain.
-
-[1] https://lore.kernel.org/r/DMQHSDTR177I.1HWHAF4FWTFQ5@linux.spacemit.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-04-k3-pm-s=
-upport-v5-0-42394acdf3e3@kernel.org?part=3D2
