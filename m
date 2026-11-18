@@ -1,77 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795000428;
-	b=soWVzYBaGoQxudtOVPdlKSDvgtQBSPjxOLTZud9DpC3j5KZhpIa/B/i9niTHPhWh9Lxg
-	 m7WwWRNjD8BFXRlL4SS4BI5MMHG2OMRycDNspDNePk/2aiZzVAmxRob1R627iOGTO3ejY
-	 mewo7KeFAjG02+cMrkZdbnVD2GdlT+1MVMFGnchFWrWC3rfpH7N1rkwAqOFA1wYW85gES
-	 D43lmXAgtkEvE13+3i27e3n9HUyadIiecXEI7aHWQ1bJBo2gFqMXXshkYehTvLOK9Yu9M
-	 +eNrb/gYKbbb0ZqBSkoME11pJ3k+zfUh9M1vu98LGM5JLu4316lvTiy23S9CCb/2HwA==
+	t=1795000532;
+	b=aRScIgH/DAR4KPlao8TCY25sj/VRZTVftpvIj/6V+D9WYTNKaJ1cbpIh/quzeE8P8P2i
+	 U6qgUxmP/HCzK8pfI0VPnDCc/qp48Vugc/WuX6SPcXfNallYl5GY/O20UUU96G267jVna
+	 YhRm5+MinHJLH4v7DY4CpBdCq6ce5ZrxNW2kLjyM9OCyl0coFJstejgA7mvdlYC+jOKfL
+	 StvSiIu3ApeAqmPggY5HSEtf+S9AhNi0o6gXV+i0BDxOvt+Uc7mQphduWoWaTUbpCDB+1
+	 efk9QZq+rXMISdpE/obeueQ1UetODEkE5D6PTMr2XKfLu8QNLW0B4K8yGoq5+7RjMJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795000428;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=Emak8Lm259YoIJ5aFedEql1wejCbZp03w6luolSmcoo=;
-	b=Ei6+1U7xXCQwJpjZWxLTJ/pLqRDdXgSNEcbHHBHPix/6Iyh3gPvCI2wREvkwpsH/wo1g
-	 b2RPTbfJ21kzYlc/iHwC5akpLmir98a2NkukMDzVA6MtPCz3nmnOu7a7geHH1l5TCSO4z
-	 B4rPEkcY/cpQsd5EoGLpP7G+mdsUrEglzVBajpXBenAkRuixmUiHDUCfHFqWnFvxsf5a8
-	 8Sl24l6NWR4T759CqzcmDez/XhFlDjNouWs97+NyDvh+AcLiJFfDwjwl6TFloBvGsqTJx
-	 qEYpYdVw41HaKI758iREmnb9zuOpldhptWdUbhPUrrozzOKaqTOtf/ZvltJB+g3/JbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795000532;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=mngIjZvCePCgtonRcZIH7Xi6DzPuq+feV13etfIWIOw=;
+	b=QhK3YlQSfUdT4rbvSeuITi48FzLnSFI9D1fgn5U0bjnVdfWXwVKlk4UU1c4I5ReoATer
+	 p0fX9B+hEdLv+OiJZcYQx3QX/TOfevYSazJhONM8EYG0vqlpnruI8kDnxjXC1ReOwITdH
+	 ZdpfAwAVp3IM36fF0CcCgydk1FWo2AwXPEAPa9kWTJ08z1CRltEQLwXsZH/satxEiTB9T
+	 YuShnfn3OELH8tTkAQ9yCOq0023stFMX4zDbjbMGT3oqlpt4Lq1KUAUkJddevt3wRTbsX
+	 QctfTwycboEubmzaH7tGOUfwpcsoF9jwY9Wyg7IQ5Td9CGCIGcNxioFRSa92eIcRLFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jHYmmH/C";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jbob620V;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8127A606A31C;
-	Wed, 18 Nov 2026 11:13:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0C0606A320;
+	Wed, 18 Nov 2026 11:15:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHYmmH/C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08C251F000C4;
-	Wed, 18 Nov 2026 11:13:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jbob620V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46CBC1F000C4;
+	Wed, 18 Nov 2026 11:15:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795000428;
-	bh=Emak8Lm259YoIJ5aFedEql1wejCbZp03w6luolSmcoo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jHYmmH/CEPhhkA1F8K8VYzo6YYE/AvQW1kkuC2JZXWBZwjm1c+nbxUS0AjGQHmPXi
-	 tu3TYIhPlm/n57dvSP9+IoyYSUsK/BKK5nzd0AROgWHBP7d8NkQoYVvKUBj4iv4lCq
-	 TZI4MkL4XlI3QhwmqmfCijlrudzXysUPPHFrwZthQzbUcrfr+1wiZw3yVbb/UHQbaA
-	 /+L/LYWBk9weInCbSqtTdVCUpSdY+bpP3VVIiyKX8Blh1ZS6M02BnRJrylWzO7yapj
-	 PE4PXTFvLmDk8C/qIMKChnU4zPK7Ki0C3gGgoFLwpkgDVx5XOyobvdnUAND90Rzp57
-	 N9mmUV5pU6W5A==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xTdbl-0000000HUEo-2k8X;
-	Wed, 18 Nov 2026 11:13:45 +0000
-Date: Wed, 18 Nov 2026 11:13:45 +0000
-Message-ID: <865wxu1jfa.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: myrialsarvay@gmail.com
-Cc: Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
+	s=k20260515; t=1795000532;
+	bh=mngIjZvCePCgtonRcZIH7Xi6DzPuq+feV13etfIWIOw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Jbob620VKGRo6cBpg0LtKAoarODTFedMQDRm3UzTcQ4MA6e26aJoO+2OZXrjhnIRq
+	 cVvAsGBH8TXHGO8TQaZ+KF6EpjfdUhAFULfwG0VpTBXBpmMd3Yabk5msMhIhmFRuNU
+	 iINEo0jSw0/zjW8zSv6Q9ycNgRlD+HWLHwD/6qsCcv5NjAOfeR/rlBtNY5+2TiJX7d
+	 0kDOeYJJhxzlKAoyNX5rLLgcKFF4LyuJDbc+dZjL+dRz2YOPGAap/f0hImIzbj2qGm
+	 KBSIQ1xmCVk8msc8in+jAmC0SUMfXe4tbcqbx0T/D9VZTkaE2eFvWieriG2w11H0+0
+	 b0jiBvcVHQ7YQ==
+Date: Wed, 18 Nov 2026 11:15:28 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: =?utf-8?B?RnLDqWTDqXJpYyBNYWjDqQ==?= <frederic.mahe@cirad.fr>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev,
-	Yuvan Shen <yuvanshen09@gmail.com>
-Subject: Re: [PATCH v2 02/15] drivers/perf: apple_m1: Remove unused variables
-In-Reply-To: <20261107-m3-plus-pmu-events-v2-2-acf1e78da039@gmail.com>
-References: <20261107-m3-plus-pmu-events-v2-0-acf1e78da039@gmail.com>
-	<20261107-m3-plus-pmu-events-v2-2-acf1e78da039@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	Troy Mitchell <troy.mitchell@linux.spacemit.co>,
+	Haylen Chu <heylenay@4d2.org>,
+	Hung-Chun Tseng <alan.tseng.cs@gmail.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/6] clk: spacemit: k1: Keep pll1_aud_245p7 enabled
+Message-ID: <20261118111528-GKD156369@kernel.org>
+References: <20261117205951.140146-1-frederic.mahe@cirad.fr>
+ <20261117205951.140146-3-frederic.mahe@cirad.fr>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,34 +68,63 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: myrialsarvay@gmail.com, will@kernel.org, mark.rutland@arm.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, sven@kernel.org, j@jannau.net, neal@gompa.dev, linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, asahi@lists.linux.dev, yuvanshen09@gmail.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261117205951.140146-3-frederic.mahe@cirad.fr>
 
-On Sat, 07 Nov 2026 10:48:49 +0000,
-Myria Sarvay via B4 Relay <devnull+myrialsarvay.gmail.com@kernel.org> wrote:
+Hi Frédéric,
+
+I will forward to SpacemiT people, and ask them to clarify..
+
+On 21:59 Tue 17 Nov     , Frédéric Mahé wrote:
+> Accesses to the RCPU2 block (0xc0888000) hang once pll1_aud_245p7 is
+Access which register? is the PWM register in RCPU2?
+
+> gated: the CPU stops responding, even to NMIs. Nothing claims this
+> clock in mainline, so clk_disable_unused() turns it off at boot, and
+> probing an RCPU2 PWM afterwards hangs the board. The RCPU2 clock and
+> reset registers live in the same block.
 > 
-> From: Myria Sarvay <myrialsarvay@gmail.com>
+Usually access IP block with clock gated off will cause system bus hang,
+exactly the same scenario as you see here..
+
+> Mark it critical, as was done for the K3 RCPU clock.
 > 
-> These variables are calculated elsewhere as well, remove the extra dead
-> code.
+It just happen to fix the issue, but doesn't sound like a correct fix,
+usually, it can be fixed with correct clock topology 
+
+> Tested on a BPI-F3: without this, probing an RCPU2 PWM hangs the
+> board; with it, no hang, also with no PWM in use.
 > 
-> Signed-off-by: Myria Sarvay <myrialsarvay@gmail.com>
-> Fixes: a639027a1be1 ("drivers/perf: Add Apple icestorm/firestorm CPU PMU driver")
+..
+> Written with help from Claude (Anthropic); reviewed and tested on hardware.
+> 
+maybe just "Assisted-by: LLM"
 
-Not quite. In this patch, the variables were very much in use. They
-became useless with 75ecffc361bbc ("drivers/perf: apple_m1: Refactor
-event select/filter configuration").
-
-Please adjust the tag accordingly, or just drop it because this really
-isn't a fix, only a minor cleanup.
-
-Thanks,
-
-	M.
+> Signed-off-by: Frédéric Mahé <frederic.mahe@cirad.fr>
+> ---
+>  drivers/clk/spacemit/ccu-k1.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/clk/spacemit/ccu-k1.c b/drivers/clk/spacemit/ccu-k1.c
+> index dee14d25f..364388ff8 100644
+> --- a/drivers/clk/spacemit/ccu-k1.c
+> +++ b/drivers/clk/spacemit/ccu-k1.c
+> @@ -60,7 +60,8 @@ CCU_FACTOR_GATE_DEFINE(pll1_d11_223p4, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT
+>  CCU_FACTOR_GATE_DEFINE(pll1_d13_189, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(16), 13, 1);
+>  CCU_FACTOR_GATE_DEFINE(pll1_d23_106p8, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(20), 23, 1);
+>  CCU_FACTOR_GATE_DEFINE(pll1_d64_38p4, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(0), 64, 1);
+> -CCU_FACTOR_GATE_DEFINE(pll1_aud_245p7, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(10), 10, 1);
+> +CCU_FACTOR_GATE_FLAGS_DEFINE(pll1_aud_245p7, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(10), 10, 1,
+> +			     CLK_IS_CRITICAL);
+>  CCU_FACTOR_GATE_DEFINE(pll1_aud_24p5, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(11), 100, 1);
+>  
+>  CCU_FACTOR_GATE_DEFINE(pll2_d1, CCU_PARENT_HW(pll2), APBS_PLL2_SWCR2, BIT(0), 1, 1);
+> -- 
+> 2.47.3
+> 
 
 -- 
-Without deviation from the norm, progress is not possible.
+Yixun Lan (dlan)
