@@ -1,113 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794996315;
-	b=yw7lA5fmG5UtJ0CaPA+F6E1An94SiVcdTogx5UUL0NmbyzHOuRYwlTSZESacVJC0i/H/
-	 xZEWREsgd83Fyd8VPpbIIgcXiEOOO9dbVDiSjaz84iWibdk7SF80MdEA3VUF8UJma4G8x
-	 JdknmRLZsIatGqAKo+0w2JkxxnJseaYcdYDHw2jQIz9eWm938e7znvRRmT2S8NAtl/NfH
-	 Z4oP5+YlbNcIZC3Ql+t5b+B/kDmV0PXooCFt2Z6aJwxDNA+oDp7s84Kq+yBt+3VaJ5461
-	 4aSLMD/WFHH95jhjKL3GASUIie9Od1p5BPXyI6RLIGBmQmtb6Vsrtf3r8DnfSzS/i3g==
+	t=1794996399;
+	b=eov+yK7KlWliURXyq9ouzVfEuCo3afM3ETlLOsNxyuPNfzBUHuI7pYPNn9oxWyN9zpq+
+	 3G7+8azY7NI8ZNvYNy/jP7q67b6Kh1LARSbtYaD2sQCCNH87wtF+RsDhknI5Jl/6JzQMZ
+	 NEq7Tplc121wWK0oS8zRL9wTFAv2/+3gOobc2lhNmeF6mw4lxCIGU/fTdc9Kv3Fe7EcTb
+	 nC339PI8tvpHAMDgkRLo1f31Ie7V4+UznLYWfMxRPriGvNmS2t/gKoyYwzzKV2FAB59OD
+	 wRyo9UdI7phVjnSZLOL0iFexoAO/GQdxV9xncG5JtOPAIThd2oiAq2n4h0kvLtdf48Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794996315;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=dP4h85XmI1oLNRq4PDQGHhAv0vu8uXk4BOk79yd+920=;
-	b=I0HhGwM2Et1VE/vTcKYkZSXPRhx78v1T9nAdEJF+RO8ohT0cFSa/SObCqbgYWpiQq2DL
-	 VOOUXqG+ojV+oFLS0INuVXjPLCrjKq2k9pZhf9Kn5o8ZXOSFObJ/RT+iqp2WvdkfCWS5F
-	 XDxSTUHIp90JXKN7osVWH+6sXeW6HgfB4Tk/PdBVOhZDe99g2d93Uqwvt/kW34fcurtwU
-	 aAhOQuUonB7lV2KoRYrZDTH2SxAW+CqxDiQnDXzNM3GJfl+2pRtQl7i6Yqvs/yRVU1yEN
-	 GXiHQ1z76d/+Aj+0MPDfMIPqReZiX9NhmCgwk590s427AKj8cLpoXmT8/tIQyuXvPPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794996399;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=qCmOmJpcC2FGP3cCy+7KhCGTxbbsxggJFbMLpjMC52c=;
+	b=h7PubnK2apNohKbeZ1gPECFPA093/7Ta6XlySkyKuIsmD85wP+LJfQuw320cmxLjW0s4
+	 IVik8MIDuZate+znAl74U1YvqK5bP7DwKKualZsyXzsYjir1LnU4vA4Sd3gtlIirni5Io
+	 PVA4Er+xMcN8+dVw+C7x/1bLQiTtVCcU7jg1RHvJNG4afzR9jSSDFGxkyAY1hZcCFUyth
+	 JuMOdRTtUyWUNnzZ2K5lvatr5W5looz6qg+Hh7ujYAUE4fYE501VOuWOELvXYPwxtPsJK
+	 gA0wXBTq26OjXPPIEqOxuC7ml/e1FC+mMOMlm2HzBiYohcnX9+lkot2+SH14kNKCNEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=c+lilmnQ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="c/9yIMUb";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RARPlkwl;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C741606A88A
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:05:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C741606A88A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA509606A325;
+	Wed, 18 Nov 2026 10:06:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA509606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=c+lilmnQ;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c/9yIMUb
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AI9kHjb4082243
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:05:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dP4h85XmI1oLNRq4PDQGHhAv0vu8uXk4BOk79yd+920=; b=c+lilmnQUlGKm6Ju
-	ilTlBRRDIjYlfWlhp2mabYA9fwX7gF2VnNr13rhi1LQ8H0cQq9Xf/+dqjB8S9Zba
-	0ar9YmYGvl+QZhOlgTqmvSVHw6wnOBmhUi9JAvaq+/vro2bEkBycsTjG4Q4U/T+3
-	wdI/kl3HnlkmIgH/NYStQU68yN5Xfj2CvW8pVKgPWlB06/rn3S1YL/He8o6hSt2n
-	tMulpzZyQsEZpE+phNsUD4lnSftBZbpFxRnEDiEeG9t1JBXdDNtLRLez/FzGwh9y
-	pbzOAoC71yakzZctIkszwcG5jbPneoynvjl8nqw2hJWzwWfERL5V0kCCvwS+GmGm
-	A1Odtw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yv9jdrh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:05:13 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9495af07676so141851485a.2
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 02:05:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794996312; x=1795601112; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dP4h85XmI1oLNRq4PDQGHhAv0vu8uXk4BOk79yd+920=;
-        b=c/9yIMUbY1sWLzz2sq7r/RG+SaM+oDEzq6kYxDoeyfQFY6wo2Fh0z2RGr/6s0soWV1
-         jCXrfISo87ByVefGbcndGtgmjqNEiPAUz9TjAfiPcWilA/mM6F+jn0Yqev87N7VN7MzZ
-         lacumYNqSHfZ21mA5vKfd2Pg6UbYYiBVEYnR4m6NzyHdOBNIgJfFNXBfsKeZNeWPH4+9
-         FE/fqNREq1/suWxCjVFITX6E8ubeopm3+vgaOIXC34zkVjVz1fGfwqmC5ew//8b84/zs
-         CnN0vDXL5Ej12iO8b5FnFNolJEMdMsSD2zXNatze6Hez/go3AL0B81/4vvZ/l5ozkxGu
-         unTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794996312; x=1795601112;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dP4h85XmI1oLNRq4PDQGHhAv0vu8uXk4BOk79yd+920=;
-        b=DPHEitu+kMVKvj7YuW4iuguZEyg4L8ZxJjMk6fI2iXQaphwooaE9KrL0Su2vQF9GfF
-         089Zrivfo4y6iKR/rhRhf4RfV4gkGCUxYP8FPhxzQcL/u7RdtW/TlyzWmAveKUCzrkyL
-         P2ynOljdWu4+LF+jWcUXt0q4qDjI6du7a+A+28nLWHQyfvS/ooZDLtnPbaX+cvMl7jCV
-         +CgINZTEDNQAbR/3IN5V/+SsDiRtMPMl3I/taSiayBRBmkccN28b9v6XBh0b9azGy3V0
-         Qh1SP8E3UCkQJKUUXBcpS8OcYbtdRLLlicMMiM/tnpTz3jhAZmdfw+53MggEV2QYviBK
-         rGug==
-X-Forwarded-Encrypted: i=1; AL+hErGH5w1LO9FGq8rGHaMdb3jByVKS/UjRcDJXCiib92Grj/3sJ1bgp+nu9snLyin4lO0peiVBtgk4ZsG3@vger.kernel.org
-X-Gm-Message-State: APuU4Z9VosuzREToBjGfiRxQ4sKxo/jGeeoO/Iz8pErHhL31l6VCyh3y
-	9faRN6MiZ0asJPSaMPCK1ETi0hjIwJPR4js8rBfpXP4c61B2erxf84CzPxARQniww5WUS8QKCfj
-	qOlBa+/xaXzBZZjL7ri1J4z5yAGvtQ06wJQdbQH7pCQsIMtF6d7YC+PsY/TAvV2j2
-X-Gm-Gg: AYBFou3P5YPgqwLexCA+ONcpL+KKgGRE5LAZn3ndeD1boM2E5aDZOHoGCtTedbsEIHV
-	pDjTe3NvOKHiIJZqHl1K4O5Kvavv3Y5HdVUYfnqHSIwS+F72MMEmESzd6kAIpiqMOADU+7oQnhh
-	fAxrUzGMtCXbuNtNJDtp8FQArg7qk1uLCfvxOa/kd+i90wxpAkNS+rS9cxnAGGzkPMbq3zLkcPF
-	adDnJmbWd7y/hJe5BFZReXkYQKkP/8NEOE+Opfk74jAFiXNZBZCSi6I7TK4Mb0Njp76NI8F3CM3
-	rVGu0gATbkWiaTKGO25BbA/eFTVXYqI6m5cnADfOr514SS8vyYWcjdepzQAhZ3wachzyNk6Ctr9
-	lClHbdgqIIL5icbv4MAk6LEC0pqmUeFA3XP53R8wLXSOYTFgUmu46cZQ5W0TPN8dLbMNZ1QtYRl
-	w=
-X-Received: by 2002:a05:620a:2b88:b0:949:61c5:73b8 with SMTP id af79cd13be357-9499972bd33mr365003285a.44.1794996312338;
-        Wed, 18 Nov 2026 02:05:12 -0800 (PST)
-X-Received: by 2002:a05:620a:2b88:b0:949:61c5:73b8 with SMTP id af79cd13be357-9499972bd33mr364999585a.44.1794996311869;
-        Wed, 18 Nov 2026 02:05:11 -0800 (PST)
-Received: from brgl-qcom.local ([195.50.164.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a65609389dsm3735509f8f.37.2026.11.18.02.05.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 02:05:10 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Wed, 18 Nov 2026 11:05:03 +0100
-Subject: [PATCH v3 2/2] arm64: dts: qcom: lemans-sa8255p: add ethernet
- nodes
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RARPlkwl
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 1A6E34E4158E;
+	Wed, 18 Nov 2026 10:06:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D98125FE9B;
+	Wed, 18 Nov 2026 10:06:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DED9E11BC0D79;
+	Wed, 18 Nov 2026 11:06:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794996395; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=qCmOmJpcC2FGP3cCy+7KhCGTxbbsxggJFbMLpjMC52c=;
+	b=RARPlkwlHYcyuTl1CrJ/7/xqQQvmKVGcXSnJ2p7sgnEV3yFjfs2/YEZSKBkbt3X6eJsN4+
+	Y4wtG8SCnCJ6vjdmdcs9J4Sq5D8gicVIh7W77KSsTp4qe6mdQVux52vLtjOHieqPbv/Y5N
+	MWc1f3ADc2CmBCs/Rilutm04MGWpiiwuLOcFCy16/f8KkJWJnkAXI2cWj1bJ8zAPp08hXq
+	NAmmQ312jnq3J8PhTMzcr1ENQ3SykZfSVsgWH5bpPcf0XVR9gUO8iowKEy5N3lTxxzGkZh
+	sy5n8sSHztOZ8dqAPRBaH0qm6nJIfJM26yVgm9LAINUGsD8fWEFtKL4799ofpQ==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Subject: [PATCH v8 0/3] Add Renesas RZ/N1x EDAC driver
+Date: Wed, 18 Nov 2026 11:05:56 +0100
+Message-Id: <20261118-paul-v7-3-rc1-edac-v8-0-ed791084cc19@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,370 +65,184 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-sa8255p-emac-dts-v3-2-e2c365d95a0b@oss.qualcomm.com>
-References: <20261118-sa8255p-emac-dts-v3-0-e2c365d95a0b@oss.qualcomm.com>
-In-Reply-To: <20261118-sa8255p-emac-dts-v3-0-e2c365d95a0b@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Andrew Halaney <ahalaney@redhat.com>,
-        Richard Cochran <richardcochran@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6727;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=eD+JGrj/A1Wbvg7snYomXvbIuNT5d1KFlfmI3BIPkm0=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq/XhQt/Xut0Hjz5TlihasvU4foTMGjHXd3xXFR
- tFoFj6MR7iJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCav14UAAKCRAFnS7L/zaE
- w/pXEACrxNDH/kJlfodedNfAMRAYSPq+wl4VWBuwoR6KZ1YudJ1dg5WjjT29Ron3uL9fJtHeY46
- K4tAiyZxHZUDRxBHah12UqE2jlyUKeKeyenY5KATuJiUi6DBWJbGVLIj0tjTKJcMJM/IGnNjo70
- PjcZT1Drb1bmh+90bzibrhgFIahVduW2DQoRVNl8dZjwn1Y5SyV00UO9t9Xkc0bOiLTM8PRoTGV
- JdxCWVSp75WcpemdmC+1x+gC3DynwTMVr4PO5cksmnsiN2ioIOvN9pX7MClMjGYS7pjQsNWiH0I
- YBjivILUDP9aN7LKPs7jBjtBzDrIAshJDSeaRI4GxgNJGhBfRnob1vQkjqN6I7IhSCiZ/2y4Zbm
- W6BBDkSUYRLf340HpDDXD+c36REv/3Nvkg1UFkm0PUAwG3fCpBt3ieTh5ngMYcAr4tfz0U8JAHd
- 16v35hRaMuI4jvVwyA+MDML3/ilUI15NrspE1/IsaKSVQWeqh9ovsKr+xpOBkmN2uMGuvSEOnQD
- mX8IE1Fht7TWZQyOHN7aXuJmbNDr1hgn3NWB0vGsd80XGG9pMkjtzoAlZP6bBF9mXoW74FkJoE+
- AO9kQ1j/AXTR6OglArvQn3cxR9dP9bp4xI79rmpvJkHDdnh6ocvLUJUwBnGxnwOsKqQoTK9+ucJ
- jE/SeOCPVfY5qcQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-GUID: AHw1tGm3Gok22vSLGp8liMCpVy9emEbQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAzOSBTYWx0ZWRfX41fK8Z6bJxeF
- kvj//TI1xtiHtwwHrYxskkBGmtlPQe3l7k+chITPbYuBU3K+84r5OkTgnW/BX3UclVt3LT8lFbZ
- tvlK5gaOpTG+0hp89HDnpZgjfqqdqNE=
-X-Proofpoint-ORIG-GUID: AHw1tGm3Gok22vSLGp8liMCpVy9emEbQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAzOSBTYWx0ZWRfX18S8Al35QxhA
- p6Qf0f7tCn/1yL0Mr8jny8JfFRgVgFe2810rdsPrqm9hWdn/w35UDK9C/5uWxjoT21AGuzo655q
- G2fYrRankxd0CvHVXTKbkhq4hx1Vko7Qk5TPl6r/HTJA4ickJS7DGWgR7dxAn9LRziZ6BPjBjaN
- udXmQKWVfMEDQDTABAYt8OxK07vh3YTwf4wEyxPZa0gt8HZvNp3fCoacG4QfCvRNonLgaHG495J
- ax/cKlHyVg6NhoPiOk8IMyLVSuNg5CXYNr04e9Yb6lrd0P6s7p11zw+8m5J1vsjSlQcikPKcgLO
- Ly6/3E5nBYoLlZ3q/7nT3eD/CqoPA/h1YblcHZEIsmLYmIIUjuVhYcdqSYu/O4riANjGV+SEwFg
- LisusSSjw17TV+fy1EHEmGle8/jJyvi+3YSep15At4n2zL5keMEVezDi0mGNc9YmAMlz3PMC5oD
- difUIkHfOioZc5VE2vg==
-X-Authority-Analysis: v=2.4 cv=RYIFmFtv c=1 sm=1 tr=0 ts=6afd7859 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=LwjCQcZIY1nU89AU52wA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-18_02,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- adultscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180039
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XQ3UoDMRAF4Fcpe21kJv/rle8hXiSTxEa0W3bbR
+ Sl9d5MWZMtGoZcDc745zKmb4pjj1D1tTt0Y5zzlYVcG+7DpaOt2b5HlUOaOA9fQo2Z7d/xgs2G
+ CjYQsBkcMkzR96nUiZboS3I8x5a8L+vJ6naejf490qFLd2ObpMIzfl6sz1r1/D8zIgAUQ2lpuB
+ ffu2Q/D4SPvHmn4rN41zOWfYQM+CkMSHdqbcO0382UD00R4QZJSFkFggBTvalDDnlCCRo2RaN1
+ ALBpw0UREQZQVaMkJ6Z24q0EN+2BBSac8Wlg3kMsGtonIgkgtdSEMOerXiPpFEEA1EVWQ8gkHC
+ bn01GiiFwi2f6ELwhMGnXgyMvg1YpZI30RMQawko0kHo3p1i5zP5x8yOxFJHQMAAA==
+X-Change-ID: 20260916-paul-v7-3-rc1-edac-1f479f96fc57
+To: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ "Paul Louvel (Schneider Electric)" <paul.louvel@bootlin.com>, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794996390; l=5317;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=GIpYZo0Crxj1Ka1uH8kyoppsBd0qzhQ1vSLadZTSV8U=;
+ b=G8gT64nEIQ9OEyliec5pq6cbKRwkBmtavblq9NAqmP9Nqv02d1OS4zC+GFtgNldCmeNghM//l
+ g4kHYw0ZoNjAjX1aaXC9tXR1NjFzHy4v7gJfJgE8gYGHZ4z/4gMLkwP
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Add the ethernet nodes along with their serdes PHY nodes for the gearvm
-variant of the lemans ride board. Enable scmi7 and scmi8 to serve the
-EMACs.
+The Cadence memory controller found on Renesas RZ/N1x SoCs supports ECC
+with SECDED.
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+The memory controller found on the r9a06g032 supports at most a single
+DIMM of DDR2/3, up to 2GB.
+
+Add the EDAC driver for this memory controller, and the relevant
+device-tree binding. Also add the EDAC node to the existing r9a06g032
+SoC base device-tree.
+
+Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
 ---
- arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi      |  34 ++++
- arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts | 201 +++++++++++++++++++++++
- 2 files changed, 235 insertions(+)
+Changes in v8:
+- After discussion with Wolfram and Geert, the driver have no reason to
+  be disabled by default. Remove the status property in patch #3.
+- Reparent on next-20261116.
+- Link to v7: https://patch.msgid.link/20261019-paul-v7-3-rc1-edac-v7-0-84c76c6d7595@bootlin.com
 
-diff --git a/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
-index 91c97a55f2787406b104650956b9a511a6a34c23..aaa8d96dfa61984afaeb13d7543140dd1724979d 100644
---- a/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
-+++ b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
-@@ -58,6 +58,22 @@ &cpufreq_hw {
- 	clock-names = "xo", "alternate";
- };
- 
-+&ethernet0 {
-+	compatible = "qcom,sa8255p-ethqos";
-+	phys = <&serdes0>;
-+	phy-names = "serdes";
-+	power-domains = <&scmi7_pd 0>, <&scmi7_pd 1>;
-+	power-domain-names = "core", "mdio";
-+};
-+
-+&ethernet1 {
-+	compatible = "qcom,sa8255p-ethqos";
-+	phys = <&serdes1>;
-+	phy-names = "serdes";
-+	power-domains = <&scmi8_pd 0>, <&scmi8_pd 1>;
-+	power-domain-names = "core", "mdio";
-+};
-+
- &firmware {
- 	scmi0: scmi-0 {
- 		compatible = "qcom,scmi-smc";
-@@ -2898,6 +2914,24 @@ &scm {
- 	memory-region = <&tz_ffi_mem>;
- };
- 
-+&soc {
-+	serdes0: phy@8901000 {
-+		compatible = "qcom,sa8255p-dwmac-sgmii-phy";
-+		reg = <0x0 0x08901000 0x0 0xe10>;
-+		#phy-cells = <0>;
-+		power-domains = <&scmi7_dvfs 0>;
-+		status = "disabled";
-+	};
-+
-+	serdes1: phy@8902000 {
-+		compatible = "qcom,sa8255p-dwmac-sgmii-phy";
-+		reg = <0x0 0x08902000 0x0 0xe10>;
-+		#phy-cells = <0>;
-+		power-domains = <&scmi8_dvfs 0>;
-+		status = "disabled";
-+	};
-+};
-+
- &spi0 {
- 	compatible = "qcom,sa8255p-geni-spi";
- 	power-domains = <&scmi10_pd 0>,
-diff --git a/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts b/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
-index 6f19064997a4b50525fdf630307b843604368645..991626589cc34112df6e024d988bf87e6f520017 100644
---- a/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
-+++ b/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
-@@ -14,6 +14,8 @@ / {
- 	compatible = "qcom,sa8255p-ride", "qcom,sa8255p";
- 
- 	aliases {
-+		ethernet0 = &ethernet0;
-+		ethernet1 = &ethernet1;
- 		serial0 = &uart10;
- 		serial1 = &uart4;
- 	};
-@@ -101,6 +103,173 @@ trip1 {
- 	};
- };
- 
-+&ethernet0 {
-+	phy-handle = <&hsgmii_phy0>;
-+	phy-mode = "2500base-x";
-+
-+	pinctrl-0 = <&ethernet0_default>;
-+	pinctrl-names = "default";
-+
-+	snps,mtl-rx-config = <&mtl_rx_setup>;
-+	snps,mtl-tx-config = <&mtl_tx_setup>;
-+	snps,ps-speed = <2500>;
-+
-+	status = "okay";
-+
-+	mdio {
-+		compatible = "snps,dwmac-mdio";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		hsgmii_phy0: phy@8 {
-+			compatible = "ethernet-phy-id31c3.1c33";
-+			reg = <0x8>;
-+			device_type = "ethernet-phy";
-+			resets = <&scmi7_rst 0>;
-+			reset-names = "phy";
-+			reset-assert-us = <11000>;
-+			reset-deassert-us = <70000>;
-+		};
-+
-+		hsgmii_phy1: phy@0 {
-+			compatible = "ethernet-phy-id31c3.1c33";
-+			reg = <0x0>;
-+			device_type = "ethernet-phy";
-+			resets = <&scmi8_rst 0>;
-+			reset-names = "phy";
-+			reset-assert-us = <11000>;
-+			reset-deassert-us = <70000>;
-+		};
-+	};
-+
-+	mtl_rx_setup: rx-queues-config {
-+		snps,rx-queues-to-use = <4>;
-+		snps,rx-sched-sp;
-+
-+		queue0 {
-+			snps,dcb-algorithm;
-+			snps,map-to-dma-channel = <0x0>;
-+			snps,route-up;
-+			snps,priority = <0x1>;
-+		};
-+
-+		queue1 {
-+			snps,dcb-algorithm;
-+			snps,map-to-dma-channel = <0x1>;
-+			snps,route-ptp;
-+		};
-+
-+		queue2 {
-+			snps,avb-algorithm;
-+			snps,map-to-dma-channel = <0x2>;
-+			snps,route-avcp;
-+		};
-+
-+		queue3 {
-+			snps,avb-algorithm;
-+			snps,map-to-dma-channel = <0x3>;
-+			snps,priority = <0xc>;
-+		};
-+	};
-+
-+	mtl_tx_setup: tx-queues-config {
-+		snps,tx-queues-to-use = <4>;
-+
-+		queue0 {
-+			snps,dcb-algorithm;
-+		};
-+
-+		queue1 {
-+			snps,dcb-algorithm;
-+		};
-+
-+		queue2 {
-+			snps,avb-algorithm;
-+			snps,send_slope = <0x1000>;
-+			snps,idle_slope = <0x1000>;
-+			snps,high_credit = <0x3e800>;
-+			snps,low_credit = <0xffc18000>;
-+		};
-+
-+		queue3 {
-+			snps,avb-algorithm;
-+			snps,send_slope = <0x1000>;
-+			snps,idle_slope = <0x1000>;
-+			snps,high_credit = <0x3e800>;
-+			snps,low_credit = <0xffc18000>;
-+		};
-+	};
-+};
-+
-+&ethernet1 {
-+	phy-mode = "2500base-x";
-+	phy-handle = <&hsgmii_phy1>;
-+
-+	snps,mtl-rx-config = <&mtl_rx_setup1>;
-+	snps,mtl-tx-config = <&mtl_tx_setup1>;
-+	snps,ps-speed = <2500>;
-+
-+	status = "okay";
-+
-+	mtl_rx_setup1: rx-queues-config {
-+		snps,rx-queues-to-use = <4>;
-+		snps,rx-sched-sp;
-+
-+		queue0 {
-+			snps,dcb-algorithm;
-+			snps,map-to-dma-channel = <0x0>;
-+			snps,route-up;
-+			snps,priority = <0x1>;
-+		};
-+
-+		queue1 {
-+			snps,dcb-algorithm;
-+			snps,map-to-dma-channel = <0x1>;
-+			snps,route-ptp;
-+		};
-+
-+		queue2 {
-+			snps,avb-algorithm;
-+			snps,map-to-dma-channel = <0x2>;
-+			snps,route-avcp;
-+		};
-+
-+		queue3 {
-+			snps,avb-algorithm;
-+			snps,map-to-dma-channel = <0x3>;
-+			snps,priority = <0xc>;
-+		};
-+	};
-+
-+	mtl_tx_setup1: tx-queues-config {
-+		snps,tx-queues-to-use = <4>;
-+
-+		queue0 {
-+			snps,dcb-algorithm;
-+		};
-+
-+		queue1 {
-+			snps,dcb-algorithm;
-+		};
-+
-+		queue2 {
-+			snps,avb-algorithm;
-+			snps,send_slope = <0x1000>;
-+			snps,idle_slope = <0x1000>;
-+			snps,high_credit = <0x3e800>;
-+			snps,low_credit = <0xffc18000>;
-+		};
-+
-+		queue3 {
-+			snps,avb-algorithm;
-+			snps,send_slope = <0x1000>;
-+			snps,idle_slope = <0x1000>;
-+			snps,high_credit = <0x3e800>;
-+			snps,low_credit = <0xffc18000>;
-+		};
-+	};
-+};
-+
- &gpll0_board_clk {
- 	clock-frequency = <300000000>;
- };
-@@ -145,6 +314,14 @@ &scmi6 {
- 	status = "okay";
- };
- 
-+&scmi7 {
-+	status = "okay";
-+};
-+
-+&scmi8 {
-+	status = "okay";
-+};
-+
- &scmi11 {
- 	status = "okay";
- };
-@@ -162,6 +339,22 @@ &sleep_clk {
- };
- 
- &tlmm {
-+	ethernet0_default: ethernet0-default-state {
-+		ethernet0_mdc: ethernet0-mdc-pins {
-+			pins = "gpio8";
-+			function = "emac0_mdc";
-+			drive-strength = <16>;
-+			bias-pull-up;
-+		};
-+
-+		ethernet0_mdio: ethernet0-mdio-pins {
-+			pins = "gpio9";
-+			function = "emac0_mdio";
-+			drive-strength = <16>;
-+			bias-pull-up;
-+		};
-+	};
-+
- 	pcie0_ep_clkreq_default: pcie0-ep-clkreq-default-state {
- 		pins = "gpio1";
- 		function = "pcie0_clkreq";
-@@ -205,6 +398,14 @@ pcie1_ep_wake_default: pcie1-ep-wake-default-state {
- 	};
- };
- 
-+&serdes0 {
-+	status = "okay";
-+};
-+
-+&serdes1 {
-+	status = "okay";
-+};
-+
- &uart4 {
- 	status = "okay";
- };
+Changes in v7:
+- Patch 2: fixed weird formatting of cdns_ddr_ctrl_of_match.
+- Patch 3: did not sync trailers added in v5. Added Reviewed-By of Rob Herring.
+- Link to v6: https://patch.msgid.link/20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com
 
--- 
-2.47.3
+Changes in v6:
+
+- Patch 2:
+
+  - Sorted the includes alphabetically. I have also ran a check with
+    IWYU and, after careful checking, there is no superfluous header.
+
+  - cdns_get_mem_sz() helper inlined into cnds_setup_mc().
+
+  - Debugfs helpers built unconditionally with no-op stubs if debugfs is
+    not selected.
+
+  - Port command channel error reporting removed since it does not
+    belong to an EDAC driver.
+
+  - Removed useless comments.
+
+  - Renamed macro prefix to CDNS_* instead of CDNS_DDR_*. Also indented
+    all the macros definition at the same level.
+
+  - Dropped cnds_ prefix to the private structure.
+
+  - Shortened interrupt unmasking into a single macro to shorten line
+    column length.
+
+  - OR'ing flags to detect type of errors in irq handler.
+
+- Link to v5: https://patch.msgid.link/20261005-paul-v7-3-rc1-edac-v5-0-140a0f124bc0@bootlin.com
+
+Changes in v5:
+
+- Patch 1:
+
+    - Reworded commit title.
+
+    - Dropped unused label.
+
+    - Switch to plain flow scalar for description.
+
+    Note: keeping cdns,ddr-edac compatible after Krzysztof's comment.
+
+- Patch 2:
+
+    - Setup IRQ after allocating and registering the device to EDAC
+      core.
+
+    - Explicitly free the interrupt line with devm_free_irq() to avoid
+      any UAF before releasing MC.
+
+- Link to v4: https://patch.msgid.link/20260928-paul-v7-3-rc1-edac-v4-0-4646a5b7cac9@bootlin.com
+
+Changes in v4:
+- Patch 1 and 3: drop the RZN1 family compatible, as requested by Geert.
+- Patch 2:
+
+    - Instead of using FIELD_MODIFY macro that expect a compile-time
+      constant mask, use binary operators instead. Note that the new
+      code is doing exactly what FIELD_MODIFY do, minus the error if
+      cdns_rmw() is not inlined.
+
+    - Use a spinlock instead of mutex since the locked region will be
+      really fast to execute. Only lock it once for two register rmw.
+
+    - Use edac_debugfs_* facility instead of sysfs attributes. Use a
+      separate "bits" and "inject" file instead of just a single file.
+      This is better since clients can read the previously set syndrome.
+
+    - Cleaned up the probe function in separate functions. Use a remove
+      function instead of registering custom devm action. Use a goto for
+      resources cleaning.
+
+    - Mask all interrupts before un-registering the memory controller.
+
+- Link to v3: https://patch.msgid.link/20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com
+
+Changes in v3:
+- Patch 2:
+
+    - Added trailing newline to end message.
+
+    - Forgot mutex_init() in probe...
+
+    - Registering the MC at the end of the probe.
+
+- Link to v2: https://patch.msgid.link/20260924-paul-v7-3-rc1-edac-v2-0-bc1406161ecc@bootlin.com
+
+Changes in v2:
+- Patch 2:
+
+    - FIELD_MODIFY() is always called with a compile-time constant mask
+      in this driver. I see no problem here.
+
+    - Use devm_clk_get_enabled() so the driver does not need to store
+      struct clk_bulk_data outside the stack space.
+      Clocks are not manipulated outside of probe.
+
+    - Introduced a mutex for rmw operations in inject_ctrl_store() sysfs
+      callback. Rename drv to priv in cdns_rmw().
+
+    - Return IRQ_NONE if the stat int register is empty.
+
+    - I see no reason to follow Sashiko last remark on this patch.
+      Is an unhandled interrupt a big deal in this case ?
+
+- Link to v1: https://patch.msgid.link/20260924-paul-v7-3-rc1-edac-v1-0-70be37c41a18@bootlin.com
+
+---
+Paul Louvel (3):
+      dt-bindings: edac: cdns,ddr-edac: add Cadence DDR EDAC
+      EDAC/cadence: Add Cadence DDR EDAC driver
+      ARM: dts: renesas: r9a06g032: add EDAC node
+
+ .../devicetree/bindings/edac/cdns,ddr-edac.yaml    |  61 ++++
+ MAINTAINERS                                        |   7 +
+ arch/arm/boot/dts/renesas/r9a06g032.dtsi           |   8 +
+ drivers/edac/Kconfig                               |  10 +
+ drivers/edac/Makefile                              |   1 +
+ drivers/edac/cadence_edac.c                        | 379 +++++++++++++++++++++
+ 6 files changed, 466 insertions(+)
+---
+base-commit: 749a4de370409464cf8501ec5b2451df45c84eb4
+change-id: 20260916-paul-v7-3-rc1-edac-1f479f96fc57
+
+Best regards,
+--  
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
