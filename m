@@ -1,56 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795025453;
-	b=189a0sMTi1CyxYBE5UGebqFNZ1Am/2iRYpzp+vx23dvnp8O7b0aTIpCAAjWw8FrtTM2N
-	 gMuKxqO25hugrkDF1PPNN3/pvBP32B6Nx/v208GPThUsge7NVx4u6eaCqUdPHrbDPvYRy
-	 OmELHoZ1RbN1boFo1+B0MxQ91O5xtGaSX8+XirgVkVgbCp3lp7hH9Bc+3vvNUSB03pn6o
-	 GYLXdPQuxM816eM3SXTg1Ox2tTSiW8yFRpm91hEcR3SI1vi3Ah37g8m921fHK2vKPPo6S
-	 khI9TR3M6D+G3s1FsIKE6Ndzb0xPC4n3Zf54jqY3njJObFbHfXFYtWyIMAQMLN1kmmg==
+	t=1795025464;
+	b=dj4mpX/gGyWxm0/KCb6KXkTh8jCZQSUbmBw6YfWzodrlpAzhiF1N/9iKV1qTxHyacwv1
+	 J8Tg3YzDcRDxfJuk46L9OVxX4YVQGfAnHIboqPwS6esHEK2xpXdcKYFluQrnzkaaz+Ih/
+	 fMg1XJ6/ZFryWillxEXeq6+A1rmquySbM6eANUWhUmq8Pe0U1TNigUSyA8+xSscmnFNRh
+	 wTTKUGtc2E8AS2WxW/Zmv3Jgq8tXnZYie/ctKWsLuuenloBSpTsQv2PAJCn5nVIp9F+Fy
+	 wSrRy/ZstDmaGZ4XXucCQp83+AceNc5A6yh1+kxEzb/9GPU8C9ab/jEj/mb5ScxudHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795025453;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795025464;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=tVpW8yknHbEB3ad015rJhSNZ/njmV5BYW52CrtwAUXA=;
-	b=EcD+J2zXpWHx3jZbrM2ib63K0zDIZ/XhmwIqamH5jwQpDBYJCDgvSlrkjvjWpR5lIOmg
-	 8t3HizOvLTyhkp0sGw8jsnqA/jgxiJJ9qKPK7tb+u4K9Wisi+MWSDjuKpgscMU5gHEHZW
-	 R3q13hT4vJ6I4qkwY8s89vFvn/HN1k7rxAkLB47hKdfEVPZcy3ajFqye7XtuNXDAXn7UI
-	 V8KOLj/WaL0aTcUEwtTjZQFkB31NmvnDdJu0XIjEpaYEhmH6uEtQqXBnv7maR/iiJEhiA
-	 729RmwtzJCCnMlZMPE9VWHbLqpC2GiU/QQQdJjJupPohEK1mjMHPUG9gBP1f7RIiqMQ==
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=h+nI0N1fI6gl+3hdnXgBqPEyuibrGS+Uti+mYCJPRCg=;
+	b=5IIi7fEProR0o95dd/Mya1A6GhLb5eich1Lf1z8JT0QD5aCrJeNEmuFhFXgmJCnAKmRd
+	 VDIh94VMiOXlUjxEIAZX7eYqoiG2881wpmz9B7ft4PB5buSs5d1R6rc2kP9U05Pql2jUM
+	 n56NS/+JXLwEtLaiCnddoDkuBfwcmAV0gC1jKTvAycKPaKsIb3D6NaNNIedR2SWdX906f
+	 QWkffUjKgfrtwuaLQfGNVv2lITUhruAuX+7K9EP5mcf11/6AdAFDnheAfcgNDoH6eBGyn
+	 As+Z6rDQwBkghmfgfXZ0A2KXDj8dXDzXqQTX5uOdUa9Ts2Qgs1GywJlN/ksDweq4aOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b="CBun/UzZ";
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Cc02dmjO;
+	arc=none smtp.remote-ip=209.85.215.226
+Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9776D606A31C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 18:10:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9776D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5B4606A33B
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 18:11:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA5B4606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=CBun/UzZ
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 2FD0A53401E9;
-	Wed, 18 Nov 2026 19:10:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1795025449;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=tVpW8yknHbEB3ad015rJhSNZ/njmV5BYW52CrtwAUXA=;
-	b=CBun/UzZ9RDYgOlMwOWwtzEiRuEUxAO3ALC74b1y1zeG/zvmnlWsZb+3F4p+DNOEh+IHeD
-	5SvY+3dqwsdGlJDf3LeDoiP1NwXhG1hFEGMDnAQlT69OwdRghNLUFkNV40AMI/aI7Ch4AO
-	UPAFTMRr2o2andphmQmCD0y+un4v64o=
-Message-ID: <2d102c43-d82d-4782-af72-acfcc9c02aea@ixit.cz>
-Date: Wed, 18 Nov 2026 19:10:48 +0100
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Cc02dmjO
+Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso950479a12.0
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:11:03 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795025463; x=1795630263;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=h+nI0N1fI6gl+3hdnXgBqPEyuibrGS+Uti+mYCJPRCg=;
+        b=09lMfVEkhxKy0VgeZa2MlCjF3fMJYYKdyMkrLNAyO4waLQqAlfLoHpfoUCio8CIRgE
+         7/X7xTNoFUFcFRqdXlEyKRhdEVbqp0s14YZg/wfQT59o339xPw96Zx+Z8QP6m2So6ADM
+         4e/WYADNPgPxv1N7cfKs52h8fl6HWHYMdko7NhVjS8vDUfc7zLMRFmpOzkShJKDle8Sj
+         9+oz8qVb57qlC3XICjt/B1R0Eo3wIXFsTJdqFmZb3IZfoKoc6vIHYnOURHDJhdK7InqC
+         aHa2xY4lYdscWmIi0L7ywRArT2jLNoqlmlPRlphq8rKtwmfbHscj9xTQNBog/vxZpakS
+         d0fg==
+X-Forwarded-Encrypted: i=1; AL+hErHTNDFdlIw91x7uMCiif2Qcvd6bS5QWh4useXrA3C6lW4psUO0orJ+NeDYDuwasd/wSkOG+C8nwYkoa@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0TXGms0ErTWIP23yLmTM6lL1XaC8Cbfjq+TTnpFBKIHO1T/an
+	XWHpTrGz7xPyTOu7PhM5z/AKJ2uN8d675yC+4NKpnnzI9PhtSz3JAMXZALbSMuU4F0FyiglM2QX
+	0HpqVVTeLsZKbnMCYAVxZynK5p1RxlnIx72qnC77yA0vehGFR6AUuS54hMq+JAXFmWIFBYobloU
+	lH/8c9x/Dc5D+DOTKihBxo+4IKlWBtUtvVvixXUdK3z07MYTYqe0tvvGll8L8jC3Sj9sWdRE9a2
+	K+iM0RjwLgr9BYF/fmuTg==
+X-Gm-Gg: AZFdTZcaqLonV65+nasxeTxDRIR7TIxwlsiVTFnkgg6jbkC/8Lx9uHPRRvJpqMaamqw
+	azW9LSV5nVCRHbjYpEmdPawB7P8d1sw2v8V1gcg2A9vOhe4aH+p/7Z78Ov6aKMWZuWd7/HHON0K
+	sykGtFnoe7u+OFNOHMBC5g1WYPtz0scaY7aqaOD+Z6MhhvSeCeSw+Wh3urxQz8rWHjOnOhj4+7O
+	UK97DHOMqDoTx/5AZU0FvNyHIMzqP8aYpsCFhfCuHHVrKgsYCDlK0w/cRkJCgaI78Oh0WhC5FEA
+	S1frvhkdJuXNwsuYu6aNP6rf/+Ow3qe3+vR86erGOPkba5nWsVuZMLl5MPz1P4A3DGYHtSv6VXk
+	hI7a5TZIcXRqzJvqZ/VJ+fMWi3ohR+gWGpjmEPLv/JCiG9++CHBazSGtT2TVN+O3Ar+sMtzHcH8
+	uGekrqPYwnOs6k0v3OORIvGbaxk1h0eBuZhE/v5lvxbbg=
+X-Received: by 2002:a17:90b:4a05:b0:3b3:ab75:c94f with SMTP id 98e67ed59e1d1-3b3d07b908fmr3555487a91.31.1795025462700;
+        Wed, 18 Nov 2026 10:11:02 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-123.dlp.protect.broadcom.com. [144.49.247.123])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b3f6be27ecsm156899a91.8.2026.11.18.10.11.02
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 18 Nov 2026 10:11:02 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-94960bd17b5so209178985a.0
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:11:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1795025461; x=1795630261; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h+nI0N1fI6gl+3hdnXgBqPEyuibrGS+Uti+mYCJPRCg=;
+        b=Cc02dmjOWdpITY67cZ44ovz353/8tUE6RK2PJL4c/k8UtklHiPfjpSVEkDzuIIL1dn
+         vkducgChbIzgX4c4RYray0ntuiSglz/GHH7/i6xqK6Mi50zW4/9CeDSWNWPIFsAg34BU
+         Fm4CXUu7hNI9/axlrsWHTPKfE8RpTv+RyFB+E=
+X-Forwarded-Encrypted: i=1; AL+hErGn9KC0C+ULVT5z0H5tvXe3x0zSXMK82+YtM1q9LCwI0afkc7uQq0V31XOeEvRyMlOe2m0Jb6/AByWl@vger.kernel.org
+X-Received: by 2002:a05:620a:2714:b0:93e:5fff:db07 with SMTP id af79cd13be357-949995b3620mr545479185a.40.1795025461419;
+        Wed, 18 Nov 2026 10:11:01 -0800 (PST)
+X-Received: by 2002:a05:620a:2714:b0:93e:5fff:db07 with SMTP id af79cd13be357-949995b3620mr545473985a.40.1795025460860;
+        Wed, 18 Nov 2026 10:11:00 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9499b75aa1csm239613385a.20.2026.11.18.10.10.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2026 10:10:59 -0800 (PST)
+Message-ID: <47125533-d611-4d88-8c08-65a1c4b8106d@broadcom.com>
+Date: Wed, 18 Nov 2026 10:10:55 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,107 +107,222 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/12] dt-bindings: regulator: qcom,usb-vbus-regulator:
- Add pmi8998 and pm660
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20261118-pmi8998-vbus-v2-0-3c77a72b280a@ixit.cz>
- <20261118-pmi8998-vbus-v2-4-3c77a72b280a@ixit.cz>
- <sashiko-outbox-221657@kernel.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <sashiko-outbox-221657@kernel.org>
+Subject: Re: [PATCH net-next 6/9] net: flow_offload: allow drivers to validate
+ and invalidate cached paths
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, rafal@milecki.pl,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ horms@kernel.org, corbet@lwn.net, jonas.gorski@gmail.com, olteanv@gmail.com,
+ pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org
+References: <20261116222519.1416501-7-florian.fainelli@broadcom.com>
+ <179495816543.3136.12103952304400202953@kernel.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <179495816543.3136.12103952304400202953@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 18/11/2026 18:33, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [Medium] dt-bindings: regulator: typo in fallback compatible for
->    qcom,pm660-vbus-reg
+On 11/17/26 15:29, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] nf_flow_offload_validate()
+>    (net/netfilter/nf_flow_table_offload.c:931-939) checks the neighbour…
+> - [Low] nf_flow_offload_validate()
+>    (net/netfilter/nf_flow_table_offload.c:929 and 934) is documented as…
+> 
 > --
 > 
-> commit d53eae4793d2d86b3e41fd0d2b1c0495b964d938
-> Author: David Heidelberg <david@ixit.cz>
+> net: flow_offload: allow drivers to validate and invalidate cached paths
 > 
-> dt-bindings: regulator: qcom,usb-vbus-regulator: Add pmi8998 and pm660
+> This adds optional invalidate and validate callbacks to struct
+> flow_cls_offload. Offload drivers can use them to ask the flowtable owner
+> whether a cached path is still valid, and to tear the owning flow down.
+> Netfilter now keeps direct-path dst references for hardware flowtables and
+> implements both callbacks, checking dst cookies and direct Ethernet
+> neighbours in each direction.
 > 
-> This commit adds the qcom,pmi8998-vbus-reg and qcom,pm660-vbus-reg
-> compatible strings to the Qualcomm USB VBUS regulator DT binding schema.
+>> diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_flow_table_offload.c
+>> index 4365859220e6a..1f3adf70f5987 100644
+>> --- a/net/netfilter/nf_flow_table_offload.c
+>> +++ b/net/netfilter/nf_flow_table_offload.c
+>> @@ -885,6 +885,62 @@ static int nf_flow_offload_alloc(const struct flow_offload_work *offload,
 > 
->> diff --git a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
->> index 024b34d0eb1a6..96f984060ce4d 100644
->> --- a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
->> +++ b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
->> @@ -27,12 +27,17 @@ properties:
->>         - enum:
->>             - qcom,pm8150b-vbus-reg
->>             - qcom,pm4125-vbus-reg
->> +          - qcom,pmi8998-vbus-reg
->>         - items:
->>             - enum:
->>                 - qcom,pm6150-vbus-reg
->>                 - qcom,pm7250b-vbus-reg
->>                 - qcom,pmi632-vbus-reg
->>             - const: qcom,pm8150b-vbus-reg
->> +      - items:
->> +          - enum:
->> +              - qcom,pm660-vbus-reg
->> +          - const: qcom,pm8998-vbus-reg
+> [ ... ]
+> 
+>> +static int nf_flow_offload_validate(unsigned long cookie)
+>> +{
+>> +	struct flow_offload *flow = nf_flow_offload_cookie_flow(cookie);
+>> +	unsigned int dir;
+>> +
+>> +	for (dir = 0; dir < FLOW_OFFLOAD_DIR_MAX; dir++) {
+>> +		struct flow_offload_tuple *tuple = &flow->tuplehash[dir].tuple;
+>> +		struct flow_offload_tuple *other = &flow->tuplehash[!dir].tuple;
+>> +		struct dst_entry *dst = tuple->dst_cache;
+>> +		struct neighbour *neigh;
+>> +		u8 mac[ETH_ALEN];
+>> +		bool valid;
+>> +
+>> +		if (!dst)
+>> +			return -EOPNOTSUPP;
+> 
+> [ ... ]
+> 
+>> +		if (dst->dev->ifindex != tuple->out.ifidx)
+>> +			return -EOPNOTSUPP;
+>> +		neigh = dst_neigh_lookup(dst, &other->src_v4);
+>> +		if (!neigh)
+>> +			return -ESTALE;
 > 
 > [Severity: Medium]
-> Should the fallback compatible for qcom,pm660-vbus-reg be
-> qcom,pmi8998-vbus-reg instead of qcom,pm8998-vbus-reg?
+> Can this lookup change the neighbour table? For IPv4, dst_neigh_lookup()
+> goes through ipv4_dst_neigh_lookup()->ip_neigh_gw4(), which creates an
+> entry when the noref lookup misses:
 > 
-> The standalone enum above and qcom_usb_vbus_regulator_match[] in
-> drivers/regulator/qcom_usb_vbus-regulator.c both use
-> qcom,pmi8998-vbus-reg, so a PM660 node using that fallback will fail
-> dtbs_check validation against this schema.
-
-this one is valid, will be fixed in v3, sorry bout that.
-
+> include/net/route.h:ip_neigh_gw4() {
+>      ...
+> 	neigh = __ipv4_neigh_lookup_noref(dev, (__force u32)daddr);
+> 	if (unlikely(!neigh)) {
+> 		struct neigh_table *tbl = arp_table(dev_net(dev));
+> 
+> 		neigh = __neigh_create(tbl, &daddr, dev, false);
+> 	}
+>      ...
+> }
+> 
+> So validation can allocate a neighbour with GFP_ATOMIC, run forced GC
+> under tbl->lock, and insert a new NUD_NONE entry into the ARP table.
+> 
+> It also looks like two cases that are not provably stale end up returning
+> -ESTALE. The header documents the contract as:
+> 
+>      Return 0 for a valid path, -ESTALE for a demonstrably stale path,
+>      or -EOPNOTSUPP when validation is unavailable.
+> 
+> The first case is neighbour creation failing (-ENOBUFS at gc_thresh3, or
+> -ENOMEM). dst_neigh_lookup() turns the ERR_PTR into NULL, and the
+> !neigh branch above returns -ESTALE.
+> 
+> The second case is an entry that was garbage collected while the flow kept
+> forwarding. The software DIRECT path uses the cached out.h_dest and never
+> confirms the neighbour, so the entry can age out. Periodic GC can remove it
+> above gc_thresh1, and forced GC can remove it above gc_thresh2. The next
+> validate then creates a NUD_NONE entry, fails the NUD_VALID test below, and
+> returns -ESTALE, even though the next hop and MAC have not changed.
+> 
+> The consumer, fa_replace() in drivers/net/ethernet/broadcom/bcm-ns-fa.c
+> (added later in this series by "net: bgmac: add Northstar IPv4 TCP/UDP NAT
+> flowtable offload"), calls cls->invalidate() on -ESTALE. That runs
+> flow_offload_teardown() on a healthy flow.
+> 
+> A flow that the driver declined keeps being offered through
+> flow_offload_refresh(), roughly once per HZ. Under neighbour table pressure
+> this could keep tearing such flows down.
+> 
+> That driver's own fa_route_check() uses the lookup-only ipv4_neigh_lookup()
+> and returns -EOPNOTSUPP on a miss. Would a noref lookup under RCU, such as
+> __ipv4_neigh_lookup_noref() or __ipv6_neigh_lookup_noref(), returning
+> -EOPNOTSUPP on a miss, fit the documented contract better?
+> 
+>> +		neigh_ha_snapshot(mac, neigh, dst->dev);
+> 
+> [Severity: Low]
+> Should these dst->dev accesses use dst_dev_rcu()? This callback runs under
+> RCU while dst_dev_put() can concurrently republish the device:
+> 
+> net/core/dst.c:dst_dev_put() {
+>      ...
+> 	rcu_assign_pointer(dst->dev_rcu, blackhole_netdev);
+>      ...
+> }
+> 
+> The ifindex check and neigh_ha_snapshot() each do a plain load of
+> dst->dev, and ipv4_dst_neigh_lookup() does a third load through
+> dst_dev_rcu(). KCSAN will report the plain loads, and the three loads can
+> see different net_devices within one validation pass.
+> 
+> There's no memory safety problem here. blackhole_netdev has addr_len set
+> to ETH_ALEN, so mac[] is fully written, and -ESTALE is the right answer for
+> a route that has moved to blackhole.
+> 
+> Would taking a single dev = dst_dev_rcu(dst) snapshot, or passing
+> neigh->dev to neigh_ha_snapshot(), avoid the race?
+> 
+>> +		valid = (READ_ONCE(neigh->nud_state) & NUD_VALID) &&
+>> +			ether_addr_equal(mac, tuple->out.h_dest);
+>> +		neigh_release(neigh);
+>> +		if (!valid)
+>> +			return -ESTALE;
+>> +	}
+>> +	return 0;
+>> +}
+> 
+> [ ... ]
 > 
 
+[Medium] validation creating neighbours / reporting -ESTALE
+
+Agreed. dst_neigh_lookup() can create an entry (and run forced GC), and 
+turns a creation failure or a garbage collected entry into -ESTALE, 
+which makes the owner tear down a healthy flow. v2 looks up the next hop 
+with __ipv4_neigh_lookup_noref() under RCU, never creating an entry, and 
+returns -EOPNOTSUPP when there is none, since the path is then not 
+proven stale.
+
+It also returns -EOPNOTSUPP for non-IPv4 tuples, as the next hop address 
+used is an IPv4 one.
+
+[Low] dst->dev accesses
+
+Agreed. v2 takes a single dst_dev_rcu() snapshot under rcu_read_lock() 
+and uses it for the ifindex check, the neighbour lookup and 
+neigh_ha_snapshot().
+
+pw-bot: cr
+-- 
+Florian
