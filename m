@@ -1,110 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=40.107.74.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1795025353;
-	b=aAxxkJxKbsU8sN31vkN2tbS9srHxTeEcgcEG6J0Ih/EmlYI0hnFKU8rtEINKPj7d6pg+
-	 P8ZrCpVuxbKUd+/+f2mbvaAKiiEzrxtEUDTT/JpsVtkHy/d9WrQbj6IUZflwF01zdYtgX
-	 VGhHr+QBKjXlX2tFLmVHxf9cOO/MdbZu9cEqixTFetae5c2F4asm9uZQnW5Zf60v2RaLQ
-	 DgseIWNvAGvz3vzRy61bG286nJwgyS4RvXYh2pOPzgEEdpnx8w+o2CzFN9T3mymH6cFUg
-	 qtFkInRHAqMbla2vgswa+Cro92Ilismwq/+ecNsKL9OH3zl/5dPXNUq0oGuVktI5OyA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795025353;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xKghG9dhT29XWtHTyP1Q0IOjEKhGB9TK38QWf5PCdvM=;
-	b=BQsssafMZ4pEMqXJWBSQu8HmcHCOSKfw6bZE6/pFCitXTyUj14Jd6GKI/UVkgV1K52GL
-	 mTpDxbwyYXt/a2xbqLVOJ+uJU8jZokdL/ZtENP6hLi4Su3lGR3EQh9ksVsFWrQUaiqGiU
-	 jfwOxHRlGeOYM1imsE3+WcnvyIvg6C+DuOiUguVJRq4Yf2wFOt7c87EnuqRwkLX+skgiU
-	 aPPw+KCm9eB7kj6Yesa5eoJWJauuVTgdoTPSaGCv1AjTnCl4u0B9prpH9WnlaiL60Sxsz
-	 vbsKkx3Nsq5//OfZaexvfXxkdrGJ5DBMvBHPD+n2tmIoNvSMxedvCnodKKlz1qJaR7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=fail reason="signature verification failed" header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=fCLiAGuy;
-	arc=fail smtp.remote-ip=40.107.74.43
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011043.outbound.protection.outlook.com [40.107.74.43])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795025440;
+	b=ptmDJG6vuBDyG4JONPcqeqDSyqYL520fhu4niKem3Aa/OsJ6A9hj4/oZwIGySrhV/B4a
+	 tKJmsfYHlvSDa/bkNj8Lj2U2buRCEPI0LWU1jHwO+48yv/pFuoXg+Bi27Mu5w3Syc6F3n
+	 /VQeoB88uPRu6opZu+mxrZFxMsCo746ZWOiayk0g7lLhDpb55+7sdwtBFgfaZbeDwFZ8H
+	 QzaYL11gEw/ZTNEGyIzL4/6KXW22lXYaFcLNk7gpw4e0IPF5dxWzPduVtQfXKmJiibMZZ
+	 cqBmRsx2/L2UzJD0uzQzhJtROcjn2ybX1RBOQkuYKZ0yU6fiRuxOWHRJUDoDzKXPNBQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795025440;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=a3st07qsmtWUD6m6GwTi4D4k6gutsGseuQHaOE/Bp+U=;
+	b=OL7gwlytUmY0oN4Wk+IY9AIKPlhmdfp3e5v2U221YR/H7Gmc5omO+EXkWFISEFkpfG90
+	 lQW6H3a0Z28Vo1kokWCegKczl5Fai3d0R9lNVS6397kl8aL61WqB4QHU48AU99NjbK15F
+	 tOPkAiS7B0zQwxhT/ScY4D9mMuoKFeucelDKlFL0MFgnpiydrxjk1lmnWl5p6tgd0GlIv
+	 qUSzTybNpUMaQbFW1WYKHUZEetwPfN/6wY/Itj3dNlujx4ShOrPVjIlRk6v8oFQK7SNIv
+	 fQTkm/UFDn6oq4rk7eWa0h/mu2Jwdewv0XEYKN+4iK8IFGmC978FWadRsPyuTF0TbFQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQMISZZo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3154F606A32A;
-	Wed, 18 Nov 2026 18:09:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3154F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F33606A32F;
+	Wed, 18 Nov 2026 18:10:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=fCLiAGuy
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e0RyIZZoMhfuOZ1arP123x9gopcaoR4pFKI5VzvLmpb8BqdLj17i/zU/wOxs6sADAqpuxzaIDEaXBxX7gc6zoklhQQqiKET1qKlk/W25tttUdis6sou1mPDZrlYNtQJZVqGzMOL9n7Ambs7Nf0pzsA4C/vN79jAVpLvZR0cvWGVYw3JiEDS7grxI2dwGOXWF0U+rZKpnuuW9GDIaJzYumJrJZOh6D7x5B8JrYAD9r0gwnfrsCGy7hZniCWrk1/dSI8Dpw8gfRp9TZdGF3iSc7TLgJIk1FCqNjkzJ3dUoSfH36P9qG54X09E4i2JlDsVg3fOKbx4MV0fkdR3bhjBV/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I4mjS6swHLil1koYiGg+E8dqAAlup9uFy1Jm33fP1rI=;
- b=t6gffs+6DsDygaoJNmcpWtz68L1NLOd3XY//my+So8WrgImwAtFS28IwmC3HyeG51tz1ShIJcHe2BKKieaTZUNXky+hOyKUSAmyIKZOdRwDqIQjmuou7aCR5e4fh0yH4OXT7PQ8nu0Jy8CvQVLYxRnLPM174MFA389qQHBwQ2q69noaXMZ7LxMjy3T+pg9HHdX7yh6OjWUPXCZ5eW7XYr1v7G5cP4rYPjq9M3iUr2QAnAL/QQOqsbkeJYR/wXYS9RUKMqASS2gfeA4vGAVP+ARjdfpD89bLgjlgEZgSvpFiCrKAe7j2c5oB9DvJY8eawnS0gxMgoVrVV8Ry3m6M4/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I4mjS6swHLil1koYiGg+E8dqAAlup9uFy1Jm33fP1rI=;
- b=fCLiAGuylwi2TU6rB+2az9iz70Mf4V9eCITV1NU3JBufDzhn+G1lWOBGuoQpi51/9tdXrgtLnpBdEPEnSuyds+ZFJtLe7LCfZPn8DjcsYZwtLMGZTHq3uRIImFphYvDHHC1la0Yv3DoD3XyrLM5EEX+euPcT6pTnt5hbUawvwdM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
- (2603:1096:604:521::15) by TYKPR01MB236482.jpnprd01.prod.outlook.com
- (2603:1096:403:900::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 18:09:09 +0000
-Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
- ([fe80::4f0e:fd0e:ff2b:b180]) by OSOPR01MB295138.jpnprd01.prod.outlook.com
- ([fe80::4f0e:fd0e:ff2b:b180%7]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
- 18:09:09 +0000
-Date: Wed, 18 Nov 2026 19:08:50 +0100
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Tommaso Merciai <tomm.merciai@gmail.com>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQMISZZo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190FA1F000C4;
+	Wed, 18 Nov 2026 18:10:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795025440;
+	bh=a3st07qsmtWUD6m6GwTi4D4k6gutsGseuQHaOE/Bp+U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eQMISZZoi8FJSmGIzO+9AQeKeA1mow4ylc6obQupxbyssa90KAvcDI6A/j/SGGT1A
+	 kSJcD5DagS0+MjLJjrscjLtTG8j4Zq2RXDjFLtRXvgqoTxo5PovMCgAfMaytfkil21
+	 7jJEEdXKbzFoGvpMyDFQx1g4vs/6hK6v1h9Q3T9Voi2XnJAJvxGMWNAuwHDSNO7kL/
+	 cz4HZU+n+e+ypDSRd++eWT46Ark69hU3vhkrCGEsLqrJVxhxb/KfoDeHZUu4bCRcsc
+	 xYA3FkOQwKO8iCca3fqszcfnpjcmPdbro+rIyhT1x/VHk0iCTMNg7H3A0IUKhuzONd
+	 XFKjc+pUa49AQ==
+Date: Wed, 18 Nov 2026 18:10:35 +0000
+From: Conor Dooley <conor@kernel.org>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	"magnus.damm" <magnus.damm@gmail.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v10 02/12] drm: renesas: rz-du: vsp: Keep the planes in
- the VSP
-Message-ID: <av3psmZ6rK8td1yx@tom-desktop>
-References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
- <6e420483129b494a4522c952de593b8082b9510a.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
- <TYYPR01MB66036E5E97AD52E68DE078AE867A2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <TYYPR01MB66036E5E97AD52E68DE078AE867A2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-X-ClientProxiedBy: FR0P281CA0163.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b3::17) To OSOPR01MB295138.jpnprd01.prod.outlook.com
- (2603:1096:604:521::15)
+	Paul Cercueil <paul@crapouillou.net>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org, letux-kernel@openphoenux.org
+Subject: Re: [PATCH v2 3/7] dt-bindings: pinctrl: ingenic: Add X2600 support
+Message-ID: <20261118-makeshift-emit-c0fc8a520691@spud>
+References: <cover.1794940166.git.hns@goldelico.com>
+ <98bd8062ff2cda00ec96c8a540aa9d2ac789af2d.1794940167.git.hns@goldelico.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,232 +62,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSOPR01MB295138:EE_|TYKPR01MB236482:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05c96d9e-3417-49ef-7d94-08df459f0af3
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|52116014|1800799024|7416014|376014|18002099003|22082099003|261009223027099003|4143699003|11063799006|261026121527099003|56012099006|261026140227099003|261102123227099003|261028144727099003|261021121427099003|261021123027099003|261022075727099003|261022105027099003|38350700014|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	mIr/DWJsZhZkpUNFwiMS8VTz1rOSjgBOLPHEAk16DeqcBD8IeRSTU3QQP8sWcid7mrQji8NyRvbUGuszSumDiSrSOTtgbkVOPFTmO/nQJfyA90C973UrZMKPiNBU6PXv3oR9tk30a3F5okJeUBxEcXds+R3CbA/wmo3lhreAyPXxZ8oRm2BJKh4hCzsn/OMwBky1vzw6/NT8qRX4iOiqVYPqK7vfiiKnTsjZSB76qUcTakPGv5QvN6jmwx4ANHsxTINFEPAVjqr2XKYyckCsa6fxD2fLgbvCf5IuLuWy5OzshI58/DRqLjpsEEznF0XPWuywjWST/OvZsY/8E51NXxQaLvKXPFX1dqV2kPtetQGCLSFwyhF/a5J6WX+ucdZ52YlZxPaTRouU9+fj5IjRgoPJYfM4Mf9usGveaeoEMErJL3w4FT88kwXrcWkvyWaFIZ4uTN/tXLGjqqIlEnh9oWDVo4U7NX1bnHF2JRKRpZdkSCnkLx1DE/hMSgGyL7hhdYBVxgWfGMzKefkvqA+WXOYFLH0IjbF5wTAKRWM6mX9QrlRfRYntY0JkA3R6WwxYT8b96GumbFw1Oes+krmdDyRRdeXfceHHLWKi8eC52ogrAerF7JXuyoWUMWsksq+HPOPDylkuu2UusOIycWMxinUBGZnwI9xiSKkb44DTg0cyuTT25yF5/NlUosMUsaHJrAlNK6+9AdA/198SgfiBsg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB295138.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(52116014)(1800799024)(7416014)(376014)(18002099003)(22082099003)(261009223027099003)(4143699003)(11063799006)(261026121527099003)(56012099006)(261026140227099003)(261102123227099003)(261028144727099003)(261021121427099003)(261021123027099003)(261022075727099003)(261022105027099003)(38350700014)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?m2+wlCvlzow8KM03VOt1Q1dL/kCoPkQLf8gfBslfIsk3CXIFLYbJjRE8gz?=
- =?iso-8859-1?Q?4MCvNahZMb9+IEZ50edH2zmoYsmPvfEmdiexI4RflPUrsIzHfCiK3b8ywq?=
- =?iso-8859-1?Q?SHRUvKx4fpCQ5CkgK2Z3HCPgw6TcCbSl2nQDvNRMxCYkEMoZeErsnu1Tel?=
- =?iso-8859-1?Q?q/amOFBZWhPt3KqW0S3aAdgQlimqO0DzFqknVzIEXm8FqSUgN9hCrcDvUo?=
- =?iso-8859-1?Q?uDBMlrIZyudD3E+Ps3M+JdEGMlTFD6YWaV8k9QYg8+q0KdJhMwene3YOqk?=
- =?iso-8859-1?Q?OyjFGdY6PG+CGuWZClNeDTBZvbhHN/BeXPSofKNd+2ZuOku7yVaVfVQSvu?=
- =?iso-8859-1?Q?hUBmL2SCPbe2MnmECi7Gp0RIbLse2wrXluPLk2DuHSr9yKjB7rLEn/oeLG?=
- =?iso-8859-1?Q?nt2nWW62c1TfaiL7S7F0yt9NKI59PTALeOQWqYp7IDVqF/sVIrAfAkEgnU?=
- =?iso-8859-1?Q?m/BEx11n2w6yjCI4hvRFOxkYPinOFz32FJqgi7xWh+/ADqvGElfx6zQZjq?=
- =?iso-8859-1?Q?4L0fF9DXUJhdHE2VmRcE0pQ8X0w4nolHLLXeSOdaBZ0D+kOmJ46nEfETFY?=
- =?iso-8859-1?Q?+MEHgCfh7pl3w1k7NVHp3OeVWtn2sTxHSUy6lUJYl/oAUCMomlIKjgkYBP?=
- =?iso-8859-1?Q?f5Ju0faiY5QEoKlURq1ImYzY2ajJvXfscbzUwZvIeE1qmPL7kpVbZ1SuZO?=
- =?iso-8859-1?Q?9UmknDD0/CZ+IT/baYBIMfpNjZhcSCrB7lVP2vekIYUuWOzUOymgihPoiS?=
- =?iso-8859-1?Q?Ka7004R9GeJaY2i2/puGYFeQmTtzyxQ/UkHDNvOamQw0WEDJjOeA3E+YOL?=
- =?iso-8859-1?Q?hqOFzI1db62koMnAEXQcAeds+RRJXu3v2fgOpqAVhE4vcrV9OvUjIQkbdd?=
- =?iso-8859-1?Q?DnRkAJw7giTqfTI19JqeN5+ePL2VaY3cjoMWdEnxDr5JIUO6kcO5xPllBA?=
- =?iso-8859-1?Q?9p5PfeP9nGKWZVTKNeqfUNLGta16LWVKn6kMNd/CIkui3mWWGRYJdbMDmA?=
- =?iso-8859-1?Q?HXfF3yzSLRMRgRvaq8LmZ4BcwUuUkBeQi0PB/G0VeOlIQia7Y0deH3T4Pz?=
- =?iso-8859-1?Q?l5qCswnOOhdfkNdqJc7AsgPO+QKfyulpYUC4qTHOsgqClU9pxo/sSPFVNx?=
- =?iso-8859-1?Q?lsKR6waf3AY1bMBmp/P33vl9BkC++PmGIPo0+DNIo6ZtxvginiqPFEaogb?=
- =?iso-8859-1?Q?ovHn5vlUE+mkcz2R0vHmgjkSB62HtfMUqTR6IdbILTPANKy/2xqK7t6/l2?=
- =?iso-8859-1?Q?njgaZv6scFRGfHk0qI4lsCEzwJXd3h7CXoQyeQ+UFSOnOtHdqwm1mEeFG7?=
- =?iso-8859-1?Q?rj0NT0/40W2TU4paQTx0JgPzvVzyzGLiQP3dMz8XaOFXP/CvfOtCOnStVY?=
- =?iso-8859-1?Q?KpW5pu6k7lqaYW91LgObXLEiXuQXG6iTq/D1O0auIgk/NK2F8jStblynrJ?=
- =?iso-8859-1?Q?+veX1w2fROd9yNP4uOObVfvaUSr1zZqh/KrCmh6W1EAdsksDXLIx4Wt0u0?=
- =?iso-8859-1?Q?YxE5mkIZ8hs+IlBiCpEGpnZYhTBf9ohrPjv1n32QVCnCNVvPTVjhSbzjBs?=
- =?iso-8859-1?Q?hEXMarRJl0VT84zLA21RaWJU0ivKHJcBy//sok9nIC4K3nYv5XIwrCEq4l?=
- =?iso-8859-1?Q?XLFsrcn7woy5lkCjuV+SJUDCv2wBqkPOedFUcgR4U4W6zlQ9r7emTiNTsW?=
- =?iso-8859-1?Q?zxPHyh7YQgvafyShoBO7Rm7YRS6xF4KitWacCin9IYxf7ULrnMSlja/mN7?=
- =?iso-8859-1?Q?dKNDWeDdTbbOTGxdzkOCY06uI43/f6h7KrNzep79t0SJZ6tjX/hBRPfci0?=
- =?iso-8859-1?Q?stEaKR+bHAvPZx98DYSP/1+eHhYrMUS4L49yUp/2YUANPfARRsjS?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05c96d9e-3417-49ef-7d94-08df459f0af3
-X-MS-Exchange-CrossTenant-AuthSource: OSOPR01MB295138.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 18:09:09.8706
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Mk7H2gjN9ZGKH+J6oeuUZpRpr51LAuVa2e0acABAiUStN3ETBGjPq+0Vt/52i/OOGwrGLftLnSpORJy/prkHtFStz+yuBmpX+wI5zHoMOimdZhbcur+MdJhplJGgPN+G
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYKPR01MB236482
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HGGsQtc9sLboBVWA"
+Content-Disposition: inline
+In-Reply-To: <98bd8062ff2cda00ec96c8a540aa9d2ac789af2d.1794940167.git.hns@goldelico.com>
 
-Hi Biju,
-Thanks for your review.
+--HGGsQtc9sLboBVWA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Wed, Nov 18, 2026 at 02:09:38PM +0000, Biju Das wrote:
-> Hi Tommaso,
-> 
-> Thanks for the patch.
-> 
-> > -----Original Message-----
-> > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > Sent: 13 November 2026 12:20
-> > Subject: [PATCH v10 02/12] drm: renesas: rz-du: vsp: Keep the planes in the VSP
-> > 
-> > Each VSP numbers its planes from zero, so the device-wide search in
-> > rzg2l_du_vsp_get_drm_plane() picks the wrong plane as soon as a SoC has more than one VSP: the primary
-> > plane of the second CRTC is looked up on the first VSP, whose possible_crtcs mask does not cover that
-> > CRTC.
-> > 
-> > In preparation for supporting RZ/G3E, store the planes in the VSP that owns them and index the per-VSP
-> > array directly from rzg2l_du_crtc_create(), as the R-Car DU driver does, and drop the now unused
-> > search helper.
-> > 
-> > No functional change intended.
-> > 
-> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > ---
-> > v9->v10:
-> >  - No changes.
-> > 
-> > v8->v9:
-> >  - Dropped the vsp_pipe bounds check in rzg2l_du_crtc_create() and the
-> >    now unused num_planes field, aligning with rcar_du_crtc_create().
-> >  - Updated commit message accordingly.
-> > 
-> > v7->v8:
-> >  - New patch.
-> > 
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  4 +---  drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-> > | 19 ++-----------------  drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h  | 10 +++-------
-> >  3 files changed, 6 insertions(+), 27 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c b/drivers/gpu/drm/renesas/rz-
-> > du/rzg2l_du_crtc.c
-> > index ab2f24cc7683..c57884ab5b9b 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-> > @@ -409,9 +409,7 @@ int rzg2l_du_crtc_create(struct rzg2l_du_device *rcdu)
-> >  	init_waitqueue_head(&rcrtc->flip_wait);
-> >  	rcrtc->dev = rcdu;
-> > 
-> > -	primary = rzg2l_du_vsp_get_drm_plane(rcrtc, rcrtc->vsp_pipe);
-> > -	if (IS_ERR(primary))
-> > -		return PTR_ERR(primary);
-> > +	primary = &rcrtc->vsp->planes[rcrtc->vsp_pipe]->plane;
-> 
-> The bounds check on vsp_pipe  is dropped.  planes[vsp_pipe] is now indexed directly into a 2-entry array,
-> so a bad DT value oopses.
-> 
-> > 
-> >  	ret = drmm_crtc_init_with_planes(&rcdu->ddev, crtc, primary, NULL,
-> >  					 &crtc_funcs_rz, NULL);
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c b/drivers/gpu/drm/renesas/rz-
-> > du/rzg2l_du_vsp.c
-> > index 944bc9ac9589..12fe35740c62 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-> > @@ -71,22 +71,6 @@ void rzg2l_du_vsp_atomic_flush(struct rzg2l_du_crtc *crtc)
-> >  	vsp1_du_atomic_flush(crtc->vsp->vsp, crtc->vsp_pipe, &cfg);  }
-> > 
-> > -struct drm_plane *rzg2l_du_vsp_get_drm_plane(struct rzg2l_du_crtc *crtc,
-> > -					     unsigned int pipe_index)
-> > -{
-> > -	struct rzg2l_du_device *rcdu = crtc->vsp->dev;
-> > -	struct drm_plane *plane = NULL;
-> > -
-> > -	drm_for_each_plane(plane, &rcdu->ddev) {
-> > -		struct rzg2l_du_vsp_plane *vsp_plane = to_rzg2l_vsp_plane(plane);
-> > -
-> > -		if (vsp_plane->index == pipe_index)
-> > -			break;
-> 
-> Do you need to remove this function? 
-> as plane has vsp and index information.
-> 
-> plane->vsp = vsp; 
-> plane->index = i;
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-I think we can keep this function adding vsp_plane->index check:
-	
-	if (vsp_plane->vsp == crtc->vsp &&
-	    vsp_plane->index == pipe_index)
-	
-While at it I notice that rzg2l_du_vsp_get_drm_plane() 
-never return ERR_PTR(-EINVAL) because plane == NULL can't happens.
+--HGGsQtc9sLboBVWA
+Content-Type: application/pgp-signature; name=signature.asc
 
-Will address also this into the next iteration.
+-----BEGIN PGP SIGNATURE-----
 
-Kind regards,
-Tommaso
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCav3qGwAKCRB4tDGHoIJi
+0mPuAP9KMpoQZXxzmu7moGN9ftodwze6QiVni88UdavxwewOWgD9HRSaEm/pklCY
+/uE3Ss/f6xAEWsen+eDgFdBz7GiTjQk=
+=unCR
+-----END PGP SIGNATURE-----
 
-> 
-> Cheers,
-> Biju
-> 
-> > -	}
-> > -
-> > -	return plane ? plane : ERR_PTR(-EINVAL);
-> > -}
-> > -
-> >  static const u32 rzg2l_du_vsp_formats[] = {
-> >  	DRM_FORMAT_RGB332,
-> >  	DRM_FORMAT_ARGB4444,
-> > @@ -303,7 +287,7 @@ int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,
-> >  	struct rzg2l_du_device *rcdu = vsp->dev;
-> >  	struct platform_device *pdev;
-> >  	unsigned int num_crtcs = hweight32(crtcs);
-> > -	unsigned int num_planes = 2;
-> > +	unsigned int num_planes = RZG2L_DU_VSP_MAX_PLANES;
-> >  	unsigned int i;
-> >  	int ret;
-> > 
-> > @@ -350,6 +334,7 @@ int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,
-> > 
-> >  		plane->vsp = vsp;
-> >  		plane->index = i;
-> > +		vsp->planes[i] = plane;
-> > 
-> >  		drm_plane_helper_add(&plane->plane,
-> >  				     &rzg2l_du_vsp_plane_helper_funcs);
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h b/drivers/gpu/drm/renesas/rz-
-> > du/rzg2l_du_vsp.h
-> > index a22aaf0843ed..acb41d343297 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
-> > @@ -27,11 +27,14 @@ struct rzg2l_du_vsp_plane {
-> >  	unsigned int index;
-> >  };
-> > 
-> > +#define RZG2L_DU_VSP_MAX_PLANES		2
-> > +
-> >  struct rzg2l_du_vsp {
-> >  	unsigned int index;
-> >  	struct device *vsp;
-> >  	struct device_link *link;
-> >  	struct rzg2l_du_device *dev;
-> > +	struct rzg2l_du_vsp_plane *planes[RZG2L_DU_VSP_MAX_PLANES];
-> >  };
-> > 
-> >  static inline struct rzg2l_du_vsp_plane *to_rzg2l_vsp_plane(struct drm_plane *p) @@ -62,8 +65,6 @@
-> > int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,  void
-> > rzg2l_du_vsp_enable(struct rzg2l_du_crtc *crtc);  void rzg2l_du_vsp_disable(struct rzg2l_du_crtc
-> > *crtc);  void rzg2l_du_vsp_atomic_flush(struct rzg2l_du_crtc *crtc); -struct drm_plane
-> > *rzg2l_du_vsp_get_drm_plane(struct rzg2l_du_crtc *crtc,
-> > -					     unsigned int pipe_index);
-> >  #else
-> >  static inline int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,
-> >  				    unsigned int crtcs)
-> > @@ -74,11 +75,6 @@ static inline int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node
-> > static inline void rzg2l_du_vsp_enable(struct rzg2l_du_crtc *crtc) { };  static inline void
-> > rzg2l_du_vsp_disable(struct rzg2l_du_crtc *crtc) { };  static inline void
-> > rzg2l_du_vsp_atomic_flush(struct rzg2l_du_crtc *crtc) { }; -static inline struct drm_plane
-> > *rzg2l_du_vsp_get_drm_plane(struct rzg2l_du_crtc *crtc,
-> > -							   unsigned int pipe_index)
-> > -{
-> > -	return ERR_PTR(-ENXIO);
-> > -}
-> >  #endif
-> > 
-> >  #endif /* __RZG2L_DU_VSP_H__ */
-> > --
-> > 2.54.0
-> 
+--HGGsQtc9sLboBVWA--
