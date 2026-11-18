@@ -1,102 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.225
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795025290;
-	b=xcorWy3f+CZ1khxjjUkSNrYL79GiEq4mTCl9vVCHmELRiEAnB73laB37Hxe8pXIr2w+G
-	 hZ0xxe4lsUwBHSV1ZkgzX7dhLIvi0UxK4dakJsphzeP+eSAhKFkuAbL0wZxQrKSqRobXZ
-	 MZMuAlkOcYZ61sSjqz0DeKOtBq6+Sw/jbaZXAoWJ8nbPkuj0vyseEFHP+PP3/GyaAGG8H
-	 XIMX4NYgs1fFUomyOnl7EDZoUkbmbdsLsnqpMJHqv11Z07I+eraM8rK+M1R+YMX4OaMOo
-	 bJnEK2ATQc1DwSa9Z2h258t3FlJha1IgT29uBQtfCuUwt/cHG+/dFwL3o73SUP9ophg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795025290;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=dsobvnNoDG7lN5QypHHGC6puRklHA82pKzkACgQqM1Q=;
-	b=dge2FGz4C31GZ/q4fTx8/WvXunLQuVewIwnxlXbftjpMCDOt4lXauTqasiYmy97PDl+Z
-	 Z3e94ctiFUfceTblExHJjX4Fuq+a5u1S1mLnXpoUw84H9qz7RkdZ/Nihm16W3hVPCleSk
-	 tqOOCGaat7RpTF6YBdMk9C0W7R5l8IpPyudTrSMaQqcbqopRBeud4VifwCJ+C+yNMEgER
-	 kHHRYwR4weulTfKn6TmW17pSRIhF46rdk15fP7laFLAneXcujho7DWMmADMiWGaW0xL0s
-	 qMIuv0HDOoZewYHn+JYq9o6kKmInZp/7HjUYkbZZ1tCAeFGFTD3k/dmGYYx8RB6G77A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=M7tM6rUj;
-	arc=none smtp.remote-ip=209.85.215.225
-Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com [209.85.215.225])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=40.107.74.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1795025353;
+	b=aAxxkJxKbsU8sN31vkN2tbS9srHxTeEcgcEG6J0Ih/EmlYI0hnFKU8rtEINKPj7d6pg+
+	 P8ZrCpVuxbKUd+/+f2mbvaAKiiEzrxtEUDTT/JpsVtkHy/d9WrQbj6IUZflwF01zdYtgX
+	 VGhHr+QBKjXlX2tFLmVHxf9cOO/MdbZu9cEqixTFetae5c2F4asm9uZQnW5Zf60v2RaLQ
+	 DgseIWNvAGvz3vzRy61bG286nJwgyS4RvXYh2pOPzgEEdpnx8w+o2CzFN9T3mymH6cFUg
+	 qtFkInRHAqMbla2vgswa+Cro92Ilismwq/+ecNsKL9OH3zl/5dPXNUq0oGuVktI5OyA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795025353;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=xKghG9dhT29XWtHTyP1Q0IOjEKhGB9TK38QWf5PCdvM=;
+	b=BQsssafMZ4pEMqXJWBSQu8HmcHCOSKfw6bZE6/pFCitXTyUj14Jd6GKI/UVkgV1K52GL
+	 mTpDxbwyYXt/a2xbqLVOJ+uJU8jZokdL/ZtENP6hLi4Su3lGR3EQh9ksVsFWrQUaiqGiU
+	 jfwOxHRlGeOYM1imsE3+WcnvyIvg6C+DuOiUguVJRq4Yf2wFOt7c87EnuqRwkLX+skgiU
+	 aPPw+KCm9eB7kj6Yesa5eoJWJauuVTgdoTPSaGCv1AjTnCl4u0B9prpH9WnlaiL60Sxsz
+	 vbsKkx3Nsq5//OfZaexvfXxkdrGJ5DBMvBHPD+n2tmIoNvSMxedvCnodKKlz1qJaR7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bp.renesas.com;
+	spf=pass smtp.mailfrom=bp.renesas.com;
+	dkim=fail reason="signature verification failed" header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=fCLiAGuy;
+	arc=fail smtp.remote-ip=40.107.74.43
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011043.outbound.protection.outlook.com [40.107.74.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0581606A32A
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 18:08:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0581606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3154F606A32A;
+	Wed, 18 Nov 2026 18:09:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3154F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=M7tM6rUj
-Received: by mail-pg1-f225.google.com with SMTP id 41be03b00d2f7-cd61cef87f1so957474a12.0
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:08:08 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795025288; x=1795630088;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=dsobvnNoDG7lN5QypHHGC6puRklHA82pKzkACgQqM1Q=;
-        b=ToZ83eigNUQY4GrJ8ojcTyuZSnHHtVHYBw/i3cvv/ZJ5QDx+ZJ+K1mNNTYd11lgUT6
-         kRozrEfG6KXKZaWP8BC/9VpqYfvLBwAeIterC6OV02h9B4qM+Vv1Akd9yGQIfJvaoTii
-         5Kgexrm6mQrhh9DUsqllvqzuvMSLdLu0TO2ilzIyCnxUULhSMPS/HXj4JZQfVE/omMeq
-         /lwZksn3AaQUjFEyrsGDLrBT9cS2YaKXzNgCiY4O2gJI8NXFNPdqtfN/UJqzjEj0csZL
-         k2sbuD4VlcuK2VzEpxm3JL/BWPWNlhha21wn6i1HifKGxhErj7bjD7nP5HTyWulDTlqf
-         jODg==
-X-Forwarded-Encrypted: i=1; AL+hErHRts5OE9MXPWgQccF+kYAZQCSUzcUndfryxfj8qPnYdyZ2tg0bBLPGeJIvbj5PtsPjQ0S4eAQogyWS@vger.kernel.org
-X-Gm-Message-State: APuU4Z/N1282mVJ4wDBwIAqhnRtyzotwwFT85XITdDjWVvuTnexEpq7g
-	eZRBsGUGHhc8KPJvmOHrTtbbE8uTGWgPEh/ycYSWsf051DPLFOBLYIilo18ZtUsnx3FHnAwBMgY
-	XQr1WC0gUZw5ijeS5ZXCyZlQmUPPN8L7q3LhzLJaEp3hGK9AKxVQittSiqAzZEe37siTUvtamig
-	IAOsvMoeFUNkH9k5M/5jZof+cp5skdCkRKGvP0xfTPSwX2kOukyOGXa18J25oPOzSLNI3aeiXRO
-	at9p+E/ICsE+BahLypepA==
-X-Gm-Gg: AZFdTZeUB14uhmv2fFS8e7OLdNMCZ9YB949KcUyV2eN49U+BXGbgnxpbHc7kIYNypWG
-	cXVJpJ+UpkQvOmw9imZLYHr3xqISNaLg1v6d20aMOfiBkcoNfp18GCHG4BJNOv9xWjcT0G1sOoY
-	kc7Mt3VT4DVrLs97mFmaS5AJMAgUwUEWkkxp7UGOJou9hc1fWxAfT+u9mjChEmHWE92myo08SaQ
-	xo0iBDKO6vtNkoDmYm96s9m6Wx1/0eQ9GBxMGQM+8rALSEH0ONOPRQ3Fk46db8nkBmx0IrSLaol
-	QG7+WSc4Ne/sU5UFE8blbyBBhq1rxo9D9vFZ9BGUlCnurGGdtnzTce0wsrPUXq3Qe5bLs58mhIm
-	G6ffuP2R0DE5lCg/5wnRetZvmqmnSpJrYJuDOaXPyWQlhHE4rNXO+TxPO1ZrAVA0GzKBP+Jq/N6
-	EupQUIkjU9RW/IIUkxN5ZUJ50PRdySB2h4TJvSIOq9
-X-Received: by 2002:a17:90b:440d:b0:3b1:4018:bfdd with SMTP id 98e67ed59e1d1-3b3d0689d6amr2989767a91.7.1795025287860;
-        Wed, 18 Nov 2026 10:08:07 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b3f56d7d4dsm175874a91.0.2026.11.18.10.08.07
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 18 Nov 2026 10:08:07 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-92114c39cadso24274436d6.2
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:08:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1795025286; x=1795630086; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dsobvnNoDG7lN5QypHHGC6puRklHA82pKzkACgQqM1Q=;
-        b=M7tM6rUjngbFL4JBWlDzM6Z9+fabUALTl8USFtmsafxs3AAmWjs4kpRI9Lcifa0ncW
-         I0GV9P4QrqByTbqahJ4N3sfHoEHPhaiENULfBjVY60qv7+mZL+XK86RxYqUct9Mk95LL
-         x03P/kiI3uKKA2fXpV+r+UVt5+CMdndIynUF0=
-X-Forwarded-Encrypted: i=1; AL+hErFF0VTSdhXo0laGua9ETjW6D8GTtHOOyP0AZmRoeMEhKsF0hf/9GFXGtbOu4vGjBVmMfCPD2CiUk+iA@vger.kernel.org
-X-Received: by 2002:a05:6214:5706:b0:91e:c720:170b with SMTP id 6a1803df08f44-92114f1d3d5mr51994336d6.32.1795025285633;
-        Wed, 18 Nov 2026 10:08:05 -0800 (PST)
-X-Received: by 2002:a05:6214:5706:b0:91e:c720:170b with SMTP id 6a1803df08f44-92114f1d3d5mr51993456d6.32.1795025284787;
-        Wed, 18 Nov 2026 10:08:04 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-92114dbef06sm27221816d6.45.2026.11.18.10.08.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 10:08:04 -0800 (PST)
-Message-ID: <8d3562e8-028c-4229-b25f-463385cd0736@broadcom.com>
-Date: Wed, 18 Nov 2026 10:08:00 -0800
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=fCLiAGuy
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e0RyIZZoMhfuOZ1arP123x9gopcaoR4pFKI5VzvLmpb8BqdLj17i/zU/wOxs6sADAqpuxzaIDEaXBxX7gc6zoklhQQqiKET1qKlk/W25tttUdis6sou1mPDZrlYNtQJZVqGzMOL9n7Ambs7Nf0pzsA4C/vN79jAVpLvZR0cvWGVYw3JiEDS7grxI2dwGOXWF0U+rZKpnuuW9GDIaJzYumJrJZOh6D7x5B8JrYAD9r0gwnfrsCGy7hZniCWrk1/dSI8Dpw8gfRp9TZdGF3iSc7TLgJIk1FCqNjkzJ3dUoSfH36P9qG54X09E4i2JlDsVg3fOKbx4MV0fkdR3bhjBV/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I4mjS6swHLil1koYiGg+E8dqAAlup9uFy1Jm33fP1rI=;
+ b=t6gffs+6DsDygaoJNmcpWtz68L1NLOd3XY//my+So8WrgImwAtFS28IwmC3HyeG51tz1ShIJcHe2BKKieaTZUNXky+hOyKUSAmyIKZOdRwDqIQjmuou7aCR5e4fh0yH4OXT7PQ8nu0Jy8CvQVLYxRnLPM174MFA389qQHBwQ2q69noaXMZ7LxMjy3T+pg9HHdX7yh6OjWUPXCZ5eW7XYr1v7G5cP4rYPjq9M3iUr2QAnAL/QQOqsbkeJYR/wXYS9RUKMqASS2gfeA4vGAVP+ARjdfpD89bLgjlgEZgSvpFiCrKAe7j2c5oB9DvJY8eawnS0gxMgoVrVV8Ry3m6M4/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I4mjS6swHLil1koYiGg+E8dqAAlup9uFy1Jm33fP1rI=;
+ b=fCLiAGuylwi2TU6rB+2az9iz70Mf4V9eCITV1NU3JBufDzhn+G1lWOBGuoQpi51/9tdXrgtLnpBdEPEnSuyds+ZFJtLe7LCfZPn8DjcsYZwtLMGZTHq3uRIImFphYvDHHC1la0Yv3DoD3XyrLM5EEX+euPcT6pTnt5hbUawvwdM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
+ (2603:1096:604:521::15) by TYKPR01MB236482.jpnprd01.prod.outlook.com
+ (2603:1096:403:900::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
+ 2026 18:09:09 +0000
+Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
+ ([fe80::4f0e:fd0e:ff2b:b180]) by OSOPR01MB295138.jpnprd01.prod.outlook.com
+ ([fe80::4f0e:fd0e:ff2b:b180%7]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
+ 18:09:09 +0000
+Date: Wed, 18 Nov 2026 19:08:50 +0100
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Tommaso Merciai <tomm.merciai@gmail.com>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	"magnus.damm" <magnus.damm@gmail.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v10 02/12] drm: renesas: rz-du: vsp: Keep the planes in
+ the VSP
+Message-ID: <av3psmZ6rK8td1yx@tom-desktop>
+References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
+ <6e420483129b494a4522c952de593b8082b9510a.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
+ <TYYPR01MB66036E5E97AD52E68DE078AE867A2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <TYYPR01MB66036E5E97AD52E68DE078AE867A2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+X-ClientProxiedBy: FR0P281CA0163.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b3::17) To OSOPR01MB295138.jpnprd01.prod.outlook.com
+ (2603:1096:604:521::15)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,730 +114,232 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 5/9] net: dsa: add Broadcom FA metadata and IPv4
- exception paths
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, rafal@milecki.pl,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- horms@kernel.org, corbet@lwn.net, jonas.gorski@gmail.com, olteanv@gmail.com,
- pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org
-References: <20261116222519.1416501-6-florian.fainelli@broadcom.com>
- <179495816343.3136.8938496694323714432@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <179495816343.3136.8938496694323714432@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSOPR01MB295138:EE_|TYKPR01MB236482:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05c96d9e-3417-49ef-7d94-08df459f0af3
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|52116014|1800799024|7416014|376014|18002099003|22082099003|261009223027099003|4143699003|11063799006|261026121527099003|56012099006|261026140227099003|261102123227099003|261028144727099003|261021121427099003|261021123027099003|261022075727099003|261022105027099003|38350700014|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	mIr/DWJsZhZkpUNFwiMS8VTz1rOSjgBOLPHEAk16DeqcBD8IeRSTU3QQP8sWcid7mrQji8NyRvbUGuszSumDiSrSOTtgbkVOPFTmO/nQJfyA90C973UrZMKPiNBU6PXv3oR9tk30a3F5okJeUBxEcXds+R3CbA/wmo3lhreAyPXxZ8oRm2BJKh4hCzsn/OMwBky1vzw6/NT8qRX4iOiqVYPqK7vfiiKnTsjZSB76qUcTakPGv5QvN6jmwx4ANHsxTINFEPAVjqr2XKYyckCsa6fxD2fLgbvCf5IuLuWy5OzshI58/DRqLjpsEEznF0XPWuywjWST/OvZsY/8E51NXxQaLvKXPFX1dqV2kPtetQGCLSFwyhF/a5J6WX+ucdZ52YlZxPaTRouU9+fj5IjRgoPJYfM4Mf9usGveaeoEMErJL3w4FT88kwXrcWkvyWaFIZ4uTN/tXLGjqqIlEnh9oWDVo4U7NX1bnHF2JRKRpZdkSCnkLx1DE/hMSgGyL7hhdYBVxgWfGMzKefkvqA+WXOYFLH0IjbF5wTAKRWM6mX9QrlRfRYntY0JkA3R6WwxYT8b96GumbFw1Oes+krmdDyRRdeXfceHHLWKi8eC52ogrAerF7JXuyoWUMWsksq+HPOPDylkuu2UusOIycWMxinUBGZnwI9xiSKkb44DTg0cyuTT25yF5/NlUosMUsaHJrAlNK6+9AdA/198SgfiBsg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB295138.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(52116014)(1800799024)(7416014)(376014)(18002099003)(22082099003)(261009223027099003)(4143699003)(11063799006)(261026121527099003)(56012099006)(261026140227099003)(261102123227099003)(261028144727099003)(261021121427099003)(261021123027099003)(261022075727099003)(261022105027099003)(38350700014)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?m2+wlCvlzow8KM03VOt1Q1dL/kCoPkQLf8gfBslfIsk3CXIFLYbJjRE8gz?=
+ =?iso-8859-1?Q?4MCvNahZMb9+IEZ50edH2zmoYsmPvfEmdiexI4RflPUrsIzHfCiK3b8ywq?=
+ =?iso-8859-1?Q?SHRUvKx4fpCQ5CkgK2Z3HCPgw6TcCbSl2nQDvNRMxCYkEMoZeErsnu1Tel?=
+ =?iso-8859-1?Q?q/amOFBZWhPt3KqW0S3aAdgQlimqO0DzFqknVzIEXm8FqSUgN9hCrcDvUo?=
+ =?iso-8859-1?Q?uDBMlrIZyudD3E+Ps3M+JdEGMlTFD6YWaV8k9QYg8+q0KdJhMwene3YOqk?=
+ =?iso-8859-1?Q?OyjFGdY6PG+CGuWZClNeDTBZvbhHN/BeXPSofKNd+2ZuOku7yVaVfVQSvu?=
+ =?iso-8859-1?Q?hUBmL2SCPbe2MnmECi7Gp0RIbLse2wrXluPLk2DuHSr9yKjB7rLEn/oeLG?=
+ =?iso-8859-1?Q?nt2nWW62c1TfaiL7S7F0yt9NKI59PTALeOQWqYp7IDVqF/sVIrAfAkEgnU?=
+ =?iso-8859-1?Q?m/BEx11n2w6yjCI4hvRFOxkYPinOFz32FJqgi7xWh+/ADqvGElfx6zQZjq?=
+ =?iso-8859-1?Q?4L0fF9DXUJhdHE2VmRcE0pQ8X0w4nolHLLXeSOdaBZ0D+kOmJ46nEfETFY?=
+ =?iso-8859-1?Q?+MEHgCfh7pl3w1k7NVHp3OeVWtn2sTxHSUy6lUJYl/oAUCMomlIKjgkYBP?=
+ =?iso-8859-1?Q?f5Ju0faiY5QEoKlURq1ImYzY2ajJvXfscbzUwZvIeE1qmPL7kpVbZ1SuZO?=
+ =?iso-8859-1?Q?9UmknDD0/CZ+IT/baYBIMfpNjZhcSCrB7lVP2vekIYUuWOzUOymgihPoiS?=
+ =?iso-8859-1?Q?Ka7004R9GeJaY2i2/puGYFeQmTtzyxQ/UkHDNvOamQw0WEDJjOeA3E+YOL?=
+ =?iso-8859-1?Q?hqOFzI1db62koMnAEXQcAeds+RRJXu3v2fgOpqAVhE4vcrV9OvUjIQkbdd?=
+ =?iso-8859-1?Q?DnRkAJw7giTqfTI19JqeN5+ePL2VaY3cjoMWdEnxDr5JIUO6kcO5xPllBA?=
+ =?iso-8859-1?Q?9p5PfeP9nGKWZVTKNeqfUNLGta16LWVKn6kMNd/CIkui3mWWGRYJdbMDmA?=
+ =?iso-8859-1?Q?HXfF3yzSLRMRgRvaq8LmZ4BcwUuUkBeQi0PB/G0VeOlIQia7Y0deH3T4Pz?=
+ =?iso-8859-1?Q?l5qCswnOOhdfkNdqJc7AsgPO+QKfyulpYUC4qTHOsgqClU9pxo/sSPFVNx?=
+ =?iso-8859-1?Q?lsKR6waf3AY1bMBmp/P33vl9BkC++PmGIPo0+DNIo6ZtxvginiqPFEaogb?=
+ =?iso-8859-1?Q?ovHn5vlUE+mkcz2R0vHmgjkSB62HtfMUqTR6IdbILTPANKy/2xqK7t6/l2?=
+ =?iso-8859-1?Q?njgaZv6scFRGfHk0qI4lsCEzwJXd3h7CXoQyeQ+UFSOnOtHdqwm1mEeFG7?=
+ =?iso-8859-1?Q?rj0NT0/40W2TU4paQTx0JgPzvVzyzGLiQP3dMz8XaOFXP/CvfOtCOnStVY?=
+ =?iso-8859-1?Q?KpW5pu6k7lqaYW91LgObXLEiXuQXG6iTq/D1O0auIgk/NK2F8jStblynrJ?=
+ =?iso-8859-1?Q?+veX1w2fROd9yNP4uOObVfvaUSr1zZqh/KrCmh6W1EAdsksDXLIx4Wt0u0?=
+ =?iso-8859-1?Q?YxE5mkIZ8hs+IlBiCpEGpnZYhTBf9ohrPjv1n32QVCnCNVvPTVjhSbzjBs?=
+ =?iso-8859-1?Q?hEXMarRJl0VT84zLA21RaWJU0ivKHJcBy//sok9nIC4K3nYv5XIwrCEq4l?=
+ =?iso-8859-1?Q?XLFsrcn7woy5lkCjuV+SJUDCv2wBqkPOedFUcgR4U4W6zlQ9r7emTiNTsW?=
+ =?iso-8859-1?Q?zxPHyh7YQgvafyShoBO7Rm7YRS6xF4KitWacCin9IYxf7ULrnMSlja/mN7?=
+ =?iso-8859-1?Q?dKNDWeDdTbbOTGxdzkOCY06uI43/f6h7KrNzep79t0SJZ6tjX/hBRPfci0?=
+ =?iso-8859-1?Q?stEaKR+bHAvPZx98DYSP/1+eHhYrMUS4L49yUp/2YUANPfARRsjS?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05c96d9e-3417-49ef-7d94-08df459f0af3
+X-MS-Exchange-CrossTenant-AuthSource: OSOPR01MB295138.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 18:09:09.8706
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Mk7H2gjN9ZGKH+J6oeuUZpRpr51LAuVa2e0acABAiUStN3ETBGjPq+0Vt/52i/OOGwrGLftLnSpORJy/prkHtFStz+yuBmpX+wI5zHoMOimdZhbcur+MdJhplJGgPN+G
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYKPR01MB236482
 
-On 11/17/26 15:29, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 13 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 · Medium: 7 · Low: 5
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] Bridged ports lose every FA exception guard while their CPU-
->    bound traffic still passes through the inline FA.
-> - [Medium] When FA is enabled, b53_setup_port() and b53_br_leave() put
->    standalone user ports in EAP_MODE_BASIC instead of EAP_MODE_SIMPLIFIED.
-> - [Medium] On NETDEV_PRE_CHANGEADDR, b53_fa_netdev_event() writes an all-
->    zero TCAM entry over the port's router-MAC allow rule…
-> - [Medium] If b53_fa_port(dev, port, true) fails in b53_br_leave(), the
->    code logs an error and calls b53_disable_port(), which only sets the…
-> - [Medium] The TCP SYN/FIN/RST trap rules 0-2 in b53_fa_setup() include
->    CFP_TCAM6_IP_FRAGMENT in the mask with data 0, so they match only…
-> - [Medium] The commit says it 'keep[s] ordinary data flooding off the
->    auxiliary CPU'.
-> - [Medium] net: dsa: b53: missing CPU port 5 in non-default VLANs in
->    b53_vlan_add()
-> - [Medium] net: dsa: tag_brcm: brcm_tag_rcv_ll() reads prepended tag as
->    MAC DA
-> - [Low] The B53 CFP action and meter RAM programming differs from the
->    reference programming of the same register block.
-> - [Low] b53_uses_fa_tag() does not follow the DT binding's compatible
->    list.
-> - [Low] The NET_DSA_TAG_BRCM_FA help text says 'Transmit uses the
->    ordinary prepended Broadcom tag' and 'Enable this for a B53 switch…
-> - [Low] Plain bool FA state flags are read and written concurrently
->    without a common lock or READ_ONCE/WRITE_ONCE.
-> - [Low] net: dsa: b53: duplicate CFP rule programming in b53_fa_setup()
-> 
-> --
-> 
-> net: dsa: add Broadcom FA metadata and IPv4 exception paths
-> 
-> This patch adds a brcm-fa DSA tagger for the Northstar flow accelerator
-> miss descriptor. It also adds B53 CFP rules that send TCP SYN/FIN/RST,
-> TTL 0/1, packets longer than 1500 bytes and non-router-MAC IPv4 traffic
-> to port 5/GMAC0, outside the FA. A netdevice notifier and an RCU-protected
-> backend registry in tag_brcm.c coordinate guard and conduit readiness.
-> 
->> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
->> index b7aff5e238e85..3e8c9679836d3 100644
->> --- a/drivers/net/dsa/b53/b53_common.c
->> +++ b/drivers/net/dsa/b53/b53_common.c
-> 
-> [ ... ]
-> 
->> @@ -678,7 +685,8 @@ int b53_setup_port(struct dsa_switch *ds, int port)
->>   	 * dropping frames because it isn't allowed to forward there.
->>   	 */
->>   	if (dsa_is_user_port(ds, port))
->> -		b53_set_eap_mode(dev, port, EAP_MODE_SIMPLIFIED);
->> +		b53_set_eap_mode(dev, port, dev->fa_cfp_enabled ? EAP_MODE_BASIC :
->> +			 EAP_MODE_SIMPLIFIED);
-> 
-> [Severity: Medium]
-> On FA boards, standalone user ports now get EAP_MODE_BASIC. Does that
-> bring back the problem fixed by commit 4227ea91e2657f ("net: dsa: b53:
-> prevent standalone from trying to forward to other ports")?
-> 
-> That commit uses EAP_MODE_SIMPLIFIED to send all standalone-port traffic
-> to the CPU. In BASIC mode, a frame that no CFP trap redirects goes through
-> normal ARL forwarding. That covers non-IPv4 traffic such as ARP and IPv6.
-> It also covers IPv4 frames that hit the allow rules, which have no action.
-> 
-> Suppose the DA was learned on a VLAN-unaware bridged port with learning
-> on (shared PVID 0). The ARL forwards the frame to that port, the PVLAN
-> mask blocks it, and the frame is dropped instead of reaching Linux.
-> 
-> b53_br_leave() makes the same change, so ports leaving a bridge are hit
-> too. Two comments no longer match the code: "Force all traffic to go to
-> the CPU port" above this call, and "Enable redirection of unknown SA to
-> the CPU port" in b53_br_leave(). The commit message does not mention this
-> change either.
-> 
-> [ ... ]
-> 
->> @@ -1326,6 +1336,315 @@ int b53_setup_devlink_resources(struct dsa_switch *ds)
-> 
-> [ ... ]
-> 
->> +static int b53_fa_rule(struct b53_device *dev, unsigned int index,
->> +		       const u32 data[8], const u32 mask[8], bool trap)
->> +{
-> 
-> [Severity: Low]
-> This isn't a bug, but the TCP flag loop open-codes what b53_fa_rule()
-> does with trap set:
-> 
->    - the eight DATA/MASK writes
->    - both action words and the action commit
->    - the meter writes and the meter commit
->    - the TCAM commit
-> 
-> Could this loop just build data and mask and then call
-> b53_fa_rule(dev, rule, data, mask, true)? With two copies, any change
-> to the action or meter programming has to be made twice, and one copy
-> is easy to miss.
-> 
-> [ ... ]
-> 
->> +	err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_ACTION(0),
->> +			  trap ? CFP_ACT0_FWD_MAP_REPLACE | CFP_ACT0_DST_PORT5 |
->> +				CFP_ACT0_REASON_TERMINATION : 0);
->> +	if (!err)
->> +		err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_ACTION(1),
->> +				  trap ? CFP_ACT1_CLASS_ID(1) | CFP_ACT1_FWD_MAP_REPLACE |
->> +				  CFP_ACT1_DST_PORT5 : 0);
->> +	if (!err)
->> +		err = b53_fa_cfp_write(dev, index, CFP_ACC_ACTION);
->> +	if (!err)
->> +		err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_METER, 0);
->> +	if (!err)
->> +		err = b53_write32(dev, B53_CFP_TCAM_PAGE, B53_CFP_METER + 4, 0);
->> +	if (!err)
->> +		err = b53_fa_cfp_write(dev, index, CFP_ACC_METER);
->> +	return err ?: b53_fa_cfp_write(dev, index, CFP_ACC_TCAM);
->> +}
-> 
-> [Severity: Medium]
-> With vlan_filtering enabled, can these redirects to port 5 still reach
-> GMAC0 for VLAN-tagged traffic?
-> 
-> The trap actions do not set VLAN bypass. The comment in b53_fa_setup()
-> says VLAN filtering is preserved on purpose.
-> 
-> Port 5 is only a member of VID 0, which it gets from the
-> b53_for_each_port() loop in b53_setup(). For any other VID,
-> b53_vlan_add() is called for the user port and for its cpu_dp.
-> b53_preferred_cpu_port() makes cpu_dp port 8 for every user port, so
-> BIT(5) never ends up in dev->vlans[vid].members.
-> 
-> b53 sets ds->vlan_filtering_is_global. Enabling vlan_filtering on any
-> bridge on the switch therefore also turns on VLAN table enforcement for
-> the standalone ports, and those are the only ports with CFP
-> classification enabled.
-> 
-> Take a standalone port with an 802.1Q upper. Its tagged SYN/FIN/RST,
-> TTL 0/1 and oversized IPv4 frames are redirected to a port that is not
-> a member of their VLAN. So is everything caught by
-> B53_FA_DEFAULT_RULE. Wouldn't the switch drop these frames instead of
-> delivering them to Linux?
-> 
-> Should port 5 be kept in step with port 8 in b53_vlan_add() and
-> b53_vlan_del() when fa_cfp_enabled is set? Or should the trap action
-> bypass the VLAN check for port 5 after all?
-> 
-> [Severity: Low]
-> Is the policer meant to stay enabled here? The register layout matches
-> bcm_sf2: ACT_POL_DATA0/1/2 sit at 0x50/0x54/0x58 and RATE_METER0/1 at
-> 0x60/0x64. In that layout, writing 0 to RATE_METER0 selects
-> POLICER_MODE_RFC2698. bcm_sf2 does this instead:
-> 
-> drivers/net/dsa/bcm_sf2_cfp.c:bcm_sf2_cfp_act_pol_set() {
->      ...
-> 	core_writel(priv, 0, CORE_ACT_POL_DATA2);
->      ...
-> 	/* Disable the policer */
-> 	core_writel(priv, POLICER_MODE_DISABLE, CORE_RATE_METER0);
->      ...
-> }
-> 
-> Here B53_CFP_ACTION(2) is never written before the action RAM commit,
-> and RATE_METER2..6 are never written at all.
-> 
-> Would every rule, including the allow rules, then get a zero-rate trTCM?
-> Would the third action word (MAC limit bypass, TC change, PCP/DEI remark)
-> come from whatever the staging register happens to hold? The TCP flag
-> loop in b53_fa_setup() open-codes the same sequence.
-> 
-> [ ... ]
-> 
->> +static int b53_fa_setup(struct b53_device *dev)
->> +{
-> 
-> [ ... ]
-> 
->> +	for (rule = 0; rule < 3; rule++) {
->> +		memset(data, 0, sizeof(data));
->> +		memset(mask, 0, sizeof(mask));
->> +		data[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE1 | CFP_TCAM0_UDF0_FLAG(rule);
->> +		/* Slice 1; FIN, SYN or RST. */
->> +		mask[0] = CFP_TCAM0_VALID | CFP_TCAM0_SLICE_MASK | CFP_TCAM0_UDF0_FLAG(rule);
->> +		data[5] = CFP_TCAM5_UDF_VALID(0); /* UDF A0 valid. */
->> +		mask[5] = CFP_TCAM5_UDF_VALID(0);
->> +		data[6] = FIELD_PREP(CFP_TCAM6_IP_PROTOCOL, IPPROTO_TCP);
->> +		mask[6] = CFP_TCAM6_L3_FRAMING | CFP_TCAM6_IP_PROTOCOL | CFP_TCAM6_IP_FRAGMENT;
-> 
-> [Severity: Medium]
-> CFP_TCAM6_IP_FRAGMENT is in the mask with data 0, so these SYN/FIN/RST
-> traps match only unfragmented packets. b53_fa_guards() has no rule that
-> sends IPv4 fragments to port 5 either.
-> 
-> Take a first fragment (MF set, offset 0) with SYN, FIN or RST, TTL above
-> 1, at most 1500 bytes, addressed to the port's router MAC. It would match
-> the allow rule and take the FA inline path instead of GMAC0.
-> 
-> If the original FA looks up first fragments, can TCP control segments
-> for a live tuple skip the exception path and Linux conntrack?
-> 
-> Two later pieces of the series seem to assume fragments are trapped:
-> 
->    - The documentation says "IP options and fragments retire pairs by
->      their L3 identity before Linux can process a reused tuple".
->    - fa_control_receive() in the backend handles fragments.
-> 
-> [ ... ]
-> 
->> +	/* Ordinary flooding must reach only the data CPU, not both MACs. */
->> +	b53_port_set_ucast_flood(dev, 5, false);
->> +	b53_port_set_mcast_flood(dev, 5, false);
->> +	err = b53_write8(dev, B53_CTRL_PAGE, B53_PORT_CTRL(5), PORT_CTRL_RX_UCST_EN);
-> 
-> [Severity: Medium]
-> Do the RX_*CST_EN bits do anything on port 5? b53_regs.h documents them
-> as port 8 only:
-> 
-> #define   PORT_CTRL_RX_BCST_EN		BIT(2) /* Broadcast RX (P8 only) */
-> 
-> At the same time, b53_enable_port() and b53_br_leave() add BIT(5) to the
-> PVLAN egress mask of every user port:
-> 
-> 	if (dev->fa_cfp_enabled && (dev->fa_cfp_ports & BIT(port)))
-> 		pvlan |= BIT(5);
-> 
-> b53_br_join() keeps that bit through its read-modify-write. b53 has no
-> broadcast flood mask, so broadcast frames would seem to egress both port
-> 5 and port 8.
-> 
-> brcm_fa_tag_rcv() passes port 5 frames without BRCM_EG_RC_PROT_TERM up
-> the stack. Would Linux then receive ARP, DHCP and other broadcasts twice
-> on the user netdev, and forward them twice when the port is bridged?
-> That would not match "keep ordinary data flooding off the auxiliary CPU"
-> in the commit message.
-> 
-> [ ... ]
-> 
->> +static int b53_fa_port(struct b53_device *dev, int port, bool standalone)
->> +{
->> +	struct dsa_port *control = dsa_to_port(dev->ds, 5);
->> +	bool ready;
->> +	u16 ports;
->> +	int err;
->> +
->> +	if (!dev->fa_cfp_enabled)
->> +		return 0;
->> +	ports = dev->fa_cfp_ports & ~BIT(port);
->> +	if (standalone)
->> +		ports |= BIT(port);
->> +	ready = b53_fa_ready(dev, dsa_port_conduit_is_operational(control));
->> +	err = b53_write16(dev, B53_CFP_PAGE, B53_CFP_CTRL,
->> +			  ready ? ports : 0);
->> +	if (!err)
->> +		dev->fa_cfp_ports = ports;
->> +	return err;
->> +}
-> 
-> [Severity: High]
-> What protects a bridged port after b53_br_join() calls
-> b53_fa_port(dev, port, false)?
-> 
-> Clearing the port's bit in B53_CFP_CTRL turns off all of its guard rules
-> for as long as it stays bridged: SYN/FIN/RST, TTL 0/1, length, the
-> router-MAC allow rule and the default IPv4 trap.
-> 
-> b53_fa_conduit_state_change() and b53_fa_netdev_event() both call
-> brcm_fa_control_set_ready(data->conduit, false) before writing CFP_CTRL.
-> This function does not. FA readiness therefore stays true, and live
-> entries are not retired before this port's exception path goes away.
-> 
-> Port 8 is still the preferred CPU port. It still has unicast and
-> multicast flooding on from b53_setup_port(), and it is still in every
-> PVLAN mask.
-> 
-> A host on the bridged port could send a frame to a standalone port's
-> router MAC, carrying the tuple of a flow offloaded for that port. The FA
-> key has no input port, so would the frame be forwarded and NATed in
-> hardware without Linux seeing it? TTL 0/1, FIN/RST and oversized packets
-> on that tuple would get through the same way.
-> 
-> This looks like the "live tuple from bypassing Linux ingress policy on
-> another switch port" case that the commit message says is prevented. It
-> also breaks "Disable admission and retire entries before removing any
-> exception path". The later patches in the series leave this code as is,
-> and the documentation patch only says that CFP classification is disabled
-> on bridge members.
-> 
-> [ ... ]
-> 
->> +static int b53_fa_netdev_event(struct notifier_block *nb, unsigned long event, void *ptr)
->> +{
-> 
-> [ ... ]
-> 
->> +	control = dsa_to_port(dev->ds, 5);
->> +	data_cpu = dsa_to_port(dev->ds, 8);
->> +	brcm_fa_control_set_ready(data_cpu->conduit, false);
->> +	if (event != NETDEV_PRE_CHANGEADDR) {
-> 
-> [ ... ]
-> 
->> +	}
->> +	err = b53_fa_rule(dev, B53_FA_ALLOW_BASE + dp->index, data, mask, false);
-> 
-> [Severity: Medium]
-> What brings back the allow rule and FA readiness if the address change
-> fails after NETDEV_PRE_CHANGEADDR?
-> 
-> On that event, this code writes an all-zero entry over the port's allow
-> rule and drops readiness for the whole data conduit. Only a later
-> NETDEV_CHANGEADDR undoes this.
-> 
-> netif_set_mac_address() can return early without sending
-> NETDEV_CHANGEADDR:
-> 
-> net/core/dev.c:netif_set_mac_address() {
->      ...
-> 	err = netif_pre_changeaddr_notify(dev, ss->__data, extack);
-> 	if (err)
-> 		return err;
-> 	if (memcmp(dev->dev_addr, ss->__data, dev->addr_len)) {
-> 		err = ops->ndo_set_mac_address(dev, ss);
-> 		if (err)
-> 			return err;
->      ...
-> }
-> 
-> dsa_user_set_mac_address() returns -EADDRNOTAVAIL for an invalid address,
-> so "ip link set lanX address 01:00:00:00:00:00" is enough to trigger
-> this. A later notifier vetoing PRE_CHANGEADDR has the same effect.
-> 
-> Would all hardware flows then stay retired until an unrelated NETDEV_UP
-> or NETDEV_CHANGEADDR event, or a control conduit state change?
-> 
-> [ ... ]
-> 
->> @@ -2439,6 +2775,10 @@ void b53_br_leave(struct dsa_switch *ds, int port, struct dsa_bridge bridge)
->>   		vl->members |= BIT(port);
->>   		b53_set_vlan_entry(dev, pvid, vl);
->>   	}
->> +	if (b53_fa_port(dev, port, true)) {
->> +		dev_err(ds->dev, "failed to restore FA classification on port %d\n", port);
->> +		b53_disable_port(ds, port);
->> +	}
->>   }
->>   EXPORT_SYMBOL(b53_br_leave);
-> 
-> [Severity: Medium]
-> Is b53_disable_port() enough on this failure path? It only sets the RX/TX
-> disable bits in PORT_CTRL. It does not set fa_guards_failed or drop FA
-> readiness, and fa_cfp_ports still lacks this port's bit.
-> 
-> The next ndo_open runs b53_enable_port(), which clears those bits:
-> 
-> 	b53_write8(dev, B53_CTRL_PAGE, B53_PORT_CTRL(port), 0);
-> 
-> The port is then standalone with no CFP classification. Its traffic goes
-> through port 8 and the FA while readiness is still true.
-> 
-> The notifier failure path sets fa_guards_failed for this kind of case.
-> Should this path set it too?
-> 
-> [ ... ]
-> 
->> @@ -2564,6 +2905,46 @@ static bool b53_can_enable_brcm_tags(struct dsa_switch *ds, int port,
-> 
-> [ ... ]
-> 
->> +static bool b53_uses_fa_tag(struct dsa_switch *ds, int port)
->> +{
-> 
-> [ ... ]
-> 
->> +		ethernet = of_parse_phandle(node, "ethernet", 0);
->> +		fa = of_parse_phandle(ethernet, "brcm,flow-accelerator", 0);
->> +		enabled = IS_ENABLED(CONFIG_BCM_NS_FA) && of_device_is_available(fa) &&
->> +			  (dev->chip_id == BCM53011_DEVICE_ID ||
->> +			   dev->chip_id == BCM53012_DEVICE_ID ||
->> +			   (is5301x(dev) && of_device_is_compatible(fa, "brcm,bcm4708-fa")));
-> 
-> [Severity: Low]
-> Should this check use the compatibles listed in the binding?
-> brcm,bcm4708-fa.yaml allows brcm,bcm4708-fa, brcm,bcm53011-fa and
-> brcm,bcm53012-fa, and its example uses brcm,bcm53011-fa. bcm_ns_fa_init()
-> later in the series accepts all three.
-> 
-> As written, BCM53011/BCM53012 accept any available node without looking
-> at its compatible. BCM53010/53018/53019 accept only brcm,bcm4708-fa.
-> 
-> That leads to two mismatched setups:
-> 
->    - A 5301x board whose DT uses brcm,bcm53011-fa or brcm,bcm53012-fa gets
->      the FA backend set up on GMAC2, while b53 uses the ordinary brcm tag
->      and installs no CFP guards.
->    - A 53011/53012 board with an unrelated compatible gets FA tagging, and
->      then bgmac probe fails.
-> 
-> [ ... ]
-> 
->> @@ -3385,7 +3773,32 @@ int b53_switch_register(struct b53_device *dev)
->>   	dev_info(dev->dev, "found switch: %s, rev %i\n",
->>   		 dev->name, dev->core_rev);
->>   
->> -	return dsa_register_switch(dev->ds);
->> +	ret = dsa_register_switch(dev->ds);
->> +	if (ret || !dev->fa_cfp_enabled)
->> +		return ret;
-> 
-> [ ... ]
-> 
->> +	ret = register_netdevice_notifier(&dev->fa_netdev_nb);
->> +	if (ret)
->> +		goto unregister_switch;
->> +	ret = devm_add_action_or_reset(dev->dev, b53_fa_unregister_notifier, dev);
->> +	if (ret)
->> +		goto unregister_switch;
->> +	dev->fa_guards_ready = true;
->> +	if (!dev->fa_guards_failed) {
-> 
-> [Severity: Low]
-> These plain bool flags are accessed concurrently with no common lock and
-> no READ_ONCE()/WRITE_ONCE():
-> 
->    - Here, fa_guards_ready is written and fa_guards_failed is read outside
->      rtnl, after b53_fa_netdev_event() is already live.
->    - The notifier reads both flags under rtnl and may write
->      fa_guards_failed.
->    - b53_teardown() writes dev->fa_stopping without rtnl, while
->      b53_fa_netdev_event() reads it for every netdevice event in the
->      system.
-> 
-> The final readiness looks correct, because b53_fa_ready() is evaluated
-> again under rtnl_lock() below. Won't KCSAN still report these accesses as
-> data races?
-> 
-> [ ... ]
-> 
->> diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
->> index 4f44bf3ede238..2dffff2f6c343 100644
->> --- a/net/dsa/Kconfig
->> +++ b/net/dsa/Kconfig
->> @@ -69,6 +69,15 @@ config NET_DSA_TAG_BRCM_PREPEND
->>   	  Broadcom switches which places the tag before the Ethernet header
->>   	  (prepended).
->>   
->> +config NET_DSA_TAG_BRCM_FA
->> +	tristate "Tag driver for the Broadcom Northstar flow accelerator"
->> +	select NET_DSA_TAG_BRCM_COMMON
->> +	help
->> +	  Support the prepended four-byte FA metadata tag on Northstar GMAC2.
->> +	  The receive format includes a hash, bucket, parser status, and input
->> +	  switch port. Transmit uses the ordinary prepended Broadcom tag.
->> +	  Enable this for a B53 switch explicitly connected to an accelerator.
-> 
-> [Severity: Low]
-> This isn't a bug, but the help text does not match the code.
-> brcm_fa_tag_xmit() puts the tag inside the frame for user ports behind
-> CPU port 5:
-> 
-> 	return brcm_tag_xmit_ll(skb, dev, dp->cpu_dp->index == 5 ? 2 * ETH_ALEN : 0);
-> 
-> drivers/net/dsa/b53/Kconfig also selects NET_DSA_TAG_BRCM_FA
-> unconditionally, so the user has nothing to enable. Could the help text
-> be updated to match?
-> 
-> [ ... ]
-> 
->> diff --git a/net/dsa/tag_brcm.c b/net/dsa/tag_brcm.c
->> --- a/net/dsa/tag_brcm.c
->> +++ b/net/dsa/tag_brcm.c
->> @@ -407,7 +416,100 @@ DSA_TAG_DRIVER(brcm_prepend_netdev_ops);
->>   MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_BRCM_PREPEND, BRCM_PREPEND_NAME);
->>   #endif
->>   
->> +#if IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM_FA)
->> +static LIST_HEAD(brcm_fa_controls);
->> +static DEFINE_MUTEX(brcm_fa_control_lock);
->> +
->> +void brcm_fa_control_register(struct brcm_fa_control *control)
->> +{
->> +	mutex_lock(&brcm_fa_control_lock);
->> +	list_add_rcu(&control->list, &brcm_fa_controls);
->> +	mutex_unlock(&brcm_fa_control_lock);
->> +}
->> +EXPORT_SYMBOL_GPL(brcm_fa_control_register);
->> +
->> +void brcm_fa_control_unregister(struct brcm_fa_control *control)
->> +{
->> +	mutex_lock(&brcm_fa_control_lock);
->> +	list_del_rcu(&control->list);
->> +	mutex_unlock(&brcm_fa_control_lock);
->> +	synchronize_net();
->> +}
->> +EXPORT_SYMBOL_GPL(brcm_fa_control_unregister);
->> +
->> +void brcm_fa_control_set_ready(struct net_device *conduit, bool ready)
->> +{
->> +	struct brcm_fa_control *control;
->> +
->> +	/* State callbacks can sleep while retiring hardware entries. */
->> +	mutex_lock(&brcm_fa_control_lock);
->> +	list_for_each_entry(control, &brcm_fa_controls, list)
->> +		if (control->conduit == conduit && control->state_change)
->> +			control->state_change(control->priv, ready);
->> +	mutex_unlock(&brcm_fa_control_lock);
->> +}
->> +EXPORT_SYMBOL_GPL(brcm_fa_control_set_ready);
->> +
->> +static struct sk_buff *brcm_fa_tag_xmit(struct sk_buff *skb,
->> +					struct net_device *dev)
->> +{
->> +	struct dsa_port *dp = dsa_user_to_port(dev);
->> +
->> +	return brcm_tag_xmit_ll(skb, dev, dp->cpu_dp->index == 5 ? 2 * ETH_ALEN : 0);
->> +}
->> +
->> +static struct sk_buff *brcm_fa_tag_rcv(struct sk_buff *skb, struct net_device *dev)
->> +{
->> +	struct dsa_port *cpu = dev->dsa_ptr;
->> +	struct brcm_fa_control *control;
->> +	struct dsa_port *data_cpu;
->> +	unsigned int port;
->> +	u8 reason;
->> +
->> +	if (cpu->index != 5)
->> +		return brcm_tag_rcv_ll(skb, dev, ETH_HLEN, true);
->> +	if (!pskb_may_pull(skb, BRCM_TAG_LEN))
->> +		goto drop;
->> +	reason = skb->data[0]; /* Embedded tag byte 2 after eth_type_trans(). */
->> +	port = skb->data[1] & BRCM_EG_PID_MASK;
->> +	skb = brcm_tag_rcv_ll(skb, dev, 2, false);
->> +	if (!skb)
->> +		return NULL;
->> +	dsa_strip_etype_header(skb, BRCM_TAG_LEN);
->> +	skb_set_mac_header(skb, -ETH_HLEN);
->> +	if (!(reason & BRCM_EG_RC_PROT_TERM))
->> +		return skb;
->> +	data_cpu = dsa_to_port(cpu->ds, 8);
->> +	if (!data_cpu || !dsa_port_is_cpu(data_cpu))
->> +		return skb;
->> +	rcu_read_lock();
->> +	list_for_each_entry_rcu(control, &brcm_fa_controls, list)
->> +		if (control->conduit == data_cpu->conduit)
->> +			control->receive(control->priv, skb, port);
->> +	rcu_read_unlock();
->> +	return skb;
->> +drop:
->> +	kfree_skb(skb);
->> +	return NULL;
->> +}
->> +
->> +static const struct dsa_device_ops brcm_fa_netdev_ops = {
->> +	.name = BRCM_FA_NAME,
->> +	.proto = DSA_TAG_PROTO_BRCM_FA,
->> +	.xmit = brcm_fa_tag_xmit,
->> +	.rcv = brcm_fa_tag_rcv,
->> +	.needed_headroom = BRCM_TAG_LEN,
->> +	.promisc_on_conduit = true,
->> +};
->> +
->> +DSA_TAG_DRIVER(brcm_fa_netdev_ops);
->> +MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_BRCM_FA, BRCM_FA_NAME);
->> +#endif
->> +
->>   static struct dsa_tag_driver *dsa_tag_driver_array[] =	{
->> +#if IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM_FA)
->> +	&DSA_TAG_DRIVER_NAME(brcm_fa_netdev_ops),
->> +#endif
->>   #if IS_ENABLED(CONFIG_NET_DSA_TAG_BRCM)
->>   	&DSA_TAG_DRIVER_NAME(brcm_netdev_ops),
->>   #endif
-> 
-> [Severity: Medium]
-> Does the link-local check at the end of brcm_tag_rcv_ll() look at the
-> right bytes for this call?
-> 
-> With offset == ETH_HLEN the tag is prepended. eth_type_trans() on the
-> conduit therefore left skb->mac_header pointing at the four-byte tag,
-> not at the destination MAC. skb_pull_rcsum() only moves skb->data.
-> After the pull, eth_hdr(skb)->h_dest covers the tag plus the first two
-> bytes of the real DA. is_link_local_ether_addr() then does not
-> recognise 01:80:c2:00:00:xx frames.
-> 
-> Port 8 is the CPU port for all user ports on these boards. STP BPDUs,
-> LLDP, LACP and EAPOL received on bridged ports would all get
-> offload_fwd_mark set.
-> 
-> The switch only trapped these frames and did not forward them. With
-> the mark set, the bridge also won't forward them in software to other
-> ports on the same switch. That matters with STP disabled or with a
-> group_fwd_mask configured.
-> 
-> The port 5 branch in brcm_fa_tag_rcv() fixes up the MAC header with
-> skb_set_mac_header(), but this branch does not.
-> 
-> brcm_tag_rcv_prepend() seems to have the same problem already, so this
-> may need its own fix in brcm_tag_rcv_ll(). After the pull, it could
-> read the DA from skb->data - ETH_HLEN, or reset the MAC header first.
-> Which would you prefer?
-> 
+Hi Biju,
+Thanks for your review.
 
-[High] bridged ports lose their guards
+On Wed, Nov 18, 2026 at 02:09:38PM +0000, Biju Das wrote:
+> Hi Tommaso,
+> 
+> Thanks for the patch.
+> 
+> > -----Original Message-----
+> > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > Sent: 13 November 2026 12:20
+> > Subject: [PATCH v10 02/12] drm: renesas: rz-du: vsp: Keep the planes in the VSP
+> > 
+> > Each VSP numbers its planes from zero, so the device-wide search in
+> > rzg2l_du_vsp_get_drm_plane() picks the wrong plane as soon as a SoC has more than one VSP: the primary
+> > plane of the second CRTC is looked up on the first VSP, whose possible_crtcs mask does not cover that
+> > CRTC.
+> > 
+> > In preparation for supporting RZ/G3E, store the planes in the VSP that owns them and index the per-VSP
+> > array directly from rzg2l_du_crtc_create(), as the R-Car DU driver does, and drop the now unused
+> > search helper.
+> > 
+> > No functional change intended.
+> > 
+> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > ---
+> > v9->v10:
+> >  - No changes.
+> > 
+> > v8->v9:
+> >  - Dropped the vsp_pipe bounds check in rzg2l_du_crtc_create() and the
+> >    now unused num_planes field, aligning with rcar_du_crtc_create().
+> >  - Updated commit message accordingly.
+> > 
+> > v7->v8:
+> >  - New patch.
+> > 
+> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  4 +---  drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
+> > | 19 ++-----------------  drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h  | 10 +++-------
+> >  3 files changed, 6 insertions(+), 27 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c b/drivers/gpu/drm/renesas/rz-
+> > du/rzg2l_du_crtc.c
+> > index ab2f24cc7683..c57884ab5b9b 100644
+> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
+> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
+> > @@ -409,9 +409,7 @@ int rzg2l_du_crtc_create(struct rzg2l_du_device *rcdu)
+> >  	init_waitqueue_head(&rcrtc->flip_wait);
+> >  	rcrtc->dev = rcdu;
+> > 
+> > -	primary = rzg2l_du_vsp_get_drm_plane(rcrtc, rcrtc->vsp_pipe);
+> > -	if (IS_ERR(primary))
+> > -		return PTR_ERR(primary);
+> > +	primary = &rcrtc->vsp->planes[rcrtc->vsp_pipe]->plane;
+> 
+> The bounds check on vsp_pipe� is dropped. �planes[vsp_pipe]�is now indexed directly into a 2-entry array,
+> so a bad DT value oopses.
+> 
+> > 
+> >  	ret = drmm_crtc_init_with_planes(&rcdu->ddev, crtc, primary, NULL,
+> >  					 &crtc_funcs_rz, NULL);
+> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c b/drivers/gpu/drm/renesas/rz-
+> > du/rzg2l_du_vsp.c
+> > index 944bc9ac9589..12fe35740c62 100644
+> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
+> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
+> > @@ -71,22 +71,6 @@ void rzg2l_du_vsp_atomic_flush(struct rzg2l_du_crtc *crtc)
+> >  	vsp1_du_atomic_flush(crtc->vsp->vsp, crtc->vsp_pipe, &cfg);  }
+> > 
+> > -struct drm_plane *rzg2l_du_vsp_get_drm_plane(struct rzg2l_du_crtc *crtc,
+> > -					     unsigned int pipe_index)
+> > -{
+> > -	struct rzg2l_du_device *rcdu = crtc->vsp->dev;
+> > -	struct drm_plane *plane = NULL;
+> > -
+> > -	drm_for_each_plane(plane, &rcdu->ddev) {
+> > -		struct rzg2l_du_vsp_plane *vsp_plane = to_rzg2l_vsp_plane(plane);
+> > -
+> > -		if (vsp_plane->index == pipe_index)
+> > -			break;
+> 
+> Do you need to remove this function? 
+> as plane has vsp and index information.
+> 
+> plane->vsp = vsp; 
+> plane->index = i;
 
-Agreed: the FA key has no input port, so a bridged port without guards 
-could hit a live tuple. v2 requires every user port to have its
-exception rules for FA to be ready: while any port is a bridge member, 
-entries are retired and new ones are not admitted. b53_fa_port() also 
-retires entries before touching CFP_CTRL.
+I think we can keep this function adding vsp_plane->index check:
+	
+	if (vsp_plane->vsp == crtc->vsp &&
+	    vsp_plane->index == pipe_index)
+	
+While at it I notice that rzg2l_du_vsp_get_drm_plane() 
+never return ERR_PTR(-EINVAL) because plane == NULL can't happens.
 
-[Medium] PRE_CHANGEADDR / failed MAC change; guard write failure
+Will address also this into the next iteration.
 
-Agreed. PRE_CHANGEADDR now only retires the entries and schedules a 
-resynchronization of the allow rules and readiness once RTNL is 
-released, which also covers a MAC change that fails. A failure to write 
-a guard now disables the CFP and FA instead of leaving CFP_CTRL enabled.
+Kind regards,
+Tommaso
 
-[Medium] b53_br_leave() failure
-
-Agreed: the port is now recorded before the CFP_CTRL write and a write 
-failure marks the guards failed, so FA stays off.
-
-[Medium] CPU port 5 in non-default VLANs
-
-Agreed: b53_vlan_add()/del() keep port 5 a tagged member of the VLANs of 
-port 8.
-
-[Medium] notifier active during teardown/shutdown
-
-Agreed: the notifier is now unregistered and its work cancelled in 
-b53_switch_remove()/b53_switch_shutdown(), before the DSA teardown, and 
-the CFP is disabled there. The flags use READ_ONCE/WRITE_ONCE and the 
-final readiness update is done under RTNL.
-
-[Medium] brcm_tag_rcv_ll() link-local check
-
-Agreed, this is an existing problem with the prepended tag. v2 fixes it 
-in a separate patch before this one.
-
-[Medium] TCP flag rules and fragments
-
-The FA parser does not support fragments (data sheet: "The parser does 
-not support options and fragmentation"), so fragments are never 
-accelerated and take the software path. No change.
-
-[Medium] EAP basic mode on standalone ports
-
-The CFP rules have to classify standalone traffic, which the simplified 
-mode would redirect to the CPU first. I will clarify the comments and 
-the commit message; the mode is unchanged.
-
-[Medium] data flooding
-
-The RX_xCST_EN bits are only valid for port 8, so that write was a no-op 
-and is removed. Unicast and multicast flooding to port 5 stays disabled. 
-I am checking broadcast on hardware; the commit message no longer claims 
-that all flooding is off.
-
-[Low] policer/meter, duplicated rule programming, compatibles, Kconfig help
-
-The BCM5301x CFP has no ACT_POL_DATA2 or policer mode field, unlike 
-bcm_sf2: RATE_METER0 is only the current quota, so no change. The other
-three are fixed in v2.
-
-pw-bot: cr
--- 
-Florian
+> 
+> Cheers,
+> Biju
+> 
+> > -	}
+> > -
+> > -	return plane ? plane : ERR_PTR(-EINVAL);
+> > -}
+> > -
+> >  static const u32 rzg2l_du_vsp_formats[] = {
+> >  	DRM_FORMAT_RGB332,
+> >  	DRM_FORMAT_ARGB4444,
+> > @@ -303,7 +287,7 @@ int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,
+> >  	struct rzg2l_du_device *rcdu = vsp->dev;
+> >  	struct platform_device *pdev;
+> >  	unsigned int num_crtcs = hweight32(crtcs);
+> > -	unsigned int num_planes = 2;
+> > +	unsigned int num_planes = RZG2L_DU_VSP_MAX_PLANES;
+> >  	unsigned int i;
+> >  	int ret;
+> > 
+> > @@ -350,6 +334,7 @@ int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,
+> > 
+> >  		plane->vsp = vsp;
+> >  		plane->index = i;
+> > +		vsp->planes[i] = plane;
+> > 
+> >  		drm_plane_helper_add(&plane->plane,
+> >  				     &rzg2l_du_vsp_plane_helper_funcs);
+> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h b/drivers/gpu/drm/renesas/rz-
+> > du/rzg2l_du_vsp.h
+> > index a22aaf0843ed..acb41d343297 100644
+> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
+> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
+> > @@ -27,11 +27,14 @@ struct rzg2l_du_vsp_plane {
+> >  	unsigned int index;
+> >  };
+> > 
+> > +#define RZG2L_DU_VSP_MAX_PLANES		2
+> > +
+> >  struct rzg2l_du_vsp {
+> >  	unsigned int index;
+> >  	struct device *vsp;
+> >  	struct device_link *link;
+> >  	struct rzg2l_du_device *dev;
+> > +	struct rzg2l_du_vsp_plane *planes[RZG2L_DU_VSP_MAX_PLANES];
+> >  };
+> > 
+> >  static inline struct rzg2l_du_vsp_plane *to_rzg2l_vsp_plane(struct drm_plane *p) @@ -62,8 +65,6 @@
+> > int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,  void
+> > rzg2l_du_vsp_enable(struct rzg2l_du_crtc *crtc);  void rzg2l_du_vsp_disable(struct rzg2l_du_crtc
+> > *crtc);  void rzg2l_du_vsp_atomic_flush(struct rzg2l_du_crtc *crtc); -struct drm_plane
+> > *rzg2l_du_vsp_get_drm_plane(struct rzg2l_du_crtc *crtc,
+> > -					     unsigned int pipe_index);
+> >  #else
+> >  static inline int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,
+> >  				    unsigned int crtcs)
+> > @@ -74,11 +75,6 @@ static inline int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node
+> > static inline void rzg2l_du_vsp_enable(struct rzg2l_du_crtc *crtc) { };  static inline void
+> > rzg2l_du_vsp_disable(struct rzg2l_du_crtc *crtc) { };  static inline void
+> > rzg2l_du_vsp_atomic_flush(struct rzg2l_du_crtc *crtc) { }; -static inline struct drm_plane
+> > *rzg2l_du_vsp_get_drm_plane(struct rzg2l_du_crtc *crtc,
+> > -							   unsigned int pipe_index)
+> > -{
+> > -	return ERR_PTR(-ENXIO);
+> > -}
+> >  #endif
+> > 
+> >  #endif /* __RZG2L_DU_VSP_H__ */
+> > --
+> > 2.54.0
+> 
