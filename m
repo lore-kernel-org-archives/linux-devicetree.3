@@ -1,85 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794992206;
-	b=5bDbBm2oLx+66rzLKy2HByQWPewr5SamAs9sTFpmKu0Ba7fLfvi9exq+s9+9b+pd0NGo
-	 vVTqU3E/LQ0RYV17kXjVv+T9EnBqVDmTqc4dL0XEHVPYtZP1nFVEgjM62HSn9YoHLRYZN
-	 R0fQyAaxnQNn47rDpUglYeKE0dR5aLPUSacGRRFLBmMJ56LjlkUle6o0KvBgE4YyyUCdz
-	 8IqYwIB/+9PRpL9Yf3Oip5YkbSCeWSg6/Xg8f4spzuH2SIydnHC+9L4fpoct3iePPMx1t
-	 aU+YyDzCQhXrXUQIgR8JpEz6B+iSMEC7fQp12XVpuayyKOkdh9A9n9/TD+TSuIUucZA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794992206;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=QYr2rryHl07LzDt7Y8SCvTQClZW8GDGy7EzF3FXywkI=;
-	b=Jcs4n4EedE+0aL6erGHocwK19PUirBrxm1tlB7X8gIOrLtVwNH02ZuU9oN5yjN9zTbxi
-	 ZVrmwAVxlpmkWzpeGJj2EGex063rasd6dgchKr4d5kT826juPS69CTQpaijzwtyOVZ+h8
-	 dQZGNWtYvBGNR9zbVZ7Vc9IYT0rKdGw93mCd1ypugjRaAucDGCURHapXBrPUmIrMVUnSQ
-	 r99YjffqOAIF+QhCBNmnbpvZ45jd2tIOSJOs+Zp7SS/vkYan4ssqtdlOwV2wya88Df6+N
-	 V6Uw5AwC+FuhyyNUCRHLOWFpOH8l8o+rGPo82uvMuO5HzpgEnmLZfEp7+3HU9z413hA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjV43R9x;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.57
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794992279;
+	b=Q9ezpJq7m8wVnqGzN59b0TH5GTcys1gAYOhbywOwuheIqumBA0GCad2jJvA18TREpMD+
+	 GBbQzwDh6yNngswU94t9rJnT7BwGQPI5n5lpq30dV2LtJ2j5PLC9ll00m/avoAVq5/6tV
+	 3WSTdfGQKEyUybl5fgaFJtNjygdA9XsaJgiza3CXFvPVyGUoodELs3MMqk0utLgt35zK/
+	 qQ+9Hc9iRQppT5tvzFlfhvy564dmvmbfhKMRnUzUTD4U8aU8Nti6eQP/sg1LbvLE2Cqh/
+	 0QSGUJzOyNsftpif4AWcwocCVcIkzaeaPfTx6JBANtcq0ATi3L3cSjomgYTkK/vPLeA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794992279;
+	h=DMARC-Filter:DKIM-Signature:Cc:Date:Message-Id:X-Lms-Return-Path:To:
+	 From:Subject:Mime-Version:Content-Type:X-Mailer:
+	 Content-Transfer-Encoding:Received:X-Original-From;
+	bh=yOxzqLseFUYhYdIECMH6Pr89r6ogqLgHYA2LaD6ZQPI=;
+	b=THlpVBJ8o5w/VEF+lw3JjhHwPUbL/1VfuU668+Qo+76Xkhr82S0s/Cj1uOhu9yN3i2Wt
+	 fvU8WdIYDS2U3ibtGlxNSMtjd8FIvMLtSUX/DysYUPMhmt7UK2iUlpKd/nMEQH7fDeji3
+	 FkvndUFaR5Lj6yWFcgeLEq3W+esHc8H9qzqCZCCX30UX+D4iPkgFVSbhB2o4oRkHs0/sA
+	 fw4TXpEqf0aw3Tv/c2lPyN9Er4sSbXcQCrEshuvF+8tqBv0F7+hdk0Z11xdGuL8VTGaM+
+	 E833+qoKWKqgcI0OkXSGK5TgtUAd9psZDKK3yZt9KKsZbo3t21KCHVhM5vmj7rvfknw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=deepcomputing.io;
+	spf=pass smtp.mailfrom=deepcomputing.io;
+	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=S1bK5FtW;
+	arc=none smtp.remote-ip=209.127.231.57
+Received: from va-2-57.ptr.blmpb.com (va-2-57.ptr.blmpb.com [209.127.231.57])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698E8606A31C;
-	Wed, 18 Nov 2026 08:56:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADAF606A32F
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:57:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ADAF606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjV43R9x
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794992206;
-	b=Yb1r5nGSlIIk64toYPwn/mPBBJbONZkWg0gs+B8yGMpE5VItNTU7FI6aaW1ZzMtcp+yl
-	 WM8rvVgnJP0jCbQGRvYx3Prnhq/G+RaN05lQPEDWpYmC0XcV9UFuN+s+LA1PlZEzq6iFO
-	 ld9qknk4YJGzZjDj7nGGfErWSGNVisrAFQRGl2w6SPOHaIL5sUBFHPS72Qi57bPs5L+AN
-	 mGDmQkhR7BCxlzB7HOzQulp11H2CAhyT8EUREV+Aco4NJKjPbH59dwxnXMgjOZ3oA9tDc
-	 Von+lpiZXENDOAMv3pAqg8wv79mGMEo/EGL1ABDTUe6Li5HykQupXf4xR0Bkm9IYz1Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794992206;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=QYr2rryHl07LzDt7Y8SCvTQClZW8GDGy7EzF3FXywkI=;
-	b=ALR4Pg866kU4NIUuOFeo6QE5ujr6yfbilrwgBRIniq6NYkRxwduYVyiDvWOvEq2M2Xwt
-	 zAYAET8e4ft3eprQKZpTA3uQ2G31RP05rEBD0sUEqJFz+Kc5+2Y0V3wOLpA/q6FBQSHJY
-	 68YexdqQc+lE46BJJAx8jY4Bb3I6M2n9GR6pEN5stASygzsNsQ6x4/zjzrPsGWdsa0YDD
-	 JBfUDfg3onAVNl21OyjVfD/fLQpUjEXYifvwZSe03tozs4BMMKaWhox2k0BDvZA4scWUk
-	 9MbJ77dCTWCFQtDm16VDrgEyZc/nJN8E5Yy6vR6RiRjC3DFIhGT1OXs9Tqi7Y4m7nEA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id 797E41F000C4;
-	Wed, 18 Nov 2026 08:56:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794992206;
-	bh=QYr2rryHl07LzDt7Y8SCvTQClZW8GDGy7EzF3FXywkI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kjV43R9x36onnBvyb24tYcPosjlSJ8Vp2QWAdiYn/FAjnDwn6YXDEIPw0MFhEMdsQ
-	 IB8Nz1vIUsZlabWdnfsavKL4b3f9nTZzBUt7elnQ3imtc2epvSuBDr2NeyNKPTpx1Q
-	 oodTmav0NJzojAO9oj2B+j7E0fFMLrIAHeBM6uXC2V7CxOOAydTDnIxPsG2VPpub2R
-	 +sYtApcn9rEJSCpIBBHlpIgZa1bAPw34OFtLTyhRPM8aWsnob7zP6dfwdn+3TniyU3
-	 KOSQ7DEWY02K3/WhRdbbNk3s2F6OxQeQ2reNdj9HceHQMDaEzYpysdei/kBqI2WoZh
-	 lRG7nbYujqnfg==
-Date: Wed, 18 Nov 2026 09:56:35 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: lee@kernel.org, maz@kernel.org, andy@kernel.org, jic23@kernel.org,
- dmitry.torokhov@gmail.com, linux-input@vger.kernel.org,
- mfd@lists.linux.dev, linux-iio@vger.kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/4] iio: adc: mxs-lradc: Fix trigger use-after-free
- on removal
-Message-ID: <20261118095635.00005533@kernel.org>
-In-Reply-To: <20261116224803.61154-2-festevam@gmail.com>
-References: <20261116224803.61154-1-festevam@gmail.com>
-	<20261116224803.61154-2-festevam@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=S1bK5FtW
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794992272;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=yOxzqLseFUYhYdIECMH6Pr89r6ogqLgHYA2LaD6ZQPI=;
+ b=S1bK5FtWYNSZHZNX0NmS/qx575+gxqKr0uU0DGZ6KoNSLjWC8AdMWE8i+M6rPVG5OVY2Bg
+ woP7owbnzdPKbrNZS1k0pIIYhfMFmaZR0yIdt9QXNJ1bUTTvQ2PXEd1avjQ8KYRW6xqtSt
+ fGJKjiKuOcw8rbFd+4bnXMJDTtQa+RRFMT9cty2VFkwYf0AK4u5AoMW5KNd0e++v/TJmJd
+ rHBM5Xg1oD1tdN3SpFanaXyF9YhOjhxHv1NlToTGKjesIjFEJk50LtLG9chwM/LDM2DRi3
+ 0kNVlBv2/SlBhmBr4qFtx0QYDhknD1bWZQEjV8JhRJgn3qGJ6LpSp1Ij6PjS0w==
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Tzung-Bi Shih" <tzungbi@kernel.org>, 
+	"Guenter Roeck" <groeck@chromium.org>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Conor Dooley" <conor+dt@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, 
+	"Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
+	"Sandie Cao" <sandie.cao@deepcomputing.io>, <devicetree@vger.kernel.org>, 
+	<chrome-platform@lists.linux.dev>, <linux-riscv@lists.infradead.org>, 
+	<spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Date: Wed, 18 Nov 2026 16:57:33 +0800
+Message-Id: <20261118085742.1817536-1-yang.wang@deepcomputing.io>
+X-Lms-Return-Path: <lba+26afd688e+ff5dca+vger.kernel.org+yang.wang@deepcomputing.io>
+To: "Yixun Lan" <dlan@kernel.org>, "Benson Leung" <bleung@chromium.org>
+From: "Wang Yang" <yang.wang@deepcomputing.io>
+Subject: [PATCH 0/9] Add SpacemiT K3 FML13V05 EC keyboard support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,40 +67,104 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Mailer: git-send-email 2.43.0
 Content-Transfer-Encoding: 7bit
+Received: from ubuntu.. ([183.23.101.74]) by smtp.feishu.cn with ESMTPS; Wed, 18 Nov 2026 16:57:49 +0800
+X-Original-From: Wang Yang <yang.wang@deepcomputing.io>
 
-On Mon, 16 Nov 2026 19:48:01 -0300
-Fabio Estevam <festevam@gmail.com> wrote:
+The DeepComputing FML13V05 uses a ChromeOS-compatible embedded controller
+connected through the SpacemiT K3 eSPI peripheral channel. Its internal
+keyboard is not available on linux-next without the controller and EC
+transport support described in this series.
 
-> The LRADC trigger is devm-allocated against the IIO device, but it is
-> manually unregistered after iio_device_unregister(). The latter deletes
-> the IIO device and releases its managed resources, freeing the trigger
-> before mxs_lradc_adc_trigger_remove() accesses it.
-> 
-> Since commit 699fb50d9903 ("drivers: base: Free devm resources when
-> unregistering a device"), device_del() releases managed resources.
-> Consequently, iio_device_unregister() drops the trigger's allocation
-> reference before the driver unregisters it.
-> 
-> On an i.MX28 EVK with KASAN enabled, unbinding the LRADC parent with:
-> 
->   echo 80050000.lradc > /sys/bus/platform/drivers/mxs-lradc/unbind
-> 
-> reports a slab-use-after-free in device_release_driver_internal().
-> 
-> Allocate the managed trigger against the platform device instead. This
-> matches the trigger device's parent and keeps the allocation alive until
-> the platform driver's remove callback has unregistered the trigger.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 699fb50d9903 ("drivers: base: Free devm resources when unregistering a device")
-> Signed-off-by: Fabio Estevam <festevam@gmail.com>
-> ---
+The EC host command registers are exposed through a memory-mapped,
+non-linear peripheral window. This interface cannot use the ordinary
+cros_ec_spi message transport directly. Add a K3-specific controller and
+EC transport, and reuse the existing ChromeOS EC protocol, MFD and
+keyboard drivers. Existing EC core, LPC, SPI, protocol and keyboard C
+files and the google,cros-ec binding are unchanged.
 
-Reviewed-by: Joshua Crofts <crofts@kernel.org>
+The series is based on next-20261116. Patches 1-2 document the controller
+and EC bindings; patch 3 adds the controller; patches 4-5 enable Chrome
+platform support on RISC-V and add the EC transport; patches 6-8 describe
+the pins, controller and board keyboard; patch 9 enables the drivers in
+riscv defconfig, with the EC transport and keyboard built as modules.
 
+The controller implementation is ported from the SpacemiT vendor BSP
+(revision 29b78afb484b, originally authored by goumin
+<min.gou@spacemit.com>). Controller programming and recovery remain
+separate from the EC client. The EC transport and compatible are scoped
+to K3 because the window layout and controller recovery API are specific
+to this hardware. Feedback on the transport split and recovery interface
+is welcome.
+
+Validation on an FML13V05 with its internal keyboard, 2026-11-18:
+- W=1 cross-build of Image, modules and the board DTB completed. No new
+  warnings came from the added drivers.
+- Both new bindings and their compiled examples passed schema validation;
+  the new examples passed strict DT style checks. The new EC, controller
+  and keyboard nodes in the board DTB also passed validation.
+- Cold boot and module autoload passed all 20 automatic checks.
+- 153 read-only EC queries and three EC module unload/reload cycles
+  succeeded. EC firmware was FML13V05-V01.06.
+- A/B/C/1/2/Enter, all four arrows and Fn+F1/F2/F7/F8 produced the expected
+  28 paired press/release events, with no dropped or held keys and no
+  new EC/eSPI errors in the kernel log.
+
+The running test kernel was
+7.4.0-rc3-next-20261116-fml13v05-k3-espi+.
+Booting the test system required a separate K3 PCIe test module and
+USB/NVMe DT additions, which are outside this EC series. Suspend/resume,
+EC restart fault injection, full-keymap coverage and long-duration
+stability were not tested. A previously observed UEFI reset_system()
+failure was not addressed or retested by this series.
+
+Checkpatch reports no errors or CHECK findings. Its four new-file
+MAINTAINERS reminders were reviewed: the existing SpacemiT N: pattern
+and Chrome EC/DT entries already cover the new paths, so no MAINTAINERS
+change is included.
+
+OpenAI Codex assisted the port, patch preparation, review analysis and
+test tooling. The work was developed through an iterative session to
+port the existing DC-linux/BSP support, keep the common EC implementation
+unchanged, use K3-specific naming and bindings, and verify the result on
+hardware. Human review was completed before submission; the numbered
+patches retain the submitter's existing DCO sign-offs.
+
+Wang Yang (9):
+  dt-bindings: bus: Add SpacemiT K3 eSPI controller
+  dt-bindings: embedded-controller: Add SpacemiT K3 EC window
+  bus: Add SpacemiT K3 eSPI controller support
+  platform/chrome: Allow ChromeOS platform support on RISC-V
+  platform/chrome: Add SpacemiT K3 eSPI EC transport
+  riscv: dts: spacemit: Add K3 eSPI pin group
+  riscv: dts: spacemit: Describe the K3 eSPI controller
+  riscv: dts: spacemit: Enable the FML13V05 EC keyboard
+  riscv: defconfig: Enable the FML13V05 EC keyboard modules
+
+ .../bindings/bus/spacemit,k3-espi.yaml        | 146 ++++
+ .../spacemit,k3-cros-ec.yaml                  |  58 ++
+ .../spacemit/k3-deepcomputing-fml13v05.dts    | 137 +++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi  |  24 +
+ arch/riscv/boot/dts/spacemit/k3.dtsi          |  31 +
+ arch/riscv/configs/defconfig                  |   5 +
+ drivers/bus/Kconfig                           |  10 +
+ drivers/bus/Makefile                          |   1 +
+ drivers/bus/spacemit-k3-espi.c                | 804 ++++++++++++++++++
+ drivers/platform/chrome/Kconfig               |  13 +-
+ drivers/platform/chrome/Makefile              |   1 +
+ drivers/platform/chrome/cros_ec_spacemit_k3.c | 739 ++++++++++++++++
+ include/linux/spacemit-k3-espi.h              |  20 +
+ 13 files changed, 1988 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/bus/spacemit,k3-espi.yaml
+ create mode 100644 Documentation/devicetree/bindings/embedded-controller/spacemit,k3-cros-ec.yaml
+ create mode 100644 drivers/bus/spacemit-k3-espi.c
+ create mode 100644 drivers/platform/chrome/cros_ec_spacemit_k3.c
+ create mode 100644 include/linux/spacemit-k3-espi.h
+
+
+base-commit: 749a4de370409464cf8501ec5b2451df45c84eb4
 -- 
-Kind regards,
-Joshua Crofts
+2.43.0
