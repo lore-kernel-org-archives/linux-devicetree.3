@@ -1,51 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794993218;
-	b=q2+b50lVSzSAn8H0+uDLMYve+nnHg68FRb/iJK4NMKceZGEsffHbVjJnoyUE+sjFuSx3
-	 ARpLCs4MO47cNyQM/kHh9ZQJWBaREuafC+wjunAfjaMk6KKplO1BLNjQhDERA86f4QiEv
-	 Dvx43frE218qa0mbQPLZRV4zZif9lPRgpcuK4Q9X4VY4jx/vPz7gPy9FCrNyZmXSuldIj
-	 zrexvKnOwgtVGM116PlAozKvWAQsEXDA2pv4FG1gG7Oa7Gciq0yevEvFRkNITWO1geA1o
-	 AM2O/bbjaQNvzVUfyOsJh7O12DLdg9g4XAzRW4toi3x/9LMKaZVIExhPMS1v8ZLDSqg==
+	t=1794993241;
+	b=XtOrm100FhrDjqjKXpRDVur/++eHYYwDU8Wuu/O6J1JP1Ym0cidRYD3gH+QXrLTrCvOT
+	 BkWnSVa3cb0z83NYcMbo2UyOFODQ1C89whN0pPi6n+tJFkgZFy4MRqKlJXZ1ZWSfqi6IA
+	 FwFTDIJPaotWhc02bXROKi411AguTlWq3g4utRqtp1oHGunf/VZ45Nv4GkEPumCk+YY5u
+	 szgztjUlF4A+AYsbn8ErwHNNwzqwvUJWxnY55mrTjX0Q16z9S8zACGoDqfosPKarB7+3z
+	 C94ep+sqxFRMZGyA4f8lzdhCZwJQK9G0pBCnhp3JST+RZSRiFL/p0cIKk3P20tzIblA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794993218;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=MvvizZ9JHQIxNGSNp585ypBtXBMQ2aCpYxufJnPDzVU=;
-	b=rcYsnR4ca4KDHJ+D9FQhJQzs+ZspAM9+CBJClju/ojcVLKnfDWiLWDC9sBB+PFxMpbFD
-	 gpIoMTN62rUgBKcih3fkdMz5BJdW08RTdwF9vemb5dNBrSDlZB1BN32TOzy3CBgIQCyuU
-	 fr6tAAxL2p5m0hyK0+d2HtIVeXqqtSZV1xUaW4LA62asIBFLeRBNz2B6tqVtyFsJP2Fpx
-	 QKKgpF/OqBkeDA+tLpe96Oqm6wCgE1nj+ormqbp7diYl6SlLMLnY2JM35iVPJPpzt718G
-	 QalBi++2jA79sjJzmHf6yzYszKwG8sZo7d1kZUOmURPyViJADBQ7frITF9GLSHC3XRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794993241;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=1Mj/7zNTFxvoo0YnADhIrDpQzE4e1mgOjutHuCj90zM=;
+	b=BptG5MOkiQX8RYQWtne+jd9+Q/SuFu+QV+St4gq2e2i5OWWQ3E9+yayDHaKQN5f4VfNk
+	 ScTENpps1dBxkiJk2euvdw+rUcbmARj+N1WhnPxUCNJEG8HmpKDXDmGOiH4TnuxA0s+yN
+	 JELeMR+847w8RH3v/3zKSgwzcFwesFAVf/S/Qb/YykqmIQfBV/VJhMY0hJJ69sPPSa4Ox
+	 J81zgnrWAhgtLSr5Am4JUn98osEPHbo7imv9IXb8Ip3ZQaNYznGGHml4u6Ux5dHpzJ2pr
+	 fyKciN/N0cWPXwWptK3d2Lr57s20aDUdkQQxBD6HjCWlj68SCRvSmtUn/xGOBUuJRzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=oA37q7RK;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B720C606A88E;
-	Wed, 18 Nov 2026 09:13:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B720C606A88E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <eb60698d243da29c61b3ffded6acca90dfcb3475.camel@crapouillou.net>
-Subject: Re: [PATCH v3 2/7] pinctrl: ingenic: Fix hardware dual-edge
- interrupts on X1600
-From: Paul Cercueil <paul@crapouillou.net>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>, Linus Walleij	
- <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bartosz
- Golaszewski	 <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
-	letux-kernel@openphoenux.org
-Date: Wed, 18 Nov 2026 10:13:31 +0100
-In-Reply-To: <29961993f8fdc1db97854f940ecf3883c2d32cf6.1794987700.git.hns@goldelico.com>
-References: <cover.1794987700.git.hns@goldelico.com>
-	 <29961993f8fdc1db97854f940ecf3883c2d32cf6.1794987700.git.hns@goldelico.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38CAF606A31C;
+	Wed, 18 Nov 2026 09:13:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38CAF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=oA37q7RK
+Received: from francesco-nb (93-38-173-255.ip71.fastwebnet.it [93.38.173.255])
+	by mail11.truemail.it (Postfix) with ESMTPA id C841A1FB3F;
+	Wed, 18 Nov 2026 10:13:55 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1794993236;
+	bh=1Mj/7zNTFxvoo0YnADhIrDpQzE4e1mgOjutHuCj90zM=; h=From:To:Subject;
+	b=oA37q7RKSzbZUDsZ4P4vc1g/8RuFjYJGzYdlZK7kKB4Ii+UXppDWqV40OmEqk9lr3
+	 vw/nFFOfLGJQzf2guxqLNOvDWLiHaDAA1okMAL062eG9Fn1tpB3DtsC3s8iWcAiC9K
+	 8/Cd360XxMCEtFqBM7ODnlcS4/pOH/YLz6bM7JWILQrkWjUSnWCLrULkWZSKfZjpRC
+	 07n7PHWYie0II1fhplVPwyiNK/ZM32je0lX/RjO0QG2NcxpHDoR6z6kNvTHmtfh3zm
+	 LdnnX5Qdy5lrWMR4l1L07jzNYs1EzuOsZhlrLD8WxK11JnFYHXKHQSgA/s7bvcpcPR
+	 gm3OycSQdzKcA==
+Date: Wed, 18 Nov 2026 10:13:50 +0100
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Vitor Soares <ivitro@gmail.com>
+Cc: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vitor Soares <vitor.soares@toradex.com>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] arm64: dts: ti: k3-am69-aquila: Add ath12k
+ calibration variant
+Message-ID: <20261118091350.GA133044@francesco-nb>
+References: <20261117174154.549590-4-ivitro@gmail.com>
+ <20261117174154.549590-6-ivitro@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,109 +69,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117174154.549590-6-ivitro@gmail.com>
 
-Hi Nikolaus,
+On Tue, Nov 17, 2026 at 05:41:56PM +0000, Vitor Soares wrote:
+> From: Vitor Soares <vitor.soares@toradex.com>
+> 
+> The Aquila AM69 has a Silex SX-PCEBE Wi-Fi module (WCN7850). The
+> module reports the same PCI and QMI IDs as other WCN7850 designs,
+> and its board data also comes in variants for different regulatory
+> domains (US/EU/JP, UK/CA low and high). The IDs alone therefore
+> cannot identify the right board data.
+> 
+> Describe the Wi-Fi device behind the PCIE3 root port and set
+> qcom,calibration-variant to the US/EU/JP board data.
+> 
+> Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 
-Le mercredi 18 novembre 2026 =C3=A0 08:41 +0100, H. Nikolaus Schaller a =C3=
-=A9crit=C2=A0:
-> Use the hardware dual-edge detector on X1600 and X2000.
->=20
-> Set PAT1 when configuring both edges and program EDG on X1600.
-> Keep software edge switching for older SoCs without EDG.
->=20
-> Tested on X1600 and X2000 using GPIO buttons and register readback.
->=20
-> Fixes: 943e0da15370 ("pinctrl: Ingenic: Add pinctrl driver for X2000.")
-> Fixes: 4da56f9c6f14 ("pinctrl: ingenic: add x1600 support")
+Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-You'll have to decide, I don't think you can have two Fixes: lines.
-
-You also need to add:
-Cc: stable@vger.kernel.org
-
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-> ---
-> =C2=A0drivers/pinctrl/pinctrl-ingenic.c | 19 +++++++++++--------
-> =C2=A01 file changed, 11 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-
-> ingenic.c
-> index 88c5edeaaddcc..dc5d38c16e18d 100644
-> --- a/drivers/pinctrl/pinctrl-ingenic.c
-> +++ b/drivers/pinctrl/pinctrl-ingenic.c
-> @@ -3622,6 +3622,10 @@ static void irq_set_type(struct ingenic_gpio_chip
-> *jzgc,
-> =C2=A0		break;
-> =C2=A0	}
-> =C2=A0
-> +	if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
-> +	=C2=A0=C2=A0=C2=A0 is_soc_or_above(jzgc->jzpc, ID_X1600))
-
-That actually fits in one line of 80 chars.
-
-But you can do even better and move that to the switch above, and replace t=
-he
-val1 =3D val2 =3D false;
-
-with:
-val1 =3D false;
-val2 =3D is_soc_or_above(jzgc->jzpc, ID_X1600);
-
-> +		val2 =3D true;
-> +
-> =C2=A0	if (is_soc_or_above(jzgc->jzpc, ID_JZ4770)) {
-> =C2=A0		reg1 =3D JZ4770_GPIO_PAT1;
-> =C2=A0		reg2 =3D JZ4770_GPIO_PAT0;
-> @@ -3635,15 +3639,13 @@ static void irq_set_type(struct ingenic_gpio_chip
-> *jzgc,
-> =C2=A0		return;
-> =C2=A0	}
-> =C2=A0
-> -	if (is_soc_or_above(jzgc->jzpc, ID_X2000)) {
-> -		ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
-> -		ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
-> -		ingenic_gpio_shadow_set_bit_load(jzgc);
-> -		ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset, val3);
-> -	} else if (is_soc_or_above(jzgc->jzpc, ID_X1000)) {
-> +	if (is_soc_or_above(jzgc->jzpc, ID_X1000)) {
-> =C2=A0		ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
-> =C2=A0		ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
-> =C2=A0		ingenic_gpio_shadow_set_bit_load(jzgc);
-> +
-> +		if (is_soc_or_above(jzgc->jzpc, ID_X1600))
-> +			ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset,
-> val3);
-
-The minimal diff would have been to change the check for ID_X2000 to ID_X16=
-00
-above. But the code does look better this way so I take it.
-
-> =C2=A0	} else {
-> =C2=A0		ingenic_gpio_set_bit(jzgc, reg2, offset, val1);
-> =C2=A0		ingenic_gpio_set_bit(jzgc, reg1, offset, val2);
-> @@ -3718,7 +3720,7 @@ static void ingenic_gpio_irq_ack(struct irq_data *i=
-rqd)
-> =C2=A0	bool high;
-> =C2=A0
-> =C2=A0	if ((irqd_get_trigger_type(irqd) =3D=3D IRQ_TYPE_EDGE_BOTH) &&
-> -	=C2=A0=C2=A0=C2=A0 !is_soc_or_above(jzgc->jzpc, ID_X2000)) {
-> +	=C2=A0=C2=A0=C2=A0 !is_soc_or_above(jzgc->jzpc, ID_X1600)) {
-> =C2=A0		/*
-> =C2=A0		 * Switch to an interrupt for the opposite edge to the one
-> that
-> =C2=A0		 * triggered the interrupt being ACKed.
-> @@ -3758,7 +3760,8 @@ static int ingenic_gpio_irq_set_type(struct irq_dat=
-a
-> *irqd, unsigned int type)
-> =C2=A0		irq_set_handler_locked(irqd, handle_bad_irq);
-> =C2=A0	}
-> =C2=A0
-> -	if ((type =3D=3D IRQ_TYPE_EDGE_BOTH) && !is_soc_or_above(jzgc->jzpc,
-> ID_X2000)) {
-> +	if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
-> +	=C2=A0=C2=A0=C2=A0 !is_soc_or_above(jzgc->jzpc, ID_X1600)) {
-
-Keep it on line line.
-
-Cheers,
--Paul
