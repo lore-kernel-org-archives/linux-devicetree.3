@@ -1,106 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795001885;
-	b=XTrNPGPAbPEgMrZf60yP47Ey+agM18rqPYSIEI5Em+QZZnqjgtdrSEBstGHmLjfH+Hke
-	 SRbSiY5qKhKSEd2RuClve/uSDmWwvhK2qRx5eoZoA7dQ6savONb7C6+/XnIo+wmVYyc20
-	 Y2omylICEYa8NzaRlRBWyCP553oKkP5bSjLAk+xJuqTG20KO+V71u2oxXbWmVuJ0sthoY
-	 IdRx3VYAXMLMJjVhKwohHeojpo0wwoojP0zSddpYLM43iaeOliq9hCMSOcgw+f3mU3ArM
-	 NCaJhcB4siv3k61mYX9uat3+xWEWv+98jSCTt2hiJaIChwqlvzwwfxIYtcst+//VYcA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795001885;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.218.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1795002256;
+	b=W6HBBJAA6uKsagMx5HzF+yv9tjt92kuR3GriKdyYfqYxm3mjuDkjvf7vuO27Hr2opFtU
+	 +RJbDiq1lBQjj0i05Z41pjfdzuesWoMbXsL6TfTJj0nkFC4tDzo+ZtmO3QXqTTDsmgOXI
+	 nVDCClRjkcucNXllJUKMa/0IGwIj5l333hgApSz+dxD5fAuBSGRzjUvqPAsUO3Y6Baoq2
+	 OusRsjOxkZpM4ggtFEsPyqWPHCK8wENT6PBFb5RthFvRUW5J+FwJK2Tb3pCYwQSOXHSN/
+	 7PZpyM1vwSpcj18lGespusQcrwWrR02Kh+kVi8x9j5HZ4sao2o3Yy+5nUAgZQeVtAhA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795002256;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=AZ7qkD0L75OuzyZ7+z/b4gyTaud+oMoBaIWST7AAwg8=;
-	b=EIAPheTmCw/dtAORpc8ZoE2Nww3TyU7Ty/mFb+DLgjDl19wIM+xlrRM0Scx2XR7uG+PP
-	 LqBQsXVJJA/shmFWYKmFCZfSo+sKAIoZwYLvKJRnF41nCsvionbp5EipVBDxOTxgJzsNQ
-	 dveQzWArhfjwz7kIxw1efcNdh4ZcxHvh21JjuBJzlFk3YYbPGpBrTQzXQkbeW76R7c+Zz
-	 9z9+7CgQ2VJNXjCI2KLfq211zOzKRbikTqoyKb1+I4UVK9BX6NSUEiVyPB1ViL+ujBffd
-	 1daWsoar6H6i6YhMgT6W2Eb48LKBS7KMb4SrJLAMc2sYpSbpcZgmSTSGBl6M2VFP3pA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7wxyVYogwlbLITEcqMPp6Ab4ibF5XqXtt1YOnFTe6FI=;
+	b=XZZtuoBtKoO9I0mdoRm78hOBNSsThaIrxp6iBTB1oY7VJEgcEarEIhEREtLx8aMfgmwV
+	 LUb5uitTMSmQ+1HEVhYf5i6U4sM4iIw4mCHEy9ky9FZwYnqNjzbEyvN3MpUtbdQln10ri
+	 QKZtptYh4lskR9605BBcfvF9j9yv0JFtSZJpIs7eFCfqHQPjMQ0OjaDjU4LDDt5jWdipD
+	 fQKJDO1nHEuENC5I/0OlbymPXwa6vIvvCHY9GN6wiJEPW4XVzEYu8o+Mk00GriC2VolvP
+	 bhUFjoKhCvbEl7p496GIneO2dY1tybjdtH0McfZKH6RNJ9vs645ZHlk1kjJLMSXEEcw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v+7og4LC;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jN7BU0u6;
+	arc=fail smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCE260A2602
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 11:38:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBCE260A2602
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27210606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 11:44:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27210606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v+7og4LC
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so538001a91.3
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 03:38:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jN7BU0u6
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c505b2e1cb9so115249466b.2
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 03:44:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795002254; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ayZ2AUu/NcKdykXLcPB6ER+hKef518rfW/o4Qr6dkVJlwjM/Bbmv+Cu/WhnUJbttxo
+         YFhxmmVlees4ms44ksQC0TrQs+HeNPNrtWlg9XsXYOmHuLIYP20VU4b6JEticyOSBpvl
+         ZV/l4HEfGI7v/+lSoQoJ/3rafxnBpDOSRjFUI+vyyFCMjNq6nDZZlKsO9GveUhEOVu1p
+         neJWtlb3w+ehCaw00hMbcZDhRsMFPNICdF3Cs07epRj/3BHE+1dqEfKBQamGTPJTqjc4
+         /o8Hdu5wD7x+jhOQbwsXi3ZxIoWOh432KVJGk+64yxbEuWKdLrqw01yhuIQALfNhR7eT
+         ZezQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7wxyVYogwlbLITEcqMPp6Ab4ibF5XqXtt1YOnFTe6FI=;
+        fh=fRbI4M3tGVdpRpK1HWyvWAq9B7h2Ro+M3W6SPXToVbo=;
+        b=Phh0T3br5gWRSUk4dL4r3K1U1gbzDHyTiP4eWJRaKDJOxPV9r//Je2XTGtKZO6k6cO
+         IrH4v4JXj+tX4f3IyEhOaaFL5ymqJ0CZhCYUN8HOCnUEbvxSF9EdDLJbe8ooiY11lG6s
+         cHnhZqXgHe2T5QfRFpbW0YC/C07lg68nVjjQhgQVTa0Hwtf+/oznfPDQvP/w2p29QWLi
+         oKGXhUv0f8hMlO99XRT74RJHEbMB7PWQZBnZQsqTmvf7lq0iCQuKgBoBfTLY0oxJvmiu
+         oAs3gzFsz0i/cm+0o1Bi+fmhza99vkT8K163eolO905mHNyLEh0Ec72BfcQJv1HG+j7Z
+         3SHg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795001884; x=1795606684; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1795002254; x=1795607054; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=AZ7qkD0L75OuzyZ7+z/b4gyTaud+oMoBaIWST7AAwg8=;
-        b=v+7og4LCpbgt8zqV0qGj5L5k9LpgFcD0H0EJlsFDgNHGtKS0F9k3naOHe+9i/2bWeK
-         fPnCiGrJ1oREJ2+h9P6ZKwmoSXSZwgkiENGzo78/EZxbAgOUuY7qaBdPUhqxxdZAdfMn
-         PINW7m5SL8HOai4MWvu+6qrQ3a3gdYcAWvU+dqtYCKFjQTTY/LjyJEp9BT2ogV+kY6jV
-         wQwSCQwUH1MCU09yI/qoVnTqk+MsQEBxxK++4yao1W4KqJSdklyQ1POSzEjEu3h4QkPN
-         R0NvlLmgEt57FkDf2isa3IkqaEuFkxQCgoorgkuw6Irqm5R4d5NvSZmko/MjOATcgF/l
-         X1Ew==
+        bh=7wxyVYogwlbLITEcqMPp6Ab4ibF5XqXtt1YOnFTe6FI=;
+        b=jN7BU0u6VeM5zSAfAgsDJ9IyShENVOOHKCcCU6Tj6O5lMwlQz+dubJKsJAYbwPU7yJ
+         6hsznruHd45cPNEkXsTvlDysvzMk2ZekMgtQWKk54R/4tCebZc41mm6s7okNdb5m/NZl
+         Q3VkLw7qfhudVbmDNpoB/D9KEr+jg17v8jaaPzVjx7sRtQgGFWTP7hF6eAPFz4h6Umj5
+         YoRqzs5n7yRe9aXS6QamGXu9HojILioBaDIJl5DvivDrY1HkkgGMLnJeAzGKpOmrxinI
+         sH/qNInFGi/hCvH9VZ84h3bTKkzH/RRvY0dutglXPcJEJriQ0Pwm++QTnPDizZkEh1S6
+         QjjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795001884; x=1795606684;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1795002254; x=1795607054;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AZ7qkD0L75OuzyZ7+z/b4gyTaud+oMoBaIWST7AAwg8=;
-        b=V6UMFRK+R+hHRyNRhbOqm646ZBA0BXV3F6Jf10QzEP3nHXUdF+r/Wb9bR+QDn7VP1n
-         SiMk7JuBPaXVzzK/onoJenvmbfRIDszNsWGckMbn2bC8xC7/ku/wYwcgI0t93/nzscU8
-         4Bp7tZdq3omXzYBlMttfnrf6A02V5uPHXVD2OLpN3Qwnzz91kSNBpk2qYvudw+YXg41d
-         rJs0mkU5sHpJz+TeS+jiaDCIAPb1dney5WvKRbXrUR5zzt/I01UYK3sBhBgNvGNPzlZ7
-         435tahyeZh1ujUSaLHkSZ3tYuxMcgTHuZTE6sl/ztRCy3BHtYB5C7bT0W0KD8qK/+/Y6
-         nn6w==
-X-Forwarded-Encrypted: i=1; AL+hErH8sL9rekKPGt+NOz5TmBEG9ZrXnQyfCvYtxbA38KOAHbdk9oPGMoVxE+LclZRVzNezWBrki/i7rHz0@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3td/CrbUBc39uhvfyQUtMwkfwubsajlXS7rMLpqEpJVFNNFWL
-	YWa8CBUvCiDeI9HfL5fBZnJVjWe5POHgG0HoZ0fBbhmo0zBWu6g//9OD
-X-Gm-Gg: AZFdTZdAbhklgBX0QzqE95/eoMjoPEsGqfMwflrY9dTogzDmYYXYR/Z4o9hm4H2QiXg
-	eCQSvmLs9S6Tn31fPTqFelU5mG4NT5aumLEY0JOgz8AjFseryhEYZIjV4x8Or81hCcbKTZv8yJk
-	//A2gpuyBMxrIe9ISmP5phBQNCB0JMEhgNUekgl3E9fUTZbyAhRQIiiB1wzO6fqOzwlu30fq/W6
-	pwa7chCpPuBwr+O5yugetCoYltugYd73WdHQEGYZYsY3MZnA00I9w+6Nyutnrlu330FySzrY7u7
-	dZSLdRz8o4RPnSnQOEy4jCURYN4jMcjOIuRljSw9VkJ6wVEb6eef0lFECqzrzIbbW+oBz155fPz
-	5jXWy4mGVnshMNj6GDQE8sK3o0nJOVGdmErQdtIq5JM4d80meinAYqdZeYBzMiNbX1A6TQ3xl2u
-	JqIedbhuLEX+iOYN7Ah7In1TqZ6T5hSmLdSlTTTgnNOoLKnV3GQ1YG4o1dt+9qu/n1E6btScAGa
-	9KeltX3fHe1F1XppDw/efLr5bezaj/hJxWMsZzCR6BJaz8mHzHBaA6TMoi0oUjd8mtrt0357sXj
-	N2axFjH0JBDWphgzqe4Usfn0pKLfDhdw3AJJwJDYr8i73/Saeha3P5nDyK0BxCpFPzxRYoplhqe
-	XofXij9PDAfc=
-X-Received: by 2002:a17:90b:5407:b0:3a6:e901:e79b with SMTP id 98e67ed59e1d1-3b3d074d841mr2303560a91.15.1795001884103;
-        Wed, 18 Nov 2026 03:38:04 -0800 (PST)
-Received: from 1.tailnet.ftu ([1.54.0.190])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac254ba6sm8950084a91.4.2026.11.18.03.38.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 03:38:03 -0800 (PST)
-From: =?UTF-8?q?Tr=E1=BA=A7n=20Trung=20Nh=C3=A2n?= <nhan.094.vn@gmail.com>
-To: Peter Griffin <peter.griffin@linaro.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: exynos: Add initial support for Samsung Galaxy Note8
-Date: Wed, 18 Nov 2026 18:37:19 +0700
-Message-ID: <20261118113756.304373-1-nhan.094.vn@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CADrjBPph5r0rjZPLz7db9-QtmN5+7S2Ft8Zgn1oi+C0Okvas_w@mail.gmail.com>
-References: <20261118-upstream-greatlte-dts-v2-0-bc2f23ce81c6@gmail.com> <20261118-upstream-greatlte-dts-v2-2-bc2f23ce81c6@gmail.com> <CADrjBPph5r0rjZPLz7db9-QtmN5+7S2Ft8Zgn1oi+C0Okvas_w@mail.gmail.com>
+        bh=7wxyVYogwlbLITEcqMPp6Ab4ibF5XqXtt1YOnFTe6FI=;
+        b=xqfyAFn9+ss38chbE7CtVZ8wwqqWt0FUT485/ugdCXiBPYkPB4jI7Wm/jz3bP0QQ10
+         +995gT528/6JuR6sHswbU6m9+zGEj4Zf7+F0C8R0PKeKY4rmDhGyT+n+y5GwwPbdTSVb
+         MHTlBNcReCu4Y7gb945V/G54y6gtQ+GxrUOyytdZeXDpOtPM9mqft9+HqQC8xL6N9Tx2
+         0Qj9zQneDjBhy6P/luwzenLgDeTA1Zqf3X8Gf+vAJrEMfAIqPQLm4fRhY+PhYSvveBmV
+         ME4xspwlJxCdPBNjybvGPB0pfMxWM/1TLUjqgq2b7UiIiXqxzn9dnf6diEO6NAB7xKuZ
+         5+/A==
+X-Forwarded-Encrypted: i=1; AL+hErGKP6fskNuAIuNgmlm1R2DmKkZpPmirt+xf3IEHjQ1/IgXdlz+QKkJSZu42QRT8aay00Q3aAwncxlR4@vger.kernel.org
+X-Gm-Message-State: APuU4Z9pJORs1aLEIdon5GOhrtXgOSbGGL7sUws3CCFR7nbicmnACK76
+	BUb8OXR+bmrIKOIcB20tnBPVWZn65xDk32AN+4Xa6RZN48066RDL8ojFgNhxQu/wBaT3as/Je2U
+	e6hqAYPgzayR7sbmLGUtg/yad4braNruDPQ==
+X-Gm-Gg: AYBFou1P8gQukdq9ac6LqwF/8/S35fQLqruwkuaz6BMsl/KX2U2RuYuwLNhcBFWQDQ4
+	keDA2/BXV0c/56FBUO/yPIvxLD1J9Ji0tVg0RZV/NW6nDu6+w1WwmQMJR++laQn/R5qmxzbVzDX
+	GzWrBUCZDSuIu+U7Qbrd20idnNEVO47dErVZ6okILLfQt9JdUpQiZaid2uI+A4W5uCy2WVzMnHP
+	AWgWmBav3meciDh/zIf1JXsRcVc2I1HeksWNJ0NdlFocCcbF5UiVrQwrQl3Y3w/vtk8nXBsk6K+
+	JHQ/e0Q2z/ZWeDy8MLVIP89lgkQcSYq3mhQ9i6yb1CkLjgXn1UD+rPFeMx8ZQn6lBGg32HJN6Hv
+	OKWgjWEeUmwS/rKJD6qZSNyBKiBWJsCd09h2PM7ZEW6nNjdNzkmmUlF48v5bGqHowf2mrcACqcM
+	M8fBPu05cQyOG51Ygm84s+WvCSJ3+Rlw==
+X-Received: by 2002:a17:907:2d08:b0:c41:cf68:bbcf with SMTP id
+ a640c23a62f3a-c510e4c7b01mr203942866b.32.1795002254458; Wed, 18 Nov 2026
+ 03:44:14 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,64 +105,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20251013060018.43851-1-clamor95@gmail.com> <w3bn5bqxqjhf4uvxov47rwlvmnbic6xnlk25xbpnbmi2eyup7q@tjuiu7pl3mmo>
+ <CAPVz0n1-jN5WLFq4e0CZrneExrN_A=GNeGTwGHTCj14NAta+jQ@mail.gmail.com>
+ <aPCfiJxyKOXsgNJe@shikoro> <20251021132529.GA4133357-robh@kernel.org>
+ <CAPVz0n3jt04xEwGr1aiDTJ7OonYYgOy3QneteLXgdGruXGMP_A@mail.gmail.com>
+ <20261118091334.3d51a5f0@bootlin.com> <CAPVz0n3=rL9jVc7DtG9FmcH0zs11+LXg1+HRRf9aagUqZf=+_g@mail.gmail.com>
+ <av2Nb_likDLz1u2c@shikoro>
+In-Reply-To: <av2Nb_likDLz1u2c@shikoro>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 18 Nov 2026 13:44:00 +0200
+X-Gm-Features: AclHuK96an4qc5B-PYbtLDwncBYBe2347MxD2hcXG5FWth-Tpd6Gs4iX79m0kGo
+Message-ID: <CAPVz0n2rZSRAz2NJsPUXYncgEAi9cFGM0ApfarFq5uMoO9LqsQ@mail.gmail.com>
+Subject: Re: [PATCH v1 0/2 RESEND] i2c: muxes: Add GPIO-detected hotplug I2C
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Herve Codina <herve.codina@bootlin.com>, Rob Herring <robh@kernel.org>, 
+	Luca Ceresoli <luca@lucaceresoli.net>, Andi Shyti <andi.shyti@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Rosin <peda@axentia.se>, 
+	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	=?UTF-8?Q?Jonas_Schw=C3=B6bel?= <jonasschwoebel@yahoo.de>, 
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Peter,
+=D1=81=D1=80, 18 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 13:3=
+5 Wolfram Sang
+<wsa+renesas@sang-engineering.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Hi Svyatoslav, and Herv=C3=A9, and all,
+>
+> > > > > > So, if you want upstream supported I2C hot-plugging, you need t=
+o wait
+> > > > > > for Luca's and Herve's work being accepted. Or provide a superi=
+or
+> > > > > > solution. Or, if you want, join the ride. You already have expe=
+rience in
+> > > > > > this field (and hardware plus use case), you would be a very we=
+lcome
+> > > > > > contributor, I would say.
+> > > > >
+> > > > > Agreed.
+> > > > >
+> > > > > What really slows things down is when there is only 1 user of a n=
+ew
+> > > > > binding. Too many times have I accepted one only for the 2nd user=
+ to
+> > > > > show up right after accepting it and wanting something different.=
+ So
+> > > > > now I just require more than 1 user and it is on the submitter(s)=
+ to do
+> > > > > that. After all, it is their itch, not mine.
+>
+> For completeness, let me emphasize the above paragraphs again.
+>
+> > > No new advancements. I moved on a prerequisite: Having support for ad=
+don
+> > > format in dtb in order to have support for a list of exported symbols
+> > > resolution when an dtb is applied on a live devicetree.
+>
+> Well, I would consider advancements in prerequisites also advancements.
+>
+> > > Anyway, the v3 series [1] need to be updated and a new iteration need=
+ to be
+> > > sent. Also, same operations need to be done on the SPI version [2].
+>
+> Herv=C3=A9, is that the next planned step or are there prerequisites need=
+ed
+> still?
+>
+> > Rob, Wolfram, since the DT Addon framework is not mature yet, may
+> > i2c-hotplug-gpio be accepted in some form? Maybe a staging driver or
+>
+> I vote against it. Accepting intermediate solutions will slow down the
+> proper solution even more.
+>
+> > with notes that ABI may be changed and are unstable or maybe as a
+> > device specific driver only for transformers like
+> > "asus-transformer-dock" etc?
+>
+> Which kernel are you using? Can't you use your driver downstream instead
+> of upstream unless Herve's work is usable?
+>
 
-On Wed, 18 Nov 2026 at 10:51, Peter Griffin <peter.griffin@linaro.org> wrote:
-> Does the Samsung bootloader not pass a correctly populated memory node
-> for the device? Or is this required because UniLoader doesn't pass
-> along the memory node it received from the previous stage bootloader?
+You are very "helpful".
 
-From what I can check here, it's a bit of both. S-Boot doesn't build
-the memory node itself. It loads the DTB from the boot image it boots
-(BOOT, or RECOVERY as in my test); it checks that a /memory node
-exists, and only fills in the bank at 0x900000000
-(reg = <0x9 0x0 0x80000000>) when it detects 6GB of DRAM. The other
-three banks have to be in the DTB already. Samsung's own device tree
-for this phone lists them and leaves the size of the fourth bank as 0
-for S-Boot to fill in. From
-arch/arm64/boot/dts/exynos/exynos8895-greatlte_common.dtsi in
-Samsung's kernel source release for the Note8 (SM-N950F_PP_Opensource,
-N950FXXSGDUG6, on opensource.samsung.com):
-
-	memory@80000000 {
-		device_type = "memory";
-		reg = <0x0 0x80000000 0x3C800000>;
-	};
-
-	memory@C0000000 {
-		device_type = "memory";
-		reg = <0x0 0xC0000000 0x40000000>;
-	};
-
-	memory@880000000 {
-		device_type = "memory";
-		reg = <0x00000008 0x80000000 0x80000000>;
-	};
-
-	memory@900000000 {
-		device_type = "memory";
-		reg = <0x00000009 0x00000000 0x0>;
-	};
-
-The DTB in the stock SM-N950N BOOT image (N950NKSU5DZE2) has the same
-four nodes.
-
-S-Boot does the same on SM-N950F: the device tree fixups in its
-N950FXXSGDUG6 bootloader are the same code as in the SM-N950N
-N950NKSU5DZE2 one. Every Exynos Note8 ships with 6GB of RAM, so the
-fourth bank is always filled in and the DTS doesn't need to differ
-between them.
-
-uniLoader then doesn't pass that DTB on. It boots the kernel with the
-DTB linked into it and only adds the initrd properties to /chosen, so
-nothing S-Boot wrote reaches the kernel and the memory node has to be in
-the DTS. dreamlte and starlte do the same for the same reason.
-
-btw, the name's Nhân; Trần is the family name, and if the convention is
-to write first name first, I'd be pleased to adjust!
-
-Thanks,
-Nhân
+> Happy hacking,
+>
+>    Wolfram
+>
