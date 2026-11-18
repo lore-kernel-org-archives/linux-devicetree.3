@@ -1,57 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795014480;
-	b=ypJV6/woudtL6Jp88l5MWD0i8Y9v6S2j2+1zpVdIUfMlQbshdxQnkACmilKH+48EVzNG
-	 xNeLAvPsQ3ElImE5Vm2QHG0UgtpRQj7SWZjGbmdG5frVTfumlDA2RA72LQAfVeunOuBcO
-	 0prFNc8hcwNvs9JtxzVRiljQK/17ntfbNU/KhrlmhJ+HR+Ge8Gc5LSiOZp7DmFecgc5bM
-	 7kp1LaXfUS/9RfIZcBJJ0q4T83/RATh5yPsuoWIZ+KlgqZGajpPvNS6WAdYGPZ7QiAMvO
-	 HfjOISbwId7csobSjMla0he7ASUsQZmoIXOKAeA5cz5JEnsOZezFvMjMho8kftAsosQ==
+	t=1795015018;
+	b=JVgbvzDf+0xoXTWgoa9WK22lu+rFHCBoSANt9h2ZzrDDm+qSuW20IOmvQNFVSUR855Aq
+	 YV/mn+6T6e+05trYr60O/uAAfAT4UXjc7/wzrXi2qFII2TmZE9IOKhLQwb419PF0DDZdC
+	 swW0xiD1qE/Dh0h/I/z8mtrImfdt+RT56f6mTjRsYdTL2Uxbar6k59r58fiMx2HY9I0bh
+	 upCx4KNMLJHwCmVeZmanmJnOofvSKfANTVk2mL2hDNxvD3m+Pt8OQmI0p8wENeoWKYJZa
+	 t8HBqaylcbWsTURDp49qOXqlMwj0aFxHt5DPIorulA3y+06EeYExyQ8UpIeFfdx4/hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795014480;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=dFsr7cvnHyOlBO2bXUhaxL00xCeRq+pcQSodn+CuTWI=;
-	b=X+607mVxxFi1/CMQswTdwL93OPk267gYRPLUUx4TPXzgn+QWxy5i8CNwphID1AJcreSk
-	 BZcL9uTKes1LZuOGMG8h+/TBxH4uEsua8fq3x2f/GbnLxXmxtDZEXishh2ff7OHhO3IS7
-	 2VknfVkUaZS7cvjM4ixFE7c5+rRHHD+M19Yt7bCoItwQ/vz7hN33ym33QnsMuhHqiDgsG
-	 tlYSQWdHwEbkt//WmiIdQcO+++b4ZFbKMs7Gv84Lq4c6Ak33DMT3doPej/d91J6Ri0oS4
-	 9ySxe8KdMpvGC3PQUIWbo9nKCj4e48N5ocVdFF2KaS/K2MyTkNENe1Wj/5dk+9yvaMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015018;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=rOY+wdV3n8VmzgrzAHcUOOBb9IyWYRHS3lQymwFtS30=;
+	b=XS5AY3bVEf5lRcJLr+IXWNsyKRXdkeNx6xdMmE0APsDdHS7+XZG2rJuhXR1GzWYjDJaW
+	 XdSSniJ59Ksi7NXEl+NkI7Wg+EOvdP/V1txg5G+s3hNWkiueReujuoni4dA5MU+unBNUp
+	 ECVharo5yH5g+ZhJxmz+7XFC6IR4vZ7Sme5wDHMHdLEoMCDfdKNRc6db9k5Ilnzdb1bXk
+	 dTqEFuBEC25DHvLSXkNyltQNco2jEbpM/w5TVygkJgpG6P3OiUcKBuTqduXbRewr7ocEI
+	 9a0gv5RJ0RUR/+CsAAgPC0ghB1IRPHm4lwk3he7vLhvKlOduUqcZfNODueRKH+hCC7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMSmKu7K;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=iEWjEnyL;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D02606A325
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 15:07:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9791A606A325
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 15:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9791A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMSmKu7K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224031F000C4;
-	Wed, 18 Nov 2026 15:07:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795014479;
-	bh=dFsr7cvnHyOlBO2bXUhaxL00xCeRq+pcQSodn+CuTWI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BMSmKu7KiqWjaS2XwhU82k4bqOAtl7sQzhq4BFitoWlyx/TJuE8wmh48AsTb41pqA
-	 bseKv4zdhjMB+fOckOh05mZQRnWlG8Zrj3gsRgGXNT/7AMs8ZaRrllFfg5n+7KRxqZ
-	 86qud6+8ZOtq4yYtOczfopbqtHHGR5WDRLDXragIHO4C+GIHVRRJFBDABSp4x1Kdwb
-	 MdOtnYOb6fFGVcjdiB/BOlPZNRcMdCWXqKln0oCAKGulAc5vFNsSnHwSbHmSM2bjEh
-	 BFlmgUAoGUz0ePicefcKcFQpgXMNLBj5ozYzbOU2FgEB0U+36vhA7NDsI92PzuI+Xt
-	 d28xd57V+fmFw==
-Message-ID: <sashiko-outbox-221294@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] wifi: wcn36xx: Stop waiting on a dead firmware
- during remove
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexandre Rapaille" <arapaille@atlr-engineering.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-wcnss-series-v1-v1-3-a64d82e151bf@atlr-engineering.com>
-References: <20261118-wcnss-series-v1-v1-0-a64d82e151bf@atlr-engineering.com>
- <20261118-wcnss-series-v1-v1-3-a64d82e151bf@atlr-engineering.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 15:07:58 +0000
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=iEWjEnyL
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so973166f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:16:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1795015016; x=1795619816; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rOY+wdV3n8VmzgrzAHcUOOBb9IyWYRHS3lQymwFtS30=;
+        b=iEWjEnyLaCvEhk5M1AC5NQQlDysiyvVk+m/XObmo5r4yFRVJsV74x/mhSkir4B7qMz
+         KtA2S2cd1SPHmCasNEl3YXtyCltDHfHkQAUr4PM2xp4ys0o+luBMLN1PJAT04ec0CfEO
+         J1ue4dlADD98xco42qsvWjY8TeUYJ91pJNlpG2HzLaUzHGgigZ7K7BJVsf/iRHcd3/ze
+         1p2ldMgEy8WXbZamZrds69/CExGXM4jkrb8GBZFPllc+UCMfN/cuXZkZBwwee6elg9GH
+         /8ejWlKpm3hSAazBTMqC5VZicJkOW+eBUWv6KXgh3TTCLik9m+6JsizSQzNiQapg+xCt
+         6jsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795015016; x=1795619816;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rOY+wdV3n8VmzgrzAHcUOOBb9IyWYRHS3lQymwFtS30=;
+        b=q7M1XBPbKpuBqnBDL9g6nP4ycQ7m/yd4V0CoZ3+zOa9UUjxuODWVgV0/RW+veh+cbc
+         Zz8KV+b0lhsXa7rNnoQr+JdXqvrW5qpV3pfCT+wM5yjM1udLLZNJjlM6E+0yboP9kYN3
+         2Hn7CZChLc87pjZo4MI6uwFLdqh+Gy6/opfdEhTY2izfWvHVArZmvbY2mZ5L2TTRXkom
+         uqXxC6CcF4QAdWhLeQn5qO6lxLvoGwCv9esMPRWmNSxgDB3qsYt+kkrrfjETnRSZV867
+         roWH1KrRDbjImpQB1aTIRMxYOaa3PaPKbOMZYURU6WM40iIH+hDffWw1m5oib18V5/62
+         BDDg==
+X-Forwarded-Encrypted: i=1; AL+hErFt94y1CmhABuBxMS+cVCmc/cEXzHERX9ca0rqolIAqLyariFdXGyVe1WVtti7cfLkubblfL9L/IADB@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qn71CFPHcKnb5RRbLDyGI7gnrsa8olYvCZym6IagMGFyJrDgm
+	thgL7qweCfpqIWCnjOdBMg3nhZvRdzRXXM+SidzvCO1lTcqT+qBXrvhPhQLa6ewqUYg=
+X-Gm-Gg: AZFdTZek6JWMbRwA95TQ6y1yXlmwFfE1vQrhshEvx0CSimE+FdoNfEyO6W+xdbMa/fn
+	z1Qr3z9E8eMPuhY2e7c0GbhKH4Sae79kBFr6U2APifYIRj3NtrS02yQ/NwqanH74YuLPaPHdbyg
+	pltz2VxBht0wwUtxDtafZv/o90diS/sZuDd9yLAkCSDT/CKAl66woCUBth0ZNAKfMpFwk7JjJaH
+	eMtw0/EpZAzGVaFl0ht1vQMlWCBmPpEzoXgGvuBWn2lRzJ0QB0jQPFeeMT8WyvDPwC3gEwCVw83
+	QnyUt2b7MJSorOWX7IW6AVcNSHxJB2ekwMV1ID7w/NJq90aP97pb0G0wyPj9wZcB7DxIw60KFJB
+	Gp2mI0Juyv00n0vcatbOpiphM5zQ1v2tmz6PdG2BQtbmxtGMe9+uhlRYNyIs/C6tyyEqjXAtTWg
+	0AglODv8j0WAqzeHLpUbKi+JM9ZUfIyGfqYULaXl6bP0HZ6/PukY4ndZl0poK94MWLs6CmQzp4I
+	m6w6lB0vmHhuVjO37hWzTfR80G44XILydFE/+tlxLbopRxmttuUAu67ApU7pdtumNr/LrDr4AeH
+	wCiY1cMqsp/7hbOJ7c3zdH2WyPW/3+fnbU4X5WJu1/ld/tkk
+X-Received: by 2002:a05:6000:22c5:b0:4a6:ed6f:7a6d with SMTP id ffacd0b85a97d-4a6ed6f7c2dmr4688498f8f.28.1795015015881;
+        Wed, 18 Nov 2026 07:16:55 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a650d2f682sm5148396f8f.6.2026.11.18.07.16.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 07:16:55 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,63 +88,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v11 00/10] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, stable@vger.kernel.org, 
+ Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20261118-perso-ma35d1-upstream-clk-v11-0-bd1d1e060926@bootlin.com>
+References: <20261118-perso-ma35d1-upstream-clk-v11-0-bd1d1e060926@bootlin.com>
+Date: Wed, 18 Nov 2026 16:16:50 +0100
+Message-Id: <179501501070.639563.9357303541273366380.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1497; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=Ze/lWMxenuMFFinRWmaSX0IcexmH1tvXM9t0DvMowcU=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFl/D6bpy/0tV5+lWL51RkjKPQXn58FtMoH+f5SuWOVVn
+ Q0z+7iko5SFQYyLQVZMkaWGu1r8naTWl1nTdW7DzGFlAhnCwMUpABM5Z8bwP3716cfT9okus2OZ
+ 8K++LlbF6Pn25IUzVn3Zf0aba1HEyhhGhjdSSyMeLDnMVr/5vvLSWKM/unu682QdT776tVq3cnv
+ vJwYA
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [Critical] wcn36xx: use-after-free in wcn36xx_smd_rsp_process() [1]
---
+> I am in possession of an MA35D1 NuMaker board. The SPI controller has
+> been contributed, but at this stage it does not work with the current
+> clock driver.
+> 
+> The clock controller registers its muxes with .fw_name parent data,
+> which requires every internal clock name to be declared in the DT. As
+> the DT does not declare them, all parent lookups fail: muxes end up
+> registered as root clocks and most peripherals read a zero rate.
+> 
+> This conversion exposed a first issue with the WDT/WWDT parents which
+> were actually missing in the clock driver. I am not using these clocks
+> myself but it is worth fixing.
+> 
+> The second round of reviews raised another problem with the
+> crystals. HXT and LXT are external crystal oscillators wired on the
+> board, while HIRC and LIRC are on-chip RC oscillators. HXT was described
+> whereas LXT was not. The series now also takes the two crystal inputs
+> from the DT: they get documented in the bindings, described in the
+> boards and looked up by the driver (with a fallback for backward
+> compatibility).
 
-commit d25ff402f91edcb95672f79f032ef8c6744c841f
-Author: Alexandre Rapaille <arapaille@atlr-engineering.com>
+Hi Miquel,
 
-wifi: wcn36xx: Stop waiting on a dead firmware during remove
+We've had to base clk-next on v7.4-rc2 because it carries a treewide change
+around devm_kzalloc. This was triggering a lot of conflict in linux-next.
 
-This commit marks the firmware as dead when a HAL command times out
-during driver removal so subsequent teardown commands fail immediately
-with -ETIME instead of each waiting for HAL_MSG_TIMEOUT.
+I did not look at your series yet but it does not apply cleanly on patch 3
+(maybe others too) because of the same change. Would you mind rebasing on -rc2
+or clk-next please ?
 
-> diff --git a/drivers/net/wireless/ath/wcn36xx/main.c b/drivers/net/wirele=
-ss/ath/wcn36xx/main.c
-> index ad8a4bd910d2c..77a1029108554 100644
-> --- a/drivers/net/wireless/ath/wcn36xx/main.c
-> +++ b/drivers/net/wireless/ath/wcn36xx/main.c
-> @@ -1651,6 +1651,7 @@ static void wcn36xx_remove(struct platform_device *=
-pdev)
-> =20
->  	release_firmware(wcn->nv);
-> =20
-> +	WRITE_ONCE(wcn->removing, true);
->  	ieee80211_unregister_hw(hw);
-> =20
->  	qcom_smem_state_put(wcn->tx_enable_state);
+https://sashingci-clk.liltaz.com/builds/555/steps/3
 
-[Severity: Critical]
-This problem wasn't introduced by this patch, but can a late firmware
-response or indication trigger a use-after-free in
-wcn36xx_smd_rsp_process() [1]?
+-- 
+Jerome
 
-During ieee80211_unregister_hw() (or when the interface is brought down),
-wcn36xx_stop() calls wcn36xx_smd_stop() and wcn36xx_smd_close(), freeing
-wcn->hal_buf and destroying wcn->hal_ind_wq while wcn->smd_channel remains
-open until rpmsg_destroy_ept() runs later in wcn36xx_remove():
-
-CPU0                              CPU1
-wcn36xx_stop()
-  wcn36xx_smd_stop()
-    ...                           wcn36xx_smd_rsp_process()
-  wcn36xx_smd_close()
-    destroy_workqueue(wcn->hal_ind_wq)
-    kfree(wcn->hal_buf)
-                                    memcpy(wcn->hal_buf, buf, len)
-                                      <-- use-after-free
-
-An incoming indication takes the default branch of
-wcn36xx_smd_rsp_process() instead and passes the destroyed wcn->hal_ind_wq
-to queue_work().
-
-[1] https://sashiko.dev/#/bug/linux-198eb452-42f0-44e8-b29d-e7d05a4297df
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-wcnss-seri=
-es-v1-v1-0-a64d82e151bf@atlr-engineering.com?part=3D3
