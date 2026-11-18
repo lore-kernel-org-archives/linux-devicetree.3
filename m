@@ -1,69 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795028921;
-	b=wVqiIGpvCUXxN65+SmHZPY0gNtB6AaI0hT0OUMjdH83kwWf/05jfYH1exkvu0/KTG6zA
-	 C6SU0KYpcMkb6oH3DSV7v9No2k03dHAD8kVZKdIQ4vYAXacTKH6dX486SA+nf4ORAm3bR
-	 UZgfucaSjIrmpPrg5/N71MGkfsX97uUv0byxkT8I8O/KjXDAq6PaFZ1ZewO79c+L4g/ed
-	 bDRSBAZX02z3nzoLOsrh0oZiS0btEw9q9IyMrYDEWf23Nr0us12e1bf30+M/HR4RcZ4KN
-	 kJBCU/VYEia1rrK5JdxVpXaW+NgHplLKW0aMDgnIDgljGjqNlt36N31+oZOuEyAVlFw==
+	t=1795028941;
+	b=gWrMCK/j9/lPADgkx/8k4qCeLQ9XBXqw519x1+Bl3asvJ7oGp9r3tXHD0OM5C8XXsggV
+	 uKsRnOsbTOwsluXxe+vmPrNNjw+aqf4TnnMyJ6Tp+LLyNxEogIAJOOQLOQgjGX7UFn1Ga
+	 7OtWwI5YcwdfnXKud0AHEs5EKKTtQXeuLvrcPcDNZNvmWDEKK74/wpnczLrjN133EPA/w
+	 HQ4eaYXgjbixfWU4PBBY2sw7IZ2dgUIguaD60CgR3BzRS7dH4RWyXkgOodDpFzwghBydj
+	 xRQHmuA6i15+qVWQl4WEIVUTsRY37m2O0XrU0z7A0aBMG/Gd89uP2QHcYv7aeeoNYMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795028921;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=j8NHvkg0mcHS6NppRIX+eDEokhzbE1hV9ZJ/sEvlK4U=;
-	b=ryrYTj/Nx/qXNUa2/cX/bHoCnuvwcU+pU48g8nl9mNczrTASCZlJHwxUz+iHJQLGUfKP
-	 xDTSV+VDH+BurwQVz69e4B/GUUgFXivaVhDmQjJK901+9cixrAWtkfUBgMdkTkGypBfCK
-	 wj2X0DTvLvZxCgRQmkt6DvPMEd0IFLLOnP8uF0xVv1aeu9KMBJwM0EfCsaKkHKk5Ofg8U
-	 c1kCe1RNYt2W6JYQ9dwKyboFRzuO3ljzrHIvcwH3LXQM7Usr5kVluwFWYUm0c5wByqtUo
-	 TO+syw0usncocqheqfopk2xrgrBKnCnp3ZUDuxQfrdCEliGv5Buxctw2vNQCx75T2oQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795028941;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=7c8ppuunIdtFjvUrjCDWTw1becCkmfL7Vf+hBZTuAWs=;
+	b=Ly9ZZiACtZhZrw99as8fHmqa89zUm6WxIoHF5Lmgcv3l4W68humHoJjZz9jf7qbWs+ZV
+	 5ooYw8QEsE9+j37uAxTqBBiSd8Fju3TGpCwd+9qZjFzM0vgtxOaLZ/TBiuF4H9ZUHuKw8
+	 OhVVMdQaI9N8lToIYLCYVcFyP+I3hyTJrwUfBHOpNB1mxNTKXuB8hGJqABh0CgkRVTV1n
+	 zXT4hWbletos6zNu5uIZW8ZVPpDS+3yoB2hrrNmkBp6pzfH6N4ebxDfv/kO4uhBdAE5cD
+	 G4pMjcpZZrZrC28gcA+GKXK7KVJqO87HjZqYJDw5cxIOnmMS+P0gYMCbh89FRN0mAfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDJPVTAD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNd0u1Ft;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DC2606A325;
-	Wed, 18 Nov 2026 19:08:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC4A60A2600
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 19:09:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDJPVTAD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAAFB1F000C4;
-	Wed, 18 Nov 2026 19:08:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNd0u1Ft
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618AF1F000C4;
+	Wed, 18 Nov 2026 19:09:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795028921;
-	bh=j8NHvkg0mcHS6NppRIX+eDEokhzbE1hV9ZJ/sEvlK4U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BDJPVTADU+MiIs2CIl8rFOWWP+9Kt+G6akZKawZPdkAf8/Qm/NUbj1bozbJgxecFG
-	 CJWqECGUh9QehHXJKFCjGT5C4nsLfq/JT9mKc9UMMxk5pw13fC+My2ZBlj+8s8Ijrf
-	 eeVTd1gMOF+J3ER8O4/CteXSRjHc3ry65VUWdDO/Ez0ilceOqiLLzGLoWsGDAwegW9
-	 63MbdibGqqdzH/1YN+xjeYbdiXqeLeYoDMicEE/3c+oIpqAGUt6vZYTqzrSz3hY1Ut
-	 yDxj2PlvVER2TSmMwEPQlAMwfhF7ia8EPRxb14ufHd+/277knxt3tuD9qq5Ajj5OW3
-	 tOpjPFZQvUduw==
-Date: Wed, 18 Nov 2026 13:08:39 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Cunhao Lu <1579567540@qq.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, devicetree@vger.kernel.org,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jose Abreu <joabreu@synopsys.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-kernel@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
-	Heiko Stuebner <heiko@sntech.de>, netdev@vger.kernel.org,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>, David Wu <david.wu@rock-chips.com>,
-	linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH net-next v4 1/2] dt-bindings: net: rockchip-dwmac: Add
- RK3572
-Message-ID: <179502891855.247733.11686816962535109949.robh@kernel.org>
-References: <20261117-add-board-ok3572-c-net-v4-0-4e9da569395a@qq.com>
- <20261117-add-board-ok3572-c-net-v4-1-4e9da569395a@qq.com>
+	s=k20260515; t=1795028941;
+	bh=7c8ppuunIdtFjvUrjCDWTw1becCkmfL7Vf+hBZTuAWs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SNd0u1FtLMCP4FsOjVjU0piGYQyKOhXRcLIrelZsERTot3gJOx2Ev8F/wL7/SwjfX
+	 KbePEsL5R+xgr2nH0lKVWHK2Md0DV5eBDyuyz7LYJw/oK7i3AaZNlqollE8FGHl+wF
+	 6GUcIOW6SzD/LPlRrGL/oVRmdMlLkEZ897laIDCPHN+e0QQN5WqohZybqG6hc8cYp+
+	 H2+VRGtqEeg7JCBVUNaO2zlacqi1OYhrpJEE+xoGSXtFzaMEZCKGExdZl6XLNdphoG
+	 218UyUf2R+HrNc9OrMr8oyy/Vfrd49Jibgy9vnMb58XgP413HvLhrdZFBkwKwhVHiy
+	 54vgf5VglsvhQ==
+Message-ID: <sashiko-outbox-221816@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] riscv: dts: spacemit: k1: add PowerVR GPU device
+ node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Iker Pedrosa" <ikerpedrosam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261118-orangepi-gpu-v2-1-f68676f844eb@gmail.com>
+References: <20261118-orangepi-gpu-v2-1-f68676f844eb@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 19:09:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,32 +59,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117-add-board-ok3572-c-net-v4-1-4e9da569395a@qq.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] riscv: dts: spacemit: build failure from missing
+  spacemit,k1-power.h header
+--
 
-On Tue, 17 Nov 2026 17:04:35 +0800, Cunhao Lu wrote:
-> Add the rockchip,rk3572-gmac compatible with the snps,dwmac-4.20a
-> fallback and require rockchip,php-grf.
-> 
-> Mark tx_delay and rx_delay as deprecated and disallow them for RK3572
-> so new designs do not use the legacy delay properties.
-> 
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-> ---
-> Changes in v3:
-> - Deprecate tx_delay and rx_delay and disallow them for RK3572.
-> 
-> Changes in v2:
-> - Add RK3572 to the shared Synopsys compatible list for consistency.
-> ---
->  Documentation/devicetree/bindings/net/rockchip-dwmac.yaml | 15 +++++++++++++++
->  Documentation/devicetree/bindings/net/snps,dwmac.yaml     |  1 +
->  2 files changed, 16 insertions(+)
-> 
+commit efc5334efe329206674ea5227e542cbbf6e41d33
+Author: Iker Pedrosa <ikerpedrosam@gmail.com>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+riscv: dts: spacemit: k1: add PowerVR GPU device node
 
+This commit adds the PowerVR Rogue GPU device tree node for the SpacemiT
+K1 SoC and enables it by default.
+
+> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/s=
+pacemit/k1.dtsi
+> index 5d5f7f8a393d3..15bee2137e14e 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
+> @@ -5,6 +5,7 @@
+> =20
+>  #include <dt-bindings/clock/spacemit,k1-syscon.h>
+>  #include <dt-bindings/phy/phy.h>
+> +#include <dt-bindings/power/spacemit,k1-power.h>
+> =20
+>  #include "k1-pdma.h"
+> =20
+> @@ -1119,6 +1120,16 @@ multimedia-bus {
+>  			#size-cells =3D <2>;
+>  			dma-ranges =3D <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>,
+>  				     <0x0 0x80000000 0x1 0x00000000 0x3 0x80000000>;
+> +
+> +			gpu: gpu@cac00000 {
+> +				compatible =3D "spacemit,k1-gpu", "img,img-bxe-2-32", "img,img-rogue=
+";
+> +				reg =3D <0x0 0xcac00000 0x0 0x80000>;
+> +				interrupts =3D <75>;
+> +				clocks =3D <&syscon_apmu CLK_GPU>;
+> +				clock-names =3D "core";
+> +				resets =3D <&syscon_apmu RESET_GPU>;
+> +				power-domains =3D <&syscon_apmu K1_PMDOMAIN_GPU>;
+> +			};
+>  		};
+> =20
+>  		network-bus {
+
+[Severity: High]
+Does this break the DTB build when CONFIG_ARCH_SPACEMIT is enabled?
+Neither include/dt-bindings/power/spacemit,k1-power.h nor K1_PMDOMAIN_GPU
+is present in the tree yet, so preprocessing any SpacemiT K1 board DTS
+that includes k1.dtsi fails until the prerequisite power-domain series is
+applied.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-orangepi-g=
+pu-v2-1-f68676f844eb@gmail.com?part=3D1
