@@ -1,56 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794992901;
-	b=DR/ekcaeCk3+cCbnvX6hhd3UF5g8jQ0SlJDNT62MOyNWelu2fPqZu3BIB/v8LEst2SFD
-	 dmeNNqwgZuyGdCn5uTttrF9Drs1tbqJGw0UYSYc/YKUN1hTIDhaWvIO2G0wtlxTnuWl28
-	 YU4+lZQg/bam3vm9mxHLsuHQRq85puhtXU8BT+3AogZfeM67BXcmAEK9itFCQC+thARP0
-	 bsS0h/BiG+73MKmU7X/LbLV7T3vaLn7SjEMAuuuCxmalM9bvnLnEsEAikskcNVrw3G/nO
-	 LS796CM7DxGZwx9iiYZ+m4nisrhSHj99Dz3sUMIPwEwNfgqww4twyK0eWIyMCYK4qHw==
+	t=1794992964;
+	b=cR1CS9y+r+PuFzUL+UpZEj+iyCX93lUdguL2XCc/6slAU8LspVkDuTikEVsvWit+XVi3
+	 DV56TG9elOrp8k87PY75pCdm79hMkSqNxn7BQ1XGsVHHK+qeVylXgBPp8gKju4JivM0m7
+	 gmq7tS55Eg85O9y4coJgCSiYV/kevvgOul4A4JWAr2+VXxc9Zid47rzu5aOaYcSJ/WLgt
+	 IHF98UAj8IcTYGko7cdcHe7eW83dKtciDo1p7vMkCQH9bVtBN00iCPDqqfX9bZGzCTIxh
+	 i5swg81wxmSKCcKA2JZQSz56faN0JCM/UxUM4cvXwYnFTQoKL8t7mpTXomOVofh3Sog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794992901;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=i3hBbm2ECJiICqB2+aIdldTQDFqZaM/Bvb/CsYUMXKg=;
-	b=Scqxia1TBX/XPXFi1lcHOSprC1/4Abrw1tfcWbf9VcEzvcENqWCzMYhD6bGiiyUXJ7gd
-	 S27f2t7E2+1dYZyLebzuu6hNBSRhKreYmjDJfblnfK2rgF3s8Fmh9movvGgyKesDj6G9I
-	 HaY6g4KDWnjLOOz8iGamOvCIreJ4gbtOVjUk+s7IxKPKdVHiu8ibjElZmNZY6D8JcxvEn
-	 SPDzfS6ED/jyICHXqU/yAzC+awdU6qzJ4CA3oRU7TqPOMyKEEVpWbS1wHv8yMo5aT3VDg
-	 p6dhRdHTggzyeEJqy7JR4GufxYWT2Ixb91hl252Syca5BezoYvl0B8WMzzP3rWHcPOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794992964;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=cpTBG70GLztkppBlWDxA4zs5YJB3Ae5lFCFEvrLL98I=;
+	b=E5VectIZb52fwM3fgtIgmkv5RUEDMpSw4Q5mppxJbas+ozvDO9IDNFc0WGVVUB4wdRQJ
+	 7lpxD+RSVjM74Dgu98atsjXaurwxlrjA++0Ds3oYKgjVvNrWCa9SKpMfeM4yl+9Xuv/Pc
+	 yhlRZHjpW5smaRmcICcgk25gf1GLnsrf6hKXdJ5CQI8hZrO4Bp6JcUF/KqeDhj5tTH3JT
+	 CKv2nQ9yiDNxmzuxVkKgLQQtIOFEMnUTnQ71oLQRvLFCA7CdneTEWjnsaMZ4+E89YYe36
+	 6F0ViKDToHGEyejowMuNeZGe0xVhc0rMcJDoILkYDGOTM/fWbFeT+dCNQ0g3BECvCUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IeL0e6eS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=konsulko.com;
+	spf=pass smtp.mailfrom=konsulko.com;
+	dkim=pass header.d=konsulko.com header.i=@konsulko.com header.a=rsa-sha256 header.s=google header.b="k/5CBHUF";
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08ECC606A31C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:08:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF6E606A32A
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:09:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAF6E606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IeL0e6eS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96A631F000C4;
-	Wed, 18 Nov 2026 09:08:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794992900;
-	bh=i3hBbm2ECJiICqB2+aIdldTQDFqZaM/Bvb/CsYUMXKg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IeL0e6eSuFqRShPqjLn0v6R2yNX0PXGL1FwNgIUlb2P6k7Eka/HiNGM2bDlU7zsiv
-	 qtX5Hf7JD0Y9t2PNl1+Jhzv2it4UprLwC0nP3947keEqOvviea4X+pEjHa0fExpt0y
-	 KtamEH+1MULYIW3f35CJLXuj2Db84xftCWT0hPfNOZvRwooAQZTorAJaefvUmVMGbZ
-	 jqcz+SrvuB/n26Cw6p8d/dCi6DRrNtEA1f9TxA1h9kHZMnRl1bSSuzYKyfhyJCrYJC
-	 w4uvMjAw9KcOA+9trxZQFmmUKhKWJBUNZsLQVhg7bQGn/Zap+8xyQAhtHER6YIbqND
-	 hj9duwCMvY/2Q==
-Message-ID: <sashiko-outbox-220532@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/9] riscv: dts: spacemit: Add K3 eSPI pin group
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wang Yang" <yang.wang@deepcomputing.io>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118085742.1817536-7-yang.wang@deepcomputing.io>
-References: <20261118085742.1817536-1-yang.wang@deepcomputing.io>
- <20261118085742.1817536-7-yang.wang@deepcomputing.io>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 09:08:20 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=konsulko.com header.i=@konsulko.com header.a=rsa-sha256 header.s=google header.b=k/5CBHUF
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4b467581b98so8367875e9.0
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 01:09:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1794992962; x=1795597762; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cpTBG70GLztkppBlWDxA4zs5YJB3Ae5lFCFEvrLL98I=;
+        b=k/5CBHUFtEKe8geT1DXvy29NoiBNG1Mt8Hy95ZhiTXcEoe+VIZgYMi2ugn+SYCpiax
+         Y9hbglI3IwiC+ioTHCqrsmqfhP7tcFCVNEK8Uc1vvdWvwgHEa5PvsW3HtK251xuO9+x8
+         /Xl1QLFbeSKJc9gLfsvsPzoyPYbC6wJEX2rYw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794992962; x=1795597762;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cpTBG70GLztkppBlWDxA4zs5YJB3Ae5lFCFEvrLL98I=;
+        b=rYOKBW5p55XrI3oqimuAREn/tPyrdZIN5QWiCyYp+OmYDxiLuipIvEGbnEwEH5fk6G
+         5T8yAkAelNkPTyZuA/MzdmIqZDy5N2FpjdHcMF2OLekc9X/jpSs7rylQuEFX15w/VaF2
+         qpkZl/3fUXIB18xYFj9MMhS6GBo7DLyRSFGE3igrsE+Gmm9+IaCi9EaakwQmt7wivcY7
+         X6pwTiQF2BeX9ExlLy4H+jKvTovjMDnK4aWAJGX2Ycyby3kN5NFSoyECIwJQAud4K5Lq
+         XwTJfgdGOeCE+Dv1UlJIS1hBxJpxVz4siD/invYk/Q4MUt2lFZTxkhle8CqZwMPpWz0I
+         sz9Q==
+X-Gm-Message-State: APuU4Z+h0jEIbAKHMBknHPvME5QK7UNKHTC2+DNTZChYABapgMUYX3xd
+	2j27KoXposFewd5L8sdVY77ThpVuDz0A/RZ8sE60jv+9vMo26MkdCySq0VG4nS4eQTU=
+X-Gm-Gg: AYBFou0izYJhCQ2Az7+WYzjZW/Le6oE+M4AuKOvqaUC9R6BQzzWWPQH+B1o5RT/6nqH
+	uDyiiFsawrGLBY/PF2z7ooe+JKJGdwHILULOeLusUID/RG8yAKV5hFGtxqJEUWpoQEeONUTdg9N
+	Zpr/Q3VNzJWhYi9iB0UBCFywPPX6Ffu+nSrxcdwH0cgTk1ZcN0qvph5YGwkbzZOVQ+vSSkd2Ta/
+	10mqrgZOoiOlQB8aOoeZYVl6qkd9z3Gs13Xecf3OxTvBdYc0mfkSuNOs9BeKqc9VHa/VmMc/kZ+
+	YUEXKtvDsiVVLNblXsvhAQyikySndmHUn7s4JBxkWeahYLnV8HCMDL7dX2n+zaNyHHDcuthrIoa
+	/WujPNCs22CYYqYefsBBrBhbUNfCiNylaWZ/qc66cHl7+cvKsXf57gwktKL8RcQuMrQ/b38DWCO
+	0HoeenVLkt+j1KqfmmRMf114ge0G0l5fAFZ4LXW4EFerR02wLFBJBUrXhwqkVVVGu79dPy42tKC
+	9wtOSrT91Mb/Top1xdlqAxrkh4zXlCfHL/eGFBtrkcQFBJTiEb/KO07NGYLxyG+a4y67j5ubX+J
+	lwzakJAD1EUPKEGGpv4595xRtj9+MxELJAaH76jCZMPPVQ==
+X-Received: by 2002:a05:600c:8b34:b0:4bb:781f:6067 with SMTP id 5b1f17b1804b1-4bb7d6cd404mr33290135e9.1.1794992961833;
+        Wed, 18 Nov 2026 01:09:21 -0800 (PST)
+Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78418853sm185770195e9.8.2026.11.18.01.09.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 01:09:21 -0800 (PST)
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	arnemaximilian.richter@draeger.com,
+	martynas.grybauskas@draeger.com,
+	Petko Manolov <petko.manolov@konsulko.com>
+Subject: [PATCH v4 0/2] arm: dts: nxp: imx: add Draeger M48 CPU board
+Date: Wed, 18 Nov 2026 11:09:10 +0200
+Message-ID: <20261118090914.38082-1-petko.manolov@konsulko.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,78 +101,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] riscv: dts: spacemit: boolean bias-pull-up in espi0_2_cfg
-  selects strong pull
-- [Low] riscv: dts: spacemit: espi0_2_cfg drive-strength 25 mA at 1.8V
-  selects DS10
---
+Adds the device trees for “Dräger M48 on NXP i.MX6 (Q|DL) and Intel/Altera
+SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the
+same carrier and they are cross-monitoring each other.  The SoCFPGA boots
+independently off qspi flash.
 
-commit 4a5d2c0bc1f2695686ef3889084fb07b26b11220
-Author: Wang Yang <yang.wang@deepcomputing.io>
+This is the imx6 devicetree part.  There are two bindings as well as device
+trees, since M48 is using two parts: imx6q and imx6dl.
 
-riscv: dts: spacemit: Add K3 eSPI pin group
+new in v4:
+  - added the missing GPIO_OPEN_DRAIN definitions on I2C recovery GPIOs;
+  - fixed the halved LVDS pixel clock in split mode;
 
-This commit adds the espi0_2_cfg pin configuration group for eSPI0 on pads =
-91
-through 98 in the SpacemiT K3 pinctrl device tree.
+new in v3:
+  - used LLM to cleanup most of the errors and warnings;
+  - proper use of dt-schema this time around;
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/bo=
-ot/dts/spacemit/k3-pinctrl.dtsi
-> index cb4f4f4e33aff..5bae382fa7e15 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-> @@ -11,6 +11,30 @@
->  #define K3_GPIO(x)	(x / 32) (x % 32)
-> =20
->  &pinctrl {
-> +	espi0_2_cfg: espi0-2-cfg {
-> +		espi0-0-pins {
-> +			pinmux =3D <K3_PADCONF(91, 4)>,	/* espi0 d0 */
-> +				 <K3_PADCONF(92, 4)>,	/* espi0 d1 */
-> +				 <K3_PADCONF(93, 4)>,	/* espi0 d2 */
-> +				 <K3_PADCONF(94, 4)>,	/* espi0 d3 */
-> +				 <K3_PADCONF(95, 4)>,	/* espi0 cs */
-> +				 <K3_PADCONF(97, 4)>,	/* espi0 reset */
-> +				 <K3_PADCONF(98, 4)>;	/* espi0 alert */
-> +
-> +			bias-pull-up;			/* normal pull-up */
+new in v2:
+  - add the tag from Conor Dooley <conor.dooley@microchip.com>;
+  - it should be clarified that "draeger" vendor prefix is added in
+    my previous Draeger M48 patch series;
 
-[Severity: Medium]
-Should this be bias-pull-up =3D <0> instead of a boolean property?
+Petko Manolov (2):
+  dt-bindings: arm: fsl: add Draeger M48 dual-cpu board
+  arm: dts: nxp: imx: Add devicetree files for M48
 
-Documentation/devicetree/bindings/pinctrl/spacemit,k1-pinctrl.yaml requires
-an integer argument (0 for normal pull-up, 1 for strong pull-up), so a bare
-bias-pull-up fails dtbs_check.  At runtime, generic pinconf supplies a
-default argument of 1 when no cell value is given, causing
-spacemit_pinconf_generate_config() to set PAD_STRONG_PULL instead of normal
-pull-up.
+ .../devicetree/bindings/arm/fsl.yaml          |   2 +
+ arch/arm/boot/dts/nxp/imx/Makefile            |   2 +
+ .../boot/dts/nxp/imx/imx6dl-draeger-m48.dts   |  16 ++
+ .../boot/dts/nxp/imx/imx6q-draeger-m48.dts    |  16 ++
+ .../boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi | 213 ++++++++++++++++++
+ 5 files changed, 249 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
 
-> +			drive-strength =3D <25>;		/* DS8 */
-> +			power-source =3D <1800>;
-> +		};
-> +
-> +		espi0-1-pins {
-> +			pinmux =3D <K3_PADCONF(96, 4)>;	/* espi0 clk */
-> +
-> +			bias-pull-down;			/* normal pull-down */
-> +			drive-strength =3D <25>;		/* DS8 */
-> +			power-source =3D <1800>;
-> +		};
-> +	};
+-- 
+2.47.3
 
-[Severity: Low]
-Does drive-strength =3D <25> with power-source =3D <1800> select DS10 rathe=
-r than
-the DS8 noted in the comments?
-
-In drivers/pinctrl/spacemit/pinctrl-k1.c, k3_drive_conf maps 25 mA to
-register value 8 (DS8) only at 3.3V (ds_3v3_tbl).  For 1.8V pads
-(ds_1v8_tbl), 25 mA maps to register value 10 (DS10), while DS8 corresponds
-to 21 mA.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118085742.1817=
-536-1-yang.wang@deepcomputing.io?part=3D6
