@@ -1,78 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794989625;
-	b=4CpDUDXIAYPUX4b/IhzVjhTSAo63GF4pP0eZN8FfNmNBvtMNa+/WXpjaYjgY3W2WFxr8
-	 jLXXvvlLFr/cZsl2I/6GjDH58NHmHRuYHBh59rmKEYMRHLIBKiKjZFtbuG6cNYdLoP8AQ
-	 79RyASukRMjcBESgLdhiRMvQLeAVUp3yOma7nalnqigJ66FVHk7PXp89t/nR5RkM8c7z5
-	 7QcmjWdplu6adYN7dwo3hoUXVB/M+VC7k3LWTE5Laq6XjG1rj8Y+dmybhNuit8MoBU+jQ
-	 24z33emqbQGVGK9hixP5rpmax60zli0PaYLxJaKuw7As3M+tdWLiaviwZdi9qIvhv7A==
+	t=1794989638;
+	b=MLsCoi2mgQqOvKkga+/w/rqKuBMdT2rX59jwh3HZ7kBHhEuiECwz6wQq+QckkUJdE0W4
+	 bWMaOzLNh2vaiei4lysQv0NOpNgU0M2V4kaA2z8exaQz/SpmaKJG8zNtzf569+uTUu7di
+	 KBwcT5+rELDg/8OHolYsPaNaqAadmSwv+GYE2W4gUxrpWrgw/rzvuL51gDxMI5eRhbbKJ
+	 pX9eHSvvcjzDB81OjASZDxUOM5tqBue/wCY/ZLP4QagGxh9UJC5HRaJj1DVVfk31TKLJ2
+	 nFXi4xT+78FSGK/USQIVPXZrSUZKv3+2Y+Ku7v4+ZJInPoGUKKTiXbn2/o1RX6iIkkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794989625;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=WYyTzxO2ETRiJUcj33BfWavJfCzA6eXVlj29pjh6uOk=;
-	b=pPN6n+dGM/UwBioqZUtHzHspmqzSyy+WjaFegBL062AM3qrzXXjeY/lFfZx4FzMpuaMT
-	 0kJtXtbfI1aaHnPkA/qlS7tTRyTib0YMTsmVrMfKq1bojJdd+10OEOIBbKhoHBlBf1y7L
-	 MWiDPSmANpX2IVjt9gN/szLxHimQyt9azVO6o8cTAKDqZ+2lhbtY4cI+UVM1WuuqXTIrJ
-	 3D39UhX3Oa9C8ggXHz/12/+rsV1aQuLfxqLXMiQPjOas8n1watymi/hqYFi7MD4/9MCsX
-	 1JpI2O0BWBqoW+cdwChFZTlM8U4ieUZN2AKkfbfNX+O255zFnyEe+Z6he1hldXe2u5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794989638;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XJZ+Hdtk3ZgO4GcY5jYam6jCeDolIL+Wbgosemj6TVw=;
+	b=F4w8GorFh4FGq+MCfakwozbpFQ4eo1V6U0pZomP1sSsCuBZfJdYvUNslRCHMSkgo4YX7
+	 KatzPqjxcRLQOpM2Kiwwv3A1i2U1SMsluzu5f2XA23Gz5v/FL3JTDXXzyHxoUNPISS9X0
+	 9mHNkI616wHu7kHgGayEzzC5d2zYSkdx5q61TioaT1tMcxiDnQ/uRnukcNeEwh7BQz/8T
+	 B4NFtOga0f8H8XjrBtnNJ6ohnJ94g5CYlsCSgMCRt4auw/O53dhgN5ov08QLgLPIXdPvp
+	 hgt6wv/PczwNbkSkP2m5aITadjF+5IyhTXfByOnAhAfAiLHZE1rfCV2wUtOKC8KsYXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JpUBqGod;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=CIunQBLg;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B93606A330
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:13:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15B93606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63062606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:13:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63062606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JpUBqGod
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 65A944E4160A;
-	Wed, 18 Nov 2026 08:13:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2EA455FE9B;
-	Wed, 18 Nov 2026 08:13:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C022C11BC07B0;
-	Wed, 18 Nov 2026 09:13:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794989622; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=WYyTzxO2ETRiJUcj33BfWavJfCzA6eXVlj29pjh6uOk=;
-	b=JpUBqGodIl5ANwxil/ZfClbFcF4GJqmoPYauYylAL1OeFCrSY4BOsOFB1uYA7twru1jWRH
-	i+H5bcmdoWe4H/CJ+Nv+8c15EEVxHupjaEuzDjruNlMebQFpsYOILj6Hmj4XP7k+5HAvMD
-	u//04/Mq01Esj/TZIq4zGhujzIHk4+L0+i5Q73Jl/VIzuztupAYVjrcKGHqB+DayZYRFNe
-	i6GZc0a/3Kuag3X8KK+CDn9QubDCPLK1nw0K5YZOpRKeAH0iGfHc3+q6IAlzd0GG2z0zak
-	2fIitc71vXpZ2aoz7oRGGX4Vy+yn0ePwPodaj4ZtW7L5JXlPfu6DlrQlLoTLhQ==
-Date: Wed, 18 Nov 2026 09:13:34 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, Luca Ceresoli
- <luca@lucaceresoli.net>, Rob Herring <robh@kernel.org>, Andi Shyti
- <andi.shyti@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Peter Rosin <peda@axentia.se>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Jonas
- =?UTF-8?B?U2Nod8O2YmVs?= <jonasschwoebel@yahoo.de>,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/2 RESEND] i2c: muxes: Add GPIO-detected hotplug I2C
-Message-ID: <20261118091334.3d51a5f0@bootlin.com>
-In-Reply-To: <CAPVz0n3jt04xEwGr1aiDTJ7OonYYgOy3QneteLXgdGruXGMP_A@mail.gmail.com>
-References: <20251013060018.43851-1-clamor95@gmail.com>
-	<w3bn5bqxqjhf4uvxov47rwlvmnbic6xnlk25xbpnbmi2eyup7q@tjuiu7pl3mmo>
-	<CAPVz0n1-jN5WLFq4e0CZrneExrN_A=GNeGTwGHTCj14NAta+jQ@mail.gmail.com>
-	<aPCfiJxyKOXsgNJe@shikoro>
-	<20251021132529.GA4133357-robh@kernel.org>
-	<CAPVz0n3jt04xEwGr1aiDTJ7OonYYgOy3QneteLXgdGruXGMP_A@mail.gmail.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=CIunQBLg
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cd62c570b5dso586380a12.2
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 00:13:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1794989638; x=1795594438; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XJZ+Hdtk3ZgO4GcY5jYam6jCeDolIL+Wbgosemj6TVw=;
+        b=CIunQBLgc0sEPmk5ppffRBSZDZbkW76BiQOaZUO8soHExpBHJnYv8WDK4meLo+agIy
+         vzIkRO+obk6Ot1fmhUYUiuYvABmbRemfhQuQUOV2jdimXfCnYvtX0z/+0uFTcD5uBq6v
+         Zm/G0xUvKa7xXb3P6PtdF3bbeTMmH5XitnUspTjYLOWzUXJXsyh5ma7+MYGvcq/mCPES
+         6GlWX5i55NsE+df9rb6hhDEQKBzvirUY7tAzV1kj7U3hn/59uBGkFtUYz8Xe95QrQqhT
+         WySkCR11s4NpK6cZiPLtRM5nQIr9L0rcKuKwYdEvVTutvsF8xk7vB4ParRr9xy+5ClKp
+         dt3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794989638; x=1795594438;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XJZ+Hdtk3ZgO4GcY5jYam6jCeDolIL+Wbgosemj6TVw=;
+        b=yIncjRayRFsqdPuTBZP+ebrQTrBOxUnf46STpGVct9/NWQovtyXXcGEyFN5fEMjV0F
+         NfFWycJjwin9k0rCK4Rvwni2+sAWSeprrsSaR2zL7XxxB64aTeW1ybU2kCJVVwsRb0PA
+         LWe2RUj8s6Ej08PikIPkTrVcKJnZupR4WLWvaxSXllsQYr/7yZP0QMzDRNL0Ilq5lBjo
+         KMhQH1pDg1tKfdQNk2+qr6dLZooAhZNYwDsjz9ViWUBgezT1OS1eimLbxAhUr3oh1jtF
+         m4f/rAaGXf0DAxijP+JBgOjc+VgZOQJV6i8Cg6ZaBdWR/kwJMf3nSOwG7vcCqNekfoFg
+         73zw==
+X-Forwarded-Encrypted: i=1; AL+hErFRuAuxjv8WqgSJYRnfhBdI3K40xQ89IgSkFcAEAVKzTu4LwMXb5X1PlroHRgNzCWqfTXnIyfzYSmbJ@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Wroq41BqDaY1kRshxJNeBwv6PwR+Uxl11tylOOkOdvSxviG6T
+	q7pclJty1eoK93GLXPSEDJjzzQXj9TW4XaE/Cy7Pj1GPG1uyAsdRMjDWKQa+My7uA3A=
+X-Gm-Gg: AZFdTZfEpbI5gVmhxH7MoQNTP8TAOrhLnsrVooeR/n/V5ACZaflAWeCIbNmaqteagd4
+	ggpiyEB6MjyTvlYl42kpTYbPRKrd+UkVYq0OXKhsFwYHREQiPb8Jjb4xjZnh1qk0AL+PYw72E+x
+	w0YzvALOkSW91Id1faL+KcsYOkk50s+xEcqn20aB3n24Y+XuZ0KK2Pd3jW8Um9E8b0pN4N1jOZi
+	GsWhnncfAZUCtNrTZFVVvB9BrTHvbVc7PNo0Oubw0RfSB0QqmvaniPOB8OxZ5VuUU7pjj2cuJQq
+	VujYODbLXOY5zTZT6Z7XhO2bG393h8ZQmhgq74Q/evbdWGWj6gko1KJtXpXP7NTAVHqsIWAQoec
+	zoh4kYykL+cGWASoQuziAuxyl3yzcDf7vkTW3T3h/nWbT2NqDTZSuXbM61N7V76iFRGH+nHcAdA
+	d+NAPzfICbwdNZkOwjfOdcqVLp1jmK19Zf+q9U9jX5eBqqH9Rz4kjY9V397qBwyoH1h5yTbaGvD
+	yMUrV/+DYM/K284co8wXeo1t86gXEfEU2qvzmm46gtKUQdQJCk6+f7o4Wdyc+22lLg6fm+DGlvP
+	IXYFiKI08QYJ9upWfLbVD41F2/K/tqHTQ1Y9I4RnaY+sFWN4iiDvXqu+1Awub8Edkg+ar1xg0cm
+	+6TmtDqk=
+X-Received: by 2002:a17:90b:1e48:b0:3ac:9e76:aa97 with SMTP id 98e67ed59e1d1-3b3d0640e52mr1931726a91.6.1794989637815;
+        Wed, 18 Nov 2026 00:13:57 -0800 (PST)
+Received: from FJ7FR2JRQ3.bytedance.net ([186.240.245.239])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d1acde50sm3254680a91.14.2026.11.18.00.13.49
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 18 Nov 2026 00:13:57 -0800 (PST)
+From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+To: linux-riscv@lists.infradead.org,
+	linux-perf-users@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	andrew.jones@linux.dev,
+	linux-doc@vger.kernel.org,
+	corbet@lwn.net,
+	atish.patra@linux.dev,
+	anup@brainfault.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	yuanzhu@bytedance.com,
+	cuiyunhui@bytedance.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org,
+	mark.rutland@arm.com,
+	will@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Subject: [RFC PATCH v1 2/5] riscv: Detect Smpdis and Sspdis ISA extensions
+Date: Wed, 18 Nov 2026 16:13:30 +0800
+Message-ID: <20261118081327.10684-9-zhangzhanpeng.jasper@bytedance.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261118081327.10684-7-zhangzhanpeng.jasper@bytedance.com>
+References: <20261118081327.10684-7-zhangzhanpeng.jasper@bytedance.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,77 +119,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Svyatoslav,
+Register separate machine and supervisor PDIS extension bits with the
+existing ISA parser. Reuse the DT extension-list and legacy/RHCT parsing
+paths without adding userspace hwprobe bits or inferring S-mode access
+from an M-mode declaration.
 
-On Sat, 17 Oct 2026 20:17:39 +0300
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+---
+ arch/riscv/include/asm/hwcap.h | 2 ++
+ arch/riscv/kernel/cpufeature.c | 2 ++
+ 2 files changed, 4 insertions(+)
 
-> вт, 21 жовт. 2025 р. о 16:25 Rob Herring <robh@kernel.org> пише:
-> >
-> > On Thu, Oct 16, 2025 at 09:32:24AM +0200, Wolfram Sang wrote:  
-> > > Hi Svyatoslav,
-> > >  
-> > > > Herve and Luca did not come up with anything meaningful, they provided
-> > > > just a few rough ideas. It will take an inconsiderate amount of time  
-> > >
-> > > Well, IIRC they said that your use case can be mapped onto their
-> > > approach. Which is meaningful in my book.
-> > >  
-> > > > before there will be any consensus between them and schema
-> > > > maintainers, and even more time would be requited to settle this into
-> > > > schemas and implement into drivers. Why should I suffer from this? Why
-> > > > should changes I need be halted due to some incomplete 'ideas'? This
-> > > > driver uses existing i2c mux framework and fits into it just fine.  
-> > >
-> > > I am sorry to bring you bad news, but you need to suffer because this is
-> > > how development goes. If I get presented a generic solution (see Herve's
-> > > mail) and a specific solution (your driver), for this case I as a
-> > > maintainer will prefer the generic solution. Generic solutions need more
-> > > time because there are more things to handle, of course. This is typical
-> > > for development, I would say, it is not Linux or Free Software specific.
-> > >
-> > > I appreciate that you tackled your issue and were open to share it with
-> > > the community. I see the work being done there. However, there are so
-> > > many things going on independently that I can't really prevent double
-> > > development from happening despite it having a high priority for me. As
-> > > soon as I get aware of people working on similar issues, I connect them.
-> > > That's what I did here as well.
-> > >
-> > > So, if you want upstream supported I2C hot-plugging, you need to wait
-> > > for Luca's and Herve's work being accepted. Or provide a superior
-> > > solution. Or, if you want, join the ride. You already have experience in
-> > > this field (and hardware plus use case), you would be a very welcome
-> > > contributor, I would say.  
-> >
-> > Agreed.
-> >
-> > What really slows things down is when there is only 1 user of a new
-> > binding. Too many times have I accepted one only for the 2nd user to
-> > show up right after accepting it and wanting something different. So
-> > now I just require more than 1 user and it is on the submitter(s) to do
-> > that. After all, it is their itch, not mine.
-> >
-> > Rob  
-> 
-> Hello there!
-> 
-> Were there any advancements with i2c-bus-extension so that I could
-> finally configure and make my tablet work? Could anyone point me in
-> the right direction? Thanks.
+diff --git a/arch/riscv/include/asm/hwcap.h b/arch/riscv/include/asm/hwcap.h
+index b5952db9259f..0eea8158b4af 100644
+--- a/arch/riscv/include/asm/hwcap.h
++++ b/arch/riscv/include/asm/hwcap.h
+@@ -126,6 +126,8 @@
+ #define RISCV_ISA_EXT_ZIC64B		116
+ #define RISCV_ISA_EXT_SV48		117
+ #define RISCV_ISA_EXT_SV57		118
++#define RISCV_ISA_EXT_SMPDIS		119
++#define RISCV_ISA_EXT_SSPDIS		120
+ 
+ #define RISCV_ISA_EXT_XLINUXENVCFG	127
+ 
+diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeature.c
+index 72bce616491f..982231fa290a 100644
+--- a/arch/riscv/kernel/cpufeature.c
++++ b/arch/riscv/kernel/cpufeature.c
+@@ -651,12 +651,14 @@ const struct riscv_isa_ext_data riscv_isa_ext[] = {
+ 	__RISCV_ISA_EXT_DATA(smcsrind, RISCV_ISA_EXT_SMCSRIND),
+ 	__RISCV_ISA_EXT_DATA(smmpm, RISCV_ISA_EXT_SMMPM),
+ 	__RISCV_ISA_EXT_SUPERSET(smnpm, RISCV_ISA_EXT_SMNPM, riscv_xlinuxenvcfg_exts),
++	__RISCV_ISA_EXT_DATA(smpdis, RISCV_ISA_EXT_SMPDIS),
+ 	__RISCV_ISA_EXT_DATA(smstateen, RISCV_ISA_EXT_SMSTATEEN),
+ 	__RISCV_ISA_EXT_DATA(ssaia, RISCV_ISA_EXT_SSAIA),
+ 	__RISCV_ISA_EXT_DATA_VALIDATE(ssccfg, RISCV_ISA_EXT_SSCCFG, riscv_ext_ssccfg_validate),
+ 	__RISCV_ISA_EXT_DATA(sscofpmf, RISCV_ISA_EXT_SSCOFPMF),
+ 	__RISCV_ISA_EXT_DATA(sscsrind, RISCV_ISA_EXT_SSCSRIND),
+ 	__RISCV_ISA_EXT_SUPERSET(ssnpm, RISCV_ISA_EXT_SSNPM, riscv_xlinuxenvcfg_exts),
++	__RISCV_ISA_EXT_DATA(sspdis, RISCV_ISA_EXT_SSPDIS),
+ 	__RISCV_ISA_EXT_DATA(ssqosid, RISCV_ISA_EXT_SSQOSID),
+ 	__RISCV_ISA_EXT_DATA(sstc, RISCV_ISA_EXT_SSTC),
+ 	__RISCV_ISA_EXT_DATA(svade, RISCV_ISA_EXT_SVADE),
+-- 
+2.50.1 (Apple Git-155)
 
-No new advancements. I moved on a prerequisite: Having support for addon
-format in dtb in order to have support for a list of exported symbols
-resolution when an dtb is applied on a live devicetree.
-
-Anyway, the v3 series [1] need to be updated and a new iteration need to be
-sent. Also, same operations need to be done on the SPI version [2].
-
-[1] https://lore.kernel.org/all/20250618082313.549140-1-herve.codina@bootlin.com/
-[2] https://lore.kernel.org/all/20250729-spi-bus-extension-v1-0-b20c73f2161a@beagleboard.org/
-
-Best regards,
-Hervé
