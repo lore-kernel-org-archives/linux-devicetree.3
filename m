@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795004866;
-	b=I92QhtxCl86tbytIpcY1uoxFlqD7bR0g7qcZFuC77DepWv9dobTgBnzXy4NFSuD/xbUL
-	 C1S1JQpoIsVgXdgu9Y2MshXj7vNFJsz2YMrPsKy/x5USVOXzvQPz4uYkjpq4Aw+7bWUjV
-	 BWnz5Gl8oAsdUn7H71xkWN7KbPFT0yLePCHB9fvMzEsUnZWcia0EsG/3MTWb8SZFl82lz
-	 DpqK/mfgrquXYkeT4UlKI8hqwII8FISauqdWPIYhCzsV5Ho011SmldaewpkNUpjKmwmWY
-	 9e+Dfe60aw0nUeFxTGWbAj1LtI4gt3STHf/pp9ymUGseQlQS/O6qJYlaWaq7NvXlUqw==
+	t=1795004877;
+	b=R+2dLcSkGQvRxZ8H9eWX7/l4TRQB8bURmBFbwm/QDUw4KrtsiRlBf+D+JtpWQoCMN05o
+	 KGX0gk0nECsUtz+9gs5MIosgYDFGou4HnTq+XGkj9J4vLz8oRQodiiizky+rDkTVOtBzu
+	 7iRoAh1vDOSpl7znC2UE5GynoryqNl8G+V+Gkt+5waKoCrmjRNeI3+qaRRCASoWT1sOEn
+	 YmouUDBySC7hDMxIP7RY/8F/9thH6AhGjXtBR3npG9I3TF5mbQuka7TE0UyZg4p8hMOYz
+	 jT/LluwXk30lLZ6K342+kmvEq2yeb1S0t+5lcq8C2PGvNdaeSNlXhwcUQ7JLAsNPyqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795004866;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795004877;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
 	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Q5C/iHN7Lmzj8RXtCSxUA965C7B7NlmPdCiPikMVO9w=;
-	b=yPpuBGVuO9RFyMSfJwSCYA8d9YWo73mQTeLjOCd60BKTA1nl8K3+f1S/Dz9yd74pZKqB
-	 Au0iR59zUBoJX7N//GWxPLKVmoqt4ks+0jXjF5pD2bUj992jSTvqzXTAda+UNRXymCoAH
-	 yty9X7v2hU/2I1811P5fPMXSrTsM9M6ofP6kGV1OafzGZJ+1+VM4l1elaAhRudQariXi9
-	 YDpsoZcHqv1mgcncK4M2fTF3NvRDRyBHj0ukdAM9QXgyjGId/wqH/LG4MZHTWNORSXGLH
-	 XVqWSfoSj1yAuUkrsZlyIkJ56XGUVYxfw6zBtOIrxPtXjRLllTbLtzoCed7SE/+rxYQ==
+	bh=pWhnfvWenZjOfquzYUSnlcmZobUEBcHEFf7Qs3x3jIo=;
+	b=g20B69WuWMnIwjPhTOIgX2cTvijoChSsnODLN6ijE7hSFYIA3Ke7/O/mRI44koqYSPcD
+	 Mp1AboHeS/3e/i87aLXc1VzUAf1Qd7nrP0woSQlyYPGGl/SZY3ouvl+t0vllBvDd/1XD3
+	 osec8Fs0amJgxHY9ceB4GPNQBKB0ThjJMhzaUoqEZ9zPiZtGmFjbhnz+6Q+8DMTFXOOzU
+	 yI/Uy53ZYtIHfZUS65rhxj3/oK6F6srieh3zAEFqhGdTh4Kd+6bN7k7pOQGvK4faoFtMO
+	 nqCvFZjz6/HRBiv5HoqexOIffs8ZJjmK7ppP/IgBkireCQPT7zuZr0Gmf+fVD/FMPAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=HBHVTF4b;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gnUqbuf3;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 081E6606A31C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:27:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 081E6606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14411606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:27:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14411606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=HBHVTF4b
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4a5506f09f5so545609f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 04:27:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gnUqbuf3
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-49465892f7bso653873f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 04:27:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795004864; x=1795609664; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1795004875; x=1795609675; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :references:cc:to:subject:from:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q5C/iHN7Lmzj8RXtCSxUA965C7B7NlmPdCiPikMVO9w=;
-        b=HBHVTF4bbapmpKhd2cG4j0/WIyzz76YZgospn+F8ZhfA019r5hF0mzXdmMgw5XmcYi
-         iIghQouW8+9DpAGnD28wwSHCEKCHmumJJ7Dgj3B29p7C59GHHID0JVDwPfGCPxdkiFMw
-         YroY1fXJNUGl6lAlBbhycxfusl/wd7NXBDxeSaunfJO5+rcQGS6BB3cqEZn/3l5o+E6D
-         rs29dvDD5gIl/YdTcATmYbuqEgFqcNo3Xqhu0RjjI2WQNk9vOWEiTAlolM23mU6hSdv1
-         l5zVpegNpwBb1P89cuSv/AElopPaytHKcNANPzV8kFMVI0bd9Zs0i2ItsxPfwpOxX+d3
-         uS8g==
+        bh=pWhnfvWenZjOfquzYUSnlcmZobUEBcHEFf7Qs3x3jIo=;
+        b=gnUqbuf3d57Xuwjq9mArqq7froWGp0MlQS9x6IlNT2NGP3q3w0Sjo/kyiHGRTKiB4q
+         P92nJhojgEV0yC+rIzGu8L1gqaBLRdfnpQ/GixH8reLCB3FQyZOp2jEL3KxKSJL/Pg2W
+         XpgDghUzVyPVrApQ+sPpAAFyZ2Aeo2PF2N0w0Qz1WukGOaa3CSp8SpYNcCRJi0JqSTpw
+         kdxcDlbsA4BPzGLa8nc5dSe85aI+2nGCi9owQInYgrxQBbn+gXTI7eUgLzyrhhFjbeZQ
+         KfZ4jYflBxgYv4XHeP37RUp+6rVc7fKTxM3p/9uHjaYt3O2RxDTnNOeL2E2HxSOjIEc4
+         XCOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795004864; x=1795609664;
+        d=1e100.net; s=20260707; t=1795004875; x=1795609675;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :references:cc:to:subject:from:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Q5C/iHN7Lmzj8RXtCSxUA965C7B7NlmPdCiPikMVO9w=;
-        b=NI/24PlFaEz71vVzbSSADq3YcPS0ALN4ukTFhw1gw/kP7RhjVlBVgddFn427UOqPkc
-         QPqTIo18YXNu7KaaEKuN3yaSiv6RXesyLk8LjdCHSIkFJHfPA+lgQwo2dF5WTfneBf2F
-         4bpYgoUKdhwKJ7JI7OVo1J18CVEOrT6ELQ64CPafhBhAFWL/0QOJ555Eg8/ivVSGhFhi
-         kBy/BSvUl9Ru+xIrlKCQmctMEzYw2a3Gt9+/17zskourY9yCRzwQP5J2zTmmLsFOWa/A
-         hxpwyIJnnVVitgnQF8ptQGGNjgRRuA0oOgq4dKBmh3S83CEsIxj51vl3FntQ5oLrj2Wm
-         ZAIA==
-X-Forwarded-Encrypted: i=1; AL+hErGR+0AO/RIsASQVK/Z1ShYezVJO8Jof6/GLvYEZqWftrHrnhfO7aZQGHN/QBqwyTS68rw2tH5Z5dRd7@vger.kernel.org
-X-Gm-Message-State: APuU4Z/TJRoQEutHTY10+0kXQZLla7Z4umzR+f6MFh/ySwv03v673Mfg
-	HxL3QUDsL4XIqTdhmU93hZiFxmw3TkObpEISZiozc1xsGoYAJj1RJeMC3vPiaRSCotE=
-X-Gm-Gg: AZFdTZefyyc0ZM0gmrv/D4VavceaE+/mNd4ED5ncCWr25iwYBFgZp9q0iWOl7tD32I5
-	6o7HMoSffHnctU2fnGYUtFbFw+1M0EQ/lLQMJAhCBXrV3EUyoucJ9av8cYy+SFA3ZsDM+ustebg
-	cY7w+EplRx6e/wvL+gOjB86nqYDjLLAiTUdgWqPuTQfbnP3A+uHaqd9gvPMJ0ZsUWrHyXTCCW1Q
-	F7D7xK6FUgoQDNQFMorGW5aPhJI+KfJuGZ/zJGrgTL3A0MkNIbQW3Pnxg1v/tUJYqfJgkI0HbsY
-	fw/GzBpVZm/JYb47D9XSVjT63OLadmObfUww0ZTHdxM4SyGpcH0T3f+TN/N9Jkf4nYXP0Meco9+
-	OCfIPlUUgA9q+UkgDDgJBYiPMruzhy7JVsVmjLlCWRUnWQSt/NTAnJE6sAEGncujJddji+5LIpM
-	4PAr6tw8JOPnPPi4vv3Cfj2pdaVnYlrK1/U3eBPQxNk+Cxt819XBvtLGKzANM1nVa89Vj6Awft+
-	+8p8AEFqsgL3kREuvA7i2NEJk3OuBNM6GXL+6iAAYIyKtOod5fzQHe99jjWAevgJLxpAuOP5u8V
-	ggBRPHBdSZnTcVdmV0obPSvpzHsx6jimgKIkGP1yYAkoPxLDXPGTAmUocDb6r3/yUgQXpp/X9KJ
-	JeA==
-X-Received: by 2002:a5d:4f10:0:b0:49c:fde4:1af5 with SMTP id ffacd0b85a97d-4a63bbc41c8mr4416511f8f.54.1795004864445;
-        Wed, 18 Nov 2026 04:27:44 -0800 (PST)
+        bh=pWhnfvWenZjOfquzYUSnlcmZobUEBcHEFf7Qs3x3jIo=;
+        b=JF4tjG+vuAglNGtYl0EqiVg/IMwbEslsftBL0IqxxuLZzhBVzPBWDrX7fIEwLiawEl
+         RYKA7mk3VZOyVtDhHIxXx+voFTUCkQo9k7ejJMHdYsRzR2W0Ewh/R0XOZsxKlc5tK/0X
+         Q6+sSoc0qNJ1V12z7AEbUle9daGY6em/Amklob52KI5JC7AbWjdi1FswxcG6gdfzoAo6
+         C3zZWfatZuAF5WdguLePL4rxY574hQDeF43Pbi5l7wNecoqzhIWwYMct1GErQGpCZGGn
+         utMJRLcjdVXQucG2brU+A6PTC4kSKeO50xS3V8a5la2TG1uSOpzxN/jNgNzVT3TsTwG9
+         3Omw==
+X-Forwarded-Encrypted: i=1; AL+hErHhospruZk9QAKWnw4+a+qDYlEyOjqPBhTOsWKKmokPPZPw0cmwFuu9DU2acqAb2MH+RsVm7G14dpye@vger.kernel.org
+X-Gm-Message-State: APuU4Z9puKeVmy2cNdddsvJCPf0SoJQZj59scdC7q/dyc4zs1e31LXuN
+	+muau6BFDJBtHeCTwXUUspDg8oypVu8wekOw6nKMLK8E9CD4jx/VZaHv76qNMBjBlGA=
+X-Gm-Gg: AZFdTZfuydgPB6a3nS2oXfsVTM5FtwWCw2cDmctgxbGTXrTeCSVmkSRGbSjWuRLaMxp
+	wjYZw0AVFSqunFX7f9TRNUScf0YJrMoHfBVjf9jNkS96XKLarxHIq+3DDTHMe5FHd6lSkDX+8Z9
+	p8pGgYGIAo5S52coLMQbqTYywvUrdAqZ6j46kZ0g89WPdo+3NgcgqCm0KiX1kt1gkO+JJw7Z93t
+	2ssG98h5SpDh3xT6wDwaI62jtUuUAz0CL6RfvaCjIBvuhqQhSuRvq8hoItKTxT5KENowYSba21N
+	vrNKIGtDbhHVtB7ckhh7d4XOkR1/U7w6IuvE4LaYUaEYKCPm3fg7AJUWOdVS9ld3oA9R9n7oOmt
+	6m5IJdjOBoZ/2sZq7Wj7yt2oahhheaMmnXJaLovUpdl72Wwy0e/k7CH/HfeAtydawZDlvupbGji
+	cYa88toNLM8/nYpmL7OR52HBg2JBZniUjUB2EGSdnNo4ROKGlzrNWacGkcsY0SzS+PxKCNg7eLj
+	Bv4hbxH8SjS9KCwcZad25aYAQmKtR2da7dwz0u9t0W4xSENLIYpaIoqAXCW6xkqxquGWvZ62pEd
+	vL1FfU9gXt/Ltf9vmJGiyYQce1jILq19joDcqm80tlgLorsl/OaaG26pBm+3CsziA0HykRSdnTC
+	tfAtqZfxZrsv1tHHoHY5wpCc=
+X-Received: by 2002:a5d:5d0f:0:b0:4a7:9630:7b32 with SMTP id ffacd0b85a97d-4a7963080d9mr2359433f8f.46.1795004875475;
+        Wed, 18 Nov 2026 04:27:55 -0800 (PST)
 Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a654a8c3a7sm4875705f8f.9.2026.11.18.04.27.42
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a655f9f4a7sm4675322f8f.34.2026.11.18.04.27.53
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 04:27:43 -0800 (PST)
-Message-ID: <f91804a6-39bc-4a86-b24e-9588327e092e@baylibre.com>
-Date: Wed, 18 Nov 2026 12:27:41 +0000
+        Wed, 18 Nov 2026 04:27:55 -0800 (PST)
+Message-ID: <0bcd84bb-6a87-453f-9b68-04dfa95f34a4@baylibre.com>
+Date: Wed, 18 Nov 2026 12:27:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,8 +93,8 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Daniel Drake <ddrake@baylibre.com>
-Subject: Re: [PATCH v17 04/12] accel/rocket: let the core suspend after a
- reset
+Subject: Re: [PATCH v17 08/12] accel/rocket: select the per-core clock and
+ reset counts from match data
 To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
  heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
  joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
@@ -110,31 +110,42 @@ Cc: royalnet026@gmail.com, ulf.hansson@oss.qualcomm.com,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
 References: <cover.1794615324.git.gahing@gahingwoo.com>
- <2afd051e37b8dd4f10e347a3537b0086973d554c.1794615323.git.gahing@gahingwoo.com>
+ <fcdd7117d3d7fe99ea1658c39b6d1a05428823f4.1794615323.git.gahing@gahingwoo.com>
 Content-Language: en-US
-In-Reply-To: <2afd051e37b8dd4f10e347a3537b0086973d554c.1794615323.git.gahing@gahingwoo.com>
+In-Reply-To: <fcdd7117d3d7fe99ea1658c39b6d1a05428823f4.1794615323.git.gahing@gahingwoo.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi,
-
 On 14/11/2026 03:05, Jiaxing Hu wrote:
-> The earlier test on the ROCK 4D was done on the v15 code: the job after a
-> timeout went from all 128 channels wrong to all 128 correct.
+> The RK3576 and the RK3588 use the same NPU block, but with different
+> numbers of clocks and resets.
 > 
-> Repeated resets were triggered with a 2 ms job timeout.
-> 
-> v15 (put, then reset): tested twice; both times the board hung within the
-> same second as the first batch of job timeouts, with nothing printed.
-> 
-> v16 (reset, then put): tested four times; the board never hung.
-> 
-> So moving pm_runtime_put_autosuspend() after rocket_core_reset() avoids
-> the board hanging during a reset.
-
-These sentences (history of the patch series) are commentary rather than
-commit message material, they should go after the ---.
-See Commentary section in submitting-patches.rst
+> Take the number of clocks and resets for each core from soc_data in the
+> match data, so the driver uses the right count on each SoC.
 
 
+Rather than these clock and reset count rules via soc_data here, can we
+just rely on the DT validation that is almost equivalent?
+
+Then we can use devm_clk_bulk_get_all() and
+devm_reset_control_array_get_exclusive() and not worry about checking
+counts and names within the driver.
+
+dtbs_check will already catch cases where the wrong number of clocks or
+resets is provided, or where the names don't match the ones expected in
+the bindings.
+
+>   static int rocket_probe(struct platform_device *pdev)
+>   {
+> +	const struct rocket_soc_data *soc = of_device_get_match_data(&pdev->dev);
+>   	int ret;
+>   
+> +	if (!soc) {
+> +		dev_err(&pdev->dev, "no match data for this device\n");
+> +		return -ENODEV;
+> +	}
+
+
+Since this would only be caused by a programming error, no print is
+necessary.
 
