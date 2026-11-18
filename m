@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794990905;
-	b=m2BNMpJSsdl9mcXX/DDDwHQoqp+DiFNBMSe9+GM5/q4YhNvtZ43+sDtTR9xhrvfm7o5J
-	 HOFXWEu66eK2dN3otVo6o5mZoC6Abvuw1dY3TOUYRvLNls+hRY+68bD7Y2tl4Fy5MxUc7
-	 l4Gymh/DR8vBslaaOvnoQ0ZDQXWA3csVKta9Jwn5Q8XyF3ZrJGAxtDLdQ3SijuSKYaZwL
-	 JV6kiNBMj5g+X2hBBjqZlSQHDi04gDD85l1XAUwyrqdKAdKAfCMu/t3y7aZaTyISPdYnQ
-	 /9DPTFSu8Mtx+DOVh41kBryGswGVGNCLknqbCmt/ousW+DZqrxBkehkQr0VWwbyNq4A==
+	t=1794990954;
+	b=RrEvLkntZr0rZn11XO0+QK3pKAG8eTN8/V2jF+q14DDvWRdsuEeS8+wNY4l8fozxIEkY
+	 M/eO6coiX0zD5HELA1/n1YDU7P9z9xDia5IMQ7jmiEy9QbjeYg/HFr1FJn/A0Et3rek/f
+	 wTeh/Cg9xKugHAbLmF3y7r2QlCMiL4VpsEWHcHyjsmZ+T/2r8wjaF4EC4zd7TdiIBbZ6r
+	 befjlnDzAQhswtTCNYUGbK0QtudZsGUWSaqNS6x4GaP6s7qFE5gFH0WKaBJYcArEUWqK3
+	 mJ2g0VEiffFWlHr6djMZX8p+/xm5EdeGtRdaJZPSOkIdRJ5aHFIwLxnMNmn1lV3mT5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794990905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794990954;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=J/7Ztq8ptzKROL564TQK2vn6tFaCXVyFpLM/otgumYU=;
-	b=fnthS7G1Yt3y7i0nUibopz6KEpyfZ9hjp07Ua2gEeaJR1RAZbPhQoEkkHLkEy/Mz9tym
-	 3d2GSHVTg7ftJIXsaPWYwKpGShuNYtARMEsmmyetSNI1850hhEMZLhjMIMr7+dW5jsnHS
-	 NeaOrbK5KUPOIjA5ASqUvPGcRpFxPjQLeXxbQ6uMFTFqYIGfz4Zi/nW5eG3vmzRuXS+pa
-	 ucErsZ5v0rGcpCXpCXovvwg0MibYE6db+IhWoBcvqoP2nXELZy3UqGbY2hLuRYPfyor0W
-	 apH8hlmNzpbr/MUkT2WPzOWS4t4gHxYIR0lUYI1JxCl0K2iAcB/huD7npoyQ6n9C7Eg==
+	bh=0JIqzdGHNYeH11NmkVY5pYUkgsK4toUE49+n7gYxnFg=;
+	b=yx8EFonar1Vw5SVukYyHJKQqnGU7F69Jweg6ApQiwVvPNnflosbKZ/qb4yE+1YAu8bJu
+	 5O2PoeQqsqwSHGWw9leqdaTfhFIwQBtA+7BGHRxHodYupSgZFmcBpa5kCGSVOQQJj2B6d
+	 sknFGmaou6QJY/zhBKivcL4DrDS2ck6ZMmhP/jzVOyOPacEMPRhpUXrKzdt1ufcpNEmMu
+	 b6emdaIaNXbZqHj3lMe/SPRpK/jGMKuYOEETgpa1B5AVuYl1AWQUShEKwTuFbrx+NRzz/
+	 j5OJCZ+mJNqahMsPXuElrcIpYubanmgXg/SgthLohhwifT/kTObl5cMaj2pWajb2azQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pyd95Sim;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hxmkntyR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F92606A31C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:35:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8E4606A31C;
+	Wed, 18 Nov 2026 08:35:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pyd95Sim
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D9A51F000C4;
-	Wed, 18 Nov 2026 08:35:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hxmkntyR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5395C1F000C4;
+	Wed, 18 Nov 2026 08:35:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794990904;
-	bh=J/7Ztq8ptzKROL564TQK2vn6tFaCXVyFpLM/otgumYU=;
+	s=k20260515; t=1794990953;
+	bh=0JIqzdGHNYeH11NmkVY5pYUkgsK4toUE49+n7gYxnFg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Pyd95Sim4Y12XTDPl2/v2GeG79qeQ+QoGCFKmWSzuymLrRYrFGbKwHGTZcNENDP7T
-	 hX0Rum4ZStTLRT5gz2KeQWQxAR5jKh1s4doCmuEQgqyc8SWhwUjzKRh7gfQ6rhQK5y
-	 JLNSrsuvRUKEIHT+HrPpC1gVjaeVhyU4TknhQy1U1Acvodejw4xzIlEQYNfPagkSKs
-	 d6/uAaaPYR3FQoSknc516fVc/kPvistL+TEpFNh+PEvzMuGWf+p3B4iXLio6vMPtls
-	 DXTXRzP7mDG8iefhdMfmlCJMQmm3UQJjfT1jB7cMSyZSZ/IJJwtaXvQykH/TrR/JRe
-	 sFkVaETKH1C4g==
-Message-ID: <sashiko-outbox-220459@kernel.org>
+	b=hxmkntyR9kspWo+jxklIDWViHzR+3NtXQUiLwekNP+40q0OHg+H3sn5UJwWMVBD/4
+	 3FSq9WmqduxCDQZVlKg6v3I+ItQQQwLds0HkTxiPyPSIgFrRelC4dbtErY0mAs8fHC
+	 jsylQCQfj6pKRlst8vQy6pIYdCrZw6grlcQP8wemFdv3+kYm04YucPht/vjexTJpl0
+	 FNC3Uo4MdTsrFA4fn0PawDM/qIH5OOAF+lIbVFjHytuWKLAKoYYvS0dx+klRP17Rat
+	 NC9s1lQrxpwQMNxTNIgGlCWmjih6MYhMTGEcKGjzYKZGwMW0lNEF7GJ8rstH2RF3z2
+	 nSqnQVfLh0Jng==
+Message-ID: <sashiko-outbox-220460@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH ath-next v3 04/15] wifi: ath12k: add QMI support for
- extended firmware binary download
+Subject: Re: [PATCH v15 10/14] gpio: pl061: switch data path to gpio-regmap
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Madhavan Ganesan" <madhavan.ganesan@oss.qualcomm.com>
+To: "Long Zhao" <longzhao@ambarella.com>, linux-gpio@vger.kernel.org
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-wifi8_qcn9575_bringup-v3-4-9875d2a3953f@oss.qualcomm.com>
-References: <20261118-wifi8_qcn9575_bringup-v3-0-9875d2a3953f@oss.qualcomm.com>
- <20261118-wifi8_qcn9575_bringup-v3-4-9875d2a3953f@oss.qualcomm.com>
+In-Reply-To: <20261118-cv75-gpio-v15-10-e3c563673fe1@ambarella.com>
+References: <20261118-cv75-gpio-v15-0-e3c563673fe1@ambarella.com>
+ <20261118-cv75-gpio-v15-10-e3c563673fe1@ambarella.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 08:35:04 +0000
+Date: Wed, 18 Nov 2026 08:35:52 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,82 +60,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] wifi: ath12k: missing support check in
-  ath12k_qmi_request_target_cap()
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] gpio: pl061: premature IRQ domain publish breaks
+  pl061_irq_domain_map()
+- [Low] gpio: pl061: incomplete changelog and inaccurate
+  irq_set_parent() description
 --
 
-commit b62a5385a0a47e4923666ed9960fe59adf7da8de
-Author: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+commit 0b93363ac72443e24d6e5779edcb0ca7954b6b53
+Author: Long Zhao <longzhao@ambarella.com>
 
-wifi: ath12k: add QMI support for extended firmware binary download
+> gpio: pl061: switch data path to gpio-regmap
+>
+> Move get, set and direction onto gpio-regmap. ARM PL061 sets
+> GPIO_REGMAP_QUIRK_SET_AFTER_DIR so the output value is written after
+> the direction change.
+>
+> Keep a custom irqchip and irq domain. Create the domain with the PL061
+> private data and let gpio-regmap attach it.
+>
+> Leave the chained handler's regmap_read() unchecked. mis stays 0 on
+> failure, so the pending loop does nothing, and chained_irq_exit()
+> still runs. irq_type still ignores MMIO write returns.
+>
+> The irqchip uses its own child IRQ lockdep class. Split teardown into
+> two devm actions: dispose mappings while the domain is still alive,
+> and clear the chained handler only after it was installed. Checked
+> with lockdep on the CV75 board. irq_set_parent() nests the GPIO
+> irq_desc under the AMBA parent for irq_set_wake().
+>
+> The irqchip is immutable and stores struct pl061 as its chip data,
+> so the GPIOCHIP_IRQ_RESOURCE_HELPERS macro does not apply. Look up
+> the gpio_chip while mapping the IRQ, then call gpiochip_reqres_irq(),
+> gpiochip_relres_irq(), gpiochip_enable_irq() and
+> gpiochip_disable_irq() from the irqchip.
+>
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
 
-This commit adds QMI support for downloading multiple firmware binaries
-(M3, AUX uC, and MCSS uC) in a single combined request on devices such
-as QCN9575.
+[Severity: Low]
+This isn't a bug, but the commit message says irq_set_parent() nests the
+GPIO irq_desc under the AMBA parent for irq_set_wake().  irq_set_parent()
+only records desc->parent_irq under CONFIG_HARDIRQS_SW_RESEND for software
+interrupt resending; irq_set_lockdep_class() is what puts the child
+irq_desc in a separate lockdep class so irq_set_irq_wake() on parent_irq
+does not trigger a lockdep recursion warning.
 
-> diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless=
-/ath/ath12k/qmi.c
-> index 69512b82aa3b3..3b60d624b0aa5 100644
-> --- a/drivers/net/wireless/ath/ath12k/qmi.c
-> +++ b/drivers/net/wireless/ath/ath12k/qmi.c
+The changelog also omits the addition of struct pl061_regs and struct
+pl061_drvdata and the rewrite of pl061_suspend() and pl061_resume() to use
+regcache syncing instead of struct pl061_context_save_regs.
 
+> diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
+> index 27ed759486caf..db3d02976383d 100644
+> --- a/drivers/gpio/gpio-pl061.c
+> +++ b/drivers/gpio/gpio-pl061.c
 [ ... ]
-
-> @@ -3115,6 +3289,27 @@ int ath12k_qmi_request_target_cap(struct ath12k_ba=
-se *ab)
->  		}
->  	}
-> =20
-> +	if (resp.ext_fw_bin_download_support_valid &&
-> +	    resp.ext_fw_bin_download_bitmap_valid) {
-> +		ab->qmi.ext_fw_bin_download_bitmap =3D
-> +			resp.ext_fw_bin_download_bitmap;
-> +		ath12k_dbg(ab, ATH12K_DBG_QMI, "qmi extended firmware bin download bit=
-map 0x%x\n",
-> +			   resp.ext_fw_bin_download_bitmap);
+> @@ -289,29 +255,64 @@ static void pl061_irq_unmask(struct irq_data *d)
+[ ... ]
+> +static int pl061_gc_from_domain(struct gpio_chip *gc, const void *data)
+> +{
+> +	const struct pl061 *pl061 =3D data;
 > +
-> +		if (ab->qmi.ext_fw_bin_download_bitmap &
-> +		    ~QMI_WLANFW_EXT_FW_BIN_TYPE_HOST_SUPPORTED_MASK) {
-> +			ath12k_warn(ab, "Invalid ext_fw_bin_download_bitmap 0x%x, host-unsupp=
-orted bits set\n",
-> +				    ab->qmi.ext_fw_bin_download_bitmap);
-> +			ret =3D -EINVAL;
-> +			goto out;
-> +		}
-> +		ab->qmi.ext_fw_bin_download_support =3D !!resp.ext_fw_bin_download_sup=
-port;
-> +		ath12k_dbg(ab, ATH12K_DBG_QMI, "qmi extended firmware bin download sup=
-ported\n");
-> +	} else {
-> +		ab->qmi.ext_fw_bin_download_support =3D false;
-> +		ab->qmi.ext_fw_bin_download_bitmap =3D 0;
-> +	}
+> +	return gc->irq.domain =3D=3D pl061->irq_domain;
+> +}
+> +
+> +static struct gpio_chip *pl061_lookup_gc(struct pl061 *pl061)
+> +{
+> +	struct gpio_device *gdev;
+> +
+> +	if (pl061->gc)
+> +		return pl061->gc;
+> +
+> +	gdev =3D gpio_device_find(pl061, pl061_gc_from_domain);
+> +	if (!gdev)
+> +		return NULL;
+> +
+> +	pl061->gc =3D gpio_device_get_chip(gdev);
+> +	gpio_device_put(gdev);
+> +	return pl061->gc;
+> +}
+[ ... ]
+> @@ -319,68 +320,175 @@ static const struct irq_chip pl061_irq_chip =3D {
+[ ... ]
+> +static int pl061_irq_domain_map(struct irq_domain *d, unsigned int virq,
+> +				irq_hw_number_t hwirq)
+> +{
+> +	struct pl061 *pl061 =3D d->host_data;
+> +
+> +	if (!pl061_lookup_gc(pl061))
+> +		return -ENODEV;
 
 [Severity: Medium]
-Should the condition here also check resp.ext_fw_bin_download_support and
-that resp.ext_fw_bin_download_bitmap is non-zero?
+Can pl061_irq_domain_map() fail with -ENODEV if a consumer maps an IRQ
+before devm_gpio_regmap_register() finishes?
 
-qmi_decode() sets ext_fw_bin_download_support_valid whenever TLV 0x2B is
-present in QMI_WLANFW_CAP_RESP_V01, even if ext_fw_bin_download_support is
-0.  When both TLVs are present with ext_fw_bin_download_support =3D=3D 0, t=
-his
-branch populates ab->qmi.ext_fw_bin_download_bitmap instead of clearing it,
-fails capability negotiation with -EINVAL if the unused bitmap has any bits
-outside QMI_WLANFW_EXT_FW_BIN_TYPE_HOST_SUPPORTED_MASK, and logs that
-extended download is supported while setting ext_fw_bin_download_support to
-false.  Conversely, if ext_fw_bin_download_support is non-zero with a zero
-bitmap, validation passes here and only fails later in
-ath12k_qmi_wlanfw_ext_fw_bin_mem_info_send() after BDF files are already
-loaded.
+devm_irq_domain_instantiate() publishes pl061->irq_domain on
+irq_domain_list before devm_gpio_regmap_register() runs, and inside
+gpio_regmap_register(), gpiochip_add_data() registers the gpio_device
+before gpiochip_irqchip_add_domain() sets gc->irq.domain:
 
-Also, if a subsequent ath12k_qmi_request_target_cap() call during reset
-clears ab->qmi.ext_fw_bin_download_support after ext_fw_bin_mem[4..6] have
-been allocated, ath12k_qmi_free_fw_bin_mem() will take the legacy branch and
-free only m3_mem and aux_uc_mem (union slots 0 and 1), leaking the coherent
-DMA buffers in ext_fw_bin_mem[4..6].
+CPU0                                    CPU1
+pl061_probe()
+  devm_irq_domain_instantiate()
+    ...
+      __irq_domain_publish()
+                                        irq_create_fwspec_mapping()
+                                          irq_find_matching_fwspec()
+                                          irq_domain_associate_locked()
+                                            pl061_irq_domain_map()
+                                              pl061_lookup_gc()
+                                                --> NULL (-ENODEV)
+  devm_gpio_regmap_register()
+    gpio_regmap_register()
+      gpiochip_add_data()
+      gpiochip_irqchip_add_domain()
+        gc->irq.domain =3D irq_domain
+
+Because the domain is already published, a concurrent consumer does not get
+-EPROBE_DEFER from irq_find_host(); instead pl061_irq_domain_map() fails
+with -ENODEV and irq_create_fwspec_mapping() returns 0, failing the
+consumer's probe.
+
+Since pl061_irq_domain_map() does not use pl061->gc itself, could
+pl061_lookup_gc() be deferred to pl061_irq_request_resources(), or could
+pl061->gc be populated before publishing the IRQ domain?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-wifi8_qcn9=
-575_bringup-v3-0-9875d2a3953f@oss.qualcomm.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-cv75-gpio-=
+v15-0-e3c563673fe1@ambarella.com?part=3D10
