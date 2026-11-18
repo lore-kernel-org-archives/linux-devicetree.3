@@ -1,71 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795022880;
-	b=CotA/PFQYqWHMa5Ku1Coh2TNXJUkWRJW1dBAJGRjuN0SI8GhjwEmzYHIXAGYUmzNnmKs
-	 XOmzkPYM22/47BT9FxWwDIXahlhylOn3q4xGb2TX5BxNnK3KrtYD6c20mxFNafWe9Ile3
-	 m9dHTRkv5ZSKro3b0NU2fRqRHRCFHbTinivZ2u5c+EXHYd27CSOq9hvP85LggkM0X71Cw
-	 HQd0oV0rr+FGBsJQR5EKkw7S8FBI3G4OvP8hMDq6H9nLQMHfiSEfJOwz9S2nUrx0eeukc
-	 hFG8ZRaQZ93m4fjlZ5QJTU8UkUdDMsPATHUT/brxpOGK+aZrNSuE8zo2Z+4rP1+TUKw==
+	t=1795023201;
+	b=hzclTqpTmSMdXI5CnA5IIlNocec8N58O0MUApwooRC4+tw2dkGbnQ6OU5yX3mP/BBDYb
+	 xb/BiV0LPo4cpAMZ8SfnXbHTLOE9VQPM1P3hXIoh5hSfrImFX+74Gpn1mBG0kj/EkeV0g
+	 Qqaf2xoCAOg0IRiGIYkjA2DreNV2GVCeiBm0/TW6kwULW2jm/qHSU7Nm8CA1QrA/c6AWp
+	 dlla/VGa3fO8S9wimBU9bA/ysxsF1jCeiAqbEoRY2H1SYeMMKTSAbRBE/3B8hF8wxEAp9
+	 q8QzHObZtIAHU0M8JIsN/nqfBal2N69bh316f6OSwQPjbnQGNtNWcKAR1wsG22ySWQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795022880;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RnXonwrvoZVLtQsjLteHNbVkhm0Zy7su+D2bNWm+tfE=;
-	b=mH3CxDN8LX26jtJ6OjH1MiGrZyQnRNxA81xVPGioqfOJ/bPXOKYwtkFkCdlyPIBUP00B
-	 mpLfJo9ZBkcI5E7lax7RVGcsWfOOw4s9vQyaqC/9D5UFxiS3xgLQx6W2cPM7ipowTdAJW
-	 yzRorE41PaGOrNpXyCRkG8Yko9CYVUfyJHmLP8prbsby8CJRb+pGh1lqk2xhggRPoPk55
-	 KuaVrnmNrPyra0uGxFqNaXlAI5g6WnocJZvXaHIdJgRclH82G+FT8RzkcW6yQetu5CTo9
-	 xc6FmM94j6ZGfkXusLSzcNKKf9+apWjOvy9Ov57XTMyWIoKghZzjUASuTR+9ZUR1zTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795023201;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Sf7r3HyqKzaKnDMlRVDoO4cK/Hk4WcZqfT9RzLCWyiw=;
+	b=bSgoLsctsvOFI2k1gzhG+hsRYJwvVT5SQsKwPwCNDGkDPmU6NDbwXlriZuCokPoOFhBN
+	 hpH8jCP+SN1qdGhzTiy6L8/vi8JxWHWyBaJtW0HcvfTUng9WEjaGOMmb+bqIR2H4gPeT3
+	 aiXkGWmyKmqbLuES1JRslyVbTPDyHnsyBsN//rVCpHxUDHeQ/WPc+OXncxDwuJpqOefby
+	 D4NyFsdhlbpiABan5eLYasmtsmjyyxjjxUwvnLiV6JexHeX+5j0pZSrvBEFBwNrc16MIP
+	 rRnSr6YC6PhLY3S4Yv0DUViY2XJw4sgnTi6dJJfT1+SQOj9FQo5sbeEXTHWzWzET+eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4KFUrn1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLVtovDJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C2D606CA67;
-	Wed, 18 Nov 2026 17:28:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25538606A32C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:33:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4KFUrn1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BE921F000C5;
-	Wed, 18 Nov 2026 17:27:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLVtovDJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B31221F000C4;
+	Wed, 18 Nov 2026 17:33:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795022880;
-	bh=RnXonwrvoZVLtQsjLteHNbVkhm0Zy7su+D2bNWm+tfE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V4KFUrn1plYU+7KFXMyDAEoxNpcEbAzsB/roEORSGeYRdUvMl+Oqw1AoPBWnYVCdd
-	 ZD9/YntEdgMWb50ZwDj0o8lEwL4QAJyJVPDQ63lmtHvjEa4/xcxIXxR2h3+o+TaXj/
-	 UHhCEfN0Jo/aFpwzWqgxVkBw43P07nBUpQ8Zi2+51xvASGKtFQJrkwxZG1liKhY3rG
-	 59H2PLvPXh7MjUNeV5KIEHhDswzYgyvnDZMX8mK7yByzO0UAmwgtLceoE2MfDngQQt
-	 d9JCobpXQLKFg4Pvw2FaXrfRjJayOqpdW4jHJ871g5Iudd8XZsopICEJm2cxaX/8C1
-	 iDiRXol4Xd6Kw==
-Date: Wed, 18 Nov 2026 17:27:54 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-Cc: "alex@ghiti.fr" <alex@ghiti.fr>,
-	"anup@brainfault.org" <anup@brainfault.org>,
-	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"daniel.lezcano@kernel.org" <daniel.lezcano@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Djordje Todorovic <Djordje.Todorovic@htecgroup.com>,
-	"inochiama@outlook.com" <inochiama@outlook.com>,
-	"joel@jms.id.au" <joel@jms.id.au>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"palmer@dabbelt.com" <palmer@dabbelt.com>,
-	"palmer@sifive.com" <palmer@sifive.com>,
-	"paul.walmsley@sifive.com" <paul.walmsley@sifive.com>,
-	"pjw@kernel.org" <pjw@kernel.org>,
-	"radu@rendec.net" <radu@rendec.net>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"tglx@kernel.org" <tglx@kernel.org>,
-	"vladimir.kondratiev@mobileye.com" <vladimir.kondratiev@mobileye.com>
-Subject: Re: [PATCH v3 7/8] MAINTAINERS: Add entry for MIPS RISC-V SoC support
-Message-ID: <20261118-endorphin-coral-38e49336e204@spud>
-References: <20261116-canary-pedometer-9df9d756da82@spud>
- <53de742f-60eb-48ec-a883-410431aac274@htecgroup.com>
+	s=k20260515; t=1795023200;
+	bh=Sf7r3HyqKzaKnDMlRVDoO4cK/Hk4WcZqfT9RzLCWyiw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MLVtovDJd0Yk7zGj84bWMxTvyY/iTgA16Zk/CBB2o7yClMAU8+tfySk7JCKcY+VZg
+	 DCybH/g7tdTWUFJWm/Nc+6zFZcXWgQ0l+SAtRkshl7dnAcTbt+obNXZxrIGGyx6gnN
+	 IpbcokMozMGA7SIx4LKqeLi6FOnvEMqaPgRNIX/pmLcQyLHJU/JnnDNZhhtiz4sDuK
+	 u2jjPJrAHX+WSZl7fvuPjy/TpS5wHxMSAG4J2dcW6vEQxUY+MPxmFqbc7xDDYOUBtR
+	 rFIYQtJV5cwJhmRWE23j/xigX2sP1imI4ly+bDXbtjL60UGYeI+63uShe7EGS9Iw+2
+	 e7X/Y7GibsB9w==
+Message-ID: <sashiko-outbox-221657@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 04/12] dt-bindings: regulator:
+ qcom,usb-vbus-regulator: Add pmi8998 and pm660
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261118-pmi8998-vbus-v2-4-3c77a72b280a@ixit.cz>
+References: <20261118-pmi8998-vbus-v2-0-3c77a72b280a@ixit.cz>
+ <20261118-pmi8998-vbus-v2-4-3c77a72b280a@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 17:33:20 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,74 +60,54 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7C2DnlLPik6/hGFg"
-Content-Disposition: inline
-In-Reply-To: <53de742f-60eb-48ec-a883-410431aac274@htecgroup.com>
 
---7C2DnlLPik6/hGFg
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] dt-bindings: regulator: typo in fallback compatible for
+  qcom,pm660-vbus-reg
+--
 
-On Wed, Nov 18, 2026 at 02:23:39PM +0000, Aleksa Paunovic wrote:
-> Hi Conor,
->=20
-> On 11/16/26 18:40, Conor Dooley wrote:
-> >> From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-> >>
-> >> Add a MAINTAINERS entry covering the MIPS RISC-V devicetree sources
-> >> and the board binding.
-> >>
-> >> Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-> >> ---
-> >>  MAINTAINERS | 7 +++++++
-> >>  1 file changed, 7 insertions(+)
-> >>
-> >> diff --git a/MAINTAINERS b/MAINTAINERS
-> >> index c2414447892c24d58595059ca27b18775919ac12..a00f1a801be3c532c33918=
-e673c7977d9de91823 100644
-> >> --- a/MAINTAINERS
-> >> +++ b/MAINTAINERS
-> >> @@ -23542,6 +23542,13 @@ F:	drivers/spi/spi-mpfs.c
-> >>  F:	drivers/usb/musb/mpfs.c
-> >>  F:	include/soc/microchip/mpfs.h
-> >> =20
-> >> +RISC-V MIPS SoC SUPPORT
-> >> +M:	Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-> >> +L:	linux-riscv@lists.infradead.org
-> >> +S:	Supported
-> >> +F:	Documentation/devicetree/bindings/riscv/mips.yaml
-> >> +F:	arch/riscv/boot/dts/mips/
-> > Right, so still no git tree here. How are we going to get this applied?=
- My comment on the last version was: | You're missing a MAINTAINERS entry f=
-or the platform, since someone is | going to have to pick up the patches fo=
-r the arch/riscv/boot/dts/gf and | that someone is neither Palmer nor Paul.=
- | See Documentation/process/maintainer-soc.rst for more info. | | I'd appl=
-y patches as a very last resort, but even then you'd need an entry | to mak=
-e sure that you're CCed on patches for the platform because I | don't care =
-about the platform and would just apply things that look | correct if there=
- was no reviews provided. You have added the entry, which is great, but the=
- absence of a git tree implies you're not actually intending applying the p=
-atches? Ideally you, someone that cares for this platform, would do that - =
-and the lack of a tree implies that you're expecting someone else (me?) to =
-do it. Cheers, Conor.
+commit d53eae4793d2d86b3e41fd0d2b1c0495b964d938
+Author: David Heidelberg <david@ixit.cz>
 
-> I was planning on updating that later once we've decided which tree to us=
-e. I'll fix that in v4.=A0
+dt-bindings: regulator: qcom,usb-vbus-regulator: Add pmi8998 and pm660
 
-Cool, thanks!
+This commit adds the qcom,pmi8998-vbus-reg and qcom,pm660-vbus-reg
+compatible strings to the Qualcomm USB VBUS regulator DT binding schema.
 
---7C2DnlLPik6/hGFg
-Content-Type: application/pgp-signature; name=signature.asc
+> diff --git a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-re=
+gulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-re=
+gulator.yaml
+> index 024b34d0eb1a6..96f984060ce4d 100644
+> --- a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator=
+.yaml
+> +++ b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator=
+.yaml
+> @@ -27,12 +27,17 @@ properties:
+>        - enum:
+>            - qcom,pm8150b-vbus-reg
+>            - qcom,pm4125-vbus-reg
+> +          - qcom,pmi8998-vbus-reg
+>        - items:
+>            - enum:
+>                - qcom,pm6150-vbus-reg
+>                - qcom,pm7250b-vbus-reg
+>                - qcom,pmi632-vbus-reg
+>            - const: qcom,pm8150b-vbus-reg
+> +      - items:
+> +          - enum:
+> +              - qcom,pm660-vbus-reg
+> +          - const: qcom,pm8998-vbus-reg
 
------BEGIN PGP SIGNATURE-----
+[Severity: Medium]
+Should the fallback compatible for qcom,pm660-vbus-reg be
+qcom,pmi8998-vbus-reg instead of qcom,pm8998-vbus-reg?
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCav3gGgAKCRB4tDGHoIJi
-0nS9AP9h2SSQCgR8joxKlMts6nqIrBad1TtQAnXdHy8fF9ocVAEAxGah61lFibco
-nL74YqKKcXYtpC5oa+eb+s51kaFt0gc=
-=dUOj
------END PGP SIGNATURE-----
+The standalone enum above and qcom_usb_vbus_regulator_match[] in
+drivers/regulator/qcom_usb_vbus-regulator.c both use
+qcom,pmi8998-vbus-reg, so a PM660 node using that fallback will fail
+dtbs_check validation against this schema.
 
---7C2DnlLPik6/hGFg--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-pmi8998-vb=
+us-v2-0-3c77a72b280a@ixit.cz?part=3D4
