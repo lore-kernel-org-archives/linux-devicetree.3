@@ -1,61 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005238;
-	b=KnlR/h9jDJB/5AsP5TY4Qo25sGR0+BUpSwij3K+DMm8A1/PCRl8Vnrp4zONukWW8FYhx
-	 tUUbeFlidWO96xGaWSsk6CHj7OKKLBwHTWvAwKOWEIG741LrTFNCnq1uuP3a52GBseWeY
-	 LsJKcwQkqG6f+mcDVl4+1jVtcMHeY5k7YktM+K3lgha34mrChPPVv4yiap4cwpt0VHYk6
-	 kP/NG1IqSZFhaaSZRQPMzQky8I1WYK38zQ/Gqh0KBur+S7/kIxaiRXnrYyfOQRAnYKfCz
-	 lFyuEzDnUK+GYrfHdKSB/fXtLdM1uAZYGKau6bMHWPz3mgG1KtyAgpTgRSVyITnSuhA==
+	t=1795005269;
+	b=fInQdM5fqAPE6kOuBkfQJq9/x79J/XXNMKiWpCbMFCUliLOJZBt43ZCPEOtRZFIIAIxQ
+	 UylE0eT/odkl/FGexZIdl0kv0OfsMZ32tpatcb5SdjTzgUX4nkox8T3fPd2BSuEuaYtvz
+	 N8QSQ70njVW3kST8o14zbpp45/FbeimWqE69QK/LGlc2NPHU5L+HRSPvd6hqNwhrr2yd9
+	 lU270uvkeulb3vdeo6Q0IBXtP91YxX488yLJz3p/RDlHj1OVh9lmYXvXiC/ti+jig+VG0
+	 P4vY0IYqWoAEUHT+KshZhkDbQWdIRkdVBfC5jJPZ+n6DW34EoO9VsaV2SahoucX5Wbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005238;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=7KqS7FUoP8+YKU7UrHzi7vh0N1UT3YTJh6Xu6F9Q1YE=;
-	b=g1ML/WRTwQq5QuvWqqcbOQtoy745cQjoMl/IKUfpYRs+L3U2bXORfAi/2VhG6PvBGBts
-	 xlLcGSN/6g6sOXay9XhrkdiVTveaHDvZV7ACkFUCJhCqnCDm/bGJ/m2Z2uIcDypAmgQj+
-	 aPJMoFJL1VECtf5oaUDgMtd2q9MYQ6TgMyWTFKw0iBCpWhcLfF/eQvxWzOZoQT73tUcuw
-	 wnK7Z2RY45tpboAOHN3HcZVy4f6P1CFhyJnrZ2Tra6LTDh0lXE2UxtJttleqtGOYob9GZ
-	 XwnMrNsGMN8+KohHefV91HENy1Z4Rdp5zt9hCSpSjJof54zbNsenzVxzkMsAyxAvSlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005269;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:References:
+	 Content-Language:Autocrypt:Organization:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=nvPt3fCk+CsXSOqBkgE7UtRZc1xZmTaUxS/+53ef6bE=;
+	b=Gz/96v115lYzBNwk8b7zQdxna/AXeiqJoT1TClBR56Q6HH1GNB1RVPxKOHu/CUvTmfKf
+	 tTuKjzaYL24Wrf7eorO5fOLKy/Gr32oW2gS64QAmveBiW4In31S1M7B6CrAzpekXMrb5P
+	 /flaeG+sMHHRIg04nH2saMEWhEg4XkPAY28uxt6OccIT4tktgTMaqPYaB0c7abw1fBTEp
+	 S7MtKZcEmkB2oU4sl2kCjBOPiZwJa6KBWu7rL6Mf0vcTSjFk6FOqDXceAXsS70/jGvE5H
+	 DFDHOmzkiyjlDxrljzG8A7qOlrUV5v8fWpgA8MQcaoggaWmVc3YFa8N1bwX+T+WiPkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AqOxdMhE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zkKo2LEP;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57830606A31C;
-	Wed, 18 Nov 2026 12:33:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18F5606A320
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:34:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C18F5606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AqOxdMhE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32F871F000C4;
-	Wed, 18 Nov 2026 12:33:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795005238;
-	bh=7KqS7FUoP8+YKU7UrHzi7vh0N1UT3YTJh6Xu6F9Q1YE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=AqOxdMhEs01XQBpejSIlq0G8D0FKi9lFXWJYsZrPjRaSggICn9tOqDlXl194k2MxS
-	 +QccRf2dtIxUxvYZtO4fb+129fQ/ICWKCpyvCZsLh062xtvLMdewbw1tTscUXSFz7A
-	 jlAlyD7vtNw4TAd4q2zQh3vbAqNfNVUIOpK4PfO7Gxcqfcjyxm5zBjWKD+n9UOthBF
-	 ZhFvnTYjiF4/Ythmu/vFvU+u7S6nge5eWbCMrF3l8hkv9K++rzIbd08bU9QGJ0gWpF
-	 YcHDAt9aKLBGcIc3yWqmZwm3xDKNyYsfe37quRpGJImD7NXS9QfE0oru22D3wOk7db
-	 rx6TEPM39+OIQ==
-Subject: Re: [PATCH net-next v4 2/2] net: dsa: mxl-gsw1xx: reset the switch
- through reset-gpios
-From: netdev-bot+sashiko@kernel.org
-To: joseph@telaak.dev
-Cc: hauke@hauke-m.de, andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, daniel@makrotopia.org,
- p.zabel@pengutronix.de, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 18 Nov 2026 12:33:56 +0000
-Message-ID: <179500523674.3136.3797005435367758007@kernel.org>
-In-Reply-To: <20261115-mxl-gsw1xx-reset-v4-2-4ecd18c922e2@telaak.dev>
-References: <20261115-mxl-gsw1xx-reset-v4-2-4ecd18c922e2@telaak.dev>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zkKo2LEP
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a210470b49so8329795e9.2
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 04:34:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795005267; x=1795610067; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nvPt3fCk+CsXSOqBkgE7UtRZc1xZmTaUxS/+53ef6bE=;
+        b=zkKo2LEP3/ymgPRDW9n8rWDi1g8Go0sY5onHwOFAaXSRwN0FeYcbFR8oy0arRLA2gR
+         GltSRRjONi/WfGI/e4ofJt8RaPzofSLBoAfjo4Tw814qvqon3h/OckCmAuE4A3XNcwGD
+         pZQwucXTC+Sg99gQlZFOy1vjMY4daODSag09sPgmiFi+DE2dTyNyyE0k56imBNjIRD2P
+         P4vxRJkbVUosV2i4p/hf7jjZfZ7BPqf96LJR5L2qFqlIWkVhvAB9DQGiSPNUDFi5WbSU
+         tA5jUuwM9pQ3J+hWkkh1sIf+1Je58wUVIlEzvzLkZBMwx4K+U6GzMt28ODqIcRBszzHx
+         E6YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795005267; x=1795610067;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nvPt3fCk+CsXSOqBkgE7UtRZc1xZmTaUxS/+53ef6bE=;
+        b=GoM1ajTwtfr8EHB1P3DbdVyKim5c6Eoyn06X8n0nqrXm1CyjJ2HyXnOQuj/tRLoUBe
+         RErbNNfe/xpmKsEW9dDjVyjBrgfzTcFKN352UF1IHbOALpK0QNKrCyeHi7aLfATLKjaz
+         2V3pcNmRaX0ODN81G3okBIDYLdy5/hINsJwjkX6OG37se6QaTyGjPD1ThTf+Q/CF5Phf
+         X7B4TaG0TMfym4zeC/U/BTOAtNquJaALVvi+4m0A/xvnP2Q1Mm1ha8+xIV0EpV+be9VE
+         efTRY6PVnaJyDyxtGAb/DzIPBVnrmOzVHMX1WYmkeQPe8rOVTljY/dz9U4r4xuL7n0hu
+         5OPA==
+X-Gm-Message-State: APuU4Z+kRO55do12WJ5gmeuOjXWHVFFjZlMW/eu+1MpBVG/uicSbweUn
+	PgeGKsE05o2sDA1rj734UnrE7BMPp1GrWCKovsCpzcDqpT49F1KvEH0BvkcuXEvUWQE=
+X-Gm-Gg: AYBFou3rFVQWPVtGta02BPgJzd4iUCVxcPeIbueaMvJc9rbC8PIkpnDLY/CuiyFvbX9
+	B3ZQpsGK5SRC9d8kmQCbjcNUv9b5WbhYJgwDBFI1BEfjljYd9R/jQHAXLSayamPpDB4PV3JntBz
+	IyRMe+UtQ6ieGkQ7qGXWiASKNbxw5G9vfnUOwaaUxOf0XHgPyhIr46NRAB8zPlf51EjZ/tSj8bV
+	kxsCcwf/yAaASU4F3ulyWTQ/uixaxm24YmaDUGpsQpjAq3mtBH3z856MlU+O76ezS4hLiVY+nK5
+	zmJGwpScc6ravQkNHY75TmMXO8rubCxmbVWvWJ3deH0PkkZnfxeonpbxwQsoTfS79snBmRKvRt0
+	a6XPfsuPsdtnXkN87Myzz1My06K9NiLFPrN0Pb5FbjYuG59PA3Zt9TtrO8xI8bdLTcnzPtqG4M7
+	0nJwwBvusNbnwOFz3ilrHdCYJQMioUuh7ZaLGkqkH5Zgjk8BNAQlMtCdW3YSq/YFKTS3VD3Wtnj
+	YSm70g1QlGmzx0nrs/aRU3XZ91fhLTb++zFywEA+KgNHG1A/z0NLD7T5ULchTE4TYM0EXfjmnyw
+	3OsEzLYfcx890MBGV89Il/nPw0hPWe3EjBvoQ9uBkFXjL0fYNpc8QIiWF0aNUv9SSfyrNrEo49d
+	OLovh/BNK
+X-Received: by 2002:a05:600c:1d06:b0:4bb:6a5a:783d with SMTP id 5b1f17b1804b1-4bb7da25158mr46260185e9.18.1795005266845;
+        Wed, 18 Nov 2026 04:34:26 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:6ca2:2772:9e53:115b? ([2a01:e0a:106d:1080:6ca2:2772:9e53:115b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7e57664esm26749835e9.1.2026.11.18.04.34.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2026 04:34:26 -0800 (PST)
+Message-ID: <3e82658f-1152-4c98-b996-242abc203f74@linaro.org>
+Date: Wed, 18 Nov 2026 13:34:25 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,154 +92,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 05/10] dt-bindings: display: amlogic,meson-dw-hdmi: Add
+ phys and phy-names
+To: linux-kernel-dev@aliel.fr, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org
+References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
+ <20261117-meson-drm-create-hdmitx-phy-v1-5-9e0ac931381c@aliel.fr>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261117-meson-drm-create-hdmitx-phy-v1-5-9e0ac931381c@aliel.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] gsw1xx_probe() (drivers/net/dsa/lantiq/mxl-gsw1xx.c) can skip
-  the switch reset without logging anything.
-- [Low] gsw1xx_probe() pulses the hardware reset on every probe attempt:
-  assert, fsleep(250000), deassert, fsleep(1000000).
-
---
-
-net: dsa: mxl-gsw1xx: reset the switch through reset-gpios
-
-This patch gets an optional reset control in gsw1xx_probe() and pulses it
-before the first register access. The pulse is 250 ms asserted, then 1 s
-before access, which is the timing from the vendor's GSW150 driver. It
-also adds imply RESET_GPIO to the Kconfig entry and extends the help text.
-
-> diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.c b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-> index 0c7ea242a62c2..33b73b2ed5fe7 100644
-> --- a/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-> +++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-
-[ ... ]
-
-> @@ -737,6 +739,30 @@ static int gsw1xx_probe(struct mdio_device *mdiodev)
->  	if (!priv->gswip.hw_info)
->  		return -EINVAL;
->  
-> +	/* The MDIO core handles reset-gpios only for PHYs. Reset the switch
-> +	 * here, so it does not run with whatever the bootloader configured.
-> +	 */
-> +	reset = devm_reset_control_get_optional_exclusive(dev, NULL);
-> +	if (IS_ERR(reset))
-> +		return dev_err_probe(dev, PTR_ERR(reset),
-> +				     "failed to get reset control\n");
+On 11/17/26 20:33, Ronald Claveau via B4 Relay wrote:
+> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> 
+> The HDMI TX PHY now has its own binding and driver. Describe the link
+> between the HDMI TX controller and its PHY with a "phys" property
+> holding a single phandle, named "hdmi" through "phy-names", and update
+> the example accordingly.
+> 
+> The properties are optional so that existing DT, which do not describe
+> the PHY, keep validating; the driver falls back to creating the PHY
+> itself in that case.
+> 
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> ---
+>   .../devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml        | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml b/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
+> index 416fe263ac92..5a033fec21b0 100644
+> --- a/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
+> +++ b/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
+> @@ -108,6 +108,12 @@ properties:
+>   
+>     sound-name-prefix: true
+>   
+> +  phys:
+> +    maxItems: 1
 > +
-> +	if (reset) {
+> +  phy-names:
+> +    const: hdmi
 
-[Severity: Medium]
-If the switch node has reset-gpios, can the reset still be skipped here
-with no message at all?
+I don't think phys-name is necessary here.
 
-In two configurations, devm_reset_control_get_optional_exclusive()
-returns NULL even when reset-gpios is in the DT.
+Neil
 
-With CONFIG_RESET_CONTROLLER=n, the stub in include/linux/reset.h does:
-
-    return optional ? NULL : ERR_PTR(-ENOTSUPP);
-
-With CONFIG_RESET_GPIO=n, __fwnode_reset_control_get() in
-drivers/reset/core.c returns before it tries the reset-gpios fallback:
-
-    if (!IS_ENABLED(CONFIG_RESET_GPIO))
-        return optional ? NULL : ERR_PTR(ret);
-
-In both cases the if (reset) branch is not taken. Probe then continues
-with the bootloader state. The commit message says this state makes port
-0 fail with "failed to connect to PHY: -ENODEV".
-
-The new help text in drivers/net/dsa/lantiq/Kconfig says:
-
-    A switch whose hardware reset is described with reset-gpios is
-    only reset when RESET_GPIO is enabled as well, which this option
-    does by default.
-
-Is this true for every config? RESET_GPIO is inside "if RESET_CONTROLLER"
-and depends on GPIOLIB. RESET_CONTROLLER is only default y if
-ARCH_HAS_RESET_CONTROLLER. NET_DSA_MXL_GSW1XX provides neither
-dependency, so on x86 or generic MIPS, for example, the imply has no
-effect.
-
-The reset-gpios binding added earlier in this series describes it as the
-switch's hardware reset input. It also says the slew rates return to
-their power-on defaults "after a reset through reset-gpios". A DT that
-follows the binding can silently get neither.
-
-Other DSA drivers with a switch-level reset-gpios call
-devm_gpiod_get_optional() directly, and that only needs GPIOLIB. Examples
-are qca8k-8xxx.c, realtek/rtl83xx.c, mv88e6xxx/chip.c, lan9303-core.c,
-vitesse-vsc73xx-core.c, mt7530-mdio.c and ksz_common.c.
-
-Would that approach work here? If not, could probe at least warn or fail
-when reset-gpios is present but no reset control was obtained? Could the
-help text also name the RESET_CONTROLLER and GPIOLIB dependency?
-
-> +		ret = reset_control_assert(reset);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to assert reset\n");
 > +
-> +		fsleep(GSW1XX_RESET_ASSERT_US);
-> +
-> +		ret = reset_control_deassert(reset);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to deassert reset\n");
-> +
-> +		fsleep(GSW1XX_RESET_DEASSERT_US);
-> +	}
+>   required:
+>     - compatible
+>     - reg
+> @@ -136,6 +142,8 @@ examples:
+>           power-domains = <&pd_vpu>;
+>           #address-cells = <1>;
+>           #size-cells = <0>;
+> +        phys = <&hdmi_tx_phy>;
+> +        phy-names = "hdmi";
+>   
+>           /* VPU VENC Input */
+>           hdmi_tx_venc_port: port@0 {
+> 
 
-[Severity: Low]
-Does this pulse the reset again on every probe attempt after
--EPROBE_DEFER?
-
-The reset runs before gswip_probe_common() reaches dsa_register_switch().
-dsa_register_switch() can return -EPROBE_DEFER, for example when the
-conduit is not registered yet:
-
-net/dsa/dsa.c:dsa_port_parse_of() {
-    ...
-		conduit = of_find_net_device_by_node(ethernet);
-		of_node_put(ethernet);
-		if (!conduit) {
-			rtnl_unlock();
-			return -EPROBE_DEFER;
-		}
-    ...
-}
-
-It also defers when the tagger module is not loaded yet.
-
-For MDIO-attached switches, the conduit is often missing on the first
-try. The MAC driver registers its MDIO bus, which probes the switch,
-before it calls register_netdev(). That first attempt usually runs inside
-the MAC driver's own probe.
-
-Each retry resets the chip again and blocks for another 1.25 s, because
-both fsleep() calls become msleep(). The commit message says this timing
-is only known for the GSW150. Nothing breaks, since the next attempt
-redoes the PCS init and the GPIO pin-mux, so the cost is boot time.
-
-Could the reset be pulsed only once, or could the line state be kept
-across probe attempts?
-
->  	priv->gswip.gswip = gsw1xx_regmap_init(priv, "switch",
->  					       GSW1XX_SWITCH_BASE, 0xfff);
->  	if (IS_ERR(priv->gswip.gswip))
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115-mxl-gsw1xx-reset-v4-0-4ecd18c922e2%40telaak.dev
