@@ -1,79 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.83
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795022748;
-	b=k9FyG3LZGYVj++Y5ywcCE30U6DDiizGqyvPyKGJdDKdqU1ETS4e6iF9SXb47YXA94iaR
-	 45UxeRbmrWmo5pvUaFq/jKcZ7mPC+TYm/lOPu7NoziL/79+b5qx5ONJLOswEKf6D3JmVG
-	 5h+W5BWzci7X5PnlLa56dZxL29yVk0Tk5agGUjXdrbXWXRT4PtvOhoxmKmbM8uV+uy9CZ
-	 A/ZBicBDwW8Lrl8N80j8KtRCcFvkAh1qBk15huzrfh0bKK6qR9zI3EhT/x1Hg2Y1/tAC+
-	 nvhq3xRSpsZJ6Osmd2oxCYEltR/2BSk2GzSGkZywVjpePrbYa1rgfsLULwICmDb3C6w==
+	t=1795022750;
+	b=HgV/gyNw7dsLwgEFiKQLbAq1BuKpo+hGSIRslqRCH1yRkD+CiGGwYfMBb0YdvkJi4ghk
+	 0VkORVt7+ic2AyeIvElDk4uEhUIe76XajHMEmxDkzNo6wpWyZerof0OeEFbKq9vk8INgn
+	 MWYf0atOA+3DaJmVxmmJLRytpVkf69Mk2v75yNOl8EcSlzeZsiWE4oB7vIhksiS/W7mgW
+	 y3ilc+Oto0jb7jFclH3BtbWNYMIVba7oLNNt3ZA7J7eqbm3qXYuZbvL4AOPPvgH6aODI+
+	 /sIDtgwbI+MfkRsfoNIZm6WAuHe/fBiNITLRxLBwTOhNLRc3g2oM5W1WmL0Yw7NtMAg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795022748;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GOtB/aqTsvf6bQGU9dL2JqihPsMclbo/24c9lDiPZws=;
-	b=awVcTvqe0IJnwmQyAapNzhgjC2Xnwg5gaJ8RaSSqjx/5SpWRz34XjkT4OTSmjXY5hhMo
-	 r0CIYHeRoIPhE47xWqNG2iNvZYizxyZiv4kYcatgXTBMyzg5+7rHeQMuE5N9qT10SB6xd
-	 KQj0SjEmsWZyERn5VR9rb5g2vm+32/r+dz9uYit9IR1E9SMCPK2ahp3Nuluca7jdxU4KW
-	 BCXT8Z1rt2Xo4ztugGsNR6IOSos6YygKEtseEeti7S9TfIYftobzg2pBFpQSZFMMxCxbQ
-	 Hm7GWIq8qTGGd44Hw8CFKjvcEO19vTvhFkJ0APFJ66npb+y4Rp3Osn/SUpqqOtfy0GA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795022750;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=7QImKCQCn026qrKuxcLq5KpLrEULLEp8iucMM/ifoYE=;
+	b=k72OnFVLWqNc6+32ljLAiPlcXyXBESiFVeOdB1PRDFU6rn8vMXxj/Rky+NUlq+I8emvP
+	 FgSqKbqkqEuislFVQyBFu2frPYcY4fMDGu169B0AQ2qJ7gZO3orJIeTtB73NJaqD0/aeZ
+	 7L5m1Kjo3gDohtberCmxLq64sS3LuWCeyK0xaraPwDbPBNuHVOMUNEH3LplsQToM+8bQK
+	 K+CsWnXm37iSu2iQdGSD0qo4fHUnlkeLB2f4EhUzv8QpxfDZL90uWef8aLmp3YSYRb/Li
+	 eS0DRGalhqXvA3gMk67zW7zXN8iTub6kVMunsfvX3YgJnGY9j5p+r2kec4nmVfaNnHg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K09DotHH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9276360A6F46;
-	Wed, 18 Nov 2026 17:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K09DotHH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795022748;
-	b=p1op4C3mO0bNJ0m8l7yeG+uF5QolcKzAtuBnmNuvARI2SoHMAdkhqyr7jey8natoqrWT
-	 8htr8ceKPanRUM9wXvAwPah4piOpH04cdi6J+dTpUOZl9YFlcOyOMIO3r0FaynrGo0vQG
-	 CkmrelIC/hu5oeODmW+yvx8Tbw35KPBCzg0K6Ke5oLc4ji8IY+gtrcEIQ7Ga8ftrujre0
-	 TovohsmTM066C05cH49zLcwizxnKn1oVJIiTSk4pS4cGp6h4yCKwcdgAX18lCEfAQWgPT
-	 hWUBKnZEfY7lk2e5E0aMJNmdlgNUtyc6TBgklzpR0QyH+tn9oTFemO18MpkiZF/oJOA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795022748;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GOtB/aqTsvf6bQGU9dL2JqihPsMclbo/24c9lDiPZws=;
-	b=ngxPQPYs8ShxoFnVZjyBhMvhh2XhK8XQlgPROwDhTOeDJAmzwBTxEfkK77/wHl/hSsRs
-	 DZsD4c6+BqlSc6S8uDYMxEfpdXko/mBJXdcPGiCQ+9pqCNu9NmOp6Fm3siPE8rt56EWKH
-	 zMHhVs7zhcp0xlcIfXIF17GDtnJNNLlnQLjXSurtHei3t8kFBHWCNJf7BvaptSx+UVkFQ
-	 xjTmnxVWi/aoSFEDpymf0I3gjUawS/ilinL9pS+4PgcR3ktzo9OnA7Ipj1ZRlWvIQq5Ya
-	 DLks8w8BYrQPZJOh2KJpG/6Nvs3hKmxGg5cj/DW4sYQsDQtnP9R+W6c/+4E7npQJ6ZQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b="izKK/t9h";
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=VwfE0Fym;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.83
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.83])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B45111F00926;
-	Wed, 18 Nov 2026 17:25:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795022748;
-	bh=GOtB/aqTsvf6bQGU9dL2JqihPsMclbo/24c9lDiPZws=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=K09DotHH4eiT/ORBa9XOKMiZTdrYLNKbMv/xVmxR3V0WZopJy9Y/pCd/iCI4TZFmH
-	 QQzSXoeL23R7YY3v0KvqY9g6BfMRp8JqyY5ltFcxU2nvkiUG9wzNaGiJRjo1zOiP04
-	 eNus3yRlT5F/DyuCBONx0fHVNEx0s+V0WWEd8oOcAFEzZrOTwT+rvHf0/lQs+f1Qg6
-	 tu76IJCNoIepTzX6qZMjlRuw8fXNiSzY6nHbc24nTTrMwb5YBoWEYx0IfrzxW7Umyv
-	 tIDyfnZiJfDaoRRiFHlaOpnyD9bkYcpyQ3ERjStb8iPryNm64xwV2CrBakjdzqVU98
-	 ZQ4mSkE2n513g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 959A24AEF5;
-	Wed, 18 Nov 2026 17:25:45 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 18 Nov 2026 18:25:41 +0100
-Subject: [PATCH v2 08/12] arm64: dts: qcom: sdm845-oneplus: Enable vbus
- support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1B660A6F53;
+	Wed, 18 Nov 2026 17:25:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF1B660A6F53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=izKK/t9h;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=VwfE0Fym
+ARC-Seal: i=1; a=rsa-sha256; t=1795022740; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=ZJcEeDvfhaj6ptUyftchRAKIYU0tVIVVSMlfEtpTaw/+cw7EUN4es99xwY66gx5ZUS
+    Ra8skddM2DLkZHRqJ6iwhEKgZX91gXXtwsfhzuVfkROmEV8MVyN3bz/z18S7e82KvpOB
+    lZH/9YrjSqv1PguKRhET1XnbbrItnH+S0P1lMkTz9xW+YdFwws0/IX58OvMwetk+SSyR
+    FWyTEkBypzSoYt9B39Ahq82+T1GOESBg/gVcRHvkZlFHutUjQG+M7EaZokDEpTjnfSAE
+    MaLJVs529RxpWY/TtieUSJAnbKPbuej58jTXLAZRFQWTWVJ/Nkh79mGUHgGJ9TPPs7fV
+    gG8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795022740;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=7QImKCQCn026qrKuxcLq5KpLrEULLEp8iucMM/ifoYE=;
+    b=nQ8CDELXgscSmWWtb9ig3J1ENtn3vkTJPTjrr2Ie/aBZSgzfb4q8JSal0Xwm8uqG9t
+    pBAqdbd3DecG6bY5Povbe4zvV4CEYkpp7ABvym21mCh4/+QFY9jaWF/rdkJIgMZHRun+
+    HgDyyE3kGBspFMwDB4bBCgSsbC9UfC9Z1HDAosasut+P3SWF+TvKQsNbpo+Buwbg5Dyd
+    8yD+KfdP4gbg3mCzEArcqRcA9Ruy0Fgb9gJb9uCOfggP3PHC8Q9gL1dxgriiOQljiX//
+    mslG3UKsUIs+Y3+M48aJhMZrL7zmdmbpeWEwUgtg9aehgZeGeSbcBZpXJWWd+oWaHE/e
+    11SA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795022740;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=7QImKCQCn026qrKuxcLq5KpLrEULLEp8iucMM/ifoYE=;
+    b=izKK/t9h9qBViXi6RKoiAI0cZIKC4a9XNgZrdiLqHSeP721O4I3SuwPAZtRQVzQgFk
+    slEr2BGrhX6fR+Ok5pxq9WxQLNZbNtjNABNaBJP82HeqRJR8WMDT77ayyxTiLwJEEASp
+    BiV4N8xfBw3L0w8GGRWmM61cgFaAicvWe4Qz50AeHjsStEh+6QmieQOmp3jvk3LG94+5
+    kQoBOVM0f0X2G7mBJtMZrxZsz4aK+ndLK1X689Nu00gdljFUJm2CnUwfkOrFje7+EHdk
+    P/u99EuR1CooOt5j5F6LXY9N0cSw/H90qvh2rKdVHqFV/bHDH4aHLesdI4YFUqlWMoVs
+    kG/Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795022740;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=7QImKCQCn026qrKuxcLq5KpLrEULLEp8iucMM/ifoYE=;
+    b=VwfE0FymMa+IlUHH53KWn2C94OIIsx63e24FZ9AzDIovqmEQ3JOUabBwRIvKW6gRGr
+    dHxc6tdzIHyGfOouMVAg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2Jpcm8iNZLZ2IBizV+3wFb55dglUeZzcEX9J"
+Received: from iMac.fritz.box
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22AIHPediW
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Wed, 18 Nov 2026 18:25:40 +0100 (CET)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	letux-kernel@openphoenux.org,
+	"H. Nikolaus Schaller" <hns@goldelico.com>
+Subject: [PATCH v4 3/7] dt-bindings: pinctrl: ingenic: Add X2600 support
+Date: Wed, 18 Nov 2026 18:25:33 +0100
+Message-ID: <a8688e1ea979dbbb3ffa198ca041b31c97752bad.1795022736.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1795022736.git.hns@goldelico.com>
+References: <cover.1795022736.git.hns@goldelico.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,87 +111,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-pmi8998-vbus-v2-8-3c77a72b280a@ixit.cz>
-References: <20261118-pmi8998-vbus-v2-0-3c77a72b280a@ixit.cz>
-In-Reply-To: <20261118-pmi8998-vbus-v2-0-3c77a72b280a@ixit.cz>
-To: Alexey Minnekhanov <alexeymin@minlexx.ru>, 
- Robin Snyders <robin@snyders.xyz>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Casey Connolly <casey.connolly@linaro.org>, 
- Sebastian Reichel <sre@kernel.org>
-Cc: Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- linux-pm@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1021; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=qtK8U0DG1cRkdsACHAr+c1jMalJb+5fDCyLN85kWDvA=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq/d+Xux/XV/RcXxApBTxcJ2ZIuM8XgqAeK/KNK
- oiW3dqxLhCJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCav3flwAKCRBgAj/E00kg
- cpXqD/0cPSi/Spa6ztty2BllXCoc8Y4UUnWTZswjzAhVje+ckv0MNJKQB50DIqRZpPJ9aawHKbk
- N6E9/IapIM+brBH6XCLadnKgIZ5tayWX2BeOeEToCibAAMoNKA1mUXBCUz4yOyMx26pwb5ykTEj
- /6ltPIUNvlJYTBSY0Ag4TVOBxSDyVvfAuX1SeXzg0UIHFBTG1W81m+YOTVr6MhzEfnJv8pGGzsz
- aTQzhXh9KZse1YZGPXsRMYVi3Pk1sOIHdEg7DGvwNwcCvqYnyuWknh+KWy0/izApn8MI6fLjiPo
- WgBkQbmwzdU1uvyxc8kuNLo1DZmpuqckgOpEZZZjyg0ykcwxzv4K1piUpVaTyELUNE1V3aZDLUd
- VNam24iFesz58IY6sUhhOwSFtE5AwyzPHVJMi35vFa3GiqxFCl5kD01j2dl98Rk6xOfaacPUhX2
- tpDa5oTzEb4133IVX+0sQvRLQOyw/vtAKhAV8ATH/z3zttbk6BURLC3dKjwiJnFn1TkarlhrW7Q
- B/tAJNBAQVmKvm3bb6b6wRooFUj1lLeZfBPbpbyro2nsIL7ltEDdHOT6ODLJ8Us8Obk7pSPs3NQ
- WXMhi4likHlzUE1SmyNkIUNSGkw/GnoSNJ8JHiuF/fg+qAv/YWFYokgdrVLIOb5xPvKANWr3wob
- MG4Yrdla/Na43Cw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-From: David Heidelberg <david@ixit.cz>
+Add the pinctrl and GPIO compatible strings for the Lumissil
+X2600 SoC.
 
-On this device, vbus was setup and switched off by the charger driver.
-Enable proper driver.
+The X2600 has five GPIO ports with 32 GPIO number slots per port.
+The programming manual lists 113 implemented GPIO pins.
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
- arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
+ .../devicetree/bindings/pinctrl/ingenic,pinctrl.yaml   | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 1df09da3c4d71..4996ce24fee36 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-@@ -660,16 +660,23 @@ led-1 {
- 		color = <LED_COLOR_ID_YELLOW>;
- 		led-sources = <2>;
- 		led-max-microamp = <500000>;
- 		flash-max-microamp = <1500000>;
- 		flash-max-timeout-us = <1280000>;
- 	};
- };
+diff --git a/Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml
+index 84e960255a36d..15966f6a79f15 100644
+--- a/Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml
+@@ -19,10 +19,10 @@ description: >
+   pin within that GPIO port. For example PA0 is the first pin in GPIO port A,
+   and PB31 is the last pin in GPIO port B. The JZ4730, the JZ4740, the JZ4725B,
+   the X1000 and the X1830 contains 4 GPIO ports, PA to PD, for a total of 128
+-  pins. The X2000 and the X2100 contains 5 GPIO ports, PA to PE, for a total of
+-  160 pins. The JZ4750, the JZ4755 the JZ4760, the JZ4770 and the JZ4780 contains
+-  6 GPIO ports, PA to PF, for a total of 192 pins. The JZ4775 contains 7 GPIO
+-  ports, PA to PG, for a total of 224 pins.
++  pins. The X2000, the X2100 and the X2600 contains 5 GPIO ports, PA to PE, for a
++  total of 160 GPIO numbering slots. The JZ4750, the JZ4755 the JZ4760, the JZ4770 and the JZ4780
++  contains 6 GPIO ports, PA to PF, for a total of 192 pins. The JZ4775 contains
++  7 GPIO ports, PA to PG, for a total of 224 pins.
  
-+&pmi8998_vbus {
-+	regulator-min-microamp = <500000>;
-+	regulator-max-microamp = <1500000>;
-+
-+	status = "okay";
-+};
-+
- &q6afedai {
- 	dai@22 {
- 		reg = <QUATERNARY_MI2S_RX>;
- 		qcom,sd-lines = <1>;
- 	};
+ maintainers:
+   - Paul Cercueil <paul@crapouillou.net>
+@@ -46,6 +46,7 @@ properties:
+           - ingenic,x1830-pinctrl
+           - ingenic,x2000-pinctrl
+           - ingenic,x2100-pinctrl
++          - ingenic,x2600-pinctrl
+       - items:
+           - const: ingenic,jz4760b-pinctrl
+           - const: ingenic,jz4760-pinctrl
+@@ -86,6 +87,7 @@ patternProperties:
+           - ingenic,x1830-gpio
+           - ingenic,x2000-gpio
+           - ingenic,x2100-gpio
++          - ingenic,x2600-gpio
  
- 	dai@23 {
- 		reg = <QUATERNARY_MI2S_TX>;
-
+       reg:
+         items:
 -- 
-2.55.0
-
+2.56.0
 
