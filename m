@@ -1,97 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.8
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795022510;
-	b=teBFd+2xliT7ud5x5aWVhO6WX5Ts7rzzmsb1hbxPRP2MHYT7wTiIZ5PLTaO9gqWFaLtE
-	 ti1KdwL7MMRIv0AdW13ssEp9oSJ9kF93BmqFP30+i+ksiN4jVmgjI0uhBQOBVWwydPQNB
-	 55Tdv/FkO8pjLZt692kPwoe4A5qyWXgQjhC4QMxNqyS/ujT5EpJPaTkcuXworqIcmRNI0
-	 Xr00W0LgfexfYeuOsk+Xpy3mFnQPQl+fSPV8gx/XllEKh9kILsbHHdd0bQvSMU03voI1Q
-	 9YCsliVFZAahrm9MYPS4N6EBRqSh3EwIKSd5n4R7RzQHIiKLtNz6smM5+7Hgoj4b1Jg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795022510;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=tOGfQ6cQ1En7nNkUe4qRk1JWp9mxMtsaCoiquidtyAw=;
-	b=mb73dWA8CiHF9mUvbOk3K1kvcawcSermcFzgA1e723hf8O/jtAy/gRK0S5uBgTlr3ssA
-	 K1ot5i0mKsZRA5TML/PNj+m5NXBmMBZDGL3sFWaOZ7GN7LkjsfWl5f04u+o1y/1yquBti
-	 XvHoHEbGwnFfMxQ/xnOZNIUW50jiXpnAJ+93v3bKhGJHw9QjP6acHs2uE1ruEVq2nC4uO
-	 gO41e0BTQSG64JkOw5N5KqeKVRYCMNf+kAwWLo8c0vlQnqnNvhtc6YRw4st+A2OafP2o5
-	 u4Ql1rl6JdrSq5qFHH0PKIjkY6eOasfOhj3gemZdvGKeotrO2CD5CVqqtO/ArE0IEuw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mobileye.com;
-	spf=pass smtp.mailfrom=mobileye.com;
-	dkim=pass header.d=mobileye.com header.i=@mobileye.com header.a=rsa-sha256 header.s=selector1 header.b=UqTqCcqQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.8
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011008.outbound.protection.outlook.com [52.101.70.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795022533;
+	b=RMY3nerqOA4e2SLy9IulWBR2j+U/CfvkfV042F/dH1NTfzcKGAietJEhTwv/fX2r5f5s
+	 uw5TCwAbwaIujWjDGHxt2Sc8fderCyRvc33B+ejUSHoXZ6CChyA5is4OKVkbSd7yaDS+6
+	 KYmmi3VMuVNzpSgkln4kFW13iSbbsH8J3OuGKbFI9rA0WHfQcT1XLLCzNMsh/uQAVDPM0
+	 YCIFKFRsUYT+QU3M53HVSqvcN0cIhJ9WU7huBvfznTMdBm0CmbErNNpQi6sl3PMtDDlcs
+	 RwRYsy7MTOGtRU1r/5VA0fxztJkXDiDYerFihoomLTtWadrToU36G8dbKeIgOAyS/Tg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795022533;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=mY/FNLYTzlT6/9iFOU+8LtK9dRUupasMtXWg1lgUwjY=;
+	b=Iaqj7Jd2odaj5BPcqtH6lUl6oJdPRQD5qviZ9L9YbjLbqEUlTu4CsKPfeVHzqh4nQ9tb
+	 iA7e3KjZ/+WrawccJ/hsMgbzE27fhEjXjlJZExsEmGYzN5tzWmb/UnKtmGxjkplCXPJjU
+	 hSjDvOH+ROTAUrCyFT2adfl03JK8LzotjOPVUwJym3N4QlGMpkVrlrQWNm2VqyXU9cbAl
+	 q306HLIwJ2LQj54/qcq+hFY7uSIcaVVUa19336a7oYG1wLsq8j2zduulsdI+a9h7z295L
+	 gaI3qbuAz+2bbI2FOUL2PFyyEj5NhD0SRfo0ISKcjuu+EuI3EiECUNFSRCTEa3X06WA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=QCmbXsw9;
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C43606A32C;
-	Wed, 18 Nov 2026 17:21:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29C43606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF62606A32A
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:22:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF62606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mobileye.com header.i=@mobileye.com header.a=rsa-sha256 header.s=selector1 header.b=UqTqCcqQ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RFMe4eNXSIIECR+3JJ/8vWCBeBvipuL6/lEqN+iUGad4wzvfXrlTSZmBH6NSeolFHhnP2u0O13tETPm0UtFkBcmcMujVq23IoJfNXCwYIk4lCnA+a7kUEq1IW7PR9uKedT2bDLJDpIbpaPXBDGgDh6zLpUYhafKyRzU0EGFy52q43yZIHz+0VLcBwvNFkBWKfGQ1r/NkGXi3OxueMc0Q+FKC1tKkdSqgidSFVJOZutcBs2gtTA39o13j5CK6F4pTy5mP91wdC6G5kYT57q8OGjfsZkNwnq8ICXpmOgscYY3VSK19SJ/sjdHze0djhm11T1KDofiOf93ov47zVg6F7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tOGfQ6cQ1En7nNkUe4qRk1JWp9mxMtsaCoiquidtyAw=;
- b=lhn04WTLJBSxzMTdZyAuy1F94Lz5jXOUrr9uknSOdDs17JH/m92f1wO/f7D11mSFOx4nHq20tH2owgNuJpJsrJMcEP9JqwlSkdwXStu4+cp9VH1g/DSGMUi8Rh6M/PFC6sNp42jKhWYdsR4Y9saTF1oKotkfkMVPymcK5JaZGEDgdkgzUis/L8jY4zX1UxCbkeLknRCs8RoWmKofNX1kfVJhAhNbrodv79vXej4rxkrL9TJNDcfwpsWvZe28dSVvUA7zfL/NlWkG7CXxd8ota7FRyzRocrm2pLur9ce97FuEZhQAXs6Tf+yQWeCx/rJcUO64XeDzxSpcaSQ+25BiyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mobileye.com; dmarc=pass action=none header.from=mobileye.com;
- dkim=pass header.d=mobileye.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mobileye.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tOGfQ6cQ1En7nNkUe4qRk1JWp9mxMtsaCoiquidtyAw=;
- b=UqTqCcqQWSF+mnkhYf6245frqgD8XlK+0erv85qaN7JNL4yA6fZnz+cDbYIZfmf/0+MSKufQTp3lbj/TqLXFRLDrKf/t9U7koIBfteLlptjSlDL5ycPSyD4rEoobZfpcbsf3H2Z/56vN8DkXg9wbdY8KLUBAZ6RWEpQ1yNZYeXo=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mobileye.com;
-Received: from ZR6PR09MB889505.eurprd09.prod.outlook.com
- (2603:10a6:910:e0::22) by VI3PR09MB012160.eurprd09.prod.outlook.com
- (2603:10a6:800:37d::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 17:21:44 +0000
-Received: from ZR6PR09MB889505.eurprd09.prod.outlook.com
- ([fe80::9006:1164:b51f:23a2]) by ZR6PR09MB889505.eurprd09.prod.outlook.com
- ([fe80::9006:1164:b51f:23a2%4]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
- 17:21:44 +0000
-Message-ID: <962f81ac-2a4f-4b15-9f73-2065ed513af4@mobileye.com>
-Date: Wed, 18 Nov 2026 19:21:41 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/6] perf: add MIPS Coherence Manager 3 (CM3) PMU
- driver
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org,
- linux-perf-users@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261112-i6500-cm3-pmu-v2-0-cd2569571819@mobileye.com>
- <20261112-i6500-cm3-pmu-v2-5-cd2569571819@mobileye.com>
- <sashiko-outbox-211133@kernel.org>
-Content-Language: en-US
-From: Vladimir Kondratiev <Vladimir.Kondratiev@mobileye.com>
-In-Reply-To: <sashiko-outbox-211133@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TLZP290CA0009.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:9::18) To ZR6PR09MB889505.eurprd09.prod.outlook.com
- (2603:10a6:910:e0::22)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=QCmbXsw9
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so31169a91.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:22:13 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795022533; x=1795627333;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=mY/FNLYTzlT6/9iFOU+8LtK9dRUupasMtXWg1lgUwjY=;
+        b=mDiY0ypnbHmBqamXZs0u4BL/rF/HRr6Pws58omdqkGQ5TahzlXMvBX5klVFtOK7tks
+         1rcHvrGFDHP43YS6KbyKTQM2wrXmDk5DUw9DlTH+UI78rAc1YBYee0ObH8neHSMIyqyT
+         1YIBYntJY0N/3MFBwknIbHxWFZHLIrU5so8IVkNna2T/f4i9Bzyaq1OsElnT9Dubh2gA
+         gTxVMWcn0XLdB/Hv7W9+8OgDVxFseBzjxvJeJv7nRnXVdwwUUuwovcPI4SwgFQl70/fK
+         cb4wo7E5/U/i8Hg/pJPHdPu7uJv8NokgL5ha4yNmTIaobDJcj2EVinaH2RzT0mbngsmk
+         UVBQ==
+X-Forwarded-Encrypted: i=1; AL+hErEp6HP4tjBaRu6ubHcn4XFE2yTFN/cv30Srjd6sy1sckh/FXM55PegNz65bIq4gVIsaXrh//3/KPAhE@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HNgwVMPzhhiJwnqOt2SGp6idJhnIdbhr2OhXS2zyptDYG2MYu
+	GS0OOlbTDA8uoXFnEOTyg4xYxUp3v1R9oEBBdUII/4GAc6mWX3KsnJURm2Kmo0ZGzAt9yljeYwN
+	2hdvbz2Vq/h+hhM6ug/POumoHf5z6lzi7jit3aZmvmOOB6dKKjIwMKnNnH310bbFk2moHAuhexm
+	U1zcouIWBbCEzrPK/B4t1RzfMXfdQjkGEgrnR91+ET6oEaIOazMapvhRSXB9UNp+ldQ2qXlVc/K
+	mw4NLjBNCO2z7M2QfHs/w==
+X-Gm-Gg: AZFdTZfUMEy382adrVFju9qZKy6OEoMoGGTfhNNy0rOFo/egGWGI0lCqFeQf6Fj9+uX
+	7ZxOgApw41/KZQFzDkRl3dOIVmGVAd5uL+dDXdAxExKAr2THGyrJasHLgacJuXI6iF3Pt39L54r
+	UsHWtCvaJqwQJZM+pvgFoCFAZISpTCI6czOEcjl451Nhr4JhKKazTHMzn2WIseAaSM0SXkIudv/
+	lrbt08YvOSFdYgAwp7KENnoYwQVpBL+GsoKoyuZh/Ucj+zzgv2HRo54AqQdap702+7RdL2TK1WE
+	koquz2zsMAbVg/N7HXx9CVksR3IGONh7R80voxJMYfjCgLhY0LRTsd/u5pib7G7OXfe5SnxgDhf
+	sbyLvq5qRaTuhrvTX4icHGJBUb2T2pNQBy+ytzegt+H+cD31YLT9FR4x1BHSPqy9DCl/YOltDRP
+	4GwObQ4rKTjaGT5PN0rZK6p6ugH4DB1rdt7+BN7y88
+X-Received: by 2002:a17:90b:380b:b0:3ac:9ed8:f301 with SMTP id 98e67ed59e1d1-3b3f61fd7c9mr91183a91.30.1795022532585;
+        Wed, 18 Nov 2026 09:22:12 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b3f0f72ab7sm171179a91.1.2026.11.18.09.22.12
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 18 Nov 2026 09:22:12 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd65070d3feso21993a12.0
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:22:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1795022530; x=1795627330; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mY/FNLYTzlT6/9iFOU+8LtK9dRUupasMtXWg1lgUwjY=;
+        b=QCmbXsw9Q7pbMssiRJAA+fDmlvxstuKAuNkfpYE570k5fb06Uh/ls5PbiHErevwLaK
+         AsntTPCiEwGG8Lq2VJ7UDGXF+bLPcTfvIdd8ccKdMmaz+sFvHJy8hCMPYEFieADslYZu
+         JJ3GvdAJWpPG68HtpInXd+6sv4Y2hXAv808Jo=
+X-Forwarded-Encrypted: i=1; AL+hErEpIL4ZDztJPQN1vchbSJLdSSrOhuBiNB5ib8ayj0fASTDLY9Njk4eSckl9xIaMM9PDUpIRaFFloIi5@vger.kernel.org
+X-Received: by 2002:a05:6a20:1611:b0:3e2:28f0:b360 with SMTP id adf61e73a8af0-3fff0101ffemr132524637.0.1795022530113;
+        Wed, 18 Nov 2026 09:22:10 -0800 (PST)
+X-Received: by 2002:a05:6a20:1611:b0:3e2:28f0:b360 with SMTP id adf61e73a8af0-3fff0101ffemr132501637.0.1795022529163;
+        Wed, 18 Nov 2026 09:22:09 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde53506b98sm312451a12.30.2026.11.18.09.22.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2026 09:22:08 -0800 (PST)
+Message-ID: <e8714dba-f51a-40a2-9bda-be49fb3b16ff@broadcom.com>
+Date: Wed, 18 Nov 2026 09:22:05 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,112 +106,255 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZR6PR09MB889505:EE_|VI3PR09MB012160:EE_
-X-MS-Office365-Filtering-Correlation-Id: 501d3b5a-a887-4203-1d74-08df45986b01
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|6133799003|22082099003|18002099003|261009223027099003|4143699003|56012099006|11063799006|261026121527099003|261102123227099003|261028144727099003|261026140227099003|261021121427099003|261022105027099003|261022075727099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	5EMB0loDHCf7uyYeEV7o+wz+OmJalBJojyPaVW3KIdRTHVD8kTrrJpKBCrrmbpjyDUhqHJEcmnlFbCPVeQlMbbhuZgntJPwu+OZj7Rah25FMAyHXvPqNhU0UeoCKcqswe0j/ytu6ku351yOStUqVMWMmh7c9gWzPJsDWNkwrjXUqsT5ppgrI+JTTMgavwFLs44sIguXXnJoVYcSg73Jjrg0Kt5sI77reDpkWrSEfH0xACRrmckcyLXzffUlU1301YH4WGZBMuuWDx+QZHrjUjEsKzvmRwTu9BzrATCdVvQA/z4ZBaEEbzneYdXxEGRx0pQpP10AcZ25lZTb9EIXUCZeXNb/X1uFgE0tKStU8jztt8Y61G3y9Noa2k/etBeMzk1wZlAdaQB/2H06qpoFUicZaSjw80ibROkgoqrVhl/emW7rKrpwOCvwtgK2n2COhOoQ+fxXFuqOWuAbX/BXajSbBcO/3Ymw3NGmiLjX+sGXwHocitj92mrLlEEu9jFI7/E/Ji7ncHZ90wU4YUD8BZdRzB7zUQVVgPbL2//bLSNqEQ/wkboB+WR0kdvJG+uwGMcVZly809jt0xHTMVTUCIOyLJSm/+J3db1HxJqGwE9cGETIYg31mE3p15NXuk/0SEz/syHZcrMLuWFROVxOxGDpC/ugLT86hNKyCdfddHIQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZR6PR09MB889505.eurprd09.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(6133799003)(22082099003)(18002099003)(261009223027099003)(4143699003)(56012099006)(11063799006)(261026121527099003)(261102123227099003)(261028144727099003)(261026140227099003)(261021121427099003)(261022105027099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VUViNkVVWkdRaCtLZEZHSDhtdUVzTHc0SFY2ZkJ4Y09rTnB6Rk1qZzRYTk1m?=
- =?utf-8?B?c2ttTDlhaC8vSFBXMTFNbmdTY3U0bU13blJkK1VTeHowZWo4SW13enBuV1Ni?=
- =?utf-8?B?OHdQM1ZIY08yZllLN0NWTmdWbS8zbHVrMzcxeStVR1BkTkpCYWlCcENDT1Zz?=
- =?utf-8?B?QXNqM0hLeWZ0Q1hEN3hTMmdURjBEWDQwRUtvaTlKMWdlWGlkeEdqZ2QrQ1hZ?=
- =?utf-8?B?ZnV4RXZ4SUlINDRvQTN1UzV2ZjRRakpXYUIzem1DNjREbklZemNURGFlREVQ?=
- =?utf-8?B?Y1psVzVsK1RxdU9IMmxxQURYZVQzdjVvZFY4YWQzWWJEcmttd3BBWkUxNnpm?=
- =?utf-8?B?aVFhMjNxTmJSb0E2WXlGZEgrbi81UDgwbG1yNkdLRDB2OTdiQW0zWWJJd25v?=
- =?utf-8?B?Q0ZBMW1GWlliMlcrVTk5Rys3ZGpQcDRsZVdkUTdmMHcvSnJ4bFYzRFR4dmNU?=
- =?utf-8?B?dkNBZVlpSzdXZHBsY3labk1WeXFJM3hkQ0xSVXZIb1ZyWjJtYWJFM3ExUlRM?=
- =?utf-8?B?NXo1ajVLS28zZVhxMFltUjNXbTRkUVVvZkF0QXE4U3kwNGpIdHVDRTlxSUNP?=
- =?utf-8?B?UVZQWnBuaFo4RENlUXJ4em5BS1Noa3htbW1jUDlXU0tqc2lmSWRQcFJydnRy?=
- =?utf-8?B?OS94Vmk2QjFtNllHZkJTY0hZU3JZZmcvKzRhZ0dsU0VTRTVvZFVLeGJsR1JD?=
- =?utf-8?B?M0FQSFVhNTNpelh4S2ZlbFJScGRmM2dpOCtudnRXQW16dVE0RXUrM2RYRlhT?=
- =?utf-8?B?bks4MmplRUtEMWh3bExON3M4MW43eXplNjZHc1p4cHhvaWVSc0U5c1NKbmIx?=
- =?utf-8?B?MHVvTkNlT3lDN004dFA5dTV6ekxWZ3dGWmdheFlVM0R3L2ZZdVBGWVRNMnIw?=
- =?utf-8?B?Y1Yxanh2bVBCN2JmaGxsQk5KeS9KSWVsWHJRbXkvZzJQc1k4TlV0bEN0NktE?=
- =?utf-8?B?eFpnclpraGtDVGNPZlhPV3N6cERyaTlNdWxoT2ZrbnlkdzkwZkpib1JkTlNW?=
- =?utf-8?B?Vit1UkdiVUxvUnJqMWt2QUZaOVVvRHRmLzl1M0NqUFV3N1EydGd6TU0vOEJ1?=
- =?utf-8?B?M2Y3Qnk3QytKOGxtcEhkR0NZcE8xRFdtRUM3NmhTZ2V6b3N4WG90UHIyVTRX?=
- =?utf-8?B?NGpXcUM4UUVqa1kydWZJR09IQjhVdmg3YkZMNXJpVmhKWG9oU0Izc25LTkNU?=
- =?utf-8?B?QkVDdmlTQ0hFTExNbHl6SHNrdTJvUW5TT0NvWDBid3pnK2RXdVJURkJsYlkr?=
- =?utf-8?B?UEc1YVpnR3NxOHdJUlQ1NGRTazVRcUJmbkRXdnRlaHVrRVlYcE4vcDQzV1Q1?=
- =?utf-8?B?bTdZTnF4d2FoZ0FrVS9ldkZ2MEhpRHRiVkNZK2lvYUYrcjdUekZ1QUh5RUh2?=
- =?utf-8?B?QUNNaVphdWNicXlmYjZRQkpPaFVtZFV1Q0dVaGNEZXZmMGI1bGwwNzBiMnpx?=
- =?utf-8?B?SFFRM1BwQzArV3pCMUh4a2taMnFSQVZxZHlkMncyeG5oSUh3cGlRQzhrUUU4?=
- =?utf-8?B?b2JkbWhsaWo3Qm0xM29mdC9Sc0FQa1VMRXRybDZ1MUttRXFDcTllWE5icVc2?=
- =?utf-8?B?ejEvOHVEYTlQM3F0WDhUQ092NEM1blA2cWhIdXB0WVhvOTFnSGswdFkzWFZE?=
- =?utf-8?B?dzRETzRzcTgvSUVoMUQxQlE4VE5iYTQxTlo2Y3pnbUo1VG8rVS9WK3hMNTRw?=
- =?utf-8?B?NFp4WDY1a1N0ZHVmakxIQ2w4SjEwdHRGNE9jMGU1Q3VQTWRGK0ZMQUMzWCsz?=
- =?utf-8?B?WHpwaFFGQ0JlRTI1TnBIK1BMY0ZhRVgySFRDRkUzMTM0KzNvZjZ4SElOWU43?=
- =?utf-8?B?dnhuaW1IMnVybVVwaWtRTVE0UkRYQlA0WkdqVjRQWjJyMXRJek5KQVJwSDVx?=
- =?utf-8?B?SHZBY2RPR05HQ1libWxjaFJSK2k1MkRHQnhnYnhweE9pUDlxVURMQW44L1Ez?=
- =?utf-8?B?bllqUHRKdU9TWVNWcEs1Ly9HYmNuSm54NmxNMkVqemJNRGhjdGZxTjVBL3g4?=
- =?utf-8?B?U3p1bW9kTmdWWlAxVDRjQWk0WkZFZ0NaM0hsSzl3ZmxCMVZwdFlVdEhSdXBj?=
- =?utf-8?B?N09ZbzJrYUsrUkZvSWlBZnMraU5qZ3J2U0I2ek9TMjRVT3pvNVZhcUtMNWxQ?=
- =?utf-8?B?Z1FDV0VmZnBtWURxaU9EbVFGcmpnUlRMdUJqcWE1cm5tV3B1ZXp1RjhxVko5?=
- =?utf-8?B?dmdURkY0U3FKQ0JJSXZSUytKTTlIZVorL0NZUi90cnZOend5N3FjUTdUeisz?=
- =?utf-8?B?YUQ4dlMvdHlUNGkxNEdtd0pleDdBejlJVGw1TXFpWGZWS0hENHd4MkswVHV3?=
- =?utf-8?B?QVUrS25WbnNaZ0RMVGFtQzBlN0FscjMwL01tMWhBdmU2Zi81czRvZz09?=
-X-OriginatorOrg: mobileye.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 501d3b5a-a887-4203-1d74-08df45986b01
-X-MS-Exchange-CrossTenant-AuthSource: ZR6PR09MB889505.eurprd09.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 17:21:44.3710
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f85ba13-6953-46a6-9c5b-7599fd80e9aa
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0jbp5EsXyQNxdyzXG+K2NghF98g5szME+1JyvMcOerI+RkvzDGB5jgrWNaGrzLN3VkggF4+DaaUFsnex3ppkPA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI3PR09MB012160
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 4/9] dt-bindings: net: describe the Northstar
+ flow accelerator
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, rafal@milecki.pl,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ horms@kernel.org, corbet@lwn.net, jonas.gorski@gmail.com, olteanv@gmail.com,
+ pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org
+References: <20261116222519.1416501-5-florian.fainelli@broadcom.com>
+ <179495816151.3136.14110323389854628043@kernel.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <179495816151.3136.14110323389854628043@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 11/12/26 15:02, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issues to consider:
-> - [Medium] perf: mips_cm3_pmu: counter overflow double-counting in
->   cm3_pmu_update()
-> - [Low] perf: mips_cm3_pmu: broken !MIPS_CPS / !SMP configuration
+On 11/17/26 15:29, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 2
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] The flow-accelerator register resource in brcm,bcm4708-fa.yaml
+>    is modelled as a standalone MMIO block with only `compatible` and…
+> - [Low] The new brcm,bcm5301x-gmac.yaml schema is selected only when the
+>    `brcm,flow-accelerator` property is present (`select: required:…
+> - [Low] The FA binding description calls switch port 5 'IMP5' ('Switch
+>    port 5 (IMP5), connected to GMAC0, ...').
+> 
 > --
 > 
-> commit 272d1a9241643c479b7f4cabbd1c40edccbe1b16
-> Author: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+> dt-bindings: net: describe the Northstar flow accelerator
 > 
-> perf: add MIPS Coherence Manager 3 (CM3) PMU driver
+> This commit adds a binding for the register block of the
+> BCM4708/BCM53011/BCM53012 flow accelerator. It also adds a schema for the
+> brcm,flow-accelerator phandle on the GMAC2 BCMA Ethernet node. The
+> description covers the second CPU path, port 5 to GMAC0, for exceptions
+> that bypass the accelerator.
 > 
-> This commit adds an uncore PMU driver and documentation for the MIPS
-> Coherence Manager 3 (CM3) performance and cycle counters.
+>> diff --git a/Documentation/devicetree/bindings/net/brcm,bcm4708-fa.yaml b/Documentation/devicetree/bindings/net/brcm,bcm4708-fa.yaml
+>> new file mode 100644
+>> index 0000000000000..f744b23433c46
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/net/brcm,bcm4708-fa.yaml
+>> @@ -0,0 +1,45 @@
 > 
->> diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
->> index 245e7bb763b99..2dbed2fc7b030 100644
->> --- a/drivers/perf/Kconfig
->> +++ b/drivers/perf/Kconfig
->> @@ -75,6 +75,18 @@ config ARM_XSCALE_PMU
->>  	depends on ARM_PMU && CPU_XSCALE
->>  	def_bool y
->>  
->> +config MIPS_CM3_PMU
->> +	tristate "MIPS Coherence Manager 3 (CM3) PMU"
->> +	depends on MIPS_CM
+> [ ... ]
+> 
+>> +description: |
+>> +  The flow accelerator is inline between GMAC2 and switch port 8 (IMP0).
+>> +  GMAC0 and GMAC1 bypass it. The GMAC2 BCMA Ethernet node references this
+>> +  register block through a brcm,flow-accelerator phandle. Miss packets carry
+>> +  a prepended accelerator descriptor in place of the embedded switch tag.
+>> +
+>> +  Switch port 5 (IMP5), connected to GMAC0, provides a second CPU path for
+> 
 > [Severity: Low]
-> Should MIPS_CM3_PMU depend on MIPS_CPS rather than MIPS_CM?
+> Should this say IMP1 instead of IMP5? The b53 SRAB code calls the two IMP
+> ports IMP0 (port 8) and IMP1 (port 5):
 > 
-> MIPS_GIC selects MIPS_CM even when CONFIG_MIPS_CPS=n and CONFIG_SMP=n.
-> On a !CONFIG_SMP build, irq_set_affinity() is a stub returning -EINVAL, so
-> cm3_pmu_online_cpu() unconditionally triggers WARN_ON() when an overflow
-> IRQ is present; without CONFIG_MIPS_CPS, cps_smp_setup() also never
-> populates the cluster ID in cpu_data[].globalnumber.
+> drivers/net/dsa/b53/b53_srab.c:
+> #define  B53_SRAB_IMP1_SLEEP_TIMER	BIT(10)
+> #define  B53_SRAB_P7_SLEEP_TIMER	BIT(11)
+> #define  B53_SRAB_IMP0_SLEEP_TIMER	BIT(12)
+> 
+> This description already uses IMP0 for port 8.
+> 
+>> +  exceptions that must bypass the accelerator, including TCP control,
+>> +  low-TTL and oversized packets. Describe that CPU port with an ethernet
+>> +  phandle to GMAC0 and an internal, 1 Gbps full-duplex fixed link in the
+>> +  switch's ports node. Port 8 remains the data connection to GMAC2.
+> 
+> [ ... ]
+> 
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    flow-accelerator@18027c00 {
+>> +        compatible = "brcm,bcm53011-fa";
+>> +        reg = <0x18027c00 0xc0>;
+>> +    };
+> 
+> [Severity: Medium]
+> Can the flow accelerator be treated as a standalone MMIO block? The example
+> address 0x18027c00 falls inside the 4 KiB BCMA window of GMAC core unit 3.
+> bcm-ns.dtsi already describes that core under the 0x18000000 axi bus:
+> 
+> arch/arm/boot/dts/broadcom/bcm-ns.dtsi:
+> 		gmac3: ethernet@27000 {
+> 			reg = <0x27000 0x800>;
+> 		};
+> 
+> The binding allows only compatible and reg. It has no clocks or resets
+> and no link to the GMAC3 core. It also does not say that the hosting core
+> must be out of reset and clocked.
+> 
+> Later in the series, bcm_ns_fa_init() in
+> drivers/net/ethernet/broadcom/bcm-ns-fa.c maps this node and writes to it
+> straight away:
+> 
+> 	np = of_parse_phandle(parent->of_node, "brcm,flow-accelerator", 0);
+> 	...
+> 	fa->regs = devm_ioremap_resource(parent, &res);
+> 	...
+> 	writel(0, fa->regs + FA_STATUS_MASK);
+> 
+> Nothing in bgmac or bcm-ns-fa calls bcma_core_enable() on core unit 3.
+> bgmac_probe() also rejects core_unit 3 when that core has no MAC address,
+> so it never gets enabled there.
+> 
+> Suppose the bootloader leaves the GMAC3 wrapper in reset or clock-gated.
+> Could bgmac_probe() for GMAC2 -> bcm_ns_fa_init() -> writel() then take
+> an imprecise external abort or hang the bus? And if something later resets
+> the GMAC3 wrapper, would that wipe the programmed FA state?
+> 
+> This is inferred from how AI wrappers usually behave. I have not checked
+> it against the Northstar register map, so I can't confirm that GMAC3
+> hosts the FA. On BCM53012 boards where CFE leaves core 3 enabled, it may
+> work as is.
+> 
+> Should the binding describe how the FA relates to its hosting core, or
+> the clocks and resets it depends on?
+> 
+>> diff --git a/Documentation/devicetree/bindings/net/brcm,bcm5301x-gmac.yaml b/Documentation/devicetree/bindings/net/brcm,bcm5301x-gmac.yaml
+>> new file mode 100644
+>> index 0000000000000..76fbe2abf5152
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/net/brcm,bcm5301x-gmac.yaml
+>> @@ -0,0 +1,27 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/net/brcm,bcm5301x-gmac.yaml#
+> 
+> [ ... ]
+> 
+>> +select:
+>> +  required:
+>> +    - brcm,flow-accelerator
+>> +
+>> +properties:
+>> +  brcm,flow-accelerator:
+>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>> +    description: |
+>> +      Phandle to the BCM4708, BCM53011 or BCM53012 inline flow accelerator.
+>> +      Only GMAC2 (BCMA Ethernet core unit 2) has this connection.
+>> +
+>> +additionalProperties: true
+> 
+> [Severity: Low]
+> The "Only GMAC2" restriction exists only in the description text. The
+> schema is selected purely by the presence of the property, and it sets
+> additionalProperties: true. Wouldn't a DT that puts brcm,flow-accelerator
+> on gmac0 (ethernet@24000), gmac1 or gmac3 still pass dt_binding_check and
+> dtbs_check?
+> 
+> Nothing checks that the phandle points to a brcm,*-fa node either.
+> 
+> Later in the series, bgmac_probe() in bgmac-bcma.c enforces the rule at
+> runtime:
+> 
+> 	if (of_property_present(core->dev.of_node, "brcm,flow-accelerator") &&
+> 	    core->core_unit != 2)
+> 		return -EINVAL;
+> 
+> So a misplaced phandle makes that GMAC fail to probe, and dtbs_check gives
+> no warning beforehand.
+> 
+> Separately, the file name and $id suggest a brcm,bcm5301x-gmac compatible,
+> but the BCMA GMAC nodes have no compatible. Is that naming intended?
+> 
 
-This is a false negative. On a !CONFIG_SMP build:
+[Medium] FA modeled as a standalone MMIO block
 
-- cm3_pmu_online_cpu() is a CPU hotplug handler, it won't be called on
-the !CONFIG_SMP build.
+The register block does not overlap the GMAC3 node: 0x18027c00 is in the
+GMAC3 BCMA window but outside the 0x800 bytes described by 
+ethernet@27000. Per the data sheets, the FA is part of the AXI MAC + FA 
+block together with the four GMAC cores (GMAC3 being the block's 
+loopback port), not a separate peripheral. It has no clock or reset 
+input of its own in the DT, and BCMA wrappers are not modeled as DT 
+clocks/resets.
 
-- cpu_data[].globalnumber will stay 0, so cpu_cluster() will return 0,
-and it is true
+I cannot tell from the documentation how the GMAC3 BCMA wrapper state
+affects access to these registers, so I am checking this on hardware and 
+will add the core enable to bcm_ns_fa_init() if it turns out to be 
+needed. v2 documents where the registers live in the binding description.
 
-Thanks, Vladimir
+[Low] IMP5 vs IMP1
+
+Agreed, port 5 is IMP1. Fixed in v2.
+
+[Low] GMAC2-only restriction / naming
+
+v2 restricts the consumer schema to ethernet@26000 with a $nodename
+pattern. BCMA GMAC nodes have no compatible, which is why the schema is
+selected by the property; the description now says so. dt-schema cannot
+check what the phandle points to, the driver validates the compatible.
+
+pw-bot: cr
+-- 
+Florian
