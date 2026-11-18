@@ -1,59 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795006184;
-	b=sEoOhL8tZC1MStgL2D5uaU66mBRnSATTQz7wpwsueiUNegl7LcIlm2c95UG50jmoTbAK
-	 nZvfiLy6s6bFvwA0jN6KHebSUeQK5Uwdhd+ZmuIqrMtW1TzGv4PKzI3W24T5ttX3SDDRT
-	 f4L+WvRVlxnO8nEL7+MCGUZPinZEM7P+BpupuUn/dlXsgGjrtjlM14DzDGTYC87XF7PgG
-	 oBbOYxotBtB1BjrdYubAvmbivj1/IuUytO0IrztdykHZSXwjxKi2HB7PaOs1dxHSx71Ry
-	 Ts0M2acwfM+3pVPlwxQkCIpmsPadsxBlJOAkWL5xbQ3HMuOYTsKSOrWIwm3V6ZkQElA==
+	t=1795006502;
+	b=ztYjQIpdLjlg1W2JXuHc2W1LEJM+891Sm40IkYG4/agG98gLkDWxCtAhUTJSv6k35W1c
+	 RXXkYE6+QTVGuGWDwJricql2al8Mgjd/3QA+TqdIHmrWaz9Y1cZ4kMn5+WOxJB/Euuq3H
+	 +AuJdr7cy0zK4yHINA1Mi+ujg0Mh6WwTJbVKrHsKJuKEns/jKLwhAQhejMY6CNH4ru5Ym
+	 jHytcFHE0lSfoepdQ5NsXhR+pf/tUbpDLhfttAUvFfqrSBCB9+o6ZMn3lpp307AKDWJi8
+	 YskCPekZpboBiZkpdvvBxr/PsfoOkBUaZOTfschs8vEuq+R+fPg0U50Ff2f49OuJRfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795006184;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=URvBMdGeISFS4Y5PNtgpvQvlUcggA7LAsGg7ALwQkRA=;
-	b=SoQ66YDg1DUpyXiRo4VUBY+MwSAIIzPefX4HoZB1UOKHMOLQSauFXaumaVj55SKpw2wR
-	 M5/o0hBBaYTPQkja2eq7tZh7GuSgpLUmeLGVsfju2Fjy8V93Bv/B/xY8bB2hK1B5AM4Ey
-	 dOjbZ1YJwfce/1EP3g72vVwjLDYc9PvN6C0IHklw1SoVzo8O8MYCaOeBmvpWPMjAGmvm8
-	 V6YNLU0zUKq4OF0g+9Ol8PxpqtzsHRn2kddUzhEz5nlSVuqeJSxLPvCzWdTK8cKWOoO8Z
-	 K4rVhe/L3cc+3sSH1dlj9ltkzVwxxLCk+txKnIS8OTPAdm0u+pRwIdeVR2fzjdfFPfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795006502;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=IfM0L8l0KO0jyxCjtdYXdfOsa3a+oLhBOi1/EZWw89g=;
+	b=l9MrSg3Gj275XPLGwRQi2+ohAZ1WkWi74CzSZMkrphldgqHH8JG8aiocjWS+E4yEegIb
+	 vdAdDS5q/hd/4YGMA8SypmQ01pwy3B6GhDZU49agHondbmm2MRBGUmu/dYGw3VC+K0FSS
+	 6hN/+k7OUKkeDxLoIRlxOLHcXGf849gLjP0dJNtDZkxZWAOECGx2qbbRm8rTmrAphX1mv
+	 HA5m8sHfohntnOFSKkyak8Y66q6ylsMykBK+19uwI1VaqUXyU8IJoTiPKY441M/9cUSrx
+	 jsF+fSIH9gAZn1ijZkSdfPqTBAtP4pGEsOas4yHIzlj2tQSRakA3pkm3sG11QLV35eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IiEJkbeI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EphXuosv;
+	arc=none smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F3F606A32A;
-	Wed, 18 Nov 2026 12:49:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB67606A320
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:55:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CB67606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IiEJkbeI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12B841F000C4;
-	Wed, 18 Nov 2026 12:49:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795006183;
-	bh=URvBMdGeISFS4Y5PNtgpvQvlUcggA7LAsGg7ALwQkRA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IiEJkbeI+E0iseDW8AYqz3VsqA/LHdXyP4WdB62HYrFCKRbryBg0PeFKR5EEDz6Sb
-	 BrODIBXpvWoMmL9vLx+ugP7R8M8bLXqXpfcs3EsqAELi3PgVVSdKP7uZlYAMyiN4x0
-	 BnXWv1aMX3OPd3R8hJYgXm9rhk5yPUrAsJxHzA3m6BFumadVEqbgK60Djto9zcvXDd
-	 BxR+jxff+HDTfZqZYalfS560GEWju787Np5TkA93JFJptP9cZC4KepmqYP1vWKPqNK
-	 TMAPxzQw6tbbIXKU5vCk0uQVGG4e2F/GOa0KcisyrPnAkc9iL/VZ7ON6DvOGZRu6MG
-	 //edHFyqRQFUg==
-Date: Wed, 18 Nov 2026 13:49:41 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: devicetree@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH 5/6] arm64: tegra: Add node for the GB10B GPU on Tegra264
-Message-ID: <av2epzD6Igno_oza@orome>
-References: <20261029-b4-t264-igpu-pci-v1-0-4d843dda0b02@nvidia.com>
- <20261029-b4-t264-igpu-pci-v1-5-4d843dda0b02@nvidia.com>
- <avxBUt6Yo3oKbEZI@orome>
- <IOZkShOKS1Cv0Px6mU4F6g@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EphXuosv
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8b6b22be970so404892b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 04:55:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795006502; x=1795611302; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IfM0L8l0KO0jyxCjtdYXdfOsa3a+oLhBOi1/EZWw89g=;
+        b=EphXuosvpZhHwI6IoqC6D3LFGaENEM7sy1ZRdj1dyjNvm/QjfgRYFiVIyZDyoJbans
+         FRFPiwS3AhE0rk+194XgBKD9NkHDmBdHYWEgsBdjvga8q8Ct+cNz82NXuvLyOtxPSNIJ
+         ubK48OlxNXIPGW5oMX34QX+tkLFND0cFhvJcGTyGf+NfaiaNNghgtmGjEEIvZ9RKWSm9
+         b6PraheLd02vraVWfG0AeqgW6NJfgBaXvNWTsTEghEHLUIRi3mLXlBE3H8dltr4f7FXT
+         ZMoUyJFl2W1TZ38XlUiXSZLai/CUSZMWGOyZfgmWRpp5Hny09i+czp77OG+jp2/0xJhS
+         /MLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795006502; x=1795611302;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IfM0L8l0KO0jyxCjtdYXdfOsa3a+oLhBOi1/EZWw89g=;
+        b=lxkimwIPjvQ811wFtJ+C4nqAMVeip/oDlAuq9ck6uy6RmnE4Xjg15lRhF34Bt1vBTd
+         xI8yNuNQ6ysLF6YGbIkepDXXNfzshGtlZ72QSlBrlr0JCzleQoIBxf1p9iXYvze0BjaW
+         Gxz8SkIzP762O8oKnnC6eww2rvRmRZOa7/tW4Pto0OUG28qIs8xHzhJ1xQxO8L2sz9eN
+         BdvSCEdePgLJ6V52/2eaz1YGXEmDrwezdiE1KLl0cBlvftKmEN7m3hyy6Vt3CR7TmjIk
+         QW3CimVsRKkqobNr59GXRvtaVk0sCS6gTJ0i/mqFEZiwRyRg6Jky9Rsjm4ZO5ihFdPx5
+         dAqA==
+X-Forwarded-Encrypted: i=1; AL+hErGZUEihZFggcR+hxXmtXV6F6EC1cuX+RDpNB9uFNMeLGCPI+TByNg28+7QoM4eUVHFYyD98CwSEM1Zq@vger.kernel.org
+X-Gm-Message-State: APuU4Z+p2NJz38QfpcyVP7zrhzjziyj+t3YRkBJ+uzpsxNvF6s7eENcI
+	CybGL31YjJAITboB1Bn9yWaICiQfqUwUgq99Sby49VFewE05u2GtbLZo
+X-Gm-Gg: AYBFou0cJQiO01o2Nk4JdJepRqnj4lWHDhrlvNaaoCtcIQZEmGqXujSKVpdskcg+xUG
+	F++tSGFW2gQ6B4++Hwotw6x1XRt1FGXAIANrj6Wa2fxrTqQvs1bY9MeDq4kUG0rd/2iRlzghmaS
+	JRZWpI/HbeDp4H3c8Rs6TWuOZ7w+ft8nM7yvZt3kTMhlXnsYljTL/lG++Vw0tqypK+QNAsjKy23
+	jY3wTDGy6CRM+Pg7seFf3dC53T2kGS8s0yLiW83WdboyR6mVHwQSihI8sCCKYP9h1AX5d7Rdgto
+	ASEypMibusnlhcUxArWyjc0zgBobNUyxXYsOmxCElbLC0eMox3B6U+Ibj8mlFvp7UNtB1982pU6
+	zwejGyEpSllvT1CfHxJ+ebt+UmvBsNvAYtCaX7SXwN7NfuwHf1OUTVgwvFaoar6NDMMuZm2nep/
+	AKAJFAPfMQoCQfFazYHbJ8DrCtw0f6i5k+PMld3fxsgRZ9O2+0+omtniCTtUh2kZ32OLVFus+m3
+	y9UNWS14qzn8gPBqA3HZxlCIsVWS3vTq6NWP3efOJWfnd6SQBIfc6Bxn/UwfQplc7qovR1r5eDj
+	mcM5znGmfgn+KYklqYpGLzE7SOFx3viCmImHfVJdgZKy0BYf6Hy6k5q6KZ/DpAXusmZ5Ijg1Kul
+	RV52TM1Qo98zmQsuCPcz9FOB1sv5qn8zZb3/45UUhbogoHRJqh3pgyPKS4ElSvob22jpc4q5Cq7
+	oAiFGUaNPdoyPbAiCO25zT4Qmginvvh3ryOnA0XT5SAx0VEi+U1yo=
+X-Received: by 2002:a05:6a00:1d86:b0:8c0:7517:b9de with SMTP id d2e1a72fcca58-8c5d3e116f1mr2084551b3a.32.1795006501788;
+        Wed, 18 Nov 2026 04:55:01 -0800 (PST)
+Received: from kapoor ([2401:4900:e034:2676:5ea6:3ff3:ed45:7b44])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c5c7f99a7fsm1199883b3a.1.2026.11.18.04.54.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 04:55:01 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Daniel Campello <campello@chromium.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] Semtech SX9xxx: add a reviewer entry and binding maintainer
+Date: Wed, 18 Nov 2026 18:24:49 +0530
+Message-ID: <20261118125450.12512-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <bbdef966-c5dc-4101-9246-b668e00f62b7@kernel.org>
+References: <20261117172612.25535-1-kapoorarnav43@gmail.com> <bbdef966-c5dc-4101-9246-b668e00f62b7@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,92 +111,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7sgzgn3uezi5ctku"
-Content-Disposition: inline
-In-Reply-To: <IOZkShOKS1Cv0Px6mU4F6g@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On Wed, Nov 18, 2026 at 01:34:31PM +0100, Krzysztof Kozlowski wrote:
+> I think it is premature. You just started contributing and your early
+> submissions were clearly showing that you did not read kernel docs
+> before posting.
 
---7sgzgn3uezi5ctku
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 5/6] arm64: tegra: Add node for the GB10B GPU on Tegra264
-MIME-Version: 1.0
+Hi Krzysztof,
 
-On Wed, Nov 18, 2026 at 09:30:59AM +0900, Mikko Perttunen wrote:
-> On Tuesday, November 17, 2026 9:17=E2=80=AFPM Thierry Reding wrote:
-> > On Thu, Oct 29, 2026 at 12:32:07PM +0900, Mikko Perttunen wrote:
-> > > While the integrated GB10B GPU on Tegra264 is on the PCI bus, it
-> > > requires a BPMP power domain to be enabled or it won't enumerate on t=
-he
-> > > bus. Therefore, describe it and the power domain in the device tree to
-> > > allow the power domain to be enabled prior to enumeration.
-> > >=20
-> > > Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
-> > > ---
-> > >  arch/arm64/boot/dts/nvidia/tegra264.dtsi | 6 ++++++
-> > >  1 file changed, 6 insertions(+)
-> > >=20
-> > > diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/bo=
-ot/dts/nvidia/tegra264.dtsi
-> > > index 5ab34cd09a3d..4c8b320ecc40 100644
-> > > --- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-> > > +++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-> > > @@ -3597,6 +3597,12 @@ pcie@0 {
-> > >  				#address-cells =3D <3>;
-> > >  				#size-cells =3D <2>;
-> > >  				ranges;
-> > > +
-> > > +				gpu@0 {
-> > > +					compatible =3D "pci10de,2b00";
-> > > +					reg =3D <0x00010000 0x0 0x0 0x0 0x0>;
-> > > +					power-domains =3D <&bpmp TEGRA264_POWER_DOMAIN_GPU>;
-> > > +				};
-> >=20
-> > My understanding is that the GPU is the only device on this PCI bus, so
-> > wouldn't it be simpler to add the power-domains property to the bus' DT
-> > node? I guess that's just another interpretation of how this hardware
-> > works, and I like how this power control for PCI devices allows
-> > individual devices to be turned on before the bus probes (there's a case
-> > like this on Jetson Nano where Ethernet needs a GPIO pin to be pulled up
-> > in order to start enumerating on the PCI bus, though I don't remember
-> > how we ended up solving that, sources don't have any indication of that
-> > GPIO being permanently set high or something).
-> >=20
-> > Thierry
->=20
-> The bus itself appears (at least to the point of showing up on lspci and=
-=20
-> kernel logs without any errors) to work fine without the power domain,=20
-> so I thought this the correct way to model the hardware. It seems pretty=
-=20
-> straightforward like this anyway.
+In June I was still figuring out git send-email, and a problem with my
+setup caused those repeated postings. It is also why I was not able to
+reply to you at the time. I have since worked through the process
+documentation and my setup.
 
-Agreed, this looks like a nice extension of the PCI enablement code.
-I'll wait for the DT maintainers to review the bindings change before
-picking this up.
+Since then I have been working steadily on this subsystem, and 23 of
+my commits are now in maintainer trees. I still make mistakes as I
+learn: not grouping patches into a series, writing commit messages that
+are too long, and sending new versions too early, as Andy pointed out
+here. Changing MAINTAINERS is new to me as well, so there are mistakes
+in this series too. I take those as part of the learning process.
 
-Thierry
+I asked for this entry because I have become interested in these
+drivers and want to keep working on them, and Jonathan agreed to an R:
+entry. I understand your concern. If there is something specific you
+would like to see before this entry is acceptable, please tell me and
+I will work on it.
 
---7sgzgn3uezi5ctku
-Content-Type: application/pgp-signature; name="signature.asc"
+I will not send another version until you and Jonathan have had time
+to comment.
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmr9nuIACgkQ3SOs138+
-s6HMKw//TryH+vGQCqsyMd1otLJAqgPN3QEdMz5IYX5upgxqHUrgFkrSioY1a9TZ
-A/SVztu+i4/MjNEzBOV2ABFieND7XO/fRza8iJVnagHN8DuqqAT9yD6CsX3IEOgd
-wiyAuoaGx29PKQ8S0/lNTZ/IqfGTvHI36p1Nn4LnngkAbqeTOVqdphn5+G3foRQh
-I5gmXIhERDVdRmzJtKNDSCQF+X2gWAeV+IFcb14pfvzUeQZPzWLFXKT1uKl0LAS2
-YWzpTFQvYRaTpfcmWfQ2oxBSwT/dYMAE0LjHhIYhtgGGSd70xgNUhx7zKqcriMVA
-509/G2xDmIr8TVALYXMeb5dhFdxtyZgACsx7BrGT3i//SBYigsMiU3yms2yjUAPt
-LUj6UT09Vj7+meoLsGvE9n7G0vwnXqN27SzguJETGvROa9DrSiSZRrHix0dhsuhd
-Ge+pckWXFADOmITx8TGCBowE0Dq0Tjx5xjy+hjvHSLIWR4fQzrXyPbfAtuKzMnwL
-QlZ1C28sM8gOREPGs6N6hCWT/nZMTO43CHYtsIZYwTkHVXEAw1vuPhypdQYP9CKe
-+JpVvzMdTNnQ/gdRFjEi2dAU1Zj1UzPLdKAiw0GL5cwB7L/3x1ffOUPh7csQxQED
-U5WztGUKHj3onXHqt0b/w/RujGeV5fbxHsyLvsxqJd4AlY7hUU4=
-=2LMb
------END PGP SIGNATURE-----
-
---7sgzgn3uezi5ctku--
+Thanks,
+Arnav
