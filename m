@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794980916;
-	b=zDKqUiJ/Bx3HoOJi+bfnoeu0ykkezV6cKJQGCGghlC7dwroklJcMxEJXO4/fsPTw8dZQ
-	 E+HEBwYgC//bIl680nj7BXZoNSEMZ0P1wMZi0qiulwq/u1HMB3c9m7BPsnV5g3wDaW3kv
-	 iD7ITNOR2n9kCHqpWZn2CcGnrrsN16bUD0u6CASrwNxJYB/wM1TGsvNwXh3jqXmY+C+e0
-	 STV4J+2vJxBY/u4O+/+Rwk/c3vZRgxG3qtFmrMJxMEzGEfIABsLQ5Ls7gH2e/StQEcl/0
-	 7ahge+cpLe2Z3hMpyZKcsANjgEMsJVxHskYvEST2ggjfNYsaEQ+H5B4ekIQKm/qmBYA==
+	t=1794980917;
+	b=GVpL4J+EFEcBvpDC+zs4lurAwZdOsfwYeyMYFE0tZmwXaPvpcLvpgiUI0VLJPSlXYNlm
+	 a2rlbcuSUIMXGwlY6oagTDBhomWtN4CYFYNK+V8+7209TTRQIrkQSL4oO/NixYjw52lF3
+	 YBVvXhQbhD98cWrH+Qibd1i/xoSDT/gG5mWDUwqr5aG1ZbODVNWsx/EKlEueCU1ZV4hQp
+	 Oa54/hn1+NOcUnhqGTa5+w7UmWDpSkDS0Cre7+yGlsLwz2WT7rhgthhX/JreM7XwN4DLl
+	 30ZmWAu7r2/SjVAzTspHuJbgR/vEVh3WRbh+mFpLeEQi7o3IhMUn5qygGMLv/WI3VMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794980916;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794980917;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ImtLOtGTf11APrJzF3AKZQDnZTS9KPs5mJF1gZZY3Ts=;
-	b=ZjQU2sDnl5StE7YJ3UD7JA7CWQ9cUWmdPBpyz5R2iD1qec8H/EiUcmX/9DKwcEUWCnBm
-	 QNLVc9D6r6Vl5JfRKIN6VkuMVb/uees+pw7ljlPsfnUmH+U8Wy3Qe45fRPk+O30WsizCe
-	 qPZDavLKbSxdUM7z6sD/9Z1Rl5pMGA3Xk7BitnQz08ZlagqBAQggmpySdQiIMYwyGYkco
-	 kyJu+ldePahL94nqT2gypcl7raPWNutF52RE4ecFYbeK8B5gXozS0iAbvbg/SkzzGINIM
-	 xTmJRtT6oRW9kevghYKs8UvGCJ5JpAcg/1w5kELQRQYQ90BdAhgqeXOLNbcpCp3dkOw==
+	bh=n6H+e1UqhVYCLF+C1ilQowG+JXqFtAAI3Ttkbc5yOpE=;
+	b=dMfg+MXcRMV3yx5ybPQ2wXw5cPyyQY6tTWgblZ0rZP2gCxPIXwx7qBTsGasQshSxis9b
+	 rZF+BODFSsZlOoLmfx8KLPk3A0PG/reYAzP1I/9pXjNhRwDZUC5TLc6dhhGoH3+U2eAZQ
+	 uwQAzl0jMsQz/9wKY8hnHvW3sF3A1maaxs5NzZzreN0iQEmWFkWI+c6+MaaZENF2uI6Y/
+	 HmeVZZXdeGpZugoRlCkmrlXd4V1ZSKYi2o7x1NjTXw1lWhB40gHLSjyzlaal2O3HTx69U
+	 /lxe0bTwzFY2PuIyGx1bPxbYHUOpKdD7a8XyeBqZTsOQ916tfRAxxBvJmEYD5kbR/pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZPBQMRqp;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uYlakcfE;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113EB606A895
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 05:48:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 113EB606A895
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60032606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 05:48:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60032606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZPBQMRqp
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-38190551625so1194104eec.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 21:48:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uYlakcfE
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-382f4710a17so408340eec.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 21:48:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794980915; x=1795585715; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794980917; x=1795585717; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ImtLOtGTf11APrJzF3AKZQDnZTS9KPs5mJF1gZZY3Ts=;
-        b=ZPBQMRqp2WrhGcMZHuEfFYYrCIY84V5IG+e09qrbI5cdWBzDl1gP/5tzOGrIUN8iyq
-         HJ5OQkmMX/ybsoI190C9AVLJ5C7eiM1aWDs1RA8frV4xUelsTPnGdsFI/GWmRgbdsQH8
-         n2JW7uy7xeA0speAr4Qbiic4Y47NMguuN8iE4gDCyrWuwAnDqVGjSK4kZ+nQKUF09e4m
-         bqsnNFEeeb66Lk8xJd0heH5GoCK+5Cw23DmgLqsT6ipYVSZpuxPiXLkCgKDEt3hGc9Ch
-         86g1FrjvOyvlYX0UFbxgSj5F7MGxJnyXmAlOAphJwb6sQddKJnQayMMuhL53VF/El6Eo
-         6dyA==
+        bh=n6H+e1UqhVYCLF+C1ilQowG+JXqFtAAI3Ttkbc5yOpE=;
+        b=uYlakcfEN8upnUkktCyiZk4GEIn4Xm2inOoYSrblvzr2m7b5pQnyZfjYf2QqwS2aAh
+         6f2aQ/K9Wv9hzKeXUy/aEfHb/7uSnEMnud58c/QzscCTZzOCUELN8Cwp6sxksoM3iVH/
+         wMTQkNLdf0ChKiaEhjnufWbvFgz8siUDaDWOVgg1KeltbEoAxQxkF/BlEEpSijHDA9EG
+         QEL7UrSCSXqGCJiuVRdbdN4pax9iZYpZKUUJUlYCRZFi4SyekoFAuaDimQH7zsS9mWki
+         4qAMZFX4Sj7yBS8qPgMXWH0w9dYSq2fwumV1WXz2tfUR4d5pGZM64QakAHeu/tSIPDAi
+         vWCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794980915; x=1795585715;
+        d=1e100.net; s=20260707; t=1794980917; x=1795585717;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ImtLOtGTf11APrJzF3AKZQDnZTS9KPs5mJF1gZZY3Ts=;
-        b=bG1GY3JKPDRH26kU/0+zye7mNY8Wzr9bxlN4jSXhyBHuJ9HzlcgBLD1xwpK3R8gRB4
-         R3s2MZ+rlM6bSeftZ4frgb6VInj9RwNH9oRJSdVprybxGW63a9u98xadzWX8DePJk1OJ
-         svIdDWrkV5U8920aW6AU5E65ncrLGpf0vH/olBTdyH4zdvceOjFK8oUGXqLUK6YGV9yA
-         1tUv7S1QPkN6Wf4Xd8yTIqdbOBqEWh4D6d3i8QkaDVn/mXhnyaNDFoygvP3DRVcoJoNf
-         CZRP3sPfqp/5EZLIOvIqKakiFAkASWY8FmTfPE3ed9FtEOH43THqhGhNz2Cp69xm8Hms
-         DrWw==
-X-Forwarded-Encrypted: i=1; AL+hErEGyR8/BXMIhniYz1ugdL53wErkXJIICO3EzSLBHQyyojwOrtmLWVhd8qixBf/j2MaRzHCqpJTOvIhU@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Z8htbt0E6WsrOp9uDYy4Td2i5ygT9idk6vPy+WmDk37cSTwsT
-	8TrwAFIm0pUG5tuPteK0y/RzgO3ZbSbj0OJC5MGtyob5o2Yxhb4YY7BJYz9VUA==
-X-Gm-Gg: AZFdTZf9Cv7/aLYT9Hjrh5ynAFN0Td2ickuseu1jJIqHTRjWaOM8fTzII+Q91Njc6ZF
-	cSWw3Pmzfm2Kj8zs+AeeRYPN07Q4qElwRutALPUamCKGME+HJkXeQ835GQPEHAaK9SGceSQgWJA
-	zYsdwBnt+aJI8VrdV7uL7Ymzzrk72SHNluMBa7kOqz7g9M/jOii0YzCJVKct8HOpqReCYXguJFu
-	X/MjZ1Sp2U7TEGbuhtrJTfPcO/1tk9yYOk5SQOS4we70DyTwvWeEVpk6w36gOxHkhDaN2VEt2bC
-	UZFajmtL5rcgAIXKevr6cmKhEJRiJErwtQPDnAe2T/ifD6Yd1MCvmMks+4iZN7KHhKkTPHoHwH9
-	xJBFWdZ6TBDPQLm99vJ9fC/ZpUIh2nJZ9FDAowiKpC8J6bXn+VwFuIuZxj3btQRk7HR/ZRmwux1
-	JuW/wFbr8/VRktnRkdNPvDNs+MwfFowWuv3VFVVTqUVTC3n2RVlSqWpni3CjOKRm3i4JmgaLUuK
-	4pTYSsLv82z1FxQuUQ4dRJhvyjApkpV0GcItJvmmboLnyJ7SX7DGFwk+rc+zB3rScSx0g0gpa9N
-	v9x546sSEW9aPd5EBL/yc1sgDRaOyxRboU9WCW8U7AEobfo/v+ec2vrDpUE2q/8xtTYX6EliciP
-	JeFDpA2LmfyNb+c+Cmi+V25mKk19N+B0QC3GSNoKDXtzewCo0b3tMJ6gSYkdYmlnxPXq1+Qtra5
-	vtHg==
-X-Received: by 2002:a05:693c:88d3:20b0:37e:9a3b:76a3 with SMTP id 5a478bee46e88-3827fa88224mr1559279eec.11.1794980915134;
-        Tue, 17 Nov 2026 21:48:35 -0800 (PST)
+        bh=n6H+e1UqhVYCLF+C1ilQowG+JXqFtAAI3Ttkbc5yOpE=;
+        b=mQ95e5T4ovR7F1Q2kO1qQ4AV2MpDe12r771Lg02+8+XaBnBW6WyNPt0CDZCdIiAvGC
+         HZS/5jAucyQEAaNwRz+a0yWqS5P0CJHR1pQLWxgltuWt28t7/7lgat9v2pVVlQiBDOwP
+         WSlovyCNwqlBJhx6FP8zgN9IExs5fQyzeEix6JGA0Zk51HX+u6TwS5RqHTnYYaoeWeer
+         MfnLw0f9a4OvqHXbxYwa6oMF5hEqbsAGcLJxzyH2h+Kzvzl8yoPaQStMoxGrcIHGDkpu
+         bXIcp9BJxJDhgJrHgS0UisLa3YmTDe5h44pMm08LalN/j28Fz/ezZ5NOn3upyG7bHkle
+         zZ0Q==
+X-Forwarded-Encrypted: i=1; AL+hErFRwEWbNPi1RIPCAaD5oZG4Zz0iKfyZ2gfPPt+rSdSdIsjJ9lcxqusx/kRVONvWNXC+74vjXXgqVxbh@vger.kernel.org
+X-Gm-Message-State: APuU4Z+p99xk32ipMX16YuITaVAIqV2HDF5R06Nx5T5oMqkBylHiTXPn
+	o2WAamTy25pYzl26T079ddsYA5bJP6cN4vrj+2/Yf8ZGOb5DPXEpd0Zc
+X-Gm-Gg: AZFdTZf34zach39g38EFnruRAdk1mMfajgfeEspu3eZ9np4oHByuMZMIPDKU4dfb3rj
+	E5V7iIteQjp4LZ26aPHXr1fnON/ewTkmwBVOsIgKSOsrkm+eykWDmCIJFHQaBE/mHw8EXGF8zmm
+	5ZU3C7Rq9fJ7wiYlhDZOt8JpesdEruAFHdtF9Mio8uAebo9YqPg3wtUVooSyndyfmik7dlv6mBT
+	N7YIhLbs0o8yRICdM/8D9BamOqsjsd/vYYeZ5E0mk31IBR+iZ+ImzywIBdLeqp+ZpycWYAoT8au
+	E5lb0Fr+H9u1dEvf0hRx0L1mT92BuQyNSczxlsr7bDnSYJmEPXvYBMQKiPH10pHGvwtencHO1vy
+	ZMPe89/ijiVDOQJfDR5z4gAfCqMQnGcaNwfjUjL6onjcFOpBvUtTfVgtiY3SkrPmegJ+ezQUgK6
+	KTbFtwLKQJQ6tD46Ng1b4Rjm4QyCOo7z/G2Zuh+YLOhYGhFR2V1WUmjUaD0ai3grGXNegh9H8e8
+	xXp7Ygz1xa2eVi6wrJ4c3jmwjodta8KEt7gUq+jvlzZV/CzV1jZVLnyql4apLMIhXQb11813h2X
+	PrsW0Ao23HPLXWVLETvCmbZprPkxcNzarpdv4NlUO0VW11zB3cp3ofuIqxo0VUyGLPIFIA2ZkX0
+	v+Zw3j2iYbKlOELLmkeO+DObXtt7WQ8lU+JFh2XzpFONolRhddaotnFsUPPlXjOM1cmKUFG5maF
+	AhKw==
+X-Received: by 2002:a05:7301:1807:b0:376:77e6:a66 with SMTP id 5a478bee46e88-38280a3d9e6mr1665998eec.16.1794980916525;
+        Tue, 17 Nov 2026 21:48:36 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a680032dsm3408116eec.10.2026.11.17.21.48.33
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a680032dsm3408116eec.10.2026.11.17.21.48.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 21:48:34 -0800 (PST)
+        Tue, 17 Nov 2026 21:48:35 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>,
 	Hauke Mehrtens <hauke@hauke-m.de>,
@@ -91,9 +91,9 @@ Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
 	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH 13/17] ARM: dts: BCM5301X: Buffalo: use gmac2
-Date: Tue, 17 Nov 2026 21:47:54 -0800
-Message-ID: <20261118054758.132233-14-rosenp@gmail.com>
+Subject: [PATCH 14/17] ARM: dts: BCM5301X: R6250: use gmac2
+Date: Tue, 17 Nov 2026 21:47:55 -0800
+Message-ID: <20261118054758.132233-15-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261118054758.132233-1-rosenp@gmail.com>
 References: <20261118054758.132233-1-rosenp@gmail.com>
@@ -108,21 +108,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use switch port 8 as the CPU port instead of port 5 on the WZR-600DHP2,
-WZR-1166DHP and WZR-1166DHP2. Port 8 is the switch's IMP port and
-connects to gmac2, which is present on all Northstar SoCs.
+Use switch port 8 as the CPU port instead of port 5. Port 8 is the
+switch's IMP port and connects to gmac2, which is present on all
+Northstar SoCs.
 
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- .../boot/dts/broadcom/bcm4708-buffalo-wzr-1166dhp-common.dtsi | 4 ++--
- arch/arm/boot/dts/broadcom/bcm47081-buffalo-wzr-600dhp2.dts   | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ arch/arm/boot/dts/broadcom/bcm4708-netgear-r6250.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1166dhp-common.dtsi b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1166dhp-common.dtsi
-index 9f9084269ef5..2f1d49733f09 100644
---- a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1166dhp-common.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1166dhp-common.dtsi
-@@ -179,7 +179,7 @@ port@4 {
+diff --git a/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6250.dts b/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6250.dts
+index 2bdbc7d18b0e..f5c135f2ad71 100644
+--- a/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6250.dts
++++ b/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6250.dts
+@@ -120,7 +120,7 @@ port@4 {
  		};
  
  		port@5 {
@@ -131,29 +130,7 @@ index 9f9084269ef5..2f1d49733f09 100644
  		};
  
  		port@7 {
-@@ -187,7 +187,7 @@ port@7 {
- 		};
- 
- 		port@8 {
--			status = "disabled";
-+			label = "cpu";
- 		};
- 	};
- };
-diff --git a/arch/arm/boot/dts/broadcom/bcm47081-buffalo-wzr-600dhp2.dts b/arch/arm/boot/dts/broadcom/bcm47081-buffalo-wzr-600dhp2.dts
-index 192b8db5a89c..47670b9bfb79 100644
---- a/arch/arm/boot/dts/broadcom/bcm47081-buffalo-wzr-600dhp2.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47081-buffalo-wzr-600dhp2.dts
-@@ -143,7 +143,7 @@ port@4 {
- 		};
- 
- 		port@5 {
--			label = "cpu";
-+			status = "disabled";
- 		};
- 
- 		port@7 {
-@@ -151,7 +151,7 @@ port@7 {
+@@ -128,7 +128,7 @@ port@7 {
  		};
  
  		port@8 {
