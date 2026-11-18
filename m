@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794980909;
-	b=smyhuAHAmyfRXCUBpNdUBxwOKOneKoqtgwDpKFLfIty2PcxFxFGJJ1Niiik23D8cJ/ll
-	 YKEhahl39akMcMcAKyH/VfxAPTfRa7TKxZT1h+1hNylX31ivjcTF6y4VUHNcgqvJb6ljP
-	 2dDuVX/QVmVOlcnb5hhevFCpoJGsKTvJwSopHcSe/C74+aMxJ+vY8aG86y9IZJWUUee0y
-	 Jt35TfL6dOblDlC9hnvbnEh9jnEYMTWbMDy3Yzvjea5k8058H5N9DQhCbnLnMHoVNEF9+
-	 4cYRpMPJY+pAAhtpQfWkYdomc/dYD7P5dmJfz3PLGKMaeLeNFjoLiKq8qlKj2bw7C8w==
+	t=1794980911;
+	b=ZedODbR6IK6HzcwgYUoHTcUE1GAkAdJwAloSj/y3f8WFpHpePFmzRRyBouLf+EZ/H54V
+	 oORG8pcJWiTXUB5wq9eb1ieeHaVx5l/zgvpkWV3q/HOAHaL49nQ27GihjIELyRDzPTopj
+	 UTCQkSgm2CGtLP2Z3zzW1/FEMzvNjGyxkQpShS1vWtFyTyZyO1E1xNlAjIFZRbOw5Bz5g
+	 KjxqJ8DfDhS79XSc7DML+M3bzGfqmEUN8nPDqEYGNFZw0wbdUzzv6GF7nGsJKs6TFzHBF
+	 07bzlo5jzaxVyiEj1r2X91TpH0j/aaAYLMWGAL9nixeVTUQp3OUAUCGU9Z/Yv14gofw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794980909;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794980911;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=a+6eCIHLWHFY3nDB/Vr0c1/yRrGzwmD3XbYPRK1ugF0=;
-	b=x1ovsZsZtDUBwLMXUChDq6rhKKjej11G97ZmgTe7+DOsufLpKl8I8OTTInMso+LxngRn
-	 QBeNoMvgZ/X038dR9rdSJpXnwuB/bmcRSyMTeJopVxgKogRwzoYE0XNKHDZAsai+Kyfqk
-	 8hmcdyLtJJ6rwKvs7c+X8nsarrdDgNl1QuhSbck8IXlFhN5ERV/RTxHWClPiXc1HnbfOU
-	 pgtRrr9+w9ihZ8ZIjJkxiyUMuSH0fw2h4JZDWqTKocBkVtu3D7rBa5nrPMMbdpJSVYv8q
-	 fSZNhDUBW3oMe1H8WVOO7Wc5EmQ86HKpCX99xholtzI51kYbmWJ2t0Ctsb3+Ym/J8FA==
+	bh=TsUpyU23STfI7Ygctt4GB9RTSHTZ6HCWLhGsw93EbNE=;
+	b=ck3jcopj1LLcA8IZWjB+sa11hd7FBskZR6+c5vCfNKR8QwDqhZjXlcL/gZ8NmLwGo7eL
+	 XpSDqnBQH7SsyDjljA2atVT31nF6ygCDks/8NFQvzy85xNCVEFM0bd0j11Qh8j73471mH
+	 2Mht2uO6Trm1bnsDiLMCPc9te7KnxewqM7MLDXQZxTC2Acaj49biPbbybJSoPOwPc92mi
+	 Xz6ek92lJowiwuBhYsJ5RQNkl7d8Mtyy9LrtcEaKyDsidwg3TWVtHn00xGiiKQ0Z/5rV+
+	 0dYE7urlCrjqG4GQLZmE2LSOYW23wWHkwLSG9wAl7aaMUw9mfmFDqPE/Sl9uMfxDw4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qsENBPb1;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TOPIpQNZ;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8863C606A332
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 05:48:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8863C606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6169606A32F
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 05:48:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6169606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qsENBPb1
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-380b40312e2so1831394eec.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 21:48:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TOPIpQNZ
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-380b40319bdso1048108eec.1
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 21:48:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794980909; x=1795585709; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794980910; x=1795585710; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a+6eCIHLWHFY3nDB/Vr0c1/yRrGzwmD3XbYPRK1ugF0=;
-        b=qsENBPb1DEYRftnTn+3wPvZY64iwsld/X+ef4KS1GL5ie/J+kVkwWzM8N10kA686zT
-         lbUdPwotH27vw6Jp8+acEgYDjC/TJXLPvxdEn8ZuaUnsiMzn+r+AAuCn9xt/IboXKASR
-         bCtzi+fUit85aZ5Il7/mFGTyP0g/nr4U+yPlLYqTb/gIpl9KTSYy1srV4DZBr7o8oHPI
-         TTQMZJQwcdQuB5sC2TIUC3pto5zCtiFqpzNG5vgTTu/8ItVuu2LhE6ghPK3xlbPDEZDs
-         wtxQ9TRQmgl7Hl7yzOgmOAq4roz4htZHW1xEHD69cybaERv9Ci9vAj/h5HfbjCstp6+B
-         /NOg==
+        bh=TsUpyU23STfI7Ygctt4GB9RTSHTZ6HCWLhGsw93EbNE=;
+        b=TOPIpQNZHzeOLBcz/mr9c5bEf/nadah2nVecHTVHncWlgP6RlfjQuY3+92O/H32UyB
+         ekwUQCDKeD2inGl/YfNfH8ZsGzb3CW3r4tc7Sx6R4ORF83KXtz3njoTmIp559Nzw114K
+         pzxi5UavxY5YCqOfnNAOXnu+12kdE2zHQ5iAoZGhyw3eAfBhFVrFGp7ZGZUQ0rQPHARl
+         UxAzIfiSsqhcrLiPZfYpHLaCNKdTQVT19YYwN52r7p3Qn4HDpwizC+7llHtj1e5IB4Hf
+         9AZxjArmkFI2n8kL9kKzc9TojUhgQau/NZXi2TiLFBi4DEGiItxnYBFBCA0H4i63dEKc
+         t1wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794980909; x=1795585709;
+        d=1e100.net; s=20260707; t=1794980910; x=1795585710;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a+6eCIHLWHFY3nDB/Vr0c1/yRrGzwmD3XbYPRK1ugF0=;
-        b=2xQgKn4pA5ShivnoDF6UFgBfm64Xzpb5lMKlMD3m6rf0FHhNO/PORIf4wiLvS153cW
-         j6CBodqWV1ZffiUQENa02lHm2W3OmekHj0PKttPSA6cshDWZQDVE7RQsBxRxshQNx42m
-         1JyTCRcW/MimyUIhM0bzMtxZhWpL3ALTIBEdGB56MNihUq8+4rjWatvpZPKh21WJK0Md
-         SaEKzSaVmsUwm2QD+kqh4PpxlOCJ6uz5hvLnbxXijXkaTX9Ya+3QuObiHNn2oHzo1E50
-         rQpkCddOAoUfNebjf7vxt/nb1ciKtxWt3ivwWgM/G+zoca5iEkZn0tehBnKyqOurcw2V
-         byrA==
-X-Forwarded-Encrypted: i=1; AL+hErGGvJRzDsuGZiUW1c72Z2r0FpCa/sdP8WEZvuM6ttmJIes1/O3b3yX+8xEj9/Jo4Uq+Tw3FP/riZj9r@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Sui9qhjljhQy98lHUAr8xu9uprZCKvbAmJgyIMKFA93H2QbPL
-	2jbtAzoO48yia3WVxAwlNIVO0mDtP/eBSTAyUi6QByBVk1esHpkACUbD
-X-Gm-Gg: AZFdTZd+OIyTaCd99uAPm4yx9ibCVy9KHp3s4hs4XcriwLHeV+UmYmjE+OEt+jMptEf
-	1FiQBKdUvEDatPPGM8A4dwJugGNx35XG7DzULO+QhcSSlguoAQBS5j1R6y3pPalOU0t+Ht4/oEd
-	+oo/pub9q1Ud1G3oNbQwNTnE+1LyuSMQotNdOZLQz4Qs/Rqo1z0jZneuqD3fQ8B4GseVicADoDG
-	BxxtXBVxmQHIdITXzVFsaC4EYCULV+dBpsQUoCewop4e4SBSkuXRIlSh9tetqFIXX3MEq34QLCv
-	SbYd+p5qCTuBHfKnVEwUUgOtZNhiRVJMH2D7s3HI4JnZBe+Rt66CaiKnbhMkvc6cPLna2pfzFhc
-	YO93lp2dBJENjv7R/BeAsMDhWq21bBBgmiAPC2vfE6Hr3Zk+VYlNgN5z7aO8S+oPfv+y8ngabeM
-	uY6P2srlReQO/chMPznfZxkQoiuvqph3pZMXu+dSHPfCy/xnnu+klThahK2dNrwQ7+rGS6I+ITk
-	wq2Lo2uFjm2F8TJWwxnKjIFcw5gkkjQvUWEGoK2aJhJ3aOwYc+Yb2n3l5ooKnccYA3XJybQszWf
-	g/CG+qh+jRepnF026RXkAODwrdzJM9SQi09JNZnXr1xVYFF8ngr3kkcxoYBltUKFWNk07JpmCac
-	shTjgVRQVJO8db8duTTrB0ms3ktwc+SEzhtaUZBoKz1gIeKVOJzQtMSMBjBEg/7vkZDU1lBwmTu
-	TK4w==
-X-Received: by 2002:a05:7300:148f:b0:36a:1f8:a5a4 with SMTP id 5a478bee46e88-3828171b242mr2168030eec.38.1794980908654;
-        Tue, 17 Nov 2026 21:48:28 -0800 (PST)
+        bh=TsUpyU23STfI7Ygctt4GB9RTSHTZ6HCWLhGsw93EbNE=;
+        b=Axx+qxtMrCdJeeTfeGV62+s1rrZjNZtcWlSObmR03jPw16z9DCeuzW4P/7Tz0kWqsW
+         CioIHyTKdqND/cLL8fY24ft1qn6XO6oqOhDWO/y4en/BgLNo9+QD6bJpzvlOTJZVwpRm
+         On/HAlwYxIQJNKZfZxAFw8AxP199XkDiBphRleNNFBv1dLyx2Gy3uDqJhQ+z07wMaMlW
+         /m1yAqEf7dSYJr4cYCUvHtoJN4mVILaGzdgo/jcTwGig99OtRKh0LSCmY5DFguLW4ncS
+         qE/gUrNQLEznDeKsa+GkARrdo1lhoUa6Euch/b6uLXWxEBk4pAGghlqGs7ow2gNDVby6
+         URRw==
+X-Forwarded-Encrypted: i=1; AL+hErFLqRYXpauCblKvFIY/zr/I2rFQ88Q24diz3Nks/dg0X4UPbOsO9au4r+HL5Is7Pak+7slT3cKDl1xd@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/I977Fg8SVrxAexUTdz22ng0jqFDeaPFl6+1VqJjsxbqZj9Vk
+	efz0jm2Pe0QqCF+2N8muHqkHJTUVM3BTJUlp9NmBfuUFUZuvK7Oj6Nau
+X-Gm-Gg: AZFdTZcKLU51AFupmO0EMSAHhuN6Hb1bSho13LJpC4c4vNMfYG0/lQF6GcOiH6a9fDT
+	YNzAMFOv0oH0MlyV/nhJ70cyJ9PEtDsNS3zSUv24xh/VpmzUrnAYF/mcdw1fusMVq19/rmp5u9i
+	S/C7VsAQtHa6tVgXOUG0YChSrChRW7qtCHjXiB1ADS0rNfMsFanU/1TWAuOb2SyBg9M3wq4pciE
+	rkbSYbN0RgEpU8ZdGgPcsoSFSdFCYM9PJ2SCsfe5gE/pFTGs3S2SEX3bxaE+Nis+kITfot6Q8t0
+	SFP4pGOrmsDdzpZWx4UXJ4n8rldFJWJSgZB4a+OFl8KGaQR/QLSkJUnbfMPxi1Qwdc4k7NByUP0
+	Hdf80ohoPakTVkYoZRR0Rv+kR4UkVLNara+naAVSfwz9TB+rEG20vTk4Lj+puIK5MRnzWr1cJ7a
+	C966t/mi+E5XDYiJQLl9uVoqUavMrW7WmsMpBsMwPwcNNiTiQS6fy77HRlx90Xqck17OY8EZrIc
+	zDxGsOZzaGmFln9dR6Ge4lV0r0mCJE23kwtW4YxRs8o/SrOydjDhq3dls5/gQZ6d9nCPMgR5YFN
+	0ef8JyAe8YWYmlipaKcIQ48wb8onCvA0Y0DSAPdB1+dJp35fjUmRmwgZ9ro5h3bMndnI5PWVc7p
+	uHlOE2bThSn1E+k7iVS8Cn1M3AEFy7+/fSy0gTjMB5i/2ql/Q6wRFcirZhFS4lleBvYWZciVBCk
+	pCKA==
+X-Received: by 2002:a05:693c:8812:20b0:36a:31b2:8643 with SMTP id 5a478bee46e88-3828162490emr1557800eec.38.1794980909989;
+        Tue, 17 Nov 2026 21:48:29 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a680032dsm3408116eec.10.2026.11.17.21.48.27
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a680032dsm3408116eec.10.2026.11.17.21.48.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 21:48:28 -0800 (PST)
+        Tue, 17 Nov 2026 21:48:29 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>,
 	Hauke Mehrtens <hauke@hauke-m.de>,
@@ -91,9 +91,9 @@ Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
 	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH 08/17] ARM: dts: BCM5301X: phicomm-k3: specify switch
-Date: Tue, 17 Nov 2026 21:47:49 -0800
-Message-ID: <20261118054758.132233-9-rosenp@gmail.com>
+Subject: [PATCH 09/17] ARM: dts: BCM5301X: AC87U: use gmac2
+Date: Tue, 17 Nov 2026 21:47:50 -0800
+Message-ID: <20261118054758.132233-10-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261118054758.132233-1-rosenp@gmail.com>
 References: <20261118054758.132233-1-rosenp@gmail.com>
@@ -108,66 +108,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bcm-ns.dtsi specifies a default layout that is not correct for the
-K3, which has three LAN ports and a WAN port on switch ports 0-3. Port 4
-is unused, so disable it. Also allows setting the WAN MAC address
-properly.
+The nvram MAC address is assigned to gmac0, but switch port 5 (gmac0) is
+disabled and port 7 (gmac1) is the CPU port, so the interface that
+carries the traffic never gets it.
 
-The port mapping is taken from OpenWrt.
+Use port 8 as the CPU port instead and move the MAC address to gmac2,
+which port 8 connects to. Port 8 is the switch's IMP port and gmac2 is
+present on all Northstar SoCs, so this matches the other boards in this
+series.
 
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- .../boot/dts/broadcom/bcm47094-phicomm-k3.dts | 37 +++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm47094-phicomm-k3.dts b/arch/arm/boot/dts/broadcom/bcm47094-phicomm-k3.dts
-index 5b9250976f13..018faf90fd4d 100644
---- a/arch/arm/boot/dts/broadcom/bcm47094-phicomm-k3.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47094-phicomm-k3.dts
-@@ -52,6 +52,43 @@ &gmac2 {
- 	nvmem-cell-names = "mac-address";
+diff --git a/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts b/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts
+index 2fed02ebb1d7..4114c6eda1ac 100644
+--- a/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts
++++ b/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts
+@@ -71,7 +71,7 @@ button-restart {
+ 	};
  };
  
-+&srab {
-+	status = "okay";
-+
-+	ports {
-+		port@0 {
-+			label = "lan1";
-+		};
-+
-+		port@1 {
-+			label = "lan2";
-+		};
-+
-+		port@2 {
-+			label = "lan3";
-+		};
-+
-+		port@3 {
-+			label = "wan";
-+
-+			nvmem-cells = <&et0macaddr 1>;
-+			nvmem-cell-names = "mac-address";
-+		};
-+
-+		port@4 {
-+			status = "disabled";
-+		};
-+
-+		port@5 {
-+			status = "disabled";
-+		};
-+
-+		port@7 {
-+			status = "disabled";
-+		};
-+	};
-+};
-+
- &nandcs {
- 	partitions {
- 		compatible = "fixed-partitions";
+-&gmac0 {
++&gmac2 {
+ 	nvmem-cells = <&et1macaddr 0>;
+ 	nvmem-cell-names = "mac-address";
+ };
+@@ -108,10 +108,6 @@ port@5 {
+ 		};
+ 
+ 		port@7 {
+-			label = "cpu";
+-		};
+-
+-		port@8 {
+ 			status = "disabled";
+ 		};
+ 	};
 -- 
 2.56.1
 
