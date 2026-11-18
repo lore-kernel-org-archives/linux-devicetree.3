@@ -1,119 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.3
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795019576;
-	b=V6K4OmLVGUcqUGIFLKGsHSA8RrZNlDrfOeOtGTAE2PCa66cxqgT3N3f7sO2rheeKke+G
-	 Vj1Rj3KDLHE/oKuye+ZCrRiWKikyUwdloYcppC12DXEKnzUIVTHHu5kFaAciLptpaUeNJ
-	 axHpZ+4FQxsWlr4SGnke8qh2cMmzKD9T04o3BMNNJt/lYW6GOeLDxHRjIf2VHY+Tt74MK
-	 g0mZlZNNl/lRbgJaWtExxotK9UhL1ukM5YsEduhe1Bmdm/wHYGKuFNsZ6lX/EwXaEblmn
-	 Kx0ilIZBSy8p5vyKu1jEMlXLeo9QE59u4KJmwI63+d87uQ0/LVWJu6L1Ycu24VHFKLA==
+	t=1795019583;
+	b=v3Kf8kMs34PVM+99m6KPByV9mIuG0arVMEQbiAO7rL+ozHvTnLR9lb1NMoeqSOwicNxI
+	 0VCHD5oe0Fum2XmC3/bxHXuQXtJBoPpPK6A1OpNC+NMhILfe/yGGtWGmeKJTvpYbVxD6R
+	 NXyJ53Il+6AT2Vm5S3suPNSNxDp0W2on+63T9JfRz4ea2OGb66JPIKJ8EFmIySu5ZZoRr
+	 FEvgd9KbJaR6ka1KyxdJx4IytfOLsqYhDa/pwgjzajRE7u2fxmete7jAZGWzoQ8zMkVpl
+	 N3XSAbFAMfFEhnDRlxaA4AS60SAyZXRc2sLTs27iebaS3M0g6TJKZIcjh13cdkaMqCA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795019576;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795019583;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Reason;
-	bh=qdetaVUKAzRV7T4F/oguVCvXt8lkwod+pc6aw0LH/48=;
-	b=wFFVbrLFj0reIByiQ5hB3Dus7w3c3kPrM6D2kAhqWgctd11cbs1zFlNSna5wDxs0usKd
-	 b3zE03beuCl7O9maw5MjEBfSz1HJByMcC+PfSOEuoi0rY76y6o9xDYHOkllfJYDMfGJlS
-	 z0g9IZkBwUbS/NPS7Gu+ToKVyPenCQ/LHKGQORM99Kx53CFljH77t+sko5pGW05HrQkmp
-	 /ZGZRTR5eT8+CxS02qsKYmBGazXOnj9nV61NBDKXXpGHNbiJ2Qr5argORMmeArz+gOA+A
-	 O0UIKLC268SwD9hzwAlH17KzAiJJAn1g+vZI75A4Ge8JiNNzu7AubYnZvjN4IpTgvZA==
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=P5YQSXH2nnhBy49ynhKIO379xmRMN9E4x5+MoRfmRMc=;
+	b=bZ9MER1cL/hZX0joYEkvwkFnlqX0qKBEl/tuod4EBUOLkvUKiKtorEbKEil/gIrjqMEi
+	 aHBX6WEkDGTyEvoWpDyDEpddQhnJDSIsUlozmCm94euyXe5lwoefjt+0+hr5iOB5eHtPh
+	 aeufCwPS1fRgBYiduDR2zhptik2WxR2qsOoxhq2eYt/N1ZP4L53nWOchAYmlaxoAQAmqB
+	 3IedVeaHoXEuRX1AfiSTqmXOG25sbkJMVzEyr1nBsx+1QPnRxLvsm1nC9Y1hEJKQsq3fJ
+	 BR0NWxU+Umxjy3paltu/9lNJm67WFwwzKAACDpbfWVuuPQWdcuk6oGy5YlkWlV1wLfA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=opensource.cirrus.com;
-	spf=pass smtp.mailfrom=opensource.cirrus.com;
-	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=jO83yg6y;
-	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=BhvQUq9j;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=UzRWwSyk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.3
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013003.outbound.protection.outlook.com [52.101.72.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50060606A32C;
-	Wed, 18 Nov 2026 16:32:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50060606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6D1606A33A;
+	Wed, 18 Nov 2026 16:33:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B6D1606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=jO83yg6y;
-	dkim=pass (1024-bit key, unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=BhvQUq9j
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AIGHBNW217490;
-	Wed, 18 Nov 2026 10:32:46 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=PODMain02222019; bh=qdetaVUKAzRV7T4F
-	/oguVCvXt8lkwod+pc6aw0LH/48=; b=jO83yg6yQewD9DB7xkWyte7nRaygge6f
-	Ag1v3MqDV6NYx+ZVbZenXDXCai7fPsNOOxNjaG/DZKZj2eR8QfBzeBch9kcy6qDj
-	Gq3Bp7oEK6eJMWQJ3wKh7SYCPA5Mi7SpN7gPMEc9HdmCiwlX6CUY5536ebUBRfjY
-	j3dL4SosdJ35oUe5pP/+iYV5piPu6iOvC0dM+U9LZxMKOGCx2xPAAqw47p8ExAKj
-	BcE9QtN2MmfI/NPOTTVOIOMCoDwIpsP6HWkzPgpgg630FQWg50t33zL9RoPKFMIe
-	YhtTSUoNF1kBYSnRaSCUobDXtcIiqFW14h8cFbqiCk76RyGclp35Ww==
-Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11023122.outbound.protection.outlook.com [40.93.201.122])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4j0ytshdky-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 10:32:45 -0600 (CST)
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=UzRWwSyk
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jN8uLLDIw3XnS06+yf8pXpnVGevjsOCTVQmG5j7QfCZkzl2AO9RJiMC6ydVi7OsDau+/UfPWWPjen+vhGYFhe2lpyt56gDUZMp++ayxNIZ9huEpe4S29cdxlC+9ZD5cEp3wBdHuFXli3MCdYEkT2FfS858wrcjBEdgqmEuocWLzAmKRANfDIXlFv4I4MFxQc3XPqFTT+iYfGHrPcQvcCqZ2iPwX5lhXdWa4N8Tt/3ITVRuJJSTZYzImnaF9QCn4DruhJL+8MfQFveCiv1CA3aCnk8A7RwVJjco0t2jBfBUxiPmh7VLCmdBYwwGzjJWaB7FLjyWBn+pVszarg1voH/A==
+ b=RDcRH5z0JXLtPyjDf/GzbJGgNADZCBdgBYjUjgC6R7TIQM3HgV9RON3r7SfY8W244/Sj2Xwc1eFtkVFBoXnuZzcs8sKJ0eJhbG/IHMyPfEr+4ba/2gEvJxzuU9YUN+l+Pab3QWHE97QMcpsoRCX6A7Gu7qcqoPgtUJ7YjE0xtuCfNuDkovaLGlx0jd/eI/roalejQK5pgfpGnvxlEG8dWuj47MrI9t1gR05mItSo+J4g5bCbmGAVYcXQHjIY9cWCtBVtJAzgWfp2qck/DS6y5LvhBbzmITzR1WzqUeqoi2xHi0AqfimWjdZ+YEZpquxA3IZ7H6VASXHtkMl1iqybEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qdetaVUKAzRV7T4F/oguVCvXt8lkwod+pc6aw0LH/48=;
- b=ZFTVAnReKCqi3USttZnY+XzLNT8K/fhToqreVprsFx60ybHc1tK6zmcgzr1eSvJAo/Xt8aDEJhdyghn2hw6zDKVkQ2vTUeLQEqiXw3pH6toMifLkwk0+S4O3bYs7KjhKIR2W94vBrjDM0wtAUqz6ihjoXOm6d0M6JCpSWyKYgqL1rc3z31TUHGBcGI7QBMWOQcXkAdBuzMu00QQWnQhxiaoPnj0LWArSl0obKdMzVo/OKmSo25Iwpi0cTJE4ySs1hdb93rqu2GnkAtRmHDuo83/4czByoqwBTX4M3vQPDayRsH3lcU/cw5nCEVT+eKLO9VYfKFKtscxMnfJnelWT7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ bh=P5YQSXH2nnhBy49ynhKIO379xmRMN9E4x5+MoRfmRMc=;
+ b=FOqfuOibJwLkqtSrvaDXJc20eE9vyXJRtzHb80eNqclSPNXuJTu2Q8ZbTOfvuiooLYYFuFjUwCiMLVnpw3tyyCyTYabFy44ViGaCg5lVKg9UstmLiLTPsFEC8GcZuNg/PR8W0l1NMpVTHB421W5Z2/YkYI4T6ofkRzndi14kuKnDBnfNflXEwb+CLNomGjhQH6B1mmrP/Bv7h3FQGU4FyYUKHBTGWPJ/58TLJnCvqz6WfPbEhd6pFVFsAC4aeYqrkALXJ/VcDFnGV2xbiHyxouD2w5+Ai4uLMu2ik6l4fG7hqW+kU0TSDTl6Yvix6/I8y+dPorz6w6J1mK6UaqqPLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qdetaVUKAzRV7T4F/oguVCvXt8lkwod+pc6aw0LH/48=;
- b=BhvQUq9jfdDzUipSpzC90nt1GjB4e7/VortRdEYqGzreuBCHziqDqQen4Zl1J5SNcZeVhYX0zJPd3zW65Kha2jO8IKOZt4mfG00neg0rw8FzcsGObAj7IXNBF3zfTUrMkGOqBrcrVU8vNipBVemdgSTjAOHjrvU+vj5bMsV9MpQ=
-Received: from CYZPR19CA0013.namprd19.prod.outlook.com (2603:10b6:930:8e::23)
- by PH7PR19MB7145.namprd19.prod.outlook.com (2603:10b6:510:20c::8) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=P5YQSXH2nnhBy49ynhKIO379xmRMN9E4x5+MoRfmRMc=;
+ b=UzRWwSykWSqYGyUYk9XaB1YjJjJqAl6/iCguF8MMR3nOTfQCds1+7uo3SioD+2bqm+XGgxLdrv2A8GFB/eXtaznuoca0JJMToH6XjWQcadjg01rV2KA4srn5u3N+iMRlXkdgEwEOcsKDoM6s6i56cB9oloctdERiPROtBIXes9z55GwTQFZQ62laDVZIqgwmyXp7/yJUnT4L5DNpk/NbFRFQwqcD3nj3I9p+ojdE3ucDjuZwSgodii0Ioe4FkF2Mx7M/XqIyl9+VtP36FM6LuhoIZTR+DqwRQZ/SspHFPYM9j4cDoVKb9wuTjcW3s/0rWKLnVtNYZ44jv2O+7qslHQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
+ (2603:10a6:290:d3::17) by DU2PR04MB8999.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e2::16) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 16:32:39 +0000
-Received: from PH2PEPF00048916.namprd05.prod.outlook.com
- (2603:10b6:930:8e:cafe::5d) by CYZPR19CA0013.outlook.office365.com
- (2603:10b6:930:8e::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 18
- Nov 2026 16:32:38 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- PH2PEPF00048916.mail.protection.outlook.com (10.167.243.72) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Wed, 18 Nov 2026 16:32:37 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 3410E406545;
-	Wed, 18 Nov 2026 16:32:36 +0000 (UTC)
-Received: from [172.17.0.2] (unknown [141.131.156.155])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 549F482025A;
-	Wed, 18 Nov 2026 16:32:34 +0000 (UTC)
-From: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-Date: Wed, 18 Nov 2026 10:31:23 -0600
-Subject: [PATCH] ASoC: dt-bindings: cs35l45: Tidy up BPE changes
+ 2026 16:32:58 +0000
+Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
+ ([fe80::263c:943a:dcb0:29d8]) by MI9PR04MB019273.eurprd04.prod.outlook.com
+ ([fe80::263c:943a:dcb0:29d8%5]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
+ 16:32:58 +0000
+From: Ioana Ciornei <ioana.ciornei@nxp.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-phy@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Vladimir Oltean <vladimir.oltean@nxp.com>
+Subject: [PATCH 0/3] phy: lynx: add support for downstream retimer PHYs
+Date: Wed, 18 Nov 2026 18:31:31 +0200
+Message-Id: <20261118163134.2149894-1-ioana.ciornei@nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AM9P250CA0028.EURP250.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21c::33) To MI9PR04MB019273.eurprd04.prod.outlook.com
+ (2603:10a6:290:d3::17)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -123,393 +100,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-bpe-dt-cleanup-v1-1-a242f0cd0e8f@opensource.cirrus.com>
-X-B4-Tracking: v=1; b=H4sIANrS/WoC/x3MQQqAIBBA0avErBtQg6iuEi1MxxoIE60IxLsnL
- d/i/wyJIlOCqckQ6eHEp6+QbQNm134jZFsNSqheSjngGgjtheYg7e+Aq6KuF86aUTioUYjk+P2
- H81LKB9WwMbZgAAAA
-To: David Rhodes <david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795019554; l=12350;
- i=rriveram@opensource.cirrus.com; s=20261106; h=from:subject:message-id;
- bh=LxmQ6yz/441SM1TMu2ciKawvKnJPv2jLsRsXVBNCvpo=;
- b=QDblS+ga8NoII18FnDpo0fZx6gXDm03Yd/s5jp0nJtyhfrLYezdGthh3UlKuebYeUPk+6d/j6
- ZGHm4LMjzmGAxpK0xpOiPgWivyVFK828GYdQs7cdc70vIkZi1e+EZB+
-X-Developer-Key: i=rriveram@opensource.cirrus.com; a=ed25519;
- pk=k/iAEAtSPXvaWRDFupudzm6His7B7iJP1uiZ578a7Y8=
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH2PEPF00048916:EE_|PH7PR19MB7145:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58ddef98-a13f-4a47-62bd-08df45918ecf
+X-MS-TrafficTypeDiagnostic: MI9PR04MB019273:EE_|DU2PR04MB8999:EE_
+X-MS-Office365-Filtering-Correlation-Id: c663fe86-f4d7-4a32-bdfa-08df45919b29
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|61400799027|376014|82310400026|36860700016|261021123027099003|261022075727099003|10067099003|56012099006|11063799006|261026140227099003|261028144727099003|261022105027099003|261021121427099003|261026121527099003|261102123227099003|261009220027099003|261009221227099003|261009223327099003|261009223027099003|18002099003|16102099003|261009221727099003|3023799007;
+	BCL:0;ARA:13230040|23010399003|19092799006|366016|1800799024|376014|18002099003|11063799006|56012099006|261026121527099003|261021121427099003|261021123027099003|10067099003|261102123227099003|261009223027099003|261022075727099003;
 X-Microsoft-Antispam-Message-Info:
-	JIpF//3z9NsREYUzUM1Gk/8YqSUwvK3quCbUgXRoD0xSMrivmQX3F3ssAoMQXRb9NgapX9+HldnJyN2xfWB3AzasZHjmiX4HFSxZ7fgkt445Wgnqv+Oa5Mbd7onZu6UW4erhpK8Q9d8z/awF4J1WYVEYClo/3NvVdcVeeglwLiWnmcBxdWSEqdDaWgXAsYP4aLmcdDCaK+AAP51ex93XXmG9u+IJEKyL4nWA63ZUHQiIRH/0UjIMkx/PFoZZ/YJx8bOEexSwsbb0FldpnxDBeJXweYwjFn471wLY8GekaAx06PV5II1FCmNh9bkocNKLElt+6ARGypR6I3V2FU5ZZ9d/Yqrycws7sRAWueSYdx1tlYrfXLiwnsj+9gpVX9M6ku4KV2ukvYURAupLO/jG0ILO5xykBo4OMKWfkoc+/0T/rTdH/wlvkWLpy1r7HeRTBbphL19khngsV2cWYMxYQFneCp2zAvYBku+sgParxhFwP3Yj2hneBpmK1Ngjv/IuBGo0dKJVBpbT2MmY4hq9oUUU9KLMvnmbBN9MCGpfJJ7qsC0Z7/OElGNgQl1f3OZ8z64tlyDhaVc+0yKsY7VSBc8qqO1maN7jvWtIkboKPS4abSmImXhDWXde+NyuP5C9VM7oui+Rf3aH9kXRhaqvnN0bKhpGi6RZqzZN08BNSHPJ5GPXU9/w75gNf+ViJQDSSal4kPJH0yYb/9JGIPtP1g==
+	nVEo6zsUekodE4M+nPeF+MDktYJ9hEZWQjF5SkCEZNyr0WsllyaBOj70DU2h4Q/ncyxFQ+tlkykxGShag/K6WiwzrmtLTjdROzsuvS67VCw+1EX49woEYLsG580CL9FbTSc04UE/C1ZGi7P1UjyfexH+rYrTr8vD5mm4Sooun9QQmPEIqTDGaaDWnHySPFXoK9C1dT8VhHYLYvf/4QWXojvXughPdca8tbh6B022umLV2gSWOpL8NX98lBx9hPDBBvOORuGslN8oLlJel5HRgD8o5LbVQd848+JTidshZ1Q5iYOWr3FX2ZCdJYPA90zJnnggibvvJekA2CQ2t/oWiThTGwzkYDr5lWmDEZ+4EXxqjyOO90OMC1AH17T2crc4KkWGn+vlMoFbdFMqXtxW17CF3hEF/JnIrmjKJoG6QP2v1Kp7R44InK7zxVH54euWXNUEy2VUfpovk3/VpV6PgpuU6SXh3B2FW6Jwj5SP6X6uz9WwSw/Nx6nibET8ZPaBmU6nodsufhQDSp9No2e+G5QlnRk2qTCX4/QNeQB6+SYsUu7EMgtUEJ/4yef4SUtUAEaai1MdQbTfxridSfLOhK8vF20e5+p5Z+szRr7NAxXxcSrWSwOLye5+c05H71owKIRbirOhpGW1ukXGKMMzmfxY+iZF/2lNbW94DlWcm40=
 X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(61400799027)(376014)(82310400026)(36860700016)(261021123027099003)(261022075727099003)(10067099003)(56012099006)(11063799006)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261026121527099003)(261102123227099003)(261009220027099003)(261009221227099003)(261009223327099003)(261009223027099003)(18002099003)(16102099003)(261009221727099003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB019273.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(1800799024)(376014)(18002099003)(11063799006)(56012099006)(261026121527099003)(261021121427099003)(261021123027099003)(10067099003)(261102123227099003)(261009223027099003)(261022075727099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	vmoIttXoTPyqRTlsNLkhzfIRX7a9OS35qk3LKQsqIBvTLIzu0AVcTnMmW6RKPQCk5hfCITnchj2rJsrRZYSNMIzdlVniBzMxKgv9nLKG3KtByx2sWXa2YazaaE5FhpWNBy1GA+rKs8Ab5kZdFfypB1ElTYRLL86d4bd38OeFkbSEOs0Ihl8b0DeWtPOJcePfGCj6ShJgIWZu7ZqUX04tyqnMZZsv79WH+/ao/QY22JRSDEe+R8qUvcSSaJp0gUO25CJOqwTdLIrZzJUl1JDPWjdZlm9gkfd/3fjuX9EKpMhnLdvotyIfXJZENCu40bGNCZdMCQU7ensRjf4N5XB92qii4PBrNsYerU5mIQZ3TnerhaFaPv62lmcbXijWYKJa1F3tFcYZxAY/ozdNQXY7ynkFywG56YI/M4MbiXZytm5sU9HVpn+jfW6qYKssQGzW
-X-Exchange-RoutingPolicyChecked:
-	EsX3zyxiE6Anl8M+92WFt6RWmGwaCW04o7/8kSr+0KO96diyRdpqz6H61BMqovrdyc9ZcxOVhX7WjzaEd3N8SbtVTJgQ0D7gJJ8T4W0qhleMBceF1gFHO/H9zgsuDESeVMG2oWH6ANJJpbHNYEISLA5vSAYdILWISw5Id9GkGXnDio0woXlbS4xOD0hsXFghHEzMr/Dm29AM+XJwyvOUb7XinjvMKyTYaBWkMjQBZp7mrYKTGFISgQF6hpk7HesFsHd45ekqzLLM+4Dsw69zTEtAi0CihLtPUFD06gSoVQa6lKEQXAsrtWFMISfs8SLMep57Oc2y3LF2nxnfa8MS6A==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 16:32:37.5287
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58ddef98-a13f-4a47-62bd-08df45918ecf
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+	=?us-ascii?Q?YbplEnleYwVaDO2h5vioxZxTzIIQ6NvHB6t5DYYJ5AXgxdpIni5FMucV0V8v?=
+ =?us-ascii?Q?Dw85q+A+3SIWnn89D4JvzqnbO7Y8QF2ErLOleol5xeR/kgw5D8lNM7KsnkCg?=
+ =?us-ascii?Q?6iHtICrmAK0UD6BgIa5E8x9C2YBnpW6Pmrncpei7x+LTE9eDRhJjgOAK1g+I?=
+ =?us-ascii?Q?9QSijMOpAAJF5tnyjhMGRv2ct37hZQAHdQIoUn0hIvgdu74yfqNbtnlYDc7G?=
+ =?us-ascii?Q?GiessJB0gO/GojF4dDEcP4IYqcl7VUOxNJz/KH1rsrC+tL139VYLU3dWrGQi?=
+ =?us-ascii?Q?2O6jMEAI1l0LQL2AgxPnrsjIAmb3bACopt8JGJF2rQlaeGS73fiNw6YDG7DE?=
+ =?us-ascii?Q?+ezC0j8xJOfXLxnpeQBvbNua1ZMtKZOnnmyKPmp8TDQimAuV2o8h5spGUEQ5?=
+ =?us-ascii?Q?nvoPy8fg9e5CRoTWXaOSXCcUQNMvpBW4bfe03moeG0SI1082FYzHvXFyrVbO?=
+ =?us-ascii?Q?lIOTZ/rIns6CwY7D9auzmz9hUBJ/DY9oHHwFriIJysVZcS1knHWXjqKupEXQ?=
+ =?us-ascii?Q?kvPIP0c+ikMDc+e+pVUo6x388uE8UCw9+4i1jfVsH/SXXNgaFXYeJS89rC1T?=
+ =?us-ascii?Q?8tyAj7KDunmDZCzZC2blPiTT5oGQgoadbuDX8I5a5iG1GGSfoDYlREszGddv?=
+ =?us-ascii?Q?VCZ/UNLjfPkLgd/6H89N0uZP1i5cXOX9GEw7SRBYVV/MiVgkAyfEpqig+0bg?=
+ =?us-ascii?Q?7/2zyP+UrMZzfpn++Lk7vBlOXr46j73xi6/lJd9gboH7kV5eHWBjofcWy+od?=
+ =?us-ascii?Q?pfQ4+pT9gro5yuelQduuxg1WQOQnbTGnwvt732skjewq7tuZ0wrF9m7Un9Fd?=
+ =?us-ascii?Q?LO8i6u4dr14mJ69g89Loj73d7TYPPmDCONpi6vajS/jVlYnUaQvDnOkRTx50?=
+ =?us-ascii?Q?138bkutK17hWxmaOQS2uauXM2RE0Ty9Rax55PGSFwQ52dsluLf0Q+zvWvNr0?=
+ =?us-ascii?Q?cfyDqFAhjpFynu4B/0ds71NPDDIQzouA5S33qyOPzmCm2YXi0TjHvZsWf4if?=
+ =?us-ascii?Q?GxVwfgg63BvKfGc8eHQYXXA/mvHeRm730HYM1/wB0eNzUnIlZMkOPX4PLAs+?=
+ =?us-ascii?Q?VsVb6itbqx1r9IEWwsTBzm4exxZJnNg+Bu7eY9QbrVb/malkQB3EHuIuX5lG?=
+ =?us-ascii?Q?EJXWUcBHknDdSwc6GG49weZ7i1J8SkRBAWAkBlDpe65LzFqN5dtR1xd1DCkt?=
+ =?us-ascii?Q?rdl4+eFtckNBOHMs+yCd1J966DNveQ/R7kUpMM/5YdW30e3oheSWeUu/sWbG?=
+ =?us-ascii?Q?8AE8MtcIMCV8JaKCoa6jc3UVL5I9ILqW66+cU3HDmldWVGEwQwBMQwnw+joX?=
+ =?us-ascii?Q?Qp99ziEnogIIICqUYws70Cbli2EKwoYjh8RuzBBuZa7Pdx3/4eiDINIU05Z6?=
+ =?us-ascii?Q?SFUIrpThGJlRbQ1A8gHT6JKSrFEp5bIi4yTBUfGuy+HjPJFxG5aw3fZ9lc1r?=
+ =?us-ascii?Q?nxUIoug7R0z0iI0gH6HWX7u7VxXkOk4udEJ8uuQI8MH7YkwvSggA8XAk9zEE?=
+ =?us-ascii?Q?54ApF3j+6JOk+o6KT8GFkVWFj3XCFroHGIDopQZaTIbOd80higG6+QsHcEjD?=
+ =?us-ascii?Q?aK2VAq9F0F8owtzakQrWsrGtYsVQeJfmqtTLsgsJq7BtirNXQEliuAxpx2Oc?=
+ =?us-ascii?Q?G49MZcMehx0XoaTgWtt/i7ZBBvb3y1ilvTbFO718B9tKFxRcgjZN0e/X/5nV?=
+ =?us-ascii?Q?6QExxFpb32C/EY/LwJYFEPW+k3D/xJmpsqrNnbOJ1N43tG0rualPlg/jF7z4?=
+ =?us-ascii?Q?2JyG5lshBg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c663fe86-f4d7-4a32-bdfa-08df45919b29
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB019273.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-PH2PEPF00048916.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR19MB7145
-X-Proofpoint-GUID: GQ1JkbCUltsphxCagrvJ6HwZSYp-sxtz
-X-Proofpoint-ORIG-GUID: GQ1JkbCUltsphxCagrvJ6HwZSYp-sxtz
-X-Authority-Analysis: v=2.4 cv=V4ToQuni c=1 sm=1 tr=0 ts=6afdd32d cx=c_pps
- a=FNmKuShaFFLZE4HaRSHjWw==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=w1d2syhTAAAA:8 a=62YcbaBXX_YyWOaDptQA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA2NSBTYWx0ZWRfX1/Lt0zHJgFyn
- elMAADsTBTFVTvcqNW52GFjHUVAdo0IBnvKt9L4U7kdFRYov1D+R3rSPTvF0uLnIU5n2nVWZcbo
- GYTloJUubNpYtOeh/k7S01qDd4+7Nic=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA2NSBTYWx0ZWRfX7raMQ5k8SzTy
- mkdY81n65cSGIMluAaQmhSUnQnb11pwdpsYCLSRpKCQvtUp2ZaJ1XgcKCkBuunp1nDyoV+UcGEk
- YqFVb/IaPBFA8khlCSFB3tHwYm+HReQGZIkFAmCxPKqAVZCN4n+3vEL+PyOMiWrR3vPSEad8QaE
- BSyb32lxT/eV1ezcRphZL5cVeLuc4iCJxRcABdFYC3oPOXBmpEgt06ov9OG85jOR0hcP1d55iHu
- +pefzKImFRKjUUHCU7D3CYWEGhltyeK6K3xiev1B8eAA8bIaNdygeRoSS24Zl+YD6T0aOvNO4f1
- mgA9bafNSdKYYzzes4V99Nma79G0xMA0eRhwIZkS7g3X0RyquSfpFk2+5S/Ot81tyehpBtxCVRb
- vSiWTlEgnvunsJmjYS6yQD2pw/mLzhWcjqor9DCgKJR7MnZYL2qS1mT+/volS9GFYTD6BrlL520
- NDmHh2Io8AoUWlFZ/sw==
-X-Proofpoint-Spam-Reason: safe
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 16:32:58.6288
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kHIn/xTN97r+kEB9jOF5NQ/nJefJmxH6MMAThwwCyCTQKfBBGOixgFH2Ntw9Im6e5/gxnA2rNOP4TsMpIC+cGA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8999
 
-Addresses two outstanding comments from the introduction of the BPE
-properties:
+This patch set adds support in the Lynx SerDes PHY drivers for
+retimer PHYs which can be found on the board downstream of the SerDes
+lane towards any connector such as an SFP cage.
 
-- Moves allOf block to above additional/unevaluatedProps
-- Drops unneeded '|' from property descriptions
+The first patch extends the Lynx 10G and Lynx 28G dt bindings so that we
+allow the phys and phy-names properties at the SerDes lane level.
 
-Fixes: b6dda4b7698e ("ASoC: cs35l45: Adds support for brownout prevention engines")
+The second patch extends the core lane probing function with
+lynx_lane_get_retimers() which walks the lane's phys array and gets a
+reference to any downstream PHY found. The 3rd patch sets up the
+forwarding of the phy_ops received by the SerDes lane towards the
+retimer PHYs as well.
 
-Signed-off-by: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
----
- .../devicetree/bindings/sound/cirrus,cs35l45.yaml  | 244 ++++++++++-----------
- 1 file changed, 122 insertions(+), 122 deletions(-)
+One thing to note here is that the forwarding code is kept rather
+grouped in phy-fsl-lynx-core.c rather than in the individual Lynx10G and
+Lynx28G drivers so that in the future, if necessary, it can be moved
+internally into the Generic PHY framework. This leads to the consequence
+that the actual phy_ops with which the PHY is created cannot be const
+since the .owner field needs to be copied from the structure received
+from the actual PHY driver.
 
-diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
-index 9373ce4bc3a8..b85fd1bfeac7 100644
---- a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
-+++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
-@@ -14,123 +14,6 @@ description: |
-   CS35L45 is a Boosted Mono Class D Amplifier with DSP
-   Speaker Protection and Adaptive Battery Management.
- 
--allOf:
--  - $ref: dai-common.yaml#
--  - if:
--      required:
--        - cirrus,amplifier-bpe-enable
--    then:
--      required:
--        - cirrus,amplifier-bpe-response-mode
--        - cirrus,amplifier-bpe-thresholds-microvolt
--        - cirrus,amplifier-bpe-attack-rates
--        - cirrus,amplifier-bpe-hold-times-us
--        - cirrus,amplifier-bpe-release-rates
--    else:
--      properties:
--        cirrus,amplifier-bpe-response-mode: false
--        cirrus,amplifier-bpe-thresholds-microvolt: false
--        cirrus,amplifier-bpe-attenuation-levels-db: false
--        cirrus,amplifier-bpe-attenuation-levels-microvolt: false
--        cirrus,amplifier-bpe-attenuation-levels-microwatt: false
--        cirrus,amplifier-bpe-attack-rates: false
--        cirrus,amplifier-bpe-hold-times-us: false
--        cirrus,amplifier-bpe-release-rates: false
--  - if:
--      properties:
--        cirrus,amplifier-bpe-response-mode:
--          const: 0
--      required:
--        - cirrus,amplifier-bpe-response-mode
--    then:
--      required:
--        - cirrus,amplifier-bpe-attenuation-levels-db
--      properties:
--        cirrus,amplifier-bpe-attenuation-levels-microvolt: false
--        cirrus,amplifier-bpe-attenuation-levels-microwatt: false
--  - if:
--      properties:
--        cirrus,amplifier-bpe-response-mode:
--          const: 1
--      required:
--        - cirrus,amplifier-bpe-response-mode
--    then:
--      required:
--        - cirrus,amplifier-bpe-attenuation-levels-microvolt
--      properties:
--        cirrus,amplifier-bpe-attenuation-levels-db: false
--        cirrus,amplifier-bpe-attenuation-levels-microwatt: false
--  - if:
--      properties:
--        cirrus,amplifier-bpe-response-mode:
--          const: 2
--      required:
--        - cirrus,amplifier-bpe-response-mode
--    then:
--      required:
--        - cirrus,amplifier-bpe-attenuation-levels-microwatt
--      properties:
--        cirrus,amplifier-bpe-attenuation-levels-db: false
--        cirrus,amplifier-bpe-attenuation-levels-microvolt: false
--
--  - if:
--      required:
--        - cirrus,boost-bpe-enable
--    then:
--      required:
--        - cirrus,boost-bpe-output-operating-mode
--        - cirrus,boost-bpe-output-attack-rate
--        - cirrus,boost-bpe-output-release-rate
--        - cirrus,boost-bpe-battery-limits-microamp
--        - cirrus,boost-bpe-battery-thresholds-microvolt
--        - cirrus,boost-bpe-battery-attack-rates
--        - cirrus,boost-bpe-battery-hold-times-us
--        - cirrus,boost-bpe-battery-release-rates
--    else:
--      properties:
--        cirrus,boost-bpe-output-operating-mode: false
--        cirrus,boost-bpe-output-attack-rate: false
--        cirrus,boost-bpe-output-release-rate: false
--        cirrus,boost-bpe-battery-limits-microamp: false
--        cirrus,boost-bpe-battery-thresholds-microvolt: false
--        cirrus,boost-bpe-battery-attack-rates: false
--        cirrus,boost-bpe-battery-hold-times-us: false
--        cirrus,boost-bpe-battery-release-rates: false
--        cirrus,boost-bpe-inductor-release-mode: false
--        cirrus,boost-bpe-inductor-threshold-microamp: false
--        cirrus,boost-bpe-inductor-threshold-deltas-microamp: false
--        cirrus,boost-bpe-inductor-threshold-hysteresis-microamp: false
--        cirrus,boost-bpe-inductor-delay-hysteresis-us: false
--        cirrus,boost-bpe-inductor-delays-ms: false
--        cirrus,boost-bpe-inductor-attack-rates: false
--        cirrus,boost-bpe-inductor-release-rates: false
--  - if:
--      properties:
--        cirrus,boost-bpe-output-operating-mode:
--          const: 0
--      required:
--        - cirrus,boost-bpe-output-operating-mode
--    then:
--      required:
--        - cirrus,boost-bpe-inductor-release-mode
--        - cirrus,boost-bpe-inductor-threshold-microamp
--        - cirrus,boost-bpe-inductor-threshold-deltas-microamp
--        - cirrus,boost-bpe-inductor-threshold-hysteresis-microamp
--        - cirrus,boost-bpe-inductor-delay-hysteresis-us
--        - cirrus,boost-bpe-inductor-delays-ms
--        - cirrus,boost-bpe-inductor-attack-rates
--        - cirrus,boost-bpe-inductor-release-rates
--    else:
--      properties:
--        cirrus,boost-bpe-inductor-release-mode: false
--        cirrus,boost-bpe-inductor-threshold-microamp: false
--        cirrus,boost-bpe-inductor-threshold-deltas-microamp: false
--        cirrus,boost-bpe-inductor-threshold-hysteresis-microamp: false
--        cirrus,boost-bpe-inductor-delay-hysteresis-us: false
--        cirrus,boost-bpe-inductor-delays-ms: false
--        cirrus,boost-bpe-inductor-attack-rates: false
--        cirrus,boost-bpe-inductor-release-rates: false
--
- properties:
-   compatible:
-     enum:
-@@ -434,7 +317,7 @@ properties:
-       maximum: 15
- 
-   cirrus,amplifier-bpe-attenuation-levels-microvolt:
--    description: |
-+    description:
-       Amplifier BPE linear voltage audio output attenuation for levels L3,
-       L2, L1, L0.
-     minItems: 4
-@@ -445,7 +328,7 @@ properties:
-       multipleOf: 31250
- 
-   cirrus,amplifier-bpe-attenuation-levels-microwatt:
--    description: |
-+    description:
-       Amplifier BPE linear power audio output attenuation for levels L3,
-       L2, L1, L0.
-     $ref: /schemas/types.yaml#/definitions/uint32-array
-@@ -457,7 +340,7 @@ properties:
-       multipleOf: 31250
- 
-   cirrus,amplifier-bpe-attack-rates:
--    description: |
-+    description:
-       Amplifier BPE attack rate register codes for levels L3, L2, L1, L0.
-       Code 0 is instantaneous; codes 1 through 8 select progressively
-       slower rates. The physical rate depends on the response mode.
-@@ -471,7 +354,7 @@ properties:
-       maximum: 8
- 
-   cirrus,amplifier-bpe-hold-times-us:
--    description: |
-+    description:
-       Amplifier BPE hold times for levels L3, L2, L1, L0. Infinite hold is
-       unsupported.
-     minItems: 4
-@@ -481,7 +364,7 @@ properties:
-              100000, 250000, 500000, 1000000, 2500000, 5000000, 10000000]
- 
-   cirrus,amplifier-bpe-release-rates:
--    description: |
-+    description:
-       Amplifier BPE release rate register codes for levels L3, L2, L1, L0.
-       Code 0 is instantaneous; codes 1 through 14 select progressively
-       slower rates. The physical rate depends on the response mode.
-@@ -591,6 +474,123 @@ required:
-   - reg
-   - "#sound-dai-cells"
- 
-+allOf:
-+  - $ref: dai-common.yaml#
-+  - if:
-+      required:
-+        - cirrus,amplifier-bpe-enable
-+    then:
-+      required:
-+        - cirrus,amplifier-bpe-response-mode
-+        - cirrus,amplifier-bpe-thresholds-microvolt
-+        - cirrus,amplifier-bpe-attack-rates
-+        - cirrus,amplifier-bpe-hold-times-us
-+        - cirrus,amplifier-bpe-release-rates
-+    else:
-+      properties:
-+        cirrus,amplifier-bpe-response-mode: false
-+        cirrus,amplifier-bpe-thresholds-microvolt: false
-+        cirrus,amplifier-bpe-attenuation-levels-db: false
-+        cirrus,amplifier-bpe-attenuation-levels-microvolt: false
-+        cirrus,amplifier-bpe-attenuation-levels-microwatt: false
-+        cirrus,amplifier-bpe-attack-rates: false
-+        cirrus,amplifier-bpe-hold-times-us: false
-+        cirrus,amplifier-bpe-release-rates: false
-+  - if:
-+      properties:
-+        cirrus,amplifier-bpe-response-mode:
-+          const: 0
-+      required:
-+        - cirrus,amplifier-bpe-response-mode
-+    then:
-+      required:
-+        - cirrus,amplifier-bpe-attenuation-levels-db
-+      properties:
-+        cirrus,amplifier-bpe-attenuation-levels-microvolt: false
-+        cirrus,amplifier-bpe-attenuation-levels-microwatt: false
-+  - if:
-+      properties:
-+        cirrus,amplifier-bpe-response-mode:
-+          const: 1
-+      required:
-+        - cirrus,amplifier-bpe-response-mode
-+    then:
-+      required:
-+        - cirrus,amplifier-bpe-attenuation-levels-microvolt
-+      properties:
-+        cirrus,amplifier-bpe-attenuation-levels-db: false
-+        cirrus,amplifier-bpe-attenuation-levels-microwatt: false
-+  - if:
-+      properties:
-+        cirrus,amplifier-bpe-response-mode:
-+          const: 2
-+      required:
-+        - cirrus,amplifier-bpe-response-mode
-+    then:
-+      required:
-+        - cirrus,amplifier-bpe-attenuation-levels-microwatt
-+      properties:
-+        cirrus,amplifier-bpe-attenuation-levels-db: false
-+        cirrus,amplifier-bpe-attenuation-levels-microvolt: false
-+
-+  - if:
-+      required:
-+        - cirrus,boost-bpe-enable
-+    then:
-+      required:
-+        - cirrus,boost-bpe-output-operating-mode
-+        - cirrus,boost-bpe-output-attack-rate
-+        - cirrus,boost-bpe-output-release-rate
-+        - cirrus,boost-bpe-battery-limits-microamp
-+        - cirrus,boost-bpe-battery-thresholds-microvolt
-+        - cirrus,boost-bpe-battery-attack-rates
-+        - cirrus,boost-bpe-battery-hold-times-us
-+        - cirrus,boost-bpe-battery-release-rates
-+    else:
-+      properties:
-+        cirrus,boost-bpe-output-operating-mode: false
-+        cirrus,boost-bpe-output-attack-rate: false
-+        cirrus,boost-bpe-output-release-rate: false
-+        cirrus,boost-bpe-battery-limits-microamp: false
-+        cirrus,boost-bpe-battery-thresholds-microvolt: false
-+        cirrus,boost-bpe-battery-attack-rates: false
-+        cirrus,boost-bpe-battery-hold-times-us: false
-+        cirrus,boost-bpe-battery-release-rates: false
-+        cirrus,boost-bpe-inductor-release-mode: false
-+        cirrus,boost-bpe-inductor-threshold-microamp: false
-+        cirrus,boost-bpe-inductor-threshold-deltas-microamp: false
-+        cirrus,boost-bpe-inductor-threshold-hysteresis-microamp: false
-+        cirrus,boost-bpe-inductor-delay-hysteresis-us: false
-+        cirrus,boost-bpe-inductor-delays-ms: false
-+        cirrus,boost-bpe-inductor-attack-rates: false
-+        cirrus,boost-bpe-inductor-release-rates: false
-+  - if:
-+      properties:
-+        cirrus,boost-bpe-output-operating-mode:
-+          const: 0
-+      required:
-+        - cirrus,boost-bpe-output-operating-mode
-+    then:
-+      required:
-+        - cirrus,boost-bpe-inductor-release-mode
-+        - cirrus,boost-bpe-inductor-threshold-microamp
-+        - cirrus,boost-bpe-inductor-threshold-deltas-microamp
-+        - cirrus,boost-bpe-inductor-threshold-hysteresis-microamp
-+        - cirrus,boost-bpe-inductor-delay-hysteresis-us
-+        - cirrus,boost-bpe-inductor-delays-ms
-+        - cirrus,boost-bpe-inductor-attack-rates
-+        - cirrus,boost-bpe-inductor-release-rates
-+    else:
-+      properties:
-+        cirrus,boost-bpe-inductor-release-mode: false
-+        cirrus,boost-bpe-inductor-threshold-microamp: false
-+        cirrus,boost-bpe-inductor-threshold-deltas-microamp: false
-+        cirrus,boost-bpe-inductor-threshold-hysteresis-microamp: false
-+        cirrus,boost-bpe-inductor-delay-hysteresis-us: false
-+        cirrus,boost-bpe-inductor-delays-ms: false
-+        cirrus,boost-bpe-inductor-attack-rates: false
-+        cirrus,boost-bpe-inductor-release-rates: false
-+
- unevaluatedProperties: false
- 
- examples:
+Ioana Ciornei (3):
+  dt-bindings: phy: lynx: allow downstream phys on the lane nodes
+  phy: lynx: get the PHYs listed in the lane nodes
+  phy: lynx: forward the phy_ops to the downstream PHYs of a lane
 
----
-base-commit: e2aee84df35aeadadfbcdb750a3921a0cab03e46
-change-id: 20261118-bpe-dt-cleanup-b2e360fdc90f
+ .../devicetree/bindings/phy/fsl,lynx-10g.yaml |  27 ++
+ .../devicetree/bindings/phy/fsl,lynx-28g.yaml |  27 ++
+ drivers/phy/freescale/phy-fsl-lynx-core.c     | 266 +++++++++++++++++-
+ drivers/phy/freescale/phy-fsl-lynx-core.h     |  14 +-
+ 4 files changed, 327 insertions(+), 7 deletions(-)
 
-Best regards,
 -- 
-Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+2.25.1
 
