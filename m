@@ -1,75 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795037052;
-	b=KeVfPOQH0YnOUGhQnzEGcf9uef3xFRgQrkaDrSc+bfA+N5PzQQKQZTHzQMUSgMvPUCbP
-	 9DL0Nf3PTuX43/iOzF2TUqFaz4HOBXqzxuOzYJVq4uHRpjqXP3oK4dzcZE8BQvW1ndqk5
-	 6I6BaUD6GqNJIRsWOQGdXSuweFMAY/PrfYQvoVrXh6Gl4ozEQC9CNwLP7OlU49iF8EL0Z
-	 ceQA8T4fmpy6G5MaTPG8dmF5GuIzOCS+ZJPmuvbBAxIRNF/z/A+ZSTBL3Dg5R/NZlXL1p
-	 V/HdfTuNrw31kWOjn9C8esELnhdvT821lZEqtvqUcNhulTqgLKlWTUj5dmHnLMNpd4w==
+	t=1795037096;
+	b=R6qXesjTy/to1D8bKxMw3Hi+8dJuI8DW1X/So6pDd7FFXHsBGCTrZXqrO5irYtSA8NKf
+	 /SIU9OB/aGnhUBkjPo4WXWBZhFVkredJo4c6R+0WLC5tWyBm3bvrYyTyrRQocbRd4jgcq
+	 vwuFAk4elhrMiRG1ulC3Ficf1YSOUIxeWnhYB+epZ+j1f6dVwHdpw9T6thg+zMIOHh5JF
+	 BOAvTq2WoRYQofZ02N+/ca5/E5ouC2WIa+bIGuz442n6ozZgDaiLQ4Ai52VClkmunR+MZ
+	 wL20sty1xELevMcP//U0uzYoZEu5nnNTUbiu/+FhJbcHGBkXZa3RX0HoQmubWzzQKyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795037052;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795037096;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CBZ4MUDN1V6G6hrYGqXNAHH4lS+mS4YrSWVjq50XU4g=;
-	b=YejS33btBiFn5WQ+cTf/FSCWfRyZHHqEXgIBruAR9Gkj+SYW+skfzY2ofhbZxA4arxAm
-	 kivb0mO123W9I+A5ijuRLb6PB0xJG7Mjk8WGnxj7tfz/0q6CHQZUylnoeJzhrOZlLjZZp
-	 aJU9+PTigsS0O2MNREDFjR//gEWm9H1sDk+HxUEtDSMgd/rrj1dq8uKkdtyyGCkymsYKj
-	 VrOjFArVmr3vBIvBXgfniCDiSRFBk8pLhTYyGatcwj5BS56NLFWQvHlYu59yhu95JDZaM
-	 6rtqf55dKEO8Ko0W/HTOOm9OJvbGuzFl5Sd0fiZ/XdAuXMbRdBni8dQYi842ibQyPkA==
+	bh=HgEH5cLrinHq9eSROFAW3XpxSzq5TUujP250dxuo8uo=;
+	b=NG3/TIc1XXCohVy6bYcQCSeFzsLLzVbwHDW+ZzQaNWQCHlB2cNTJCKp4GihH4iXewK2w
+	 5kXj8SlE8WNjW+tIt3IRytsFg+Y5HV22n2BMHX1kQgBxxnlO5CpvQX5T+RxOGkjKcQHY6
+	 luxuZPzB+Dqp1MwtQvQbE3eGSooEq8vNjvXxIB8k7d4Vr6MpM7GGp/nrADpQPPWQWVjnZ
+	 TssH34QVoBNu/tq3kd6fKT7xA6988hBhF044To1DvkKIUVQkjX4D0ACMHlvq0pTpKdo2W
+	 Z0R502uES1UbD2dX1FeGVMme98Is8gIVqHbxN4ywbyygJNinERGRpesIE/x347QVGiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HTqDh8QD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJvy2Jum;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8A6606A32A;
-	Wed, 18 Nov 2026 21:24:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D528A606A330;
+	Wed, 18 Nov 2026 21:24:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HTqDh8QD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4379C1F000C8;
-	Wed, 18 Nov 2026 21:24:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJvy2Jum
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CADF1F000C5;
+	Wed, 18 Nov 2026 21:24:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795037052;
-	bh=CBZ4MUDN1V6G6hrYGqXNAHH4lS+mS4YrSWVjq50XU4g=;
+	s=k20260515; t=1795037096;
+	bh=HgEH5cLrinHq9eSROFAW3XpxSzq5TUujP250dxuo8uo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HTqDh8QDi3DGGaQUwXFEviTDlrmX2axB052QtdHd8dMFcNwdO4DSGIt+93JSBpLm5
-	 xSt0q3Ru4nrkGdckC03eujeEOS9i2UHgl6ezymWi9Og8k4swawOVYhOXt2ZGxjyBDL
-	 vDLGluqblK/cL60WiCTdwz0v/xo5h9hv01p3WgTK5808ui3xCOp+nIAH//q0WHZPdh
-	 J4fAngvIE+VoVYFw0H7zRxo6JQwaC+Ts1HN+uGnyhyquxE1P1v8ft/70bny45NfsjC
-	 pLH5ad8QyPjRbdpy7T5bbK73w+kZ0AmgqIm2amo/qvXpdklHwxmMpkR29+cbJHXMbh
-	 arwdaAf2N4+iQ==
-Date: Wed, 18 Nov 2026 15:24:09 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>, Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Mahadevan P <mahadevan.p@oss.qualcomm.com>,
-	dri-devel@lists.freedesktop.org,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Kuogee Hsieh <quic_khsieh@quicinc.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	David Airlie <airlied@gmail.com>, devicetree@vger.kernel.org,
-	Maxime Ripard <mripard@kernel.org>, freedreno@lists.freedesktop.org,
-	Bjorn Andersson <andersson@kernel.org>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>, linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 04/11] dt-bindings: display/msm: qcom,sm8650-dpu: Add
- Qualcomm Nord Soc
-Message-ID: <179503704934.1079357.8885119101380287004.robh@kernel.org>
-References: <20261116-nord-drv-dt-v3-0-e3d3bf0e2c49@oss.qualcomm.com>
- <20261116-nord-drv-dt-v3-4-e3d3bf0e2c49@oss.qualcomm.com>
+	b=AJvy2Jumdmfk9Z2YWPaQm8LglDiyY/Dj8MkUU8VGJJfVX3ZPHwDf2TTSZws0TlkNw
+	 xhSZnxH16nOw8TvstdnSfzIkl+5fm2IxLf/Zy9Z40mTkoqxWuT4wF9S+e77WGRXAcg
+	 XmOSnCjT4BdfDGwyQc8EHBSc7AlzjFSf18Cz5z+s53Zvh0h8o0KX/24GkcnuzerEkq
+	 /YtmtUlj8FhsVqPf03i94x7C+xMufhPGR5d4wZmWToHX8qBjlq2//sf643zCQ1WJa/
+	 4UA+T5MKrSjuGzkW17MNi0Yb1tJo13zGVLzSLQY3z9wAJuQU/APlbqRSkj0I8JdF3N
+	 nzFqN+nUeQtwg==
+Date: Wed, 18 Nov 2026 13:24:55 -0800
+From: Drew Fustini <fustini@kernel.org>
+To: Kanak Shilledar <Kanak.Shilledar@axis.com>
+Cc: "alex@ghiti.fr" <alex@ghiti.fr>,
+	"guoren@kernel.org" <guoren@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"palmer@dabbelt.com" <palmer@dabbelt.com>,
+	"pjw@kernel.org" <pjw@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"wefu@redhat.com" <wefu@redhat.com>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/4] riscv: dts: thead: Cleanup with dt-check-style
+Message-ID: <av4Xp-apSyZxSgb8@thelio>
+References: <20261002-fix-dts-th1520-v1-0-9a8810091d47@axis.com>
+ <55208f641473e0714e4509fd5d071343b3a0de98.camel@axis.com>
+ <auPzj_N44iXtrR_3@thelio>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -79,23 +68,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UAw8jnEInJTNEJJi"
+Content-Disposition: inline
+In-Reply-To: <auPzj_N44iXtrR_3@thelio>
+
+
+--UAw8jnEInJTNEJJi
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261116-nord-drv-dt-v3-4-e3d3bf0e2c49@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Oct 29, 2026 at 06:31:59PM -0700, Drew Fustini wrote:
+> On Mon, Oct 26, 2026 at 01:02:22PM +0000, Kanak Shilledar wrote:
+> > On Fri, 2026-10-02 at 15:43 +0200, Kanak Shilledar wrote:
+> > > Fix almost all warnings thrown by dt-check-style after krzk's updates
+> > > to the tool [1] when run under the strict mode. There are still a few
+> > > warnings remaining which are documented in the relevant commit
+> > > message.
+> > > By doing this the files become easier to read and maintain.
+> > >=20
+> > > After this patch series only the following warnings are thrown:
+> > >=20
+> > > 	arch/riscv/boot/dts/thead/th1520.dtsi:221: [child-name-
+> > > order] child node 'oscillator' out of name order
+> > > 	arch/riscv/boot/dts/thead/th1520.dtsi:227: [child-name-
+> > > order] child node '32k-oscillator' out of name order
+> > > 	arch/riscv/boot/dts/thead/th1520.dtsi:248: [property-name]
+> > > property name "snps,wr_osr_lmt" is using discouraged style
+> > > 	arch/riscv/boot/dts/thead/th1520.dtsi:249: [property-name]
+> > > property name "snps,rd_osr_lmt" is using discouraged style
+> > > 	arch/riscv/boot/dts/thead/th1520.dtsi:253: [child-name-
+> > > order] child node 'aon' out of name order
+> > >=20
+> > > These are left for future work as they create a very large diff.
+> > >=20
+> > > [1]
+> > > https://github.com/krzk/linux/tree/b4/dts-style-checker-blank-lines
+> > >=20
+> > > Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
+> > > ---
+> >=20
+> > Friendly ping :)
+>=20
+> Thanks for submitting this series and sorry for the delay. I will apply
+> these to thead-dt-for-next once 7.4-rc1 is released.
+>=20
+> Drew
 
-On Mon, 16 Nov 2026 18:46:43 +0530, Nabige Aala wrote:
-> Add DPU (v12.1) for Qualcomm Nord SoC which has noticeable
-> differences against SM8750 (v12.0):
->  - Added DSPP blocks
->  - Added INTF6-INTF10 and removed INTF1,INTF2 and INF5
->  - Added one more DP
-> 
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
+I have applied all 4 patches to thead-dt-for-next:
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+  [1/4] riscv: dts: thead: beaglev-ahead: Cleanup with dt-check-style
+        https://git.kernel.org/fustini/c/27da5ff6ffb2
+  [2/4] riscv: dts: thead: th1520: Cleanup with dt-check-style
+        https://git.kernel.org/fustini/c/eda5b545ffd3
+  [3/4] riscv: dts: thead: th1520-lichee-module-4a: Cleanup with dt-check-s=
+tyle
+        https://git.kernel.org/fustini/c/0cfb7b8f5073
+  [4/4] riscv: dts: thead: th1520-lichee-pi-4a: Cleanup with dt-check-style
+        https://git.kernel.org/fustini/c/5b1f375d891a
 
+Thanks,
+Drew
+
+--UAw8jnEInJTNEJJi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSy8G7QpEpV9aCf6Lbb7CzD2SixDAUCav4XlAAKCRDb7CzD2Six
+DLNqAP0evKW2cYpDjM5kWGd/p29FC08eDapYN8/RIJfRxhqvlAEA7zVEtHenGSaY
++U+1z7GHgLr+6iXCQvG1iLEGnnoHBgE=
+=ivEq
+-----END PGP SIGNATURE-----
+
+--UAw8jnEInJTNEJJi--
