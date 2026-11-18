@@ -1,57 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795039510;
-	b=Bs/mZwjP4OzxHIA5BnIbwL1eAPEiytDRM965fQQv1oN1EtTScbSQzuBUWwEgL/xCNuT+
-	 io3Y6OkaEEzQPINPoMLOUlcduhvJmw89iOJirwJNvF4ys9lPqwZ8E7Ka7mQUi6pgne4IZ
-	 95rhuVilH0dNMMsoXv1dcoSDDDvn7nq1FUDPQmmO0m2sAmeeqUl3YkvEcd41cS4/jqctZ
-	 RfFyOAVg2CqyfWtNVCAX7jQDmA1wNeNP18xQrv9dp+7E/mh518xpJySKJEunMbzJDjkl9
-	 NmZ1WjGt84iTExcCNlEE2L3wqqrZ3BJTlawHJgKapATEce+3kpEJHUl//MO5uxPu2pw==
+	t=1795039669;
+	b=Xypd1ldJ+rfM8qqQHCrX2tQT6LL1dbSSzACp8LwWbWnIA+xLQPokZhk4S/c1YTZWMHCv
+	 8EGgC2UwIDhYIIAV0b348TMos9EuDDPeWa4NV+jEIuviR+gqJc6Gk4fRhqr9PAd77cHyZ
+	 01KGHfuVtiGSbFPj198TYhYW8bWFCPEAv7JErYdMNN3npwwL6YMcfT8RtxbSyg9PZV6tk
+	 B021XoID9sZSfyBoXi6wLe+oJ7k6YMuN0dbzRZ8Vc4AGMfgVhTQkaUZcm9UFDVeqRYAnD
+	 /u7XA6Cv6t5URGA35hOm0KtQaCfeVj5An8BLFi4SzdsOKCfbxPs2W7JWOVnQK0Zj+jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795039510;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=IIc7twuSMCJv49qBEXa12fA8LCRjjiEJYGjYVZZI3g0=;
-	b=OVvN351sXeXPm75YBTgyKH0NQT7EFa6EhjJlwPb3CUCSgpyZRSun2lcBKfdUF3i5dk1N
-	 q70HxpRELcx1qmB5tCT7UwDZEwrwi9XvFqivSAwACTVg8xpT+9Oi8L1npfnEstXYikVbp
-	 sMa7v2PXtTTVAT92pwJvyicNqKvDOlJ4hEGTirQlv3L4JWOrVEx/+l4nLkZmO2wFlSfRa
-	 FEmcmp2BS1wIvJ2dNbNHwsB5ttD2xs8UnITDv8sZblrODvSws4CGPVHmV1hUbH1GymLzU
-	 NktuDN8jSFXFB3TXpejDKEmlYlBVCDU9eKJONHnInA/wz/usGJKIZUAm8sTHDFdkeNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795039669;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=eGiTz5a4RWzDfrU+6uE44Y9DQD7JN0lrvIFzNORDJ0I=;
+	b=vItdr7cXICNRjPXS766jXmTPLB/Jf0DlMidiPczx4MvNOTce6KghUgPTeaIK0WFOQahS
+	 KzFT8naZ3WmJgkp0LnE687g+IDtvJsH4KC0HZilUrEaZvKSVPE1DpIC92/wZf0KvAHgSS
+	 0dJ4OmIdLCPyNstRt7GxYLh3nS3DioI408L6Y/Lub0I9QsPfUjpLJwvVVmHDL6hHWSDq+
+	 BaD/tdfnGjkorkG0g8HqZxG/BEorpqD6by1v2slXO8POgSF4naZgD10SJNKCZIsCy8Lz0
+	 Q8iUtQleZM6rjgR/leiYV3V5PGZ8scgR6nzdL6WvKpUuezKPkUW6/zrIirqq+uJqJOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4+pnCC3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v8L9PHOr;
+	arc=none smtp.remote-ip=74.125.231.134
+Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78F7606A32C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 22:05:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7A6606A32A
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 22:07:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B7A6606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4+pnCC3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2889E1F000C5;
-	Wed, 18 Nov 2026 22:05:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795039510;
-	bh=IIc7twuSMCJv49qBEXa12fA8LCRjjiEJYGjYVZZI3g0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a4+pnCC3TuAFJpo3h2GSSm3wcQTgfQzuIVfbGlJ0vrmmEl/30RoX7w/MF1p36uYAA
-	 j51sW1MiwaBfd8F4qhlBIqCeXmD/JPfSaii2iXvgQPoDf8j+pYGs/HJtcT/JVWc2ms
-	 0xmWVHiD/nX1zF4GXHsRxR8NrL3B+8/DJATDLXR+C2O2PZMLtNMpEv0JAL/D5w27gH
-	 20P0ife+RKf3NI5WkvmY6gWXR+cpmjNo2AH/K/yGaJdFKvHco4XS7fJJNnzkt7FFgG
-	 eutNRV4U1VrGqQ7mUf+09HuHqbPm8aXKquUV07HYM3FwwgHoUo3fhn2fvaaVVE9iOT
-	 5pCDxCPcihjDg==
-Message-ID: <sashiko-outbox-222076@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] drm/bridge: synopsys: dw-hdmi-qp: Attach the next
- bridge in the chain
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joachim Eastwood" <joachim.eastwood@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-dw-hdmi-qp-bridge_attach-v1-2-e370920bc7f3@gmail.com>
-References: <20261118-dw-hdmi-qp-bridge_attach-v1-0-e370920bc7f3@gmail.com>
- <20261118-dw-hdmi-qp-bridge_attach-v1-2-e370920bc7f3@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 22:05:09 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v8L9PHOr
+Received: by mail-oo2-f6.google.com with SMTP id 46e09a7af769-862990b7bbbso487107a34.0
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 14:07:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795039668; x=1795644468; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eGiTz5a4RWzDfrU+6uE44Y9DQD7JN0lrvIFzNORDJ0I=;
+        b=v8L9PHOrcf6EifRvOUzF1B/yU+AHRT/pt16rArYrVplOhD1uNp54Hi2sayarkYNx4y
+         SGKwZwsGeY3hymNTokhMwV0Is8nFmSWK/C/srm39x4AXDlVBGrEtzfqhphZpiqG4cyNh
+         OPhlfAsx3SNGvrgsWDjYaXdgOd1mdB/TkK5PrT6ZktQ446jnF/xC/82kilWjejCQ5emf
+         LzJa/Exf7jivcmHArr7VqwzQdV1ODOubkngAVZlJCsPV29HLCt0BcCH7Hj97N6+6YhWx
+         vx6vhtZhkipbMCTd9j0Bu/Kr6GW85nw+GLNcCm2oxh/y8+g+KEfcdwvHewCfCCfkTQ+G
+         uB7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795039668; x=1795644468;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eGiTz5a4RWzDfrU+6uE44Y9DQD7JN0lrvIFzNORDJ0I=;
+        b=wWlgWSH0WQ2rjj1H1QMuogtewFV7lk/lMeevVS3Aj6Sx55Ba1onGMOvJbE3hvmP5i0
+         3r/aYvgXskXRv3PK1f8CgyL7ER8jxK7uanPEh2uu1vA9Oji3y0d0l5NsG2Q1pVmtXDcI
+         t9m2kO+L/0xLu01gQR+I7pHLegHx39r1MQSF5PQn4JW166LhXaLRSvpjabLwhuqFOQO0
+         XFjA+dHlqjBvUqyODSpGDBHwltMJeUrk8qGDfcLx176C2whjGgVON4b//Uqkk4u/5pBI
+         vQFX/Wp8nOzpKP+/V798bCD3SnXy/dWn7j1LbHTLbC/a5WzZbZsz6O94yhOl+4kdElXo
+         Fk5A==
+X-Forwarded-Encrypted: i=1; AL+hErHGU48H3mVMmbHD+wXU3Y8yFxreClMo06uFUrTq02/60E/C0Hx1AcLfobGvX9b20T9ao4TZgnpmolDW@vger.kernel.org
+X-Gm-Message-State: APuU4Z+JGwnxy9XToweB8+fDZq4Nt+l6nzBkIvtuMNUhguHMhgq8GCqJ
+	yrs2pay6D9sWaSIWuItVIoHJfsVDMVaEtkwYeeXPCSTAOTRfHT5IBDqi
+X-Gm-Gg: AYBFou2rYGzhPMR5XhYTToBMcDKDAF5CCGl/FyQRRBWE4d4JDuuZ5g50X0+Tn7cc6EK
+	ZaPEKYa1fqg7AWYATEhfI6/ieYDAcsri5EM+DSCv1FMsu6LjCiVlYynI17/OuvpXYZqELyiENBd
+	4CiF15yBHL67NbUOJAPBeGpKkD3grkuWzupodV1ZLjBQDuqpeEUuYFKk945w5shuYg/HXHE9Hzc
+	t3/wMgnjD0ZRqvVwxSkQyPY5mViJhNBDo+IELs79maCkLxOD1l/bKv3XsnnJraGJF+8ks/sqKtK
+	mjDXQ6BOE7JeeGmn0vQOOgODfn6FJpObMEg0VMnZ+Xu8RxhxFzDRSLJOLKoJyvyCd/bcWHtLts9
+	fqIRrgnO9Wm7VkLZLoaRXTrGFjSbSqiWprM8EtMT/pztRHI8u9s7EfnJC1F9HrXoNdSXsr7mIBA
+	+lYDq7Z/1QiFItpWYQJyXlhj5atAtVnt/GWZe3HD14zTFPTxiMx58agkHdvOgiZHjM5vgkrdK4U
+	S/xubXT/BivDtxlgGIx1RHLOgRIhMHzih+4be34BGPb7x7aytLBY7fHWsdPlEnibb/+nF07mWlY
+	uZpmahaB7DezEmgBI4WJMnBAyJcjTV9dPTOE7OQ853wAnvw/rz5VN1ytolRafPDnNM+2Llg4XOF
+	VpSBsEnYssZ4vzXQSZJrtP9EcKGLsy/vtFbaKU9edQA==
+X-Received: by 2002:a05:6830:3495:b0:829:9992:20f0 with SMTP id 46e09a7af769-862f08c9ce4mr4131980a34.28.1795039667975;
+        Wed, 18 Nov 2026 14:07:47 -0800 (PST)
+Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862f021aae9sm3024029a34.18.2026.11.18.14.07.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2026 14:07:47 -0800 (PST)
+Message-ID: <2fb4e011-8ee8-408b-8684-f3bb8e1ac624@gmail.com>
+Date: Wed, 18 Nov 2026 16:07:45 -0600
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,67 +92,44 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/2] iio: adc: add mt6397 PMIC AUXADC support
+To: Jonathan Cameron <jic23@kernel.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Roman Vivchar <rva333@protonmail.com>,
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+References: <20261025-rbrue-suez-upstreaming-mt6397-auxadc-v5-0-5c3c7a5a1851@gmail.com>
+ <89c8cadb-0ccb-4aac-9b95-89f355beb24a@collabora.com>
+ <60eeaaf9-57db-4ca7-b4f5-bdec111dcdbb@collabora.com>
+ <4c64aa52-2b75-427e-8f26-c2ef7fc5b822@gmail.com>
+ <20261118215144.301c2467@jic23-hlaptop>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <20261118215144.301c2467@jic23-hlaptop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/bridge: dw-hdmi-qp: missing DRM_DISPLAY_CONNECTOR Kconfig
-  select
---
+On 11/18/26 3:51 PM, Jonathan Cameron wrote:
+> That's indeed a common solution to cases where a binding header
+> is involved. So I'd do this - then chase with a patch next cycle
+> to use the define.
+>
+> J
 
-commit 2fdd511539969260584719b2d1604f9b1b9ed26e
-Author: Joachim Eastwood <joachim.eastwood@gmail.com>
+I jumped the gun a bit and sent out v3 of the suez dts earlier today 
+with the proposed change [1]. Should be all ready for AngeloGioacchino.
 
-drm/bridge: synopsys: dw-hdmi-qp: Attach the next bridge in the chain
+[1] 
+https://lore.kernel.org/all/20261118-rbrue-suez-upstreaming-amazon-suez-dts-v3-1-c1a8b0febf35@gmail.com/
 
-This commit implements drm_bridge_funcs.attach for dw-hdmi-qp to look up and
-attach the next bridge connected to output port 1.
-
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/d=
-rm/bridge/synopsys/dw-hdmi-qp.c
-> index eed249aca1e23..200229e5d9afc 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-[ ... ]
-> @@ -1024,7 +1028,33 @@ static void dw_hdmi_qp_bridge_hpd_disable(struct d=
-rm_bridge *bridge)
->  		hdmi->phy.ops->disable_hpd(hdmi, hdmi->phy.data);
->  }
-> =20
-> +static int dw_hdmi_qp_bridge_attach(struct drm_bridge *bridge,
-> +				    struct drm_encoder *encoder,
-> +				    enum drm_bridge_attach_flags flags)
-> +{
-> +	struct dw_hdmi_qp *hdmi =3D bridge->driver_private;
-> +	struct device_node *remote __free(device_node) =3D
-> +		of_graph_get_remote_node(hdmi->dev->of_node,
-> +					 DW_HDMI_QP_OUTPUT_PORT, -1);
-> +
-> +	/*
-> +	 * The HDMI connector node is optional. When present, chain its bridge
-> +	 * so that properties such as ddc-i2c-bus, hpd-gpios and supplies are
-> +	 * honoured by the DRM bridge connector.
-> +	 */
-> +	if (!remote)
-> +		return 0;
-> +
-> +	struct drm_bridge *next_bridge __free(drm_bridge_put) =3D
-> +		of_drm_find_and_get_bridge(remote);
-> +	if (!next_bridge)
-> +		return -EPROBE_DEFER;
-
-[Severity: High]
-Should DRM_DW_HDMI_QP (or ROCKCHIP_DW_HDMI_QP) select DRM_DISPLAY_CONNECTOR
-in Kconfig?
-
-All in-tree RK3576 and RK3588 board device trees wire port 1 to an
-"hdmi-connector" node, which is handled by display-connector.c under
-CONFIG_DRM_DISPLAY_CONNECTOR.  Neither DRM_DW_HDMI_QP nor
-ROCKCHIP_DW_HDMI_QP selects DRM_DISPLAY_CONNECTOR, so configs that previous=
-ly
-worked without it will now have of_drm_find_and_get_bridge() return NULL and
-defer probe forever, preventing rockchip_drm_bind() from binding the display
-subsystem.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-dw-hdmi-qp=
--bridge_attach-v1-0-e370920bc7f3@gmail.com?part=3D2
+Thanks,
+Ryan Brue
