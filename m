@@ -1,57 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794987645;
-	b=WsmgZCIG7TQ9TOkGR3dU9kw7SHdrrl8RGIbcjDwaiNyVprNIZDL2Vjcxghp6f3gWL8mh
-	 +6mxhb7RX2Y1T0QcJhV/3af/FI3HG4ZTtSdrwP2TyG337eTX4OMAbghROKdqNwkel2QRH
-	 5j7nJko0vWZY4jsudDdF8lcA0irXjQ7SWDmcKL/sH85sHpxcOvIlBwqp9cRPp1OqqKVDC
-	 USLUAh8YCgRjDLtlFZipGlFg9yMoCOaElJ6F271yfECDAMbIOMOJnvwx9daHXzVqUZxZv
-	 OXX2LkmUlGePckTNOR8TXbIhqd/cjny3gDEpLcw711fl+prwaV5/Z45sPMwgtQce+gg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794987645;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=fwcTKS4wj4k6U6GuJD2rx7VTQUh26juZW+bkpxx6fFc=;
-	b=ocJkpSgsOpDEJyLEZhKI62BoB9cuKeKfz27kZvu3bKCA9VTPvEoo3a2Q7o91/xH8Bgre
-	 YGhnotmrsFbQnAsaMWlUoRnz9XiPi9dUpCC6G8Z1Ov/a9xRYj4+u+VgdUCmLxCKVCewjk
-	 A3ihwh6NWTnlgvIuaOSR2qDcPliuJg/te9J7+D4HbLCSKlXbuuBe979/jIxKuTRARkLl3
-	 YqrblA6vALV8WiA6WFwN2kTQxpIEYx3SPciAeWcKSpjsQT8Udcl751Lq3Ha6GazDFYfX8
-	 tmykUBU5Bu5qTyEtSKyqEGgSeJhXzU9qm05MyNaTC5AOAd0oh/fShIorXBLPVR/rWkg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGk1klND;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794987709;
+	b=YPjSH59DtlNeHcKjsEmenzzBbmXdF8oRDpIM3uXEEOjJfmrUB53lsygNs9RRm+hnpZks
+	 0R4Aq1ak2Agfgj11Ws4oBE+5GIfVWQZQMgcS3nyDRucQ+274rKIbm3sE4O7CwtQKfWTLf
+	 1Ns65Y8PousPxEPZmScOPL6y8+Skorp3Ll+wXj3LVW1IbpcFjGWg1VzTbFf2SYi8w6U5+
+	 dg8qDlzoAomVu9mvOf0yWrohBFF50fwm1RNEy1VA0mGkht+UfcpEHiiGpuDMWxaWRbGss
+	 626Wae9y8SPwQJbHQSfXBjVNmPAYbp467ImwWrhjNkj7PML4ri+ffgLBbguT97nY09g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794987709;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=cx0h6P4eSZEMJlu8wdQOhAp42YWc1sSb+F3BkHlnJEM=;
+	b=YKRlVBRiX3gRVaq6cQCX5tj+eKA/zhry7u1P6RL3RujBy8MOSmwcYHPiNJaYjxIACm91
+	 XLPTQAcZaEZXl4Y3vTZ7NQhuvFHKITJMx+PQnYIAeBnmpDczC9siVccfbLNMnjT04G1ur
+	 eT+lwdkY6yHeo6kng5lviebHnLefVAMReafx+ZITvaASkzruYdIBpYQ924heCOJUf+bNT
+	 WjkgTASI7klzF394lKBBWozBl7GlYZLmY4itLRdk4wWLKt0cwwMPFGV36kbb8+6an+heX
+	 /u6nNaS+fpQKBdHZDHgtLoJYxGJeZg4hELN0WckcoVLKQoXbb6isrInv372NFNSOKEA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=ovLTFZOH;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=CVsXwi7g;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.171
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1FC606A31C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:40:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60791606A31C;
+	Wed, 18 Nov 2026 07:41:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60791606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGk1klND
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 749F61F000C4;
-	Wed, 18 Nov 2026 07:40:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794987644;
-	bh=fwcTKS4wj4k6U6GuJD2rx7VTQUh26juZW+bkpxx6fFc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KGk1klNDRPdTEvZetYbAqPP9OvCM8p7hO+NiZwDYQqPSa2yFejbupZwhp5N+O9cL8
-	 AqGJJCXwCxX7U4AYNTZb/zT0MEaqFRAMMkbozOGVQ9030AbwUGTUH+ZOIl9RI0EDgA
-	 bt0Krb4hHXGSVuEr9XI6OMAkdZJJICeSm0mk+dfYo3jLXjYBrGZ9AR12TLJOGHaqb+
-	 BSvJHSJ1x2z7QfruiWazNJjBX9346Nih4xs9s9RUvYDe0j0TQLhfxudmmwRaut/7mn
-	 SoPKuVnJZcQlFNeNcGXSuVuok95IRFCtbA0G4l4LrVPt+vNQFbRsjRGUdWaWjsb1vL
-	 n7a8sgb+oK+aA==
-Message-ID: <sashiko-outbox-220323@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 2/2] i2c: amlogic: Add Amlogic A9 I2C controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261118-a9-i2c-v11-2-68a3e79ff43a@amlogic.com>
-References: <20261118-a9-i2c-v11-0-68a3e79ff43a@amlogic.com>
- <20261118-a9-i2c-v11-2-68a3e79ff43a@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 07:40:43 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=ovLTFZOH;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=CVsXwi7g
+ARC-Seal: i=1; a=rsa-sha256; t=1794987704; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=oF574erElDvYo+XV5akTSKOcTKK2teDlnx8LgpNFETwcbcKfCc9eBr206ETIMZC4Gy
+    91Ndt1WRZLuF60eNuK4WSogNujPmMBds+hR8mSgVpK57PPJGWOl9F+mFqq/gL7/pJXO9
+    5DrHgQnZZZ73wZ49ry6967OkttKi8VJVA0O0nb5kr51onqxq/8Dvr6GC37H9O+Dn2Qj4
+    cIdRNIHVeFklRLJ6e09om18k1bWpmvEipmAj6xVVTk4CKmTOGYiKWkchN96uHw9PyA2n
+    FxaGxI8li3YOvxvJnjWflqv6iQvKKXyc0KQFAmH9Gm0tFi9L+RBoGHr7bN668c/Fq5MV
+    1Lyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794987704;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=cx0h6P4eSZEMJlu8wdQOhAp42YWc1sSb+F3BkHlnJEM=;
+    b=e7iISQelqiCJWN0f3VY8AK63Vu2hpbri0VANbTtTjICEjJ+sh1sVzHE4voezgbgNc1
+    J0I1D/v51K8aHZnHJNiNy/mX4S2SyTcTbh7psnAe+yAwVgUZHjdlD1zVnhV3FuGrIuYD
+    x5cF1U5SiNPLfNtWsewPmcoDuxqZmypDvql+CHvxuoAnMEIl1a3lSjB9JOnBed4Cwpse
+    eiKq5kWWrprkyL/cEIYV8NTiiyIoCK93GCIsoXU5HgIaIc65hrEhim5+wTLPHN63c2zm
+    0pzSJHLWKTFTm7BmrLOhO9NUuaOJbzTHFWA0r2irOaBk6l7QCAGSJ39srtHNIxA+vYQY
+    DLSA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794987704;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=cx0h6P4eSZEMJlu8wdQOhAp42YWc1sSb+F3BkHlnJEM=;
+    b=ovLTFZOHtI22ZrxbE8XoaL2qm3qbDbHZurpLlF4hKJjVm5N4GOUF8omAIzKSeXAkpc
+    vEpRBc6DU/zXXFJKVgy2o6kow/ZXE733KZQ3VOBQCztxeST4Kqx1biVt1ELMCgLO2g2q
+    r4G48Rd+16EAqHQIit9bewp2cQdrYBMmROYXw7OGBDfqy57UbrMPh6Co0Anictd4S9aO
+    3R1VGe3jFe/WvHPIFiJKBY5tMIrZNbQk+mPcbenp1sk+7/2kc32+nbRj4ufwDDV8jtR0
+    USF6H2757jaYaI+iAADjXHCOUBmJB4DctBAzx4HG1lkQp2VV/w0YErvZ/kVhvRX57rN7
+    I5Mg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794987704;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=cx0h6P4eSZEMJlu8wdQOhAp42YWc1sSb+F3BkHlnJEM=;
+    b=CVsXwi7gl8n6Un3oxgSDgU9kuQVym1NpOEaKjBxCLWOuJEiwEIgdFitJUrNvnh/C27
+    onq84Nl44KK91695zoCQ==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2Jpcm8iNZLZ2IBizV+3wFb55dglUeZzcEX9J"
+Received: from iMac.fritz.box
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22AI7fiaVa
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Wed, 18 Nov 2026 08:41:44 +0100 (CET)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	letux-kernel@openphoenux.org,
+	"H. Nikolaus Schaller" <hns@goldelico.com>
+Subject: [PATCH v3 4/7] pinctrl: ingenic: Add X2600 register and GPIO IRQ support
+Date: Wed, 18 Nov 2026 08:41:38 +0100
+Message-ID: <ccaaca07b0b6764ce65ad746bfeb9efd362c3bde.1794987700.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1794987700.git.hns@goldelico.com>
+References: <cover.1794987700.git.hns@goldelico.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,170 +110,118 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] i2c: amlogic-a9: transfer started before IRQ setup in
-  aml_i2c_do_start()
-- [Medium] i2c: amlogic-a9: stale irq_state and edge IRQ miss in
-  aml_i2c_irq()
---
+Support the X2600 GPIO register layout with a 0x1000 bank stride,
+per-port shadow registers and load registers. The GPIO interrupt
+acknowledgement uses the existing JZ4770 flag-clear register path.
 
-commit f0387049df50978b17672f0e9a9fea887c6cbc34
-Author: Junyi Zhao <junyi.zhao@amlogic.com>
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+---
+ drivers/pinctrl/pinctrl-ingenic.c | 50 ++++++++++++++++++++++++-------
+ 1 file changed, 40 insertions(+), 10 deletions(-)
 
-i2c: amlogic: Add Amlogic A9 I2C controller driver
+diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-ingenic.c
+index dc5d38c16e18d..4f1b096a3ac8e 100644
+--- a/drivers/pinctrl/pinctrl-ingenic.c
++++ b/drivers/pinctrl/pinctrl-ingenic.c
+@@ -70,6 +70,9 @@
+ #define X2000_GPIO_SR				0xd0
+ #define X2000_GPIO_SMT				0xe0
+ 
++#define X2600_GPIO_SHADOW_OFFSET		0x800
++#define X2600_GPIO_PAGLD			(X2600_GPIO_SHADOW_OFFSET + 0xf0)
++
+ #define REG_SET(x)					((x) + 0x4)
+ #define REG_CLEAR(x)				((x) + 0x8)
+ 
+@@ -114,6 +117,7 @@ enum jz_version {
+ 	ID_X1600,
+ 	ID_X2000,
+ 	ID_X2100,
++	ID_X2600,
+ };
+ 
+ struct ingenic_chip_info {
+@@ -164,7 +168,8 @@ static const unsigned long enabled_socs =
+ 	IS_ENABLED(CONFIG_MACH_X1600) << ID_X1600 |
+ 	IS_ENABLED(CONFIG_MACH_X1830) << ID_X1830 |
+ 	IS_ENABLED(CONFIG_MACH_X2000) << ID_X2000 |
+-	IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100;
++	IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100 |
++	IS_ENABLED(CONFIG_MACH_X2600) << ID_X2600;
+ 
+ static bool
+ is_soc(const struct ingenic_pinctrl *jzpc, enum jz_version version)
+@@ -3549,15 +3554,21 @@ static void ingenic_gpio_shadow_set_bit(struct ingenic_gpio_chip *jzgc,
+ 	else
+ 		reg = REG_CLEAR(reg);
+ 
+-	regmap_write(jzgc->jzpc->map, REG_PZ_BASE(
+-			jzgc->jzpc->info->reg_offset) + reg, BIT(offset));
++	if (is_soc_or_above(jzgc->jzpc, ID_X2600))
++		regmap_write(jzgc->jzpc->map, jzgc->reg_base + X2600_GPIO_SHADOW_OFFSET + reg,
++			     BIT(offset));
++	else
++		regmap_write(jzgc->jzpc->map, REG_PZ_BASE(jzgc->jzpc->info->reg_offset) + reg,
++			     BIT(offset));
+ }
+ 
+ static void ingenic_gpio_shadow_set_bit_load(struct ingenic_gpio_chip *jzgc)
+ {
+-	regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(
+-			jzgc->jzpc->info->reg_offset),
+-			jzgc->gc.base / PINS_PER_GPIO_CHIP);
++	if (is_soc_or_above(jzgc->jzpc, ID_X2600))
++		regmap_write(jzgc->jzpc->map, jzgc->reg_base + X2600_GPIO_PAGLD, 1);
++	else
++		regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(jzgc->jzpc->info->reg_offset),
++			     jzgc->gc.base / PINS_PER_GPIO_CHIP);
+ }
+ 
+ static void jz4730_gpio_set_bits(struct ingenic_gpio_chip *jzgc,
+@@ -3856,16 +3867,35 @@ static inline void ingenic_shadow_config_pin(struct ingenic_pinctrl *jzpc,
+ 		unsigned int pin, u8 reg, bool set)
+ {
+ 	unsigned int idx = pin % PINS_PER_GPIO_CHIP;
++	unsigned int offt = pin / PINS_PER_GPIO_CHIP;
++
++	if (set)
++		reg = REG_SET(reg);
++	else
++		reg = REG_CLEAR(reg);
+ 
+-	regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) +
+-			(set ? REG_SET(reg) : REG_CLEAR(reg)), BIT(idx));
++	if (is_soc_or_above(jzpc, ID_X2600)) {
++		u32 target_reg = (offt * jzpc->info->reg_offset) + X2600_GPIO_SHADOW_OFFSET + reg;
++
++		regmap_write(jzpc->map, target_reg, BIT(idx));
++	} else {
++		regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) + reg, BIT(idx));
++	}
+ }
+ 
+ static inline void ingenic_shadow_config_pin_load(struct ingenic_pinctrl *jzpc,
+ 		unsigned int pin)
+ {
+-	regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info->reg_offset),
+-			pin / PINS_PER_GPIO_CHIP);
++	unsigned int offt = pin / PINS_PER_GPIO_CHIP;
++
++	if (is_soc_or_above(jzpc, ID_X2600)) {
++		u32 target_load_reg = (offt * jzpc->info->reg_offset) + X2600_GPIO_PAGLD;
++
++		regmap_write(jzpc->map, target_load_reg, 1);
++	} else {
++		regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info->reg_offset),
++			     pin / PINS_PER_GPIO_CHIP);
++	}
+ }
+ 
+ static inline void jz4730_config_pin_function(struct ingenic_pinctrl *jzpc,
+-- 
+2.56.0
 
-This commit adds a driver for the I2C controller on Amlogic A9 SoCs along
-with Kconfig, Makefile, and MAINTAINERS entries.
-
-> diff --git a/drivers/i2c/busses/i2c-amlogic-a9.c b/drivers/i2c/busses/i2c=
--amlogic-a9.c
-> new file mode 100644
-> index 0000000000000..db1a081b2a148
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-amlogic-a9.c
-> @@ -0,0 +1,428 @@
-
-[ ... ]
-
-> +static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
-> +{
-> +	struct aml_i2c *i2c =3D dev_id;
-> +	u8 *buf =3D NULL;
-> +	u32 rd_len, i;
-> +	u32 rd_val;
-> +	u32 irq_state;
-> +
-> +	guard(spinlock)(&i2c->lock);
-> +	irq_state =3D readl(i2c->regs + REG_CFG_IRQ_STATE);
-> +	if (i2c->state =3D=3D A9_STATE_IDLE) {
-> +		dev_warn(i2c->dev, "i2c irq triggered abnormally, irq_state:0x%x,irq_e=
-n:0x%x\n",
-> +			 irq_state, readl(i2c->regs + REG_CFG_IRQ_ENABLE));
-> +		goto irq_trans_out;
-> +	}
-> +
-> +	if (irq_state & A9_TRANS_ERROR) {
-> +		i2c->error =3D -ENXIO;
-> +		goto complete_irq_out;
-> +	}
-> +
-> +	switch (i2c->state) {
-> +	case A9_STATE_READ:
-> +		buf =3D i2c->msg->buf;
-> +		rd_len =3D min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
-> +		for (i =3D 0; i < rd_len; i++) {
-> +			rd_val =3D readl(i2c->regs + REG_CFG_RX);
-> +			buf[i2c->pos++] =3D rd_val & TX_RX_DATA;
-> +		}
-> +		/* Rx must clear thresh after read fifo */
-> +		clear_irq_status(i2c, A9_RX_THRESH_READ);
-> +		break;
-> +	case A9_STATE_WRITE:
-> +		aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_HALF);
-> +		if (i2c->pos =3D=3D i2c->msg->len)
-> +			aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_TX_THRESH_WRITE, 0);
-> +		/* Tx must clear thresh after write fifo */
-> +		clear_irq_status(i2c, A9_TX_THRESH_WRITE);
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	if (!(irq_state & A9_TRANS_DONE) ||
-> +	    (i2c->state =3D=3D A9_STATE_READ && i2c->pos < i2c->msg->len))
-> +		return IRQ_HANDLED;
-
-[Severity: Medium]
-Can multi-chunk transfers miss the completion interrupt and time out when
-A9_PHY_DONE asserts before clear_irq_status() clears the threshold bit?
-
-The devicetree binding specifies a rising-edge interrupt
-(IRQ_TYPE_EDGE_RISING), which needs the controller's interrupt output to
-drop to 0 and transition back to 1 to latch a new interrupt in the GIC:
-
-Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml:
-    interrupts =3D <0 164 1>;
-
-On a 64-byte read, the 32nd byte of the second chunk asserts
-A9_RX_THRESH_READ as soon as it enters the RX FIFO, before the NACK and
-STOP condition finish on the bus.  If A9_PHY_DONE asserts in
-REG_CFG_IRQ_STATE while the loop is reading the 32 bytes from REG_CFG_RX,
-clearing A9_RX_THRESH_READ afterward leaves the interrupt line
-continuously high without generating a new rising edge.  Because
-irq_state was sampled only once at entry, the check against A9_TRANS_DONE
-sees the stale value without A9_PHY_DONE and returns IRQ_HANDLED without
-completing i2c->done, hanging wait_for_completion_timeout() for 500 ms.
-
-Similarly, if both A9_RX_THRESH_READ and A9_PHY_DONE are already set at
-entry when more than 32 bytes remain to be read, aml_i2c_irq() reads only
-32 bytes, clears only A9_RX_THRESH_READ, and returns early because
-i2c->pos < i2c->msg->len.  With A9_PHY_DONE still asserted and fewer than
-32 tail bytes left in the FIFO, the interrupt output stays high and no
-further edge interrupt fires to drain the rest of the message.
-
-> +complete_irq_out:
-> +	i2c->state =3D A9_STATE_IDLE;
-> +	reset_fifo_pos(i2c);
-> +	aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_RX_THRESH_READ | A9_TX_THR=
-ESH_WRITE, 0);
-> +	complete(&i2c->done);
-> +irq_trans_out:
-> +	clear_irq_status(i2c, IRQ_ALL_MASK);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static void aml_i2c_do_start(struct aml_i2c *i2c, struct i2c_msg *msg)
-> +{
-> +	unsigned int reg_val;
-> +	unsigned int trans_len;
-> +
-> +	trans_len =3D msg->len;
-> +	reg_val =3D (unsigned int)(((msg->addr & 0x7f) << START_SADDR_SHIFT) |
-> +				((msg->flags & I2C_M_RD) ? START_READ : 0) |
-> +				((trans_len & 0xfff) << START_LEN_SHIFT) | START_START);
-> +	aml_i2c_set_mask(i2c, REG_CFG_START,
-> +			 START_START | START_SLAVE_ADDR | START_READ | START_LEN, reg_val);
-> +	clear_irq_status(i2c, IRQ_ALL_MASK);
-> +	/* enable thresh mode */
-> +	if (trans_len > A9_I2C_FIFO_DEPTH) {
-> +		reg_val =3D (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH=
-_WRITE;
-> +		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
-> +				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
-> +	}
-> +}
-
-[Severity: Medium]
-Can clear_irq_status(i2c, IRQ_ALL_MASK) wipe out status bits for the
-transfer that START_START just launched?
-
-aml_i2c_do_start() writes START_START to REG_CFG_START while
-A9_ENABLE_IRQ_BIT (A9_NCK_ERROR | A9_PHY_DONE) is already enabled in
-REG_CFG_IRQ_ENABLE, and only then clears IRQ_ALL_MASK and enables the
-threshold interrupts.  If the CPU is delayed between those MMIO writes
-(for example under CONFIG_PREEMPT_RT or vCPU preemption) and an address
-NACK or short transfer completes in the meantime:
-
-aml_i2c_xfer_msg()
-  aml_i2c_do_start()
-    aml_i2c_set_mask(..., REG_CFG_START, ..., START_START)
-    /* hardware finishes or NACKs, asserting A9_NCK_ERROR / A9_PHY_DONE */
-    clear_irq_status(i2c, IRQ_ALL_MASK)  <-- clears new status bits
-  unlock(&i2c->lock)
-  <hardirq>
-    aml_i2c_irq()
-      irq_state =3D readl(... + REG_CFG_IRQ_STATE)  /* reads 0 */
-      /* misses A9_TRANS_ERROR, reads garbage from REG_CFG_RX */
-      if (!(irq_state & A9_TRANS_DONE) || ...)
-        return IRQ_HANDLED;  <-- never completes i2c->done
-
-wait_for_completion_timeout() then stalls for 500 ms and fails with
--ETIMEDOUT.  Clearing REG_CFG_IRQ_STATE and enabling the threshold
-interrupts before setting START_START avoids this race.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-a9-i2c-v11=
--0-68a3e79ff43a@amlogic.com?part=3D2
