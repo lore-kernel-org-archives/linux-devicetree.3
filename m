@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794987759;
-	b=ZdK79MLIzuO8HTnq4sy0AI/DVnEesi2NCUdV5v5ctzp7Ui6Rw/tFeRSRXkrAdih/OyOZ
-	 /uLf1UI3gTJ5oM/hEHvUuVmp1T2W7XVXmXQxr9wrBgp/h7hiWI7OKUKf2E4OmJ5t1MyTt
-	 YgU9CE979Aoo8ADeQ9gxXg9Kn7GmCQvNI5NEbFtwKX0keYhDzzPE+n0MCa26uVG7jFBuc
-	 RkUVrGb1Z7GzbrvjshPTVdc/DpjkHgGzA2yMTmHrTydGNzdRkXZqGXZtztiM2eMW5cuZ/
-	 472f0DLISC9wASemcC4MJT3CSsgfQelY7O2sqypMIHyXvW1iI4DqEPKa4Infl6gBuVg==
+	t=1794987756;
+	b=gM7CEaYi2SicQS0NZdp9x/s3Tm8b2lCLZ2RszvOdjkRfiS7JUpDXlTCa8MFDQTnP/F5l
+	 OY8FvG3rY+GIh1DXsvkBrdmyIQPXIeybU7wUWsqfJfD45FjPXCUFL83Mk/CeIAjCdXq6A
+	 fPaMh7kNn4DysC9IBn5EIMdzQTQ7QwJuX9gOdmS1Es3Cz9eSWZCeLjCGSk+2HNzsVJxx7
+	 PQwbw6nAwJoh5LVolxnHmkBBN3gGHQz6ziyOlpb2dLu6eCtFNLYCkhY4oQTW1r0F85ouZ
+	 e9SdQMs17us2B2qNHNYeBe0Oc+wVVLNQ3nQ1Wy/zXHGu3sfUJiJ6NR2nWVQsn9eTuuA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794987759;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dN2xFBIGNTVsl1BulHwHUtipSsFhleySXEFXl5TnrCk=;
-	b=Qo8BoZaHsZLsj8D9FKMQ7yHnit59K5uY8lUVqLJb1SiWzTUbV/EjPJHNda81IbrDSFZs
-	 gsKyLC1EOZatL++Wha8NhazpHAyHX/PpBCyOPFmWraowNt5LdFLUu7eYZPJHV8NY5aJOf
-	 i6DQg+aPb3YwX2eEXWl0EAAyU43CmgwOC3//P56mniwUvfGED7tJsf9TjWs6Oq1m+DR2N
-	 IYwkGG0xPzqhG1+ZlnZ73Qi6frO0I1sPBteZ5BGzioCz1xcMu6D8DdYqtkeIs7tmd0WQs
-	 uq3DYoxAR8Nk46ZQleZVeo8G01xj/suwsf6rqoAh2GJdQzj8oPnoHp/DqJVpKDEMLRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794987756;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=Yzu3FWvZpEf3QeoBQSTMCvIO634nAbs+sWzSfzYA858=;
+	b=dD8vliGrkarrnpCKTvdpGkjiVR1le3k0JPj1A0UdnLQJ43liffYsPnvfZlNN0Omso+Kx
+	 r17jDPGog2mRxJGS6f2q9bUJwrdjSJtLjbniWv6ACSCHQfAB3jjOkYWWvcOIaaA0aDSpC
+	 Clwuf+H4HoPcGeI5ztiu+TajGRLn8hLmjhsVJbSGyE2c+txslgWkeVqoJ4NTYWvD1UqnO
+	 er52KLqSn+MpUtJI53lr2R1KjcoK5alPGmnGLmsh4+boOGR4T9Sf+rlTCR62zZK2uang3
+	 I5G2cCxkY1/PDZFdXRSroZoJU34vfSn8WMEDKgYjDubwFF/j5h/dH5lKj3pAFjyVdTw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4C63lgN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nkz8Ia8f;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78D960A3807;
-	Wed, 18 Nov 2026 07:42:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D22D606A33A;
+	Wed, 18 Nov 2026 07:42:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4C63lgN
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nkz8Ia8f
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794987759;
-	b=I2FWihCMvggaXjvszWQjK8XBTn14mYNpdS97Os1A7KuWyR6xoNRH211Bz2YLv0//IMVQ
-	 y/e3XiZzX9G2v70GgBw23woBHrcfeayv8zhttBOKi7e/9VhDQZhnIMDuWScxOgoVqdlB7
-	 WGm7NT8tIQV/UnXflFQ4xow0y7+VlKvXCUoZsNuAw5kqKQvEf0397rQn1nLv/yzWnRyDF
-	 9kBso5snActrlMojucqZMaUvpMceSyyO9bme30BZtSGtW0XFq0rfp2iwpjukcwLC9X1I3
-	 JW8hYR3Z5G/6V5R4MwFaRZYPr8bsxZNUjasuF2fVgLk6/UksGAgPLgRiI2nba/gooKA==
+	t=1794987756;
+	b=Ox23+wnkUvzED/nIW7ifi3sTurJMOvP+0+UL4jFLIpQkhRqPpvaiRAjCHHbjvOj1nM6k
+	 sjRAxDzbVe/fKa8Dywf5iL+GlMAiupdvfuqkbLA9xAa9qfxpbDSEEZceu8C94n/SQPFVm
+	 wdc8H5tJEfSgtwnqb+QG4lYCKH8Qzjc2qkO/CVdVutyXm03EOyt9eDrI5+y44dTEwWKcE
+	 wAX9r7ty84JBscT0p1mzcPgKfgj7Pl7jwf3jUu1BhwycDXPHKZmAhP7OSPbhrC/CAdX1w
+	 m1SxfoIThhR8z9i2l42PkRz9vhDhk0cpOETapRtSkvrSZrizubSbbUVR6SS2ENqQEZA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794987759;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dN2xFBIGNTVsl1BulHwHUtipSsFhleySXEFXl5TnrCk=;
-	b=KvVKd7lxKOxBDRkTBsuo82SafXGrJ5IysW0LBB5yxiNAGF+2PWSEhKgwhLmOCuFOf4IL
-	 NDnB99O9cfxJkshedq0tmxLnp9G0NNRvbQfk9N53eiLu9UUHmDed2KEZSivThdKnh93Vh
-	 wxzkdPa28GYrUJOCs5fUyXYZi5o+WRlLdZpfpGvzQl87kFtF5WC0a1ktjVUrLzLqLO82f
-	 ttF/vmrDxzbm+D165AYk5jzuWPbYBtn0VyBYylaVS2Vqh/J15ctU/kOJVSn/XGI+WV7KQ
-	 LuLE+bdRPFdlOoOjd9fmxGAQm4z+WYipYw98DDVWJWiZBEvUfHJLcN8wnaF1P4S3WyA==
+	c=relaxed/relaxed; t=1794987756;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=Yzu3FWvZpEf3QeoBQSTMCvIO634nAbs+sWzSfzYA858=;
+	b=sZTeBrtxSzIMiEsAzy05T3NpNqEc5h9cXay7b66wdD/Okdd6lEtMdOFLSDwTzLVOZYcf
+	 FjLaIQO5IYShUDdvGspaVcCKQ7MtbHycI5wqBLm7j13aKPhLXEXBYa2ya8KeAxdyGJObu
+	 ytXrdY+DIWQuTBkUCaEV3XN+UXUCGbYAFEiwvMSCU7f9+XpDMfF0KEj+Ey0QKcJJCid/G
+	 EWKgvSxCq0A+H6niQuMz/4vIi3vPjqwQnB5TbZ4y/caajy8/nsfo7Y0+9qKvCX1pZzMYB
+	 kmZc63jFwYvdNFYT/tWrxrTxUV8XNnno3/LM5+CjQnWQJyqE6vg/FfqHjbqbZitDPRw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1EF9D1F000CE;
-	Wed, 18 Nov 2026 07:42:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794987759;
-	bh=dN2xFBIGNTVsl1BulHwHUtipSsFhleySXEFXl5TnrCk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=R4C63lgNS+MZQn0ll7A/v2js8A8nnyavinuzKKV2CZFdH8HtNavhqHHTd23n2brWb
-	 kIDytjwoEB4iNHsAcqI9VB9Ohk5eNeoQsp9vVQQ640vETrYEKGCjlyujuwoBQJTXSh
-	 x89fU1zW/Fqpt5ReNnHN4ynl+ceyd/hGxb54iWKFtPDfdcoa92x0XL6XCTyLwUxoy4
-	 IuQlaQIwn56Gy2VTDgA2TQT64R8GqTXzomccP5uinSdZKwXb6H3z6L/W5d7PUnx/yd
-	 F6lnvp0SrU/Reze+JmKo6wZWSU6k578bGqMSH8KIvnlkjOQb+z1D2zTMjbjSkmbix8
-	 6gPTOIiohM6pQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 61CAC4AC7A;
+	by smtp.kernel.org (Postfix) with ESMTPS id 1B0041F000C4;
 	Wed, 18 Nov 2026 07:42:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794987756;
+	bh=Yzu3FWvZpEf3QeoBQSTMCvIO634nAbs+sWzSfzYA858=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=nkz8Ia8fPv7FlHwNtlNr4JKxZBEf0CQwe3SD8afW6xKdlgVmnLz6r+2WL/jKT1NAP
+	 LbpJSm/j1lhWWdmmt8jh5l4Sdqpm6p+El/oidmfqN5j05OfdTp2YtTPxULNw41rBjD
+	 hTMx7cKXnr0VI4K3mcJW682ZiJ+QjtpUCK+hhaF4sXdMrLDjUszPo4SqmyQGAHziJ7
+	 CLlY8kXFZscSr86QRiWbJYyQMKXv8CYI0MkQbmH20wPWuob0LGu97WJDmJc3JkgjB6
+	 Vw/OAbldiExTsLxCnOGDvTjg2S+Z6ZLM5YMwajXGmq8LXvvur78ZM5qI+M9zanVVl9
+	 KVTXmEOtlV/Pw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6DD1A4AC56;
+	Wed, 18 Nov 2026 07:42:34 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Wed, 18 Nov 2026 15:42:27 +0800
-Subject: [PATCH v15 10/14] gpio: pl061: switch data path to gpio-regmap
+Subject: [PATCH v15 00/14] gpio: add Ambarella CV75 PL061 support
+Date: Wed, 18 Nov 2026 15:42:17 +0800
+Message-Id: <20261118-cv75-gpio-v15-0-e3c563673fe1@ambarella.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,9 +84,13 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-cv75-gpio-v15-10-e3c563673fe1@ambarella.com>
-References: <20261118-cv75-gpio-v15-0-e3c563673fe1@ambarella.com>
-In-Reply-To: <20261118-cv75-gpio-v15-0-e3c563673fe1@ambarella.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANlW/WoC/23PQW7DIBAF0KtErEs1A4yxu+o9qi7GeJxQJXGEU
+ 6tV5LsXElW1K0tsgHmfz02NkqKM6mV3U0mmOMbhnDdITzsVDnzei45dPlAGTIUAXofJk95f4qC
+ ttZ0P2PWCqPL8JUkfv+5hb++P/fjZfki4loAycYjjdUjf99empsz95uIjd8qr0aBdXYVg6oZdW
+ 7/yqeUkxyM/h+GkSvKEsMBIi1L5Knvbi5XWIjHRpseFN7DymL0A1S0LNuRx05ul9ytvsg/GEJE
+ DENzub/98Dlh5W/7fNxbRCRtwm94tPK77u9Kf6oq5A1d5/u/nef4Bng8chvcBAAA=
+X-Change-ID: 20261007-cv75-gpio-333d7c1dfe11
 To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
 Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>, 
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
@@ -94,716 +99,110 @@ Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
  Conor Dooley <conor+dt@kernel.org>, Mika Westerberg <westeri@kernel.org>, 
  devicetree@vger.kernel.org, Long Zhao <longzhao@ambarella.com>, 
- Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
+ Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>, Chanho Min <chanho.min@lge.com>, 
+ linux-acpi@vger.kernel.org, Kees Cook <kees@kernel.org>, 
+ linux-hardening@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794987752; l=21437;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794987752; l=4295;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=kC/484xwkxPds9ki2vgYaTVLj6mjg3keHyOniUpbZQQ=;
- b=2C9IYf2v6wORlKKfZy4PyXeHVlnYr763YMZDnk215DXU/zpLTv68cMb+mu1eMOvhm/J4+Gptf
- N5+bJZ1jsKCCWu1gpRAZAlDCoQbFbu3KvbGuTMn/Eneu3ME7pdJ6eRV
+ bh=y3I78avvWB7/oGZfxXwD/pE3NGDD4Ih4+VVvkpVdeBI=;
+ b=YyRsVVcVRBn4qY+ZmLIM/qZYSKAibd/uZBHy/uB9xCPCYzg8LmMyqWQ0kcyEp1eGckWA0+eri
+ U7J/OrOPW21DN6iK/CG29V8cAVK5JhzNCrRQ+IprIoehRmQA8iQOJ9U
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
  auth_id=903
 X-Original-From: Long Zhao <longzhao@ambarella.com>
 Reply-To: longzhao@ambarella.com
-Content-Transfer-Encoding: 7bit
 
-From: Long Zhao <longzhao@ambarella.com>
+Please take this series through the GPIO tree. The quirk, the PL061
+conversion and the Ambarella layout belong together.
 
-Move get, set and direction onto gpio-regmap. ARM PL061 sets
-GPIO_REGMAP_QUIRK_SET_AFTER_DIR so the output value is written after
-the direction change.
+These patches convert the ARM PL061 data path to regmap, then add
+the CV75 layout. They also request ACPI GPIO events for an external
+irq domain, and remove the gpiochip before tearing down its irqchip.
 
-Keep a custom irqchip and irq domain. Create the domain with the PL061
-private data and let gpio-regmap attach it.
+The data path uses gpio-regmap with two layouts, ARM PrimeCell and
+Ambarella. ARM PL061 sets GPIO_REGMAP_QUIRK_SET_AFTER_DIR. IRQ stays
+a custom PL061 irqchip, attached through gpio-regmap. regmap-irq is
+not used.
 
-Leave the chained handler's regmap_read() unchecked. mis stays 0 on
-failure, so the pending loop does nothing, and chained_irq_exit()
-still runs. irq_type still ignores MMIO write returns.
+Tested with lockdep enabled on the CV75 EVK. The board boots.
+gpio-hammer toggles gpiochip0 line 26 ten times, and gpio-event-mon
+on line 27 records alternating rising and falling edges. unbind and
+bind work; the chip re-registers and both tools work again after
+the rebind. Holding line 27 as an edge IRQ and unbinding, without
+blocking in read, no longer warns from remove_proc_entry().
 
-The irqchip uses its own child IRQ lockdep class. Split teardown into
-two devm actions: dispose mappings while the domain is still alive,
-and clear the chained handler only after it was installed. Checked
-with lockdep on the CV75 board. irq_set_parent() nests the GPIO
-irq_desc under the AMBA parent for irq_set_wake().
+The registration error-path leak fix is already applied in the GPIO
+tree as 80415a6ff295 ("gpio: regmap: free the irqchip if adding the
+irq domain fails"). Apply this series on top of that commit.
 
-The irqchip is immutable and stores struct pl061 as its chip data,
-so the GPIOCHIP_IRQ_RESOURCE_HELPERS macro does not apply. Look up
-the gpio_chip while mapping the IRQ, then call gpiochip_reqres_irq(),
-gpiochip_relres_irq(), gpiochip_enable_irq() and
-gpiochip_disable_irq() from the irqchip.
+Changes in v15:
+- gpio: pl061: call gpiolib irq helpers on the immutable chip. (Sashiko)
+- lib/string_choices: collect Andy's Reviewed-by on the helper. (Andy)
+- gpio: pl061: collect Andy's Reviewed-by on the string_choices use. (Andy)
+- Link to v14: https://patch.msgid.link/20261110-cv75-gpio-v14-0-e586aad0467a@ambarella.com
+
+Changes in v14:
+- lib/string_choices: add str_rising_falling() and use it in pl061. (Andy)
+- gpio: regmap: keep removing the gpiochip before the irqchip. (Sashiko)
+- gpio: regmap: rename the SET_AFTER_DIR subject from gpiolib:. (Michael)
+- gpiolib: collect Mika's Acked-by and move linux-acpi below ---. (Mika)
+- gpio: pl061: collect Andy's Reviewed-by on the IRQ logging patch. (Andy)
+- gpio: pl061: collect Linus's Reviewed-by on the parent local. (Linus)
+- Link to v13: https://patch.msgid.link/20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com
+
+To: Bartosz Golaszewski <brgl@kernel.org>
+To: linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Michael Walle <mwalle@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Mika Westerberg <westeri@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: Long Zhao <longzhao@ambarella.com>
+Cc: Long Zhao <zl020895@163.com>
+Cc: linux-kernel@vger.kernel.org
 
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- drivers/gpio/Kconfig      |   1 +
- drivers/gpio/gpio-pl061.c | 463 +++++++++++++++++++++++++++++-----------------
- 2 files changed, 294 insertions(+), 170 deletions(-)
+Long Zhao (14):
+      dt-bindings: gpio: pl061: add Ambarella CV75 variant
+      gpio: regmap: add GPIO_REGMAP_QUIRK_SET_AFTER_DIR
+      gpio: regmap: remove gpiochip before tearing down irqchip
+      gpio: pl061: drop redundant pending check in the IRQ handler
+      gpio: pl061: convert register access to regmap
+      gpio: pl061: use IRQ_TYPE_LEVEL_MASK and IRQ_TYPE_EDGE_BOTH
+      gpio: pl061: use cleanup helpers for locks
+      gpio: pl061: keep the parent device in a local
+      gpiolib: request ACPI GPIO events for external IRQ domains
+      gpio: pl061: switch data path to gpio-regmap
+      gpio: pl061: add Ambarella register-layout variant
+      gpio: pl061: tidy up IRQ trigger logging
+      lib/string_choices: add str_rising_falling()
+      gpio: pl061: use string_choices helpers for IRQ trigger logging
 
-diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-index 2a1487bd1a94..55a129836158 100644
---- a/drivers/gpio/Kconfig
-+++ b/drivers/gpio/Kconfig
-@@ -583,6 +583,7 @@ config GPIO_PL061
- 	depends on ARM_AMBA || COMPILE_TEST
- 	select IRQ_DOMAIN
- 	select GPIOLIB_IRQCHIP
-+	select GPIO_REGMAP
- 	select REGMAP_MMIO
- 	help
- 	  Say yes here to support the PrimeCell PL061 GPIO device.
-diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
-index 27ed759486ca..db3d02976383 100644
---- a/drivers/gpio/gpio-pl061.c
-+++ b/drivers/gpio/gpio-pl061.c
-@@ -12,21 +12,20 @@
- #include <linux/bitops.h>
- #include <linux/cleanup.h>
- #include <linux/device.h>
--#include <linux/errno.h>
-+#include <linux/err.h>
- #include <linux/gpio/driver.h>
--#include <linux/init.h>
-+#include <linux/gpio/regmap.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/ioport.h>
- #include <linux/irq.h>
- #include <linux/irqchip/chained_irq.h>
-+#include <linux/irqdomain.h>
- #include <linux/log2.h>
- #include <linux/module.h>
--#include <linux/pinctrl/consumer.h>
- #include <linux/pm.h>
- #include <linux/regmap.h>
- #include <linux/seq_file.h>
--#include <linux/slab.h>
- #include <linux/spinlock.h>
- 
- #define GPIODIR 0x400
-@@ -41,23 +40,41 @@
- #define PL061_GPIO_NR	8
- #define PL061_DATA_OFFSET	2
- 
--struct pl061_context_save_regs {
--	u8 gpio_data;
--	u8 gpio_dir;
--	u8 gpio_is;
--	u8 gpio_ibe;
--	u8 gpio_iev;
--	u8 gpio_ie;
-+struct pl061_regs {
-+	unsigned int dat;
-+	unsigned int dir;
-+	unsigned int is;
-+	unsigned int ibe;
-+	unsigned int iev;
-+	unsigned int ie;
-+	unsigned int mis;
-+	unsigned int ic;
-+	unsigned int mask;
-+	unsigned int enable;
-+};
-+
-+struct pl061_drvdata {
-+	const struct regmap_config *regmap_config;
-+	const struct pl061_regs *regs;
-+	unsigned int ngpio;
-+	bool clear_irq_on_type;
-+	bool pm;
-+	unsigned long quirks;
-+	int (*reg_mask_xlate)(struct gpio_regmap *gpio,
-+			      unsigned int base, unsigned int offset,
-+			      unsigned int *reg, unsigned int *mask);
- };
- 
- struct pl061 {
- 	raw_spinlock_t		lock;
- 
- 	struct regmap		*regmap;
--	struct gpio_chip	gc;
-+	const struct pl061_drvdata *data;
-+	struct irq_domain	*irq_domain;
-+	struct gpio_chip	*gc;
- 	int			parent_irq;
- 
--	struct pl061_context_save_regs csave_regs;
-+	unsigned int		saved_dat;
- };
- 
- static bool pl061_arm_is_data_reg(unsigned int reg)
-@@ -88,82 +105,36 @@ static const struct regmap_config pl061_arm_regmap_config = {
- 	.use_raw_spinlock = true,
- };
- 
--static int pl061_get_direction(struct gpio_chip *gc, unsigned offset)
--{
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--	int ret;
--
--	ret = regmap_test_bits(pl061->regmap, GPIODIR, BIT(offset));
--	if (ret < 0)
--		return ret;
--
--	if (ret)
--		return GPIO_LINE_DIRECTION_OUT;
--
--	return GPIO_LINE_DIRECTION_IN;
--}
--
--static int pl061_direction_input(struct gpio_chip *gc, unsigned offset)
-+static unsigned int pl061_line_mask(struct pl061 *pl061, irq_hw_number_t hwirq)
- {
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--
--	guard(raw_spinlock_irqsave)(&pl061->lock);
--
--	regmap_clear_bits(pl061->regmap, GPIODIR, BIT(offset));
--
--	return 0;
-+	return BIT(hwirq % pl061->data->ngpio);
- }
- 
--static int pl061_direction_output(struct gpio_chip *gc, unsigned offset,
--		int value)
-+static int pl061_arm_reg_mask_xlate(struct gpio_regmap *gpio,
-+				    unsigned int base, unsigned int offset,
-+				    unsigned int *reg, unsigned int *mask)
- {
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--	unsigned int mask = BIT(offset);
--
--	guard(raw_spinlock_irqsave)(&pl061->lock);
--
--	regmap_assign_bits(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
--			   BIT(offset), value);
--	regmap_set_bits(pl061->regmap, GPIODIR, mask);
--
--	/*
--	 * gpio value is set again, because pl061 doesn't allow to set value of
--	 * a gpio pin before configuring it in OUT mode.
--	 */
--	regmap_assign_bits(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
--			   BIT(offset), value);
-+	if (base == 0)
-+		*reg = BIT(offset + PL061_DATA_OFFSET);
-+	else
-+		*reg = base;
-+	*mask = BIT(offset);
- 
- 	return 0;
- }
- 
--static int pl061_get_value(struct gpio_chip *gc, unsigned offset)
--{
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--
--	return regmap_test_bits(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
--				BIT(offset));
--}
--
--static int pl061_set_value(struct gpio_chip *gc, unsigned int offset, int value)
--{
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--
--	return regmap_assign_bits(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
--				  BIT(offset), value);
--}
--
- static int pl061_irq_type(struct irq_data *d, unsigned trigger)
- {
--	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--	struct device *parent = gc->parent;
-+	struct pl061 *pl061 = irq_data_get_irq_chip_data(d);
-+	struct device *parent = regmap_get_device(pl061->regmap);
-+	const struct pl061_regs *regs = pl061->data->regs;
- 	int offset = irqd_to_hwirq(d);
- 	unsigned int bit = BIT(offset);
- 	unsigned int gpioiev = 0;
- 	unsigned int gpioibe = 0;
- 	unsigned int gpiois = 0;
- 
--	if (offset < 0 || offset >= PL061_GPIO_NR)
-+	if (offset < 0 || offset >= pl061->data->ngpio)
- 		return -EINVAL;
- 
- 	if ((trigger & IRQ_TYPE_LEVEL_MASK) && (trigger & IRQ_TYPE_EDGE_BOTH)) {
-@@ -176,9 +147,9 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
- 
- 	guard(raw_spinlock_irqsave)(&pl061->lock);
- 
--	regmap_read(pl061->regmap, GPIOIEV, &gpioiev);
--	regmap_read(pl061->regmap, GPIOIS, &gpiois);
--	regmap_read(pl061->regmap, GPIOIBE, &gpioibe);
-+	regmap_read(pl061->regmap, regs->iev, &gpioiev);
-+	regmap_read(pl061->regmap, regs->is, &gpiois);
-+	regmap_read(pl061->regmap, regs->ibe, &gpioibe);
- 
- 	if (trigger & IRQ_TYPE_LEVEL_MASK) {
- 		bool polarity = trigger & IRQ_TYPE_LEVEL_HIGH;
-@@ -229,54 +200,49 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
- 		dev_warn(parent, "no trigger selected for line %d\n", offset);
- 	}
- 
--	regmap_write(pl061->regmap, GPIOIS, gpiois);
--	regmap_write(pl061->regmap, GPIOIBE, gpioibe);
--	regmap_write(pl061->regmap, GPIOIEV, gpioiev);
-+	regmap_write(pl061->regmap, regs->is, gpiois);
-+	regmap_write(pl061->regmap, regs->ibe, gpioibe);
-+	regmap_write(pl061->regmap, regs->iev, gpioiev);
-+	if (pl061->data->clear_irq_on_type)
-+		regmap_write(pl061->regmap, regs->ic, bit);
- 
- 	return 0;
- }
- 
- static void pl061_irq_handler(struct irq_desc *desc)
- {
--	struct gpio_chip *gc = irq_desc_get_handler_data(desc);
-+	struct pl061 *pl061 = irq_desc_get_handler_data(desc);
- 	struct irq_chip *irqchip = irq_desc_get_chip(desc);
--	struct pl061 *pl061 = gpiochip_get_data(gc);
- 	unsigned long pending;
- 	unsigned int mis = 0;
- 	int offset;
- 
- 	chained_irq_enter(irqchip, desc);
- 
--	regmap_read(pl061->regmap, GPIOMIS, &mis);
-+	regmap_read(pl061->regmap, pl061->data->regs->mis, &mis);
- 	pending = mis;
--	for_each_set_bit(offset, &pending, PL061_GPIO_NR)
--		generic_handle_domain_irq(gc->irq.domain, offset);
-+	for_each_set_bit(offset, &pending, pl061->data->ngpio)
-+		generic_handle_domain_irq(pl061->irq_domain, offset);
- 
- 	chained_irq_exit(irqchip, desc);
- }
- 
- static void pl061_irq_mask(struct irq_data *d)
- {
--	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--	u8 mask = BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
-+	struct pl061 *pl061 = irq_data_get_irq_chip_data(d);
-+	unsigned int mask = pl061_line_mask(pl061, irqd_to_hwirq(d));
- 
--	scoped_guard(raw_spinlock, &pl061->lock)
--		regmap_clear_bits(pl061->regmap, GPIOIE, mask);
--
--	gpiochip_disable_irq(gc, d->hwirq);
-+	regmap_clear_bits(pl061->regmap, pl061->data->regs->ie, mask);
-+	gpiochip_disable_irq(pl061->gc, irqd_to_hwirq(d));
- }
- 
- static void pl061_irq_unmask(struct irq_data *d)
- {
--	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--	u8 mask = BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
--
--	gpiochip_enable_irq(gc, d->hwirq);
-+	struct pl061 *pl061 = irq_data_get_irq_chip_data(d);
-+	unsigned int mask = pl061_line_mask(pl061, irqd_to_hwirq(d));
- 
--	scoped_guard(raw_spinlock, &pl061->lock)
--		regmap_set_bits(pl061->regmap, GPIOIE, mask);
-+	gpiochip_enable_irq(pl061->gc, irqd_to_hwirq(d));
-+	regmap_set_bits(pl061->regmap, pl061->data->regs->ie, mask);
- }
- 
- /**
-@@ -289,29 +255,64 @@ static void pl061_irq_unmask(struct irq_data *d)
-  */
- static void pl061_irq_ack(struct irq_data *d)
- {
--	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
--	struct pl061 *pl061 = gpiochip_get_data(gc);
--	u8 mask = BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
-+	struct pl061 *pl061 = irq_data_get_irq_chip_data(d);
-+	unsigned int mask = pl061_line_mask(pl061, irqd_to_hwirq(d));
- 
--	regmap_write(pl061->regmap, GPIOIC, mask);
-+	regmap_write(pl061->regmap, pl061->data->regs->ic, mask);
- }
- 
- static int pl061_irq_set_wake(struct irq_data *d, unsigned int state)
- {
--	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
--	struct pl061 *pl061 = gpiochip_get_data(gc);
-+	struct pl061 *pl061 = irq_data_get_irq_chip_data(d);
- 
- 	return irq_set_irq_wake(pl061->parent_irq, state);
- }
- 
- static void pl061_irq_print_chip(struct irq_data *data, struct seq_file *p)
- {
--	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
--	struct device *parent = gc->parent;
-+	struct pl061 *pl061 = irq_data_get_irq_chip_data(data);
-+	struct device *parent = regmap_get_device(pl061->regmap);
- 
- 	seq_puts(p, dev_name(parent));
- }
- 
-+static int pl061_gc_from_domain(struct gpio_chip *gc, const void *data)
-+{
-+	const struct pl061 *pl061 = data;
-+
-+	return gc->irq.domain == pl061->irq_domain;
-+}
-+
-+static struct gpio_chip *pl061_lookup_gc(struct pl061 *pl061)
-+{
-+	struct gpio_device *gdev;
-+
-+	if (pl061->gc)
-+		return pl061->gc;
-+
-+	gdev = gpio_device_find(pl061, pl061_gc_from_domain);
-+	if (!gdev)
-+		return NULL;
-+
-+	pl061->gc = gpio_device_get_chip(gdev);
-+	gpio_device_put(gdev);
-+	return pl061->gc;
-+}
-+
-+static int pl061_irq_request_resources(struct irq_data *d)
-+{
-+	struct pl061 *pl061 = irq_data_get_irq_chip_data(d);
-+
-+	return gpiochip_reqres_irq(pl061->gc, irqd_to_hwirq(d));
-+}
-+
-+static void pl061_irq_release_resources(struct irq_data *d)
-+{
-+	struct pl061 *pl061 = irq_data_get_irq_chip_data(d);
-+
-+	gpiochip_relres_irq(pl061->gc, irqd_to_hwirq(d));
-+}
-+
- static const struct irq_chip pl061_irq_chip = {
- 	.irq_ack		= pl061_irq_ack,
- 	.irq_mask		= pl061_irq_mask,
-@@ -319,68 +320,175 @@ static const struct irq_chip pl061_irq_chip = {
- 	.irq_set_type		= pl061_irq_type,
- 	.irq_set_wake		= pl061_irq_set_wake,
- 	.irq_print_chip		= pl061_irq_print_chip,
-+	.irq_request_resources	= pl061_irq_request_resources,
-+	.irq_release_resources	= pl061_irq_release_resources,
- 	.flags			= IRQCHIP_IMMUTABLE,
--	GPIOCHIP_IRQ_RESOURCE_HELPERS,
-+};
-+
-+static struct lock_class_key pl061_irq_lock_class;
-+static struct lock_class_key pl061_irq_request_class;
-+
-+static int pl061_irq_domain_map(struct irq_domain *d, unsigned int virq,
-+				irq_hw_number_t hwirq)
-+{
-+	struct pl061 *pl061 = d->host_data;
-+
-+	if (!pl061_lookup_gc(pl061))
-+		return -ENODEV;
-+
-+	irq_set_chip_data(virq, pl061);
-+	irq_set_lockdep_class(virq, &pl061_irq_lock_class, &pl061_irq_request_class);
-+	irq_set_chip_and_handler(virq, &pl061_irq_chip, handle_bad_irq);
-+	irq_set_noprobe(virq);
-+	irq_set_parent(virq, pl061->parent_irq);
-+
-+	return 0;
-+}
-+
-+static void pl061_irq_domain_unmap(struct irq_domain *d, unsigned int virq)
-+{
-+	irq_set_chip_and_handler(virq, NULL, NULL);
-+	irq_set_chip_data(virq, NULL);
-+}
-+
-+static const struct irq_domain_ops pl061_irq_domain_ops = {
-+	.map	= pl061_irq_domain_map,
-+	.unmap	= pl061_irq_domain_unmap,
-+	.xlate	= irq_domain_xlate_twothreecell,
-+};
-+
-+static void pl061_dispose_irq_mappings(void *data)
-+{
-+	struct pl061 *pl061 = data;
-+
-+	for (unsigned int i = 0; i < pl061->data->ngpio; i++)
-+		irq_dispose_mapping(irq_find_mapping(pl061->irq_domain, i));
-+}
-+
-+static void pl061_remove_chained_handler(void *data)
-+{
-+	struct pl061 *pl061 = data;
-+
-+	irq_set_chained_handler_and_data(pl061->parent_irq, NULL, NULL);
-+}
-+
-+static const struct pl061_regs pl061_arm_regs = {
-+	.dir	= GPIODIR,
-+	.is	= GPIOIS,
-+	.ibe	= GPIOIBE,
-+	.iev	= GPIOIEV,
-+	.ie	= GPIOIE,
-+	.mis	= GPIOMIS,
-+	.ic	= GPIOIC,
-+};
-+
-+static const struct pl061_drvdata pl061_arm = {
-+	.regmap_config		= &pl061_arm_regmap_config,
-+	.regs			= &pl061_arm_regs,
-+	.ngpio			= PL061_GPIO_NR,
-+	.quirks			= GPIO_REGMAP_QUIRK_SET_AFTER_DIR,
-+	.pm			= true,
-+	.reg_mask_xlate		= pl061_arm_reg_mask_xlate,
- };
- 
- static int pl061_probe(struct amba_device *adev, const struct amba_id *id)
- {
-+	struct gpio_regmap_config config = {};
-+	const struct pl061_drvdata *data;
- 	struct device *dev = &adev->dev;
--	struct gpio_irq_chip *girq;
-+	struct gpio_regmap *gpio_regmap;
-+	const struct pl061_regs *regs;
- 	struct pl061 *pl061;
- 	void __iomem *base;
- 	int ret, irq;
- 
-+	data = id->data;
-+	if (!data)
-+		return -ENODATA;
-+
-+	regs = data->regs;
-+
- 	pl061 = devm_kzalloc(dev, sizeof(*pl061), GFP_KERNEL);
- 	if (pl061 == NULL)
- 		return -ENOMEM;
- 
-+	pl061->data = data;
-+
- 	base = devm_ioremap_resource(dev, &adev->res);
- 	if (IS_ERR(base))
- 		return PTR_ERR(base);
- 
--	pl061->regmap = devm_regmap_init_mmio(dev, base, &pl061_arm_regmap_config);
-+	pl061->regmap = devm_regmap_init_mmio(dev, base, data->regmap_config);
- 	if (IS_ERR(pl061->regmap))
- 		return PTR_ERR(pl061->regmap);
- 
- 	raw_spin_lock_init(&pl061->lock);
--	pl061->gc.request = gpiochip_generic_request;
--	pl061->gc.free = gpiochip_generic_free;
--	pl061->gc.base = -1;
--	pl061->gc.get_direction = pl061_get_direction;
--	pl061->gc.direction_input = pl061_direction_input;
--	pl061->gc.direction_output = pl061_direction_output;
--	pl061->gc.get = pl061_get_value;
--	pl061->gc.set = pl061_set_value;
--	pl061->gc.ngpio = PL061_GPIO_NR;
--	pl061->gc.label = dev_name(dev);
--	pl061->gc.parent = dev;
--	pl061->gc.owner = THIS_MODULE;
-+
-+	if (regs->enable) {
-+		ret = regmap_write(pl061->regmap, regs->enable, ~0U);
-+		if (ret)
-+			return ret;
-+	}
-+	if (regs->mask) {
-+		ret = regmap_write(pl061->regmap, regs->mask, ~0U);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	/*
- 	 * irq_chip support
- 	 */
--	regmap_write(pl061->regmap, GPIOIE, 0); /* disable irqs */
-+	regmap_write(pl061->regmap, regs->ie, 0); /* disable irqs */
-+
- 	irq = adev->irq[0];
- 	if (!irq)
--		dev_warn(&adev->dev, "IRQ support disabled\n");
-+		dev_warn(dev, "IRQ support disabled\n");
- 	pl061->parent_irq = irq;
- 
--	girq = &pl061->gc.irq;
--	gpio_irq_chip_set_chip(girq, &pl061_irq_chip);
--	girq->parent_handler = pl061_irq_handler;
--	girq->num_parents = 1;
--	girq->parents = devm_kcalloc(dev, 1, sizeof(*girq->parents),
--				     GFP_KERNEL);
--	if (!girq->parents)
--		return -ENOMEM;
--	girq->parents[0] = irq;
--	girq->default_type = IRQ_TYPE_NONE;
--	girq->handler = handle_bad_irq;
-+	if (irq) {
-+		const struct irq_domain_info info = {
-+			.fwnode		= dev_fwnode(dev),
-+			.size		= data->ngpio,
-+			.hwirq_max	= data->ngpio,
-+			.ops		= &pl061_irq_domain_ops,
-+			.host_data	= pl061,
-+		};
-+
-+		pl061->irq_domain = devm_irq_domain_instantiate(dev, &info);
-+		if (IS_ERR(pl061->irq_domain))
-+			return PTR_ERR(pl061->irq_domain);
-+
-+		/*
-+		 * Registered before the gpiochip so unbind runs it after
-+		 * gpiochip_free_remaining_irqs(), while the domain is still
-+		 * alive. devm removes the domain after this action.
-+		 */
-+		ret = devm_add_action_or_reset(dev, pl061_dispose_irq_mappings, pl061);
-+		if (ret)
-+			return ret;
-+	}
- 
--	ret = devm_gpiochip_add_data(dev, &pl061->gc, pl061);
--	if (ret)
--		return ret;
-+	config.parent = dev;
-+	config.regmap = pl061->regmap;
-+	config.ngpio = data->ngpio;
-+	config.reg_dat_base = GPIO_REGMAP_ADDR(regs->dat);
-+	config.reg_set_base = GPIO_REGMAP_ADDR(regs->dat);
-+	config.reg_dir_out_base = GPIO_REGMAP_ADDR(regs->dir);
-+	config.reg_mask_xlate = data->reg_mask_xlate;
-+	config.quirks = data->quirks;
-+	config.irq_domain = pl061->irq_domain;
-+	config.drvdata = pl061;
-+
-+	gpio_regmap = devm_gpio_regmap_register(dev, &config);
-+	if (IS_ERR(gpio_regmap))
-+		return PTR_ERR(gpio_regmap);
-+
-+	if (irq) {
-+		irq_set_chained_handler_and_data(irq, pl061_irq_handler, pl061);
-+		ret = devm_add_action_or_reset(dev, pl061_remove_chained_handler, pl061);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	amba_set_drvdata(adev, pl061);
- 	dev_info(dev, "PL061 GPIO chip registered\n");
-@@ -388,28 +496,38 @@ static int pl061_probe(struct amba_device *adev, const struct amba_id *id)
- 	return 0;
- }
- 
-+static void pl061_cache_ctrl_regs(struct pl061 *pl061, unsigned int *dir)
-+{
-+	const struct pl061_regs *regs = pl061->data->regs;
-+	unsigned int val;
-+
-+	regmap_read(pl061->regmap, regs->dir, dir);
-+	regmap_read(pl061->regmap, regs->is, &val);
-+	regmap_read(pl061->regmap, regs->ibe, &val);
-+	regmap_read(pl061->regmap, regs->iev, &val);
-+	regmap_read(pl061->regmap, regs->ie, &val);
-+}
-+
- static int pl061_suspend(struct device *dev)
- {
- 	struct pl061 *pl061 = dev_get_drvdata(dev);
--	unsigned int val = 0;
--	int offset;
--
--	pl061->csave_regs.gpio_data = 0;
--	regmap_read(pl061->regmap, GPIODIR, &val);
--	pl061->csave_regs.gpio_dir = val;
--	regmap_read(pl061->regmap, GPIOIS, &val);
--	pl061->csave_regs.gpio_is = val;
--	regmap_read(pl061->regmap, GPIOIBE, &val);
--	pl061->csave_regs.gpio_ibe = val;
--	regmap_read(pl061->regmap, GPIOIEV, &val);
--	pl061->csave_regs.gpio_iev = val;
--	regmap_read(pl061->regmap, GPIOIE, &val);
--	pl061->csave_regs.gpio_ie = val;
--
--	for (offset = 0; offset < PL061_GPIO_NR; offset++) {
--		if (pl061->csave_regs.gpio_dir & (BIT(offset)))
--			pl061->csave_regs.gpio_data |=
--				pl061_get_value(&pl061->gc, offset) << offset;
-+	unsigned long dir_mask;
-+	unsigned int dir = 0;
-+	unsigned int offset;
-+	unsigned int val;
-+
-+	if (!pl061->data->pm)
-+		return 0;
-+
-+	pl061_cache_ctrl_regs(pl061, &dir);
-+
-+	pl061->saved_dat = 0;
-+	dir_mask = dir;
-+	for_each_set_bit(offset, &dir_mask, pl061->data->ngpio) {
-+		val = 0;
-+		regmap_read_bypassed(pl061->regmap,
-+				     BIT(offset + PL061_DATA_OFFSET), &val);
-+		pl061->saved_dat |= val;
- 	}
- 
- 	return 0;
-@@ -418,23 +536,27 @@ static int pl061_suspend(struct device *dev)
- static int pl061_resume(struct device *dev)
- {
- 	struct pl061 *pl061 = dev_get_drvdata(dev);
--	int offset;
-+	const struct pl061_regs *regs;
-+	unsigned long dir_mask;
-+	unsigned int dir = 0;
-+	unsigned int offset;
- 
--	for (offset = 0; offset < PL061_GPIO_NR; offset++) {
--		if (pl061->csave_regs.gpio_dir & (BIT(offset)))
--			pl061_direction_output(&pl061->gc, offset,
--					pl061->csave_regs.gpio_data &
--					(BIT(offset)));
--		else
--			pl061_direction_input(&pl061->gc, offset);
--	}
-+	if (!pl061->data->pm)
-+		return 0;
- 
--	regmap_write(pl061->regmap, GPIOIS, pl061->csave_regs.gpio_is);
--	regmap_write(pl061->regmap, GPIOIBE, pl061->csave_regs.gpio_ibe);
--	regmap_write(pl061->regmap, GPIOIEV, pl061->csave_regs.gpio_iev);
--	regmap_write(pl061->regmap, GPIOIE, pl061->csave_regs.gpio_ie);
-+	regs = pl061->data->regs;
- 
--	return 0;
-+	regmap_read(pl061->regmap, regs->dir, &dir);
-+
-+	regcache_mark_dirty(pl061->regmap);
-+	regcache_sync_region(pl061->regmap, regs->dir, regs->dir);
-+
-+	dir_mask = dir;
-+	for_each_set_bit(offset, &dir_mask, pl061->data->ngpio)
-+		regmap_write(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
-+			     pl061->saved_dat & BIT(offset));
-+
-+	return regcache_sync_region(pl061->regmap, regs->is, regs->ie);
- }
- 
- static DEFINE_SIMPLE_DEV_PM_OPS(pl061_dev_pm_ops, pl061_suspend, pl061_resume);
-@@ -443,6 +565,7 @@ static const struct amba_id pl061_ids[] = {
- 	{
- 		.id	= 0x00041061,
- 		.mask	= 0x000fffff,
-+		.data	= (void *)&pl061_arm,
- 	},
- 	{ 0, 0 },
- };
+ .../devicetree/bindings/gpio/pl061-gpio.yaml       |  25 +-
+ drivers/gpio/Kconfig                               |   2 +
+ drivers/gpio/gpio-pl061.c                          | 592 ++++++++++++++-------
+ drivers/gpio/gpio-regmap.c                         |  24 +-
+ drivers/gpio/gpiolib.c                             |   9 +-
+ include/linux/amba/bus.h                           |   1 +
+ include/linux/gpio/regmap.h                        |  14 +
+ include/linux/string_choices.h                     |   6 +
+ 8 files changed, 475 insertions(+), 198 deletions(-)
+---
+base-commit: 34cf6dafc47441dfb6b356a095b89c3585a93714
+change-id: 20261007-cv75-gpio-333d7c1dfe11
 
--- 
-2.34.1
+Best regards,
+--  
+Long Zhao <longzhao@ambarella.com>
 
 
