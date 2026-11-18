@@ -1,90 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.164
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794993542;
-	b=hsil2xgrKgHOS7rXzLv8GDEXe0uK0W4rrfHolqMAsLxxCKKFU8vP+XsvJU+Rv6l0fZT1
-	 HZ080Ta11MEV8b7TDaVbpmoGXG6vLSwTLific1pOftNbW1S5QYkkQu8otp0ZzeHjTYN7P
-	 g6pLSdz2Mxj9njTmWFixapn61kp45r92ZYKBPPIym4afkb08EDRhaVVlEWpbvcGIcaS4f
-	 YeCdebAR2OTh8otSnZKUmO87wa/498lz0CCRQvNMY+zsTuhYEa0hPKr9aHlRXk/UqAWrH
-	 QVh3WWvibZ+/O9ov6/4d11AMnuwzPLGE5IxW40D2jH1uzC5iOp1rVQCja2f+RR8jzEQ==
+	t=1794993620;
+	b=RcoHg0rlHpp33lagoUp8SVX4U7yhBtQk11zt7jMGpmMUPv8v8zkaRKF4ELl1Dx44cUuD
+	 qCvHjSELQQpvf1IU8lgapCs4TzFhu39XHQTi/kjHPeiP9qIFa3g9Zhz7a6U6Etf6GHp/J
+	 EFrHDiBm7uKsMChcGQki7HrkJ1fRxzcoK2gAqLQVLIqJfh15rl4wy/czAJrC9+8f74Ppz
+	 mV3byNonF+GK6I/ZYtV9k4Wnh5mgF0QDu/c27wJcyngFm+49GwL67lPSBeIH6QOR96UqI
+	 Cw6cn0IhfhDlevZiyfB5gEg8zJof/A/VCyyvyC6lR9GNDJHEJEhsrFkQIAiscVRuJAg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794993542;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=8+C6tOb/Dl8Of9BB5bsesi1tsKmLxRThu6jLT9pRQjk=;
-	b=M87unNwuUdRnAAPhe+Zn00tGSShxsIvRIuyWO7FKUfR/42TvYr0GupB2Et2JNQLgvotj
-	 eOVhl+r/4BXGeLTY6FUIZrkvLJau2pXM29genmBU/1sKGfhYPZJD9bd0boA6I418WySte
-	 ymfEmstW8NOQReonZ/bf+aM7N7zeqiVxOFi9M/ChJC8HC4C1jTswb/2fOQFIVOuVdL/As
-	 4AjyIWdHheniS5HrPzBjHbMZHKnxR50H6F+7olnnkNLhmejtG9Oern2+8cm9MPggg7tQo
-	 gv0jkqvNxIov+gQuu3Ffk6f4EfPxj0sqC2Ie+/jkQSD2iumHQuW+1Rq8KNmyDceoBTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794993620;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=vDw+nWeXJ9xvEEktLyns7YM5p7WDjBtf8VUOj3m6g0Q=;
+	b=vJUceuMLb/dqBGf2fLU+PfvhQvuWjnx7NQKVDuyUPhoYDpsnI/+olCvnqQPjk/jiEZio
+	 nx0dPE4IfCLAS0x5TVUvXWqK9t4C4I4sNpcBcp9RDaBJNjVf826DHboca9h6hbBPBrREm
+	 BqI0cn0HRvvmQnbjk8HSw9I8+P2hOeoMloa6uWCKVwiVt4GHYH+wycdoiAEFOx5eZgnld
+	 QdV/Gx5phN2lBCM9YurFn9feAAVkWYWijJ6WM9QtFouxIQMjZGtvJ6yurWb+EQpgTrF5p
+	 rTeR230+BP/I5itqpvfrrQm9CT9d2CXX/6xRKcTQiYg88Fih4w04663D/F4rc1nyZBw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Gg6TFruz;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=kJNpSSek;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.164
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.164])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kur3slV2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B785606A325;
+	Wed, 18 Nov 2026 09:20:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kur3slV2
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794993620;
+	b=WcC+VkE+wvxarjCXfNs/7zjVNxD1FICv+Djz4J9gTKv9hpk8zkGcTLlumSlWKoYzO6nA
+	 kN+1BJ7+ADtlrzNtGFaln0XIViTzbkriH0NZ5e2C5S2X5S9Hq2Lyo/T7JZjUVsgDQcBpj
+	 7xolO9Fsb0WTEb5FOyWzoL8Nw3h47y8YYK/rPSLCiscsedskzA1jdMnw2JqSPvyfMgoTO
+	 N3YN89aLHXS6cW3B4t2U/LCg1uwjXJ4GWIrMdfNeZWRnNtQm4/GYy6IlaH5V5V478B5S8
+	 QnB/K4WAz0Gyz7/7plPKLn3FG+nOWZV15ZByHiSfB36/Y0L9JN0m3oQwNLVxy++ySKA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794993620;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=vDw+nWeXJ9xvEEktLyns7YM5p7WDjBtf8VUOj3m6g0Q=;
+	b=PMC/kn+J6tnrjsCnQFa+IxrtUx9ZwZiZsMuecrDP2OP2krWT9SNhS8Dufb8fJCwwlwL8
+	 mgeEjU1vMxYCmSC/RQO6ouKzJPY1NKgxgmOp52MzGu+dSyTa61ijyLgYJFxhLhQs1X852
+	 xtq1tPSJx82gDRspT7I6quYulesgIa4EKjWG9pw9I8IJOzKw2OkrGjhQBNBc2A9fPa1xg
+	 r4jHzCSisgtMVYU/nXNhaVxx69S2E9YvYFzjoRYUSpNmSUwhW117wRpAxjx68VsRzqWz5
+	 IUYdwD88r1eCUPSL0VtkaNAanLxe0oSseZKoglXNUbwk9upnCYcne1Dr7m2p2e59n2A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02059606A31C;
-	Wed, 18 Nov 2026 09:19:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02059606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Gg6TFruz;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=kJNpSSek
-ARC-Seal: i=1; a=rsa-sha256; t=1794993519; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=eUeC2nB+lKu4UVceZOn61y/vWpu7wKl3bIM+uTbLXjj/A1B6gZ6pRFyDUh2doQq5DH
-    AK/lHQDAbHHA5FBCsJY9OG3P1lXezXe/OME7Rmri9yVlvHpG1JFrwnavwsxSmqOrZlsQ
-    7xwxJ/5oAfvFTXa9tkRUk65DKUGxpgCiwlMwmYrLTjJUuhVcs5JF/pDFnUk1BEEIcUJq
-    UR0q9s4JJwOyrsz1N0H4ekWYw+wM88mNQxHz1dCdPeuHuqHQ4Ql0eodW6pRAIAa+Q5Nq
-    bp0zES4oXr3MddykFXIpaBK7JhhpScfXlodS49O+/aSyzWbqUCJPfoZxIAuaU25+HqSB
-    vDtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794993519;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=8+C6tOb/Dl8Of9BB5bsesi1tsKmLxRThu6jLT9pRQjk=;
-    b=XfwUjsH8CtGuX5swhby6a3JnnXQqMSCW6LRQ1egbN6tAALqtNbSEZsbVZZrM7efOYR
-    WS/7BuUWus13yQzv5mAon2uDsUVIstCgBeULIa9p15ee9+8YkdosSumkq6xdD4D4MvWS
-    qGVn6uzeYLQo2uYM6aVVV22xQGSGQb/kBkeOGMQk0TBHJh6TffVz+TBgnpKnkoopiP5L
-    sAZR9hx9mOEYzFAH0YWi8hndhZpSq0dV2d/nFdZ9TWqnaZbAh7sj2c1VTmHBOppQrdAz
-    AtSk0vuSKxhalOcbrICj21pdd2oPZtELsFfx7XdEgZFXlGdZBFSt/Iznyrv8hq2n3Ffg
-    JxJg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794993519;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=8+C6tOb/Dl8Of9BB5bsesi1tsKmLxRThu6jLT9pRQjk=;
-    b=Gg6TFruzNOqkeBtOQCU9uM0WpvOUARxaYWgALh93PJvcdp/WMxyNHutvRcNbAx9tK9
-    rffha8P3Yoz84vJJg05wZ+Yd9EFEoY3d0CsGr0zr+Q5v0nGokTiD30oP+kYgo36OT7X3
-    D+YtOAxTIZa5kb3QlszpmSrTnoqFMN7QFtLa6Z580NQlc0fal8Mi3lFTEoXCRIgnD+uJ
-    h5lh8n3MaJxp7LZhfHCawc5oDm24vcDegKdmzguS66OJqgttPhPZyhRcGWob1CzDtcVd
-    ZsB9nzActZhiLbRMyukrD4zcHEZbRfHq4yQP+m5ExEXZDk6rFy+YPx57BjmwdJmZngxk
-    zRCw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794993519;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=8+C6tOb/Dl8Of9BB5bsesi1tsKmLxRThu6jLT9pRQjk=;
-    b=kJNpSSek6yTm835+rSSCZoIExdwo0gElNum6mzYT/yeyQHqRQ5bG3dYPgwKdsvWR0R
-    AvZqC0Iy/KNKN689g+BQ==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2Jpcm8iNZLZ2IBizV+3wFb55dglUeZzcEX9J"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22AI9Icb4j
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Wed, 18 Nov 2026 10:18:38 +0100 (CET)
-Content-Type: text/plain;
-	charset=utf-8
+	by smtp.kernel.org (Postfix) with ESMTPS id D56C51F000C4;
+	Wed, 18 Nov 2026 09:20:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794993620;
+	bh=vDw+nWeXJ9xvEEktLyns7YM5p7WDjBtf8VUOj3m6g0Q=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=kur3slV2XmT9UEuVj6A4FncFzMNBDgxrt+S9hkCsbQU6/1FjE1xY2eL5EjS08yzuQ
+	 3T0pCveXciMdSA7tZ7vQflJOhlQI0l2YbYl5UvKH7avHAUXTMSePnD29FSt6JupXI7
+	 7g5UljNPVgrxngNM5evXOOuEnsAx7asaG4bk9+HfvX72AkR7A4AqfA07eR0VdAFm+0
+	 mKyz7bs84LJtd4CU40FjYFMTDFRP0RTaGq9p+GZ5Zy8c+oLKcqBWHO4+4bFfq91U1a
+	 09MDoH7+OYirw5ORyFZd0o9uZhg51QJT4+ctxrFiLtY77U+z51FmVml0YgjNdVhmyC
+	 4Est4wftpSgfg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 69C124ACC6;
+	Wed, 18 Nov 2026 09:20:19 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Subject: [PATCH v6 0/2] interconnect: qcom: Add SM7250 interconnect
+ provider
+Date: Wed, 18 Nov 2026 14:50:15 +0530
+Message-Id: <20261118-icc-sm7250-v6-0-a06ec15c6e29@brar.si>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,158 +83,135 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH v3 2/7] pinctrl: ingenic: Fix hardware dual-edge
- interrupts on X1600
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <eb60698d243da29c61b3ffded6acca90dfcb3475.camel@crapouillou.net>
-Date: Wed, 18 Nov 2026 10:18:07 +0100
-Cc: Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- linux-gpio@vger.kernel.org,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org,
- Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <0D0B1E2A-B5A8-49C4-ADBC-947C057F5C5A@goldelico.com>
-References: <cover.1794987700.git.hns@goldelico.com>
- <29961993f8fdc1db97854f940ecf3883c2d32cf6.1794987700.git.hns@goldelico.com>
- <eb60698d243da29c61b3ffded6acca90dfcb3475.camel@crapouillou.net>
-To: Paul Cercueil <paul@crapouillou.net>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NS24CMRAE0Ksgr+PI3f4Oq9wDZWGbBowUQDYZE
+ aG5Oz2wYCxlWVK9qrtoVAs1sV7dRaWxtHI+cXAfK5EP8bQnWbacBSp0oFDLkrNsPx6tkuCCIUc
+ GokLB4FJpV27Psc33K7ffdKR8nRfmxqG067n+Pd9GmHv/Do8geZ2Mz4DogvVfqcb62YqYZ0dcQ
+ tNBZKjIWxsGkyCEHuoldB3UDGPUSvMhDiH30Cyh76BhuBvSlnGG7FMP7RsC9I+WoVUukQrI1r7
+ hNE0Pfj6pI5gBAAA=
+X-Change-ID: 20261023-icc-sm7250-1684e6e41a02
+To: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ishu Brar <patches@brar.si>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794993617; l=4839;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=thiWCzeT3qPf3nieXYQksfwNg5SNIAJToCzS7eHf5TE=;
+ b=lBhxm3RVsH2eld8XSLOibqgo2ZrjY/vtEo7JKBlzGF9iyMkeUVjX0QFl0CIcg8lFFwusioBiN
+ X5MuSknr/DdBNji3rZR7oKV9ZSUKrjbjmT3tic6EA3dE0wTBTF0pwQ/
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
+ auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
+Reply-To: patches@brar.si
 
-Hi Paul,
+Add the binding and the driver for the Network-On-Chip interconnect
+providers of the Qualcomm SM7250 SoC (Snapdragon 765/765G/768G). They are
+controlled through RPMh Bus Clock Managers, like the other RPMh based
+providers. The driver follows the layout of sm7150 and sm8250, and the
+nodes and BCMs come from the downstream interconnect description of the
+platform.
 
-> Am 18.11.2026 um 10:13 schrieb Paul Cercueil <paul@crapouillou.net>:
->=20
-> Hi Nikolaus,
->=20
-> Le mercredi 18 novembre 2026 =C3=A0 08:41 +0100, H. Nikolaus Schaller =
-a =C3=A9crit :
->> Use the hardware dual-edge detector on X1600 and X2000.
->>=20
->> Set PAT1 when configuring both edges and program EDG on X1600.
->> Keep software edge switching for older SoCs without EDG.
->>=20
->> Tested on X1600 and X2000 using GPIO buttons and register readback.
->>=20
->> Fixes: 943e0da15370 ("pinctrl: Ingenic: Add pinctrl driver for =
-X2000.")
->> Fixes: 4da56f9c6f14 ("pinctrl: ingenic: add x1600 support")
->=20
-> You'll have to decide, I don't think you can have two Fixes: lines.
+Tested on a OnePlus Nord (a 7.3 based tree): all providers probe,
+and UFS, USB, display, I2C, serial and camera ISP devices get their
+paths without errors. The Adreno 620 GPU also takes its memory bandwidth
+levels from these providers (the Adreno 620 series sent earlier relies on
+them). The SoC devicetree nodes are not part of this series. The NoC nodes
+will follow in a later series, on top of the sm7250.dtsi from
+Sreeshankar's SM7250 series.
 
-Ah, sorry. I thought I had it removed... I think we should fix only =
-4da56f9c6f14
+---
+Changes in v6:
+- Binding: fix the child node description. Only the compute-noc QoS
+  registers are within the parent's (aggre2-noc) space, mc-virt and
+  qup-virt have no registers at all (Krzysztof Kozlowski)
+- Binding: allow each child only under its own parent NoC (aggre2-noc:
+  compute-noc, gem-noc: mc-virt, system-noc: qup-virt), reject it on the
+  others
+- Binding: add the RPMH CC IPA clock to aggre2-noc; the IPA port QoS
+  registers there need it
+- Link to v5: https://lore.kernel.org/20261116-icc-sm7250-v5-0-506be082a3c5@brar.si
 
->=20
-> You also need to add:
-> Cc: stable@vger.kernel.org
+Changes in v5:
+- Binding: each parent NoC has exactly one child, so describe it as a
+  single 'interconnect' node instead of a pattern (Krzysztof Kozlowski)
+- Binding: move allOf to the end, before unevaluatedProperties
+  (Krzysztof Kozlowski)
+- v4 lost its threading: my mail setup rewrote the Message-IDs, so the
+  patches did not link to the cover letter. Fixed for this version.
+- Link to v4: https://lore.kernel.org/r/010601a17d6204b2-d2d847ec-d522-4402-8450-187fb3ced56f-000000@ap-northeast-1.amazonses.com
 
-Agreed.
+Changes in v4:
+- Binding: restore compute-noc, mc-virt and qup-virt as child nodes of
+  their parent NoC (pattern '^interconnect-[0-9]+$', no extra comment),
+  since they share the parent's register space (Krzysztof Kozlowski)
+- Binding: add the QoS clocks of aggre1-noc (aggre UFS PHY AXI and aggre
+  USB3 PRIM AXI), required there and rejected on the other NoCs
+  (Krzysztof Kozlowski)
+- Binding: drop the redundant example node (Krzysztof Kozlowski)
+- Driver: order the node definitions so that every node comes after the
+  nodes it links to, which drops all the forward declarations
+  (Konrad Dybcio)
+- No other change to the driver
+- Link to v3: https://patch.msgid.link/20261026-icc-sm7250-v3-0-aa303226298c@brar.si
 
->=20
->> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
->> ---
->>  drivers/pinctrl/pinctrl-ingenic.c | 19 +++++++++++--------
->>  1 file changed, 11 insertions(+), 8 deletions(-)
->>=20
->> diff --git a/drivers/pinctrl/pinctrl-ingenic.c =
-b/drivers/pinctrl/pinctrl-
->> ingenic.c
->> index 88c5edeaaddcc..dc5d38c16e18d 100644
->> --- a/drivers/pinctrl/pinctrl-ingenic.c
->> +++ b/drivers/pinctrl/pinctrl-ingenic.c
->> @@ -3622,6 +3622,10 @@ static void irq_set_type(struct =
-ingenic_gpio_chip
->> *jzgc,
->>   break;
->>   }
->> =20
->> + if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
->> +     is_soc_or_above(jzgc->jzpc, ID_X1600))
->=20
-> That actually fits in one line of 80 chars.
->=20
-> But you can do even better and move that to the switch above, and =
-replace the
-> val1 =3D val2 =3D false;
->=20
-> with:
-> val1 =3D false;
-> val2 =3D is_soc_or_above(jzgc->jzpc, ID_X1600);
+Sorry Krzysztof, I misread your v2 comment about the child nodes.
 
-Looks good.
+Changes in v3:
+- Subject: drop the redundant trailing "bindings" (Krzysztof Kozlowski)
+- Drop the "Child node's properties" comment (Krzysztof Kozlowski)
+- Binding: no child nodes any more; compute-noc, mc-virt and qup-virt are
+  separate compatibles on top-level nodes without reg (reg: false), as in
+  the milos and kuno bindings, so patternProperties goes away
+  (Krzysztof Kozlowski)
+- No change to the driver
+- Link to v2: https://patch.msgid.link/20261024-icc-sm7250-v2-0-0e755894b188@brar.si
 
->=20
->> + val2 =3D true;
->> +
->>   if (is_soc_or_above(jzgc->jzpc, ID_JZ4770)) {
->>   reg1 =3D JZ4770_GPIO_PAT1;
->>   reg2 =3D JZ4770_GPIO_PAT0;
->> @@ -3635,15 +3639,13 @@ static void irq_set_type(struct =
-ingenic_gpio_chip
->> *jzgc,
->>   return;
->>   }
->> =20
->> - if (is_soc_or_above(jzgc->jzpc, ID_X2000)) {
->> - ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
->> - ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
->> - ingenic_gpio_shadow_set_bit_load(jzgc);
->> - ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset, val3);
->> - } else if (is_soc_or_above(jzgc->jzpc, ID_X1000)) {
->> + if (is_soc_or_above(jzgc->jzpc, ID_X1000)) {
->>   ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
->>   ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
->>   ingenic_gpio_shadow_set_bit_load(jzgc);
->> +
->> + if (is_soc_or_above(jzgc->jzpc, ID_X1600))
->> + ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset,
->> val3);
->=20
-> The minimal diff would have been to change the check for ID_X2000 to =
-ID_X1600
-> above. But the code does look better this way so I take it.
->=20
->>   } else {
->>   ingenic_gpio_set_bit(jzgc, reg2, offset, val1);
->>   ingenic_gpio_set_bit(jzgc, reg1, offset, val2);
->> @@ -3718,7 +3720,7 @@ static void ingenic_gpio_irq_ack(struct =
-irq_data *irqd)
->>   bool high;
->> =20
->>   if ((irqd_get_trigger_type(irqd) =3D=3D IRQ_TYPE_EDGE_BOTH) &&
->> -     !is_soc_or_above(jzgc->jzpc, ID_X2000)) {
->> +     !is_soc_or_above(jzgc->jzpc, ID_X1600)) {
->>   /*
->>    * Switch to an interrupt for the opposite edge to the one
->> that
->>    * triggered the interrupt being ACKed.
->> @@ -3758,7 +3760,8 @@ static int ingenic_gpio_irq_set_type(struct =
-irq_data
->> *irqd, unsigned int type)
->>   irq_set_handler_locked(irqd, handle_bad_irq);
->>   }
->> =20
->> - if ((type =3D=3D IRQ_TYPE_EDGE_BOTH) && =
-!is_soc_or_above(jzgc->jzpc,
->> ID_X2000)) {
->> + if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
->> +     !is_soc_or_above(jzgc->jzpc, ID_X1600)) {
->=20
-> Keep it on line line.
+Changes in v2:
+- Set .enable_mask = BIT(3) on the ACV BCM, like sm8150, sm8250 and sc7180, so
+  that the voter sends the one-hot APPS RSC bit instead of the scaled bandwidth
+  (reported by sashiko-bot)
+- Drop the IPA virtual provider (qcom,sm7250-ipa-virt, its BCM and its node IDs):
+  clk-rpmh already owns the IP0 BCM through RPMH_IPA_CLK, and the sibling SoCs
+  have no such provider either; otherwise icc_sync_state() would zero its vote
+  (reported by sashiko-bot)
+- Link to v1: https://patch.msgid.link/20261023-icc-sm7250-v1-0-1e47c1226857@brar.si
 
-Ok.
+To: Georgi Djakov <djakov@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Ishu Brar <patches@brar.si>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-pm@vger.kernel.org
+Cc: Konrad Dybcio <konradybcio@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-V4 will come asap...
->=20
-> Cheers,
-> -Paul
+---
+Ishu Brar (2):
+      dt-bindings: interconnect: qcom: Add SM7250 RPMh NoC
+      interconnect: qcom: Add SM7250 interconnect provider driver
 
-BR and thanks,
-Nikolaus=
+ .../bindings/interconnect/qcom,sm7250-rpmh.yaml    |  176 +++
+ drivers/interconnect/qcom/Kconfig                  |   14 +
+ drivers/interconnect/qcom/Makefile                 |    2 +
+ drivers/interconnect/qcom/sm7250.c                 | 1489 ++++++++++++++++++++
+ .../dt-bindings/interconnect/qcom,sm7250-rpmh.h    |  148 ++
+ 5 files changed, 1829 insertions(+)
+---
+base-commit: 3fd56a2833c22f62eb84297d0dbd47739632f1a0
+change-id: 20261023-icc-sm7250-1684e6e41a02
+
+Best regards,
+--  
+Ishu Brar <patches@brar.si>
+
+
