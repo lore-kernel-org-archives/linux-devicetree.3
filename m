@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794990559;
-	b=BJorwTULXJACkpqm9WvizTErMfZVhSshPH9YVQJurkSsgQ9oop2EPGFZjefFVGJAIssz
-	 Ff+DaH4W0SbdY3b18Iayq1nTsLr+tjUS4KkLD4RX4y1eIu6Q0s4dYYbaxNnzgffDXjdiL
-	 CfmDrBO62zhFbFTfSLJxmewqLigyI4bcmHLfGZshGuztekvlhswEZW8yIyhgkFcyDDcHt
-	 7Hesk0FhNKrDSvHBqAYsGqrHTYe2AETiyf0/NCYdBOkw5DQk6+sDWAOpBpaghfO+1iF7n
-	 PEvrnCjNjnSyknAj0WPX+ipJgvaJHB/yH1wpp4+2ssFK2U9hVuswoEpmJnvto8gXJZQ==
+	t=1794990668;
+	b=CidK3FWHGh6pHSw6Ys/7MSJeKOOoXgYC2OC5wMw8mJWyPjWG56HvmyEg4Ghfu38wUrvA
+	 lZkOGOo7PKKHeX8KhnRJYfv+aczMAzAyoUWMlTrWohe/TJTNgDlX/gYgV/vVgTqCT0hVC
+	 DShQTg/R6FJ9Msm7VN5mpxw1Youmr9mqDcVlWb3c7Z7UllWhAiZfyxTZmBs2s8kVCioDK
+	 KFTc2HpN87mpm5D/tMC/C+EYz1AVtt/FUxKFYnuVtbIbrSUIRMSl+vJRm48+TJ/RjJTDX
+	 iuB5fLshsLxafvHgGScRulg7GbkvSPR4TvfEoavhiXzy24/D2QzUd+r8l4w1019qmHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794990559;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794990668;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ciJVtNtxH38Q6pvHD/O0H+Vukg8SUBGOxlIE4tg40bY=;
-	b=hJyCQd2SgohaolQvBbkDGK9Ieh19jZfQw1Zna9OZGF6PwTxAO8ZPPylUNAe/DghlxY/h
-	 bVqDHJ6wCtSXVM8Lw9wYy2QFFVTIzzvwmc9GA1hgwa5E032X/ElXJt+w5om5XNSX5qYVm
-	 +KsHpZ3iv7T9VDUjTlP2n8NtWH3OcsUXcooNM2W0S3GJ0avdoEioLpwfpAE79zCUNzXGN
-	 otR2Te/pbhvQfZ1bka+KbcR216CUkfaZ70joj5eW9CvM5THFgBay8WBESeEVV1B9S+xPf
-	 U2tM8Y26RdaHgcAK8dYR9kOqVBC4WUBp5FCOePa9j24WFWYCV6wbK+IhNvwS+dEe8nA==
+	bh=TYjIXTKoc+cJqtxl4Bl7URpIe/oR1c/WVg7MWfJqmeY=;
+	b=ZV3JQ9h0Biw8ezdpPEtjSK5wquK3dHJB3+3MHOnE+0rx3aDMVnRZfb/iiT44mNtQKke7
+	 gTJDY3OPSvJFTnsRdr5Q7vwheLCZLRtVj63GNSyWXRFMB6st/AZEsLW6fUr0t4pGetV/w
+	 P0dd4wC4NgIscfw/K616GTBFpTMEd711hcjqBkkCtxY9vdEWv7H2d4AT297FBBF4wJtQ5
+	 3ITuDXU+tWM9qgK6VSAlfaE17+K+q4KzKijKgLeW4wFHMkrGQ9injbSssd+UYBqpQvtV8
+	 4sDQ20gKh7ziuvMpPSKPhNGoF+4gPbmxvQe+VjUUn1TwU4+V8q0VcmDjir5tJUAKzoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BVy3Sj/3";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E0pP+ceH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5AA606A31C;
-	Wed, 18 Nov 2026 08:29:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A97606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:31:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BVy3Sj/3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F344C1F000C4;
-	Wed, 18 Nov 2026 08:29:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E0pP+ceH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 872ED1F000C4;
+	Wed, 18 Nov 2026 08:31:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794990559;
-	bh=ciJVtNtxH38Q6pvHD/O0H+Vukg8SUBGOxlIE4tg40bY=;
+	s=k20260515; t=1794990667;
+	bh=TYjIXTKoc+cJqtxl4Bl7URpIe/oR1c/WVg7MWfJqmeY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BVy3Sj/3m5ysri3bOmwYY5fZxofJylPfcQwHPSala1xmIJVAZvp27bQ3aXJ5dkbUi
-	 V/79GOO+2/l9xfIDmLfCnBnV2iEPl87WQztmTwkEFF4Q/TNBuafVvsJT4bzxkcQYSb
-	 fLwqtcUfJ5IbkgXcg4nr6lEBr4XeHrygkZIjx3tJ5OWLMSb3u/5b2HW/m84bDxsN9J
-	 SgV13fW4pBkPLzkaEHYrY0D4+FHA4nKLRA79mvmo4mA/AEPCGYs8W9afezRtENjul0
-	 Kxhc5Yi7NSX/M/inDq2isq2r2/glzcOiBu/zwUSXiR5+f8ySykQr454IKP+9mcUT2I
-	 D/QwnGj/0YRrQ==
-Message-ID: <sashiko-outbox-220449@kernel.org>
+	b=E0pP+ceHuBBQheYY5vJa8lXD5xmIFTPCaLkBToxJ0Bswz6JFCQpSX+fq8MSxMYwUV
+	 QsmUEV1HD1sPd1boC6MPwNOe0rzbMqu/98Kj3sCO7nA22Bg7d8Tx1qbK7O7c9QAnK5
+	 qe/rSGnX0M/vAxIDSK9ydPDlhz6iyD/1g3ECOJifx6c972XapjePz/L4CdIVMf44AD
+	 79RIxmxd9l5NVRpeYRekfMlvjRhxaiTDr8xnuUJGP1t8eQy+UTkbQdMDV7tJf5T/6K
+	 Ovn+LxGaX9aKi9Vf1TeX0oW5Dg6xYoBLZ0AYulRGmuyAEv9FRgoECoiYwbMTrrTWtH
+	 KF7zYMwQFDkFA==
+Message-ID: <sashiko-outbox-220454@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: rtc: haoyu,hym8563: document vcc-supply
+Subject: Re: [PATCH ath-next v3 15/15] wifi: ath12k: add Wi-Fi 8 PCI driver
+ scaffolding for QCN9575
 Reply-To: sashiko-reviews@lists.linux.dev
-To: pjh456 <147148383@qq.com>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <tencent_B11DE1495C3C54CE186ED508E2CE5CE41106@qq.com>
-References: <tencent_B11DE1495C3C54CE186ED508E2CE5CE41106@qq.com>
+To: "Madhavan Ganesan" <madhavan.ganesan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261118-wifi8_qcn9575_bringup-v3-15-9875d2a3953f@oss.qualcomm.com>
+References: <20261118-wifi8_qcn9575_bringup-v3-0-9875d2a3953f@oss.qualcomm.com>
+ <20261118-wifi8_qcn9575_bringup-v3-15-9875d2a3953f@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 08:29:18 +0000
+Date: Wed, 18 Nov 2026 08:31:07 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,38 +63,58 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] dt-bindings: rtc: haoyu,hym8563: VDD supply documented as
-  vcc-supply
+- [High] wifi: ath12k: missing arch_init/arch_deinit in
+  ath12k_wifi8_pci_driver
 --
 
-commit b43da37686bbff8c05e2939d152dd97bed1884f1
-Author: pjh456 <147148383@qq.com>
+commit 86cf6f76e704215111a2398f4b1b921425a02b1b
+Author: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
 
-dt-bindings: rtc: haoyu,hym8563: document vcc-supply
+wifi: ath12k: add Wi-Fi 8 PCI driver scaffolding for QCN9575
 
-This commit adds a vcc-supply property to the Haoyu HYM8563 RTC Device
-Tree binding schema to describe its optional VDD supply.
+This commit adds QCN9575 PCI window constants, a probe callback, and PCI
+driver registration scaffolding for Wi-Fi 8 devices.
 
-> diff --git a/Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml b/D=
-ocumentation/devicetree/bindings/rtc/haoyu,hym8563.yaml
-> index 0b9f39ef0edc3..b27b250d3c2e3 100644
-> --- a/Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml
-> @@ -29,6 +29,9 @@ properties:
->    wakeup-source:
->      description: Enables wake up of host system on alarm.
-> =20
-> +  vcc-supply:
-> +    description: Main power supply (VDD).
+> diff --git a/drivers/net/wireless/ath/ath12k/wifi8/pci.c b/drivers/net/wi=
+reless/ath/ath12k/wifi8/pci.c
+> index 3975081d167b8..fd0489f8333f4 100644
+> --- a/drivers/net/wireless/ath/ath12k/wifi8/pci.c
+> +++ b/drivers/net/wireless/ath/ath12k/wifi8/pci.c
+
+[ ... ]
+
+> +static struct ath12k_pci_driver ath12k_wifi8_pci_driver =3D {
+> +	.name =3D "ath12k_wifi8_pci",
+> +	.id_table =3D ath12k_wifi8_pci_id_table,
+> +	.ops.probe =3D ath12k_wifi8_pci_probe,
+> +	.reg_base =3D &ath12k_wifi8_reg_base,
+> +};
 > +
+>  int ath12k_wifi8_pci_init(void)
+>  {
+> -	/* Wi-Fi 8 PCI driver registration will be added in follow-up patches. =
+*/
+> +	int ret;
+> +
+> +	ret =3D ath12k_pci_register_driver(ATH12K_DEVICE_FAMILY_WIFI8,
+> +					 &ath12k_wifi8_pci_driver);
 
-[Severity: Medium]
-Should this property be named vdd-supply instead of vcc-supply?
+[Severity: High]
+Does ath12k_pci_register_driver() always fail with -EINVAL here because
+ath12k_wifi8_pci_driver leaves ops.arch_init and ops.arch_deinit NULL?
 
-Both the description and the HYM8563 datasheet identify the IC supply pin
-as VDD, and neither hym8563_probe() in drivers/rtc/rtc-hym8563.c nor any
-in-tree haoyu,hym8563 Device Tree node currently uses vcc-supply.
+drivers/net/wireless/ath/ath12k/pci.c:ath12k_pci_register_driver() {
+    ...
+	if (!driver || !driver->ops.probe ||
+	    !driver->ops.arch_init || !driver->ops.arch_deinit)
+		return -EINVAL;
+    ...
+}
+
+Even though ath12k_wifi8_pci_id_table is empty, ath12k_wifi8_init() calls
+ath12k_wifi8_pci_init() at module load time, so loading ath12k_wifi8 fails
+unconditionally with -EINVAL.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_B11DE1495C3=
-C54CE186ED508E2CE5CE41106@qq.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-wifi8_qcn9=
+575_bringup-v3-0-9875d2a3953f@oss.qualcomm.com?part=3D15
