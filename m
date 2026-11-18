@@ -1,115 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794989665;
-	b=fg05NXPy4l6XMAzvbDoIdbmTHhmGj+6hkFJSu77TlyzOvjf4N25xw4cKQ2PXiaHCMEyy
-	 447iQanIYhZQoHm92ThZ0SmeK8j1EE8oTs7efvC9L3j+yUoNkSD3bAOkDR41Kc8MUdiMh
-	 m7x7LHoUceYMVHbTApcG1Tob05LzjT2CvcJIauaXfNZ7Mor4H9iZmrgiAlVYNKatUvm23
-	 bpWQ4VPFbnuKgLnKLv3K9ex7skS1Ssdegk+htKyFXRF98Lts2SKar0VJuxtTQ5YpNka9p
-	 0Yvrei9wIoc6MtaCR3j/EoQ1H86y1TzCnDW6wFj68WqkNFnVPh0pk0r19Dh2SkaGmZw==
+	b=RQ6Y45JIguvkyLtj6zIjEkayeWQERwfjbRGSwELb0QWTZBE/Ebb6BsBbZr+CRNsnaX12
+	 oBcUxM7RR2dbXnFPC6+r4H6C0HlxakStYlG9dqPuQKusKXPG5E5FRe6tm7N824RY40nJa
+	 qGGw7hnqvJjWVgvKYxYMn94yiICamF4kjR1arLx/chZPjqZz2PdGZN40M65bemBebJJMz
+	 Ai8qE46uOBARbc1oBq/cgr2jx3oZsDFkx+0VI5LMNcCsChziBhMLrZgyPiOarY5HQsbj+
+	 UeXNNTZCSUsjZUCxyL53+xLsvgTMNX3qAbzolMRgkK+iVwYjNAEBKOqMFWWIPp/e7fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794989665;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=APhQwYNmSvby3GRg2cLabLmHneke0qepZv2cjCRyDwg=;
-	b=sBmZxeFHTj7fWj5ZEXl9ml0N5jtJ/q5OwXWNpCyNQAJqDYy9uitTYQM4CfxCrY2Ryg2m
-	 M9l80YxkqCrMf6IGl44nOFLVLtsGutZ7MeYYVitTbwz9RTEKlDIjjaUBwAHFb5pzCAtUD
-	 MIGR5RtzGPUPGDbZuy/6tXW1lnmMwJOuWZ7bGUH3xc9F1vs5Go772vx7+6qIX+ifaPmfY
-	 MdjTyM1q5nDDCnoqB6TqriaOjgPhJp8iJfLEkVpky5BnEsvxZ+VQDM7mNGQCN5eh2Dwba
-	 Pg7+ItnT0WAidodw+rj5sRBV79JWlDCpSNsmIVJz4tHhmSSrhXPJwadaPQeodBEGB0w==
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0d+s6cAn6uhV0VhVs39P/ZxCWEh9RIa/jJ/8Nk9ZNIA=;
+	b=JSa93B02HxmQNl1x0DzOLSRl3j81p+8MnDjxW2urDriIf9M/e5XFHofGXAV9REzv1G2e
+	 e89sytSpphaezallYjRVWYkIDNBCVgNQQr/HMmfv/DdsZ6Z5IE/L4mzxeif3jPV3rts4t
+	 j1SLGC+fMJeNKuWX5fXcqOGET3ZAkexUV+3twpNd05yi4Mm4N0THsyCI5VFw3noCI4fbs
+	 3ySibPlwDF5yJLsTuFL7f3EnOEZPZoMA7f9Ak92vgrzhpBd0N+qqLVL1hqjuMQkuRdgvF
+	 6Hlk0okn0JOTp1VLeQfxl0mOvPh/29j1y0RE2vUki5qkmvIwtOLw41DQ1kAIOmiJW9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=h3Ucd5Xh;
-	arc=none smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSTCRHYO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45662606A32C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:14:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45662606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A2D606A31C;
+	Wed, 18 Nov 2026 08:14:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=h3Ucd5Xh
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cdb2893531bso529612a12.1
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 00:14:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794989665; x=1795594465; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=APhQwYNmSvby3GRg2cLabLmHneke0qepZv2cjCRyDwg=;
-        b=h3Ucd5XhGqg813yg6DkzD7DIGmtwbMlGmIVk20YWAaCF5BKmS8akgKvMaIoSNt6O6A
-         JJxCztIBbKHuZgWXQ/RgjYDGImJlTh2t71giDBb5hCxv/lqloX5+S/asf48s5A7wa22i
-         WOQzbIg8cX7kaR0Pa84cv5fTNoczITKdf2y64zlLj1A1vw2iDKftUUGfAZyFppBi8gww
-         44MGzIh/kT3oBFRFRVwAtJa8tUsvtLkh777ZEPz2I/QSw4lrY4ND8LiOhLRfvKtDfOTm
-         icSDHj4HgCHVS1aSV9stSipCZtwYGr7Y+fzHBNr37F4TRUCQrwtCmCE4j/o4rpK6o3Bw
-         MWmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794989665; x=1795594465;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=APhQwYNmSvby3GRg2cLabLmHneke0qepZv2cjCRyDwg=;
-        b=oVxA/5Ql+o5yvIfb/yzUSZpZFvHkMwULRCTC/hGmwcQxyJaCTyHJjyAs6hQ7S7RA0D
-         yFgCki6vOmy/vhMo36y3htNtK178tkcTm/vlgAsIj0j0MXevlI2Mjl+IOiyai8DX/bc9
-         jFXdGNbKfhzLDLnGiS8DZV6HX67q5Q5By8ausO2cE3owSXXinRLeMwPrHgY2iApPN+27
-         kp2t9vobEY8VkqDWg7uW62a6K4x8VzuFgLMar2nfPAGud7LgHWbbFpsG8dHYA8d0juZi
-         mQkntF0g66Qh2DUWI1D1zmubJena7mxr1TBCuRuWYqg9efhm6ZAiYEGM+Ge6A1hm58bj
-         O5Vg==
-X-Forwarded-Encrypted: i=1; AL+hErGGn42YIQAjBHSyY94aGQs58CbfKRkVE72sVewx8107BjgJz3DppcQ6xM+vt21aYcNrnfNyDEG/JRY3@vger.kernel.org
-X-Gm-Message-State: APuU4Z/OUnhM8j9xsbDkKW6U62I7ao0DJgByNXa7HlQgGUtQD/GXMvrf
-	HAHGhNGFPdqD0begs3MwlK/umQX5DsrdPuegPYAHQEIEUbyPoP6+WGezwxAyO+AQBcM=
-X-Gm-Gg: AZFdTZdP6L0+PzmA1KsjrM8TMcUEknaeKpwRprIZi+eUfoG67tlbo1CyzkHi4Y3wTD/
-	VzGMYap9Z6Lboa7mcEAPPDoVMJNqBrketfZ19XHLr2WJ/LTDQPlIu7u2ncmnmuQzzCRQCThtrY4
-	uU8JgQmmh0xAfn/ah7/cowFtzgnuC42JvWO/ftljXKGHN5CvkvzhL9tl8nQVhUB2W7TyGA1DqO/
-	Hn0yQD6hY+K9ZdsPKwmifWLjtdneri96ARHU+/dqloel/yrhQQwiyIeWj78+1Z78eUKAojTgJ/m
-	RHT3BvPUIWwK0ylbnnuGT/i76x982JeYdHyATHRr0nyiCuDCCorTN9W+nEdFakAiZRr0Uuvqz3Y
-	KH+vZqcFLvwOqqTaqvcHh6VO2iE2rR73pHT2udkP2DtR4DsfCJwh/4Yq1EFOatU+kjaLSQcVirD
-	fCjZIc5tZB0owj03efWVBcH6D15ObYaRNJx94vNtT4QyDlPynNcP3tlj1BJiI/yIPbAP/3kjIQg
-	FtYTsGdfPxExpROCHHdaJoahnYC9v39rYp7Dv+/GhCXstDyEJpFzjpIFThdxVWYmOH2Sq6cWEJ0
-	FWRyK1bJSuVmHBZF3clOmzKoBBHEoS4BQtGStFYw/gusuUlQwhbk+FfGRa06+QD/aiZ9hbm3df6
-	NDq92ukI=
-X-Received: by 2002:a17:90b:57cb:b0:3ab:36c4:b502 with SMTP id 98e67ed59e1d1-3b3d0762904mr1796608a91.30.1794989664256;
-        Wed, 18 Nov 2026 00:14:24 -0800 (PST)
-Received: from FJ7FR2JRQ3.bytedance.net ([186.240.245.239])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d1acde50sm3254680a91.14.2026.11.18.00.14.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 18 Nov 2026 00:14:23 -0800 (PST)
-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-To: linux-riscv@lists.infradead.org,
-	linux-perf-users@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	andrew.jones@linux.dev,
-	linux-doc@vger.kernel.org,
-	corbet@lwn.net,
-	atish.patra@linux.dev,
-	anup@brainfault.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	yuanzhu@bytedance.com,
-	cuiyunhui@bytedance.com,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	mark.rutland@arm.com,
-	will@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Subject: [RFC PATCH v1 5/5] perf: riscv: Deliver PDIS samples through the SBI PMU interrupt
-Date: Wed, 18 Nov 2026 16:13:33 +0800
-Message-ID: <20261118081327.10684-12-zhangzhanpeng.jasper@bytedance.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261118081327.10684-7-zhangzhanpeng.jasper@bytedance.com>
-References: <20261118081327.10684-7-zhangzhanpeng.jasper@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSTCRHYO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93D781F000C7;
+	Wed, 18 Nov 2026 08:14:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794989665;
+	bh=0d+s6cAn6uhV0VhVs39P/ZxCWEh9RIa/jJ/8Nk9ZNIA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hSTCRHYO3JhiIIlJxXllrrSefZtvXl07Amkpx95zDAEi6XykgLdseep+C0CUF0y6u
+	 NWvJMPvunO7y5/VgZuW4QAuzE3K9sm07QYVWvOrzZAWq7FJ5zf+epYxTa7MttoBMmH
+	 sg6nmkDfYUPJEFem4xoQIIhFBjmz73NNd1pjzP+TrbL1d9Dr0bb/fUbUq6TxPTB5D4
+	 Vye1+GYwoE6gaaVlJTW8B22dhZYeMA8GkwcWEaBanoAPjqUq/IUkrk5ax2I2Ic1FEm
+	 D8aDDKG/wpA9TmLKw6pbkW80CF2vNel2Och8j695ViMHGf+9RBDrWrhpbKy97b3z/K
+	 oGfpm0nudAi3A==
+Message-ID: <4ae5596c-281b-476c-b656-1e03ae7409b3@kernel.org>
+Date: Wed, 18 Nov 2026 09:14:17 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,308 +51,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 6/6] ARM: add the SiRF AT550 platform and YPL514si
+ board
+To: yogo.0917.sabu@gmail.com, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+ Ulf Hansson <ulfh@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Russell King <linux@armlinux.org.uk>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-doc@vger.kernel.org, soc@lists.linux.dev
+References: <20261117-at550-rfc-v1-v1-0-5879573cb825@gmail.com>
+ <20261117-at550-rfc-v1-v1-6-5879573cb825@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261117-at550-rfc-v1-v1-6-5879573cb825@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Use the recorded PC and the single enabled host privilege to construct
-perf samples. Only read the record header and PC from the indirect
-window. Account for rejected records when applying perf throttling.
+On 17/11/2026 14:06, yy-Local-LLM via B4 Relay wrote:
+> From: yy-Local-LLM <yogo.0917.sabu@gmail.com>
+> 
+> Add a minimal DT machine using standard IRQ, timer and simplefb paths.
+> Describe the SoC and the firmware-configured YPL514si display. Leave
+> usable memory and the divided counter rate for the bootloader to
+> populate. Keep optional peripheral nodes disabled until firmware hands
+> them over. Disable unvalidated board suspend; limit this board to SD PIO
+> at 25 MHz. Document the RAM-boot contract and the missing
+> cold-boot/clock-tree support.
+> 
+> Signed-off-by: yy-Local-LLM <yogo.0917.sabu@gmail.com>
 
-Collect PDIS before acknowledging the shared pending interrupt. Restart
-ordinary counters even on a PDIS-only interrupt, then re-enable PDIS
-if perf has kept the event running.
+Awesome, you did not want to even read what LLM told you?
 
-Register the PMU after probing and installing the interrupt handler.
-Save the remaining period on CPU PM entry and restore it on resume.
-
-Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
----
- drivers/perf/riscv_pdis.c    | 112 +++++++++++++++++++++++++++++++++++
- drivers/perf/riscv_pdis.h    |  10 ++++
- drivers/perf/riscv_pmu_sbi.c |  38 ++++++++----
- 3 files changed, 148 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/perf/riscv_pdis.c b/drivers/perf/riscv_pdis.c
-index 9a8fe5e4ab82..60c9ece22dfc 100644
---- a/drivers/perf/riscv_pdis.c
-+++ b/drivers/perf/riscv_pdis.c
-@@ -3,6 +3,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/cpu.h>
-+#include <linux/cpu_pm.h>
- #include <linux/device.h>
- #include <linux/errno.h>
- #include <linux/init.h>
-@@ -13,10 +14,12 @@
- #include <asm/asm-extable.h>
- #include <asm/cpufeature.h>
- #include <asm/csr.h>
-+#include <asm/ptrace.h>
- 
- #include "riscv_pdis.h"
- 
- /* Draft spdis.adoc at 2de60e18118ce78e2da82ec33296345c94d8560c. */
-+#define RISCV_PDIS_ISELECT		0x60
- #define RISCV_PDIS_COUNTER_BIT		BIT(1)
- /* Local experimental encodings, not architectural CSR allocations. */
- #define RISCV_PDIS_CSR_CTL		0x5e0
-@@ -26,6 +29,7 @@
- #define RISCV_PDIS_CSR_FILTER		0x5e4
- #define RISCV_PDIS_CSR_VSCTL		0x6d0
- #define RISCV_PDIS_STATEEN		BIT_ULL(55)
-+#define RISCV_PDIS_CTL_OF		BIT_ULL(63)
- #define RISCV_PDIS_CTL_SEL		GENMASK_ULL(2, 0)
- #define RISCV_PDIS_CTL_ACC		BIT_ULL(33)
- #define RISCV_PDIS_CTL_U		BIT_ULL(60)
-@@ -39,6 +43,9 @@ enum riscv_pdis_select {
- 	RISCV_PDIS_SELECT_CONTROL,
- };
- 
-+#define RISCV_PDIS_HDR_TYPE		GENMASK_ULL(2, 0)
-+#define RISCV_PDIS_HDR_FMT		GENMASK_ULL(63, 61)
-+
- #define RISCV_PDIS_SAMPLE_TYPES (PERF_SAMPLE_IP | PERF_SAMPLE_TID | \
- 				 PERF_SAMPLE_TIME | PERF_SAMPLE_ID | \
- 				 PERF_SAMPLE_STREAM_ID | PERF_SAMPLE_CPU | \
-@@ -54,7 +61,9 @@ struct pdis_cpu {
- 	struct perf_event *event;
- 	bool ready;
- 	bool counter_valid;
-+	bool irq_running;
- 	bool switching;
-+	bool pm_resume;
- };
- 
- static DEFINE_PER_CPU(struct pdis_cpu, pdis_cpu);
-@@ -399,6 +408,64 @@ static void pdis_sched_task(struct perf_event_pmu_context *ctx,
- 		csr_clear(CSR_SCOUNTINHIBIT, RISCV_PDIS_COUNTER_BIT);
- }
- 
-+/* Called with local IRQs disabled and the PDIS counter inhibited. */
-+static int pdis_overflow(struct perf_event *event)
-+{
-+	struct perf_sample_data data;
-+	struct pt_regs regs = {};
-+	unsigned long selector, header, pc;
-+
-+	selector = csr_swap(CSR_SISELECT, RISCV_PDIS_ISELECT);
-+	header = csr_read(CSR_SIREG);
-+	pc = csr_read(CSR_SIREG2);
-+	csr_write(CSR_SISELECT, selector);
-+
-+	if (FIELD_GET(RISCV_PDIS_HDR_FMT, header) ||
-+	    FIELD_GET(RISCV_PDIS_HDR_TYPE, header) > 4)
-+		return perf_event_account_interrupt(event);
-+
-+	/* The draft record has no privilege field. Only one mode is enabled. */
-+	regs.epc = pc;
-+	if (event->hw.config & RISCV_PDIS_CTL_S)
-+		regs.status = SR_SPP;
-+	perf_sample_data_init(&data, 0, event->hw.last_period);
-+	data.ip = pc;
-+	data.sample_flags |= PERF_SAMPLE_IP;
-+	return perf_event_overflow(event, &data, &regs);
-+}
-+
-+bool riscv_pdis_irq_prepare(void)
-+{
-+	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
-+	struct perf_event *event = pcpu->event;
-+	bool pending;
-+
-+	if (!pcpu->ready)
-+		return false;
-+	pcpu->irq_running = event && !(event->hw.state & PERF_HES_STOPPED);
-+	csr_set(CSR_SCOUNTINHIBIT, RISCV_PDIS_COUNTER_BIT);
-+	pending = csr_read(CSR_SCOUNTOVF) & RISCV_PDIS_COUNTER_BIT;
-+	if (pending && pcpu->irq_running && !pcpu->switching) {
-+		pdis_event_update(event);
-+		if (pdis_overflow(event))
-+			pdis_stop(event, PERF_EF_UPDATE);
-+	}
-+	csr_clear(RISCV_PDIS_CSR_CTL, RISCV_PDIS_CTL_OF);
-+	if (pending)
-+		pdis_clear_accounted(event);
-+	return pending;
-+}
-+
-+void riscv_pdis_irq_finish(void)
-+{
-+	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
-+
-+	if (pcpu->ready && pcpu->irq_running && pcpu->event &&
-+	    !pcpu->switching && !(pcpu->event->hw.state & PERF_HES_STOPPED))
-+		csr_clear(CSR_SCOUNTINHIBIT, RISCV_PDIS_COUNTER_BIT);
-+	pcpu->irq_running = false;
-+}
-+
- void riscv_pdis_cpu_dying(void)
- {
- 	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
-@@ -413,6 +480,32 @@ void riscv_pdis_cpu_dying(void)
- 	cpumask_clear_cpu(smp_processor_id(), &pdis_cpus);
- }
- 
-+static int pdis_cpu_pm_notify(struct notifier_block *nb, unsigned long cmd, void *v)
-+{
-+	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
-+	struct perf_event *event = pcpu->event;
-+
-+	if (!pcpu->ready)
-+		return NOTIFY_DONE;
-+	if (cmd == CPU_PM_ENTER) {
-+		pcpu->pm_resume = event && !(event->hw.state & PERF_HES_STOPPED);
-+		if (event)
-+			pdis_stop(event, PERF_EF_UPDATE);
-+		else
-+			pdis_quiesce();
-+	} else if (cmd == CPU_PM_EXIT || cmd == CPU_PM_ENTER_FAILED) {
-+		riscv_pdis_cpu_starting();
-+		if (pcpu->pm_resume && pcpu->ready && event)
-+			pdis_start(event, PERF_EF_RELOAD);
-+		pcpu->pm_resume = false;
-+	}
-+	return NOTIFY_OK;
-+}
-+
-+static struct notifier_block pdis_cpu_pm_nb = {
-+	.notifier_call = pdis_cpu_pm_notify,
-+};
-+
- PMU_FORMAT_ATTR(select, "config:0-2");
- static struct attribute *pdis_format_attrs[] = { &format_attr_select.attr, NULL };
- static const struct attribute_group pdis_format_group = {
-@@ -444,3 +537,22 @@ static struct pmu pdis_pmu = {
- 	.check_period = pdis_check_period,
- 	.sched_task = pdis_sched_task,
- };
-+
-+int riscv_pdis_register(struct device *parent)
-+{
-+	int ret;
-+
-+	if (cpumask_empty(&pdis_cpus)) {
-+		if (pdis_test)
-+			dev_info(parent, "PDIS test PMU unavailable on all online CPUs\n");
-+		return -ENODEV;
-+	}
-+	ret = cpu_pm_register_notifier(&pdis_cpu_pm_nb);
-+	if (ret)
-+		return ret;
-+	pdis_pmu.parent = parent;
-+	ret = perf_pmu_register(&pdis_pmu, "riscv_pdis_test", -1);
-+	if (ret)
-+		cpu_pm_unregister_notifier(&pdis_cpu_pm_nb);
-+	return ret;
-+}
-diff --git a/drivers/perf/riscv_pdis.h b/drivers/perf/riscv_pdis.h
-index b1ffe7d16ce0..8a9cf7afe51e 100644
---- a/drivers/perf/riscv_pdis.h
-+++ b/drivers/perf/riscv_pdis.h
-@@ -2,12 +2,22 @@
- #ifndef __RISCV_PDIS_H
- #define __RISCV_PDIS_H
- 
-+#include <linux/types.h>
-+
-+struct device;
-+
- #ifdef CONFIG_RISCV_PDIS_CSR
- void riscv_pdis_cpu_starting(void);
- void riscv_pdis_cpu_dying(void);
-+bool riscv_pdis_irq_prepare(void);
-+void riscv_pdis_irq_finish(void);
-+int riscv_pdis_register(struct device *parent);
- #else
- static inline void riscv_pdis_cpu_starting(void) { }
- static inline void riscv_pdis_cpu_dying(void) { }
-+static inline bool riscv_pdis_irq_prepare(void) { return false; }
-+static inline void riscv_pdis_irq_finish(void) { }
-+static inline int riscv_pdis_register(struct device *parent) { return 0; }
- #endif
- 
- #endif /* __RISCV_PDIS_H */
-diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-index 545b8becf90a..af86a30aae83 100644
---- a/drivers/perf/riscv_pmu_sbi.c
-+++ b/drivers/perf/riscv_pmu_sbi.c
-@@ -1092,24 +1092,23 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, void *dev)
- 	struct cpu_hw_events *cpu_hw_evt = dev;
- 	u64 start_clock = sched_clock();
- 	struct riscv_pmu_snapshot_data *sdata;
-+	bool handled;
- 
- 	if (WARN_ON_ONCE(!cpu_hw_evt))
- 		return IRQ_NONE;
- 
- 	sdata = cpu_hw_evt->snapshot_addr;
-+	/* Inhibit and collect PDIS before any shared pending bit is cleared. */
-+	handled = riscv_pdis_irq_prepare();
- 
- 	/* Firmware counter don't support overflow yet */
- 	fidx = find_first_bit(cpu_hw_evt->used_hw_ctrs, RISCV_MAX_COUNTERS);
--	if (fidx == RISCV_MAX_COUNTERS) {
--		csr_clear(CSR_SIP, BIT(riscv_pmu_irq_num));
--		return IRQ_NONE;
--	}
-+	if (fidx == RISCV_MAX_COUNTERS)
-+		goto out_clear;
- 
- 	event = cpu_hw_evt->events[fidx];
--	if (!event) {
--		ALT_SBI_PMU_OVF_CLEAR_PENDING(riscv_pmu_irq_mask);
--		return IRQ_NONE;
--	}
-+	if (!event)
-+		goto out_clear;
- 
- 	pmu = to_riscv_pmu(event->pmu);
- 	pmu_sbi_stop_hw_ctrs(pmu);
-@@ -1128,7 +1127,7 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, void *dev)
- 
- 	/* No overflow bit is set */
- 	if (!overflow)
--		return IRQ_NONE;
-+		goto restart;
- 
- 	regs = get_irq_regs();
- 
-@@ -1181,10 +1180,20 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, void *dev)
- 		hw_evt->state = 0;
- 	}
- 
--	pmu_sbi_start_overflow_mask(pmu, overflowed_ctrs);
--	perf_sample_event_took(sched_clock() - start_clock);
-+	handled = true;
- 
--	return IRQ_HANDLED;
-+restart:
-+	/* A PDIS-only interrupt must also resume the ordinary HPM counters. */
-+	pmu_sbi_start_overflow_mask(pmu, overflowed_ctrs);
-+out:
-+	/* PDIS can restart only after all sources and shared pending are serviced. */
-+	riscv_pdis_irq_finish();
-+	if (handled)
-+		perf_sample_event_took(sched_clock() - start_clock);
-+	return handled ? IRQ_HANDLED : IRQ_NONE;
-+out_clear:
-+	ALT_SBI_PMU_OVF_CLEAR_PENDING(riscv_pmu_irq_mask);
-+	goto out;
- }
- 
- static int pmu_sbi_starting_cpu(unsigned int cpu, struct hlist_node *node)
-@@ -1563,6 +1572,11 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
- 	ret = cpuhp_state_add_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
- 	if (ret)
- 		goto out_unregister;
-+	if (irq_requested && riscv_pmu_irq_num == RV_IRQ_PMU) {
-+		ret = riscv_pdis_register(&pdev->dev);
-+		if (ret && ret != -ENODEV)
-+			pr_warn("PDIS test PMU registration failed: %d\n", ret);
-+	}
- 
- 	/* Asynchronously check which standard events are available */
- 	schedule_work(&check_std_events_work);
--- 
-2.50.1 (Apple Git-155)
-
+Best regards,
+Krzysztof
