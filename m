@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795011365;
-	b=1i9pHSuEOQHmPI7Pd5ykEVYSHnXyRFB6wo5D4VoFIzVdIyZibMsLe8tNqBA2UyaAXbPw
-	 YZJrvWrZKWk/4Ef5iclYHpjySTeran+wb8yJ/6Nqj/bbohXWWZTSEcpwFx/lkrSHBYO49
-	 IpnIrQNA71gacT8I4gCDeJQiov69VUppP7+9c8Sgjax9/SHuCHVOT3I/Uplq5Td5DDimy
-	 nrZGFEv/T7GY4UVglKUGbL3phvNjzc51JI/BwPCGmixk5YV442FHx/Abyrz2/kZSPiBy7
-	 JNhdqs579IFQqhMFfqUM2Og1du5tuFofe/j/JwynNLAvrzFEOt+nRfpyJ7fyHHycj4g==
+	t=1795011386;
+	b=YThpcwmhSkyU4QvnPKnTcXHYZNfrI9lw1LthXN5yb4grsiMzE+r07hrDmON/w1QljA/N
+	 Dj8SkS6TyJZ8hwB2rwmn1SLUBuR2wI5QRm+EIF+uxhQonnE3RIc2iovdot7uMLEO2/+MH
+	 WU4vS+HLlXU+Pr35wyVy2UlH7XIv7PrYt+i6Mz0oDRa6DU9X4jZsNiQu3hCmVZLZUevuU
+	 iGkzv7FmZ76r9qOmIfFj9BEmepVES++mfaAh0xJMX7UxE1k62Y9qXbi6ic2nvOmnqiRxg
+	 X58fadzY/KiCXnCN7b42QXJRJeDxgDf17hJO1EuTC5oo9aa8Kly/qWnhBo4hV/eBzDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795011365;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795011386;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=bkf7PJBjbm1DRTPFHGTmhJ7h4suHTfNTgn4IGz4yvkQ=;
-	b=1/hbb6609d6ZGeUHefkaW5nHbxUCQso8nREyOoyOCVuFt43Ldj/yN+Fud7lNMyYj+P0X
-	 QphVELEyIIrxqlrgTt/PsbYj1n3+BJ3iIxKqszRFapTiE8mW6FsSrvfVByJSmigYDHxav
-	 GznW0/O2xbqgepCWPE+SnEHmcmzY0rTppCDxwtPlAZlDobnR2u/YYXaoCet7CVAdDq7Sh
-	 Eun94CxbhUvd5IUji4tEzU+4iGVzm7oXIj274PJI4Z9wWvNfdcvdP23l0lyMcgMwJ3oyW
-	 CYgjrdHlirAzRPgn0Jau5kYzePuKdbbwMhxJRQFlWg9F8wPMH9nE43VM91FsNrK3oVg==
+	bh=MwwOGXJR7+uyo9aDOmmqQWOoB1xXE2D5FOQ0OvEC4rI=;
+	b=SrN4mfXfd/+hHL9/5YW8VO5YWqjHSASrd9HIH23izpqMoDW1/VP9m01RucZHNY1v++am
+	 EjLLk/dZ2tB1THX5RkGUwu+D1jewnnvWUYkwa6NQ8KFIxorhrcz5KVLha7hMmyv6QBzIb
+	 bqZKEIzaoEsOPIy+MM/kIAA6+7GrORasiNBB8eS00qXxx/SUQa9NCsUsNtAaCdNZDwj0G
+	 yltAG5NQVC11/V22K1zq3yn+EEfrEjMIIvtV5Y6NCFLw4O+3/GoEHcbHkTBDgufjCtMIr
+	 1lsDjO2y6J5ZZC5VLyxb9GtgWs4XyW/kz7Z90ynIRZZQhwv4tuZxTCXyVWlFKFuxBAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrQgoat4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZcPoD8e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E38A606A338
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 14:16:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A37260A2611
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 14:16:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrQgoat4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90EB1F000C4;
-	Wed, 18 Nov 2026 14:16:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZcPoD8e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833371F000C6;
+	Wed, 18 Nov 2026 14:16:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795011365;
-	bh=bkf7PJBjbm1DRTPFHGTmhJ7h4suHTfNTgn4IGz4yvkQ=;
+	s=k20260515; t=1795011385;
+	bh=MwwOGXJR7+uyo9aDOmmqQWOoB1xXE2D5FOQ0OvEC4rI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JrQgoat4lEoOcNzxwsooox7QYmB4yrFIHdGCOKd1V1rLSchFdtFuysprQ1Zf99z3x
-	 DI60dePSIvn5AejjCq4tWpw3fJwqvSmjKPLTNp0hF/bza+zkROuhX+vEJPFYkb0VuX
-	 nd6HuOXrUQ20fUd89lkpZ1u+F0jDmmA7moUuSOHbcpDXX3ao2GOtBocBOoHzZkrnEP
-	 +IGi1orurZxhdB4/5mC4XzAO0MKu+V++mJuTM9qDQJs4nqANKE0KuZqhep6KkmBrNm
-	 U1lT1V3yRpFMavV4z8qOCrBqouLAB4LE+xIvaHlEaQhk5+G/RlTfv1FWyWg1+mS7BN
-	 ROhTOYbmn+2iw==
-Message-ID: <sashiko-outbox-221175@kernel.org>
+	b=GZcPoD8e2RpdyrJmYtqQBCI9lITNzVZjGUJDpTj4cO/pGS7XEtKFZsQmpBOhDwcGI
+	 R+zds/gFET/WqMPU0czPcEvMGMXwn6sHecOWB5Nj5Wv5PK5zEL0C32xAaqEEffR/nb
+	 Wwcsph5EDGmXFnW2JlGJMWHZVtfdE+5+D3j7BlLrky2iGcfFG5Dcp5421nz9sB67KC
+	 pLHF7PMJJaz8qyzTowBI8RFdPpHMUhQNQZVUnj/uD9MxHrfD9tibtXYrATACR1vX7F
+	 Icgqgtg2Pvxv8phF3zYezvSWSRY4Ov3WaqOUnIpzII9pvIcDIVadHTpA/Wro77ALZK
+	 Wwjn8/0okzMww==
+Message-ID: <sashiko-outbox-221177@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] thermal: samsung: acpm-tmu: add Exynos850
- support
+Subject: Re: [PATCH v1 2/2] platform/asus: Add driver for ASUS Transformer's
+ Dock of Tegra based devices
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-acpm-tmu-e850-support-v2-3-19848c0d97e5@linaro.org>
-References: <20261118-acpm-tmu-e850-support-v2-0-19848c0d97e5@linaro.org>
- <20261118-acpm-tmu-e850-support-v2-3-19848c0d97e5@linaro.org>
+In-Reply-To: <20261118134555.195479-3-clamor95@gmail.com>
+References: <20261118134555.195479-1-clamor95@gmail.com>
+ <20261118134555.195479-3-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 14:16:04 +0000
+Date: Wed, 18 Nov 2026 14:16:25 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,255 +61,194 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 6 potential
 issues to consider:
-- [High] thermal: samsung: acpm-tmu: uncoordinated global CORE_EN in
-  exynos850_tz_control()
-- [Medium] thermal: samsung: acpm-tmu: zero temp_error2 fallback in
-  exynos850_tmu_read_trim_info()
-- [Low] thermal: samsung: acpm-tmu: guard() mixed with goto in
-  exynos850_tmu_update_thresholds()
+- [High] platform/asus: missing I2C dependency for ASUS_TRANSFORMER_DOCK
+  in Kconfig
+- [High] platform/asus: NULL dereference in asus_tf_dock_probe() from
+  IS_ERR() checks
+- [High] platform/asus: module refcount underflow in
+  asus_tf_dock_probe()
+- [Medium] platform/asus: unchecked gpiod_get_value_cansleep() in
+  asus_tf_dock_interrupt()
+- [Medium] platform/asus: unchecked gpiod_to_irq() error return in
+  asus_tf_dock_probe()
+- [Medium] platform/asus: asus-transformer-dock: bypass of
+  __i2c_transfer() on parent
 --
 
-commit 4f3f530f809e63acf5e867e3d286ccbbbdd52053
-Author: Alexey Klimov <alexey.klimov@linaro.org>
+commit e7bf89be9d43a55643ec7570e3aed3724b7cdbf9
+Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
 
-thermal: samsung: acpm-tmu: add Exynos850 support
+platform/asus: Add driver for ASUS Transformer's Dock of Tegra based devices
 
-This commit adds Exynos850 SoC support to the ACPM TMU driver using a mix of
-ACPM IPC commands and direct MMIO register access for initialization,
-threshold configuration, interrupt handling, and thermal zone control.
+This commit adds a platform driver for the hot-pluggable I2C bus in the
+ASUS Transformer dock on Tegra-based devices, registering or removing a
+forwarding I2C adapter based on a detect GPIO interrupt.
 
-> diff --git a/drivers/thermal/samsung/acpm-tmu.c b/drivers/thermal/samsung=
-/acpm-tmu.c
-> index 0def0ec090841..054c99dc8250c 100644
-> --- a/drivers/thermal/samsung/acpm-tmu.c
-> +++ b/drivers/thermal/samsung/acpm-tmu.c
-> @@ -27,6 +28,120 @@
->  #define EXYNOS_TMU_SENSOR(i)		BIT(i)
->  #define EXYNOS_TMU_SENSORS_MAX_COUNT	16
+> diff --git a/drivers/platform/asus/Kconfig b/drivers/platform/asus/Kconfig
+> index 0219418ce3523..af670a3c0d014 100644
+> --- a/drivers/platform/asus/Kconfig
+> +++ b/drivers/platform/asus/Kconfig
+> @@ -113,6 +113,17 @@ config ASUS_ARMOURY
+>  	  To compile this driver as a module, choose M here: the module will
+>  	  be called asus-armoury.
 > =20
-> +/*
-> + * Exynos850 TMU calibration type stored in the TRIMINFO CALIB_SEL field.
-> + * Only two-point calibration needs special handling; anything else is
-> + * treated as one-point calibration.
-> + */
-> +#define EXYNOS850_TMU_CAL_TWO_POINT	1
-> +
-> +#define EXYNOS850_TMU_TRIM_TEMP_25C	25
-> +#define EXYNOS850_TMU_TRIM_TEMP_85C	85
-> +#define EXYNOS850_TMU_EFUSE_VALUE	55
-
-[ ... ]
-
-> +/* TRIMINFO fields */
-> +#define EXYNOS850_TMU_TRIMINFO_CALIB_SEL	BIT(23)
-> +#define EXYNOS850_TMU_TRIMINFO_25C_MASK		GENMASK(8, 0)
-> +#define EXYNOS850_TMU_TRIMINFO_85C_MASK		GENMASK(17, 9)
-
-[ ... ]
-
-> @@ -158,6 +311,190 @@ static int gs101_tmu_init(struct acpm_tmu_priv *pri=
-v)
->  	return handle->ops->tmu.init(handle, priv->mbox_chan_id);
->  }
-> =20
-> +static int exynos850_tz_control(struct acpm_tmu_sensor *sensor, bool on)
-> +{
-> +	struct acpm_tmu_priv *priv =3D sensor->priv;
-> +
-> +	return regmap_update_bits(priv->regmap, EXYNOS850_TMU_REG_CONTROL,
-> +				  EXYNOS850_TMU_CONTROL_CORE_EN,
-> +				  on ? EXYNOS850_TMU_CONTROL_CORE_EN : 0);
-> +}
+> +config ASUS_TRANSFORMER_DOCK
+> +	tristate "ASUS Transformer Dock for Tegra based devices"
+> +	depends on GPIOLIB
+> +	depends on OF
 
 [Severity: High]
-Does toggling EXYNOS850_TMU_CONTROL_CORE_EN per sensor without controller-w=
-ide
-coordination disable the shared TMU core across all three Exynos850 thermal
-zones?
+Should ASUS_TRANSFORMER_DOCK also depend on I2C?  The driver calls I2C core
+helpers such as i2c_add_adapter(), i2c_del_adapter() and i2c_put_adapter(),
+which fails to compile when CONFIG_I2C=3Dn and fails to link when
+CONFIG_I2C=3Dm and CONFIG_ASUS_TRANSFORMER_DOCK=3Dy.
 
-All three groups in exynos850_sensor_groups share the single global
-EXYNOS850_TMU_CONTROL_CORE_EN bit, while sensor->enabled and sensor->lock a=
-re
-per-sensor.  Disabling one thermal zone via acpm_tmu_change_mode() clears
-EXYNOS850_TMU_CONTROL_CORE_EN globally and stops temperature sensing and
-interrupts for the remaining active zones.
+[ ... ]
 
-In addition, exynos850_tmu_update_thresholds() only checks sensor->enabled =
-and
-holds sensor->lock before toggling EXYNOS850_TMU_CONTROL_CORE_EN.  During
-acpm_tmu_probe(), registering sensor 1 after sensor 0 is already enabled
-updates EXYNOS850_TMU_REG_THD and EXYNOS850_TMU_REG_INTEN while
-EXYNOS850_TMU_CONTROL_CORE_EN is active, and concurrent trip updates on two
-enabled zones race on CORE_EN:
+> diff --git a/drivers/platform/asus/asus-transformer-dock.c b/drivers/plat=
+form/asus/asus-transformer-dock.c
+> new file mode 100644
+> index 0000000000000..7c9346af5e1f3
+> --- /dev/null
+> +++ b/drivers/platform/asus/asus-transformer-dock.c
+> @@ -0,0 +1,260 @@
 
-CPU0 (sensor 0)                   CPU1 (sensor 1)
-exynos850_tmu_update_thresholds()
-  lock(&sensor0->lock)
-  acpm_tmu_op_tz_control(false)
-    /* clears global CORE_EN */
-                                  exynos850_tmu_update_thresholds()
-                                    lock(&sensor1->lock)
-                                    acpm_tmu_op_tz_control(false)
-  ...
-  acpm_tmu_op_tz_control(true)
-    /* sets global CORE_EN */
-                                    regmap_update_bits(..., REG_THD, ...)
-                                      <-- programs thresholds with CORE_EN =
-set
+[ ... ]
 
-> +
-> +static int exynos850_tmu_read_trim_info(struct acpm_tmu_priv *priv)
+> +static int asus_tf_dock_master_xfer(struct i2c_adapter *adap,
+> +				    struct i2c_msg msgs[], int num)
 > +{
-> +	struct regmap *regmap =3D priv->regmap;
-> +	unsigned int trim_info;
-> +	int i, ret;
+> +	struct i2c_adapter *parent =3D asus_tf_dock_parent(adap);
 > +
-> +	ret =3D regmap_read(regmap, EXYNOS850_TMU_TRIMINFO_OFFSET(0), &trim_inf=
-o);
-> +	if (ret)
-> +		return ret;
+> +	return parent->algo->master_xfer(parent, msgs, num);
+> +}
 > +
-> +	priv->cal_type =3D FIELD_GET(EXYNOS850_TMU_TRIMINFO_CALIB_SEL, trim_inf=
-o);
+> +static int asus_tf_dock_smbus_xfer(struct i2c_adapter *adap, u16 addr,
+> +				   unsigned short flags, char read_write,
+> +				   u8 command, int protocol,
+> +				   union i2c_smbus_data *data)
+> +{
+> +	struct i2c_adapter *parent =3D asus_tf_dock_parent(adap);
 > +
-> +	for (i =3D 0; i < priv->num_sensors; i++) {
-> +		struct acpm_tmu_sensor *sensor =3D &priv->sensors[i];
-> +		unsigned long mask =3D sensor->group->mask;
-> +		int t;
-> +
-> +		for_each_set_bit(t, &mask, EXYNOS_TMU_SENSORS_MAX_COUNT) {
-> +			u16 temp_error1, temp_error2;
-> +
-> +			ret =3D regmap_read(regmap, EXYNOS850_TMU_TRIMINFO_OFFSET(t),
-> +					  &trim_info);
-> +			if (ret)
-> +				return ret;
-> +
-> +			temp_error1 =3D FIELD_GET(EXYNOS850_TMU_TRIMINFO_25C_MASK,
-> +						trim_info);
-> +			temp_error2 =3D FIELD_GET(EXYNOS850_TMU_TRIMINFO_85C_MASK,
-> +						trim_info);
-> +
-> +			if (temp_error1)
-> +				sensor->temp_error1 =3D temp_error1;
-> +			else
-> +				sensor->temp_error1 =3D
-> +					FIELD_GET(EXYNOS850_TMU_TRIMINFO_25C_MASK,
-> +						  priv->data->efuse_value);
-> +
-> +			if (priv->cal_type !=3D EXYNOS850_TMU_CAL_TWO_POINT)
-> +				continue;
-> +
-> +			if (temp_error2)
-> +				sensor->temp_error2 =3D temp_error2;
-> +			else
-> +				sensor->temp_error2 =3D
-> +					FIELD_GET(EXYNOS850_TMU_TRIMINFO_85C_MASK,
-> +						  priv->data->efuse_value);
-> +		}
-> +	}
-> +
-> +	return 0;
+> +	return parent->algo->smbus_xfer(parent, addr, flags, read_write,
+> +					command, protocol, data);
 > +}
 
 [Severity: Medium]
-Does the fallback for sensor->temp_error2 always evaluate to 0?
+Should these callbacks use __i2c_transfer(parent, ...) and
+__i2c_smbus_xfer(parent, ...) instead of calling parent->algo directly?
 
-priv->data->efuse_value is EXYNOS850_TMU_EFUSE_VALUE (55, or 0x37), so
-extracting EXYNOS850_TMU_TRIMINFO_85C_MASK (GENMASK(17, 9)) yields 0.  When
-two-point calibration is selected and the 85C trim field in TRIMINFO is 0,
-sensor->temp_error2 becomes 0 and exynos850_temp_to_code() computes
-(sensor->temp_error2 - sensor->temp_error1) with a negative slope, producing
-bogus threshold codes in exynos850_tmu_update_thresholds().
-
-[ ... ]
-
-> @@ -246,6 +583,90 @@ static int acpm_tmu_get_temp(struct thermal_zone_dev=
-ice *tz, int *temp)
->  	return 0;
->  }
+Calling parent->algo directly skips __i2c_check_suspended(parent), atomic
+transfer dispatch (master_xfer_atomic and smbus_xfer_atomic) and SMBus
+emulation fallback on -EOPNOTSUPP.  Because priv->adap.dev.parent is set to
+the platform device rather than &parent->dev, a transfer through priv->adap
+after tegra_i2c_suspend_noirq() has marked parent suspended and disabled
+controller clocks can enter tegra_i2c_xfer() while clocks are off.
 
 [ ... ]
 
-> +static int exynos850_tmu_update_thresholds(struct acpm_tmu_sensor *senso=
-r,
-> +					   u8 thresholds[2], u8 inten)
+> +static irqreturn_t asus_tf_dock_interrupt(int irq, void *dev_id)
 > +{
-> +	struct acpm_tmu_priv *priv =3D sensor->priv;
-> +	unsigned long mask =3D sensor->group->mask;
-> +	bool was_enabled;
-> +	int ret =3D 0, restore_ret, i, trip_code, trip_code_low;
-> +	u32 addr;
+> +	struct asus_tf_dock_priv *priv =3D dev_id;
 > +
-> +	guard(mutex)(&sensor->lock);
+> +	/* debounce */
+> +	msleep(20);
 > +
-> +	was_enabled =3D sensor->enabled;
+> +	if (gpiod_get_value_cansleep(priv->gpio))
+> +		asus_tf_dock_activate(priv);
+> +	else
+> +		asus_tf_dock_deactivate(priv);
 > +
-> +	if (was_enabled) {
-> +		ret =3D acpm_tmu_op_tz_control(sensor, false);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	trip_code =3D exynos850_temp_to_code(sensor, thresholds[1]);
-> +	trip_code_low =3D exynos850_temp_to_code(sensor, thresholds[0]);
-> +
-> +	for_each_set_bit(i, &mask, EXYNOS_TMU_SENSORS_MAX_COUNT) {
-> +		u32 irq_en =3D 0;
-> +
-> +		if (inten & BIT(0)) {
-> +			addr =3D EXYNOS850_TMU_REG_THD(i) +
-> +			       EXYNOS850_TMU_THD_FALL1_OFFSET;
-> +			ret =3D regmap_update_bits(priv->regmap, addr,
-> +						 EXYNOS850_TMU_THD_LEVEL1_MASK,
-> +						 FIELD_PREP(EXYNOS850_TMU_THD_LEVEL1_MASK,
-> +							    trip_code_low));
-> +			if (ret)
-> +				goto out_restore;
-> +			irq_en =3D EXYNOS850_TMU_INTEN_FALL1;
-> +		}
-> +
-> +		if (inten & BIT(1)) {
-> +			addr =3D EXYNOS850_TMU_REG_THD(i) +
-> +			       EXYNOS850_TMU_THD_RISE1_OFFSET;
-> +			ret =3D regmap_update_bits(priv->regmap, addr,
-> +						 EXYNOS850_TMU_THD_LEVEL1_MASK,
-> +						 FIELD_PREP(EXYNOS850_TMU_THD_LEVEL1_MASK,
-> +							    trip_code));
-> +			if (ret)
-> +				goto out_restore;
-> +			irq_en |=3D EXYNOS850_TMU_INTEN_RISE1;
-> +		}
-> +
-> +		ret =3D regmap_update_bits(priv->regmap, EXYNOS850_TMU_REG_INTEN(i),
-> +					 EXYNOS850_TMU_INTEN_FALL1 |
-> +					 EXYNOS850_TMU_INTEN_RISE1, irq_en);
-> +		if (ret)
-> +			goto out_restore;
-> +	}
-> +
-> +out_restore:
-> +	if (was_enabled) {
-> +		restore_ret =3D acpm_tmu_op_tz_control(sensor, true);
-> +		if (restore_ret) {
-> +			dev_err(priv->dev, "Failed to restore sensor state: %d\n",
-> +				restore_ret);
-> +			if (!ret)
-> +				ret =3D restore_ret;
-> +		}
-> +	}
-> +
-> +	return ret;
+> +	return IRQ_HANDLED;
 > +}
 
-[Severity: Low]
-This isn't a bug, but exynos850_tmu_update_thresholds() mixes
-guard(mutex)(&sensor->lock) with goto out_restore.  Using break inside the
-for_each_set_bit() loop would avoid mixing scope-based cleanup with goto
-error handling.
+[Severity: Medium]
+Can a negative error code from gpiod_get_value_cansleep() cause
+asus_tf_dock_interrupt() to falsely activate the dock adapter?
+gpiod_get_value_cansleep() returns a negative errno on failure, which
+evaluates as true in the if condition.
+
+> +
+> +static void wrap_i2c_put_adapter(void *adapter)
+> +{
+> +	i2c_put_adapter(adapter);
+> +}
+> +
+> +static void wrap_asus_tf_dock_deactivate(void *priv)
+> +{
+> +	asus_tf_dock_deactivate(priv);
+> +}
+> +
+> +static int asus_tf_dock_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct device_node *parent_np;
+> +	struct i2c_adapter *parent;
+> +	struct asus_tf_dock_priv *priv;
+> +	bool is_i2c, is_smbus;
+> +	int err;
+> +
+> +	priv =3D devm_kzalloc_obj(dev, struct asus_tf_dock_priv);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	platform_set_drvdata(pdev, priv);
+> +	priv->dev =3D dev;
+> +
+> +	parent_np =3D of_parse_phandle(dev->of_node, "i2c-parent", 0);
+> +	if (IS_ERR(parent_np))
+> +		return dev_err_probe(dev, PTR_ERR(parent_np),
+> +				     "Failed to parse i2c-parent\n");
+> +
+> +	parent =3D of_find_i2c_adapter_by_node(parent_np);
+> +	of_node_put(parent_np);
+> +	if (IS_ERR(parent))
+> +		return dev_err_probe(dev, PTR_ERR(parent),
+> +				     "Failed to get parent I2C adapter\n");
+
+[Severity: High]
+Can this cause a NULL pointer dereference at parent->algo->master_xfer when
+the i2c-parent phandle is missing or the parent adapter has not probed yet?
+Both of_parse_phandle() and of_find_i2c_adapter_by_node() return NULL on
+failure rather than an ERR_PTR, so IS_ERR() evaluates to false and
+execution continues with parent =3D=3D NULL.
+
+> +	priv->parent =3D parent;
+> +
+> +	err =3D devm_add_action_or_reset(dev, wrap_i2c_put_adapter, parent);
+> +	if (err)
+> +		return err;
+
+[Severity: High]
+Does pairing of_find_i2c_adapter_by_node() with i2c_put_adapter() underflow
+parent->owner's module reference count on probe failure or unbind?
+of_find_i2c_adapter_by_node() only takes a reference on &parent->dev,
+whereas i2c_put_adapter() calls both module_put(adap->owner) and
+put_device(&adap->dev).  Should this use of_get_i2c_adapter_by_node()
+instead?
+
+[ ... ]
+
+> +	err =3D devm_request_threaded_irq(dev, gpiod_to_irq(priv->gpio), NULL,
+> +					asus_tf_dock_interrupt,
+> +					IRQF_TRIGGER_RISING |
+> +					IRQF_TRIGGER_FALLING |
+> +					IRQF_ONESHOT | IRQF_SHARED,
+> +					"asus-transformer-dock", priv);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "Failed to register IRQ %d\n",
+> +				     gpiod_to_irq(priv->gpio));
+> +
+> +	irq_wake_thread(gpiod_to_irq(priv->gpio), priv);
+
+[Severity: Medium]
+Should the return value of gpiod_to_irq(priv->gpio) be stored in a signed
+int and checked for < 0 before calling devm_request_threaded_irq()?  Passing
+a negative errno to the unsigned int irq parameter converts it into a bogus
+IRQ number and replaces the actual error code with -EINVAL.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-acpm-tmu-e=
-850-support-v2-0-19848c0d97e5@linaro.org?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118134555.1954=
+79-1-clamor95@gmail.com?part=3D2
