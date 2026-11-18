@@ -1,57 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005045;
-	b=Epoa//UGYNHamamLB2Sqy54ME6ZFbn5txZywfx3bwUYz7DUh5uV2fhTrNt6Y4pjMvlEp
-	 1htbdMOgzLqmWW5iMpwIZiW5OsrG9dn7lnXwhleVPr1mw1sUeOl3anLjGTGDsatm6GvOC
-	 iVwvm4D8Ni/gdPEpjaJ81xjcUjSDTLcUhff3OJOFoFB9LChDMmvfN43YfGGuiRCt3SVnM
-	 53T0TU+jYVFsBpM24NTwcBM8x2rkXoffv97PCZjM39+FAt/4jXn9Gg/xbKlQnPd3Jrp1z
-	 vlr1ERst7Ry5Zh1uLa2oKlKgKy8u1CMjYtjQ47qDGm8Lt+rHnH6FcxGxIOJbv0jSxRQ==
+	t=1795005238;
+	b=KnlR/h9jDJB/5AsP5TY4Qo25sGR0+BUpSwij3K+DMm8A1/PCRl8Vnrp4zONukWW8FYhx
+	 tUUbeFlidWO96xGaWSsk6CHj7OKKLBwHTWvAwKOWEIG741LrTFNCnq1uuP3a52GBseWeY
+	 LsJKcwQkqG6f+mcDVl4+1jVtcMHeY5k7YktM+K3lgha34mrChPPVv4yiap4cwpt0VHYk6
+	 kP/NG1IqSZFhaaSZRQPMzQky8I1WYK38zQ/Gqh0KBur+S7/kIxaiRXnrYyfOQRAnYKfCz
+	 lFyuEzDnUK+GYrfHdKSB/fXtLdM1uAZYGKau6bMHWPz3mgG1KtyAgpTgRSVyITnSuhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005045;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=m6c/qR56253imWhk36Gac7berOasezUTnHhNbfxYNQs=;
-	b=pJnNUTaXMZnVv82h/Lf1oqpAVu77/Cob4SepJXtA6bwpr5qPj99Ez47UajK7unWcrj4k
-	 jsoLEVr0NEwhg26UbEHit8QShl8YhHJ1maDv/+zf7G4QB6/KXB05DhKhegJ4Byxxy+Rw3
-	 xQqj1zfuTebG6s//FepRWJx+P4KlaXF5gtCU1s56KoFgMeamxta/tpI+U0Yqazk6qucJy
-	 MYxCLjLi4zwLyfROZIYAca9xWUvsVT/Kg9+WN8kUpmq/7BpQvhCOM5iYtGubZlZQTvIte
-	 9DMnvMhfw4VpbMzIjgXknLlGsSeVBS1gYRDZ4OLMd1g6cuuz/Sjtr4B30LkbPBzHnug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005238;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=7KqS7FUoP8+YKU7UrHzi7vh0N1UT3YTJh6Xu6F9Q1YE=;
+	b=g1ML/WRTwQq5QuvWqqcbOQtoy745cQjoMl/IKUfpYRs+L3U2bXORfAi/2VhG6PvBGBts
+	 xlLcGSN/6g6sOXay9XhrkdiVTveaHDvZV7ACkFUCJhCqnCDm/bGJ/m2Z2uIcDypAmgQj+
+	 aPJMoFJL1VECtf5oaUDgMtd2q9MYQ6TgMyWTFKw0iBCpWhcLfF/eQvxWzOZoQT73tUcuw
+	 wnK7Z2RY45tpboAOHN3HcZVy4f6P1CFhyJnrZ2Tra6LTDh0lXE2UxtJttleqtGOYob9GZ
+	 XwnMrNsGMN8+KohHefV91HENy1Z4Rdp5zt9hCSpSjJof54zbNsenzVxzkMsAyxAvSlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=J6xF+Kr0;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AqOxdMhE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85CC606A31C;
-	Wed, 18 Nov 2026 12:30:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D85CC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57830606A31C;
+	Wed, 18 Nov 2026 12:33:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=J6xF+Kr0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795005043;
-	bh=OrEqqezQnIfFeKtDs9yFRb0TBIDDG9P+MV5KTuORKgA=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=J6xF+Kr0e06RAg6AcR/bhID/hpKlAsFDZ3vGBMYsF1DG5vepCedI4aFuAGOxfK1TK
-	 z8rtXYQuMimFfItjbiBz3XpHDwND6lj3um2VekcpWy59DG7Bb5aVeXTJuGfURRgZQw
-	 tyxn/wJfMzaypwoG1xRi/mr+sGWDVqxVptc2XAES6Nn7GqXMm+eJtjGpPip4IvChLQ
-	 yqda27wlsuZpe4DRGIK7UF32JDAZGjjFph5YFtmF5fzZbpaSq3iPPWg8CfgM7ZNnbb
-	 i8uEXKd3z1SGE+V3/ejDI9dfBiG3EHvrCTHcbUhkxWzVrRwhiXR4QIqns5o+4ZE2fx
-	 JG6r0/f8W3Nsg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B43F917E052F;
-	Wed, 18 Nov 2026 13:30:42 +0100 (CET)
-Message-ID: <68df102e-66e0-4049-9ffd-8e2746db8403@collabora.com>
-Date: Wed, 18 Nov 2026 13:30:42 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AqOxdMhE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32F871F000C4;
+	Wed, 18 Nov 2026 12:33:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795005238;
+	bh=7KqS7FUoP8+YKU7UrHzi7vh0N1UT3YTJh6Xu6F9Q1YE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=AqOxdMhEs01XQBpejSIlq0G8D0FKi9lFXWJYsZrPjRaSggICn9tOqDlXl194k2MxS
+	 +QccRf2dtIxUxvYZtO4fb+129fQ/ICWKCpyvCZsLh062xtvLMdewbw1tTscUXSFz7A
+	 jlAlyD7vtNw4TAd4q2zQh3vbAqNfNVUIOpK4PfO7Gxcqfcjyxm5zBjWKD+n9UOthBF
+	 ZhFvnTYjiF4/Ythmu/vFvU+u7S6nge5eWbCMrF3l8hkv9K++rzIbd08bU9QGJ0gWpF
+	 YcHDAt9aKLBGcIc3yWqmZwm3xDKNyYsfe37quRpGJImD7NXS9QfE0oru22D3wOk7db
+	 rx6TEPM39+OIQ==
+Subject: Re: [PATCH net-next v4 2/2] net: dsa: mxl-gsw1xx: reset the switch
+ through reset-gpios
+From: netdev-bot+sashiko@kernel.org
+To: joseph@telaak.dev
+Cc: hauke@hauke-m.de, andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, daniel@makrotopia.org,
+ p.zabel@pengutronix.de, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 18 Nov 2026 12:33:56 +0000
+Message-ID: <179500523674.3136.3797005435367758007@kernel.org>
+In-Reply-To: <20261115-mxl-gsw1xx-reset-v4-2-4ecd18c922e2@telaak.dev>
+References: <20261115-mxl-gsw1xx-reset-v4-2-4ecd18c922e2@telaak.dev>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,83 +65,154 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: mediatek: Remove undocumented, unapproved
- aliases
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-References: <20261117130556.234785-2-krzysztof.kozlowski@oss.qualcomm.com>
- <3882ec4d-9f99-4419-8914-19c3a2a3cc46@collabora.com>
- <96e3cc39-d10b-4743-bd9a-d683a91fdf34@oss.qualcomm.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <96e3cc39-d10b-4743-bd9a-d683a91fdf34@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/18/26 13:09, Krzysztof Kozlowski wrote:
-> On 17/11/2026 15:06, AngeloGioacchino Del Regno wrote:
->> On 11/17/26 14:05, Krzysztof Kozlowski wrote:
->>> The ovl, aal, color, dsi, gce, rdma, split and other aliases were never
->>> approved by Devicetree maintainers, because they were never documented
->>> as actual ABI.  Drop them, because no new custom aliases are allowed for
->>> years now.
->>>
->>> This might break users of this undocumented ABI, so these should be
->>> updated to use only documented and approved ABI.
->>>
->>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->>
->> That'll just break everything.
-> 
-> True, almost everything. I suppose few aliases are not used, but rest are.
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Would still create regressions, and that's not acceptable - the cleanup can be
-done only - and exclusively - after addressing the situation elsewhere so that
-no regressions are seen.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Still, a question mark remains on "new DT on old kernel" compatibility which would
-miserably break - that may not be something to care about in this case, and I don't
-think that it's time to start thinking about that.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> Well, it's a start of a discussion. :)
+- [Medium] gsw1xx_probe() (drivers/net/dsa/lantiq/mxl-gsw1xx.c) can skip
+  the switch reset without logging anything.
+- [Low] gsw1xx_probe() pulses the hardware reset on every probe attempt:
+  assert, fsleep(250000), deassert, fsleep(1000000).
 
-Yes, I like this spirit.
+--
 
-> 
->>
->> I do have a mediatek-drm restructuring series that is partially resolving this
->> situation, at least for some SoCs it's getting 0 and 1 hw instance id dynamically
->> recognized, but with some caveats that could be unacceptable (as in, if 0 is
->> disabled and 1 is enabled, 1 becomes 0, so it's not actually resolving anything
->> for real, it's just making it tick right when stars in the sky align in the
->> right way, which for some SoCs is reliably possible without side effects).
->>
->> In any case, all of the ones that have only instance 0 (and all of the instance
->> 0s) can be removed even right now already (still needs some testing to make sure
->> that there's no regression), but everything else can't, at least not until the
->> whole restructuring thing is merged as that'd break things.
->>
->> Worst part is we have two new SoCs (MT8196, MT8189) ready to be upstreamed here,
->> which took almost a year of development... and it also does rely on the aliases.
->> I was in the process of slowly cleaning up those (as I said, there's already a
->> restructuring that makes things a little better in this regard), but at this point
->> that'll need to be done with the highest possible priority.
-> 
-> That's unfortunate and still new DTS/DTSI should not come with these
-> aliases.
-> 
+net: dsa: mxl-gsw1xx: reset the switch through reset-gpios
 
-Indeed.
+This patch gets an optional reset control in gsw1xx_probe() and pulses it
+before the first register access. The pulse is 250 ms asserted, then 1 s
+before access, which is the timing from the vendor's GSW150 driver. It
+also adds imply RESET_GPIO to the Kconfig entry and extends the help text.
 
-Since conversations went on in the other thread, though, if we have to spend any
-other word on this topic, I think it's a better idea to continue on the other one
-( 94ed1340-94bd-49ee-ba31-9bb63164c89a@kernel.org ) and let this one go.
+> diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.c b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
+> index 0c7ea242a62c2..33b73b2ed5fe7 100644
+> --- a/drivers/net/dsa/lantiq/mxl-gsw1xx.c
+> +++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
 
-Cheers!
-Angelo
+[ ... ]
+
+> @@ -737,6 +739,30 @@ static int gsw1xx_probe(struct mdio_device *mdiodev)
+>  	if (!priv->gswip.hw_info)
+>  		return -EINVAL;
+>  
+> +	/* The MDIO core handles reset-gpios only for PHYs. Reset the switch
+> +	 * here, so it does not run with whatever the bootloader configured.
+> +	 */
+> +	reset = devm_reset_control_get_optional_exclusive(dev, NULL);
+> +	if (IS_ERR(reset))
+> +		return dev_err_probe(dev, PTR_ERR(reset),
+> +				     "failed to get reset control\n");
+> +
+> +	if (reset) {
+
+[Severity: Medium]
+If the switch node has reset-gpios, can the reset still be skipped here
+with no message at all?
+
+In two configurations, devm_reset_control_get_optional_exclusive()
+returns NULL even when reset-gpios is in the DT.
+
+With CONFIG_RESET_CONTROLLER=n, the stub in include/linux/reset.h does:
+
+    return optional ? NULL : ERR_PTR(-ENOTSUPP);
+
+With CONFIG_RESET_GPIO=n, __fwnode_reset_control_get() in
+drivers/reset/core.c returns before it tries the reset-gpios fallback:
+
+    if (!IS_ENABLED(CONFIG_RESET_GPIO))
+        return optional ? NULL : ERR_PTR(ret);
+
+In both cases the if (reset) branch is not taken. Probe then continues
+with the bootloader state. The commit message says this state makes port
+0 fail with "failed to connect to PHY: -ENODEV".
+
+The new help text in drivers/net/dsa/lantiq/Kconfig says:
+
+    A switch whose hardware reset is described with reset-gpios is
+    only reset when RESET_GPIO is enabled as well, which this option
+    does by default.
+
+Is this true for every config? RESET_GPIO is inside "if RESET_CONTROLLER"
+and depends on GPIOLIB. RESET_CONTROLLER is only default y if
+ARCH_HAS_RESET_CONTROLLER. NET_DSA_MXL_GSW1XX provides neither
+dependency, so on x86 or generic MIPS, for example, the imply has no
+effect.
+
+The reset-gpios binding added earlier in this series describes it as the
+switch's hardware reset input. It also says the slew rates return to
+their power-on defaults "after a reset through reset-gpios". A DT that
+follows the binding can silently get neither.
+
+Other DSA drivers with a switch-level reset-gpios call
+devm_gpiod_get_optional() directly, and that only needs GPIOLIB. Examples
+are qca8k-8xxx.c, realtek/rtl83xx.c, mv88e6xxx/chip.c, lan9303-core.c,
+vitesse-vsc73xx-core.c, mt7530-mdio.c and ksz_common.c.
+
+Would that approach work here? If not, could probe at least warn or fail
+when reset-gpios is present but no reset control was obtained? Could the
+help text also name the RESET_CONTROLLER and GPIOLIB dependency?
+
+> +		ret = reset_control_assert(reset);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to assert reset\n");
+> +
+> +		fsleep(GSW1XX_RESET_ASSERT_US);
+> +
+> +		ret = reset_control_deassert(reset);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to deassert reset\n");
+> +
+> +		fsleep(GSW1XX_RESET_DEASSERT_US);
+> +	}
+
+[Severity: Low]
+Does this pulse the reset again on every probe attempt after
+-EPROBE_DEFER?
+
+The reset runs before gswip_probe_common() reaches dsa_register_switch().
+dsa_register_switch() can return -EPROBE_DEFER, for example when the
+conduit is not registered yet:
+
+net/dsa/dsa.c:dsa_port_parse_of() {
+    ...
+		conduit = of_find_net_device_by_node(ethernet);
+		of_node_put(ethernet);
+		if (!conduit) {
+			rtnl_unlock();
+			return -EPROBE_DEFER;
+		}
+    ...
+}
+
+It also defers when the tagger module is not loaded yet.
+
+For MDIO-attached switches, the conduit is often missing on the first
+try. The MAC driver registers its MDIO bus, which probes the switch,
+before it calls register_netdev(). That first attempt usually runs inside
+the MAC driver's own probe.
+
+Each retry resets the chip again and blocks for another 1.25 s, because
+both fsleep() calls become msleep(). The commit message says this timing
+is only known for the GSW150. Nothing breaks, since the next attempt
+redoes the PCS init and the GPIO pin-mux, so the cost is boot time.
+
+Could the reset be pulsed only once, or could the line state be kept
+across probe attempts?
+
+>  	priv->gswip.gswip = gsw1xx_regmap_init(priv, "switch",
+>  					       GSW1XX_SWITCH_BASE, 0xfff);
+>  	if (IS_ERR(priv->gswip.gswip))
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115-mxl-gsw1xx-reset-v4-0-4ecd18c922e2%40telaak.dev
