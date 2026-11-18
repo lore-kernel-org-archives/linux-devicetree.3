@@ -1,67 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795015434;
-	b=AxGom84yK/umtKyI2Ycd+PxJTelBB+8j2GQ9ATgUibOB2j46MS4509uR1PoNhUTEWE+r
-	 hHUwtESGaFEV/rkPWEVGUm4BNLgTpwFPHATRCr4ghWPC9r/h+MloNSoldDWNRaet9I+jw
-	 aIpR5Eqi/LEumMvaI9aTQx/1UUogOXFjl0CdxOmjKXjBHkfG9cFhr2qaB+6ctSJv6X3CK
-	 zsVkKELOa9FXNK6EaTcsfttrGYpiQwBM9/DGXZB6fCM7qau0Zju1K5O75rZY32WuqLoyE
-	 gXVFMoAiLTE+tn0kncB9tNIpvWt5P5mGFq6x9nZLJ3ciyoL/BwL4WwMkKOq2VmNcsqw==
+	t=1795015513;
+	b=mEWKoGS1WPkiufpk3SOZ+UBeWgaO46tmc2EZ3OCyBI1eeItZeiSojOlgNCagfT8gaqiE
+	 Xap2UuqgCnfhvIOpnrc5eAQm/yF02n5RcXejGZ+8WCXLFlGQw96/CD3H/rqGWlUDPpbOa
+	 FITPpANoyKOACtcqk/HDgAJDW/TRqjuCCDffQ7Du2Whi82KBhP1zYZKFExiy6A3g/obWj
+	 VBtgNWSRHBlJBDF0lYQG0PrtrOrODrLxSTc02UbLB0unDxo+4WdeYNyCtch3uOYwITdrC
+	 4OtYlC2U/PYZb8Ap7IFtnIA2qME0iELuhU9mMeIPMGhfQrBatRuwXPjdofYXXF7QosA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795015434;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oKUUXTVJS/LFVlMihYz3ZWqF9UHg5n3wCBX0shTUj3s=;
-	b=3zMwLeL6b4WyZcZnAi8S4+BS6G4t7jGk4KsJU4o2dnIa3CNdsXgOJVPWfAWDmmwRBwfC
-	 iurJvVQQeYQDd0AwQ/2HiD1gcAnpz/nQ1+bNlbuvx06eNzLWI9uYLvbbp7ztp2c13obKQ
-	 ELYWFF0RHqm2ablo5mCvD73grSIjIYu52pmQScmN9ikarwCNkK048r999jO13HADlcfes
-	 oxcW9VyVV6V/NvXYPmmaCxnIT41kWpRlTk+bTHmAlCri3scZc8dP/SekfAvjFBdGAsoZo
-	 Nh0iO8l3sbfhLy6JkzgtNThbhHuLRoIXYvi2tk0F9KYF62r2gXfdcK+pSSOzOYSPB+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015513;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=CEm9dGLjcVwIMaOu+kqX5t+aM+qvinbpRnz4RyrHHjY=;
+	b=EjhCZR8zm/WqkMlQqY/YGQD++BEvBQUU1K+OVBALbGWRSL7w6W6ZYLX4iZi4UTW7izVE
+	 AX8JxBxZvdbQELtuvPaOGcuiaVFdFUbsS7xK/+txn19LNE63wvV0R5ZQ4IfE8ii1EEC1R
+	 G8eU69DgY3sqmiXo2Ahfwa0tBEuxYZFd1mooEhd38CEzWvMd5V6MlZftLfln9fno9MwId
+	 6ZW3XdTDFRP/JBth4ybWDjG4PbNmnXcqvxXhBWXUL+gmZ6eDVhXCPk+1cznBI5odVMaOF
+	 UnlAnuTZJIsnd7ceBpYl5jVpci736xSEAMjEuZHSxH08OFIXfe5EV3T8xNQgbs/3uwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UwezS82B;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ez0Qk31S;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC94606A331;
-	Wed, 18 Nov 2026 15:23:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA86606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 15:25:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCA86606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UwezS82B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 474E81F000C4;
-	Wed, 18 Nov 2026 15:23:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795015434;
-	bh=oKUUXTVJS/LFVlMihYz3ZWqF9UHg5n3wCBX0shTUj3s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UwezS82BdpUqMBy6fK1UgkbsZuFIzeYBAHayDD/gHgjNKwteAV2kDw6lP/s8WB/NS
-	 uFYMT3oyayM+8iacAsp3s09qOWnYngmh2Or5c2BtPU2iAPrb2Kq5YjwOv6X0LUlIG5
-	 QD2BI7vedjejC0Kcb1nFhR1YuVhV8YJ4hIPKCj2Bhgz0zR4YGP2iNdVB46kZ/B8naV
-	 gt66QUhOjmUbeK3Hqij0aZlR+oZWjXPajS9gXG8CUx808RdK0K6BmeSNbBTp9WmtWN
-	 ujAQqkV2RVk2jF/Ir/CFHuarhIT7ypMfUzRRpHQWdiw7mULKhlA67SBziSrWogtWO1
-	 s003oniKbOejw==
-Date: Wed, 18 Nov 2026 15:23:46 +0000
-From: Lee Jones <lee@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Macpaul Lin <macpaul.lin@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Val Packett <val@packett.cool>, Fabien Parent <parent.f@gmail.com>,
-	Akari Tsuyukusa <akkun11.open@gmail.com>,
-	Chen Zhong <chen.zhong@mediatek.com>, linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, mfd@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v12 0/8] Add support for MT6392 PMIC
-Message-ID: <20261118152346.GC98456@joneslee-macbookpro.roam.internal>
-References: <20261105194426.1113050-1-l.scorcia@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ez0Qk31S
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 57EBD1A16DA;
+	Wed, 18 Nov 2026 15:25:10 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1CF7A5FFAF;
+	Wed, 18 Nov 2026 15:25:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DD84511BC24A1;
+	Wed, 18 Nov 2026 16:24:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795015507; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=CEm9dGLjcVwIMaOu+kqX5t+aM+qvinbpRnz4RyrHHjY=;
+	b=ez0Qk31S9QtS5y2slTb9afsub9oCe6bae5MiTUqJxpin2qhPa/86oOfDJEL36e+gl/hq0N
+	kEnC3vQ/205ru9vEC10gYcjPTsRmnX//2rgC5Wx2FKON3+9NT/nmkCxBY3JiKRzDAdVXDe
+	X1QqcVc9mq8Tj81LItHKUr3ofwCvWX+JtRYzEAhcWSCgkhrhTRrfxydmvXQ95204cpIt6K
+	wPa5K1JZo6iSY2/i9QSdi1nO5hAo9BZ0jMf4fM1/dGszaXdZohsemd7ReSwIaLpNxZ2kPx
+	XVhMHVqEHsmm/OVrCmCKoxpzsAw/VuzxbkvgKNQKcjKbhZzL1VqNr1rtLkFGhw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Andrew Jeffery
+ <andrew@codeconstruct.com.au>,  Avi Fishman <avifishman70@gmail.com>,
+  Tomer Maimon <tmaimon77@gmail.com>,  Tali Perry <tali.perry1@gmail.com>,
+  Patrick Venture <venture@google.com>,  Nancy Yuen <yuenn@google.com>,
+  Benjamin Fair <benjaminfair@google.com>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
+  devicetree@vger.kernel.org,  openbmc@lists.ozlabs.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH v11 00/10] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+In-Reply-To: <179501501070.639563.9357303541273366380.b4-review@b4> (Jerome
+	Brunet's message of "Wed, 18 Nov 2026 16:16:50 +0100")
+References: <20261118-perso-ma35d1-upstream-clk-v11-0-bd1d1e060926@bootlin.com>
+	<179501501070.639563.9357303541273366380.b4-review@b4>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 18 Nov 2026 16:24:56 +0100
+Message-ID: <87o6bmgo1j.fsf@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,48 +87,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105194426.1113050-1-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 05 Nov 2026, Luca Leonardo Scorcia wrote:
+Hi Jerome,
 
-> The MediaTek MT6392 PMIC is usually found on devices powered by
-> the MT8516/MT8167 SoC and is yet another MT6323/MT6397 variant.
+> We've had to base clk-next on v7.4-rc2 because it carries a treewide chan=
+ge
+> around devm_kzalloc. This was triggering a lot of conflict in linux-next.
+>
+> I did not look at your series yet but it does not apply cleanly on patch 3
+> (maybe others too) because of the same change. Would you mind rebasing on=
+ -rc2
+> or clk-next please ?
+>
+> https://sashingci-clk.liltaz.com/builds/555/steps/3
 
-[...]
+Yeah, it broke my MTD branches as well... Mark Brown is having a fun
+time noticing all the subsystem maintainers one after the other.
 
->  .../bindings/input/mediatek,pmic-keys.yaml    |   1 +
->  .../bindings/mfd/mediatek,mt6397.yaml         |   6 +
->  .../regulator/mediatek,mt6392-regulator.yaml  | 112 +++
->  arch/arm64/boot/dts/mediatek/mt6392.dtsi      | 145 ++++
->  .../boot/dts/mediatek/pumpkin-common.dtsi     |  82 ++
->  drivers/input/keyboard/mtk-pmic-keys.c        |  18 +
->  drivers/mfd/mt6397-core.c                     |  97 ++-
->  drivers/mfd/mt6397-irq.c                      |   8 +
->  drivers/pinctrl/mediatek/pinctrl-mt6397.c     |  37 +-
->  drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h |  64 ++
->  drivers/regulator/Kconfig                     |   9 +
->  drivers/regulator/Makefile                    |   1 +
->  drivers/regulator/mt6392-regulator.c          | 764 ++++++++++++++++++
->  .../regulator/mediatek,mt6392-regulator.h     |  23 +
->  include/linux/mfd/mt6392/core.h               |  43 +
->  include/linux/mfd/mt6392/registers.h          | 488 +++++++++++
->  include/linux/mfd/mt6397/core.h               |   1 +
->  include/linux/regulator/mt6392-regulator.h    |  42 +
->  18 files changed, 1913 insertions(+), 28 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
->  create mode 100644 arch/arm64/boot/dts/mediatek/mt6392.dtsi
->  create mode 100644 drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h
->  create mode 100644 drivers/regulator/mt6392-regulator.c
->  create mode 100644 include/dt-bindings/regulator/mediatek,mt6392-regulator.h
->  create mode 100644 include/linux/mfd/mt6392/core.h
->  create mode 100644 include/linux/mfd/mt6392/registers.h
->  create mode 100644 include/linux/regulator/mt6392-regulator.h
+Yes of course, I'll rebase on -rc2.
 
-MFD looks okay now.  How many more Acks do you need?
-
-NB: This patch-set looks split in two in my inbox?
-
--- 
-Lee Jones
+Thanks,
+Miqu=C3=A8l
