@@ -1,84 +1,137 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794992451;
-	b=ZfA8NZd96RfCcEMlALo02XleNeOwHn1kiBAGhQuGQJgDj26GmV8MHRHK8Q3i6PrCuT6E
-	 6Zgh5EGqCBCdW2eKf0U+wTDJSy/41befdqXqnXCZJKbkpWUboC1HaLmeyRiZzC9omlSts
-	 2iI0NiRWgLS+2baVospKlvpTacZdbRLv3UIgToRv4+ogwXecYS/OpviFdRnCwWaWJ+a6n
-	 VHpFJsssu4m6q7+fwabL7ShewFq4wfkZMtIkjreUlgCOHC5zKnj3PPr/OdqPyf3DPtPpw
-	 IDX+HQSeqOKVQbi74Palyu9kooJE7DdifsiPslMdu30POOs3p+NuaBZMPjGSkrjlASg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794992451;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sr9doCvp9PjzykzAEoSbutZrtMIBi4xONV35RKYKw/A=;
-	b=vLGiWcDeiYurT3v/mhkd0+Vd/32d7WpGA5KZQMBKV6rVyItmmvdhiuOvRBDfhf8NonT3
-	 tGA5hI2BIahgj+3gDIRpJAdQQax+veOk60DGxcHsU43HdZql1qJL9ubUWGXGVRwVMPbq0
-	 Z96tBep4zQBqMtERXfndnipe8iwC3CGNLkEZq7jX2+Vub9bImUfQLjdPIvREJSjHgDnP3
-	 7lTk/YbFrwLRTCzYfstBiAwBtdYQ7cup8tKRB2K0gkBHWLdxAowqG+/uGAy964LIYFg6Y
-	 Dy3lGih9ujSA5oWsHqgCutgGvAb7abfybg77b5qa2AY2JmNh+KVHVz1mIJSPsQ0N2lw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UQe0DAOh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794992542;
+	b=MY+1ch6HvTlbA1Gk6XVz1n8C7W8jYa9uKkHPk3I+ZS3/rf7imwHGKXu4GneChqDpvFVg
+	 xDq3yt+qNwI/FtK2X/2yhBYx3aRr90B+L0KHAMNtucSwsjsQ8GI06bW6HldY1PBiDnWLt
+	 5NXxyXtw8bBYl8W0tYUPHgS9VcR3+yoF79UhtGE3R9uUfoXrOj/l9GPDv2hAMcezV7sNG
+	 vjmGkpEjYeR8lRo7rtj3tyMyjMSMvCj+cyrPrj3DhinXVJhk1Vuphn2qmWsVrJTAQTMqd
+	 yZSWIT4/EroRTNrman4L/fRS3c4jsyg+CvLVSFEiO4hIvSHhBttQrXHx6Vr59yLmhNQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794992542;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=yyZLaNLsFBfc0JqArcrGxcWEFwZyPv7YYEvEtfwd+rk=;
+	b=tTrkmOUhoPxmnGmc+uWE04CYp7AZCRJkcd2cpMRCXGfMgFgUmbskgzx91tNCa7AdWIA1
+	 aytnq31sRrkOQHiSqaPD+lDCzABAkt/ewRG+QBPHUYlcn/lEseNIYupIvm5QZDJocftj5
+	 2knvP8/8e9VziGk8A6JvMwzOj4WzyoTwscBKzPBsgHBIRPtGpTRt/uKP5xslfTe6C32U0
+	 2jpqEGrS7s9VOsluSA5puTT53FWVc2VUZCAPEKVPDPa4gKk4Kn1gWBvr+OuZ4sRvDzI+u
+	 KZDK2ZommoLKfVJO5PkEzbzUJyM1peu4T9PEszMw1HczONyn82VtOvHjT3cveCMFFlA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Fa/9Iryi";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="R/qJa7Vs";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32338606A31C;
-	Wed, 18 Nov 2026 09:00:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A708C606A32A
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:02:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A708C606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UQe0DAOh
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794992450;
-	b=g6ZsUdTG0RwZY3MKlBEQ2SYq8bqLFnVqvBhplmW5Q8AxG9gIx2+5+0TiAjzALuVY97jm
-	 /SKgLR2VbDZi3CQUgqjiz+TyeqZT+rnwXBBvL+GcYfXtuswbpAuGSdSYKmaku82p5belF
-	 q1rSrLJjYxiYTMPVhq5rGAMhW9polbg9E+5qQ3TF1axjKEVG3210Nzt2XEf/R7R+gFD5k
-	 e8HL0fxUuhyqNkriXAAozxaAWKhvTgkkVzmL6bl1d7yKzF917rV6OgHH/X8QLROIU8J2H
-	 oz5ihTJ8nOv5fyvdju9DreMH47HECwoM0U2nYUkumhrP26ndDplqnzfZyFhqn7p0Rdw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794992450;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sr9doCvp9PjzykzAEoSbutZrtMIBi4xONV35RKYKw/A=;
-	b=0l4n9vCLzZ0k19sGNWEbzAJQPPxAWbNuhUlDY2EsdpjNxA9fD1EL/GBHJshCYjDlxGld
-	 IrcTaI98kWLyukTg0ouRi0pORCYLIG56zCaT6qDUb9NdqDwiV55qu7n1pOa7JNbuJHfpp
-	 reVo2EJuuXy2EGIr1KOOCVmdCBo3YK8lYq26EW0osz/H7gkjyAM9CJKQzDoIOJ6hjN452
-	 x0TTMoa6VbPEsNXODDl2Hp/Wag8w4tia7f04at0lUrkyR+yl8rDgiQig2e/pnNdblRiDN
-	 IAJtrUMMCkBHEy2hRVJompprQVGTmRVNR6dqYX1utalVcRVY7j+338BTJJXeOvmc/cA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id CC6721F000C4;
-	Wed, 18 Nov 2026 09:00:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794992450;
-	bh=sr9doCvp9PjzykzAEoSbutZrtMIBi4xONV35RKYKw/A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UQe0DAOhTKneIIS9iuJOy0QPxWfQEFrkPNKamL4s7nfvzXQLFqW9+5QHATMnMCjIc
-	 nToO92PiIyuv1O52OMdHOnqAefkexhJiFi29AvRl3VrTNCy7gc+4rG1z8tM7DwJolq
-	 CHyRoiBuuGLpaTOUhdlpAtSM3FXme8X2bfBFs5OyHZwoq1YRzIavmqmN+ZfM5/qTQ0
-	 gMNaL8mzyXgglu1VeF1Q8L7n1OsgCEzKnNBd5HVSB1Oi/ka/bEHkcC1hH7jAEfer32
-	 0u5M4E5cu4gtaCPeLl9xp24Xcx0cFVIUBZhd2wOFxz/QNt2RCv4BOm5n9n+F6cUAcx
-	 sLyc+PPZbC9vQ==
-Date: Wed, 18 Nov 2026 10:00:40 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Adil =?ISO-8859-1?Q?H=FCsrev?= Tepe <tadilhusrev@gmail.com>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] iio: proximity: add Imagis ISG5320A (Samsung
- Galaxy XCover5)
-Message-ID: <20261118100040.0000744a@kernel.org>
-In-Reply-To: <20261117173333.1853986-1-tadilhusrev@gmail.com>
-References: <20261116074013.355363-1-tadilhusrev@gmail.com>
-	<20261117173333.1853986-1-tadilhusrev@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fa/9Iryi;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R/qJa7Vs
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AI8Mg1C2383162
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:02:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=yyZLaNLsFBfc0JqArcrGxcWE
+	FwZyPv7YYEvEtfwd+rk=; b=Fa/9IryizRttAHlUczN/6wai6NYxknNzBYBuBmRe
+	NDt4VFh45iJ7hI+MPeJ4R2GM9riVStt4nxDR4y7MF60N1Ilg1hozREdZGUO/fea6
+	FRVcg/9sS6c4ubwFp60b1dTvcV7OO09I89EJoCIRlrBZ0+ZFgUyV9SbuDmcZSYYo
+	rzmubtC6D0DlMC9+7Ql+yf8bUi8vhMzgK4fl0sJ+nkqlv4xYprIv+z6ZrM0V9DBK
+	mP4Pr19Ez5j2LwV4H58BGr/7PMfNz48w1KDCre8iWrNi1C0KtSXiJOvjs05senUV
+	px8XfQEY9nsOAUQGfpxynRuWxEeFTTKo2d33wfGYtWyGxA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yvat78w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:02:20 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f32050e72so203410285a.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 01:02:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794992540; x=1795597340; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yyZLaNLsFBfc0JqArcrGxcWEFwZyPv7YYEvEtfwd+rk=;
+        b=R/qJa7VsEeZkDq9aUm5JDwLdXSB2zBjyBAeM6nnrtbt7+a0tzhCn8Adn5HF2LlMDX+
+         8lo7VNmtzMYSjsGU6IgxZ/Xkrg/+m+Epjx4Y+FTgy3wS4YkNx2dJ5woG/5sSoE5pxLEc
+         oeVzuCBnZXq0KjHxEUqbqAVIUPjcjzmEoqZwfwkNvZjK+HeTiXdrpfxX/52dTQxzd+Si
+         TDhKfpSmKdbXMBXzuE9ZjgXlAH03xSRYxGW1GAxo8b/PYdhrayQ2U028fqdYNGxnqML/
+         NFKhP2N6Bcmo8VkeAkV/mx5d4i1UzLq6YfTsV7NmAfaFM6610SE4wO2vXoztAvqkLHjR
+         Unpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794992540; x=1795597340;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yyZLaNLsFBfc0JqArcrGxcWEFwZyPv7YYEvEtfwd+rk=;
+        b=PCsukVhMCL9FABTqixFKPR3IILN012bCkMH1AuPCegPffjRfg3P/sx9AkJFsh0qHGh
+         +RfK5rQE8GcLLId8J4Ukr/VnKFAUM+2qG0rc4nk03bCJ3fxxZJXRjAsrgeGLQj9BUrNm
+         Vypen0/JIAjMbyVMw5Vq2lVvFnjE/GmL3Q+xx/hzPTcmtfXCwuiNrlILN4jcmv1+xgwd
+         2O17urPj1CP1yhkXqVZ2RZ7Dq+hPy1abFcpSASVsQiaL7iNE/90qbIlylV+mb391hj+A
+         RhVAlJypwPpmdkBq3qTgFjZw0nnbQT8vQAybnMsKOHP0Cak1wZasGYEmtPFdFT+vIQxy
+         lChA==
+X-Forwarded-Encrypted: i=1; AL+hErEETtwEQSP+Sg9jKloW9URaVcRA+1+KO5OLFU3m0IuF5dJG+2+aP+t24ZE7caqbGOlpmZeayGTE9cwl@vger.kernel.org
+X-Gm-Message-State: APuU4Z/bLQxJBxOswRV0pY+bjiRYyXFFNutKBIIOr0jpRWDwyLU2Q0hz
+	lulTlCpuA/9Pu5OmYEuAZumLiq9nwby7ZkiCUZ+p/9++CDn1Yntp61sUR6EkvPFD0YeDz/4W3gk
+	ssbvcY/HaUtd0DSGil2y5/mNOiOcsHsXnONW3X2PAmNGHnv0JKWLtBX9a0shcoL19
+X-Gm-Gg: AYBFou0oWf+8F2HEquXTfGnrUkm55GGhOu3DzFBh5In1qfSdvlz7Eo/1N3w60IFmjNp
+	Axfxm+4btyOmmsTG3zlAQB+pBYTFWwaRei7dUXwaOMIsfJX/fMIGamTyhyHAZVZCRw8wH6+2LwX
+	nsnK+8OpOHWAqdlicnAee8I1vKGV7m1zpMk20oTqpKUEXIqKhoWsTD6kMYKgAeYsdQtBMRhOMwf
+	HlRv5u743pO/4UK46l51psBOPRH1WOd2kqLbVvMWI4wqsFS7vxt/f4+rIDV/NGSLGPiTx3sF3J5
+	krJuTm2/ubB2WvZvuWnwteonKiSsJXFXX3rysdiFM5Ot5NdvRnyzZ4/yF6wZJ3WeneK5/gTqAWh
+	K8Ta/GePOP4zybyTBW2D4+UwyQwRQm+DimYjWxVVLCvkjte7LhN6ZfN2nqWnU4IsZz3FpE0OFfI
+	l6IbYkVqR1drIhgS3ENGnmvwR2qRIiR6SGKjtTbliHqagTcbIDHuBbLxkU0dokPw==
+X-Received: by 2002:a05:620a:628b:b0:93f:2c95:658c with SMTP id af79cd13be357-9499957e6famr377684685a.14.1794992539453;
+        Wed, 18 Nov 2026 01:02:19 -0800 (PST)
+X-Received: by 2002:a05:620a:628b:b0:93f:2c95:658c with SMTP id af79cd13be357-9499957e6famr377675585a.14.1794992538630;
+        Wed, 18 Nov 2026 01:02:18 -0800 (PST)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae67b429d7sm4551491fa.36.2026.11.18.01.02.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 01:02:16 -0800 (PST)
+Date: Wed, 18 Nov 2026 11:02:12 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
+        Vasant Hegde <vasant.hegde@amd.com>,
+        Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        David Woodhouse <dwmw2@infradead.org>,
+        Lu Baolu <baolu.lu@linux.intel.com>,
+        Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+        Eric Auger <eric.auger@redhat.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Joerg Roedel <jroedel@suse.de>,
+        Srinath Mannam <srinath.mannam@broadcom.com>,
+        Oza Pawandeep <quic_poza@quicinc.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev,
+        linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
+        devicetree@vger.kernel.org, kvm@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v7 3/5] iommu/of: Make OF_IOMMU depend on OF_ADDRESS
+Message-ID: <vwg74npvbwdhepp4uownnzlj2ybpiknfktfvrpy6462rdw7snd@tj4vgnn3dtml>
+References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
+ <20261106-add_iommu_ranges-v7-3-5c0f72083e52@oss.qualcomm.com>
+ <yvkcq3zirv5tz2amfbk52a7smbsqs7jrzdisq3qxzw6xkoxklu@rplx3gvxhcoz>
+ <dd62aee3-4f23-4904-827c-7f776c4be60a@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,77 +141,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dd62aee3-4f23-4904-827c-7f776c4be60a@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=SMzXx+vH c=1 sm=1 tr=0 ts=6afd699c cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=ypECYpogRKzTefqxK8cA:9 a=CjuIK1q_8ugA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: n4YkZjth29X7Y-in32cHDB664-uI6qCB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAzNSBTYWx0ZWRfX3SpYzmsrVjGO
+ prZJZoRYPOrIsG+rJLqOCGEeVvicCThBTyqiVP8Nw+kRekBz6p5WuoAsc5yZqAW3gUvU2BwtwUj
+ X+/TOn+IDU0vUyy/wNRki7zB4ma2/Z7eDeHdr2WyAKK/AuWKYJVU0uePl7ZfAkVEeLcCRkheSeq
+ oJoduk2KVAInoIYQxC04N/2OhSJguGL0U6MeFLcVaGxj65Ld1+BBKQ9WCBLHh4RJ3ASZPlstmH1
+ MhrcYNAQPNcn5vqllWon/DTMhdMzzSH4/JL1VxlQ3wGzPIevcusTYCv9rBPWq70kk7k0NjfTSv2
+ oe/9wnbTEpuHW2x+30x4Ogr4KwVxEa2NPeC60boipmjRcYYrWsGr/qVZKbjrQp40MI2CmueiYIG
+ xOsQASwuFuXwBKk6uF/ItABVRU34S+9klxqtDHDgQOCdDpORzTKTQ8tWIm6dxtSZ5HzFVQ4rgRu
+ Osz4cQQGCT8d7IoRUfA==
+X-Proofpoint-ORIG-GUID: n4YkZjth29X7Y-in32cHDB664-uI6qCB
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAzNSBTYWx0ZWRfX4Ky9gEVxWBdi
+ tUz7qGq423hQaofjHfhivfgjL++FSbjl2s2c6W1y7kx8ESVot5cCagmyK6zyuGfSsfLevuOLX3u
+ NaMwsH4W3W5SPuOQDatabCuM1nHzqNA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-18_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180035
 
-On Tue, 17 Nov 2026 20:33:31 +0300
-Adil H=FCsrev Tepe <tadilhusrev@gmail.com> wrote:
+On Thu, Nov 12, 2026 at 07:10:38PM +0530, Vikash Garodia wrote:
+> 
+> On 11/11/2026 6:33 PM, Dmitry Baryshkov wrote:
+> > On Fri, Nov 06, 2026 at 10:44:26PM +0530, Vikash Garodia wrote:
+> > > The OF_IOMMU code relies on OF address parsing helpers, but the
+> > > dependency on OF_ADDRESS is not expressed in Kconfig. As a result,
+> > > of_iommu.c contains CONFIG_OF_ADDRESS guards and a __maybe_unused
+> > > annotation to handle configurations where OF_ADDRESS is disabled.
+> > > 
+> > > Make OF_IOMMU depend on OF_ADDRESS and remove the now unnecessary
+> > > preprocessor guards and __maybe_unused annotation.
+> > 
+> > Why? What's the problem that you are solving? Why is the current code
+> > bad?
+> > 
+> 
+> The commit describes the problem as "The OF_IOMMU code relies on OF address
+> parsing helpers, but the dependency on OF_ADDRESS is not expressed in
+> Kconfig"...and instead the code had checks for config or __maybe_unused for
+> cases like sparc.
 
-> This series adds an IIO driver and its DT binding for the Imagis
-> ISG5320A capacitive SAR/grip proximity sensor (I2C), as fitted on the
-> Samsung Galaxy XCover5 (SM-G525F, Exynos850).
->=20
->   Patch 1  dt-bindings
->   Patch 2  the IIO driver
->=20
-> v3 fixes the real review findings on v2: Sashiko AI caught a High-
-> severity INT-polarity bug in the reset sequence (eliminated by
-> dropping int-gpios from the driver and binding entirely, since the
-> pin is already described by the required "interrupts" property) plus
-> a Medium-severity devm unwind-order bug and a Low-severity unchecked
-> enable_irq_wake(). Both are now live-tested, not just built. Per-patch
-> details are below each patch's "---" line, as Andy Shevchenko asked.
->=20
-> Tested on a Samsung Galaxy XCover5 running 7.4-rc1 plus this series
-> (2026-11-17, kernel 7.4.0-rc1-00023-gdcb8b91fb779+ #30): the driver
-> binds, registers as iio:device4 "isg5320a", and in_proximity0_raw
-> tracked a live hand-proximity test (baseline ~0, swinging to
-> -12817/9748/10759 as a hand approached/withdrew the sensor).
-> checkpatch.pl --strict and dt_binding_check are clean.
->=20
-> Based on v7.4-rc1.
->=20
-> Tool usage
-> ----------
-> This series was developed during XCover5 mainline bring-up with the
-> help of an AI coding assistant (Claude Code, Anthropic), which drafted
-> the IIO driver from the Samsung vendor driver's register map and
-> drafted these changelogs. I reviewed every line, built it (arm64, 0
-> warnings), ran checkpatch --strict (clean), and tested it on hardware
-> as described above, and take full responsibility for the contribution.
-> Review comments are welcome and I will answer them myself.
->=20
-> Adil H=FCsrev Tepe (2):
->   dt-bindings: iio: proximity: add Imagis ISG5320A
->   iio: proximity: add Imagis ISG5320A SAR sensor driver
->=20
->  .../bindings/iio/proximity/imagis,isg5320a.yaml   |  55 ++
->  drivers/iio/proximity/Kconfig                     |  11 +
->  drivers/iio/proximity/Makefile                    |   1 +
->  drivers/iio/proximity/isg5320a.c                  | 848 ++++++++++++++++=
-+++
->  4 files changed, 915 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/proximity/imagi=
-s,isg5320a.yaml
->  create mode 100644 drivers/iio/proximity/isg5320a.c
->=20
-> --
-> 2.53.0
->=20
+What is wrong with this approach? What is the problem? There is one, but
+please state it in the commit message. Something is wrong, otherwise you
+wouldn't be fixing it.
 
-Not only you sent this as a reply to v1 (which obscured this new version
-in my inbox), you also sent a v3 the same day you sent a v2. This is a (rel=
-atively)
-big addition, please don't do this. For trivial patches it should be at lea=
-st 24 hours
-between revisions, for new drivers ~1 week.
+> 
+> It was discussed in prior rev
+> https://lore.kernel.org/all/20261104160346.GD3951195-robh@kernel.org/
 
-I know it's tempting to send a new version after a Sashiko review/trivial i=
-ssue you
-found, but you'll save the reviewers' and maintainer's sanity by waiting :)
+That's fine, but the reason must be capturedd
 
-Thanks!
+> 
+> Regards,
+> Vikash
+> > > 
+> > > The only architecture supporting OF without OF_ADDRESS is SPARC, which
+> > > does not use OF_IOMMU, so no functional change is intended.
+> > > 
+> > > Suggested-by: Rob Herring <robh@kernel.org>
+> > > Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> > > Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> > > Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> > > ---
+> > >   drivers/iommu/Kconfig    | 2 +-
+> > >   drivers/iommu/of_iommu.c | 4 +---
+> > >   2 files changed, 2 insertions(+), 4 deletions(-)
+> > > 
+> > 
+> 
 
---=20
-Kind regards,
-Joshua Crofts
+-- 
+With best wishes
+Dmitry
