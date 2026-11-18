@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016086;
-	b=oOIUIbKxJxeITtv8SHEkyx+NZVAQ4MV0p9fVtBg96DnzJr/RAKTF8ghoagykvHveAYsT
-	 bDJTwaP+n/JQsk/Ij8OH5jFCXKlheQGEYjmGdJUSi/lxMr/VSsM8OdmR+oPIEqHsE6SEX
-	 LzHYK8Zqt6FL9EmOVt+WRwSyzs5yGgakXI0nfg3yhgYU9CoJPOOWcV7K28dyUM7yoPahb
-	 ron4DMMxQygLdpkOYCi2b2HMfUheUwA3IHLYscg8AthAQWTY0qKFo9eR12isZ+62wKLE3
-	 hGgcNnKqCA9vPFLtrvGwZOUJE1hZUCNr6pWBlcTnw63NzVubS1q/JGSVhNxxuPxDniw==
+	t=1795016103;
+	b=PljI56EKY1R3KvEIXPfBBxp0DXXIRlzKil5iI3eA+ayDUG5IfG7PLk7ooZeZ61rTb/8G
+	 dmHDqAa13mos9Ot57HOCdlkmzc2oirXuOq0rgVg/tVwMI78aigcY6mZX3tt9Hf9Sk6N53
+	 OOUZmmjg1BsKDKRwUPDCffokMmK+s/7ogsphC4fkGDUhOj1413kv/B4l37YZwZ+ahaf4W
+	 24cv3PCdAmQSfrP9mGZbvY0ZfQwimAwwNCzaJU0rNf1mZbYF1iPTMxDk3YcbEjwR1+O7k
+	 s+CFVUHqfmIUXzpUmNU6//Xsv+PUezggKmEUhjXsyHr9WLfODJ6g3+8FLDQxxavpvIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016086;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=BmJD8sv6AAFxv6Re5ss54Z9dNxRedpqV4XYrwTPA7fw=;
-	b=oC5K+EeMIwYxHVsp9URZUGGXy6HorCm3gdC0hlSyxQVo7Ia4AX5RM0C1yzEm0eGrGjRC
-	 zDeiOx2Jfba8G1mUPv8gRo0c0puATq/L3NE2/DdeiIcR+KaQ+aGRIh0P8mPXg55ktSr/u
-	 DI1sA8BG0tWSzdveqhwY9kAC5Nbm/45f6PVkKvDnZrFG1Te8P04Ffep1bVzMQLjzzxACr
-	 TEJlW5z5+Bqr3O84/YiWwS07hQKsxAJh5EpAsXb3Hq4gk0houGNKGj0G5ImxO6eK9dFjI
-	 7M4LObfB2vF/x2ol41E2/QX6f9MG3Yikn05nYWTVCkjZbLIRWZGndOJG0L2VaZ3EAMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795016103;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=YmIyJHLhfqfVnjjdZyBd1VHQ43Q91L66Z3wUwsYbj70=;
+	b=SoKva8wjsKuveScSL/3w6py6PA+c6iZsB2ch6BK716uj6wm+U2AWwbaEtExygCP6/ufM
+	 rnLRcBexa6pChpjaYZe7YEWDgqXSIXV2Dpk5Q6k7reGhzf+pMggGQd0EMNKddZG8xN+Kd
+	 ZZDWTNrcT2+1r7XPGoBnogARmaP0ppkvVlZ5vXJOeH0rr4EZzYJogOvesYK+WSxvjMIa1
+	 8TVOcsB1PKsUwIYBP9QsVthUwKRamJMe0REo4KSPNUJLPumwfjN93XZqDa3Sifk7VHBoh
+	 +jKO0xWfuSdgCOwTTkkKGVqIUOul50CRPyAXZJpbZCQ0fulu51id4vAvF7brYlHnSxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ij44ziCR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=M3FQqFzf;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339B4606A332;
-	Wed, 18 Nov 2026 15:34:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111DF606A31C;
+	Wed, 18 Nov 2026 15:35:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 111DF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ij44ziCR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A32441F000C5;
-	Wed, 18 Nov 2026 15:34:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795016086;
-	bh=BmJD8sv6AAFxv6Re5ss54Z9dNxRedpqV4XYrwTPA7fw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ij44ziCRh6fRrarjJnIwYFWMGZfJrmg9eKtOxQsL+FFRCKMyPkXeex5/wR1IpGjmi
-	 W8+p19OGPqNq8drX6X+wFfMBdciSmU7q9Xb00teeVTkltN1KG+JsWkb796xY0VCOGN
-	 pn5qRBP+qEF+zgxfdYCUTDoZJVF6bbrwMvSQXD6uQ5BrrJP7425Eqg+Ivnu49OxxMA
-	 pwBV0Zf0UiEOLpdSDEIh3zOlb0VEcZq3o417PFAT7Y7RatM2fTlND/SW+C6JOmvwSL
-	 7E8OZvBCpUY6UCSShllBxfahVLElSP6W6eLz/HFohEJ4ycF/bLQNrC5Qzot1ZW8RAq
-	 S8/bkEtNL1M8A==
-Message-ID: <sashiko-outbox-221345@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 06/11] iio: adc: stm32-mdf: configure cic filters and
- sample rates
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Olivier Moysan" <olivier.moysan@foss.st.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261118-upstream_mdf_v2-v2-6-7939d3c3720a@foss.st.com>
-References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
- <20261118-upstream_mdf_v2-v2-6-7939d3c3720a@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 15:34:45 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=M3FQqFzf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795016101;
+	bh=51dwE9+j0e1mawOBNMOi0nQ9g2gIMsjDwbanm/5LQiY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=M3FQqFzft/Ir+kHAV0p/RwbOGW3u27zvr6sW1lPU+5YbjNxcyQY61Xv5g4w7jct62
+	 nRRIqmM8exVWdDoK5r3z7QNiwZxHTD2W9ZH0YdWey5yIc1pg+tAgJrjq8HXWrXqiHf
+	 oCb/tCqyuYglr5qCzF148U536E2cxDwn5doz9KpnwMAizCt5Z8gxpCV7ocYB5CaR4a
+	 epwIZqWKk419fQBbY2P52F3hIuweR7Z391GGDaLDccZJG1Y9nbbhzgPDzlBuToHY14
+	 bTKJJe/VqEBXXMz5yTM70lI4bKWakajb/NuRJwnLqTycU6Xf61Ag87lL3h3RT6B3gk
+	 +aWFGoeCKOouw==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C5E6917E0564;
+	Wed, 18 Nov 2026 16:34:57 +0100 (CET)
+Message-ID: <f804ccb29fdda80673f7150b24390fdefce04505.camel@collabora.com>
+Subject: Re: [PATCH v9 08/14] media: dt-bindings:
+ mediatek,vcodec-subdev-decoder: Add MT8196
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Rob Herring <robh@kernel.org>, Kyrie Wu <kyrie.wu@mediatek.com>
+Cc: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen	
+ <andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,  Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,  Ricardo Ribalda
+ <ribalda@chromium.org>, Kees Cook <kees@kernel.org>, Hans Verkuil
+ <hverkuil+cisco@kernel.org>,  Fei Shao <fshao@chromium.org>, Haoxiang Li
+ <haoxiang_li2024@163.com>, Chen-Yu Tsai	 <wenst@chromium.org>, Laurent
+ Pinchart	 <laurent.pinchart+renesas@ideasonboard.com>, Tomasz Figa
+ <tfiga@chromium.org>,  Philipp Zabel <p.zabel@pengutronix.de>, Benjamin
+ Gaignard <benjamin.gaignard@collabora.com>, Qianfeng Rong	
+ <rongqianfeng@vivo.com>, Irui Wang <irui.wang@mediatek.com>, Jacopo Mondi	
+ <jacopo.mondi@ideasonboard.com>, Fan Wu <fanwu01@zju.edu.cn>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, Sakari Ailus
+ <sakari.ailus@linux.intel.com>
+Date: Wed, 18 Nov 2026 10:34:56 -0500
+In-Reply-To: <20261118152219.GA1746506-robh@kernel.org>
+References: <20261117032950.1425556-1-kyrie.wu@mediatek.com>
+	 <20261117032950.1425556-9-kyrie.wu@mediatek.com>
+	 <20261118152219.GA1746506-robh@kernel.org>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-EzpDPXQ5rHo8aaNXRlwQ"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,258 +103,50 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issues to consider:
-- [High] iio: adc: stm32-mdf: division by zero in
-  stm32_mdf_adc_check_clock_config()
-- [High] iio: adc: stm32-mdf: division by zero when decim_ratio is 0
-- [Medium] iio: adc: stm32-mdf: wrong DATSRC mask in
-  stm32_mdf_adc_apply_filters_config()
-- [Medium] iio: adc: stm32-mdf: wrong FastSinc scale in
-  stm32_mdf_adc_set_filters_config()
-- [Medium] iio: adc: stm32-mdf: missing rsflt_bypass copy for
-  interleaved filters
-- [Medium] iio: adc: stm32-mdf: broken ratio checks in
-  stm32_mdf_adc_check_clock_config()
---
+--=-EzpDPXQ5rHo8aaNXRlwQ
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-commit 76232b76e094892afbfa80eaf7eda8e245546546
-Author: Olivier Moysan <olivier.moysan@foss.st.com>
+Le mercredi 18 novembre 2026 =C3=A0 09:22 -0600, Rob Herring a =C3=A9crit=
+=C2=A0:
+> On Tue, Nov 17, 2026 at 11:29:44AM +0800, Kyrie Wu wrote:
+> > Compared to previous ICs, the MT8196 supports a 10-bit decoder
+> > and has a decoding capability of 4K@120fps. It also supports
+> > 36-bit DRAM IOVA address and Video Power Control to optimize
+> > bandwidth and voltage usage.
+> >=20
+> > MT8196 uses VCP to run the decoder firmware, so require mediatek,vcp
+> > for MT8196 and move the mediatek,scp requirement into the condition
+> > for the existing SoCs.
+> >=20
+> > Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+> > Acked-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> > ---
+> >  .../media/mediatek,vcodec-subdev-decoder.yaml | 52 ++++++++++++++++++-
+> >  1 file changed, 51 insertions(+), 1 deletion(-)
+>=20
+> This patch should be based on this one:
+>=20
+> https://lore.kernel.org/20261019212431.4109371-1-robh@kernel.org
 
-iio: adc: stm32-mdf: configure cic filters and sample rates
+Ack.
 
-This commit adds helper functions to compute CIC and reshape filter
-decimation ratios, data scaling, and serial clock validation from a
-requested sampling frequency.
+>=20
+> Rob
 
-> diff --git a/drivers/iio/adc/stm32-mdf-adc.c b/drivers/iio/adc/stm32-mdf-=
-adc.c
-> index 411af78911c91..eae7a4fa14851 100644
-> --- a/drivers/iio/adc/stm32-mdf-adc.c
-> +++ b/drivers/iio/adc/stm32-mdf-adc.c
+--=-EzpDPXQ5rHo8aaNXRlwQ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-> @@ -271,6 +329,352 @@ static struct stm32_mdf_adc *stm32_mdf_get_filter_b=
-y_handle(struct stm32_mdf *md
->  	return NULL;
->  }
-> =20
-> +static int stm32_mdf_adc_compute_scale(struct device *dev, unsigned int =
-decim,
-> +				       unsigned int order, unsigned int data_size)
-> +{
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav3FoAAKCRDZQZRRKWBy
+9EukAQD0ZTCdWzl/LYHeFQ4jPv5f0c/GvDvpO4ddSGxPgZzJlQEAtSL/JNfxGUlF
+ZCRrbteHcXbERxxd7ObdAXxvqyOB2Qc=
+=ic/T
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
-> +	/* scale =3D 20 * ((DS - 1) * log10(2) - NF * log10(D)) */
-> +	scale =3D 20 * ((data_size - 1) * stm32_mdf_log_table[0].log - order * =
-logd);
-> +
-> +	return scale;
-> +}
-> +
-> +static int stm32_mdf_adc_apply_filters_config(struct stm32_mdf_adc *adc,=
- unsigned int scale)
-> +{
-> +	struct stm32_mdf_adc *adc_inter;
-> +	u32 msk, val;
-> +	int ret, cnt =3D 0;
-> +
-> +	/* Apply conf from filter0 to interleaved filters if any */
-> +	if (MDF_IS_FILTER0(adc) && adc->mdf->nb_interleave) {
-> +		list_for_each_entry(adc_inter, &adc->mdf->filter_list, entry) {
-> +			if (MDF_IS_INTERLEAVED_FILT_NOT_0(adc_inter)) {
-> +				adc_inter->datsrc =3D adc->datsrc;
-> +				adc_inter->cicmode =3D adc->cicmode;
-> +				adc_inter->decim_cic =3D adc->decim_cic;
-> +				adc_inter->nbdis =3D adc->nbdis;
-> +				adc_inter->hpf_cutoff =3D adc->hpf_cutoff;
-> +
-> +				stm32_mdf_adc_apply_filters_config(adc_inter, scale);
-> +				cnt++;
-> +			}
-> +		}
-
-[Severity: Medium]
-Should this loop also copy adc->rsflt_bypass to adc_inter->rsflt_bypass
-and check the return value of stm32_mdf_adc_apply_filters_config()?
-
-Secondary interleaved filters skip filter property parsing during probe,
-so adc_inter->rsflt_bypass stays false even when filter 0 bypasses the
-reshape filter, leaving MDF_DFLTRSFR_RSFLTBYP unset on the secondary
-filters and applying an unintended 4x decimation.  Any register update
-failure on the secondary filters is also ignored.
-
-[ ... ]
-
-> +	/* Configure CICR */
-> +	msk =3D MDF_SITFCR_SCKSRC_MASK | MDF_DFLTCICR_CICMOD_MASK |
-> +	      MDF_DFLTCICR_MCICD_MASK | MDF_DFLTCICR_SCALE_MASK;
-> +	val =3D FIELD_PREP(MDF_SITFCR_SCKSRC_MASK, adc->datsrc) |
-> +	      FIELD_PREP(MDF_DFLTCICR_CICMOD_MASK, adc->cicmode) |
-> +	      FIELD_PREP(MDF_DFLTCICR_MCICD_MASK, adc->decim_cic - 1) |
-> +	      FIELD_PREP(MDF_DFLTCICR_SCALE_MASK, scale);
-> +
-> +	ret =3D regmap_update_bits(adc->regmap, MDF_DFLTCICR_REG, msk, val);
-
-[Severity: Medium]
-Should this use MDF_DFLTCICR_DATSRC_MASK instead of
-MDF_SITFCR_SCKSRC_MASK when programming adc->datsrc into
-MDF_DFLTCICR_REG?
-
-MDF_SITFCR_SCKSRC_MASK is GENMASK(2, 1) whereas MDF_DFLTCICR_DATSRC_MASK
-is GENMASK(1, 0), so adc->datsrc is shifted into bits [2:1] (where bit 2
-is reserved) and bit 0 of DATSRC is left unmasked.
-
-[ ... ]
-
-> +static int stm32_mdf_adc_set_filters_config(struct iio_dev *indio_dev, u=
-nsigned int decim)
-> +{
-> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
-> +	struct device *dev =3D &indio_dev->dev;
-> +	unsigned int decim_cic, decim_rsflt =3D 1;
-> +	unsigned int data_size =3D STM32_MDF_DATA_RES, order =3D adc->cicmode;
-
-[ ... ]
-
-> +	if (is_power_of_2(decim_cic)) {
-> +		/*
-> +		 * Decimation ratio is a power of 2: D =3D 2 exp n
-> +		 * max scale =3D 20 * (DS - n * NF) * log10(2)
-> +		 */
-> +		log =3D stm32_mdf_log_table[0].log;
-> +
-> +		/* Compute max scale (dB) * 1000 */
-> +		max_scale =3D (20 * (data_size - 1 - (order * (fls(decim_cic) - 1))) *=
- log);
-> +	} else {
-> +		/*
-> +		 * Decimation ratio is not a power of 2
-> +		 * max scale =3D 20 * ((DS - 1) * log10(2) - NF * log10(D))
-> +		 */
-> +		max_scale =3D stm32_mdf_adc_compute_scale(dev, decim_cic, order, data_=
-size);
-> +	}
-
-[Severity: Medium]
-Does the max_scale calculation handle FastSinc mode (adc->cicmode =3D=3D 0)?
-
-As noted in the dflt_max calculation below, FastSinc has a CIC gain of
-2 * D^2, but both branches here (and stm32_mdf_adc_compute_scale() above)
-multiply the decimation log term by order =3D 0.  That treats the CIC gain
-as 0 dB and always selects the maximum +72.2 dB scale (0x18), saturating
-the filter output and overflowing the 32-bit adc->dflt_max when
-decim_cic >=3D 12.
-
-[ ... ]
-
-> +	adc->decim_cic =3D decim_cic;
-
-[ ... ]
-
-> +static int stm32_mdf_adc_check_clock_config(struct stm32_mdf_adc *adc, u=
-nsigned long *sck_freq)
-> +{
-> +	unsigned long cck_expected_freq;
-> +	unsigned int ratio, cic_ratio;
-> +	int ret, error =3D 0;
-
-[ ... ]
-
-> +	/*
-> +	 * Mode SPI:    check Fproc >=3D 4 * Fsck
-> +	 * Mode LF SPI: check Fproc >=3D 2 * Fsck
-> +	 */
-> +	ratio =3D DIV_ROUND_CLOSEST(adc->mdf->fproc, *sck_freq);
-> +	if ((adc->sitf->mode =3D=3D STM32_MDF_MODE_SPI && ratio <=3D 4) ||
-> +	    (adc->sitf->mode =3D=3D STM32_MDF_MODE_LF_SPI && ratio <=3D 2)) {
-> +		dev_dbg(adc->dev, "Wrong Fproc/Fsck ratio [%d]. sitf mode [%d], RSFLT =
-[%s]\n",
-> +			ratio, adc->sitf->mode, adc->rsflt_bypass ? "off" : "on");
-> +		error |=3D STM32_MDF_ERR_MODE_RATIO;
-> +	}
-> +
-> +	/* RSFLT enabled: check Fproc > 24 * Fsck / (MCICD+1) */
-> +	cic_ratio =3D DIV_ROUND_CLOSEST(24, adc->decim_cic);
-> +	if (!adc->rsflt_bypass && ratio <=3D cic_ratio)
-> +		error |=3D STM32_MDF_ERR_DECIM_RATIO;
-
-[Severity: High]
-Can DIV_ROUND_CLOSEST(24, adc->decim_cic) divide by zero here?
-
-mdf_adc_set_samp_freq() calls stm32_mdf_adc_check_clock_config() before
-calling stm32_mdf_adc_set_filters_config(), which is the only place that
-sets adc->decim_cic.  On the first call adc->decim_cic is still 0,
-causing a division by zero, and on later sample rate changes this check
-uses the stale adc->decim_cic from the previous configuration.
-
-> +
-> +	/* If we found an error, try to restore clocks initial settings */
-> +	if (error) {
-> +		ret =3D stm32_mdf_core_restore_cck(adc->mdf);
-> +		if (ret < 0)
-> +			goto err;
-> +
-> +		*sck_freq =3D clk_get_rate(adc->sitf->sck);
-> +		if (!*sck_freq) {
-> +			ret =3D -EINVAL;
-> +			goto err;
-> +		}
-> +	}
-> +
-> +	return 0;
-
-[Severity: Medium]
-Does stm32_mdf_adc_check_clock_config() accept invalid clock ratios and
-reject valid boundary ratios?
-
-The SPI mode checks above use ratio <=3D 4 and ratio <=3D 2 instead of
-ratio < 4 and ratio < 2, rejecting the valid boundary ratios Fproc =3D 4 *
-Fsck and Fproc =3D 2 * Fsck.  In addition, when error is non-zero, this
-function calls stm32_mdf_core_restore_cck() and returns 0 without
-re-checking whether the restored clock satisfies the frequency and
-Fproc/Fsck ratio constraints.  Finally, mdf_adc_set_samp_freq() computes
-the default sample_freq from sck_freq before calling
-stm32_mdf_adc_check_clock_config(), so if *sck_freq is updated here,
-sample_freq stays based on the old rate.
-
-[ ... ]
-
-> +static int __maybe_unused mdf_adc_set_samp_freq(struct iio_dev *indio_de=
-v)
-> +{
-
-[ ... ]
-
-> +	if (!sample_freq)
-> +		sample_freq =3D sck_freq / MDF_DEFAULT_DECIM_RATIO;
-> +
-> +	ret =3D stm32_mdf_adc_check_clock_config(adc, &sck_freq);
-> +	if (ret)
-> +		goto err;
-> +
-> +	decim_ratio =3D DIV_ROUND_CLOSEST(sck_freq, sample_freq);
-> +
-> +	delta =3D abs(sck_freq - (decim_ratio * sample_freq));
-> +	delta_ppm =3D (1000000 * delta) / sck_freq;
-> +	if (delta_ppm > 1000)
-> +		dev_warn(dev, "Sample rate deviation [%lu] ppm: [%lu] vs [%lu] Hz\n",
-> +			 delta_ppm, sck_freq / decim_ratio, sample_freq);
-
-[Severity: High]
-Can sck_freq / decim_ratio divide by zero when a caller requests
-sample_freq > 2 * sck_freq?
-
-DIV_ROUND_CLOSEST(sck_freq, sample_freq) rounds decim_ratio down to 0
-before stm32_mdf_adc_set_filters_config() validates the decimation range,
-and delta_ppm then evaluates to 1000000, hitting sck_freq / decim_ratio
-in dev_warn().  Similarly, if requested_sample_freq is 0 and
-sck_freq < MDF_DEFAULT_DECIM_RATIO, sample_freq becomes 0 and
-DIV_ROUND_CLOSEST(sck_freq, sample_freq) divides by zero.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-upstream_m=
-df_v2-v2-0-7939d3c3720a@foss.st.com?part=3D6
+--=-EzpDPXQ5rHo8aaNXRlwQ--
