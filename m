@@ -1,85 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795001494;
-	b=5fbEwC8aDGrvszctdg780fQCBPq0nhzWTcvgB2wT1ENEnJbsp2Po6JojUZC4cf3G05rw
-	 8q9wCyLSeQi8cOYHI3B7TGtDWSGf9/wsvpPcErki5q+jQq8F6FXZ91NLKfqO4CuoiJD3N
-	 zimgMg7PsEUxRo2/Nfoj4ZEawf5Z/d6fT6ewvMtIxQNFBzEu9ei6a5eGZ36LsSnorTgic
-	 1j6SQ0Vv6TEFA2WaAYKV6rS16ZT8oQLVfUDR3Zfen0CaJFykvnj9qb7VQRJi/7PUztrgA
-	 SGHhm35VBZ2tSZJ1WZoimF3j/LLJgGkt6l83LC+Rz7zQcpytykcE9N5PNPQfYmgJTSA==
+	t=1795001614;
+	b=qH7C8jTYD+wo8E17JyQ2m/xkH1uIxYqyd+7n92gLlF8dOL98WxndpCOSxsQPDpAJl65A
+	 31GBVuz7c8U0yZo9BzO1IUnZWxUlzPiOkDtqd6CZ2U3PhsatTNxSTDXjGVgMLGq3wsONf
+	 VHTfgCpkjXgvXeYhNlDWxr7Zb/J0oanTNnaQMQwFdSUcRLRXdLDlCWn0n0vXLWjFDJo1j
+	 UJGrNYtCzP+myQBBW1zZ/AwCbcqP4hjhh6R2CWUqN6+HdGOO1w1mTPoofyYX7kgyjcXRo
+	 XLcMEcWjGV+lCuz9y57x9Rirl5R7iL9H/pJwS11QAvTGFXPx59tDnZe96o+LnTCJ2/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795001494;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=+AJdmr09+iBj/Z5WLYyc48Zagz6XLfHcN+HSHTDIS0c=;
-	b=KmNsttHGjD7YkQu3BPT1R+qkbscFZrrsjPkgN+hSdrMTL0yZUnmBjG7tNDdtWjfFYdrR
-	 zUXQWVFujgKVSw4pd5OCjEhRSbkHL7u6SVyB1zByOXEz5LRhy8kZglosyAqVrUFsZkV0N
-	 u7SpHDOkVOLegOxs8IkB+UzCQufkTUqyra5TT8dlV9+XDGQdWWW5cK4qTZzEN46ECyJ5K
-	 TPS7la7jDbKTZ7StwLVt/A2Vb0OsBvo6PzlhQ9u4MBFPb/zBOyz0fzqNMNS76bm2U1IbA
-	 t0m0YB9jwVrr9BkMau00V5w5a/SAEJL/xGuPMFzgVUUvv66dYvGNKSy5pIG/lncIAtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795001614;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=FkG1M7L3zIjGXumIoOOlMZR+O73PQTM6nqG0PHku6sU=;
+	b=Yzz0y6avUpmpFvJo+WeOeLxi9bVOzHuEjJI9bX3PjoRy7PkaDwo9/g7q/NStj4m8zd60
+	 //1OikksBxrSgorNZUQN3j+aC5e3oFCtY609LZWGg7TFb1Ks9/2vSeZnR+xMBbXLsm4CO
+	 /zbcDbQibhlUCrsRBj3OEwRhxying8DJBnUue/10ta0IsJOCmJ8Rv/fZKI2n8Im9mcwdm
+	 aYs2HVbuCpyciXnmDszdUiuiTTwYnzSIDIyR3o7gopFPTr0eewn3lcTotfmxu0ajSfU6y
+	 pDNxK+mm1sC9Parmku7rKZ8KD1G8TEXl75fxE9k6cLbrWi7OIGl6ndeujKSzd8iOsDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lWqcoD9b;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9FF606A31C;
-	Wed, 18 Nov 2026 11:31:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB9FF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eyo362ur;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59731606A31C;
+	Wed, 18 Nov 2026 11:33:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59731606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lWqcoD9b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795001494; x=1826537494;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ZplAlreEN+1G2HGdfsT/GfZ9NWcBNLei6WdM38+/mfM=;
-  b=lWqcoD9bFlpvcLjRdPe4ZGakqda2ZjVskOmL/CCQzFw03nWXURiu1IQp
-   wmR2userQcIWj0/Evl2qV19M/UwqaIXyGFEFcfmaLI9F/Hg8jQ+JYzYMw
-   qOs8TYm9BnqamkgxoSSN6QMq1u/FyN+fxXvqCoFUff9y3eoUcgJJ49a4S
-   /TvMDPLTbKM0eMF+BG2YeeA7IGo8rWP5rnup6RP28tuDlNOx5jzYBf6Fq
-   OCxa0NnQRY4IXn2QNHlll30hQLsJRZ+CesEhxVJc/ilTK4MFhV024jjvQ
-   3Ra4kJP3RASu6FZgfKijakS8Sp4/RjN+y776dfFS3e2M04TFUbb8nMvZw
-   g==;
-X-CSE-ConnectionGUID: XjHNxGGnTOOpaV12vzkmrQ==
-X-CSE-MsgGUID: hWN2IehiRzOlA6jfAcONfg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3832639"
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3832639"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 03:31:33 -0800
-X-CSE-ConnectionGUID: pU98kTazQZ6gsyiNdtAAmg==
-X-CSE-MsgGUID: /oIa8dH9SiSshSF91r2EUA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10205773"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.157])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 03:31:29 -0800
-Date: Wed, 18 Nov 2026 13:31:27 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Joshua Crofts <crofts@kernel.org>
-Cc: Arnav Kapoor <kapoorarnav43@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	Daniel Campello <campello@chromium.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] Semtech SX9xxx: add a reviewer entry and binding
- maintainer
-Message-ID: <av2Mj3meE15gT7e3@ashevche-desk.local>
-References: <20261117172612.25535-1-kapoorarnav43@gmail.com>
- <avyoLGkkCkxu11TA@ashevche-desk.local>
- <20261118083606.00005f7e@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eyo362ur
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 693131596;
+	Wed, 18 Nov 2026 03:33:30 -0800 (PST)
+Received: from [10.57.70.68] (unknown [10.57.70.68])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7F90C3F673;
+	Wed, 18 Nov 2026 03:33:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795001613; bh=csl8kCTvz4XLKbFvRoYYYYrgaV2LpO+qLRWnlyKVl84=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eyo362urxliBQcBcqOcEl9e1QlQWWWQHXvpyHTu/vd/bS3HdZH8Bd4wi6QQ4+0ddq
+	 vYaGDIBsof+HNIzGdS0nbDVtuXoFA+k5vXjogbBUsVR1xSuvVlaEQfHOOCEl/Xe0HU
+	 E9Hg+ss0vh+eH7NXWRpy7lSLWwc7qY8stVcYjyZY=
+Message-ID: <878eabf1-0742-45ad-892a-4c6a7b615d1f@arm.com>
+Date: Wed, 18 Nov 2026 11:33:28 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,39 +53,163 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118083606.00005f7e@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v23 3/8] coresight: tmc: add a function to switch the ETR
+ to a free etr_buf
+Content-Language: en-GB
+To: Jie Gan <jie.gan@oss.qualcomm.com>, Mike Leach <mike.leach@arm.com>,
+ James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Mao Jinlong <jinlong.mao@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>,
+ Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>
+Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261118-enable-byte-cntr-for-ctcu-v23-0-67fd9db6bc0e@oss.qualcomm.com>
+ <20261118-enable-byte-cntr-for-ctcu-v23-3-67fd9db6bc0e@oss.qualcomm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261118-enable-byte-cntr-for-ctcu-v23-3-67fd9db6bc0e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 18, 2026 at 08:36:06AM +0100, Joshua Crofts wrote:
-> On Tue, 17 Nov 2026 21:17:00 +0200
-> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> > On Tue, Nov 17, 2026 at 10:56:07PM +0530, Arnav Kapoor wrote:
-
-...
-
-> > > - Patch 2: drop the DT binding F: lines, patch 1 already lists me in
-> > >   the maintainers: field of the bindings (Andy)  
-> > 
-> > I was expressing my opinion, it was not an AR, it was rather the start for
-> > the discussion. I'm not DT maintainer, I don't know what the rules for the
-> > maintainer records there, OTOH I don't know if DT parts belong to the
-> > MAINTAINERS records that have only R: lines (and no M:).
+On 18/11/2026 08:02, Jie Gan wrote:
+> Add tmc_etr_switch_buf_node() to switch the ETR to a free etr_buf of the
+> etr_buf_list without disabling the sink. It returns the node of the
+> switched out etr_buf, so its synced data can be read while the ETR keeps
+> tracing into the new one.
 > 
-> Not sure if R: makes a difference, nevertheless better to have the
-> dt-binding files under the MAINTAINERS entry as well (i.e. grep -b5a5 SX9*
+> Stopping the ETR, swapping the etr_buf and restarting the ETR have to be
+> done in one critical section. Otherwise tmc_disable_etr_sink() can run
+> in between and leave drvdata->etr_buf out of sync with the hardware.
+> Provide the sequence as a TMC helper, so callers don't need to know
+> about the locking of the ETR state.
+> 
+> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-tmc-etr.c | 65 +++++++++++++++++++++++++
+>   drivers/hwtracing/coresight/coresight-tmc.h     |  4 ++
+>   2 files changed, 69 insertions(+)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hwtracing/coresight/coresight-tmc-etr.c
+> index e9213f456834..5032f5598e15 100644
+> --- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
+> +++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
+> @@ -1224,6 +1224,71 @@ static void __tmc_etr_disable_hw(struct tmc_drvdata *drvdata)
+>   
+>   }
+>   
+> +static void tmc_etr_reset_sysfs_buf(struct tmc_drvdata *drvdata)
+> +{
+> +	u32 sts;
+> +
+> +	CS_UNLOCK(drvdata->base);
+> +	tmc_write_rrp(drvdata, drvdata->sysfs_buf->hwaddr);
+> +	tmc_write_rwp(drvdata, drvdata->sysfs_buf->hwaddr);
+> +	sts = readl_relaxed(drvdata->base + TMC_STS) & ~TMC_STS_FULL;
+> +	writel_relaxed(sts, drvdata->base + TMC_STS);
 
-`grep -C5 ...` (C is a combination of A and B).
-But small letters 'b' and 'a' for `grep` seems misleading above.
+see below
 
-> MAINTAINERS if I'm looking for a specific sx9xxx binding file).
 
-Okay, fine with me.
 
--- 
-With Best Regards,
-Andy Shevchenko
 
+> +	CS_LOCK(drvdata->base);
+> +}
+> +
+> +/**
+> + * tmc_etr_switch_buf_node - switch the ETR to a free buffer of the etr_buf_list.
+> + * @drvdata:	drvdata of the TMC device.
+> + *
+> + * Stop the ETR, hand over the current buffer for reading, switch to a free
+> + * buffer and restart the ETR. All of this is done with @drvdata->spinlock held,
+> + * so it can't race with the sink disable path.
+> + *
+> + * Return: the node of the switched out buffer, or NULL if the sink isn't in
+> + * sysfs mode or there is no free buffer. The ETR is left untouched in both
+> + * cases.
+> + */
+> +struct etr_buf_node *tmc_etr_switch_buf_node(struct tmc_drvdata *drvdata)
+> +{
+> +	struct etr_buf_node *nd, *curr_node = NULL, *picked_node = NULL;
+> +	unsigned long flags;
+> +
+> +	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
+> +	if (coresight_get_mode(drvdata->csdev) != CS_MODE_SYSFS)
+> +		goto out;
+> +
+> +	list_for_each_entry(nd, &drvdata->etr_buf_list, link) {
+> +		if (nd->sysfs_buf == drvdata->sysfs_buf)
+> +			curr_node = nd;
+> +		else if (!picked_node && nd->is_free && !nd->reading)
+> +			picked_node = nd;
+> +	}
+> +
+> +	if (!curr_node || !picked_node) {
+> +		curr_node = NULL;
+> +		goto out;
+> +	}
+> +
+> +	__tmc_etr_disable_hw(drvdata);
+> +
+> +	/* The switched out buffer is free again once it has been read */
+> +	curr_node->is_free = true;
+> +	curr_node->pos = 0;
+> +	curr_node->reading = true;
+> +	picked_node->is_free = false;
+> +	drvdata->sysfs_buf = picked_node->sysfs_buf;
+> +	drvdata->etr_buf = picked_node->sysfs_buf;
+> +
+> +	tmc_etr_reset_sysfs_buf(drvdata);
+
+Why are we doing this, when the following __tmc_etr_enable_hw() already 
+does the right thing ?
+
+Suzuki
+
+
+> +	if (__tmc_etr_enable_hw(drvdata))
+> +		dev_err(&drvdata->csdev->dev, "Failed to restart the ETR\n");
+> +out:
+> +	raw_spin_unlock_irqrestore(&drvdata->spinlock, flags);
+> +
+> +	return curr_node;
+> +}
+> +EXPORT_SYMBOL_GPL(tmc_etr_switch_buf_node);
+> +
+>   void tmc_etr_disable_hw(struct tmc_drvdata *drvdata)
+>   {
+>   	__tmc_etr_disable_hw(drvdata);
+> diff --git a/drivers/hwtracing/coresight/coresight-tmc.h b/drivers/hwtracing/coresight/coresight-tmc.h
+> index 7c604b9f92e5..30b15c38b080 100644
+> --- a/drivers/hwtracing/coresight/coresight-tmc.h
+> +++ b/drivers/hwtracing/coresight/coresight-tmc.h
+> @@ -212,12 +212,15 @@ struct tmc_resrv_buf {
+>    * struct etr_buf_node - node of the etr_buf_list
+>    * @sysfs_buf:	Allocated sysfs_buf.
+>    * @is_free:	Indicates whether the buffer is free to choose.
+> + * @reading:	Indicates the buffer attached to the node is being read by
+> + *		the user.
+>    * @pos:	Offset to the start of the buffer.
+>    * @link:	list_head of the node.
+>    */
+>   struct etr_buf_node {
+>   	struct etr_buf		*sysfs_buf;
+>   	bool			is_free;
+> +	bool			reading;
+>   	loff_t			pos;
+>   	struct list_head	link;
+>   };
+> @@ -465,5 +468,6 @@ struct etr_buf *tmc_etr_get_buffer(struct coresight_device *csdev,
+>   extern const struct attribute_group coresight_etr_group;
+>   void tmc_clean_etr_buf_list(struct tmc_drvdata *drvdata);
+>   int tmc_create_etr_buf_list(struct tmc_drvdata *drvdata, int num_nodes);
+> +struct etr_buf_node *tmc_etr_switch_buf_node(struct tmc_drvdata *drvdata);
+>   
+>   #endif
+> 
 
