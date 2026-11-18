@@ -1,59 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794996406;
-	b=OjTAK+FAD5uzNP7BHHVNC9YuXqrXpGhB/eKabIIV/hFWgE0gX3ZqZx66rDV10L3lhzxr
-	 Sqdur6HuIn/spKcag9uyqCmL386brxb9ViTBrPTL0YW57dk82QD6vCLJTLxs4xgyjjU4a
-	 8uoD67/bV83KUTYmoOjrCZFqGsHhw/FLrfIPCtQ41nDO5SVUM7eq9BbviZvV8Nj8OfDdS
-	 PHf8bWO27lkH98X7ri+8hRlgQKDAmhD9ktHA90dAnySnIYMU/6urrNulOita7t11acMgj
-	 +LyC+wxtLonJE4LYlEvxlXURPaJuG3yyHlCwAGqPVGn+idgbtn3XnKkXHMlmkCYRMXA==
+	t=1794996493;
+	b=XPZq9kYS3lBCPcFbpy2zW/uiD8k6NZb+TSAIdC7ueB8iwFbzarETh5LfN0PMwHfK/Lmm
+	 ucIDN0d+VH4lQvbctDHX0AB55PPgh/3x5IXfpLYPU2KEuwqM0kaFIzuxFv3Y6T7lSUzEm
+	 rmRfs2kUPl8q1dqFYr4pCrNFmEPWynZWH+kM+1jSAgaTjnGQVnXPWhgUmD54FhOIamwSq
+	 XIPTdvsQSyNeUk6joHgxxFVNfPhIFjsK5liS8s6kKfSMjUCXeqK+adQHM0pA7b2frdIb9
+	 7D0Y+2+V4rCnPIO+1d4CRNA4C+W20wdkPsGuo2bTQSBwXlKUznCJwlKmHlvdcpamkNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794996406;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=w+Zp5fYUXpTHENGGEArXBNYqTXx0/SwepjxfieSoHbk=;
-	b=qAgvElPecwuGvpSeImoZuTV3ghib0WMYCkDfIAFGZSOT/yOOx6ZHFy0XAWhY1mnSDFbi
-	 Zeqv9ZoreggPWeM3iCXXc/rzBjDHyFk8ddIaLtd3aIcbh5NA1wwRrsg35oc5H63YaCXON
-	 Qpvw2CQ7A1OYJn66+1SqxAzuXiaOktIG0kBjeMIyJaPAVcw1dExWe2dPJqR5pj44+O5ZD
-	 phFDimcvaP0BiQfjPcG2gkxDWQcxwsGmAUN4PeDgY79Y8IdkxxVkqKUMIldW/kBZfFJL+
-	 WcsRGQ9XmBV1IyZs5yIte1gmO0oSJP2hun7NJMHaqpBZQbQM/MWDeRmgH3oyBc0mSKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794996493;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7zhgK2cftjiTzkt87l4mZkq8xI6jhkpMgB4GLzuXArw=;
+	b=QIg+LWW3XBzYcaCvd1vlrk9a1mXV3DQ4wqh+hcbfJwWQybmexxtXXp7sLW/J9mL8UfyQ
+	 hi0nt9ra+XkIzAJOY5vVFxMpgpHrIm3VPog+zvejmShheu4LE2CR/Begu1V6p4n6rWEfz
+	 TnN7ZmvpAyN0CMtPDIQi1d7/Vos2NhtUbLA+EswBdX0kPeJ0yvG3C+Z9VYzQGB567M8BU
+	 2yhBQyB7Y/hQMgZ072BpoglgtOURaW5zAWZbFlXXSGZYPwgcF5hkVW5SHmTkvu3LOk4UB
+	 rsbBMqrki2GeRxOcMmej0TtKfkZi6Z7aqYkqeLGK7GBUA8y+YovDCpcY8C6BHtiFDnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Bc4LnXam;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DYBjfuJG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37811606A33A;
-	Wed, 18 Nov 2026 10:06:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37811606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC4F606A33D;
+	Wed, 18 Nov 2026 10:08:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Bc4LnXam
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 0333C1A16CA;
-	Wed, 18 Nov 2026 10:06:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CC7135FE9B;
-	Wed, 18 Nov 2026 10:06:44 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9CFD611BC0F29;
-	Wed, 18 Nov 2026 11:06:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794996403; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=w+Zp5fYUXpTHENGGEArXBNYqTXx0/SwepjxfieSoHbk=;
-	b=Bc4LnXamwh12WRr26cHRHMdLSxBfQh4CBDxNoQHTa4xfZ8QwICGQpaEBgfToTF/1J6fWe0
-	lj0ufaaK4VQKsrl5OsHmDZw9DcCOjykCvcjRcr179Kz3RbzZH4ZOWa1LEbd5TGasyA8+SC
-	uNtsNK4lP13htBCKX+bSYKVfrm0CWb9X8rN8OJuVkSnY56UHzB7DKaDwQTxSFDHB6ybN/5
-	POlRNGhMA2KMaUfD1jazF2bvX6kDM7KZgE7BrA9oYHGbM73WpSRxJXn/05dKK82rc17njh
-	Dx6yzVHlrdy21JeHC9xd5MtnT7duqpvb6sanV1/bLf+/ngOkOaCdzP/nNYdQmw==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Wed, 18 Nov 2026 11:05:59 +0100
-Subject: [PATCH v8 3/3] ARM: dts: renesas: r9a06g032: add EDAC node
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DYBjfuJG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728631F000C4;
+	Wed, 18 Nov 2026 10:08:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794996492;
+	bh=7zhgK2cftjiTzkt87l4mZkq8xI6jhkpMgB4GLzuXArw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DYBjfuJGrCXQ5e9ujie/dO4L0JQvm+DUcbp2mc5xLpc6ZPVBjs3Ks40ccoAIAn5jE
+	 S064t9CjDeHB7T3eD57yk2dXCKfnBCc6wRIq+ITEIAdxG1oGk9NZkCCWhJODWp/Dbs
+	 ITgEHQZfxngWJpcYEVO0uKaZyWR9UqTt0PUJ0E5rvoLarq2wbkWgaUzYyw+1OA4UCO
+	 AefOBHsv0F+y8WwxpSM6ztttoWEsueqP42lDnMak+TZEkavGJ0n0yZQjCg7eQsioGi
+	 50KaZEwibq/raNQbq8BnQ6SOqDX6nGbphDC99VEYumkuZNFqFD7zuwP4HwACP0Jmwm
+	 S/Z+52+/5aPjg==
+Message-ID: <fceee6fa-2bfb-4676-b5ac-80e1bae8d4f4@kernel.org>
+Date: Wed, 18 Nov 2026 11:08:06 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,61 +51,161 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/9] dt-bindings: phy: rockchip,rk3588-mipi-dcphy:
+ Select TX or RX, add phy-type
+To: Quentin Schulz <quentin.schulz@cherry.de>,
+ Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Michael Riesch <michael.riesch@collabora.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261118-dcphy-rx-v1-v7-0-8de1adac3a74@gmail.com>
+ <20261118-dcphy-rx-v1-v7-2-8de1adac3a74@gmail.com>
+ <3a9e999f-5ff5-422c-aa65-b8560dca84bc@kernel.org>
+ <fe324e43-50c4-4f0e-9bb0-57ea7172530b@cherry.de>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <fe324e43-50c4-4f0e-9bb0-57ea7172530b@cherry.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-paul-v7-3-rc1-edac-v8-3-ed791084cc19@bootlin.com>
-References: <20261118-paul-v7-3-rc1-edac-v8-0-ed791084cc19@bootlin.com>
-In-Reply-To: <20261118-paul-v7-3-rc1-edac-v8-0-ed791084cc19@bootlin.com>
-To: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Herve Codina <herve.codina@bootlin.com>, 
- "Paul Louvel (Schneider Electric)" <paul.louvel@bootlin.com>, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794996390; l=1030;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=bjqx9mWsVyVgBUPyTaZqDuanfvJmzUqCelIb9D3jJRg=;
- b=pXwMztftrUVoRpu0lIlphNUPsvtcbzn0ACauG4sULaNgmXDg94ESRJNtxZr1CVAMb7/voAxvW
- 65n9rBqAteKD3gqxFgloB0sdo3PurQHPTTHMQhDuECr6JMS6qlEiKwd
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
 
-Add EDAC node to the SoC base device tree file.
+On 18/11/2026 10:28, Quentin Schulz wrote:
+> Hi Krzysztof,
+> 
+> On 11/18/26 9:16 AM, Krzysztof Kozlowski wrote:
+>> On 18/11/2026 06:55, Jason Yang wrote:
+>>> The Samsung MIPI D-/C-PHY block on RK3588 and RK3576 has a transmitter
+>>> for DSI and a receiver for CSI-2, and the DSI host and the CSI-2 host
+>>> can use the transmitter and the receiver at the same time. The single
+>>> cell of this binding selects the mode and refers to the transmitter, so
+>>> the receiver cannot be described.
+>>>
+>>> Change the cell to select the transmitter or the receiver. The
+>>> transmitter and the receiver cannot operate in different modes [1], so
+>>> the optional phy-type property of the PHY node sets the mode for the
+>>> whole block, D-PHY by default:
+>>>
+>>> 	/* the MIPI DSI host, driving the transmitter */
+>>> 	phys = <&mipidcphy0 PHY_DIRECTION_TX>;
+>>>
+>>> 	/* the MIPI CSI-2 host, driving the receiver */
+>>> 	phys = <&mipidcphy0 PHY_DIRECTION_RX>;
+>>>
+>>> For C-PHY the consumers stay the same and the PHY node gets:
+>>>
+>>> 	phy-type = <PHY_TYPE_CPHY>;
+>>>
+>>> Existing DTs on a newer kernel: PHY_TYPE_DPHY and PHY_TYPE_CPHY remain
+>>> valid as deprecated values. They select the transmitter and imply
+>>> phy-type = <PHY_TYPE_DPHY> or <PHY_TYPE_CPHY> respectively, so nothing
+>>> changes for them.
+>>>
+>>> New DTs on an older kernel: an ABI break. The older kernel ignores
+>>> phy-type and takes any cell value as the mode of the block. A DSI node
+>>> with PHY_DIRECTION_TX therefore gets no display, and a CSI-2 node with
+>>> PHY_DIRECTION_RX gets no camera.
+>>>
+>>> [1] RK3588 TRM: section 22.1 (overview): "The TX and RX only support
+>>>      operate in the same PHY mode."
+>>>
+>>> Suggested-by: Michael Riesch <michael.riesch@collabora.com>
+>>> Link: https://lore.kernel.org/r/94d47cab-10c6-4ec3-84a0-3bddc9d67f5f@collabora.com
+>>> Signed-off-by: Jason Yang <jason98166@gmail.com>
+>>> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+>>> Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+>>> Tested-by: Quentin Schulz <quentin.schulz@cherry.de> # RK3588 Tiger CSI1 2-lane IMX219, CSI0 2-lane OV5675+DSI
+>>
+>> Please drop the tag, this did not happen. In the future, please add only
+>> applicable tags. Otherwise share how this code was executed and tested
+>> on the actual hardware (make process, like building code, is obviously
+>> not testing).
+>>
+> 
+> What did not happen? I tested the v6, on the reported hardware, on the 
+> reported two DCPHYs, see 
+> https://lore.kernel.org/all/840285d6-a8a6-4777-8d38-6758ccbc7723@cherry.de/
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
----
- arch/arm/boot/dts/renesas/r9a06g032.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm/boot/dts/renesas/r9a06g032.dtsi b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-index 5455dccfbdd0..370756014571 100644
---- a/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-+++ b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-@@ -163,6 +163,14 @@ dmamux: dma-router@a0 {
- 			};
- 		};
- 
-+		edac: memory-controller@4000d000 {
-+			compatible = "renesas,r9a06g032-ddr-edac", "cdns,ddr-edac";
-+			reg = <0x4000d000 0x1000>;
-+			interrupts = <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&sysctrl R9A06G032_CLK_DDRC>, <&sysctrl R9A06G032_HCLK_DDRC>;
-+			clock-names = "ddrc", "pclk";
-+		};
-+
- 		udc: usb@4001e000 {
- 			compatible = "renesas,r9a06g032-usbf", "renesas,rzn1-usbf";
- 			reg = <0x4001e000 0x2000>;
+I comment in a specific place in a specific patch. The testing of this
+patch did not happen, which I explained why.
 
--- 
-2.56.1
 
+> 
+> If you're complaining about the Tested-by being given to a dt-binding 
+> patch, it was provided as an answer to the cover-letter, and the 
+
+I know. Tag was applied blindly and that I ask to correct.
+
+> contributor is clearly using b4 considering the last few lines from the 
+> cover letter (base-commit/change-id lines). b4 trailers -u applies the 
+> tags given to the cover letter to all patches in the series, so if 
+> there's someone to blame here, it's me for adding it as an answer to the 
+> cover letter. So now the question is, do you want me to add a Tested-by: 
+> to each individual patches of long series when I technically built and 
+
+The comment was not to you. I responded to the contributor and I expect
+the contributor to act, not you.
+
+> tested only based on the last patch of the series, which is only a DTS 
+> patch adding the nodes to the RK3588 DTSI? In that case, I cannot 
+> provide Tested-by for patches before the last, as it can simply not work 
+> at all until the last (actually all of them, except the bindings) patch 
+> is applied.
+> 
+
+
+
+Best regards,
+Krzysztof
