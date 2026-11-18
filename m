@@ -1,57 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794991239;
-	b=XyR3bw8vr5U1LDZCZ/ty4RiykTZNZutTlRMtxYimAajOVFW1XgrC+nytliD+yYUKI0IE
-	 95mFAbas4JV0t/U6CmKSfkiBNjU7us8yKf2NpfYBiHDWrLGQqCcbCSnaC5FMIEzlZn3Pd
-	 Hr8hLBWf0+bfqihFGXxBGwXpfoqZVnFcqJT39pxAK1VssasIZZUapzUfDh0w68/JzivzU
-	 e7xgl6xfZ+ze2+i1zCgx8q4Z8sx9hme/x/XKdcaKW79vQb94JC/q5ukWCVKmYMstWNfmv
-	 RtRXahsjQdnK/L/5IcyC56SZQMYRQeGJ66uRQnBve/3fy7YY2mzxuGN3azFuHEmTLfg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794991239;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=v71ZpFX2qcHVEO1BFFSl7dLI/TlM3X5W+2U652oh8ZE=;
-	b=mKyN7zwHXZrAwdqvVoHRD04eLBRcMi1canfxxkDfGR7/hB9c6Xdz70YHrTDstwIGybaK
-	 EvO29W0WgtqTtc+SHWI/PLKpXMhJQAiNPec3y5lYSmLsy7fNPPuxBiCNybWc84n+gDoIT
-	 /OL/wq0pU8pib3bKap6e7wuLulXHGB8nLGYkjbs2TieXHbL6b/kgxKEEl4tN4b/s1tmXC
-	 5jTj7Uyhc06/7CeMJGhHpCHRHtGfaFWijyi2zSKQj+XPCMuTp8dn81zIDWoTbWPWu5Dox
-	 0qsn60tEBbbnSmO2Cl2EFNnU3rGUOfUJe6Pt274x9nWfKGLSfUoQESj/bvK59KGSC5Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDuC2adf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.62
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794991347;
+	b=K1k8ed7xz7tWt1nDBFjumXIv8JytifjFqR21LLlkQ9YJdqMVi/4tvi5a+HmYPnCjCmQm
+	 euFqy5v9TWugc73mS++TnuRSdXwp9wY1pZYo2Hv5R+az5mvgh4uGpsTaBHhjIF7UTmTie
+	 +I3bJhBgec5wBmZGmEHyV2yPU1vEpj+UDA4WA9eEL8aV7k6BZ4gc663xFZBTvElYt93Nb
+	 0UL7fHaUvcjk5V1ykLPRuT1tM+R70SBKLjeSriLa+8HwlFm5Uu/5P5PstYLRyQJ0gWdwA
+	 4W+VvSkwZrJMv7QnGmQ4HA2ZNHBpD8qz6okn5Y0Fm2ShgDVqtZyPRmiRnZLF6EAYdXw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794991347;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-NotSetDelaration:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TpyPcMGIkXeNd0FXabT2eKUT321oJfEvTjdN75ppqjs=;
+	b=MInx2kbd58X6GeZH8PAMzgV5MbELULoojNSr4xKXGwjzHvnKdVh4LIwYuKeu6jF2hubL
+	 m2Sps7x9coAUFO6vP9sutoq85pz/c4SeMK89j+K/ngm9sgqEAFC1e1NPl6xLiZvPXrhGS
+	 xUd+z/LKvvQtsYWaAR05aPv4yA0A36QsNph9ZjKq1HaIGpNMG3h7FZQZgd/XGDJHwpHn0
+	 zEshEvLmwa6EhaUduD7m9MqUKA/Nd25LOtSeNTQ6eKzzwcn2Styls0W8CTdg8X2t91LFg
+	 N6TqEHkQZBXTubcxTEkYg/P2vv36DEMt5PScF5sQg140LwNirZO1zYJX2Iie78jINJw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nuvoton.com;
+	spf=pass smtp.mailfrom=nuvoton.com;
+	dkim=pass header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256 header.s=selector1 header.b="XIC8Q/g2";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.62
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11012062.outbound.protection.outlook.com [52.101.126.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC57606A32A
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:40:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C425606A31C;
+	Wed, 18 Nov 2026 08:42:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C425606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuvoton.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDuC2adf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E7B1F000C6;
-	Wed, 18 Nov 2026 08:40:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794991238;
-	bh=v71ZpFX2qcHVEO1BFFSl7dLI/TlM3X5W+2U652oh8ZE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MDuC2adftFFFNICm6rIDKdEHUBrb4oYgU2YmvaolTbNgXvjJMosxrzrvvoeEcFsTF
-	 I4at0HX9iWSJqLRaYhq26MOmksakGFeBdm56c6WqAFCKiSNYnQGSBq/K87+zODG/zb
-	 yWmzAMgFXO3TvzoLCDdzF7ULtuX5vKEImCroAsa4m8yWOe0pebkNaDSnsWsJ+8VsXF
-	 MpD2Cp7yZ7rqWI9ay+HUqor5cbMzNNd4f7O8vHxLvY03lGE6G1FXdjSuhHF0WqF2V0
-	 2TIaACwLE9GhPIiFd6lNx7/Tdv4HYwDvhCCPigg9rh0xmxWhd8YIBTCv5jVTl58Vkv
-	 hh5p0ppFeXEcA==
-Message-ID: <sashiko-outbox-220466@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v23 7/8] coresight: ctcu: enable byte-cntr for TMC ETR
- devices
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jie Gan" <jie.gan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118-enable-byte-cntr-for-ctcu-v23-7-67fd9db6bc0e@oss.qualcomm.com>
-References: <20261118-enable-byte-cntr-for-ctcu-v23-0-67fd9db6bc0e@oss.qualcomm.com>
- <20261118-enable-byte-cntr-for-ctcu-v23-7-67fd9db6bc0e@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 08:40:38 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256 header.s=selector1 header.b=XIC8Q/g2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aWK1EmELzX0+dBBCvPlh6IbQMpCJrtMBZGSSknD5hWaFBv4mXCppr45sXvHS+0H0OGKvqvU5SLMXTESYV/ipzvVXTfbW5y2BfLv9xLLIohPRwCxrnlrACo7sg8UcmjIpkjLVkZzUx9Lz+4vWM6Jgm9Khh6+JPyLjZr+oa3rpzdn6285/RWTlODSKIiBUJWCXCurtdzaKuNSYA3givxTskOeXN+FDgLJggibHpk4iCtOaGfsQNykd/IUJ9pA/+nA4kZ4D+TdW7m41ZO7TifwDvidrLhksexx77XMZwrrf8zxFPprVMuE2iI8iW/s4kzt3hUD8bDaa5j0anEX8uB3wtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TpyPcMGIkXeNd0FXabT2eKUT321oJfEvTjdN75ppqjs=;
+ b=R5iOIKHijPp+1C3/fCxJnMG/2RGWHFlKfdZ7vtXs3RfNzrKXCGlciYz33JwDZH0JWpfZwxUMmgVn/uTCq8+xiRT0IFGR3DPJMWzvAXEU1n2KwN2qs50oCnecHIosGJFaQbbkqEy2IJ5AX3Jo22iDJ/LEuvGwoXh+F/i+diGz4y8k4T3LpwGcDQTK5hApn16dAI4YXz65FTiQAw1ONNZDgtXd2/Kmkav07hoYBVZtTXWrbEms0RpSVz13oVzVwu3cPZOn6QQFUuIqXYL9fidYpv69AxluPWSSK41/kaELxeLBHrXQziKRCpBaAv7r6LT+2OITb7dF8UM17xT1TPg5dQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TpyPcMGIkXeNd0FXabT2eKUT321oJfEvTjdN75ppqjs=;
+ b=XIC8Q/g2n80V9ppXnOdqcT7NbdBRb7vS4qQ8zokAWmIiOxYBzk5sjrj9QcmJZThV3r4E1hT5av+cK5LxQu40L6YRME1OK3IRnMjThFkcbR5wwpn6kJaltotvjMU004TPUKR0ogD6F+rtV0iuXgH0P5WcEKyflkp2lAgmU8zTO546tcX0NjCFc+IcNtgEnexiJR58ihYelx++ZOZrYGue4gxin56NGms9h8h2cwCBm0FNmV7pytUIG84JGUVB/RsdI/xMsofVvfRpV15MHm9ImeCFfA740L7YYfy0aaK0WeH4XpptILGoN44hDfCNT6WdFX/oBK3od3lyeIeHxB8UbA==
+Received: from SI1PR02CA0004.apcprd02.prod.outlook.com (2603:1096:4:1f7::12)
+ by KUYPR03MB10285.apcprd03.prod.outlook.com (2603:1096:d10:9c::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
+ 2026 08:42:22 +0000
+Received: from OSA0EPF000000C8.apcprd02.prod.outlook.com
+ (2603:1096:4:1f7:cafe::7e) by SI1PR02CA0004.outlook.office365.com
+ (2603:1096:4:1f7::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Wed,
+ 18 Nov 2026 08:42:22 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 175.98.123.7) smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 175.98.123.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=175.98.123.7; helo=NTHCCAS02.nuvoton.com; pr=C
+Received: from NTHCCAS02.nuvoton.com (175.98.123.7) by
+ OSA0EPF000000C8.mail.protection.outlook.com (10.167.240.54) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Wed, 18 Nov 2026 08:42:22 +0000
+Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Wed, 18 Nov
+ 2026 16:42:17 +0800
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
+ (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Wed, 18 Nov
+ 2026 16:42:16 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.61 via Frontend
+ Transport; Wed, 18 Nov 2026 16:42:16 +0800
+From: Neo Chang <YLCHANG2@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <perex@perex.cz>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <linux-sound@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+	<neo.chang70@gmail.com>, <kchsu0@nuvoton.com>, <sjlin0@nuvoton.com>, "Neo
+ Chang" <YLCHANG2@nuvoton.com>
+Subject: [PATCH v3 1/2] ASoC: dt-bindings: nuvoton,nau8310: Add NAU83G10
+Date: Wed, 18 Nov 2026 16:42:13 +0800
+Message-ID: <20261118084214.527804-2-YLCHANG2@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261118084214.527804-1-YLCHANG2@nuvoton.com>
+References: <20261118084214.527804-1-YLCHANG2@nuvoton.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,529 +116,250 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C8:EE_|KUYPR03MB10285:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c9430e0-ae44-4809-7d2f-08df454fdd06
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|6133799003|18002099003|22082099003|261009223027099003|3023799007|11063799006|56012099006|261102123227099003|261028144727099003|10067099003|261026121527099003|261026140227099003|261021121427099003|261022105027099003|261022075727099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	S2ZARM2F8pstCW9GP4+uf9ozcQiG0AqG93oOPDhkpr7WPVstBmKdqHCkPDw9au66nbj+/drOFq2YqhwZY/sCXGjLUkxnshtOgoNVXL+g9sj3e/TVnFP+fFKyQltv4QBax9y8UcWuOo+UCiBxTxjpOxTVpjFNDXKbZxnR2BkJTztQIqKP4PGqgudvlJVxKt1uYCE9XtKbZMfUPhwuJcW9Da+7LKvMlJQHOU3R0LbzHlSiOrc4VsndHAT5nI9YjigDyWC2Lj8Kpk/gyyRxWEZeZyEpFXmtFsUog19CT6prjApS7hRlCXGS2OMi1wTqyShKprj/l9bMG6ZT5vEwhK2GuTxAn4Nz7PDZf5OLWQIQnGm2ORWFKWkk3eQDE/o/7UHWUUxyQb8NtMcIANm80yEpOp1TlBTxUQtOe57ThgRqo3AHLeg0zaqZm64Ve4NKwzo7WD6b9moax3kLMOFPnDwneY2mvkqBV9vI5ZsbQE+ltaO9ArXyMgwsU+tmAvtoRAKOIEAt5VVOKOeUkT9OyqVqcJbgQXp6WHNHer6yxYlYYLGU2UKSYLfHfCg1K6pkDbKgPZ+bYeqqeLN496TVBrvVU+Ffhr9nTxDZ6ThED5JBDTj7dX1r0Xy66rPXuW0d5GbG/0OIAIElKd7dBppFw8jPyA==
+X-Forefront-Antispam-Report:
+	CIP:175.98.123.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS02.nuvoton.com;PTR:175-98-123-7.static.tfn.net.tw;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(6133799003)(18002099003)(22082099003)(261009223027099003)(3023799007)(11063799006)(56012099006)(261102123227099003)(261028144727099003)(10067099003)(261026121527099003)(261026140227099003)(261021121427099003)(261022105027099003)(261022075727099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	N6eEfWfWeLv/nBT3zMZQH0oFoB9lXSGKMB04ya4VXbZeXCPJaohQXOvCrOeKpiE++BRFvnRcjWrc2p+lV/OG3kTwPfLpyPrI998i+JmnRspHT+xe8EeWVZFQ0luUdMriJzfDWe0FULjXSPOGX+OSPLe/EonS8PR/uCC/hRQUgItV3EV8CJ/3VmNMH824DlyiuUllvpTSia+56umNlOl7K9MOF1X+SlnrPrG9ubf++HXFLbsqQtWTVnDAGnnYyKlWPnm2XsAZv7/ugVBaHgfkTEj8y5M3g1stCSKIgcyLxPhsp3TwaUsin7lRfOmerd3sJZjqYswh4cBjBNwLyOy/JTVw7NhN6VhRR0/I2T44cLVDjy3o/pWQHJfkt1m/xs5GZMtyh0a1BF1UuvDyvHRuhAxzT22E0cSKHx0jN6/z0lUSHMp6iF6EFmi0YpzSd/St
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 08:42:22.1893
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c9430e0-ae44-4809-7d2f-08df454fdd06
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[175.98.123.7];Helo=[NTHCCAS02.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000C8.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUYPR03MB10285
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issues to consider:
-- [Medium] coresight: ctcu: premature release of read_lock in
-  tmc_byte_cntr_get_data()
-- [Medium] coresight: ctcu: use-after-free on buf_node in
-  tmc_byte_cntr_get_data()
-- [Medium] coresight: ctcu: byte_cntr_data->enable leaked on generic
-  read fallback
-- [Medium] coresight: ctcu: unordered enable and removing stores in
-  ctcu_platform_remove()
-- [Medium] coresight: ctcu: UAF race between byte_cntr_sysfs_ops and
-  CTCU teardown
-- [Medium] coresight: tmc: tmc_read() converts byte-cntr negative errors
-  into EOF
-- [Low] coresight: ctcu: race in tmc_read_unprepare_byte_cntr() skips
-  byte-cntr start
---
+Add device tree bindings documentation for the Nuvoton NAU83G10/20
+audio amplifier.
 
-commit e2d99652345f219b25f03926606cfb55a2d0509a
-Author: Jie Gan <jie.gan@oss.qualcomm.com>
+Signed-off-by: Neo Chang <YLCHANG2@nuvoton.com>
 
-coresight: ctcu: enable byte-cntr for TMC ETR devices
+---
+Changes in v3:
+- Utilized standard physical unit suffixes (e.g., -microvolt, -ms, -ns) for
+  electrical and timing properties rather than exposing raw register values.
+- Corrected the description of the clock detection disable property.
+- Added an 'allOf' constraint block to explicitly disallow boost-related
+  properties for the NAU8320 variant.
+- Adds a usage example for the NAU8320 codec in the dt-bindings yaml.
 
-This commit enables the CTCU byte-counter interrupt mechanism to transfer
-trace data from switched ETR buffers to userspace while the ETR continues
-tracing.
+Changes in v2:
+- No changes since v1.
+---
+ .../bindings/sound/nuvoton,nau8310.yaml       | 186 ++++++++++++++++++
+ 1 file changed, 186 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml
 
-> diff --git a/drivers/hwtracing/coresight/coresight-ctcu-byte-cntr.c b/dri=
-vers/hwtracing/coresight/coresight-ctcu-byte-cntr.c
-> new file mode 100644
-> index 0000000000000..688fe6342c042
-> --- /dev/null
-> +++ b/drivers/hwtracing/coresight/coresight-ctcu-byte-cntr.c
-> @@ -0,0 +1,465 @@
+diff --git a/Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml b/Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml
+new file mode 100644
+index 000000000000..16b0dd1cdbef
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml
+@@ -0,0 +1,186 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/nuvoton,nau8310.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton NAU83G10/20 Mono Class-D Amplifier with DSP
++
++description:
++  Mono Class-D Amplifier with DSP and I/V-sense.
++  This device supports I2C.
++
++maintainers:
++  - Neo Chang <YLCHANG2@nuvoton.com>
++
++properties:
++  compatible:
++    enum:
++      - nuvoton,nau8310
++      - nuvoton,nau8320
++
++  reg:
++    description: The I2C address is determined by the hardware pins.
++    enum: [0x10, 0x11, 0x40, 0x41]
++
++  "#sound-dai-cells":
++    const: 0
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    const: mclk
++
++  firmware-name:
++    items:
++      - description:
++          DSP core firmware.
++
++  nuvoton,vref-impedance-ohms:
++    description:
++      VREF Impedance Selection.
++    enum: [0, 25000, 125000, 2500]
++
++  nuvoton,dac-vref-microvolt:
++    description:
++      The DAC vref to be used in voltage. DAC reference voltage setting. Can
++      be used for minor tuning of the output level. Since the VDDA is range
++      between 1.62 to 1.98 voltage, the typical value for design is 1.8V. After
++      the minor tuning, the final microvolt are as the below.
++    enum: [1800000, 2700000, 2880000, 3060000]
++
++  nuvoton,sar-voltage-microvolt:
++    description:
++      SAR Gain Tracking Selection in microvolts.
++      Assuming the typical VDDA design value is 1.8V, the SAR voltage is
++      calculated by multiplying VDDA by the gain tracking ratio.
++    enum: [1800000, 1980000, 2160000, 2340000, 2520000, 2772000, 5616000]
++
++  nuvoton,sar-compare-time-ns:
++    description:
++      SAR compare time.
++    enum: [500, 1000, 2000, 4000]
++
++  nuvoton,sar-sampling-time-us:
++    description:
++      SAR sampling time.
++    enum: [2, 4, 8, 16]
++
++  nuvoton,clock-detection-disable:
++    type: boolean
++    description:
++      Disable the Clock Detection Module. By default, clock detection is enabled.
++      When clock detection is enabled, it will detect whether MCLK
++      and FS are within the range. MCLK range is from 2.048MHz to 24.576MHz.
++      FS range is from 8kHz to 96kHz. And also needs to detect the ratio
++      MCLK_SRC/LRCK of 256, 400 or 500, and needs to detect the BCLK
++      to make sure data is present. There needs to be at least 32 BCLK
++      cycles per Frame Sync.
++
++  nuvoton,clock-det-data:
++    type: boolean
++    description:
++      Clock detection non-zero samples configuration for power up signal.
++
++  nuvoton,boost-delay-ms:
++    description:
++      Boost Control Hold Timer in decrement (msec).
++    enum: [0, 1, 2, 4, 8, 16, 32, 64, 128]
++
++  nuvoton,boost-convert-mode:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Boost Converter operating mode.
++    enum:
++      - 0 # BOOST CONVERTER disabled
++      - 1 # BOOST CONVERTER enable gated by POWERUP signal
++      - 3 # BOOST CONVERTER enabled
++
++  nuvoton,boost-target-limit-microvolt:
++    description:
++      Boost Control Target Value Limit.
++      The step size is 190000uV (0.19V).
++    minimum: 0
++    maximum: 11970000
++
++  nuvoton,boost-target-margin-microvolt:
++    description:
++      Boost Margin Value between Boost Target Voltage and peak output level.
++      The step size is 190000uV (0.19V).
++    minimum: 0
++    maximum: 11970000
++
++  nuvoton,temp-compensation:
++    type: boolean
++    description:
++      Enable Temperature Compensation.
++
++  nuvoton,normal-iis-data:
++    type: boolean
++    description:
++      Enable Normal I2S Audio Data mode. The I2S interface
++      transmits only audio data without SAR ADC data.
++
++required:
++  - compatible
++  - reg
++  - firmware-name
++
++allOf:
++  - $ref: dai-common.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nuvoton,nau8320
++    then:
++      properties:
++        nuvoton,boost-delay-ms: false
++        nuvoton,boost-convert-mode: false
++        nuvoton,boost-target-limit-microvolt: false
++        nuvoton,boost-target-margin-microvolt: false
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        codec@10 {
++            compatible = "nuvoton,nau8310";
++            reg = <0x10>;
++            #sound-dai-cells = <0>;
++            firmware-name = "NAU83G10.kcs.bin";
++            nuvoton,vref-impedance-ohms = <125000>;
++            nuvoton,dac-vref-microvolt = <2700000>;
++            nuvoton,sar-voltage-microvolt = <1800000>;
++            nuvoton,sar-compare-time-ns = <1000>;
++            nuvoton,sar-sampling-time-us = <4>;
++            nuvoton,clock-detection-disable;
++            nuvoton,clock-det-data;
++            nuvoton,boost-delay-ms = <128>;
++            nuvoton,boost-convert-mode = <1>;
++            nuvoton,boost-target-limit-microvolt = <9500000>;
++            nuvoton,boost-target-margin-microvolt = <380000>;
++            nuvoton,temp-compensation;
++            nuvoton,normal-iis-data;
++        };
++
++        codec@11 {
++            compatible = "nuvoton,nau8320";
++            reg = <0x11>;
++            #sound-dai-cells = <0>;
++            firmware-name = "NAU83G20.kcs.bin";
++            nuvoton,vref-impedance-ohms = <125000>;
++            nuvoton,dac-vref-microvolt = <2700000>;
++            nuvoton,sar-voltage-microvolt = <1800000>;
++            nuvoton,sar-compare-time-ns = <1000>;
++            nuvoton,sar-sampling-time-us = <4>;
++            nuvoton,clock-detection-disable;
++            nuvoton,clock-det-data;
++            nuvoton,temp-compensation;
++            nuvoton,normal-iis-data;
++        };
++    };
+-- 
+2.25.1
 
-[ ... ]
-
-> +static ssize_t tmc_byte_cntr_get_data(struct tmc_drvdata *etr_drvdata, l=
-off_t pos,
-> +				      size_t len, char **bufpp)
-> +{
-> +	struct coresight_device *ctcu =3D tmc_etr_get_ctcu_device(etr_drvdata);
-> +	struct device *dev =3D &etr_drvdata->csdev->dev;
-> +	struct ctcu_byte_cntr *byte_cntr_data;
-> +	struct etr_buf *sysfs_buf;
-> +	atomic_t *irq_cnt;
-> +	ssize_t actual;
-> +	int ret;
-> +
-> +	/* No byte-cntr read session, let the caller use the generic read */
-> +	byte_cntr_data =3D ctcu_get_byte_cntr(ctcu, etr_drvdata->csdev);
-> +	if (!byte_cntr_data || !byte_cntr_data->irq_enabled ||
-> +	    !byte_cntr_data->reading)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * A zero-length read must not be treated as the end of the buffer,
-> +	 * otherwise the unread data of the current buffer would be dropped.
-> +	 */
-> +	if (!len)
-> +		return 0;
-> +
-> +	/*
-> +	 * Multiple readers of one file descriptor can't get a meaningful trace
-> +	 * sequence, serialize them to protect the buf_node.
-> +	 */
-> +	ACQUIRE(mutex_intr, read_guard)(&byte_cntr_data->read_lock);
-> +	ret =3D ACQUIRE_ERR(mutex_intr, &read_guard);
-> +	if (ret)
-> +		return ret;
-
-[ ... ]
-
-> +	pos =3D byte_cntr_data->buf_node->pos;
-> +	sysfs_buf =3D byte_cntr_data->buf_node->sysfs_buf;
-> +	actual =3D tmc_etr_read_sysfs_buf(sysfs_buf, pos, len, bufpp);
-> +	if (actual <=3D 0) {
-> +		/* Reset buf_node upon reading is finished or failed */
-> +		byte_cntr_data->buf_node->reading =3D false;
-> +		byte_cntr_data->buf_node =3D NULL;
-> +
-> +		/*
-> +		 * Nothing in the buffer, waiting for the next buffer
-> +		 * to be filled.
-> +		 */
-> +		if (actual =3D=3D 0)
-> +			goto wait_buffer;
-> +	}
-> +
-> +	return actual;
-> +}
-
-[Severity: Medium]
-Does releasing byte_cntr_data->read_lock on return from
-tmc_byte_cntr_get_data() leave copy_to_user() and
-tmc_etr_update_buf_node_pos() unserialized in tmc_read()?
-
-Because /dev/tmc_etrX is a character device opened with
-nonseekable_open(), the VFS does not hold file->f_pos_lock across
-vfs_read().  Once tmc_byte_cntr_get_data() returns, read_guard drops
-byte_cntr_data->read_lock before tmc_read() copies from bufp or advances
-buf_node->pos:
-
-CPU0                                    CPU1
-tmc_read()
-  tmc_byte_cntr_get_data()
-    lock(&byte_cntr_data->read_lock)
-    pos =3D buf_node->pos
-    tmc_etr_read_sysfs_buf(..., &bufp)
-    unlock(&byte_cntr_data->read_lock)
-  copy_to_user(data, bufp, actual)
-                                        tmc_read()
-                                          tmc_byte_cntr_get_data()
-                                            ...
-                                          tmc_etr_update_buf_node_pos()
-                                            nd->pos +=3D actual
-                                        tmc_read()
-                                          tmc_byte_cntr_get_data()
-                                            actual =3D=3D 0:
-                                            buf_node->reading =3D false
-                                            buf_node =3D NULL
-                                            tmc_etr_switch_buf_node()
-                                              <-- ETR DMAs into bufp while
-                                                  CPU0 is in copy_to_user()
-  tmc_etr_update_buf_node_pos()
-    nd->pos +=3D actual  <-- advances the newly switched buf_node->pos
-
-[ ... ]
-
-> +static int tmc_read_unprepare_byte_cntr(struct tmc_drvdata *etr_drvdata)
-> +{
-> +	struct coresight_device *ctcu =3D tmc_etr_get_ctcu_device(etr_drvdata);
-> +	struct ctcu_byte_cntr *byte_cntr_data;
-> +
-> +	/*
-> +	 * Do the unprepare operation only when the byte_cntr_data->reading
-> +	 * is truly set
-> +	 */
-> +	byte_cntr_data =3D ctcu_get_byte_cntr(ctcu, etr_drvdata->csdev);
-> +	if (!byte_cntr_data || !byte_cntr_data->irq_enabled ||
-> +	    !byte_cntr_data->reading)
-> +		return -EINVAL;
-> +
-> +	tmc_clean_etr_buf_list(etr_drvdata);
-> +
-> +	/* disable_irq_wake() may sleep on slow-bus irqchips, call it unlocked =
-*/
-> +	disable_irq_wake(byte_cntr_data->irq);
-> +
-> +	/*
-> +	 * The byte-cntr register is not accessed here: the trace path, which
-> +	 * keeps the CTCU powered, may have been released already. It is reset
-> +	 * when the path is disabled.
-> +	 */
-> +	scoped_guard(raw_spinlock_irqsave, &byte_cntr_data->spin_lock) {
-> +		byte_cntr_data->buf_node =3D NULL;
-> +		byte_cntr_data->reading =3D false;
-
-[Severity: Medium]
-Can freeing etr_buf_list before clearing byte_cntr_data->buf_node and
-byte_cntr_data->reading cause a use-after-free in
-tmc_byte_cntr_get_data()?
-
-If a byte-cntr read session closes while byte_cntr_data->buf_node still
-points to a partially read buffer and the trace stops before
-tmc_read_unprepare_byte_cntr() acquires byte_cntr_data->spin_lock, a
-concurrent open() and read() on /dev/tmc_etrX can enter
-tmc_byte_cntr_get_data() while byte_cntr_data->reading is still true:
-
-CPU0                                    CPU1
-tmc_read_unprepare_byte_cntr()
-  tmc_clean_etr_buf_list()
-    __tmc_clean_etr_buf_list()
-      tmc_etr_free_sysfs_buf(buf_node->sysfs_buf)
-      kfree(buf_node)
-  disable_irq_wake()
-                                        /* trace stops */
-                                        tmc_open()
-                                          tmc_read_prepare_etr()
-                                            tmc_read_prepare_byte_cntr()
-                                              mode !=3D CS_MODE_SYSFS -> -E=
-INVAL
-                                            /* falls back to generic read */
-                                            drvdata->reading =3D true
-                                        tmc_read()
-                                          tmc_etr_get_sysfs_trace()
-                                            tmc_byte_cntr_get_data()
-                                              pos =3D buf_node->pos
-                                                <-- use-after-free
-
-> +		/*
-> +		 * Complete the session with reading cleared in one critical
-> +		 * section, so that a new session can't start in between.
-> +		 * ctcu_platform_remove() may free byte_cntr_data after this,
-> +		 * don't use it anymore.
-> +		 */
-> +		complete_all(&byte_cntr_data->session_done);
-> +	}
-> +
-> +	module_put(THIS_MODULE);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct tmc_sysfs_ops byte_cntr_sysfs_ops =3D {
-> +	.read_prepare	=3D tmc_read_prepare_byte_cntr,
-> +	.read_unprepare	=3D tmc_read_unprepare_byte_cntr,
-> +	.get_trace_data	=3D tmc_byte_cntr_get_data,
-> +};
-> +
-> +/* Start the byte-cntr function when the path is enabled. */
-> +void ctcu_byte_cntr_start(struct coresight_device *csdev, struct coresig=
-ht_path *path)
-> +{
-> +	struct coresight_device *sink =3D coresight_get_sink(path);
-> +	struct tmc_drvdata *etr_drvdata;
-> +	struct ctcu_byte_cntr *byte_cntr_data;
-> +
-> +	byte_cntr_data =3D ctcu_get_byte_cntr(csdev, sink);
-> +	if (!byte_cntr_data)
-> +		return;
-> +
-> +	etr_drvdata =3D dev_get_drvdata(sink->dev.parent);
-> +	guard(raw_spinlock_irqsave)(&byte_cntr_data->spin_lock);
-> +	/*
-> +	 * Don't start byte-cntr function when irq_enabled is not set, when the
-> +	 * CTCU device is being removed, or when the read of the previous trace
-> +	 * is still in progress: the sink can't be enabled until it is finished.
-> +	 */
-> +	if (!byte_cntr_data->irq_enabled || byte_cntr_data->removing ||
-> +	    byte_cntr_data->reading)
-> +		return;
-
-[Severity: Low]
-Can a trace path enabled while tmc_read_unprepare_byte_cntr() is running
-start the ETR sink without starting byte-cntr?
-
-The check on byte_cntr_data->reading assumes that enabling the ETR sink
-will fail while the previous byte-cntr read session is still active.
-However, tmc_etr_get_sysfs_buffer() only checks
-!list_empty(&drvdata->etr_buf_list), and tmc_read_unprepare_byte_cntr()
-empties etr_buf_list in tmc_clean_etr_buf_list() (and calls
-disable_irq_wake()) before clearing byte_cntr_data->reading:
-
-CPU0                                    CPU1
-tmc_read_unprepare_byte_cntr()
-  tmc_clean_etr_buf_list()
-    /* etr_buf_list is now empty */
-  disable_irq_wake()
-                                        coresight_enable_path_from_to()
-                                          ctcu_enable()
-                                            ctcu_byte_cntr_start()
-                                              byte_cntr_data->reading =3D=
-=3D true
-                                              return;  <-- skips byte-cntr
-                                          tmc_enable_etr_sink()
-                                            tmc_etr_get_sysfs_buffer()
-                                              list_empty(&etr_buf_list) =3D=
-=3D true
-                                              /* sink enables */
-  byte_cntr_data->reading =3D false
-
-> +
-> +	/*
-> +	 * The etr_bufs of the reserved mode share one memory region, they
-> +	 * can't be switched by byte-cntr.
-> +	 */
-> +	if (etr_drvdata->etr_mode =3D=3D ETR_MODE_RESRV)
-> +		return;
-
-[ ... ]
-
-> +/* Stop the byte-cntr function when the path is disabled. */
-> +void ctcu_byte_cntr_stop(struct coresight_device *csdev, struct coresigh=
-t_path *path)
-> +{
-> +	struct coresight_device *sink =3D coresight_get_sink(path);
-> +	struct ctcu_byte_cntr *byte_cntr_data;
-> +
-> +	if (coresight_get_mode(sink) =3D=3D CS_MODE_SYSFS)
-> +		return;
-
-[Severity: Medium]
-Can byte_cntr_data->enable remain stuck at true after the trace path is
-released if a session falls back to generic read?
-
-ctcu_byte_cntr_start() runs before the ETR sink is enabled and only checks
-etr_drvdata->etr_mode =3D=3D ETR_MODE_RESRV.  However,
-tmc_etr_get_sysfs_buffer() can reuse an existing drvdata->sysfs_buf whose
-mode is still ETR_MODE_RESRV (after buf_mode_preferred was changed without
-changing buffer_size), or buf_mode_preferred can be set to resrv after the
-trace starts.  When /dev/tmc_etrX is then opened,
-tmc_create_etr_buf_list() returns -EINVAL and tmc_read_prepare_etr() falls
-back to generic read, setting drvdata->reading =3D true while
-byte_cntr_data->enable remains true.
-
-If the trace source is disabled while that generic read file descriptor is
-open, tmc_disable_etr_sink() sees drvdata->reading =3D=3D true and returns
--EBUSY without clearing CS_MODE_SYSFS on the sink.  ctcu_byte_cntr_stop()
-then sees coresight_get_mode(sink) =3D=3D CS_MODE_SYSFS and returns early
-without zeroing irq_ctrl_offset or clearing byte_cntr_data->enable, right
-before coresight_release_path() drops the CTCU runtime PM reference.  From
-that point on, irq_enabled_store() permanently fails with -EBUSY and
-ctcu_platform_remove() will write to the CTCU register while the CTCU is no
-longer kept powered by an active path.
-
-> diff --git a/drivers/hwtracing/coresight/coresight-ctcu-core.c b/drivers/=
-hwtracing/coresight/coresight-ctcu-core.c
-> index 739105acb0a13..94283661f10d4 100644
-> --- a/drivers/hwtracing/coresight/coresight-ctcu-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-
-[ ... ]
-
-> @@ -244,10 +356,65 @@ static int ctcu_platform_probe(struct platform_devi=
-ce *pdev)
->  static void ctcu_platform_remove(struct platform_device *pdev)
->  {
->  	struct ctcu_drvdata *drvdata =3D platform_get_drvdata(pdev);
-> +	struct ctcu_byte_cntr *byte_cntr_data;
-> +	unsigned long flags;
-> +	int i;
-> =20
->  	if (WARN_ON(!drvdata))
->  		return;
-> =20
-> +	/*
-> +	 * Signal all active byte-cntr readers to exit, then wait for them to
-> +	 * finish before resetting the ops pointer and freeing driver data.
-> +	 * Without this, a reader blocked in wait_event_interruptible_timeout()
-> +	 * would access the freed ctcu_drvdata wait-queue head (use-after-free).
-> +	 *
-> +	 * The wait ends only when the userspace closes the tmc_etr file, so an
-> +	 * unbind with the file left open blocks until then. Unloading the modu=
-le
-> +	 * is rejected with -EBUSY while a read session is open, so only a manu=
-al
-> +	 * unbind can block here.
-> +	 */
-> +	for (i =3D 0; i < ETR_MAX_NUM; i++) {
-> +		byte_cntr_data =3D &drvdata->byte_cntr_data[i];
-> +		/* The port was not initialized by ctcu_byte_cntr_init() */
-> +		if (!byte_cntr_data->irq)
-> +			continue;
-> +
-> +		raw_spin_lock_irqsave(&byte_cntr_data->spin_lock, flags);
-> +		/*
-> +		 * Set enable=3Dfalse to signal teardown to racing readers, and
-> +		 * removing=3Dtrue to keep a new path from enabling byte-cntr again.
-> +		 * ctcu_byte_cntr_stop() won't touch the register once enable is
-> +		 * cleared, so disable the IRQ here. The CTCU is powered as long as
-> +		 * enable is set, which is cleared when the path is disabled.
-> +		 */
-> +		if (byte_cntr_data->enable)
-> +			ctcu_program_register(drvdata, 0,
-> +					      byte_cntr_data->irq_ctrl_offset);
-> +		byte_cntr_data->enable =3D false;
-> +		byte_cntr_data->removing =3D true;
-> +		raw_spin_unlock_irqrestore(&byte_cntr_data->spin_lock, flags);
-
-[Severity: Medium]
-Can tmc_byte_cntr_get_data() observe byte_cntr_data->enable =3D=3D false be=
-fore
-byte_cntr_data->removing =3D=3D true and fall back to reading the unsynced =
-live
-ETR buffer?
-
-tmc_byte_cntr_get_data() checks byte_cntr_data->enable and
-READ_ONCE(byte_cntr_data->removing) without holding
-byte_cntr_data->spin_lock:
-
-CPU0                                    CPU1
-ctcu_platform_remove()
-  byte_cntr_data->enable =3D false
-                                        tmc_etr_get_sysfs_trace()
-                                          tmc_byte_cntr_get_data()
-                                            wait_event_interruptible_timeou=
-t()
-                                              /* sees !enable */
-                                            if (byte_cntr_data->enable) ...
-                                            else {
-                                              if (READ_ONCE(removing) && ..=
-.)
-                                                /* sees !removing */
-                                              return 0;
-                                            }
-                                          /* ret =3D=3D 0 falls through */
-                                          tmc_etr_read_sysfs_buf(sysfs_buf,=
- ...)
-                                            <-- reads live unsynced ETR buf=
-fer
-  byte_cntr_data->removing =3D true
-
-Setting byte_cntr_data->removing =3D true before clearing
-byte_cntr_data->enable (with paired release/acquire or barrier ordering)
-would ensure the reader sees removing set once it observes enable cleared.
-
-> +
-> +		/* Wake up the blocked reader, then wait for the session to end */
-> +		wake_up_all(&byte_cntr_data->wq);
-> +		wait_for_completion(&byte_cntr_data->session_done);
-> +
-> +		/*
-> +		 * The ending session completes it with the lock held. Take the
-> +		 * lock once more, to be sure that it has released the lock
-> +		 * before byte_cntr_data is freed.
-> +		 */
-> +		raw_spin_lock_irqsave(&byte_cntr_data->spin_lock, flags);
-> +		raw_spin_unlock_irqrestore(&byte_cntr_data->spin_lock, flags);
-> +	}
-> +
-> +	/*
-> +	 * No byte-cntr session is left and a new one can't start now. Stop the
-> +	 * tmc driver from calling the byte-cntr ops before the CTCU device is
-> +	 * unregistered and freed.
-> +	 */
-> +	ctcu_byte_cntr_put_ops(drvdata);
-> +
-> +	ctcu_remove(pdev);
-
-[Severity: Medium]
-Can an in-flight byte_cntr_sysfs_ops call race with ctcu_platform_remove()
-and cause a use-after-free on ctcu and drvdata?
-
-byte_cntr_data->session_done is initialized as completed in
-ctcu_byte_cntr_init() and is only reinitialized inside
-tmc_read_prepare_byte_cntr() after tmc_etr_get_ctcu_device() and
-ctcu_get_byte_cntr() have already run.  In addition,
-tmc_read_prepare_etr(), tmc_etr_get_sysfs_trace(), and
-tmc_read_unprepare_etr() read byte_cntr_sysfs_ops with READ_ONCE() and call
-into it on every ETR open, read, and close (even during generic reads when
-session_done is completed and THIS_MODULE is not pinned), while
-ctcu_byte_cntr_put_ops() simply clears byte_cntr_sysfs_ops with
-WRITE_ONCE() without waiting for in-flight callers:
-
-CPU0                                    CPU1
-tmc_read_prepare_etr()
-  byte_cntr_ops =3D READ_ONCE(byte_cntr_sysfs_ops)
-  tmc_read_prepare_byte_cntr()
-    ctcu =3D tmc_etr_get_ctcu_device()
-                                        ctcu_platform_remove()
-                                          wait_for_completion(&session_done)
-                                            /* already complete */
-                                          ctcu_byte_cntr_put_ops()
-                                          ctcu_remove()
-                                            coresight_unregister(csdev)
-                                          /* devres frees drvdata */
-    ctcu_get_byte_cntr(ctcu, ...)
-      dev_get_drvdata(ctcu->dev.parent)
-      coresight_get_in_port(etr, ctcu)  <-- use-after-free
-
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/h=
-wtracing/coresight/coresight-tmc-core.c
-> index 4b40b692be4d8..6ad09995ba87c 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
-> @@ -293,7 +293,8 @@ static ssize_t tmc_read(struct file *file, char __use=
-r *data, size_t len,
->  		return -EFAULT;
->  	}
-> =20
-> -	*ppos +=3D actual;
-> +	if (!tmc_etr_update_buf_node_pos(drvdata, actual))
-> +		*ppos +=3D actual;
->  	dev_dbg(&drvdata->csdev->dev, "%zu bytes copied\n", actual);
-> =20
->  	return actual;
-
-[ ... ]
-
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hw=
-tracing/coresight/coresight-tmc-etr.c
-> index cc341cdf8d8e5..d856f0a190f72 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> +++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> @@ -1178,23 +1181,44 @@ static int tmc_etr_enable_hw(struct tmc_drvdata *=
-drvdata,
-
-[ ... ]
-
-> +ssize_t tmc_etr_get_sysfs_trace(struct tmc_drvdata *drvdata,
-> +				loff_t pos, size_t len, char **bufpp)
-> +{
-> +	ssize_t ret;
-> +	const struct tmc_sysfs_ops *byte_cntr_ops =3D READ_ONCE(byte_cntr_sysfs=
-_ops);
-> +
-> +	if (byte_cntr_ops) {
-> +		ret =3D byte_cntr_ops->get_trace_data(drvdata, pos, len, bufpp);
-> +		/*
-> +		 * -EINVAL means byte-cntr has no active read session. 0 means
-> +		 * byte-cntr has no more data because the sink has stopped, the
-> +		 * last etr_buf is read by the generic read. Anything else is
-> +		 * the result of the byte-cntr session.
-> +		 */
-> +		if (ret !=3D -EINVAL && ret !=3D 0)
-> +			return ret;
-> +	}
-> +
-> +	return tmc_etr_read_sysfs_buf(drvdata->sysfs_buf, pos, len, bufpp);
->  }
-
-[Severity: Medium]
-Does tmc_read() swallow the negative error codes returned by
-tmc_byte_cntr_get_data() and turn them into EOF?
-
-tmc_etr_get_sysfs_trace() propagates negative errors from
-tmc_byte_cntr_get_data() such as -ERESTARTSYS (when
-wait_event_interruptible_timeout() is interrupted by a signal), -EINTR,
--ENOMEM, and -ENODEV.  However, the caller in tmc_read() converts all
-non-positive values to 0:
-
-drivers/hwtracing/coresight/coresight-tmc-core.c:tmc_read() {
-	actual =3D tmc_get_sysfs_trace(drvdata, *ppos, len, &bufp);
-	if (actual <=3D 0)
-		return 0;
-
-When a signal arrives while userspace is blocked waiting for trace data,
-read() returns 0 (EOF) instead of restarting or returning -EINTR, causing
-the reader to terminate trace collection prematurely while the ETR sink is
-still running.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-enable-byt=
-e-cntr-for-ctcu-v23-0-67fd9db6bc0e@oss.qualcomm.com?part=3D7
