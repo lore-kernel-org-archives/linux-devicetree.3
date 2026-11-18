@@ -1,123 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.132
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794972058;
-	b=degQYGH/nVo9LCiWc1F2XklsIz5y4UN6OVEv8zIKAuz1U1pIyXBNwDFcfEhcOTP4M8Sl
-	 3IxYzga5LyB9Azldy/yKOoAP3tlqSv+azu46dPAi3riV7WndW86M/LARKZFYqq5AspFJj
-	 jiZkobtsWx53G6ZgPSgNTTtLmGAirjMHcYVBL5bHQ+kaWoNRTX2ZeXvfvOYebvEGw435Q
-	 CYf6r2r6gdeURTs5U7UKG/D+TjF/uIB9YyLLALAvDcvUr93dEhyjvSyT6DmEjS2SdaJBs
-	 LrxbuBPyU+YYvVIiHE2MATjYbGi46HItW1QYQR1BG1cjaJXvpQ9vLVbvvGwMOfI6hDw==
+	t=1794972399;
+	b=aCZiFfO8gCMO0H375gmxpESUK9OVxjXr6oEPkPKkF/RfPN2g0ScvSOaDy2/6j6Kru0vA
+	 uEOK7NmI6iHDZWzYlc1XkDJ6t+jif+6Tem4WZx2SMoq6OwVpF3iKOiL6v+amue24Q5d0E
+	 2veNiu51OldDt3ptmTlrWuXAmZuZ6DX9XF/+arOR3CqZ6Q14+2ZCSGltCtbKjC7Pn7Ksb
+	 JxN1HrHxwL/vjryfKBNtECB0KFLIhTVKxSmQStpiPBZfQmZLtM/Q04lOwJDLcrJA4P9+S
+	 d/eAj7PFatTt5feU+NV4tVdvYzMy0TPyIiAqjlRNvmvFGZCWGzOclRKo7PiV1WL8/hA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794972058;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=6zBwahOvwD+DAL7Tr2AsdmugxqryOiG1hPbX8Ut/PPk=;
-	b=sq6CubdAn2SvyCbfi/0DmQEbfGBNcWoP2CFwnZvJi83Vs0Ab8S+wG1DrG+NFonpYQ/K9
-	 QpOvArYsy9OpAzcXkyNJmJNAcB3U1/i8Z0lGZ7+cOY9ZUgMNZ7VUQpMxqDw9GkirkwzOd
-	 /yDZEqXzxsga3Ch1CZ/pJOgcGu34SfYZpNG9U2SFX6BLihmNYi2tHqwZQO9QYInjhyjM6
-	 EUSC/fVgntyPcMSvUBoqxCKKxZ9Uau4eCug8WH3zOpWPbLI9O2IlT1M9LZ+doGZ78XRxW
-	 Woya55NR9bb08dccD4fLdlY3c2EDjXQLQY5MZCqZk18tossS4zto8eaCgOlSBFTJ4rQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794972399;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tcbCVLW9Vtsk6j6mCRwceZU6bcnL4R2QA1qInDCD2Uk=;
+	b=znkwlft9oOe5Is8X5py12HPPkLtx3vdCRmgXdGPqMseflpH2+hnw5wAgSR01bZK/5xVm
+	 OjtKTAv2uykxJAlnXX6fASpvtNgnZa2dqNzF/C6+AH93zm/6QTvO7vdBVOUS0IHh6FRBh
+	 ko3NZ7/RNGVfDoVHRkC55/o+yw0xExiDE9xXG/LUVXsuMvxZq/as5yQZbTyMzLdKvkL+h
+	 gyt3n6m6BGLWKJ3itd35ZSzPxGtX6sktxBAAnYRdKxdl9mrq43piPANd8O8hfGZfHCEP/
+	 lzIBBNYJAYiTx1wJKIcE4x0dSVDJCjYLbp6DTHbZZeEEUbxKP2tgsGewhrtZAG/GxcA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=d97xzqa6;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ej7tPv05;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.132
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022132.outbound.protection.outlook.com [52.101.126.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433CC606A31C
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 03:20:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 433CC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=d97xzqa6;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ej7tPv05
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AI2Vw2s4059979
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 03:20:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6zBwahOvwD+DAL7Tr2AsdmugxqryOiG1hPbX8Ut/PPk=; b=d97xzqa6LQ7Dk98q
-	i91jwJv6I43Oovg2DWMbwMpEGlG1mNf5lnC9PpgMtJ/6CBONHDZbq8YM+/M5VkJw
-	TBdmjDd4nlEt7IBghIOWaEt/FszuSHWIP04O0DuvDyhtiqKUMdqzGHfCqgQfscpH
-	yWWoTVN5FBWkz4YFZbqQfnPV/lvsEw/yzvA9kshZXFngJYH5I8GczGLKh6uDyADJ
-	DZt/7mHPBIoQ9/Lj4AZVXcpjzDajwXhyqXnXirvPvPO4HhEomiNt1PDe/l9uv1DG
-	Or/nRAnYZSROqBPuZwzDT1gV0/est4J10AvEo/0HmmDVgFyraoI9f09YOeij2DYb
-	uoOYAg==
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yvcgym6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 03:20:56 +0000 (GMT)
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8b4bfc0b441so7584087b3.2
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 19:20:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794972056; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i7t+joVq2ypq32xlQJMhdGANU4SAm4iRHeG5m4Xoau0VOR1AwqhzZiNXWrAMTcwp95
-         BdwXr6vvouIUdCAN1G7uNCl55UQCcHiR6wBfxpLGTRwtF/jK3DnaMv5cvRiYbHZ3LqQD
-         iDfFYNL+8BmbPkj+U/Q8lmoqGxTUE+v8sKZ/t4D6CfsXthanOOvVdzCHyE6CG+dJQruF
-         xRuOM59gzO6Cz+xuPwAiDSHFNKOGDaI82ubV0BIXcoJHvTk+r5O2nLdjezHMwsBpwOgu
-         CBFd8CzdALYt1F5snr/nUEx/HktugPAmgCZzCKw5AMu3vdl0c0JUvcU8BkNfhChLPgyW
-         zF3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6zBwahOvwD+DAL7Tr2AsdmugxqryOiG1hPbX8Ut/PPk=;
-        fh=pGN4XBeLhhM92TaTZtfeHLqPJrptbA4lLnKA5Ri3faY=;
-        b=AUHKnVJHMOwveDQRYBYsw67GxCPaZuvuRfDf8zxpQ+QY4W+tIQZHa3S6J0Pt6DeTmB
-         tHyguF8XeKIjWh60AKXptN3ytQfclbIHVV3weDNwX3cyW49HcNS2WN+6E+VL9sTYY0EG
-         e4u5Im4eouZA8FcGoh/WxszUUGqA3zVGwDahFORsYgxYMUYb4XaN7dSO3aCPo3MDi3RO
-         5CoOhLE5PpDLVfdnuQ+JJxEFQvTNQW+kqz4TwwIQFL3zlvTmCQZk1AEi7x7owgdUYJ5w
-         AqElGVUpfGdAyd3Owji0fl+ZlLfwRNzbpJk56AjcqAuDNCZrBDlhjcBiL+zdAtcB2rFE
-         g7qg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794972056; x=1795576856; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6zBwahOvwD+DAL7Tr2AsdmugxqryOiG1hPbX8Ut/PPk=;
-        b=ej7tPv05esCSswuwjXdeRHM+uvgTbjx5/HIzYSl9DYDc0uez9J7t7/VtY9mqEAWfDU
-         D487S4rqcRK99G7FiqJj9TzvJ2jEYitT52InaF6Kuz5LX+NojMnd4Fr7xPUMRiJThoWr
-         0oQ+b1Pcs6xmnzJOcdSzjp9PMxUOtrendv59tHEAY9A9+ekWHa/78A0JZnpnb5eotMoI
-         L0vHSt0YMIhuSZWw+2HmPNIrBXheqt+Y+bSagoJTyggMsJ6X6jVUDJfzgv5ABe7os6w3
-         Z4a0mVnKw/UuYkU73IrRjpsT8Ug5eEUOOTo2G8EdaUETTgL2SETEpi4frKVGo8Jiptv0
-         B7pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794972056; x=1795576856;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6zBwahOvwD+DAL7Tr2AsdmugxqryOiG1hPbX8Ut/PPk=;
-        b=of22ACmMncscGoVzAAERXsAmnBER9sbRmVLmaJPqbek/4qTQQaiQygP1s+ea7ggzfS
-         crfBEg824Ij0Xu+rCPfmGmbOf1I8lva2d1eaCFfVQxi7PUgD9y7z0m8kxlK2G1i6mEo4
-         70sbom53GhEtL6JlujU+Bh0/KOOYmmyyaFf0/sSTfX8T3t17Sq+B+Uz0XEXPxTtyiheq
-         /j3KIwVNu0iEFh/ATTw2QU8PaJh+L9d28dYUgoGQE9uTbnkPLlY3BIbK329W9E8z/g3W
-         TWdCtPfjmV6f/mkTwTuNoLGIg0ctOmi+lCTo01kDMXOogm+uCL5QMQdhUYSRWS9WTU3e
-         PNxg==
-X-Forwarded-Encrypted: i=1; AL+hErHpCS6oSyjSJp6flvwA6tE7BrS9AS2dSaNJ4NbMeso5A1nWHTCnQ7zSGewiOfNlkcMHyphcbhZIYkDT@vger.kernel.org
-X-Gm-Message-State: APuU4Z8+R/mmxjQEAa+Ygxo3YLy+yNriCouxKXTqmIRoYTKChhS5tTzy
-	9Z3THqMhi2G2h/sXf/MFkdkv4Ro7Oa8e51Y8Iu+7hTj1QXHxThf5h2VdufVhvwwuYymnlkFoQlI
-	3xA/XA2qKcIxEJDN3aobqF35biIINq/VqRmzzePYeCGCphW/5ViU9Z+jfybY3Nv00uiVKbSw1Fj
-	x8WZ0+7V6RlU8xiixeiB88frrK7ImDVTqMVFwvR6Y=
-X-Gm-Gg: AZFdTZdpThDrADAs2lmXibYFWDJSNCLo3SZ007GdNr4Pw4Piq3lQtBJHXO8OIVNxm56
-	cqS61ER7L1FUE9uSr8e4+5Jf7a0wLemzBveeaRR2PvzYP38E1Nb0l59PC0PErrGoukXqbdQGTiZ
-	FA8tG7BdqslBkZ3KNeuSnHQDWpr3KX3f3nIebbDhSwaG+zfUspSTcgv3WFkA==
-X-Received: by 2002:a05:690c:3682:b0:8b3:5a91:61e8 with SMTP id 00721157ae682-8b4fedf227amr5438997b3.69.1794972056369;
-        Tue, 17 Nov 2026 19:20:56 -0800 (PST)
-X-Received: by 2002:a05:690c:3682:b0:8b3:5a91:61e8 with SMTP id
- 00721157ae682-8b4fedf227amr5438907b3.69.1794972055754; Tue, 17 Nov 2026
- 19:20:55 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204C9606A31C;
+	Wed, 18 Nov 2026 03:26:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 204C9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=puQPCNwfqtAHMaZEhz/wkMsfafIozG+O9/nVuPUsOnoNXzyMClIul34UbC1/bqy/jHmAQpbPaai8fD7OHUONTlXedPslx6esbOs0BxaCYd7Yj6RNIS1ziHEdN5sZIuBnawWLCez7/kvdOpBq9be7gEYpetY+e8JAiGtsZQaF2/pTVWQBiXe4cWNT/UL/+QqsWZNxwI11ojtgVg0d1mmU0yNRp++uAX83LXx/Ai+H4ti4MLBq0XbETtdoBUpdkY3a/yu8410PgDzcWMDLJ5Nm7UBPXFXmP8aimMknhEidViwm70VZ95cQ053TRaanngCj4QXnyCCG6rkQJLaxz4EPBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tcbCVLW9Vtsk6j6mCRwceZU6bcnL4R2QA1qInDCD2Uk=;
+ b=GTr0qSrPWk1V5Hpb1h08FvPT6D7k8MIIHpY3ZiWAzJTXO5AdyxI9gBlQ8NPrS7V0Rt0kGGLLkJFO2hcT0ryfeAYsd7VlPh3pjKETx/0jKQ0GZkw/E81tUAZ7qQA7FMr3JyAVrSFBoiMDCszuNV7P3SA+sMQ7kPiu/blcYtQDlvCMipwCVgsuAmMjtnbw1kGtVjiZ2r6KndKHRvj0NjY1lAja0dW39m1zDCSqkPRtojYchSqMJLDP4HdXEiw4gT9tOuLm0DEYbOYO0VRYyvBEpfFXp3J/venN+FhzNHbWjDdlPROySzUGJuWlLqrpNucCelvkK2HPdjrPcR+a6+AmMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI2PR01CA0019.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::12) by KL1PR06MB6818.apcprd06.prod.outlook.com
+ (2603:1096:820:10d::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.6; Wed, 18 Nov
+ 2026 03:26:32 +0000
+Received: from SG2PEPF000B66CF.apcprd03.prod.outlook.com
+ (2603:1096:4:192:cafe::87) by SI2PR01CA0019.outlook.office365.com
+ (2603:1096:4:192::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Wed,
+ 18 Nov 2026 03:26:32 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66CF.mail.protection.outlook.com (10.167.240.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 03:26:31 +0000
+Received: from gary-System-Product-Name (unknown [172.16.66.27])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id DFC5C427EFC4;
+	Wed, 18 Nov 2026 11:26:30 +0800 (CST)
+Date: Wed, 18 Nov 2026 11:26:29 +0800
+From: Gary Yang <gary.yang@cixtech.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com
+Subject: Re: [PATCH v5 2/2] usb: typec: add CIX Type-C PD controller driver
+Message-ID: <av0a5Zw_Gtu8n7TL@gary-System-Product-Name>
+References: <20261113125304.1693911-1-gary.yang@cixtech.com>
+ <20261116081555.2670878-1-gary.yang@cixtech.com>
+ <20261116081555.2670878-3-gary.yang@cixtech.com>
+ <avxPPfgX6dbznLzc@black.igk.intel.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -127,91 +102,1031 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117-nvmem-byte-mask-for-split-macaddr-v3-0-c02177658f66@oss.qualcomm.com>
- <20261117-nvmem-byte-mask-for-split-macaddr-v3-1-c02177658f66@oss.qualcomm.com>
- <ef5c8902-2a55-4879-8deb-5109f7bd3cd2@kernel.org>
-In-Reply-To: <ef5c8902-2a55-4879-8deb-5109f7bd3cd2@kernel.org>
-From: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-Date: Wed, 18 Nov 2026 11:20:44 +0800
-X-Gm-Features: AclHuK8GIBy0xoigIsjIO5R7OGYBUdDSTyKIaJPZM9Gy857UuVUIg3lY6I_v8mU
-Message-ID: <CAPTcHHTALv+Atqf4PKESvqRGDKf1+dPmdJCjOsy_Zpk8ZVJ2JA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: nvmem: add byte-mask property for
- non-contiguous byte selection
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=R5OWitRX c=1 sm=1 tr=0 ts=6afd1998 cx=c_pps
- a=0mLRTIufkjop4KoA/9S1MA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8 a=-c4twqntNXxB6aNGM2cA:9
- a=QEXdDO2ut3YA:10 a=WgItmB6HBUc_1uVUp3mg:22
-X-Proofpoint-GUID: ZzY8usNQ8yJwQrhIBcD_agobnQFXthui
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAxMyBTYWx0ZWRfX80mVH9Icsqw6
- ArdiY3z09JEvrO1UkQgME2+Y00DpWQGNZZrXMg48qyx97ZbNRNln60wc0p9aPcAe4i0ZZKcNjfj
- WWxQF05hIP+27c4Z6+v89FuyUTaj4Lc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAxMyBTYWx0ZWRfXw6t+XZH9l2P/
- vXDGQpxrGRI23NyalTltjemdvBO+mTNXfu16oq9ddvA5NM/7s6lTLkSOQJEqVWGPxMxZiN+nvGg
- o7BxznNFLLmIpFi5znvN//q8gTx9+Q1ye3ZKrgP7w66bTikzwFNtsNvZMVMkLwx47slz6FlysZD
- JUGs1LTCkxBlxj9fTKTXwJQtZekqXgs6YWr7MqVgIdN8BWBrCiY76JnjZ0yVo/Hq8tdU8VOU/xI
- waQ+dJeLu0ApQOMYI+cf/M+V/fCMXukHedff+ltFRA/Lrtzs5emJLyiV+MniTN7sfQy2UCtccPd
- jTq7d/wnPm1gjq+dVCbbr7g70qFuknO8zWQJrsWTswX2NQ3pULTu9oOMvgFzewAzRimwFF0pfqS
- ihhjjtslHAOvFVpe6iw5zs/3GHpyATs47UONGBOW5fA2ZbUwXHwPgIAbwX7SOC6jzIf+abFMMKV
- S3HOQewZkFEUpXnfrKg==
-X-Proofpoint-ORIG-GUID: ZzY8usNQ8yJwQrhIBcD_agobnQFXthui
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-18_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- malwarescore=0 priorityscore=1501 bulkscore=0 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180013
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <avxPPfgX6dbznLzc@black.igk.intel.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CF:EE_|KL1PR06MB6818:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c2db8c0-3ae7-4ac7-e9d0-08df4523bdea
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|261026130827099003|261028144727099003|261026135527099003|261026121527099003|261026140227099003|261102123227099003|261021123027099003|261022115727099003|261021135927099003|261022113327099003|261021133027099003|261022075727099003|261022105027099003|261021121427099003|5023799004|4143699003|261021130227099003|56012099006|10067099003|18002099003|18092099006|22082099003|261009223027099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	QYKZzak2wdB/JPkr9oM+h1sFtpxomD2hikAjtHbeGGnehuDBwSAHZkhevKWy1FePQ4FKGFix5KW3/fd3Cdf1TYynhykhr70KRFY+TVcBa5pw+0YRnuQfVZ6jB3txd+AO2cpuhHgrJN00VYTtU2I8TyeqAs7gM1SLT/hrOJQm0nNuDn8IKRU0+BqhcAWJa2BMQzUEuTyeWQaoBgOJj/BApytJbeeCD/zRL7pNw6xYbRCHc1898gALPQG886evffxszSQUBHQ5Mse0XNNqYNXqFlrCpg1zW7zd/sggUZ1Gxe9d1kprLigcRE7TkXIOKAWf8uBafZbVLo+bovMIsdbRoQJgVG3loLsZfdRmWqQpKIqH/PZwe6XSEqZgdtOBxEygvNt/NuA0iYmUQJNkK4XaOpeVCsqrLvKFNSUVbD9dJI5yOihEotQVL0O+MxnNFy3limLU4W2pYWmNzPQbS0ITaionqPk/EBknfhV6En3Pvan6WwTqmSIDfyLNQae7/N5crwS8VzCTCInuitTx3XTR69lj8V4HaLBGooBgtQdP8iXAuM8RcjiinM6BMSfzIcsXm3CE7MJKJb/MTsD4QBO8sz5jM7KFgZReBQGPqe4Esntr4sFI7u8GhpCjnWlqQT/C5lNPGr6vdTZfbDJroVf4Vt70vjSzgkSYJ4bcrcMfgISOvmHq76T7RBYg5fJl3P4CP/WXsVViwf2wW+Y/4ZFk8Q==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(261026130827099003)(261028144727099003)(261026135527099003)(261026121527099003)(261026140227099003)(261102123227099003)(261021123027099003)(261022115727099003)(261021135927099003)(261022113327099003)(261021133027099003)(261022075727099003)(261022105027099003)(261021121427099003)(5023799004)(4143699003)(261021130227099003)(56012099006)(10067099003)(18002099003)(18092099006)(22082099003)(261009223027099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	GjPGlBOhOb7md7RoLURGErmCFzCzwPsR5aUl4nDQdkb4Egsjp8nHjbqJvX/Bn9UmKuxdFXYhM6LQ5+uB5SybiBLK5dmu4A959iXl0ANVa9AgGPMKr7Z2inXsAcYQij+NRt2oFtt4nFoNPs1Z079qHhQIEYMIZwcZzfUdzyB4z9C18I0RQMF/YOLvcZOWIbPh8IhE7pciYTdf2sKe9YtRlWGowrz6r3sBt6k40Ss37GgdGQJkdCvab5FiaUdKjrzuxxMvCcuzQX4ktGzgEfc0ssSGOqC7Z6udwsij+mxptPFWCAENEbo6ZC/B2iLTtBoJ+yQzqsJlbwQW8zHNBWn7rb+h05yyWIBZrbWvHnNRTdJz5XgBmYggiBwm9T1Gu7qM4reZUrcNHLdWMS0GwRbfdAOHA3m0xcZ7drM6MHPX/w0DQOLMd7x8ACbr/aofCJk9
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 03:26:31.6626
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c2db8c0-3ae7-4ac7-e9d0-08df4523bdea
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66CF.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR06MB6818
 
-On Tue, Nov 17, 2026 at 11:29=E2=80=AFPM Srinivas Kandagatla <srini@kernel.=
-org> wrote:
->
->
->
-> On 11/17/26 6:04 AM, Hongmei Xu wrote:
-> > Add the byte-mask property to the fixed-cell binding. This allows
-> > selecting non-contiguous physical bytes from an NVMEM region to form
-> > a logical cell value.
+hi Heikki:
+
+Thanks for your comments!
+
+On 2026-11-17 13:57, Heikki Krogerus wrote:
+
+> [Some people who received this message don't often get email from heikki.krogerus@linux.intel.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> EXTERNAL EMAIL
+> 
+> On Mon, Nov 16, 2026 at 04:15:55PM +0800, Gary Yang wrote:
+> > Add a driver for the CIX Type-C PD controller, which is connected over
+> > I2C and reports power, data and plug orientation changes through a
+> > level-triggered interrupt. The Realtek RTS5453H is the first supported
+> > device.
+> 
+> That statement is confusing. Is this a driver for the Realtek
+> RTS5453H?
+> 
+
+Sorry for the confusion. 
+
+The RTS5453H is the first supported device, but the driver is generic.
+The register addresses are agreed between CIX and the controller vendors
+and are configured into the PD firmware, so any controller running this
+firmware interface can be driven by the same driver. The RTS5453H is
+simply the first one we can test on hardware, which is why the driver is
+not named after it: the next controller is supported by adding its
+compatible string, without renaming the driver, module or Kconfig
+symbol. The binding stays per-device.
+
+> > The controller runs the Type-C and PD state machines in firmware and
+> > exposes the current port status over I2C. The driver translates that
+> > into Type-C class notifications, driving the orientation switch and
+> > mode mux registered by the platform PHY for the DisplayPort alternate
+> > mode. It also drives the platform USB role switch so that the USB
+> > controller follows the negotiated data role.
+> 
+> It is not relevant or useful information to explain that the
+> controller exposes the port status over I2C. You should give some
+> details about the actual host interface, i.e. the registers. Are they
+> Realtek RTS5453H specific or actually CIX specific.
+> 
+> The functionality that the controller offers is good to explain, but
+> you don't need to explain how the device classes or the subsystems in
+> kernel work.
+
+Agree. How about changing it to the following wording?
+
+The host interface is 0x50 for the data control register, used to
+acknowledge events, and 0x5F for the decoded port status; the Type-C and
+PD state machines run in the firmware.
+
+> 
+> > The platform wires several controller instances to one shared
+> > level-triggered interrupt line, and the controller has no per-instance
+> > pending bit. Each instance acknowledges its own interrupt and reports
+> > IRQ_NONE when nothing changed since the last report, so the interrupt
+> > core can attribute the interrupt and can disable a line that a
+> > controller keeps asserted without ever clearing it. Reporting
+> > IRQ_HANDLED unconditionally would turn such a line into an
+> > uninterruptible interrupt storm. The comparison covers only the decoded
+> > status bits and excludes the HPD interrupt bit, which is an event that
+> > stays set until the interrupt is acknowledged. The port is only
+> > reprogrammed when the decoded status changed or an HPD interrupt
+> > arrived, so an interrupt that was meant for a sibling port does not
+> > re-report an unchanged orientation and power role to the Type-C class;
+> > the state is programmed unconditionally once during probe and after
+> > system resume. The cached status is invalidated when a port update
+> > fails, so a transient switch or mux error is retried on the next
+> > interrupt instead of being lost with the acknowledged event.
+> 
+> Don't explain how the interrupts are handled in Linux kernel. The
+> above has a lot of platform specific information that is not relevant
+> for an individual driver.
+> 
+> Try to only explain the features that are specific to this controller.
+> Everything else is not relevant information here.
+> 
+
+Agreed, I will drop it in v6.
+
+> > The interrupt handler accesses the controller over I2C, which is not
+> > possible once the parent I2C adapter is suspended, and leaving the
+> > shared level-triggered line enabled would loop in the handler while
+> > the controller cannot be acknowledged. ->suspend() therefore masks the
+> > line for the whole sleep and waits for an in-flight handler; the
+> > parent adapter is still alive at that point because children are
+> > suspended before their parent. ->resume() reads the status the
+> > controller kept during the sleep, acknowledges it and re-enables the
+> > line. The GPIO controller that provides the line has no irq_set_wake()
+> > callback, so wake-up through it is not supported.
+> 
+> Now you are explaining how the code works. If you want to mention that
+> the controller can not be operated if the i2c adapter is suspended,
+> and that's why the interrupt is masked in the suspend cb, that's all you
+> need to say.
+> 
+> But IMO it's not useful information in the commit message. It would be
+> more useful to use a comment in the code for that. Though, others may
+> disagree with me on that.
+> 
+
+Agreed, I will drop them and keep the kernel details as comments in the code, 
+where they already are.
+
+> > The DisplayPort alternate mode is entered by the controller firmware,
+> > so the driver reports it as active only once an alternate mode driver
+> > is bound to the mode device: typec_altmode_update_active() takes a
+> > module reference only while a driver is bound, and reporting the mode
+> > earlier would unbalance that reference when the mode is deactivated.
+> > Activation and deactivation are both done under the mode device lock,
+> > which also serializes them with driver unbinding and typec_remove().
 > >
-> > Some SoCs (e.g. Qualcomm efuse controllers) store a logical value such
-> > as a MAC address across non-contiguous physical bytes, with one or more
-> > bytes in between reserved or unused. byte-mask lets the DT describe thi=
-s
-> > directly in the fixed-cell binding without requiring a device-specific
-> > provider for a common pattern.
->
-> Pl take a look at layouts, which does exactly what you are trying to do.
->
-> --srini
->
-Thanks for the review. Do you mean there is already a driver in
-nvmem/layout that implements the same functionality as byte-mask?
-I looked at all the existing layout drivers. onie-tlv and sl28vpd
-parse proprietary binary formats at runtime =E2=80=94 the cell structure is
-unknown until the device is read. fixed-layout just wraps
-nvmem_add_cells_from_dt() for standard cells. None of them handle
-statically-described non-contiguous byte selection.
+> > The driver is named after the CIX platform integration rather than the
+> > RTS5453H so that further register-compatible PD controllers can be
+> > supported without renaming it.
+> 
+> You still need to explain are the registers RTS5453H or CIX specific.
+> 
+> If your host interface (the registers) is in fact RTS5453H specific,
+> then this driver needs to be for RTS5453H, not CIX.
+> 
 
-Or do you mean I should implement byte-mask as a new layout driver? If
-so, the concern with this approach is that byte-mask is
-hardware-agnostic =E2=80=94 any NVMEM provider with scrambled byte order co=
-uld
-benefit from it, just as any provider can use bits for contiguous bit
-selection. A per-platform layout driver would duplicate the same
-byte-compaction logic across every platform that needs it, while
-implementing it in core (similar to bits) makes it universally
-available.
+Perhaps the description above has already answered your question. 
+If you have any further questions, please let us know. Thank you.
 
-Could you clarify if I'm missing something, or share any concern with
-the core approach?
+> > Signed-off-by: Gary Yang <gary.yang@cixtech.com>
+> > ---
+> >  MAINTAINERS                |   7 +
+> >  drivers/usb/typec/Kconfig  |  13 +
+> >  drivers/usb/typec/Makefile |   1 +
+> >  drivers/usb/typec/cix_pd.c | 778 +++++++++++++++++++++++++++++++++++++
+> >  4 files changed, 799 insertions(+)
+> >  create mode 100644 drivers/usb/typec/cix_pd.c
+> >
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 93abbb315065..bd99313bf91d 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -6522,6 +6522,13 @@ M:     Satish Kharat <satishkh@cisco.com>
+> >  S:   Supported
+> >  F:   drivers/infiniband/hw/usnic/
+> >
+> > +CIX USB TYPE-C PD CONTROLLER
+> > +M:   Gary Yang <gary.yang@cixtech.com>
+> > +L:   linux-usb@vger.kernel.org
+> > +S:   Maintained
+> > +F:   Documentation/devicetree/bindings/usb/realtek,rts5453h.yaml
+> > +F:   drivers/usb/typec/cix_pd.c
+> > +
+> >  CLANG CONTEXT ANALYSIS
+> >  M:   Marco Elver <elver@google.com>
+> >  R:   Bart Van Assche <bvanassche@acm.org>
+> > diff --git a/drivers/usb/typec/Kconfig b/drivers/usb/typec/Kconfig
+> > index 2f80c2792dbd..4d62f5deeeba 100644
+> > --- a/drivers/usb/typec/Kconfig
+> > +++ b/drivers/usb/typec/Kconfig
+> > @@ -110,6 +110,19 @@ config TYPEC_WUSB3801
+> >         If you choose to build this driver as a dynamically linked module, the
+> >         module will be called wusb3801.ko.
+> >
+> > +config TYPEC_CIX_PD
+> > +     tristate "CIX Type-C PD controller driver"
+> > +     depends on I2C
+> > +     depends on USB_ROLE_SWITCH
+> > +     depends on ARCH_CIX || COMPILE_TEST
+> > +     select REGMAP_I2C
+> > +     help
+> > +       Say Y or M here if your system has a CIX Type-C PD controller.
+> > +       This driver currently supports the Realtek RTS5453H controller.
+> > +
+> > +       If you choose to build this driver as a dynamically linked module, the
+> > +       module will be called cix_pd.ko.
+> > +
+> >  source "drivers/usb/typec/mux/Kconfig"
+> >
+> >  source "drivers/usb/typec/altmodes/Kconfig"
+> > diff --git a/drivers/usb/typec/Makefile b/drivers/usb/typec/Makefile
+> > index 8a6a1c663eb6..bb3f3139fd7e 100644
+> > --- a/drivers/usb/typec/Makefile
+> > +++ b/drivers/usb/typec/Makefile
+> > @@ -11,4 +11,5 @@ obj-$(CONFIG_TYPEC_HD3SS3220)       += hd3ss3220.o
+> >  obj-$(CONFIG_TYPEC_STUSB160X)        += stusb160x.o
+> >  obj-$(CONFIG_TYPEC_RT1719)   += rt1719.o
+> >  obj-$(CONFIG_TYPEC_WUSB3801) += wusb3801.o
+> > +obj-$(CONFIG_TYPEC_CIX_PD)   += cix_pd.o
+> >  obj-$(CONFIG_TYPEC)          += mux/
+> > diff --git a/drivers/usb/typec/cix_pd.c b/drivers/usb/typec/cix_pd.c
+> > new file mode 100644
+> > index 000000000000..7891becaa7bb
+> > --- /dev/null
+> > +++ b/drivers/usb/typec/cix_pd.c
+> > @@ -0,0 +1,778 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright 2025 Cix Technology Group Co., Ltd.
+> > + *
+> > + * Driver for the CIX Type-C PD controller.
+> > + */
+> > +
+> > +#include <linux/bits.h>
+> > +#include <linux/device.h>
+> > +#include <linux/err.h>
+> > +#include <linux/errno.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/interrupt.h>
+> > +#include <linux/module.h>
+> > +#include <linux/of.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/string.h>
+> > +#include <linux/usb/role.h>
+> > +#include <linux/usb/typec.h>
+> > +#include <linux/usb/typec_altmode.h>
+> > +#include <linux/usb/typec_dp.h>
+> > +#include <linux/usb/typec_mux.h>
+> > +
+> > +#define RTS_DATA_CONTROL                     0x50
+> > +#define I2C_INT_ACK_BIT                              BIT(2)
+> > +#define HPD_IRQ_ACK                                  BIT(5)
+> > +#define RTS_DATA_STATUS                              0x5F
+> > +/* byte 1 */
+> > +#define CONNECTION_ORIENTATION               BIT(1)
+> > +#define USB2_CONNECTION                              BIT(4)
+> > +#define USB3_2_CONNECTION                    BIT(5)
+> > +#define USB_DATA_ROLE                                BIT(7)
+> > +/* byte 2 */
+> > +#define DP_CONNECTION                                BIT(0)
+> > +#define DP_SOURCE_SINK                               BIT(1)
+> > +#define DEBUG_ACCESSORY_ATTACHED     BIT(4)
+> > +#define HPD_IRQ                                              BIT(6)
+> > +#define HPD_STATE                                    BIT(7)
+> > +/* byte 3 */
+> > +#define POWER_SOURCE                         BIT(0)
+> > +#define POWER_SINK                                   BIT(1)
+> > +#define POWER_MASK                                   3
+> > +
+> > +#define DATA_STATUS_COUNT                    6
+> > +
+> > +struct cix_pd {
+> > +     struct device *dev;
+> > +     struct regmap *regmap;
+> > +     struct mutex lock; /* device lock */
+> > +     int id;
+> > +     u8 data_status[DATA_STATUS_COUNT];
+> > +     u8 prev_status[DATA_STATUS_COUNT];
+> > +     bool status_valid;
+> > +     struct typec_displayport_data dp_data;
+> > +     struct typec_mux_state state;
+> > +     struct typec_capability caps;
+> > +     struct typec_mux *mux;
+> > +     struct usb_role_switch *role_sw;
+> > +     struct typec_altmode *port_altmode;
+> > +     struct typec_altmode *partner_altmode;
+> > +     struct typec_port *port;
+> > +     enum usb_role role;
+> > +     enum typec_orientation orientation;
+> > +     unsigned long mode;
+> > +     u32 hpd_status;
+> > +     struct typec_partner    *partner;
+> > +     struct typec_partner_desc desc;
+> > +};
+> > +
+> > +static int cix_pd_block_read(struct cix_pd *rts, u8 reg, void *val, size_t len)
+> > +{
+> > +     return regmap_bulk_read(rts->regmap, reg, val, len);
+> > +}
+> > +
+> > +static int cix_pd_block_write(struct cix_pd *rts, u8 reg,
+> > +                           const void *val, size_t len)
+> > +{
+> > +     return regmap_bulk_write(rts->regmap, reg, val, len);
+> > +}
+> > +
+> > +static const struct regmap_config cix_pd_regmap_config = {
+> > +     .reg_bits = 8,
+> > +     .val_bits = 8,
+> > +     .max_register = 0x7F,
+> > +};
+> > +
+> > +static const char *const dp_only_mode = "Alt Mode:DP";
+> > +static const char *const dp_usb_mode = "Alt Mode:DP + USB";
+> > +static const char *const usb_mode = "Alt Mode:USB";
+> > +
+> > +static const char *const power_source = "power source";
+> > +static const char *const power_sink = "power sink";
+> > +
+> > +static const char *const orientation_normal = "orientation normal";
+> > +static const char *const orientation_reverse = "orientation reverse";
+> > +
+> > +static const char *const data_host = "usb host";
+> > +static const char *const data_device = "usb device";
+> > +
+> > +static const char *cix_pd_pwr_role_str(const struct cix_pd *rts)
+> > +{
+> > +     switch (rts->data_status[3] & POWER_MASK) {
+> > +     case POWER_SOURCE:
+> > +             return power_source;
+> > +     case POWER_SINK:
+> > +             return power_sink;
+> > +     default:
+> > +             return "unknown";
+> > +     }
+> > +}
+> > +
+> > +/*
+> > + * The controller negotiates the DisplayPort alternate mode autonomously,
+> > + * so the capabilities below describe the fixed set supported by the
+> > + * platform DP output: a receptacle exposing DFP_D with pin assignments
+> > + * C, D and E.
+> > + */
+> > +#define CIX_PD_DP_PIN_ASSIGN (BIT(DP_PIN_ASSIGN_C) | BIT(DP_PIN_ASSIGN_D) | \
+> > +                              BIT(DP_PIN_ASSIGN_E))
+> > +
+> > +static const struct typec_altmode_desc cix_pd_dp_port_altmode = {
+> > +     .svid = USB_TYPEC_DP_SID,
+> > +     .mode = USB_TYPEC_DP_MODE,
+> > +     .vdo = DP_CAP_DFP_D | DP_CAP_RECEPTACLE |
+> > +            (CIX_PD_DP_PIN_ASSIGN << 8),
+> > +};
+> > +
+> > +static const struct typec_altmode_desc cix_pd_dp_partner_altmode = {
+> > +     .svid = USB_TYPEC_DP_SID,
+> > +     .mode = USB_TYPEC_DP_MODE,
+> > +     .vdo = DP_CAP_UFP_D | DP_CAP_RECEPTACLE |
+> > +            (CIX_PD_DP_PIN_ASSIGN << 16),
+> > +     .mode_selection = true,
+> > +};
+> > +
+> > +/*
+> > + * typec_altmode_update_active() takes a reference to the alternate mode
+> > + * driver's module when the mode is activated and drops it when the mode is
+> > + * deactivated, but only while a driver is bound. Report the mode as active
+> > + * only after a driver has bound: activating it earlier would make the later
+> > + * deactivation drop a reference that was never taken. The port state, which
+> > + * is what drives the DisplayPort output on this platform, is programmed
+> > + * through the mux regardless.
+> > + *
+> > + * The mode device lock keeps the check consistent with driver binding and
+> > + * with typec_remove(), which reports the mode inactive when a driver
+> > + * unbinds.
+> > + */
+> > +static void cix_pd_altmode_set_active(struct cix_pd *typec, bool active)
+> > +{
+> > +     struct typec_altmode *alt = typec->partner_altmode;
+> > +     struct device *alt_dev;
+> > +
+> > +     if (!alt)
+> > +             return;
+> > +
+> > +     alt_dev = &alt->dev;
+> > +     device_lock(alt_dev);
+> > +     if (!active || device_is_bound(alt_dev))
+> > +             typec_altmode_update_active(alt, active);
+> > +     device_unlock(alt_dev);
+> > +}
+> > +
+> > +static int cix_pd_typec_port_update(struct cix_pd *typec, bool force)
+> > +{
+> > +     struct typec_displayport_data *dp_data = &typec->dp_data;
+> > +     enum typec_orientation orientation;
+> > +     enum usb_role role;
+> > +     bool usb2, usb3, dp, connected, dev_role;
+> > +     int ret, err;
+> > +
+> > +     usb2 = typec->data_status[1] & USB2_CONNECTION;
+> > +     usb3 = typec->data_status[1] & USB3_2_CONNECTION;
+> > +     dp = typec->data_status[2] & DP_CONNECTION;
+> > +
+> > +     /*
+> > +      * Debug accessories are not supported, so they are reported as
+> > +      * disconnected instead of being passed on to the framework.
+> > +      */
+> > +     if (typec->data_status[2] & DEBUG_ACCESSORY_ATTACHED) {
+> > +             dev_err(typec->dev,
+> > +                     "debug accessory mode not supported, try another usb cable\n");
+> > +             connected = false;
+> > +     } else {
+> > +             connected = usb2 || usb3 || dp;
+> > +     }
+> > +
+> > +     if (!connected)
+> > +             orientation = TYPEC_ORIENTATION_NONE;
+> > +     else if (typec->data_status[1] & CONNECTION_ORIENTATION)
+> > +             orientation = TYPEC_ORIENTATION_REVERSE;
+> > +     else
+> > +             orientation = TYPEC_ORIENTATION_NORMAL;
+> > +
+> > +     /*
+> > +      * The controller keeps reporting the same orientation when a sibling
+> > +      * port raises the shared interrupt, and the Type-C class emits an
+> > +      * event for every call, so the switch is only programmed again when
+> > +      * the orientation changed or after system resume.
+> > +      */
+> > +     if (force || typec->orientation != orientation) {
+> > +             ret = typec_set_orientation(typec->port, orientation);
+> > +             if (ret)
+> > +                     return ret;
+> > +             typec->orientation = orientation;
+> > +     }
+> > +
+> > +     /*
+> > +      * The controller reports the data role whenever a cable is attached,
+> > +      * including DisplayPort-only configurations where no USB data role is
+> > +      * available. Keep the port's data role in sync independently of the
+> > +      * USB role switch.
+> > +      */
+> > +     dev_role = typec->data_status[1] & USB_DATA_ROLE;
+> > +     if (connected)
+> > +             typec_set_data_role(typec->port,
+> > +                                 dev_role ? TYPEC_DEVICE : TYPEC_HOST);
+> > +
+> > +     if (!connected || !(usb2 || usb3))
+> > +             role = USB_ROLE_NONE;
+> > +     else if (dev_role)
+> > +             role = USB_ROLE_DEVICE;
+> > +     else
+> > +             role = USB_ROLE_HOST;
+> > +
+> > +     if (force || typec->role != role) {
+> > +             err = 0;
+> > +             if (typec->role_sw) {
+> > +                     err = usb_role_switch_set_role(typec->role_sw, role);
+> > +                     if (err)
+> > +                             dev_err(typec->dev,
+> > +                                     "typec port(%d): failed to set USB role: %d\n",
+> > +                                     typec->id, err);
+> > +             }
+> > +
+> > +             /* Only cache the role once the switch accepted it. */
+> > +             if (!err)
+> > +                     typec->role = role;
+> > +     }
+> > +
+> > +     if ((typec->data_status[3] & POWER_MASK) == POWER_SOURCE) {
+> > +             typec_set_pwr_role(typec->port, TYPEC_SOURCE);
+> > +     } else if ((typec->data_status[3] & POWER_MASK) == POWER_SINK) {
+> > +             typec_set_pwr_role(typec->port, TYPEC_SINK);
+> > +     } else {
+> > +             dev_dbg(typec->dev, "typec port(%d): unknown power state %d\n",
+> > +                     typec->id, typec->data_status[3]);
+> > +     }
+> > +
+> > +     if (!connected) {
+> > +             if (typec->partner_altmode) {
+> > +                     cix_pd_altmode_set_active(typec, false);
+> > +                     typec_unregister_altmode(typec->partner_altmode);
+> > +                     typec->partner_altmode = NULL;
+> > +             }
+> > +             if (typec->partner) {
+> > +                     dev_info(typec->dev, "typec port(%d): unregister partner\n",
+> > +                              typec->id);
+> 
+> Noise.
 
-Best Regards,
-Hongmei Xu
+Agree, I will drop it in v6
+
+> 
+> > +                     typec_unregister_partner(typec->partner);
+> > +                     typec->partner = NULL;
+> > +             }
+> > +     } else {
+> > +             if (!typec->partner) {
+> > +                     dev_info(typec->dev, "typec port(%d): register partner\n",
+> > +                              typec->id);
+> 
+> Noise.
+
+Agree, I will drop it in v6
+
+> 
+> > +                     typec->partner = typec_register_partner(typec->port,
+> > +                                                             &typec->desc);
+> > +                     if (IS_ERR(typec->partner)) {
+> > +                             dev_err(typec->dev,
+> > +                                     "typec port(%d): failed to register partner: %ld\n",
+> > +                                     typec->id, PTR_ERR(typec->partner));
+> > +                             typec->partner = NULL;
+> > +                     }
+> > +             }
+> > +
+> > +             if (typec->partner_altmode && !dp) {
+> > +                     cix_pd_altmode_set_active(typec, false);
+> > +                     typec_unregister_altmode(typec->partner_altmode);
+> > +                     typec->partner_altmode = NULL;
+> > +             }
+> > +
+> > +             if (typec->partner && dp && !typec->partner_altmode) {
+> > +                     typec->partner_altmode =
+> > +                             typec_partner_register_altmode(typec->partner,
+> > +                                                            &cix_pd_dp_partner_altmode);
+> > +                     if (IS_ERR(typec->partner_altmode)) {
+> > +                             dev_err(typec->dev,
+> > +                                     "typec port(%d): failed to register DP altmode: %ld\n",
+> > +                                     typec->id,
+> > +                                     PTR_ERR(typec->partner_altmode));
+> > +                             typec->partner_altmode = NULL;
+> > +                     }
+> > +             }
+> > +
+> > +             if (typec->partner_altmode)
+> > +                     cix_pd_altmode_set_active(typec, true);
+> > +     }
+> > +
+> > +     dp_data->status = 0;
+> > +     typec->state.data = NULL;
+> > +     typec->state.alt = NULL;
+> > +
+> > +     /*
+> > +      * Only pass a DisplayPort state to the mux when the partner's
+> > +      * alternate mode was registered successfully.
+> > +      */
+> > +     if (connected && dp && typec->partner_altmode) {
+> > +             dp_data->status = DP_STATUS_ENABLED;
+> > +             if (typec->data_status[2] & HPD_STATE)
+> > +                     dp_data->status |= DP_STATUS_HPD_STATE;
+> > +             if (typec->data_status[2] & HPD_IRQ)
+> > +                     dp_data->status |= DP_STATUS_IRQ_HPD;
+> > +
+> > +             typec->state.data = dp_data;
+> > +             typec->state.alt = typec->port_altmode;
+> > +             typec->state.mode = usb3 ? TYPEC_DP_STATE_D :
+> > +                                        TYPEC_DP_STATE_E;
+> > +     } else if (connected && (usb2 || usb3)) {
+> > +             typec->state.mode = TYPEC_STATE_USB;
+> > +     } else {
+> > +             typec->state.mode = TYPEC_STATE_SAFE;
+> > +     }
+> > +
+> > +     ret = typec_mux_set(typec->mux, &typec->state);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     if (typec->mode == typec->state.mode &&
+> > +         typec->hpd_status == dp_data->status)
+> > +             return 0;
+> > +
+> > +     if (typec->state.mode == TYPEC_DP_STATE_D)
+> > +             dev_info(typec->dev,
+> > +                      "typec port(%d): alt mode(%s) orientation(%s), usb_data_role(%s), power role(%s), hpd_state(%d)\n",
+> > +                      typec->id, dp_usb_mode,
+> > +                      orientation == TYPEC_ORIENTATION_REVERSE ?
+> > +                      orientation_reverse : orientation_normal,
+> > +                      role == USB_ROLE_DEVICE ? data_device : data_host,
+> > +                      cix_pd_pwr_role_str(typec),
+> > +                      (int)(dp_data->status & DP_STATUS_HPD_STATE));
+> > +     else if (typec->state.mode == TYPEC_DP_STATE_E)
+> > +             dev_info(typec->dev,
+> > +                      "typec port(%d): alt mode(%s) orientation(%s), power role(%s), hpd_state(%d)\n",
+> > +                      typec->id, dp_only_mode,
+> > +                      orientation == TYPEC_ORIENTATION_REVERSE ?
+> > +                      orientation_reverse : orientation_normal,
+> > +                      cix_pd_pwr_role_str(typec),
+> > +                      (int)(dp_data->status & DP_STATUS_HPD_STATE));
+> > +     else if (typec->state.mode == TYPEC_STATE_USB)
+> > +             dev_info(typec->dev,
+> > +                      "typec port(%d): alt mode(%s) orientation(%s), power role(%s), usb_data_role(%s)\n",
+> > +                      typec->id, usb_mode,
+> > +                      orientation == TYPEC_ORIENTATION_REVERSE ?
+> > +                      orientation_reverse : orientation_normal,
+> > +                      cix_pd_pwr_role_str(typec),
+> > +                      role == USB_ROLE_DEVICE ? data_device : data_host);
+> > +     else if (typec->state.mode == TYPEC_STATE_SAFE)
+> > +             dev_info(typec->dev, "typec port(%d): disconnect state\n",
+> > +                      typec->id);
+> 
+> Noise. Don't use dev_info, you can use dev_dbg.
+> 
+> Thanks,
+> 
+Agree, I will replace it with dev_dbg in v6
+
+Best Regards
+Gary
+
+> > +     typec->mode = typec->state.mode;
+> > +     typec->hpd_status = dp_data->status;
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static void cix_pd_typec_init_state(struct cix_pd *typec)
+> > +{
+> > +     typec->state.alt = NULL;
+> > +     typec->state.mode = TYPEC_STATE_SAFE;
+> > +     typec->state.data = NULL;
+> > +     typec->partner = NULL;
+> > +     typec->desc.accessory = TYPEC_ACCESSORY_NONE;
+> > +     /*
+> > +      * The data status registers only report the source/sink state, not
+> > +      * whether USB PD is being used, so the partner is not advertised as
+> > +      * PD capable.
+> > +      */
+> > +     typec->desc.usb_pd = 0;
+> > +}
+> > +
+> > +/*
+> > + * Returns 1 when the reported port state changed or an HPD interrupt was
+> > + * handled, 0 when there was nothing to report, and a negative error code when
+> > + * the controller could not be accessed.
+> > + */
+> > +static int cix_pd_event_handler(struct cix_pd *rts, bool clear_irq, bool force)
+> > +{
+> > +     int ret, err = 0;
+> > +     bool hpd_irq, changed;
+> > +     u8 data_control[3] = {0};
+> > +
+> > +     mutex_lock(&rts->lock);
+> > +
+> > +     if (clear_irq) {
+> > +             data_control[0] = 2;
+> > +             data_control[1] = I2C_INT_ACK_BIT;
+> > +             data_control[2] = 0;
+> > +
+> > +             ret = cix_pd_block_write(rts, RTS_DATA_CONTROL, data_control, 3);
+> > +             if (ret)
+> > +                     goto i2c_err;
+> > +     }
+> > +
+> > +     ret = cix_pd_block_read(rts, RTS_DATA_STATUS, rts->data_status, 6);
+> > +     if (ret)
+> > +             goto i2c_err;
+> > +
+> > +     dev_dbg(rts->dev,
+> > +             "typec port(%d): data status = 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x\n",
+> > +             rts->id, rts->data_status[0], rts->data_status[1],
+> > +             rts->data_status[2], rts->data_status[3], rts->data_status[4],
+> > +             rts->data_status[5]);
+> > +
+> > +     hpd_irq = rts->data_status[2] & HPD_IRQ;
+> > +
+> > +     /*
+> > +      * HPD_IRQ is an event bit which stays set until it is acknowledged
+> > +      * below, so it is excluded from the comparison: the acknowledged
+> > +      * status would otherwise look different on the next read. Byte 0 and
+> > +      * bytes 4..5 are not decoded, so a change in them is not a port
+> > +      * event either.
+> > +      */
+> > +     changed = !rts->status_valid ||
+> > +               rts->data_status[1] != rts->prev_status[1] ||
+> > +               (rts->data_status[2] & ~HPD_IRQ) !=
+> > +               (rts->prev_status[2] & ~HPD_IRQ) ||
+> > +               rts->data_status[3] != rts->prev_status[3];
+> > +
+> > +     memcpy(rts->prev_status, rts->data_status, DATA_STATUS_COUNT);
+> > +     rts->status_valid = true;
+> > +
+> > +     /*
+> > +      * Reprogram the port only when one of the decoded bits changed, when
+> > +      * an HPD interrupt arrived, or when the caller forces a refresh after
+> > +      * system resume. The ports share one interrupt line, so a sibling's
+> > +      * interrupt must not re-report an unchanged orientation and power
+> > +      * role to the Type-C class.
+> > +      */
+> > +     if (changed || hpd_irq || force) {
+> > +             err = cix_pd_typec_port_update(rts, force);
+> > +             if (err) {
+> > +                     /*
+> > +                      * Invalidate the cached status so that the update is
+> > +                      * retried on the next interrupt or on system resume
+> > +                      * instead of being lost with the acknowledged event.
+> > +                      */
+> > +                     rts->status_valid = false;
+> > +                     dev_err(rts->dev,
+> > +                             "typec port(%d): failed to update port: %d\n",
+> > +                             rts->id, err);
+> > +             }
+> > +     }
+> > +
+> > +     if (hpd_irq) {
+> > +             data_control[0] = 2;
+> > +             data_control[1] = 0;
+> > +             data_control[2] = HPD_IRQ_ACK;
+> > +             ret = cix_pd_block_write(rts, RTS_DATA_CONTROL, data_control, 3);
+> > +             if (ret)
+> > +                     goto i2c_err;
+> > +     }
+> > +
+> > +     mutex_unlock(&rts->lock);
+> > +     return (changed || hpd_irq) ? 1 : 0;
+> > +
+> > +i2c_err:
+> > +     /*
+> > +      * Report the controller as unresponsive so the IRQ handler can tell
+> > +      * the interrupt core that this instance did not handle the event.
+> > +      */
+> > +     dev_err(rts->dev, "typec port(%d): i2c transfer error = %d\n",
+> > +             rts->id, ret);
+> > +     mutex_unlock(&rts->lock);
+> > +     return -ESHUTDOWN;
+> > +}
+> > +
+> > +static int cix_pd_typec_parse_port_props(struct typec_capability *cap,
+> > +                                      struct fwnode_handle *fwnode,
+> > +                                      struct device *dev)
+> > +{
+> > +     int ret;
+> > +
+> > +     memset(cap, 0, sizeof(*cap));
+> > +     ret = typec_get_fw_cap(cap, fwnode);
+> > +     if (ret) {
+> > +             /*
+> > +              * typec_get_fw_cap() stores a borrowed reference without
+> > +              * taking it, so it must not be dropped by the caller.
+> > +              */
+> > +             cap->fwnode = NULL;
+> > +             return dev_err_probe(dev, ret,
+> > +                                  "failed to parse connector properties\n");
+> > +     }
+> > +
+> > +     cap->fwnode = fwnode_handle_get(fwnode);
+> > +     cap->orientation_aware = true;
+> > +     /* Alternate modes are entered and exited by the controller firmware. */
+> > +     cap->no_mode_control = true;
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static int cix_pd_typec_get_handles(struct cix_pd *typec,
+> > +                                 struct fwnode_handle *fwnode,
+> > +                                 struct device *dev)
+> > +{
+> > +     int ret;
+> > +
+> > +     typec->mux = fwnode_typec_mux_get(fwnode);
+> > +     if (IS_ERR(typec->mux))
+> > +             return dev_err_probe(dev, PTR_ERR(typec->mux),
+> > +                                  "failed to get mux\n");
+> > +
+> > +     typec->role_sw = fwnode_usb_role_switch_get(fwnode);
+> > +     if (IS_ERR(typec->role_sw)) {
+> > +             ret = PTR_ERR(typec->role_sw);
+> > +             typec->role_sw = NULL;
+> > +             typec_mux_put(typec->mux);
+> > +             typec->mux = NULL;
+> > +             return dev_err_probe(dev, ret,
+> > +                                  "failed to get USB role switch\n");
+> > +     }
+> > +
+> > +     if (!typec->mux)
+> > +             dev_dbg(dev, "mux not found\n");
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static void cix_pd_unregister_ports(struct cix_pd *typec)
+> > +{
+> > +     if (!IS_ERR_OR_NULL(typec->port)) {
+> > +             typec->state.alt = NULL;
+> > +             typec->state.mode = TYPEC_STATE_SAFE;
+> > +             typec->state.data = NULL;
+> > +             usb_role_switch_set_role(typec->role_sw, USB_ROLE_NONE);
+> > +             typec_set_orientation(typec->port, TYPEC_ORIENTATION_NONE);
+> > +             typec_mux_set(typec->mux, &typec->state);
+> > +
+> > +             if (typec->partner_altmode)
+> > +                     cix_pd_altmode_set_active(typec, false);
+> > +             typec_unregister_altmode(typec->partner_altmode);
+> > +             typec->partner_altmode = NULL;
+> > +             typec_unregister_partner(typec->partner);
+> > +             typec->partner = NULL;
+> > +             typec_unregister_altmode(typec->port_altmode);
+> > +             typec->port_altmode = NULL;
+> > +
+> > +             typec_unregister_port(typec->port);
+> > +             typec->port = NULL;
+> > +     }
+> > +
+> > +     usb_role_switch_put(typec->role_sw);
+> > +     typec->role_sw = NULL;
+> > +     typec_mux_put(typec->mux);
+> > +     typec->mux = NULL;
+> > +     fwnode_handle_put(typec->caps.fwnode);
+> > +     typec->caps.fwnode = NULL;
+> > +}
+> > +
+> > +static irqreturn_t cix_pd_irq_handle(int irq, void *data)
+> > +{
+> > +     struct cix_pd *rts = data;
+> > +     int ret;
+> > +
+> > +     /*
+> > +      * The Type-C ports of this platform are wired to one shared,
+> > +      * level-triggered interrupt line and the controller has no
+> > +      * per-instance pending bit, so the interrupt is attributed by
+> > +      * comparing the port status with the previously reported one. The
+> > +      * controller interrupt is acknowledged in any case, but an unchanged
+> > +      * status is reported as IRQ_NONE: if a sibling keeps the shared line
+> > +      * asserted without ever clearing its interrupt, the spurious
+> > +      * interrupt detector can then eventually disable the line instead of
+> > +      * leaving the system in an interrupt storm.
+> > +      */
+> > +     ret = cix_pd_event_handler(rts, true, false);
+> > +     return ret > 0 ? IRQ_HANDLED : IRQ_NONE;
+> > +}
+> > +
+> > +static int cix_pd_init_ports(struct cix_pd *typec)
+> > +{
+> > +     struct device *dev = typec->dev;
+> > +     struct typec_altmode_desc desc = cix_pd_dp_port_altmode;
+> > +     struct fwnode_handle *fwnode;
+> > +     int ret;
+> > +
+> > +     fwnode = device_get_named_child_node(dev, "connector");
+> > +     if (!fwnode)
+> > +             return dev_err_probe(dev, -ENODEV, "no connector node found\n");
+> > +
+> > +     ret = cix_pd_typec_get_handles(typec, fwnode, dev);
+> > +     if (ret)
+> > +             goto out_put_fwnode;
+> > +
+> > +     ret = cix_pd_typec_parse_port_props(&typec->caps, fwnode, dev);
+> > +     if (ret)
+> > +             goto out_unregister_ports;
+> > +
+> > +     typec->port = typec_register_port(dev, &typec->caps);
+> > +     if (IS_ERR(typec->port)) {
+> > +             ret = PTR_ERR(typec->port);
+> > +             typec->port = NULL;
+> > +             dev_err_probe(dev, ret, "failed to register port\n");
+> > +             goto out_unregister_ports;
+> > +     }
+> > +
+> > +     desc.roles = typec->caps.data;
+> > +     typec->port_altmode = typec_port_register_altmode(typec->port, &desc);
+> > +     if (IS_ERR(typec->port_altmode)) {
+> > +             ret = PTR_ERR(typec->port_altmode);
+> > +             typec->port_altmode = NULL;
+> > +             dev_err_probe(dev, ret, "failed to register DP altmode\n");
+> > +             goto out_unregister_ports;
+> > +     }
+> > +
+> > +     fwnode_handle_put(fwnode);
+> > +
+> > +     return 0;
+> > +
+> > +out_unregister_ports:
+> > +     cix_pd_unregister_ports(typec);
+> > +out_put_fwnode:
+> > +     fwnode_handle_put(fwnode);
+> > +     return ret;
+> > +}
+> > +
+> > +static int cix_pd_probe(struct i2c_client *client)
+> > +{
+> > +     struct cix_pd *rts;
+> > +     int ret;
+> > +
+> > +     rts = devm_kzalloc(&client->dev, sizeof(*rts), GFP_KERNEL);
+> > +     if (!rts)
+> > +             return -ENOMEM;
+> > +
+> > +     rts->dev = &client->dev;
+> > +     mutex_init(&rts->lock);
+> > +     cix_pd_typec_init_state(rts);
+> > +
+> > +     if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+> > +             return dev_err_probe(&client->dev, -ENODEV,
+> > +                                  "i2c check functionality failed\n");
+> > +
+> > +     rts->regmap = devm_regmap_init_i2c(client, &cix_pd_regmap_config);
+> > +     if (IS_ERR(rts->regmap))
+> > +             return dev_err_probe(&client->dev, PTR_ERR(rts->regmap),
+> > +                                  "failed to init regmap\n");
+> > +
+> > +     i2c_set_clientdata(client, rts);
+> > +     rts->id = client->addr;
+> > +
+> > +     ret = cix_pd_init_ports(rts);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     /*
+> > +      * Acknowledge any interrupt the controller raised before the IRQ was
+> > +      * requested, so the shared line is not left asserted by this instance,
+> > +      * and program the port state once so that the switch and the mux are
+> > +      * in a known state even when no cable is attached.
+> > +      */
+> > +     ret = cix_pd_event_handler(rts, true, true);
+> > +     if (ret < 0) {
+> > +             dev_err(&client->dev, "failed to read initial status: %d\n", ret);
+> > +             if (ret == -ESHUTDOWN)
+> > +                     ret = -EIO;
+> > +             goto err_unregister_ports;
+> > +     }
+> > +
+> > +     if (client->irq > 0) {
+> > +             ret = request_threaded_irq(client->irq, NULL, cix_pd_irq_handle,
+> > +                                        IRQF_SHARED | IRQF_ONESHOT,
+> > +                                        dev_name(&client->dev), rts);
+> > +             if (ret) {
+> > +                     dev_err(&client->dev, "failed to request irq: %d\n", ret);
+> > +                     goto err_unregister_ports;
+> > +             }
+> > +     }
+> > +
+> > +     return 0;
+> > +
+> > +err_unregister_ports:
+> > +     cix_pd_unregister_ports(rts);
+> > +     return ret;
+> > +}
+> > +
+> > +static void cix_pd_remove(struct i2c_client *client)
+> > +{
+> > +     struct cix_pd *rts = i2c_get_clientdata(client);
+> > +
+> > +     if (client->irq > 0)
+> > +             free_irq(client->irq, rts);
+> > +
+> > +     cix_pd_unregister_ports(rts);
+> > +}
+> > +
+> > +static const struct of_device_id cix_pd_of_match[] = {
+> > +     { .compatible = "realtek,rts5453h", },
+> > +     {}
+> > +};
+> > +MODULE_DEVICE_TABLE(of, cix_pd_of_match);
+> > +
+> > +static const struct i2c_device_id cix_pd_id[] = {
+> > +     { .name = "rts5453h" },
+> > +     {}
+> > +};
+> > +MODULE_DEVICE_TABLE(i2c, cix_pd_id);
+> > +
+> > +static int __maybe_unused cix_pd_suspend(struct device *dev)
+> > +{
+> > +     struct i2c_client *client = to_i2c_client(dev);
+> > +
+> > +     /*
+> > +      * The controller is not accessible once the parent I2C adapter is
+> > +      * suspended, so keep the interrupt masked for the whole sleep. The line
+> > +      * is level-triggered and shared by the ports: left enabled, a cable
+> > +      * event would loop in the handler, which could not acknowledge the
+> > +      * controller before ->resume(). The parent adapter is still alive here
+> > +      * because children are suspended first, so disable_irq() can safely
+> > +      * wait for an in-flight handler to finish.
+> > +      */
+> > +     if (client->irq > 0)
+> > +             disable_irq(client->irq);
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static int __maybe_unused cix_pd_resume(struct device *dev)
+> > +{
+> > +     struct i2c_client *client = to_i2c_client(dev);
+> > +     struct cix_pd *rts = i2c_get_clientdata(client);
+> > +     int ret;
+> > +
+> > +     /*
+> > +      * Read the status the controller kept while the system was asleep and
+> > +      * acknowledge it. The parent I2C adapter is always resumed before this
+> > +      * device, and the interrupt is still masked.
+> > +      */
+> > +     ret = cix_pd_event_handler(rts, true, true);
+> > +
+> > +     if (client->irq > 0)
+> > +             enable_irq(client->irq);
+> > +
+> > +     if (ret < 0) {
+> > +             dev_err(dev, "failed to refresh status: %d\n", ret);
+> > +             return ret == -ESHUTDOWN ? -EIO : ret;
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static const struct dev_pm_ops cix_pd_pm_ops = {
+> > +     .suspend = pm_sleep_ptr(cix_pd_suspend),
+> > +     .resume = pm_sleep_ptr(cix_pd_resume),
+> > +     .freeze = pm_sleep_ptr(cix_pd_suspend),
+> > +     .thaw = pm_sleep_ptr(cix_pd_resume),
+> > +     .poweroff = pm_sleep_ptr(cix_pd_suspend),
+> > +     .restore = pm_sleep_ptr(cix_pd_resume),
+> > +};
+> > +
+> > +static struct i2c_driver cix_pd_i2c_driver = {
+> > +     .driver = {
+> > +             .name = "rts5453h",
+> > +             .of_match_table = cix_pd_of_match,
+> > +             .pm = pm_ptr(&cix_pd_pm_ops),
+> > +     },
+> > +     .id_table = cix_pd_id,
+> > +     .probe = cix_pd_probe,
+> > +     .remove = cix_pd_remove,
+> > +};
+> > +
+> > +module_i2c_driver(cix_pd_i2c_driver);
+> > +MODULE_DESCRIPTION("CIX Type-C PD controller driver");
+> > +MODULE_AUTHOR("Chao Zeng <Chao.Zeng@cixtech.com>");
+> > +MODULE_AUTHOR("Gary Yang <gary.yang@cixtech.com>");
+> > +MODULE_LICENSE("GPL");
+> > --
+> > 2.50.1
+> 
+> --
+> heikki
