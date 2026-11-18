@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794989647;
-	b=XD0c1V9etOzS/452qLd2Bi8l03/zR77t4hOM39Kzk2w7XJGFZn0V+HiDYxmJZoreBuO1
-	 h740hB0W/wu8wqUdMFlELT+pHmor/f+K7kZcASKCzDbK3AqCd8fcx8SBAwmBIMU8Cf651
-	 TJdpHCUzBzGBWtUT36wa6VzED29Ukddl9WmdOG8YGKtm9fFHdbcpnEH5F3n2i8icMiIV0
-	 7eaCH3tgvdF7aerJDnRbr3qtLSbb8PftNfBpC4UvqOaL9amQGtoP++DX8iAeC6SRlOK+m
-	 mO+lIGz//k6pgoexhXi/YuWr+bSC6esAUrZp08XobqIg+3GSBWtOADV7EC0H8kvEG3g==
+	t=1794989656;
+	b=2RPulIpoj7fxVtjpjKUTAGiBPuVQ3l906vbIIOjRrnOSZlf2zHv0GqXiiaAv8towr6Bc
+	 KgvfrRISLPoCYBa5jrVsUFEvOyAHxCad5KvM3mIiJrLhp6X8umMIdVPbzMUD63UD7UMlV
+	 sFsDizW9A05qROwFQuC82lFApYDrU4eGMtmmZCzgn1/Zmeu57wuPfHrItXe6vk9HiiMW3
+	 OhtKlqrEFf356DdWcT2c1H0VMyIS2LsJVeTwc90gG7gtv547G6EDPMJmJ6KiHcy4EP8Ry
+	 b/44yzCxx7TAaOyeNuqMDGWb8jNZN2ugHInqQNxh25jPjmyuhreb1DUIDFJUYKpSavw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794989647;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794989656;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=f2NCZzGgcdrImPed9UnBZvgkK6Iy+On/sKgEAZMJnX8=;
-	b=KubaLa/gitLGoBQ1Z5ZUXq1pFkQUJaYjxm7tk/J1pzQBdJQmz9rSufqsaul7Fwesm3XE
-	 9izeMliNzK5uNChmpnQscMReXKqtfGrUG4zBb71Wfn2Z8RcBKcTHwn4lT5DVtK/64S2Ih
-	 RRbhQ9LptLVqV7aDO71KqXX74VHDpm9ln0POHpsT+Emtk6LRioShw8SJ6zjmXVmoIXQbp
-	 r4WrZKp+3CKcfZygPtQrJQJb7EHkdfy4lwQ+GygEjqUR2LehzosywgIHWT6XxBHjhyc8a
-	 biezJ3k5HHWJNn2lFKwSnSoO3RAQ234xyNwT5m5zQSINYAs3+FhgYMW1bsE6C5vXV8g==
+	bh=M6p0MrJbihgz/aZk9vyBO68IX+8I6pof2cfx86gsggM=;
+	b=X+R0j6Xj+7WC6jJCp+Z7ooRFBXaMdVAIKX31xCCaV5tPjRQAfyH5gndcdNtRoqdMlQ3l
+	 zHYlmO1oA8iFtrr4DtNRoOkskVXmlcNv9gSjqgil/o9NiJLPr9WcZsATiX3rJMMiHccgt
+	 Mc/dNMBcDjwDGjJgFw+B+V/XLe7n4VNiQOcnS6YyNVgGqNZL5j203PYCZpezH1TA0Qwlq
+	 Xp3UVP3QlAc6RF2XdRb3epQ7vtXf8QnhQq30x/KYzi6vsRNg0l5uD6UsGeiqyF2w2eJ8P
+	 bnPtseEqGxjeVfbvcFGCH/Ck3bhzjwqXzuXBqCEwZEymlpOnjf0P6YUkOGK5eRHswMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=eiCKUgJl;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b="Z5t/7YWk";
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76BD4606A325
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:14:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76BD4606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577B0606A32C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:14:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 577B0606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=eiCKUgJl
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b197cd42b0so416563a91.2
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 00:14:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Z5t/7YWk
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso452197a12.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 00:14:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794989647; x=1795594447; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1794989656; x=1795594456; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f2NCZzGgcdrImPed9UnBZvgkK6Iy+On/sKgEAZMJnX8=;
-        b=eiCKUgJlV8FYFgdiUKormrPCZnMBcJNr87Xd4H5fiW4GIhLll3eYNu7hSGF405R/gR
-         N1wvjHmZRQ1u31rYzYTu/dEilDFLndNeGEVg1cFJhNZhKtMXvKexdpOgxLeDWmZVSqr9
-         6oac9YJkUwPOmfGjD3ytcUsdYvIK73knRXLWxx2r1WLS09QdWGNgZuLhF5PNEuNfBm4I
-         l3N1x86RTvfNKmEXlekMEGygqfrhysL05VM/3GaKh11ei17ZAFlPDps3OTvwbjN/VCF3
-         VDfItzPlxvZiGfQkQGKlZ9R8FEie/XVcAQVZv8NzO8dsOn2m9oS7q7d+cbCt45qGkqXw
-         NOkg==
+        bh=M6p0MrJbihgz/aZk9vyBO68IX+8I6pof2cfx86gsggM=;
+        b=Z5t/7YWkaI8bEKrZGiwMKh/UA5yMGXR/Prny7rzJ5DbGjEAG9ymDoXMVuy7frEYHDn
+         Yuc+MhlLxzDQnMIyl8Y5eeahgxdQZA7lq7whh0X/EC3BjaZa6xMtXiVfU/PAUJYXjNvt
+         tuCrphGdrXtB5bKclZ6pQTcLI9o5lTvEZ7qdzyPUkRqHuAhgY+A+kahJkbwspit0/c4L
+         wCJk2N3RlBskjYDgUzEX3Lvs4pJqhGHiWJfC96j794xrA5YR96EYJ04Ers9cy6+5ZOmn
+         IPdBAFWHoapThr3Ym5MeTJ8jXwtZB4x0JRUKD/rBOlewRTIj3tqJ0biIiB1CDCou4NCV
+         nUYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794989647; x=1795594447;
+        d=1e100.net; s=20260707; t=1794989656; x=1795594456;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f2NCZzGgcdrImPed9UnBZvgkK6Iy+On/sKgEAZMJnX8=;
-        b=EEyTnnjr3K/dffGcSxGSv+BlG038R0l3I6e/rjfL9jrY/W0/Cjgb3w6kJdek5E9r4v
-         k1Q2LucvfGwgtCClPu34m1skPvwQ8fEl0MHAAmhf86qzOlOlCfeBWarLQ+h+FN8Pf5XD
-         Jg1y9nLBlyBFD28pGrC1O4MjhmrBFuVBKDBEY/8pmkHniGRRNWC25fcgFff4sXjpVeiK
-         HW/nGWQywnIcN6t3ok1dVcg0+VaOU4KDPRPi57jNQTYfYbn5EE2jqhSe9AN7l8EKZbD2
-         NIhonf5ayc93G0xHo/9a0GrILBK+phkQHxl8E5LwfMi3NhGV8Cq3RduMvZtImTWshQgz
-         x27w==
-X-Forwarded-Encrypted: i=1; AL+hErGqOojItDhbZAgm2ZjZ92OKHpBgq5i3bS5dRH1HbRsVUO89sf4/B6MSoxlu9067OyCZrftvpNEtcmBG@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NbRMkLxHT5UTLDPgBALQ7AuLdCFaiB0thCjLqEk1s3Oje0CBP
-	pfFRYgQJJY4FNmI9galzx1x/XSn4Chm2qzHTTa5+hgGl1D2WkkVDJ3/mc1T3oIMUjs4=
-X-Gm-Gg: AZFdTZfVfPZiRwvKPHPJlifEbuc+K3xP6gzhHtlQ6OAJt9pP2BCgA/V/+yNYtlzWNGL
-	2hlpHFPvFRNsnKhjvjlVhJASpiX8b+CtJs3pOgLNJ5E2WLsM7Lwy2O+SkEqvll0KO58toOeVYKE
-	TIy5yFcuic8sct3I8ykq4d/qpc9J43pfsnVVv7hYsrE4R4t31aIOED6+0Oiaq6OZgq/EaLI/r2J
-	41vYaMfw1GOogFYT27s3phMYIjtWLcPeKAYt0U5M1N8WCRWNe+to3ftT5ZE/zr775BIYUgNdmbp
-	QF6hpc7NyQGs3UhSu55u2t06Cx7lY/sZpkdMg5snWOIcFDRZwty/qkzESfTSnmnPgI/pLx2caHq
-	A/Zp9M6KyfiIsUL59TaCGa9idzg8jY+t74cVLoVAFaYFFywXuCLzMVoLM86s7LBTNsunzRMmn5H
-	CMs6Mr0YYZr4TRmDyqahfWPLZ23CtA1z0eVKiL4d3F+OuSCOcboNrtmBqGDyKVx/MqxdLEr2mvP
-	Yl4FVoWoN3wFpQIg+azL1l0g46U6DCkiq5WS5hsCAI8zgWRcvTp/fo/cTfZaVNE5uR7PFZQ/cm0
-	XajoS0zkN2/sv3o9dKc2u3EEXsywYAnvwHVXG5AcQSl28Ao987iRJlCpNY3Dl9ggTDz6Q5tRYCS
-	nA3efM/4=
-X-Received: by 2002:a17:90b:1649:b0:3ab:c370:3684 with SMTP id 98e67ed59e1d1-3b3d07c3f7cmr1818912a91.30.1794989646684;
-        Wed, 18 Nov 2026 00:14:06 -0800 (PST)
+        bh=M6p0MrJbihgz/aZk9vyBO68IX+8I6pof2cfx86gsggM=;
+        b=qkS5MkSIhy3avAGehVXNA7SG7fUTiYSLUUnD2ZXs6yQHDfBIJCbEyP7cdUEoNSHFBr
+         QiFEOVx2gXDtfpZG+6aiNyCpYop0/CI3qHnWOI0modNMMZGBMzO1g3ibH6A21ER75h22
+         jcDRPvYkK/c24MzuMkejlIVI18iD/n+cIsyem1L2A9bO0/AvNmKDm3+5CMgn4E2BDko8
+         60CV4DJeUmlF6nfrkz0D5B0taveew4IBMiwoKlv1SI6FbhkMPnkZIY4l1vTRRKR2VLfw
+         vaK1YRjD8+GzK9/g+RZ/o2q9q6sYx4DweL9uUp0iA1KtId1o23+CSntFjVIX99GsEQnB
+         FLjg==
+X-Forwarded-Encrypted: i=1; AL+hErFuMFfKXUQDZOiDd24uFDdd2Fm8q7Mm3bkDQU6du60evG9TiVLXo17doBrhq4i5WL4APPeIEVXMZGMa@vger.kernel.org
+X-Gm-Message-State: APuU4Z9JAw+0k+qD3psrBq9CrBqln7JDo9oxSQqbrHNyflzYvXHYFHwO
+	i+iQTYpFoNxt37H+f55jONdHFTiifaC6pLltytzItMKrJALYTIn6ol0Hw/Pc0LRbWPo=
+X-Gm-Gg: AZFdTZesZJ2/VtWwijDUsnZTzcWL7fX6CpY7UmKihyNSx8DZQWpHUcfum4RKMDSTYYb
+	6AixyXhF+sEsfxDqg9cFt1Bb479+vQ+a+wd2bVbEP9wyUd5h3dSY4Cctvz9xk1ByXerm/1v1rMk
+	bVsQdrzzPTdKd6yxPpKKuqwqTXv44FTkQVfHj2dZWZyY4h5+MVIbQj4smQmM4vh4qhjw21GdkmT
+	Fdp6UGix4oNn1LqTLWYFZhmG9dpQtNcGUF5ZHndq+DTc9F76c5N1HrFpa5Klx+q7WAghfWOZXIY
+	QgQ7KZ4aRUG4Dy2Oggj+Tc763SrR8UOty/Ju6sVHvtJbsa1QiFCz2BXOl/HURcGfR6ijdXImA8v
+	V/z1lDA9hQ/RDwwaA3al6UvwxUKYQVablsGyqXP/tKhPo59eID1QiYz5IeYvf3sO+CGKHr47wpn
+	1cKGBl+p0HbQ1lQZMmPY/CnUvzJljlU3vKvbDHJqLXRFO5bPNLZhCUY8sCpSkT1i7559n92mCqR
+	fppqalmg2GT8j0x3jWiNlWYfOAaSNqPYChGtyu701E3z8iOR2ZpNqGndjqyQfHOCOzzmsZGwTAy
+	Tfc9j/PQM1UX0vuro88VDrp200dGXFGPCH4wr+0ecNhmOBCwsSyYtB90qNLUVndtsADfuosslHk
+	jOZkSYtI=
+X-Received: by 2002:a17:90b:1809:b0:39e:6a7e:ee18 with SMTP id 98e67ed59e1d1-3b3d07ab0f8mr1937736a91.36.1794989655517;
+        Wed, 18 Nov 2026 00:14:15 -0800 (PST)
 Received: from FJ7FR2JRQ3.bytedance.net ([186.240.245.239])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d1acde50sm3254680a91.14.2026.11.18.00.13.58
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d1acde50sm3254680a91.14.2026.11.18.00.14.07
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 18 Nov 2026 00:14:06 -0800 (PST)
+        Wed, 18 Nov 2026 00:14:15 -0800 (PST)
 From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
 To: linux-riscv@lists.infradead.org,
 	linux-perf-users@vger.kernel.org
@@ -104,9 +104,9 @@ Cc: linux-kernel@vger.kernel.org,
 	robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org
-Subject: [RFC PATCH v1 3/5] perf: riscv: Probe the experimental PDIS CSR layout on matching CPUs
-Date: Wed, 18 Nov 2026 16:13:31 +0800
-Message-ID: <20261118081327.10684-10-zhangzhanpeng.jasper@bytedance.com>
+Subject: [RFC PATCH v1 4/5] perf: riscv: Add PDIS event and counter callbacks
+Date: Wed, 18 Nov 2026 16:13:32 +0800
+Message-ID: <20261118081327.10684-11-zhangzhanpeng.jasper@bytedance.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261118081327.10684-7-zhangzhanpeng.jasper@bytedance.com>
 References: <20261118081327.10684-7-zhangzhanpeng.jasper@bytedance.com>
@@ -121,289 +121,393 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The draft leaves CSR encodings unallocated. Require an explicit boot
-opt-in, the csr-v1 test-model marker and the supervisor ISA extensions
-before accessing the provisional registers. Probe the control, counter
-width and filters with exception fixups and leave the unit inhibited.
+Manage the independent PDIS counter as a CPU-wide, fixed-period perf
+event. Track partial periods on read and stop, preserve the remaining
+period across resumes and claim each observed delta once on nested
+reads. COUNT and sticky OF cannot report multiple unobserved reloads,
+so the event count is an estimate.
 
-Run the probe during CPU bringup on the standard local counter overflow
-interrupt path. Quiesce the unit at CPU teardown. The experiment uses
-RV64 with KVM disabled and matching firmware that excludes M/VS/VU.
+Quiesce PDIS at task boundaries to keep task metadata with its sample.
+Keep the remaining interval across a switch. The model must cancel
+in-flight selections when software inhibits PDIS and clears spdisctl.
+Keep the PMU unregistered until overflow delivery is wired up.
 
 Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
 ---
- .../admin-guide/kernel-parameters.txt         |  10 ++
- MAINTAINERS                                   |   1 +
- drivers/perf/Kconfig                          |  13 ++
- drivers/perf/Makefile                         |   1 +
- drivers/perf/riscv_pdis.c                     | 137 ++++++++++++++++++
- drivers/perf/riscv_pdis.h                     |  13 ++
- drivers/perf/riscv_pmu_sbi.c                  |   5 +
- 7 files changed, 180 insertions(+)
- create mode 100644 drivers/perf/riscv_pdis.c
- create mode 100644 drivers/perf/riscv_pdis.h
+ drivers/perf/riscv_pdis.c | 315 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 312 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 0b3c140babd9..dc15ddd29cf4 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -6722,6 +6722,16 @@ Kernel parameters
- 		fcfi	Disable user forward CFI ABI to userspace even if the
- 			landing pad extension is available.
- 
-+	riscv_pdis_test= [RISCV,EARLY]
-+			Format: <bool>
-+			Authorize the experimental PDIS PMU to probe temporary
-+			CSR encodings. Requires CONFIG_RISCV_PDIS_CSR,
-+			CONFIG_KVM=n and matching test firmware. The private
-+			test DT must mark each matching CPU with
-+			riscv,pdis-test-model = "csr-v1".
-+			Firmware must also advertise Sspdis on each usable CPU.
-+			Default: disabled. Do not enable on production hardware.
-+
- 	ro		[KNL] Mount root device read-only on boot
- 
- 	rodata=		[KNL,EARLY]
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..3e695d4c5fc1 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24128,6 +24128,7 @@ M:	Atish Patra <atish.patra@linux.dev>
- R:	Anup Patel <anup@brainfault.org>
- L:	linux-riscv@lists.infradead.org
- S:	Supported
-+F:	drivers/perf/riscv_pdis*
- F:	drivers/perf/riscv_pmu.c
- F:	drivers/perf/riscv_pmu_legacy.c
- F:	drivers/perf/riscv_pmu_sbi.c
-diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
-index 245e7bb763b9..791d252d4952 100644
---- a/drivers/perf/Kconfig
-+++ b/drivers/perf/Kconfig
-@@ -105,6 +105,19 @@ config RISCV_PMU_SBI
- 	  full perf feature support i.e. counter overflow, privilege mode
- 	  filtering, counter configuration.
- 
-+config RISCV_PDIS_CSR
-+	bool "Experimental RISC-V PDIS CSR-output perf PMU"
-+	depends on RISCV_PMU_SBI && 64BIT && MMU && !RISCV_M_MODE && EXPERT
-+	help
-+	  Build an experimental per-CPU PDIS sampling PMU. This requires a
-+	  matching test model and firmware with the temporary CSR encodings.
-+	  Firmware must report Sspdis on CPUs authorized to use PDIS.
-+	  The riscv_pdis_test=1 boot parameter explicitly authorizes probing.
-+	  Task sampling, mixed privilege and KVM are not supported. Do not
-+	  enable the boot parameter on existing production hardware.
-+
-+	  If unsure, say N.
-+
- config STARFIVE_STARLINK_PMU
- 	depends on ARCH_STARFIVE || COMPILE_TEST
- 	depends on 64BIT
-diff --git a/drivers/perf/Makefile b/drivers/perf/Makefile
-index eb8a022dad9a..203e6227dc6b 100644
---- a/drivers/perf/Makefile
-+++ b/drivers/perf/Makefile
-@@ -20,6 +20,7 @@ obj-$(CONFIG_QCOM_L3_PMU) += qcom_l3_pmu.o
- obj-$(CONFIG_RISCV_PMU) += riscv_pmu.o
- obj-$(CONFIG_RISCV_PMU_LEGACY) += riscv_pmu_legacy.o
- obj-$(CONFIG_RISCV_PMU_SBI) += riscv_pmu_sbi.o
-+obj-$(CONFIG_RISCV_PDIS_CSR) += riscv_pdis.o
- obj-$(CONFIG_STARFIVE_STARLINK_PMU) += starfive_starlink_pmu.o
- obj-$(CONFIG_THUNDERX2_PMU) += thunderx2_pmu.o
- obj-$(CONFIG_XGENE_PMU) += xgene_pmu.o
 diff --git a/drivers/perf/riscv_pdis.c b/drivers/perf/riscv_pdis.c
-new file mode 100644
-index 000000000000..b7671e5ad63e
---- /dev/null
+index b7671e5ad63e..9a8fe5e4ab82 100644
+--- a/drivers/perf/riscv_pdis.c
 +++ b/drivers/perf/riscv_pdis.c
-@@ -0,0 +1,137 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Experimental RV64 PDIS CSR-output PMU for an explicitly matching model. */
+@@ -1,11 +1,13 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /* Experimental RV64 PDIS CSR-output PMU for an explicitly matching model. */
+ 
+-#include <linux/bits.h>
++#include <linux/bitfield.h>
+ #include <linux/cpu.h>
++#include <linux/device.h>
+ #include <linux/errno.h>
+ #include <linux/init.h>
+ #include <linux/of.h>
++#include <linux/perf_event.h>
+ #include <linux/percpu.h>
+ 
+ #include <asm/asm-extable.h>
+@@ -24,15 +26,41 @@
+ #define RISCV_PDIS_CSR_FILTER		0x5e4
+ #define RISCV_PDIS_CSR_VSCTL		0x6d0
+ #define RISCV_PDIS_STATEEN		BIT_ULL(55)
++#define RISCV_PDIS_CTL_SEL		GENMASK_ULL(2, 0)
+ #define RISCV_PDIS_CTL_ACC		BIT_ULL(33)
++#define RISCV_PDIS_CTL_U		BIT_ULL(60)
++#define RISCV_PDIS_CTL_S		BIT_ULL(61)
 +
-+#include <linux/bits.h>
-+#include <linux/cpu.h>
-+#include <linux/errno.h>
-+#include <linux/init.h>
-+#include <linux/of.h>
-+#include <linux/percpu.h>
-+
-+#include <asm/asm-extable.h>
-+#include <asm/cpufeature.h>
-+#include <asm/csr.h>
-+
-+#include "riscv_pdis.h"
-+
-+/* Draft spdis.adoc at 2de60e18118ce78e2da82ec33296345c94d8560c. */
-+#define RISCV_PDIS_COUNTER_BIT		BIT(1)
-+/* Local experimental encodings, not architectural CSR allocations. */
-+#define RISCV_PDIS_CSR_CTL		0x5e0
-+#define RISCV_PDIS_CSR_COUNTER		0x5e1
-+#define RISCV_PDIS_CSR_EVMASK		0x5e2
-+#define RISCV_PDIS_CSR_EVMATCH		0x5e3
-+#define RISCV_PDIS_CSR_FILTER		0x5e4
-+#define RISCV_PDIS_CSR_VSCTL		0x6d0
-+#define RISCV_PDIS_STATEEN		BIT_ULL(55)
-+#define RISCV_PDIS_CTL_ACC		BIT_ULL(33)
-+
-+struct pdis_cpu {
-+	bool ready;
++enum riscv_pdis_select {
++	RISCV_PDIS_SELECT_ALL,
++	RISCV_PDIS_SELECT_LOAD,
++	RISCV_PDIS_SELECT_STORE,
++	RISCV_PDIS_SELECT_LOAD_STORE,
++	RISCV_PDIS_SELECT_CONTROL,
 +};
 +
-+static DEFINE_PER_CPU(struct pdis_cpu, pdis_cpu);
-+static cpumask_t pdis_cpus;
-+static bool pdis_test;
++#define RISCV_PDIS_SAMPLE_TYPES (PERF_SAMPLE_IP | PERF_SAMPLE_TID | \
++				 PERF_SAMPLE_TIME | PERF_SAMPLE_ID | \
++				 PERF_SAMPLE_STREAM_ID | PERF_SAMPLE_CPU | \
++				 PERF_SAMPLE_PERIOD | PERF_SAMPLE_IDENTIFIER)
 +
-+static int __init pdis_test_setup(char *str)
++/* A policy limit for the experiment, not an architectural minimum period. */
++#define PDIS_MIN_PERIOD	4096
++
++/* prev_count holds the 32-bit position and the overflow accounting bit. */
++#define PDIS_OF_ACCOUNTED	BIT_ULL(32)
+ 
+ struct pdis_cpu {
++	struct perf_event *event;
+ 	bool ready;
++	bool counter_valid;
++	bool switching;
+ };
+ 
+ static DEFINE_PER_CPU(struct pdis_cpu, pdis_cpu);
+ static cpumask_t pdis_cpus;
+ static bool pdis_test;
++static struct pmu pdis_pmu;
+ 
+ static int __init pdis_test_setup(char *str)
+ {
+@@ -82,6 +110,7 @@ void riscv_pdis_cpu_starting(void)
+ 	unsigned int cpu = smp_processor_id();
+ 
+ 	pcpu->ready = false;
++	pcpu->counter_valid = false;
+ 	cpumask_clear_cpu(cpu, &pdis_cpus);
+ 	if (!pdis_test || IS_ENABLED(CONFIG_KVM) ||
+ 	    !riscv_cpu_has_extension_unlikely(cpu, RISCV_ISA_EXT_SSPDIS) ||
+@@ -119,19 +148,299 @@ void riscv_pdis_cpu_starting(void)
+ 	cpumask_set_cpu(cpu, &pdis_cpus);
+ }
+ 
++static void pdis_clear_accounted(struct perf_event *event)
 +{
-+	return kstrtobool(str, &pdis_test);
-+}
-+early_param("riscv_pdis_test", pdis_test_setup);
++	local64_t *prev_count;
++	s64 prev;
 +
-+/* Private test DT marker, not a binding for architectural PDIS. */
-+static bool pdis_test_model_matches(unsigned int cpu)
-+{
-+	struct device_node *node = of_cpu_device_node_get(cpu);
-+	const char *model;
-+	bool matches;
-+
-+	matches = !of_property_read_string(node, "riscv,pdis-test-model", &model) &&
-+		  !strcmp(model, "csr-v1");
-+	of_node_put(node);
-+	return matches;
-+}
-+
-+/* Used only during opt-in probing; missing/unauthorized CSRs must not oops. */
-+static __always_inline int pdis_read_csr(unsigned int csr, unsigned long *value)
-+{
-+	asm goto("1: csrr %[value], %[csr]\n"
-+		 _ASM_EXTABLE(1b, %l[fault])
-+		 : [value] "=r" (*value) : [csr] "i" (csr) : "memory" : fault);
-+	return 0;
-+fault:
-+	*value = 0;
-+	return -ENODEV;
-+}
-+
-+static __always_inline int pdis_write_csr(unsigned int csr, unsigned long value)
-+{
-+	asm goto("1: csrw %[csr], %[value]\n"
-+		 _ASM_EXTABLE(1b, %l[fault])
-+		 : : [value] "r" (value), [csr] "i" (csr) : "memory" : fault);
-+	return 0;
-+fault:
-+	return -ENODEV;
-+}
-+
-+void riscv_pdis_cpu_starting(void)
-+{
-+	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
-+	unsigned long ctl, inhibit, value;
-+	unsigned int cpu = smp_processor_id();
-+
-+	pcpu->ready = false;
-+	cpumask_clear_cpu(cpu, &pdis_cpus);
-+	if (!pdis_test || IS_ENABLED(CONFIG_KVM) ||
-+	    !riscv_cpu_has_extension_unlikely(cpu, RISCV_ISA_EXT_SSPDIS) ||
-+	    !riscv_cpu_has_extension_unlikely(cpu, RISCV_ISA_EXT_SSCOFPMF) ||
-+	    !riscv_cpu_has_extension_unlikely(cpu, RISCV_ISA_EXT_SSCSRIND) ||
-+	    !pdis_test_model_matches(cpu))
++	if (!event)
 +		return;
-+
-+	if (pdis_read_csr(RISCV_PDIS_CSR_CTL, &ctl) ||
-+	    ctl & ~RISCV_PDIS_CTL_ACC ||
-+	    pdis_read_csr(CSR_SCOUNTINHIBIT, &inhibit) ||
-+	    !(inhibit & RISCV_PDIS_COUNTER_BIT))
-+		return;
-+	if (pdis_write_csr(RISCV_PDIS_CSR_CTL, 0) ||
-+	    pdis_write_csr(RISCV_PDIS_CSR_EVMASK, 0) ||
-+	    pdis_write_csr(RISCV_PDIS_CSR_EVMATCH, 0) ||
-+	    pdis_write_csr(RISCV_PDIS_CSR_FILTER, 0))
-+		return;
-+	if (pdis_read_csr(RISCV_PDIS_CSR_EVMASK, &value) || value ||
-+	    pdis_read_csr(RISCV_PDIS_CSR_EVMATCH, &value) || value ||
-+	    pdis_read_csr(RISCV_PDIS_CSR_FILTER, &value) || value)
-+		return;
-+	/* The first version requires all 32 COUNT and INITVAL bits. */
-+	if (pdis_write_csr(RISCV_PDIS_CSR_COUNTER, ~0UL) ||
-+	    pdis_read_csr(RISCV_PDIS_CSR_COUNTER, &value) || value != ~0UL ||
-+	    pdis_write_csr(RISCV_PDIS_CSR_COUNTER, 0))
-+		return;
-+	if (riscv_cpu_has_extension_unlikely(cpu, RISCV_ISA_EXT_H)) {
-+		if (pdis_read_csr(RISCV_PDIS_CSR_VSCTL, &value) ||
-+		    value & ~RISCV_PDIS_CTL_ACC ||
-+		    pdis_read_csr(CSR_HSTATEEN0, &value) || value & RISCV_PDIS_STATEEN)
-+			return;
++	prev_count = &event->hw.prev_count;
++	prev = local64_read(prev_count);
++	while (prev & PDIS_OF_ACCOUNTED) {
++		if (local64_try_cmpxchg(prev_count, &prev, (u32)prev))
++			break;
 +	}
-+	pcpu->ready = true;
-+	cpumask_set_cpu(cpu, &pdis_cpus);
 +}
 +
-+static void pdis_quiesce(void)
+ static void pdis_quiesce(void)
+ {
+ 	csr_set(CSR_SCOUNTINHIBIT, RISCV_PDIS_COUNTER_BIT);
+ 	/* The test-model contract requires this to cancel in-flight selections. */
+ 	csr_write(RISCV_PDIS_CSR_CTL, 0);
++	pdis_clear_accounted(this_cpu_ptr(&pdis_cpu)->event);
+ }
+ 
+-void riscv_pdis_cpu_dying(void)
++static int pdis_check_period(struct perf_event *event, u64 period)
++{
++	return period >= PDIS_MIN_PERIOD && period <= U32_MAX ? 0 : -EINVAL;
++}
++
++static int pdis_event_init(struct perf_event *event)
++{
++	struct perf_event *sibling;
++	u64 mode;
++	int ret;
++
++	if (event->attr.type != pdis_pmu.type)
++		return -ENOENT;
++	if (event->cpu < 0 || event->attach_state & PERF_ATTACH_TASK ||
++	    event->attr.inherit || event->attr.freq || event->attr.exclusive ||
++	    event->attr.aux_output ||
++	    !is_sampling_event(event))
++		return -EOPNOTSUPP;
++	if (!cpumask_test_cpu(event->cpu, &pdis_cpus))
++		return -ENODEV;
++	if (event->attr.config > RISCV_PDIS_SELECT_CONTROL ||
++	    event->attr.config1 || event->attr.config2)
++		return -EINVAL;
++	/* Discovery requires host-only execution; an explicit H is optional. */
++	if (event->attr.sample_type & ~RISCV_PDIS_SAMPLE_TYPES ||
++	    event->attr.exclude_host ||
++	    event->attr.exclude_idle || event->attr.precise_ip ||
++	    event->attr.exclude_user == event->attr.exclude_kernel)
++		return -EOPNOTSUPP;
++	if (event->group_leader != event && event->group_leader->pmu == event->pmu)
++		return -EINVAL;
++	for_each_sibling_event(sibling, event->group_leader) {
++		if (sibling != event && sibling->pmu == event->pmu)
++			return -EINVAL;
++	}
++	ret = pdis_check_period(event, event->attr.sample_period);
++	if (ret)
++		return ret;
++	mode = event->attr.exclude_kernel ? RISCV_PDIS_CTL_U : RISCV_PDIS_CTL_S;
++	event->hw.config = FIELD_PREP(RISCV_PDIS_CTL_SEL, event->attr.config) | mode;
++	event->hw.idx = -1;
++	event->attach_state |= PERF_ATTACH_SCHED_CB;
++	return 0;
++}
++
++/* COUNT is frozen by the caller; OF is sticky until acknowledged. */
++static void pdis_event_update(struct perf_event *event)
++{
++	struct hw_perf_event *hwc = &event->hw;
++	u64 period = hwc->last_period;
++	s64 prev = local64_read(&hwc->prev_count);
++	s64 delta, next, step;
++	u32 progress;
++
++	do {
++		u32 count = csr_read(RISCV_PDIS_CSR_COUNTER);
++		bool pending = csr_read(CSR_SCOUNTOVF) & RISCV_PDIS_COUNTER_BIT;
++		bool accounted = prev & PDIS_OF_ACCOUNTED;
++
++		progress = count + (u32)period;
++		/* COUNT may have overflowed without reloading yet. */
++		if (progress >= period)
++			return;
++
++		/* OF can reveal one wrap; multiple unseen wraps cannot be recovered. */
++		step = (s64)progress - (u32)prev;
++		delta = step;
++		if (step < 0 || (pending && !accounted))
++			delta += period;
++		next = progress;
++		if (accounted || pending || step < 0)
++			next |= PDIS_OF_ACCOUNTED;
++	} while (!local64_try_cmpxchg(&hwc->prev_count, &prev, next));
++
++	local64_add(delta, &event->count);
++	/* Apply the position change without overwriting a nested update. */
++	local64_sub(step, &hwc->period_left);
++}
++
++static void pdis_update_and_quiesce(struct perf_event *event)
 +{
 +	csr_set(CSR_SCOUNTINHIBIT, RISCV_PDIS_COUNTER_BIT);
-+	/* The test-model contract requires this to cancel in-flight selections. */
-+	csr_write(RISCV_PDIS_CSR_CTL, 0);
++	pdis_event_update(event);
++	pdis_quiesce();
++}
++
++static int pdis_program(struct perf_event *event, bool reload)
++{
++	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
++	struct hw_perf_event *hwc = &event->hw;
++	u64 period = hwc->sample_period;
++	u64 left = local64_read(&hwc->period_left);
++	u64 counter = 0;
++	unsigned long actual;
++
++	pdis_quiesce();
++	if (reload) {
++		u32 initval = -(u32)period;
++		u32 count;
++
++		if (!left || left > period)
++			left = period;
++		count = -(u32)left;
++		counter = (u64)initval << 32 | count;
++		csr_write(RISCV_PDIS_CSR_COUNTER, counter);
++	}
++	csr_write(RISCV_PDIS_CSR_CTL, hwc->config);
++	actual = csr_read(RISCV_PDIS_CSR_CTL);
++	if ((actual & ~RISCV_PDIS_CTL_ACC) != hwc->config ||
++	    (reload && csr_read(RISCV_PDIS_CSR_COUNTER) != counter)) {
++		pcpu->counter_valid = false;
++		pdis_quiesce();
++		return -EOPNOTSUPP;
++	}
++	if (reload) {
++		hwc->last_period = period;
++		local64_set(&hwc->prev_count, period - left);
++		local64_set(&hwc->period_left, left);
++		pcpu->counter_valid = true;
++	}
++	return 0;
++}
++
++static void pdis_enable(struct perf_event *event)
++{
++	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
++
++	event->hw.state = 0;
++	if (!pcpu->switching)
++		csr_clear(CSR_SCOUNTINHIBIT, RISCV_PDIS_COUNTER_BIT);
++	perf_event_update_userpage(event);
++}
++
++static void pdis_start(struct perf_event *event, int flags)
+ {
+ 	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
++	bool reload = (flags & PERF_EF_RELOAD) || !pcpu->counter_valid;
+ 
+-	if (pcpu->ready)
++	if (!pcpu->ready || pcpu->event != event ||
++	    !(event->hw.state & PERF_HES_STOPPED))
++		return;
++	if (!pdis_program(event, reload))
++		pdis_enable(event);
++}
++
++static void pdis_stop(struct perf_event *event, int flags)
++{
++	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
++
++	if (event->hw.state & PERF_HES_STOPPED)
++		return;
++	/* Save progress even on a stop for throttling. */
++	if (pcpu->ready && pcpu->counter_valid)
++		pdis_update_and_quiesce(event);
++	event->hw.state = PERF_HES_STOPPED | PERF_HES_UPTODATE;
++	perf_event_update_userpage(event);
++}
++
++static int pdis_add(struct perf_event *event, int flags)
++{
++	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
++	int ret;
++
++	if (!pcpu->ready)
++		return -ENODEV;
++	if (pcpu->event)
++		return -EAGAIN;
++	ret = pdis_program(event, true);
++	if (ret)
++		return ret;
++	pcpu->event = event;
++	event->hw.state = PERF_HES_STOPPED | PERF_HES_UPTODATE;
++	perf_sched_cb_inc(event->pmu);
++	if (flags & PERF_EF_START) {
++		pdis_enable(event);
++	} else {
+ 		pdis_quiesce();
++		perf_event_update_userpage(event);
++	}
++	return 0;
++}
++
++static void pdis_del(struct perf_event *event, int flags)
++{
++	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
++
++	pdis_stop(event, PERF_EF_UPDATE);
++	pcpu->event = NULL;
++	pcpu->counter_valid = false;
++	perf_sched_cb_dec(event->pmu);
++}
++
++static void pdis_read(struct perf_event *event)
++{
++	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
++	unsigned long inhibit;
++
++	if (!pcpu->ready || !pcpu->counter_valid || pcpu->event != event ||
++	    (event->hw.state & PERF_HES_STOPPED))
++		return;
++	inhibit = csr_read_set(CSR_SCOUNTINHIBIT, RISCV_PDIS_COUNTER_BIT);
++	pdis_event_update(event);
++	if (!(inhibit & RISCV_PDIS_COUNTER_BIT))
++		csr_clear(CSR_SCOUNTINHIBIT, RISCV_PDIS_COUNTER_BIT);
++}
++
++/* Drop pending selections before changing the task used for sample metadata. */
++static void pdis_sched_task(struct perf_event_pmu_context *ctx,
++			   struct task_struct *task, bool sched_in)
++{
++	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
++	struct perf_event *event = pcpu->event;
++
++	pcpu->switching = !sched_in;
++	if (!pcpu->ready || !event || (event->hw.state & PERF_HES_STOPPED))
++		return;
++	if (!sched_in) {
++		pdis_update_and_quiesce(event);
++		return;
++	}
++
++	/* Restore selection without resetting the counter. */
++	if (pdis_program(event, false))
++		pdis_stop(event, PERF_EF_UPDATE);
++	else
++		csr_clear(CSR_SCOUNTINHIBIT, RISCV_PDIS_COUNTER_BIT);
 +}
 +
 +void riscv_pdis_cpu_dying(void)
 +{
 +	struct pdis_cpu *pcpu = this_cpu_ptr(&pdis_cpu);
 +
-+	if (pcpu->ready)
-+		pdis_quiesce();
-+	pcpu->ready = false;
-+	cpumask_clear_cpu(smp_processor_id(), &pdis_cpus);
++	if (pcpu->ready) {
++		if (pcpu->event)
++			pdis_stop(pcpu->event, PERF_EF_UPDATE);
++		else
++			pdis_quiesce();
++	}
+ 	pcpu->ready = false;
+ 	cpumask_clear_cpu(smp_processor_id(), &pdis_cpus);
+ }
++
++PMU_FORMAT_ATTR(select, "config:0-2");
++static struct attribute *pdis_format_attrs[] = { &format_attr_select.attr, NULL };
++static const struct attribute_group pdis_format_group = {
++	.name = "format",
++	.attrs = pdis_format_attrs,
++};
++
++static ssize_t cpumask_show(struct device *dev, struct device_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(&pdis_cpus));
 +}
-diff --git a/drivers/perf/riscv_pdis.h b/drivers/perf/riscv_pdis.h
-new file mode 100644
-index 000000000000..b1ffe7d16ce0
---- /dev/null
-+++ b/drivers/perf/riscv_pdis.h
-@@ -0,0 +1,13 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __RISCV_PDIS_H
-+#define __RISCV_PDIS_H
++static DEVICE_ATTR_RO(cpumask);
++static struct attribute *pdis_attrs[] = { &dev_attr_cpumask.attr, NULL };
++static const struct attribute_group pdis_group = { .attrs = pdis_attrs };
++static const struct attribute_group *pdis_groups[] = {
++	&pdis_format_group, &pdis_group, NULL,
++};
 +
-+#ifdef CONFIG_RISCV_PDIS_CSR
-+void riscv_pdis_cpu_starting(void);
-+void riscv_pdis_cpu_dying(void);
-+#else
-+static inline void riscv_pdis_cpu_starting(void) { }
-+static inline void riscv_pdis_cpu_dying(void) { }
-+#endif
-+
-+#endif /* __RISCV_PDIS_H */
-diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-index 21a2078eab98..545b8becf90a 100644
---- a/drivers/perf/riscv_pmu_sbi.c
-+++ b/drivers/perf/riscv_pmu_sbi.c
-@@ -27,6 +27,8 @@
- #include <asm/vendor_extensions.h>
- #include <asm/vendor_extensions/andes.h>
- 
-+#include "riscv_pdis.h"
-+
- #define ALT_SBI_PMU_OVERFLOW(__ovl)					\
- asm volatile(ALTERNATIVE_2(						\
- 	"csrr %0, " __stringify(CSR_SCOUNTOVF),				\
-@@ -1204,6 +1206,8 @@ static int pmu_sbi_starting_cpu(unsigned int cpu, struct hlist_node *node)
- 
- 	if (riscv_pmu_use_irq) {
- 		cpu_hw_evt->irq = riscv_pmu_irq;
-+		if (riscv_pmu_irq_num == RV_IRQ_PMU)
-+			riscv_pdis_cpu_starting();
- 		ALT_SBI_PMU_OVF_CLEAR_PENDING(riscv_pmu_irq_mask);
- 		enable_percpu_irq(riscv_pmu_irq, IRQ_TYPE_NONE);
- 	}
-@@ -1216,6 +1220,7 @@ static int pmu_sbi_starting_cpu(unsigned int cpu, struct hlist_node *node)
- 
- static int pmu_sbi_dying_cpu(unsigned int cpu, struct hlist_node *node)
- {
-+	riscv_pdis_cpu_dying();
- 	if (riscv_pmu_use_irq) {
- 		disable_percpu_irq(riscv_pmu_irq);
- 	}
++static struct pmu pdis_pmu = {
++	.task_ctx_nr = perf_invalid_context,
++	.capabilities = PERF_PMU_CAP_NO_NMI,
++	.attr_groups = pdis_groups,
++	.event_init = pdis_event_init,
++	.add = pdis_add,
++	.del = pdis_del,
++	.start = pdis_start,
++	.stop = pdis_stop,
++	.read = pdis_read,
++	.check_period = pdis_check_period,
++	.sched_task = pdis_sched_task,
++};
 -- 
 2.50.1 (Apple Git-155)
 
