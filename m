@@ -1,110 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795021533;
-	b=lgV0qli8ycuUJJD9qtvVrRrmRDQkko/6Yso9hf+E1YR1gYqsfRAH+zsjMJFgsqnr96LF
-	 ijkjvSFKDmo93ff30G8xr4pawe++evuhAOSNhToFs5iw3tfN6ze5OCa3RhblxZKmxPwVI
-	 vuMD3WF6wz3z2Qorz0CxVRkw3mYPAzjBNEh4uYdoPat8zAaXbvNVSjfHsYuyPm1Votgxj
-	 ONmi/ODNWrojchU52rdkYeGWjf4ZYv/cowigBIxsPVpAakisOKvQpa8Ly30Ae7E5+BeIt
-	 2Px6/rUwIDI4gQ3u/4PCA0vpBwAovvBs+yB0pnTD07b9weJ6bK58INDc+O8LJ07ecUw==
+	t=1795021562;
+	b=LEulfyuGCvssCR/K9I26Xlfs7wCaQnQjRYCHO1BWg1HJDdTFtM5pAuaWd1K88r8psijs
+	 Xhs5i3rVz4TA0YTeFGBs88bQElJxOYPMUTybUivDGvkd24sBHVbZmv+xyGs2Ah85ddxSo
+	 AkHoAx4uqgDsI4iqdRacqabv52EgoFQs5ejYrQiO8fL3qkZhEB5rjMNiQA6uTaet7kF+1
+	 kPzTMy27Glu7KtIXbNFTxDMRsY889EYKZc9jfaMuh9rZVj3PV1BY4P3S3nJ7++h3vbGm7
+	 rJCZ3S1QHA0jTRMW0sB2KnVC03zEdhTXLKRPl18DwwpcoZTsfwD6PQVy5z9p0xSPY7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795021533;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:Content-Language:To:Cc:
-	 References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=I/lMXOtz4EWJJKG0P4frA8Ehhog3XZ0EjDEz2sNipZc=;
-	b=nF42V1jSKXRtYNPwHLKn4wmYwdRvO1K+yXkpkrdHzsSS7lMLclXGKJwYSPZCITf7BD6k
-	 C/fhCQWAtYpSlg0Ud6zx3PIYOzneuFV25cmZ/eVRWemf/YVRLNfEwZv87J4bxuZWc0T6r
-	 kQNqas6ICXC6L42CxXTU+yUlZH5YIXcmnRHftPQY9wMqsyomo/C51qAto5ai2jR8A47Y9
-	 vL1odSnraPAbnSirBTP+hA65uMN74DyMvt4D7gpCVkjiBdOXb6s7oHVbdhzt0F6z2gqbS
-	 wD1SleGHwiGxmCydYlb8EbkYjkJMklQpCAq7C3oFnd33XGa6H+RFyNjRmmp3duZlSAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795021562;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=u6MgyzFLN6jbopZSfbLVy87PbaNNPLfiPPyANJFnCQc=;
+	b=t97qg970neMsdpCRAVBBq9fqednfCEf4mh9uiiQl3GKyAa0Y/UolXPKXcQb8ASa1HdFp
+	 IjoccqEVgHPdDkxqmlyzdNBx/AHSsjbd3HQBPjeh5XPOBAIurVVFjYLjnxZKY2RjUM50Y
+	 RhQN97QNnVUtIWSlkWCU26nU+B4xalh9hcNaJKnSn11oAoVa4f8ArBjcXzyc5+MEHA92T
+	 nwW4wtOcfHxQv91C9uowpKeiws9aXsb8/fh6VvtFaw8oUyW6LJSLlruEtnkhZsDKvOQqv
+	 z8wT8WoTL2V+n7+bKy5APuqs56rVz5W9dpiJPAyLTre8nbJDhwIHBxWBoX26gufxURg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ImR8mc7u;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UHVWHKX2;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=KGk42p6U;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1363606A331
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:05:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1363606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC89606A32A;
+	Wed, 18 Nov 2026 17:06:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FC89606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ImR8mc7u;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UHVWHKX2
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AIGwLj43925905
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:05:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	I/lMXOtz4EWJJKG0P4frA8Ehhog3XZ0EjDEz2sNipZc=; b=ImR8mc7uO2A2P6cR
-	TjbIuNgUkEF4WR51XuokFFlfMYru6HZBwpUzGoYaEIbRCS8L7utLI1/1Cgr1wVl1
-	/vbc5FSt1g23CbX5o1qd6Vcr+Cgx+AIsRn6w1+kdMBy3csmTbey5V2XWUVkfLP69
-	U6NHmsqrYK6vcNhiIzcpZUuSnS/hMygb7dN1t9DXmtcdaEqDjKjX1GQ5wDSvrg3i
-	lrAsh7K+zMPxeYvHMuMqUoi3yRd83foswWJTDPpFLjsHakX8FN41ZtOLU7rxJf33
-	YFYbZtn40KEef64Pa4d9/lO+ZERp4whyy3bcYPJdYTM87+Ynm+9x/B/GO3urbEj9
-	JAoa1A==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j1fgg06fs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:05:31 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-139b62317d0so3673986c88.0
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:05:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795021530; x=1795626330; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I/lMXOtz4EWJJKG0P4frA8Ehhog3XZ0EjDEz2sNipZc=;
-        b=UHVWHKX2b+XLrhxsAgkyjS+Cbf20Hta3W1bznLAVs5jpMPjfFX33SQhyWCPKBjVAwN
-         tdnlqSoW+0QRPLP1q8Mbx+63X5I5V6qlJwHdfPDanOEip3OHc4i+BEiK9ZIHmTYdUziz
-         ZnAtQ/12p2G5veSCmuQx2IVLTpWG2Ahus47C3Ut2CRVF+oxrpqaf0lbaMxYK0fYvHm8N
-         NKPMrM4jE20mFrd4yfSBiSzDEh3OEHxoA79ej8vY3jiquwnsi6nNoirnvaGf0JxgbxAW
-         c3+SdpDS+wRxeFWayIrezIZky1MjYV9aO2fMeRDAJJy4pIb6HD+/JLIwwxoHyaZebJVp
-         Yb/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795021530; x=1795626330;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I/lMXOtz4EWJJKG0P4frA8Ehhog3XZ0EjDEz2sNipZc=;
-        b=BjLSligXds8t8bRrqyUI2F5p31yDIxj6jeFscLYZPPxUjtRE5i7GF0RlxbLawgY4rS
-         6Gv0FcuNKne0weroyLZXa2Z1Oz1jsSb3uPIVaMlDDAhEXHJRJWdwTfYKu1Co0QeqRPxr
-         uAkSHp0hQ9F4K761R/VErR0RM1kvHNkVQ0craMe5ExQXFoyxNrg0IgVpsjxvErOF/DFP
-         nJ0hVQCCGSyDhfCM93N3OcA7xgLnTGZ8ouzjr217eKEyohgKrlbgo+QxCJlzVOHT3yVi
-         6q8ElBCgshXGQSe1fP4ENpND0fqpqpPDI3/nlUkeQa4O4rebLT/UxrslCLs1ZcqlarSL
-         me1w==
-X-Forwarded-Encrypted: i=1; AL+hErGFJRJqHd8lzXk4D06gqeZF/DB03+xGGTI3J2bD5UG3cM3lgTLr2BXLtvvDo7UHPq5qkigEWQpA51as@vger.kernel.org
-X-Gm-Message-State: APuU4Z9u3wQMkNowlXWT4suUGLiqXP1f8kqBhCp/NCx2ritRUjOLw+tw
-	fiK6osr9rDQQcQgI9eM6JTC3yeHavc6DAfrpNRXTBht1VbO6pIFh4L9HfbO4uc2UzZn8rZFQLhe
-	tBQ2pXgtO8x/lIAP+h+3b7yXHHtrBjN03D3MNzt8/iHKQyZUWa3Ac/xF7jQEfT5oj
-X-Gm-Gg: AYBFou1TCWx6zp74ZeiBiLqpSOe+hPxanUsS4+0ozNqyu0QTzpkWKoLQYK825qKKOne
-	KO5Zratk1nERNfDXhpS4Q/QMdJN53GP0+wS1FsW5BVdQ6uIzHDSBN+ShBeR53L2IaukRI8MS2td
-	xpNXi2FuHMFzsFQc2Kq+bp8iKrEzXe5Str6KF6AJ3qPod80AZDr68KFYNv1U6MkMqsLBTuD77Pg
-	ueN9KcVGvhu8xAOcBI0ntnI+lk12dyuXI4tmb/1meqOOpwXLq+20UmRzG9eIKS73oDejLIYZqP7
-	Y2TUyDycW9Y979O0VHOODxQ3xIrPhKeSKbSD5KSh0++AOdDNFQOtueSJp2WEaWKyrDd7XpkMDO/
-	szzncPpe9xUdQL6NWH1peBRIsI1bVA3WJbu3XCk+hoMojviayYt5eWjdBELq8EIoeujwntduFrG
-	hRnA==
-X-Received: by 2002:a05:701b:290a:b0:1b5:2de3:bcfb with SMTP id a92af1059eb24-1b543c13186mr2735366c88.25.1795021530415;
-        Wed, 18 Nov 2026 09:05:30 -0800 (PST)
-X-Received: by 2002:a05:701b:290a:b0:1b5:2de3:bcfb with SMTP id a92af1059eb24-1b543c13186mr2735304c88.25.1795021529708;
-        Wed, 18 Nov 2026 09:05:29 -0800 (PST)
-Received: from [192.168.0.4] ([183.83.140.41])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a7bc05cfsm9641856eec.26.2026.11.18.09.05.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 09:05:28 -0800 (PST)
-Message-ID: <59ab240d-57bb-c00c-5409-c22d0eda69bd@oss.qualcomm.com>
-Date: Wed, 18 Nov 2026 22:35:16 +0530
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=KGk42p6U
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 04AAC1A169B;
+	Wed, 18 Nov 2026 17:06:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C23105FE9B;
+	Wed, 18 Nov 2026 17:05:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BD15211BC29D6;
+	Wed, 18 Nov 2026 18:05:42 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795021553; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=u6MgyzFLN6jbopZSfbLVy87PbaNNPLfiPPyANJFnCQc=;
+	b=KGk42p6UIGYOb0yJuXx2rsSOsPEzjAVQgquw2ND05oOy3WAbB2w16yH71bajzXTXY2/R8R
+	JrIWCOISDUz9OJnMhyxAL9sdMQGdLfUkTAw7klwVBapw/G2JC6nIoXzxM0wB8zu889BU69
+	wlw70G+Pb+mPbYa8z/n/5FIeUwkPGzhyjPcp85/Lj3md6w5Cd+9qGq5cNsdHVWelOQ3lzW
+	c+InSUgruaxSMxVKWleFTitvvG63eqys+6ZAg/jGOYfOifcSLO+pnDyOEmQ4/Mv9pikFTk
+	nHpu3oNx6vHZ/d++iNeLRErlZBu/TOraZbjYQ+JcvK9XUG/Q0xX5aASXupVtDA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v12 00/10] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+Date: Wed, 18 Nov 2026 17:59:09 +0100
+Message-Id: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,176 +63,157 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v7 4/5] iommu/of: Require reg for iommu-addresses
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Vasant Hegde <vasant.hegde@amd.com>,
-        Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        David Woodhouse <dwmw2@infradead.org>,
-        Lu Baolu <baolu.lu@linux.intel.com>,
-        Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
-        Eric Auger <eric.auger@redhat.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Joerg Roedel
- <jroedel@suse.de>,
-        Srinath Mannam <srinath.mannam@broadcom.com>,
-        Oza Pawandeep <quic_poza@quicinc.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Alex Williamson <alex@shazbot.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-        virtualization@lists.linux.dev, devicetree@vger.kernel.org,
-        kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-media@vger.kernel.org
-References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
- <20261106-add_iommu_ranges-v7-4-5c0f72083e52@oss.qualcomm.com>
- <3e4b6491-2b58-4b9c-90ad-0912f47cb217@kernel.org>
- <ce05d74a-58d1-f605-44c1-ceb9b9d8b9d4@oss.qualcomm.com>
- <2a282370-025b-4c0e-8a87-4d05aa1d87a0@kernel.org>
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <2a282370-025b-4c0e-8a87-4d05aa1d87a0@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: OdjYatuiI6ZvgIvE8AYYKE5H62D0Xgjg
-X-Proofpoint-ORIG-GUID: OdjYatuiI6ZvgIvE8AYYKE5H62D0Xgjg
-X-Authority-Analysis: v=2.4 cv=fOSsTpae c=1 sm=1 tr=0 ts=6afddadb cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=jbSCbZcLpKDW+DqD08IedQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=yUPLNtyCCiW4yRupJn0A:9
- a=QEXdDO2ut3YA:10 a=Kq8ClHjjuc5pcCNDwlU0:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA2NyBTYWx0ZWRfX/tegGdo3KfZx
- 3n5wQEd1PAZV+BZF7ET9ALp61H7MSLS0cVR+ujt0251BFbvxoe0kFv/sIiGEMkK2THpL2R/G5+W
- PXi35ks/vEWmTUzUvDLYiXEU95eIM0U=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA2NyBTYWx0ZWRfX+a4fbcK9COum
- QR8h93d1C/OCf75QDU03Tg0Qim6Sh8e6YY7gMOuBpkEOVnkv1zpKVjE5BSRjrAEQ4mCtGyBX3/m
- bW1I/Bnixq0AMrF8JVWNlzPXxzy1G2DHFVzoPfJC8q7bMc+wZvvFxKyPF4KMCRKaSDVKm+kGyKE
- 149OqywMvUcZVWd/ycltHOlhQvbF/Ix056JsxxZBL96Gx6jwsz/FqOXUj8vsDHHHjpM3lT7OiJ3
- xZDY2xFaeHu7/SfsMRHNoHpY1tAVWg8Y/WTIFNPfy3buhmoo6knh7cAi4SkcfLSD9HpkZztVyEk
- 3EZF+p8HG9wyF9mtUcubupAXxRtQziDAw3SjBNEFEuzcqXFiOnFIbZre+p36U47l8rwSH0gmlLv
- 40iiG1PJq4EQM6NyiGTcsHMnrtiyujy3gmAFA35yoR3GgavFhp2zqaCftjZPuKg7BzcsA0YIvKd
- MjbN8A5dyqaetzwxXUA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-18_04,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 adultscore=0 impostorscore=0 bulkscore=0
- malwarescore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180067
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43SzWrDMAwH8FcpPs9D8rd72nuMHWxHXsPapiRd2
+ Ch99zkdrBkJpkcJ/LP8ty5soL6lgW03F9bT2A5tdywFiqcNS7twfCfeNqXBBAgDDiU/UT90/BC
+ kbpB/noZzT+HA0/6DG51CygmDM5GV86eecvt1w1/fSr1rh3PXf9/uGvXU/VW98BV11By4cVpK8
+ lITqZfYded9e3xO3YFN7oh3qz7hiBw5WUeaDFpBYWmJ+VxYs0SZS4DPjRTBRYClJeeWrlmyWDn
+ HQJZAQHBLSz1sqcmSxltdMvOYl5aZWRJqlimWcl5aIpN8jEvL/lkIIGqWLVaKjS8jBSPsSl5ub
+ qma5YpFGBBMQOHSiuVnFlbz8sXCrJXLQZQn0Mp+wcMYwpSYTd5GrYIDv6Ld1xURXVXDosUGGyS
+ Y/t38167X6w/L1ERkwQMAAA==
+X-Change-ID: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ stable@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
+I am in possession of an MA35D1 NuMaker board. The SPI controller has
+been contributed, but at this stage it does not work with the current
+clock driver.
 
-On 11/18/2026 5:57 PM, Krzysztof Kozlowski wrote:
-> On 17/11/2026 17:24, Vishnu Reddy wrote:
->> Hi Krzysztof,
->>
->> Thanks for review.
->>
->> On 11/13/2026 6:41 PM, Krzysztof Kozlowski wrote:
->>> On 06/11/2026 18:14, Vikash Garodia wrote:
->>>> The "iommu-addresses" property describes an identity 1:1 mapping between
->>>> an IOVA range and the physical memory specified by "reg" in the same
->>>> reserved-memory node. Without "reg", there is no physical memory to map.
->>> This looks like ABI break.
->> The original discussion was to avoid keeping iommu-addresses in the
->> reserved-memory, if not backed by reg. In such cases, it is more meaningful
->> to move that entry to corresponding device node.
->> Given this direction, the schema was defined accordingly and the code is now
->> updated to match the dt-schema. At least on Linux, I do not see any client
->> using iommu-addresses without reg.
-> Yeah, but ABI is for all users, not only in-tree.
+The clock controller registers its muxes with .fw_name parent data,
+which requires every internal clock name to be declared in the DT. As
+the DT does not declare them, all parent lookups fail: muxes end up
+registered as root clocks and most peripherals read a zero rate.
 
-To avoid an ABI break, it would be better to preserve the existing
-iommu-addresses behavior and avoid this change.
+This conversion exposed a first issue with the WDT/WWDT parents which
+were actually missing in the clock driver. I am not using these clocks
+myself but it is worth fixing.
 
->
->
->>>> The DT schema now requires "reg" whenever "iommu-addresses" is present.
->>>> Align the kernel implementation with this requirement.
->>>> https://github.com/devicetree-org/dt-schema/pull/207
->>>>
->>>> An identity mapping requires matching IOVA and "reg" ranges. Reject
->>>> mismatched ranges and report an error.
->>>>
->>>> Suggested-by: Rob Herring <robh@kernel.org>
->>>> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
->>>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
->>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
->>>> ---
->>>>  drivers/iommu/of_iommu.c | 32 +++++++++++++++-----------------
->>>>  1 file changed, 15 insertions(+), 17 deletions(-)
->>>>
->>>> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
->>>> index 6675fc900e6c2d55b34c61dc9effaeb48e24f18f..00b02c19f27e195fc36c4bc1d91253255147c9ab 100644
->>>> --- a/drivers/iommu/of_iommu.c
->>>> +++ b/drivers/iommu/of_iommu.c
->>>> @@ -174,19 +174,12 @@ iommu_resv_region_get_type(struct device *dev,
->>>>  {
->>>>  	phys_addr_t end = start + length - 1;
->>>>  
->>>> -	/*
->>>> -	 * IOMMU regions without an associated physical region cannot be
->>>> -	 * mapped and are simply reservations.
->>>> -	 */
->>>> -	if (phys->start >= phys->end)
->>>> -		return IOMMU_RESV_RESERVED;
->>>> -
->>>>  	/* may be IOMMU_RESV_DIRECT_RELAXABLE for certain cases */
->>>>  	if (start == phys->start && end == phys->end)
->>>>  		return IOMMU_RESV_DIRECT;
->>>>  
->>>> -	dev_warn(dev, "treating non-direct mapping [%pr] -> [%pap-%pap] as reservation\n", phys,
->>>> -		 &start, &end);
->>>> +	dev_err(dev, "non-direct mapping [%pr] -> [%pap-%pap] is not supported\n", phys,
->>>> +		&start, &end);
->>>>  	return IOMMU_RESV_RESERVED;
->>>>  }
->>>>  
->>>> @@ -211,12 +204,14 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->>>>  		struct resource phys;
->>>>  		int size;
->>>>  
->>>> -		memset(&phys, 0, sizeof(phys));
->>>> +		maps = of_get_property(it.node, "iommu-addresses", &size);
->>>> +		if (!maps)
->>>> +			continue;
->>>>  
->>>>  		/*
->>>> -		 * The "reg" property is optional and can be omitted by reserved-memory regions
->>>> -		 * that represent reservations in the IOVA space, which are regions that should
->>>> -		 * not be mapped.
->>>> +		 * "iommu-addresses" must be used in combination with a "reg" that provides
->>>> +		 * the physical address and size of this memory region, for an identity 1:1
->>>> +		 * IOVA mapping to that physical memory.
->>>>  		 */
->>>>  		if (of_property_present(it.node, "reg")) {
->>>>  			err = of_address_to_resource(it.node, 0, &phys);
->>>> @@ -225,11 +220,11 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->>>>  					it.node, err);
->>>>  				continue;
->>>>  			}
->>>> -		}
->>>> -
->>>> -		maps = of_get_property(it.node, "iommu-addresses", &size);
->>>> -		if (!maps)
->>> I miss the point why you are moving this part. Irrespective to actual
->>> ABI break, why do you nee to check for iommu-addresses before?
->> It is more optimal to check for iommu-addresses and then read the reg. On the
->> contrary, earlier reg is read irrespective of iommu-addresses is present or
->> not. So in a way reading iommu-addresses first would ensure that reg is read
->> only if iommu-addresses is present.
-> Sorry, I don't follow. What is here on the contrary? To what part?
+The second round of reviews raised another problem with the
+crystals. HXT and LXT are external crystal oscillators wired on the
+board, while HIRC and LIRC are on-chip RC oscillators. HXT was described
+whereas LXT was not. The series now also takes the two crystal inputs
+from the DT: they get documented in the bindings, described in the
+boards and looked up by the driver (with a fallback for backward
+compatibility).
 
-The intention was only to avoid parsing reg for nodes that do not use
-iommu-addresses. Given the ABI concerns, we can keep the existing behavior.
+Finally, I was still unsatisfied by the clock tree because there were
+too many root clocks. Many "gates" were wrongly set aside from the
+downstream clocks they would gate, and SYSPLL was simply not parented at
+all (?).
 
->
-> Best regards,
-> Krzysztof
+The clock tree now looks much more accurate.
+
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Changes in v12:
+- Rebased on 7.4-rc2 because of the treewide allocator change, fixed
+  patch 3.
+- Link to v11: https://lore.kernel.org/r/20261118-perso-ma35d1-upstream-clk-v11-0-bd1d1e060926@bootlin.com
+
+Changes in v11:
+- Add a patch to fix the CCAP mux bus width.
+- Add comments stating that the HXT and LXT IDs are legacy clock IDs.
+- Collect R-by tag.
+- Dropped the DTS patches from the clock series.
+- Link to v10: https://lore.kernel.org/r/20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com
+
+Changes in v10:
+- Make sure muxes registration is device managed like all the other clocks.
+- Link to v9: https://lore.kernel.org/r/20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com
+
+Changes in v9:
+- Create devm_clk_hw_register_fixed_rate_parent_hw().
+- Use the above helper to register SYSPLL.
+- Keep hws[HXT] available in the legacy case.
+- Propose myself for maintaining this driver.
+- Link to v8: https://lore.kernel.org/r/20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com
+
+Changes in v8:
+- Fix an out-of-bound bug (syspll parenting structure was wrongly
+  defined).
+- Make sure HXT_GATE is validated before being reused (and possibly
+  dereferencced blindly by the core.
+- Link to v7: https://lore.kernel.org/r/20261002-perso-ma35d1-upstream-clk-v7-0-cbd991fa6270@bootlin.com
+
+Changes in v7:
+- Avoid opencoding core helpers, replace them with existing helpers
+  (mentioned by Jerome)
+- Rebased on top of clk-next since the first patches have been applied
+- Link to v6: https://lore.kernel.org/r/20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com
+
+Changes in v6:
+- Drop the clock output names entirely, they are not relevant.
+- Error out when the crystal providers defer probing.
+- Make sure gates are correctly parented.
+- Make sure SYSPLL is parented.
+- Link to v5: https://lore.kernel.org/r/20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com
+
+Changes in v5:
+- Fix the bindings wrt HXT and LXT.
+- Fix the DT descriptions of HXT and LXT.
+- Collect tags.
+- Link to v4: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com
+
+Changes in v4:
+- I forgot to bump the clock counter in the driver after adding the two
+  new clocks in the bindings. Sashiko will keep complaining about the
+  incoherency though. Since binding and driver changes should be kept
+  separated, I cannot do both at the same time.
+- Link to v3: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com
+
+Changes in v3:
+- Drop the number of clocks from the binding, set it in the driver only
+- Split the binding/driver patches completely
+- Link to v2: https://lore.kernel.org/r/20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com
+
+Changes in v2:
+- New patch 1/3: register the missing WDT/WWDT parent clocks
+- New patch 3/3: harden the code
+- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com
+
+---
+Miquel Raynal (10):
+      dt-bindings: clock: ma35d1: Mark HXT and LXT legacy
+      clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
+      clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
+      clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT when possible
+      clk: nuvoton: ma35d1: Reparent the gates correctly
+      clk: nuvoton: ma35d1: Use device managed helpers for fixed rate clocks
+      clk: Create devm_clk_hw_register_fixed_rate_parent_hw()
+      clk: nuvoton: ma35d1: Reparent SYSPLL correctly
+      clk: nuvoton: ma35d1: Fix CCAP muxes bus width
+      MAINTAINERS: Add myself as Nuvoton MA35D1 clock controller
+
+ MAINTAINERS                                    |   8 +
+ drivers/clk/nuvoton/clk-ma35d1-divider.c       |   3 +
+ drivers/clk/nuvoton/clk-ma35d1-pll.c           |   3 +
+ drivers/clk/nuvoton/clk-ma35d1.c               | 716 +++++++++----------------
+ include/dt-bindings/clock/nuvoton,ma35d1-clk.h |   2 +
+ include/linux/clk-provider.h                   |  13 +
+ 6 files changed, 281 insertions(+), 464 deletions(-)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
+
