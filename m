@@ -1,108 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.81
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795022750;
-	b=eTbhOw1ZrjhOSmTohITBE6S7ESa4TQbIDJYfQJhShBfUXYe/uq4U9JYyFqO05B0EBKLO
-	 ubdQ6uadJ3v1lmjpqqRfpI7igL+xe6SjtwmHS+B379adX+rIegT2jXuIiLCyMXwGEHLaz
-	 cdDeXK7fWX2CGwvC0DmnwCTuSgxtvs3yR3EWDNk1YP8uBtyIuIvm9RgQZrHHK5d3UOvE2
-	 P9WXucUtSKkTtjXMDNO0tSpDCz7crJflaSJv9jnTM9D7KBvMhUALYTSl9XJ8crBVrffuM
-	 NXRbUh5Qcm1YqfTn60947l22JKcEKMMpq/29r4nXF1rtospnowizSpCu6WI8+kFujeA==
+	b=MNOkLvSr3rTjEnB7EZzfOZJOf6C2LFGgtGEN/SQd39ulJ36E5l9kkIhTE7SNPRYdydmr
+	 0h8bbbF4HTf9b1kjqMvs/YcSVG1IFMh9yi/NEP5LwAM1fy0GGCYJGvotxgaD8DdjePD9w
+	 oqhMqrsx/q7Nf2I/TgkfgV2KcntQWJJuY59eMm0hhly8+phdQm6IMlVuR3R78YLNP3ePZ
+	 MfOdi9cN7aakbrlrbxcimkA1GRmQM6zv3sN1NKWl9DK9UPNYO88hrd7GHAPRlxC9OS5ki
+	 V/aGOmrXDSEBVTKUG0QlIamZBCsGyyAkymxs5iDPRmgKAYCZ9x2HgaCMmoj3uHhWncQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795022750;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=x6Yn9nVVvzkj4kuG4KNyqMnRlTqVsBOrIHwYwoZ4SuE=;
-	b=aV8d4EMGqGftu7fE1Xuf1xDl/MGGHT9NwcDrlJuZ+uzAT37BydE10eR7amVh1c0FhbuI
-	 jQi4RUScBXKr7yTuRZCVCJm0w8NPAhC8jzNhLFSsxChsu2B1rZEgNr2Blolf5EwbOM37F
-	 jsfAYUUsVpgV9e3o4gooXDF+jW+x1mcMoqIYUK3ndNJYSjNm8IfxOrj7ONpa0Z3u7pn10
-	 cANiTWitwD5KF2ChOasPWZlhzqv+Xjnm7y1uiP+3/ioY0OTMhY4iXvjIf7QFGMckNdlUT
-	 xKyRRV304J/p0hnxpdp9oYfk4HZSJYw1UTsm2s6A21ry4TTF2nWV6pquUY4mHiEHrMg==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=cFcuKyUMC82WAVuix9I1qT0/usvQApJ90CHf2UPtVfw=;
+	b=nKnEx51TrWZ/rKD11VowmL4gsU8SMHhAMm5gaNnQYvghh8vG7ODG4NKS6eBf179tZBHQ
+	 lYo4cRs0hX4I5egMYk6oNlWR5mlkL+QpJOzUhBS1Lm1fNKBHLCOusuwHWAUMVYYYpsUxZ
+	 7YyMUpZBV77DQpfVKOh+tntmaqTcEV/M6ut+W/FdLY6FKf3jeXRAFvWttYlmRcfEVTLLt
+	 DTl9jW7EqM7dxC/aj4r30e3BxgEYucEqxK6rd/XlGQml9tgbYKHbZ3xkgxbIxMz1da/n4
+	 OjMudYCye5q6hA4P0BhrCJBcTNwkSlS+7ojlEW+d4Yyo2DMxMt6weOjGKt0aj6kOicA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b="C0Tfdy/m";
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=D7BO09rM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.81
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Td3U0K//";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261D1606B5E0;
+	Wed, 18 Nov 2026 17:25:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Td3U0K//
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795022749;
+	b=qXL1/oD5ArdokEBq8Vx3ampH6h1IWaVu+dZClJ/cDaOBv4nKPQVJCMesfBEhCUuE7zrz
+	 Rj+B/+dZLxhmy1EJLmYBp8KJdpuaKzsx9VR4QJu26s7BWE4kd6mxW+HU6EHFbVRCzO7sm
+	 2YFBeosII/Vz8TOn31O6erK6r4eLuPyFpBIdvOKmZtw3xAr+X0v5RHiVxh/7sUU9Z+5Zm
+	 k01B2vKA9c0+OF00XZeeDpKcJvjiLlyjqv/yEHehtnyB/7oHmFF6a8NYW/z5jt1Fo1gjg
+	 Xav7/9jQzz/LPV4ruH0e3OHilFSxrJr52OH9GEMz6wGqi9fOWU1URx9gq8muoUOWuMw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795022749;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=cFcuKyUMC82WAVuix9I1qT0/usvQApJ90CHf2UPtVfw=;
+	b=mlGsc3mKlqVUB4/548LdCpF6c51r3CQbRWkrpte3BGYmIP66DHkaOatKP35q0YDaC/DC
+	 D1qs71GK9W7eOxXbXHqBYCH0m+59gV640f/5MceGobWvQo2dY2L2s6W7azvcOZOoNaR3g
+	 7k7Ut547BWfFKpjMPsPcZSDXxopbp5HaOdTxwn26d1vnA4hvu6QXFuQpGa+rNBeXQ5Wcw
+	 d4+dU52yyFoW4kU9RBQHVD4wqf+zflbdD9UvDNvEbjg5/lQg2jR0reL6/+nIl3EF85MaX
+	 uFZP0MMbs4ev9j0WJYU1+bJGxj68mNGu8l0FjxnxEZ+5ho3gRK3956+EXgjWlD9Gy9w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00C760A6F54;
-	Wed, 18 Nov 2026 17:25:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B00C760A6F54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=C0Tfdy/m;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=D7BO09rM
-ARC-Seal: i=1; a=rsa-sha256; t=1795022739; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=IAOHYYcDQKvg5gxJbZh/KWQCyEO2iomMVSyP42UCOHIWSrtPc8wEIvwFrmv1LjDgg4
-    Xa1BJeoEcVKQf+yNQWcHmLn9QkNKzEVQ7mjisPo3wyKNZ5RXYiwch2kLVnlMnTvqqjB+
-    dLWVz27rn0SJsNP28BpVlaAiAx8u7cOB0abuA6Fn5+M9XeNiuZKeNkLUXMAU2dFsNjEe
-    gAQfoOfTXiMyB+fEwXeU2IQcoeeU3GBaG/+ji2aCxXLbwajc6qNwcAUZb3tG3aBUdrix
-    4q63sGnU4oiC+4CQp1H/VY1l1eUupA6qZrg8wteLqHHB0+15CrlDyrYoeK9UM0+fkUUt
-    hhhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795022739;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=x6Yn9nVVvzkj4kuG4KNyqMnRlTqVsBOrIHwYwoZ4SuE=;
-    b=klJpgx66coVO7xRkx4H5TTCPqoyQn6IusRowEkKAb8hWP2qaBvM6FH670szfoOPE5D
-    1c9jCU5UtF6u7oYHs3BxCBsgHtNG951gjsK9fccM1sfXYOt+okH0SMTfjlYSkvzqhAmM
-    PIOQwINizUKGXJirlynJiPeAE9uQ89s89hid7UmJlyEWkyP/3Rg+E8Drl6hEBgX7/oUg
-    l9dZg5Z8+d+8v9uPSI0tcORCwX3fPnXoF9kcmEeZuZ5oYvaxwPLmpgv5McRfbZWCpzRB
-    5XW/IEs4zMqm+OM544RQCEWUNluzZXb6vgnAAXtMyQR1YtXwvZqxEc/uacl+wSe9t5iz
-    KjYA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795022739;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=x6Yn9nVVvzkj4kuG4KNyqMnRlTqVsBOrIHwYwoZ4SuE=;
-    b=C0Tfdy/mbEh9v1ZgTxbT+k+qTbUKUuBZWGHgQQHtPUymUzqqOQ5WsKNnRLcNmWE7ku
-    9pMVzDCQft9obcsl/GngPzLA38HyZ8khwDyT4eymJXMRl8GTwA+I2gjmh1pNS8JjhoVx
-    LddVtPLkxPJ5LVyptF1b57JBrdP78fLxENuv8LPea1oCc4jCejLbQITFPhCMIRkhevKg
-    su2hSNvXGNnt+icIeKxJMLS6pXhVLOha6tgR9ohp0QlZM/+IzK1h+XeB+9dFld2KrFZw
-    je/aFc6ekphUjsGOyXB3wLI+CVkLosZoUxJeLkHvctSnmihgTlc+oSdbbYvxOFqyRulD
-    Gxng==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795022739;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=x6Yn9nVVvzkj4kuG4KNyqMnRlTqVsBOrIHwYwoZ4SuE=;
-    b=D7BO09rMy6ryk90mjZBuoab9fDhn4kLNw50Xv67z4kCNuK9itXv7fwherWXgEYLtF/
-    2bQ5LHfhLwAPwID0RkBA==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2Jpcm8iNZLZ2IBizV+3wFb55dglUeZzcEX9J"
-Received: from iMac.fritz.box
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22AIHPddiU
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Wed, 18 Nov 2026 18:25:39 +0100 (CET)
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	letux-kernel@openphoenux.org,
-	stable@vger.kernel.org,
-	"H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: [PATCH v4 1/7] pinctrl: ingenic: Swap ID_X1600 and ID_X1830
-Date: Wed, 18 Nov 2026 18:25:31 +0100
-Message-ID: <0fe84b1a87a384d810764c1043624e10a9214b8d.1795022736.git.hns@goldelico.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1795022736.git.hns@goldelico.com>
-References: <cover.1795022736.git.hns@goldelico.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 38BAC1F000CE;
+	Wed, 18 Nov 2026 17:25:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795022749;
+	bh=cFcuKyUMC82WAVuix9I1qT0/usvQApJ90CHf2UPtVfw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Td3U0K//BeRRMtjDsatJRhWXGXXptyOvoN2N+QiqpQah9FGB54bB2sP3dqRC5OGQm
+	 MbdJV0iMvwIdiTYyNe6D0Afn2z5G6rxLm1/SNV1TuGUwYTpsCwOv7Je+MAOP9eT3fH
+	 xzwfwJik8fh7cVwdCq6lUPoDS1oU70SeFnXOEfEjseiREgkRIE7P0U9ZYkIwLYZafm
+	 uoBSGV8juIS1ko94P8Z4zziBp6cEG4enUmvTfOPTt+Z+HkUR7dskiL8mW5g4vh8rG6
+	 hZxv9ytY67o15s0h8GHqVRkPx2K+DUXJFB5Mr/jCeSb8iCHyt+ShcLjdiXbDepSpGi
+	 21i6iRz/K+5GA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C54834AEFD;
+	Wed, 18 Nov 2026 17:25:45 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 18 Nov 2026 18:25:43 +0100
+Subject: [PATCH v2 10/12] arm64: dts: qcom: sdm845-lg: Enable vbus support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,115 +82,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261118-pmi8998-vbus-v2-10-3c77a72b280a@ixit.cz>
+References: <20261118-pmi8998-vbus-v2-0-3c77a72b280a@ixit.cz>
+In-Reply-To: <20261118-pmi8998-vbus-v2-0-3c77a72b280a@ixit.cz>
+To: Alexey Minnekhanov <alexeymin@minlexx.ru>, 
+ Robin Snyders <robin@snyders.xyz>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Sebastian Reichel <sre@kernel.org>
+Cc: Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ linux-pm@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=933; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=zzz1wDCTzc1/fIjXGnK2jf9q0XuYTFpC4inv6HpNgto=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq/d+XjjM2rY8s2yzYBWJxS4HXESt1659FNQHKM
+ trBglWfKK2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCav3flwAKCRBgAj/E00kg
+ ckU/D/9X9hSuPKpnrY3w9JVtGO+oAT0DR9sSfV5c4waWBsyepm6QCrimBCLO2hcHv+KIyhgydb7
+ 4cjlF3RmDu12/YYWKOb4cmAIj/17vwUSHMiuJFehk2Evo8E6qh0+vuDwd26PNPuloM2gXjERNUJ
+ rUyVZ/exJlWlikakdwgadlBbWrM6oYTeSTKrAdjrAjbOfrvrsJNdmfJFTivn6VCPOO6D0Nf2yth
+ N6WETfrp21jTbQOdcnp5IrT4cAg8T/SHrjkjXIARf+MoOV4Ole7jEOoKo8ALrdnUoBUWZVkYcLe
+ y2DIjdQrj78lvKXZ8jPvnGjg2ktgV1OeUbYPtUxRJWh8O3VGrJkSgyuo41RsbLZshxLRa5NXTHZ
+ onVnXIOHkiv2pYqkUWNz06m/pJBBiCs+/CtpMT6YCURjk551uG30sluIyGg/v6AfL3D58J4krfH
+ cIOucEyflVVi57V1hUVco5+bIPmwFt38Ntq+8VfJdW53oGgi7gH9UZaDNocFc81mAZpQRybx1qd
+ Q5YLYO61JsQmPJrDQwcjnlfLR72J7yX7W4LUgljWzB3ahkUw5zfpMhb4ozsuyGp3YgMqG9mdRT/
+ gY/4glDShY/+vGnrlAedHZ6lUIKiFE9sgkshzMh7MwEeh8fIZgTUovVViQyx18Xk/znY1qhaEwf
+ 6OFt3WqH0VKkN+w==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
 
-From: Paul Cercueil <paul@crapouillou.net>
+From: David Heidelberg <david@ixit.cz>
 
-The X1830 predates the X1600 and uses an older GPIO register layout.
+On this device, vbus was setup and switched off by the charger driver.
+Enable proper driver.
 
-Swap their IDs to reflect the hardware evolution. This allows
-is_soc_or_above() to distinguish newer X1600-based GPIO features
-like X2000 (and X2600) from the X1830 register layout.
-
-Add an is_soc() helper for features specific to a single SoC
-generation and adjust the existing pin configuration checks
-accordingly.
-
-Fixes: 4da56f9c6f14 ("pinctrl: ingenic: add x1600 support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Paul Cercueil <paul@crapouillou.net>
-Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
+ arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Notes:
-    Changes V4:
-    - Add Fixes and stable Cc trailers.
-
- drivers/pinctrl/pinctrl-ingenic.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-ingenic.c
-index 37310d9679457..88c5edeaaddcc 100644
---- a/drivers/pinctrl/pinctrl-ingenic.c
-+++ b/drivers/pinctrl/pinctrl-ingenic.c
-@@ -110,8 +110,8 @@ enum jz_version {
- 	ID_JZ4780,
- 	ID_X1000,
- 	ID_X1500,
--	ID_X1600,
- 	ID_X1830,
-+	ID_X1600,
- 	ID_X2000,
- 	ID_X2100,
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+index 6989532584251..e868cf44956b5 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+@@ -548,16 +548,23 @@ led@4 {
+ 
+ 		led@5 {
+ 			reg = <5>;
+ 			color = <LED_COLOR_ID_RED>;
+ 		};
+ 	};
  };
-@@ -166,6 +166,12 @@ static const unsigned long enabled_socs =
- 	IS_ENABLED(CONFIG_MACH_X2000) << ID_X2000 |
- 	IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100;
  
-+static bool
-+is_soc(const struct ingenic_pinctrl *jzpc, enum jz_version version)
-+{
-+	return (enabled_socs & BIT(version)) && jzpc->info->version == version;
-+}
++&pmi8998_vbus {
++	regulator-min-microamp = <500000>;
++	regulator-max-microamp = <1500000>;
 +
- static bool
- is_soc_or_above(const struct ingenic_pinctrl *jzpc, enum jz_version version)
- {
-@@ -4090,7 +4096,7 @@ static int ingenic_pinconf_get(struct pinctrl_dev *pctldev,
- 				!ingenic_get_pin_config(jzpc, pin, X2000_GPIO_PEPU) &&
- 				(jzpc->info->pull_downs[offt] & BIT(idx));
++	status = "okay";
++};
++
+ &pmi8998_wled {
+ 	qcom,current-limit-microamp = <20000>;
+ 	qcom,ovp-millivolt = <29600>;
+ 	qcom,switching-freq = <800>;
+ 	qcom,cabc;
+ 	status = "okay";
+ };
  
--	} else if (is_soc_or_above(jzpc, ID_X1830)) {
-+	} else if (is_soc(jzpc, ID_X1830)) {
- 		unsigned int half = PINS_PER_GPIO_CHIP / 2;
- 		unsigned int idxh = (pin % half) * 2;
- 
-@@ -4142,7 +4148,7 @@ static int ingenic_pinconf_get(struct pinctrl_dev *pctldev,
- 	case PIN_CONFIG_INPUT_SCHMITT_ENABLE:
- 		if (is_soc_or_above(jzpc, ID_X2000))
- 			reg = X2000_GPIO_SMT;
--		else if (is_soc_or_above(jzpc, ID_X1830))
-+		else if (is_soc(jzpc, ID_X1830))
- 			reg = X1830_GPIO_SMT;
- 		else
- 			return -EINVAL;
-@@ -4153,7 +4159,7 @@ static int ingenic_pinconf_get(struct pinctrl_dev *pctldev,
- 	case PIN_CONFIG_SLEW_RATE:
- 		if (is_soc_or_above(jzpc, ID_X2000))
- 			reg = X2000_GPIO_SR;
--		else if (is_soc_or_above(jzpc, ID_X1830))
-+		else if (is_soc(jzpc, ID_X1830))
- 			reg = X1830_GPIO_SR;
- 		else
- 			return -EINVAL;
-@@ -4190,7 +4196,7 @@ static void ingenic_set_bias(struct ingenic_pinctrl *jzpc,
- 			ingenic_config_pin(jzpc, pin, X2000_GPIO_PEPD, false);
- 		}
- 
--	} else if (is_soc_or_above(jzpc, ID_X1830)) {
-+	} else if (is_soc(jzpc, ID_X1830)) {
- 		unsigned int idx = pin % PINS_PER_GPIO_CHIP;
- 		unsigned int half = PINS_PER_GPIO_CHIP / 2;
- 		unsigned int idxh = (pin % half) * 2;
-@@ -4298,7 +4304,7 @@ static int ingenic_pinconf_set(struct pinctrl_dev *pctldev, unsigned int pin,
- 			break;
- 
- 		case PIN_CONFIG_INPUT_SCHMITT_ENABLE:
--			if (!is_soc_or_above(jzpc, ID_X1830))
-+			if (!is_soc(jzpc, ID_X1830) && !is_soc_or_above(jzpc, ID_X2000))
- 				return -EINVAL;
- 
- 			ingenic_set_schmitt_trigger(jzpc, pin, arg);
-@@ -4314,7 +4320,7 @@ static int ingenic_pinconf_set(struct pinctrl_dev *pctldev, unsigned int pin,
- 			break;
- 
- 		case PIN_CONFIG_SLEW_RATE:
--			if (!is_soc_or_above(jzpc, ID_X1830))
-+			if (!is_soc(jzpc, ID_X1830) && !is_soc_or_above(jzpc, ID_X2000))
- 				return -EINVAL;
- 
- 			ingenic_set_slew_rate(jzpc, pin, arg);
+
 -- 
-2.56.0
+2.55.0
+
 
