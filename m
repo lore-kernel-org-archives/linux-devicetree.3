@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005277;
-	b=2st+FOLjUUyCB4LPW91srX0lpE58/lJuRdjCl1Jks8vlR/m660VBbwfaM++SU7lbZKD8
-	 bwkHgtIAfwCm6bNs7dMSxdYfUIRPliyGFDBQezS8qZWOg2c4hn0MFFKrSodZTjpniLRPr
-	 98mIMV9G4M/x3iQlHGcCWdyjhzNbz0q8LQJV+gjpR0TaxWztB8OnC1a7OROyjsgk5xu6s
-	 HLibNBUhi1C3obENTQnV/GLPW4TbSLJZOTYEH5FC4jGBPWlCdFh2U/W7QqOo8xb/8XI8w
-	 H0lA0qQ3BBY8r1VSxdvvzq56dq5dNhY9iDeNElaohdgbirinFjpUl7z491+Npd0O+MQ==
+	t=1795005389;
+	b=T7+zDSev8ZWVM83GFBvDyEsJKu9Mwz0f0BqqxRq13S8JJl8oiS+mdgASl+V2U+zSOYLl
+	 U+6WgiKREsuZYOwgzmNepRxwxoJJQ7HRX7+CeMIolkJtPwfQHn2WgfxS+ugrSHe7dM2jB
+	 n+/+1ApjwKNWhcY4tAlAnfzbcyqFONelfCpBIs9dzRZkaiAgtI9PXj6rv0TKQ0yd5ohJN
+	 g2dnvtZGHC1tqXCMADXFMnVdmADeq2O+OUNWkHLolvNgMD4TA4thzY9pgCQDQBpPeE4NH
+	 0zz7VFiswlymYOXDKSQFg197nZBNnTnAw6W9IH0q9b8EhVhYYPlsD17RnsZ5CYnKClg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005277;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=lktbLBklJwQf8hwjdm6Yk4jM0MyEUN1O1EqIfdIn/2A=;
-	b=Em6UkL38hTlWbTCVqAs8XjukQpgMemVhoNWM3Kjym52Uyx1WR8Sg5ohnUXZ7QEEXduFY
-	 R5FQ2wTilkXT1Cm4TUd7fE59L+8vmDLJ2MdOLotNQn+dhsaTji4cZbGnZaJD+MdFUmLIv
-	 5xvgUPydgdx/osPgZvAIuU5UxL2LTzkftQsuugfYVuRFvU76SMQTmOhJpLh/i5Wm87tu9
-	 iFbk5y4fF0Cbarn1DoX/8pAf5vxYsfgbt6RG+R7drcOWavZuXcl9nyfcDy+oDwu5aBYx4
-	 j7kefqQWVIX+l3p10aZ5gZPAzFmfSkb/eLBaUBKbIM2jEcVGzQIila8eo22Ol4XsScA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005389;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=1eNcJwo2E7LTdexS+CZsvtImmjxHxDOzOBiWc5uB548=;
+	b=oywVv2zlOAttYeKsCAop32B1d91dY7tOVI7wWI+qiLC3CfBSkPvwByPAMc0bliIuZ7n5
+	 gbfHvGIyz+GnTlT8oR/8KPdXi+F+XBV5hlBDOeJCgtQ2K80IyYszv68s4KUksc3Ti0B2S
+	 ABe62P/bjf1D2fX03AEE+80q3VDJb2q+2e79oCTr1Xp6aWk22VqT9P3imE+OtJdUNHtft
+	 k6xVMJgl4GAktoY3xIHyc9SJWKBjU6HZP56zEemydz0+9SHLaiYflSBRhqhxpEuxMwc8t
+	 NWXddmIWHEkh3QjhO05CXU6rIFv3MX+51G8uMu56fyMOccxhJkPn77jhIp4DRFhdARg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbyqgNP4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h1ujNcTh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BF1606A31C;
-	Wed, 18 Nov 2026 12:34:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9557606A31C;
+	Wed, 18 Nov 2026 12:36:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbyqgNP4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C2511F000C4;
-	Wed, 18 Nov 2026 12:34:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h1ujNcTh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5BFF1F000C4;
+	Wed, 18 Nov 2026 12:36:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795005276;
-	bh=lktbLBklJwQf8hwjdm6Yk4jM0MyEUN1O1EqIfdIn/2A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mbyqgNP4SMYfP6QfUxJ4gd1LP3/kNvHDZLNFfPYnu3nqHQMobuoVtOdYjCXOOspRq
-	 fPHm92vLWFyPju0KHlh3o+zN8aW5jt2ZMpZjUA8YwD4lHEaqi4gWIdcxXHCCJVkuWi
-	 X2R4Rpjimy3N2SHwexOfBZUauVowyolVDTh+fxX1kyamkIpUTaQSeql73Mv9UhKCE3
-	 9Ou1enU0LPjXFz0c+qAeXDbIFuN7h7J0t5YlUKCRJypPABZ3/EX0GX8dlepwkf3Im4
-	 +nkpgwN1Di3z4cYEphSFqX5puokj/fZdcOQ6Lh1P3SdcZmvMjKsyucPgtqoaetCRS6
-	 /em9Ift1ph/jw==
-Message-ID: <bbdef966-c5dc-4101-9246-b668e00f62b7@kernel.org>
-Date: Wed, 18 Nov 2026 13:34:31 +0100
+	s=k20260515; t=1795005389;
+	bh=1eNcJwo2E7LTdexS+CZsvtImmjxHxDOzOBiWc5uB548=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=h1ujNcThk8/H5Ge9XBxWFalVldtuE8wTpsBAB4vTYvTny5GNzWi1qkMCQgNFX6RJ0
+	 2pZhhi2ApvRt2/rNzePNJ8oty7eB2cQt4cEWbhjZDDg0msmGuI0Toxltg9We+3T7es
+	 ZKlzbBXLxygFmcuADhSqz2H0SqeQ4ceNi1FCsG5bcAICu2SvZb85Xquip1CHt23f86
+	 KVY7SiiCoix/R5WSdZijnKgr6gK1HOF2LQfQZwutzXxcnqiPXeUVFxkdhbp/x0A7Rz
+	 OYNf3aVTDANOek/9IXYfBWXR36tXd9D0bvXGDxzFsE68Z2HwNy2IICLsK7Cv0OsOse
+	 mYhC3RZo1YAkg==
+Message-ID: <sashiko-outbox-220917@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 02/10] arm64: dts: qcom: add LG V60 ThinQ 5G (timelm)
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abdur Rofik" <rofikcoga@gmail.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261118120714.31505-3-rofikcoga@gmail.com>
+References: <20261118120714.31505-1-rofikcoga@gmail.com>
+ <20261118120714.31505-3-rofikcoga@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 12:36:28 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,98 +60,175 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] Semtech SX9xxx: add a reviewer entry and binding
- maintainer
-To: Arnav Kapoor <kapoorarnav43@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>
-Cc: Gwendal Grignou <gwendal@chromium.org>,
- Daniel Campello <campello@chromium.org>,
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261117172612.25535-1-kapoorarnav43@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261117172612.25535-1-kapoorarnav43@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 17/11/2026 18:26, Arnav Kapoor wrote:
-> Add a MAINTAINERS reviewer entry for the Semtech SX9310, SX9324, SX9360
-> and SX9500 proximity drivers, and add myself to the maintainers of their
-> DT bindings.
-> 
-> Jonathan agreed to a reviewer-only entry here:
-> https://lore.kernel.org/all/20261117031830.69ac22f5@jic23-hlaptop/
-> 
-> Changes in v3:
-> - Patch 2: replace the Link: tag and the reference to it with a
->   Suggested-by: tag (Andy)
-> - Patch 2: drop the L: line, the IIO subsystem entry already provides
->   linux-iio for these files (Andy)
-> - Patch 2: drop the DT binding F: lines, patch 1 already lists me in
->   the maintainers: field of the bindings (Andy)
-> 
-> v2: https://lore.kernel.org/all/20261117110939.214932-1-kapoorarnav43@gmail.com/
-> v1: https://lore.kernel.org/all/20261117094737.15253-1-kapoorarnav43@gmail.com/
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] arm64: dts: qcom: invalid smps6 in regulators-1 aborts
+  rpmh_regulator_probe()
+- [Medium] arm64: dts: qcom: conflicting reg and memory-region on
+  simple-framebuffer
+- [Medium] arm64: dts: qcom: missing board-specific firmware-name on
+  cdsp and gpu_zap_shader
+- [Low] arm64: dts: qcom: duplicate sdc2_sleep_state node and redundant
+  pon status
+- [Low] arm64: dts: qcom: non-power-of-two pmsg-size in ramoops is
+  rounded down
+--
 
-I think it is premature. You just started contributing and your early
-submissions were clearly showing that you did not read kernel docs
-before posting.
+commit 3fe02ddb83035271fb02be5f0c325bb78269f75e
+Author: Abdur Rofik <rofikcoga@gmail.com>
 
-https://lore.kernel.org/all/20260621044410.57823-1-kapoorarnav43@gmail.com/
+arm64: dts: qcom: add LG V60 ThinQ 5G (timelm) support
 
-Also many postings were LLM products with poor supervision. Reviews are
-welcomed, but first please gain experience before you add yourself as
-maintainer after 5 months of LLM postings.
+This commit adds the initial device tree and MAINTAINERS entry for the
+SM8250-based LG V60 ThinQ 5G (timelm) smartphone.
 
-Best regards,
-Krzysztof
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts b/arch/arm64/b=
+oot/dts/qcom/sm8250-lg-timelm.dts
+> new file mode 100644
+> index 0000000000000..1b2b67486fee7
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
+> @@ -0,0 +1,615 @@
+[ ... ]
+> +	chosen {
+> +		stdout-path =3D "serial0:115200n8";
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +
+> +		framebuffer@9c000000 {
+> +			compatible =3D "simple-framebuffer";
+> +			reg =3D <0x0 0x9c000000 0x0 (1080 * 2460 * 4)>;
+> +			width =3D <1080>;
+> +			height =3D <2460>;
+> +			stride =3D <(1080 * 4)>;
+> +			format =3D "a8r8g8b8";
+> +			memory-region =3D <&cont_splash_mem>;
+> +		};
+> +	};
+
+[Severity: Medium]
+Should framebuffer@9c000000 drop memory-region (or drop reg and the unit
+address) instead of specifying both?
+
+When both properties are present, simplefb_get_memory_of() in simpledrm
+and simplefb_parse_dt() in simplefb emit a boot warning ("preferring
+"memory-region" over "reg" property") and ignore the exact framebuffer
+size in reg in favor of the full 0x1200000-byte cont_splash_mem region,
+allowing fb_mmap() on /dev/fb0 to map the trailing reserved memory beyond
+the framebuffer.
+
+[ ... ]
+
+> +		ramoops: ramoops@b0000000 {
+> +			compatible =3D "ramoops";
+> +			reg =3D <0x0 0xb0000000 0x0 0x280000>;
+> +			record-size =3D <0x40000>;
+> +			console-size =3D <0x40000>;
+> +			ftrace-size =3D <0x40000>;
+> +			pmsg-size =3D <0x1c0000>;
+> +			no-map;
+> +		};
+
+[Severity: Low]
+Is pmsg-size =3D <0x1c0000> intended here?  ramoops_probe() requires
+pmsg_size to be a power of two and rounds 0x1c0000 down to 0x100000 via
+rounddown_pow_of_two(), shifting the buffer offsets and leaving the
+remaining 0xc0000 bytes to dump_mem_sz.
+
+[ ... ]
+
+> +	regulators-1 {
+> +		compatible =3D "qcom,pm8150l-rpmh-regulators";
+> +		qcom,pmic-id =3D "c";
+[ ... ]
+> +		vreg_bob: bob {
+> +			regulator-name =3D "vreg_bob";
+> +			regulator-min-microvolt =3D <3008000>;
+> +			regulator-max-microvolt =3D <4000000>;
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_AUTO>;
+> +		};
+> +
+> +		vreg_s6c_0p88: smps6 {
+> +			regulator-name =3D "vreg_s6c_0p88";
+> +			regulator-min-microvolt =3D <348000>;
+> +			regulator-max-microvolt =3D <1000000>;
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+
+[Severity: High]
+Does defining smps6 under regulators-1 cause rpmh_regulator_probe() to
+fail with -ENODEV?
+
+On SM8250 with PM8150L (qcom,pmic-id =3D "c"), SMPS6C is an ARC level
+resource (ebi.lvl) rather than a VRM resource, so cmd_db_read_addr() in
+rpmh_regulator_init_vreg() returns 0 for "smpc6" and aborts probing
+regulators-1 before smps8 (vreg_s8c_1p35) and ldo1..ldo11 are registered.
+That leaves the parent supplies for PM8150 and PM8009 LDOs as well as the
+UFS, SDHC2, and USB PHY rails unregistered.
+
+As on other SM8250 boards, vreg_s6c_0p88 should be a top-level
+regulator-fixed node at 880000 uV, and the 348000..1000000 uV rail under
+regulators-1 should be smps7 (vreg_s7c_0p35).
+
+[ ... ]
+
+> +&cdsp {
+> +	status =3D "okay";
+> +};
+[ ... ]
+> +&gpu {
+> +	status =3D "okay";
+> +
+> +	zap-shader {
+> +		firmware-name =3D "qcom/sm8250/a650_zap.mbn";
+> +	};
+> +};
+
+[Severity: Medium]
+Should &cdsp and the GPU zap-shader specify board-specific firmware-name
+paths?
+
+Enabling &cdsp without firmware-name causes qcom_pas_probe() to fall back
+to bare "cdsp.mdt", and using the generic reference-board path
+"qcom/sm8250/a650_zap.mbn" fails PAS authentication on fused retail
+devices that require OEM-signed firmware (and zap-shader can be referenced
+directly via &gpu_zap_shader).
+
+[ ... ]
+
+> +&pon {
+> +	status =3D "okay";
+> +};
+[ ... ]
+> +	sdc2_sleep_state: sdc2-sleep-state {
+> +		clk-pins {
+> +			pins =3D "sdc2_clk";
+> +			drive-strength =3D <2>;
+> +			bias-disable;
+> +		};
+> +
+> +		cmd-pins {
+> +			pins =3D "sdc2_cmd";
+> +			drive-strength =3D <2>;
+> +			bias-pull-up;
+> +		};
+> +
+> +		data-pins {
+> +			pins =3D "sdc2_data";
+> +			drive-strength =3D <2>;
+> +			bias-pull-up;
+> +		};
+> +	};
+
+[Severity: Low]
+This isn't a bug, but sdc2_sleep_state duplicates the identical node
+already defined in sm8250.dtsi, and &pon is already enabled in
+pm8150.dtsi.  Also, the commit message mentions "High-Speed USB on
+PM8150B", whereas &usb_1_hsphy is the SoC-internal HS PHY supplied by
+PM8150.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118120714.3150=
+5-1-rofikcoga@gmail.com?part=3D2
