@@ -1,109 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.1
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795020803;
-	b=axBWoPiIpLz7Kx1ubZwqekgOwqeRWs7b5gMrbz2Yz/Z00bNvpH7QAWMdT1IEg5CT4yW4
-	 9jov+46hUsaGi0PWkmo0tn1yvbwZuaHcQ7T6U01eEsAzZB0IEZHmrHJQspzFV7nSX9H9q
-	 W3ybMzjAXd/9XMyjAr5M7qBlTmPTzGrfQnGXOCQ535WYIaV5A/PE8EOHzCghmPlomRNzQ
-	 IxwxhqbJ8Q623utNSo1QT+RdomKMsWD/Y3NupD52+4ZELBnipfRZQOMElsjYlSrZlO1E3
-	 v0NPtrtUlrMakut42oazxmPCwHTaYcql/nwUH891MFzRAf4LeQV0/X9ih+/SUW9v3wg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795020803;
-	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:X-Source-Dir:
-	 X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:AntiSpam-DLSRS:
-	 AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
-	bh=s49vQAT48BxIZLfMkEXtnKafHZS3S30w7qy4wPSK4ME=;
-	b=otBlGrxOS/gRXGeZO7Qtc7Ysr+MvpzjuOjexvYq/mpVQ5rgsQxAXJpI0PK/u8YF5pXcf
-	 HyA0iKMGZr9SPSbWuTG9LR9MiihGLg9P6HR6zKPVKqfNNRwVZQtnAAIhTXE95LeNqnBcH
-	 fpz8tYhnU8ww3OO6ZkYXZKC8uMVcNDG97PhDPFr2YvOQSPwusxO3amcRz1+LyiX4r6Olb
-	 G05gYaBMWfkdLx8+9f6HQgwzG8OmebCdxcoz4fnE4h2ac7EwZ9oAIieSdYRJidwtG23tO
-	 Tm7l2RFkdeZxuCNhMFucgAmGcT6myxx4q18fyU+jDlaZZKItIOIA7rtMtGZflxCWrBg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valla.it;
-	spf=pass smtp.mailfrom=valla.it;
-	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=A6intZbK;
-	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=UEg0TeVF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.1
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795021047;
+	b=biZ3Pbm76lNOqTjxPLJZBhHje/nx0fzsXSG3zkzI4s8YZUwDvd9CzuV0M7PIzR6dBshL
+	 97E03Ti3jYdsOxgKMT/nDWKT58QvwO6q6WeIegTpWD3tVM+Rvug1rLmUfMH48G+M4gbqL
+	 Ou0fgl8cKYU1XVVc5fO/xH+Lq2+GAiQoWCvtceJ0vQRkQ9CzC0IH96TB+QpI6wiAk2Tfm
+	 4EsVYNhOPOEvrg2QTrBS1MamSbk9mEm7Qpn/KiBX00cV1hUgKaa/T2M0NGXq7qfVC+pwC
+	 w1PbZ3RzDKe6lh9mMhFtsWpfTL2/M62sE8Up1VcA4WzFBVbNGaQhsU72AuNqfEY4HJQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795021047;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=l3wnV7FKjR+kltfF/8FAvuWedzvvOsE0ympUYTB2Ew8=;
+	b=RrC08UNq0S8dFqhvy7DeskKFl9WdAe+w4mLxdLW05r7Sp+CCUvMgup9dBeMxsyD8E6Ci
+	 eEvUWNoeE3AlNlMjrkPNyBfwsPQOWItdrjVdJ+VfxEB5uzD8QpGMwPDGmtJTsPKGIlx4G
+	 yR4FJX1d6Jw7HYWo0IJRonblyR9zZFcyltDQ8JExqgF6YPaT/P40zkKgYNn54jMiJy+OI
+	 DHGKvfTAoY7pkmuVweJtD5aDFDaU+DWIHiHqF+I4x8d34qWSDi16O7kA/C6W6nGOUVIcL
+	 ZJ0guR8swwH0lSR93f6+dJm4cumTHS58+jY9BzA36Z77LUUZuCfKUiZi1Ggdv7Y/dHQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JJ41ztM1;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7866606A330;
-	Wed, 18 Nov 2026 16:53:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7866606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E648606A33B
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 16:57:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E648606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=A6intZbK;
-	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=UEg0TeVF
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com; s=arckey; t=1795020802;
-	 b=tK+jGjDrYzZwiUDkabbFkJxUkT19sThE29n4ddG+6MEzgEMAuLhRDKbpq7Xu03Fbpv5FtqUEUu
-	  N898+aY1C5ibVRLLjkXu5pqmJw/GkI1NmivuOr5CAW6p/ZHEZ4R4NesAVmFPw9psxMleOMGCdG
-	  X7dqiHHUi8heFVjTGd+rZZH2ygmdq9zTmil65UL0zGOrL/DastFbdB3aUd3a95BQWzJyorLMWa
-	  BF3kofbPF94zI652cZz6y4NxL7Xm5umVP/VIrOxNVendpKwTemyPCWRJ2UbuAojEQiGXKfooEO
-	  /rytFYOk6KJSN0beegJ4cQ4EX5JS4xH1Z7m67UjAoPElZQ==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com; s=arckey; t=1795020802;
-	bh=hq59j9MIUVaImvVcxyR40iCL7QyC1S8ejdHje+eHY8Q=;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
-	  From:Date:DKIM-Signature:DKIM-Signature;
-	b=jnljhki0zbVbLYA+ygjnK2eKPsOboC4EkQSodJvM7/CnwU9RtZGVCVBeg+wjcXre2yuL7Bfplw
-	  RSjxb2LKGPJNEUYkTk+pcytcxWIhbF+iYUzTo1+CTc65vobOcp9tslOGXFuAbrDWm29RTpChAB
-	  5GpFv8fVn4Y4ZLBJVSrNSBNFE19evtzFSXLkphWCOHimg4xk73cxzO/CrxBKFmz1nTjuScS57c
-	  GHxTiNASfdb1z9SpYTAJGocPTPfITe853E38FCBmvL2q3k7TNQXH8xv3SvLCI3EMpewAhIyekr
-	  igPVztPi7gJ0wV4rPyBh7Shj/eodcyp3D9hAW1phziO+WQ==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	List-Unsubscribe:Content-Transfer-Encoding;
-	bh=s49vQAT48BxIZLfMkEXtnKafHZS3S30w7qy4wPSK4ME=; b=A6intZbKqfhOk/eTaNcvmTqTXy
-	WT+K4LV2B6SdAxAAFHTs8Jcj3KBVCwt7IIE6XAtgHkDA1LdMYdXxIkA7UG5wiwxkOw1QKS3A/T6KC
-	/K5DNYaoocoRVcnadRatYXhe2CTVgqPQ9UG/eBJci2rBm9TaXFEndbGVadwW/s1gRdA8=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xTiuO-00000000cKu-26Ro;
-	Wed, 18 Nov 2026 16:53:21 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=s49vQAT48BxIZLfMkEXtnKafHZS3S30w7qy4wPSK4ME=; b=UEg0TeVF31O2xVuW3Qw4fUKuWq
-	22O0c+RoE43yXb2K1fcEGcj4yLs39qyWMdbnThi3UjcTjDy9fjjzecG0xypXBoVvkqR0gQywrnrpy
-	7aRCBZeCKAMrhgnP2KZqp4EmLuTXsa4adOHWK4o1SFGw482Eo5u6z+Uo4965hkzS3Fmw=;
-Received: from [95.251.96.187] (port=64594 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xTiu4-00000000OYn-0kDy;
-	Wed, 18 Nov 2026 16:53:00 +0000
-Date: Wed, 18 Nov 2026 17:52:58 +0100
-From: Francesco Valla <francesco@valla.it>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>, Robin Murphy <robin.murphy@arm.com>, 
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, imx@lists.linux.dev, 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JJ41ztM1
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-492f563d1c6so474174f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 08:57:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795021045; x=1795625845; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l3wnV7FKjR+kltfF/8FAvuWedzvvOsE0ympUYTB2Ew8=;
+        b=JJ41ztM1mY9VCV4msi7MOiAx6Gik/YGm+RNC61MfOINdX4h9UUYvQv7f4o62AjhG26
+         eX5BgxVgHzaWlKRQ1HY7Ks+rzhIK0C5bmVsMAl1pNKCx0r1I2cgdkbda2EAK0UFhMP/8
+         mmIeaz2ljftoRGdGqLMj89jWR0HYzL0bX5OBjo+F79h8rpZDPs7oi3S6Dnd1LS74DcOH
+         QNovrIM5rkZiLf8FElLDea7tUukfBPbBNSWvlFym9+pv43tDodvndsgkeYY5Q2TferHG
+         Dx6WDyRrClHutTDCyEdnqtHisxIhaQa/oPQyCL/Sb63kEXHRSXMVKw4LHkisahDB6TM/
+         NtlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795021045; x=1795625845;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l3wnV7FKjR+kltfF/8FAvuWedzvvOsE0ympUYTB2Ew8=;
+        b=UX9lHSwS4YV2M+8L9VtXF/qCj7G01nY0PiaXtFccaiircsMfzojfFfFAqw7SRKudtm
+         OyQD2xzimdSZnRk6CkmR33W2M81ZHACccojSmLFO//iM9TTk7Lc7YY7vz69gOU744e86
+         uMmX+0yR6mpfs7b1QYshAXd+nLq2VXlY1wrFlgYc7axKaplvM5bfMpKTY7rIvQhVWcNk
+         /Bt4UHpacJa+WSqqNPS+aHJVBRpCs24f5a/aMaustxKE6mmRkr3ZtBrItQgiVYO9iI2X
+         6KBYD6a9DKtQ0VkBXsHIn+dNglgIqipvSSCJBS9ms4+3lGw/+P0k3HfB1btpM6pZjYco
+         ZSdA==
+X-Forwarded-Encrypted: i=1; AL+hErGiyjaRIo5mGr8aO1w+dPe0qCmz6+VwdHiUsv2LWWt7nDUeRDMtWUVWjKlEOkKiKGUr49TmyvttojLt@vger.kernel.org
+X-Gm-Message-State: APuU4Z9y0Le+1z3ymPGQy33QQ6tRTw/+TIkmSY1T/1Rj27Aw81GhO47Q
+	GoMUArtiUx0FsBIYoHwIX3ylZxgTm4kUKzzift+g2aXu0ZRU7fv270gk
+X-Gm-Gg: AZFdTZcw1EYd6l+g8UBFoeOGVdUgQu79he/+/Rh6MVFn4B8NMwuO4W/xD2XO6yIkHwl
+	bWQ3q95NtdU0VgqSS4iusUe2IGvR0HaX19dNMMtvGNN+iggvk1bIMCBH0neHy8zNN/b6hkM0c+M
+	vWEyV9UV6QdW6wwmU0jGrsCstLduXx8vMPpvbmSR5tLL0IAOyCB+390PPLUDVJ/evkc6v5+POX/
+	YAOLkcU0uqGvopll6iSE5wFMgr1pVEEuR8tvUYPSZ47HXk1+rpBBtNxKM23QqBiQP1GGO0LFhil
+	I69HUuaF46pSl6j7QqOixoZUYtugu/yxY+xY7Hzw+CpMgAzkiW5yV5HlSt3XU9SGUBg5EO9Ob7X
+	VBEtfLfRbMcHBZXzTTf94TZ2c/nAbN404gcUB52F2iak7S+ahBg1FI68HHCBYxXEFnlE5qLakMy
+	H678AiDYKdKo3LuZ2qVDB3VSPwsEpxwMIEo1DFSLBN0k0ai7mwM01pYd12UCmRbk4Gd3Xl/vqAG
+	g5OXu2W5KD6ejZ1+gM2A8V8H9Be0bhpeUJp/fL0lh4zDw5YAlxd2dTxs3yrVS+7b5dH048WpUjT
+	75daVGSRHwTUD+olT7mRm96ta6WcF1+GSY3EYo1r2c5oPal2q0rvvgcGNYYXbu6v5PGcTAqiEJY
+	jk+zt63XsLWSGj2e0WyM829dYxjyRNyOilkSXd0Y6i5MwW9e+3ZgaTGurleKetUhrnsBOiKW1Ks
+	dRLw==
+X-Received: by 2002:a05:6000:4b17:b0:4a7:f82a:7f6d with SMTP id ffacd0b85a97d-4a7f82a8286mr3406352f8f.6.1795021044441;
+        Wed, 18 Nov 2026 08:57:24 -0800 (PST)
+Received: from Lord-Beerus.station ([93.146.104.162])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a650d2f682sm5603591f8f.6.2026.11.18.08.57.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 08:57:23 -0800 (PST)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC v2 05/11] remoteproc: virtio: report
- VIRTIO_F_ACCESS_PLATFORM when required
-Message-ID: <av3XR-APUl0ENo_n@bywater>
-References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it>
- <20261102-remoteproc_virtio_map-v2-5-26b300e01c62@valla.it>
- <avs6XQpoQmY_MNYx@p14s>
- <avzQI6R9LubGP7-d@bywater>
- <av3HVh5jlMsyaiq7@p14s>
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: [PATCH v1 1/1] arm64: dts: freescale: imx93-var: Add Cortex-M33 configurations
+Date: Wed, 18 Nov 2026 17:57:19 +0100
+Message-ID: <20261118165719.46297-1-stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,161 +107,227 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <av3HVh5jlMsyaiq7@p14s>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 6539a5dfb74856654e00ae33859689f8
-X-AntiAbuse: ID - 6539a5dfb74856654e00ae33859689f8
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xTiuO-00000000cKu-26Ro-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-4zq2.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 18, 2026 at 09:42:14AM -0600, Mathieu Poirier wrote:
-> On Tue, Nov 17, 2026 at 11:18:03PM +0100, Francesco Valla wrote:
-> > On Mon, Nov 16, 2026 at 11:16:13AM -0600, Mathieu Poirier wrote:
-> > > On Mon, Nov 02, 2026 at 12:26:42AM +0100, Francesco Valla wrote:
-> > > > Depending on the driver originating them, data buffers used for virtio
-> > > > communication can either:
-> > > > 
-> > > >   - already be allocated from the coherent memory area that is
-> > > >     accessible by the remote processor; this is the case of
-> > > >     remoteproc-specific virtio devices, i.e., rpmsg and rproc-serial;
-> > > >   - be allocated from generic kmem, and thus not necessarily accessible
-> > > >     directly by the remote processor.
-> > > > 
-> > > > In the second case, the DMA APIs can be exploited to obtain a
-> > > > functional communication, since they will take care of cache maintenance
-> > > > and - if required - bounce buffering. The VIRTIO_F_ACCESS_PLATFORM
-> > > > feature flag can be used for this purpose: with it set, the virtio
-> > > > framework will use the aforementioned DMA APIs to map and unmap buffers.
-> > > > 
-> > > > Bounce buffering will be transparently used in two cases:
-> > > > 
-> > > >   - if the buffer address supplied by the virtio driver is not suitable
-> > > >     for DMA transfers, or
-> > > >   - if the reserved memory associated to the vdev is a
-> > > >     restricted-dma-pool; in this case, *all* buffers will be bounced to
-> > > >     and from this pool.
-> > > > 
-> > > > With this support in place, any kind of virtio device can be supported
-> > > > through the remoteproc-virtio transport, at least from a data exchange
-> > > > standpoint.
-> > > > 
-> > > > Note that remote processors behind an IOMMU need da == pa for the memory
-> > > > region(s) the buffers are allocated from.
-> > > 
-> > > I'm not sure to understand the da == pa requirement - can you expand more on
-> > > that?
-> > > 
-> > 
-> > Yes! With a caveat: the IOMMU usage by the remoteproc framework and how
-> > it can integrate with this work is the main reason this is an RFC, as
-> > stated in the cover letter, because I'm not sure I understand all of it.
-> > See for example the dma-to-da conversion in [1] or the comment in [2].
-> >
-> 
-> The remoteproc subsystem was written a _very_ long time ago and the context of
-> some artefacts, such as [1] and [2], is long lost.
->  
-> > That said: all the IOMMU setup that is done today by the remoteproc core
-> > is linked to the *remoteproc* device, not to the rproc_vdev (i.e., the
-> > device backing the virtio device). For that reason, the DMA subsystem
-> > should not be able to know that setup even exists, in particular while
-> > performing swiotlb operations. Hence, the requirement to have a 1:1
-> > mapping between da (i.e., the address the device uses) and pa (the
-> > physical memory map).
-> 
-> I would like to reserve the current remoteproc IOMMU design for handling legacy
-> rproc-virtio devices, i.e rpmsg and serial, and only use the modern
-> virtio/swiotlb API to handle authentic rproc-virtio devices.
->
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-Agreed. I'll come up with a proposal there. In the mean time I found a
-multi-core system *with* an IOMMU that I can use for further testing in
-that area.
+Add Cortex-M33 overlays and combined DTBs for DART-MX93 on Sonata and
+VAR-SOM-MX93 on Symphony.
 
-> Based on what I see here [3], I think above sentence:
-> 
-> "Note that remote processors behind an IOMMU need da == pa for the memory..."
-> 
-> should be replaced with:
-> 
-> "Note that remote processors not behind an IOMMU need da == pa for the memory..."
-> 
-> [3]. https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/remoteproc/remoteproc_core.c#L703 
-> 
-> > 
-> > > > 
-> > > > Existing use cases (e.g., rpmsg and virtio-console) are not impacted as
-> > > > they are explicitly excluded.
-> > > > 
-> > > > Signed-off-by: Francesco Valla <francesco@valla.it>
-> > > > ---
-> > > >  drivers/remoteproc/remoteproc_virtio.c | 10 ++++++++--
-> > > >  1 file changed, 8 insertions(+), 2 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-> > > > index f1b362158a9c..1496659ddff9 100644
-> > > > --- a/drivers/remoteproc/remoteproc_virtio.c
-> > > > +++ b/drivers/remoteproc/remoteproc_virtio.c
-> > > > @@ -280,9 +280,14 @@ static u64 rproc_virtio_get_features(struct virtio_device *vdev)
-> > > >  	 * All non-remoteproc-specific virtio devices are assumed to be
-> > > >  	 * compliant with virtio specifications 1.x; there is no other method
-> > > >  	 * to transmit this capability from the remote processor to the host.
-> > > > +	 *
-> > > > +	 * Virtio devices that are specific for remoteproc usage take care on
-> > > > +	 * their own to allocate memory from the device's coherent pool; use
-> > > > +	 * the DMA APIs for the others through VIRTIO_F_ACCESS_PLATFORM.
-> > > >  	 */
-> > > >  	if (!rproc_virtio_rsc_vdev_rproc_specific(rsc))
-> > > > -		features |= (1ULL << VIRTIO_F_VERSION_1);
-> > > > +		features |= ((1ULL << VIRTIO_F_VERSION_1) |
-> > > > +			     (1ULL << VIRTIO_F_ACCESS_PLATFORM));
-> > > >  
-> > > >  	return features;
-> > > >  }
-> > > > @@ -312,7 +317,8 @@ static int rproc_virtio_finalize_features(struct virtio_device *vdev)
-> > > >  	features = vdev->features;
-> > > >  
-> > > >  	if (!rproc_virtio_rsc_vdev_rproc_specific(rsc))
-> > > > -		features &= ~(1ULL << VIRTIO_F_VERSION_1);
-> > > > +		features &= ~((1ULL << VIRTIO_F_VERSION_1) |
-> > > > +			      (1ULL << VIRTIO_F_ACCESS_PLATFORM));
-> > > >  
-> > > >  	if (WARN_ON((u32)vdev->features != features))
-> > > >  		return -EINVAL;
-> > > > 
-> > > > -- 
-> > > > 2.56.0
-> > > > 
-> > > 
-> > 
-> > Thank you!
-> > 
-> > Reagrds,
-> > Francesco
-> > 
-> > [1] https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/remoteproc/remoteproc_core.c#L716
-> > [2] https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/remoteproc/remoteproc_core.c#L461
-> > 
->
+Share the remoteproc and mailbox configuration through a common include.
+Reuse the reserved memory from each carrier DTS, preserving the different
+resource table addresses.
 
-Regards,
-Francesco
+Reserve the peripherals used by the M33 firmware and disable Wi-Fi,
+Bluetooth and the devices depending on GPIO4. On Sonata, also disable USB
+OTG1 because its USB-C role controller is unavailable.
+
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
+This patch uses the memory-region-names binding and driver support from
+the following commits, both already in linux-next:
+
+- ebb21cc5d1c0 ("dt-bindings: remoteproc: imx_rproc: Document
+  memory-region-names to avoid implicit ABI")
+- 8396089f91fa ("remoteproc: imx_rpoc: Use memory-region-names to avoid
+  implicit ABI")
+
+For dtbs_check on older trees, commit cebd1c0961d8 ("dt-bindings: gpio:
+vf610: fix clock requirements per SoC"), also in linux-next, fixes the
+pre-existing GPIO clock validation errors.
+
+ arch/arm64/boot/dts/freescale/Makefile        |  9 +++
+ .../dts/freescale/imx93-var-common-m33.dtsi   | 24 ++++++++
+ .../freescale/imx93-var-dart-sonata-m33.dtso  | 55 +++++++++++++++++++
+ .../dts/freescale/imx93-var-dart-sonata.dts   |  2 +-
+ .../freescale/imx93-var-som-symphony-m33.dtso | 50 +++++++++++++++++
+ 5 files changed, 139 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx93-var-common-m33.dtsi
+ create mode 100644 arch/arm64/boot/dts/freescale/imx93-var-dart-sonata-m33.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx93-var-som-symphony-m33.dtso
+
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index cfd548284358..05a7556e9de9 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -956,8 +956,17 @@ dtb-$(CONFIG_ARCH_MXC) += imx93-tqma9352-mba93xxca-lvds-tm070jvhg33.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-tqma9352-mba93xxla-lvds-tm070jvhg33.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-tqma9352-mba93xxla-mini-ezurio-wlan.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-tqma9352-mba93xxla-mini-lvds-tm070jvhg33.dtb
++
++imx93-var-dart-sonata-m33-dtbs := imx93-var-dart-sonata.dtb imx93-var-dart-sonata-m33.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx93-var-dart-sonata.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx93-var-dart-sonata-m33.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx93-var-dart-sonata-m33.dtbo
++
++imx93-var-som-symphony-m33-dtbs := imx93-var-som-symphony.dtb imx93-var-som-symphony-m33.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx93-var-som-symphony.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx93-var-som-symphony-m33.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx93-var-som-symphony-m33.dtbo
++
+ dtb-$(CONFIG_ARCH_MXC) += imx93w-evk.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93w-frdm.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx943-evk.dtb
+diff --git a/arch/arm64/boot/dts/freescale/imx93-var-common-m33.dtsi b/arch/arm64/boot/dts/freescale/imx93-var-common-m33.dtsi
+new file mode 100644
+index 000000000000..51b4cfe143d4
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx93-var-common-m33.dtsi
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Common Cortex-M33 configuration for Variscite i.MX93 modules
++ *
++ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
++ *
++ */
++
++/* Use the reserved memory and resource table address from the carrier DTS. */
++&cm33 {
++	mbox-names = "tx", "rx", "rxdb";
++	mboxes = <&mu1 0 1
++		  &mu1 1 1
++		  &mu1 3 1>;
++	memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
++			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
++	memory-region-names = "vdev0buffer", "vdev0vring0", "vdev0vring1",
++			      "vdev1vring0", "vdev1vring1", "rsc-table";
++	status = "okay";
++};
++
++&mu1 {
++	status = "okay";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata-m33.dtso b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata-m33.dtso
+new file mode 100644
+index 000000000000..d97da9916ef4
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata-m33.dtso
+@@ -0,0 +1,55 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Cortex-M33 support for Variscite DART-MX93 on Sonata-Board
++ *
++ * Link: https://variscite.com/carrier-boards/sonata-board/
++ *
++ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
++ *
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include "imx93-var-common-m33.dtsi"
++
++/* Reserve the peripherals used by the Cortex-M33 firmware. */
++&flexcan1 {
++	status = "disabled";
++};
++
++&gpio4 {
++	status = "disabled";
++};
++
++&lpspi5 {
++	status = "disabled";
++};
++
++/* Disable Bluetooth along with Wi-Fi and release the JTAG pins. */
++&lpuart5 {
++	status = "disabled";
++};
++
++&lpuart7 {
++	status = "disabled";
++};
++
++/* The USB-C role controller uses an interrupt on GPIO4. */
++&ptn5150 {
++	status = "disabled";
++};
++
++/* The USB-C role controller is unavailable. */
++&usbotg1 {
++	status = "disabled";
++};
++
++/* Wi-Fi reset is connected to GPIO4. */
++&usdhc3 {
++	status = "disabled";
++};
++
++&wifi_pwrseq {
++	status = "disabled";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
+index 1ca3ec8330d0..e3afd0efe5c7 100644
+--- a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
++++ b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
+@@ -291,7 +291,7 @@ ft5x06_ts: touchscreen@38 {
+ 	};
+ 
+ 	/* USB Type-C Controller */
+-	typec@3d {
++	ptn5150: typec@3d {
+ 		compatible = "nxp,ptn5150";
+ 		reg = <0x3d>;
+ 		interrupt-parent = <&gpio4>;
+diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony-m33.dtso b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony-m33.dtso
+new file mode 100644
+index 000000000000..96860a2dbf7c
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony-m33.dtso
+@@ -0,0 +1,50 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Cortex-M33 support for Variscite VAR-SOM-MX93 on Symphony-Board
++ *
++ * Link: https://variscite.com/carrier-boards/symphony-board/
++ *
++ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
++ *
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include "imx93-var-common-m33.dtsi"
++
++/* The resistive touchscreen uses GPIO4. */
++&ads7846 {
++	status = "disabled";
++};
++
++/* Reserve the peripherals used by the Cortex-M33 firmware. */
++&flexcan1 {
++	status = "disabled";
++};
++
++&gpio4 {
++	status = "disabled";
++};
++
++&lpspi6 {
++	status = "disabled";
++};
++
++/* Disable Bluetooth along with Wi-Fi and release the JTAG pins. */
++&lpuart5 {
++	status = "disabled";
++};
++
++&lpuart7 {
++	status = "disabled";
++};
++
++/* Wi-Fi reset is connected to GPIO4. */
++&usdhc3 {
++	status = "disabled";
++};
++
++&usdhc3_pwrseq {
++	status = "disabled";
++};
+-- 
+2.47.3
 
