@@ -1,86 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795036259;
-	b=OCzDhqC+F/TSp8n0/c87VrK3DhE0nRnbQKc0buD2VtzSPUx/bSqLTFQy3GJSBgXyiUxK
-	 r1bBiFrGXTxkRQFnexjmnKMkAJSYZ9hvWv8JTSfH4P4eV5AO5mCmM2aGxNgVxrxz49fL2
-	 AJAc5NuXkRPX2UUQP7bIBciDPjHROSzH9WRjm85wGPkLSMJ96lqn3VFztbcv02vsWam7I
-	 XfV6M07TXCvZCUJws6/ZH2U2HveU/EyAesOn5RnoBHoeb7898uWv1GVrl5CS8viIJFfgV
-	 fprElAp6AqqsjjRJv2ogT9jiyKAl7oUV/MfiMD1n+k+ghOKlCKVU2Tv/sGuSKCVdSXg==
+	t=1795036335;
+	b=KNZJpFrM5wTAMdeGgnaX/mvUGcOinTlh8AteBlFk+C7ZjNKIco6ROAQtU7FYGJqH+Tsj
+	 XhVcULGe3ukIh1eCLLzO8uAJQnMySslHPo5d2QjHl+NbKtt1Ik59UmgJwTm6KGejweREC
+	 ZdJLkeq7t0oToGbGJMNzEEgwBtmMLs7POSVbOabw1RIZbB4aFFiu/plV9ydlyrMAqDaFt
+	 J1f8qibtua+7L8hRGgnDwjQYaI59xce1ePfSwgMH8oRtX3i6l7bhU9bDFieLd2TDremDR
+	 IZxruNDswhVNQKwzsF3GnavNC2cOoSAV7sgwPXE6Vkk24ovRInZ2Wj06vOvxNAnbcNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795036259;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:User-Agent;
-	bh=tIKDVSjVcHAwPM4Udn/N9uTGDPYtfcGsqelMKv/u8Vw=;
-	b=QQeQZQ8NaOXFkuSlOCoJwKufXa44Sqitd0H2uMZpsqz0iGP5P1GHFMkp0JU+C07QXYhG
-	 VUwnFzjqSa9JpxkBOf01Gqg/hRUy8CV5HKQAPpz4vIOy1zYsrgf+L1oXG9Ghpm/p1Tpnn
-	 7h8eQmJGaKTnoZtDrcBKl4HAMjEb4x9NaMxhe7wzR0QDMr8qP7fhSAzdiVP6dqns3QEVn
-	 DR5xBXPgYC1nwpk0bmQUE5WMJtY6A5mmI5X7fC9c7ADl/F+IB6t9hqSI94LKCtc9osVfs
-	 lqo+3OzDKJGXfLjUPvO654rQ+4fH4Rw+tzonSOYsfGA5M9MFqeF4NQE2p9avUjE5O5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795036335;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=HDCAkeZEKgNECITteEp+O5Hl5QzBetAGqDu6m3T4vtc=;
+	b=Pf08yCmTwnFPkiKtvusrnOh2wPVx5M20DJTKuAnN3lQlPRi/d9Y6gAy+WSSXfTadVZp6
+	 5hIwvvTTRfaTSTWvvvioUcyrp2TGJNrua7YwYMYDrAojbkHkAiKKPByFX2WHU0z7Gm95q
+	 YHmd9jsb2xazIWA8+KpGaoBtZvf4+NeUspmmzZaYmTNcVO3+Feb7SdbwGd1X1G0Y9F7cH
+	 xKf42v65LXs8gLS3wE0jHfXzYanhjKDzvprjgZth4Ni7MpU/TV+whR+3CszOGcegMuxQO
+	 wD04XHlE0/5lHS74ZALw3BcE/52Xv95srDgdc3Dux95sKWL1SbXUSKwSn0wOcXtEA4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aurel32.net;
-	spf=pass smtp.mailfrom=aurel32.net;
-	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=YMwfenKF;
-	arc=none smtp.remote-ip=195.154.119.183
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UV+J/67M";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C1A606A32C;
-	Wed, 18 Nov 2026 21:10:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8C1A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770AE606A330;
+	Wed, 18 Nov 2026 21:12:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=YMwfenKF
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=tIKDVSjVcHAwPM4Udn/N9uTGDPYtfcGsqelMKv/u8Vw=; b=YMwfenKFu77Rd4cA50Ct4iw/xK
-	+YUal108UpuW7zj8Ytkx7sxnfwT9P/GPoDsTDnNRgGysory7cLx829c4tlj8lUvBJ8a114rtvkZ+l
-	aEgauDnKaKDcWfZt8WRyRuJyvGccC2GgEH35dI9hiWNqk2VxjIOOiDQ6lGOBHiRDAC7DqFfVPgrK3
-	cjJ/qSKM8G0FqFda/sKjhmBNbBG5yAP2KaFU1EEFglmpdlDn4DK9XZHILHYUvHcptdyYfyhGewxTL
-	sysJ4pUIxw9tOdKTuxo5WGfzysSwbAEJTsWYOr7lm1EcRX6weP1/daTWtZhfnxbMxQsKYFN0Uirr7
-	Z9CQDg5w==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1xTmvU-00000000TjL-0wR2;
-	Wed, 18 Nov 2026 22:10:44 +0100
-Date: Wed, 18 Nov 2026 22:10:43 +0100
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: Wang Yang <yang.wang@deepcomputing.io>
-Cc: Yixun Lan <dlan@kernel.org>, Benson Leung <bleung@chromium.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	Guenter Roeck <groeck@chromium.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UV+J/67M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C7651F000C4;
+	Wed, 18 Nov 2026 21:12:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795036335;
+	bh=HDCAkeZEKgNECITteEp+O5Hl5QzBetAGqDu6m3T4vtc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UV+J/67MbY357XaDQY1wb463wX0IRk8wkHXFkoWEZenbFaJyhzFuIQfXCNSwvwfJU
+	 qy6eTYeIkjCOEiGamXPX38F9pDt1amP3aLvKuwNzXFBA5vb4wdeguOZ46imbpQM3HH
+	 VbmZy/7x+nH69YQY2OOsAnYP+h77GPwhZ10eb8lYWdibiRsgakr8hNR513hYa6OsHA
+	 gpASOlSPUVEOm4CFtta8+PxVQjSIgJg3YiJ5RcBr/ZHi2Xty17GWUHctn85sd1BqVt
+	 XJsm/JrHHT7qBnq9NK7Lz9rP/vkw47eMBX/Cx9FWYGHGKivBZvrjK+3uTjCI4IYbJ+
+	 LGk/gzldD+MoA==
+Date: Wed, 18 Nov 2026 15:12:13 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Arun Iyengar <aiyengar1990@gmail.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Sandie Cao <sandie.cao@deepcomputing.io>,
-	devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/9] bus: Add SpacemiT K3 eSPI controller support
-Message-ID: <av4UUyCtDBJNU0h5@aurel32.net>
-Mail-Followup-To: Wang Yang <yang.wang@deepcomputing.io>,
-	Yixun Lan <dlan@kernel.org>, Benson Leung <bleung@chromium.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	Guenter Roeck <groeck@chromium.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Sandie Cao <sandie.cao@deepcomputing.io>,
-	devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-References: <20261118085742.1817536-1-yang.wang@deepcomputing.io>
- <20261118085742.1817536-4-yang.wang@deepcomputing.io>
+	Sergei Khomenkov <shomenkow@gmail.com>, linux-media@vger.kernel.org,
+	Heiko Stuebner <heiko@sntech.de>,
+	Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+	Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Tharit Tangkijwanichakul <tharitt97@gmail.com>,
+	iommu@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Robin Murphy <robin.murphy@arm.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Will Deacon <will@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Subject: Re: [PATCH v3 09/12] dt-bindings: iommu: verisilicon: Add the reset
+ lines
+Message-ID: <179503633303.1026294.13265931291841937198.robh@kernel.org>
+References: <20261113-hantro-robust-v3-0-82383c722ad2@gmail.com>
+ <20261113-hantro-robust-v3-9-82383c722ad2@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,37 +79,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261118085742.1817536-4-yang.wang@deepcomputing.io>
-User-Agent: Mutt/2.4.1 (2026-07-04)
+In-Reply-To: <20261113-hantro-robust-v3-9-82383c722ad2@gmail.com>
 
-Hi,
 
-On 2026-11-18 16:57, Wang Yang wrote:
-> Initialize and recover the K3 eSPI peripheral channel before populating
-> its children. Keep controller register programming, clock and reset
-> handling in the controller driver rather than in the EC transport.
+On Fri, 13 Nov 2026 16:40:40 +0000, Arun Iyengar wrote:
+> The RK3588 AV1 IOMMU is part of the AV1 block and has no reset lines
+> of its own: the four AV1 resets also cover it. Its registers can't be
+> accessed while they are asserted. Describe them.
 > 
-> Port the existing vendor-derived implementation separately from the EC
-> client. The controller logic comes from the vendor BSP at revision
-> 29b78afb484b, authored by goumin <min.gou@spacemit.com>. Preserve its
-> register programming and link-recovery behavior.
+> Suggested-by: Philipp Zabel <p.zabel@pengutronix.de>
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/iommu/verisilicon,iommu.yaml | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 > 
-> No matching SpacemiT eSPI submission was found in the archived SPI,
-> RISC-V and Chrome platform searches used for this port.
 
-While this is correct, please note that there was a try from AMD to 
-define a eSPI bus framework back in August [1]. However I haven't 
-spotted any further progress.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Anyway thanks for your work, I guess this can also be useful for the EC 
-controller on the K3 Pico-ITX boards, which drives among other things 
-the fan PWM.
-
-Regards
-Aurelien
-
-[1] https://lore.kernel.org/all/20260804115259.4065638-1-krishnamoorthi.m@amd.com/
-
--- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
