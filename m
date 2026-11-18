@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795017327;
-	b=GBNUQIPcyZA0AmLdDFdalzI4ud2N3x+PdiE89VwW+W392TKGGQaPgrLrc8ECN9JMw6xf
-	 dnvYDjpPWMl6ATVCmAVGeInf1zvE1pg9uexz33sMkt0Gojw2I0lAea+zeG4RhMsXs0axb
-	 h7tUya9PoJhGm0pJxy6J9CkEd9n3+1h+6rZ3OMrJ5u/sHQHpv/Dz6Fh5K5Udv9bzsyy8S
-	 AD9LRTMNq+Ev6qrPRTdX0O8SYZxSc8Y6FMg8rlW5yZEakIxRtlRc0d1V2fLjY46OLex3j
-	 Y5R0Iu4S7SZJj6ZN0c27eBruvShxhWJy+7qqN1umyYoLgzeswT/GDg2AclwBAAQ56FQ==
+	t=1795017368;
+	b=TwXic+Pr8UuReWtNeNYWYaPdywhrN4UdXxjwMiIH8RHz/NNGk2yCnIY0pUMGsXoSzj7b
+	 vqdaEv7kc3vV5cLdmiss00uzelCbXuMrbagwZ+FUgdKd+xIG5krVt1hE1DcnA2qWkAt9n
+	 lGa80nOvPV3/64uwMHZ9Z4gUhiv6nOzuJQayiLfH9pGjdP2910l52+DNMVJ22B723IEwz
+	 Xn2sUXSp5qnc4xOb0tokJn735ygTJyxexny3wbeRyfSsvLYnmaKvGe9PnZqVH2axkMFMr
+	 HXRlweDcyEEw4N7EiEVip0TRRYl80TRzffyqlQd/AX/jwznQP2b62lkUVQVtMs4Omxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795017327;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795017368;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JbPTscy6XZXo8W16Ivu0imnpcVsF77/edhRp63Vu/UM=;
-	b=F1+lhjIxt7DF3w1bLCEp9o/VIZim2I97Sr6TtmUlzs34dfwcyKmi/OBcUMlZdVl3bD2S
-	 9YSnfZNgSW1u3cbu9LatplLuQt5USd0apPvjUJfczotmJmSY+thm/0Ybf3wKiMvzHfHox
-	 W89VghxAGznva1VdPATPNsoOtNUBKdw7edRWNcGIhKrRDAfnOX9oaKm4n30tRfeYSUXON
-	 HsIXhxX3q9zfBEevry/w7fDx694oKm23b/p+kHc0s8lAbdtcsClI0TMGIs3paS2Sjila3
-	 /poV+EFCkuTfyTmXmpIfxQB+YL/9CHHbhUwZrUYs6SVe0EGKEpHPvN/qBIqidxM7Q/w==
+	bh=fJyS5eA4WoNYZTtkx3UVYJzyNFD1DkUvgnHaNnM4fKI=;
+	b=AKMfL36ixapk7gI0HMlnwmjRvmIf4Mc5BzEOglIlnXQjbg5ZPtHYHqyG+eFxMDeszjOJ
+	 q7TA8VgQG8CaVo+sCoKUaQC1Wb7lzYCWhBi75/2WjDimB7svU77q59OSQvDeD4IIxUst/
+	 ezeCBxYmO0TdPWD1MpND2aBsaWH7qWGk2NsNrKAzhjeppMvqIh74XBP7VO/KelfAlVD0y
+	 atsDd1CbOKvzpQUePsFV9u8o9yeO/cEQwjmxlZydVx0CLZ/P6E1O0TJASIh/7QXI6Zpl7
+	 tzP6Ha5ZAtf66Lfe1Zsv7KPo9Vs0ImHSccPZ1fd0YTFcrEkAWeBmfT9DDpAiaEHGc1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GXJTGz19;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jdFp1rbC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B520606A336;
-	Wed, 18 Nov 2026 15:55:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17307606A320
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 15:56:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GXJTGz19
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 868401F000C4;
-	Wed, 18 Nov 2026 15:55:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jdFp1rbC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692201F000C4;
+	Wed, 18 Nov 2026 15:56:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795017326;
-	bh=JbPTscy6XZXo8W16Ivu0imnpcVsF77/edhRp63Vu/UM=;
+	s=k20260515; t=1795017367;
+	bh=fJyS5eA4WoNYZTtkx3UVYJzyNFD1DkUvgnHaNnM4fKI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GXJTGz19LAjAtSyx2MzkxN0S/bgfvKKC1uKTGd4tN2gEOxqG5nTq9OiLJcWFVft/G
-	 CXWJ7oCOP24vSSfu9xNmOOIvL1r1L1OTBNFc4E5GtyVRPSq/biwqkYKwcae739iQIt
-	 VLy7JxHJrOFyYX6a43s4oijM1paBBrm6Rkr/cNOAq2j1c4PdaMHXkJ6OWvodx36VMy
-	 D0KqcM7w2ktySpaaDaw9cvYuOMCzdTahpdI81TRVlZ8Xe5ZhlB7e7c6mL0aollVSDf
-	 QW4VWYGPKDf+/MdXaGdpJcm+6rzPoVjBJ9ZyPLpJ3i2S0YhBaBMwG39ZJY3QnLzFq6
-	 vxLAWMOlUdO7A==
-Message-ID: <sashiko-outbox-221387@kernel.org>
+	b=jdFp1rbCPaoQeQ+kF+VNwp4GS8VGCMlM7bTPudCMoIurx5IyYI+6pALWdEKcK0dML
+	 Ulbkslx9AhrcoMpAOE9kK7brVJuxEGsw+DtT8kk+OMP8zfN98AN8AjFlc4+DWk5gsh
+	 EJkqg/jL8aXmiVWDymLmpxkbwk944Mn6M6/T4AvRI+gYpdsUePyKYFadtQt3eqyhZP
+	 mPpJsLPmvLAu2Z3xUTlvWzwWkRoVKKq1Ty8R9mP64b3UGSk3mK7qTitE485KhxWBFo
+	 Ha7SzZax84Uk/KbrqnzG/jfcAyyQ9fKveETLu7j3Pat1LtIr36fqkB1raof46dEeMn
+	 b4ZGYjL+wlBcA==
+Message-ID: <sashiko-outbox-221390@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/11] iio: adc: stm32-mdf: add dma buffered
- acquisition support
+Subject: Re: [PATCH v3 2/4] remoteproc: qcom: pas: Support secondary images
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Olivier Moysan" <olivier.moysan@foss.st.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261118-upstream_mdf_v2-v2-8-7939d3c3720a@foss.st.com>
-References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
- <20261118-upstream_mdf_v2-v2-8-7939d3c3720a@foss.st.com>
+To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261118-oob-support-glymur-v3-2-2cbdfe208d56@oss.qualcomm.com>
+References: <20261118-oob-support-glymur-v3-0-2cbdfe208d56@oss.qualcomm.com>
+ <20261118-oob-support-glymur-v3-2-2cbdfe208d56@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 15:55:26 +0000
+Date: Wed, 18 Nov 2026 15:56:07 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,317 +60,273 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 9 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issues to consider:
-- [High] iio: adc: stm32-mdf: no-op W1C clear in stm32_mdf_irq() causes
-  IRQ storm
-- [High] iio: adc: stm32-mdf: broken interleaved suspend and resume
-  ordering
-- [High] iio: adc: stm32-mdf: NULL thread_fn in
-  devm_iio_triggered_buffer_setup()
-- [Medium] iio: adc: stm32-mdf: wrong W1C clear in
-  stm32_mdf_adc_postenable()
-- [Medium] iio: adc: stm32-mdf: uncleaned IRQs on error in
-  stm32_mdf_adc_postenable()
-- [Medium] iio: adc: stm32-mdf: unbalanced kclk prepare in
-  stm32_mdf_adc_suspend()
-- [Medium] iio: adc: stm32-mdf: zero-size cb on wrap in
-  stm32_mdf_adc_dma_buffer_done()
-- [Medium] iio: adc: stm32-mdf: missing available_scan_masks for
-  interleaved mode
-- [Low] iio: adc: stm32-mdf: unused PM callbacks when CONFIG_PM_SLEEP is
-  disabled
+- [Medium] remoteproc: qcom: pas: masked secondary shutdown errors in
+  qcom_pas_stop()
+- [Medium] remoteproc: qcom: pas: unauthenticated PAS shutdown in
+  qcom_pas_start()
+- [Medium] remoteproc: qcom: pas: firmware leak on boot failure after
+  qcom_pas_load()
 --
 
-commit abc251af1764611faf8f05bc9f73b60d34b2ef36
-Author: Olivier Moysan <olivier.moysan@foss.st.com>
+commit f4e5bc32dd6dbd8e248f2fc47b7078b505ef5dfc
+Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
 
-iio: adc: stm32-mdf: add dma buffered acquisition support
+remoteproc: qcom: pas: Support secondary images
 
-This commit adds cyclic DMA buffered acquisition, watermark configuration,
-and system suspend/resume support to the STM32 MDF ADC driver.
+This commit adds PAS remoteproc support for loading, authenticating,
+mapping, shutting down, and releasing a secondary image and its DTB.
 
-> diff --git a/drivers/iio/adc/stm32-mdf-adc.c b/drivers/iio/adc/stm32-mdf-=
-adc.c
-> index 7361ce6182bec..046ca3943a397 100644
-> --- a/drivers/iio/adc/stm32-mdf-adc.c
-> +++ b/drivers/iio/adc/stm32-mdf-adc.c
-> @@ -823,6 +823,243 @@ static void stm32_mdf_adc_stop_conv(struct iio_dev =
-*indio_dev)
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
+_q6v5_pas.c
+> index e7dfad27e5263..1c8c0c22c34d1 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+
 [ ... ]
-> +static void stm32_mdf_adc_dma_buffer_done(void *data)
-> +{
-> +	struct iio_dev *indio_dev =3D data;
-> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
-> +	int available =3D stm32_mdf_adc_dma_residue(adc);
-> +	size_t old_pos;
-> +
-> +	dev_dbg(&indio_dev->dev, "pos =3D %d, available =3D %d\n", adc->bufi, a=
-vailable);
-> +	old_pos =3D adc->bufi;
-> +
-> +	while (available >=3D indio_dev->scan_bytes) {
-> +		s32 *buffer =3D (s32 *)&adc->rx_buf[adc->bufi];
-> +
-> +		adc->bufi +=3D indio_dev->scan_bytes;
-> +		if (adc->bufi >=3D adc->buf_sz) {
-> +			if (adc->cb)
-> +				adc->cb(&adc->rx_buf[old_pos], adc->buf_sz - old_pos, adc->cb_priv);
-> +			adc->bufi =3D 0;
-> +			old_pos =3D 0;
+
+> @@ -252,6 +288,10 @@ static int qcom_pas_unprepare(struct rproc *rproc)
+>  	qcom_pas_metadata_release(pas->pas_ctx);
+>  	if (pas->dtb_pas_id)
+>  		qcom_pas_metadata_release(pas->dtb_pas_ctx);
+> +	if (pas->secondary_pas_id)
+> +		qcom_pas_metadata_release(pas->secondary_pas_ctx);
+> +	if (pas->secondary_dtb_pas_id)
+> +		qcom_pas_metadata_release(pas->secondary_dtb_pas_ctx);
+> =20
+>  	return 0;
+>  }
+> @@ -269,19 +309,29 @@ static int qcom_pas_load(struct rproc *rproc, const=
+ struct firmware *fw)
+>  	if (pas->lite_dtb_pas_id)
+>  		qcom_pas_shutdown(pas->lite_dtb_pas_id);
+> =20
+> -	if (pas->dtb_pas_id) {
+> -		ret =3D request_firmware(&pas->dtb_firmware, pas->dtb_firmware_name, p=
+as->dev);
+> +	if (pas->secondary_dtb_pas_id) {
+> +		ret =3D request_firmware(&pas->secondary_dtb_firmware,
+> +				       pas->secondary_dtb_firmware_name, pas->dev);
+>  		if (ret) {
+> -			dev_err(pas->dev, "request_firmware failed for %s: %d\n",
+> -				pas->dtb_firmware_name, ret);
+> +			qcom_pas_release_firmware(pas);
+>  			return ret;
+>  		}
+> +	}
+> =20
+> -		ret =3D qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firmware,
+> -					pas->dtb_firmware_name, &pas->dtb_mem_reloc);
+> +	if (pas->secondary_pas_id) {
+> +		ret =3D request_firmware(&pas->secondary_firmware,
+> +				       pas->secondary_firmware_name, pas->dev);
+> +		if (ret) {
+> +			qcom_pas_release_firmware(pas);
+> +			return ret;
 > +		}
-> +		if (adc->dev_data->type =3D=3D STM32_MDF_IIO)
-> +			iio_push_to_buffers(indio_dev, buffer);
-> +		available -=3D indio_dev->scan_bytes;
-> +	}
-
-[Severity: Medium]
-In multi-channel interleaved mode on Filter 0, hardware and DMA always
-transfer all num_ch 32-bit samples per scan into adc->rx_buf, but
-stm32_mdf_adc_init() never sets indio_dev->available_scan_masks.  If a
-user enables only a subset of channels in scan_elements, does stepping
-adc->bufi by the smaller indio_dev->scan_bytes without an IIO demux table
-push samples from disabled interleaved filters as if they belonged to the
-enabled channel?
-
-> +	if (adc->cb)
-> +		adc->cb(&adc->rx_buf[old_pos], adc->bufi - old_pos, adc->cb_priv);
-> +}
-
-[Severity: Medium]
-When adc->bufi wraps around to 0 at adc->buf_sz inside the loop, both
-adc->bufi and old_pos are reset to 0 after invoking adc->cb().  Does this
-trailing check then call adc->cb() a second time with a size of 0 on every
-buffer wrap-around (and whenever available < indio_dev->scan_bytes)?
-
-[ ... ]
-
-> +static int stm32_mdf_adc_postenable(struct iio_dev *indio_dev)
-> +{
-[ ... ]
-> +	stm32_mdf_adc_filter_set_mode(adc, true);
-> +
-> +	regmap_clear_bits(adc->regmap, MDF_DFLTISR_REG,
-> +			  MDF_DFLTISR_DOVRF_MASK | MDF_DFLTISR_SATF_MASK);
-
-[Severity: Medium]
-Status flags in MDF_DFLTISR_REG are write-1-to-clear (rc_w1).  Because
-MDF_DFLTISR_REG is volatile, regmap_clear_bits() reads the register and
-writes back the value with MDF_DFLTISR_DOVRF_MASK | MDF_DFLTISR_SATF_MASK
-masked to 0.  Does this leave pending DOVRF and SATF flags asserted right
-before enabling their interrupts, while inadvertently writing 1 to clear
-any other asserted status flags in MDF_DFLTISR_REG?  Clearing DOVRF and
-SATF requires regmap_write().
-
-> +
-> +	regmap_set_bits(adc->regmap, MDF_DFLTIER_REG,
-> +			MDF_DFLTIER_DOVRIE_MASK | MDF_DFLTIER_SATIE_MASK);
-
-[Severity: High]
-Enabling MDF_DFLTIER_DOVRIE_MASK and MDF_DFLTIER_SATIE_MASK here makes the
-overflow and saturation handlers in stm32_mdf_irq() reachable:
-
-drivers/iio/adc/stm32-mdf-adc.c:stm32_mdf_irq() {
-    ...
-	if (flags & MDF_DFLTISR_DOVRF_MASK) {
-		dev_warn(&indio_dev->dev, "Data overflow detected\n");
-		regmap_set_bits(regmap, MDF_DFLTISR_REG, MDF_DFLTISR_DOVRF_MASK);
-	}
-    ...
-	if (flags & MDF_DFLTISR_SATF_MASK) {
-		dev_warn(&indio_dev->dev, "Saturation detected\n");
-		regmap_set_bits(regmap, MDF_DFLTISR_REG, MDF_DFLTISR_SATF_MASK);
-    ...
-}
-
-Because MDF_DFLTISR_REG is volatile and regmap_set_bits() passes
-force =3D false, _regmap_update_bits() reads MDF_DFLTISR_REG, sees the
-status bit is already 1, and skips the bus write.  If a data overflow
-occurs during DMA acquisition, will MDF_DFLTISR_DOVRF_MASK remain set
-while MDF_DFLTIER_DOVRIE_MASK stays enabled, causing an infinite hardirq
-storm?
-
-> +
-> +	ret =3D stm32_mdf_adc_dma_start(indio_dev);
-> +	if (ret) {
-> +		dev_err(&indio_dev->dev, "Can't start DMA\n");
-> +		goto err_dma;
 > +	}
 > +
-> +	ret =3D stm32_mdf_adc_start_conv(indio_dev);
-> +	if (ret) {
-> +		dev_err(&indio_dev->dev, "Can't start conversion\n");
-> +		goto err_conv;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_conv:
-> +	stm32_mdf_adc_dma_stop(indio_dev);
-> +err_dma:
-> +	stm32_mdf_adc_stop_mdf(indio_dev);
+> +	if (pas->dtb_pas_id) {
+> +		ret =3D request_firmware(&pas->dtb_firmware, pas->dtb_firmware_name,
+> +				       pas->dev);
+>  		if (ret) {
+> -			qcom_pas_metadata_release(pas->dtb_pas_ctx);
+> -			release_firmware(pas->dtb_firmware);
+> +			qcom_pas_release_firmware(pas);
+>  			return ret;
+>  		}
+>  	}
 
 [Severity: Medium]
-If stm32_mdf_adc_dma_start() or stm32_mdf_adc_start_conv() fails (for
-example, when adc->buf_sz is 0), does the err_dma unwind path leave
-MDF_DFLTIER_DOVRIE_MASK | MDF_DFLTIER_SATIE_MASK enabled in
-MDF_DFLTIER_REG?
+Can this leak pas->secondary_dtb_firmware, pas->secondary_firmware, and
+pas->dtb_firmware if boot fails after qcom_pas_load() succeeds?
 
-[ ... ]
+qcom_pas_release_firmware() is only called in qcom_pas_start() on success
+or under the disable_irqs error label.  If rproc_prepare_subdevices()
+fails in rproc_start() before rproc->ops->start() is reached, or if
+qcom_q6v5_prepare() fails at the top of qcom_pas_start() and returns early,
+none of those firmware objects are released and pas->firmware is not
+cleared.  A later boot or recovery attempt will then overwrite those
+pointers in qcom_pas_load().
 
-> @@ -1208,6 +1467,24 @@ static int stm32_mdf_adc_init(struct device *dev, =
-struct iio_dev *indio_dev)
+Calling qcom_pas_release_firmware(pas) and clearing pas->firmware in
+qcom_pas_unprepare() (or jumping to the cleanup path when
+qcom_q6v5_prepare() fails) would avoid the leak.
+
+> @@ -338,10 +388,51 @@ static int qcom_pas_start(struct rproc *rproc)
+>  			goto disable_cx_supply;
+>  	}
 > =20
->  	init_completion(&adc->completion);
-> =20
-> +	/* Optionally request DMA */
-> +	ret =3D stm32_mdf_dma_request(dev, indio_dev);
-> +	if (ret) {
-> +		if (ret !=3D -ENODEV)
-> +			return dev_err_probe(dev, ret, "DMA channel request failed with\n");
+> +	if (pas->secondary_dtb_pas_id) {
+> +		ret =3D qcom_mdt_pas_load(pas->secondary_dtb_pas_ctx,
+> +					pas->secondary_dtb_firmware,
+> +					pas->secondary_dtb_firmware_name,
+> +					&pas->secondary_dtb_mem_reloc);
+> +		if (ret)
+> +			goto release_secondary_dtb_metadata;
 > +
-> +		dev_dbg(dev, "No DMA support\n");
-> +		return 0;
+> +		ret =3D qcom_pas_map_carveout(rproc, pas->secondary_dtb_mem_phys,
+> +					    pas->secondary_dtb_mem_size);
+> +		if (ret)
+> +			goto release_secondary_dtb_metadata;
+> +
+> +		ret =3D qcom_pas_prepare_and_auth_reset(pas->secondary_dtb_pas_ctx);
+> +		if (ret)
+> +			goto unmap_secondary_dtb_carveout;
 > +	}
 > +
-> +	ret =3D devm_iio_triggered_buffer_setup(dev, indio_dev,
-> +					      &iio_pollfunc_store_time, NULL,
-> +					      &stm32_mdf_buffer_setup_ops);
-
-[Severity: High]
-Can attaching an IIO trigger and enabling the buffer crash or wedge the
-kernel here?
-
-devm_iio_triggered_buffer_setup() sets INDIO_BUFFER_TRIGGERED and
-allocates indio_dev->pollfunc with h =3D iio_pollfunc_store_time,
-thread =3D NULL, and type =3D IRQF_ONESHOT.  When a trigger is attached and
-the buffer is enabled, iio_verify_update() selects INDIO_BUFFER_TRIGGERED
-over INDIO_BUFFER_SOFTWARE and iio_trigger_attach_poll_func() calls
-request_threaded_irq() with IRQF_ONESHOT and thread_fn =3D NULL, hitting
-WARN_ON_ONCE(new->flags & IRQF_ONESHOT && !new->thread_fn) in
-__setup_irq().  When the trigger fires, a nested trigger such as
-iio-trig-loop dereferences NULL action->thread_fn in handle_nested_irq(),
-while a non-nested trigger such as iio-trig-sysfs or iio-trig-hrtimer
-returns IRQ_WAKE_THREAD with no thread_fn, hitting warn_no_thread() and
-never calling iio_trigger_notify_done().
-
-The follow-up commit "iio: adc: stm32-mdf: add external timer trigger
-support" adds INDIO_HARDWARE_TRIGGERED and .validate_trigger, but keeps
-devm_iio_triggered_buffer_setup() with a NULL thread_fn, so
-INDIO_BUFFER_TRIGGERED is still selected whenever indio_dev->trig is set.
-Since samples are pushed from the DMA callback and external triggers are
-routed in hardware, should this use devm_iio_kfifo_buffer_setup() (and
-select IIO_KFIFO_BUF in Kconfig) instead of
-devm_iio_triggered_buffer_setup()?
-
-[ ... ]
-
-> @@ -1479,14 +1758,48 @@ static void stm32_mdf_adc_remove(struct platform_=
-device *pdev)
-[ ... ]
-> +static int stm32_mdf_adc_suspend(struct device *dev)
-> +{
-> +	struct iio_dev *indio_dev =3D dev_get_drvdata(dev);
-> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
-> +	int ret =3D 0;
+> +	if (pas->secondary_pas_id) {
+> +		ret =3D qcom_mdt_pas_load(pas->secondary_pas_ctx,
+> +					pas->secondary_firmware,
+> +					pas->secondary_firmware_name,
+> +					&pas->secondary_mem_reloc);
+> +		if (ret)
+> +			goto release_secondary_metadata;
 > +
-> +	if (iio_buffer_enabled(indio_dev))
-> +		ret =3D stm32_mdf_adc_predisable(indio_dev);
+> +		ret =3D qcom_pas_map_carveout(rproc, pas->secondary_mem_phys,
+> +					    pas->secondary_mem_size);
+> +		if (ret)
+> +			goto release_secondary_metadata;
 > +
-> +	regcache_cache_only(adc->regmap, true);
-> +	regcache_mark_dirty(adc->regmap);\n+
-> +	return ret;
-> +}
+> +		ret =3D qcom_pas_prepare_and_auth_reset(pas->secondary_pas_ctx);
+> +		if (ret)
+> +			goto unmap_secondary_carveout;
+> +	}
+> +
+>  	if (pas->dtb_pas_id) {
+> +		ret =3D qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firmware,
+> +					pas->dtb_firmware_name, &pas->dtb_mem_reloc);
+> +		if (ret)
+> +			goto release_dtb_metadata;
+> +
+>  		ret =3D qcom_pas_map_carveout(rproc, pas->dtb_mem_phys, pas->dtb_mem_s=
+ize);
+>  		if (ret)
+> -			goto disable_px_supply;
+> +			goto release_dtb_metadata;
+> =20
+>  		ret =3D qcom_pas_prepare_and_auth_reset(pas->dtb_pas_ctx);
+>  		if (ret) {
+> @@ -372,13 +463,17 @@ static int qcom_pas_start(struct rproc *rproc)
+>  	ret =3D qcom_q6v5_wait_for_start(&pas->q6v5, msecs_to_jiffies(5000));
+>  	if (ret =3D=3D -ETIMEDOUT) {
+>  		dev_err(pas->dev, "start timed out\n");
+> -		qcom_pas_shutdown(pas->pas_id);
+>  		goto unmap_carveout;
+>  	}
+> =20
+>  	qcom_pas_metadata_release(pas->pas_ctx);
+>  	if (pas->dtb_pas_id)
+>  		qcom_pas_metadata_release(pas->dtb_pas_ctx);
+> +	if (pas->secondary_pas_id)
+> +		qcom_pas_metadata_release(pas->secondary_pas_ctx);
+> +	if (pas->secondary_dtb_pas_id)
+> +		qcom_pas_metadata_release(pas->secondary_dtb_pas_ctx);
+> +	qcom_pas_release_firmware(pas);
+> =20
+>  	/* firmware is used to pass reference from qcom_pas_start(), drop it no=
+w */
+>  	pas->firmware =3D NULL;
+> @@ -386,16 +481,37 @@ static int qcom_pas_start(struct rproc *rproc)
+>  	return 0;
+> =20
+>  unmap_carveout:
+> +	qcom_pas_shutdown(pas->pas_id);
+>  	qcom_pas_unmap_carveout(rproc, pas->mem_phys, pas->mem_size);
+>  release_pas_metadata:
+>  	qcom_pas_metadata_release(pas->pas_ctx);
+> -	if (pas->dtb_pas_id)
+> -		qcom_pas_metadata_release(pas->dtb_pas_ctx);
+> -
+>  unmap_dtb_carveout:
+> +	if (pas->dtb_pas_id) {
+> +		qcom_pas_shutdown(pas->dtb_pas_id);
+> +		qcom_pas_unmap_carveout(rproc, pas->dtb_mem_phys,
+> +					pas->dtb_mem_size);
+> +	}
+> +release_dtb_metadata:
+>  	if (pas->dtb_pas_id)
+> -		qcom_pas_unmap_carveout(rproc, pas->dtb_mem_phys, pas->dtb_mem_size);
+> -disable_px_supply:
+> +		qcom_pas_metadata_release(pas->dtb_pas_ctx);
+> +unmap_secondary_carveout:
+> +	if (pas->secondary_pas_id) {
+> +		qcom_pas_shutdown(pas->secondary_pas_id);
+> +		qcom_pas_unmap_carveout(rproc, pas->secondary_mem_phys,
+> +					pas->secondary_mem_size);
+> +	}
+> +release_secondary_metadata:
+> +	if (pas->secondary_pas_id)
+> +		qcom_pas_metadata_release(pas->secondary_pas_ctx);
+> +unmap_secondary_dtb_carveout:
+> +	if (pas->secondary_dtb_pas_id) {
+> +		qcom_pas_shutdown(pas->secondary_dtb_pas_id);
+> +		qcom_pas_unmap_carveout(rproc, pas->secondary_dtb_mem_phys,
+> +					pas->secondary_dtb_mem_size);
+> +	}
+> +release_secondary_dtb_metadata:
+> +	if (pas->secondary_dtb_pas_id)
+> +		qcom_pas_metadata_release(pas->secondary_dtb_pas_ctx);
 
 [Severity: Medium]
-stm32_mdf_adc_probe() attaches adc->mdf->kclk to adc->regmap via
-stm32_mdf_regmap_init() -> regmap_mmio_attach_clk(), which holds a
-clk_prepare() reference on kclk.  In stm32_mdf_core_suspend(), the parent
-driver unprepares kclk only for sitf_list and the core regmap, not for
-filter regmaps.  Should stm32_mdf_adc_suspend() and stm32_mdf_adc_resume()
-also unprepare and re-prepare adc->mdf->kclk so kclk does not stay
-prepared across system suspend?
+Does jumping to the unmap_*_carveout labels when
+qcom_pas_prepare_and_auth_reset() fails call qcom_pas_shutdown() on a PAS
+context that failed authentication?
 
+Each image maps its carveout before calling
+qcom_pas_prepare_and_auth_reset(), and on failure jumps to its own
+unmap_*_carveout label, which now executes qcom_pas_shutdown() before
+qcom_pas_unmap_carveout().  That issues an unbalanced PAS shutdown call to
+TrustZone for an image that was never authenticated or brought out of
+reset.  Separating the shutdown labels from the unmap_*_carveout labels
+would ensure qcom_pas_shutdown() is only called for PAS IDs whose
+qcom_pas_prepare_and_auth_reset() succeeded.
+
+> @@ -440,9 +557,30 @@ static int qcom_pas_stop(struct rproc *rproc)
+>  	if (ret =3D=3D -ETIMEDOUT)
+>  		dev_err(pas->dev, "timed out on wait\n");
+> =20
+> +	if (pas->secondary_pas_id) {
+> +		ret =3D qcom_pas_shutdown(pas->secondary_pas_id);
+> +		if (ret && pas->decrypt_shutdown)
+> +			ret =3D qcom_pas_shutdown_poll_decrypt(pas->secondary_pas_id);
+> +		if (ret)
+> +			dev_err(pas->dev, "failed to shutdown secondary: %d\n", ret);
 > +
-> +static int stm32_mdf_adc_resume(struct device *dev)
-> +{
-> +	struct iio_dev *indio_dev =3D dev_get_drvdata(dev);
-> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
-> +	int ret;
+> +		qcom_pas_unmap_carveout(rproc, pas->secondary_mem_phys,
+> +					pas->secondary_mem_size);
+> +	}
 > +
-> +	regcache_cache_only(adc->regmap, false);
-> +	ret =3D regcache_sync(adc->regmap);
+> +	if (pas->secondary_dtb_pas_id) {
+> +		ret =3D qcom_pas_shutdown(pas->secondary_dtb_pas_id);
+> +		if (ret)
+> +			dev_err(pas->dev,
+> +				"failed to shutdown secondary dtb: %d\n", ret);
 > +
-> +	if (!ret && iio_buffer_enabled(indio_dev))
-> +		ret =3D stm32_mdf_adc_postenable(indio_dev);
+> +		qcom_pas_unmap_carveout(rproc, pas->secondary_dtb_mem_phys,
+> +					pas->secondary_dtb_mem_size);
+> +	}
 > +
-> +	return ret;
-> +}
+>  	ret =3D qcom_pas_shutdown(pas->pas_id);
+>  	if (ret && pas->decrypt_shutdown)
+> -		ret =3D qcom_pas_shutdown_poll_decrypt(pas);
+> +		ret =3D qcom_pas_shutdown_poll_decrypt(pas->pas_id);
+> =20
+>  	if (ret)
+>  		dev_err(pas->dev, "failed to shutdown: %d\n", ret);
 
-[Severity: High]
-How does suspend and resume work when interleaved (or synchronized)
-filters are active?
+[Severity: Medium]
+Won't `ret =3D qcom_pas_shutdown(pas->pas_id)` overwrite any error returned
+when shutting down pas->secondary_pas_id or pas->secondary_dtb_pas_id?
 
-In interleaved mode, only Filter 0 registers an IIO device, so
-iio_buffer_enabled() is only ever true on Filter 0, while Filter 0 starts
-and stops subordinate filters (Filters 1..N-1) by iterating
-mdf->filter_list.  Because child devices suspend in reverse probe order
-and resume in forward probe order:
-
-1. On suspend, Filters N-1..1 run stm32_mdf_adc_suspend() before Filter 0
-   and set regcache_cache_only(adc_inter->regmap, true).  When Filter 0
-   then calls stm32_mdf_adc_predisable() -> stm32_mdf_adc_stop_filter(),
-   clearing MDF_DFLTCR_DFLTEN on adc_inter->regmap only updates the cache
-   and does not stop Filters 1..N-1 in hardware.
-
-2. On resume, Filter 0 runs stm32_mdf_adc_resume() ->
-   stm32_mdf_adc_postenable() before Filters 1..N-1 have cleared
-   cache_only on their regmaps:
-
-drivers/iio/adc/stm32-mdf-adc.c:stm32_mdf_adc_start_filter() {
-    ...
-	if (MDF_IS_FILTER0(adc))
-		list_for_each_entry(adc_inter, &mdf->filter_list, entry)
-			if (MDF_IS_INTERLEAVED_FILT_NOT_0(adc_inter))
-				stm32_mdf_adc_start_filter(adc_inter);
-
-	/* Check filter status. Bypass cache to access volatile MDF_DFLTCR_ACTIVE =
-bit */
-	regcache_cache_bypass(adc->regmap, true);
-	regmap_read(adc->regmap, MDF_DFLTCR_REG, &val);
-	regcache_cache_bypass(adc->regmap, false);
-    ...
-}
-
-   Calling stm32_mdf_adc_start_filter(adc_inter) while adc_inter->regmap
-   is still cache-only triggers WARN_ON(map->cache_only && enable) in
-   regcache_cache_bypass(), causes regmap_read() to fail with -EBUSY
-   leaving val uninitialized on the stack, traps filter configuration and
-   MDF_DFLTCR_DFLTEN writes in cache, and pulses MDF_GCR_TRGO before
-   subordinate interleaved (or st,sync slave) filters have resumed in
-   hardware.
-
-In addition, stm32_mdf_adc_init() requests a DMA channel, 16 KB coherent
-buffer, and triggered IIO buffer even for MDF_IS_INTERLEAVED_FILT_NOT_0()
-filters that never register an IIO device.
-
-> +
-> +static SIMPLE_DEV_PM_OPS(stm32_mdf_adc_pm_ops, stm32_mdf_adc_suspend, st=
-m32_mdf_adc_resume);
-> +
->  static struct platform_driver stm32_mdf_adc_driver =3D {
->  	.driver =3D {
->  		.name =3D "stm32-mdf-adc",
->  		.of_match_table =3D stm32_mdf_adc_match,
-> +		.pm =3D &stm32_mdf_adc_pm_ops,
->  	},
-
-[Severity: Low]
-When CONFIG_PM_SLEEP is disabled, SIMPLE_DEV_PM_OPS() leaves
-stm32_mdf_adc_suspend() and stm32_mdf_adc_resume() unused, producing
--Wunused-function warnings.  Could this use DEFINE_SIMPLE_DEV_PM_OPS() and
-pm_sleep_ptr(&stm32_mdf_adc_pm_ops) instead?
+If secondary PAS shutdown fails in TrustZone while the primary PAS shutdown
+succeeds, qcom_pas_stop() returns 0 to rproc_stop().  During crash recovery
+in rproc_boot_recovery(), a zero return from rproc_stop() lets execution
+proceed to rproc->ops->coredump() while the secondary memory region is
+still locked by TrustZone, whereas pas->dtb_pas_id below uses a separate
+variable to preserve earlier shutdown errors.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-upstream_m=
-df_v2-v2-0-7939d3c3720a@foss.st.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-oob-suppor=
+t-glymur-v3-0-2cbdfe208d56@oss.qualcomm.com?part=3D2
