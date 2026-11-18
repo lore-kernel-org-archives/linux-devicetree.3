@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005389;
-	b=T7+zDSev8ZWVM83GFBvDyEsJKu9Mwz0f0BqqxRq13S8JJl8oiS+mdgASl+V2U+zSOYLl
-	 U+6WgiKREsuZYOwgzmNepRxwxoJJQ7HRX7+CeMIolkJtPwfQHn2WgfxS+ugrSHe7dM2jB
-	 n+/+1ApjwKNWhcY4tAlAnfzbcyqFONelfCpBIs9dzRZkaiAgtI9PXj6rv0TKQ0yd5ohJN
-	 g2dnvtZGHC1tqXCMADXFMnVdmADeq2O+OUNWkHLolvNgMD4TA4thzY9pgCQDQBpPeE4NH
-	 0zz7VFiswlymYOXDKSQFg197nZBNnTnAw6W9IH0q9b8EhVhYYPlsD17RnsZ5CYnKClg==
+	t=1795005435;
+	b=xK1ryjC0JZKfc9qS5mTQgkJkf9e1rslH8GVmJkMXzt2zDUIEv4wEEzP/wRAJccFW66N+
+	 2BL3SIU5ZIY6yLBsGLrAE35u68jTXR228fH0adjGDswfLtk3F7+7N5UCcKy3fRd1qWzMW
+	 rZ/XCWhSH3YvgxAtBWiv+TWxfR+rsO5w755vKbeX6RQOCrq1y2NcZRNthatZniEAXgFLp
+	 cZtZkByGTpHtDn3neSulscgj3Vq1oYg9zj6dbjlD5ajaDhk5Zrh3LRGy3Vg6FAqrWav60
+	 WxIxb7Jp77WF3ZmfsWVNmSG3Q1TR0QI3aVawVPLAas0wlm+8I8Qmq91zINaDbEFYRIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005435;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=1eNcJwo2E7LTdexS+CZsvtImmjxHxDOzOBiWc5uB548=;
-	b=oywVv2zlOAttYeKsCAop32B1d91dY7tOVI7wWI+qiLC3CfBSkPvwByPAMc0bliIuZ7n5
-	 gbfHvGIyz+GnTlT8oR/8KPdXi+F+XBV5hlBDOeJCgtQ2K80IyYszv68s4KUksc3Ti0B2S
-	 ABe62P/bjf1D2fX03AEE+80q3VDJb2q+2e79oCTr1Xp6aWk22VqT9P3imE+OtJdUNHtft
-	 k6xVMJgl4GAktoY3xIHyc9SJWKBjU6HZP56zEemydz0+9SHLaiYflSBRhqhxpEuxMwc8t
-	 NWXddmIWHEkh3QjhO05CXU6rIFv3MX+51G8uMu56fyMOccxhJkPn77jhIp4DRFhdARg==
+	bh=jSREI4xVzC4eLiiJGIJsm9Z8aTlDSjYCXz8XIyOzlgE=;
+	b=j9F1OXHtfrDVYsbkLWAGEnh8EQsAiSHSb80LMiIHj4YNnb4lTKn2pYHcvHbWjT8Yw4Xb
+	 z0pNfPsin/ysW6uVUzUQ8Hv91IjbTINeyfztVpGuivurH/DRUpDe4TflVr4TdjNDSUOLL
+	 48LaBbYMT+sD4bJug+kC+MHM9fkPZN+LjiVueq7CAyBOEwZvPLRr/oXvQIMZZx8eRnG3/
+	 LZDnJJEdgrrI3XzOzTs3Tm19kKzySBMtwheMetnBIreCZp29ZHFkaV3h2xl35R9tcaDj6
+	 njV7uuplKQCoIs+fxtbVyr3SwbWb2yKDCIy4nQ13xQmN1LTtWmxUw2jEBqjvqtpU6mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h1ujNcTh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCklFraS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9557606A31C;
-	Wed, 18 Nov 2026 12:36:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D0F606A31C;
+	Wed, 18 Nov 2026 12:37:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h1ujNcTh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5BFF1F000C4;
-	Wed, 18 Nov 2026 12:36:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCklFraS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E93451F000C4;
+	Wed, 18 Nov 2026 12:37:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795005389;
-	bh=1eNcJwo2E7LTdexS+CZsvtImmjxHxDOzOBiWc5uB548=;
+	s=k20260515; t=1795005435;
+	bh=jSREI4xVzC4eLiiJGIJsm9Z8aTlDSjYCXz8XIyOzlgE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=h1ujNcThk8/H5Ge9XBxWFalVldtuE8wTpsBAB4vTYvTny5GNzWi1qkMCQgNFX6RJ0
-	 2pZhhi2ApvRt2/rNzePNJ8oty7eB2cQt4cEWbhjZDDg0msmGuI0Toxltg9We+3T7es
-	 ZKlzbBXLxygFmcuADhSqz2H0SqeQ4ceNi1FCsG5bcAICu2SvZb85Xquip1CHt23f86
-	 KVY7SiiCoix/R5WSdZijnKgr6gK1HOF2LQfQZwutzXxcnqiPXeUVFxkdhbp/x0A7Rz
-	 OYNf3aVTDANOek/9IXYfBWXR36tXd9D0bvXGDxzFsE68Z2HwNy2IICLsK7Cv0OsOse
-	 mYhC3RZo1YAkg==
-Message-ID: <sashiko-outbox-220917@kernel.org>
+	b=eCklFraSWKy2xd84VKGRtj6uMO/agDG3AfpWvyqYOSXall9PA7xUx2drQkWvaHotx
+	 uoMp6S5CK0EKKRRPodmfcsr29DIYjAcuh5Z2mA60k1h0YHaj7HeiW4l94uvwtdcETh
+	 jI4k/5J39+0QMbz4mKSzEO3/y7U8tV/OoNgYRpu35E3Q1NuRrghNHCZsqwlXZhFkc7
+	 O6vu2LOFIh184r3DF0XFmnEuqEdnCKs2X3mIVbl2oEdbaX4lznjSLTjIvQ6icnqpo+
+	 zaI80cPsPXNUYJLbv8IObzjcaHrlx2Vqg+/wZvHUgAlNkjHZHxqYa6st7wGxMqr9+B
+	 K/oM9zosUZYvA==
+Message-ID: <sashiko-outbox-220918@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/10] arm64: dts: qcom: add LG V60 ThinQ 5G (timelm)
- support
+Subject: Re: [PATCH v3 2/6] soc: st: stm32mp2-syscfg: register the syscon
+ regmap
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abdur Rofik" <rofikcoga@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261118120714.31505-3-rofikcoga@gmail.com>
-References: <20261118120714.31505-1-rofikcoga@gmail.com>
- <20261118120714.31505-3-rofikcoga@gmail.com>
+To: "Gabriel Fernandez" <gabriel.fernandez@foss.st.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261118-ups_mp25_clk_syscfg-v3-2-935de791a4ce@foss.st.com>
+References: <20261118-ups_mp25_clk_syscfg-v3-0-935de791a4ce@foss.st.com>
+ <20261118-ups_mp25_clk_syscfg-v3-2-935de791a4ce@foss.st.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 12:36:28 +0000
+Date: Wed, 18 Nov 2026 12:37:14 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,174 +61,151 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 5 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issues to consider:
-- [High] arm64: dts: qcom: invalid smps6 in regulators-1 aborts
-  rpmh_regulator_probe()
-- [Medium] arm64: dts: qcom: conflicting reg and memory-region on
-  simple-framebuffer
-- [Medium] arm64: dts: qcom: missing board-specific firmware-name on
-  cdsp and gpu_zap_shader
-- [Low] arm64: dts: qcom: duplicate sdc2_sleep_state node and redundant
-  pon status
-- [Low] arm64: dts: qcom: non-power-of-two pmsg-size in ramoops is
-  rounded down
+- [Medium] soc: st: leak of ioremap and regmap on -EEXIST in
+  stm32mp2_syscfg_probe()
+- [Medium] soc: st: dangling regmap in syscon_list on
+  stm32mp2_syscfg_probe() failure
+- [Medium] soc: st: stm32mp2-syscfg: fw_devlink and initcall order let
+  consumers create clock-attached syscon regmap first
 --
 
-commit 3fe02ddb83035271fb02be5f0c325bb78269f75e
-Author: Abdur Rofik <rofikcoga@gmail.com>
+commit 3074d10104a5aee141b2e91cda96d7c4ea358a2e
+Author: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-arm64: dts: qcom: add LG V60 ThinQ 5G (timelm) support
+soc: st: stm32mp2-syscfg: register the syscon regmap
 
-This commit adds the initial device tree and MAINTAINERS entry for the
-SM8250-based LG V60 ThinQ 5G (timelm) smartphone.
+This commit creates an MMIO regmap in stm32mp2_syscfg_probe() and registers
+it with the syscon core before populating subnodes so that syscon does not
+attach the node's first clock to the regmap.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts b/arch/arm64/b=
-oot/dts/qcom/sm8250-lg-timelm.dts
-> new file mode 100644
-> index 0000000000000..1b2b67486fee7
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
-> @@ -0,0 +1,615 @@
-[ ... ]
-> +	chosen {
-> +		stdout-path =3D "serial0:115200n8";
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +		ranges;
+> diff --git a/drivers/soc/st/stm32mp2-syscfg.c b/drivers/soc/st/stm32mp2-s=
+yscfg.c
+> index 770321a4a6f71..0d45fdef46b73 100644
+> --- a/drivers/soc/st/stm32mp2-syscfg.c
+> +++ b/drivers/soc/st/stm32mp2-syscfg.c
+> @@ -3,13 +3,55 @@
+>   * Copyright 2026 Marek Vasut
+>   */
+> =20
+> +#include <linux/mfd/syscon.h>
+>  #include <linux/module.h>
+>  #include <linux/of_platform.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/regmap.h>
 > +
-> +		framebuffer@9c000000 {
-> +			compatible =3D "simple-framebuffer";
-> +			reg =3D <0x0 0x9c000000 0x0 (1080 * 2460 * 4)>;
-> +			width =3D <1080>;
-> +			height =3D <2460>;
-> +			stride =3D <(1080 * 4)>;
-> +			format =3D "a8r8g8b8";
-> +			memory-region =3D <&cont_splash_mem>;
-> +		};
-> +	};
+> +static const struct regmap_config stm32mp2_syscfg_regmap_config =3D {
+> +	.reg_bits =3D 32,
+> +	.val_bits =3D 32,
+> +	.reg_stride =3D 4,
+> +};
+> =20
+>  static int stm32mp2_syscfg_probe(struct platform_device *pdev)
+>  {
+> -	return devm_of_platform_populate(&pdev->dev);
+> +	struct regmap_config config =3D stm32mp2_syscfg_regmap_config;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct regmap *regmap;
+> +	struct resource *res;
+> +	void __iomem *base;
+> +	int ret;
+> +
+> +	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	if (!res)
+> +		return -ENODEV;
+> +
+> +	/* Not requested: the SDMMC delay blocks lie in the SYSCFG range */
+> +	base =3D devm_ioremap(dev, res->start, resource_size(res));
+> +	if (!base)
+> +		return -ENOMEM;
+> +
+> +	config.max_register =3D resource_size(res) - config.reg_stride;
+> +
+> +	regmap =3D devm_regmap_init_mmio(dev, base, &config);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap),
+> +				     "failed to init the regmap\n");
+> +
+> +	/*
+> +	 * The SYSCFG registers need no clock, but the generic syscon regmap
+> +	 * would enable the first clock of the node, the LTDC kernel clock
+> +	 * which is only a parent of the pixel clock mux, around each access.
+> +	 */
+> +	ret =3D of_syscon_register_regmap(dev->of_node, regmap);
+> +	if (ret =3D=3D -EEXIST)
+> +		dev_warn(dev, "syscon regmap already created, its clock stays attached=
+\n");
 
 [Severity: Medium]
-Should framebuffer@9c000000 drop memory-region (or drop reg and the unit
-address) instead of specifying both?
+Does the -EEXIST path leave the newly mapped base and regmap allocated on
+dev?
 
-When both properties are present, simplefb_get_memory_of() in simpledrm
-and simplefb_parse_dt() in simplefb emit a boot warning ("preferring
-"memory-region" over "reg" property") and ignore the exact framebuffer
-size in reg in favor of the full 0x1200000-byte cont_splash_mem region,
-allowing fb_mmap() on /dev/fb0 to map the trailing reserved memory beyond
-the framebuffer.
+When a consumer has already called syscon_node_to_regmap(),
+stm32mp2_syscfg_probe() logs a warning and returns 0 via
+devm_of_platform_populate(dev) without releasing regmap or unmapping base.
+Because the driver is built-in with suppress_bind_attrs =3D true, the
+duplicate 64 KiB mapping, regmap, and debugfs entry remain allocated for
+the lifetime of the system, and dev_get_regmap(dev, NULL) points to the
+unused regmap instead of the active one in syscon_list.
 
-[ ... ]
-
-> +		ramoops: ramoops@b0000000 {
-> +			compatible =3D "ramoops";
-> +			reg =3D <0x0 0xb0000000 0x0 0x280000>;
-> +			record-size =3D <0x40000>;
-> +			console-size =3D <0x40000>;
-> +			ftrace-size =3D <0x40000>;
-> +			pmsg-size =3D <0x1c0000>;
-> +			no-map;
-> +		};
-
-[Severity: Low]
-Is pmsg-size =3D <0x1c0000> intended here?  ramoops_probe() requires
-pmsg_size to be a power of two and rounds 0x1c0000 down to 0x100000 via
-rounddown_pow_of_two(), shifting the buffer offsets and leaving the
-remaining 0xc0000 bytes to dump_mem_sz.
-
-[ ... ]
-
-> +	regulators-1 {
-> +		compatible =3D "qcom,pm8150l-rpmh-regulators";
-> +		qcom,pmic-id =3D "c";
-[ ... ]
-> +		vreg_bob: bob {
-> +			regulator-name =3D "vreg_bob";
-> +			regulator-min-microvolt =3D <3008000>;
-> +			regulator-max-microvolt =3D <4000000>;
-> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_AUTO>;
-> +		};
+> +	else if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register the regmap\n");
 > +
-> +		vreg_s6c_0p88: smps6 {
-> +			regulator-name =3D "vreg_s6c_0p88";
-> +			regulator-min-microvolt =3D <348000>;
-> +			regulator-max-microvolt =3D <1000000>;
-> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-
-[Severity: High]
-Does defining smps6 under regulators-1 cause rpmh_regulator_probe() to
-fail with -ENODEV?
-
-On SM8250 with PM8150L (qcom,pmic-id =3D "c"), SMPS6C is an ARC level
-resource (ebi.lvl) rather than a VRM resource, so cmd_db_read_addr() in
-rpmh_regulator_init_vreg() returns 0 for "smpc6" and aborts probing
-regulators-1 before smps8 (vreg_s8c_1p35) and ldo1..ldo11 are registered.
-That leaves the parent supplies for PM8150 and PM8009 LDOs as well as the
-UFS, SDHC2, and USB PHY rails unregistered.
-
-As on other SM8250 boards, vreg_s6c_0p88 should be a top-level
-regulator-fixed node at 880000 uV, and the 348000..1000000 uV rail under
-regulators-1 should be smps7 (vreg_s7c_0p35).
-
-[ ... ]
-
-> +&cdsp {
-> +	status =3D "okay";
-> +};
-[ ... ]
-> +&gpu {
-> +	status =3D "okay";
-> +
-> +	zap-shader {
-> +		firmware-name =3D "qcom/sm8250/a650_zap.mbn";
-> +	};
-> +};
+> +	return devm_of_platform_populate(dev);
 
 [Severity: Medium]
-Should &cdsp and the GPU zap-shader specify board-specific firmware-name
-paths?
+If devm_of_platform_populate(dev) fails after of_syscon_register_regmap()
+has succeeded, can syscon_list be left with a dangling regmap pointer?
 
-Enabling &cdsp without firmware-name causes qcom_pas_probe() to fall back
-to bare "cdsp.mdt", and using the generic reference-board path
-"qcom/sm8250/a650_zap.mbn" fails PAS authentication on fused retail
-devices that require OEM-signed firmware (and zap-shader can be referenced
-directly via &gpu_zap_shader).
+There is no API to unregister a regmap from syscon_list, while a negative
+return from stm32mp2_syscfg_probe() triggers devres_release_all(dev),
+freeing regmap and unmapping base.  Any later syscon lookup for this node
+then returns the freed regmap pointer and causes a use-after-free.
 
-[ ... ]
+>  }
+> =20
+>  static const struct of_device_id stm32mp2_syscfg_ids[] =3D {
+> @@ -23,10 +65,12 @@ static struct platform_driver stm32mp2_syscfg_driver =
+=3D {
+>  	.driver =3D {
+>  		.name	=3D "stm32mp2_syscfg",
+>  		.of_match_table =3D stm32mp2_syscfg_ids,
+> +		/* The consumers keep using the regmap */
+> +		.suppress_bind_attrs =3D true,
+>  	},
+>  	.probe =3D stm32mp2_syscfg_probe,
+>  };
+> -module_platform_driver(stm32mp2_syscfg_driver);
+> +builtin_platform_driver(stm32mp2_syscfg_driver);
 
-> +&pon {
-> +	status =3D "okay";
-> +};
-[ ... ]
-> +	sdc2_sleep_state: sdc2-sleep-state {
-> +		clk-pins {
-> +			pins =3D "sdc2_clk";
-> +			drive-strength =3D <2>;
-> +			bias-disable;
-> +		};
-> +
-> +		cmd-pins {
-> +			pins =3D "sdc2_cmd";
-> +			drive-strength =3D <2>;
-> +			bias-pull-up;
-> +		};
-> +
-> +		data-pins {
-> +			pins =3D "sdc2_data";
-> +			drive-strength =3D <2>;
-> +			bias-pull-up;
-> +		};
-> +	};
+[Severity: Medium]
+Will consumers still create the clock-attached syscon regmap before
+stm32mp2_syscfg_probe() runs?
 
-[Severity: Low]
-This isn't a bug, but sdc2_sleep_state duplicates the identical node
-already defined in sm8250.dtsi, and &pon is already enabled in
-pm8150.dtsi.  Also, the commit message mentions "High-Speed USB on
-PM8150B", whereas &usb_1_hsphy is the SoC-internal HS PHY supplied by
-PM8150.
+Once the SYSCFG DT node lists clocks =3D <&rcc CK_KER_LTDC>, <&lvds>,
+<&clk_dsi_txbyte>, fw_devlink creates supplier links from rcc (and lvds
+when enabled) to syscfg.  Because rcc depends on scmi_clk, it is not bound
+when device_initcall runs through drivers/phy/, drivers/pci/, and
+drivers/soc/.  Built-in consumers such as phy-stm32-combophy and
+pcie-stm32 defer on rcc ahead of syscfg, have no fw_devlink dependency on
+syscfg (they look it up via syscon_regmap_lookup_by_compatible() or vendor
+properties), and probe first once rcc binds.  Because the syscfg node
+retains "syscon" in its compatible list, syscon_node_to_regmap() creates
+the generic regmap with CK_KER_LTDC attached instead of returning
+-EPROBE_DEFER:
+
+drivers/mfd/syscon.c:syscon_node_to_regmap() {
+	return device_node_get_regmap(np, of_device_is_compatible(np, "syscon"), t=
+rue);
+}
+
+As a result, stm32mp2_syscfg_probe() hits -EEXIST and CK_KER_LTDC stays
+prepared and toggled on every SYSCFG access; in addition, if lvds is
+enabled without a consumer cycle (for example when CONFIG_DRM_STM_LVDS is
+disabled or modular), fw_devlink blocks stm32mp2_syscfg_probe() and delays
+populating the USB2 PHY child nodes.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118120714.3150=
-5-1-rofikcoga@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-ups_mp25_c=
+lk_syscfg-v3-0-935de791a4ce@foss.st.com?part=3D2
