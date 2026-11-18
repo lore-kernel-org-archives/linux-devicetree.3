@@ -1,57 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.106
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795011386;
-	b=YThpcwmhSkyU4QvnPKnTcXHYZNfrI9lw1LthXN5yb4grsiMzE+r07hrDmON/w1QljA/N
-	 Dj8SkS6TyJZ8hwB2rwmn1SLUBuR2wI5QRm+EIF+uxhQonnE3RIc2iovdot7uMLEO2/+MH
-	 WU4vS+HLlXU+Pr35wyVy2UlH7XIv7PrYt+i6Mz0oDRa6DU9X4jZsNiQu3hCmVZLZUevuU
-	 iGkzv7FmZ76r9qOmIfFj9BEmepVES++mfaAh0xJMX7UxE1k62Y9qXbi6ic2nvOmnqiRxg
-	 X58fadzY/KiCXnCN7b42QXJRJeDxgDf17hJO1EuTC5oo9aa8Kly/qWnhBo4hV/eBzDA==
+	t=1795011505;
+	b=PWPy5JITj8gdSZUg0NUjTumUG2vua264RPMBlB69Imfn/E9PHP+9njwWCW2RExsyYXAi
+	 9HOXV/19QiQu2flvHtrbX9y0vZj/9uu6LSauzfgGsdGJ9yKSXTUMDfYS22VdwqvFMe+aB
+	 q6iuNJ0x7v5wuOfoHDgeTVLfs87D0mcms1oUNLITQJycjvi9mzjQGaGTm4TPjRzeKQphD
+	 uS76BHrr1bpztqE6Ig67SvZvPZ5TR/Ue3Gkb88HBInyW1L65pt1tCeAWOSi+o5qlnN8jA
+	 E8gAFW19JSkrsLxTe1iXE1vsUziCGHBrgt5J0cX+CTskcYivAYOwaSZQcXM515b/u4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795011386;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=MwwOGXJR7+uyo9aDOmmqQWOoB1xXE2D5FOQ0OvEC4rI=;
-	b=SrN4mfXfd/+hHL9/5YW8VO5YWqjHSASrd9HIH23izpqMoDW1/VP9m01RucZHNY1v++am
-	 EjLLk/dZ2tB1THX5RkGUwu+D1jewnnvWUYkwa6NQ8KFIxorhrcz5KVLha7hMmyv6QBzIb
-	 bqZKEIzaoEsOPIy+MM/kIAA6+7GrORasiNBB8eS00qXxx/SUQa9NCsUsNtAaCdNZDwj0G
-	 yltAG5NQVC11/V22K1zq3yn+EEfrEjMIIvtV5Y6NCFLw4O+3/GoEHcbHkTBDgufjCtMIr
-	 1lsDjO2y6J5ZZC5VLyxb9GtgWs4XyW/kz7Z90ynIRZZQhwv4tuZxTCXyVWlFKFuxBAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795011505;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:MIME-Version:Content-Type:Content-Disposition;
+	bh=kofXl9sfPgdsXpZZh7yZNeD40yowoASdG4wWjI17JYE=;
+	b=U/5hMfZhwachP8OHBdc01JagVQiYhV71mdfXjjtU0/VcsG0EMgZKLFSsIF4tgkwyUMpt
+	 MLTe6kSzoQ/g0A0zdKDDqaDIbKtbvDryDk+xHwz55kRSv364n07yaT7RyIH3exeQMu1tt
+	 Y+MRI5znOAKiGVArwOWhX/qm5r4lTY2Ye3BkHNTmiGRz1gUZtlO9wJ3v3irBBQolP3O4V
+	 ZmXn6RXtrf3drCqqMX2PkGHDmTmGCPkmU747XCRs8dlwlAurn38QL76kYsrLPwFG8aAK/
+	 eUoijJoCA9B5xd9Tytr8RI/xDFEe/iJN6Y4tyQ4TlfEGP9sc8XSVR1ehlNDvQTt7aoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZcPoD8e;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wMZNvL2H;
+	arc=none smtp.remote-ip=95.215.58.106
+Received: from mta1.migadu.com (out-106.mta1.migadu.com [95.215.58.106])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A37260A2611
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 14:16:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF5760A2620
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 14:18:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF5760A2620
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZcPoD8e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833371F000C6;
-	Wed, 18 Nov 2026 14:16:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795011385;
-	bh=MwwOGXJR7+uyo9aDOmmqQWOoB1xXE2D5FOQ0OvEC4rI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GZcPoD8e2RpdyrJmYtqQBCI9lITNzVZjGUJDpTj4cO/pGS7XEtKFZsQmpBOhDwcGI
-	 R+zds/gFET/WqMPU0czPcEvMGMXwn6sHecOWB5Nj5Wv5PK5zEL0C32xAaqEEffR/nb
-	 Wwcsph5EDGmXFnW2JlGJMWHZVtfdE+5+D3j7BlLrky2iGcfFG5Dcp5421nz9sB67KC
-	 pLHF7PMJJaz8qyzTowBI8RFdPpHMUhQNQZVUnj/uD9MxHrfD9tibtXYrATACR1vX7F
-	 Icgqgtg2Pvxv8phF3zYezvSWSRY4Ov3WaqOUnIpzII9pvIcDIVadHTpA/Wro77ALZK
-	 Wwjn8/0okzMww==
-Message-ID: <sashiko-outbox-221177@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/2] platform/asus: Add driver for ASUS Transformer's
- Dock of Tegra based devices
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261118134555.195479-3-clamor95@gmail.com>
-References: <20261118134555.195479-1-clamor95@gmail.com>
- <20261118134555.195479-3-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 14:16:25 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wMZNvL2H
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=06NfiT2PWSzdUdLH0HbkzXx1yJzNQf3tCv9WaBw5u7s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795011502; v=1; x=1795616302;
+ b=wMZNvL2HyVnyrMCVw0CUk6nA/1xti78MGBNNcO0ICMjpYXZtrcpav1pSz3MDcjgUnlVkHaBs
+ T4ILoeHaBwyknR3JJomLKMET4n5te3R9Z/VYO8Xd+aGQdD3O9SZhaQ+hsKGeMlleTi+QJTPVDAM
+ y2JszwnBophh5L8UaCRcctBE=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id d8b0edf9b3c18121;
+	Wed, 18 Nov 2026 14:18:21 +0000
+X-Mizu-Trace-ID: d8b0edf9b3c18121
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 18 Nov 2026 16:18:17 +0200
+From: Matti Vaittinen <matti.vaittinen@linux.dev>
+To: Matti Vaittinen <mazziesaccount@gmail.com>,
+	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Matti Vaittinen <matti.vaittinen@linux.dev>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Radu Sabau <radu.sabau@analog.com>,
+	Janani Sunil <janani.sunil@analog.com>,
+	Salih Erim <salih.erim@amd.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Jakub Szczudlo <jakubszczudlo40@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] Support ROHM BD79111 ADC/GPIO
+Message-ID: <cover.1795009599.git.mazziesaccount@gmail.com>
+Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,195 +79,52 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="TNVHFlqT3YsTnebr"
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issues to consider:
-- [High] platform/asus: missing I2C dependency for ASUS_TRANSFORMER_DOCK
-  in Kconfig
-- [High] platform/asus: NULL dereference in asus_tf_dock_probe() from
-  IS_ERR() checks
-- [High] platform/asus: module refcount underflow in
-  asus_tf_dock_probe()
-- [Medium] platform/asus: unchecked gpiod_get_value_cansleep() in
-  asus_tf_dock_interrupt()
-- [Medium] platform/asus: unchecked gpiod_to_irq() error return in
-  asus_tf_dock_probe()
-- [Medium] platform/asus: asus-transformer-dock: bypass of
-  __i2c_transfer() on parent
---
+--TNVHFlqT3YsTnebr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit e7bf89be9d43a55643ec7570e3aed3724b7cdbf9
-Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+Support ROHM BD79111 ADC/GPIO
 
-platform/asus: Add driver for ASUS Transformer's Dock of Tegra based devices
+The ROHM BD79111 is a 12-bit, 16 channel SAR ADC / GPIO IC. Or, a "Signal
+Monitor Hub IC" as data-sheet describes it. The key difference compared
+to already supported BD79112 is the reduced number of channels (16,
+BD79112 had 32) and halved sampling rate (500 KSPS when BD79112
+data-sheet stated 1 MSPS).
 
-This commit adds a platform driver for the hot-pluggable I2C bus in the
-ASUS Transformer dock on Tegra-based devices, registering or removing a
-forwarding I2C adapter based on a detect GPIO interrupt.
+Matti Vaittinen (2):
+  dt-bindings: Support ROHM BD79111
+  iio: adc: rohm-bd79112: Support ROHM BD79111
 
-> diff --git a/drivers/platform/asus/Kconfig b/drivers/platform/asus/Kconfig
-> index 0219418ce3523..af670a3c0d014 100644
-> --- a/drivers/platform/asus/Kconfig
-> +++ b/drivers/platform/asus/Kconfig
-> @@ -113,6 +113,17 @@ config ASUS_ARMOURY
->  	  To compile this driver as a module, choose M here: the module will
->  	  be called asus-armoury.
-> =20
-> +config ASUS_TRANSFORMER_DOCK
-> +	tristate "ASUS Transformer Dock for Tegra based devices"
-> +	depends on GPIOLIB
-> +	depends on OF
+ .../bindings/iio/adc/rohm,bd79112.yaml        |  72 +++++++----
+ drivers/iio/adc/Kconfig                       |   9 +-
+ drivers/iio/adc/rohm-bd79112.c                | 113 ++++++++++++++----
+ 3 files changed, 148 insertions(+), 46 deletions(-)
 
-[Severity: High]
-Should ASUS_TRANSFORMER_DOCK also depend on I2C?  The driver calls I2C core
-helpers such as i2c_add_adapter(), i2c_del_adapter() and i2c_put_adapter(),
-which fails to compile when CONFIG_I2C=3Dn and fails to link when
-CONFIG_I2C=3Dm and CONFIG_ASUS_TRANSFORMER_DOCK=3Dy.
 
-[ ... ]
-
-> diff --git a/drivers/platform/asus/asus-transformer-dock.c b/drivers/plat=
-form/asus/asus-transformer-dock.c
-> new file mode 100644
-> index 0000000000000..7c9346af5e1f3
-> --- /dev/null
-> +++ b/drivers/platform/asus/asus-transformer-dock.c
-> @@ -0,0 +1,260 @@
-
-[ ... ]
-
-> +static int asus_tf_dock_master_xfer(struct i2c_adapter *adap,
-> +				    struct i2c_msg msgs[], int num)
-> +{
-> +	struct i2c_adapter *parent =3D asus_tf_dock_parent(adap);
-> +
-> +	return parent->algo->master_xfer(parent, msgs, num);
-> +}
-> +
-> +static int asus_tf_dock_smbus_xfer(struct i2c_adapter *adap, u16 addr,
-> +				   unsigned short flags, char read_write,
-> +				   u8 command, int protocol,
-> +				   union i2c_smbus_data *data)
-> +{
-> +	struct i2c_adapter *parent =3D asus_tf_dock_parent(adap);
-> +
-> +	return parent->algo->smbus_xfer(parent, addr, flags, read_write,
-> +					command, protocol, data);
-> +}
-
-[Severity: Medium]
-Should these callbacks use __i2c_transfer(parent, ...) and
-__i2c_smbus_xfer(parent, ...) instead of calling parent->algo directly?
-
-Calling parent->algo directly skips __i2c_check_suspended(parent), atomic
-transfer dispatch (master_xfer_atomic and smbus_xfer_atomic) and SMBus
-emulation fallback on -EOPNOTSUPP.  Because priv->adap.dev.parent is set to
-the platform device rather than &parent->dev, a transfer through priv->adap
-after tegra_i2c_suspend_noirq() has marked parent suspended and disabled
-controller clocks can enter tegra_i2c_xfer() while clocks are off.
-
-[ ... ]
-
-> +static irqreturn_t asus_tf_dock_interrupt(int irq, void *dev_id)
-> +{
-> +	struct asus_tf_dock_priv *priv =3D dev_id;
-> +
-> +	/* debounce */
-> +	msleep(20);
-> +
-> +	if (gpiod_get_value_cansleep(priv->gpio))
-> +		asus_tf_dock_activate(priv);
-> +	else
-> +		asus_tf_dock_deactivate(priv);
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-[Severity: Medium]
-Can a negative error code from gpiod_get_value_cansleep() cause
-asus_tf_dock_interrupt() to falsely activate the dock adapter?
-gpiod_get_value_cansleep() returns a negative errno on failure, which
-evaluates as true in the if condition.
-
-> +
-> +static void wrap_i2c_put_adapter(void *adapter)
-> +{
-> +	i2c_put_adapter(adapter);
-> +}
-> +
-> +static void wrap_asus_tf_dock_deactivate(void *priv)
-> +{
-> +	asus_tf_dock_deactivate(priv);
-> +}
-> +
-> +static int asus_tf_dock_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct device_node *parent_np;
-> +	struct i2c_adapter *parent;
-> +	struct asus_tf_dock_priv *priv;
-> +	bool is_i2c, is_smbus;
-> +	int err;
-> +
-> +	priv =3D devm_kzalloc_obj(dev, struct asus_tf_dock_priv);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	platform_set_drvdata(pdev, priv);
-> +	priv->dev =3D dev;
-> +
-> +	parent_np =3D of_parse_phandle(dev->of_node, "i2c-parent", 0);
-> +	if (IS_ERR(parent_np))
-> +		return dev_err_probe(dev, PTR_ERR(parent_np),
-> +				     "Failed to parse i2c-parent\n");
-> +
-> +	parent =3D of_find_i2c_adapter_by_node(parent_np);
-> +	of_node_put(parent_np);
-> +	if (IS_ERR(parent))
-> +		return dev_err_probe(dev, PTR_ERR(parent),
-> +				     "Failed to get parent I2C adapter\n");
-
-[Severity: High]
-Can this cause a NULL pointer dereference at parent->algo->master_xfer when
-the i2c-parent phandle is missing or the parent adapter has not probed yet?
-Both of_parse_phandle() and of_find_i2c_adapter_by_node() return NULL on
-failure rather than an ERR_PTR, so IS_ERR() evaluates to false and
-execution continues with parent =3D=3D NULL.
-
-> +	priv->parent =3D parent;
-> +
-> +	err =3D devm_add_action_or_reset(dev, wrap_i2c_put_adapter, parent);
-> +	if (err)
-> +		return err;
-
-[Severity: High]
-Does pairing of_find_i2c_adapter_by_node() with i2c_put_adapter() underflow
-parent->owner's module reference count on probe failure or unbind?
-of_find_i2c_adapter_by_node() only takes a reference on &parent->dev,
-whereas i2c_put_adapter() calls both module_put(adap->owner) and
-put_device(&adap->dev).  Should this use of_get_i2c_adapter_by_node()
-instead?
-
-[ ... ]
-
-> +	err =3D devm_request_threaded_irq(dev, gpiod_to_irq(priv->gpio), NULL,
-> +					asus_tf_dock_interrupt,
-> +					IRQF_TRIGGER_RISING |
-> +					IRQF_TRIGGER_FALLING |
-> +					IRQF_ONESHOT | IRQF_SHARED,
-> +					"asus-transformer-dock", priv);
-> +	if (err)
-> +		return dev_err_probe(dev, err, "Failed to register IRQ %d\n",
-> +				     gpiod_to_irq(priv->gpio));
-> +
-> +	irq_wake_thread(gpiod_to_irq(priv->gpio), priv);
-
-[Severity: Medium]
-Should the return value of gpiod_to_irq(priv->gpio) be stored in a signed
-int and checked for < 0 before calling devm_request_threaded_irq()?  Passing
-a negative errno to the unsigned int irq parameter converts it into a bogus
-IRQ number and replaces the actual error code with -EINVAL.
-
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118134555.1954=
-79-1-clamor95@gmail.com?part=3D2
+2.56.1
+
+
+--TNVHFlqT3YsTnebr
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmr9s6kACgkQeFA3/03a
+ocW70wgAt9BuKdVVM1GiPi2QDGyuymxNiq0qDqLuzbDjYAtEU7I2QW7ld67yd408
+cmIsgE3orhlxgrUse2/zh+TQbEYgIGYnG+4DxTqNfCTz1XFGSc1S0jp3Y8vrqzg0
+p1cjrDmiQYYCzTbJcUWiCquG2jW90eianATptR/oEhTp6Q2O2tDgsMiNLhp1et41
+vho8ZsZK4UfeJVESvBMjurh9gOJqPVe804mVGOfMfjbC1EAxaGXqeZHM1a8lEwLy
+Ttzd1iOlWaTxFtoVX5PBm/UlWIkJf8Y5SJQ3iCkwxJqVsSOvVDb3hdb9jubM5zJ3
+5/lIYhPUNFAV8taDKUMbPTArLjxGyw==
+=hON0
+-----END PGP SIGNATURE-----
+
+--TNVHFlqT3YsTnebr--
