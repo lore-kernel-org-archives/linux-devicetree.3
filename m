@@ -1,85 +1,85 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794980911;
-	b=ZedODbR6IK6HzcwgYUoHTcUE1GAkAdJwAloSj/y3f8WFpHpePFmzRRyBouLf+EZ/H54V
-	 oORG8pcJWiTXUB5wq9eb1ieeHaVx5l/zgvpkWV3q/HOAHaL49nQ27GihjIELyRDzPTopj
-	 UTCQkSgm2CGtLP2Z3zzW1/FEMzvNjGyxkQpShS1vWtFyTyZyO1E1xNlAjIFZRbOw5Bz5g
-	 KjxqJ8DfDhS79XSc7DML+M3bzGfqmEUN8nPDqEYGNFZw0wbdUzzv6GF7nGsJKs6TFzHBF
-	 07bzlo5jzaxVyiEj1r2X91TpH0j/aaAYLMWGAL9nixeVTUQp3OUAUCGU9Z/Yv14gofw==
+	t=1794980912;
+	b=I9EmLC4fAboCU8mQ3qXgxol7EWJkZbXFqAzQ9EirwefkyGZsm3FW+0T/frMIuoJ3dIx3
+	 4YnKrX79oBjplyHR2RsDOvAkIov3XqFR/XKNRLv9ZXo/xdjQpxhNHiNAT63fF4Thb9uJ8
+	 uMOws4ep4WZDmbvI1Gxix8Evkddv3wft99y3FTHjGGLM0Onkds+OLwDcJOD46G5fI+6hN
+	 0zd8FzmU93Z6UrEoH5oRnbKXtTjK6bQvKOkr+SXcoSKG8J3qouIonawQ0z1GZ5uJUlIYJ
+	 iZ6tcHkHaF/roLw4dlDbgShb1dfz1Qxd5TKyRypAA5VhA+wFImTPSbz5ONN83+T71mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794980911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794980912;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=TsUpyU23STfI7Ygctt4GB9RTSHTZ6HCWLhGsw93EbNE=;
-	b=ck3jcopj1LLcA8IZWjB+sa11hd7FBskZR6+c5vCfNKR8QwDqhZjXlcL/gZ8NmLwGo7eL
-	 XpSDqnBQH7SsyDjljA2atVT31nF6ygCDks/8NFQvzy85xNCVEFM0bd0j11Qh8j73471mH
-	 2Mht2uO6Trm1bnsDiLMCPc9te7KnxewqM7MLDXQZxTC2Acaj49biPbbybJSoPOwPc92mi
-	 Xz6ek92lJowiwuBhYsJ5RQNkl7d8Mtyy9LrtcEaKyDsidwg3TWVtHn00xGiiKQ0Z/5rV+
-	 0dYE7urlCrjqG4GQLZmE2LSOYW23wWHkwLSG9wAl7aaMUw9mfmFDqPE/Sl9uMfxDw4A==
+	bh=g7LvXprZ/vz+Q/G9AvsSv7/CGyIQlR7jfrthV6hVVOc=;
+	b=1q5fk0lG0YBm+pKdgQ1D5GsYATjqGc8pL9S7+d/GRRBRP6eyPWt/aiIezPmz5j8dysxq
+	 NAX0KLGrqeZp2uXp6YPAS9GmE2d9gAGSnnNFocsAguGRzbYoA1nVpJsem6nTLYOOKsrTP
+	 w3WES1TCZoT6mNHWYMdBL1em+f4/JLhtwyUzl/pEqTwiq+DSiKYbqIOYWdW0dCTxwURRn
+	 9sgVZx2axCaKrGxr8OIypvq5zOQ77bygMcwefWwnjLv38qan+WVSbPdSc0EWZyYTHTGH2
+	 IKhtpWC3l3m8THgGTVpHvWnqF+MRZIEGdd+M1Y0Ro31nY8Zkc2YSVv0gZurg+rr6i2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TOPIpQNZ;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eVy4BtFO;
 	arc=none smtp.remote-ip=74.125.82.181
 Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6169606A32F
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 05:48:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6169606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26310606A32F
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 05:48:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26310606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TOPIpQNZ
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-380b40319bdso1048108eec.1
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 21:48:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eVy4BtFO
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36a315ed211so446493eec.0
+        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 21:48:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794980910; x=1795585710; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794980911; x=1795585711; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TsUpyU23STfI7Ygctt4GB9RTSHTZ6HCWLhGsw93EbNE=;
-        b=TOPIpQNZHzeOLBcz/mr9c5bEf/nadah2nVecHTVHncWlgP6RlfjQuY3+92O/H32UyB
-         ekwUQCDKeD2inGl/YfNfH8ZsGzb3CW3r4tc7Sx6R4ORF83KXtz3njoTmIp559Nzw114K
-         pzxi5UavxY5YCqOfnNAOXnu+12kdE2zHQ5iAoZGhyw3eAfBhFVrFGp7ZGZUQ0rQPHARl
-         UxAzIfiSsqhcrLiPZfYpHLaCNKdTQVT19YYwN52r7p3Qn4HDpwizC+7llHtj1e5IB4Hf
-         9AZxjArmkFI2n8kL9kKzc9TojUhgQau/NZXi2TiLFBi4DEGiItxnYBFBCA0H4i63dEKc
-         t1wA==
+        bh=g7LvXprZ/vz+Q/G9AvsSv7/CGyIQlR7jfrthV6hVVOc=;
+        b=eVy4BtFOcPPwN9iPhv0NzzUSeKKHjpTQV11gnk8xjuSXKmA92VrT0txfLUcRsHVGx0
+         63GrPGo7zw6GBKe7DApkC5hFjnUPBOaaQWCT2NDepN8NNcZYSo6NWhhDdo0qdHnI68ba
+         2F7leBDmtVEKJJ2fPUPz5jXSxyM91qmeNcHjVMkgZNrzPZGT4N1nx1RvMPFdjWUywuDO
+         6r612nUh4ufW6wP5NiNO8PiNbFmPiD8L0AIFkqMWQPZ4W58+IGTf5tomhLFPnH0xdWIc
+         v4xrvtnD5IacvgMPFsHLui0zsF9pv2L7LG1kpHvG/dB9UT4+If12fVRtl3T0YIQfe+EM
+         LFeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794980910; x=1795585710;
+        d=1e100.net; s=20260707; t=1794980911; x=1795585711;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TsUpyU23STfI7Ygctt4GB9RTSHTZ6HCWLhGsw93EbNE=;
-        b=Axx+qxtMrCdJeeTfeGV62+s1rrZjNZtcWlSObmR03jPw16z9DCeuzW4P/7Tz0kWqsW
-         CioIHyTKdqND/cLL8fY24ft1qn6XO6oqOhDWO/y4en/BgLNo9+QD6bJpzvlOTJZVwpRm
-         On/HAlwYxIQJNKZfZxAFw8AxP199XkDiBphRleNNFBv1dLyx2Gy3uDqJhQ+z07wMaMlW
-         /m1yAqEf7dSYJr4cYCUvHtoJN4mVILaGzdgo/jcTwGig99OtRKh0LSCmY5DFguLW4ncS
-         qE/gUrNQLEznDeKsa+GkARrdo1lhoUa6Euch/b6uLXWxEBk4pAGghlqGs7ow2gNDVby6
-         URRw==
-X-Forwarded-Encrypted: i=1; AL+hErFLqRYXpauCblKvFIY/zr/I2rFQ88Q24diz3Nks/dg0X4UPbOsO9au4r+HL5Is7Pak+7slT3cKDl1xd@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/I977Fg8SVrxAexUTdz22ng0jqFDeaPFl6+1VqJjsxbqZj9Vk
-	efz0jm2Pe0QqCF+2N8muHqkHJTUVM3BTJUlp9NmBfuUFUZuvK7Oj6Nau
-X-Gm-Gg: AZFdTZcKLU51AFupmO0EMSAHhuN6Hb1bSho13LJpC4c4vNMfYG0/lQF6GcOiH6a9fDT
-	YNzAMFOv0oH0MlyV/nhJ70cyJ9PEtDsNS3zSUv24xh/VpmzUrnAYF/mcdw1fusMVq19/rmp5u9i
-	S/C7VsAQtHa6tVgXOUG0YChSrChRW7qtCHjXiB1ADS0rNfMsFanU/1TWAuOb2SyBg9M3wq4pciE
-	rkbSYbN0RgEpU8ZdGgPcsoSFSdFCYM9PJ2SCsfe5gE/pFTGs3S2SEX3bxaE+Nis+kITfot6Q8t0
-	SFP4pGOrmsDdzpZWx4UXJ4n8rldFJWJSgZB4a+OFl8KGaQR/QLSkJUnbfMPxi1Qwdc4k7NByUP0
-	Hdf80ohoPakTVkYoZRR0Rv+kR4UkVLNara+naAVSfwz9TB+rEG20vTk4Lj+puIK5MRnzWr1cJ7a
-	C966t/mi+E5XDYiJQLl9uVoqUavMrW7WmsMpBsMwPwcNNiTiQS6fy77HRlx90Xqck17OY8EZrIc
-	zDxGsOZzaGmFln9dR6Ge4lV0r0mCJE23kwtW4YxRs8o/SrOydjDhq3dls5/gQZ6d9nCPMgR5YFN
-	0ef8JyAe8YWYmlipaKcIQ48wb8onCvA0Y0DSAPdB1+dJp35fjUmRmwgZ9ro5h3bMndnI5PWVc7p
-	uHlOE2bThSn1E+k7iVS8Cn1M3AEFy7+/fSy0gTjMB5i/2ql/Q6wRFcirZhFS4lleBvYWZciVBCk
-	pCKA==
-X-Received: by 2002:a05:693c:8812:20b0:36a:31b2:8643 with SMTP id 5a478bee46e88-3828162490emr1557800eec.38.1794980909989;
-        Tue, 17 Nov 2026 21:48:29 -0800 (PST)
+        bh=g7LvXprZ/vz+Q/G9AvsSv7/CGyIQlR7jfrthV6hVVOc=;
+        b=TLZkxystRESXnYyc9cA9zaOyZ55XjQbKfZ6tSeaVwLOCyEH8OyGoMtgAl1ezl1wB2s
+         JsLoJa/ZzsqiRFt2zIlcevU27kjsRUyKsSbHIaD0EEw9J0+LJUG1Gs/eoAcwlbZyCdym
+         hWyc+G2Ml0yOVDwAkCYYZmPu3gsezg6SFB+TUoywSYNKSornJ+YLbouPQCVSXLQzjqpY
+         WTkKQPydPsRHoxGbStrRK5jw/YQWNN1jHxdR0PRJLNAiinJtroHRUBKJAAFv9mc5i1yF
+         xJ6UKlEuvez49b2Sz8rtktiGh3UfIAss23oTYNg50FZd6wn4Thi8E+aZnHXrQhOgBlZ8
+         Fb3w==
+X-Forwarded-Encrypted: i=1; AL+hErHqgTG9N4bmMD4T5XNgBNY3JRJHBVUz0NrvZ/BXh7DzVUhhTlTslkrTTkcVF9mcxNyI4BTth935Zbfo@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FqNeUP7kMpXE0qCngmew6pDDvvQsN5UPpxThWxwdqo6YfyI43
+	91kd3rk7AWlO91R8TEsRvOcSFnCJ7N7vlRwiQGgyzuJ8+JORsIMx8F9E
+X-Gm-Gg: AZFdTZe8AVzCvcWla5Pe4QQhjLQLkrBqJarg70FZWqk2gOAIDC7b0qqn2SWP/ls93HU
+	T6Lpz14qCJSkeFYyvNR7HCTU4Xrd9AjzPKVsGnvI1tOvR0rHmeiOi4YrEyxehg+syhsWOFqo1uQ
+	3u81SsNW/3lJrN3l8Z9VxhnCFaZAZyDzgMRIQLPe4qMc9r3Y8aSuipkqhp1h06jsAUewqUkqvmu
+	DuQHOkUzlz9eHol/QvO9euITnG5SPgm9q9D+23HxgdmoFeZj6kUjPfAm6QU8Ud4qsFETCTEYPUU
+	n43CAluyo5GvfCa/r3rPpbtyzAK6iKRIoZcc6dFDp7wGMOqFKfiH/df4U9WYo14ulMe8f/19PKa
+	UzOsdUIfuvs/d+sqgiXVKQRzq+9xSouCSid+wBmqj++KmT43cJMxwUMWzE18FDooBLi1tJOscoH
+	qeM0/nyD5eC2dJnv2yAgF9ICp8lo7bY049CJkCWgdxwKVpb4FQCnY8MIEjEfRmiENg0lmpkOMJD
+	8oUmknObvtrnpkVrxtzzjtV+q+Nt9V5w47R1CzOSBgv03Vcf/Q9ZVnjis/apmWCIP/VlcgYx/GB
+	GanK2owFYcJ4UZlMDnq/ATvo6Kpnrj7PmU00eN2EdjWUTtEQHoYOM0k+96pMdAtwoM4Xcd9M9Ga
+	O1x70o4sY5SK9zoLDyDMKUk8bjnMG0KS1FaeCghB6SWKeQu7KUpHJ11ch0Tol732yvhXxpZXG3g
+	ByOw==
+X-Received: by 2002:a05:7301:da86:b0:36c:fdba:ee36 with SMTP id 5a478bee46e88-38281810090mr1512676eec.12.1794980911310;
+        Tue, 17 Nov 2026 21:48:31 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a680032dsm3408116eec.10.2026.11.17.21.48.28
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a680032dsm3408116eec.10.2026.11.17.21.48.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 21:48:29 -0800 (PST)
+        Tue, 17 Nov 2026 21:48:30 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>,
 	Hauke Mehrtens <hauke@hauke-m.de>,
@@ -91,9 +91,9 @@ Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
 	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH 09/17] ARM: dts: BCM5301X: AC87U: use gmac2
-Date: Tue, 17 Nov 2026 21:47:50 -0800
-Message-ID: <20261118054758.132233-10-rosenp@gmail.com>
+Subject: [PATCH 10/17] ARM: dts: BCM5301X: SR400AC: use gmac2
+Date: Tue, 17 Nov 2026 21:47:51 -0800
+Message-ID: <20261118054758.132233-11-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261118054758.132233-1-rosenp@gmail.com>
 References: <20261118054758.132233-1-rosenp@gmail.com>
@@ -108,41 +108,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The nvram MAC address is assigned to gmac0, but switch port 5 (gmac0) is
-disabled and port 7 (gmac1) is the CPU port, so the interface that
-carries the traffic never gets it.
-
-Use port 8 as the CPU port instead and move the MAC address to gmac2,
-which port 8 connects to. Port 8 is the switch's IMP port and gmac2 is
-present on all Northstar SoCs, so this matches the other boards in this
-series.
+Use switch port 8 as the CPU port instead of port 5. Port 8 is the
+switch's IMP port and connects to gmac2, which is present on all
+Northstar SoCs. Move the nvram MAC address from gmac0 to gmac2 to match.
 
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ arch/arm/boot/dts/broadcom/bcm4708-smartrg-sr400ac.dts | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts b/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts
-index 2fed02ebb1d7..4114c6eda1ac 100644
---- a/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts
-@@ -71,7 +71,7 @@ button-restart {
- 	};
+diff --git a/arch/arm/boot/dts/broadcom/bcm4708-smartrg-sr400ac.dts b/arch/arm/boot/dts/broadcom/bcm4708-smartrg-sr400ac.dts
+index 03f4a6d37a67..60661dde8ca5 100644
+--- a/arch/arm/boot/dts/broadcom/bcm4708-smartrg-sr400ac.dts
++++ b/arch/arm/boot/dts/broadcom/bcm4708-smartrg-sr400ac.dts
+@@ -128,7 +128,7 @@ &spi_nor {
+ 	status = "okay";
  };
  
 -&gmac0 {
 +&gmac2 {
- 	nvmem-cells = <&et1macaddr 0>;
+ 	nvmem-cells = <&et0macaddr 0>;
  	nvmem-cell-names = "mac-address";
  };
-@@ -108,10 +108,6 @@ port@5 {
+@@ -161,14 +161,10 @@ port@4 {
  		};
  
- 		port@7 {
+ 		port@5 {
 -			label = "cpu";
 -		};
 -
+-		port@7 {
+ 			status = "disabled";
+ 		};
+ 
 -		port@8 {
++		port@7 {
  			status = "disabled";
  		};
  	};
