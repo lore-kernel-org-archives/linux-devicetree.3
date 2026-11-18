@@ -1,110 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795017301;
-	b=k4P8a6Mo/kRipn4lvNN7MYRYxP41JRHHtHoRrUAd94a+S8kSk4CzIOWeXynND4RpxS15
-	 W2o4JbeV2Ja2M3Xiv4uVYtUMWAHi8pQ35AUWTPuStzNL199yFdA3wDqSTyYxXSP9oNNjP
-	 vX1J9vBjv1YrocuppSxjDVzQdr6xFZ3g9ePF/lcVG0RCH0QQ2vVb3JacW5WSrBiRcddIE
-	 oVrWfNn7jx6ZgJl/pXh4OvJu/ex+oX1W23Nmo1ZRn+388qpV8Pq3AGmsvrjZgC+RcxUjf
-	 R8ffUznEFUEnF4R1ZHQELznPHoR4RzNPitXTZiu0D9n/TgJUoYO3ZSX2ozrlJydCV1Q==
+	t=1795017327;
+	b=GBNUQIPcyZA0AmLdDFdalzI4ud2N3x+PdiE89VwW+W392TKGGQaPgrLrc8ECN9JMw6xf
+	 dnvYDjpPWMl6ATVCmAVGeInf1zvE1pg9uexz33sMkt0Gojw2I0lAea+zeG4RhMsXs0axb
+	 h7tUya9PoJhGm0pJxy6J9CkEd9n3+1h+6rZ3OMrJ5u/sHQHpv/Dz6Fh5K5Udv9bzsyy8S
+	 AD9LRTMNq+Ev6qrPRTdX0O8SYZxSc8Y6FMg8rlW5yZEakIxRtlRc0d1V2fLjY46OLex3j
+	 Y5R0Iu4S7SZJj6ZN0c27eBruvShxhWJy+7qqN1umyYoLgzeswT/GDg2AclwBAAQ56FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795017301;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=qYegP4uULHLbb4rYN9EEt/ZV0VWypeovKGqy+rkk7so=;
-	b=1N3RUXe+5+V7uLkdX75BV0OyFC6YwhPgjoEesgAKbMUBxZf40Xnqm3/rPqAps7ew5SMl
-	 cfx6hvHOK8KkrNVt6+qp9mhe/m70D8+sO4sUVT9m2tWjFEx1OZbfOPWEA+8tWjdpSc3tS
-	 H6lDJjSOP/EHmY6uenmkUJJW1zIVx0LI9cIOvYofMxgbUbOMTEi1m1cWr59PInRNE0+Eo
-	 hY7WgY9kY3aZqOIHaV8Nk5I6BjCFdWaQ4/rlvQq9LcNRl38PA4x0szjBDIFKrlFqx/4es
-	 rIPhnFdgXw7PfmplNNwzMWVRt/Sqm7zdhuv4XRplUvxkdro8dsCvOP8Q0fMBlObXEeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795017327;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=JbPTscy6XZXo8W16Ivu0imnpcVsF77/edhRp63Vu/UM=;
+	b=F1+lhjIxt7DF3w1bLCEp9o/VIZim2I97Sr6TtmUlzs34dfwcyKmi/OBcUMlZdVl3bD2S
+	 9YSnfZNgSW1u3cbu9LatplLuQt5USd0apPvjUJfczotmJmSY+thm/0Ybf3wKiMvzHfHox
+	 W89VghxAGznva1VdPATPNsoOtNUBKdw7edRWNcGIhKrRDAfnOX9oaKm4n30tRfeYSUXON
+	 HsIXhxX3q9zfBEevry/w7fDx694oKm23b/p+kHc0s8lAbdtcsClI0TMGIs3paS2Sjila3
+	 /poV+EFCkuTfyTmXmpIfxQB+YL/9CHHbhUwZrUYs6SVe0EGKEpHPvN/qBIqidxM7Q/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=XXowsTec;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GXJTGz19;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52AF606A334
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 15:55:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C52AF606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B520606A336;
+	Wed, 18 Nov 2026 15:55:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=XXowsTec
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c5118deebcfso110560566b.1
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:55:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795017299; x=1795622099; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qYegP4uULHLbb4rYN9EEt/ZV0VWypeovKGqy+rkk7so=;
-        b=XXowsTecBEc1yVTP/SGAQPtMfrRnZ1p1ga3D1SZP2gtvhzZZUKZxMlkyBdRkw4YcEP
-         NnWS/4tdnNQuSW7Kv9FpHMtgm2C1B+P8BakhwvKBeweq5SI0rlHgCkajgnCvmFOi35nL
-         0ybtCKWg9PKlkuLqYj4Lrr5Wj7I+AJQrpXaZFSNJggUQfOQWaQaysysTRNlL9M508/0I
-         KrReBVEVq4lpl7+zC9uvFLb8+X1sLILOg9GngO1R5MIQh8xnt59yBvbLQTotFlL8M5Cn
-         gbQC1FDxYIZ81/nC+0N+bqfP4MXLJzxI+rkvVDFRYeSWT/zmRY9t9EfqjDSvnASIV95t
-         5avA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795017299; x=1795622099;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qYegP4uULHLbb4rYN9EEt/ZV0VWypeovKGqy+rkk7so=;
-        b=rm/lwM+YdZ8h86ro1oo6Z5nxrNw2S6kvFm5BV2JYvgxW227/djrqHmEcKDF9uRGzYc
-         xz+4iYQS5Iu2YZCCONvigKqd5vro/BA8zFD8fbZ33fwS0QvKTdWwVWxv39BEeHow1CST
-         joUIWnsR7ppIQeJqiTjdRKknVhnwewFO5QhZgeNfy7pmi1Xd+94YJdBR/KV7bivF/zVC
-         AnEgCBvP3jHIG4obGOJFvtcnjMXNUVAc1sCCeB84ECfrZ9GkFT9fVik1Lwt4nWJzhINE
-         4NEcnrdbPTXNfyaDgQKDcyyT/6JhQQDZKpirIscm0W2NDX0GgGdNXcvBQT0psBWYwt8p
-         gTWw==
-X-Forwarded-Encrypted: i=1; AL+hErEbGzDy98ClPytUMxBC4+h2Ech4H8oXTGTBAMYs+GgAAdnzbL++lZO5TbQ0ZKl/COz4YXjSuqmr+hzw@vger.kernel.org
-X-Gm-Message-State: APuU4Z+h73+xg54rV5/8Mwg5IyKBNW1XmBvm4Cgc1Hz2EM5IZoysKfnt
-	nrcbC4sfU+kbWK5IMy5rIpD8m8oQO0bnG5KoExLARIx8k78VskZn6dtd4gvg+Md1bkw=
-X-Gm-Gg: AYBFou0eL7QQD72SNaf7JiA+C9sQTXwa6EPxo8vat+v+tXkjyy11WLK3F+5nWCRxWtd
-	/pooCPqKV/iZzCtcHX4UqZ0g7yzSS7zlVgPSGchSMJMxVd+e+ooDexmwOGKwkOvfwYaItNZn4JA
-	nu4lHMepd2fJQzbJ5uKimCDWsqTQsvh86b7VsD8oZ6wQw8ZdWD7QJGnHeswFXU2Ii/o7bMrX2FL
-	wmwCkceRF/Bam5HI3JlmgNy+CJtxsZccPZqoGlXacU7ZJwEVW9hxroFb+obqc7+kahyNYDfC9L7
-	0LKtWpnGPffy9wGBM8TQYo39HuJelm7DBtkK+rs96ckBNybmmqsF6ak4RQTyCIFTzoPxNE46Yiv
-	ArX4iZXB4ld4N6AkQUR3ketoszdBQlEsyZ4hV2aCrAGx1T3BPIuLhLBE7qlYbKzeHjiYcQV+/EN
-	Xhdv0vqYfccSqzp2VkOVdqj8+x4P5zszgxpHxIZSmlFM9ZVlXhzmjQIBCOlb1Gbn7FKSB9gtZmk
-	p3utATXsrkgNuNDarTlZA8S8bOFAbQV+HiAG9ZFsWTssmSGsBoTtE7TXu6oNdeyJC8pjCuwHJpj
-	hffgDs8n/wcGmco47WnHLMTwmyPJ711V
-X-Received: by 2002:a17:906:c14e:b0:c50:a7ff:f880 with SMTP id a640c23a62f3a-c510e28dfcamr310805266b.34.1795017299066;
-        Wed, 18 Nov 2026 07:54:59 -0800 (PST)
-Received: from p14s ([2604:3d09:148c:c800:9f37:bd39:7f19:3b3c])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51231bc1a2sm20902066b.5.2026.11.18.07.54.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 07:54:58 -0800 (PST)
-Date: Wed, 18 Nov 2026 09:54:49 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Francesco Valla <francesco@valla.it>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC v2 07/11] remoteproc: assign fwnode during vdev
- registration
-Message-ID: <av3KSXqeGyazaMR9@p14s>
-References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it>
- <20261102-remoteproc_virtio_map-v2-7-26b300e01c62@valla.it>
- <avyAtmxdbfEBbZ87@p14s>
- <avzS1DiNGmL1Pqmn@bywater>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GXJTGz19
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 868401F000C4;
+	Wed, 18 Nov 2026 15:55:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795017326;
+	bh=JbPTscy6XZXo8W16Ivu0imnpcVsF77/edhRp63Vu/UM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GXJTGz19LAjAtSyx2MzkxN0S/bgfvKKC1uKTGd4tN2gEOxqG5nTq9OiLJcWFVft/G
+	 CXWJ7oCOP24vSSfu9xNmOOIvL1r1L1OTBNFc4E5GtyVRPSq/biwqkYKwcae739iQIt
+	 VLy7JxHJrOFyYX6a43s4oijM1paBBrm6Rkr/cNOAq2j1c4PdaMHXkJ6OWvodx36VMy
+	 D0KqcM7w2ktySpaaDaw9cvYuOMCzdTahpdI81TRVlZ8Xe5ZhlB7e7c6mL0aollVSDf
+	 QW4VWYGPKDf+/MdXaGdpJcm+6rzPoVjBJ9ZyPLpJ3i2S0YhBaBMwG39ZJY3QnLzFq6
+	 vxLAWMOlUdO7A==
+Message-ID: <sashiko-outbox-221387@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 08/11] iio: adc: stm32-mdf: add dma buffered
+ acquisition support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Olivier Moysan" <olivier.moysan@foss.st.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261118-upstream_mdf_v2-v2-8-7939d3c3720a@foss.st.com>
+References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
+ <20261118-upstream_mdf_v2-v2-8-7939d3c3720a@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 15:55:26 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,258 +60,318 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avzS1DiNGmL1Pqmn@bywater>
 
-On Tue, Nov 17, 2026 at 11:29:01PM +0100, Francesco Valla wrote:
-> On Tue, Nov 17, 2026 at 10:28:38AM -0600, Mathieu Poirier wrote:
-> > On Mon, Nov 02, 2026 at 12:26:44AM +0100, Francesco Valla wrote:
-> > > The virtio subsystem already supports a fwnode describing a vdev; search
-> > > for a specific node during vdev registration and supply it to the
-> > > rproc-virtio platform device that is being registered.
-> > > 
-> > > A memory-region specified inside that node is also used for the virtio
-> > > device if a carveout was not supplied for it through the parent device's
-> > > node.
-> > > 
-> > > Signed-off-by: Francesco Valla <francesco@valla.it>
-> > > ---
-> > >  drivers/remoteproc/remoteproc_core.c   | 48 +++++++++++++++++++++++++++++++---
-> > >  drivers/remoteproc/remoteproc_virtio.c | 41 +++++++++++++++++++++++++++++
-> > >  2 files changed, 85 insertions(+), 4 deletions(-)
-> > > 
-> > > diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> > > index c946ecd980a5..e833853ae7f6 100644
-> > > --- a/drivers/remoteproc/remoteproc_core.c
-> > > +++ b/drivers/remoteproc/remoteproc_core.c
-> > > @@ -440,6 +440,33 @@ void rproc_remove_rvdev(struct rproc_vdev *rvdev)
-> > >  	if (rvdev)
-> > >  		list_del(&rvdev->node);
-> > >  }
-> > > +
-> > > +static struct fwnode_handle *rproc_get_vdev_fwnode(struct device *dev, u32 idx)
-> > > +{
-> > > +	struct fwnode_handle *group, *child;
-> > > +	u32 reg;
-> > > +	int ret;
-> > > +
-> > > +	group = device_get_named_child_node(dev, "virtio");
-> > > +	if (!fwnode_device_is_available(group)) {
-> > > +		fwnode_handle_put(group);
-> > > +		return NULL;
-> > > +	}
-> > > +
-> > > +	fwnode_for_each_available_child_node(group, child) {
-> > > +		ret = fwnode_property_read_u32(child, "reg", &reg);
-> > > +		if (ret)
-> > > +			continue;
-> > > +
-> > > +		if (idx == reg)
-> > > +			break;
-> > > +	}
-> > > +
-> > > +	fwnode_handle_put(group);
-> > > +
-> > > +	return child;
-> > > +}
-> > > +
-> > >  /**
-> > >   * rproc_handle_vdev() - handle a vdev fw resource
-> > >   * @rproc: the remote processor
-> > > @@ -475,7 +502,16 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
-> > >  	struct device *dev = &rproc->dev;
-> > >  	size_t rsc_size;
-> > >  	struct rproc_vdev_data rvdev_data;
-> > > +	struct platform_device_info pdev_info = {
-> > > +		.parent = dev,
-> > > +		.name = "rproc-virtio",
-> > > +		.id = PLATFORM_DEVID_AUTO,
-> > > +		.data = &rvdev_data,
-> > > +		.size_data = sizeof(rvdev_data),
-> > > +	};
-> > >  	struct platform_device *pdev;
-> > > +	struct fwnode_handle *fwnode;
-> > > +	int ret = 0;
-> > >  
-> > >  	/* make sure resource isn't truncated */
-> > >  	rsc_size = struct_size(rsc, vring, rsc->num_of_vrings);
-> > > @@ -498,20 +534,24 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
-> > >  	rvdev_data.rsc_offset = offset;
-> > >  	rvdev_data.rsc = rsc;
-> > >  
-> > > +	fwnode = rproc_get_vdev_fwnode(dev->parent, rvdev_data.index);
-> > > +	pdev_info.fwnode = fwnode;
-> > > +
-> > >  	/*
-> > >  	 * When there is more than one remote processor, rproc->nb_vdev number is
-> > >  	 * same for each separate instances of "rproc". If rvdev_data.index is used
-> > >  	 * as device id, then we get duplication in sysfs, so need to use
-> > >  	 * PLATFORM_DEVID_AUTO to auto select device id.
-> > >  	 */
-> > > -	pdev = platform_device_register_data(dev, "rproc-virtio", PLATFORM_DEVID_AUTO, &rvdev_data,
-> > > -					     sizeof(rvdev_data));
-> > > +	pdev = platform_device_register_full(&pdev_info);
-> > >  	if (IS_ERR(pdev)) {
-> > >  		dev_err(dev, "failed to create rproc-virtio device\n");
-> > > -		return PTR_ERR(pdev);
-> > > +		ret = PTR_ERR(pdev);
-> > >  	}
-> > >  
-> > > -	return 0;
-> > > +	fwnode_handle_put(fwnode);
-> > > +
-> > > +	return ret;
-> > >  }
-> > >
-> > >  /**
-> > > diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-> > > index 1496659ddff9..950d65480be5 100644
-> > > --- a/drivers/remoteproc/remoteproc_virtio.c
-> > > +++ b/drivers/remoteproc/remoteproc_virtio.c
-> > > @@ -13,10 +13,12 @@
-> > >  #include <linux/dma-map-ops.h>
-> > >  #include <linux/dma-mapping.h>
-> > >  #include <linux/export.h>
-> > > +#include <linux/of.h>
-> > >  #include <linux/of_reserved_mem.h>
-> > >  #include <linux/platform_device.h>
-> > >  #include <linux/remoteproc.h>
-> > >  #include <linux/rsc_table.h>
-> > > +#include <linux/swiotlb.h>
-> > >  #include <linux/virtio.h>
-> > >  #include <linux/virtio_config.h>
-> > >  #include <linux/virtio_ids.h>
-> > > @@ -394,6 +396,23 @@ static void rproc_virtio_dev_release(struct device *dev)
-> > >  	put_device(&rvdev->pdev->dev);
-> > >  }
-> > >  
-> > > +/*
-> > > + * Attach the memory region declared inside the vdev's own devicetree node.
-> > > + *
-> > > + * A restricted-dma-pool region is attached by of_dma_configure() when the
-> > > + * platform device is probed, but it is released together with the virtio
-> > > + * device (see rproc_virtio_dev_release()); attach it again if needed, e.g.
-> > > + * when the remote processor is restarted during a crash recovery.
-> > > + * Any other kind of region (e.g., shared-dma-pool) is attached only here.
-> > > + */
-> > > +static int rproc_virtio_init_vdev_mem(struct device *dev)
-> > > +{
-> > > +	if (is_swiotlb_for_alloc(dev))
-> > > +		return 0;
-> > > +
-> > > +	return of_reserved_mem_device_init_by_idx(dev, dev->of_node, 0);
-> > > +}
-> > > +
-> > >  /**
-> > >   * rproc_add_virtio_dev() - register an rproc-induced virtio device
-> > >   * @rvdev: the remote vdev
-> > > @@ -410,6 +429,7 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
-> > >  	struct device *dev = &rvdev->pdev->dev;
-> > >  	struct virtio_device *vdev;
-> > >  	struct rproc_mem_entry *mem;
-> > > +	bool has_mem_region;
-> > >  	int ret;
-> > >  
-> > >  	if (rproc->ops->kick == NULL) {
-> > > @@ -417,11 +437,24 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
-> > >  		return -EINVAL;
-> > >  	}
-> > >  
-> > > +	has_mem_region = of_property_present(dev->of_node, "memory-region");
-> > > +
-> > >  	/* Try to find dedicated vdev buffer carveout */
-> > >  	mem = rproc_find_carveout_by_name(rproc, "vdev%dbuffer", rvdev->index);
-> > >  	if (mem) {
-> > >  		phys_addr_t pa;
-> > >  
-> > > +		if (has_mem_region) {
-> > > +			/*
-> > > +			 * The carveout takes precedence: drop the region that
-> > > +			 * of_dma_configure() might have attached at probe time.
-> > 
-> > I don't understand this part - why would someone configure vdevXbuffer with the
-> > same name at the rproc and rproc-virtio level?  This should be an error.
-> >
-> 
-> The carveout might come from the remote processor's resource table. I
-> was unsure on how to treat it (warning or error) - if you advise for
-> the second I'll go that route.
-> 
+Thank you for your contribution! Sashiko AI review found 9 potential
+issues to consider:
+- [High] iio: adc: stm32-mdf: no-op W1C clear in stm32_mdf_irq() causes
+  IRQ storm
+- [High] iio: adc: stm32-mdf: broken interleaved suspend and resume
+  ordering
+- [High] iio: adc: stm32-mdf: NULL thread_fn in
+  devm_iio_triggered_buffer_setup()
+- [Medium] iio: adc: stm32-mdf: wrong W1C clear in
+  stm32_mdf_adc_postenable()
+- [Medium] iio: adc: stm32-mdf: uncleaned IRQs on error in
+  stm32_mdf_adc_postenable()
+- [Medium] iio: adc: stm32-mdf: unbalanced kclk prepare in
+  stm32_mdf_adc_suspend()
+- [Medium] iio: adc: stm32-mdf: zero-size cb on wrap in
+  stm32_mdf_adc_dma_buffer_done()
+- [Medium] iio: adc: stm32-mdf: missing available_scan_masks for
+  interleaved mode
+- [Low] iio: adc: stm32-mdf: unused PM callbacks when CONFIG_PM_SLEEP is
+  disabled
+--
 
-Ok, so this is also related to my for patch [5/11], i.e handling of authentic
-rproc-virtio device should follow modern practices.   
+commit abc251af1764611faf8f05bc9f73b60d34b2ef36
+Author: Olivier Moysan <olivier.moysan@foss.st.com>
 
-> > > +			 */
-> > > +			dev_warn(dev,
-> > > +				 "vdev%dbuffer carveout found, ignoring memory-region\n",
-> > > +				 rvdev->index);
-> > > +			of_reserved_mem_device_release(dev);
-> > 
-> > Who would have called of_reserved_mem_device_init_by_XYZ()?  The remoteproc core
-> > or virtio core?  
-> > 
-> The of_dma_configure() call that is part of the platform DMA
-> configuration automatically associates to the device the first
-> restricted-dma-pool node referenced by memory-region; see [1].
-> 
-> This is actually beneficial to the proposed solution, but current
-> implementation requires this step to avoid leaking the association (this
-> will be required also in case of error, because of_dma_configure() is
-> called during the probe).
-> 
+iio: adc: stm32-mdf: add dma buffered acquisition support
 
-Ok
+This commit adds cyclic DMA buffered acquisition, watermark configuration,
+and system suspend/resume support to the STM32 MDF ADC driver.
 
-> > > +		}
-> > > +
-> > >  		if (mem->of_resm_idx != -1) {
-> > >  			struct device_node *np = rproc->dev.parent->of_node;
-> > >  
-> > > @@ -451,6 +484,14 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
-> > >  				return ret;
-> > >  			}
-> > >  		}
-> > > +	} else if (has_mem_region) {
-> > > +		/* Use the memory region declared in the vdev's own node */
-> > > +		ret = rproc_virtio_init_vdev_mem(dev);
-> > > +		if (ret) {
-> > > +			dev_err(dev, "Can't associate vdev memory-region: %d\n",
-> > > +				ret);
-> > > +			return ret;
-> > > +		}
-> > 
-> > Mixing the initialisation of the legacy rproc-virtio and authentic rproc-virtio
-> > devices is very confusing.  I think there is value in splitting them, even if it
-> > entails some code duplication.
-> > 
-> 
-> Ok, I'll split them for V3.
-> 
+> diff --git a/drivers/iio/adc/stm32-mdf-adc.c b/drivers/iio/adc/stm32-mdf-=
+adc.c
+> index 7361ce6182bec..046ca3943a397 100644
+> --- a/drivers/iio/adc/stm32-mdf-adc.c
+> +++ b/drivers/iio/adc/stm32-mdf-adc.c
+> @@ -823,6 +823,243 @@ static void stm32_mdf_adc_stop_conv(struct iio_dev =
+*indio_dev)
+[ ... ]
+> +static void stm32_mdf_adc_dma_buffer_done(void *data)
+> +{
+> +	struct iio_dev *indio_dev =3D data;
+> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
+> +	int available =3D stm32_mdf_adc_dma_residue(adc);
+> +	size_t old_pos;
+> +
+> +	dev_dbg(&indio_dev->dev, "pos =3D %d, available =3D %d\n", adc->bufi, a=
+vailable);
+> +	old_pos =3D adc->bufi;
+> +
+> +	while (available >=3D indio_dev->scan_bytes) {
+> +		s32 *buffer =3D (s32 *)&adc->rx_buf[adc->bufi];
+> +
+> +		adc->bufi +=3D indio_dev->scan_bytes;
+> +		if (adc->bufi >=3D adc->buf_sz) {
+> +			if (adc->cb)
+> +				adc->cb(&adc->rx_buf[old_pos], adc->buf_sz - old_pos, adc->cb_priv);
+> +			adc->bufi =3D 0;
+> +			old_pos =3D 0;
+> +		}
+> +		if (adc->dev_data->type =3D=3D STM32_MDF_IIO)
+> +			iio_push_to_buffers(indio_dev, buffer);
+> +		available -=3D indio_dev->scan_bytes;
+> +	}
 
-Please move forward on that.  Since it will introduce a fair amount of churn, I
-will simply stop reviewing the current set and wait for V3.  You can remove the
-"RFC" tag, we are well past that now.
+[Severity: Medium]
+In multi-channel interleaved mode on Filter 0, hardware and DMA always
+transfer all num_ch 32-bit samples per scan into adc->rx_buf, but
+stm32_mdf_adc_init() never sets indio_dev->available_scan_masks.  If a
+user enables only a subset of channels in scan_elements, does stepping
+adc->bufi by the smaller indio_dev->scan_bytes without an IIO demux table
+push samples from disabled interleaved filters as if they belonged to the
+enabled channel?
 
+> +	if (adc->cb)
+> +		adc->cb(&adc->rx_buf[old_pos], adc->bufi - old_pos, adc->cb_priv);
+> +}
 
-> > Thanks,
-> > Mathieu
-> > 
-> > >  	} else {
-> > >  		struct device_node *np = rproc->dev.parent->of_node;
-> > >  
-> > > 
-> > > -- 
-> > > 2.56.0
-> > > 
-> >
-> 
-> Thank you!
-> 
-> Regards,
-> Francesco
-> 
-> 
-> [1] https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/of/device.c#L35
-> 
+[Severity: Medium]
+When adc->bufi wraps around to 0 at adc->buf_sz inside the loop, both
+adc->bufi and old_pos are reset to 0 after invoking adc->cb().  Does this
+trailing check then call adc->cb() a second time with a size of 0 on every
+buffer wrap-around (and whenever available < indio_dev->scan_bytes)?
+
+[ ... ]
+
+> +static int stm32_mdf_adc_postenable(struct iio_dev *indio_dev)
+> +{
+[ ... ]
+> +	stm32_mdf_adc_filter_set_mode(adc, true);
+> +
+> +	regmap_clear_bits(adc->regmap, MDF_DFLTISR_REG,
+> +			  MDF_DFLTISR_DOVRF_MASK | MDF_DFLTISR_SATF_MASK);
+
+[Severity: Medium]
+Status flags in MDF_DFLTISR_REG are write-1-to-clear (rc_w1).  Because
+MDF_DFLTISR_REG is volatile, regmap_clear_bits() reads the register and
+writes back the value with MDF_DFLTISR_DOVRF_MASK | MDF_DFLTISR_SATF_MASK
+masked to 0.  Does this leave pending DOVRF and SATF flags asserted right
+before enabling their interrupts, while inadvertently writing 1 to clear
+any other asserted status flags in MDF_DFLTISR_REG?  Clearing DOVRF and
+SATF requires regmap_write().
+
+> +
+> +	regmap_set_bits(adc->regmap, MDF_DFLTIER_REG,
+> +			MDF_DFLTIER_DOVRIE_MASK | MDF_DFLTIER_SATIE_MASK);
+
+[Severity: High]
+Enabling MDF_DFLTIER_DOVRIE_MASK and MDF_DFLTIER_SATIE_MASK here makes the
+overflow and saturation handlers in stm32_mdf_irq() reachable:
+
+drivers/iio/adc/stm32-mdf-adc.c:stm32_mdf_irq() {
+    ...
+	if (flags & MDF_DFLTISR_DOVRF_MASK) {
+		dev_warn(&indio_dev->dev, "Data overflow detected\n");
+		regmap_set_bits(regmap, MDF_DFLTISR_REG, MDF_DFLTISR_DOVRF_MASK);
+	}
+    ...
+	if (flags & MDF_DFLTISR_SATF_MASK) {
+		dev_warn(&indio_dev->dev, "Saturation detected\n");
+		regmap_set_bits(regmap, MDF_DFLTISR_REG, MDF_DFLTISR_SATF_MASK);
+    ...
+}
+
+Because MDF_DFLTISR_REG is volatile and regmap_set_bits() passes
+force =3D false, _regmap_update_bits() reads MDF_DFLTISR_REG, sees the
+status bit is already 1, and skips the bus write.  If a data overflow
+occurs during DMA acquisition, will MDF_DFLTISR_DOVRF_MASK remain set
+while MDF_DFLTIER_DOVRIE_MASK stays enabled, causing an infinite hardirq
+storm?
+
+> +
+> +	ret =3D stm32_mdf_adc_dma_start(indio_dev);
+> +	if (ret) {
+> +		dev_err(&indio_dev->dev, "Can't start DMA\n");
+> +		goto err_dma;
+> +	}
+> +
+> +	ret =3D stm32_mdf_adc_start_conv(indio_dev);
+> +	if (ret) {
+> +		dev_err(&indio_dev->dev, "Can't start conversion\n");
+> +		goto err_conv;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_conv:
+> +	stm32_mdf_adc_dma_stop(indio_dev);
+> +err_dma:
+> +	stm32_mdf_adc_stop_mdf(indio_dev);
+
+[Severity: Medium]
+If stm32_mdf_adc_dma_start() or stm32_mdf_adc_start_conv() fails (for
+example, when adc->buf_sz is 0), does the err_dma unwind path leave
+MDF_DFLTIER_DOVRIE_MASK | MDF_DFLTIER_SATIE_MASK enabled in
+MDF_DFLTIER_REG?
+
+[ ... ]
+
+> @@ -1208,6 +1467,24 @@ static int stm32_mdf_adc_init(struct device *dev, =
+struct iio_dev *indio_dev)
+> =20
+>  	init_completion(&adc->completion);
+> =20
+> +	/* Optionally request DMA */
+> +	ret =3D stm32_mdf_dma_request(dev, indio_dev);
+> +	if (ret) {
+> +		if (ret !=3D -ENODEV)
+> +			return dev_err_probe(dev, ret, "DMA channel request failed with\n");
+> +
+> +		dev_dbg(dev, "No DMA support\n");
+> +		return 0;
+> +	}
+> +
+> +	ret =3D devm_iio_triggered_buffer_setup(dev, indio_dev,
+> +					      &iio_pollfunc_store_time, NULL,
+> +					      &stm32_mdf_buffer_setup_ops);
+
+[Severity: High]
+Can attaching an IIO trigger and enabling the buffer crash or wedge the
+kernel here?
+
+devm_iio_triggered_buffer_setup() sets INDIO_BUFFER_TRIGGERED and
+allocates indio_dev->pollfunc with h =3D iio_pollfunc_store_time,
+thread =3D NULL, and type =3D IRQF_ONESHOT.  When a trigger is attached and
+the buffer is enabled, iio_verify_update() selects INDIO_BUFFER_TRIGGERED
+over INDIO_BUFFER_SOFTWARE and iio_trigger_attach_poll_func() calls
+request_threaded_irq() with IRQF_ONESHOT and thread_fn =3D NULL, hitting
+WARN_ON_ONCE(new->flags & IRQF_ONESHOT && !new->thread_fn) in
+__setup_irq().  When the trigger fires, a nested trigger such as
+iio-trig-loop dereferences NULL action->thread_fn in handle_nested_irq(),
+while a non-nested trigger such as iio-trig-sysfs or iio-trig-hrtimer
+returns IRQ_WAKE_THREAD with no thread_fn, hitting warn_no_thread() and
+never calling iio_trigger_notify_done().
+
+The follow-up commit "iio: adc: stm32-mdf: add external timer trigger
+support" adds INDIO_HARDWARE_TRIGGERED and .validate_trigger, but keeps
+devm_iio_triggered_buffer_setup() with a NULL thread_fn, so
+INDIO_BUFFER_TRIGGERED is still selected whenever indio_dev->trig is set.
+Since samples are pushed from the DMA callback and external triggers are
+routed in hardware, should this use devm_iio_kfifo_buffer_setup() (and
+select IIO_KFIFO_BUF in Kconfig) instead of
+devm_iio_triggered_buffer_setup()?
+
+[ ... ]
+
+> @@ -1479,14 +1758,48 @@ static void stm32_mdf_adc_remove(struct platform_=
+device *pdev)
+[ ... ]
+> +static int stm32_mdf_adc_suspend(struct device *dev)
+> +{
+> +	struct iio_dev *indio_dev =3D dev_get_drvdata(dev);
+> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
+> +	int ret =3D 0;
+> +
+> +	if (iio_buffer_enabled(indio_dev))
+> +		ret =3D stm32_mdf_adc_predisable(indio_dev);
+> +
+> +	regcache_cache_only(adc->regmap, true);
+> +	regcache_mark_dirty(adc->regmap);\n+
+> +	return ret;
+> +}
+
+[Severity: Medium]
+stm32_mdf_adc_probe() attaches adc->mdf->kclk to adc->regmap via
+stm32_mdf_regmap_init() -> regmap_mmio_attach_clk(), which holds a
+clk_prepare() reference on kclk.  In stm32_mdf_core_suspend(), the parent
+driver unprepares kclk only for sitf_list and the core regmap, not for
+filter regmaps.  Should stm32_mdf_adc_suspend() and stm32_mdf_adc_resume()
+also unprepare and re-prepare adc->mdf->kclk so kclk does not stay
+prepared across system suspend?
+
+> +
+> +static int stm32_mdf_adc_resume(struct device *dev)
+> +{
+> +	struct iio_dev *indio_dev =3D dev_get_drvdata(dev);
+> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	regcache_cache_only(adc->regmap, false);
+> +	ret =3D regcache_sync(adc->regmap);
+> +
+> +	if (!ret && iio_buffer_enabled(indio_dev))
+> +		ret =3D stm32_mdf_adc_postenable(indio_dev);
+> +
+> +	return ret;
+> +}
+
+[Severity: High]
+How does suspend and resume work when interleaved (or synchronized)
+filters are active?
+
+In interleaved mode, only Filter 0 registers an IIO device, so
+iio_buffer_enabled() is only ever true on Filter 0, while Filter 0 starts
+and stops subordinate filters (Filters 1..N-1) by iterating
+mdf->filter_list.  Because child devices suspend in reverse probe order
+and resume in forward probe order:
+
+1. On suspend, Filters N-1..1 run stm32_mdf_adc_suspend() before Filter 0
+   and set regcache_cache_only(adc_inter->regmap, true).  When Filter 0
+   then calls stm32_mdf_adc_predisable() -> stm32_mdf_adc_stop_filter(),
+   clearing MDF_DFLTCR_DFLTEN on adc_inter->regmap only updates the cache
+   and does not stop Filters 1..N-1 in hardware.
+
+2. On resume, Filter 0 runs stm32_mdf_adc_resume() ->
+   stm32_mdf_adc_postenable() before Filters 1..N-1 have cleared
+   cache_only on their regmaps:
+
+drivers/iio/adc/stm32-mdf-adc.c:stm32_mdf_adc_start_filter() {
+    ...
+	if (MDF_IS_FILTER0(adc))
+		list_for_each_entry(adc_inter, &mdf->filter_list, entry)
+			if (MDF_IS_INTERLEAVED_FILT_NOT_0(adc_inter))
+				stm32_mdf_adc_start_filter(adc_inter);
+
+	/* Check filter status. Bypass cache to access volatile MDF_DFLTCR_ACTIVE =
+bit */
+	regcache_cache_bypass(adc->regmap, true);
+	regmap_read(adc->regmap, MDF_DFLTCR_REG, &val);
+	regcache_cache_bypass(adc->regmap, false);
+    ...
+}
+
+   Calling stm32_mdf_adc_start_filter(adc_inter) while adc_inter->regmap
+   is still cache-only triggers WARN_ON(map->cache_only && enable) in
+   regcache_cache_bypass(), causes regmap_read() to fail with -EBUSY
+   leaving val uninitialized on the stack, traps filter configuration and
+   MDF_DFLTCR_DFLTEN writes in cache, and pulses MDF_GCR_TRGO before
+   subordinate interleaved (or st,sync slave) filters have resumed in
+   hardware.
+
+In addition, stm32_mdf_adc_init() requests a DMA channel, 16 KB coherent
+buffer, and triggered IIO buffer even for MDF_IS_INTERLEAVED_FILT_NOT_0()
+filters that never register an IIO device.
+
+> +
+> +static SIMPLE_DEV_PM_OPS(stm32_mdf_adc_pm_ops, stm32_mdf_adc_suspend, st=
+m32_mdf_adc_resume);
+> +
+>  static struct platform_driver stm32_mdf_adc_driver =3D {
+>  	.driver =3D {
+>  		.name =3D "stm32-mdf-adc",
+>  		.of_match_table =3D stm32_mdf_adc_match,
+> +		.pm =3D &stm32_mdf_adc_pm_ops,
+>  	},
+
+[Severity: Low]
+When CONFIG_PM_SLEEP is disabled, SIMPLE_DEV_PM_OPS() leaves
+stm32_mdf_adc_suspend() and stm32_mdf_adc_resume() unused, producing
+-Wunused-function warnings.  Could this use DEFINE_SIMPLE_DEV_PM_OPS() and
+pm_sleep_ptr(&stm32_mdf_adc_pm_ops) instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-upstream_m=
+df_v2-v2-0-7939d3c3720a@foss.st.com?part=3D8
