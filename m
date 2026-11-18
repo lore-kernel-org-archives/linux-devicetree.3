@@ -1,64 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795026827;
-	b=LuUhQylnAE5uM4OLIzbhEjy5kKNNqYs0lOgLwqwSxfszjQxF7cuQLRy1acFVr6uVxu8H
-	 qBCVnxqSgWCT0pkrlMHC5uvhPlRPVoXfYiAmrXJ/IK3RaDeQcZACW7Ew8FaojB4BCaKy6
-	 +qzIyu/YHrorZ2bVYgDdQyi6uTfHER83wvas2dw4CM/xOodC55vYvqAPkUA0xEN3Idv7L
-	 579Mw+su4PoiRp+0/nq9/qcWl0IlCkw0Oqs3+t1Ds+iUk9o74IOlsV2rAySTW6gAzCqBc
-	 VMSo7E2g35TG5EeKN3OnT2neM5v4jJI63QZVU+cLWNXMcgYoJC23CcHcEVlt1H+e54g==
+	t=1795026882;
+	b=0XTUe3OS6UN8Cr3Ix9QZ0G+OfohM/dPccdaGCO4tyRuN/2dD8yKhIlxLRLRPxoRLhUpB
+	 94efUsQjEd313EMyWkke2rwyBJFmUbtlasxt5oKpzy3ii0Hcg7VLlpBPdaksBvGmOsRIM
+	 SdMsapKOGyj8B8ljK+j+LVK5UoIm36ierpM3CyBSakwNyonVJy/vqXk3mBF1PiZ8N1WDG
+	 TIIBkE4w23vx3yAUijtrcqn3slsjg1HFDT+Bn1hqMZzTJ0cUoRCEq9pel62etGP8ToT8i
+	 HWsEm24QW+OjxcpoWJ9TaFTj69/oevjjf74/0bIob822pUdlOzD4+SIkxOg8/hO19uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795026827;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=P/YCoMP/9FT1ykUcsd21vzGLwiDJBDzH9u2nYG1nU6w=;
-	b=1tSLH290H1PueuVMPP5sBl1Z0pgPi/FwtENsGfaVEwerHmzKXZYnOtG+RRnCjYybeXA2
-	 7Dmcx5LlHVIHByJiSl2rvty29VQY53NEBBnNedSRuwpyq8MMl3zXbQQSqM5yYZYEQIRMf
-	 4QEzL2G3SA0ZDmVS0hLb+/92yVsgG5ocLV9gJjtul4na6UZ+ulQoarApHtqCYkjInjA9g
-	 aBOOssB0qAPfn8JUQma6gbZ+GOKkyFG8LWr7oxw6LgUqRjqnvLhM052HP6+GJHvpjOAiD
-	 49hQ/VJnOw3ZTxV4h1kH3Ib80uswABFXcWyMrKsTpFk5tmRB/Es5AHZ4zH0LN6fszQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795026882;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Jz3sAsIlh3Oa3HY30/U5TQCVjrJ4KmuhR1ocaieH2HA=;
+	b=DmX8exQ7TtY64Cce8C+8dyoFGxsBxDiqLRoO7986025M8mwiFscQbj+o7zPJyxSp5EWr
+	 VmEgW7S/pjxsucLxni4lbWJ42hoWWL65jEtdykEfqnSo/0cSbs3QqCowbayHJyBnTZJAF
+	 iJXgiYxBQeguPHZwfrJktiQiDh9CIwi52RtGWqzMcB6mqsEcDU6HlIkeoRf9oW5+F0Gqy
+	 E2b1V7ngfahSKpySvPuLpoADIOMV+R68dlXro+8mBLkN8AvTLx/MXm8yNXsI+mJbqKVZI
+	 MLttfr2DgEqmbAt5XUMwKcdJ/HIeZNTZf4h/h0l+cGzYu8vjg86tzKnu56VOL7It8bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNHhiY4v;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGjj49Mt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA21606A331;
-	Wed, 18 Nov 2026 18:33:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E312606A31C
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 18:34:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNHhiY4v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC99D1F000CB;
-	Wed, 18 Nov 2026 18:33:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGjj49Mt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB4BA1F000C4;
+	Wed, 18 Nov 2026 18:34:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795026826;
-	bh=P/YCoMP/9FT1ykUcsd21vzGLwiDJBDzH9u2nYG1nU6w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LNHhiY4vwIsJI6fmpylX0eXCxvEuKKvvPaFvQODi7o0zakHtQMbheWJPlEfJ2MeQd
-	 26JyAhCrZYr6agIm3RA06OEK7Fweq9rzySEVuHyPgD9fn43FZVAcS9the+5jd1Fvib
-	 5dBJi2udP0osSq//doOsk0Ekge0G/T06LfmSmTTK5w51vcY102WXoiTZDG4diVGv9M
-	 usA2fBPQtqvpG8JFjEyfaYluExZ+XSC8o51qcILMxvjxxANgOGUFsF4+sfM1xbd4S+
-	 2opIP+uJM9VWW9PI2bYEbq7wJM7fHok4AOMuCia2TDoHh4nO0pwQkibUmzlL2rA65x
-	 CNQuRIDAwmKjw==
-Date: Wed, 18 Nov 2026 18:33:41 +0000
-From: Lee Jones <lee@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Andre Przywara <andre.przywara@arm.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, linux-sunxi@lists.linux.dev,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v8 2/5] mfd: axp20x-i2c: Fix i2c instantiation
-Message-ID: <20261118183341.GI98456@joneslee-macbookpro.roam.internal>
-References: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
- <20260910-axp318-regulator-v8-2-e906a61a7f3d@baylibre.com>
- <20260924082705.GO3864833@google.com>
- <1jy0cq94na.fsf@starbuckisacylon.baylibre.com>
- <20261014104801.GI199624@google.com>
- <1ja4ogfp5l.fsf@starbuckisacylon.baylibre.com>
- <1jh5he2o9z.fsf@starbuckisacylon.baylibre.com>
+	s=k20260515; t=1795026882;
+	bh=Jz3sAsIlh3Oa3HY30/U5TQCVjrJ4KmuhR1ocaieH2HA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fGjj49MtEUd0M5SryPJEdP11MZ/2w+hh0fo5TMi8nPKKq0oLCkKuApC0yFZqj2+v7
+	 OWvoR9R1CZvKvSp1/Qzv/rbNNh94qHap904lbTJQbJ75/y8Bjd8CYtoLIjfau8kTKW
+	 9VPkIifDIbz5qYt5jTu4mM8gmPBQVrgw/tIi1fbV2job63Rs8UO4expuItOpib4pyG
+	 CaHsty62pKy6FO1+TdNgQkhDdodSMIErhaZGNpGzJpZ3gr7kZhtfX5BE/7VR+c8yRc
+	 W0e5vkEWrWJ+jJA3KEG3veptFZ+RAk6VxsVKtjM194lNNbfPYSRsyRoR8VNpHI6xzE
+	 nLfVqIlpsQKOA==
+Message-ID: <sashiko-outbox-221771@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: glymur-crd: Enable pull-up bias for
+ lid sensor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pankaj Patil" <pankaj.patil@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261118-lid_pull_up_fix-v1-1-4bb84dc70067@oss.qualcomm.com>
+References: <20261118-lid_pull_up_fix-v1-1-4bb84dc70067@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 18:34:41 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,126 +59,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1jh5he2o9z.fsf@starbuckisacylon.baylibre.com>
 
-On Wed, 18 Nov 2026, Jerome Brunet wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: qcom: glymur-crd: TLMM bias-pull-up contradicts
+  external pull-up
+--
 
-> On mer. 14 oct. 2026 at 14:21, Jerome Brunet <jbrunet@baylibre.com> wrote:
-> 
-> > On mer. 14 oct. 2026 at 11:48, Lee Jones <lee@kernel.org> wrote:
-> >
-> >> Note:
-> >>
-> >> --- checkpatch.pl (3 issues) ---
-> >> Line 2: WARNING: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
-> >> Line 3: ERROR: Invalid commit separator - some tools may have problems applying this
-> >> ----------------------------------
-> >
-> > I've checked before sending and checked again now, I don't have those
-> > warning. I don't see anything long on line 2 or a separator near line 3.
-> >
-> > Any specific way I should run the tool reproduce the problem if there is
-> > one ?
-> >
-> >>
-> >> On Thu, 24 Sep 2026, Jerome Brunet wrote:
-> >>
-> >>> On jeu. 24 sept. 2026 at 09:27, Lee Jones <lee@kernel.org> wrote:
-> >>> 
-> >>> > On Thu, 10 Sep 2026, Jerome Brunet wrote:
-> >>> >
-> >>> >> Apparently this device never really supported i2c instantiation via
-> >>> >> sysfs, because the driver does not even look at the i2c device data,
-> >>> >> which are not set. It would only probe if the device matched through DT.
-> >>> >> 
-> >>> >> Fix that for correctness, even-though it is probably useless.
-> >>> >> Add the missing AXP323 while at it.
-> >>> >> 
-> >>> >> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> >>> >> Closes: https://lore.kernel.org/r/20260717090209.2A09B1F000E9@smtp.kernel.org
-> >>> >> Fixes: 41751b033aaa ("mfd: axp20x-i2c: Add i2c-ids to fix module auto-loading")
-> >>> >> Acked-by: Chen-Yu Tsai <wens@kernel.org>
-> >>> >> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-> >>> >> ---
-> >>> >>  drivers/mfd/axp20x-i2c.c   | 24 +++++++++++++-----------
-> >>> >>  drivers/mfd/axp20x-rsb.c   |  1 +
-> >>> >>  drivers/mfd/axp20x.c       |  1 -
-> >>> >>  include/linux/mfd/axp20x.h |  3 +--
-> >>> >>  4 files changed, 15 insertions(+), 14 deletions(-)
-> >>> >> 
-> >>> >> diff --git a/drivers/mfd/axp20x-i2c.c b/drivers/mfd/axp20x-i2c.c
-> >>> >> index 5c93136f977e..a76bec5604c4 100644
-> >>> >> --- a/drivers/mfd/axp20x-i2c.c
-> >>> >> +++ b/drivers/mfd/axp20x-i2c.c
-> >>> >> @@ -35,6 +35,7 @@ static int axp20x_i2c_probe(struct i2c_client *i2c)
-> >>> >>  	axp20x->irq = i2c->irq;
-> >>> >>  	dev_set_drvdata(axp20x->dev, axp20x);
-> >>> >>  
-> >>> >> +	axp20x->variant = (kernel_ulong_t)i2c_get_match_data(i2c);
-> >>> >
-> >]>> > device_get_match_data() is bus agnostic and should still work from the
-> >>> > core driver.  What's the purpose of splitting it out and adding
-> >>> > additional call-sites?
-> >>> 
-> >>> device_get_match_data() works when the data comes through that path,
-> >>> which is generally the case.
-> >>> 
-> >>> i2c_get_match_data() calls device_get_match_data() then fallback to the
-> >>> i2c_device_ids. It covers the instanciation from sysfs mainly, not
-> >>> something usual.
-> >>> 
-> >>> As explained in the description, this changes plugs a hole identified by
-> >>> sashiko that technically exists but I highly doubt anyone will
-> >>> instanciate the PMIC through that interface. Those things do not really
-> >>> come as breakout boards ... That being said, it is cheap to fix.
-> >>
-> >> I'm confused.
-> >>
-> >> We already call device_get_match_data() in axp20x_match_device().
-> >
-> > Not anymore with this change. It is the point.
-> >
-> >>
-> >> So if you populate .driver_data in axp20x_i2c_id[], you should be
-> >> able to drop these changes altogether, no?
-> >
-> > device_get_match_data() only goes through the DT tables.
-> > Not the i2c_driver.id_table which is purpose here.
-> >
-> > My understanding is that if you instanciate the device
-> > through sysfs (which nobody does for these devices) and you only call
-> > device_get_match_data(), you will get NULL because there is no fwnode
-> > associated with the device, which in this case silently translate to
-> > AXP152_ID.
-> >
-> > device_get_match_data() does not go through the i2c_driver.id_table.
-> > Only the i2c code does, with i2c_get_match_data() and after trying with
-> > device_get_match_data() internally, which is exactly what we want.
-> >
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/i2c/i2c-core-base.c?h=v7.3-rc7#n121
-> >
-> > As noted earlier, this a problem reported by sashiko that is real but
-> > extremely unlikely to show up in real world. I'd happy to drop
-> > the change if you don't want it. It is not need to support the axp318.
-> >
-> 
-> Hi Lee,
-> 
-> How could progress on this ? I genuinely do not understand the problem.
-> This change is fixing a sashiko reported issue, in the appropriate
-> manner I think. device_get_match_data() just does not care for i2c
-> .id_table so i2c_get_match_data() is needed.
-> 
-> At the same time, what we really care for to progress on the Allwinner
-> a733 HW support is the rest of the series. So if this bothers you,
-> I'm happy to re-submit without this fix. Please let me know.
+commit 33a3a23eacc897dad84afcf17e419a24de929c16
+Author: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
 
-It's okay.  If you're convinced, then so am I.
+arm64: dts: qcom: glymur-crd: Enable pull-up bias for lid sensor
 
-Were there any more comments?  Is another revision coming?
+This commit replaces bias-disable with bias-pull-up on gpio92 in the
+hall-int-n-state pinctrl node for the lid Hall-effect sensor on Glymur
+CRD.
 
--- 
-Lee Jones
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/d=
+ts/qcom/glymur-crd.dtsi
+> index 3a9cd5f3ec2b8..74588f4f7a86e 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> @@ -819,7 +819,7 @@ edp_reg_en: edp-reg-en-state {
+>  	hall_int_n_default: hall-int-n-state {
+>  		pins =3D "gpio92";
+>  		function =3D "gpio";
+> -		bias-disable;
+> +		bias-pull-up;
+>  	};
+
+[Severity: Medium]
+Should hall_int_n_default enable bias-pull-up if the board already has
+an external 10k ohm pull-up resistor?
+
+In msm_config_group_set(), bias-pull-up enables the SoC's internal TLMM
+pull-up resistor rather than describing an external board resistor.  If
+an external 10k ohm pull-up is populated on gpio92, enabling the
+internal pull-up in parallel draws extra leakage current whenever the
+lid is closed and switch-lid (GPIO_ACTIVE_LOW) is held low; if the
+external resistor is unpopulated and the internal pull-up is needed, the
+commit message says the opposite.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-lid_pull_u=
+p_fix-v1-1-4bb84dc70067@oss.qualcomm.com?part=3D1
