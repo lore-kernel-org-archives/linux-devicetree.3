@@ -1,11 +1,11 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.2
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795003170;
-	b=LKO91hdoaeozUkuweB1hs1gqnIzqq6w44TCcM2amRnlmIlPqThPSvvPwxXXmaiM3f2Ko
-	 Qdw5X2B3m5ODiOgxqUUkmCVEos43GKATeljFn/6twG2tKN4c/Pln8iyM4Sr6ky25RVrvD
-	 L7WgeS4yy4pXRqm6SngaxHdVYoEEeqeFxtYnQRPia4eoQX2mWCUn/O34UYk49NKiLdMdy
-	 LXkkpBNxVXZlwgQwfdiBndtiPPD3QVCwwyF26KKrfpeb4Mx2arP8KhZfD8fYiXEweGS2Y
-	 cjPSw4/TyH0QQIPm2hpl0xr6Cjw2WiqYeYM8yHzrd4zENkiqoqlBUUy5UDjoOiiacqA==
+	b=dp3/K60NLpjQzlgu7gX0GG+RcBSJwqsRrAZRI4MZOsmAcxv5kN2v14cqK+ivmPv4k+1k
+	 lbR7fhT5BDs4i+rLZDWHj9RD0DatATaP+T8PLotnMA4ZH2e5Q10iDYXgv+pAfpjDxAwOc
+	 2kxLAW0HzxLafZK+vFhg5g0v201pGOwx1Hg+07mIKLSfr8SPYiTCAsNjPWoc65iklqU3D
+	 gkdL4ZLIdOfidr/CyugAziCiJlk9kSxHvEuhx9JRYlpFKNodMKFhxiyuKvPpRS4FHuXNT
+	 ktuigIOQklDpj+d/x8rle2aViTzYWEm8V/VbJF1SulLGuFmFBZCf8CXOmvpfCT3uRKw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795003170;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
@@ -27,35 +27,35 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RDUvaSE4Tz7zycrw73pw5RDBmmiHdRByI1v42Li/WDM=;
-	b=LBTFWEHoC6gfwTqnrAE+343PwpszZYexCuxL2P2OLi36MpZMDuZr/Ab2YTECB3qw0NcH
-	 s/bSyLU+cis24PriQqj/80ZZf9CGq54M4V0hafInXvq11W3zbWfmI7DP5e5fixnVXHdWV
-	 RuUTEpT31GOsbP5b0osYiIY6ODEf1FR+3h1fuamRcSUAbznZGCXXcVrmSse4izbDnKcyo
-	 xLG0IAsj5647zosB8pykjUVBj33TQqfNJlF1GGXFHz1DDO70woAGWK2gltHB2+jgkfeyI
-	 Tkkw+AlTjytCMNBnduEm7V+E3xRWnKzhEXafAG2nDF7ukTad2jmtUU6ztO7ya+vUKNQ==
+	bh=Aeoj9Aug6pPFKSq+h9xfGYr15hU+9V85q5aPZ5EBX1o=;
+	b=JPT6ipgB149Ey3XypCxlY4xxIDRE7LJRCFPPw8FHYMZonOqYNLAaSLtxr9fGBvZqEWw0
+	 3MZ4aOPL/uLQ4fafKfmvpUyVMQqNtXhVeHTh0oXRewM4IaQBgxoolEf2lCey0/XfXpO/O
+	 1eISrMi0Vp93idOc8w7EfKeXKvy9RpQnKnEelll1X9SqLjSA0WDoGp54FmrgD+bE6zHDe
+	 UYbzz90tg6SaePUWGFWuKy29CY8TtZEEnncK5CEvtgn/zGIj3zS8j5/sZ5QY/jCEdLPL5
+	 DtZUKVxbdLCmwtKJnzLRmw4iyZ6YjWKTZ5gBfgxCfhXOaQG5vU/o+4Znc3F5+9Y6DiA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=foss.st.com;
 	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b="Xq0Bw/eb";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.2
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011002.outbound.protection.outlook.com [52.101.70.2])
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=SzOd0eSp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.11
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011011.outbound.protection.outlook.com [40.107.130.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C016B606A325;
-	Wed, 18 Nov 2026 11:59:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C016B606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D62606A320;
+	Wed, 18 Nov 2026 11:59:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48D62606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=Xq0Bw/eb
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=SzOd0eSp
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q4eXOnHWCRDgMJDxlLa2+cXxXd4teJMpb6+aAv4BVmMtJYc7M3pK13IsUDFKehsYaXBaeZv17lbolKaBDQnKLcgkjRUScQ7vXo5YNLswVyuH51Xa+KphsfOeiY2U28wrfSAEc6792LfKxvCvdGAvNt4aRIwtc9iXMPIsv+9Y5auHh39mKAqrSGPolArKWgg9GqnvdL7JQGoXGKQYlAwp9emaYWOAnkA/N3W/6wttKJQp8eD9kQeS9Wv/pmNbj6VOBvUH2jsHWuQC3O5SNNR2wVkWGy+a6XJPVepEI9bBpVZQQVbkUi/vkg2FV9+X56NS+1b83RWL0MeetOyjfC4P6w==
+ b=Vc6psLQ7vhROudF9dUqQJi5DpSEOBGsM24zz25c/CFznrF52+hXPKJk4+Mjjq8loxHw6L0Y+3bvNMsHcJ9yRgrLR9LctxzAe9RlrptNMshZCi10XIsyL2y02XgHNbCEObwp92f3QzISx2YNtgfzOfPDZ2xco8cA6OA84FnmRnKttVsAPDDjUQ9uMDYRvVVV3HAj9Pqq8WGdfdyr89TzbXJSEZxttkopWL08p1MjNvKNy86lKUCS24SdzjxB7qhKesE6QgzI3bNo6L/sOU+fEOtDjXjKKmP9aw68s0BSYVRGPkFDVu2pBoGpzOLRSXanxuu64uiZ6ETKGR5kkjwzPhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RDUvaSE4Tz7zycrw73pw5RDBmmiHdRByI1v42Li/WDM=;
- b=zR9KgJfqcZlpdbH6hfjKw1O4rBEP/HVwIECoAdJHGfX7dlzlNO7clDv9+4hdM7J/Yt1ZM83d8gw6i3Rdvs6A7BHpBalA4aRvzQ4vEF563YCKjzGN1aTguMZUnYMzt8Adig4ggPwIa/xF8ndU01tXgWkueK9gC5TxmOG6Z11p4VNSvGy6GPBLvZSvS/2KBfFYEgATxrwvJvNejVqe4ItznZdWD7egAyxmFpVUq3Qmx23XFzqml1PcZDcTHIySH8NlJ05d84MD/vd+q4qYX+DNmJMg8pyoqk0YicFqrqyCwRH/0D7p2ladfjuvOkkLeRZODbycfv0AfJpDoFNC0zW/3Q==
+ bh=Aeoj9Aug6pPFKSq+h9xfGYr15hU+9V85q5aPZ5EBX1o=;
+ b=b2pVM0zKDw4VBnM+Llbg1JmT1HOBqyIRfaLWVl7IQ6DHyi36EhUB4RESsmMJgR/y8uGcdMp0WhVCpt+uXhvgYUP84i15VA/Oq5pE6Be6CaiBnlETYwMgICh9jbns5tUdchiQ2PUtEuvw8QMnCuTCwX4T2QJr5esu3LysE1LnY9tlPU0yFdog1czgZPzuytte8z3NWUuxtiHUrgHT3Gl5Jx4iXFSuzqpTuANzk+kur6gIRYByfUNe9U2HuFsAGIJOfGo8Q1TXefKCjdc/BoEqxYpmZ+wqmcynohhZh6FAbg144y7tlufPTzjuMKc4mFIg9LEHjzbZUg/+2DaCOcJMsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  164.130.1.59) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
@@ -63,16 +63,16 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RDUvaSE4Tz7zycrw73pw5RDBmmiHdRByI1v42Li/WDM=;
- b=Xq0Bw/ebTr5ZweXvf1a78Kf4UhL2gtB4rxNRTXmse4YWZ0C6SNzcXnH68LlJRk8QA/ckOhUup19g4USlYCTOtAYHB+y9SZJvWY6XziwBI1Yw9oI9kMvNEOU+Ayx085k68OamRXdmcm4ILYRvjABoQplC08/ehqWZfa38a9um90JNQ4Qxy3qxBKPSq7R7M+9kFPOQHPNNoEZ0IJnZtJfnPWUzxFXWOHyHk4t47ts0HpQ9pIkkM6YPOEPhzS2bZ6pJvJF3h6HW8fRHvSP1CqqjV7FKpD/JkgSP24z/l5bHsoq2FLh/afLoC6Vf0XrEr9T4wrmsB5ZatugyCJaJbOT5jQ==
-Received: from DU7P194CA0019.EURP194.PROD.OUTLOOK.COM (2603:10a6:10:553::34)
- by PAVPR10MB7012.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:303::18) with
+ bh=Aeoj9Aug6pPFKSq+h9xfGYr15hU+9V85q5aPZ5EBX1o=;
+ b=SzOd0eSpPOXqzWaWYGGIuJZEUoaOTuILsf06zgtmjqbA3Ap6nzBel8Y8Nah5t8gkOOJuvt3cNrePApf7WyS0DylEXRHmCWTSaElTDRTO71c9BCebbJusWKC0fVUlDH17X1sHXwaV6XSZuYLr7g/DG24Y7l4qS62a67SJ17fvrV9ObuPCjfPXtJSl6WhqS9rh/klwOedXcNjhOPP54SfSeefopopRsWZoTpL5OuHrK/hYtB2KjpEiZnw3fSQov7j+sOo8dJ0BZFhz4/B+NGpc3oI/9tS+WlbsIetT/og8OJc7YDknJ9jl/0DbrL8DgGkXs943jm24e6ANuXe4fe8nEg==
+Received: from DU7P194CA0012.EURP194.PROD.OUTLOOK.COM (2603:10a6:10:553::18)
+ by BESPR10MB992297.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:b10:108::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.8; Wed, 18 Nov
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.1; Wed, 18 Nov
  2026 11:59:25 +0000
 Received: from DU2PEPF00028D0E.eurprd03.prod.outlook.com
- (2603:10a6:10:553:cafe::89) by DU7P194CA0019.outlook.office365.com
- (2603:10a6:10:553::34) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10a6:10:553:cafe::30) by DU7P194CA0012.outlook.office365.com
+ (2603:10a6:10:553::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Wed,
  18 Nov 2026 11:59:25 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
@@ -84,19 +84,18 @@ Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
 Received: from smtpO365.st.com (164.130.1.59) by
  DU2PEPF00028D0E.mail.protection.outlook.com (10.167.242.22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 11:59:24 +0000
+ 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 11:59:25 +0000
 Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
  (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 18 Nov
- 2026 13:00:06 +0100
+ 2026 13:00:08 +0100
 Received: from localhost (10.252.6.76) by STKDAG1NODE2.st.com (10.75.128.133)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 18 Nov
- 2026 12:59:21 +0100
+ 2026 12:59:23 +0100
 From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Date: Wed, 18 Nov 2026 12:59:07 +0100
-Subject: [PATCH v3 2/6] soc: st: stm32mp2-syscfg: register the syscon
- regmap
+Date: Wed, 18 Nov 2026 12:59:09 +0100
+Subject: [PATCH v3 4/6] soc: st: stm32mp2-syscfg: register the clock device
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,7 +107,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261118-ups_mp25_clk_syscfg-v3-2-935de791a4ce@foss.st.com>
+Message-ID: <20261118-ups_mp25_clk_syscfg-v3-4-935de791a4ce@foss.st.com>
 References: <20261118-ups_mp25_clk_syscfg-v3-0-935de791a4ce@foss.st.com>
 In-Reply-To: <20261118-ups_mp25_clk_syscfg-v3-0-935de791a4ce@foss.st.com>
 To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
@@ -124,162 +123,98 @@ CC: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795003158; l=4273;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795003158; l=1823;
  i=gabriel.fernandez@foss.st.com; s=20261013; h=from:subject:message-id;
- bh=BWavtDUCvnc3JNkS8Cdk1SPUy/Im+iOFy7cz+ZPIWjs=;
- b=mb+1b5OZ8VOpmfMP39qCN3X1ITs8+oHTlep1UHye06iiCYcIK8BQAzrXrtyAT4TbaI3tSu4JX
- D/gHsGng7P5Bed+nY37IuHQPztgqJWvOmZofMJGnrAxwtjU2sLNMOr+
+ bh=iaeLwi56RxrXNpFucs5d1ZeU69yHZZ7NfSr4MxhSJcc=;
+ b=7+5oFrkPR+6qF1xf7Jz1xdeVpvxjR4SSwxQ8qnI0Kj24ji1SC6Pue+uP/btBbrWQD90JRkZ8c
+ 8MLgv4b+rQPCb4YUO6u2SVX1536RcCJ+ELSPorEV7t7oMuHMMsMLgtp
 X-Developer-Key: i=gabriel.fernandez@foss.st.com; a=ed25519;
  pk=BVZE1QjIfcrviw9RyyOGQGGsg9CNbaxyjYn9pAlkNyQ=
 X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D0E:EE_|PAVPR10MB7012:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce4bff73-a31d-48f4-7486-08df456b63e9
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D0E:EE_|BESPR10MB992297:EE_
+X-MS-Office365-Filtering-Correlation-Id: b10e7774-45bb-4de3-9022-08df456b644c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|7416014|376014|23010399003|1800799024|22082099003|18002099003|921020|11063799006|56012099006|10067099003|261026140227099003|261022105027099003|261026121527099003|261022075727099003|261028144727099003|261021121427099003|261021123027099003|261009223027099003|261102123227099003;
+	BCL:0;ARA:13230040|1800799024|36860700016|376014|7416014|23010399003|82310400026|921020|11063799006|56012099006|261026140227099003|261028144727099003|10067099003|261022105027099003|261021123027099003|261021121427099003|261022075727099003|261102123227099003|261009223027099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	kb9vE1GHs/dN3Fd9oYQBDNAZq689mPlR5ouVCNfRuTVRLXfCy0ucSsiNSFzDqbZM9vK5vedqkJEIiae2NdzAzY+PKm4k32vm5Pel0pYabbUPg5OHxEOkgqlvKQfoIKk1PegC2W9mG4/g/EdkYF8xZG7j+iPpsjQQ6Z6NRR/aLrWCg9ofD0nhfRDTs3T3dZ/c8geMQAC4iRSAQhIpOimGQuAgMUIFuCWoOcgAEZ/rtbMnVT3SXcUMJAwvkgeLhL6lSjBX1xPdlnemWFBF1GcBAMG1ifDhJfRs+G/l19VZTJlrCPZs4gcA7zhqwb7XMad/pzjOr83QFs6K11jM1LxOJLByDPLKSMjYpR6v5HbNHQb5sqp186pUriYBbgqwh5bNR4gX3Avt3LyKNCvKnzdSk/ZoWfk9uZ8YQ5fh5bdU0/mnEeYtrE0UvwXTqPTXMbwDPx253IIGd3Cul3xg7Ee1KidMxmVS42wm2uAbhpt40TzoV8toGZUCqcoCZ3ShGq9A+nytdLE8ZqmMm0fDfQSq5dQPMWIqkRwPbhAFAq8Ly9Zq8CwkQB6aFM18Ior6q2e75OdG7Wrq/8PB2wzvZhKHdElpsNNacO6DpIbmweYnKVAsGIG/JtdXsNcjwY9dDnDcPc5RAtr8KsgMPFyyU6MdgeLBcXC8IUySYpLc6YH5StZUDpVp99WzfZJY5mKEFbs2SIAJNCQNqlKVglk74NYouHwSi0HS9Q28IBn+N6XxUodzzpp44qVIYO1j/xG2ue7V
+	zrQnPVoOM6htZmFWk5DHuqDmw3ILELNR6scM2fPUL4thdDdiW8NBap68xmE8/ybzAkhmhadwn2a4zcsa8bqY2eh9bsEZ7ge40i6Z33hA/BDbdCKJ3+UmVj8V4eYspkZ9b7wr9+rjfSHSL3teuijVNpA5NgHerQfKtBvtTFgseqMlO/q+m5fCRgNTIOG5bDMIoPlC0VoBjy49Zr/OqxKzQ68yIyAZ6OW25MlKGH7lX+pRVa4U9xP7OjRLLO2e7ovRboe5E7iIE30bbcI6/IRqWc3EAsk5FRY2P3QGWczYwsolZJC+ZkxSssUFF3FfWXKfzsxpQIHoll68A4XyX92PAFd0d3HNb5El6a8dTjs/FX6SChN4CNYHjpa4ctDA6JvgnI4OyLAEbAZC73Q/+/8a2shJeSbi9Yse7D5KDbMB/Yq9+12PTyAA7xdHwgd5hvlCf1E5+CUa6HV6H0nQaeZcuoEOV+adQVhAWlj6lHokICgwiExNIVCV/mgtsvfVthDPzMJxvqgIOL6Ho1pTrJ3b/aQwAKiQO1gYZav5JeOftjvSJNStVG14BsOutLKalgdVycoD+QjZqSbQSD5vJfxT9J9XFfyNVTBfYjrN9GVCZL5E3hG2mOv8y+imRS9dbZQs+3LXoNqmXk0A9V5gV1z46A6+QtM9h+fXnnbyTuz7S1va4mztGr5fIQcVHdlfVPP4YqO/6jg6FjOGsYBr6uDmdyZFDf9+pjSesFt8IaBcu/nUqd1iYsWadmOfXN22tk9H
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(921020)(11063799006)(56012099006)(10067099003)(261026140227099003)(261022105027099003)(261026121527099003)(261022075727099003)(261028144727099003)(261021121427099003)(261021123027099003)(261009223027099003)(261102123227099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(7416014)(23010399003)(82310400026)(921020)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(10067099003)(261022105027099003)(261021123027099003)(261021121427099003)(261022075727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	zKEdLp6OkrtLxV4JpYJvoCDvz9rGGiHgZTsmyY+KyyOFm18vwq0QQrRXK8+M/M2Safp3W/C0thZlzqhk6wu9BZH/CgtgJWoiL0vVNy1vHWFdNimGetf+ZGQAW2i70jsItAQkUBhX6MGbclHEompfc2HBD7gggqzTq1XcEzEKFvGOQDPh0dd1Acba1bim+feoGrtejnVReSs1sYhj2liJebM3ItLcc2B6D6ZHtcEeAF9EeANFTWYGipIvBMFuxrrEkrpKjDG8rlRDH70XE1SKQ9SWxgqR37WEJogXAluMbsLk7wryAeeZ1K+XxoJmzzP5lcTRklXXbuQ62tM3FFOpiUb9mCzlDKErSZdOLDk+UJBix7i9Ja8JWTan3oOsWWcA1dO4c0nxQUsqHZWqgVcp6fS4LM7F+1NM8C/DoqCuEF2mYACSbsWgqYBqZo7pdNel
+	GRj8+mC66duE8RrB4ETqtNyvILz3QkV7i4/UyR5Dk0t6uBouTzWz6Rop9O88pTB+1MLLG0vUnE7LjdOtagGA+YXylT41Q6ZiOLjhqxZOGt8wi8weHVHnBKQd+/uIYXAahrrQnJ0o0CGhPgK7iFTGubAoXyQc+qoxJESrncVJ5Ny6kXZg/zE9L2ID6Ujh2vCyQwTYOGPF2+eBTzbSiXZpPMIb+KEM9Y+FVlD/ZdusbMWf3HmFmmN8ERB2G8b/a2XyUxX0+N2mAfRiegCJuf9Jaad38s9hRLSkDSWZADmz4ytAjvyA9GXFnjxR7Z7F/ha+IUO5HjIh3S9lHrYugISISuSxyveAdm5JpbpiJbbVjb2uEWsqceE96UQ7Y8lM7KYBntwJB65G8E8xu29z+2QuuZRG8ldFgj66eANcYKwoHcMWRO48rDszh40AnupsIdVA
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 11:59:24.8286
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 11:59:25.5198
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce4bff73-a31d-48f4-7486-08df456b63e9
+X-MS-Exchange-CrossTenant-Network-Message-Id: b10e7774-45bb-4de3-9022-08df456b644c
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	DU2PEPF00028D0E.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR10MB7012
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR10MB992297
 
-The "clocks" property of the SYSCFG node lists the parents of the LTDC
-pixel clock mux. When the syscon core creates the regmap of the node, it
-attaches the first one, the LTDC kernel clock, which then stays prepared
-and gets enabled and disabled around each SYSCFG register access,
-although the SYSCFG registers do not need any clock.
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
-Create the MMIO regmap in the driver and register it with the syscon
-core before populating the subnodes, so that syscon_node_to_regmap()
-returns it instead of creating one with the clock attached. If a
-consumer already created the regmap, keep it and warn since its clock
-stays attached.
+The STM32MP23x and STM32MP25x SYSCFG provides the LTDC pixel clock mux,
+whose driver is an auxiliary driver since the SYSCFG node is bound to
+this driver.
 
-As the syscon core does, map the registers without requesting the
-region: the SDMMC delay blocks lie in the SYSCFG range and are requested
-by the SDMMC driver.
+Create the auxiliary device for the clock driver.
 
-The regmap cannot be unregistered from the syscon core, so make the
-driver built-in and suppress its bind attributes.
-
-Select MFD_SYSCON, without which of_syscon_register_regmap() returns
--EOPNOTSUPP, and REGMAP_MMIO.
-
-Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+[gabriel.fernandez@foss.st.com: create the device on STM32MP23x too]
 ---
- drivers/soc/st/Kconfig           |  4 +++-
- drivers/soc/st/stm32mp2-syscfg.c | 48 ++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 49 insertions(+), 3 deletions(-)
+ drivers/soc/st/Kconfig           |  1 +
+ drivers/soc/st/stm32mp2-syscfg.c | 11 ++++++++++-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/soc/st/Kconfig b/drivers/soc/st/Kconfig
-index 2a9d6a77be45..db3ce8e8111f 100644
+index db3ce8e8111f..c132a6a1334e 100644
 --- a/drivers/soc/st/Kconfig
 +++ b/drivers/soc/st/Kconfig
-@@ -2,9 +2,11 @@
- menu "ST SoC drivers"
- 
- config SOC_STM32MP2
--	tristate "STM32MP2 SoC family support"
-+	bool "STM32MP2 SoC family support"
+@@ -5,6 +5,7 @@ config SOC_STM32MP2
+ 	bool "STM32MP2 SoC family support"
  	depends on ARCH_STM32 || COMPILE_TEST
  	default ARCH_STM32 && ARM64
-+	select MFD_SYSCON
-+	select REGMAP_MMIO
++	select AUXILIARY_BUS
+ 	select MFD_SYSCON
+ 	select REGMAP_MMIO
  	select SOC_BUS
- 	help
- 	  If you say yes here, you get support for the ST STM32MP2 family
 diff --git a/drivers/soc/st/stm32mp2-syscfg.c b/drivers/soc/st/stm32mp2-syscfg.c
-index 770321a4a6f7..0d45fdef46b7 100644
+index 0d45fdef46b7..285561fb9f17 100644
 --- a/drivers/soc/st/stm32mp2-syscfg.c
 +++ b/drivers/soc/st/stm32mp2-syscfg.c
-@@ -3,13 +3,55 @@
+@@ -3,6 +3,7 @@
   * Copyright 2026 Marek Vasut
   */
  
-+#include <linux/mfd/syscon.h>
++#include <linux/auxiliary_bus.h>
+ #include <linux/mfd/syscon.h>
  #include <linux/module.h>
  #include <linux/of_platform.h>
- #include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
-+static const struct regmap_config stm32mp2_syscfg_regmap_config = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+};
+@@ -51,7 +52,15 @@ static int stm32mp2_syscfg_probe(struct platform_device *pdev)
+ 	else if (ret)
+ 		return dev_err_probe(dev, ret, "failed to register the regmap\n");
  
- static int stm32mp2_syscfg_probe(struct platform_device *pdev)
- {
--	return devm_of_platform_populate(&pdev->dev);
-+	struct regmap_config config = stm32mp2_syscfg_regmap_config;
-+	struct device *dev = &pdev->dev;
-+	struct regmap *regmap;
-+	struct resource *res;
-+	void __iomem *base;
-+	int ret;
+-	return devm_of_platform_populate(dev);
++	ret = devm_of_platform_populate(dev);
++	if (ret)
++		return ret;
 +
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	if (!res)
-+		return -ENODEV;
++	if (!devm_auxiliary_device_create(dev, "clk", NULL))
++		return dev_err_probe(dev, -ENODEV,
++				     "failed to register the clock device\n");
 +
-+	/* Not requested: the SDMMC delay blocks lie in the SYSCFG range */
-+	base = devm_ioremap(dev, res->start, resource_size(res));
-+	if (!base)
-+		return -ENOMEM;
-+
-+	config.max_register = resource_size(res) - config.reg_stride;
-+
-+	regmap = devm_regmap_init_mmio(dev, base, &config);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap),
-+				     "failed to init the regmap\n");
-+
-+	/*
-+	 * The SYSCFG registers need no clock, but the generic syscon regmap
-+	 * would enable the first clock of the node, the LTDC kernel clock
-+	 * which is only a parent of the pixel clock mux, around each access.
-+	 */
-+	ret = of_syscon_register_regmap(dev->of_node, regmap);
-+	if (ret == -EEXIST)
-+		dev_warn(dev, "syscon regmap already created, its clock stays attached\n");
-+	else if (ret)
-+		return dev_err_probe(dev, ret, "failed to register the regmap\n");
-+
-+	return devm_of_platform_populate(dev);
++	return 0;
  }
  
  static const struct of_device_id stm32mp2_syscfg_ids[] = {
-@@ -23,10 +65,12 @@ static struct platform_driver stm32mp2_syscfg_driver = {
- 	.driver = {
- 		.name	= "stm32mp2_syscfg",
- 		.of_match_table = stm32mp2_syscfg_ids,
-+		/* The consumers keep using the regmap */
-+		.suppress_bind_attrs = true,
- 	},
- 	.probe = stm32mp2_syscfg_probe,
- };
--module_platform_driver(stm32mp2_syscfg_driver);
-+builtin_platform_driver(stm32mp2_syscfg_driver);
- 
- MODULE_AUTHOR("Marek Vasut <marex@nabladev.com>");
- MODULE_DESCRIPTION("ST STM32MP2 SYSCFG driver");
 
 -- 
 2.43.0
