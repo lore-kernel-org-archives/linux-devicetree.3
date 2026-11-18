@@ -1,81 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794997155;
-	b=S9lSB5nv+RdPV/KAzE1SSo+JnQO9X1jLWIQp8IclhTM1MRX6V2YShqlODY30rSGgJ5KG
-	 DhNcbPwmdwhYTGicOm3/cr/giTVhA+CBSIrOI/aBU3EbDdhtJg1AWUQMLrUA8LMwbsQhB
-	 A860gemlFzs57Or0IPLp8HnoBD/6WiFZ+dnGm4eiWy0T7kHYa+yW8fY1CouavpqzH1jST
-	 WfHT9p3yPPPUFYXBZWrn+n0G5ax1anBO1q7sjTTY55+i77rAo+TKEOzj5iPEmspXwWsqW
-	 mZeZwuSuFa5hSjligev8XXnjLD5n/0K7ceer+Xzk64ZaaaJuGvDfb74vLwGI3/EPxDA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794997155;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-ZohoMailClient;
-	bh=mkIlP/VFkdFXEzDXzF49yA7qSDhA59GiLbzlhR/mvdk=;
-	b=lw5Z4StqaeTYNb+uTmEkbegQMEgMgtR1DJF6Y873FGjloRcJwYrRqGCe16wNlAoi0a/C
-	 Mx7/vEYTqqD1TcZ+avFKcT1F95P5S4dXtQeHJ67WEVc9XGEbdb3Rm/qb3avn7lwAwhZlk
-	 mZUsbsZTa9MDGYtmEqmkR3RxeR9IuDgXR7cIuu7WxKy1otbHJVoM9JmXSCx439W8NewAU
-	 eAFoj/zAAhlbiT24Xc8vAJoqGHbSNK+fodYt4zDLkRn+8Baqah7pfylQz/+hKbh8EcS1X
-	 wKHKVpWnFrzxIb6XW0G3bJnL2/l5HMus6GUZnoUCH2hgBOz6JFvxJianJ4Kgk0mP7sw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icenowy.me;
-	spf=pass smtp.mailfrom=icenowy.me;
-	dkim=pass header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=Oi4ByOSX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794997160;
+	b=Mrn9O4Ogryf6dTcbojyR14DenQ3ayU0OAggAB64uloOVjaVhKwtATpV3hvfH5qdB7+W3
+	 Gjec2LpJnKRoHn9C0TbewcA9vIzpDQkBSShYAJirtGmV6UJ9N7ZzMlgmvQawDqc9RZpCd
+	 iHLivoCFerpzqwUZQsIr1nUZYRAstRP8YeR/1MuuvqBiQcRExcs7At56oegwUw1sHck8K
+	 hAB4zJDXDzHVKutdFhiYWna19Ih9Idr6AFQzh8bjenCeLcy59j33aGyblIH3rTN5SXfT5
+	 9qMI9joUTxtBS030bPj+rSqnH5h42rYDF0fGe2IRjpsr/vQI6sLDseu3wyc9UTdELOQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794997160;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=yvyTQy7QXUkCqUdPoN6xekhnCdJic/iB4Nnp6WsuGuw=;
+	b=qjnHHPHyOBFrIVivLyM7jGTbLyd7JIevIwWiSAhMydElrOI53iLF5m0ZQaFqSGc+WEUC
+	 ChpZNF/eAjMCig5zDAJ5b2I3j6LzTKc47vykyDtg+Dz8YkNXzFAsg69a/qdECcZmWwq4R
+	 +dBFqm4Nh2xOoqS4odN4ZXaFZC1A0eAj/Yv3UX+F/7JqFAAvADhyU5YCsxOgLwsk+4Sw8
+	 DtVxQx/jZ9fesyNMTi1aJjlFBiXPOcrTr9TDvcFAlxv1r/MrRV0j0rndShq/YBGMwBZJA
+	 xuzvjAWchD2g6rKhKZtJbrK47MVupXGlywy+d2ndpReArU1kcdtZEJQnEMNQOR+fONA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--amitamishra.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Af+RmXH4;
+	arc=none smtp.remote-ip=209.85.215.197
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876D2606A31C;
-	Wed, 18 Nov 2026 10:19:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 876D2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A3C606A330
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 10:19:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56A3C606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--amitamishra.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=Oi4ByOSX
-ARC-Seal: i=1; a=rsa-sha256; t=1794997111; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=duM/gO9A/sLm4uIjFeWEgFv+8mgswwB0RU3N1Ifzp2Ah6TAeu968wyO74dJF0VYXVz3aleUMsIbdB2IRen5xWjvuSf4dT/68uWQL6NGtg1MUmRz+LM6V78k2Atf1PqxZyXV1JL94kL36cHlI9zB0YQQTY7hS5dZt8UeeHoPlkjQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794997111; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=mkIlP/VFkdFXEzDXzF49yA7qSDhA59GiLbzlhR/mvdk=; 
-	b=UxNUkRRwALdBIqd+u0/1SRXfSlX+uHGECmIwZzaX1DuSs2pa10TpsUGZHRPbOovb+wmYPA5elYCOsL/zzhj7Ja/70TCDe9GHaSKebPGQ1xW8xDVoRQHqVqjrMJ5ZyDw58na/G9/5HF6c3A/XsCDs6iAkC4ALddga4NTtRLnIVwc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: a=rsa-sha256; b=Oi4ByOSXHxLX391vOuMr/ZKJCm3wX0/iKuyFiAVU8SQ65OQFej2WozQWNQhfeuQDKv6l7/BbgNydDlEIBiQg74Tb/vXKn31Guesh8GqcgI2stI6Kq1Kb9Ig8qZSjrw/TeDA8bfWI/eUtCnU+lwOcCAVfvSKix2fhpltCrtBzzXj8pu2W1CpFQNXcijLLQgLIu1Mi5Dd8eR4esbk0nYSsFbI3URs5BaQVssiEjjdppL6Y7FWiQSiOc1epm8U5ye3iBb58oenDahc2hdDesBKYIoXQUCPxxSsBJff/KGn94iCE0+QT20jdhbxNSL5wAsi+0SpyMebfRQt8RwGtWvHQrw==; c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1; bh=mkIlP/VFkdFXEzDXzF49yA7qSDhA59GiLbzlhR/mvdk=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794997109359888.2617794708957;
-	Wed, 18 Nov 2026 02:18:29 -0800 (PST)
-Message-ID: <bffbf989f2c99aa8c463719347930aca44962615.camel@icenowy.me>
-Subject: Re: [PATCH v2 07/17] drm/spacemit: add Saturn DPU register model
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Guodong Xu <docular.xu@gmail.com>
-Cc: Cody Kang <codykang.hk@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard	 <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring	 <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
- <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Vinod Koul
- <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Haylen Chu
- <heylenay@4d2.org>, Michael Turquette	 <mturquette@baylibre.com>, Stephen
- Boyd <sboyd@kernel.org>, Brian Masney	 <bmasney@redhat.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, Paul Walmsley	 <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre Ghiti
- <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>,  Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
-	 <u.kleine-koenig@baylibre.com>, dri-devel@lists.freedesktop.org, 
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-Date: Wed, 18 Nov 2026 18:18:11 +0800
-In-Reply-To: <19ceb44df3141049a955c2c30fe64766.docular.xu@gmail.com>
-References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
-	 <20260809-k3-display-v2-7-327d7910bf71@gmail.com>
-	 <edd7ae1b38ebc687d0b2bfb2509c40fb8a45e625.camel@icenowy.me>
-	 <19ceb44df3141049a955c2c30fe64766.docular.xu@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Af+RmXH4
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cde00369ef5so595664a12.3
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 02:19:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794997159; x=1795601959; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yvyTQy7QXUkCqUdPoN6xekhnCdJic/iB4Nnp6WsuGuw=;
+        b=Af+RmXH4lmOl1Zkkgo/zqrNLUdoc6JZg+vynU4oZoEtYIb0XE722BWtdDyLwYymzrD
+         rOUsB1J97x7PIrU4RJzBMIj5wlWDw6duluvOWChfes+dM6imoEOUK8gGSiqLC6s+NDOh
+         0LwUUxwDNjMn0lE6pXZJlWxYS1FWca0UY7B8y5NqtP2sfquAFdoR6FQW7pSBFgPk7FLa
+         lPwsMXd5nekKWpH4aOzP/I97iBRX9btMNKSzJMgZGBFL3BrLQBkCBhctjEs3Nhmd2I5R
+         U3iZgcax3NSvIkcI3pms6BSERailwI/xXVV9X5AGBBOzeJ2DTSJh/PfAySwyZuOum5S6
+         XmeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794997159; x=1795601959;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yvyTQy7QXUkCqUdPoN6xekhnCdJic/iB4Nnp6WsuGuw=;
+        b=YY0Otqk8yl4WrQyuFEPE/RMoN/2g2Qs8r4QYFxy29VmnrvfHWYIXs8X/bfq4Tcl5vK
+         ANXd9Ov3y3+cJTfsGFYikcssobRewvliBv+Yg8fePA8+9LmZcHN3ad3hhdfYsSeZ1umW
+         BppXFVd3TW4BRAb4gBU+v+NlUAYyXJ6BpBCtsHspyJlTr2hJFrmeYn2TLhaUyEZ2ytZm
+         iEXh16nluz5Aw84rKQdcEd3kiHofA45zJwbcf1yzYUiAqSBV2jEUdmfHKIaawxsBGnlm
+         ct2H7WQf7CAMGi8aMJucF+IqGmRUWMb3QjaYTRJNxyPc8Fn12yDV6a4e8pGDlc3g+LJj
+         4OWg==
+X-Forwarded-Encrypted: i=1; AL+hErE41hsv1UdWM9ClwFIybKpquvKHM5r+zLHbindNxT4/HKBNevT1EOK3bSyFClAa2CeNORBF6YCFGlHr@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tt+VWhSIks8ZirrdUUugqZ+KqUl4VKQwh6VnWUv4YkfkAuNci
+	fyuhO9ZGq0LJF1lOJd1eCusi2pBuKmBI0gWgmLb4UlVJod33r7tJhfddADngookrKWSFVYdZOvM
+	XRCsLAF8Qy+z4fo7qVRDYVs4syA==
+X-Received: from pjbbx13.prod.google.com ([2002:a17:90a:f48d:b0:3b1:cec2:5b9])
+ (user=amitamishra job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:4b88:b0:3b1:ba59:56a1 with SMTP id 98e67ed59e1d1-3b3d07ca529mr2196929a91.39.1794997158388;
+ Wed, 18 Nov 2026 02:19:18 -0800 (PST)
+Date: Wed, 18 Nov 2026 10:19:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,52 +75,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-ZohoMailClient: External
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261118101913.3135869-1-amitamishra@google.com>
+Subject: [PATCH 0/2] perf/smmuv3: Add runtime PM support
+From: Amita Mishra <amitamishra@google.com>
+To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	amitamishra@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-=E5=9C=A8 2026-11-17=E4=BA=8C=E7=9A=84 16:48 -0500=EF=BC=8CGuodong Xu=E5=86=
-=99=E9=81=93=EF=BC=9A
-> Hi Icenowy,
->=20
-> On Thu, 03 Sep 2026 20:08:10 +0800, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-08-09=E6=97=A5=E7=9A=84 21:14 +0800=EF=BC=8CCody Kang vi=
-a B4 Relay=E5=86=99=E9=81=93=EF=BC=9A
-> > > =C2=A0drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h |=C2=A0 25 +=
-+
-> >=20
-> > Is the slightly different K1 Saturn DPU registers considered?
->=20
-> I compared them with the K1 BSP you mentioned offline [1]. Judging by
-> the block, field and interrupt macro names, I agree with you that the
-> K1 and the K3 use similar IP. But there are also important
-> differences between the K1 and K3 registers, which is why I would not
-> propose reusing these tables.
->=20
-> For example, the blocks sit at different addresses, and most fields
-> are at a different word or bit. In dpu_int.h, CFG_RDY_CLR is bit 4 on
-> the K1 and bit 5 on the K3, and the underrun bit is 9 and 8.
+On some SoCs, SMMUv3 Performance Monitor Counter Groups (PMCGs) reside
+in switchable subsystem power domains rather than an always-on domain.
+Currently, when such a PMCG is probed, the power domain is attached and
+powered on, and remains powered on indefinitely even when no perf events
+are active.
 
-Yes, this IP weirdly doesn't consider register map compatiblity at all.
+This series adds runtime power management support for SMMUv3 PMCG
+devices that are attached to a PM domain:
 
->=20
-> IMHO a K1 port should add its own compatible, its own field header
+- Patch 1 documents the optional power-domains property in the
+  arm,smmu-v3-pmcg devicetree binding.
+- Patch 2 adds runtime PM support to the arm_smmuv3_pmu driver, keeping
+  the PMCG powered only while probe or at least one perf event is
+  active, and guarding post-event perf context and shared IRQ callbacks
+  against accessing registers of a suspended PMCG.
 
-Well I don't think field headers would work for a mainlined driver;
-maybe things like regmap_field could be used to mitigate the
-difference.
+Amita Mishra (2):
+  dt-bindings: perf: arm,smmu-v3-pmcg: Allow power-domains
+  perf/smmuv3: Add runtime PM support
 
-Surely a compatible string for K1 would be needed, and it might then
-set a device info structure as match data, containing the device
-capability and regmap_field list.
+ .../bindings/perf/arm,smmu-v3-pmcg.yaml       |   3 +
+ drivers/perf/arm_smmuv3_pmu.c                 | 134 +++++++++++++++---
+ 2 files changed, 118 insertions(+), 19 deletions(-)
 
-Thanks,
-Icenowy
 
-> and its own backend file next to the K3 ones. What do you think?
-> Hopefully you agree with me.
->=20
-> [1]
-> https://github.com/spacemit-com/linux-6.6/tree/k1-bl-v2.2.y/drivers/gpu/d=
-rm/spacemit/dpu/saturn_regs
->=20
-> Guodong
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+-- 
+2.56.1.703.gf848ed807c-goog
+
