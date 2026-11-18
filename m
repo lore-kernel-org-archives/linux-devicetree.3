@@ -1,87 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795004912;
-	b=o41jvmjWX4qsd8I9PV2MnBqTkO/2ln2DEWRfUaLnb5Trn9fT8Yuyfu9aK4R/iPNABrsa
-	 KzwsPkS1xIm/1aQbdbxQKELa2Oy9ae7YPfyowgct6jXWeit+aKHHUNEGsK4CLrO0OcRsr
-	 Jvpe6rIy4D7YLRHvLy4cKZK0Tzn5Yt4EwwMqKd8VqEX29Py77//gNwiIbIEvQJu5+dYl8
-	 80T+YY7ozwIrwF8uvhY59zdab01hWlvIuFeYrOG/TCTwQUC9DMLbm8lfR1YXNh+GOIJiQ
-	 N6GNaTOTchUcexEXe4Q+PadQ6Xi6HVE8y8iKHUIGad4kyEL8xVPzZJi7ALjI9M7ax9Q==
+	t=1795005045;
+	b=Epoa//UGYNHamamLB2Sqy54ME6ZFbn5txZywfx3bwUYz7DUh5uV2fhTrNt6Y4pjMvlEp
+	 1htbdMOgzLqmWW5iMpwIZiW5OsrG9dn7lnXwhleVPr1mw1sUeOl3anLjGTGDsatm6GvOC
+	 iVwvm4D8Ni/gdPEpjaJ81xjcUjSDTLcUhff3OJOFoFB9LChDMmvfN43YfGGuiRCt3SVnM
+	 53T0TU+jYVFsBpM24NTwcBM8x2rkXoffv97PCZjM39+FAt/4jXn9Gg/xbKlQnPd3Jrp1z
+	 vlr1ERst7Ry5Zh1uLa2oKlKgKy8u1CMjYtjQ47qDGm8Lt+rHnH6FcxGxIOJbv0jSxRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795004912;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=fApH6YF8/olwr8rszx1618Se8LLbeSsWPgcCTgBcSzQ=;
-	b=UwPZBjtTq6yFH/BDxBy2YR8eqKKrW8WHA/ya5dxhQvsQanzAqV0y6QJM/JPa1YK/tnnC
-	 SECDM0f4QRNrm17xbyXT/x4Q9CI150PCX6v5GBzF2cDzS4bs/nwww6MRf33TFnU1ulS8f
-	 Ve4MQJPkZFRMvBU41eCIz84NSnSrGwmj1V4aDOpSN2oV9Zy/TcmyA9AIa+YzJV0yLvYLu
-	 JmVnLERsEKpDxqsZjEiSEzpe6xiBBNlAkhneMD5Xt8/z8NvceXBKcIYe8dmk3ABdqgWek
-	 /IBKwcAkVj8yaBr/wvWRoEPOFRaYrJWvFIVt/JLoz6MhNHXxGD2dRPbNfMmYyTr89qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005045;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=m6c/qR56253imWhk36Gac7berOasezUTnHhNbfxYNQs=;
+	b=pJnNUTaXMZnVv82h/Lf1oqpAVu77/Cob4SepJXtA6bwpr5qPj99Ez47UajK7unWcrj4k
+	 jsoLEVr0NEwhg26UbEHit8QShl8YhHJ1maDv/+zf7G4QB6/KXB05DhKhegJ4Byxxy+Rw3
+	 xQqj1zfuTebG6s//FepRWJx+P4KlaXF5gtCU1s56KoFgMeamxta/tpI+U0Yqazk6qucJy
+	 MYxCLjLi4zwLyfROZIYAca9xWUvsVT/Kg9+WN8kUpmq/7BpQvhCOM5iYtGubZlZQTvIte
+	 9DMnvMhfw4VpbMzIjgXknLlGsSeVBS1gYRDZ4OLMd1g6cuuz/Sjtr4B30LkbPBzHnug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=QRVCfeCD;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=J6xF+Kr0;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475E4606A32A
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:28:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 475E4606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85CC606A31C;
+	Wed, 18 Nov 2026 12:30:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D85CC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=QRVCfeCD
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4a68190a2a7so688908f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 04:28:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795004911; x=1795609711; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fApH6YF8/olwr8rszx1618Se8LLbeSsWPgcCTgBcSzQ=;
-        b=QRVCfeCDZ50q55h4y9LENvb5jE829mfCziTdzf3Mv4xSq5+zz8ClfPFrt3SC4bEwvm
-         yZpjuQDYojaQuIchie2BoCKzm1dvvt3cWcU5WTqAPJaCz+8jbjIJT4z1oghC9tHqxGDe
-         kGy4C4WaH/v52F3BpzODMnCqHy40pG5OX03QsH3WBBTyR65czbLDyYPm2gF8yYeNlza/
-         GXXW0dXuPvHlyy7vBx1JgTnjqHG2kVjiGq9NRuATTvsavX2uw/yacVlCcC8SbhcnxBP3
-         rsB0FYxkyyXpgwDeYykmF15G47UdgTO2C/m+ftBt3r/+KxSDTqAYOdAiMMuZz99z5m6J
-         S6Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795004911; x=1795609711;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fApH6YF8/olwr8rszx1618Se8LLbeSsWPgcCTgBcSzQ=;
-        b=FzZ6P5bhxI8LqlLxGW+xPoVYgK+mEoxeGvoH00WbnLY+RM354v8IivO18748qzF62q
-         3YnN6oNWItuYRFkBiPNYjRXjr/Z7ialxvyZURHohpi1sA27NHUMy4wd9D7M3QBsiVPSN
-         RAvGHUDS4OjYMCdC7UwbWvj402i3QMZPlB7MbgDmN1+NGJX27+DDusD+z9YpmdrEnr1m
-         QQ3GAsAq2On9pHk7IkLwsBfWlYhzhwpTRRgevOz8/pxPFbUzN61El8GXWYi2nLEQB9iV
-         bRouWbfNOz7lpfbgK5cmSrK17Y0Iwcb1q+dG+hDyj8e1kLh8aul+6QScOEtZqW0Q1PUK
-         4LKQ==
-X-Forwarded-Encrypted: i=1; AL+hErEwvWJkm3SJkrxXbJ18GzqjdpE1zmNvpbpK0/OnL2Gb256Km3DSFWUvcmCnnl9mnYtbZ3n7nlI4l2CB@vger.kernel.org
-X-Gm-Message-State: APuU4Z+PM6S63hQcICYJ6c4qygvqAJAxOq8TP4N8v/L/j+hXtv5ro6fT
-	QvS4dW4VBerWl1D8mVFyDqlOAzKhMpGxRRBKXDoaHjLz2iBuLpvSbycrZdqMTpgkIYY=
-X-Gm-Gg: AZFdTZcM43uvYiql5UuZAgIdKU0F8H8hzWp0GUJaBCRj5NkY3sPel3wy7yrNIbDovOg
-	lur8B0yZ29de9SxqU96VUcRcDXY8VQZ0OJ+XTkK3cGsO4Ncgj3IkbqLInNRwDxbxaipGB7CcyLJ
-	VtCw+bugjF9uvXlfUpHXOyeS73CjLguB4wSNLYY1rReuBMBh94Yg5zVmNTdczneoM4QUZAq6reb
-	AiosnmgNIjKY0u3dzEnOX/M+ecYggR0lWbWi1L/+i7dssHjC2B2jEUVWXQBGJrt7A74sNZujCmh
-	IelpvgXjn3hsFFj5+iYq72/CjjVEsaSBt74npkwf9HsXuEzCTJ1Ufi8qYllm/0OypLVauVSXeVK
-	3j4Aykjyb3Q4F4F61muJbQ0zeBeXmqYwlXqXtnJrqNu40GY4J/lO/yRbpRN3kYk1QVHkazXZI6y
-	VlbQcS1jU9o96jQnWfJtlsLy5j1dKXFadNKaZqKxR471vkhQXrrNUgTwYqE/fVieyLTI/u/HRX4
-	pI9qBLOhRxDCyxC2do8h5bKYB3LF+6KvyJ9cbaOm/5yDV8kLdtwP/LBy+/TfR6N34wemC6cNL8R
-	/CIZot1dbkK95nye0QCDcl0Vzm6BrdG/tujX3TSKuVuAfed0wUJIGxWFSoMkJvWEi4FbzOf1Oj4
-	sgQ==
-X-Received: by 2002:a05:6000:2f86:b0:4a6:63cf:99a6 with SMTP id ffacd0b85a97d-4a663cf9ae8mr4421294f8f.23.1795004910709;
-        Wed, 18 Nov 2026 04:28:30 -0800 (PST)
-Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a654a8c406sm4567452f8f.14.2026.11.18.04.28.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 04:28:30 -0800 (PST)
-Message-ID: <15dbc800-ab4a-4b98-8f6a-95d2ae80819b@baylibre.com>
-Date: Wed, 18 Nov 2026 12:28:28 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=J6xF+Kr0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795005043;
+	bh=OrEqqezQnIfFeKtDs9yFRb0TBIDDG9P+MV5KTuORKgA=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=J6xF+Kr0e06RAg6AcR/bhID/hpKlAsFDZ3vGBMYsF1DG5vepCedI4aFuAGOxfK1TK
+	 z8rtXYQuMimFfItjbiBz3XpHDwND6lj3um2VekcpWy59DG7Bb5aVeXTJuGfURRgZQw
+	 tyxn/wJfMzaypwoG1xRi/mr+sGWDVqxVptc2XAES6Nn7GqXMm+eJtjGpPip4IvChLQ
+	 yqda27wlsuZpe4DRGIK7UF32JDAZGjjFph5YFtmF5fzZbpaSq3iPPWg8CfgM7ZNnbb
+	 i8uEXKd3z1SGE+V3/ejDI9dfBiG3EHvrCTHcbUhkxWzVrRwhiXR4QIqns5o+4ZE2fx
+	 JG6r0/f8W3Nsg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B43F917E052F;
+	Wed, 18 Nov 2026 13:30:42 +0100 (CET)
+Message-ID: <68df102e-66e0-4049-9ffd-8e2746db8403@collabora.com>
+Date: Wed, 18 Nov 2026 13:30:42 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,49 +62,82 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Daniel Drake <ddrake@baylibre.com>
-Subject: Re: [PATCH v17 12/12] arm64: dts: rockchip: enable the NPU on
- rk3576-rock-4d
-To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
- heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, ulf.hansson@oss.qualcomm.com,
- abel.vesa@oss.qualcomm.com, sebastian.reichel@collabora.com,
- sidong.yang@furiosa.ai, u.kleine-koenig@baylibre.com,
- chaoyi.chen@rock-chips.com, shawn.lin@rock-chips.com,
- finley.xiao@rock-chips.com, diederik@cknow-tech.com, alchark@flipper.net,
- leonard@lausen.nl, vlwwwwww@gmail.com, jeff.hugo@oss.qualcomm.com,
- rfoss@kernel.org, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <cover.1794615324.git.gahing@gahingwoo.com>
- <c0d64d55586774802bdd70defa016be6912ab83e.1794615323.git.gahing@gahingwoo.com>
+Subject: Re: [PATCH] arm64: dts: mediatek: Remove undocumented, unapproved
+ aliases
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20261117130556.234785-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <3882ec4d-9f99-4419-8914-19c3a2a3cc46@collabora.com>
+ <96e3cc39-d10b-4743-bd9a-d683a91fdf34@oss.qualcomm.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-In-Reply-To: <c0d64d55586774802bdd70defa016be6912ab83e.1794615323.git.gahing@gahingwoo.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <96e3cc39-d10b-4743-bd9a-d683a91fdf34@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+On 11/18/26 13:09, Krzysztof Kozlowski wrote:
+> On 17/11/2026 15:06, AngeloGioacchino Del Regno wrote:
+>> On 11/17/26 14:05, Krzysztof Kozlowski wrote:
+>>> The ovl, aal, color, dsi, gce, rdma, split and other aliases were never
+>>> approved by Devicetree maintainers, because they were never documented
+>>> as actual ABI.  Drop them, because no new custom aliases are allowed for
+>>> years now.
+>>>
+>>> This might break users of this undocumented ABI, so these should be
+>>> updated to use only documented and approved ABI.
+>>>
+>>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>
+>> That'll just break everything.
+> 
+> True, almost everything. I suppose few aliases are not used, but rest are.
+> 
 
-On 14/11/2026 03:05, Jiaxing Hu wrote:
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-> index f068794e48d4..72b251d396fe 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-> @@ -779,6 +783,24 @@ wifi_en_h: wifi-en-h {
->  	};
->  };
->  
-> +&rknn_core_0 {
-> +	npu-supply = <&vdd_npu_s0>;
-> +	status = "okay";
-> +};
+Would still create regressions, and that's not acceptable - the cleanup can be
+done only - and exclusively - after addressing the situation elsewhere so that
+no regressions are seen.
 
-I can't figure out which code actually acts on this npu-supply
-regulator, even after considering the patches in the "pmdomain:
-rockchip: RK3576 NPU domain supply and settle delay" series. What am I
-missing?
+Still, a question mark remains on "new DT on old kernel" compatibility which would
+miserably break - that may not be something to care about in this case, and I don't
+think that it's time to start thinking about that.
 
+> Well, it's a start of a discussion. :)
 
+Yes, I like this spirit.
+
+> 
+>>
+>> I do have a mediatek-drm restructuring series that is partially resolving this
+>> situation, at least for some SoCs it's getting 0 and 1 hw instance id dynamically
+>> recognized, but with some caveats that could be unacceptable (as in, if 0 is
+>> disabled and 1 is enabled, 1 becomes 0, so it's not actually resolving anything
+>> for real, it's just making it tick right when stars in the sky align in the
+>> right way, which for some SoCs is reliably possible without side effects).
+>>
+>> In any case, all of the ones that have only instance 0 (and all of the instance
+>> 0s) can be removed even right now already (still needs some testing to make sure
+>> that there's no regression), but everything else can't, at least not until the
+>> whole restructuring thing is merged as that'd break things.
+>>
+>> Worst part is we have two new SoCs (MT8196, MT8189) ready to be upstreamed here,
+>> which took almost a year of development... and it also does rely on the aliases.
+>> I was in the process of slowly cleaning up those (as I said, there's already a
+>> restructuring that makes things a little better in this regard), but at this point
+>> that'll need to be done with the highest possible priority.
+> 
+> That's unfortunate and still new DTS/DTSI should not come with these
+> aliases.
+> 
+
+Indeed.
+
+Since conversations went on in the other thread, though, if we have to spend any
+other word on this topic, I think it's a better idea to continue on the other one
+( 94ed1340-94bd-49ee-ba31-9bb63164c89a@kernel.org ) and let this one go.
+
+Cheers!
+Angelo
