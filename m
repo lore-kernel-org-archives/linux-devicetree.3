@@ -1,102 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795022533;
-	b=RMY3nerqOA4e2SLy9IulWBR2j+U/CfvkfV042F/dH1NTfzcKGAietJEhTwv/fX2r5f5s
-	 uw5TCwAbwaIujWjDGHxt2Sc8fderCyRvc33B+ejUSHoXZ6CChyA5is4OKVkbSd7yaDS+6
-	 KYmmi3VMuVNzpSgkln4kFW13iSbbsH8J3OuGKbFI9rA0WHfQcT1XLLCzNMsh/uQAVDPM0
-	 YCIFKFRsUYT+QU3M53HVSqvcN0cIhJ9WU7huBvfznTMdBm0CmbErNNpQi6sl3PMtDDlcs
-	 RwRYsy7MTOGtRU1r/5VA0fxztJkXDiDYerFihoomLTtWadrToU36G8dbKeIgOAyS/Tg==
+	t=1795022694;
+	b=yJlUgzW8wq6O69J5vPc2bw8KhGoKgxfDvx6GbsaBVAGZEPEoc0I7lE0eToDtR8yhXCJB
+	 xjrroyAGi3FdaA5TFx11y2pNgkENTDpUUa/Ay0iIpRgo2o3FBw9VqPEdYyzy2ri+MzGKZ
+	 Km7X0HQbbKBnXwuzhXek7aGz+LoBmY7LNtWo5oDinFoZkMq3HWxKd316qmd/ASm1itJHb
+	 0VKtOQ8hBK8bKZDIxr98knOHI3dglYa153u/Jqd9/tRnkVP0YWQVzkJAlz8kS4p5tItxD
+	 CF4OWj1/Y25G8YUKMa0P0U2LSarALbf37hDrisQDWVQojaPeC/CGzeMuJyJcRoTgeTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795022533;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=mY/FNLYTzlT6/9iFOU+8LtK9dRUupasMtXWg1lgUwjY=;
-	b=Iaqj7Jd2odaj5BPcqtH6lUl6oJdPRQD5qviZ9L9YbjLbqEUlTu4CsKPfeVHzqh4nQ9tb
-	 iA7e3KjZ/+WrawccJ/hsMgbzE27fhEjXjlJZExsEmGYzN5tzWmb/UnKtmGxjkplCXPJjU
-	 hSjDvOH+ROTAUrCyFT2adfl03JK8LzotjOPVUwJym3N4QlGMpkVrlrQWNm2VqyXU9cbAl
-	 q306HLIwJ2LQj54/qcq+hFY7uSIcaVVUa19336a7oYG1wLsq8j2zduulsdI+a9h7z295L
-	 gaI3qbuAz+2bbI2FOUL2PFyyEj5NhD0SRfo0ISKcjuu+EuI3EiECUNFSRCTEa3X06WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795022694;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=JAeSxvyXiRmsMJ3f4euXUCxQsMzoP2I8Tha/sl3LGrE=;
+	b=XON4cNRIULDJ1/k4sxvsgW8aVLavQDe57bTJsIKx46V/Y1euMOnYNJ43YxaRuCdq65YJ
+	 HVGUrK9G8KmkypqqUMoA6PS9SYmKC6zBVRyLU5OMub/LYepv4FpOYIv6wMVtE9YQv2jvQ
+	 AyEFSMB2n1aVzJYUpBsP7D/+VCfvQ4OJJHaGjlVQ//me43ppyKp0h8j3b97CpAZjNAdKa
+	 O+pMNAwCCCg2KSOUaMv5GsovXf5it3QnpGQlowF3PfU9eUXts1Ne69meQrAfd2q7/5cav
+	 dL8oPb5f0JTDlazTKgP5Zodhu11G/rVjmuvEDi/c17RC0aH55luEC5dPuvGJD6k8xwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=QCmbXsw9;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ibrCyxA1;
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF62606A32A
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:22:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF62606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B043606A32A
+	for <Devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:24:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B043606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=QCmbXsw9
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so31169a91.1
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:22:13 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795022533; x=1795627333;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=mY/FNLYTzlT6/9iFOU+8LtK9dRUupasMtXWg1lgUwjY=;
-        b=mDiY0ypnbHmBqamXZs0u4BL/rF/HRr6Pws58omdqkGQ5TahzlXMvBX5klVFtOK7tks
-         1rcHvrGFDHP43YS6KbyKTQM2wrXmDk5DUw9DlTH+UI78rAc1YBYee0ObH8neHSMIyqyT
-         1YIBYntJY0N/3MFBwknIbHxWFZHLIrU5so8IVkNna2T/f4i9Bzyaq1OsElnT9Dubh2gA
-         gTxVMWcn0XLdB/Hv7W9+8OgDVxFseBzjxvJeJv7nRnXVdwwUUuwovcPI4SwgFQl70/fK
-         cb4wo7E5/U/i8Hg/pJPHdPu7uJv8NokgL5ha4yNmTIaobDJcj2EVinaH2RzT0mbngsmk
-         UVBQ==
-X-Forwarded-Encrypted: i=1; AL+hErEp6HP4tjBaRu6ubHcn4XFE2yTFN/cv30Srjd6sy1sckh/FXM55PegNz65bIq4gVIsaXrh//3/KPAhE@vger.kernel.org
-X-Gm-Message-State: APuU4Z/HNgwVMPzhhiJwnqOt2SGp6idJhnIdbhr2OhXS2zyptDYG2MYu
-	GS0OOlbTDA8uoXFnEOTyg4xYxUp3v1R9oEBBdUII/4GAc6mWX3KsnJURm2Kmo0ZGzAt9yljeYwN
-	2hdvbz2Vq/h+hhM6ug/POumoHf5z6lzi7jit3aZmvmOOB6dKKjIwMKnNnH310bbFk2moHAuhexm
-	U1zcouIWBbCEzrPK/B4t1RzfMXfdQjkGEgrnR91+ET6oEaIOazMapvhRSXB9UNp+ldQ2qXlVc/K
-	mw4NLjBNCO2z7M2QfHs/w==
-X-Gm-Gg: AZFdTZfUMEy382adrVFju9qZKy6OEoMoGGTfhNNy0rOFo/egGWGI0lCqFeQf6Fj9+uX
-	7ZxOgApw41/KZQFzDkRl3dOIVmGVAd5uL+dDXdAxExKAr2THGyrJasHLgacJuXI6iF3Pt39L54r
-	UsHWtCvaJqwQJZM+pvgFoCFAZISpTCI6czOEcjl451Nhr4JhKKazTHMzn2WIseAaSM0SXkIudv/
-	lrbt08YvOSFdYgAwp7KENnoYwQVpBL+GsoKoyuZh/Ucj+zzgv2HRo54AqQdap702+7RdL2TK1WE
-	koquz2zsMAbVg/N7HXx9CVksR3IGONh7R80voxJMYfjCgLhY0LRTsd/u5pib7G7OXfe5SnxgDhf
-	sbyLvq5qRaTuhrvTX4icHGJBUb2T2pNQBy+ytzegt+H+cD31YLT9FR4x1BHSPqy9DCl/YOltDRP
-	4GwObQ4rKTjaGT5PN0rZK6p6ugH4DB1rdt7+BN7y88
-X-Received: by 2002:a17:90b:380b:b0:3ac:9ed8:f301 with SMTP id 98e67ed59e1d1-3b3f61fd7c9mr91183a91.30.1795022532585;
-        Wed, 18 Nov 2026 09:22:12 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b3f0f72ab7sm171179a91.1.2026.11.18.09.22.12
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 18 Nov 2026 09:22:12 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd65070d3feso21993a12.0
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:22:11 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ibrCyxA1
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c5118deebcfso128608266b.1
+        for <Devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:24:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1795022530; x=1795627330; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=chromium.org; s=google; t=1795022692; x=1795627492; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mY/FNLYTzlT6/9iFOU+8LtK9dRUupasMtXWg1lgUwjY=;
-        b=QCmbXsw9Q7pbMssiRJAA+fDmlvxstuKAuNkfpYE570k5fb06Uh/ls5PbiHErevwLaK
-         AsntTPCiEwGG8Lq2VJ7UDGXF+bLPcTfvIdd8ccKdMmaz+sFvHJy8hCMPYEFieADslYZu
-         JJ3GvdAJWpPG68HtpInXd+6sv4Y2hXAv808Jo=
-X-Forwarded-Encrypted: i=1; AL+hErEpIL4ZDztJPQN1vchbSJLdSSrOhuBiNB5ib8ayj0fASTDLY9Njk4eSckl9xIaMM9PDUpIRaFFloIi5@vger.kernel.org
-X-Received: by 2002:a05:6a20:1611:b0:3e2:28f0:b360 with SMTP id adf61e73a8af0-3fff0101ffemr132524637.0.1795022530113;
-        Wed, 18 Nov 2026 09:22:10 -0800 (PST)
-X-Received: by 2002:a05:6a20:1611:b0:3e2:28f0:b360 with SMTP id adf61e73a8af0-3fff0101ffemr132501637.0.1795022529163;
-        Wed, 18 Nov 2026 09:22:09 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde53506b98sm312451a12.30.2026.11.18.09.22.06
+        bh=JAeSxvyXiRmsMJ3f4euXUCxQsMzoP2I8Tha/sl3LGrE=;
+        b=ibrCyxA11Vhxeer6ccecwsPRpTre9QnTE8Xbra+SXfVg9ZcIx6uga51R6c1AtkCm48
+         0vBJtcZN39vE/lp7l8txQmnheNIJ7VR64NwNaezrSq3NuZGXET2EsfSykQSwB7MBt5WF
+         fjBNfS/urY1iq4yoNnqQjEKA90CfNPoFnuIGQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795022692; x=1795627492;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JAeSxvyXiRmsMJ3f4euXUCxQsMzoP2I8Tha/sl3LGrE=;
+        b=cS4zwp5E/eECMs34ukiohNw0+hH0GrSdr6TGnfqHEuNZ7HcYqhwPbSVVyoJyaRracS
+         396y338u+yX8uMzMa2o3hlcDju18skgHwc9wmlRe7vSAGSO4f97NjXv21sitQCKQgxgZ
+         0M1Zp7Tj42O6PtQ3lBs0wyrf9zb99Gzf7ZSUWXvmGC8HmqculSjDm7yvaE9ZWmUR+up2
+         By/IREuNtcS54HkQlXD1ZGGiB6/+AP1fbfe2To7Kzr9jWlCHzzuZ4VRW+6ibHk8eliqi
+         0QK7pl9VOYem3PKzlOZhVAKIJ5HRwX4CrgoRjGJ9KudxOmJaXKlE1W2B81pOdeGRNbg4
+         Em+A==
+X-Forwarded-Encrypted: i=1; AL+hErGPtjIg2a/eklTGrJhoX428OBND00YzdpFHnIyeESVz2xNx4HXJWyl+LBSTXafzMZr6ZBMUlA7Hnhqf@vger.kernel.org
+X-Gm-Message-State: APuU4Z84iUMwN3MHRoBCULQT3Vv9/QVXxnWNlqneyZK6flHrnbChWoO1
+	E5oDx00g1AQ215Zxp7SGyHno62RGYHWfXzBuQETjhikODuSae6gvbiHjensSjHlbj8ywXmAkPIQ
+	qe+iGUaTF
+X-Gm-Gg: AYBFou0LgJh0VUgMY5u5iQ9mUyfRkv3x9k10Q24OE7qkJQCBoCmHgk3tU6191PzAKdf
+	vgl9C3NkPBkcvNT7wu6yT8K9WFyeYOU4T8rRRQEKhl9m9m+LhbeW8VYMGtFjRfF5Se9kbKCa9yk
+	y9UXqkS6oDnW+dNEFZ+o1ZLNIZk392xnxT9bidmO75UO5h2FV57JVAX8NHMfgLyHf53yNvW7rPL
+	1rp0IBbFphBrwnzPfthzF/Bb2660xpoWwxDu6SeJDAiwnTSietDsMu92uPoGIvRLbkNtTpDVzWZ
+	fEPmFvi0g+mlcLkPoc7m7L+PWoSyYJbfylql4tRyWKD4DH4aO6EJC8OJ4at5hIvvxcxiUhpL8k2
+	KjlH/IzNQNxzoXIchRZkZF28OH3IgNNTMC7z0Twsk8hI+NkW2S5B1ajZZka0zv/faCBHT53Nrx9
+	HcpgkGgQe262zXu64FkWWGlvmSUT29Sc46+DDwsDPnnIu+muoNwdlXfw9NZXTeJFgr3tuK2py4X
+	gDr5LNi2T5BUXv2RUyRa60Ce6/tNjXH113/NI7qqvssQxvFptB/oGWTW++QxyXkq5xYQZkP4QgP
+	ni7i9ngeKSW+vKwwq3GLG/LvFcLll/RZ32UmNj3OK6Makiasw4fxYci3ou53R4R2yfGK
+X-Received: by 2002:a17:907:9811:b0:c2a:cf73:63fe with SMTP id a640c23a62f3a-c510debebf5mr316668366b.6.1795022692411;
+        Wed, 18 Nov 2026 09:24:52 -0800 (PST)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com. [209.85.221.46])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5123419838sm24807166b.34.2026.11.18.09.24.51
+        for <Devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 09:22:08 -0800 (PST)
-Message-ID: <e8714dba-f51a-40a2-9bda-be49fb3b16ff@broadcom.com>
-Date: Wed, 18 Nov 2026 09:22:05 -0800
+        Wed, 18 Nov 2026 09:24:51 -0800 (PST)
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so1150272f8f.1
+        for <Devicetree@vger.kernel.org>; Wed, 18 Nov 2026 09:24:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGOhDe55GGaMqS1mPzNQuA/9y8XhmKx9vePAwNXh9JSv19zRvwYXGFbuL2Vc0Rv+fpCBttRTK7b2Zwl@vger.kernel.org
+X-Received: by 2002:a05:6000:299c:20b0:49c:9e8a:31ad with SMTP id
+ ffacd0b85a97d-4a63ab743f8mr5132205f8f.42.1795022690305; Wed, 18 Nov 2026
+ 09:24:50 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,255 +93,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 4/9] dt-bindings: net: describe the Northstar
- flow accelerator
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, rafal@milecki.pl,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- horms@kernel.org, corbet@lwn.net, jonas.gorski@gmail.com, olteanv@gmail.com,
- pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org
-References: <20261116222519.1416501-5-florian.fainelli@broadcom.com>
- <179495816151.3136.14110323389854628043@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <179495816151.3136.14110323389854628043@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+References: <20261116205320.1621386-1-dianders@chromium.org>
+ <20261116205320.1621386-9-dianders@chromium.org> <20261118095418.51d30ee8@pumpkin>
+In-Reply-To: <20261118095418.51d30ee8@pumpkin>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 18 Nov 2026 09:24:38 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=XZP5ZD8J8k5wD5XgQP-sF1SEoZNkRkXyYL1ZeuU187_A@mail.gmail.com>
+X-Gm-Features: Aa3M54qmwNkSUziy75AZiIFWCnPWMk25YyIyR4JL-u3z6SIV6TTagFPK9tSRagE
+Message-ID: <CAD=FV=XZP5ZD8J8k5wD5XgQP-sF1SEoZNkRkXyYL1ZeuU187_A@mail.gmail.com>
+Subject: Re: [PATCH v4 08/14] libfdt: Speed up fdt_find_string_len_() with memchr()
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Chen-Yu Tsai <wenst@chromium.org>, 
+	Saravana Kannan <saravanak@kernel.org>, David Gibson <david@gibson.dropbear.id.au>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org, 
+	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Julius Werner <jwerner@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/17/26 15:29, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 2
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] The flow-accelerator register resource in brcm,bcm4708-fa.yaml
->    is modelled as a standalone MMIO block with only `compatible` and…
-> - [Low] The new brcm,bcm5301x-gmac.yaml schema is selected only when the
->    `brcm,flow-accelerator` property is present (`select: required:…
-> - [Low] The FA binding description calls switch port 5 'IMP5' ('Switch
->    port 5 (IMP5), connected to GMAC0, ...').
-> 
-> --
-> 
-> dt-bindings: net: describe the Northstar flow accelerator
-> 
-> This commit adds a binding for the register block of the
-> BCM4708/BCM53011/BCM53012 flow accelerator. It also adds a schema for the
-> brcm,flow-accelerator phandle on the GMAC2 BCMA Ethernet node. The
-> description covers the second CPU path, port 5 to GMAC0, for exceptions
-> that bypass the accelerator.
-> 
->> diff --git a/Documentation/devicetree/bindings/net/brcm,bcm4708-fa.yaml b/Documentation/devicetree/bindings/net/brcm,bcm4708-fa.yaml
->> new file mode 100644
->> index 0000000000000..f744b23433c46
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/net/brcm,bcm4708-fa.yaml
->> @@ -0,0 +1,45 @@
-> 
-> [ ... ]
-> 
->> +description: |
->> +  The flow accelerator is inline between GMAC2 and switch port 8 (IMP0).
->> +  GMAC0 and GMAC1 bypass it. The GMAC2 BCMA Ethernet node references this
->> +  register block through a brcm,flow-accelerator phandle. Miss packets carry
->> +  a prepended accelerator descriptor in place of the embedded switch tag.
->> +
->> +  Switch port 5 (IMP5), connected to GMAC0, provides a second CPU path for
-> 
-> [Severity: Low]
-> Should this say IMP1 instead of IMP5? The b53 SRAB code calls the two IMP
-> ports IMP0 (port 8) and IMP1 (port 5):
-> 
-> drivers/net/dsa/b53/b53_srab.c:
-> #define  B53_SRAB_IMP1_SLEEP_TIMER	BIT(10)
-> #define  B53_SRAB_P7_SLEEP_TIMER	BIT(11)
-> #define  B53_SRAB_IMP0_SLEEP_TIMER	BIT(12)
-> 
-> This description already uses IMP0 for port 8.
-> 
->> +  exceptions that must bypass the accelerator, including TCP control,
->> +  low-TTL and oversized packets. Describe that CPU port with an ethernet
->> +  phandle to GMAC0 and an internal, 1 Gbps full-duplex fixed link in the
->> +  switch's ports node. Port 8 remains the data connection to GMAC2.
-> 
-> [ ... ]
-> 
->> +  reg:
->> +    maxItems: 1
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    flow-accelerator@18027c00 {
->> +        compatible = "brcm,bcm53011-fa";
->> +        reg = <0x18027c00 0xc0>;
->> +    };
-> 
-> [Severity: Medium]
-> Can the flow accelerator be treated as a standalone MMIO block? The example
-> address 0x18027c00 falls inside the 4 KiB BCMA window of GMAC core unit 3.
-> bcm-ns.dtsi already describes that core under the 0x18000000 axi bus:
-> 
-> arch/arm/boot/dts/broadcom/bcm-ns.dtsi:
-> 		gmac3: ethernet@27000 {
-> 			reg = <0x27000 0x800>;
-> 		};
-> 
-> The binding allows only compatible and reg. It has no clocks or resets
-> and no link to the GMAC3 core. It also does not say that the hosting core
-> must be out of reset and clocked.
-> 
-> Later in the series, bcm_ns_fa_init() in
-> drivers/net/ethernet/broadcom/bcm-ns-fa.c maps this node and writes to it
-> straight away:
-> 
-> 	np = of_parse_phandle(parent->of_node, "brcm,flow-accelerator", 0);
-> 	...
-> 	fa->regs = devm_ioremap_resource(parent, &res);
-> 	...
-> 	writel(0, fa->regs + FA_STATUS_MASK);
-> 
-> Nothing in bgmac or bcm-ns-fa calls bcma_core_enable() on core unit 3.
-> bgmac_probe() also rejects core_unit 3 when that core has no MAC address,
-> so it never gets enabled there.
-> 
-> Suppose the bootloader leaves the GMAC3 wrapper in reset or clock-gated.
-> Could bgmac_probe() for GMAC2 -> bcm_ns_fa_init() -> writel() then take
-> an imprecise external abort or hang the bus? And if something later resets
-> the GMAC3 wrapper, would that wipe the programmed FA state?
-> 
-> This is inferred from how AI wrappers usually behave. I have not checked
-> it against the Northstar register map, so I can't confirm that GMAC3
-> hosts the FA. On BCM53012 boards where CFE leaves core 3 enabled, it may
-> work as is.
-> 
-> Should the binding describe how the FA relates to its hosting core, or
-> the clocks and resets it depends on?
-> 
->> diff --git a/Documentation/devicetree/bindings/net/brcm,bcm5301x-gmac.yaml b/Documentation/devicetree/bindings/net/brcm,bcm5301x-gmac.yaml
->> new file mode 100644
->> index 0000000000000..76fbe2abf5152
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/net/brcm,bcm5301x-gmac.yaml
->> @@ -0,0 +1,27 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/net/brcm,bcm5301x-gmac.yaml#
-> 
-> [ ... ]
-> 
->> +select:
->> +  required:
->> +    - brcm,flow-accelerator
->> +
->> +properties:
->> +  brcm,flow-accelerator:
->> +    $ref: /schemas/types.yaml#/definitions/phandle
->> +    description: |
->> +      Phandle to the BCM4708, BCM53011 or BCM53012 inline flow accelerator.
->> +      Only GMAC2 (BCMA Ethernet core unit 2) has this connection.
->> +
->> +additionalProperties: true
-> 
-> [Severity: Low]
-> The "Only GMAC2" restriction exists only in the description text. The
-> schema is selected purely by the presence of the property, and it sets
-> additionalProperties: true. Wouldn't a DT that puts brcm,flow-accelerator
-> on gmac0 (ethernet@24000), gmac1 or gmac3 still pass dt_binding_check and
-> dtbs_check?
-> 
-> Nothing checks that the phandle points to a brcm,*-fa node either.
-> 
-> Later in the series, bgmac_probe() in bgmac-bcma.c enforces the rule at
-> runtime:
-> 
-> 	if (of_property_present(core->dev.of_node, "brcm,flow-accelerator") &&
-> 	    core->core_unit != 2)
-> 		return -EINVAL;
-> 
-> So a misplaced phandle makes that GMAC fail to probe, and dtbs_check gives
-> no warning beforehand.
-> 
-> Separately, the file name and $id suggest a brcm,bcm5301x-gmac compatible,
-> but the BCMA GMAC nodes have no compatible. Is that naming intended?
-> 
+Hi David,
 
-[Medium] FA modeled as a standalone MMIO block
+On Wed, Nov 18, 2026 at 1:54 AM David Laight
+<david.laight.linux@gmail.com> wrote:
+>
+> On Mon, 16 Nov 2026 12:53:05 -0800
+> Douglas Anderson <dianders@chromium.org> wrote:
+>
+> > `fdt_find_string_len_()` currently calls `memcmp()` at every byte offset
+> > across the string table (`for (p = strtab; p <= last; p++)`). When
+> > building or modifying trees with large string tables (such as DTBs and
+> > overlays with hundreds of `/__symbols__` or `/__fixups__` labels via
+> > `fdt_sw` or `fdt_rw`), scanning multi-kilobyte string tables byte by
+> > byte dominates serialization time.
+>
+> Are those symbols just in a linear list with embedded '\0' ?
+> That doesn't scale well at all :-)
 
-The register block does not overlap the GMAC3 node: 0x18027c00 is in the
-GMAC3 BCMA window but outside the 0x800 bytes described by 
-ethernet@27000. Per the data sheets, the FA is part of the AXI MAC + FA 
-block together with the four GMAC cores (GMAC3 being the block's 
-loopback port), not a separate peripheral. It has no clock or reset 
-input of its own in the DT, and BCMA wrappers are not modeled as DT 
-clocks/resets.
+I'm assuming from your :-) that your "That doesn't scale well at all"
+was intended to be wrapped in <sarcasm> tags? :-P
 
-I cannot tell from the documentation how the GMAC3 BCMA wrapper state
-affects access to these registers, so I am checking this on hardware and 
-will add the core enable to bcm_ns_fa_init() if it turns out to be 
-needed. v2 documents where the registers live in the binding description.
 
-[Low] IMP5 vs IMP1
+> > Advance `p` between candidate first-byte matches using `memchr()` (with
+> > an explicit `slen == 0` check for empty property names and a `tabsize <
+> > slen + 1` bounds check before computing `last`), preserving identical
+> > suffix-sharing behavior.
+>
+> Might it be better to scan for the '\0' that terminated/separates the strings?
+> Then you do one memcmp() for each string/symbol rather than for each time
+> the first character appears in any string.
 
-Agreed, port 5 is IMP1. Fixed in v2.
+Two things work against scanning for `'\0'` here:
 
-[Low] GMAC2-only restriction / naming
+1. `fdt_find_string_len_()` intentionally supports suffix sharing (e.g.
+   `"controller"` matching the tail of `"interrupt-controller\0"`), so
+   scanning for `'\0'` can't check `nul + 1` (the start of the next
+   string) -- it has to start at `strtab + slen` and test `p = nul -
+   slen` before each `'\0'`.
 
-v2 restricts the consumer schema to ethernet@26000 with a $nodename
-pattern. BCMA GMAC nodes have no compatible, which is why the schema is
-selected by the property; the description now says so. dt-schema cannot
-check what the phandle points to, the driver validates the compatible.
+2. Every stored string ends with `'\0'`, whereas `s[0]` only appears in
+   a smaller fraction of bytes. On a real upstream Qualcomm base DTB's
+   `dt_strings` block (855 strings in 11,259 bytes, average 13.2 bytes
+   per string), `'\0'` occurs on 7.6% of bytes while `s[0]` averages
+   3.9%. Replaying those 855 insertions makes 362k `memchr()` calls when
+   scanning for `'\0'` vs. 187k `memchr()` calls when scanning for
+   `s[0]`.
 
-pw-bot: cr
--- 
-Florian
+> Even with the code below you want to do the !p[slen] check before the memcmp().
+
+Agreed. Since `p <= last` (`strtab + tabsize - (slen + 1)`), `p[slen]`
+is always in bounds, and checking `!p[slen]` (i.e. `p[slen] == '\0'`)
+before `memcmp(p, s, slen) == 0` cuts the `memcmp()` call count across
+that 855-string replay from 187k down to 14.3k (the exact same 14.3k
+`memcmp()` calls you'd get from scanning for `'\0'` with a `*p == *s`
+pre-check, just with half as many `memchr()` stops).
+
+Timing 200 replays of that 855-string (11,259-byte) Qualcomm
+`dt_strings` block with `gcc 15.2 -O2` on x86_64:
+* Original (per-byte `memcmp`): 3.45 s
+* Scan for `'\0'`, `memcmp(nul - slen, s, slen)`: 0.45 s
+* Scan for `'\0'`, `*p == *s` then `memcmp`: 0.36 s
+* Scan for `s[0]`, `memcmp` then `!p[slen]` (merged `c954f9dd8357`):
+  0.27 s
+* Scan for `s[0]`, `!p[slen]` then `memcmp`: 0.21 s (~20% faster)
+
+Since you already applied this patch to `main` (`c954f9dd8357`), so
+I'll include a 1-line follow-up patch swapping the check order (with
+`Suggested-by:` you) in v5.
+
+-Doug
