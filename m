@@ -1,89 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794962819;
-	b=VMfxKsWlS0Xcj6gB85rBTL1msYN89JDl2XDaNsnEMH2c2Ux3IwG6EaAvDDAn4IC0aFus
-	 TrSgYlb9UxGcQAaX41pimXVfzZ7vv+LRGzwlnQQKt35t7vMxXVXN9MrDHpspHSN1/wQ0y
-	 JW3DJZTfDv+/Q5bQmPfB95ooM/5ljcfbSXBSUTJVt9PYISn2bZ5gow+3lf3gf9mkIKNBd
-	 uKH2KEXaAcy4Xquk7RJmH6LM142drzYPUlDV1nMgkvuFWU4hrVOM3X5R/t+p1PtImVMA1
-	 Rc9LA71DP8GYS7kLLRolUUriP3Po1ZKV3h5lpdsbnVUNU6kCK5Ypu4J/QieYZIOeaLw==
+	t=1794963069;
+	b=IcCd6yir7SxwFX7kkAF60vYQMAs/z5KJk6NuyhrrcKcplXiT9TswKzRSa/KQTqMp6q4W
+	 RmfyZ+N59yn+d2oxb257lPkF5y7fYcv3+bDGhZboEp/yvQ8HNmhVMRZ+lfD4258+JMLje
+	 /3zfIDory8r+yzvN8Q3aDpMAHGITeMg+uvdMaLiVEMajrLzAVTOreCzm/Cxxwc+F+fpw8
+	 orTc1lv/LqwF/pF6tDrqzVgzn8cb7HDWZtwzysyZVCB5brtuzexvRdELBBL+2zyl7E/+T
+	 XaVz94MjsATNHrr0UaJADb79VNdW5+yeEA6Dnqe1oXrDXZYqyt3lbD+MzLv0b4ZIi9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794962819;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=yRsbLllD1ga6dKK48ADUW32xm5TyK5xa4odFMr7mVjM=;
-	b=tZBGo3hPvTiSTcIM/EDN85dCRZ9GKev89D/TytZ6UyelBWnZbElS0tcnRCzGbU5lrOIk
-	 JwCLj1aLoGHtAmc6x/yYO2Okw54cAzMlMCPlq/I5QI4hDNIg6FejhOxdfkXrEaMEISLzi
-	 8TVmb0HIjBLgde3O4jzUEL43Uf9rdG0FDkc/7lWrdnnHFCffESKUBl5I4U1MKNye7wB0N
-	 Ay7PJUFVsVGYIAjQwzqhHU65qY8otH5XG900mOopR0hhdDbGrt/D/tnVFTI54lX+v18Ka
-	 nL9neeKKDhzhpPOxYd4FmAZU7c+bzTznIgMT1Haex1rTuObtqHW5SZo59mYt76IEfIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794963069;
+	h=Received:DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:MIME-Version:Content-Type;
+	bh=1UbMEHB0WKx0u4dst6bzVbW5BKGdyKKbsda1yqu6+p8=;
+	b=POBiRUzik8wfC4dKYWB69+522w/q7zN39KiMsz/Rtf3oX29W5bmN5YkwUbZqrhjxWZgo
+	 eQLILUGosZb6fKysf1MkEdGnfuVcA+HaMsc2skH3dt7MCOdobbmDnRcZggrWNxvWN7Sa8
+	 VPhLeZc4xdr5ju+P1KW4EPOKfhMQvOiF6g7n/iivIhvOxigIg57B0fhHm2OOOr6ZAeOmf
+	 yxwJrSOnEu8twAULD4gjftqR5Vm1hFApV4YYz+196N21qoqa0abNpf3m79+Mh9gs9DQhB
+	 vb2/aQF1ImVE/wmS1BvbeXHKP+M99DyzOzqUj0wg76El9NaRfTj3HkuCg+IJMe8cCTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JW67F3Tt;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vix5oa89;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56C9606A32A
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 00:46:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B56C9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C98606A31C;
+	Wed, 18 Nov 2026 00:51:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JW67F3Tt
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1b3ada81853so504271c88.0
-        for <devicetree@vger.kernel.org>; Tue, 17 Nov 2026 16:46:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794962818; x=1795567618; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yRsbLllD1ga6dKK48ADUW32xm5TyK5xa4odFMr7mVjM=;
-        b=JW67F3TtYeElTtJVSj5teFMGo+XuLq9otC4iX7E8GBDpg0mGi9yucnrKia7Bi/14Tp
-         eSIexKMeK8huhwnBFjk8SG6lsvizMqARIOUWtfYHO9NfflpHvSFk8hq/d9thsm6mWHXP
-         7jN/v3sFWnpGGud6a1VP2Aa5S+Nn/kEpx49EYpnsXx/czo+T7rnrcPqfV3eVyCtHH4XG
-         EYe3Exr5OcAEFS6iMXQKHSh5E1EMr71bWawtXC+rS91fjBzu0SUUVyzPMIWF7SZB/YvH
-         gXwtxwuSy4H0oiXlSWCJHPE8Q1jF/SkvxLj6i4CVDVzh0mEA/fj9Dx1lD0tTZbUmDygY
-         +KFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794962818; x=1795567618;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yRsbLllD1ga6dKK48ADUW32xm5TyK5xa4odFMr7mVjM=;
-        b=fFPFXo5FD5YdMzY7LAqG0jkvOwaxOytQgy8VcERyPXkB4DGToeIih2gPopFW6YdcTX
-         pehZ0rYnRPdv4faD7t0Ur7PMF+2jnFS0juNwflm/FocxYmD/9zOcBWHZiGne0OTQ7KeB
-         8RnNCkfbvAPVipLLCjrVKf4cFfrch/pYrFsdyH8hmrCpX1zNnRgT3Og400HMdDpnMKwt
-         RoVKIVidN/7zOyxfa40CSBb3WbccSgvbTELqsfi1ZpOMtxRWkgWknA4p7nuQEVgIHtFN
-         dmKrdftZ+6rXd8P5HKoZVF3M4mev9uavDtjZdtOiwclbxWNxKBlc+tK94gpnlj09UjHw
-         tYtg==
-X-Forwarded-Encrypted: i=1; AL+hErEgOchIIoKKEs4OkAutF/D0+IXnyXQrE5xxdCFXaQC7uM8Sk+jeNpd6+h4yJ7u5sJ3AnShcP8HFE67J@vger.kernel.org
-X-Gm-Message-State: APuU4Z9pe1gaqzTQHa7tmHj24rzclGmEPPIfF4MP4YHLJFgr667mDAcQ
-	X1S6maCPrGgLqTom+tLu9NOUsBPZLDtdpXFzDIPB47CDYay2yBlez9vz
-X-Gm-Gg: AYBFou1yHDleZ40TEulSU/7RIx32e8vVVHnZdBAj/K01obmPu0wONAKOLzOeCeG7I0K
-	loWKwJOJNe61iYoY88wa0OyfpqMsnre6BfAIBIPWcuotfy4jhc28oOe8VjyL676J2fCh720UNBR
-	l3TQMoF+/fwCQexhElyjOAo7ib1l0WhoFB+PQ/mM0/ozfe0jnf5KyEXffNng6WUZufBUPMzdYMX
-	/jw2XmjoUtHYo8ozCcEqE4gvlybtCFwgdQ3SNDxxX4BwwwXtpsY0YiZ8yVCJ9AIzpTuZbJpk3tn
-	CAis9YSpEgJ0+hBp7SHHSh0hylm6UJ4JIDDkj8HgPaN9w4qCxDcwI+qz/O2/xSVI2ua300WQSFs
-	kOqQN2HCaDhjo1ZuurQrlbvK8pQMmEZkOMDBY0So75QFdzM9/CRvJRYlSklaRgraSmxxttU3hJ7
-	AKrQUZQl3r2cvwNvZZXIt7xRFXHR/oFU+HbjxjskFMblfmpaAgiv/im1vcCwVj3RtiaXiBUnCDj
-	mRdUYMQcxEkE9tNVsv0O0astASuK9L7yJpqfDCcwGlkKrzzTymlEoJIOpaEvamCSajR53aU/Jos
-	SHjYON+bMBcMzufMBbjMnDENB74xzsgcmQgW++81G5HVF4ot2xTjo7s2iLI4JedUZTn3nCpH1dl
-	p
-X-Received: by 2002:a05:701a:cc93:10b0:1a8:ff0b:a4e1 with SMTP id a92af1059eb24-1b543cd7146mr1086049c88.18.1794962817804;
-        Tue, 17 Nov 2026 16:46:57 -0800 (PST)
-Received: from [172.19.1.48] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5447dc5e9sm2505940c88.11.2026.11.17.16.46.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 16:46:57 -0800 (PST)
-Message-ID: <aa081f74-a15d-4ef6-86f6-cd81455a57c0@gmail.com>
-Date: Wed, 18 Nov 2026 08:46:52 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vix5oa89
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 874611F000C4;
+	Wed, 18 Nov 2026 00:51:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794963068;
+	bh=1UbMEHB0WKx0u4dst6bzVbW5BKGdyKKbsda1yqu6+p8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=Vix5oa89sYVH+p/PIq4YrS+tl+Q2d4GuSof4iYPr1Jes1ukCV07Ax1mT31gYyRuBk
+	 KDVy1Xc7YkJFjBGk5YUHJzXhopjFDdL078g//rtk1yAnqg319z95CNtPuGG0OYycRO
+	 8Wa4KGYOH0uIUrNnDpu51YSb5byQaABCxt57BX04GkSmivdOSX53foyLpW6Hir1D/2
+	 Ojjfm7+wHiSWS3iuLZLjwaicqWHiDLEhCM8IKXgCSRYPXKRQo8/HxBpYGfmGkUl7uh
+	 +vbQm41d1rp042Qx55pJ1nSLVSkIsdEJ9zElVuG66GwEr7i5ZiJxXGuq6KYhnQeAcp
+	 dwuP02Th8yGRQ==
+Date: Tue, 17 Nov 2026 17:51:05 -0700 (MST)
+From: Paul Walmsley <pjw@kernel.org>
+To: Han Gao <gaohan@iscas.ac.cn>
+cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Guo Ren <guoren@kernel.org>, 
+    Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+    Samuel Holland <samuel.holland@sifive.com>, 
+    Daniel Lezcano <daniel.lezcano@kernel.org>, 
+    Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+    Brian Masney <bmasney+clk@redhat.com>, 
+    Jerome Brunet <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>, 
+    Jernej Skrabec <jernej.skrabec@gmail.com>, 
+    Samuel Holland <samuel@sholland.org>, 
+    Philipp Zabel <p.zabel@pengutronix.de>, 
+    Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+    Maxime Ripard <mripard@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+    Andre Przywara <andre.przywara@arm.com>, Han Gao <rabenda.cn@gmail.com>, 
+    linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+    Paul Walmsley <paul.walmsley@sifive.com>, 
+    Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+    devicetree@vger.kernel.org, linux-csky@vger.kernel.org, 
+    linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org, 
+    linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
+    linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 01/19] riscv: sunxi: describe the wider Allwinner SoC
+ family
+In-Reply-To: <20261114-v861-v1-1-eb71ec3ee523@iscas.ac.cn>
+Message-ID: <fc63c0c4-5b79-87f9-aa42-7ed541361052@kernel.org>
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn> <20261114-v861-v1-1-eb71ec3ee523@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,39 +79,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] thermal/drivers/ma35d1: Add Nuvoton MA35D1 thermal
- sensor driver
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: rafael@kernel.org, daniel.lezcano@kernel.org, ychuang3@nuvoton.com,
- schung@nuvoton.com, p.zabel@pengutronix.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, rui.zhang@intel.com,
- lukasz.luba@arm.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261117060501.2611071-1-zychennvt@gmail.com>
- <20261117060501.2611071-4-zychennvt@gmail.com> <avxhlPnmjDhZlUmt@monoceros>
-Content-Language: en-US
-From: zychen <zychennvt@gmail.com>
-In-Reply-To: <avxhlPnmjDhZlUmt@monoceros>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
+On Sat, 14 Nov 2026, Han Gao via B4 Relay wrote:
 
-Uwe Kleine-König 於 2026/11/17 下午 10:16 寫道:
-> On Tue, Nov 17, 2026 at 02:05:00PM +0800, Zi-Yu Chen wrote:
->> +#include <linux/auxiliary_bus.h>
->> [...]
->> +#include <linux/mod_devicetable.h>
+> From: Han Gao <gaohan@iscas.ac.cn>
 > 
-> <linux/auxiliary_bus.h> already provides auxiliary_device_id, so please
-> drop <linux/mod_devicetable.h>.
+> ARCH_SUNXI is about to cover the V861 as well. Update its prompt and
+> help text instead of adding another option.
 > 
-> Best regards
-> Uwe
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 
-Thanks, I'll drop it.
+Assuming this series is going to go up through arm-soc -
+
+Acked-by: Paul Walmsley <pjw@kernel.org> # arch/riscv
 
 
-Regards,
-Zi-Yu Chen
+- Paulk
