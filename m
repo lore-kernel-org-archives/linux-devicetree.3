@@ -1,57 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016530;
-	b=muzJ+ECYqudW19OatNZZQCVZ4d+Y9XDTFioy9FmxmrB9d1IvvseOfzD/onimMi8OCobV
-	 IxJx7CebZ2WAh63Q0PNqgzvTUaXCukvigS82up1NsXemAykjbjDlXEj0xAstN5Sb5HcCH
-	 R/Ie+uksdqhWjiqAYtc3zP4HPBppnCYRgI6DiD98s0TX+o6XOrIPzSCDYYR6d3WS5lxO/
-	 Byr38k08MTyI1fhk4s9fvjo2CgJddN23uDPwIDJIi4XqI7Iyedi/ZVWYDTDfZBzIFxUEj
-	 Lbucdm0GMV3SVJUTbajsahRxTPeUGjbe2C7PRajBP2sxEthVwNnUWKx/WZwzyHaD+BQ==
+	t=1795016539;
+	b=x09LeSXDJsnQhyU6yLqn2VBrPd4jyDUGxqXqiSaFE84qHdW7yzNmhl/npj6qr9P6Xlsa
+	 DF7HJnMSo7BpFwe/cbsep8ympJBuLGf3Kh44GbSmOxPJZfTFhLqSj3r4P55bFh5vVA4v4
+	 784Y28I+LKF/x9hy7ceW84iM7TrCu6Bjh9pfSyul8ybVEzutPYMyu7ttMEu26IRi3VdMB
+	 ezwpownzaobHkyyNy7K55jUxq5k2yWXyd6sdjebXfCG/QEyk+OIeccnkFvClhlFqzLlt+
+	 qUbMDaHTF83EZguACTvKgnHPqBo5i6MeYm50f0QY7/uRxaxpwud9G8pLDh8+u+CtYOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016530;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=RohgLBAexgLmQgnocxGNiSi0y1sBJm0zvNG/HBAbkDI=;
-	b=LYV/AkcVPegxwrAyFxyz/ZGbIpNpTP7Q9eC5gs/7VEAvqkzhfPIORHYl23lJO6p9QPrb
-	 ts8YU85+WOtjVaYl7BXLWqcUILQaocs1Ne+blH8PMKMqDnVp13Vi3u/M3UIEci5CaN0u1
-	 kMPa7GAsJPJTO7eTapulJ4glyjx7zhCkvlpjQHnIJDSBkLQTp/2Y7WYRs9I6DkHCp/8qG
-	 1uvbxDdzZYZgNkJAnjAIhuZe0skKUWVFtB3Ep8Fc3k2OQ6HXNiHKcC7gS8q2agKuLb24a
-	 NbDEV1hCM8TmipCo+lWhUtG/zzMRFGQ3nakcsWrUpNOZ2at/2RUnv6WiNSVtf2wGJ+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795016539;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=CN3uhxZTJ97ugRoC/mFf/rnGzVK4gaQ4Bs/xHJQaLBY=;
+	b=3fGjjPJ4ipir+5Ej/NCN9az0ePuxVhnEwyyDJ8gQjew/e2SMIFL9+pM9ZcHdtZVBM4MO
+	 hJkZcYP4A9ftnFyEpj14+yAvaawcy3DFPNWgeiMgrsB4OQW5RNm+1i65kxT2GCgOSfhR9
+	 Hhenn7dez0S671n51m0AovMtZnW0Qd96gz9RW72jLcARz+4Xt5RWV4NZW4+JIaKWmryfo
+	 dlouJqmdijpd81X5FuYvky1dpHjJpm8zPBH7V0EH8j+xa59acSkSFPoLMlTp5VTtmi7gD
+	 3SnpEMsInAxn3mR0awtkVdCjdexEQOyg59GFwAHs5wQybCTz2dBmDP8wKgC7p7O/XbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtEc1rXG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Qo9LytuP;
+	arc=none smtp.remote-ip=209.85.215.182
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0C2606A320;
-	Wed, 18 Nov 2026 15:42:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDFDA606A320
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 15:42:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDFDA606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtEc1rXG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB8B1F000C5;
-	Wed, 18 Nov 2026 15:42:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795016530;
-	bh=RohgLBAexgLmQgnocxGNiSi0y1sBJm0zvNG/HBAbkDI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VtEc1rXGOBygt6PrHOHw5Tzy8cphLduSMMqPvR97JUHaHhuCVb1WHRW/9K2qj+aBJ
-	 CVCtxJJYO1TUF1b5D2okY3YK8MB9MrF0nidJFjpjwJtkUAZN6caoGM6UfS1ZSaEn+c
-	 qJYxGSUN6oqnT1h/+BhLOFps4cUTtxl0fOM1Wn/tvzw3eI1Otd1rxj7Ep81+wGjbNo
-	 vcetSnJb6ueAwRxDYWyhyZKN7w+BCgyELLrIrkYANd5JD5/ZfSAm33oo5k1ash851k
-	 1BV4F3uZQPQlgUhOXOmeL/hmUZYK4YiUPIOKqJ+VxWaGKaM2EiY9xEXtG/9xCHpcV1
-	 jfA9a6eI/+i5w==
-Message-ID: <sashiko-outbox-221361@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 04/11] iio: adc: stm32-mdf: add serial interfaces
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Olivier Moysan" <olivier.moysan@foss.st.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261118-upstream_mdf_v2-v2-4-7939d3c3720a@foss.st.com>
-References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
- <20261118-upstream_mdf_v2-v2-4-7939d3c3720a@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 15:42:09 +0000
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Qo9LytuP
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdb628232d2so693921a12.0
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 07:42:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795016538; x=1795621338; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CN3uhxZTJ97ugRoC/mFf/rnGzVK4gaQ4Bs/xHJQaLBY=;
+        b=Qo9LytuPq3LOx+0z54BQ8PjbGvhnxuvWOVMI0R3WU9/LEMeouwZFqUZAsAXweRSyh8
+         mctaTRMV0HrYwcaNg7z6/vI0LlLIR7vEdKFvaZvbaeZThLqT6m/j82KI2NOvZP9SWqfi
+         kYc4AgVgaZeNPX+vBh7K8zi+oQAuoCkCRto34GxnIV1HYRNIyemmT6O6R954ZbOJC6Hm
+         Qe2OTJFv+9wtAamYJPIb0psqwYmxQVLFNOQiW05xm4H5xv3Stq3HtBWw/Nu2PVn+F8CO
+         RI4RZdAAlDyFEBdssGgII6E856TDWHYWc1CwhNVNpm1odhgJL0Zkiym3R2nuC092CRjo
+         RBZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795016538; x=1795621338;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CN3uhxZTJ97ugRoC/mFf/rnGzVK4gaQ4Bs/xHJQaLBY=;
+        b=Ic/FX/5jBhypicF0P1J2po1sfKwo7W2gt7Pobl+tcAoHs/bc3oDe2HP61UqMTHGW5l
+         lQWES9qrA93/OpOJpUWxncEMc/GZUGQMQV1iMG7Nd2y/4NOMWsdwlRlJ5dFboS3sQdvc
+         gWN5KTAr8S+csi9wOoBinpyc+WFpAWMdsV6uUj7SzDcx1rNqN7fsllVWTzJfj6rnVGY8
+         ODnbBntLgrH+O9m+nMDbAQWBsvUDNyLFf7VPZeYaxAkLeKCuwJZSPxfR0mXGxb3Nackd
+         P2qW2lXJJbgIne4BA4Ah5ZoHV6VxUcXYnS++KDsVHzC2RpwRkLhd6vIwSJtNDnaQug1w
+         wQmQ==
+X-Forwarded-Encrypted: i=1; AL+hErHlS2rzW58sbiobalZ+TMyGp7ulPlLjzdRkTqpiLFZBGnD59JOoon8wQgouNxnaYd8MtaIkAol3jEEN@vger.kernel.org
+X-Gm-Message-State: APuU4Z9qrknxddQudGDwJYxfFXyTJvwuQ1pvlj3wApmTOq9wH22MRKBS
+	pMbOl6oLXCbgX3WflmcLmf6GzMR3YsTStphzSUrCkSpmOsI9x3npq4VGQf/oCz0kFQg=
+X-Gm-Gg: AZFdTZeYdqPb3YsI7I8K6bBIi8jNDQzuwFGealETH7uF887chiLLxPFIBa/tNufuDyD
+	BEBhk9FNDeE9tYDDB9uXAg4+IN9UWsNTSiy+lTNNh/q/KZenIziCwcQxrJpzSm47YQu/GzMmMFm
+	68VrM+dCJTmPyW7GG9dWvs3c9lUVAGTxJgz1qWzxziIFtQQDxvd1pHzDGT1n95z/g13tAaX3Hzk
+	nrnUUlXpP9k/9LqDFmOluMhYKKn4FzKk5HAl+34J6s4vYrAiNXWdOfB06XODbxMxA/EG2aG1EfS
+	juP8LfkYVBBOdVNMAb/kpWtLwODMOZvnLu1uo9rwTSbxFGF6CHi7MYt4O/VTs2zGjrH66UhM718
+	dSYUE1LHh1PH9GOlp0WAxAt1oFZQiO2AHsvxIsb6LNF7kweMohGafj4xpMyogzucHFPtTRyyanV
+	+wsmdm4CNh5y2HZYofk622w166SVjnlygURpx2QwMFFDBJoyDVZ3bBuxIEGmXVvrCzSaJcdZ9Or
+	UKZP4tPf30kcsHLY1adSLDbQMeKeq/g8wUimDNAKDtrS0VWxQpRhUDGPxrqF14o748Ft5goCtOf
+	eGqHkXfxucpyRZZEnwX5i3xiU1NkwM/7/Q==
+X-Received: by 2002:a17:902:d2cf:b0:2ef:e06c:38d2 with SMTP id d9443c01a7336-2eff756587bmr30526375ad.54.1795016538193;
+        Wed, 18 Nov 2026 07:42:18 -0800 (PST)
+Received: from p14s ([2604:3d09:148c:c800:9f37:bd39:7f19:3b3c])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eff6246213sm16061995ad.56.2026.11.18.07.42.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 07:42:17 -0800 (PST)
+Date: Wed, 18 Nov 2026 09:42:14 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Francesco Valla <francesco@valla.it>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC v2 05/11] remoteproc: virtio: report
+ VIRTIO_F_ACCESS_PLATFORM when required
+Message-ID: <av3HVh5jlMsyaiq7@p14s>
+References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it>
+ <20261102-remoteproc_virtio_map-v2-5-26b300e01c62@valla.it>
+ <avs6XQpoQmY_MNYx@p14s>
+ <avzQI6R9LubGP7-d@bywater>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,275 +113,130 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avzQI6R9LubGP7-d@bywater>
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issues to consider:
-- [High] iio: adc: stm32-mdf: NULL pointer dereference in
-  stm32_mdf_sitf_get_clk()
-- [Medium] iio: adc: stm32-mdf: off-by-one and underflow in
-  stm32_mdf_sitf_parse()
-- [Medium] iio: adc: stm32-mdf: invalid SCKSRC and bit update in
-  stm32_mdf_sitf_parse()
-- [Medium] iio: adc: stm32-mdf: missing max_register_is_0 and name in
-  sitf regmap_config
-- [Medium] iio: adc: stm32-mdf: unbalanced kclk prepare count on
-  suspend/resume errors
-- [Low] iio: adc: stm32-mdf: module self-pinning in
-  stm32_mdf_sitf_get_clk()
-- [Low] iio: adc: stm32-mdf: unused base member in struct stm32_mdf_sitf
---
+On Tue, Nov 17, 2026 at 11:18:03PM +0100, Francesco Valla wrote:
+> On Mon, Nov 16, 2026 at 11:16:13AM -0600, Mathieu Poirier wrote:
+> > On Mon, Nov 02, 2026 at 12:26:42AM +0100, Francesco Valla wrote:
+> > > Depending on the driver originating them, data buffers used for virtio
+> > > communication can either:
+> > > 
+> > >   - already be allocated from the coherent memory area that is
+> > >     accessible by the remote processor; this is the case of
+> > >     remoteproc-specific virtio devices, i.e., rpmsg and rproc-serial;
+> > >   - be allocated from generic kmem, and thus not necessarily accessible
+> > >     directly by the remote processor.
+> > > 
+> > > In the second case, the DMA APIs can be exploited to obtain a
+> > > functional communication, since they will take care of cache maintenance
+> > > and - if required - bounce buffering. The VIRTIO_F_ACCESS_PLATFORM
+> > > feature flag can be used for this purpose: with it set, the virtio
+> > > framework will use the aforementioned DMA APIs to map and unmap buffers.
+> > > 
+> > > Bounce buffering will be transparently used in two cases:
+> > > 
+> > >   - if the buffer address supplied by the virtio driver is not suitable
+> > >     for DMA transfers, or
+> > >   - if the reserved memory associated to the vdev is a
+> > >     restricted-dma-pool; in this case, *all* buffers will be bounced to
+> > >     and from this pool.
+> > > 
+> > > With this support in place, any kind of virtio device can be supported
+> > > through the remoteproc-virtio transport, at least from a data exchange
+> > > standpoint.
+> > > 
+> > > Note that remote processors behind an IOMMU need da == pa for the memory
+> > > region(s) the buffers are allocated from.
+> > 
+> > I'm not sure to understand the da == pa requirement - can you expand more on
+> > that?
+> > 
+> 
+> Yes! With a caveat: the IOMMU usage by the remoteproc framework and how
+> it can integrate with this work is the main reason this is an RFC, as
+> stated in the cover letter, because I'm not sure I understand all of it.
+> See for example the dma-to-da conversion in [1] or the comment in [2].
+>
 
-commit a885a42b631244af337425ef9681fd1c4db1960e
-Author: Olivier Moysan <olivier.moysan@foss.st.com>
+The remoteproc subsystem was written a _very_ long time ago and the context of
+some artefacts, such as [1] and [2], is long lost.
+ 
+> That said: all the IOMMU setup that is done today by the remoteproc core
+> is linked to the *remoteproc* device, not to the rproc_vdev (i.e., the
+> device backing the virtio device). For that reason, the DMA subsystem
+> should not be able to know that setup even exists, in particular while
+> performing swiotlb operations. Hence, the requirement to have a 1:1
+> mapping between da (i.e., the address the device uses) and pa (the
+> physical memory map).
 
-iio: adc: stm32-mdf: add serial interfaces support
+I would like to reserve the current remoteproc IOMMU design for handling legacy
+rproc-virtio devices, i.e rpmsg and serial, and only use the modern
+virtio/swiotlb API to handle authentic rproc-virtio devices.
 
-This commit adds support for the STM32 MDF serial interfaces (SPI and
-Manchester modes), including Device Tree parsing, clock selection,
-suspend/resume handling, and reference-counted start and stop helpers.
+Based on what I see here [3], I think above sentence:
 
-> diff --git a/drivers/iio/adc/stm32-mdf-core.c b/drivers/iio/adc/stm32-mdf=
--core.c
-> index 4e462c6c42bc8..5b5d2d4cbb5c5 100644
-> --- a/drivers/iio/adc/stm32-mdf-core.c
-> +++ b/drivers/iio/adc/stm32-mdf-core.c
-[ ... ]
-> @@ -794,7 +806,9 @@ static int stm32_mdf_core_suspend(struct device *dev)
->  	regcache_cache_only(priv->regmap, true);
->  	regcache_mark_dirty(priv->regmap);
-> =20
-> -	/* Balance regmap_mmio_attach_clk() clk_prepare() */
-> +	/* Balance regmap_mmio_attach_clk() for the SITFs and the core. */
-> +	list_for_each_entry(sitf, &mdf->sitf_list, entry)
-> +		clk_unprepare(priv->kclk);
->  	clk_unprepare(priv->kclk);
-> =20
->  	return pinctrl_pm_select_sleep_state(dev);
-> @@ -804,6 +818,8 @@ static int stm32_mdf_core_resume(struct device *dev)
->  {
->  	struct stm32_mdf *mdf =3D dev_get_drvdata(dev);
->  	struct stm32_mdf_priv *priv =3D to_stm32_mdf_priv(mdf);
-> +	struct stm32_mdf_sitf *sitf;
-> +	unsigned int prepared =3D 0;
->  	int ret;
-> =20
->  	ret =3D pinctrl_pm_select_default_state(dev);
-> @@ -825,8 +841,24 @@ static int stm32_mdf_core_resume(struct device *dev)
->  		goto err_cache;
->  	}
-> =20
-> +	list_for_each_entry(sitf, &mdf->sitf_list, entry) {
-> +		ret =3D clk_prepare(priv->kclk);
-> +		if (ret)
-> +			goto err_sitf;
-> +		prepared++;
-> +
-> +		ret =3D regmap_write(sitf->regmap, MDF_SITFCR_REG, sitf->sitfcr);
-> +		if (ret)
-> +			goto err_sitf;
-> +	}
-> +
->  	return pm_runtime_force_resume(dev);
-> =20
-> +err_sitf:
-> +	while (prepared) {
-> +		clk_unprepare(priv->kclk);
-> +		prepared--;
-> +	}
->  err_cache:
->  	clk_unprepare(priv->kclk);
->  err_clk:
+"Note that remote processors behind an IOMMU need da == pa for the memory..."
 
-[Severity: Medium]
-Does an error in pinctrl_pm_select_sleep_state() or in
-stm32_mdf_core_resume() leave priv->kclk unprepared while the regmap_mmio
-instances remain active?
+should be replaced with:
 
-Each regmap_mmio_attach_clk() call at probe holds a clk_prepare() reference
-that regmap_mmio_free_context() releases on teardown.  If
-pinctrl_pm_select_sleep_state() fails in stm32_mdf_core_suspend(), or if
-stm32_mdf_core_resume() fails and unwinds clk_prepare(priv->kclk) (while
-also leaving priv->regmap out of cache-only mode), later register accesses
-call clk_enable() on an unprepared clock and driver removal triggers
-clk_unprepare() underflow warnings.
+"Note that remote processors not behind an IOMMU need da == pa for the memory..."
 
-> diff --git a/drivers/iio/adc/stm32-mdf-serial.c b/drivers/iio/adc/stm32-m=
-df-serial.c
-> new file mode 100644
-> index 0000000000000..6ba3be0198478
-> --- /dev/null
-> +++ b/drivers/iio/adc/stm32-mdf-serial.c
-[ ... ]
-> +static const struct regmap_config stm32_sitf_regmap_cfg =3D {
-> +	.reg_bits =3D 32,
-> +	.val_bits =3D 32,
-> +	.reg_stride =3D sizeof(u32),
-> +	.max_register =3D MDF_SITFCR_REG,
-> +	.fast_io =3D true,
-> +	/* Do not use regcache as it does not support single register map */
-> +};
+[3]. https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/remoteproc/remoteproc_core.c#L703 
 
-[Severity: Medium]
-Should stm32_sitf_regmap_cfg set .max_register_is_0 =3D true and give each
-serial interface regmap a distinct .name?
-
-Because MDF_SITFCR_REG is 0, __regmap_init() treats .max_register as
-unspecified unless .max_register_is_0 =3D true is set, which disables upper
-bounds checking on the 4-byte iomapped region (and is also why regcache
-rejected the single-register map).  In addition, stm32_mdf_sitf_init()
-registers every sitf->regmap on the parent device with .name =3D=3D NULL, so
-their debugfs entries collide with priv->regmap and with each other.
-
-[ ... ]
-
-> +static int stm32_mdf_sitf_get_clk(struct device *dev, struct device_node=
- *np,
-> +				  struct stm32_mdf_sitf *sitf)
-> +{
-> +	struct clk *sck;
-> +	int ret;
-> +
-> +	/* SITF nodes have no device to apply their assigned clock configuratio=
-n. */
-> +	ret =3D of_clk_set_defaults(np, false);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Can't configure serial clock for %pOF\=
-n", np);
-> +
-> +	sitf->scksrc =3D STM32_MDF_SCKSRC_NONE;
-> +	/* Optional clock. Clock not needed in Manchester mode. */
-> +	if (!of_property_present(np, "clocks"))
-> +		return 0;
-> +
-> +	sck =3D devm_get_clk_from_child(dev, np, NULL);
-> +	if (IS_ERR(sck))
-> +		return dev_err_probe(dev, PTR_ERR(sck), "Can't get serial clock for %p=
-OF\n", np);
-
-[Severity: Low]
-When the SITF clock is one of the internal CCK0 or CCK1 clocks registered
-by the same driver in stm32_mdf_core_register_clock_provider(), does
-devm_get_clk_from_child() pin stm32-mdf.ko to itself?
-
-devm_get_clk_from_child() resolves the clock through OF with a NULL
-consumer owner, so clk_hw_create_clk() sees owner !=3D core->owner and calls
-try_module_get() on stm32-mdf.ko, preventing rmmod until the device is
-manually unbound.
-
-> +
-> +	sitf->sck =3D sck;
-> +	if (!strncmp(__clk_get_name(sck), STM32_MDF_CCK0, sizeof(STM32_MDF_CCK0=
-)))
-> +		sitf->scksrc =3D STM32_MDF_SCKSRC_CCK0;
-> +	else if (!strncmp(__clk_get_name(sck), STM32_MDF_CCK1, sizeof(STM32_MDF=
-_CCK1)))
-> +		sitf->scksrc =3D STM32_MDF_SCKSRC_CCK1;
-> +	else
-> +		sitf->scksrc =3D STM32_MDF_SCKSRC_CLK;
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Can sck be NULL here, causing a NULL pointer dereference in strncmp()?
-
-In stm32_mdf_core_register_clock_provider(), clk_data->num is set to
-STM32_MDF_MAX_CCK while only clocks listed in clock-output-names are
-populated in clk_data->hws[]:
-
-drivers/iio/adc/stm32-mdf-core.c:stm32_mdf_core_register_clock_provider() {
-    ...
-		clk_data->hws[index] =3D mdf_hw[clk_id];
-    ...
-		index++;
-	}
-
-	clk_data->num =3D STM32_MDF_MAX_CCK;
-}
-
-If a sitf node references an unpopulated CCK index, of_clk_hw_onecell_get()
-returns NULL and devm_get_clk_from_child() returns sck =3D NULL.  IS_ERR(sc=
-k)
-does not catch NULL, so __clk_get_name(sck) returns NULL and strncmp()
-dereferences it.
-
-> +
-> +static int stm32_mdf_sitf_parse(struct device *dev, struct device_node *=
-np,
-> +				struct stm32_mdf_sitf *sitf)
-> +{
-> +	const char *str;
-> +	int ret, mode;
-> +	u32 idx, sitfcr;
-> +
-> +	ret =3D of_property_read_u32(np, "reg", &idx);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Could not get interface index for %pOF=
-\n", np);
-> +
-> +	if (idx % 0x80) {
-> +		dev_err(dev, "Unexpected reg property value [%x]\n", idx);
-> +		return -EINVAL;
-> +	}
-> +
-> +	idx =3D (idx >> 7) - 1;
-> +	if (idx > sitf->mdf->nbf) {
-> +		dev_err(dev, "Interface index [%d] exceeds maximum [%d]\n", idx, sitf-=
->mdf->nbf);
-> +		return -EINVAL;
-> +	}
-
-[Severity: Medium]
-Should the bounds check on the 0-based idx be idx >=3D sitf->mdf->nbf?
-
-With nbf serial interfaces at offsets 0x80 .. 0x80 * nbf, valid 0-based
-indices are 0 .. sitf->mdf->nbf - 1, so idx > sitf->mdf->nbf is off by one
-and accepts idx =3D=3D sitf->mdf->nbf.  Also, if reg is 0, idx % 0x80 is 0 =
-and
-(idx >> 7) - 1 underflows u32 idx to U32_MAX, which %d prints as -1.
-
-[ ... ]
-
-> +	sitf->id =3D idx;
-> +	sitf->node =3D of_fwnode_handle(np);
-> +	spin_lock_init(&sitf->lock);
-> +
-> +	sitfcr |=3D FIELD_PREP(MDF_SITFCR_SCKSRC_MASK, sitf->scksrc);
-> +
-> +	return regmap_set_bits(sitf->regmap, MDF_SITFCR_REG, sitfcr);
-> +}
-
-[Severity: Medium]
-Does this write the software sentinel STM32_MDF_SCKSRC_NONE into
-MDF_SITFCR_SCKSRC_MASK when no clock is provided in Manchester mode, and
-leave stale bits set in MDF_SITFCR_REG?
-
-When the optional clocks property is absent, sitf->scksrc is
-STM32_MDF_SCKSRC_NONE (3), which FIELD_PREP() encodes as reserved value
-0b11 in SCKSRC[1:0].  Furthermore, regmap_set_bits() only sets 1-bits in
-sitfcr and never clears 0-bits in MDF_SITFCR_SITFMOD_MASK |
-MDF_SITFCR_SCKSRC_MASK (and performs no write at all when sitfcr is 0);
-should this use regmap_update_bits() with that mask instead?
-
-> diff --git a/drivers/iio/adc/stm32-mdf.h b/drivers/iio/adc/stm32-mdf.h
-> index e3617b181e28a..fa689954d7c15 100644
-> --- a/drivers/iio/adc/stm32-mdf.h
-> +++ b/drivers/iio/adc/stm32-mdf.h
-[ ... ]
-> +struct stm32_mdf_sitf {
-> +	struct list_head entry;
-> +	struct device *dev;
-> +	struct regmap *regmap;
-> +	struct stm32_mdf *mdf;
-> +	struct fwnode_handle *node;
-> +	struct clk *sck;
-> +	void __iomem *base;
-> +	spinlock_t lock; /* Manage race conditions on sitf state */
-
-[Severity: Low]
-This isn't a bug, but base in struct stm32_mdf_sitf is never read or
-written and can be dropped.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-upstream_m=
-df_v2-v2-0-7939d3c3720a@foss.st.com?part=3D4
+> 
+> > > 
+> > > Existing use cases (e.g., rpmsg and virtio-console) are not impacted as
+> > > they are explicitly excluded.
+> > > 
+> > > Signed-off-by: Francesco Valla <francesco@valla.it>
+> > > ---
+> > >  drivers/remoteproc/remoteproc_virtio.c | 10 ++++++++--
+> > >  1 file changed, 8 insertions(+), 2 deletions(-)
+> > > 
+> > > diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+> > > index f1b362158a9c..1496659ddff9 100644
+> > > --- a/drivers/remoteproc/remoteproc_virtio.c
+> > > +++ b/drivers/remoteproc/remoteproc_virtio.c
+> > > @@ -280,9 +280,14 @@ static u64 rproc_virtio_get_features(struct virtio_device *vdev)
+> > >  	 * All non-remoteproc-specific virtio devices are assumed to be
+> > >  	 * compliant with virtio specifications 1.x; there is no other method
+> > >  	 * to transmit this capability from the remote processor to the host.
+> > > +	 *
+> > > +	 * Virtio devices that are specific for remoteproc usage take care on
+> > > +	 * their own to allocate memory from the device's coherent pool; use
+> > > +	 * the DMA APIs for the others through VIRTIO_F_ACCESS_PLATFORM.
+> > >  	 */
+> > >  	if (!rproc_virtio_rsc_vdev_rproc_specific(rsc))
+> > > -		features |= (1ULL << VIRTIO_F_VERSION_1);
+> > > +		features |= ((1ULL << VIRTIO_F_VERSION_1) |
+> > > +			     (1ULL << VIRTIO_F_ACCESS_PLATFORM));
+> > >  
+> > >  	return features;
+> > >  }
+> > > @@ -312,7 +317,8 @@ static int rproc_virtio_finalize_features(struct virtio_device *vdev)
+> > >  	features = vdev->features;
+> > >  
+> > >  	if (!rproc_virtio_rsc_vdev_rproc_specific(rsc))
+> > > -		features &= ~(1ULL << VIRTIO_F_VERSION_1);
+> > > +		features &= ~((1ULL << VIRTIO_F_VERSION_1) |
+> > > +			      (1ULL << VIRTIO_F_ACCESS_PLATFORM));
+> > >  
+> > >  	if (WARN_ON((u32)vdev->features != features))
+> > >  		return -EINVAL;
+> > > 
+> > > -- 
+> > > 2.56.0
+> > > 
+> > 
+> 
+> Thank you!
+> 
+> Reagrds,
+> Francesco
+> 
+> [1] https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/remoteproc/remoteproc_core.c#L716
+> [2] https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/remoteproc/remoteproc_core.c#L461
+> 
