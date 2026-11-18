@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795004898;
-	b=JHcXpYdrxUNP3kNbb+8+cULYHuxo02g4RAmeicbRjow6dfpfDwV6soD0PQuQunIbpR2g
-	 k2mxfi04YmYjAX4uCIfapkglfGINchve9kQw/wy9158n6q5lEvPmRiu9YnE4QDIz70D4P
-	 WXGBP3mSTEomZZSGgLi11+fcbjYYsM6WjtXT8s1+IZYyYA59XZxFmT5Gr9KFak4fGkKYf
-	 fsy5uzqszquSDDDDXA2gCFT2qOsM80tHW1ro5gk0r4DWz4wqsn/zKBLcNVk/EuaQIJdD9
-	 nlKmCMNIZBCGp3ANCHNS/BfknoirYiEN6xvxDCsDMYlUFJ/oOEcVzPwY6cgdutqWF3A==
+	t=1795004903;
+	b=rgvkSNu7rN3g+uhUobsyzf5vnEORSEYie3ABMr7tqB8+j5FlIt5YNJbFkXdzHNRuo6Wp
+	 44EakfJLXJX4yfdj3tfnv1amTlGxWf/mMJfr+x35xLBXd0dXzk2ngaJg30Fgi1KaBw5Em
+	 Qda8T1TmXjdX1pMQXDKOgZeCJBd9TY963BXtddBpIwqZahPB88rEVpAAzE+X8cPFMCZDS
+	 Vz+Ox7NjFwW1wtQUH1WOF+cs+UEeiwZgHT+C5njjYBs2njikLCgIQ0RKdfPsxEEEUtnWr
+	 4rnsbd3PzV99LZQVnz03m7gxd5RtTJknPUG5JDQoZM28H5HbEXgtHL8Md1ghb5awSBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795004898;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795004903;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
 	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Sbg0KLhjP6VImCPLy3d1+inU/8Bcn6/seY59UQYwN7I=;
-	b=pJr+SMZcgVZJCJ/BlumqakkMCcOmQo07/hMLf77gmWlynBMmFPN3moJhbfE2/iMMYS19
-	 41V7v6vAqnG1bhv6PHw0zheEozPcf3ea2KqGhBTHR5A9dciYEOS+g4cRzfePapGmXyLn5
-	 qHuIpSEn251ck1FSNH6vi7qrkE7r5rTyKx5aMRdn7P1yhth91xnZ1Yn0ae54D5cd6L7l0
-	 0gJl5OIxBTtrlXxd+XOcHjCbMeYj+eXebtBoqUOdYgE9MDBNrjOF5gExwYty8mPd/JshT
-	 mHCL0qSnERUPzGO/z4Q7q/BBVc2AGrRfbq/+6uQh6iJ3hGpx3OuH/nLH7pe2vcgyVhA==
+	bh=qZqAnvrKTsVRZ3k+qpJ8SHuObdEj1UWG4cr1fECpUNs=;
+	b=G8VBYCmS+O/BJRkzz9Hr0paHYrUQpa04BmKUb51J2RV1/tXz1vu4b3hUAy+zd/hzbmke
+	 jH4opUf4KmtrvcEs0SSbmfJAt1xPuwSlTQkM7y86/0zsNi9NNM7Vx/+NEUjThu6Wg6QEp
+	 krmAp/7rTmE13o2ZRn85Lvd5K3Ubkd4etFk/2p3kz62bAX2YYIyG4S15ZbhGvmMNnZmWP
+	 R+ZeeB7Y4hmhfT5RNsRuxh5KeIT9c0OYy8TK0CVxbMRXIegWrZzeihMqTwt6IAfV+54QB
+	 zs53yt1NckPobLU3omaRHCutT5Vur0uXCB0Lnd/SBfguu06xjF86E4n0IIQ5k55xmcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=TBQhTOrn;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=DwJTdQXa;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91BA606A333
-	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:28:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B91BA606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A99D606A332
+	for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 12:28:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A99D606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=TBQhTOrn
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so8599105e9.2
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 04:28:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=DwJTdQXa
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so9471125e9.3
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 04:28:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795004896; x=1795609696; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1795004902; x=1795609702; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :references:cc:to:subject:from:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Sbg0KLhjP6VImCPLy3d1+inU/8Bcn6/seY59UQYwN7I=;
-        b=TBQhTOrnnS0ar/e0kk7km69A8QdgRM+sYN7qDTa0ZC5LwiqXxtyy/jR9q8qCj6x12U
-         mNaSJjFs/wsR82rqLlJIGvY8H3rdzhQZ8MKMkZIA7Ok/I3dhaghnrR0DFSyt+uZlXVat
-         IehcWYpNQVgZWnqthxrfFpi1FBOK5xprYHlSjY1TITswsejUpfATvckE7OrSgEfwM4HQ
-         QeWq1/5L9fZY6AZ6LbhNmXgcKruMeI1PqT2H3OaSIydGpE3uEqCSHIH2wsONkGAGvAfl
-         6bxEeF3P2bSuIgIipSKOcVbUEmJmX166ehnezVcgVHukyOQpp5QvzxoSR/ktTGZTiHZj
-         uDMw==
+        bh=qZqAnvrKTsVRZ3k+qpJ8SHuObdEj1UWG4cr1fECpUNs=;
+        b=DwJTdQXa/iSzaeeOAEmRihuTWLJZ/OoP86mPO9H0wCzLqDckv3ZdhPOPpPmwTt2ft3
+         xMBYsYGOKfBs2BlDoZoiCFMTOTOjrToZCzR1iyUtpoWNSofl9DzSTVOqZR86mnA0gqJU
+         zS5tJld9p0mJ/3BvBKiinJIBiO5C2jAOuxrzMpEE7dPprF0o7wRzM+q1LYe7ZX7K7dRL
+         Mkqn6/8p+mkDpH/5rM5/HxVol3KezCHmsJUOBubrVS+8jtb8WoetUODA33NkVB1rg7va
+         3988PppSIfhAgb2JEIBvJ28xe/dgl/ok+xcU2jS/9SQdHsyb9xDbX1obloDFWL5pprGg
+         NlUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795004896; x=1795609696;
+        d=1e100.net; s=20260707; t=1795004902; x=1795609702;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :references:cc:to:subject:from:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Sbg0KLhjP6VImCPLy3d1+inU/8Bcn6/seY59UQYwN7I=;
-        b=eMCZCG6s6n9NsVZ7/gr/SZuIi4yRQKewWo0iv48W9ybC3YKsA8Ap9EkbZAK0u89Ogf
-         07uM+EaCsxg/WFBdkpv9aESYM1Onqmhi4ge9tiHkH+DgmhQP6mHVY3ntFoOH12EaaC3T
-         K5NYbYw9f9RL2//LZKT/x0TFkcoADNRgQz9lKYgJ3twBgDmWtDKCB/pwjozN6XfPkZ9a
-         vMKjsJNUTBtcad7BlhmZMcfUwELDl7dU07S0syLRhm6HSk5JIQ2EzBOGdBGS15TQCvA7
-         JIJvbXhVhdg36/gTZnC+UVQXw9/zqrPVTj2athaW13mCQGRpD01ZCoUnaiBMpg2cyIlY
-         WU/g==
-X-Forwarded-Encrypted: i=1; AL+hErHLhGAAW32kAzFXQEi/qeOP4qrQ/96lZYQ2BurF+AAR5P5Gpqzl1X8yMhIoM1ZnYCUFSIiE2l8B/CSr@vger.kernel.org
-X-Gm-Message-State: APuU4Z/MCW5pg7MkEzOLIuqy+kRxd1E741dqPb5jZYBm5Fe83ON3rA1W
-	VN59yad5OigcOBCCUhVHjSQj9QMyq1kVBEdrwEDR+mio6xaBUI5U30PsgtEGYDyRFSI=
-X-Gm-Gg: AYBFou0i9xx1NVio0XWZwAkrWxzH/nAQHKxOWd4Zj9Bt8H0UYYNm1dCJkm2K3AtIehi
-	VfK5g3XNWVXoQY6WZRB6B+rfeLJ+fxO8Bpd9sD4PCOODzRbG0dOBjRBcb5xzOiOXh+rIyTJX2RR
-	bHvbZ9umWO9ix2+QeEnM5UES7cDYwcQpuWdUqEv17MipFRZ0VRqpmY99LDp6FYFyOZbDEEgKr0v
-	lqUmLM/6N23GvLzKuh7sL59yXR4etTPBrRmpsVNvL2ct8Crewg6W2YRfEWZp1Ox7VfAbJGSRR0W
-	hQz/s7gg+nA1vWKql6KrXgi/8ZPqBLu0Id/GWW4QveqMqpKmn4xUJbPMG/fhwMNePeLtVfBL+NR
-	YAGUzDBVKYU/hGse3Rlk5pESQ1+ch4s396ZIldr8OujvpKxLVDW457+umwqnmoRSQZGjmEbeJHJ
-	vrn/KdcT+WxLCQJU+EiYMYSoOB1XFAqCJcWYjKsyRfWoo2srVxmj9xlNwInmaaffz87bzFlwTt8
-	WlGhIeLmH25CNVX0eLdcK8oBEIPkHbHCrx6mEg73DR1A2k91bND0OzL5w7fw0eWDYGQEiwKhfV/
-	bw79ZnssKnoavxAvchTMAKujH5S3G+ifhyZstIeWg0tS6I1NojcmptXW275Ih9LPzFoBgnnooZF
-	dqA==
-X-Received: by 2002:a05:600c:8b63:b0:4bb:6871:8f21 with SMTP id 5b1f17b1804b1-4bb7da27fd2mr44906275e9.23.1795004896063;
-        Wed, 18 Nov 2026 04:28:16 -0800 (PST)
+        bh=qZqAnvrKTsVRZ3k+qpJ8SHuObdEj1UWG4cr1fECpUNs=;
+        b=1zek7wHbAtXq+LEzOEpeB81PvYG0OLLYlcSviu+QkRiwwwcemMlMLwn9n60Lkdpyam
+         Txz67ABTxNWqxfuDqdx0acBsMRFB2/QfgOuVlc/t0XmHE56VUpR6cRHohjZ2KWRSIWbc
+         8OtkKPOXTpXzD0dIuQe+ohLF71thOVWNkiV1Th6qZaVC5rPHo/qtgUCR4SHqEvuYyl/q
+         5hMk4x5+qbq6kwvXbLsz6Hd2UHxgHIauY6LY631JgwoWEuEHaQAMcDkslfD1KFfWThn1
+         4cDCC3PPBU1/LCl294Lr8smdu6NAXsXDM++WMc39mRRjORD6WXNG8xl7ZGn8bzfITNx8
+         nGCg==
+X-Forwarded-Encrypted: i=1; AL+hErFb0EJkwtCkLRBW1xmtkKt7nRkg584oCDxkMbqj35Qka/saiSbk93ivQneazMwQwZxd2jYPWetY0JNS@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qfE4n2B5PsQse1G26Y2JpyXwinJ+AZ83OhEUEiXXSsoBAru1P
+	6OS36nLUxdi2btZm0hEpNqt/2JpbrKB23m5YS56ID4DT9sCUhESstauNr1BK8RPSLDE=
+X-Gm-Gg: AYBFou3iJN3ozTyMkibn5f+UodfzqNDSo1Bo1nopBi3iqYlukspVeA30RbSLiYycykX
+	RIYJHeQO2wdqNL64KzccAJU57MKt/UvDBhAUl/9xKInd0FIxXD62+Q5rDbi3XX3SF1XQSI9lw6K
+	jXJkVeDk5eyukaa9yIH34QEVZ34fllIXz/073mlx43AHqsLwN+coC32rHreLGMBA3kHP0a/11td
+	dw9j5mHa7axCG7W8RYpwY9iIkTMw2gp3PeYHfL26ytTu1Rpv7eA24Q9i5+IEuuzeJJyYgD7H7mA
+	m/A7uhfTWqFXkVY6Jbbke3Y5XLFvGMYmlk8m23EzijyNJFRwZvERl6Cd26fPetVQ92q5fyy6HNy
+	sPqOiHlvdyVYatZ69yvRY/FInHYZQuS/upmMcTLtV1buQEf6a14GSh0uwyXnxWAaCqSMhNguKqj
+	m7+HN1kebcgphDacj/r3o13wOQwjhllAz2zVgmeliej1zMiq9f9n/xhpxw49Mu5CY5t8bg52MDZ
+	FNQcRT6aa1mQMmF+2bVxk7l9jDI7sX3nsyURmu48DZiaZoEeMNSWHSznotrPf+xgecSc1PxXhY9
+	H4IZKBvv9LpmPYH03ZzzJoOqNUnbNVDjY8uEPP28JcvSZEaAhdfvA86XFU+mMRlSDSXrtvzxVvU
+	D5Q==
+X-Received: by 2002:a05:600c:34d2:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4bb7d6d1f21mr46698525e9.1.1795004901817;
+        Wed, 18 Nov 2026 04:28:21 -0800 (PST)
 Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7d2abfc4sm64858355e9.7.2026.11.18.04.28.13
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7d2abfc4sm64858355e9.7.2026.11.18.04.28.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 04:28:15 -0800 (PST)
-Message-ID: <6291be5c-94e8-4a5b-aa30-f797672e4165@baylibre.com>
-Date: Wed, 18 Nov 2026 12:28:13 +0000
+        Wed, 18 Nov 2026 04:28:21 -0800 (PST)
+Message-ID: <49a9337f-6808-4f30-b826-9a280849a51c@baylibre.com>
+Date: Wed, 18 Nov 2026 12:28:19 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,8 +93,8 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Daniel Drake <ddrake@baylibre.com>
-Subject: Re: [PATCH v17 10/12] accel/rocket: add a GET_PARAM ioctl for the
- hardware version
+Subject: Re: [PATCH v17 11/12] arm64: dts: rockchip: add NPU (RKNN) nodes to
+ rk3576
 To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
  heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
  joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
@@ -110,80 +110,36 @@ Cc: royalnet026@gmail.com, ulf.hansson@oss.qualcomm.com,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
 References: <cover.1794615324.git.gahing@gahingwoo.com>
- <bd963b70e40af3c3c74ac1569cda7be885b0ada1.1794615323.git.gahing@gahingwoo.com>
+ <f9f4f43cd1c4c8c6cee0371b4b92badf37e68832.1794615323.git.gahing@gahingwoo.com>
 Content-Language: en-US
-In-Reply-To: <bd963b70e40af3c3c74ac1569cda7be885b0ada1.1794615323.git.gahing@gahingwoo.com>
+In-Reply-To: <f9f4f43cd1c4c8c6cee0371b4b92badf37e68832.1794615323.git.gahing@gahingwoo.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 Hi,
 
 On 14/11/2026 03:05, Jiaxing Hu wrote:
-> Add DRM_IOCTL_ROCKET_GET_PARAM so that userspace can query the NPU
-> hardware version and pick the matching hardware description, such as the
-> SRAM configuration and the register layout.
+> Each core is on its own power domain only: core 0 on PD_NPU0, core 1 on
+> PD_NPU1. Measured with both cores running, the results are correct, and
+> the nputop and npu domains above them are powered through the domain
+> hierarchy.
+
+No need to include lab notes; we assume you tested this work and found
+it to be working before submission.
+
+> Label PD_NPU so a board can connect the NPU supply. The IOMMUs use four
+> clocks.
 > 
-> Add DRM_ROCKET_PARAM_HW_VERSION, which returns a hardware version enum
-> that matches the device tree compatible.
-> 
-> The enum starts at 1 and 0 is not used:
-> 
->   RK3588: 1
->   RK3576: 2
+> Also set CLK_RKNN_DSU0 to 594 MHz. Mainline sets neither its rate nor the
+> NPU voltage. On the ROCK 4D the DSU runs at 786 MHz by default and the
+> rail boots at 750 mV; with both cores running, each pass of the 5400-row
+> test has 11 to 25 wrong words. At 594 MHz the test is all correct. In the
+> vendor OPP table, the 500 MHz and 600 MHz steps both need 725 mV.
 
-I wonder if REG_PC_VERSION / REG_PC_VERSION_NUM could be used instead of
-creating our own numbering scheme?
+I found this wording a bit confusing. I think you're saying, the system
+boots into Linux with 786MHz & 750mV, and that configuration gives bad
+results.
 
-> diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/rocket_core.h
-> index ef7043046bc6..50c8b05bd394 100644
-> --- a/drivers/accel/rocket/rocket_core.h
-> +++ b/drivers/accel/rocket/rocket_core.h
-> @@ -41,6 +41,7 @@ struct rocket_soc_data {
->  	unsigned int num_clks;
->  	unsigned int num_resets;
->  	bool task_con_16bit;
-> +	u32 hw_version;
->  };
+I'm not clear why you picked 594 Hz then. What does the vendor kernel
+do, are you matching that behaviour?
 
-
-If we're adding hw_version here then perhaps the task_con register
-selection could be made based on the hw_version field value. Then we
-don't need an extra flag.
-
-> +static int
-> +rocket_ioctl_get_param(struct drm_device *dev, void *data, struct drm_file *file)
-> +{
-> +	struct rocket_device *rdev = to_rocket_device(dev);
-> +	struct drm_rocket_get_param *args = data;
-> +	const struct rocket_soc_data *soc;
-> +
-> +	if (args->reserved != 0) {
-> +		drm_dbg(dev, "Reserved field in drm_rocket_get_param struct should be 0.\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	soc = READ_ONCE(rdev->cores[0].soc);
-
-Does it make sense to do READ_ONCE if the variable was not written with
-WRITE_ONCE?
-
-If my quick read of commits like 89c2c777df17 is correct, it's possible
-that there are gaps anywhere in the cores[] list; please double check if
-it's safe to always assume core 0 exists.
-
-> +/**
-> + * enum drm_rocket_param - parameters for DRM_IOCTL_ROCKET_GET_PARAM
-> + * @DRM_ROCKET_PARAM_HW_VERSION: an enum drm_rocket_hw_version value.
-> + */
-> +enum drm_rocket_param {
-> +	DRM_ROCKET_PARAM_HW_VERSION = 0,
-> +};
-> +
-> +/**
-> + * enum drm_rocket_hw_version - the NPU, one value per DT compatible
-> + * @DRM_ROCKET_HW_RK3588: "rockchip,rk3588-rknn-core"
-> + * @DRM_ROCKET_HW_RK3576: "rockchip,rk3576-rknn-core"
-> + */
-
-Let's not document these as a match against compatible and their values,
-just state it as a way of identifying the NPU chipset.
