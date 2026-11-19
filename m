@@ -1,53 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795119121;
-	b=vjfcaB1hCb9wbEoZuLgqu92yGnagwX6wTytuJvEYmcqCljKm4JtPc+feIlW8tM5WHRi/
-	 h9OdjGzPOSzDteTD2jmyWb+Cbl+kzM7aKOhehjDHsJCLRgn42Ti/kVy4PbgRr0H6+ZS/4
-	 kW2lmg/XQ2EOxrX67NDe9ORVzLGiCVBkxrZgjtduVlxdcSk9TSOklgZTc1TzfxPJCcv0Z
-	 lLVbIF+MsWZHwMZ7EkM2KFvGnnX535/Gi0qAFiT61FU3nUUFouNGJvO6agVelGS7dzaBo
-	 oop55vPgfCt9twv06+EtLlZop7tqG+DQ3x94udQFMudRe3ZvwyJe6P0SCH4nS4sawfA==
+	t=1795119237;
+	b=IT6ZaOhPh0qzcGO5bWiVd+MYud2py/I9sLlC8Pm4oJ8q8Gd9LHHtsV96IvZ+hr8ypvY+
+	 HaFOsA7az8uKWkd8kA0vZmKpQrIFiyiT+aHKQI39e4jqsE7FxGdLWJnKyhPtDgUpwfLKy
+	 gS6wwie0HpYFBYF60m/bWTd249mDwtMaCpgFewiQmhUerSEJW2LsIPGemiJoSBVyY/Jl2
+	 N2mcWgndB0YSDJXgNqURMIjNdgTa8kcEKPzTqG0LVlQKhiVN43bYuSluJh18lE6SffWeH
+	 9VoCS7yvqdi8LesPYnIVk3gorEwq6D9o9soR1IHD+MN8w4kQdi9ab+dqVeWLVCq9uiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795119121;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795119237;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=JRiXSzKdZEs95dB2xy83AEgzyg8HWiseFtrop6xYz5k=;
-	b=lpj1k/iqUCqmNbahZGXzFkdRfbLgQselT9AEGAZGliDDnB3fPdH1tvSlnYvpZgkxjwE3
-	 rkzJpdg1VDsDB0ul5OmdOclofNp36Mvbn9RAXjWZqgdc4TEO8WO1+y3UuRXzctOyeZsmZ
-	 0BKZSGOsX7RPKDNuWP7QD4IqvQ8PnllsMz5ssrXZjSYbCdPhHN0IYVhY3XOX2MczxrCwK
-	 k2tKweSqUUM/dJimGSTwToB+1qlvIIKxpIt+fFiTuiBOVMcP4ZWx4onyJ1Np5HkhgGFON
-	 zdZ9ItERLCIO7hN7R13b3BQo2Eco/4/FuulvsPa8EIkPwE8SxJX1Z5doFyIbkY2SAbQ==
+	bh=ohflwTIw+Y1tH/9jqyoPDqwznuFbRi/wcTKWRmCALvw=;
+	b=k6M+FwkP9olRIe5YCbvlTgjK9OaT8VeEc4ybVJseqGzpwznuuQ5ztX7r7lGnZoCCn+tc
+	 EvNhvlEwHltTIL9dPND3d3o5/wnW94OYzfsD3AWl103yRDjR7SwEPMC4UGyEEbZoHb7c2
+	 MJ0DCcrRli/ljntzvQm7fVvulJe8H6IKfoQ9il7A6pfMpxPPcrjKN9Mtzq1ogQnsM5crG
+	 0LSDAE81AL+zfBImiMtd0ZMDf2Tp43KYSsnajtHDfkwKQzN6QoVRvTDWYQaVJU9h/o3kp
+	 TAKNjIz7pYeMKMlNEnuSSzE1V5f78X/1SfOwbNZurO/EoOXhyZpFwEDRpRLf9hVkPEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArqVKdJd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhzhEF87;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B7260A2610;
-	Thu, 19 Nov 2026 20:12:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8183E606A320;
+	Thu, 19 Nov 2026 20:13:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArqVKdJd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721151F000C6;
-	Thu, 19 Nov 2026 20:12:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhzhEF87
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8B41F000C0;
+	Thu, 19 Nov 2026 20:13:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795119120;
-	bh=JRiXSzKdZEs95dB2xy83AEgzyg8HWiseFtrop6xYz5k=;
+	s=k20260515; t=1795119237;
+	bh=ohflwTIw+Y1tH/9jqyoPDqwznuFbRi/wcTKWRmCALvw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ArqVKdJdIwlCt6LuAiYalWgoC5nt+pwnUyqBNjjzPxY2S+39KWDXBCywNORfAhBHX
-	 3qT9XSd+bwX96kE4oNk/PmUJ7/gvfz62zf4EGgtc42ZDdL9hPO3H20Oi32DVMQOKvn
-	 5C64RPe33gSpl4cJn5UK6C2xTxutPUv4XdCcAN6QhlhEVvphWRHe3V9INFELigO0jF
-	 CvgxEDH2yNtqlCIbhWQkp+VCdC9ZI+YIyp5/8jMxmMjVz8mNdCS9MBiyu0lG2Igz5o
-	 b4x3ee86/EnfpyavYlf4TzEXpNAP0oyzMduAz4MgHbjDbw2Ay6DIzLF0chWrLzWL1o
-	 FoCnpRqLg6ZeA==
-Date: Thu, 19 Nov 2026 14:11:58 -0600
+	b=dhzhEF87IGe3TrNLOmhv16gsGf5lfuG+STVwpK5CqftHhPorjQKUxxSHqAjtItPWB
+	 0abKTfoUZqNz/Cwf0DdRveogQxxuB4RIkh/GSZQWOi93Z4ot/YmpbCvxO/esCJy8FI
+	 b4hC+z09jr7OJdQm9Bez6HfjW75l3lYBnbLF23V4Q+XFWaAaow6X6Uq4T8qCCsenNc
+	 kwSIHlAt+fwq3xeFZraigJmho4grycYNxl8SZSO7p4BosbIMy1aZ1ElSvNEkNjPfxM
+	 3x0CRqORhKH9wNJ2MvEG8zfl2H/KaEiA5VRAkbTcomeOXZ7KLsdlY7RhHwva0VXqRd
+	 aGtLxIrPMjMZw==
+Date: Thu, 19 Nov 2026 14:13:54 -0600
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Selby Mashiki <mashikiselby@gmail.com>
-Cc: Saravana Kannan <saravanak@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] of: overlay: fix device_node leak when attaching node to
- changeset fails
-Message-ID: <179511865293.69428.941600845556456809.robh@kernel.org>
-References: <20261025180237.445403-1-mashikiselby@gmail.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Hauke Mehrtens <hauke@hauke-m.de>, Mark Rutland <mark.rutland@arm.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-arm-kernel@lists.infradead.org,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+	Besar Wicaksono <bwicaksono@nvidia.com>,
+	Ilkka Koskinen <ilkka@os.amperecomputing.com>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Randy Dunlap <rdunlap@infradead.org>, Will Deacon <will@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: perf: Describe the Broadcom BCM5301X
+ AXI PMU
+Message-ID: <179511923403.118198.12888677660376650016.robh@kernel.org>
+References: <20261027175124.3518239-1-florian.fainelli@broadcom.com>
+ <20261027175124.3518239-2-florian.fainelli@broadcom.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,37 +70,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261025180237.445403-1-mashikiselby@gmail.com>
+In-Reply-To: <20261027175124.3518239-2-florian.fainelli@broadcom.com>
 
 
-On Sun, 25 Oct 2026 20:02:37 +0200, Selby Mashiki wrote:
-> In add_changeset_node(), when creating a new target child node via
-> __of_node_dup(), tchild is initialized with a reference count of 1. If
-> of_changeset_attach_node() subsequently fails, add_changeset_node()
-> returns the error without calling of_node_put(tchild), leaking the
-> allocated device_node.
+On Tue, 27 Oct 2026 10:51:22 -0700, Florian Fainelli wrote:
+> Describe one APB register window per AXI Trace Module. The counters are
+> have no overflow IRQ.
 > 
-> Furthermore, because OF_OVERLAY is set on tchild before
-> of_changeset_attach_node() is called, calling of_node_put(tchild) when
-> tchild was never added to the changeset (and thus never had
-> OF_OVERLAY_FREE_CSET set by __of_changeset_entry_destroy()) would cause
-> of_node_release() to log a premature refcount zero error and skip
-> freeing the node.
-> 
-> Move of_node_set_flag(tchild, OF_OVERLAY) after
-> of_changeset_attach_node() succeeds and call of_node_put(tchild) on the
-> failure path, matching of_changeset_create_node().
-> 
-> Fixes: 7c528e457d53 ("of: overlay: add missing of_node_put() after add new node to changeset")
-> Fixes: 144552c78692 ("of: overlay: add tests to validate kfrees from overlay removal")
-
-These don't look right to me, so I dropped them.
-
-> Signed-off-by: Selby Mashiki <mashikiselby@gmail.com>
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 > ---
->  drivers/of/overlay.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
+>  .../bindings/perf/brcm,bcm5301x-axi-pmu.yaml  | 43 +++++++++++++++++++
+>  MAINTAINERS                                   |  1 +
+>  2 files changed, 44 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/perf/brcm,bcm5301x-axi-pmu.yaml
 > 
 
-Applied, thanks!
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
