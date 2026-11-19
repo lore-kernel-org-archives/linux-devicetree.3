@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795101683;
-	b=zSYXJCW0YqjTjB2zdFT/mlxRYnAm1KG23ZmUFrva5p9bSPLBtk73D/yUUsdqS08SLsHB
-	 Lh7S5u+NK1dQpbltw8LADtIDeTWDQBWPkK69wPzewnfTXx0fJT1d5gq0CuVHV2jK1iKPo
-	 X9ZZyDpUo8uyPCQGwMRpWZiWP8kj9SDr/sj4Dp3XwNaC4nsq/BoAMhM1vpmqRy+lJid2i
-	 NlNr71pbCaH9O07yIFKICX5R5Td6hDP4XWGrDXSkE440qwpwZHQg428Ci/MjG+zFaxA+F
-	 h/JWJm7z8A+J1vb8KpLDuyAC5pzTQASF+CFfmy76jhb1voF4Ms+2F87SJIeMyfRBVeg==
+	t=1795101684;
+	b=R7H3sNaJOQBK/16DbilAWtDZG2Ew/ip1DcYeuq3m4bzMUrR8lq6LT3W4nLfADgx+xkpr
+	 Rbsb7nyypjta0K9sP2UajnRrpRDB6gi1WGF9ry9lmnEqOq3LzZTZzTnk9zsZB9B/3BltT
+	 sBfpUcoBC+bJdeWoGSYdNTXBpW3sVTF7+DuiK3t4dRaINdIcV22K2fve+b/KYrbE0W6Bo
+	 HUhd3oCNk+x8hVUd0B9POuLrSrhs80ikJrY1bZBsmaeCxLC/Y0BH4E4c4d6EpaMwXsrn1
+	 d76ruBGXC2A+SRQKUIvhciJoJrPtsrSUIrflDRwE2sNDTA3u3k6JD+HV5bWns4cGn6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795101683;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795101684;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
 	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
 	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
 	 X-Report-Abuse:X-Report-Abuse-To:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=+BMI6JJbtEPc14NSQH7+PKHWzfP93bpxfX8QAil2H3o=;
-	b=Ar/pWonXRuM5wMA5ufW2fqCqdxQ73lZfgB7cfyd2FR2jtX4WyfQ81AU/JDQCGKV0z/+6
-	 wZLbx0LW7jLv3WOh4HZTGobCEI0UbXkuYHsruUq2h+KJkYKA9LRr9Psq6zmKKhkQtdXvH
-	 SKc95H2aM6UNhos4EX5qW31gKzIDt/LeYxx/JWjvummLsjGhwBJX1VrwrJ9NM69ZlbJVk
-	 2uok1SB01rwh8PPHfY1mqLPHChzld/Y5Ipw5DcwamO5X/33mnp5m14n202/d1OMz4KgSm
-	 jpjTuaVEoTyIQyHs3s9jhjhaf08uYqEmQ70rJQpXspQzQc22U1rqsGdCPgo2GFZpnlg==
+	bh=rc9IovJCfQ61e5vbjuwikSayGXwiC9aSST6CRLHtd+4=;
+	b=uGo8fw8WvEOJrNAAT9acOD9gVg+XVDudTOcCMR+O0Xg3u6e+iYBA5n+uzOPnvGQBkjQU
+	 JhwRj1OOviqfjcjuAGhCSl2yUxi02beYzQntn3igiLQ6TheFHvfRj+eQ5MaNL8bKNkLLf
+	 qs5iESGLD94+OlYYJ21iAABLRx19eUM+xlAL7eUdFUK0icbNQrnUs70ZbEWjz02kcOvxJ
+	 NyVIeBKJB0SFtbs07B2gBH1uk00z7p/TlcIXkAU8DgYiR2SnpSxwaoJfSdktSRKDhQUc8
+	 eEN3JjIok3I2NPl774IIhTVjYkVcbwpD0sYe3NMYndxDjv61dCHOM7bFmYpSfevdGfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kwiboo.se;
 	spf=pass smtp.mailfrom=fe-bounces.kwiboo.se;
-	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=OWm2mrXP;
-	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=eIdi7y7P;
-	arc=none smtp.remote-ip=149.28.215.223
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=jnavfr2K;
+	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b="S/chanQN";
+	arc=none smtp.remote-ip=121.127.44.66
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9473606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CAB606A33B
 	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 15:21:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9473606A32F
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4CAB606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=OWm2mrXP;
-	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=eIdi7y7P
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=jnavfr2K;
+	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=S/chanQN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From: CFBL-Address: CFBL-Feedback-ID;
  q=dns/txt; s=fe-e1b5cab7be; t=1795101682;
- bh=+BMI6JJbtEPc14NSQH7+PKHWzfP93bpxfX8QAil2H3o=;
- b=OWm2mrXPMIDZl5z1AezeUVV3gV3h20yquN5TR/+QktAXIAeMMZ7w3IGSYTqLSS7/pzeadozB6
- mEHEPVM0681PywdXsrlp4aT3yOTZ6CHThp+l0s06jRS4qlyOoRg4KWjzH7lP86Ba8TDgi0+6K7E
- RV7YhrJ1y++xBcs4u07Plgx2Kq6/kS21NNev2bqEWeDWfvlUI2+64mk/hmZmYxBNoDko7dgX2rt
- 6Ig4RKUK3TryVMKCReVmvN0ZU5D1hirnlMs/6kR311r/5hpM+ZrczvXaalZMwyW7X7VKKMQ1/Qy
- fvGdapob8LxfEUl69ArLAdzgXznwzszKPEYPrqxz432A==
+ bh=rc9IovJCfQ61e5vbjuwikSayGXwiC9aSST6CRLHtd+4=;
+ b=jnavfr2K2hgtcN7qYDtL9FL2t2Yhdq+NfusegLbp/xASq03iKq5hPCJzE8aM9DqC6cfntj03s
+ 3NHgjBvD1ze3m5LGqbggXcIZwjjLj/6HuQ59mst1SDfoEc9B1olkBKIBbhOwKBelH/824n0qfDI
+ EEj/67b5bQohDFCwy1y0EJKK7HeBWbotq9BtiJnoIINOlGYqhvegpAkA1Zz13YqE3GeBBOpkyla
+ 25ra65T9PAKK2YmWRmINawN49zLSMexZwq2Hd/8hi/e29dOFEvT59+3+6AhGCBx0HeLByO4tO2l
+ xK65qib4KftTp7JaBYZ4Ez9G/EdPH8yF7M2/1IE0N7qA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From: CFBL-Address: CFBL-Feedback-ID;
  q=dns/txt; s=default; t=1795101682;
- bh=+BMI6JJbtEPc14NSQH7+PKHWzfP93bpxfX8QAil2H3o=;
- b=eIdi7y7PUar5yB8DADe2NF9xU2nESoAsjfMm3gcT9tXP5Twx9XxdLXyQRnNyJ2cz/CbKE5fMN
- JpVcDKoWfZamy0rzP5zLxWWbDdAYKEsZ1tU8WnQzeZMor+4q/UwtWtcUc45JV7dqpBlgNEX+XoS
- BOFXcSronEKlx8oI7YZMqUo=
-CFBL-Feedback-ID: 6aff13ef83f3cb488062bad2:efb0545eef45a9e10f36c57d020a1bc7
+ bh=rc9IovJCfQ61e5vbjuwikSayGXwiC9aSST6CRLHtd+4=;
+ b=S/chanQNoM+mviMQrwZ2jlBHd7nQ5GT2In7SMJsGrefPsHJcz14YwVVfz4ooAIg13BowcJtob
+ QaRtyOQxseSdh3a4otCy4ua4AnZ7CjmnbOPWpilZWYbrPCOWdqRB9x9f4PjuU3QYpEwBv7jzf89
+ boZIlfz22u5b2teDsHvGgNg=
+CFBL-Feedback-ID: 6aff13f183f3cb488062baef:3891808134843f152c0d8149263de5be
 CFBL-Address: abuse@forwardemail.net; report=arf
-X-Forward-Email-ID: 6aff13ef83f3cb488062bad2
+X-Forward-Email-ID: 6aff13f183f3cb488062baef
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 149.28.215.223
+ 121.127.44.66
 X-Forward-Email-Version: 2.19.33
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
@@ -76,9 +76,9 @@ Cc: devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Jonas Karlman <jonas@kwiboo.se>
-Subject: [PATCH 6/8] ARM: dts: rockchip: Add Luckfox Lyra Ultra board
-Date: Thu, 19 Nov 2026 15:20:49 +0000
-Message-ID: <20261119152055.556266-7-jonas@kwiboo.se>
+Subject: [PATCH 7/8] dt-bindings: arm: rockchip: Add Luckfox Lyra Zero W
+Date: Thu, 19 Nov 2026 15:20:50 +0000
+Message-ID: <20261119152055.556266-8-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261119152055.556266-1-jonas@kwiboo.se>
 References: <20261119152055.556266-1-jonas@kwiboo.se>
@@ -93,178 +93,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Luckfox Lyra Ultra is powered by the Rockchip RK3506B SoC, which
-integrates three Cortex-A7 cores and one Cortex-M0 core. It includes
-512 MB of DDR3 memory, 8 GB of eMMC storage, MIPI DSI, Ethernet, and
-IO expansion interfaces.
+Luckfox Lyra Zero W is a compact wireless development board powered by
+the Rockchip RK3506B SoC. It includes 512 MB of DDR3 memory, 256 MB of
+SPI NAND flash, 2.4 GHz Wi-Fi 6, Bluetooth 5.2, and BLE connectivity.
+MIPI DSI, USB OTG, USB Host, and RM_IO interfaces are available for
+peripheral expansion.
 
-Link: https://wiki.luckfox.com/Luckfox-Lyra/Luckfox-Lyra-Ultra
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
 As mentioned in cover letter, unclear if this should use
 rockchip,rk3506b instead of rockchip,rk3506.
 ---
- arch/arm/boot/dts/rockchip/Makefile           |   3 +-
- .../rockchip/rk3506b-luckfox-lyra-ultra.dts   |  31 ++++++
- .../dts/rockchip/rk3506b-luckfox-lyra.dtsi    | 100 ++++++++++++++++++
- 3 files changed, 133 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra-ultra.dts
- create mode 100644 arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra.dtsi
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm/boot/dts/rockchip/Makefile b/arch/arm/boot/dts/rockchip/Makefile
-index df620116bb2d..9a699bb8fc5a 100644
---- a/arch/arm/boot/dts/rockchip/Makefile
-+++ b/arch/arm/boot/dts/rockchip/Makefile
-@@ -47,4 +47,5 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += \
- 	rk3288-veyron-tiger.dtb \
- 	rk3288-vyasa.dtb \
- 	rk3506-luckfox-lyra-plus.dtb \
--	rk3506-luckfox-lyra.dtb
-+	rk3506-luckfox-lyra.dtb \
-+	rk3506b-luckfox-lyra-ultra.dtb
-diff --git a/arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra-ultra.dts b/arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra-ultra.dts
-new file mode 100644
-index 000000000000..5a3eb35eb70e
---- /dev/null
-+++ b/arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra-ultra.dts
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+/dts-v1/;
-+#include "rk3506b-luckfox-lyra.dtsi"
-+
-+/ {
-+	model = "Luckfox Lyra Ultra";
-+	compatible = "luckfox,lyra-ultra", "rockchip,rk3506";
-+
-+	aliases {
-+		ethernet0 = &gmac1;
-+	};
-+};
-+
-+&gmac1 {
-+	assigned-clocks = <&cru CLK_MAC1>;
-+	assigned-clock-rates = <50000000>;
-+	phy-handle = <&rmii_phy1>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&eth_rmii1_miim>, <&eth_rmii1_tx_bus2>,
-+		    <&eth_rmii1_rx_bus2>, <&eth_rmii1_clk>;
-+	clock_in_out = "output";
-+	status = "okay";
-+};
-+
-+&mdio1 {
-+	rmii_phy1: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <1>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra.dtsi b/arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra.dtsi
-new file mode 100644
-index 000000000000..c422053c1262
---- /dev/null
-+++ b/arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra.dtsi
-@@ -0,0 +1,100 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+#include "rk3506.dtsi"
-+
-+/ {
-+	aliases {
-+		mmc0 = &sdmmc;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:1500000n8";
-+	};
-+
-+	adc-keys {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 1>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-recovery {
-+			label = "Recovery";
-+			press-threshold-microvolt = <0>;
-+			linux,code = <KEY_VENDOR>;
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led-0 {
-+			color = <LED_COLOR_ID_RED>;
-+			default-state = "on";
-+			function = LED_FUNCTION_HEARTBEAT;
-+			gpios = <&gpio1 RK_PA0 GPIO_ACTIVE_HIGH>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&led1>;
-+			linux,default-trigger = "heartbeat";
-+		};
-+	};
-+
-+	vcc_1v8: regulator-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_1v8";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&vcc_3v3>;
-+	};
-+
-+	vcc_3v3: regulator-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_3v3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc5v0_sys: regulator-5v0-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+};
-+
-+&pinctrl {
-+	leds {
-+		/omit-if-no-ref/
-+		led1: led1 {
-+			rockchip,pins = <1 RK_PA0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&saradc {
-+	vref-supply = <&vcc_1v8>;
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	cap-mmc-highspeed;
-+	cap-sd-highspeed;
-+	disable-wp;
-+	no-sdio;
-+	vmmc-supply = <&vcc_3v3>;
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index 651da02cfa51..49c61ee985e7 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -866,6 +866,7 @@ properties:
+               - luckfox,lyra
+               - luckfox,lyra-plus
+               - luckfox,lyra-ultra
++              - luckfox,lyra-zero-w
+           - const: rockchip,rk3506
+ 
+       - description: Lunzn FastRhino R66S / R68S
 -- 
 2.56.1
 
