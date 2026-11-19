@@ -1,102 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795073861;
-	b=CX4ggvKnL8Fce808pnR2XiJ1o1+2sFqQo4YBXrRtYjBFuOinVrft6QYB0HIoDrG7BwQ2
-	 /Sg9PX1WOeHvBa9edtLwmJU4QmINrowWNObz4XRGPy042+syW/ynnvGQuBTTmuDmfd055
-	 QS0t2kG4e/UZRQLc5+NDTBCDnjx5zXkf8v+6FulR6jXLksOsnRW4udXS5DQJ0/AsEnBt9
-	 qqWTP2Z54stbGQROYfqgwxY+3TVI4QL+qYICC+jPJ6mUmNJkzVVnO9L4b6XH/ND1Vdvlr
-	 oxWcpBVYZPjeUULaQKEE9dS05g+k0Z+VHKF9oaHbwC1GptLWHxo6zkftcUQWEeWilTQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795073861;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795073983;
+	b=O6K7OAUrt+bsObpqG9Oj0Yk5XMWxa0RRqYsP6k2ld9+cNCiNg9jmPa+zfonIzoIDwCTl
+	 Ao6sbFreoLdtYQhD/J++dqbFG+D00mQSzJD6csj/wrmyt+s0Y1GlMfFz0oS9TVWOlJl7C
+	 dLhF60E3qcyxMeRddfM675ib7M4Tphzt29Dvq5Wnrt33ZwoTOvbvrqggZ52IzyMw6PtaB
+	 N2GsTwXi59pc6WVCCcf4AMWKtTzGCOBqgBYs7hTlLSg1Jd+7MJVwriYXav61FcspBY6fM
+	 jONnpcDQC9QFStqi5ODsxmncAxI3HWJ3TCuLNuDq4wjpqDjFdC8vrl52K8U1tWlg/yA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795073983;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=u4GwWn/WurhtuypMhkUMR7EFcxOGDjtSFtvGkNNRUkM=;
-	b=wtfDlWRMMx7H3HJflqOaq1E/yiXgvD+5tKAPjxMDoszmDoEHtF1UdH3VDw6tICXPIhAU
-	 i3/tPO1ixXjngLlsEub2OTMnGchctbMkMIJ/4+QFaMSgtVhgmCp/jXWwllrSCYwXWkOoR
-	 2LOIGO40+FzL1DjANjlIE8pKLbRSEEznNznsP3gsost0voLdYDyGbVVBljCNCIbfDRTcj
-	 /rZzlqOYPvd+R6OANcCx/nCqlIUYZXdDD2h9tsCcx2w64OM4dHt+kdQ8uMpgdNnJ4Zjl5
-	 g4rw/htDdx1Fa8I/JybjiEpN7vJf6N9e2uexmgOIxjrrAVxBPJYtUjR8w155clpK7Tg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=altera.com;
-	spf=pass smtp.mailfrom=altera.com;
-	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=KBvmkx5O;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.11
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012011.outbound.protection.outlook.com [40.107.209.11])
+	 Content-Type:Content-Transfer-Encoding;
+	bh=akDNbQx5FRb9gHPUZNIVSoupLqofkytxxol6XFlCraQ=;
+	b=O9BcaXFfZPFQH/3LK2COdDLrALg+Oclqe+mo+GngiayJx2qxP/3ImsowI/VGNgCyOUci
+	 kD/URCkWebDYKyXOcRsUJG8rKxQ7t1urBUvx7T3eyJZMTqHyxWMhVb9tlayRQVUO+jpvg
+	 I82ujDyfIsKmqmkZ+yX6A44M1EinL9CAqNOv8NHqybyfDIe6P2LjfLRnaMjSPbEwzmMuQ
+	 2kmubOzMrqlh6IrmvdCkd1IZNrgHADRKGVQKE4DO9Q/OYAjPQujbrpn1fFGqARInf7rE+
+	 ze0KNvEDAjZ/1es7tiNV9qbNlwtGrkVAb6h3o+SF1EKdEMz6zOCsNeil2EPoA5oduTw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=freeshell.de;
+	spf=pass smtp.mailfrom=freeshell.de;
+	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=fHHIVyEp;
+	arc=none smtp.remote-ip=116.202.128.144
+Received: from freeshell.de (freeshell.de [116.202.128.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBBF2606A320;
-	Thu, 19 Nov 2026 07:37:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBBF2606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9222B606A320;
+	Thu, 19 Nov 2026 07:39:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9222B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=KBvmkx5O
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yZBC+AqR0u7qNo4L7q8opz4q2Ot4CtPymy8fz3fQvPqaBUXuM8zVCaFUFLX35L6Hk/kvIzED9Axq2QOmIFgQzrvTnnGv16774XGh1JvBkWIzh31k00fW2vqnjpJ1BhqFUvdUGUf2K1hB5YhCd3FYGLyi+QwHH9De2io+jTRF3n7ccuzAwRCPZctVw5GaW6W22KxrLTykshYDChKnO4yVIv4QgWaBAnL1IbFIc1snWZYgDjPONom5qyQ40wGWvSWNNOujrQMV5sllAaEjQovlFTgiYpFdJEbkiZeB5SlP/o1jWnlrkPMTA1x/+SvIz9ASFEP6gVuv+wKLEWXA9LESWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u4GwWn/WurhtuypMhkUMR7EFcxOGDjtSFtvGkNNRUkM=;
- b=pHMb2olxXOj3rwA6MbkZPhAnF1YQ8imYzuIGPaZsR02deAgqwlfPaEq6MxaZ6R6nrLfDfiTQlbd636mzi+nlU0eSD9jcopjDgcHo56Z6c0Ki2+0dDop+Y8m+c12hVl+suu3Lyg8T7U51Q7W1sNidQ1hU/A+WTodm37fGffsXVir81NTbXlRxpzfXCaFH8IKrN04MM5okESUOc3VM/Cu6zoYQH+RCn0OyPnm9A0oyE1wxnSyzLq50ISUFlhDZh48l05EdIYr/mVWzSAiHWVLY6wmRV9+uRcKrvhq67jjysD3JvFfHs4qCXUMnQGHEusx4qdRM2TZFqogUKkyPEgoYIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u4GwWn/WurhtuypMhkUMR7EFcxOGDjtSFtvGkNNRUkM=;
- b=KBvmkx5OfwpRRirb88G0kfUmIfnPLLS5b0X6qrAlF2WgKetf8HCm/GmVbD6ZXzDzcGVAUyJd68fJm6nlsmZQC3/BpfkaXX1YYrvmA5bp/u/sQH/LJsDgCGjnNWq9gjtRxWnOk5dLghCsR6M+shm3LlxLMf30RK9hj3QSk6c7OJd1gHW27o8rVfmv3su+IXMW0bHWMjLtl+ywE83A8Q+txtiZLqz7XzbgGl51Ch4b1e0yT5P3m4k69s/Rl5cgLipjdv2a2eyxTUVhgCixwwu+KSayyqUeIIi6kXlUuxMhEkBYcZDMfWyRv4F7IaZXh++fDjtfuG4eiOBVs9ChVjcSDA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
- by PH7PR03MB7323.namprd03.prod.outlook.com (2603:10b6:510:2f6::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
- 2026 07:37:38 +0000
-Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
- ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
- ([fe80::53a0:bf93:6b6b:de01%3]) with mapi id 15.21.0615.013; Thu, 19 Nov 2026
- 07:37:38 +0000
-Message-ID: <c1d9ab38-1342-4fa2-948a-e8e8d1e312ba@altera.com>
-Date: Thu, 19 Nov 2026 15:37:32 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] mmc: sdhci-cadence6: program PHONY_DQS_TIMING for
- extended-read DDR
-To: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>,
- Adrian Hunter <adrian.hunter@intel.com>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- Ulf Hansson <ulfh@kernel.org>
-References: <20261106-sd_cadence_ddr50_v3-v3-0-cb50afece614@altera.com>
- <20261106-sd_cadence_ddr50_v3-v3-2-cb50afece614@altera.com>
- <da0da5ca-164e-45cf-8921-598d67d6a42b@altera.com>
- <7879888a-b4cd-4c45-bb92-8db776f10d8d@altera.com>
- <fa378079-aedc-4848-9e29-2d55c4a30d64@altera.com>
-Content-Language: en-US
-From: "NG, TZE YEE" <tze.yee.ng@altera.com>
-In-Reply-To: <fa378079-aedc-4848-9e29-2d55c4a30d64@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR13CA0189.namprd13.prod.outlook.com
- (2603:10b6:a03:2c3::14) To SJ0PR03MB5950.namprd03.prod.outlook.com
- (2603:10b6:a03:2d3::20)
+	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=fHHIVyEp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1795073892;
+	bh=akDNbQx5FRb9gHPUZNIVSoupLqofkytxxol6XFlCraQ=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=fHHIVyEpCDHKo0PtvTQl3Yh0SV0eE/U/kDhsGZJCrnU6gviFNi8GCwUkY5bRxkdT3
+	 22Zbt/QrIvbe6xaERzHMPKDbDWWqOSMfCJ6HIbSWoQar3xGG1eTYmKtuZWYzF7zNWW
+	 agc2cJUhka/b6lPE0UnHbMP90TAGTFAJm5JruUbF/nytvhhnm2TgjxTBQk4EnA7ONH
+	 hYnD+yNTyNP3+g/u4DNYIqOhqgeDqoabZp4K5ahgfY4+CTxTrCDWYB3BL+IBGiAGQi
+	 qKSKqqaPUYnfGDEUc3sKzEh81Jt0KSkWDhjNqVbC4eBox0+lIOwV8Equh4cck4QbMZ
+	 s3xaVTJyAttfw==
+Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id D69FFB221F5A;
+	Thu, 19 Nov 2026 08:38:07 +0100 (CET)
+Message-ID: <053b55fe-47d0-4cc7-ba53-c560fc9c1d1b@freeshell.de>
+Date: Wed, 18 Nov 2026 23:38:01 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,302 +58,274 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|PH7PR03MB7323:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc380d1e-9d04-4b1b-f3bf-08df460ffc5b
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|921020|5023799004|261022105027099003|4143699003|261026121527099003|11063799006|56012099006|261102123227099003|10067099003|261021121427099003|261021123027099003|261022075727099003|261009223027099003|261028144727099003|261022115727099003|261026140227099003|261022113327099003|55112099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	g2lGI+oXnmK0nQGHODJ2uxeAsI/1f+flBlxmfY2HWGjMjyOPJwdtU3rersQjNuEBgG3pxMF7Ctl/olSnfUVwBtWLv+3yKdiV0FOnUsYBTW7TPFZx/ST7p/opevZXYbQBp2Jx0yZiDyL7/ah5cca8TMvZ3TR0hWG1Xu2pyvXe9HXEO6FLC2gekqAGZCLsoIe0CL2RkLOv7/4q5nsbs+SWEGOeMZ8zRrt0MHDgRGbfIxO6qKikas5pUrvhQ1RVDOvPxChOwGl1r1TFs5bM8WeDlcfT7nvliF+6PKJ60untXY48vEqqg0IzRjlsMG8aeXB5WF3n45SFtCI2HDbA+T9jJ4j8e4sQGk7CAruJ/1Nm7mAjtuiN6bXDeJIfR/SRxes8lBkFvjUDFXPngfxqRdy+F7yuCUCnhYvYLclL/zXDdo4oTEr7VSGCZehoyNzMBWB9lKpUQpqrc2WqLIAwULAV+pDyccvNvSr0RO5PaNd8Pt01uTh/1vrZGSvkUOIUIjHkLJljyOcbRygP44ZiU6HFaseS/hwwl5+zDfkT4Q8I+tEXPNEDvuJLWJelP1FQNXMHFD4wDCLoTIvF2oNYny0GIQMVZwLC8pdxKWowA6c7NYIXU5PPXQSoIU5+c11VnurFAOUN/FcgFUq0slPeWGL72hAEzWGfFcH5zg3oe3BbmDHeMg9GE9Joja9Chi7BGQVS6/osppmzq1tVbPz1oDsdoA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(921020)(5023799004)(261022105027099003)(4143699003)(261026121527099003)(11063799006)(56012099006)(261102123227099003)(10067099003)(261021121427099003)(261021123027099003)(261022075727099003)(261009223027099003)(261028144727099003)(261022115727099003)(261026140227099003)(261022113327099003)(55112099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SjFLbHBMNlVhZkFkcXNvZWkyZGFaZHZnS3hkWHVjRFpPQlg4cHc5dTB3KzZz?=
- =?utf-8?B?Zm51ZC9TczhlYTBIaEZmTzkvUGFjdGN1TnRpT2ljVmUzQTBHN0YzZjNWMUZq?=
- =?utf-8?B?VGhBNCtRRThjanc4R1hNSG1pa0FVYS9PeWdnOXY3ZE1CQWh1WEo4QzZGYkN4?=
- =?utf-8?B?T1NUMzExS1VOMU9DeWRacWowNVdmV1gvb2w2N20rWHV4TnFUVE8rbWdNVHdZ?=
- =?utf-8?B?dXhOcEQ2SlY4dUJzaU01NkxONk94b0xIK0cvZlFuVEFZc3B1TzdzRXd4SC9C?=
- =?utf-8?B?Y0dnR29TeitPeHovazJxN1dGVWhpc3hRWFVQWFBYODJ5RUdlSDFrNjBSNHRI?=
- =?utf-8?B?d05LQXRtUVFLU2VyNWhpVUxhMEp1K0FaWW5kc0lzWVl5SjRBQXFCbGUrMGIr?=
- =?utf-8?B?eDZ0aitmUWN6UitxaDc1UTVCMExXWUxZSEFnYlJOeWJxejAyWDZ0NDBOYkd1?=
- =?utf-8?B?TC9WRXdIQTZ5MURReWsveTN5OTRDTlhreTVWMU5WdmM3MjFrSGw4dU1nL01Y?=
- =?utf-8?B?MU0xT0dMNVltU1NCUk1RQUVsTzVod0htNXRYRVB2aTd4MWNXQ3NpQ1dkNEVq?=
- =?utf-8?B?UTFBT2JYckNDanVtWW9aRGx2a2xjcG1FbEpzYW1QWkVFT1gvZkpEdmZ0c09P?=
- =?utf-8?B?K3FtNGRvMXoyTk5OMnI1NklFRC9xcHpPYSt3c3U4V2svaWIxVElFSGFUbTZo?=
- =?utf-8?B?V3M0ck04S2MzQmVEUjFER3JBOWkvV1VndU12aGJldHJmMlArZTQ0dFUvcTA1?=
- =?utf-8?B?WDBhLzVZeVByVXFZUGhCL0JQaGNmZ0lZbFN5eHFGcFRqakMwQURUTDJJcHBN?=
- =?utf-8?B?WjRJUXM4VGNadEQ5M1dnc0ZDcW4vbnVSYU85bTZ6ckgwQkNkelFuR2ZpL3NH?=
- =?utf-8?B?a2RHRFZ1WEYzZjQ2enBvM1FZR2llUWNYWEVBVE1oUU9CWTk5N1VlMFp4WTNk?=
- =?utf-8?B?RXhBdmVFUjFUbUpxTk1SYnovVGpDb3l3SUV0Q2crRXV4b0tFM3pzNHZDQmQ0?=
- =?utf-8?B?SDByakVWZjV1Q3NyMkdjZnU5ZTI1WXhvVk1LZ2JEWVNiNW9HeWYweFhjUlR3?=
- =?utf-8?B?Z3A2S01CalM1MStnWHJsckJWSG5UM1JuMTUrQnRPMHUzTXNIa1BHWVhhREdJ?=
- =?utf-8?B?Ymt0OGk5Ny9Pdml6NUcxUFpZRGJzS002d1Awdk1wMHJhUWoyR3VwYmU5VmJR?=
- =?utf-8?B?RTNUVkVoTmdLTUJnSWJIeEszb2llcGdWQWxGckxsWWJxdjAwK2hZZWF5QkJl?=
- =?utf-8?B?MWVHY1ZiNWQ2WUxZemFMMlRPcUJ6S3k0ME5rYitVRkJ0a2Ztc2ozeVNIdEdY?=
- =?utf-8?B?bmlvcElBUE1zOFJXKyttUXVQeU9PeW5OL3NKeC8yU3pzckVpMFIyMzcycUpk?=
- =?utf-8?B?MThaQ2hLN2xSQ2EwN0Y2WFlNNmltenE5M01JbVVNWklWZEVlN3dkSEhFWm9P?=
- =?utf-8?B?ckVrZE9sQm1tQ0Y1bHBxMmdFR0dDUFU3OEc4SWYzbmlIZGZlRXZzdGEzelhF?=
- =?utf-8?B?MGJYbzJuWkNLZFpzdkVGM3BGNWxLMWJ0bkVXSnBBM0VPVFd6V2xuTE1YdTRj?=
- =?utf-8?B?ZEtLbkFxenlUUVAwQlBqRnQvME51dnpMZHBxYXhGZHRyRFpLYmNCSSt5Uzdr?=
- =?utf-8?B?RXpwNWNkb3laaWlVa2QrN2pnVlp3d0VvcWc5ME41ZjI4WHg5YWdLQXNSZHVM?=
- =?utf-8?B?WDFCTWFMS2pYcnVNRkFtUE5sd3BaandqdzYxcWZjSGVFNmJyeFM3RmFLUDBJ?=
- =?utf-8?B?ZDFGQURwTHdSNDc0ZlI1YUxPNzdTaDVOb09CRGtCZXlnM1BlZEZmZUdFeHJ3?=
- =?utf-8?B?c3ZYV1VCaDN0QVdmUG9kSk5WK011cVhkZDhtdGdETnV6Y3crb2JmNlJzUzY5?=
- =?utf-8?B?K3NhTkUyd2RoWUJHSXNYZGVjR3dxL3pBZm5sdDlwNnc3VkI3RUZDTzZ3SDhR?=
- =?utf-8?B?ZmE5Tnd1cDdTRE5kVldZY1FYZ2cwY1pwM1l0dTBQT09ScFFFNmRadkEvdkZF?=
- =?utf-8?B?S1Q5WGkyS2t0bmVVajZScTZJK1dwVjB3TDVQWHdYeHJKVWc2VitNeTdwc3Av?=
- =?utf-8?B?bVZNa0NUMDljM01NUnhmRzdobHRPalA4U1FoYzZ6bmRkRjZwRkNTWGtjYkRU?=
- =?utf-8?B?T2FhcmU1S2hsK2ZIb2xpd3JBZ29GWUFXdlVtYnluNko2MUxXWGpnLzRRWWpj?=
- =?utf-8?B?K2dMYUx1T0xMN0FCUWFFUnFja3d3bDFzd0NiS1dTR3poRHJjTzl0VGs4dmdx?=
- =?utf-8?B?UEIyZ29sVjE3bURpZW9PN1B6ajduYmtjZG9QNU95bHhiNlY5UnN2T2NZNXNN?=
- =?utf-8?B?dUVtcGlwMkN0OStXeDNUdk8xWWxjdm9Nc1V2R2Z2Y2Nlc1hwb2w5Zz09?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc380d1e-9d04-4b1b-f3bf-08df460ffc5b
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 07:37:38.3770
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h/yWTEcYk2L53IORhVIdgWYKWGTDKu5d6SJfvQusT9ka6uwS72t53lhV6tButp+2Pm5lm/FsdzBI6qzCE5HJbg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7323
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/2] Add UFS Host driver support for SpacemiT K3 SoC
+To: Yixun Lan <dlan@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Alim Akhtar
+ <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>,
+ Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
+ Stanley Jhu <stanleyjhu@google.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+ Jennifer Berringer <jberring@redhat.com>,
+ Trevor Gamblin <tgamblin@baylibre.com>, linux-scsi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org>
+ <8462a0d9-e9b7-467d-b2e1-7870c78e2691@freeshell.de>
+ <avyusx36U534Bpu9@aurel32.net>
+Content-Language: en-US
+From: E Shattow <e@freeshell.de>
+In-Reply-To: <avyusx36U534Bpu9@aurel32.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Tanmay,
+Hi Yixun, and Aurelien,
 
-On 19/11/2026 3:04 am, Kathpalia, Tanmay wrote:
+On 11/17/26 11:44, Aurelien Jarno wrote:
+> Hi,
 > 
-> On 17-11-2026 13:27, NG, TZE YEE wrote:
->> Hi Tanmay,
+> On 2026-11-16 17:15, E Shattow wrote:
+>> Hi Yixun,
 >>
->> Thanks for the careful review, and sorry for the mixed signals between 
->> the two threads.
+>> On 11/15/26 19:46, Yixun Lan wrote:
+>>> This series try to add UFS support for SpacemiT K3 SoC, the controller
+>>> components consists of System Bus Interface Unit, UFS Host Controller
+>>> Interface, UFS Transport Protocol Layer, UFS Host Registers, Device
+>>> Management Entity (DME), Transport Layer, Network Layer, Data Link
+>>> Layer, PHY Adapter Layer, and M-PHY Interface. A more detail functional
+>>> block diagram can be found in SpacemiT website, chapter 9.7.3 [1]
+>>>
+>>> The DTS patch has been dropped in this series [2], and will send
+>>> in separate series once this patch accepted. For people who want to
+>>> test UFS driver, please grab the DT patch from version v5 [3].
+>>>
+>>> Enable UFSHCD_CAP_KEEP_AUTO_BKOPS_ENABLED_EXCEPT_SUSPEND,
+>>> This allows the device auto-bkops to be always enabled except
+>>> during suspend (both runtime and suspend), with this feature,
+>>> the BKOPS interrupt (log below) isn't reported anymore.
+>>>
+>>> [  806.710763] ufshcd-spacemit c0e00000.ufshc: ufshcd_bkops_exception_event_handler: device raised urgent BKOPS exception for bkops status 1
+>>>
+>>> Link: https://spacemit.com/community/document/info?nodepath=hardware/key_stone/k3/k3_docs/k3_usermanual/09_memory_storage.md&lang=en [1]
+>>> Link: https://lore.kernel.org/all/20260918-belligerent-succinct-kraken-7fa592@quoll/ [2]
+>>> Link: https://lore.kernel.org/all/20260916-08-k3-ufs-support-v5-3-1f5d71f1027d@kernel.org/ [3]
+>>> Signed-off-by: Yixun Lan <dlan@kernel.org>
+>>> ---
+>>> Changes in v8:
+>>> - enable UFSHCD_CAP_KEEP_AUTO_BKOPS_ENABLED_EXCEPT_SUSPEND
+>>> - rename to "ref_clk", see explanation in patch
+>>> - add delay between enable clk & deassert reset
+>>> - respect bRefClkGatingWaitTime, add wait delay
+>>> - drop comment of ufs_hba_spacemit_vops, which got CI complaint
+>>> - rebase to v7.4-rc1
+>>> - Link to v7: https://patch.msgid.link/20261002-08-k3-ufs-support-v7-0-bb39007ff9ae@kernel.org
+>>>
+>>> Changes in v7:
+>>> - check err return value of ufs_spacemit_quirk_host_pa_saveconfigtime()
+>>> - Link to v6: https://patch.msgid.link/20260921-08-k3-ufs-support-v6-0-3479768a2299@kernel.org
+>>>
+>>> Changes in v6:
+>>> - drop unused macro and dev_req_params
+>>> - use global PX_xx macros
+>>> - fix axi clock name
+>>> - drop dts patch
+>>> - collect tags
+>>> - Link to v5: https://patch.msgid.link/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org
+>>>
+>>> Changes in v5:
+>>> - adjust clock names
+>>> - add runtime power support
+>>> - collect tags
+>>> - Link to v4: https://patch.msgid.link/20260908-08-k3-ufs-support-v4-0-22aa2bd97d3b@kernel.org
+>>>
+>>> Changes in v4:
+>>> - fix clock and reset settings
+>>> - drop function which retrieve value of tx_lanes
+>>> - propagate return error of ufs_spacemit_dme_set()
+>>> - check return value ufs_spacemit_check_hibern8()
+>>> - drop call to ufshcd_vops_phy_initialization()
+>>> - handle compiling warning if CONFIG_OF not enabled
+>>>  add __maybe_unused to ufs_spacemit_of_match
+>>> - Link to v3: https://patch.msgid.link/20260806-08-k3-ufs-support-v3-0-037fb322acdb@kernel.org
+>>>
+>>> Changes in v3:
+>>> - collect tags
+>>> - fix dt-binding warning reported-by sashiko
+>>> - fix low freq in opp-2 table
+>>> - fix err checking in check_hibern8()
+>>> - propagate err code in link_startup_notify()
+>>> - update documents for event_notify()
+>>> - ufs clock driver is merged into v7.3-rc1, update cover letter
+>>> - Link to v2: https://patch.msgid.link/20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org
+>>>
+>>> Changes in v2:
+>>> - fix missing interrupts property
+>>> - move ufs node to k3-com260.dtsi
+>>> - convert freq-table-hz to operating-points-v2
+>>> - rework reset_control, fix header and drop global variable
+>>> - drop dump_host_regs() debug interface
+>>> - converge and refactor dme_set() operations
+>>> - massive reduce of busy delay() loops
+>>> - drop vendor specific hce_enable_notify(), fallback to default
+>>> - drop unused member from struct ufs_spacemit_host
+>>> - add COMPILE_TEST support to Kconfig
+>>> - comment style fix
+>>> - Link to v1: https://patch.msgid.link/20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org
+>>>
+>>> ---
+>>> Yixun Lan (2):
+>>>       scsi: ufs: spacemit: dt-bindings: Add UFS controller for K3 SoC
+>>>       scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+>>>
+>>>  .../devicetree/bindings/ufs/spacemit,k3-ufshc.yaml |  56 ++
+>>>  drivers/ufs/host/Kconfig                           |  12 +
+>>>  drivers/ufs/host/Makefile                          |   1 +
+>>>  drivers/ufs/host/ufs-spacemit.c                    | 655 +++++++++++++++++++++
+>>>  drivers/ufs/host/ufs-spacemit.h                    |  77 +++
+>>>  5 files changed, 801 insertions(+)
+>>> ---
+>>> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+>>> change-id: 20260605-08-k3-ufs-support-c8b308e415e2
+>>>
+>>> Best regards,
+>>> --  
+>>> Yixun Lan <dlan@kernel.org>
+>>>
+>>>
+>>> _______________________________________________
+>>> linux-riscv mailing list
+>>> linux-riscv@lists.infradead.org
+>>> http://lists.infradead.org/mailman/listinfo/linux-riscv
+>>
+>> Tested v7 and v8 successfully on Sipeed K3 Pico-ITX (32GiB DRAM / 128GiB
+>> UFS model). Build and test methodology:
+>>
+>> ### build chimera debian-installer with patched mainline kernel
+>> ### assume fresh Debian testing "forky" build environment
+>>
+>> apt update
+>> apt install -y b4 bc bison ca-certificates cpio \
+>>  crossbuild-essential-riscv64 curl debhelper fakeroot flex kmod \
+>>  libdw-dev libssl-dev libssl-dev:riscv64 linux-config-7.2:riscv64 \
+>>  python3 rsync
+>>
+>> curl -L \
+>>  https://git.kernel.org/torvalds/t/linux-7.4-rc3.tar.gz \
+>>  | tar xz
+>>
+>> pushd linux-7.4-rc3
+>> b4 am -v1 -o- \
+>>  https://lore.kernel.org/all/20261115195112.32120-1-e@freeshell.de/ \
+>>  | patch -p1
+>> b4 am -v5 -P3 -o- \
+>>  https://lore.kernel.org/all/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org/ \
+>>  | patch -p1
 > 
-> Hi Tze,
+> After applying that patch, you also need to change:
+>   clock-names = "axi", "ref";
+> into
+>   clock-names = "axi", "ref_clk";
+> to match the change done in the code in v8.
 > 
-> You're welcome, and thank you for staying on top of the review feedback.
+> [...]
+>
+
+I was missing this detail previously. For testing again of v8 I have now
+inserted a sed pipe to change this as suggested for the dts application
+step of the build procedure:
+
+b4 am -v5 -P3 -o- \
+ https://lore.kernel.org/all/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org/ \
+ | sed -z 's%\(clock-names = "axi", "\)ref\(";\)%\1ref_clk\2%' \
+ | patch -p1
+
+Additionally to the build procedure, since Debian testing now features
+linux-config-7.3 and no longer linux-config-7.2, I now substitute
+accordingly from linux-config-7.2 to linux-config-7.3
+
+>> I do notice some UFS-related warnings and errors in dmesg:
+>>
+>> journalctl --dmesg | grep ufshcd
+>> ufshcd-spacemit c0e00000.ufshc: freq-table-hz property not specified
+>> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+>> vdd-hba-supply regulator, assuming enabled
+>> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+>> vcc-supply regulator, assuming enabled
+>> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+>> vccq-supply regulator, assuming enabled
+>> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+>> vccq2-supply regulator, assuming enabled
+>> scsi host0: ufshcd
+>> ufshcd-spacemit c0e00000.ufshc: ufshcd_scsi_add_wlus: BOOT WLUN not found
 > 
-> Could you please confirm the document you cited for the rebar pulse 
-> width as cdn_ip6185?
+> I do have all those messages, I think they are just harmless.
+> 
+>> ufshcd-spacemit c0e00000.ufshc: DL error event, INT errors:0x4,
+>> DL_ERR:0x80000020
+> 
+> This one looks more worrying. I do not have it when testing. Does it 
+> happens immediately or after a while? under load?
+> 
+> Regards
+> Aurelien
 > 
 
-Confirmed, with one correction: the "cdn_ip6185" label I quoted was an
-internal filename shorthand and isn't an accurate document identifier —
-my mistake. The rebar pulse width comes from Cadence's SD/eMMC
-host-controller DFI/PHY documentation (the extended-clock-mode DAT-input
-timing), where the rebar pulse spans half an SDCLK period.
+$ journalctl --dmesg | grep ufshcd
+ufshcd-spacemit c0e00000.ufshc: freq-table-hz property not specified
+ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+vdd-hba-supply regulator, assuming enabled
+ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+vcc-supply regulator, assuming enabled
+ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+vccq-supply regulator, assuming enabled
+ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+vccq2-supply regulator, assuming enabled
+scsi host0: ufshcd
+ufshcd-spacemit c0e00000.ufshc: ufshcd_scsi_add_wlus: BOOT WLUN not found
 
-These Cadence PHY documents are confidential and not publicly
-accessible, so v4 will reference them only generically ("the Cadence PHY
-documentation"). I can share the exact internal references with you
-directly if you need them.
+I did not again see the DL error event. However, the first attempt to
+build Linux does fail:
 
-> I will be on annual leave until the first week of January and may not be 
-> able to review during
-> that time. Thank you for sending v4 with the feedback incorporated while 
-> I am away. I will
-> review it once I am back.
-> 
-> Thanks,
-> Tanmay
-> 
+make[7]: *** [scripts/Makefile.build:572: drivers/gpu/drm] Error 2
+make[6]: *** [scripts/Makefile.build:572: drivers/gpu] Error 2
+...
+make[5]: *** [scripts/Makefile.build:572: drivers] Error 2
+make[4]: *** [Makefile:2244: .] Error 2
+make[3]: *** [debian/rules:80: build-arch] Error 2
+dpkg-buildpackage: error: make -f debian/rules binary subprocess failed
+with exit status 2
+make[2]: *** [scripts/Makefile.package:126: bindeb-pkg] Error 2
+make[1]: *** [/home/es/linux-7.4-rc3/Makefile:1852: bindeb-pkg] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
-Will do. I'll post v4 with the feedback incorporated. Enjoy your leave.
+real    188m48.844s
+user    1415m17.363s
+sys     66m11.932s
 
-Thanks,
-Tze Yee
+Linux is running on the K3 SoC here without clocks preparation from the
+bootloader; it is quite slow by comparison to a Linux kernel that
+follows clock preparations by the vendor BSP bootloader. Simply
+re-running the same "make ..." build command is successful in the same
+system without any changes:
 
->>
->> On 15/11/2026 10:51 pm, Kathpalia, Tanmay wrote:
->>>
->>> On 06-11-2026 11:46, tze.yee.ng@altera.com wrote:
->>>> From: Tze Yee Ng <tze.yee.ng@altera.com>
->>>>
->>>> The SD6HC PHY left PHONY_DQS_TIMING (phy_ctrl_reg[9:4]) at 0 in all
->>>> modes. Per the Cadence DLL PHY documentation it must be the rebar (RE#)
->>>> pulse width in clk_phy cycles minus 1 in extended read mode, and 0
->>>> otherwise. Leaving it 0 in extended-read DDR duplicates one DDR edge
->>>> (the silent odd/even edge-capture defect).
->>>>
->>>> On this integration the rebar pulse is 2 clk_phy cycles, so extended-
->>>
->>> In the U-Boot thread you said this width is documented in the Cadence 
->>> SD/eMMC DFI spec; in v1 here
->>> you said there is no IP-level document. Which is it? If documented, 
->>> please cite it here and in the
->>> macro comment. If it is Agilex5-specific, please take it from the 
->>> altr,agilex5-sd6hc match data
->>> instead of a constant for every cdns,sd6hc user.
->>>
->>
->> You're right the threads were inconsistent. At v1 I had no IP-level 
->> reference and used the characterised rebar width. While debugging the 
->> U-Boot side I found the Cadence documents that actually describe this, 
->> and I'll cite them from v4 on:
->>
->>   - COMBO DLL PHY User Guide (cdn_ip6182), phy_ctrl_reg (0x2080)
->>     bits[9:4] phony_dqs_timing: 0 when extended_read_mode is disabled,
->>     otherwise the rebar pulse width in clk_phy cycles minus 1 (its own
->>     example: width 4 -> 3).
->>   - SD/eMMC DFI Interface spec (cdn_ip6185) section 1.2.6.2, "DAT input
->>     in extended clock mode" (Fig 1.23 DDR, Fig 1.26 SDR): the rebar
->>     pulse spans half an SDCLK period.
->>
->> So the rule is IP-documented; what I didn't have at v1 was the 
->> reference, not a different rule.
->>
->>>> read DDR needs 1; confirmed on DDR50 hardware (1 captures both beats, 2
->>>
->>> In v1 you confirmed DDR52 was validated too and said you would name 
->>> both modes.
->>>
->>
->> Yes, DDR52 is validated too. I'll name both DDR50 and DDR52 in the 
->> commit message.
->>
->>>> corrupts reads). Derive it from the extended-read-mode state and apply
->>>> it only in DDR modes, since SDR extended-read samples a single edge and
->>>> is unaffected.
->>>
->>> In v1 you agreed this is not proof ("Agreed the single-edge argument 
->>> alone is not proof") and kept
->>> these modes at 0 because they pass there. On 5 Nov, in the U-Boot 
->>> thread, you wrote the opposite
->>> rule: by the PHY guide the value "is 1 in extended-read mode and 0 
->>> otherwise", and U-Boot v2 does
->>> set 1 for the divided SDR modes. This patch still leaves them at 0, 
->>> so the two trees disagree. The
->>> PHY guide is not limited to DDR: 0 when extended read is off, and the 
->>> rebar width minus 1 when it
->>> is on. With the rebar width of 2, that is 1 in every extended-read 
->>> mode. Please program 1 in these
->>> modes here as well.
->>>
->>
->> Combining the two docs: rebar width (in clk_phy cycles) = (SDCLK/2) / 
->> clk_phy = divider/2, hence phony_dqs_timing = divider/2 - 1. The "2" 
->> in v3 was just that evaluated at our clk_phy (~200 MHz -> divider 4 
->> for DDR50/DDR52).
->>
->> Rather than hard-code a number that silently assumes Agilex5's clock, 
->> or push it into the altr,agilex5-sd6hc match data, I'll derive it from 
->> the clock ratio the driver already has (t_sdclk / t_sdmclk). That is 
->> correct for any cdns,sd6hc instance and drops the magic constant, 
->> which also removes the "this integration" vs "this controller" wording 
->> mismatch, since there's no macro left to reconcile.
->>
->>>>
->>>> Acked-by: Adrian Hunter <adrian.hunter@intel.com>
->>>> Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
->>>> ---
->>>> Changes in v3:
->>>> - No change; retains Adrian's Acked-by.
->>>>
->>>> Changes in v2:
->>>> - Added Adrian's Acked-by.
->>>> - Reworded the commit message to drop the "generic to any SD6HC-PHY 
->>>> SoC"
->>>>    framing. (Adrian Hunter)
->>>> ---
->>>>   drivers/mmc/host/sdhci-cadence-phy-v6.c | 15 +++++++++++++++
->>>>   1 file changed, 15 insertions(+)
->>>>
->>>> diff --git a/drivers/mmc/host/sdhci-cadence-phy-v6.c b/drivers/mmc/ 
->>>> host/sdhci-cadence-phy-v6.c
->>>> index 22d56bb46d75..8d6a9c26c139 100644
->>>> --- a/drivers/mmc/host/sdhci-cadence-phy-v6.c
->>>> +++ b/drivers/mmc/host/sdhci-cadence-phy-v6.c
->>>> @@ -90,6 +90,9 @@
->>>>   #define SDHCI_CDNS6_PHY_CTRL_REG            0x2080
->>>>   #define   SDHCI_CDNS6_PHY_CTRL_PHONY_DQS_TIMING GENMASK(9, 4)
->>>> +/* Width of this controller's rebar (RE#) pulse in clk_phy cycles. */
->>>> +#define SDHCI_CDNS6_PHY_REBAR_PULSE_CYCLES    2
->>>> +
->>>
->>> The commit says "this integration", the comment says "this 
->>> controller". Please make them match,
->>> with a source (see above).
->>>
->>
->> See my reply above. This macro and comment will be removed.
->>
->>>>   /* Default PHY settings */
->>>>   #define SDHCI_CDNS6_PHY_DEFAULT_IOCELL_DELAY        2500
->>>>   #define SDHCI_CDNS6_PHY_DEFAULT_DELAY_ELEMENT        24
->>>> @@ -143,6 +146,9 @@ struct sdhci_cdns6_phy {
->>>>       bool cp_use_phony_dqs;        /* bit [20] */
->>>>       bool cp_use_phony_dqs_cmd;    /* bit [19] */
->>>> +    /* PHY_CTRL register fields */
->>>> +    u32 cp_phony_dqs_timing;
->>>> +
->>>
->>> u8 with /* bits [9:4] */, similar to the other cp_* fields.
->>>
->>
->> Will change to u8 with a /* bits [9:4] */ comment, to match the other 
->> cp_* fields.
->>
->>>>       /* HRS07 register - IO delay Information */
->>>>       u8 sdhc_rw_compensate;        /* bits [20:16] */
->>>>       u8 sdhc_idelay_val;        /* bits [4:0] */
->>>> @@ -517,6 +523,13 @@ static void sdhci_cdns6_phy_calc_dat_in(struct 
->>>> sdhci_cdns6_phy *phy)
->>>>       if (phy->mode == MMC_TIMING_MMC_HS200)
->>>>           phy->cp_read_dqs_delay = phy->hs200_tune_val;
->>>> +    if (phy->sdhc_extended_rd_mode &&
->>>> +        (phy->mode == MMC_TIMING_UHS_DDR50 ||
->>>> +         phy->mode == MMC_TIMING_MMC_DDR52))
->>>> +        phy->cp_phony_dqs_timing = 
->>>> SDHCI_CDNS6_PHY_REBAR_PULSE_CYCLES - 1;
->>>> +    else
->>>> +        phy->cp_phony_dqs_timing = 0;
->>>> +
->>>
->>> The PHY guide asks for width - 1 whenever extended read is on, which 
->>> here also covers DS/HS/SDR
->>> modes. In U-Boot v2 you now do exactly that (1 in every extended-read 
->>> mode), and said it matches
->>> the Linux change, but this patch keeps those modes at 0. It's 
->>> confusing, I would suggest to follow
->>> the Cadence PHY user guide.
->>>
->>
->> Agreed. The guide keys the field on extended_read_mode, not on DDR, 
->> and U-Boot v2 already programs width-1 in every extended-read mode. 
->> The computed form does exactly that: phony_dqs_timing = divider/2 - 1 
->> whenever extended_read_mode is set, 0 otherwise. So the two trees will 
->> agree.
->>
->>>>       if (strobe_dat) {
->>>>           /* dqs loopback input via IO cell */
->>>>           hcsdclkadj += phy->iocell_input_delay;
->>>> @@ -715,6 +728,8 @@ int sdhci_cdns6_phy_init(struct sdhci_cdns_priv 
->>>> *priv)
->>>>       reg = sdhci_cdns6_read_phy_reg(priv, SDHCI_CDNS6_PHY_CTRL_REG);
->>>>       reg &= ~SDHCI_CDNS6_PHY_CTRL_PHONY_DQS_TIMING;
->>>> +    reg |= FIELD_PREP(SDHCI_CDNS6_PHY_CTRL_PHONY_DQS_TIMING,
->>>> +              phy->cp_phony_dqs_timing);
->>>
->>> This write always runs with the loopback DQS selected. The setting 
->>> you tested was the phony DQS
->>> (use_lpbk_dqs = 0) and a read delay of 96. The PHY guide says this 
->>> field times the phony strobe,
->>> so with loopback it may change nothing. Does this patch by itself fix 
->>> the bad reads on the
->>> default loopback path? If not, please put it after patch 4, or merge 
->>> it into patch 4.
->>
->>
->> Agreed it has no standalone effect. The loopback is force‑selected 
->> until the opt‑in lands, so the write is muxed out. I'll fold the 
->> PHONY_DQS_TIMING programming into patch 4, so the phony‑DQS opt‑in and 
->> its correct timing land together and no commit can select phony DQS 
->> with phony_dqs_timing = 0.
->>
->> Thanks,
->> Tze Yee
+  DEPMOD  debian/linux-image-7.4.0-rc3-k3ufs/lib/modules/7.4.0-rc3-k3ufs
+...
+dpkg-deb: building package 'linux-image-7.4.0-rc3-k3ufs' in
+'../linux-image-7.4.0-rc3-k3ufs_7.4.0~rc3-2_riscv64.deb'.
+...
+real    34m56.794s
+user    241m15.511s
+sys     18m4.532s
 
+Similar build failures occasionally happen when the root filesystem is
+on USB microSD adapter-connected microSD storage. I assume the build
+failures with default clocks configuration are not constrained to just
+the UFS support series here.
+
+-E
