@@ -1,63 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.73
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795090490;
-	b=J2S0roxaYXokVRpovKcrJG7DAPCr7jko3nowCj47SjBtsB6bUYln+Qr4EN9zmYp2lw/e
-	 AQavLxpIWYPwrrjCWEJLoU2w8ETS0MqQBPOEKUEosLB0hERHipFiVXaI7wNaVhrpSNrpK
-	 lSpSvi1NBQG1GctIwioI263ioV5vkxbS+s7p0bsmQnDOFtSSsU0nHQ931tcLQz3wr0nEn
-	 fCDjc37cqRyS4YNWTqLbR2PNCMCjpceGUT91OGr+2UBX7QQgvnvRuWpfhhY4TDVwiaBGn
-	 A93iNOQ15tjpsTHCdKHBakpScaKJA8u06Y5M1aDYCZ8FFRluGHOJNxYEUflNuwpGrYg==
+	t=1795090493;
+	b=F+Rxk+8x+AlfPZh91Us786yp0gGkPcrTB8WASDSsqWvqm6USecNvOzs2Xwix06k32WuR
+	 IA5gguZQsQfIi1RBoZi+pITP2hcDeD3b7bu+6wmfsrcVljJRiJsy3OqY23jdxlE2CZU5N
+	 b6eIHfHUPNVwZ6ILnTtmONl35gN18os1tQDGIHqml7aOmxdidSKToLpsshI8FMbgCZRWy
+	 GDc8R1M5kvXnGkrDjaZK6nX7b29kJyfsyzakG0z9D7qthPNsxPWA7cgTrAPL0j5pm6gXj
+	 n4b+vZqex8nxA0t80AR9l5RKVdGCNgp4KE+ZB0769uzXfK3PKpe+hDsOEyusTt/bY9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795090490;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795090493;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
 	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
 	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
 	 X-Report-Abuse:X-Report-Abuse-To:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=KPwgoK2ctYkEIoXLDhQ+9ixRvnytQ+HTp/D7L99rIqE=;
-	b=UqN1ccDgQL1YMLvkOZQ77DAX46+oNxBUepdV9MauFR+YbVFwAkkVCzT3faOGyArlg0Ze
-	 ZDxLzncyVZ63Xu+rLiLYGVm8b9RTf5J36FksGjPnyfQsHPV2H8YjrN+CZ/MaZrH3/Ji2h
-	 7L9y75wMtxH3BAm5Qe5/afE35gKXPhZUZDoeoq+bsRnC9tnKIL7IHDEeJjLqFmVw4JOi0
-	 ueHiN6JK2dMwt7FXJwh/JXIIp4raoOwvVqeNzi6I8HNT1s/ec0WhhZ4lKefL7DQfTtk04
-	 1M0sZvXflVPNEzSvh9ko5Lbgk4ti7nvb79JqgMlBPa68wxPz8u2I1ia4t1QVKTFuZUw==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wytq4v1yoNl2lNxNKZUWQLMKNWC9LRDCwAsV3MchUXY=;
+	b=vPqwIoe5g6zU1OMOxYp2P2G0KJeam+V62wXx6QMTHvfJSvyC/LDACvfbySdbBe1C6SEe
+	 0D8ZCDz8DvXyS1fAGVvIsCbuunleKZwhx7f37iCdZMV6TC7Ekt2+WwwlqlXbZp/GQGnXV
+	 ch+HHmAsAZ3SjAL7wsaccqVu/HwP+w2YGGFodT3KwPA1po1MJKonWi3I9DTnYvzzsGpcH
+	 6E9aXjdmBfPHKcItfz/9nHdO64IOKi9SVUgMttwy2OC1UYLOzQr3S7q8PPkm2T5bwB3ne
+	 SYRx3pb3xJ5teeGIX7Ko5P1qliSCaNm0XRlQ9fG+VIWhXTRGGvTEAoN9VbX6eUrSqAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kwiboo.se;
 	spf=pass smtp.mailfrom=fe-bounces.kwiboo.se;
-	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=kVFQqDBC;
-	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=E4sAS0c1;
-	arc=none smtp.remote-ip=121.127.44.66
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
+	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=mtZvP3Ly;
+	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=PriZYvaQ;
+	arc=none smtp.remote-ip=121.127.44.73
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9234C606A320
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 12:14:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9234C606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78D8606A33C
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 12:14:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A78D8606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=kVFQqDBC;
-	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=E4sAS0c1
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=mtZvP3Ly;
+	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=PriZYvaQ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
- To: From: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=fe-e1b5cab7be;
- t=1795090483; bh=KPwgoK2ctYkEIoXLDhQ+9ixRvnytQ+HTp/D7L99rIqE=;
- b=kVFQqDBC+crWGyazLnC0gyGSRFkDlZUWjtBodVuMawOZAp7v725i9zKg75Bj/Te0MOc17x1O+
- ni08GL2AcjO90b+rv68hAZpgEKeMh30Y2NrgQWOejcI8bXZ+S5Lyp/pZxiR0ahKdHOAV/DpuGEH
- bVVTF5KMKoUPg5yH8+rP6+1FniblEzyJqM5WPfzqrZwB5UeT0iZ1PjW0W0i+0npMSC1QX3AZtR/
- +aHGAYpGsKSfcXb/lwe8ERaEueh+9ObiE5W2iiRHho20VqV0Npzx3rYvPlylcq3Ov5bIUnEM2vS
- oMy8mFw3P88zeJyREmJKyrjEDuz6Fm2+3iktfbOiOSvg==
+ h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
+ Message-ID: Date: Subject: Cc: To: From: CFBL-Address: CFBL-Feedback-ID;
+ q=dns/txt; s=fe-e1b5cab7be; t=1795090486;
+ bh=wytq4v1yoNl2lNxNKZUWQLMKNWC9LRDCwAsV3MchUXY=;
+ b=mtZvP3LywoTs7iVbx/6+6JfzbLIjVc6jcmFhG2EGODsdVu39wkfYkjj0RbGsDHb2+DpVq4Gpc
+ UWaLiLVT1MB0UERZN1MHwOX7tkCnYr2Chxml5yrvzlXk9aicVoFsbWVWwbUnOdk1Vhfyo9s94lg
+ uQnUvlWsJqjg41YFinWbwspCUl78f/PkOEp/s0zSktapO/hdB0TfGhmoKEpKaso/SIaS/zoGm1C
+ LKo84dCDvjxRsJWPLZAb7gFfowE/S6wDiMcv3rKfk5sN9tJ1QRP0hW2zlSfKoqBgikuiUnp8E3s
+ 4vs7tbg0elGNTwGCJEv84VM1A6pDabADgy0bqL+n7/mA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
- h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
- To: From: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=default;
- t=1795090483; bh=KPwgoK2ctYkEIoXLDhQ+9ixRvnytQ+HTp/D7L99rIqE=;
- b=E4sAS0c1ftV4X1auGU4iAWL94ziJboI2mwUr70kbLYiCHylqnWJqdKDEVo+zmE0QPlXkYg9Il
- wOLBOK34xR01PNU0QAkPVmN04HTzhAWlfqokX2MDQIfsVPXlA4FMme+L4s7zn5Hg++Y85pa0bLZ
- bZFaLFJWE102GwOpZ2Jfjng=
-CFBL-Feedback-ID: 6afee831d37bc4966df160da:3d0014e63e262de90a9d6bb08833dc93
+ h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
+ Message-ID: Date: Subject: Cc: To: From: CFBL-Address: CFBL-Feedback-ID;
+ q=dns/txt; s=default; t=1795090486;
+ bh=wytq4v1yoNl2lNxNKZUWQLMKNWC9LRDCwAsV3MchUXY=;
+ b=PriZYvaQo/RG7HI/tbMsYlR2F7jZl+F3hSZKGGvXq2YRrjfHvGyxEiaL8yMYTnmAA6Rh7rUip
+ yGPCwvlEj9/CkmtRaS7R6OQoWjWPuZKSjx8YHVIc6BE0cmIdY5kltRIYOlMlUMnpzj04BKQQQrT
+ mQ0RSKbfqtRkjPMuLZF20q4=
+CFBL-Feedback-ID: 6afee835d37bc4966df160f3:48c077aad09a957449f716d8faf09bff
 CFBL-Address: abuse@forwardemail.net; report=arf
-X-Forward-Email-ID: 6afee831d37bc4966df160da
+X-Forward-Email-ID: 6afee835d37bc4966df160f3
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.66
+ 121.127.44.73
 X-Forward-Email-Version: 2.19.33
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
@@ -73,10 +76,12 @@ Cc: devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Jonas Karlman <jonas@kwiboo.se>
-Subject: [PATCH 0/2] arm64: dts: rockchip: Add FriendlyElec NanoPi NEO3 Plus
-Date: Thu, 19 Nov 2026 12:14:30 +0000
-Message-ID: <20261119121433.550704-1-jonas@kwiboo.se>
+Subject: [PATCH 1/2] dt-bindings: arm: rockchip: Add FriendlyElec NanoPi NEO3 Plus
+Date: Thu, 19 Nov 2026 12:14:31 +0000
+Message-ID: <20261119121433.550704-2-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261119121433.550704-1-jonas@kwiboo.se>
+References: <20261119121433.550704-1-jonas@kwiboo.se>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,22 +93,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series add initial support for the FriendlyElec NanoPi NEO3 Plus board.
+The NanoPi NEO3 Plus is a compact headless SBC based on the Rockchip
+RK3528A SoC. It shares its base devicetree with the NanoPi R28S and
+Zero2.
 
-The FriendlyElec NanoPi NEO3 Plus is a compact headless SBC based on the
-Rockchip RK3528A SoC. It shares most of its design with the NanoPi R28S
-and NanoPi Zero2 boards.
+Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Jonas Karlman (2):
-  dt-bindings: arm: rockchip: Add FriendlyElec NanoPi NEO3 Plus
-  arm64: dts: rockchip: Add FriendlyElec NanoPi NEO3 Plus board
-
- .../devicetree/bindings/arm/rockchip.yaml     |  1 +
- arch/arm64/boot/dts/rockchip/Makefile         |  1 +
- .../dts/rockchip/rk3528-nanopi-neo3-plus.dts  | 96 +++++++++++++++++++
- 3 files changed, 98 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3528-nanopi-neo3-plus.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index 01a13aaf3e8f..a5eec2ecf23c 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -361,6 +361,7 @@ properties:
+       - description: FriendlyElec NanoPi RK3528 series boards
+         items:
+           - enum:
++              - friendlyarm,nanopi-neo3-plus
+               - friendlyarm,nanopi-r28s
+               - friendlyarm,nanopi-zero2
+           - const: rockchip,rk3528
 -- 
 2.56.1
 
