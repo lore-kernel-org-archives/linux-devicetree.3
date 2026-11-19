@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795101589;
-	b=r/ZI7fB82KjOZEqBuVCunYGcCP0cneu7tYB8giWmCEXTg/7K22oS/+GD+wP+li9h75tr
-	 LMqT/g7POHctNREGTdClfLtiXaWBpmmrLDxJLCMyrDJ/O9Zz0NSa0mdSsPsGfH684Ps07
-	 mNma7cEXsXFhB1l5Aw9IyOqp1KlOEK0NYDQPV6Q2GakzIdG6hQNTIhgD/5OZSkVjqWkEn
-	 GoBMik6v+eRXtd+kdSCgX7MyMPLtc+33pioH3A5e0Af542VU4OOtXl3+EFm4SnpGdE8Zw
-	 Pnv+FjD2ijBJXw/tI9viHSLI+SnmWVwWpNSDAXLUz/t964lCa1WTYfu9wdjqUdYIkdw==
+	t=1795101610;
+	b=A7fTNk4TzVJNvA0zqQLvPQOqW2/EG96vl1q9KMDfU05ZLSCs1VAAx8LKRRTnZnEb+IgB
+	 XxLY/xueP1YxEewDfWawR/DZZc3Tu7TkrgzjNp810F6khJlvA12w6MieUoofI+8yC7//S
+	 Ej8nyKIUfj2lFYKGgVn1GFtg/5EjCkbMwgCZ7HoLcrxhNGZolNMGtbeS76GSQnHJeigbI
+	 FD7khR7UtW1+ogkmylDxzrjnd4hoc38VXUXk9MdFPCnZzwqcDuCzH7aiSx3xsKeSd8tl8
+	 8/vhe3BdJ143wDFV+YrjR/RY3gaidL1wjoOE6vgXaKeAg+nEYNO5HstH5ZJfBsBuObQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795101589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795101610;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=mhNRPmlGr+pai8rlonmOXJXc8xvliO1wWhsM41Vh7gw=;
-	b=zKDONIbzq9nfcOHv7BzBY52wuK65WBarquf48aGr+dBKmqfKAxcG+NOGtM/xI7REtrXw
-	 CG8wT1ES3ljdhN370DaioaUK4KkH8ju9Rs/YfB055kfUxP+VIKafVR11zObxcEfj6BnkH
-	 n7n/5lSnaXLGD0yjH9URh5/e7GVM1U+L4balZiB+G8gou3Zd5i4no1GTie2d0nID0FDyZ
-	 hfPrRFCVYdBzv4UMP3i1CvaSE1pkN1bnaye0pRJNf4rOKWWoK76Obv9XUeaARy3OWfhKx
-	 s33ropQNPBemG2kY628Gh7DuANGtssMyJdvKMI0zJ+CuVLEpPCRAPpJWZEibnGFZc1g==
+	bh=NkgE7T3zZmQKYks2o2nlFeIFHCdWwShbAZZuiVBktsc=;
+	b=hwi3QCKJAELtwc+fr3CIsNMQkDHdk0CPP2aTOB3SAOmDeRAOimTABVTZsG1trcrauana
+	 YyhR8QBasLWTTmon35z7nAjg6anFb6hsXAilWHirNu//NB0LlGBs6xXBSXOjrYAS8di4H
+	 XtHOrDpX98TnZKsSXtSsAu/YRBNz9NB5ofGs8OCucngqUralXD9y3+5HKR8mTvjHgzA3o
+	 /dG0arPVZR5nHaRuRzTDcIlVP4OA66ZJZ1gbCPNRsJ0Bsh6x0ETkdlThwIumQA06an1zC
+	 tZD/5uNb9d0ZhZCZxNSzmi9BplBIzFDTmwiq+CqFa5rx0rLKPb7q8ewk2gfwxpz0PLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OgOUeMkZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fDgPHC/g";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD893606A320;
-	Thu, 19 Nov 2026 15:19:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE83606A330
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 15:20:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OgOUeMkZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 068E31F000C4;
-	Thu, 19 Nov 2026 15:19:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDgPHC/g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E69731F000C4;
+	Thu, 19 Nov 2026 15:20:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795101589;
-	bh=mhNRPmlGr+pai8rlonmOXJXc8xvliO1wWhsM41Vh7gw=;
+	s=k20260515; t=1795101610;
+	bh=NkgE7T3zZmQKYks2o2nlFeIFHCdWwShbAZZuiVBktsc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OgOUeMkZNLU9/QZOmKoHZEVJBSuo/t+T/kIGOIlvcACwD9fmvf6akYDv8kXX6GOvf
-	 TgA3MxqTK1hk0Dppn0TmErkxKBi2kKcpLDzscp8BrkkCnoexumernGsJV/Px25dNzR
-	 xthZ/6jXcdqXgXFK3J86VyIspstUag6rX9ESz5tSn0Zv4msUzit9OcxJ5wL9eCcK+J
-	 L9aA9TlQ6HLM1nq7E2klhOWoMG1fdzjZHBb6pS6sNlwgGTbz9e84wGD5UQFrWi+M3h
-	 yO90XYIgKzLqw8HnH48LvhUCv1QJOHNRPDMRtL3Zr06Z7EWIUe5vndf3XY0gKY0Fyl
-	 2E/OwDbkkBKVQ==
-Message-ID: <sashiko-outbox-223364@kernel.org>
+	b=fDgPHC/gLx38YmcPFzqcHKHPTo7jtMgLV52L0kvucb0ZfTgT2SrnVizuwretg0kqH
+	 ZvwoaxPBMphwy5po6/i3CsT2K6QeWf715AW5qnNIQDr21nCYsM4Ft8BJ3eYaK3WtKW
+	 g6UYzhXB1xI2EQ8tX7RSBkSedBBN+BA8QL91y1UYmzZ2yVe3cTIUe1bkUBOPg2bBxn
+	 IIsdlY56RzG5WvdlDdNrU4McglqqD80XQuy2neBk0E5Ml/BNKbJSoOQU5HW82zY9ub
+	 mAIKB2OBiTxAm70LUPd6UWFKy2SoU9ZRSHT2nxvKWjb3QCs/fZHT9ND9nsKExiHIFJ
+	 IWjXhJyfAWE2A==
+Message-ID: <sashiko-outbox-223366@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 16/23] scsi: ufs: mediatek: Rework
- _ufs_mtk_clk_scale error paths
+Subject: Re: [PATCH v3 2/2] media: qcom: camss: Add Glymur-specific
+ resources
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-scsi@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261119-mt8196-ufs-v15-16-aae1eb0382e8@collabora.com>
-References: <20261119-mt8196-ufs-v15-0-aae1eb0382e8@collabora.com>
- <20261119-mt8196-ufs-v15-16-aae1eb0382e8@collabora.com>
+To: "Nihal Kumar Gupta" <nihal.gupta@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261119-glymur_camss-v3-2-71ab966c41c9@oss.qualcomm.com>
+References: <20261119-glymur_camss-v3-0-71ab966c41c9@oss.qualcomm.com>
+ <20261119-glymur_camss-v3-2-71ab966c41c9@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 15:19:48 +0000
+Date: Thu, 19 Nov 2026 15:20:09 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,39 +63,84 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] scsi: ufs: mediatek: missing Fixes trailer for
-  _ufs_mtk_clk_scale() fixes
+- [High] media: qcom: camss: NULL deref in
+  msm_csiphy_subdev_init_legacy() on Glymur
 --
 
-commit 4421ac01b44e9c03d7a805d55558f0e6f608a409
-Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+commit d70c41f9364c13281ae9244b3389299002ad38d7
+Author: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 
-> scsi: ufs: mediatek: Rework _ufs_mtk_clk_scale error paths
->
-> Errors should be printed at the correct log level. Additionally, it
-> looks like some "goto out"'s were omitted in the scale up case, which
-> looks like a mistake, as the scale down branch of the code does use
-> them.
->
-> Rework the error messages to make them nicer and at the correct
-> verbosity, and add the missing gotos.
->
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
-ora.com>
-> Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+media: qcom: camss: Add Glymur-specific resources
 
-[Severity: Low]
-In addition to the missing goto out when clk_set_parent(clki->clk, ...)
-fails during scale-up, this patch fixes a clki->clk prepare/enable leak
-when clk_prepare_enable(fde_clki->clk) fails.  Both issues were introduced
-by 5e5976f5242d ("scsi: ufs: host: mediatek: Support FDE (AES) clock
-scaling").  Should this include:
+This commit adds Glymur-specific CSIPHY and CAMSS resources so that ports
+0, 1 and 2 map to hardware PHY IDs 0, 1 and 4 while reusing X1E80100
+resources for the remaining blocks.
 
-  Fixes: 5e5976f5242d ("scsi: ufs: host: mediatek: Support FDE (AES) clock =
-scaling")
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
+atform/qcom/camss/camss.c
+> index f8e5cf9f3ff09..f3cab9ecef042 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -4103,6 +4103,30 @@ static const struct resources_icc icc_res_sa8775p[=
+] =3D {
+>  	},
+>  };
+> =20
+> +static const struct camss_subdev_resources csiphy_res_glymur[] =3D {
+> +	/* CSIPHY0 */
+> +	{
+> +		.csiphy =3D {
+> +			.id =3D 0,
+> +			.formats =3D &csiphy_formats_sdm845
+> +		},
+> +	},
+> +	/* CSIPHY1 */
+> +	{
+> +		.csiphy =3D {
+> +			.id =3D 1,
+> +			.formats =3D &csiphy_formats_sdm845
+> +		},
+> +	},
+> +	/* CSIPHY4 */
+> +	{
+> +		.csiphy =3D {
+> +			.id =3D 4,
+> +			.formats =3D &csiphy_formats_sdm845
+> +		},
+> +	},
+> +};
+
+[Severity: High]
+Can probing qcom,glymur-camss trigger a NULL pointer dereference in
+msm_csiphy_subdev_init_legacy() when no CSI2 PHY remote-endpoint is
+connected in Device Tree?
+
+csiphy_res_glymur leaves .csiphy.hw_ops NULL.  In camss_init_subdevices(),
+camss_detect_legacy_phy() defaults camss->legacy_phy to true and only sets
+it to false if it finds an endpoint with a remote port parent named "phy":
+
+drivers/media/platform/qcom/camss/camss.c:camss_detect_legacy_phy() {
+	camss->legacy_phy =3D true;
+
+	/* Find first remote-endpoint and determine if its a PHY */
+	for_each_endpoint_of_node(camss->dev->of_node, ep) {
+		remote =3D of_graph_get_remote_port_parent(ep);
+		if (!remote)
+			continue;
+
+		camss->legacy_phy =3D !of_node_name_eq(remote, "phy");
+		of_node_put(remote);
+		of_node_put(ep);
+		break;
+	}
+}
+
+Because endpoints under ports are optional (for example when using only
+the internal TPGs or before board endpoints are wired up),
+camss->legacy_phy remains true when none are present.
+camss_init_subdevices() then calls msm_csiphy_subdev_init_legacy(), which
+unconditionally calls csiphy->res->hw_ops->init(csiphy).
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-mt8196-ufs=
--v15-0-aae1eb0382e8@collabora.com?part=3D16
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-glymur_cam=
+ss-v3-0-71ab966c41c9@oss.qualcomm.com?part=3D2
