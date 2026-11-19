@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795110615;
-	b=nHidcRKKYcxA6/v/g6nDcnj9ROm/qmiyWem4aqLCG+rsFUPECCUCCuFXEIFFb+7d6Szt
-	 cYixtm10k5A+nYhVI/LvLZ/Hjg/SIXi/eZngKNSfIbdJZjqc9YyBwzPZTTJyuJqlDlO/k
-	 kMbGOf1G0Eu4M2+0X2WRQzBBGBw0v1qjlmfKhOTLgby8Zm2+FeO58F5td+HAp45ayFx3e
-	 D2ij3/H6awc+c4A4IOFKLSYBBPUQKgz2GKBsE4qkJ7Cb/CR1j2YTDsqm+iLIn5jM1STua
-	 ep97LBpU/CBm2qj9U3yjow+h5/QkVeMtcZePP6XrTBrQmZfqwxf7cW/qkhUtyucTgpg==
+	b=maJsShuu4yHcUMWm36grO7war0pom4AdfZpsPrgN6YBo3kItj5Brm3mv/QHjsoNbRurK
+	 LeZ0HF1g4G+RiZhy97D4cNJD738xjbk1UHzsOCBjiJG+QMKAp7V2+hwmtincLpxAEUvHM
+	 CCGrDBXrMjWgESR35L/MSEDx4YCVYQCy/0uepR7sJDQam+QrwSeT0k23MMv62BAAaX/gv
+	 dKeWF7kK7fhPbZgkmzIcOGwvSkSrpEhnNPGPj2ttZe8mI3TL1B6/9pRzTrfX4czkVbptW
+	 CnNh5/TODd06m3Ou0HSNCyw/Unt+pgwa+mRi2tVcWjBrtpuJlgsT0lN5mcbhKJ+tRog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795110615;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=VaJ32hdTW6OdgBsH5EJWCERCqsHcMt1Z/thd7ws6mpM=;
-	b=Eh2qEc6ku5DsZGh5ujNTv/lH9mlShlLh/RRhIuOyovtUuIAuCIS78OJqXlUFdIemcKi0
-	 I3FCDVYfNEXAJ350egPDylQn6TOD4SE01/HcSmT1iH7UfphAixUeJhi1bPsxSD3iXasK/
-	 YTroryNUvANjc77OXuEDnmyFlbBeq40MJmWSNUasu2U6YdF5zLRXr4owP29vUNidcxEJL
-	 B7sYcUh9oc9vDSefFD72qxAcUbo+bz8SoGobtsl9TVuD7FZ0Ef962EPznurQKEgzeIO9t
-	 TdzoqP6C3ZGrfyVMfDE0ZYngz6ced8EdXJtvwyZdNDvQ2WVeSHso/nTu3QKfOV5ICOA==
+	bh=V0vXpQ0w5/8cdfKY20evJG5SNfOITIVEXlv4OVmyRbg=;
+	b=lHqFtwWLRP8uvVu+V7N2356DbPV9fdBquG6/pzCoiFkw5zGXAwX1Vuw+0+Ja5FzuazBX
+	 aCl3gLLNBIThyQ48fLz8dno6a0AbA3vkbyS+cC2KdDugNMhCnUNE7hF5hZeOln9sVmjof
+	 rmXjhUgSLIrRXZOlw7Y07HICCPnJJ0y7RozK6lr+9iSLOZOjHkOpIFdOkKzjQj1alwd2j
+	 T0xr/3a65GRYYkeyLz+TstoN7DEhfuecBqpM/xJfhkqgiNXyZ5RGKEBw5zYpEUNKgxClC
+	 foM+9gNvR7AbMQcEWIMwm6yYosTtydy9Q90tNGfw56SmbWnb49tz4SnYUCi9V52b7UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=aheymans.xyz;
 	spf=pass smtp.mailfrom=aheymans.xyz;
-	dkim=pass header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=g3XD3WOn;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	dkim=pass header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Er3vtfFG;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B5060A2607
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC5D60A262F
 	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 17:50:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4B5060A2607
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BC5D60A262F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aheymans.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aheymans.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=g3XD3WOn
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-49465892f7bso2091975f8f.1
+	dkim=pass (2048-bit key) header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Er3vtfFG
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-497614c95f0so1698218f8f.1
         for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:50:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=aheymans-xyz.20260707.gappssmtp.com; s=20260707; t=1795110613; x=1795715413; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VaJ32hdTW6OdgBsH5EJWCERCqsHcMt1Z/thd7ws6mpM=;
-        b=g3XD3WOnMdsJFDEykQoDr1yoI2Ub/9w2hyjJixXgE5sY7EuEC6aXaSUX4dGIt6DqNK
-         SOHsRGi8PSmlch6qy3qjIgF7U9PrEyx/Jy5IwrJXiqkDYDivx/QbQY78tg96+LVHBKtD
-         jbxR3ktY4KV6imDUzRuVrMSdMHEbXesVNc+sD4j4SJrJlCTtIC7/El4ddJbDNzU8+L7S
-         yOLiDZW9FtRRJz2KmT4q9auuwU6WN+ZSLQ+aZgBh22Ix7kGanQOsiQW+gJEeCp+2I5nS
-         Kfn5BrHHYT2Q4basE0JG9NfGfgEbWJvvk/kaVA/RkyaskTLPbViRN/4qaEOoLdLTYB0I
-         G5tg==
+        bh=V0vXpQ0w5/8cdfKY20evJG5SNfOITIVEXlv4OVmyRbg=;
+        b=Er3vtfFGoCzSDbL+gYHxTGR5zk9JEAhm3BZQqUoya72WEJA9eVxyNXImSfwOYUsiFK
+         2mPYEn9mbPUvUMe9eAzZ58egX6hIjz/oVmYuvzOA2zI7b7/zq0vGkZLSokrd0kDcaY3F
+         ljalrKl3DU65DnwTvq35I0g8JQwvgZWiJD9jMwJinDDhpJAc7SylFHygyPlDrI2gDKVf
+         KPctNg5kBlEuYyUeUYlDmrB644Vd8uAXs4s3fvehcO/TW7S9o0yFWRMOReAs0I/3qJXS
+         r8e7PYhQq/eKZhwHgAUypbxjlSLJFkl6ZBAf3Bhteb8Ypl0CG6xPLWOA02ZqPG9vGl2b
+         YcEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1795110613; x=1795715413;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VaJ32hdTW6OdgBsH5EJWCERCqsHcMt1Z/thd7ws6mpM=;
-        b=bU6gAXZ9px5vB7A2KQYcA9Dec8KZ980A08omY1LZ04HiEDOLOS0zdQS9V8iPQL1bz1
-         SkEh85U4Vl6Bs/OsgG41Hyn88UcyZ5ltBaEHvEJP6wOuYxd/Y2sstwOF8V9zFznrJQ/V
-         C/ew6rqOqrP27sDMxBf9vjn7mhDPgxJNFNlwPgAnj+qaZ1E5GKloar7UUKi+2iEJgbMM
-         IfsP+0TtO59r3r+FaBC+GxieZ2BSNGcFtQgGBheK2/DD2daBtCcwLAc62GsOZSGO0L/Z
-         78runNmpQRCOyqNLHfJBIEdwK/UruuwhI0krjl7FkrgZJlbjcj2P98A4b6hE5oMnk7rY
-         oLzA==
-X-Forwarded-Encrypted: i=1; AL+hErEp8Px8yTcdtqZo6wDkDAyjbQxoLn77ck4u7YFQPla/jEx7HWfQHWqY6nY8Yu0wcPadpgNbS3lUa8uj@vger.kernel.org
-X-Gm-Message-State: APuU4Z+kcgXoXBt08q0GpPiZu9IhX5ivIMFX6MPlOmRVXlHYl7MmYqg6
-	RUegd3I6jYO+irVXIu/ePXd4dwrRAuaZzFbDqabWuA3DgAa8y+u6UE+6zRNF06e1gB9hMFXelB5
-	Pz/O9388=
-X-Gm-Gg: AZFdTZcOLCtiKuJHp02x6jiTUN8GnOueXlhsptH1A+QGLE3LegBHyHSeUzNWQxhROIW
-	JsX1/wCnCSvbBo5EDEO0dkixQXlrEXgMAeirN6NaZt36Oau8rPzQ+2bgS2bjpubTbs5t6sQ4iId
-	X02pg1mtSuSQ4do6MrFeGlypK+IBndQaYEDV6LshHGuN6y44VN0EDi2Q/Rcok3pexhbW0K2EpD8
-	5Q6BUe2XI/2HoH8Iac1S9B4gjR7NuIPyyL2hfzFaFoiGG/pTPzv4ISY6zQAuQJZ75x0pDQXsgSP
-	LbEQwzZqIQJJpeLxuFyRWa0xxnTS4ukpxoNm1QdhE4XsH0O0dgl5ElYAFD/2ZuHDYHOVF+y00RF
-	KsNAfkFknFqu+sdZfbCv/eGklJifPwsCucR4yvF2TyE/eNQ0kcbOt7PYmI9Uld6RX5+Wf6OGszn
-	ZOp+0xAFbTiONEJKCdrK+N1QzIHb/W7sP3vH+22jDG5v1QTm/jkHrfd7yKuSNd1N02tTnM+iHKj
-	MBvMtfrQxdqytW4ZWhURJUuNTrx+nBarZ7ItlplF+3G9h/mdC2JRxRcCzjw8bxXUY0P24Q8MIT9
-	I/F+WEI106jBM0OCIr2xLSNSuk/FvVJlUkQZ1VU4lyzE3O4HlxBN5S4adXrmKlaCSpWtmmbgrH4
-	J8CV0KMq9NemqS3DnN9wyGVrFTCWDbrcxNMSqcQUr0WvC2qbwu14it65y759fn9au1J4SV0TA0/
-	/Upg==
-X-Received: by 2002:a05:6000:2313:b0:490:50c1:f359 with SMTP id ffacd0b85a97d-4abb4d70071mr190135f8f.39.1795110613162;
-        Thu, 19 Nov 2026 09:50:13 -0800 (PST)
+        bh=V0vXpQ0w5/8cdfKY20evJG5SNfOITIVEXlv4OVmyRbg=;
+        b=YQLf7eayKZijVCypB63djh3Q7O6LRMvYSSkynqXOlHUccJ8cGpqvxmw14dOhuRTwYa
+         nAotCV8z2mje1ES7Jm2GPdp9GGAFlfWDb8TZFSlhdf/R/HSTE3HRKOtDdQ450C5RuWnd
+         EXmP7KB0LdlqcJmuvcUkiuVeh1WofX3eZ6GSwxh0iGDRhrNwPGYs3K81aNPMEjPZ39f9
+         5WeBBu4Wuz5avpu70xbAJ3GzobpeLA4KYPQvIrDgFVoXPf9fQaFAZ5pMhcZ2vtV0QOs/
+         FwMLI2IpI1W20FVOT1OvtufLvE1F576/U1rRFUwsZn2TtP80NBQ3F/J2v8R44bGmqCv6
+         wLLA==
+X-Forwarded-Encrypted: i=1; AL+hErFoQiFu1eU7jyMRxLv8vZG8wfD62NB7mIBuw8kp5oO5XxQhLTr5qmy7dNtXZXuhgW6SYYx++tOf/fNL@vger.kernel.org
+X-Gm-Message-State: APuU4Z8JHYL2YIHPNrWmgDlKlpT8Qf7fZ+uwc5HVrXYAFbelgu1K4W97
+	IYw8Sy6ijAjwD3dscTmguoyrxq2qQ95kxlcDyjElMpe6Hj0FFnC3qePcOBkD24HznqwAbCvR+yS
+	ZrdgPKWs=
+X-Gm-Gg: AZFdTZfvOazNVV++XVWP7KtWKk7ZwtmXeK4eDzxmdJmggww6rurT7vWiahQoo0Zq+F4
+	wRFnXkSb0eLqzxAS9pXJ2GGLaUB9x/jOwMFQU6Za+eYVoWk9SKNWKTA184CGs7gdVM0y6C3/Mx6
+	aDsEs9Sh8Y24f2viFqelI5xapyNWVIUp+VvklWLdAgqLuzkaIHY4RGsDhlvAkhsU8Pb7tVmz8vl
+	5AICZurUaJeMMFvFWznJcBQNo+aIk71aVCDExLcAn6S2kR4CfDDSrsgMWnRyClTqntS4rmBkQWv
+	DslMn2b5R3rbuSTuNL+a7FRugsqDF7KcjQB0YT98mvSpnx83aGSzUSITTecw3ivpgr4MiCxMSzq
+	GMyGRDmsMfbfipBYenrA/ix79IE20OogTVg+CHYDPr1hqbSxR76gUuSLGN0ocYUaszexc8MHO+B
+	Up0g4vTQbq2oHsuv1g6KkdWmP40cBQGOYzWZFP7UKhFBL1ZKYVpMNtOAs/V4zexdiXwq66PqiKS
+	fAf/mq3KEVVd4EqDSLeghQDYYRTkRFcpSwUEzaJ59nzq5EqFQNafLXmzqVqogGP8Z85WaT6puOU
+	m6wTBopIHsEb6541FuuWuu8DdB9hlmEU4Pu0MfWIK1Ud/ILNW4N49HnMKX0Xj49z886eGmgbQnx
+	51BnlUEsZqeMMzULpIlpYFYfiYpfS+4deF5Cse2UiJHXlXohM5SJVxOKuXX3JRY3e3gXgkwuDiY
+	by14uX3+mdHDIn7+S66+3xt60=
+X-Received: by 2002:a05:6000:29ce:b0:492:820d:1e with SMTP id ffacd0b85a97d-4abb0f3c464mr154289f8f.11.1795110612350;
+        Thu, 19 Nov 2026 09:50:12 -0800 (PST)
 Received: from localhost (2a02-1810-b422-d400-611-84c9-252f-74ad.ip6.access.telenet.be. [2a02:1810:b422:d400:611:84c9:252f:74ad])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab9cf005f2sm310363f8f.45.2026.11.19.09.50.12
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6c61f558sm894064f8f.58.2026.11.19.09.50.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Thu, 19 Nov 2026 09:50:12 -0800 (PST)
 From: Arthur Heymans <arthur@aheymans.xyz>
@@ -93,9 +93,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	Solomon Peachy <pizza@shaftnet.org>,
 	linux-kernel@vger.kernel.org,
 	Arthur Heymans <arthur@aheymans.xyz>
-Subject: [PATCH wireless-next 06/10] dt-bindings: vendor-prefixes: add XRadio
-Date: Thu, 19 Nov 2026 18:49:58 +0100
-Message-ID: <20261119175002.458988-7-arthur@aheymans.xyz>
+Subject: [PATCH wireless-next 05/10] wifi: cw1200: unregister from mac80211 before freeing the interrupt
+Date: Thu, 19 Nov 2026 18:49:57 +0100
+Message-ID: <20261119175002.458988-6-arthur@aheymans.xyz>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261119175002.458988-1-arthur@aheymans.xyz>
 References: <20261119175002.458988-1-arthur@aheymans.xyz>
@@ -110,28 +110,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the vendor prefix for XRadio Wi-Fi chips.
+Removing the device unregisters the hardware from mac80211 only after the
+bus driver has freed the interrupt and cw1200_core_release() has disabled
+the device interrupts. Unregistering removes the interfaces, which sends
+WSM commands such as RESET and CONFIGURATION, and their confirmations
+then never arrive. Each unbind of an associated device waits for the
+command timeout and ends with:
 
-Prepared with OpenAI Codex.
+  CMD req (0x0009) stuck in firmware, killing BH
+  [BH] Fatal error, exiting.
 
+Add cw1200_core_unregister() and call it from the SDIO and SPI remove
+paths while the interrupt still works. The interrupt is still freed
+before cw1200_core_release() frees the device, as the handler uses it.
+
+Tested on an Orange Pi Zero (XR819 over SDIO) with both the SDIO and a
+GPIO interrupt: repeated unbind and bind while associated no longer
+logs the error. The SPI change is build-tested only.
+
+Prepared with Anthropic Claude.
+
+Fixes: a910e4a94f69 ("cw1200: add driver for the ST-E CW1100 & CW1200 WLAN chipsets")
 Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/wireless/st/cw1200/cw1200.h      |  1 +
+ drivers/net/wireless/st/cw1200/cw1200_sdio.c |  2 ++
+ drivers/net/wireless/st/cw1200/cw1200_spi.c  |  2 ++
+ drivers/net/wireless/st/cw1200/main.c        | 13 +++++++++++--
+ 4 files changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 5471a06f93f1..066c2e90f289 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1959,6 +1959,8 @@ patternProperties:
-     description: Xilinx
-   "^xnano,.*":
-     description: Xnano
-+  "^xradio,.*":
-+    description: XRadio Technology
-   "^xunlong,.*":
-     description: Shenzhen Xunlong Software CO.,Limited
-   "^xylon,.*":
+diff --git a/drivers/net/wireless/st/cw1200/cw1200.h b/drivers/net/wireless/st/cw1200/cw1200.h
+index 48f808cdc1cb..6dc85ef6e0fa 100644
+--- a/drivers/net/wireless/st/cw1200/cw1200.h
++++ b/drivers/net/wireless/st/cw1200/cw1200.h
+@@ -293,6 +293,7 @@ int cw1200_core_probe(const struct hwbus_ops *hwbus_ops,
+ 		      struct cw1200_common **pself,
+ 		      int ref_clk, const u8 *macaddr,
+ 		      const char *sdd_path, bool have_5ghz);
++void cw1200_core_unregister(struct cw1200_common *self);
+ void cw1200_core_release(struct cw1200_common *self);
+ 
+ #define FWLOAD_BLOCK_SIZE (1024)
+diff --git a/drivers/net/wireless/st/cw1200/cw1200_sdio.c b/drivers/net/wireless/st/cw1200/cw1200_sdio.c
+index dda201e69735..4f4bd668ebd2 100644
+--- a/drivers/net/wireless/st/cw1200/cw1200_sdio.c
++++ b/drivers/net/wireless/st/cw1200/cw1200_sdio.c
+@@ -359,6 +359,8 @@ static void cw1200_sdio_disconnect(struct sdio_func *func)
+ 	struct hwbus_priv *self = sdio_get_drvdata(func);
+ 
+ 	if (self) {
++		if (self->core)
++			cw1200_core_unregister(self->core);
+ 		cw1200_sdio_irq_unsubscribe(self);
+ 		if (self->core) {
+ 			cw1200_core_release(self->core);
+diff --git a/drivers/net/wireless/st/cw1200/cw1200_spi.c b/drivers/net/wireless/st/cw1200/cw1200_spi.c
+index f71e71e06359..c08d1ce5605d 100644
+--- a/drivers/net/wireless/st/cw1200/cw1200_spi.c
++++ b/drivers/net/wireless/st/cw1200/cw1200_spi.c
+@@ -437,6 +437,8 @@ static void cw1200_spi_disconnect(struct spi_device *func)
+ 	struct hwbus_priv *self = spi_get_drvdata(func);
+ 
+ 	if (self) {
++		if (self->core)
++			cw1200_core_unregister(self->core);
+ 		cw1200_spi_irq_unsubscribe(self);
+ 		if (self->core) {
+ 			cw1200_core_release(self->core);
+diff --git a/drivers/net/wireless/st/cw1200/main.c b/drivers/net/wireless/st/cw1200/main.c
+index 5d569eeb353f..ee9fcecb0100 100644
+--- a/drivers/net/wireless/st/cw1200/main.c
++++ b/drivers/net/wireless/st/cw1200/main.c
+@@ -456,8 +456,6 @@ static void cw1200_unregister_common(struct ieee80211_hw *dev)
+ 	struct cw1200_common *priv = dev->priv;
+ 	int i;
+ 
+-	ieee80211_unregister_hw(dev);
+-
+ 	timer_delete_sync(&priv->mcast_timeout);
+ 	cw1200_unregister_bh(priv);
+ 
+@@ -594,6 +592,17 @@ int cw1200_core_probe(const struct hwbus_ops *hwbus_ops,
+ }
+ EXPORT_SYMBOL_GPL(cw1200_core_probe);
+ 
++/*
++ * Removing the interfaces sends WSM commands, which need the device
++ * interrupt for their confirmations, so the bus driver calls this before
++ * it frees its interrupt and calls cw1200_core_release().
++ */
++void cw1200_core_unregister(struct cw1200_common *self)
++{
++	ieee80211_unregister_hw(self->hw);
++}
++EXPORT_SYMBOL_GPL(cw1200_core_unregister);
++
+ void cw1200_core_release(struct cw1200_common *self)
+ {
+ 	/* Disable device interrupts */
 -- 
 2.56.0
 
