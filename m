@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795106009;
-	b=1hg/rfh5GbvjV9ATBBieDeFc2PnkWBieEAVTY1WBR6nBdJMQqkzdYyY3BcrD4WaHyNLy
-	 MF4lsHWJGbpDmZs4nLVFFepROHisfA25SvRtL1Bz3AdiZfDDs6RM5t3BNv6s5xsFulWC7
-	 xrMqeCyFuxYCFD3e8Ud9kWVsti7WVvSESit8AdqT6Ou7AhAjFMxmsn/RwarL400D1T+Pv
-	 kI0Cfd6wRFkEDFV/zIIL77XVNCv3keVWR81ft0d8pB5gOU5L5sDA7s7mkvqYbh/vgOtNS
-	 IkRS5oIlHk8vnItGII+jaJR7TbA8Pqe//SOtula4SrlhSZjUue4EbnOac24BzgAsl+g==
+	t=1795106030;
+	b=RMUjdFu4Mxy7pfruQOdkUN4Sbe9fi8SBW+DzxghHLAtbZxeYKBpa1RRtUvNq7qpJbJij
+	 EcPw2oXmB2qtY6HePa6kzoJfh661DnE/sY7joIV4Exks8XHBOVFOZfN95vxmmrezSnHau
+	 1a4f7PAX85DLPLYMb4MDHW0kMfrjqmP7UM0uQYtPlgIQwss5QIHBhBy4Vi5Y87F/1ddKj
+	 y2frSwbvyXKHjj0/GeLchUvXloc8U8CLCm9J/7zVWb/XVYdcZdY0b8s41hKIBZkN8VZFe
+	 bjJJ4kPw27q4FIxN3gfHh3HX+FaiL3dtWTy1OJZg4/lkaHOgnT1jxxkoiGpOfOpqaCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795106009;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gUplJdEPkiupBXMg6jEbRKwJvmMRJIncRxN/ReK0ffc=;
-	b=WrSyMM3461avH7urP8zHeZRTlXEua1+VSfdxKNp+3OedoyObNNgzgCY3HN7VJTGXw9rA
-	 BaTgN3P6TeJ6/YvD9dH3lTLClEMFqOMlXrOpXt2aLsgwlfnj5IomHVVs0oxYh1d1oeWX0
-	 Wy20WbbvDLRhzSDLkvjJ4vyQB/akw4s9LoHOnPCXUGYbZieH/2FnkHpsNlwfpxQVJL+bV
-	 dDolepj9Hq3dTnP69j9kB2Hcttv5iX185fns0FmV881MpkZiGeLmUbYGP47EfXBCgRxje
-	 pKcn7eKOEMMdQRL7pwMesMr+r+18OvmVoSHa8cMayKHumNqEK6Eiv5m31YPCSZ6ltXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795106030;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=RPGlBcLzs+zhPePjUUY7ODZ/rCGIIg4LARWFNOL115g=;
+	b=CMCWCFcydGvIcYFKSLJSBcAR43PW6rOqSZLmDddPS00UoZgLkmmGQzg9E/HBGUwvH1NQ
+	 R6PKp0OFNAeUB2j1OuakPe0KYeoBb7t0iNVJIISoYBhRp7lDf+t/mkMvfEM8DnycLBkVn
+	 LQSzDQrvBBNJKVbAvTRqfz2Ljig2prueUzAeQ2wR1t5bpN9s/MhWJJw9pMb5qTpHNqSvG
+	 2eWkVkwNXN63WcxXGrBizSZkcTWp8Hnf/3yC9mYXIAJnqTpANkqu4SudbaNwTgrghztQE
+	 qNKnaImz/sAzzg3la+WPzlHmGj87edn9LglOqtJe2oszhXNPI+wAm61G/B2usomOf8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=i7UYjapW;
-	arc=none smtp.remote-ip=79.135.106.30
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W94dZSFi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC245606A324
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:33:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC245606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75366606A325
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:33:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=i7UYjapW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1795106006; x=1795365206;
-	bh=gUplJdEPkiupBXMg6jEbRKwJvmMRJIncRxN/ReK0ffc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=i7UYjapWOsZ+uFsMxKBYOh4CI3jdU1rGx3qXth2588c8yyd6Q6XV8M/kU6CkpDiql
-	 uXdSXloNZPHGhngJ2537hNNV2Y75yvoObAkyFCNUodpQNY/FkUklVBzBaKBPdvpMMb
-	 W5X4pXVlhquKEPm1M+5dAuEryHJZmBvtNLp0U0kCM2HSGc1Qy5EEMCTFvVz4qcNYbP
-	 Ky73+22RTulBNrGbr2NgbNEXiPvHJ7JcTtD6qNix9+8BoWd9UpZQcaXTuzfxxsQLv+
-	 8Oz0BrZ6hMhDswzquS+BDiA4fCiu8nsL80vb4o2ao+gt2TRPaPWodt0NTZVFiuMJz+
-	 0q9iv1OZL1Jmg==
-Date: Thu, 19 Nov 2026 16:33:21 +0000
-To: Jonathan Cameron <jic23@kernel.org>, Joshua Crofts <crofts@kernel.org>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>, David Lechner <dlechner@baylibre.com>, =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] iio: light: stk3310: add vdd regulator support
-Message-ID: <e-R4fXmiyMiZY43j027FJGyFhtgfke6qdOAsLOTr7VMAfx8pL5sjDimH44WdZ0tIvoxgb3-ZPWWbZb5DE8gMloPynRLs2ztiBLezfyijQg0=@protonmail.com>
-In-Reply-To: <20261119033238.39bff7a7@jic23-hlaptop>
-References: <20261117-6768-stk3337-v2-0-92f4c7be3bc6@protonmail.com> <20261117-6768-stk3337-v2-3-92f4c7be3bc6@protonmail.com> <20261118110138.000003ab@kernel.org> <20261119033238.39bff7a7@jic23-hlaptop>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: c70958a9528293deffd0e4f3ee6d0f53d931a13e
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W94dZSFi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC8C81F000C5;
+	Thu, 19 Nov 2026 16:33:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795106030;
+	bh=RPGlBcLzs+zhPePjUUY7ODZ/rCGIIg4LARWFNOL115g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=W94dZSFipzen+msAvlzka6tqrfux0ncuSz1MLm4jixLF4/ndMYtSX/gXdEPUKmhO+
+	 8h/Mdn10yN3c8Ed3bVihdaKhbvmrRieAPztHYAmna+dfKm1mgU8ygrI0Vn9gYeIkkH
+	 zEWpyGaGPDpwL9cIT7zvgl0LID0RWmOdOVGNyiSXmsklNDojhVDWM3EAulhGLRiETy
+	 Zzh3eG9fGs4zvemJdOQXqBUF2Ok0Z0gIkJlUBEQnKaYudr1sS2Et1tbN2OzxTWwyi4
+	 C4LUFr/UyOTE6LcLV40w19U2BoVH4rnmCjvRH7p8L4WiR78qazCmvanxbMfKJw5xxu
+	 fJAjg/rVdB/RQ==
+Message-ID: <sashiko-outbox-223530@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] arm64: dts: qcom: shikra: Enable CDSP & Modem
+ cooling
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dipa Ramesh Mantre" <dipa.mantre@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261119-b4-shikra_qmi_tmd-v2-1-87089ab2acbe@oss.qualcomm.com>
+References: <20261119-b4-shikra_qmi_tmd-v2-1-87089ab2acbe@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 16:33:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,53 +59,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Hi Jonathan, Joshua,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] arm64: dts: qcom: shikra: missing qcom,pas.h header and
+  QCOM_TMD_* macros
+- [Low] arm64: dts: qcom: shikra: undocumented #cooling-cells on PAS
+  remoteproc nodes
+--
 
-On Thursday, November 19th, 2026 at 5:32 AM, Jonathan Cameron <jic23@kernel=
-.org> wrote:
+commit 8571cc2f99e428cc1ffc7db9c0a71c46f4f27ba0
+Author: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
 
-> On Wed, 18 Nov 2026 11:01:38 +0100
-> Joshua Crofts <crofts@kernel.org> wrote:
->=20
-> > On Tue, 17 Nov 2026 20:08:37 +0200
-> > Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org> w=
-rote:
-> >
-> > > @@ -745,6 +746,10 @@ static int stk3310_probe(struct i2c_client *clie=
-nt)
-> > >  =09device_property_read_u32(&client->dev, "proximity-near-level",
-> > >  =09=09=09=09 &data->ps_near_level);
-> > >
-> > > +=09ret =3D devm_regulator_get_enable(dev, "vdd");
-> > > +=09if (ret)
-> > > +=09=09return dev_err_probe(dev, ret, "failed to get vdd supply\n");
-> > > +
-> >
-> > IMO this should work, but I don't like the mixing of devm_* and non-dev=
-m_*
-> > functions, this may cause issues down the road. Consider moving the dri=
-ver
-> > to all devm_* functions?
->=20
-> In this particular case I agree with you because the conversion is very
-> simple.  Generally the rule of thumb is that devm from start of probe
-> until you decide to stop, then no more devm.  In that case the unwind
-> order should be correct.  This change doesn't break that, but the
-> driver already breaks this wrt to the interrupt, so if Roman
-> doesn't mind would be great to fix it whilst touching the driver.
->=20
+arm64: dts: qcom: shikra: Enable CDSP & Modem cooling
 
-Sure, I will include one more patch for devm_* API migration before
-adding regulator and new chip support.
+This commit configures passive thermal trip points and QMI TMD cooling maps
+for the CDSP and modem remoteproc nodes on Qualcomm Shikra.
 
-I recently found another STK3337 variant on yet another development device,
-called STK3331. It seems to be exactly the same, except for the chip ID.
-Should I include it in the next revision, or send it as a separate series
-later?
+Link: https://lore.kernel.org/r/20260911-shikra_qmi_tmd-v1-2-96c1cca82f30@o=
+ss.qualcomm.com
 
-Best regards,
-Roman
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
+com/shikra.dtsi
+> index c1f06f692f664..6e5b1aa376692 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+> @@ -10,6 +10,7 @@
+>  #include <dt-bindings/interconnect/qcom,icc.h>
+>  #include <dt-bindings/interconnect/qcom,osm-l3.h>
+>  #include <dt-bindings/dma/qcom-gpi.h>
+> +#include <dt-bindings/thermal/qcom,pas.h>
+>  #include <dt-bindings/interconnect/qcom,rpm-icc.h>
+>  #include <dt-bindings/interconnect/qcom,shikra.h>
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+
+[Severity: Low]
+Does this break DTB compilation for Shikra?  include/dt-bindings/thermal/qc=
+om,pas.h
+does not exist in the tree, and QCOM_TMD_CDSP_SW, QCOM_TMD_PA, and
+QCOM_TMD_MODEM used in the cooling-maps below are undefined.
+
+> @@ -2007,6 +2008,8 @@ remoteproc_mpss: remoteproc@6080000 {
+>  			qcom,smem-states =3D <&modem_smp2p_out 0>;
+>  			qcom,smem-state-names =3D "stop";
+> =20
+> +			#cooling-cells =3D <3>;
+> +
+>  			status =3D "disabled";
+> =20
+>  			glink-edge {
+> @@ -2047,6 +2050,8 @@ remoteproc_cdsp: remoteproc@b300000 {
+>  			qcom,smem-states =3D <&cdsp_smp2p_out 0>;
+>  			qcom,smem-state-names =3D "stop";
+> =20
+> +			#cooling-cells =3D <3>;
+
+[Severity: Low]
+Does adding #cooling-cells to remoteproc_mpss and remoteproc_cdsp fail
+dtbs_check?  Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.y=
+aml
+and Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml do not
+define #cooling-cells and set unevaluatedProperties: false.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-b4-shikra_=
+qmi_tmd-v2-1-87089ab2acbe@oss.qualcomm.com?part=3D1
