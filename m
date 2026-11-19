@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795057196;
-	b=INtz+TjgCYU5vmQm8WMUmr1x85T8QaAvezNYXUoNYQwCFdApWxSpnqaOgkHglPFJAlRc
-	 N6z39OHmXlL2EMsub0l9Dqs2U6DVKD5Ykn89tJQYhl9ZrSHcab17ixZYe/F+67YA9DL19
-	 1xX2GjYnWUtfDniUMvjKLrBIbjOZ4TPJ40lEYllvClGxnC3F73zvq49aRoLWPPRHcxWMd
-	 iKbOsyvEgNv1UvJ2VsEsljLXMNKalJkXUZtDaGBEvCuhfvviT3VirEKkjRAznTCPPTpkn
-	 QqATjF8tiLOXWtfjbAqGwIJH/qwNcBP8XcUhOYWhr1u/jIvpGQD9ozc6RHxvDoAle5w==
+	t=1795058228;
+	b=dKJZrliyPzXP0cDBPZrkTyHndXdtTDBsrEzeGZU5ATJPGr+kzjx8kaBpEjBVUpR0iKU4
+	 UfXk7hdUcAAdTEjUBemt7Jzbl74hfaZn9/1QowKS1VN9XBOUDSWedqWqm2TM3cJlqdeqr
+	 ixS2ycqlKCZYohDKU6kiJXvLwKaJJF7N2EUefe7UGNnlKtzc2ksuHx0xY/Y789L/8npdD
+	 3kWZU27v5I6sXaFX0i7ThCXodUqToE+1o9jTNuRRMeO86FoqxGWCdVs76tu/soQ5y6O3f
+	 HS2G5fi8cfobx1wIWMX9WIpiJwpiDq4K7zVX/jlPxTgavlU4+UkU65OXxfBF4mU3x/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795057196;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795058228;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=GWjdwg97jtKYZUSdtxJMhSsjE1aTAuzLSMKha3trRwE=;
-	b=zngHMBdy2wiKR84CLDa9FgUYIYUv82uBNqwFkuf6/sqaFmQ1tEtbmbDj/zYJc6CJXGq5
-	 QVsCqoxEyCNQgV3ruazW4Ob/OFj6hp7riN91SO3HDz4LphahcoNBjLhh6DK4mCOadggzs
-	 yVKAXL5gvlgLPVAHrNwTtOSoznEwBtHjF8MqOAC0sz0vNtwjArlbasEFmcaqrTeaqF2Cq
-	 qVu/WDnCJ0IK5/Eq1GTvfHLPgO9aM0O/0otS/dfjhi/Ys2Z+jHPNUG1A0eUkWe6DjMPah
-	 P6tNDteHEfieRdDxbJ0eP7YwUfDDwuXr0y3HAtfBAkAUDHEOMhXZ9fGgaGArek8bQ7w==
+	bh=r2uY6+NIgq+iesXLv4eqMI/o1G/fBRZ5sTurYgJmAv8=;
+	b=CbLYGA+9OhXoO4UI1kpqnnY700PCh7o9CZFb9e0OtabKjLshkknt7+1HFFQ9IGkz3h0Q
+	 iRx9UYB4w1ya+MVdWtCdiJoHXbWNcJSSIk1YdbTI7v2eHoPZaPU+fBNCrTb/TSwn7wi0W
+	 /2f09zrU7yTxrhvIhGkhsdwxhxpX3FQGhbONLGADc+Zr3moAgT9xhS9mExM1invBpVZrI
+	 HhQxS2+rjPaZTv7KwzCFeRnVUW9aJwo7btU0Xvk1GexualBaB/wjq1ZDx8ux+7SZD1CbI
+	 eD+ll4BByTGMZMVQMGTdn5U8rNvh3biw3yDeSQRS9VzLShnlug3SRYy/SppiXksTL8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FkwVPbfQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BegmDEyk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FAAA606A331;
-	Thu, 19 Nov 2026 02:59:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902F9606A325;
+	Thu, 19 Nov 2026 03:17:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FkwVPbfQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117C71F000CB;
-	Thu, 19 Nov 2026 02:59:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BegmDEyk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 065621F000C4;
+	Thu, 19 Nov 2026 03:17:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795057195;
-	bh=GWjdwg97jtKYZUSdtxJMhSsjE1aTAuzLSMKha3trRwE=;
+	s=k20260515; t=1795058228;
+	bh=r2uY6+NIgq+iesXLv4eqMI/o1G/fBRZ5sTurYgJmAv8=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FkwVPbfQsC1oUR3dy3XVEUSqOZv+yA7uwi5cSr3A0f/IP6b84eUaXbFH7VkEb3mgZ
-	 14rqUvwpokWJRDF8pNwqQMeD2kkM41pq+Gj/JwonxzwMpcHxBpPwz4n9pKu9wJY+kE
-	 dZ3HSxv3aDZhGWw8GHtjLWAeCy8InXPxeahPC9aXGJqZCCljDY1RhT93xtCCo0Nb6E
-	 iN3eek/tR1L+VWDaQ5K+4OYgkeHURh0FBHBQgHLwt/di/TFa+bKitf5qFS/0zjC3kd
-	 qEHeTlPlG/LEYy84ZSNJda1G38tY20zVEyzZVaI8DxkP4MnHYjnqviTxwcxBHTiftA
-	 9ZI6kEeV/vVKw==
-Date: Thu, 19 Nov 2026 02:59:50 +0000
+	b=BegmDEykbxYqYqOZ6nEdV7JABs5osPkCSmuoS16IKoYq9EMUtq7+KTUQz5Y3dqYuF
+	 enP1Z+trbRyA9S1iJa02MSw8G5CHX8cWbJRnp7YIssNaY79y4FsU9zGs7u/rKLLVOv
+	 BOg5BcL5x1ywCqyN85ns80JQKcRIRDBsWB7czYXl1zuFnyjOLEXPWHprGo/5Xm5yTg
+	 rol6XlTGNg8t9opcE90y0FqK+QAMMNop1MxRV5M88+vBrem3UV3z2Uii1rBt44X0iA
+	 5m5Tmi5vhdz3I4Ib+geUP690Hn3icgUdSH4ely4piqvS041899SjY2cQicCbAaKWX0
+	 pgkTOEO8nYYjw==
+Date: Thu, 19 Nov 2026 03:16:59 +0000
 From: Jonathan Cameron <jic23@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com,
- Michael.Hennerich@analog.com, nuno.sa@analog.com, eblanc@baylibre.com,
- dlechner@baylibre.com, andy@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, olivier.moysan@foss.st.com,
- marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v1 4/5] dt-bindings: iio: adc: Add ADA4355
-Message-ID: <20261119025950.456dc645@jic23-hlaptop>
-In-Reply-To: <20261118-liver-decompose-434eedb257b8@spud>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux@analog.com>,
+ <Michael.Hennerich@analog.com>, <nuno.sa@analog.com>,
+ <eblanc@baylibre.com>, <dlechner@baylibre.com>, <andy@kernel.org>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <olivier.moysan@foss.st.com>, <marcelo.schmitt1@gmail.com>
+Subject: Re: [PATCH v1 5/5] iio: adc: Add support for ADA4355 and similar
+ ADCs
+Message-ID: <20261119031659.6a84e737@jic23-hlaptop>
+In-Reply-To: <2f5e83aa17aea08bbff69ca6ef7d32b11368f518.1795003864.git.marcelo.schmitt@analog.com>
 References: <cover.1795003864.git.marcelo.schmitt@analog.com>
-	<c7be62089d2b54dbf7fb57cdea189bdb1cade7c5.1795003864.git.marcelo.schmitt@analog.com>
-	<20261118-liver-decompose-434eedb257b8@spud>
+	<2f5e83aa17aea08bbff69ca6ef7d32b11368f518.1795003864.git.marcelo.schmitt@analog.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,162 +68,350 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Wed, 18 Nov 2026 17:39:46 +0000
-Conor Dooley <conor@kernel.org> wrote:
+On Wed, 18 Nov 2026 10:04:33 -0300
+Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
 
-> On Wed, Nov 18, 2026 at 10:04:13AM -0300, Marcelo Schmitt wrote:
-> > The ADA4355 is an integrated analog front-end and 14-bit analog-to-digital
-> > converter with a serial LVDS data interface.
-> > 
-> > Document how to describe ADA4355 devices in device tree.  
+> The ADA4355 and AD4356 are 14-bit, 125 MSPS, analog-to-digital converters
+> with integrated analog front-end. These chips are configured over SPI while
+> conversion data is streamed over a serial LVDS interface handled by an IIO
+> backend.
 > 
-> Please explain why the 4356 differs rom the 4355 such that it cannot use
-> a fallback compatible.
-
-Also mention it in the patch description!
-I was briefly very confused at Conor's comment :)
-
+> Add an IIO device driver for ADA4355 and similar designs, providing device
+> configuration, debugfs register access and buffered captures through the
+> IIO backend framework.
 > 
-> Thanks,
-> Conor.
-> pw-bot: changes-requested
-> > 
-> > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> > ---
-> >  .../bindings/iio/adc/adi,ada4355.yaml         | 104 ++++++++++++++++++
-> >  MAINTAINERS                                   |   7 ++
-> >  2 files changed, 111 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,ada4355.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ada4355.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ada4355.yaml
-> > new file mode 100644
-> > index 000000000000..d169619fef25
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ada4355.yaml
-> > @@ -0,0 +1,104 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/iio/adc/adi,ada4355.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Analog Devices Transimpedance Current to Bits Receiver
-> > +
-> > +maintainers:
-> > +  - Marcelo Schmitt <marcelo.schmitt@analog.com>
-> > +
-> > +description: |
-> > +  ADA4355 programmable transimpedance, current to bits receiver and similar data
-> > +  converters.
-> > +  Specifications can be found at:
-> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/ada4355.pdf
-> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/ada4356.pdf
-> > +
-> > +$ref: /schemas/spi/spi-peripheral-props.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - adi,ada4355
-> > +      - adi,ada4356
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  spi-max-frequency:
-> > +    maximum: 50000000
-> > +
-> > +  spi-3wire: true
-> > +
-> > +  spi-cpha: true
-> > +
-> > +  vcc-supply:
-> > +    description: 3.3V power supply.
-> > +
-> > +  vea-supply:
-> > +    description: 1.8V analog power supply to ADC.
-> > +
-> > +  ved-supply:
-> > +    description: 1.8V digital power supply to ADC.
-> > +
-> > +  clocks:
-> > +    maxItems: 1
-> > +
-> > +  adi,vld-en-gpios:
-> > +    description: GPIO connected to the VLDEN pin for VLD output enable.
-> > +
-> > +  adi,gsel-gpios:
-> > +    description:
-> > +      GPIOs connected to the GSEL0 and GSEL1 pins, in that order, for
-> > +      transimpedance gain selection.
-> > +    minItems: 2
-> > +    maxItems: 2
-> > +
-> > +  adi,lfp-gpios:
-> > +    description:
-> > +      GPIO connected to FSEL for internal low pass filter bandwidth selection.
-> > +
-> > +  io-backends:
-> > +    description:
-> > +      The AXI ADC IP block connected to the D+/- and DCO+/- lines of the
-> > +      ADC. An example backend can be found at
-> > +      http://analogdevicesinc.github.io/hdl/projects/pulsar_lvds/index.html.
-> > +    maxItems: 1
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - vcc-supply
-> > +  - spi-3wire
-> > +  - spi-cpha
-> > +  - clocks
-> > +  - adi,vld-en-gpios
-> > +  - adi,gsel-gpios
-> > +  - adi,lfp-gpios
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/gpio/gpio.h>
-> > +    spi {
-> > +        #address-cells = <1>;
-> > +        #size-cells = <0>;
-> > +
-> > +        adc@0 {
-> > +            compatible = "adi,ada4355";
-> > +            reg = <0>;
-> > +            spi-max-frequency = <100000>;
-> > +            spi-3wire;
-> > +            spi-cpha;
-> > +            vcc-supply = <&supply_3_3V>;
-> > +            clocks = <&ref_clk>;
-> > +            adi,vld-en-gpios = <&gpio0 89 GPIO_ACTIVE_HIGH>;
-> > +            adi,gsel-gpios = <&gpio0 86 GPIO_ACTIVE_HIGH>,
-> > +                             <&gpio0 87 GPIO_ACTIVE_HIGH>;
-> > +            adi,lfp-gpios = <&gpio0 88 GPIO_ACTIVE_HIGH>;
-> > +            io-backends = <&axi_adc>;
-> > +        };
-> > +    };
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 02015eaec312..692f1e6d56ec 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -1794,6 +1794,13 @@ W:	https://ez.analog.com/linux-software-drivers
-> >  F:	Documentation/devicetree/bindings/iio/amplifiers/adi,ada4250.yaml
-> >  F:	drivers/iio/amplifiers/ada4250.c
-> >  
-> > +ANALOG DEVICES INC ADA4355 DRIVER
-> > +M:	Marcelo Schmitt <marcelo.schmitt@analog.com>
-> > +L:	linux-iio@vger.kernel.org
-> > +S:	Supported
-> > +W:	https://ez.analog.com/linux-software-drivers
-> > +F:	Documentation/devicetree/bindings/iio/adc/adi,ada4355.yaml
-> > +
-> >  ANALOG DEVICES INC ADE9000 DRIVER
-> >  M:	Antoniu Miclaus <antoniu.miclaus@analog.com>
-> >  L:	linux-iio@vger.kernel.org
-> > -- 
-> > 2.39.2
-> >   
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+I'm feeling lazy, and it's a v1 so I haven't actually looked
+at what sashiko found to see if it is right. But it found stuff..
+https://sashiko.dev/#/patchset/cover.1795003864.git.marcelo.schmitt%40analog.com
+
+A few things I noticed inline.
+
+> diff --git a/drivers/iio/adc/ada4355.c b/drivers/iio/adc/ada4355.c
+> new file mode 100644
+> index 000000000000..7f9f58a14385
+> --- /dev/null
+> +++ b/drivers/iio/adc/ada4355.c
+> @@ -0,0 +1,798 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Analog Devices ADA4355 device driver
+> + *
+> + * Copyright (C) 2026 Analog Devices, Inc.
+> + * Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> + *
+> + * Expanded and improved version made on top of preliminary code from:
+> + *	Antoniu Miclaus <antoniu.miclaus@analog.com>
+> + *	Pop Ioan Daniel <pop.ioan-daniel@analog.com>
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bitmap.h>
+> +#include <linux/bitops.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/clk.h>
+> +#include <linux/debugfs.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/kernel.h>
+
+No to including this in new code. Need to use more specific
+includes and not that catch all unless this really does use
+one of the things still defined in there.
+
+> +#include <linux/minmax.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/seq_file.h>
+> +#include <linux/slab.h>
+> +#include <linux/spi/spi.h>
+> +#include <linux/units.h>
+> +
+> +#include <linux/iio/backend.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/iio/sysfs.h>
+
+Is that used? I maybe missed something.
+
+
+
+
+
+> +/*
+> + * Sweep the I/O delay of one delay line while only the error source fed by
+> + * that line is reported, and apply the delay in the middle of the widest run
+> + * of valid test points. @offset is where this line's test points start in
+> + * @st->calib_map.
+> + */
+> +static int ada4355_calibrate_lane(struct ada4355_state *st,
+> +				  enum iio_backend_calib_source source,
+> +				  unsigned int lane, unsigned int offset)
+> +{
+> +	struct device *dev = &st->spi->dev;
+> +	unsigned int point, val, cnt;
+> +	bool stat;
+> +	int ret;
+> +
+> +	ret = iio_backend_calibration_source_set(st->back, source, lane);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (point = 0; point < ADA4355_MAX_TEST_POINTS; point++) {
+
+	for (unsigned int point = 0; 
+
+> +		ret = iio_backend_iodelay_set(st->back, lane, point);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = iio_backend_chan_status(st->back, 0, &stat);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (stat) {
+> +			dev_dbg(dev, "Invalid point(%u) for lane %u\n", point,
+> +				lane);
+> +			continue;
+> +		}
+> +
+> +		__clear_bit(offset + point, st->calib_map);
+> +	}
+> +
+> +	cnt = ada4355_find_optimal_point(st->calib_map, offset, ADA4355_MAX_TEST_POINTS,
+> +					 &val);
+> +	if (!cnt) {
+> +		dev_err(dev, "No valid delay found for lane %u\n", lane);
+> +		return -EIO;
+> +	}
+> +
+> +	/* "normalize" the selected value */
+> +	val -= offset;
+> +	dev_dbg(dev, "lane %u: selected delay: %u\n", lane, val);
+> +
+> +	return iio_backend_iodelay_set(st->back, lane, val);
+> +}
+> +
+> +static int ada4355_calibrate(struct ada4355_state *st)
+> +{
+> +	unsigned int lane;
+> +	int ret;
+> +
+> +	/* all points invalid */
+> +	bitmap_fill(st->calib_map, st->calib_map_size);
+> +
+> +	ret = ada4355_calibrate_prepare(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * The frame signal has to be aligned first: the pattern match block
+> +	 * only reports meaningful per-lane errors once the word boundary is
+> +	 * known.
+> +	 */
+> +	ret = ada4355_calibrate_lane(st, IIO_BACKEND_CALIB_SOURCE_FRAME,
+> +				     ADA4355_FRAME_LANE,
+> +				     ADA4355_MAX_DATA_LANES * ADA4355_MAX_TEST_POINTS);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (lane = 0; lane < ADA4355_MAX_DATA_LANES; lane++) {
+	for (unsigned int lane = 0; lane < ADA4355_MAX_DATA_LANES; lane++) {
+
+Going to take a while for us to all train ourselves to prefer this style
+but it is both acceptable and once or twice Linus has said he prefers
+keeping the scope tightly defined like this.
+
+> +		ret = ada4355_calibrate_lane(st,
+> +					     IIO_BACKEND_CALIB_SOURCE_DATA_LANE,
+> +					     lane,
+> +					     lane * ADA4355_MAX_TEST_POINTS);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return ada4355_calibrate_stop(st);
+> +}
+
+
+> +
+> +static int ada4355_write_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int val, int val2, long mask)
+> +{
+> +	struct ada4355_state *st = iio_priv(indio_dev);
+> +	long r_clk;
+> +
+> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +		return -EBUSY;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		r_clk = clk_round_rate(st->clk, val);
+> +		if (!in_range(r_clk, 1, ADA4355_MAX_SAMP_RATE_SPS))
+This is a little odd as in_range takes start + length.
+That happens to work here because the start is 1.   I'd
+just check <1 || > MAX_SAMP_RATE_SPS.
+
+> +			return -ERANGE;
+> +
+> +		return ada4355_update_clock(st, r_clk);
+> +	case IIO_CHAN_INFO_SCALE:
+> +		return ada4355_set_scale(st, val, val2);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+> +
+> +static int ada4355_setup(struct ada4355_state *st,
+> +			 struct ada4355_chip_info const *chip_info)
+> +{
+> +	struct device *dev = &st->spi->dev;
+> +	struct gpio_desc *gpio_vld_en;
+> +	struct gpio_desc *gpio_lfp;
+> +	unsigned int id;
+> +	int ret;
+> +
+> +	gpio_vld_en = devm_gpiod_get(dev, "adi,vld-en", GPIOD_OUT_LOW);
+> +	if (IS_ERR(gpio_vld_en))
+> +		return dev_err_probe(dev, PTR_ERR(gpio_vld_en),
+> +				     "Failed to find adi,vld-en-gpios\n");
+> +
+> +	if (gpio_vld_en) {
+> +		gpiod_set_value_cansleep(gpio_vld_en, 1);
+> +		fsleep(1000);
+> +	}
+> +
+> +	gpio_lfp = devm_gpiod_get(dev, "adi,lfp", GPIOD_OUT_LOW);
+> +	if (IS_ERR(gpio_lfp))
+> +		return dev_err_probe(dev, PTR_ERR(gpio_lfp),
+> +				     "Failed to find adi,lfp-gpios\n");
+> +
+> +	ret = ada4355_digital_reset(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, ADA4355_CHIP_CONFIG_REG, 0x00);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, ADA4355_DEVICE_INDEX_REG, 0x02);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, ADA4355_SERIAL_CHANNEL_STATUS_REG, 0x03);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, ADA4355_DEVICE_INDEX_REG, 0x31);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_read(st->regmap, ADA4355_CHIP_ID_REG, &id);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (id != chip_info->id)
+> +		dev_warn(dev, "Mismatch CHIP_ID, got 0x%X, expected 0x%X\n",
+> +			 id, chip_info->id);
+
+Given we want fallback compatibles to work if appropriate, I'd relax
+that to dev_info.  And say something about unknown id. Mismatch sounds scary.
+
+
+> +
+> +	ret = regmap_update_bits(st->regmap, ADA4355_SERIAL_OUT_DATA_CNTRL_REG,
+> +				 ADA4355_SERIAL_OUT_LANE_MODE_MASK,
+> +				 FIELD_PREP(ADA4355_SERIAL_OUT_LANE_MODE_MASK,
+> +					    ADA4355_DDR_TWO_LANE_BITWISE));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_set_bits(st->regmap, ADA4355_TRANSFER_REG,
+> +			      ADA4355_TRANSFER_OVERRIDE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, ADA4355_OUTPUT_MODE_REG,
+> +			   ADA4355_OUTPUT_MODE_TWOSCOMP);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, ADA4355_RESOLUTION_SAMPLE_RATE_REG,
+> +			   ADA4355_125_RATE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+
+	return regmap_write();
+
+> +}
+
+> +
+> +static int ada4355_probe(struct spi_device *spi)
+> +{
+> +	const struct ada4355_chip_info *chip_info;
+> +	struct device *dev = &spi->dev;
+> +	struct iio_dev *indio_dev;
+> +	struct ada4355_state *st;
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	st = iio_priv(indio_dev);
+> +	st->spi = spi;
+> +
+> +	chip_info = spi_get_device_match_data(spi);
+> +	if (!chip_info)
+> +		return -ENODATA;
+> +
+> +	st->regmap = devm_regmap_init_spi(spi, &ada4355_regmap_config);
+> +	if (IS_ERR(st->regmap))
+> +		return PTR_ERR(st->regmap);
+> +
+> +	ret = devm_mutex_init(dev, &st->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->calib_map_size = ADA4355_MAX_CALIB_MAP_SIZE;
+> +
+> +	st->clk = devm_clk_get_enabled(dev, NULL);
+> +	if (IS_ERR(st->clk))
+> +		return PTR_ERR(st->clk);
+> +
+> +	indio_dev->name = chip_info->name;
+> +	indio_dev->channels = &ada4355_channel;
+> +	indio_dev->num_channels = 1;
+> +	indio_dev->info = &ada4355_iio_info;
+> +	st->chan = &ada4355_channel;
+
+Why in two places?  If you just want it in the scale
+table calc, pass it in directly. Don't think it is used after that.
+
+
+> +	ret = ada4355_interface_setup(st);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to setup the digital interface\n");
+
+Go a bit longer.  As long as it's not too far past 80 I don't mind. Particularly
+when the end bit is the tail end of an error message.
+
+> +
+> +	if (iio_backend_has_caps(st->back, IIO_BACKEND_CAP_CALIBRATION)) {
+> +		ret = ada4355_calibrate(st);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
 
