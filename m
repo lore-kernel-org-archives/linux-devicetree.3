@@ -1,18 +1,18 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.92
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.135
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795091938;
-	b=E+1FFqv21QvtLd1Puj89QF9tMbMB/EGA+T3SI6JQZJ0X8rKXE0SCTKTtqu0ZTA69Tq6h
-	 Ge+exK6qfcpahF+U6GoIKr8AWJYGzZLWEL5jHXZQrE/+MytxIm7mxqB+ywURJSqTrazEO
-	 8MEMMdklD8qryDNWDbCdsPt03UlIXqa+fm6HH3l+71+25sFB8dANxY3PR4d5PEEQK5utM
-	 r7uWPD9R7QDFmUh2IOxeJJRIcJbuYoAUKZQPiK0eq/8AoowvMyH6NACKb2gA5ms5nXtl4
-	 myl3oMOnGmQ7NHKCMKdfzYj7zMl5A5tzxq0FSoBfQV557OYIgFe6ygWqNtX9AKqnN9g==
+	b=ks5Ql/L0/FlufGP+3bkbrUvqdnl90VmTnNRzDWVVA3R8ayOHuiVXA3YUrGsHi3InkMln
+	 iMdnX2nBy7iyzb+XMyvIIFVoe3qoBqgf9LjQ1odbPw9n07PZEHi+EQ8D96+Zjr1y7O0uf
+	 vTr7HVuVn25Rob+TkE1l428Cghe6z1EosTDlgDnGLE8KJPAWj6dFNuzDHrFFuFcdtfDMX
+	 wioWAbjqCV+JoKzjt4VAh2sUB9DWNNji1of5QlDqAacyDmr/yyOANALxOkT8XPMlZrd9p
+	 l6lTSvd6kOW0xjLzf6kEiReJ2gIB0Xlm+3BmstR72/HhYz5QkWcKKTJ7hbpu8YnY99w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795091938;
 	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
 	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:Content-Type:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
@@ -25,46 +25,46 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=vnP9qNEOOAzomKicLmOZ4uf6cMuJcAaYE2+Rzi8bLWE=;
-	b=tpySkUlfQVH0BOhuqW32vQ7w+26bVdP0PeAZh9BFGxPasKexvLZm8I6Wl9X8ZFhbDhF8
-	 a8Xo5b812eK7jNyS/4Pqtaq9Tk19lN2yqIesHTPMSMJ44hGgJXso9/IGwHwKzpmvwLNK2
-	 ivuSExynxZCpWCWWD+MdHWYWeKKBP28VceEZNSzm5mEj1IoR9SrIJddXohjU4A30IgmU6
-	 KEQJEQlMiWsAa6Rv+2m+9d+Y0ixEwx387nEWE/DCg6ZiYF4DpmUSOxmpglH3PXC+oRgJP
-	 jvnlo8ACY4MkSIoBSZ6bkDwgT6y1qFY3Zi1HVGnLsJNEXnshDpER4U+tYvk9XwvA1Hw==
+	bh=olAOl9rlOmSSINGFpRQXmItoI09BaEXrfHFxRDgl1W0=;
+	b=mRF7edmKqXL/85F3pKSVDK6FmwqP3EOxcVf6GF6oMib8pK49C/4rfnFpEXex6sJ74TF6
+	 wT56BDW+I7aANIjJuzKWPtv7/xlB+YE21LE8HT6JFOOi0dNov9GWN+ifd2PQGQh/uN5yS
+	 1KhkIbiIN47h5w8i2N/XPHoWZejuhlMKECDdgX8zaJF0S2GcdFqV8sA15rKyPbLjifhAp
+	 O0g+C/O07cJ79pSY3T4I4GgleVF5aa5BloYZ6o7nOoNPODaWw1eC5m4WVMWpMLTSHj9gA
+	 GX8U1elUgFHh9dWetdXGpxMZHX+mnjkDtSwYyqaSkE5fqBey91luE/DuLjLmQJ1DefQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=cixtech.com;
 	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.92
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023092.outbound.protection.outlook.com [52.101.127.92])
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.135
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023135.outbound.protection.outlook.com [40.107.44.135])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F1A606A320;
-	Thu, 19 Nov 2026 12:38:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6F1A606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF3C606A32A;
+	Thu, 19 Nov 2026 12:38:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF3C606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IWokPn55rWQuVElfpyTHRPX4P2ncbgTdhOQApks7hCR1NakkZ9lFZWvz04sOuy19yPPXJ3OAeC/LeBQsuPT6hzbqtoslDtn6SZpDh6M5KCLtemPaKOJnDLcU6Fo/mrS0QH3e/AJWl18JZArRelTqGkNlUQ6gqL27hei2mh0Yw8ve+D+UFPo4BTpTGy2e2KE0ZQY0sr8SLueAesnYhs3OUhL4Dim5vwT44/zfUgJcp2eJ6QXLa8isXo6LH1AJ1MSaCSgePzsWzJ4Gqoxa0NahEGIubUdsg1OPCNRdaOu5kJs/aeu+hLq3rGA8UPI/emdzwPA//2xt1Eqb5ySgWSVMbw==
+ b=uMJbDgazA6sWIl6w08lVYkmsKdlKF3z1teqJiE6UHDR8yJdUkGAS5Up/DSiI1odr6+UVLep1mH0Lbi8/WIpGQKHmq8Od8bCj35qc3nvATnWpaHfTgxEnH3L5VQi8J5AZHHixQFtqWFtywmsFm3OFZUdLaivAiSgade+J4ekg74sUmsPW5gg+4fgGUHMzE5XliAdaTUgP7YGr088O6iyWGmNxyHauiFs3xSDtGEWHlVMbQJ+eU7Gbgbrr4pnkz5XfnTBKvEyAy1KgOZvjLWqOE7ZcEd1k7B1OzK/DBFsIgPHQ0Z0qTKICVOr+7mtp/2xv297BnKYdN9G1oF2gkZLcXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vnP9qNEOOAzomKicLmOZ4uf6cMuJcAaYE2+Rzi8bLWE=;
- b=oNRZ/8MGmaP70fefV9m1cgLkhJuMlA1JiTjTuOFdLa2VAh7OMNuEBcvtKCpU4AN41AzHgTo9CKlc4VlXAsXBPk6giKSvxwHMJsELc14xABm7bkhR6lcv2Wndg/Pmhd6TTjvikevBOOcDTe3Qe9HESWua5OZwr1zk8itFbnXbqYMBVZt1gEegnFerKGbe0WZ4XKEHI7yN2G/eBUOhsN7XDTGwblhUBqwX+NeBAgHlUDLmym/R8QXsjgkqHinyXrOc7FC7l74dT33pyzpvF1i1y4me0YeOg5hKsZ2XRw2RZIeY/A0yA6TOXdoVkDah6vF3SsjZ/fh38l8tcdKBSWnhMQ==
+ bh=olAOl9rlOmSSINGFpRQXmItoI09BaEXrfHFxRDgl1W0=;
+ b=tUVPbhX1z1BC7QsBlHP55MrJVvgEgNt0sV/wrTA7yxdyq11WWfZ62n8/RlL3Tu7QiCIKfml368ORF7lWCc2UFmPOsVUHO5n0Z9YmOHl5QHw3mkMRuRFm/EN/bdXz8hMb+o+oSTxPXJGowHqbfnOPOa6srczOGKGgx+YSunIdCKJgXnONeH0CfJiw7IdQlhnQP1fzNU0zhgqWKaQTdQkerD6X7eOPxKN7BDQjynlnvHuJhJUgCx2CXkJ4sqsdr2taWOtBdk29qZn2fQt+V2ZgYjJlgN3D+LkF255nw+0B/9hzex8Ga8cjF+qdSU8rgVPzepN1MyueF6keCjgg6MDFsQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
  dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
  not signed); arc=none (0)
-Received: from OS3P301CA0050.JPNP301.PROD.OUTLOOK.COM (2603:1096:604:21c::20)
- by TYZPR06MB5099.apcprd06.prod.outlook.com (2603:1096:400:1c5::5) with
+Received: from PS2PR03CA0005.apcprd03.prod.outlook.com (2603:1096:300:5b::17)
+ by SI4PR06MB8874.apcprd06.prod.outlook.com (2603:1096:4:2b1::24) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.1; Thu, 19 Nov
- 2026 12:38:52 +0000
-Received: from OSA0EPF000000CB.apcprd02.prod.outlook.com
- (2603:1096:604:21c:cafe::69) by OS3P301CA0050.outlook.office365.com
- (2603:1096:604:21c::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.12 via Frontend Transport; Thu,
- 19 Nov 2026 12:38:52 +0000
+ 2026 12:38:54 +0000
+Received: from TY2PEPF0000AB86.apcprd03.prod.outlook.com
+ (2603:1096:300:5b:cafe::97) by PS2PR03CA0005.outlook.office365.com
+ (2603:1096:300:5b::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.1 via Frontend Transport; Thu, 19
+ Nov 2026 12:38:53 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
  header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
@@ -72,11 +72,11 @@ Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
  222.71.101.198 as permitted sender) receiver=protection.outlook.com;
  client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
 Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000CB.mail.protection.outlook.com (10.167.240.57) with Microsoft
+ TY2PEPF0000AB86.mail.protection.outlook.com (10.167.253.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 12:38:52 +0000
+ 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 12:38:53 +0000
 Received: from cix (unknown [172.16.66.176])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 57D8340920E5;
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 2B8B3427EFC3;
 	Thu, 19 Nov 2026 20:38:51 +0800 (CST)
 From: Cunyuan Liu <cunyuan.liu@cixtech.com>
 To: boris.brezillon@collabora.com,
@@ -99,12 +99,10 @@ Cc: dri-devel@lists.freedesktop.org,
 	cix-kernel-upstream@cixtech.com,
 	robin.wang@cixtech.com,
 	cunyuan.liu@cixtech.com
-Subject: [PATCH v3 4/7] drm/panthor: Add system-cache allocation policy support
-Date: Thu, 19 Nov 2026 20:38:47 +0800
-Message-ID: <20261119123850.2994625-5-cunyuan.liu@cixtech.com>
+Subject: [PATCH v3 0/7] Add initial GPU support for CIX Sky1
+Date: Thu, 19 Nov 2026 20:38:43 +0800
+Message-ID: <20261119123850.2994625-1-cunyuan.liu@cixtech.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261119123850.2994625-1-cunyuan.liu@cixtech.com>
-References: <20261119123850.2994625-1-cunyuan.liu@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,392 +115,135 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000CB:EE_|TYZPR06MB5099:EE_
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB86:EE_|SI4PR06MB8874:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 5685a299-7949-4bb0-1915-08df463a1184
+X-MS-Office365-Filtering-Correlation-Id: 08518d30-5d29-4a2a-f612-08df463a1224
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|7416014|1800799024|6133799003|18002099003|22082099003|921020|10067099003|261022113327099003|261022105027099003|261026130827099003|261026140227099003|261022075727099003|261026135527099003|261028144727099003|261026121527099003|261022115727099003|261021135927099003|261021133027099003|261021130227099003|261021123027099003|261021121427099003|56012099006|261009223027099003|261102123227099003;
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|7416014|36860700016|23010399003|6133799003|261009223027099003|18002099003|3023799007|261026140227099003|261026121527099003|261028144727099003|921020|261102123227099003|261021121427099003|261021123027099003|261022105027099003|261022075727099003|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	LYJMNCk++oVrUfWyNdAm9nuGgVDgUwUydTO3rdqo0GWndnZ4aJJipdmxdL1Wzh9Tmf0tl6A4TwKhw5pwNHcLx7ViSx7/INPAI9wZl+p7KZUxokbiY5L9kqakrFnWDLw9KZABVl52S4OvNQrdTakJMhrPFenU4MonlGtj1CECJeJpmRQhfIViPv0jjOsbjJ6dJdOVDOvf9B+FZXAWN3k9S42IMT1MU7gNiYrdhIo+deZBLTrlyHka/rqvTE2lAE/gA/JfbulWTScHuQJWP460MpOLsaT7KEamw4rK0VUTgEduFN67SzhlJF6CaOg4/MG3U8bJ1lcaFVeWLntx7/9grSAG7ca5kh7U02xyPq3W+23briqkXxDnbZ0m3ZWTVrKZ+WVH2IJeondsikDyn5kU54swVJFCplishWasUri3EAghT0NpwhOmMOCMS1YTJsfKcqeA1IVWad7l9p+/pW4dIDhBuVny3oE/cLSUt/Q8AwmyjR+eh3jPNk9gdaN4oHKTTgtQMhl6pslYrk9qtivVBamw8L+WxwP/UOq/ckfVHfbHgSmpEdFcT6bYCr2Bz123ZyByK6V7DCuCm/MFWeTD7vuac/Iot3zG/Em1+cc2rSv29gizbeoXH7JqTTsikzZSM+iwhpBtIEKZ4F/n0J5JZozuO2nIUXzPdvYePJyMPZO8DJBgatBa4GUCOvh7Z1dGJTlHOOSKJ0NM5QTqKNvF7skCcswWzHmDKJ98YeNZain8PJaoV4kZB85faB1YUPyy
+	2Q/oej1YCjtAfgQ3N624IbciPCB/up6HX1kMQaTTqaHh2JNdWkilYPD2Sij+tIKK2PgXYy1SgTMb2+sWsPntoXt7qpp9f5y67vtpHmNp93ANoXMGjI2Ci/HdnKA4j1gcArPy7X8fnn0EDFYH5RWDlrtpP97v50zF4gjU7t4AKpXYo1m4KfVNuByc50Fwd9dTqDw6P2zzgHsGpkgrqcxJVQzlcDTm60KNTlLeJWXtrnHguXEep3LVwiIE7rzq+xjoNZ+lPuIw8+zlYrjwQYA5aMYF0K7tZi/PE6HwoxYdy88UH+tUiC+xno/s31SIF9P002CbJbW2lDHo418ivguCiMkccnvtWBEMEqGA5MIoduK1YPkwm7m9HhF4Glpr5C4ycJwaPFDHK4ofwtAfHg7CFRI5JgJszqAnoGCezAkuqyshwZ7tIGqbBGl7icQZo1mRCOv4ZDElx2TLCa4ETxhgK8ZBJEG0L62HsfixzmruyIVr81lxaubxLMSnyTIAVtxbKJ8A/3W1Q8g5bg4lh5DdjJnJ1PlKItx/SyndBSa7NSsyH4Gya1Cmi3QohExPxPpda7EJ57Yc+jI4BG+8+Z7UqxJWakcJzr8j0X5cde8L4PDxOhMiyZy/POdF0SvTGRpMC5jeAxIHHe9n2VvxJzZN8CLkHg36RpOi4bV9rrKVxytQOv22bcbvLLpmde/WQr/J
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(7416014)(1800799024)(6133799003)(18002099003)(22082099003)(921020)(10067099003)(261022113327099003)(261022105027099003)(261026130827099003)(261026140227099003)(261022075727099003)(261026135527099003)(261028144727099003)(261026121527099003)(261022115727099003)(261021135927099003)(261021133027099003)(261021130227099003)(261021123027099003)(261021121427099003)(56012099006)(261009223027099003)(261102123227099003);DIR:OUT;SFP:1102;
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(7416014)(36860700016)(23010399003)(6133799003)(261009223027099003)(18002099003)(3023799007)(261026140227099003)(261026121527099003)(261028144727099003)(921020)(261102123227099003)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(56012099006)(10067099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	4T4LLj4JwdlpnEJUwTrEpZNfhdR4/BT1+vYfNjVCtp+rRdVajELlwizJ7zOjELtMFoGxxSuJGvbegjmqBq6pnkjPaZW5BCfJ75JXcyT3aZfiwo5wafypkSyFGsvNnc1QbXczCuvn2bNkRPzJRUn6LFmzYb/urVdzsrcvP3axix2B1ska5Zk+lMvM6qEzl2XCgmoy9t1lwOMSYh9YK5Vs+Y+YKrdx5Nyko5Y0uS4LJRsaNH0dpFcNGknFjBsJCEFAuIPw3MbE2Mgomepud8zyBMlgitur/Cs9zJwEpG0fDLCh8/ZnSiqoDSuKSq7K8KzqJBJ+7DTTp6tcR10JQ5Lof46T2uFL/t23+5ZeWXwYb/X9dxNhq1Os1rsf+0M566ZVN+MihEfBXQEMk0QlwV7kg5t2gUZc2rOP0si+Z7UH3nKVAntEOJGlfkALsSyvUJqI
+	tQy3VUh181nx/ckEwFn9ChGcqlNatWXm24yopBoDaeVEywZwLDrN7E7Hmlruk70BtLfGuvEeG+HF0w/xOltUPc84xrwvve/WutG74A/fEBBtXuGZOcbPogjILzYuyMueexlIeS4auS7Ofxtf6++RRwS5YEVe7dROHQiEeTk3DegwVDFo06852+j1Dl8OMDHegE3Aq7c/lVo8Y56vyVug/W77hvv0ZqJJ/pPNQ+QHkNzgRWEyY1Qpg+C6HFHjn1u0zsag1YfiX3uuxtJKs9ez4EboSWYPfrWtIhU6ftUZUsAordHqnQimDFycPexQILtS5b7GX3uXJ2A/Lwkk/MUQMxdNokn0BYKxdX2v6+qKyAmrLfgc8pTDBm3mbKpr2m/dmdeAZrBD01mwE2coSNBfhuJnz50Nnk3+UEzhBTlZNAiJ0JQnM81vdreOmRDYe9T/
 X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 12:38:52.2402
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 12:38:53.3076
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5685a299-7949-4bb0-1915-08df463a1184
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08518d30-5d29-4a2a-f612-08df463a1224
 X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	OSA0EPF000000CB.apcprd02.prod.outlook.com
+	TY2PEPF0000AB86.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB5099
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI4PR06MB8874
 
-CIX Sky1 needs system-cache allocation policies that match the platform
-integration. Without these settings, GPU rendering results are displayed
-incorrectly.
+This series adds initial support for the Mali GPU on CIX Sky1 and
+enables it on the Radxa Orion O6 board.
 
-Read the policies from arm,sysc-alloc instead of hardcoding platform
-register values. Validate the GPU architecture, source IDs and supported
-read/write policies before saving the configuration. Reject duplicate
-source IDs and invalid entries.
+The GPU requires an external reset before the driver first accesses
+the hardware. Add optional reset support to Panthor to perform this reset
+during initialization.
 
-Restore the policies before L2 power-on through the common hardware
-wrapper so that both legacy and PWR backends apply them after reset and
-runtime resume. Leave the registers unchanged when no property is present.
+This initial version keeps the PM firmware default clock settings and
+skips devfreq. It does not read OPPs or request a performance level.
+The firmware sets the default GPU frequency to 1 GHz. No devfreq
+governor or GPU cooling device is registered.
 
-Signed-off-by: Cunyuan Liu <cunyuan.liu@cixtech.com>
----
- drivers/gpu/drm/panthor/panthor_gpu.c      | 187 +++++++++++++++++++++
- drivers/gpu/drm/panthor/panthor_gpu.h      |   1 +
- drivers/gpu/drm/panthor/panthor_gpu_regs.h |  58 +++++++
- drivers/gpu/drm/panthor/panthor_hw.c       |  13 ++
- drivers/gpu/drm/panthor/panthor_hw.h       |   5 +-
- 5 files changed, 260 insertions(+), 4 deletions(-)
+Without an OPP table, the driver can only run when neither mali-supply
+nor sram-supply is present and the platform provides working clocks and
+power.
 
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-index a383b04f101e..118e13e56555 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu.c
-+++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-@@ -12,6 +12,8 @@
- #include <linux/iopoll.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-+#include <linux/property.h>
-+#include <linux/string.h>
- 
- #include <drm/drm_drv.h>
- #include <drm/drm_managed.h>
-@@ -46,6 +48,15 @@ struct panthor_gpu {
- 
- 	/** @cache_flush_lock: Lock to serialize cache flushes */
- 	struct mutex cache_flush_lock;
-+
-+	/**
-+	 * @sysc_alloc: System-cache allocation policies for GPU architecture
-+	 * 11.0.3 and later.
-+	 */
-+	u32 sysc_alloc[GPU_SYSC_ALLOC_COUNT];
-+
-+	/** @sysc_alloc_enabled: Apply the system-cache allocation policies. */
-+	bool sysc_alloc_enabled;
- };
- 
- #define GPU_INTERRUPTS_MASK	\
-@@ -63,6 +74,178 @@ static void panthor_gpu_coherency_set(struct panthor_device *ptdev)
- 		  ptdev->gpu_info.selected_coherency);
- }
- 
-+enum panthor_sysc_alloc_cell {
-+	PANTHOR_SYSC_ALLOC_SOURCE,
-+	PANTHOR_SYSC_ALLOC_READ,
-+	PANTHOR_SYSC_ALLOC_WRITE,
-+	PANTHOR_SYSC_ALLOC_CELLS,
-+};
-+
-+static bool panthor_gpu_has_sysc_alloc(u32 gpu_id)
-+{
-+	/* SYSC_ALLOC is available from GPU architecture 11.0.3. */
-+	return GPU_ARCH_MAJOR(gpu_id) > 11 ||
-+	       (GPU_ARCH_MAJOR(gpu_id) == 11 &&
-+		(GPU_ARCH_MINOR(gpu_id) > 0 || GPU_ARCH_REV(gpu_id) >= 3));
-+}
-+
-+static bool panthor_gpu_sysc_alloc_policy_valid(u32 policy)
-+{
-+	switch (policy) {
-+	case GPU_SYSC_ALLOC_L2_ALLOC:
-+	case GPU_SYSC_ALLOC_NEVER_ALLOC:
-+	case GPU_SYSC_ALLOC_ALWAYS_ALLOC:
-+	case GPU_SYSC_ALLOC_PARTIAL_ALLOC:
-+	case GPU_SYSC_ALLOC_L2_PARTIAL_ALLOC:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool panthor_gpu_sysc_alloc_read_supported(u32 gpu_id, u32 source)
-+{
-+	switch (source) {
-+	case GPU_SYSC_ALLOC_R_OTHER:
-+	case GPU_SYSC_ALLOC_R_CSF:
-+	case GPU_SYSC_ALLOC_R_MMU:
-+	case GPU_SYSC_ALLOC_R_TILER_VERT:
-+	case GPU_SYSC_ALLOC_R_TILER_PTR:
-+	case GPU_SYSC_ALLOC_R_TILER_INDEX:
-+	case GPU_SYSC_ALLOC_R_TILER_OTHER:
-+	case GPU_SYSC_ALLOC_R_IC:
-+	case GPU_SYSC_ALLOC_R_ATTR:
-+	case GPU_SYSC_ALLOC_R_SCM:
-+	case GPU_SYSC_ALLOC_R_FSDC:
-+	case GPU_SYSC_ALLOC_R_PLR:
-+	case GPU_SYSC_ALLOC_R_TEX:
-+	case GPU_SYSC_ALLOC_R_LSC:
-+		return true;
-+	case GPU_SYSC_ALLOC_R_VL:
-+		/* TTIX (architecture 12, product 0) has no VL read policy. */
-+		if (GPU_ARCH_MAJOR(gpu_id) == 12 && GPU_PROD_MAJOR(gpu_id) == 0)
-+			return false;
-+		return true;
-+	case GPU_SYSC_ALLOC_R_RT:
-+	case GPU_SYSC_ALLOC_R_NE_A:
-+	case GPU_SYSC_ALLOC_R_NE_N:
-+		if (GPU_ARCH_MAJOR(gpu_id) < 14)
-+			return false;
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool panthor_gpu_sysc_alloc_write_supported(u32 gpu_id, u32 source)
-+{
-+	switch (source) {
-+	case GPU_SYSC_ALLOC_W_OTHER:
-+	case GPU_SYSC_ALLOC_W_CSF:
-+	case GPU_SYSC_ALLOC_W_PCB:
-+	case GPU_SYSC_ALLOC_W_TILER_PTR:
-+	case GPU_SYSC_ALLOC_W_TILER_VERT_PLIST:
-+	case GPU_SYSC_ALLOC_W_TILER_OTHER:
-+	case GPU_SYSC_ALLOC_W_L2_EVICT:
-+	case GPU_SYSC_ALLOC_W_L2_FLUSH:
-+	case GPU_SYSC_ALLOC_W_TIB_COLOR:
-+	case GPU_SYSC_ALLOC_W_TIB_COLOR_AFBCH:
-+	case GPU_SYSC_ALLOC_W_TIB_COLOR_AFBCB:
-+	case GPU_SYSC_ALLOC_W_TIB_CRC:
-+	case GPU_SYSC_ALLOC_W_TIB_DS:
-+	case GPU_SYSC_ALLOC_W_TIB_DS_AFBCH:
-+	case GPU_SYSC_ALLOC_W_TIB_DS_AFBCB:
-+	case GPU_SYSC_ALLOC_W_LSC:
-+		return true;
-+	case GPU_SYSC_ALLOC_W_RT:
-+	case GPU_SYSC_ALLOC_W_NE_A:
-+	case GPU_SYSC_ALLOC_W_NE_N:
-+		if (GPU_ARCH_MAJOR(gpu_id) < 14)
-+			return false;
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+void panthor_gpu_sysc_config_set(struct panthor_device *ptdev)
-+{
-+	struct panthor_gpu *gpu = ptdev->gpu;
-+	unsigned int i;
-+
-+	if (!gpu->sysc_alloc_enabled)
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(gpu->sysc_alloc); i++)
-+		gpu_write(gpu->iomem, GPU_SYSC_ALLOC(i), gpu->sysc_alloc[i]);
-+}
-+
-+static int panthor_gpu_sysc_config_init(struct panthor_device *ptdev)
-+{
-+	struct device *dev = ptdev->base.dev;
-+	struct panthor_gpu *gpu = ptdev->gpu;
-+	u32 entries[GPU_SYSC_ALLOC_SOURCE_COUNT][PANTHOR_SYSC_ALLOC_CELLS];
-+	u32 config[GPU_SYSC_ALLOC_COUNT] = {};
-+	u32 gpu_id = ptdev->gpu_info.gpu_id;
-+	u32 sources = 0;
-+	unsigned int i;
-+	int count;
-+	int ret;
-+
-+	if (!device_property_present(dev, "arm,sysc-alloc"))
-+		return 0;
-+
-+	if (!panthor_gpu_has_sysc_alloc(gpu_id))
-+		return dev_err_probe(dev, -EOPNOTSUPP,
-+				     "SYSC_ALLOC requires GPU architecture 11.0.3 or later\n");
-+
-+	count = device_property_count_u32(dev, "arm,sysc-alloc");
-+	if (count < 0)
-+		return dev_err_probe(dev, count, "Failed to count SYSC_ALLOC cells\n");
-+	if (!count || count > ARRAY_SIZE(entries) * PANTHOR_SYSC_ALLOC_CELLS ||
-+	    count % PANTHOR_SYSC_ALLOC_CELLS)
-+		return dev_err_probe(dev, -EINVAL, "Invalid SYSC_ALLOC entry count\n");
-+
-+	ret = device_property_read_u32_array(dev, "arm,sysc-alloc", &entries[0][0], count);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to read SYSC_ALLOC entries\n");
-+
-+	for (i = 0; i < count / PANTHOR_SYSC_ALLOC_CELLS; i++) {
-+		u32 source = entries[i][PANTHOR_SYSC_ALLOC_SOURCE];
-+		u32 read = entries[i][PANTHOR_SYSC_ALLOC_READ];
-+		u32 write = entries[i][PANTHOR_SYSC_ALLOC_WRITE];
-+
-+		if (source >= GPU_SYSC_ALLOC_SOURCE_COUNT)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "Invalid SYSC_ALLOC source %u\n", source);
-+		if (sources & BIT(source))
-+			return dev_err_probe(dev, -EINVAL,
-+					     "Duplicate SYSC_ALLOC source %u\n", source);
-+		sources |= BIT(source);
-+
-+		if (!panthor_gpu_sysc_alloc_policy_valid(read) ||
-+		    !panthor_gpu_sysc_alloc_policy_valid(write))
-+			return dev_err_probe(dev, -EINVAL,
-+					     "Invalid SYSC_ALLOC policies <%u %u %u>\n",
-+					     source, read, write);
-+
-+		if ((read != GPU_SYSC_ALLOC_L2_ALLOC &&
-+		     !panthor_gpu_sysc_alloc_read_supported(gpu_id, source)) ||
-+		    (write != GPU_SYSC_ALLOC_L2_ALLOC &&
-+		     !panthor_gpu_sysc_alloc_write_supported(gpu_id, source)))
-+			return dev_err_probe(dev, -EINVAL,
-+					     "Unsupported SYSC_ALLOC policies <%u %u %u>\n",
-+					     source, read, write);
-+
-+		config[source / GPU_SYSC_ALLOC_SOURCES_PER_REG] |=
-+			GPU_SYSC_ALLOC_POLICY(source, read, write);
-+	}
-+
-+	memcpy(gpu->sysc_alloc, config, sizeof(config));
-+	gpu->sysc_alloc_enabled = true;
-+	return 0;
-+}
-+
- static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
- {
- 	struct panthor_gpu *gpu = ptdev->gpu;
-@@ -164,6 +347,10 @@ int panthor_gpu_init(struct panthor_device *ptdev)
- 	mutex_init(&gpu->cache_flush_lock);
- 	ptdev->gpu = gpu;
- 
-+	ret = panthor_gpu_sysc_config_init(ptdev);
-+	if (ret)
-+		return ret;
-+
- 	dma_set_max_seg_size(ptdev->base.dev, UINT_MAX);
- 	pa_bits = GPU_MMU_FEATURES_PA_BITS(ptdev->gpu_info.mmu_features);
- 	ret = dma_set_mask_and_coherent(ptdev->base.dev, DMA_BIT_MASK(pa_bits));
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu.h b/drivers/gpu/drm/panthor/panthor_gpu.h
-index f615feb05609..935e4af31e0a 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu.h
-+++ b/drivers/gpu/drm/panthor/panthor_gpu.h
-@@ -13,6 +13,7 @@ int panthor_gpu_init(struct panthor_device *ptdev);
- void panthor_gpu_unplug(struct panthor_device *ptdev);
- void panthor_gpu_suspend(struct panthor_device *ptdev);
- void panthor_gpu_resume(struct panthor_device *ptdev);
-+void panthor_gpu_sysc_config_set(struct panthor_device *ptdev);
- 
- int panthor_gpu_block_power_on(struct panthor_device *ptdev,
- 			       const char *blk_name,
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-index 4c5b953796e4..ec4650e7ced5 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-+++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-@@ -116,4 +116,62 @@
- #define   GPU_COHERENCY_ACE				1
- #define   GPU_COHERENCY_NONE				31
- 
-+#define GPU_SYSC_ALLOC_COUNT				8
-+#define GPU_SYSC_ALLOC_SOURCES_PER_REG			4
-+#define GPU_SYSC_ALLOC_SOURCE_COUNT			\
-+	(GPU_SYSC_ALLOC_COUNT * GPU_SYSC_ALLOC_SOURCES_PER_REG)
-+#define GPU_SYSC_ALLOC(n)				(0x340 + (n) * 4)
-+#define   GPU_SYSC_ALLOC_READ_POLICY			GENMASK(3, 0)
-+#define   GPU_SYSC_ALLOC_WRITE_POLICY			GENMASK(7, 4)
-+#define   GPU_SYSC_ALLOC_POLICY(source, read, write) \
-+	((FIELD_PREP(GPU_SYSC_ALLOC_READ_POLICY, read) | \
-+	  FIELD_PREP(GPU_SYSC_ALLOC_WRITE_POLICY, write)) << \
-+	 (((source) % GPU_SYSC_ALLOC_SOURCES_PER_REG) * BITS_PER_BYTE))
-+
-+#define GPU_SYSC_ALLOC_L2_ALLOC				0
-+#define GPU_SYSC_ALLOC_NEVER_ALLOC			2
-+#define GPU_SYSC_ALLOC_ALWAYS_ALLOC			3
-+#define GPU_SYSC_ALLOC_PARTIAL_ALLOC			4
-+#define GPU_SYSC_ALLOC_L2_PARTIAL_ALLOC			5
-+
-+/* Internal source IDs have separate read and write meanings. */
-+#define GPU_SYSC_ALLOC_R_OTHER				0x00
-+#define GPU_SYSC_ALLOC_R_CSF				0x02
-+#define GPU_SYSC_ALLOC_R_MMU				0x04
-+#define GPU_SYSC_ALLOC_R_TILER_VERT			0x08
-+#define GPU_SYSC_ALLOC_R_TILER_PTR			0x09
-+#define GPU_SYSC_ALLOC_R_TILER_INDEX			0x0a
-+#define GPU_SYSC_ALLOC_R_TILER_OTHER			0x0b
-+#define GPU_SYSC_ALLOC_R_IC				0x10
-+#define GPU_SYSC_ALLOC_R_ATTR				0x11
-+#define GPU_SYSC_ALLOC_R_SCM				0x12
-+#define GPU_SYSC_ALLOC_R_FSDC				0x13
-+#define GPU_SYSC_ALLOC_R_VL				0x14
-+#define GPU_SYSC_ALLOC_R_PLR				0x15
-+#define GPU_SYSC_ALLOC_R_RT				0x17
-+#define GPU_SYSC_ALLOC_R_TEX				0x18
-+#define GPU_SYSC_ALLOC_R_NE_A				0x19
-+#define GPU_SYSC_ALLOC_R_NE_N				0x1a
-+#define GPU_SYSC_ALLOC_R_LSC				0x1c
-+
-+#define GPU_SYSC_ALLOC_W_OTHER				0x00
-+#define GPU_SYSC_ALLOC_W_CSF				0x02
-+#define GPU_SYSC_ALLOC_W_PCB				0x07
-+#define GPU_SYSC_ALLOC_W_TILER_PTR			0x09
-+#define GPU_SYSC_ALLOC_W_TILER_VERT_PLIST		0x0a
-+#define GPU_SYSC_ALLOC_W_TILER_OTHER			0x0b
-+#define GPU_SYSC_ALLOC_W_L2_EVICT			0x0c
-+#define GPU_SYSC_ALLOC_W_L2_FLUSH			0x0d
-+#define GPU_SYSC_ALLOC_W_TIB_COLOR			0x10
-+#define GPU_SYSC_ALLOC_W_TIB_COLOR_AFBCH		0x11
-+#define GPU_SYSC_ALLOC_W_TIB_COLOR_AFBCB		0x12
-+#define GPU_SYSC_ALLOC_W_TIB_CRC			0x13
-+#define GPU_SYSC_ALLOC_W_TIB_DS				0x14
-+#define GPU_SYSC_ALLOC_W_TIB_DS_AFBCH			0x15
-+#define GPU_SYSC_ALLOC_W_TIB_DS_AFBCB			0x16
-+#define GPU_SYSC_ALLOC_W_RT				0x17
-+#define GPU_SYSC_ALLOC_W_NE_A				0x19
-+#define GPU_SYSC_ALLOC_W_NE_N				0x1a
-+#define GPU_SYSC_ALLOC_W_LSC				0x1c
-+
- #endif /* __PANTHOR_GPU_REGS_H__ */
-diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
-index ea1e222ef121..86de88163e50 100644
---- a/drivers/gpu/drm/panthor/panthor_hw.c
-+++ b/drivers/gpu/drm/panthor/panthor_hw.c
-@@ -59,6 +59,19 @@ static struct panthor_hw_entry panthor_hw_match[] = {
- 	},
- };
- 
-+/**
-+ * panthor_hw_l2_power_on() - Restore cache policies and power on L2
-+ * @ptdev: Device.
-+ *
-+ * Return: 0 on success, a negative error code otherwise.
-+ */
-+int panthor_hw_l2_power_on(struct panthor_device *ptdev)
-+{
-+	panthor_gpu_sysc_config_set(ptdev);
-+
-+	return ptdev->hw->ops.l2_power_on(ptdev);
-+}
-+
- static int panthor_hw_set_power_tracing(struct device *dev, void *data)
- {
- 	struct panthor_device *ptdev = dev_get_drvdata(dev);
-diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
-index f797663893b2..fbcd44edd429 100644
---- a/drivers/gpu/drm/panthor/panthor_hw.h
-+++ b/drivers/gpu/drm/panthor/panthor_hw.h
-@@ -46,10 +46,7 @@ static inline int panthor_hw_soft_reset(struct panthor_device *ptdev)
- 	return ptdev->hw->ops.soft_reset(ptdev);
- }
- 
--static inline int panthor_hw_l2_power_on(struct panthor_device *ptdev)
--{
--	return ptdev->hw->ops.l2_power_on(ptdev);
--}
-+int panthor_hw_l2_power_on(struct panthor_device *ptdev);
- 
- static inline void panthor_hw_l2_power_off(struct panthor_device *ptdev)
- {
+Configure the system-level cache before L2 power-on using the policies
+from the working CIX Sky1 driver. On Sky1, devices on the MMHUB bus
+cannot access the system-level cache, so buffers shared between the GPU
+and MMHUB devices require a specific system-level cache policy. Without
+this configuration, the GPU display output is corrupted.
+
+The system-cache support is a separate patch and reads the policies from
+DT. The proposed format is <source-id read-policy write-policy>, so the
+DT only lists sources with nonzero policies. When the property is absent,
+the driver leaves the registers unchanged. The format and zero-default
+semantics are included for review.
+
+The series contains seven patches:
+[1/7] drm/panthor: Add optional external reset support
+[2/7] drm/panthor: Allow operation without an OPP table
+[3/7] dt-bindings: gpu: arm,mali-valhall-csf: Add system-cache policies
+[4/7] drm/panthor: Add system-cache allocation policy support
+[5/7] dt-bindings: gpu: Add CIX Sky1 Mali support
+[6/7] drm/panthor: Add CIX Sky1 compatible
+[7/7] arm64: dts: cix: Add GPU support for Sky1 Orion O6
+
+Tested on Radxa Orion O6:
+  - Offscreen rendering with pixel readback
+  - kmscube
+  - glmark2 at 1080p
+  - Runtime suspend and resume with a retained EGL context
+  - Reset-worker operations
+  - Module unload and reload
+
+
+Changes in v3:
+  - Split optional reset, no-OPP operation and system-cache support into
+    separate patches, as suggested by Liviu Dudau.
+  - Remove the Sky1-specific skip_devfreq flag. Use the generic no-OPP
+    path.
+    Limit this fallback to configurations without GPU supply properties,
+    retaining probe failure for supplies without an OPP table.
+  - Move system-cache policies to DT and use separate read/write values,
+    as suggested by Liviu Dudau and Daniel Stone. Add explicit source IDs
+    so that unused entries can be omitted.
+  - Validate the architecture, source IDs and policies. Restore the
+    configuration through the common L2 power-on entry.
+  - Drop Conor Dooley's Acked-by because the Sky1 binding now requires
+    the new arm,sysc-alloc property. Please review the updated binding.
+
+Changes in v2:
+  - Use devm_reset_control_get_optional_exclusive() unconditionally,
+    remove the redundant NULL check before reset_control_reset(), and
+    drop needs_external_reset, as suggested by Philipp Zabel.
+  - Add Conor Dooley's Acked-by to the then-unchanged binding patch.
+
+
+Link to v2:
+https://lore.kernel.org/all/20261109120902.125242-1-cunyuan.liu@cixtech.com/
+
+Link to v1:
+https://lore.kernel.org/all/20261106104735.1651267-1-cunyuan.liu@cixtech.com/
+
+
+Best regards,
+Cunyuan
+
+Cunyuan Liu (7):
+  drm/panthor: Add optional external reset support
+  drm/panthor: Allow operation without an OPP table
+  dt-bindings: gpu: arm,mali-valhall-csf: Add system-cache policies
+  drm/panthor: Add system-cache allocation policy support
+  dt-bindings: gpu: Add CIX Sky1 Mali support
+  drm/panthor: Add CIX Sky1 compatible
+  arm64: dts: cix: Add GPU support for Sky1 Orion O6
+
+ .../bindings/gpu/arm,mali-valhall-csf.yaml    |  79 ++++++++
+ arch/arm64/boot/dts/cix/sky1-orion-o6.dts     |   4 +
+ arch/arm64/boot/dts/cix/sky1.dtsi             |  19 ++
+ drivers/gpu/drm/panthor/panthor_devfreq.c     |  13 +-
+ drivers/gpu/drm/panthor/panthor_device.c      |  13 ++
+ drivers/gpu/drm/panthor/panthor_device.h      |   7 +-
+ drivers/gpu/drm/panthor/panthor_drv.c         |   1 +
+ drivers/gpu/drm/panthor/panthor_gpu.c         | 187 ++++++++++++++++++
+ drivers/gpu/drm/panthor/panthor_gpu.h         |   1 +
+ drivers/gpu/drm/panthor/panthor_gpu_regs.h    |  58 ++++++
+ drivers/gpu/drm/panthor/panthor_hw.c          |  13 ++
+ drivers/gpu/drm/panthor/panthor_hw.h          |   5 +-
+ 12 files changed, 394 insertions(+), 6 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
 2.53.0
 
