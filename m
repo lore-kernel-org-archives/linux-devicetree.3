@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795175529;
-	b=dW1K1NCtJw2t5vxD877xsOcOoniEBHC5YaeR2MZ9KEj/C+OBGAbJd3b7kp0pPV0bEu5g
-	 fi2gtXwODu0VEyhgGRVosJer400t2hPivphHDvq59lopVdQ/rjCSX/DwfKUD4aiteBSyX
-	 aSVOp/3BKPBz3RPRuobYik+0lKJmjGQZFF4i5zX6vk8r+nKFwu3hzcuP0/LAahHz1qTVG
-	 uFnJGgyc7ranOlOnwrzOAbjwGVW9EreVtvtVGCCpqpnGaPi6aoiercJ5MSBiFiWBcS6GH
-	 /H6l6pQCb8H7CE1XTrJ5SWiHLjUfLhisbkJBSHWOVv9lWc5exajYesVAxCkOs/FMpHg==
+	t=1795175976;
+	b=3C16bvIjKJA8TGXjwBI4hQcr8Hon7XJGMMI5VHuVVNjVfysFVtuQgGIOzo2SYsPz6VsV
+	 opT5N7gZbbn5XHaH00qJR6gAQVoSult5ScRKbG7L2pwqPCx69cZZGX8DPjYiS7AQ97yVi
+	 s5DN1lAV9MfY7KBGNWrRodyL6TJAAhRNRWhsGjuEF9wesxUcjcSoEiTaUMPvltdbHAs35
+	 Zwt0QFHzIBNT2ko0+yeoYjXOZgK26ARCI06IYdFiOQBYJ3mHmc1NgoSUmJwMb6DAi5XC+
+	 J5iKQoRuqlXikQnIEgtnvX8R3ksu6obpfPiibKbaUwU1e0UZlHSiz8YnwS2tc1QfYQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795175529;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=XaAGumhVokh+2BDdHg76E3RVHGZuSdmtCNeDNfzUGOU=;
-	b=qyvW1PQoydxbic0W/xNoDXAVhxkJu+k5/1xpkX1vOI3aw8oJtuy45Y0cjZMLxjthCNL3
-	 4Ss4odrvRg2buh0UzdKKzVBZOxCpy6rPeIvzfBHHvzfSazS8JZsE4kGhp3u99UDaYAWm5
-	 IVnMcA9bH3BxXajdrLOyabGHY2d3etKiPK3ZqJOyIHjMd1bu7OEQnbbDtatxJXq+xRZC6
-	 M96LQqmta6B2D3Q5MALNyB85x4T2QH/7yVdw8Y7MSVXoti/jmRmWQlQoLEkCP+GfVeh3d
-	 85xzjkqIblm7lvoY0H17b5wU0USqpFpuX2idu1JZRWr5Vj2VBOQVcCUN8xoDH7ABpbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795175976;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=xGxazQdGcUKBZXkNT3EgqWjvCMXu7XolU++fRMgk5y0=;
+	b=M3vKImimbtfQ4ilUHeA+RFlBke980Fp7ZTBSz6miqNQNHRAI4XJ7b4ooTC8yKNcppQjO
+	 j0+ZBWsfll9u1R6xE6uurZNEbLOfsU5KC1vfe5tlciRt1BEYX3MwaFgU4q+VppSf7eym+
+	 ZN3NfsLfLoHoBje2pEOCco0F2malRWWtshf5J+/SP7BwedVcCf5mPa14uoaOVh3DeICKi
+	 c34FEQrur1S8AVc6gFcQZCdnzMyVP4EDjXqLajU6nOK/xV946ITBVE/wqMwKqPr0vSqwl
+	 P2MXrX366rg3yVtjtOL4ZktpsG2U1p8YwZd+JWmJEEJ5H+U2O2c4TnankRvbnpBmrrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ke8WBbXZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="awtN/n7E";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFB2606A320
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:52:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79E8606A320;
+	Fri, 20 Nov 2026 11:59:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ke8WBbXZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 083D91F000CF;
-	Fri, 20 Nov 2026 11:52:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=awtN/n7E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0298E1F000C0;
+	Fri, 20 Nov 2026 11:59:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795175528;
-	bh=XaAGumhVokh+2BDdHg76E3RVHGZuSdmtCNeDNfzUGOU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ke8WBbXZ2WLSrmEKiXicu/EaC1eU2pOKQLVdv5B58q5v3xBL824wsd7up3NOFofPT
-	 WF8jz4y8JyjnTXUu9Ykin/C7cZ5QPoJOStxMZP59QpFkwPla/zdmlMWjdufDJ0Wxv0
-	 5O3CBBLgErVlfNZ5LQP95+TRrVcHyvO13PfYE0AlSwzJW6bqysNPRxSHxHIl1R66Q4
-	 PeLWRwVW2uOmMRTtMHE1LEOOKg91MZo9FLkb0DhO9zs1PTC6CgmquxEedvLOEXhrum
-	 zt6mKqPYtOI2ZQBRxFD7AtVu4onLlAxFtwOMbnO2m1/snx6J8QxFxwk6VxsmwwrrPb
-	 Gew3vMrsWXUTQ==
-Message-ID: <sashiko-outbox-225100@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] mailbox: marvell-mhu: add Marvell MHU driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Paul Cercueil" <paul.cercueil@bootlin.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261120113952.168265-3-paul.cercueil@bootlin.com>
-References: <20261120113952.168265-1-paul.cercueil@bootlin.com>
- <20261120113952.168265-3-paul.cercueil@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 11:52:06 +0000
+	s=k20260515; t=1795175976;
+	bh=xGxazQdGcUKBZXkNT3EgqWjvCMXu7XolU++fRMgk5y0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=awtN/n7EFRKtcaMFVRTe755O03sEMUEz9QS0FUgwtoGQ4hjvwu8GEwa1eWWxODuhz
+	 TVjV2k05IZiC4SzHcoqhdD7emzpbhNkGiMSkVKy+LOdfwonBISRWTeplhdySWAmCms
+	 r20GekNPcQyX2bI0VX/rq1DsWfvaMA/DyOp1rIGA7DWK4Itp4EX6Jx5/WaMmdJ5zok
+	 J4TxEnlPtWMC9/HYLOhGPDR1T7tZPlOIL9b7aY05hne3wPKZx/hA1eSFQZ/EVZMjMF
+	 0o5VFj+CLztVrzpekjEM5G/1pt82mgw4lwo+bMWbtki3tuHKeq8jPAbL2xRDs2eOpt
+	 75SMNIqmprT6w==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Cc: linux-sound@vger.kernel.org, phone-devel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261119-vantage-tfa9865-v3-0-5257fa45df57@yahoo.com>
+References: <20261119-vantage-tfa9865-v3-0-5257fa45df57@yahoo.com>
+Subject: Re: [PATCH v3 0/2] ASoC: Add the NXP TFA9865 amplifier
+Message-Id: <179511065502.116416.9667231227994890644.b4-ty@b4>
+Date: Thu, 19 Nov 2026 17:50:55 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,117 +61,61 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1810; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=/0PVE2m1OploXZpaI7B48bfggYZo0YPomATOhhLoCqc=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIZzFTOlzaUXWZcJxCk+757QwejupWMVPghy0Pcz6X1p
+ /AKXfvbUcrCIMbFICumyBKXxf2yvuT1Gr6DC9tg5rAygQxh4OIUgIlIczP8D0vamONyQsjYzleq
+ zdX5ubtBnIrinHWnxGQftR+bMeuiAMM/C9t75b1qs+LYb+yUKlDRCrgjLWZs95rdfs1Uo6v3RNx
+ 4AA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] mailbox: marvell-mhu: missing IRQF_NO_AUTOEN in
-  mrvl_mhu_setup_irq()
-- [Medium] mailbox: marvell-mhu: inverted TX done check in
-  mrvl_mhu_last_tx_done()
-- [Low] mailbox: marvell-mhu: invalid min_vecs in mrvl_mhu_setup_irq()
---
+On Thu, 19 Nov 2026 14:01:45 +0530, Venkat Yadlapati wrote:
+> ASoC: Add the NXP TFA9865 amplifier
+> 
+> The Motorola Signature has two NXP (now Goodix) TFA9865 mono class-D
+> speaker amplifiers. This series adds the devicetree binding and a driver.
+> 
+> The chip has no DSP and a different register map than the TFA989x parts
+> of tfa989x.c. The driver applies the initialization sequence for the
+> device revision, selects the I2S slot feeding the amplifier and powers
+> the amplifier and its boost converter up and down. The register settings
+> come from the NXP tfa98xx driver. Only the B0 revision and the 32-bit I2S
+> slots configured at reset are supported for now.
+> 
+> [...]
 
-commit 2ee602a4969cc96c3afca49d7d2c3b05ee5ffda2
-Author: George Cherian <gcherian@marvell.com>
+Applied to
 
-mailbox: marvell-mhu: add Marvell MHU driver
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-This commit adds a mailbox controller driver for the Message Handling Unit
-on Marvell OcteonTX and OcteonTX2 platforms.
+Thanks!
 
-> diff --git a/drivers/mailbox/marvell_mhu.c b/drivers/mailbox/marvell_mhu.c
-> new file mode 100644
-> index 0000000000000..9b618b3fe2768
-> --- /dev/null
-> +++ b/drivers/mailbox/marvell_mhu.c
-> @@ -0,0 +1,239 @@
-[ ... ]
-> +#define SCP_INDEX	0x0
-> +#define DEV_AP0		0x2
-> +#define SCP_TO_AP_INTERRUPT	2
-> +#define INT_VECS_MIN	0
-> +#define INT_VECS_MAX	3
-[ ... ]
-> +static bool mrvl_mhu_last_tx_done(struct mbox_chan *chan)
-> +{
-> +	struct mrvl_mhu *mhu =3D chan->con_priv;
-> +	u64 status;
-> +
-> +	status =3D ioread64(mhu->base + AP0_TO_SCP_MBOX_LINT);
-> +
-> +	return status !=3D 0;
-> +}
+[1/2] ASoC: dt-bindings: Add NXP TFA9865 amplifier
+      https://git.kernel.org/broonie/sound/c/3bb77766ce46
+[2/2] ASoC: codecs: Add NXP TFA9865 amplifier driver
+      https://git.kernel.org/broonie/sound/c/ba47599b523e
 
-[Severity: Medium]
-Is the status check in mrvl_mhu_last_tx_done() inverted?
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Writing the doorbell in mrvl_mhu_send_data() asserts the interrupt bit in
-AP0_TO_SCP_MBOX_LINT, and the register remains non-zero until the SCP
-services and clears the interrupt.  Returning status !=3D 0 reports TX done
-while the interrupt is still pending (or times out if the SCP clears it
-before the poll runs), instead of waiting for status =3D=3D 0.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> +
-> +static int mrvl_mhu_startup(struct mbox_chan *chan)
-> +{
-> +	struct mrvl_mhu *mhu =3D chan->con_priv;
-> +
-> +	/* Enable interrupts only if there is client for data */
-> +	writeq_relaxed(1ul, mhu->base + SCP_TO_AP0_MBOX_RINT_ENA_W1S);
-> +
-> +	enable_irq(mhu->irq);
-> +
-> +	return 0;
-> +}
-> +
-> +static void mrvl_mhu_shutdown(struct mbox_chan *chan)
-> +{
-> +	struct mrvl_mhu *mhu =3D chan->con_priv;
-> +
-> +	/* Could be using SCP_TO_AP0_MBOX_RINT_DIS_W1S if we knew where it was =
-*/
-> +	disable_irq(mhu->irq);
-> +}
-[ ... ]
-> +static int mrvl_mhu_setup_irq(struct mrvl_mhu *mhu, struct pci_dev *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	int ret, nvec;
-> +
-> +	nvec =3D pci_alloc_irq_vectors(pdev, INT_VECS_MIN, INT_VECS_MAX, PCI_IR=
-Q_MSIX);
-> +	if (nvec < 0)
-> +		return nvec;
-> +
-> +	ret =3D devm_add_action_or_reset(dev, mrvl_mhu_free_irq_vector, pdev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	mhu->irq =3D pci_irq_vector(pdev, SCP_TO_AP_INTERRUPT);
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-[Severity: Low]
-Should INT_VECS_MIN be 3 (or SCP_TO_AP_INTERRUPT + 1) instead of 0?
-pci_alloc_irq_vectors() requires min_vecs >=3D 1, and requesting vector
-index 2 requires at least 3 MSI-X vectors to be allocated.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-> +	if (mhu->irq < 0)
-> +		return mhu->irq;
-> +
-> +	return devm_request_irq(dev, mhu->irq,
-> +				mrvl_mhu_rx_interrupt, 0, "mvl-mhu", mhu);
-> +}
+Thanks,
+Mark
 
-[Severity: High]
-Should devm_request_irq() pass IRQF_NO_AUTOEN?
-
-With irqflags set to 0, mhu->irq is enabled immediately during probe while
-mhu->chan.cl is still NULL.  When a client binds to the channel,
-mrvl_mhu_startup() calls enable_irq(mhu->irq) on the already-enabled IRQ
-and triggers an "Unbalanced enable for IRQ" warning in __enable_irq().  In
-addition, if an SCP interrupt fires before a client attaches,
-mrvl_mhu_rx_interrupt() calls mbox_chan_received_data(&mhu->chan, ...) and
-dereferences a NULL chan->cl.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120113952.1682=
-65-1-paul.cercueil@bootlin.com?part=3D2
