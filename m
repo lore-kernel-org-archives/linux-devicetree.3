@@ -1,60 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795122045;
-	b=eNyDHEc18rWc55RqOsbR1yTBmdS+d8s2EUItLKhh4CbSGIKOENN2808WBJrgcFmVxJCv
-	 eJ16qwb7OMtnqSwWm7cZvzHHoag0lXw73UZKrpx+JKHVylJdHgtsSpUo+gZk60SbYkrkZ
-	 ztFDPYYRJQKkII4dKbUsrdzBiQaYpzlKwFJjT5/Gzfl9eezEn0t+rGenwPzm0lDDb5EXB
-	 /CHIEZaY+92OEkd8f94+T6Hmz5iuwNyp4gwFSgnCKIQRGhq85cVbqbfdj2+rk0h7aqcCp
-	 wjRiTKjnq2+xLh0P0P6NX21cxbplSJBH8sQzmLdFCz9GpWrB9C8+0V0+qPRCqXKlhbQ==
+	t=1795122216;
+	b=C8tIhkhGyr9PrM8rYCPgcukJxXmLOiRSFDVtxQhGuPCo+sEpZZOwX+VMCXNZNZ4mV3LP
+	 mbL65XOpa6C7VnpB9i3nh48JLcUVOg0nxflEAgiDHe90i1LGIok+mKCOQmqgu94brqhXh
+	 BgS1eR/RA0XCWdP9RXjVLJWPEE6vRXrmTROWTa9BRyXnN02z/CLXIPwN4KM7kfArHZoY4
+	 +FDzUZPWHT9qOjMHK5+dNTW0KBEk61lrSiNiEKgZdU/N67JHZ8fswKk7wGUJQ2sNfoaBX
+	 6nJdAgLPsJSdaovhZ5xzhzWysCk47YGDFoaDE3ItCl9Gt7A4gO3n5xxeCwb8kKwou/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795122045;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795122216;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jRzgudTO1qkSGuzOPfaR+Ba0Lwqyafb02x6YrJau0gQ=;
-	b=O88lby62fcb/0aEMgfr5yD95UJpdBGDzqwRR88o6Xn/OeQcYToxNvnLEdvT75HYx+ySX
-	 osBg/vAXQ0X4elAQilDd32Lugf/rTLVgqcKd8Bh2sprW7iKBgUVa2TAjKICDaIRtEauNM
-	 o3Duhfhy/8kuvZXp1gH2hViSWMXWM6y8awbQHzKtCVjuyafxTCUlNvm/B3kw1E1gyHV8h
-	 vdTciy/D21Qq0wXqsEjypJ4W/tJ5Swfz4wsDwCe80c9TYs9gx9L2qmuMQYlR8dA7dsj7P
-	 e2i5/jLV3k1An8HNgFHTNX6DkCOrYhvGaI2quhTn6lP5CEoSw5kjpbX5uOooPEFEZFQ==
+	bh=sfsFb1aGEKDdDgduNvVaqLPO/+tVEkI1Hc7WtTzriM4=;
+	b=FlsZ30jIk+0CSOMW26KXTo7DtmjRkvHRvsadse9ptWJLxlswhR9MATiQeq+6b/97LNIE
+	 4pak4BKGNb8D+a52lJYJ9TY/4U05Oc5iGNuZwoJbYps8OGm7EwGCXeu7IdYPFQyWBlkZH
+	 lDYY2/yYKkelx3qYfSwyhxdZmf/kFypsJBpm4ZrpUm94+v6CVs5kkZ9TH0V0t7E8s4BJm
+	 a0M51cXMyetGrSEj712RPxMuc03LTmxTmtEH3fj6EhpEccgTycNZ/1h58pS1g6+VoKdM6
+	 LsXrCFG451mE6jGhp7qom/+g4aJmI1GAJKvGUljBDcHvQ3BFIwy9JDhXNaf4gOKYVGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orn6ElUm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ec1yZDgI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFF6606A324;
-	Thu, 19 Nov 2026 21:00:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7617A606A320;
+	Thu, 19 Nov 2026 21:03:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orn6ElUm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A7F1F000C6;
-	Thu, 19 Nov 2026 21:00:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ec1yZDgI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224001F000C0;
+	Thu, 19 Nov 2026 21:03:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795122045;
-	bh=jRzgudTO1qkSGuzOPfaR+Ba0Lwqyafb02x6YrJau0gQ=;
+	s=k20260515; t=1795122216;
+	bh=sfsFb1aGEKDdDgduNvVaqLPO/+tVEkI1Hc7WtTzriM4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=orn6ElUmwk+wOC3TWMCK1D63fKBmQ66tvx/fNy/R1n50ZqHw1OpgnTw5sSOZkyaJG
-	 f9qQu/IDo5aUE4eEs5j0qIIiK9CO727Ltm4ttNMYWC7BR8WTmLDhNjl6EjjRG7gADl
-	 MMq9ZKC5M6XMbPTNjxCelZpzuwUG1uW0mRbrRpHm5GgDNYl4s/J+YfRjMRKk7uN1/o
-	 Af9WF86DUIRObuR/qpoNARO65+rd318lrMb1OP5tbT25DR1rYP+FxCALKxN2tXCkHp
-	 ZX0eaBUzRlkedL6sFRSqNvtScDw+qMyXF3wdCGDCOgep6jJ6Cyi9FQPJCCGeoOP6CD
-	 Djtx2LjVYD2xw==
-Date: Thu, 19 Nov 2026 15:00:43 -0600
-From: Rob Herring <robh@kernel.org>
-To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Cc: saravanak@kernel.org, akpm@linux-foundation.org, david@kernel.org,
-	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com,
-	m.szyprowski@samsung.com, robin.murphy@arm.com,
-	baoquan.he@linux.dev, pasha.tatashin@soleen.com,
-	pratyush@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev, kexec@lists.infradead.org
-Subject: Re: [PATCH 2/4] of: reserved_mem: keep the reservation when
- node_init returns -EBUSY
-Message-ID: <20261119210043.GA532410-robh@kernel.org>
-References: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
- <20261103162429.2053989-3-radhey.shyam.pandey@amd.com>
+	b=Ec1yZDgIKaPP2Gg+BMqEMC7B1k7AJQf+XKLHQru6ochjFwVtKC3fb5DUSCBqJrLoz
+	 0v740ceRJMbVFPLVI/cYo+OEFNwQRcYRBU9R1q0EPPenf0xwB+thk7kFbcVB9cDnNs
+	 GeHiRRc/bmoqNKWrgF9g/XgPwuUbkhTwJY6Ccbbt1t6DKP9VqLvbSyc2VOJVTqd3pI
+	 FyH4Ur/ihOix2mwCIzmNbpOQ0KBUs0CW4ZDKi+QSy2TOV7YxRM1yMMdyqXwV4iIodF
+	 FDeKh/Xq3mmZR+ePmEHSoJfbgW7Nb+pQuwmCb4P86wLVs8B3NskO09jSMjnAEazAgj
+	 Nw6e5SM8v8ugA==
+Date: Thu, 19 Nov 2026 15:03:33 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: muhammad.nazim.amirul.nazle.asmade@altera.com
+Cc: linux-arm-kernel@lists.infradead.org,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Eric Dumazet <edumazet@google.com>,
+	"David S . Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+	Dinh Nguyen <dinguyen@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: altr,socfpga-stmmac:
+ Add altr,socfpga-stmmac-agilex5-tsn compatible
+Message-ID: <179512221319.568679.6038463507415818454.robh@kernel.org>
+References: <20261104040320.18077-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <20261104040320.18077-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,51 +71,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103162429.2053989-3-radhey.shyam.pandey@amd.com>
+In-Reply-To: <20261104040320.18077-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-On Tue, Nov 03, 2026 at 09:54:27PM +0530, Radhey Shyam Pandey wrote:
-> fdt_init_reserved_mem_node() treats any error from a region's init function
-> as "this node is unusable" and calls memblock_phys_free() on the whole
-> range, although the range was reserved earlier during the FDT scan by code
-> unrelated to that init function. Give -EBUSY the meaning "cannot be used as
-> described, but must stay reserved" and skip the release for it. Nothing
-> returns -EBUSY from node_init today. The next patch does, to refuse a CMA
-> pool overlapping the kernel image, which without this would free
-> [_text, _end) rather than protect it.
+
+On Tue, 03 Nov 2026 20:03:19 -0800, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 > 
-> Suggested-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-> ---
-> Changes since RFC:
-> - New patch
-> ---
->  drivers/of/of_reserved_mem.c    | 14 ++++++++++++++
->  include/linux/of_reserved_mem.h |  5 +++++
->  2 files changed, 19 insertions(+)
+> The Agilex5 SoCDK TSN Config2 gmac1 path includes an FPGA soft-IP
+> GMII-to-RGMII converter between the DWXGMAC and the PHY. The converter
+> provides the RGMII TX/RX delays and presents GMII toward the MAC, unlike
+> a plain altr,socfpga-stmmac-agilex5 port with no such converter.
 > 
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 0fd1683cba01..d67a2b3a4d44 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -621,6 +621,20 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
->  
->  	err = __reserved_mem_init_node(rmem, node);
->  	if (err != 0 && err != -ENODEV) {
-> +		/*
-> +		 * The region was reserved before its init function ran, so it
-> +		 * is not ours to release. -EBUSY says the init function is
-> +		 * declining it for a reason that outlives this node; freeing
-> +		 * it would hand the range to the page allocator even though
-> +		 * something else still owns it.
-> +		 */
-> +		if (err == -EBUSY) {
-> +			pr_info("node %s init failed, keeping reservation\n",
-> +				rmem->name);
-> +			rmem->name = NULL;
-> +			return;
-> +		}
+> Add altr,socfpga-stmmac-agilex5-tsn for that integration in the same
+> compatible items entry as altr,socfpga-stmmac-agilex5 (shared
+> snps,dwxgmac-2.10). Do not use altr,socfpga-stmmac-agilex5 as a DT
+> fallback for the TSN port; the converter presents GMII to the MAC and
+> supplies the RGMII delays, unlike a plain Agilex5 GMAC port.
+> 
+> The TSN port uses the same DWXGMAC-2.10 core as the plain Agilex5 port,
+> so extend the interrupt/interrupt-names/dma-coherent conditional to
+> match the new compatible as well; otherwise a TSN node would incorrectly
+> fall into the single-interrupt, non-coherent else branch.
+> 
+> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+> ---
+> Previously patch 3 of the v6 board series; split out for net-next.
+> 
+> v2: Extend the interrupt/interrupt-names/dma-coherent allOf conditional to
+>     match altr,socfpga-stmmac-agilex5-tsn, per Jakub Kicinski / netdev bot.
+> v6: Put altr,socfpga-stmmac-agilex5-tsn in the same enum as
+>     altr,socfpga-stmmac-agilex5, per Krzysztof Kozlowski.
+> v5: Drop altr,socfpga-stmmac-agilex5 fallback and rewrite commit message
+>     to explain hardware incompatibility, per Krzysztof Kozlowski.
+> 
+>  .../devicetree/bindings/net/altr,socfpga-stmmac.yaml     | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+> 
 
-I would move this out of the outer 'if' and and make the outer if an 
-'else if'.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Rob
