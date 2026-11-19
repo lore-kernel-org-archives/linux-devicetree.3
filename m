@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795128015;
-	b=nwLytg4/xvFowsY96qT83kNkeEoyolxFh3L/7iZwe+ueFELX4aCdPfSZ8t0tkSY23/E2
-	 6De4itOA2Vqtr75iyINy1y0cS/+AnQn5SDeZnEmrLrla5txg1N/sW/uLIT4oM896nMp7w
-	 ZArBvsOOtbBeQp/pQcgfO5DY1fTV0UUHUw1OaV4X+gMrXE/lM9OjAH5ntEkVPWHVRvFoP
-	 cTN8QDsCFpMY+I/TCIYRj1m9t2ccqFPn92KfmS/85xTq98/t9N9nuFtyg7S9JXlzpndao
-	 F56aVTdVi3zyEueTRW6IVGU02CbB6iPyp7o1Lrd3vwkqzWmBsmBdYoBn6rf4TR2G3Rg==
+	b=xk3pawaYl3s6TpRxLXaFSl1xsrJMUFy2CgvyBlnBiqdEH2/sKGeDPqKafRxJ0hgKtKCd
+	 5j/aJWIbW+ARXK3VzGJ4ziEonGmwW1YLTo1xGlJNMyQYmFZulrNgUBZXUcc13QTJj5vfv
+	 wKtCKUgoKAWFcAIbV4LlnwVSRL1JNTiHwBK8RxX2OtyTUXOt48hxIDLJg9opKrthMLeRn
+	 hr9h2kbWwlr3EcGoV+hNDfzA7dm4QGYONBDdysMklUja55bJDrtiA2UUObbMt4zoiMTSf
+	 LRLnDHnOhuXXH5HQJQ+AOglWp2KgDoz6Vl4wT6uh7JpJPBMIJkbsTTCyYLbVieikr2g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795128015;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sOKzD0QwmdT1QNOXJqAT1Vjmc1RnydJRCsekWD4V+G0=;
-	b=HvMlVX1w+neBmEtZsQoSZrmb8lEMk1WtzugZn3RTbVeM5iZNYMLCOAddMV8L8yGRM1Mp
-	 tL7u5SCro45+hmr17w3bme4447F/VHcp6nzizw0ZErIst9UTar55dCIkbzUymENoX/D6P
-	 jKL1v9UwRURhkssyPGVJE/9gAovdJjUbkVomz3fdHOdKFBOI0NLPXqp0SOTz9EVEHzCQt
-	 JAgZLNbikcb2k1r2nOkrBu0pK/Pp5uqhsi6XHX4iF1azpPVNnFeILC1C20b9op5nD4Dk6
-	 IMLk+lL+gwTqwfv7OXJO7EM/NP7l/rMx8uaqvbGYl7dJ91ailGPJLOqkYDdaaegS0/w==
+	bh=Xb9tGlBs/RI/3cYvgIuwT7LwCzWblww6OxyeA8tXJMI=;
+	b=NTsSPoQwKXL+UgjbChO8fnVE04gMh6zIp94+X+vEkYH6go4tP34w+e+7jHsOTLCs3LCE
+	 NKRR+mg2GqYoYO8o8MOPf05xZ49VfAz0Gn/fNg0MhNzKMczEQRXhOkgboGtKltL73bMIm
+	 CaFmUdH8sUFk8MWwDQ+F+lZKOSECHDoiA/q9kfhY8bHqZamIclaDdRocCIIbHFkqkW2g6
+	 qc6ggZuK+ss4eW7baY0TPVyRZECCH2BjM8oCixiBQx1cHThPA1Wz+54mTSuaGLLpTHtFH
+	 mJ2auMmCgyjE9sJkMTIAxgSWxVP8qrGQycCZcxZabl1owjAypLADx2NOTtclJuL3DgA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a9VJkqTm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R023IU59;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00F2606A335;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68D2606A33B;
 	Thu, 19 Nov 2026 22:40:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a9VJkqTm
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R023IU59
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1795128015;
-	b=gdyqSC7BUIX0iv/5TIhwqQCDv2672x+gjEWwItZeQP2NXgZphARDnxCSwuKuQhBc6fCO
-	 MYqBrcZGHRkwXVTy6OXpQflPW4qQVTpTP80e4Ac87hEnst2cUwgos9q2i4mwAMrw5kcJV
-	 TLyQS9on3PbCKfcmktjr9hXXE+GGYW0yfB6vQ3jrRdiXYFlAXelBZBbST5Fz9G2fPvwcx
-	 eGedio2pF4L7X3QLA+m2+AExbvbDEfnQLm25+mSpXmqBF9jG69OdP9f9A8jV8TbYxd+em
-	 df7XusJQC/IXZ+4k9UHIrBStWhZ3PdnnLauvvZmjFtUwlihwun8kQoI7u4smT1oQuCg==
+	b=OE2AQVBhNyFXyKAZbg7kL0hrhwepf3se5s8CwtCL6Rxo3GoUk9TuI7j8sFN1pRuS2bMh
+	 PSKjznJn8IUoBUwYlYAw2Q3xbx+Ez8BQsedMabtlPOwRCzSpphtmPFGhugC/DIweO8w8N
+	 5wDSGq7CATg6fi11w9bdJoHt5+I5IN+xyBoRGKRKJAQZQw+y6mbs75a973DWw1LREyKwk
+	 NUHIVes/TZvWXaIBTeqhnIj/FFcdqPRcF1Gk8cdoghe0zY/GHCaNmQImlC3+TAqy/rWVf
+	 02hJjcy5FR73DgX6T+VcHvJZlRmzmucMGS8BWatHjYthvTAwqv/x0P/FRhbaXazNsmg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1795128015;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sOKzD0QwmdT1QNOXJqAT1Vjmc1RnydJRCsekWD4V+G0=;
-	b=wRwT0ktJf4LXQvqvz6vtLZR+PW0cGh7+USOyCy+QMKficNi/wBGnzoYrwJjTUX7Ctiwz
-	 mbtFGL9zBVcuMoBQYsThJ4DqMbnjkYtx0wMreMWvgT5QLqTWO/wV+P9IWJRAal1GM7Ag8
-	 +N4fhCHNTTjHRI1rmNkng0HP/plgjGVhrUmS1i5Q+lazlvvg16FQKh2lZ3B7Pjm75YiOq
-	 QWWcM9LlwzwjjJZFYtzk3zIDUGQ8YOxvOmRMMoQH1d8xlBf8+MgRD7dv2Dc6OMNNSTdR1
-	 MRu26aoTthRcCDcMo+J3yDDY+ukcVoJK9BpPIpcjHYoiC+CrXrm37VWuOxS+pkPxTiA==
+	bh=Xb9tGlBs/RI/3cYvgIuwT7LwCzWblww6OxyeA8tXJMI=;
+	b=W7uEUK1MIrvXd2JdkE30vaccPO2HrUtgDN4nol49jh6prJk84WOWINULATO0oKvi7Ogv
+	 xX38Vkbr5qZ66GriNTs8LGQm/HhSWfOiPb94FCWfMXh6ZfPvEekUvzeXhDvMXmUstKMlC
+	 Lly9+Zwmb/N9yxRnQ5ybhqVbwDOevHTg5iJYi/ZAshIR7ip0gtXrlKQ2rXgRD/nibA1j9
+	 HTorINOGLJqJAl7fgREMl8t1M2mZtB0IqNj6k1updlDG/g/Z2RbxgtTh8v/xpDAJY8Tky
+	 ovZwEQq1KpK1Jw6CDB68O2IPwE6ay+2om+rz48S5dJVhl6VPmrTvP9/M3It57xqJpXg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7AA021F000CF;
-	Thu, 19 Nov 2026 22:40:14 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1E5311F000D8;
+	Thu, 19 Nov 2026 22:40:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795128015;
-	bh=sOKzD0QwmdT1QNOXJqAT1Vjmc1RnydJRCsekWD4V+G0=;
+	bh=Xb9tGlBs/RI/3cYvgIuwT7LwCzWblww6OxyeA8tXJMI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=a9VJkqTmlPmCnSSePr6K8eFDJFWJjHmb6Tz2ljpksk0mDyCRLJl4/qLdhaETLb373
-	 RkNcTaZdj/EisJtkFMRzoPPM+UxzCspPlS49hOYl3REe6OykUXp27RrgW1CNVGWjbP
-	 WjcrS6M36yPC3HgLQkYOXSSKLl0wYAdM62Skk2tE/0+5XDWTzBRhMKCicaxyRjOi1h
-	 +evn7VRHBeMiQgml1IhdTZudI8lN/HyzOvd3dPbhgeAdDjmml1RiRKJ1ruThju/2y9
-	 2NsyWaFqP1E5XcnX9vrZNOPEo37kxl55jS2fqWF5y/o35GfGg7or5nA8zDn4Uqgp7c
-	 QR4IHmug0bolA==
+	b=R023IU59D9EYp56SaOKO4PIPeIQg6NxFsa/X85wERpiAl+VvxbAFUC7VU6nIRzR+K
+	 6VIvkiV4XFU+3+kejYOeQQitclFM11mF7NC16mi374FRc7q+iB9PkjVZegSQXHfZaY
+	 VKQKq13bUVLiFZeZEGHstu4X7W+ZynALUP85fLzOtDQVZadJfn9h3nS69s1w3WuLYP
+	 La4KhhXUUMBTC8ZRcRp/kXw9joJTF9bnZu/A8kMMOJcUseZKVF37MNpe5MCYOS62Eo
+	 PznUxGFKIX+5ZlGTvQp1JsHP/af3W86NRg0K9P1eSGhG12FOCQMrxAqzthnnrj74dP
+	 S1dY99XxxSVNQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0AEE1422D4;
+	by lkml.kernel.org (Postfix) with ESMTP id 22A2C422D9;
 	Thu, 19 Nov 2026 22:40:14 +0000 (UTC)
 From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Date: Thu, 19 Nov 2026 23:40:07 +0100
-Subject: [PATCH 4/6] arm64: dts: qcom: sm8550-samsung-gts9wifi: Add board
- thermistors
+Date: Thu, 19 Nov 2026 23:40:08 +0100
+Subject: [PATCH 5/6] arm64: dts: qcom: sm8550-samsung-gts9wifi: Enable
+ PM8550VS-C
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-b4-gts9wifi-followups-v1-4-2e2388589a62@dxdmail.cc>
+Message-Id: <20261119-b4-gts9wifi-followups-v1-5-2e2388589a62@dxdmail.cc>
 References: <20261119-b4-gts9wifi-followups-v1-0-2e2388589a62@dxdmail.cc>
 In-Reply-To: <20261119-b4-gts9wifi-followups-v1-0-2e2388589a62@dxdmail.cc>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -94,11 +94,11 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Nizat Mikayilli <nacht@dxdmail.cc>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795128013; l=2808;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795128013; l=687;
  i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=rpPNI7LwXrNRy5b+woHc/0r8JGjvdXVNkvB1nnVjwFk=;
- b=bBIARGKuMgkM99NrhlPLK7MFXesfMmsrHSPepEdgfHa4ZjMWjNiJU1YPQD5Et75oOIBTimGru
- NjMCTbNi6XPAVJqvbAQ+xi0tvRAwmpJ3tQZjuh0007qZYcWlNUpP0Ld
+ bh=euutEXnvvtMe/+gu763/D4wM9tSHPXBePYkghrhgKWA=;
+ b=iqF0RUUWMRzsVz0FHsGRx+CEJ+Z0fN32987dHWQBjv1wEquvza99qmUNlb0LuPtAowCpxS7mp
+ Y5JlmH6m8oLCN5HAV9omlX32uUrTMzttsHNw1+aozfbD9kDxKteHTEy
 X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
  pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
 X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
@@ -109,120 +109,27 @@ Content-Transfer-Encoding: 7bit
 
 From: Nizat Mikayilli <nacht@dxdmail.cc>
 
-Describe the XO, battery, charger and AP thermistors on the PMK8550 and
-PM8550 AMUX inputs, and add a thermal zone for each. The battery
-thermistor is the input that the vendor kernel reads as the battery
-temperature, although its device tree labels it wpc_thm.
+The board has a fourth PM8550VS, at SID 2. Enable it like the other
+three.
 
 Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
 ---
- .../boot/dts/qcom/sm8550-samsung-gts9wifi.dts      | 88 ++++++++++++++++++++++
- 1 file changed, 88 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts b/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts
-index ea69d161e6b6..4dc0b7e29db3 100644
+index 4dc0b7e29db3..8323eb837710 100644
 --- a/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts
 +++ b/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts
-@@ -162,6 +162,56 @@ platform {
- 		};
- 	};
- 
-+	thermal-zones {
-+		ap-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		battery-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		chg-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		xo-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(0)>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+	};
-+
- 	vibrator {
- 		compatible = "gpio-vibrator";
- 		enable-gpios = <&tlmm 18 GPIO_ACTIVE_HIGH>;
-@@ -710,6 +760,44 @@ pmk8550_sleep_clk: sleep-clk-state {
+@@ -724,6 +724,10 @@ volume_up_n: volume-up-n-state {
  	};
  };
  
-+&pmk8550_vadc {
-+	channel@44 {
-+		reg = <ADC5_GEN3_AMUX1_THM_100K_PU(0)>;
-+		label = "pmk8550_xo_therm";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@144 {
-+		reg = <ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-+		label = "pm8550_batt_therm";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@145 {
-+		reg = <ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
-+		label = "pm8550_chg_therm";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@148 {
-+		reg = <ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-+		label = "pm8550_ap_therm";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		qcom,adc-tm;
-+	};
++&pm8550vs_c {
++	status = "okay";
 +};
 +
- &pon_pwrkey {
+ &pm8550vs_d {
  	status = "okay";
  };
 
