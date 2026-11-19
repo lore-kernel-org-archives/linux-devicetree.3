@@ -1,59 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795100806;
-	b=H8sChjny+MPPlkVf/ra02qN9//Yb2XvoNk/Mop42DclLqweZF38C+WL6DNETzhSDQL6N
-	 82IKMqyJNDw09LT0cNQuwPjz7VNwqOhigDU01JNDLKW9Xnx4habKEULHJcLXixo8r941g
-	 dEjIGXk2GSzpc2mxXX/zps/1P1CLgniwGjr4PheUCJcu7//hTslGv3nw30A6GCApwvoXo
-	 FkJ6PmnGI7dDS7sC8gIxnweT6Hg1yHS/P7LFHieMRc9wgsjapU5ncfAlz4aVIgxaj7f/Q
-	 V/m/fJXIo9MV8YB+sLfE4KF9P++ha1gkTc511Q6YGTJas0XbLJRNwZrEBs6XOyE86dQ==
+	t=1795100932;
+	b=iMSGnXTmv2FSsinFLkQpvZstC1iLrV3sqiezZU3Jozw4P8tmhgaCThkEpdUeaBSOcnfY
+	 hK/vmJKzUI4Hia6kDkeO+iu6TfqfzDRhx29BlBCTUNWbacmNfH+MDAeG9pdaPlW4otJZo
+	 nQY0zBHouaLLtdNFt+cI06TLkoX1Gt0IkIdZAliFog6HDzwvbb+Ekz17C8s280KEm4rcX
+	 irMTc+C6P/vQ2tdoAuqevptOVhp/YRk0xHEKmxx81ALUjPN8ylThKq5m+9X47sAxOW+xe
+	 JOh8hXSnLExhT86xM9JjjdWeS2X5QMnvAZSSVmWHKGsyy5KJKq4ch5wEKP0n2wWZktw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795100806;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=nhPmoLWXZXW9JIoce43LUkp1I0rIdf7jHuxuwUtFi08=;
-	b=3y2vG9q5VKB3vzifiDX73XG5AwzfnkWIfqI0qbKMsFhZZUylmximOieClnFm4R2BCnJg
-	 QJY0ADTZPWHkSVEnLpQtNyZVhh6vH8xGuABH4fT9MrR9UyytKIvWHfszacALLJEWqxmdP
-	 Ra8FJ1VhUyr5FZP2hA6avXFaEUmqlVEr1Ur//niH6dXXVRvKpImEaWdLUCkdANxKO5wdQ
-	 rvy/Yz0y0Spr3cRVmbpxy7ljgnRS4IWt7bWnBMhbAOJzegeNAIjvkGqYhs0hF/6w5hysx
-	 8RuYmtX/dVr8+iBBRl69WYFs/uwwXcpq7GfX8XjvKX9Qqq8AXh4z5A6AdJodqJ2jTKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795100932;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 Content-Transfer-Encoding:MIME-Version:Content-Type;
+	bh=UvR6QVMTWq8lS3fJb3iOdZEzYx/44ehzH+OdzQnQ9rA=;
+	b=rfWM3A9VOr2JPE4CKZYoZuV+IelWKnCseNZgsKSTbh/iVIZ/CVrJBQYYP4cPWWK/r2yH
+	 6VnDvBVM6E6KdEUgB3PqJgcmpWx7moYre0edvH50w9GMHwQC3P3dwhGe7T1ArdbQe9PxX
+	 sOXits2hN3l/lIDnS+piBD8nIQb+ndiYJEYjGGvSfZGO/38Wyz3U/66aIFBp1kh1RdJYT
+	 T9bie+ydOzKfobrEx7cXMaKRexeJ79U33Rdn1oB3JomGGQRJg3XsNgK2+jUrRgTZJPrry
+	 9joa6mcBuovILtnAFdOhDmhhBmWgoOJY7LafEUqnkpVYX6tE9418369btelNlsIgvSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=HoBhT4Xf;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P6Ly+rnE;
+	arc=none smtp.remote-ip=209.85.208.170
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32EA0606C03B;
-	Thu, 19 Nov 2026 15:06:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32EA0606C03B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D09E606A325
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 15:08:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D09E606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=HoBhT4Xf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795100804;
-	bh=WaY9ER42Ci9zV3VUciADx5h/M3/SEPlFmiTsxBx+0Ug=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=HoBhT4XfOB+SqxKuGVe9SzZs6fMP4S4w7sub4NOiia8HcyVAwD1u2F5hP1laU+xSH
-	 5m2cOwteAXJX6MZo3gJyjC75CYta4FazxwRlTnITn5IETUIgURJ4LIhUZJWoeNw29C
-	 ZSvapq+JkghqQuor3pRIIy7RO44FKSlZw0wzajOLP8TnuiaKJPzEoWXBLZ94VgS1ZF
-	 /16z2uwVHtMSzlYKYeGUH/wWs9ZZLkuDzGaVlToU/uCgtWfLVs7S5cy6AfnJtwQvnQ
-	 OA9FdHHlqTTXca5FFsSML/5GZz3wN42RyZRf0Ngg5NJQjp38CsK5BZSX75NZeXsmFe
-	 sMAbEq+YV3jGA==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9A17717E0D3B;
-	Thu, 19 Nov 2026 16:06:43 +0100 (CET)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Thu, 19 Nov 2026 16:06:11 +0100
-Subject: [PATCH v15 23/23] scsi: ufs: mediatek: Add MT8196 compatible,
- update copyright
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P6Ly+rnE
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3adfc004920so24212671fa.3
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 07:08:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795100930; x=1795705730; darn=vger.kernel.org;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UvR6QVMTWq8lS3fJb3iOdZEzYx/44ehzH+OdzQnQ9rA=;
+        b=P6Ly+rnEbtb3B56g4DtN4Fx71CgoOhCEXnaEgUpHcKAS8z6q+OC9aofCeJlbWWx72+
+         2lws9UULc+V1eCneSwRN4OOY4fGNgcjG5NzKfldBMjScI+0fzgEW7m3wmru3i+luxMYU
+         UkCQaJ2cNA+h9J6K8+GfHL1NUszyiAqzanMK66aR1kQs1oLx7VMaPzMFD/6IMeWzCs9X
+         1NXG/laty78FQvJvWaYERAfgw9fN1LHBaG8CfM/lUuhqS6bbgozHduRlKicmrh+VX4Cm
+         F3CKFwNzWc3GSHWCcnDVmiVmNDcy3GoBvqrHvR2UMkSKVnNSyVS1LRI+QAF8q2vjUOFH
+         oR6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795100930; x=1795705730;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UvR6QVMTWq8lS3fJb3iOdZEzYx/44ehzH+OdzQnQ9rA=;
+        b=iZn4aTqnrKDGmCKL313PIDwcIzdvRpa+urZRpIYzfrWsPPfGfOeNLFzYa2isnCCaRQ
+         q9X9kvTGyRJWRlU4oV7mPg/BRsPCJ7PXgCHXfMR7a30y8KomLQ8nO371gw7eX5SZ1zYr
+         W6CAVTy61CPlh/WeDpuo4T/Cb1DgFLE8UY1615rbnjCFiNsh4dEYjzVQB3HaQKcfl9lF
+         2EwQK3CQ8W2j7foSTaxrIGpOYPYnqOkDGyHiHaW+3bR6X/F2lVMdg7OTb33zEtS4L67C
+         qc2UIensADXS+rbKfIuMVufIr2UTKb8npZjFz9Qz+AiKGAVPTWN5g+WoeVA1RB9xfepU
+         nR7w==
+X-Forwarded-Encrypted: i=1; AL+hErEgQ+BY+ViXGk8YT/+73PIu10Vin31dda/jwiXS9YY3FCv6wGseoYQTWYcLS0tzujZVBeVZXqZCXDPq@vger.kernel.org
+X-Gm-Message-State: APuU4Z+T6FjofjvARfgc0NLm8H6pfKp5ga/17B3jtXhQFyThVqdnRWJc
+	KIk/tkffTTPQ+7FbM04kcwQM8Lgt9DP+OVNQECls8kyvK9tY4WdoDsN5
+X-Gm-Gg: AYBFou34gvfFlzgoTPiMeWPVfc1g+oK1TGuumRVbC5bpSSmNwzH+0pBdGmsaRADVGll
+	U7e5jBU7ctqD2MstsM7Qfmdm46GSYVQwhv6R5u4/YFKA5WAQkvUFGsvp8oNr6K/L5bNXmnSSTuI
+	o0+SPTwO1UxV5a3WJtTgPJAK8N/WGCNhiML+AZGxwzTdWvU+FiWEs0q9kxOkp6ACrDEuli4e5gc
+	jt/pp6a04E+q+VBpnAVaMQ6h2Us4q54JVk+l+JOTNeTd6O8J4GOj6rFlvOTjqdtxdxE9t10bkc6
+	HFPCKH1Z3CnxX/1fi+X+1jvTwQcoEH0bPQowB7Q8x+M4zJLgXDIeo/QJZFNi3a52lPLUT1hz9vg
+	D11a1GTvvm81fytch8oWIvtxJzwJGC2TGJBLgLkRyUqI/v7JDrs9MLtPy9sGlvuKi72ssXDjYZa
+	xgprVK+Ld9K+a+25p6fuoF+7tXzj5Dlmgb6wFHSS34xWMm8ZqNRir4aZTOAtjDno3JVYwbUV6hq
+	7QMsOWWulgCSsVSutAZ/DgPQ0qSSXx5psBHQqnpUVZ82Df4mDHtwLW2eoguvjzuwXAkST+5/bdt
+	cSFw2dPmZ8WRDtM4mT68D9H5n0wTdr8gCEgWSoQkNR9HMszXMj2bTFg=
+X-Received: by 2002:a05:651c:a184:b0:3ab:1207:bd2f with SMTP id 38308e7fff4ca-3ae7f9da258mr961291fa.11.1795100930127;
+        Thu, 19 Nov 2026 07:08:50 -0800 (PST)
+Received: from [127.0.1.1] (ip-024-180.users.dtel.ru. [91.210.24.180])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae6ebef2d0sm11809841fa.37.2026.11.19.07.08.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 07:08:49 -0800 (PST)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 0/2] gpio: Add Cortina Systems CS75xx GPIO driver
+In-Reply-To: <p3qjb3oncivinobxa5wvwwkql3xmjfujdwmxigyxczk5ya23ua@xayhbwbn35af>
+References: <20261119-cs75xx-gpio-v5-0-8d14f2bb614b@gmail.com>
+ <p3qjb3oncivinobxa5wvwwkql3xmjfujdwmxigyxczk5ya23ua@xayhbwbn35af>
+Date: Thu, 19 Nov 2026 18:08:33 +0300
+Message-ID: <179510091368.5.7008617353574583652@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,108 +102,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261119-mt8196-ufs-v15-23-aae1eb0382e8@collabora.com>
-References: <20261119-mt8196-ufs-v15-0-aae1eb0382e8@collabora.com>
-In-Reply-To: <20261119-mt8196-ufs-v15-0-aae1eb0382e8@collabora.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Peter Wang <peter.wang@mediatek.com>, 
- Chaotian Jing <chaotian.jing@mediatek.com>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
- Stanley Jhu <chu.stanley@gmail.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>
-Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-scsi@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795100772; l=2479;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=TcrosAvb98sGLCIkd8G/7bA4D8MkzDlQwyq19gXckBI=;
- b=UsQp+TWWCWLp6hpuqH1yLLTaZsVGD9WcZ8ssjS5lyrE8KshpNrTpD0PKvrmg+w0xA5ZH7+LsP
- lkdNQtaJ4KJBbSZY/tJrEOyn56j3ymUH8uwPP5jYLIzTphDwFcwjtLK
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+Content-Type: text/plain; charset="utf-8"; format="fixed"
 
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Hi Bart,
 
-The MT8196's UFS controller has a new compatible. Add the necessary
-struct definitions to support it.
+On Thu, Nov 19, 2026 at 02:42:27PM +0100, Bartosz Golaszewski wrote:
+> The driver looks good but I cannot pick it up while it references a
+> Kconfig symbol that's not upstream.
 
-Also update the copyrights and authors, without tabs following spaces to
-avoid checkpatch errors, to list myself as having contributed to this
-driver after the preceding rework patches.
+You're right. I have replaced ARCH_CORTINA_ACCESS || COMPILE_TEST with
+OF. The driver only uses generic MMIO, GPIO and IRQ APIs; HAS_IOMEM is
+already required by the enclosing MMIO GPIO menu. There is no need to
+keep an architecture-specific condition here.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- drivers/ufs/host/ufs-mediatek.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+I checked built-in and module builds on ARM with GCC and x86-64 with
+Clang, with OF=y and COMPILE_TEST=n, using just the GPIO series on
+v7.4-rc1 without the CS75xx platform series. All four builds passed,
+including vmlinux for the built-in cases and the modules for the modular
+cases. The GPIO driver code is unchanged.
 
-diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-mediatek.c
-index adf73dda4190..d6eb09e7446f 100644
---- a/drivers/ufs/host/ufs-mediatek.c
-+++ b/drivers/ufs/host/ufs-mediatek.c
-@@ -1,9 +1,11 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-  * Copyright (C) 2019 MediaTek Inc.
-+ * Copyright (C) 2026 Collabora Ltd.
-  * Authors:
-- *	Stanley Chu <stanley.chu@mediatek.com>
-- *	Peter Wang <peter.wang@mediatek.com>
-+ *      Stanley Chu <stanley.chu@mediatek.com>
-+ *      Peter Wang <peter.wang@mediatek.com>
-+ *      Nicolas Frattaroli <nicolas.frattaroli@collabora.com> (Major cleanups)
-  */
- 
- #include <linux/arm-smccc.h>
-@@ -2280,6 +2282,10 @@ static const char *const ufs_mtk_regs_avdd12_ckbuf_avdd18[] = {
- 	"avdd12", "avdd12-ckbuf", "avdd18"
- };
- 
-+static const char *const ufs_mtk_regs_avdd12_ckbuf[] = {
-+	"avdd12", "avdd12-ckbuf"
-+};
-+
- static const struct ufs_mtk_soc_data mt8183_data = {
- 	.has_avdd09 = true,
- 	.reg_names = ufs_mtk_regs_avdd12_avdd18,
-@@ -2292,10 +2298,18 @@ static const struct ufs_mtk_soc_data mt8192_8195_data = {
- 	.num_reg_names = ARRAY_SIZE(ufs_mtk_regs_avdd12_ckbuf_avdd18),
- };
- 
-+static const struct ufs_mtk_soc_data mt8196_data = {
-+	.has_avdd09 = true,
-+	.has_avdd09_1 = true,
-+	.reg_names = ufs_mtk_regs_avdd12_ckbuf,
-+	.num_reg_names = ARRAY_SIZE(ufs_mtk_regs_avdd12_ckbuf),
-+};
-+
- static const struct of_device_id ufs_mtk_of_match[] = {
- 	{ .compatible = "mediatek,mt8183-ufshci", .data = &mt8183_data },
- 	{ .compatible = "mediatek,mt8192-ufshci", .data = &mt8192_8195_data },
- 	{ .compatible = "mediatek,mt8195-ufshci", .data = &mt8192_8195_data },
-+	{ .compatible = "mediatek,mt8196-ufshci", .data = &mt8196_data },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, ufs_mtk_of_match);
+I am sending v6 with this Kconfig change and an updated cover letter.
 
--- 
-2.56.1
+Thanks,
+Fil
 
