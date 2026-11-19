@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795086038;
-	b=4pppG96wjgXQGL3CuOLRFPkITA8xEmez4JMm821a6lyO96zrnAw75b/UKII0tvivVcvy
-	 q0SQoJnelPEL6v2/aYbtd5uOx+w5N+4ZWneaKRZ2dCYZAAbVKl3aS9s2/CGB4s3tScXj9
-	 3DRbziwfAfqmESJ13xq5zreIYuqK3b8CHAVRq7sbUqovbSDAncVaYr0RmPM7BgBPTWX4W
-	 mt9LXtYurIVgZdPTfxjqySW4csADJXKxy84O50rq+mpZYK3FfwDOtZ2K3r4VmiCz7KHLD
-	 V2plasnZT9iZpFtnYZI8yByCTIUkEwRjII1czC3VnddRFd+FIDvuhrVAwQC5/6YcFPQ==
+	t=1795086043;
+	b=u/JvlZj03Cg8GahrHIQqUuXCqvzZ94jEVOqAO5g8MBQ2gyw2of5o3Oi05TNg0QwjkATa
+	 fGYq3Sj1gNcuomNasOBfFfq2MzLH6fIcUfkPb4TWul/t0AVbdoc5eNvRPf3OdFectNgoP
+	 M7jMaeFAsMn8BKmDQ8iq4H3Hf3DZ3p5lZ219KwvV551/L7rjeF8uaDYkKpvdib2M7OYgR
+	 uQ0G+cDVxGxwBiLD7c5Ehuf+jvRAvsOkFJksNxyH853aWNSabxG/1CRB8TBquJIU91xhR
+	 gESG7OBrO7J85hnarU8WujlfhCL7CuVoQ1ctQPLUyirJT3VPscj1GfLhL7cXyqe6RIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795086038;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795086043;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=BwG6pO180ts3EsXk8dPvrXRrI1JUEETTIVLE0jahKVc=;
-	b=0Xefdp/SzNqyBP8IWleLIkHCv+tdCpGBHWOsgSM0EYdsO+To4mPEFnw+hzrD6SRBPBIr
-	 lGqLzJi7zeXYmom1Ttevj0CgxFJxnY87EEOXl3JbTWAP71Mdkwll+9bvDIsGVIbzD96+i
-	 WmCgFUYQGvLK5ftjd1QLvAISMlzYShn+KL5NHw//Go/V/Ts9CNbQLAr0yhYE9K1pFw0Jd
-	 8BY8aCuee0mmDUzygDZxGqLejbzW5Wu3ZRsGylm8yRTn7Qfk3uthvdIB8aun4Z8TMCMcV
-	 4oLukw2RcF3JDwNLoOw9zVrEHHTuzZ/58vEQ3LsWvxyzeCcJsvSQ5/fovMmcLo47iJA==
+	bh=SnpBpONi2hKsnLkH7ie4ozWlmqX6tUPpRN0WLEqSj5E=;
+	b=BDmeYyF0PUkhZSVaiwn2oMlYoTOjRXLCap2Ne7XvZDfFXUM18vgUq8uzYcBjplvFKUvx
+	 jggq9WHm2wv++e5VSmwdFPnxbkPC9uAleZU/iAANXMP1uKEtXP8CbyIMzNFWAXkcQSwsv
+	 9lkk1opwYwBif84ibi2xo432ukrx1O70sa04TmWXq3HFKiIWjMHgoOLI3A6/6QJcXhuPS
+	 1eVilLL7fUHDmCUM0fz0neP/GuD7TqBfHJ/R9fl5chMqOgXUdWO9nG/4nM59TDMJzsry6
+	 yU0+ZO3ruaSdNkPmfDXBeWWp383g6fpzG9NO0FinutjI9QFGDiWmaeTsmOFzauKdy0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ZI0ZBnr7;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lv7fnnKl;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFE8606A320;
-	Thu, 19 Nov 2026 11:00:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EFE8606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF6E8606A324
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 11:00:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF6E8606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ZI0ZBnr7
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lv7fnnKl
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3882D1A170E;
-	Thu, 19 Nov 2026 11:00:36 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id B024FC4CBF3;
+	Thu, 19 Nov 2026 11:00:45 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 01DC060237;
-	Thu, 19 Nov 2026 11:00:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 59D5A11BC0ED5;
-	Thu, 19 Nov 2026 12:00:28 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 795B360237;
+	Thu, 19 Nov 2026 11:00:40 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3B59911BC0F59;
+	Thu, 19 Nov 2026 12:00:34 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795086033; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1795086038; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=BwG6pO180ts3EsXk8dPvrXRrI1JUEETTIVLE0jahKVc=;
-	b=ZI0ZBnr74DvtuFdI0t1iSYuANqwPuZZs8/7yPwybnvmZkD+2bqra+NXMQeYNgl/pEwPTn4
-	NbWRHXsDu012v6UoGT2GlL3j5wuiDR2Mbr6MD7spoZubyuUSs5oy7pQkvER1Ic7gZXfdiQ
-	ZV0Eyi4nmrogKX00d6wcEHS5JRc7IRcDvAwblO1U2y4oegMJfYIOxqdzLoSD8vjbdrCFQe
-	kpyDhDHN5ZikR3adV2fP31LgjPgPXGpZr2C8ZmTcYXyNhg2b7vxIzVI0i2I0GLREvcg848
-	hmBborznpZx1Ya6jbbZxIq+SVvcqw5wHnjeFwr8T98ArmSCCzuNwMXn+wNt01A==
+	bh=SnpBpONi2hKsnLkH7ie4ozWlmqX6tUPpRN0WLEqSj5E=;
+	b=lv7fnnKlNhRmPRNuZQwBsRGy8WrJpRjXUO7evkd9bCKQiPZpBCeSDSIZyQcQyHkgES/fJ+
+	r4c30IM5fhM6GOEgn2kwqGa7rXwhovo7vatxxDxkuIH2wdpeRRwxutFDlV8PvVWHFKnD4D
+	/tTR39B+cKXtWgK7ok6n+SZ8nYO/VNxcIMq5o1HoCCiKHNpCuK7Bm9KwAHEyZTWwvRezj2
+	OKdo4Z3ekluank4NWvhfocTeCSxUXdCQNRDwdEhp3zgmXNMQtFHnUntxV8lpFEuAhPtd/C
+	vtsWiT3uc8qjZHzPd2wErz3HxaXBVj1q2rt2kzCIBVnkVWKBK77yS+x8SCB+ow==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Andrew Lunn <andrew@lunn.ch>,
 	Rob Herring <robh@kernel.org>,
@@ -78,12 +78,10 @@ Cc: linux-omap@vger.kernel.org,
 	Steen Hegelund <steen.hegelund@microchip.com>,
 	Luca Ceresoli <luca.ceresoli@bootlin.com>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v10 1/5] bus: simple-pm-bus: Avoid inconsistencies between probe() and remove()
-Date: Thu, 19 Nov 2026 12:00:07 +0100
-Message-ID: <20261119110014.582363-2-herve.codina@bootlin.com>
+	Herve Codina <herve.codina@bootlin.com>
+Subject: [PATCH v10 2/5] bus: simple-pm-bus: Remove the remove() function
+Date: Thu, 19 Nov 2026 12:00:08 +0100
+Message-ID: <20261119110014.582363-3-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261119110014.582363-1-herve.codina@bootlin.com>
 References: <20261119110014.582363-1-herve.codina@bootlin.com>
@@ -99,71 +97,40 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-At probe(), operations done depends on device_has_driver_override().
+Due to recent modification, the driver remove() function is almost
+empty. It only performs a dev_dbg() call.
 
-At remove() a call to device_has_driver_override() is also present to
-identify operations that need to be done in order to revert operations
-previously done at probe().
+Having this remove() function is no more needed. Remove it.
 
-Nothing prevents device_has_driver_override() to return a different
-value when called at probe() and when called at remove(). Indeed, a user
-can set driver_override (or clear it) after the probe() call and before
-the remove() call.
-
-In that case, inconsistencies are present between pm_runtime_enable()
-called at probe() and pm_runtime_disable() called at remove().
-
-In order to ensure that pm_runtime_disable() is called only if
-pm_runtime_enable() has been called at probe(), use the devres version
-of pm_runtime_enable().
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260630105701.7D0471F00A3A@smtp.kernel.org/
-Fixes: 98e96cf80045 ("drivers: bus: simple-pm-bus: Add support for probing simple bus only devices")
-Cc: stable@vger.kernel.org
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- drivers/bus/simple-pm-bus.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ drivers/bus/simple-pm-bus.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
 diff --git a/drivers/bus/simple-pm-bus.c b/drivers/bus/simple-pm-bus.c
-index c920bd6fbaaf..4322a778e801 100644
+index 4322a778e801..e45700156732 100644
 --- a/drivers/bus/simple-pm-bus.c
 +++ b/drivers/bus/simple-pm-bus.c
-@@ -29,6 +29,7 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
- 	struct device_node *np = dev->of_node;
- 	const struct of_device_id *match;
- 	struct simple_pm_bus *bus;
-+	int ret;
- 
- 	/*
- 	 * Allow user to use driver_override to bind this driver to a
-@@ -66,7 +67,9 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
- 
- 	dev_dbg(&pdev->dev, "%s\n", __func__);
- 
--	pm_runtime_enable(&pdev->dev);
-+	ret = devm_pm_runtime_enable(&pdev->dev);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed enable pm_runtime\n");
- 
- 	if (np)
- 		of_platform_populate(np, NULL, lookup, &pdev->dev);
-@@ -76,14 +79,7 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
- 
- static void simple_pm_bus_remove(struct platform_device *pdev)
- {
--	const void *data = of_device_get_match_data(&pdev->dev);
--
--	if (device_has_driver_override(&pdev->dev) || data)
--		return;
--
- 	dev_dbg(&pdev->dev, "%s\n", __func__);
--
--	pm_runtime_disable(&pdev->dev);
+@@ -77,11 +77,6 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
+ 	return 0;
  }
  
+-static void simple_pm_bus_remove(struct platform_device *pdev)
+-{
+-	dev_dbg(&pdev->dev, "%s\n", __func__);
+-}
+-
  static int simple_pm_bus_runtime_suspend(struct device *dev)
+ {
+ 	struct simple_pm_bus *bus = dev_get_drvdata(dev);
+@@ -150,7 +145,6 @@ MODULE_DEVICE_TABLE(of, simple_pm_bus_of_match);
+ 
+ static struct platform_driver simple_pm_bus_driver = {
+ 	.probe = simple_pm_bus_probe,
+-	.remove = simple_pm_bus_remove,
+ 	.driver = {
+ 		.name = "simple-pm-bus",
+ 		.of_match_table = simple_pm_bus_of_match,
 -- 
 2.56.0
 
