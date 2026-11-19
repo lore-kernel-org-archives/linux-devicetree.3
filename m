@@ -1,22 +1,30 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.33
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795103015;
-	b=SlwO2A91RCIH5FksbjrmzhwI5+sy1EHH4ywPAEV8/5Sb+0t+NzrXNEIjOG+tzp5+bCIF
-	 7w74bQZR1rHUJiLK8zgfWkrCEX3PHjuF0eND4UOjzqnueisZYmOAANarRXJnV9WqWaeCp
-	 XihZrfokIwN38kv+Lh1iBNqbJfChMv7QZ1uYmTQEagvZbdAUl7/ZxW9+/RfMSUGBVBsNb
-	 GweZQpTBZMNx7k/4b/YHrv+0DOoiQTbZ6MkKtO6ZZmuEOqLDzTJwz8x6NUJRuxaBv7iYd
-	 QyjaGFzC/oKHu8OkLO/XFoDIt5w9/dfVNXyifqWAD1Q5LNHyLrNyGXH/6NvRwZGzSLg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795103015;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.159.61
+ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795103255;
+	b=bUFdqeIwDx6Lg64R+fUdzHlTYQicpWvZkLyUmH+ey6kP3eYbOfRbfdlbgR6aCV1Ok2Nh
+	 DKtq+xIyNOOimsZ0s2mruf/mQn4Q0JfGjcBZ5x0KfVU3FKj4HduidTO6GqZFln1JZtKXK
+	 yjen3AneMzAVACXucOaUMkv2vTNpEWmTED3rKWLlhVsFinKWeP0Jly4fTn6b6ic9PY+zT
+	 CCqJffhRTSk6jzVAzmssGGc3yS7dzG65R0LRutV98s7wt7DirpAEoUF8+Yzg1+oQ3IY7C
+	 gujkIwPO2Sfxa+0/N7CvqfVp+jp5JTXg6C0kDa/SapNJhOvEPM8eX+CNRHXtvq2C3OA==
+ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795103255;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
+	 DKIM-Signature:Authentication-Results-Original:Received:Received:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:x-checkrecipientrouted:NoDisclaimer:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
@@ -26,84 +34,122 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WXIQw9qwsPCENrvFRFHLFJG32Kf+BMQHROaPEklqr/c=;
-	b=IHn9tYPOg8mc5zUszGzMYHwOMnKuud8JPn3jqbhvEV3bsijFhdUmkwgapWZ+AuWMIkLL
-	 L6pp3nF1FXBtnwSWIwq24L8WhOt4hhubkQ20RO9dY3MAUsQqi8T9m1iFyvkGU53FIPVyj
-	 wZ98hRcT9KfBpHRsLrHIKZnToMveGo02NFGDrzos9nL9t+y8kK0/aVF8CsJSEqCy1ac4n
-	 4XBQimeC5dwtpLB5fkagE9kbkqvWua7AivY2DzauPR0Ml5sRwe3u/HJwQnrhlpvXP4oeK
-	 YVaGtZq+lQ5oaU7FX4qS6wh+MMPCaRUI2B4T55D3OjFHNEh3uJJqKoTZSGrAoMA0MmA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1t1S9fNU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.33
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010033.outbound.protection.outlook.com [40.93.198.33])
+	bh=/vHP2PvwFlf7d4Oyrs5KSVIqSPeaTTGRjHX6hmij83o=;
+	b=YmtWKjPe9p63vOkZ6AmXqbFx9VM6U6WThkqydPIN8kNysGDWE3E1u88ZRCO3BGparyFy
+	 uSqdWMtir6A72HLtFolz3a8WlcZSAAYKfH3+u0qJ3RZ5shPIc3ul6q/sdZ+PiF20Zx/bg
+	 owDg7SzSeoZHEkBZC1RJgX/nSJyIPSeIHtVxEgeo7Sz3fF2Gj8moSxb3gR/RY406z7TtJ
+	 uIKUK2eWpOfM2iMPYIhRKmAspiF4exuTsk5FUV9w6lG36wY85mNXMihI2kKDYYy7VWqTe
+	 7SMEsrZPe/Hb4yZyg6DM/E1Mcm1WSvcqaZp7zjFSZsJchHzbfDUiZ9PgQ2WJVusOIgA==
+ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=drcMbsMF;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=drcMbsMF;
+	arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.159.61
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013061.outbound.protection.outlook.com [40.107.159.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE49606A320;
-	Thu, 19 Nov 2026 15:43:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CE49606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA6560A2605;
+	Thu, 19 Nov 2026 15:47:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBA6560A2605
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1t1S9fNU
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=drcMbsMF;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=drcMbsMF
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=ub8N07rRjZJwdN/FoGmkb4KqUBdx61dNcTL+AClVYPlb/FmpCiOhflpelHWj5zpJy/HnggJ0Z1WQemmh3WQm+T9ePKc17f//k+PHivhAYmngc1eoXGeAh1nJQebOm5w9A4SVtmTUAu1O1G5mnFFkcu+LFtRiDEDt/yfYrSwKAI8eQWSjAUcoaFhlHmZUjMGi1Pnbiloio9cVBtuEZY1ywQfIolQiIT2LXN/ShbDDAsmLwgp04ugOYJp+/vP8xEPgg1jQJI0guX0CDISGW2z/flEfbWl9ewKS8pe6kOE0Q3DIrJDSD+iSWlDY6e82zTNeUfHzDIfiI00RsDJbFcOmyw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/vHP2PvwFlf7d4Oyrs5KSVIqSPeaTTGRjHX6hmij83o=;
+ b=lF2yF1JVcx7YLgDhU0j5LojOMpjxxGhJRNpUm1iYrv/i+WR9snmI5+ngwcfAX8X2w9ec8o1XW57UMHnWiFKdap4xt0GNPH/9r9I2h8NJBBX2Io9UilMpMM/4Zmy4QejGF0w9hLV94umpvdoizIgPs2dS+oh81+VvGoNAA28xu3fcj+O1UDkRxJJ22nzSQJjL5Mh0oES8ObLnV0j/Q4O5CP7kzfop//v3vkB1/0KiEqEcUlJslkXdyw6ryF34OrsHXLvp2CntYGHOvTZS4MPWtw/H4Sn+gXi+kLZw5mH2ZA/kVX0PnIg4KA+N9eNzfMNemztkuCSM7+j0jE35NS3WBw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/vHP2PvwFlf7d4Oyrs5KSVIqSPeaTTGRjHX6hmij83o=;
+ b=drcMbsMFN4ZGWNapl7a7aBR0q7LmemrjxeFEp+6DimviuckNuiVm+r4hPFMc6FlA/tLn1tM3VegA4LYD7wRKySOATBAjH6qizov59T5h5Q9nGvRKNOfVjoCnpGRA9wl6R0vx9KjuRPHYXWEgHbTzVNJ2a83Zi8MT1c7wME1SuMc=
+Received: from VI1PR04CA0049.eurprd04.prod.outlook.com (2603:10a6:802:2::20)
+ by DB9PR08MB11339.eurprd08.prod.outlook.com (2603:10a6:10:605::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
+ 2026 15:47:30 +0000
+Received: from MI3PEPF00008493.eurprd03.prod.outlook.com
+ (2603:10a6:802:2:cafe::7d) by VI1PR04CA0049.outlook.office365.com
+ (2603:10a6:802:2::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.10 via Frontend Transport; Thu,
+ 19 Nov 2026 15:47:29 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ MI3PEPF00008493.mail.protection.outlook.com (10.167.240.154) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.5
+ via Frontend Transport; Thu, 19 Nov 2026 15:47:28 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n1kpRYsEUZ7ch4D/8McwLjHZkv5irEVlAJmkkzprO3bdSgYBqHk2IWjfxfU5F1MgIXvsgWtg3nPrkpXpNuqUkgbHOX/Br3CongB4Ryo8REAythLcXn6GCc8ccqcUXUCwMFr91xydGGSVC0AsAMFqWZY6PS/5HAIGdUF7iwWqewheI+wq8lpL8Ivn/vSHuQjX7ApYemlP54P9dJt9K8xrw2Uw+3LcPbGV5gIjTcpmPtKffBwBOKgbo6PeiWVEpJUlZjqeUgUcIHr2+ilOFTcy3G6gc7trVSuTcSoX02vW4rjUsmjicL2fDFSMjwWw6+JlrHt39QHzwjrKHiexXy0EPQ==
+ b=AzbkjHohRMPQaUTzpomk19A4nhs5Q0ULV1EhIQznOi80OHKMB+jIZXfUUG5Ufw5wOdphedDmEib32I/CUZeo/tVVHCaPZMwhgcl0/VEWU/Geo/Z8XCXA32oGtr9SfRGIa0vB7Fxw2iI0IwkIUUDVAQHxLGLccJDg/Xub1ybJCX24sXHTORAj1jmT3yzBUB/2SqMnuFRTD8LcSGHx/q6INLQPTylvvyCbnlmI0MKBJxIB4YL+2X1HhJq4IMUtmC0ki8SBNcgQA4YRN7/8UIwWQ9tkKuiG2W3qjbr4HDoPiPkoQpbos5GFBydtTca27+Qsb5RLc3kubLwm2R9r5XeH4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WXIQw9qwsPCENrvFRFHLFJG32Kf+BMQHROaPEklqr/c=;
- b=TqPRrNzaMneh8ZONKYZqGSPWoICv8R5vstBVnGKrGAw8WEI/gnbYarT/QbO/iP5grV8ScBw0D9qXv2ZGPUXIuiI3V0/OwR7hRD4Bf3hdar4zStsupRk0y+Oqz456uOnMJD79yGr9pjilmsoEEmBc2ayGjw4DiLHJirVUhz5Rks18844iAJ7T8XgxWkTPkp5ABtA4sN6yxq4VvCVNZ/PhbVZ73tZ/N5Uw03wq2PpqUJ591Ll/CsuRMGMVv4ZNFxkfKwlav81OjNglOHo+cOyrDpMbju5vEElUdyJwyuYQt1H5cMweuOPHp/HkeA4WPZm8x6fvi0goFMoEPW27WQ+NBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=/vHP2PvwFlf7d4Oyrs5KSVIqSPeaTTGRjHX6hmij83o=;
+ b=LuAe5wpDLCAm+HXSiMLK7coo72a9V9cKyZ0MKPBZO7X3ML0hiPP2NtikkuIzaKuBUzeAQaEct/l/cb4zSQtC7rXi3yE6HgiRjmhG7djrEh/l4raoW6HE7WwnZkshBqT0NRLbwLTaKh0+OeqOkjWVJBHSdnS6AL2gt5fxobNNpCOjqYb0atb4S21Y41e46bTvFx5UMhFs0s1cA+QXDsHVjFbfV8SWXscP7v83Hs7j5nUXNjAV9c7iOABCz47pEzHXJDquNOjXMVCEFCgIz0O3Qsth5U/cS76+8MtByydqVLpA/pCCWNjWSyE2btWR57x+6s/wx8j3sueHY9WllTcUwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WXIQw9qwsPCENrvFRFHLFJG32Kf+BMQHROaPEklqr/c=;
- b=1t1S9fNU8nlX9xLur83hg6fRXd+MBZCWvVWctCkrE2+ffLU3jumNHACqdgr6c77/O3JE6qf7mOktPEgD/CVnWM9VtkdMQaKdc1WsMpw9mD1tAVSWrp+a/XtlPGv9Q888zAhsTrglaKnMfbGzVUEmdGka/5c3KHfChPOqGHDKy1E=
-Received: from SJ0PR03CA0028.namprd03.prod.outlook.com (2603:10b6:a03:33a::33)
- by PH7PR12MB8108.namprd12.prod.outlook.com (2603:10b6:510:2bc::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Thu, 19 Nov
- 2026 15:41:29 +0000
-Received: from BN2PEPF0000A892.namprd04.prod.outlook.com
- (2603:10b6:a03:33a:cafe::64) by SJ0PR03CA0028.outlook.office365.com
- (2603:10b6:a03:33a::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Thu,
- 19 Nov 2026 15:41:29 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000A892.mail.protection.outlook.com (10.167.248.184) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 15:41:29 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
- 2026 09:41:09 -0600
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57 via Frontend
- Transport; Thu, 19 Nov 2026 09:41:08 -0600
-From: Michal Simek <michal.simek@amd.com>
-To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
-	<michal.simek@amd.com>, <git@amd.com>
-CC: Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, "open list:OPEN FIRMWARE
- AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated
- list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH 2/3] arm64: zynqmp: dts: Wire gpio-delay driver for USB hub reset
-Date: Thu, 19 Nov 2026 16:40:43 +0100
-Message-ID: <0a89dca2f18a465b3535f3c01e454d4fbaacadc5.1795102838.git.michal.simek@amd.com>
+ bh=/vHP2PvwFlf7d4Oyrs5KSVIqSPeaTTGRjHX6hmij83o=;
+ b=drcMbsMFN4ZGWNapl7a7aBR0q7LmemrjxeFEp+6DimviuckNuiVm+r4hPFMc6FlA/tLn1tM3VegA4LYD7wRKySOATBAjH6qizov59T5h5Q9nGvRKNOfVjoCnpGRA9wl6R0vx9KjuRPHYXWEgHbTzVNJ2a83Zi8MT1c7wME1SuMc=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from MIWPR08MB568805.eurprd08.prod.outlook.com
+ (2603:10a6:290:e9::16) by VI0PR08MB10630.eurprd08.prod.outlook.com
+ (2603:10a6:800:209::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
+ 2026 15:46:46 +0000
+Received: from MIWPR08MB568805.eurprd08.prod.outlook.com
+ ([fe80::be50:76ed:509a:b9f2]) by MIWPR08MB568805.eurprd08.prod.outlook.com
+ ([fe80::be50:76ed:509a:b9f2%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
+ 15:46:38 +0000
+From: Karunika Choo <karunika.choo@arm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: nd@arm.com,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	linux-kernel@vger.kernel.org,
+	Akash Goel <akash.goel@arm.com>,
+	Lukas Zapolskas <lukas.zapolskas@arm.com>,
+	Chris Diamand <chris.diamand@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH v4 8/9] dt-bindings: gpu: mali-gen5-am: Add Mali 5th-Gen AM schema
+Date: Thu, 19 Nov 2026 15:45:58 +0000
+Message-ID: <20261119154604.2519184-9-karunika.choo@arm.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1795102838.git.michal.simek@amd.com>
-References: <cover.1795102838.git.michal.simek@amd.com>
+In-Reply-To: <20261119154604.2519184-1-karunika.choo@arm.com>
+References: <20261119154604.2519184-1-karunika.choo@arm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO0P265CA0002.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:355::15) To MIWPR08MB568805.eurprd08.prod.outlook.com
+ (2603:10a6:290:e9::16)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,328 +159,185 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8716; i=michal.simek@amd.com; h=from:subject:message-id; bh=IO7c5/XEPi7FoXMSKwGdPC6iI2+Jy9QqXRIs+LhLrGg=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWT9l2hdKcGpepLtwhXzXIVlCZ4lzk8tYyY537i9Q1bnU fd/02vHO0pZGMQ4GGTFFFmmM+k4rPl2banY8sh8mDmsTCBDGLg4BWAibSsZ/nAccVj0hTO1IvfV moL+q1v55Uxqlz/WL7x1bXGwf/YE2QRGhtsxFg80px/5ukx/sV3rPGE1yZX7+LfLrnr/fdnOFp0 DbxgA
-X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A892:EE_|PH7PR12MB8108:EE_
-X-MS-Office365-Filtering-Correlation-Id: 110f0377-5b9a-4042-5f56-08df46539416
+X-MS-TrafficTypeDiagnostic:
+	MIWPR08MB568805:EE_|VI0PR08MB10630:EE_|MI3PEPF00008493:EE_|DB9PR08MB11339:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac3789c1-8746-491f-e652-08df46546a57
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|22082099003|18002099003|261009223027099003|3023799007|56012099006|11063799006|261028144727099003|261022075727099003|261021121427099003|261022105027099003|261102123227099003|261026121527099003|261026140227099003|10067099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ lyIH5k5bbTGlC/o+JLoLMBjXeE32FeP0mJyG8u6ZRFw9+XYQ+j8v7JUC+76uJq77tTdwgwvArCnS/oMqQCO1tIerCZhd6ck67jNa58YnEATnftANMmayw47baPplNcVDGH2592VqAaVO32dvVeFU47A3tcTL5NGBoAbN8opyK+TpbJ3OFG4qSYz5rv0MQe0X9gyYQyjaF1W8HObhNVOgiCpYi+QqjTZV6Dbr8gJXM0iMAhXjy0TvkjfrlVV2DDL/tE9TDxJCYD5LRuJpzwkpZyifIT2VrtNcMnct2DeU8AhvVwU/pgQujA+/Q+YrgiIVpm0DRXEaVjwZ+uwaw8PbnJqMYMSPpkgSViWz05cnR7Jg5attIMbdBM2/w275vPjOYZ05/HeJMW0HTFs4UyBksrbi7VBjo8z/iWR2OB/0sKl4XJbFNMdDRTGl3tDmz0XSYf17qCsmo6dUKy+nqJlG+x++ymQkSOc556ZgsUxuUyXqPGIBcv96OF5V0HpGnHeAlJTSj4d+Jbg7mDmrLipO8WThW7tBvSLGxKgB9ZQIitzH0afFRg/SYuHEuvaey9cjtm+R5g9f0zhmjAIyo+ISon3darB0d9A7KNQY2nEBZBo=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MIWPR08MB568805.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(22082099003)(18002099003)(261009223027099003)(3023799007)(56012099006)(11063799006)(261028144727099003)(261022075727099003)(261021121427099003)(261022105027099003)(261102123227099003)(261026121527099003)(261026140227099003)(10067099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ q27vD7BATvUn+igzyzSm0Lw7/V1BOc5Jook0W2OPzUvzgd55NftmQpGyOUxYdBu2FbpFEPbU5hjhnsknA86xh54zGcKdIQ9XZRkb/yLPcPNP5//ztSTm27w0p2pEZQT1cHXyhgHJaM0nig4onYU05zMqBzve6UZQmXgZn54bcHmOVJB8XeKADQ8D4X3d5arvek58kQ0Wm9yPHEtFpnunkK7MsZNX6xqxrNivpQXhVXbAQJQNj0xLKpqSuQszsFIOoGxtk2YM/OlWrDzxFFoTiQzVXQHtP+22R2BomlfQs6ccV0QXCtN9rJy+0rFTg5eaVYq0uh415VancUWoWrE78g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB10630
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ MI3PEPF00008493.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	28d6366a-689b-40f0-8bda-08df46544cba
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|10067099003|11063799006|260925021911599003|260925022911599003|260925021311599003|261021121427099003|261021123027099003|261009223027099003|261102123227099003|261026121527099003|261026140227099003|56012099006|261022105027099003|261028144727099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|7416014|35042699022|376014|14060799003|36860700016|1800799024|82310400026|23010399003|56012099006|11063799006|261021121427099003|261022105027099003|261022075727099003|261009223027099003|261102123227099003|10067099003|261026140227099003|261026121527099003|261028144727099003|18002099003|22082099003|13003099007|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	r7XCpchRbt9dUyPvEbABN0Y+mBAulUb7BZ770kyq/mWTSwVJYEHaLL+IffVz4oj15uajti+VwicVRfuiuH5hevW65+2W+nndn+ryFRnajhZxoYKKiOnVwmXh8vlTIPWd64AO6b0grQi04fOvZ5FZYkw+O2bfLQYqZcpi9T/vI6Dh/kIhRgNZll0tLHt9xl12mI+zMx1zuK3nPBfR/OpryBfnUB7Or/fEHdy9okGSWBaqZnHttLB6AIIN4le6aApqwWpMSF9LslwJT30MutQXfCUXIEpB1zjqZ2KudFpjBa95aPdTMtLUaFmBpUrbUMC1E+8W/iItpY08PHM8wOuIQJXp38Xvo6Uawlw9mlCDiWkWBqvhlPvIcP0CPY1vhggcHzMGztIWjK7s0JOVd3JTcdaXcROxF5ZLfRRz9wxtGB1/SmJz0A6xmBtN4VqwI0nebQAvtDJy30BPmJOoPjfV/NKJEyKQiELZQaZSTJ4FAf1GDPa9P+6C6F91UBVeawfHWHYpWwojnOxa3wwMqFH5MxoaPc6padQY74xPIFZC74Tp+OGi39DJG1bALa7obQwSoPxad0wAjBwnPxPSPsqTX2ypR68Rzd5kESgveLVViuQ9iRLzT4igG7LecFCnH9alZ0S6jAtP1GDQZkp6jaAROA==
+	vk1NCnrHNyCHAntkylELQbn53XcFiSdQUcC7odESaAKk4cYoWlDKSQ1Y7GUsyr/wGquDy1DzXitTzluLpqj0RqUn51JBTUqDsDC8Ps1qmpfZoTL2wvVBZPVYwYGL8ff+wqcpr/ChSzZ+0iPIEEohrW05yxAI+QCpcS5+hSoCxu3jQM2/ysLxlEfgbLlAlP4+pNPPhaBbnHMXyfPwmte/XRp9NJae4v1z8XEysemCLKb5hQqpDB4kIAs1jQ46B3lxVR44Ntzj0fqztiGJq2bpIGuw8mVTaQ4Bj+pRJ36jgg/DygWeXBDN+hVdJQBssFuNgvCxRB+83fPUheffZh9pWfXA+NLyTdEIp5wBHernuR7bckfVPOCuWPyG2UAglC2FKvDrcAs53xRnRF6ODdZxmQvoxt8X6oo5wMH4TdWgn5KvN1RWbiiKd+43wspt6nv+tPBCHs6cyLPnNmDJN5SIytUlZFkzBkpDWIY1Xklqw/t6ie7D/hs8OCDz7Bv6f1eOIBoHZwVIhXsYSDPpBuGsFloYQEyMpTjo4X0ltaNQjgZ8AfN/VuLHMtcjBbMSCZJQRq7mkaqIM21mwd2isp9Wb56UYHnTIKUk4YdPBhdNTgUmnpuJ0o/vYXwG/fFagPb6k8PTs5pmCjvbbXNXB8rKUA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(10067099003)(11063799006)(260925021911599003)(260925022911599003)(260925021311599003)(261021121427099003)(261021123027099003)(261009223027099003)(261102123227099003)(261026121527099003)(261026140227099003)(56012099006)(261022105027099003)(261028144727099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(35042699022)(376014)(14060799003)(36860700016)(1800799024)(82310400026)(23010399003)(56012099006)(11063799006)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(261102123227099003)(10067099003)(261026140227099003)(261026121527099003)(261028144727099003)(18002099003)(22082099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	lgEyAV+ltWE1HRLxY6J3z60jwTXN3VaNErjDlzrBjmDl5IPYBefsX7d6yEhaJJXMRlHPjLZE+r5i4gkEJWbMS/E3AMeE6HYi/vBEdF51D5Gao4DNTYrHNL142itsjSjDdpVlhE/AXoylXr42IN8moajNsVtXUJq7pFyIzHvEaVGWhviNh6iHwCnBqu9S88LCbb5CoGRWM2JYRoDT0pUAbBBf8epz1MWqMg3x8daQagEZheMGyodvxru/REtaxX22yKz1swH8mmx11llcBPGMHC0b1e874iz9CczQlP3ezGABrmd9MI/S0uuV3PtV418x9iBwQVs5ORIBVnTDeIeAvZPYCuSNDy++w3DGhqaZoBHFQWxK6YCUYm318CvY08WxX9KCz9q1zIR1y/xt+m/p8nAMwc9j+H56tPMB/q3i3oWwG54CpIvx1vzRk+S0lVSq
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 15:41:29.0174
+	KL//x0z1iNZRDzcecETbFsYP/o/sBWS5dMR5utS1BZS9llFFHgvaXr7vxJKhi3jZ4EYnCcQ2zU3kcev3j+Cr0GbecdloWTF/qkivr7vvMAdgvUyGt+IXS54CuEV9bfyCPJgFgLa2eOL7x+85ed3FSRobARq8UIhEGVo04/S4xYDqybFgq8iqsOLhdO5wx9L0ZdLWnntjHJIeyy8e0apC8RFzy7wH3te21FfeI1dbfLWU52uhIyGMsm/WYdh/okvlDQj7kJNbs7jvaROUhcJXLYyDhOz6AHuFzC/S+RNuAt2CTOKGLoMBX9Q8Loj3NHtmnyukKSnGbKZwYHTATdu1GD7yJb48XTWo7uJZK8izsDQ9c7SebKZJJGpqYjZgIuw702B9rqMbxHyaahPMtBpIGspOU3q/15zg9ScNYgI6jX5X67i/JvX20Skh/wQa+xyO
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 15:47:28.3469
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 110f0377-5b9a-4042-5f56-08df46539416
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac3789c1-8746-491f-e652-08df46546a57
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A892.namprd04.prod.outlook.com
+	MI3PEPF00008493.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8108
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB11339
 
-USB hub requires longer delay to get out of the reset to work properly
-that's why use gpio-delay to ensure enough waiting time.
+Add a separate device-tree schema for Mali 5th-Gen AM GPUs.
 
-The USB 3.0 peer describes the same gpio-delay reset provider, but that
-provider is required only to initialize the USB 2.0 node. Mark it with
-post-init-providers so the USB 3.0 node, a child of the USB controller,
-does not pull that dependency back onto the controller.
+AM_GOVERNOR controls GPU frequency. The GPU node does not accept OPP,
+cooling or GPU supply properties.
 
-Signed-off-by: Michal Simek <michal.simek@amd.com>
+Acked-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 ---
+v4:
+- Pick up Ack from Boris
+v3:
+- Drop the $nodename constraint from the AM GPU binding.
+- Require the arm,zena-css-mali integration compatible followed by
+  the arm,mali-gen5-am fallback.
+- Update the binding example to use the new compatible, three-cell
+  interrupt specifiers, and a single GPU clock.
+v2:
+- Move arm,mali-gen5-am support from arm,mali-valhall-csf.yaml to a
+  separate arm,mali-gen5-am.yaml schema.
+- Move the AM GPU example to the new schema and add the interrupt
+  binding headers.
+- Add the new schema to the Panthor MAINTAINERS entry.
 
-There is dependency on:
-https://patch.msgid.link/c552d657b81c55f0ac2ae78b8d8abbde5deaebdb.1795095853.git.michal.simek@amd.com
----
- .../boot/dts/xilinx/zynqmp-sck-kd-g-revA.dtso | 14 ++++++++++---
- .../boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso | 21 ++++++++++++++-----
- .../boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso | 19 +++++++++++++----
- .../boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso | 14 ++++++++++---
- .../boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso | 14 ++++++++++---
- 5 files changed, 64 insertions(+), 18 deletions(-)
+ .../bindings/gpu/arm,mali-gen5-am.yaml        | 89 +++++++++++++++++++
+ MAINTAINERS                                   |  1 +
+ 2 files changed, 90 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
 
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kd-g-revA.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kd-g-revA.dtso
-index ffc14b1f871f..d20b6ea2ad0b 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kd-g-revA.dtso
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kd-g-revA.dtso
-@@ -3,7 +3,7 @@
-  * dts file for KD240 revA Carrier Card
-  *
-  * Copyright (C) 2021 - 2022, Xilinx, Inc.
-- * Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc.
-+ * Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc.
-  *
-  * Michal Simek <michal.simek@amd.com>
-  */
-@@ -43,6 +43,13 @@ clk_25_1: clock5 { /* u92/u91 - GEM3 */
- 		#clock-cells = <0>;
- 		clock-frequency = <25000000>;
- 	};
+diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
+new file mode 100644
+index 0000000000000..af758daec2aeb
+--- /dev/null
++++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
+@@ -0,0 +1,89 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	slg_delay: enable-delay {
-+		compatible = "gpio-delay";
-+		#gpio-cells = <3>;
-+		gpio-controller;
-+		gpios = <&slg7xl45106 3 GPIO_ACTIVE_LOW>;
-+	};
- };
- 
- &can0 {
-@@ -115,7 +122,7 @@ hub_2_0: hub@1 {
- 		reg = <1>;
- 		peer-hub = <&hub_3_0>;
- 		i2c-bus = <&hub>;
--		reset-gpios = <&slg7xl45106 3 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 0 10000 10000>;
- 	};
- 
- 	/* 3.0 hub on port 2 */
-@@ -124,7 +131,8 @@ hub_3_0: hub@2 {
- 		reg = <2>;
- 		peer-hub = <&hub_2_0>;
- 		i2c-bus = <&hub>;
--		reset-gpios = <&slg7xl45106 3 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 0 10000 10000>;
-+		post-init-providers = <&slg_delay>;
- 	};
- };
- 
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso
-index b82a056be2f9..b3084f44a4ca 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso
-@@ -2,7 +2,8 @@
- /*
-  * dts file for KR260 revA Carrier Card
-  *
-- * (C) Copyright 2021, Xilinx, Inc.
-+ * (C) Copyright 2021 - 2022, Xilinx, Inc.
-+ * (C) Copyright 2022 - 2026, Advanced Micro Devices, Inc.
-  *
-  * Michal Simek <michal.simek@amd.com>
-  */
-@@ -77,6 +78,14 @@ dpcon_in: endpoint {
- 			};
- 		};
- 	};
++title: ARM Mali 5th Gen AM GPU
 +
-+	slg_delay: enable-delay {
-+		compatible = "gpio-delay";
-+		#gpio-cells = <3>;
-+		gpio-controller;
-+		gpios = <&slg7xl45106 3 GPIO_ACTIVE_LOW>,
-+			<&slg7xl45106 4 GPIO_ACTIVE_LOW>;
-+	};
- };
- 
- &i2c1 { /* I2C_SCK C26/C27 - MIO from SOM */
-@@ -184,7 +193,7 @@ hub_2_0: hub@1 {
- 		reg = <1>;
- 		peer-hub = <&hub_3_0>;
- 		i2c-bus = <&hub_1>;
--		reset-gpios = <&slg7xl45106 3 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 0 10000 10000>;
- 	};
- 
- 	/* 3.0 hub on port 2 */
-@@ -193,7 +202,8 @@ hub_3_0: hub@2 {
- 		reg = <2>;
- 		peer-hub = <&hub_2_0>;
- 		i2c-bus = <&hub_1>;
--		reset-gpios = <&slg7xl45106 3 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 0 10000 10000>;
-+		post-init-providers = <&slg_delay>;
- 	};
- };
- 
-@@ -221,7 +231,7 @@ hub1_2_0: hub@1 {
- 		reg = <1>;
- 		peer-hub = <&hub1_3_0>;
- 		i2c-bus = <&hub_2>;
--		reset-gpios = <&slg7xl45106 4 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 1 10000 10000>;
- 	};
- 
- 	/* 3.0 hub on port 2 */
-@@ -230,7 +240,8 @@ hub1_3_0: hub@2 {
- 		reg = <2>;
- 		peer-hub = <&hub1_2_0>;
- 		i2c-bus = <&hub_2>;
--		reset-gpios = <&slg7xl45106 4 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 1 10000 10000>;
-+		post-init-providers = <&slg_delay>;
- 	};
- };
- 
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso
-index 4dcf92a2158f..fdb6eae87eb9 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso
-@@ -3,6 +3,7 @@
-  * dts file for KR260 revB Carrier Card (A03 revision)
-  *
-  * (C) Copyright 2021 - 2022, Xilinx, Inc.
-+ * (C) Copyright 2022 - 2026, Advanced Micro Devices, Inc.
-  *
-  * Michal Simek <michal.simek@amd.com>
-  */
-@@ -78,6 +79,14 @@ dpcon_in: endpoint {
- 			};
- 		};
- 	};
++maintainers:
++  - Liviu Dudau <liviu.dudau@arm.com>
++  - Boris Brezillon <boris.brezillon@collabora.com>
 +
-+	slg_delay: enable-delay {
-+		compatible = "gpio-delay";
-+		#gpio-cells = <3>;
-+		gpio-controller;
-+		gpios = <&slg7xl45106 3 GPIO_ACTIVE_LOW>,
-+			<&slg7xl45106 4 GPIO_ACTIVE_LOW>;
-+	};
- };
- 
- &i2c1 { /* I2C_SCK C26/C27 - MIO from SOM */
-@@ -185,7 +194,7 @@ hub_2_0: hub@1 {
- 		reg = <1>;
- 		peer-hub = <&hub_3_0>;
- 		i2c-bus = <&hub_1>;
--		reset-gpios = <&slg7xl45106 3 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 0 10000 10000>;
- 	};
- 
- 	/* 3.0 hub on port 2 */
-@@ -194,7 +203,8 @@ hub_3_0: hub@2 {
- 		reg = <2>;
- 		peer-hub = <&hub_2_0>;
- 		i2c-bus = <&hub_1>;
--		reset-gpios = <&slg7xl45106 3 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 0 10000 10000>;
-+		post-init-providers = <&slg_delay>;
- 	};
- };
- 
-@@ -222,7 +232,7 @@ hub1_2_0: hub@1 {
- 		reg = <1>;
- 		peer-hub = <&hub1_3_0>;
- 		i2c-bus = <&hub_2>;
--		reset-gpios = <&slg7xl45106 4 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 1 10000 10000>;
- 	};
- 
- 	/* 3.0 hub on port 2 */
-@@ -231,7 +241,8 @@ hub1_3_0: hub@2 {
- 		reg = <2>;
- 		peer-hub = <&hub1_2_0>;
- 		i2c-bus = <&hub_2>;
--		reset-gpios = <&slg7xl45106 4 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 1 10000 10000>;
-+		post-init-providers = <&slg_delay>;
- 	};
- };
- 
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso
-index 52954761c9f3..09ed585cf91d 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso
-@@ -3,7 +3,7 @@
-  * dts file for KV260 revA Carrier Card
-  *
-  * (C) Copyright 2020 - 2022, Xilinx, Inc.
-- * (C) Copyright 2022 - 2023, Advanced Micro Devices, Inc.
-+ * (C) Copyright 2022 - 2026, Advanced Micro Devices, Inc.
-  *
-  * SD level shifter:
-  * "A" - A01 board un-modified (NXP)
-@@ -78,6 +78,13 @@ dpcon_in: endpoint {
- 			};
- 		};
- 	};
++properties:
++  compatible:
++    items:
++      - enum:
++          - arm,zena-css-mali
++      - const: arm,mali-gen5-am
 +
-+	slg_delay: enable-delay {
-+		compatible = "gpio-delay";
-+		#gpio-cells = <3>;
-+		gpio-controller;
-+		gpios = <&gpio 44 GPIO_ACTIVE_LOW>;
-+	};
- };
- 
- &i2c1 { /* I2C_SCK C23/C24 - MIO from SOM */
-@@ -159,7 +166,7 @@ hub_2_0: hub@1 {
- 		compatible = "usb424,2744";
- 		reg = <1>;
- 		peer-hub = <&hub_3_0>;
--		reset-gpios = <&gpio 44 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 0 10000 10000>;
- 	};
- 
- 	/* 3.0 hub on port 2 */
-@@ -167,7 +174,8 @@ hub_3_0: hub@2 {
- 		compatible = "usb424,5744";
- 		reg = <2>;
- 		peer-hub = <&hub_2_0>;
--		reset-gpios = <&gpio 44 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 0 10000 10000>;
-+		post-init-providers = <&slg_delay>;
- 	};
- };
- 
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso
-index e919155bac9d..50f451bcc7aa 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso
-@@ -3,7 +3,7 @@
-  * dts file for KV260 revB Carrier Card
-  *
-  * (C) Copyright 2020 - 2022, Xilinx, Inc.
-- * (C) Copyright 2022 - 2023, Advanced Micro Devices, Inc.
-+ * (C) Copyright 2022 - 2026, Advanced Micro Devices, Inc.
-  *
-  * Michal Simek <michal.simek@amd.com>
-  */
-@@ -74,6 +74,13 @@ dpcon_in: endpoint {
- 			};
- 		};
- 	};
++  reg:
++    maxItems: 1
 +
-+	slg_delay: enable-delay {
-+		compatible = "gpio-delay";
-+		#gpio-cells = <3>;
-+		gpio-controller;
-+		gpios = <&gpio 44 GPIO_ACTIVE_LOW>;
-+	};
- };
- 
- &i2c1 { /* I2C_SCK C23/C24 - MIO from SOM */
-@@ -146,7 +153,7 @@ hub_2_0: hub@1 {
- 		reg = <1>;
- 		peer-hub = <&hub_3_0>;
- 		i2c-bus = <&hub>;
--		reset-gpios = <&gpio 44 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 0 10000 10000>;
- 	};
- 
- 	/* 3.0 hub on port 2 */
-@@ -155,7 +162,8 @@ hub_3_0: hub@2 {
- 		reg = <2>;
- 		peer-hub = <&hub_2_0>;
- 		i2c-bus = <&hub>;
--		reset-gpios = <&gpio 44 GPIO_ACTIVE_LOW>;
-+		reset-gpios = <&slg_delay 0 10000 10000>;
-+		post-init-providers = <&slg_delay>;
- 	};
- };
- 
++  interrupts:
++    items:
++      - description: Job interrupt
++      - description: MMU interrupt
++      - description: GPU interrupt
++
++  interrupt-names:
++    items:
++      - const: job
++      - const: mmu
++      - const: gpu
++
++  clocks:
++    minItems: 1
++    maxItems: 3
++
++  clock-names:
++    minItems: 1
++    items:
++      - const: core
++      - enum:
++          - coregroup
++          - stacks
++      - const: stacks
++
++  nvmem-cells:
++    items:
++      - description: bitmask of functional shader cores
++
++  nvmem-cell-names:
++    items:
++      - const: shader-present
++
++  power-domains:
++    minItems: 1
++    maxItems: 5
++
++  power-domain-names:
++    minItems: 1
++    maxItems: 5
++
++  dma-coherent: true
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-names
++  - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    gpu@100000 {
++        compatible = "arm,zena-css-mali", "arm,mali-gen5-am";
++        reg = <0x100000 0x480000>;
++        interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "job", "mmu", "gpu";
++        clocks = <&gpu_clk>;
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index bcade5bfbafe9..93ee837af9958 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2404,6 +2404,7 @@ R:	Chris Diamand <chris.diamand@arm.com>
+ L:	dri-devel@lists.freedesktop.org
+ S:	Supported
+ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
++F:	Documentation/devicetree/bindings/gpu/arm,mali-gen5-am*.yaml
+ F:	Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
+ F:	drivers/gpu/drm/ci/xfails/panthor*
+ F:	drivers/gpu/drm/panthor/
 -- 
 2.43.0
 
