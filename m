@@ -1,112 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795088501;
-	b=GtP+9JLduOXGjGsGCDGuYhwoGEpXX3p2WWTGHq/OMZvl8ybSrlrEk9fdMX7KFwKKlqCl
-	 1UgfwGQ67KviUGKC9jNvdGG5B1eFlozOd2BHXQwfogH1cNxfEVbcoGn6lOR+99x+qplf5
-	 Jc6+NxhlDHyW1bpEAJApQgW8gB+R0+VT1QnB5fJk1uMh0kR0zf/LYjAYD1VYhFiyB2BIp
-	 nvGuGPc8PJhRptB6sgsgmF89vZO70gZwFFP8FHXiYkcke11j5au0JghHeRL7hAm8aHEDF
-	 TeOuxyDNrYYZkBhw0/AhHpkVXjYHyUKiFmfsU5PF1SWJU5wfsBImHSh4I/eseiE8bOw==
+	t=1795088637;
+	b=orxePXUTbp1IBCLXAuvXpnoGKEDCTL4wWvMajXf/veUtv/D1VCaUWj1kq7EYtPyMJZGs
+	 tSq87sov6Rvmj0V1cJj7CxMoA/RYtP4TuAM/CverHAhADEau89NczLvGNIJBMvDHUhJE7
+	 gwuV4sQmrQQjdZPpov1I5Q756eFAf1i8lFgmRcQHrEnx63v4j7UBimfP1jrzb+dUsU8F1
+	 b8ueQIYNvD2WTz+vke6CCUMyyuqQi3+mXn4kx2JcgpNHnmz8f52OmhGqH17k/K9KS6jOg
+	 XZLPFo4/xTLEA23LIN0hxP5c04mUUKv7yfnXueTSjb7YS6WQiLsRkD2Aqfv2kwhfgoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795088501;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795088637;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=VCII3XX/ebKpfvWD6KeCp48twovV+5/57+Y9fRp2vzk=;
-	b=LceceLGrbhGTQnAkL3zFUe5q1ZV3aYdJu+/vv0G2mTrG9MKX4FheV9D+WrkJRHULE0T1
-	 s6Va7oDIKp5JKNPnn7Y0zkj0Fozn+EqKcLs5++Dalttu752n/khjI0RGby3fxqGpBmXTJ
-	 f7fUbp+6cMoXpHOnr6xFjnOoiKuFnXLb0VpFf7b13ucLoPN89D4maxtl8qsmeZCkiAY7Z
-	 RWv036OGbBjv6wBl02rmwmX/Zue0g5WmfnVGSw0ujfktd8uO1KWeY6G0jc82vYCeSp1E0
-	 CVKkkeLOgPcv3CZZBzdsGfjV2J0u0bKI+QnTzaFKJtTOdaourrGYWLi9/UdOKBZ6Qgg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=9xOgOHgiYG8x7M9rRTIBGrT1trNfPalsKi+/lvyMD4o=;
+	b=ctS53zKr0RMCJuhWICkiurIa/qsLEzC9x7umz75qTouImpQHD8QU3cr0ldJfZBxVH+td
+	 CvYY8w3Tq8Ji451I0RrZrU/Tm+rkUKQqiJYmPT8vLj3GbsLGssp24jG9PncCEOF4SlyG1
+	 VT2wLiuDfeyppXZ3o9d3bTp4MJUG2HUbb6nI81lvqAe5z8v7FPnxOf7vIGurIi42GWD1n
+	 3qJQ2Db4f2aE1U7+No3Ubc9czdRvz7z6hXX+mplqHGZ0LwQYzcpRq7rAbQ/c56Z88rsI9
+	 mkxpdGv/4UmoiBiNNCCdeKf3+bg68lSxKBaT2thMCDeBQ8eTNtHqV87fCDWy8CoWnNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EMzUx5FJ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IQao0rhy;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hlOQRU86;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H0yNEDwZ;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A811606A325
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 11:41:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A811606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF555606A320
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 11:43:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF555606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EMzUx5FJ;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IQao0rhy
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AJB53ux2093213
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 11:41:41 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hlOQRU86;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H0yNEDwZ
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AJAuh9N869675
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 11:43:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	VCII3XX/ebKpfvWD6KeCp48twovV+5/57+Y9fRp2vzk=; b=EMzUx5FJsZPwXonV
-	qMvhlpaPfvRT2YQbRmsY/ZrX/OZnOAKLCxdwu+9eTRFgbtaMb5Ny+XuvsmaXrC3/
-	i2zK0VZisTWo492QWv39hKnIsY1IFwXhZT/NdfmMeZMpX9/g3wJVOfKFOXojv+2E
-	2k0Htmzi8l6toB0fgSbLP4LKHuKlxVYULIa28Un9yE1DcEHz2RH2VeWXIk0Aptkk
-	vnOOhxFAOsdA7LrFY1A4dLlm6oykJayRyOudgONhaHc9r2TwjuE3mMDrOznrECHD
-	oyDZ/LCZOdh7graKgFZAdHQNwif0SV411nELOOm05+zdb/SZ8kwk4afwOrkDLtgn
-	nY1OZw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j1yx683tg-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=9xOgOHgiYG8x7M9rRTIBGr
+	T1trNfPalsKi+/lvyMD4o=; b=hlOQRU867W7F/ZcZ/Iwh6RmgM3lid605Dl9KcT
+	olBroo9a3D3N1I4ew5orJyDd/WCJaKrkgcvg/uD9VTkTNEXXTbvN4PCGwrsAnpWB
+	tcvh4wFIXRE+QmTwFQzB4A7L79x3pmAccog0dVQXoPnW58lyZX8HpsN5gqfaOKcI
+	QxOaEEckdQ/oenI59HHrvS86tphhlQGfQan5O16fxY57pBKD1Ryo6qxPgg0BzG2O
+	+bG7aJ7agfhL0QRfBZQyh/zNfkF29JpdAA7T/ket5K23F6mnyGj1YzexUZemHLWe
+	IdlHLr2zmuTNZS0XyQby0gPDNxp4J/4iI8pApyIn9AdnMhYA==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j1fpnmb7s-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 11:41:40 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ee184a2474so18476695ad.2
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 03:41:40 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 11:43:55 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cddf34086c8so1325028a12.3
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 03:43:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795088500; x=1795693300; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VCII3XX/ebKpfvWD6KeCp48twovV+5/57+Y9fRp2vzk=;
-        b=IQao0rhy7TsQVGfFQahNkFb7lXuGyUaKMaUivVbZkLt6+LIr9bPLlCfGUoOUfHklBs
-         pf+ibBqzjJFU06mmRumoMHJc7cXGTXqZCoEuwnofxE+MX2UoxfBSJmpoH1tP1NKwdE9C
-         z8m0mkUuwQyx1ePunP2npvYhGbTm0v6sbKSGmTMMR86PjlC4arO9fZ/rtEmzOOne8aWS
-         ITvAx6AD5POoXKgK4WOLdTXG5KraVfzDgNRq7AsH+HJB7OWHwZdBALH5D7vPAKNq2nnp
-         2XuYkBzUHFsyyYCphz2vVvpzImvLcfG/5y+J2YErt7m26He/1zp17DHLQOI4daqa/xgH
-         AWFg==
+        d=oss.qualcomm.com; s=google; t=1795088635; x=1795693435; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9xOgOHgiYG8x7M9rRTIBGrT1trNfPalsKi+/lvyMD4o=;
+        b=H0yNEDwZERO8ulDZbasZMXiWb8n9INGwTWcks7menY45TkKRaaAP8FsIXOaJhUrUZl
+         Pdu1JnVdjHyw0izY6w+miuUkBd5+h+k3PICaN9j/PcbAbNfvo3CBGmqVvtqxVlIkZQre
+         vS+cJnnnZm6AWISagfXP8zwlqf2+tO8jz7w01/nONjwfh11Gd2N7RvabfjdLXo+T/eIN
+         VEG2xN+P+SgaTxyBrvh/UPHb4uuq3mhqfh/TVKO/Qs4z8XeX8IK5hXW/xtaZO8LloQoI
+         BhPp5TqxOKpJ0uiGyGB6KfvEXVlefqiYngzyuKSZ/qeCY6NgDvbY+6S6rDS+95poFlFp
+         LlKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795088500; x=1795693300;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VCII3XX/ebKpfvWD6KeCp48twovV+5/57+Y9fRp2vzk=;
-        b=sYS+wU7P92D8Q3Iewa1hB3Akxpt8m2tM5CRom95I2aWeamY4Dge/gq1WRpnY2gCn8R
-         xjUFibLeFGJrsLTSRluFin6g/K6JwlHOSOoR4gTtQ8Xgkq8dWaoOZZeaOy9Sa1RXWj72
-         z6FYBwuLGsw5Dgqh9AchzvvE8dq+WpcWTx8je2zhLa7aGyk9RKtkEJ0Vv+icwmn5nAyM
-         32r7ArB0odsAt8Cd+x6l4xrObn34MsWJffQYmJIeJ1nCNyhKzpPi4T0eMs1RogNTjtnw
-         Dbun56gz7ZDdqx27JGwg6yaO2g1rrfj87odwLXcXtEB2gDiU6lgMkdM4xaIhZ8snwg6V
-         iqzw==
-X-Forwarded-Encrypted: i=1; AL+hErFGybtsMwSNsCyVEpJ7skdyy3MFX+bgLdr5A8rmmZk3Wyn2dXVLmzRbp9OEjaHG7wa0Ke3AaAuZp4lF@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Zs6uzh+leIu1/bRTIVwQLDDFrVtoBpVdLrSmyHcPaEW61BT71
-	iaTFd1sTaYO7oN7fc8GUmNRR0291OUkDqMi3m0hiLC9j1HeatdZSttXmBGV2pJX5I/V6ZtGzkJk
-	rOcc/5JrEAxMOsw/DArHvoWaRtJCoz+QV4XItPTZJWiYizRQM2EZlgBG6N3ALpvRX
-X-Gm-Gg: AZFdTZcMo24A1jxd264nBFT5n/hwo1ROnfjJ1yhGPHZb0d5RWIa3V8soe8j3TEx3wci
-	jDdrl6/FJgKWHmGtp1ygJ/lJjMpm9cDJRMmE7rcCQvFsm7NAPaFPLJRa4ldnKtvC0aewp/VbB2c
-	s7UXtpFszxBKb0b9PU9BPwQr9X2k3PpfwkBKy9Q7luOPA0EAo37f28hjIVfXA/thgqwYYkYxVCa
-	G6F3g0Kjy5uZqQL9JoVfA7oea2QJ8Gl+cqW77p9AwB5Z33RNrJQNcXKIyxLbr2g1tUimt2eV/t+
-	5Tm4Jt5VyUdOXDki627JePZsg32Nr1OhLUkuO0C2zGg9MhB0xS5YvTyM07WXtKXutPepje4xSqn
-	jhcu2wTu6n2Rav+MVZ1FHyFYt2pfNX2+mgCr40Y3TFBMw8GP6BnTefY3pKToL4Sj+muGUkXW6Ni
-	lKjEWIUJBkNeoZHBzKdb1hljViiztFDtdn/azJfu9vig==
-X-Received: by 2002:a17:903:2b06:b0:2e6:136e:f264 with SMTP id d9443c01a7336-2eff753ce5cmr53624395ad.50.1795088499956;
-        Thu, 19 Nov 2026 03:41:39 -0800 (PST)
-X-Received: by 2002:a17:903:2b06:b0:2e6:136e:f264 with SMTP id d9443c01a7336-2eff753ce5cmr53624135ad.50.1795088499431;
-        Thu, 19 Nov 2026 03:41:39 -0800 (PST)
-Received: from [10.133.33.68] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f021fdf305sm11054485ad.5.2026.11.19.03.41.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 19 Nov 2026 03:41:39 -0800 (PST)
-Message-ID: <2698e091-17e9-4a1d-acf1-19981ee604da@oss.qualcomm.com>
-Date: Thu, 19 Nov 2026 19:41:34 +0800
+        d=1e100.net; s=20260707; t=1795088635; x=1795693435;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9xOgOHgiYG8x7M9rRTIBGrT1trNfPalsKi+/lvyMD4o=;
+        b=NiJ7UzUHJG3wbUIomOLwm6NwzkaEqoQ6zmdi1s+W7zhtOl1aeDzAPLM4rUbkP23gsA
+         viFwDiRrFm72YslyD201BNrRicGmE2OUdYSAl78/KobOU+MA+TVn2sJlOFk+9G489CPF
+         ja59b1hBG2ypP5tnM6Pda3OyonctXdqJ4FP/htgSbsSxU6H0FXYf6XFihE+lkAe4YUb/
+         kwpz05RXAYKZTo5/NT4lgPHaTFIuQGxdrEv9Mahyr+X+7vrEyeTRElpBB0E/enajWMCE
+         VEawOQ/NMB728iGc1AAFbc42fc71UhFhUuZiQGF10fCQBEiZd1gffVVl4tPWJarjX7Lj
+         7vVA==
+X-Forwarded-Encrypted: i=1; AL+hErEDh68dlAouEA84938zf3U2du6VXDLnbng7Zi3iY55c8i3paztMU2GE57xeslkzDEJ3N5/+jH+S7DHx@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ostC/7gn5HciU3Kn6ABMpzVBJW7hkTKYoJUAbgF49j9frXx6H
+	ite3DOeqx/HuokoEfM8ik+dbuZ2k9HBkulOlOtrPQpxUxgF/E51aZ0MGWWihaSWbYYC3Fka/9Sy
+	RQ9HQEoZzsxTscTpKWptfnbRXVQvelWKUCFzDyiW3vQIFG20tyqHxWupIL3EYQmH6RfOkaw+C
+X-Gm-Gg: AYBFou2aycqPNvYH1GVAlRQWWgThdG6hkqnz991yc1T/uLEM+FsCs5Fz/GWutInxVjL
+	p0tlEoYkRZhFLLIOnr2N+JSqU0kT5gphgViJOvDqxJvfuoMWU7nt4GftY3DMiCua8/5ZGBrmiuc
+	ixvuYn0yNb7DQyHaK6/pWj4ckwBon9Psl6x8i0ggAGzzH6eSF2+shS7RQcGWV7/dXl5MwYLWXYS
+	1vAr+PUdJYWJdWKVjovQvELi587TpN3fGemlKEFi7ESVJdyIAb3RH8FBESbDsDAVkOcu/T6OYvv
+	P6nOtd97FcAKfpL5wdLMbz4oQuoQgOAPSqQGjxvE0cDH+GbVIJW4upkiwBn4JEo6BI67KkU2r5/
+	3Q6O7fsn8OZOG77X2pBSoNbceVssR1FaFhtHoKgHozDzMNaYaFBkKHDgaS//pzut6
+X-Received: by 2002:a05:6a21:6b87:b0:3f9:4434:8a0 with SMTP id adf61e73a8af0-3fe86bdc716mr5718030637.2.1795088634938;
+        Thu, 19 Nov 2026 03:43:54 -0800 (PST)
+X-Received: by 2002:a05:6a21:6b87:b0:3f9:4434:8a0 with SMTP id adf61e73a8af0-3fe86bdc716mr5717992637.2.1795088634277;
+        Thu, 19 Nov 2026 03:43:54 -0800 (PST)
+Received: from [10.213.101.118] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde534854b1sm1613960a12.12.2026.11.19.03.43.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 03:43:53 -0800 (PST)
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Subject: [PATCH v6 0/5] arm64: dts: qcom: Add EL2 overlays for Shikra and
+ SM8750
+Date: Thu, 19 Nov 2026 17:13:43 +0530
+Message-Id: <20261119-shikra-el2-v6-0-0e91a1467e79@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,123 +115,182 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/9] cpufreq: tegra194: add Tegra264 support
-To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
-        viresh.kumar@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, treding@nvidia.com, jonathanh@nvidia.com,
-        linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Cc: bbasu@nvidia.com, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-References: <20261119111217.902071-1-sumitg@nvidia.com>
-Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20261119111217.902071-1-sumitg@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: SNJHPH2P3k15fnmXU1ELfyhjq4tk4tJ3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE5MDA0NiBTYWx0ZWRfX8wMwZ/kG7VAY
- /SlMG7/LxWXmbPcS0LN7sX9qNvJGY3pePUqb/In3qOL1whXqp7WGgz1zsXS2BJ9+S23zTiHFWy9
- Zmyv52SIcXs+eukf8YzjORr7RDgSWr4=
-X-Proofpoint-ORIG-GUID: SNJHPH2P3k15fnmXU1ELfyhjq4tk4tJ3
-X-Authority-Analysis: v=2.4 cv=FPmOVOos c=1 sm=1 tr=0 ts=6afee074 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-B4-Tracking: v=1; b=H4sIAO/g/moC/3XMTU7DMBCG4atUXuNqxv9mxT0QC9sZE4u2ARsiU
+ JW743YBjdRsRnpH+p4za1QLNfa4O7NKc2llOvUwDzuWxnB6JV6G3kyAMODR8TaWtxo4HQSn4Lz
+ x0ukkE+uD90q5fF+x55feY2mfU/252jNevneZGTlysDGCFTEEiU9Ta/uPr3BI0/G474ddtFncC
+ BJWguDAMzghIukQiDYE+ScggF4JsgsGXbZSSeN12hDUv4CgVoLqgrdkAf1AMecNQd8IKFeC7oI
+ LKVglB/L2nrAsyy8gB1H+swEAAA==
+X-Change-ID: 20260918-shikra-el2-ea8969385c3c
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Kumar Patro <bibek.patro@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795088627; l=6383;
+ i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
+ bh=0WpEzlt0mQSvD6sTU8HqGw5ZuK6nv7hwJzVaeswCIUg=;
+ b=0ew1Jg50O6cTm5/wpXKrMWLl/ps1jI9gUTAYs/LopMF0M+2tQOhLkFUlaUKhU6GdhqOePmy3h
+ WacBen3Ie+UBFuFj5jfSHe63dc4IM1jyOKnEUu2Mk1Hl7mqo+h/QqlB
+X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
+ pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
+X-Proofpoint-GUID: cB9_GgAevQBHLy7JlFy1542zh39pW9T7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE5MDA0NiBTYWx0ZWRfX4Q3Yf3IjUMf0
+ Bo+jHTcaePhmKu/2uTBGXg5kt2PgZ0Zi3yMqNBHEYMNnk2st0T8N5Yo50suAoTPjloW+HDxlopV
+ +zsWofNBLvqGK3GV6Kh6zSLmcDLc4/N/4eLxTIeNWQ3d1CPrNBz44442yEWYyKuV5PsN7KS9GZ1
+ b3rUtxsULh6CmnQ45YWHy+yVnGROXxPzU+Bq9SSMYMaNFxOhci4teZUSc4PM2lxzI2eBcgqjLCO
+ Qk/43AkLtIfWfDL6PUScdGy3GxAwNpG5ID4hjF5jb56AtsEqtvQaxq1ECQji6btAr76bfstGHrv
+ 40REm/qxpaZbAujePAuuHupJtrtx4ZSOHbnYggrKxUJRxuG7c3ChTX+LwwcXWA2Dp5XodhJO0cP
+ ao1U76aVCJCpaw/bg2hvceKevq/+48XODB240VMGYGP8R4zbl2AUhoBhnuPJzb6pbrNCOZYjATA
+ KpR/f0UiME5fsPX/tMA==
+X-Proofpoint-ORIG-GUID: cB9_GgAevQBHLy7JlFy1542zh39pW9T7
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE5MDA0NiBTYWx0ZWRfX9uCDBriPY7nO
+ +viIYbBzfTKlkE+2moj09Z14PnDfUcb0S3xa89pT/MZxTcCdTjJ0LPdcWjMJUShDSf1qsyKaHaM
+ mitQ+tgFg2fzyC/T5L31rFged3q9fBI=
+X-Authority-Analysis: v=2.4 cv=PJ6aavqC c=1 sm=1 tr=0 ts=6afee0fb cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=Ikd4Dj_1AAAA:8 a=EUspDBNiAAAA:8 a=I7BNmAFbTgjmseqQuzQA:9
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE5MDA0NiBTYWx0ZWRfX6wRGw49ayndo
- LKE3fh/LsAt8RrDM+PmsO70RjDsLoF/+qAtZeRiJEd7rCf01DYdHF1p/4Q0izx4IEr7aJ+/+Rwd
- U9YXkIZheprPsghSnAyfyRexBjt5uM3HLkc63n3HtYaQ4Yq5h89ld5+VlY37coqzpu3IBDXVx1o
- cOou02bLtSa+Psi+8ZLdgjVhEwOk/PoITg9puMViINsLMD52J6Ii+SpOKX9oyoCwfiJN+vznpie
- 2jZSpL9JIhTSZ/ogKFcqBG4JF+fqJrKifxLYJhH5M8ljNtqP5WdmNiF1rxljEGKr5ObBocDgdQW
- qi5GSRZ0vDnoahZq+X14gef9XmN3zC/Mh4F7U5p73RIbf372IACVCX/khCsDXBi/c3FI65ATdeM
- r7gxuulGsMcojNkeHBSfD4I3MteDsilkSE7446sCB6gzjbNyuzx9gwJ6C6svaAmMgewqKAOyF2q
- 4McCLqxYdZHlg+0+ghA==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=7yht7nwCIrXBMJmmVpIA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-19_03,2026-11-16_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 malwarescore=0 spamscore=0 suspectscore=0
- bulkscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ bulkscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ priorityscore=1501 phishscore=0 spamscore=0 adultscore=0 impostorscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
  definitions=main-2611190046
 
-On 11/19/2026 7:12 PM, Sumit Gupta wrote:
-> This series adds cpufreq support for Tegra264, which joins the SoCs
-> already supported by the tegra194-cpufreq driver.
-> 
-> Tegra264 keeps the existing model, where BPMP provides the NDIV limits.
-> The driver derives the current frequency from the core clock and
-> reference counters.
-> 
-> The main differences are:
->   - Frequency read: through system registers, as on Tegra194, but from
->     the 64-bit architected AMU counters. The reference counter ticks at
->     the system counter rate (CNTFRQ).
-> 
->   - Frequency request: through MMIO, as on Tegra234. The driver writes
->     NDIV to a core_freq_req register in the CCPLEX register space. Each
->     register controls a clock shared by two single-CPU clusters, so both
->     CPUs form one cpufreq policy.
-> 
-> The patches fall into four groups:
->   - Fix (patch 1): read each CPU's MPIDR from a CPU hotplug callback
->     instead of at probe. A CPU that is offline at probe then also gets
->     valid cluster and core IDs.
-> 
->   - Preparation (patches 2 to 5): cleanups, mostly of the counter code,
->     to make room for a 64-bit counter and for an MMIO mapping without
->     ACTMON counters.
-> 
->   - Improvement (patches 6 and 7): group CPUs by the generic
->     "performance-domains" property, which cluster-based grouping cannot
->     express on Tegra264. Device trees without it keep the existing
->     grouping.
-> 
->   - Tegra264 support (patches 8 and 9): the driver support, followed by
->     the device tree changes it relies on.
-> 
-> v2[2] -> v3:
->   - Patch 8: read the AMU counters with interrupts disabled (Zhongqiu).
->   - Add Reviewed-by from Zhongqiu to patches 1-7 and 9.
+Shikra EVK variants boot Linux under the Gunyah hypervisor (EL2) by
+default, with Linux running at EL1. Booting Linux directly at EL2
+requires the remote processor firmware IOMMU streams to be described
+in the DeviceTree used by Linux.
 
-For patch 8/9:
+Add a Shikra EL2-specific DT overlay and wire it up in the Makefile to
+generate -el2.dtb artifacts for the Shikra EVK variants alongside the
+regular DTBs.
 
-Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Add a similar EL2 overlay for SM8750 MTP, which also boots Linux under
+Gunyah by default.
 
+The series also moves the Qualcomm PAS remoteproc iommus constraint to
+the SoC-specific bindings and relaxes the item limit to accommodate the
+remoteproc SMMU mappings required for Shikra and SM8750 EL2 boot.
 
-> 
-> v1[1] -> v2:
->   - Patch 1: drop the cpu argument of get_cpu_cluster_id() (Zhongqiu).
->              Check for a bad MPIDR in tegra194_get_speed() (Sashiko).
->   - Patch 7: check the BPMP table in tegra194_get_speed() (Sashiko).
->   - Patch 8: fail probe if AMU is not available (Zhongqiu).
-> 
-> Sumit Gupta (9):
->    cpufreq: tegra194: move MPIDR read to CPU hotplug callback
->    cpufreq: tegra194: remove duplicate counter sampling loops
->    cpufreq: tegra194: add tegra_counter_delta helper
->    cpufreq: tegra194: add per-SoC counter mask
->    cpufreq: tegra194: split MMIO mapping from ACTMON offset
->    dt-bindings: arm: nvidia: Document the Tegra264 CCPLEX cluster
->    cpufreq: tegra194: derive frequency domain from device tree
->    cpufreq: tegra194: Add support for Tegra264
->    arm64: tegra: Add CCPLEX cluster node for Tegra264
-> 
->   .../tegra/nvidia,tegra-ccplex-cluster.yaml    |  27 +-
->   arch/arm64/boot/dts/nvidia/tegra264.dtsi      |  21 +
->   drivers/cpufreq/Kconfig.arm                   |   4 +-
->   drivers/cpufreq/tegra194-cpufreq.c            | 456 +++++++++++++-----
->   4 files changed, 387 insertions(+), 121 deletions(-)
-> 
-> [1] v1: https://lore.kernel.org/lkml/20261104181521.3003578-1-sumitg@nvidia.com/
-> [2] v2: https://lore.kernel.org/lkml/20261117154954.625126-1-sumitg@nvidia.com/
-> 
-> base-commit: e8017d29067fd1310a65c3494ce1a1b492adbac6
+Komal Bajaj (5):
+  dt-bindings: remoteproc: Move iommus constraint to SoC-specific bindings
+  dt-bindings: remoteproc: qcom,shikra-pas: Add iommus constraints
+  dt-bindings: remoteproc: qcom,sm8550-pas: Allow 6 iommus for SM8750 ADSP
+  arm64: dts: qcom: shikra: Add EL2 overlay for remoteproc SMMU mappings
+  arm64: dts: qcom: sm8750: Add EL2 overlay for remoteproc SMMU mappings
 
+ .../bindings/remoteproc/qcom,adsp.yaml        |  6 ++++
+ .../remoteproc/qcom,kaanapali-soccp-pas.yaml  |  6 ++++
+ .../bindings/remoteproc/qcom,milos-pas.yaml   |  6 ++++
+ .../bindings/remoteproc/qcom,nord-pas.yaml    |  6 ++++
+ .../bindings/remoteproc/qcom,pas-common.yaml  |  3 --
+ .../bindings/remoteproc/qcom,qcs404-pas.yaml  |  6 ++++
+ .../bindings/remoteproc/qcom,sa8775p-pas.yaml |  6 ++++
+ .../bindings/remoteproc/qcom,sc7180-pas.yaml  |  6 ++++
+ .../remoteproc/qcom,sc8280xp-pas.yaml         |  6 ++++
+ .../bindings/remoteproc/qcom,sdx55-pas.yaml   |  6 ++++
+ .../bindings/remoteproc/qcom,shikra-pas.yaml  | 28 ++++++++++++++++
+ .../bindings/remoteproc/qcom,sm6115-pas.yaml  |  6 ++++
+ .../bindings/remoteproc/qcom,sm6350-pas.yaml  |  6 ++++
+ .../bindings/remoteproc/qcom,sm6375-pas.yaml  |  6 ++++
+ .../bindings/remoteproc/qcom,sm8150-pas.yaml  |  6 ++++
+ .../bindings/remoteproc/qcom,sm8350-pas.yaml  |  6 ++++
+ .../bindings/remoteproc/qcom,sm8550-pas.yaml  | 30 +++++++++++++++++
+ arch/arm64/boot/dts/qcom/Makefile             | 15 +++++++++
+ arch/arm64/boot/dts/qcom/shikra-el2.dtso      | 33 +++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8750-el2.dtso      | 30 +++++++++++++++++
+ 20 files changed, 220 insertions(+), 3 deletions(-)
 
+Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+---
+Changes in v6:
+- Define iommus with a description in the top-level properties of every
+  binding referencing qcom,pas-common.yaml instead of in conditional
+  blocks, making patch 1 a no functional change move (Krzysztof, Mukesh)
+- Reword the commit messages
+- Shikra: allow up to three iommus entries at the top level, require
+  three for LPAICP, allow one for CDSP and disallow iommus for MPSS
+- Shikra: drop the per-item iommus descriptions
+- Add SM8750 EL2 overlay and the corresponding binding change
+- Link to v5: https://lore.kernel.org/r/20261113-shikra-el2-v5-0-8aca743de97f@oss.qualcomm.com
+
+Changes in v5:
+- Declare iommus property once in top-level properties of qcom,sa8775p-pas.yaml instead of repeating it in every allOf branch (Krzysztof, sashiko)
+- Add Glymur ADSP/CDSP compatibles to iommus conditional in qcom,sm8550-pas.yaml
+- Add sc7280 ADSP/CDSP compatibles to iommus conditional in qcom,sc7180-pas.yaml
+- Add a description for each iommus entry
+- Shikra: list three entries for LPAICP and drop the iommus property for qcom,shikra-mpss-pas (Krzysztof)
+- Link to v4: https://lore.kernel.org/r/20261104-shikra-el2-v4-0-97e7019debff@oss.qualcomm.com
+
+Changes in v4:
+- Add a patch to move the iommus constraint from qcom,pas-common.yaml to SoC-specific PAS bindings (Mukesh)
+- Add iommus constraints for all Shikra PAS compatibles instead of only relaxing the limit for LPAICP
+- Add WiFi firmware iommus to Shikra EL2 overlay
+- Link to v3: https://lore.kernel.org/r/20261005-shikra-el2-v3-0-618f7343695c@oss.qualcomm.com
+
+Changes in v3:
+- Drop qcom,pas-common reference and add per-compatible iommus limits for Shikra (Krzysztof)
+- Link to v2: https://lore.kernel.org/r/20260930-shikra-el2-v2-0-f0822be5aaee@oss.qualcomm.com
+
+Changes in v2:
+- Relax the Qualcomm PAS remoteproc `iommus` item limit, needed for Shikra EL2 remoteproc SMMU mappings.
+- Link to v1: https://lore.kernel.org/r/20260918-shikra-el2-v1-1-07bb072baa31@oss.qualcomm.com
+
+---
+Komal Bajaj (5):
+      dt-bindings: remoteproc: Move iommus constraint to SoC-specific bindings
+      dt-bindings: remoteproc: qcom,shikra-pas: Add iommus constraints
+      dt-bindings: remoteproc: qcom,sm8550-pas: Allow 6 iommus for SM8750 ADSP
+      arm64: dts: qcom: shikra: Add EL2 overlay for remoteproc SMMU mappings
+      arm64: dts: qcom: sm8750: Add EL2 overlay for remoteproc SMMU mappings
+
+ .../devicetree/bindings/remoteproc/qcom,adsp.yaml  |  6 ++++
+ .../remoteproc/qcom,kaanapali-soccp-pas.yaml       |  6 ++++
+ .../bindings/remoteproc/qcom,milos-pas.yaml        |  6 ++++
+ .../bindings/remoteproc/qcom,nord-pas.yaml         |  6 ++++
+ .../bindings/remoteproc/qcom,pas-common.yaml       |  3 --
+ .../bindings/remoteproc/qcom,qcs404-pas.yaml       |  6 ++++
+ .../bindings/remoteproc/qcom,sa8775p-pas.yaml      |  6 ++++
+ .../bindings/remoteproc/qcom,sc7180-pas.yaml       |  6 ++++
+ .../bindings/remoteproc/qcom,sc8280xp-pas.yaml     |  6 ++++
+ .../bindings/remoteproc/qcom,sdx55-pas.yaml        |  6 ++++
+ .../bindings/remoteproc/qcom,shikra-pas.yaml       | 28 ++++++++++++++++
+ .../bindings/remoteproc/qcom,sm6115-pas.yaml       |  6 ++++
+ .../bindings/remoteproc/qcom,sm6350-pas.yaml       |  6 ++++
+ .../bindings/remoteproc/qcom,sm6375-pas.yaml       |  6 ++++
+ .../bindings/remoteproc/qcom,sm8150-pas.yaml       |  6 ++++
+ .../bindings/remoteproc/qcom,sm8350-pas.yaml       |  6 ++++
+ .../bindings/remoteproc/qcom,sm8550-pas.yaml       | 30 +++++++++++++++++
+ arch/arm64/boot/dts/qcom/Makefile                  | 15 +++++++++
+ arch/arm64/boot/dts/qcom/shikra-el2.dtso           | 38 ++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8750-el2.dtso           | 30 +++++++++++++++++
+ 20 files changed, 225 insertions(+), 3 deletions(-)
+---
+base-commit: e8017d29067fd1310a65c3494ce1a1b492adbac6
+change-id: 20260918-shikra-el2-ea8969385c3c
+
+Best regards,
 -- 
-Thx and BRs,
-Zhongqiu Han
+Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+
