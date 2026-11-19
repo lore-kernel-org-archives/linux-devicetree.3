@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102742;
-	b=aZtYNzdnDGnRTlOoAN0cqohgpVNP0twy06Bli+KUgIg8L7wU5JfXhT1DEBTG7LnvoJyt
-	 2D2t40DTw1CbOH7iaDwPlwGC/T2N+ymNmw7fQBy150fOxCRTL8JYUorKyJKVoBnniRQty
-	 30RlKwsQg+UtUXIiBuaQo9CoApau8Hnu6WvTcN6PLAyyHTwrPWI8dJRPvn2N5kkfKwycs
-	 CFb5xewWunvaQdJtoaUh2/Z6kIRLqBo3Naipp3TYg86lo2L5RW7CxKw2AWC3AjmvprFPT
-	 Z5Y0p+cJ/5pqy0OtujSF7g+RnuJmOGAYJ9RG86szYe0A9O+bhGFVAPyIvtJqLRxeXWA==
+	t=1795102750;
+	b=wGptQyJTzM1qkCe4B/cin9p7htEagFFctPaKClApQ1LdjzDT3S3RworfmA9glTro0QqY
+	 W6yyYw5rzlZqujw0cXvdEXldEvJIIJUlxX6UilvS0d2+LQLmsnAQJ9GBejUYpciiovYai
+	 e3mgLOxwqW3r2nzaKtRj7a0+X4YLdB5dNHkgt3yP5wstMx4lxL6x28G8bdEnFxCc366ts
+	 L1m+kgjt6cNstp9YGvSRnk68IFPQtEn57OfSrjSy2rQgapjYWGurMJaJdMlCLrau0iz5H
+	 0ZWtfl0KY7iUpuHrBUSVZmprUw6y0V4S4zGYdeWi3UlQDdV32nYoRGaz2U115RO50Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102742;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102750;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=lmhoFq5ko5bYbFoMKzzQLW/SC0gXe2MQg/kPpp1px68=;
-	b=W8bALnTm1DVdNxGKmTyTBCUH43mNfVV/FEM80BaqPhd2z9fHV/+nvDRG6vA5+h5decr6
-	 rMieS5uecjHES8vwWEUwtOeW/5ZmV4hW6rKnvJoEUbsETg2Fcy7/0GjKrZ1PCmrBYHxNL
-	 uAEYkxl5nhE61UDo7C2GqB/+VJYOUkWdQjQc0LmIlxeP4GQr1mTxINuwfWNvAkdT1vAWS
-	 dyCL72JA/rrYF9Nmv07+OegwEWwTH/EEqx811vZnNvL8kjtfISnfny8WgOehY/1ri5d2Z
-	 D0u8oysnckFg1DlqeSYKE6Pn1s6bk4w3TJ7sukj+onP2O5U5VD8iHRghNhQIoZup0Eg==
+	bh=DMkfFWvTvlt5j+OwcT7u+qF8lC0J7GeEM1qxU0PICks=;
+	b=tg/QMJixNl7BuKMdC5UAKdEWKHcv/utLNvpE/R/dNfaB8i1zQKme5kN4Urwq3G81TkhJ
+	 LYrK6w8WhwJMzBEWtB7M/5bT5RNTK8milBNJqVYGnOrCGuk9DXwh8Mbg3/+kw703p565E
+	 A9zmq2rnYnB9/A16PMzqyfykrctxGFna+1aSyxAFFnPY3gx5yzQ4CM4mMuxeuLX0OOwxS
+	 3EBMmOnpNnBdpKAOEZArUzRsHNQEYUKXbvVqaFYViczDcIUw6k5iXCJ8Zkqw6x8QwzuvG
+	 ZKjLVjmKhhqIHbbgPeVIdQwOFMeoF+PDq+0OmAIzI5AWhPi+1FHiQ+ZCD4qot8f+vIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=V5lBCwQp;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gSfN7drb;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 576FB606C4B7;
-	Thu, 19 Nov 2026 15:39:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 576FB606C4B7
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0C551606D6D8;
+	Thu, 19 Nov 2026 15:39:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C551606D6D8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=V5lBCwQp
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gSfN7drb
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EEA2A1C01;
-	Thu, 19 Nov 2026 07:38:56 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 88DBE1575;
+	Thu, 19 Nov 2026 07:39:00 -0800 (PST)
 Received: from e140322.cambridge.arm.com (e140322.arm.com [10.2.201.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 638613F882;
-	Thu, 19 Nov 2026 07:38:58 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F24EC3F882;
+	Thu, 19 Nov 2026 07:39:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795102739; bh=+Q4GEARj/cJmJ5uBbWgqwMNG3ZlZ5LD+Ws41vdqeF0k=;
+	t=1795102743; bh=670bqZWDtPVaHT9oeUzS69fcUrqHRtkRwMEJa8WvIkM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=V5lBCwQpHVqCXnIzy6AWWx+g8hoQhfFH3W0jj0wYSnaR8/0oJnvf6oJCgng3KcFoj
-	 Xw/n4AV010Ha45U/7HxcxOcPD1+GQszPT7YRsNFTabi35d3YIdEbb36CVwlnjKopN/
-	 /zWA3UVsPpC00U26iSGfK7GCWXb2CBHYdz6jYYLI=
+	b=gSfN7drbwwc2RBkSqY7To8rX9rfMWQ+4sIJLBz4ubfDBEe7alffK924YjraRXH74u
+	 4obDRKdRqGwfJZ/QCHps8mFlxOHE7Chq85l6fQ+LWzL3p9ZntqBz8PyYFlNEyZHlcv
+	 o3tlmABVz13PgTqbcToDNKyWgWVYvBfQz8PA3Qgo=
 From: Charvi Mehta <charvi.mehta@arm.com>
 To: linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
@@ -55,9 +55,9 @@ Cc: Charvi Mehta <charvi.mehta@arm.com>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>,
 	Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
 	Shobhit Pandey <shobhit.pandey@arm.com>
-Subject: [RFC PATCH 18/28] media: mali-vpu: handle firmware interrupts
-Date: Thu, 19 Nov 2026 15:37:48 +0000
-Message-ID: <20261119153758.1426673-19-charvi.mehta@arm.com>
+Subject: [RFC PATCH 20/28] media: mali-vpu: implement vb2 buffer queue handling
+Date: Thu, 19 Nov 2026 15:37:50 +0000
+Message-ID: <20261119153758.1426673-21-charvi.mehta@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261119153758.1426673-1-charvi.mehta@arm.com>
 References: <20261119153758.1426673-1-charvi.mehta@arm.com>
@@ -72,373 +72,735 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Firmware responses and service requests are delivered through per-LSID
-interrupts. Route these interrupts to the session currently assigned
-to the LSID and process them outside hard IRQ context.
+From: Rath Sankaralingam <rath.sankaralingam@arm.com>
 
-This allows the driver to service firmware RPC requests and consume
-responses needed to complete asynchronous firmware commands.
+Implement the vb2 callbacks needed to initialise, queue and clean up
+Mali VPU buffers.
 
-Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
+Record each DMA-SG plane in an MMU pages object during buffer
+initialisation. When a buffer is queued, copy its timestamp, flags and
+per-plane payload information into the driver buffer, add it to the
+v4l2-m2m queue and prepare it for firmware submission.
+
+Add helpers to map and unmap buffer planes in the VPU MMU, synchronise
+their cache state and configure decoded frame layouts. Defer each buffer
+until its port requests streaming and the firmware is running, then submit
+deferred buffers when firmware reports RUNNING. Release the per-plane MMU
+bookkeeping when vb2 cleans up the buffer.
+
+Signed-off-by: Rath Sankaralingam <rath.sankaralingam@arm.com>
 ---
- .../platform/arm/mali-vpu/mali-vpu-device.h   |  7 ++
- .../platform/arm/mali-vpu/mali-vpu-probe.c    | 84 +++++++++++++++++-
- .../arm/mali-vpu/mali-vpu-registers.h         |  1 +
- .../arm/mali-vpu/mali-vpu-scheduler.c         | 24 ++++++
- .../arm/mali-vpu/mali-vpu-scheduler.h         |  1 +
- .../platform/arm/mali-vpu/mali-vpu-session.c  | 86 +++++++++++++++++++
- .../platform/arm/mali-vpu/mali-vpu-session.h  |  3 +
- 7 files changed, 205 insertions(+), 1 deletion(-)
+ .../platform/arm/mali-vpu/mali-vpu-buffer.c   | 275 ++++++++++++++++++
+ .../platform/arm/mali-vpu/mali-vpu-buffer.h   |  74 +++++
+ .../platform/arm/mali-vpu/mali-vpu-firmware.c |   4 +-
+ .../platform/arm/mali-vpu/mali-vpu-firmware.h |   7 +
+ .../platform/arm/mali-vpu/mali-vpu-session.c  | 145 +++++++++
+ .../platform/arm/mali-vpu/mali-vpu-session.h  |   6 +
+ .../platform/arm/mali-vpu/mali-vpu-vb2.c      |  23 ++
+ 7 files changed, 532 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
-index 9be36e47d0879..cacdd86fe517e 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
-@@ -7,6 +7,7 @@
- #define __MALI_VPU_DEVICE_H__
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.c
+index 7ace0489996a8..c1df3e2d4eacf 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.c
+@@ -4,13 +4,44 @@
+  */
  
- #include <linux/device.h>
-+#include <linux/workqueue.h>
- #include <media/v4l2-device.h>
- 
- #include "mali-vpu-scheduler.h"
-@@ -37,6 +38,9 @@ enum mali_vpu_session_role {
-  * @rst_count: Number of reset controls in @rst_list.
-  * @dma_mask: DMA mask for the device, indicating supported address width.
-  * @irq: IRQ number for VPU.
-+ * @irqve_mask: Bitmap of pending LSID IRQs.
-+ * @irq_wq: Workqueue used to process LSID IRQs outside hard IRQ context.
-+ * @irq_work: Work item for deferred LSID IRQ handling.
-  * @variant: Structure describing variant-specific features and capabilities.
-  * @v4l2_dev: V4L2 device structure for mali vpu.
-  * @vdev_dec: Video device structure for decoder.
-@@ -53,6 +57,9 @@ struct mali_vpu_dev {
- 	unsigned int			rst_count;
- 	u64				dma_mask;
- 	int				irq;
-+	unsigned long			irqve_mask;
-+	struct workqueue_struct		*irq_wq;
-+	struct work_struct		irq_work;
- 
- 	const struct mali_vpu_variant	*variant;
- 	struct v4l2_device		v4l2_dev;
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
-index 0c7ea9035fb50..b9f9558e76701 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
-@@ -9,6 +9,7 @@
- #include <linux/err.h>
  #include <linux/errno.h>
- #include <linux/io.h>
-+#include <linux/interrupt.h>
- #include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/of.h>
-@@ -119,6 +120,70 @@ static int mali_vpu_get_resources(struct mali_vpu_dev *vpu_dev)
- 	return mali_vpu_get_resets(vpu_dev);
- }
++#include <media/videobuf2-dma-sg.h>
  
-+static irqreturn_t mali_vpu_isr_top(int irq, void *data)
+ #include "mali-vpu-buffer.h"
+ #include "mali-vpu-session.h"
+ 
++static int mali_vpu_buffer_alloc_planes(struct mali_vpu_buffer *vpu_buf,
++					struct sg_table **sgt)
 +{
-+	struct mali_vpu_dev *vpu_dev = data;
-+	u32 nlsid, irqve, nlsid_bound;
-+	int ret = IRQ_NONE;
++	u32 i;
++	int ret;
 +
-+	/*
-+	 * IRQVE contains one interrupt bit per LSID. Acknowledge each asserted
-+	 * source in hard IRQ context and record it for deferred firmware response
-+	 * and RPC handling, which may sleep.
-+	 */
-+	nlsid = mali_vpu_read_reg(vpu_dev->regs_base, MALI_VPU_REG_NLSID);
-+	irqve = mali_vpu_read_reg(vpu_dev->regs_base, MALI_VPU_REG_IRQVE);
-+	nlsid_bound = min_t(u32, nlsid, vpu_dev->variant->max_lsid);
++	for (i = 0; i < vpu_buf->nplanes; ++i) {
++		struct mali_vpu_buffer_plane *plane = &vpu_buf->planes[i];
 +
-+	while (nlsid_bound-- > 0)
-+		if ((irqve >> nlsid_bound) & 0x1) {
-+			u32 reg_off = MALI_VPU_LSID_BASE +
-+					(MALI_VPU_LSID_STRIDE * nlsid_bound) +
-+					MALI_VPU_REG_LSID_IRQVE;
-+			mali_vpu_write_reg(vpu_dev->regs_base, reg_off, 0);
-+			set_bit(nlsid_bound, &vpu_dev->irqve_mask);
-+			ret = IRQ_HANDLED;
++		plane->pages = mali_vpu_mmu_alloc_pages_sg(vpu_buf->dev, sgt[i], 0);
++		if (IS_ERR(plane->pages)) {
++			ret = PTR_ERR(plane->pages);
++			goto free_pages;
 +		}
++	}
 +
-+	if (ret == IRQ_HANDLED)
-+		queue_work(vpu_dev->irq_wq, &vpu_dev->irq_work);
++	return 0;
++
++free_pages:
++	while (i--)
++		mali_vpu_mmu_free_pages(vpu_buf->planes[i].pages);
 +
 +	return ret;
 +}
 +
-+static void mali_vpu_irq_bottom(struct work_struct *work)
-+{
-+	struct mali_vpu_dev *vpu_dev = container_of(work, struct mali_vpu_dev, irq_work);
+ int mali_vpu_vb2_buffer_init(struct vb2_buffer *vb2_buf)
+ {
++	struct vb2_v4l2_buffer *v4l2_buf = to_vb2_v4l2_buffer(vb2_buf);
++	struct mali_vpu_buffer *vpu_buf = to_mali_vpu_buffer(v4l2_buf);
+ 	struct mali_vpu_session *sess = vb2_get_drv_priv(vb2_buf->vb2_queue);
++	struct sg_table *sgt[MALI_VPU_BUFFER_MAX_PLANES] = { 0 };
 +	u32 i;
++	int ret;
+ 
+ 	if (vb2_buf->num_planes > MALI_VPU_BUFFER_MAX_PLANES) {
+ 		dev_err(sess->vpu_dev->dev,
+@@ -19,6 +50,82 @@ int mali_vpu_vb2_buffer_init(struct vb2_buffer *vb2_buf)
+ 		return -EINVAL;
+ 	}
+ 
++	vpu_buf->dev = sess->vpu_dev->dev;
++	vpu_buf->mmu = &sess->mmu;
++	vpu_buf->nplanes = vb2_buf->num_planes;
++	vpu_buf->attr = MALI_VPU_BUF_ATTR_NONE;
 +
-+	for (i = 0; i < vpu_dev->sched.nlsid; i++) {
-+		if (test_and_clear_bit(i, &vpu_dev->irqve_mask))
-+			mali_vpu_sched_handle_lsid_irq(&vpu_dev->sched, i);
++	for (i = 0; i < vb2_buf->num_planes; ++i) {
++		sgt[i] = vb2_dma_sg_plane_desc(vb2_buf, i);
++		if (!sgt[i]) {
++			dev_err(sess->vpu_dev->dev,
++				"cannot fetch SG descriptor. vb=%p, plane=%u",
++				vb2_buf, i);
++			return -ENOMEM;
++		}
 +	}
++
++	ret = mali_vpu_buffer_alloc_planes(vpu_buf, sgt);
++
++	return ret;
 +}
 +
-+static int mali_vpu_irq_work_init(struct mali_vpu_dev *vpu_dev)
++bool mali_vpu_is_buffer_mapped(struct mali_vpu_buffer *vpu_buf)
 +{
-+	vpu_dev->irqve_mask = 0;
++	return (vpu_buf->planes[0].pages &&  vpu_buf->planes[0].pages->va);
++}
 +
-+	vpu_dev->irq_wq = alloc_workqueue("%s-irq", WQ_UNBOUND, 1, dev_name(vpu_dev->dev));
-+	if (!vpu_dev->irq_wq)
-+		return -ENOMEM;
++static size_t mali_vpu_buffer_get_bytesused(struct vb2_buffer *b)
++{
++	size_t size;
++	u32 i;
 +
-+	INIT_WORK(&vpu_dev->irq_work, mali_vpu_irq_bottom);
++	for (i = 0, size = 0; i < b->num_planes; i++)
++		size += b->planes[i].bytesused;
++
++	return size;
++}
++
++static void mali_vpu_buffer_update_flags_from_v4l2(struct vb2_buffer *vb2_buf)
++{
++	struct vb2_v4l2_buffer *v4l2_buf = to_vb2_v4l2_buffer(vb2_buf);
++	struct mali_vpu_buffer *vpu_buf = to_mali_vpu_buffer(v4l2_buf);
++
++	u32 flags = v4l2_buf->flags;
++
++	vpu_buf->flags = 0;
++
++	if (V4L2_TYPE_IS_OUTPUT(vb2_buf->type) && mali_vpu_buffer_get_bytesused(vb2_buf) == 0)
++		flags |= V4L2_BUF_FLAG_LAST;
++
++	if (flags & V4L2_BUF_FLAG_LAST)
++		vpu_buf->flags |= MALI_VPU_BUFFER_EOS;
++}
++
++int mali_vpu_buffer_update_info_from_v4l2(struct vb2_buffer *vb2_buf)
++{
++	struct vb2_v4l2_buffer *v4l2_buf = to_vb2_v4l2_buffer(vb2_buf);
++	struct mali_vpu_buffer *vpu_buf = to_mali_vpu_buffer(v4l2_buf);
++	u32 offset;
++	u32 i;
++	int ret;
++
++	vpu_buf->user_data = vb2_buf->timestamp;
++	vpu_buf->type = vb2_buf->type;
++
++	for (i = 0; i < vb2_buf->num_planes; i++) {
++		offset = vb2_buf->planes[i].data_offset;
++
++		/* set plane payload size and offset */
++		ret = mali_vpu_buffer_set_plane_payload(vpu_buf, i, vb2_buf->planes[i].bytesused,
++							offset);
++		if (ret)
++			return ret;
++	}
++
++	/* update flags */
++	mali_vpu_buffer_update_flags_from_v4l2(vb2_buf);
++
+ 	return 0;
+ }
+ 
+@@ -49,3 +156,171 @@ int mali_vpu_vb2_buffer_out_validate(struct vb2_buffer *vb2_buf)
+ 
+ 	return 0;
+ }
++
++static int mali_vpu_buffer_plane_map(struct mali_vpu_buffer *vpu_buf, mali_vpu_mmu_va begin,
++				     mali_vpu_mmu_va end, u32 plane)
++{
++	while (begin < end) {
++		struct mali_vpu_buffer_plane *p = &vpu_buf->planes[plane];
++		int ret;
++
++		ret = mali_vpu_mmu_map_pages(vpu_buf->mmu, begin, p->pages,
++					     MALI_VPU_ATTR_SHARED_RW, MALI_VPU_ACCESS_READ_WRITE);
++		if (!ret) {
++			dev_dbg(vpu_buf->dev,
++				"memory map buffer. buf=%p, plane=%u, va=0x%x, size=%zu.",
++				vpu_buf, plane, p->pages->va,
++				mali_vpu_mmu_size_pages(p->pages));
++			return 0;
++		}
++
++		if (ret != -EAGAIN)
++			return ret;
++
++		begin += SZ_1M;
++	}
++
++	return -ENOMEM;
++}
++
++int mali_vpu_buffer_map(struct mali_vpu_buffer *vpu_buf, mali_vpu_mmu_va begin, mali_vpu_mmu_va end)
++{
++	u32 i;
++	int ret;
++
++	for (i = 0; i < vpu_buf->nplanes; i++) {
++		struct mali_vpu_buffer_plane *plane = &vpu_buf->planes[i];
++
++		if (plane->pages) {
++			ret = mali_vpu_buffer_plane_map(vpu_buf, begin, end, i);
++			if (ret) {
++				mali_vpu_buffer_unmap(vpu_buf);
++				return ret;
++			}
++		}
++	}
 +	return 0;
 +}
 +
-+static void mali_vpu_irq_work_cleanup(struct mali_vpu_dev *vpu_dev)
++void mali_vpu_buffer_unmap(struct mali_vpu_buffer *vpu_buf)
 +{
-+	if (!vpu_dev->irq_wq)
-+		return;
++	u32 i;
 +
-+	cancel_work_sync(&vpu_dev->irq_work);
-+	destroy_workqueue(vpu_dev->irq_wq);
-+	vpu_dev->irq_wq = NULL;
-+}
++	for (i = 0; i < vpu_buf->nplanes; i++) {
++		struct mali_vpu_buffer_plane *plane = &vpu_buf->planes[i];
 +
- static int mali_vpu_register_video_device(struct mali_vpu_dev *vpu_dev,
- 					  enum mali_vpu_session_role role)
- {
-@@ -219,10 +284,19 @@ static int mali_vpu_probe(struct platform_device *pdev)
- 
- 	dma_set_max_seg_size(vpu_dev->dev, SZ_2G);
- 
-+	ret = mali_vpu_irq_work_init(vpu_dev);
-+	if (ret)
-+		goto err_cleanup_sched;
-+
-+	ret = devm_request_irq(&pdev->dev, vpu_dev->irq, mali_vpu_isr_top, 0, pdev->name,
-+			       vpu_dev);
-+	if (ret)
-+		goto err_cleanup_irq_work;
-+
- 	ret = v4l2_device_register(&pdev->dev, &vpu_dev->v4l2_dev);
- 	if (ret) {
- 		dev_err(vpu_dev->dev, "failed to register V4L2 device\n");
--		goto err_cleanup_sched;
-+		goto err_free_irq;
- 	}
- 
- 	vpu_dev->m2m_dev = v4l2_m2m_init(&mali_vpu_m2m_ops);
-@@ -255,6 +329,10 @@ static int mali_vpu_probe(struct platform_device *pdev)
- 	v4l2_m2m_release(vpu_dev->m2m_dev);
- err_unreg_v4l2:
- 	v4l2_device_unregister(&vpu_dev->v4l2_dev);
-+err_free_irq:
-+	devm_free_irq(vpu_dev->dev, vpu_dev->irq, vpu_dev);
-+err_cleanup_irq_work:
-+	mali_vpu_irq_work_cleanup(vpu_dev);
- err_cleanup_sched:
- 	mali_vpu_sched_cleanup(&vpu_dev->sched);
- err_rst_clk:
-@@ -270,6 +348,10 @@ static void mali_vpu_remove(struct platform_device *pdev)
- 	struct mali_vpu_dev *vpu_dev = platform_get_drvdata(pdev);
- 
- 	video_unregister_device(vpu_dev->vdev_dec);
-+
-+	devm_free_irq(vpu_dev->dev, vpu_dev->irq, vpu_dev);
-+	mali_vpu_irq_work_cleanup(vpu_dev);
-+
- 	mali_vpu_fw_cache_cleanup(vpu_dev->fw_cache);
- 	v4l2_m2m_release(vpu_dev->m2m_dev);
- 	v4l2_device_unregister(&vpu_dev->v4l2_dev);
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-registers.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-registers.h
-index 1a3e0fcdba4c6..467f2cdb4c278 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-registers.h
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-registers.h
-@@ -19,6 +19,7 @@
- #define MALI_VPU_REG_NCORES   0x00008
- #define MALI_VPU_REG_NLSID    0x0000C
- #define MALI_VPU_REG_JOBQUEUE 0x00014
-+#define MALI_VPU_REG_IRQVE    0x00018
- #define MALI_VPU_REG_CLKFORCE 0x00024
- #define MALI_VPU_REG_RESET    0x00050
- 
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.c
-index cae9ac0093be9..77503f20e4b29 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.c
-@@ -222,3 +222,27 @@ int mali_vpu_sched_session_terminate(struct mali_vpu_sched_session *sched_sess,
- 
- 	return ret;
- }
-+
-+void mali_vpu_sched_handle_lsid_irq(struct mali_vpu_sched *sched, u32 lsid)
-+{
-+	struct mali_vpu_session *sess = NULL;
-+	struct mali_vpu_sched_session *sched_sess;
-+
-+	/* Only single active session policy - always mapped to lsid 0 */
-+	if (lsid != 0) {
-+		dev_warn(sched->vpu_dev->dev,
-+			 "unexpected interrupt from LSID %u\n", lsid);
-+		return;
-+	}
-+
-+	mutex_lock(&sched->lock);
-+	if (sched->nlsid) {
-+		sched_sess = sched->lsid_list[lsid].sched_sess;
-+		if (sched_sess)
-+			sess = container_of(sched_sess, struct mali_vpu_session, sched_sess);
-+	}
-+	mutex_unlock(&sched->lock);
-+
-+	if (sess)
-+		mali_vpu_session_irq(sess);
-+}
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.h
-index 23167aef6ff62..ffa93495e8b47 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.h
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.h
-@@ -53,5 +53,6 @@ void mali_vpu_sched_flush_mmu(struct mali_vpu_sched_session *sched_sess,
- 			      struct mali_vpu_sched *sched);
- int mali_vpu_sched_session_terminate(struct mali_vpu_sched_session *sched_sess,
- 				     struct mali_vpu_sched *sched);
-+void mali_vpu_sched_handle_lsid_irq(struct mali_vpu_sched *sched, u32 lsid);
- 
- #endif /* __MALI_VPU_SCHEDULER_H__ */
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-index c5579edfe627f..09ec6d14f4ad0 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-@@ -73,6 +73,56 @@ int mali_vpu_session_fw_send_set_option(struct mali_vpu_session *sess,
- 	return mali_vpu_fw_send_set_option(&sess->fw, opt);
- }
- 
-+static int mali_vpu_session_handle_fw_msg(struct mali_vpu_session *sess,
-+					  const struct mali_vpu_fw_msg *fw_msg)
-+{
-+	switch (fw_msg->code) {
-+	case MALI_VPU_FW_CODE_ERROR:
-+		dev_warn(sess->vpu_dev->dev, "firmware rsp: Error. code=%u, message=%s\n",
-+			 fw_msg->data.error.error_code, fw_msg->data.error.message);
-+		return -EIO;
-+	case MALI_VPU_FW_CODE_JOB:
-+		/*
-+		 * The session uses an infinite job and does not implement
-+		 * switch-out scheduling.
-+		 */
-+		return 0;
-+	case MALI_VPU_FW_CODE_PONG:
-+		/* Receiving the responses completes the diagnostic ping. */
-+		return 0;
-+	case MALI_VPU_FW_CODE_STATE_CHANGE:
-+		sess->fw_state = fw_msg->data.state;
-+		return 0;
-+	case MALI_VPU_FW_CODE_SWITCH_IN:
-+		/* Single session policy: the scheduler already tracks the active LSID mapping. */
-+		return 0;
-+	case MALI_VPU_FW_CODE_SWITCH_OUT:
-+		dev_warn(sess->vpu_dev->dev,
-+			 "Unexpected fw switch-out response for a single session policy.\n");
-+		return 0;
-+	case MALI_VPU_FW_CODE_SET_OPTION:
-+		/*
-+		 * The parser validated the confirmation and decremented the
-+		 * pending_response_count.
-+		 */
-+		return 0;
-+	case MALI_VPU_FW_CODE_SET_OPTION_FAIL:
-+		/*
-+		 * The parser printed the error and decremented the
-+		 * pending_response_count.
-+		 */
-+		return -EINVAL;
-+	case MALI_VPU_FW_CODE_IDLE:
-+		dev_dbg(sess->vpu_dev->dev, "fw entered Idle/sleeping state.\n");
-+		return 0;
-+	case MALI_VPU_FW_CODE_UNKNOWN:
-+	case MALI_VPU_FW_CODE_MAX:
-+	default:
-+		dev_warn(sess->vpu_dev->dev, "unknown fw msg code=%u\n", fw_msg->code);
-+		return -EPROTO;
++		if (plane->pages && plane->pages->va != 0)
++			mali_vpu_mmu_unmap_pages(plane->pages);
 +	}
 +}
 +
- int mali_vpu_session_init(struct mali_vpu_session *sess)
- {
- 	int ret;
-@@ -120,6 +170,7 @@ int mali_vpu_session_init(struct mali_vpu_session *sess)
- 	sess->port_src.stream_requested = false;
- 	sess->port_dst.stream_requested = false;
- 	init_completion(&sess->fw_load_done);
-+	sess->fw_state = MALI_VPU_FW_STATE_STOPPED;
- 
- 	return 0;
- 
-@@ -321,3 +372,38 @@ int mali_vpu_session_request_fw_load(struct mali_vpu_session *sess)
- 
- 	return 0;
- }
-+
-+void mali_vpu_session_irq(struct mali_vpu_session *sess)
++size_t mali_vpu_buffer_plane_size(struct mali_vpu_buffer *vpu_buf, u32 plane)
 +{
-+	struct mali_vpu_fw_msg msg;
-+	bool flush_mmu = false;
++	struct vb2_buffer *vb2_buf = &vpu_buf->m2m_buf.vb.vb2_buf;
++
++	if (plane >= vb2_buf->num_planes)
++		return 0;
++
++	return vb2_plane_size(vb2_buf, plane);
++}
++
++int mali_vpu_buffer_sync(struct mali_vpu_buffer *vpu_buf, enum dma_data_direction dir)
++{
++	u32 i;
 +	int ret;
 +
-+	mutex_lock(&sess->vq_lock);
++	for (i = 0; i < vpu_buf->nplanes; i++) {
++		struct mali_vpu_buffer_plane *plane = &vpu_buf->planes[i];
 +
-+	ret = mali_vpu_fw_handle_rpc(&sess->fw, &flush_mmu);
-+	if (ret) {
-+		if (flush_mmu)
-+			mali_vpu_sched_flush_mmu(&sess->sched_sess, &sess->vpu_dev->sched);
-+		mali_vpu_sched_send_irq(&sess->sched_sess, &sess->vpu_dev->sched);
-+
-+		if (ret < 0)
-+			goto unlock_mutex;
++		if (plane->pages) {
++			ret = mali_vpu_mmu_sync_pages(plane->pages, dir);
++			if (ret)
++				return ret;
++		}
 +	}
 +
-+	do {
-+		ret = mali_vpu_fw_parse_msg(&sess->fw, &msg);
-+		if (ret < 0)
-+			goto unlock_mutex;
-+
-+		if (!ret)
-+			break;
-+
-+		ret = mali_vpu_session_handle_fw_msg(sess, &msg);
-+		if (ret)
-+			goto unlock_mutex;
-+	} while (ret >= 0);
-+
-+unlock_mutex:
-+	mutex_unlock(&sess->vq_lock);
++	return 0;
 +}
++
++int mali_vpu_buffer_set_plane_payload(struct mali_vpu_buffer *vpu_buf, u32 plane,
++				      u32 bytesused, u32 offset)
++{
++	struct mali_vpu_buffer_plane *p;
++	size_t capacity;
++
++	if (plane >= vpu_buf->nplanes)
++		return -EINVAL;
++
++	capacity = mali_vpu_buffer_plane_size(vpu_buf, plane);
++
++	if (offset > capacity || bytesused > capacity || offset > bytesused) {
++		dev_err(vpu_buf->dev,
++			"invalid plane payload. Plane: %u, capacity: %zu, bytesused=%u, offset=%u.\n",
++			plane, capacity, bytesused, offset);
++		return -EINVAL;
++	}
++
++	p = &vpu_buf->planes[plane];
++
++	p->payload_size = bytesused - offset;
++	p->offset = offset;
++
++	return 0;
++}
++
++int mali_vpu_buffer_set_frame_layout(struct mali_vpu_buffer *vpu_buf)
++{
++	struct vb2_buffer *vb2_buf = &vpu_buf->m2m_buf.vb.vb2_buf;
++	struct mali_vpu_session *sess = vb2_get_drv_priv(vb2_buf->vb2_queue);
++	struct mali_vpu_port *port;
++	struct v4l2_pix_format_mplane *pix_mp;
++	int ret;
++	size_t size;
++	u32 i;
++
++	port = V4L2_TYPE_IS_OUTPUT(vb2_buf->vb2_queue->type) ? &sess->port_src :
++							       &sess->port_dst;
++
++	pix_mp = &port->curr_fmt.fmt.pix_mp;
++
++	if (vpu_buf->nplanes != pix_mp->num_planes)
++		return -EINVAL;
++
++	for (i = 0; i < vpu_buf->nplanes; i++) {
++		struct mali_vpu_buffer_plane *plane = &vpu_buf->planes[i];
++
++		size = pix_mp->plane_fmt[i].sizeimage;
++		plane->stride = pix_mp->plane_fmt[i].bytesperline;
++		plane->offset = 0;
++
++		if (!V4L2_TYPE_IS_OUTPUT(vpu_buf->type)) {
++			ret = mali_vpu_buffer_set_plane_payload(vpu_buf, i, size, 0);
++			if (ret)
++				return ret;
++		}
++
++		if (plane->payload_size != size) {
++			dev_err(vpu_buf->dev,
++				"payload size mismatch. Plane: %u, payload_size: %u, actual: %zu.\n",
++				i, plane->payload_size, size);
++			return -EINVAL;
++		}
++	}
++
++	return 0;
++}
++
++void mali_vpu_vb2_buffer_cleanup(struct vb2_buffer *vb2_buf)
++{
++	struct vb2_v4l2_buffer *v4l2_buf = to_vb2_v4l2_buffer(vb2_buf);
++	struct mali_vpu_buffer *vpu_buf = to_mali_vpu_buffer(v4l2_buf);
++	u32 i;
++
++	for (i = 0; i < vpu_buf->nplanes; i++) {
++		if (!vpu_buf->planes[i].pages)
++			continue;
++
++		mali_vpu_mmu_free_pages(vpu_buf->planes[i].pages);
++		vpu_buf->planes[i].pages = NULL;
++	}
++}
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.h
+index f5d67d48e5921..645dcc775cd2c 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.h
+@@ -8,14 +8,88 @@
+ 
+ #include <media/v4l2-mem2mem.h>
+ 
++#include "mali-vpu-mmu.h"
++
+ #define MALI_VPU_BUFFER_MAX_PLANES 3
+ 
++#define MALI_VPU_BUFFER_EOS                  0x00000001
++
++/**
++ * enum mali_vpu_buffer_attributes - Buffer submission state.
++ * @MALI_VPU_BUF_ATTR_NONE: Buffer is neither deferred nor queued for firmware
++ *                          processing.
++ * @MALI_VPU_BUF_ATTR_DEFERRED: Buffer is held by driver for later submission
++ *                              to firmware.
++ * @MALI_VPU_BUF_ATTR_QUEUED: Buffer has been submitted to firmware and is
++ *                            awaiting its return.
++ */
++enum mali_vpu_buffer_attributes {
++	MALI_VPU_BUF_ATTR_NONE,
++	MALI_VPU_BUF_ATTR_DEFERRED,
++	MALI_VPU_BUF_ATTR_QUEUED
++};
++
++/**
++ * struct mali_vpu_buffer_plane - Plane information.
++ * @pages: MMU pages object.
++ * @payload_size: Number of bytes written to this plane. For a frame buffer this
++ *                value should always match the size of the plane.
++ * @offset: Byte offset from beginning of buffer to first bitstream data.
++ * @stride: Bytes per line for the plane.
++ */
++struct mali_vpu_buffer_plane {
++	struct mali_vpu_mmu_pages *pages;
++	u32 payload_size;
++	u32 offset;
++	u32 stride;
++};
++
++/**
++ * struct mali_vpu_buffer - Buffer descriptor.
++ * @m2m_buf: Embedded v4l2-mem2mem buffer.
++ * @dev: Pointer to device.
++ * @mmu: Pointer to MMU.
++ * @nplanes: Number of planes.
++ * @type: Type of the buffer (output/capture).
++ * @user_data: Userdata(timestamp) to be copied to capture buffer.
++ * @flags: Buffer Flags.
++ * @planes: Array of planes.
++ * @attr: Firmware Queuing Status Attribute.
++ */
+ struct mali_vpu_buffer {
+ 	struct v4l2_m2m_buffer m2m_buf;
++	struct device *dev;
++	struct mali_vpu_mmu *mmu;
++	u32 nplanes;
++	u32 type;
++	u64 user_data;
++	u32 flags;
++	struct mali_vpu_buffer_plane planes[MALI_VPU_BUFFER_MAX_PLANES];
++	enum mali_vpu_buffer_attributes attr;
+ };
+ 
++static inline struct mali_vpu_buffer *to_mali_vpu_buffer(struct vb2_v4l2_buffer *v4l2_buf)
++{
++	struct v4l2_m2m_buffer *m2m_buf = container_of(v4l2_buf, struct v4l2_m2m_buffer, vb);
++
++	return container_of(m2m_buf, struct mali_vpu_buffer, m2m_buf);
++}
++
+ int mali_vpu_vb2_buffer_init(struct vb2_buffer *vb2_buf);
+ int mali_vpu_vb2_buffer_prepare(struct vb2_buffer *vb2_buf);
+ int mali_vpu_vb2_buffer_out_validate(struct vb2_buffer *vb2_buf);
++void mali_vpu_vb2_buffer_cleanup(struct vb2_buffer *vb2_buf);
++
++int mali_vpu_buffer_map(struct mali_vpu_buffer *vpu_buf, mali_vpu_mmu_va begin,
++			mali_vpu_mmu_va end);
++void mali_vpu_buffer_unmap(struct mali_vpu_buffer *vpu_buf);
++int mali_vpu_buffer_sync(struct mali_vpu_buffer *vpu_buf, enum dma_data_direction dir);
++bool mali_vpu_is_buffer_mapped(struct mali_vpu_buffer *vpu_buf);
++
++int mali_vpu_buffer_update_info_from_v4l2(struct vb2_buffer *vb2_buf);
++int mali_vpu_buffer_set_plane_payload(struct mali_vpu_buffer *vpu_buf, u32 plane,
++				      u32 bytesused, u32 offset);
++int mali_vpu_buffer_set_frame_layout(struct mali_vpu_buffer *vpu_buf);
++size_t mali_vpu_buffer_plane_size(struct mali_vpu_buffer *vpu_buf, u32 plane);
+ 
+ #endif /* __MALI_VPU_BUFFER_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c
+index c11d5c6c0ec5f..820853ca4519a 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c
+@@ -18,8 +18,8 @@
+ #define MALI_VPU_FW_MAX_CORES 8
+ #define MALI_VPU_RPC_VA_GRANULE SZ_16M
+ 
+-static int mali_vpu_fw_get_region(enum mali_vpu_fw_region region,
+-				  mali_vpu_mmu_va *begin, mali_vpu_mmu_va *end)
++int mali_vpu_fw_get_region(enum mali_vpu_fw_region region,
++			   mali_vpu_mmu_va *begin, mali_vpu_mmu_va *end)
+ {
+ 	switch (region) {
+ 	case MALI_VPU_FW_REGION_MSG_HOST:
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.h
+index c03a07d994873..5431959befb24 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.h
+@@ -10,6 +10,8 @@
+ #include <linux/media/arm/mali-vpu-config.h>
+ #include <linux/types.h>
+ 
++#include "mali-vpu-mmu.h"
++
+ #define MALI_VPU_FW_HTABLE_BITS 3
+ #define MALI_VPU_FW_TEXT_BASE_ADDR 0x1000u
+ 
+@@ -101,6 +103,7 @@ struct mali_vpu_fw_error {
+  * enum mali_vpu_fw_code - Driver representation of firmware messages.
+  * @MALI_VPU_FW_CODE_ERROR: Firmware reported fatal error.
+  * @MALI_VPU_FW_CODE_JOB: Firmware dequeued a job.
++ * @MALI_VPU_FW_CODE_BUFFER: Send and receive buffer.
+  * @MALI_VPU_FW_CODE_PING: Ping request sent to firmware.
+  * @MALI_VPU_FW_CODE_PONG: Firmware responded to a ping request.
+  * @MALI_VPU_FW_CODE_IDLE: Firmware informs the driver that it's idle.
+@@ -115,6 +118,7 @@ struct mali_vpu_fw_error {
+ enum mali_vpu_fw_code {
+ 	MALI_VPU_FW_CODE_ERROR,              /* Driver <- Firmware. */
+ 	MALI_VPU_FW_CODE_JOB,                /* Driver -> Firmware. */
++	MALI_VPU_FW_CODE_BUFFER,             /* Driver <-> Firmware. */
+ 	MALI_VPU_FW_CODE_PING,               /* Driver -> Firmware. */
+ 	MALI_VPU_FW_CODE_PONG,               /* Driver <- Firmware. */
+ 	MALI_VPU_FW_CODE_IDLE,               /* Driver <- Firmware. */
+@@ -138,6 +142,7 @@ struct mali_vpu_fw_msg {
+ 		enum mali_vpu_fw_state state;
+ 		struct mali_vpu_fw_job job;
+ 		struct mali_vpu_fw_error error;
++		struct mali_vpu_buffer *vpu_buf;
+ 	} data;
+ };
+ 
+@@ -246,6 +251,8 @@ int mali_vpu_fw_send_ping(struct mali_vpu_fw *fw);
+ int mali_vpu_fw_send_state_change(struct mali_vpu_fw *fw, enum mali_vpu_fw_state state);
+ int mali_vpu_fw_send_set_option(struct mali_vpu_fw *fw, struct mali_vpu_fw_set_option *option);
+ int mali_vpu_fw_parse_msg(struct mali_vpu_fw *fw, struct mali_vpu_fw_msg *msg);
++int mali_vpu_fw_get_region(enum mali_vpu_fw_region region, mali_vpu_mmu_va *begin,
++			   mali_vpu_mmu_va *end);
+ int mali_vpu_fw_handle_rpc(struct mali_vpu_fw *fw, bool *flush_mmu);
+ 
+ #endif /* __MALI_VPU_FIRMWARE_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+index 6d22a5d479008..540104bcd38e2 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+@@ -150,6 +150,122 @@ int mali_vpu_session_fw_send_set_option(struct mali_vpu_session *sess,
+ 	return 0;
+ }
+ 
++static int mali_vpu_buffer_map_fw_region(struct mali_vpu_session *sess,
++					 struct mali_vpu_buffer *vpu_buf)
++{
++	mali_vpu_mmu_va begin, end;
++	enum mali_vpu_fw_region region;
++	enum v4l2_buf_type type;
++	int ret;
++
++	type = vpu_buf->m2m_buf.vb.vb2_buf.type;
++
++	if (mali_vpu_is_coded_q(sess, type))
++		region = MALI_VPU_FW_REGION_PROTECTED;
++	else
++		region = MALI_VPU_FW_REGION_FRAMEBUF;
++
++	ret = mali_vpu_fw_get_region(region, &begin, &end);
++	if (ret)
++		return ret;
++
++	return mali_vpu_buffer_map(vpu_buf, begin, end);
++}
++
++static int mali_vpu_queue_buffer(struct mali_vpu_session *sess, struct mali_vpu_buffer *vpu_buf)
++{
++	int ret;
++	enum dma_data_direction dma_dir;
++
++	dma_dir = (vpu_buf->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) ?
++		   DMA_TO_DEVICE : DMA_FROM_DEVICE;
++
++	/* Map MMU buffer pages if it is not already mapped */
++	if (!mali_vpu_is_buffer_mapped(vpu_buf)) {
++		ret = mali_vpu_buffer_map_fw_region(sess, vpu_buf);
++		if (ret)
++			return ret;
++	}
++
++	if (!mali_vpu_is_coded_q(sess, vpu_buf->type) && sess->role == MALI_VPU_DECODER) {
++		ret = mali_vpu_buffer_set_frame_layout(vpu_buf);
++		if (ret)
++			return ret;
++	}
++
++	/* dma sync for cache coherency */
++	ret = mali_vpu_buffer_sync(vpu_buf, dma_dir);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++static int mali_vpu_submit_deferred_bufs_for_queue(struct mali_vpu_session *sess,
++						   enum v4l2_buf_type type)
++{
++	struct v4l2_m2m_buffer *buffer;
++	struct mali_vpu_buffer *vpu_buf;
++	int ret;
++
++	if (!mali_vpu_session_get_port(sess, type)->stream_requested ||
++	    !mali_vpu_session_can_stream(sess) ||
++	    sess->fw_state != MALI_VPU_FW_STATE_RUNNING)
++		return 0;
++
++	if (V4L2_TYPE_IS_OUTPUT(type)) {
++		v4l2_m2m_for_each_src_buf(sess->m2m_ctx, buffer) {
++			vpu_buf = to_mali_vpu_buffer(&buffer->vb);
++			if (vpu_buf->attr != MALI_VPU_BUF_ATTR_DEFERRED)
++				continue;
++
++			ret = mali_vpu_queue_buffer(sess, vpu_buf);
++			if (ret)
++				return ret;
++
++			vpu_buf->attr = MALI_VPU_BUF_ATTR_QUEUED;
++		}
++	} else if (V4L2_TYPE_IS_CAPTURE(type)) {
++		v4l2_m2m_for_each_dst_buf(sess->m2m_ctx, buffer) {
++			vpu_buf = to_mali_vpu_buffer(&buffer->vb);
++			if (vpu_buf->attr != MALI_VPU_BUF_ATTR_DEFERRED)
++				continue;
++
++			ret = mali_vpu_queue_buffer(sess, vpu_buf);
++			if (ret)
++				return ret;
++
++			vpu_buf->attr = MALI_VPU_BUF_ATTR_QUEUED;
++		}
++	} else {
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int mali_vpu_submit_deferred_bufs(struct mali_vpu_session *sess)
++{
++	int ret;
++
++	ret = mali_vpu_submit_deferred_bufs_for_queue(sess, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
++	if (ret)
++		goto err_submit;
++
++	ret = mali_vpu_submit_deferred_bufs_for_queue(sess,
++						      V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
++	if (ret)
++		goto err_submit;
++
++	mali_vpu_sched_send_irq(&sess->sched_sess, &sess->vpu_dev->sched);
++
++	return 0;
++
++err_submit:
++	dev_err(sess->vpu_dev->dev, "failed to queue deferred buffers\n");
++	return ret;
++}
++
+ static int mali_vpu_session_sched_activate(struct mali_vpu_session *sess)
+ {
+ 	lockdep_assert_held(&sess->vq_lock);
+@@ -180,6 +296,9 @@ static int mali_vpu_session_handle_fw_msg(struct mali_vpu_session *sess,
+ 		return 0;
+ 	case MALI_VPU_FW_CODE_STATE_CHANGE:
+ 		sess->fw_state = fw_msg->data.state;
++
++		if (sess->fw_state == MALI_VPU_FW_STATE_RUNNING)
++			return mali_vpu_submit_deferred_bufs(sess);
+ 		return 0;
+ 	case MALI_VPU_FW_CODE_SWITCH_IN:
+ 		/* Single session policy: the scheduler already tracks the active LSID mapping. */
+@@ -390,6 +509,32 @@ static void mali_vpu_session_release_fw_bin(struct mali_vpu_session *sess)
+ 		sess->fw_bin_state = MALI_VPU_SESSION_FW_BIN_UNINITIALIZED;
+ }
+ 
++int mali_vpu_session_qbuf(struct mali_vpu_session *sess, struct vb2_buffer *vb2_buf)
++{
++	struct vb2_v4l2_buffer *v4l2_buf = to_vb2_v4l2_buffer(vb2_buf);
++	struct mali_vpu_buffer *vpu_buf = to_mali_vpu_buffer(v4l2_buf);
++	struct mali_vpu_port *port =
++			mali_vpu_session_get_port(sess, vb2_buf->type);
++	int ret;
++
++	if (!port->stream_requested ||
++	    !mali_vpu_session_can_stream(sess) ||
++	    sess->fw_state != MALI_VPU_FW_STATE_RUNNING) {
++		vpu_buf->attr = MALI_VPU_BUF_ATTR_DEFERRED;
++		return 0;
++	}
++
++	ret = mali_vpu_queue_buffer(sess, vpu_buf);
++	if (ret)
++		return ret;
++
++	vpu_buf->attr = MALI_VPU_BUF_ATTR_QUEUED;
++
++	mali_vpu_sched_send_irq(&sess->sched_sess, &sess->vpu_dev->sched);
++
++	return 0;
++}
++
+ int mali_vpu_session_cleanup(struct mali_vpu_session *sess)
+ {
+ 	struct mali_vpu_dev *vpu_dev = sess->vpu_dev;
 diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
-index bf5923494773b..e6b9de3b272cf 100644
+index e331965d32fd8..5cabb7844131b 100644
 --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
 +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
-@@ -78,6 +78,7 @@ enum mali_vpu_session_fw_bin_state {
-  * @fw_event: Firmware binary load event callback structure for this session.
-  * @fw_bin_state: Session firmware binary status.
-  * @fw_load_done: Completion used to synchronize teardown with an in-flight firmware load.
-+ * @fw_state: Last state confirmed by the firmware.
-  * @sched_sess: Scheduler state used to map this session to an LSID.
-  * @ncores: Number of cores assigned to this session by scheduler.
-  */
-@@ -103,6 +104,7 @@ struct mali_vpu_session {
- 	struct mali_vpu_fw_event		*fw_event;
- 	enum mali_vpu_session_fw_bin_state	fw_bin_state;
- 	struct completion			fw_load_done;
-+	enum mali_vpu_fw_state			fw_state;
+@@ -12,6 +12,7 @@
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-fh.h>
  
- 	struct mali_vpu_sched_session	sched_sess;
- 	u32				ncores;
-@@ -113,6 +115,7 @@ int mali_vpu_session_cleanup(struct mali_vpu_session *sess);
- int mali_vpu_session_request_fw_load(struct mali_vpu_session *sess);
- int mali_vpu_session_fw_send_set_option(struct mali_vpu_session *sess,
- 					struct mali_vpu_fw_set_option *opt);
-+void mali_vpu_session_irq(struct mali_vpu_session *sess);
++#include "mali-vpu-buffer.h"
+ #include "mali-vpu-device.h"
+ #include "mali-vpu-firmware.h"
+ #include "mali-vpu-formats.h"
+@@ -52,6 +53,10 @@ struct mali_vpu_port {
+  * streaming: OUTPUT for a decoder, both ports for an encoder.
+  * Binary READY and firmware RUNNING are separate states.
+  *
++ * Buffers received before the firmware confirms RUNNING are deferred. The
++ * RUNNING response submits those buffers. Buffers received afterwards are
++ * submitted directly.
++ *
+  * Session cleanup waits for an in-flight callback before releasing the
+  * session-owned binary reference and callback event. On timeout, it cancels
+  * the pending cache waiter or waits for an already claimed callback.
+@@ -128,6 +133,7 @@ int mali_vpu_session_prepare_streaming(struct mali_vpu_session *sess,
+ 				       enum v4l2_buf_type type);
+ int mali_vpu_session_streamoff(struct mali_vpu_session *sess, enum v4l2_buf_type type);
+ void mali_vpu_session_irq(struct mali_vpu_session *sess);
++int mali_vpu_session_qbuf(struct mali_vpu_session *sess, struct vb2_buffer *vb2_buf);
  
  static inline struct mali_vpu_session *mali_vpu_get_session(struct file *filp)
  {
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-vb2.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-vb2.c
+index b9f6968e9f13f..41158bf4e0ecb 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-vb2.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-vb2.c
+@@ -55,8 +55,30 @@ static void mali_vpu_vb2_buffer_queue(struct vb2_buffer *vb2_buf)
+ {
+ 	struct mali_vpu_session *sess = vb2_get_drv_priv(vb2_buf->vb2_queue);
+ 	struct vb2_v4l2_buffer *v4l2_buf = to_vb2_v4l2_buffer(vb2_buf);
++	int ret;
++
++	/* Update vb2 metadata and payload info onto mali_vpu_buffer. */
++	ret = mali_vpu_buffer_update_info_from_v4l2(vb2_buf);
++	if (ret)
++		goto err_buf_done;
+ 
+ 	v4l2_m2m_buf_queue(sess->m2m_ctx, v4l2_buf);
++
++	ret = mali_vpu_session_qbuf(sess, vb2_buf);
++	if (ret)
++		goto err_m2m_buf_remove;
++
++	return;
++
++err_m2m_buf_remove:
++	if (V4L2_TYPE_IS_OUTPUT(vb2_buf->type))
++		v4l2_m2m_src_buf_remove_by_buf(sess->m2m_ctx, v4l2_buf);
++	else
++		v4l2_m2m_dst_buf_remove_by_buf(sess->m2m_ctx, v4l2_buf);
++
++err_buf_done:
++	v4l2_m2m_buf_done(v4l2_buf, VB2_BUF_STATE_ERROR);
++
+ }
+ 
+ static int mali_vpu_vb2_prepare_streaming(struct vb2_queue *q)
+@@ -123,6 +145,7 @@ static const struct vb2_ops mali_vpu_vb2_ops = {
+ 	.buf_init		= mali_vpu_vb2_buffer_init,
+ 	.buf_prepare		= mali_vpu_vb2_buffer_prepare,
+ 	.buf_queue		= mali_vpu_vb2_buffer_queue,
++	.buf_cleanup		= mali_vpu_vb2_buffer_cleanup,
+ 	.prepare_streaming	= mali_vpu_vb2_prepare_streaming,
+ 	.start_streaming	= mali_vpu_vb2_start_streaming,
+ 	.stop_streaming		= mali_vpu_vb2_stop_streaming,
 -- 
 2.43.0
 
