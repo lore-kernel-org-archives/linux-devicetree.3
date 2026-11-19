@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795090726;
-	b=X2mgxcVecg5hy9rF1vdrxbEo012NBsaMUioly9QE+i9F7+KaWgPGkgHzODDzM9McKz3z
-	 zzNLZ/aN8FVzJ/JfXcAwVfmJupk+34v0lXDVKNg2geLdhTKPjTHfY5SX/tmuQH8xpSUNS
-	 oFx7g+Pk5cuTydgGrz8BIHas2sZfbBS1A30/0vA7U6curL//bD0ChfdQapUKmV7WT2x36
-	 RmGNWFLI0L8ferQz3zFaYxE2i/k2YWZjT00pJy2cM6XK54yANIY5nrfc73NeVeyAR3vFI
-	 k8WU5EKt9VcuYrRlvQ38T6iSJJSblrNm07ytn3YR1Osm798K8bDMOTsgTcB+viGlJ3w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795090726;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=EJQTg5JhvHuIUn/1/qQhysiGCbqKFBLkf+Y+juVumq8=;
-	b=m+JbACAjPtR6bbE4MP4wWIRRJa/hNrGGOdd+bG+JfXlmn4j+k/o7mqxeRIngCEgUfq1D
-	 vgCW+GiH2siuyTgejigDNQuhkuxfStstPwAt+x7LN+b8faEy73dejqFydOuyZ4wn3/rhn
-	 yUZ5Yki7OHPrgVBuJhmMJJE8oUFa8+mhPzimoApHCGzSH31kBljbirC73D9ZQnh+VLZui
-	 w+sBz1LY/9RbHuJTtoncUpNKKJ8shxRE8JQD0DgSzuK58UiqixpGy9mTshFvsiGGVd9Pl
-	 mShcVY/v5srYVoVMvCAEV97puXJ8i5yj/scNQTTr7rY0o3s0aqkZPVkaeBnVvwzw9NQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nkBu0pQw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795090844;
+	b=q83WJFr/VN7tuTIWbZCZ4JXvlpKnfeWcYUHehyItn5Xa7CujgUoI1eWgxjcMA7pS2hWD
+	 LwvovF22uEFa104VYsgPZy5+hMS4A774JqnGp+fybkYQHi2EXny70e+srDFh+Bzd74FBf
+	 EVaqEUPrC6At9cZqpSmmyNPuw/9SIbB0/aglqYyC8jm1UZyokF54yqwkn7h2pagIq/yqC
+	 g9wG6/VgzNZtKAG8g9umCCiqkpJhFGPLR8YHQIPJ028xOicA6iPD/Gw29lXh7ICDEyTCE
+	 R8di8Ae0GSsywdLPCzP683Lkjx0wZwEe79Fk223yXc8GG4fuPqDWWdVfoC2vnEulRaQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795090844;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:X-ZohoMailClient;
+	bh=xIXJW7MCtZTIdpOIfOfmjYbyy/As+k09mrpNNQszvtI=;
+	b=GVMuQK0lvm2Guz5VByHynIKV03Rr7CAr/6xRSXBMyaJGqUEv/hj+J2NjPsc/Zargz61S
+	 1CKsMLP3Vex8TeHdIJzbNK28J6Ucfxufr4mH+R3+4oVN2rVADo/k6uqMe8QYbO7VZp8Xu
+	 Xp0TsJ/4fU19ffhaiIeEMdilH7QayZMh99xpy02nYDEEIPD9leo324qQQlK/e6GZGbr8H
+	 tMtAv2vTo2L0Z4u44D7RpJUxp+g9p4hA8Z+nPt4YyB/UENWdU0W6Xg1c/eFThHbUqSwP3
+	 S++rc/XLePpRpEnnpyLs1nUBcZRNt8fqPwaH5NE7AYx2KD+1CE3Ctd++pYAoJHlurZw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ziyao.cc;
+	spf=pass smtp.mailfrom=ziyao.cc;
+	dkim=pass header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=gNNpp7dX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.15
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D94606A33D;
-	Thu, 19 Nov 2026 12:18:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4186A606A325;
+	Thu, 19 Nov 2026 12:20:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4186A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nkBu0pQw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F1791F000C4;
-	Thu, 19 Nov 2026 12:18:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795090725;
-	bh=EJQTg5JhvHuIUn/1/qQhysiGCbqKFBLkf+Y+juVumq8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nkBu0pQwjNdbp5A39UgvVvx92TNwUVkYq2VCNfVZgBusUKAzLxGaVQCZc41yoe7Xx
-	 kAxqhvnW5AZnEocUSE9HmFpLsQuRjPEiAfSKdsnKdKiOIgkTG7WE+Rg+JWVy2dQrAE
-	 7/R+C8yOMFKgMwctPGJqFuhvGw6se9m9Qi7KJ9OYz+oO6UNA5nzx9imGuaoX+z7lLj
-	 Bwt/9l7Nm//zCesjz/1GzwsGgrupvpc1izENdaflUyamHr0VsLfMiZKWMDx+obSaVv
-	 CEDr9EZUMyxqeHSz58yTILbpJ7FOX7gUneXHFp23MxDpN6GtR/fA6pO+zNtac2nUcF
-	 Euy+dY5zWdaPw==
-Message-ID: <a5f9e438-4551-458d-8df8-c8a902c01446@kernel.org>
-Date: Thu, 19 Nov 2026 13:18:41 +0100
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=gNNpp7dX
+ARC-Seal: i=1; a=rsa-sha256; t=1795090809; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=KpbKCN1VuYF2IfZV/2FOHpzs7hLrqnFnRmmyW3ggEzitgaSYpLyVw3pnQWzhinfLzDT27i3mMQK2bnV5J3h3lVe/SaBXXgkOeAPXhnxAgtCLs2IjfbWMpSjHpQ97D/OzmUBY3LXdltPKRO59a1cC4LtIZU4cClAf2Ik3jCFgVbI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795090809; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=xIXJW7MCtZTIdpOIfOfmjYbyy/As+k09mrpNNQszvtI=; 
+	b=ITrksx1rQzSswiO6qbs8J1fOdqc7flC8t5H+y4u0gKLM6GSYehKYyPUKVduQqaTLO6zAW46biV2/cACDkFbcesnyX+LbSNyL1maFY+99orMXTurpPxBEo1rzwoYDPv92TttlLW3sr5aiQ7fsdTYzMdSVs7pFuDo4ciSnZxcQoGg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: a=rsa-sha256; b=gNNpp7dXVGfo9wL3/0jFEoHQHULJ7GSpQln1xRfVnXHfBSNwjvfMgkvKxvBV6tXluYLKZo6+M0EOddA+QckdgxUQpkwdp+7k9AevWpLB6quSaLd9atPf96X+fPzKOiUMkZF2qaBWgy09BgQM7e90EeWZmewl3Kykohb2Amrw1is=; c=relaxed/relaxed; s=zmail; d=ziyao.cc; v=1; bh=xIXJW7MCtZTIdpOIfOfmjYbyy/As+k09mrpNNQszvtI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 179509080710384.30861796368492;
+	Thu, 19 Nov 2026 04:20:07 -0800 (PST)
+Date: Thu, 19 Nov 2026 12:19:57 +0000
+From: Yao Zi <me@ziyao.cc>
+To: "Rong Zhang" <rongrong@oss.cipunited.com>,
+	"Keguang Zhang" <keguang.zhang@gmail.com>,
+	"Wim Van Sebroeck" <wim@linux-watchdog.org>,
+	"Guenter Roeck" <linux@roeck-us.net>,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
+Cc: "Rong Zhang" <i@rong.moe>, "Yao Zi" <me@ziyao.cc>,
+	"Icenowy Zheng" <uwu@icenowy.me>,
+	"Jiaxun Yang" <jiaxun.yang@flygoat.com>,
+	<linux-mips@vger.kernel.org>, <linux-watchdog@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 5/8] MIPS: Loongson64: dts: ls7a-pch: Add
+ miscellaneous clock node
+Message-ID: <av7pbVpkdO8dFGH7@pie>
+References: <20261113-mips-ls7a-wdt-v2-0-e8abd6b2f77c@oss.cipunited.com>
+ <20261113-mips-ls7a-wdt-v2-5-e8abd6b2f77c@oss.cipunited.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,96 +76,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] dt-bindings: spi: Document DWC SSI XIP properties
-To: Prakriti Sharma <Prakriti.Sharma@synopsys.com>,
- Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org,
- Siddhant Kumar <Siddhant.Kumar@synopsys.com>
-References: <20261119100513.433044-1-prakriti@synopsys.com>
- <20261119100513.433044-6-prakriti@synopsys.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261119100513.433044-6-prakriti@synopsys.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-mips-ls7a-wdt-v2-5-e8abd6b2f77c@oss.cipunited.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/295.87.94
+X-ZohoMailClient: External
 
-On 19/11/2026 11:05, Prakriti Sharma wrote:
-> Document the optional XIP memory region and the properties that select
-> execute-in-place, continuous mode, and prefetch.
+On Fri, Nov 13, 2026 at 06:51:12PM +0800, Rong Zhang wrote:
+> The Loongson-7A has an internal clock source for miscellaneous
+> peripherals. The clock source is nonconfigurable and has a fixed 50MHz
+> clock frequency.
 > 
-> Signed-off-by: Prakriti Sharma <prakriti@synopsys.com>
-> Signed-off-by: Siddhant Kumar <sidkumar@synopsys.com>
-
-Please use subject prefixes matching the subsystem. You can get them for
-example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
-your patch is touching. For bindings, the preferred subjects are
-explained here:
-https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
-
+> Add a 50MHz fixed-clock node with label "pch_misc_clk" to represent it.
+> 
+> Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
 > ---
->  .../bindings/spi/snps,dwc-ssi-2.02a.yaml      | 59 ++++++++++++++++++-
->  1 file changed, 57 insertions(+), 2 deletions(-)
+>  arch/mips/boot/dts/loongson/ls7a-pch.dtsi | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/spi/snps,dwc-ssi-2.02a.yaml b/Documentation/devicetree/bindings/spi/snps,dwc-ssi-2.02a.yaml
-> index 7cccd627f809..efbeb59313fa 100644
-> --- a/Documentation/devicetree/bindings/spi/snps,dwc-ssi-2.02a.yaml
-> +++ b/Documentation/devicetree/bindings/spi/snps,dwc-ssi-2.02a.yaml
-> @@ -23,7 +23,18 @@ properties:
->      const: snps,dwc-ssi-2.02a
+> diff --git a/arch/mips/boot/dts/loongson/ls7a-pch.dtsi b/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
+> index 9f0a183bd348..2ef1ad10a8ec 100644
+> --- a/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
+> +++ b/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
+> @@ -1,6 +1,12 @@
+>  // SPDX-License-Identifier: GPL-2.0
 >  
->    reg:
-> -    maxItems: 1
+>  / {
+> +	pch_misc_clk: clock-50000000 {
+> +		#clock-cells = <0>;
+> +		compatible = "fixed-clock";
+> +		clock-frequency = <50000000>;
 
-You just added this file, so are you saying that your previous patch is
-wrong? ABI you just added is incomplete?
+"compatible" property usually comes before other properties other than
+"device_type", see dts-coding-style.rst.
 
-Please follow writing bindings doc and submit complete bindings.
+With this fixed,
 
-Best regards,
-Krzysztof
+Reviewed-by: Yao Zi <me@ziyao.cc>
+
+> +	};
+> +
+>  	pch: bus@10000000 {
+>  		compatible = "simple-bus";
+>  		#address-cells = <2>;
+> 
+> -- 
+> 2.55.0
+
+-- 
+Thanks,
+Yao Zi
+
+Meow-mrrp-mrow, I'm a cat.
