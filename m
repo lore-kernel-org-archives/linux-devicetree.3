@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795080387;
-	b=Zj1qFrX08DfHsIyXm8x9oiYKcFPOo660KDH49ncAPbcmngAfgXWb4gcg0Oajpv/ZHgo0
-	 nByiiVD2/NdG0ixyKGVA1EJqyGlt4j6xMJ97dly0G39a2KjFMwzFjgkf/+D47QWf1wy0P
-	 kLBSLaGeKrN5PHdH4qp/h0ytgx8uVLcQ0kxkBOUKKCYaHZyuUUxfBnxXIuTyIZwtCVrry
-	 6y/dkwdJMcoFZpG4qVLdJpNTNnYFgQTYHjJS8KWX/BV7biy+6nlxwWSp0M1tlQJWDhWYd
-	 RhDr2DWRTPvcv42Ft3fZyRAnJjNAVfoIW8ZZt9P5ANmYbJzSVYEUsrRbHeAhLAClC8A==
+	t=1795080512;
+	b=ygNEyZ+y4heJ0EnBeQaa8HxVl2fQhqGdWwo0zGNeenuFSiqgdVkf0JodflyHlobmCMJG
+	 OVqArDFD95Hj5eX929DdKO5hLzbutbqbB252yL99BKwidAj63hJTd53ws4PSpO3+Ez3an
+	 VnTxSI/EMCcSQpfI6wybkhfkoQGTNSRHnVXYQ3MuxXajdVMp7Aic7iXWCc30oS3RoZ/gR
+	 J090xyonONc+/ZLy7fw3nztPQ1/Ml9u9BgjLwnuFIAH2F0DnHrVRAf3QgZpiI3ty+SW7u
+	 y8ZHS+0++Y0a796DV1ua+dmvb5phXyf2kE8yAtct83PrmErzSbGuBNKCbdMEMN7vizQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795080387;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795080512;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=7uY6PZIE/a0B6qtAhmUIgjc1TLboYM8baZak3XyoNV8=;
-	b=5knhhYQAVeHTpDhwrGiC2wcJBY6DnE5Osx5MTOdUa0p63NT0L9fEPuC5qtfruW35RXGN
-	 5k3YlAlqgQjwVfMkCHmN5FbmnSOLm8epjWtPCA1WiUEA7EtWuwiasV3XYS0zCaeKTyMKp
-	 3OaukSlV1gMHSY7caVZgRHOTsj52HEyt1LVSMWyI+BAO+ky3EFA9PioP6WP58wQz/ak6l
-	 pk0U9iLvxq27eu5crIL570M96kXFgRO5xpSGdwBKyPBtCtDCGXnhlyL66lVfktLvqlTvM
-	 r67i0QdIYhbrKMf+qrxnV7E2InK2VzA0NinbFPF7EGdBN1vt4V8jYtiIsHP0cH+fD7A==
+	bh=5j2odsEOe8Kv3U2t6RUZhVnZ7rpMWQTZBTqXzWu8+kE=;
+	b=hnraXXJs6Y7hcJUiLCkEMbRKxIw/o8w3qXCQU9knM0gD7hBfKNH/6OLIfw9CvoulkHP0
+	 ndgIhglQJKy8Vt8jPzk8FVcFt09Pq4eJAeH5fPI+fosMl0mTwdsn91bqOr2QY715osz5B
+	 xydrdMLvWZOjVqDLyDuW3WzjR4EpP9MxMxV2sd4JgumPzOKON0KZa3FWoQtr5CVJsEPLV
+	 kptMzf1fFQr7GMS5rZmkxcHZ/4miCBg2SrjzVLSuRozZ8R4pjuakiflaNmIpvzRWixDDA
+	 DMVA5+dB66whSh2elmBga7D3XoSYvsdTvZmiOt3mVl7XTpGTj7kDBdhZ1kQEVN+HX8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBAEeyuX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BOnw3wkA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE896606A32F;
-	Thu, 19 Nov 2026 09:26:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F92C606A320
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:28:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBAEeyuX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4769D1F000C4;
-	Thu, 19 Nov 2026 09:26:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BOnw3wkA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14AF1F000C4;
+	Thu, 19 Nov 2026 09:28:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795080386;
-	bh=7uY6PZIE/a0B6qtAhmUIgjc1TLboYM8baZak3XyoNV8=;
+	s=k20260515; t=1795080512;
+	bh=5j2odsEOe8Kv3U2t6RUZhVnZ7rpMWQTZBTqXzWu8+kE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DBAEeyuX/9ULnjJhhjxNCdq0mwq5sD1705zwjSQG0WzVd8SPsO5aSZ6JzJdn65dvx
-	 oPyt1wi9gGIQwpem2IavGPNNJ0Rrqh4Y4SFXqpjJsHJ4ljdrekqlRjV1H7MJwKCvON
-	 vj0kTMpFN2vjs7ZNCA2Ual4O/Tp9BHOZ5naKu+70LZtfsGxauxwYVkkrbIzCvAygN3
-	 LxYfVNsxQH8/uZ8q+jRh3q9FZySYy72irab77ACFOq07F6RjmKzq+9SGI2FwMwo5Mj
-	 VMmwHQ8N/xiXxKb/A1ioYty4/nKTT8SdRDJ6AAw460ngiyeIAtZXdDXpd9xBh+vRAu
-	 lmHZwY3CKE++g==
-Message-ID: <sashiko-outbox-222830@kernel.org>
+	b=BOnw3wkAsi8YMEau9TFmWkq2au+U1puug18pSLrTruM5Nks91i85qUgNfcFANQuIp
+	 KmQHk9N+43xOK0Y25o1gs0HEIZRP2+TSbw40D+0r2UG4auKvTER4xLcatwhjl/Guka
+	 JfgJfH5kYayMVyMqMNoRJcLv/VXAX8GcC4Kh55KOV2sGM/LUR6kQVAD3SAYPNYKrHe
+	 +8RGtIs/sOAJy+McjwMTyjpazKxUKh076luI/cCCzaj4PJrwJ6xfP+KnOVcXUw+nfb
+	 Cf8xGaixNP12L/eu9yoOFmvU34yghxQoJ26mRXXtDUeUUxsXugJGfIcrPtih+DaAFp
+	 lzrMvYDcaQ5aQ==
+Message-ID: <sashiko-outbox-222834@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 02/11] media: chips-media: wave6: Add Wave6 control
- driver
+Subject: Re: [PATCH RFC 4/6] coresight: qcom: add QDCP STM source
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nas Chung" <nas.chung@chipsnmedia.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <6b00047b748267a2ff4e18ccbfd573ea92166d34.1795075580.git.nas.chung@chipsnmedia.com>
-References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
- <6b00047b748267a2ff4e18ccbfd573ea92166d34.1795075580.git.nas.chung@chipsnmedia.com>
+To: "Jie Gan" <jie.gan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261119-introduce-qcom-qecp-feature-v1-4-b1a730d2c57a@oss.qualcomm.com>
+References: <20261119-introduce-qcom-qecp-feature-v1-0-b1a730d2c57a@oss.qualcomm.com>
+ <20261119-introduce-qcom-qecp-feature-v1-4-b1a730d2c57a@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 09:26:25 +0000
+Date: Thu, 19 Nov 2026 09:28:31 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,359 +60,230 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 8 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issues to consider:
-- [High] media: wave6: vpu->lock held across core device register and
-  unregister
-- [High] media: wave6: data race on work_buffers_avail in
-  wave6_vpu_require_work_buffer()
-- [Medium] media: wave6: stuck PREPARE state on work buf error in
-  wave6_vpu_init_vpu()
-- [Medium] media: wave6: incompatible phys_addr_t pointer in
-  wave6_vpu_probe()
-- [Medium] media: wave6: wave6_vpu_probe() succeeds without required
-  memory-region
-- [Medium] media: wave6: wrong product code value for WAVE677_CODE
-- [Low] media: wave6: off-by-one of_irq_get() error check in
-  wave6_vpu_create_cores()
-- [Low] media: wave6: mixed guard(mutex) and goto cleanup in
-  wave6_vpu_get()
+- [Medium] coresight: qcom: path and refcount leak in qdcp_stm_remove()
+- [Medium] coresight: qcom: sysfs enable_source race in
+  qdcp_stm_remove()
+- [Medium] coresight: qcom: premature CS_MODE_SYSFS transition in
+  qdcp_stm_enable()
+- [Medium] coresight: qcom-qdcp-stm: UAF of drvdata and csdev after
+  qdcp_stm_remove()
 --
 
-commit 600333b152222fe3a820d242ccd857c34cf7d58c
-Author: Nas Chung <nas.chung@chipsnmedia.com>
+commit 70d23454ea311ef6b9bc809416627572cf195a8d
+Author: Jie Gan <jie.gan@oss.qualcomm.com>
 
-media: chips-media: wave6: Add Wave6 control driver
+coresight: qcom: add QDCP STM source
 
-This commit adds the control driver for the Chips&Media Wave6 video codec IP
-to manage firmware loading, shared memory resources, and child core devices.
+This commit adds a Qualcomm CoreSight STM source driver that maps the
+AP-visible stimulus aperture and delegates STM enable and disable
+operations to QECP firmware via QDCP.
 
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu.c b/drive=
-rs/media/platform/chips-media/wave6/wave6-vpu.c
+> diff --git a/drivers/hwtracing/coresight/coresight-qcom-qdcp-stm.c b/driv=
+ers/hwtracing/coresight/coresight-qcom-qdcp-stm.c
 > new file mode 100644
-> index 0000000000000..9160ce53062ce
+> index 0000000000000..39c6a2798a0f9
 > --- /dev/null
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu.c
+> +++ b/drivers/hwtracing/coresight/coresight-qcom-qdcp-stm.c
+> @@ -0,0 +1,550 @@
+
 [ ... ]
-> +static int wave6_vpu_init_vpu(struct wave6_vpu_device *vpu,
-> +			      void __iomem *core_base)
+
+> +static int qdcp_stm_enable(struct coresight_device *csdev,
+> +			   struct perf_event *event, enum cs_mode mode,
+> +			   struct coresight_path *path)
 > +{
+> +	struct qcom_qdcp_stm_drvdata *drvdata;
 > +	int ret;
 > +
-> +	lockdep_assert_held(&vpu->lock);
-> +
-> +	/* try init directly as firmware is running */
-> +	if (wave6_vdi_readl(core_base, W6_VPU_VCPU_CUR_PC))
-> +		goto init_done;
-> +
-> +	wave6_vpu_set_state(vpu, WAVE6_VPU_STATE_PREPARE);
-> +
-> +	wave6_vpu_remap_code_buf(vpu);
-> +
-> +	wave6_vdi_writel(core_base, W6_VPU_BUSY_STATUS, BUSY_STATUS_SET);
-> +	wave6_vdi_writel(core_base, W6_CMD_INIT_VPU_SEC_AXI_BASE_CORE0,
-> +			 vpu->sram_buf.dma_addr);
-> +	wave6_vdi_writel(core_base, W6_CMD_INIT_VPU_SEC_AXI_SIZE_CORE0,
-> +			 vpu->sram_buf.size);
-> +	wave6_vdi_writel(vpu->reg_base, W6_COMMAND_GB, W6_CMD_INIT_VPU);
-> +	wave6_vdi_writel(vpu->reg_base, W6_VPU_REMAP_CORE_START_GB,
-> +			 REMAP_CORE_START_ON);
-> +
-> +	ret =3D wave6_vpu_wait_busy(core_base);
-> +	if (ret) {
-> +		dev_err(vpu->dev, "init vpu timeout\n");
-> +		wave6_vpu_set_state(vpu, WAVE6_VPU_STATE_OFF);
+> +	if (mode !=3D CS_MODE_SYSFS)
 > +		return -EINVAL;
-> +	}
 > +
-> +	ret =3D wave6_vpu_check_result(core_base);
+> +	if (!coresight_take_mode(csdev, mode))
+> +		return -EBUSY;
+> +
+> +	drvdata =3D dev_get_drvdata(csdev->dev.parent);
+> +
+> +	mutex_lock(&drvdata->qdcp.lock);
+> +	ret =3D qdcp_stm_source_enable(drvdata->qdcp.provider, drvdata->qdcp.id,
+> +				     drvdata->traceid, drvdata->port_mask,
+> +				     false);
+> +	if (!ret)
+> +		drvdata->fw_stop_failed =3D false;
+> +	mutex_unlock(&drvdata->qdcp.lock);
 > +	if (ret) {
-> +		dev_err(vpu->dev, "init vpu fail, reason 0x%x\n", ret);
-> +		wave6_vpu_set_state(vpu, WAVE6_VPU_STATE_OFF);
-> +		return -EIO;
+> +		coresight_set_mode(csdev, CS_MODE_DISABLED);
+> +		return ret;
 > +	}
 > +
-> +init_done:
-> +	ret =3D wave6_vpu_init_work_buf(vpu, core_base);
-> +	if (ret)
-> +		return ret;
-> +
-> +	wave6_vpu_set_state(vpu, WAVE6_VPU_STATE_ON);
-> +
+> +	dev_dbg(&csdev->dev, "QDCP STM tracing enabled\n");
 > +	return 0;
 > +}
-
-[Severity: Medium]
-Does returning on wave6_vpu_init_work_buf() failure leave vpu->state stuck
-in WAVE6_VPU_STATE_PREPARE?
-
-Unlike the timeout and error paths above init_done, this path does not
-reset vpu->state to WAVE6_VPU_STATE_OFF.  wave6_vpu_get() then powers down
-the device and drops core_count to 0, and every later wave6_vpu_get() ->
-wave6_vpu_try_boot() sees vpu->state =3D=3D WAVE6_VPU_STATE_PREPARE and ret=
-urns
-0 without booting the VPU or initializing work buffers.
-
-[ ... ]
-
-> +int wave6_vpu_get(struct wave6_vpu_device *vpu, void __iomem *core_base)
+> +
+> +/*
+> + * The CoreSight source disable op returns void and the user has already=
+ torn
+> + * the path down, so the source always ends up disabled from Linux's poi=
+nt of
+> + * view. Return the firmware result so the caller can at least report it.
+> + */
+> +static int qdcp_stm_disable_source(struct coresight_device *csdev)
 > +{
+> +	struct qcom_qdcp_stm_drvdata *drvdata;
+> +	struct qdcp_data *qdcp;
+> +	u64 source_id;
+> +	u8 traceid;
 > +	int ret;
 > +
-> +	guard(mutex)(&vpu->lock);
-> +
-> +	/* Only the first core executes boot; others return */
-> +	if (atomic_inc_return(&vpu->core_count) > 1)
+> +	if (coresight_get_mode(csdev) !=3D CS_MODE_SYSFS)
 > +		return 0;
 > +
-> +	ret =3D pm_runtime_resume_and_get(vpu->dev);
-> +	if (ret)
-> +		goto error_pm;
+> +	drvdata =3D dev_get_drvdata(csdev->dev.parent);
+> +	qdcp =3D drvdata->qdcp.provider;
+> +	source_id =3D drvdata->qdcp.id;
+> +	traceid =3D drvdata->traceid;
 > +
-> +	ret =3D wave6_vpu_try_boot(vpu, core_base);
-> +	if (ret)
-> +		goto error_boot;
+> +	mutex_lock(&drvdata->qdcp.lock);
+> +	ret =3D qdcp_stm_source_disable(qdcp, source_id, traceid, false);
+> +	drvdata->fw_stop_failed =3D !!ret;
+> +	mutex_unlock(&drvdata->qdcp.lock);
 > +
-> +	return 0;
-> +
-> +error_boot:
-> +	pm_runtime_put_sync(vpu->dev);
-> +error_pm:
-> +	atomic_dec(&vpu->core_count);
-> +
+> +	coresight_set_mode(csdev, CS_MODE_DISABLED);
+> +	dev_dbg(&csdev->dev, "QDCP STM tracing disabled\n");
 > +	return ret;
 > +}
 
-[Severity: Low]
-This isn't a bug, but wave6_vpu_get() mixes guard(mutex) with goto-based
-error unwinding in the same function, contrary to the Cleanup API
-conventions in include/linux/cleanup.h.
+[Severity: Medium]
+Can qdcp_stm_packet() write to drvdata->stimulus_base while the STM block
+is still unclocked or disabled by firmware?
 
-[ ... ]
-
-> +void wave6_vpu_require_work_buffer(struct wave6_vpu_device *vpu,
-> +				   void __iomem *core_base)
-> +{
-> +	struct vpu_buf *vb;
-> +	u32 size;
-> +
-> +	size =3D wave6_vdi_readl(core_base, W6_CMD_SET_WORK_BUF_SIZE);
-> +	if (!size)
-> +		return;
-> +
-> +	if (WARN_ON(size > W637DEC_WORKBUF_SIZE_FOR_CQ))
-> +		goto exit;
-> +
-> +	if (WARN_ON(vpu->work_buffers_avail =3D=3D 0))
-> +		goto exit;
-> +
-> +	vpu->work_buffers_avail--;
-> +	vb =3D &vpu->work_buffers[vpu->work_buffers_avail];
-> +
-> +	wave6_vdi_writel(core_base, W6_CMD_SET_WORK_BUF_ADDR, vb->daddr);
-> +
-> +exit:
-> +	wave6_vdi_writel(core_base, W6_CMD_SET_WORK_BUF_SIZE, SET_WORK_BUF_SIZE=
-_ACK);
-> +}
-
-[Severity: High]
-Can concurrent calls to wave6_vpu_require_work_buffer() across VPU cores
-race on vpu->work_buffers_avail?
-
-In commit "media: chips-media: wave6: Add Wave6 core driver", each child
-core device calls wave6_vpu_require_work_buffer() directly from its
-wave6_vpu_core_irq() hardirq handler without holding any shared lock:
-
-CPU0 (<hardirq> core 0)           CPU1 (<hardirq> core 1)
-wave6_vpu_core_irq()              wave6_vpu_core_irq()
-  wave6_vpu_require_work_buffer()   wave6_vpu_require_work_buffer()
-    if (work_buffers_avail =3D=3D 0)      if (work_buffers_avail =3D=3D 0)
-    work_buffers_avail--;             work_buffers_avail--;
-    vb =3D &work_buffers[avail];        vb =3D &work_buffers[avail];
-                                        <-- duplicate buffer or underflow
-
-Two cores can be assigned the same work_buffers[] entry, or when
-vpu->work_buffers_avail is 1, both cores can pass the zero check and
-underflow the u32 counter to 0xffffffff, reading vpu->work_buffers[] out of
-bounds.
-
-Also, when jumping to exit on error, should W6_CMD_SET_WORK_BUF_ADDR be
-cleared before writing SET_WORK_BUF_SIZE_ACK so the firmware does not
-consume a stale address?
-
-> +static int wave6_vpu_create_cores(struct wave6_vpu_device *vpu)
-> +{
-> +	struct device_node *child;
-> +	int num_cores =3D 0;
-> +
-> +	for_each_available_child_of_node(vpu->dev->of_node, child) {
-> +		struct platform_device_info info =3D {};
-> +		struct platform_device *pdev;
-> +		struct resource res[2];
-> +		int irq;
-> +
-> +		if (num_cores >=3D W6_VPU_MAX_NUM_CORE) {
-> +			of_node_put(child);
-> +			break;
-> +		}
-> +
-> +		if (of_address_to_resource(child, 0, &res[0])) {
-> +			dev_warn(vpu->dev, "%pOF: missing reg property\n", child);
-> +			continue;
-> +		}
-> +
-> +		irq =3D of_irq_get(child, 0);
-> +		if (irq < 0) {
-> +			dev_warn(vpu->dev, "%pOF: missing interrupts property\n", child);
-> +			continue;
-> +		}
-> +		res[1] =3D DEFINE_RES_IRQ(irq);
-
-[Severity: Low]
-Should the error check for of_irq_get() be "if (irq <=3D 0)"?
-
-of_irq_get() returns 0 when IRQ mapping fails, which would register the
-child platform device with an invalid IRQ 0 resource.
-
-[ ... ]
-
-> +static void wave6_vpu_release(struct wave6_vpu_device *vpu)
-> +{
-> +	guard(mutex)(&vpu->lock);
-> +
-> +	wave6_vpu_destroy_cores(vpu);
-> +	wave6_vpu_free_work_buffers(vpu);
-[ ... ]
-> +}
-> +
-> +static void wave6_vpu_init_firmware(struct wave6_vpu_device *vpu,
-> +				    const struct firmware *fw)
-> +{
-> +	guard(mutex)(&vpu->lock);
-> +
-> +	if (!fw || !fw->data) {
-> +		dev_err(vpu->dev, "No firmware.\n");
-> +		return;
-> +	}
-> +
-> +	if (fw->size + W6_EXTRA_CODE_BUF_SIZE > wave6_vpu_get_code_buf_size(vpu=
-)) {
-> +		dev_err(vpu->dev, "firmware size (%zd > %zd) is too big\n",
-> +			fw->size, vpu->code_buf.size);
-> +		return;
-> +	}
-> +
-> +	memcpy(vpu->code_buf.vaddr, fw->data, fw->size);
-> +
-> +	if (!wave6_vpu_create_cores(vpu))
-> +		dev_err(vpu->dev, "Failed to create VPU cores\n");
-> +}
-
-[Severity: High]
-Does holding vpu->lock across wave6_vpu_create_cores() and
-wave6_vpu_destroy_cores() invert the lock hierarchy against child core
-device locks and runtime PM transitions?
-
-wave6_vpu_create_cores() -> platform_device_register_full() and
-wave6_vpu_destroy_cores() -> platform_device_unregister() acquire the child
-core device's device_lock (core_dev->mutex) while vpu->lock is held, and
-platform_device_unregister() -> __device_release_driver() also runs
-pm_runtime_get_sync(core_dev) and pm_runtime_put_sync(core_dev).  In commit
-"media: chips-media: wave6: Add Wave6 core driver", the child's runtime PM
-and system sleep callbacks call wave6_vpu_get() and wave6_vpu_put(), which
-acquire vpu->lock under core_dev->mutex or during a core_dev runtime PM
-transition:
+qdcp_stm_packet() is lockless and checks only coresight_get_mode(csdev)
+before performing MMIO writes to drvdata->stimulus_base.  Unlike
+coresight-stm, QECP firmware controls the block's clocks and power over
+sleeping QMI calls:
 
 CPU0                              CPU1
-----                              ----
-lock(&vpu->lock)
-                                  lock(&core_dev->mutex)
-lock(&core_dev->mutex)
-                                  lock(&vpu->lock)
+qdcp_stm_enable()
+  coresight_take_mode(...,
+    CS_MODE_SYSFS)
+  qdcp_stm_source_enable()
+    /* sleeping QMI RPC */
+                                  qdcp_stm_packet()
+                                    coresight_get_mode() =3D=3D CS_MODE_SYS=
+FS
+                                    qdcp_stm_send(channel_addr, ...)
+                                      <-- MMIO write before firmware
+                                          enables STM clocks/power
 
- *** DEADLOCK ***
-
-CPU0: wave6_vpu_init_firmware() -> wave6_vpu_create_cores() ->
-      platform_device_register_full()
-CPU1: device_suspend() -> wave6_vpu_core_suspend() ->
-      pm_runtime_force_suspend() -> wave6_vpu_core_runtime_suspend() ->
-      wave6_vpu_put()
-
-During teardown, if core_dev is in RPM_RESUMING or RPM_SUSPENDING waiting
-for vpu->lock in wave6_vpu_get() or wave6_vpu_put() when
-wave6_vpu_release() runs, __device_release_driver()'s
-pm_runtime_get_sync(core_dev) will also wait on core_dev->power.wait_queue
-while holding vpu->lock.
+The same window exists in qdcp_stm_disable_source(), where csdev->mode
+remains CS_MODE_SYSFS until after qdcp_stm_source_disable() completes.
+On Qualcomm SoCs, MMIO accesses to an unclocked CoreSight aperture can
+cause a synchronous external abort or bus hang.
 
 [ ... ]
 
-> +	np =3D of_parse_phandle(pdev->dev.of_node, "memory-region", 0);
-> +	if (np) {
-> +		struct resource mem;
+> +static void qdcp_stm_remove(struct platform_device *pdev)
+> +{
+> +	struct qcom_qdcp_stm_drvdata *drvdata =3D platform_get_drvdata(pdev);
 > +
-> +		ret =3D of_address_to_resource(np, 0, &mem);
-> +		of_node_put(np);
-> +		if (!ret) {
-> +			vpu->code_buf.phys_addr =3D mem.start;
-> +			vpu->code_buf.size =3D resource_size(&mem);
-> +			ret =3D wave6_vpu_init_code_buf(vpu);
-> +			if (ret)
-> +				goto error_detach_pm_domains;
-> +		} else {
-> +			dev_warn(&pdev->dev, "memory-region is not available.\n");
-> +		}
-> +	}
+> +	/*
+> +	 * Unregister the STM first: its unlink callback disables the source
+> +	 * through drvdata->csdev, which must still be live.
+> +	 */
+> +	stm_unregister_device(&drvdata->stm);
 
 [Severity: Medium]
-Should wave6_vpu_probe() fail and jump to error_detach_pm_domains when
-"memory-region" is missing or of_address_to_resource() fails?
+Can closing an open /dev/qdcp_stmN file descriptor after qdcp_stm_remove()
+cause a use-after-free on drvdata and drvdata->csdev?
 
-Without it, vpu->code_buf.size remains 0 while wave6_vpu_probe() continues,
-allocates 48 MiB of coherent DMA work buffers and SRAM, and returns 0, only
-for wave6_vpu_init_firmware() to unconditionally fail its size check against
-wave6_vpu_get_code_buf_size(vpu) and leave those resources allocated without
-creating any core devices.
+Unbinding the qcom-qdcp supplier triggers qdcp_stm_remove() via the
+DL_FLAG_AUTOREMOVE_CONSUMER device link created by devm_qdcp_get().
+stm_unregister_device() only unlinks in-kernel stm_source devices on
+stm->link_list; any open userspace struct stm_file still holds stmf->stm
+with stm->data pointing to &drvdata->stm:
 
-> +	vpu->sram_pool =3D of_gen_pool_get(pdev->dev.of_node, "sram", 0);
-> +	if (vpu->sram_pool) {
-> +		vpu->sram_buf.size =3D vpu->res->sram_size;
-> +		vpu->sram_buf.vaddr =3D gen_pool_dma_alloc(vpu->sram_pool,
-> +							 vpu->sram_buf.size,
-> +							 &vpu->sram_buf.phys_addr);
+drivers/hwtracing/stm/core.c:stm_char_release() {
+	struct stm_file *stmf =3D file->private_data;
+	struct stm_device *stm =3D stmf->stm;
 
-[Severity: Medium]
-Does passing &vpu->sram_buf.phys_addr to gen_pool_dma_alloc() fail to build
-when phys_addr_t and dma_addr_t have different widths?
+	if (stm->data->unlink)
+		stm->data->unlink(stm->data, stmf->output.master,
+				  stmf->output.channel);
+    ...
+}
 
-struct wave6_vpu_dma_buf declares phys_addr as phys_addr_t, whereas
-gen_pool_dma_alloc() takes a dma_addr_t * third argument, which triggers
--Werror=3Dincompatible-pointer-types on configs where
-CONFIG_PHYS_ADDR_T_64BIT and CONFIG_ARCH_DMA_ADDR_T_64BIT differ (exposed by
-COMPILE_TEST).
+After qdcp_stm_remove() unregisters drvdata->csdev and devres frees
+drvdata, closing the open file descriptor calls qdcp_stm_unlink() ->
+coresight_disable_sysfs(drvdata->csdev) on freed memory.
 
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h b=
-/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
-> new file mode 100644
-> index 0000000000000..1d4e016c2a582
-> --- /dev/null
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
-> @@ -0,0 +1,37 @@
-[ ... ]
-> +#define WAVE617_CODE	0x6170
-> +#define WAVE627_CODE	0x6270
-> +#define WAVE633_CODE	0x6330
-> +#define WAVE637_CODE	0x6370
-> +#define WAVE663_CODE	0x6630
-> +#define WAVE677_CODE	0x6670
+> +
+> +	/*
+> +	 * No-op unless the source is still in CS_MODE_SYSFS. Without it,
+> +	 * removing an enabled source would leave firmware STM enabled.
+> +	 */
+> +	qdcp_stm_disable_source(drvdata->csdev);
 
 [Severity: Medium]
-Should WAVE677_CODE be 0x6770 instead of 0x6670?
+Does calling qdcp_stm_disable_source() here instead of
+coresight_disable_sysfs() leak csdev->path and leave downstream CoreSight
+components enabled?
 
-All other Wave6 product codes encode the three-digit model number in bits
-[15:4], so wave6_is_product_w_series() in wave6_vpu_try_boot() would reject
-a Wave677 reporting 0x6770 with -EINVAL.
+When the source is enabled in CS_MODE_SYSFS (for example via the sysfs
+enable_source attribute), coresight_enable_sysfs() builds csdev->path,
+enables the sink and links, and takes device, module, and runtime PM
+references on every component in the path via coresight_grab_device().
+Calling qdcp_stm_disable_source() directly only disables the source in
+firmware and sets csdev->mode to CS_MODE_DISABLED without calling
+coresight_disable_path() or coresight_release_path_locked(), leaking the
+path and the get_device(&csdev->dev) reference on drvdata->csdev itself.
+
+> +
+> +	/*
+> +	 * A stop that failed here or earlier (fw_stop_failed) means firmware
+> +	 * may still be tagging trace with this ID. Keep it allocated rather
+> +	 * than let another source reuse it.
+> +	 */
+> +	if (drvdata->fw_stop_failed)
+> +		dev_warn(&pdev->dev,
+> +			 "QDCP STM not confirmed stopped, leaking trace ID %u\n",
+> +			 drvdata->traceid);
+> +	else
+> +		coresight_trace_id_put_system_id(drvdata->traceid);
+> +
+> +	coresight_unregister(drvdata->csdev);
+> +}
+
+[Severity: Medium]
+What prevents sysfs enable_source_store() from racing with
+qdcp_stm_remove() before coresight_unregister() removes the sysfs
+attribute?
+
+Because coresight_unregister() runs last and qdcp_stm_remove() does not
+hold coresight_mutex, enable_source Remains accessible while
+qdcp_stm_remove() disables the source and releases drvdata->traceid:
+
+CPU0                              CPU1
+qdcp_stm_remove()
+  qdcp_stm_disable_source()
+                                  enable_source_store()
+                                    coresight_enable_sysfs()
+                                      qdcp_stm_enable()
+                                        qdcp_stm_source_enable(...,
+                                          drvdata->traceid, ...)
+                                        drvdata->fw_stop_failed =3D false
+  if (drvdata->fw_stop_failed)
+  else
+    coresight_trace_id_put_system_id(
+      drvdata->traceid)
+      <-- trace ID freed while
+          firmware is enabled
+  coresight_unregister(csdev)
+
+Unregistering drvdata->csdev before releasing drvdata->traceid (or
+tearing down the sysfs session under coresight_mutex during
+unregister) would close this race.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795075577.gi=
-t.nas.chung@chipsnmedia.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-introduce-=
+qcom-qecp-feature-v1-0-b1a730d2c57a@oss.qualcomm.com?part=3D4
