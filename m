@@ -1,109 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.43.85
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795078838;
-	b=fE4X+TogEnY8Ptxm7wcPr8QR+PhUV+HhWDIIQ4WB2NlM3EbM1NK9Q78KBXcb8RLMITvy
-	 A1/kf770K4KI8bYj8Qx2SGVn3wUhfUkO61YF0wxnvseZCAWx34m26O5yRJaRsTofcqaAA
-	 TUW8T3JpqCDycIsI9mt8NDx2PxAOsbmQQhwx6Hdt55kdrimaSFC5YTvur1KZEhQUnmrxr
-	 FFxmWZYV4LAWrjMgTeueAtPV66S4fkeXuCDcn/5k1XTAjEX4uTU0YfghPII4F/bViUCAP
-	 sVkhZZGYRk59dNrmdSDSAbgMp8w/g73b5DBjowLnMZaQaZJq2uuKdrG7wiBvtw5Myag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795078838;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ooGTyD9cINo1BOVzIujOSh7E6nNjykPa/1JHAv8torE=;
-	b=rw20SkrO9hlDMDrD8Cs3vb693h2J2XFQ2B31BSypOasR887FDGYgRlr/XzseoHukyIDF
-	 5gfjij/GQAgzsynxaXqrjh0eL7ezAcYoHIpaTAGal07kGEmquBXQ1FMAho6U6s3EbIHtX
-	 1EI5VDVL5r9JIYZgPU12fliphA68QMZBYN27hllM2IwwvkcRXffzQfN3RnztclQYwhM/x
-	 +jp4VWdJ1+VPedCEcgGs0JVHdI0E82EK3iW0jij6SCJ3y2O/MXJ643O+j+yIxwpg55Ul4
-	 NTcr9zGLVejIhEzzIHUcNukZyzbyFxmGO5Z7ZOyMnuJxz8/yFweOicNsxK7FswZ/eiA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chipsnmedia.com;
-	spf=fail smtp.mailfrom=chipsnmedia.com;
-	dkim=pass header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=Mt6PUEQa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.43.85
-Received: from SEVP216CU002.outbound.protection.outlook.com (mail-koreacentralazon11022085.outbound.protection.outlook.com [40.107.43.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795078852;
+	b=fg2xdUuZRF9oPkNZuZhdaoJ7y4N0XqA0m+c2+cWjpOMy0fKwvw6b1p7CMhLby1lyw3XC
+	 bq5j0bmnwHs4Cx04cni1R7vpjLsBj4lAK5DyFUO1CuSBPJMfGUuaf3+kJSRQSd0A+XMDS
+	 FETnQR52PnndNvHZOlXx6HJEoM/ON/ByncvYRdU/+9haDe4PepxDmVu2QWSIKCDR7L2Nj
+	 nW4j10MRU6/CqBvdE3PcvNKs/lsAvhbKsFXXI6oJy6XeFhH4kw0aKdbAiJOO9C5LTibge
+	 gw3mFfhqZi1Dd04+hWbnZ0TU7h6cM9CSebxPBQuoAa054C+h8XODf883ByBmcYoadaQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795078852;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=zLSvn6HKvnd44EqpYtsf0FVG1UPD5pBu1Gkyu1XKFNQ=;
+	b=SQh4rMDQQN9f07DaMsGs7RH7+6j4GHCuUpt0/+7iDxm8sJV3mvrUkR6nqXTAiTRPPS7Q
+	 QBZ/14K2jDC+Q/b11wI83PZ62EMsfOLNyaOBwsjbZhcYza0Vxv2/tWX2qPt1VLsOUFz2b
+	 SpkqYV8KHWDz1gnOC7jwpuh9Kzrvi8XHytLMIQIynid0qGw5+Ysy6J1ZNQgCM6O9nM/be
+	 woZmvT9ILfDo8QwFKGzJXVC5AePw/53Uc2Z9AjRSF0tmhyCbWvlYSY9+n6tBfV2kE7FTn
+	 JfCrHiG7CxHQ4igd8nB20JowTKzLer1DAaO3/KE9qSpSKErri7wsWxF0hI5HL1p+K1w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iRaFRE62;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D09560A2622;
-	Thu, 19 Nov 2026 09:00:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D09560A2622
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76145606A320;
+	Thu, 19 Nov 2026 09:00:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76145606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=Mt6PUEQa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sU+omZFJyuvKmgP8GGc2ihyqS17IV14xBAFCjARtz2EDQwwVUK4zOw9DyO9Z9xlihxoQbWH+5DNhfwupVjcMBJoKpSL34Ih1pJftpx8v9NOiY1uwSPi0+lnKMNXSAqSsvbGn71tJOqlJ5Mjbq1NlQo+aAvf0DgKoLRlGQd7XQCraQ2cv8mlyb7XddqfZNqWzlSIHU+I1h4Z8bcDjAXhOe032394q9IPhSuxQkleXeWGSjp5lWVt0roWDi3+1xGU0GHDHEzWs7lqzQjNHdVZDJX2gtLWwOlQ8XLwpI4OX/yucTBJYjfkcNAt1Xp5lYxgS4ezxD8VVhSnzrlu9XXOOQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ooGTyD9cINo1BOVzIujOSh7E6nNjykPa/1JHAv8torE=;
- b=GwlGco1PD6DZUe/iwXWGLCcQPpIIiar/xkRlGr84FqV7B/shZxhGZvMqLymv0IL5eNlXWGmr1HESipEDYqap/V56gFLAfo1Nm42KzwZqhPADoAkTYBVv5M7vXk6DgbIOgYJH08dcpCQfLB5b6S4ikAyM0gs8vURkdsPcWDr3Y1/kGsFQGzxtpHRJA/WhlyniFLQ2AswB7LBqRWv3EtTfghLiYOuiTVE558pF4kdOHN/tTaqCJOfPUCL6wiw42S8MDa32rQcpl2QTf39ZnVniWNnP9rN5nZ78VuvgZL9X9dIrvZFQZC1fyk8S+vtcU1Gjg8e2PAdQhTa5O0bipJP7oA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
- header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ooGTyD9cINo1BOVzIujOSh7E6nNjykPa/1JHAv8torE=;
- b=Mt6PUEQaR0umgPo5xyXz6IZqVqChhTTfBWD48Nmb0BMZXKcYnnotD7cfGV7U3PmtB/LvMJGXNFDFN04+/N1qw7WsP3Sks/Cm6//fMT2rvA1Q4073vL1dzpD8uLOeYDOMVw1y6UwetzHWJn+QVCBpJaULKFXEOzEM4wmbesM9OQWlQzA5U+szP+SuO0P48oscxxFbNDiAi2o+knyCXaXNDw8/RIVl1hKibiZwsDdJMOg2MYLPmsBS1e+bgzF84KKChHdp6fpfIrMhNsoDOUGkSVltKphS74GYgYyYMOAOJw8ktgQHZBDvmGC5WhnkPY4gzwVIou6Ch8MoRICsXk2f2Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
-Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM (2603:1096:101:1b9::8)
- by SL2P216MB1466.KORP216.PROD.OUTLOOK.COM (2603:1096:101:33::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
- 2026 09:00:31 +0000
-Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
- ([fe80::f234:3bc6:9197:8232]) by SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
- ([fe80::f234:3bc6:9197:8232%6]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
- 09:00:31 +0000
-From: Nas Chung <nas.chung@chipsnmedia.com>
-To: mchehab@kernel.org,
-	hverkuil@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de
-Cc: linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	festevam@gmail.com,
-	kernel@pengutronix.de,
-	nicolas.dufresne@collabora.com,
-	ming.qian@oss.nxp.com,
-	marek.vasut@mailbox.org,
-	jackson.lee@chipsnmedia.com,
-	lafley.kim@chipsnmedia.com,
-	Nas Chung <nas.chung@chipsnmedia.com>
-Subject: [PATCH v8 11/11] arm64: dts: freescale: imx95: Add video codec node
-Date: Thu, 19 Nov 2026 18:00:05 +0900
-Message-Id: <e89f330486c8b986088278b563d0c4364d35f19b.1795075582.git.nas.chung@chipsnmedia.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1795075577.git.nas.chung@chipsnmedia.com>
-References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SEWP216CA0060.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2ba::8) To SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:1b9::8)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iRaFRE62
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795078851; x=1826614851;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=TcqI0Nf/DOxlqyCBmb9i1TLpqnTwTuPTH4WKnE5MmV8=;
+  b=iRaFRE62qAWE6fHbHAOpZtuf1+xJofOcbN+sNhKiWP37dmTR5NgbK5Up
+   548cbEWjvq0BZDXRqtvJUKoU2LUdW2MoyN+E9YLMzwFv81njV+4ra7F2s
+   PfOtLsWEzPTZpBDcWLRukdAamUwikw4Y16K3Ga3BA0NqveXqMfgxuCKgp
+   8L2i4h8xkkGjWXmyu1otskmuxDHxM42TapdFFc7XnQRCynN+DurF3txaM
+   KC1wmYFqVIxRylVvCVu+2mq+dII26UNnUC1sSOZPPNhvDomkjhYHyGLsd
+   LiighPu/hM9XZe7LrAYIbQAYIhLOo4C4cS2mVQKnjCBn1aQ18oR2RYMip
+   g==;
+X-CSE-ConnectionGUID: LxC5SniFRsmXVroFXT3zoA==
+X-CSE-MsgGUID: p3yWC9sES/SQKU7UNP419w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3948490"
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="3948490"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 01:00:40 -0800
+X-CSE-ConnectionGUID: wS0CWJ4oQQuwtlvpIMiMLw==
+X-CSE-MsgGUID: SjoUSKAsTHy2fHnD+dlK/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="10370775"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.61])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 01:00:23 -0800
+Date: Thu, 19 Nov 2026 11:00:18 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Matti Vaittinen <matti.vaittinen@linux.dev>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Radu Sabau <radu.sabau@analog.com>,
+	Janani Sunil <janani.sunil@analog.com>,
+	Salih Erim <salih.erim@amd.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Jakub Szczudlo <jakubszczudlo40@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: adc: rohm-bd79112: Support ROHM BD79111
+Message-ID: <av66oui-2Pk1XOIi@ashevche-desk.local>
+References: <cover.1795009599.git.mazziesaccount@gmail.com>
+ <ab74e547e892ccabb763a06e8231e8ed44f4fefb.1795009599.git.mazziesaccount@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,142 +95,153 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SL2P216MB2441:EE_|SL2P216MB1466:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c2b7006-8baa-4685-be0b-08df461b9079
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|52116014|376014|1800799024|366016|22082099003|18002099003|56012099006|10067099003|261026140227099003|261026121527099003|261028144727099003|261022105027099003|261021121427099003|261009223027099003|261102123227099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	yIdp84kEqcNCVbAxJfjYUceWEGJNKkYkXSUCVq2+rlzvArnBU9qoeiLTwrVUpeLjH0cKDVqbmIc8Ua4vv7wrXjFZn95xI9GpWMiNnhjwb6zF3b2r2JLe1aJxTaVe2KIuny3V//7t70R993tF0wcaJEmaXmOshKSc3hGrRp0qpCyB/x4w352MzU7i0ol2eq5c/eSPcQn11yQM8N2HThZappU0mf4p3eKUTe0tdEDXKDyBg07SwfSxubj5c71PYYKuIhA75dCY9zD0Pppjkit2fyK/zilnrlSoGm8Gkfwa1qoOjMooKWlx/bi813itsdhPrq6a2YC3WYqUmD0Ok2QoOv+DOr6TdkrOjSn6fFBvbuFV7z1aYu55VqWLOmBXHaJfm6F7f8PRn+sXmS25REaNITL9j8oP4G0Cza/ZL/UNjUdUgU/qSNwFV64tX/ptbRSXX2FtfwAdkvkCW5Wx5NCCSi+Mz7eNsc0fXnrgGsZEivNTVVwhOr/pydgk01DgFUzwxQ4dQNzG9h4OoUOoeZCq+5+a/5MH6aUCfVihSBGavozeaIWijCuNh6lNT8wwxlUL05UQg7x6bhCHu+92uB57rY7Lbgqn+Fn6TP/pnpK5I/uYN6tzTTLO7vwc0niF3wLvzmv9rvS5cp9PQxZWuiQXGkVUbVcI4qagxYc6d8Gq5j1A0e3XxPj9qlG43l5eFnmCBVWyq56B4SpIIhrwSbn+8Shlmez6mr2HHYa0SyF1ejU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2P216MB2441.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(52116014)(376014)(1800799024)(366016)(22082099003)(18002099003)(56012099006)(10067099003)(261026140227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261021121427099003)(261009223027099003)(261102123227099003)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?/g3BOJk7x0QKG5KAyLsiL0v8i3z5htUGYdvvHz2d19HVsWW0Aer2BzVM3GjI?=
- =?us-ascii?Q?nUUuTTiqRP9AwgA16UpsWwZ7bWe0pRWbIaFQviW0PNKTqOY34ZUeyM5L9xHQ?=
- =?us-ascii?Q?wFCK/jh0wt4QSHp67GxfPpE9Cfya1q9BqdePlBkIn/+EOscls+wxdRnWVlF3?=
- =?us-ascii?Q?NU60BivWpMNdpAq+obPE4RNEFYOAh9+kOGSaGBHAOkV55t9kP6ONyOdk4Hi1?=
- =?us-ascii?Q?0Z6SGwIcCqSdAP37bmMzkH/3qW5C2c3VRSiysBaEfGeei5r+P1socWVN5mVx?=
- =?us-ascii?Q?lzAKF8sAjBvqz6LEYt9cesWv15SgMmKIFPfCKu8B8Ox90a0iLhkJ5TXcZcwf?=
- =?us-ascii?Q?mGTWQh8Ip6QfGLuZ+l4sH++YBk0BN5Ljczsb+fGWre58U49YVT2zfcs8a25T?=
- =?us-ascii?Q?URHyklXdA2SCqWeD2CHBl9uiBlp89Z+G1D21+MUQDDg79fvZeJLFy4SkufrB?=
- =?us-ascii?Q?6T/2Rr0SWDlgEd9juiP3sH15DqJvNA+OEUyCHH984SXJqDmpB1+fqoGl/YhD?=
- =?us-ascii?Q?ju1dQMkcHcgZxA+zgfCffXkUI7PgwBWYbxtldsVxfJk/ENujU0G+d0N2NuhK?=
- =?us-ascii?Q?8Bi+IF1V+Fn4qhYVNWY3kBe5n8LbbbhZ9TOGGBUkjSQcQ4iVOTJz+LuGeNLl?=
- =?us-ascii?Q?w/9CevJhrYc9J34/8c89wKBgkXhWFi2cP68Saja8LqNaYKcLmTJEHUzLojUt?=
- =?us-ascii?Q?bKEn/FzBGRPtT5hZuqB7GYkEJvC1aSGQ+pUqwH6AZiJrAxBSJODoJr9WKZWV?=
- =?us-ascii?Q?N0fJjHagbYm3xG296HFpxddu6GTVo1vyKj9q3eqZgmpmV90EM0GSkv0v4Bxz?=
- =?us-ascii?Q?zjgsCZUVx3KrrFMNGqfXF9FvdVAAyOCtTZliISC3kEYqWEyrMATYsvBMVTl5?=
- =?us-ascii?Q?6Cvf7fnX5lm0A6v5SxdTaQAUWBnuoQJF4qgeBJYzt5jBXYXSN0HSGxzShDoH?=
- =?us-ascii?Q?XR31omkH9mI7Z6894BK3whaWSVr1wjelxnOuoa1Q3gX/Jsn2oW4WP5xE5F4v?=
- =?us-ascii?Q?wJS3UPVy4Yl0h+JUfhruMFRB98igbZgYhAtHD/VTUY/G3G5YH23cVlA3LZ2A?=
- =?us-ascii?Q?o6pT9TLzL1bCjEa5spZfTMwPHUFY4fql2ELNI58YXqVYfbM37ayMiRfH5s1Y?=
- =?us-ascii?Q?+4Gl/30sqNnTsex5Av3zYflqQB05jRFeEf9p8h7bri7KFh5As0GBJ3yn7NX4?=
- =?us-ascii?Q?yQor81eYRoYJlP/0PyA0Ytzt+EtbRERvpFXOem+793kkuGzqXHXMgYJlbu3e?=
- =?us-ascii?Q?yQJMscSgxeZJAU1lgj47MI+hSPc37UkTL2Y+5Vy8YBGEz1CxlhN8OBALv/1F?=
- =?us-ascii?Q?2tthvCn+Us1Wi8YRYaA0RCpzXEC1BKpUdFa2DO8A/d7vpyQ8HXzlZvA8ImTb?=
- =?us-ascii?Q?a5fyJA1gtLdnPdujxlvnFVzJjKMoIydQVoK6wKGYuv9VjOReWhmxvhEI+rz/?=
- =?us-ascii?Q?/i0lfG/rtcz8xRMW9usJ7KzJ6uBkJmveOcPlET15+NzHqQZK/gKrp+J0Eypr?=
- =?us-ascii?Q?Z+E97gEQ0FZnyRWMvx2gVH9YfKDlHXNGvpKsilVe1ybLLsSfp0Vj/T2n3Toi?=
- =?us-ascii?Q?QP0lLs8uCK4glrnPMb+hGJRx8V1BzVZ68S34jzV8loPbRHpcENORXXuZSnkR?=
- =?us-ascii?Q?/0Y8feH7C9JSina6YyDPSBwthJ5iCPdFv81mOl9As8+TNbUUSOnETPXFnW9m?=
- =?us-ascii?Q?5UZWSffWTfamvbxDALUscO4iY2OVOySQ8DnFTyoiSZLrRUfxRc8OBjVQNsj5?=
- =?us-ascii?Q?opQsJyETDB/3F87yTo1rnCYDFFJfW6I=3D?=
-X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c2b7006-8baa-4685-be0b-08df461b9079
-X-MS-Exchange-CrossTenant-AuthSource: SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 09:00:31.2773
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: En41O5uiH/FdLm9aAielNyWF2BXgH4OrBx0N9Ov6BM1talq7JoLX7LHQcdW5EaL69gNIpcvo2lMv8Qxqs4YUvEf6Evaq9cWBIRaktW+LzeU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SL2P216MB1466
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ab74e547e892ccabb763a06e8231e8ed44f4fefb.1795009599.git.mazziesaccount@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Add the Chips and Media wave633 video codec node on IMX95 SoCs.
+On Wed, Nov 18, 2026 at 04:19:35PM +0200, Matti Vaittinen wrote:
+> 
+> ROHM BD79111 is very similar to the BD79112. Both are ADC/GPIO devices,
+> where pins can be configured to be either used as GPIO or ADC inputs.
+> ADCs are 12-bit SAR ADCs and GPIOs support input/output but not being IRQ
+> sources.
+> 
+> The main difference is amount of channels/GPIOs. The BD79112 has 32 pins
+> for this use, the BD79111 has 16. Furthermore, the BD79111 data-sheet
+> promises 0.5 MSPS sample rate with maximum of 10 MHz SPI clock,  whereas
+> the BD79112 data-sheet mentioned 1MSPS rate with maximum of 20 MHz SPI
+> clock.
+> 
+> NOTE: In order to achieve those speeds one needs to use more optimized
+> protocol compared to the one implemented in this driver. This driver
+> retrieves samples using two 16-bit SPI transactions. The first
+> transaction writes the channel to be sampled, and ignores data on MISO.
+> Then the next 16-bit transaction carries the data.
+> 
+> Achieving maximum sample-rate would require the driver to interpret the
+> MISO data of each 16-bit transaction so, that when the
+> channel-to-be-sampled was sent in transaction N, the data is read at
+> transaction N+1 - which also already configures the channel to be
+> sampled for transaction N+2. Supporting this would require the
+> channel-to-be-read for the future read to be known when the current
+> channel data is retrieved. For raw-reads this is not possible and for
+> buffered reads it would make things a bit hairy.
+> 
+> So, here we aim for simplicity instead of the peak performance.
 
-Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
----
- .../boot/dts/freescale/imx95-19x19-evk.dts    | 10 +++++
- arch/arm64/boot/dts/freescale/imx95.dtsi      | 37 +++++++++++++++++++
- 2 files changed, 47 insertions(+)
+...
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-19x19-evk.dts b/arch/arm64/boot/dts/freescale/imx95-19x19-evk.dts
-index 47ed0ef67611..a15d5b471708 100644
---- a/arch/arm64/boot/dts/freescale/imx95-19x19-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx95-19x19-evk.dts
-@@ -143,6 +143,11 @@ vdev0buffer: vdev0buffer@88020000 {
- 			reg = <0 0x88020000 0 0x100000>;
- 			no-map;
- 		};
-+
-+		vpu_boot: memory@a0000000 {
-+			reg = <0 0xa0000000 0 0x100000>;
-+			no-map;
-+		};
- 	};
- 
- 	flexcan1_phy: can-phy0 {
-@@ -1225,3 +1230,8 @@ &tpm6 {
- 	pinctrl-0 = <&pinctrl_tpm6>;
- 	status = "okay";
- };
-+
-+&vpu {
-+	memory-region = <&vpu_boot>;
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/dts/freescale/imx95.dtsi
-index d20c2498b9aa..b6323e527ab7 100644
---- a/arch/arm64/boot/dts/freescale/imx95.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
-@@ -2139,6 +2139,43 @@ vpu_blk_ctrl: clock-controller@4c410000 {
- 			assigned-clock-rates = <133333333>, <667000000>, <500000000>;
- 		};
- 
-+		vpu: video-codec@4c4c0000 {
-+			compatible = "nxp,imx95-vpu";
-+			reg = <0x0 0x4c4c0000 0x0 0x10000>;
-+			clocks = <&scmi_clk IMX95_CLK_VPU>,
-+				 <&vpu_blk_ctrl IMX95_CLK_VPUBLK_WAVE>;
-+			clock-names = "core", "vpublk";
-+			power-domains = <&scmi_devpd IMX95_PD_VPU>,
-+					<&scmi_perf IMX95_PERF_VPU>;
-+			power-domain-names = "vpu", "perf";
-+			sram = <&sram1>;
-+			#cooling-cells = <2>;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			ranges;
-+			status = "disabled";
-+
-+			interface@4c480000 {
-+				reg = <0x0 0x4c480000 0x0 0x10000>;
-+				interrupts = <GIC_SPI 299 IRQ_TYPE_LEVEL_HIGH>;
-+			};
-+
-+			interface@4c490000 {
-+				reg = <0x0 0x4c490000 0x0 0x10000>;
-+				interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
-+			};
-+
-+			interface@4c4a0000 {
-+				reg = <0x0 0x4c4a0000 0x0 0x10000>;
-+				interrupts = <GIC_SPI 301 IRQ_TYPE_LEVEL_HIGH>;
-+			};
-+
-+			interface@4c4b0000 {
-+				reg = <0x0 0x4c4b0000 0x0 0x10000>;
-+				interrupts = <GIC_SPI 302 IRQ_TYPE_LEVEL_HIGH>;
-+			};
-+		};
-+
- 		jpegdec: jpegdec@4c500000 {
- 			compatible = "nxp,imx95-jpgdec", "nxp,imx8qxp-jpgdec";
- 			reg = <0x0 0x4C500000 0x0 0x00050000>;
+>  config ROHM_BD79112
+> -	tristate "Rohm BD79112 ADC driver"
+> +	tristate "ROHM BD79112 and BD79111 ADC/GPIO driver"
+
+So, as Jonathan mentioned this should be rather relaxed, so we don't update it
+each time the new HW is got supported. Also in a new style we want a bit of an
+order by having this, text in top comment, and MODULE_DESCRIPTION() to be the
+same (or very similar, like with or without word 'driver').
+
+>  	depends on SPI && GPIOLIB
+>  	select REGMAP_SPI
+>  	select IIO_ADC_HELPER
+>  	help
+> -	  Say yes here to build support for the ROHM BD79112 ADC. The
+> -	  ROHM BD79112 is a 12-bit, 32-channel, SAR ADC. Analog inputs
+> -	  can also be used for GPIO.
+> +	  Say yes here to build support for the ROHM BD79112 and BD79111
+> +	  ADCs. Both of the ICs are 12-bit SAR ADCs. The ROHM BD79112 has
+> +	  32-channels, the BD79111 has 16. Analog inputs can also be used
+> +	  for GPIO.
+
+Yeah, and here the style is to have something like a list
+
+	  Say yes here to build support for the following ROHM SAR ADCs:
+	  - BD7911 (12-bit, 16 channels)
+	  - BD7912 (12-bit, 32 channels)
+
+	  Analog inputs can also be used for GPIO.
+
+(feel free to amend, it's just an example).
+
+...
+
+> +static int bd79112_disable_gpios(struct bd79112_data *data)
+> +{
+> +	unsigned int i;
+> +	int ret;
+
+> +	for (i = 0; i < BD79112_NUM_GPIO_EN_REGS; i++) {
+
+	for (unsigned int i = 0; i < BD79112_NUM_GPIO_EN_REGS; i++) {
+
+> +		ret = regmap_write(data->map, BD79112_FIRST_GPIO_EN_REG + i, 0);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+
+...
+
+> +/* The BD79111 only has the registers for pins 0 - 15 */
+> +static int bd79111_disable_gpios(struct bd79112_data *data)
+> +{
+> +	static const unsigned int regs[] = {
+> +		BD79112_REG_GPI_EN_A8_A15, BD79112_REG_GPI_EN_A0_A7,
+> +		BD79112_REG_GPO_EN_A8_A15, BD79112_REG_GPO_EN_A0_A7,
+> +	};
+> +	unsigned int i;
+> +	int ret;
+
+> +	for (i = 0; i < ARRAY_SIZE(regs); i++) {
+
+	for (unsigned int i = 0; i < ARRAY_SIZE(regs); i++) {
+
+> +		ret = regmap_write(data->map, regs[i], 0);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+
+...
+
+>  	data = iio_priv(iio_dev);
+> +	data->cd = spi_get_device_match_data(spi);
+> +	if (!data->cd)
+> +		return -ENODEV;
+
+-ENODATA
+
+...
+
+> +	data->gc.ngpio = data->cd->num_channels;
+> +	data->gc.label = devm_kasprintf(dev, GFP_KERNEL, "%s-gpio",
+> +					data->cd->name);
+
+I would use a single line.
+
+> +	if (!data->gc.label)
+> +		return -ENOMEM;
+
+...
+
+>  static const struct of_device_id bd79112_of_match[] = {
+> -	{ .compatible = "rohm,bd79112" },
+> +	{ .compatible = "rohm,bd79111", .data = &bd79111_chip_data },
+> +	{ .compatible = "rohm,bd79112", .data = &bd79112_chip_data },
+>  	{ }
+>  };
+
+So, this can be split to two patches:
+- introduction of chip_info
+- adding a new HW.
+
 -- 
-2.41.0.windows.3
+With Best Regards,
+Andy Shevchenko
+
 
