@@ -1,105 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795107275;
-	b=ThBQ1dLoM+gSpPu8QRnCX3A+wCd9KUIsepNjDmbay+vkM2roErT1XNICP/t9bzZCg9gb
-	 qjCUVSQ5c8z0LsTSiaLUs88tF/PeulYl39/x2X0vBRX7rdFjZA3dZGVVPYyFtdyrIy3Vp
-	 WGbZd94OjNycmcWErr/eGdDqf0Xvh8D2FSXNQd5sReGe3B+CPzwZgYQcp5vE9iRAAD+Ic
-	 fkuyGYh91BdISAa6TDWWx2Y+3LUBv7UVFa2coh4xHzycbZrYMBUr24/DeatVgNEpV78zk
-	 qJpoRihmcK8Gu+uJTzqaW5N0mffNhylneEgsc8igREfisI1KywxGQCgaQyTSP1iM6NQ==
+	t=1795107369;
+	b=M78QEjCv3vTOahnu7Zl+LnngA6nI74sgOm5O4g4j2RwaILU9D/HMdwuTxU5UWNgQ67z2
+	 Kh3e9jhGtD7M2JS05Jeqjvi0ZB4fp74jh3ayQy71miBTKP3Sjle0r4XmHaRI3PLQvr/Wf
+	 BUoJkXFpcC1u+hQIyTPatF9T47rSAgbZUnuk9uqilqreAaw63/p52rcUXUK9rjoR3DQkF
+	 vPdUiuWRKyItdHNbnsl/4f9lCT6TKmQw2a8Pmg3PPD+IB0NPogr9RViOijb5+4SUvrKdA
+	 S4myJ4AaeFAg2GJpcnWRiq6jnTjefrKs750PmQwmOEpJ+xm/iOWS62goggovOj5S0IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795107275;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=eWJ+9K9CujW+/eiSnl3KVXLfbSNQleY4XU8YoN4v9sc=;
-	b=gUzWyxptaSZi8OYozRyqRs+Xh8EFzbVaiLVQTFVyFWxFe1uO+9MaJBniC0P9hAtcDrF1
-	 MlySM5TNUVhrgmvs1Rf/WfS1blOgyTZtdTPsgqmzou3Equ40XM/dAFlODLo3Myc8aLLPt
-	 bDHUlKls3NYvHTvNGKWvPlFKtFe4gU8t0Af3FJED0Nrvd73Juq5v7LGnxobYSw+6/1P3Y
-	 +onbPFOhQ92nEA8kSH4GZJtPqLQV3cmLf/8fpfPgHZbqeddEZcH4q9nVqmpIMC8cGbXwc
-	 KBYB9ca6kpQxC7P4YlXliLRRzdJSIFDCSWIc5QGNO4ut0u5oDqVC18o1TKvktjpfdvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795107369;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:User-Agent;
+	bh=kwyugsNu4/tep0lvJ/4udRwqoAJgnB/y7VsHTKO8ZMQ=;
+	b=D80XN1z0+EX8NsV6ddwgrETWuXaH4BozvZJmgJ3an7lCQtjQZki7QM4DyhTMrDbr/+0u
+	 c34lXXKsjTiGcxvJeKzs0yKbwx0OSkOormtm+K3q3BQmIZjUjKLZxvJrDgRDfMGfmSzhq
+	 D4S7YyTBhRWl5G3XqCjruJB7Cczu8YNWl0q1Nq3qTipiTZHq4zEkJC5Op/PxtGbX3No1Y
+	 KLdL3EI0exYZ0AIMjWn7LNf0vADwSt93nqX9QOo7KOPBu92QaYL08xFV2QSlXlgvj+sNQ
+	 A8kELEU/QBabzN7lZV32QDqmcCLXourPY1qUgB4VrU2Rl4YND1ad/qwjTq3JFViPSlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nrx391Qe;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=aurel32.net;
+	spf=pass smtp.mailfrom=aurel32.net;
+	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=EqPrM0py;
+	arc=none smtp.remote-ip=195.154.119.183
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C94660A6F7D
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:54:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C94660A6F7D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D033B606A330;
+	Thu, 19 Nov 2026 16:56:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D033B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nrx391Qe
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb72b44a97so19449855e9.0
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 08:54:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795107274; x=1795712074; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eWJ+9K9CujW+/eiSnl3KVXLfbSNQleY4XU8YoN4v9sc=;
-        b=Nrx391Qe8+O8LqOtDCxu0O4VfUEM6BMWsAQwTIo6k8TAeB/r7c7TRfxpIZo1divfz4
-         r8tO2cydvdc/MU3hs6payqwcxFAz9jPrmXFLNOdrDAvI3N9j+cXAVx2J2yH2FUrhXRea
-         K+jyFhiVfTiha3RQw9kkuX2nQRWcBS5adNGDMSxkH0QsFJyVRSHwUMpxaZxkGUbgDGb1
-         6b5CLWS1UAN4WZ2Ws7iiTdWqW1mRUPWrNVKiSTlA8306egVDp8KG7vtlPMrUmECR3+ny
-         CjReWy+0X4DMn9i0Mmy+v/siVTSLv7Xb8hx/Gp2kpi1xdliQfdCEUV6OtE2fncCVBnri
-         SGlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795107274; x=1795712074;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eWJ+9K9CujW+/eiSnl3KVXLfbSNQleY4XU8YoN4v9sc=;
-        b=Ml7eO+IDuybhTpzKeFbXeToENNh9RCR3WjNRu6LnVJesgU4yW5oR3Ejv5qHpdjIMfX
-         J/t2uAk19L1n9qtoft3MhQZN32R1CyueFukSAOg2Xn1ZpDJ3csa3wQgf6RIG1FwPfTbI
-         Ab8O36DQdBM9WAYGrXRZdW2APtxdO+2LtW1BFz6DLirdyT1/2sN4Q2fT/gmUJdJl4FUj
-         5cV6t5cPb9eOwv5bGcXFWLF5acZQyJrF7RSpaUT4maGU6C5cdRFySS8nknEC/0OGphHq
-         O0L2kFKg1k2iMPDBvQNVJihJ/IcuWrOGd1vQqXr+fkHyu09hLCmAuMTkzSNbn5omiI/O
-         4udw==
-X-Gm-Message-State: APuU4Z+RnfYDC7uC2DCvEGhrL6hja4rRppetsTQ1EcGd/96BBXUK3iUB
-	MYmkeJMGGyoUETqMzPUZW/qQ7dPhglhb+qHyK43Fnc5q9AezZxqcJqjb
-X-Gm-Gg: AYBFou2oT3obSv+8ZBIfBlOK1gNPN32fXMr37oE2TEdLJg0+k2fSVOeH03Y7YgIOrDI
-	KBrip0Fl6MuVM3I04Niu9NN5EBwZhrtO2sNMEB9jHyRDntsLV2j4NzSyCR3Giihj8FPY2z8EGLz
-	x09Fb/Ay9yE7x0llJfHSZIggLOfmVdMB3O3zggCdF1fxIoutPpy30tgRBkbVCPdrqjW+kQWXoEO
-	BFHcQD9klPc5iweUrBoK4j3ApBD5TdU/93khJdS+cvTH3V+m0rMrikb4KWIlH39FU8AS76jMQWH
-	WjcfDA1cua3iU7O+FAlpovHu+1UFewoPrU9hZUu4l43zozHSryYxpSy2LjV4uLUGTIetXpCiuj7
-	x8IJmfhx1U3bSm9rv/1HD6Zr8gm0vVLWZxc9fGmBebzFPi7jd2rfoHsv3Mg4IWwLf9NPolVSmeZ
-	H+dHIgjlVuxOBeRygnc0NfpQQla/5YnFOVEmpAgB0oHQ1YhOfn6QC5mp7/8eghOGMZddq3c15fo
-	sUJIAA7rUrUBxi0zWbeL1+hZxAVyCAcPnhC5p17yrb8Z7I9PiXy45f6ybrPfYhuuOKpFKWLCe/h
-	xuPqvKtp+k+AF1Uf4c1vo53C7KB1vK+3oOsoMj7WLsBZLriWswDtbYPc/phAmzNav9Q6TAD5eDQ
-	=
-X-Received: by 2002:a05:600c:3ba4:b0:4ba:493b:3401 with SMTP id 5b1f17b1804b1-4bb8880abafmr2552105e9.9.1795107273824;
-        Thu, 19 Nov 2026 08:54:33 -0800 (PST)
-Received: from DESKTOP-BJ3EVC4.lan (178-164-182-185.pool.digikabel.hu. [178.164.182.185])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88402ce9sm9894555e9.0.2026.11.19.08.54.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 08:54:33 -0800 (PST)
-From: Abdur Rofik <rofikcoga@gmail.com>
-To: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=EqPrM0py
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
+	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=kwyugsNu4/tep0lvJ/4udRwqoAJgnB/y7VsHTKO8ZMQ=; b=EqPrM0pyAxa8ZlSkLqTAdR2BGd
+	eFrq7mXsxrYa77d5+uWkY17tLHY4zE5FTGbMZuMLA2FqC4R72SLau9EsUMvLasDsrMOSNRd1QNJkH
+	2OMzKnKOjsknyzp597Wu31Qz1kL4dilvFuWHYTiEy6bgBhNMVVnPFqI1qDjXCAm7Tas+lW7DR9sZV
+	d+gmO8vyTEXUV6UBx9Knaq2NXLUCGwf7hrVqfcxWJ4Zvs+IxIUnWLr6eCp7rmACI6tLrVbopgvxCf
+	HVDEVWByeAJ9RaJVicLr2vYAgH7lZvpqYBvo9mcCgZLVCKx7dgAFZnVmWMVzzmt2p58K1RnpoR6hc
+	DW78MCZA==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1xU5QI-00000001j9b-0hMX;
+	Thu, 19 Nov 2026 17:55:46 +0100
+Date: Thu, 19 Nov 2026 17:55:45 +0100
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: E Shattow <e@freeshell.de>
+Cc: Yixun Lan <dlan@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
+	Stanley Jhu <stanleyjhu@google.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Ivon Argel <ivonargel13@gmail.com>,
-	Abdur Rofik <rofikcoga@gmail.com>
-Subject: [PATCH v3 10/10] arm64: dts: qcom: sm8250-lg-timelm: add QCA6390 Bluetooth
-Date: Thu, 19 Nov 2026 17:54:20 +0100
-Message-Id: <20261119165420.24466-11-rofikcoga@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261119165420.24466-1-rofikcoga@gmail.com>
-References: <20261119165420.24466-1-rofikcoga@gmail.com>
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Jennifer Berringer <jberring@redhat.com>,
+	Trevor Gamblin <tgamblin@baylibre.com>, linux-scsi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v8 0/2] Add UFS Host driver support for SpacemiT K3 SoC
+Message-ID: <av8qEXk68wsy7pNe@aurel32.net>
+Mail-Followup-To: E Shattow <e@freeshell.de>, Yixun Lan <dlan@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
+	Stanley Jhu <stanleyjhu@google.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Jennifer Berringer <jberring@redhat.com>,
+	Trevor Gamblin <tgamblin@baylibre.com>, linux-scsi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org>
+ <8462a0d9-e9b7-467d-b2e1-7870c78e2691@freeshell.de>
+ <avyusx36U534Bpu9@aurel32.net>
+ <053b55fe-47d0-4cc7-ba53-c560fc9c1d1b@freeshell.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,133 +103,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <053b55fe-47d0-4cc7-ba53-c560fc9c1d1b@freeshell.de>
+User-Agent: Mutt/2.4.1 (2026-07-04)
 
-Describe the QCA6390 power sequencer with properly voltaged supplies
-and enable Bluetooth HCI on GENI UART6.
+Hi,
 
-Signed-off-by: Abdur Rofik <rofikcoga@gmail.com>
----
- arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts | 92 +++++++++++++++++++
- 1 file changed, 92 insertions(+)
+On 2026-11-18 23:38, E Shattow wrote:
+> I was missing this detail previously. For testing again of v8 I have now
+> inserted a sed pipe to change this as suggested for the dts application
+> step of the build procedure:
+> 
+> b4 am -v5 -P3 -o- \
+>  https://lore.kernel.org/all/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org/ \
+>  | sed -z 's%\(clock-names = "axi", "\)ref\(";\)%\1ref_clk\2%' \
+>  | patch -p1
+> 
+> Additionally to the build procedure, since Debian testing now features
+> linux-config-7.3 and no longer linux-config-7.2, I now substitute
+> accordingly from linux-config-7.2 to linux-config-7.3
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts b/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
-index 3ce8161574a95..1426ce82d3f58 100644
---- a/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
-@@ -65,6 +65,67 @@ key-assistant {
- 		};
- 	};
- 
-+	qca6390-pmu {
-+		compatible = "qcom,qca6390-pmu";
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&bt_en_state>, <&wlan_en_state>;
-+
-+		vddaon-supply = <&vreg_s6a_0p95>;
-+		vddpmu-supply = <&vreg_s6a_0p95>;
-+		vddrfa0p95-supply = <&vreg_s6a_0p95>;
-+		vddrfa1p3-supply = <&vreg_s8c_1p35>;
-+		vddrfa1p9-supply = <&vreg_s5a_1p9>;
-+		vddpcie1p3-supply = <&vreg_s8c_1p35>;
-+		vddpcie1p9-supply = <&vreg_s5a_1p9>;
-+		vddio-supply = <&vreg_s4a_1p8>;
-+
-+		wlan-enable-gpios = <&tlmm 20 GPIO_ACTIVE_HIGH>;
-+		bt-enable-gpios = <&tlmm 21 GPIO_ACTIVE_HIGH>;
-+
-+		regulators {
-+			vreg_pmu_rfa_cmn: ldo0 {
-+				regulator-name = "vreg_pmu_rfa_cmn";
-+			};
-+
-+			vreg_pmu_aon_0p59: ldo1 {
-+				regulator-name = "vreg_pmu_aon_0p59";
-+			};
-+
-+			vreg_pmu_wlcx_0p8: ldo2 {
-+				regulator-name = "vreg_pmu_wlcx_0p8";
-+			};
-+
-+			vreg_pmu_wlmx_0p85: ldo3 {
-+				regulator-name = "vreg_pmu_wlmx_0p85";
-+			};
-+
-+			vreg_pmu_btcmx_0p85: ldo4 {
-+				regulator-name = "vreg_pmu_btcmx_0p85";
-+			};
-+
-+			vreg_pmu_rfa_0p8: ldo5 {
-+				regulator-name = "vreg_pmu_rfa_0p8";
-+			};
-+
-+			vreg_pmu_rfa_1p2: ldo6 {
-+				regulator-name = "vreg_pmu_rfa_1p2";
-+			};
-+
-+			vreg_pmu_rfa_1p7: ldo7 {
-+				regulator-name = "vreg_pmu_rfa_1p7";
-+			};
-+
-+			vreg_pmu_pcie_0p9: ldo8 {
-+				regulator-name = "vreg_pmu_pcie_0p9";
-+			};
-+
-+			vreg_pmu_pcie_1p8: ldo9 {
-+				regulator-name = "vreg_pmu_pcie_1p8";
-+			};
-+		};
-+	};
-+
- 	reserved-memory {
- 		res_xbl_uefi_log_region: memory@80880000 {
- 			reg = <0x0 0x80880000 0x0 0x14000>;
-@@ -634,6 +695,14 @@ &sdhc_2 {
- &tlmm {
- 	gpio-reserved-ranges = <40 4>, <52 4>;
- 
-+	bt_en_state: bt-enable-state {
-+		pins = "gpio21";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+		output-low;
-+	};
-+
- 	sdc2_default_state: sdc2-default-state {
- 		clk-pins {
- 			pins = "sdc2_clk";
-@@ -667,6 +736,29 @@ ts_int_default: ts-int-default-state {
- 		drive-strength = <8>;
- 		bias-pull-up;
- 	};
-+
-+	wlan_en_state: wlan-enable-state {
-+		pins = "gpio20";
-+		function = "gpio";
-+		drive-strength = <16>;
-+		bias-pull-up;
-+		output-low;
-+	};
-+};
-+
-+&uart6 {
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "qcom,qca6390-bt";
-+
-+		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
-+		vddaon-supply = <&vreg_pmu_aon_0p59>;
-+		vddbtcmx-supply = <&vreg_pmu_btcmx_0p85>;
-+		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
-+		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
-+		vddrfa1p7-supply = <&vreg_pmu_rfa_1p7>;
-+	};
- };
- 
- &uart12 {
+[...]
+
+> $ journalctl --dmesg | grep ufshcd
+> ufshcd-spacemit c0e00000.ufshc: freq-table-hz property not specified
+> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+> vdd-hba-supply regulator, assuming enabled
+> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+> vcc-supply regulator, assuming enabled
+> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+> vccq-supply regulator, assuming enabled
+> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
+> vccq2-supply regulator, assuming enabled
+> scsi host0: ufshcd
+> ufshcd-spacemit c0e00000.ufshc: ufshcd_scsi_add_wlus: BOOT WLUN not found
+
+All those are expected, so it's great that the issue you reported is 
+fixed.
+
+> I did not again see the DL error event. However, the first attempt to
+> build Linux does fail:
+> 
+> make[7]: *** [scripts/Makefile.build:572: drivers/gpu/drm] Error 2
+> make[6]: *** [scripts/Makefile.build:572: drivers/gpu] Error 2
+> ...
+> make[5]: *** [scripts/Makefile.build:572: drivers] Error 2
+> make[4]: *** [Makefile:2244: .] Error 2
+> make[3]: *** [debian/rules:80: build-arch] Error 2
+> dpkg-buildpackage: error: make -f debian/rules binary subprocess failed
+> with exit status 2
+> make[2]: *** [scripts/Makefile.package:126: bindeb-pkg] Error 2
+> make[1]: *** [/home/es/linux-7.4-rc3/Makefile:1852: bindeb-pkg] Error 2
+> make: *** [Makefile:248: __sub-make] Error 2
+> 
+> real    188m48.844s
+> user    1415m17.363s
+> sys     66m11.932s
+
+I guess the error is some GCC ICE.
+
+> Linux is running on the K3 SoC here without clocks preparation from the
+> bootloader; it is quite slow by comparison to a Linux kernel that
+> follows clock preparations by the vendor BSP bootloader. Simply
+> re-running the same "make ..." build command is successful in the same
+> system without any changes:
+> 
+>   DEPMOD  debian/linux-image-7.4.0-rc3-k3ufs/lib/modules/7.4.0-rc3-k3ufs
+> ...
+> dpkg-deb: building package 'linux-image-7.4.0-rc3-k3ufs' in
+> '../linux-image-7.4.0-rc3-k3ufs_7.4.0~rc3-2_riscv64.deb'.
+> ...
+> real    34m56.794s
+> user    241m15.511s
+> sys     18m4.532s
+> 
+> Similar build failures occasionally happen when the root filesystem is
+> on USB microSD adapter-connected microSD storage. I assume the build
+> failures with default clocks configuration are not constrained to just
+> the UFS support series here.
+
+Yes, this is a known issue, unfortunately the K3 does not run stable 
+under load. See this thread (although it seems at the end the K1 and K3 
+issues are different ones):
+https://lore.kernel.org/linux-riscv/apSYF5x1Tu7PlyL1@aurel32.net/
+
+Also see this Fedora issue:
+https://forge.fedoraproject.org/riscv/planning/issues/36
+
+Regards
+Aurelien
+
 -- 
-2.39.5
-
+Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+aurelien@aurel32.net                     http://aurel32.net
