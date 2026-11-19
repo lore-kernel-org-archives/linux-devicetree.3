@@ -1,56 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795097449;
-	b=f76RXcJ5JRmr6gPWXXR1C2MKaFs+64ZY02uGenyyYMFlfGq7HdwEJurVOrTM6C672MO4
-	 1yUawzoIHSjp/RV110pFKYNZi3flv+FOU6jBq79nK8AUcccYcERKXUCjtfdLaCxWiJZlC
-	 xo1UWTXH3msLlurYq0vEozuuaCiV4FiY6uzD4w2dlbk+C27fE7CUKbaESYWCvX2TeEr4Y
-	 ozPLzyAS37hZ79y/RBRYiPrObfycnjpFK4kwKS2Dw7/r4EfKqTOyQ3vGTQMSZj1+ahM94
-	 6d7l/HjHX1wsUWgNPvfFKw/Ri50WcTD+bTcbcXXizsKbnDqbWO1GycnSTRG1rtEq6ig==
+	t=1795097955;
+	b=Xl5SBBGWros7DnwKF9t43arHNMhta+HdiZj3bBMt3ZsHJJApJQwx1B5JUDN5gFIUrthu
+	 EfQ3pslm30YWVZuPgonmgWU9Q54sG45kNxQgsJ5Dr0/ZMH+Z56EEXMjpPvVafkSjcpCH1
+	 woVTUeN8tYsPk6jgTNOWbTrWQmFxbNG/hTk6HCy9GrXWl6wqPoE4XK0hYEttOAB2RtOb8
+	 ymeOwlqMkDUGBM0QxgX0RVdi7EoH3mYcwRih7sIr8ZMg+sESY+oHAvsKBzYPdf6QOBPf7
+	 Zjf5y9tS11dziul9Ca5bnLOgmEmpwoIo3LP2LZIb4g5/2rkvm8HCm0cMg4QfBEWHGpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795097449;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=xtJZAwXujOkJCZHYCDZbAg3+R15iJgmLMb/QAUi1IRo=;
-	b=3JbmuQExSotkO/l4JWqFNnPGOYJWEaEkX8d8jkCuSYIRzvUnCX0VpH9BvBTu3Jym5VbP
-	 gC/DMm/3AKU6pti6llgbjXHJDFRl3DAULAEgnbGyHNNnm52G6kABncJmdOJDlPXzQYJt9
-	 LPxpiDRvWsQULNb+jrQvP6ITThTORwhlFgDi2ICWmbpJ8MaTaoCWoLBCq7OHtZvzwte4J
-	 OUzYHqK8yFtKzhqDRS93TdhKbu/EU38J5Qbe3jHcDuTd0jyBI4mU0tolrv+DUyggOVkOi
-	 N3os/oiklLFbmgnHRpe5yKkYM2QanuQEmFzcYemGl91wIUyx4rH0mmc+3X70Ao8HXDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795097955;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=01otf33RxSte8QwJA3GEyoCTItE4iig/ZqEIZE6AbO8=;
+	b=rlQT2lyReF8Uh6DGUV58iVO0+FSwnkpFaDFSTAhw79weEZy5HiskM8E1KeKB+z4HV+nz
+	 FzFWWdEhUtFDd0xokYx0/U3Xe+Ay5hDnYJlpZWtFKk3InNniNv3HOfoazLu34akMz7ztB
+	 dEhNrTcAnWGhbztDVRKOCQlY5JKkQCxiMH34P4w7QjSCP3yds53rINkZgDTk7iJiAlVaK
+	 YIEMmQX1SDK8XwkaNqlsBi49ajQiBolVTysy4C5UyOW+x/s+qCu+RsVVvVUf2QZrKTUHV
+	 d2m8pLsPNhkSGyaxt9q8IbsUuTT28ke6Sv3eC8sDySpbQyxXIM3G843s0AYPPDFOdkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMkgH7fP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=EoIUktnj;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=h2KrdnBD;
+	arc=none smtp.remote-ip=103.168.172.158
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0185606A324;
-	Thu, 19 Nov 2026 14:10:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F925606A324
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 14:19:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F925606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMkgH7fP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55D9B1F000CC;
-	Thu, 19 Nov 2026 14:10:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795097449;
-	bh=xtJZAwXujOkJCZHYCDZbAg3+R15iJgmLMb/QAUi1IRo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZMkgH7fPtrnT3xs5c7I1omIpy9yjmCImpzRtIEwu+8ybi9TLGfT7mHgBjNyixIFD1
-	 XEC4mY3JQQX7NdYx4fUjqJgP+jNqAuvxmOpbzTOq7w7UBmlQWirsd0a1/CQ/gwSdkW
-	 v6KcMNO7b89l9+6kYcMFpwzffqHY9ihUW3wroPjiHdmphrzDGW6TwtYY0eREC9ERpc
-	 mb9hNWcG6+Tcpr6rWv/Yj1nYU3rx9OPoeY+eTX3MpVEi5t0oqC2uW/HA3Lr9mn+zJx
-	 vFMGPQlVwbC3iudJJNA5J9SdNJ8yBCIKaKUJZVCfjZq3+GTh5cZZnPA333awioLcJm
-	 /eCIHHHjJcSYg==
-Message-ID: <sashiko-outbox-223265@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/4] Input - aw8695: Add driver for AW8695 haptics
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Griffin Kroah-Hartman" <griffin.kroah@fairphone.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261119-aw8695_haptic_fp4_driver-v4-2-9d107334bdb2@fairphone.com>
-References: <20261119-aw8695_haptic_fp4_driver-v4-0-9d107334bdb2@fairphone.com>
- <20261119-aw8695_haptic_fp4_driver-v4-2-9d107334bdb2@fairphone.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 14:10:48 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=EoIUktnj;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=h2KrdnBD
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id BFE5A1400177
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:19:13 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 19 Nov 2026 09:19:13 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1795097944;
+	 x=1795184344; bh=01otf33RxSte8QwJA3GEyoCTItE4iig/ZqEIZE6AbO8=; b=
+	EoIUktnjNoXwzv8dS6zIUjbqeifiPckygpbEgoj6jRRcoK34T29u7nMhNhKYF9Ao
+	ElQgRp6/UiJLdioJ1Uw9NXUq7InWrJaGXtRicuvCwlls4sPG1fy9/9w8de14d6Xz
+	prFerkCzfFFyNUj0VQJ+Cf2CxZY8xlK+OQAIkBSQas51pKRvZ+vjIwkb2MXQ9eTw
+	JZFc2e9hYG4Qh3ayGiM7DygA6+zYV2Bq3C7k+rjrTb6z41AgPe+FkYRRtKZNbrFR
+	Qfvm9/6S8rXBlcbkmXKLRHhtY9t0y4/LJ+aam+11oeTEHiIEp2opVuqZOjrxkY5s
+	+XnBwBeSuYGeoALqdmqasA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795097944; x=
+	1795184344; bh=01otf33RxSte8QwJA3GEyoCTItE4iig/ZqEIZE6AbO8=; b=h
+	2KrdnBD4oHFdj0rLXsqfNDuxtnGUP1LJU9wXMuoBdjK/QRcMkLk+AJDyvGZ2H5Xr
+	48tJ97KYUHNWFeyM5skPiEgwGj3pwCeu974bBNVs1CEev1RdXwl+Xs3+/Cax9Jmn
+	i3TnZAp+mg7tXKmNIo33v+QH2mjFlfUZXMYIN9iv7HusnVkP6h74oXSuBMV7W8D+
+	QOQa6v81f1H0N0/P55oyG9719WJJPyqU/e3BXpjJR77L8RHNRcfYvV9o3jGE7wX7
+	AIFSJ67ZuUJHsEStMbTuapuPQManwvq6Cd7QNdbOliG8Z2WpH1HkNts0qSmBfls6
+	YTrXsm+S+ZyvUsDy9ZT7A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795097944; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm2:rsa-sha256:iIHzuxl9ivBoHYL0eRbEOORXjfOPISCdMpOy+xv9Pf8wV/7
+	5hJ07tg85kBiYgeeeaVPWHTqBxhvaqHQV+7fzPl9XB5vTDXyvq6YFh7ZRKRZtrTQ
+	KWHfeE1uJYKbDrqslQ06NuMgJhrnposhB+oBpoy3EMbjSrPCf5EkjQljkggLwPTm
+	R3EP8FHHEO3D4LUGEIjAwHYSrkwnV9LOUqMAiof7MX1VnfGAQoHBpYYNRRoTA/GE
+	TY03WyE3+HEGSnqGKDRovfcIwBSAsXvUqb8etF7oh6bSksWX1Maa6uvmL9WILB+Z
+	f+g0/y/xHV4V0T90Gr4lqVR6E7KbI7IHRwEvetg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:krR0+YczFIO3+zdXy7Z/za6sK29LTPNQ/dPu1fbwuUE=:wrF4KQUa30FhL8Dr9keH2zmryDL7ZnCEKnekfBbv8Pk=;
+X-ME-Sender: <xms:UAX_aqUwwYD29dnpJKfOnOqiOeeYmLycCx51Wm7kuD7rCfg4ezzOFw>
+    <xme:UAX_ahbIoC1FHKNXhWwlYyrtoGYG6NDcIafBcpMy1XDFy9PlgvU26tzm92-8QQUmf
+    nwGCPwhmW-x9JRJ1fJtprwt4vDrkhCCZ3ElJaNNBTtgddvtEqurPMmV>
+X-ME-Proxy-Cause: dmFkZTERVl3HBLVOrb/B5W9SlCiGjcntYqbjfg2rc15q2Ityk3ssPrEgzYujGztlf0+i5y
+    IUePtGtYcnB/oLsKiZjiV9ueq+oUrcMKwKJTDDqxuPSA/hy/FzPBrOKEcnLDWsbGzDryD9
+    Zg2g9MKRlsfGLNeDKBJjkfK6s7NMH7UNYZ1eklYmKbno76Im0PjniL5ON/XVUGePe810Lf
+    CQZIof1fML+kMgA208+AsvWtltCKuIDdFaCpFOAd7MCUoa/+TmRphnpjHilFEddz3Bk4Pj
+    J4ICYtjHSS4AVOVCSDLUmQ3hWo8yqZ8bbxZsj8jM19cSWbJWi6uwTJLEghGJx01Fkmo2aQ
+    JWkIMc+IzNqIgGCokQFd6rtQfeU/H9NOcj86/7PGyNR47Iq5ERKUDJPD0/dX7+2Pczq+cQ
+    DHWPzBfYOke+EsTg8eEpWMH1X+cbPwywgCFSzVBCePBDne0z74e+y46Wpnm2y7RCppAbsE
+    6xkC4pU+s2LwHUVGWzSC6viDczmwndPe7y1YDFaeJ+qWsVHmH5pfpOvv6WSzW8oslzvApA
+    bISG02sOsFYEvdO5nq3Yzd3ZX+GXyIW5MslSF3U06KM6NA2quAwNJWkseqHCG/Mc4l7s3D
+    cuILIX4Y2T/8DXDGBxUqYcB1/n/pTANF8nbNX4gwHawqOLMsipIvdVUXAulA
+X-ME-Proxy: <xmx:VAX_aolMXSEpB77rIdMNX6Sq20r5bJvHfE0yr2-ifV9atgGlX1bj5Q>
+    <xmx:VAX_alADAXppjckRX-rOXY3QsRH9NwwF9Zvxqx3SskCN6nIayoEI2w>
+    <xmx:VAX_arLB30Ba-F0LXA5lIoXGOV_V6KNAv33Xgyx4azBpodr9T5bZoQ>
+    <xmx:VAX_agxsLKnP0wF2ZPyiHy_qXWqwmJkxhT4jXtBqAjcvKcrJim1Alw>
+    <xmx:WAX_atkZJp_YLsE5qL5ixsu0-xtRySH1ySqOzfHN1s8DsOLObf2lzhMq>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id D0F9D32A0099; Thu, 19 Nov 2026 09:18:56 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,314 +114,79 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-ThreadId: A-12XcIUUc5R
+Date: Thu, 19 Nov 2026 15:18:26 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Long Zhao" <longzhao@ambarella.com>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>, soc@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ "Michael Turquette" <mturquette@baylibre.com>,
+ "Stephen Boyd" <sboyd@kernel.org>
+Cc: "Jerome Brunet" <jbrunet@baylibre.com>, linux-clk@vger.kernel.org,
+ "Brian Masney" <masneyb@kernel.org>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
+ devicetree@vger.kernel.org, "Long Zhao" <zl020895@163.com>,
+ linux-kernel@vger.kernel.org, "Linus Walleij" <linusw@kernel.org>
+Message-Id: <1148990d-dfa6-489d-99f8-4bf4417b2c4c@app.fastmail.com>
+In-Reply-To: <20261119-cv75-soc-v12-0-e5a03cca8b05@ambarella.com>
+References: <20261119-cv75-soc-v12-0-e5a03cca8b05@ambarella.com>
+Subject: Re: [PATCH v12 0/6] arm64: add Ambarella CV75 SoC support
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [Medium] Input: aw8695: stale haptics->level after aw8695_close() and
-  suspend
-- [Medium] Input: aw8695: premature enable_work() and unchecked errors
-  in PM callbacks
-- [Medium] Input: aw8695: uncanceled play_work on unbind causes
-  use-after-free
-- [Low] Input: aw8695: unlocked double-read of haptics->level in
-  aw8695_play_sine()
-- [Low] Input: aw8695: redundant standby call in aw8695_stop() and style
-  issues
---
+On Thu, Nov 19, 2026, at 11:13, Long Zhao via B4 Relay wrote:
+> Add the Ambarella CV75 SoC and EVK support: the board binding, the
+> RCT clock binding and driver, ARCH_AMBARELLA, the devicetree and
+> MAINTAINERS.
+>
+> Apply the patches in this order:
+>
+> 1. board binding
+> 2. RCT clock binding and clock ID header
+> 3. ARCH_AMBARELLA
+> 4. RCT clock driver
+> 5. CV75 SoC and EVK device tree, plus defconfig
+> 6. MAINTAINERS
+>
+> The ambarella vendor prefix and the CV75 secure scratchpad syscon
+> binding are already in linux-next. This series does not repeat
+> either of them.
+>
+> GPIO, UART and pinctrl bindings and drivers are separate series.
+> This devicetree references those compatibles.
+>
+> Tested on the CV75 EVK. The board boots. That boot used a local tree
+> that also includes the GPIO, UART and pinctrl patches.
 
-commit 7f7a93d83cad192aaa964a8d15cf7b36fce9d8d3
-Author: Luca Weiss <luca.weiss@fairphone.com>
+I merged this into the soc/newsoc branch now, which may get
+additional SoCs from other vendors for the merge window. This
+should be in linux-next starting tomorrow.
 
-Input - aw8695: Add driver for AW8695 haptics
+I also pushed the contents out in two branches:
 
-This commit adds an input force-feedback driver for the I2C-connected
-Awinic AW8695 LRA haptic controller, supporting sine wave playback in RAM
-mode.
+https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=newsoc/ambarella
 
-> diff --git a/drivers/input/misc/aw8695.c b/drivers/input/misc/aw8695.c
-> new file mode 100644
-> index 0000000000000..e83bdf029def8
-> --- /dev/null
-> +++ b/drivers/input/misc/aw8695.c
-[ ... ]
-> +#define AW8695_R_SPARE_REG			0x5d
-> +#define Aw8695_R_SPARE_DEFAULT			0x68
-[ ... ]
-> +static int aw8695_play_mode(struct aw8695_data *haptics,
-> +				 enum aw8695_work_mode mode)
-> +{
-> +	struct device *dev =3D &haptics->client->dev;
-> +	int err;
-> +
-> +	switch (mode) {
-> +	case AW8695_STANDBY_MODE:
-> +		err =3D regmap_update_bits(haptics->regmap, AW8695_SYSINTM_REG,
-> +					 AW8695_SYSINTM_UVLO_OFF, AW8695_SYSINTM_UVLO_OFF);
-> +		if (err)
-> +			return err;
-> +
-> +		return regmap_update_bits(haptics->regmap, AW8695_SYSCTRL_REG,
-> +					  AW8695_SYSCTRL_WORK_MODE_MASK,
-> +					  FIELD_PREP(AW8695_SYSCTRL_WORK_MODE_MASK,
-> +						     AW8695_SYSCTRL_STANDBY));
-> +	case AW8695_RAM_MODE:
-> +		err =3D regmap_update_bits(haptics->regmap, AW8695_SYSCTRL_REG,
-> +					 AW8695_SYSCTRL_PLAY_MODE_MASK,
-> +					 FIELD_PREP(AW8695_SYSCTRL_PLAY_MODE_MASK,
-> +						    AW8695_SYSCTRL_PLAY_MODE_RAM));
-> +		if (err)
-> +			return err;
-> +
-> +		err =3D regmap_update_bits(haptics->regmap, AW8695_SYSCTRL_REG,
-> +					 AW8695_SYSCTRL_BST_MODE_MASK,
-> +					 FIELD_PREP(AW8695_SYSCTRL_BST_MODE_MASK,
-> +						    AW8695_SYSCTRL_BST_MODE_BYPASS));
-> +		if (err)
-> +			return err;
-> +
-> +		return aw8695_haptic_set_active(haptics);
-> +	default:
-> +		dev_err(dev, "Unhandled mode: %d\n", mode);
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int aw8695_haptics_play(struct input_dev *dev, void *data,
-> +			       struct ff_effect *effect)
-> +{
-> +	struct aw8695_data *haptics =3D input_get_drvdata(dev);
-> +	int level;
-> +
-> +	level =3D effect->u.rumble.strong_magnitude;
-> +	if (!level)
-> +		level =3D effect->u.rumble.weak_magnitude;
-> +
-> +	if (haptics->level =3D=3D level)
-> +		return 0;
-> +
-> +	haptics->level =3D level;
-> +	schedule_work(&haptics->play_work);
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int aw8695_stop(struct aw8695_data *haptics)
-> +{
-> +	int err;
-> +	unsigned int read_buf;
-> +	struct device *dev =3D &haptics->client->dev;
-> +
-> +	err =3D regmap_update_bits(haptics->regmap, AW8695_GO_REG,
-> +				 AW8695_GO_ENABLE, 0);
-> +	if (err)
-> +		return err;
-> +
-> +	err =3D regmap_read_poll_timeout(haptics->regmap, AW8695_GLB_STATE_REG,=
- read_buf,
-> +			(read_buf & 0x0f) =3D=3D 0, 2000, 2000 * 100);
-> +	if (err) {
-> +		dev_err(dev, "Did not enter standby: %d\n	Trying to force it...\n", er=
-r);
-> +		err =3D aw8695_play_mode(haptics, AW8695_STANDBY_MODE);
-> +		return err;
-> +	}
-> +
-> +	err =3D aw8695_play_mode(haptics, AW8695_STANDBY_MODE);
-> +	if (err)
-> +		return err;
-> +
-> +	return 0;
-> +}
+contains all six patches, while
 
-[Severity: Low]
-This isn't a bug, but in aw8695_stop(), the error branch after
-regmap_read_poll_timeout() calls aw8695_play_mode(haptics,
-AW8695_STANDBY_MODE) and returns err, duplicating the code right after the
-if block.
+https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=ambarella/common
 
-Also, aw8695_play_mode() has multiple failure points and returns the
-results of regmap_update_bits() and aw8695_haptic_set_active() directly
-instead of checking err and returning 0 on the success path, and
-Aw8695_R_SPARE_DEFAULT has a lowercase 'w'.
+contains only the first three and can be merged into the other
+subsystems. As expected, I got warnings about the uart and gpio
+device bindings not being present, as they are getting merged
+through other trees:
 
-> +
-> +static int aw8695_play_sine(struct aw8695_data *haptics)
-> +{
-> +	int err;
-> +
-> +	err =3D aw8695_stop(haptics);
-> +	if (err)
-> +		return err;
-[ ... ]
-> +	err =3D regmap_write(haptics->regmap, AW8695_DATDBG, haptics->level * 0=
-x80 / 0xffff);
-> +	if (err)
-> +		return err;
-> +
-> +	/* Configure for RAM mode */
-> +	err =3D aw8695_play_mode(haptics, AW8695_RAM_MODE);
-> +	if (err)
-> +		return err;
-> +
-> +	/* Start vibration */
-> +	err =3D regmap_update_bits(haptics->regmap, AW8695_GO_REG,
-> +				 AW8695_GO_ENABLE, AW8695_GO_ENABLE);
-> +	if (err)
-> +		return err;
-> +
-> +	return 0;
-> +}
-> +
-> +static void aw8695_close(struct input_dev *input)
-> +{
-> +	struct aw8695_data *haptics =3D input_get_drvdata(input);
-> +	struct device *dev =3D &haptics->client->dev;
-> +	int err;
-> +
-> +	cancel_work_sync(&haptics->play_work);
-> +	err =3D aw8695_stop(haptics);
-> +	if (err)
-> +		dev_err(dev, "Failed to stop haptics: %d\n", err);
-> +}
+WARNING: DT compatible string "ambarella,cv75-uart" appears un-documented -- check ./Documentation/devicetree/bindings/
+#152: FILE: arch/arm64/boot/dts/ambarella/cv75.dtsi:76:
++				compatible = "ambarella,cv75-uart", "snps,dw-apb-uart";
 
-[Severity: Medium]
-Can haptics->level remain non-zero after the hardware is stopped in
-aw8695_close() or during system suspend?
+WARNING: DT compatible string "ambarella,cv75-gpio" appears un-documented -- check ./Documentation/devicetree/bindings/
+#177: FILE: arch/arm64/boot/dts/ambarella/cv75.dtsi:101:
++				compatible = "ambarella,cv75-gpio", "arm,primecell";
 
-aw8695_close() stops the actuator without resetting haptics->level to 0.
-If the device is closed while haptics->level is non-zero (for example,
-when inhibited via sysfs, or when cancel_work_sync() cancels a pending
-start request), the chip enters standby while haptics->level keeps its old
-magnitude.  Similarly, the ff-memless timer can still fire while suspended
-and call aw8695_haptics_play(), which updates haptics->level even though
-play_work is disabled.  In either case, a later request at the same
-magnitude hits the haptics->level =3D=3D level check in aw8695_haptics_play=
-()
-and returns early without vibrating.
-
-> +
-> +static void aw8695_haptics_play_work(struct work_struct *work)
-> +{
-> +	struct aw8695_data *haptics =3D
-> +		container_of(work, struct aw8695_data, play_work);
-> +	struct device *dev =3D &haptics->client->dev;
-> +	int err;
-> +
-> +	if (haptics->suspend)
-> +		return;
-> +
-> +	if (haptics->level)
-> +		err =3D aw8695_play_sine(haptics);
-> +	else
-> +		err =3D aw8695_stop(haptics);
-> +
-> +	if (err)
-> +		dev_err(dev, "Failed to execute work command: %d\n", err);
-> +}
-
-[Severity: Low]
-What happens if aw8695_haptics_play() sets haptics->level to 0 while
-aw8695_play_sine() is sleeping in aw8695_stop()?
-
-aw8695_haptics_play_work() checks haptics->level without taking a local
-snapshot, and aw8695_play_sine() reads haptics->level again when writing
-AW8695_DATDBG.  If haptics->level becomes 0 in between, aw8695_play_sine()
-writes a zero gain to AW8695_DATDBG and still enables AW8695_RAM_MODE and
-AW8695_GO_ENABLE.
-
-[ ... ]
-> +static int aw8695_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	haptics->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(haptics->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(haptics->reset_gpio),
-> +				     "Failed to get reset gpio\n");
-> +
-> +	INIT_WORK(&haptics->play_work, aw8695_haptics_play_work);
-
-[Severity: Medium]
-Can haptics->play_work remain pending when the driver is unbound, causing
-a use-after-free in aw8695_haptics_play_work()?
-
-haptics->play_work is initialized with INIT_WORK() rather than
-devm_work_autocancel(), and the driver has no remove callback, so only
-aw8695_close() cancels the work.  If an open device with an active effect
-is inhibited via sysfs, input_inhibit_device() calls aw8695_close(), which
-leaves haptics->level non-zero.  Unbinding the driver while inhibited runs
-the following sequence:
-
-CPU0                                  kworker
-__input_unregister_device()
-  ...
-    input_ff_flush()
-      ...
-        aw8695_haptics_play()
-          haptics->level =3D 0
-          schedule_work(&play_work)
-    input_close_device()
-      /* skipped: dev->inhibited */
-devres_release_all()
-  kfree(haptics)
-                                      aw8695_haptics_play_work()
-                                        aw8695_stop(haptics)
-                                          <-- use-after-free
-
-Using devm_work_autocancel() would ensure play_work is canceled on unbind.
-
-[ ... ]
-> +static int aw8695_suspend(struct device *dev)
-> +{
-> +	struct aw8695_data *haptics =3D dev_get_drvdata(dev);
-> +
-> +	if (haptics->suspend)
-> +		return 0;
-> +
-> +	disable_work_sync(&haptics->play_work);
-> +	aw8695_stop(haptics);
-> +	haptics->suspend =3D true;
-> +	haptics->level =3D 0;
-> +	return 0;
-> +}
-> +
-> +static int aw8695_resume(struct device *dev)
-> +{
-> +	struct aw8695_data *haptics =3D dev_get_drvdata(dev);
-> +
-> +	if (!haptics->suspend)
-> +		return 0;
-> +
-> +	enable_work(&haptics->play_work);
-> +	aw8695_haptic_set_active(haptics);
-> +	aw8695_play_mode(haptics, AW8695_STANDBY_MODE);
-> +	haptics->suspend =3D false;
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does calling enable_work() at the start of aw8695_resume() allow
-aw8695_haptics_play_work() to run while haptics->suspend is still true?
-
-CPU0                                  kworker
-aw8695_resume()
-  enable_work(&haptics->play_work)
-  aw8695_haptic_set_active()
-                                      aw8695_haptics_play_work()
-                                        if (haptics->suspend)
-                                          return;  <-- playback dropped
-  aw8695_play_mode(..., STANDBY_MODE)
-  haptics->suspend =3D false
-
-Because aw8695_haptic_set_active() and aw8695_play_mode() perform sleeping
-I2C transfers before haptics->suspend is cleared, any work scheduled during
-resume exits early without programming the hardware and leaves
-haptics->level out of sync.
-
-Also, aw8695_resume() wakes the chip with aw8695_haptic_set_active() only
-to immediately put it back into AW8695_STANDBY_MODE, and both
-aw8695_suspend() and aw8695_resume() ignore the error returns from these
-I2C helpers.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-aw8695_hap=
-tic_fp4_driver-v4-0-9d107334bdb2@fairphone.com?part=3D2
+     Arnd
