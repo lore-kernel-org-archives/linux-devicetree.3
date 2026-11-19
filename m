@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795095769;
-	b=cxo0jnRYZmwTe5yXdAQuEmPIX/H6dLZErqSCJphtDnoeiX2ltKeOBsmyHW2Pa8lvGshx
-	 NklGZ+L+wgS/FGmHtUHNYkRU3c/P94M3jsF1fWKPFzBPNJ3lsCNusq5QICp6KDr1GXvH7
-	 9msTY24Wephb/P76VP51WvubUQYvxJdl2DY9VtD6giPcMeKg7unvCNd81s8iNbMuXWRFm
-	 482e+G8qvkVAbyuQPxgwn3T2Fv/Z7VW0vZWnyFjwRUzhROkQXkIJH/kbCCKgYnYqb1u+i
-	 eeDQq7A6LTWXOBHJtzO9S1IXv2iOqrnzlH945AoPkZPxVT/e4fvW+8Eb+0ZcGgjSrJw==
+	t=1795095907;
+	b=uZDPMKz5hJd3ZKyFp8kacsD9qeU+/nWu+usqbhud0MoQSCOnJfq8pW3oDllN6fjNwCYb
+	 dlyignGjwtgLKCmQDnDQUcolcJ4pQVcS9We7ircHEwh78hJwRD0XVGu20hX7c2nIC1bDy
+	 sgEQEwlkmma1G4FMjQPlchHp+rRtg4tN8aNt7aEwcFpxHgd6uV45ZtgtIZ6mufYB91Srt
+	 ARwenvtiehyryDxxWCWPzSa/XpfAh7gTAO32tdT62akekHwWfGUgPhrqC9o1QCWsPOV6r
+	 neQgErxQyO8OUszoNkDd9j+b6fJ377oGEM0ZkShGXUF4Dwv7OK+2590AbCzLZH1Lgyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795095769;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=nZdp0i3Rcd8dUWa9Bt9ZOOH4xL6dQjkpGD8A+LBfsc8=;
-	b=c9R632pEi1hPIH+dDyQtlj242A3FvKogriGyhWCgnatkoSnIr3BJboB6vfakWWaY1MBT
-	 Jw67VNpe/1uvXd74gRe61IhcDmBCCQcuAm9OsGekzS7WzZV5NA2PT6hXN1qZ2tkdwFkFy
-	 nEuUqJunq2ynh7cvDtGAqbUL/MOl00/yQGLg8Wz+9PNwQDFtyXROWPNMwKiDQ3Jvc/kvn
-	 cvCS/qled3fUc/1MdoowuRpNOu0etC2EIdrP4JbLGMU+E04W3weATSJiZAej0BcYZwdbe
-	 PUoK8VfCDOxXob8N9Vc25cMwFuxStut07PSEG0jNRsYyNyMJJKfzljA+yT1HRr5udew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795095907;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=InDwd5ord1uO7JbO8/j2hh0MYhOZynVPTKgcMtQwGnM=;
+	b=P/ihMUrLdI/i4Qof3ppeWMdxk7dQNOno8p4yZjUMqispO8TfXFLAfz2Dbi/g86BB5ibu
+	 XMCPuEiF87sZPpJph7DQPK+OPwbbp1i2VEAcOriiO3mBbsSjlhn2yB5Ee1pPT8bniYiSH
+	 vcHP2/Xdi10j3j5esTwRx8HZtlG9JG3HnVfO2jr5CWceamiFF0Nt90fPKgReNF4xb9ZeY
+	 +k1coeBxIDvphbNoRD2QElAiX7eKQU5C8jZ3m75hYfC0o3xUsxKEc3/zYg9QOq337+iUO
+	 YBVaTbL+LQwC/C1RBK3h1ZQyWhYFZXP4PWL9o5HImv9dx9QVnuXTwiTVTAgn9p+mdgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=gUa+K79J;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkQRt1Cy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5031606A335
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 13:42:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5031606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38786606A32C;
+	Thu, 19 Nov 2026 13:45:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=gUa+K79J
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1795095727;
-	bh=nZdp0i3Rcd8dUWa9Bt9ZOOH4xL6dQjkpGD8A+LBfsc8=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=gUa+K79JoFLk+zHZD/od3q5BDN6fgMRGbO0ap4n0/c+4fYpuKgyqWN7qTVPHlsUvK
-	 RaNGw2LTJUInmItLsGUGbuK5WG0ojWv4F9axb9YtkpQfSAWt6WBliiiDuc/O271PTw
-	 +0+pucoJftCFksuQbC++x3qHdqqH0gcUFw/7Q8pM=
-X-QQ-mid: zesmtpgz7t1795095720tcc6bfe3e
-X-QQ-Originating-IP: oBMZ7/Jsgw81Tm2aj9xw/e7pkYmdSSzjUv4Itvl39qM=
-Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 19 Nov 2026 21:41:59 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3828560295831810714
-EX-QQ-RecipientCnt: 14
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Date: Thu, 19 Nov 2026 21:41:52 +0800
-Subject: [PATCH v6 3/5] usb: chipidea: usb2: drop the ci_hdrc_usb2_priv
- wrapper struct
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkQRt1Cy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F2BD1F000C6;
+	Thu, 19 Nov 2026 13:45:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795095906;
+	bh=InDwd5ord1uO7JbO8/j2hh0MYhOZynVPTKgcMtQwGnM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HkQRt1CyUzzLeeQiWK+I8pHR3mpKF/2lBOk7R9mTATNCzRbq/H2ZS0aI8cfolga2c
+	 D5nM0vfwdB4jo2fazdkaT0yVN5HV2BooIPx3XKiy4h+RS+HJhMRlWyTdb1ED/dHcSr
+	 u3pZkKCmVCtGJl+CsDVOixMivK5Pvdg38PvE6TnX9/Q683bzuHVlGxC/r/joxCAvpF
+	 IqeGGaFp7V4w+0yqJhBHj6v5ZNHtygYs+zVhijAt17KWb0FTxicTNpmTusLgyRFMo6
+	 9pK+ZJxT5lKz+8RdMBT+zN/n/QySOuZH3f7Bdq5DcuUQ+/1kOuHcv/0cDHSHT/Q+lp
+	 LRdIhhQjkZQZA==
+Date: Thu, 19 Nov 2026 19:15:03 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sriram Dash <quic_sriramd@quicinc.com>
+Subject: Re: [PATCH v4 0/2] Add support for SA8255P in the
+ phy-qcom-snps-femto-v2 phy driver
+Message-ID: <av79X0gPyQDXgZwR@parshuram>
+References: <20261027-phy-qcom-snps-femto-v2-8255-v4-0-874023825a63@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,131 +65,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261119-b4-spacemit-k1-usb2-v6-3-4a9add848728@linux.spacemit.com>
-References: <20261119-b4-spacemit-k1-usb2-v6-0-4a9add848728@linux.spacemit.com>
-In-Reply-To: <20261119-b4-spacemit-k1-usb2-v6-0-4a9add848728@linux.spacemit.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Peter Chen <peter.chen@kernel.org>, 
- Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, spacemit@lists.linux.dev, 
- Junzhong Pan <panjunzhong@linux.spacemit.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795095710; l=2809;
- i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
- bh=ghDUbM3sfq+Qbsm1aZIr9gI6ddjgLgmKB6Bs3nXeJJY=;
- b=/p9EUu2W5sU4Gq/JNAGtaVTBG0xB4UJ5XKWFK4NrJoFvb5hUCtQ4uwrI/ARX6/ssfwYo5sV+l
- rIenUpy+em8DhHvZeOkotptEznqs+FOx7g9b4fm04iHiI8vLyBbKhco
-X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
- pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: Ne8UdcGpoErH4icDzkpidW+w8CkD5MPhVMnbS6Axhmrhs+fx7RZYqgZK
-	GBeMoqxTchrDbeZs/ZxNSZsHAby8HLD9kTBkudPS16ACp4SqSTBsFC251kE09UFdpHljcJN
-	OaVFwMnQiQPoLdxbKIQeIr1mdRVJGoS85hvqhp0dMjaPSo88czoTt74FFfsAQgvIWanZlYE
-	L71lYfAMUKnWDgUl+uHo7NHNjGXB1C0zZMrqgJlBUFE5zhy11uxvb2IF+KNRJN1VRnDOpwU
-	N8tQPbkUMyjghuw8f63GxmG5AB/svtXPQNUDqzxO3MjdotAIs0zd4Q/OlUxyCeOCMFdQJwy
-	sqWzM/35ExtzWUnwlGnB2kQ9qW55Lq1u0kwtayg2JbjTi9KnR/quUPh5hvxXYraUKMBD8d3
-	GWHfI+NPce3xIsByrmuXrJmSPlDSOxUqmzXVO3HinBcZi7JZ9pBtM67Pjdyv1sQFo0Tvlg5
-	UYbpK3z9veitK3fnCzWOlMT9WaABx7d2gBjMkwZvu//z7/GarN0bU4kKYn2Nr244HlO7s/d
-	8+LXLmqnsr2p5cQ2frt3jlNT2A0DX7FFsZZHkT/lEwdGoXdHRT46B/7x3KXZWOHo8dtCDXj
-	sWyqaViDSHUCw6ZluK7IEL7wUyFwhdHiR/JReo+SFibEtQb4cyNXHKikgfYH52JCrgrigd0
-	GL8C6ouHNyHAoWHGvybEiur26UjVgyphCAbNH1c0odp+bdVFqcn9VLIM/hUtq3NPLt772N3
-	I53MBJ48hS5Af1q5GCvxYYXpgvVx/Kpg5J/cUondGtI0xxXYQPMPmIv+J/ZEptwrPQgWnwJ
-	Uk/Yt6cyd3GdC50gMgWAwTItyMM+AB0JZP2RKxAiuNqBUWzgvUYctQHaoY8A22/z65nVYDU
-	arUMLMMNr//2e2rqztyPu531m+Dhdpc7QhdBaQFybNluqRm/pJw1r7O2OvVJO5WUOl0Fle0
-	8mAU3zWGyo5VnlSRQSID53w+j/Hal4XyPFXo0dRBZpgGDhSmMaWthfe41JOWhXFcHzF7c6f
-	ssbl2JPJzpDaJ4tm5+wqdyg89F/u1Uwa2wqgp06eQs8k42rnxMjOCucGTKuk+mWJZIl2QF0
-	E9IhRSchLClw1+fk/elnK/YW+ZbBCtv4PFQgePw1zue
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-phy-qcom-snps-femto-v2-8255-v4-0-874023825a63@kernel.org>
 
-With the clock no longer stored in ci_hdrc_usb2_priv, the structure only
-wraps the ci_hdrc platform device pointer. Store that pointer directly in
-the driver data and drop the wrapper structure.
+On 27-10-26, 14:00, Mattijs Korpershoek wrote:
+> The Qualcomm automotive  SA8255p SoC abstracts resources such as resets,
+> clocks and regulators in firmware. The SCMI firmware exposes multiple
+> protocols to control such resources which are identified by protocol_id.
+> 
+> For this USB phy, 2 SCMI protocols are exposed by the firmware:
+> * power domain management protocol (protocol_id=0x11)
+> * performance domain management protocol (protocol_id=0x13)
+> 
+> The power domain has 2 indices: 'core' and 'transfer'.
+> * core controls the regulators, the clocks and the reset
+> * transfer only controls the clocks
+> 
+> For example, to power on/off the PHY, we should use the 'core' domain.
+> To disable data transfer and keeping power enabled, we should use the
+> 'transfer' domain.
 
-Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
----
- drivers/usb/chipidea/ci_hdrc_usb2.c | 24 ++++++++----------------
- 1 file changed, 8 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/usb/chipidea/ci_hdrc_usb2.c b/drivers/usb/chipidea/ci_hdrc_usb2.c
-index 0032f9a9888e..264546247a08 100644
---- a/drivers/usb/chipidea/ci_hdrc_usb2.c
-+++ b/drivers/usb/chipidea/ci_hdrc_usb2.c
-@@ -18,10 +18,6 @@
- 
- #include "ci.h"
- 
--struct ci_hdrc_usb2_priv {
--	struct platform_device	*ci_pdev;
--};
--
- static const struct ci_hdrc_platform_data ci_default_pdata = {
- 	.capoffset	= DEF_CAPOFFSET,
- 	.flags		= CI_HDRC_DISABLE_STREAMING,
-@@ -48,7 +44,7 @@ MODULE_DEVICE_TABLE(of, ci_hdrc_usb2_of_match);
- static int ci_hdrc_usb2_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
--	struct ci_hdrc_usb2_priv *priv;
-+	struct platform_device *ci_pdev;
- 	struct ci_hdrc_platform_data *ci_pdata = dev_get_platdata(dev);
- 	const struct ci_hdrc_platform_data *data;
- 	struct clk *clk;
-@@ -66,10 +62,6 @@ static int ci_hdrc_usb2_probe(struct platform_device *pdev)
- 		/* struct copy */
- 		*ci_pdata = *data;
- 
--	priv = devm_kzalloc_obj(dev, *priv);
--	if (!priv)
--		return -ENOMEM;
--
- 	clk = devm_clk_get_optional_enabled(dev, NULL);
- 	if (IS_ERR(clk))
- 		return dev_err_probe(dev, PTR_ERR(clk),
-@@ -77,10 +69,10 @@ static int ci_hdrc_usb2_probe(struct platform_device *pdev)
- 
- 	ci_pdata->name = dev_name(dev);
- 
--	priv->ci_pdev = ci_hdrc_add_device(dev, pdev->resource,
--					   pdev->num_resources, ci_pdata);
--	if (IS_ERR(priv->ci_pdev)) {
--		ret = PTR_ERR(priv->ci_pdev);
-+	ci_pdev = ci_hdrc_add_device(dev, pdev->resource,
-+				     pdev->num_resources, ci_pdata);
-+	if (IS_ERR(ci_pdev)) {
-+		ret = PTR_ERR(ci_pdev);
- 		if (ret != -EPROBE_DEFER)
- 			dev_err(dev,
- 				"failed to register ci_hdrc platform device: %d\n",
-@@ -88,7 +80,7 @@ static int ci_hdrc_usb2_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	platform_set_drvdata(pdev, priv);
-+	platform_set_drvdata(pdev, ci_pdev);
- 
- 	pm_runtime_no_callbacks(dev);
- 	pm_runtime_enable(dev);
-@@ -98,10 +90,10 @@ static int ci_hdrc_usb2_probe(struct platform_device *pdev)
- 
- static void ci_hdrc_usb2_remove(struct platform_device *pdev)
- {
--	struct ci_hdrc_usb2_priv *priv = platform_get_drvdata(pdev);
-+	struct platform_device *ci_pdev = platform_get_drvdata(pdev);
- 
- 	pm_runtime_disable(&pdev->dev);
--	ci_hdrc_remove_device(priv->ci_pdev);
-+	ci_hdrc_remove_device(ci_pdev);
- }
- 
- static struct platform_driver ci_hdrc_usb2_driver = {
+Hey, this fails on phy/next for me, can you please rebase
 
 -- 
-2.34.1
-
+~Vinod
