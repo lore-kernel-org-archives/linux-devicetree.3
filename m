@@ -1,90 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.167
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795102671;
-	b=JDJ8j8BeyMDpg3orLExjFLV65tkND/9bnK5AXaNTLznsl3abCf9kfod+3vRPpCmq/7a6
-	 dFFz4dNnksK1t/SsUxYvHCUtEQefuKIKtl/Z5BhiRFtHYsxn4FqCrzoY3BK9uNdYpExvM
-	 eUUfUD99anfzbEwHcE9li34GX1UoPflil6nNhWA3lZNeQnibnCW1GZnODqFG7wbDDi4A0
-	 EW8GUq+PlBUuTWGAsfJLBlY5/3c6B1q6lj/qxpJ9pIHPeH7MEEAxjRETNumFE46R2qoyE
-	 CAPDmiS4V3AwkAw4+OGp3GQv7ApRIVdLJmsBWtSuxN3TuIAxRRUTBwXyBbrkdNM/35A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102671;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=su1E+UyCHhrVqldGNWSA8TEe0cDtoa1PSPkx7g6Sb88=;
-	b=qYA+yxUKWnbFUde3kdgeZqcENvcPifORwjhwWmYQCxEbePP9kLa8kQnG3CWMWqru3AXb
-	 UxT5+ubqOdDiSH8YOaD2Ta3/pVXcw67gKUp8ujQCt5mDNkCkkNj/C/ny1pxi4FFtfgQQv
-	 W1UrT7fMoO9Z5ZogSZd//RYyon/rtArP/PUGCfqFGYOrHLMfHKS2YH2UPwaVckqHjeNiZ
-	 WqczfnNd0IWM+XBflT5OqXBylkvDXY3slxc50dRhIwAJmZwC8HcHIDHnNx8Sso6gNl9K2
-	 jNapXvmyqUtONjjs0MmN+RMBLpJQI3oJbf6i83Jfxo9bX3bL4Ls7EMeOusbexAlHCxw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Xvp7Dx29;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=g7PdwMOu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.167
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.167])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795102694;
+	b=SViBgb8elj2E2A6XfOUcTByDguipTw47gIUJbAVYAciB9nbziHw7IuqlNVgyijmR4bJG
+	 YSPbNVReb0Klp7yiuUekG2qyEzM3xluDsNio9ifFRqvRXUHbmd11QOLHbhCAxna1Wujn/
+	 9QYldb/pwvupEtRgTcoyNq9CsOnKA00zZ2OPSYWidq66E4NjAFoKh+t7cnZr3qeyK5GKn
+	 iHa/+6LUPJ0sMu4ZwAMoejB+hhm6m+j9NcKgiBtJYVYuSP+v9vB3eCS6aQJrq1dB474RQ
+	 h8RmPVS3GqBs6xII0hJoO4xuaiwYZ1YUzR4g8SeSCOMNdgsWRHeaRo2nFIm2leRmkOQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102694;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=l6QCwwOco8+YoyantpGBcWKXqziWQvT+Hz/ITGjUU6I=;
+	b=brFMa5p19H5yDxoesYL6RQke8MTOHkGOpf91l/Nt9wT7uP3rV8+a/F5K4Ozsl3+ITbCx
+	 X+hfhSXtBbPJOsMaQsxb/hKYMBrHhdRVKOErYeMiIBPCVBGKXCpWZSvXqCUUXrClIKXmv
+	 E38XIqQcaWzfgi3Qh929zc2xNYavn995OcFpTgmyIq/9oPw3x1g6eYGKsXWn2dv7pMPOC
+	 Li9KkLGYVn++rDfagekJ0bLV7ZmcD+nfcBC7F5FG7tux5pvEZo8zDMAd8Fw+OWd7UUpUg
+	 gfD9amIofMZtLpkfZEC5rGHbRN1quJqP1veC8BSIsEjUQECfdmyJly5GqOP9O3rq5cw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPjoXz9e;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE24C60A2610;
-	Thu, 19 Nov 2026 15:37:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE24C60A2610
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB5960A2628
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 15:38:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Xvp7Dx29;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=g7PdwMOu
-ARC-Seal: i=1; a=rsa-sha256; t=1795102650; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=byOsvyTaulHAewPSWT3V+vzGEirwvY3hHf/RyFzHXE/2JmQd/WnKSopoxGP0fK7Wdz
-    cCekItUEqKwYumt7PlD8k0Ku1wAHmDALlPl6PD9wXVLtGGbPJujuzhXVrRCX4ir5CEHI
-    f8CoKqqxgh1jLsbBghseNW56vEla9Si4mohu0pSN2yfDQLPAyRfqLJwTmzBV6KZKAKsg
-    eyccoF2K7Qfm0u67NZ8Sm7NXxZO7Z2mgvZ1y0osa2QnRP9RMxkOc2ORbLn/R9x8RM1Ck
-    LGXVWpOq2EvV4i46wWfjvKngpqsi86GdB4+4k7De5HH20ybz1BJNLNFcn7o4ZC2gDKCV
-    0maQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795102650;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=su1E+UyCHhrVqldGNWSA8TEe0cDtoa1PSPkx7g6Sb88=;
-    b=sUKXkqXuMwotJQzC3Mvk3htzobmgVsA8AJG+aaE3DDoyCBXUxXSe86dCd7feNlG2MO
-    EeySrMOY8F1dkq066lB95wOM7m2ekKJZZPmvAF7UCn8GTG1r2afNpuOwgK2eXxPr7wag
-    hV31Bgt6L3vGTp230qZQrbVcgvArAjvC42nxspmlrAJctkOwqFGj7+0oKQm2i+xczQD/
-    dKuzLbcqWimbjEde/5hayw4rMwK1qusmwWOB5pSNIdBqPzaX93E/W99Exd7/Xz8+LguL
-    QYUJkV5o07SUWWjJ1lrfVo+AJfl8omtHmOaDzIh69HmiL4JfTF3BqRCcUb9atQD2UwI3
-    vFaA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795102650;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=su1E+UyCHhrVqldGNWSA8TEe0cDtoa1PSPkx7g6Sb88=;
-    b=Xvp7Dx291ijWshcpPjQ6LjHs+VsjogkIcR0bsVo+f3/SoUMaUH1Ia4NB7qtVNfAWtG
-    hi19W6bjWltHaqr2sNiAcA3mpZn08kc8zUGrOjRe36FDrSxPOFVv8GDLxlAXcXgrTLyv
-    DfrbeosuX//d4q2YqMBBzrhAxoX7Q4Ak8IAoW2p0vbmzvDhf8zcyLAmvownjMpk+gTA/
-    7leIlGCDNPqgAasce7hGlmlI8Pm7BqwwbbDE6cXTqguGWFzF+q/qjJo9HuQdzuiB8zXU
-    ycJfFu6E5/ReqdLNf010oG8mIA2+wA/KALcin9iK+cxFVVYEzLpEecvYyZ6I4HTaQXbe
-    EJxg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795102650;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=su1E+UyCHhrVqldGNWSA8TEe0cDtoa1PSPkx7g6Sb88=;
-    b=g7PdwMOuXkqA3VGy23UA4SYSDBklVZtzoYnWbQzMMkZwBa4dTtonwqAFmUlV94ZDi0
-    7giU7/xRt70INWojumAg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrVippbzMiNg6IYaWB/kgKnPFT4xvEDRUsTkpe3"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22AJFbTk92
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Thu, 19 Nov 2026 16:37:29 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPjoXz9e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2F181F000C5;
+	Thu, 19 Nov 2026 15:38:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795102694;
+	bh=l6QCwwOco8+YoyantpGBcWKXqziWQvT+Hz/ITGjUU6I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nPjoXz9e2ni26BSksSyl/j4hPRXnhSMf6q26S78BjKQ4g9GC1ZKdjfryP8sDTvkP2
+	 xPxL3rWoE3qk+1rrT3N3lk+zgA/Lq4lb94v2kNL7sn5RhgbQHPRGDMjCXDmR6cGuzV
+	 wTxr4rKgAC3/q0J9B/smldGPTEKbEKKW3YhScrOFmcICfTj0eeGrqYUc1YryYlY2JU
+	 dhwqGd+5E7SA4HWB+gC5EHJBMe9Gna4zeF2ZxZaWQcltyP0ZMU1wYvS9apUU+HerEo
+	 9NrCBTcWbroN7dfqjKvBsHeJ9yQeJYIow1tEJmvbCntlyqMzC+Yu3kh2fxTqiD9ZOR
+	 jikzkMqOJFJHg==
+Message-ID: <sashiko-outbox-223396@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] scmi: driver: Increase timeout for rx response
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Paul Cercueil" <paul.cercueil@bootlin.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261119152944.276763-4-paul.cercueil@bootlin.com>
+References: <20261119152944.276763-1-paul.cercueil@bootlin.com>
+ <20261119152944.276763-4-paul.cercueil@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 15:38:13 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,49 +59,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH v4 3/7] dt-bindings: pinctrl: ingenic: Add X2600 support
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261119152516.GA936383-robh@kernel.org>
-Date: Thu, 19 Nov 2026 16:36:58 +0100
-Cc: Linus Walleij <linusw@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Bartosz Golaszewski <brgl@kernel.org>,
- linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org,
- letux-kernel@openphoenux.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <E34DE34B-B517-4FC8-963B-6A5AF14409F4@goldelico.com>
-References: <cover.1795022736.git.hns@goldelico.com>
- <a8688e1ea979dbbb3ffa198ca041b31c97752bad.1795022736.git.hns@goldelico.com>
- <20261119152516.GA936383-robh@kernel.org>
-To: Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-Hi Rob and Conor,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] scmi: global max_rx_timeout_ms increase instead of per-SoC DT
+  property
+--
 
-> Am 19.11.2026 um 16:25 schrieb Rob Herring <robh@kernel.org>:
-> 
-> On Wed, Nov 18, 2026 at 06:25:33PM +0100, H. Nikolaus Schaller wrote:
->> Add the pinctrl and GPIO compatible strings for the Lumissil
->> X2600 SoC.
->> 
->> The X2600 has five GPIO ports with 32 GPIO number slots per port.
->> The programming manual lists 113 implemented GPIO pins.
->> 
->> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-> 
-> Missing Conor's ack from v1. And then he acked v2 again which happened 
-> after 3 versions in 24 hours. Please add tags and slow down your pace on 
-> new versions.
+commit a587b3cdc57b99607cd614c8d305614227ccea74
+Author: George Cherian <gcherian@marvell.com>
 
-Sorry for that omission (there were too many comments on the other
-patches). Will add to a v5 which is planned anyways. But not today.
+scmi: driver: Increase timeout for rx response
 
-BR and thanks,
-Nikolaus
+This commit increases the default max_rx_timeout_ms in scmi_mailbox_desc
+from 30ms to 500ms to accommodate the Marvell CN10K firmware response
+time.
 
+> diff --git a/drivers/firmware/arm_scmi/transports/mailbox.c b/drivers/fir=
+mware/arm_scmi/transports/mailbox.c
+> index 308736c3ead9c..78c38d2644aa0 100644
+> --- a/drivers/firmware/arm_scmi/transports/mailbox.c
+> +++ b/drivers/firmware/arm_scmi/transports/mailbox.c
+> @@ -380,7 +380,7 @@ static const struct scmi_transport_ops scmi_mailbox_o=
+ps =3D {
+> =20
+>  static struct scmi_desc scmi_mailbox_desc =3D {
+>  	.ops =3D &scmi_mailbox_ops,
+> -	.max_rx_timeout_ms =3D 30, /* We may increase this if required */
+> +	.max_rx_timeout_ms =3D 500, /* We may increase this if required */
+>  	.max_msg =3D 20, /* Limited by MBOX_TX_QUEUE_LEN */
+>  	.max_msg_size =3D SCMI_SHMEM_MAX_PAYLOAD_SIZE,
+>  };
+
+[Severity: Medium]
+Should the 500ms timeout for Marvell CN10K be configured via the
+"arm,max-rx-timeout-ms" DeviceTree property instead of raising
+scmi_mailbox_desc.max_rx_timeout_ms for all mailbox platforms?
+
+scmi_transport_setup() already parses "arm,max-rx-timeout-ms" to override
+trans->desc.max_rx_timeout_ms per platform:
+
+drivers/firmware/arm_scmi/driver.c:scmi_transport_setup() {
+    ...
+	ret =3D of_property_read_u32(dev->of_node, "arm,max-rx-timeout-ms",
+				   &trans->desc.max_rx_timeout_ms);
+    ...
+}
+
+Raising the default in scmi_mailbox_desc affects every mailbox platform,
+increasing the worst-case busy-wait in shmem_tx_prepare() (2 *
+cinfo->rx_timeout_ms, called from mailbox_send_message() -> msg_submit()
+under spin_lock_irqsave(&chan->lock)) from 60ms to 1000ms with interrupts
+disabled when a channel is busy, as well as the worst-case atomic busy-spin
+in scmi_wait_for_reply() from 30ms to 500ms.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119152944.2767=
+63-1-paul.cercueil@bootlin.com?part=3D3
