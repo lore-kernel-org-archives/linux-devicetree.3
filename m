@@ -1,78 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795114878;
-	b=1zNY+4Kgo6tfk8q7kv01jPeTaKOI5f8yBVmtzeXx5zJP8jZNq4prkLUndkZFNEcWUICT
-	 2xuGIzGTehLERr/hRO3auwo8wPd8GGUMKrM6Cywir5wmA8mVSdmFYSPUqbSBB1dTQvewA
-	 IJG6w6kmZ/QtqKr6zVUvJzgEpeICdzcC0PtUiaTktp8H5/lzeN0AIoD4yb3FGV3VxsEwh
-	 4dqRutw9k7IsYOCcTc9haSvs4t5nQruZIk+9nKNyQdt3GvWZmXFswpqGUn5BKJhfpzUa7
-	 EfvJ/Ws/0/hli9S2B/Z64Soc7EnFmeKCqC1iVBjMsFyfxNeF/NvQanEo6b/eZzIPjSA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795114878;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pwpdWUiw6T/Y607ZSrR5o+sd2JKSC9G/MGu3urE1P4M=;
-	b=C+DjY5dGpkQDmxdXPVDgxu008eX40+Z3VkHsbPJOB+46QrKW1RprLcTtrCnDHHz8OnH8
-	 4hLp1y+Ge8OntreZxMAlbQAWC0l1jK5fuE3zKZDwNC0mcJlqZVUGQEeI/VIRb8nVDitif
-	 mZJ6LLVyuogxOpAQ1W08/N5Y6cHl97MRRGZS4JGJSvCvEbE5aJKTY1uaP+mJesWwHsRbF
-	 y2s+nDfW7D0bSz+gHhkDFwPyoydEhukMYdYkiZ1q/4IHOZwxYn1NJtAZntVaxaV7HRDJb
-	 ZkruQ9h0pKhPqKmqW40nicwvbVgzjFNSMqdoDScY8w/+6JfleB7q0YeDf7khxEyTsTg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oF0LzqgL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795114934;
+	b=aOTa386/SIpeenIeL4TpQAOH95cdc63LD0S6CqtT0fbvBsTzMMQcixUgcndyOZ7t6aRE
+	 shgeJPyWJ7RnST4RZ5oCvPqTbOamiYRlzhpTn/fihP4AwgGRjXlYhOz5eiODDffXCYB3N
+	 +o34FiS4GGq8uXVD94edvOcqtD09NbK8MMH7TGVhTO12pNXezrm9JaMQYMKlKrgDmmBbm
+	 EHsKDC0TarKy/XZy5LEwdI1f9f7z/bHh1Z0tM9qzoV79anqNGw5qCuKefUhfc2wqM/S9a
+	 bXtv9XLLwO+Lhrz/UH+6TwaCw/R+qyZdJwl2uvKJ1fjxtbtMf9sMDBoO5kwvWXl6nEQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795114934;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-AI-Review-Draft;
+	bh=yW9CLK3VCbPV9uHrJRzlV05f12UIycKqO4K90lvCbqs=;
+	b=e9R4/RHyik5m6NuhFpKyuUAWF00TmPo4wfLzEZz9/Rm/9ckbxPoVS/4W94Gdk/P9WwK+
+	 XUskDaP4BqSyGavIe2O2sriaE/ju/pq9cm0o5SD9yfVIIgElBCCZmFKKwtP3GUh7+cVc+
+	 1yMeFU4bQPGStaRluyUXikBFKJ5D2Eo0JNLLDFTg6wuC58DX+82gj9nwl9ehEwEHWADeC
+	 ADnQ3ay3IyEtqZDhWUVNYixwe6GhzV9wiW9deccwC9SKkSU7DBZwMNlcxMISq2spzt/Xn
+	 XfItp0bFCwmikuinMFY43BrByvDejgSWrY3ygAjbQtgATv+9xV1UI5flpQSkvVsuF2w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nx4ge4Tb;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F942606A337;
-	Thu, 19 Nov 2026 19:01:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5287606A320;
+	Thu, 19 Nov 2026 19:02:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oF0LzqgL
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795114878;
-	b=kUcPGbJxgsdFzK9q5UnbbOOROE2iO2aeGro3hjnOuyK+Mgvyznsp5OInVwp1rHINyikd
-	 /18Vykt7I0FhGC98bivD4mWVvqvfiYsigZpic3Tao8qMYVbeMQod3WK++IK47e1oHD5So
-	 zo+Z8XIBpFy2EPfTgcF2jHCZ7yb4nrfCQYzvex28IF7XLk8BMgj2O3iV1IdzASPQtABYO
-	 bL55PTcEXXNJLObQSVT5himWecT32+tRnwiVzvW12Z+O1qsS89C8KMwTFvyI3vw4TbZHd
-	 nF3iE4sXddRdRJ5i9fecM2oMN6mi6ODWoxsjSxh6GOgkmvKbDJSStjRRiIU1c1Zu0Lw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795114878;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pwpdWUiw6T/Y607ZSrR5o+sd2JKSC9G/MGu3urE1P4M=;
-	b=j62pyo17320qM/8jOET2lBh2frgbIPNigZQB7kGDyuDDrshJA6rI03KQO3SPCY1T2DdD
-	 irD8/AFEqY/yyX3USIRJPjSmZcePKTI195hgwgkozMrqFMtZ3TXhkOZJKqUetWT3MrY8Y
-	 dQRdi+ahbTCvGF8nMLA3MHWI1OCzyGQkwDraxzkHKGI3CRLrRyIUyIScxhWYee06LQWR8
-	 c1vBN+XGoIt8tbbj2P92vSDscIngxPkjEy+gJfCbmbooXdMjT10bsPvbr2pJSV10BWN6u
-	 DE5YhlbGAMwe6MNr1TKAbZKVonl91ogdUtdG4/cAow7trMbI6UWPqKIXX7zI5eVelgw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7AC651F000C8;
-	Thu, 19 Nov 2026 19:01:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nx4ge4Tb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7C61F000C8;
+	Thu, 19 Nov 2026 19:02:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795114877;
-	bh=pwpdWUiw6T/Y607ZSrR5o+sd2JKSC9G/MGu3urE1P4M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=oF0LzqgLgH6ZXZD+4xboLacV27KElAYvQ7BadHSWL1eX02DvB+pB4VePMpG3WcQ11
-	 Af9Oe/qLOGMssC4iBKEccypawdOnawDlS/5PxjylT6E7jxan83U1+H4lWw3sQgqkFt
-	 Sm+mxrq/OnUNAPyMUgu2WJqdzPBhbn4x5HtI//R6CNdgH6Zs2XJ87SL31W8rI7VXob
-	 Uf1yHWVHfxVL/xRgC7sGBI/Ca8bAchzddv83FHt9ACEC3tTSbPWHES84qx5ZdGdO7h
-	 v8lyHVyxebePdnUiFbtE6e+59AkNZ5IrOYSTjGjm/he9oW5OQkLRS+NED4V2wWnC+N
-	 T6zFjTwi2izMw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EFA434B3E6;
-	Thu, 19 Nov 2026 19:01:15 +0000 (UTC)
-From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Date: Thu, 19 Nov 2026 20:01:14 +0100
-Subject: [PATCH v2 3/3] drm/panel: Add driver for Anapass ANA38407 DDIC
+	s=k20260515; t=1795114934;
+	bh=yW9CLK3VCbPV9uHrJRzlV05f12UIycKqO4K90lvCbqs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Nx4ge4TbiYzaE4xxOddbb0h1zqryiaLduVDMCacNw+Vg49Wq93xKPpR8Kp8by7+uV
+	 fx62BZz/7ENB6KOpDXs8TGRslr0I+7imguO5LDZDFOiasJD+kaWInZ6M2AfdIg/FGR
+	 iPLEn10bqDRRiMFeEDaPrd19nrG88Ma+y395gd6j6s1FxKh3QcCdCnfMasxpP3FaG0
+	 nqVMnIfwWWhexy0bh/UUVuQKjPPTfiAj9xuYg/CR49ib+cqAXmmymU//Ee4Z8nXyaU
+	 s/Gdpqgr/DyX4b8gPRtWe1tXx8L0vAGFt2G9uvyFbo4YT/KoJOqH67efj2TtBxIrMq
+	 21oqH5qXKAN1w==
+Date: Thu, 19 Nov 2026 19:02:09 +0000
+From: Lee Jones <lee@kernel.org>
+To: filipescu.cristian@gmail.com
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH RFC] leds: DT: migrating existing labels to function/color
+Message-ID: <179510277952.63755.11124972443142013738@kernel.org>
+References: <179489221679.1.1429296960451969532.led-label-policy-rfc@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,427 +63,120 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-b4-ana38407-v2-3-bddc251bd43f@dxdmail.cc>
-References: <20261119-b4-ana38407-v2-0-bddc251bd43f@dxdmail.cc>
-In-Reply-To: <20261119-b4-ana38407-v2-0-bddc251bd43f@dxdmail.cc>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Nizat Mikayilli <nacht@dxdmail.cc>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795114874; l=13185;
- i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=fUuFnyBmfdreocKNTZajAWZxq+bXqEYpgcoDwRzXByw=;
- b=afSVNMEDNF1JEd68fDa6saGjtKm+vvIZH/0OMLpaB+I6+exMgFKqfKZvFD0qKYrUJpYCnrclJ
- XPU6IQ5GN7vDorlktrGM0tEpC+nYCZfCcAIDnEP+IqIFcyLHlu7u4Xq
-X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
- pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
-X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
- auth_id=1111
-X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
-Reply-To: nacht@dxdmail.cc
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179489221679.1.1429296960451969532.led-label-policy-rfc@gmail.com>
+X-AI-Review-Draft: <179489221679.1.1429296960451969532.led-label-policy-rfc@gmail.com>
 
-From: Nizat Mikayilli <nacht@dxdmail.cc>
+I'm not exactly sure what to do with this patch, but not a patch, submission?
 
-Add a driver for the Samsung AMSA10FA01 2560x1600 AMOLED panel of the
-Samsung Galaxy Tab S9 Wi-Fi, which uses an Anapass ANA38407 DDIC in
-command mode with DSC.
+Sashiko already had some things to say.
 
-The init sequence is taken from the vendor panel data for revision D
-of the panel. Only the 120 Hz mode is supported.
+> From: Cristian Filipescu <filipescu.cristian@gmail.com>
+>
+> Hi,
 
-Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
----
- MAINTAINERS                                    |   1 +
- drivers/gpu/drm/panel/Kconfig                  |  15 ++
- drivers/gpu/drm/panel/Makefile                 |   1 +
- drivers/gpu/drm/panel/panel-anapass-ana38407.c | 320 +++++++++++++++++++++++++
- 4 files changed, 337 insertions(+)
+This does not belong in a commit message.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e282fbb04e6e..5229bc5f0b94 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8232,6 +8232,7 @@ DRM DRIVER FOR ANAPASS ANA38407 PANELS
- M:	Nizat Mikayilli <nacht@dxdmail.cc>
- S:	Maintained
- F:	Documentation/devicetree/bindings/display/panel/anapass,ana38407.yaml
-+F:	drivers/gpu/drm/panel/panel-anapass-ana38407.c
- 
- DRM DRIVER FOR APPLE TOUCH BARS
- M:	Aun-Ali Zaidi <admin@kodeit.net>
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7a520b4d60fe..9585c50ee315 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -18,6 +18,21 @@ config DRM_PANEL_ABT_Y030XX067A
- 	  Y030XX067A 320x480 3.0" panel as found in the YLM RG-280M, RG-300
- 	  and RG-99 handheld gaming consoles.
- 
-+config DRM_PANEL_ANAPASS_ANA38407
-+	tristate "Anapass ANA38407-based DSI panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_DISPLAY_DSC_HELPER
-+	select DRM_DISPLAY_HELPER
-+	help
-+	  Say Y here if you want to enable support for Anapass ANA38407-based
-+	  display panels, such as the Samsung AMSA10FA01 which can be found in
-+	  the Samsung Galaxy Tab S9 Wi-Fi.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called panel-anapass-ana38407.
-+
- config DRM_PANEL_ANBERNIC_TD4310
- 	tristate "Anbernic TD4310 LCD panel"
- 	depends on GPIOLIB && OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index da5175909d54..d931461dfaa4 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0
- obj-$(CONFIG_DRM_PANEL_ABT_Y030XX067A) += panel-abt-y030xx067a.o
-+obj-$(CONFIG_DRM_PANEL_ANAPASS_ANA38407) += panel-anapass-ana38407.o
- obj-$(CONFIG_DRM_PANEL_ANBERNIC_TD4310) += panel-anbernic-td4310.o
- obj-$(CONFIG_DRM_PANEL_ARM_VERSATILE) += panel-arm-versatile.o
- obj-$(CONFIG_DRM_PANEL_ASUS_Z00T_TM5P5_NT35596) += panel-asus-z00t-tm5p5-n35596.o
-diff --git a/drivers/gpu/drm/panel/panel-anapass-ana38407.c b/drivers/gpu/drm/panel/panel-anapass-ana38407.c
-new file mode 100644
-index 000000000000..dbacdc658495
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-anapass-ana38407.c
-@@ -0,0 +1,320 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2026, Nizat Mikayilli <nacht@dxdmail.cc>
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/device-id/of.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/display/drm_dsc.h>
-+#include <drm/display/drm_dsc_helper.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct ana38407 {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct drm_dsc_config dsc;
-+	struct regulator_bulk_data *supplies;
-+	struct gpio_desc *reset_gpio;
-+};
-+
-+static const struct regulator_bulk_data ana38407_supplies[] = {
-+	{ .supply = "vddio" },
-+	{ .supply = "vci" },
-+};
-+
-+static inline struct ana38407 *to_ana38407(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct ana38407, panel);
-+}
-+
-+static void ana38407_unlock(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf1, 0x5a, 0x5a);
-+}
-+
-+static void ana38407_lock(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf1, 0xa5, 0xa5);
-+}
-+
-+/* C1 carries the value, C0 (after B0 03) the 16-bit register address */
-+static void ana38407_write_indirect(struct mipi_dsi_multi_context *dsi_ctx,
-+				    u16 addr, u8 val)
-+{
-+	mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, 0xc1, val);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x03);
-+	mipi_dsi_dcs_write_var_seq_multi(dsi_ctx, 0xc0, 0x0f, 0x00, 0x00, 0x00,
-+					 addr >> 8, addr & 0xff, 0x81);
-+}
-+
-+static void ana38407_slew_boost(struct mipi_dsi_multi_context *dsi_ctx, u8 val)
-+{
-+	ana38407_write_indirect(dsi_ctx, 0x134f, val);
-+	ana38407_write_indirect(dsi_ctx, 0x1362, val);
-+	ana38407_write_indirect(dsi_ctx, 0x1375, val);
-+	ana38407_write_indirect(dsi_ctx, 0x1388, val);
-+}
-+
-+static int ana38407_on(struct ana38407 *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+	struct drm_dsc_picture_parameter_set pps;
-+
-+	ana38407_unlock(&dsi_ctx);
-+	/* SLEW_BOOSTING_OFF */
-+	ana38407_slew_boost(&dsi_ctx, 0x2a);
-+	/* PM_EN_DISP_ON_DELAY */
-+	ana38407_write_indirect(&dsi_ctx, 0x1435, 0x00);
-+	ana38407_write_indirect(&dsi_ctx, 0x0104, 0x23);
-+	ana38407_lock(&dsi_ctx);
-+
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	ana38407_unlock(&dsi_ctx);
-+	/* MX_IP_ENABLE */
-+	ana38407_write_indirect(&dsi_ctx, 0x09b2, 0x23);
-+	/* TCON_INTR_SETTING */
-+	ana38407_write_indirect(&dsi_ctx, 0x1446, 0x02);
-+	ana38407_write_indirect(&dsi_ctx, 0x08cf, 0x13);
-+	ana38407_write_indirect(&dsi_ctx, 0x09cd, 0x05);
-+	ana38407_lock(&dsi_ctx);
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	/* TE_ON */
-+	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-+	/* TSP_SYNC_SETTING */
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0x0b, 0xb9);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb9, 0xcc);
-+	/* DSC_SETTING */
-+	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
-+	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
-+	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xa5, 0xa5);
-+
-+	/* DIA_SETTING */
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x91, 0x02);
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	/* ACL */
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0x5f, 0xc9);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc9, 0x00, 0x05);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0x51, 0xc9);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc9, 0x40, 0xff, 0x26);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0x62, 0xc9);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc9, 0x3e, 0x42);
-+	/* BRIGHTNESS_DIMMING_SETTING */
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x28);
-+	/* SP_SETTING */
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc3, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xa5, 0xa5);
-+	mipi_dsi_msleep(&dsi_ctx, 20);
-+
-+	ana38407_unlock(&dsi_ctx);
-+	/* SLEW_BOOSTING_ON */
-+	ana38407_slew_boost(&dsi_ctx, 0x2e);
-+	/* VRR_SETTING */
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x60, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0x13, 0xdd);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xdd, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0x10, 0xb9);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb9, 0x80, 0x00, 0x00, 0x00);
-+	ana38407_lock(&dsi_ctx);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int ana38407_prepare(struct drm_panel *panel)
-+{
-+	struct ana38407 *ctx = to_ana38407(panel);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ana38407_supplies), ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	usleep_range(11000, 12000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	/* The vendor kernel waits for TCON_RDY here, measured at 125 ms */
-+	msleep(200);
-+
-+	ret = ana38407_on(ctx);
-+	if (ret < 0) {
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+		usleep_range(15000, 16000);
-+		regulator_bulk_disable(ARRAY_SIZE(ana38407_supplies), ctx->supplies);
-+	}
-+
-+	return ret;
-+}
-+
-+static int ana38407_enable(struct drm_panel *panel)
-+{
-+	struct ana38407 *ctx = to_ana38407(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xa5, 0xa5);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int ana38407_unprepare(struct drm_panel *panel)
-+{
-+	struct ana38407 *ctx = to_ana38407(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 100);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(15000, 16000);
-+	regulator_bulk_disable(ARRAY_SIZE(ana38407_supplies), ctx->supplies);
-+
-+	return 0;
-+}
-+
-+static const struct drm_display_mode ana38407_mode = {
-+	.clock = (2560 + 34 + 64 + 34) * (1600 + 42 + 64 + 32) * 120 / 1000,
-+	.hdisplay = 2560,
-+	.hsync_start = 2560 + 34,
-+	.hsync_end = 2560 + 34 + 64,
-+	.htotal = 2560 + 34 + 64 + 34,
-+	.vdisplay = 1600,
-+	.vsync_start = 1600 + 42,
-+	.vsync_end = 1600 + 42 + 64,
-+	.vtotal = 1600 + 42 + 64 + 32,
-+	.width_mm = 236,
-+	.height_mm = 148,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int ana38407_get_modes(struct drm_panel *panel,
-+			      struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector, &ana38407_mode);
-+}
-+
-+static const struct drm_panel_funcs ana38407_panel_funcs = {
-+	.prepare = ana38407_prepare,
-+	.enable = ana38407_enable,
-+	.unprepare = ana38407_unprepare,
-+	.get_modes = ana38407_get_modes,
-+};
-+
-+static int ana38407_bl_update_status(struct backlight_device *bl)
-+{
-+	struct ana38407 *ctx = bl_get_data(bl);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+	u16 brightness = backlight_get_brightness(bl);
-+
-+	if (!ctx->panel.enabled)
-+		return 0;
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	mipi_dsi_dcs_write_var_seq_multi(&dsi_ctx, MIPI_DCS_SET_DISPLAY_BRIGHTNESS,
-+					 brightness >> 8, brightness & 0xff);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xa5, 0xa5);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static const struct backlight_ops ana38407_bl_ops = {
-+	.update_status = ana38407_bl_update_status,
-+};
-+
-+static int ana38407_probe(struct mipi_dsi_device *dsi)
-+{
-+	const struct backlight_properties props = {
-+		.type = BACKLIGHT_RAW,
-+		.brightness = 2047,
-+		.max_brightness = 2047,
-+	};
-+	struct device *dev = &dsi->dev;
-+	struct ana38407 *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct ana38407, panel,
-+				   &ana38407_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(ana38407_supplies),
-+					    ana38407_supplies, &ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	ctx->dsi = dsi;
-+
-+	ctx->dsc.dsc_version_major = 1;
-+	ctx->dsc.dsc_version_minor = 1;
-+	ctx->dsc.slice_height = 100;
-+	ctx->dsc.slice_width = 1280;
-+	ctx->dsc.slice_count = 2;
-+	ctx->dsc.bits_per_component = 8;
-+	ctx->dsc.bits_per_pixel = 8 << 4;
-+	ctx->dsc.block_pred_enable = true;
-+
-+	dsi->dsc = &ctx->dsc;
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM;
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ctx->panel.backlight = devm_backlight_device_register(dev, dev_name(dev),
-+							      dev, ctx,
-+							      &ana38407_bl_ops,
-+							      &props);
-+	if (IS_ERR(ctx->panel.backlight))
-+		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
-+				     "Failed to register backlight\n");
-+
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret)
-+		return ret;
-+
-+	return devm_mipi_dsi_attach(dev, dsi);
-+}
-+
-+static const struct of_device_id ana38407_of_match[] = {
-+	{ .compatible = "samsung,amsa10fa01" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, ana38407_of_match);
-+
-+static struct mipi_dsi_driver ana38407_driver = {
-+	.probe = ana38407_probe,
-+	.driver = {
-+		.name = "panel-anapass-ana38407",
-+		.of_match_table = ana38407_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(ana38407_driver);
-+
-+MODULE_AUTHOR("Nizat Mikayilli <nacht@dxdmail.cc>");
-+MODULE_DESCRIPTION("DRM driver for ANA38407-equipped DSI panels");
-+MODULE_LICENSE("GPL");
+> The common LED binding deprecates label in favour of function and color.
+> Is removing existing labels desirable when it changes established LED class
+> names, or should existing board descriptions retain them for compatibility?
+
+Removing existing 'label' properties will change the sysfs directory
+names under /sys/class/leds/ and risk breaking existing user-space tools
+and scripts that rely on them.  Existing board descriptions should
+retain their 'label' properties for backwards compatibility, though
+'function' and 'color' can be used for any newly added nodes.
+
+> For example, the Orange Pi H6 descriptions could replace their labels with
+> LED_FUNCTION_POWER/STATUS and LED_COLOR_ID_RED/GREEN. With gpio-leds, this
+> would change the names under /sys/class/leds:
+>
+>   orangepi:red:power    -> red:power
+>   orangepi:green:status -> green:status
+>
+> The example below changes two files and affects Orange Pi 3, 3 LTS, Lite2
+> and One Plus. GPIOs, polarity, pinctrl, defaults and triggers are unchanged.
+> All four DTBs compile before and after; comparison found only the intended
+> label/function/color changes. The renamed LEDs have not been tested on
+> hardware.
+>
+> I was thinking of converting all the deprecated LED labels, but I wanted
+> to see if this was something maintainers wanted, since it would touch a lot
+> of files. Would you prefer retaining existing labels (potentially adding
+> function and color alongside them), or reviewing migrations with the name
+> changes explicitly documented?
+>
+> This is a discussion example, not a patch for inclusion. Preparation and
+> static checks were assisted by OpenAI Codex.
+>
+> Thanks,
+> Cristian
+
+This does not constitute as a SoB.
+
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
+> index ce82aa265..8e4117057 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
+> @@ -8,6 +8,7 @@
+>  #include "sun50i-h6-gpu-opp.dtsi"
+>
+>  #include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/leds/common.h>
+>
+>  / {
+>  	model = "OrangePi 3";
+> @@ -45,13 +46,15 @@ leds {
+>  		compatible = "gpio-leds";
+>
+>  		led-0 {
+> -			label = "orangepi:red:power";
+> +			function = LED_FUNCTION_POWER;
+> +			color = <LED_COLOR_ID_RED>;
+>  			gpios = <&r_pio 0 4 GPIO_ACTIVE_HIGH>; /* PL4 */
+>  			default-state = "on";
+>  		};
+>
+>  		led-1 {
+> -			label = "orangepi:green:status";
+> +			function = LED_FUNCTION_STATUS;
+> +			color = <LED_COLOR_ID_GREEN>;
+>  			gpios = <&r_pio 0 7 GPIO_ACTIVE_HIGH>; /* PL7 */
+>  		};
+>  	};
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
+> index 57b137755..49f3d2fc8 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
+> @@ -9,6 +9,7 @@
+>  #include "sun50i-h6-gpu-opp.dtsi"
+>
+>  #include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/leds/common.h>
+>
+>  / {
+>  	model = "OrangePi One Plus";
+> @@ -45,13 +46,15 @@ leds {
+>  		compatible = "gpio-leds";
+>
+>  		led-0 {
+> -			label = "orangepi:red:power";
+> +			function = LED_FUNCTION_POWER;
+> +			color = <LED_COLOR_ID_RED>;
+>  			gpios = <&r_pio 0 4 GPIO_ACTIVE_HIGH>; /* PL4 */
+>  			default-state = "on";
+>  		};
+>
+>  		led-1 {
+> -			label = "orangepi:green:status";
+> +			function = LED_FUNCTION_STATUS;
+> +			color = <LED_COLOR_ID_GREEN>;
+>  			gpios = <&r_pio 0 7 GPIO_ACTIVE_HIGH>; /* PL7 */
+>  		};
+>  	};
+>
+>
 
 -- 
-2.56.1
-
-
+Lee Jones
