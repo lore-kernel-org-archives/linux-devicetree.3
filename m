@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795084306;
-	b=Wqlydo10V5ZwOcVz5WuVcryxcaZksFbhd5UMyeSO4l/+OQ/PL3V3jyOh68I8G9ezamp8
-	 gUJjKF+WuH/nzDF0NC5/2JkdyrTYgvHa8bk2oX69ia/lRvTtzsKjl6OeefD9pJP35ynCA
-	 UNHia1C69N2FhoWa7Nj7ehPQAYmbuNK3uggsPDICaD2fGZLaIYDfGsAR9ConbIjw2Qybj
-	 KrdW/ZhzJa0b25DN8kAJlAAFwwxHZ9UKklI2kWjSo/h6Iie8SpS34Iy39LAByiiATrrxU
-	 erByrKh6zOp1xLPO3iCxvuo9s/OYIkQst7kcbQvz8pTrcu9QjpUaYT3J7wDHpBAIusg==
+	t=1795084350;
+	b=zDSEFaDW9WpSp17btrbOaCPTj91GdLXmdSiXgQjPCtnMukS6JD7Vmo9SwWMt1qDZnDUy
+	 GtbKrY9CHd9csCWIVL7A7olrL92/eZwaNPnmLUogXGfVYSeju+/UqVdhYzKCnNfSN5A8Y
+	 tGvkSGr7erpahEMQQQ0xOvK6xbjKr0IO7oD7L1mpQUELqZyxBH+xynfva4BUa2i8i0Nte
+	 t63ps3DqJlrny0TH+D87iMT2gjY4F51+ev/WB0SqpCAJOhOQ5+tN6GaO+XcKIsFXf3cTz
+	 ppEI+ZKH1lHHTxupXfPDnjntEc/5oJ/hu/oioOi8xfx7bjGinGtVsDDCZozKOcR3XLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795084306;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=f8LB2Xe2f4qCE6lFzUXlv5rwp12pQtaIiGjTeWVuQHg=;
-	b=Av5sbmrSNOtuQqf9I4WSoYf/GQ7zSomNQ30vvnYFf1xZMR49UbGFwWUQ5XhIJ0Ez4QbQ
-	 C4EV8x2MI8gtu4+AdwTVy2jd9zLPMgfuw07KxuSADPED9dFs+p9Jr+PIwYP4WM5Dq0SSK
-	 tm6x2j9CBY/jvR9hyXw5kfI9VNyxZE7gNicDiGyGx/CUVt7AQ67Nie5iEINH0rsQA0Yd9
-	 PXC1tHeRAUTLmP+XwG5ooM9dAUumvMwvcToeepauGH+sxRBr/wiVbL4RR/vJAOt5o+Mg/
-	 2MqHFBR4w850dprJZsDbzuJlD9rPWO/CPogIZA8CdhABPfXfZK0PiFX/IjnKKJUyXvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795084350;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Jxqitei9n4jTIEvLaRLKlJWrH7A0OCWEQUnpoPUhO5Y=;
+	b=eJ0L7JTGn6RSKde2g79z2mNdXQw785dK4hmIS/TTSFmTrmofEMAPKvKAGrZQ4+E6JymQ
+	 YEURXy2Cf3pmHeOe8ArL+la92sogOj6hoPCi/wRu404RV6o1e9e+KbxpfiXZAdnLRx+9B
+	 FcdUjoBIIhvoq9QoCCO+kOkk49c892wWOmV2+ESv2eCX3w8l6z+iaLjQshAicAG95hJMV
+	 pv4axZ5DvzZIxVpP3WhXKCje75JWOMQbbwxhXcYBV4+IIsMR+QnnWNh8siKPZEwouiJaS
+	 qVML5vfSsXt/vNzksLjdR8nwTUTKwflkDbqsq2qaKfI0plvwBy2B4IuHsM9xmYGhBJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0l0jS5w;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ola3z5aN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E10606A325;
-	Thu, 19 Nov 2026 10:31:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 82B71606A320;
+	Thu, 19 Nov 2026 10:32:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0l0jS5w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39B4C1F000C5;
-	Thu, 19 Nov 2026 10:31:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ola3z5aN
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 70EAF1F000C8;
+	Thu, 19 Nov 2026 10:32:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795084305;
-	bh=f8LB2Xe2f4qCE6lFzUXlv5rwp12pQtaIiGjTeWVuQHg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F0l0jS5w4DohO1lJw2vlpZ79kpolruD5SanYl0uQjnSyDkU08dylydZPx5R0ZcSWM
-	 M1sh7qopLugauj53NHEMrJoGcRQgJo79xJE9B1Y+wFk9F/ClhV4ybbR3syReI74gR2
-	 Skb0ylzPILU/c+lfbWNRkFvS4ZK95XvT9pFQ5evvgnnbLs0DmowjZgaXCvGsgGii2e
-	 3rsYrLJnXBXMLa/vdZ0RPrNV2IoRW82QTQIVD6msyn8F2/PlNPkfWIiX8yEIbaTuaq
-	 Vd76BugpIsl/zug4uAx86RqE34mL2bY+3gD/PTWgZSDMojeebD+QspxQWj88CLsonP
-	 4PcIhDJmqcPOw==
-Message-ID: <sashiko-outbox-222956@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 5/6] arm64: dts: ambarella: add CV75 SoC and EVK
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Long Zhao" <longzhao@ambarella.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261119-cv75-soc-v12-5-e5a03cca8b05@ambarella.com>
-References: <20261119-cv75-soc-v12-0-e5a03cca8b05@ambarella.com>
- <20261119-cv75-soc-v12-5-e5a03cca8b05@ambarella.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 10:31:44 +0000
+	s=k20260515; t=1795084350;
+	bh=Jxqitei9n4jTIEvLaRLKlJWrH7A0OCWEQUnpoPUhO5Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ola3z5aN3akS10EcfjC4l+IeVZCeKiIcr+JOyPMGC6YqTmdZXAm7MVtszMOyqM+lt
+	 MwDCVAytM1MkH2+OHj/l76KqistiZOE5eYfI2vSmammm5jtkzzlb+K5zcNj/JbVnf0
+	 o6hEhleT2ZL2jtHk3ukaTwG+q3AaEMtU1udHyj6sJZpQ9Nkem7+rKrFobw8nZQE7TS
+	 GVAOTuZpQgUCI+vkz5tQc2CxkyI0d8YkC+Q14OEOrXj+wLRgrmT3S/sQP+Ug6H5g/h
+	 jIjwkZJgmJ6KM0BRSgF54m5ySxYaaaVC0BmUTQxGpRk1Y2fbmG02w+Vzw/4KinVqVu
+	 FKnhnoupiQPIw==
+Date: Thu, 19 Nov 2026 11:32:23 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: filipp.dunsky@gmail.com
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v4 2/2] gpio: Add Cortina Systems CS75xx GPIO driver
+Message-ID: <ndapsfnk4wdon57ihawkorz5rwrhxsb7ql3mujqvuu6ixi4sbc@ugtxsjqt7gcc>
+References: <20261116-cs75xx-gpio-v4-0-ad80a944e966@gmail.com>
+ <20261116-cs75xx-gpio-v4-2-ad80a944e966@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,167 +58,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-cs75xx-gpio-v4-2-ad80a944e966@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] arm64: dts: ambarella: uart0 console fails probe due to unbound
-  pinctrl-0
-- [Medium] arm64: dts: ambarella: apb simple-bus reg causes -EBUSY in
-  amba_device_add()
-- [Medium] arm64: dts: ambarella: undocumented compatible strings and
-  properties in cv75
-- [Medium] arm64: dts: ambarella: gpio nodes use unmatched periphid and
-  unprobed pinctrl
-- [Low] arm64: dts: ambarella: cpu@1 unit-address mismatches reg =3D
-  <0x100> in cv75
---
+On Mon, Nov 16, 2026 at 05:08:17AM +0300, Fil Dunsky via B4 Relay wrote:
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
+> 
+> Add a driver for the GPIO banks of the Cortina Systems CS75xx SoCs. The
+> data and direction registers are handled by gpio-mmio; each bank has its
+> own interrupt with level and edge triggers, both edges are emulated by
+> flipping the polarity.
+> 
+> A pin only works as a GPIO when the pin mux in the global control block
+> selects the GPIO function. That is not part of the GPIO controller and
+> is left to the boot loader until there is a pin controller driver.
+> 
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+> ---
 
-commit e70f7e3684557e5b6677d7d83d584310569d7473
-Author: Long Zhao <longzhao@ambarella.com>
+Can you please address sashiko comments?
 
-arm64: dts: ambarella: add CV75 SoC and EVK
-
-This commit adds the minimal Devicetree files for the Ambarella CV75 SoC and
-CV75 EVK board, along with Makefile and arm64 defconfig entries.
-
-> diff --git a/arch/arm64/boot/dts/ambarella/cv75.dtsi b/arch/arm64/boot/dt=
-s/ambarella/cv75.dtsi
-> new file mode 100644
-> index 0000000000000..c36b6af48237a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ambarella/cv75.dtsi
-> @@ -0,0 +1,177 @@
-
-[ ... ]
-
-> +		cpu@1 {
-> +			compatible =3D "arm,cortex-a76";
-> +			device_type =3D "cpu";
-> +			reg =3D <0x100>;
-> +			enable-method =3D "psci";
-> +		};
-
-[Severity: Low]
-Should this node be named cpu@100 to match reg =3D <0x100>?  The mismatch
-triggers a unit_address_vs_reg warning from dtc and fails dtbs_check against
-cpus.yaml.
-
-[ ... ]
-
-> +		ahb@ffe0000000 {
-> +			compatible =3D "simple-bus";
-> +			reg =3D <0xff 0xe0000000 0x0 0x01000000>;
-> +			ranges =3D <0xe0000000 0xff 0xe0000000 0x01000000>;
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <1>;
-> +
-> +			s_scratchpad_syscon: scratchpad@e002e000 {
-> +				compatible =3D "ambarella,cv75-sec-scratchpad", "syscon";
-> +				reg =3D <0xe002e000 0x1000>;
-> +			};
-> +		};
-> +
-> +		apb@ffe4000000 {
-> +			compatible =3D "simple-bus";
-> +			reg =3D <0xff 0xe4000000 0x0 0x01000000>;
-> +			ranges =3D <0xe4000000 0xff 0xe4000000 0x01000000>;
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <1>;
-
-[Severity: Medium]
-Does specifying a reg property on apb@ffe4000000 (and ahb@ffe0000000) preve=
-nt
-the child arm,primecell GPIO devices from registering?
-
-When of_platform_bus_create() populates apb@ffe4000000, platform_device_add=
-()
-inserts [0xffe4000000 - 0xffe4ffffff] directly into iomem_resource.  For the
-child arm,primecell GPIO nodes, of_amba_device_create() calls
-amba_device_add() with parent =3D &iomem_resource, which uses
-request_resource(&iomem_resource, &dev->res) instead of nesting inside the =
-bus
-resource and fails with -EBUSY.  Dropping reg from these simple-bus nodes (=
-and
-keeping ranges) avoids the top-level resource conflict and satisfies
-simple-bus.yaml.
-
-> +
-> +			uart0: serial@e4000000 {
-> +				compatible =3D "ambarella,cv75-uart", "snps,dw-apb-uart";
-> +				reg =3D <0xe4000000 0x1000>;
-> +				clocks =3D <&rct CV75_GCLK_UART0>;
-> +				interrupts =3D <GIC_SPI 170 IRQ_TYPE_LEVEL_HIGH>;
-> +				reg-shift =3D <2>;
-> +				reg-io-width =3D <4>;
-> +				pinctrl-names =3D "default";
-> +				pinctrl-0 =3D <&uart0_pins>;
-> +
-> +				status =3D "disabled";
-> +			};
-
-[Severity: High]
-Will uart0 permanently defer probing on cv75-evk because pinctrl-0 referenc=
-es
-&uart0_pins under pinctrl@e4010000?
-
-No driver in the tree matches "ambarella,cv75-pinctrl", so no pinctrl_dev is
-registered for pinctrl@e4010000.  When serial@e4000000 is enabled as the
-console in cv75-evk.dts, really_probe() -> pinctrl_bind_pins() ->
-dt_to_map_one_config() cannot find the pinctrl supplier and returns
--EPROBE_DEFER whenever CONFIG_MODULES is enabled, leaving the board without=
- a
-serial console.
-
-> +
-> +			pinctrl: pinctrl@e4010000 {
-> +				compatible =3D "ambarella,cv75-pinctrl";
-> +				reg =3D <0xe4010000 0x1000>;
-> +				ambarella,drive-strength-syscon =3D <&rct>;
-> +				ambarella,pull-syscon =3D <&s_scratchpad_syscon>;
-> +
-> +				uart0_pins: uart0-pins {
-> +					function =3D "uart0";
-> +					groups =3D "uart0";
-> +				};
-> +			};
-
-[Severity: Medium]
-Are the Devicetree binding schemas for the new compatible strings and
-properties in this file missing from the series?
-
-"ambarella,cv75-sec-scratchpad", "ambarella,cv75-uart",
-"ambarella,cv75-pinctrl" (along with ambarella,drive-strength-syscon and
-ambarella,pull-syscon), and "ambarella,cv75-gpio" are not documented under
-Documentation/devicetree/bindings/, causing make dtbs_check to fail on
-cv75-evk.dtb.
-
-> +
-> +			gpio0: gpio@e4013000 {
-> +				compatible =3D "ambarella,cv75-gpio", "arm,primecell";
-> +				reg =3D <0xe4013000 0x1000>;
-> +				clocks =3D <&rct CV75_GCLK_APB>;
-> +				clock-names =3D "apb_pclk";
-> +				interrupts =3D <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				gpio-ranges =3D <&pinctrl 0 0 32>;
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <2>;
-> +				arm,primecell-periphid =3D <0x000e8061>;
-> +			};
-
-[Severity: Medium]
-Can gpio0, gpio1, and gpio2 bind to any in-tree driver with
-arm,primecell-periphid =3D <0x000e8061> and gpio-ranges =3D <&pinctrl ...>?
-
-Because "arm,primecell" is in compatible, these nodes are created as AMBA
-devices that match only on periphid, and no AMBA driver in the tree matches
-0x000e8061 (gpio-pl061 only matches 0x00041061 with 8 lines per block rather
-than 32).  In addition, gpio-ranges points to &pinctrl, which has no driver=
- in
-the tree and would cause of_gpiochip_add_pin_range() to defer with
--EPROBE_DEFER.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-cv75-soc-v=
-12-0-e5a03cca8b05@ambarella.com?part=3D5
+Bart
