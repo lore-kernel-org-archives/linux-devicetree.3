@@ -1,47 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795097345;
-	b=Gf5dhhc8fFoWwjuRtdYT4HoTg9M95SZ1R9hQ20kyHC1hIFBUwsHpI2GUqE61cbmjBAdP
-	 JjtO7+S0S5aGG48k938dkSZhG1avq7l5ZJq83e3KGMrnuqyoVXs7fouTcDvRzSgXo2vsy
-	 afQbi+gvJU8I5s5GM2wmBrM3S1BhlP3RGTwAmykvO+iKLEidBQwmuWF45pBqm7xhWHXvw
-	 XTQUrj/2khRwDDDfQXDCkOT6h72piUoEJMRpOj7AgiSJOB/8J7g5nA62j/vA8fYeBZkt0
-	 mq6mp4/+1+zWuEieYV63Vpt35HZazlGzjTttL9maExgJy6RPcmYER+2kR+AatnrII/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795097345;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=MSMA0cP67I40gEU9qKa1Whz+WBhSJVa8dWfD8DNo+OU=;
-	b=UP87mXt6v9B0DR3hUXpf3NfCyZICF5d+G1FzNd/A8DQ6oR5fv9z9ObMN3rmW7D6NhdfD
-	 fyqT47Fmuhz1f8UbRD0yYkkCgth/7sW6YaKBxsyFov5xCZpsWN4QGEshUPGIbb9L2G0m8
-	 t1xqTaxIMlvi8L6M+u/7z75jDhmuMcIshxB2ac2nSDMLCKAhPuaBZNbNKa5kORo2M+6XT
-	 q9EeiYYMqPVaw21GMJYQkG82Zr5i6OKvzJb6sWLHyPDFaVHbUjTPna3Nxf1qGiGCTMS0O
-	 C5zozwYExvE9pBegIA58sWFHS2OO4EFi2IcnV8jNt4PheGBNCOPq3lKA3uJ6KBBo19A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bU3k7JsJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.60
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795097448;
+	b=zhhp9FNK0ZVV3YgBYIiQdzwENzwUfDBlmzJftfaeg6eVfULZh+gfnEVI6njcZg2XTDxB
+	 4FQyqbcxXRXn0+8gpeGaoogQGDjBRma+8leiH5gXoaQHReri2kuWB43UZX4SU1TrKQsSa
+	 4gpLUZfCMPT84G3V4aIVxD5pasGOMqj/DZL1ZTSYlUty+jmOPP58ntnod0vGEWVzw24JO
+	 mun6DtKyV0o4glY66AnXv4bhxg05cZG1cJ2v896mPvbjtZQR09+LZxxiq6W0zcpGAXa70
+	 QNOFwDvh4zmYhIot2IY114LD37uXFCqeH67IhVJXroJzI9IigfZH4NbuHRh/419aiGw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795097448;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tjwBrxu6kChXxohWi61PRkXDbDFsaneYyYkynhYDCr8=;
+	b=OL88STG0dr2ppyasKErrB4s9PV3m9Gq0tuRBIffpVMWsjufAfvB5eJLHw8YqRBtzqRn7
+	 eLXqmaxhsXGEE0NNdu5tqmi7W981x9nbRkLeXeaoREXXrS9vPBuyOFKdsrzwXwC7/5Z7u
+	 8gp2WOlvqfafHNDznvosRmTepeSKPbre71jHId39UlmQO1MHfOddYpzajizVY3yUVfP93
+	 mqCErj9urYdbSGlgrkgho+mhXKUR/ASfNpOaatEkNG6t68htyQMtl5i29n1nQbMq8WCL/
+	 HiwIDKP39t7MAnts2PNCTxk4mTgLiswWxX7NbuJ9hPVBXnk2nq3f3pT0FnDSCy3g74g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SoPw2bI2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.60
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013060.outbound.protection.outlook.com [40.107.201.60])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53EFB606A320;
-	Thu, 19 Nov 2026 14:09:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA528606A33C;
+	Thu, 19 Nov 2026 14:10:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA528606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bU3k7JsJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DFBA1F000C4;
-	Thu, 19 Nov 2026 14:09:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795097345;
-	bh=MSMA0cP67I40gEU9qKa1Whz+WBhSJVa8dWfD8DNo+OU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bU3k7JsJzmT8nDdybTYngbqBdGe2HuUcklIC1Jw+He+73LK/yaD1AwsFhxASw1hFt
-	 ud+uKJpj05pnXDKnzfCazu/vTTitDssddtx9Zm1XjH9c3uhrAH/JdqyPESmk470sHr
-	 XEYOeK/MbnP8SZvjLCZGs+xXmwLvSg7scChJC6YneaH+LN2trTo0SWZhNN4ypYdXnU
-	 KQtDkFLgo/f/bh4LyShAFzghIEiDQhJo8T80YNYF+UuRP2IOMate0GZViDc2JcYRQw
-	 6BpqJAOT2G3nGLRUt8/vGotDZjIzFvRfx6CJmUPTtg4QGQ13XfBTR67XmtyLajjbrM
-	 Ev4xpSy/s/fpQ==
-Message-ID: <9db379cc-0b07-4efc-a3eb-ebc07e7952c7@kernel.org>
-Date: Thu, 19 Nov 2026 15:08:59 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SoPw2bI2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cJVvnogOvwyP9CYvA40HfK2JeBpk6Lrm7NTx3S434JXcWiR9a4KmFxymuipKbq88DwdtI6fvRnDEQVfRgFxEHgNzwVMkk48E+hw4fdfZVUwj4CQUDfWIwLNnYugLAb2J4FO95WpMI0WQHO9Cl4xiTicl5PlYxzoYaZpGhNWybEdJPY4cH+HsLnSqqEUq+bg5Shrovh/8GCYWZWGFhmnnVLQ4/t7D9zhP0c+gjcEGMuHVnW9AI2/5CHdb6qRfvursSR9jUqthaDJVDqkrFHog9vHD2yP5j3XooilM/IcRmJeoDXVcqKMZ5DhUOauI7NNC9TSu+kH1V2k6fqKSyv7PEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tjwBrxu6kChXxohWi61PRkXDbDFsaneYyYkynhYDCr8=;
+ b=e+v/q4lWKmjiAwO8ZyMLuWd2eyEzfJojJZ5n5CAk84mX1SqtTd7OyyOerNpVVEYcpcuQI8nJa/DypxKpT5k3R2GV59cO7Bvy364qROewMld4oR7htbTVkYs6oMRmHnNvKlFAYd2mjNXa8/rWsnqf/z33TfDQz6BTlJxln+hLTdpuVDANu0ufUfsPDnkbBhGKRcBxgDYV3MrKEaD5V1EY3FxZ7osFgXIp3UKvNjGMP4Vs/kAuONSz7SWQYSYo3RajCXBdMT5Gn6CfwXasamx8hS4En8Ogzs/Av+FRrHMXYK8Xvp0zqffvQVkMlw4YqGdI2w84DiLKl+mTBiipXfzK/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tjwBrxu6kChXxohWi61PRkXDbDFsaneYyYkynhYDCr8=;
+ b=SoPw2bI26ogu8Jjpu+pYvCwPbPkkPXe36I0mhOwU8L0rDbxNaoKXfs9D0LInuqPLnobxNlcIsSUZyUjN5qkCLsis4FMsGv2dTVvGLP/jmJ8fk1umqXAioZFuOwvqUrbZWqPjsT+1RXwBOO2gm1/4+lyIl9hMaDE+oc+Ia5rVFaw=
+Received: from PH0PR07CA0092.namprd07.prod.outlook.com (2603:10b6:510:4::7) by
+ DSAPR12MB473869.namprd12.prod.outlook.com (2603:10b6:8:518::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
+ 2026 14:10:44 +0000
+Received: from PH1PEPF00062F24.namprd02.prod.outlook.com
+ (2603:10b6:510:4:cafe::9c) by PH0PR07CA0092.outlook.office365.com
+ (2603:10b6:510:4::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Thu,
+ 19 Nov 2026 14:10:44 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ PH1PEPF00062F24.mail.protection.outlook.com (10.167.243.53) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 14:10:44 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
+ 2026 08:10:40 -0600
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57 via Frontend
+ Transport; Thu, 19 Nov 2026 08:10:38 -0600
+From: Michal Simek <michal.simek@amd.com>
+To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
+	<michal.simek@amd.com>, <git@amd.com>
+CC: Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, "open list:OPEN FIRMWARE
+ AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated
+ list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH] arm64: zynqmp: dts: Drop incorrect #phy-cells from eth phy on KD240-revA
+Date: Thu, 19 Nov 2026 15:10:32 +0100
+Message-ID: <c3cca9923c2cb23ed17970f7ca12d597a7027142.1795097431.git.michal.simek@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,132 +111,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/5] dt-bindings: usb: ci-hdrc-usb2: add
- spacemit,k1-usb2 compatible
-To: Junzhong Pan <panjunzhong@linux.spacemit.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Peter Chen <peter.chen@kernel.org>,
- Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Yixun Lan <dlan@kernel.org>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, spacemit@lists.linux.dev,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20261119-b4-spacemit-k1-usb2-v6-0-4a9add848728@linux.spacemit.com>
- <20261119-b4-spacemit-k1-usb2-v6-1-4a9add848728@linux.spacemit.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261119-b4-spacemit-k1-usb2-v6-1-4a9add848728@linux.spacemit.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1094; i=michal.simek@amd.com; h=from:subject:message-id; bh=pD/ITgwzcYROZqQKTMQKjynMuyjLAFmqv6b/+VKjQv8=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWT9Z44yFwm7ZXtJgL/Z0KhQPuVST61R0Xk2q7LI6UtFr 5uvcE/uKGVhEONgkBVTZJnOpOOw5tu1pWLLI/Nh5rAygQxh4OIUgImIFjMyrNp3Y1bfjF1sLdyb ZCN3yTXai6T4zTRylv1zinOiSemV54wMq0Ort8/RO/PZ6eW2rdl9vxfvWX7YTe1yUJ6A3JSdPvU 9PAA=
+X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH1PEPF00062F24:EE_|DSAPR12MB473869:EE_
+X-MS-Office365-Filtering-Correlation-Id: cfb89f22-ab2a-44fe-ffca-08df4646e6b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|82310400026|23010399003|10067099003|56012099006|11063799006|261021123027099003|261009223027099003|261026121527099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	F6kWVfzmapS5aemoXFV8EtS5K7uja/hcTf5F5e82CWRrcu4lbBbzc5Eo/TZLVPcOr98Uqjwg/Bdd3TIwyVUjBIzm/K2tMqZ2BuqWnrEXCHGjCZVQ1qLDHtrFH3PL3mfjZ+Fepv5TXjBbwHdWWAulrKKQO0cT96uX1f1QfahCxWD/8NGwfqYVD8Fvw/DoN4WLZzo/S6U/SHIdXsfHAOwpRZ6sZ9AGDDanRyeO4keMjW6r9Fmwt+WgED6XjhtbODp/8cjeRwdVfM4a5PyTpijBMYzLRQ7DVCdlT3FQDgviyf+IaLsY8EmxsbM5WjagNK1EOszAsieIL6dB35Uu1skL9x4VjIu4RUBj8CnlBSv9Jl2DsjVukYQ8THBhkoNP8Ms4x9gITv3Cnn/FjvdtvMaKrfEIXQKJFGKK/N2jg7GXhC9V2t+6NpS/ht1efyYHoouwHVETJa3YhfMKl1uevg1+fycdGBZ/VppoZtKCh7hiEzdxun+dRtDzIa94yVA3EVeZ1fyLVSpvX2PYgWWxkbIDp/eGiQ+yI0DOsPO3eWgYdXacpi0qsszYl24576osfFzhlhr61pfSGUT/VJx25djooLedWWZyN4DVjoWRYzYv2kraQEPXqQ7k2PGMBIaNjacJlg03eNkyN4nXn1uMVM1msg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(23010399003)(10067099003)(56012099006)(11063799006)(261021123027099003)(261009223027099003)(261026121527099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	CKh1UbzGHaxavI1dMpfPtz0tBLsbQ/LshDy/UGWKXLD23zk2lDsHrGb/jZ6DHUFCTF9pFjm7YI4HWw63h70gbzMhMbXXR9yhy2horO1N4MZkwmq5YstMl+h4mjvrcSsphmG6WwvTNCWXWo1znXUt0jzDLtb9hML792VuUfk+K9pCL2u1gvVVY3MJM99ApYwpjc7CuE2BnYqWBJi1XSrS9dwZyEMfhA1mNTol8n6Sfp+IoK2fNJxVybcORiatz8bghisKWLHFUt4Sfj4KX0J5P7GKFibr/b+dxurJJnsm/VdaEyMMzDbAnjbtiQ+0SmhYi0ZcnV/8tnxX5HqdQqR7Uz16WF9XoTr/K1n6O145tB5LCYVLHK8lBHvbaBU6Ja/ikTxHJr1xPL5b8OR4fWkUlOS8ZcqCG4zuvzjaIzTLye2XbJHzt5/b+Fo0tn07MYiv
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 14:10:44.1212
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cfb89f22-ab2a-44fe-ffca-08df4646e6b8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH1PEPF00062F24.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSAPR12MB473869
 
-On 19/11/2026 14:41, Junzhong Pan wrote:
-> The USB2.0 controller on the SpacemiT K1 SoC is dual-role capable but
-> has no internal OTG registers, this requires flags which disable
-> related features set in platform data. Add a compatible string to match
-> the platform data.
-> 
-> Chipidea USB2 Controller on SpacemiT K1 requires 1 clock and 1 reset to
-> work, add constraints for it.
-> 
-> Reviewed-by: Yixun Lan <dlan@kernel.org>
+The #phy-cells property is meant for generic PHY providers
+(Documentation/devicetree/bindings/phy/phy-bindings.txt) and is not a
+valid property for ethernet-phy nodes.
 
-Hm, I could not locate this tag. Where did it happen?
+Signed-off-by: Michal Simek <michal.simek@amd.com>
+---
 
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
-> ---
->  Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-> index 620b564914d4..5c2b7eb1a6ff 100644
-> --- a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-> +++ b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-> @@ -25,6 +25,7 @@ properties:
->            - nvidia,tegra124-udc
->            - nxp,s32g2-usb
->            - qcom,ci-hdrc
-> +          - spacemit,k1-usb2
->        - items:
->            - enum:
->                - nvidia,tegra114-ehci
-> @@ -113,6 +114,20 @@ allOf:
->            maxItems: 2
->          clock-names:
->            maxItems: 2
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: spacemit,k1-usb2
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
+The same change was done here but KD240 was missing there.
+https://patch.msgid.link/20261110-v7-4-topic-zynqmp-dp83867-v1-1-04500475a560@pengutronix.de
+---
+ arch/arm64/boot/dts/xilinx/zynqmp-sck-kd-g-revA.dtso | 1 -
+ 1 file changed, 1 deletion(-)
 
-Were are the clock-names constraints?
+diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kd-g-revA.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kd-g-revA.dtso
+index 23f6695d86b4..ffc14b1f871f 100644
+--- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kd-g-revA.dtso
++++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kd-g-revA.dtso
+@@ -140,7 +140,6 @@ mdio: mdio {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 		phy0: ethernet-phy@8 { /* Adin u31 */
+-			#phy-cells = <1>;
+ 			compatible = "ethernet-phy-id0283.bc30";
+ 			reg = <8>;
+ 			adi,rx-internal-delay-ps = <2000>;
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 
-> +        resets:
-> +          minItems: 1
+-- 
+2.43.0
 
-This is odd. Why do you need minItems? What are the constraints?
-
-This looks just wrong...
-
-
-> +      required:
-> +        - clocks
-> +        - resets
->  
->  unevaluatedProperties: false
->  
-> 
-
-
-Best regards,
-Krzysztof
