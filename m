@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795110617;
-	b=PsVSHTp0b6fu380NL2zKJAxt65/GE+2Ezg19FwXTP+U/OLkPuhRS9eRKYlBgX7d5TBFn
-	 oMw/hu1ptW6l8mQboy/F3N3lNfOuGMNYcUaDF0Twt6GcfW97DtyyUiTGjoXZ/G3/ANvIL
-	 KdGAjczJuiqj1+tedlLilGAAmlA+8uL47aJhOar3ZAgGioXZeKRH/ytqDH4A7J8z+pP7Q
-	 4EDI8tCN0p/0QZsne5vBpSvCwg2lG9SGLYWCUeOhVpcpcJ5IVgwNGixn0oDWUcCrKYbDc
-	 q0Udo/s+wsXNd/Q1w84ZOOoslZXeAyBkpydyoFUdqU0Ha6gzC9okr21btKQ4FsTfKhQ==
+	t=1795110618;
+	b=H2yEFmK/hjGVa+MxQXpbOMG2lY2tHPMDPryvell5fXhUCZa1jW4mkP/ruSP7HrRsXczZ
+	 scV7vXIhEAt0x0ni1+UkE7C13pNCb+QkZysYBLFxPxv58iApQj+coM1rTkI9ChLpZkjbu
+	 N8+MX7h6JPYDQS3i27Fh6d9dIZnsAUbjv4jP7sufgoxhkmqX0f9Rx61ZS45h7EkPj4Ioj
+	 kwF5a+Iqon0sdChFZ/QiZIJdsfQRySSgagNFHvTrwQRAZih25ILlAAcRLJmgbnudEksmY
+	 gM/+LvEac8dyBO87d2d8uqPJGBB7l3wuzKqc6vPiGsUDIGZb4RbB8xJptBSpcTgMdWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795110617;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795110618;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=biZE2CTLfp37QMWttMCLwen07TVkYszR0CyrzZrWaac=;
-	b=ZwqceFpuROiOETtCKfCiSfoiwKFap3jNKa8eX44zaQZbEw2+mrjbH3/nrO2eJe70HH9P
-	 ShJ9TVIE74LieUFR986WK67SSzOlqlyLNBITKi3yvVI0UETWrqIzTRFZS7qlQ+qz0Z0+2
-	 XTDZAsc09grZouUDPlbINkivxM3oJHxPn4d3S4x2DkJyD6Vkfmua796te+ABgmyEXgDpu
-	 jOhTwOnx4cPGMHVl1s9gzlqtsosy/o0rkHAyn1wgUALylLd+uKziZQ6+UKKmc8JrCze85
-	 uSvT4n8YvyTtPKJFGxLL9vO2EcNtBcREhiroKGSkmKGExa4MdiUht2KId1tk3J9+5aQ==
+	bh=ja+tJtt08CNms0IjCLf8fGgfbTlBnpRmZ+lJgs2TUvY=;
+	b=lGrv5HTFbRAUrJN3WAb99DQ2sx2MkBL1MJp/V5YWDldTrzU9UNlyKsBQC5lNnDQXVsHi
+	 9ckY6s0lIIPuOoDtVJqEE1oDmmc76BVIydTbfLsAJUOB/p0KBvfQI4G32ewffwP7Nj1mc
+	 1aX+sTaNLrhUcwGf0mU8M8nGG1oMzx7f8Ji8v5nZXmtMB/easdFjCiCWIUtynMmMmRWDY
+	 UHUDM11C+OkgHxHoaAAjNFWrDcgFoYQlghByF432KCEoH/lSlrqGqSBD1hSZJrlAIWJDB
+	 JrxoLHNGhMx4BWyRiJrn15x187jnoulBoxs2SkW9OyjVKjuqVUQg6zqW8kkkmQ+S1Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=aheymans.xyz;
 	spf=pass smtp.mailfrom=aheymans.xyz;
-	dkim=pass header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=lSL5zlD1;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="YdbF8G8/";
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6685B60A5BD5
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 17:50:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6685B60A5BD5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8068460A5BEB
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 17:50:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8068460A5BEB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aheymans.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aheymans.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=lSL5zlD1
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4bb61185057so20455915e9.1
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:50:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=YdbF8G8/
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4a9be758734so731046f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:50:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=aheymans-xyz.20260707.gappssmtp.com; s=20260707; t=1795110615; x=1795715415; darn=vger.kernel.org;
+        d=aheymans-xyz.20260707.gappssmtp.com; s=20260707; t=1795110616; x=1795715416; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=biZE2CTLfp37QMWttMCLwen07TVkYszR0CyrzZrWaac=;
-        b=lSL5zlD1j7RAVJ1qICNT31/bpiBPPKF5PXRc6gv3yE2j5Dpkp9kwmh1JQV+sTW67wO
-         WSmLhGumALbGklJZ6zRwIJBWEj11lGW+CtFtAt2mCZcypeOQVygOZvQO50+qg2hdjazp
-         rHKPSNvXwJ1eZ4ZTj8y60BU/6lg5Qz4jIbV+y0ljR/2GxopDezI7xrwMKlT00/ryiAI3
-         7YnvbDM6OYrSPij4e/Hp4VXpnvtnscg9UqUe/UiGnff9qAhT+BHN/bszIB8HNA4SRGG2
-         fjeBGWCA+G8fz4TdFO05wV/dh1UkPq2Rcv6zZIPxGxkcRAKeBIUa+4F/yDQCuHSjZ4+0
-         vvrA==
+        bh=ja+tJtt08CNms0IjCLf8fGgfbTlBnpRmZ+lJgs2TUvY=;
+        b=YdbF8G8/wbUoHoj9RMHBPKBgoX4+nCYH42YCuBKLvM49uroaTx59O9QZ44o3L/xpoO
+         CbHlVTmRwpKBAaXsQwIaUQe2DcG5OkbHhq9e2tCC1t0cH2KjJ/elF/Bq6seGZk0g0K6I
+         AYj373RVIONzKW4OQ6eW2DyyeI68aVvIABRiIVOc29dZVUNWuH/YtZlyhSMZZczSmoDg
+         s2RDgWaoDnKO5X3vK424V2OLXutQbeVnnj1Faf0jTq5YMFbPqZlsVIdq2Sawx/HPi2w8
+         0XryEpIKTDg+8xzuVsJskNVNWrhGkm+PPnWIeZvoLUqmYb6VXNz3rfkZd8WMx/MLOVCD
+         RhwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795110615; x=1795715415;
+        d=1e100.net; s=20260707; t=1795110616; x=1795715416;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=biZE2CTLfp37QMWttMCLwen07TVkYszR0CyrzZrWaac=;
-        b=VyN8Xsqup12pvSrFwNtMad4aQ0ldsCAIsqyIlSG+Uvd2hImNPYbavia7PTpz6k+JDb
-         A1Sa4ottKvyp5F00QOEYSLxNZC0ok0okZDRga3/xh9so0EO9JI0PhC7nWoqlWTUAOYFv
-         MoUCCpwuOnaSdEMOYiBnQjgxjwDKw2s3tpGeGBYeoKOX1ypAx8KZvXg2wAi/lOCa3n9A
-         GJVxGIuMIY++hK1+jIGYYloLMNhnl8VIPFJXVBjNwQ/4MYpyMxIW/p/vB7jYdiYPRbti
-         hr0FEXVzaR726WSqMKv8UQXZFqBs3BeUd8ROI2I4DSRsAh4KM+gn1yCNSqxabSasF4iu
-         ygMQ==
-X-Forwarded-Encrypted: i=1; AL+hErEOzsnL9e3pv6AUhsx6x1pqfC8SHUCwhNurPNGoH1XvbRhpkeesGRpMhKVZl2FpIiuN5TEcr8QrAx+G@vger.kernel.org
-X-Gm-Message-State: APuU4Z9evSBbycvqKDZBOqCMss5GyZwVwUkQO3XH8t39Tg75Z6X4aOV9
-	Zm16yPuHmqXNX7y6shUFMetDg5PmLxtRKaxOQRx67ecTG0siqPU03zd5F5bvmpVZ/cw=
-X-Gm-Gg: AYBFou3c7QBsd3ucTC/gMIAFfYPPtvFvkBN10oaHE0J9yiTaf3nDvA3r1rP0x/qosEj
-	5OTfSt7eOSC6rxK73KfiZHxgGGRftXlYtptTJMCGRSVpYeZ0L2H4oU584HyJRAI4hGvpLN2G54z
-	PwpO0IcJuOEaauysrt0aJtnQryghc3loBVM3BI3RLidYpILOVmZkSzFkc+BcvVEL4KWwtotutF5
-	O/IP8JE7eLj98Gtsvo3TPPI6YncudpsLN85gJCBvic3wCpCveMoG2wqAmnu2HBbu/VvsYqxC3OZ
-	IIFbup3smoszYRYbV+lJXRPDqHajCAQgx61wkUm9S+7gc9lXsoWI1ZQSYgAz+pBtylRN+q0uwFE
-	7eg6/wG6SgOo9hzsOpAcx/jflG9t2Px4GH2kEzlJYiHt/D/WHMPNZw9Kb3zNLhr9vqbb96OKJMY
-	dxJCZCr6u2xBjliI2MLUCEq5GCrnwdQHdGlqCPQ5ZPecTG5Jd1BJK102BBfXv2AKhA4VCNuUwuZ
-	t9jfJTT5+B/lq1PQ+J2ODempk1BbDa3bC2mzmPDDINGnnlJ95GOD3x0XZH5Colyb/cDnfgLDNP1
-	OvdtvWqDSk58m7T/EDadAxfHQW6q2nLnKsTPD6v2uLJZoZwenlNT5kThvaR8ODpDYHlPM/b9Fpp
-	foHo8mQ0XpBHZl6IBBMhrxAMfEWflf8ojfihzgLivlS4EzGKaNRgYe0Pc9QoPvmbPr06TC6e8gn
-	gVzweJgygQc02ZEnD4NCz4EhY=
-X-Received: by 2002:a05:600c:1c21:b0:4bb:52bd:a3c7 with SMTP id 5b1f17b1804b1-4bb88804d41mr6984725e9.6.1795110614628;
-        Thu, 19 Nov 2026 09:50:14 -0800 (PST)
+        bh=ja+tJtt08CNms0IjCLf8fGgfbTlBnpRmZ+lJgs2TUvY=;
+        b=u91pw3dq+14enInleNvufmON2Rl+0HbRGQs39KShBzVwMRgbWDfziZWrfVdiQE+AuY
+         hj8zP8irItAFc0zQPrzbuQvVh0NntcRGkxjjOG1c9GIh5tcwnLCBqinovm6d4S4usGz9
+         OzUKsNIln43VCJzQy2uFfMJ/ah9eKyP4ex9q1Q5vv8rE1W0e8EQ02ObTWYbPPUUI+OoE
+         SIH42D4TSsbsPQpIO3GIr9DXNYF/B7hYS+p5Hyd5y9tvGjpMFRDVMuxJLLPW2se08AsQ
+         mqqnuqTIN72H1OGL0c50pYJ2cLpA3NbVufEm3X3PycPKRXh4tqHsx65Oqq2DHZavrq/B
+         1N1Q==
+X-Forwarded-Encrypted: i=1; AL+hErE1J0Byw201iGucht1f+HkjRHM+7WAIe82+XVKtX8fa0hw38p2kTBixfI9CTtLzC1y7UotQXbduwVut@vger.kernel.org
+X-Gm-Message-State: APuU4Z9loegBj6WGB3hVTSUqEB0YvLUr8Na1/Yf3HjOufYLGd+LFsIAh
+	3cluz0f7TBRZioMhahd+0dTAQ5LJl3d0p9svOfw42V6+rj+tPccepr7v+HU+3brIwPE=
+X-Gm-Gg: AZFdTZfQVE78N2kiHEjLD3qLOCsiMwPA+BB41qbLr+Hl2RbaUDO2TfZtYklhht9I+td
+	sVQLKoJu5bGpr9wxq6N/+YSaiAV9TwmTKMOF0CzOen1I119F7C5GuUZgYgR8Nrv8WeSwOzTB7ps
+	3psF+QGsG6G2qMUmlosPYJkf0K9n7a8ZjXqXbYYNtx9LH/7eaD1a0oPmoPLJAjuJKZSBV8+ohYi
+	wrEIXgsRrZkwoDz5gWiS5AubQqoaBzsxWx+oGNDa4PBME8q0LDD3ajw5FKCeeWrEi8WZO0vX1VA
+	dZhHkhFq/Hea2gJvdkAYhz45MZ9wcFb4yz8gs0ZeWut/wKTe6CzhNF2eFodz4l3tD1lsRzXNzpT
+	IU09qCJABZJPl9zDGBj1MKtGALRKqKmzjYAwAjC6qb358eKfk18WGCCbPZo1HdOipFAOkXTvjB6
+	NGZuuxu2UBtUZDOCniD1sHh6wX9/fdS4laKLq66Jsd9ev+56zHDdehLZ1bcBiBYbJNhumwzQqT0
+	+aMt2nED3JQlRhrNEWeJNJ1Ky8mWHM0tcPWdjr0hsellZpByPJueSji81GsxRc+LmOAmIrpLJt4
+	t9S6oJsmJ3XtKkQdNizR7CjmtgXmyDNP5OvgRFa39FMwnMUSOlpQhPj5g+ggQ//vuswFschWMl+
+	1SO2enVNmlazQaF0mfz3pVJ+aL4nUUeBd3m7u678Fz1hmnh1QckbxB0PFdEXLbZ4UlPoy/7JSEl
+	4IAg==
+X-Received: by 2002:a05:6000:491b:b0:490:9fe2:6a2d with SMTP id ffacd0b85a97d-4abb0a710c2mr228627f8f.26.1795110615829;
+        Thu, 19 Nov 2026 09:50:15 -0800 (PST)
 Received: from localhost (2a02-1810-b422-d400-611-84c9-252f-74ad.ip6.access.telenet.be. [2a02:1810:b422:d400:611:84c9:252f:74ad])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6bb989e3sm939503f8f.52.2026.11.19.09.50.14
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab65cb42absm1049301f8f.1.2026.11.19.09.50.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 09:50:14 -0800 (PST)
+        Thu, 19 Nov 2026 09:50:15 -0800 (PST)
 From: Arthur Heymans <arthur@aheymans.xyz>
 To: linux-wireless@vger.kernel.org,
 	Johannes Berg <johannes@sipsolutions.net>
@@ -92,9 +92,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	Solomon Peachy <pizza@shaftnet.org>,
 	linux-kernel@vger.kernel.org,
 	Arthur Heymans <arthur@aheymans.xyz>
-Subject: [PATCH wireless-next 08/10] wifi: cw1200: load the XR819 bootloader into SRAM
-Date: Thu, 19 Nov 2026 18:50:00 +0100
-Message-ID: <20261119175002.458988-9-arthur@aheymans.xyz>
+Subject: [PATCH wireless-next 09/10] wifi: cw1200: add XR819 SDIO support
+Date: Thu, 19 Nov 2026 18:50:01 +0100
+Message-ID: <20261119175002.458988-10-arthur@aheymans.xyz>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261119175002.458988-1-arthur@aheymans.xyz>
 References: <20261119175002.458988-1-arthur@aheymans.xyz>
@@ -109,251 +109,259 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-XR819 shares the CW1x60 revision field but needs a first-stage loader
-at 0x08000000. Write it before releasing the CPU from reset, then use
-the existing firmware download path.
+Match SDIO ID 0020:2281 and use the XR819 download path. Reset the
+card on probe: disabling the function leaves the host interface in
+queue mode, and a second firmware download fails without the reset.
+
+Use the board MAC address and GPIO interrupt when provided. Otherwise
+use the SDIO interrupt.
 
 Prepared with OpenAI Codex.
 
 Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
 ---
- drivers/net/wireless/st/cw1200/cw1200.h |  8 +++
- drivers/net/wireless/st/cw1200/fwio.c   | 67 +++++++++++++++++++++++--
- drivers/net/wireless/st/cw1200/fwio.h   |  3 ++
- drivers/net/wireless/st/cw1200/hwio.h   |  1 +
- drivers/net/wireless/st/cw1200/main.c   | 37 +++++++++++---
- 5 files changed, 105 insertions(+), 11 deletions(-)
+ drivers/net/wireless/st/cw1200/Kconfig       |   6 +-
+ drivers/net/wireless/st/cw1200/cw1200_sdio.c | 123 +++++++++++++++----
+ include/linux/mmc/sdio_ids.h                 |   1 +
+ 3 files changed, 107 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/net/wireless/st/cw1200/cw1200.h b/drivers/net/wireless/st/cw1200/cw1200.h
-index 6dc85ef6e0fa..b25b60d377f6 100644
---- a/drivers/net/wireless/st/cw1200/cw1200.h
-+++ b/drivers/net/wireless/st/cw1200/cw1200.h
-@@ -116,7 +116,9 @@ struct cw1200_common {
- 		CW1200_HW_REV_CUT20 = 20,
- 		CW1200_HW_REV_CUT22 = 22,
- 		CW1X60_HW_REV       = 40,
-+		XR819_HW_REV        = 41,
- 	} hw_revision;
-+	bool				is_xr819;
- 	int                             hw_refclk;
- 	bool				hw_have_5ghz;
- 	const struct firmware		*sdd;
-@@ -293,6 +295,12 @@ int cw1200_core_probe(const struct hwbus_ops *hwbus_ops,
- 		      struct cw1200_common **pself,
- 		      int ref_clk, const u8 *macaddr,
- 		      const char *sdd_path, bool have_5ghz);
-+int cw1200_core_probe_xr819(const struct hwbus_ops *hwbus_ops,
-+			    struct hwbus_priv *hwbus,
-+			    struct device *pdev,
-+			    struct cw1200_common **pself,
-+			    int ref_clk, const u8 *macaddr,
-+			    const char *sdd_path);
- void cw1200_core_unregister(struct cw1200_common *self);
- void cw1200_core_release(struct cw1200_common *self);
+diff --git a/drivers/net/wireless/st/cw1200/Kconfig b/drivers/net/wireless/st/cw1200/Kconfig
+index 03575e9894bb..8c2f759d8bd8 100644
+--- a/drivers/net/wireless/st/cw1200/Kconfig
++++ b/drivers/net/wireless/st/cw1200/Kconfig
+@@ -3,7 +3,8 @@ config CW1200
+ 	tristate "CW1200 WLAN support"
+ 	depends on MAC80211 && CFG80211
+ 	help
+-	  This is a driver for the ST-E CW1100 & CW1200 WLAN chipsets.
++	  This is a driver for the ST-E CW1100, CW1200 and XRadio XR819
++	  WLAN chipsets.
+ 	  This option just enables the driver core, see below for
+ 	  specific bus support.
  
-diff --git a/drivers/net/wireless/st/cw1200/fwio.c b/drivers/net/wireless/st/cw1200/fwio.c
-index 2a03dc533b6a..08b6f02e3ffd 100644
---- a/drivers/net/wireless/st/cw1200/fwio.c
-+++ b/drivers/net/wireless/st/cw1200/fwio.c
-@@ -14,6 +14,7 @@
- #include <linux/vmalloc.h>
- #include <linux/sched.h>
- #include <linux/firmware.h>
-+#include <linux/unaligned.h>
+@@ -13,7 +14,8 @@ config CW1200_WLAN_SDIO
+ 	tristate "Support SDIO platforms"
+ 	depends on CW1200 && MMC
+ 	help
+-	  Enable support for the CW1200 connected via an SDIO bus.
++	  Enable support for CW1200-family devices connected via an SDIO bus,
++	  including the XRadio XR819.
+ 	  By default this driver only supports the Sagrad SG901-1091/1098 EVK
+ 	  and similar designs that utilize a hardware reset circuit. To
+ 	  support different CW1200 SDIO designs you will need to override
+diff --git a/drivers/net/wireless/st/cw1200/cw1200_sdio.c b/drivers/net/wireless/st/cw1200/cw1200_sdio.c
+index 4f4bd668ebd2..330a4d0946bc 100644
+--- a/drivers/net/wireless/st/cw1200/cw1200_sdio.c
++++ b/drivers/net/wireless/st/cw1200/cw1200_sdio.c
+@@ -18,6 +18,9 @@
+ #include <linux/mmc/card.h>
+ #include <linux/mmc/sdio.h>
+ #include <linux/mmc/sdio_ids.h>
++#include <linux/of.h>
++#include <linux/of_irq.h>
++#include <linux/of_net.h>
+ #include <net/mac80211.h>
  
  #include "cw1200.h"
- #include "fwio.h"
-@@ -116,6 +117,11 @@ static int cw1200_load_firmware_cw1200(struct cw1200_common *priv)
- 		if (!priv->sdd_path)
- 			priv->sdd_path = SDD_FILE_CW1X60;
- 		break;
-+	case XR819_HW_REV:
-+		fw_path = FIRMWARE_XR819;
-+		if (!priv->sdd_path)
-+			priv->sdd_path = SDD_FILE_XR819;
-+		break;
- 	default:
- 		pr_err("Invalid silicon revision %d.\n", priv->hw_revision);
- 		return -EINVAL;
-@@ -128,9 +134,11 @@ static int cw1200_load_firmware_cw1200(struct cw1200_common *priv)
- 	APB_WRITE(DOWNLOAD_STATUS_REG, DOWNLOAD_PENDING);
- 	APB_WRITE(DOWNLOAD_FLAGS_REG, 0);
+@@ -50,14 +53,28 @@ struct hwbus_priv {
+ 	struct sdio_func	*func;
+ 	struct cw1200_common	*core;
+ 	const struct cw1200_platform_data_sdio *pdata;
++	struct cw1200_platform_data_sdio pdata_storage;
++	u8 macaddr[ETH_ALEN];
++	bool is_xr819;
+ };
  
--	/* Write the NOP Instruction */
--	REG_WRITE(ST90TDS_SRAM_BASE_ADDR_REG_ID, 0xFFF20000);
--	REG_WRITE(ST90TDS_AHB_DPORT_REG_ID, 0xEAFFFFFE);
-+	if (!priv->is_xr819) {
-+		/* Write the NOP Instruction */
-+		REG_WRITE(ST90TDS_SRAM_BASE_ADDR_REG_ID, 0xFFF20000);
-+		REG_WRITE(ST90TDS_AHB_DPORT_REG_ID, 0xEAFFFFFE);
-+	}
+ static const struct sdio_device_id cw1200_sdio_ids[] = {
+ 	{ SDIO_DEVICE(SDIO_VENDOR_ID_STE, SDIO_DEVICE_ID_STE_CW1200) },
++	{ SDIO_DEVICE(SDIO_VENDOR_ID_STE, SDIO_DEVICE_ID_STE_XR819) },
+ 	{ /* end: all zeroes */			},
+ };
+ MODULE_DEVICE_TABLE(sdio, cw1200_sdio_ids);
  
- 	/* Release CPU from RESET */
- 	REG_READ(ST90TDS_CONFIG_REG_ID, val32);
-@@ -261,6 +269,45 @@ static int cw1200_load_firmware_cw1200(struct cw1200_common *priv)
- #undef REG_READ
- }
++static const struct of_device_id cw1200_sdio_of_match[] = {
++	{ .compatible = "xradio,xr819" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, cw1200_sdio_of_match);
++
++MODULE_FIRMWARE("xr819/boot_xr819.bin");
++MODULE_FIRMWARE("xr819/fw_xr819.bin");
++MODULE_FIRMWARE("xr819/sdd_xr819.bin");
++
+ /* hwbus_ops implemetation */
  
-+static int cw1200_load_bootloader_xr819(struct cw1200_common *priv)
-+{
-+	const struct firmware *bootloader;
-+	u32 addr = XR819_BOOT_BASE;
-+	size_t i;
-+	int ret;
-+
-+	ret = request_firmware(&bootloader, BOOTLOADER_XR819, priv->pdev);
-+	if (ret) {
-+		dev_err(priv->pdev, "can't load bootloader file %s\n",
-+			BOOTLOADER_XR819);
-+		return ret;
-+	}
-+
-+	if (!bootloader->size || bootloader->size > U32_MAX - addr ||
-+	    !IS_ALIGNED(bootloader->size, sizeof(u32))) {
-+		dev_err(priv->pdev, "invalid bootloader size %zu\n", bootloader->size);
-+		ret = -EINVAL;
-+		goto release;
-+	}
-+
-+	for (i = 0; i < bootloader->size; i += sizeof(u32), addr += sizeof(u32)) {
-+		u32 word = get_unaligned_le32(bootloader->data + i);
-+
-+		ret = cw1200_reg_write_32(priv, ST90TDS_SRAM_BASE_ADDR_REG_ID,
-+					  addr);
-+		if (ret)
-+			goto release;
-+
-+		ret = cw1200_reg_write_32(priv, ST90TDS_AHB_DPORT_REG_ID, word);
-+		if (ret)
-+			goto release;
-+	}
-+
-+release:
-+	release_firmware(bootloader);
-+	return ret;
-+}
-+
+ static int cw1200_sdio_memcpy_fromio(struct hwbus_priv *self,
+@@ -142,6 +159,7 @@ static irqreturn_t cw1200_gpio_irq(int irq, void *dev_id)
  
- static int config_reg_read(struct cw1200_common *priv, u32 *val)
+ static int cw1200_request_irq(struct hwbus_priv *self)
  {
-@@ -443,8 +490,13 @@ int cw1200_load_firmware(struct cw1200_common *priv)
- 		break;
- 	}
- 	case 4:
--		pr_info("CW1x60 silicon detected.\n");
--		priv->hw_revision = CW1X60_HW_REV;
-+		if (priv->is_xr819) {
-+			dev_info(priv->pdev, "XR819 silicon detected\n");
-+			priv->hw_revision = XR819_HW_REV;
-+		} else {
-+			pr_info("CW1x60 silicon detected.\n");
-+			priv->hw_revision = CW1X60_HW_REV;
-+		}
- 		break;
- 	default:
- 		pr_err("Unsupported silicon major revision %d.\n",
-@@ -473,6 +525,11 @@ int cw1200_load_firmware(struct cw1200_common *priv)
- 			ret = -ENOTSUPP;
- 			goto out;
- 		}
-+		if (priv->is_xr819) {
-+			ret = cw1200_load_bootloader_xr819(priv);
-+			if (ret)
-+				goto out;
-+		}
- 		ret = cw1200_load_firmware_cw1200(priv);
- 		break;
- 	default:
-diff --git a/drivers/net/wireless/st/cw1200/fwio.h b/drivers/net/wireless/st/cw1200/fwio.h
-index c287160a492e..a3effef6d500 100644
---- a/drivers/net/wireless/st/cw1200/fwio.h
-+++ b/drivers/net/wireless/st/cw1200/fwio.h
-@@ -25,6 +25,9 @@
- #define SDD_FILE_20		"sdd_20.bin"
- #define SDD_FILE_11		"sdd_11.bin"
- #define SDD_FILE_10		"sdd_10.bin"
-+#define BOOTLOADER_XR819	"xr819/boot_xr819.bin"
-+#define FIRMWARE_XR819		"xr819/fw_xr819.bin"
-+#define SDD_FILE_XR819		"xr819/sdd_xr819.bin"
++	unsigned long trigger = irq_get_trigger_type(self->pdata->irq);
+ 	int ret;
+ 	int err;
+ 	u8 ien;
+@@ -160,10 +178,10 @@ static int cw1200_request_irq(struct hwbus_priv *self)
+ 		goto restore_ien;
  
- int cw1200_load_firmware(struct cw1200_common *priv);
+ 	/* Request the IRQ */
+-	ret =  request_threaded_irq(self->pdata->irq, cw1200_gpio_hardirq,
+-				    cw1200_gpio_irq,
+-				    IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
+-				    "cw1200_wlan_irq", self);
++	ret = request_threaded_irq(self->pdata->irq, cw1200_gpio_hardirq,
++				   cw1200_gpio_irq, IRQF_ONESHOT |
++				   (trigger ?: IRQF_TRIGGER_HIGH),
++				   "cw1200_wlan_irq", self);
+ 	if (!ret)
+ 		return 0;
  
-diff --git a/drivers/net/wireless/st/cw1200/hwio.h b/drivers/net/wireless/st/cw1200/hwio.h
-index d1e629a566c2..376dd1525fe2 100644
---- a/drivers/net/wireless/st/cw1200/hwio.h
-+++ b/drivers/net/wireless/st/cw1200/hwio.h
-@@ -89,6 +89,7 @@ struct download_cntl_t {
+@@ -303,11 +321,28 @@ static const struct hwbus_ops cw1200_sdio_hwbus_ops = {
+ 	.power_mgmt		= cw1200_sdio_pm,
+ };
  
- 
- #define SYS_BASE_ADDR_SILICON		(0)
-+#define XR819_BOOT_BASE			0x08000000
- #define PAC_BASE_ADDRESS_SILICON	(SYS_BASE_ADDR_SILICON + 0x09000000)
- #define PAC_SHARED_MEMORY_SILICON	(PAC_BASE_ADDRESS_SILICON)
- 
-diff --git a/drivers/net/wireless/st/cw1200/main.c b/drivers/net/wireless/st/cw1200/main.c
-index ee9fcecb0100..998b8e45e503 100644
---- a/drivers/net/wireless/st/cw1200/main.c
-+++ b/drivers/net/wireless/st/cw1200/main.c
-@@ -515,12 +515,13 @@ u32 cw1200_dpll_from_clk(u16 clk_khz)
- 	}
- }
- 
--int cw1200_core_probe(const struct hwbus_ops *hwbus_ops,
--		      struct hwbus_priv *hwbus,
--		      struct device *pdev,
--		      struct cw1200_common **core,
--		      int ref_clk, const u8 *macaddr,
--		      const char *sdd_path, bool have_5ghz)
-+static int __cw1200_core_probe(const struct hwbus_ops *hwbus_ops,
-+			       struct hwbus_priv *hwbus,
-+			       struct device *pdev,
-+			       struct cw1200_common **core,
-+			       int ref_clk, const u8 *macaddr,
-+			       const char *sdd_path, bool have_5ghz,
-+			       bool is_xr819)
++static int cw1200_sdio_core_probe(struct hwbus_priv *self,
++				  struct sdio_func *func)
++{
++	if (self->is_xr819)
++		return cw1200_core_probe_xr819(&cw1200_sdio_hwbus_ops, self,
++						&func->dev, &self->core,
++						self->pdata->ref_clk,
++						self->pdata->macaddr,
++						self->pdata->sdd_file);
++
++	return cw1200_core_probe(&cw1200_sdio_hwbus_ops, self, &func->dev,
++				 &self->core, self->pdata->ref_clk,
++				 self->pdata->macaddr, self->pdata->sdd_file,
++				 self->pdata->have_5ghz);
++}
++
+ /* Probe Function to be called by SDIO stack when device is discovered */
+ static int cw1200_sdio_probe(struct sdio_func *func,
+ 			     const struct sdio_device_id *id)
  {
- 	int err = -EINVAL;
- 	struct ieee80211_hw *dev;
-@@ -535,6 +536,7 @@ int cw1200_core_probe(const struct hwbus_ops *hwbus_ops,
- 		goto err;
+ 	struct hwbus_priv *self;
++	int irq;
+ 	int status;
  
- 	priv = dev->priv;
-+	priv->is_xr819 = is_xr819;
- 	priv->hw_refclk = ref_clk;
- 	if (cw1200_refclk)
- 		priv->hw_refclk = cw1200_refclk;
-@@ -590,8 +592,31 @@ int cw1200_core_probe(const struct hwbus_ops *hwbus_ops,
- 	*core = NULL;
- 	return err;
+ 	pr_info("cw1200_wlan_sdio: Probe called\n");
+@@ -324,30 +359,75 @@ static int cw1200_sdio_probe(struct sdio_func *func,
+ 
+ 	func->card->quirks |= MMC_QUIRK_LENIENT_FN0;
+ 
+-	self->pdata = global_plat_data; /* FIXME */
++	self->pdata_storage = *global_plat_data;
++	self->pdata = &self->pdata_storage;
++	self->is_xr819 = id->device == SDIO_DEVICE_ID_STE_XR819;
++	if (self->is_xr819) {
++		func->card->quirks |= MMC_QUIRK_BROKEN_BYTE_MODE_512;
++		self->pdata_storage.ref_clk = 24000;
++		self->pdata_storage.have_5ghz = false;
++		self->pdata_storage.sdd_file = "xr819/sdd_xr819.bin";
++
++		if (of_property_present(func->dev.of_node, "interrupts") ||
++		    of_property_present(func->dev.of_node, "interrupts-extended")) {
++			irq = of_irq_get(func->dev.of_node, 0);
++			if (irq <= 0) {
++				status = dev_err_probe(&func->dev, irq ?: -EINVAL,
++						       "cannot map GPIO interrupt\n");
++				goto free_self;
++			}
++			self->pdata_storage.irq = irq;
++		}
++
++		status = of_get_mac_address(func->dev.of_node, self->macaddr);
++		if (status == -EPROBE_DEFER)
++			goto free_self;
++		if (!status)
++			self->pdata_storage.macaddr = self->macaddr;
++	}
+ 	self->func = func;
++	if (self->is_xr819) {
++		/* Disabling the function leaves the HIF in queue mode. Reset
++		 * the single-function XR819 before starting another download.
++		 */
++		sdio_claim_host(func);
++		status = mmc_hw_reset(func->card);
++		sdio_release_host(func);
++		if (status)
++			goto free_self;
++	}
+ 	sdio_set_drvdata(func, self);
+ 	sdio_claim_host(func);
+-	sdio_enable_func(func);
++	status = sdio_enable_func(func);
+ 	sdio_release_host(func);
++	if (status)
++		goto clear_drvdata;
+ 
+-	status = cw1200_sdio_irq_subscribe(self);
+-
+-	status = cw1200_core_probe(&cw1200_sdio_hwbus_ops,
+-				   self, &func->dev, &self->core,
+-				   self->pdata->ref_clk,
+-				   self->pdata->macaddr,
+-				   self->pdata->sdd_file,
+-				   self->pdata->have_5ghz);
+-	if (status) {
+-		cw1200_sdio_irq_unsubscribe(self);
++	if (self->is_xr819) {
+ 		sdio_claim_host(func);
+-		sdio_disable_func(func);
++		status = sdio_set_block_size(func, SDIO_BLOCK_SIZE);
+ 		sdio_release_host(func);
+-		sdio_set_drvdata(func, NULL);
+-		kfree(self);
++		if (status)
++			goto disable_func;
+ 	}
+ 
++	status = cw1200_sdio_irq_subscribe(self);
++	if (status)
++		goto disable_func;
++
++	status = cw1200_sdio_core_probe(self, func);
++	if (!status)
++		return 0;
++
++	cw1200_sdio_irq_unsubscribe(self);
++disable_func:
++	sdio_claim_host(func);
++	sdio_disable_func(func);
++	sdio_release_host(func);
++clear_drvdata:
++	sdio_set_drvdata(func, NULL);
++free_self:
++	kfree(self);
+ 	return status;
  }
-+
-+int cw1200_core_probe(const struct hwbus_ops *hwbus_ops,
-+		      struct hwbus_priv *hwbus,
-+		      struct device *pdev,
-+		      struct cw1200_common **core,
-+		      int ref_clk, const u8 *macaddr,
-+		      const char *sdd_path, bool have_5ghz)
-+{
-+	return __cw1200_core_probe(hwbus_ops, hwbus, pdev, core, ref_clk,
-+				   macaddr, sdd_path, have_5ghz, false);
-+}
- EXPORT_SYMBOL_GPL(cw1200_core_probe);
  
-+int cw1200_core_probe_xr819(const struct hwbus_ops *hwbus_ops,
-+			    struct hwbus_priv *hwbus,
-+			    struct device *pdev,
-+			    struct cw1200_common **core,
-+			    int ref_clk, const u8 *macaddr,
-+			    const char *sdd_path)
-+{
-+	return __cw1200_core_probe(hwbus_ops, hwbus, pdev, core, ref_clk,
-+				   macaddr, sdd_path, false, true);
-+}
-+EXPORT_SYMBOL_GPL(cw1200_core_probe_xr819);
-+
- /*
-  * Removing the interfaces sends WSM commands, which need the device
-  * interrupt for their confirmations, so the bus driver calls this before
+@@ -408,11 +488,12 @@ static struct sdio_driver sdio_driver = {
+ 	.id_table	= cw1200_sdio_ids,
+ 	.probe		= cw1200_sdio_probe,
+ 	.remove		= cw1200_sdio_disconnect,
+-#ifdef CONFIG_PM
+ 	.drv = {
++#ifdef CONFIG_PM
+ 		.pm = &cw1200_pm_ops,
+-	}
+ #endif
++		.of_match_table = cw1200_sdio_of_match,
++	},
+ };
+ 
+ /* Init Module function -> Called by insmod */
+diff --git a/include/linux/mmc/sdio_ids.h b/include/linux/mmc/sdio_ids.h
+index dfffda3d8002..35789be747a5 100644
+--- a/include/linux/mmc/sdio_ids.h
++++ b/include/linux/mmc/sdio_ids.h
+@@ -27,6 +27,7 @@
+ 
+ #define SDIO_VENDOR_ID_STE			0x0020
+ #define SDIO_DEVICE_ID_STE_CW1200		0x2280
++#define SDIO_DEVICE_ID_STE_XR819		0x2281
+ 
+ #define SDIO_VENDOR_ID_INTEL			0x0089
+ #define SDIO_DEVICE_ID_INTEL_IWMC3200WIMAX	0x1402
 -- 
 2.56.0
 
