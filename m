@@ -1,56 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795104451;
-	b=KOw+WOqN65KRSEZJLgbLJY27TSfEVuMdmShjCEQoN3hO9ejaVT/+idSh2WLQHWJt81rZ
-	 uBUdY/7z34xRrVIntPU9GVIijRIzPOOs+ZWQ9zWMn8AM9xatJzS7t6MFqB4nCEjjYZZht
-	 lg9iLBqIvMWyrdtuj1DtbFUbJHC2h7xH8Iag2RRcKJUAJzlXzcy0hygnnsNaXzpV0WIrK
-	 04yvjbxovuW54c+vSDOYw+yTbmh0NFy0eJfFaJx8iIwrahQOiZWgBguNY86i+TtJjr4D1
-	 qU/YRogdJaXvq8DNq3dwcbc+erlF7UDGuczbVnuy0H8xyldM7dowrPi8OLVtsqx9rTg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795104451;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=B/LsJkctBfFuuZkO1bIGRnBSjkM7evSlkM2UlNOMw38=;
-	b=BMI5atuEMY1TIoTWSNsBdu9bqxqNIbK4r5YDvGYSlJkrJPOa9kg3ksnSi/GVRrXs4sxU
-	 JUiQ0+wzxZOmjPF3WPsSS9om7PpWXokxZqoiVr6sRuxqbRaCcXzFCZpwrVYHPRVl74Uuz
-	 WTIDvsbAZKLd3bO8yMW7UuF4KLaudH5KJth5ewoJTFxujSZG0dgtg8G4oMQnNJUpSTrv6
-	 AyPX6PQ8OcGtLUeagx/uHHqVCp/bSAoyJaYOKNavNYOPty8juYGD8ZNqc2S7NpUoc/RxV
-	 uA0QxV0q29wYJ2CJYqqjZDGk9wxNFvZt2mKDMgjMIp7fK8W119cyW18rcXU8rMW+8AQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jwggpjjY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.25
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795104469;
+	b=L91m5yYZMlZej8jJghVm9OroFlyOAdxOlCxmwpK9hwoOhMnc4IgcZjfBsc3u4h+NkBfW
+	 Jotvme1FVikfGScD0pL1HePrJqNEqT4T//2c60M+Tp2Pe2IsWRhle6on4u0ZVmOy5erf/
+	 s6+T8loxXykBMoQ2YLFolHCrJ14kza5FMho8U1LwcCwA7CgNpUlteOHeA1UjNcniMc1Yc
+	 m64Zro3yrF/QU2wAdoKjJI0WFHhws1hKhPyUmc62wipN/p3oBimGPAONmUUTIa9TWKSzD
+	 qKypLOcEeuNijVRcrP+rKCYDi0/e27CRQkk9rdK34kd+1fJB29QA9sDNIAef076TePA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795104469;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=w5wY7B4wxU+WJsr8t/SuFNdKrrVXmbRrJzqkurHNsuc=;
+	b=UpBfrPO9XEBJ+7s3G5s0wBZkvi8cZJwIxyO+gmIz17QeXigVUnBg0BJjn/c7vd3o8e2T
+	 wiXfaJk8f/d4uRnOW2/Up7a0RBQrohMFtBr+hmFysEG24w5KxBRGAwpfSbIpiyX1kOVr4
+	 J2aGl6r13Qt4wm/Zf6MTEeio3PGjstkrG2Db20i0j4XIykAglHQzH8+7Eud30L3Cwt02i
+	 plmTUxpJQyC9ET0LwMknCF9a/FS/+1MZhUy+8TIHYGO+M/x8V/F4WtpN0XrTMEGyqytYY
+	 SdxhWA9iYUq6iq7E1T1Fjux54gzuzFjhcdd8V6bWxGpYqIHwx5Dr617XS3Zhlg9CkPg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=BYJiTg4t;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.25
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013025.outbound.protection.outlook.com [40.107.159.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4136606A33C
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:07:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72AF606A32C;
+	Thu, 19 Nov 2026 16:07:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C72AF606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jwggpjjY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09D141F000C8;
-	Thu, 19 Nov 2026 16:07:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795104451;
-	bh=B/LsJkctBfFuuZkO1bIGRnBSjkM7evSlkM2UlNOMw38=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jwggpjjYAE/vwxtiI7a8ta1P4bx1nPcTkOd4+QI3DPYYfLLTApxDty0ilO1llTG8x
-	 lgIX60sK/gUELaRqzygBKtZjG+tm6LzDxpkPLTqIpbxraUS+N1yg6scowUV/JERpTg
-	 7qwXH8gvz5iMPA/BBrl7Pa+fnwAxZSw9W29U7MqL1g9G+ntU2V511a1y13FDylGhNZ
-	 KCzNu3QXb+oGhLVKfrqGNZY4dINlEFoSBUsBO4j/0u5oI5VpT046m8MFqobcBhQfwI
-	 YR2sJQLPtK7+3gnQN/NTlqegRuzpWU+34X4ZQjxSiu9qDzRxGRLkSxUelMUpOaL9RC
-	 Lf/UH8mDkIeVA==
-Message-ID: <sashiko-outbox-223471@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 22/28] media: mali-vpu: handle fatal firmware error
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Charvi Mehta" <charvi.mehta@arm.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261119153758.1426673-23-charvi.mehta@arm.com>
-References: <20261119153758.1426673-1-charvi.mehta@arm.com>
- <20261119153758.1426673-23-charvi.mehta@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 16:07:30 +0000
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=BYJiTg4t
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h76aFVNBcOnN85LwCjE0I8Qhx+/+cttHWnGB/SXcRMppsgrHmniea/UQWCilWPOd8FzYmsJ8BQfe5uJkvBZchjCuYZoWifFOz5C/KQ1/2HyIO3TmP8ge2xJZbkxWKFjXyMXjpWwV/OgNidqs62F/i7laO1FeV/+Cx7J3vpd9JRkc779CrqZZEVGBjD/V6+wgtMKyspjDhdbxi4+5kw3dsytNTPyUB5gjK+4omyEGGENuoOwLJVACZtPHmfBxIi/mq8Q15FkHoe+NNoOJj3WpkSeW4A+nSny3vX8FeE/UDXP/V6SVx68tnE+NFBLAfB/Q3QC8yoTdzq2KsXZQRIITlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w5wY7B4wxU+WJsr8t/SuFNdKrrVXmbRrJzqkurHNsuc=;
+ b=Do6eebfiWD5gxcGG9wWkLhGU8rU5W+/+YVhAR9RwBma8SxyHCnTspqcwkzSQ5BnIE+kJWckoetgjeADdY1GdTr83WMiH3SyPZgRyFwQVcNGM7ILabI3/o+lticfME/oQoojhB8JGzSHKQWawts7byCosXfVpRXgBnHyHBKZurOS1Ud3/PggimLez3ct2i3kmNZw3TqnqLNmw4dq2y/+BEIvpfGile3b+37bCfnpkxSSv+KA/8aqVO3m05Jtehvx/N2UxpzmnlgYtM4iQtSLOfG1x1TWTyoB8mMCGWCftcBuTRbhvMUqL2Om6X4cgGDprdAxSEN8+iOImyTaXR8CzXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w5wY7B4wxU+WJsr8t/SuFNdKrrVXmbRrJzqkurHNsuc=;
+ b=BYJiTg4tbfP7HdzZfjhl0n3jzXg2lZyPjR9uFXpVJaMkOAl+cj+A91xVCKmIim5lTyZRSVuezTFbxvltD2EnPB88KjWIP1gxyKH1aIHWS5BmdM7FVMsFiVAEGX8z5wuDB4UYjSyZ2wMh8+I6eRha52pAhA+00weaOCuk/AXMJUDxftutrIEhTrz+k5KeLiIqLij0+C+KAODLrE1htjOcgc4P4lY2sHY7VtmeoEFgtgbggq25tUdQI6gb+j++fKg/KeGoaINZR0f4g3y71pgJ2atNTav02ncculkHq7Qe2Ks8sn94EdwJBOEnURmhuudjzWaC1S/bkc1Pvp4DHWg/hQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV4PR04MB601625.eurprd04.prod.outlook.com (2603:10a6:150:411::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
+ 2026 16:07:43 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
+ 16:07:43 +0000
+Date: Thu, 19 Nov 2026 10:07:34 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: lee@kernel.org, maz@kernel.org, andy@kernel.org, jic23@kernel.org,
+	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org,
+	mfd@lists.linux.dev, linux-iio@vger.kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, crofts@kernel.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 1/4] dt-bindings: mfd: mxs-lradc: Fix interrupt order
+Message-ID: <av8exqpGDbMhDnzK@SMW015318>
+References: <20261119134041.16611-1-festevam@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261119134041.16611-1-festevam@gmail.com>
+X-ClientProxiedBy: PH7P220CA0154.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:33b::35) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,186 +98,137 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV4PR04MB601625:EE_
+X-MS-Office365-Filtering-Correlation-Id: 763b5f65-96e2-4cc1-f30d-08df46573e94
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|19092799006|23010399003|56012099006|11063799006|261021121427099003|261021123027099003|10067099003|261102123227099003|261009223027099003|261026140227099003|261022075727099003|261022105027099003|261028144727099003|261026121527099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	GGXVZV/3sX7ouLS0cTpSWxFPA2glNB15InfuxG8bvYIu8114N3lzGkgV/Si6G1aYNdA+wyvep6i46o0CaToZNpcbqFP1W+RFUkHm87XP/s+XsLDQmw1kTZTchJe5JqYJ3pmDidH5yffrfgER1sGlR7Chfy/vcFIwJvdmx4eD39k9hSlZxrQyyWUkAkpceU9qkD7gud2vVMeAmfvscDHGFuF7TwXqPUA3VN0qCZZL/UB1/HP7LZitLc/JYnGKNylAqdVGC2Iq6OvWt6d4Bv7LdWf9shNvFZRjYEYqdRj9kQjYJ8oPEN6WiNbtfy7rCuLMRGypYMwFRwOAAQbc31ZCtnvPIBUcFR+uJRke1KkhUp1ZusMfIHC+FIdNyaNDWb7izWCCae2lFJtESje+IPVh8Y6Hkz5iG8KTajFOrQaUw+DplcfJhh43MCcHxuhHtZxuKHgEehb2DOZuFeqsV8vtw2NuDXze+uuElFmGoTpfVxVrzCAn6oU6XBwUXWWrqxQLOpQp1sNaT/F9L09sJRnqzUfbvGsGPJuFKBrI8mcCoOCYYQyi1PevaS1G1BtuZKLjTHHEQk/MR83o85lD07IFBIIPL60TYS+Gkv7YUGUlOn6VtMZM2JCHYlrgWapoUol0Ehar/s7lcMMxybuNr6B187hA1m82wLW7Hi5s5uXwQhk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(19092799006)(23010399003)(56012099006)(11063799006)(261021121427099003)(261021123027099003)(10067099003)(261102123227099003)(261009223027099003)(261026140227099003)(261022075727099003)(261022105027099003)(261028144727099003)(261026121527099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?8k1+VZEA2+HQQ2E7ya1sQHfD2xR8HIlbNIOc+SBzC3DNio6uzd7l9qFihlaY?=
+ =?us-ascii?Q?ID6IwVLKhQljxgaamio4P5Lx2xbfrnuZFMT2nnrj1jqYm3Ycb1P1cvvph6FE?=
+ =?us-ascii?Q?XgAujF5y8h3i5chDinODdW8ULwzfdbcywY0vQIQZH8rOxXCrhWFn0p3zTL9Q?=
+ =?us-ascii?Q?yYihADPKjf2GVmB0JIY1SvNVKsOqorIMzVRmb7emqcErn3rSVYjep143k0N3?=
+ =?us-ascii?Q?ghJDFrRyvBt56ltnzmY0fFXrwL3YKBh8oYgeF8EHHmJp5PUQiRpKKMZ9BXOD?=
+ =?us-ascii?Q?PybLssYPtkojKi+iIbkzC+Y7MGpbaDYrFUhF+B+qnUe0UNC+CeD573r+snaC?=
+ =?us-ascii?Q?Rb7O7Aebm/882gONzlyLLMyAzx6TPNbJlBDn7rcBdVa20nm7TK68X3N6pc0V?=
+ =?us-ascii?Q?43Kw7fFn6tG4qspJTiUKp+k1VHY0fITDzbN1EG+e4VWyK7RTPDAiMh5lFRUd?=
+ =?us-ascii?Q?/whv2rcp2rKw7p9l9P12phVtbE1WbE0NgP8sY2ykkHMV+ZjcTqeTNtVgE1BP?=
+ =?us-ascii?Q?4qrzfcMjqsnrFbv33gN7D7Utz3yvnfCbts9MvEQfS3I9hYsgdf2+2OYtK1CQ?=
+ =?us-ascii?Q?3FZApF4abYNzZgiwsZd3UtGvFrLTABAm7AdZjAJ4P02WQ4usKjoov7O51swA?=
+ =?us-ascii?Q?RL+i0hyxSKH0NwCdLdWL2aB7tlCTcAxV6BPzIr5HG9NPJMw46sSOif0nHPtD?=
+ =?us-ascii?Q?0MRAl7cPvHA+jE9F6/Z34Hkw408OPx4qfBslD+SWuJ/9eQBsuNHRnvPxqSbT?=
+ =?us-ascii?Q?AGMyVFXzi5xvhURCBScUkOMh2SayRAnfO9MGqhKrqN+sWPzpoHmA9N/1lJA0?=
+ =?us-ascii?Q?dAEnft55VijeZMduFd0e20DmbWuKFmQ4kQaAKp0N040tMFaN6a0sX5SyTs9W?=
+ =?us-ascii?Q?bTbLWB62DPbw6xunqVqh3G95QuZyZuVKKIG/8BUgY18l1uiLKh2n3wGOvv5M?=
+ =?us-ascii?Q?1RCo1HgAZhXEkr03CIrvbEEIfvUknGRA8P0OpKbnIqzPnbScPmx7xqd6tR8e?=
+ =?us-ascii?Q?vEuMUdS8ExiY+fcHja6FZWep8hx/Pz+Ya2093Elz6dOKMyAIploBmchYahg0?=
+ =?us-ascii?Q?uKMvwXom108fPCwCIJKHjPY54/f91ikq1kuVnD07aEQa4WAnKo3johTmiU+m?=
+ =?us-ascii?Q?BUCjrm9IUC3zZzx1w4pviXpenc8o0RyU05SnV+yFzEZiidOwnALo9I+y2HVF?=
+ =?us-ascii?Q?9qjR3bYSLmaO2iU6CgUyIObsa5/20QOIR7c6kSChgAqeGQjOqh6x1fOedptF?=
+ =?us-ascii?Q?OO3w9oaGxDqpHc6UCrX1LZGt7jMeeDv4qf+GIOp8vLGtpZX1RQjAFyphw6ja?=
+ =?us-ascii?Q?mnYoBglnz2zZ0dt0diKLhK/oirN2fcSIdn8HI8rleyER+cs7tMMAqfyXvCE6?=
+ =?us-ascii?Q?70Adc8hx++qZZGwjl4bdtKr22cBA4gcs2JIpD3/h5YkdV95QIny0yECgQE9c?=
+ =?us-ascii?Q?1W03G6kS6i2l5oKNA38rg6qWOpT5U+L6piQyCZb8dhBBW6Sr8vby7Lri8Ky9?=
+ =?us-ascii?Q?gugyIjKi3Wkjz5WXA0C6EtmuAD+8/MXVogct/BrqwB16X+3Lz13Yyx7xvlzL?=
+ =?us-ascii?Q?rm7qJfrxuVpvRNMVH2jC6q7UABq/+eNEbiKRNSBNzg+HL60OH4f9Nwfx7/HA?=
+ =?us-ascii?Q?1q9EG8aHjSJxh9W/SH8ccJ4N6xgIGt+cqW0FGrFjwj3WExEhz6x9X88E03wG?=
+ =?us-ascii?Q?2GUFPKZejq2an55gdS4GU2p85ABX5YDYpIh8RozljlGGqbqVETJANd+troyB?=
+ =?us-ascii?Q?Xw0Me+xgW9xn4iAqEY2/HVBcPOfQcma0zwYlkbXEkH38EgGP+FDR?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 763b5f65-96e2-4cc1-f30d-08df46573e94
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 16:07:43.8182
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oYXxmjZwEYMej+spqDx+TG8wFVDDHzgPmrY0LZ0ybSzQ/M2Ybdzm9U64LWyCqZErxI1skMeD4HTiliKZ5uwQ+5/4KUMLGwCEhgg9bKyPyO3S9TRLhSQN72w8iuYehgZj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB601625
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] media: mali-vpu: use-after-free in mali_vpu_fw_clear_buffers()
-  on error
-- [High] media: mali-vpu: re-entrancy race in mali_vpu_session_fw_init()
-- [Medium] media: mali-vpu: unrejected buffer ops on failed session
---
+On Thu, Nov 19, 2026 at 10:40:38AM -0300, Fabio Estevam wrote:
+> The interrupt descriptions added during the conversion to YAML do not
+> match the ICOLL source numbers used by the existing DTS files.
+>
+> For i.MX23, Table 5-1 of the reference manual maps source 36 to touch
+> detection and sources 37 through 44 to channels 0 through 7. The DTS
+> lists these sources in that order.
+>
+> For i.MX28, Table 5-1 maps source 10 to touch detection, sources 14 and
+> 15 to the threshold interrupts, sources 16 through 23 to channels 0
+> through 7, and sources 24 and 25 to buttons 0 and 1. The DTS also lists
+> these sources in that order.
+>
+> Reorder the schema descriptions to match the hardware documentation and
+> the existing DT ABI.
+>
+> This change was prepared with assistance from OpenAI Codex, which was
+> used to compare the binding with the reference manuals, existing DTS,
+> and driver ordering.
+>
+> Fixes: 009528b5aa13 ("dt-bindings: mfd: convert mxs-lradc bindings to json-schema")
+> Signed-off-by: Fabio Estevam <festevam@gmail.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-commit c9e2be7008da2e65bfc676db9f65394d1e577986
-Author: Rath Sankaralingam <rath.sankaralingam@arm.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-media: mali-vpu: handle fatal firmware error
-
-This commit records the first fatal error on a session, terminates the
-scheduled session, marks the VB2 queues in error, and rejects subsequent
-session operations with the recorded error code.
-
-> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/dri=
-vers/media/platform/arm/mali-vpu/mali-vpu-session.c
-> index 60e4b7e25eff8..9cbd116124109 100644
-> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-[ ... ]
-> @@ -307,6 +310,31 @@ static void mali_vpu_session_buffer_done(struct mali=
-_vpu_session *sess,
->  	v4l2_m2m_buf_done(vbuf, state);
->  }
-> =20
-> +static void mali_vpu_session_set_error(struct mali_vpu_session *sess, in=
-t error)
-> +{
-> +	struct vb2_queue *src_q;
-> +	struct vb2_queue *dst_q;
-> +
-> +	lockdep_assert_held(&sess->vq_lock);
-> +
-> +	if (sess->error)
-> +		return;
-> +
-> +	sess->error =3D error;
-> +	sess->fw_requested_state =3D MALI_VPU_FW_STATE_STOPPED;
-> +	sess->fw_state =3D MALI_VPU_FW_STATE_STOPPED;
-> +
-> +	mali_vpu_sched_session_terminate(&sess->sched_sess, &sess->vpu_dev->sch=
-ed);
-> +
-> +	src_q =3D v4l2_m2m_get_src_vq(sess->m2m_ctx);
-> +	dst_q =3D v4l2_m2m_get_dst_vq(sess->m2m_ctx);
-> +
-> +	vb2_queue_error(src_q);
-> +	vb2_queue_error(dst_q);
-> +
-> +	wake_up(&sess->fw_waitq);
-> +}
-
-[Severity: High]
-Can terminating a session with in-flight buffers cause a use-after-free in
-mali_vpu_fw_clear_buffers() when the session is later closed?
-
-Buffers submitted to firmware are recorded in sess->fw.inflight_buffers and
-are normally removed when firmware returns them, or during final session
-teardown in mali_vpu_fw_cleanup() -> mali_vpu_fw_clear_buffers().  When a
-fatal error occurs with buffers in flight, mali_vpu_session_set_error()
-terminates the LSID and prevents further interrupt handling, so firmware
-never returns those buffers.
-
-If userspace then calls VIDIOC_STREAMOFF followed by VIDIOC_REQBUFS(0) or
-VIDIOC_REMOVE_BUFS before closing the fd, mali_vpu_vb2_stop_streaming()
-completes all active m2m buffers back to VB2 and __vb2_queue_free() frees
-the struct mali_vpu_buffer allocations without removing them from
-sess->fw.inflight_buffers.  Closing the file descriptor then dereferences
-the freed buffers:
-
-drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c:mali_vpu_fw_clear_b=
-uffers() {
-	xa_for_each(&fw->inflight_buffers, id, vpu_buf) {
-		xa_erase(&fw->inflight_buffers, id);
-		vpu_buf->fw_buffer_id =3D 0;
-		vpu_buf->attr =3D MALI_VPU_BUF_ATTR_NONE;
-	}
-}
-
-Untracking any in-flight buffer in mali_vpu_vb2_buffer_cleanup() (or
-clearing sess->fw.inflight_buffers when terminating the session on error)
-would avoid leaving dangling pointers in the XArray.
-
-> @@ -385,11 +413,13 @@ static int mali_vpu_session_wait_pending(struct mal=
-i_vpu_session *sess)
-> =20
->  	lockdep_assert_held(&sess->vq_lock);
-> =20
-> -	while (sess->fw_bin_state =3D=3D MALI_VPU_SESSION_FW_BIN_READY &&
-> +	while (!sess->error &&
-> +	       sess->fw_bin_state =3D=3D MALI_VPU_SESSION_FW_BIN_READY &&
->  	       sess->fw.pending_response_count) {
->  		mutex_unlock(&sess->vq_lock);
-> =20
->  		timeout =3D wait_event_timeout(sess->fw_waitq,
-> +					     READ_ONCE(sess->error) ||
->  					     READ_ONCE(sess->fw_bin_state) !=3D
->  					     MALI_VPU_SESSION_FW_BIN_READY ||
->  					     !READ_ONCE(sess->fw.pending_response_count),
-
-[Severity: High]
-Does dropping sess->vq_lock in mali_vpu_session_wait_pending() allow
-concurrent re-entry into mali_vpu_session_fw_init()?
-
-Both mali_vpu_session_prepare_streaming() and mali_vpu_session_fw_init()
-detect an in-progress firmware startup by checking whether
-sess->fw_requested_state !=3D sess->fw_state.  However,
-mali_vpu_session_fw_init() only updates sess->fw_requested_state to
-MALI_VPU_FW_STATE_RUNNING in mali_vpu_session_fw_send_state() after
-mali_vpu_apply_staged_controls() and mali_vpu_session_wait_pending()
-complete.
-
-When staged controls are present, mali_vpu_session_wait_pending() drops
-sess->vq_lock while both sess->fw_state and sess->fw_requested_state are
-still MALI_VPU_FW_STATE_STOPPED and sess->fw_bin_state is
-MALI_VPU_SESSION_FW_BIN_READY:
-
-CPU0                                  CPU1
-mali_vpu_session_fw_bin_ready()
-  sess->fw_bin_state =3D ..._READY
-  mali_vpu_session_fw_init()
-    mali_vpu_session_fw_send_job()
-    mali_vpu_apply_staged_controls()
-    mali_vpu_session_wait_pending()
-      mutex_unlock(&sess->vq_lock)
-                                      VIDIOC_STREAMON(CAPTURE)
-                                      mutex_lock(&sess->vq_lock)
-                                      mali_vpu_session_prepare_streaming()
-                                        mali_vpu_session_fw_init()
-                                          mali_vpu_session_fw_send_job()
-                                          mali_vpu_session_wait_pending()
-                                            mutex_unlock(&sess->vq_lock)
-      /* wait fails or times out */
-      mutex_lock(&sess->vq_lock)
-  mali_vpu_fw_cleanup(&sess->fw)
-  mutex_unlock(&sess->vq_lock)
-                                            mutex_lock(&sess->vq_lock)
-                                          mali_vpu_session_fw_send_state()
-                                            <-- use-after-cleanup of sess->=
-fw
-
-In addition, because sess->vq_lock is the VB2 queue lock, dropping it
-inside mali_vpu_vb2_prepare_streaming() before vb2_core_streamon() sets
-q->streaming =3D 1 allows a second VIDIOC_STREAMON on the same queue to see
-port->stream_requested =3D=3D true, return 0 from
-mali_vpu_session_prepare_streaming(), and run vb2_start_streaming() twice
-on the same queue.
-
-[ ... ]
-
-> @@ -566,6 +600,9 @@ int mali_vpu_session_qbuf(struct mali_vpu_session *se=
-ss, struct vb2_buffer *vb2_
->  			mali_vpu_session_get_port(sess, vb2_buf->type);
->  	int ret;
-> =20
-> +	if (sess->error)
-> +		return sess->error;
-> +
->  	if (!port->stream_requested ||
->  	    !mali_vpu_session_can_stream(sess) ||
->  	    sess->fw_state !=3D MALI_VPU_FW_STATE_RUNNING) {
-
-[Severity: Medium]
-Does checking sess->error in mali_vpu_session_qbuf() reject buffer
-operations with the recorded error as described in the commit message?
-
-mali_vpu_session_qbuf() is only called from mali_vpu_vb2_buffer_queue(),
-which has a void return type in struct vb2_ops and is only invoked by VB2
-while the queue is already streaming and q->error is 0.  If VIDIOC_STREAMOFF
-is called after a session error, __vb2_queue_cancel() clears q->error and
-q->start_streaming_called; subsequent VIDIOC_QBUF and VIDIOC_PREPARE_BUF
-calls only invoke mali_vpu_vb2_buffer_prepare(), which does not check
-sess->error and therefore succeeds with 0.  Checking sess->error in
-mali_vpu_vb2_buffer_prepare() would reject those buffer operations with the
-recorded error.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119153758.1426=
-673-1-charvi.mehta@arm.com?part=3D22
+> ---
+> Changes since v4:
+> - None.
+>
+>  Documentation/devicetree/bindings/mfd/mxs-lradc.yaml | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/mfd/mxs-lradc.yaml b/Documentation/devicetree/bindings/mfd/mxs-lradc.yaml
+> index 782b2f4005a0..755029880677 100644
+> --- a/Documentation/devicetree/bindings/mfd/mxs-lradc.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/mxs-lradc.yaml
+> @@ -87,13 +87,13 @@ then:
+>    properties:
+>      interrupts:
+>        items:
+> +        - description: touchscreen
+>          - description: channel 0
+>          - description: channel 1
+>          - description: channel 2
+>          - description: channel 3
+>          - description: channel 4
+>          - description: channel 5
+> -        - description: touchscreen
+>          - description: channel 6
+>          - description: channel 7
+>      fsl,lradc-touchscreen-wires:
+> @@ -102,6 +102,7 @@ else:
+>    properties:
+>      interrupts:
+>        items:
+> +        - description: touchscreen
+>          - description: threshold 0
+>          - description: threshold 1
+>          - description: channel 0
+> @@ -110,11 +111,10 @@ else:
+>          - description: channel 3
+>          - description: channel 4
+>          - description: channel 5
+> -        - description: button 0
+> -        - description: button 1
+> -        - description: touchscreen
+>          - description: channel 6
+>          - description: channel 7
+> +        - description: button 0
+> +        - description: button 1
+>
+>  additionalProperties: false
+>
+> --
+> 2.43.0
+>
+>
