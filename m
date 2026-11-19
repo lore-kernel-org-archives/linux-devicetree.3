@@ -1,89 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795079352;
-	b=dAodXIvs3yOf3VCeyBazB5Mr4PrCMPLiLRD14xCWGaxO6zljFd1ykDIyhJks5zTChLdY
-	 NliMqG/AY7TVwvJPCkXLd5UIp83nOs4FoY9sTcsvwKVuWJ6cWAJtHnDGfSiQTr2SiVDrB
-	 NwNQ4GvB06EgfBUB5PeuLrKZsrK6Wv/j5858COWtH0RVxkRSHWFfmb1rgIzdUHxYEqLw7
-	 qkYmUrK3dT92EIkRaQmjvf8Nw2N3VvLANxNcrAoEu3TPv/AmB6iQ6r2nT+Z8TS4VhCPc+
-	 mbPzAnHSve0/8kGqocVWfm7GNXhmfvKctb5jLTn6M3tSGS5+kbxMBIV5Kx6bxSgWTYg==
+	t=1795079419;
+	b=WSrRym++wRRwqAlWfBreltB3ws1CyQ3MrYp+rdZ8ngDUBiJVAvVMd/6PCQHDhlRFWOE9
+	 +2pL9VQktqmXSy9zaKnHoZQsrKXtBIkV7D7Klwu/BjlGAMw20g6sEw216IPoq7WQV/sbw
+	 pHZoQQHTiv5m4h6VSFwvLHGmXfu1YHIahdotDph0MpDyUTZy9jv4Sjf9uXDYFR75vw8J/
+	 rt8ru3AZ3kMIj5djqrs94sqtDDvUSbkG3Mrk5IdNrO0uilg9x7jbHIHFuOfX9Ar+hpYC1
+	 XmnHHEmh8PYoHIJc/6si49WQFoPdw1+msJePXtSt5e0qYJUSjQaD72i0WwaNMbksyMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795079352;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=9oi8lNsBr5w3e44Y3FX22JF9crP76D+3fgnNVixtEfY=;
-	b=q0HZm2WrQz4sBxkYP61j5WYMje3tDPRN0w63DRqMcQOjPBkIKYdvTcz6H8nfxnqjNBXM
-	 0NXMr0VyVWWoZV5g7LEhqbqmzOmumgQRX0TXw0+BZykVW+H8IBvlzmShviI/tx7wBdXOA
-	 wTh9g7W4DNjTvsw2zN6WUvBG4SDff1BreoR3EQYRZmbuRvhteMZ35pKhsfjQoZmTlqF5H
-	 cSl4aVrPTTgqDboCrQa/tY6WUwT+XUKEQ9TdAQp9jomcOXbk2gYB8Ss9kGdNGFkpwOC1y
-	 4dLuldQy6gFUXxS8mnUqRLfrQBXCN8gI/mTHC/+ip1IzPwGC0qTQSttCqnOf1a24wbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795079419;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=IY9v5voMoqbpkuw94TFUrSadrFvCUDNpGXTCRmuvkWA=;
+	b=Pp06fCfqdKh3rvxdZQ5VqccOFVjdOCPSJ0kuE2aLIpci5hKx4tw7FQp1Ml3Yu5+pO/n0
+	 vYlxb60i3seyt9ROwuzO7HMKehezQIMc9UaTcd70FXZ3auDH7GVh5N1FErt/K1TCxg0bj
+	 fTMGBdbdbwt78yDqXQD8gERmdRT7qNim4kAjc6yTbZtQRm/N+ZZkvC+u5M1q2ryxpJnrT
+	 6Qx9ZwocFQTh4N3GANRHoO3iVK7aePBa0zhWKDQZcTq68zsWTINP2DMIcWOgEx1HSbeo0
+	 80X3ZiPHhXiNzofvCZC/CGdg0VchwBEbSpg/BxcWXk4NuUwtIbO43qh+6EDPLVW5WCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qLEFgXRu;
-	arc=none smtp.remote-ip=209.85.208.179
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IdamdoWd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB3F606A325
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:09:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EB3F606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD5E60A2604;
+	Thu, 19 Nov 2026 09:10:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qLEFgXRu
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3acc7a0b558so18388841fa.3
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 01:09:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795079350; x=1795684150; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9oi8lNsBr5w3e44Y3FX22JF9crP76D+3fgnNVixtEfY=;
-        b=qLEFgXRutmjegEMdb/rjrXD2DXMP0SkYUr1b/AQWFWcZt7dIG4GT0/oWqbAdRady9t
-         fWFIujqixptaRvueI2+opdC+bvZcyX+8Ur/0y395gXalLTRNy6XCEHvOE4W9VHB/CATf
-         aECzfu1zUQNggQAz8vFhP3/O2rbIBqtucs9fQ4DXYrMHS7TgC+mqm8GXkn0b4NtWBJNM
-         Ru7jJLUHe9KIb8zrdxbRSGwZtQg3wD0O5/zsNeG42+Bu75r43tCylfS5F2apKubYqtCO
-         cx+QXE3BKSBZPlSkMs1X6Rt+ym5gnRKQf11JtyiFOIv3aLB0dQGWNVNdyM+C4T3OutL9
-         1BlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795079350; x=1795684150;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9oi8lNsBr5w3e44Y3FX22JF9crP76D+3fgnNVixtEfY=;
-        b=yKuYvoSA3dSdog38NSlVkEqH2oUl/jwg+S60Gy3NAbHUmjrmGtM0tGCyBV3PxhkOTh
-         9jiCxhnCC9mIf7ZIRurMlbkE2mIit+z9OouWvv6rFLva3gxE52v97GWE64EAdih/oEvW
-         jJ8LUCZNSWRVnzBm/53jNekBIvNYSxb/h2aggYefzrxxN69tWxu6D8H93f5+W7xj4E2e
-         2b9G5OdvJiqAcffIKPptVNMcQ6Cng1HosDVLG7y0E72wCq8cjX0tS5rhtYv0CPPoyE+Y
-         DVoAqj/RVLTRxjezzSso5JKYHyuJt27pFo6vT5Wp6nyZw494hyy/5Co0lh49y+KkQJl4
-         0HoQ==
-X-Forwarded-Encrypted: i=1; AL+hErGkpRL+BxbIqnNtJmQZ9cFF5S0DMV1w3rNfxe7FZCiya2IAX87BY708OFnQ1XMSkhrZpxPlDjdwwfBT@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kDzjkb9epW8yK1AGmc6HB1Uqod92gnCO1sEQ4C7HvKJmnCrEl
-	f8CG2J34MdQM9/jwui2wfG0kF1+TIEEf1mLDM3i6/ygniPTG6SANUEJg
-X-Gm-Gg: AYBFou27nx4VpUXHtYnuUcMEXXGqsKhrLPsVFnA5F1ThDRaqUIDVLHGzSNIQssi0FW6
-	9KHceO/7/jdJAbhBvXgKTcVy6p+zkNJJ0clbujnxsrDEaiMKEbiJtMlECMR10uKTT5Be3ksPsU/
-	A0VqT4tX1MB+YMV3aTP+gmY9dgC/x36bl6gfF7SftpjQjskySfFS+KeeMnET0i/ZItjSZUayhOe
-	bUbeass2zJ1pfQo9pvbwUkB2/pqYW3OOcyWu3CvMmCSt7n+089MAjv/zAVwMOWMKrqgH2Axxzu+
-	alw2kA2Fd2whIhmhgGj3zXiYDzGMp4hSsYQyLPj5Yidbq2FQEnFCRRoPxFqBlFzVpcueQj94TTb
-	1+CPFPXV3HcLSnvhUqAsXgKasoLxIDvc4Vg8Vw0ouZfLsZZraqQC+OXmpEx0+zUXdqSbKqhxaIk
-	GbO5/4qD1uSHtvBBbeCRXjEg+q/s/wmXnuhcmbQnAPH4/S1pT32RzPEBno7jirS4kKdhegJiyOU
-	FNgnYdqUbnfH12osogrAeFPGK3/lQonT+e1UDtadCAJ+Exbc7sbrHgyUd+eq92ffvOsJ9v94XFh
-	s9dPi/qMzOcReG0Fx9Q5vGne8z7GUFsOAIxuPYfvAAEOQvPUpmQkI6GUym8dgY2A5pOi7CpEgow
-	O3dyenVK5SA==
-X-Received: by 2002:a05:651c:41c9:b0:3ac:e25f:3082 with SMTP id 38308e7fff4ca-3ae673108e3mr18231351fa.23.1795079350134;
-        Thu, 19 Nov 2026 01:09:10 -0800 (PST)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae6ebf3296sm8012721fa.38.2026.11.19.01.09.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 19 Nov 2026 01:09:09 -0800 (PST)
-Message-ID: <30520c58-9ac9-45ad-ba2e-9626b8b95350@gmail.com>
-Date: Thu, 19 Nov 2026 11:09:08 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IdamdoWd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A14B31F000C4;
+	Thu, 19 Nov 2026 09:10:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795079419;
+	bh=IY9v5voMoqbpkuw94TFUrSadrFvCUDNpGXTCRmuvkWA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IdamdoWdy8apwSxIEkqS2mEr2MapSWCXG5IVQ5qZU3X6Nm5H+n5l0/ckj356OzYv/
+	 KrPhssHS5H6XFmtrQLsJ7TBTNW6da8ie7OykH0JVzLgIHRPpbFw+YBzan8q/usDvkl
+	 6NUgLNjt09sbu0AA4K7hZo4HhDdznr707hF1TTJicMXwhudeZKGtcHJJiG8URHnop1
+	 C3lqdmC6d8PA8DuGV3B+fX7AoA6SnYRMlSfjdDf6Otor4TJnzFc7CcR7KjCnAhB8Ds
+	 AKIUjtxa0IGbJtcuuMd9c8NkWkBkrO51hpQR3VQlYF9hvlB2XH+bRceQAElPI51PMh
+	 uQxPyAkE23I3Q==
+Message-ID: <sashiko-outbox-222793@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 06/11] media: chips-media: wave6: Add Wave6 encoder
+ firmware interface
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nas Chung" <nas.chung@chipsnmedia.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <85ce28c44e167aa05ffc19dc02ce2be26dd99893.1795075581.git.nas.chung@chipsnmedia.com>
+References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
+ <85ce28c44e167aa05ffc19dc02ce2be26dd99893.1795075581.git.nas.chung@chipsnmedia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 09:10:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,109 +60,73 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] iio: adc: rohm-bd79112: Support ROHM BD79111
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Matti Vaittinen <matti.vaittinen@linux.dev>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Marcelo Schmitt <marcelo.schmitt@analog.com>,
- Joshua Crofts <joshua.crofts1@gmail.com>, Radu Sabau
- <radu.sabau@analog.com>, Janani Sunil <janani.sunil@analog.com>,
- Salih Erim <salih.erim@amd.com>,
- Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>,
- Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1795009599.git.mazziesaccount@gmail.com>
- <ab74e547e892ccabb763a06e8231e8ed44f4fefb.1795009599.git.mazziesaccount@gmail.com>
- <av66oui-2Pk1XOIi@ashevche-desk.local>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <av66oui-2Pk1XOIi@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 19/11/2026 11:00, Andy Shevchenko wrote:
-> On Wed, Nov 18, 2026 at 04:19:35PM +0200, Matti Vaittinen wrote:
->>
->> ROHM BD79111 is very similar to the BD79112. Both are ADC/GPIO devices,
->> where pins can be configured to be either used as GPIO or ADC inputs.
->> ADCs are 12-bit SAR ADCs and GPIOs support input/output but not being IRQ
->> sources.
->>
->> The main difference is amount of channels/GPIOs. The BD79112 has 32 pins
->> for this use, the BD79111 has 16. Furthermore, the BD79111 data-sheet
->> promises 0.5 MSPS sample rate with maximum of 10 MHz SPI clock,  whereas
->> the BD79112 data-sheet mentioned 1MSPS rate with maximum of 20 MHz SPI
->> clock.
->>
->> NOTE: In order to achieve those speeds one needs to use more optimized
->> protocol compared to the one implemented in this driver. This driver
->> retrieves samples using two 16-bit SPI transactions. The first
->> transaction writes the channel to be sampled, and ignores data on MISO.
->> Then the next 16-bit transaction carries the data.
->>
->> Achieving maximum sample-rate would require the driver to interpret the
->> MISO data of each 16-bit transaction so, that when the
->> channel-to-be-sampled was sent in transaction N, the data is read at
->> transaction N+1 - which also already configures the channel to be
->> sampled for transaction N+2. Supporting this would require the
->> channel-to-be-read for the future read to be known when the current
->> channel data is retrieved. For raw-reads this is not possible and for
->> buffered reads it would make things a bit hairy.
->>
->> So, here we aim for simplicity instead of the peak performance.
-> 
-> ...
-> 
->>   config ROHM_BD79112
->> -	tristate "Rohm BD79112 ADC driver"
->> +	tristate "ROHM BD79112 and BD79111 ADC/GPIO driver"
-> 
-> So, as Jonathan mentioned this should be rather relaxed, so we don't update it
-> each time the new HW is got supported. Also in a new style we want a bit of an
-> order by having this, text in top comment, and MODULE_DESCRIPTION() to be the
-> same (or very similar, like with or without word 'driver').
-> 
->>   	depends on SPI && GPIOLIB
->>   	select REGMAP_SPI
->>   	select IIO_ADC_HELPER
->>   	help
->> -	  Say yes here to build support for the ROHM BD79112 ADC. The
->> -	  ROHM BD79112 is a 12-bit, 32-channel, SAR ADC. Analog inputs
->> -	  can also be used for GPIO.
->> +	  Say yes here to build support for the ROHM BD79112 and BD79111
->> +	  ADCs. Both of the ICs are 12-bit SAR ADCs. The ROHM BD79112 has
->> +	  32-channels, the BD79111 has 16. Analog inputs can also be used
->> +	  for GPIO.
-> 
-> Yeah, and here the style is to have something like a list
-> 
-> 	  Say yes here to build support for the following ROHM SAR ADCs:
-> 	  - BD7911 (12-bit, 16 channels)
-> 	  - BD7912 (12-bit, 32 channels)
-> 
-> 	  Analog inputs can also be used for GPIO.
-> 
-> (feel free to amend, it's just an example).
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] media: wave6: avoid large struct copies on stack in
+  wave6_gen_enc_pic_reg()
+--
 
-//snip
+commit 0c77c50267143f16a1d2daf6f5d24a657e85b50e
+Author: Nas Chung <nas.chung@chipsnmedia.com>
 
-Thanks for the examples ...
+media: chips-media: wave6: Add Wave6 encoder firmware interface
 
-... and also for the other comments Andy. I'll create v2.
+This commit adds the firmware interface and MMIO register configuration
+helpers for Wave6 video encoding operations.
 
-Yours,
-	-- Matti
+> diff --git a/drivers/media/platform/chips-media/wave6/wave6-hw.c b/driver=
+s/media/platform/chips-media/wave6/wave6-hw.c
+> index 872a540df0218..171391f797cb8 100644
+> --- a/drivers/media/platform/chips-media/wave6/wave6-hw.c
+> +++ b/drivers/media/platform/chips-media/wave6/wave6-hw.c
+[ ... ]
+> +static void wave6_update_enc_info(struct enc_info *p_enc_info)
+> +{
+> +	struct enc_open_param op =3D p_enc_info->open_param;
+> +
+> +	p_enc_info->width =3D op.pic_width;
+> +	p_enc_info->height =3D op.pic_height;
+> +	p_enc_info->c_fmt_idc =3D get_chroma_format_idc(op.out_fmt);
+> +}
+[ ... ]
+> +static void wave6_gen_enc_pic_reg(struct enc_info *p_enc_info, bool cbcr=
+_interleave, bool nv21,
+> +				  struct enc_param *opt, struct enc_cmd_enc_pic_reg *reg)
+> +{
+> +	struct enc_open_param open =3D p_enc_info->open_param;
+> +	struct enc_codec_param param =3D open.codec_param;
+> +	u32 stride_c =3D opt->source_frame->stride_c;
+> +	u32 c_fmt_idc;
+[ ... ]
+> +int wave6_vpu_enc_start_one_frame(struct vpu_instance *inst, struct enc_=
+param *param,
+> +				  u32 *fail_res)
+> +{
+> +	struct enc_cmd_enc_pic_reg reg =3D {};
+> +	struct enc_info *p_enc_info;
+> +	int ret;
+> +
+> +	guard(mutex)(&inst->dev->hw_lock);
+> +
+> +	p_enc_info =3D &inst->codec_info->enc_info;
+> +
+> +	wave6_gen_enc_pic_reg(p_enc_info, inst->cbcr_interleave,
+> +			      inst->nv21, param, &reg);
 
--- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+[Severity: Medium]
+Should wave6_gen_enc_pic_reg() and wave6_update_enc_info() take pointers
+to p_enc_info->open_param and its codec_param instead of copying them by
+value onto the stack?
 
-~~ When things go utterly wrong vim users can always type :help! ~~
+struct enc_open_param is around 824 bytes and struct enc_codec_param is
+around 772 bytes.  When wave6_gen_enc_pic_reg() is inlined into
+wave6_vpu_enc_start_one_frame() alongside struct enc_cmd_enc_pic_reg, the
+local structures alone consume roughly 1,700 bytes of stack space (and
+over 1,220 bytes in wave6_vpu_enc_issue_seq_init() via
+wave6_update_enc_info()), exceeding the 1,280-byte CONFIG_FRAME_WARN
+threshold on 32-bit builds.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795075577.gi=
+t.nas.chung@chipsnmedia.com?part=3D6
