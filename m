@@ -1,57 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795111395;
-	b=svJEWe2/tlhRf+OALdAklW1qYuP1yr8yNwwGnASCDHPysbwVrrmCp5NXYac29yspKywA
-	 hLxmv9XjFxBBx0VzK1nxlb8flX1XMoe9xsF/GoL0vsm65Rfa/SUYmWpgwIEIa3Vzng8qJ
-	 lueKBz9UHes3xjXff5H/k0n1sWZUHbFlcSWUuhuZESluIYvsoc0ozqMVmGovInyoxQ+JM
-	 BYMQypdeTH2zkOKccjWN+uggkFDut2Q/fWdrpBhe909YyzPHYa6s/MaQEeu9LZXj6XfIO
-	 i5IH8CkvxpNpogSxmAXhVxLVa7PJF5JWMvjSh4MlrRbq6zSM6ACIjgkYJtZl8J/2+Ug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795111395;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=WfNp269qSRTYdyFZb33AO8G57nZw5BQB8j9hQphUqtM=;
-	b=xnq5a2wz453nBA+tumZzoEkaAIYBEf3sXLr1e/uZ/lx6HiHSeOzACqevRsqMol3bZmma
-	 aSYIdLR1eVX7NFNMS1IamMTliIrxJmu/9PO4Cqir7MBUly7UyQtgGksXq+IyviROQTpT3
-	 QjmiRg33AaYRqLc96JaDxPyimv0sd89kwsC5miYWlfQS4qATXVSZ/iyk7VMyu8dUh1cwO
-	 rMx89nOp2mtxbGRwkHLPkNjNEVIvkk8jLXg1dwBtsi/8M6Jqq66IOMtGqlC7W4TzOsgRl
-	 ljLITNxpvADVbXSdBfBCSyQpF+0N6V40mkuRzMN8+KfAWmVVZ8yW3U83ZCKOXwAwKSA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D86EFEVr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.3
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795111396;
+	b=n5Bqn5yE8eAmt4G8JhSB83/MRvUlXX9E65sih0cgNUjn5XE+RFDVQNO5WkJgRlU6C49Q
+	 A944Jb5yZpQpGjFzwQ+FpyDNRpRa8QW0EieEbQvabHo16biPkTzPqQRM/cxUcnMn7rSvt
+	 u9kznygwI5Bc3AT03NJlWr41NurwlyhmSSeoioYASb5D6jkILc616DUrQ7sv8MlxaoKlB
+	 oT8+wabnlueBm44fPSL+/TDRbIzOgYFRI/YSV/4o8a9qXCbMqmCfIyRPfbQJDT1UmBfee
+	 QQ+YQN/F/GaRXlVz3Xetdz5d5A+At1PY73ojqc4kLYQHLDlVRyZInmbknN5HfN+qOMg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795111396;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=zezPWWJaFgNGBit8o31PEX16ChqH3n+DrgI9mvVVXvE=;
+	b=o45omyk+7zjnhuQ1FJyzrwZ+d9yNwaW/CuzBB0hIUp1lMw4wwUIvtewaIeqpOhnR81lk
+	 Lc/iX430a8CYAkkBm313cLzvF+s+sHaA+u/ebhdENwF5m2r3d6vbC7zpX4RFQfKDHNJp3
+	 12rA5OyDb3snFgWGfNJ/4hpf2bp9Ym3KdNfSis8fyOQMmUJ1WE3ty6TWVYHKtwF1foDX+
+	 3BupWuW6RAe47zm045ur75h2yyT9u61PDTxhq/xiHhWu9T0DB+oDF+niyz9Ffztu+qDTa
+	 i3bs6JiNV3nP1uuXjmmGelKz9Po+8wUhqvAvN4qR1JxiOswk4O3mpYoCNsqGGBhmIlg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=to5urJUW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.3
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013003.outbound.protection.outlook.com [52.101.72.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A9E606A326;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C568606A33E;
 	Thu, 19 Nov 2026 18:03:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C568606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D86EFEVr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9A51F000CD;
-	Thu, 19 Nov 2026 18:03:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795111395;
-	bh=WfNp269qSRTYdyFZb33AO8G57nZw5BQB8j9hQphUqtM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D86EFEVrT1VAwdCOlILnTcVczjgTtwFNifeDeAD0zwKHjnL0N7VTcNn7IvmKHK6d5
-	 lVawEZkSufwJR+FN15FDKx2hDu3kahh5ooYiEVt0/3zC8RODfuWu0EmB1VtOu0QTZu
-	 qT4IAXuGlBKySCSaKYWD/AhrTJV2t2DchupgI6Uis6TxySaU3tqh0FzOjk4fD8CCGZ
-	 AedGbIzCD6SkadCZ+qz/CASCtgjQm+EklVtor3mz/hiFmLIS0Q2C1aLj0MRv5Ka041
-	 zjwc8E4qoZiapD4ZOgZp7hpSSOl4XoV4K1jxTBJmp4eLYMXflf2BhKtk7q2SUEhTxK
-	 YID3LuVl+IYYQ==
-Message-ID: <sashiko-outbox-223750@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/5] drm/sun4i: Reject fractional source coordinates
- without scaler
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jernej Skrabec" <jernej.skrabec@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261119175437.2520400-2-jernej.skrabec@gmail.com>
-References: <20261119175437.2520400-1-jernej.skrabec@gmail.com>
- <20261119175437.2520400-2-jernej.skrabec@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 18:03:14 +0000
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=to5urJUW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XhZJMzG2ism1mN59j5ciWee3ku5Xybl9vof0Ej+Yg5GDntg9Ix7YJY/twYKEaaey7dRJR1FseCTwsLPX2PAn/eL3jBuVXs1xkevs95NxosmNAN85yR7cYL4GUkJNf/zC+tXps2MXCo021z33wyZ54ea5fSCjTEaOkQgrBIe+SOSpKJjVy3LQmiOoZYhobeCsFIlNnOmsRB3R/I4qyyBPEE361HpgKBfIOn9N2+cuVJq5XBVyO9CJ2ghpsLIqoq+HZNQOd2vtv+ZqG8AIukewEJwMiKgAAxw72CtKjUeDhqhj8oerayQaUJ2zbLBI2g2GAhg/hN5gOVNQnMsjTTSO7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zezPWWJaFgNGBit8o31PEX16ChqH3n+DrgI9mvVVXvE=;
+ b=uTpivrXpXiUEVqpAGNK6lsSU8FZ/eHxymjt1hIslzdDUwXtP9HRVRmj8L85B9GRthZbYeyHY6HPaVKs8xS1v4l0YA5eeJ6N4978tX2fpm1KtcrxFyJ58z1LFKAxbqaysI9DoPQopU1SMcNYGCBhRm5gItT0bsdQuhainivl8Hx+Z8T8ilqG0GKkguvHiWqgk01h4XVydZkED7ckIZcuXBdj+kHJ6XAMZHTae788yPDCnHQEqY98nvwpEzheyYGUoIVikJcGsj6+1sKAlQgYiqnHdrGTXtU3Kf0wKedO2CYWQwgu+u3+Ha5RoCqnFHy9W2cGeekSnKEYXKryU+sHWkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zezPWWJaFgNGBit8o31PEX16ChqH3n+DrgI9mvVVXvE=;
+ b=to5urJUWeHrO4uJoilizzgEskUuOr+7xnTvjsKRsvoeeApTo6570rzHlC0ScedyC2422yveBTEx+DstbLDsC5wIeB4a8iUiAJ2OnzziIcHQE6WU+iqq9Ll92uDznwLITknfLfKiq/fQK1BAYRJPgHC8tb4q/ptllKVjY52BPJJR0idN++HnGrAOMduIKJHuUnlq8uRQ2GMZpMJU0SCT8uJ/QpyLWcWTQJPsm/M6ZIXFXY3V8kltsOCXVarTLstN3qL4TdTm0xbcqB7UEuRDtfOciYLLuiosoQj2v6A3R2NBJw+LlrzY7GPASHTXk9NRrIulhrn9bvuaS5ogvwYSJ8Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI1PR04MB9954.eurprd04.prod.outlook.com (2603:10a6:800:1d7::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
+ 2026 18:03:04 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
+ 18:03:04 +0000
+From: Frank.Li@oss.nxp.com
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	pierluigi.p@variscite.com,
+	Nate.D@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [PATCH v1 1/1] arm64: dts: freescale: Move Variscite Ethernet LEDs to carrier boards
+Date: Thu, 19 Nov 2026 13:02:57 -0500
+Message-ID: <179511133537.1546694.3592040633584814473.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261105101739.10614-1-stefano.r@variscite.com>
+References: <20261105101739.10614-1-stefano.r@variscite.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH8P220CA0041.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d9::20) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,36 +109,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI1PR04MB9954:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d0f405b-fef3-4883-b904-08df46675bbc
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|19092799006|10067099003|56012099006|11063799006|261022075727099003|22082099003|261009223027099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+ t61ZdQflr3puDpNBGU4LQ3q6zCVIYM7J9nsPnjsYtsa8LSg1U6gPL9aWsysGOTUXh28SizQODgZB5iy5h8B2PX78eIpj/er0iLa6KldQHdmjVbe0yB3twQC0cOJcSaKC2F/PzTaGE32kpzlijLlNXmnrrcfQY2snjElCnuXD+vgui/CQJnmnAJ53/SV2oFQMjb3MPHdgXsZQN/suXSYQn2Ia2wZxt4U1rOOkImFALAnevHkBlE4ldHMpFjWtw+PcS5qpdVmS+gZAr8V7KnSRTnCSs0j/atQyf8mmgLKhD+hNWHdpfrfPaxERNnGMagZYwZp8eV40UmGxq45B4QGCYY4piTNu4m5prNoiW08t42uH58GKbGefwlzVr2874lUPLqVH+aJhiRqGonbWyvfh7LzlHau+i51g6/dg8S4RsEsxSTW6WN5LzgD3VNrprvF6gIoS4oilTi0MfsVTgwMck6VH28ObgX9alf7c7mgLYsig+u558lTP9aCxq8fxcLs268LKoA5HhbWQ+uB9cBGTC3BOkEWdp0Cgb3VoayJjb+HL1v3/xZ0r24BDc6BVY7if0ysL4rAXvGrSie0HcJsVKLuW/7mdvFSweM2W5GVROnPa5B8tJHBBpYDWHwRNl4FsY7TLldO3nkoFJm0oxRhImUH0VCMD5qyIhTGkWtrKa6k=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(19092799006)(10067099003)(56012099006)(11063799006)(261022075727099003)(22082099003)(261009223027099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?SWc0Nmt5bDVpemNZbjJRTTQ0M0kvT3BIbnlJNmdUNlFPQnphNytIbi9XQUZT?=
+ =?utf-8?B?c2hrTHV3UUQ0RlVoL0g0SU9nbXVmNzlDZG5ML3pDUXZhUVNFOXlJZVZKcm9w?=
+ =?utf-8?B?anNLeTIybGgxdXgrdStzVDYvVXh3N2FUVWRkSzdnTmpwSFhRblZ0dmNTenlk?=
+ =?utf-8?B?TTU1WHVmMDZvQkZMVCt2RUxDZzNPbkdMYmEzNnBFN0dGLzRBY1ZqcWtMYktU?=
+ =?utf-8?B?OGpmU1NaMGwxcVhDN214S3dma2hBcWMxa2FCckp0RGJUSzhNaE5GMklnYTA4?=
+ =?utf-8?B?NWhtdVNYdXJTOEV4WC9FbEZ0R1FaeWc4TitZSUJkZlVzWFdneUFUQlhudTRD?=
+ =?utf-8?B?SnNrcmpVd3hHZWZ4cGxlcVAzdWdwaDdkWFJrQTJGMzE2QVhHMHVxSVArbllZ?=
+ =?utf-8?B?OC8vanpnWEx0bUhVUVk0amtPRUtKbFJWSEg3NzVvNTc1ZlAwcUZUdmdzbGwy?=
+ =?utf-8?B?cW5CbEtGcDk3elI1TVB5TXkzREk2UUw1d0VaVWVRUnE4S2lsbjFYeWlzTEVC?=
+ =?utf-8?B?cUJiZkVNRGVVKzJ5ZDBMd3dteDBpQUZkc1MvMnRqS2JMbUtleWx4Mk9lUVR6?=
+ =?utf-8?B?c1dQSGZFS1BLMzUyYWppWVZkZHAvWkVWRW1SbHJiZ0RadGxhQlJlN2NadDYy?=
+ =?utf-8?B?RFVLcVR5dE5sZFlsb3liZ0xxQThxL2toTW9XWkpBczZ1V2FjekozRUJIa0Z4?=
+ =?utf-8?B?NXdHZmVoNWlMWkd0RCszTnY4NGxXemkxS1BoejZtYkJsNldvc3cyeGREYVdB?=
+ =?utf-8?B?amFZakRhWFFOU3JtbTVTZGlTL2F5Mmk4VStJUzJEQWQweVgvYjE4NEJuVC9m?=
+ =?utf-8?B?c2JnMVhOaUZSbExlbUcydVJ4OUFubzlEM3dSRjBoU1lxa0dSaGpnYytxL3RR?=
+ =?utf-8?B?cjhIY1hJTGRwQStpOGtJdjduM29jWnRBVE5ic2pCNnAwU1FVVDZMTXF1cUYy?=
+ =?utf-8?B?M0dHREF2SU9vRUxYTDdqcDlMTnNVUEYwQ3Ywc3VGTW0wME1lUzNLcm4xbUdT?=
+ =?utf-8?B?Y1c1VjRBQ2k3Vy9ELzlJcEhHL0k4NTBJTDNsM1FUcVFqK0JNQ1RsSFBrRUFq?=
+ =?utf-8?B?ZmtZV3EvcTRtZzdFYXlQNUxjdFJGSXdFOUFycHcrcHpMUkpZdUxtN0Q2ZmJt?=
+ =?utf-8?B?MU9FNFpEQitDL2F3Q3pHTkw5Y3YwZGU1SHFLcVljWVdaaDJ3TXlsd0h0Vkk5?=
+ =?utf-8?B?QTc4T1RmWlhJZlBmMUJZbzJjam50dmdJWmx4OHVxd0ZMbFgwNFNhUXpTWk1H?=
+ =?utf-8?B?Wmp3VDhtSlRlRmlOdnpaOWx5Ymt5SDcyQ3EwL3dBTTVLYmtyT1VFNHJqd0Z1?=
+ =?utf-8?B?WHRobHBETjlRcDNTRlBhbjBDSmQxbStLOEptZVQ0Qjk3U1NhNTJBODBRK2Zy?=
+ =?utf-8?B?ZWEvUG91Y3pKanlLVWx4OUU5YThtOUNQbkxLVXlSckg1eHZuUUNkZDg2VHVj?=
+ =?utf-8?B?bUVUMkVYeVYrbHBzZXNvM3VmelVJOTFibnF0dlJUc2JzK2lETElJME1vRTdF?=
+ =?utf-8?B?MmJuMEUwakhuQUVrR1Z5b1pLNUNMeElxS08vc096N0JiVTRxS0pHcVlGOCt0?=
+ =?utf-8?B?RUdQVyt3UVZCMnVMdWZ4TEI0bmNna1dLNkdrNVBtdUtxSitBWG5kR3YyaFpR?=
+ =?utf-8?B?VE5EQVdjZGtDNkl5M3VKbjZYb3VnMXVTNk42aGVQY2RCTWlCL29sc1ZnVkZO?=
+ =?utf-8?B?blZvYUM5cHdqMTkvWU1nMkFVVkIzZWVubzVFQzB3TDZ5RGM2TlBkRHF2RVdG?=
+ =?utf-8?B?eWJDbUZIanBQdFZ0Wlk4Q3VjbXhrN2hoK2RlMndsejh2NThjZUR0RXA2UEVL?=
+ =?utf-8?B?dE5GUXR0ZUNpTEo1YWhmV3lIbXlNSEFlYUt1N3hSNEs0N3l1R3k3aWlkc3pw?=
+ =?utf-8?B?MUFYTVVPTmwxU3ZyQVIrekluczFLY0lyeGJqM0czU3QwdEZoQ25Xd1ZtS3ZL?=
+ =?utf-8?B?NlpQY2o2aDFPTTd0TWlvY2FMTWZPU0tXeXRKZDRPNnlxTFc4YmtMaGI0U1Vk?=
+ =?utf-8?B?QUFid2FnSStrQ00xWHdqdXlYR0d5cnFvV0d0L0dnYXg3Ymo3ZkFkL29pNEFV?=
+ =?utf-8?B?NzJvb1BTWS9hSTc1b3VnZHlzMXdNeElqa05rc21ocjA1ejNDTDI4MXJSWE50?=
+ =?utf-8?B?THZxdDNLbDl3VzhEYno1MVlVS1lrUk1ybGtYZmdqTEdrYmlSOFpFeXpQYTJQ?=
+ =?utf-8?B?Y3hPZ09wVDhzWERONGorY3FiY1lNN09mSkZ2V2V5dDZxa2JhS3JBOWJaWDQz?=
+ =?utf-8?B?enhqZWZjeVZBV0oxUHcyRldkVEpIa0tOaVlGL2RsVVczcVV0N1l6eUp1Sk5k?=
+ =?utf-8?B?N2pGcnRsTC9GSlBMbjBQb1ZjRnRub2RoSUp5K3dUYi9oN0xyK25wV2VhZHZW?=
+ =?utf-8?Q?KQSQgrGLEeBPiPrY615uzrTTCRiR/LKG2qF33?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d0f405b-fef3-4883-b904-08df46675bbc
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 18:03:04.5547
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4NBUlB1Z/Q6d8o1+W38ZfgL4ZIoSR2EefXiaN/IuCvEv9+NT01UXHkiMynbfJyv3sypj7p5hjVGpVtqd5aGUYVMpdKuaJnc9/+Nj6rJFAbluGmPKMrDIebEh7GcNTlpW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB9954
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/sun4i: missing Fixes trailer for fractional source
-  coordinate check
+From: Frank Li <Frank.Li@nxp.com>
+
+
+On Thu, 05 Nov 2026 11:17:39 +0100, Stefano Radaelli wrote:
+> The Ethernet LEDs are physically on the carrier boards, but the
+> VAR-SOM-MX8MP, DART-MX91, VAR-SOM-MX93 and DART-MX95 module descriptions
+> include their LED nodes. Other carriers therefore inherit LED definitions
+> that may not match their wiring.
+>
+> Move the LED nodes to the Symphony and Sonata board descriptions through
+> ethphy0 references, along with the LED binding includes where needed.
+> Keep the existing LED properties unchanged.
+>
+> [...]
+
+Applied, thanks!
+
+[1/1] arm64: dts: freescale: Move Variscite Ethernet LEDs to carrier boards
+      commit: 5ba903416f38e9fae58bc64c8701848c464354f8
+
+drop fixes tag because it is not user visualable issue.
+
+
+Best regards,
 --
-
-commit 6372f45de588428ede3ebc1410bcfe779db4f206
-Author: Jernej Skrabec <jernej.skrabec@gmail.com>
-
-> drm/sun4i: Reject fractional source coordinates without scaler
->
-> The layer code programs the scaler whenever the source rectangle has a
-> fractional offset, since only the scaler can apply a sub-pixel phase.
-> drm_atomic_helper_check_plane_state() with DRM_PLANE_NO_SCALING doesn't
-> catch that: it only compares the scaling factor, which may still be
-> exactly 1.0 with fractional source coordinates.
->
-> Channels without a scaler would thus have the non-existent scaler
-> programmed instead of an error being returned. Reject fractional source
-> coordinates on such channels.
->
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-
-[Severity: Low]
-This fixes the scaling check introduced when hardware scaling support was
-added to DE2.  Should this include:
-
-  Fixes: b862a648de3b ("drm/sun4i: Add support for HW scaling to DE2")
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119175437.2520=
-400-1-jernej.skrabec@gmail.com?part=3D1
+Frank Li <Frank.Li@nxp.com>
