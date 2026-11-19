@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795076388;
-	b=CVOd0bogx6DlpzBwAa6mh/6oq+auuTjhalTDEAHEJzwnhb/nUlK/xi1OvkgnPcAg0okn
-	 scnYVIgmMWy8y/H+gs7/7EDR1dTglvYK8DzK3vHtnb1RG8pMDRZdMI+NxGLdhl90MeYuh
-	 WYjkUuU7p2kxYgDr9xY/TIjz83wwzhKwHXdDUE2FpX238IhRk1xyKiiSZ4foLjZ0tVGbv
-	 A3DRcWHdmExnxfwdhojQrsYY8oSZPbZDBEt1GaMgb2xc/0JPV9jWmhP574zTQvpgvIXMQ
-	 +z36TdL+w0lrhwiIRJPtuPn40AZ2sO3zIUasq6xqLJRNAkT7cSBC+dWjy5UAHXJ29Tw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795076388;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type;
-	bh=p+dKc+IASGuU74BQrkjO8c1LFAuMGojRAMZOBhZUcyk=;
-	b=ZhEn2dmTRGaCxSr77y9a5cUxrI6SHzDK9pPYCKrBqkIzLd2cgF14epckZOTPg0rUcTl5
-	 J3UYh+Z6rXTpSUf6mXjCbSwvZN3new1H8xh6DNjXvMvp3Zbvd6ike67wOp1ikp7ZDcXla
-	 +1cZw7HQoSVPVb7ua1KsOUNHE56c/ZfcrcPZrB6yVvB+K61VKpvNbSYYb6jB+ZETXp6rF
-	 +L2ROccSEQkyGCB7atYrApgKLsTSxrl8FqYuamMpaJaPkJKZL8MtGBspqvWpOhPP/jgnJ
-	 92XcSVgan9kGQuDWYNnsQCOnbSv40tbhIgCkI7DV8dE2GyYv5owUZWnBqSrlD+Uieww==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Wknl9oxm;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795077107;
+	b=OaDC1en6jc8Hgck/KqrQpS7f1x5dCoDGXeCIcRsigFw2x2FPPUgfewjGNcBlPltFu+OZ
+	 MRIHi9HqnsoWetdwgXet6KARsxk7sNpYAp+tYa/UjyN6ab6BWolBq/jByMmT0/LfgUpiM
+	 3OeaFNlwx2hQctu9i8r24ZPaQTIapKxdHjEWRfXs3Ef1ztcA7Gvm5om7m/+i7wGkjZMG0
+	 f1pn9f0/iGYNL/IsliU9mEl5vmHSpcxF4A8tSU0Y2uCx6oP5Prwp5DP0lUxypisKcd51R
+	 ApGQiAahvhn39w2j09qVF+JcK2cGKaJw26ZOCDYI+KtsNPcieoiZbCerjzCx4zI/nmQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795077107;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=2102FXx31z13J3x9MSIpkKRt8qyZgUBcTWdizNv0+Ek=;
+	b=aAG9C/IDols8ZqqRPZUMAjkJh3pTTulQrbhNwZ8/L+AmLwxD2dUGusKrYRoTtzrnOw/z
+	 Nf1zOczvguNx4JsH6tOeHMQ3f5RgyqURyTgl7dUn5qrhVrMKzVjx3c1ogWpNaPmYFYvph
+	 9/ExL15fkUbZuaEtH/RW+JyRv9U/IRJHmFDrE7OtZCiu57pjLq6dsoT8ol6fbeec3fYhr
+	 RgN2yPiNLNvNtsi2C+/5R4a1MFMzwHWApp6H/bOdXv6PA+XW4oH0xC4+SqFu/Bv0O5/Ja
+	 vHQTuExFBrSCQkdRdgLGPdiFqbnJf3/OZvQEEgp5KkpsGk20B+7/eFOO6FgE2u7IrTA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXq7fu2o;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6F2606A338;
+	Thu, 19 Nov 2026 08:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXq7fu2o
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795077107;
+	b=0QxguDqzb5dct5/Ubh5juP87XYdJpdSRQF2c6rlN9YqyMRpmz+dxjDlqSOa/qEHqen2e
+	 kD7CNwALbeSwA/lxP+MzKPGMp1AR0E5KuwYErtviqON3GxHTUs/WewN9ffrTQhT/aL06V
+	 h50xetnXw2lip1WIBbyLCBkynbZ1ztjGdoS5zTI55TjA5k6+VGjMFm+sin8OYsG488ONi
+	 7JICBwvJsHsgxcPGyRWEZNOKxe8hg0VAargdFiAc1G4bavhZyiLVrl1QkCX4b7xIfRh2i
+	 +Og+fFvTD+i/wpaB07dlxw1ssv2gLLENG2V/XeLcQ8+f0BqKfBkqkbdK99vdoPczD6w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795077107;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=2102FXx31z13J3x9MSIpkKRt8qyZgUBcTWdizNv0+Ek=;
+	b=REX1cjtWX3CrBlJTy/ZkUSXZRalueiGAMPjTfm5TKwbO6neuHouxL9KQVOUmXAAQCZeb
+	 6fOgMSYtOHV+2F1/TQy5POAi2SQtgM5g27wmWW2kuUzDfK26t5O8LFfC9gbVu0eonh94W
+	 Zfr/NAS1Zh2J4vI7IIz6d3b4pOgilYAauJ3wnQqPG6LiwbWbF6N9hwwujMwKlGrt/6cKR
+	 zjlFVf8V2yZWGqFmr2YyWRl1Fl+Duad+ri145fIUlfeFIa6fluPc63AeM3Jv3yJ1AL4Om
+	 2cimXI06hAtK7nSQSaGr1eB7tvWEY/jT6MqbFklEgLXlD4Sgpfq6vTQvn9fDBBSGd7Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B9D606A320
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 08:19:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2B9D606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Wknl9oxm
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4bb6adaf0f1so17350285e9.0
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 00:19:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795076386; x=1795681186; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p+dKc+IASGuU74BQrkjO8c1LFAuMGojRAMZOBhZUcyk=;
-        b=Wknl9oxm/wTcyejMFrf5muGsLwjYaLksGm1GPXm/Z4mLQhEZEwO5VKcss/pY83dgBl
-         ZQZUU8SifI3V4VdMDA+xJaPUTFPwXsAtmhWh3SOfzBIR4EgyHND1fMDq+lhD017iSI0Q
-         49ZXq/2NCZ6tGI4VNzjIvNHEA8iOlT5Qz431acJqtpWGdIk09FMJA4rJO9A/gajNjKEN
-         dyEOso9ykAZurpuzpofjEI1WKIVp/tS3t25X00ve7J017D4KMiFF4mpt7+xHpUMQxWzZ
-         K+5BDHi6WK4scNhXr3nn6GEt79Q+PsDfk3e9yncGm7RVGronLz57IA5nFEcyc3B071/2
-         wBBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795076386; x=1795681186;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=p+dKc+IASGuU74BQrkjO8c1LFAuMGojRAMZOBhZUcyk=;
-        b=JpY2DOkEdH1i9HNLlnDWjULn8rszPZRrkoRLyxfWMjPXVHX6g5ZKGC2U5BeFSk/4N9
-         4lDh3jvZkCXPquzx5zPO2Z7HnR7Qn/vrP/go1f449h6Wz/c+ipv4JdMAolGl/RiTkNO5
-         7r2OGXqt0SchDGPoDcAPD/JTRwe5BMP9LMdsfVgMI11ZdNFqsNpddCH5valueRDoHxI1
-         AgKIWHg7ho5N6vUhu8QbvBsDX2Ex4fJ1pjLQNrbzgSSWp+wshrNTf/sFrIJQW2rtUuki
-         w+hLNbJJ3g/yljtzqFfXvgZvm1wlYA9tl2ylp0u3QPNOrQHLN+7YFDbKqpf713XbOvqC
-         7kbA==
-X-Forwarded-Encrypted: i=1; AL+hErGyXM7aB/vNa/4qCTjBXMqhWXPntf2wcZPJ9OFuMN0yluShB/YT4XN5il5UBFJU8WL7LqE3PVL664t/@vger.kernel.org
-X-Gm-Message-State: APuU4Z/txU1iZkSMWhN7l1/3CXFHMJCIjdTQCGUiInHnc8pvt5C3Lo59
-	Hf6ul/F+KA2bly+efkZQPSuolYwO42BLy8SYUOg8+wHaukGLZmznkltY5y8Jw9TX2s4=
-X-Gm-Gg: AYBFou2YbP0Pre567gZeucF8dZUne/Gp9a67vbrDGBkhyUZOR1c01SdpIhvaVKCfxet
-	1k1RhWmFc+slyQgo8FO5YSjXOtbqksROGH4WZpwaowp9GN0D/z9LiEcDWE+lWG0+deAPUieX7x8
-	hKwTeDJ8jA2X9EkgmuKY84P25bmBrQr44PmCW0RJleIhJixjAWRZQLGhBShJyphaaKswIR0Qeza
-	L9XvAwzA/zJBHWJb8ypnj7NxQDJU2Xym04Ux1NGxHbqsyhJSU/gOIYRSnMnuiVFqRu44RqPs98V
-	gLjZ9LW6Vq+ACDQS6GTwlldYI40rVDGb+uRi8DJPsit+CWG0ctOpQvnxtY3kI9pOcBwTjU/yF8o
-	vmXD9jQ2H5KPV9apyLtBtVK1kZ4qIhz+uM4+A/P3SoY0tsD9C9p+yIjhYGgTcLK7UHbbEF/Iagl
-	3iJtQ4Rl7InGqbLzw7dufHpOPbg4sLsVr8kPE8qhqPpQ5nfxIW0rGgXXbfrlXBsgZ6VyNV7EjhC
-	4yy83pC11e1fsVMoVk3erfAl5mVidM4hV0PcyDbpzfZEcybDKtB/iXCnyQMHjc+W9dTOo+dNWJd
-	LRi6ZsAHs5Rwq3NBtZ6SP+R0UVCq83MI8S5vavunpOAwWxBW
-X-Received: by 2002:a05:600c:8b63:b0:4a7:8fe8:130c with SMTP id 5b1f17b1804b1-4bb7da27088mr96761205e9.28.1795076386236;
-        Thu, 19 Nov 2026 00:19:46 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb84e5656asm17330585e9.3.2026.11.19.00.19.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 00:19:45 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Gregory Williams <gregory.williams@amd.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>, Oded Gabbay
- <ogabbay@kernel.org>, kishore Manne <nava.kishore.manne@amd.com>, Izhar
- Ameer Shaikh <izhar.ameer.shaikh@amd.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Jay Buddhabhatti <jay.buddhabhatti@amd.com>,
- Ronak Jain <ronak.jain@amd.com>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 00/15] accel: Add AMD Versal AI Engine driver (with
- Versal Gen 2 firmware support)
-In-Reply-To: <20261118233211.4121361-1-gregory.williams@amd.com>
-References: <20261118233211.4121361-1-gregory.williams@amd.com>
-Date: Thu, 19 Nov 2026 09:19:45 +0100
-Message-ID: <1jcxs12py6.fsf@starbuckisacylon.baylibre.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 1B74A1F000CB;
+	Thu, 19 Nov 2026 08:31:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795077107;
+	bh=2102FXx31z13J3x9MSIpkKRt8qyZgUBcTWdizNv0+Ek=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=iXq7fu2o9CzEXWsqYmce2gJ0u0gP9KZOE31GyHC7Sa6/INwG2NAUFp/WkAXJtbB/3
+	 uncod1LV55t03LPUZ8klLmq+AiGyP5dxW/+Sd+BFM9SYBErnMVfmt9nsrK7ZhWzoo+
+	 HKNsTy7/70Bb8iK3ZhFL+ZbDIDqF0b8RU/USUinBg5slG6LYyBiN9w/pye9zzWlO75
+	 E0rlIwf9GETBfHEGFyHCyP1RONtfaHTLYlh5wwhbXjaO8Ylom+6QIdh3+cAtFRYrif
+	 otSq1Gwickv9hfQ26PGCRHUd10SF0zaLwEE/o1laR60X9xu7Rtcacx+QgC7M5Rkl6V
+	 TUOezuQYXSKew==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 725C44B19A;
+	Thu, 19 Nov 2026 08:31:46 +0000 (UTC)
+From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
+Subject: [PATCH v3 0/2] ASoC: Add the NXP TFA9865 amplifier
+Date: Thu, 19 Nov 2026 14:01:45 +0530
+Message-Id: <20261119-vantage-tfa9865-v3-0-5257fa45df57@yahoo.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,130 +83,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNwQ7CIBAFf6XhLAYopeDJ/zAekC4WE4sBJDZN/
+ 12oFy/G42zezC4oQnAQ0aFZUIDsovNTgXbXIDPq6QrYDYURI0xQSgXOekq6nJPVSooOSyk7oig
+ ozltUrEcA615b8XT+cHxebmBSzdTF6GLyYd5eZlp3v+uZYoJBSksGYwxn/XHWo/d74++o1jP74
+ 7Pia9Va1QujeK++/XVd39F2l2IAAQAA
+X-Change-ID: 20261116-vantage-tfa9865-8885091e9443
+To: Venkat Yadlapati <venkat.yadlapati@yahoo.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, phone-devel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795077105; l=2734;
+ i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
+ bh=SAuP7YfgYJXDpKBvo+qN5QpyZqR/SPWVmvxD2Fy4rBQ=;
+ b=3tgadcKcihpP0BgIT0cM6R8z5zLMi7y9KTgJDIP5dqlXMjyzOhOnmhMLpbDes+SMRzEHN7YPI
+ 74ZS4CNb3W1AnpcS2tMfsato6b+dd2yBql4uNzs9Xo9QP5QurMpAzRb
+X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
+ pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
+X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
+ with auth_id=1303
+X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Reply-To: venkat.yadlapati@yahoo.com
 
-On mer. 18 nov. 2026 at 15:31, Gregory Williams <gregory.williams@amd.com> wrote:
+The Motorola Signature has two NXP (now Goodix) TFA9865 mono class-D
+speaker amplifiers. This series adds the devicetree binding and a driver.
 
-> This series adds a driver for the AMD AI Engine (AIE) found on Versal
-> devices, together with the firmware changes the driver depends on. AI Engine
-> is a tile array based accelerator used for applications such as beamforming and
-> machine learning inference. Tiles are organised in columns, and groups of
-> columns form partitions that an application requests, initialises and releases.
->
-> Several registers in the AI Engine array (column and shim resets, memory
-> zeroisation, tile clock gating, NoC and interrupt routing) are privileged
-> and can only be written by the trusted firmware. The driver therefore
-> packs operations into a DMA buffer and hands it to the platform firmware,
-> which executes them in order.
->
-> Firmware patches included
-> -------------------------
-> Patches 1-10 are not part of the AI Engine driver itself, but the driver
-> cannot work without them, so they are included here to keep the series
-> self-contained and reviewable in one place:
->
->   - 1-5:  zynqmp firmware driver refactoring and a va_start()/va_end()
->           fix (patch 2 carries Fixes: tags), preparing for the extended
->           SMCCC call format.
->   - 6-7:  Versal Gen 2 compatible string and firmware support, where all
->           EEMI APIs use the extended SMCCC payload.
->   - 8-9:  Versal Gen 2 clock binding and clk driver match entry.
->   - 10:   firmware IOCTL support for the Versal Gen 2 AIE run time
->           operations, used by the driver.
->
-> I am happy to split out or reorder the firmware and clock patches if the
-> maintainers prefer to take them through their own trees, and would
-> appreciate guidance on how the series should be merged.
+The chip has no DSP and a different register map than the TFA989x parts
+of tfa989x.c. The driver applies the initialization sequence for the
+device revision, selects the I2S slot feeding the amplifier and powers
+the amplifier and its boost converter up and down. The register settings
+come from the NXP tfa98xx driver. Only the B0 revision and the 32-bit I2S
+slots configured at reset are supported for now.
 
-For the clock, it would defenitely be prefered if you could split out
-clock part, especially if you later need an immutable branch.
+Tested on a Motorola Signature: with the matching sound card the speaker
+and the earpiece play audio. The register cache, rebinding both amplifiers
+and switching an amplifier on and off during playback were tested too.
 
-`b4` makes it very easy to handle series deps, please consider using the
-related tags
+I used an LLM (Claude) to help write these patches and their commit
+messages. I reviewed all of them and tested the result on the device.
 
-https://b4.docs.kernel.org/en/latest/contributor/prep.html#working-with-series-dependencies
+---
+Changes in v3:
+- Driver: cache the registers (REGCACHE_MAPLE) as suggested by Mark Brown,
+  thanks for the review.
+  Only the registers the chip changes by itself (SYS_CTRL0 with the
+  self-clearing I2CR, the status and interrupt flags, the unlock keys)
+  stay volatile. The cache is dropped after the I2CR reset in the
+  initialization, so a rebind does not use stale values.
+- Link to v2: https://patch.msgid.link/20261116-vantage-tfa9865-v2-0-a93f976c9479@yahoo.com
 
->
-> AI Engine driver
-> ----------------
->   - 11:   devicetree binding for the AI Engine.
->   - 12:   driver core: device probe, partition request and release.
->   - 13:   pm ops: building and sending firmware operation packets.
->   - 14:   enabling and disabling tile clocks.
->   - 15:   partition initialize and teardown (reset operations).
->
-> Previous submission
-> -------------------
-> This driver was posted for review a little over a year ago:
->
->   https://lore.kernel.org/dri-devel/20250702155630.1737227-1-gregory.williams@amd.com/
->
-> Since then the scope of what is proposed for upstream has changed, this series
-> is considerably different from that posting, in particular targeting only Versal
-> Gen 2 support. All comments received on the earlier posting have been addressed
-> or in this version.
->
-> Abhyuday Godhasara (1):
->   drivers: firmware: xilinx: Add IOCTL support for the AIE run time
->     operations
->
-> Gregory Williams (5):
->   dt-bindings: soc: xilinx: Add Versal AI Engine DT binding
->   accel/amd-ai-engine: Add AMD AI Engine device driver
->   accel/amd-ai-engine: Add pm ops for firmware calls
->   accel/amd-ai-engine: Add support to enable/disable tile clocks
->   accel/amd-ai-engine: Add reset operations
->
-> Naman Trivedi (1):
->   dt-bindings: clock: versal: add Versal Gen 2 compatible string
->
-> Senthil Nathan Thangaraj (8):
->   firmware: xilinx: Separate TF-A checking
->   firmware: xilinx: Call va_start after pm feature check
->   firmware: xilinx: Add comments about number of arguments
->   firmware: xilinx: Use match data for ZynqMP/Versal
->   firmware: xilinx: Rename zynqmp_pm_invoke_fw_fn()
->   dt-bindings: firmware: xilinx: Add Versal Gen 2 compatible string
->   firmware: xilinx: Add support for Versal Gen 2
->   clk: zynqmp: Add Versal Gen 2 compatible string
->
->  .../bindings/clock/xlnx,versal-clk.yaml       |   5 +-
->  .../firmware/xilinx/xlnx,zynqmp-firmware.yaml |   3 +
->  .../bindings/soc/xilinx/xlnx,ai-engine.yaml   |  61 +++
->  MAINTAINERS                                   |   9 +
->  drivers/accel/Kconfig                         |   1 +
->  drivers/accel/Makefile                        |   3 +-
->  drivers/accel/amd-ai-engine/Kconfig           |  15 +
->  drivers/accel/amd-ai-engine/Makefile          |  14 +
->  .../accel/amd-ai-engine/ai-engine-aiemlv2.c   | 441 ++++++++++++++++
->  drivers/accel/amd-ai-engine/ai-engine-clock.c | 154 ++++++
->  drivers/accel/amd-ai-engine/ai-engine-dev.c   | 255 ++++++++++
->  .../accel/amd-ai-engine/ai-engine-internal.h  | 377 ++++++++++++++
->  drivers/accel/amd-ai-engine/ai-engine-part.c  | 140 ++++++
->  drivers/accel/amd-ai-engine/ai-engine-pm.c    | 472 ++++++++++++++++++
->  drivers/accel/amd-ai-engine/ai-engine-res.c   | 184 +++++++
->  drivers/accel/amd-ai-engine/ai-engine-reset.c |  69 +++
->  drivers/clk/zynqmp/clkc.c                     |   1 +
->  drivers/firmware/xilinx/zynqmp.c              | 340 +++++++++++--
->  include/linux/amd-ai-engine.h                 | 115 +++++
->  include/linux/firmware/xlnx-zynqmp.h          |  65 ++-
->  20 files changed, 2679 insertions(+), 45 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
->  create mode 100644 drivers/accel/amd-ai-engine/Kconfig
->  create mode 100644 drivers/accel/amd-ai-engine/Makefile
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-aiemlv2.c
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-clock.c
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-dev.c
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-internal.h
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-part.c
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-pm.c
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-res.c
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-reset.c
->  create mode 100644 include/linux/amd-ai-engine.h
->
-> -- 
-> 2.34.1
->
+Changes in v2:
+- Binding: drop the redundant sound-name-prefix entry (comes from
+  dai-common.yaml).
+- Driver: no longer mute/unmute from the trigger callback, the register
+  access sleeps. The amplifier is now enabled from mute_stream and a DAPM
+  event on the AMPE widget, only while the path is powered and the stream
+  is unmuted, so toggling "Amp Switch" during playback keeps it in sync.
+- Driver: reset the registers (I2CR) at the start of the initialization,
+  so a rebind without a reset GPIO does not find MANSCONF still set.
+- Link to v1: https://patch.msgid.link/20261116-vantage-tfa9865-v1-0-e88f0dccc427@yahoo.com
 
--- 
-Jerome
+---
+Venkat Yadlapati (2):
+      ASoC: dt-bindings: Add NXP TFA9865 amplifier
+      ASoC: codecs: Add NXP TFA9865 amplifier driver
+
+ .../devicetree/bindings/sound/nxp,tfa9865.yaml     |  63 ++++
+ MAINTAINERS                                        |   7 +
+ sound/soc/codecs/Kconfig                           |  14 +
+ sound/soc/codecs/Makefile                          |   2 +
+ sound/soc/codecs/tfa9865.c                         | 400 +++++++++++++++++++++
+ 5 files changed, 486 insertions(+)
+---
+base-commit: 4e019254b80b70f6fb90d17a50f211de1daf7ffe
+change-id: 20261116-vantage-tfa9865-8885091e9443
+
+Best regards,
+--  
+Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+
+
