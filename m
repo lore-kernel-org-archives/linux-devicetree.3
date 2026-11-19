@@ -1,94 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.35
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795080309;
-	b=Sn2owAC6tXLszek3d+rm6iwsA3ItDT9E4fIAWpNU4fmlD5xMBuJ2KPhshvbeJoIft2oS
-	 3VzdHDo4SY5fcoCQkOtpaiHZhSMq1RgH/w0c25X5HXltO657Oo16bQBes9dUZJPc+xQSY
-	 3Gcp31B3rxYFVr9dhgcsbuPiDLkOnmxSOl35CX+WL2ppz1keG7kvhpi7lMASle9CopHKx
-	 4YjTCKTmJHxPi0D8FlFutgpSC8CwAza6ArAsDF9otmN1n/SLYjhpq2e7TrLD4L9dU+78X
-	 RaRRMF50UqbmQ6oBrPmfcs13YdpBs3e4/TNmzGFwp397FS5y5KiN+Q9c8lGXM7nnZNg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795080309;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=KHNr8pE3izbikvIjjT4gTAC2BekarjMwLwKHCzmtJjE=;
-	b=LH4xjlyAIyD2gv4B76rQpOw9LRBDbiKzo2zmqKGIaNerZoA3D36KsUoZPL5lJ3/++9sB
-	 XVkgluHG+I6PLmmbd14KHQ6n7TnmXZpo9eGtPVPH7iLh/gFj/VbbY84EV23PccyWNbmcm
-	 PngabZ+5iLd2K199/uUPrN4hx0FWrmXpSKv0YDvr671ioqSdRqwyCwgzsCAbI/iUHq9Ko
-	 wdG6z0Qnjkl1fEjcYDeaAvaon8UkN4Uxn28g7I4z2zEQvVagMxs3mL92dxdUMQjrXQWBv
-	 4WX1IE6V0sNxFkFGSKsA9W93ZfRH5fRatkAL9m/EgQIKt3WMzZ2bu/w0oUv+kdZTTHA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=b5CPm+On;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.35
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013035.outbound.protection.outlook.com [52.101.83.35])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795080355;
+	b=x8s6x65qpg+q3CFhEtJ+L6eC6GPAlDEKikt5Jkl1PI/IOU1+DF0r6bI9OONYxekwH0v6
+	 f02J8+kAar0u8Pmb0LfeGD3L50A1A0hnzsX3R7PRrDw4gx/wjW3EgoH9RDuXDwrgrQp6F
+	 ieMU+/RAKzPTRiNUbj5rvG30pOHE5kLX//0dW7Y5STfFwS29aRb5hG+7ZujL28r7TU9H2
+	 5du+VMHHha0/g3GEoYfuwjFUEIxRvV7dVrKxfjl2D2Sj3pgcA0A0DSis4LBd9TcRDE9Rj
+	 0AvGtQpVqo6VU9Gv5MXIPG4yKCb3c0JzDj1zc6xtLfWQm+uuqc0KY4uYBDD/wrgFknw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795080355;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=7vX48x9+igzvKsPsxub541XWjibZRraLR64jpxC6QME=;
+	b=TMEBeGauxPt6UywfKJr6FehPllimzn4/T5luNBzB9esScuKH7n0vIK/8oKD4JhX24+Kk
+	 FzKmuVDxt9DqL9ilP5KPogcbDpg86SP6CV7NgRJu/Iz9hjlsoNcz2dolcKAu023qYBuZN
+	 uojbiWyMZGQOCmqf7CbBD5hMyMdt9kJlCgpORwPMZ+n7MEtaxmBe87VLzxRXVpD6AlCsI
+	 i8ndLKVdIou2cumL2wi+Hjm+yG8jKf3cIHeYUFRKJEcdLcxIMapDQEl0QbecO6LmCP+ya
+	 SFeRAClAwXwp90jzGnXmsUQNpfaAfWLk+gAJ/RMDLleUwNlxTLrW80+PTWFHFg2jXAw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AtWJIjtZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1438606A326;
-	Thu, 19 Nov 2026 09:25:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1438606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32761606A325
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:25:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=b5CPm+On
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bYzlICNqXDUXf9VeUJxL70KO55tI+xYKwUUAb8EPqP3stKUUlEwsGBqQyv8LKOVQsfoRseJ5H03lOBIU0UXHNpyNpSJjok8T0+kTT+1otV6N4mqon2zPCsdM4xmS77wHmEfs6gPyrFi2PHLEYRfXYK28sj+2rctmzcAu0DPFPEjwUhHcd1Zw4/Cp4f2rrxEbURYJz9Z1WgXFhWaK2cSYkZM+bU1pjF4qyGIGXwvHDHLF8betiPguY95jHs8Gzv1Evyjrjnd+5pkXC2L6BFSfd1mHKoNS3yW5Vlo8iggqERFslhB6Fmemy5gPAShfxByEl1Rt6ZNhSV5c78E0VcjUOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KHNr8pE3izbikvIjjT4gTAC2BekarjMwLwKHCzmtJjE=;
- b=JY4A6WV3MjEzfNI7e/xIR0UndJ/MwJsWFGbV0xVDD7EpqKwrunO4ww58i5oUSOzgC9qHVZS+JKE1qG3Tnd2qEK3epJUMRlJKywGMd4Xh4KOuVTk3qNdhp5jgeuK7YBq08gwpQF1sOAOwzkVs0/zsJX8ZltEdGX8tcI9800tRgiUKXLRSex8+FYTdfuFkfrO997ZCAaWvlGvSfWasS421npjlaHwWhmXWqVwosZF2Iog7P+g1KkY8VLF41H5f3DRomPamXdEGr/0Hn20HeARdnaCbVZPPfi5jf6Lm9eDdRbfG9Dc3Sd0JrxhppuGV3aF6fJlcgnF2FFNBw3TRFLiIIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KHNr8pE3izbikvIjjT4gTAC2BekarjMwLwKHCzmtJjE=;
- b=b5CPm+OndpB+iZaEK0Zvr2rerGJ3Ow2KVgsPx7MQaZtI96L7si/aHtjvWkkA1w+oy1H3OxAogxXzMSAb5Bo9b8OoplVVmGx1k02+p3WgMm3rqY47199zxFRUokP/3qke57zAX2XJYk959nNfGBU6X8r5COCDwft8BvqPXJmk3ajlEQRW98P6gXkM8yNwlJbV1EcvTJZ8fOaotFkatpHwcnoXIKmjaQ3DuEvAu5PQl6w/h/OcpUQLAtttlN81EKC7WJa9ZoEFm+lLSqlvmkY5yNbhZLwEa7aJM56H0jJ7fIcrA0a8pzf2OC6pBjpza7ZkNXt+P5P8gEcFfON9N/LWWQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
- by DB9PR04MB11557.eurprd04.prod.outlook.com (2603:10a6:10:607::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
- 2026 09:25:04 +0000
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
- 09:25:04 +0000
-Date: Thu, 19 Nov 2026 11:25:01 +0200
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Ioana Ciornei <ioana.ciornei@nxp.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	netdev@vger.kernel.org
-Subject: Re: [PATCH 0/3] phy: lynx: add support for downstream retimer PHYs
-Message-ID: <av6-ROH48bJTSp04@skbuf>
-References: <20261118163134.2149894-1-ioana.ciornei@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118163134.2149894-1-ioana.ciornei@nxp.com>
-X-ClientProxiedBy: VIZP296CA0024.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:2a8::12) To AM0PR04MB6900.eurprd04.prod.outlook.com
- (2603:10a6:208:17d::10)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AtWJIjtZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DAB81F000C4;
+	Thu, 19 Nov 2026 09:25:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795080354;
+	bh=7vX48x9+igzvKsPsxub541XWjibZRraLR64jpxC6QME=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AtWJIjtZ+8NSUd6DAyLrU7SGKaXYiEmLCGniGqeS3WFv4jozENSrcHO2XhKeIXjxc
+	 fUlL10+ULfPDSVCGRlT9fhsFA58LIFNatJDSJyY4sk5y+ouWyNE8jSwK3OUR0pkaS1
+	 78WV3aV497Ngqg5H3rBqAWXTtSor3kD4IbbL+IIq8LxHUQcvDZDe5KtQcZTDA1HeiH
+	 i2mmV6xQO3ofcIrb+RHSchYLvtFrToFvFbEN5Fahjd9PWwvBWSr8UXt1drxm6qIVtn
+	 ytwUuT94wlizmMyxByWhvglJMISs+MGzHu/gXIEGmtABv61agp5qsHCfYcJ6ImTozc
+	 O2eeMzTGeCr7A==
+Message-ID: <sashiko-outbox-222829@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 6/6] coresight: tmc: add QDCP ETR sysfs support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jie Gan" <jie.gan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261119-introduce-qcom-qecp-feature-v1-6-b1a730d2c57a@oss.qualcomm.com>
+References: <20261119-introduce-qcom-qecp-feature-v1-0-b1a730d2c57a@oss.qualcomm.com>
+ <20261119-introduce-qcom-qecp-feature-v1-6-b1a730d2c57a@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 09:25:54 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,71 +59,205 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|DB9PR04MB11557:EE_
-X-MS-Office365-Filtering-Correlation-Id: 41d2fbb6-ad49-4d4d-1d6b-08df461efea3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|366016|1800799024|23010399003|10070799003|18002099003|22082099003|11063799006|56012099006|261102123227099003|261021121427099003|261022075727099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	JABEwzxklnxKsEjAU3+f2oS38gzFEfV1YdkcM40K5EULw7r2vQoAl/A+HV/GoAVaa5Ht+1sbPWN0eNuq2shP4/F1NqG3Tf2BxGApmcpkqHEiE1wARmC8JLt4SUhthIni7KOD+m7ZhIsrFRnrAYC6npgQoGMTTMHa4EvwEu3teMVjRwq4WKBZuPA5VDhuVbeqyzgpz9Lv7tNp3d14egoyVlzPEI3ARZHnltrPpCqlhZM+NtzgI9lbPNdoLCjnPBX3z7bIpGqVUJhtwvTEo/Z5tHQ5Vwr/X4cdKRb/STvAlVh49orCRSP3DhV5YZhQua67LMtMycAl72EuftGundwUhAOd4AJFo64HD2HUnx+FDXBUDCOZtrc4UlDKoLKxxCmntj513cKB4lnIwtaSGjOZpa2AiJhw4ZOjZNAM3o233OEZPx9TmexTM2S031eyJhoFyIiNXJBMHPZOjHa6zF9ifrtEBEkljZUQOGApJ0M4Cq1Dg5lGqLu8mXXa2ZLgq632B8eXjBOjhZix1eakXDj9XggPIHni3P3UQ+7lzEAGVO6asGTvJewEQTKaM/wZIN5gje6IPwYqF9XhAT4vAiZQCEzHkQZ72CKuIVDQhXT3XeOJFP3Ffna/kPL3V4MA0tWdKfiagVMBcDMTesYwSkcgIzOYoxSLV72JWJJvGBg0SZc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(366016)(1800799024)(23010399003)(10070799003)(18002099003)(22082099003)(11063799006)(56012099006)(261102123227099003)(261021121427099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Y6pQePIwrXf1aU8z34aiRT3/zuNYrgP8Iq5iwRGoNupGdcqWez4fCR7rH7ZN?=
- =?us-ascii?Q?4foOYsX57gypCKJvaxH5mDNLSnNunCVoCpa51HTNL//j6Q0DeGyEgLAA+EML?=
- =?us-ascii?Q?UvoquRgwUilrgK+8W83mN6WcPjpjqbz/x2KC3kkpXERhGAZhJIm3K4l8qd4/?=
- =?us-ascii?Q?56LV3hCOzDbC/d8UeQ4TmGVKYygC14hkEc+IMgvIEb7Y+FLeDXtQujNFRZwh?=
- =?us-ascii?Q?WClCWyig0UFciI1eoWJP0f8EoDAsgxqoEEsXT+Vh+GJp7ePKX9e8s6hJJdTR?=
- =?us-ascii?Q?x6/gH8Sce5NrSxm/z8kb3FLwt/v1ciaLRS5Kq/FS58fS+Lx0g43VPOx4SZpp?=
- =?us-ascii?Q?5gGeocnHyEzzOXq5RPGAJHff9vs6lD+4RVwKkmpZILVBdbHZ3voor1cfklOd?=
- =?us-ascii?Q?iu6dwgD3MFffCH17xuGqEmAQdCcQcqwUVfMUqXaQ/kJsWp+0mY+w1WEoLGgc?=
- =?us-ascii?Q?N4UO9OvBP85fVuRsff/T684ltQPlT0TYuy6nRm4mGIxJtdY6XVQsXSCFvubV?=
- =?us-ascii?Q?5QrvUJZ+KWDLuJInNQQ0X5DkGjU0AuBlGh3VioWaD2F7OGRxjKV7Ga0xCigi?=
- =?us-ascii?Q?N6mpOU/+uYva5jcJOgp1SiTqWf26CHaol94EPni07N42XSNsn3YEfATUXE1o?=
- =?us-ascii?Q?M3xgCnkbY+f1oZKr/7rIoaYEBFLS6WSAFXVEvWI85g4/cRKHFBP2P3tM2O8L?=
- =?us-ascii?Q?OFVuHjax0DKyo12gGOOWCXfR3mHULeyXlDHpzGQMOduzfCn0a+j9vydQeesJ?=
- =?us-ascii?Q?jWYyamRx0W12elQA3pSpavT1IFiL/32XOaZMO6b2r5QUCIl7kp/I9uXRWbjd?=
- =?us-ascii?Q?N08qoFguaMAso0VsBt1J8LFvUKbnlyOaLQdjvRrUU7bNdz+1qM0dJDAH2phS?=
- =?us-ascii?Q?xZ/UoLVtfLgBE0nAx5l/VQoJdqpSMEXWOnxyLjugAwUsz51R3Iyc4yurpfVN?=
- =?us-ascii?Q?VG/II6PCRTMqydoDibffY1J2ITIvr7hAwBK97PH+j6+zaW4yIVSrK3Tig7P/?=
- =?us-ascii?Q?VTrCcADfBUIEqIKJqcCGGGymWMTniPXUIZA2RrQ0p3NvZlVBWfIjYydygrl0?=
- =?us-ascii?Q?JITXaOlyZk2QuUOjF+/qky4/GA/wyvuYbFmVjFrsq1SpPxWcwlci/+0QgYPt?=
- =?us-ascii?Q?asvMq2KECEFYLY3vxN2BqW6TPmdjNnFx/+d+d/GKPLrkbeHNeFjnuQ8079av?=
- =?us-ascii?Q?tPBRxaTlgydRXRUfcwIIdNkpiMyr/KQMr//gIhz011+sGceN0Ier0gWc4Ij1?=
- =?us-ascii?Q?uVnZgCdf80D2Crn0bT/rl3e7m5t1FPvowvbbFJpVBrvMKBOjLFuKu57SM86g?=
- =?us-ascii?Q?ocqC6hv5/fje5Mja/aRooZ0Q9Fze9l6SVo20ScXIkOOdbsgsirCfYugKQRXl?=
- =?us-ascii?Q?HPznCfrgnf+FixxfkitRyN4makSbfHcz3NwroQovOo3RKNZrdTXiki9K96Ua?=
- =?us-ascii?Q?NVR7K82pg8dtlVKFzVvxilpIghBOnTJLHeUcttu2Zcndcz71uN/eo1j64Mka?=
- =?us-ascii?Q?4UedkkyWy3KnYrFR6yGVQwUYNRt1zbjEOB/WygWn5q7HvO/N2hS7GVkZlpA+?=
- =?us-ascii?Q?O6ovCqwLRNVS+WlCYSeJwwDjaCIVZzGBkFbwCi4Ymjv825HnI+OmGzb4E9/5?=
- =?us-ascii?Q?Rb6NMMmKVXXEMvSLpPHVR2fbD2/KwYWa6GQF9ieL4vGxLIjqIlx7E88kXgEW?=
- =?us-ascii?Q?quCWv575BSMdbtJCZVlzWr+1UsmR+iZbY15NlGiEoSaCSw7bwX66Dlmu1nCK?=
- =?us-ascii?Q?9PQJ8T4sg2ayB3//VRbf1hKCh4VRKXFkOgAzwFzmwVTtVAPHMxSKnbltLs/3?=
-X-MS-Exchange-AntiSpam-MessageData-1: 8BbHD+UMLtNeZPjwW0lRJucaKVFkTZC6sPc=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41d2fbb6-ad49-4d4d-1d6b-08df461efea3
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 09:25:04.6556
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3j9AIGYh6VpirM4seSKYXDq4Z3+V4Ubb2qYEtNt2UOon7CQAHKQQxk+alUfrT5tPmP0VSjeJdGTunrZu1Oyw3g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB11557
 
-On Wed, Nov 18, 2026 at 06:31:31PM +0200, Ioana Ciornei wrote:
-> One thing to note here is that the forwarding code is kept rather
-> grouped in phy-fsl-lynx-core.c rather than in the individual Lynx10G and
-> Lynx28G drivers so that in the future, if necessary, it can be moved
-> internally into the Generic PHY framework. This leads to the consequence
-> that the actual phy_ops with which the PHY is created cannot be const
-> since the .owner field needs to be copied from the structure received
-> from the actual PHY driver.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] coresight: tmc: refcnt leak and stray DMA resume in
+  tmc_disable_etr_sink_qdcp()
+- [High] coresight: tmc: bogus sync and OOB offset in
+  tmc_etr_qdcp_disable_hw()
+- [Medium] coresight: tmc: leak of sysfs_buf in tmc_qdcp_etr_shutdown()
+  on removal
+- [Medium] coresight: tmc: stale buffer metadata left by
+  tmc_etr_qdcp_enable_hw()
+--
 
-Have you evaluated the possibility to land retimer support in the core
-PHY framework directly? What would the obstacles be?
+commit 4c2126e70bf6a901c5097e6430bf243717b9f97e
+Author: Jie Gan <jie.gan@oss.qualcomm.com>
+
+coresight: tmc: add QDCP ETR sysfs support
+
+This commit adds sysfs sink support for CoreSight TMC-ETR instances whose
+control registers are managed by the Qualcomm Embedded Co-Processor
+(QECP) over the Qualcomm Debug Control Protocol (QDCP).
+
+> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr-qdcp.c b/drive=
+rs/hwtracing/coresight/coresight-tmc-etr-qdcp.c
+> new file mode 100644
+> index 0000000000000..db94bce76f15c
+> --- /dev/null
+> +++ b/drivers/hwtracing/coresight/coresight-tmc-etr-qdcp.c
+[ ... ]
+> +static int tmc_etr_qdcp_enable_hw(struct tmc_drvdata *drvdata,
+> +				  struct etr_buf *etr_buf)
+> +{
+> +	struct qdcp_tmc_cfg cfg =3D { 0 };
+> +	int ret;
+> +
+> +	if (WARN_ON(!etr_buf))
+> +		return -EINVAL;
+> +
+> +	if (etr_buf->mode =3D=3D ETR_MODE_ETR_SG &&
+> +	    WARN_ON(!tmc_etr_has_cap(drvdata, TMC_ETR_SG)))
+> +		return -EINVAL;
+> +
+> +	if (WARN_ON(drvdata->etr_buf))
+> +		return -EBUSY;
+> +
+> +	cfg.tmc_id =3D drvdata->qdcp.id;
+> +	tmc_etr_qdcp_get_buffer_addr(drvdata, etr_buf, &cfg.paddr, &cfg.iaddr);
+> +	cfg.size =3D etr_buf->size;
+> +	cfg.sg_mode =3D etr_buf->mode =3D=3D ETR_MODE_ETR_SG;
+> +	cfg.ffcr =3D tmc_etr_default_ffcr(drvdata);
+> +
+> +	drvdata->etr_buf =3D etr_buf;
+> +	ret =3D qdcp_tmc_etr_enable(drvdata->qdcp.provider, &cfg);
+> +	/*
+> +	 * A failed or timed-out request may still have been executed, so
+> +	 * firmware may be writing into the buffer. Only release it once a
+> +	 * stop is confirmed, else keep it pinned for a later retry.
+> +	 */
+> +	if (ret && !qdcp_tmc_etr_disable(drvdata->qdcp.provider, drvdata->qdcp.=
+id))
+> +		drvdata->etr_buf =3D NULL;
+> +	return ret;
+> +}
+
+[Severity: Medium]
+If qdcp_tmc_etr_enable() fails on a reused drvdata->sysfs_buf (for
+instance when tmc_qdcp_etr_read_unprepare() resumes an active session)
+and the recovery qdcp_tmc_etr_disable() succeeds, does clearing
+drvdata->etr_buf leave stale etr_buf->len and etr_buf->full values from
+the previous capture?
+
+With drvdata->etr_buf set to NULL, a subsequent tmc_etr_qdcp_disable_hw()
+returns 0 immediately without syncing or invalidating the buffer, so the
+next read exposes the old len and offset over a failed or partially
+overwritten buffer.
+
+> +
+> +/*
+> + * drvdata->etr_buf is the buffer firmware may be writing into. It is on=
+ly
+> + * cleared once firmware has confirmed the stop, so a non-NULL etr_buf w=
+ith the
+> + * sink disabled means a stop is still pending and the buffer must not b=
+e freed
+> + * or replaced.
+> + */
+> +static int tmc_etr_qdcp_disable_hw(struct tmc_drvdata *drvdata)
+> +{
+> +	int ret;
+> +
+> +	if (!drvdata->etr_buf)
+> +		return 0;
+> +
+> +	ret =3D qdcp_tmc_etr_disable(drvdata->qdcp.provider, drvdata->qdcp.id);
+> +	if (ret) {
+> +		dev_err(&drvdata->csdev->dev,
+> +			"failed to stop QDCP ETR: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	tmc_etr_sync_sysfs_buf(drvdata);
+> +	drvdata->etr_buf =3D NULL;
+> +	return 0;
+> +}
+
+[Severity: High]
+Can tmc_etr_sync_sysfs_buf() compute an out-of-bounds etr_buf->offset
+when tmc_etr_qdcp_disable_hw() retries a stop after a failed enable?
+
+If qdcp_tmc_etr_enable() failed before assigning the buffer to firmware
+and the immediate recovery disable also failed, drvdata->etr_buf stays
+set while csdev remains in CS_MODE_DISABLED.  When a later
+tmc_etr_qdcp_disable_hw() succeeds, it still calls
+tmc_etr_sync_sysfs_buf() (unlike __tmc_etr_disable_hw(), which only syncs
+when mode =3D=3D CS_MODE_SYSFS), reading RRP and RWP values from firmware
+that are 0 or from an earlier buffer.
+
+Neither tmc_etr_qdcp_get_state() nor tmc_etr_sync_flat_buf() checks that
+rrp and rwp lie within [etr_buf->hwaddr, etr_buf->hwaddr + etr_buf->size):
+
+drivers/hwtracing/coresight/coresight-tmc-etr.c:tmc_etr_sync_flat_buf() {
+	etr_buf->offset =3D rrp - etr_buf->hwaddr;
+	if (etr_buf->full)
+		etr_buf->len =3D etr_buf->size;
+	else
+		etr_buf->len =3D rwp - rrp;
+...
+}
+
+An out-of-bounds offset underflows etr_buf->size - offset in
+tmc_etr_buf_get_data(), causing tmc_etr_buf_insert_barrier_packet() or
+tmc_read() to write or read past flat_buf->vaddr.
+
+[ ... ]
+
+> +static int tmc_disable_etr_sink_qdcp(struct coresight_device *csdev)
+> +{
+> +	struct tmc_drvdata *drvdata =3D dev_get_drvdata(csdev->dev.parent);
+> +	int ret;
+> +
+> +	mutex_lock(&drvdata->qdcp.lock);
+> +	if (drvdata->reading) {
+> +		mutex_unlock(&drvdata->qdcp.lock);
+> +		return -EBUSY;
+> +	}
+> +
+> +	csdev->refcnt--;
+> +	if (csdev->refcnt) {
+> +		mutex_unlock(&drvdata->qdcp.lock);
+> +		return -EBUSY;
+> +	}
+> +
+> +	/*
+> +	 * The core drops the path whatever is returned here, so nobody is left
+> +	 * to retry. If the stop is not confirmed the buffer stays pinned and
+> +	 * the next enable, read or removal retries it.
+> +	 */
+> +	ret =3D tmc_etr_qdcp_disable_hw(drvdata);
+> +	drvdata->pid =3D -1;
+> +	coresight_set_mode(csdev, CS_MODE_DISABLED);
+> +	mutex_unlock(&drvdata->qdcp.lock);
+> +
+> +	if (!ret)
+> +		dev_dbg(&csdev->dev, "TMC-ETR disabled\n");
+> +	return ret;
+> +}
+
+[Severity: High]
+What happens if a sysfs trace source is disabled while /dev/tmc_etrX is
+open for reading (drvdata->reading is true)?
+
+coresight_disable_sink() ignores the return value of sink_ops->disable()
+and coresight_disable_sysfs() proceeds to tear down the path.  Returning
+-EBUSY early here leaves csdev->refcnt elevated and csdev->mode set to
+CS_MODE_SYSFS, so when the reader closes /dev/tmc_etrX,
+tmc_qdcp_etr_read_unprepare() sees CS_MODE_SYSFS and calls
+tmc_etr_qdcp_enable_hw() to restart firmware DMA with no active trace
+path instead of freeing drvdata->sysfs_buf.
+
+> +
+> +void tmc_qdcp_etr_shutdown(struct tmc_drvdata *drvdata)
+> +{
+> +	mutex_lock(&drvdata->qdcp.lock);
+> +	if (tmc_etr_qdcp_disable_hw(drvdata))
+> +		dev_warn(&drvdata->csdev->dev,
+> +			 "QDCP ETR did not stop, leaving trace buffer allocated\n");
+> +	coresight_set_mode(drvdata->csdev, CS_MODE_DISABLED);
+> +	mutex_unlock(&drvdata->qdcp.lock);
+> +}
+
+[Severity: Medium]
+Does tmc_qdcp_etr_shutdown() leak drvdata->sysfs_buf when
+tmc_etr_qdcp_disable_hw() succeeds?
+
+tmc_etr_qdcp_disable_hw() only syncs the buffer and clears
+drvdata->etr_buf.  Because __tmc_remove() has already deregistered
+drvdata->miscdev, nothing else will free drvdata->sysfs_buf after
+tmc_qdcp_etr_shutdown() returns.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-introduce-=
+qcom-qecp-feature-v1-0-b1a730d2c57a@oss.qualcomm.com?part=3D6
