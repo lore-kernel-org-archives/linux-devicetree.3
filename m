@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795114877;
-	b=Fb9y37hpMMLiAiaL6DWS65yNAwES74uP/v3h6Luj8LJiA4hFqKCvfjXoC4zJLSB3oHgP
-	 xWIFj/X0usI5Fmn488O/VZDgv/qlxzgHyvJ7ZDZf72F9ILrudbfACe1mogRkuxv/tF0N9
-	 FTOMt5HKv0/B+xUxpq84C53CHKTeavr8IKc7FwQYxY/qmnDWf9o8uEao8e4Ihfbe7q10H
-	 8qc7KeKG8oZao0l3HY+OAvRdCuSGrKL0/EgdATZC9biruzO2IwEAhcBgU0ILJAqUFV8wS
-	 f70fPuEKq0m3EVKFIXQiubcdCTsY31vuC40WOPMcUlmzln2LQQvvigfwBSR6g0pW5yg==
+	b=pbJGLJJy37AskZgfFqr4AJa37/dpBwkvib5ihNDCKdPsXQ4ObqMv5SjgPEVxI7rkXpaT
+	 8MW/aWdqgMUjlY2nd2UTMHXSHH29eZuEE85AN+3SpcHnxzbB3xnVXkBADe+lTLEHxXyzM
+	 kcEc03lu6mSsQqw8z58vLseJKp9Ljk/wRZLptpFGBi2yjPLz4mSLbSUmnXiiw02+6pNtq
+	 cZIUD4C7B72AGer0xtLyN2owEkvJiyBCKj9dXY7JI6yz6VX3napUCtSkZwLG8GKB3BVJo
+	 KznnjTOGcaPpf9kcNWccv8rperxTwh3Dwi5yEdRgE2CbGfC/jCLgMMs3oogBd/MWexA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795114877;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VL3of2GZ4aGBezOahQR6AAnHBnjn53yrop77hBWEOUA=;
-	b=pwWUvXEfKnUFY8mBAJRxIFO1zvIqNO8V/efP6aDSpFu1/Q2yuO+ySUuRF36AZZXzZB+S
-	 rMK0bJfvQ6o03XBL/A0sSr6yw+GCWDWXaY/AMZlY/hjEjc78hFPRKl/z1u1viuPPA+O0V
-	 roTSkPQz1ayEPVhkQQxbmwVVd/lZjqxE2uUscj4UXhNCw9BaRWgGbKXn6yy18Sdo2Zvmx
-	 10ApGTd6GowlhkxFOmf+IfsaJFgFdVi8TiSYE5LbxMOZlrSI+1J78QFUzpuprexRI+de1
-	 Z+/MuoFThzyiJ8n+hZOmit1B8Vt2KXe7i6vvOr37sOk/XB/wIz2fQ5wUmRxmJ3Zfwlg==
+	bh=tTw2kFuvywgIUR4xINRvQyeh53+KN4qnrt55NrFhdow=;
+	b=DwD17tGRu1oquKcPocRXCHK3ab6WbA8bgzxK5/X260oDGqTQcYP7gO/cXCVPHkVlyaOa
+	 jUJ0+5h+bQSTBuLrNhp7JoNZkpha5uDKF3a2h2UAMDDObjFcK/TlqBp4BLqe+2RLReOwY
+	 EUPSXb4NvPh7wyOlmAnrSDtf8s7iiHZJXiYXjaPJgBGumFSZK/0+xnnm6/elLr/2p+Unt
+	 +RsYxG8m8nG40rSTK0T4MiEHjDwb8o8nbgWCNWOte7oLnOmCPZIBB63MbAZ5Nn1CXI/y5
+	 qdEQVf4kJENFU+aiZiRLtMeg3GXYxPONgAuP23vETK8ZiiBh/6FhD1PjdiLYLMzsgbQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUDeJw6g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJnsEKzT;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B03F606A325;
-	Thu, 19 Nov 2026 19:01:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99140606A332;
+	Thu, 19 Nov 2026 19:01:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUDeJw6g
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJnsEKzT
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795114876;
-	b=vPKrw4OqgfgYXw034zo31HVDeLOgVM/l6wtW0uD77ecmHBZaB+8vxeLlzOFeDlguHAtg
-	 uH0kEN5gbqzjCs3M8CPFLV/OkG9UhyWuysXe0kXC7Lo1ppPaYeHIG30BhRr02nt9+D7E4
-	 Hdx+WCSucZgl/8/WKV/ii8JLS9Xllzs1hrf5xy8jGBBD8bgG2523K0bVvt2CdbCiNZRBe
-	 xLG/wsCro89xNQRxwnh3FRXKdHPm2Jwra+mAcdJrYwpz8eth7xihy69JczXMVdSFgbm/j
-	 G94rG1DG/rC3LFe48uJWY9oNCw02tcdQaObMbsJgbCnF0hvFjMa+3SfLNitXtS1IxxQ==
+	t=1795114877;
+	b=HzTR0zaAd8pqVm0hfpxcIqblupogJddEuk6pB2+mLwgQg024eZXGcBGi3wVCP/oEHOc9
+	 Be0JWpVC0wourCy9FZHq2+rYKhud0rSkcwtqhNFtJcsgwph7w1IAzHqXh7yKORgcQy3qp
+	 X5Y/2YIp4uLfmOH7D83uOZ2LiaUeY7pFv9ZPDdQE4ZPG4L+Msn8nHXHGq7bJ5oYux6IpE
+	 mPvHuRUVIW02EiDHmaDz8Fda126yadsCtUgI9a+6J3lmH70tkYUE+etAAh9jOddm4pQOd
+	 FeauRjIAz4iC6BmxOCL7Lno24sAVu+Y/pSQOsMbVQTSf9IgDUNnguPa7LKhaRFJpJVw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795114876;
+	c=relaxed/relaxed; t=1795114877;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VL3of2GZ4aGBezOahQR6AAnHBnjn53yrop77hBWEOUA=;
-	b=qHYVgU6tgAno4VvQE21xpDsrJ0kQs2Jjlvb1tAA34GLub5kn0lAnERdxeKPKjDzBb+7j
-	 83pWCi6vtjfArVJNlVamLOmSwBizH/Wnu2A+cjfzroj1nGwPRhb4VaCPxxVStAuPhGplC
-	 z6Tpl8oWxRD0arqsXQ0kKYv4l0OPmbqSnM0rtuGxR2Vab8EMPmkzI+F866+IqRcSm3IYr
-	 tIEIDKHY72Tdhh75YtRRWyKveNz2wewCgexaxY0Ej8kFGfCLPH62xXMqCuXNmS7pdz+Wt
-	 gEFVe2AGD1jek2i0WJZgY4PC5dW/t1PQFppfhLzDpdAWwhtoFoNQEpIQ2Ooc3vtFc2Q==
+	bh=tTw2kFuvywgIUR4xINRvQyeh53+KN4qnrt55NrFhdow=;
+	b=BK5ekFzwWJwwJIyj45LnIWHFNtMLgfGQIp8K8NrGEbVlCSPXAEFsjAdzUuKZlK5Ijcgr
+	 qz0Ss5JRtcwbmwUEfnHhSGRwOAcSJMbkurgqJCOS+dJolUZv9Jg/Zjkp21cm1fCZ0wHa+
+	 NoZH8iiFPBK7RZZwf7d6ZBVPhoEnA5BNsZmTBVcO2Z4TdnnrP3X3VcP/uTf7F3ojS7Bql
+	 adOJvGaSyiQ9ulNXndyexCnv+jLL4aXifqPr/dCQs1sWTdnTTdjZo4U2NffWwO44Y8rSR
+	 sNCvZCUoRky5hwSiQpOox3Cr/twyGNcVfGGp80PZwpZ9rBW6AdneJmdNAMzDrn7wlsQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3184F1F000C5;
+	by smtp.kernel.org (Postfix) with ESMTPS id 59D041F000C6;
 	Thu, 19 Nov 2026 19:01:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795114876;
-	bh=VL3of2GZ4aGBezOahQR6AAnHBnjn53yrop77hBWEOUA=;
+	s=k20260515; t=1795114877;
+	bh=tTw2kFuvywgIUR4xINRvQyeh53+KN4qnrt55NrFhdow=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ZUDeJw6g/+bKeO+wFg5dk1e77sSV/najdncPAL051knB0kwgmmBuO46j5l/dB1l8H
-	 wY5tXA1AejSLedFvGO00RUik+gvAITFoCQw0zklrKReZoaDVuPP6vgN/ENNPypfNdC
-	 k0sHZAbPyZoPcoI57L44mBXbYZCyX5jSoIkKnFUeDuHDYk474xpCRCPLIR7w+3Kl1V
-	 fNpUNcAB+wSvW+r8yjcbPOHDId/58QdiJ/XlxqnCO7cQlTApwwseTJPi2mtoIFKeYq
-	 p2VJHL888nnb4GNOxr65DYrltlxQlLV7ZcEoF2cT02iycljbRbeoZbtkSXp2Tm4iBU
-	 j8ZnkJvpXzVjA==
+	b=AJnsEKzTAX3bf/AlANUJ1aKaaF2IAaCuVlKMRXRsWoQW7a8sSQwvzMS0h2SCJjcWF
+	 RF9L/ABQeHmc99rAr2ciFOUqtfN7pQMRjUQL7aU501vH1bXhUhGkcOsH4g/edufyyB
+	 HHHEaDu0nmj1Cq7GlgpkB6lPvzrLuB6cADVGKmE0DGKFLay+huqsXNi72mifMYurbA
+	 dQjJs/h6PGs9NBBMZYGkIF1o3PxvBTEkjnr6ZaXM2KqlwvVpmZ2YaAEkl5IkVrDita
+	 xuVpyymipi51/ifLNPj/OPGkV63lVhbR7ilYaVL53ATYqvRF9uvdFRPO9jUWwrYrh5
+	 lc8RNulx6TwSQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A69E14B3D5;
+	by lkml.kernel.org (Postfix) with ESMTP id C92EE4B3E2;
 	Thu, 19 Nov 2026 19:01:15 +0000 (UTC)
 From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Date: Thu, 19 Nov 2026 20:01:12 +0100
-Subject: [PATCH v2 1/3] dt-bindings: vendor-prefixes: Add Anapass
+Date: Thu, 19 Nov 2026 20:01:13 +0100
+Subject: [PATCH v2 2/3] dt-bindings: display: panel: Document Anapass
+ ANA38407 DDIC
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-b4-ana38407-v2-1-bddc251bd43f@dxdmail.cc>
+Message-Id: <20261119-b4-ana38407-v2-2-bddc251bd43f@dxdmail.cc>
 References: <20261119-b4-ana38407-v2-0-bddc251bd43f@dxdmail.cc>
 In-Reply-To: <20261119-b4-ana38407-v2-0-bddc251bd43f@dxdmail.cc>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -94,14 +95,13 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Nizat Mikayilli <nacht@dxdmail.cc>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ dri-devel@lists.freedesktop.org, Nizat Mikayilli <nacht@dxdmail.cc>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795114874; l=864;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795114874; l=2686;
  i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=71KJwo/U3Etw4IsyPrxttnuaukQ5Gsqk1irCLfj/QNE=;
- b=klgVonqsiny9q+pQJHnCw+x9mFvazXk/UtvtLvt7puherNw0cddORww0DNUeXOtjCMQw6B1E/
- pmd9+SCrtBTDUrzA/uIRyS8n0haJDm0hi859zqvDxLU3uXvxOClbW+8
+ bh=Vc7GWKoAIzq9GzojXTrkIbSyMezk2qqPaz6Iw8WRLJ8=;
+ b=xHnINgjLttYaOs9C8YL4X/4dczu+rpVXzgyplRavOTclyKCbFSR4u8pcDPtFnZuLx6XrNO13l
+ 8CP7GyZDOGLBs10uywhjJib4SmKsSxq1EcppmOOLvFaGHVKR5gNq7Yj
 X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
  pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
 X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
@@ -112,27 +112,105 @@ Content-Transfer-Encoding: 7bit
 
 From: Nizat Mikayilli <nacht@dxdmail.cc>
 
-Add a vendor prefix for Anapass, Inc., a display driver IC vendor.
+Document the Anapass ANA38407 DDIC and the Samsung AMSA10FA01 panel
+found in the Samsung Galaxy Tab S9 Wi-Fi.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../bindings/display/panel/anapass,ana38407.yaml   | 68 ++++++++++++++++++++++
+ MAINTAINERS                                        |  5 ++
+ 2 files changed, 73 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 5471a06f93f1..b117fce91102 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -136,6 +136,8 @@ patternProperties:
-     description: AMS-Taos Inc.
-   "^analogix,.*":
-     description: Analogix Semiconductor, Inc.
-+  "^anapass,.*":
-+    description: Anapass, Inc.
-   "^anbernic,.*":
-     description: Anbernic
-   "^andestech,.*":
+diff --git a/Documentation/devicetree/bindings/display/panel/anapass,ana38407.yaml b/Documentation/devicetree/bindings/display/panel/anapass,ana38407.yaml
+new file mode 100644
+index 000000000000..7811ea355026
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/anapass,ana38407.yaml
+@@ -0,0 +1,68 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/anapass,ana38407.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Anapass ANA38407 based MIPI-DSI panels
++
++maintainers:
++  - Nizat Mikayilli <nacht@dxdmail.cc>
++
++description:
++  The Anapass ANA38407 is a DSI panel controller used to drive AMOLED
++  panels.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - samsung,amsa10fa01
++      - const: anapass,ana38407
++
++  reg:
++    maxItems: 1
++
++  vci-supply:
++    description: Analog voltage rail
++
++  vddio-supply:
++    description: I/O voltage rail
++
++required:
++  - compatible
++  - reg
++  - vci-supply
++  - vddio-supply
++  - reset-gpios
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "samsung,amsa10fa01", "anapass,ana38407";
++            reg = <0>;
++
++            reset-gpios = <&tlmm 125 GPIO_ACTIVE_LOW>;
++            vci-supply = <&panel_vci>;
++            vddio-supply = <&vreg_l12b_1p8>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi0_out>;
++                };
++            };
++        };
++    };
++
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..e282fbb04e6e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8228,6 +8228,11 @@ S:	Supported
+ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	drivers/gpu/drm/sun4i/sun8i*
+ 
++DRM DRIVER FOR ANAPASS ANA38407 PANELS
++M:	Nizat Mikayilli <nacht@dxdmail.cc>
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/panel/anapass,ana38407.yaml
++
+ DRM DRIVER FOR APPLE TOUCH BARS
+ M:	Aun-Ali Zaidi <admin@kodeit.net>
+ M:	Aditya Garg <aditya.garg@linux.dev>
 
 -- 
 2.56.1
