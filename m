@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795110703;
-	b=btpNFGDPn6xgpaPdbgRBT96EViyxwCV0GA4gicfFwA/eJdIG6cYWwqh8l7PhOTEFJ4Ew
-	 5OSIl6Pxcdl46WFWBzxOHWbOtIQ7VJLFvxlrBFHykEDDILhubNGmyChD3G3ycKjOri6C2
-	 eLDV/wAGMHHqw/ByW+jqQwa+DBHSrllRDwbSOpL66ZMcYCrv6xYk/+z55ewjX3hRjo08e
-	 bRBp2JARUVXopRAevKWPGussUbzl6W6MecAKdUNOHmmk0W9RAJONuViUzh1h8HFIgRbTQ
-	 91FKVKi6NhsdH6+Yxot+S6cBcWamaG/GQbvl0mFZBLq0xnX2OAkIFM0N1M6pkDs3vAw==
+	t=1795110705;
+	b=j9QzhWrYpUBVG8XUGMFLv3Br/m06jKOHQJtnLwkYbRxrlykRrSLLs9ispbPwkwPEIZJS
+	 x+/a9J5VHgTQfLXoLsWTsnfVDGKn9crLxdrEMeY+n6AuF8w86TGG1pPVHF0X5aQ2Hyl2W
+	 2iZcu3E6XvnlzbBY4cgugq/HTui+wJZqAE34STiQ92ZgVMhFpCy2vx/RpZbLb0aKpZcqz
+	 aVyYLFAq7Hnz2DpGB7LdbPIStJAjq70MD0gSulqziR3P77pJUWr6sevqHVAyXHHoQy6Ih
+	 K4uklNoEBuTDH/22LD8gjHaza3PMaq9jwe6/Jy1p+8XY92YfjoA5gRle0Lel3pD7cdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795110703;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795110705;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=OKPZQyJsCxKmvcu3evgCAn8bCU003kDuUuvj5pSvgRY=;
-	b=IUGCsQ/bsXlD98w2v4IQ8GyYdpjKfqLC4lgixKnYWoenVLNq/704zpE5u2iwmOc9mTZ1
-	 Kr8Nlk9W4T5Z/zNqAOMkACWLVMk/AEgXkzU6xTWqcXOXQMJ7CD8MrSygNH4z40LdS7MoK
-	 Kb0YDXZc4eupmLqvCyiG9Sl0RQqZaWewWkCLTrAFkQDgJWzKvOvu0ISai+/WYJAUOptoc
-	 w8zj2eY93H1fbqCvBqLFe1mFSgZyEe4vQc4FKULuiD+MC01QeXp40UmYxx3hBE+M3qyCV
-	 y8mQbxUdPp8JAfHkcmGe6k7miITKekk0bZspfV19gfTodgy6UckZcmWU7o1hKtlSAaw==
+	bh=PRm3Wwq9NQlmuKonGVqXdDDW70eXnhOzZHSNpZOZBag=;
+	b=jVxlYJZAxGWQ3yI/BvuSNz98f8A43tG7QNY1Mjs0j3wWBWCZaC97ga4ee2u0oFJdGy8/
+	 E2AN9SqjfOZJvC91+j/n9C79JbLR5mh4zFLQY61fmz8OZH+tgP3iZ/tMMlOZp1kYRyvvY
+	 Gp//LSi+YbRJpduWDfPER11jmoc6G98GWIxaaZFB/ihLKmi3Ggak/wvpxFP8aJ9Z7Oi0f
+	 CcIjMTw9qQt59h2p5X7A/3+PPDqs+jWb41lFf49nchh5TwXivDwlGfioNTvJOaQxLrkqW
+	 iQqrYGsNVEiJy8+ml7haA0x3h71F39Prl+eCjYpzRzNXzEs6FjWP35PHFp5ExPkpRYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mobileye.com;
 	spf=pass smtp.mailfrom=mobileye.com;
 	arc=none smtp.remote-ip=23.90.104.144
 Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 92ACE606A324;
-	Thu, 19 Nov 2026 17:51:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92ACE606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8A66260A261A;
+	Thu, 19 Nov 2026 17:51:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A66260A261A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1795110702; x=1826646702;
+  t=1795110704; x=1826646704;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=4V18Tfg9Ly6MPWUMnLZiqruGXQUpnrBi9GEGXYzKK7I=;
-  b=TQi8rvKHeCWk7ottKTZIqJSvWBhS887/V8U3XhzavbuzJ1a4B9gxneal
-   06k9t4y2SGdjgmMKuBs0kTrEXQvQqIwW0QC6hXMakiwclP6toz0EJ2j0U
-   lGgyeMlD7776V/rgKRlvRF6TfFmcAKB7idVZkcfHE3qHHcBcn/cKJzQ5A
-   AuQN6lrlPablmZ2LojVB5QC+hTZQ0q+mkaZQyyiQs+drv0Htc9EgfdZsm
-   tb6dvvMBbPFDjXpPXlckv2DFevBwVxs4HiLfLPWD+gLD43f+xemG1XtLp
-   kRVQpeRTJyz80tehi46V7utsawhYJhXyKiqdq5u/FpttTOWg947lK1wdL
-   A==;
-X-CSE-ConnectionGUID: bck4BxQFSmuiqAdu90FOmw==
-X-CSE-MsgGUID: NuCP7ZcRRJWiXbhWt+3dyA==
+  bh=tbxgL7ZsrTWsrmUOa0vRK78LFkh+IqmpmHZmgai13Hk=;
+  b=bI//jBwUNCxEq1DvxVH1A36sfmTiAJ0Eh0fCQsS+2j5kyPHKBi1zzJpW
+   OIl+qOGkNh/1s1H7HR/rjkITyYuDm4fLw0E+gVSEipE5AuSwISxnll/qm
+   pNt0O1Ykism7MJ2/jVa2WvAOdht7cXOeGeWLTvkXIQXd32UbUz3c5sPDQ
+   cVUffrFs8/P6DjdXLhxkV1SYbpWfxBXdq5EeLnk/l7awJXCQReeCz+y3D
+   dJLjS0E57fBfNHyOO9nfejb+3y49O/CB5OVxfd9tCu7qQXxF19I/CqwyC
+   oPbvWdgu0ZvR+8v2M23R97TE6hn4v4xAbwgUboiDFQ+Xbu7kSgy70x/MD
+   Q==;
+X-CSE-ConnectionGUID: C8YvExW3Q6K29GCLnfFzRA==
+X-CSE-MsgGUID: AgTXoSOuTr6Un1xfpk5wZA==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces02_data.me-corp.lan) ([146.255.191.134])
-  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 19:51:33 +0200
-X-CSE-ConnectionGUID: tengInJhRCa+VsqTvox6mw==
-X-CSE-MsgGUID: klkWn2aISdGzaE5U/QgFbw==
-Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.3])
-  by ces02_data.me-corp.lan with SMTP; 19 Nov 2026 19:59:49 +0200
-Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Thu, 19 Nov 2026 19:51:32 +0200
+Received: from unknown (HELO ces03_data.me-corp.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 19:51:36 +0200
+X-CSE-ConnectionGUID: NaK7sfVUSV+oJLsBsBliBA==
+X-CSE-MsgGUID: ZLMV7MkCQwq8KSRROYyWWA==
+Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.2])
+  by ces03_data.me-corp.lan with SMTP; 19 Nov 2026 19:59:42 +0200
+Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Thu, 19 Nov 2026 19:51:34 +0200
 From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Date: Thu, 19 Nov 2026 19:51:28 +0200
-Subject: [PATCH v3 2/7] MIPS: CM: add CM3 performance counter GCR
- definitions
+Date: Thu, 19 Nov 2026 19:51:30 +0200
+Subject: [PATCH v3 4/7] dt-bindings: mips: mti,mips-cm: add performance
+ counter interrupt
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,7 +68,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261119-i6500-cm3-pmu-v3-2-c86410934b51@mobileye.com>
+Message-Id: <20261119-i6500-cm3-pmu-v3-4-c86410934b51@mobileye.com>
 References: <20261119-i6500-cm3-pmu-v3-0-c86410934b51@mobileye.com>
 In-Reply-To: <20261119-i6500-cm3-pmu-v3-0-c86410934b51@mobileye.com>
 To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
@@ -88,105 +88,39 @@ Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
  linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, 
  linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-perf-users@vger.kernel.org, linux-hardening@vger.kernel.org
+ linux-perf-users@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
 
-The CM3 implements two programmable 32-bit performance counters and a
-32-bit cycle counter, controlled through registers in the GCR global
-debug block (GCR_DB_PC_*, offset 0x6100..0x61a8 from GCR_BASE).
+The CM3 asserts so_cm_perf_cnt_int when one of its performance counters
+overflows. Whether that output is connected to an interrupt controller
+input is up to the SoC integrator, so describe it as an optional
+'interrupts' property of the coherency-manager node. When absent, the
+counters have to be polled by software.
 
-Add GCR_DB_ACCESSOR_{RO,RW} helpers for the debug block and define the
-control, overflow status, event select, cycle counter, qualifier and
-counter registers along with their fields, as described in the I6500
-register reference (MD01189).
-
-Each accessor comes in two flavours, as the CPC ones do: db_<reg> for
-the local cluster and redir_db_<reg> for the debug block of another
-cluster through the redirect block. GCR_Cx_OTHER.BLOCK value 2 selects
-the debug block in the GCR, where the existing _BLOCK_USER name only
-describes its GIC meaning; add CM_GCR_Cx_OTHER_BLOCK_DEBUG for it.
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
 ---
- arch/mips/include/asm/mips-cm.h | 51 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 50 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/mips/mti,mips-cm.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/mips/include/asm/mips-cm.h b/arch/mips/include/asm/mips-cm.h
-index 407f253bb4a1..390d06a8f1d1 100644
---- a/arch/mips/include/asm/mips-cm.h
-+++ b/arch/mips/include/asm/mips-cm.h
-@@ -161,6 +161,20 @@ static inline bool mips_cm_has_l2sync(void)
- 	CPS_ACCESSOR_RW(gcr, sz, MIPS_CM_CLCB_OFS + off, cl_##name)	\
- 	CPS_ACCESSOR_RW(gcr, sz, MIPS_CM_COCB_OFS + off, co_##name)
+diff --git a/Documentation/devicetree/bindings/mips/mti,mips-cm.yaml b/Documentation/devicetree/bindings/mips/mti,mips-cm.yaml
+index d129d6382847..ca7a6717ecdf 100644
+--- a/Documentation/devicetree/bindings/mips/mti,mips-cm.yaml
++++ b/Documentation/devicetree/bindings/mips/mti,mips-cm.yaml
+@@ -38,6 +38,12 @@ properties:
  
-+/*
-+ * Global debug block registers. The redir_db_* accessors reach the debug
-+ * block of another cluster through the redirect block, which must have been
-+ * pointed at it with mips_cm_lock_other(cluster, 0, 0,
-+ * CM_GCR_Cx_OTHER_BLOCK_DEBUG).
-+ */
-+#define GCR_DB_ACCESSOR_RO(sz, off, name)				\
-+	CPS_ACCESSOR_RO(gcr, sz, MIPS_CM_GDB_OFS + off, db_##name)	\
-+	CPS_ACCESSOR_RO(gcr, sz, MIPS_CM_COCB_OFS + off, redir_db_##name)
-+
-+#define GCR_DB_ACCESSOR_RW(sz, off, name)				\
-+	CPS_ACCESSOR_RW(gcr, sz, MIPS_CM_GDB_OFS + off, db_##name)	\
-+	CPS_ACCESSOR_RW(gcr, sz, MIPS_CM_COCB_OFS + off, redir_db_##name)
-+
- /* GCR_CONFIG - Information about the system */
- GCR_ACCESSOR_RO(64, 0x000, config)
- #define CM_GCR_CONFIG_CLUSTER_COH_CAPABLE	BIT_ULL(43)
-@@ -357,7 +371,8 @@ GCR_CX_ACCESSOR_RW(32, 0x018, other)
- #define CM_GCR_Cx_OTHER_BLOCK			GENMASK(25, 24)	/* CM >= 3.5 */
- #define  CM_GCR_Cx_OTHER_BLOCK_LOCAL		0
- #define  CM_GCR_Cx_OTHER_BLOCK_GLOBAL		1
--#define  CM_GCR_Cx_OTHER_BLOCK_USER		2
-+#define  CM_GCR_Cx_OTHER_BLOCK_USER		2	/* GIC */
-+#define  CM_GCR_Cx_OTHER_BLOCK_DEBUG		2	/* GCR */
- #define  CM_GCR_Cx_OTHER_BLOCK_GLOBAL_HIGH	3
- #define CM_GCR_Cx_OTHER_CLUSTER			GENMASK(21, 16)	/* CM >= 3.5 */
- #define CM3_GCR_Cx_OTHER_CORE			GENMASK(13, 8)	/* CM >= 3 */
-@@ -384,6 +399,40 @@ GCR_CX_ACCESSOR_RW(32, 0x030, reset_ext_base)
- #define CM_GCR_Cx_RESET_EXT_BASE_BEVEXCPA	GENMASK(7, 1)
- #define CM_GCR_Cx_RESET_EXT_BASE_PRESENT	BIT(0)
+     maxItems: 1
  
-+/* GCR_DB_PC_CTL - Control of the CM3 performance counters */
-+GCR_DB_ACCESSOR_RW(32, 0x100, pc_ctl)
-+#define CM_GCR_DB_PC_CTL_PERF_INT_EN		BIT(30)
-+#define CM_GCR_DB_PC_CTL_PERF_OVF_STOP		BIT(29)
-+#define CM_GCR_DB_PC_CTL_P1_RESET		BIT(9)
-+#define CM_GCR_DB_PC_CTL_P1_COUNTON		BIT(8)
-+#define CM_GCR_DB_PC_CTL_P0_RESET		BIT(7)
-+#define CM_GCR_DB_PC_CTL_P0_COUNTON		BIT(6)
-+#define CM_GCR_DB_PC_CTL_CYCL_CNT_RESET		BIT(5)
-+#define CM_GCR_DB_PC_CTL_CYCL_CNT_COUNTON	BIT(4)
-+#define CM_GCR_DB_PC_CTL_PERF_NUM_CNT		GENMASK(3, 0)
++  interrupts:
++    description:
++      Performance counter overflow interrupt of the CM (so_cm_perf_cnt_int).
++      When absent, the performance counters are polled by software.
++    maxItems: 1
 +
-+/* GCR_DB_PC_OV - CM3 performance counter overflow status (write 1 to clear) */
-+GCR_DB_ACCESSOR_RW(32, 0x120, pc_ov)
-+#define CM_GCR_DB_PC_OV_P1_OF			BIT(2)
-+#define CM_GCR_DB_PC_OV_P0_OF			BIT(1)
-+#define CM_GCR_DB_PC_OV_CYCL_CNT_OF		BIT(0)
-+
-+/* GCR_DB_PC_EVENT - CM3 performance counter event selection */
-+GCR_DB_ACCESSOR_RW(32, 0x130, pc_event)
-+#define CM_GCR_DB_PC_EVENT_P1_EVENT		GENMASK(15, 8)
-+#define CM_GCR_DB_PC_EVENT_P0_EVENT		GENMASK(7, 0)
-+
-+/* GCR_DB_PC_CYCL - CM3 performance cycle counter */
-+GCR_DB_ACCESSOR_RW(32, 0x180, pc_cycl)
-+
-+/* GCR_DB_PC_QUALn - CM3 performance counter n event qualifier */
-+GCR_DB_ACCESSOR_RW(64, 0x190, pc_qual0)
-+GCR_DB_ACCESSOR_RW(64, 0x1a0, pc_qual1)
-+
-+/* GCR_DB_PC_CNTn - CM3 performance counter n value */
-+GCR_DB_ACCESSOR_RW(32, 0x198, pc_cnt0)
-+GCR_DB_ACCESSOR_RW(32, 0x1a8, pc_cnt1)
-+
- /**
-  * mips_cm_l2sync - perform an L2-only sync operation
-  *
+ required:
+   - compatible
+ 
 
 -- 
 2.43.0
