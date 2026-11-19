@@ -1,110 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795091944;
-	b=qtUe+FscEWxMomoNnA6z5j9KwN/giL98JmDAFTZZEm44dz+mSDPjsjiyeS+ejfZDN5Rb
-	 h5BnPoEO2pwjNWCZqLET47ewMhV1o3Oeo83745AF74YOW7TDZ5nBTbWhqf0DURuU3LSj9
-	 Za03wC5aJuzxwlrLZWhbGnoKVLtmVCS5q+6feyv0+CYcufSQmGkiJ2yymdTEtHlu4aelF
-	 4SmlcOSYjOLgJ6639uH7DV97wKTCCv6sLN9GCoVMnJe91c6NnsUJR3q5m3uVhCdWaKSMM
-	 kunDqgvJAVdoTicNumvS9hZpAZ/mLPYkEvS19/uO7+o3oFqxmRO8bHeaMQTPFQOzTtA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795091944;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=PCl5paKLPQocqQRSpft8gNyTDLgCW5ShPpyIamnv07o=;
-	b=h9WKYQc/ydKGPhlM3vjPAPawwHvxnyAPLzBEWB+SySRxbdq/2ZkG59sFrorKj75DiQwA
-	 wta30PH27ibfpe7BIKnWSYpd1uqyEc7bWWKurbA5lHDwrRQII3m83xrZgjfDjPuVLsjRd
-	 3kOa1YDNQ3cHPF+iZtgON0Aj6NxnOi1x/pRAGXYPckwDGBZbdQmzBS5g13IWeZXYyaWd8
-	 9ZJBG0DNgQ2K6MHFxFSoP5pD4aXHDMcw9pjYAAKYlb2SDyDVr/ib29cfvV5O5ndWsxyJC
-	 uuKwoNk3H5Vdu/DRuwnRk+NTcutuW1jVVN9+jNMmT1DWOuqzoGFjwYdayx2kIXnCAVA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.124
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023124.outbound.protection.outlook.com [40.107.44.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795092363;
+	b=AtJu+bO/VeomiLCPar99iGUhxtfWPLUYgXuozhOXSJQEgx2xfXa4/O9n1dMdDRWGLrHL
+	 NOLr7cDnLGe1Ams6eXLpNGthGRqJHtsUPVXfdtIX2EArIlqNFo88ZzQlZ6rzsyG70GlXX
+	 k8n86jBQdyOwu6CuFoiKMPUIfVfoPmYEav50QhJR840K1Iojudi3LPLAz4lu74txDJhag
+	 BnLUfoLmWQINrNWP5KcUS251Yf7A6Hl232sTSjlnZ+E9fj48abLb1+uGUq+PkY+8cPSWE
+	 rQapyt/ugTiEzddq2plhSqQvcTFM3bpSbisA154KpVIYgBr3Hh4OGB+zyB0jDrJAQVw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795092363;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/vXmxDVSuxplVUUVYfnRL5cmVV8c8auAAYmf+pDAyHA=;
+	b=mEr/ZS17UM078RwzSSyLizl2BM1pY6XZMZHSZqTBZPbwc63/YCiUcOkvt80n5YboQGZc
+	 R+Ab8U0EADXadmqeBQnRMq7Wg0uj6GNu/DW1ofjXqYs3QpWIAvy+/41oD+csIG7pmDqdH
+	 d1gK16ZjKNDI6m4csBfkObDH2IWbDMaejh3R66mrH3PQ5VNXEtXTAWIi2WCbPvQvDZwsD
+	 kjggwrPsuxaCk/mLga2e0rIv6kJJ2lGr8Qu5x71cNx9IT7s15HfzC9eYm3cxN8d9H4jQ5
+	 L3FEdv4PmL0xRjY1p5abFt+uS88CyYXcetFg+wwaOdoVdugpFcvfE3Sdd8ofditJw0w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Duv0s0LH;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3367606A332;
-	Thu, 19 Nov 2026 12:39:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3367606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OMHU1zeHUjgEIjZi/s1YCWwbv4onF7VuSlVFbaMMF7CaHt+DujiU7K/G6a+vtrDyDGPpwG5o4jW8oBpkOUJrfeP2q/OL5ep866iYVrBR6g20OUSBtlSD9rBkQk0/0Zzs1UXGdOAEA7ZKZKi79+KiItys+OEVfS8RUHI0MIuNQ2c1MlqgSAOPmZwx3wNs/aJ0L+z9SRrB0QfT0pqpwXbUkdvdygXZpAb7ZeyIv0y3M8WdO3gf/MnEjErzWChnrN8b2Km437/tZcRPKucwjbwykHeTkgtAjujEeltKqLREQXbYnUtmRYGtYmuLTdJ0shlqTZfzvZbIoWm55roQGzBcqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PCl5paKLPQocqQRSpft8gNyTDLgCW5ShPpyIamnv07o=;
- b=LEsDSkRh9S1PY2IgRqeMFaj8uKXgrTr2kJu9ybuQdMQSxyWM1dwVPN4yzKGMOldzWri2PpedtlKV8TO2vk+MT39F53+X6QO3M6PbQEYfQ61jzNRIQh+RMkA9RL4Wp/wSSxpubFxdwrq/2uKKWNrfbVdw8gTnlIz3L3apLm3Bw9C+P8iLLP+0SDUSgui/0J0R/yhbyRmKbuO78KVnJ4ap9QGB+5jiLBdeYwEY/or55gqy81zcRtA3HTSYn+cbvRMwcAvZWHNe1l57sC6FVRq/ydh4gTms0ViyJHYIBSdY03l6ZGbdYB7hqqE58veHQ9mE2I81XfBmmYDbwq45nSrjhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from TYCPR01CA0157.jpnprd01.prod.outlook.com (2603:1096:400:2b1::10)
- by SEZPR06MB6302.apcprd06.prod.outlook.com (2603:1096:101:133::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.1; Thu, 19 Nov
- 2026 12:38:52 +0000
-Received: from TY2PEPF0000AB87.apcprd03.prod.outlook.com
- (2603:1096:400:2b1:cafe::9) by TYCPR01CA0157.outlook.office365.com
- (2603:1096:400:2b1::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.12 via Frontend Transport; Thu,
- 19 Nov 2026 12:38:52 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB87.mail.protection.outlook.com (10.167.253.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 12:38:52 +0000
-Received: from cix (unknown [172.16.66.176])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 4370540920E1;
-	Thu, 19 Nov 2026 20:38:51 +0800 (CST)
-From: Cunyuan Liu <cunyuan.liu@cixtech.com>
-To: boris.brezillon@collabora.com,
-	steven.price@arm.com,
-	liviu.dudau@arm.com,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB67606A32C
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 12:46:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BB67606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Duv0s0LH
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1b546061d58so3823399c88.1
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 04:46:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795092361; x=1795697161; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/vXmxDVSuxplVUUVYfnRL5cmVV8c8auAAYmf+pDAyHA=;
+        b=Duv0s0LHI+TJP79LoK0fEyHo3WzKLqQMCUPqob/fKZsAyZfyr8EZMS9r/sQKPry51G
+         hk94sqxWVsdcIH4wciNOGvVNM2/aUtEnDh/MkPgO9W6U4L1OpZww2waCgWGDo0ojLJzC
+         AnAcYYzGVqUMooVloXxmg5wr7CFH0+SA9/Hr8ZoudsMtiZLmje+IZo4EviegV8QcYe8W
+         /jsxz1SIf/2h6T8lXu5VHflkcVGdosUJi6Q3Aa6f+7TA38MVB8DASlwN16Iv3dpAF2a7
+         6cBlAoWc6Wgv4z0uT8s12/UmacWiyU0KyOWPAS9kWhK6u76q4vUq7ZzBM1Vvi6MgwY64
+         dFMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795092361; x=1795697161;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/vXmxDVSuxplVUUVYfnRL5cmVV8c8auAAYmf+pDAyHA=;
+        b=cVMFadg/MRVinloCo5DRNGAMkRNBKBSYxVyM2ngnbAmpz/VNcchPG74QtKBMMQMh9E
+         /YeEpmFdmmALK9dry+693EilHl0PY79IfDv6fRlq+pp6eAOlnGk+oEVT03gpEVQE19pB
+         bliGpPldvMCWSNi5XSdj240zONkAnsSIDdoJQY6e8eJcCfEiZlGIChhm9M3LZ82tWj68
+         WUHPgXLF/eS3lG+rljsxTbVjo0yRJyHlAU15NF54UDo5cmGlNdyOK6XWqIyTLpXHh1hQ
+         nVOtxGicVnLEY4/4ceaQ8brWdMAN/FJZfnMqycxK+rq7inlZlE+Eha15Akt6mrzCzWKu
+         dq3w==
+X-Forwarded-Encrypted: i=1; AL+hErHRUyhLHkvomBhNdREuUmCpTznjRljCWPesxQab2IpUu93mrrP/lkBekeM8hy/YDEZYOljF2fBi/Nzk@vger.kernel.org
+X-Gm-Message-State: APuU4Z88q8J5eOfRDq5ePZV0v7aL1Pfk1neyxWZsXDXFzlx+PnEU4oDe
+	OCvLp2Z2F3KmAT8X1p/JvBSufdiGmphE7XF0hEWQoo+qSSRv3vH2NUro
+X-Gm-Gg: AYBFou38V+8l3rPgN9uTPushj4wwjlLCPf/lJg1jdmNCm6Jj0iMj/vZjuEXPrwuJXvT
+	Q/IPX69KKoGSr2z96dA5weWA4piaKfU/8xT08BskMc2JnLUQnDOGu3sNvSuqmu9h6pceYlBA5JD
+	MDyj/fAyBDPE1OjGH8oyrDI74N+MvtT8HIpl4OVaJa1nog4mpRMJv7byOfoyjRgnTtgMMt4Mhcj
+	oqm5kUUnvTI3dEaQmrJduj85XlYk+aboNfV6hA4eINjHtiKkKLbd2glbsUOHPgAl3pCRes78/rz
+	EKB5ajD0MOQvrBvoNQAFkjrV4gUxK4XDuLPV/Z7IA6Nh+eE/yEsPUDb1ZoFO14ivlYhyPf5eVs8
+	Ep5Bl3p7l5vBPHK6o1F++zbtI8LooTDWsNpPCMxjWAuyqD/LbU4BM4dbnuTedPb73nYPx0Pjc30
+	P4HccQN37XyDV49KUYtjG2dCm9QjvmTzdjHQm4YgJ08ZIjuls/XwVPPfjloL4atHzeK5Uz+XMj3
+	OOmGSzE1Cbj7XvkDQJpS/P5+BMIJvU/QyANfa1Jy07D1K48Q1hXFlPE4dMohIzlyI5mnNg1OOsV
+	/MDR6fOyKy8Iwvc7REDcQ0SmBRBh/ogqGUA=
+X-Received: by 2002:a05:701b:21cd:b0:1b2:5f31:21c9 with SMTP id a92af1059eb24-1b543b19674mr4990798c88.6.1795092360904;
+        Thu, 19 Nov 2026 04:46:00 -0800 (PST)
+Received: from DESKTOP-NM9EKIA ([2001:e60:8509:ba6c:11e:f696:8454:757])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5447da7e0sm22350329c88.9.2026.11.19.04.45.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 04:46:00 -0800 (PST)
+From: Joonhoe Kim <26rote@gmail.com>
+To: gregkh@linuxfoundation.org,
+	Thinh.Nguyen@synopsys.com,
 	robh@kernel.org,
 	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	gary.yang@cixtech.com,
-	fugang.duan@cixtech.com,
-	daniel.almeida@collabora.com,
-	aliceryhl@google.com,
-	p.zabel@pengutronix.de,
-	daniel@fooishbar.org
-Cc: dri-devel@lists.freedesktop.org,
+	conor+dt@kernel.org
+Cc: andersson@kernel.org,
+	konradybcio@kernel.org,
+	heikki.krogerus@linux.intel.com,
+	abel.vesa@oss.qualcomm.com,
+	abelvesa@kernel.org,
+	wesley.cheng@oss.qualcomm.com,
+	krishna.kurapati@oss.qualcomm.com,
+	konrad.dybcio@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	neil.armstrong@linaro.org,
+	val@packett.cool,
+	balaji.kalkonda@oss.qualcomm.com,
+	tvlad744@gmail.com,
+	effeffe99@gmail.com,
+	prashanth.k@oss.qualcomm.com,
+	yongxing.mou@oss.qualcomm.com,
+	peter.chen@oss.qualcomm.com,
+	tapas.rana@oss.qualcomm.com,
+	vkoul@kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com,
-	robin.wang@cixtech.com,
-	cunyuan.liu@cixtech.com
-Subject: [PATCH v3 2/7] drm/panthor: Allow operation without an OPP table
-Date: Thu, 19 Nov 2026 20:38:45 +0800
-Message-ID: <20261119123850.2994625-3-cunyuan.liu@cixtech.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261119123850.2994625-1-cunyuan.liu@cixtech.com>
-References: <20261119123850.2994625-1-cunyuan.liu@cixtech.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] usb: dwc3: qcom: Keep USB 2.0 working in DisplayPort-only modes
+Date: Thu, 19 Nov 2026 21:45:56 +0900
+Message-ID: <20261119124558.1548-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,106 +121,91 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB87:EE_|SEZPR06MB6302:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 98a9eacf-8ef3-44d1-d3e5-08df463a116a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|7416014|23010399003|36860700016|22082099003|18002099003|6133799003|921020|10067099003|261026121527099003|261026140227099003|261028144727099003|261022075727099003|261021123027099003|261022105027099003|261021121427099003|56012099006|261102123227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	Ob7Yqw0ZFtcti/6y2vWkWHwN28CfHL8dYrToHeNswbzYlq2DUsng/YbFKocRwyK7JFzpnsWpwcw74X7gLqzkAXDnXGc1CurYO8E2AsTNV9opfSch5hCjXPySZdfwyfjwXuyhSjiv1kF4iBI+cUsq1w+QNVewLQkYRa6UwQZsW6mnjj1llWMvuip0FdH7j1h48J21A52y094lABn0FA7aBNs2phLEjAMadvuG2KK+vHRfKx3K/Bi0K50tfNCS/x4ULYfx5xgZ64gt0KdXDINQa74B/h1T3omM41l8Y/iwR6/GgDWJVZpQxhYodJcXhnittGftgiHpzNVEtml4anIVAbmAfIYXMM+PYWp6XDoxYBJIhqRg+wpRhaw+EfUlaWsRf2F0mJytgCK2AVSwCMUSzjldyCrOtGa9pmqedCE1EDu6ergfDjVbH2nXWf33TDTSNWZW0NN1Mi2wvaMptdK8ng/K4hUX6f8iFGr8NoVoQslYNXeGApyMgZ9vLVsMbp4S7G/2xY/eBlQBpqNBBuGzZovSHA/pz1WZz/Q5AZd4InCqw0xjEfaGQD0omrdLQOu2319VILiNXGoNTToB6MMyyZkASFhzeYavHYJB6WqR6V3l70rxrpTWrkhxiTGMN4DM5kk9YJK1wmYG3/YJ5e8MQHNEsI/BOs1jndQCsQl1mvqLIe6olmovyz6TnO0olK9uFaqwDadOrAijOg4OxpmBy8KadCkVrfquV8ezYBgny5TA62XCcXEP5WDD9ve7Asyv
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(7416014)(23010399003)(36860700016)(22082099003)(18002099003)(6133799003)(921020)(10067099003)(261026121527099003)(261026140227099003)(261028144727099003)(261022075727099003)(261021123027099003)(261022105027099003)(261021121427099003)(56012099006)(261102123227099003)(261009223027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	y1tDQPFeFRN8s3DScqiRO/G+zZvziCiUV2sDb64gqHvBXemv5geHQ1L2PkMPm5MR6GU4c516Cv0v4eDMt+IQ+MyNHizQyhqI2jhYlJFwJDy26MDLCtOHk1xTq3CUzdzJrI91W7s9NsN2ZYCLnAac6sttjUgl//62d3IyK6UFtjPyA9jRzUu/R5lp22BaBxnes+ixCNDZuzHOyaHvfFkbznpx7nVWKC0AdWW8ybzbhTkpyY1eb6EaMANNU9Cr4jeLb0G4jeaYMq0Eo+VAEsO6eMYXXsbLx3UJ4iZRGVnsPK/2POfYYuGrLuxjtUhx1W/dSVTs2T1TDZJew/DyB5OUZ0MSTCqepOGTx2JMjgjmjcQJqmKqTWq8C3zJNes2RmgbafCA6Pr2xv33Y5nI7mNwVcSNm9Pyrc5TyC7foie5NzksrTi+SPQPA/CeHTgkVDXC
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 12:38:52.1731
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98a9eacf-8ef3-44d1-d3e5-08df463a116a
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB87.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6302
 
-Some platforms provide GPU clocks through firmware without an OPP
-table that the driver can use. Failing probe when the DT has no OPP
-table prevents these platforms from using the clock settings already
-provided by firmware.
+With a USB-C monitor in DisplayPort pin assignment C or E, the QMP
+USB3-DP combo PHY gives all four lanes to DisplayPort and keeps its USB
+PCS powered down. The USB 2.0 pair still works, and such monitors often
+have a USB 2.0 hub, but the dwc3 controller still runs from the USB3
+PIPE clock. On Kaanapali the next xHCI reset in this state times out
+("Host halt failed, -110"). USB stays lost until the cable is replugged.
+Commit f546912bcac6 ("phy: qcom: qmp-combo: Move pipe_clk on/off to
+common") keeps the pipe clock branch enabled. That is not enough here.
 
-Continue without devfreq when devm_pm_opp_of_add_table() returns
--ENODEV, as Panfrost does. Keep the current core clock rate for
-profiling and report the clock provider's rate when devfreq is not
-registered.
+This series registers the dwc3 glue as a Type-C mode switch next to the
+PHY, so that it gets the mode (it does not route any signals). In
+DP-only modes it moves the controller to the UTMI clock, as
+"qcom,select-utmi-as-pipe-clk" does statically, before the PHY switches.
 
-Only allow the fallback when neither mali-supply nor sram-supply is
-present. GPU supply properties require an OPP table to configure and
-enable the supplies. Without these properties, the platform must provide
-a usable clock and power configuration.
+Peter Chen suggested on v2 that the PHY could notify the controller
+instead [1]. This series uses the existing Type-C mux framework:
+typec_mux_set() calls each mode switch linked from the connector in
+graph order, and the controller (HS port) comes before the PHY (SS
+port), so no new PHY-to-controller interface is needed. The cost is a
+"mode-switch" property on each controller node. If a notification from
+the PHY is preferred, the clock selection in patch 2 can be driven from
+it instead.
 
-Signed-off-by: Cunyuan Liu <cunyuan.liu@cixtech.com>
----
- drivers/gpu/drm/panthor/panthor_devfreq.c | 13 ++++++++++++-
- drivers/gpu/drm/panthor/panthor_device.h  |  2 +-
- 2 files changed, 13 insertions(+), 2 deletions(-)
+On Kaanapali the PHY becomes a mode switch with Balaji Kalkonda's
+DisplayPort series [2]. The controller side for that SoC is a DTS patch
+sent separately to the Qualcomm tree [3], and Tapas Rana has sent the
+same for Glymur [4]. Neither should be applied before patch 2: once the
+controller node has "mode-switch", pmic_glink_altmode defers its probe
+until dwc3-qcom registers the mux, which only patch 2 does.
 
-diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
-index 2249b41ca4af..778c20f0921a 100644
---- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-+++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-@@ -6,6 +6,7 @@
- #include <linux/devfreq_cooling.h>
- #include <linux/platform_device.h>
- #include <linux/pm_opp.h>
-+#include <linux/property.h>
- 
- #include <drm/drm_managed.h>
- #include <drm/drm_print.h>
-@@ -172,6 +173,16 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
- 		}
- 
- 		ret = devm_pm_opp_of_add_table(dev);
-+		if (ret == -ENODEV) {
-+			if (device_property_present(dev, "mali-supply") ||
-+			    device_property_present(dev, "sram-supply"))
-+				return dev_err_probe(dev, -ENODEV,
-+						     "GPU supplies require an OPP table\n");
-+
-+			/* Keep the clock provider's rate when no OPP table is present. */
-+			ptdev->fast_rate = clk_get_rate(ptdev->clks.core);
-+			return 0;
-+		}
- 		if (ret)
- 			return ret;
- 	} else {
-@@ -324,7 +335,7 @@ unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev)
- 	int ret;
- 
- 	if (!pdevfreq->devfreq)
--		return 0;
-+		return clk_get_rate(ptdev->clks.core);
- 
- 	ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
- 	if (ret)
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index adbc2e2f03be..f5353372c1ae 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -328,7 +328,7 @@ struct panthor_device {
- 	/** @profile_mask: User-set profiling flags for job accounting. */
- 	u32 profile_mask;
- 
--	/** @fast_rate: Maximum device clock frequency. Set by DVFS */
-+	/** @fast_rate: Maximum OPP frequency, or the clock rate without OPPs. */
- 	unsigned long fast_rate;
- 
- #ifdef CONFIG_DEBUG_FS
+Patch 2 is on top of Filippo Falezza's "usb: dwc3: qcom: Restore UTMI
+PIPE clock on resume" [5] and reads the selected clock back from
+QSCRATCH, which loses its contents in system suspend on SM7250. [5] is
+still under review; patch 2 will be rebased if it changes.
+
+Patch 2 adds "depends on TYPEC || TYPEC=n" to USB_DWC3_QCOM, so with the
+arm64 defconfig (TYPEC=m) dwc3-qcom is built as a module.
+pmic_glink_altmode then probes later, and a monitor attached at boot
+depends on Yongxing Mou's "drm/bridge: aux-hpd-bridge: replay last HPD
+status on hpd_enable" [6] to be detected.
+
+Tested on a Lenovo Y700 Gen 5 (TB323FU, Kaanapali) with the series
+backported to a v7.3-based tree that also has [2], [3] and [5], with a
+USB-C monitor that has an MST hub (two displays, DisplayPort over four
+lanes) and a USB 2.0 hub. On each of 5 plugs the controller switched to
+the UTMI clock 1-2 ms before the PHY switched, back to the PIPE clock on
+the next USB state, and the monitor's hub enumerated. After each of
+three s2idle cycles with the monitor attached, both displays and the hub
+came back. Plugging the monitor in during s2idle woke the tablet. The
+mode arrived after the glue had resumed and was applied right away,
+before the PHY switched (once with each clock selected beforehand); the
+path that applies a recorded state on resume was not hit. A USB-C hub
+with DisplayPort and USB 3 kept the PIPE clock, and a USB 3 stick on it
+ran at SuperSpeed.
+
+Changes in v4:
+- Patch 1: add Reviewed-by from Krzysztof
+- Patch 2: mutex_lock()/mutex_unlock() where nothing returns early
+  (Krzysztof)
+- Patch 2: leave the probe code as it was apart from the new argument
+  (Krzysztof)
+- Rebase on next-20261118
+- Link to v3: https://lore.kernel.org/all/20261112113838.506-1-26rote@gmail.com/
+
+[1] https://lore.kernel.org/all/avZ7-Ax-_VwcJhYG@hu-petche-lv.qualcomm.com/
+[2] https://lore.kernel.org/all/20261022-kaanapali_dp-v3-0-b5ae8e6083c3@oss.qualcomm.com/
+[3] https://lore.kernel.org/all/20261112113921.1143-1-26rote@gmail.com/
+[4] https://lore.kernel.org/all/20261117113834.925310-1-tapas.rana@oss.qualcomm.com/
+[5] https://lore.kernel.org/all/20261027-dwc3-utmi-resume-v1-1-ca9f0aa65783@gmail.com/
+[6] https://lore.kernel.org/all/20260803-drm-usbdp-preboot-v1-1-2539b362be00@oss.qualcomm.com/
+
+Joonhoe Kim (2):
+  dt-bindings: usb: qcom,snps-dwc3: Add mode-switch
+  usb: dwc3: qcom: Use the UTMI clock as PIPE clock in DisplayPort-only
+    modes
+
+ .../bindings/usb/qcom,snps-dwc3.yaml          |   5 +
+ drivers/usb/dwc3/Kconfig                      |   1 +
+ drivers/usb/dwc3/dwc3-qcom.c                  | 150 ++++++++++++++++--
+ 3 files changed, 143 insertions(+), 13 deletions(-)
+
+
+base-commit: e8017d29067fd1310a65c3494ce1a1b492adbac6
+prerequisite-patch-id: a793fca7329dac964c21459f8d7a8b003d36d84d
 -- 
 2.53.0
 
