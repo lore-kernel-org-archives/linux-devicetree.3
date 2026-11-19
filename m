@@ -1,66 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795084682;
-	b=BQTXPALjHiuyOrP1tKHqSGG+COAFOUggi+234hSms2UBu56/iXmLoG1Kt58kPSDXIC1R
-	 JIsXWqO9WId9mKwt+b95ioaZ9thBK0Y1yaXuzkj9ilD4ozUowTZatjFnr/9bBDd/IB1W7
-	 by+qje+P3os0DSHjEgMmPtIq25eZ1IU1w4GMlaOGgFRg4yMsPnN/V+tRu50VX0xL2Jxdf
-	 qxOgo9Xqm6RDeJgGWg7HvwAD92CthXrgIdDQB2wj1kSNpnWeYWmubATksPZBI+Ms0YnAz
-	 ONSepK4ZwerXuC0hmugiWx6vD291mAejSvUbhdtjAFNhd4yQXrCEXLwgUVR8CCJv/ZA==
+	t=1795084694;
+	b=XShbY0caepTNLF5KG06XiyTXBwN1Rve7A6TeWdYUqg9J/BvMVgibSGCCgHPFLnYrKRj/
+	 u2zhBjVluWuzX/kqjijg7Q4P+D3whFDuSK3aqVfVBZLJaePDQN9pH09ab/6AM0BDgbi3n
+	 N5WeeoPxJS1k1yVVmFr2EfkTJFyODnQAv1RBRijzGds7LBvkraeF51m/Q/4GkMhA4p+Wn
+	 OuaB9P5rcfDtJ77f+Fu3j2J07Vmte6ILd7Naysn5mFi44ics7w7IXwUmOGdPo6u3/hSlu
+	 Vi5cBxFR5MqYF7pmoOzkrlUbXLoGamOfrVTcZwoq10yiKSH5tqZzGu/dWyMAQP1GpAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795084682;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=MIajatYlF3EIxVeTZSsEVZ7p5I2aamJkZ0k2TSCz95o=;
-	b=rORdaiDn10EosQexuUdJuhaWtQp060Hinh1kPKgpi6rwtSrNA+wfQ+elhlFscigtONWZ
-	 q9CAA7ngNihbxqJTw3ujVLmqRMHamt+Dz+GWCIpvPejsyQja7q0MpoiwJWU8Do4gS02M7
-	 oz4x0JJUl7HByDXN8iJk3uHYRkUUxiFcy0dMZTFLxVR91HrxnDdTox4krd+LpewYOsY7A
-	 pNj6sfKDzHf97aE774vQY5wYGy00ZqWkuQ6gyp8r/OocUN5diBs1Qaxr3fgEfRVMMLYaX
-	 UsnaN1u2QQDTqIaM19Kc9lt9CJzMDfmvVTlrFEthIQnVZcXR7wfZ79d+F9r7KOZUPdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795084694;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=3pcyGAvMf58HInW/rNv20dPAompvXtqrqZgDs1TKSqA=;
+	b=ZI+joF9l+DkfXJLGCu+qJhCS3wVlF8nakPxgpz/ngXHPW8EqwZC+yCGaxQVRSNEusnit
+	 3IXhOVwWMnIevvtI1h/PVh0yZIvpWUvcU1mvuxFs/toTs9T9B7xyM7xOhF1yGS06jAgBS
+	 gr7SlS17ZtQ0Y7X1PeN2p5Nd60epvxL12qTTGV8Q+P8UuMWZaZKa1TVf+7ZelFOaXot/i
+	 39OvOV+s5TogLc2yIjAxEdo8+hXWkNpCKHxtKEt+FhCTDt2qPSk5xE+NEOQEadDexTmHI
+	 OTlimmJaX5F83f6RYDIjaP67KKYowaPQZ7DQp01K64AZcRYxJpyZcoIVR3k69pkNFng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HB/N8k3T";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPIYvPzA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99D9606A320;
-	Thu, 19 Nov 2026 10:38:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 641F5606A320;
+	Thu, 19 Nov 2026 10:38:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HB/N8k3T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400D51F000C4;
-	Thu, 19 Nov 2026 10:37:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPIYvPzA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A077C1F000C4;
+	Thu, 19 Nov 2026 10:38:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795084681;
-	bh=MIajatYlF3EIxVeTZSsEVZ7p5I2aamJkZ0k2TSCz95o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HB/N8k3TYSulYNMYpIbRhITmR8lZQfd4EIMz3JCkLqbJQ0kSoHs82/wZ4DqT9nMGw
-	 RJTDYoNzWb/T8/Urz5tv62Hz1QbGw6gFdPi6cXd5OUjIluokUGapMjSp1zQdMVEgQ3
-	 YDEulN6F30hYxsbQ1JFf94fElERuu87OB2sy8cN46G4aDcUrMsLc+KcHXRFJM6f2zd
-	 MAfSlP5LOTGY+6MgKO7Zts8KzeeTApeR1EJ0otA85TbtUxmy7n6h8lQlm1Sqxqs13b
-	 m6oXFSQSExIe8tqvy2AUkmmTjktvhwuG/f7fy70u4DfKo8ZKi6gwc8asF8AxgLnxlB
-	 WplMaulHqBIoQ==
-Date: Thu, 19 Nov 2026 10:37:55 +0000
-From: Lee Jones <lee@kernel.org>
-To: joseph@telaak.dev
-Cc: Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 05/11] leds: rgb: ktd202x: Keep the unlit colors of a
- blinking LED off
-Message-ID: <20261119103755.GP98456@joneslee-macbookpro.roam.internal>
-References: <20261109-ktd202x-et6326-v2-0-56e97c226658@telaak.dev>
- <20261109-ktd202x-et6326-v2-5-56e97c226658@telaak.dev>
+	s=k20260515; t=1795084694;
+	bh=3pcyGAvMf58HInW/rNv20dPAompvXtqrqZgDs1TKSqA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OPIYvPzArsRl1abQFgLDbW5IAiC+mpJF55iV/RrEGXPCq5ovSryeeK+MJhN69f579
+	 lXvo2YLQ5jpWoLSs8nvYhCyIxL3/xiPO1OWkyAANnNchR+e0FWlUyxGCsYEhVSNZAI
+	 hOE3BHuEUNnCmO8kdPGwZdwrH6HNPyqSzVj1AgDKNcFQId+nzlKRWeQaoSVPqX5mFl
+	 IlJP9vzE/Bw1AOfCoCernWt+C9X1gLzEFNTPErA1hxuXPfm/6RjYeABcqYfITpMdqu
+	 mIjnSbxK21xsxrutpw2C6TF7JCGic7+RJOuk5C9+BrHpDqVOOoVrGAU/0gWE4uwD9F
+	 DCWZSkmJgRSwA==
+Message-ID: <sashiko-outbox-222969@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next 3/4] net: enetc: add i.MX952 ENETC support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Frieder Schrempf" <frieder@fris.de>
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261118-imx952-enetc-v1-3-25721440602e@kontron.de>
+References: <20261118-imx952-enetc-v1-0-25721440602e@kontron.de>
+ <20261118-imx952-enetc-v1-3-25721440602e@kontron.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 10:38:13 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,65 +59,54 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-ktd202x-et6326-v2-5-56e97c226658@telaak.dev>
 
-On Mon, 09 Nov 2026, Joseph Telaak via B4 Relay wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] net: enetc: wrong PCI bus lookup in
+  enetc_get_phc_index_by_pdev() on i.MX952
+--
 
-> From: Joseph Telaak <joseph@telaak.dev>
-> 
-> blink_set() switches every channel of a multicolor LED to the flash
-> timer, or to always on when delay_off is 0, including the colors whose
-> brightness is 0. Their current register still holds the last brightness
-> they had, or the 10 mA default, so for example a red blink set with a
-> multi_intensity of "255 0 0" also blinks green and blue.
-> 
-> Leave the channels of the colors with no brightness off, as
-> brightness_set() does. A single color LED now passes its brightness too.
-> 
-> Fixes: 0ebdb7210943 ("leds: Add ktd202x driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
-> ---
->  drivers/leds/rgb/leds-ktd202x.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd202x.c
-> index feea33b7e885..042de16c28bc 100644
-> --- a/drivers/leds/rgb/leds-ktd202x.c
-> +++ b/drivers/leds/rgb/leds-ktd202x.c
-> @@ -284,6 +284,10 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
->  		int channel = subleds[i].channel;
->  
->  		ctrl_mask |= KTD202X_CHANNEL_CTRL_MASK(channel);
+commit 9488db0afb3e3295b4063b2f78e46b5195953993
+Author: Wei Fang <wei.fang@nxp.com>
 
-I won't say this again, but it should carry across to everywhere else.
+net: enetc: add i.MX952 ENETC support
 
-'\n'
+This commit adds driver data with a 133 MHz sysclk frequency and PHC PCI
+lookup support for i.MX952 ENETC (revision 4.6) PF and VF devices.
 
-> +		/* A color with no brightness stays off */
-> +		if (!subleds[i].brightness)
-> +			continue;
-> +
->  		ctrl_on |= KTD202X_CHANNEL_CTRL_ON(channel);
->  		ctrl_pwm1 |= KTD202X_CHANNEL_CTRL_PWM1(channel);
->  	}
-> @@ -359,6 +363,7 @@ static int ktd202x_blink_single_set(struct led_classdev *cdev,
->  	if (!*delay_on)
->  		return ktd202x_brightness_single_set(cdev, LED_OFF);
->  
-> +	info.brightness = cdev->brightness;
->  	info.channel = led->index;
->  
->  	return ktd202x_blink_set(led, delay_on, delay_off, &info, 1);
-> 
-> -- 
-> Git-155)
-> 
-> 
-> 
+> diff --git a/drivers/net/ethernet/freescale/enetc/enetc_ethtool.c b/drive=
+rs/net/ethernet/freescale/enetc/enetc_ethtool.c
+> index 7965dfd06f5f6..3c6c6fc0ab8cf 100644
+> --- a/drivers/net/ethernet/freescale/enetc/enetc_ethtool.c
+> +++ b/drivers/net/ethernet/freescale/enetc/enetc_ethtool.c
+> @@ -1149,6 +1149,7 @@ static int enetc_get_phc_index_by_pdev(struct enetc=
+_si *si)
+>  		devfn =3D PCI_DEVFN(24, 0);
+>  		break;
+>  	case ENETC_REV_4_3:
+> +	case ENETC_REV_4_6:
+>  		devfn =3D PCI_DEVFN(0, 1);
+>  		break;
+>  	default:
 
--- 
-Lee Jones
+[Severity: Medium]
+Does enetc_get_phc_index_by_pdev() look up the PTP timer on the wrong PCI
+bus for i.MX952 ENETC1 and its VFs?
+
+On i.MX952, ENETC0 is on bus 0 whereas ENETC1 is on bus 1:
+
+drivers/net/ethernet/freescale/enetc/netc_blk_ctrl.c:
+#define IMX952_ENETC0_BUS_DEVFN		0x0
+#define IMX952_ENETC1_BUS_DEVFN		0x100
+
+Unlike i.MX94 (ENETC_REV_4_3), which provides a timer endpoint on each
+bus, i.MX952 only has a single NETC 1588 timer on bus 0 at PCI_DEVFN(0, 1).
+Because enetc_get_phc_index_by_pdev() queries si->pdev->bus via
+pci_get_domain_bus_and_slot(), calling it for ENETC1 (on VFs where of_node
+is NULL, or on PF when the optional ptp-timer phandle is absent) searches
+bus 1, fails to find the timer, and causes enetc_get_ts_info() to fall back
+to software timestamping.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-imx952-ene=
+tc-v1-0-25721440602e@kontron.de?part=3D3
