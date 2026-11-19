@@ -1,63 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795091231;
-	b=qDG7yaeAwvF4n++iwC37GmQF9YS2FzTxuQghALu1sIZLGubjQwWDK89Fw/qXMeHjxQpM
-	 WMdks3zYyPE6qpqusKNCP/qCODnD03j3/W1YAwkFJVSI672RFXRZKSFbBsYooUc2T1PPX
-	 nq40MEvePK7Le+TNPDrQ6+e1xD/HQiqcTOGDkBhYvv5qp/sNGQJFUPIAfrpSVga7JOTNM
-	 PkAA5nIT1LTW0dLf5lewaiyn+KiK+NrzKGVCB7f+i3v1lfieArBcUwgZgqbJZZlkqn89L
-	 CrWeOnscjxseRqwMe9zJlhbYB5p0jh5dkqjmWpL+wtKN5Dt42iDXCxlyz5ndBfjJ7+A==
+	t=1795091376;
+	b=IbvzRBbYnShE/nMD9R2GI5uDqJ27p7DByUBtYBqxCr1jKaF0/R/zmg/BtJ7WE+4Q3nvQ
+	 BLeBFVg6bau5yxLMijuPuZlRAGrx19JW9itFDpv9JPB9DZtNHawWryNdXkxBYEmfYwDvI
+	 WiksV9emd7l7sPx0lIof8/UWzNLFlOcLZM0nnPCtYbM1TFGeakPtGtU1EHPmF/8wkRjww
+	 UwvW1LL6bezT4OV7g9URkvXnNPMVkKxkkw+SzGBolkaxU9gsjWkKc20IcTKCN5Nf6ywjS
+	 1ugKZgz+UJVW2wW/9VnFdrF01zT5xIOfTHPibL70pk+GYh8KEg9EqcCQXSIfTWKi7Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795091231;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=DRSIi4zL0XjElxRgpJXubKJ6vjpY3WRDRA60Q34cIVY=;
-	b=Ma6ArKJuCl/aNPhiXz9TlDCXyK1KT/EcD3knP0fJYOoXEPmdSSMS+49BsjzGYrBHhim+
-	 1Bg0aQ8F67FXZfcUgc6pAZyZtafJEz0b7fh2SGbRIQHH0iXhBj1kmBpKANrL5F/j5c6cV
-	 rla3u4UvXBgXoRfgF5NuATYmZTpUepoZev0lXhxaCcF6qHsTlXXIgM7PnpEgiLge39B9s
-	 8mbcFtc/M2YT6EP4slhRLUKv41YcrK1qoNucBUUf/a6nWPGin8xjGm6z80QuxRTTrKQ7H
-	 QfehAYjFXS85FIyRBtDsdj9pcU0CTX5FAFAnZuRsuTnxmJRU1Vglz2G/lr1ewPWL1tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795091376;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=I5kM6fRDA3G9Ft88zbwbvx681/qfCITq2LFIa1aGdno=;
+	b=k5/6xK8Ey6LLmpw7YXwTQPub8Z04bEG++hPH1SGcy21J58cQ9Au2kV2U7/S1/FkBsYP9
+	 9ocmdwdwqMVFQA0CZapo/WGqy2L1YoloS+ZvQ4jCkCg/LdxHU7tGqw0ZnJyjGpHsc41L0
+	 NjQdBOsuDbrp09/05iR5DsyIZaynk1ztMm2sx8CoZL35LHLaUvORa2B5dHx3/dmijEXiF
+	 jQwhuXaIHvmQ3xY157jSJFSoBp740Oa6PVuW+uURiZEQNdoiqldi/M6TerMLJnN6kqYiM
+	 eY21RbNDCJYnrIMmqibHJO4FYupOPs34wiOScwH76vOvF9XJBuJMcHQ2JAupLuSAvBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=BHe8q+No;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gE+OYUHR;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1CD606A324;
-	Thu, 19 Nov 2026 12:27:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D1CD606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A4D606A336
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 12:29:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70A4D606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=BHe8q+No
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=DRSIi4zL0XjElxRgpJXubKJ6vjpY3WRDRA60Q34cIVY=; b=BHe8q+NoqqkD67mBYpfyYBEst4
-	Ox7m1p2lAIExkj4XidwoaP3+1BNIB3f+4U1kuj5F+9Q6fBc/47w3FKQCGgK9+wkWkzl+G9h9YagvY
-	uq6XLaWcNnHxY67EMtAmy8YFfWNC6IAGVCDwOs/RAal135JLXmjXpxn35SRjEAc2shl8Ky1FZb6zO
-	3N3ga9K3xB8MqYszfn2ylYamnFCyeOodG2yhDYVxGhWUiBFetC51aWDuKr1SBQJETFxpCy963g3qb
-	50efzDz2Z3lmavzYn4rtlKbiLwUQVI/hPVNYZ1Tc6ny2JQRiqlNa6wURCSJWLzOsnzulMOCCPto9j
-	Onh0o/Fg==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Elaine Zhang <zhangqing@rock-chips.com>,
- Ulf Hansson <ulfh@kernel.org>, 1579567540@qq.com
-Cc: Cunhao Lu <1579567540@qq.com>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- Finley Xiao <finley.xiao@rock-chips.com>
-Subject:
- Re: [PATCH v5 1/2] dt-bindings: power: rockchip: Add RK3572 power domains
-Date: Thu, 19 Nov 2026 13:26:58 +0100
-Message-ID: <oNmb42cjQM-T6qufTLI9Jg@sntech.de>
-In-Reply-To: <20261118-add-board-ok3572-c-pmdomain-v5-1-f1af919dd434@qq.com>
-References:
- <20261118-add-board-ok3572-c-pmdomain-v5-0-f1af919dd434@qq.com>
- <20261118-add-board-ok3572-c-pmdomain-v5-1-f1af919dd434@qq.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gE+OYUHR
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id F30161A170E;
+	Thu, 19 Nov 2026 12:29:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BC42360237;
+	Thu, 19 Nov 2026 12:29:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DDAF011BC03CF;
+	Thu, 19 Nov 2026 13:29:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795091372; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=I5kM6fRDA3G9Ft88zbwbvx681/qfCITq2LFIa1aGdno=;
+	b=gE+OYUHRuCH4EyQw9q30u+uHjHAX8yoadHzMdng8XO8JLrnll2Rr+IRFc1d8hotzsbhsTL
+	+GBazhJVI4CYk0a45zBJbc0QEqX+SAFTFd7QVaS+M2BduBq4/WpfVZZ/c8EG8XKh8wyCjD
+	D7397fJqui0aqyGhn5F6pEH8gv+1YDALeaGGHMUOmxwsfOHnOpkegu11bY/BbEO0nyYdnd
+	Jv9W5K+At6XZhv+ei9pQx8cHo2aHfl4tShWhbB4jCpCpqpo42t6emVBc5oWETuKtXubi6K
+	YvKgeULuHE1TBIcZPxKUeaK6t/7yqm+pimhdC4yT2Sg0UocVQaRt7eac23h8SQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: sashiko-bot@kernel.org
+Cc: "James Hilliard" <james.hilliard1@gmail.com>,  "Richard Weinberger"
+ <richard@nod.at>,  "Vignesh Raghavendra" <vigneshr@ti.com>,  "Sebastian
+ Andrzej Siewior" <bigeasy@linutronix.de>,  "Clark Williams"
+ <clrkwllms@kernel.org>,  "Steven Rostedt" <rostedt@goodmis.org>,  "Rob
+ Herring" <robh@kernel.org>,  "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+  "Conor Dooley" <conor+dt@kernel.org>,  "Philipp Zabel"
+ <p.zabel@pengutronix.de>,  sashiko-reviews@lists.linux.dev,  "Chen-Yu
+ Tsai" <wens@kernel.org>,  "Jernej Skrabec" <jernej.skrabec@gmail.com>,
+  "Samuel Holland" <samuel@sholland.org>,  "Maxime Ripard"
+ <mripard@kernel.org>,  "Richard Genoud" <richard.genoud@bootlin.com>,
+  "Boris Brezillon" <bbrezillon@kernel.org>,  "Masahiro Yamada"
+ <yamada.masahiro@socionext.com>,  "Brian Norris"
+ <computersforpeace@gmail.com>,  linux-mtd@lists.infradead.org,
+  linux-sunxi@lists.linux.dev,  linux-rt-devel@lists.linux.dev,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 01/26] mtd: rawnand: sunxi: centralize OOB handling
+In-Reply-To: <sashiko-outbox-199823@kernel.org> (sashiko-bot@kernel.org's
+	message of "Thu, 05 Nov 2026 19:13:20 +0000")
+References: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-0-dca1f6ed29a8@gmail.com>
+	<20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-1-dca1f6ed29a8@gmail.com>
+	<sashiko-outbox-199823@kernel.org>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 19 Nov 2026 13:29:23 +0100
+Message-ID: <877bi9dmxo.fsf@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,20 +86,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+X-Last-TLS-Session-Version: TLSv1.3
 
-Am Mittwoch, 18. November 2026, 10:11:39 Mitteleurop=C3=A4ische Normalzeit =
-schrieb Cunhao Lu via B4 Relay:
-> From: Finley Xiao <finley.xiao@rock-chips.com>
->=20
-> Describe the RK3572 power controller and define its 14 power-domain IDs.
-> Require the system GRF phandle used to check firmware shift-ready status.
->=20
-> Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+On 05/11/2026 at 19:13:20 GMT, sashiko-bot@kernel.org wrote:
 
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] mtd: rawnand: sunxi: premature oob_ops selection in sunxi_nand_a=
+ttach_chip()
+> - [Medium] mtd: rawnand: sunxi: unaddressed maintainer NACK on vendor OOB=
+ layout ops
+> --
+>
+> commit 8fda5c99d9befa1771418516828f040de60c5845
+> Author: James Hilliard <james.hilliard1@gmail.com>
+>
+> mtd: rawnand: sunxi: centralize OOB handling
+>
+> This commit centralizes hardware ECC result interpretation, protected OOB
+> retrieval, erased-chunk checking, and user-data layout reservation behind
+> per-chip sunxi_nfc_oob_ops callbacks for both PIO and DMA paths.
+>
+>> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/su=
+nxi_nand.c
+>> index f41feebe42571..80006d1a33d68 100644
+>> --- a/drivers/mtd/nand/raw/sunxi_nand.c
+>> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
+> [ ... ]
+>> @@ -2066,6 +2096,58 @@ static int sunxi_nfc_maximize_user_data(struct
+>> nand_chip *nand, uint32_t oobsize
+> [ ... ]
+>> +/*
+>> + * Both modes use the same layout and ECC policy. Scrambled transfers a=
+lso
+>> + * compensate the first two user bytes to keep the on-flash BBM unmodif=
+ied.
+>> + */
+>> +static const struct sunxi_nfc_oob_ops sunxi_nfc_plain_oob_ops =3D {
+>> +	.min_user_data =3D sunxi_nfc_oob_min_user_data,
+>> +	.init_user_data =3D sunxi_nfc_oob_init_user_data,
+>> +	.read_batch =3D sunxi_nfc_oob_read_batch,
+>> +	.finish_read =3D sunxi_nfc_oob_finish_read,
+>> +};
+>> +
+>> +static const struct sunxi_nfc_oob_ops sunxi_nfc_scrambled_plain_bbm_oob=
+_ops =3D {
+>> +	.min_user_data =3D sunxi_nfc_oob_min_user_data,
+>> +	.init_user_data =3D sunxi_nfc_oob_init_user_data,
+>> +	.transform_bbm =3D sunxi_nfc_randomize_bbm,
+>> +	.read_batch =3D sunxi_nfc_oob_read_batch,
+>> +	.finish_read =3D sunxi_nfc_oob_finish_read,
+>> +};
+>
+> [Severity: Medium]
+> As reported by Miquel Raynal on v6 [1], the series adding support for the
+> vendor-specific Allwinner randomized OOB layout was declined due to
+> maintainability concerns and kernel policy against vendor-specific NAND
+> layouts, with an invitation to submit only the standalone fixes outside of
+> the randomized layout support.
 
+I hereby confirm that I do not which to merge the support for this
+layout.
 
+Please drop it from your series.
+
+Thanks,
+Miqu=C3=A8l
