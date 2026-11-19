@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795080773;
-	b=wi2jiJu/LbQ9dr93cmtvKR5OauBiITq+6rgi34GLdliKwhPqXqAwjVNAzRjonCyLSBYn
-	 gLV2mfaBBERg4QHAT4262DAww8+2pDawUrB0wWWCwGal+O+9CsTJnjRPBk8JJpCNcJU+G
-	 ALsztRPu19qLrox6MA+X69VPakovXh9otEKtdcpbDAW7VKOZJMDh/zGMLpGHI1Uqi+Trg
-	 AzNaS4vhBb0GuUzrFAnDfeQmqAHqxw0UQt52HdoZp78XbNA/7PgIcdiN5suWoPkgWGD4V
-	 Vuu2DLgprvvd04OriFoqduIXcJi69vDkvnbZpaf421iCS62mDthjduCK8I6+fmoRNsg==
+	t=1795080774;
+	b=Z78jfE/JN/mvlOzMXfxi3oVbsCP9lOskVhbFHjAIA2n8uZB4rRNNDJqiScSegrHN1B2q
+	 4lPuTHNZ8Vyh85kxfJOlull2hiOyURr+d7xjrSFUP5kb1wziuRoeehrDpuscLvoiCei32
+	 QIF8z294dqYtTXiFFuR7UUNgOKFrt9npeYdxYNP88wSOCX9eaR/Imt6NI/JFn8g8b/5u5
+	 Db0ZYZlHmrM20KetOo3pSVQrzfp5KXPPQlLE++iKqYRoHFLPccG4Q3pR/u+DBSczbUaNk
+	 dMAqaBbyx+JNKctsJeK3VUXVCQp4nDJrmY90V+dJTfHqIGVEuxOwES9dRfoy3v8cMdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795080773;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795080774;
 	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
 	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=YgiL9PYeUdMsQQJdZ2R1QPV9MD8KIpSSIKhcXP8qDRU=;
-	b=AGCvX+X6jzyDrMKbLhe2bzUgZs7mN079eZeN/d62rqkHpnUd6KR1ELy/SF971Ndh6FpD
-	 mNkZtQQnfGE4AD12z8yGKZbnjCLky+C6a+1SAcEcRP8+G7ZN5Z/0rv9nGhYjmSOByYe78
-	 RsVFdFTSty9x+1VJxgka/xXnirYFO+MICWZBk2HcerDMoz2squG+xEEpMWk5n8kB2RR2E
-	 Lzvgp3l3bsp5zN+rjzBsoD2//yZdZsOXhXs/PbJBo01Hr/Q008KcHmy9q7wcRQckPOr0e
-	 l3pQDFDI6wAvnv/fYCcm+NTL4kTa3U+xW8Ll+DQLz33VMZo+JqJmM7J3uQLOPYGarNA==
+	bh=u71YMcuXbYiqGww6VQynaVqgLkg0cuckwzFUuusIVsA=;
+	b=jtmVY6bqE2UkqDM9pgvUW9FIA4iPCR+0sRp5nYr66LCK8/t1SuYv0gf5JFqB40fwkbCR
+	 2oDq5mBLlA+JdJ/jWj3QzyLeA7eGapW5g8mUrcVcqBJhpbgCzvywHHRMPmmajOU6MgEzT
+	 CpC9Numad7UrYTCZ4E3YbYkpOHATNFu6mjOgiiLZBIuKRlWlTZkLN0MtkzEGyuBaokBsH
+	 WRvDwucOIWvpYL3vza4/AVlscilowL3h/wg/fuK75hJFjXFwRWAd1yoSfsh+6fMlaq5TD
+	 6am9Lypv0Io+aECkQAIVJy57TcYqC5o4h1vCGUnAlp1ESRcS3Y/lljvQMb9uJ0IZKRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=aspeedtech.com;
 	spf=pass smtp.mailfrom=aspeedtech.com;
@@ -24,9 +24,9 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2AFF60A262C;
-	Thu, 19 Nov 2026 09:32:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2AFF60A262C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFD260A263D;
+	Thu, 19 Nov 2026 09:32:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DFD260A263D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
@@ -37,9 +37,8 @@ Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
  Transport; Thu, 19 Nov 2026 17:32:41 +0800
 From: Jacky Chou <jacky_chou@aspeedtech.com>
-Date: Thu, 19 Nov 2026 17:32:38 +0800
-Subject: [PATCH net-next v7 5/7] net: ftgmac100: Require phy-mode for
- AST2700
+Date: Thu, 19 Nov 2026 17:32:40 +0800
+Subject: [PATCH net-next v7 7/7] net: ftgmac100: Allow building on ARM64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,7 +50,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261119-support_ast2700-v7-5-33c8ca2d0dd7@aspeedtech.com>
+Message-ID: <20261119-support_ast2700-v7-7-33c8ca2d0dd7@aspeedtech.com>
 References: <20261119-support_ast2700-v7-0-33c8ca2d0dd7@aspeedtech.com>
 In-Reply-To: <20261119-support_ast2700-v7-0-33c8ca2d0dd7@aspeedtech.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
@@ -65,47 +64,93 @@ CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>,
 	Andrew Lunn <andrew@lunn.ch>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795080760; l=1341;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795080760; l=3621;
  i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
- bh=1RAjtRaBnlESdbdb4uGZ6kTcr6R3XDz0Y1IoL5YzWHQ=;
- b=Q7tV/O9ieIfTmd06GCxzbsp1JErVikVRfSIQ1AO5rOULSpf2xjdSBoVvloz7sJEeMH8UnCfEI
- v9h+/oI1nMDD4tyiPLtRozIsPT+uDjU/fDjQNQq3EqjbY9/wTKOSFwV
+ bh=HafZf0aiUWmD0Fi5q+ou5M3phG1DMBwwH5tj0bJIQoA=;
+ b=vqS25dGYE0aspLG1BUz6VLEQKhAEBwlRMf/r3YOc8/35IZO8XwpSWNQa28nUuakAa79X0yBWS
+ dWIcfxhN4R3CIT/jMiCeG05pC05y1dR0mKpia4dRRHBAvHe/TKwTJjv
 X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
  pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
 
-The driver currently defaults to RGMII when the "phy-mode" property
-is missing from the device tree. This default is no longer valid for
-AST2700, which also supports RMII via FTGMAC100_QUIRK_RMII_ENABLE.
+Allow the Faraday vendor menu and FTGMAC100 driver to be selected on
+ARM64 so AST2700 platforms can enable the MAC. The driver now programs
+the upper DMA address fields, so it no longer needs to be marked BROKEN
+for 64-bit builds.
 
-Make "phy-mode" a required property for AST2700 and fail probe with
-an error message if it is not specified, instead of silently
-defaulting to RGMII.
+AST2700 has no dedicated MACH_ASPEED_G7 symbol; unlike the 32-bit
+generations it is only gated by the common ARCH_ASPEED symbol. On
+32-bit Aspeed platforms, arch/arm/mach-aspeed/Kconfig nests
+MACH_ASPEED_G4/G5/G6 under "if ARCH_ASPEED", so MACH_ASPEED_G6 already
+implies ARCH_ASPEED and is redundant once ARCH_ASPEED is part of the
+condition. Drop it and select MDIO_ASPEED directly on ARCH_ASPEED.
+
+This does widen the MDIO_ASPEED select beyond AST2600: it is now also
+selected for AST2400/AST2500, which keep driving their embedded MDIO
+controller from FTGMAC100 itself and have no MDIO node for this driver
+to bind to, so it is built but stays unused there. Update the
+MDIO_ASPEED help text to describe this.
 
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
 ---
- drivers/net/ethernet/faraday/ftgmac100.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/faraday/Kconfig |  7 +++----
+ drivers/net/mdio/Kconfig             | 16 ++++++++++------
+ 2 files changed, 13 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-index 9b7becb01726..5a578a62df67 100644
---- a/drivers/net/ethernet/faraday/ftgmac100.c
-+++ b/drivers/net/ethernet/faraday/ftgmac100.c
-@@ -1526,8 +1526,13 @@ static int ftgmac100_mii_probe(struct net_device *netdev)
+diff --git a/drivers/net/ethernet/faraday/Kconfig b/drivers/net/ethernet/faraday/Kconfig
+index 474073c7f94d..9acc2d260c1f 100644
+--- a/drivers/net/ethernet/faraday/Kconfig
++++ b/drivers/net/ethernet/faraday/Kconfig
+@@ -6,7 +6,7 @@
+ config NET_VENDOR_FARADAY
+ 	bool "Faraday devices"
+ 	default y
+-	depends on ARM || COMPILE_TEST
++	depends on ARM || ARM64 || COMPILE_TEST
+ 	help
+ 	  If you have a network (Ethernet) card belonging to this class, say Y.
  
- 	/* Default to RGMII. It's a gigabit part after all */
- 	err = of_get_phy_mode(np, &phy_intf);
--	if (err)
-+	if (err) {
-+		if (priv->mac_id == FTGMAC100_AST2700) {
-+			dev_err(priv->dev, "phy-mode is required for this SoC\n");
-+			return -EINVAL;
-+		}
- 		phy_intf = PHY_INTERFACE_MODE_RGMII;
-+	}
+@@ -28,11 +28,10 @@ config FTMAC100
  
- 	/* Aspeed only supports these. I don't know about other IP
- 	 * block vendors so I'm going to just let them through for
+ config FTGMAC100
+ 	tristate "Faraday FTGMAC100 Gigabit Ethernet support"
+-	depends on ARM || COMPILE_TEST
+-	depends on !64BIT || BROKEN
++	depends on ARM || ARM64 || COMPILE_TEST
+ 	select PHYLIB
+ 	select FIXED_PHY
+-	select MDIO_ASPEED if MACH_ASPEED_G6
++	select MDIO_ASPEED if ARCH_ASPEED
+ 	select CRC32
+ 	help
+ 	  This driver supports the FTGMAC100 Gigabit Ethernet controller
+diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
+index 6f272fae4bb5..ec1794cc64b0 100644
+--- a/drivers/net/mdio/Kconfig
++++ b/drivers/net/mdio/Kconfig
+@@ -50,12 +50,16 @@ config MDIO_ASPEED
+ 	depends on OF_MDIO && HAS_IOMEM
+ 	help
+ 	  This module provides a driver for the independent MDIO bus
+-	  controllers found in the ASPEED AST2600 SoC. This is a driver for the
+-	  third revision of the ASPEED MDIO register interface - the first two
+-	  revisions are the "old" and "new" interfaces found in the AST2400 and
+-	  AST2500, embedded in the MAC. For legacy reasons, FTGMAC100 driver
+-	  continues to drive the embedded MDIO controller for the AST2400 and
+-	  AST2500 SoCs, so say N if AST2600 support is not required.
++	  controllers found in the ASPEED AST2600 and AST2700 SoCs. This is a
++	  driver for the third revision of the ASPEED MDIO register interface -
++	  the first two revisions are the "old" and "new" interfaces found in
++	  the AST2400 and AST2500, embedded in the MAC. For legacy reasons,
++	  FTGMAC100 driver continues to drive the embedded MDIO controller for
++	  the AST2400 and AST2500 SoCs. AST2700 has no dedicated MACH_ASPEED_G7
++	  symbol and is only gated by ARCH_ASPEED, so FTGMAC100 now
++	  unconditionally selects this driver on every ARCH_ASPEED platform,
++	  including the older AST2400/AST2500 SoCs where it has no MDIO node to
++	  bind to.
+ 
+ config MDIO_BITBANG
+ 	tristate "Bitbanged MDIO buses"
 
 -- 
 2.34.1
