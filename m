@@ -1,47 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795094408;
-	b=DDZD10v1nrtu5XxD/XYYaUltI7Pp/TfQ6QAJK1zqvoV7+NojLzlb2eKbZpYiDDhYr/+f
-	 J4zybaXDJNhCBy8RjdzPswrQ00DPnWWb3exQRZS797wBMGaXNwR652DI+RPJ1vOiiplY7
-	 iwuQYDYhk8Dr37Vn+8YgDj9FPEDUgTslHmb2+8Vqku+SzG2IuOPiCY0rt4DpAug5aU2RC
-	 3Hz1nCfmn8CI1UU90lV1x4458NpMwGROSvyXRNIBbAxo5UeIWK8tNBJYqvt+Q4T/cBP9p
-	 221hLHdXR+Wv6AlSk9cjRinAyCFVS10OD01zZ9jWqjDkuE+yRmV17ddo0yYLsgzxE5g==
+	t=1795094618;
+	b=DmTQ1e4tY3QQpdbS/fQJ93jofpzo4PkRiLoHdJrMd9P9cdU/GF2AHtbYuy3O5/EuRDMe
+	 vbtNoP37onqpqljjevTOtrp1PAH2HD2JXlVLhBkz5KlS2Ehgt7XalPwhDMid6QWYlEBEy
+	 2cvueoU2Bxh0lNuGScy5eAtde/F047oKqSVX/WfmEiE/QCzaG6hJ2UuCrY+vrJiOd2Lh0
+	 OW+I4fqJnLm8KSi8PoMRhtMW1nsYYZMdQHev7lWcTy6KWda4/ydj7aYGJ3NXaCPv31Lln
+	 AvJvN83U7mHAaMHaFqsrYKPuOBxb7B+eE3C4YW3Qfl+rMvx5MO1a3siFLLmuNxeoSug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795094408;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uY2PPIMBqoVI5/qTGl4Vqr1h4cnYz6gEe8ywnrYUsEw=;
-	b=Uw9h1S3UvBMbQvtkQ9j0rk04oZdkR6oiOTLpG1Za7+385s2cGh31lttdqbbEWJqfwJfc
-	 /XwqjfLVZOXC1Nsd1+npbBCI0HijH4aBfF7gUrwl1cX8tKVbD26Gg9qIEuDph/4ZZE1zx
-	 BZCNRk0HisE6c9IIxfUUq2yBn6i+7JVDafXRUZHeyM0j/E2CWMA3qNMW+pIYtUTs14Iok
-	 B9YkSJyMxGhQIMC4N4Mjx4TGTN8X3m3bAzhNSeM8Zc4ikVNS+WR0q2l4hxcIfk8w0uKb6
-	 nCKaDMdUDjScyEO0X4TyO8KTD0Vw/7g+UYP4FrqsrylfJcTeILwBOG2DNhkYrbN+wng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795094618;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=EdJiYgwYCIOqRCeOsRL6qc7Qjf5vSU6CS4yY2L/Kemo=;
+	b=g56cUoLCi3308aqxiht3IoCwlMoyaepEmG+64bIEKq+n6910EEVTegOhwbJjjBLcTDzU
+	 sH35K7Gs9ABOy3cARKozRdFoO9HG6oUW+3tnjfupP6c4SXeCnWAwrIPijONEDniEJuC70
+	 qivnXMZwwqMoe6qxRxUo5NBm52OpJ797VI6kgNRY0J/iqMrH6Uij12zLDcokWPK4qL8/1
+	 ggrU6o6k9gnHZ6tQio74+r41eUCuFSfTdJgzxS+cRT3Jclh8CT8ugFiN20fGWHR5hT50S
+	 S7jFWQA0/kuYKWGoKAwhNyRwGugc8c271NSGDi4CdlnA9nWKF0stZLnM9rOoGnVXs9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D0Ie0cpg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h22m5vpa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E98C60A261C;
-	Thu, 19 Nov 2026 13:20:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245B1606A32C;
+	Thu, 19 Nov 2026 13:23:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D0Ie0cpg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C56A1F000C5;
-	Thu, 19 Nov 2026 13:20:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h22m5vpa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0F7D1F000C5;
+	Thu, 19 Nov 2026 13:23:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795094407;
-	bh=uY2PPIMBqoVI5/qTGl4Vqr1h4cnYz6gEe8ywnrYUsEw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=D0Ie0cpgY5adUG8F5DWmqtHk4kwVh8WPWXby+pI8HUfOyB9WIro5z37LcwAR5zY4Z
-	 qN4aJPvkeHEJfvg+OwWSez9IFn+OimHHC2EAN8+mP7Ni7mNbUgrJoNXJnzacltkzxN
-	 /dPDZ0PbK1il1+O4gldBtAs+9xuCKBq9lpe1YNPrVxQ698zLpiN/YGQ9ngsUMr9+ko
-	 /hCvILfjSnG+oV+lfHX/8uVj/qKtx/zYy7rcT6i1v3/wxfN7IYFP07olbUeeldLXvb
-	 uhRRpUXp4I69V5PxwJF+0XURDyf2TsQITDDGhOrOv4RRz8eiGN/XHWzYNnGKfUVwp2
-	 MB7QAdU9gfxzw==
-Message-ID: <7e207fea-8aae-4271-9e94-331464442ae9@kernel.org>
-Date: Thu, 19 Nov 2026 14:20:03 +0100
+	s=k20260515; t=1795094617;
+	bh=EdJiYgwYCIOqRCeOsRL6qc7Qjf5vSU6CS4yY2L/Kemo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h22m5vpaAFhpWYESjdJo5TWWbFQiBb2MHNRttY1A8wadKyUu5XELL11MRmkvzXU7m
+	 ESWUBRIhDgi12YRQF4aFSUYEEb2/VvU8laltr/ejve/QiJNhEQYeehvGZLDScKCDGy
+	 oYBbEw6K+a0SRbRzcaIURCP6nW0xFF36tKVwPE1EJ3keavP+LpxI+3dwEgTOfsT6G8
+	 fy8hloUmXkDqzg0sLAnq2r+1W2QWqyFNbHSBSifQku9A7FZWh+JDTYF/dvH2Lyhwdy
+	 5AtvvTI+1m6UBVvUkXl+OQPjnCEt6XAoM+4empaQkgu5vZRT/3vAqarX9PdQ7OT13G
+	 Dw9DKxO8OIJ9w==
+Date: Thu, 19 Nov 2026 13:23:32 +0000
+From: Simon Horman <horms@kernel.org>
+To: Claudiu Manoil <claudiu.manoil@nxp.com>
+Cc: netdev@vger.kernel.org, s32@nxp.com,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Wei Fang <wei.fang@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Russell King <linux@armlinux.org.uk>, imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v4 1/6] net: enetc: Add pseudo-MAC support for
+ ENETCv4 Ports via a fixed-link node
+Message-ID: <20261119132332.GV860048@horms.kernel.org>
+References: <cover.1794581338.git.claudiu.manoil@nxp.com>
+ <4f51bfd237fa584c7d9187d7b82f36e261853ea3.1794581338.git.claudiu.manoil@nxp.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,72 +67,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] dt-bindings: rtc: haoyu,hym8563: document vdd-supply
-To: pjh456 <pengjunhao409@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261119125125.75912-1-pengjunhao409@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261119125125.75912-1-pengjunhao409@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4f51bfd237fa584c7d9187d7b82f36e261853ea3.1794581338.git.claudiu.manoil@nxp.com>
 
-On 19/11/2026 13:51, pjh456 wrote:
-> the submitter reviewed every line, validated the result with
-> dt_binding_check and on the affected board, and takes full
-> responsibility for it.
->
+On Fri, Nov 13, 2026 at 05:02:32PM +0200, Claudiu Manoil wrote:
+> ENETCv4 has special internal links when connected to the on-chip NETC
+> switch via internal switch ports, called pseudo-MAC links. These
+> pseudo-MACs are proprietary, they don't implement any standard IEEE
+> interface (like MII), and can be modeled as fixed links with the link
+> speed determined at boot time by the Port PCR[PSPEED] register
+> configuration.
+> 
+> We also need to be able to probe the ENETCv4 Ports featuring pseudo-MACs
+> as pure PCI devices, i.e. without any "ethernet" DT node representation.
+> The typical use case for this consists in a board with NETC connected
+> via PCI to another host which probes the ENETC. Note that in this
+> scenario, the pseudo-MAC ENETCs are connected internally to a NETC
+> switch that is not owned by Linux.
+> 
+> Since such a port has no "ethernet" DT node, its fixed link has to be
+> synthesized at probe time. Build the fixed-link subnode directly in C
+> with an of_changeset: of_changeset_create_node() adds a "fixed-link"
+> node onto the port's own OF node, and of_changeset_add_prop_*() populate
+> its "speed" and "full-duplex" properties. The changeset is applied with
+> of_changeset_apply(), so the fixed-link node is spliced onto the ENETC
+> netdev's fwnode exactly as if it had come from static DT, and phylink
+> picks it up through dev_fwnode().
+> 
+> The operating speed written into the node is read from PCR[PSPEED] at
+> probe time and mapped to a phylink-supported value, so the fixed link
+> reflects the actual boot-time configuration, as long as it's a phylink
+> supported value. Otherwise, PCR[PSPEED] will be updated to the closest
+> rounded down supported value.
+> 
+> The pseudo-MAC path is selected when the port has no OF node, or when it
+> only has the empty PCI-synthesized node (OF_DYNAMIC), which carries no
+> fixed-link description. Ports described by static DT take the regular
+> of_get_phy_mode() path instead.
+> 
+> Building the fixed-link node requires the of_changeset API, which is only
+> available with CONFIG_OF_DYNAMIC, so select it. As OF_DYNAMIC itself
+> depends on OF, make NXP_ENETC4 depend on OF as well, rather than force
+> OF_DYNAMIC on without the core OF code being built.
+> 
+> The changeset is reverted and destroyed on teardown and on the probe
+> error unwind. The node-less pseudo-MAC path has a runtime dependency on
+> CONFIG_PCI_DYNAMIC_OF_NODES: that is what makes the PCI core synthesize
+> the per-function OF node (of_pci_make_dev_node()) that the fixed-link
+> node is attached onto. This is intentionally not a hard Kconfig
+> dependency, since the ENETC4 driver also serves regular ports described
+> by static DT; when PCI_DYNAMIC_OF_NODES is absent the PCI function has no
+> of_node and the pseudo-MAC probe path fails gracefully with a clear
+> -ENODEV error.
+> 
+> Signed-off-by: Claudiu Manoil <claudiu.manoil@nxp.com>
 
-"The submitter"? So LLM wrote it for the "submitter" and you just
-blindly send it :/
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Best regards,
-Krzysztof
