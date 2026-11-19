@@ -1,61 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795052174;
-	b=3NFE+5HCnKqs+Yd9Z2RxMEdDry/nmqTfYBhoy885ckA0xUsL0tzT4OSjI+oPFIcwJJRZ
-	 oFiOGwWbEcXkZICVdfbzipaqmqsUOel33k9ziqxrGQDpQOQ98omC2tRDpSVgQ9ESyHcSs
-	 ugxgVrZ6v6I86sY1gOgb/KJpWWURxXni2bpQKMHL0GfHjD+oEg4wAZ02S0KDi0ej+///w
-	 3VvnLt5SnKKNLgBktmUgdzsthNyfZZvu7dC/QEI7YpYfZC+xYdDTliSxEbsNi29o74ufA
-	 KustLKzWE2PPVFHTKUp+2I9wPXFfczHO0ZMGtYVOXS5JDOI6pxZhxrWpGSliYO4SYfQ==
+	t=1795052575;
+	b=IsAODSoGcBQkHiwDTliF7gZtRZEmnnI++2GL/kPkDPp+nPW5WGN7Dz79OQDKoN4PHLK2
+	 4JW2qTNgEm2F90aDzMjOxglpeIlQeVPNEbqQnLCredhoPDDv6lrHgX9369tTC88ETBsnu
+	 ZwOhGl3dcySlyThUusQPtWVilt1K1FJouKBd0MAL4+GM8Z/2ndyN7dwdfm4+UOAeM0TsF
+	 FqYsC8cgASqJVSzttboMOw6gmKwtYOkiyPoswKbOTW5oNkk2zFr+RUfIptbGoOKlGY6fX
+	 kOvCEOU3yesbiC+PQIRiWab/a8FHzcOVYMO1caB3nvOA76gpqTrdfHFwAEhfoFJNNxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795052174;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6ppFMoyy0hMiK8zLmO0ZtgvhxnZ98SKRntiVkaykdQQ=;
-	b=eKCR9u/GMRS7YMgP8kLhmcWyswRG6HcYB/G315Ks7HCaRMSwK2zmXaCf5ZaSalvCjbd6
-	 Epwda9rriRHNQzbiUy2Kl+WkbdSVMgUteOQAHNXxtX9JbAIttgnyoSQf23JTGcGpp2rJg
-	 Z5Ra1jQA1DOwRLSBGEOIhBwoXhzKZUIEvHNOB/HR+SNZg4FUoyvmQNEDU8PdeXrvcYuQ9
-	 z4Y0shSw4sX/uhsgP/b6JLs/z8SchhVuQO6BdQ+ZR8nWHA+ksusiZHcr06VdYrLzMRey+
-	 YEwvwPHNuVGfLbR1zgrmzkjEEDyqVha2aZB5m8zvW6uKFRxhqMlRJNwVE9V2nc/nGkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795052575;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=TNJqWRDLQtqezoNq5nZn5mof+TYc54a++ODP8eRnVHc=;
+	b=H4HC2fi8hkpnU+kMry5ivvgCW6ZE1tCfz4IkG+Nri6F91LLCsm0J7CzhT829Qgbpzc1S
+	 1J/eYvtbtyV5PUgy/fAUEuvgzy8pMEsL4PJ3rYex692N8TEwSkHzcqMtyuw7zxoVs+Bic
+	 SQkbBaFNTDLkGHmL/8YFq8SkN6P6okwXYkwVza/mlBUhjo4Ld7bGpHP7mf5qBhNptzvRp
+	 zY9qBh+18MZjlZhhXwOYKT/SEp0R1WioptlBy46WvAP5VNqNnI60ObwUCnR6FoCkKCtd7
+	 2wwWJd21U9hCnqtaTI2LvkEOSYShNRye8QCMQXJIjM4v7NknXFyOJyAgp2PtilmspDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R8C7i2W/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YbqZ2o6L;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35532606A31C;
-	Thu, 19 Nov 2026 01:36:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1515E606A31C;
+	Thu, 19 Nov 2026 01:42:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R8C7i2W/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE661F000C4;
-	Thu, 19 Nov 2026 01:36:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YbqZ2o6L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C3D1F000C4;
+	Thu, 19 Nov 2026 01:42:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795052174;
-	bh=6ppFMoyy0hMiK8zLmO0ZtgvhxnZ98SKRntiVkaykdQQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=R8C7i2W/N1IkQypPHy70VnqdPx8BK/vtrlsEXldYkQiYntcNpzkB3O2oOWynjHW8X
-	 cUL58965McsNETAM+8z3k2p1vHYTqSOWNvAdH0uIL6wBQPOCTAFzJfCY4MhK7YtRi5
-	 uF1iJ6huwOnCSMtuZXomOHgu/2bH1nPHJBrX5tTaCSqVak37hphpKQmsanN6y88RgR
-	 U1xn1sEK1r/S44wdCgKJXeNYaG5/weKVhexEL3SrGI0oouzJExa4117ZuQHPFZRiuI
-	 lqtfrtdBQIa3o4O2rD90JlZePsbM72/CPuAeY8s+RZpBXWNo9me5RhmZtt53F+qqiX
-	 XtVRkHm/0L1ag==
-Date: Thu, 19 Nov 2026 01:36:07 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kyungmin Park
- <kyungmin.park@samsung.com>, devicetree@vger.kernel.org, Krzysztof
- Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Joshua Crofts
- <crofts@kernel.org>
-Subject: Re: [PATCH v3 0/5] iio: light: gp2ap020a00f: Add VCC supply and
- GP2AP030A00F support
-Message-ID: <20261119013607.2f763ff3@jic23-hlaptop>
-In-Reply-To: <20261118-gp2ap030-v3-0-c8df93460110@kernel.org>
-References: <20261118-gp2ap030-v3-0-c8df93460110@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1795052574;
+	bh=TNJqWRDLQtqezoNq5nZn5mof+TYc54a++ODP8eRnVHc=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=YbqZ2o6LybiBta1rVCuHeCUhjeSQM4UAwL8chwlTCTSEP/ugY8MEYxDAT6M7UieQO
+	 U4optAag57zlP6HGMestwOoBI1eaiT0pOUB9CR0Y5P1f4xWXEHQ/xXnvUiXaKZMEAK
+	 8Lcc3M9Cu00ikxCZES/uCbMiA7qiFsdDNfDA/FO2VWnVDUUhUQXP4D53jVnQ/krk+m
+	 AlfjgqJJRuNRjX3LzXj+//gi7dTWPThK6PIUfBgCAJxkAZ6ooxHQ2bsmNBTUUPZuMP
+	 iI6bpL21zUuzj1oLwoxIGzjvFkJbiUnLLxUqQi0uxWoWjKwiy99MdycmpuJXt5swlu
+	 s5DTv37MSkGCQ==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,69 +49,189 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 3/5] clk: cix: Register the Sky1 AUDSS IRQ auxiliary
+ device
+From: Brian Masney <masneyb@kernel.org>
+To: Jelly Jia <Jelly.Jia@cixtech.com>
+Cc: vkoul@kernel.org, Frank.Li@kernel.org, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, robin.murphy@arm.com, 
+ sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
+ tglx@kernel.org, devicetree@vger.kernel.org, 
+ cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-clk@vger.kernel.org, joakim.zhang@cixtech.com, radu@rendec.net, 
+ Brian Masney <masneyb@kernel.org>
+In-Reply-To: <20261117094408.1393837-4-Jelly.Jia@cixtech.com>
+References: <20261117094408.1393837-1-Jelly.Jia@cixtech.com>
+ <20261117094408.1393837-4-Jelly.Jia@cixtech.com>
+Date: Wed, 18 Nov 2026 20:42:47 -0500
+Message-Id: <179505256752.187996.952601612639868708.b4-review@b4>
+X-Mailer: b4 0.17-dev-8145e
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4931; i=masneyb@kernel.org;
+ s=20250903; h=from:subject:message-id;
+ bh=aXJ9C26UieRByax4ACS+gov5jq9nofkOwnsEGr9engA=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLL+hUiEcaTk/F45R5EtfaKBzzS9SQLKDzkW/XLqqIn1l
+ j3i+P5DRykLgxgXg6yYIsuSXKOCiNRVtvfuaLLAzGFlAhnCwMUpABNZJ8Hwv5C1M+SA6PnfQYyP
+ vq+c2pon8E9T00sp87RwxCzxTdpCrQz/c2rrq1Vbb3ntWBFsN32me9/bIKNF5lnCm9a1KZ+XLH/
+ CAAA=
+X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-On Wed, 18 Nov 2026 14:46:07 +0100
-Linus Walleij <linusw@kernel.org> wrote:
+Hi Jelly,
 
-> Describe and enable the optional VCC supply for the GP2AP020A00F and
-> GP2AP030A00F. Preserve compatibility with existing device trees that only
-> describe the LED supply.
+> Register an auxiliary IRQ device for CRU nodes declaring an interrupt
+> controller, following the existing reset device pattern. Share a raw-lock
+> regmap with the IRQ driver and preserve gate/reset context while powering
+> down the CRU. Restore the parent before child IRQ delivery resumes using
+> noirq system-sleep ordering.
 > 
-> Extend the existing binding and driver to support the GP2AP030A00F. It
-> shares the register layout, but has different proximity resolution
-> encodings and no automatic lux calculation. Select model-specific
-> initialization, keep reserved bits clear and expose fixed-range raw
-> clear and infrared counts. Keep generic supply handling in separate
-> patches from the model-specific binding and driver additions.
+> The existing reset-sky1-audss.c is unchanged. Auxiliary child teardown must
+> run before parent regmap/runtime-PM cleanup.
 > 
-> Assisted by LLM.
-> 
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-Applied. Thanks,
-
-J
+> Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
 > ---
-> Changes in v3:
-> - Return -ENODATA when chip match data is missing.
-> - Use four-line initializers for I2C device IDs.
-> - Document the 1 ms power-on delay and use USEC_PER_MSEC.
-> - Align family descriptions and list supported parts in Kconfig help.
-> - Pack GP2AP030A00F samples as 16-bit values and omit zero shifts.
-> - Link to v2: https://patch.msgid.link/20261108-gp2ap030-v2-0-24eaa1b9fe59@kernel.org
-> 
-> Changes in v2:
-> - Replace vdd/vio with one optional vcc supply, matching the VCC pin.
-> - Use devm_regulator_get_enable() for VCC, allowing dummy regulators.
-> - Move the VLED description into the generic supply binding patch.
-> - Split variant infrastructure from GP2AP030A00F support.
-> - Use "GP2AP020A00F and similar" in family descriptions.
-> - Use reverse Christmas tree ordering for local declarations.
-> - Explicitly select MANUAL_CALC when automatic ALS calculation is absent.
-> - Reject missing chip match data before accessing the device.
-> - Use fsleep() for the GP2AP030A00F startup delay.
-> - Select static channel arrays and counts through chip_info.
-> - Link to v1: https://patch.msgid.link/20261108-gp2ap030-v1-0-55314eb7055b@kernel.org
-> 
-> ---
-> Linus Walleij (5):
->       dt-bindings: iio: light: sharp,gp2ap020a00f: Add VCC supply
->       dt-bindings: iio: light: sharp,gp2ap020a00f: Add GP2AP030A00F
->       iio: light: gp2ap020a00f: Enable the VCC supply
->       iio: light: gp2ap020a00f: Prepare for chip variants
->       iio: light: gp2ap020a00f: Add GP2AP030A00F support
-> 
->  .../bindings/iio/light/sharp,gp2ap020a00f.yaml     |  17 ++-
->  drivers/iio/light/Kconfig                          |   6 +-
->  drivers/iio/light/gp2ap020a00f.c                   | 147 +++++++++++++++++++--
->  3 files changed, 151 insertions(+), 19 deletions(-)
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261107-gp2ap030-99504c2dc038
-> 
-> Best regards,
-> --  
-> Linus Walleij <linusw@kernel.org>
-> 
+>  drivers/clk/cix/clk-sky1-audss.c | 37 +++++++++++++++++++++++++++++---
+>  1 file changed, 34 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/clk/cix/clk-sky1-audss.c b/drivers/clk/cix/clk-sky1-audss.c
+> index e096b8121df3..fa51cdf4f4bd 100644
+> --- a/drivers/clk/cix/clk-sky1-audss.c
+> +++ b/drivers/clk/cix/clk-sky1-audss.c
+> @@ -2,6 +2,7 @@
+>  // Copyright 2026 Cix Technology Group Co., Ltd.
+>  
+>  #include <linux/auxiliary_bus.h>
+> +#include <linux/bits.h>
 
+This doesn't appear to be needed.
+
+>  #include <linux/clk.h>
+>  #include <linux/clk-provider.h>
+>  #include <linux/device.h>
+> @@ -18,7 +19,9 @@
+>  #define INFO_CLK_GATE				0x10
+>  #define INFO_CLK_DIV				0x14
+>  #define INFO_CLK_MUX				0x18
+> +#define INFO_AP_IRQC				0x54
+>  #define INFO_MCLK				0x70
+> +#define INFO_SW_RESETN				0x78
+>  
+>  #define SKY1_AUDSS_CLK_PARENTS_CNT		4
+>  #define SKY1_AUDSS_NUM_CLKS			(CLK_MCLK4 + 1)
+> @@ -28,7 +31,9 @@ static u32 sky1_reg_save[][2] = {
+>  	{ INFO_CLK_GATE,  0 },
+>  	{ INFO_CLK_DIV, 0 },
+>  	{ INFO_CLK_MUX, 0 },
+> +	{ INFO_AP_IRQC, 0 },
+>  	{ INFO_MCLK, 0 },
+> +	{ INFO_SW_RESETN, 0 },
+
+This, along with the defines should go in a separate commit.
+
+>  };
+>  
+>  static const char * const sky1_audss_clk_names[SKY1_AUDSS_CLK_PARENTS_CNT] = {
+> @@ -519,6 +524,7 @@ static const struct regmap_config sky1_audss_regmap_config = {
+>  	.reg_bits = 32,
+>  	.val_bits = 32,
+>  	.reg_stride = 4,
+> +	.use_raw_spinlock = true,
+>  };
+>  
+>  struct sky1_audss_clks_priv {
+> @@ -928,6 +934,21 @@ static int sky1_audss_clks_enable(struct sky1_audss_clks_priv *priv)
+>  	return err;
+>  }
+>  
+> +static int sky1_audss_irq_controller_register(struct device *dev)
+> +{
+> +	struct auxiliary_device *adev;
+> +
+> +	if (!IS_ENABLED(CONFIG_IRQ_SKY1_AUDSS) ||
+> +	    !of_property_present(dev->of_node, "interrupt-controller"))
+> +		return 0;
+> +
+> +	adev = devm_auxiliary_device_create(dev, "irq", NULL);
+> +	if (!adev)
+> +		return -ENODEV;
+> +
+> +	return 0;
+
+The reset registration code currently has:
+
+    #if IS_ENABLED(CONFIG_RESET_SKY1_AUDSS)
+
+    static int sky1_audss_reset_controller_register(struct device *dev)
+    {
+    ...
+    }
+    #else
+    static int sky1_audss_reset_controller_register(struct device *dev)
+    {
+    	return 0;
+    }
+
+I don't care which pattern you use but make it consistent within this
+driver.
+
+> +}
+> +
+>  static void sky1_audss_clks_disable(struct sky1_audss_clks_priv *priv)
+>  {
+>  	const struct sky1_audss_clks_devtype_data *devtype_data = priv->devtype_data;
+> @@ -1110,6 +1131,13 @@ static int sky1_audss_clk_probe(struct platform_device *pdev)
+>  		goto fail_pm;
+>  	}
+>  
+> +	/* Remove auxiliary children before the parent runtime-PM cleanup. */
+> +	ret = sky1_audss_irq_controller_register(dev);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to set up AUDSS DMA IRQs\n");
+> +		goto fail_pm;
+> +	}
+> +
+>  	pm_runtime_put_sync(dev);
+>  
+>  	return 0;
+> @@ -1125,6 +1153,7 @@ static int __maybe_unused sky1_audss_clk_runtime_suspend(struct device *dev)
+>  	const struct sky1_audss_clks_devtype_data *devtype_data = priv->devtype_data;
+>  	unsigned long flags;
+>  	int i;
+> +	int ret;
+
+The ret can be folded into the line above.
+
+>  
+>  	spin_lock_irqsave(&priv->lock, flags);
+>  	for (i = 0; i < devtype_data->reg_save_size; i++)
+> @@ -1132,7 +1161,9 @@ static int __maybe_unused sky1_audss_clk_runtime_suspend(struct device *dev)
+>  			    devtype_data->reg_save[i][0], &devtype_data->reg_save[i][1]);
+>  	spin_unlock_irqrestore(&priv->lock, flags);
+>  
+> -	reset_control_assert(priv->rst_noc);
+> +	ret = reset_control_assert(priv->rst_noc);
+> +	if (ret)
+> +		return ret;
+
+Should this be a separate patch?
+
+>  
+>  	sky1_audss_clks_disable(priv);
+>  
+> @@ -1170,8 +1201,8 @@ static int __maybe_unused sky1_audss_clk_runtime_resume(struct device *dev)
+>  static const struct dev_pm_ops sky1_audss_clk_pm_ops = {
+>  	SET_RUNTIME_PM_OPS(sky1_audss_clk_runtime_suspend,
+>  			   sky1_audss_clk_runtime_resume, NULL)
+> -	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+> -				pm_runtime_force_resume)
+> +	SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+> +				      pm_runtime_force_resume)
+
+The IRQ driver uses the new pm_ptr(). Please use that.
+
+Brian
+
+-- 
+Brian Masney <masneyb@kernel.org>
