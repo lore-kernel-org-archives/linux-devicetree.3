@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795083213;
-	b=fHAejCeO2oHIBMUd0hT37Gkwjl28DBAky+4eDraYZ4UcHZLsMyTPxajORuwKMXd54cPp
-	 rUXWANTXff1JX59oniZRh/2+etGaYobynabsbPWREQA7ehfscrRv1rf1ckw8ZitWFQMI3
-	 1mc8Cmaq4kHrhrO9qt245SueooPWTd6fIvRXF/vTo2AAjjLxhj0ZdRanN++w7xJi9eZ4a
-	 UHvNPOV+Ax8KfXZJgHlN1Jbmk3wnDJ/IOe2S85cXObBGeaRZoYNAaC1aiD+l15SUQ/c6p
-	 eLPtSxhLmPu2SREzAn3SQ+zySEvSDp3iWF7lY/r+f63FmDAdyKccNVS8fbUL6qnjoNw==
+	b=UndikXnLYrL4Tl37p36Lv6EBY9Zt/09KAGhnlkJAShc/YGF90m2Sqz3BmygRzsJO5ty1
+	 5Okf5vtSLJe9ubmxQofQIc8nfh8lmxPN+s2f+74Ndycskt4OsfXyrgNnhuU58Z1/T4NQq
+	 kgF9PYqNUlQnjpyrAoseUvGdwiiBbReYJQfwz2HmuHsr1aKuE2WRf0xx704K6TIrUxDP/
+	 c0k5PU0oXYAauyw4qcXpYbk9OTMWtMOUxzs0zRd8hm7jJ8pb654io+b29il2zXlA/GAfj
+	 8+yYT7UumZTS0r2h8alxLXvTNeOZLmR+CrT1s2ZL5XtmCSXFEsXYC+3Y01r2FnahbNg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795083213;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0yDZOAIm8/Q3QD8+C6s41Grxf2KSvFAj+qQW3BIcQGs=;
-	b=mrSd4WubYUlKoFgDTocDCZOn60jVxgaliQz2MNHpC0ZNTVrL3PSMnChgVSWzmNM6h1tf
-	 3LWS9CwsE8LWyp/5xzePWvATrL/Yl62LupdK1BVS5X1TxqoJNTyTglyoGIZB2eHjqOGN0
-	 ZNa52gj4JFKEmpYWo9NdZZsYyU1GdVQtWKNSWCjvm9fOW+9kFqCFwS/CBOLQl8KWrlPhP
-	 UyXMKkNHThrthSb+H8Qm77n91oOydunl/ygKt9/3uY6w4Ue+YVonUbPV77z7yshhYB1rl
-	 i1i+OiLma5yoHXFMaEf2UV/taJfU7/UD4w4n5ilPWkh5GJTqnQCf26JMYHOQhHWJWDQ==
+	bh=Na+yNwADVHtT0+06vQ945iPzbZLRjZ92Pxuevq6zNF8=;
+	b=K8VijydsZS+ELt9hPJcUR0V1bzmS5w3x1rOheZ5SHrYov1tIHceLyRDuBtnEQrancP5v
+	 cCwkVlLDUW2aJcB+XX3lz9GwW/6wuzbOx4gPlub29jZOVYxQ58P0S2qOCafcqsN1EwXkm
+	 52bq38I7Y5Js0/OhT0wL9SZ1ZgDRh05xodTB/GPZ9Q1r82YTTiW553ijNNp1hDC2JMz4o
+	 m4mG9VVKwoqhGNn7SrqdAaaP1ZlH6a2S5LOGlOuWTKqRSA+xL9Ie9zpIphL4WQ0K8pmMB
+	 xp4DnHcXbanTczDo4s2dXVEV2ZVb81snunSH6vXsN94f13VzngNzelxRSMnL9DdWyUQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Omd55L/W";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O+Clnyg5;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2008606A335;
-	Thu, 19 Nov 2026 10:13:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC3B60A2608;
+	Thu, 19 Nov 2026 10:13:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Omd55L/W
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O+Clnyg5
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795083212;
-	b=CQVcfEUlluf6m7QkbleFbHG3mVnQ9p6SNeU4q3TaRV9D9LrOWoQyIHTXgFJ3ENkRI56n
-	 /M7KpLqZ2NBq8wwkB1/Vb9ZCF7Gr/TVXwS6F0FR0nzleyJX3YEgIlG8jHl45NEBAo72rM
-	 thohQEJwoTcjEHKuVh3PR8LQpMM8+RjI9Lg1yLxjJ3e2HQyUNN9wbefZLS0x7TcZ/PijB
-	 lqmQzMAgx3Wm8oCjNEOTxhcCjLvPThQu9pFFM+7TDxQe0eJxnpg/BIaC3WfrdbWLEW19p
-	 6vzQ/r/fM29oQowSvcyURcG6dk3a1XTRswKijAWKyRIPeCS1CT+qkGsBN1mh/65BoZA==
+	t=1795083213;
+	b=syAUVodjAqYS6ly2L3l2kHhb5so2yAqK1Os/k2rGs45jGF2+heOsO4iZ9msCLe8MWtoA
+	 UxG2FGaRH3lkOOXZp062KR+sGGqoQaVsQnDG1YE9gujRO0461c+ansmA5kpqgkKjKUjMO
+	 CYafMjOz7uR98uris0e6Z2nbjg7XF4E9wr2tIL5VG90EN7kyqOyHijuAKf0UXUVeuYVNv
+	 1RJiQC/w6qxswFWDyy/CmBSvItrZ9jr+JiLdFMDZdZOjeIHAsBuzao/8oMR/9MU2rTGGo
+	 3uHGTk9dP/zfFAWEaNW8fEP/MYxZx+jUVVmSX8dFt+VI7qiLVFFiOzKDjbSD1/4komg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795083212;
+	c=relaxed/relaxed; t=1795083213;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0yDZOAIm8/Q3QD8+C6s41Grxf2KSvFAj+qQW3BIcQGs=;
-	b=PnRJik2H5cRb6RGERTyvT4LmvLyV+tyvBvPBw457xT5GZ90F/Xc7GQE4tzl/XsCcIEy0
-	 n0CbfwG1AgmEtfE/m5+nKaqlr2TwSKCLHPaUXP6mtmwFZvNXL+70t0nW+fyQrbZR3pjzq
-	 8Y8y7a/q6Eu0fIOhYi4kGFU4NWKFfRXuvrYrew5dxp+Szs55wVL4g10C2tJ8kO+FF2Ogb
-	 vohaNiO4i3/SzxOW06GD8TsOllBUPd1VZXl+dahOHeEb0tyJqRwtl2w04hxXWsq6+dctF
-	 5PUWQNKK/dItMOQYQXflE+iR+FNIZQJA9becCLv/Tn1T7J44A6LRGNSNXNQgGu6yaYA==
+	bh=Na+yNwADVHtT0+06vQ945iPzbZLRjZ92Pxuevq6zNF8=;
+	b=ETcsbrssLZsWQXJ7vWS/F5h8dh5ueI+0wN0+4PgI/AWNkSZonevGejDLyXVUSiR3LwZL
+	 xR3FSqX3d50SEP4RGZdWsd+NiDc4463OUTcKV7NrbpmmFExnPOFTbHyXEsJAFjEAh6oO4
+	 AaSmVGuMKPm2h6ZuwAfGWHOiz3YlA4hH6H5gRBr3HIPK/HRydbDrcNvCb9B2canIfGpiD
+	 yXpprU0qswxFm3lLRdm7VMG2a2AtZfe625n0NefcN5u1zNh91wbl/HvPH693W8fDCsgBK
+	 5E0FSe4mCGk4vBEtPeY5W+1YYBFU6Q3BZG0z1zZ53tyX+ZamCyTHyMslMywPwV8AZVA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 778D81F000C7;
-	Thu, 19 Nov 2026 10:13:31 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 700931F000CC;
+	Thu, 19 Nov 2026 10:13:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795083212;
-	bh=0yDZOAIm8/Q3QD8+C6s41Grxf2KSvFAj+qQW3BIcQGs=;
+	s=k20260515; t=1795083213;
+	bh=Na+yNwADVHtT0+06vQ945iPzbZLRjZ92Pxuevq6zNF8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Omd55L/WcsAFHm9t8HcW+l9StqzGto+/+soS66zl4fR0XHE76UNv+AWBrEwoKt+ML
-	 CIIySWvtOrg24dt3fkgIoXX9Gk+pVZvMuQUmM7bY4vwG9X6p+WtKQ6Okv6bFt5YSEx
-	 vQZAGtqLjYgFutqpn6F8SfkmjVEFfQsBRaOU7jqd6MqncEBXT8ZqrIhm0vBqkVmBwM
-	 8Wh/s4MwwQ8ooCmL0xzOR0lbqqIByFUGL2d2Ja5FPlucV7Abr+Yhjp6dyT2fl97+qb
-	 BIK0GjJj48xJXFgjSB6xiVHLB4fgERUoVNI3b5yJzM9ap4bycaO8GbopEhKa/Vbmt/
-	 iiFcfktbS+MBA==
+	b=O+Clnyg5nVIcDjO+G7rudtguFcm3kcq0yW7bByGxke9FjI3V7v78VVubcMjUvlXdg
+	 GBjrU9bHscKyW/Xdd1bpy03WoGXW6MXABfxKXUrp5FpdYy0WKMEReHoZdt3vkkaJof
+	 p4C5dPhLrfsli4pax9OLv/geGrFKynGZJuRCgrtpKgZwKT+pgsUEFgFfWK+R7TTJMo
+	 qP/G/6plSOS3Jyb/2UuiCGkC+guQZ+00Mczca/hnREudkop95VHezsHPUaFD8Bbzqv
+	 ewSIG/Mbib/3eSo64CSsufB2wOsQHbludCy3wi5JI78eVrhFSxtydRLety+RIFkIn3
+	 3wgMjaKr3z16g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 034F44B230;
+	by lkml.kernel.org (Postfix) with ESMTP id 6B95B4B240;
 	Thu, 19 Nov 2026 10:13:31 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Thu, 19 Nov 2026 18:13:20 +0800
-Subject: [PATCH v12 2/6] dt-bindings: clock: add Ambarella CV75 RCT
+Date: Thu, 19 Nov 2026 18:13:24 +0800
+Subject: [PATCH v12 6/6] MAINTAINERS: add ARM/AMBARELLA SoC support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-cv75-soc-v12-2-e5a03cca8b05@ambarella.com>
+Message-Id: <20261119-cv75-soc-v12-6-e5a03cca8b05@ambarella.com>
 References: <20261119-cv75-soc-v12-0-e5a03cca8b05@ambarella.com>
 In-Reply-To: <20261119-cv75-soc-v12-0-e5a03cca8b05@ambarella.com>
 To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
@@ -99,13 +99,14 @@ Cc: Jerome Brunet <jbrunet@baylibre.com>, linux-clk@vger.kernel.org,
  Conor Dooley <conor+dt@kernel.org>, 
  Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
  devicetree@vger.kernel.org, Long Zhao <longzhao@ambarella.com>, 
- Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
+ Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org, 
+ Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795083209; l=2969;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795083209; l=1241;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=gEKr05f9YAOrNVHJfKB47io9QNiMkJyDyO/ZJBUGYg0=;
- b=58uMAGWcQmK7e+q9qH51Q2wkf2o1yGI2IKPDLtuuTKZSKItyEvIuyKH/lmwpzVj9WtyaiX2fN
- qZRLAExgDOMBwUTRDLcF8ULmrpekQEragLfmCjSbfinK9XTYQ1EwttB
+ bh=66/FpPmSuU75AtQewU8cj7mu+Qa/5qamx4Km8ySoeYo=;
+ b=R3YlfECIITeopX7N2IEbgRSOL4CEONiWDW+hJvLza+ROw+U+svEleBw6kCXQ7YwdndIxTSZUH
+ ezo04rCOAnkDybT3uTsR7gnqT7MtXT0tXu+jCyY89X+gjclnSVaBa/9
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -116,110 +117,40 @@ Content-Transfer-Encoding: 7bit
 
 From: Long Zhao <longzhao@ambarella.com>
 
-Document the CV75 RCT clock controller and the clock ID header used by
-DT consumers.
+Add a maintainer entry covering Ambarella CV75 bindings, DTS and
+related drivers.
 
-Document #reset-cells for the RCT reset-provider role. Soft-reset line
-IDs and the reset provider driver are deferred; this series has no
-resets= consumers.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- .../bindings/clock/ambarella,cv75-rct.yaml         | 64 ++++++++++++++++++++++
- include/dt-bindings/clock/ambarella,cv75-rct.h     | 14 +++++
- 2 files changed, 78 insertions(+)
+ MAINTAINERS | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml b/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
-new file mode 100644
-index 000000000000..be89bd75f9e2
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
-@@ -0,0 +1,64 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/ambarella,cv75-rct.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 803b60ad628f..59e5b32d7a02 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2502,6 +2502,20 @@ F:	drivers/clocksource/asm9260_timer.c
+ F:	drivers/rtc/rtc-asm9260.c
+ F:	drivers/watchdog/asm9260_wdt.c
+ 
++ARM/AMBARELLA SOC SUPPORT
++M:	Long Zhao <longzhao@ambarella.com>
++L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
++L:	devicetree@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/arm/ambarella.yaml
++F:	Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
++F:	Documentation/devicetree/bindings/pinctrl/ambarella,cv75-pinctrl.yaml
++F:	arch/arm64/boot/dts/ambarella/
++F:	drivers/clk/ambarella/
++F:	drivers/pinctrl/pinctrl-ambarella*
++F:	include/dt-bindings/clock/ambarella,cv75-rct.h
++N:	ambarella
 +
-+title: Ambarella CV75 RCT Clock Controller
-+
-+maintainers:
-+  - Long Zhao <longzhao@ambarella.com>
-+
-+description: |
-+  The RCT (Reset and Clock Tree) block on the Ambarella CV75 SoC provides
-+  PLLs, clock muxes, dividers and soft-reset controls for on-chip
-+  peripherals.
-+
-+  The same register region is also exposed as a syscon for other SoC
-+  blocks (e.g. pin drive-strength), hence the "syscon" compatible.
-+
-+  Clock indices are defined in include/dt-bindings/clock/ambarella,cv75-rct.h.
-+
-+properties:
-+
-+  compatible:
-+    items:
-+      - const: ambarella,cv75-rct
-+      - const: syscon
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    description: Reference crystal oscillator (typically 24 MHz)
-+    maxItems: 1
-+
-+  clock-names:
-+    const: osc
-+
-+  "#clock-cells":
-+    const: 1
-+
-+  "#reset-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - "#clock-cells"
-+  - "#reset-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    clock-controller@ed080000 {
-+        compatible = "ambarella,cv75-rct", "syscon";
-+        reg = <0xed080000 0x1000>;
-+        clocks = <&osc>;
-+        clock-names = "osc";
-+        #clock-cells = <1>;
-+        #reset-cells = <1>;
-+    };
-diff --git a/include/dt-bindings/clock/ambarella,cv75-rct.h b/include/dt-bindings/clock/ambarella,cv75-rct.h
-new file mode 100644
-index 000000000000..b3e965b4ff2e
---- /dev/null
-+++ b/include/dt-bindings/clock/ambarella,cv75-rct.h
-@@ -0,0 +1,14 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * Copyright (C) 2026 Ambarella, Inc.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_AMBARELLA_CV75_RCT_H
-+#define _DT_BINDINGS_CLOCK_AMBARELLA_CV75_RCT_H
-+
-+#define CV75_GCLK_UART0		0
-+#define CV75_GCLK_CORE		1
-+#define CV75_GCLK_AHB		2
-+#define CV75_GCLK_APB		3
-+
-+#endif
+ ARM/AMD PENSANDO ARM64 ARCHITECTURE
+ M:	Brad Larson <blarson@amd.com>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
 
 -- 
 2.34.1
