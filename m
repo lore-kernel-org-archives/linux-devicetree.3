@@ -1,71 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.101.248.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795053174;
-	b=PDY45IJ9HRqxMyiq9c7OFUobT6Pg7fxjWYo5P1I2/ZX9FAQ0OAwVeHo24Ep4qfmpqH3j
-	 9HfCrZ4bpynh/I20JFLj9fJ/hhuISg9anBBaLNC/uCxFAgsoZTKyWKIWWgjdij+8hDvOt
-	 Y8IcTuS8TxfGowQbaOcLxg9XlApOzJe0w5B5kowTnZtq/cwD3T9YUwr8IZ/ZXrZkGIgRP
-	 SsYDhP5hVQYe7pzM09nhtq6DCDx0Kpo5KuWGgi8CocMRtzsqwPaeO5PrU8q92hqFprsk0
-	 vKSKiDP3BgMg2fPQglyJtfwM22tdGNcO0gnSMBi7JMRN1ig78Do5/lma+XbW8AsSkJg==
+	t=1795053297;
+	b=FFYCO3Vryd8wBWQtGEj9c+OTnxsp44Dml0TOqWi3m41CuIM2kgmyUxA9EEdYS2YATcOG
+	 Htx9ns9Gtf9dopEk7nwfk9mN5I4cVqW74WYCbsGxDN7uw+Sy45FaPTuk9uvrQCarAlllO
+	 BE2RyhDA0Y2ZtsLary0VywXEOqZVtLFqZc+NJa2OpgvH2EjR4TkXy5Zl7RuxGRhYN0Y7N
+	 Gr3WVOQjsl9cLQ/fGr93vHlRXuf392dwj+t4pSifaCqg8Wf+Jn1PNE2yolkLKwSqCcr5Z
+	 DKWQf1jJF9STP1qPBcbnaN80D3CCA/i3hzQsfXcHIvEqHVZ4UYNGEUqTua2CHhccxzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795053174;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Originating-IP:Date:
-	 X-CM-HeaderCharset:From:To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:
-	 References:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	 Message-ID:X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=5M/5lxJkM0TyI7QXLtWHuq57KaIWU5NZYtWYB5EtOKI=;
-	b=i7jnIIuajsC3V+nsJfqhVu/Pd2JVhtit4CDILqLpvrc49lliushRsq3p328xhvpE6aR5
-	 iriNjgTzYYC2EDG+v0JpmIAxLz5oSppk+Sy0M/0J26KsAflRYP9QJqXGhVN6wi7zjeotN
-	 zd7YHp8rLtkvl7AwqVdX6sPBKuGnkW+VHKmJJqIOm+9jizDJwUkAL8xF0WNkNZVm/TjLk
-	 2v9hZV8dPqARpO+c6EzGFNHCh14MRZ5a8yVoqXasZSXVAgxTUkCAhNYZ1btjUKyKvp6AW
-	 7pCgmM5HyRP5mrO6LboGj/7MjbF5wy2gGhzj4WlDAqxe18bBKg20xIL6h9WZUQrmJrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795053297;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nDoAWY11ZCr0ihHoFalCpChIz8Et8oFGy4RrYPRx3SQ=;
+	b=JWYBBpcu9PhiaqOuoxEp/Uc6tl4c8SUQRHRsMDdo7ocppUETa7DNN2DvLdNTg6+ZvjmH
+	 CIpxpTZDSHAHqK5VsuCmX9CC7NXZvkDaRmjx455NDPokITE83wbSu5Jt65ese94j9sVdB
+	 Hv4+KIml1aGqYF1lUz0j1lU9oBZpfLvNzMuoS3laH3ar/aIY562ELda4d6lf9XK4/5FXm
+	 GgM+7iCenIxjUQnNLxB3s1HqbvESSwUksLBg4B+ZY45xLBDN+Kumd2XADp+tvFLaYre2w
+	 xlITdloKxKIpV5tzHivYH1+VqLdOTUA2IRxmANTF++Q083YNfk1chCHGLd5qFmyQH2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=eswincomputing.com;
-	spf=pass smtp.mailfrom=eswincomputing.com;
-	dkim=fail reason="signature verification failed" header.d=eswincomputing.com header.i=@eswincomputing.com header.a=rsa-sha256 header.s=dkim header.b=GcNzir3O;
-	arc=none smtp.remote-ip=46.101.248.176
-Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4E963606A325;
-	Thu, 19 Nov 2026 01:52:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E963606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nltqhrd0;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E676760A2608
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 01:54:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E676760A2608
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=eswincomputing.com header.i=@eswincomputing.com header.a=rsa-sha256 header.s=dkim header.b=GcNzir3O
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nltqhrd0
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-ccca948203aso1160024a12.3
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 17:54:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=eswincomputing.com; s=dkim; h=Received:Date:From:To:Cc:Subject:
-	In-Reply-To:References:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID; bh=AtyI6ok3Vi6DM9HN4m7xODIlo4sq1C3Mwjjp
-	S7DX8MQ=; b=GcNzir3OMybN36pC9Rb1efXHqgzIRLNyT9470N0pz/pHEWGBooSC
-	y/ZgE/73OWkrEMT4JiIostIx8taYEBG1IgVOSXTxjLOplYPpJL0UI+x9VQz9SA+A
-	DS4EAQc/36vt9CdGFSGWA1bsCiCHjeyZYRMOVpIF0iiTl5+o0JUpv4E=
-Received: from linmin$eswincomputing.com ( [10.10.96.205] ) by
- ajax-webmail-app2 (Coremail) ; Thu, 19 Nov 2026 09:52:37 +0800 (GMT+08:00)
-Date: Thu, 19 Nov 2026 09:52:37 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Min Lin" <linmin@eswincomputing.com>
-To: gaohan@iscas.ac.cn
-Cc: "Pinkesh Vaghela" <pinkesh.vaghela@einfochips.com>,
-	"Pritesh Patel" <pritesh.patel@einfochips.com>,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Conor Dooley" <conor+dt@kernel.org>,
-	"Paul Walmsley" <pjw@kernel.org>,
-	"Palmer Dabbelt" <palmer@dabbelt.com>,
-	"Albert Ou" <aou@eecs.berkeley.edu>,
-	"Alexandre Ghiti" <alex@ghiti.fr>, "Han Gao" <rabenda.cn@gmail.com>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] riscv: dts: eswin: Add Milk-V Megrez board
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <20261118-eic7700-megrez-v2-2-0113ebc5b670@iscas.ac.cn>
-References: <20261118-eic7700-megrez-v2-0-0113ebc5b670@iscas.ac.cn>
- <20261118-eic7700-megrez-v2-2-0113ebc5b670@iscas.ac.cn>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+        d=gmail.com; s=20260707; t=1795053296; x=1795658096; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nDoAWY11ZCr0ihHoFalCpChIz8Et8oFGy4RrYPRx3SQ=;
+        b=nltqhrd0MMDZ7546deiSsw2uwq42t4c3i4uOD0uXOHy2rm2POJCcz0TxFstDHvoHpM
+         /7crJUPoUAefBTJsrcZgBfnDlE7lNpDD/qTTwId33wMljgUFI61lnGlVDcLB1YofRILd
+         FQUNgnLEgmL3uaUgOIGiu24veyJztsWw/OMqkQbHz8X5G+bHP8OojWbSlR/cjnoU1va1
+         4cXxRINSVIrjwcRrrdxFNK2+yD0MrGLpdL6QMQ4MqtQO6GuTvicIdWLHmnun1fGBX/b1
+         aQHourZFOB3X7BBJZbioOFbRdaH/AxGZg7lUk+4G+UF4GQxmu5WqJa1nDWRqIOXzCj7q
+         qcig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795053296; x=1795658096;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nDoAWY11ZCr0ihHoFalCpChIz8Et8oFGy4RrYPRx3SQ=;
+        b=sHmmI6aOxCFYHYxUAOHBmJiR/lrOiIECB8ScEvN8iNOU7eCxBZswB9H26LXbrC9fTB
+         GGRPw33soBjBn0Zoh9ob94SB/qvsH/MHkUhxYMfpY61lnxNdOvJX55tjBTBc+VofG7Uo
+         zM3n3mShi3I3Q7QvqCqCZNPlfP3xF5BkTRmZTjpXUin+yEenm3g9688j3K32jWfP90cL
+         BnP7NcJSEVgjd3uoLwMFs0bqzwtf41TMUIBmWTWtSeBkXWyTBWWtVkg/gXZx6S3n40qJ
+         ziKn/QCASkRn88OOVQ5zU2mXlRs9qE4yR0Tku4fU5VRHBG2tkw3lONdZNP1DC6RDuv/y
+         bxjg==
+X-Forwarded-Encrypted: i=1; AL+hErF2s5taaqmbD8fI8tolfPaN+qjTeINiBR3iPbSvKiHv5wl3whvI3Kof6i4//+UAytOiPyTcO+pxPuAP@vger.kernel.org
+X-Gm-Message-State: APuU4Z8r0W61cOVDt2/EVEAugXhlsv74YsR9EdJjzBV6P63DEkAf6Euv
+	vrWJwzN7heRVRe4+utPhzg68soqcBeWHijl7Xa1rmtBlDlc/JbFZx0N4
+X-Gm-Gg: AZFdTZf4an/vL9Zp0pxLsRaihRnsT/hM9oBbgBBixhYGud93CnM+7OgAf+otVlm56fw
+	j99JclPAiVkhFzbFnoMDRF2kzTolOhfVjJ16z7P4G64U1ObxhTOOFZo1DuY5q+nJ2M+P1J10vAd
+	lF69z5tcQAL6qIaOtqCE7n+i4QQJptb/w3cBV+zK89wrBpdpOhWtnU697HOpEVGvqaORCwi3RNs
+	iQ8hwsYowejMuMqEC08tnIOll7hTRy9Rk95xeJ4nWW2n/aBlV5rnLjiOtlq76yJx/7cgKIw1r6/
+	BhHMHFE7JTBXFjcXVCXHQXZZNuOJ+8lpGADR7nOzFLUBVndIixpvPKFn7IR3jeTvDjG+yQb386s
+	6pIwwWVWfVolOZkS7IJrV15vvuo1msoMdfiATcgSaTzlfEmmJMQkLNXhnV5BTJUwUImFGqEZ/IC
+	42mcVIk5q9Vmioyhqcxkp9dmjx8/C6fDKSGHNTd4VXQBKX4wDWB0gJxYR5hPITQYUybTjqccr+D
+	SdH6tQ/Pw8lk7HB3iA8eLjyZ9WPlODtfVZbz05j0UDKfHyYzakDTojBfPMKNmznz4kIkrcC92eO
+	SStLXkh58U35fpyC0v4bzPwFDDQjexlHTr84E8o2rCvxd1J6gqm+9nA8CJnhSjrff5mxffFJE0t
+	rHCwVncqph9xoJ3uLSloTscJnlx7IjUOsKikM
+X-Received: by 2002:a17:90b:2ec7:b0:3ac:a139:1b13 with SMTP id 98e67ed59e1d1-3b3d07a85e6mr4560280a91.29.1795053296137;
+        Wed, 18 Nov 2026 17:54:56 -0800 (PST)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3fe03c3d4sm773081a91.14.2026.11.18.17.54.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 17:54:55 -0800 (PST)
+From: Shan-Chun Hung <shanchun1218@gmail.com>
+To: ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	vkoul@kernel.org,
+	Frank.Li@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	kees@kernel.org,
+	gustavoars@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Cc: Shan-Chun Hung <shanchun1218@gmail.com>
+Subject: [PATCH v3 0/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
+Date: Thu, 19 Nov 2026 09:54:45 +0800
+Message-Id: <20261119015447.160470-1-shanchun1218@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,57 +107,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <7edd04e5.a5d.1a1f1817c2c.Coremail.linmin@eswincomputing.com>
-X-Coremail-Locale: en_US
-X-CM-TRANSID:TQJkCgA38xxlVv5qBywAAA--.133W
-X-CM-SenderInfo: 5olqzx3q6h245lqf0zpsxwx03jof0z/1tbiAgEQCWr9068ImgAAsj
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Transfer-Encoding: 8bit
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiAiSGFuIEdhbyB2aWEgQjQgUmVs
-YXkiIDxkZXZudWxsK2dhb2hhbi5pc2Nhcy5hYy5jbkBrZXJuZWwub3JnPgo+IFNlbmQgdGltZTpX
-ZWRuZXNkYXksIDE4LzExLzIwMjYgMDQ6MDA6MDYKPiBUbzogIk1pbiBMaW4iIDxsaW5taW5AZXN3
-aW5jb21wdXRpbmcuY29tPiwgIlBpbmtlc2ggVmFnaGVsYSIgPHBpbmtlc2gudmFnaGVsYUBlaW5m
-b2NoaXBzLmNvbT4sICJQcml0ZXNoIFBhdGVsIiA8cHJpdGVzaC5wYXRlbEBlaW5mb2NoaXBzLmNv
-bT4sICJSb2IgSGVycmluZyIgPHJvYmhAa2VybmVsLm9yZz4sICJLcnp5c3p0b2YgS296bG93c2tp
-IiA8a3J6aytkdEBrZXJuZWwub3JnPiwgIkNvbm9yIERvb2xleSIgPGNvbm9yK2R0QGtlcm5lbC5v
-cmc+LCAiUGF1bCBXYWxtc2xleSIgPHBqd0BrZXJuZWwub3JnPiwgIlBhbG1lciBEYWJiZWx0IiA8
-cGFsbWVyQGRhYmJlbHQuY29tPiwgIkFsYmVydCBPdSIgPGFvdUBlZWNzLmJlcmtlbGV5LmVkdT4s
-ICJBbGV4YW5kcmUgR2hpdGkiIDxhbGV4QGdoaXRpLmZyPgo+IENjOiAiSGFuIEdhbyIgPHJhYmVu
-ZGEuY25AZ21haWwuY29tPiwgZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcsIGxpbnV4LXJpc2N2
-QGxpc3RzLmluZnJhZGVhZC5vcmcsIGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcsICJIYW4g
-R2FvIiA8Z2FvaGFuQGlzY2FzLmFjLmNuPgo+IFN1YmplY3Q6IFtQQVRDSCB2MiAyLzJdIHJpc2N2
-OiBkdHM6IGVzd2luOiBBZGQgTWlsay1WIE1lZ3JleiBib2FyZAo+IAo+IEZyb206IEhhbiBHYW8g
-PGdhb2hhbkBpc2Nhcy5hYy5jbj4KPiAKPiBUaGUgTWlsay1WIE1lZ3JleiBpcyBhIE1pbmktSVRY
-IGJvYXJkIGJhc2VkIG9uIHRoZSBFU1dJTiBFSUM3NzAwWCBTb0MuCj4gCj4gQWRkIGEgbWluaW1h
-bCBkZXZpY2UgdHJlZSB0aGF0IGVuYWJsZXMgVUFSVDAsIHdoaWNoIGlzIGNvbm5lY3RlZCB0byB0
-aGUKPiBVU0ItQyBkZWJ1ZyBwb3J0IHRocm91Z2ggYSBDSDM0MCBVU0ItdG8tVUFSVCBicmlkZ2Us
-IGFuZCB1c2UgaXQgYXMgdGhlCj4gc2VyaWFsIGNvbnNvbGUuCj4gCj4gU2lnbmVkLW9mZi1ieTog
-SGFuIEdhbyA8Z2FvaGFuQGlzY2FzLmFjLmNuPgo+IC0tLQo+ICBhcmNoL3Jpc2N2L2Jvb3QvZHRz
-L2Vzd2luL01ha2VmaWxlICAgICAgICAgICAgICAgICB8ICAxICsKPiAgYXJjaC9yaXNjdi9ib290
-L2R0cy9lc3dpbi9laWM3NzAwLW1pbGt2LW1lZ3Jlei5kdHMgfCAyNSArKysrKysrKysrKysrKysr
-KysrKysrCj4gIDIgZmlsZXMgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1n
-aXQgYS9hcmNoL3Jpc2N2L2Jvb3QvZHRzL2Vzd2luL01ha2VmaWxlIGIvYXJjaC9yaXNjdi9ib290
-L2R0cy9lc3dpbi9NYWtlZmlsZQo+IGluZGV4IDIyNDEwMWFlNDcxZThkODk5OTZmN2NiZmM2MTY0
-MjVmNzA0YWYzN2UuLjVkYWFkZTgyMmUxNWVkYTQzZWVlMTExY2JmODliYzM4NmJiMDZmMzIgMTAw
-NjQ0Cj4gLS0tIGEvYXJjaC9yaXNjdi9ib290L2R0cy9lc3dpbi9NYWtlZmlsZQo+ICsrKyBiL2Fy
-Y2gvcmlzY3YvYm9vdC9kdHMvZXN3aW4vTWFrZWZpbGUKPiBAQCAtMSwyICsxLDMgQEAKPiAgIyBT
-UERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMAo+ICBkdGItJChDT05GSUdfQVJDSF9FU1dJ
-TikgKz0gZWljNzcwMC1oaWZpdmUtcHJlbWllci1wNTUwLmR0Ygo+ICtkdGItJChDT05GSUdfQVJD
-SF9FU1dJTikgKz0gZWljNzcwMC1taWxrdi1tZWdyZXouZHRiCj4gZGlmZiAtLWdpdCBhL2FyY2gv
-cmlzY3YvYm9vdC9kdHMvZXN3aW4vZWljNzcwMC1taWxrdi1tZWdyZXouZHRzIGIvYXJjaC9yaXNj
-di9ib290L2R0cy9lc3dpbi9laWM3NzAwLW1pbGt2LW1lZ3Jlei5kdHMKPiBuZXcgZmlsZSBtb2Rl
-IDEwMDY0NAo+IGluZGV4IDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAu
-LmE1N2NiNjExNzEwODdiMjBhMzllYjk2MmY5YzQ1ZDljOGRlZDM5MjUKPiAtLS0gL2Rldi9udWxs
-Cj4gKysrIGIvYXJjaC9yaXNjdi9ib290L2R0cy9lc3dpbi9laWM3NzAwLW1pbGt2LW1lZ3Jlei5k
-dHMKPiBAQCAtMCwwICsxLDI1IEBACj4gKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAoR1BM
-LTIuMCBPUiBNSVQpCj4gKy8qCj4gKyAqIENvcHlyaWdodCAoYykgMjAyNiBIYW4gR2FvIDxnYW9o
-YW5AaXNjYXMuYWMuY24+Cj4gKyAqLwo+ICsKPiArL2R0cy12MS87Cj4gKwo+ICsjaW5jbHVkZSAi
-ZWljNzcwMC5kdHNpIgo+ICsKPiArLyB7Cj4gKwljb21wYXRpYmxlID0gIm1pbGt2LG1lZ3JleiIs
-ICJlc3dpbixlaWM3NzAwIjsKPiArCW1vZGVsID0gIk1pbGstViBNZWdyZXoiOwo+ICsKPiArCWFs
-aWFzZXMgewo+ICsJCXNlcmlhbDAgPSAmdWFydDA7Cj4gKwl9Owo+ICsKPiArCWNob3NlbiB7Cj4g
-KwkJc3Rkb3V0LXBhdGggPSAic2VyaWFsMDoxMTUyMDBuOCI7Cj4gKwl9Owo+ICt9Owo+ICsKPiAr
-JnVhcnQwIHsKPiArCXN0YXR1cyA9ICJva2F5IjsKPiArfTsKPiAKPiAtLSAKPiAyLjQ3LjMKPiAK
-CkFja2VkLWJ5OiBNaW4gTGluIDxsaW5taW5AZXN3aW5jb21wdXRpbmcuY29tPgoKCkJlc3QgcmVn
-YXJkcywKTWluIExpbgo=
+This series adds the PDMA controller driver and DT binding for the
+Nuvoton MA35D1 SoC.
+
+The driver supports memory-to-memory, slave scatter-gather and cyclic
+transfers.
+
+Tested on the MA35D1 SOM board with Linux v7.4-rc3:
+ - memory-to-memory with dmatest (2000 iterations of 1MB buffers, no failures)
+ - slave scatter-gather with a local (not yet submitted) QSPI patch
+ - cyclic slave with a local (not yet submitted) I2S patch
+
+Changes in v3:
+ - Use dma_alloc_coherent() for the hardware SG table instead of
+   kzalloc() + dma_map_single(); defer descriptor free in terminate_all().
+ - Rename ma35d1_desc_submit() to ma35d1_desc_prep_done(); prep() only
+   prepares the descriptor.
+ - Rewrite the IRQ handler: read and ack TDSTS/ABTSTS once, then iterate
+   the set bits.
+ - Address issue identified by Sashiko AI review:
+   - Terminate the descriptor with vchan_terminate_vdesc() when a cyclic
+     transfer is aborted, avoiding a use-after-free in vchan_complete().
+ - Request the IRQ after the DMA device is registered.
+ - Use devm_of_dma_controller_register() and
+   dmaenginem_async_device_register(), and drop remove(); a devm action
+   stops the hardware and kills the tasklets.
+
+Changes in v2:
+ - Address issues identified by Sashiko AI review:
+   - Program registers on descriptor start instead of prep.
+   - Fix interrupt completion handling and return IRQ_NONE when idle.
+   - Set PDMA_TBINTDIS on intermediate memcpy chunks.
+   - Validate scatter-gather lengths and bus width alignment.
+   - Fix channel request assignment in of_xlate().
+   - Safe controller teardown order in remove().
+   - Drop peripheral timeout support to simplify driver.
+ - binding: describe the hardware in the description, and drop
+   dma-channels and the dt-bindings header.
+ - Use a fixed number of 10 channels and trim the includes.
+
+Signed-off-by: Shan-Chun Hung <shanchun1218@gmail.com>
+
+Shan-Chun Hung (2):
+  dt-bindings: dma: nuvoton,ma35d1-pdma: Document MA35D1 PDMA controller
+  dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
+
+ .../bindings/dma/nuvoton,ma35d1-pdma.yaml     |  71 ++
+ drivers/dma/Kconfig                           |  12 +
+ drivers/dma/Makefile                          |   1 +
+ drivers/dma/ma35d1-pdma.c                     | 662 ++++++++++++++++++
+ 4 files changed, 746 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
+ create mode 100644 drivers/dma/ma35d1-pdma.c
+
+-- 
+2.25.1
+
