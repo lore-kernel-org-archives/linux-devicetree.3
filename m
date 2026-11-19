@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795079889;
-	b=mUAqzVP2fq+Qq3CNsdlUbHWLQVGQlNamT1dPqpvQrlugyqO8wQnTuD5mXZ0kVKTJHhZ+
-	 eKr+iu/N1dzQ0aIPsfpLo4uRkX+glXKBfEbCiMAyMGuCy2v883gK2FDNw55MBpmgZNI7A
-	 RSceTHQ1SanjkoevXDJ9fbs1Ts0nEfqLY+z3+hPy67uN+jAlm6XxSI+PzlRAWcXCVsYbP
-	 wFrx1CaVv8Pw0j+/yLpY4INQgS/dgolI9HONWVYLlWd63ZWEtPHw2H5nGjpxWu2gBJuEa
-	 ikF6buBoExH4fqM3MZTJBgfOIiyrLGo+ctk+qDZNc+URJWKPOwnvN7HhIdHaOLXTzTw==
+	t=1795080043;
+	b=P+U4AS4Uq8hrIoSC+zBMkTUIUft2skBiargWdZqyJWzCsyj0sDVjeI4PRJJMVV+gfFXF
+	 VrIncyorvAzLg7dC9tX9jMs22+U1yICOtiQjqq4Wu8YNNsZ0sCxWrW1AduQBa0+ppj+Mk
+	 kzxl7SyGbAN1GRQRxx+LUS8IDyIX+X24+BF6hi8WhnhqXMd1RSC/vBBGpk4XcOxh+a30c
+	 viJOHN0o0pWIZ5aeIrskJxhYB6tTfnte1+0Df5ZML5+3pe3tBDUF+lbypdSAaB3IEh/Pw
+	 9C20mXQO1rZM8brJ200VaBElyzXHq7MoRH6nTpxAXhpSy5lS9Z2b8d032RXlXKSJLyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795079889;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795080043;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=3J5KyemgEPHgTrVi6sWSrpdroLe8lWPfdywBPL6YU/E=;
-	b=MYld6RunoJHlzAfdDeTGi7/ZHAaL1uO3gp8skLA6dcFQREWnjkBJqkLkeEpW4HomAUZm
-	 cd0VHrfM85Si/fPnh6gOBWixElRhkaNtsICbWYde/cI9sFIugJ9DRUGYH7VHKFvoRqUD7
-	 GkWMQ4yWXQAqws+x0CLJq2+RJ+MJYMsxh7srg4F+vZ6VU/fhwPQKoNhySfzeBevDIYgKG
-	 vrHxL8d8P2S4eHBE7+2NrXs1ogoSor9z24M40gFXrlVkXUB5MqdfnEh+67I+rHS5a8Kgt
-	 uaPndKhHVqTG1vT6yWMGhSoXvVE9aCGxbkrS4AY2yFQ+qMjY78guaGXj1HU+VFjfvwg==
+	bh=yTbTZ04gY48kSPjsIM3n3O8wcD9HwYJHskt9MghCK1U=;
+	b=4naxdFfyKdLjNmYpZPs9vOn35N4pHRPGsvuwRuV6nGdLt1Pw3RPbJQzVoZPS/AAsH48C
+	 hIx2qQxDTUP7+F8GTKeNnmcnX6I/bpY4bsTOWAYMOvpxfBt/mIxS53+E5GcC4yRQuJwPd
+	 ngbMBY3w548OA/yrXSImqYLzpbPelea2UIqH1Vpojw6Nk6cAZbkAJ9pAjxTHcy9gD8U6R
+	 aVXlJRlKR8S6zrlnEWo3FTA6jAy6/VfidIMedTQCQXhcTK6G8mYrfNcovey+uc5jYggMa
+	 yOgCi8rqR+exKBrLqFW449THShrIApZkjXIfK5PbIz4h1VwyUVa9OHDlVkw1gvk0P1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfFsLd8X;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DtutbJnQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E99A606A320
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:18:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020D4606A320;
+	Thu, 19 Nov 2026 09:20:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfFsLd8X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26DA71F000C4;
-	Thu, 19 Nov 2026 09:18:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DtutbJnQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 474961F000C4;
+	Thu, 19 Nov 2026 09:20:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795079888;
-	bh=3J5KyemgEPHgTrVi6sWSrpdroLe8lWPfdywBPL6YU/E=;
+	s=k20260515; t=1795080042;
+	bh=yTbTZ04gY48kSPjsIM3n3O8wcD9HwYJHskt9MghCK1U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cfFsLd8X+7uS+xGQzYukBzpftIJyZfPqHE+If8ANSpKsiHt6anidt4kiq5Is82kyI
-	 bYuAgQcOwqsj4OEHGZ4vToLoRAurESjS16mrLxCYCtoPHuSE4Qyp9WBSqVAEuYzQ1s
-	 dgIMk/0sAdOHzvx2f+0QZ2v1l+vNh77u7zldIS+tabOLrz/hf7tA9UU+w17slWUb8U
-	 Xl7iguMATTOoSbmv6q6etHuQWi50yk9GRgdrT/gS68J/Sc94Qix6oKW+SLuJ0z7jtM
-	 Dw4lSSZgn5EA1KvIq2EcNoMXM3jk2738/9XNEAs8lSobyjnK1h6GFHDEYiWus1FdKP
-	 Dlc+yBcWCoExg==
-Message-ID: <sashiko-outbox-222809@kernel.org>
+	b=DtutbJnQGbgju9jhVj67BZSN8Uf2akIZGpYxxyZvMTRN/W1RaEuFVk3QO1qzcjp7z
+	 ySFjx7kRq5OqKp1LwNbPZg7mACHN6EsQuG6ddo4KfVH4jHfQhCnLpKveg21Kbzair1
+	 UfjMJHyDKCVko/PsAd1FInvXtJ2MbK9x7frDH2QI8/9/Ut6IMxon2OpFQ4m/w2fBnH
+	 4JOtHgf3zwGId61Oiw0FisSNguJIdDVdFakIiH+4x1xNWSxkBuvR4EoqolWPU1jtt8
+	 TDY5WoyBOSJvvMXN4EjVZ8k+jpZMKuG3qGRaYYVsuB90zHiurDRR/Gqt2gDAR362Qx
+	 ISdIKZsdJoPew==
+Message-ID: <sashiko-outbox-222815@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 2/6] soc: qcom: add QDCP firmware provider
+Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add performance
+ profiling
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jie Gan" <jie.gan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261119-introduce-qcom-qecp-feature-v1-2-b1a730d2c57a@oss.qualcomm.com>
-References: <20261119-introduce-qcom-qecp-feature-v1-0-b1a730d2c57a@oss.qualcomm.com>
- <20261119-introduce-qcom-qecp-feature-v1-2-b1a730d2c57a@oss.qualcomm.com>
+To: "Nas Chung" <nas.chung@chipsnmedia.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <5702baa6ed97eb30dec14bddba2919252ec8f3c8.1795075582.git.nas.chung@chipsnmedia.com>
+References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
+ <5702baa6ed97eb30dec14bddba2919252ec8f3c8.1795075582.git.nas.chung@chipsnmedia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 09:18:07 +0000
+Date: Thu, 19 Nov 2026 09:20:41 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,204 +61,225 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issues to consider:
-- [High] soc: qcom: qdcp_send_resp() callers pass struct size as QMI
-  wire length
-- [Medium] soc: qcom: devm_qdcp_get() races with provider unbind after
-  unlock
+- [Medium] media: wave6: performance timestamps not re-recorded on
+  OUTPUT stream restart
+- [Medium] media: wave6: skipped performance reset in
+  wave6_vpu_enc_stop_streaming()
+- [Medium] media: wave6: wave6_vpu_cycle_to_ns() queries empty
+  core->clks instead of vpu
+- [Medium] media: wave6: unlocked TOCTOU race and div-by-zero in
+  wave6_vpu_dbg_instance()
+- [Low] media: wave6: negative setup latency in wave6_vpu_dbg_instance()
+  before PIC_RUN
 --
 
-commit 0767c9931547d43da1782dd32902fb9f2ad363f7
-Author: Jie Gan <jie.gan@oss.qualcomm.com>
+commit bc504ce1eb7a7d90813e57f32d70181940592318
+Author: Nas Chung <nas.chung@chipsnmedia.com>
 
-soc: qcom: add QDCP firmware provider
+media: chips-media: wave6: Add performance profiling
 
-This commit adds a QMI service provider driver for the Qualcomm Debug
-Control Protocol (QDCP) so consumer drivers can enable, disable, and
-query QECP firmware-owned debug and trace blocks.
+This commit adds per-instance performance profiling to record per-frame
+timestamps and firmware cycle counts, reporting frame rates and latencies
+in debugfs.
 
-> diff --git a/drivers/soc/qcom/qcom_qdcp.c b/drivers/soc/qcom/qcom_qdcp.c
-> new file mode 100644
-> index 0000000000000..295138b298819
-> --- /dev/null
-> +++ b/drivers/soc/qcom/qcom_qdcp.c
-> @@ -0,0 +1,985 @@
-
+> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c b/d=
+rivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c
+> index 525e047ecebff..be1061b2b39f0 100644
+> --- a/drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c
+> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c
 [ ... ]
-
-> +static int qdcp_send_resp(struct qdcp_data *qdcp, unsigned int msg_id,
-> +			  const struct qmi_elem_info *req_ei, const void *req,
-> +			  size_t req_len, const struct qmi_elem_info *resp_ei,
-> +			  void *resp, size_t resp_len)
-> +{
-
-[ ... ]
-
-> +	ret =3D qmi_send_request(&qdcp->qmi, &sq, &txn, msg_id, req_len, req_ei,
-> +			       req);
-> +	if (ret < 0) {
-> +		qmi_txn_cancel(&txn);
-> +		return ret;
+> @@ -77,6 +83,36 @@ static int wave6_vpu_dbg_instance(struct seq_file *s, =
+void *data)
+>  		   inst->error_buf_num,
+>  		   v4l2_m2m_has_stopped(inst->v4l2_fh.m2m_ctx));
+> =20
+> +	seq_puts(s, "fps");
+> +	tmp =3D MSEC_PER_SEC * inst->processed_buf_num;
+> +	if (perf->ts_last > perf->ts_first + NSEC_PER_MSEC) {
+> +		duration =3D ktime_ms_delta(perf->ts_last, perf->ts_first);
+> +		fps =3D DIV64_U64_ROUND_CLOSEST(tmp, duration);
+> +		seq_printf(s, " actual: %lld;", fps);
 > +	}
-> +
-> +	ret =3D qmi_txn_wait(&txn, msecs_to_jiffies(QDCP_TIMEOUT_MS));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return qdcp_check_resp(qdcp, qmi_resp);
-> +}
-> +
-> +static int qdcp_send(struct qdcp_data *qdcp, unsigned int msg_id,
-> +		     const struct qmi_elem_info *req_ei, const void *req,
-> +		     size_t req_len, struct qdcp_resp_v01 *resp)
-> +{
-> +	return qdcp_send_resp(qdcp, msg_id, req_ei, req, req_len, qdcp_resp_ei,
-> +			      resp, sizeof(*resp));
-> +}
-> +
-> +static int qdcp_set_state(struct qdcp_data *qdcp, unsigned int msg_id,
-> +			  u64 id, bool enable)
-> +{
-> +	struct qdcp_state_req_v01 req =3D {
-> +		.id =3D id,
-> +		.state =3D enable,
-> +	};
-> +	struct qdcp_resp_v01 resp;
-> +
-> +	return qdcp_send(qdcp, msg_id, qdcp_state_req_ei, &req, sizeof(req),
-> +			 &resp);
-> +}
-
-[Severity: High]
-Does passing sizeof(req) as req_len cause qmi_send_request() to fail with
--ETOOSMALL across all QDCP requests?
-
-qmi_send_request() passes req_len to qmi_encode_message() as the maximum
-encoded wire payload length, and each top-level TLV adds a 3-byte TLV
-header (1-byte type + 2-byte length) to the field payload.  For example,
-struct qdcp_state_req_v01 is 16 bytes, whereas qdcp_state_req_ei encodes
-two top-level TLVs totaling (3 + 8) + (3 + 4) =3D 18 bytes.  Because
-qdcp_set_state(), qdcp_stm_source_enable(), qdcp_tmc_set_param(),
-qdcp_tmc_get_param(), and qdcp_tmc_assign_buffer() all pass sizeof(req),
-every exported QDCP operation fails in qmi_encode() with -ETOOSMALL.
-
-> +struct qdcp_devres {
-> +	struct qdcp_data *qdcp;
-> +};
-> +
-> +static void qdcp_release_provider(void *data)
-> +{
-> +	struct qdcp_devres *devres =3D data;
-> +
-> +	put_device(devres->qdcp->dev);
-> +	kref_put(&devres->qdcp->ref, qdcp_release);
-> +}
-> +
-> +struct qdcp_data *devm_qdcp_get(struct device *dev, const char *phandle_=
-name)
-> +{
-> +	struct qdcp_devres *devres;
-> +	struct device_link *link;
-> +	struct qdcp_data *qdcp;
-> +	struct device_node *np;
-> +	int ret;
-> +
-> +	if (!dev->of_node)
-> +		return ERR_PTR(-ENOENT);
-> +
-> +	np =3D of_parse_phandle(dev->of_node, phandle_name, 0);
-> +	if (!np)
-> +		return ERR_PTR(-ENOENT);
-> +
-> +	mutex_lock(&qdcp_providers_lock);
-> +	list_for_each_entry(qdcp, &qdcp_providers, node) {
-> +		if (qdcp->of_node !=3D np || qdcp->dying)
-> +			continue;
-> +
-> +		if (!kref_get_unless_zero(&qdcp->ref))
-> +			continue;
-> +
-> +		get_device(qdcp->dev);
-> +		mutex_unlock(&qdcp_providers_lock);
-> +		of_node_put(np);
-> +
-> +		/*
-> +		 * A managed link with DL_FLAG_AUTOREMOVE_CONSUMER (i.e. no
-> +		 * DL_FLAG_STATELESS) is required so that the driver core's
-> +		 * device_links_busy()/device_links_unbind_consumers()
-> +		 * machinery forces this consumer to unbind before
-> +		 * qdcp_remove() can proceed on the supplier, and so the link
-> +		 * itself is dropped automatically by the core when this
-> +		 * consumer unbinds or fails to probe. A stateless link
-> +		 * carries neither guarantee: qdcp_remove() could release the
-> +		 * QMI handle while a consumer still has outstanding or
-> +		 * in-flight QDCP RPCs, and device_link_del() refuses to drop
-> +		 * a non-stateless link while the consumer is still
-> +		 * registered, which is always the case from inside a devm
-> +		 * release callback.
-> +		 */
-> +		link =3D device_link_add(dev, qdcp->dev,
-> +				       DL_FLAG_AUTOREMOVE_CONSUMER);
-> +		if (!link) {
-> +			put_device(qdcp->dev);
-> +			kref_put(&qdcp->ref, qdcp_release);
-> +			return ERR_PTR(-EINVAL);
-> +		}
-> +
-> +		/*
-> +		 * The core still creates a link to a supplier that is already
-> +		 * unbinding, and will not unbind this consumer for it. Defer
-> +		 * rather than bind to a provider that is going away.
-> +		 */
-> +		if (READ_ONCE(link->status) =3D=3D DL_STATE_SUPPLIER_UNBIND) {
-> +			put_device(qdcp->dev);
-> +			kref_put(&qdcp->ref, qdcp_release);
-> +			return ERR_PTR(-EPROBE_DEFER);
-> +		}
 
 [Severity: Medium]
-Can devm_qdcp_get() still race with provider unbind after dropping
-qdcp_providers_lock?
+Can a concurrent OUTPUT queue stop_streaming() cause a divide-by-zero in
+DIV64_U64_ROUND_CLOSEST(tmp, duration)?
+
+wave6_vpu_dbg_instance() reads inst->performance without locking while the
+debugfs file is active:
 
 CPU0                              CPU1
-devm_qdcp_get()
-  mutex_lock(&qdcp_providers_lock)
-  /* finds qdcp, !qdcp->dying */
-  mutex_unlock(&qdcp_providers_lock)
-                                  __device_release_driver(qdcp->dev)
-                                    qdcp_remove()
-                                      qdcp->dying =3D true
-                                      qmi_handle_release(&qdcp->qmi)
-                                    device_links_driver_cleanup()
-                                      supplier->links.status =3D
-                                        DL_DEV_NO_DRIVER
-  device_link_add(dev, qdcp->dev,
-    DL_FLAG_AUTOREMOVE_CONSUMER)
-    /* link->status =3D DL_STATE_DORMANT */
-  if (link->status =3D=3D
-      DL_STATE_SUPPLIER_UNBIND)
-    /* false, returns dead qdcp */
-  ...
-  device_links_driver_bound()
-    WARN_ON(link->status !=3D
-      DL_STATE_CONSUMER_PROBE)    <-- warning & bound to dead provider
+wave6_vpu_dbg_instance()
+  if (perf->ts_last >
+      perf->ts_first + NSEC_PER_MSEC)
+                                  wave6_vpu_dec_stop_streaming()
+                                    wave6_vpu_reset_performance()
+                                      memset(&inst->performance, 0, ...)
+    duration =3D ktime_ms_delta(
+        perf->ts_last, perf->ts_first)
+    DIV64_U64_ROUND_CLOSEST(
+        tmp, duration)  <-- divide-by-zero when duration =3D=3D 0
 
-If the supplier finishes unbinding in the window between dropping
-qdcp_providers_lock and calling device_link_add(), supplier->links.status
-is already DL_DEV_NO_DRIVER, so device_link_init_status() initializes
-link->status to DL_STATE_DORMANT rather than DL_STATE_SUPPLIER_UNBIND.
-devm_qdcp_get() then succeeds on a provider whose QMI handle was released
-and triggers WARN_ON(link->status !=3D DL_STATE_CONSUMER_PROBE) in
-device_links_driver_bound().
+Unlike wave6_vpu_reset_performance(), this path does not check duration > 0
+before dividing, and if only perf->ts_last is seen zeroed, duration becomes
+negative and is cast to a large u64 divisor.
 
-Even when device_link_add() runs while the supplier is still in
-DL_DEV_UNBINDING (setting link->status to DL_STATE_SUPPLIER_UNBIND), the
-new DL_FLAG_AUTOREMOVE_CONSUMER link stays on supplier->links.consumers
-until the consumer's probe failure path runs device_links_no_driver(), so
-device_links_driver_cleanup() on the supplier can win the race and hit
-WARN_ON(device_link_test(link, DL_FLAG_AUTOREMOVE_CONSUMER)).
+> +	duration =3D div_u64(perf->total_sw_time, NSEC_PER_MSEC);
+> +	if (duration > 0) {
+> +		fps =3D DIV64_U64_ROUND_CLOSEST(tmp, duration);
+> +		seq_printf(s, " sw: %lld;", fps);
+> +	}
+> +	duration =3D div_u64(perf->total_hw_time, NSEC_PER_MSEC);
+> +	if (duration > 0) {
+> +		fps =3D DIV64_U64_ROUND_CLOSEST(tmp, duration);
+> +		seq_printf(s, " hw: %lld", fps);
+> +	}
+> +	seq_putc(s, '\n');
+> +
+> +	ms[0] =3D div_s64_rem(perf->latency_first, NSEC_PER_MSEC, &ns[0]);
+> +	ms[1] =3D div_s64_rem(perf->latency_max, NSEC_PER_MSEC, &ns[1]);
+> +	ms[2] =3D div_s64_rem(ktime_sub(perf->ts_first, perf->ts_start), NSEC_P=
+ER_MSEC, &ns[2]);
+> +	seq_printf(s, "latency(ms) first: %lld.%06d, max %lld.%06d, setup %lld.=
+%06d\n",
+> +		   ms[0], ns[0], ms[1], ns[1], ms[2], ns[2]);
+
+[Severity: Low]
+What happens to the setup latency output if the debugfs file is read before
+the instance reaches VPU_INST_STATE_PIC_RUN?
+
+perf->ts_start is set when the instance is created (before
+wave6_vpu_create_dbgfs_file() exposes the debugfs entry in
+VPU_INST_STATE_OPEN), whereas perf->ts_first remains 0 until
+wave6_vpu_dec_prepare_fb() or wave6_vpu_enc_prepare_fb() transitions the
+instance to VPU_INST_STATE_PIC_RUN.  Reading debugfs in VPU_INST_STATE_OPEN
+or VPU_INST_STATE_INIT_SEQ passes -perf->ts_start to div_s64_rem(),
+producing a negative quotient ms[2] and a negative remainder ns[2] formatted
+with %lld.%06d (e.g. "setup -12345.-678900").
+
+[ ... ]
+
+> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu-dec.c b/d=
+rivers/media/platform/chips-media/wave6/wave6-vpu-dec.c
+> index 7eab283ec9e70..4fa4371545f9b 100644
+> --- a/drivers/media/platform/chips-media/wave6/wave6-vpu-dec.c
+> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu-dec.c
+[ ... ]
+> @@ -1670,6 +1684,7 @@ static void wave6_vpu_dec_stop_streaming(struct vb2=
+_queue *q)
+>  		goto exit;
+> =20
+>  	if (V4L2_TYPE_IS_OUTPUT(q->type)) {
+> +		wave6_vpu_reset_performance(inst);
+>  		inst->queued_src_buf_num =3D 0;
+>  		inst->processed_buf_num =3D 0;
+>  		inst->error_buf_num =3D 0;
+
+[Severity: Medium]
+Does zeroing inst->performance on OUTPUT stop_streaming() leave
+perf->ts_start and perf->ts_first at 0 when OUTPUT streaming is restarted?
+
+During a decoder seek (VIDIOC_STREAMOFF followed by VIDIOC_STREAMON on the
+OUTPUT queue), wave6_vpu_dec_stop_streaming() clears inst->performance and
+moves inst->state to VPU_INST_STATE_SEEK.  When OUTPUT streaming restarts,
+wave6_vpu_dec_start_streaming() restores inst->state directly to
+inst->state_in_seek without calling wave6_vpu_record_performance_timestamps=
+():
+
+drivers/media/platform/chips-media/wave6/wave6-vpu-dec.c:wave6_vpu_dec_star=
+t_streaming() {
+	...
+	if (V4L2_TYPE_IS_OUTPUT(q->type)) {
+		fmt =3D &inst->src_fmt;
+		if (inst->state =3D=3D VPU_INST_STATE_NONE) {
+			ret =3D wave6_vpu_dec_create_instance(inst);
+			...
+		}
+		if (inst->state =3D=3D VPU_INST_STATE_SEEK)
+			wave6_vpu_set_instance_state(inst, inst->state_in_seek);
+	}
+	...
+}
+
+The same happens in the encoder when the OUTPUT queue is stopped and
+restarted while CAPTURE remains streaming in VPU_INST_STATE_PIC_RUN.
+Because perf->ts_first stays 0 while perf->ts_last updates on each decoded
+or encoded frame, ktime_ms_delta(perf->ts_last, perf->ts_first) in debugfs
+and wave6_vpu_reset_performance() divides by total system uptime since boot.
+
+> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu-enc.c b/d=
+rivers/media/platform/chips-media/wave6/wave6-vpu-enc.c
+> index 4a0739033d1a9..ca2d4051f9adf 100644
+> --- a/drivers/media/platform/chips-media/wave6/wave6-vpu-enc.c
+> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu-enc.c
+[ ... ]
+> @@ -2363,6 +2375,7 @@ static void wave6_vpu_enc_stop_streaming(struct vb2=
+_queue *q)
+>  		goto exit;
+> =20
+>  	if (V4L2_TYPE_IS_OUTPUT(q->type)) {
+> +		wave6_vpu_reset_performance(inst);
+>  		inst->queued_src_buf_num =3D 0;
+>  		inst->processed_buf_num =3D 0;
+>  		inst->error_buf_num =3D 0;
+
+[Severity: Medium]
+Is wave6_vpu_reset_performance() skipped whenever the encoder CAPTURE queue
+stops streaming before the OUTPUT queue?
+
+In wave6_vpu_enc_stop_streaming(), stopping the CAPTURE queue calls
+wave6_vpu_enc_destroy_instance(inst, true), which sets inst->state to
+VPU_INST_STATE_NONE.  When wave6_vpu_enc_stop_streaming() is then called for
+the OUTPUT queue (for example via v4l2_m2m_ctx_release() on file close,
+which always stops CAPTURE before OUTPUT, or via VIDIOC_STREAMOFF on CAPTURE
+first), the early check:
+
+	if (inst->state =3D=3D VPU_INST_STATE_NONE)
+		goto exit;
+
+bypasses wave6_vpu_reset_performance(inst) and the counter resets.  This
+skips logging the performance summary and leaves stale metrics and non-zero
+ts_start / ts_first values in inst->performance if streaming is restarted on
+the same file descriptor.
+
+> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu-v4l2.c b/=
+drivers/media/platform/chips-media/wave6/wave6-vpu-v4l2.c
+> index 6980b126dee55..3ec01ec867dfc 100644
+> --- a/drivers/media/platform/chips-media/wave6/wave6-vpu-v4l2.c
+> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu-v4l2.c
+[ ... ]
+> @@ -228,6 +231,20 @@ void wave6_vpu_set_instance_state(struct vpu_instanc=
+e *inst,
+>  	inst->state =3D state;
+>  }
+> =20
+> +u64 wave6_vpu_cycle_to_ns(struct vpu_core_device *core, u64 cycle)
+> +{
+> +	unsigned long rate;
+> +
+> +	if (!core->num_clks || !core->clks)
+> +		return 0;
+> +
+> +	rate =3D clk_get_rate(core->clks[0].clk);
+> +	if (!rate)
+> +		return 0;
+> +
+> +	return div64_ul(cycle * NSEC_PER_SEC, rate);
+> +}
+
+[Severity: Medium]
+Does wave6_vpu_cycle_to_ns() always return 0 because the clocks belong to
+core->vpu rather than core?
+
+In the Device Tree binding (nxp,imx95-vpu.yaml), the clocks property is on
+the parent VPU node and is acquired into vpu->clks by wave6_vpu_probe(),
+whereas the child interface nodes used to create the wave6-vpu-core devices
+have no clocks property.  As a result, core->num_clks is 0, per-frame
+hw_time and perf->total_hw_time remain 0, and hardware FPS is never
+reported.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-introduce-=
-qcom-qecp-feature-v1-0-b1a730d2c57a@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795075577.gi=
+t.nas.chung@chipsnmedia.com?part=3D9
