@@ -1,73 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795074551;
-	b=dX+TRyZiMls6JOFK7Qg0n4V4he6skAaVZ4/+vrXk6On1c+4IdaEYN5NcrlKOO5qvEvnh
-	 dWlt0QsP6kFZJDyqmxIflUu7YERnU+hd9Kbd2/g1bQnQVaWEoMogjWgRu83lo1RUzRYhB
-	 cmXwn7wEqnjADUgi2xgXB0KZSWkqFZP7SQZhjCk8i0dnIZKMrnittrTHY+jt4IkpNBjEO
-	 NDAXcOaiVBKxboicCYvZv7bAXkq3zKdtNKxMq46DmJSlYCWXDBRLoeohRJDY5mFFbKg99
-	 H675uunyOi71krgRRx7WkZhnk+gCXAi7+TQ2dk3Oe2RGmqN9FZIOqqFD/9MFQDo14cw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795074551;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=AlwETNNCgQuoL3olEu8hotUVCo0wqZYULOda47vcNrw=;
-	b=g6BcKqumaSoCb8z6Juqp6O+iZg6qJ0LZmz7OjYVSJP/v/0QhRosQVpKzW5guxRogKRSe
-	 ICl21OZkdcex84vznMkgy3O/ITE+29+dyiG9b1mAzYqsxfUW83mjTfXHOBSuCaI8yTbxz
-	 Ad5Pdostt8dnz3qIJNt2QYp8g286spsbRtNhRBrNOfaqlq92F0GLWISDfAZf1J6hyn0be
-	 J4xldnB1QAb7Q1dhIQNASHqQVTQIH9A5udyQhCJuCIEbeu/1GOqsCrqIxU66ADlVtYH2x
-	 O1iKGTte37DFV2KVKAW9xPCUhfeyPciBF9oFLgvo069sD/BRWbop2gIuodnIDzaSzVQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.181
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795074960;
+	b=nnZTHyym1IMbrPwFT1ZJ/fR9eFkH41lnYYD2myCMngntHfJE51H+5qAzGAANlYrFPGkU
+	 5pBTcpDJNnGyHv5o7NyoPh5IhW1pzKJ7/XlOk4rg5tw0YEGwKHBatLs5LCKAmq2eFFBLY
+	 lXGSTghIMW8aB/wEM7Sn2ik+3kp4tCLmkcR5pwA21+47xVKr97k38/oUMxMsepMqXVpnI
+	 UF2zVr9daj0I9lLRVIe/8Cu/GjR9xzTGuti2EFtgUVPCe/nitCOASgt1AHn2Wm0ziVkR3
+	 kwWgWawELJZ345H1sadg3rRk514Qnt+5Ig0Ha4WXOeiJn3SSstQ/YaipID/QiAYUxKA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795074960;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=glNQGelvD/kDLrH/fiSkPVz0Z5oOzNw/2XFScRnp138=;
+	b=UUc/eMPwjIraEMJCGYy9YwqT2goVD9yWdlWojYHqH1v6Mjnc3bk56uQAOtvwVw3OjzGQ
+	 bXOpxJLLetfGIQrRd4/WuEQtAdIfP7pZBVgZqckmaJEsdHLmxajpn/OrWrJSI9nbcZ7gX
+	 88W9srLSCimTVI/DMVUEC/NHyLh6TV5B7wj+XhsSLRGdBIgoC2qwJRmug8Ly5rY4WlFEr
+	 /AIOcBdukrqUCOSlDwFr5MIQmfrreliyKQQPdrzEbBsSSUGoS0aOWvPwNgtFEbNAy/Ds/
+	 QA+5kwovpd1Rb64bG+NZWdvoOTsFVARtchCMnoa0o6oNZ1DoVC5XXjxmjA/mL29GJEw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PVYFBKnq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.177
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA71B606A320
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 07:49:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA71B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eadef147ffso1270004e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 23:49:10 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E9D606A320
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 07:55:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9E9D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PVYFBKnq
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b4e04eda5aso16414897b3.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 23:55:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795074959; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sqNR8SnlrUqv0jgFfWC69dOKEvxsPkhHjllobVbxzExvYIICTnEEo7r+eULyjgrYah
+         0eQDrqmgtpvtddD1aEGeatTvXyCEHu33UuifSLW8Nk8NPTEhL63wBu9HhVIzXxUEs+tI
+         6rAoo+asqo8RV0yKNewqYlhXHtOMWeeUAI/VHT7veRmwngwG2F4zE/cXttQ06I7jp8fP
+         GP3LEwetYLLhiNnST++9FXa/I/WzWsCXof72QNzpcKblPlreDV+/j3eVkFGxXQlVSWwk
+         tLGxDbQvRpjaGbbEsihNnyzYczW56pL+I4hm4XeMcB/ZlKwehicIopXK3mw5daVJZfl8
+         PU2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=glNQGelvD/kDLrH/fiSkPVz0Z5oOzNw/2XFScRnp138=;
+        fh=a4oW9e39+GvCMhzUyLmuuQ09/wuq/RrqTWHPmhXHNsQ=;
+        b=qD3YycKPVMLU6UrAB9UaACEXyHHy+8GpbtnRca6kISjLkybNBXLg8LvFs5gHhQ3tUv
+         ob85bsUABoVMO4vIUrtCjrWMqBC29bNXc8VJukyOgP/glTqCch5pCTew+PrUsxXa7hgG
+         i8Ip+TnKOWKAQ3vVAmzEeunp8hkbjrjZiPLGhjqralDSTns+UBZNl3zykxXwaZEaVSvb
+         JrvGHoTWG6axekn3Ekucl+jvJ+WDZ660z/N9o0gpa8RCFtig920w2W40UrZ8TNcE4TgJ
+         eaTsuCwB5RXx735yDrfVZsnJj1G5DsgZL4yYvJMcn0nbM4W0JUxqUX+gjVdme+nZ+zP8
+         YjXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795074959; x=1795679759; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=glNQGelvD/kDLrH/fiSkPVz0Z5oOzNw/2XFScRnp138=;
+        b=PVYFBKnqIYi8G5pSLWwcT7zZHYcZEN1a6HlNWUl7FyInIBVHF0nAHNB2clR4xpKZzH
+         xxMZGABs3emLJXMqzBtBvGDG69uW3bSbCCT4Ep0bD8mq32Jtv0YLIYY5098DzRjRUfYn
+         C3bHdetInuTfQnx6zYaqGkm2PuHd8Cm2rpZAA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795074550; x=1795679350;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AlwETNNCgQuoL3olEu8hotUVCo0wqZYULOda47vcNrw=;
-        b=AsUD+PKch7uVKMbI68J/L/+FKaGFNpz9VNX8IEpnBvHF/m+yDI3vQT95+IWiBmL8v7
-         QEJubuOaSLzc155+Ta59mPDrBCqbH1LL+3ajhNdahesyEkb3w64lRON2f7NRcr5/iZLv
-         IIPIRonxxLPIxyjtH72PZSiEQZLHxXbbJfi79s5HnP3p0Rlpk47zcScgFAhjA8d+mZOj
-         QziL5EH8Cpc8jncizDjUOYjKigHykNnGhK5ZWT5A21QoiPIFEkiAwdnyl7uxg3JEZ4mI
-         gSmjxKr7UqMencSEcNQrp5aYNHQ6Rt9gO5rpwA7k9C2cDKNbZoOM/bChVx7Jftoagdn9
-         JwWQ==
-X-Gm-Message-State: APuU4Z9PiYeFvInMezy//nR8z8EWqML2haafm+KAsMZAyHEZSfP/YjbE
-	ZYDbzgSc2zUunFyMcy5IKOcIIJP824y4OCgwtU9BcddTC5GexK9jxPIVOmF3QHzZ
-X-Gm-Gg: AYBFou0KaIIAioX9tkAm+Qacic6e0/yRAM5v/eTchGCanvrmJ65q8iEg9DPYJo/y6ey
-	h/r7le8UX+lr30yrGUNCxtbxvBA7I2F7PInrAr9Ib9RwgEth6TwbAYaNM9/flnQBxPwO58DaxS0
-	kPfKrmWPJnSgZPEOUzek3JoCzWTv6yZzt/yeA1aHNzVvyRJTEECryql9gpOfVpJE3/Ey5XmuO9S
-	M1EzJ7iV4gR33CBQsvrCrUuDemal2Q+aci+U0TLRE9AQMKD5vgk7303oiN9lqqI4t1RoKdwikQs
-	83MstGETvVP3tP01v+CRfFG1Jx6W/4Qkl86xLUWnBTgdAy59A9YqtPUyFBBArCkIfSoOY19w0GQ
-	jkbe22i14jLsGy4aqaQkk6kuB1e5zoiBRssOFwgc1NG/JM5V148ww185P8TjKEhU/Lz4GXHDjso
-	S4UngKMjbRWR1CqFmgDV31EnKd2aId/DUkmLc1WGWUHLxKzPiP/4snsGf3CzM91k+2b1Kp1aB2e
-	tpfTMHS8rxFRLRMbYlY0LQuwmSE9vVFYS+pkNkCx+ov0kL4NP7CGMj1m1s+baxLrKiQ4P5cfEXP
-	6XyY2wJnIKNIcnQ56dOgTXbegCicDnNjmI/Dt/fCAKMw/Ap7rDTl5zd4WC8UuPnh6e4=
-X-Received: by 2002:a05:6122:4307:b0:5de:ee96:75b with SMTP id 71dfb90a1353d-5ee64727ccamr2885984e0c.12.1795074549710;
-        Wed, 18 Nov 2026 23:49:09 -0800 (PST)
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com. [209.85.217.52])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee64ec2730sm3608079e0c.14.2026.11.18.23.49.09
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 23:49:09 -0800 (PST)
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7d2bf046ceaso1191745137.3
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 23:49:09 -0800 (PST)
-X-Received: by 2002:a05:6102:370c:b0:7d2:c903:515d with SMTP id
- ada2fe7eead31-7d6ba3e8cc5mr2280659137.7.1795074549276; Wed, 18 Nov 2026
- 23:49:09 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795074959; x=1795679759;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=glNQGelvD/kDLrH/fiSkPVz0Z5oOzNw/2XFScRnp138=;
+        b=NzJunPt34xFNsODG6Lh3MM9cFQg4G9481Sqr7aRNxwp571bK0niBPlXiCo/lTgjPtY
+         2k9UbPu2x3FOnFKnS8boFSUcj7Vm1gIFYrTwowc64R/DRkhd5Q8B1VWUodfGNj+lvwgq
+         qc/LWv8yfpmrjFLipkVQtG729rPufU8PAlVJjAJ5vcM1lHZG7o51OaHqZoRpjIH9SJmw
+         2uqzdddD8Y6POwcgDi36JkLpS4GmIJdPZlgQSkupkkGr7gBtDsCUB86BSFNvqLran1xF
+         xi9bkFLZ3TgGnXLkRUjgb1vzo2ZtsJggIAwqp1Md7O4+oDv5rnQyVC0gUerxhEKS6SLK
+         g2gA==
+X-Forwarded-Encrypted: i=1; AL+hErHhDi4BjDIMyYsiREguEyNggCuOiOZY1Nep25B9mcKtbwB2o/+/1T9VicMRB8pT7Kkv4BhHNPisw5Ka@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Y/6i7IyLZFCVTbPlEUjmzGNEwEnGTcS6Ou/C7rW9zarOUovRW
+	0JZPJSAtcgWukvxwqy9WvK3JhPkaPbilsGIfSecPFPGHKLhKb/ivZ64KnIlEIHFwo5k87cx17KU
+	aVmubjFqUNj4od57A73z58E7rV5mUKM+vucH2we12
+X-Gm-Gg: AZFdTZdgW9O0kzydNuQQfV25fctcWHVfTdxqHEqeeite1vyu6NzuBA8ylExKeYZBbno
+	KDvm7X2V64/bt54zYRfH8IEnvQiMChS3UdL1aHeTdDdeXlIo/XF2arx7UZTlg+R965zIOgeLIwc
+	EEi3kHgeSqCf0bLhzERsKxxWpm6HXWaBA60o6PiMVlkjbMPraok3VoKeZldOWsFi8mlN0ifDusR
+	c1JI4wrBzz85+//oU5TXT+cvcpNLaeob7kSaqoRj2q+lKxOICuZwm6Uw0JQ0r7CYGVnTnWdHRrE
+	dCD60pLBntrYbZfI4i6zLb0FpqlmFIMbERaxN71setV1EKgbmsLW+BKI7z6qScntDy0pP1oLgGW
+	jqPFeAsYQ6ppQiEVmK+yJcWJcdKM4RaMs3XPfBw/QJuSmceVo2qU0AnwuHR3hMavWPls=
+X-Received: by 2002:a05:690e:4853:b0:67d:a059:2f39 with SMTP id
+ 956f58d0204a3-67dd3f1b3efmr1369617d50.21.1795074958750; Wed, 18 Nov 2026
+ 23:55:58 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,246 +101,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1795029012.git.geert+renesas@glider.be> <e6816327da51f9fbeef67f13aac723b891e5042f.1795029012.git.geert+renesas@glider.be>
- <sashiko-outbox-221928@kernel.org>
-In-Reply-To: <sashiko-outbox-221928@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 19 Nov 2026 08:48:57 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXgOvdAAJEEydip_-Aakf8j3ORXnZAS-=NqCMBxHwrfZA@mail.gmail.com>
-X-Gm-Features: Aa3M54qMY9KEs6Xlpwbmw0a9TWCYDcZMChPHFmIneFq8gUbTr8Q3_1H7DUbenEE
-Message-ID: <CAMuHMdXgOvdAAJEEydip_-Aakf8j3ORXnZAS-=NqCMBxHwrfZA@mail.gmail.com>
-Subject: Re: [PATCH v5 14/15] pmdomain: renesas: r8a78000: Add SCMI remapping support
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, 
-	conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+References: <20261030103418.2355854-1-wenst@chromium.org> <179491350817.164578.3923681659802112857.b4-ty@b4>
+In-Reply-To: <179491350817.164578.3923681659802112857.b4-ty@b4>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Thu, 19 Nov 2026 15:55:47 +0800
+X-Gm-Features: AclHuK_NKKojwe2jAIh6fAUopYilD5lO7S60sKZvTblPy9cW1Wbrg51aFpv1c_s
+Message-ID: <CAGXv+5FiRyp6MzTdOo3KygM1w20YPD+eCG=-K+VVbPZUYsQQnA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] arm64: dts: mediatek: mt8192-asurada: Add ramp-delay
+ for MT6315 regulators
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>, linux-mediatek@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sashiko,
-
-On Wed, 18 Nov 2026 at 21:22, <sashiko-bot@kernel.org> wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issues to consider:
-> - [Medium] pmdomain: renesas: leak of exclusive reset controls in
->   r8a78000_mdlc_probe()
-> - [Medium] pmdomain: renesas: leak of scmi_clk_np reference in
->   r8a78000_mdlc_probe()
-> - [Low] pmdomain: renesas: mixed scoped_guard() and goto in
->   r8a78000_mdlc_attach_dev()
-> --
+On Tue, Nov 17, 2026 at 7:05=E2=80=AFPM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
 >
-> commit 35d53b7b58584e545d3609ea7bb1ae4726d2bdc8
-> Author: Geert Uytterhoeven <geert+renesas@glider.be>
->
-> pmdomain: renesas: r8a78000: Add SCMI remapping support
->
-> This commit extends the R-Car X5H Module Controller driver to remap
-> hardware power domain, module clock, and reset IDs to SCMI power domains,
-> clocks, and resets when SCMI firmware support is available.
-
-Thanks for your review!
-
-> > --- a/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> > +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> [ ... ]
-> > @@ -178,8 +280,148 @@ static int r8a78000_mdlc_attach_dev(struct generic_pm_domain *domain,
-> >               return -ENOENT;
-> >       }
+> On Fri, 30 Oct 2026 18:34:15 +0800, Chen-Yu Tsai wrote:
+> > On Asurada, the MT6315 buck regulators (Vbcpu, Vlcpu, and Vgpu) are
+> > missing the regulator-ramp-delay property. Without the slew rate
+> > specified, voltage increases may not have settled before switching CPU
+> > or GPU to higher operating points, risking undervoltage crashes.
 > >
-> > -     dev_dbg(dev, "Ignoring HW module 0x%x\n", id);
-> > +     if (!priv->scmi_clk_np) {
-> > +             dev_dbg(dev, "Ignoring HW module 0x%x\n", id);
-> > +             return 0;
-> > +     }
-> > +
-> > +     entry = &priv->mod_map->entries[idx];
-> > +     dev_dbg(dev, "Mapping HW module 0x%x to SCMI clock %d fck parent %d\n",
-> > +             id, entry->fw_id, entry->fw_fck_parent);
-> > +
-> > +     clk = scmi_get_clk(dev, priv->scmi_clk_np, entry->fw_id);
-> > +     if (IS_ERR(clk))
-> > +             return PTR_ERR(clk);
-> > +
-> > +     parent = scmi_get_clk(dev, priv->scmi_clk_np, entry->fw_fck_parent);
-> > +     if (IS_ERR(parent)) {
-> > +             ret = PTR_ERR(parent);
-> > +             goto fail_put_clk;
-> > +     }
-> > +
-> > +     if (!clk && !parent) {
-> > +             /* Ignore missing SCMI clocks */
-> > +             return 0;
-> > +     }
-> > +
-> > +     ret = pm_clk_create(dev);
-> > +     if (ret)
-> > +             goto fail_put_parent;
-> > +
-> > +     if (parent) {
-> > +             ret = pm_clk_add_clk(dev, parent);
-> > +             if (ret) {
-> > +                     pm_clk_destroy(dev);
-> > +                     goto fail_put_parent;
-> > +             }
-> > +     }
-> > +     if (clk) {
-> > +             ret = pm_clk_add_clk(dev, clk);
-> > +             if (ret) {
-> > +                     pm_clk_destroy(dev);
-> > +                     goto fail_put_clk;
-> > +             }
-> > +     }
-> >       return 0;
-> > +
-> > +fail_put_parent:
-> > +     clk_put(parent);
-> > +fail_put_clk:
-> > +     clk_put(clk);
-> > +     return ret;
-> > +}
->
-> [Severity: Low]
-> This isn't a bug, but r8a78000_mdlc_attach_dev() already uses
-> scoped_guard(mutex, &r8a78000_mdlc_lock), and adding goto-based error
-> unwinding in the same function mixes cleanup.h helpers with goto labels.
-> Factoring either the list lookup or the PM clock setup into a helper
-> would keep them separate.
-
-Not a bug, will see if I get to it...
-
-> > +static struct reset_control **get_rstcs(struct r8a78000_mdlc_priv *priv,
-> > +                                     struct fwnode_handle *scmi_reset_fwnode)
-> > +{
-> > +     const struct mod_id_map *map = priv->mod_map;
-> > +     struct fwnode_reference_args scmi_spec;
-> > +     struct reset_control **rstcs, *rstc;
-> > +     struct device *dev = priv->dev;
-> > +     s16 fw_id;
-> > +
-> > +     if (!map)
-> > +             return NULL;
-> > +
-> > +     rstcs = devm_kzalloc_objs(dev, *rstcs, map->size);
-> > +     if (!rstcs)
-> > +             return ERR_PTR(-ENOMEM);
-> > +
-> > +     for (unsigned int i = 0; i < map->size; i++) {
-> > +             fw_id = map->entries[i].fw_id;
-> > +             if (!scmi_reset_fwnode || fw_id < 0)
-> > +                     continue;
-> > +
-> > +             scmi_spec.fwnode = scmi_reset_fwnode;
-> > +             scmi_spec.nargs = 1;
-> > +             scmi_spec.args[0] = fw_id;
-> > +
-> > +             rstc = reset_control_get_from_provider_exclusive(&scmi_spec);
-> > +             if (IS_ERR(rstc)) {
-> > +                     while (i--)
-> > +                             reset_control_put(rstcs[i]);
-> > +
-> > +                     return dev_err_cast_probe(dev, rstc,
-> > +                                     "Failed to get SCMI reset %u\n", fw_id);
-> > +             }
-> > +
-> > +             rstcs[i] = rstc;
-> > +     }
-> > +
-> > +     return rstcs;
-> >  }
->
-> [Severity: Medium]
-> Does r8a78000_mdlc_probe() leak the exclusive reset_control objects in
-> priv->rstcs if a later registration step fails?
->
-> reset_control_get_from_provider_exclusive() returns unmanaged references,
-> and get_rstcs() only calls reset_control_put() when its own loop fails.
-> If a subsequent call in r8a78000_mdlc_probe() such as
-> of_genpd_add_provider_onecell() or devm_reset_controller_register() fails,
-> the reset controls are leaked and remain marked exclusively acquired, so a
-> later probe retry will fail with -EBUSY.  Registering a
-> devm_add_action_or_reset() callback in get_rstcs() would release them on
-> probe failure.
-
-Thanks, will do.
-
-> > @@ -249,6 +500,47 @@ static int r8a78000_mdlc_probe(struct platform_device *pdev)
-> >       priv->dev = dev;
-> >       priv->np = np;
+> > Add regulator-ramp-delay properties matching the slew rates configured
+> > by firmware, with values provided by MediaTek: 8000 uV/us for Vbcpu, an=
+d
+> > 4500 uV/us for Vlcpu and Vgpu.
 > >
-> > +     if (!IS_ENABLED(CONFIG_ARM_SCMI_POWER_DOMAIN) ||
-> > +         !IS_ENABLED(CONFIG_COMMON_CLK_SCMI) ||
-> > +         !IS_ENABLED(CONFIG_RESET_SCMI)) {
-> > +             dev_dbg(dev, "SCMI pmdomain/clock/reset support is disabled\n");
-> > +             goto fallback;
-> > +     }
-> > +
-> > +     scmi = of_find_compatible_node(NULL, NULL, "arm,scmi");
-> > +     if (!scmi) {
-> > +             dev_dbg(dev, "Cannot find SCMI firmware node\n");
-> > +             goto fallback;
-> > +     }
-> > +
-> > +     if (!of_device_is_available(scmi)) {
-> > +             dev_dbg(dev, "SCMI firmware node is not available\n");
-> > +             goto fallback;
-> > +     }
-> > +
-> > +     scmi_power_np = scmi_find_proto(scmi, SCMI_PROTOCOL_POWER);
-> > +     if (!scmi_power_np) {
-> > +             dev_dbg(dev,
-> > +                     "Cannot find SCMI power domain management protocol\n");
-> > +             goto fallback;
-> > +     }
-> > +
-> > +     scmi_clk_np = scmi_find_proto(scmi, SCMI_PROTOCOL_CLOCK);
-> > +     if (!scmi_clk_np) {
-> > +             dev_dbg(dev, "Cannot find SCMI clock management protocol\n");
-> > +             goto fallback;
-> > +     }
-> > +
-> > +     scmi_reset_np = scmi_find_proto(scmi, SCMI_PROTOCOL_RESET);
-> > +     if (!scmi_reset_np) {
-> > +             dev_dbg(dev, "Cannot find SCMI reset management protocol\n");
-> > +             goto fallback;
-> > +     }
-> > +
-> > +     priv->scmi_clk_np = scmi_clk_np;
-> > +     info = mdlc_data->fw_info;
-> > +
-> > +fallback:
+> > [...]
 >
-> [ ... ]
+> Applied to v7.4-next/dts64, thanks!
 >
-> > @@ -295,11 +604,14 @@ static int r8a78000_mdlc_probe(struct platform_device *pdev)
-> >               return dev_err_probe(dev, ret,
-> >                                    "Failed to register reset controller\n");
-> >
-> > +     /* Retained in priv->scmi_clk_np */
-> > +     retain_and_null_ptr(scmi_clk_np);
-> > +
-> >       return 0;
-> >  }
+> [1/3] arm64: dts: mediatek: mt8192-asurada: Add ramp-delay for MT6315 reg=
+ulators
+>       commit: 9c9f83e3368d27d1e0ba55827a171ebf551c3d0c
+
+It looks like commit 9c9f83e3368d27d1e0ba55827a171ebf551c3d0c ("arm64: dts:
+mediatek: mt8192-asurada: Add ramp-delay for MT6315 regulators") ended up
+with the regulator-ramp-delay values for Vbcpu and Vlcpu swapped:
+
+- mt6315_6_vbuck1 (Vbcpu) got regulator-ramp-delay =3D <4500> (should be 80=
+00)
+- mt6315_6_vbuck3 (Vlcpu) got regulator-ramp-delay =3D <8000> (should be 45=
+00)
+
+Do you want me to send a followup patch to swap them around, or do you
+want to handle it and fix it up directly in your tree?
+
+
+Thanks,
+ChenYu
+
+> [2/3] arm64: dts: mediatek: mt8195-cherry: Fix ramp-delay for Vgpu
+>       commit: 04560888cde5fd8adc325a6ce47466f80b8c668f
+> [3/3] arm64: dts: mediatek: mt8186-corsola-voltorb: Add MT6319 ramp-delay
+>       commit: 929638df9f3b36665efd60ac71f1eed4ba36a0a5
 >
-> [Severity: Medium]
-> Does retain_and_null_ptr(scmi_clk_np) leak the scmi_clk_np device_node
-> reference when the fallback path is taken after scmi_clk_np has been
-> found?
+> Cheers,
+> Angelo
 >
-> If scmi_find_proto(scmi, SCMI_PROTOCOL_CLOCK) succeeds but
-> scmi_find_proto(scmi, SCMI_PROTOCOL_RESET) returns NULL, probe jumps to
-> fallback before setting priv->scmi_clk_np = scmi_clk_np, and then
-> unconditionally clears scmi_clk_np via retain_and_null_ptr(scmi_clk_np)
-> at the end of r8a78000_mdlc_probe().
-
-That is correct behavior, as scmi_clk_np won't be handed to
-priv->scmi_clk_np in the fallback case.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+>
