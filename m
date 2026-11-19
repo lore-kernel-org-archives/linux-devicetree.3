@@ -1,97 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795074960;
-	b=nnZTHyym1IMbrPwFT1ZJ/fR9eFkH41lnYYD2myCMngntHfJE51H+5qAzGAANlYrFPGkU
-	 5pBTcpDJNnGyHv5o7NyoPh5IhW1pzKJ7/XlOk4rg5tw0YEGwKHBatLs5LCKAmq2eFFBLY
-	 lXGSTghIMW8aB/wEM7Sn2ik+3kp4tCLmkcR5pwA21+47xVKr97k38/oUMxMsepMqXVpnI
-	 UF2zVr9daj0I9lLRVIe/8Cu/GjR9xzTGuti2EFtgUVPCe/nitCOASgt1AHn2Wm0ziVkR3
-	 kwWgWawELJZ345H1sadg3rRk514Qnt+5Ig0Ha4WXOeiJn3SSstQ/YaipID/QiAYUxKA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795074960;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795075099;
+	b=qwCnYJbfK5aMoY5s8sW4SW36S85viLpoACXcfEfiBFiCp1K1Bi2HwaT+sA8Os3YrqiHT
+	 dTCbSDJnubdATtuRFGbMm5bMfCZvn85g+AKQt572ccT3fAd24h4xFfi5jZQNsrplwRo6n
+	 95dTfsk6hoYxE3bvPjW/KmST46IEzPbfD5gLMbPG+Ha+1dlUzOaPCbLc/AkOGS/nBpPNj
+	 F/BDGf2aQuhW76RGODPrVosHrRzvkNLHe+GlBn/THElTGZVt06tDybRNPiwlO/jWqVfsB
+	 XIQqaQmNqKlxOAgxAxkh7wnvaIC7gL+hY0/zZe088/c5WXuJSqEZX+KWWNJOQ9XDF1g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795075099;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=glNQGelvD/kDLrH/fiSkPVz0Z5oOzNw/2XFScRnp138=;
-	b=UUc/eMPwjIraEMJCGYy9YwqT2goVD9yWdlWojYHqH1v6Mjnc3bk56uQAOtvwVw3OjzGQ
-	 bXOpxJLLetfGIQrRd4/WuEQtAdIfP7pZBVgZqckmaJEsdHLmxajpn/OrWrJSI9nbcZ7gX
-	 88W9srLSCimTVI/DMVUEC/NHyLh6TV5B7wj+XhsSLRGdBIgoC2qwJRmug8Ly5rY4WlFEr
-	 /AIOcBdukrqUCOSlDwFr5MIQmfrreliyKQQPdrzEbBsSSUGoS0aOWvPwNgtFEbNAy/Ds/
-	 QA+5kwovpd1Rb64bG+NZWdvoOTsFVARtchCMnoa0o6oNZ1DoVC5XXjxmjA/mL29GJEw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PVYFBKnq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.177
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:References:
+	 Content-Language:Autocrypt:Organization:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pdQlb2CsGbWPGWlbFcx6D3f/AbXcJrTux+zl7o+qrMU=;
+	b=FrHet0wnxZnUJIn4nSbwKPP+Qj1qslmrghHODGFuvTHQoeSIYULqWpfQe2bLCxERP5n0
+	 bGfMmZ9Uxq/UHILJDhCFtDWSPhkOGm1e2nyJur8/CJuvruJOUWhh9kXrgBowFOrKYIkWX
+	 hdx6vIfJZ0O++9rNEaWnH+1bJqdWgXNWCKnCaOcqbF2+dCDNrSeDEiBopeRTmKcLe8mvF
+	 XklV0WjpIAembFbJQAarOk01oeb+Qs6zMbItfcHDQStg6/aW4JCmPZHtXnPJ0xrLfJc8x
+	 VY+mP2VbiUgNZkeOCJVX3fZ4eaeLPq/Hwgl8X6zerRwXJTLIJr7zmjmrYk08EZ/brYw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=obzcTnY7;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E9D606A320
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 07:55:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9E9D606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53822606A324
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 07:58:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53822606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PVYFBKnq
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b4e04eda5aso16414897b3.1
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 23:55:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795074959; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sqNR8SnlrUqv0jgFfWC69dOKEvxsPkhHjllobVbxzExvYIICTnEEo7r+eULyjgrYah
-         0eQDrqmgtpvtddD1aEGeatTvXyCEHu33UuifSLW8Nk8NPTEhL63wBu9HhVIzXxUEs+tI
-         6rAoo+asqo8RV0yKNewqYlhXHtOMWeeUAI/VHT7veRmwngwG2F4zE/cXttQ06I7jp8fP
-         GP3LEwetYLLhiNnST++9FXa/I/WzWsCXof72QNzpcKblPlreDV+/j3eVkFGxXQlVSWwk
-         tLGxDbQvRpjaGbbEsihNnyzYczW56pL+I4hm4XeMcB/ZlKwehicIopXK3mw5daVJZfl8
-         PU2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=glNQGelvD/kDLrH/fiSkPVz0Z5oOzNw/2XFScRnp138=;
-        fh=a4oW9e39+GvCMhzUyLmuuQ09/wuq/RrqTWHPmhXHNsQ=;
-        b=qD3YycKPVMLU6UrAB9UaACEXyHHy+8GpbtnRca6kISjLkybNBXLg8LvFs5gHhQ3tUv
-         ob85bsUABoVMO4vIUrtCjrWMqBC29bNXc8VJukyOgP/glTqCch5pCTew+PrUsxXa7hgG
-         i8Ip+TnKOWKAQ3vVAmzEeunp8hkbjrjZiPLGhjqralDSTns+UBZNl3zykxXwaZEaVSvb
-         JrvGHoTWG6axekn3Ekucl+jvJ+WDZ660z/N9o0gpa8RCFtig920w2W40UrZ8TNcE4TgJ
-         eaTsuCwB5RXx735yDrfVZsnJj1G5DsgZL4yYvJMcn0nbM4W0JUxqUX+gjVdme+nZ+zP8
-         YjXA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=obzcTnY7
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so7609805e9.1
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 23:58:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795074959; x=1795679759; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=glNQGelvD/kDLrH/fiSkPVz0Z5oOzNw/2XFScRnp138=;
-        b=PVYFBKnqIYi8G5pSLWwcT7zZHYcZEN1a6HlNWUl7FyInIBVHF0nAHNB2clR4xpKZzH
-         xxMZGABs3emLJXMqzBtBvGDG69uW3bSbCCT4Ep0bD8mq32Jtv0YLIYY5098DzRjRUfYn
-         C3bHdetInuTfQnx6zYaqGkm2PuHd8Cm2rpZAA=
+        d=linaro.org; s=google; t=1795075098; x=1795679898; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pdQlb2CsGbWPGWlbFcx6D3f/AbXcJrTux+zl7o+qrMU=;
+        b=obzcTnY7fGwAiNjMoQONcwqMOC2Pz6h2x2/gdO9ehVt5BQgEwpHevwnoBeGRJ4ThQf
+         EljRAFqrPCxntrGC3TSvkhA3+LAthBcvKwo9caK0Ju0PMWhiPvEB9l1y6yRovNOXkh6V
+         lc8BL5oOBbtADVElfW5NDqGLF4HQjhzsZhUVThTCCNAQZkhFbdQxmm/u0xg4bdQjxh23
+         mxLZokUQmXpphYm1HJ85/1yT6lGPzddefcHJykK9ImBlqEvQl3Mvf3OZ1MjC5sWNOERD
+         J3yJLBxBem/qodsZ01YZKO0PwQQQ6pNGqwSzYfRpTEcuv0U8lLYYIeC4pUVqF0DKyDYd
+         e+vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795074959; x=1795679759;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=glNQGelvD/kDLrH/fiSkPVz0Z5oOzNw/2XFScRnp138=;
-        b=NzJunPt34xFNsODG6Lh3MM9cFQg4G9481Sqr7aRNxwp571bK0niBPlXiCo/lTgjPtY
-         2k9UbPu2x3FOnFKnS8boFSUcj7Vm1gIFYrTwowc64R/DRkhd5Q8B1VWUodfGNj+lvwgq
-         qc/LWv8yfpmrjFLipkVQtG729rPufU8PAlVJjAJ5vcM1lHZG7o51OaHqZoRpjIH9SJmw
-         2uqzdddD8Y6POwcgDi36JkLpS4GmIJdPZlgQSkupkkGr7gBtDsCUB86BSFNvqLran1xF
-         xi9bkFLZ3TgGnXLkRUjgb1vzo2ZtsJggIAwqp1Md7O4+oDv5rnQyVC0gUerxhEKS6SLK
-         g2gA==
-X-Forwarded-Encrypted: i=1; AL+hErHhDi4BjDIMyYsiREguEyNggCuOiOZY1Nep25B9mcKtbwB2o/+/1T9VicMRB8pT7Kkv4BhHNPisw5Ka@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Y/6i7IyLZFCVTbPlEUjmzGNEwEnGTcS6Ou/C7rW9zarOUovRW
-	0JZPJSAtcgWukvxwqy9WvK3JhPkaPbilsGIfSecPFPGHKLhKb/ivZ64KnIlEIHFwo5k87cx17KU
-	aVmubjFqUNj4od57A73z58E7rV5mUKM+vucH2we12
-X-Gm-Gg: AZFdTZdgW9O0kzydNuQQfV25fctcWHVfTdxqHEqeeite1vyu6NzuBA8ylExKeYZBbno
-	KDvm7X2V64/bt54zYRfH8IEnvQiMChS3UdL1aHeTdDdeXlIo/XF2arx7UZTlg+R965zIOgeLIwc
-	EEi3kHgeSqCf0bLhzERsKxxWpm6HXWaBA60o6PiMVlkjbMPraok3VoKeZldOWsFi8mlN0ifDusR
-	c1JI4wrBzz85+//oU5TXT+cvcpNLaeob7kSaqoRj2q+lKxOICuZwm6Uw0JQ0r7CYGVnTnWdHRrE
-	dCD60pLBntrYbZfI4i6zLb0FpqlmFIMbERaxN71setV1EKgbmsLW+BKI7z6qScntDy0pP1oLgGW
-	jqPFeAsYQ6ppQiEVmK+yJcWJcdKM4RaMs3XPfBw/QJuSmceVo2qU0AnwuHR3hMavWPls=
-X-Received: by 2002:a05:690e:4853:b0:67d:a059:2f39 with SMTP id
- 956f58d0204a3-67dd3f1b3efmr1369617d50.21.1795074958750; Wed, 18 Nov 2026
- 23:55:58 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795075098; x=1795679898;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pdQlb2CsGbWPGWlbFcx6D3f/AbXcJrTux+zl7o+qrMU=;
+        b=c16pfaNsU4pWp7P47+WE0EA/RAbGWLbRcPmVyV/NEJqlgPUbWIo+18nyJ9XRHLimX1
+         sohwkpwtXNIjK/XHyWSjLCs+OaehbHxHUjfi0tpFoyOeS98qSnf1nv8cQZOWHNjjMPZN
+         2jvoRttKgWa5IcqGITvRXOkcBBvwNQt5lR+LJ4CdTxjKMaAjj+d2/PWYhBhVPCRt5VDI
+         UwGQNIYxEbtCyM2cgum6zoIOrEXNSeS2lKvgbG3fgS0JE31fk//ZVDqPkDIgxP9shoQQ
+         Fgnc/02K7Lbax1KPnnY7tiPoV/Zpb+hs00Eezqv7e/NEL3XNtw09NWqdApRPN++2kG0r
+         91gw==
+X-Gm-Message-State: APuU4Z89TYjaIcvWGF+H5olwC0+hqNQ31sTh5NI9z2bvnqjDHY4wp2Ua
+	zFAcrHPYBmJgaU5hZD8hMzrf/4bfiqgQkA/xUAwy9gGjACuOsOMONq3vtX+qO716ijY=
+X-Gm-Gg: AYBFou1I0YSiPLBSLVNhBHY6DCwrdNW0QThuBbN99Lg4XoFZHxbhNsTcRIqHm309Hm/
+	OPNkqIrd29pto40fU403leMEudt1M+H3XmCaN1zMsL3mx3ErwzkQezxj1QHbu3H+1nR3MmEoI/5
+	pDQNq3MLNrwN6JKbX9Rehw9pVzNKd0mnGywWjzuGBIX/xBz7sp6j5BHsfu6LhcZhGCDurQcDA09
+	t3lk9B+krGDLRqak4GRd0J8LK7kB2vaj+68icUJibprLDKnzTyLVAwQU5Brej3f8RboKTAcrcRD
+	IGKjDsoLkKRZUvd8kG5AfTjv+BWvd4NAiIOVZHvj7JWMrFKqPcdLCJV590qwqsdeAvuwIHULyED
+	VMUd+qqiOsdWOr5EjFM9tXqt26pgY75L9D1/+m0sT/sEOfqYetYbd+FIn0nqpEUho6w6/SITtaA
+	8Gh9XREmIl0KBzNkPsNGHvjNhSOBwCzxlO5IuvO4gSAhE+1Rm99N2v6XKbwiFV2Z00mVOIDpHVO
+	/YcwIN4MydalkMOB20nacY5pQJ6m2BexJJtpxJXT2UBpHa7QjBKep8asGzbj9m9SWPjiOg/Msf8
+	oQmZAcLEqNiP2SnG0hr1nv+LSITTUbls+uuPk8Wx2P99kgdtYB4ggC1UkvHOjjhCJ70fMhmQbg6
+	bte9vw1E3
+X-Received: by 2002:a05:600c:4e86:b0:4a2:526b:d40f with SMTP id 5b1f17b1804b1-4bb8609ad6dmr6876015e9.0.1795075097389;
+        Wed, 18 Nov 2026 23:58:17 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:3611:76ad:c4e1:77e7? ([2a01:e0a:106d:1080:3611:76ad:c4e1:77e7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8532f1a9sm15704175e9.3.2026.11.18.23.58.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2026 23:58:16 -0800 (PST)
+Message-ID: <04447713-32bb-46ff-8dd9-ba00bce186db@linaro.org>
+Date: Thu, 19 Nov 2026 08:58:15 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,65 +92,174 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030103418.2355854-1-wenst@chromium.org> <179491350817.164578.3923681659802112857.b4-ty@b4>
-In-Reply-To: <179491350817.164578.3923681659802112857.b4-ty@b4>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Thu, 19 Nov 2026 15:55:47 +0800
-X-Gm-Features: AclHuK_NKKojwe2jAIh6fAUopYilD5lO7S60sKZvTblPy9cW1Wbrg51aFpv1c_s
-Message-ID: <CAGXv+5FiRyp6MzTdOo3KygM1w20YPD+eCG=-K+VVbPZUYsQQnA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] arm64: dts: mediatek: mt8192-asurada: Add ramp-delay
- for MT6315 regulators
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, linux-mediatek@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 00/10] phy/drm: amlogic: Extract Meson HDMI TX PHY into a
+ dedicated driver
+To: linux-kernel-dev@aliel.fr
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
+ <51831581-525f-418c-86ea-3b5c6a80709b@linaro.org>
+ <bb027d3b-6a43-4dd3-9771-3448c86996b5@aliel.fr>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <bb027d3b-6a43-4dd3-9771-3448c86996b5@aliel.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 7:05=E2=80=AFPM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
->
-> On Fri, 30 Oct 2026 18:34:15 +0800, Chen-Yu Tsai wrote:
-> > On Asurada, the MT6315 buck regulators (Vbcpu, Vlcpu, and Vgpu) are
-> > missing the regulator-ramp-delay property. Without the slew rate
-> > specified, voltage increases may not have settled before switching CPU
-> > or GPU to higher operating points, risking undervoltage crashes.
-> >
-> > Add regulator-ramp-delay properties matching the slew rates configured
-> > by firmware, with values provided by MediaTek: 8000 uV/us for Vbcpu, an=
-d
-> > 4500 uV/us for Vlcpu and Vgpu.
-> >
-> > [...]
->
-> Applied to v7.4-next/dts64, thanks!
->
-> [1/3] arm64: dts: mediatek: mt8192-asurada: Add ramp-delay for MT6315 reg=
-ulators
->       commit: 9c9f83e3368d27d1e0ba55827a171ebf551c3d0c
+On 11/18/26 20:35, linux-kernel-dev@aliel.fr wrote:
+> On 11/18/26 13:38, Neil Armstrong wrote:
+>> Hi,
+>>
+>> On 11/17/26 20:33, Ronald Claveau via B4 Relay wrote:
+>>> This series moves the Amlogic Meson HDMI TX PHY handling (covering GXBB,
+>>> GXL, GXM, and G12A SoCs) out of the meson_dw_hdmi DRM driver and into a
+>>> dedicated generic PHY driver.
+>>>
+>>> Until now, meson_dw_hdmi directly manipulated the HHI system controller
+>>> registers (HHI_HDMI_PHY_CNTL0..5) to configure analog parameters, toggle
+>>> resets, and manage power states, as well as manually ungating HDMI
+>>> clocks and power domains already described in the DT.
+>>>
+>>> By extracting this logic into a standalone PHY driver under
+>>> drivers/phy/amlogic/:
+>>> - Hardware representation in the DT is cleaner, modeling the HDMI TX PHY
+>>>     as a child node of the HHI syscon referenced via standard "phys" and
+>>>     "phy-names" properties.
+>>> - The DRM bridge driver relies on the standard generic PHY API
+>>>     (phy_init, phy_configure, phy_power_on/off, phy_exit) rather than
+>>>     touching syscon registers directly.
+>>> - Legacy DTs lacking the "phys" property remain supported via a
+>>>     temporary fallback helper (meson_hdmi_phy_create_legacy) to preserve
+>>>     backward compatibility to be removed on next phase of component
+>>>     removal.
+>>>
+>>> Overview of the series:
+>>> - Patches 1-3: Fix compatible matching in meson-gx-hhi-sysctrl bindings,
+>>>     add the new amlogic,meson-hdmi-tx-phy DT schema, and allow the
+>>>     "hdmi-phy" child node under the HHI syscon.
+>>> - Patch 4: Add the new Meson HDMI TX PHY driver implementing the HDMI
+>>>     PHY configuration ops, along with the temporary legacy creation
+>>>     helper.
+>>> - Patch 5: Document the optional "phys" and "phy-names" properties in
+>>>     the amlogic,meson-dw-hdmi binding.
+>>> - Patches 6-7: Clean up manual HHI clock/power-domain writes in
+>>>     meson_dw_hdmi (relying on runtime PM instead) and convert the driver
+>>>     to use the generic PHY framework.
+>>> - Patches 8-10: Add the "hdmi-phy" child node and wire up the "phys"
+>>>     phandle for G12, GXBB, and GXL Device Trees.
+>>>
+>>> Tested on:
+>>> - Khadas VIM1 (GXL)
+>>> - dtbs_check and dt_binding_check run cleanly with no new warnings.
+>>>
+>>> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>>> ---
+>>> Ronald Claveau (10):
+>>>         dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Fix compatible
+>>> matching in conditionals
+>>>         dt-bindings: phy: amlogic: Add Meson HDMI TX PHY binding
+>>>         dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Add hdmi-phy
+>>> child node
+>>>         phy: amlogic: Add Meson HDMI TX PHY driver
+>>>         dt-bindings: display: amlogic,meson-dw-hdmi: Add phys and phy-
+>>> names
+>>>         drm/meson: dw-hdmi: Drop manual HHI clock and memory PD setup
+>>>         drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI
+>>> TX PHY
+>>>         arm64: dts: amlogic: Add HDMI TX PHY node for G12
+>>>         arm64: dts: amlogic: Add HDMI TX PHY node for GXBB
+>>>         arm64: dts: amlogic: Add HDMI TX PHY node for GXL
+>>>
+>>>    .../bindings/display/amlogic,meson-dw-hdmi.yaml    |   8 +
+>>>    .../bindings/phy/amlogic,meson-hdmi-tx-phy.yaml    |  33 +++
+>>>    .../soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml  |  43 ++-
+>>>    arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi  |   7 +
+>>>    arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi        |   7 +
+>>>    arch/arm64/boot/dts/amlogic/meson-gxl.dtsi         |   7 +
+>>>    drivers/gpu/drm/meson/Kconfig                      |   1 +
+>>>    drivers/gpu/drm/meson/meson_dw_hdmi.c              | 203 ++++++--------
+>>>    drivers/phy/amlogic/Kconfig                        |  11 +
+>>>    drivers/phy/amlogic/Makefile                       |   1 +
+>>>    drivers/phy/amlogic/phy-meson-hdmi-tx.c            | 309 +++++++++++
+>>> ++++++++++
+>>>    include/linux/phy/phy-meson-hdmi-tx.h              |  19 ++
+>>>    12 files changed, 513 insertions(+), 136 deletions(-)
+>>> ---
+>>> base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
+>>> change-id: 20261115-meson-drm-create-hdmitx-phy-4ac40a654d09
+>>>
+>>> Best regards,
+>>> -- 
+>>> Ronald Claveau <linux-kernel-dev@aliel.fr>
+>>
+>> Overall it's very good, but I would've prefered a more sequencial move
+>> to the PHY driver, with an exact copy of the code and simplification
+>> towards the current PHY code.
+>>
+>> Anyway, the sashiko review comments are good, especially the one on
+>> patch 6 to keep the driver working on old DTs, sorry my bad...
+>>
+>> Neil
+> 
+> Thanks for your feedback, I am analyzing/testing sashiko feedback.
+> 
+> About the suspend/resume unbind/bind, I do not have any issue on my
+> side, but I can change the orders.
+> 
+> About patch 6 and the old DTs, I will reintroduce them with the legacy
+> check. Do you know what would be a good timeline to add a require on
+> those elements and drop the fallback code ?
+> 
 
-It looks like commit 9c9f83e3368d27d1e0ba55827a171ebf551c3d0c ("arm64: dts:
-mediatek: mt8192-asurada: Add ramp-delay for MT6315 regulators") ended up
-with the regulator-ramp-delay values for Vbcpu and Vlcpu swapped:
+The problem is not necessarily the kernel DT but the U-Boot DT which
+could be used by the kernel.
 
-- mt6315_6_vbuck1 (Vbcpu) got regulator-ramp-delay =3D <4500> (should be 80=
-00)
-- mt6315_6_vbuck3 (Vlcpu) got regulator-ramp-delay =3D <8000> (should be 45=
-00)
+The U-Boot DT was using v6.2 before v2024.07 and after it uses the synchronized
+DT from Linux, which coincides with the v6.11 DT which contains the DT clocks
+changes.
 
-Do you want me to send a followup patch to swap them around, or do you
-want to handle it and fix it up directly in your tree?
+It seems most of the SBCs distro uses recent U-Boot versions, and some nice distro
+ships older U-Boot version, so it could break on those if a new kernel was deployed.
 
+But, U-Boot already set HHI_HDMI_CLK_CNTL and HHI_MEM_PD_REG0 when probing dw_hdmi
+since 2019.04 so considering that I thing the risk is super low.
 
-Thanks,
-ChenYu
+Add this to your commit message and send a v2.
 
-> [2/3] arm64: dts: mediatek: mt8195-cherry: Fix ramp-delay for Vgpu
->       commit: 04560888cde5fd8adc325a6ce47466f80b8c668f
-> [3/3] arm64: dts: mediatek: mt8186-corsola-voltorb: Add MT6319 ramp-delay
->       commit: 929638df9f3b36665efd60ac71f1eed4ba36a0a5
->
-> Cheers,
-> Angelo
->
->
+Neil
