@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795113031;
-	b=UmB0vPnblCgCNX4PjOtSZ3ZhlTHLwOiDs3KAHtq+tVXD4loqxhh+DcJDKjJyvjesnxh0
-	 ZizpXgfE1+sj8b6NtomUbRPAccALGKLFXP7LDfZG+NElxYafZmFYcFnJh8SCFO6wneDV1
-	 Udgn0OyqcCx0gUBd6SLqCDEl4+WeIbbPEK8y5UrDfHd+mhEVUqqW3kKgP29wOtgxjl6Lv
-	 Mp8o7jyL4beMIyTirwD5ehotIAcaDHn1Sqqkc9kWU98T2USz31B16mJbst1XzINl9tl7w
-	 4dc2ZgonEiI/Pat2w3cg+syRjMBGBxsjUCxguzrQHWMcR0qBzsmVXW9YRoceNXO4W7w==
+	t=1795113219;
+	b=pU06ld+0KqWcayi6+rGESrXp9sbSyCsK82fMQF2/kmmoKwmxlonM7NQ/9bKG04YaXu05
+	 727f0mmJFuvbwvXHhmjPQZWgrbrKaShw8sY9M+umZZ1MCTDwkC85DK1PKbwgYM3tAagHO
+	 z3ed+7NF1DuhVrEbmS41nzbHSjnE+f7ah4mdqFjBxrgEpawLgztX4TmUDUIYpgs4CVf4I
+	 tq9tnLSzlz4SxTv+7ua2w16FPOVrG5/SQqwmyHdmZVpsy/6tp5+UTaTHECYDwRO9imaC5
+	 z8gz81jgU0qAFyFnLDA1rIZUQDjQmwvf+YeRivI5MIdMaWdF/LdYoul5uw1a6zY8FfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795113031;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795113219;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Xg3fF7f+P2P2O66a6WP5C/XN4Y1WPbaDROXPu+3BD8w=;
-	b=XSmqZUf6wRlkN6MRTwZ2M+maAK3kYSwBfJQOMQQ6/SCnfyQBSYoscOOhmkq9QxnnALK8
-	 kRPLhXH2jFXsWoSCcLLN8KXYE0Lt1KespaR3Se8Ldz06Meywwu2WgOFdWWumpM8Lg4ghe
-	 fLE9brRJsujbVaqnBBRQ+688LJ6zsS5cv2+vF6LcBxNSf4LQSStGAnwykWtRFluQ+ucN6
-	 0tgFoddaSCLfpRZ11tspyVaris+QoU7h2UybEZUWp+7yKJqzKDuA7d7a49taXAv9cKEBR
-	 5acqbMwakQ6Ben/a8XjBNiUcxPqwmNrSsnSirICgT1u2gha+CbQWWV3joQ5Dy9Goyxw==
+	bh=u26Gm1Icee++W8ZDoeBg3dVwDaHR8TF20MxS2lJfJfA=;
+	b=Wk52ZjUmISy9T0aGV2bHSv9VLQxVJk9xPeJQaAVMf5u2NIK0TbXY7HHXgc/x3IaXtL+e
+	 lJreCHaSpF3F3U1/lTIN/LBtU0uECoFO34FYNduxAqqVzcugCsAOuSURlOqJbRR+c2c2T
+	 ENleUryAXI3aO2+W3tmD4+y1x+0CE8NLdOP3U/Zkh+kB+fCtGIZB8ODG+z7LVDfZ0q6we
+	 BNJJ+HVPV59V7Let+dw751ukA+nnQqgqlN1CT4py8o5TpUdTvYMTkprGOmLbz755WLk7J
+	 p6gkpC2yXTRkc7reBHwL4+UCu1n6XUuT98LeIxbVOJ+jzrUcPvWrxLDu2lOi8MwMeRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILaeC0K6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+7sG2tu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F31B606A320;
-	Thu, 19 Nov 2026 18:30:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3828606A330
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 18:33:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILaeC0K6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8A11F000C4;
-	Thu, 19 Nov 2026 18:30:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+7sG2tu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56CC41F000C5;
+	Thu, 19 Nov 2026 18:33:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795113030;
-	bh=Xg3fF7f+P2P2O66a6WP5C/XN4Y1WPbaDROXPu+3BD8w=;
+	s=k20260515; t=1795113218;
+	bh=u26Gm1Icee++W8ZDoeBg3dVwDaHR8TF20MxS2lJfJfA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ILaeC0K6WCfwO40tG6Up7mzygTkfImhQlh5tATQVnvUOER/457XxgPkKP4u6UdXJX
-	 L9qtXiE7Ep1mXs81IdiLY9t4xsBFMhlusUbaAJxa1pMCjtW36G1UbURDcDmJUOoKcg
-	 9HpgfS9zQkeHu+JJ9II55/4KuSeYam/hspOzYXPklH7OMWsXPuZ1cp93I2SWzQsC/h
-	 NMmjGILyToUAAQd/u1fSrpPQrDCD1WmPk1UA2hi834dI6mO2juLTVY3iLOOdWYoVVR
-	 WgxBVugv4Z9WIBefvYjRDY4CjgAyI2Xu3KIRTfgkPKD8T6TqbZyf9pCAWgs1tWpsAF
-	 hjz5dMyjvCe1w==
-Message-ID: <sashiko-outbox-223770@kernel.org>
+	b=M+7sG2tueS7oTVFMCeBEjPx6Qro3+qoeCsPPxXw6RRi9IvuUs74xozHD1LXXkZBIF
+	 y5HpXo9jXhgKhUJqkg80yCkMnala7dumATs/1V7fb1QJ4Orv3A9GNYdJyvneeOYJrN
+	 hbC8LRaPB/lbtLngvliImmDfNEmysrvs+pNm6zsJ7g4Bf243AAIlDvm3eXQWxjc4SN
+	 heoYTyiWsPkgpECy4L5j7dOxsA1dW1JnriKr7rz/+AATbX/nq9834RKVFt6CvX/k3k
+	 fOV6zJ8xldfLLQ4IUMM1M1/yUlrp7R1S+OyAFOjLJ75TIiHTq6Aj6VqobLmVR+dNAI
+	 pMQ9Q8qyMxI0A==
+Message-ID: <sashiko-outbox-223774@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] arm64: dts: allwinner: add A733 SoC description
+Subject: Re: [PATCH v6 2/3] ARM: dts: aspeed: Add Intel AVCRP BMC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Enzo Adriano" <enzo.adriano.code@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <dbfb7c5ea8b0ade2d48ef8e5cfd0b9e5a9946483.1795034153.git.enzo.adriano.code@gmail.com>
-References: <cover.1795034153.git.enzo.adriano.code@gmail.com>
- <dbfb7c5ea8b0ade2d48ef8e5cfd0b9e5a9946483.1795034153.git.enzo.adriano.code@gmail.com>
+To: "Dawid Glazik" <dawid.glazik@linux.intel.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <e37637a0be15a3567f0d805d6bdc7b375ebd3a1a.1795114204.git.dawid.glazik@linux.intel.com>
+References: <cover.1795114204.git.dawid.glazik@linux.intel.com>
+ <e37637a0be15a3567f0d805d6bdc7b375ebd3a1a.1795114204.git.dawid.glazik@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 18:30:30 +0000
+Date: Thu, 19 Nov 2026 18:33:37 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,92 +60,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] arm64: dts: allwinner: pio node lists 10 interrupts instead of
-  11 on A733
-- [Low] arm64: dts: allwinner: undocumented allwinner,sun60i-a733-uart
-  compatible
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] ARM: dts: aspeed: avcrp: unnecessary RMII RCLK clock specified
+  on RGMII mac1
 --
 
-commit b822d1469c44857fd000cc1a89105a359018f41b
-Author: Enzo Adriano <enzo.adriano.code@gmail.com>
+commit 73259580cccaecd0b0979753a09f8fcb15e20987
+Author: Dawid Glazik <dawid.glazik@linux.intel.com>
 
-arm64: dts: allwinner: add A733 SoC description
+ARM: dts: aspeed: Add Intel AVCRP BMC
 
-This commit adds the base Devicetree description for the Allwinner A733
-SoC, covering CPUs, GIC, timers, clocks, pin controllers, UART, I2C, and
-MMC controllers.
+This commit adds the device tree for the AST2600-based RunBMC module on
+the Intel AVCRP server platform.
 
-Link: https://gist.githubusercontent.com/apritzel/60fd7379b9560a15b8b352986=
-b69d39f/raw/efd9cdf8f26ba5b0c7e138f093af44a1cf322469/sun60i-a733.dts
-
-> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi b/arch/arm64/=
-boot/dts/allwinner/sun60i-a733.dtsi
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts b/arch/a=
+rm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
 > new file mode 100644
-> index 0000000000000..b0f642f37803a
+> index 0000000000000..02cdeca78048a
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
-> @@ -0,0 +1,657 @@
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+> @@ -0,0 +1,326 @@
 
 [ ... ]
 
-> +		pio: pinctrl@2000000 {
-> +			compatible =3D "allwinner,sun60i-a733-pinctrl";
-> +			reg =3D <0x02000000 0x800>;
-> +			interrupts =3D <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 81 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH 0>;
-
-[Severity: High]
-Does omitting Port A's interrupt (<GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH 0>) at
-index 0 shift all main-domain GPIO bank interrupts off by one?
-
-The binding in Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a=
-523-pinctrl.yaml
-requires 11 interrupts for allwinner,sun60i-a733-pinctrl.  In the driver,
-Port A occupies bank 0 with 0 pins, so prepare_function_table() assigns
-irqbank 1 through 10 to Ports B through K, and sunxi_irq_base_reg()
-indexes the per-bank IRQ registers from Port A at bank 0:
-
-drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c:prepare_function_table() {
-    ...
-		if (irq_mux) {
-			if (bank > last_bank)
-				irq_bank++;
-			func[lastfunc].muxval =3D irq_mux;
-			func[lastfunc].irqbank =3D irq_bank;
-    ...
-}
-
-With only 10 interrupts starting at Port B (GIC_SPI 69), pctl->irq[0..9]
-are registered one bank off from the hardware registers.  When any GPIO
-interrupt on Ports B through K fires, sunxi_pinctrl_irq_handler() reads
-and clears the preceding bank's status register, leaving the interrupt
-asserted.
-
-[ ... ]
-
-> +		uart0: serial@2500000 {
-> +			compatible =3D "allwinner,sun60i-a733-uart",
-> +				     "snps,dw-apb-uart";
+> +&mac1 {
+> +	clocks =3D <&syscon ASPEED_CLK_GATE_MAC2CLK>,
+> +		 <&syscon ASPEED_CLK_MAC2RCLK>;
+> +	clock-names =3D "MACCLK", "RCLK";
+> +	phy-handle =3D <&ethphy1>;
+> +	phy-mode =3D "rgmii-id";
+> +	pinctrl-0 =3D <&pinctrl_rgmii2_default>;
+> +	pinctrl-names =3D "default";
+> +
+> +	status =3D "okay";
+> +};
 
 [Severity: Low]
-Is "allwinner,sun60i-a733-uart" documented in
-Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml?
+Does mac1 need clocks and clock-names overridden here?
 
-Neither that schema nor this series defines "allwinner,sun60i-a733-uart",
-so dtbs_check will fail on uart0 through uart6 and r_uart0 through
-r_uart1.  Other Allwinner arm64 SoCs use "snps,dw-apb-uart" alone unless
-the SoC-specific compatible is added to the binding.
+ASPEED_CLK_MAC2RCLK (RCLK) is the RMII 50 MHz reference clock gate,
+whereas mac1 is configured for RGMII (phy-mode =3D "rgmii-id") and
+aspeed-g6.dtsi already provides ASPEED_CLK_GATE_MAC2CLK.  Specifying RCLK
+causes ftgmac100_setup_clk() to unnecessarily enable the RMII2 RCLK gate.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795034153.gi=
-t.enzo.adriano.code@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795114204.gi=
+t.dawid.glazik@linux.intel.com?part=3D2
