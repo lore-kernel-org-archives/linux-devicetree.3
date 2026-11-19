@@ -1,81 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795121633;
-	b=B+jO9Me7TZ1IprArvrpfMP+AoZ6kNdNE5mMSMqJQSp5hCz0A1AVkau4UqK0hvyw2IJ5M
-	 tS8BisxyB/Fdz380JeV8+dDnUOX2jHERGu3uGRtglqk0uAR1+447rvouG8/8+NEUxy75Q
-	 2M9KAgHMJ6axAZEdVOSy0I0qHCEJRr3LSD/IkAMwzWidN+ayGsNnc1L5fUgcyegFnrTZM
-	 N8xnP0YQ38Gr6K+gsm1pGqNXcXzosiWocHEqWISgIBVQgJuVIFZTatprWcer90ousxRVS
-	 BGz2vylrZTmqqJhYvmJOsHSVm6/JNqIEtBObYlgl6jbLB1N1mu7lbsVp7EkCnNFfh2Q==
+	t=1795121733;
+	b=xSdfMgwLEELtBaielaNfGaR1fHavYByXrULK+8MTdbz+ZRBw/c6MeXA9c/2vu+1nXxnw
+	 G1yDRAjrvAV6ivU35M8vZEtnmBe5rdpvLji0v/MOhYlCZAuuhMereHMpVl1LwJfM4H3Z6
+	 eDLvVLG1wbNh3BecE9asClA1YxgfCBoRQ6FNFpLlzlVbB2jlLLajTne0drfbGT9t3KB51
+	 KoHkrUl+hbxnBkBwLYPxnEsl7lKGSSzhMSm74YIZ4sxogwcjO4bjZWCoebMBURwOWQbu3
+	 SLSEuOeuOeDhkjJymSTZL+PeaQLcI+7mRqJk6q3NrAy6J5Ti3ScPb1Pol+fTA5aM6ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795121633;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=/zyFtue2Pu27Krmvp0xJdBDSYvJgKl9E6IP3y2DGTns=;
-	b=x2/qHlY00K/gOuGbDzX0bBhypLcf9JB7Vc8JJrtJBS1oajosD3IhxT8rfjXuhYHldEBd
-	 B4JzltiLI4zMbruRu3p0cgJRAuiH/vLjSbvT7oY+imzFc3E9wln1tUcdjA9R/XF5/xbWG
-	 hWGV2hlJ9tM5SbGAg/d84EBXk88+NSkEKcY4xfQ1CJPvAlc5Z4Rw0UXeoAkbEudu+l6iq
-	 4SGxfxKqfsTweRhcs5uab31Zwf03etTOW+q/kXoJ+BvGb8lt981WJSf3hysqccSef9gih
-	 3zBQmhwKZCVUPppIA6aayNSx72Tx+qvfUNwqJuYVtVBTcu6gEKM9U4zBztnGZtJo1hQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795121733;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=jL3UjUhZBMVDkYZ9sJMfrjhv2cZhAlNrNCCifrd/kv0=;
+	b=tsE2xhs5XC2pS/kCAOEIGuSf45VWtdZusGUvgD+vumB8OVVVsmAz44Sq5sow7N8jJqPQ
+	 SXe+QSzjBCkXo14QOvBDwrHuccmGXw2ExSod6STAxOK0WqV/8qy26p90KhzF4MrH71PkZ
+	 0a5FaxxXcnAYwyrYX9iNVSWkcWXayS7ZmhomzLwzRMKSg/vTKQ8bKgW984kBetmX05tfd
+	 pJsdGYezC60kKQeIy1NzXEUj/8YDYrF724k0Hk/7/JiAmm3dT1L0XTsIcbeiQY3SzWPUN
+	 vW8zBsaEBzJ764F97qj+IKLA7/YJ1UjwofBiMmQVRVeiBz5ATubd5ZRA17Thw4VHqJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ICYjvFQN;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVUrxvh+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336FF606A337;
-	Thu, 19 Nov 2026 20:53:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 336FF606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD48606A325;
+	Thu, 19 Nov 2026 20:55:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ICYjvFQN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795121633; x=1826657633;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hxtu6n6hjdoIS8OVHUKESNiwIThZujrt8bph7b+Fd9s=;
-  b=ICYjvFQNmGXLKT8lJzORh2ddjFYCo9FP4DQi6xU3/yJUAA/EVDMMwtnW
-   Z3/qGtN6wfv3hNHInCrrHBmZeBxwAtlvuf+8f6gz+X4HCtTiOKzpuVEfh
-   MmNVbUecTZS2dUj41oFJTL9H7XC2ItuUq1b5EAit17eO29kmAi4LQ/qz/
-   LyS82lTZ+XLfHSzYb6N387rBG8eHTySMRX3ZVI+l2mCOyDE8wvhpeLgJn
-   5+sKf+hr7thOFFFEYADMmchY7Vdqx2MX2K9KIabNiAhCp9lEJsB+zrwco
-   rkffzx4V4xW4Oy91L5VF2oDyJwuVsjH8LrZcxCp1q2ftOUFYujfRSSBbL
-   A==;
-X-CSE-ConnectionGUID: yH58P537RAK8fHpjDLf0tA==
-X-CSE-MsgGUID: oJqd7PZoRcezUIcnUG1/ag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4030860"
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="4030860"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 12:53:53 -0800
-X-CSE-ConnectionGUID: hWs8F2miRDaxOkKoxt/sNQ==
-X-CSE-MsgGUID: XLcUR0atQcuadVeix+2yww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="12511975"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.61])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 12:53:49 -0800
-Date: Thu, 19 Nov 2026 22:53:46 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Fabio Estevam <festevam@gmail.com>, lee@kernel.org, maz@kernel.org,
-	andy@kernel.org, jic23@kernel.org, dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org, mfd@lists.linux.dev,
-	linux-iio@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, crofts@kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v5 4/4] mfd: mxs-lradc: Convert to devm_clk_get_enabled()
-Message-ID: <av9h2jvAwBPXdNmX@ashevche-desk.local>
-References: <20261119134041.16611-1-festevam@gmail.com>
- <20261119134041.16611-4-festevam@gmail.com>
- <av8gvfhOJ_2PdEMr@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVUrxvh+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20DAC1F000C6;
+	Thu, 19 Nov 2026 20:55:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795121733;
+	bh=jL3UjUhZBMVDkYZ9sJMfrjhv2cZhAlNrNCCifrd/kv0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dVUrxvh+bCXq4VfGmxfTraUJrbPPYpwz/NfDSYuXN4DaK5cR+vgCr2/VXSgj08WwF
+	 /QVdrndkjD4obc8Y1A4F5Ws8Dc0AJpFq8YS3nP0ZEhxGUlCyrC7IwwkWaFDSrZ4lyg
+	 ZNB/R8vNZlV0ShO5GwyU8BA01DxTLRqVhfXSQLczR+Dl1qFT8Kc02f4m5WAPoOAP0y
+	 /LPU63vdlyN9eFOj/JnP0UpOYMn3NiykWkQAhEI4JjVliqD26gzO8SbmOlig+0P7Gm
+	 bc66zK4ReOos/YVb3gBRJBslUZ2Cq8tFK1H1+Uw/vpeabhM/eDdXi7d6pImmQrQbP2
+	 T7awCOHr3xGpw==
+Date: Thu, 19 Nov 2026 14:55:31 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-usb@vger.kernel.org,
+	Macpaul Lin <macpaul.lin@mediatek.com>, devicetree@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH] dt-bindings: usb: ti,usb8041: Fold in TI USB8020B
+Message-ID: <179512172653.531258.8575247856427034677.robh@kernel.org>
+References: <20261103095425.3097720-1-wenst@chromium.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,37 +61,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <av8gvfhOJ_2PdEMr@SMW015318>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261103095425.3097720-1-wenst@chromium.org>
 
-On Thu, Nov 19, 2026 at 10:15:57AM -0600, Frank Li wrote:
-> On Thu, Nov 19, 2026 at 10:40:41AM -0300, Fabio Estevam wrote:
 
-...
-
-> >  			dev_err(&pdev->dev,
-> >  				"Unsupported number of touchscreen wires (%d)\n"
-> >  				, ts_wires);
-> > -			ret = -EINVAL;
-> > -			goto err_clk;
-> > +			return -EINVAL;
-
-^^^
-
-> >  	if (ret) {
-> >  		dev_err(dev, "Failed to add subdevices\n");
-> > -		goto err_clk;
-> > +		return ret;
+On Tue, 03 Nov 2026 17:53:29 +0800, Chen-Yu Tsai wrote:
+> TI USB8020B is another USB 3.0 hub that currently has a separate yet
+> similar, albeit more limited binding.
 > 
-> If need respin, return dev_err_probe()
+> Fold the TI USB8020B compatibles into the TI USB8041 binding, thus
+> allowing the TI USB8020B to correctly allow downstream ports through
+> the common USB hub binding.
+> 
+> The requirement of "peer-hub" is relaxed, as done in commit e44297dd2b75
+> ("dt-bindings: usb: ti,usb8041: Support nested USB hubs"). The hub chip
+> might only have its HighSpeed data lines connected, and thus would not
+> have a SuperSpeed peer hub.
+> 
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+> Cc: Macpaul Lin <macpaul.lin@mediatek.com>
+> ---
+>  .../devicetree/bindings/usb/ti,usb8020b.yaml  | 69 -------------------
+>  .../devicetree/bindings/usb/ti,usb8041.yaml   |  5 +-
+>  2 files changed, 4 insertions(+), 70 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/usb/ti,usb8020b.yaml
+> 
 
-And above and who knows how many more. That's why I haven't commented on this,
-if ever we do this, it most likely should be a separate change for the whole
-driver.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Applied, thanks!
 
