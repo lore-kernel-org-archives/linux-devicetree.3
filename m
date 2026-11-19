@@ -1,64 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795130193;
-	b=d33WWlWGC1UIs6uCeJPYRcHtwnMA0DoUPKqVVpZTS0NLPLZlDwqV3K9DjrE4wLGtG6Nt
-	 +j3wfLmHc0SjRr5gfOUJJnc2vHcGC2Sr4+Lc4c6SkBt/MuFkQbRwCGTTWrKKFjy4gTtVM
-	 qDhJBmZxMc9xezik0pUVdQyh0FiN1BDXVH9qiqTyoBg8KcJOS2eH4crXj1t5x4zGUd3SV
-	 Wqoh8hnzlUD6bLFbLbIxjXD9xXAn20HioM1Vaf8QFGqSiHuAcQf83l8b4B5Dhk+B+Oq4k
-	 wwP8cNXT1DHFDPjutgCmq4zEMIZfPULNriDnmR/eT12cYW8XopnlKaEolPWTRGP09Pw==
+	t=1795130234;
+	b=bCePG/XkJtaHRn4Zf/SuSMxt28v86mY+XhMfycexFXZPvnAdS4tvmzqd2FMC+b7o7Z2X
+	 YObyc52vwzUHL95pLDmgPigY2sWxVrgKTcHlP1qxyGK/UnVqGYQFJ5vbatOu7N32/NPaY
+	 +QyKlePs5BLS1ukDKXFwQgZ8eyb/iOGKGlHN+Q9ZG5Bb88SwyKmEOYxwzqqgWFoD5Gc+y
+	 OuBCMQR4adC+zB2q5qxHI+kF7O4LVVqJz7ZfOCm/Gv1ZulzqfiCTsa39ebWrqJxPP7HGV
+	 9DEvAsi8+aYG5KObSXCp+KMOy15JTTtn0aaO6fsjKXKEWuTRzvh0wNSSwy1ukrkVLPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795130193;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795130234;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 User-Agent;
-	bh=+VCxsTRSatZnN7a1mABM1A30GPiQqVx8TUGLqOKrAio=;
-	b=3GGnfXHDshbeXfaIvYoD1BPs3zVrlx2Y0Ox9HGPqHUwytyl3ZpiJr9Q6IURQo0vDGGbm
-	 LlnE9Q0vn3baVkNp38j/SpHaPg1NqN2mCITAAYSrOVM5CiM7UP9WmYEkAgRakaTIxUJLH
-	 k+lCVy2FYDV+jbIJSZ34sZwCi4mHa/3ceh+eeGwiu8W3R7EIQSrpFY8BwhgGnS1G5UaBJ
-	 tL9Oy5IGCZ4oIfopX+LaLvTll/dODTK6aGM4XaJeFvwBDFFs2AsT8jNluoR9Cz0BWcQe3
-	 jFV03yZoD8ljcZQT3Q5pYkJVBJCKPTBRe2s7ppJ+KFYrbY0IbGFtK52gmyGsk5QYv3Q==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mIN+GuJ0CxxJX4/Fg/QOh4vbPOUP2Q53nLlfewKTqpg=;
+	b=a+UeR5MBLAjhXPFSYe0xaa+Xy0kre3TJEw4Z2BjdmeVE9VOWcf48AFoeNPR+DU4Vc12L
+	 j6N81VaJgyWcqmEYrgTUlwu/07OS9drcVeRf664Q2mYRaT8l/4aIL1Aik5PQkAmF/MhQj
+	 Qfc7hV30Ukur3xZ40UUy/9MMk3jQ3GN8yBVuY8WCKzfSW+fqQM4fM0bzrGxGslZrsbHLr
+	 G0Ms82kEgXZBiWip5p5Op3m27QWeqdqaYCJPf/Z6wb27sM9NAarm1KQtnRocLRzALdLRD
+	 GTddeqatjyl2qmQNoRVBP1Z1A5ucVjsWzF3SJA821K9jebPBRoWmn4oFuLAHXs+GLYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HA88rbW0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIfBByFu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BC9606A33C;
-	Thu, 19 Nov 2026 23:16:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055D1606A32A;
+	Thu, 19 Nov 2026 23:17:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HA88rbW0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0BD71F000C6;
-	Thu, 19 Nov 2026 23:16:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIfBByFu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67D741F000C4;
+	Thu, 19 Nov 2026 23:17:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795130193;
-	bh=+VCxsTRSatZnN7a1mABM1A30GPiQqVx8TUGLqOKrAio=;
+	s=k20260515; t=1795130233;
+	bh=mIN+GuJ0CxxJX4/Fg/QOh4vbPOUP2Q53nLlfewKTqpg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HA88rbW0KlKhFLdCmiC+m0Ukxgqi9vh/FDkgEjM0c3zyD2t9aWQatJTfMFXNljUFi
-	 Q2Z728kk7eTltbp4r+TQ3VlQ72iI3SYCvOamQuhYmCMN+BgUv2FwbkD9wlsC69zcg8
-	 WoPf6K8jlnq/m/d2RZHbqO1G3u9LRDYs45JxoagATaVvEDawbibrQO7RF3Yyny02xU
-	 xz9cvpDa3EDHwK1ILy8wTEVrEcGDSdEg8OnD1dzse18yQEyNuaBCrYuB+24qvPOo+B
-	 EIAcLIf0dvO+gyhVudimeG38V8cfXZRcgkii+c55KP5uZxtmUyyWYN263uZtyZBYGQ
-	 kqqpS/3gp9ZFw==
-Date: Thu, 19 Nov 2026 18:16:30 -0500
-From: Brian Masney <masneyb@kernel.org>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
+	b=mIfBByFuXWlED77Mm3yjoekoO+LkGlK37Y+fsiY1HOhGXSlToyJHTGKwUkspI3SaK
+	 MCqel5P+lXEaPECa3D6vyyQITVsY6sh/7hSL6hoZpF0VS3uNvjNb3Xo++8gtVV3q5s
+	 vcgONmzPXPTklNMGGsK93cvH2n+GcWKCxMcIxZvIbIeG8zNHihPlooNpCgzPck0aZk
+	 IvjantNbzS+MZyDotZrAYWLKiT3CQcjL+K9zLPCNxVgS5+JKITI2ZYqRcm2eALllsF
+	 JXf/3NjTb9QeONkKHZi2xqEu4fD5zNdEqkyL92VJOof0bxNTrYFOXZgvwtnJyvoq7l
+	 UlOE2h85DU5WA==
+Date: Thu, 19 Nov 2026 17:17:11 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Roman Vivchar <rva333@protonmail.com>
+Cc: linux-mediatek@lists.infradead.org,
 	Philipp Zabel <p.zabel@pengutronix.de>,
-	Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] clk: siflower: Add SF19A2890 clock manager driver
-Message-ID: <av-DThJFadNXhC0F@x1g10>
-References: <20261116-sf19a2890-sysm-v3-0-b07bc7833a87@telaak.dev>
- <20261116-sf19a2890-sysm-v3-2-b07bc7833a87@telaak.dev>
- <179511480695.279474.4521829214953240997.b4-review@b4>
- <CAPY4CJ6DjoKi9v3Bk0Pt7ePRW_yiNiUzfX1id7efK8i8cUWFaw@mail.gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org,
+	Ben Grisdale <bengris32@protonmail.ch>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>, linux-watchdog@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/3] dt-bindings: watchdog: mediatek,mtk-wdt: fix mt6797
+ compatible
+Message-ID: <179513023005.1277256.7531724126207363611.robh@kernel.org>
+References: <20261110-6797-wdt-v1-0-7f07755b6074@protonmail.com>
+ <20261110-6797-wdt-v1-1-7f07755b6074@protonmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,22 +69,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAPY4CJ6DjoKi9v3Bk0Pt7ePRW_yiNiUzfX1id7efK8i8cUWFaw@mail.gmail.com>
-User-Agent: Mutt/2.4.3 (2026-10-09)
+In-Reply-To: <20261110-6797-wdt-v1-1-7f07755b6074@protonmail.com>
 
-On Thu, Nov 19, 2026 at 04:31:01PM -0500, Joseph Telaak wrote:
-> On Thu, Nov 19, 2026 at 02:00:06PM -0500, Brian Masney wrote:
-> > Can this declared as a regular platform driver? We are trying to
-> > minimize the use of CLK_OF_DECLARE.
+
+On Tue, 10 Nov 2026 21:22:21 +0200, Roman Vivchar wrote:
+> The TOPRGU reset bits on the mt6797 SoC do not match that of mt6589,
+> therefore they are not compatible [1].
 > 
-> The MIPS GIC timer runs from CLK_MUXDIV_CPU, and it probes from
-> TIMER_OF_DECLARE in time_init(), before any platform driver. As a
-> platform driver, the clock would not exist yet when the timer calls
-> of_clk_get(), and with no clock-frequency to fall back on, the SoC would
-> have no clocksource. I'll say that in a comment above CLK_OF_DECLARE in
-> v4.
+> Deprecate the mt6589 fallback for mt6797 and add its own compatible
+> string. Also add a new binding header for the actual watchdog resets on
+> the SoC.
+> 
+> Link: https://www.96boards.org/documentation/consumer/mediatekx20/additional-docs/docs/MT6797_Register_Table_Part_1.pdf [1]
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> ---
+>  .../bindings/watchdog/mediatek,mtk-wdt.yaml        |  6 +++++-
+>  include/dt-bindings/reset/mediatek,mt6797-wdt.h    | 25 ++++++++++++++++++++++
+>  2 files changed, 30 insertions(+), 1 deletion(-)
+> 
 
-If possible, declare just the timer clock with CLK_OF_DECLARE, and the
-rest as a platform driver.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-Brian
