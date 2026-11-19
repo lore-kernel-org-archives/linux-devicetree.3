@@ -1,78 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795046938;
-	b=xrj2Ixp67PjDOgpZIF+0lV1LSI42xi2dhJl87IX8/GnDofIYskLNQZf375cXpJN4b/Hk
-	 Xr5XhmLha5yV8ANnn5/MyEQApmAPAQB7H4AsfpZGKnkxp67cjO0kmltZdwVinXGdja4L6
-	 QYh3epCr819cjfsBxSRAG3fo7eE8WrtAAtWYmrRIOHpjIcWitEGULjoUj+rOi8JyXQ+MD
-	 9+tPv56Jhr3gyWPQQ0UgydY2j5p6ffr/eyNKg3MSwQFPL17G87NBaYR/53kAWm1SIHf3d
-	 uvbY2zIY/POsWs7UYu+BgzVCTXmSBOrb/IR7Ma1uLsxxWMJYAi6LYw7UDgmZd0ZR4Cw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795046938;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=oCtb0rmvOejtjE2/BHaNuLkSWcxZ+u9oa3/QMh/gz8Y=;
-	b=uedWym/2iC7b+KqeBSvBZL8Km4injsyjCVCDp9Y9wTEEU6bBszVefoLaySBuFiAuimw9
-	 JOkYgYCcF0oqWL4ozsHacmVUhMP4vA//BOHwyq0rlkqjWdG/13acJY5dSrnrLfrG/aCM5
-	 EQy3VEp077OtH9ErBP+favCYt4QlyjUiMw//rWf/fHB6kG5Jy7trytmnlgO/A6MsXoFgp
-	 gDHYOqMaAo1Hl24PUd3h0Yrs+ZUV5YsR3GCKkzeGk63LfPoMCR377HaeCo9EqN3dQjDqd
-	 D4ovrNUoBz65zzHG/28Mf0VNIYjmXPNgMO64vZ5gbFjEfMwDPhCJXq7N7RhuUSCnH/Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SlHl1Mci;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795050004;
+	b=f7H2MdbCdLg25zsIthBaHy6mHpicYiUpwghhytMIE0twJusWXkwYXGBtYpAFpa6ZBlbY
+	 2o2mh5iVh54i+6SaEq3KLm7P7bSEoJlYR1LLPt2Z4e0/bAotgBP/XfUyKZX9UF3nULqcH
+	 dLT5DMhhjyNhwOnrcQ+1BZvwtPDeqxVdnpfMGIvSbHzasFUR2XF20brcGDfTjsWNuUBZV
+	 BgkL5BzdhwmJ0g4Nbp+Bb0vEnf7Emkes7wEOr+LXe/gm/q0Vkz1IXmy6O8fFOrwuEMON7
+	 0avKi3ES6gXp8Ux4BnDQQwHDHdXprIeJRWKgn9eagkrLBy5hi1+v7kgLZp/RwBzATfw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795050004;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=eahWfYKAQE1SKcfDFOYiIu3G1OgACjghKKPwSsaj4Qg=;
+	b=0m1g+XQhnT2pmPLBAdH9pu1oYvfsTN9UP/URGyzSUIwaVAMJ9iOn7+4CQQzPFfZz0oHp
+	 SO3c3n0ZnNU05/z+erImMAofzJQ3ONnntRhPt+/pcCKq2G9yBbu2iKFyZByZj9x5vlHgN
+	 aBPTg6IQYBD9gkNZJCLraRHR+dCe9TCOejjhFx66ZQ8NZxNduEXwdBgKveKXRXTDIEW+u
+	 pxfIjq75+Ql6MAvEmKGqKNJ0jgFZ/7YMeD0u+nmme8sLieKishB3pUzfAmvgZgAv/syXl
+	 qxIzgp0pPrQMLRgrVURAFx0FlJIpmdOmPJq7cKupL2SvcRKC2cvSbves3vBUFEJLeFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=FO9TXHox;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=ptzHvTin;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2126606A32F;
-	Thu, 19 Nov 2026 00:08:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B34C606A33A;
+	Thu, 19 Nov 2026 01:00:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B34C606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SlHl1Mci
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F5F1F000C4;
-	Thu, 19 Nov 2026 00:08:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795046938;
-	bh=oCtb0rmvOejtjE2/BHaNuLkSWcxZ+u9oa3/QMh/gz8Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=SlHl1McigILCjwGqLBRVEYs44LEZkG27A3EF/tAmD2VvmyZKhzgkZy3BKB1j6XypZ
-	 mZUVdeSvC8y6ukb0YUQtoINI0F9Ld5Uc5Scouj/YvTTWTHLLQZICmZjH0Ee/9OJ+yZ
-	 Ss+4j4hUthyFUF7j5M4IBaZzqC0wmCQvpJk7tDinjxkEr2aayn6MX1jWTd0qBRa1CF
-	 lERVIYcl8+J776Ruy+yubAqvf5YcO2BBO9z9ltaY6WMqx2pgbVKImlh9BKaYt3SZR3
-	 +6xWb86OFrIc2DXlPWGm8K2/xkvlcVLc9Li3Cy/ogyhizIf8/rmKSvxD+wz5c/YoPc
-	 ELAgsr8wJGC7g==
-Date: Thu, 19 Nov 2026 00:08:46 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Drew Fustini <fustini@kernel.org>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>, Alexandre Ghiti
- <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>, Atish Patra
- <atish.patra@linux.dev>, Babu Moger <babu.moger@amd.com>, Ben Horgan
- <ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>, Chen Pei
- <cp0613@linux.alibaba.com>, Conor Dooley <conor.dooley@microchip.com>,
- Conor Dooley <conor+dt@kernel.org>, Dave Hansen
- <dave.hansen@linux.intel.com>, Dave Martin <Dave.Martin@arm.com>, Fenghua
- Yu <fenghuay@nvidia.com>, Gong Shuai <gong.shuai@sanechips.com.cn>, Gong
- Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn, James Morse
- <james.morse@arm.com>, Kornel =?UTF-8?B?RHVsxJliYQ==?=
- <mindal@semihalf.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- liu.qingtao2@zte.com.cn, Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Palmer
- Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, Peter Newman
- <peternewman@google.com>, Radim =?UTF-8?B?S3LEjW3DocWZ?=
- <radim.krcmar@oss.qualcomm.com>, Reinette Chatre
- <reinette.chatre@intel.com>, Rob Herring <robh@kernel.org>, Samuel Holland
- <samuel.holland@sifive.com>, Sunil V L <sunilvl@oss.qualcomm.com>, Tony
- Luck <tony.luck@intel.com>, Weiwei Li <liwei1518@gmail.com>, yunhui cui
- <cuiyunhui@bytedance.com>, Zhanpeng Zhang
- <zhangzhanpeng.jasper@bytedance.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, Zeng
- Heng <zengheng@picoheart.com>, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, x86@kernel.org,
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v12 1/5] riscv_cbqri: Add capacity controller core
-Message-ID: <20261119000846.776930b3@jic23-hlaptop>
-In-Reply-To: <20261114-dfustini-atl-sc-cbqri-dt-v12-1-6ef1f627072d@kernel.org>
-References: <20261114-dfustini-atl-sc-cbqri-dt-v12-0-6ef1f627072d@kernel.org>
-	<20261114-dfustini-atl-sc-cbqri-dt-v12-1-6ef1f627072d@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=FO9TXHox;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=ptzHvTin
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AINxng53633726;
+	Wed, 18 Nov 2026 18:59:32 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=eahWfYKAQE1SKcfDFOYiIu3G1OgACjghKKPwSsaj4
+	Qg=; b=FO9TXHoxSNGb7agsys/4IoHJS0DdCUylXsZoC93Vur1m4KzXc0Qncku2N
+	fqE0s0ZzRw8CCYsZIcMS309AEUgEY5EsU9Hu+N9GRfUdi5sfqf3/rwJQDJiyNn0Z
+	flE0ylg757bb9fvE/HWu+N/vLvnmVFzEgORBKz1UZ3xn4GP0LkvyF+KV1RDljzyc
+	oFASEwMbW1L42O6oIwfYrgSr6aD06ojsZucKZkj2hZJfuzX3sA03BXauL2hyQRcj
+	IJzMZZZV1XkjwuQtM325Hesf2yV+YZUA9W8kINnnJIOvETqY0FbSBmixIXQwyQY2
+	O4gqqHEHE9Ma5trWblZnKec5rPEKA==
+Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010066.outbound.protection.outlook.com [52.101.85.66])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4j1p6d0850-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 18 Nov 2026 18:59:31 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gnf7x0g0uF0+NHbULC+tvieyAiPIHivrULhkNjxhK7pVoGo6zORtIJBexRHun6C8rOu9piuZscKLFjqCAb4MLKLBTVPCbJzuGtlhs6PJTSP5CQcCoeNdGGHAcpH4O9A4Al7SEcPhOT04DHmDijVKWI4bpD+jp52ESzQPA0mK/AR1z7Tnd3H0h7xSZ/1PRaBHsnnBjUjVSDh0BGKbF/s4/31VfYW40n1n/x537J0DTNY5QgHeYl07mjhBtde3b/EgkEK0S7g+hdBO2BGO+XCHBrKYcn3zDGHQ9c096unwoF0Nh39my4t8lQ5dVGLuWFxeuQnQP7XVzvrSPlwFI/Zleg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eahWfYKAQE1SKcfDFOYiIu3G1OgACjghKKPwSsaj4Qg=;
+ b=sY4e/ZPvSYI7LqK0em2FByrysihhOTwx8h58ULwHaWbg9hoHFxiWB5SEB5BNEvMoPpF3fRCeJSSNPR2HJHJi/IQgKlwmWXB/K9TtUqADuIpPSOL20/mnN+rtp+3zFdTc5+S8LoB8VjJTRhuOlUrnD+35UC5wNRvuSE2L8mZKyFqvlRiUUCiYOm2leogFxTbmveRBWSrjGlB9KuYuMvVWCpr+/482rf2c5LZUWt1bPmfcWp+/39WA7kv8Xd4s2j9uBup94AXWiabKTKUs2ENk8x8ZagzeD9p4zhjCBWeY2itNklinFQiasrAM0NNOFYD/JbBCjNEAn9522o5NI9EKXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=lists.linaro.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eahWfYKAQE1SKcfDFOYiIu3G1OgACjghKKPwSsaj4Qg=;
+ b=ptzHvTinq3SMgQp7XEm3/IJGPoALV9GV6bG32Gu+q50fwrbrp7Nk5UwRSy36ol1jlWlBlGKIfweH9m/Gn9bmjRUzOln1HE3yMXxzk7F5Kdanb0Sj/0EtOvIDBG7Ov6F2Jg9c9Oc2OCHmwrq68yfHBgSb5VizqxjRFfKQzg9G1HI=
+Received: from CH2PR14CA0024.namprd14.prod.outlook.com (2603:10b6:610:60::34)
+ by CC6PR10MB079336.namprd10.prod.outlook.com (2603:10b6:170:207::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
+ 2026 00:59:26 +0000
+Received: from CH01EPF000BE94C.namprd02.prod.outlook.com
+ (2603:10b6:610:60:cafe::9) by CH2PR14CA0024.outlook.office365.com
+ (2603:10b6:610:60::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Thu,
+ 19 Nov 2026 00:59:26 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ CH01EPF000BE94C.mail.protection.outlook.com (10.167.244.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 19 Nov 2026 00:59:23 +0000
+Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 18 Nov
+ 2026 18:58:32 -0600
+Received: from DFLE205.ent.ti.com (10.64.6.63) by DFLE201.ent.ti.com
+ (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 18 Nov
+ 2026 18:58:31 -0600
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE205.ent.ti.com
+ (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Wed, 18 Nov 2026 18:58:31 -0600
+Received: from [10.249.36.95] ([10.249.36.95])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AJ0wV8f3089779;
+	Wed, 18 Nov 2026 18:58:31 -0600
+Message-ID: <d84aab69-c5b8-4718-90ce-7b6abcb9e9a2@ti.com>
+Date: Wed, 18 Nov 2026 18:58:30 -0600
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,236 +133,156 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] i2c: omap: remove unused is_rdr and is_xdr
+ function arguments
+To: Antoni Pokusinski <apokusinski01@gmail.com>, <vigneshr@ti.com>,
+        <andi.shyti@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <aaro.koskinen@iki.fi>, <andreas@kemnade.info>,
+        <khilman@baylibre.com>, <rogerq@kernel.org>, <tony@atomide.com>,
+        <jmkrzyszt@gmail.com>, <sumit.semwal@linaro.org>,
+        <christian.koenig@amd.com>, <phasta@kernel.org>
+CC: <linux-omap@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+        <linaro-mm-sig@lists.linaro.org>
+References: <20261118205213.88778-1-apokusinski01@gmail.com>
+ <20261118205213.88778-4-apokusinski01@gmail.com>
+Content-Language: en-US
+From: Andrew Davis <afd@ti.com>
+In-Reply-To: <20261118205213.88778-4-apokusinski01@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE94C:EE_|CC6PR10MB079336:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a69420e-6bcf-4ff1-7c04-08df45d85a59
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|36860700016|376014|82310400026|7416014|921020|261021123027099003|10067099003|56012099006|4143699003|261026140227099003|261028144727099003|261021121427099003|261022105027099003|261102123227099003|261009221227099003|261009223027099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	WufKj3qLnDWGs/+N2I7CmkujS7fuaaIkQQjbdWhAqnZE6qeQRQywm6lG8g6mPZtjvs8lDGOu+d2hH0oBNzO2+vaka3exvFgkCUw8XZCX3Q/c1DxU+ie6q9Nd5ssWm2dsI5S7gYVQIEVPVWZmoQYxaodzzIlbt9sAEvvQwnLpu09SiVYXpSOiCb93fCjhPpNfkVJ1t/Kjm15LyN2gseJRKGbKlOS0qaz26+jBd7ffw/QOS44uqX0oEO0L4smEkYwxbScePkUiluuOJUYOKRhbRlx5ecLmHQRSmX6dbRV6BbDYTKDN72fAm5+PHBOf2GPH5U1I4EVxIBEvatbvKh9CoiEr3F5w9jODLNPLspmlLyL1LFwERwH+CCV96NjoIo7aWl+LGAyf/kqU1PklT1hnCbgHunk21xvZzy+Lqfl2dqzi+K55RUc6vaMecyKpGC94VH+L0x1eRtSjEkOUUhL7sY7gDLwRdY5qOkGynKlJ7sj6W+m/mqzmAkv7maz2HgvEQzuksB7MjexcBGodmYVbo1GI21dtYAJnhE15nCMHhbdIHMKP7/6UWbRUQs6Akh+DgF5ht8FO0IYpVnau04EGUar9Y9TzFbC5wY7xp3kVzrwP7qVsYUaQZJ6XD2YZ+W6Xi8WaAydVY4/O2aW0RJqfm6yn/toaR3nFQLWaGrmS8+qrSZ5GA1w2++aeWXj2XTOCYxOP/9erqkCNytS+osuU+Q==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(36860700016)(376014)(82310400026)(7416014)(921020)(261021123027099003)(10067099003)(56012099006)(4143699003)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009221227099003)(261009223027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	tlpR2uBCDNQDgarGCe0bTv0vxPyvHpBukoAPJpf/RmM1JCGL3Qz8YvDgYkwRTggZZXmRDc/TioWL/rCOI93qO5U2uOKI6PKtWs+sIsRp6witRJrOe8urk6UqJIbuTVbPfNLfcXa68q+k8iLsdhCn1I0JJWHf3H3HYgh8vr39OyRDmZFbrIuJtQqNbo0o7fKrx2x+OBMeqU9KUvpG+KKsaMGwoqWP/GDINy3+E/qQLi90W8Ck3RXo/y0wqU2tgqUhOHi4GDQ/ANsLTtWAnuHV48aJwLc/sKWKyaOmhsYUzC2BtH+wCz/dX8+2BhUVsPvU2YOKXIhwOkzqYbbLHzS66YOfT15UeEkz/+McAhpqKYqf1HcGjCqO3yhUEe85ABdxf16Se1Npy9m3s/zXnv18kzGlOdjRSvlRcirSgSWwEp2JWFwLgTcugqgBibEo+IdE
+X-Exchange-RoutingPolicyChecked:
+	rGlSkVpZ4QZ21TsQ7dX+AoDKNaFPeXvlAP1TzvCyD4QI+WX091w3kC46E8FYomiBjAdBx/l4NQpcNjFw3eXw7dMdHd8UJU85P7h5/Z+A3Z0zmfqDrfQv+SYrFOfH3I6y4nHHJg+HAYQDo12i0mV0K/j7VToDe/3GTjMcRdXR2UqRh5vhOkmOS74Y9IBhGlwF9btvz9WZc9biGcvaj5OpXrM8T5ECg0ik1bpyrpS6jkdv8pyM+I2HM4d0m24mrNtBcdOB19jgZBYIoo/+V6IQFU3N3dhv8soBsYX0TpJfPxXNWJFv/q7Mows/HEO8NbEVlI8JCleZDCB+y0A9SdkMqw==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 00:59:23.9948
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a69420e-6bcf-4ff1-7c04-08df45d85a59
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH01EPF000BE94C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CC6PR10MB079336
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE5MDAwMyBTYWx0ZWRfXzrzEY6rqvCcs
+ DwInC8fOhX7is8luLLKigi8zK1RplRxt/YFLNb2rlLC8t6EC+8YT6hg3oJQttCOZgQAtT48IIJI
+ CQ2j6ZJthfe2Y4jPGJIJwzIXUzhJO7Ejei5FH7ZniKU5g4MEFpapaomxo2eJisBoCHbv3bHZNAa
+ 2MxsUrpcY8umLO0Ej/EqCWAWqC5TSFpT+wtOuFivwIomP3DGDlUdkEnhfvlRm7rfnhZHdVi7CiP
+ Ht9Zj1DmuhAKJo/jgDVq3C7PnyANxemU3DjhHZkklkQ82RykigMSaYbHTDEIaOOxfZVf8wHPqjO
+ JmcLUBsG5vGXF9X3nm2GNArTtzfvimwtSG9j62/bjoErSE5vLrKUMv8N6hts0T4ZPEsO8LU4REj
+ vE2OFtpWrw2GboYkqe1EcHplPbywyIvYFoZ/JAnIgdfFlti/8B7BCsiY3MYx9xkMsaiiA95DBMP
+ 1QSNTeRgjN0LrSOS/Cg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE5MDAwMyBTYWx0ZWRfX6msHdQzeQ3C7
+ AxCD7wyy8Ycq+2b0G+OrS2gagH3p/9hw+Pgj1pBVVpErmJGyqEX3w7go2p0fbakeTxjOebfgtyV
+ e0+5o561zHqe2LmcHpdVvs28zzpIsLY=
+X-Authority-Analysis: v=2.4 cv=Qc/zLcbv c=1 sm=1 tr=0 ts=6afe49f4 cx=c_pps
+ a=tq6IV6p/3TsKmbatKbZ8qw==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=voM4FWlXAAAA:8 a=sozttTNsAAAA:8 a=pGLkceISAAAA:8
+ a=qvwmucmvtkvDEqhzDi8A:9 a=QEXdDO2ut3YA:10 a=IC2XNlieTeVoXbcui8wp:22
+X-Proofpoint-GUID: WsAkDz89yCaaHgMAa0J5fppT4tb8udJK
+X-Proofpoint-ORIG-GUID: WsAkDz89yCaaHgMAa0J5fppT4tb8udJK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-18_07,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 phishscore=0 bulkscore=0 clxscore=1011
+ suspectscore=0 malwarescore=0 priorityscore=1501 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611190003
 
-On Sat, 14 Nov 2026 14:06:21 -0800
-Drew Fustini <fustini@kernel.org> wrote:
-
-> Add the core for RISC-V CBQRI capacity controllers: the register
-> layout, the capability probe, and the allocation operations that
-> program a capacity block mask for an RCID and read it back.
+On 11/18/26 2:52 PM, Antoni Pokusinski wrote:
+> Both functions omap_i2c_{receive|transmit}_data() have unused arguments
+> is_{r|x}dr which can be deleted.
 > 
-> A discovery layer maps the register block and describes the controller
-> in a cbqri_controller_info descriptor. riscv_cbqri_register_cc() probes
-> the controller from that descriptor and adds it to the controller list,
-> which stays private to the core. The core owns the controller state
-> after registration, so nothing in it depends on how the controller was
-> discovered. The caller keeps the register mapping alive.
+> Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
+> ---
+
+I sent this same patch a few months ago..
+
+https://patchwork.ozlabs.org/project/linux-i2c/patch/20260908154223.116074-3-afd@ti.com/
+
+>   drivers/i2c/busses/i2c-omap.c | 14 ++++++--------
+>   1 file changed, 6 insertions(+), 8 deletions(-)
 > 
-> Tested-by: Zeng Heng <zengheng@picoheart.com>
-> Reviewed-by: Zeng Heng <zengheng@picoheart.com>
-> Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> Signed-off-by: Drew Fustini <fustini@kernel.org>
-
-A couple more drive by comments.
-
-> diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devices.c
-> new file mode 100644
-> index 000000000000..5522872f5cc1
-> --- /dev/null
-> +++ b/drivers/resctrl/cbqri_devices.c
-
-
-> +
-> +/* Read the configured CBM for closid on the AT half via READ_LIMIT. */
-> +int cbqri_read_cache_config(struct cbqri_controller *ctrl, u32 closid,
-> +			    u32 at, u32 *cbm_out)
-> +{
-> +	int err;
-> +
-> +	guard(mutex)(&ctrl->lock);
-> +
-> +	err = cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT, closid, at, 0);
-> +	if (err == 0) {
-> +		/*
-> +		 * resctrl exposes the CBM as a u32 and cbqri_probe_cc() rejects
-> +		 * ncblks > 32, so the mask fits the low 32-bit word of the
-> +		 * cc_block_mask register.
-> +		 */
-> +		*cbm_out = readl(ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
-> +	}
-> +
-> +	return err;
-Unless this gets more complex in later patches I'd do
-	if (err)
-		return err;
-
-	/*
-	 * resctrl exposes the CBM as a u32 and cbqri_probe_cc() rejects
-	 * ncblks > 32, so the mask fits the low 32-bit word of the
-	 * cc_block_mask register.
-	 */
-	*cbm_out = readl(ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
-
-	return 0;
-
-Just to keep error handling out of line and that
-comment block less indented.
-
-> +}
-
-
-> +/**
-> + * riscv_cbqri_register_cc() - register a capacity controller
-> + * @info: registration descriptor. info->type must be CAPACITY. The resctrl
-> + *        glue maps info->cache_level to the L2/L3 resource and uses
-> + *        info->cache_id as the domain id.
-> + *
-> + * The caller resolves the cache level and id from its firmware description.
-> + * Domain membership is resolved per CPU at hotplug, so no cpu mask is stored.
-> + *
-> + * Return: 0 on success, -EEXIST when a controller for the same cache level
-> + * and id is already registered, or another negative errno on failure.
-> + */
-> +int riscv_cbqri_register_cc(const struct cbqri_controller_info *info)
-> +{
-> +	struct cbqri_controller *other;
-> +	int err;
-> +
-> +	if (!info->addr) {
-> +		pr_warn("skipping controller with invalid addr=0x0\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (info->type != CBQRI_CONTROLLER_TYPE_CAPACITY) {
-> +		pr_warn("register_cc called with non-capacity type %u\n",
-> +			info->type);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/*
-> +	 * SRMCFG encodes RCID in 12 bits. Reject an out-of-range count rather
-> +	 * than let FIELD_PREP(SRMCFG_RCID_MASK, closid) truncate it silently.
-> +	 */
-> +	if (info->rcid_count > FIELD_MAX(SRMCFG_RCID_MASK) + 1) {
-> +		pr_warn("CC at %pa has RCID count %u beyond the 12-bit SRMCFG field, skipping\n",
-> +			&info->addr, info->rcid_count);
-> +		return -EINVAL;
-> +	}
-> +
-> +	struct cbqri_controller *ctrl __free(kfree) =
-> +		kzalloc(sizeof(*ctrl), GFP_KERNEL);
-> +	if (!ctrl)
-> +		return -ENOMEM;
-> +
-> +	mutex_init(&ctrl->lock);
-> +
-> +	ctrl->base = info->base;
-> +	ctrl->addr = info->addr;
-> +	ctrl->size = info->size;
-> +	ctrl->type = info->type;
-> +	ctrl->rcid_count = info->rcid_count;
-> +	ctrl->cache.cache_id = info->cache_id;
-> +	ctrl->cache.cache_level = info->cache_level;
-> +
-> +	err = cbqri_probe_controller(ctrl);
-> +	if (err)
-> +		return err;
-> +
-> +	/*
-> +	 * alloc_capable comes from the probe above and rcid_count from the
-> +	 * discovery layer. Two RCIDs are the minimum for a useful system.
-> +	 * resctrl reserves RCID 0 for the default group, so one RCID has
-> +	 * nothing to allocate between, and CDP would halve it to zero.
-> +	 * Reject fewer than two.
-> +	 */
-> +	if (ctrl->alloc_capable && ctrl->rcid_count < 2) {
-> +		pr_warn("CC at %pa is alloc-capable but has fewer than 2 RCIDs, skipping\n",
-> +			&ctrl->addr);
-> +		return -EINVAL;
-> +	}
-> +
-> +	guard(mutex)(&cbqri_controllers_lock);
-> +
-> +	/* The resctrl glue keys its domains on cache_id, one controller each. */
-> +	list_for_each_entry(other, &cbqri_controllers, list) {
-> +		if (other->cache.cache_level == info->cache_level &&
-> +		    other->cache.cache_id == info->cache_id) {
-> +			pr_warn("CC at %pa duplicates the L%u cache id %u controller at %pa, skipping\n",
-> +				&ctrl->addr, info->cache_level, info->cache_id,
-> +				&other->addr);
-> +			return -EEXIST;
-> +		}
-> +	}
-> +
-> +	list_add_tail(&ctrl->list, &cbqri_controllers);
-> +	retain_and_null_ptr(ctrl);
-
-Common trick for this is something like:
-
-	list_add_tail(&no_free_ptr(ctrl)->list, &cbqri_controllers);
-
-because it couples ownership passing with stopping the autofree
-magic.  I'd personally only use retain_and_null_ptr() in cases where I need
-to check for success of the ownership being handed off.
-
-
-> +	return 0;
-> +}
-> diff --git a/drivers/resctrl/cbqri_internal.h b/drivers/resctrl/cbqri_internal.h
-> new file mode 100644
-> index 000000000000..c3e39e6d30c5
-> --- /dev/null
-> +++ b/drivers/resctrl/cbqri_internal.h
-
-> diff --git a/include/linux/riscv_cbqri.h b/include/linux/riscv_cbqri.h
-> new file mode 100644
-> index 000000000000..b0daa1a7e42f
-> --- /dev/null
-> +++ b/include/linux/riscv_cbqri.h
-> @@ -0,0 +1,49 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Public registration API for the RISC-V Capacity and Bandwidth QoS
-> + * Register Interface (CBQRI) core. Discovery layers call
-> + * riscv_cbqri_register_cc() to hand a capacity controller descriptor to
-> + * the core, which owns all subsequent state.
-> + */
-> +#ifndef _LINUX_RISCV_CBQRI_H
-> +#define _LINUX_RISCV_CBQRI_H
-> +
-> +#include <linux/errno.h>
-> +#include <linux/types.h>
-> +
-> +enum cbqri_controller_type {
-> +	CBQRI_CONTROLLER_TYPE_CAPACITY,
-> +};
-> +
-> +/**
-> + * struct cbqri_controller_info - registration descriptor
-> + * @addr:        MMIO base address of the controller's register interface
-> + * @size:        size of the MMIO region
-> + * @type:        controller type (capacity)
-> + * @rcid_count:  number of supported RCIDs
-> + * @cache_id:    cache id used as the resctrl domain id
-> + * @cache_level: cache level (2 or 3) the controller backs
-> + * @base:        mapped register block, which the caller keeps mapped for
-> + *               the life of the system
-Out of order documentation is unusual.  Why?
-
-> + */
-> +struct cbqri_controller_info {
-> +	phys_addr_t			addr;
-> +	phys_addr_t			size;
-> +	void __iomem			*base;
-> +	enum cbqri_controller_type	type;
-> +	u32				rcid_count;
-> +	u32				cache_id;
-> +	u32				cache_level;
-> +};
-> +
-> +#if IS_ENABLED(CONFIG_RISCV_CBQRI)
-> +int riscv_cbqri_register_cc(const struct cbqri_controller_info *info);
-> +#else
-> +static inline int
-> +riscv_cbqri_register_cc(const struct cbqri_controller_info *info)
-> +{
-> +	return -ENODEV;
-> +}
-> +#endif
-> +
-> +#endif /* _LINUX_RISCV_CBQRI_H */
-> 
+> diff --git a/drivers/i2c/busses/i2c-omap.c b/drivers/i2c/busses/i2c-omap.c
+> index f02d294db42a..3f7060d57a86 100644
+> --- a/drivers/i2c/busses/i2c-omap.c
+> +++ b/drivers/i2c/busses/i2c-omap.c
+> @@ -996,8 +996,7 @@ static int errata_omap3_i462(struct omap_i2c_dev *omap)
+>   	return 0;
+>   }
+>   
+> -static void omap_i2c_receive_data(struct omap_i2c_dev *omap, u8 num_bytes,
+> -		bool is_rdr)
+> +static void omap_i2c_receive_data(struct omap_i2c_dev *omap, u8 num_bytes)
+>   {
+>   	u16		w;
+>   
+> @@ -1017,8 +1016,7 @@ static void omap_i2c_receive_data(struct omap_i2c_dev *omap, u8 num_bytes,
+>   	}
+>   }
+>   
+> -static int omap_i2c_transmit_data(struct omap_i2c_dev *omap, u8 num_bytes,
+> -		bool is_xdr)
+> +static int omap_i2c_transmit_data(struct omap_i2c_dev *omap, u8 num_bytes)
+>   {
+>   	u16		w;
+>   
+> @@ -1122,7 +1120,7 @@ static int omap_i2c_xfer_data(struct omap_i2c_dev *omap)
+>   					OMAP_I2C_BUFSTAT_REG) >> 8) & 0x3F;
+>   			}
+>   
+> -			omap_i2c_receive_data(omap, num_bytes, true);
+> +			omap_i2c_receive_data(omap, num_bytes);
+>   			omap_i2c_ack_stat(omap, OMAP_I2C_STAT_RDR);
+>   			continue;
+>   		}
+> @@ -1133,7 +1131,7 @@ static int omap_i2c_xfer_data(struct omap_i2c_dev *omap)
+>   			if (omap->threshold)
+>   				num_bytes = omap->threshold;
+>   
+> -			omap_i2c_receive_data(omap, num_bytes, false);
+> +			omap_i2c_receive_data(omap, num_bytes);
+>   			omap_i2c_ack_stat(omap, OMAP_I2C_STAT_RRDY);
+>   			continue;
+>   		}
+> @@ -1145,7 +1143,7 @@ static int omap_i2c_xfer_data(struct omap_i2c_dev *omap)
+>   			if (omap->fifo_size)
+>   				num_bytes = omap->buf_len;
+>   
+> -			ret = omap_i2c_transmit_data(omap, num_bytes, true);
+> +			ret = omap_i2c_transmit_data(omap, num_bytes);
+>   			if (ret < 0)
+>   				break;
+>   
+> @@ -1160,7 +1158,7 @@ static int omap_i2c_xfer_data(struct omap_i2c_dev *omap)
+>   			if (omap->threshold)
+>   				num_bytes = omap->threshold;
+>   
+> -			ret = omap_i2c_transmit_data(omap, num_bytes, false);
+> +			ret = omap_i2c_transmit_data(omap, num_bytes);
+>   			if (ret < 0)
+>   				break;
+>   
 
