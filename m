@@ -1,98 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795100932;
-	b=iMSGnXTmv2FSsinFLkQpvZstC1iLrV3sqiezZU3Jozw4P8tmhgaCThkEpdUeaBSOcnfY
-	 hK/vmJKzUI4Hia6kDkeO+iu6TfqfzDRhx29BlBCTUNWbacmNfH+MDAeG9pdaPlW4otJZo
-	 nQY0zBHouaLLtdNFt+cI06TLkoX1Gt0IkIdZAliFog6HDzwvbb+Ekz17C8s280KEm4rcX
-	 irMTc+C6P/vQ2tdoAuqevptOVhp/YRk0xHEKmxx81ALUjPN8ylThKq5m+9X47sAxOW+xe
-	 JOh8hXSnLExhT86xM9JjjdWeS2X5QMnvAZSSVmWHKGsyy5KJKq4ch5wEKP0n2wWZktw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795100932;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 Content-Transfer-Encoding:MIME-Version:Content-Type;
-	bh=UvR6QVMTWq8lS3fJb3iOdZEzYx/44ehzH+OdzQnQ9rA=;
-	b=rfWM3A9VOr2JPE4CKZYoZuV+IelWKnCseNZgsKSTbh/iVIZ/CVrJBQYYP4cPWWK/r2yH
-	 6VnDvBVM6E6KdEUgB3PqJgcmpWx7moYre0edvH50w9GMHwQC3P3dwhGe7T1ArdbQe9PxX
-	 sOXits2hN3l/lIDnS+piBD8nIQb+ndiYJEYjGGvSfZGO/38Wyz3U/66aIFBp1kh1RdJYT
-	 T9bie+ydOzKfobrEx7cXMaKRexeJ79U33Rdn1oB3JomGGQRJg3XsNgK2+jUrRgTZJPrry
-	 9joa6mcBuovILtnAFdOhDmhhBmWgoOJY7LafEUqnkpVYX6tE9418369btelNlsIgvSA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P6Ly+rnE;
-	arc=none smtp.remote-ip=209.85.208.170
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795100971;
+	b=BtfkmRDgAzHKYhN1o1pb3phAn187ZjmZ1FgmSyHzdpFkhce5moJf9RZr2KQSYZNRFocG
+	 LvfskvCHDYfkV13fpc2I+FBVD3onXTqNljez3TC3NJNWcTl217QzJYD/pcC6UDV8WrxyE
+	 6VH9LVDwrEU6h2ZhUDgn1wCoDZLXA51ewLzldgqh+AUZr5fD2QzzX/BsUyQ+k8QV2Q0Sd
+	 OFquKQp8Gx2afOJrcV14m0Z8LSbHFZjHizKQ9taLH+dNghDH7dNL5fNlkL3i97ubHsbUA
+	 HWjPcYtchpXKJplURu3U/crscHBbiOTgzryFkOMw1IcPLus+xJFIujoaGyN8gcxf+Qg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795100971;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qNGnohMiCzeV/2nST/vZxlru2Awqvea6Nd2NAaEq//s=;
+	b=Is4iC2QZGBJ1/C2mVLeNdLbx8snoRuF9ug+2rQAIyxWWef/TvC1cnbdvDeQKylTR2F/Y
+	 zSuV5HDQxyQ/tPO8Bh3b90gyXegYuXX94vASdd0kRZ4qgwowoXrIZIHPbEHx82sI8bGDE
+	 VQUmdK1M2oA8Fpb3dQ1PyEQPJe7Pvzj9+LcapBrp48XI4VEBPWylihC9bbLdRyJ7jOiAu
+	 erGlhuSvthCn25hyBwHSU00/Hw2PksaXevZKfIFV1Af7o/QZ4fi+JmFVBMqoKUFei3BW4
+	 5VQFS2n9PTNS13IoXrRyERX8dtHNWudt9/aTkPuIWVhGfn6hxFtn1DX8nidGJFQCgRA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=khXvZmjH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B5B606A326;
+	Thu, 19 Nov 2026 15:09:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=khXvZmjH
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795100971;
+	b=oHHJdZNDrQJZiQbDPuMX9ydHFKnpjw3Q1YqqNYKeNBo3vAeVJ9iaZq0VTjMK2M2kT7na
+	 a+0GF4be+Vyzw2juGFNmroTDLj5WiDuNT1ELuyAObczCDqC7bm9GoIcVBWMr71KrvEbQ6
+	 7ToiJuBT25OGiPzl126potYzHL4T72x1kNAF7kFgMnPIhlfhn79y146M4ePWIhqWmbcux
+	 gYNiYf0VeY2ql4UIVWCk7Fa4MbK3qKgxLQlB3ZxzRSo1ifbTvzSj7H+baK5IyzoprnI3R
+	 PvkEJyJnb3yHYxOc+KUwctvfV6UV3csKwYfWFqdBhzp/1YW/0l/EvZaX/pM+Rn6wZmA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795100971;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qNGnohMiCzeV/2nST/vZxlru2Awqvea6Nd2NAaEq//s=;
+	b=L8bqPdZaPXfaKY3Wz43HYfHIGbYYYUwsuIZzJEjK5L5TUGiiX/R5qsKTRXmu8eRTRwVE
+	 v+HFrgXXp4VnIc9QprRWRIi5tV2ri6MbLTtRw24M1ci3zadmqq4DigyVgVCmJhb9CG8Wg
+	 4apUTS+cDXpnX5JSvsZP6abVVQ9Nb9TzBIbXQS0/FjhvJZfphR3tPfRSquVdKCb/r8Q4S
+	 laWZpat6o2DCBFkJX7ZXgdWnujdVHyohQ0um+WkK/ipsYgFAxQk7FxF765JkMkzKWF8m7
+	 lJDMZnLYeczntNY5izABLniF9ohgT6bknkZno67D45vDwnrADqPa0JVfRSoxLqDvxNQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D09E606A325
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 15:08:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D09E606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P6Ly+rnE
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3adfc004920so24212671fa.3
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 07:08:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795100930; x=1795705730; darn=vger.kernel.org;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UvR6QVMTWq8lS3fJb3iOdZEzYx/44ehzH+OdzQnQ9rA=;
-        b=P6Ly+rnEbtb3B56g4DtN4Fx71CgoOhCEXnaEgUpHcKAS8z6q+OC9aofCeJlbWWx72+
-         2lws9UULc+V1eCneSwRN4OOY4fGNgcjG5NzKfldBMjScI+0fzgEW7m3wmru3i+luxMYU
-         UkCQaJ2cNA+h9J6K8+GfHL1NUszyiAqzanMK66aR1kQs1oLx7VMaPzMFD/6IMeWzCs9X
-         1NXG/laty78FQvJvWaYERAfgw9fN1LHBaG8CfM/lUuhqS6bbgozHduRlKicmrh+VX4Cm
-         F3CKFwNzWc3GSHWCcnDVmiVmNDcy3GoBvqrHvR2UMkSKVnNSyVS1LRI+QAF8q2vjUOFH
-         oR6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795100930; x=1795705730;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UvR6QVMTWq8lS3fJb3iOdZEzYx/44ehzH+OdzQnQ9rA=;
-        b=iZn4aTqnrKDGmCKL313PIDwcIzdvRpa+urZRpIYzfrWsPPfGfOeNLFzYa2isnCCaRQ
-         q9X9kvTGyRJWRlU4oV7mPg/BRsPCJ7PXgCHXfMR7a30y8KomLQ8nO371gw7eX5SZ1zYr
-         W6CAVTy61CPlh/WeDpuo4T/Cb1DgFLE8UY1615rbnjCFiNsh4dEYjzVQB3HaQKcfl9lF
-         2EwQK3CQ8W2j7foSTaxrIGpOYPYnqOkDGyHiHaW+3bR6X/F2lVMdg7OTb33zEtS4L67C
-         qc2UIensADXS+rbKfIuMVufIr2UTKb8npZjFz9Qz+AiKGAVPTWN5g+WoeVA1RB9xfepU
-         nR7w==
-X-Forwarded-Encrypted: i=1; AL+hErEgQ+BY+ViXGk8YT/+73PIu10Vin31dda/jwiXS9YY3FCv6wGseoYQTWYcLS0tzujZVBeVZXqZCXDPq@vger.kernel.org
-X-Gm-Message-State: APuU4Z+T6FjofjvARfgc0NLm8H6pfKp5ga/17B3jtXhQFyThVqdnRWJc
-	KIk/tkffTTPQ+7FbM04kcwQM8Lgt9DP+OVNQECls8kyvK9tY4WdoDsN5
-X-Gm-Gg: AYBFou34gvfFlzgoTPiMeWPVfc1g+oK1TGuumRVbC5bpSSmNwzH+0pBdGmsaRADVGll
-	U7e5jBU7ctqD2MstsM7Qfmdm46GSYVQwhv6R5u4/YFKA5WAQkvUFGsvp8oNr6K/L5bNXmnSSTuI
-	o0+SPTwO1UxV5a3WJtTgPJAK8N/WGCNhiML+AZGxwzTdWvU+FiWEs0q9kxOkp6ACrDEuli4e5gc
-	jt/pp6a04E+q+VBpnAVaMQ6h2Us4q54JVk+l+JOTNeTd6O8J4GOj6rFlvOTjqdtxdxE9t10bkc6
-	HFPCKH1Z3CnxX/1fi+X+1jvTwQcoEH0bPQowB7Q8x+M4zJLgXDIeo/QJZFNi3a52lPLUT1hz9vg
-	D11a1GTvvm81fytch8oWIvtxJzwJGC2TGJBLgLkRyUqI/v7JDrs9MLtPy9sGlvuKi72ssXDjYZa
-	xgprVK+Ld9K+a+25p6fuoF+7tXzj5Dlmgb6wFHSS34xWMm8ZqNRir4aZTOAtjDno3JVYwbUV6hq
-	7QMsOWWulgCSsVSutAZ/DgPQ0qSSXx5psBHQqnpUVZ82Df4mDHtwLW2eoguvjzuwXAkST+5/bdt
-	cSFw2dPmZ8WRDtM4mT68D9H5n0wTdr8gCEgWSoQkNR9HMszXMj2bTFg=
-X-Received: by 2002:a05:651c:a184:b0:3ab:1207:bd2f with SMTP id 38308e7fff4ca-3ae7f9da258mr961291fa.11.1795100930127;
-        Thu, 19 Nov 2026 07:08:50 -0800 (PST)
-Received: from [127.0.1.1] (ip-024-180.users.dtel.ru. [91.210.24.180])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae6ebef2d0sm11809841fa.37.2026.11.19.07.08.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 07:08:49 -0800 (PST)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 0/2] gpio: Add Cortina Systems CS75xx GPIO driver
-In-Reply-To: <p3qjb3oncivinobxa5wvwwkql3xmjfujdwmxigyxczk5ya23ua@xayhbwbn35af>
-References: <20261119-cs75xx-gpio-v5-0-8d14f2bb614b@gmail.com>
- <p3qjb3oncivinobxa5wvwwkql3xmjfujdwmxigyxczk5ya23ua@xayhbwbn35af>
-Date: Thu, 19 Nov 2026 18:08:33 +0300
-Message-ID: <179510091368.5.7008617353574583652@gmail.com>
-Content-Transfer-Encoding: 8bit
+	by smtp.kernel.org (Postfix) with ESMTPS id 7B3D81F000C7;
+	Thu, 19 Nov 2026 15:09:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795100971;
+	bh=qNGnohMiCzeV/2nST/vZxlru2Awqvea6Nd2NAaEq//s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=khXvZmjH9th7+OQcfNjibexWVE8oZZc+KXJXSeA5Gfi6uNbS/ACzgvo2RcTjp6loe
+	 MCQlHZsUll+HHq7J6mrDCtP6I9tE0ce4zxOdn1vIbfFVmVu/Unq1RTTAEodol//tWR
+	 Doa9ZXKkpJJcGhTdZapQmEBmGy1AEilWwZq+8YmLV7n2Qc37nLYuuEjKF+CyeEcVQj
+	 VgzXrOXOSV56lYK6mhzwyiNLmPhYIwI6Xgol5vSEUKXJ28mqkMIPTwQWZHWp9Y0elC
+	 rZikkzuZUd6lxlTRvNd3rsyMthPY/aIDt4sOyYQzhlv1kv6wVDwKkzJbiPFGsWOBfz
+	 iIAW2BdCWWJdg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id F24C24B2E9;
+	Thu, 19 Nov 2026 15:09:29 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Date: Thu, 19 Nov 2026 18:09:08 +0300
+Subject: [PATCH v6 1/2] dt-bindings: gpio: Add Cortina Systems CS7542 GPIO
+ controller
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,27 +83,117 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="fixed"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261119-cs75xx-gpio-v6-1-37aeda0aaedd@gmail.com>
+References: <20261119-cs75xx-gpio-v6-0-37aeda0aaedd@gmail.com>
+In-Reply-To: <20261119-cs75xx-gpio-v6-0-37aeda0aaedd@gmail.com>
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Fil Dunsky <filipp.dunsky@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795100967; l=2247;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=6OdrTQPhY1jNQj4i0+0IbDQKAnU7nQcBZYFWTSNHycw=;
+ b=AU3emwFznBnD5L3txx99viQBwylTLA9ULRIRR55IJAYyj1hW27MCaobOdb5hezUOk+c9+iqe5
+ MXrTjJ7zFeIA4VMyGA8JhqZcYXfgmOCLWu5KwN3e8n0hgDJ3oJEX7b3
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi Bart,
+From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-On Thu, Nov 19, 2026 at 02:42:27PM +0100, Bartosz Golaszewski wrote:
-> The driver looks good but I cannot pick it up while it references a
-> Kconfig symbol that's not upstream.
+The Cortina Systems CS75xx SoCs have five banks of 32 GPIO lines. Each
+pin is shared between a GPIO line and a peripheral function; the pin
+mux lives in the global control block and is not described here.
 
-You're right. I have replaced ARCH_CORTINA_ACCESS || COMPILE_TEST with
-OF. The driver only uses generic MMIO, GPIO and IRQ APIs; HAS_IOMEM is
-already required by the enclosing MMIO GPIO menu. There is no need to
-keep an architecture-specific condition here.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+---
+ .../bindings/gpio/cortina,cs7542-gpio.yaml         | 65 ++++++++++++++++++++++
+ 1 file changed, 65 insertions(+)
 
-I checked built-in and module builds on ARM with GCC and x86-64 with
-Clang, with OF=y and COMPILE_TEST=n, using just the GPIO series on
-v7.4-rc1 without the CS75xx platform series. All four builds passed,
-including vmlinux for the built-in cases and the modules for the modular
-cases. The GPIO driver code is unchanged.
+diff --git a/Documentation/devicetree/bindings/gpio/cortina,cs7542-gpio.yaml b/Documentation/devicetree/bindings/gpio/cortina,cs7542-gpio.yaml
+new file mode 100644
+index 000000000..faa302180
+--- /dev/null
++++ b/Documentation/devicetree/bindings/gpio/cortina,cs7542-gpio.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/gpio/cortina,cs7542-gpio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Cortina Systems CS7542 GPIO controller
++
++maintainers:
++  - Fil Dunsky <filipp.dunsky@gmail.com>
++
++description:
++  The Cortina Systems CS75xx (Goldengate G2) SoCs have five banks of 32
++  GPIO lines, each with its own interrupt. Every pin is shared between a
++  GPIO line and a peripheral function; the choice is made in the global
++  control block and is not part of the GPIO controller.
++
++properties:
++  compatible:
++    const: cortina,cs7542-gpio
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  gpio-controller: true
++
++  "#gpio-cells":
++    const: 2
++
++  gpio-line-names:
++    maxItems: 32
++
++  gpio-reserved-ranges: true
++
++  interrupt-controller: true
++
++  "#interrupt-cells":
++    const: 2
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - gpio-controller
++  - "#gpio-cells"
++  - interrupt-controller
++  - "#interrupt-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    gpio@f00701f0 {
++        compatible = "cortina,cs7542-gpio";
++        reg = <0xf00701f0 0x20>;
++        interrupt-parent = <&intc>;
++        interrupts = <7>;
++        gpio-controller;
++        #gpio-cells = <2>;
++        interrupt-controller;
++        #interrupt-cells = <2>;
++    };
 
-I am sending v6 with this Kconfig change and an updated cover letter.
+-- 
+2.53.0
 
-Thanks,
-Fil
 
