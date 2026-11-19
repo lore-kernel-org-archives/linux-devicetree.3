@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795110886;
-	b=zgNBuPflK0F2o0y/K7MhcNp1nNVJDXKC4g3/VOXWG+AdRqXNTDukxusABm/UGdU/smvE
-	 7ansOR844i+rNHWst0+6/GxVyDVxpHur3+d10hFQuJd55LN6RIblMMh29WwpZiPABqvmM
-	 +FNufllDaS8T0XiqZjZ6HxrktQhYyu3jZmuvAUHwyEwgzJY3V1OvAXikik1rjy0/ye8O2
-	 mdftDIh+OZ7c60YKVeyGUl8P6Ro8Y0Mw+MeZZgcSyJovngvcrrozd0RyxbQj8XzJIieHs
-	 EHZ6uzdl0MMw9XNeL/y+oLsRJ8nygjpWT5+yScUiREbBoe+zIx/yOmdrJ9Uc3b0yA7A==
+	t=1795110888;
+	b=JRdLIoUKJZO9QDT9TAa9r3kxgFtdyPfnGyxEiy6HP9FWdmRcKhY5zPQZqMX0t/ChWfbT
+	 d4OVNCKvzuj/TESzACNktN8K4Ya5F/rGU7BtVaguO6uzPa7tE2Uifx7NAGNlM39knYd5w
+	 hujP5mH380nqzCb+aHyAA4z/drwjqM+5MrqBeIZ2LU/4b/4d2GX1Vaia9oaXTYYdFKDda
+	 IBnivaJ4bU2SjcIWmEnlFzYdkj2FlCSdUgKxMXZlR0cDRb3CVhepikg9gYzhmVTQtLdmN
+	 Wz/oA3LfDxJ1zDIKdpAk/H3YqxgrbGLfi1d28yE2FOJMcJin27y3tBLbVlIEW5uhnlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795110886;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795110888;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=JZeXMm6AAi44BWshE63wgfUA4zyj+3ZnN7hXQLNUFPk=;
-	b=cIFSrGfOAIU1fV0ClWPCkO+YH8D9n4NYeWPm5jfCU6wdOKbHDYXWY8QLs98whq79DAZB
-	 3jOVecBuTX+FJMwlgwRf1rkxQJ/T5BD3ycjaUltiD26uHK7vObnmIL6gjVsetq/y2QMe+
-	 03qvd4EI3gU8Qk9FkE+Cm+wLnDj7cyunuQKFmoaFopyxZ99igBqKp4Y8ClGklZXtFic3F
-	 Y8Ah1rVm/bs/+d6CtqVATUipQ7lcWBP3tUFgbJnPqHbwTC6nxo8L4pYzkUnZaGdBdqgSw
-	 bNHLLKtBNVYM0GdTLaTZLTZPLAisnbdN5D8k9/0tbqWAnN51nhtANP0qThYcuKWH/ow==
+	bh=HyRQC7LCLt2aLLScf7p5/WBb90iUzNQpHgR+zoYi5DQ=;
+	b=49RqRlL+qA4oi0ZZVIO3ojqTWBKlyplc+nOctranM00THTVDpTs7dcQjU1sCTfTZvqS6
+	 gqvH1VDDNGoLqZtLQHVextqf/QGblJRHJox323cW7i2XqZ6LBHcsI9N6N1OqGHRX38M1B
+	 GHQBcs3+a40S+yHQFaca/YSVgLVtD3DpAvu0k/lxxyVvgq6F983PH/Xr1C8GRPDDK76jA
+	 ySNzteiiwDd7kyygBCoZ/0uyxye+wQeNhUeBJlhj4ljSP3xj0beXvmrYjELmRXcJrtbzZ
+	 ZfIV7elDs994nCGoxuqElqs80qw1YF1aVwE/0bzWaHDB8KeA9dN2HI2cpwCoWATppVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D0bF1RMy;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BLJKvOTE;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7222606A33C
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 17:54:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7222606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B4360A2610
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 17:54:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7B4360A2610
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D0bF1RMy
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so27228625e9.3
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:54:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BLJKvOTE
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4a357b1c649so1698855f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:54:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795110884; x=1795715684; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795110886; x=1795715686; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JZeXMm6AAi44BWshE63wgfUA4zyj+3ZnN7hXQLNUFPk=;
-        b=D0bF1RMySG0igrY+lp6ja8i1eRHHIL3f9FkIKp/XjvghQpY2iw+7/QzA9wyhKPojBt
-         dPqm1x+vDf3Hx9rLBRMHXvTBbfMxaUT38hH1PI4NoiKlPOhU2pUWnEUl6InKsNi/MWQR
-         ejVhQbGUQ5DYl9N6BIrKlcjajZ9L2Vyqj1v2NHVvm1uFpucD6/Hyg8rPinDWxtIxMOXC
-         x4ekNVuUVsB2VqjVanzoAgonjsn14TZgE0UjagZQOhRMuaKiQJ5FMOI/OE2IGc4je8xw
-         Hvs0Qf2hQIHMGR8tSDt/jEavgMv+4jCx5ufyksIvSN+RsAAA5jEUaYHVN4BMbuEvkdX+
-         +9ag==
+        bh=HyRQC7LCLt2aLLScf7p5/WBb90iUzNQpHgR+zoYi5DQ=;
+        b=BLJKvOTEDXNRK+uNanov6SAE0KTMeYRZ+p8fRUvQRH0CAcv7TkgBqfSPizxGvjeqCI
+         OoUYAE8HDYeUpWb+Bq4f7ryj/JodSV9iXr8KekXf4cB/bSHHs0uuhgjlrkL8sRJ0t7kp
+         7fWyUU2yzGsUuP1XQUKR9dHrLZtW8azradpbwErmoFbC03hSkJPBvswb81TaNbv5BKy6
+         mkdEP7M7Hu+2mGJViErOdxzq1TrJD5qQRKy1mebdsnxCHY7jeNZH8nbyujn7tmuoLxc9
+         2Pfvs2ly3xX3wUUTYJMBYdMe3yNaWv8bkNNhfe5kBRHg6/Cq7QBfXQCAGFRWQMZfFwq8
+         rjrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795110884; x=1795715684;
+        d=1e100.net; s=20260707; t=1795110886; x=1795715686;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JZeXMm6AAi44BWshE63wgfUA4zyj+3ZnN7hXQLNUFPk=;
-        b=0TZ+ixE5N4B4bzc6ztJN+JSaqpv1pcrfdgVrD2C9SuAaM6ljKHpJxvNHGMqzsdMhUm
-         cGtzm+ki5ziW4qLpgceGC0leFWKLC4A2c7gstpP7vN76VDnvmjVIw05kmj0SXxOHjMtu
-         mGyhhOrriO2QOjbTULFRgOd/LptHPKp3dz8GOTXAxEgsrjjkx+3cp8IbYkjHgRQkQ8Mh
-         8Yar0pSBTSKjqVuS/ub1A9pDDlSyGmHhE+DLqIn4L0hFO8Y86wegvOGR+aloFZ1vh2Bj
-         c+t3F1pDJUKWC/HEcYDgdcuBl9TAoavS8pgp96YUHs9dwOf04bFLEQXtmusseb27EDf9
-         MjuQ==
-X-Forwarded-Encrypted: i=1; AL+hErG3Se6DXbWORmxF93o/O3J8vz2T+ZQj1a16g0lHpQY453m7sK8B56lvLFCGOUIfR1woPn2slVxUbEId@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8AHFmI8v4FDD9ZiHIA3yojLy91C7aPrrZzVl90xoa4e6Zvw1V
-	MuOROcu7RHkEXoFfAGUwGQMQgYNUY5oeKZrI+hYF8vpmRbfAOv6SxNlc
-X-Gm-Gg: AYBFou28BEAhJ8frJkOb5Y2cp23dZPezvC5LKfdOLDphgVUb7rg/DwVQBPZ5LYMlWUY
-	4fz/7vO7bY9Fcm7vpQhATrpjDLzYIKteSW2xveFeBcBkbtofXJDFrSkkasb8f7BDeWzHJCdmbiW
-	yE/xL8i4Hb0xycmpaWjspANcVmLhf+e9qFOlPl6ESqQYnaZSlZOmhpm09vb8XlDXVupibVqyVw+
-	AjQ3OPkKhSohK6JwOXI0Ld83lD7OJTmXgoWeqNqVyt2RMK66sC0u3echcv7SqPqYiAzro/XsZKz
-	DcEIyAtihvDDGTBoipBHrlXpddDTxvcPxRuMtBelIX0vSqH0bA+0X+yy8ERCFkDSXAOrA+a5hK6
-	NAZHyLMO10/JLUSGkT0t//BT5qHWqigbYDqG/7HbTs4xTGfG41UqPA0ylwO8IdHTW9ciqLXlKFx
-	QZnGdofo593OWD5Po0LLU+u46EDAWaLDIG6uz6qS5Xbjq7hnRs96FdypM9bgZI0+aEhHAvM6FHY
-	SKkdw114U1Narays8oEmlpqM7t6UMs6uj83Vty/yPUXuY5j0dSYVduDANGzljEMkwyTf0luvj5N
-	bJv7TOUx7HYRPjiVufiQYj+K0GmRovb9hbBb1s6rhMYLyQAVnChnuMBYEstqDHbPTNG4dEvrtix
-	SS1g+DmE/tP2gGDvrNmQr6d83RFBoKZ+4uJaBjs4+TxxBo5dfWK1lN25LtIVTpPyg0hQUTx86UI
-	WwqEa1xoIZzS4ZcmfLBW5zaLoyTo1YMmEfgbMyKQjth3DICgKzOXL7WRHp92m23Ut7bjyxE00ff
-	uujCqdum5LcV12ckZgWCc4mDyvJoF6FGDBL3mL8tOnwVGr1nlwMh8Hu
-X-Received: by 2002:a05:600c:a08e:b0:4bb:647d:dabe with SMTP id 5b1f17b1804b1-4bb887c3afamr8512525e9.3.1795110884056;
-        Thu, 19 Nov 2026 09:54:44 -0800 (PST)
+        bh=HyRQC7LCLt2aLLScf7p5/WBb90iUzNQpHgR+zoYi5DQ=;
+        b=ljdkAySL+YBUqZBzDxbSefBIBMn4oqr05/rpzuWd1LKmAD3ooFasC4xoVld2IpE6lY
+         fuAC0Dagv4ZR8hkzf5o2lZINB4UJFeuExPVI6ixsJSHIeSNVHxfS11J2cUKLhUhbhqDJ
+         EHjFu1HMG/3qW7P4rm9d1yo9756rPVTF+qb/5/IBJcbV79UvapvG1jdQJfkrHDs979nM
+         1iv5AVMMO0g5+5LjMayTGCLxN98limy8WxsysE7Nc5r+fYCUwXYFp/TjvMc5nwYL0vQ5
+         K+0lb8uFp4TnEHrzmvvdv7zc1nMpQXKvoHHN3qgQEbrhpUATPEMf6eilZNiL06Ct/0j/
+         N45A==
+X-Forwarded-Encrypted: i=1; AL+hErHcPhgv5zXkD0Oxk+qeQx7Gqjooz54PhbkVF4Mj4OuB+Fqpd9pgQbrOLpPquvjkOTDRaVePojeNOnCL@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gzvZzrqio7tnt4EA59GKzG77qEVEbr+4HyHCXl67mvI4oJNh1
+	6BkhZDs4v9DIfai7nRC8Jj/R4UcXZIxH9jzo+5EkSc+6g5zQY2UKjkX5
+X-Gm-Gg: AYBFou08EozWxGEpJprLrtPEoWxmhe3jarKr7pJJ876eGu+M1VfY6uE/eGPkwrNlpKh
+	2UllHbsEAAlPdSENvXabfGv6R5dmS0IdJFAEW/nOs/Lpug/OVePpXF9v/xZS06J+sEVf8RDW3IK
+	2CMadFErcLG2fXKT6A1NeMw7dZn5fDQpBzr0AiXtKZ8gC1PDWDuv17BBg7Z4nAlYM5CW9dw+6+X
+	8WxahybwvpYpCrbPJZjaCPgpmWHa6JVx9Mqj9wz5CVymCuye+Gt0/9k7myRbI/EcMhqJng6Bvkg
+	RQyqmb6AHkqVOAJhmrz+PPYIdeEHf9HxMoQQAwTz4NVPKh/bTzI1BXN0nnLWX/Zx2ZR+0HuUW9e
+	YE5w0XtybRx2Vx7IUm0bfcYL0TZE9pWp8ELc3o/SbfdbRFtmOWrI1F3rRzK0FFgVS17G2QmZVP0
+	rSnYzN1r9w5hFpI74Sbt49OTxIh4a7B0ctDtA4bSTXe39HxJHoANG3s3TvG0x47PZ6dg1Rw3f0/
+	v4ubA9iwUjX9RH3Bom6jlQilbVYWuGvNDKZSl/RSnqVC35NgwTWscQ/HDkEM0bde/CW6K08KyfG
+	O/2+kyDpJkvJjtuIDGf2K5TXg55ncr9W/f9wa1Zw/4TNPLmDMn7+QcUZBTBnconIovQ4fbqJ29S
+	3Wkz4kKzjxlggvxugKH+krvF5obwh3kTFS53apR7EOEzmOJkIv1/kCTBkKl0pnZZIF0DXOu1DmM
+	ggbJIOGILGHFokX+pWXBAmB8VrQabjDZPhWryHAgNOsx4VMYQdDd5DVRdHHyN2+9Y84rMzPynQ2
+	vcsquPoEs9lyGn07ZTKLeRoOPfd9aT85DDLM9O/7v9f96LUOrQVm1JG
+X-Received: by 2002:a05:600c:a55:b0:49f:ce78:356d with SMTP id 5b1f17b1804b1-4bb88827db0mr6257205e9.30.1795110886049;
+        Thu, 19 Nov 2026 09:54:46 -0800 (PST)
 Received: from jernej-laptop (95-143-148-21.dynamic.telemach.net. [95.143.148.21])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb84e50512sm29390035e9.3.2026.11.19.09.54.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb84e50512sm29390035e9.3.2026.11.19.09.54.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 09:54:42 -0800 (PST)
+        Thu, 19 Nov 2026 09:54:44 -0800 (PST)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: Chen-Yu Tsai <wens@kernel.org>,
 	Samuel Holland <samuel@sholland.org>
@@ -97,10 +97,11 @@ Cc: mripard@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/5] drm/sun4i: Reject fractional source coordinates without scaler
-Date: Thu, 19 Nov 2026 18:54:33 +0100
-Message-ID: <20261119175437.2520400-2-jernej.skrabec@gmail.com>
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v4 2/5] dt-bindings: display: allwinner: Add DE33 planes
+Date: Thu, 19 Nov 2026 18:54:34 +0100
+Message-ID: <20261119175437.2520400-3-jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261119175437.2520400-1-jernej.skrabec@gmail.com>
 References: <20261119175437.2520400-1-jernej.skrabec@gmail.com>
@@ -115,92 +116,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The layer code programs the scaler whenever the source rectangle has a
-fractional offset, since only the scaler can apply a sub-pixel phase.
-drm_atomic_helper_check_plane_state() with DRM_PLANE_NO_SCALING doesn't
-catch that: it only compares the scaling factor, which may still be
-exactly 1.0 with fractional source coordinates.
+Allwinner Display Engine 3.3 contains planes, which are shared resources
+between all mixers present in SoC. They can be assigned to specific
+mixer by using registers which reside in display clocks MMIO.
 
-Channels without a scaler would thus have the non-existent scaler
-programmed instead of an error being returned. Reject fractional source
-coordinates on such channels.
+Add a binding for them.
 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/gpu/drm/sun4i/sun8i_ui_layer.c | 24 ++++++++++++++++++++----
- drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 24 ++++++++++++++++++++----
- 2 files changed, 40 insertions(+), 8 deletions(-)
+ .../allwinner,sun50i-h616-de33-planes.yaml    | 46 +++++++++++++++++++
+ 1 file changed, 46 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml
 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-index cf66f676824e..f9c7f28f9fa2 100644
---- a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-@@ -179,10 +179,26 @@ static int sun8i_ui_layer_atomic_check(struct drm_plane *plane,
- 		max_scale = SUN8I_UI_SCALER_SCALE_MAX;
- 	}
- 
--	return drm_atomic_helper_check_plane_state(new_plane_state,
--						   crtc_state,
--						   min_scale, max_scale,
--						   true, true);
-+	ret = drm_atomic_helper_check_plane_state(new_plane_state,
-+						  crtc_state,
-+						  min_scale, max_scale,
-+						  true, true);
-+	if (ret)
-+		return ret;
+diff --git a/Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml b/Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml
+new file mode 100644
+index 000000000000..0a07cb8a5f79
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml
+@@ -0,0 +1,46 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/allwinner,sun50i-h616-de33-planes.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	/*
-+	 * Fractional source coordinates can only be handled by the scaler,
-+	 * so reject them on channels without one.
-+	 */
-+	if (new_plane_state->visible &&
-+	    !(layer->cfg->scaler_mask & BIT(layer->channel)) &&
-+	    ((new_plane_state->src.x1 | new_plane_state->src.y1 |
-+	      new_plane_state->src.x2 | new_plane_state->src.y2) & 0xffff)) {
-+		DRM_DEBUG_DRIVER("Fractional source coordinates need scaler\n");
-+		return -EINVAL;
-+	}
++title: Allwinner H616 Display Engine 3.3 planes
 +
-+	return 0;
- }
- 
- 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-index 09d94f7f9977..4d3fc03f9877 100644
---- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-@@ -259,10 +259,26 @@ static int sun8i_vi_layer_atomic_check(struct drm_plane *plane,
- 		max_scale = SUN8I_VI_SCALER_SCALE_MAX;
- 	}
- 
--	return drm_atomic_helper_check_plane_state(new_plane_state,
--						   crtc_state,
--						   min_scale, max_scale,
--						   true, true);
-+	ret = drm_atomic_helper_check_plane_state(new_plane_state,
-+						  crtc_state,
-+						  min_scale, max_scale,
-+						  true, true);
-+	if (ret)
-+		return ret;
++maintainers:
++  - Jernej Skrabec <jernej.skrabec@gmail.com>
 +
-+	/*
-+	 * Fractional source coordinates can only be handled by the scaler,
-+	 * so reject them on channels without one.
-+	 */
-+	if (new_plane_state->visible &&
-+	    !(layer->cfg->scaler_mask & BIT(layer->channel)) &&
-+	    ((new_plane_state->src.x1 | new_plane_state->src.y1 |
-+	      new_plane_state->src.x2 | new_plane_state->src.y2) & 0xffff)) {
-+		DRM_DEBUG_DRIVER("Fractional source coordinates need scaler\n");
-+		return -EINVAL;
-+	}
++description:
++  Display Engine 3.3 planes are independent of mixers, contrary to
++  previous generations of Display Engine. Planes can be assigned to
++  mixers independently and even dynamically during runtime.
 +
-+	return 0;
- }
- 
- static void sun8i_vi_layer_atomic_update(struct drm_plane *plane,
++properties:
++  compatible:
++    enum:
++      - allwinner,sun50i-h616-de33-planes
++
++  reg:
++    maxItems: 1
++
++  allwinner,plane-mapping:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Phandle of the device responsible for assigning (mapping) planes
++      between mixers.
++
++required:
++  - compatible
++  - reg
++  - allwinner,plane-mapping
++
++additionalProperties: false
++
++examples:
++  - |
++    planes: planes@100000 {
++        compatible = "allwinner,sun50i-h616-de33-planes";
++        reg = <0x100000 0x180000>;
++        allwinner,plane-mapping = <&display_clocks>;
++    };
++
++...
 -- 
 2.43.0
 
