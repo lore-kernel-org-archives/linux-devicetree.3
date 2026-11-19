@@ -1,121 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102247;
-	b=wY2OvvF6IEatvTQcG7clxfq3Vs39IO2aZ1HoBZtWP49kE9PxCR+nZ2Z04v9i2opdZuk5
-	 06fFTiVyVpjN839pWN/+vX1RM4bx51Cz0pWHPF6zSoTJAWhELKw3n3KKH6PDbe/SY4Z5d
-	 6JlKEw1kddJ55qI312FV1nwXH/x605/RqHothE5vCvv5cK8seBiwxWW6/xdqFh/PBbJjV
-	 RxWtph1XOaY2ADHvwPsvv95Hxi6Lh7sRFVrXnpxBuoohllE4igmJJUie4t3qisIJp9cES
-	 o7Q4hgtD28EHMMPjiW7fiKw9CqPEyezypQlwOIuoN1CZCVItsxrFb9TAHg2Rr6nH74A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102247;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=JDnpOn5OCiSx6f0pLbaz7y7dNDOSBAwzbbFSOhKoCsM=;
-	b=lBK7XB7Arc76ae4XEMdIqZSlCqU9IDpgoOFs6f5HLohLE1bXHrwtDw47tRUhl6zOSUks
-	 H4ido8TUiZ2QnRe0zNUXRPvhxYijQ6fDd02n2qlicXrltzh9nz4LsAREeYL4HOaXhYEHV
-	 JWuEShr+ZlH1aBxWMs+XlG0ilmSARA+HgUWipKncaSuVpOjil21c5oPCrjZIE98YbXjFZ
-	 Qn6FpCjfeR+n2crM4Ov6vqpcAH9BI9RcHTHxiqSDZtCFmgZuQvIxvZX+B8O58KWotUcvx
-	 AIpNKMTQnUe2p/laTTJbMWVRytPpvWizX+N1aFX7CPhBMAboHpnaC78/Q6DB1n0QrHQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jdR0S3NP;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=djj2hMfo;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795102324;
+	b=N0/trXO2F9YNP26kZ/GZ0ZxTOLzZ08zpmfk9NleG60V++trWfhXo/qmhaMSvjnltY14f
+	 TWwuVplUvJoUrfm7QILku6YLVVxjPyKmvXOHXKLDWaiWJ+71Dl/4tim26KoAAh5Mx7NJH
+	 6hTiTnNbLm//gu7FXhpWf52z03t8Ll4Yd2HyOBg8TmGwJ3KVkvef2BYELjUCCIZZjK5q1
+	 Ro+y7AE+IH0OJhvkey8IDzOMaZ4OJlUhkadtf4yUj1pB7XadSxYcIOZibVLsWGxX0a2wR
+	 B3V78TZmEAK/dYZJVoEilZFms5Tq00+BuzfmXadUfl1MaJMPazKORR00w17R04gck6g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102324;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=er2wyZMzOFaLxOz66WprXTP/dKE67/8xYU6EObMHs/U=;
+	b=l0NEZ+kFoH4Njs+7Hxcc/mMdZJ3h0Rwz698VMg8BvAamJg3I94KPUPDVVItVV/DY4Ed6
+	 C2/jx4A+fbVcMd89EpGpjV6GAh56We2IOaLYWMoB0H9KJHNPcNl+zZci873guc0TEvgVi
+	 eZZGazbouibQmnmodeVxMzMMrGM428BFAOBVlqp6pfDigXxbpa/t2stDwLsUqpwrMEXmR
+	 smQorFWZ7ZbnKSG3T8U3X/RohA3i2+UL17yVNQLPQS7oRy3v+KDE3kD0cjZa48cwboixO
+	 f5+Uo9wdKBT1tT3/4oytnV3Jtx4fWV96pjN3btWnDIuxiuOEAWXgD7fWkooMOAhW0Rg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=brainfault.org;
+	spf=none smtp.mailfrom=brainfault.org;
+	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=q070x2Te;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEEB1606A33E
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 15:30:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEEB1606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF3F606A32A
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 15:32:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDF3F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jdR0S3NP;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=djj2hMfo
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AJF6POn2773764
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 15:30:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=JDnpOn5OCiSx6f0pLbaz7y7d
-	NDOSBAwzbbFSOhKoCsM=; b=jdR0S3NP3CDw2weUvX+xbH+OzPbLEO+EoQtdhVMv
-	fCqCk+8HQmsCRIB6pZV59ZHjFwvwx35kbo0A+FJGYN60TfB6JtZPDzDptfFPjF64
-	tNbutxnk/dUFOtDtJFNePcT2NGY1kWGouZJgUomFy/D0NxIuabI4Vn4LfKEbGAvi
-	f5WuCnfAKn+S6AayrKejqaDS2KCNDGcrBl+D3WxfSPh0ahKocX+pyL+inC+Labmk
-	XIqQ5HbDSAJspyIKHw7RRAtZR9GYW46R5nyqgmqqiJq7TNNme5h7KZfMBhrbm3Lg
-	jz6p74AxwuQ5nNoO2tj2oDp8rmBIlY8A9a5JwCLKVjEV+g==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j1pdcugv5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 15:30:45 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5eaad8219b0so651637e0c.3
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 07:30:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=q070x2Te
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso18236925e9.0
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 07:32:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795102321; cv=none;
+        d=google.com; s=arc-20260327;
+        b=L1kDuqfzmqXI3zRu6XQQBRZcLSYXv3+7SQK7GiVPMQZAQycE9Pnvc8us8OitIvXf/y
+         oD1O29oXmu4OYU5UdSF9PmLqfZ01b/I9rmr6v8VcjL30LOL1e3yu+HNuY+e8hs/myuT3
+         bJeBF0zOdhT690PFWf7H5GWRtwCMIcw/i0W4mHVE41DpyWDt5NO2kE1Z+GCOD0DC9nqb
+         i+aL4xZxBXSgV5qHph3+GmGenvIoyX/Y/rCFDVOtvk7lPn3rVCOSAYWSkxI4mHuwB/CL
+         OQi+UL2UW0sAT91Olu3N80eFqkNxNKyF21Pz3HPEmpU7g26fwKgLEZA0KrWrVXYsIrpv
+         BAcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=er2wyZMzOFaLxOz66WprXTP/dKE67/8xYU6EObMHs/U=;
+        fh=Has4yIvnlt+PJ0JVWT/U6aYvnsOERhFU8iZUuDbxtLE=;
+        b=Ygp3+HE2vT/cp9UeP5yw4pXROUhrF9+BxyaQDAwUkHObkU6zzbDI5gzVPPcTCXtRWN
+         qVJZVqotC0BQ/kFURLSWaXQIsRqKTowVsrbrSsuHxTODuDJFCoSvSGxb5Ts6TkfBGdJV
+         2ohu7apw2yD3vHPFpAzSAdDxqJLArV+I3stnfCSxLw+zf5xD/zOBzglp9MRQdN9OzThn
+         iawvnVtV4JeRoWmeDZZBsjQ22VEHQsJU1KU7tGVgzTlBbx0JOt74lZqzUHHgynOJ47y+
+         aE40+4gioajgEWzIxoiwjK74bRkQH+eShzefInZM8XINz3NWB46LHwEnEXD8lixIO56I
+         h9tw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795102245; x=1795707045; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=brainfault.org; s=google; t=1795102321; x=1795707121; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=JDnpOn5OCiSx6f0pLbaz7y7dNDOSBAwzbbFSOhKoCsM=;
-        b=djj2hMfoc+MAoyITPNWb9uoUa6mFaXQaZzyFAaB1YOumWQHY8ALSaA95RGQabh/Cle
-         O5D0BtIfUsxdPlRwRM4yh4JKPHmbHWTxciS7q4O4H5XgOeAV/iTitBtkXCxfKSwOax40
-         Kcr3pYFUDsk3K/E/Xs6efIM6793RlM682EJWNC2fEmn6k1zEbXAaSsJ0gWn/eAtwwRF5
-         tHrgTHiaDiOs0/6mIeCkmVL6c3wecX8WCAZB+3JkM8+XuX5kX6jaSh0omYpMsz0rl82e
-         6Tx0W+iRi5KMPKhLRHuTrtADohaegZvWvCknY/78nCleslqktu4voOAwrkHIeS9mNs47
-         Lekg==
+        bh=er2wyZMzOFaLxOz66WprXTP/dKE67/8xYU6EObMHs/U=;
+        b=q070x2TeUECysq3e+w7TePKTC3ji0ps6p2nLVr5GFSDNXR5+kuVZl79ARFBJuCLNIF
+         OHhQLBxNE6qa5xFT9G3JcWlF/Qr+Sgnyr0s7GyPXJfx0WrfLD9wfbLW7stS8ABqo/bQ7
+         MOcFjdadRzJ8hWvSHMrhiVy17D+CBmYC7v2eXmihlqIlaCWWJL2rWOjoy0jLseDIIFT6
+         H5ED4C+WZTu8QFj+uy3Sr/or1aAjIer/XgQTLzFjKfe/3OXsVZdHsjXUjQNGW/vlnN+x
+         Z0WXvg66Q2zIXbWg5ge0lBW1z5M7K4GJ6caSVhwQwDu36tH84jD7DX4f/dWBtEP+WP1k
+         D5Pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795102245; x=1795707045;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1795102321; x=1795707121;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JDnpOn5OCiSx6f0pLbaz7y7dNDOSBAwzbbFSOhKoCsM=;
-        b=Ca9HNGxRVmm3fSnzcSQIg/S9FlmAlU3EyuYYB9zJwkcnPOKjrcMKgX0IJLg2uXm+T2
-         iaLkZai56TaZj3ygAfhfbddfmzLzhTQr3406j0YBJK6zOZZu4vtjES4PE1aeGB058n9l
-         wF99V8XE+QmY2qR6Hc0RnkhLtNlI3R2RUqKHSz/vvRfTUoShKodPEJMoc0zCTsf5ZMXy
-         20qsQ2uLbZZJg4YGxejRf8yTn38Zi5Mx1CpdJn2XnVIg9t5Eb1K6FFVXuavRj2SHDqqA
-         LDohS3KXxXKbRrbiyNLkmPoM2QC7XAxvQ7/uPT+W/rPvyOMkrH14gFgZ0GQS5NK7Yzp1
-         h3sg==
-X-Forwarded-Encrypted: i=1; AL+hErHHwEjsRf9pGqSLM5qdE7B9kqZN7l+JrzTKrE+4pK/CaQeaLDSWYjMU684SXJS0RDCCTFlMNIQfo123@vger.kernel.org
-X-Gm-Message-State: APuU4Z9StLT7cofFy64eceeUdDp9N262BnwF5KVjJH3HGcPVMHMaqLax
-	OAo1pz0TK9xqSHflRKNnoWsH1BQU/3ezbY+Fh3E651/LUyWe68asZ4eZn/zoqEnHFfXY0lgWJqh
-	jTmyWI/HBRRF8+BC3ZYDESS560gAbmvb5RmaglVlzyhYFXpOao5aAu3wNWvrrnxH7
-X-Gm-Gg: AYBFou0NihEMPIgmwXnbVkSF96ah6ZbUcFiJ8KsnZgGbl0G40PZHEIJFJRaCBLoZ4W4
-	RhPcHslp2fUxx9S2I4tFGGO2uopj/phkRXm1+ScCc/7iuszVDLxRw1TSAMs6cuJmN8DDV3SnxIQ
-	6XKfqiP6iBbcIs3H24rS/s07QBHoVj9bbQv86zlBlIpIhn3CJ9XnBRkjEdYFw0cq9EshnHrnxQv
-	Xk3v7z/IrPFjNYpvLq+ib1pLLOWHissSbxgjebgcwk5TlWF9fP+BhMNrGoUyayJbjCBaIOOG3aG
-	ye7yFOaGBpty6TO0ON1EKUmZP5LMVsVF3t+WGU7LE464vKC6Dj5eOouiCMsJEhmSL+M5g6G5CJF
-	3BDT3A6tKZ+l2n8jb7183c80rTpv7JcdgizkVfiqCdbgIUGxkyJgnFsmF/wv6vykyPdcR23zrfC
-	5B705MgNr9aRc=
-X-Received: by 2002:a05:6122:e243:b0:5ea:de2e:545f with SMTP id 71dfb90a1353d-5ee8aea6c15mr5878e0c.8.1795102244775;
-        Thu, 19 Nov 2026 07:30:44 -0800 (PST)
-X-Received: by 2002:a05:6122:e243:b0:5ea:de2e:545f with SMTP id 71dfb90a1353d-5ee8aea6c15mr5775e0c.8.1795102244005;
-        Thu, 19 Nov 2026 07:30:44 -0800 (PST)
-Received: from QCOM-aGQu4IUr3Y.na.qualcomm.com ([195.50.164.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb84e06c73sm75672515e9.2.2026.11.19.07.30.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 07:30:43 -0800 (PST)
-Date: Thu, 19 Nov 2026 16:30:41 +0100
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: nord: Fix GPI DMA wiring of QUP SPI
- engines
-Message-ID: <av8WIZjPgnS8qWNt@QCOM-aGQu4IUr3Y.na.qualcomm.com>
-References: <20261118112407.103412-1-shengchao.guo@oss.qualcomm.com>
- <5poepxkppbiyfxz2dxkjm7p7xiq4ndoltsnnbqlp5rdasbvrxr@p2ocx5b3kubj>
+        bh=er2wyZMzOFaLxOz66WprXTP/dKE67/8xYU6EObMHs/U=;
+        b=nnEr4W5Hl1SkJLH8o5mqnb7DRbmb+fUmMCq0aLrRe5R/oQVtrBEVRJl9YYYODuUh8Y
+         8s7GfdablEejBsv5C9qDCOpfdyoBit1/T3qcWZ2LLSpin6naZrmJYaKj9rQubBRzdM5K
+         B3vUlKvfl0UfT+X6Rd4c6MWAwloMqSs5f0dAc/uACSs4z/a0NtZ1He4irXloPRM+zKur
+         mqc13q1EJCi3SSElsxlrfn51lMLgtc8arGiH9uUXHlD4R/gUayTw2GxI91Zz1F9IZp8N
+         z3v0hxpKRz5LQ9o2pzllSSecSJVIlBxqVWr9Mw46qIrxwLOkD9Mb1Y5MaOJbzK5WrkcG
+         C3+g==
+X-Forwarded-Encrypted: i=1; AL+hErG8BpC47mtaezgy6tBnvryZoC8X+czjr9ugzv0HmXEjoIXSaYUhpVTdbon31MaO6LyG4Zb8DuvsKjsy@vger.kernel.org
+X-Gm-Message-State: APuU4Z/AVwupTiNMoaT9UYLGuLoFfi+m6KRrHxSA0avMbe++B9QbQrRD
+	/Ww+BfN9Oc1FyXaVa/NvR6SPQCmjwQHRWYxnwfTAF5OE2Uj4GGntocyBKXSs4CvZSzo4IrxuOz4
+	SO1X5h4i6V3fZf2CXYd9mD6UblRtaSvbTu8ix9mfCvA==
+X-Gm-Gg: AYBFou2Sfiz5pGVWUuagSRIi+X91TyUg0FKRipOtuI8xxZmcAZSQn3UidHHzbhrnhze
+	wOafCVkT5s4b4CVBD8nH4GPshqraXreRFuDropIFVjCAKeiJNsJjoVImksU79w85BnoRNwnq1Kq
+	3IIBGu/CpHMZQyp43W2skVBWUlx+eRcJj2DMoNLWT1q2r8yuF498h5egVE4ZMn6YJvRnJ1O7mo0
+	SGhY9vuF63F1MdVuyZ6MOHYQSbwpujgFOS6EceBMFH36GpsJ6gYqE5fRX+tYJnrfb5Uw7liswed
+	ITL7opmtkIPs71CNQePVMa9tiftBR82M/S1G9cG+836k2yWqwtooz+y6nE+JnGJAJqGVtBaKTGT
+	8l4nNGFTRnF3QyW6huDcJVcudtDlSDxZrmfmn95glQPhuSL1vckG9usUoaQPvwNoxInR1O342cc
+	s0+kexsLjFb59kit8qkpUO2Tw0TC7vPhY4NTNhuz9laW2Y5gHE44IU5eY=
+X-Received: by 2002:a05:600c:a41:b0:4a1:fbd2:f689 with SMTP id
+ 5b1f17b1804b1-4bb7da13ad8mr128354375e9.7.1795102320876; Thu, 19 Nov 2026
+ 07:32:00 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -125,56 +105,859 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5poepxkppbiyfxz2dxkjm7p7xiq4ndoltsnnbqlp5rdasbvrxr@p2ocx5b3kubj>
-X-Proofpoint-ORIG-GUID: gkJUHIRz2E9walg2t8YtGFtxd58kvRwk
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE5MDA2MSBTYWx0ZWRfX/4xtks/BZUSq
- L5HVz46xejOD74jIMNLUKUYq7DAZa5SDvjWSOcEr5SvEDiMOgL8kGw+6ZQQEvEzZE2RRANbm+7j
- 3GJTQVAoXoLbPsjKWe+d7nVTSZ9Kfms=
-X-Proofpoint-GUID: gkJUHIRz2E9walg2t8YtGFtxd58kvRwk
-X-Authority-Analysis: v=2.4 cv=Ma/5KJ/f c=1 sm=1 tr=0 ts=6aff1625 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=bQRtwVpyhJfczlGs_sgA:9 a=CjuIK1q_8ugA:10
- a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE5MDA2MSBTYWx0ZWRfX5NAopxHh+7qv
- uFVvRBG9hwn8nyFaq1hNI/5jb1aBc7T6s1AzuzZhxTeQB5BNQGGHVaFC4dCtFefDgOxc0onVnew
- DFbN3ge1m3BZJDlGcLgiMm53AAVuQs54YXjuQp8ECUB2yiXyzxs2KBUuNGsggOd+WR0uXi7Kkhm
- vHRtJr14ckcjZ3USBCGkzJ7DIiiACdR/RguTCvgXFxh4nn/taMx1BRbedian8mY5HGB268hMoSG
- ToP1bkV0pLqBCVFPl6/OEzLkSM/lKXr+Xl1SluCAonLjF+YeJaK09bJp2XgynHosv+0Z2Ky7saF
- bDYvbmNjFon4XqCVNyzbpA8qoJYexRZutnYVEZ+/PiKNBk9nqUkEiDKwNbQLOQGhRtAYV9TMuk7
- 1pIiPsYG/VRs9qidDsxnHriPiUgtuZlnColGj8EPdxmJNhaGFaHxDVuX6GIeE5l0WbNjaGILBXO
- fVxAzGeTKirIfK3SLTA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-19_04,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0
- malwarescore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611190061
+References: <20261118095053.3871267-1-vikram.singh3@oss.qualcomm.com> <20261118095053.3871267-6-vikram.singh3@oss.qualcomm.com>
+In-Reply-To: <20261118095053.3871267-6-vikram.singh3@oss.qualcomm.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Thu, 19 Nov 2026 21:01:49 +0530
+X-Gm-Features: Aa3M54oS26G2NIQD3dF-_jDrsko_tT7KRUxDV_5uV3qItVR5SQIMYkCSFwe36X0
+Message-ID: <CAAhSdy0dzCbZ+5Pr1FOj3Cz=+xNjfuOgr1CX8yyvVHe4vFHymQ@mail.gmail.com>
+Subject: Re: [PATCH v5 5/7] riscv: pmu: Add driver for Control Transfer
+ Records Ext
+To: Vikram Singh <vikram.singh3@oss.qualcomm.com>
+Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
+	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
+	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, 
+	paul.walmsley@sifive.com, palmer@dabbelt.com, aou@eecs.berkeley.edu, 
+	alex@ghiti.fr, atishp@rivosinc.com, anup.patel@oss.qualcomm.com, 
+	will@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	beeman@rivosinc.com, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, Conor Dooley <conor@kernel.org>, 
+	devicetree@vger.kernel.org, Rajnesh Kanwal <rajnesh.kanwal49@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 19, 2026 at 03:04:11PM +0100, Bartosz Golaszewski wrote:
-> On Wed, Nov 18, 2026 at 12:24:07PM +0100, Shawn Guo wrote:
-> > Commit d8005dd04efc ("arm64: dts: qcom: nord: wire up GPI DMA for QUP
-> > I2C/SPI engines") put the QCOM_GPI_SPI channels of SE 0-3, 7, 8, 11
-> > and 12 into the uartN nodes instead of their spiN siblings, and left
-> > spi4 and spi14..spi19 without any. The UART nodes now carry dmas
-> > properties the GENI UART binding doesn't allow, and 15 of 18 SPI
-> > engines can't use GPI DMA.
-> > 
-> > Move the channels from the UART nodes to the SPI nodes, and add the
-> > missing ones for spi4 and spi14..spi19.
-> > 
-> > Fixes: d8005dd04efc ("arm64: dts: qcom: nord: wire up GPI DMA for QUP I2C/SPI engines")
-> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> > ---
-> 
-> Eek! Thanks. I think the comment from sashiko needs to be addresed
-> though.
+On Wed, Nov 18, 2026 at 3:21=E2=80=AFPM Vikram Singh
+<vikram.singh3@oss.qualcomm.com> wrote:
+>
+> This adds support for CTR Ext defined in [0]. The extension
+> allows to records a maximum for 256 last branch records.
+>
+> CTR extension depends on s[m|s]csrind and Sscofpmf extensions.
+>
+> Co-developed-by: Rajnesh Kanwal <rajnesh.kanwal49@gmail.com>
+> Signed-off-by: Rajnesh Kanwal <rajnesh.kanwal49@gmail.com>
+> Signed-off-by: Vikram Singh <vikram.singh3@oss.qualcomm.com>
+> Link: https://lore.kernel.org/r/20261106173942.3175069-6-vikram.singh3@os=
+s.qualcomm.com
+> Signed-off-by: Anup Patel <anup@brainfault.org>
 
-I think sashiko got confused, no?
+As mentioned in PATCH1, drop the "Link:" and the subsequent
+"Signed-off-by:" lines.
 
-Shawn
+> ---
+>  MAINTAINERS                    |   3 +
+>  drivers/perf/Kconfig           |  16 +
+>  drivers/perf/Makefile          |   1 +
+>  drivers/perf/riscv_ctr.c       | 609 +++++++++++++++++++++++++++++++++
+>  include/linux/perf/riscv_pmu.h |  44 ++-
+>  5 files changed, 669 insertions(+), 4 deletions(-)
+>  create mode 100644 drivers/perf/riscv_ctr.c
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index ccbcdc0799b9..87bba12adc7f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -24225,8 +24225,11 @@ F:     arch/riscv/boot/dts/sifive/
+>  RISC-V PMU DRIVERS
+>  M:     Atish Patra <atish.patra@linux.dev>
+>  R:     Anup Patel <anup@brainfault.org>
+> +R:     Vikram Singh <vikram.singh3@oss.qualcomm.com>
+>  L:     linux-riscv@lists.infradead.org
+>  S:     Supported
+> +F:     Documentation/arch/riscv/pmu-sse.rst
+
+Drop this line since it will be added by the SSE patch series.
+
+> +F:     drivers/perf/riscv_ctr.c
+>  F:     drivers/perf/riscv_pmu.c
+>  F:     drivers/perf/riscv_pmu_legacy.c
+>  F:     drivers/perf/riscv_pmu_sbi.c
+> diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
+> index 245e7bb763b9..0b4c04c50c22 100644
+> --- a/drivers/perf/Kconfig
+> +++ b/drivers/perf/Kconfig
+> @@ -129,6 +129,22 @@ config ANDES_CUSTOM_PMU
+>
+>           If you don't know what to do here, say "Y".
+>
+> +config RISCV_CTR
+> +       bool "Enable support for Control Transfer Records (CTR)"
+> +       depends on PERF_EVENTS && RISCV_PMU
+> +       default y
+> +       help
+> +         Enable support for Control Transfer Records (CTR) which
+> +         allows recording branches, Jumps, Calls, returns etc taken in a=
+n
+> +         execution path. This also supports privilege based filtering. I=
+t
+> +         captures additional relevant information such as cycle count,
+> +         branch misprediction etc.
+> +
+> +config RISCV_M_MODE
+> +               bool "Enable M Mode"
+> +               depends on RISCV_CTR
+> +               default n
+> +
+
+Drop this "config RISCV_M_MODE" because it is already
+defined under arch/riscv
+
+>  config ARM_PMU_ACPI
+>         depends on ARM_PMU && ACPI
+>         def_bool y
+> diff --git a/drivers/perf/Makefile b/drivers/perf/Makefile
+> index eb8a022dad9a..02cba90afb54 100644
+> --- a/drivers/perf/Makefile
+> +++ b/drivers/perf/Makefile
+> @@ -21,6 +21,7 @@ obj-$(CONFIG_RISCV_PMU) +=3D riscv_pmu.o
+>  obj-$(CONFIG_RISCV_PMU_LEGACY) +=3D riscv_pmu_legacy.o
+>  obj-$(CONFIG_RISCV_PMU_SBI) +=3D riscv_pmu_sbi.o
+>  obj-$(CONFIG_STARFIVE_STARLINK_PMU) +=3D starfive_starlink_pmu.o
+> +obj-$(CONFIG_RISCV_CTR) +=3D riscv_ctr.o
+
+Add this line right after the line appending "riscv_pmu_sbi.o"
+
+>  obj-$(CONFIG_THUNDERX2_PMU) +=3D thunderx2_pmu.o
+>  obj-$(CONFIG_XGENE_PMU) +=3D xgene_pmu.o
+>  obj-$(CONFIG_ARM_SPE_PMU) +=3D arm_spe_pmu.o
+> diff --git a/drivers/perf/riscv_ctr.c b/drivers/perf/riscv_ctr.c
+> new file mode 100644
+> index 000000000000..1af8a304dd69
+> --- /dev/null
+> +++ b/drivers/perf/riscv_ctr.c
+> @@ -0,0 +1,609 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Control transfer records extension Helpers.
+> + *
+> + * Copyright (C) 2024 Rivos Inc.
+> + *
+> + * Author: Rajnesh Kanwal <rkanwal@rivosinc.com>
+
+No need to mention author names over here and
+all other patches.
+
+> + */
+> +
+> +#define pr_fmt(fmt) "CTR: " fmt
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/printk.h>
+> +#include <linux/types.h>
+> +#include <linux/perf_event.h>
+> +#include <linux/perf/riscv_pmu.h>
+> +#include <linux/cpufeature.h>
+> +#include <asm/hwcap.h>
+> +#include <asm/csr_indirect.h>
+> +#include <asm/csr.h>
+> +
+> +#define CTR_BRANCH_FILTERS_INH  (CTRCTL_EXCINH       | \
+> +                                CTRCTL_INTRINH      | \
+> +                                CTRCTL_TRETINH      | \
+> +                                CTRCTL_TKBRINH      | \
+> +                                CTRCTL_INDCALL_INH  | \
+> +                                CTRCTL_DIRCALL_INH  | \
+> +                                CTRCTL_INDJUMP_INH  | \
+> +                                CTRCTL_DIRJUMP_INH  | \
+> +                                CTRCTL_CORSWAP_INH  | \
+> +                                CTRCTL_RET_INH      | \
+> +                                CTRCTL_INDOJUMP_INH | \
+> +                                CTRCTL_DIROJUMP_INH)
+> +
+> +#define CTR_BRANCH_ENABLE_BITS (CTRCTL_KERNEL_ENABLE | CTRCTL_U_ENABLE)
+> +
+> +/* Branch filters not-supported by CTR extension. */
+> +#define CTR_EXCLUDE_BRANCH_FILTERS (PERF_SAMPLE_BRANCH_ABORT_TX         =
+       | \
+> +                                   PERF_SAMPLE_BRANCH_IN_TX            |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_PRIV_SAVE        |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_NO_TX            |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_COUNTERS)
+> +
+> +/* Branch filters supported by CTR extension. */
+> +#define CTR_ALLOWED_BRANCH_FILTERS (PERF_SAMPLE_BRANCH_USER            |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_KERNEL           |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_HV               |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_ANY              |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_ANY_CALL         |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_ANY_RETURN       |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_IND_CALL         |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_COND             |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_IND_JUMP         |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_HW_INDEX         |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_NO_FLAGS         |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_NO_CYCLES        |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_CALL_STACK       |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_CALL             |=
+ \
+> +                                   PERF_SAMPLE_BRANCH_TYPE_SAVE)
+> +
+> +#define CTR_PERF_BRANCH_FILTERS    (CTR_ALLOWED_BRANCH_FILTERS         |=
+ \
+> +                                   CTR_EXCLUDE_BRANCH_FILTERS)
+> +
+> +static u64 allowed_filters __read_mostly;
+> +
+> +struct ctr_regset {
+> +       unsigned long src;
+> +       unsigned long target;
+> +       unsigned long ctr_data;
+> +};
+> +
+> +enum {
+> +       CTR_STATE_NONE,
+> +       CTR_STATE_VALID,
+> +};
+> +
+> +/* Head is the idx of the next available slot. The slot may be already p=
+opulated
+> + * by an old entry which will be lost on new writes.
+> + */
+> +struct riscv_perf_task_context {
+> +       int callstack_users;
+> +       int stack_state;
+> +       unsigned int num_entries;
+> +       u32 ctr_status;
+> +       u64 ctr_control;
+> +       struct ctr_regset store[MAX_BRANCH_RECORDS];
+> +};
+> +
+> +static inline u64 get_ctr_src_reg(unsigned int ctr_idx)
+> +{
+> +       return csr_indirect_read(CSR_SIREG, CTR_ENTRIES_FIRST, ctr_idx);
+> +}
+> +
+> +static inline void set_ctr_src_reg(unsigned int ctr_idx, u64 value)
+> +{
+> +       return csr_indirect_write(CSR_SIREG, CTR_ENTRIES_FIRST, ctr_idx, =
+value);
+> +}
+> +
+> +static inline u64 get_ctr_tgt_reg(unsigned int ctr_idx)
+> +{
+> +       return csr_indirect_read(CSR_SIREG2, CTR_ENTRIES_FIRST, ctr_idx);
+> +}
+> +
+> +static inline void set_ctr_tgt_reg(unsigned int ctr_idx, u64 value)
+> +{
+> +       return csr_indirect_write(CSR_SIREG2, CTR_ENTRIES_FIRST, ctr_idx,=
+ value);
+> +}
+> +
+> +static inline u64 get_ctr_data_reg(unsigned int ctr_idx)
+> +{
+> +       return csr_indirect_read(CSR_SIREG3, CTR_ENTRIES_FIRST, ctr_idx);
+> +}
+> +
+> +static inline void set_ctr_data_reg(unsigned int ctr_idx, u64 value)
+> +{
+> +       return csr_indirect_write(CSR_SIREG3, CTR_ENTRIES_FIRST, ctr_idx,=
+ value);
+> +}
+> +
+> +static inline bool ctr_record_valid(u64 ctr_src)
+> +{
+> +       return !!FIELD_GET(CTRSOURCE_VALID, ctr_src);
+> +}
+> +
+> +static inline int ctr_get_mispredict(u64 ctr_target)
+> +{
+> +       return FIELD_GET(CTRTARGET_MISP, ctr_target);
+> +}
+> +
+> +static inline unsigned int ctr_get_cycles(u64 ctr_data)
+> +{
+> +       const unsigned int cce =3D FIELD_GET(CTRDATA_CCE_MASK, ctr_data);
+> +       const unsigned int ccm =3D FIELD_GET(CTRDATA_CCM_MASK, ctr_data);
+> +
+> +       if (ctr_data & CTRDATA_CCV)
+> +               return 0;
+> +
+> +       /* Formula to calculate cycles from spec: (2^12 + CCM) << CCE-1 *=
+/
+> +       if (cce > 0)
+> +               return (4096 + ccm) << (cce - 1);
+> +
+> +       return FIELD_GET(CTRDATA_CCM_MASK, ctr_data);
+> +}
+> +
+> +static inline unsigned int ctr_get_type(u64 ctr_data)
+> +{
+> +       return FIELD_GET(CTRDATA_TYPE_MASK, ctr_data);
+> +}
+> +
+> +static inline unsigned int ctr_get_depth(u64 ctr_depth)
+> +{
+> +       /* Depth table from CTR Spec: 2.4 sctrdepth.
+> +        *
+> +        * sctrdepth.depth       Depth
+> +        * 000                  - 16
+> +        * 001                  - 32
+> +        * 010                  - 64
+> +        * 011                  - 128
+> +        * 100                  - 256
+> +        *
+> +        * Depth =3D 16 * 2 ^ (ctrdepth.depth)
+> +        * or
+> +        * Depth =3D 16 << ctrdepth.depth.
+> +        */
+> +       return 16 << FIELD_GET(SCTRDEPTH_MASK, ctr_depth);
+> +}
+> +
+> +static inline struct riscv_perf_task_context *task_context(void *ctx)
+> +{
+> +       return (struct riscv_perf_task_context *)ctx;
+> +}
+> +
+> +/* Reads CTR entry at idx and stores it in entry struct. */
+> +static bool get_ctr_regset(struct ctr_regset *entry, unsigned int idx)
+> +{
+> +       entry->src =3D get_ctr_src_reg(idx);
+> +
+> +       if (!ctr_record_valid(entry->src))
+> +               return false;
+> +
+> +       entry->src =3D entry->src;
+> +       entry->target =3D get_ctr_tgt_reg(idx);
+> +       entry->ctr_data =3D get_ctr_data_reg(idx);
+> +
+> +       return true;
+> +}
+> +
+> +static void set_ctr_regset(struct ctr_regset *entry, unsigned int idx)
+> +{
+> +       set_ctr_src_reg(idx, entry->src);
+> +       set_ctr_tgt_reg(idx, entry->target);
+> +       set_ctr_data_reg(idx, entry->ctr_data);
+> +}
+> +
+> +static u64 branch_type_to_ctr(int branch_type)
+> +{
+> +       u64 config =3D CTR_BRANCH_FILTERS_INH | CTRCTL_LCOFIFRZ;
+> +
+> +       if (branch_type & PERF_SAMPLE_BRANCH_USER)
+> +               config |=3D CTRCTL_U_ENABLE;
+> +
+> +       if (branch_type & PERF_SAMPLE_BRANCH_KERNEL)
+> +               config |=3D CTRCTL_KERNEL_ENABLE;
+> +
+> +       if (branch_type & PERF_SAMPLE_BRANCH_HV) {
+> +               if (riscv_isa_extension_available(NULL, H))
+> +                       config |=3D CTRCTL_KERNEL_ENABLE;
+> +       }
+> +
+> +       if (branch_type & PERF_SAMPLE_BRANCH_ANY) {
+> +               config &=3D ~CTR_BRANCH_FILTERS_INH;
+> +               return config;
+> +       }
+> +
+> +       if (branch_type & PERF_SAMPLE_BRANCH_ANY_CALL) {
+> +               config &=3D ~CTRCTL_INDCALL_INH;
+> +               config &=3D ~CTRCTL_DIRCALL_INH;
+> +               config &=3D ~CTRCTL_EXCINH;
+> +               config &=3D ~CTRCTL_INTRINH;
+> +       }
+> +
+> +       if (branch_type & PERF_SAMPLE_BRANCH_ANY_RETURN)
+> +               config &=3D ~(CTRCTL_RET_INH | CTRCTL_TRETINH);
+> +
+> +       if (branch_type & PERF_SAMPLE_BRANCH_IND_CALL)
+> +               config &=3D ~CTRCTL_INDCALL_INH;
+> +
+> +       if (branch_type & PERF_SAMPLE_BRANCH_COND)
+> +               config &=3D ~CTRCTL_TKBRINH;
+> +
+> +       if (branch_type & PERF_SAMPLE_BRANCH_CALL_STACK)
+> +               config |=3D CTRCTL_RASEMU;
+> +
+> +       if (branch_type & PERF_SAMPLE_BRANCH_IND_JUMP) {
+> +               config &=3D ~CTRCTL_INDJUMP_INH;
+> +               config &=3D ~CTRCTL_INDOJUMP_INH;
+> +       }
+> +
+> +       if (branch_type & PERF_SAMPLE_BRANCH_CALL)
+> +               config &=3D ~CTRCTL_DIRCALL_INH;
+> +
+> +       return config;
+> +}
+> +
+> +static const int ctr_perf_map[] =3D {
+> +       [CTRDATA_TYPE_NONE]                     =3D PERF_BR_UNKNOWN,
+> +       [CTRDATA_TYPE_EXCEPTION]                =3D PERF_BR_SYSCALL,
+> +       [CTRDATA_TYPE_INTERRUPT]                =3D PERF_BR_IRQ,
+> +       [CTRDATA_TYPE_TRAP_RET]                 =3D PERF_BR_ERET,
+> +       [CTRDATA_TYPE_NONTAKEN_BRANCH]          =3D PERF_BR_COND,
+> +       [CTRDATA_TYPE_TAKEN_BRANCH]             =3D PERF_BR_COND,
+> +       [CTRDATA_TYPE_RESERVED_6]               =3D PERF_BR_UNKNOWN,
+> +       [CTRDATA_TYPE_RESERVED_7]               =3D PERF_BR_UNKNOWN,
+> +       [CTRDATA_TYPE_INDIRECT_CALL]            =3D PERF_BR_IND_CALL,
+> +       [CTRDATA_TYPE_DIRECT_CALL]              =3D PERF_BR_CALL,
+> +       [CTRDATA_TYPE_INDIRECT_JUMP]            =3D PERF_BR_IND,
+> +       [CTRDATA_TYPE_DIRECT_JUMP]              =3D PERF_BR_UNCOND,
+> +       [CTRDATA_TYPE_CO_ROUTINE_SWAP]          =3D PERF_BR_UNKNOWN,
+> +       [CTRDATA_TYPE_RETURN]                   =3D PERF_BR_RET,
+> +       [CTRDATA_TYPE_OTHER_INDIRECT_JUMP]      =3D PERF_BR_IND,
+> +       [CTRDATA_TYPE_OTHER_DIRECT_JUMP]        =3D PERF_BR_UNCOND,
+> +};
+> +
+> +static void ctr_set_perf_entry_type(struct perf_branch_entry *entry,
+> +                                   u64 ctr_data)
+> +{
+> +       int ctr_type =3D ctr_get_type(ctr_data);
+> +
+> +       entry->type =3D ctr_perf_map[ctr_type];
+> +       if (entry->type =3D=3D PERF_BR_UNKNOWN)
+> +               pr_warn("%d - unknown branch type captured\n", ctr_type);
+> +}
+> +
+> +static void capture_ctr_flags(struct perf_branch_entry *entry,
+> +                             struct perf_event *event, u64 ctr_data,
+> +                             u64 ctr_target)
+> +{
+> +       if (branch_sample_type(event))
+> +               ctr_set_perf_entry_type(entry, ctr_data);
+> +
+> +       if (!branch_sample_no_cycles(event))
+> +               entry->cycles =3D ctr_get_cycles(ctr_data);
+> +
+> +       if (!branch_sample_no_flags(event)) {
+> +               entry->abort =3D 0;
+> +               entry->mispred =3D ctr_get_mispredict(ctr_target);
+> +               entry->predicted =3D !entry->mispred;
+> +       }
+> +
+> +       if (branch_sample_priv(event))
+> +               entry->priv =3D PERF_BR_PRIV_UNKNOWN;
+> +}
+> +
+> +static void ctr_regset_to_branch_entry(struct cpu_hw_events *cpuc,
+> +                                      struct perf_event *event,
+> +                                      struct ctr_regset *regset,
+> +                                      unsigned int idx)
+> +{
+> +       struct perf_branch_entry *entry =3D &cpuc->branches->branch_entri=
+es[idx];
+> +
+> +       *entry =3D (struct perf_branch_entry){ };
+> +       entry->from =3D regset->src & (~CTRSOURCE_VALID);
+> +       entry->to =3D regset->target & (~CTRTARGET_MISP);
+> +       capture_ctr_flags(entry, event, regset->ctr_data, regset->target)=
+;
+> +}
+> +
+> +static void ctr_read_entries(struct cpu_hw_events *cpuc,
+> +                            struct perf_event *event,
+> +                            unsigned int depth)
+> +{
+> +       struct ctr_regset entry =3D {};
+> +       u64 ctr_ctl;
+> +       int i;
+> +
+> +       ctr_ctl =3D csr_read_clear(CSR_CTRCTL, CTR_BRANCH_ENABLE_BITS);
+> +
+> +       for (i =3D 0; i < depth; i++) {
+> +               if (!get_ctr_regset(&entry, i))
+> +                       break;
+> +
+> +               ctr_regset_to_branch_entry(cpuc, event, &entry, i);
+> +       }
+> +
+> +       csr_set(CSR_CTRCTL, ctr_ctl & CTR_BRANCH_ENABLE_BITS);
+> +
+> +       cpuc->branches->branch_stack.nr =3D i;
+> +       cpuc->branches->branch_stack.hw_idx =3D 0;
+> +}
+> +
+> +bool riscv_pmu_ctr_valid(struct perf_event *event)
+> +{
+> +       u64 branch_type =3D event->attr.branch_sample_type;
+> +
+> +       if (branch_type & ~allowed_filters) {
+> +               pr_debug_once("Requested branch filters not supported 0x%=
+llx\n",
+> +                             branch_type & ~allowed_filters);
+> +               return false;
+> +       }
+> +
+> +       return true;
+> +}
+> +
+> +void riscv_pmu_ctr_consume(struct cpu_hw_events *cpuc, struct perf_event=
+ *event)
+> +{
+> +       unsigned int depth =3D to_riscv_pmu(event->pmu)->ctr_depth;
+> +
+> +       ctr_read_entries(cpuc, event, depth);
+> +
+> +       /* Clear frozen bit. */
+> +       csr_clear(CSR_SCTRSTATUS, SCTRSTATUS_FROZEN);
+> +}
+> +
+> +static void riscv_pmu_ctr_reset(void)
+> +{
+> +       /* FIXME: Replace with sctrclr instruction once support is merged
+> +        * into toolchain.
+> +        */
+> +       asm volatile(".4byte 0x10400073\n" ::: "memory");
+> +       csr_write(CSR_SCTRSTATUS, 0);
+> +}
+> +
+> +static void __riscv_pmu_ctr_restore(void *ctx)
+> +{
+> +       struct riscv_perf_task_context *task_ctx =3D ctx;
+> +       unsigned int i;
+> +
+> +       csr_write(CSR_SCTRSTATUS, task_ctx->ctr_status);
+> +
+> +       for (i =3D 0; i < task_ctx->num_entries; i++)
+> +               set_ctr_regset(&task_ctx->store[i], i);
+> +}
+> +
+> +static void riscv_pmu_ctr_restore(void *ctx)
+> +{
+> +       if (task_context(ctx)->stack_state =3D=3D CTR_STATE_NONE ||
+> +           task_context(ctx)->callstack_users =3D=3D 0) {
+> +               return;
+> +       }
+> +
+> +       riscv_pmu_ctr_reset();
+> +       __riscv_pmu_ctr_restore(ctx);
+> +
+> +       task_context(ctx)->stack_state =3D CTR_STATE_NONE;
+> +}
+> +
+> +static void __riscv_pmu_ctr_save(void *ctx, unsigned int depth)
+> +{
+> +       struct riscv_perf_task_context *task_ctx =3D ctx;
+> +       struct ctr_regset *dst;
+> +       unsigned int i;
+> +
+> +       for (i =3D 0; i < depth; i++) {
+> +               dst =3D &task_ctx->store[i];
+> +               if (!get_ctr_regset(dst, i))
+> +                       break;
+> +       }
+> +
+> +       task_ctx->num_entries =3D i;
+> +
+> +       task_ctx->ctr_status =3D csr_read(CSR_SCTRSTATUS);
+> +}
+> +
+> +static void riscv_pmu_ctr_save(void *ctx, unsigned int depth)
+> +{
+> +       if (task_context(ctx)->stack_state =3D=3D CTR_STATE_VALID)
+> +               return;
+> +
+> +       if (task_context(ctx)->callstack_users =3D=3D 0) {
+> +               task_context(ctx)->stack_state =3D CTR_STATE_NONE;
+> +               return;
+> +       }
+> +
+> +       __riscv_pmu_ctr_save(ctx, depth);
+> +
+> +       task_context(ctx)->stack_state =3D CTR_STATE_VALID;
+> +}
+> +
+> +/*
+> + * On context switch in, we need to make sure no samples from previous t=
+asks
+> + * are left in the CTR.
+> + *
+> + * On ctxswin, sched_in =3D true, called after the PMU has started
+> + * On ctxswout, sched_in =3D false, called before the PMU is stopped
+> + */
+> +void riscv_pmu_ctr_sched_task(struct perf_event_pmu_context *pmu_ctx, st=
+ruct task_struct *task,
+> +                             bool sched_in)
+> +{
+> +       struct riscv_pmu *rvpmu =3D to_riscv_pmu(pmu_ctx->pmu);
+> +       struct cpu_hw_events *cpuc =3D this_cpu_ptr(rvpmu->hw_events);
+> +       void *task_ctx;
+> +
+> +       if (!cpuc->ctr_users)
+> +               return;
+> +
+> +       /* Save branch records in task_ctx on sched out */
+> +       task_ctx =3D pmu_ctx ? task->perf_ctx_data : NULL;
+> +       if (task_ctx) {
+> +               if (sched_in)
+> +                       riscv_pmu_ctr_restore(task_ctx);
+> +               else
+> +                       riscv_pmu_ctr_save(task_ctx, rvpmu->ctr_depth);
+> +               return;
+> +       }
+> +
+> +       /* Reset branch records on sched in */
+> +       if (sched_in)
+> +               riscv_pmu_ctr_reset();
+> +}
+> +
+> +static inline bool branch_user_callstack(unsigned int br_type)
+> +{
+> +       return (br_type & PERF_SAMPLE_BRANCH_USER) &&
+> +               (br_type & PERF_SAMPLE_BRANCH_CALL_STACK);
+> +}
+> +
+> +void riscv_pmu_ctr_add(struct perf_event *event)
+> +{
+> +       struct riscv_pmu *rvpmu =3D to_riscv_pmu(event->pmu);
+> +       struct cpu_hw_events *cpuc =3D this_cpu_ptr(rvpmu->hw_events);
+> +
+> +       if (branch_user_callstack(event->attr.branch_sample_type) &&
+> +           event->ctx->task->perf_ctx_data)
+> +               task_context(event->ctx->task->perf_ctx_data)->callstack_=
+users++;
+> +
+> +       perf_sched_cb_inc(event->pmu);
+> +
+> +       if (!cpuc->ctr_users++)
+> +               riscv_pmu_ctr_reset();
+> +}
+> +
+> +void riscv_pmu_ctr_del(struct perf_event *event)
+> +{
+> +       struct riscv_pmu *rvpmu =3D to_riscv_pmu(event->pmu);
+> +       struct cpu_hw_events *cpuc =3D this_cpu_ptr(rvpmu->hw_events);
+> +
+> +       if (branch_user_callstack(event->attr.branch_sample_type) &&
+> +           event->ctx->task->perf_ctx_data)
+> +               task_context(event->ctx->task->perf_ctx_data)->callstack_=
+users--;
+> +
+> +       perf_sched_cb_dec(event->pmu);
+> +       cpuc->ctr_users--;
+> +       WARN_ON_ONCE(cpuc->ctr_users < 0);
+> +}
+> +
+> +void riscv_pmu_ctr_enable(struct perf_event *event)
+> +{
+> +       u64 branch_type =3D event->attr.branch_sample_type;
+> +       u64 ctr;
+> +
+> +       ctr =3D branch_type_to_ctr(branch_type);
+> +       csr_write(CSR_CTRCTL, ctr);
+> +}
+> +
+> +void riscv_pmu_ctr_disable(struct perf_event *event)
+> +{
+> +       /* Clear CTRCTL to disable the recording. */
+> +       csr_write(CSR_CTRCTL, 0);
+> +}
+> +
+> +/*
+> + * Check for hardware supported perf filters here. To avoid missing
+> + * any new added filter in perf, we do a BUILD_BUG_ON check, so make sur=
+e
+> + * to update CTR_ALLOWED_BRANCH_FILTERS or CTR_EXCLUDE_BRANCH_FILTERS
+> + * defines when adding support for it in below function.
+> + */
+> +static void __init check_available_filters(void)
+> +{
+> +       u64 ctr_ctl;
+> +
+> +       /*
+> +        * Ensure both perf branch filter allowed and exclude
+> +        * masks are always in sync with the generic perf ABI.
+> +        */
+> +       BUILD_BUG_ON(CTR_PERF_BRANCH_FILTERS !=3D (PERF_SAMPLE_BRANCH_MAX=
+ - 1));
+> +
+> +       allowed_filters =3D PERF_SAMPLE_BRANCH_USER      |
+> +                         PERF_SAMPLE_BRANCH_KERNEL    |
+> +                         PERF_SAMPLE_BRANCH_ANY       |
+> +                         PERF_SAMPLE_BRANCH_HW_INDEX  |
+> +                         PERF_SAMPLE_BRANCH_NO_FLAGS  |
+> +                         PERF_SAMPLE_BRANCH_NO_CYCLES |
+> +                         PERF_SAMPLE_BRANCH_TYPE_SAVE;
+> +
+> +       csr_write(CSR_CTRCTL, ~0);
+> +       ctr_ctl =3D csr_read(CSR_CTRCTL);
+> +       csr_write(CSR_CTRCTL, 0);
+> +
+> +       if (riscv_isa_extension_available(NULL, H))
+> +               allowed_filters |=3D PERF_SAMPLE_BRANCH_HV;
+> +
+> +       if (ctr_ctl & (CTRCTL_INDCALL_INH | CTRCTL_DIRCALL_INH))
+> +               allowed_filters |=3D PERF_SAMPLE_BRANCH_ANY_CALL;
+> +
+> +       if (ctr_ctl & (CTRCTL_RET_INH | CTRCTL_TRETINH))
+> +               allowed_filters |=3D PERF_SAMPLE_BRANCH_ANY_RETURN;
+> +
+> +       if (ctr_ctl & CTRCTL_INDCALL_INH)
+> +               allowed_filters |=3D PERF_SAMPLE_BRANCH_IND_CALL;
+> +
+> +       if (ctr_ctl & CTRCTL_TKBRINH)
+> +               allowed_filters |=3D PERF_SAMPLE_BRANCH_COND;
+> +
+> +       if (ctr_ctl & CTRCTL_RASEMU)
+> +               allowed_filters |=3D PERF_SAMPLE_BRANCH_CALL_STACK;
+> +
+> +       if (ctr_ctl & (CTRCTL_INDOJUMP_INH | CTRCTL_INDJUMP_INH))
+> +               allowed_filters |=3D PERF_SAMPLE_BRANCH_IND_JUMP;
+> +
+> +       if (ctr_ctl & CTRCTL_DIRCALL_INH)
+> +               allowed_filters |=3D PERF_SAMPLE_BRANCH_CALL;
+> +}
+> +
+> +void riscv_pmu_ctr_starting_cpu(void)
+> +{
+> +       if (!riscv_isa_extension_available(NULL, SxCTR) ||
+> +           !riscv_isa_extension_available(NULL, SSCOFPMF))
+> +               return;
+> +
+> +       /* Set depth to maximum. */
+> +       csr_write(CSR_SCTRDEPTH, SCTRDEPTH_MASK);
+> +}
+> +
+> +void riscv_pmu_ctr_dying_cpu(void)
+> +{
+> +       if (!riscv_isa_extension_available(NULL, SxCTR) ||
+> +           !riscv_isa_extension_available(NULL, SSCOFPMF))
+> +               return;
+> +
+> +       /* Clear and reset CTR CSRs. */
+> +       csr_write(CSR_SCTRDEPTH, 0);
+> +       csr_write(CSR_CTRCTL, 0);
+> +       riscv_pmu_ctr_reset();
+> +}
+> +
+> +int riscv_pmu_ctr_init(struct riscv_pmu *riscv_pmu)
+> +{
+> +       size_t size =3D sizeof(struct riscv_perf_task_context);
+> +
+> +       if (!riscv_isa_extension_available(NULL, SxCTR) ||
+> +           !riscv_isa_extension_available(NULL, SSCOFPMF))
+> +               return 0;
+> +
+> +       riscv_pmu->pmu.task_ctx_cache =3D
+> +               kmem_cache_create("ctr_task_ctx", size, sizeof(u64), 0, N=
+ULL);
+> +       if (!riscv_pmu->pmu.task_ctx_cache)
+> +               return -ENOMEM;
+> +
+> +       check_available_filters();
+> +
+> +       /* Set depth to maximum. */
+> +       csr_write(CSR_SCTRDEPTH, SCTRDEPTH_MASK);
+> +       riscv_pmu->ctr_depth =3D ctr_get_depth(csr_read(CSR_SCTRDEPTH));
+> +
+> +       pr_info("Perf CTR available, with %d depth\n", riscv_pmu->ctr_dep=
+th);
+> +
+> +       return 0;
+> +}
+> +
+> +void riscv_pmu_ctr_finish(struct riscv_pmu *riscv_pmu)
+> +{
+> +       if (!riscv_pmu_ctr_supported(riscv_pmu))
+> +               return;
+> +
+> +       riscv_pmu->ctr_depth =3D 0;
+> +       csr_write(CSR_SCTRDEPTH, 0);
+> +       csr_write(CSR_CTRCTL, 0);
+> +       riscv_pmu_ctr_reset();
+> +
+> +       kmem_cache_destroy(riscv_pmu->pmu.task_ctx_cache);
+> +}
+> diff --git a/include/linux/perf/riscv_pmu.h b/include/linux/perf/riscv_pm=
+u.h
+> index c748a06ad751..848977ecf319 100644
+> --- a/include/linux/perf/riscv_pmu.h
+> +++ b/include/linux/perf/riscv_pmu.h
+> @@ -56,9 +56,8 @@ struct cpu_hw_events {
+>         bool snapshot_set_done;
+>         /* A shadow copy of the counter values to avoid clobbering during=
+ multiple SBI calls */
+>         u64 snapshot_cval_shcopy[RISCV_MAX_COUNTERS];
+> -       /* Saved branch records. */
+> +       /* Saved branch records */
+>         struct branch_records *branches;
+> -
+>         /* Active events requesting branch records */
+>         int ctr_users;
+>  };
+> @@ -88,8 +87,7 @@ struct riscv_pmu {
+>         struct cpu_hw_events    __percpu *hw_events;
+>         struct hlist_node       node;
+>         struct notifier_block   riscv_pm_nb;
+> -
+> -       unsigned int    ctr_depth;
+> +       unsigned int ctr_depth;
+>  };
+>
+>  #define to_riscv_pmu(p) (container_of(p, struct riscv_pmu, pmu))
+> @@ -111,6 +109,44 @@ int riscv_pmu_get_hpm_info(u32 *hw_ctr_width, u32 *n=
+um_hw_ctr);
+>  int riscv_pmu_get_event_info(u32 type, u64 config, u64 *econfig);
+>  #endif
+>
+> +static inline bool riscv_pmu_ctr_supported(struct riscv_pmu *pmu)
+> +{
+> +       return !!pmu->ctr_depth;
+> +}
+> +
+>  #endif /* CONFIG_RISCV_PMU */
+>
+> +#ifdef CONFIG_RISCV_CTR
+> +
+> +bool riscv_pmu_ctr_valid(struct perf_event *event);
+> +void riscv_pmu_ctr_consume(struct cpu_hw_events *cpuc, struct perf_event=
+ *event);
+> +void riscv_pmu_ctr_sched_task(struct perf_event_pmu_context *pmu_ctx, st=
+ruct task_struct *task,
+> +                             bool sched_in);
+> +void riscv_pmu_ctr_add(struct perf_event *event);
+> +void riscv_pmu_ctr_del(struct perf_event *event);
+> +void riscv_pmu_ctr_enable(struct perf_event *event);
+> +void riscv_pmu_ctr_disable(struct perf_event *event);
+> +void riscv_pmu_ctr_dying_cpu(void);
+> +void riscv_pmu_ctr_starting_cpu(void);
+> +int  riscv_pmu_ctr_init(struct riscv_pmu *riscv_pmu);
+> +void riscv_pmu_ctr_finish(struct riscv_pmu *riscv_pmu);
+> +
+> +#else
+> +
+> +static inline bool riscv_pmu_ctr_valid(struct perf_event *event) { retur=
+n false; }
+> +static inline void riscv_pmu_ctr_consume(struct cpu_hw_events *cpuc,
+> +                                        struct perf_event *event) { }
+> +static inline void riscv_pmu_ctr_sched_task(struct perf_event_pmu_contex=
+t *,
+> +                                           struct task_struct *task, boo=
+l sched_in) { }
+> +static void riscv_pmu_ctr_add(struct perf_event *event) { }
+> +static void riscv_pmu_ctr_del(struct perf_event *event) { }
+> +static inline void riscv_pmu_ctr_enable(struct perf_event *event) { }
+> +static inline void riscv_pmu_ctr_disable(struct perf_event *event) { }
+> +static inline void riscv_pmu_ctr_dying_cpu(void) { }
+> +static inline void riscv_pmu_ctr_starting_cpu(void) { }
+> +static inline int riscv_pmu_ctr_init(struct riscv_pmu *riscv_pmu) { retu=
+rn 0; }
+> +static inline void riscv_pmu_ctr_finish(struct riscv_pmu *riscv_pmu) { }
+> +
+> +#endif /* CONFIG_RISCV_CTR */
+> +
+>  #endif /* _RISCV_PMU_H */
+> --
+> 2.43.0
+>
+
+Regards,
+Anup
