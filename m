@@ -1,64 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795125960;
-	b=i56akhWwCVgJp1BYjjTZIslrUs2d4bWJsiI4fETYEyFTKNNONj1M1LBL7ZkbYUtegv8a
-	 d1wZ3uemCopK9QQKjVM6nS7JkQsIiDjHnVzscF3nCiz7t9Z3kqdGvfL9NzJsEL9hlL5/j
-	 8A2h0Fd4tyim2YPYZ5V4TL6btQe28keQcIAzC3iAA1nPBkxUj1duOlgyneO6/1wd2S+W8
-	 x9npOSmCENqm/yYsZ62BkNzNTgf3cw/G0kGYtKZ8PAZk6BkKPhNXDpfQ7bM7Dp27v2WbD
-	 JvqF6joe0Jg5cxqKQfZ1FwWDwlqOqeGYlnMkGs6JjLjw2QLGfMrSDtkOrXvVuN4pwgg==
+	t=1795126020;
+	b=XexqW6He+N8sIGEJRZKfXhwET1oxo8Eh2k3DCIi7b+dbaKADpsJ3ZPPpfLHfDacmFGKn
+	 vwFtrAfCtjqvApG8+OOnzOwk67GFz2mzVD3YQV5H4Ev6g+DsL4SSNyybZ/aCJpQWPopfy
+	 QsJHH8wjuv4miMEUUTms+rvIwUCU4GfvxqTxiSB8lxtgl5Y6asaOA3ztBHz2uF4Vn/LXN
+	 9Sl/hoLY+k5GPf1p5MfBQRhcBVXyw1kkfVfz1XolQrAwEZoiWpXrIcR+f5tFJCzZq2Fyl
+	 kNrXu5BWALdyEQS7O0/ztjyoDEEDTbCSEc3fFBuTm+UsIdWaJ7tmGphea8X8DX179XQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795125960;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795126020;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wpmhBYVFgFjlc+UhUkWygoy58E3SgWyxA2jBmMXXxsI=;
-	b=fcFihXbj+SpaaWZB79h8RRN97OTEg66q6Q1d6xdBcZarM5YTRIgtybLsgfqMh20knmkm
-	 8WgRC2WaE20sDVc4yAx5mDjj8Jd4PP5xdfjTWkKB2WCnINFErduzERoXT/a9x5VnepdcO
-	 tUoIX4GHLJFWs5MOgbsfVXalG/M8L2dc6DZXeXqElcAU3SxqWqsFc7YKd6P1o1W1fyeKx
-	 RIAJUBnRHve56LVmNSWhvmIf6rAEoD7WsaVUeNb8M9Tpw1n3KHJOKVzbo05BpUQypFW7u
-	 i7ouEITv/kxY8JQevFFwIwuPL4iPADWexstGUC1Z8kOwBCjmnK4K1lsV+rD9uN1esaw==
+	bh=ETZ7xeXM/79uniKVVrwhkskKouFWSJb1lviMqROj1wc=;
+	b=YbopHXfzzxiU+fHxc/kUHPR0d2oBduogxvaBZjL2TvGpSh1xTRhK2FLeNJ3Pioi20vJR
+	 XIO6Z4z2FE185UgymSOpBEc2h5IzKuiWmgdoF5ljoBVgf/az0619LyYUNGgR4bkedBw6S
+	 Wgbx5PycpOp9bF0I1lzQym9kXZaXHWLY1q9w0mJwJagAVGS1On3w+gnN6TNSRrAsawr33
+	 +QU25Rr6yIcFj5ngJv8h2k+88TwiypSFMcSv/O3VWy16H9UM8qM1pW5+SyoSnnnhByV84
+	 drfiOGfAPTafjzV4j4DiKsep/aTl0SZo2D7UI2RrBcLmyCe43HRlAaSsWuptyAmPoKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NUuF4oLm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JxSx1JVc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79682606A339;
-	Thu, 19 Nov 2026 22:06:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB46606A320;
+	Thu, 19 Nov 2026 22:06:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NUuF4oLm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18641F000C4;
-	Thu, 19 Nov 2026 22:05:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JxSx1JVc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A2B81F000C4;
+	Thu, 19 Nov 2026 22:06:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795125960;
-	bh=wpmhBYVFgFjlc+UhUkWygoy58E3SgWyxA2jBmMXXxsI=;
+	s=k20260515; t=1795126019;
+	bh=ETZ7xeXM/79uniKVVrwhkskKouFWSJb1lviMqROj1wc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NUuF4oLm4rq6aVtvbhFQlAzUAsATS4bRhMg6XU8KIjnFtQGGlnO+Hb8egQuJQQFdN
-	 GaJukFse7kqtRJMQpeNX6o8XAJF2+WwGYTCRVMCsH77FubLCHYKacojdYoei9pMBXR
-	 Udzu8BeBtha1Ah9KrNw3d0RCHF1I379eeTKqU4d4oMcqTITFhmhJdhtSpjfRiN6PgB
-	 T6zX9MBhDIheYZBu+l3b2cOs89JVmuagIJAggHDlOnLoj0Egd3JN3C8UaEy3ZOzuFy
-	 sWjv0VaMJnBNyldjlxsuyEI7h7SMyKnCOlOA7800NhAWhlfq3sQT/HR2x1k/Leeh+f
-	 YiRoeDveeasLw==
-Date: Thu, 19 Nov 2026 16:05:58 -0600
+	b=JxSx1JVcPjmlNDwyivyMLlAGLrZ9HFJD3jFfyrmEoyE2ci9Zfwq7bRsTcVa2tt2+6
+	 bIum7g7PsFjUNna93J3xsm2WPkyA8N6FJ6EOj5uupIP6OTlAgEDnX9DRghLQQNk9lY
+	 9mZeRyqLgvbl1tpK8rYpOO+nLKSEZtQr0tWTBGlCsLSPm6xTjnEL4GECS4j4mS/yOJ
+	 RCf4wGLdWKKt0m6MmaqDJhU/EOP5N80ZoYZEblGy3c3+x4rqxzYUw3IhniiPXx17YR
+	 3jzH+48nsVjfq1aicY+SwZzehd3LLqZzqFMZ3zfsgHJXdCNN4D3BbnRAsKp0/xxbCs
+	 s14ToU8efo4BQ==
+Date: Thu, 19 Nov 2026 16:06:57 -0600
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Demeter Barna <me@fromdisposition.org>
-Cc: Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	Brian Masney <bmasney+clk@redhat.com>, linux-clk@vger.kernel.org,
-	Bjorn Andersson <andersson@kernel.org>, devicetree@vger.kernel.org,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+To: Vladimir Zapolskiy <vz@kernel.org>
+Cc: Robert Foss <rfoss@kernel.org>, linux-arm-msm@vger.kernel.org,
 	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-sound@vger.kernel.org,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Srinivas Kandagatla <srini@kernel.org>
-Subject: Re: [PATCH 5/7] ASoC: dt-bindings: qcom,lpass-va-macro: Add SM8350
- LPASS VA
-Message-ID: <179512595755.861723.9471010792994594992.robh@kernel.org>
-References: <20261104-b4-sm8350-sound-v1-0-4c872df294fa@fromdisposition.org>
- <20261104-b4-sm8350-sound-v1-5-4c872df294fa@fromdisposition.org>
+	Bjorn Andersson <andersson@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+	linux-i2c@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: i2c: qcom-cci: Document SM8350
+ compatible
+Message-ID: <179512601692.866431.5877068767600191893.robh@kernel.org>
+References: <20261104230529.3040285-1-vz@kernel.org>
+ <20261104230529.3040285-2-vz@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,19 +65,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104-b4-sm8350-sound-v1-5-4c872df294fa@fromdisposition.org>
+In-Reply-To: <20261104230529.3040285-2-vz@kernel.org>
 
 
-On Wed, 04 Nov 2026 18:07:13 +0000, Demeter Barna wrote:
-> The SM8350 VA macro takes the mclk, macro and dcodec clocks, as SC7280
-> does without power-domains, and reports LPASS codec version 2.0 in its
-> core ID registers. The SC7280 driver data reads the version from there,
-> while the SM8250 data sets 1.0, so use SC7280 as the fallback.
+On Thu, 05 Nov 2026 01:05:27 +0200, Vladimir Zapolskiy wrote:
+> Add Qualcomm SM8350 SoC compatible to the CCI device tree bindings,
+> SM8350 CCI is compatible with CCI v2 found on MSM8996.
 > 
-> Signed-off-by: Demeter Barna <me@fromdisposition.org>
+> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 > ---
->  Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+>  Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
 
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
