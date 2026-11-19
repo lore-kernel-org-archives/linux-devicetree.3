@@ -1,49 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795084207;
-	b=uPsnwtdsv3HsjhQTorZ6vnuewbSHw64z+sHWx7Mk2YtRuUAiydZjRKi1QXA2kupyfh6F
-	 Qn34QBT10Cr2Rs+T6QVT2hdH62DMxSOIGXw4xNObZvjTEkaVjustn3ss6naUIgLkWy3Yn
-	 oaaXi68uaWfwnclzZDgLv84GsR4M4L+u5n5glseSdWJheHgssfngOlq+n+QUDOSTeo2QV
-	 qAry7bDVNxWxu2WJOFrG6PZrXrQTx3i29dyua2Oi+ZoDAyILBnGphP/oRAqEBpsUNd3TE
-	 pm7X1guIYEQ/SyedKODD3CJQPI/kFmdPm/uiqUI9bd4woMo60urc90AUxNsk74HMsOw==
+	t=1795084242;
+	b=r1EDlQdbsEkXko0dUS1M6MCQDKgVqLKYt9ZUTPkPw4IvqYUm+L2+w45u4/6kSkByZA/+
+	 jpFpEdtSUQA8uD8MeWVF0jeWh07kcfG+wiM4lK5CqSbDrt+GGjsUKN39g7OaAha4R23yL
+	 Hln2F0ZxX+OQA8eEZ7I1OEOkuT7nAeUzx27gsP2/b2ZNnDipGtW1t9Fn6FJtkxucZbv3l
+	 VR0Dwr41GE47rloEtjPKgQxTGfWpjCVhSB+bLXP1d2Kca3O3qGQg1yeQ/PVwowDi+r3pc
+	 j/HaIGfiiS6BpmIryqqKa1R6/YznmH208UIo94tdh4eMD/0SaMXHFTjcJaWb2UxN78g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795084207;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=m230NR/k695R3vvobrlBsJwyhkm9vXXtTsfKZe3AgLA=;
-	b=rt5TTQcwkzJOl/bJpYthhS6CQhjJ2jqBHnU8byESXW47fXWQK0xlSdQa7niL2M6c2EL/
-	 lUtHo61kYghS7uyG2g7Ouu5xKxHc83jWeQK6SKBRVmPw77Ic56S9RChtcrbTvRQncgiez
-	 X9iPWFNY+OmgD6K1C4YLxd6lEk1zqsMERe4yX31biYr+Cm5q1GeYs6jZA3s44grwp7zCs
-	 EVVia7nQ5nyaWN5+XGZJDEJsJ3GXA21MIsq2XGmJBpeNFhsRHVcS0ldKJYPZ2H5ceY85q
-	 xIsVelhgIXgHyewYYIMVQdcf6gUJQB6AYl6E7x2zAg1lUJ3oBBqBhaRmeGIdm0xeoyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795084242;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-RootMTR:X-EPHeader:X-CMS-RootMailID:References;
+	bh=dqbHFVaWUbXAwRePN2LaxE1LeHrz7c3R/la2wo+majo=;
+	b=5mtw4TixHoYObYzor90xE5SN3oPeI0A9Ynzu2/9Iv9WBDXYmTELFD3rx8xtdieGAeg+p
+	 8hSKN3K+TuzxsWDN2TDOyZQqy2VHpZJxugDrOljisIIj5wPzMF0bJh9ont4i+eD08GOEu
+	 yKOGgTDqpY3Co0wZcRbuDP3FFd+mQtXFdk0OM0JTyiAD2DZJ7GB8uIU2AtMCKg4gav98f
+	 QC547yGoJHN2ctq5z/ecogJOA0uVhvFuKmpq7Jvg/+gSIq7DdaK5pivwyCDRvlHZgz7sQ
+	 bfT4XcZBI6p3+gSSEjXNdwV5NYoSTexSVTg57CcjHRT+eUXY6P3Hc6qyWSyYZbIRmSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mpSdEZ5W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=h09n881b;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7BF2606A332;
-	Thu, 19 Nov 2026 10:30:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647AE606A325
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 10:30:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 647AE606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mpSdEZ5W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B4DD1F000C5;
-	Thu, 19 Nov 2026 10:30:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795084207;
-	bh=m230NR/k695R3vvobrlBsJwyhkm9vXXtTsfKZe3AgLA=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=mpSdEZ5WQxOAcdP46cRt3bYmHZX1LF2RPN4Rfa26d+2IHf2apKMtR3SxjWb/17kUL
-	 GKbZbMPazOAQvym8eooggQKP0Jv5EF6LVN7tHcju8nQbIa9RWRhKMJj2xnz3yAzEO3
-	 ADw6gtW1qhbAjMTGo7EBheiM11zBxygnsrPz3gshWXtRjmE6ipwD47l4tVRqvqPp+z
-	 y+qP9M+t78ajeuMcvVRWVdnKLLOnMqTX9VjOtacIHlDujy/fN6VcdeLvfExJHeRdMI
-	 Lt4U2jKWW8NbuenRj0jSK7RiYcBuOlDGHIKIlyv1uLIKxJ4KqMILXOLQgBis8k2OwL
-	 0YUyoPL4YDBDA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F16843808210;
-	Thu, 19 Nov 2026 10:30:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=h09n881b
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261119103039euoutp01254f6f5877e1a2f47872d23efb30a173~pa5rT6Sxt0058100581euoutp01b
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 10:30:39 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261119103039euoutp01254f6f5877e1a2f47872d23efb30a173~pa5rT6Sxt0058100581euoutp01b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1795084239;
+	bh=dqbHFVaWUbXAwRePN2LaxE1LeHrz7c3R/la2wo+majo=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=h09n881bzcMae1a440fVRQhmnMSBem1I58wGSLPA6KwNhCodpyBZ/WPOfHNVZTb4i
+	 /hbzffmZMY3HGLH+n9EDyvxHblTLkwPlFiwXSAEmGV+TyciCCQBQfU04gIsdWv6xlV
+	 sa1s9rW395pil3mubZXu0YR5AX9X70sWc6btPNX0=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261119103038eucas1p2a84cdaf4416c2f47c39d3eab399becd3~pa5qyR6qU1039710397eucas1p2W;
+	Thu, 19 Nov 2026 10:30:38 +0000 (GMT)
+Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261119103038eusmtip2e2d5e67fc7424b80e8319ab0d9da17d5~pa5qZh_vX2374523745eusmtip2W;
+	Thu, 19 Nov 2026 10:30:38 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar
+	<alim.akhtar@samsung.com>
+Subject: [PATCH] ARM: dts: samsung: exynos4412-trats2: exclude memory used
+ by secure firmware
+Date: Thu, 19 Nov 2026 11:30:31 +0100
+Message-ID: <20261119103033.1161693-1-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,48 +73,42 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v4 0/2] net: dsa: mxl-gsw1xx: reset the switch
- through reset-gpios
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179508420578.3002552.9484670027487082797.git-patchwork-notify@kernel.org>
-Date: Thu, 19 Nov 2026 10:30:05 +0000
-References: <20261115-mxl-gsw1xx-reset-v4-0-4ecd18c922e2@telaak.dev>
-In-Reply-To: <20261115-mxl-gsw1xx-reset-v4-0-4ecd18c922e2@telaak.dev>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: hauke@hauke-m.de, andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, daniel@makrotopia.org,
- p.zabel@pengutronix.de, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
+X-CMS-MailID: 20261119103038eucas1p2a84cdaf4416c2f47c39d3eab399becd3
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261119103038eucas1p2a84cdaf4416c2f47c39d3eab399becd3
+X-EPHeader: CA
+X-CMS-RootMailID: 20261119103038eucas1p2a84cdaf4416c2f47c39d3eab399becd3
+References: <CGME20261119103038eucas1p2a84cdaf4416c2f47c39d3eab399becd3@eucas1p2.samsung.com>
 
-Hello:
+The secure firmware on Trats2 board uses the last 1 MiB of RAM: on every
+system suspend/resume cycle some data is written starting at 0x7ff00000.
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Reduce the memory size to exclude the last 1 MiB of RAM, the same way as
+on the other Exynos4412-based boards using U-Boot bootloader (Odroid
+X/X2/U3). Non U-Boot based boards require reserving more memory, as
+already done in commit 784c93e3ca2e ("ARM: dts: samsung: exynos4412:
+decrease memory to account for unusable region").
 
-On Sun, 15 Nov 2026 17:33:44 -0500 you wrote:
-> The GSW1xx driver never resets the switch, and the MDIO core does not
-> handle reset-gpios for non-PHY devices, so the driver works with whatever
-> the bootloader configured. On the GL.iNet GL-SFT1200 (Siflower SF19A2890 +
-> GSW150), nothing answers at internal MDIO address 0 after the bootloader,
-> and each port's address answers with the neighboring port's PHY, so the
-> WAN port has no PHY. Describing the PHYs at the addresses they answer at
-> is not enough: with them at 1 to 3 and no reset, neither LAN port passes
-> traffic. A hardware reset puts the switch back in its power-on state, as
-> GL.iNet's own firmware does from Linux.
-> 
-> [...]
+Fixes: 15dfdfad2d4a ("ARM: dts: Add basic dts for Exynos4412-based Trats 2 board")
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+---
+ arch/arm/boot/dts/samsung/exynos4412-trats2.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Here is the summary with links:
-  - [net-next,v4,1/2] dt-bindings: net: dsa: lantiq,gswip: add reset-gpios
-    https://git.kernel.org/netdev/net-next/c/98b599217570
-  - [net-next,v4,2/2] net: dsa: mxl-gsw1xx: reset the switch through reset-gpios
-    https://git.kernel.org/netdev/net-next/c/839a787e9ba9
-
-You are awesome, thank you!
+diff --git a/arch/arm/boot/dts/samsung/exynos4412-trats2.dts b/arch/arm/boot/dts/samsung/exynos4412-trats2.dts
+index 3c2d2a7836da..c89c418b2b09 100644
+--- a/arch/arm/boot/dts/samsung/exynos4412-trats2.dts
++++ b/arch/arm/boot/dts/samsung/exynos4412-trats2.dts
+@@ -19,7 +19,7 @@ / {
+ 
+ 	memory@40000000 {
+ 		device_type = "memory";
+-		reg = <0x40000000 0x40000000>;
++		reg = <0x40000000 0x3ff00000>;
+ 	};
+ 
+ 	chosen {
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.43.0
 
