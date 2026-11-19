@@ -1,96 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.66.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1795117006;
-	b=y+KPWq7i0SgMbS2KjSk/j+W9orgV+FaHRaT2gZjV4EHEgque8roIbEJJD1K+kRAe/RsB
-	 xgQ2YU8V4JuUX2Eb1lxPnyJmaATe0vS2go3soXGJ/niC1R4VkNB+J+ChZOxLb4ZtkWGVu
-	 pjjcjeIOzYTFzrFnMCdpJILkVznFJVKShEZ7HjD+Q7QpnwM/lnX76dnt0cdPl2Cz1RoJy
-	 GltNpdcDHo4IMRRLBcagqwWObhnkFWhKOuLioXqApme9Zn6bIQzV6gRcvCCsqorj9L5pp
-	 iqWiX72IA6urnZe6JR+fVq2brhUjPYfHCiweLBg6ongZkXw6pF4/BkId4brEU5VIFYw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795117006;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=CranEEoLWmWMxEIv1STGl+Y4fM+6BcY9fx5piGDDqwg=;
-	b=vqwHOBvMnlYTpenHm6Yfx8QHHEgATUu/B9hDMVX4lSWbFzpSQ9+VHBh78QK7rSsHhBr1
-	 +9NhOUM2GalwdPY79pqDegZ5icuxSQB16MVEDnDRyDy000CLwUGIEMwlhYbKAe3JlfpO1
-	 EQqAaTKD6XWtwD7gcBwqkf0VpwxRD8mK4506NeJT+Yj7xra6x9b4bAWv7uZKfUnt3ZqKe
-	 OZDwnzl2/gUGFSfR7nba7yKtO0quW7uAQ8CNzO4dbBQ2tnyntxn2qVlMN/16kFfRQzbGj
-	 CjOcL3IaqhzA6HpqdlMBcCw1QbjH4OVLsjpKzq5P/qsCiwgGbj2QZZe2H7jYXuu0M3g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=fail reason="signature verification failed" header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=rWs7JGBU;
-	arc=fail smtp.remote-ip=52.101.66.65
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012065.outbound.protection.outlook.com [52.101.66.65])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795117471;
+	b=lHabH9OO+pGAMnOKCkAxGrQEG4l417+A2lcpw3Ni5XRgP/P8zr0S/8/QACTdoJZOyd9D
+	 MKrItCKc6EQOi7tGnctgOdnAAjgByjxcxapvr8LN9Z4SAgzjAdXpw2DrXaIsJ7FW1ebAl
+	 xF6SXvOg1cElaWdSoDc7G6+X+RibXT5JX6fNqhCgSc1v1q2g2Czg1FwAhiQggxYwnr+Tv
+	 8fAfM69l+JReX0f7LNRzkMbYlSfpQn7cN9P7aos0PKCs18cn3Z+KVWdRWRRWEnRqSiM3B
+	 +UG2rDDWG7kz+Y8Zu5CIweSXf5PBDW8nSJrC2hr7zWz2PE93TGR1x/juPMyrmY5ERqQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795117471;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=P/dI5EVHI6hZEHd+P1qs5J5OltQJtHlpxL7TB3tOu1w=;
+	b=ZSFMp5BA9sh89yy/BXNdL4dV9WG+zOGBaZMsWxJqYqn4hvNtHSTQwTBfGTlNe63Lo0hb
+	 OlPiThYISv8ItyChQa82blcx5UJFlzJuCNxenKcuS7R+VhozsX2mEDjilDcYrn7WLPtou
+	 JkuzY1MJH8IeMi0J+47cYqWZNXFVUunakvBJJpV3bI1WimXG7s7N8mqFuAteGzln3+i7b
+	 8lSmmke2yPhp1wnYsyL4K5pQ/I9hFID6Ry/yzzjOiYECqrzLAmveoCil/RyjjyEEfDVXA
+	 TZUwKoujzq7OT+0uF7mN8BsD0ue79yMjiOytSJdNzxs1orJAKFE2HS9U2FCFQapCkpA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=PKkfacYB;
+	arc=none smtp.remote-ip=209.85.219.54
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CAC8606A339
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 19:36:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CAC8606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297CE606A324
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 19:44:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 297CE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=rWs7JGBU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W8SOf69VqE+Ax731Re8LLfd9AA4RySdzLWaUZle2hrUL1fMYgSIzd78I0Uz+GTnvt0sSbfqWXuZq6WnNT3nQZywV4YaOUCwBWjnps4uLVECnCRFUkqxDyiNXkFDPQhX0js8gnliicvMRc1g8g7cWp0EzmcTyCnQ7xKIqfMSqts0avuBQ+qIwIG2ijPk2WXVHOecA2T80kkatSkpwBDy/BCjA7gNgysDhos/0djlL65Dww1r4Kjc6bbB2ja5TYKp9vok+fyaThPG7O5gfdat1+YQdpUCTPJi5266s/UhktAugugW8wYkms5VaNUgN3hdRBb8opHkIk+tjuby93g3V6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y3GDuXD4h+UyMkzGfn5txw1iB0qmhW8RloVNJPJUITE=;
- b=ZTXdYB6AZdfchEez8DTyC615ksRWs5zUDDZqmY4zY1e8SJEFqH6BhVn2d2ioHucytd5mRFJahSpikgfgaHwQhufZrZlDTg6sN0Et2v6ivCb7ikYBCqw3CgMax5frqDlTVVYOgSDzyvmI5lS9NJLBTKJbzLps3/kaPAWe8IA+zmWESLPMbaZarCVIKXkEudp2qZKL1b3hsPeFqIx2TQyD2R/9qhwbrJzQ8+bQkvg+B3Ln2lfw6EA9AmIPqIHv1tmaYPDXlTquslc7iw6ZMz+bWKz3kuv1eW83bba+HGhExRtxgX9ziCzmGoBs2c8mAluCGL+1m38Yw5IRoqaeeGjJHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y3GDuXD4h+UyMkzGfn5txw1iB0qmhW8RloVNJPJUITE=;
- b=rWs7JGBUtuCdCsJVNVvySVc5lHtdmRD0vNeIfHC8yxVFpKeAQEadz1PiLoUKiFsr5JAgoIZtmzLtKfc6/fB2O7oDO6mztQ2TSwg2z97Y/FNeo6kkA0RWhk+tU3JBpbsFzs3m6TGQu3rjW6/Q++5ep/ZjlEvUVqkxNoj7tlL2xTGWZQTCkd5g1yyzwnveqbtO3cvKfHyqgRNkChZf85mqo35NODN+1sTvyPbFliMmbywMeZ38CLOSWpa0rq7JjKqEQ0t9FO7BRSVe/mGFzPzzGe9B0prKrP03Zv38nl2RzITqSDeqEB6b7ajT+zCaDWyJv/K72ug/dbphct8zMq1I9Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PA3PR04MB11225.eurprd04.prod.outlook.com (2603:10a6:102:4b1::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
- 2026 19:36:41 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
- 19:36:40 +0000
-Date: Thu, 19 Nov 2026 13:36:33 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Nas Chung <nas.chung@chipsnmedia.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
-	Frank.Li@kernel.org, media-ci@linuxtv.org
-Subject: Re: [PATCH v8 02/11] media: chips-media: wave6: Add Wave6 control
- driver
-Message-ID: <av9Pwfx0wjfjw36L@SMW015318>
-References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
- <6b00047b748267a2ff4e18ccbfd573ea92166d34.1795075580.git.nas.chung@chipsnmedia.com>
- <sashiko-outbox-222830@kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-222830@kernel.org>
-X-ClientProxiedBy: PH8P221CA0061.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:349::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=PKkfacYB
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-921159376efso2274126d6.2
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 11:44:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795117470; x=1795722270; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P/dI5EVHI6hZEHd+P1qs5J5OltQJtHlpxL7TB3tOu1w=;
+        b=PKkfacYBubfYve3a4PkXPVfBTXEAefGayowYGIzaaquBzhkZ1sdihnlYznTpFnHBZd
+         QASsO7E02+wAPEapFxzuzLGnXnqYjUwmeQHAS43qEjXHvffmMpBfPoVNyhFSSQCPHW/j
+         0Bq01H4TuhLekXEXednQggP2+lEm2LV9quFM/zxuwmv1UVOzQhKgMWBFR/4XasnrN77V
+         oWf9m+L0g9t6BXyKli8Sa/Jg1/FWbc+cjdxujpW4TVTLu7XtdvcH/6MmHu9kTjqhPOOM
+         O6Vr8PomdywEV3n+MClg2sf/JOVhiT8wTZ0bj1EwrHvZGsQVbhbzJmgzxPy6OqDzQBVn
+         BNgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795117470; x=1795722270;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P/dI5EVHI6hZEHd+P1qs5J5OltQJtHlpxL7TB3tOu1w=;
+        b=pnIys1y0S1VTaxRYKvZAsKS6f1vVTax/CfYDTw2qJBXwBJIAjl3fSxFxFANIUP8uFQ
+         CcJlOq95GgcheSljl/+NA6suokUfO54XEYM5aNiFRMGh7bHrKp+qJaO/Pdpqyzix9w1+
+         HIJfQK7cbIC4+9UzKc2xx2GZGtwe8gBRuvLePEl78YjZlM5ln4djLWr5qJi34jnaGw15
+         XI4a8swnayHjrz0rYpwMMJ3aUySrxf0fxkjgYisQ//8ujReXcBU+LlPs0897iX2IVi4l
+         YKVBDnY4ogGI5tM5nibaNXlC3q3IBenVY59Ya/CV8GJnVqSOJjA9zMHo3bNLhRvBzyo4
+         +qfw==
+X-Forwarded-Encrypted: i=1; AL+hErEP9Xai8dSpr4O5gQ+U9cgaIPkWmSb9UagbD94WFWeEvwgkJRDKFYpiYWuDVG4SecmDMiTg+CEx3svy@vger.kernel.org
+X-Gm-Message-State: APuU4Z8v7r7VOJnCVcwvGtMxFSPlgmyUwRL0HxVmhIsDqdhAnAth4Q/H
+	kltBNoUln75u+/CqvNmP/osyE+Bbh60JveZqTbMDbdQW8DU+FUfYLWM81Lnd4gh7sos=
+X-Gm-Gg: AYBFou1Lfaew3I5HhpXGPZt8DioavKs4AKoUWt9Yn2M1yvNtN8/wa2OQnZS8lIxHDPQ
+	iRFC6LHoUcwfiq5aqLTHsmiE4RMHbz0So3sIijqwQMNFmv86dK/N0AT01A2NocSY7XJuaiCZXsh
+	hQptKToNXMj3T386Bv6pyunGWgOjbYotyE03r27ptYldWo+hlgK2tgKZi10V28E4jxbpkISp6oF
+	HQQqyZvru0FeMkw573PxvwQhR7w5cDU4P4gA/dGigqj0ARr4Sm+BKqHiSubIRSUJztrztuSC3MX
+	mzTzzKZsq7repxhwyVmGgtbcKYleVAHa74F+mOMDMmS0DmBkz0SY5f0bsEt61MJRqlaxaXUYmZL
+	Oe/tLhluyQzCShQDBHzRa0JORc4T7I67FKrbMlJ6fWqhGvjK+6mXUW3tAUqyDWqROijKL5/qgKJ
+	3tGb0bQ+HAZHDUzvikl9ePus4TSyRXLgQAS5E+iM6aG0pNHPyAgrrdsMfxHBVUnqqzC13mMHBWZ
+	VxmVfcuWWU9kKC4SuJCinkeMU4/JK+UuvoX0OtY7mIIjhW9Sp9QVjSaMOei5RBmJpBg2wo6Eb6D
+	pSU+FP/NEdDu9erEMLks9NPnjTTyjsggfM8hWjPCLqjOCksgH1dDIcwNZRew74W/PmqTZXaAECZ
+	H
+X-Received: by 2002:a05:620a:1308:b0:949:6493:7c6c with SMTP id af79cd13be357-949ba9e05efmr110692985a.30.1795117470015;
+        Thu, 19 Nov 2026 11:44:30 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb3832c8sm35428085a.18.2026.11.19.11.44.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 11:44:29 -0800 (PST)
+Message-ID: <fe3f3912af33f1afed3459671fdf93a5a6764c27.camel@ndufresne.ca>
+Subject: Re: [RFC PATCH 00/28] media: add arm Mali-V76 video decoder driver
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Charvi Mehta <charvi.mehta@arm.com>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Vincenzo
+ Frascino <vincenzo.frascino@arm.com>,  Rathinavel Sankaralingam
+ <rath.sankaralingam@arm.com>, Shobhit Pandey <shobhit.pandey@arm.com>
+Date: Thu, 19 Nov 2026 14:44:27 -0500
+In-Reply-To: <20261119153758.1426673-1-charvi.mehta@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-2Q7+N9fBsq9L8TcpfMqs"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,416 +118,495 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA3PR04MB11225:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86714c6b-fcc7-4330-c01f-08df46746f43
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|23010399003|366016|1800799024|22082099003|18002099003|6133799003|261022105027099003|11063799006|261026130827099003|261022075727099003|261021130227099003|4143699003|261026135527099003|261022115727099003|10067099003|56012099006|261026121527099003|261102123227099003|261028144727099003|261022113327099003|261026140227099003|261021133027099003|261021135927099003|261021121427099003|261009223027099003|261021123027099003|260925022911599003|260925021311599003|260925021911599003;
-X-Microsoft-Antispam-Message-Info:
-	6CDf6XgfVewTaBIVSCQxsa5rqmTz9VxuBb4Pmf0Buz1THztZNhlN6MB5924+lQ+a306Gyxu+ZmbPhSAYMP+MxQ3lSUSo5ZbM6llWbzitU4DEh5jIS6lIzFRoM3uCf3R3lTXPz60EaxydwQ/hrGr2tDyeNi84nLtyU4DdOvZZZCzuBH6wp4Lp75FKWpieVQ3cWKUEVBVGUlGO9Le9t+jNadDFdTB3sqzWqNfx9vtq3yw1vVi3Nz//4rfm987g03NS8bvMc/j3Cp0F5nRHsMYaoA6renBBpo2SDEhEEZLrlrmdFGcubdPeHtTbU+dlRIF0ztVyJzme68g9lA0NH4A8ktUa7gKAdt5xa9MuiCqDuZPuORmUmzLs1bxoUiFtjLbOvA2QNAbkfsN8+yOpNiIMA+dnE1/Z5AGkOSxwCq4vPj1s+iEmV2Nkrd8rqRrsXmei+FtikJIT4SRt5K4WiqVg8ZYoE33EipManng2RIh8uoaQWzKXBBudN6ZmfjPgJUueWfta4NLDttcUsSsv/o/lQsgokZ4LZyavQYYAyCO4yXnE2Ccq2FuhCSei2LSNKrBXymklkbXE7eg13ufEdK1uWM6DfjpkebeeikYbGTVDdjM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(6133799003)(261022105027099003)(11063799006)(261026130827099003)(261022075727099003)(261021130227099003)(4143699003)(261026135527099003)(261022115727099003)(10067099003)(56012099006)(261026121527099003)(261102123227099003)(261028144727099003)(261022113327099003)(261026140227099003)(261021133027099003)(261021135927099003)(261021121427099003)(261009223027099003)(261021123027099003)(260925022911599003)(260925021311599003)(260925021911599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?w08FgUE4dUJm2ZVRy2C6J9LpxCv2LI5KU+Po2gVthHgqkWdg1JLdsk+lPC?=
- =?iso-8859-1?Q?2wnDfAr6AjfqJgvPv1dCJGmBHe1mm2eWl1ucAwKiQdPteLmgDpAEglB7hV?=
- =?iso-8859-1?Q?6TeDGLdKaZ1w9crzDGjDmHdvp2yKr+wd3ZVqg1/vId/g9YZNBKtxp397pH?=
- =?iso-8859-1?Q?QtPyCASvESRoQPxFOkYk0WVBy7IP87LxD6tRv0jGw6Jqws58gCcE8Nxv6h?=
- =?iso-8859-1?Q?7w054GVSm5FsRVNC24IER+4Zt++9AaArUGq0nMA1u+KqBNG7Doy+6giHAQ?=
- =?iso-8859-1?Q?PR6Rbb57WMdbZ2gpagW0ihBCxO5kdGcHOKp1q2/BrnZUuAG4EN27sr/w94?=
- =?iso-8859-1?Q?1/KYB74S122smWY0BLN183FA0LKmwEgpV8n5femqq+sCqPO7NZNbRYp1cl?=
- =?iso-8859-1?Q?sn06rw9aHbuN+iqxGq0/+unrNfZaQYZMtdS0gM8H83+DTbz2RkioMI51Mn?=
- =?iso-8859-1?Q?51QAr37MOQ6IcPhk3F6tsaD4XEOrL1VKgwl1a0joGX0snsfl4oCXM3kmUL?=
- =?iso-8859-1?Q?qECayIfcquPfRMaYKW9AqJYIHitX69AY7wq+F5lndbjHbQ94GZbpIvPPvy?=
- =?iso-8859-1?Q?NrwehZzgSWyjHMDy+9WxUGdhv6XOV7tEkJzMTnGgqp/h93KIu5pvTjxAPu?=
- =?iso-8859-1?Q?c/L/+JYmuLSVkzfBLUAeX7s55cmg5NcKKzRIP7D92bowlWwbuZLZ+coMFi?=
- =?iso-8859-1?Q?KoMn7TtMOcQo65Sv89fZQ5KWs2sMA/iC4Py12RazxFbrsmaMXBVeofFUiZ?=
- =?iso-8859-1?Q?apdiQvINbvKQcTGoOA1kmmhsIpIESEJcN0BsnT9e0irjyyVtH2MsxBr5jz?=
- =?iso-8859-1?Q?8m9qYaKRwpp7V4/U0ZS1SbIPHzD1X7+hdwXU7LdTat+R06wbNH6p0/NCVU?=
- =?iso-8859-1?Q?rqw/uaKaCxd1f4JpxI3rPjGlp796igbZ/P7wNFEFgepA2PmcSiYV4/UlYN?=
- =?iso-8859-1?Q?j8tfnUq1D9kt/DcTI6AQwQ+8T6Kk7Xpu+UuBm9gOi6RMr0AbnFQvrW+ZTd?=
- =?iso-8859-1?Q?uy6/1tck3Hy50RupXBemEOQbjbv4iwSBYCxB/AXlaGEaEcJMIsNu5XeSbZ?=
- =?iso-8859-1?Q?5Z2MXQy2zxjjtqMd6JacBcqoPMCIhanXdNYeHGjtaGzJXmYDWILBBPF9EE?=
- =?iso-8859-1?Q?zrThYU/hvZdCACWhkwaTcJCpDl9dcc8KZVtik3lBpHori9ucThKswin/Sj?=
- =?iso-8859-1?Q?C5i6n+o0hkgl2EDit343mFg+aOounrTzQK4yDJLyIKNx7rM2PrdxGAqB6W?=
- =?iso-8859-1?Q?NXt91IEY/eN2e5eG8yWvca8t1O5+0JUJw1KeRfrTOgEibhEHihxvg8Jrtd?=
- =?iso-8859-1?Q?UXU47bGqjQho7DTnTMChgJpfoKvD506pIEWLsQ/OgGLqUxwOQpy/HFqSYn?=
- =?iso-8859-1?Q?+prwIZ3RGd1SYwcwQCBNeUXod3deUUxXpe9BZnNxZYAwr/De8pCRNon2JN?=
- =?iso-8859-1?Q?v+9RgfEObz6gYS5ULPhlMOeqb+DGj18UzZ/wqZVKk/KhskrwpQSQgL7/ub?=
- =?iso-8859-1?Q?DWcORkQ9Y899owG54kGerhDfit8GRChVD+mqD2VZmONhox+PdeDFaMvek+?=
- =?iso-8859-1?Q?M3FhNdEYezd3wiyF1gy2wyWfDJZywdCW68Ugb2xX0mwcx8Sn4ZquQdDPyZ?=
- =?iso-8859-1?Q?fwtVH0yOhBeNN3x5eXIofQpU1HT3w7AHXrJbfx9Q1zTKavOWi/DJA966HC?=
- =?iso-8859-1?Q?a1Dk4FfUoCzDvyqb5AsKBWc1T++LLM1ucBJMYlz7eZ+Vt4UuhdicT/K0mw?=
- =?iso-8859-1?Q?KTdzCzz+0UYbyulOno39yhF1svBQkrqBEV59giEzhCUlZFxA9RcdBT4KoC?=
- =?iso-8859-1?Q?HUeNYC8wOg3I25xsWovQasaGsclmAZeow00RqPFcXFcLC6xGXMAb?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86714c6b-fcc7-4330-c01f-08df46746f43
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 19:36:40.9328
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ExjrTae0l9FmSGJc48tGzTizMSGU2Q3n/n3p65eZgfYfmvmNDGUTGKPBILBsT+qko6h9j8S2oHTWIAFWcs84vaSgucsFiSbRDZFD6GQUYeTRuGrvJPl65gfRPcMb8YW6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA3PR04MB11225
 
-On Thu, Nov 19, 2026 at 09:26:25AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 8 potential
-> issues to consider:
-> - [High] media: wave6: vpu->lock held across core device register and
->   unregister
-> - [High] media: wave6: data race on work_buffers_avail in
->   wave6_vpu_require_work_buffer()
-> - [Medium] media: wave6: stuck PREPARE state on work buf error in
->   wave6_vpu_init_vpu()
-> - [Medium] media: wave6: incompatible phys_addr_t pointer in
->   wave6_vpu_probe()
-> - [Medium] media: wave6: wave6_vpu_probe() succeeds without required
->   memory-region
-> - [Medium] media: wave6: wrong product code value for WAVE677_CODE
+--=-2Q7+N9fBsq9L8TcpfMqs
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Please fix above issues
+Hi,
 
-Frank
+its nice to see ARM working on upstream drivers.
 
-> - [Low] media: wave6: off-by-one of_irq_get() error check in
->   wave6_vpu_create_cores()
-> - [Low] media: wave6: mixed guard(mutex) and goto cleanup in
->   wave6_vpu_get()
-> --
->
-> commit 600333b152222fe3a820d242ccd857c34cf7d58c
-> Author: Nas Chung <nas.chung@chipsnmedia.com>
->
-> media: chips-media: wave6: Add Wave6 control driver
->
-> This commit adds the control driver for the Chips&Media Wave6 video codec IP
-> to manage firmware loading, shared memory resources, and child core devices.
->
-> > diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu.c b/drivers/media/platform/chips-media/wave6/wave6-vpu.c
-> > new file mode 100644
-> > index 0000000000000..9160ce53062ce
-> > --- /dev/null
-> > +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu.c
-> [ ... ]
-> > +static int wave6_vpu_init_vpu(struct wave6_vpu_device *vpu,
-> > +			      void __iomem *core_base)
-> > +{
-> > +	int ret;
-> > +
-> > +	lockdep_assert_held(&vpu->lock);
-> > +
-> > +	/* try init directly as firmware is running */
-> > +	if (wave6_vdi_readl(core_base, W6_VPU_VCPU_CUR_PC))
-> > +		goto init_done;
-> > +
-> > +	wave6_vpu_set_state(vpu, WAVE6_VPU_STATE_PREPARE);
-> > +
-> > +	wave6_vpu_remap_code_buf(vpu);
-> > +
-> > +	wave6_vdi_writel(core_base, W6_VPU_BUSY_STATUS, BUSY_STATUS_SET);
-> > +	wave6_vdi_writel(core_base, W6_CMD_INIT_VPU_SEC_AXI_BASE_CORE0,
-> > +			 vpu->sram_buf.dma_addr);
-> > +	wave6_vdi_writel(core_base, W6_CMD_INIT_VPU_SEC_AXI_SIZE_CORE0,
-> > +			 vpu->sram_buf.size);
-> > +	wave6_vdi_writel(vpu->reg_base, W6_COMMAND_GB, W6_CMD_INIT_VPU);
-> > +	wave6_vdi_writel(vpu->reg_base, W6_VPU_REMAP_CORE_START_GB,
-> > +			 REMAP_CORE_START_ON);
-> > +
-> > +	ret = wave6_vpu_wait_busy(core_base);
-> > +	if (ret) {
-> > +		dev_err(vpu->dev, "init vpu timeout\n");
-> > +		wave6_vpu_set_state(vpu, WAVE6_VPU_STATE_OFF);
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	ret = wave6_vpu_check_result(core_base);
-> > +	if (ret) {
-> > +		dev_err(vpu->dev, "init vpu fail, reason 0x%x\n", ret);
-> > +		wave6_vpu_set_state(vpu, WAVE6_VPU_STATE_OFF);
-> > +		return -EIO;
-> > +	}
-> > +
-> > +init_done:
-> > +	ret = wave6_vpu_init_work_buf(vpu, core_base);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	wave6_vpu_set_state(vpu, WAVE6_VPU_STATE_ON);
-> > +
-> > +	return 0;
-> > +}
->
-> [Severity: Medium]
-> Does returning on wave6_vpu_init_work_buf() failure leave vpu->state stuck
-> in WAVE6_VPU_STATE_PREPARE?
->
-> Unlike the timeout and error paths above init_done, this path does not
-> reset vpu->state to WAVE6_VPU_STATE_OFF.  wave6_vpu_get() then powers down
-> the device and drops core_count to 0, and every later wave6_vpu_get() ->
-> wave6_vpu_try_boot() sees vpu->state == WAVE6_VPU_STATE_PREPARE and returns
-> 0 without booting the VPU or initializing work buffers.
->
-> [ ... ]
->
-> > +int wave6_vpu_get(struct wave6_vpu_device *vpu, void __iomem *core_base)
-> > +{
-> > +	int ret;
-> > +
-> > +	guard(mutex)(&vpu->lock);
-> > +
-> > +	/* Only the first core executes boot; others return */
-> > +	if (atomic_inc_return(&vpu->core_count) > 1)
-> > +		return 0;
-> > +
-> > +	ret = pm_runtime_resume_and_get(vpu->dev);
-> > +	if (ret)
-> > +		goto error_pm;
-> > +
-> > +	ret = wave6_vpu_try_boot(vpu, core_base);
-> > +	if (ret)
-> > +		goto error_boot;
-> > +
-> > +	return 0;
-> > +
-> > +error_boot:
-> > +	pm_runtime_put_sync(vpu->dev);
-> > +error_pm:
-> > +	atomic_dec(&vpu->core_count);
-> > +
-> > +	return ret;
-> > +}
->
-> [Severity: Low]
-> This isn't a bug, but wave6_vpu_get() mixes guard(mutex) with goto-based
-> error unwinding in the same function, contrary to the Cleanup API
-> conventions in include/linux/cleanup.h.
->
-> [ ... ]
->
-> > +void wave6_vpu_require_work_buffer(struct wave6_vpu_device *vpu,
-> > +				   void __iomem *core_base)
-> > +{
-> > +	struct vpu_buf *vb;
-> > +	u32 size;
-> > +
-> > +	size = wave6_vdi_readl(core_base, W6_CMD_SET_WORK_BUF_SIZE);
-> > +	if (!size)
-> > +		return;
-> > +
-> > +	if (WARN_ON(size > W637DEC_WORKBUF_SIZE_FOR_CQ))
-> > +		goto exit;
-> > +
-> > +	if (WARN_ON(vpu->work_buffers_avail == 0))
-> > +		goto exit;
-> > +
-> > +	vpu->work_buffers_avail--;
-> > +	vb = &vpu->work_buffers[vpu->work_buffers_avail];
-> > +
-> > +	wave6_vdi_writel(core_base, W6_CMD_SET_WORK_BUF_ADDR, vb->daddr);
-> > +
-> > +exit:
-> > +	wave6_vdi_writel(core_base, W6_CMD_SET_WORK_BUF_SIZE, SET_WORK_BUF_SIZE_ACK);
-> > +}
->
-> [Severity: High]
-> Can concurrent calls to wave6_vpu_require_work_buffer() across VPU cores
-> race on vpu->work_buffers_avail?
->
-> In commit "media: chips-media: wave6: Add Wave6 core driver", each child
-> core device calls wave6_vpu_require_work_buffer() directly from its
-> wave6_vpu_core_irq() hardirq handler without holding any shared lock:
->
-> CPU0 (<hardirq> core 0)           CPU1 (<hardirq> core 1)
-> wave6_vpu_core_irq()              wave6_vpu_core_irq()
->   wave6_vpu_require_work_buffer()   wave6_vpu_require_work_buffer()
->     if (work_buffers_avail == 0)      if (work_buffers_avail == 0)
->     work_buffers_avail--;             work_buffers_avail--;
->     vb = &work_buffers[avail];        vb = &work_buffers[avail];
->                                         <-- duplicate buffer or underflow
->
-> Two cores can be assigned the same work_buffers[] entry, or when
-> vpu->work_buffers_avail is 1, both cores can pass the zero check and
-> underflow the u32 counter to 0xffffffff, reading vpu->work_buffers[] out of
-> bounds.
->
-> Also, when jumping to exit on error, should W6_CMD_SET_WORK_BUF_ADDR be
-> cleared before writing SET_WORK_BUF_SIZE_ACK so the firmware does not
-> consume a stale address?
->
-> > +static int wave6_vpu_create_cores(struct wave6_vpu_device *vpu)
-> > +{
-> > +	struct device_node *child;
-> > +	int num_cores = 0;
-> > +
-> > +	for_each_available_child_of_node(vpu->dev->of_node, child) {
-> > +		struct platform_device_info info = {};
-> > +		struct platform_device *pdev;
-> > +		struct resource res[2];
-> > +		int irq;
-> > +
-> > +		if (num_cores >= W6_VPU_MAX_NUM_CORE) {
-> > +			of_node_put(child);
-> > +			break;
-> > +		}
-> > +
-> > +		if (of_address_to_resource(child, 0, &res[0])) {
-> > +			dev_warn(vpu->dev, "%pOF: missing reg property\n", child);
-> > +			continue;
-> > +		}
-> > +
-> > +		irq = of_irq_get(child, 0);
-> > +		if (irq < 0) {
-> > +			dev_warn(vpu->dev, "%pOF: missing interrupts property\n", child);
-> > +			continue;
-> > +		}
-> > +		res[1] = DEFINE_RES_IRQ(irq);
->
-> [Severity: Low]
-> Should the error check for of_irq_get() be "if (irq <= 0)"?
->
-> of_irq_get() returns 0 when IRQ mapping fails, which would register the
-> child platform device with an invalid IRQ 0 resource.
->
-> [ ... ]
->
-> > +static void wave6_vpu_release(struct wave6_vpu_device *vpu)
-> > +{
-> > +	guard(mutex)(&vpu->lock);
-> > +
-> > +	wave6_vpu_destroy_cores(vpu);
-> > +	wave6_vpu_free_work_buffers(vpu);
-> [ ... ]
-> > +}
-> > +
-> > +static void wave6_vpu_init_firmware(struct wave6_vpu_device *vpu,
-> > +				    const struct firmware *fw)
-> > +{
-> > +	guard(mutex)(&vpu->lock);
-> > +
-> > +	if (!fw || !fw->data) {
-> > +		dev_err(vpu->dev, "No firmware.\n");
-> > +		return;
-> > +	}
-> > +
-> > +	if (fw->size + W6_EXTRA_CODE_BUF_SIZE > wave6_vpu_get_code_buf_size(vpu)) {
-> > +		dev_err(vpu->dev, "firmware size (%zd > %zd) is too big\n",
-> > +			fw->size, vpu->code_buf.size);
-> > +		return;
-> > +	}
-> > +
-> > +	memcpy(vpu->code_buf.vaddr, fw->data, fw->size);
-> > +
-> > +	if (!wave6_vpu_create_cores(vpu))
-> > +		dev_err(vpu->dev, "Failed to create VPU cores\n");
-> > +}
->
-> [Severity: High]
-> Does holding vpu->lock across wave6_vpu_create_cores() and
-> wave6_vpu_destroy_cores() invert the lock hierarchy against child core
-> device locks and runtime PM transitions?
->
-> wave6_vpu_create_cores() -> platform_device_register_full() and
-> wave6_vpu_destroy_cores() -> platform_device_unregister() acquire the child
-> core device's device_lock (core_dev->mutex) while vpu->lock is held, and
-> platform_device_unregister() -> __device_release_driver() also runs
-> pm_runtime_get_sync(core_dev) and pm_runtime_put_sync(core_dev).  In commit
-> "media: chips-media: wave6: Add Wave6 core driver", the child's runtime PM
-> and system sleep callbacks call wave6_vpu_get() and wave6_vpu_put(), which
-> acquire vpu->lock under core_dev->mutex or during a core_dev runtime PM
-> transition:
->
-> CPU0                              CPU1
-> ----                              ----
-> lock(&vpu->lock)
->                                   lock(&core_dev->mutex)
-> lock(&core_dev->mutex)
->                                   lock(&vpu->lock)
->
->  *** DEADLOCK ***
->
-> CPU0: wave6_vpu_init_firmware() -> wave6_vpu_create_cores() ->
->       platform_device_register_full()
-> CPU1: device_suspend() -> wave6_vpu_core_suspend() ->
->       pm_runtime_force_suspend() -> wave6_vpu_core_runtime_suspend() ->
->       wave6_vpu_put()
->
-> During teardown, if core_dev is in RPM_RESUMING or RPM_SUSPENDING waiting
-> for vpu->lock in wave6_vpu_get() or wave6_vpu_put() when
-> wave6_vpu_release() runs, __device_release_driver()'s
-> pm_runtime_get_sync(core_dev) will also wait on core_dev->power.wait_queue
-> while holding vpu->lock.
->
-> [ ... ]
->
-> > +	np = of_parse_phandle(pdev->dev.of_node, "memory-region", 0);
-> > +	if (np) {
-> > +		struct resource mem;
-> > +
-> > +		ret = of_address_to_resource(np, 0, &mem);
-> > +		of_node_put(np);
-> > +		if (!ret) {
-> > +			vpu->code_buf.phys_addr = mem.start;
-> > +			vpu->code_buf.size = resource_size(&mem);
-> > +			ret = wave6_vpu_init_code_buf(vpu);
-> > +			if (ret)
-> > +				goto error_detach_pm_domains;
-> > +		} else {
-> > +			dev_warn(&pdev->dev, "memory-region is not available.\n");
-> > +		}
-> > +	}
->
-> [Severity: Medium]
-> Should wave6_vpu_probe() fail and jump to error_detach_pm_domains when
-> "memory-region" is missing or of_address_to_resource() fails?
->
-> Without it, vpu->code_buf.size remains 0 while wave6_vpu_probe() continues,
-> allocates 48 MiB of coherent DMA work buffers and SRAM, and returns 0, only
-> for wave6_vpu_init_firmware() to unconditionally fail its size check against
-> wave6_vpu_get_code_buf_size(vpu) and leave those resources allocated without
-> creating any core devices.
->
-> > +	vpu->sram_pool = of_gen_pool_get(pdev->dev.of_node, "sram", 0);
-> > +	if (vpu->sram_pool) {
-> > +		vpu->sram_buf.size = vpu->res->sram_size;
-> > +		vpu->sram_buf.vaddr = gen_pool_dma_alloc(vpu->sram_pool,
-> > +							 vpu->sram_buf.size,
-> > +							 &vpu->sram_buf.phys_addr);
->
-> [Severity: Medium]
-> Does passing &vpu->sram_buf.phys_addr to gen_pool_dma_alloc() fail to build
-> when phys_addr_t and dma_addr_t have different widths?
->
-> struct wave6_vpu_dma_buf declares phys_addr as phys_addr_t, whereas
-> gen_pool_dma_alloc() takes a dma_addr_t * third argument, which triggers
-> -Werror=incompatible-pointer-types on configs where
-> CONFIG_PHYS_ADDR_T_64BIT and CONFIG_ARCH_DMA_ADDR_T_64BIT differ (exposed by
-> COMPILE_TEST).
->
-> > diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h b/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
-> > new file mode 100644
-> > index 0000000000000..1d4e016c2a582
-> > --- /dev/null
-> > +++ b/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
-> > @@ -0,0 +1,37 @@
-> [ ... ]
-> > +#define WAVE617_CODE	0x6170
-> > +#define WAVE627_CODE	0x6270
-> > +#define WAVE633_CODE	0x6330
-> > +#define WAVE637_CODE	0x6370
-> > +#define WAVE663_CODE	0x6630
-> > +#define WAVE677_CODE	0x6670
->
-> [Severity: Medium]
-> Should WAVE677_CODE be 0x6770 instead of 0x6670?
->
-> All other Wave6 product codes encode the three-digit model number in bits
-> [15:4], so wave6_is_product_w_series() in wave6_vpu_try_boot() would reject
-> a Wave677 reporting 0x6770 with -EINVAL.
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1795075577.git.nas.chung@chipsnmedia.com?part=2
->
+Le jeudi 19 novembre 2026 =C3=A0 15:37 +0000, Charvi Mehta a =C3=A9crit=C2=
+=A0:
+> This series introduces support for the Arm Mali-V76 Video Processing Unit
+> (VPU), providing H.264 video stream decoding through the V4L2 stateful
+> memory-to-memory interface.
+>=20
+> The Mali-V76 offloads video decoding from the application processor. The
+> host driver loads and manages the codec firmware, communicating with it
+> through asynchronous message queues, interrupts and RPC requests. It also
+> manages the firmware address space using the V76 internal MMU and control=
+s
+> hardware resources through the LSID and job-queue interfaces.
+>=20
+> The driver currently supports:
+>=20
+> - H.264 decoding through the V4L2 stateful memory-to-memory interface.
+> - Multi-planar capture using V4L2_PIX_FMT_YUV420M, V4L2_PIX_FMT_NV12M
+>   and V4L2_PIX_FMT_NV21M, with MMAP and DMA-BUF buffer support.
+> - Variant-specific definitions of supported formats, frame sizes,
+>   controls and hardware resources.
+> - Explicit management of decoder and firmware states throughout
+>   stream setup, decoding and teardown.
+> - Asynchronous firmware loading and caching, with interrupt-driven
+>   communication for commands, buffer completion and firmware events.
+> - Separate control of OUTPUT and CAPTURE streaming, allowing CAPTURE
+>   buffers to be reconfigured during dynamic resolution changes.
+> - Decoder drain, end-of-stream and dynamic resolution change handling,
+>   including source-change events and LAST buffer signalling.
+> - Timestamp propagation and buffer metadata handling.
+> - Firmware error and unsupported-stream reporting.
+>=20
+> The initial implementation supports a single active decoding session, wit=
+h
+> hardware resource management handled through the V76 LSID and job-queue
+> interfaces. Support for additional codecs and concurrent sessions is
+> outside the scope of this series.
+>=20
+> The series is based on media-committers/next.
+>=20
+> To simplify the testing a tree with the new patches on top has been made
+> available at [1].
+>=20
+> [1] https://gitlab.arm.com/media/vpu/charvi/linux.git mali/v76/v1
+>=20
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Philipp Zabel <p.zabel@pengutronix.de>
+> Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
+> Signed-off-by: Vincenzo Frascino <vincenzo.frascino@arm.com>
+> Signed-off-by: Rathinavel Sankaralingam <rath.sankaralingam@arm.com>
+> Signed-off-by: Shobhit Pandey <shobhit.pandey@arm.com>
+>=20
+> Testing
+> =3D=3D=3D=3D=3D=3D=3D
+> The driver has been tested on Mali-V76 pre-silicon FPGA.
+>=20
+> Static tools like checkpatch, smatch, dt_binding_check, sparse, checkstac=
+k
+> and Coccinelle run successfully with this driver.
+>=20
+> The driver has been tested with v4l2-ctl[2] and Gstreamer[3],
+> v4l2-compliance [4] and Fluster [5].
+>=20
+> [2] v4l2-ctl -d /dev/video0 --verbose \
+> --set-fmt-video-out=3Dwidth=3D1920,height=3D1080,pixelformat=3DH264 \
+> --set-fmt-video=3Dwidth=3D1920,height=3D1080,pixelformat=3DNM12 \
+> --stream-mmap=3D4 --stream-out-mmap=3D1 \
+> --stream-from /media/CrowdRun_1080p.264 --stream-to decoded.yuv
+>=20
+> [3] gst-launch-1.0 -v filesrc location=3D/media/CrowdRun_720p.264 ! h264p=
+arse \
+> ! v4l2h264dec ! filesink location=3Ddecoded.yuv sync=3Dfalse
+>=20
+> [4] V4l2 compliance was tested using v4l2-compliance 1.28.1:
+>=20
+> v4l2-compliance -d /dev/video0 --stream-from /media/CrowdRun_1080p.264 -s=
+ 200
+>=20
+> v4l2-compliance 1.28.1, 64 bits, 64-bit time_t
+>=20
+> Compliance test for mali-vpu device /dev/video0:
+>=20
+> Driver Info:
+> =09Driver name      : mali-vpu
+> =09Card type        : mali-vpu-decoder
+> =09Bus info         : platform:6f030000.video-codec
+> =09Driver version   : 7.4.0
+> =09Capabilities     : 0x84204000
+> =09=09Video Memory-to-Memory Multiplanar
+> =09=09Streaming
+> =09=09Extended Pix Format
+> =09=09Device Capabilities
+> =09Device Caps      : 0x04204000
+> =09=09Video Memory-to-Memory Multiplanar
+> =09=09Streaming
+> =09=09Extended Pix Format
+> =09Detected Stateful Decoder
+>=20
+> Required ioctls:
+> =09test VIDIOC_QUERYCAP: OK
+> =09test invalid ioctls: OK
+>=20
+> Allow for multiple opens:
+> =09test second /dev/video0 open: OK
+> =09test VIDIOC_QUERYCAP: OK
+> =09test VIDIOC_G/S_PRIORITY: OK
+> =09test for unlimited opens: OK
+>=20
+> Debug ioctls:
+> =09test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+> =09test VIDIOC_LOG_STATUS: OK (Not Supported)
+>=20
+> Input ioctls:
+> =09test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+> =09test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+> =09test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+> =09test VIDIOC_ENUMAUDIO: OK (Not Supported)
+> =09test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+> =09test VIDIOC_G/S_AUDIO: OK (Not Supported)
+> =09Inputs: 0 Audio Inputs: 0 Tuners: 0
+>=20
+> Output ioctls:
+> =09test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+> =09test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+> =09test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+> =09test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+> =09test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+> =09Outputs: 0 Audio Outputs: 0 Modulators: 0
+>=20
+> Input/Output configuration ioctls:
+> =09test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+> =09test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+> =09test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+> =09test VIDIOC_G/S_EDID: OK (Not Supported)
+>=20
+> Control ioctls:
+> =09test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+> =09test VIDIOC_QUERYCTRL: OK
+> =09test VIDIOC_G/S_CTRL: OK
+> =09test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+> =09test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+> =09test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+> =09Standard Controls: 2 Private Controls: 6
+>=20
+> Format ioctls:
+> =09test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+> =09test VIDIOC_G/S_PARM: OK (Not Supported)
+> =09test VIDIOC_G_FBUF: OK (Not Supported)
+> =09test VIDIOC_G_FMT: OK
+> =09test VIDIOC_TRY_FMT: OK
+> =09test VIDIOC_S_FMT: OK
+> =09test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+> =09test Cropping: OK (Not Supported)
+> =09test Composing: OK (Not Supported)
+> =09test Scaling: OK (Not Supported)
+>=20
+> Codec ioctls:
+> =09test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+> =09test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+> =09test VIDIOC_(TRY_)DECODER_CMD: OK
+>=20
+> Buffer ioctls:
+> =09test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+> =09test CREATE_BUFS maximum buffers: OK
+> =09test VIDIOC_REMOVE_BUFS: OK
+> =09test VIDIOC_EXPBUF: OK
+> =09test Requests: OK (Not Supported)
+>=20
+> Test input 0:
+>=20
+> Streaming ioctls:
+> =09test read/write: OK (Not Supported)
+> =09test blocking wait: OK
+> =09Video Capture Multiplanar: Captured 632 buffers
+> =09test MMAP (select): OK
+> =09Video Capture Multiplanar: Captured 632 buffers
+> =09test MMAP (epoll): OK
+> =09test USERPTR (select): OK (Not Supported)
+> =09test DMABUF: Cannot test, specify --expbuf-device
+>=20
+> Total for mali-vpu device /dev/video0: 52, Succeeded: 52, Failed: 0, Warn=
+ings: 0
+>=20
+> [5] Fluster was run with
+>=20
+> GStreamer-H.264-V4L2 decoder:
+>=20
+> Running test suite JVT-AVC_V1 with decoder GStreamer-H.264-V4L2
+> Ran 78/135 tests successfully.
+>=20
+> The failing tests:
+>=20
+> 52 test vectors fail as they are interlaced clips which mali-vpu does not
+> support.
+
+Is that a real hardware limitation, or you are just skipping it in firmware=
+ or
+even in this driver? Its not like you have a compliant decoder without it. =
+I've
+recently asked Amlogic to not cut corner also, and they accepted to fix the=
+ir
+new driver.
+
+>=20
+> List of these test vectors:
+> - cabac_mot_fld0_full
+> - cabac_mot_mbaff0_full
+> - cabac_mot_picaff0_full
+> - CABREF3_Sand_D
+> - CAFI1_SVA_C
+> - CAMA1_Sony_C
+> - CAMA1_TOSHIBA_B
+> - cama1_vtc_c
+> - cama2_vtc_b
+> - CAMA3_Sand_E
+> - cama3_vtc_b
+> - CAMACI3_Sony_C
+> - CAMANL1_TOSHIBA_B
+> - CAMANL2_TOSHIBA_B
+> - CAMANL3_Sand_E
+> - CAMASL3_Sony_B
+> - CAMP_MOT_MBAFF_L30
+> - CAMP_MOT_MBAFF_L31
+> - CANLMA2_Sony_C
+> - CANLMA3_Sony_C
+> - CAPA1_TOSHIBA_B
+> - CAPAMA3_Sand_F
+> - cavlc_mot_fld0_full_B
+> - cavlc_mot_mbaff0_full_B
+> - cavlc_mot_picaff0_full_B
+> - CVCANLMA2_Sony_C
+> - CVFI1_Sony_D
+> - CVFI1_SVA_C
+> - CVFI2_Sony_H
+> - CVFI2_SVA_C
+> - CVMA1_Sony_D
+> - CVMA1_TOSHIBA_B
+> - CVMANL1_TOSHIBA_B
+> - CVMANL2_TOSHIBA_B
+> - CVMAPAQP3_Sony_E
+> - CVMAQP2_Sony_G
+> - CVMAQP3_Sony_D
+> - CVMP_MOT_FLD_L30_B
+> - CVMP_MOT_FRM_L31_B
+> - CVNLFI1_Sony_C
+> - CVNLFI2_Sony_H
+> - CVPA1_TOSHIBA_B
+> - FI1_Sony_E
+> - MR6_BT_B
+> - MR7_BT_B
+> - MR8_BT_B
+> - MR9_BT_B
+> - Sharp_MP_Field_1_B
+> - Sharp_MP_Field_2_B
+> - Sharp_MP_Field_3_B
+> - Sharp_MP_PAFF_1r2
+> - Sharp_MP_PAFF_2r
+> 2 test vectors failed because FMO is unsupported.
+> Test vectors: FM1_BT_B FM1_FT_E
+> 2 test vectors failed because SP_SLICE type is unsupported.
+> Test vectors: SP1_BT_A sp2_bt_b
+> 1 additional test vector, CVFC1_Sony_C completes decoding but fails check=
+sum
+> verification due to a stride-handling issue in GStreamer 1.24.13. GStream=
+er
+> replaces the driver-reported 150-byte planar chroma stride with 152 bytes=
+,
+> causing the decoded chroma planes to be read incorrectly.
+
+1.24 is very old by now, but I think this specific file needs more work. On=
+e
+part of the fix has been made recently:
+
+https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/13059
+
+>=20
+> Running test suite JVT-FR-EXT with decoder GStreamer-H.264-V4L2
+> Ran 25/69 tests successfully.
+>=20
+> The failing tests:
+>=20
+> 21 test vectors failed due to interlaced clips. Interlaced decoding is no=
+t
+> supported in mali-vpu driver.
+>=20
+> Test Vectors:
+> - brcm_freh10
+> - brcm_freh11
+> - brcm_freh4
+> - brcm_freh5
+> - brcm_freh6
+> - freh7_b
+> - FREXT01_JVC_D
+> - FREXT02_JVC_C
+> - FRExt2_Panasonic_C
+> - FRExt4_Panasonic_B
+> - HCAFF1_HHI_B
+> - HCAMFF1_HHI_B
+> - HCHP3_HHI_A
+> - HPCAFL_BRCM_C
+> - HPCAFLNL_BRCM_C
+> - HPCAMAPALQ_BRCM_B
+> - HPCVFL_BRCM_A HPCVFLNL_BRCM_A
+> - HVLCFI0_Sony_B
+> - HVLCMFF0_Sony_B
+> - HVLCPFF0_Sony_B
+>=20
+> 2 test vectors fail due to 10bit bitstream. 10 bit decoding support to be
+> enabled in subequent patches.
+> Test vectors: FREH10-1 FREH10-2
+
+Ack.
+
+Nicolas
+
+>=20
+> 21 test vectors failed because 4:2:2 is not supported in this driver.
+> Test vectors:
+> - FREXT1_TANDBERG_A
+> - FREXT2_TANDBERG_A
+> - FREXT3_TANDBERG_A
+> - Hi422FR10_SONY_A
+> - Hi422FR11_SONY_A
+> - Hi422FR12_SONY_A
+> - Hi422FR1_SONY_A
+> - Hi422FR2_SONY_A
+> - Hi422FR3_SONY_A
+> - Hi422FR4_SONY_A
+> - Hi422FR13_SONY_A
+> - Hi422FR14_SONY_A
+> - Hi422FR15_SONY_A
+> - Hi422FR6_SONY_A
+> - Hi422FR7_SONY_A
+> - Hi422FR8_SONY_A
+> - Hi422FR9_SONY_A
+> - Hi422FREXT16_SONY_A
+> - Hi422FREXT17_SONY_A
+> - Hi422FREXT18_SONY_A
+> - Hi422FREXT19_SONY_A
+>=20
+> Charvi Mehta (21):
+>   dt-bindings: media: add Arm Mali-V76 VPU
+>   media: mali-vpu: add Mali VPU platform driver
+>   media: mali-vpu: register V4L2 decoder device and add querycap ioctl
+>   media: mali-vpu: initialize decoder format state
+>   media: mali-vpu: add V4L2 mem2mem and VB2 queue support
+>   media: mali-vpu: implement format query ioctls
+>   media: mali-vpu: implement TRY_FMT and S_FMT ioctls
+>   media: mali-vpu: register V76 decoder controls and introduce UAPI
+>     controls
+>   media: mali-vpu: add firmware cache infrastructure
+>   media: mali-vpu: load firmware for decoder sessions
+>   media: mali-vpu: prepare firmware address space
+>   media: mali-vpu: add firmware message transport
+>   media: mali-vpu: route decoder controls to firmware
+>   media: mali-vpu: handle firmware RPC requests
+>   media: mali-vpu: add LSID hardware support
+>   media: mali-vpu: add single session scheduler
+>   media: mali-vpu: handle firmware interrupts
+>   media: mali-vpu: start decoder firmware through LSID scheduling
+>   media: mali-vpu: propagate buffer metadata
+>   media: mali-vpu: handle firmware event responses
+>   media: MAINTAINERS: add Arm Mali-V76 VPU driver
+>=20
+> Rath Sankaralingam (4):
+>   media: mali-vpu: add MMU software page table manager
+>   media: mali-vpu: implement vb2 buffer queue handling
+>   media: mali-vpu: handle firmware buffer exchange
+>   media: mali-vpu: handle fatal firmware error
+>=20
+> Shobhit Pandey (3):
+>   media: mali-vpu: add decoder EOS and DRC handling
+>   media: mali-vpu: handle firmware buffer parameters
+>   media: mali-vpu: add stateful decoder state machine
+>=20
+>  .../bindings/media/arm,mali-v76.yaml          |   70 +
+>  MAINTAINERS                                   |   11 +
+>  drivers/media/platform/arm/Kconfig            |    1 +
+>  drivers/media/platform/arm/Makefile           |    1 +
+>  drivers/media/platform/arm/mali-vpu/Kconfig   |   17 +
+>  drivers/media/platform/arm/mali-vpu/Makefile  |   18 +
+>  .../platform/arm/mali-vpu/mali-vpu-buffer.c   |  426 +++++
+>  .../platform/arm/mali-vpu/mali-vpu-buffer.h   |  109 ++
+>  .../platform/arm/mali-vpu/mali-vpu-controls.c |  351 ++++
+>  .../platform/arm/mali-vpu/mali-vpu-controls.h |   71 +
+>  .../platform/arm/mali-vpu/mali-vpu-dec.c      |  226 +++
+>  .../platform/arm/mali-vpu/mali-vpu-dec.h      |   27 +
+>  .../platform/arm/mali-vpu/mali-vpu-device.h   |   72 +
+>  .../arm/mali-vpu/mali-vpu-firmware-cache.c    |  549 ++++++
+>  .../arm/mali-vpu/mali-vpu-firmware-cache.h    |  180 ++
+>  .../platform/arm/mali-vpu/mali-vpu-firmware.c | 1647 +++++++++++++++++
+>  .../platform/arm/mali-vpu/mali-vpu-firmware.h |  324 ++++
+>  .../platform/arm/mali-vpu/mali-vpu-formats.c  |   95 +
+>  .../platform/arm/mali-vpu/mali-vpu-formats.h  |   39 +
+>  .../platform/arm/mali-vpu/mali-vpu-lsid.c     |  271 +++
+>  .../platform/arm/mali-vpu/mali-vpu-lsid.h     |   58 +
+>  .../platform/arm/mali-vpu/mali-vpu-mmu.c      |  699 +++++++
+>  .../platform/arm/mali-vpu/mali-vpu-mmu.h      |  154 ++
+>  .../platform/arm/mali-vpu/mali-vpu-probe.c    |  387 ++++
+>  .../arm/mali-vpu/mali-vpu-protocol-def-v3.h   |  710 +++++++
+>  .../arm/mali-vpu/mali-vpu-registers.h         |   81 +
+>  .../arm/mali-vpu/mali-vpu-scheduler.c         |  248 +++
+>  .../arm/mali-vpu/mali-vpu-scheduler.h         |   58 +
+>  .../platform/arm/mali-vpu/mali-vpu-session.c  | 1260 +++++++++++++
+>  .../platform/arm/mali-vpu/mali-vpu-session.h  |  174 ++
+>  .../platform/arm/mali-vpu/mali-vpu-state.h    |  136 ++
+>  .../arm/mali-vpu/mali-vpu-variant-v76.c       |  188 ++
+>  .../platform/arm/mali-vpu/mali-vpu-variant.h  |   74 +
+>  .../platform/arm/mali-vpu/mali-vpu-vb2.c      |  187 ++
+>  .../platform/arm/mali-vpu/mali-vpu-vb2.h      |   13 +
+>  .../platform/arm/mali-vpu/mali-vpu-vidioc.c   |  365 ++++
+>  .../platform/arm/mali-vpu/mali-vpu-vidioc.h   |   17 +
+>  .../uapi/linux/media/arm/mali-vpu-config.h    |   47 +
+>  include/uapi/linux/v4l2-controls.h            |    6 +
+>  39 files changed, 9367 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/arm,mali-v76.=
+yaml
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/Kconfig
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/Makefile
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-controls=
+.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-controls=
+.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-firmware=
+-cache.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-firmware=
+-cache.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-firmware=
+.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-firmware=
+.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-formats.=
+c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-formats.=
+h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-lsid.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-lsid.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-protocol=
+-def-v3.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-register=
+s.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-schedule=
+r.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-schedule=
+r.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-session.=
+c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-session.=
+h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-state.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-variant-=
+v76.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-variant.=
+h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-vb2.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-vb2.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.h
+>  create mode 100644 include/uapi/linux/media/arm/mali-vpu-config.h
+
+--=-2Q7+N9fBsq9L8TcpfMqs
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9RmwAKCRDZQZRRKWBy
+9LUuAQC85+soPrhr6pLbR3J+z2eHb1CxbepP0V62eQ3OY8CplAEA8vvyKhc9AZtP
+LK6NV6RKwCZIDs5gZLvj7Dbkx179yA0=
+=4Rok
+-----END PGP SIGNATURE-----
+
+--=-2Q7+N9fBsq9L8TcpfMqs--
