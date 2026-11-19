@@ -1,57 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795081037;
-	b=H5MhF5R6nzP31XMwhLCSoN2huKFg5sRGN2GWoL2pcbbb6Y4kAU6prvw84OeKpQ341NbU
-	 cK0f3IGpJPwoZL7KacvOsnTbQF864JutnhGUEINFKoX/2X61dZxJ5XzbnYFBKz7idps2j
-	 dgg2M09z3Lecn6/fXXYyHNW8adbzx1/uQ/GwyoVniJBZgQQR1r0otyUY9D7mVbzDo/hwC
-	 xHoEYRIQmABw/4ecbtwN731sI+gC4aIeGQrDC256kGThofCvl0EwIp0CY1R+AOpGq/JSc
-	 WtMI43DBxCXhwRJUDw0xMJI/XtFjjBZxUHI3HZkPD+d8+sNxmED9g6LBUVrAbdScIIA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795081037;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=dnAsKJq1mlLVGSNMSxe4+QWMWmab6TI+rB6dU+cUTd8=;
-	b=fVzQyILESwqUauMeIQLzHH9BhmszrD5ya7b9gqlYs8oQaOv2KkSmmVaBbZ9knAjpwgLN
-	 H6kqr3mzn4M78sPk5wX0032edRhxtkNQUOSQDVmxJBDggADNZVCzbvKLofM5+eephC9xE
-	 yeEwDD2rW8Fsu/AmzYwjhgUS0gRbUjinRAV7ItTSqwG6CV3N3VB13gUnD83Cl2jTyxjHK
-	 Ru07wGtkZ4xgrPx6xZaxJtjgRPqQvrvvYV9S7n08AwIBXV/tPmiEaSnJAdJZ6Wb6b1Lrr
-	 ilB08gyHx7wKDDSiIOChnDmcOSgakRjeQP2YkSURkKcNt0RNuYQb0iURoKKBfID9iqA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CEL7QCe/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795081156;
+	b=MUIZyH8f/OXOvlAGNN0Vv9vOSWeVOrLgv/rjV/iWucyj4sCJIIaiq9eGSxCqHPsW01Ma
+	 JUhSRSQ94nddxMlQj0acWr2zS/BBZaK342CrERZ2xgw6sI7mj1x9SRYnB9mFZNtCnA91B
+	 ZvuX+pLrkjpvBxqOCsdW80R2QcLPr+JoyRkDNqxKG4k+Nq7AXiOGa5TdN03rZEL5OXWOf
+	 Z6wsxDE8SwpRcOB4FHQOt9rPd5/+cWR2o/PlJpyGXImkW/UGnMGdEDThPzZNJGcW0kVQ2
+	 6H3MtuGPDjpoEACZ6afc/PpgNb63cm3ZqU7Yqxd+Pgz/Fk44t1s6mnretn+Tl4XLeQg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795081156;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=cts4dLYsn8FGH6NTMcBVHYqM+GZNIgB6AoeVN87nofQ=;
+	b=n2XYCCrM/+j35UwO/l50xljmbf9qE0oLDBRHpN7wlFvGqhPt2jqxWgfwo4Kq97g3Pu1P
+	 AInIrR8Nl6ZTy4shYjT3xgRds0jZnDZ26cGmiyLVOpdbv36LfkwGGUwtwv8yrUrbNTcwt
+	 U0SRIL1qHmuMTeyh/8yIVJ5CYnG9EtUdMixNNU2xdqvIg8bMhQ4eUpX/OLGkRHdidYXrX
+	 /zNZXgF1RlmXY+dIFiqVU1iUAeCBxISXnMs7CfndDrxk+mbe95MZZ3BbOxeiGPKZYxoxD
+	 Plfftd1Mv7fMSNSXlIY1WFiBCewYMW+0pWnuV2/fxBe2FSaW5XK6kbmLDdeCZ9eAFvQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=hgUCRl0I;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.49
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010049.outbound.protection.outlook.com [52.101.69.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06FD606A33E;
-	Thu, 19 Nov 2026 09:37:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D61606A320;
+	Thu, 19 Nov 2026 09:39:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42D61606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CEL7QCe/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0822C1F000C4;
-	Thu, 19 Nov 2026 09:37:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795081036;
-	bh=dnAsKJq1mlLVGSNMSxe4+QWMWmab6TI+rB6dU+cUTd8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CEL7QCe/uxz8CLskxVoIFRreoDwwI07Jo9ZLiXKr3/BiQv9VDXztH4AU/X1MDqQqS
-	 ssQgNJQnZwKZRWifaWNGEI7GMevsv49qm8a1jLRo66qeM+p1i9lnR3P+hZ/2mDLzrk
-	 xDP9bNHvE5jiT3PNomD1dLUBnJz/YnfHATk95sGfcvOanBLM3adwsWjopWnD+QkfeJ
-	 UNkFe5ZqRuNLJPeEzIAvuDPqqsK0ngkrv4ldl4tG21RNpo9SM9OZPffnuCa4dlI+VI
-	 /7mx2xP7Xm0N3OQYRcTjqmaZOgf1g+9t5WK0+vzTC55wjRKG9mHxoVRpKf776+W4lQ
-	 xZpxNGwGd8Gpg==
-Message-ID: <sashiko-outbox-222861@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 11/11] arm64: dts: freescale: imx95: Add video codec
- node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nas Chung" <nas.chung@chipsnmedia.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <e89f330486c8b986088278b563d0c4364d35f19b.1795075582.git.nas.chung@chipsnmedia.com>
-References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
- <e89f330486c8b986088278b563d0c4364d35f19b.1795075582.git.nas.chung@chipsnmedia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 09:37:15 +0000
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=hgUCRl0I
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I9mJpV2P1C1ZPZ5CviHi3mek5G0lUc7VuXMYFRjj3hElc6FnrulDI4JCNdHxd77GVcXIEJ8r2jkTGD2ij9mZ3617OiiJeQKOUNfpuuhFwUuXnLXUMsRW5b+iG4oMCIRX8sRjC7DrC5Rf6fHjh5ErWM0IrVYyQy9vZmK9pf/eW1R/Fv9CojxpCXErxt37qXMx4yHKLL2QGVCUU/20pPf9kYZQnqG3FCNgoiimpFgqekWQDrJwsz/ayYF3nOIsFVLyk8PCemNPUAnKx5wKiOZtB7TKTgC3pJYcF+96+LfJSGxD40F7pVA0GT9gHVVaENMgadrePZJqD0J5jn/K8ojQLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cts4dLYsn8FGH6NTMcBVHYqM+GZNIgB6AoeVN87nofQ=;
+ b=Vq2TEmWWuAKOoYSijflNaGHhub4YEqqc2w32rYxLr8HIePvppdJb1OM3pJ+mFVtw9f09Ns+cGrVsspEuJDaS0qzCLPPUrtwMtJYtoWh5QRtCMUnz45zHJNBqgD71cuCmOm+XnKoF7BzrsJWQL/JRRvsfo5lT1B12zqiwmaUh4Cw+0QrFcb1EyAe5V2HHouwRo68yTSZKg6wXutgyT6XpLiP9wRObYZtDD1OdxECekL4Tylg1UhGoqfv8LfRRqOIShxMMyHVG6koLJ+vYUjczBBRNN8cIDCR/b8xQbQbP4O2G3+uJY/GrrM9LN9PAUPxfbZ15QnIPUMLzmAx4DT4wAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cts4dLYsn8FGH6NTMcBVHYqM+GZNIgB6AoeVN87nofQ=;
+ b=hgUCRl0ILa79DAVgADsPw7EJ4UZQgfMF6ZaYKsrvQjF1OIUj7w037wXhRpLbeIwODmrUtI4vfu0zCA/7a8nim6YrBsUSPVO3Gzdy/S+E6eY63dyC+M+p+3gqOOiv0Rk2lWI6K6be2tRP19y8UuddvPrT/BG+0mmK7oBC/mwZH2wv+lYU3LifrBw40NgLRgaG6YGZoZ20zlvtpZA7z1d88F2GSnXCkkNVVjlc3GU83qskzuJl/IlZiPIaSdO3sradbDzeWpxgumpmrrlAA6PKHLji9ObU3iZJj7i1BrpF6MRASrbExwFFYx3sSZeIdy6irgORD1HY8sbsSh7xGqylDw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GVXPR04MB12316.eurprd04.prod.outlook.com (2603:10a6:150:2c6::8)
+ by AS8PR04MB8359.eurprd04.prod.outlook.com (2603:10a6:20b:3b3::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
+ 2026 09:39:08 +0000
+Received: from GVXPR04MB12316.eurprd04.prod.outlook.com
+ ([fe80::fc6e:ca22:f065:def4]) by GVXPR04MB12316.eurprd04.prod.outlook.com
+ ([fe80::fc6e:ca22:f065:def4%5]) with mapi id 15.21.0615.013; Thu, 19 Nov 2026
+ 09:39:08 +0000
+Message-ID: <4a4366e3-a99d-4250-9fb2-c3eb254c06f4@oss.nxp.com>
+Date: Thu, 19 Nov 2026 11:42:54 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] arm64: dts: freescale: imx93-var: Add Cortex-M33
+ configurations
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
+ Stefano Radaelli <stefano.r@variscite.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20261119090600.9257-1-stefano.r@variscite.com>
+ <be20af64-e729-4d1e-aba1-c8512ac6e775@oss.nxp.com>
+ <av7BStmo7w4_rPci@Lord-Beerus.station>
+Content-Language: en-US
+From: Daniel Baluta <daniel.baluta@oss.nxp.com>
+In-Reply-To: <av7BStmo7w4_rPci@Lord-Beerus.station>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4P191CA0010.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d5::13) To GVXPR04MB12316.eurprd04.prod.outlook.com
+ (2603:10a6:150:2c6::8)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,319 +107,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB12316:EE_|AS8PR04MB8359:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9e8cd8c-f1de-4578-6792-08df4620f58c
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|7416014|376014|1800799024|19092799006|366016|23010399003|56012099006|261022105027099003|261026121527099003|4143699003|11063799006|10067099003|261026140227099003|261028144727099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ mFhuz+wRtjDcG2K4t4g57g4GIghcUamiCLfmbMKKbXcqaCEoGZtGYmUDy41MyQremhdfN7u/sEvBL3TPH/aOsm3C2QTMJeePbSWlrRappqXmC46YOkPKTQL3kQoyiQ33GW4daV1NhQp9DGV90D6UcL9SHXcx1Pqk8QYkXCKFjMktWvGD8p/XdBVQ0cBsMeq5D/Yhf9pFNVTahq1dgIcYwVvNjWkZ4HJdRuIduYKSGY50dB+aG9dN5zbyTvSP70ScSeO3K+3akh5eX/aZUe+8XRDe81owbzYbr9OOQKelGDGjhI+HD19JywmcL7TCUXU4if0BXOo46apH0Scvnln2Rh6XConVIS7Vxdhbx0N6pimBHf6pMHmOK1xXs3y44EIi0j2khIsEp8jece1NvhlfAQYXyzzLLZicnB6KhKt0QGFKOJbCgzsdkV/jazCxtmwbSEa2+c7EhTRWCynkIWFxGZ5LzzYKqmn0ntAEb3UGr5PaJWOZarnn+4hJEwQ9fmRn+l70CSayCqGCYJgbPoCVp7B7BNzOEDJiuFWIErkZOpkKun+KhYWFz4xiU4ArT8ZZIJeUVmsl4YKw5bXKcxKsvRR5zBxW0vCQcdQgFa1xSr7FVOYevutB9M2s8sfSBjR6KujeZWbVsGfEbZNG3qr6etJii9+MVK5yPnhdM6rfFTc=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12316.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(19092799006)(366016)(23010399003)(56012099006)(261022105027099003)(261026121527099003)(4143699003)(11063799006)(10067099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?R2IxMzVrV29GRS9SVHp0MXhrMDN2RXg3UUVMaG5lVGRvK2NWMVdMTzUvNDRa?=
+ =?utf-8?B?SDhKbytzYmVONS9wVDl3OGU2Z2lpRzNpSmlPTDFDOUdUNjRWT3lRTlczZjE1?=
+ =?utf-8?B?bzdtc2pubVpRbExoZDNpU0pLTk9VSGZSRVpjWmhUUG8wTEJ3dTk2ZW5iMy9w?=
+ =?utf-8?B?ZGRPb0plMWt6RFdYcGhNMGNZejZWdlFwdzVyRFkwOFhLditWbzNEaDZQcnh4?=
+ =?utf-8?B?MnBFOHpCdUMyd21mTkd0SHBQOWhvVEovZkVYNkhxTzVnTG9iMXJqcDVndWhp?=
+ =?utf-8?B?K2ZwNGJnbEIyR1Vlc2NvdjcvK0VoM25CQ1UwV1lVUGhYRTJDK01ZUDJYbk9z?=
+ =?utf-8?B?emxTWjNIaDk2WEVLdE83b1Z0ZDJEbmxDRGtGSWVmK2R0d1lYd1lsRGJOelE5?=
+ =?utf-8?B?anBZRk1WbENldU0rVUR6VG51OXJGODREcUZCMlpMTk1hWGZJWnhUN3lLMGVE?=
+ =?utf-8?B?YnhWYzdNZHovaUdOdi85UXc4Ri9LWlJHVXByZkZhS1U0N3FFUVpXRDNQZE5u?=
+ =?utf-8?B?aGdxcEJQVFRKVnF1RDIwbGp2eHJiVFJuZk1uTUZQRTB0RWpneDRqNTNNRlQr?=
+ =?utf-8?B?bmsrRkNpNXhieXRuMWwvczFVVGNNdUg5aWFDaTJ1UmY2UTNVYUJZZHNnb3gw?=
+ =?utf-8?B?V1pCZHpOSFZTbkhXbFNpcDBDd2JXbkkrcnVpWDdyUTlnN1M4aUQrV1BXdmIy?=
+ =?utf-8?B?V21ZZ1l3dTZMR1dFR1ZyUVN2akJ4OVNoRzhrZ0IrZFcrMDB0VUw2RzNWUmNu?=
+ =?utf-8?B?ZUdvMElrWTdWeC9rL21Sdm5VaE02UWFDLzlOTm1TVm82M1UrWXVJYWYyTzZ4?=
+ =?utf-8?B?bU9rL0Rudkt1S0VHT1pkUUI2ek0ra2doRTN1SU8xdWdSVHdsV1lXQ3RPa3o4?=
+ =?utf-8?B?R3QxQU1VQ0w0YzVRV21CVWRBbnEwcEZlWDhmbkljTzMwSldCdWRtb2xuYXBJ?=
+ =?utf-8?B?ekhIK0JUaStpWG1zN3NDM3l6dm5yUkRVODlyY3RMUno2R0xNemFxWEl1eEJJ?=
+ =?utf-8?B?TDFYQTVBR2VZcHNVUXZ3cTdjT0drNU5KbnVhNUkxTVVRMGl3ZHZmdHp3Yk1T?=
+ =?utf-8?B?RTFMbUNWeUJkSnE0clVST0Y1V0tBRjN4aXhqM0N3SnUxWUlMSUNmM3J2eWxy?=
+ =?utf-8?B?R3dOT0xBQlJiNmdiY0JEVkZ0VXhQV0lvKzVsdXNaRFhhVStyc29CYXZQWjNv?=
+ =?utf-8?B?cmdnd3hDVTloOER0NHFmbzhhZ3ZRTmVZRU5rN1M1VnZYeUdneU5OcDR5WGZ1?=
+ =?utf-8?B?QWt3L3FxQ3ZuN2w2ZldlbkFuci9DVXF2LzM3VlZNeDJPcUduWHZETTlaV1pW?=
+ =?utf-8?B?V3pXVzhkYTF6ZTlITzhYd0wrcGI4NUZUTmRTOEpFL21XTU9yN3cwV3VCdlI3?=
+ =?utf-8?B?cEpMTElLUFlBUWc5K1FHZ0RrZFcvSlRrcHFwMGR0REZlZWlieDZBMmdvTHMv?=
+ =?utf-8?B?WGJSeGY2QWFhajN1ZUN4aS9WL2pHL3RXZDBiNjQ3Z0pUeFdXMDdtYys1Zng4?=
+ =?utf-8?B?enQvbWJFK3I4ekM4UUhwd2F3bEExM2ZOVlZrdGoxNmNIMnV5RWtHTHVHcGhk?=
+ =?utf-8?B?cXg4bDhEU0txWnJvclFFK0lwa0hvK2w5aHNZbFlFM21vbnV6MWtGeTFNc3p6?=
+ =?utf-8?B?dUlGZ1VTSXJOYnRva3NRL1FKdzN3eFI4eU9vWFNvSkRoTGRXQ1h6dFVSMjdl?=
+ =?utf-8?B?RzdGd2NNQ2U0aEUvWWlDdm9vVlVrcE5CWEo0aVpGNUJRL053VW1TbGNOV0xH?=
+ =?utf-8?B?U1QyS3pvMUwwbnpoOFNKYnpjaTNzRHpaalRYZnMvTWlLMVFPOEwyMUpQeEoy?=
+ =?utf-8?B?em5ya2ZaSUV6MTdkZ216SUZyNElmMm8wakhuZjRBSFc1M1ErUE5ZOWdnQlB4?=
+ =?utf-8?B?NksvTHV1emhKT3lleFRCTXh1ZmtPRDFnZ1RtdGc0UXYvQWI4ZnUyeGt3WnFQ?=
+ =?utf-8?B?MG85enYxcGlBajMvWis2ZEJrZ1AwMW1Sa3UwZG5DSi9zRGZQeXMzRnVhYysx?=
+ =?utf-8?B?djArQzk5MnF3UUlwN3RuS2dxM25BOFFpUEZKZnpyUVdPVkkxTEFQb0NqUmF5?=
+ =?utf-8?B?T1FLSTJDdW5ZUjEzWEs3NytvSG4xb2dXUlg1bGo4UkUzdXlXdEFlUWdMNHVB?=
+ =?utf-8?B?VEw5WWUwQXNsaGlFTUJyOGkyaFg1bGZZV1JJZmtiZ1RXSTFwTVdidDZHODRC?=
+ =?utf-8?B?LzgwV2FqMjdyczFCc1V5Mk8rcEszMThvTTZ6TEFhNUxRK0FTcEdZY0Jwdndj?=
+ =?utf-8?B?Zk5TQmR3Uno5TVNjOVRKSnYya2tLbCsyVFZFeCs4SmoydHVRTW9mLy9NZG03?=
+ =?utf-8?B?Y0NuNDhZRlR3YTNkRFdvalBEcEpkNGpjOHYyd1o4b1FXV0hWRHZGUT09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9e8cd8c-f1de-4578-6792-08df4620f58c
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12316.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 09:39:08.3650
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7nmTWQClQFtYY+4xp5LCbUE25wYDSB2bJG/KwL2C42l5VhxBfsdMubb1OVYv8U0Nd+o5yGc3IZ2TzUpQQwGu9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8359
 
-Thank you for your contribution! Sashiko AI review found 8 potential
-issues to consider:
-- [High] media: chips-media: wave6: UAF of m2m_ctx during release and
-  job finish
-- [High] media: chips-media: wave6: unlocked work_buffers_avail access
-  in hard IRQ
-- [High] media: chips-media: wave6: asymmetric encoder instance
-  streaming lifecycle
-- [High] media: chips-media: wave6: infinite job loop on
-  wave6_vpu_dec_seek_header()
-- [Medium] media: chips-media: wave6: PM domains detached before devm
-  cooling teardown
-- [Medium] media: chips-media: wave6: stale fbc_buf_registered after
-  destroy_instance
-- [Medium] media: chips-media: wave6: wave6_vpu_get() skipped if core
-  already active
-- [Low] media: chips-media: wave6: debugfs dir leaked in
-  wave6_vpu_core_probe()
---
+On 11/19/26 11:28, Stefano Radaelli wrote:
+> On Thu, Nov 19, 2026 at 11:18:45AM +0200, Daniel Baluta wrote:
+>>
+>> Use "reserved" instead of "disabled" for all the nodes that need not to probe
+>> on the Application processor because they are used by the M33 FW.
+>>
+>> Also, instead of disable in the commit message I think it is better to say "reserve".
+>>
+> 
+> Hi Daniel,
+> 
+> That makes sense, thank you for your review!
+> 
+> I'll use "reserved" for the peripherals used directly by the Cortex-M
+> firmware, and keep "disabled" for devices that become unavailable as a
+> consequence.
+> For example, Wi-Fi cannot use its reset GPIO because GPIO4 is reserved
+> for the M33.
+> 
+> Does that match what you had in mind?
+Yes, that make sense. I wonder if it is a good idea to split this patch
+into multiple patches each one representing a logical change.
 
-commit aa070a21021b515d839ff256d8cb72ca0721cb00
-Author: Nas Chung <nas.chung@chipsnmedia.com>
-
-arm64: dts: freescale: imx95: Add video codec node
-
-This commit adds the Chips&Media Wave633 video codec node to the i.MX95
-SoC device tree and enables it with a reserved boot memory region on the
-i.MX95 19x19 EVK board.
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/d=
-ts/freescale/imx95.dtsi
-> index d20c2498b9aa2..b6323e527ab78 100644
-> --- a/arch/arm64/boot/dts/freescale/imx95.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
-> @@ -2139,6 +2139,43 @@ vpu_blk_ctrl: clock-controller@4c410000 {
->  			assigned-clock-rates =3D <133333333>, <667000000>, <500000000>;
->  		};
-> =20
-> +		vpu: video-codec@4c4c0000 {
-> +			compatible =3D "nxp,imx95-vpu";
-> +			reg =3D <0x0 0x4c4c0000 0x0 0x10000>;
-> +			clocks =3D <&scmi_clk IMX95_CLK_VPU>,
-> +				 <&vpu_blk_ctrl IMX95_CLK_VPUBLK_WAVE>;
-> +			clock-names =3D "core", "vpublk";
-> +			power-domains =3D <&scmi_devpd IMX95_PD_VPU>,
-> +					<&scmi_perf IMX95_PERF_VPU>;
-> +			power-domain-names =3D "vpu", "perf";
-> +			sram =3D <&sram1>;
-> +			#cooling-cells =3D <2>;
-
-[Severity: Medium]
-With both "vpu" and "perf" power domains and cooling cells enabled here,
-can wave6_vpu_remove() (or probe error unwind in wave6_vpu_probe()) cause a
-use-after-free of vpu->thermal.dev in the wave6 driver introduced earlier
-in this series (commit "media: chips-media: wave6: Add Wave6 control
-driver" and commit "media: chips-media: wave6: Add Wave6 thermal cooling
-device")?
-
-wave6_vpu_attach_pm_domains() attaches the domains with the non-managed
-dev_pm_domain_attach_list(), and wave6_vpu_get_performance_dev() stores
-vpu->pd_list->pd_devs[index] in vpu->thermal.dev.  wave6_vpu_cooling_init()
-then registers the cooling device via
-devm_thermal_of_child_cooling_device_register() on vpu->dev:
-
-drivers/media/platform/chips-media/wave6/wave6-vpu.c:wave6_vpu_remove() {
-	wait_for_completion(&vpu->fw_done);
-	wave6_vpu_release(vpu);
-	pm_runtime_disable(vpu->dev);
-	wave6_vpu_detach_pm_domains(vpu);
-}
-
-Because wave6_vpu_detach_pm_domains() calls dev_pm_domain_detach_list()
-before the driver core runs devres_release_all() to unregister the devm
-cooling device, vpu->thermal.dev is unregistered and freed while
-wave6_vpu_cooling_set_cur_state() can still call
-dev_pm_genpd_set_performance_state(thermal->dev, level).
-
-> +			#address-cells =3D <2>;
-> +			#size-cells =3D <2>;
-> +			ranges;
-> +			status =3D "disabled";
-> +
-> +			interface@4c480000 {
-> +				reg =3D <0x0 0x4c480000 0x0 0x10000>;
-> +				interrupts =3D <GIC_SPI 299 IRQ_TYPE_LEVEL_HIGH>;
-> +			};
-> +
-> +			interface@4c490000 {
-> +				reg =3D <0x0 0x4c490000 0x0 0x10000>;
-> +				interrupts =3D <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
-> +			};
-> +
-> +			interface@4c4a0000 {
-> +				reg =3D <0x0 0x4c4a0000 0x0 0x10000>;
-> +				interrupts =3D <GIC_SPI 301 IRQ_TYPE_LEVEL_HIGH>;
-> +			};
-> +
-> +			interface@4c4b0000 {
-> +				reg =3D <0x0 0x4c4b0000 0x0 0x10000>;
-> +				interrupts =3D <GIC_SPI 302 IRQ_TYPE_LEVEL_HIGH>;
-> +			};
-
-[Severity: High]
-Since the four core interface nodes have separate GIC SPI interrupts, can
-concurrent W6_INT_BIT_REQ_WORK_BUF interrupts race on
-vpu->work_buffers_avail in wave6_vpu_require_work_buffer() (from commit
-"media: chips-media: wave6: Add Wave6 control driver")?
-
-drivers/media/platform/chips-media/wave6/wave6-vpu.c:wave6_vpu_require_work=
-_buffer() {
-	...
-	if (WARN_ON(vpu->work_buffers_avail =3D=3D 0))
-		goto exit;
-
-	vpu->work_buffers_avail--;
-	vb =3D &vpu->work_buffers[vpu->work_buffers_avail];
-	...
-}
-
-Each core's hard IRQ handler wave6_vpu_core_irq() calls
-wave6_vpu_require_work_buffer(core->vpu, core->reg_base) on the shared
-parent vpu without a lock:
-
-CPU0 (<hardirq> SPI 299)          CPU1 (<hardirq> SPI 300)
-wave6_vpu_core_irq()              wave6_vpu_core_irq()
-  wave6_vpu_require_work_buffer()   wave6_vpu_require_work_buffer()
-    work_buffers_avail =3D=3D 1           work_buffers_avail =3D=3D 1
-    work_buffers_avail-- (0)          work_buffers_avail-- (0xffffffff)
-                                      vpu->work_buffers[0xffffffff]
-                                        <-- out-of-bounds read
-
-Even when work_buffers_avail > 1, two cores racing on the decrement can
-receive the same DMA work buffer.
-
-[Severity: High]
-In the core, decoder and encoder drivers instantiated for these interface
-nodes (commit "media: chips-media: wave6: Add Wave6 core driver", commit
-"media: chips-media: wave6: Add Wave6 m2m decoder" and commit "media:
-chips-media: wave6: Add Wave6 m2m encoder"), can wave6_vpu_dec_release(),
-wave6_vpu_enc_release() and wave6_vpu_finish_job() cause a use-after-free
-of inst->v4l2_fh.m2m_ctx?
-
-drivers/media/platform/chips-media/wave6/wave6-vpu-dec.c:wave6_vpu_dec_rele=
-ase() {
-	wave6_vpu_remove_dbgfs_file(inst);
-	v4l2_m2m_ctx_release(inst->v4l2_fh.m2m_ctx);
-
-	if (inst->state !=3D VPU_INST_STATE_NONE)
-		wave6_vpu_dec_destroy_instance(inst, false);
-	...
-}
-
-drivers/media/platform/chips-media/wave6/wave6-vpu-v4l2.c:wave6_vpu_finish_=
-job() {
-	cancel_delayed_work(&inst->task_timer);
-	v4l2_m2m_job_finish(inst->dev->m2m_dev, inst->v4l2_fh.m2m_ctx);
-}
-
-wave6_vpu_dec_stop_streaming() does not destroy the instance (nor does
-wave6_vpu_enc_stop_streaming() when only the OUTPUT queue was streaming),
-so v4l2_m2m_ctx_release() frees m2m_ctx before destroy_instance() calls
-wave6_vpu_disable_instance() to clear inst->enable, synchronize_irq() and
-cancel_delayed_work_sync(&inst->task_timer):
-
-CPU0                              CPU1
-wave6_vpu_dec_release()
-  v4l2_m2m_ctx_release(m2m_ctx)
-    kfree(m2m_ctx)
-                                  wave6_vpu_core_irq_thread()
-                                    inst->ops->finish_process()
-                                      ...
-                                      v4l2_m2m_job_finish(..., m2m_ctx)
-                                        <-- use-after-free
-  wave6_vpu_dec_destroy_instance()
-    wave6_vpu_disable_instance()
-
-In addition, wave6_vpu_finish_job() uses cancel_delayed_work() rather than
-cancel_delayed_work_sync(), allowing an already-running
-wave6_vpu_device_run_timeout() work item to access m2m_ctx and call
-v4l2_m2m_job_finish() concurrently with frame completion.
-
-[Severity: High]
-In commit "media: chips-media: wave6: Add Wave6 m2m encoder", can starting
-and stopping only the encoder OUTPUT queue leave the instance in
-VPU_INST_STATE_PIC_RUN with stale format parameters and undersized FBC DMA
-buffers?
-
-drivers/media/platform/chips-media/wave6/wave6-vpu-enc.c:wave6_vpu_enc_star=
-t_streaming() {
-	...
-	if (inst->state =3D=3D VPU_INST_STATE_NONE) {
-		ret =3D wave6_vpu_enc_create_instance(inst);
-		if (ret)
-			goto exit;
-	}
-	...
-	if (inst->state =3D=3D VPU_INST_STATE_INIT_SEQ) {
-		ret =3D wave6_vpu_enc_prepare_fb(inst);
-	...
-}
-
-drivers/media/platform/chips-media/wave6/wave6-vpu-enc.c:wave6_vpu_enc_stop=
-_streaming() {
-	...
-	if (V4L2_TYPE_IS_CAPTURE(q->type) && inst->state !=3D VPU_INST_STATE_NONE)
-		wave6_vpu_enc_destroy_instance(inst, true);
-	...
-}
-
-wave6_vpu_enc_start_streaming() creates the firmware instance and allocates
-FBC buffers on the first queue that starts streaming (even if q->type is
-OUTPUT), transitioning inst->state to VPU_INST_STATE_PIC_RUN.  Because
-wave6_vpu_enc_stop_streaming() only destroys the instance when stopping the
-CAPTURE queue, stopping OUTPUT leaves inst->state at VPU_INST_STATE_PIC_RUN
-while neither queue is streaming; a subsequent VIDIOC_S_FMT to a larger
-resolution followed by VIDIOC_STREAMON skips instance recreation and FBC
-buffer reallocation.
-
-[Severity: High]
-In commit "media: chips-media: wave6: Add Wave6 m2m decoder", does a
-failure in wave6_vpu_dec_seek_header() trigger an infinite workqueue loop
-in wave6_vpu_device_run()?
-
-drivers/media/platform/chips-media/wave6/wave6-vpu-dec.c:wave6_vpu_dec_prep=
-are_decode() {
-	...
-	wave6_handle_bitstream_buffer(inst, stream_end);
-
-	if (inst->state < VPU_INST_STATE_PIC_RUN) {
-		if (inst->state =3D=3D VPU_INST_STATE_OPEN &&
-		    wave6_vpu_dec_seek_header(inst)) {
-			vb2_queue_error(v4l2_m2m_get_src_vq(inst->v4l2_fh.m2m_ctx));
-			vb2_queue_error(v4l2_m2m_get_dst_vq(inst->v4l2_fh.m2m_ctx));
-		}
-
-		return -EAGAIN;
-	}
-	...
-}
-
-When wave6_vpu_dec_seek_header() fails (for example on an unsupported
-profile or timeout), the source buffer remains queued on m2m_ctx and
-inst->state stays VPU_INST_STATE_OPEN.  Because wave6_vpu_job_ready()
-unconditionally returns 1 when inst->state =3D=3D VPU_INST_STATE_OPEN, call=
-ing
-v4l2_m2m_job_finish() in wave6_vpu_device_run() immediately reschedules
-wave6_vpu_device_run() in an endless loop.
-
-[Severity: Medium]
-In commit "media: chips-media: wave6: Add Wave6 m2m decoder", does
-wave6_vpu_dec_destroy_instance() leave inst->fbc_buf_registered set to true
-when an instance is destroyed and recreated during a seek?
-
-drivers/media/platform/chips-media/wave6/wave6-vpu-dec.c:wave6_vpu_dec_dest=
-roy_instance() {
-	...
-	wave6_vpu_dec_release_fb(inst);
-	wave6_vpu_set_instance_state(inst, VPU_INST_STATE_NONE);
-	...
-}
-
-When wave6_vpu_dec_queue_setup() calls wave6_vpu_dec_destroy_instance() in
-VPU_INST_STATE_SEEK, the FBC buffers are freed and the firmware instance is
-closed, but inst->fbc_buf_registered is not reset to false on the reused
-struct vpu_instance.  If streaming restarts and a drain occurs before new
-FBC buffers are registered, wave6_vpu_dec_prepare_decode() sees the stale
-inst->fbc_buf_registered flag and skips wave6_vpu_dec_finish_drain().
-
-[Severity: Medium]
-In commit "media: chips-media: wave6: Add Wave6 core driver", can
-wave6_vpu_get() be skipped if a core device is already runtime-active when
-an instance is created?
-
-drivers/media/platform/chips-media/wave6/wave6-vpu-core.c:wave6_vpu_core_ru=
-ntime_resume() {
-	...
-	if (atomic_read(&core->active_count)) {
-		ret =3D wave6_vpu_get(core->vpu, core->reg_base);
-		if (ret)
-			goto error_get_vpu;
-
-		core->vpu_held =3D true;
-	}
-	...
-}
-
-If the core device is runtime-resumed while core->active_count is 0 (for
-example via sysfs power/control), wave6_vpu_core_runtime_resume() finishes
-with core->vpu_held =3D=3D false.  When wave6_vpu_dec_create_instance() or
-wave6_vpu_enc_create_instance() later increments active_count and calls
-pm_runtime_resume_and_get(inst->dev->dev), runtime PM sees the core device
-is already RPM_ACTIVE and returns 0 without calling
-wave6_vpu_core_runtime_resume(), leaving the parent VPU device unpowered.
-
-[Severity: Low]
-In commit "media: chips-media: wave6: Add trace and debugfs", does
-wave6_vpu_core_probe() leak the top-level "wave6" debugfs directory?
-
-drivers/media/platform/chips-media/wave6/wave6-vpu-core.c:wave6_vpu_core_pr=
-obe() {
-	...
-	core->debugfs =3D debugfs_lookup(WAVE6_VPU_DEBUGFS_DIR, NULL);
-	if (!IS_ERR_OR_NULL(core->debugfs))
-		dput(core->debugfs);
-	else
-		core->debugfs =3D debugfs_create_dir(WAVE6_VPU_DEBUGFS_DIR, NULL);
-	...
-}
-
-Nothing removes this directory on probe failure, device removal, or module
-unload.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795075577.gi=
-t.nas.chung@chipsnmedia.com?part=3D11
+The commit message suggests a lot of activities going on with the code which
+makes it harder to understand. Either approach is fine tough, as the changes are not that big.
