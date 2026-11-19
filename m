@@ -1,68 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795084242;
-	b=r1EDlQdbsEkXko0dUS1M6MCQDKgVqLKYt9ZUTPkPw4IvqYUm+L2+w45u4/6kSkByZA/+
-	 jpFpEdtSUQA8uD8MeWVF0jeWh07kcfG+wiM4lK5CqSbDrt+GGjsUKN39g7OaAha4R23yL
-	 Hln2F0ZxX+OQA8eEZ7I1OEOkuT7nAeUzx27gsP2/b2ZNnDipGtW1t9Fn6FJtkxucZbv3l
-	 VR0Dwr41GE47rloEtjPKgQxTGfWpjCVhSB+bLXP1d2Kca3O3qGQg1yeQ/PVwowDi+r3pc
-	 j/HaIGfiiS6BpmIryqqKa1R6/YznmH208UIo94tdh4eMD/0SaMXHFTjcJaWb2UxN78g==
+	t=1795084306;
+	b=Wqlydo10V5ZwOcVz5WuVcryxcaZksFbhd5UMyeSO4l/+OQ/PL3V3jyOh68I8G9ezamp8
+	 gUJjKF+WuH/nzDF0NC5/2JkdyrTYgvHa8bk2oX69ia/lRvTtzsKjl6OeefD9pJP35ynCA
+	 UNHia1C69N2FhoWa7Nj7ehPQAYmbuNK3uggsPDICaD2fGZLaIYDfGsAR9ConbIjw2Qybj
+	 KrdW/ZhzJa0b25DN8kAJlAAFwwxHZ9UKklI2kWjSo/h6Iie8SpS34Iy39LAByiiATrrxU
+	 erByrKh6zOp1xLPO3iCxvuo9s/OYIkQst7kcbQvz8pTrcu9QjpUaYT3J7wDHpBAIusg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795084242;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:Content-Type:
-	 X-RootMTR:X-EPHeader:X-CMS-RootMailID:References;
-	bh=dqbHFVaWUbXAwRePN2LaxE1LeHrz7c3R/la2wo+majo=;
-	b=5mtw4TixHoYObYzor90xE5SN3oPeI0A9Ynzu2/9Iv9WBDXYmTELFD3rx8xtdieGAeg+p
-	 8hSKN3K+TuzxsWDN2TDOyZQqy2VHpZJxugDrOljisIIj5wPzMF0bJh9ont4i+eD08GOEu
-	 yKOGgTDqpY3Co0wZcRbuDP3FFd+mQtXFdk0OM0JTyiAD2DZJ7GB8uIU2AtMCKg4gav98f
-	 QC547yGoJHN2ctq5z/ecogJOA0uVhvFuKmpq7Jvg/+gSIq7DdaK5pivwyCDRvlHZgz7sQ
-	 bfT4XcZBI6p3+gSSEjXNdwV5NYoSTexSVTg57CcjHRT+eUXY6P3Hc6qyWSyYZbIRmSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795084306;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=f8LB2Xe2f4qCE6lFzUXlv5rwp12pQtaIiGjTeWVuQHg=;
+	b=Av5sbmrSNOtuQqf9I4WSoYf/GQ7zSomNQ30vvnYFf1xZMR49UbGFwWUQ5XhIJ0Ez4QbQ
+	 C4EV8x2MI8gtu4+AdwTVy2jd9zLPMgfuw07KxuSADPED9dFs+p9Jr+PIwYP4WM5Dq0SSK
+	 tm6x2j9CBY/jvR9hyXw5kfI9VNyxZE7gNicDiGyGx/CUVt7AQ67Nie5iEINH0rsQA0Yd9
+	 PXC1tHeRAUTLmP+XwG5ooM9dAUumvMwvcToeepauGH+sxRBr/wiVbL4RR/vJAOt5o+Mg/
+	 2MqHFBR4w850dprJZsDbzuJlD9rPWO/CPogIZA8CdhABPfXfZK0PiFX/IjnKKJUyXvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=h09n881b;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0l0jS5w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647AE606A325
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 10:30:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 647AE606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E10606A325;
+	Thu, 19 Nov 2026 10:31:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=h09n881b
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261119103039euoutp01254f6f5877e1a2f47872d23efb30a173~pa5rT6Sxt0058100581euoutp01b
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 10:30:39 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261119103039euoutp01254f6f5877e1a2f47872d23efb30a173~pa5rT6Sxt0058100581euoutp01b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1795084239;
-	bh=dqbHFVaWUbXAwRePN2LaxE1LeHrz7c3R/la2wo+majo=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=h09n881bzcMae1a440fVRQhmnMSBem1I58wGSLPA6KwNhCodpyBZ/WPOfHNVZTb4i
-	 /hbzffmZMY3HGLH+n9EDyvxHblTLkwPlFiwXSAEmGV+TyciCCQBQfU04gIsdWv6xlV
-	 sa1s9rW395pil3mubZXu0YR5AX9X70sWc6btPNX0=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261119103038eucas1p2a84cdaf4416c2f47c39d3eab399becd3~pa5qyR6qU1039710397eucas1p2W;
-	Thu, 19 Nov 2026 10:30:38 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261119103038eusmtip2e2d5e67fc7424b80e8319ab0d9da17d5~pa5qZh_vX2374523745eusmtip2W;
-	Thu, 19 Nov 2026 10:30:38 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar
-	<alim.akhtar@samsung.com>
-Subject: [PATCH] ARM: dts: samsung: exynos4412-trats2: exclude memory used
- by secure firmware
-Date: Thu, 19 Nov 2026 11:30:31 +0100
-Message-ID: <20261119103033.1161693-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0l0jS5w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39B4C1F000C5;
+	Thu, 19 Nov 2026 10:31:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795084305;
+	bh=f8LB2Xe2f4qCE6lFzUXlv5rwp12pQtaIiGjTeWVuQHg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=F0l0jS5w4DohO1lJw2vlpZ79kpolruD5SanYl0uQjnSyDkU08dylydZPx5R0ZcSWM
+	 M1sh7qopLugauj53NHEMrJoGcRQgJo79xJE9B1Y+wFk9F/ClhV4ybbR3syReI74gR2
+	 Skb0ylzPILU/c+lfbWNRkFvS4ZK95XvT9pFQ5evvgnnbLs0DmowjZgaXCvGsgGii2e
+	 3rsYrLJnXBXMLa/vdZ0RPrNV2IoRW82QTQIVD6msyn8F2/PlNPkfWIiX8yEIbaTuaq
+	 Vd76BugpIsl/zug4uAx86RqE34mL2bY+3gD/PTWgZSDMojeebD+QspxQWj88CLsonP
+	 4PcIhDJmqcPOw==
+Message-ID: <sashiko-outbox-222956@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 5/6] arm64: dts: ambarella: add CV75 SoC and EVK
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Long Zhao" <longzhao@ambarella.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261119-cv75-soc-v12-5-e5a03cca8b05@ambarella.com>
+References: <20261119-cv75-soc-v12-0-e5a03cca8b05@ambarella.com>
+ <20261119-cv75-soc-v12-5-e5a03cca8b05@ambarella.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 10:31:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,44 +59,167 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261119103038eucas1p2a84cdaf4416c2f47c39d3eab399becd3
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261119103038eucas1p2a84cdaf4416c2f47c39d3eab399becd3
-X-EPHeader: CA
-X-CMS-RootMailID: 20261119103038eucas1p2a84cdaf4416c2f47c39d3eab399becd3
-References: <CGME20261119103038eucas1p2a84cdaf4416c2f47c39d3eab399becd3@eucas1p2.samsung.com>
 
-The secure firmware on Trats2 board uses the last 1 MiB of RAM: on every
-system suspend/resume cycle some data is written starting at 0x7ff00000.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] arm64: dts: ambarella: uart0 console fails probe due to unbound
+  pinctrl-0
+- [Medium] arm64: dts: ambarella: apb simple-bus reg causes -EBUSY in
+  amba_device_add()
+- [Medium] arm64: dts: ambarella: undocumented compatible strings and
+  properties in cv75
+- [Medium] arm64: dts: ambarella: gpio nodes use unmatched periphid and
+  unprobed pinctrl
+- [Low] arm64: dts: ambarella: cpu@1 unit-address mismatches reg =3D
+  <0x100> in cv75
+--
 
-Reduce the memory size to exclude the last 1 MiB of RAM, the same way as
-on the other Exynos4412-based boards using U-Boot bootloader (Odroid
-X/X2/U3). Non U-Boot based boards require reserving more memory, as
-already done in commit 784c93e3ca2e ("ARM: dts: samsung: exynos4412:
-decrease memory to account for unusable region").
+commit e70f7e3684557e5b6677d7d83d584310569d7473
+Author: Long Zhao <longzhao@ambarella.com>
 
-Fixes: 15dfdfad2d4a ("ARM: dts: Add basic dts for Exynos4412-based Trats 2 board")
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
- arch/arm/boot/dts/samsung/exynos4412-trats2.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+arm64: dts: ambarella: add CV75 SoC and EVK
 
-diff --git a/arch/arm/boot/dts/samsung/exynos4412-trats2.dts b/arch/arm/boot/dts/samsung/exynos4412-trats2.dts
-index 3c2d2a7836da..c89c418b2b09 100644
---- a/arch/arm/boot/dts/samsung/exynos4412-trats2.dts
-+++ b/arch/arm/boot/dts/samsung/exynos4412-trats2.dts
-@@ -19,7 +19,7 @@ / {
- 
- 	memory@40000000 {
- 		device_type = "memory";
--		reg = <0x40000000 0x40000000>;
-+		reg = <0x40000000 0x3ff00000>;
- 	};
- 
- 	chosen {
--- 
-2.43.0
+This commit adds the minimal Devicetree files for the Ambarella CV75 SoC and
+CV75 EVK board, along with Makefile and arm64 defconfig entries.
 
+> diff --git a/arch/arm64/boot/dts/ambarella/cv75.dtsi b/arch/arm64/boot/dt=
+s/ambarella/cv75.dtsi
+> new file mode 100644
+> index 0000000000000..c36b6af48237a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/ambarella/cv75.dtsi
+> @@ -0,0 +1,177 @@
+
+[ ... ]
+
+> +		cpu@1 {
+> +			compatible =3D "arm,cortex-a76";
+> +			device_type =3D "cpu";
+> +			reg =3D <0x100>;
+> +			enable-method =3D "psci";
+> +		};
+
+[Severity: Low]
+Should this node be named cpu@100 to match reg =3D <0x100>?  The mismatch
+triggers a unit_address_vs_reg warning from dtc and fails dtbs_check against
+cpus.yaml.
+
+[ ... ]
+
+> +		ahb@ffe0000000 {
+> +			compatible =3D "simple-bus";
+> +			reg =3D <0xff 0xe0000000 0x0 0x01000000>;
+> +			ranges =3D <0xe0000000 0xff 0xe0000000 0x01000000>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <1>;
+> +
+> +			s_scratchpad_syscon: scratchpad@e002e000 {
+> +				compatible =3D "ambarella,cv75-sec-scratchpad", "syscon";
+> +				reg =3D <0xe002e000 0x1000>;
+> +			};
+> +		};
+> +
+> +		apb@ffe4000000 {
+> +			compatible =3D "simple-bus";
+> +			reg =3D <0xff 0xe4000000 0x0 0x01000000>;
+> +			ranges =3D <0xe4000000 0xff 0xe4000000 0x01000000>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <1>;
+
+[Severity: Medium]
+Does specifying a reg property on apb@ffe4000000 (and ahb@ffe0000000) preve=
+nt
+the child arm,primecell GPIO devices from registering?
+
+When of_platform_bus_create() populates apb@ffe4000000, platform_device_add=
+()
+inserts [0xffe4000000 - 0xffe4ffffff] directly into iomem_resource.  For the
+child arm,primecell GPIO nodes, of_amba_device_create() calls
+amba_device_add() with parent =3D &iomem_resource, which uses
+request_resource(&iomem_resource, &dev->res) instead of nesting inside the =
+bus
+resource and fails with -EBUSY.  Dropping reg from these simple-bus nodes (=
+and
+keeping ranges) avoids the top-level resource conflict and satisfies
+simple-bus.yaml.
+
+> +
+> +			uart0: serial@e4000000 {
+> +				compatible =3D "ambarella,cv75-uart", "snps,dw-apb-uart";
+> +				reg =3D <0xe4000000 0x1000>;
+> +				clocks =3D <&rct CV75_GCLK_UART0>;
+> +				interrupts =3D <GIC_SPI 170 IRQ_TYPE_LEVEL_HIGH>;
+> +				reg-shift =3D <2>;
+> +				reg-io-width =3D <4>;
+> +				pinctrl-names =3D "default";
+> +				pinctrl-0 =3D <&uart0_pins>;
+> +
+> +				status =3D "disabled";
+> +			};
+
+[Severity: High]
+Will uart0 permanently defer probing on cv75-evk because pinctrl-0 referenc=
+es
+&uart0_pins under pinctrl@e4010000?
+
+No driver in the tree matches "ambarella,cv75-pinctrl", so no pinctrl_dev is
+registered for pinctrl@e4010000.  When serial@e4000000 is enabled as the
+console in cv75-evk.dts, really_probe() -> pinctrl_bind_pins() ->
+dt_to_map_one_config() cannot find the pinctrl supplier and returns
+-EPROBE_DEFER whenever CONFIG_MODULES is enabled, leaving the board without=
+ a
+serial console.
+
+> +
+> +			pinctrl: pinctrl@e4010000 {
+> +				compatible =3D "ambarella,cv75-pinctrl";
+> +				reg =3D <0xe4010000 0x1000>;
+> +				ambarella,drive-strength-syscon =3D <&rct>;
+> +				ambarella,pull-syscon =3D <&s_scratchpad_syscon>;
+> +
+> +				uart0_pins: uart0-pins {
+> +					function =3D "uart0";
+> +					groups =3D "uart0";
+> +				};
+> +			};
+
+[Severity: Medium]
+Are the Devicetree binding schemas for the new compatible strings and
+properties in this file missing from the series?
+
+"ambarella,cv75-sec-scratchpad", "ambarella,cv75-uart",
+"ambarella,cv75-pinctrl" (along with ambarella,drive-strength-syscon and
+ambarella,pull-syscon), and "ambarella,cv75-gpio" are not documented under
+Documentation/devicetree/bindings/, causing make dtbs_check to fail on
+cv75-evk.dtb.
+
+> +
+> +			gpio0: gpio@e4013000 {
+> +				compatible =3D "ambarella,cv75-gpio", "arm,primecell";
+> +				reg =3D <0xe4013000 0x1000>;
+> +				clocks =3D <&rct CV75_GCLK_APB>;
+> +				clock-names =3D "apb_pclk";
+> +				interrupts =3D <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +				gpio-ranges =3D <&pinctrl 0 0 32>;
+> +				interrupt-controller;
+> +				#interrupt-cells =3D <2>;
+> +				arm,primecell-periphid =3D <0x000e8061>;
+> +			};
+
+[Severity: Medium]
+Can gpio0, gpio1, and gpio2 bind to any in-tree driver with
+arm,primecell-periphid =3D <0x000e8061> and gpio-ranges =3D <&pinctrl ...>?
+
+Because "arm,primecell" is in compatible, these nodes are created as AMBA
+devices that match only on periphid, and no AMBA driver in the tree matches
+0x000e8061 (gpio-pl061 only matches 0x00041061 with 8 lines per block rather
+than 32).  In addition, gpio-ranges points to &pinctrl, which has no driver=
+ in
+the tree and would cause of_gpiochip_add_pin_range() to defer with
+-EPROBE_DEFER.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-cv75-soc-v=
+12-0-e5a03cca8b05@ambarella.com?part=3D5
