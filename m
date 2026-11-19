@@ -1,47 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795085958;
-	b=W0U36rOlOOBSAkN1/JVqnrnb7DjUF2m5gs8JoBEdXqpmVukm0MEmdx6j34G4j6mb7BEk
-	 rO6QSMijcBBxA91M7Uy60K1L8h9MoyYc/nCu2hjdshKQeCnlIFRhb06tgWfx4izCzebI4
-	 gpPCIoWhwOsYyEu5M7EgmR2e1CulUYj7VR/sJi390gLqEtUX+som9L5B4ybmcVdUKJbS5
-	 /pjs+QNS0QWqnu2T8qXJindMlP6PbUW83YjIBTdcnLxrl0WqbfHnEfoLL0TYJ5Sj5iRYi
-	 zWTHfTsgXbXWIZKyvqtwvs36A/CjY6kXI074JGYFH58syNcvlu2zTfMevwjcfQCd1Ag==
+	t=1795086033;
+	b=QRRA8Fzfk844gFW2GFKV4vsRNQCvnp0FZUauDn61KSwnLemBZQyFVpnG0uEANCiLKBt7
+	 9mtLBbTkl6skSxs+w3Al+3ZxEhCpC83lgtXVkJjGkxg3fu/t9AsCwxH0t69yGbYUeTuuO
+	 yjV+oR2941L4tuSTXPC1ZuEjDdmxmirxQY0QpKYyds535KfdKEE8pQYD+PSOaoKMvPoMg
+	 co73VyJMjMsrh3Ycs02JXX1SyrqJViAwCZO1i+CyahT5VvgN1NzD1KbBG2wwLFKEtbqs2
+	 42fNTgxGzqzSJArOtUV4GX6VRsBFWarhGbxA1fFtV2/q96+PqOGsihCQqdrQ/NwIJpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795085958;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4/jVDSwIRAmLCTKaI3UPBWY6GGyvJetwSzEPznuwmkQ=;
-	b=3T4+PquqA/iUdtrmWTv45IxvIPAswirM7FlgCUZNCrHWEa9z54Mub1fgJ22cEO3xXtUJ
-	 WPfqH2b6jGoRFNG+fVqV4+wHJRrOqYOcj+vtnEd/adIdWKWStK826I7fRKtYV756qcmO2
-	 hn0koOM1EbHDUGXAcBtPuGKSbufaQeX7z3FIxDLsGNaB6cctsbTO7Ep2a6+FCJSkYglCO
-	 JRdxkbwUakpeeLMzg82vF9oulTvEvK8Qr0NF8dw57+2wY+TmTFQILQzwLMy9rTyT8Azo2
-	 8yiJ5owqBoGU7a/+yoD1yykbi35mN9mKFoP4D7AuBWuVqSOhqoILnjyVd6O9lhr07OQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795086033;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=+PYYgCGLGcwMtP5pvVfhLD9ogPaemJ+h8oEMrJ2JhsU=;
+	b=41x+4OVH5uLY5Up3/OS4IuF+flwSyYvkX6jSJPpGwAKpoy3Mum8cYNIJ3ZLawwdb/bnQ
+	 ZkDsD0aaw0fw6SrdbYaYcEOUdUaTwcTkrOmMiaJOaBNUz+uD3DjQDVpAjeTlBQgHwsAAs
+	 LU6s0tH+okE9htXrmK0/3Or70pb6bwc3tCvMlFoZrvaaDx7YyCI/xk5EqaCVHcX57qDwJ
+	 VQSOysRIFMzekCTIR2QaetK4/omJvfDEqDx2VW8aKS7drCes8VvlMbXGYfedlxjOrZMW4
+	 KSDPqT39UXVNHfdQNuZr+0hv3d9bzihsM+6Qxr3z5Hh8csmSKRX54vMrMV0xjidPp+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU8Vv8vz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=eUM67WnD;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46241606A324;
-	Thu, 19 Nov 2026 10:59:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6910606A32C
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 11:00:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6910606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU8Vv8vz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6927B1F000C5;
-	Thu, 19 Nov 2026 10:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795085958;
-	bh=4/jVDSwIRAmLCTKaI3UPBWY6GGyvJetwSzEPznuwmkQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XU8Vv8vz/FPtcTHhw/A1bX2sEY763BsoJfua7tZj4WELvbXJIBq/+hFe9JEaDvYEk
-	 wUTZBcCeeQpgYV/sdUEGEm6P1OFCyDdMAseUti4J584m7RW7/ErJ5pR9O85VWceZoj
-	 y2UzhN7pcw2rDjptvmnz8VEhKBpn0F+BTQMbcxrVs3Wjv1/VpZhfM7s7NkPIjCHs6d
-	 Ox4NQaIz2kL599bZJ6Qux4rqBElMg4C55WoouXurG1h8VNn+BeDy23quv6gbYrr9pL
-	 v1n6kUWdRO46i0u92wWIsVRTsRv7OV8EBHuUsmK6vxzucP5dEhmJgIahsZd4nwc25C
-	 d8ssnf4+xmsGw==
-Message-ID: <29fc3b0b-1ae8-4939-8d4d-4bcebe80e4cc@kernel.org>
-Date: Thu, 19 Nov 2026 11:59:13 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=eUM67WnD
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 25E191A170E;
+	Thu, 19 Nov 2026 11:00:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E15CF60237;
+	Thu, 19 Nov 2026 11:00:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0B92811BC0CEC;
+	Thu, 19 Nov 2026 12:00:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795086027; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=+PYYgCGLGcwMtP5pvVfhLD9ogPaemJ+h8oEMrJ2JhsU=;
+	b=eUM67WnDGsyDCXHyYI30qVYNa9mXIo9JS5PgLI2cs2fSNNiy4e1Nq51/kUFHUQ3MM7RoAa
+	8xqb6NXi3Vovu3Y9CsI39XErTt+b3l2/kljEfdy77QuEiw2TcGoYpO1MRAJhIpX+/u/WKy
+	npKq8rn+QwjtelDGSaHaJpw2qrLXd5NosCTNR1sArY/MTZu7fJwS5sEb01gsgtktAKMS6S
+	qvUiRNf9I5b/tSwfXThbIQWFfk43pXikexhp2GRsMQHz54EQdcQYLPJu1NKf02QtArcnoL
+	E/2N6jtd277HAjFiBXcdIgoyAS9gZ+bsWmG/pu/nRf5+2S6sHeNujNSY46ZdHg==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Kalle Niemi <kaleposti@gmail.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>
+Cc: linux-omap@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	driver-core@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: [PATCH v10 0/5] lan966x pci device: Add support for SFPs, simple-bus part
+Date: Thu, 19 Nov 2026 12:00:06 +0100
+Message-ID: <20261119110014.582363-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,182 +91,111 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/15] dt-bindings: soc: xilinx: Add Versal AI Engine DT
- binding
-To: Gregory Williams <gregory.williams@amd.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261118233211.4121361-1-gregory.williams@amd.com>
- <20261118233211.4121361-12-gregory.williams@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261118233211.4121361-12-gregory.williams@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 19/11/2026 00:32, Gregory Williams wrote:
-> Add documentation to describe Versal AI Engine device tree bindings. AI
-> Engine is a tile array based processor with many cores and local memory
-> cache. Data routing between the cores is done through internal switches,
-> interface tiles are used to connect to external sources such as memory
-> or PL. Configuration registers of the device are accessed through a
-> memory mapped AXI address space.
-> 
-> Signed-off-by: Gregory Williams <gregory.williams@amd.com>
-> ---
->  .../bindings/soc/xilinx/xlnx,ai-engine.yaml   | 61 +++++++++++++++++++
+Hi,
 
-Soc is dumping ground of things which do not have clear function. This
-has a clear function, so place it with other DSP/accel/NPU.
+Previously, I sent a big picture series adding support for SFP ports
+available on the LAN966x PCI device [0].
 
-Subject - you almost hit the bingo. Missing only schema and YAML for the
-full one.
+In this series patches touch several parts and sub-system in the kernel.
+Reviews have be done and it makes sense to split the series and send
+parts separately.
 
-A nit, subject: drop second/last, redundant "DT bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+This current series is the extraction of patches related to the
+simple-bus driver. It has to be seen as a continuation of the big
+picture series but related to this specific simple-bus part.
 
->  1 file changed, 61 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml b/Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
-> new file mode 100644
-> index 000000000000..6c97b5f0fb03
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
+Patch 1 fixes an already existing issue reported by Sashiko.
+Patch 2 removes the no more useful remove() function.
 
-Please read writing bindings document. Filename must match compatible.
+Patch 3 depopulates devices populated at probe() when the driver is
+unbound.
 
-> @@ -0,0 +1,61 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+Patch 4 prepares TI OMAP bus-only devices to be populated by the
+simple-pm-bus probe().
 
-Why not using recommended license? Why doing this differently?
+Patch 5 makes the simple-bus driver compatible with fw_devlink
+expectation consisting in creating its child devices at probe.
 
-> +# Copyright(C) 2026 Advanced Micro Devices, Inc. All rights reserved.
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/soc/xilinx/xlnx,ai-engine.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: AMD AI Engine for Versal SoCs
-> +
-> +maintainers:
-> +  - Gregory Williams <gregory.williams@amd.com>
-> +
-> +description:
-> +  The AMD AI Engine is a tile processor with many cores (up to 400) that
-> +  can run in parallel with some devices containing local cache (memory tiles).
-> +  The data routing between cores is configured through internal switches, and
-> +  shim tiles interface with external interconnect, such as memory or PL.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - xlnx,versal2-aieml
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    const: aclk0
-
-Drop clock name. If you have to use output clock name as input name,
-then it's just incorrect or incomplete, thus just drop it.
-
-> +
-> +  xlnx,firmware-device-id:
-
-You don't get device identifiers, sorry. See writing bindings.
-
-> +    description:
-> +      Device identifier as defined by Versal firmware interface. This value is
-> +      passed unchanged to firmware calls.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - xlnx,firmware-device-id
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    soc {
-> +      #address-cells = <2>;
-> +      #size-cells = <2>;
-> +
-> +      ai_engine: ai-engine@20000000000 {
-
-Don't use your own names. It is not an engine.
-
-Node names should be generic. See also an explanation and list of
-examples (not exhaustive) in DT specification:
-https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
-If you cannot find a name matching your device, please check in kernel
-sources for similar cases or you can grow the spec (via pull request to
-DT spec repo).
-
-> +        compatible = "xlnx,versal2-aieml";
-> +        reg = <0x200 0x00 0x01 0x00>;
-> +        clocks = <&aclk0>;
-> +        clock-names = "aclk0";
-> +        xlnx,firmware-device-id = <0x18224072>;
-> +      };
-> +    };
-
+[0] https://lore.kernel.org/all/20260325143555.451852-1-herve.codina@bootlin.com/
 
 Best regards,
-Krzysztof
+Hervé
+
+Changes:
+
+v9 -> v10
+  v9: https://lore.kernel.org/all/20261109140916.90625-1-herve.codina@bootlin.com/
+
+  - Patches 1..3
+    No change
+
+  - Patch 4 (new patch in v10)
+    Prepares TI OMAP bus-only devices to be populated by the
+    simple-pm-bus probe(). This fixes an issue reported by Sashiko
+    related auxdata lookup table dropped in simple_pm_bus_probe().
+
+  - Patch 5 (patch 4 in v9)
+    Use of_platform_default_populate() instead of of_platform_populate()
+    for bus-only devices to fix the 'unpopulated grandchildren in
+    simple_pm_bus_populate()' issue reported by Sashiko.
+    Add Fixes tag.
+
+v8 -> v9
+  v8: https://lore.kernel.org/all/20260630102717.413501-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.4-rc1
+
+  - Patch 1 (new patch in v9)
+    Fix an issue reported by Sashiko related to possible inconsistencies
+    between operations done at probe() and the ones done at remove().
+
+  - Patch 2 (new patch in v9)
+    Fully remove the remove() function.
+
+  - Patch 3
+    Changed the way depopulate is performed and use devres feature.
+    Took into account a pm_runtime possible issue (reported by Sashiko)
+    related to async pm_request_idle() triggered when all child devices
+    are removed from the bus.
+
+  - Patch 4
+    Use devres feature.
+
+v7 -> v8
+  v7: https://lore.kernel.org/all/20260511155902.34534-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.2-rc1
+  No nother changes
+
+v6 -> v7
+
+  Rebase on top of v7.1-rc1
+
+  - Patch 1
+    No changes
+
+  - Patch 2
+    Fix conflict due to device_has_driver_override() introduction.
+
+Older iterations:
+  Patches 4 and 5 in the big picture series
+  https://lore.kernel.org/all/20260325143555.451852-1-herve.codina@bootlin.com/
+
+Herve Codina (5):
+  bus: simple-pm-bus: Avoid inconsistencies between probe() and remove()
+  bus: simple-pm-bus: Remove the remove() function
+  bus: simple-pm-bus: Remove child devices when the bus is unbound
+  ARM: OMAP2+: pdata-quirks: Pass auxdata for simple-bus devices
+  bus: simple-pm-bus: Populate child nodes at probe
+
+ arch/arm/mach-omap2/pdata-quirks.c |  1 +
+ drivers/bus/simple-pm-bus.c        | 92 ++++++++++++++++++++++--------
+ 2 files changed, 70 insertions(+), 23 deletions(-)
+
+-- 
+2.56.0
+
