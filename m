@@ -1,115 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795119055;
-	b=J6kQ9t4OfqgKZaKuzuact9GCJhpqb8uDLtDTt0TyXd8xroUymy9r2s8wnd0RtmZozIxu
-	 yKql+wkAws3jI2GGitVDGd8m40i7R7DM57a+la3qS4Tn6GITESAQ4GhSq3eyoCZD/baHR
-	 gr6PD8Zm9LFgOdDBsOv7hFzYFSNBHALt+teeyXs8fFUPnvfszm2wi5okwUamU3E+nJfrI
-	 yIP4GB+pYNdeB79E+9tMgo/VVa/+EjYz53b/wm84s2U2Ylc4BSjumgAgVZ5y4wnJ2epp0
-	 HkqrW65RZK0s1hY0TovAxSRApbdvT/2GJNO8H2DOvBtOyXlmKq1peW/ugw5xuMzWYGA==
+	t=1795119101;
+	b=szrKBm+fSUN5/H0R6cdJsL0YUlxhogLYsMkxKBMyp8Mdfgpmb3pYhRe+BvSN3AxCfIH9
+	 LgqFMXMdL+v9Z1xpAVARZgM+BKPVscbMdjU0M7Cc/PGjvvT1ygWD+zPakb67B6YqPrZT+
+	 XNFjIs+qZkJdauuA+6Tu4BdbFSWxs0Pdxdn7mOU9FV/+SKJwfg3xhP9Pcj3uVAlRTDHZ7
+	 5/Le6FOYLblkRPaPBH6AAsxpm8tNy+lEDapxC/qZK9/EDRO7Ow5jXUmDvMJWQBBSIv5lw
+	 OvOCWv9+d7qSImyrAS0OTHxGFvyC8GTeH3vDC5I/yR8hePDKCROjGID+63M8ft218NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795119055;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=8aqv+DwVQzSb2PSvDQkheb2OINfUMuqmq/Dn5ckO2bU=;
-	b=HXS4OvZ39/EzlGJrWL0z2utkOLQQoeMFWpJ8F/wMVLnAO3g4j3AW4+MOGlPDdgDMacAR
-	 YBpbwgpJRpvhRA2tPRfkEiCMGZfjcsiKwD5zd40zcmr6AVZQNCaH9//5C2zsQ/UEHAUkn
-	 Uxrqc8FS+DfvMA5H/t51qNa6fcRnBrYUn3l1ZCf9EUV85GWgrAZm4Oc4kj/l/P6VHP0mT
-	 vYuDU6+tAeKUfPnXfrTtc2JYT8xQyXqqGQgC2k9IhYImrTHYt6rR8xQAX+OPFEje2XGmJ
-	 knTtxjgq927nTaZkrU22XqNNxNA3G9j0fr3VlWd6nmutBy5mceKVBOVnSJmgKXCSTvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795119101;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=8B2Th1R9Lqn9RKkMsnmyDng7k5mr5JEyT4PL6ub6m0k=;
+	b=vLTJIgY65Av7afZHDOMkG9Basn+a22sJ/+Em/jxO3qs8KWptqOoRKW5e32GMe1zXzU/K
+	 Fs0gViNqFQ5u3UrjbCB/RiQmh0v8enzUZ/zK0c9OXyxX5cbnxrBa8/ozatMVb1iKhvEpq
+	 xPL6/Lxd8wEKRkz+3+W53+Tr7dxe6WXaNtge8ggsRi/SjLL4SSiwew5VTpFXTlzeDW/op
+	 ucskcQhv7vm3oxDo6G39v2hqd2rynZyAt1+vcFp6Po/FCnKnrmYx5jUDCefmKw+sogPUz
+	 Ef1w1qytP/716VuIPFOhOPTF3pB9WqE8us1b19nUNl0HzNvkhtAs30GhSfRve/ZvmdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hyGQcQ+k;
-	arc=none smtp.remote-ip=209.85.222.170
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V2cHMTPC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8947D606A325
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 20:10:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8947D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE79960A2600;
+	Thu, 19 Nov 2026 20:11:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hyGQcQ+k
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-9496400270fso15222785a.1
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 12:10:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795119054; x=1795723854; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8aqv+DwVQzSb2PSvDQkheb2OINfUMuqmq/Dn5ckO2bU=;
-        b=hyGQcQ+keDK2b+poWfXaBz3rTfz1FyheOYiUzJEERYAMhFZyAu6PuvsqtyX6pjeesS
-         RPo/zf+sr9tDJlWK7LXyI/JwnAF7qkNwpYO+juoobzUbk0BUFczoNvQWEGADycDW2iwF
-         y7jXJjMSOIhu/MUmTcjReZe3qIh+eFzLgqwR6LVOhkzMf0koL12QfW68TIcDa6ESyTAX
-         A9hpOxUza4P7LOMWuFbIYg7gicCapbN+ffcwUDGx9yF0j4jjlLHoiZI6aajcrdXNLT9q
-         oyXtSD7jOBruYl34nyNNIo/0UAbvOlzJE8VI6uN8Ph4wXC/te+u0l1swEJRdwwPBFBRP
-         Hcrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795119054; x=1795723854;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8aqv+DwVQzSb2PSvDQkheb2OINfUMuqmq/Dn5ckO2bU=;
-        b=1fdmBToiuTj7Uu5tk4JbinSVq+V7Tc8cO5zOQgX3HUCDIrLyy5L01ai6OIIfqHVne8
-         gmQMfnQCp3hPGe8iEi0/DimBtN///RFwTnXdYAmiiJWrlzVAi0ZDnYDl3lpUFoXcFF4p
-         TTeH6jyGFphB1hPt8HtXuUGhLqMw1S+kv136umf8//EFQ7pHAhRY+oLCUL18AMcraljg
-         8W2K1xs0MiNIq5PI8ZX9y41fJeWHR6M+fEWyFZaZdRKg7+OFQK5f2L1mu104Mrxs3yzJ
-         BJXCUyHJLm97rZ7IVWGXvEBPHCrULt/ojOnXq5Wcxon5U1Y0ORyeFapy0KdIz8nCVvLp
-         oI5Q==
-X-Forwarded-Encrypted: i=1; AL+hErG93QYO9KOdhUZUlPOn3lJcYaWTnr7uUokCqQ8N52gcHdUHmG4PZ47AIJJ1ObLlJ7avUKXR5/62vd9Y@vger.kernel.org
-X-Gm-Message-State: APuU4Z/E0vPJgFlPnbyB9c3UhcIDUKOY3rzVEsSNAnREjXZs+5wR249B
-	0oEqvFuEteU+ABAayd9yEORihcxLtDzg5c50dneJQTGrJbJfhKpXGPV3VgOOOxEV7XE=
-X-Gm-Gg: AYBFou3RuXendSTQdp5kcUrpSS4YHkMTxxnV6jt6F1xxX8UpJT8LhuIH/x70eMIa8tK
-	w12jeCmwy7IFsQhFA0tcGb3/LvC2f+1ZHHigjqzKsva1Mt1UstPD9S+gpkZjcY9GieELxnqpxU1
-	2/CAK5+6fZ1X4ELfI5dc4JadFs+Qoveea65AxoaYWq5T3Y9fKdU46KfdW2mua5hufcmsgT82i94
-	FZYrleFkzXNWjhS2VJIY3bwmdrPA7zNt1axTw7tRORthUczVqShzyMmUZSmQx7Rrn31nc3cILBW
-	g3HLIYMwgE9jfpRX5hGBOWEDxmWM4k1TzNZnK+nwHNlzhA57fzl9p9n5dO9I7N/UOkTEBOqQucB
-	dEUfIvh8ZP7lIlc9daMejfnsnygyX6QkmLqkbtSDeq2eKdpsqsbp/fXax6/G4wKljTUurYtIagx
-	gKSPaAhnoId0RPfqN4e7LHPkkFY+c46BeNUxFaYYA+t7DcLYtW9Szi5Nb3eaohwERY2WqsjtYSq
-	Aiss/b+azsM9hxo8RARghNWXX/+OUqzqwDnojsEyEj6W5z9VKIMsA+ShVnbv0FHH+gIHlvEmXhA
-	okxOiMXEnX9P8arEyLWOLQtI9/5T1nw7SyWD+wxbHAhjo3afsgQnU6k=
-X-Received: by 2002:a05:620a:480e:b0:949:7502:6a5 with SMTP id af79cd13be357-949bab2275emr133918285a.57.1795119054458;
-        Thu, 19 Nov 2026 12:10:54 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb3ba04bsm37578685a.24.2026.11.19.12.10.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 12:10:53 -0800 (PST)
-Message-ID: <91e8a132f2ddff24b30c244dff0a8389afa313fa.camel@ndufresne.ca>
-Subject: Re: [RFC PATCH 03/28] media: mali-vpu: register V4L2 decoder device
- and add querycap ioctl
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Charvi Mehta <charvi.mehta@arm.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Vincenzo
- Frascino <vincenzo.frascino@arm.com>,  Rathinavel Sankaralingam
- <rath.sankaralingam@arm.com>, Shobhit Pandey <shobhit.pandey@arm.com>
-Date: Thu, 19 Nov 2026 15:10:51 -0500
-In-Reply-To: <20261119153758.1426673-4-charvi.mehta@arm.com>
-References: <20261119153758.1426673-1-charvi.mehta@arm.com>
-	 <20261119153758.1426673-4-charvi.mehta@arm.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-68tdt8CJA0v7u8ZWQyHT"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V2cHMTPC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B46881F000CF;
+	Thu, 19 Nov 2026 20:11:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795119101;
+	bh=8B2Th1R9Lqn9RKkMsnmyDng7k5mr5JEyT4PL6ub6m0k=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=V2cHMTPChoAT52knBYXe+EHytjbn7YLQFG/EY8buiTa60qkU+092oEKs6vv9LVKEq
+	 a4yNWrA8zlWXUID+xYSD1zxvnlNyiUhXBjB/PBlECWMtVvIasqOZDJVUnJ2iqWVLaO
+	 pzOop72mFX/QwxEPzFpVL597KfDI3Xv/Zg1/aa47lnxu+0uwAIRRS+mwkOWIXP+gK0
+	 Q23nkplWV634Ysj+sa87gZ1U4RpWeikkeDdbw/PlfdqhCpm2yFqB/SeeXoSraRBPZ3
+	 hAhcPoFAJkmvsb1p3y+prpzMvbY22hm4hDCzpAlYkuK6sM/Ticj4d8mZekpAB+1Bvo
+	 xNwBntIECX6XA==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,44 +49,243 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 2/6] spi: dw-g2: Add Synopsys DWC SSI v2.02a driver
+From: Mark Brown <broonie@kernel.org>
+To: Prakriti Sharma <Prakriti.Sharma@synopsys.com>
+Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org, 
+ Siddhant Kumar <Siddhant.Kumar@synopsys.com>
+In-Reply-To: <20261119100513.433044-3-prakriti@synopsys.com>
+References: <20261119100513.433044-1-prakriti@synopsys.com>
+ <20261119100513.433044-3-prakriti@synopsys.com>
+Date: Thu, 19 Nov 2026 20:11:34 +0000
+Message-Id: <179511909433.116416.9010484552833951379.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7706; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=eAgOHUioN/yeAtismp7cX02GMn69rORdcDrDtQbplVA=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL+h3/XuvxxY135zbVPN/JxbDiYZfyyPJH56y6pSROEj
+ e5qJKSwdZSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiG48x/E8U5Lt5b5ap9n31
+ TD+LE3+6fjVdEn3mpKi6cbPmPvvtfTcYGa6s7Jp7weLmvt+JZ68tam8O9Lpg85fLqFW45rzhs6M
+ GKswA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
---=-68tdt8CJA0v7u8ZWQyHT
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> Add a driver for the Synopsys DesignWare SSI Gen2 (DWC_ssi v2.02a)
+> controller. Support probe, the MMIO glue, command-only transfers, and
+> short register operations.
+> 
+> Transfers are polled. The IRQ is claimed, including the optional
+> per-source rxf, txe, txaf, and wsf lines.
 
-Le jeudi 19 novembre 2026 =C3=A0 15:37 +0000, Charvi Mehta a =C3=A9crit=C2=
-=A0:
-> Register a V4L2 M2M decoder video device for the Mali VPU.
-> Add open and release file operations that allocate a per-file session.
->=20
-> Implement VIDIOC_QUERYCAP to report the driver and decoder identity.
->=20
-> Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
-> ---
->  drivers/media/platform/arm/mali-vpu/Kconfig   |  1 +
->  drivers/media/platform/arm/mali-vpu/Makefile  |  3 +-
->  .../platform/arm/mali-vpu/mali-vpu-device.h   | 15 ++++
->  .../platform/arm/mali-vpu/mali-vpu-probe.c    | 59 +++++++++++++-
->  .../platform/arm/mali-vpu/mali-vpu-session.h  | 26 +++++++
->  .../platform/arm/mali-vpu/mali-vpu-vidioc.c   | 78 +++++++++++++++++++
->  .../platform/arm/mali-vpu/mali-vpu-vidioc.h   | 15 ++++
+> +F:	drivers/spi/spi-dw-g2-*.[ch]
 
-nit: I'd say rename to mali-vpu-v4l2.c to be consistent with nearly all oth=
-er
-drivers.
+There's drivers/spi/spi-dw-g2.h too.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> +/*
+> + * ========================================================================
+> + * DebugFS support - exposes controller registers for debugging
+> + * ========================================================================
+> + */
 
---=-68tdt8CJA0v7u8ZWQyHT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+If you wanrelatively heavyweight stuff like this consider using regmap;
+I'd suggest dropping it from the initial submission in any casse.
 
------BEGIN PGP SIGNATURE-----
+> +	/*
+> +	 * Clamp speed to achievable range. If requested speed is below
+> +	 * hardware minimum, clamp to min_speed
+> +	 */
+> +	if (speed < min_speed) {
+> +		dev_warn(&spi->dev, "speed %u Hz below minimum %u Hz, clamping\n",
+> +			 speed, min_speed);
+> +		speed = min_speed;
+> +	}
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9XywAKCRDZQZRRKWBy
-9Gk9AQClEgbrQYsilxSJEOtw7LEwCrwtEVoSpQ1tbx+me1p3KwEA6yr3WzRocwTb
-/VnV9DMVgAS6/9EfRVX6UUJhsXdqnAI=
-=Gwtb
------END PGP SIGNATURE-----
+dev_warn_once(), this might happen a lot.
 
---=-68tdt8CJA0v7u8ZWQyHT--
+> +/**
+> + * dw_spi_g2_xfer_fifo - Low-level FIFO transfer using polling
+> + * @dws: Driver state
+> + * @tx_buf: TX buffer (or NULL if no TX)
+> + * @tx_len: Number of bytes to transmit
+> + * @rx_buf: RX buffer (or NULL if no RX expected)
+> + * @rx_len: Number of bytes to receive
+> + *
+> + * Performs a polled FIFO transfer. Writes tx_len bytes from tx_buf to DR0,
+> + * checking SR.TFNF (TX FIFO not full) before each write. For RX, waits for
+> + * RXFLR to indicate data availability, then reads rx_len bytes from DR0.
+> + *
+> + * Return: 0 on success, -ETIMEDOUT on timeout
+> + */
+> +static int dw_spi_g2_xfer_fifo(struct dw_spi_g2 *dws,
+> +			       const u8 *tx_buf, u32 tx_len,
+> +			       u8 *rx_buf, u32 rx_len)
+> +{
+> +	u32 tx_sent = 0;
+> +	u32 rx_got = 0;
+> +	u32 sr;
+> +	unsigned long timeout;
+> +
+> +	/* TX phase: push bytes checking TFNF */
+> +	timeout = jiffies + msecs_to_jiffies(1000);
+
+We usually scale our timeouts based on the length and speed of the
+transfer.
+
+> +	while (tx_sent < tx_len) {
+> +		sr = dw_spi_g2_readl(dws->regs, DW_SPI_G2_SR);
+> +		if (sr & DW_SPI_G2_SR_TFNF) {
+> +			dw_spi_g2_writel(dws->regs, DW_SPI_G2_DR0,
+> +					 tx_buf[tx_sent]);
+> +			tx_sent++;
+> +			timeout = jiffies + msecs_to_jiffies(1000);
+
+If this timeout is being applied per word written then a second feels
+like an extravagant timeout.
+
+> +	/* RX phase */
+> +	timeout = jiffies + msecs_to_jiffies(1000);
+> +	while (rx_got < rx_len) {
+> +		sr = dw_spi_g2_readl(dws->regs, DW_SPI_G2_SR);
+> +		if (sr & DW_SPI_G2_SR_RFNE) {
+> +			rx_buf[rx_got++] = dw_spi_g2_readl(dws->regs,
+> +							   DW_SPI_G2_DR0) &
+> +			    0xff;
+> +			timeout = jiffies + msecs_to_jiffies(1000);
+> +		} else if (time_after(jiffies, timeout)) {
+> +			dev_err(dws->dev,
+> +				"xfer_fifo: RX timeout after %u/%u bytes (SR=0x%08x RXFLR=%u)\n",
+> +				rx_got, rx_len,
+> +				dw_spi_g2_readl(dws->regs, DW_SPI_G2_SR),
+> +				dw_spi_g2_readl(dws->regs, DW_SPI_G2_RXFLR));
+> +			return -ETIMEDOUT;
+> +		}
+> +		cpu_relax();
+> +	}
+
+This looks like it supports only half duplex transfers, is that a
+hardware limitation or a software one?  I'd really expect this to be a
+transfer_one() callback.
+
+> +/**
+> + * dw_spi_g2_fill_tx_buf - Serialize command/address/data into TX buffer
+> + * @buf: Destination buffer
+> + * @op: SPI memory operation
+> + * @include_data: true to include data bytes, false for command+address only
+> + *
+> + * Builds a byte stream from a spi_mem_op structure:
+> + *   [opcode bytes MSB..LSB] [address bytes MSB..LSB] [data bytes (optional)].
+> + *
+> + * Return: Total number of bytes written to buf
+> + */
+> +static u32 dw_spi_g2_fill_tx_buf(u8 *buf, const struct spi_mem_op *op,
+> +				 bool include_data)
+> +{
+
+This looks like the driver is trying to open code the support for
+running unaccelerated ops that spi_mem_exec_op() has?
+
+> +	dev_info(dws->dev, "DW SSI G2 core init\n");
+
+Drop this, it's just noise.
+
+> +/*
+> + * ========================================================================
+> + * Legacy SPI transfer_one interface (not actively used with spi-mem)
+> + * ========================================================================
+> + */
+
+It should be, if only so you can avoid the open coding above.
+
+> +int dw_spi_g2_transfer_one(struct spi_controller *ctlr, struct spi_device *spi,
+> +			   struct spi_transfer *xfer)
+> +{
+
+> +	local_irq_disable();
+> +	/* Polling-based full-duplex transfer */
+> +	while (dws->tx_len || dws->rx_len) {
+
+This needs a *really* good reason to run with interrupts disabled,
+that's very rude to the rest of the system.  Especially to run with
+interrupts disabled for the whole length of the transfer.
+
+> +irqreturn_t dw_spi_g2_irq(int irq, void *dev_id)
+> +{
+> +	struct dw_spi_g2 *dws = dev_id;
+> +	u32 isr;
+> +
+> +	isr = dw_spi_g2_readl(dws->regs, DW_SPI_G2_ISR);
+> +	if (!isr)
+> +		return IRQ_NONE;
+> +
+> +	/* Check for error conditions */
+> +	if (isr & (DW_SPI_G2_ISR_RXOI | DW_SPI_G2_ISR_RXUI |
+> +		   DW_SPI_G2_ISR_TXOI | DW_SPI_G2_ISR_TXUI)) {
+> +		dev_warn(dws->dev, "Error interrupt: ISR=0x%x\n", isr);
+> +		dws->error = -EIO;
+> +	}
+> +
+> +	/* Clear all interrupts by writing 1s to defined ICR bits */
+> +	dw_spi_g2_writel(dws->regs, DW_SPI_G2_ICR, DW_SPI_G2_ICR_ALL);
+
+It would be better to only clear interrupts that the driver handled,
+this allows the genirq handling for things like stuck interrupts to do
+the right thing.
+
+> +	dws->irq = platform_get_irq_byname_optional(pdev, "rxf");
+> +	if (dws->irq < 0)
+> +		dws->irq = platform_get_irq(pdev, 0);
+
+The DT binding said that the interrupt line was optional and the driver
+is polling based so the software seems to support that but this won't
+handle a missing interrupt gracefully.  Either update the binding or the
+driver.  TBH I'd make the interrupt mandatory, this seems to be a
+relatively high end IP and I'm not sure anyone is going to implement it
+without interrupts and I'd imagine at least the spi-mem stuff will work
+more efficiently with interrupts.
+
+> +	ret = device_property_read_u32(&pdev->dev, "num-cs", &num_cs);
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "Failed to read 'num-cs' property: %d\n", ret);
+> +		goto err_reset;
+> +	}
+> +	ctlr->num_chipselect = num_cs;
+
+You should validate num_cs.
+
+> +static void dw_spi_g2_mmio_remove(struct platform_device *pdev)
+> +{
+> +	struct spi_controller *ctlr = platform_get_drvdata(pdev);
+> +	struct dw_spi_g2_mmio *dwsmmio = spi_controller_get_devdata(ctlr);
+> +
+> +	spi_unregister_controller(ctlr);
+> +	dw_spi_g2_deinit(&dwsmmio->dws);
+> +	pm_runtime_disable(&pdev->dev);
+> +	reset_control_assert(dwsmmio->rstc);
+> +}
+
+You're mixing devm and non-devm things here so for example the
+controller will be deregistered prior to the interrupt handler which
+will go badly if the interrupt fires in the interim.  Also note that the
+devdata is allocated along with the controller so when you free the
+controller you should no longer dereference dwsmmio.
+
+> +/*
+> + * Transfer control: enable CS register block, assert CS line, enable SSI.
+> + * Starts the SPI transfer — controller begins clocking data.
+> + */
+> +static inline void dw_spi_g2_transfer_begin(struct dw_spi_g2 *dws)
+> +{
+> +	dw_spi_g2_target_enable(dws, dws->cs);
+> +	dw_spi_g2_cs_assert(dws, dws->cs);
+> +	dw_spi_g2_enable(dws, true);
+> +}
+
+The chip select should be controlled at the start/end of a message, not
+a transfer (and should just be a set_cs() operation).
+
+-- 
+Mark Brown <broonie@kernel.org>
