@@ -1,108 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795098025;
-	b=XOA9rI8lBswnPYa0HSXbqkzhLg0J9PSRfsH15FFvXgDQ3F6NfLVPLSzd7acxL599A8xK
-	 EJuw/X8JA9oIA/EL+hMdfQJcbpES4MxBBgW697GWehSG5eIztj+AQiAaNge1J14uSFjK5
-	 B0NQmSSf0ZuBPcyGMAgTtYAp0JVT3aQfB9IRRlSiEYyfRtjfhy7YWSfP+zCSTJ55hftT3
-	 vVTR9uxEqPwu4KzJ3toXiJFhNip1QWc60BHBKidazkKca8wViH6/kUcMAt8a7N9nI9Fzr
-	 7Sj7nUkmVSXhvuMwHYHMsam72M4O/UKAlfPR6pfq4ybFTsEg5PlLNUkSlu9sHS+Z5ew==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795098025;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RQ7PD0wiv0VHC6N2fQDz/R9Q3BvCGmwRHV2aZkr1bBQ=;
-	b=clxYGg3NhPPImFjZIpOU1RbGmq3B3mriIO6C/V5b61PDdztKCR/GeQzAexNLHdBZzD4d
-	 k9s2ZgPM7OnOls+4/Op3XUgzXv+EUkmRybDdeCyhhCy8f0gHeaaKOw2U3Gh1R9BrtLC49
-	 wHC/Xwtek6JLDCg++69uA8luDnhOKLdsGqoVPoCa+sgERn5zVQlH4yNJHW9akWyXBBnW8
-	 J7D5PqeKnAKUM7CzKS9PEzSmEkN2DnhS5dCBQfW+PhqVtFs4ARuAvpAq4hDVUz/j21vMB
-	 lsM68Zy/XwT2+QAdROl//ILCYlyLki8eL5JJGTrZS3RD1C96hum80uXiRsvichIoJcw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ATu9pVSH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.45
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012045.outbound.protection.outlook.com [52.101.43.45])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795098230;
+	b=XuNZ1KyTlUAwzdnQ3F6Ov7ygBocvj5Ln4DH+qAALm6RBpgUQXl8xlkygCd44dXXrg914
+	 e5U5nkurjmZeKwP8RkW/S0K4CIRYXpvL9Zsbqp3hikVCu1evpVYimT9WANxXq9RzacZhq
+	 j9UfgMBWtpHt4mgzzgOgeVgbV+v/fmEg7ObkyS6tCsUwN2xtPUCQI7/MQTDY4XA+Pn/Ju
+	 VvlCUIu9aXKFJctjZTeIibZcIq968zewUbtTSW7mG9HOef09Udn+bUI/VCnrvLCGT+sK1
+	 Qk9ipk+YncDC391X/XoRcYNthZBjmmEnwDqW6m2gwrQUCOA6srgqzJmkt51ctnKjv+g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795098230;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=t9bWB+Ike65eic+Yy4cT8z9+HxhXkL0til5+GubOeaM=;
+	b=ahv/aBC9EqS4hHAA6F1F0uV5ESIUtiwWFfNU5/wViztRpcPg6Z2V8xkhbUySq6F3dqCZ
+	 9GORpu926HWmSIyFkHR4fBV8IGu1jbTMz12x0WZFhYLR3Ed5mYL7ZZLf2neDZRjBdJ8Rl
+	 K3UoC7/KJ1sqe+Bvp0mGp+NfGXk1sM2gS7BPA7nwOdXjmw8GxFFzkrd1cn4D9JF8nVVHC
+	 4ME7TuhO+3bcBf1er4lgimxQ4cjYLKf+nvKsEMoH/5e2vO5SatqVxNtUzydj6GqBDA0u7
+	 jcFRI0TTScx6XtRlBPHyZTGMl02dGNCHAxXSwJLhwFBPSKmwC9DyXmthV1cyJD1cXaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RakDrLwK;
+	arc=none smtp.remote-ip=209.85.214.181
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4C0606A324;
-	Thu, 19 Nov 2026 14:20:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB4C0606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32AFF606A330
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 14:23:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32AFF606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ATu9pVSH
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fW/9LLikWEtlzjLDndRHtBS7HbR41P9f5ka8XKjBAtt6Jhjkj1Ec89bUJEVwsk52pJKlHsWaZj5WvAbR8rgzr3+gGqnMWXCN18pQvE5z+i8430METp0W/w08Mg7milj9RRGrVmdBFe3xSWC4k5/KFXfYi0HBIg6TtArTHWDKrSW79HsMFPAWjB+z60PA/hf5/M1DtlZZXwNQzzU5aCA5Hkk/62Q3Rwf1ECVOj1kQ1H18zMvGR0sLuvwpKFJDVoi6tE9cwSKIdKHnmBBH9MDsEmcrD3NrNrKV0jUmj2veIlKNKdDflO4lWag/vI5drJD/of891SQTS5ITQ+lvnSH+ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RQ7PD0wiv0VHC6N2fQDz/R9Q3BvCGmwRHV2aZkr1bBQ=;
- b=sW/vaxf9dLI4HbWAWf+UJePMCUcWfoI3xgFf85fsVuL4Gb/boPiSNEq+rT3Ohj3X+av2jEtKlpxsRMrcA2Wemn+ldGE4DXQkT/jqEKsCHIE12NoS3+vqdTb/tKVCKCwCuKPqoJA8mYdzRFmjozcVPIa4gryp/eR/nsrWpzfAuStkmfMB7gblCTSP360De76ke8LA35J/gnyLthRyPXmJo+8qb5Yap7bT5+rZhgUPRBHMc+CPjahcZN9LvXf5HbRSenszDXxZSV2Xdv5afcMFFU759VRuN3xUG9VtY72s3lNlskqgDmEQDAcfAd21A9lkO9UXe2ltJ8hDRXeNt0aUag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RQ7PD0wiv0VHC6N2fQDz/R9Q3BvCGmwRHV2aZkr1bBQ=;
- b=ATu9pVSHcAnx0rdaC8ehfci0uNO1Z1OceK/Uwdsacj6qZHhHFYXF53fILtoG7W02n0OC6QibASnxA/WkrccVLFQDC2hMMsyA+op1UibrIGBBuhVW+Iu5vgio8NyYYxpvoMmQThoSgFQ9Q5rHCHSLsN0QHSt3Q2V8/T+CMvL0IIs=
-Received: from MW4PR04CA0251.namprd04.prod.outlook.com (2603:10b6:303:88::16)
- by LV2PR12MB5750.namprd12.prod.outlook.com (2603:10b6:408:17e::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
- 2026 14:20:21 +0000
-Received: from BY1PEPF00026967.namprd05.prod.outlook.com
- (2603:10b6:303:88:cafe::7a) by MW4PR04CA0251.outlook.office365.com
- (2603:10b6:303:88::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Thu,
- 19 Nov 2026 14:20:21 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF00026967.mail.protection.outlook.com (10.167.244.151) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 14:20:20 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
- 2026 08:20:15 -0600
-Received: from localhost (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57 via Frontend
- Transport; Thu, 19 Nov 2026 08:20:15 -0600
-From: Michal Simek <michal.simek@amd.com>
-To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
-	<michal.simek@amd.com>, <git@amd.com>
-CC: Harini T <harini.t@amd.com>, Conor Dooley <conor+dt@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
-	<devicetree@vger.kernel.org>, "moderated list:ARM/ZYNQ ARCHITECTURE"
-	<linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH] arm64: zynqmp: dts: Add RTC clock nodes for ZynqMP
-Date: Thu, 19 Nov 2026 15:20:09 +0100
-Message-ID: <e660f7ed31d0e605ede493941cb2d18ba34fd7b0.1795098007.git.michal.simek@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RakDrLwK
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2efd7259872so13749725ad.2
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 06:23:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795098228; x=1795703028; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t9bWB+Ike65eic+Yy4cT8z9+HxhXkL0til5+GubOeaM=;
+        b=RakDrLwKnpFkXQ5x53xU+/JtMeb5PKs/XkG/jGg4XUbPrV73tNZs5tZHokm+sjHSaD
+         R53c42cI3ZAqLjcvQeKkxZnMlquo2wkjbjqxPk/+SGxCsClwm9WbYqtlckHmdAMLAW/W
+         sCiIayoTguztq+/dzFAq47t/Wgeni9PqjkfBR/GKPGF1vnphVLQ9OSbymwte1rXoSaNM
+         SoSH6cEG/+tzOQwWZDOZVZXJKYCAEGrndvMQdcryCRTXj0asVWvOO0gIYKrjdEZhARPY
+         FJ5yFBp4vC7QWuTfm2RHldZSJvR1Eo78YqbRmFO191CVsS3RVXrql2nTN/cbG/6WKic9
+         Sx7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795098228; x=1795703028;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t9bWB+Ike65eic+Yy4cT8z9+HxhXkL0til5+GubOeaM=;
+        b=yqK8vmsD7pPiP3qKgtEcBmKBC5Ug8s700hQa0t3jzzIZ14RezVY8MGjLFqygEIcnAZ
+         mYgBfrjIEd6RXQxFmAE5rUpGmqqWNvpD8UsF3uUkW/oHDhDDguxMchJ5yDuoX4UrFMJZ
+         IETruv9RX++wtqjFurTbDCF8RiGwDhZkC3iy5Insyhg5c6445mTP2YHGAOVTMSd+hMYk
+         GFqzXcJKkm86tTSiCx4F8NCgo0hHR7vEQ7smDObq4pDCbV92/VrKFn9d3LsXCe1fzyVo
+         KH5Qwe/FS5AxX8+pL9TsNtkYSJxrODML4nGGDYlVFONTlEZlWJJq0/FHCuJatpv1gB0u
+         eJxA==
+X-Forwarded-Encrypted: i=1; AL+hErE/WahlDxh2kZ/9Ofw1/rmvsyQV1ZtnZtTk4P4d5AK7TFIQBZZ8mVcKbqMAK0DWVSRmaWIm4wlxs8FB@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6NTM5eLJwBO4bFNh+qcpDcQb/D0/w/1aHrFn/kPfkt/57iKFU
+	QHDYjIJwp9V5x5ihXniqM4BIfNqG5/KIKSvQzBxu4oRHfeaSNOwHigez
+X-Gm-Gg: AZFdTZcJ+DKQx55WeLp7CRtjrvuZs+lNhuLTnF2s1Ks7HO0kDMs23FvaBJeMDUGxw0z
+	FXbgEvuoo1yyDhsYNenGxZpwoWOGFW4sQIEg/oMEQVlzvgiTQpHC7AFWECrSM+jku3J3hedw3LN
+	zzzKxikuE9rKBpOXaxPgxlf53nxBP+0xbS1oc/IhZcAACTEsgIJ6Pta/O2iyrivlmTkZQyecHyv
+	olw+kYqO99SA6ybKJtPxrQL8RogE+tld5IIYY4Zytkrp0ZcEay899P7QEyo8p5KeklrcMSm97V8
+	CiQ3voAoqcwLgMK7iQ8I9khLgLwf1gLFAGF5c2FbNSs/sEuI8lWjIYzKqM4j0n2EvIQEG0BMndM
+	WAFKbuCp2JgfZgU1KFC/rjgbXGVIg/II8ttPCT3ICVlC1mT3YXRgTqrUMOCt/jb3rWRWPTy0kBa
+	XZWenEcORn781MC+5z+P4YNN1p6SkUSS8Rsr5o5T7pccaEtPuWVv+BiQVK28JJMdO8m/zzgTDQH
+	2V7Y5Qfroi94h4faRkAERTtEi8nH0rom8nIVAvXL8KbousKwyWmmkj74Fu0woVyCmpR0jeD/ubc
+	myCZOvBVfCzWjEKhwuxnvxOYpTVq/KsOR1o=
+X-Received: by 2002:a17:903:244f:b0:2ef:ee39:5dbb with SMTP id d9443c01a7336-2eff754e579mr60705635ad.61.1795098228295;
+        Thu, 19 Nov 2026 06:23:48 -0800 (PST)
+Received: from DESKTOP-NM9EKIA ([2001:e60:8509:ba6c:11e:f696:8454:757])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f10e67csm164415ad.53.2026.11.19.06.23.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 06:23:47 -0800 (PST)
+From: Joonhoe Kim <26rote@gmail.com>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org
+Subject: Re: [PATCH RFC 4/5] wifi: ath12k: Support MAC address from the firmware node
+Date: Thu, 19 Nov 2026 23:23:41 +0900
+Message-ID: <20261119142342.2063-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261014-b4-nvmem-efivar-v1-4-187c85f65018@oss.qualcomm.com>
+References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com> <20261014-b4-nvmem-efivar-v1-4-187c85f65018@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,94 +115,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1795; i=michal.simek@amd.com; h=from:subject:message-id; bh=AwEeBYhun7qKcgHhhR3sVbr2EIMDHpII5COdK2jpNrI=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWT9Z52z4w7/UjGdQ5xq+e/PbvknsMJmDquwQmj68WCVE 8/059dZdZSyMIhxMMiKKbJMZ9JxWPPt2lKx5ZH5MHNYmUCGMHBxCsBEjFwY/seKZjjzyd44eVO8 /Zd+iEn0OqmCzusv34vPqDu3K1PM8irDP7MVsXecs+Mcdv7b3XVXvuTtc+OL1zd/XO61oX/uupb PrMwA
-X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF00026967:EE_|LV2PR12MB5750:EE_
-X-MS-Office365-Filtering-Correlation-Id: c640ee0c-9cfc-48d4-29e7-08df46483e76
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|36860700016|376014|82310400026|261021123027099003|10067099003|11063799006|56012099006|261021121427099003|261102123227099003|261009223027099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	n3Ng6h7xIe/33kOxXiBsH7My6UX5QDOiIxrXyEne7yyxYoGVS+nQQ6GhHnl4GMLw0XPPsb/b1uveYzgrUX4VyQ3IPmiayEvl0j7676g2Osv+a8IIN89twAgRvVZO/6ad6y/bduAHV/48nNsnCRepkP+fFPLnqPpM1HpF3lS2Lc6Sa3SK+Nb4p4Mezx31OU5UgVPo+lbJ/SDWTybpBjX/5WlWVPwp/BJ9dYCGBG/L5KdepsYFyKJNiwcPgShPxr41v1uKq2qEYgjhmkwjhlqXRkMZjluGh8oC5E/astwTeXQI2bbE1/aid2VAf/yOWVp45HwFaR2wCMdkBSNlpXeBF7cEYpQeKxEjXczlQT6oqqusScF022kLNMVGoS4epFBdyUx8mCl74OiudR9Dx6Mfvq2vfi/Eh9zZOIcvssOpKovj8fioYXvK9krQ5lkml6GKiNSmfrxUiM52QQMQxsKbPxhYTqnbzzHSWBaJs2ldkmitirY++u8SCneJRZ4uikVLHC4xe8VKw0trSg0xijjxFF6qDrm5pmnsAbdSSTV2arPp7V5MnAiPHPbfCGQOCl3mQiim/yfDCmpsRgxb9p2uczu19pM0aKlsx6VZ2wBrbp/MXfwOmAXRGjOzblNOlZlBtR4N15yLMr6/nqfVIespre3egl5Zy2yPIJ6c6VMIM21qA50BCkEh3+yxMByHVtBHQju50kLMm0s7yo6SNUuyOw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(36860700016)(376014)(82310400026)(261021123027099003)(10067099003)(11063799006)(56012099006)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	53aVhC83xNfblFQmfrYs0iMWN+7NwfKl59pX0vLYSpG168xi20pSfOA4Bw6EcWJY/TmQQZArMpFaLFFbZtwBMzDJloVAeuSG2+7x9pGoLHUL2tEsixAjfgcPog+mXHrNKPp/CJaUta0UkOh/AkcvaHL70WcfPi3727CQC0lM7C7CD/tCPlF5cb7hRKFIAXKPsiRxbwoGAuNCmzGZWyxWA2Em7mdGPd6GucfkstP6ZqKDkk4+Lm1hJU20QMvRJQOVhp3Q2LiV4MbO3CM+jSiUJ6kUAANNW+ry6FLhuJs1sZ+gIVk6gEfIKIdEq9tN0dXcQAXoI2foEo85QfqgIGQB+cHLb+Ob3sExrHXqCaRHxtZw/qq8M6lJDICnqSSd3VV0owdYALQBxnkwrsRk8+Y8J32lFQSz8Ydbgrif/geE/3WErtwG7N10FmBn1TJL6m8I
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 14:20:20.8369
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c640ee0c-9cfc-48d4-29e7-08df46483e76
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF00026967.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5750
 
-From: Harini T <harini.t@amd.com>
+On Wed, 14 Oct 2026, Abel Vesa wrote:
+> Read a MAC address from the device's firmware node (a DT "mac-address"/
+> "local-mac-address" property, or an nvmem cell named "mac-address" via
+> device_get_mac_address()), and use it in preference to the address from
+> the firmware board data.
 
-Add fixed RTC clock nodes at 32.768 kHz for ZynqMP. The RTC driver uses
-this clock to calculate the calibration value, replacing the deprecated
-calibration device tree property.
+Another user for this: the Lenovo Y700 Gen 5 tablet (TB323FU,
+Kaanapali) has a WCN7860 on PCIe, and its firmware reports a new
+00:03:7f:xx:xx:xx address in the WMI ready event on every boot. Network
+profiles bound to the permanent address stop matching after a restart.
+The factory address is only in a file on the Android persist partition,
+which the vendor stack passes to the firmware over QMI, and the
+bootloader puts no address in the device tree. So on this board a fixed
+local-mac-address is only good for testing; a per-device source would
+still be needed.
 
-Signed-off-by: Harini T <harini.t@amd.com>
-Signed-off-by: Michal Simek <michal.simek@amd.com>
----
+I tested this patch on v7.3 with three changes for Sashiko's review [1]:
+the return value of device_get_mac_address() decides whether the
+address is used, the buffer is __aligned(2), and with more than one
+radio SET_IEEE80211_PERM_ADDR() also takes the firmware node address
+instead of ab->mac_addr. With local-mac-address in the wifi@0 node, the
+permanent address came from it and Wi-Fi connected as before.
 
- arch/arm64/boot/dts/xilinx/zynqmp-clk-ccf.dtsi | 13 +++++++++++++
- arch/arm64/boot/dts/xilinx/zynqmp.dtsi         |  1 -
- 2 files changed, 13 insertions(+), 1 deletion(-)
+The cover letter says this patch is only an illustration. Do you plan
+to send it on its own? If so, with those changes (and the comments
+dropped as Paul asked), feel free to add:
 
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-clk-ccf.dtsi b/arch/arm64/boot/dts/xilinx/zynqmp-clk-ccf.dtsi
-index 482f432ba7f3..a6e67473a8d9 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp-clk-ccf.dtsi
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-clk-ccf.dtsi
-@@ -49,6 +49,14 @@ aux_ref_clk: aux-ref-clk {
- 		clock-frequency = <27000000>;
- 		clock-output-names = "aux_ref_clk";
- 	};
-+
-+	rtc_clk: rtc-clk {
-+		bootph-all;
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+		clock-output-names = "rtc_clk";
-+	};
- };
- 
- &zynqmp_firmware {
-@@ -302,3 +310,8 @@ &zynqmp_dpsub {
- 			  <&zynqmp_clk DP_AUDIO_REF>,
- 			  <&zynqmp_clk DP_VIDEO_REF>;  /* rpll, rpll, vpll */
- };
-+
-+&rtc {
-+	clocks = <&rtc_clk>;
-+	clock-names = "rtc";
-+};
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp.dtsi b/arch/arm64/boot/dts/xilinx/zynqmp.dtsi
-index 29058e633fe9..dfd824fc3e88 100644
---- a/arch/arm64/boot/dts/xilinx/zynqmp.dtsi
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp.dtsi
-@@ -1004,7 +1004,6 @@ rtc: rtc@ffa60000 {
- 			interrupts = <GIC_SPI 26 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 27 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "alarm", "sec";
--			calibration = <0x7FFF>;
- 		};
- 
- 		sata: ahci@fd0c0000 {
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+Tested-by: Joonhoe Kim <26rote@gmail.com> # Lenovo Y700 Gen 5 (WCN7860)
 
--- 
-2.43.0
+qcom,ath12k.yaml has additionalProperties: false, so it would need to
+allow nvmem-cells/nvmem-cell-names (as used in 5/5) and
+local-mac-address/mac-address as well.
 
+[1] https://lore.kernel.org/all/sashiko-outbox-171329@kernel.org/
+
+Thanks,
+Joonhoe Kim
