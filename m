@@ -1,105 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.24
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795123502;
-	b=QZTm+bbDgH840E5ckcJFrRDCWmCxETbi8EEMXiehEGMxtqVflEcRT8qXyXezCSiba641
-	 45eYz14hdufYQdijDh3wQd8oIfARJ13qgfsA+w8C/V6xs2gfbg93QJgHx0lblHLr5Wa69
-	 TUBwx/hmE7blkzfCWsZywqK/5R/D7gAGOAc9/ApfK/ynNkqfaFdyNv2IgqQ6aXjg0uGIL
-	 XouZnunFsSC/5dlms7VeYGPcCkMP91JfpTqWjhgYPnihsQ0UdWa496VTRpJNk6C2YO81b
-	 eIf4kcfC2ckY1KeCV+OsSAl+i9L+5BJvKNKhr7bpKBQNzbCJrgKUrit4Mo1PZt3Fx1Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795123502;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=umvP0cqyr1WpPkNvkJoTYA03BcBoVYFy3KutK/DXsfA=;
-	b=saAz9JzYKpS8ZXBNmpt+V690PxPyCOwzvgCFCVTI4k77dQ455vJ3CCYkliCgnu8ctqtf
-	 A/YHjHkHW4kI+8Ky0WYI4v/ZJPs5rJ1Mj4hS9FO4CuFWnuGDNGHsRYP7FeHa3FJdj9o9i
-	 D8qX1c0mtY/VsTzAAfGLv85tLjeBnlNqaHs2OAn0aQHpuiEtM26t8wEWeXLH8rrnx5g4f
-	 Gk8I/tR6BFdqJGMo3eBVmIUwyr3p4KmNlKZ7ofTA2zZwc9iKxMOyw59KSFzxVsz8mgtV6
-	 G0sPLzg5x0XOWNg9O/yO53q8eCtAdlgQiqz3ExQwpml1498mqzIOmcOXJyfCMgue9pg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=pkqKohHM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.24
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013024.outbound.protection.outlook.com [52.101.83.24])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795123839;
+	b=jcPNOq3hJKdDLIV5RXx5Tjzt5Q9P+xv2P/QgUCdB1FV+6iCTrzvqTP9TeqUwvFQO2Hz/
+	 PH7RSyiQY+tRePRT6Lt/C2hzGdlVhYAQmvkzJOZpfE42+GIBBlxTkwyO/QCwiZL73c1b/
+	 txeoCj9L1On0qE2q0FmMBK7BOu7NC+3a97fyuAMFpXavF9zwEcrtxoo/qMgZt5LOZxNRD
+	 3a9V956nTNsZjVsAPmgHBpaHLTrNsu7nC0L5Ty7eqyYssBA1bfF1/IjbcJdLWljwNC+T4
+	 4cpSp3n92vMtuhcZrl8EplTmZ6lBP7iEisuoD/0TQRSunIdJ1lXZrE8VVLWxHlN1Cog==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795123839;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=0oZlDx8Vv+0nCck+Zhk2G9X4wk2IXUKlcAG+gSxafiY=;
+	b=loGR6PTMnlY52KOtPdIH3b3hSAsYhwx5m+DNB6y16kuf/o8avz5atrYdHlKbPxMl5FuA
+	 o6KX77EbTg4lnxPCbaF+35y65SnA2LQhBPghq9yEQfSlhH39kjwYyXE7yhxMrOQWG1BeL
+	 OKeK+suX9Gh4kDQUch7T//kKA+Wx8mzEkSLDIrx21s1U8kESHmgpO79okChvcXotUZpMa
+	 bKC0IXrRgxK73fif/7zEiSJmMH1z72jXIjudizUBQoil95XSgnbC/8iSeybPs5b65jFGJ
+	 h93c6qBDlBQWfs9j258GkSqP4h5bac+SbmptZkNqhA408bR6s/8IT1gNpH+Us3HskVQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GfhE6Xad;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E39606A325;
-	Thu, 19 Nov 2026 21:25:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5E39606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC96606A320;
+	Thu, 19 Nov 2026 21:30:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BC96606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=pkqKohHM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oMY2/bLR5Kdpoq+/aQ7Y3Jd43i+YGT+EfZRDPxMUaCBnddFjKqq6AP/8+acNNvfb5CSlifppViErs3zlN9gY/bnhc1W6INLmGKhzK6MDYUokbc2AtUBYvJE/ulrADo3zy39nzUQy4lRNZtKyOedJkiMdN2m0M5nNcC+qvYhn5s9bDUcbLj9WCEM1U3fbf5FZMyI2ashNfe+1zEY6wg/risUv9qHFkx3N8e9v71a+nm635tgJz9dDMBoYV4lEN1N4SGwtluwQyair5KgZZtxKOCsLojCKAIMxB1foKt/LodspnVn2Dht0dEbG6FY1ABWAyhU1j6gMbsaHFits+21zTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=umvP0cqyr1WpPkNvkJoTYA03BcBoVYFy3KutK/DXsfA=;
- b=QSNYbWFKVVy9zoT+WFtAvU0s4sDVjYYf8QRdrywkqlzKLAxYE7WAR9iKRpJeO8wz2Q74COLD7eGX6fjIcj/aScgrECKU3djC3nL9y8+kl3ymjYEtj0U86KwpmP5apVCkY7hkYGxMo4yaEryHlacfk2yRlC7JCKWX4ZGDP96hosz52Nn0Bu8zSYKuBwcIcCcY3YVg99D25EdQ/MrHv6ljbAoE1Er+0zK3BOQontQr1DyWdOhyBYT96eCoR5b4luDeTG3WSZsRpuad1RWGCicl5IEKG3WjRvV+9dyArNK0q5sF7RA5ZoeDBHfV8rnBlxcUoqPjwkP6e5XWat2lkT09ig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=umvP0cqyr1WpPkNvkJoTYA03BcBoVYFy3KutK/DXsfA=;
- b=pkqKohHMwKbVD6EY3fRdVNOCGXCCjOa7r5rmkW9aM5iOzEhInp8JBGxB8JaDoNKhXZAYdwmrgtdvVOE5oOMs9GhTyC7aydnpAT7iyV17OW6CYaoSC1+I6IcOYJS0SosAGaj3nTr8i31Zpo/TNyB3rKbjPDsLVyq0AmrKycdVDpxpvBTHWOY+ihEeZGWeMy7dOQshqPQ0TrWuAuiL87p9dBGdCflD5qoL1M8um1mpdpwlcOG33J6pQaPoK4PGVavxEeNfW4xJqym5ZnmT3MZDYrosKyUc6QfaaBvseriW5jU2/gD8l8jCEQ3NdzS06IYHuHyaWMR9krcbmUmy7qagLw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AS5PR04MB10057.eurprd04.prod.outlook.com (2603:10a6:20b:67d::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
- 2026 21:24:56 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
- 21:24:56 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Jacky Bai <ping.bai@nxp.com>,
-	"Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GfhE6Xad
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795123838; x=1826659838;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mogHG+qkA4LZoztNkMUoZeinOmAAZ6RrtIKMGQTKNCI=;
+  b=GfhE6XadhsQAWq0NaOAc0qhCC7CwyGPBB9wBWbNxWRzXyH1C7A3XsFoX
+   MeupyXceQutM45VPYEGSi3pLRxyI5v9v6Pgt15Biyokezi5i9taxnxSN7
+   IaYMBreRlbPHd+rf8yd832lLWNzliio+yKkrXldPncL45ul7VyaI2EFwK
+   EgFgE1OxvC0H8j+Yxe+sm71aW3EQW5y2xIOzWrr8/KcvDj/R4/jWYOsuh
+   X+yEnfOc0o6EpjUb4bcT3RrdicnbzQwgKQN3bFci6vsPda0lK+TVVszyo
+   ILyw2ypwaH9p4C6C7GrgFIKSK88DnQqTZLAa+x7gUy++REc2Di0QX0Z35
+   Q==;
+X-CSE-ConnectionGUID: 7Rf8tOAFSEerTi+ZAbpJmA==
+X-CSE-MsgGUID: t1e4Zl4SQb6IZX7oABRhFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3880870"
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="3880870"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 13:30:37 -0800
+X-CSE-ConnectionGUID: ayvu9HVvTmaAM6/6QPPqcQ==
+X-CSE-MsgGUID: 51LNhAD2TfeB6SnxF/DqhA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="10434913"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 19 Nov 2026 13:30:15 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xU9ht-00000001GbD-0pE8;
+	Thu, 19 Nov 2026 21:30:13 +0000
+Date: Fri, 20 Nov 2026 05:29:29 +0800
+From: kernel test robot <lkp@intel.com>
+To: Prakriti Sharma <Prakriti.Sharma@synopsys.com>,
+	Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Philipp Zabel <p.zabel@pengutronix.de>,
 	linux-kernel@vger.kernel.org,
-	sherry.sun@nxp.com,
-	Joseph Linares <joseph.linares@nxp.com>
-Subject: Re: [PATCH] arm64: dts: imx94: Correct the lpuart9 clock
-Date: Thu, 19 Nov 2026 16:24:49 -0500
-Message-ID: <179512348524.1872336.11498379447174127223.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111-94-lpuart9-v1-1-2deb072bb1b8@nxp.com>
-References: <20261111-94-lpuart9-v1-1-2deb072bb1b8@nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7P223CA0022.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:510:338::14) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	Siddhant Kumar <Siddhant.Kumar@synopsys.com>,
+	Prakriti Sharma <Prakriti.Sharma@synopsys.com>
+Subject: Re: [PATCH 6/6] spi: dw-g2: Add XIP support
+Message-ID: <202611200501.mzDpyxlW-lkp@intel.com>
+References: <20261119100513.433044-7-prakriti@synopsys.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,83 +88,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS5PR04MB10057:EE_
-X-MS-Office365-Filtering-Correlation-Id: 81c6316c-983d-432f-9dc3-08df46838f26
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|1800799024|19092799006|23010399003|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	AEPwY4wQbGq4/LfiNKurN0PrbXv3iylau5oftu8eXmZqK8bRx+GRGEUnfSet5E6mZSBSeMzxGZBOhsGMZl+vaXn742IhomcTWaYt+UmSsg9eX1V/GpDUqTxjgSubpWjbCYfDx/N8wuJ/iIMjHN09xpd/VQ2NZQ10YZY4Y7UFz8REY20nmcxKZ3UM5PeB6Jzx+XhWXOdn/irPcF4Uh47cI9ypkNrVROF6t/otCS8laAOUyjiq9aXQ0QYBKygccm5ssjQWJA1YqWWiXR8bwCnaKncsukzx0p5JZWhzD7LLOlfaPynPjxMTHboheKFKV36Y0NhRHTuI76j46oFhI5MRIWIADak/SwEDXgh3UVZEYoTQlMAhAaVy5mQSRNR23nDRZIW0TVmOuCamzdcEfl25bwTkQujL0xDreCV1jAp7j4U5x0GTbsmJuRc4HUf7flKb+bPTZpXR/2UhEWHcWbqhqm+uJz1hSV6ezE5k/o+1uTyr2mH3h7CXsWaNWeXSFTdQ/krU9Hc5/fKWbEUJFvfR528IOcsa3ktI1+GGIqvsHWZ3C/y0x2jKiiGuZQBSQEQxgbnLqAO5Ba5jyUlmcksluFzMuLBh5BO0b0QI/szvkcWdOkoDhhBN2EDkzs+SvUJjGjV3fFR+uzgKCOc+dfzLoDJCZ7jmVcsM6ecZ6p8Ld4c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(19092799006)(23010399003)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cTAxblAyVStGOWVOR3pKaHFDd1lxZE92c0Y1UFN3MlQzMUl3cnlXbDF4cWpC?=
- =?utf-8?B?bzQ1YmIyTStteHhKTUJPZmRTQ2NZRndhd1UzQk1VR1NnakhqZXlOeHcwSkhL?=
- =?utf-8?B?eVNOK0FNejNzOG9PUU9PRmRNcWNGbk10MEFTMWVxaGhPRjk2YWtOY0JodWFr?=
- =?utf-8?B?UnRtWU42bzhYQTN4VWIvdjRZQVdTTlNncUI1UW54ZnhYcFkzdVJIdlhiK00z?=
- =?utf-8?B?Q0pIL3o1R050dE9LMlNFRzczWWg5ZzFPc05MSlYzSXRmcm1qSklGT3RONnYr?=
- =?utf-8?B?QmFqU1FlUkRxb0d3SlFXWTRHZ0Q0THlONXgvbkZ6T0lIT2pWRG96OWZjV09W?=
- =?utf-8?B?UHFHYkVaUjM5WGZnT0k3MzlOdWEwcUlxN3pjV2pyNWRKVmRhV0xSQ2lVb3lt?=
- =?utf-8?B?TnowYXhUOE5Qdll4M2tteDg5ZDExVUlOdG04TkNFTldROFk4cXd2NjI2Zy9H?=
- =?utf-8?B?M1lqVlVsVnJScElLUHpRL2NnMDZraktGaDdueU9QcTVyMzdDNFJ6bjcvRG5O?=
- =?utf-8?B?WlNJS01tM1VoRXdvL1hxTHpkSnhNU3d5c1JZdXkxTnpseCtINHF1QThZcFMy?=
- =?utf-8?B?NkkxZzFLcUoyeTlBb0VaT2FlcUIzM2RIY0V2ZzhhRmwwRk11UlRHUW90VzdZ?=
- =?utf-8?B?L09uS3hoWFdIcVdNVXhqeDE1czNuMUhYd0FUbHJNM2pwS1pFNVNoNmgwQXYr?=
- =?utf-8?B?dkx0alpzcDcvTWJVdlVvR3F6QlJSUVg1VmY5VjVIbXdCQlh6bmwyZUczbXVs?=
- =?utf-8?B?aUk4OG8xODNVR0FZN085ZVlJZFNKQ29JRE5FMkkrSEkvNjVUdzduQWs4bE40?=
- =?utf-8?B?cnY5bUxMUDhKR1VOV0xKVk11U08wV3haNEdOQzluM1R4V0dXSkl1WVhvcmN3?=
- =?utf-8?B?a0cwWXhTTnp2UkZNMFdYblRFSWJWSVdTbzBRdW5sdTJkOCt5WWtiaE16dEpi?=
- =?utf-8?B?V1ZmaTlOL2UrQ1czeklDM3phc0RvOUhKNFFaV0QrSzJjQ1RZUlV3Um1IWjY2?=
- =?utf-8?B?clhzdFBMUlpRL3VNbTZtUE9BMnhRQWJ0U2hjdVA5aWZqREliQjYwKzlHNXp2?=
- =?utf-8?B?UDVPRnc5TFZSQjlzdXNXaE5rbmY3US80QjZsODhRZVBGV1Y2ZmkrTmNvNE9P?=
- =?utf-8?B?QU8vNXBzdlFKb0hreHhVUFpPMGE2TC9rVmp6MTRqdC9kbXhCUlhpOHAwREdQ?=
- =?utf-8?B?NXdpbjFwOTRJRk4yK2JrYjlSVzBadmo4TGpENjdBSU5oaGdzejNtaDdtdDEz?=
- =?utf-8?B?dXFmM0RzTXE4WVJveEViVk15OFdJdzNNQzZla0JYL2M2ZFZiLzNrSHFjNm8z?=
- =?utf-8?B?RUhyZTlUd0hCUElhdFZ0amNEVkNOQlJFbUttY3lqdWJHNTdQNGFiR1lnTHZS?=
- =?utf-8?B?Z1RoVkE5M2s1ZDlxUDR4TkZFU3lnN2VlS2ZGUkd4cC9xZkxHcUZETHdOUzV6?=
- =?utf-8?B?YXBsVlpDWE0rdXd1S0FCZ3AvdzlPdzFBVTJnRzY0L3d2T29kYmhjKzY0WFNm?=
- =?utf-8?B?OHhrUGpMS2ltd2FsSFJjcjQxemx6UXZ4YVpXVmdPa241cWM1ZGZ3cHNDS1Bz?=
- =?utf-8?B?bmk2QkE1YVljTnZaMFVCcFhnUEEzdWNLaDVrWWxPYmhPRXZ6ZXI4UUdmQWt4?=
- =?utf-8?B?SldoMVJMVjNRRHNXUk9MSi9KR3ZyNHowNDZKQzZSb2wyTmc5bzZaQ1dJY0Ex?=
- =?utf-8?B?VWgvdXNNUGlaR0FKMC91aSt2UnQ4OGF4ZnV0TFRDSzZvSWVLMDErS0pLWXV6?=
- =?utf-8?B?c2xkdFNoNnI3MVZJb2ZFdWlieHZxOUZCM3Rrc1BDaDVybm5jcUFlRUQ0WUVV?=
- =?utf-8?B?UVZLbEg4Rk93L252Q2gxT0lHeEpXRFZKWlgwTmVhNG0xM0R2TTdWclNvclIw?=
- =?utf-8?B?STdjWGFDUUU2SGVXLy9VbVYxOTZlZy9jMWlqVys4enEvQndBUUNoZU9LYTNt?=
- =?utf-8?B?ZTI1cFNqMVpuZnpGZ05sWGpRK0FDNCtwM3FBWUpUdlc1M0VsN2JUU1FvRENT?=
- =?utf-8?B?eGlYN0haMkVaZ2Q2SFp2aHJ0S3NSYzFPMy9sOHpxSHg2RTFJU2VsZWxRREtP?=
- =?utf-8?B?cW12ZjE2bURWclQ2L0ppODNiWEE5VXFUY0Rpc0ZuRVZnSUhGU3BtS3hQYmYv?=
- =?utf-8?B?eEZ1enJOQ0hkMTBjMGkzQzRodCtLRE5BVHFlZzlGV1c1OVJGWHZFaVpGWTJt?=
- =?utf-8?B?UWFIRzdYWUJQNmtnTCtPaXF6d2pGdUdrb09PZmxBaDdZaFFkbEJ0UWhmY29W?=
- =?utf-8?B?SzNONFM1R2loUzd0cThFTHVjNjBUZmFad1ZzZ1R5UW5FMGppUktPMWxJTG43?=
- =?utf-8?B?MnFDRjBlQjdaak9DTWh4WUdINXBTTmdvenVwemZaYkZHYndvcHlNbnhrM1ND?=
- =?utf-8?Q?ssim2ShBBQNYZmTu/JpipjRcrtQERW9JoUQKW?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81c6316c-983d-432f-9dc3-08df46838f26
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 21:24:56.7129
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MJLDUWTghsXecMa9dm8KoAvc4yAfMSms8raBF2EELf14+7yVN7i8e0SovuEYoq07i3jlnp1qp+qG5Tyzk46s/c6vrI5NjGndTNPcu2aaWH2TP7dP2+tQdPmSbU6e7jEA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB10057
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261119100513.433044-7-prakriti@synopsys.com>
 
-From: Frank Li <Frank.Li@nxp.com>
+Hi Prakriti,
 
+kernel test robot noticed the following build warnings:
 
-On Wed, 11 Nov 2026 15:00:17 +0800, Sherry Sun (OSS) wrote:
-> The lpuart9 clock of i.MX94 was incorrectly set to the lpuart10 clock.
-> Corrected to IMX94_CLK_LPUART9.
+[auto build test WARNING on broonie-spi/for-next]
+[also build test WARNING on robh/for-next linus/master v7.4-rc3 next-20261116]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Applied, thanks!
+url:    https://github.com/intel-lab-lkp/linux/commits/Prakriti-Sharma/dt-bindings-spi-Add-Synopsys-DWC-SSI-v2-02a-binding/20261119-153508
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+patch link:    https://lore.kernel.org/r/20261119100513.433044-7-prakriti%40synopsys.com
+patch subject: [PATCH 6/6] spi: dw-g2: Add XIP support
+config: sh-randconfig-1000-20261120 (https://download.01.org/0day-ci/archive/20261120/202611200501.mzDpyxlW-lkp@intel.com/config)
+compiler: sh4-linux-gcc (GCC) 14.4.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261120/202611200501.mzDpyxlW-lkp@intel.com/reproduce)
 
-[1/1] arm64: dts: imx94: Correct the lpuart9 clock
-      commit: 60acd5333688e707f7a322dd14003f2251c91a77
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611200501.mzDpyxlW-lkp@intel.com/
 
-Best regards,
+All warnings (new ones prefixed by >>):
+
+>> Warning: drivers/spi/spi-dw-g2-core.c:588 Incorrect use of kernel-doc format:  * dw_spi_g2_cmd_only_setup - Configure controller for command-only operation
+>> Warning: drivers/spi/spi-dw-g2-core.c:596 function parameter 'dws' not described in 'dw_spi_g2_cmd_only_setup'
+>> Warning: drivers/spi/spi-dw-g2-core.c:596 function parameter 'op' not described in 'dw_spi_g2_cmd_only_setup'
+>> Warning: drivers/spi/spi-dw-g2-core.c:596 expecting prototype for Command(). Prototype was for dw_spi_g2_cmd_only_setup() instead
+>> Warning: drivers/spi/spi-dw-g2-core.c:895 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Indirect read operations
+   Warning: drivers/spi/spi-dw-g2-core.c:1082 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Indirect write operations (Page Program)
+
 -- 
-Frank Li <Frank.Li@nxp.com>
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
