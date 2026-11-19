@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102724;
-	b=wy8eFrLAoekTmgd2hNb8ToBLYOkF4h8we5LlOEyprSoxdL7GZLdZmhddIeXm5I5ONiwM
-	 JSBH/Lz3JIMomC8plCSRvZNEnPftnpsjMCL5tl2opPhplnVWBqHaLGJXo/TKuHJTdAnM6
-	 Nhq4Xl0104y3kQc497CQ8Mv8csvTSruJsuy7QNRXyQAQWehFfKa0tX9i1yOTe/sosSPRx
-	 4gblI+7i4O8xEAOK4kbisIH7POtzrVG59RjMu8aHgav7SX8FBB7w2i+LkCDiEzlOd8HYs
-	 r57ZFTP9HY7JIdZa/FZNPFrdWfN3UpY0DUKkfLQze0jfkCdjd3pOiU1x/7PhfiIeHZw==
+	t=1795102725;
+	b=Er/wF9JgF+h5C2MhkZ00YK2OxdHsKhdQTwgpMLET/DHDItuErSgvVCg6/Jq5CR3y8egK
+	 1RpqmkvPlLiTb6k//SJ1ArwTjlTcSN+9Hf4KfWidWzWNpqHzocdLpsUbn3Fg+MTAlfxWV
+	 sBi0LGt2B8/969ME/r0Cs0w0ym/5AYSPBkZWy2buRJxOF5rX13gtxFTqseEN51UX8HQwN
+	 76WrdR/YKVkIJwRRaYQQUQgIt/pOWv/iVEDEsTQNGLqWcltGTt+iaIUtffKU6qdvjE/IB
+	 eQNRca1o2lBq8ysRq1M68dzIMs92CJMomVSe0KEds693/Qzvl+J12d5CVZ9xTqijF5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102724;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102725;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=DuSGSuNYHChP7yZXuxkMpEIFyIL38ed1I/EdpuALIvU=;
-	b=vJ3jlDy8e4vlR8SBnmk2gKn9LFO7K9n1aRVzLDzL+gyA/tvMa7adNGHnU1fT7R74QvNu
-	 03Nfr+bkvM8+CY3fygq8QAR6CqaE5wiLxKaTZo1tPragcZwz2o3xyxJxQ5Qoh84yMy9jy
-	 aSZv2vhWGy2dxLAcduv6p6wg/WeqGNKGX3tfdC3LCopCN0X+u6fXrM7FxK4Qru5OQc4by
-	 Ezug1SqWm++79HVn+OXRKDvbXBrn2k+Qkgyh/2C0rXEcbxQWGNmtiiW4xXPmvwY/yRcwg
-	 2ebNs3GcksJl3ZGUz/rt6uH3A1OU9sCZ3MRj+mpAqGrt9yvEizw2mlNr8oVIakfTskQ==
+	bh=OlKDKmeR9d98EjY1ecIZTbuzGIuRbcE3mZD2T0S75fU=;
+	b=TJpQxhznViRl07NizwIQfr4Y6ibVxA0UWh6wlEAbJLqJWUO6FBNjbtpvF37ZUISKbJ4v
+	 qB6i1nMJhdOdoyWfI53VB8vuo/jTxcJvauRtfP9d0jRyay7H3DHQ9wBH/dldX219kaG7t
+	 ES9k06e3lGPOuI/RDjzY7uDSGGUczhGQ8MSXhR9/3DqAPM9MGTQq1ch8Hre1MWoPDYC9F
+	 y4HtXk019trU5O94q9g6fh6+qoZdSvid7+PoXy+/CZ//y3U3NSAvj6hsWPJhXqttO9YEZ
+	 XP/gBG5OMrnjhD4F1R74A/xY5cr1krbTxyjTCG8yujGIY5YdxjS/rFg3f1e+mZqC4KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hjMF53jc;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mYKuvnjm;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9073B60A263D;
-	Thu, 19 Nov 2026 15:38:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9073B60A263D
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 378ED60A3823;
+	Thu, 19 Nov 2026 15:38:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 378ED60A3823
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hjMF53jc
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mYKuvnjm
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 094811C0A;
-	Thu, 19 Nov 2026 07:38:39 -0800 (PST)
-Received: from e140322.cambridge.arm.com (e140322.arm.com [10.2.201.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5B21B3F882;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CD8BD1C14;
 	Thu, 19 Nov 2026 07:38:40 -0800 (PST)
+Received: from e140322.cambridge.arm.com (e140322.arm.com [10.2.201.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 429A73F882;
+	Thu, 19 Nov 2026 07:38:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795102722; bh=4WX5JL4Keo2Zxb5/WOxRUXFStJ2vpfzY20F3jDaUl1U=;
+	t=1795102723; bh=FZn7uEBLWQ9nWEbKhN05i8KMdVZGq9XMtSezx2Ll29I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hjMF53jchAzClv/MsTZCQaOvb43lUraf46jsD/zmVdJqbp893KIx2F8OI5o/L7/Wf
-	 BnmZBwwFfyWwI3ychtQaplbEzsGNT2DqmUfmDDMNFUPvUcfzhjLn5/ct/CwYJAsNh+
-	 P0Vn6s9lHkqTOvzGfrFqS1pN/2wG2TfrR5bJFTJI=
+	b=mYKuvnjmKqhfvcu6qgfQAlVitk603JBtMViyl8YedEHslZ/j44P7Z3xffiYb/v+ow
+	 eDedxDww9a79VbASVA+wFBRuyuQIPjKSo4AFena27a/HFjUqIXudXnBexb86OZE4lJ
+	 +C0ZqeJb6t/HSLgCnVv5YmgIdK66yfexCbWKl8ns=
 From: Charvi Mehta <charvi.mehta@arm.com>
 To: linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
@@ -55,9 +55,9 @@ Cc: Charvi Mehta <charvi.mehta@arm.com>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>,
 	Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
 	Shobhit Pandey <shobhit.pandey@arm.com>
-Subject: [RFC PATCH 08/28] media: mali-vpu: register V76 decoder controls and introduce UAPI controls
-Date: Thu, 19 Nov 2026 15:37:38 +0000
-Message-ID: <20261119153758.1426673-9-charvi.mehta@arm.com>
+Subject: [RFC PATCH 09/28] media: mali-vpu: add MMU software page table manager
+Date: Thu, 19 Nov 2026 15:37:39 +0000
+Message-ID: <20261119153758.1426673-10-charvi.mehta@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261119153758.1426673-1-charvi.mehta@arm.com>
 References: <20261119153758.1426673-1-charvi.mehta@arm.com>
@@ -72,920 +72,1042 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Register a V4L2 control handler for each decoder session and attach it to
-the session file handle. Describe the controls supported by V76 in the
-variant data and maintain their values in per-session state.
+From: Rath Sankaralingam <rath.sankaralingam@arm.com>
 
-Add Mali VPU userspace controls for NALU layout, stream escaping,
-intermediate buffer size, stream-header handling, frame reordering and
-firmware debug output. Also expose the standard read-only
-V4L2_CID_MIN_BUFFERS_FOR_CAPTURE control.
+Add Mali VPU internal MMU page table manager for managing
+firmware-visible virtual address space.  The MMU code builds and
+maintains the VPU two-level page tables, allocating backing pages and maps
+scatter-gather and dma-buf backed memory.  It also exposes helpers for
+mapping, unmapping, resizing, synchronizing and writing into mapped
+regions.
 
-Stage control values set before the firmware is ready and reject changes to
-non-dynamic controls while the OUTPUT queue is streaming. Allow userspace
-to subscribe to control events.
+The page table entries describe the addresses consumed by the VPU
+peripheral MMU, allowing firmware communication queues and video buffers
+to be mapped into the VPU virtual address layout with the required bus
+attributes and access permissions.
 
-Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
+This also configures the V76 DMA mask for its 40-bit addressing
+capability and sets the maximum DMA segment size used by DMA-backed
+buffers.
+
+Signed-off-by: Rath Sankaralingam <rath.sankaralingam@arm.com>
 ---
  drivers/media/platform/arm/mali-vpu/Makefile  |   3 +-
- .../platform/arm/mali-vpu/mali-vpu-controls.c | 339 ++++++++++++++++++
- .../platform/arm/mali-vpu/mali-vpu-controls.h |  71 ++++
- .../platform/arm/mali-vpu/mali-vpu-dec.c      |  44 +++
- .../platform/arm/mali-vpu/mali-vpu-dec.h      |   6 +
- .../platform/arm/mali-vpu/mali-vpu-session.c  |  15 +
- .../platform/arm/mali-vpu/mali-vpu-session.h  |  14 +
- .../arm/mali-vpu/mali-vpu-variant-v76.c       |  99 +++++
- .../platform/arm/mali-vpu/mali-vpu-variant.h  |  13 +
- .../platform/arm/mali-vpu/mali-vpu-vidioc.c   |  19 +
- .../uapi/linux/media/arm/mali-vpu-config.h    |  47 +++
- include/uapi/linux/v4l2-controls.h            |   6 +
- 12 files changed, 675 insertions(+), 1 deletion(-)
- create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-controls.c
- create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-controls.h
- create mode 100644 include/uapi/linux/media/arm/mali-vpu-config.h
+ .../platform/arm/mali-vpu/mali-vpu-device.h   |   2 +
+ .../platform/arm/mali-vpu/mali-vpu-mmu.c      | 693 ++++++++++++++++++
+ .../platform/arm/mali-vpu/mali-vpu-mmu.h      | 152 ++++
+ .../platform/arm/mali-vpu/mali-vpu-probe.c    |   8 +
+ .../platform/arm/mali-vpu/mali-vpu-session.c  |  10 +
+ .../platform/arm/mali-vpu/mali-vpu-session.h  |   3 +
+ .../arm/mali-vpu/mali-vpu-variant-v76.c       |   1 +
+ .../platform/arm/mali-vpu/mali-vpu-variant.h  |   2 +
+ 9 files changed, 873 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.c
+ create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.h
 
 diff --git a/drivers/media/platform/arm/mali-vpu/Makefile b/drivers/media/platform/arm/mali-vpu/Makefile
-index 1dc62621d9dc0..95bad821eb466 100644
+index 95bad821eb466..0716a2b0c8712 100644
 --- a/drivers/media/platform/arm/mali-vpu/Makefile
 +++ b/drivers/media/platform/arm/mali-vpu/Makefile
-@@ -7,6 +7,7 @@ mali-vpu-objs := mali-vpu-probe.o \
- 		mali-vpu-dec.o \
+@@ -8,6 +8,7 @@ mali-vpu-objs := mali-vpu-probe.o \
  		mali-vpu-buffer.o \
  		mali-vpu-vb2.o \
--		mali-vpu-formats.o
-+		mali-vpu-formats.o \
-+		mali-vpu-controls.o
+ 		mali-vpu-formats.o \
+-		mali-vpu-controls.o
++		mali-vpu-controls.o \
++		mali-vpu-mmu.o
  
  obj-$(CONFIG_VIDEO_MALI_VPU) += mali-vpu.o
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-controls.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-controls.c
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
+index 26b2bf9e1588e..20361df05bdcd 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
+@@ -32,6 +32,7 @@ enum mali_vpu_session_role {
+  * @clk_count: Number of clocks in @clk_list.
+  * @rst_list: List of reset controls.
+  * @rst_count: Number of reset controls in @rst_list.
++ * @dma_mask: DMA mask for the device, indicating supported address width.
+  * @irq: IRQ number for VPU.
+  * @variant: Structure describing variant-specific features and capabilities.
+  * @v4l2_dev: V4L2 device structure for mali vpu.
+@@ -45,6 +46,7 @@ struct mali_vpu_dev {
+ 	unsigned int			clk_count;
+ 	struct reset_control_bulk_data	*rst_list;
+ 	unsigned int			rst_count;
++	u64				dma_mask;
+ 	int				irq;
+ 
+ 	const struct mali_vpu_variant	*variant;
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.c
 new file mode 100644
-index 0000000000000..d4921eddf0fcf
+index 0000000000000..00cf5251eff5e
 --- /dev/null
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-controls.c
-@@ -0,0 +1,339 @@
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.c
+@@ -0,0 +1,693 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (C) 2026 ARM Limited.
 + */
 +
-+#include <linux/errno.h>
-+#include <linux/limits.h>
++#include <linux/build_bug.h>
++#include <linux/dma-mapping.h>
++#include <linux/gfp.h>
 +#include <linux/slab.h>
-+#include <media/v4l2-mem2mem.h>
 +
-+#include <linux/media/arm/mali-vpu-config.h>
++#include "mali-vpu-mmu.h"
 +
-+#include "mali-vpu-controls.h"
-+#include "mali-vpu-session.h"
++/* Number of bits for the VPU physical (DMA) address space. */
++#define MALI_VPU_PA_BITS		40
++#define MALI_VPU_PA_MASK		GENMASK_ULL(MALI_VPU_PA_BITS - 1, 0)
 +
-+static int mali_vpu_ctrl_slot_from_cid(const struct mali_vpu_session *sess,
-+				       u32 cid, u32 *slot)
++/* Number of bits for the virtual address space. */
++#define MALI_VPU_VA_BITS		32
++#define MALI_VPU_VA_MASK		GENMASK(MALI_VPU_VA_BITS - 1, 0)
++
++/* Number of bits from the VA used to index a PTE in a page. */
++#define MALI_VPU_INDEX_SHIFT		10
++#define MALI_VPU_INDEX_SIZE		BIT(MALI_VPU_INDEX_SHIFT)
++#define MALI_VPU_INDEX_MASK		GENMASK(MALI_VPU_INDEX_SHIFT - 1, 0)
++
++/* Access permission defines. */
++#define MALI_VPU_PTE_AP_SHIFT		0
++#define MALI_VPU_PTE_AP_BITS		2
++#define MALI_VPU_PTE_AP_MASK		((1 << MALI_VPU_PTE_AP_BITS) - 1)
++
++/* PTE shift defines. */
++#define MALI_VPU_PTE_PHYSADDR_SHIFT	2
++#define MALI_VPU_PTE_ATTR_SHIFT		30
++
++/* Number of levels for Page Table Walk. */
++#define MALI_VPU_PTW_LEVELS		2
++
++/*
++ * A Linux physical page can be equal in size or larger than the MVE page size.
++ * This define calculates how many MVE pages fit in one Linux page.
++ */
++#define MALI_VPU_PAGES_PER_LINUX_PAGE	(PAGE_SIZE / MALI_VPU_PAGE_SIZE)
++
++/*
++ * If the Linux PAGE_SIZE were ever smaller than MALI_VPU_PAGE_SIZE, the define
++ * above would evaluate to 0 and break the page accounting. This static_assert enforces
++ * this invariant at build time.
++ */
++static_assert(MALI_VPU_PAGES_PER_LINUX_PAGE > 0,
++	      "PAGE_SIZE must be >= MALI_VPU_PAGE_SIZE");
++
++/*
++ * Return the PTE index for a given level (L1=0, L2=1).
++ *                   22                  12                       0
++ * +-------------------+-------------------+-----------------------+
++ * |      Level 1      |      Level 2      |      Page offset      |
++ * +-------------------+-------------------+-----------------------+
++ */
++static unsigned int mali_vpu_get_index(const mali_vpu_mmu_va va, const unsigned int level)
 +{
-+	const struct mali_vpu_ctrl_state *ctrl_state = sess->ctrls_state;
-+	u32 i;
-+
-+	for (i = 0; i < sess->num_ctrls_caps; i++) {
-+		if (ctrl_state[i].cid == cid) {
-+			*slot = i;
-+			return 0;
-+		}
-+	}
-+
-+	return -EINVAL;
++	return (va >> (MALI_VPU_PAGE_SHIFT + (MALI_VPU_PTW_LEVELS - level - 1) *
++			MALI_VPU_INDEX_SHIFT)) & MALI_VPU_INDEX_MASK;
 +}
 +
-+static int mali_vpu_get_volatile_ctrl(struct v4l2_ctrl *ctrl)
++static mali_vpu_mmu_pte mali_vpu_mmu_set_pte(enum mali_vpu_mmu_attr attr,
++					     dma_addr_t dma,
++					     enum mali_vpu_mmu_access access)
 +{
-+	struct mali_vpu_session *sess = container_of(ctrl->handler,
-+						     struct mali_vpu_session,
-+						     ctrl_handler);
++	return (attr << MALI_VPU_PTE_ATTR_SHIFT) |
++		((dma >> MALI_VPU_PAGE_SHIFT) << MALI_VPU_PTE_PHYSADDR_SHIFT) |
++		(access << MALI_VPU_PTE_AP_SHIFT);
++}
 +
-+	switch (ctrl->id) {
-+	case V4L2_CID_MIN_BUFFERS_FOR_CAPTURE:
-+		if (sess->role != MALI_VPU_DECODER)
-+			return -EINVAL;
-+		ctrl->val = sess->min_buffers_required;
-+		break;
-+	default:
-+		return -EINVAL;
++static mali_vpu_mmu_pte *mali_vpu_page_table_walk(struct mali_vpu_mmu *mmu, mali_vpu_mmu_va va,
++						  bool alloc)
++{
++	struct mali_vpu_mmu_pt_page *l2;
++	mali_vpu_mmu_pte *pte = mmu->root.cpu;
++	unsigned int index;
++
++	/* Level 1. */
++	index = mali_vpu_get_index(va, 0);
++	l2 = &mmu->l2_tables[index];
++
++	/* Map in L2 page if it is missing. */
++	if (!l2->linux_page) {
++		if (!alloc) {
++			dev_err(mmu->dev, "missing L2 page in PTW. va=0x%x", va);
++			return ERR_PTR(-EFAULT);
++		}
++
++		l2->dma = mali_vpu_mmu_alloc_page(mmu->dev, &l2->linux_page, DMA_TO_DEVICE);
++		if (!l2->linux_page) {
++			dev_err(mmu->dev, "failed to allocate L2 page. va=0x%x", va);
++			return ERR_PTR(-ENOMEM);
++		}
++
++		l2->cpu = page_address(l2->linux_page);
++
++		pte[index] = mali_vpu_mmu_set_pte(MALI_VPU_ATTR_PRIVATE, l2->dma,
++						  MALI_VPU_ACCESS_READ_ONLY);
++		dma_sync_single_for_device(mmu->dev, mmu->root.dma + index * sizeof(*pte),
++					   sizeof(*pte), DMA_TO_DEVICE);
 +	}
++
++	/* Level 2. */
++	index = mali_vpu_get_index(va, 1);
++
++	/* The caller must sync the entry for the device after modifying it. */
++	return &l2->cpu[index];
++}
++
++static int mali_vpu_map_page(struct mali_vpu_mmu *mmu,
++			     mali_vpu_mmu_va va,
++			     dma_addr_t dma,
++			     enum mali_vpu_mmu_attr attr,
++			     enum mali_vpu_mmu_access access)
++{
++	struct mali_vpu_mmu_pt_page *l2;
++	mali_vpu_mmu_pte *pte;
++
++	/* Check that both VA and DMA address are page aligned. */
++	if ((va | dma) & MALI_VPU_PAGE_MASK) {
++		dev_err(mmu->dev, "VA and DMA address must be page aligned. va=0x%x, dma=%pad",
++			va, &dma);
++		return -EFAULT;
++	}
++
++	/* Check that VA is within valid address range. */
++	if (va & ~MALI_VPU_VA_MASK) {
++		dev_err(mmu->dev, "VA out of valid range. va=0x%x", va);
++		return -EFAULT;
++	}
++
++	/* Check that the DMA address is within valid address range. */
++	if (dma & ~MALI_VPU_PA_MASK) {
++		dev_err(mmu->dev, "DMA address out of valid range. dma=%pad", &dma);
++		return -EFAULT;
++	}
++
++	pte = mali_vpu_page_table_walk(mmu, va, true);
++	if (IS_ERR(pte))
++		return PTR_ERR(pte);
++
++	/* Return error if the entry is already mapped or reserved. */
++	if (*pte)
++		return -EAGAIN;
++
++	/* Map in DMA address and flush data. */
++	*pte = mali_vpu_mmu_set_pte(attr, dma, access);
++	l2 = &mmu->l2_tables[mali_vpu_get_index(va, 0)];
++	dma_sync_single_for_device(mmu->dev,
++				   l2->dma + mali_vpu_get_index(va, 1) * sizeof(*pte),
++				   sizeof(*pte), DMA_TO_DEVICE);
 +
 +	return 0;
 +}
 +
-+static int mali_vpu_apply_or_stage_ctrl(struct mali_vpu_session *sess,
-+					const struct mali_vpu_ctrl_desc *desc,
-+					struct mali_vpu_ctrl_state *state,
-+					s64 value)
++static void mali_vpu_unmap_page(struct mali_vpu_mmu *mmu, mali_vpu_mmu_va va)
 +{
-+	bool staged;
++	struct mali_vpu_mmu_pt_page *l2;
++	mali_vpu_mmu_pte *pte;
++
++	pte = mali_vpu_page_table_walk(mmu, va, false);
++	if (IS_ERR(pte))
++		return;
++
++	/* Unmap virtual address and flush data. */
++	*pte = 0;
++	l2 = &mmu->l2_tables[mali_vpu_get_index(va, 0)];
++	dma_sync_single_for_device(mmu->dev,
++				   l2->dma + mali_vpu_get_index(va, 1) * sizeof(*pte),
++				   sizeof(*pte), DMA_TO_DEVICE);
++}
++
++static int mali_vpu_remap_page(struct mali_vpu_mmu *mmu,
++			       mali_vpu_mmu_va va,
++			       dma_addr_t dma,
++			       enum mali_vpu_mmu_attr attr,
++			       enum mali_vpu_mmu_access access)
++{
++	mali_vpu_unmap_page(mmu, va);
++	return mali_vpu_map_page(mmu, va, dma, attr, access);
++}
++
++static int mali_vpu_remap_pages(struct mali_vpu_mmu_pages *pages, size_t oldcount,
++				size_t newcount)
++{
 +	int ret;
 +
-+	staged = !sess->is_fw_ready;
++	if (!pages->mmu)
++		return 0;
 +
-+	if (!staged) {
-+		ret = desc->set(sess, state->cid, value);
++	/* Remap pages to no access if new count is smaller than old count. */
++	while (newcount < oldcount) {
++		oldcount--;
++
++		ret = mali_vpu_remap_page(pages->mmu,
++					  pages->va + oldcount * MALI_VPU_PAGE_SIZE,
++					  MALI_VPU_PAGE_SIZE, MALI_VPU_ATTR_PRIVATE,
++					  MALI_VPU_ACCESS_NO);
 +		if (ret)
 +			return ret;
 +	}
 +
-+	state->value = value;
-+	state->client_set = true;
-+	state->is_staged = staged;
++	/* Map up pages if new count is larger than old count. */
++	while (newcount > oldcount) {
++		ret = mali_vpu_remap_page(pages->mmu,
++					  pages->va + oldcount * MALI_VPU_PAGE_SIZE,
++					  pages->pages[oldcount].dma, pages->attr,
++					  pages->access);
++		if (ret)
++			return ret;
++
++		oldcount++;
++	}
 +
 +	return 0;
 +}
 +
-+static int mali_vpu_set_ctrl(struct v4l2_ctrl *ctrl)
++static int mali_vpu_mapped_count(const mali_vpu_mmu_pte *l2)
 +{
-+	struct mali_vpu_session *sess = container_of(ctrl->handler,
-+						     struct mali_vpu_session,
-+						     ctrl_handler);
-+	const struct mali_vpu_ctrl_desc *desc;
-+	struct mali_vpu_ctrl_state *state;
-+	struct vb2_queue *src_vq;
-+	u32 slot;
++	int count = 0;
++	unsigned int j;
++
++	for (j = 0; j < MALI_VPU_INDEX_SIZE; j++) {
++		/* Do not count pages with AP as MALI_VPU_ACCESS_NO */
++		if (l2[j] & MALI_VPU_PTE_AP_MASK)
++			count++;
++	}
++
++	return count;
++}
++
++static size_t mali_vpu_get_sg_table_npages(struct sg_table *sgt)
++{
++	struct sg_dma_page_iter piter;
++	size_t count = 0;
++
++	for_each_sg_dma_page(sgt->sgl, &piter, sgt->nents, 0) {
++		count++;
++	}
++
++	return count;
++}
++
++static int mali_vpu_append_sg_table(struct mali_vpu_mmu_pages *pages, struct sg_table *sgt)
++{
++	size_t count;
++	struct sg_dma_page_iter piter;
++
++	/*
++	 * SG import must describe complete Linux pages. VB2 DMA-SG MMAP buffers
++	 * are allocated as whole pages with zero offset. DMA-BUF attachment
++	 * mappings guarantee PAGE_SIZE-aligned DMA addresses and lengths.
++	 * USERPTR is disabled on both queues because it can supply partial pages.
++	 *
++	 * Each Linux page is split into MALI_VPU_PAGES_PER_LINUX_PAGE VPU pages.
++	 * Do not round DMA addresses down: the supplied mapping must already
++	 * cover every page inserted into the VPU page tables.
++	 */
++
++	count = mali_vpu_get_sg_table_npages(sgt) * MALI_VPU_PAGES_PER_LINUX_PAGE;
++
++	if ((pages->count + count) > pages->capacity) {
++		dev_err(pages->dev,
++			"pages capacity too small to append sgt. count=%zu, capacity=%zu, append=%zu",
++			pages->count, pages->capacity, count);
++		return -ENOMEM;
++	}
++
++	for_each_sg_dma_page(sgt->sgl, &piter, sgt->nents, 0) {
++		unsigned int j;
++		dma_addr_t base;
++
++		base = sg_page_iter_dma_address(&piter);
++
++		for (j = 0; j < MALI_VPU_PAGES_PER_LINUX_PAGE; ++j)
++			pages->pages[pages->count++].dma =
++				base + j * MALI_VPU_PAGE_SIZE;
++	}
++
++	return 0;
++}
++
++int mali_vpu_mmu_init(struct mali_vpu_mmu *mmu, struct device *dev)
++{
++	struct page *page;
++	dma_addr_t dma;
++
++	mmu->dev = dev;
++
++	/* Allocate Page Table Base (the L1 table). */
++	dma = mali_vpu_mmu_alloc_page(dev, &page, DMA_TO_DEVICE);
++	if (!page)
++		return -ENOMEM;
++
++	mmu->l2_tables = kvcalloc(MALI_VPU_INDEX_SIZE, sizeof(*mmu->l2_tables), GFP_KERNEL);
++	if (!mmu->l2_tables) {
++		mali_vpu_mmu_free_page(dev, dma, page, DMA_TO_DEVICE);
++		return -ENOMEM;
++	}
++
++	mmu->root.linux_page = page;
++	mmu->root.cpu = page_address(page);
++	mmu->root.dma = dma;
++
++	return 0;
++}
++
++void mali_vpu_mmu_cleanup(struct mali_vpu_mmu *mmu)
++{
++	int count = 0;
++	unsigned int i;
++
++	for (i = 0; i < MALI_VPU_INDEX_SIZE; i++) {
++		struct mali_vpu_mmu_pt_page *l2 = &mmu->l2_tables[i];
++
++		if (!l2->linux_page)
++			continue;
++
++		count += mali_vpu_mapped_count(l2->cpu);
++		mali_vpu_mmu_free_page(mmu->dev, l2->dma, l2->linux_page, DMA_TO_DEVICE);
++	}
++
++	kvfree(mmu->l2_tables);
++	mali_vpu_mmu_free_page(mmu->dev, mmu->root.dma, mmu->root.linux_page,
++			       DMA_TO_DEVICE);
++
++	WARN_ON_ONCE(count > 0);
++}
++
++/* Optionally return the original page for callers that track CPU access. */
++dma_addr_t mali_vpu_mmu_alloc_page(struct device *dev, struct page **out_page,
++				   enum dma_data_direction dir)
++{
++	struct page *page;
++	dma_addr_t dma_handle;
++
++	if (out_page)
++		*out_page = NULL;
++
++	page = alloc_page(GFP_KERNEL | __GFP_ZERO | __GFP_NORETRY);
++	if (!page)
++		return 0;
++
++	dma_handle = dma_map_page(dev, page, 0, PAGE_SIZE, dir);
++	if (dma_mapping_error(dev, dma_handle) != 0) {
++		dev_err(dev, "cannot map page to DMA address space. page=%p", page);
++		goto free_page;
++	}
++
++	dma_sync_single_for_device(dev, dma_handle, PAGE_SIZE, dir);
++
++	if (out_page)
++		*out_page = page;
++
++	return dma_handle;
++
++free_page:
++	__free_page(page);
++	return 0;
++}
++
++void mali_vpu_mmu_free_page(struct device *dev, dma_addr_t dma, struct page *page,
++			    enum dma_data_direction dir)
++{
++	if (!page)
++		return;
++
++	dma_unmap_page(dev, dma, PAGE_SIZE, dir);
++	__free_page(page);
++}
++
++struct mali_vpu_mmu_pages *mali_vpu_mmu_alloc_pages(struct device *dev,
++						    size_t count,
++						    size_t capacity)
++{
++	struct mali_vpu_mmu_pages *pages;
 +	int ret;
 +
-+	ret = mali_vpu_ctrl_slot_from_cid(sess, ctrl->id, &slot);
-+	if (ret)
-+		return ret;
++	count = roundup(count, MALI_VPU_PAGES_PER_LINUX_PAGE);
++	capacity = roundup(capacity, MALI_VPU_PAGES_PER_LINUX_PAGE);
++	capacity = max(count, capacity);
 +
-+	desc = &sess->ctrls_caps[slot];
-+	state = &sess->ctrls_state[slot];
++	pages = devm_kzalloc(dev,
++			     sizeof(*pages) + sizeof(pages->pages[0]) * capacity,
++			     GFP_KERNEL);
++	if (!pages)
++		return ERR_PTR(-ENOMEM);
 +
-+	src_vq = v4l2_m2m_get_src_vq(sess->m2m_ctx);
-+	if (vb2_is_streaming(src_vq) &&
-+	    !(desc->flags & MALI_VPU_CTRL_FLAG_DYNAMIC))
-+		return -EBUSY;
++	pages->dev = dev;
++	pages->capacity = capacity;
 +
-+	return mali_vpu_apply_or_stage_ctrl(sess, desc, state, ctrl->val);
-+}
++	for (pages->count = 0; pages->count < count; ) {
++		struct page *page;
++		dma_addr_t dma;
++		unsigned int i;
 +
-+static const struct v4l2_ctrl_ops mali_vpu_ctrl_ops = {
-+	.g_volatile_ctrl = mali_vpu_get_volatile_ctrl,
-+	.s_ctrl          = mali_vpu_set_ctrl,
-+};
++		/* Allocate one linux page containing one or more MVE pages. */
++		dma = mali_vpu_mmu_alloc_page(dev, &page, DMA_BIDIRECTIONAL);
++		if (!page) {
++			ret = -ENOMEM;
++			goto release_pages;
++		}
 +
-+static int mali_vpu_register_control(struct mali_vpu_session *sess,
-+				     const struct mali_vpu_ctrl_desc *d)
-+{
-+	struct v4l2_ctrl *ctrl;
-+
-+	if (d->is_custom) {
-+		struct v4l2_ctrl_config cfg = {
-+			.ops = &mali_vpu_ctrl_ops,
-+			.id = d->cid,
-+			.name = d->name,
-+			.type = d->type,
-+			.min = d->min_val,
-+			.max = d->max_val,
-+			.step = (d->type == V4L2_CTRL_TYPE_MENU) ? 0 : d->step_or_mask,
-+			.def = d->default_val,
-+			.menu_skip_mask = (d->type == V4L2_CTRL_TYPE_MENU) ? ~(d->step_or_mask) : 0,
-+			.qmenu = d->qmenu,
-+		};
-+
-+		ctrl = v4l2_ctrl_new_custom(&sess->ctrl_handler, &cfg, NULL);
-+
-+	} else if (d->type == V4L2_CTRL_TYPE_MENU) {
-+		ctrl = v4l2_ctrl_new_std_menu(&sess->ctrl_handler,
-+					      &mali_vpu_ctrl_ops,
-+					      d->cid,
-+					      d->max_val,
-+					      ~(d->step_or_mask),
-+					      d->default_val);
-+	} else {
-+		ctrl = v4l2_ctrl_new_std(&sess->ctrl_handler,
-+					 &mali_vpu_ctrl_ops,
-+					 d->cid,
-+					 d->min_val,
-+					 d->max_val,
-+					 d->step_or_mask,
-+					 d->default_val);
-+	}
-+
-+	if (!ctrl || sess->ctrl_handler.error)
-+		return sess->ctrl_handler.error ? sess->ctrl_handler.error : -EINVAL;
-+
-+	return 0;
-+}
-+
-+static int mali_vpu_validate_ctrl_caps(const struct mali_vpu_session *sess)
-+{
-+	u32 i, j;
-+
-+	if (!sess->ctrls_caps || !sess->num_ctrls_caps) {
-+		dev_err(sess->vpu_dev->dev, "invalid ctrl caps structure\n");
-+		return -EINVAL;
-+	}
-+
-+	for (i = 0; i < sess->num_ctrls_caps; i++) {
-+		const struct mali_vpu_ctrl_desc *d = &sess->ctrls_caps[i];
-+
-+		if (!d->cid || !d->set)
-+			return -EINVAL;
-+
-+		if (d->min_val > d->max_val)
-+			return -EINVAL;
-+
-+		if (d->default_val < d->min_val || d->default_val > d->max_val)
-+			return -EINVAL;
-+
-+		if (d->is_custom && !d->name)
-+			return -EINVAL;
-+
-+		if (d->is_custom && d->type == V4L2_CTRL_TYPE_MENU && !d->qmenu)
-+			return -EINVAL;
-+
-+		/* Reject duplicate entries */
-+		for (j = i + 1; j < sess->num_ctrls_caps; j++) {
-+			if (d->cid == sess->ctrls_caps[j].cid)
-+				return -EINVAL;
++		/*
++		 * If the Linux page is larger than the MVE page, then
++		 * we iterate and add DMA addresses with an offset from
++		 * the Linux page.
++		 */
++		for (i = 0; i < MALI_VPU_PAGES_PER_LINUX_PAGE; i++) {
++			pages->pages[pages->count].dma = dma + i * MALI_VPU_PAGE_SIZE;
++			pages->pages[pages->count].linux_page = page;
++			pages->count++;
 +		}
 +	}
 +
++	return pages;
++
++release_pages:
++	mali_vpu_mmu_free_pages(pages);
++
++	return ERR_PTR(ret);
++}
++
++struct mali_vpu_mmu_pages *mali_vpu_mmu_alloc_pages_sg(struct device *dev,
++						       struct sg_table *sgt,
++						       size_t capacity)
++{
++	struct mali_vpu_mmu_pages *pages;
++	size_t count;
++	int ret;
++
++	count = mali_vpu_get_sg_table_npages(sgt) * MALI_VPU_PAGES_PER_LINUX_PAGE;
++	capacity = roundup(capacity, MALI_VPU_PAGES_PER_LINUX_PAGE);
++	capacity = max(count, capacity);
++
++	pages = devm_kzalloc(dev,
++			     sizeof(*pages) + sizeof(pages->pages[0]) * capacity,
++			     GFP_KERNEL);
++	if (!pages)
++		return ERR_PTR(-ENOMEM);
++
++	pages->dev = dev;
++	pages->capacity = capacity;
++	pages->is_external = true;
++	pages->offset = sgt->sgl ? sgt->sgl->offset : 0;
++
++	ret = mali_vpu_append_sg_table(pages, sgt);
++	if (ret) {
++		devm_kfree(dev, pages);
++		return ERR_PTR(ret);
++	}
++
++	return pages;
++}
++
++/* Release backing pages only; page-table updates are handled by the caller. */
++static void mali_vpu_mmu_shrink_pages(struct mali_vpu_mmu_pages *pages, size_t npages)
++{
++	while (pages->count > npages) {
++		pages->count--;
++
++		if ((pages->count % MALI_VPU_PAGES_PER_LINUX_PAGE) == 0)
++			mali_vpu_mmu_free_page(pages->dev,
++					       pages->pages[pages->count].dma,
++					       pages->pages[pages->count].linux_page,
++					       DMA_BIDIRECTIONAL);
++
++		pages->pages[pages->count].dma = 0;
++		pages->pages[pages->count].linux_page = NULL;
++	}
++}
++
++int mali_vpu_mmu_resize_pages(struct mali_vpu_mmu_pages *pages, size_t npages)
++{
++	int ret;
++	size_t oldcount = pages->count;
++
++	if (pages->is_external) {
++		dev_err(pages->dev, "externally managed pages cannot be resized");
++		return -EINVAL;
++	}
++
++	npages = roundup(npages, MALI_VPU_PAGES_PER_LINUX_PAGE);
++
++	if (npages > pages->capacity) {
++		dev_err(pages->dev,
++			"new MMU pages size is larger than capacity. npages=%zu, capacity=%zu",
++			npages, pages->capacity);
++		return -ENOMEM;
++	}
++
++	/* Free pages if npage is smaller than allocated pages. */
++	if (pages->count > npages) {
++		/* Replace the PTEs before releasing their backing pages. */
++		ret = mali_vpu_remap_pages(pages, oldcount, npages);
++		if (ret)
++			return ret;
++
++		mali_vpu_mmu_shrink_pages(pages, npages);
++		return 0;
++	}
++
++	/* Allocate pages if npage is larger than allocated pages. */
++	while (pages->count < npages) {
++		struct page *page;
++		dma_addr_t dma;
++		unsigned int i;
++
++		dma = mali_vpu_mmu_alloc_page(pages->dev, &page, DMA_BIDIRECTIONAL);
++		if (!page)
++			goto rollback_alloc;
++
++		for (i = 0; i < MALI_VPU_PAGES_PER_LINUX_PAGE; i++) {
++			pages->pages[pages->count].dma = dma + i * MALI_VPU_PAGE_SIZE;
++			pages->pages[pages->count].linux_page = page;
++			pages->count++;
++		}
++	}
++
++	return mali_vpu_remap_pages(pages, oldcount, pages->count);
++
++rollback_alloc:
++	mali_vpu_mmu_shrink_pages(pages, oldcount);
++	return -ENOMEM;
++}
++
++void mali_vpu_mmu_free_pages(struct mali_vpu_mmu_pages *pages)
++{
++	unsigned int i;
++
++	mali_vpu_mmu_unmap_pages(pages);
++
++	if (!pages->is_external)
++		for (i = 0; i < pages->count; i += MALI_VPU_PAGES_PER_LINUX_PAGE)
++			mali_vpu_mmu_free_page(pages->dev, pages->pages[i].dma,
++					       pages->pages[i].linux_page,
++					       DMA_BIDIRECTIONAL);
++
++	devm_kfree(pages->dev, pages);
++}
++
++size_t mali_vpu_mmu_size_pages(struct mali_vpu_mmu_pages *pages)
++{
++	return pages->count * MALI_VPU_PAGE_SIZE;
++}
++
++int mali_vpu_mmu_sync_pages(struct mali_vpu_mmu_pages *pages, enum dma_data_direction dir)
++{
++	size_t i;
++
++	if (dir == DMA_FROM_DEVICE) {
++		for (i = 0; i < pages->count; i += MALI_VPU_PAGES_PER_LINUX_PAGE)
++			dma_sync_single_for_cpu(pages->dev, pages->pages[i].dma,
++						PAGE_SIZE, DMA_FROM_DEVICE);
++	} else if (dir == DMA_TO_DEVICE) {
++		for (i = 0; i < pages->count; i += MALI_VPU_PAGES_PER_LINUX_PAGE)
++			dma_sync_single_for_device(pages->dev, pages->pages[i].dma,
++						   PAGE_SIZE, DMA_TO_DEVICE);
++	} else {
++		dev_err(pages->dev, "unsupported MMU flush direction. dir=%u", dir);
++		return -EINVAL;
++	}
++
 +	return 0;
 +}
 +
-+int mali_vpu_ctrls_init(struct mali_vpu_session *sess)
++int mali_vpu_mmu_map_pages(struct mali_vpu_mmu *mmu,
++			   mali_vpu_mmu_va va,
++			   struct mali_vpu_mmu_pages *pages,
++			   enum mali_vpu_mmu_attr attr,
++			   enum mali_vpu_mmu_access access)
 +{
-+	const struct mali_vpu_ctrl_desc *ctrls_cap = sess->ctrls_caps;
-+	struct mali_vpu_ctrl_state *ctrl_state;
-+	struct v4l2_ctrl *volatile_ctrl;
-+	u32 i;
++	size_t i;
 +	int ret;
 +
-+	ret = mali_vpu_validate_ctrl_caps(sess);
-+	if (ret)
-+		return ret;
-+
-+	sess->ctrls_state = kcalloc(sess->num_ctrls_caps, sizeof(*sess->ctrls_state), GFP_KERNEL);
-+	if (!sess->ctrls_state)
-+		return -ENOMEM;
++	/*
++	 * A pages object may be mapped at multiple virtual addresses. For example,
++	 * each core maps the same physical firmware text pages into its own virtual
++	 * address region.
++	 */
++	for (i = 0; i < pages->count; i++) {
++		ret = mali_vpu_map_page(mmu, va + i * MALI_VPU_PAGE_SIZE,
++					pages->pages[i].dma, attr, access);
++		if (ret)
++			goto unmap_pages;
++	}
 +
 +	/*
-+	 * Adding 1 to num_ctrls to include
-+	 * V4L2_CID_MIN_BUFFERS_FOR_CAPTURE for decoder
++	 * Reserve the rest of the address range. Adding a dummy page with
++	 * DMA address 'MALI_VPU_PAGE_SIZE' should not lead to memory corruption,
++	 * because the page is marked as 'no access'.
 +	 */
-+	ret = v4l2_ctrl_handler_init(&sess->ctrl_handler, sess->num_ctrls_caps + 1);
-+	if (ret)
-+		goto err_free_state;
-+
-+	sess->ctrl_handler.lock = &sess->vq_lock;
-+
-+	ctrl_state = sess->ctrls_state;
-+
-+	for (i = 0; i < sess->num_ctrls_caps; i++) {
-+		const struct mali_vpu_ctrl_desc *d = &ctrls_cap[i];
-+
-+		ctrl_state[i].cid = d->cid;
-+		ctrl_state[i].value = d->default_val;
-+		ctrl_state[i].client_set = false;
-+		ctrl_state[i].is_staged = false;
-+
-+		ret = mali_vpu_register_control(sess, d);
++	for (; i < pages->capacity; i++) {
++		ret = mali_vpu_map_page(mmu, va + i * MALI_VPU_PAGE_SIZE, MALI_VPU_PAGE_SIZE,
++					MALI_VPU_ATTR_PRIVATE, MALI_VPU_ACCESS_NO);
 +		if (ret)
-+			goto err_free_handler;
++			goto unmap_pages;
 +	}
 +
-+	if (sess->role == MALI_VPU_DECODER) {
-+		volatile_ctrl = v4l2_ctrl_new_std(&sess->ctrl_handler,
-+						  &mali_vpu_ctrl_ops,
-+						  V4L2_CID_MIN_BUFFERS_FOR_CAPTURE,
-+						  1, 32, 1, 1);
-+	} else {
-+		ret = -EINVAL;
-+		goto err_free_handler;
-+	}
-+
-+	if (!volatile_ctrl || sess->ctrl_handler.error) {
-+		ret = sess->ctrl_handler.error ? sess->ctrl_handler.error : -EINVAL;
-+		goto err_free_handler;
-+	}
-+
-+	volatile_ctrl->flags |= V4L2_CTRL_FLAG_VOLATILE | V4L2_CTRL_FLAG_READ_ONLY;
-+
-+	sess->fh.ctrl_handler = &sess->ctrl_handler;
++	pages->mmu = mmu;
++	pages->va = va;
++	pages->attr = attr;
++	pages->access = access;
 +
 +	return 0;
 +
-+err_free_handler:
-+	v4l2_ctrl_handler_free(&sess->ctrl_handler);
++unmap_pages:
++	while (i-- > 0)
++		mali_vpu_unmap_page(mmu, va + i * MALI_VPU_PAGE_SIZE);
 +
-+err_free_state:
-+	kfree(sess->ctrls_state);
-+	sess->ctrls_state = NULL;
 +	return ret;
 +}
 +
-+void mali_vpu_ctrls_cleanup(struct mali_vpu_session *sess)
++void mali_vpu_mmu_unmap_pages(struct mali_vpu_mmu_pages *pages)
 +{
-+	v4l2_ctrl_handler_free(&sess->ctrl_handler);
-+	kfree(sess->ctrls_state);
-+	sess->ctrls_state = NULL;
-+	sess->fh.ctrl_handler = NULL;
++	size_t i;
++
++	if (!pages->mmu)
++		return;
++
++	for (i = 0; i < pages->capacity; i++)
++		mali_vpu_unmap_page(pages->mmu, pages->va + i * MALI_VPU_PAGE_SIZE);
++
++	pages->mmu = NULL;
++	pages->va = 0;
 +}
 +
-+int mali_vpu_apply_staged_controls(struct mali_vpu_session *sess)
++int mali_vpu_mmu_map_dma(struct mali_vpu_mmu *mmu,
++			 mali_vpu_mmu_va va,
++			 dma_addr_t dma,
++			 size_t size,
++			 enum mali_vpu_mmu_attr attr,
++			 enum mali_vpu_mmu_access access)
 +{
-+	u32 i;
 +	int ret;
++	size_t offset;
 +
-+	if (!sess->is_fw_ready)
++	for (offset = 0; offset < size; offset += MALI_VPU_PAGE_SIZE) {
++		ret = mali_vpu_map_page(mmu, va + offset, dma + offset, attr, access);
++		if (ret)
++			goto unmap_pages;
++	}
++
++	return 0;
++
++unmap_pages:
++	/* Unroll mapped pages. */
++	while (offset > 0) {
++		offset -= MALI_VPU_PAGE_SIZE;
++		mali_vpu_unmap_page(mmu, va + offset);
++	}
++
++	return ret;
++}
++
++void mali_vpu_mmu_unmap_va(struct mali_vpu_mmu *mmu,
++			   mali_vpu_mmu_va va,
++			   size_t size)
++{
++	size_t offset;
++
++	for (offset = 0; offset < size; offset += MALI_VPU_PAGE_SIZE)
++		mali_vpu_unmap_page(mmu, va + offset);
++}
++
++/* Initialize read-only firmware text before the VPU accesses these pages. */
++int mali_vpu_mmu_write(struct mali_vpu_mmu_pages *pages,
++		       const void *data,
++		       size_t size)
++{
++	size_t i;
++
++	if (pages->is_external || size > mali_vpu_mmu_size_pages(pages))
 +		return -EINVAL;
 +
-+	for (i = 0; i < sess->num_ctrls_caps; i++) {
-+		const struct mali_vpu_ctrl_desc *d = &sess->ctrls_caps[i];
-+		struct mali_vpu_ctrl_state *s = &sess->ctrls_state[i];
++	for (i = 0; size; i += MALI_VPU_PAGES_PER_LINUX_PAGE) {
++		dma_addr_t dma = pages->pages[i].dma;
++		void *dst = page_address(pages->pages[i].linux_page);
++		size_t n = min_t(size_t, size, PAGE_SIZE);
 +
-+		if (!s->client_set || !s->is_staged)
-+			continue;
++		memcpy(dst, data, n);
++		dma_sync_single_for_device(pages->dev, dma, PAGE_SIZE,
++					   DMA_TO_DEVICE);
 +
-+		ret = mali_vpu_apply_or_stage_ctrl(sess, d, s, s->value);
-+		if (ret)
-+			return ret;
++		data += n;
++		size -= n;
 +	}
 +
 +	return 0;
 +}
-+
-+int mali_vpu_ctrl_set_nalu_format(struct mali_vpu_session *sess, u32 cid,
-+				  s64 value)
-+{
-+	if (cid != V4L2_CID_MALI_VPU_NALU_FORMAT)
-+		return -EINVAL;
-+
-+	(void)sess;
-+	(void)value;
-+	return 0;
-+}
-+
-+int mali_vpu_ctrl_set_intbuf_size(struct mali_vpu_session *sess, u32 cid,
-+				  s64 value)
-+{
-+	if (cid != V4L2_CID_MALI_VPU_INTBUF_SIZE || value < 0 || value > INT_MAX)
-+		return -EINVAL;
-+
-+	(void)sess;
-+	(void)value;
-+	return 0;
-+}
-+
-+int mali_vpu_ctrl_set_stream_escaping(struct mali_vpu_session *sess, u32 cid,
-+				      s64 value)
-+{
-+	if (cid != V4L2_CID_MALI_VPU_STREAM_ESCAPING)
-+		return -EINVAL;
-+
-+	if (value == -1)
-+		return 0; /* tristate no-op */
-+
-+	if (value != 0 && value != 1)
-+		return -EINVAL;
-+
-+	(void)sess;
-+	(void)value;
-+	return 0;
-+}
-+
-+int mali_vpu_ctrl_set_host_print_enable(struct mali_vpu_session *sess, u32 cid,
-+					s64 value)
-+{
-+	if (cid != V4L2_CID_MALI_VPU_HOST_PRINT_ENABLE)
-+		return -EINVAL;
-+
-+	if (value != 0 && value != 1)
-+		return -EINVAL;
-+
-+	(void)sess;
-+	(void)value;
-+	return 0;
-+}
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-controls.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-controls.h
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.h
 new file mode 100644
-index 0000000000000..d7f5898963478
+index 0000000000000..6ad645a2dc6bb
 --- /dev/null
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-controls.h
-@@ -0,0 +1,71 @@
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.h
+@@ -0,0 +1,152 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (C) 2026 ARM Limited.
 + */
 +
-+#ifndef __MALI_VPU_CONTROLS_H__
-+#define __MALI_VPU_CONTROLS_H__
++#ifndef __MALI_VPU_MMU_H__
++#define __MALI_VPU_MMU_H__
 +
-+#include <linux/bits.h>
++#include <linux/dma-mapping.h>
++#include <linux/hashtable.h>
 +#include <linux/types.h>
-+#include <media/v4l2-ctrls.h>
 +
-+struct mali_vpu_session;
++/* Page size is 4 KB - pow(2,12) bytes */
++#define MALI_VPU_PAGE_SHIFT		12
++#define MALI_VPU_PAGE_SIZE		BIT(MALI_VPU_PAGE_SHIFT)
++#define MALI_VPU_PAGE_MASK		(MALI_VPU_PAGE_SIZE - 1)
 +
-+enum mali_vpu_ctrl_flags {
-+	MALI_VPU_CTRL_FLAG_DYNAMIC	= BIT(0),
++/**
++ * typedef mali_vpu_mmu_va - 32 bit virtual address.
++ *
++ * This is the address the firmware/MVE will use.
++ */
++typedef u32 mali_vpu_mmu_va;
++
++/**
++ * typedef mali_vpu_mmu_pte - Page table entry.
++ *
++ * A PTE pointer should always point at a Linux kernel virtual address.
++ *
++ * AT - Attribute.
++ * PA - VPU physical address bits [39:12], supplied as a DMA address.
++ * AP - Access permission.
++ *
++ *    30                                                       2   0
++ * +---+-------------------------------------------------------+---+
++ * | AT|                          PA                           | AP|
++ * +---+-------------------------------------------------------+---+
++ */
++typedef u32 mali_vpu_mmu_pte;
++
++enum mali_vpu_mmu_attr {
++	MALI_VPU_ATTR_PRIVATE   = 0,
++	MALI_VPU_ATTR_REFFRAME  = 1,
++	MALI_VPU_ATTR_SHARED_RO = 2,
++	MALI_VPU_ATTR_SHARED_RW = 3
++};
++
++enum mali_vpu_mmu_access {
++	MALI_VPU_ACCESS_NO         = 0,
++	MALI_VPU_ACCESS_READ_ONLY  = 1,
++	MALI_VPU_ACCESS_EXECUTABLE = 2,
++	MALI_VPU_ACCESS_READ_WRITE = 3
 +};
 +
 +/**
-+ * struct mali_vpu_ctrl_desc - static description of one driver control.
-+ * @cid: V4L2 control ID.
-+ * @type: V4L2 control type.
-+ * @name: Control name used for custom registration. NULL for standard controls.
-+ * @qmenu: Menu labels for V4L2_CTRL_TYPE_MENU custom controls.
-+ * @min_val: Minimum allowed value for this control.
-+ * @max_val: Maximum allowed value for this control.
-+ * @default_val: Default value for this control at session init.
-+ * @step_or_mask: Step for integer controls, or enabled-item mask for menu controls.
-+ * @is_custom: Flag to indicate if a control is a custom Mali VPU control.
-+ * @flags: Driver-specific behavior flags from enum mali_vpu_ctrl_flags.
-+ * @set: Setter callback invoked on client control changes, to apply value to firmware.
++ * struct mali_vpu_mmu_pages - Structure used to allocate an array of pages.
++ * @dev: Pointer to device.
++ * @node: Hash table node. Used to keep track of allocated pages objects.
++ * @mmu: Pointer to MMU instance.
++ * @va: MVE virtual address. Set to 0 if objects is unmapped.
++ * @offset: Offset from mapped VA to where the data begins.
++ * @attr: Page table attributes.
++ * @access: Page table access.
++ * @capacity: Maximum number of MVE pages this object can hold.
++ * @count: Current number of allocated pages.
++ * @is_external: If the physical pages have been externally allocated.
++ * @pages: DMA address and original backing Linux page for each MVE page.
++ *         The backing page is NULL for external memory and may be shared by
++ *         multiple MVE entries when Linux pages are larger than MVE pages.
 + */
-+struct mali_vpu_ctrl_desc {
-+	u32 cid;
-+	enum v4l2_ctrl_type type;
-+	const char *name;
-+	const char * const *qmenu;
-+	s64 min_val;
-+	s64 max_val;
-+	s64 default_val;
-+	u64 step_or_mask;
-+	bool is_custom;
-+	enum mali_vpu_ctrl_flags flags;
-+	int (*set)(struct mali_vpu_session *sess, u32 cid, s64 value);
++struct mali_vpu_mmu_pages {
++	struct device *dev;
++	struct hlist_node node;
++	struct mali_vpu_mmu *mmu;
++	mali_vpu_mmu_va va;
++	size_t offset;
++	enum mali_vpu_mmu_attr attr;
++	enum mali_vpu_mmu_access access;
++	size_t capacity;
++	size_t count;
++	bool is_external;
++	struct {
++		dma_addr_t dma;
++		struct page *linux_page;
++	} pages[];
 +};
 +
 +/**
-+ * struct mali_vpu_ctrl_state - per-session runtime state of one driver control.
-+ * @cid: V4L2 control ID.
-+ * @value: Last accepted value for the control (from userspace or default at init).
-+ * @client_set: True if userspace explicitly set this control at least once.
-+ * @is_staged: True if value is accepted but not yet sent to firmware.
++ * struct mali_vpu_mmu_pt_page - Backing memory for one VPU page table.
++ * @linux_page: Original Linux page backing the table.
++ * @cpu: Kernel virtual address used to access the table entries.
++ * @dma: DMA address used by the VPU page-table walker.
 + */
-+struct mali_vpu_ctrl_state {
-+	u32 cid;
-+	s64 value;
-+	bool client_set;
-+	bool is_staged;
++struct mali_vpu_mmu_pt_page {
++	struct page *linux_page;
++	mali_vpu_mmu_pte *cpu;
++	dma_addr_t dma;
 +};
 +
-+int mali_vpu_ctrls_init(struct mali_vpu_session *sess);
-+void mali_vpu_ctrls_cleanup(struct mali_vpu_session *sess);
-+int mali_vpu_apply_staged_controls(struct mali_vpu_session *sess);
++/**
++ * struct mali_vpu_mmu - VPU page tables for one session.
++ * @dev: Device used for DMA mapping and synchronization.
++ * @root: Root (L1) page table.
++ * @l2_tables: Array of L2 table descriptors indexed by the L1 index.
++ *             L2 backing pages are allocated on demand.
++ */
++struct mali_vpu_mmu {
++	struct device *dev;
++	struct mali_vpu_mmu_pt_page root;
++	struct mali_vpu_mmu_pt_page *l2_tables;
++};
 +
-+/* Common controls setters */
-+int mali_vpu_ctrl_set_nalu_format(struct mali_vpu_session *sess, u32 cid, s64 value);
-+int mali_vpu_ctrl_set_intbuf_size(struct mali_vpu_session *sess, u32 cid, s64 value);
-+int mali_vpu_ctrl_set_stream_escaping(struct mali_vpu_session *sess, u32 cid, s64 value);
-+int mali_vpu_ctrl_set_host_print_enable(struct mali_vpu_session *sess, u32 cid, s64 value);
++int mali_vpu_mmu_init(struct mali_vpu_mmu *mmu, struct device *dev);
++void mali_vpu_mmu_cleanup(struct mali_vpu_mmu *mmu);
 +
-+#endif /* __MALI_VPU_CONTROLS_H__ */
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
-index cb6eeee2f04df..7e78c475a4ff3 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
-@@ -3,6 +3,9 @@
-  * Copyright (C) 2026 ARM Limited.
-  */
- 
-+#include <linux/errno.h>
-+#include <linux/media/arm/mali-vpu-config.h>
++dma_addr_t mali_vpu_mmu_alloc_page(struct device *dev, struct page **out_page,
++				   enum dma_data_direction dir);
++void mali_vpu_mmu_free_page(struct device *dev, dma_addr_t dma, struct page *page,
++			    enum dma_data_direction dir);
 +
- #include "mali-vpu-dec.h"
- #include "mali-vpu-session.h"
- #include "mali-vpu-variant.h"
-@@ -13,4 +16,45 @@ void mali_vpu_session_init_dec(struct mali_vpu_session *sess)
- 
- 	sess->port_src.supported_fmts = variant_fmts->dec_src;
- 	sess->port_dst.supported_fmts = variant_fmts->dec_dst;
++struct mali_vpu_mmu_pages *mali_vpu_mmu_alloc_pages(struct device *dev,
++						    size_t count,
++						    size_t capacity);
 +
-+	const struct mali_vpu_control_caps *variant_ctrls = &sess->vpu_dev->variant->ctrl_caps;
++struct mali_vpu_mmu_pages *mali_vpu_mmu_alloc_pages_sg(struct device *dev,
++						       struct sg_table *sgt,
++						       size_t capacity);
 +
-+	sess->ctrls_caps	= variant_ctrls->dec_ctrls;
-+	sess->num_ctrls_caps	= variant_ctrls->num_dec_ctrls;
++size_t mali_vpu_mmu_size_pages(struct mali_vpu_mmu_pages *pages);
++int mali_vpu_mmu_resize_pages(struct mali_vpu_mmu_pages *pages, size_t npages);
++void mali_vpu_mmu_free_pages(struct mali_vpu_mmu_pages *pages);
++int mali_vpu_mmu_sync_pages(struct mali_vpu_mmu_pages *pages, enum dma_data_direction dir);
 +
-+	sess->min_buffers_required = 3;	/* For CAPTURE/dst queue */
-+}
++int mali_vpu_mmu_map_pages(struct mali_vpu_mmu *mmu,
++			   mali_vpu_mmu_va va,
++			   struct mali_vpu_mmu_pages *pages,
++			   enum mali_vpu_mmu_attr attr,
++			   enum mali_vpu_mmu_access access);
 +
-+int mali_vpu_ctrl_set_ignore_stream_headers(struct mali_vpu_session *sess,
-+					    u32 cid, s64 value)
-+{
-+	if (cid != V4L2_CID_MALI_VPU_IGNORE_STREAM_HEADERS)
-+		return -EINVAL;
++void mali_vpu_mmu_unmap_pages(struct mali_vpu_mmu_pages *pages);
 +
-+	if (value == -1)
-+		return 0; /* tristate no-op */
++int mali_vpu_mmu_map_dma(struct mali_vpu_mmu *mmu,
++			 mali_vpu_mmu_va va,
++			 dma_addr_t dma,
++			 size_t size,
++			 enum mali_vpu_mmu_attr attr,
++			 enum mali_vpu_mmu_access access);
 +
-+	if (value != 0 && value != 1)
-+		return -EINVAL;
++void mali_vpu_mmu_unmap_va(struct mali_vpu_mmu *mmu, mali_vpu_mmu_va va, size_t size);
++int mali_vpu_mmu_write(struct mali_vpu_mmu_pages *pages, const void *data, size_t size);
 +
-+	(void)sess;
-+	(void)value;
-+	return 0;
-+}
-+
-+int mali_vpu_ctrl_set_frame_reordering(struct mali_vpu_session *sess, u32 cid,
-+				       s64 value)
-+{
-+	if (cid != V4L2_CID_MALI_VPU_FRAME_REORDERING)
-+		return -EINVAL;
-+
-+	if (value == -1)
-+		return 0; /* tristate no-op */
-+
-+	if (value != 0 && value != 1)
-+		return -EINVAL;
-+
-+	(void)sess;
-+	(void)value;
-+	return 0;
- }
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h
-index 2514c897587c4..e323b38475c81 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h
-@@ -6,8 +6,14 @@
- #ifndef __MALI_VPU_DEC_H__
- #define __MALI_VPU_DEC_H__
- 
-+#include <linux/types.h>
-+
- struct mali_vpu_session;
- 
- void mali_vpu_session_init_dec(struct mali_vpu_session *sess);
- 
-+/* Decoder controls setters */
-+int mali_vpu_ctrl_set_ignore_stream_headers(struct mali_vpu_session *sess, u32 cid, s64 value);
-+int mali_vpu_ctrl_set_frame_reordering(struct mali_vpu_session *sess, u32 cid, s64 value);
-+
- #endif /* __MALI_VPU_DEC_H__ */
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-index 6867f51287f48..d1e8680de5556 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-@@ -3,12 +3,14 @@
-  * Copyright (C) 2026 ARM Limited.
-  */
- 
-+#include <linux/device.h>
- #include <linux/err.h>
- #include <linux/errno.h>
- #include <linux/string.h>
- #include <media/v4l2-mem2mem.h>
- 
- #include "mali-vpu-session.h"
-+#include "mali-vpu-controls.h"
- #include "mali-vpu-dec.h"
- #include "mali-vpu-formats.h"
- #include "mali-vpu-variant.h"
-@@ -76,8 +78,19 @@ int mali_vpu_session_init(struct mali_vpu_session *sess)
- 		goto err_mutex_destroy;
++#endif /* __MALI_VPU_MMU_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
+index 36a25030d7324..2d63dc058c91a 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
+@@ -213,6 +213,13 @@ static int mali_vpu_probe(struct platform_device *pdev)
+ 		goto err_rst_clk;
  	}
  
-+	sess->is_fw_ready = false;
++	vpu_dev->dma_mask = vpu_dev->variant->dma_mask;
++	ret = dma_set_mask_and_coherent(vpu_dev->dev, vpu_dev->dma_mask);
++	if (ret)
++		goto err_rst_clk;
 +
-+	ret = mali_vpu_ctrls_init(sess);
++	dma_set_max_seg_size(vpu_dev->dev, SZ_2G);
++
+ 	ret = v4l2_device_register(&pdev->dev, &vpu_dev->v4l2_dev);
+ 	if (ret) {
+ 		dev_err(vpu_dev->dev, "failed to register V4L2 device\n");
+@@ -280,3 +287,4 @@ static struct platform_driver mali_vpu_driver = {
+ module_platform_driver(mali_vpu_driver);
+ MODULE_DESCRIPTION("Arm Mali VPU driver");
+ MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS("DMA_BUF");
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+index d1e8680de5556..10481ba16d68a 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+@@ -86,8 +86,17 @@ int mali_vpu_session_init(struct mali_vpu_session *sess)
+ 		goto err_m2m_ctx_release;
+ 	}
+ 
++	ret = mali_vpu_mmu_init(&sess->mmu, sess->vpu_dev->dev);
 +	if (ret) {
-+		dev_err(sess->vpu_dev->dev, "failed to initialise controls: %d\n", ret);
-+		goto err_m2m_ctx_release;
++		dev_err(sess->vpu_dev->dev, "failed to initialise MMU: %d\n", ret);
++		goto err_ctrls_cleanup;
 +	}
 +
  	return 0;
  
-+err_m2m_ctx_release:
-+	v4l2_m2m_ctx_release(sess->m2m_ctx);
++err_ctrls_cleanup:
++	mali_vpu_ctrls_cleanup(sess);
 +
- err_mutex_destroy:
- 	mutex_destroy(&sess->vq_lock);
- 	return ret;
-@@ -94,5 +107,7 @@ void mali_vpu_session_cleanup(struct mali_vpu_session *sess)
- 	}
+ err_m2m_ctx_release:
+ 	v4l2_m2m_ctx_release(sess->m2m_ctx);
+ 
+@@ -108,6 +117,7 @@ void mali_vpu_session_cleanup(struct mali_vpu_session *sess)
  
  	mutex_unlock(&sess->vq_lock);
-+
-+	mali_vpu_ctrls_cleanup(sess);
+ 
++	mali_vpu_mmu_cleanup(&sess->mmu);
+ 	mali_vpu_ctrls_cleanup(sess);
  	mutex_destroy(&sess->vq_lock);
  }
 diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
-index f8a602cb59006..766912aec0b8e 100644
+index 766912aec0b8e..4dd6c8bc22dd9 100644
 --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
 +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
-@@ -8,6 +8,7 @@
- 
- #include <linux/mutex.h>
- #include <linux/videodev2.h>
-+#include <media/v4l2-ctrls.h>
- #include <media/v4l2-fh.h>
+@@ -13,6 +13,7 @@
  
  #include "mali-vpu-device.h"
-@@ -32,6 +33,12 @@ struct mali_vpu_port {
+ #include "mali-vpu-formats.h"
++#include "mali-vpu-mmu.h"
+ 
+ struct v4l2_m2m_ctx;
+ 
+@@ -32,6 +33,7 @@ struct mali_vpu_port {
+  * @role: Role of this session.
   * @port_src: Source (OUTPUT) port for this session.
   * @port_dst: Destination (CAPTURE) port for this session.
++ * @mmu: MMU handle for this session
   * @vq_lock: Mutex lock to serialise per-session queue related ioctls.
-+ * @is_fw_ready: True if the firmware is loaded and ready to accept commands.
-+ * @min_buffers_required: Driver-reported minimum buffers for role-specific queue.
-+ * @ctrls_caps: Variant-provided immutable control capability table.
-+ * @num_ctrls_caps: Number of entries in @ctrls_caps.
-+ * @ctrls_state: Per-session control cache and staging state.
-+ * @ctrl_handler: V4L2 control handler bound to this session.
-  * @fh: V4L2 file handle for this session.
-  * @m2m_ctx: V4L2 mem2mem context for this session.
-  */
-@@ -41,6 +48,13 @@ struct mali_vpu_session {
+  * @is_fw_ready: True if the firmware is loaded and ready to accept commands.
+  * @min_buffers_required: Driver-reported minimum buffers for role-specific queue.
+@@ -47,6 +49,7 @@ struct mali_vpu_session {
+ 	enum mali_vpu_session_role	role;
  	struct mali_vpu_port		port_src;
  	struct mali_vpu_port		port_dst;
++	struct mali_vpu_mmu		mmu;
  	struct mutex			vq_lock; /* lock to serialise per-session ioctls */
-+	bool				is_fw_ready;
-+	u32				min_buffers_required;
-+
-+	const struct mali_vpu_ctrl_desc *ctrls_caps;
-+	u32				num_ctrls_caps;
-+	struct mali_vpu_ctrl_state	*ctrls_state;
-+	struct v4l2_ctrl_handler	ctrl_handler;
- 
- 	struct v4l2_fh		fh;
- 	struct v4l2_m2m_ctx	*m2m_ctx;
+ 	bool				is_fw_ready;
+ 	u32				min_buffers_required;
 diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
-index 7b04b51eeedc2..b807f8d888222 100644
+index b807f8d888222..19ad2667f2597 100644
 --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
 +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
-@@ -4,8 +4,14 @@
-  */
- 
- #include <linux/array_size.h>
-+#include <linux/bits.h>
-+#include <linux/limits.h>
- #include <linux/videodev2.h>
- 
-+#include <linux/media/arm/mali-vpu-config.h>
-+
-+#include "mali-vpu-controls.h"
-+#include "mali-vpu-dec.h"
- #include "mali-vpu-formats.h"
- #include "mali-vpu-protocol-def-v3.h"
- #include "mali-vpu-variant.h"
-@@ -53,6 +59,95 @@ static const struct mali_vpu_format_desc mali_v76_dec_dst_fmts[] = {
- 	},
+@@ -149,6 +149,7 @@ static const struct mali_vpu_ctrl_desc mali_v76_dec_ctrls[] = {
  };
  
-+static const char *const mali_v76_nalu_format_qmenu[] = {
-+	"Start Codes",
-+	"One NALU Per Buffer",
-+	"One Byte Length Field",
-+	"Two Byte Length Field",
-+	"Four Byte Length Field",
-+	NULL,
-+};
-+
-+static const struct mali_vpu_ctrl_desc mali_v76_dec_ctrls[] = {
-+	{
-+		.cid = V4L2_CID_MALI_VPU_NALU_FORMAT,
-+		.type = V4L2_CTRL_TYPE_MENU,
-+		.name = "NALU format",
-+		.qmenu = mali_v76_nalu_format_qmenu,
-+		.min_val = MALI_VPU_NALU_FORMAT_START_CODES,
-+		.max_val = MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD,
-+		.default_val = MALI_VPU_NALU_FORMAT_START_CODES,
-+		.step_or_mask = BIT(MALI_VPU_NALU_FORMAT_START_CODES) |
-+				BIT(MALI_VPU_NALU_FORMAT_ONE_NALU_PER_BUFFER) |
-+				BIT(MALI_VPU_NALU_FORMAT_ONE_BYTE_LENGTH_FIELD) |
-+				BIT(MALI_VPU_NALU_FORMAT_TWO_BYTE_LENGTH_FIELD) |
-+				BIT(MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD),
-+		.is_custom = true,
-+		.flags = 0,
-+		.set = mali_vpu_ctrl_set_nalu_format,
-+	},
-+	{
-+		.cid = V4L2_CID_MALI_VPU_INTBUF_SIZE,
-+		.type = V4L2_CTRL_TYPE_INTEGER,
-+		.name = "Internal buffer size",
-+		.min_val = 0,
-+		.max_val = INT_MAX,
-+		.default_val = 0,
-+		.step_or_mask = 1,
-+		.is_custom = true,
-+		.flags = 0,
-+		.set = mali_vpu_ctrl_set_intbuf_size,
-+	},
-+	{
-+		.cid = V4L2_CID_MALI_VPU_STREAM_ESCAPING,
-+		.type = V4L2_CTRL_TYPE_INTEGER,
-+		.name = "Stream Escaping",
-+		.min_val = -1,
-+		.max_val = 1,
-+		.default_val = -1,
-+		.step_or_mask = 1,
-+		.is_custom = true,
-+		.flags = 0,
-+		.set = mali_vpu_ctrl_set_stream_escaping,
-+	},
-+	{
-+		.cid = V4L2_CID_MALI_VPU_HOST_PRINT_ENABLE,
-+		.type = V4L2_CTRL_TYPE_BOOLEAN,
-+		.name = "Firmware debug prints",
-+		.min_val = false,
-+		.max_val = true,
-+		.default_val = false,
-+		.step_or_mask = 1,
-+		.is_custom = true,
-+		.flags = MALI_VPU_CTRL_FLAG_DYNAMIC,
-+		.set = mali_vpu_ctrl_set_host_print_enable,
-+	},
-+	{
-+		.cid = V4L2_CID_MALI_VPU_IGNORE_STREAM_HEADERS,
-+		.type = V4L2_CTRL_TYPE_INTEGER,
-+		.name = "Ignore Stream Headers",
-+		.min_val = -1,
-+		.max_val = 1,
-+		.default_val = -1,
-+		.step_or_mask = 1,
-+		.is_custom = true,
-+		.flags = 0,
-+		.set = mali_vpu_ctrl_set_ignore_stream_headers,
-+	},
-+	{
-+		.cid = V4L2_CID_MALI_VPU_FRAME_REORDERING,
-+		.type = V4L2_CTRL_TYPE_INTEGER,
-+		.name = "Frame Reordering",
-+		.min_val = -1,
-+		.max_val = 1,
-+		.default_val = -1,
-+		.step_or_mask = 1,
-+		.is_custom = true,
-+		.flags = 0,
-+		.set = mali_vpu_ctrl_set_frame_reordering,
-+	},
-+};
-+
  const struct mali_vpu_variant mali_vpu_v76_variant = {
++	.dma_mask = DMA_BIT_MASK(40),
  	.expected_hw_pid = MALI_VPU_HW_PID_V76,
  
-@@ -81,4 +176,8 @@ const struct mali_vpu_variant mali_vpu_v76_variant = {
- 		.width_default = MALI_V76_DEFAULT_FRAME_WIDTH,
- 		.height_default = MALI_V76_DEFAULT_FRAME_HEIGHT,
- 	},
-+	.ctrl_caps = {
-+		.dec_ctrls = mali_v76_dec_ctrls,
-+		.num_dec_ctrls = ARRAY_SIZE(mali_v76_dec_ctrls),
-+	},
- };
+ 	.rst_names = mali_v76_rst_names,
 diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h
-index a46c25a94f18b..ad20896c90b0f 100644
+index ad20896c90b0f..d316e010fff48 100644
 --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h
 +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h
-@@ -9,6 +9,7 @@
- #include <linux/types.h>
- #include <linux/videodev2.h>
- 
-+#include "mali-vpu-controls.h"
- #include "mali-vpu-formats.h"
- 
- /**
-@@ -33,6 +34,16 @@ struct mali_vpu_format_caps {
- 	const struct mali_vpu_format_list dec_dst;
- };
- 
-+/**
-+ * struct mali_vpu_control_caps - Control capability tables per role.
-+ * @dec_ctrls: Array of controls supported by the decoder.
-+ * @num_dec_ctrls: Number of entries in @dec_ctrls.
-+ */
-+struct mali_vpu_control_caps {
-+	const struct mali_vpu_ctrl_desc *dec_ctrls;
-+	u32 num_dec_ctrls;
-+};
-+
- /**
-  * struct mali_vpu_variant - Variant-specific hardware capability descriptor.
+@@ -49,6 +49,7 @@ struct mali_vpu_control_caps {
   * @rst_names: Array of reset control names for this variant.
-@@ -40,6 +51,7 @@ struct mali_vpu_format_caps {
+  * @num_rsts: Number of reset controls for this variant.
   * @expected_hw_pid: Expected hardware product ID read from the version register.
++ * @dma_mask: DMA addressing capability mask.
   * @fmt_caps: Format capability tables for encode/decode paths.
   * @frmsz_caps: Frame dimension limits and defaults.
-+ * @ctrl_caps:  Control capability tables for encode/decode paths.
-  */
- struct mali_vpu_variant {
+  * @ctrl_caps:  Control capability tables for encode/decode paths.
+@@ -57,6 +58,7 @@ struct mali_vpu_variant {
  	const char * const *rst_names;
-@@ -48,6 +60,7 @@ struct mali_vpu_variant {
+ 	unsigned int num_rsts;
+ 	u32 expected_hw_pid;
++	u64 dma_mask;
  
  	struct mali_vpu_format_caps	fmt_caps;
  	struct mali_vpu_framesize_caps	frmsz_caps;
-+	struct mali_vpu_control_caps	ctrl_caps;
- };
- 
- extern const struct mali_vpu_variant mali_vpu_v76_variant;
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
-index dd142527a1a0c..88e706be6705e 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
-@@ -8,7 +8,9 @@
- #include <linux/slab.h>
- #include <linux/string.h>
- #include <media/v4l2-common.h>
-+#include <media/v4l2-ctrls.h>
- #include <media/v4l2-dev.h>
-+#include <media/v4l2-event.h>
- #include <media/v4l2-fh.h>
- #include <media/v4l2-ioctl.h>
- #include <media/v4l2-mem2mem.h>
-@@ -318,6 +320,21 @@ static int mali_vpu_enum_framesizes(struct file *filp, void *fh,
- 	return 0;
- }
- 
-+static int mali_vpu_subscribe_event(struct v4l2_fh *fh, const struct v4l2_event_subscription *sub)
-+{
-+	switch (sub->type) {
-+	case V4L2_EVENT_CTRL:
-+		return v4l2_ctrl_subscribe_event(fh, sub);
-+	case V4L2_EVENT_EOS:
-+		return v4l2_event_subscribe(fh, sub, 2, NULL);
-+	case V4L2_EVENT_SOURCE_CHANGE:
-+		return v4l2_event_subscribe(fh, sub, 2, NULL);
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- const struct v4l2_ioctl_ops mali_vpu_ioctl_ops_dec = {
- 	.vidioc_querycap		= mali_vpu_querycap,
- 	.vidioc_enum_fmt_vid_out	= mali_vpu_enum_fmt,
-@@ -337,4 +354,6 @@ const struct v4l2_ioctl_ops mali_vpu_ioctl_ops_dec = {
- 	.vidioc_dqbuf			= v4l2_m2m_ioctl_dqbuf,
- 	.vidioc_remove_bufs		= v4l2_m2m_ioctl_remove_bufs,
- 	.vidioc_enum_framesizes		= mali_vpu_enum_framesizes,
-+	.vidioc_subscribe_event		= mali_vpu_subscribe_event,
-+	.vidioc_unsubscribe_event	= v4l2_event_unsubscribe,
- };
-diff --git a/include/uapi/linux/media/arm/mali-vpu-config.h b/include/uapi/linux/media/arm/mali-vpu-config.h
-new file mode 100644
-index 0000000000000..a82fd69f16b75
---- /dev/null
-+++ b/include/uapi/linux/media/arm/mali-vpu-config.h
-@@ -0,0 +1,47 @@
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-+/*
-+ * Arm Mali-VPU Driver - Userspace API
-+ *
-+ * (C) COPYRIGHT 2026 ARM Limited.
-+ */
-+
-+#ifndef __UAPI_MALI_VPU_CONFIG_H__
-+#define __UAPI_MALI_VPU_CONFIG_H__
-+
-+#include <linux/v4l2-controls.h>
-+
-+/* Mali VPU specific V4L2 driver controls */
-+
-+/* Encoded stream NALU encapsulation mode. */
-+#define V4L2_CID_MALI_VPU_NALU_FORMAT		(V4L2_CID_USER_MALI_VPU_BASE + 0x00)
-+
-+/**
-+ * enum mali_vpu_nalu_format - Encoded stream NALU OUTPUT format.
-+ *
-+ * @MALI_VPU_NALU_FORMAT_START_CODES: Each NAL unit is prefixed by an Annex B start code.
-+ * @MALI_VPU_NALU_FORMAT_ONE_NALU_PER_BUFFER: Exactly one NALU in each output buffer.
-+ * @MALI_VPU_NALU_FORMAT_ONE_BYTE_LENGTH_FIELD: Length-prefixed NALU with 1-byte size field.
-+ * @MALI_VPU_NALU_FORMAT_TWO_BYTE_LENGTH_FIELD: Length-prefixed NALU with 2-byte size field.
-+ * @MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD: Length-prefixed NALU with 4-byte size field.
-+ *
-+ * Options for V4L2_CID_MALI_VPU_NALU_FORMAT control, which determines how the firmware
-+ * encapsulates NALUs in the output stream buffers H.264.
-+ */
-+enum mali_vpu_nalu_format {
-+	MALI_VPU_NALU_FORMAT_START_CODES		= 0,
-+	MALI_VPU_NALU_FORMAT_ONE_NALU_PER_BUFFER	= 1,
-+	MALI_VPU_NALU_FORMAT_ONE_BYTE_LENGTH_FIELD	= 2,
-+	MALI_VPU_NALU_FORMAT_TWO_BYTE_LENGTH_FIELD	= 3,
-+	MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD	= 4,
-+};
-+
-+#define V4L2_CID_MALI_VPU_STREAM_ESCAPING	(V4L2_CID_USER_MALI_VPU_BASE + 0x01)
-+#define V4L2_CID_MALI_VPU_IGNORE_STREAM_HEADERS	(V4L2_CID_USER_MALI_VPU_BASE + 0x02)
-+#define V4L2_CID_MALI_VPU_FRAME_REORDERING	(V4L2_CID_USER_MALI_VPU_BASE + 0x03)
-+/* Suggested firmware intermediate buffer size limit. */
-+#define V4L2_CID_MALI_VPU_INTBUF_SIZE		(V4L2_CID_USER_MALI_VPU_BASE + 0x04)
-+
-+/* Enable firmware protocol to send debug prints to host. */
-+#define V4L2_CID_MALI_VPU_HOST_PRINT_ENABLE	(V4L2_CID_USER_MALI_VPU_BASE + 0x05)
-+
-+#endif /* __UAPI_MALI_VPU_CONFIG_H__ */
-diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index d17e41d51d2ec..b9f7bc3aac1de 100644
---- a/include/uapi/linux/v4l2-controls.h
-+++ b/include/uapi/linux/v4l2-controls.h
-@@ -255,6 +255,12 @@ enum v4l2_colorfx {
-  */
- #define V4L2_CID_USER_IT6625_BASE		(V4L2_CID_USER_BASE + 0x1250)
- 
-+/*
-+ * The base for Arm Mali-VPU driver controls.
-+ * We reserve 64 controls for this driver.
-+ */
-+#define V4L2_CID_USER_MALI_VPU_BASE		(V4L2_CID_USER_BASE + 0x1260)
-+
- /* MPEG-class control IDs */
- /* The MPEG controls are applicable to all codec controls
-  * and the 'MPEG' part of the define is historical */
 -- 
 2.43.0
 
