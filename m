@@ -1,64 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795090389;
-	b=QUO48o8Wxd35qFIzqGroByHlH1PsJd95YDXWgAOy6Vx3TNmbegXmDNC8kC3yN0+Y97KJ
-	 6657K8iAlt+HaPzEwDSFFSQ3DTJP+RMyvLqep9EHhjgFm1Q/GK4nHQUYoC0ofLP9VodAC
-	 iKQa6ALQc7m6pyknSiZyNCRAjq70uTdffjxSGT2IKcIjd+jAU5qKr+JWDvmtt3aY4iNW6
-	 2zzxusFlWe70Tz0hKN34y7F9/94qt7J/jxvVFmHW3LHX/8verKq2F80UD6cieFVTFp4YY
-	 Z+0oYgZ9rBa+UEDZKf1t7jbiwSQJVXepA0hCggnV3tYhE+JEHdWUf2lAb4jZlntqspg==
+	t=1795090490;
+	b=J2S0roxaYXokVRpovKcrJG7DAPCr7jko3nowCj47SjBtsB6bUYln+Qr4EN9zmYp2lw/e
+	 AQavLxpIWYPwrrjCWEJLoU2w8ETS0MqQBPOEKUEosLB0hERHipFiVXaI7wNaVhrpSNrpK
+	 lSpSvi1NBQG1GctIwioI263ioV5vkxbS+s7p0bsmQnDOFtSSsU0nHQ931tcLQz3wr0nEn
+	 fCDjc37cqRyS4YNWTqLbR2PNCMCjpceGUT91OGr+2UBX7QQgvnvRuWpfhhY4TDVwiaBGn
+	 A93iNOQ15tjpsTHCdKHBakpScaKJA8u06Y5M1aDYCZ8FFRluGHOJNxYEUflNuwpGrYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795090389;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Virus-Scanned;
-	bh=REsnftpp5R8mVp6m2NhUleDB0j+A8D+8snw/QN9P/es=;
-	b=4uolKJLnuXWhWwvOjYBPwvKdmBaWerEG3yA/kpq+1v7TU7ebM4L9gbWHumQyK489i0CV
-	 q7sKaWTMlWIyaufBt8AuEj/NjLsnHa/LxVt3ILPX2ttr/G319m1RIRKAwPIy8WGWm8aO+
-	 5zZqGqUl5JOk0Lkm5S5IPNIUGA183dvQblpCQZTg9Vc1QlgI6mDrZ71tSCcse3eaVmLWK
-	 wvjfk6nvsBVoq0kSRhaQN8+M+7J3qMcjQ5tWaAQGmiup0dkHtZsxO6CZDBzSzjPIlqqtz
-	 tYBOyQc3Gkz6H6H3eg0JkE9lj5N1m1qaLxi6mSM+4vJSmKi8nawhSm2PiInIY49yXNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795090490;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
+	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
+	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
+	 X-Report-Abuse:X-Report-Abuse-To:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=KPwgoK2ctYkEIoXLDhQ+9ixRvnytQ+HTp/D7L99rIqE=;
+	b=UqN1ccDgQL1YMLvkOZQ77DAX46+oNxBUepdV9MauFR+YbVFwAkkVCzT3faOGyArlg0Ze
+	 ZDxLzncyVZ63Xu+rLiLYGVm8b9RTf5J36FksGjPnyfQsHPV2H8YjrN+CZ/MaZrH3/Ji2h
+	 7L9y75wMtxH3BAm5Qe5/afE35gKXPhZUZDoeoq+bsRnC9tnKIL7IHDEeJjLqFmVw4JOi0
+	 ueHiN6JK2dMwt7FXJwh/JXIIp4raoOwvVqeNzi6I8HNT1s/ec0WhhZ4lKefL7DQfTtk04
+	 1M0sZvXflVPNEzSvh9ko5Lbgk4ti7nvb79JqgMlBPa68wxPz8u2I1ia4t1QVKTFuZUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ew.tq-group.com;
-	spf=pass smtp.mailfrom=ew.tq-group.com;
-	dkim=pass header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b="Ow1j+iK/";
-	arc=none smtp.remote-ip=188.40.3.216
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	dmarc=pass header.from=kwiboo.se;
+	spf=pass smtp.mailfrom=fe-bounces.kwiboo.se;
+	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=kVFQqDBC;
+	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=E4sAS0c1;
+	arc=none smtp.remote-ip=121.127.44.66
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E50A606A320;
-	Thu, 19 Nov 2026 12:13:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E50A606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9234C606A320
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 12:14:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9234C606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=Ow1j+iK/
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=REsnftpp5R8mVp6m2NhUleDB0j+A8D+8snw/QN9P/es=; b=Ow1j+iK/0IXr3VjEg+HVcVRwx4
-	ClZh46wm3jwoJUVDAxFIqsxoZ2Ne7kNGjkKMnV1I2iuu+4Y2/PszSHbhbhw4W1hy3L+HiNX3dHrM5
-	DP1TcGgLpSwzVCdI7sh8RlIqxLJtnk9KkHGMu2gGvJJ8YIaf8R6+QmTCmV5r1gY/cqOqvV67wD21z
-	xv2rpZcvIdV5rCaZLOTboYJmaWqrI1UxU99KchXsx3c9Y9sl+ATp4XwLSLijEOfgRMmLOQfdQONKL
-	LcmavD58kF7/4vNyS7B/Upkr7kSvvHtOybAQXD2X336TWJHk9+sERgqdHlv1s9U+mQ6FVhy5cx3GH
-	hWdIyBBw==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <max.merchel@ew.tq-group.com>)
-	id 1xU10k-0009Qi-1O;
-	Thu, 19 Nov 2026 13:13:06 +0100
-Received: from localhost ([127.0.0.1])
-	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <max.merchel@ew.tq-group.com>)
-	id 1xU10k-000GBq-0t;
-	Thu, 19 Nov 2026 13:13:06 +0100
-Message-ID: <327196f2-9063-4164-a556-3093a649b5e0@ew.tq-group.com>
-Date: Thu, 19 Nov 2026 13:13:05 +0100
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=kVFQqDBC;
+	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=E4sAS0c1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
+ To: From: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=fe-e1b5cab7be;
+ t=1795090483; bh=KPwgoK2ctYkEIoXLDhQ+9ixRvnytQ+HTp/D7L99rIqE=;
+ b=kVFQqDBC+crWGyazLnC0gyGSRFkDlZUWjtBodVuMawOZAp7v725i9zKg75Bj/Te0MOc17x1O+
+ ni08GL2AcjO90b+rv68hAZpgEKeMh30Y2NrgQWOejcI8bXZ+S5Lyp/pZxiR0ahKdHOAV/DpuGEH
+ bVVTF5KMKoUPg5yH8+rP6+1FniblEzyJqM5WPfzqrZwB5UeT0iZ1PjW0W0i+0npMSC1QX3AZtR/
+ +aHGAYpGsKSfcXb/lwe8ERaEueh+9ObiE5W2iiRHho20VqV0Npzx3rYvPlylcq3Ov5bIUnEM2vS
+ oMy8mFw3P88zeJyREmJKyrjEDuz6Fm2+3iktfbOiOSvg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
+ h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
+ To: From: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=default;
+ t=1795090483; bh=KPwgoK2ctYkEIoXLDhQ+9ixRvnytQ+HTp/D7L99rIqE=;
+ b=E4sAS0c1ftV4X1auGU4iAWL94ziJboI2mwUr70kbLYiCHylqnWJqdKDEVo+zmE0QPlXkYg9Il
+ wOLBOK34xR01PNU0QAkPVmN04HTzhAWlfqokX2MDQIfsVPXlA4FMme+L4s7zn5Hg++Y85pa0bLZ
+ bZFaLFJWE102GwOpZ2Jfjng=
+CFBL-Feedback-ID: 6afee831d37bc4966df160da:3d0014e63e262de90a9d6bb08833dc93
+CFBL-Address: abuse@forwardemail.net; report=arf
+X-Forward-Email-ID: 6afee831d37bc4966df160da
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.19.33
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+From: Jonas Karlman <jonas@kwiboo.se>
+To: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jonas Karlman <jonas@kwiboo.se>
+Subject: [PATCH 0/2] arm64: dts: rockchip: Add FriendlyElec NanoPi NEO3 Plus
+Date: Thu, 19 Nov 2026 12:14:30 +0000
+Message-ID: <20261119121433.550704-1-jonas@kwiboo.se>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,100 +86,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM: dts: imx6qdl-mba6: Add EEPROM nvmem cell for all
- board information
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org,
- conor+dt@kernel.org, Frank.Li@kernel.org, linux@ew.tq-group.com
-References: <20261119102531.2995127-1-Max.Merchel@ew.tq-group.com>
- <sashiko-outbox-222965@kernel.org>
-Content-Language: en-US
-From: Max Merchel <max.merchel@ew.tq-group.com>
-In-Reply-To: <sashiko-outbox-222965@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.6/28188/Thu Nov 19 07:24:39 2026)
 
+This series add initial support for the FriendlyElec NanoPi NEO3 Plus board.
 
-On 11/19/26 11:37, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [Low] ARM: dts: imx6qdl-mba6: duplicate @20 unit-address in
->    nvmem-layout
-> --
->
-> commit b5a0ac272fe3356ca3f0ff5cbf739f7f5d760dab
-> Author: Max Merchel <Max.Merchel@ew.tq-group.com>
->
-> ARM: dts: imx6qdl-mba6: Add EEPROM nvmem cell for all board information
->
-> This commit adds an EEPROM fixed-layout nvmem cell at offset 0x20 covering
-> board information on MBa6a and MBa6b carrier boards.
->
->> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6a.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6a.dtsi
->> index aca320ee8f476..9b199b277c220 100644
->> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6a.dtsi
->> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6a.dtsi
->> @@ -29,6 +29,10 @@ nvmem-layout {
->>   			#address-cells = <1>;
->>   			#size-cells = <1>;
->>   
->> +			board_info: board-info@20 {
->> +				reg = <0x20 0x60>;
->> +			};
->> +
->>   			mba_mac_address: mac-address@20 {
->>   				reg = <0x20 0x6>;
->>   			};
->> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6b.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6b.dtsi
->> index c7bbd6195fef1..517913abbc66d 100644
->> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6b.dtsi
->> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6b.dtsi
->> @@ -39,6 +39,10 @@ nvmem-layout {
->>   			#address-cells = <1>;
->>   			#size-cells = <1>;
->>   
->> +			board_info: board-info@20 {
->> +				reg = <0x20 0x60>;
->> +			};
->> +
->>   			mba_mac_address: mac-address@20 {
->>   				reg = <0x20 0x6>;
->>   			};
-> [Severity: Low]
-> Does adding board-info@20 alongside mac-address@20 under the same
-> nvmem-layout parent in both dtsi files cause duplicate unit-address dtc
-> warnings?
->
-> Because both enabled sibling nodes share the @20 unit-address and overlap
-> at offset 0x20, building the MBa6x DTBs with W=1 or W=2 triggers
-> unique_unit_address_if_enabled and unique_unit_address warnings.  Could the
-> fields be defined as non-overlapping cells at their respective offsets, or
-> exposed through a dedicated nvmem layout?
->
-Hello,
+The FriendlyElec NanoPi NEO3 Plus is a compact headless SBC based on the
+Rockchip RK3528A SoC. It shares most of its design with the NanoPi R28S
+and NanoPi Zero2 boards.
 
-the MAC address is the first part of the TQ-EEPROM structure for 
-module/board data (MAC, serial number, type).
+Jonas Karlman (2):
+  dt-bindings: arm: rockchip: Add FriendlyElec NanoPi NEO3 Plus
+  arm64: dts: rockchip: Add FriendlyElec NanoPi NEO3 Plus board
 
-The function “nvmem_get_mac_address” in “net/ethernet/eth.c” retrieves 
-an nvmem cell containing the MAC address and compares its length to 
-ETH_ALEN. Therefore, it is not possible to use the same nvmem layout.
-
-Consequently, two nvmem layouts are required, both starting at the same 
-offset.
-
-I have not found a way to use only the first part of an “nvmem layout” 
-or to create sub layouts for sections of an existing layout.
-
+ .../devicetree/bindings/arm/rockchip.yaml     |  1 +
+ arch/arm64/boot/dts/rockchip/Makefile         |  1 +
+ .../dts/rockchip/rk3528-nanopi-neo3-plus.dts  | 96 +++++++++++++++++++
+ 3 files changed, 98 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3528-nanopi-neo3-plus.dts
 
 -- 
-Best regards,
-Max
-
-TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht München, HRB 105018
-Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
+2.56.1
 
