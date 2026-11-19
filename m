@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795128015;
-	b=xk3pawaYl3s6TpRxLXaFSl1xsrJMUFy2CgvyBlnBiqdEH2/sKGeDPqKafRxJ0hgKtKCd
-	 5j/aJWIbW+ARXK3VzGJ4ziEonGmwW1YLTo1xGlJNMyQYmFZulrNgUBZXUcc13QTJj5vfv
-	 wKtCKUgoKAWFcAIbV4LlnwVSRL1JNTiHwBK8RxX2OtyTUXOt48hxIDLJg9opKrthMLeRn
-	 hr9h2kbWwlr3EcGoV+hNDfzA7dm4QGYONBDdysMklUja55bJDrtiA2UUObbMt4zoiMTSf
-	 LRLnDHnOhuXXH5HQJQ+AOglWp2KgDoz6Vl4wT6uh7JpJPBMIJkbsTTCyYLbVieikr2g==
+	t=1795128016;
+	b=AshhL4ltOJM8uPDrq64LNiauyErId62KnCfh/eWgCWuEoOL370Hjasp7OyciP2SnJcHt
+	 xM+wS3u/Ia45+wnTsLAwjFmA8uqLm87IgvafB7TvPUafSgl5ykUjqTGuSpjPJQTskbgNL
+	 /9evmn77cRg1xs6xpfwZkNUmUwtaQFgtxBMRfp8h9qReQJGeKYwUL+hamvNU1I/pi1aT/
+	 mhcHAJAhiXLJRRu7L0eWu+Q5t7ykQd63BpXLHlBN4m8dPvwniF5cGicrS5SWm9Qq+7rmG
+	 qcmg40tla+ydep2JH6YMHMsjsIwXdjSGDP3t+7PKNHBTjlHQGMY+Yez9ij8jVgMryTA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795128015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795128016;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Xb9tGlBs/RI/3cYvgIuwT7LwCzWblww6OxyeA8tXJMI=;
-	b=NTsSPoQwKXL+UgjbChO8fnVE04gMh6zIp94+X+vEkYH6go4tP34w+e+7jHsOTLCs3LCE
-	 NKRR+mg2GqYoYO8o8MOPf05xZ49VfAz0Gn/fNg0MhNzKMczEQRXhOkgboGtKltL73bMIm
-	 CaFmUdH8sUFk8MWwDQ+F+lZKOSECHDoiA/q9kfhY8bHqZamIclaDdRocCIIbHFkqkW2g6
-	 qc6ggZuK+ss4eW7baY0TPVyRZECCH2BjM8oCixiBQx1cHThPA1Wz+54mTSuaGLLpTHtFH
-	 mJ2auMmCgyjE9sJkMTIAxgSWxVP8qrGQycCZcxZabl1owjAypLADx2NOTtclJuL3DgA==
+	bh=GZbJnJrsQpQ1xMshKqNDWW4gqUaaunYDWTGTeENGsfA=;
+	b=SR9Sou6hD+YqJBakIVY3RQhsjgI8PrU3skY+tRiEqeve8e/UlqdpmOtK0AyQPEEz8THw
+	 Z9kmXJicehV6XUWdW13BGFoub2H73xmoEoFFsmc6/vLo2fZm0itNTsmDe8tCy+3002D/s
+	 G5FGfOpekI25c/22fUUE00LkbxNqn1NMipOuHe6c99MZMGwTtGUyyYFIJ7xpgFeNbvllE
+	 0zN+RxVr/7Ql3KMhjKRtq7XEUtp4d6+043hZzxM7v29dwCzEIzKrbBAZsmgc5DVP9nfBW
+	 65Q5eTy1YaAcPLPwOMUg0bke8J+1qfbVhsaj3SvwB9DfY5MaIFjizuJCH7gHaKpV8zA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R023IU59;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="H8sF9/Jj";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68D2606A33B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03BA60A2602;
 	Thu, 19 Nov 2026 22:40:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R023IU59
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H8sF9/Jj
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1795128015;
-	b=OE2AQVBhNyFXyKAZbg7kL0hrhwepf3se5s8CwtCL6Rxo3GoUk9TuI7j8sFN1pRuS2bMh
-	 PSKjznJn8IUoBUwYlYAw2Q3xbx+Ez8BQsedMabtlPOwRCzSpphtmPFGhugC/DIweO8w8N
-	 5wDSGq7CATg6fi11w9bdJoHt5+I5IN+xyBoRGKRKJAQZQw+y6mbs75a973DWw1LREyKwk
-	 NUHIVes/TZvWXaIBTeqhnIj/FFcdqPRcF1Gk8cdoghe0zY/GHCaNmQImlC3+TAqy/rWVf
-	 02hJjcy5FR73DgX6T+VcHvJZlRmzmucMGS8BWatHjYthvTAwqv/x0P/FRhbaXazNsmg==
+	b=etvpPfYQXWlsi7fhRAbhqCfwKZtExKbaXtpX0qlcLBcQGwXLoK+dBbo8g4iHFc6P4IiF
+	 +JWE1XEgrotf740v18VHnEMeCv/Z7N+q39T/Q6SpK/m1lqcE0vXXGzM0/RAMxUR1USvVY
+	 tG+JxZm9i321M0h0Rph/o7hHO3DXmZmANaso0ZLPRnZemT1BMO8tlRUdJEbUcGqyzl/Ok
+	 sgHYcm3ffTtOtZ1CrtJ6IzTqPFrVOyAc9sYYfzeITvZ2dg6yocDVuKLn/AxWGT68yarV+
+	 itmS3UbeGNXD4hKoak3Eca5EQGeEE1o/FCgf0V8rKBV+jQxLZpuj+KoMHFO7+FvNkDA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1795128015;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Xb9tGlBs/RI/3cYvgIuwT7LwCzWblww6OxyeA8tXJMI=;
-	b=W7uEUK1MIrvXd2JdkE30vaccPO2HrUtgDN4nol49jh6prJk84WOWINULATO0oKvi7Ogv
-	 xX38Vkbr5qZ66GriNTs8LGQm/HhSWfOiPb94FCWfMXh6ZfPvEekUvzeXhDvMXmUstKMlC
-	 Lly9+Zwmb/N9yxRnQ5ybhqVbwDOevHTg5iJYi/ZAshIR7ip0gtXrlKQ2rXgRD/nibA1j9
-	 HTorINOGLJqJAl7fgREMl8t1M2mZtB0IqNj6k1updlDG/g/Z2RbxgtTh8v/xpDAJY8Tky
-	 ovZwEQq1KpK1Jw6CDB68O2IPwE6ay+2om+rz48S5dJVhl6VPmrTvP9/M3It57xqJpXg==
+	bh=GZbJnJrsQpQ1xMshKqNDWW4gqUaaunYDWTGTeENGsfA=;
+	b=Ndbk3t3yJwBnBZGNzCwffa6ubQgwYrZaryCLYE7wWqh7M2SYUafLdKQ4MYGoY9vUN3Yx
+	 vXigm2oStOAT6Ah+EYICg9RwBPDeAE3vjeW17mt2pJS8TuHMWbBPfAdljeBjiRq8KnCSq
+	 pKBu9DlYopaEaMymaM1TtOqYBX1DsCzRl+7nx6CFpzcmTasHuOgPSTkYhOY8rM2mqAkyQ
+	 dmAXdflg3i111nCV5MisFi3sTDLxoHgxUR6f+A6ZTvTVu2duyoDFLO5KaD4csro2SevTL
+	 lBvjGFghl4orAnVCEvoeEudzrbDcQemcG/FSCINWp+PapYNDALAAmCngXPdcI8QQIKA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1E5311F000D8;
+	by smtp.kernel.org (Postfix) with ESMTPS id 218491F000E0;
 	Thu, 19 Nov 2026 22:40:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795128015;
-	bh=Xb9tGlBs/RI/3cYvgIuwT7LwCzWblww6OxyeA8tXJMI=;
+	bh=GZbJnJrsQpQ1xMshKqNDWW4gqUaaunYDWTGTeENGsfA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=R023IU59D9EYp56SaOKO4PIPeIQg6NxFsa/X85wERpiAl+VvxbAFUC7VU6nIRzR+K
-	 6VIvkiV4XFU+3+kejYOeQQitclFM11mF7NC16mi374FRc7q+iB9PkjVZegSQXHfZaY
-	 VKQKq13bUVLiFZeZEGHstu4X7W+ZynALUP85fLzOtDQVZadJfn9h3nS69s1w3WuLYP
-	 La4KhhXUUMBTC8ZRcRp/kXw9joJTF9bnZu/A8kMMOJcUseZKVF37MNpe5MCYOS62Eo
-	 PznUxGFKIX+5ZlGTvQp1JsHP/af3W86NRg0K9P1eSGhG12FOCQMrxAqzthnnrj74dP
-	 S1dY99XxxSVNQ==
+	b=H8sF9/JjvDYhG5duyuo5edkb6z+EHK6wZk6/tBKJt/7j1AZSgZ5zyvEW2+a+sg6IQ
+	 cTF2NGMFyF7TZ4hsEDYSqBqH7z42kmkv0eWwXINe+0ExUjElC1HqXmvnz2lnY1V6Dz
+	 GoIBN7NSahCUIeSb+x2OB+LQUtWMOEc2KDKGXT5efa/OIAPwGzJbfo348wBjhdse7f
+	 UvuGDBL0p4n1uFjF30TRSbOEsWjHQjj8ocNqr0odGGSdtFem7qwBPZ3vx3k05IFjkd
+	 /7+4D/NAtHhpEJLLvX2WuCtvg459L3k1x8bf4tpjSzKGP8d4DyiaGqkaOgyIUPisFV
+	 6iT9WEzM0Oo1w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 22A2C422D9;
+	by lkml.kernel.org (Postfix) with ESMTP id 3A33A422DE;
 	Thu, 19 Nov 2026 22:40:14 +0000 (UTC)
 From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Date: Thu, 19 Nov 2026 23:40:08 +0100
-Subject: [PATCH 5/6] arm64: dts: qcom: sm8550-samsung-gts9wifi: Enable
- PM8550VS-C
+Date: Thu, 19 Nov 2026 23:40:09 +0100
+Subject: [PATCH 6/6] arm64: dts: qcom: sm8550-samsung-gts9wifi: Add battery
+ fuel gauge
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-b4-gts9wifi-followups-v1-5-2e2388589a62@dxdmail.cc>
+Message-Id: <20261119-b4-gts9wifi-followups-v1-6-2e2388589a62@dxdmail.cc>
 References: <20261119-b4-gts9wifi-followups-v1-0-2e2388589a62@dxdmail.cc>
 In-Reply-To: <20261119-b4-gts9wifi-followups-v1-0-2e2388589a62@dxdmail.cc>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -94,11 +94,11 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Nizat Mikayilli <nacht@dxdmail.cc>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795128013; l=687;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795128013; l=1170;
  i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=euutEXnvvtMe/+gu763/D4wM9tSHPXBePYkghrhgKWA=;
- b=iqF0RUUWMRzsVz0FHsGRx+CEJ+Z0fN32987dHWQBjv1wEquvza99qmUNlb0LuPtAowCpxS7mp
- Y5JlmH6m8oLCN5HAV9omlX32uUrTMzttsHNw1+aozfbD9kDxKteHTEy
+ bh=SC0fR7IdkPE9KI0mhNhppX3NRSeVztJ4Sg+R3uWJmHM=;
+ b=rUTWbpFzV8ibiDY7TqHYTQe09CIeutNAS64fOQk3yhCmxPEFhE9Zo4f7Sq2KSzrQy9OQciSTj
+ N+dsVkDNZ/ACzee0eN6Zdm0AFtnMYoL5r78K7+igiZWRJcjFUYbBZU7
 X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
  pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
 X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
@@ -109,27 +109,48 @@ Content-Transfer-Encoding: 7bit
 
 From: Nizat Mikayilli <nacht@dxdmail.cc>
 
-The board has a fourth PM8550VS, at SID 2. Enable it like the other
-three.
+Describe the Silicon Mitus SM5714 fuel gauge on I2C hub 8 and the
+built-in 8400 mAh battery it monitors.
 
 Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
 ---
- arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts b/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts
-index 4dc0b7e29db3..8323eb837710 100644
+index 8323eb837710..511bdd05d49b 100644
 --- a/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts
 +++ b/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts
-@@ -724,6 +724,10 @@ volume_up_n: volume-up-n-state {
+@@ -31,6 +31,12 @@ aliases {
+ 		serial1 = &uart14;
+ 	};
+ 
++	battery: battery {
++		compatible = "simple-battery";
++		device-chemistry = "lithium-ion";
++		charge-full-design-microamp-hours = <8400000>;
++	};
++
+ 	chosen {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+@@ -604,6 +610,18 @@ cirrus,gpio-ctrl2 {
  	};
  };
  
-+&pm8550vs_c {
++&i2c_hub_8 {
++	clock-frequency = <400000>;
++
 +	status = "okay";
++
++	fuel-gauge@71 {
++		compatible = "siliconmitus,sm5714-fuel-gauge";
++		reg = <0x71>;
++		monitored-battery = <&battery>;
++	};
 +};
 +
- &pm8550vs_d {
+ &i2c_master_hub_0 {
  	status = "okay";
  };
 
