@@ -1,115 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.91
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795114181;
-	b=KXjmGaVBNWV6Tq/mT267oxRgM7abOglGb6NLno1IL2AyCr0vXdARVORUvzjhrhW5FK2o
-	 XrclBuWvLPEQNWUB6cedz9jX9DamAHKIb1ltynIZB0qkh4/1PuyX9SWTgJygIUdNDEfMP
-	 /1MRuqtI8nWrDLiUkybCssf7AsH9JhXgFLYxJZOvuf2e1SeBWnpuDIJpnb2/CUNvmc6dy
-	 dUbUWX6u/T/LfqtkxeOySzGijgmGwsNzJo7OM+n9haaZHegyVVAesWMmWcuzLI0FKsv9g
-	 Hj35MR2N4tm3EcxB0ffYgzMyS9tXNUhnNPlElve+ORH8DaSAKTk9AiOjpBlWRuYB3dA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795114181;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=KEv0asmb+0QOlA2ySlZMQOAzyYmRGy1vWCjXK709IGE=;
-	b=CiPI/ZN9ko4NUWt+nNBTYnNobA7wCR+B9udg3JWwpa7NlJV3XbDTh2GPiP29b5ZL2pOs
-	 +2x9995Bu/ywBsqHvyCDq0sgbCGNejeear493w5RJCCC+mb87aDFVKTUp7x0DUnxXOa08
-	 OKdePAcKjwncl4w4NInGqLPdOtTkwoEYBe9JkKvKqhG7ikgOzDDWZQRmAp8xj8iLhL3ce
-	 aXSyQaK+Xy2ctcaOK/PHrMBlPyW9FxuM2PX3tvBkzl6pyms0uI5QCm52b1c8yQcdN+i1y
-	 fmGGKm3QMOjeO2OE2osZxang73G4xCwVJjCQP+NJZdx//Kj9QJaYHyISEDxWKr3I2mw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kontron.de;
-	spf=pass smtp.mailfrom=kontron.de;
-	dkim=pass header.d=kontron.de header.i=@kontron.de header.a=rsa-sha256 header.s=selector1 header.b=a4o+E2f5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.91
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023091.outbound.protection.outlook.com [52.101.83.91])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795114187;
+	b=AApn43awcAYoC/KLKJ4ddqAP3+r4gYkXJZs8L81pidgX+0l6k2cT6LrO9v02j8S3IkZd
+	 Uxje2l/fCAt8gE7NcmsaQps3wBuFGeTC3LHxXHLidJwdng1sgsA/qmmLLrMta4dfpkHwn
+	 UFnZWEJzOQX77gptFhP/bQBd3mVXV+2Nd9Z/U2pUx2/ZcUq5/FXY9wyyeyKoJpXNVaOdU
+	 ZWJq/a6rHd/4W5JGGwLOAS9qBrXfGIlzdXdLGktkDsqEeI+xIMsMcp8rtoDkfLc5EystN
+	 ZbSzuW2iG0MyIw510e/GqIMVGY3gbI74o8sIFRQxk5xXPEPqi5YdGIVz70sOqh7ynpA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795114187;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-AI-Review-Draft;
+	bh=BFGiQ3bPXd04tCdi5W1EneLTHL/Y5YgyApKsgvojxzo=;
+	b=IrYrwdaWktGJrjzuS99BkPUY+w48fESUOoH17/6I95Kp3sWyS+3g/tBkuFWQTprl7NYU
+	 0Qxu7NaU2YzYY4JS2u8Rx2jPQLFNmsFoBmHwmofDQLo8NqINiF2J3wmJ5JVMnXUa6m5dT
+	 qo938hK/xIp/T9EIjybE9E8fo6WCHNPHdiykAJ2aWUtYYg95zODd5kI01NHHLrOGea6O7
+	 cY+rZtHvQI71foBIRiN5cnrlWUgGg9baXBEC7b94L4Z+iaJC7nxKiEe+oXGbPi0AtC3px
+	 UGY/DBOwkDALGmv9Tb40Q+5qMHDDgWCRytFj+83+jXSA7xfCtkUSWU39P/KW6KlDUcg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MQpH+1AV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5E9606A320;
-	Thu, 19 Nov 2026 18:49:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D5E9606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kontron.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4B2606A326;
+	Thu, 19 Nov 2026 18:49:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kontron.de header.i=@kontron.de header.a=rsa-sha256 header.s=selector1 header.b=a4o+E2f5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SRafyHTCStP/Le/VjnDOMPJUG8N80L2t9cRFjxVdKqa4UOQJ1AKG2N1pJCAS/6x5vsSxBxl3x6qu1Z6BE9bJJP6gngTBH4bkL9k37X1V0ucz3fpEBHe/qMPBDzBjovic0rl0MlEbEfRxVpLT380TozWDZiwpYdwzkR7lWD8EH25v1VnSjmJWQkwQs5fIPxoNUx8qaU0dI/RhADBZm8TTnR4lq8UPoEo8pVkNTkns6MAneFqLj/1zR12Tp+lE3JYJY292uiHDY4O8zWDX072ae2rmFNNl5j7V1WUcOxCG5/61nem7PIBfLZ8fcA6qLDRii7HZPqV0Qs+QUbtD5B8sXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KEv0asmb+0QOlA2ySlZMQOAzyYmRGy1vWCjXK709IGE=;
- b=DL3Rh0swCAHE+3k8kM3jWlQkQrnEQdTw3LkvRBNbk9q/C6NaW+24PTd2hpDkD8YjYD9MIa1MvqzaXRy+qAWFOjR6DFiXIzdOe8ACE6WuZt4yjFBJrYCvsKWMCiV7JLgn9IUeVIib+CmonbzuxgUYm7qC3MZ4pTyTYbrUAiowkIlFa5jZ3dYE2RJ+H1Lie40JKxOyGX4ywruD/daPfrybkzoUViXi1EF1BmBztpaDh69ymS4fq2GyWeJZPCD8xYRCctpohq8/w7NeHagzBD6BblFao/D4A0foTCZ+mrCvP9Qt42Ker7TJeKBkmBuvzzpKF9Dd9umIxmnukqVljsDW8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
- dkim=pass header.d=kontron.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KEv0asmb+0QOlA2ySlZMQOAzyYmRGy1vWCjXK709IGE=;
- b=a4o+E2f5KgY3VEo5AkrFQUExi1hsf1NVQac5rYyGTSkchPc92fmXVHdGf3fjwRXzzSIZKBmuKXCBBePvGD3yQDVGA0D+M/Vv+6G5AVywKxaAdICjZTAqQ6iz1oCLECL5o4qJx+ksZc+9dPPPrWLBJlJJ0W1h3OyV21kTNoECLGoZGq+V2hgfLWqUceZ71dzAGT8N73lzpMaSWfAtarVGslHWD/E2Cuu4uoFTerzwgkPk+yyhoreV3sNYQFi/SqB0HAzardWTLoNSF3+GqkW8FvHkArGSh2rpsj0jUL130Ujj8cnwBD9X5dZMt3r9CSRmdwhJBdzVjPZu3R0/6yggCA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=kontron.de;
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
- by AS4PR10MB5600.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:4f2::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.1; Thu, 19 Nov
- 2026 18:49:34 +0000
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22%3]) with mapi id 15.21.0662.001; Thu, 19 Nov 2026
- 18:49:34 +0000
-Message-ID: <463b3707-4126-4f32-990e-e8f02d278695@kontron.de>
-Date: Thu, 19 Nov 2026 19:49:33 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [EXT] Re: [PATCH v51 5/7] firmware: imx: adds miscdev
-To: Pankaj Gupta <pankaj.gupta@nxp.com>, "Frank Li (OSS)"
- <frank.li@oss.nxp.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- "Pankaj Gupta (OSS)" <pankaj.gupta@oss.nxp.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Randy Dunlap <rdunlap@infradead.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, Peng Fan <peng.fan@nxp.com>
-References: <20260915-imx-se-if-v51-0-4a7dac612cb5@nxp.com>
- <20260915-imx-se-if-v51-5-4a7dac612cb5@nxp.com>
- <2034fb2f-f169-46a5-85e8-fa723ddb0360@app.fastmail.com>
- <aqqqDnOMmlfqit6u@SMW015318>
- <f3e1e3de-6abf-48cb-aba7-7b231c38ec5c@kontron.de>
- <180d2335-e328-48a4-b376-a90464279027@kontron.de>
- <3acc652b-d2e2-4a18-b70a-2656b309d798@kontron.de>
- <av3KA89WuUc5GdZj@SMW015318>
- <a2d7056c-602b-4c6b-bb14-211843aa3183@kontron.de>
- <GV2PR04MB12271E129EDA863074E4807B895792@GV2PR04MB12271.eurprd04.prod.outlook.com>
-Content-Language: en-US, de-DE
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
-In-Reply-To: <GV2PR04MB12271E129EDA863074E4807B895792@GV2PR04MB12271.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0019.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::6) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:1fb::23)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MQpH+1AV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BDE21F000C4;
+	Thu, 19 Nov 2026 18:49:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795114187;
+	bh=BFGiQ3bPXd04tCdi5W1EneLTHL/Y5YgyApKsgvojxzo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MQpH+1AV4z5xJ/gafWNosFTQe3/Clx39BBa9OL1e7vIJFWwZXByjbFLYKmg14APc6
+	 BHBboIyf1yT5dRciYJBw394Y8swHP7/+5IxP6YBC7oohPNPT+7Ho2IJbtvrliq5+j8
+	 7Oq6P1woAYDBl0qEARcGX7NZf7u44+J4tdghIXXsUza2T6eWE6SgxRqTyVFcC9Givu
+	 yZJ9Jl+hXkED2qIrF6ZmBOAe/h8bsROODaazcGP7kU68Bd7KdPuNB1KaLrVYG6fI90
+	 zz1Z8TY1z2hw5u38dxmze4oTHbqJFTHa5jHdZ0DRGlXmCb10+6fW4nZI8M18Vw4EiU
+	 ZQ7oN1K83rAsQ==
+Date: Thu, 19 Nov 2026 18:49:40 +0000
+From: Lee Jones <lee@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	William Zhang <william.zhang@broadcom.com>,
+	Anand Gore <anand.gore@broadcom.com>,
+	Kursad Oney <kursad.oney@broadcom.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	=?iso-8859-1?Q?Rafal_Milecki?= <rafal@milecki.pl>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>, Ulf Hansson <ulfh@kernel.org>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v5 2/6] mfd: bcmbca-pmb: Add a shared BCMBCA PMC3 PMB
+  transport
+Message-ID: <179510274338.63755.13074299296013371295@kernel.org>
+References: <20261117-xg6846b-bcmbca-xrdp-reset-v5-0-f584e8b8e696@kernel.org>
+ <20261117-xg6846b-bcmbca-xrdp-reset-v5-2-f584e8b8e696@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,152 +76,494 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|AS4PR10MB5600:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d629a00-da0b-4560-6993-08df466ddaa1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|18002099003|22082099003|4143699003|56012099006|11063799006|261026140227099003|261026121527099003|261022105027099003|10067099003|261022075727099003|261028144727099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	q31J+nS17P1tq2zFVCMm+lxYWcim0N3J/Qmo/gLnyPheVEDirBP1I63H6GBlum7abw/iVrf8VqBDLlmRDw2lq45b4HK6QqlR+045F4wf9TPD3zUmJJMDE+/MWvlDBiFG1dyD0KJgOe0JVpBllCCp2ZCDRXQXvknw1s2f6Bfkd0p8Y6BUaOayI8t+CzBie4dwoYzmU11Yd+ZucNkp58PIYVZ3CVCK9GQQYppnl1Xdq0SKjX98ZlasEmzBCjj7cgy812ege6b5guL8oBJS4s8pq7gDxIxrIOo/EIiQrs9UN6HYbSfWymxT1KwHF4817Wo2cIumVN567pxbDnki4yGgbgl/uL/y+UybQh5j4yTlQZXOUnbAPr/3ws/MfyUv0tQp36d4JiFK0cvjXY0V1DwROGkUgRl1/sx/YtPoEL18v1nfMzGKb4flR5eojRqUVVoGXx3NnG58p8PJwa2ULalqm2Qqmny5ToUMeS7JghgRgwNmp2gOji/VGf0Unv4OJu9ZbbX0EG6+EeJehD/ZFkQlS0FP//gB94JDeoZl0/O8jCEj1BaxlI2lAgGWQaCAHRlaZREmEUrqCr9TjSX8nrK71ryqQMu6afi2ucEt7hYQsczcr8OoQ4qn7jyNTOoqMoOB
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(261026140227099003)(261026121527099003)(261022105027099003)(10067099003)(261022075727099003)(261028144727099003)(261009223027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SW5ZVkxsNlBZVVFNQUIvRWdyVDhES0tNYU9hUjNMdlQwM2l2RnkzbmZ3VDRX?=
- =?utf-8?B?RE5scEhjcWRxTkt0bVRVcU9lVFgrSGRGYk5iMThPemRTaERtcmkzYUI3WGJ3?=
- =?utf-8?B?TWROeGlhSFBsd2hGOFIxalBmc05EVjVPK3RjQTdMblR2K05FUWxaWXZQTmdH?=
- =?utf-8?B?SmRWV1NpZXpyeldlUGZzdm9hUkhOWWhkUzVZZWpzZHpsUmdzMVNzdDNUL0M1?=
- =?utf-8?B?TkNLSzkyZHlWV3F4a1Y2eGJ1aE1Uczl3WTN2SDJtNFlaVVc3RW1OTm1jdy93?=
- =?utf-8?B?RDBUenh5VkVNMHJBRE1Ma3VEQmtNRFpxRkpkTnMwTW1FRzg4SmdIY1NPOWda?=
- =?utf-8?B?VXdoK1R1Y3lESmNzWTRGSUxhZVpHeUpIbERXWVo3TkNvd2UwQXVZNDJDWDBJ?=
- =?utf-8?B?WGxiTSt0eTROaVFEWGN5dGluMlIvL3AyTUwwb1kyd0lmVzZuSEgwSHE4M25M?=
- =?utf-8?B?MGNXRzd3OEcrLzd0b0o2a3M1QU1FeCtTakc5b3hKOGRza1liZmdBMmdQaUZr?=
- =?utf-8?B?Uk1mM1U3TnB2bnlPVld2N24rNS9YR2lBeGJEWktwbnYvbWs0eUc1RmxkUVhm?=
- =?utf-8?B?WHlIanFUWWF1dEZJYTd6ZHpBRHVOWC9VTFVqU2xacTlnMHZXUlZlZ2J2akhO?=
- =?utf-8?B?d0kybzNyczhtL3F5SkFrT3NsWmJueExMYzZLa2dtSm1kbGtPQS9mR0tTUDd2?=
- =?utf-8?B?Mk5PcldieE9PNVB5QWdZOFJONGxsK2xZUXU3L01GcDZEVmkxeWVDVmVsQnRa?=
- =?utf-8?B?d0xmRmFRQzJYNU02TFZjMXdvWmR2YWY2RU13Z0s1dUN2aHFJSjlMWHQ3di9N?=
- =?utf-8?B?UHM4bDY4aHZRTmUyaE4ydUNBQ25KZmx1dzNsTC9EaTA4K0F6blE2Uk5ZTnFH?=
- =?utf-8?B?ajNEMHd1S0tiYXIrMUZYWDJ4NFN0T1FwcDVwbGc3Qk5NVlpEZGNSelg1TXR0?=
- =?utf-8?B?U3cvVmVIU1d6Ulp2Y0VCcm8zRDBmd0VjdUdzVGRLWUR1dFFRWWtGSjlMa3pX?=
- =?utf-8?B?ZGE2aS8wQXN6Z3pEOVJYYVA2MlJyQ05hQ1FYQ1IvTzU5YzJacEFSaVZORFdQ?=
- =?utf-8?B?RDhPN2hybE8vQnZwSnZER0dsT2RpVUpVTVFVZHJKTk4zMlFGVWo1dmo4Ynla?=
- =?utf-8?B?Nkg5VzBpWjdFRkdLVGdXSE1TR25oMmZNYW00RmRwc0J4VytQTnU4VnhDNGtD?=
- =?utf-8?B?cHBXSE1EVVQrcHA0aktaK0dWZVVhRG1QSi9mcm94R1d0WjMzWmhtMjliT1ZZ?=
- =?utf-8?B?dWxaWkVqVWlnMWlYY05yWU1yME1HcXNnbU12bDFoSUNYY1h3ejcva0NwbFlJ?=
- =?utf-8?B?MWpUWkI0WXpQL0tGOUgrRG5aT0ovM1VFUUZZem9XL1NueWY4Z1dXeDBVSmll?=
- =?utf-8?B?YVFpbzlpMUczZGYrdGdDR3NPQytLMHczemtqSDFYUjJBRWFWWk9PYm53MStO?=
- =?utf-8?B?KzRKUk9CU2hmQjNTSGNpTTRFcjUrdVRZZzd2MXFDaVRDNEdGQXNYcExYcDkw?=
- =?utf-8?B?ZDZYQ0dpTW9FcEdWVVVnd2FrK09BSEdPbGJLdlJmaE41b0dEL3c1SmtvVVp1?=
- =?utf-8?B?MjFoc2VzWGk4VHdkMkFyMkNBTkR6RG5TZ3hiSXJxUW8xN3VxcHhUT05SOEtn?=
- =?utf-8?B?RWFOT3lDVnpZWHZsRlBnaDVPK3BXUWNjRXRFa0dFeitMY0ZTbW1DS1U4QURV?=
- =?utf-8?B?a2hiYmR1YmtXOU5KU2x3UXI1a1FyTGNkYmhuZWR6bDY0dFhKelRGUjI2VFRa?=
- =?utf-8?B?VnlqcFo1aTlmWHNkRDdMWU5KUjV6VHZUMHhrdHVlRngwN0E4RHliL2tHdE5m?=
- =?utf-8?B?eFlYUUR0dDU3enF4akhMUVNWTE1VMlg2Y2prMWNWdnZlb2FTZ2Fja1RLeWpv?=
- =?utf-8?B?aGNEbE9IVHkrUWc2ZUp0MEpmaEorbDFWQkpybGx1dEFaWE1lN2R2NXRMTnBW?=
- =?utf-8?B?TlJqVzJJb3JhSmY1QVNjYzd0ejFhYmg1eFNTMjRsaVE3M3BibktwN2hHYzZT?=
- =?utf-8?B?WTR4azVWSnlxRWUzQ1RST21XOHRyeUNnS2JGeXpGOGtpK3Z1eWowZFFSbFgv?=
- =?utf-8?B?b0x3d2d3SVFlSEF6U3FRaFhGbXg2YVRsMzJ0NzBFa2dFaHFrODU0cWRSSDZP?=
- =?utf-8?B?a2l3M2FBK0dYQlZ2aDFLZ3NuSE1GWmJqSmNLdE1aSUphaGVQS1o4Q3hBalZI?=
- =?utf-8?B?THJsenBRcW9wanNQMWNQbFJMNzk2Q1NQTjI1cWVsaElnejM4c1JVSXJQcGJl?=
- =?utf-8?B?UTFPVXNTVmNuY0xIVDR1dWdVZ3RkTUZVaDZGdzZzZkk0SXlyWjFrcFlKQnZJ?=
- =?utf-8?B?NEtxL1BBOXRxY2hwSGw0Vm94R1N5ZXlHTWhSQ1dTL2VPQWUvVVlKcXpDbXQ2?=
- =?utf-8?Q?+LunzZOOQUJIlgFc=3D?=
-X-OriginatorOrg: kontron.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d629a00-da0b-4560-6993-08df466ddaa1
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 18:49:34.4692
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: deaWrQduM1ZhyylbaKIJxWj7NtxaGzcoWucDefs1moKjBlKb2iiPZ7yexB2t5hVMR3IBwoc+ozuY8yHCykl/UZhqRp1iSEnngb9sh8IB6PM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR10MB5600
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117-xg6846b-bcmbca-xrdp-reset-v5-2-f584e8b8e696@kernel.org>
+X-AI-Review-Draft: <20261117-xg6846b-bcmbca-xrdp-reset-v5-2-f584e8b8e696@kernel.org>
 
-On 19.11.26 18:47, Pankaj Gupta wrote:
->>>>>>>
->>>>>>> It is in linux-next about v37, but build bot find many problems, I
->>>>>>> dropped it and request to fix it. And sashiko is online recently
->>>>>>> and also find many risk. I request to clean up it, and local AI
->>>>>>> environment have difference with sashiko, so bump to v51.
->>>>>>>
->>>>>>> I put to linux-next again to make sure that pass all build test.
->>>>>>>
->>>>>>> Other two problems, need more time to check whole review history.
->>>>>>> reply you later.
->>>>>>
->>>>>> So this is still in linux-next, but was not sent in the pull
->>>>>> request for 7.4. It's rather confusing to me that maintainers add
->>>>>> stuff to linux-next for build-testing and then leave it there,
->>>>>> neither removing it, nor continuing the mainlining process.
->>>>>>
->>>>>> Frank, what is the plan?
->>>>>>
->>>>>> I'm currently rebasing my work for the NVMEM driver onto
->>>>>> linux-next, but as there have been so many iterations and this
->>>>>> whole thing took so long, I want to make sure that this is not
->>>>>> another dead end where I'm wasting my time on.
->>>>>
->>>>> I need to ping here, again. What is the plan at NXP to move on with
->>>>> this? This is blocking multiple features that depend on ELE firmware
->>>>> support for i.MX9 and similar platforms from being upstreamed.
->>>> To be more constructive, here is a proposal: let's get the
->>>> kernel-internal part of this series merged first (patch 2-4, DT
->>>> patches 6-7, doc patch 1 reduced to kernel side). I currently don't
->>>> see any objections or issues with those.
->>>>
->>>> This would unblock drivers using the in-kernel API, such as the NVMEM
->>>> driver and this is also the part I already tested when working on [1].
->>>>
->>>> The somewhat more controversial uAPI in patch 5 can then be further
->>>> discussed until there is a consensus on it.
->>>>
->>>> Arnd, Frank, would that work for you?
->>>
->>> It needs at least one user for the in-kernel API.
->>
->> I can provide the NVMEM driver as user. I just need to rebase my series on the
->> new reduced firmware driver patchset once that has been posted.
->>
->> Or if you want to have this all in one series, maybe someone at NXP
->> (Pankaj?) can provide the firmware driver as proposed above in a public git tree
->> somewhere or send it as RFC. Then I will provide the NVMEM patches on top of
->> this for you to pick up and send in a combined series.
->>
->> Just let me know what works best for you.
->>
->>>>
->>>> Pankaj, can you prepare such a reduced series?
-> 
-> Hi Frieder,
-> 
-> Thanks for the proposal, and sorry that you had to ping more than once.
-> 
-> Yes, I will prepare the reduced series as you describe:
-> 
->  - patches 2-4 (in-kernel interface only),
->  - DT patches 6-7,
->  - patch 1 cut down to the kernel side,
->  - patch 5 (the uAPI / character device) dropped from this series. It
->    will be posted separately so the uAPI discussion can continue
->    without blocking the in-kernel users.
-> 
-> It will include an in-kernel user from our side, OCOTP/NVMEM support
-> for i.MX8ULP, and I will make it available on a public branch so you
-> have a fixed base to rebase your i.MX93 NVMEM series [1] onto.
-> 
-> I will reply here with the links once it is out.
+Hey Linus,
 
-Ok, great! Thanks!
+Some inline review comments, but the chewy stuff is at the bottom.
 
-If you include the OCOTP NVMEM driver for i.MX8ULP, feel free to pick up
-and adapt patches from my v4 patchset [1]. Especially patch 7 [2] might
-be what you would also need.
+--- checkpatch.pl (2 issues) ---
+Line 51: WARNING: please write a help paragraph that fully describes the config symbol with at least 4 lines
+Line 374: WARNING: DT compatible string "brcm,bcm6846-pmb" appears un-documented -- check ./Documentation/devicetree/bindings/
+----------------------------------
 
-[1]
-https://patchwork.kernel.org/project/linux-arm-kernel/cover/20260727-upstreaming-next-20260609-imx-ocotp-ele-v4-0-1a515de33093@kontron.de/
-[2]
-https://patchwork.kernel.org/project/linux-arm-kernel/patch/20260727-upstreaming-next-20260609-imx-ocotp-ele-v4-7-1a515de33093@kontron.de/
+?
+
+> Add an MFD driver for shared access to the Power Management Bus (PMB)
+> of the third generation Power Management Controller (PMC3), initially
+> for BCM6846.
+>
+> Expose an uncached regmap to all children, encoding the bus, device and
+> word offset in each register address. Keep keyhole semaphore acquisition
+> and transaction recovery inside the MFD driver.
+>
+> A software timeout does not abort a transaction. If the keyhole is still
+> busy, retain its hardware lock and reject new callers until delayed work
+> observes completion and releases it.
+>
+> The keyhole register layout differs from older Broadcom PMB controllers.
+> Match only BCM6846 for now.
+>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  MAINTAINERS                    |   2 +
+>  drivers/mfd/Kconfig            |  11 ++
+>  drivers/mfd/Makefile           |   1 +
+>  drivers/mfd/bcmbca_pmc3_pmb.c  | 308 +++++++++++++++++++++++++++++++++++++++++
+>  include/linux/mfd/bcmbca-pmb.h |  11 ++
+>  5 files changed, 333 insertions(+)
+
+I can't help but feel this could be implemented in a much nicer way?
+
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 67642e2a4ab3..1857e720ce3a 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -5448,9 +5448,11 @@ BROADCOM BCMBCA PMC3 PMB DRIVER
+>  M:	Linus Walleij <linusw@kernel.org>
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
+> +F:	drivers/mfd/bcmbca_pmc3_pmb.c
+>  F:	include/dt-bindings/clock/brcm,bcm6846-pmb.h
+>  F:	include/dt-bindings/power/brcm,bcm6846-pmb.h
+>  F:	include/dt-bindings/reset/brcm,bcm6846-pmb.h
+> +F:	include/linux/mfd/bcmbca-pmb.h
+>
+>  BROADCOM BDC DRIVER
+>  M:	Justin Chen <justin.chen@broadcom.com>
+> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+> index 87ed55c155f0..95e93ea155e1 100644
+> --- a/drivers/mfd/Kconfig
+> +++ b/drivers/mfd/Kconfig
+> @@ -173,6 +173,17 @@ config MFD_ATMEL_SMC
+>  	bool
+>  	select MFD_SYSCON
+>
+> +config MFD_BCMBCA_PMB
+> +	bool "Broadcom BCMBCA Power Management Bus"
+> +	depends on ARCH_BCMBCA || COMPILE_TEST
+> +	depends on OF
+> +	select MFD_CORE
+> +	select REGMAP
+> +	help
+> +	  Provide shared Power Management Bus (PMB) access through the third
+> +	  generation Power Management Controller (PMC3), initially on
+> +	  BCM6846.
+> +
+>  config MFD_BCM590XX
+>  	tristate "Broadcom BCM590xx PMUs"
+>  	select MFD_CORE
+> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+> index f8101d2a9ce9..f00f5caabe04 100644
+> --- a/drivers/mfd/Makefile
+> +++ b/drivers/mfd/Makefile
+> @@ -11,6 +11,7 @@ obj-$(CONFIG_MFD_88PM886_PMIC)	+= 88pm886.o
+>  obj-$(CONFIG_MFD_ACT8945A)	+= act8945a.o
+>  obj-$(CONFIG_MFD_SM501)		+= sm501.o
+>  obj-$(CONFIG_ARCH_BCM2835)	+= bcm2835-pm.o
+> +obj-$(CONFIG_MFD_BCMBCA_PMB)	+= bcmbca_pmc3_pmb.o
+>  obj-$(CONFIG_MFD_BCM590XX)	+= bcm590xx.o
+>  obj-$(CONFIG_MFD_BD9571MWV)	+= bd9571mwv.o
+>  obj-$(CONFIG_MFD_BQ257XX)	+= bq257xx.o
+> diff --git a/drivers/mfd/bcmbca_pmc3_pmb.c b/drivers/mfd/bcmbca_pmc3_pmb.c
+> new file mode 100644
+> index 000000000000..8607429e8b9a
+> --- /dev/null
+> +++ b/drivers/mfd/bcmbca_pmc3_pmb.c
+> @@ -0,0 +1,308 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Broadcom BCMBCA Power Management Bus (PMB) transport for the third
+> + * generation Power Management Controller (PMC3).
+> + *
+> + * Children access keyhole 0 through a shared regmap.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/ioport.h>
+> +#include <linux/log2.h>
+> +#include <linux/mfd/bcmbca-pmb.h>
+> +#include <linux/mfd/core.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/workqueue.h>
+> +
+> +#define PMB_CONFIG		0x00
+> +#define PMB_REGS_PER_DEVICE	GENMASK(29, 20)
+> +#define PMB_CONTROL		0x10
+> +#define PMB_WRITE_DATA		0x14
+> +#define PMB_MUTEX		0x18
+> +#define PMB_READ_DATA		0x1c
+> +#define PMB_START		BIT(31)
+> +#define PMB_TIMEOUT		BIT(30)
+> +#define PMB_SLAVE_ERROR		BIT(29)
+> +#define PMB_BUSY			BIT(28)
+> +#define PMB_WRITE		BIT(24)
+> +#define PMB_BUS			GENMASK(21, 20)
+> +#define PMB_LOCKED		BIT(0)
+> +
+> +struct bcmbca_pmb {
+> +	struct device *dev;
+> +	void __iomem *base;
+> +	/* Serializes regmap operations and recovery state. */
+> +	struct mutex lock;
+> +	struct delayed_work recovery;
+> +	u32 regs_per_device;
+> +	bool keyhole_acquired;
+> +	bool recovering;
+> +	bool stopping;
+
+Do we really need to run this as a state machine?
+
+It's not every Linuxy.
+
+> +};
+> +
+> +static void bcmbca_pmb_recover(struct work_struct *work)
+> +{
+> +	struct bcmbca_pmb *pmb = container_of(to_delayed_work(work),
+> +					   struct bcmbca_pmb, recovery);
+> +
+> +	guard(mutex)(&pmb->lock);
+> +	if (!pmb->stopping) {
+
+Why not return early on the inverse?
+
+> +		if (readl(pmb->base + PMB_CONTROL) & PMB_BUSY) {
+> +			queue_delayed_work(system_dfl_wq, &pmb->recovery,
+> +					   msecs_to_jiffies(100));
+
+Why 100?
+
+> +		} else {
+> +			writel(PMB_LOCKED, pmb->base + PMB_MUTEX);
+> +			pmb->recovering = false;
+> +		}
+
+I have no idea what any of this is doing.
+
+Comments?
+
+> +	}
+> +}
+> +
+> +static int bcmbca_pmb_acquire(struct bcmbca_pmb *pmb)
+> +{
+> +	u32 value;
+> +	int ret;
+> +
+> +	lockdep_assert_held(&pmb->lock);
+> +	if (pmb->stopping)
+> +		return -ENODEV;
+> +	if (pmb->recovering)
+> +		return -EBUSY;
+> +	if (pmb->keyhole_acquired)
+> +		return 0;
+> +
+> +	/* Reading bit 0 acquires the hardware lock; writing 1 releases it. */
+> +	ret = readl_poll_timeout(pmb->base + PMB_MUTEX, value,
+> +				 value & PMB_LOCKED, 1, 1000);
+> +	if (!ret)
+> +		pmb->keyhole_acquired = true;
+> +	return ret;
+> +}
+> +
+> +static int bcmbca_pmb_op(struct bcmbca_pmb *pmb, u8 bus, u8 device,
+> +			 u16 offset, u32 *value, bool write)
+> +{
+> +	u32 status, command;
+> +	int ret;
+> +
+> +	lockdep_assert_held(&pmb->lock);
+> +	if (bus > FIELD_MAX(PMB_BUS) || offset >= pmb->regs_per_device)
+> +		return -EINVAL;
+> +
+> +	ret = readl_poll_timeout(pmb->base + PMB_CONTROL, status,
+> +				 !(status & PMB_BUSY), 1, 1000);
+> +	if (ret)
+> +		return ret;
+> +	command = PMB_START | FIELD_PREP(PMB_BUS, bus) |
+> +		  (device * pmb->regs_per_device) | offset;
+> +	if (write) {
+> +		writel(*value, pmb->base + PMB_WRITE_DATA);
+> +		command |= PMB_WRITE;
+> +	}
+> +	writel(command, pmb->base + PMB_CONTROL);
+> +	ret = readl_poll_timeout(pmb->base + PMB_CONTROL, status,
+> +				 !(status & PMB_BUSY), 1, 1000);
+> +	if (ret || status & PMB_TIMEOUT)
+> +		return -ETIMEDOUT;
+> +	if (status & PMB_SLAVE_ERROR)
+> +		return -EIO;
+> +	if (!write)
+> +		*value = readl(pmb->base + PMB_READ_DATA);
+> +	return 0;
+> +}
+> +
+> +static void bcmbca_pmb_regmap_lock(void *arg)
+> +{
+> +	struct bcmbca_pmb *pmb = arg;
+> +
+> +	mutex_lock(&pmb->lock);
+> +}
+> +
+> +static void bcmbca_pmb_regmap_unlock(void *arg)
+> +{
+> +	struct bcmbca_pmb *pmb = arg;
+> +
+> +	if (pmb->keyhole_acquired) {
+> +		if (readl(pmb->base + PMB_CONTROL) & PMB_BUSY) {
+> +			pmb->recovering = true;
+> +			dev_err(pmb->dev, "PMB keyhole still busy; deferring unlock\n");
+> +			queue_delayed_work(system_dfl_wq, &pmb->recovery,
+> +					   msecs_to_jiffies(100));
+> +		} else {
+> +			writel(PMB_LOCKED, pmb->base + PMB_MUTEX);
+> +		}
+> +		pmb->keyhole_acquired = false;
+> +	}
+> +	mutex_unlock(&pmb->lock);
+> +}
+> +
+> +/* Acquire lazily so semaphore errors reach the caller of the regmap API. */
+> +static int bcmbca_pmb_reg_read(void *context, unsigned int reg, unsigned int *value)
+> +{
+> +	struct bcmbca_pmb *pmb = context;
+> +	int ret;
+> +
+> +	bcmbca_pmb_regmap_lock(pmb);
+> +	ret = bcmbca_pmb_acquire(pmb);
+> +	if (!ret)
+> +		ret = bcmbca_pmb_op(pmb, reg >> 24, (reg >> 16) & 0xff,
+> +				    reg & 0xffff, value, false);
+> +	bcmbca_pmb_regmap_unlock(pmb);
+> +	return ret;
+> +}
+> +
+> +static int bcmbca_pmb_reg_write(void *context, unsigned int reg, unsigned int value)
+> +{
+> +	struct bcmbca_pmb *pmb = context;
+> +	int ret;
+> +
+> +	bcmbca_pmb_regmap_lock(pmb);
+> +	ret = bcmbca_pmb_acquire(pmb);
+> +	if (!ret)
+> +		ret = bcmbca_pmb_op(pmb, reg >> 24, (reg >> 16) & 0xff,
+> +				    reg & 0xffff, &value, true);
+> +	bcmbca_pmb_regmap_unlock(pmb);
+> +	return ret;
+> +}
+> +
+> +static int bcmbca_pmb_reg_update_bits(void *context, unsigned int reg,
+> +				      unsigned int mask, unsigned int value)
+> +{
+> +	struct bcmbca_pmb *pmb = context;
+> +	unsigned int tmp;
+> +	int ret;
+> +
+> +	bcmbca_pmb_regmap_lock(pmb);
+> +	ret = bcmbca_pmb_acquire(pmb);
+> +	if (ret)
+> +		goto out;
+> +
+> +	ret = bcmbca_pmb_op(pmb, reg >> 24, (reg >> 16) & 0xff,
+> +			    reg & 0xffff, &tmp, false);
+> +	if (ret)
+> +		goto out;
+> +
+> +	tmp = (tmp & ~mask) | (value & mask);
+> +	ret = bcmbca_pmb_op(pmb, reg >> 24, (reg >> 16) & 0xff,
+> +			    reg & 0xffff, &tmp, true);
+> +out:
+> +	bcmbca_pmb_regmap_unlock(pmb);
+> +	return ret;
+> +}
+> +
+> +static struct regmap *bcmbca_pmb_regmap_init(struct bcmbca_pmb *pmb)
+> +{
+> +	const struct regmap_config config = {
+> +		.reg_bits = 32,
+> +		.val_bits = 32,
+> +		.reg_stride = 1,
+> +		.max_register = BCMBCA_PMB_REG(3, 255, 65535),
+> +		.cache_type = REGCACHE_NONE,
+> +		/* Callbacks serialize I/O; suppress unsafe debugfs probing. */
+> +		.disable_locking = true,
+> +		.reg_read = bcmbca_pmb_reg_read,
+> +		.reg_write = bcmbca_pmb_reg_write,
+> +		.reg_update_bits = bcmbca_pmb_reg_update_bits,
+> +		.can_sleep = true,
+> +	};
+
+We nearly always declare these statically.
+
+> +	return devm_regmap_init(pmb->dev, NULL, pmb, &config);
+> +}
+> +
+> +/* Children are removed before this action, while MMIO is still mapped. */
+> +static void bcmbca_pmb_stop(void *data)
+> +{
+> +	struct bcmbca_pmb *pmb = data;
+> +
+> +	scoped_guard(mutex, &pmb->lock)
+> +		pmb->stopping = true;
+> +	cancel_delayed_work_sync(&pmb->recovery);
+> +
+> +	if (pmb->recovering) {
+> +		if (readl(pmb->base + PMB_CONTROL) & PMB_BUSY)
+> +			dev_err(pmb->dev, "PMB keyhole remains busy; hardware reset required\n");
+> +		else
+> +			writel(PMB_LOCKED, pmb->base + PMB_MUTEX);
+> +	}
+> +}
+> +
+> +static const struct mfd_cell bcm6846_pmb_cells[] = {
+> +	{
+> +		.name = "bcm6846-pmb-power",
+> +		.of_compatible = "brcm,bcm6846-pmb-power",
+> +	},
+> +	{
+> +		.name = "bcm6846-pmb-clock",
+> +		.of_compatible = "brcm,bcm6846-pmb-clock",
+> +	},
+> +	{
+> +		.name = "bcm6846-pmb-reset",
+> +		.of_compatible = "brcm,bcm6846-pmb-reset",
+> +	},
+> +	{
+> +		.name = "bcm6846-pmb-pvtmon",
+> +		.of_compatible = "brcm,bcm6846-pmb-pvtmon",
+> +	},
+> +};
+
+MFD_CELL_OF()?
+
+Why are they all the way down here?
+
+I often think it's nicer to see the children at the top of the file.
+
+> +static int bcmbca_pmb_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct bcmbca_pmb *pmb;
+> +	struct regmap *regmap;
+> +	struct resource *res;
+> +	int ret;
+> +
+> +	pmb = devm_kzalloc(dev, sizeof(*pmb), GFP_KERNEL);
+> +	if (!pmb)
+> +		return -ENOMEM;
+> +	pmb->dev = dev;
+> +	pmb->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+> +	if (IS_ERR(pmb->base))
+> +		return PTR_ERR(pmb->base);
+> +	if (resource_size(res) < PMB_READ_DATA + sizeof(u32))
+> +		return dev_err_probe(dev, -EINVAL, "PMB register range is too small\n");
+> +	pmb->regs_per_device = FIELD_GET(PMB_REGS_PER_DEVICE,
+> +					 readl(pmb->base + PMB_CONFIG));
+> +	if (!is_power_of_2(pmb->regs_per_device))
+> +		return dev_err_probe(dev, -EINVAL, "invalid PMB register stride\n");
+> +	mutex_init(&pmb->lock);
+
+Does devm_mutex_init() work here?
+
+> +	INIT_DELAYED_WORK(&pmb->recovery, bcmbca_pmb_recover);
+> +	ret = devm_add_action_or_reset(dev, bcmbca_pmb_stop, pmb);
+> +	if (ret)
+> +		return ret;
+> +	regmap = bcmbca_pmb_regmap_init(pmb);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap), "failed to register PMB regmap\n");
+> +	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, bcm6846_pmb_cells,
+> +				   ARRAY_SIZE(bcm6846_pmb_cells), NULL, 0, NULL);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to register PMB functions\n");
+
+The 30 lines above are a mess.
+
+Why are they all scrunched up like this?
+
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id bcmbca_pmb_match[] = {
+> +	{ .compatible = "brcm,bcm6846-pmb" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, bcmbca_pmb_match);
+> +
+> +static struct platform_driver bcmbca_pmb_driver = {
+> +	.probe = bcmbca_pmb_probe,
+> +	.driver = {
+> +		.name = "bcmbca-pmb",
+> +		.of_match_table = bcmbca_pmb_match,
+> +		.suppress_bind_attrs = true,
+> +	},
+> +};
+> +builtin_platform_driver(bcmbca_pmb_driver);
+> +
+> +MODULE_DESCRIPTION("Broadcom BCMBCA Power Management Bus transport for PMC3");
+> +MODULE_LICENSE("GPL");
+> diff --git a/include/linux/mfd/bcmbca-pmb.h b/include/linux/mfd/bcmbca-pmb.h
+> new file mode 100644
+> index 000000000000..36e2b42bf053
+> --- /dev/null
+> +++ b/include/linux/mfd/bcmbca-pmb.h
+> @@ -0,0 +1,11 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef __LINUX_MFD_BCMBCA_PMB_H
+> +#define __LINUX_MFD_BCMBCA_PMB_H
+> +
+> +#include <linux/types.h>
+> +
+> +/* Logical regmap addresses: 8-bit bus, 8-bit device, 16-bit word offset. */
+> +#define BCMBCA_PMB_REG(bus, device, offset) \
+> +	(((u32)(bus) << 24) | ((u32)(device) << 16) | (offset))
+> +#endif
+
+Dear Gemini,
+
+Can you keep me honest here - give me it straight.
+
+Am I being unreasonable?  This all seems rather fiddly.
+
+    You are not being unreasonable at all - your instincts are spot on, and the
+    recovery state machine is actually dead code.
+    
+    Look at bcmbca_pmb_op(): 1. It waits for PMB_BUSY to clear via
+    readl_poll_timeout() (1ms). 2. It writes PMB_START to PMB_CONTROL to kick off
+    the hardware transaction.  3. It immediately waits for PMB_BUSY to clear again
+    via readl_poll_timeout() (1ms).
+    
+    The only way bcmbca_pmb_regmap_unlock() ever observes PMB_BUSY still set is if
+    that second 1ms poll in bcmbca_pmb_op() timed out (meaning a single 32-bit
+    register transaction hung on the bus for >1ms).  Furthermore, the hardware
+    appears to have its own built-in timeout bit (PMB_TIMEOUT in PMB_CONTROL), which
+    terminates wedged transactions in hardware anyway.
+    
+    If you drop the delayed-work recovery state machine and just release PMB_MUTEX
+    synchronously (perhaps after a final bounded poll or if !PMB_BUSY), you can
+    delete: - 'struct delayed_work recovery' - 'keyhole_acquired', 'recovering', and
+    'stopping' booleans - bcmbca_pmb_recover() - bcmbca_pmb_stop() and the
+    devm_add_action_or_reset() dance - '#include <linux/workqueue.h>'
+    
+    On top of that, why does this disable regmap's own locking (.disable_locking =
+    true) only to manually call bcmbca_pmb_regmap_lock() and
+    bcmbca_pmb_regmap_unlock() around every callback?  If it just used a normal
+    mutex inside .reg_read / .reg_write / .reg_update_bits with
+    guard(mutex)(&pmb->lock) and a small helper that acquires and releases PMB_MUTEX
+    around the transaction, the driver would shrink by ~100 lines and be vastly
+    easier to read.
+
+-- 
+Lee Jones
