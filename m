@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795104196;
-	b=YOj5wAIGZmps8VpnsTF+9Ajv4F4Bc53tMsgT5PjudvTzIel8pOidodGIjH4wOfBZa1MC
-	 gRBH3klZUPnT5dhej93zMgJ/rdRlxulOB3UNRllcuirYjMYWBiWuOFYIa6kKXezKWSCoA
-	 8ArV6/D2hWIZFyOcopv7BpC+1P0Hbd86ga6gOcn0BV2rkzJNNTs6LP7epqiUAh2uWiGnp
-	 j1Ojgpfhc7VNFvfzKGD6pf0AzHK+8rCA28ZJtaPEC1OFsV+HCstAs3X6Qt8B8H6SkZ12o
-	 WDhGX+gbXq05TpOBjR7HqkWwDy4evaIebKfnNiKlGgqkFpwJmh1QYtkM03+XmoWkgWw==
+	t=1795104369;
+	b=5TyJGjeAjdJ13DUCQ5KuYGRdxrr24lxxqC22gA1SpuaTYovEhSBPFvo13BVLKTApKWdH
+	 lPhEZBbSVYteOILvtzRN4/TkZOFJoPOHJXDGyp+lnyq1jRROm6xlHEMiG0uoPY7QhTJpY
+	 wc39KFGJDs0r2HEf5JbYxQsN7qvAICyhJYd4SNToddSJTNte83uQfo8NeBD0GKGlyNULE
+	 wJn03nU33E2PHaUFmI/J3PHreXAfccaDqL3OAWr6PX/ATG1CXo49TMpod0s9Osot5GaBF
+	 Sm+WDxAPSaQzsN0yRUoFq1vM+wva8yYogCvKcB3f8QJ5C87zp0laxojGVfOotCaSpSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795104196;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795104369;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=NFLCsa/k50WU1FEHbEZWuY+iOkzJV9eWJb7Ux2CgchU=;
-	b=5YhKtoIM8hACGqwaj2AWG4MyUeEoyU9kUpZcNtoeBsqbiAIbSePRHM9fxOO8AuwxuG5I
-	 MarOou+K29tfqiM51bljB1CbuL3NZsh+vkcrJM1LjiSlAntw3jh2rlLkTtKS+MUMaxXX/
-	 c3Yxva4/aH3t7/9WGMhhbLtDZ2vU9f1U2K+3Cf4p3SUh3XYiaWUaOKFFM0hPgHYUpLeh8
-	 GoTGGfvu8GbMeABFYAYmvPly/sQTClna8qGE9byf8NJxFZDOL7UQ1utXKDmaSnlsP/y2k
-	 piRVzD8YEcuk2WQfN7F//ku3fcXpLsTwSdk5HqAcoPyclAMQ8GKJJajUVqSHapu6mhA==
+	bh=7DiDS2DOpIs50Zi0EYLX07NubC/YlMSgVIkCDhfCfGw=;
+	b=t1OLO3C0XgrWD/arhd4J2uG90egnS/LKv7x3L2xwvKBGh9pB7qqjQVKiHjMBwClmCoXT
+	 NbFZRYVLNJdywz1AmetbdvkKBlHkVR3Ih6ZE2q5Jbcav7DcdcNfBknEEEal457bwbCocz
+	 a5OCG0LMM6Hx9Lif70DNKGOY5YuU//DCU4dA4u0LCAKTM5tXXYoRhRZCOi6MtL/aQ6nz9
+	 FmkpDOguKhX8004KZKHowaKBiHqe20Scj8p2igE4PG/MkVZjs5eQPCSU+hAfrTJWd9Wm4
+	 JGh5pSxazyEs1ImeBAijV+6GVvuifsrG2MCt30P52CeFw0/k7yGCKqPktQTepZ/oRJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kCdMdCJu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZK3ykMum;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF3D606A325
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:03:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789A3606A338
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:06:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kCdMdCJu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287A91F000C4;
-	Thu, 19 Nov 2026 16:03:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZK3ykMum
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D56A01F000C4;
+	Thu, 19 Nov 2026 16:06:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795104196;
-	bh=NFLCsa/k50WU1FEHbEZWuY+iOkzJV9eWJb7Ux2CgchU=;
+	s=k20260515; t=1795104369;
+	bh=7DiDS2DOpIs50Zi0EYLX07NubC/YlMSgVIkCDhfCfGw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kCdMdCJuDiUm/5uZXZKHGbSlfs+qm3fN8yBRrfFeKrwZtMP+Mz6WBWDGOtwwZM507
-	 ujymZ7uXoajRwbbUnFhrAY8D0SkjRAyiKmGXX9N63Bi+2Gp+VK1/v7pZg4wMlNj2et
-	 sqEpPYGPNfw1ZBq7fjOzbQVzy/bCRq63P1XrM2KPabyLrPMHwHRou8jLtpXxX/UCT/
-	 DZVNM+sANrCO2sCX7KfM6EsCtCDYeCifBCDdDdxcXtLLPcqDrY9sY4KylZUQ6vkRa0
-	 N1qm3+0LerPHIUPTfD7tWpQn7OJjTbfS1WEcVl4KXmRNGpSngVh0q/nCElBcX18cKz
-	 NVEd14a1SNaTg==
-Message-ID: <sashiko-outbox-223458@kernel.org>
+	b=ZK3ykMumQvqDeeSmWpXEAgI2RY67OFBZnkdWKDkZMIbGnYY6o68hjdUIX7GwicvAa
+	 iNSB4AXRd6Rg5G+hT7xpogmh3JEd3qVdPT4EgMMmnW+rZIzluwUwL9BRvdry3Aw1ez
+	 I8yM2Pkm6dqmCIvgxyNN7aFKvL/9pa89PzEc59nzDkm8/NYz/gDMKFUqKOxsjOqhPp
+	 pOQuj52aAClIgHunqn9fpLi7hpWiMyvfQAi7ZCTiB0L5jHgtY5dnWG/YI32RieVZvm
+	 KpEi1D57xd2niIpfItVl1H2Xm8Uch0U6pHrKDDNqgcvufoMaBikW+AqSkO10DUVQjz
+	 yd+9csiLvYVVA==
+Message-ID: <sashiko-outbox-223466@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 19/28] media: mali-vpu: start decoder firmware
- through LSID scheduling
+Subject: Re: [RFC PATCH 20/28] media: mali-vpu: implement vb2 buffer queue
+ handling
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Charvi Mehta" <charvi.mehta@arm.com>, devicetree@vger.kernel.org
 Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261119153758.1426673-20-charvi.mehta@arm.com>
+In-Reply-To: <20261119153758.1426673-21-charvi.mehta@arm.com>
 References: <20261119153758.1426673-1-charvi.mehta@arm.com>
- <20261119153758.1426673-20-charvi.mehta@arm.com>
+ <20261119153758.1426673-21-charvi.mehta@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 16:03:15 +0000
+Date: Thu, 19 Nov 2026 16:06:08 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,205 +61,292 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issues to consider:
-- [High] media: mali-vpu: vq_lock drop in
-  mali_vpu_session_wait_pending() races
-- [Medium] media: mali-vpu: 10s hang in mali_vpu_session_cleanup() on
-  unmapped LSID
+- [High] media: mali-vpu: out-of-bounds VA mapping in
+  mali_vpu_buffer_plane_map()
+- [High] media: mali-vpu: wrong capture DMA sync in
+  mali_vpu_queue_buffer()
+- [High] media: mali-vpu: missing MMU flush in
+  mali_vpu_vb2_buffer_cleanup()
+- [Medium] media: mali-vpu: stranded buffers on error in
+  mali_vpu_submit_deferred_bufs()
+- [Medium] media: mali-vpu: unreachable 0-byte EOS check without
+  allow_zero_bytesused
 --
 
-commit df41ad5c55cc78aaaf50be9e6b1f9cc272e547c5
-Author: Charvi Mehta <charvi.mehta@arm.com>
+commit 8e09878f27886489a304a46715a5c2d9a14beef9
+Author: Rath Sankaralingam <rath.sankaralingam@arm.com>
 
-media: mali-vpu: start decoder firmware through LSID scheduling
+media: mali-vpu: implement vb2 buffer queue handling
 
-This commit connects decoder firmware execution to VB2 queue preparation and
-asynchronous firmware loading, activating the LSID and tracking requested a=
-nd
-confirmed firmware states across stream startup and shutdown.
+This commit implements the vb2 callbacks for initializing, queuing, and
+cleaning up Mali VPU buffers, along with MMU mapping, cache synchronization,
+and deferred buffer submission when the firmware enters the RUNNING state.
 
-> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/dri=
-vers/media/platform/arm/mali-vpu/mali-vpu-session.c
-> index 09ec6d14f4ad0..6d22a5d479008 100644
-> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.c b/driv=
+ers/media/platform/arm/mali-vpu/mali-vpu-buffer.c
+> index 7ace0489996a8..c1df3e2d4eacf 100644
+> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.c
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-buffer.c
 
 [ ... ]
 
-> @@ -123,6 +211,102 @@ static int mali_vpu_session_handle_fw_msg(struct ma=
-li_vpu_session *sess,
+> @@ -19,6 +50,82 @@ int mali_vpu_vb2_buffer_init(struct vb2_buffer *vb2_bu=
+f)
+>  		return -EINVAL;
 >  	}
->  }
 > =20
-> +static int mali_vpu_session_wait_pending(struct mali_vpu_session *sess)
+> +	vpu_buf->dev =3D sess->vpu_dev->dev;
+
+[ ... ]
+
+> +static void mali_vpu_buffer_update_flags_from_v4l2(struct vb2_buffer *vb=
+2_buf)
 > +{
-> +	long timeout;
+> +	struct vb2_v4l2_buffer *v4l2_buf =3D to_vb2_v4l2_buffer(vb2_buf);
+> +	struct mali_vpu_buffer *vpu_buf =3D to_mali_vpu_buffer(v4l2_buf);
 > +
-> +	lockdep_assert_held(&sess->vq_lock);
+> +	u32 flags =3D v4l2_buf->flags;
 > +
-> +	while (sess->fw_bin_state =3D=3D MALI_VPU_SESSION_FW_BIN_READY &&
-> +	       sess->fw.pending_response_count) {
-> +		mutex_unlock(&sess->vq_lock);
+> +	vpu_buf->flags =3D 0;
 > +
-> +		timeout =3D wait_event_timeout(sess->fw_waitq,
-> +					     READ_ONCE(sess->fw_bin_state) !=3D
-> +					     MALI_VPU_SESSION_FW_BIN_READY ||
-> +					     !READ_ONCE(sess->fw.pending_response_count),
-> +					     msecs_to_jiffies(mali_vpu_fw_response_timeout_ms));
+> +	if (V4L2_TYPE_IS_OUTPUT(vb2_buf->type) && mali_vpu_buffer_get_bytesused=
+(vb2_buf) =3D=3D 0)
+> +		flags |=3D V4L2_BUF_FLAG_LAST;
 > +
-> +		mutex_lock(&sess->vq_lock);
+> +	if (flags & V4L2_BUF_FLAG_LAST)
+> +		vpu_buf->flags |=3D MALI_VPU_BUFFER_EOS;
+> +}
+
+[Severity: Medium]
+Can mali_vpu_buffer_get_bytesused(vb2_buf) =3D=3D 0 ever be reached on an
+OUTPUT buffer without vq->allow_zero_bytesused set?
+
+mali_vpu_queue_init_type() does not set allow_zero_bytesused on the OUTPUT
+vb2_queue, so vb2_fill_vb2_v4l2_buffer() replaces a 0-byte bytesused from
+userspace with the full plane length.  As a result, a 0-byte OUTPUT buffer
+queued to signal EOS will instead be given a payload_size equal to the full
+buffer capacity rather than setting MALI_VPU_BUFFER_EOS.  Also,
+mali_vpu_buffer_get_bytesused() sums b->planes[i].bytesused without
+subtracting data_offset, so an empty payload with a non-zero data_offset
+will not be treated as 0 bytes used either.
+
+[ ... ]
+
+> @@ -49,3 +156,171 @@ int mali_vpu_vb2_buffer_out_validate(struct vb2_buff=
+er *vb2_buf)
+> =20
+>  	return 0;
+>  }
 > +
-> +		if (!timeout && sess->fw.pending_response_count)
-> +			return -ETIMEDOUT;
+> +static int mali_vpu_buffer_plane_map(struct mali_vpu_buffer *vpu_buf, ma=
+li_vpu_mmu_va begin,
+> +				     mali_vpu_mmu_va end, u32 plane)
+> +{
+> +	while (begin < end) {
+> +		struct mali_vpu_buffer_plane *p =3D &vpu_buf->planes[plane];
+> +		int ret;
+> +
+> +		ret =3D mali_vpu_mmu_map_pages(vpu_buf->mmu, begin, p->pages,
+> +					     MALI_VPU_ATTR_SHARED_RW, MALI_VPU_ACCESS_READ_WRITE);
+> +		if (!ret) {
+> +			dev_dbg(vpu_buf->dev,
+> +				"memory map buffer. buf=3D%p, plane=3D%u, va=3D0x%x, size=3D%zu.",
+> +				vpu_buf, plane, p->pages->va,
+> +				mali_vpu_mmu_size_pages(p->pages));
+> +			return 0;
+> +		}
+> +
+> +		if (ret !=3D -EAGAIN)
+> +			return ret;
+> +
+> +		begin +=3D SZ_1M;
+> +	}
+> +
+> +	return -ENOMEM;
+> +}
+
+[Severity: High]
+Can mali_vpu_buffer_plane_map() map a plane past the end of the firmware
+virtual address region?
+
+The loop only checks begin < end, and mali_vpu_mmu_map_pages() maps
+p->pages->capacity contiguous VPU pages starting at begin without taking an
+upper bound.  When earlier mappings advance begin close to end (or a large
+DMA-BUF is imported) so that the plane size exceeds end - begin, the
+mapping spills past end into the adjacent firmware region or wraps around
+the 32-bit VPU virtual address space.
+
+[ ... ]
+
+> +void mali_vpu_vb2_buffer_cleanup(struct vb2_buffer *vb2_buf)
+> +{
+> +	struct vb2_v4l2_buffer *v4l2_buf =3D to_vb2_v4l2_buffer(vb2_buf);
+> +	struct mali_vpu_buffer *vpu_buf =3D to_mali_vpu_buffer(v4l2_buf);
+> +	u32 i;
+> +
+> +	for (i =3D 0; i < vpu_buf->nplanes; i++) {
+> +		if (!vpu_buf->planes[i].pages)
+> +			continue;
+> +
+> +		mali_vpu_mmu_free_pages(vpu_buf->planes[i].pages);
+> +		vpu_buf->planes[i].pages =3D NULL;
+> +	}
+> +}
+
+[Severity: High]
+Does unmapping buffer pages in mali_vpu_vb2_buffer_cleanup() without
+calling mali_vpu_sched_flush_mmu() leave stale TLB entries in the VPU MMU?
+
+mali_vpu_mmu_free_pages() -> mali_vpu_mmu_unmap_pages() clears the L2 PTEs
+in sess->mmu, and when a new DMA-BUF is queued on the same VB2 slot (or
+CAPTURE buffers are reallocated while the OUTPUT queue keeps the session
+LSID active), mali_vpu_buffer_plane_map() immediately reuses the lowest
+unmapped virtual addresses from the start of the region.  Without an LSID
+MMU flush, the hardware can continue using cached translations pointing to
+the previous buffer's freed physical pages.
+
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/dri=
+vers/media/platform/arm/mali-vpu/mali-vpu-session.c
+> index 6d22a5d479008..540104bcd38e2 100644
+> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+> @@ -150,6 +150,122 @@ int mali_vpu_session_fw_send_set_option(struct mali=
+_vpu_session *sess,
+
+[ ... ]
+
+> +static int mali_vpu_queue_buffer(struct mali_vpu_session *sess, struct m=
+ali_vpu_buffer *vpu_buf)
+> +{
+> +	int ret;
+> +	enum dma_data_direction dma_dir;
+> +
+> +	dma_dir =3D (vpu_buf->type =3D=3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) ?
+> +		   DMA_TO_DEVICE : DMA_FROM_DEVICE;
+> +
+> +	/* Map MMU buffer pages if it is not already mapped */
+> +	if (!mali_vpu_is_buffer_mapped(vpu_buf)) {
+> +		ret =3D mali_vpu_buffer_map_fw_region(sess, vpu_buf);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (!mali_vpu_is_coded_q(sess, vpu_buf->type) && sess->role =3D=3D MALI=
+_VPU_DECODER) {
+> +		ret =3D mali_vpu_buffer_set_frame_layout(vpu_buf);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	/* dma sync for cache coherency */
+> +	ret =3D mali_vpu_buffer_sync(vpu_buf, dma_dir);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Does calling mali_vpu_buffer_sync(vpu_buf, DMA_FROM_DEVICE) on a CAPTURE
+buffer before VPU DMA runs sync in the wrong direction (for the CPU instead
+of the device)?
+
+drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.c:mali_vpu_mmu_sync_pages(=
+) {
+	if (dir =3D=3D DMA_FROM_DEVICE) {
+		for (i =3D 0; i < pages->count; i +=3D MALI_VPU_PAGES_PER_LINUX_PAGE)
+			dma_sync_single_for_cpu(pages->dev, pages->pages[i].dma,
+						PAGE_SIZE, DMA_FROM_DEVICE);
+}
+
+When queuing a buffer to hardware before DMA starts, pages need to be
+synced for the device (which vb2_dma_sg_prepare() already does during buffer
+prepare), whereas dma_sync_single_for_cpu() transfers ownership back to the
+CPU before the VPU writes the decoded frame.
+
+> +
+> +static int mali_vpu_submit_deferred_bufs_for_queue(struct mali_vpu_sessi=
+on *sess,
+> +						   enum v4l2_buf_type type)
+> +{
+> +	struct v4l2_m2m_buffer *buffer;
+> +	struct mali_vpu_buffer *vpu_buf;
+> +	int ret;
+> +
+> +	if (!mali_vpu_session_get_port(sess, type)->stream_requested ||
+> +	    !mali_vpu_session_can_stream(sess) ||
+> +	    sess->fw_state !=3D MALI_VPU_FW_STATE_RUNNING)
+> +		return 0;
+> +
+> +	if (V4L2_TYPE_IS_OUTPUT(type)) {
+> +		v4l2_m2m_for_each_src_buf(sess->m2m_ctx, buffer) {
+> +			vpu_buf =3D to_mali_vpu_buffer(&buffer->vb);
+> +			if (vpu_buf->attr !=3D MALI_VPU_BUF_ATTR_DEFERRED)
+> +				continue;
+> +
+> +			ret =3D mali_vpu_queue_buffer(sess, vpu_buf);
+> +			if (ret)
+> +				return ret;
+> +
+> +			vpu_buf->attr =3D MALI_VPU_BUF_ATTR_QUEUED;
+> +		}
+> +	} else if (V4L2_TYPE_IS_CAPTURE(type)) {
+> +		v4l2_m2m_for_each_dst_buf(sess->m2m_ctx, buffer) {
+> +			vpu_buf =3D to_mali_vpu_buffer(&buffer->vb);
+> +			if (vpu_buf->attr !=3D MALI_VPU_BUF_ATTR_DEFERRED)
+> +				continue;
+> +
+> +			ret =3D mali_vpu_queue_buffer(sess, vpu_buf);
+> +			if (ret)
+> +				return ret;
+> +
+> +			vpu_buf->attr =3D MALI_VPU_BUF_ATTR_QUEUED;
+> +		}
+> +	} else {
+> +		return -EINVAL;
 > +	}
 > +
 > +	return 0;
 > +}
 > +
-> +static int mali_vpu_session_fw_init(struct mali_vpu_session *sess)
+> +static int mali_vpu_submit_deferred_bufs(struct mali_vpu_session *sess)
 > +{
 > +	int ret;
 > +
-> +	lockdep_assert_held(&sess->vq_lock);
-> +
-> +	if (sess->fw_requested_state !=3D sess->fw_state) {
-> +		if (sess->fw_requested_state !=3D MALI_VPU_FW_STATE_RUNNING)
-> +			return -EBUSY;
-> +
-> +		return mali_vpu_session_sched_activate(sess);
-> +	}
-> +
-> +	if (sess->fw_state =3D=3D MALI_VPU_FW_STATE_RUNNING)
-> +		return 0;
-> +
-> +	ret =3D mali_vpu_session_fw_send_job(sess, 0);
+> +	ret =3D mali_vpu_submit_deferred_bufs_for_queue(sess, V4L2_BUF_TYPE_VID=
+EO_OUTPUT_MPLANE);
 > +	if (ret)
-> +		return ret;
+> +		goto err_submit;
 > +
-> +	/*
-> +	 * Map the LSID and allow the stopped firmware to process the
-> +	 * queued SET_OPTION requests before it can be RUNNING.
-> +	 */
-> +	ret =3D mali_vpu_session_sched_activate(sess);
+> +	ret =3D mali_vpu_submit_deferred_bufs_for_queue(sess,
+> +						      V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
 > +	if (ret)
-> +		return ret;
+> +		goto err_submit;
 > +
-> +	ret =3D mali_vpu_session_fw_send_ping(sess);
-> +	if (ret)
-> +		return ret;
+> +	mali_vpu_sched_send_irq(&sess->sched_sess, &sess->vpu_dev->sched);
 > +
-> +	ret =3D mali_vpu_apply_staged_controls(sess);
-> +	if (ret)
-> +		return ret;
+> +	return 0;
 > +
-> +	/*
-> +	 * SET_OPTION is only valid while stopped. Wait for pending option
-> +	 * responses before requesting RUNNING.
-> +	 */
-> +	ret =3D mali_vpu_session_wait_pending(sess);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Waiting drops vq_lock, so streaming may have been withdrawn. */
-> +	if (!mali_vpu_session_can_stream(sess))
-> +		return 0;
-> +
-> +	return mali_vpu_session_fw_send_state(sess, MALI_VPU_FW_STATE_RUNNING);
+> +err_submit:
+> +	dev_err(sess->vpu_dev->dev, "failed to queue deferred buffers\n");
+> +	return ret;
 > +}
 
-[Severity: High]
-Can dropping sess->vq_lock in mali_vpu_session_wait_pending() race with
-concurrent queue ioctls during vb2_core_streamon()?
-
-sess->vq_lock is also assigned to vq->lock and m2m_ctx->q_lock, which
-videobuf2 expects to stay held across prepare_streaming() and
-start_streaming() until q->streaming is set.  When staged controls are
-applied, mali_vpu_session_prepare_streaming() sets port->stream_requested =
-=3D
-true and then drops sess->vq_lock inside mali_vpu_session_wait_pending()
-while q->streaming is still 0:
-
-CPU0                                  CPU1
-vb2_core_streamon(q)
-  mali_vpu_vb2_prepare_streaming(q)
-    port->stream_requested =3D true
-    mali_vpu_session_fw_init()
-      mali_vpu_apply_staged_controls()
-      mali_vpu_session_wait_pending()
-        mutex_unlock(&sess->vq_lock)
-                                      vb2_core_streamon(q)
-                                        /* q->streaming is still 0 */
-                                        mali_vpu_vb2_prepare_streaming(q)
-                                          if (port->stream_requested)
-                                            return 0;
-                                        vb2_start_streaming(q)
-        mutex_lock(&sess->vq_lock)
-  vb2_start_streaming(q)  <-- corrupts q_ctx->rdy_queue list
-
-Because both threads run vb2_start_streaming(q), the queued buffers are
-passed to mali_vpu_vb2_buffer_queue() -> v4l2_m2m_buf_queue() twice,
-corrupting q_ctx->rdy_queue via double list_add_tail() and double
-incrementing q->owned_by_drv_count.
-
-Dropping sess->vq_lock here exposes three other races while waiting:
-- sess->fw_requested_state is not set to MALI_VPU_FW_STATE_RUNNING until
-  mali_vpu_session_fw_send_state() after mali_vpu_session_wait_pending()
-  returns, so a concurrent streamon on the other port (or against the
-  asynchronous mali_vpu_session_fw_bin_ready() callback) sees
-  fw_requested_state =3D=3D fw_state =3D=3D MALI_VPU_FW_STATE_STOPPED and r=
-e-enters
-  mali_vpu_session_fw_init(), sending duplicate job and ping requests.
-- If another thread calls VIDIOC_STREAMOFF while sess->vq_lock is dropped,
-  !mali_vpu_session_can_stream(sess) returns 0 to vb2_core_streamon(),
-  which still sets q->streaming =3D 1 even though port->stream_requested was
-  cleared and the firmware remains stopped.
-- A concurrent VIDIOC_REQBUFS(0) can enter __vb2_queue_cancel() and free
-  buffers while vb2_core_streamon() is still in flight.
-
-[ ... ]
-
-> @@ -243,6 +433,21 @@ int mali_vpu_session_cleanup(struct mali_vpu_session=
- *sess)
->  			sess->fw_bin_state =3D MALI_VPU_SESSION_FW_BIN_FAILED;
->  	}
-> =20
-> +	if (sess->fw_bin_state =3D=3D MALI_VPU_SESSION_FW_BIN_READY)
-> +		fw_stop_ret =3D mali_vpu_session_fw_stop(sess);
-
 [Severity: Medium]
-Can mali_vpu_session_cleanup() hang for 10 seconds in
-mali_vpu_session_fw_stop() when the firmware binary is ready but no LSID is
-mapped?
+If mali_vpu_queue_buffer() fails for a deferred buffer here, doesn't this
+leave both the failed buffer and the remaining buffers in the batch
+stranded?
 
-Unlike mali_vpu_session_streamoff(), which returns early when
-!sess->sched_sess.lsid, mali_vpu_session_cleanup() calls
-mali_vpu_session_fw_stop() -> mali_vpu_session_wait_pending() without
-checking sess->sched_sess.lsid.  Meanwhile, mali_vpu_apply_or_stage_ctrl()
-sends MVE_REQUEST_CODE_SET_OPTION immediately whenever fw_bin_state is
-MALI_VPU_SESSION_FW_BIN_READY, even if sess->sched_sess.lsid is NULL:
-
-drivers/media/platform/arm/mali-vpu/mali-vpu-controls.c:mali_vpu_apply_or_s=
-tage_ctrl() {
-	...
-	staged =3D sess->fw_bin_state !=3D MALI_VPU_SESSION_FW_BIN_READY;
-
-	if (!staged) {
-		ret =3D desc->set(sess, state->cid, value);
-		if (ret)
-			return ret;
-	}
-	...
-}
-
-If fw_bin_state reaches MALI_VPU_SESSION_FW_BIN_READY without an active LSID
-(for example, when CAPTURE is prepared while OUTPUT is stopped, or when
-mali_vpu_sched_switch_in() fails with -EBUSY because another session holds
-LSID 0) and userspace sets a control before closing the fd,
-sess->fw.pending_response_count is incremented for an unscheduled firmware
-instance and mali_vpu_session_cleanup() blocks until the 10-second
-mali_vpu_fw_response_timeout_ms expires.
+Unlike mali_vpu_vb2_buffer_queue(), which removes a failed buffer from
+sess->m2m_ctx and completes it with VB2_BUF_STATE_ERROR, an error in
+mali_vpu_submit_deferred_bufs_for_queue() returns immediately while the
+buffer is still on the m2m ready queue in VB2_BUF_STATE_ACTIVE.  Bailing
+out to err_submit also skips remaining deferred buffers and skips
+mali_vpu_sched_send_irq() for any earlier buffers in the loop that were
+already marked MALI_VPU_BUF_ATTR_QUEUED.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119153758.1426=
-673-1-charvi.mehta@arm.com?part=3D19
+673-1-charvi.mehta@arm.com?part=3D20
