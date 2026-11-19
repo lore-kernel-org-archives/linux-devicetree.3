@@ -1,101 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.92.40.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795099923;
-	b=S5lml6Se9jqP//6XAY9L6LkpZKoueWYzk6oRYTWRxfnfI06Ww+ztwNhgGq2AuePCit+r
-	 Wf0c7T96DysTAmylWTnEIPL99LYXB5H1TjRfaRPC5pfRnbsx9jIGh4VdVJv4kwqiAb1N3
-	 rPgO0rYyApUIcLLoJmoCJ0M1dEoyVQu84UWgucHyzWhuxhPoMFpLNBjCF2RlfjvJ4YD0x
-	 XLlv7+cMhZLoM+OFhrof/dPXqpgGuh2CvRFn4mGPsnKIB7WdaRV9BD8TpQs3Tx4eJngYB
-	 pASfnZ3Odd4STI+Cw+gXEIDKfrWL8wjCgtkpD05xcu4hpTTOmDa9C4QlcmFlj9WUgvA==
+	t=1795099999;
+	b=ZWqMc/SGxrTT10efGD1vMnN2b1vXiugx1qeQLqDD/M67hJZNf+Xeb1KMBjp982LJQNYe
+	 28QRiNzupc00GBq0717A/J9izm0oegFrz3CbOKJaQ1Fx25rkgnwHieEzloJfRUr2c6q1v
+	 1jBzn13YfY+G5MfrsFsjfqBTDqoQKlpGt8vFdMXsWXmc1N1zdIAhvu1NPydiPZJfA+Dqf
+	 t2BNPHtNAITdTxAz3Ywdr2O+3c358l/l8xP8AjKJpRDeyBVMMR4D8fcq4Fhejb1jYQ4p2
+	 FI4FrUTU7anCw32UB/pZ/eDLFad/eQpUn3xehGFnq6U0axwJTsiU3i2YrVCz/0V5NzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795099923;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=sHDi3n/DwJusFdRaY4+52UP/45IKh0P8pO8s1HdZiBM=;
-	b=AR/CuEK0CIJpoDfSZLSJgYARCbg1iRXxlQDrZFG2kdGk64mFcgMPp27i9oAu8wnLbOVA
-	 8KeIcLPXh74kQbLrdSVPuNWjkzPkI4muhts+qKgt/SzO47D0xtsPiNJceX4FKptxy366M
-	 LyPQkRnkTStnG5s4sGcPa0Lo8eZWpM0F/fQrquq5eFsVVLtVTnbSHlQPQjLbH9U7ZRkVU
-	 92TXKNJszhxSh90t9gsj/PueUJkA8JAWqcsWXKuwRgTmTs++cZb2LSPT1o2OWFgESM+S8
-	 O78ZDajb0NlhKoQi5S/g2FHjUbiQylozcqn4VlASGpRE1W2yFptEAda3Evo9Rk57Kvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795099999;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:User-Agent:
+	 X-Last-TLS-Session-Version;
+	bh=k1TemjZqZzUtb911eFpFTlr9YVP5j33fp7w/pph9qY8=;
+	b=P3kguNldSHJrLXMTvugdEKDpXpHrY/R+iu2NGYJh1d3xfG//Cnlgf1EnzQTsPnNn/aC6
+	 B34/GnWchudzdkkQljz27HfXihBZiuy1w2wn1vyrNnzit071CZjBndN/D492WxvREamyo
+	 8GEPDjnsvCrjvFY6cdGmw/4j5rfspmqJw7Rf0BF+wufhi9VNS4dsy3Ng7Wv9edDbs8gNP
+	 rZmqbK8UTU/LbeGH28Khyfea9XlbEVYwbd3ngx6mVIt5hzm8yP4TKIQte5VlzQ5JsThgl
+	 sp+ikLXH1N7pzWXzI/CwSmfkf6ZNs2GKaIfCoouabUixmdF05ZkleVJ6/zZCuL/sESg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K33iAVDr;
-	arc=none smtp.remote-ip=209.85.217.46
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=thorsis.com;
+	spf=pass smtp.mailfrom=thorsis.com;
+	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=jxPXT3Io;
+	arc=none smtp.remote-ip=217.92.40.78
+Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5471E606BAAD
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 14:52:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5471E606BAAD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BAEA606A324;
+	Thu, 19 Nov 2026 14:53:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BAEA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K33iAVDr
-Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-7777fa8f1ccso864572137.3
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 06:52:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795099922; x=1795704722; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sHDi3n/DwJusFdRaY4+52UP/45IKh0P8pO8s1HdZiBM=;
-        b=K33iAVDr28WuDqdsKQ7c6BaLdM9PoKWwfFp/RVmBN2ruREIvpWU/CcVciG2GuHy/XY
-         XOGuT8cyqW2Tr0sBsK3AEPFxOW1Tjq5imWBh0v75DOPsRzT3H+UFzClalx3Azancgmrp
-         A/wMT/ychNoVIhpGSgg3HskeSpanL20YKxOLgu2dEcqlRReo2X+2IS23fygsWrx/pS7g
-         gQkKP4lZvrEbArMfchoiO+q9vIwcMFnjhqR6+PMZNCtpvEwUnmze5zWfKGVUKHdKipUA
-         F3cVE0JSC618twvZ2hmJq2c4HgvBPqc8qdngMWU8t3QnTe3soWwgSEMFi+/LjI3t2ogA
-         avtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795099922; x=1795704722;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sHDi3n/DwJusFdRaY4+52UP/45IKh0P8pO8s1HdZiBM=;
-        b=iEvEHG9jnmHL9bb7DXL/Bce7XYg1kOH1p1MeIKBs6XigHUBIXYCgIt5/BiLE3HmhY3
-         +rX+pzTTJyccV7BDDbWihTiOj9EugJ7nTdxp46voR8JPNU9sYUq4aRygJHpc+kAxY3nN
-         yTTMDSHCX8zxe/Ff5D2lybN1v6ZrRkgGnu1ZIyb7fJQS0pUEyvTmEf0UQdFEFw7P7gcm
-         RYzEYDyNor3LCZuToNR2wgfVMXFyt43o9whhnDLmJweEaCCt3arYbPolyn1RNqCnKo/3
-         u4moeL34AS/QAYUW4UAc1mutauF1AdScDZJ2QJYXHFOQH21XB2JCGYJ+2szqmosVw66E
-         S2Ag==
-X-Forwarded-Encrypted: i=1; AL+hErHyYBDnHLktQo87HywHx9Z9ar43E2wMR2E/cgDEC3AnOp/WTs5rG/HB0h0Mr1Bfw+nzjnAIirD6jcut@vger.kernel.org
-X-Gm-Message-State: APuU4Z+BgSGdG5bi8/p5ZKJWQHxJNpK/lS9iIYKZ4ik/O+47PzmCs6nO
-	GUuz4OnExKZQqF3D1b88dJS5o5wdkoPPClfppkj9cM+RnTJDWE/ZHzQ6
-X-Gm-Gg: AYBFou28B5wdQAQuINgreJm0NwZ2aWBmQT2bb7B4fCm5fcSdVaH6JZ/pI69xeg9A5Yf
-	aO28nwGs3oAjhJZBkVSA1yDR3KIX0DBaal+nU4ido0qeIvmoanfJ7XPmM8JQ+Xr52Ct2IzLoChC
-	iocQvEb1eEzDByk9V4UNZMp2X3MS0BDHSg+51osBox+aTPEDP0gHzPlxeAzpYM+uTTB1GR4a+Vs
-	EkOoxwnyv5Gok79x5t9eqO+f+EKeMk2gNj/c+fA9EamYUuaQPId+AntsdzNxZuNOIbAqMSVQCOl
-	szNImBpjI9v/GIeiYjgrFXlmQuVqT+u6rECFhIG8jF+zokQ49HRAcY1Gz/KnLLyy+4PgKeEWuOj
-	3lXChJmAi3dOkQ2utvoK35HTjR82uwCiitvZ7YQHzIORrvc5jzbgzNUyDUUL382H2D6AlGN4ZN3
-	PEjlW3J16+eFPYPF7iHnngT0yeQwlOp4/Rr4PJNvp+zdlvWGPGJwEKKTUKRXvuSLPVjFd79bXxY
-	KWaQBKCEDn21Pn4TtN+lPtJZ6iFrGTNfJXOnk+5vrooY6K1nukIUeTn+uJnkVJD3xE35A/ecxX+
-	SBbkN1NHnLt6T2fT17EFfvwngeq+j6Ar9Hxj
-X-Received: by 2002:a05:6102:6044:b0:7d6:864a:5509 with SMTP id ada2fe7eead31-7d6ba43b12fmr2019264137.24.1795099922016;
-        Thu, 19 Nov 2026 06:52:02 -0800 (PST)
-Received: from localhost ([2804:30c:914:4500:cd15:65cc:e2cc:7363])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e6df8a28dsm150070241.4.2026.11.19.06.52.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 06:52:01 -0800 (PST)
-Date: Thu, 19 Nov 2026 11:53:26 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Conor Dooley <conor@kernel.org>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux@analog.com,
-	Michael.Hennerich@analog.com, nuno.sa@analog.com,
-	eblanc@baylibre.com, dlechner@baylibre.com, andy@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	olivier.moysan@foss.st.com
-Subject: Re: [PATCH v1 4/5] dt-bindings: iio: adc: Add ADA4355
-Message-ID: <av8NZpVuodpXM7GU@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1795003864.git.marcelo.schmitt@analog.com>
- <c7be62089d2b54dbf7fb57cdea189bdb1cade7c5.1795003864.git.marcelo.schmitt@analog.com>
- <20261118-liver-decompose-434eedb257b8@spud>
- <20261119025950.456dc645@jic23-hlaptop>
+	dkim=pass (2048-bit key) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=jxPXT3Io
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2D3E01483022;
+	Thu, 19 Nov 2026 15:53:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
+	t=1795100002; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=k1TemjZqZzUtb911eFpFTlr9YVP5j33fp7w/pph9qY8=;
+	b=jxPXT3IoGdPzIrANv/1IsOBMFwrG0fKNZ2kYGvul8pZ3lqJ1iIi1uUIwygxseWnUedBX5r
+	pCuASsLWd44+piSPYRDtEFK984UK3DeXNSfymq4rpqEm0tc3uL+JP+VylYDKAEn5KHnYQ4
+	iibgQuY3yubiQZRnJrbmRQCgQ+hKi4V/PZSAn0XcCo1TnFZCud0mK33uX+2zTW9iCZMbkO
+	Gxmv1vu1GzJJPBRgJdi5jWo9hbj4YqyQo8x2XCCkv543CHe1Vi+i7st0+PncjoLhlgLUT7
+	wYczqi14VFFD3TQqFiobiCvpmycHuLH/wZRcAdvOh3DsOjADi+kmiLroe9454A==
+Date: Thu, 19 Nov 2026 15:53:12 +0100
+From: Alexander Dahl <ada@thorsis.com>
+To: Claudiu Beznea <claudiu.beznea@kernel.org>
+Cc: Alexander Dahl <ada@thorsis.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Ryan Wanner <ryan.wanner@microchip.com>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v4 03/16] dt-bindings: clock: at91: Allow referencing
+ main rc oscillator in DT
+Message-ID: <20261119-sixfold-tradition-ab9492ca6c2e@thorsis.com>
+Mail-Followup-To: Claudiu Beznea <claudiu.beznea@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Ryan Wanner <ryan.wanner@microchip.com>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+References: <20261105110715.2486432-1-ada@thorsis.com>
+ <20261105110715.2486432-4-ada@thorsis.com>
+ <5273baa7-aae5-4364-bb09-dccee581200b@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,35 +88,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261119025950.456dc645@jic23-hlaptop>
+In-Reply-To: <5273baa7-aae5-4364-bb09-dccee581200b@kernel.org>
+User-Agent: Mutt/2.2.13 (2024-03-09)
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hello,
+Hello Claudiu,
 
-On 11/19, Jonathan Cameron wrote:
-> On Wed, 18 Nov 2026 17:39:46 +0000
-> Conor Dooley <conor@kernel.org> wrote:
+Am Sun, Nov 15, 2026 at 04:34:30PM +0200 schrieb Claudiu Beznea:
+> Hi, Alexander,
 > 
-> > On Wed, Nov 18, 2026 at 10:04:13AM -0300, Marcelo Schmitt wrote:
-> > > The ADA4355 is an integrated analog front-end and 14-bit analog-to-digital
-> > > converter with a serial LVDS data interface.
-> > > 
-> > > Document how to describe ADA4355 devices in device tree.  
+> On 11/5/26 13:06, Alexander Dahl wrote:
+> > The main rc oscillator will be needed for the OTPC to work properly.
 > > 
-> > Please explain why the 4356 differs rom the 4355 such that it cannot use
-> > a fallback compatible.
+> > The new index introduced here was not used on the four affected SoC
+> > clock drivers before.
+> > 
+> > Link: https://lore.kernel.org/linux-devicetree/20250207-jailbird-circus-bcc04ee90e05@thorsis.com/T/#u
+> > Signed-off-by: Alexander Dahl <ada@thorsis.com>
+> > ---
+> > 
+> > Notes:
+> >      v4:
+> >      - change index for sama7g5 and sama7d65 after re-adding unused PLLs in patch 2
+> >      v3:
+> >      - adapt to different base changes, added lines are the same
+> >      v2:
+> >      - new patch, not present in v1
+> > 
+> >   include/dt-bindings/clock/microchip,sam9x60-pmc.h  | 1 +
+> >   include/dt-bindings/clock/microchip,sam9x7-pmc.h   | 1 +
+> >   include/dt-bindings/clock/microchip,sama7d65-pmc.h | 1 +
+> >   include/dt-bindings/clock/microchip,sama7g5-pmc.h  | 1 +
+> >   4 files changed, 4 insertions(+)
+> > 
+> > diff --git a/include/dt-bindings/clock/microchip,sam9x60-pmc.h b/include/dt-bindings/clock/microchip,sam9x60-pmc.h
+> > index 050e5e774b274..830e247ba2532 100644
+> > --- a/include/dt-bindings/clock/microchip,sam9x60-pmc.h
+> > +++ b/include/dt-bindings/clock/microchip,sam9x60-pmc.h
+> > @@ -10,6 +10,7 @@
+> >   #define SAM9X60_PMC_MCK		1
+> >   #define SAM9X60_PMC_UPLLCK	2
+> >   #define SAM9X60_PMC_MAIN	3
+> > +#define SAM9X60_PMC_MAIN_RC	6
+> >   #define SAM9X60_PMC_PLLACK	7
+> >   #endif
+> > diff --git a/include/dt-bindings/clock/microchip,sam9x7-pmc.h b/include/dt-bindings/clock/microchip,sam9x7-pmc.h
+> > index 292c5873e101e..58d2a08116795 100644
+> > --- a/include/dt-bindings/clock/microchip,sam9x7-pmc.h
+> > +++ b/include/dt-bindings/clock/microchip,sam9x7-pmc.h
+> > @@ -10,6 +10,7 @@
+> >   #define SAM9X7_PMC_MCK		1
+> >   #define SAM9X7_PMC_UPLLCK	2
+> >   #define SAM9X7_PMC_MAIN		3
+> > +#define SAM9X7_PMC_MAIN_RC	6
+> >   #define SAM9X7_PMC_PLLACK	7
+> >   #define SAM9X7_PMC_AUDIOPMCPLL	9
+> >   #define SAM9X7_PMC_AUDIOIOPLL	10
+> > diff --git a/include/dt-bindings/clock/microchip,sama7d65-pmc.h b/include/dt-bindings/clock/microchip,sama7d65-pmc.h
+> > index 08581418b9115..17105a6bedb54 100644
+> > --- a/include/dt-bindings/clock/microchip,sama7d65-pmc.h
+> > +++ b/include/dt-bindings/clock/microchip,sama7d65-pmc.h
+> > @@ -19,6 +19,7 @@
+> >   #define SAMA7D65_PMC_AUDIOIOPLL		10
+> >   #define SAMA7D65_PMC_ETHPLL		11
+> >   #define SAMA7D65_PMC_MCK1		13
+> > +#define SAMA7D65_PMC_MAIN_RC		14
+> >   #define SAMA7D65_PMC_LVDSPLL		15
+> >   #define SAMA7D65_PMC_MCK3		16
+> >   #define SAMA7D65_PMC_MCK5		17
+> > diff --git a/include/dt-bindings/clock/microchip,sama7g5-pmc.h b/include/dt-bindings/clock/microchip,sama7g5-pmc.h
+> > index 27668634b0a2b..4a1c4af8ecc9a 100644
+> > --- a/include/dt-bindings/clock/microchip,sama7g5-pmc.h
+> > +++ b/include/dt-bindings/clock/microchip,sama7g5-pmc.h
+> > @@ -19,5 +19,6 @@
+> >   #define SAMA7G5_PMC_AUDIOIOPLL	10
+> >   #define SAMA7G5_PMC_ETHPLL	11
+> >   #define SAMA7G5_PMC_MCK1	13
+> > +#define SAMA7G5_PMC_MAIN_RC	14
 > 
-4356 has a different set of selectable input configurations that leads to a
-different scaling factor to get to milliampere units. A system with ADA4356
-matching/fallingback to a device driver only supporting ADA4355 would get the
-wrong _scale from the IIO device driver. Users would not be able to accurately
-read data in milliampere units. ADA4355 cannot fallback to ADA4356 for the same
-reason.
+> I think we can use 12 instead. Correct me if I'm wrong. Otherwise, you
+> should change also driver code to allocate space for this clock. See
+> pmc_data_allocate() in drivers/clk/at91/sama7g5.c
 
-Will provide this explanation in v2. 
+The old definition had this (with PMC_MAIN = 3):
 
-> Also mention it in the patch description!
-> I was briefly very confused at Conor's comment :)
-> 
+    #define PMC_CPU                 (PMC_MAIN + 9)
 
-Thanks,
-Marcelo
+That's the 12 which is missing in the new list.  PMC_CPU was not used
+in the current code base.  Personally I'm fine with using 12 here, but
+I was not sure if this is again some value Microchip wants to keep for
+some reason?
+
+The allocation problem was found by sashiko on patch 5.  I already
+fixed that in my working copy for v5 of the series, but will adapt, if
+the value here is changed again.
+
+Greets
+Alex
+
