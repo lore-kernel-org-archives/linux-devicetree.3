@@ -1,57 +1,170 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795104611;
-	b=S+m7ibSKqLEshYLlesreAvTrBNz4m63W8PqR0yyC1LPci3lUc3SPg2lxo7XhhwKWJUpq
-	 +tqCJgnsr1jkdUk4cA7HTAwgsmpnmBXtg64/4YifDhWMiQNKgGYYbovkQSmQgbcC+eWnL
-	 VSxryKNvelkF6eGGSap9HvlWbhiDwpEtV3qo2GjGq+PJSXDE3+sN/T+iFORI/wP1vq9ul
-	 V2Bgue1h/MYggHhmcnfgBpUUYFPFv1A6CHz1JlPAyqvxkZnC6TY7JyDRwzBpQq3gqgai4
-	 EF6MwSCt8Pnnc5oi7yBqXbd4HRqNFzWLVRxOpHN+33RIThIpnPyEq8JekmsAQCnmd4A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795104611;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=6m8njvN9ZWYXV/6SoiWAV/H7633o5vHreNJNS5sCy/0=;
-	b=mTPhDBviTQ01772+oIt1VqLfXB5k52oIQ5nX+glZ1+9XuL7HvgkOMwEFsQmW7jljoAdu
-	 9yZZWLjJDDHm0EYyepHPxZBOOYiisP5QSUFrrSD5D49638q6nSwR7zJMKtKpye7LaJUy7
-	 9o7FtKHIdowDklfy9AuM3PgCTWGta35p+RBEcifadUpomHH2qK1nWF30Ev4X2okrYJFSx
-	 0jRtuyAdFQ28ZCjPbhz2kR6bb6znEfGfk3wr0ATH9IjfUeB0gl3shzxrUObsEhjS90gJ2
-	 lcxh0QaDCyCFX0kBi8k9b0jI9hXivJyo3RIO/4QlGoQg9BoWEU4vE6bESyjN+vPSChA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LHY5tEPT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795104739;
+	b=cnVXaDnxO7sdSAw96GRv13wmSV8f/xvmFv8iDH3s5uplg8KUQTwMfPiWX5Vm4eMI8+c1
+	 NOJjxwcdFdNoKn4awoJ6M0D1HmOE2c81Pntiuq3N5MDmCOeDBMrLNdSVfPB0Ef7LrdJ8e
+	 xwlK8iz1mXvF0jiM6I0Oa5i2VTAivFXzzZVwPVDfxwOB8MwEssYbN3Qh+WLkkYsFdtYQW
+	 yWYzp9DV+cYxa/zGyDpLPlOtL5K/bpvK0sVHM8QLFAZxQ6nrCrnUK19zaRJYO0XcWvsH2
+	 8Aq5JQRyMkpGtjhaj3ael8Spl9aybh1qSZa+dAwDgFEUnLBd4gtAW9z1+XgqMK/m7FA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795104739;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 user-agent:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:
+	 x-ms-exchange-atpmessageproperties:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:
+	 x-ms-exchange-antispam-messagedata-1:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ms+OUDdRD1+eJYfzojBmQLq4fqQkHAElg2cT3eHxjC0=;
+	b=SnizlBBMH33uSfXTJfFRWeHiBWrEQEZJtkAdLprkids2flWvrD2YnvIf/1cipRoIeo34
+	 6JxDIbYZOzF/hGnbkvCddmGPrKHDIcH4TzEI2kAulxMA250OHkhk0V6CJhj9AUSiOh5Fv
+	 W58n9OS8lyKrP2Op2a17h9bmHo1M63iDK4hTgZCd7jhU83LymMGL371m0llw3mjEbsE5x
+	 QoAfah9w6AuHJhtFnRT5pj2sEBm4XDbfXNH8eqbLQiuqaK2F0RMiVznroGi3RukjSLjSl
+	 YMlRbNrhHhm/3oLv8GQRvHtg46jmj7InAkyRA5xvM4JfWArTukm5CqtnJNvyoYnPCCg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=siemens.com;
+	spf=pass smtp.mailfrom=siemens.com;
+	dkim=pass header.d=siemens.com header.i=@siemens.com header.a=rsa-sha256 header.s=selector2 header.b=pyFy3Eki;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.53
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011053.outbound.protection.outlook.com [52.101.70.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B37D606A324
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:10:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F99606A325;
+	Thu, 19 Nov 2026 16:12:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8F99606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LHY5tEPT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEC171F000C4;
-	Thu, 19 Nov 2026 16:10:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795104611;
-	bh=6m8njvN9ZWYXV/6SoiWAV/H7633o5vHreNJNS5sCy/0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LHY5tEPTFTJjVR3Errs3zkK7jVKI9PsY0/pCjZy1NNboziD+1wgWNQn3VJbpWhqfO
-	 1k8MQjrdGoUifKVMVIyMWViVZOfoObAiyY9DDZGQR0thRKOqipOMH1gbGT/PfSSouN
-	 dzuOee/K2hcSwvMYDsqIsjG1jTikyuaC90Er2XXyhjAAs6OQD5NJdUioOJ3zn2eTrR
-	 8SQpAy8W10RL8bQsrPq56pWIxK7TmNz1S8KX0XTg6EsflYep7n4ccyGGyEI6Zyhz+F
-	 qid5ODIiCHAZDcdlcX6Th8tjDsVX0nTpafJtCOPBIrHcfx7n+NAHTql3/Nq6xdNJtm
-	 YTqYY6XWx6W2Q==
-Message-ID: <sashiko-outbox-223481@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 27/28] media: mali-vpu: add stateful decoder state
- machine
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Charvi Mehta" <charvi.mehta@arm.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261119153758.1426673-28-charvi.mehta@arm.com>
-References: <20261119153758.1426673-1-charvi.mehta@arm.com>
- <20261119153758.1426673-28-charvi.mehta@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 16:10:10 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=@siemens.com header.a=rsa-sha256 header.s=selector2 header.b=pyFy3Eki
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EiU72ACWBQnz21b2njvygFVsWYIvLFbSlym1x9c1Idpg6Qvj1ZEI7L6KsU5BWqscVdQaXT6c6/hNyS5yCD6m6cTydDyMAeJiPxtCknCJtrVaudHbn0cbwxLWZ8Z56WnU23jna4SdTFtWNHsY+Ds3msWK+iWU48i/4IiQ0bsI3A9ZNbKLPl/MYNmFP75KQ2o28PR7fVr2tQA80PrrK6a8yw5UYaMe0AV6/XTTugUNXsC7XQVrQycP2z1eQz1oRmsiCPokPHbPojQc9LMzEpghwEOTO/ZautlVR2zpjPVthwIQQDJr21hLtGPNcwjMEVaPP0BVR+M3iRo/6diK6v5AQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ms+OUDdRD1+eJYfzojBmQLq4fqQkHAElg2cT3eHxjC0=;
+ b=slUCSy8MakRQYTbIct48FLFcXXsoKTWj1JM9SdyqgRJD8ofQ+75Z890o57Ynut5O+/dJKj4GW9Y7+n5DmAL1AVoLXH88wCy1y7CzwNHzm3OLDo3pnWiLBkrAsPtxi9lMMpp9s8msoUZAaaz3vTG4KVbj55DC6J7SbuCpZuZhkpZdhZ+8nDejgcqZVW8paCkiWUEdq8xsf7vTbDiVywSJnGCbRSJFntuxCYoafPGqcd6rr9LkKcc/gM3IQv92UR5I/4mCNXDDOAs8YuPRmO1IJgtYVjHWvBa276/jHjvAO3Tf+q/667mkCFMGm4SOCHAOxy9Ns6EjJkXYbWFaXuJXkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
+ dkim=pass header.d=siemens.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siemens.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ms+OUDdRD1+eJYfzojBmQLq4fqQkHAElg2cT3eHxjC0=;
+ b=pyFy3Eki2F5qQe/8gEOFXstOzgUfLMXbfGUrdxsSnHX2eK+8hUCLzVYO7V4hFMcoVLdmL1TMMBp/ZUJ5snMN7wMpaQw1CiNi7MYndghVkjuxebpW/JFdVlaQkZ0OnA4Q4CFDctv7mb5etuRNJbAsGS+RVulPx4bgyZDCnZ9cLLTS6i1xT2kJouNrN3KZ6+NrlSfPuZKcRE2sQK3KNNsOV8q0gEh/CgsTYAx/gFum3MNVcmGXaAjejZAF7oiCzQzhGaxV89xgeYe/EPYl1cZV/fdpplgyDLx47cSmGVteWpwwFOXLvhNZ7jyER1aac5wZMEYTGqFm3Dy5MBJnMTlcUw==
+Received: from AS8PR10MB6867.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5b6::22)
+ by VI0PR10MB9466.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:2d0::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.1; Thu, 19 Nov
+ 2026 16:12:13 +0000
+Received: from AS8PR10MB6867.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::9126:d21d:31c4:1b9f]) by AS8PR10MB6867.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::9126:d21d:31c4:1b9f%3]) with mapi id 15.21.0662.000; Thu, 19 Nov 2026
+ 16:12:13 +0000
+From: "Sverdlin, Alexander" <alexander.sverdlin@siemens.com>
+To: "diogo.ivo@bootlin.com" <diogo.ivo@bootlin.com>, "linux@roeck-us.net"
+	<linux@roeck-us.net>, "wim@linux-watchdog.org" <wim@linux-watchdog.org>,
+	"andreas@kemnade.info" <andreas@kemnade.info>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "tony@atomide.com" <tony@atomide.com>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "aaro.koskinen@iki.fi" <aaro.koskinen@iki.fi>,
+	"rogerq@kernel.org" <rogerq@kernel.org>, "khilman@baylibre.com"
+	<khilman@baylibre.com>
+CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"thomas.petazzoni@bootlin.com" <thomas.petazzoni@bootlin.com>,
+	"linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>,
+	"linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>
+Subject: Re: [PATCH 0/3] watchdog: omap: Preserve OMAP watchdog across boot to
+ detect faulty boots
+Thread-Topic: [PATCH 0/3] watchdog: omap: Preserve OMAP watchdog across boot
+ to detect faulty boots
+Thread-Index: AQHdeEC8OaaiEBeULkCqR8awCO8FYw==
+Date: Thu, 19 Nov 2026 16:12:13 +0000
+Message-ID: <a0ce41df99aeb47edc733733be54b9c0e9ead767.camel@siemens.com>
+References: <20260911-omap4-wdt_boot-v1-0-637d778a4a1e@bootlin.com>
+	 <407b9420-0ec6-4d95-960b-633677edf760@roeck-us.net>
+	 <14eb1c72-fab0-445a-82f2-5851a855f723@bootlin.com>
+	 <f1adea74-8f87-4442-aa12-18536cabec3c@roeck-us.net>
+In-Reply-To: <f1adea74-8f87-4442-aa12-18536cabec3c@roeck-us.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siemens.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS8PR10MB6867:EE_|VI0PR10MB9466:EE_
+x-ms-office365-filtering-correlation-id: 54d390f6-a62b-4d82-9bf0-08df4657df7e
+x-ms-exchange-atpmessageproperties: SA
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|7416014|10070799003|1800799024|366016|18002099003|22082099003|6133799003|55112099003|921020|56012099006|5023799004|4143699003|11063799006|10067099003|261026140227099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003|261102123227099003|261022075727099003|261026121527099003|38070700021;
+x-microsoft-antispam-message-info:
+ fJLb9nXjcEsZil36HluMzvN3w7PT2wWNKlxrQYpZ7wSXVXW6YnWv/72BTp3ohl9IT3aJdoGy0bVbzLI4q6K3ALoOuaZz/YNzHL0YpB9taRDcDwUUPcxrx4aR6akUO0Rj20+kqMabNHa3s03orXmDoEGt+iHuAAqZIm8IoUyHqZhW5pkwVfxdoFo4TxPuaaQXPpL6ukFO7wjP/ALbww9S4GL4+a5vw24C5m84hesgTXqpupsgFndSoPLVfLanYpRr/GTpvqfY0wIpwjHMD7X4F1QPQCfPdhQgWcx2gzCIWIk2N63yCXJDvr+tgiFLYZG2SamkQi9cT1p70Y8XxkxqXruX/SryDXS0iqOp6BdeCXRLd9PwWVeD8qiE3+DfSmEePNifieD3q5Hjrzu7e1lJvE3P4taLZw0q94yjUwMnky3NYMO4ImEqScS3F+x0A4Ai7EZrDie23ZSrDi0dW9gF6ynQVjlTHQbSMT4Ec+b8xpxOcrHUqHlmKLfpcUTIYRkkJuhmYylbhWrbrakoNC3RYLVC8c9+qJPKCj85yd5t2PQWPiEMYsKBJydSZw5xCgGJltUWuVawadi7QhcnVIXKXUpFzwgErlvCZU5NMXdVEsaPrM/K/XqGZKz530HWTTFH7baVOFlExjK/I+nEeKcv+HfqhIdK3ZX+7miuZHGMDpIjWX/nVilwhMpLffehU8VW
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR10MB6867.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(10070799003)(1800799024)(366016)(18002099003)(22082099003)(6133799003)(55112099003)(921020)(56012099006)(5023799004)(4143699003)(11063799006)(10067099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261102123227099003)(261022075727099003)(261026121527099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?NVNaREFKSlNNenpscmtPVUZqTVNnczNUYjZwZDFOU1RLK2Y5T1hVVTZuVDcz?=
+ =?utf-8?B?cHZKQjZERkllZnJxMzhoYTdKN2FMeHYySnlCTjRtZ2tBWGt5RktOMm1XWDFs?=
+ =?utf-8?B?Wmw0RUVBVHlucVNmc0tROGVHa1JsYXdWZ2FHRThMQ1FVOS9DRXBUYTBNSFhr?=
+ =?utf-8?B?UFBsOW9EWDYrU1hwdFlqa0NBYndpWmZ5Yit6MUNod29COXFFNlE5QmRFRHl4?=
+ =?utf-8?B?aEVOT1RqZFpPaTZPU05GQmlsZnFnSGFWQVZPeVVMNEpMK1ZWTmhnSE9tbitq?=
+ =?utf-8?B?SGpNUGJnVHRNSGZOQ3BuTGRKZFBRUlZEVkxzOTR0cDVZU1lwRWtPcHpvSnBJ?=
+ =?utf-8?B?L29uZ05LeVhUWVhkWExoa0V0WXVqLytJVTZ0NG1RZGthYyt1a2M4RjV6dE8v?=
+ =?utf-8?B?SGhRSjdoT0F6WC9FZ2FtSzRRZ2FiZVpiQjJiNTU4TVpyRGFGLzlwLzAvTEln?=
+ =?utf-8?B?bzFFeDRycHhqRkh6VnNKR2NZTWFGTlNxM0sxYlNGc3MwVWZJc0c2Y3E3L1BH?=
+ =?utf-8?B?cXBiSlVZbnloSmhVa1ZCUUNzc2V5R2xJWGhVUjcza1Z3OVdXNzVzN21zdG9J?=
+ =?utf-8?B?eDBROGxBVjNSMUE2TVIwcTJnR09sSnVmeEpoR2RCZ0ZxeVNWcVFRaXdzNlFr?=
+ =?utf-8?B?S2d5Qk9vblRCNHJadE9DNWRjV3crL1kydDBmbFc5ZjYxTkJRVFJkRm5DUytR?=
+ =?utf-8?B?NDlnU3M2WW44SUlFZUd5Si9LRXloS2I0NDBQMEdMOWlHZ3lOQ1pweWNMUC9E?=
+ =?utf-8?B?dytOYXkwN1dZeitBUU0yUzhQTlM4L2k5eG9lalY4MXFQWlZmN25FODVUbzJR?=
+ =?utf-8?B?Z3BtUkhVWlVqZ1ZzMkRkM0hjZExWNmVuZEZBaFlDQTNuMElYdzRVZFZYNUJw?=
+ =?utf-8?B?T29HMVR4UUV6Vk5IQXZ6NHNvZ1A1STEyREVGdUduZnNpa1AyK0pXUjh5b2Ir?=
+ =?utf-8?B?YWlGZXl1c25JaFpSU0R3bks2QlRvaFlwWGRUSmU1WmxzVTVtUktteWM4OEsz?=
+ =?utf-8?B?MVdSdDlBNE93TFNKdnU1bklTNGJHSzU1RHA5bmxCdFp2dWd1ZGQyUEJHS3Mr?=
+ =?utf-8?B?bWVyWjc4d0ZpVWptZnBWekwva3ZVN3IrQ1NnczY5bUJyOW1pU281K3kwTFFE?=
+ =?utf-8?B?TmhYVlRQWjNwMmlHU0IraW1zVElDb1YwTkFhV2k3dHRiN1Q1L25IY2lpeDhm?=
+ =?utf-8?B?MGxhRXA3T2Vua0VycUducGdGVCt4RG9sWVlreExPNXRHSzRaL0k0M096cU0r?=
+ =?utf-8?B?aHlUU3dUN1E3Wk1hcTdCUGhtUzdvKzhRT0kxZ09BNW9VNU1qSTVqOG1tZkN2?=
+ =?utf-8?B?MjVJQWxCVUpDbDVpQ2ZvK1AzdnpnNHNSMjN0UkNudGdVU3FQKzV5aVREbHlM?=
+ =?utf-8?B?Ym1NWG5qbkorbTFIQ24vK2g2OGtoczVFTWNKN0xac2QrSHRMdlliMnMzSVQ0?=
+ =?utf-8?B?ZVN0VkxFWHFiT0JwL1BZRi85Q3pNT3ZYcUhGMkIrc3NWYndwNk1lelAzbi82?=
+ =?utf-8?B?Ym4vL2pDeWRxR29wSzAvT25velVkZ05LQ0JTcjRPUndUZS9BQW1GbnhpWDVa?=
+ =?utf-8?B?ZmFLNWpscnBMcE4rZi9Kam0zdTN6K1R6dVVLV21Hck1HS2s2dEY0a2hPMDl0?=
+ =?utf-8?B?UzQyWUpWYUlSb3JZY01JZUNXMnNLNFVGam90NmVCWHVyd3B2WjVDRTJKS21Q?=
+ =?utf-8?B?Rko3dUU0ZDBqSkEvUDlUV2hHRlgzZkkvaFNZWTJCaXNIVTVEMUNzWEN6aUZO?=
+ =?utf-8?B?NGtOUGhGOE4rT2diVDdUYk90alZIdzM4YWhxRElvS0dmY2UweFRmN1VBcE5p?=
+ =?utf-8?B?NFk1eTJjdk9wL090Q2UxemN0T1BTZHhMNDlYUGo5bzhQd3BlRWo4U3R4QmZs?=
+ =?utf-8?B?b3l6d1FHS2xBSlQ2QjFpTkZsSzBSMU1CL2VOQThMZ3dCY2o5T0dzNkpxVTFw?=
+ =?utf-8?B?aFVyMDJJMFc5K0tsRDNXcTBxMFMyTEtpOE5CSklHWlNxR21WUXNzQytPNDlp?=
+ =?utf-8?B?ZVV6V1I2V2JkTjBqci9HWXllTG1LRW11NkF5OE00SHR6WmZQditVR0d5RzBl?=
+ =?utf-8?B?RDRuRTFCRklaaXByMzJIYitWbEhEWkI5NnY5em9ob2tobGtDcXJBTjdSak9Q?=
+ =?utf-8?B?c1JVcDBGdWg4RU1nZkNIVHY4ZlU2NGpRQ05rNzMraFgvTUVieWJ6YTl6WEo5?=
+ =?utf-8?B?ekFqYmN3UHNkdVpPNDhzaW1Yd0Zlc3RLczk1LytWTUdhLzVvMEp1ZStlVzZk?=
+ =?utf-8?B?UE9VSGxGUFl4c1k4cWhEMlBaWHcrVlJPRWV5V2I0c0ZoMlhudnRoNDVuTWQy?=
+ =?utf-8?B?Tm8veTB3RklsamYzekIwbTNMRHlQSkVPUlkwbk00alhKZ1FTdzV2bFBIanJ6?=
+ =?utf-8?Q?cLj66lNQVbPRtxHl1eYvzAYZM2rXQ/Lq5Qm88N2rDDA1g?=
+x-ms-exchange-antispam-messagedata-1:
+ NqrYDOEeWRyvZE2T60682sl41QBhwYqbebdNY1YgQB1rJOVTw2R70ydi
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <6E7A7289C789B144989D57CD5E0E3EB6@EURPRD10.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,314 +173,71 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-OriginatorOrg: siemens.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR10MB6867.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54d390f6-a62b-4d82-9bf0-08df4657df7e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2026 16:12:13.5029
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gysqvpJJ3RsTThdxRlv14NqNclH8dCQa4zZOljwDDcw1tFzYSRFy0ryVpia9l0+OaDPDZ92h2ad4dN+NzalYGAEemTHRF771XiZNX4x1Zt8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB9466
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issues to consider:
-- [High] media: mali-vpu: allow STREAMING to STOPPED on CAPTURE
-  streamoff
-- [High] media: mali-vpu: missing DRAIN to STOPPED transition breaks
-  CMD_START
-- [High] media: mali-vpu: handle OUTPUT streamoff in source-change
-  states
-- [High] media: mali-vpu: handle MALI_VPU_FW_CODE_ALLOC_PARAM during
-  DRAIN state
-- [Medium] media: mali-vpu: validate queue state on V4L2_DEC_CMD_START
-  in decoder_cmd()
-- [Medium] media: mali-vpu: avoid premature state transition in
-  session_streamoff()
---
-
-commit 97c2307773c544ec658afbe30255359b9cb184c5
-Author: Shobhit Pandey <shobhit.pandey@arm.com>
-
-media: mali-vpu: add stateful decoder state machine
-
-This commit replaces the decoder drc_pending flag with an explicit session
-state machine tracking queue streaming states, drain handling, and
-source-change events.
-
-> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c b/drivers=
-/media/platform/arm/mali-vpu/mali-vpu-dec.c
-> index 7e34c24ae050f..6ce61de22a802 100644
-> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
-> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
-
-[ ... ]
-
-> @@ -79,11 +81,31 @@ int mali_vpu_decoder_cmd(struct file *filp, void *pri=
-v, struct v4l2_decoder_cmd
-> =20
->  	switch (cmd->cmd) {
->  	case V4L2_DEC_CMD_STOP:
-> -		ret =3D mali_vpu_session_fw_send_eos(sess);
-> +		if (sess->sess_state =3D=3D MALI_VPU_STATE_DRAIN) {
-> +			ret =3D -EBUSY;
-> +			break;
-> +		} else if (sess->sess_state =3D=3D MALI_VPU_STATE_STREAMING) {
-> +			ret =3D mali_vpu_session_fw_send_eos(sess);
-> +			if (!ret)
-> +				ret =3D mali_vpu_dec_update_state(sess, MALI_VPU_STATE_DRAIN);
-> +		}
->  		break;
->  	case V4L2_DEC_CMD_START:
-> -		vb2_clear_last_buffer_dequeued(v4l2_m2m_get_dst_vq(sess->m2m_ctx));
-> -		ret =3D 0;
-> +		if (sess->sess_state =3D=3D MALI_VPU_STATE_DRAIN &&
-> +		    !dst_q->last_buffer_dequeued) {
-> +			ret =3D -EBUSY;
-> +			break;
-> +		}
-> +
-> +		ret =3D mali_vpu_submit_deferred_bufs(sess);
-> +		if (ret)
-> +			break;
-> +
-> +		ret =3D mali_vpu_dec_update_state(sess, MALI_VPU_STATE_STREAMING);
-> +		if (ret)
-> +			break;
-> +
-> +		vb2_clear_last_buffer_dequeued(dst_q);
->  		break;
-
-[Severity: Medium]
-Can V4L2_DEC_CMD_START transition sess->sess_state to
-MALI_VPU_STATE_STREAMING when only one queue has been started?
-
-Unlike V4L2_DEC_CMD_STOP, V4L2_DEC_CMD_START does not check whether both
-queues are streaming before calling mali_vpu_submit_deferred_bufs() and
-mali_vpu_dec_update_state().  Because mali_vpu_dec_allow_state_change()
-allows MALI_VPU_STATE_STOPPED, MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE, and
-MALI_VPU_STATE_RESET to enter MALI_VPU_STATE_STREAMING, calling
-V4L2_DEC_CMD_START while only OUTPUT is streaming moves sess->sess_state
-to MALI_VPU_STATE_STREAMING while CAPTURE is still off.  When
-MALI_VPU_FW_CODE_ALLOC_PARAM later arrives during initial header parsing,
-mali_vpu_session_handle_fw_msg() then enters
-MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE instead of
-MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE, and subsequent CAPTURE STREAMON
-cannot exit that state, causing mali_vpu_session_qbuf() to immediately
-return every queued CAPTURE buffer with V4L2_BUF_FLAG_LAST.
-
-In addition, calling V4L2_DEC_CMD_START in MALI_VPU_STATE_INITIALIZATION
-runs mali_vpu_submit_deferred_bufs() and then fails in
-mali_vpu_dec_update_state() with -EINVAL.
-
->  	default:
->  		ret =3D -EINVAL;
-> @@ -93,3 +115,112 @@ int mali_vpu_decoder_cmd(struct file *filp, void *pr=
-iv, struct v4l2_decoder_cmd
->  	mutex_unlock(&sess->vq_lock);
->  	return ret;
->  }
-> +
-> +static bool mali_vpu_dec_allow_state_change(struct mali_vpu_session *ses=
-s,
-> +					    enum mali_vpu_sess_state new_state)
-> +{
-> +	switch (sess->sess_state) {
-> +	case MALI_VPU_STATE_INITIALIZATION:
-> +		return (new_state =3D=3D MALI_VPU_STATE_RESET ||
-> +			new_state =3D=3D MALI_VPU_STATE_STOPPED);
-> +	case MALI_VPU_STATE_STREAMING:
-> +		return (new_state =3D=3D MALI_VPU_STATE_RESET ||
-> +			new_state =3D=3D MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE ||
-> +			new_state =3D=3D MALI_VPU_STATE_DRAIN);
-
-[Severity: High]
-Does MALI_VPU_STATE_STREAMING also need to allow transitioning to
-MALI_VPU_STATE_STOPPED here?
-
-In mali_vpu_dec_state_change_streamoff(), stopping the CAPTURE queue while
-in MALI_VPU_STATE_STREAMING requests a transition to
-MALI_VPU_STATE_STOPPED.  Because MALI_VPU_STATE_STOPPED is omitted here,
-mali_vpu_dec_update_state() returns -EINVAL, causing
-mali_vpu_session_streamoff() to jump to err_session, skip stopping and
-flushing the firmware, and put the session into a fatal error state via
-mali_vpu_session_set_error().
-
-[ ... ]
-
-> +int mali_vpu_dec_state_change_streamoff(struct mali_vpu_session *sess, e=
-num v4l2_buf_type type)
-> +{
-> +	enum mali_vpu_sess_state new_state;
-> +
-> +	if (V4L2_TYPE_IS_OUTPUT(type)) {
-> +		switch (sess->sess_state) {
-> +		case MALI_VPU_STATE_STOPPED:
-> +			new_state =3D MALI_VPU_STATE_INITIALIZATION;
-> +			break;
-> +		case MALI_VPU_STATE_STREAMING:
-> +		case MALI_VPU_STATE_DRAIN:
-> +			new_state =3D MALI_VPU_STATE_RESET;
-> +			break;
-> +		default:
-> +			return 0;
-> +		}
-> +	} else {
-
-[Severity: High]
-What happens when VIDIOC_STREAMOFF is called on the OUTPUT queue while in
-MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE or
-MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE?
-
-Both states hit the default branch and return 0 without updating
-sess->sess_state (and mali_vpu_dec_allow_state_change() does not allow
-either state to transition to MALI_VPU_STATE_INITIALIZATION or
-MALI_VPU_STATE_RESET).  If OUTPUT is streamed off during
-MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE (for example to seek or tear
-down the stream), sess->sess_state remains
-MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE; a subsequent OUTPUT STREAMON
-stays trapped in that state and bounces every queued CAPTURE buffer with
-V4L2_BUF_FLAG_LAST, while a subsequent CAPTURE STREAMOFF sees drc_capture
-as true, skips stopping and flushing the firmware, and leaves
-sess->sess_state in MALI_VPU_STATE_STOPPED when both queues are off.
-Similarly, OUTPUT STREAMOFF during MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE
-leaves sess->sess_state unchanged when neither queue is streaming.
-
-> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/dri=
-vers/media/platform/arm/mali-vpu/mali-vpu-session.c
-> index 500d80788d0eb..3ff4635e682eb 100644
-> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-
-[ ... ]
-
-> @@ -513,7 +513,14 @@ static int mali_vpu_session_handle_fw_msg(struct mal=
-i_vpu_session *sess,
->  		state =3D mali_vpu_buffer_update_info_to_v4l2(vpu_buf);
-> =20
->  		mali_vpu_session_buffer_done(sess, vpu_buf, state);
-> -
-> +		if (vpu_buf->flags & MALI_VPU_BUFFER_EOS) {
-> +			if (V4L2_TYPE_IS_OUTPUT(vpu_buf->type) &&
-> +			    sess->sess_state =3D=3D MALI_VPU_STATE_STREAMING) {
-> +				ret =3D mali_vpu_dec_update_state(sess, MALI_VPU_STATE_DRAIN);
-> +				if (ret)
-> +					return ret;
-> +			}
-> +		}
->  		return 0;
->  	}
-
-[Severity: High]
-Where does sess->sess_state transition from MALI_VPU_STATE_DRAIN to
-MALI_VPU_STATE_STOPPED when the final CAPTURE buffer is returned with
-MALI_VPU_BUFFER_EOS?
-
-Only OUTPUT buffers with MALI_VPU_BUFFER_EOS update sess->sess_state here,
-so sess->sess_state remains MALI_VPU_STATE_DRAIN after the final CAPTURE
-buffer is returned and dequeued.  Because mali_vpu_dec_allow_state_change()
-does not allow MALI_VPU_STATE_DRAIN to transition directly to
-MALI_VPU_STATE_STREAMING, a subsequent V4L2_DEC_CMD_START in
-mali_vpu_decoder_cmd() submits deferred buffers and then fails in
-mali_vpu_dec_update_state(sess, MALI_VPU_STATE_STREAMING) with -EINVAL
-before clearing dst_q->last_buffer_dequeued.
-
-Note that if sess->sess_state moves to MALI_VPU_STATE_STOPPED as soon as
-the firmware returns the CAPTURE EOS buffer while CAPTURE is still
-streaming, V4L2_DEC_CMD_START and mali_vpu_session_qbuf() also need to
-preserve drain gating until dst_q->last_buffer_dequeued is set, and OUTPUT
-STREAMOFF in mali_vpu_dec_state_change_streamoff() needs to transition to
-MALI_VPU_STATE_RESET rather than MALI_VPU_STATE_INITIALIZATION when
-CAPTURE is still streaming.
-
-> @@ -569,17 +576,31 @@ static int mali_vpu_session_handle_fw_msg(struct ma=
-li_vpu_session *sess,
->  			fw_msg->data.dpb_held_frames);
->  		return 0;
->  	case MALI_VPU_FW_CODE_OUTPUT_FLUSH:
-> -		dev_dbg(sess->vpu_dev->dev, "fw rsp: Dst queue flushed\n");
-> -		if (sess->role =3D=3D MALI_VPU_DECODER && sess->drc_pending)
-> +		if (sess->sess_state =3D=3D MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHAN=
-GE ||
-> +		    sess->sess_state =3D=3D MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE) {
->  			return mali_vpu_session_send_drc_event(sess);
-> +		}
-> =20
->  		return 0;
->  	case MALI_VPU_FW_CODE_ALLOC_PARAM:
->  		ret =3D mali_vpu_session_update_capture_format(sess, fw_msg->data.allo=
-c_params);
-> -		if (!ret)
-> -			sess->drc_pending =3D true;
-> +		if (ret)
-> +			return ret;
-> =20
-> -		return ret;
-> +		if (sess->sess_state =3D=3D MALI_VPU_STATE_STREAMING) {
-> +			ret =3D
-> +			mali_vpu_dec_update_state(sess,
-> +						  MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE);
-> +			if (ret)
-> +				return ret;
-> +		} else if (sess->sess_state =3D=3D MALI_VPU_STATE_STOPPED) {
-> +			ret =3D mali_vpu_dec_update_state(sess,
-> +							MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		return 0;
-
-[Severity: High]
-Can MALI_VPU_FW_CODE_ALLOC_PARAM arrive while sess->sess_state is already
-MALI_VPU_STATE_DRAIN?
-
-If userspace queues bitstream buffers containing headers or a resolution
-change and immediately initiates a drain via V4L2_DEC_CMD_STOP (or an EOS
-OUTPUT buffer), sess->sess_state enters MALI_VPU_STATE_DRAIN before the
-firmware finishes parsing the queued buffers.  When
-MALI_VPU_FW_CODE_ALLOC_PARAM then arrives, sess->sess_state is neither
-MALI_VPU_STATE_STREAMING nor MALI_VPU_STATE_STOPPED, so it stays in
-MALI_VPU_STATE_DRAIN.  The CAPTURE flush triggered by
-MALI_VPU_FW_CODE_SEQUENCE_PARAMS then returns a 0-byte buffer with
-V4L2_BUF_FLAG_LAST that queues a premature V4L2_EVENT_EOS in
-mali_vpu_session_buffer_done(), and MALI_VPU_FW_CODE_OUTPUT_FLUSH drops
-V4L2_EVENT_SOURCE_CHANGE.
-
-[ ... ]
-
-> @@ -1003,12 +1033,19 @@ int mali_vpu_session_streamoff(struct mali_vpu_se=
-ssion *sess, enum v4l2_buf_type
->  	if (sess->error)
->  		return 0;
-> =20
-> +	drc_capture =3D
-> +		sess->sess_state =3D=3D MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE &&
-> +		mali_vpu_is_raw_q(sess, type);
-> +
-> +	ret =3D mali_vpu_dec_state_change_streamoff(sess, type);
-> +	if (ret)
-> +		goto err_session;
-> +
->  	if (sess->fw_bin_state !=3D MALI_VPU_SESSION_FW_BIN_READY ||
->  	    !sess->sched_sess.lsid)
->  		return 0;
-> =20
-> -	if (sess->drc_pending && sess->role =3D=3D MALI_VPU_DECODER &&
-> -	    mali_vpu_is_raw_q(sess, type)) {
-> +	if (drc_capture) {
->  		ret =3D mali_vpu_session_wait_pending(sess);
-
-[Severity: Medium]
-Does updating sess->sess_state in mali_vpu_dec_state_change_streamoff()
-before mali_vpu_session_wait_pending() cause in-flight firmware flush
-responses to see the wrong state?
-
-In the drc_capture path, mali_vpu_dec_state_change_streamoff() immediately
-changes sess->sess_state from MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE
-to MALI_VPU_STATE_STOPPED before mali_vpu_session_wait_pending() drops
-sess->vq_lock to wait for pending firmware responses.  If
-MALI_VPU_FW_CODE_OUTPUT_FLUSH or flushed 0-byte CAPTURE buffers (marked
-with V4L2_BUF_FLAG_LAST) are processed during that wait,
-mali_vpu_session_handle_fw_msg() sees MALI_VPU_STATE_STOPPED, which drops
-V4L2_EVENT_SOURCE_CHANGE and causes mali_vpu_session_buffer_done() to emit
-a spurious V4L2_EVENT_EOS.  Similarly, during a normal CAPTURE STREAMOFF,
-mali_vpu_session_fw_send_flush() returns active CAPTURE buffers with 0
-payload size while sess->sess_state is already MALI_VPU_STATE_STOPPED or
-MALI_VPU_STATE_INITIALIZATION, also triggering V4L2_EVENT_EOS in
-mali_vpu_session_buffer_done().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119153758.1426=
-673-1-charvi.mehta@arm.com?part=3D27
+SGkgR3VlbnRlciwgRGlvZ28hDQoNCk9uIEZyaSwgMjAyNi0wOS0xMSBhdCAxMDoyNSAtMDcwMCwg
+R3VlbnRlciBSb2VjayB3cm90ZToNCj4gPiA+ID4gQWxsb3cgdGhlIE9NQVAgd2F0Y2hkb2cgdG8g
+c3Vydml2ZSBiZWluZyBzdG9wcGVkIG9uIGtlcm5lbCBpbml0aWFsaXphdGlvbg0KPiA+ID4gPiBz
+byBpdCBjYW4gZGV0ZWN0IGEgZmF1bHR5IGJvb3QgaW4gY2FzZXMgd2hlcmUgdGhlIGJvb3Rsb2Fk
+ZXIgbGVhdmVzIGl0DQo+ID4gPiA+IHJ1bm5pbmcgYW5kIHRoZSB3YXRjaGRvZyBkcml2ZXIgcGlj
+a3MgaXQgdXAgZHVyaW5nIGtlcm5lbCBpbml0Lg0KPiA+ID4gPiANCj4gPiA+ID4gLSBQYXRjaCAx
+IHJlbW92ZXMgYSBkdXBsaWNhdGUgb21hcF93ZHRfc3RhcnQoKSBjYWxsIGxlZnQgYmVoaW5kIGJ5
+DQo+ID4gPiA+IGNkMDA0ZDgyOTlmMSAoIndhdGNoZG9nOiBGaXggT01BUCB3YXRjaGRvZyBlYXJs
+eSBoYW5kbGluZyIpLiBUaGlzIGlzDQo+ID4gPiA+IHVucmVsYXRlZCB0byB0aGUgbWFpbiBnb2Fs
+IG9mIHRoZSBzZXJpZXMgYW5kIGNhbiBiZSBwaWNrZWQgdXANCj4gPiA+ID4gaW5kZXBlbmRlbnRs
+eS4NCj4gPiA+ID4gDQo+ID4gPiA+IC0gUGF0Y2ggMiBhZGRzIHN1cHBvcnQgZm9yIHJlYWRpbmcg
+dGhlIHdhdGNoZG9nIGJvb3Qgc3RhdHVzLiBQcm9iZSBub3cNCj4gPiA+ID4gY2hlY2tzIHdoZXRo
+ZXIgdGhlIHdhdGNoZG9nIGlzIGFscmVhZHkgcnVubmluZyBhbmQgdGFrZXMgaXQgb3ZlciBpbnN0
+ZWFkDQo+ID4gPiA+IG9mIGJsaW5kbHkgc3RvcHBpbmcgaXQgYmFzZWQgb24gZWFybHlfZW5hYmxl
+IGFsb25lLiBUaGlzIGludHJvZHVjZXMgYQ0KPiA+ID4gPiByZWdyZXNzaW9uIHBvc3NpYmlsaXR5
+LCBleHBsYWluZWQgaW4gZGV0YWlsIGluIHRoZSBwYXRjaCdzIG1lc3NhZ2UuDQo+ID4gPiA+IA0K
+PiA+ID4gPiAtIFBhdGNoIDMgbWFya3MgdGhlIE9NQVA0IHdhdGNoZG9nIG5vZGUgdGksbm8tcmVz
+ZXQtb24taW5pdCBzbyB0aGUNCj4gPiA+ID4gdGktc3lzYyBkcml2ZXIgc3RvcHMgcmVzZXR0aW5n
+IGl0LiBBIGRldGFpbGVkIGV4cGxhaW5hdGlvbiBvZiB3aHkgaXMNCj4gPiA+ID4gYWxzbyBwcm92
+aWRlZCBpbiB0aGUgY29tbWl0IG1lc3NhZ2Ugb2YgdGhlIHBhdGNoLg0KPiA+ID4gPiANCj4gPiA+
+ID4gVGhpcyBzZXJpZXMgaGFzIGJlZW4gdGVzdGVkIG9uIGEgcGxhdGZvcm0gYmFzZWQgb24gdGhl
+IFZBUi1TT00tT000NCBmcm9tDQo+ID4gPiA+IFZhcmlzY2l0ZSwgcnVubmluZyBhIFRJIE9NQVA0
+NDYwIFNvQy4NCj4gPiA+ID4gDQo+ID4gPiBQbGVhc2UgYWRkcmVzcyB0aGUgaXNzdWVzIHJlcG9y
+dGVkIGJ5IFNhc2hpa28sIG9yIGV4cGxhaW4gd2h5IHRoZXkgZG9uJ3QgYXBwbHkuDQo+ID4gDQo+
+ID4gSSBoYXZlIGp1c3QgcmVwbGllZCB0byB0aGUgU2FzaGlrbyByZXZpZXdzIGJ1dCBJJ20gbm90
+IHN1cmUgaWYgeW91IGdvdA0KPiA+IHRoZSByZXBsaWVzIGFzIFNhc2hpa28gZGlkIG5vdCBpbmNs
+dWRlIHlvdXIgZS1tYWlsIGluIGl0cyByZXZpZXcuIElmIHlvdQ0KPiA+IGRpZCBub3QgcmVjZWl2
+ZSB0aGVtIHBsZWFzZSBsZXQgbWUga25vdyBhbmQgSSBjYW4gcmVzZW5kIHRoZW0uIEluDQo+ID4g
+YW55IGNhc2UgaWYgeW91IGNvdWxkIGdpdmUgeW91ciBvcGluaW9uIG9uIHRoZSBjb21tZW50cyBJ
+IGxlZnQgb24gdGhlDQo+ID4gcGF0Y2hlcyBhYm91dCByZWdyZXNzaW9ucyB0aGF0IHdvdWxkIGJl
+IGdyZWF0IGFzIEkgdGhpbmsgYWZ0ZXIgdGhlDQo+ID4gU2FzaGlrbyBwb2ludHMgYXJlIGFkZHJl
+c3NlZCB0aGF0IGlzIHRoZSBtYWluIGJsb2NrZXIgZm9yIHRoaXMgc2VyaWVzLg0KPiA+IA0KPiBJ
+IGRpZC4gSSBqdXN0IHdvbmRlciBpZiB0aGUgZWZmb3J0IGlzIHdvcnRoIHRoZSBwYWluIC8gY29z
+dC4NCj4gDQo+IElzIHRoZXJlIGFuIGFjdHVhbCB1c2UgY2FzZSA/IElzIHRoZSBwcm9ibGVtIHlv
+dSBhcmUgdHJ5aW5nIHRvIHNvbHZlDQo+IGEgcmVhbCBwcm9ibGVtLCBvciBhIHRoZW9yZXRpYyBv
+bmUgPyBGb3IgZXhhbXBsZSwgdGhlIHBhdGNoZXMgaW1wb3NlDQo+IGEgaGFyZCBib290IGRlbGF5
+IG9mIG1vcmUgdGhhbiAzMCBtcyBpbiBvbWFwX3dkdF9pc19ydW5uaW5nKCkuDQo+IEV2ZW4gdGhv
+dWdoIHRoYXQgY291bGQgYmUgb3B0aW1pemVkICh0aGVyZSBpcyBubyByZWFzb24gdG8gd2FpdA0K
+PiB0aGF0IGxvbmc7IHRoZSB2YWx1ZSBjb3VsZCBjaGFuZ2UgYSBtaWNyb3NlY29uZCBhZnRlciB0
+aGUgZmlyc3QgcmVhZCksDQo+IGl0IGlzIG5ldmVydGhlbGVzcyBhIG1hbmRhdG9yeSBib290IGRl
+bGF5Lg0KPiANCj4gQW5vdGhlciBjb25jZXJuIGlzIHRoZSBpbXBhY3QgYW5kIHBvdGVudGlhbCBz
+aWRlIGVmZmVjdHMgb2Ygc2V0dGluZw0KPiB0aSxuby1yZXNldC1vbi1pbml0IChhbmQgdGhlIHBv
+c3NpYmxlIGJvb3QgbG9vcCBjYXVzZSBieSBpdCBkdWUgdG8gdGhlIG9kZA0KPiAzMC1zZWNvbmQg
+aW5pdCBkZWxheSkuIEFmdGVyIHRoaXMgY2hhbmdlLCBhIHJ1bm5pbmcgd2F0Y2hkb2cgaXMgbm8g
+bG9uZ2VyDQo+IHN0b3BwZWQuIFdoYXQgaGFwcGVucyBvbiBzeXN0ZW1zIHdoaWNoIGRvIG5vdCBs
+b2FkIHRoZSB3YXRjaGRvZyBhdCBhbGwNCj4gKGZvciBleGFtcGxlIGJlY2F1c2UgdGhlIGRyaXZl
+ciB3YXMgbm90IGNvbmZpZ3VyZWQpID8gV2lsbCB0aGF0IGFsc28gY2F1c2UNCj4gYSBib290IGxv
+b3Agb24gc3VjaCBzeXN0ZW1zID8NCj4gDQo+IFRoaXMgaXMganVzdCBhIGNvdXBsZSBvZiBwcm9i
+bGVtcyBpbnRyb2R1Y2VkIGJ5IHRoaXMgc2VyaWVzLiBZb3UgYmV0dGVyIGhhdmUNCj4gYSB2ZXJ5
+IGdvb2QgcmVhc29uIGZvciBpdCB0byB3YXJyYW50IGhhdmluZyB0byBkZWFsIHdpdGggdGhlIHBv
+dGVudGlhbCBmYWxsb3V0Lg0KDQpJIGFjdHVhbGx5IGZpbmQgdGhlIHNlcmllcyBwcm9taXNpbmcv
+dXNlZnVsIGFuZCB3aWxsIGJlIHRlc3RpbmcvcHJvdmlkaW5nDQpmZWVkYmFjayBvbiBpdC4gSSB0
+aGluayBpdCdzIHRvbyBlYXJseSB0byB0aHJvdyBpdCBhd2F5ISA7LSkNClRoYW5rcyBmb3IgeW91
+ciB3b3JrLCBEaW9nbyENCg0KLS0gDQpBbGV4YW5kZXIgU3ZlcmRsaW4NClNpZW1lbnMgQUcNCnd3
+dy5zaWVtZW5zLmNvbQ0K
