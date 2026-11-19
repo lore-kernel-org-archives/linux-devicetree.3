@@ -1,100 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795081552;
-	b=ud+CjR2BuuVafC4wVLUxG+oe1pJv3IWjDpiLLGAyP/WArLVhYFOWuzZX6yVlzKPwufjb
-	 TdpfJp8cLLDIgKHKrTXcgYlj21T+ajA3mdtFDzW6R7E5JwzLphuPZh3zOHLghEjv5iB80
-	 RpYrRYrsMrYlBUL73lzJx3KabEil3qZfFEuv06VeQHl86twKGS28DqgIpkFfrXAXLLB8G
-	 6psC8fgB0oZjifF/G8IGDseciP9qJ+VAosQltqJYtyWVcfOsnzZBI0bUJh7Tor/JLCpvG
-	 qRe73DCfEYSYE0DkixNwIeaFDooqPECFUkWTCPZ/h8lse/RBTdbodD2vlQwjO6/Gsgg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795081552;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:Content-Type:X-Mailer:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=P7Q5GjQN2NZeg26BaGpYbQqwviCXw6TNnmsVB3gqqsw=;
-	b=1+tiQbq0RpyQq7Vi4Hd5LrekPCt/oUuIClPZBSXIiLk4kY/HByPHjy3PBXA3moYaxRNP
-	 J8xy/Cin2iOBOlUxx6Cp9kZhXEJkFUGwNImmBOGh84RL9ZIVR3H+xwk8qp4HMLVC/nL5k
-	 hVcYFEhaGg+HT9yxvMXV6C+GNHnEBFxVxrifZy/13TJG4rt2/IwGDNymICEEsYcjH0//H
-	 jgh0pu55IpnR8aAH6c00U8fZuHiIP3BX6PsNNwrqEVGmF6u5QDrTBqFO7xQoBAI9oudVg
-	 NiCzq0zS4R9VxPZtDGDiP5yw49vGr4U9kMM1+K59Y3tcJLiA95A8uvvDE56Qe+ycyRQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=altera.com;
-	spf=pass smtp.mailfrom=altera.com;
-	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=ieCCxrZB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.49
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010049.outbound.protection.outlook.com [52.101.201.49])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795081672;
+	b=QQjdb8vFECpLhs7UXw2YyhvwE4mghBHxkPE0zw3d96qZVstDnKya0APACy3cuLcao1H/
+	 4lXyNw9+MDmTr3eZoOBeXLS7POtKmwmZoFFFMt3kHupXLuqroC6W/ssPJ4I/jEp3A0xh4
+	 pDzMHX/xOzkWpsHpE7iEKykfNJ6C2JFqPAKl04opgA+J6fi9r7Q2Dpd+B+g3kCJy26loI
+	 O75n+ViG7X3/x0Eg5XeLBXrIbaGqMabFSPYt8yL4D0mwTOWqx/dH5Gz56fuxKxg38wiLZ
+	 Cg8acYRLdjzY0zEQ9zSD+B7Fb5Ep1rNyKdAha0fh7GVl00wjyouF4AFYVfCTjQZ0pbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795081672;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=YDKM0GnslWm0swyMpWGTkx9eij2uqm5Ft78sdozYTFg=;
+	b=lvtGMD4YKMYsqoqsxd+FkCcjv9YXUIrMramjJ5K9mlTYqWyv3B1hFF7Pv3QelgXy31fd
+	 Q5VRZ1etx2M6wfRWSZX4x9YxOL7DVLzaGTQWiOnt/VI55eVfDLGrqmWJZD1ECx4h+aBV0
+	 AFVhNQhXHUM2qsy74XFERn7yCahFpjUnypdIe3o048jLHk0m0RUbbErInvozznYW3yiTH
+	 PFGWn41qqDGiAaikuSixa/hlNWvFR9/0lO1qdC0eJgXB93VMDVGRbJI3vYiMJS0gbtBB9
+	 cT1Qjs0Asuv2oqnGKNdFxbXeQdwNTqCRuWS8JActgNDVp4rhootF5gGi8gkQ3uq9gyA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=O3PmX1VL;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BDPh9ozt;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B204D60A260A;
-	Thu, 19 Nov 2026 09:45:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B204D60A260A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DEA60A382D
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:47:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31DEA60A382D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=ieCCxrZB
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EtUQYKlL2XG8AhjXHzJCCneznib8ydiVKsOb9aY68jj89O+gF12g/fc0xfj47mFoO1Y7FKnBBf3/vk0Yl3dXcpXqKPMviDACrxrFX2eiFMMzzteBHJQt92u7g/j56aHMPh6XQQc/6wlNsF8++51lJCkIbCUwXMjreCdlHc6MK02dEEz8s/9Jp0VvVCV4BeJfKb8ljIXKnOWZPH7GvRusWYY83CmgC6kUlkBCF6YPH0lpnf6L3RLFQVeR9W7fSoII4hFkcMujDq2oqRJTUpkebS4E5+Lammd9KdhlIwcIhmmP8Yu8LfIW3XxDLGmvGNnC6+omyLBwu26vm4v1fPnVQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P7Q5GjQN2NZeg26BaGpYbQqwviCXw6TNnmsVB3gqqsw=;
- b=Lx1CCYWnEhX9TA3YQD0RL22GoStK4wfczHGpVqVGTXQIGFT2XXVRnX1VyiTl29amDTxPbLHYr4mG4dxZAYBZ7TrLyp9tXmR54QjTvp9KEDulHlnWgHc/wMQGynD63DaCYbPxIMkYEUNYSsK1wn8Hp5JIoLalMAFd7W459Dobe39Lu0egW/UkzdwVFkiIn45CSgNA9gL2WVSbRbgBDcbyeEkLcJNZ41D6D8G7fIQL5CIkc2kjtUcO5dH7lHjC+CERc/7wipaI7yax7qFPWsPLDmeIIgvVh2NrtuLcyMKtEqC9uIS7oTdf+pQD2JGkaci7XAkkU8BYvOnanWY1JgepbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P7Q5GjQN2NZeg26BaGpYbQqwviCXw6TNnmsVB3gqqsw=;
- b=ieCCxrZBgZp+g7XO4HRetS8g+OVpUujEwTA4yfLv3hYcBASqwLlxAlRhx9A12gJ03G//G1FGVT1P6JdrkG1qahRKr2W5TkA5VbtLu3mzQZifj146Wb83GjBP8F/TQJqbor10mNke6p+WvaOTA2S2RK5VhQtGFKfZF00h/Aww5shUuob7peFFqxcucnobWaLyP3G2st2vSMvDEa6BIJnmhCVp+0JR3EX5+mVNRBLdaTP0UuvN++lQJV6fKYTdHodJU6xfyBRCiRcZvgvuGTgnN/WjJfNZ2iaSkIwpbNsIRvhEWsFTcijNFONXB1D8Vh9EDx2GGnRLmcm30uAXpxzdBA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
- by SJ0PR03MB6987.namprd03.prod.outlook.com (2603:10b6:a03:43b::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 19 Nov
- 2026 09:45:49 +0000
-Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
- ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
- ([fe80::53a0:bf93:6b6b:de01%3]) with mapi id 15.21.0615.013; Thu, 19 Nov 2026
- 09:45:49 +0000
-From: tze.yee.ng@altera.com
-To: Adrian Hunter <adrian.hunter@intel.com>,
-	Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Ulf Hansson <ulfh@kernel.org>
-Subject: [PATCH v4 3/3] mmc: sdhci-cadence6: tune SD6HC DDR50/DDR52 read path
-Date: Thu, 19 Nov 2026 17:45:35 +0800
-Message-ID: <20261119-sd_cadence_ddr50_v3-v4-3-95a94a0aaaf3@altera.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261119-sd_cadence_ddr50_v3-v4-0-95a94a0aaaf3@altera.com>
-References: <20261119-sd_cadence_ddr50_v3-v4-0-95a94a0aaaf3@altera.com>
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.16.0
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BYAPR02CA0015.namprd02.prod.outlook.com
- (2603:10b6:a03:54::17) To SJ0PR03MB5950.namprd03.prod.outlook.com
- (2603:10b6:a03:2d3::20)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=O3PmX1VL;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BDPh9ozt
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AJ6vFxS1681175
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:47:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=YDKM0GnslWm
+	0swyMpWGTkx9eij2uqm5Ft78sdozYTFg=; b=O3PmX1VLnG968TtC1UlacMdd5Ag
+	pC639/lanCDVFCRDPi5IxEe196AXpb5p9LbHGaTd1C7PAFXv7STeKPw2jAL3LMYE
+	gxITqjGqC+gzlXc8i/MvTAmCsMcyLJ8HLRriGIk/M/+7dtcVcdjhzjkvyDZWmtJO
+	oyMScC0eXhwBGSCm4g8L7pfyzzVbo1KXtWGfvR++ORuRvQtnXwchZHPeI+kFhMBL
+	J6n1HvfSzCDIDuDEzkqQ9XRWgf2QFTQuq1f+Ujl3VFHEp86LKspiInDANeFe8jkH
+	dOgIqFBjoPNFpnFjA0YrA1mAHj3axF6iyB6aSBeyPN9yYMzmQqNBB89Yscw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j1pdct5kt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:47:49 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-921232005c0so12697696d6.1
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 01:47:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795081669; x=1795686469; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YDKM0GnslWm0swyMpWGTkx9eij2uqm5Ft78sdozYTFg=;
+        b=BDPh9ozthZntHDMe5PrqBFBcWLQz0Yl0s7GnxzhY9wEFId7J62z+2MPv/k8UE8r1kA
+         QVBzmNszFcxpVyAQKZHqtD5EFKXy38+j8OrZzU4wkvDkVhFjnsfsfbuX/KHHYh+IHpVV
+         PM3MdShy9aUYGlwqpef052WJcrOZUWEppE249aafxUJnQylNpddk44BIHx/f1OMCPmdd
+         QSBt1Sn/MvmCU0PiinKjXmJx6TWl3EKrKuAfKe2raLarLtgCNfaJF+uzDIuRqQZ00Uhj
+         tvB+E8no+FetzXp9qDjmnAA9yqcIZbqFB0+5XGk1ziD9MFW8kt74N+zLf4fN8kcvtksp
+         4DvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795081669; x=1795686469;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YDKM0GnslWm0swyMpWGTkx9eij2uqm5Ft78sdozYTFg=;
+        b=nNQP9QDeP8evBEnflrGJSGM4EuC+oKNMJKUuGeUMD3Ytkc2AGDPaMLKXUn6PomQv+u
+         Smp3IWaTocKM1Y1yaj7OQqcqqXOLZV9DdWB3r0xXmopHg90KAa9+eH9iiNpmxIwm6y+E
+         GDgsY/biGtehSSMmBHU+D8zSRoGKN44/tVLC5MAKN7Wx3MKlZb1Icj5aOHgUyfGNlHah
+         3TGNZ30AI2889towGikGDMjQUQ3ysBrsfo5q1GJnTYDAXzVTJHQbZEzm5sLyjt7nFxio
+         q4bAzSzWLe/x+8dAXDLhnletxuQrzUFLiCDBUX5iDXS7SMZnfnUEe/RBCGbzHTZ/Rd5J
+         dOeg==
+X-Forwarded-Encrypted: i=1; AL+hErH0huQgAzvWJBBdq98Gq4tsPzU6zFdDYkOwTA1Sr1JU+IL6YK034TpWchKDeOBusf+GARSDVQ+/RRRB@vger.kernel.org
+X-Gm-Message-State: APuU4Z8tSsoa71Ol1xZKF5wfnW9lgXGcm+iQSKCwHjtq1FjpnXgDhyvm
+	tW8vDzAX9CND6Gis9hSKAtrO3pDxYyzeNuT75WAe/fmILNBsrcbJ5BHklr4TV96I1YskmhAz4dU
+	Zrd4kNGS3plQCqdJUoTGJB21MSSCTerrF0RIRPVrBZCUYLTGMZ7zN9dyOBOKya8Wu
+X-Gm-Gg: AYBFou0p8pBD7/Tdq24Pdg29NMduRQHdDVlxLeRUE1N+OADpj2UzpspsxcJGyM/5mIW
+	e18qDhxYmOLmmOtW0IbCziINkll3iX9X4Wb4xBY8CXeX/VuLW0piLcB6mbV8uyfGsZvLAy4m7zp
+	Xh2oGhXHvOV10UUyCM4CbsbYsp7iQI3OzySnvFxi7DtRw08hXu2vbq/ubM128AmctzceP7vxtMp
+	w/31MU8kJ9s0vleZoR+0tkAf5oKr2MtUHzZewzWLk8FIlKXm8lPPeEX0FdZz8/CpZsU1olqoxpN
+	dDgMOD6zPOgHBeCbmUOfGptHcDxTI5ZcAbTK+E9NQSjfSc//gvXpOYjXVKs3K0KOIpTggfP+bsz
+	GTsK9bSrTpQKSV+0lUkerfuzqGxVgZrm9ZNhRUw3eSXMXQzYYYvSf0zMvOL3rhLlcScKpWziFp7
+	/p
+X-Received: by 2002:a05:620a:6f0a:b0:93b:c58c:d3be with SMTP id af79cd13be357-949995ab389mr889381085a.37.1795081669331;
+        Thu, 19 Nov 2026 01:47:49 -0800 (PST)
+X-Received: by 2002:a05:620a:6f0a:b0:93b:c58c:d3be with SMTP id af79cd13be357-949995ab389mr889379385a.37.1795081668831;
+        Thu, 19 Nov 2026 01:47:48 -0800 (PST)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:d162:32b4:dec2:8b31])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a656c1145esm9652992f8f.52.2026.11.19.01.47.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 01:47:48 -0800 (PST)
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: daniel.lezcano@oss.qualcomm.com, rafael@kernel.org
+Cc: Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
+        Ulf Hansson <ulf.hansson@oss.qualcomm.com>, linux-pm@vger.kernel.org,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+        linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v1 11/12] dt-bindings: thermal: Describe multi-source zone aggregation
+Date: Thu, 19 Nov 2026 10:46:53 +0100
+Message-ID: <20261119094706.3439040-12-daniel.lezcano@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261119094706.3439040-1-daniel.lezcano@oss.qualcomm.com>
+References: <20261119094706.3439040-1-daniel.lezcano@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,256 +127,124 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|SJ0PR03MB6987:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4aae887a-aaed-4594-6ae0-08df4621e483
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|261102123227099003|261026121527099003|56012099006|11063799006|10067099003|261022105027099003|261022075727099003|261021123027099003|261026140227099003|261028144727099003|261021121427099003|261009223027099003|55112099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	58Z4eIVjqqNgeCZ2fIdnrzlkemVLdStGWKa2fOZH1ocSQGFPAMkCIrFyiLggt10R47WwfOiuyV9nxSe+qRjjbrAcAO8RVZtR0VeOkYn6PZEjyV4eSm3eWr91V1Y+NR3FdATtJc81U3E56I5oI68mwdWzVMNHs6uNdt/cZdBQqEZ/4d6EujeFwuIOY1QziD+A+SxSv3gvx9XWI9rnh+frdIY4GejIXJmjCk2LQM87dBUdEPuYMtdN6sdDKB7CV6CUetWXT6Y/B3T2u2Mq9KQUJAgzuZgVf9vB7yuG+m71emG4/vOm1NcYzKnELvEwY+lASQc8H2hjPWzdiL21zzbn63Z+Lpg1evpTDHYgJmz57HdVGAxuH+aJ5ht77jEhxQCjtrjysymlAX8jRnEWsXosCEDeKpTVG6zhptUFwCHnCMwdyX3HFxdtIo61q6gXVNW7TqgwTWDlSpvKfQbeOuG1TTNM1cWfxK7A34/5oiv0gqxuWzozaOOnH7zU3FnMzLE2j/ddFnXsM37Si6xdS88zQnOLkByyZhoX5OK60kmWehDjpECUwqSJypl/XJRgcYGqjH9mIxwBvUtTKREesqjQ6vcr/h9LYvVegy5I/eizXRCErXHJWQH2Jf+qeCVHPiM3IZ/dnNRfz1sFNPvalEGR7sUGp1QtbMCudV38i/KJwyw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(261102123227099003)(261026121527099003)(56012099006)(11063799006)(10067099003)(261022105027099003)(261022075727099003)(261021123027099003)(261026140227099003)(261028144727099003)(261021121427099003)(261009223027099003)(55112099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a1NoanZWNVNBMEd2UEdPb09jaHQwNlUxbFBUVDNKUGhIVk5qWTN3dEorSGtS?=
- =?utf-8?B?VUNIKzF4Q3d5TGhFS2JHbXJKQnJNUGF3YlpOaXVkTmFtUGx0ako4dk1ZMThC?=
- =?utf-8?B?QmQyYUtScFl6c1Z6THJhZXhRU296TE9pbkxpbFg2OXBZdm5IQTBVbkR5dVY5?=
- =?utf-8?B?WHc4R3NOVHZDbU5aZjFnU2FoSkc2d0dPMjVMUkcrdjVWTVlYOHFEZDFWR1FR?=
- =?utf-8?B?SkFkMGkrUGRWN09mcFNOVStYdzkyb0hHNG9GS1BsZmlVSzZad2R1UUQwelRh?=
- =?utf-8?B?Snk3M3FIbCtSVkRIaFMyOGJxNUxsZGMvVEw1WlRZOWtHcjlvYzcxeUlCNDdI?=
- =?utf-8?B?M3lINHVBeldHbnJVM3BDdGlZS1dQMlp2OW1TQWk1cGV2bVBaT3ZORjE5dFdW?=
- =?utf-8?B?b05Xekd4Qkt3cVNEeXlCbEFUNG5jNXMyOHZPYVdvU0VibFkrSm4wWm9DZGtE?=
- =?utf-8?B?Y2pmRm0zU3VFSmVvK3AzSDQ4dGlMYXJ0bGowcGYwVm92dFk2Z1NFUnp4eE5C?=
- =?utf-8?B?SVFtcnRWczh6c3QxYTJycHY0K2hJcE5paTN5TEt5cDlMTEVkZjNPTGQrempX?=
- =?utf-8?B?TU9vNU1nMlcrZUFrNlFwbDV2MEltZm9sLzBPaXliYVNHVFFCWFkrYUNnTG51?=
- =?utf-8?B?OHNJQVAySnFRM3o3TC9MSVVFazMxWkMzcE1iMXVzSjVvRnczYnB2cy8wOHZn?=
- =?utf-8?B?MjdBTkFvbFljOVczcHcvdnB1TFVsT1FRdmJ1V3pZY0JHVFgwVnRoaVpxZXNG?=
- =?utf-8?B?cnFsSGZrNkxOVjBJckxBOW5XR2pnK1QvU2VlZlNYalM2VVZjMElPanMwMzlK?=
- =?utf-8?B?SlBCUTAydEY0ZUV3VHFHeVdCL2hOck42bCtrR2NtL3llOUljdFhXTmQwWHlp?=
- =?utf-8?B?UXJrUGZjTTB2UnR4cnU0UXE1TFlsbHkvUks2MnNIS3JnOHlIM2JjY2ZkNmxy?=
- =?utf-8?B?ajZmeGROb0tQYWhleExZSWVmUU5aZDBSK1o3QXg2VDRWNTVIQVVQanh0clEy?=
- =?utf-8?B?bUhia3RTS1k5aHZNbkVseTh3cEh2dFBUS1hpanlyL2dLSHU0dTV4OGpVOEsz?=
- =?utf-8?B?elJET29saTFFTHhISkxKY2txckNTN2xYc0xnaXZJTVc3eDlLNEdKZmlhdkRi?=
- =?utf-8?B?U1YxNzlCVUQwY3JQZG55cDk4MUxWRnRPMUQyUEU5bXFydHRNT3pXSDFUWjZ4?=
- =?utf-8?B?by8xUXJ2S0gyY1lwS1gxcFM0RWhwN3YvWVFkQitocG5rZ0dUWTRPeExXKzFx?=
- =?utf-8?B?cmxzblFuL0J4MWlhYW9ZTUQ0emdyck9TREY4ZkRORTQwamppRnMvTHdFcmxM?=
- =?utf-8?B?bFVlaVUyTFZUdFRGeWtVTXFCT0JXMGE2M29Bb0FyYU1Td0ttZlBFdVJuRlVu?=
- =?utf-8?B?dVZaNDk2VFFEOHNDN29uSEJFbEpjdTA3RG1oM3p1ajNPTzVNNHBPcDNDTC8r?=
- =?utf-8?B?Um9CekEzUDI5YmRLT2J5VTdTcWRaRzdzWG9QS1BPVXAvN0E4bFVZdFRRa3Bx?=
- =?utf-8?B?aXFES05HajZyK1dEdWFYSEtKdUQ0YVJucDVTVXU0akdRZWViM1NZV0doTmp4?=
- =?utf-8?B?dklXZFN2Z1VwZjlkQmdWZ0JxYm1IbGtCZHJxaTBjWGtycm04MXhuU1d5YXpD?=
- =?utf-8?B?Ui9pSzc1dTJWRlRrR0J2d0FPM2FQMFRMbUpoL0RTTUptelhoQUlkZjdaRUFh?=
- =?utf-8?B?NGRuY3ljL3JoTlppVWhaWjFLdUdlck1pNG9OOUk2TmpFZlduYWRsWnF4ZGM0?=
- =?utf-8?B?NkpOMGNCendIUE51b2JkZStoL2hIVzlFZXhDK0JoVmxZMzM1TkJDTkZ1U2FU?=
- =?utf-8?B?anJzczBLaE0wU0VUZURMYUxEcVk3RWVMV2taKzhFS1cwV0YrSUJnUlAxbHU0?=
- =?utf-8?B?Unh1SU0rVkVoN2dtK1FmSGs0Nmd6NXBuS1Byd01IMTBLeXdLc1dqNWVuR3Z1?=
- =?utf-8?B?QlhxK2JoSXhPU3p0YkJ5OHRXdGdZbXdaVXhGZmhVaFo5NHBVTmpoSTN2K1Ft?=
- =?utf-8?B?WHVGdmNTSE8xTGJROEFzb0EvN0l4eXpMVkZSUFd0eUdKK1RrN3R4Nll6aXBl?=
- =?utf-8?B?T2pTV0kyZXZXYW1RMklQaGlpZjBJaXpONTladlYxcUxtRG1WbmM1dFU4Mlpo?=
- =?utf-8?B?aTdTZVVKT1hkdmd2RjhVVFJ5dTgzUnJHNElqTEFIdmZIQktTUGZPampwYkJn?=
- =?utf-8?B?eVBHb1p5MDFlNnFUQ1J0ZWVMdVB5cUNqbjV5T05aZ2tQZ3Jhc1A2WmlLeE5q?=
- =?utf-8?B?aTNEdzk3Z1poTXlQSk1yRzVncmdCOGlsQWMwaTE0R0VHT1prOVBNdlZEeEY5?=
- =?utf-8?B?YytXTUZISUpHMk8zTFYwZkFjSWpnYXRpQnNmTDI1RG5DaWdvM20xQT09?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4aae887a-aaed-4594-6ae0-08df4621e483
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 09:45:49.4076
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4NK3cfC6lE2te1uhhsAyt0evIkF4PJez/pJkDLSOF5CMDmW2IR1z3ayCD5HWeLzVZf+5UiKV8hFSWdoEMEAojg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6987
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: osu4iK6l-xoQOoOCuz3sVVNnjb7cx0Cv
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE5MDAzOCBTYWx0ZWRfX3eCdMemBQOq5
+ aVocfrb1zrb542DGCwFZSTZtfr7zIMqOnP5LyFZpFfxZPsJ8BH51CTx0pdWtbubuoTi8OnJQmFy
+ +QlX1FtLHFeqklOnGA6gbD46iWtZKFs=
+X-Proofpoint-GUID: osu4iK6l-xoQOoOCuz3sVVNnjb7cx0Cv
+X-Authority-Analysis: v=2.4 cv=Ma/5KJ/f c=1 sm=1 tr=0 ts=6afec5c5 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8 a=MW378T3nY0SQNsI_83wA:9
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE5MDAzOCBTYWx0ZWRfX1xTpm9BIhGbf
+ TX91/Mu0np4b13nivC6HhEIQrl3OfK7vdIuhv0USHntwRxAgBpZfZyArzaAFolsti2BSJLlhVYP
+ cxWY40+NG7EvaaQThHJNreVLY3W2GmUIBIQIPGQJDWFNhJ+iKrril6mVd61MPFiNi4maRFBozdi
+ GEgdAm2KzOqJNk/onzlNN2xNRDrem5T7Rtt5GNWApE+F0oGIo5QzdqK7ZQSDyVKdZSMtvhet9se
+ 5tG2e+UMmBMPVeNDDKS0IOf8CwIDeaFNX4ZhmAQjJUHHCndXCF+EmtGPq5Dv4K7Kv+WVLJN4uba
+ W4mZ2tO+2SS71licwjRJHru1rYUYGKOx+BQEYYddMRmt1e5c0MRIGk1+80Hf1QQf1malRFwCuNZ
+ Vv4saluRJpDpFfqdcRV3nnAblpS4S9crfwiiwLmLasrwuq1g2hs/+/yMruJkwx7giJ+7oUCXcdX
+ bPuPLuLt2nx+FClMufw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-19_02,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0
+ malwarescore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611190038
 
-From: Tze Yee Ng <tze.yee.ng@altera.com>
+Allow multiple hardware thermal sensor references and associate supplied
+coefficients positionally with those references. Use signed cells to
+represent existing negative calibration values and aggregate offsets.
 
-DDR50 and DDR52 have no CMD19 tuning, so the SD6HC extended-read path
-relies on static PHY settings. Two things are needed to make it work.
+Document approximate averaging when multi-source coefficients are absent,
+with unity gain for one source. Explicit multi-source multipliers retain
+the unscaled affine interpretation and are not normalized. Require
+nonzero explicit multipliers to distinguish supplied values from the
+core initializer default request.
 
-First, PHONY_DQS_TIMING (phy_ctrl_reg[9:4]) was left at 0 in every mode.
-In extended-read mode the RE# (rebar) pulse is held high for half an
-SDCLK period, so its width in clk_phy (sdmclk) cycles is the SDCLK/sdmclk
-divider / 2, and the field must hold that width minus 1 (0 otherwise).
-Leaving it at 0 in extended-read DDR duplicates one DDR edge and corrupts
-reads. Derive the width from the clock divider so it tracks the
-integration rather than a hard-coded value: e.g. 1 at divide-by-4,
-confirmed on DDR50 hardware where 1 captures both beats and 0 corrupts
-reads. The field only takes effect when the fabricated phony DQS is
-selected, so the computed value is written in every extended-read mode
-and clamped to the 6-bit field. This timing model follows the Cadence
-SD6HC PHY documentation.
+Preserve existing single-source sensor-specific slope and offset
+interpretations, including zero values and driver-specific scaling.
+Add examples of averaging and explicit signed multi-source combinations.
 
-Second, the remaining read-path knobs need board/SoC characterisation, so
-read them from device tree at PHY probe and apply them in the
-extended-read DDR modes (DDR50 and DDR52):
-
-  - cdns,ddr-read-dqs-delay: read-DQS delay as a count of DLL delay
-    elements (each cdns,delay-element-ps wide), written to the 8-bit PHY
-    field (0-255);
-  - cdns,ddr-no-lpbk-dqs: fall back from the recommended loopback DQS to
-    the fabricated phony DQS.
-
-Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
+Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 ---
-Changes in v4:
-- Merged v3 2/4 (PHONY_DQS_TIMING) and v3 4/4 (read DDR tuning from
-  device tree)
-- Derive the PHONY_DQS_TIMING rebar pulse width from the
-  SDCLK/sdmclk divider (t_sdclk / (2 * t_sdmclk) - 1, clamped to the 6-bit
-  field) instead of the hard-coded 2 clk_phy cycles, and apply it in every
-  extended-read mode instead of only DDR50/DDR52. 
-- Dropped the cdns,ddr-phony-dqs-timing override. 
-- Stored ddr_read_dqs_delay as u8.
-- Dropped Adrian's Acked-by from v3 2/4 since the patch was merged and
-  substantially reworked
+ .../bindings/thermal/thermal-zones.yaml       | 46 ++++++++++++++++---
+ 1 file changed, 39 insertions(+), 7 deletions(-)
 
-Changes in v3:
-- Read cdns,ddr-read-dqs-delay directly as the delay-element count and
-  write it to the 8-bit PHY field; dropped the ps->element conversion
-  (divide by cdns,delay-element-ps) and the FIELD_MAX() clamp.
-  (Krzysztof Kozlowski)
-- Hoisted the repeated DDR-mode test to a local bool. (Adrian Hunter)
-- Removed the probe-time dev_warn() that validated the firmware value.
-  (Adrian Hunter)
-- Unwrapped the of_property_read_u32() call to 100 columns.
-  (Adrian Hunter)
-
-Changes in v2:
-- Updated patch title to "mmc: sdhci-cadence6:" since it touches only the
-  v6 PHY.
-- Renamed the properties to cdns,ddr-*.
-- Read cdns,ddr-read-dqs-delay-ps in ps and convert it to delay elements
-  (dividing by cdns,delay-element-ps), clamping that quotient to the 8-bit
-  PHY field. (Krzysztof Kozlowski)
-- Read cdns,ddr-no-lpbk-dqs via of_property_read_bool().
-  (Krzysztof Kozlowski)
-- Dropped the v1 per-property range checks and redundant FIELD_MAX() write
-  masks. (Adrian Hunter)
-- Apply the overrides in both DDR50 and DDR52.
----
- drivers/mmc/host/sdhci-cadence-phy-v6.c | 52 ++++++++++++++++++++++++++++++++-
- 1 file changed, 51 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/mmc/host/sdhci-cadence-phy-v6.c b/drivers/mmc/host/sdhci-cadence-phy-v6.c
-index 22d56bb46d75..f3a878e86f9b 100644
---- a/drivers/mmc/host/sdhci-cadence-phy-v6.c
-+++ b/drivers/mmc/host/sdhci-cadence-phy-v6.c
-@@ -126,6 +126,10 @@ struct sdhci_cdns6_phy {
- 	/* Active delay element (ps); doubled when one SDMCLK requires > 256 steps */
- 	u32 delay_element;
+diff --git a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+index 72e419124f98..10cf1fb8cb9a 100644
+--- a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
++++ b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+@@ -95,10 +95,13 @@ patternProperties:
  
-+	/* DDR read-path overrides (SoC-specific) */
-+	u8 ddr_read_dqs_delay;
-+	bool ddr_no_lpbk_dqs;
+       thermal-sensors:
+         $ref: /schemas/types.yaml#/definitions/phandle-array
+-        maxItems: 1
+-        description:
+-          The thermal sensor phandle and sensor specifier used to monitor this
+-          thermal zone.
++        description: |
++          A list of hardware thermal sensor provider phandles and sensor
++          specifiers used to monitor this thermal zone. Each entry uses the
++          number of specifier cells defined by its provider's
++          #thermal-sensor-cells. Multiple entries describe an aggregation of
++          the corresponding source zone temperatures. Thermal zone nodes are
++          not referenced by this property.
+ 
+       coefficients:
+         $ref: /schemas/types.yaml#/definitions/int32-array
+@@ -110,9 +113,23 @@ patternProperties:
+             z = c0 * x0 + c1 * x1 + ... + c(n-1) * x(n-1) + cn
+           where c0, c1, .., cn are the coefficients.
+ 
+-          Coefficients default to 1 in case this property is not specified. The
+-          coefficients are ordered and are matched with sensors by means of the
+-          sensor ID. Additional coefficients are interpreted as constant offset.
++          For multiple sources, the first n coefficients correspond to entries
++          in thermal-sensors in list order, not to provider-specific sensor IDs.
++          Supply all n multipliers, optionally followed by the constant offset
++          in millicelsius. Multipliers are signed nonzero unscaled integers;
++          there is no implicit divisor or normalization for supplied values.
++          An omitted offset is zero.
 +
- 	/* PHY_DLL_SLAVE_CTRL register fields */
- 	u8 cp_read_dqs_cmd_delay;	/* bits [31:24] */
- 	u8 cp_clk_wrdqs_delay;		/* bits [23:16] */
-@@ -142,6 +146,10 @@ struct sdhci_cdns6_phy {
- 	/* PHY_DQS_TIMING register fields */
- 	bool cp_use_phony_dqs;		/* bit [20] */
- 	bool cp_use_phony_dqs_cmd;	/* bit [19] */
-+	bool cp_use_lpbk_dqs;		/* bit [21] */
++          When coefficients are absent for a multi-source zone, the temperature
++          is the approximate arithmetic mean of the source zone temperatures.
++          Contributions are distributed as evenly as possible in source order
++          with a total gain of one. A single source consequently has a default
++          multiplier of one.
 +
-+	/* PHY_CTRL register fields */
-+	u8 cp_phony_dqs_timing;		/* bits [9:4] */
++          Existing single-source hardware zones retain their sensor-specific
++          slope and offset calibration interpretation, including signed or zero
++          values and any sensor-specific scaling. Their default slope is one
++          and default offset is zero.
  
- 	/* HRS07 register - IO delay Information */
- 	u8 sdhc_rw_compensate;		/* bits [20:16] */
-@@ -505,6 +513,7 @@ static void sdhci_cdns6_phy_calc_dat_in(struct sdhci_cdns6_phy *phy)
- {
- 	u32 hcsdclkadj = 0;
- 	bool strobe_dat = (phy->mode == MMC_TIMING_MMC_HS400);
-+	bool ddr = (phy->mode == MMC_TIMING_UHS_DDR50 || phy->mode == MMC_TIMING_MMC_DDR52);
+       sustainable-power:
+         $ref: /schemas/types.yaml#/definitions/uint32
+@@ -339,6 +356,21 @@ examples:
  
- 	if (strobe_dat) {
- 		phy->cp_use_phony_dqs = false;
-@@ -517,6 +526,33 @@ static void sdhci_cdns6_phy_calc_dat_in(struct sdhci_cdns6_phy *phy)
- 	if (phy->mode == MMC_TIMING_MMC_HS200)
- 		phy->cp_read_dqs_delay = phy->hs200_tune_val;
+             /* ... */
  
-+	if (ddr && phy->ddr_read_dqs_delay)
-+		phy->cp_read_dqs_delay = phy->ddr_read_dqs_delay;
++            // With no coefficients, use approximately equal contributions.
++            skin-thermal {
++                    polling-delay-passive = <250>;
++                    polling-delay = <1000>;
++                    thermal-sensors = <&tsens0 1>, <&tsens0 5>;
++            };
 +
-+	phy->cp_use_lpbk_dqs = true;
++            // Explicit multipliers are not normalized: board = 2*T0 - T1 - 1000.
++            board-thermal {
++                    polling-delay-passive = <250>;
++                    polling-delay = <1000>;
++                    thermal-sensors = <&tsens0 1>, <&tsens0 5>;
++                    coefficients = <2 (-1) (-1000)>;
++            };
 +
-+	/*
-+	 * In extended-read mode the RE# (rebar) pulse is held high for half an
-+	 * SDCLK period, so its width in clk_phy (sdmclk) cycles equals half the
-+	 * SDCLK/sdmclk divider. PHONY_DQS_TIMING holds that width minus one.
-+	 */
-+	if (phy->sdhc_extended_rd_mode) {
-+		u32 rebar_cycles = phy->t_sdclk / (2 * phy->t_sdmclk);
-+
-+		phy->cp_phony_dqs_timing = rebar_cycles ?
-+			min_t(u32, rebar_cycles - 1,
-+			      FIELD_MAX(SDHCI_CDNS6_PHY_CTRL_PHONY_DQS_TIMING)) : 0;
-+	} else {
-+		phy->cp_phony_dqs_timing = 0;
-+	}
-+
-+	/*
-+	 * Loopback DQS is the recommended read-capture path; allow boards that
-+	 * need the fabricated phony DQS instead to opt out in the DDR modes.
-+	 */
-+	if (ddr && phy->ddr_no_lpbk_dqs)
-+		phy->cp_use_lpbk_dqs = false;
-+
- 	if (strobe_dat) {
- 		/* dqs loopback input via IO cell */
- 		hcsdclkadj += phy->iocell_input_delay;
-@@ -680,10 +716,11 @@ int sdhci_cdns6_phy_init(struct sdhci_cdns_priv *priv)
- 	sdhci_cdns6_dll_reset(priv, true);
- 
- 	reg = sdhci_cdns6_read_phy_reg(priv, SDHCI_CDNS6_PHY_DQS_TIMING_REG);
-+	reg &= ~SDHCI_CDNS6_PHY_DQS_TIMING_USE_LPBK_DQS;
- 	reg &= ~SDHCI_CDNS6_PHY_DQS_TIMING_USE_PHONY_DQS;
- 	reg &= ~SDHCI_CDNS6_PHY_DQS_TIMING_USE_PHONY_DQS_CMD;
- 	reg |= SDHCI_CDNS6_PHY_DQS_TIMING_USE_EXT_LPBK_DQS;
--	reg |= SDHCI_CDNS6_PHY_DQS_TIMING_USE_LPBK_DQS;
-+	reg |= FIELD_PREP(SDHCI_CDNS6_PHY_DQS_TIMING_USE_LPBK_DQS, phy->cp_use_lpbk_dqs);
- 	reg |= FIELD_PREP(SDHCI_CDNS6_PHY_DQS_TIMING_USE_PHONY_DQS, phy->cp_use_phony_dqs);
- 	reg |= FIELD_PREP(SDHCI_CDNS6_PHY_DQS_TIMING_USE_PHONY_DQS_CMD, phy->cp_use_phony_dqs_cmd);
- 	sdhci_cdns6_write_phy_reg(priv, SDHCI_CDNS6_PHY_DQS_TIMING_REG, reg);
-@@ -715,6 +752,8 @@ int sdhci_cdns6_phy_init(struct sdhci_cdns_priv *priv)
- 
- 	reg = sdhci_cdns6_read_phy_reg(priv, SDHCI_CDNS6_PHY_CTRL_REG);
- 	reg &= ~SDHCI_CDNS6_PHY_CTRL_PHONY_DQS_TIMING;
-+	reg |= FIELD_PREP(SDHCI_CDNS6_PHY_CTRL_PHONY_DQS_TIMING,
-+			  phy->cp_phony_dqs_timing);
- 	sdhci_cdns6_write_phy_reg(priv, SDHCI_CDNS6_PHY_CTRL_REG, reg);
- 
- 	/*
-@@ -863,6 +902,7 @@ int sdhci_cdns6_phy_probe(struct platform_device *pdev, struct sdhci_cdns_priv *
- 	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
- 	struct sdhci_cdns6_phy *phy;
- 	unsigned long val;
-+	u32 read_dqs_delay;
- 	int ret;
- 
- 	phy = devm_kzalloc(dev, sizeof(*phy), GFP_KERNEL);
-@@ -901,6 +941,16 @@ int sdhci_cdns6_phy_probe(struct platform_device *pdev, struct sdhci_cdns_priv *
- 
- 	phy->delay_element_org = phy->delay_element;
- 
-+	/*
-+	 * Optional read-path tuning for the extended-read DDR modes (SD DDR50,
-+	 * eMMC DDR52).
-+	 */
-+	phy->ddr_read_dqs_delay = 0;
-+	if (!of_property_read_u32(dev->of_node, "cdns,ddr-read-dqs-delay", &read_dqs_delay))
-+		phy->ddr_read_dqs_delay = read_dqs_delay;
-+
-+	phy->ddr_no_lpbk_dqs = of_property_read_bool(dev->of_node, "cdns,ddr-no-lpbk-dqs");
-+
- 	priv->phy = phy;
- 
- 	return 0;
-
+             gpu-top-thermal {
+                     polling-delay-passive = <250>;
+                     polling-delay = <1000>;
 -- 
-2.43.7
+2.43.0
 
