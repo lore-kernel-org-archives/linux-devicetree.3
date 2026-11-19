@@ -1,65 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795091611;
-	b=DOJGC/Uk77p6/eJvZLxLw0srsfR8WXb/jYcS0Ppbj2a5W9VZZ+XcWZUYTFZ1oSWPKXw8
-	 65jweyOHkcK71B8BTAhPhBr2DoaoMIBkOH5/IspuOOLoo1+eSjGOAj+F6USVhWC8uvFKQ
-	 AbX9t5YLv6oUJ0Y314Xa/T3HpEG/sNC30nf06ONj7tu38JQN6kl5IUtj7aKUt3lHFHhtP
-	 9ivZWmnEhn85lCQvfQpbtWMmHiUJPtc4W5tNWwY8dkOkn7wzGs3JUZZ+GFLf/ixVcC3jI
-	 4JXDZycg3zOBKYoA/mViVKL/Ab9vPD+cHEpKRP/846lz4aTOE1+RP0aNkGw28iU0+EQ==
+	t=1795091842;
+	b=kC6+8RKqlHQ26pydJbEaGDwbpR1ld5FDeswHWNuDwt5XMBku2hX2xlKbf5sRun/Uu4rp
+	 mgHNnVkVQAqjfKll3bazDHcHApjFknMJPjc5M27yBi+iELfFQPXWAsPHZlwb+Fm09Ogi/
+	 pirOc993ogy0RgpT4UIb59FH1EQpvkKEOmM4XhEH1cjEsUM7RVxR4ELwj6M1HxpP7R5pK
+	 TryXIH1Vv8NsyUGcG4AODxFmSnBSCm6+yAIMQis5ixm7a0ByCB//5GXp/7YlEAAJTDw3Y
+	 h8AXapPRGUQALRqm0s/WXHEW1JrSGzSu4F7JNH2WFo2TfW3ivmttDMLU3sEcqHxqtrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795091611;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=iW3ODkh4eImzQErd0QU+r+lDq7Yah51uHl6q6A/Xrig=;
-	b=xUU03K/K2li2phwFv8auMVQduYlSsZOc4/u8TV2xjiRcXl4L33s1m6GbsJvDJJbIQnKU
-	 2QVnUC5pybrIrX4OncCmsXF5xKx8Ad7VTSJaMfEu41Q4ellL/T3fHS9mRSQ3DdzlbneaK
-	 xqjcsTpAWc7VKzR1tlnj0akgRJVD2KrZaWmUNDcX7v4ZRiScz0Q+5BEpSF2736Mnqhvvf
-	 a37H30wYNDM/897zwPWzdHd+HwMxGaZDQbAueoup6AycEVhOPGA+M10HD94aeUVfsqclO
-	 1j4nZ8K+KsAUwrFctp85bzku8bJVxr8bEuqrEK5qrRfeKyGzVL5+aXUs9YJvpmLn8/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795091842;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:
+	 X-Last-TLS-Session-Version;
+	bh=3t5GjNWjLeDJ7jf+sWjWE+z8pgne1HFP6Z9ewGr3ciM=;
+	b=zQovzoO/VWLU9cSI4hKSY89mk2ATlly/V/kSbIW8EhbDBsVJAySVGPNMQStY2vpfJxKu
+	 DbWA5lvSTj96oa2+S6U0r/VFs7Kv/k8Mb++uGSfhpZvEqGmI2D+N3R696GWyHIS7x6n0h
+	 1eHVjyg/cwyrSv60KIc6Nokhk8wkf62SLSOGb9mLjQAZYIbAb+MwfaAT0/al8mUyOkoAd
+	 2b0m+BGre9/Uh3w0Fm5iVM0obxk31IU4D9Q0qdYTRMsuARnZu8yCZiYFddURocz3K/RSb
+	 9SkBiHGwnwIy/dVkPyopF3aRwXbPwn+3634pNgh1p4lHCiRZYjx+mKV0D6RgxPix9zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jigrA7VG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=zPTod43m;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1207F606A320;
-	Thu, 19 Nov 2026 12:33:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922FD606A325
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 12:37:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 922FD606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jigrA7VG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 240B71F000C6;
-	Thu, 19 Nov 2026 12:33:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795091610;
-	bh=iW3ODkh4eImzQErd0QU+r+lDq7Yah51uHl6q6A/Xrig=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jigrA7VGtxYGVWP6wB2GaLE29NNE7MTiuuv/deJpLud3uCfZ/T+Nb3W40qPP9nYL2
-	 c0gyg8jt1qTh0ybmKYNOeNbdnNsyrB86LqiYi57Ec5cg19aMSeR6XaJpEGjw0J18mW
-	 FXyqsIg8b99v6haYHq13g5v36wCxXyEUpkt6QpHV+n2eCJmBy13VkOMj+SZ4YnTSzN
-	 +OR2X9091/N4Il/vMlTAeJvst9a3/8ZMivH9lrYpWERk7UUDzZcdkHq2S4kPMkE4Oj
-	 pTqP+btsXTrsVt+Xg/dbGHUblMGgO2R1TSjCczwMWSZkgbCj1Cj7nKkNoee299LiKE
-	 p79e2rkK173Ew==
-Date: Thu, 19 Nov 2026 12:33:24 +0000
-From: Lee Jones <lee@kernel.org>
-To: joseph@telaak.dev
-Cc: Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 07/11] leds: rgb: ktd202x: Add Etek ET6326 support
-Message-ID: <20261119123324.GQ98456@joneslee-macbookpro.roam.internal>
-References: <20261109-ktd202x-et6326-v2-0-56e97c226658@telaak.dev>
- <20261109-ktd202x-et6326-v2-7-56e97c226658@telaak.dev>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=zPTod43m
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 0CC6F4E41665;
+	Thu, 19 Nov 2026 12:37:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D364760237;
+	Thu, 19 Nov 2026 12:37:19 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 510D011BC0760;
+	Thu, 19 Nov 2026 13:37:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795091838; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=3t5GjNWjLeDJ7jf+sWjWE+z8pgne1HFP6Z9ewGr3ciM=;
+	b=zPTod43mAzLSSRgzVXjEmLAXkDGnxePwHhzkScC5gOoZIjGIKZrN9qQvXbbt1f7+xrC40e
+	kWUCCNvwwMyXfEALuAkbI6u43LkZV+KGC2c/ZOzEC/4phQiCmL+YZvS/0THt2ekxxWgacR
+	tu7CMv3of0F6uZOdw6R8k2L12mJN5gyaXmuGe1K6spBswNWI3ATX0X/XQ7ZA2z7l13ESfg
+	kwKykGxuin8gKfntIgliW+nEo2ixhWg5Bzv5yitkMs863ypkm2GLvGpNgpDzkCG0uUn5xX
+	pbht3yp6JD1MYGDKDfPS30lAM6tMEFTzS0HNicPVhEZ+CUIh0fnUDT+oK4PxKg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ James Hilliard <james.hilliard1@gmail.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+ Richard Genoud <richard.genoud@bootlin.com>, 
+ Boris Brezillon <bbrezillon@kernel.org>, 
+ Masahiro Yamada <yamada.masahiro@socionext.com>, 
+ Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ devicetree@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+ Conor Dooley <conor.dooley@microchip.com>
+In-Reply-To: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-0-dca1f6ed29a8@gmail.com>
+References: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-0-dca1f6ed29a8@gmail.com>
+Subject: Re: [PATCH v10 00/26] mtd: rawnand: sunxi: fix transfers and
+ support randomized OOB
+Message-Id: <179509183211.2889394.16825117934214735151.b4-ty@bootlin.com>
+Date: Thu, 19 Nov 2026 13:37:12 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,243 +85,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261109-ktd202x-et6326-v2-7-56e97c226658@telaak.dev>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 09 Nov 2026, Joseph Telaak via B4 Relay wrote:
-
-Please review, explain or fix the Sashiko review(s).
-If this is a set, this request includes the other patches too.
-
-> From: Joseph Telaak <joseph@telaak.dev>
+On Thu, 05 Nov 2026 11:55:16 -0700, James Hilliard wrote:
+> Patches 1-24 address the existing driver independently of the Allwinner
+> randomized-OOB format in patches 25-26. Please review and apply that prefix
+> regardless of whether the format extension is accepted. Supported geometries
+> keep their existing on-flash ECC layout, bad-block-marker representation
+> and raw callbacks.
 > 
-> The Etek ET6326 is a KTD2026 with a different flash period encoding:
-> Reg1 = n selects (n + 1) * 128 ms, from 128 ms to 16.38 s, where the
-> KTD202x selects 256 ms + n * 128 ms and uses Reg1 = 127 for one shot
-> mode.
+> Patches 1-3 prepare the shared paths: centralize OOB handling, share the
+> NORMAL-command chunk-size calculation, and remove duplicate chip setup
+> immediately before core page commands. The DMA writer retains its early
+> setup because it accesses controller registers before program-begin.
 > 
-> Move the number of LEDs and the flash period limits into per chip data
-> and add the ET6326, so the timer trigger gets the delays it asked for.
-> 
-> Report the on time rounded to the nearest millisecond rather than down.
-> The shortest ET6326 period is 128 ms, and 1/256 of it rounded down is
-> 0 ms, which the timer trigger passes back with the next delay_off
-> write, where an on time of 0 turns the LED off. Rounded, the delays
-> read back also give the same on time when they are written again.
-> 
-> Link: https://www.etekmicro.com/wp-content/uploads/datasheets/ET6326_datasheet.pdf
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
-> ---
->  drivers/leds/rgb/Kconfig        |  3 +-
->  drivers/leds/rgb/leds-ktd202x.c | 72 ++++++++++++++++++++++++++++++++---------
->  2 files changed, 58 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/leds/rgb/Kconfig b/drivers/leds/rgb/Kconfig
-> index 6e9ab5f60714..3a57e5819eeb 100644
-> --- a/drivers/leds/rgb/Kconfig
-> +++ b/drivers/leds/rgb/Kconfig
-> @@ -20,7 +20,8 @@ config LEDS_KTD202X
->  	select REGMAP_I2C
->  	help
->  	  This option enables support for the Kinetic KTD2026/KTD2027
-> -	  RGB/White LED driver found in different BQ mobile phones.
-> +	  RGB/White LED driver found in different BQ mobile phones, and
-> +	  for the compatible Etek ET6326.
->  	  It is a 3 or 4 channel LED driver programmed via an I2C interface.
->  
->  	  To compile this driver as a module, choose M here: the module
-> diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd202x.c
-> index 042de16c28bc..2650573b6c5a 100644
-> --- a/drivers/leds/rgb/leds-ktd202x.c
-> +++ b/drivers/leds/rgb/leds-ktd202x.c
-> @@ -5,6 +5,7 @@
->   * Copyright 2023 André Apitzsch <git@apitzsch.eu>
->   *
->   * Datasheet: https://www.kinet-ic.com/uploads/KTD2026-7-04h.pdf
-> + * Datasheet: https://www.etekmicro.com/wp-content/uploads/datasheets/ET6326_datasheet.pdf
+> [...]
 
-Please avoid adding external URLs to source file headers, as they tend to
-bit-rot.
+Applied to nand/next, thanks!
 
->   */
->  
->  #include <linux/i2c.h>
-> @@ -65,9 +66,7 @@
->  /* Register 6-9 */
->  #define KTD202X_LED_CURRENT_10_mA		0x4f
->  
-> -#define KTD202X_FLASH_PERIOD_MIN_MS 256
->  #define KTD202X_FLASH_PERIOD_STEP_MS 128
-> -#define KTD202X_FLASH_PERIOD_MAX_STEPS 126
->  #define KTD202X_FLASH_ON_MAX 256
->  
->  #define KTD202X_MAX_BRIGHTNESS 192
-> @@ -86,6 +85,33 @@ static const struct reg_default ktd202x_reg_defaults[] = {
->  	{ KTD202X_REG_LED_IOUT(3), KTD202X_LED_CURRENT_10_mA },
->  };
->  
-> +struct ktd202x_info {
-> +	unsigned long num_leds;
-> +	/* Flash period encoded by a Reg1 value of 0 */
+[01/26] mtd: rawnand: sunxi: centralize OOB handling
+        (no commit info)
+[02/26] mtd: rawnand: sunxi: share the buffer transfer chunk size
+        commit: 53013c67871f3f31b0181ffed8a14ba6b9466427
+[03/26] mtd: rawnand: sunxi: avoid duplicate chip setup before page commands
+        commit: 2bd4acab1e0e16c06ac64f60aa01a72d0e651616
+[04/26] mtd: rawnand: sunxi: reject pages exceeding the ECC step limit
+        commit: 5eb28d68d67a22f5b2f9d98d9567b01f432bb88d
+[05/26] mtd: rawnand: sunxi: use the logical step's OOB length in PIO
+        (no commit info)
+[06/26] mtd: rawnand: sunxi: propagate page-setup and erased-check errors
+        (no commit info)
+[07/26] mtd: rawnand: sunxi: drain interrupts before reusing the completion
+        (no commit info)
+[08/26] mtd: rawnand: sunxi: stop failed program operations and disable ECC
+        (no commit info)
+[09/26] mtd: rawnand: sunxi: select the pattern ID for the current ECC step
+        (no commit info)
+[10/26] mtd: rawnand: sunxi: preserve synthesized zero-pattern data and OOB
+        (no commit info)
+[11/26] mtd: rawnand: sunxi: propagate buffer and column transfer errors
+        (no commit info)
+[12/26] mtd: rawnand: sunxi: avoid a second program confirm for OOB writes
+        (no commit info)
+[13/26] mtd: rawnand: sunxi: use page reads to reposition small-page NAND
+        (no commit info)
+[14/26] mtd: rawnand: sunxi: bound DMA batches by the user-data register bank
+        (no commit info)
+[15/26] mtd: rawnand: sunxi: send all address cycles in split operations
+        (no commit info)
+[16/26] mtd: rawnand: sunxi: propagate chip clock setup errors
+        (no commit info)
+[17/26] mtd: rawnand: sunxi: limit buffer transfers to the command byte count
+        (no commit info)
+[18/26] mtd: rawnand: sunxi: skip unavailable NAND child nodes
+        (no commit info)
+[19/26] mtd: rawnand: sunxi: scan all chips before registering MTD devices
+        (no commit info)
+[20/26] dt-bindings: mtd: sunxi: require the H616 AHB reset
+        (no commit info)
+[21/26] mtd: rawnand: sunxi: reset the H616 data path after DMA aborts
+        (no commit info)
+[22/26] mtd: rawnand: sunxi: reuse ECC status within each transfer
+        (no commit info)
+[23/26] mtd: rawnand: sunxi: avoid redundant column changes for extra OOB
+        (no commit info)
+[24/26] mtd: rawnand: sunxi: reduce user-data length register accesses
+        (no commit info)
+[25/26] dt-bindings: mtd: sunxi: Add randomized OOB flag
+        (no commit info)
+[26/26] mtd: rawnand: sunxi: support the Allwinner randomized OOB format
+        (no commit info)
 
-???
+Patche(s) should be available on mtd/linux.git and will be
+part of the next PR (provided that no robot complains by then).
 
-What even is Reg1, and why would a reader worry about it?
+Kind regards,
+MiquÃ¨l
 
-> +	unsigned int flash_period_min_ms;
-> +	unsigned int flash_period_max_steps;
-> +};
-> +
-> +/* Reg1 = 127 selects one shot mode on the KTD202x */
-
-Why is this useful?
-
-> +static const struct ktd202x_info ktd2026_info = {
-> +	.num_leds = KTD2026_NUM_LEDS,
-> +	.flash_period_min_ms = 256,
-> +	.flash_period_max_steps = 126,
-> +};
-> +
-> +static const struct ktd202x_info ktd2027_info = {
-> +	.num_leds = KTD2027_NUM_LEDS,
-> +	.flash_period_min_ms = 256,
-> +	.flash_period_max_steps = 126,
-> +};
-> +
-> +/* The ET6326 flash period is (Reg1 + 1) * 128 ms, up to 16.38 s */
-
-If this struct needs this additional information, perhaps it's not
-self-describing enough - just a thought?
-
-> +static const struct ktd202x_info et6326_info = {
-> +	.num_leds = KTD2026_NUM_LEDS,
-> +	.flash_period_min_ms = 128,
-> +	.flash_period_max_steps = 127,
-> +};
-> +
->  struct ktd202x_led {
->  	struct ktd202x *chip;
->  	union {
-> @@ -100,6 +126,7 @@ struct ktd202x {
->  	struct regulator_bulk_data regulators[2];
->  	struct device *dev;
->  	struct regmap *regmap;
-> +	const struct ktd202x_info *info;
-
-'info' overly generic and could mean anything.  What about 'chip_data' or 'caps'?
-
-Also, do we need num_leds twice?
-
->  	bool enabled;
->  	unsigned long num_leds;
->  	struct ktd202x_led leds[] __counted_by(num_leds);
-> @@ -271,6 +298,7 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
->  			     unsigned long *delay_off, struct mc_subled *subleds,
->  			     unsigned int num_channels)
->  {
-> +	const struct ktd202x_info *info = led->chip->info;
->  	unsigned long delay_total_ms;
->  	int ret, num_steps, on;
->  	u8 ctrl_mask = 0;
-> @@ -304,11 +332,11 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
->  	/* Integer representation of time of flash period */
->  	if (check_add_overflow(*delay_on, *delay_off, &delay_total_ms))
->  		delay_total_ms = ULONG_MAX;
-> -	if (delay_total_ms < KTD202X_FLASH_PERIOD_MIN_MS)
-> +	if (delay_total_ms < info->flash_period_min_ms)
->  		num_steps = 0;
->  	else
-> -		num_steps = min_t(unsigned long, KTD202X_FLASH_PERIOD_MAX_STEPS,
-> -				  (delay_total_ms - KTD202X_FLASH_PERIOD_MIN_MS) /
-> +		num_steps = min_t(unsigned long, info->flash_period_max_steps,
-> +				  (delay_total_ms - info->flash_period_min_ms) /
->  				  KTD202X_FLASH_PERIOD_STEP_MS);
->  
->  	/*
-> @@ -319,8 +347,14 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
->  	on = clamp(on, 1, KTD202X_FLASH_ON_MAX - 1);
->  
->  	/* Actually used delay_{on,off} values */
-> -	delay_total_ms = num_steps * KTD202X_FLASH_PERIOD_STEP_MS + KTD202X_FLASH_PERIOD_MIN_MS;
-> -	*delay_on = (delay_total_ms * on) / KTD202X_FLASH_ON_MAX;
-> +	delay_total_ms = num_steps * KTD202X_FLASH_PERIOD_STEP_MS + info->flash_period_min_ms;
-> +	/*
-> +	 * Rounded to the nearest ms, so that the delays give the same on time
-> +	 * when written back. Rounded down, 1/256 of the 128 ms ET6326 period
-> +	 * would be 0 ms, which means never on.
-> +	 */
-> +	*delay_on = clamp(DIV_ROUND_CLOSEST(delay_total_ms * on, KTD202X_FLASH_ON_MAX),
-> +			  1UL, delay_total_ms - 1);
->  	*delay_off = delay_total_ms - *delay_on;
->  
->  	/* Set timings */
-> @@ -548,8 +582,8 @@ static const struct regmap_config ktd202x_regmap_config = {
->  static int ktd202x_probe(struct i2c_client *client)
->  {
->  	struct device *dev = &client->dev;
-> +	const struct ktd202x_info *info;
->  	struct ktd202x *chip;
-> -	unsigned long num_leds;
->  	int count;
->  	int ret;
->  
-> @@ -557,13 +591,17 @@ static int ktd202x_probe(struct i2c_client *client)
->  	if (!count || count > KTD202X_MAX_LEDS)
->  		return dev_err_probe(dev, -EINVAL, "Incorrect number of leds (%d)", count);
->  
-> +	info = i2c_get_match_data(client);
-> +	if (!info)
-> +		return -ENODEV;
-> +
->  	/* Loops over the LEDs go up to the number of channels, not of child nodes */
-> -	num_leds = (unsigned long)i2c_get_match_data(client);
-> -	chip = devm_kzalloc(dev, struct_size(chip, leds, num_leds), GFP_KERNEL);
-> +	chip = devm_kzalloc(dev, struct_size(chip, leds, info->num_leds), GFP_KERNEL);
->  	if (!chip)
->  		return -ENOMEM;
->  
-> -	chip->num_leds = num_leds;
-> +	chip->info = info;
-> +	chip->num_leds = info->num_leds;
->  	chip->dev = dev;
->  	i2c_set_clientdata(client, chip);
->  
-> @@ -623,15 +661,17 @@ static void ktd202x_shutdown(struct i2c_client *client)
->  }
->  
->  static const struct i2c_device_id ktd202x_id[] = {
-> -	{ .name = "ktd2026", .driver_data = KTD2026_NUM_LEDS },
-> -	{ .name = "ktd2027", .driver_data = KTD2027_NUM_LEDS },
-> +	{ .name = "et6326", .driver_data = (kernel_ulong_t)&et6326_info },
-> +	{ .name = "ktd2026", .driver_data = (kernel_ulong_t)&ktd2026_info },
-> +	{ .name = "ktd2027", .driver_data = (kernel_ulong_t)&ktd2027_info },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(i2c, ktd202x_id);
->  
->  static const struct of_device_id ktd202x_match_table[] = {
-> -	{ .compatible = "kinetic,ktd2026", .data = (void *)KTD2026_NUM_LEDS },
-> -	{ .compatible = "kinetic,ktd2027", .data = (void *)KTD2027_NUM_LEDS },
-> +	{ .compatible = "etekmicro,et6326", .data = &et6326_info },
-> +	{ .compatible = "kinetic,ktd2026", .data = &ktd2026_info },
-> +	{ .compatible = "kinetic,ktd2027", .data = &ktd2027_info },
->  	{}
->  };
->  MODULE_DEVICE_TABLE(of, ktd202x_match_table);
-> @@ -649,5 +689,5 @@ static struct i2c_driver ktd202x_driver = {
->  module_i2c_driver(ktd202x_driver);
->  
->  MODULE_AUTHOR("André Apitzsch <git@apitzsch.eu>");
-> -MODULE_DESCRIPTION("Kinetic KTD2026/7 LED driver");
-> +MODULE_DESCRIPTION("Kinetic KTD2026/7 and Etek ET6326 LED driver");
->  MODULE_LICENSE("GPL");
-> 
-> -- 
-> Git-155)
-> 
-> 
-
--- 
-Lee Jones
