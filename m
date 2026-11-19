@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795126714;
-	b=xrIPkm2TQRdk64+Hd2QKkEdE+ypnPHE1z4ekT+nLhJz+RKBd/ag+QQCy+qDIAj4hoiuc
-	 MKRocgnzueYkWd4JGEk1mmmIr1J053CUtX/BX+6PwOwEEVb3tLYQbcMQiZRKCGGnIYPeG
-	 IEKZ09vkJ6q01CVmltD9TMHcrFsFQ3tbSRRJcfZyvNiD0T1W/3Mge5Ru7eNeCPVsybGLH
-	 SokUywLZ0v7AeDigtFfpnETSLc5LdpjYMNGC4b4JnkhpImWv79wwvqWuUOILBOkDNMy33
-	 UZ8MCxyYhGX89k80JMPRZ2nwbA8AUfmFZmU6LZ9HgLuRbXfvmd4GAOqlPdGyi5MraNQ==
+	t=1795126750;
+	b=IdNtPm8Qdz+pYzXFA6KzBph2ZiF7FrmMbeT6P4p3jXshkJvLJRjl4Oo1UZQGdRJGp5bP
+	 N+jEGbYJBn4ni2QW+JmG6FNRMlpuc05lBG30YVXcFYpAw+x4Bx1+VVt4P37S9Edknpb1A
+	 JIHMqEkXdqyEcyU/6Y0gQUAudvFmsU4PJEnWkNi5SfevQ2p7hklCuxvNi0UN+HA2Wm8rX
+	 TzMRe0u56zjls/S3v5UNS1ckursLRL1oUYUxVe6NUYyLhaV0hYLY7fonYyoMBOD7teuCQ
+	 OAPcJYH1ntH12woxCp5IBBzPH/nV4goMKYHm1uCm8zzXPxf2+ci784ke36y+BLiZthg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795126714;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795126750;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=aECXQ0SIPaNWF8pgOOuSIECsr3wCesY2Y+EwG2k2ij8=;
-	b=jFtr95J5i9POJa+ZgHNN29R9preGC+rTlRZFr8YutdDT6uukVksO7otOD3XLek9V/xX0
-	 cFzCYhks0yyxOe2wIA/BACq6hryndojLrfHltti1SNizcdjSHFPnx8LCumfCS9Z3QRqC/
-	 ZYajFy562Cox3CaN0KgWByoKyN/CjG8HzfZsNgW1Zk4WT4JsH7eLjXAxW37r22OI3zHip
-	 eLrtg9qWshzEgKfzU5JyHnIazYCXKuH+yNe4Hr6TlWedK5vah0A/YOXKR5fxE8R1/OQ8i
-	 ZYMusxZUXdFWMFBRrC/9TcCTwl+mN+jdslEvInNBxkZBBLXvt6TWj72NPv6wouoMg4w==
+	bh=CRBgbEvoStIBeTJMkdDKxM7dcdg5DC//sc8bR0dB7Hk=;
+	b=PmyLdoaSWfDd6Xv8h4EQfNwrMw3yEG1JjVAEddaFJU5QZc/A9EiB3IZP/1EWzVj5gFl6
+	 OxWZV/oWYfCw8Zbhso5MGqc+v+INbb1RLnlCl0ANugJGf6qLnUFTZWsYFakufg4drI1Rk
+	 eI2GZ//aIIt7XZCNBQjRsJcpXkOD+4SpzG8DW4fSJAfmtawLEs3kMN1oe2dxZAQX2He5/
+	 knP+AQpxxYFS2sxhMLYTBpKObBNqAfQxz0hkqPR9E5rOUZMtl7aBp3HPibwI7zf26Kofw
+	 fVipEMyVxxZuxwEjbE02qRIvXv5hjlRrQOcPrrzdeeK2BI2ZKiloH0Two47/gOwJrcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ErqNF9va;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTl3X2DJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D52606A326
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 22:18:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36FD606A320
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 22:19:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ErqNF9va
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCDE91F000C0;
-	Thu, 19 Nov 2026 22:18:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTl3X2DJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B3CD1F000C0;
+	Thu, 19 Nov 2026 22:19:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795126714;
-	bh=aECXQ0SIPaNWF8pgOOuSIECsr3wCesY2Y+EwG2k2ij8=;
+	s=k20260515; t=1795126749;
+	bh=CRBgbEvoStIBeTJMkdDKxM7dcdg5DC//sc8bR0dB7Hk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ErqNF9vav8CkcVm+PMn/cIhiONlu2mh9rFUjWydRWokxfjWP6PpcQ0V/aQVnHzEDC
-	 PM2/uYbhq8dYeZfTqtVZxu2WC11mMKA7R88Qm6iKUZOo1XPrSOLE95YVPkRgE14/fD
-	 wNaF1xx4WK5OHTsrY2+WgMYjQx8/njLpmF7xqn0dUHDS6ONPrrVjekdG7Gg1sNfOlA
-	 NSbitR9sSlGZbNsE/0Yjrss9ACLYih3BucE2/izBVH3AWy0tBnU0JRsWmZCJpu7pSq
-	 Mdq89wU4CBp5gyi45SBMB8JcpP7pI8FXcuqTPluEPFf3QxZCFT0EqDMsFEgfxiB+xx
-	 GRMyaFynolqSg==
-Message-ID: <sashiko-outbox-224127@kernel.org>
+	b=nTl3X2DJpt959Vyy7KS15u9sxwfA8zo55CFfZ8JROPXYsc/0MHcfxExOlsm0DE691
+	 Ut54ztmLLF0ZlLnbAJka7s0iJ2+LxEmNjFq3ZTQce/gydntMMDvfC3sq2GKCmeu0Wb
+	 h2UJUcmsDpqtER6znUofW/0KO2n5kjKajo4z7rY8bq5EiKRn3al+xPn+OoZLh+FD12
+	 Hc4IoNhaEqvMf+LdkkX1A/x1cYp0cPq7JyiRKlCpiimwtL5g4jHdy/tvxofZMjGT3h
+	 ifRyzUuzQ+CYuXDDQWim3153qdfY7ZAxM13xX4gdyrr4Erdds3DK/j3ZG4c3ftWXOt
+	 UdpE5NRorjmqA==
+Message-ID: <sashiko-outbox-224128@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/4] mailbox: Add AMD PL Mailbox soft IP controller
+Subject: Re: [PATCH v3 4/4] remoteproc: amd_mbv_bram: Add RPMsg support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ben Levinsky" <ben.levinsky@amd.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261119220405.2838553-3-ben.levinsky@amd.com>
+In-Reply-To: <20261119220405.2838553-5-ben.levinsky@amd.com>
 References: <20261119220405.2838553-1-ben.levinsky@amd.com>
- <20261119220405.2838553-3-ben.levinsky@amd.com>
+ <20261119220405.2838553-5-ben.levinsky@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 22:18:33 +0000
+Date: Thu, 19 Nov 2026 22:19:09 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,90 +60,196 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issues to consider:
-- [Medium] mailbox: skipped error read in amd_pl_mbox_irq_thread() when
-  ratelimited
-- [Medium] mailbox: lost RX threshold IRQ race in amd_pl_mbox_startup()
+- [High] remoteproc: amd_mbv_bram: active mailboxes in
+  amd_bram_rproc_stop() race
+- [Medium] remoteproc: amd_mbv_bram: unmapped vdev0buffer added to
+  coredump segments
+- [Medium] remoteproc: amd_mbv_bram: leaked carveouts on
+  amd_bram_rproc_prepare() error
+- [Low] remoteproc: amd_mbv_bram: dev_err_probe() used outside probe in
+  prepare path
 --
 
-commit d942eb10f8289caaed849b4d53047a9b3e47ae11
+commit 8f91a29d9a83c18ff06a14340aaa60590fc44b4c
 Author: Ben Levinsky <ben.levinsky@amd.com>
 
-mailbox: Add AMD PL Mailbox soft IP controller
+remoteproc: amd_mbv_bram: Add RPMsg support
 
-This commit adds a mailbox controller driver for the AMD Programmable
-Logic Mailbox soft IP with polling-based TX completion and
-interrupt-driven RX handling.
+This commit adds optional RPMsg support to the AMD MicroBlaze/V BRAM
+remoteproc driver using mailbox channels for virtqueue notifications and
+reserved memory regions for vrings and buffers.
 
-> diff --git a/drivers/mailbox/amd-pl-mailbox.c b/drivers/mailbox/amd-pl-ma=
-ilbox.c
-> new file mode 100644
-> index 0000000000000..d1fe0f381dce5
-> --- /dev/null
-> +++ b/drivers/mailbox/amd-pl-mailbox.c
-> @@ -0,0 +1,378 @@
+> diff --git a/drivers/remoteproc/amd_mbv_bram_rproc.c b/drivers/remoteproc=
+/amd_mbv_bram_rproc.c
+> index e4a103cf84558..0b54a6cc3e62b 100644
+> --- a/drivers/remoteproc/amd_mbv_bram_rproc.c
+> +++ b/drivers/remoteproc/amd_mbv_bram_rproc.c
 [ ... ]
-> +static int amd_pl_mbox_startup(struct mbox_chan *chan)
+> @@ -31,13 +36,266 @@
+[ ... ]
+> +static int amd_bram_rproc_get_reserved_mem(struct amd_bram_rproc *priv, =
+int i,
+> +					   const char **name,
+> +					   struct resource *res)
 > +{
-[ ... ]
-> +	writel(AMD_PL_MBOX_CTRL_RX_RESET, mb->regs + AMD_PL_MBOX_CTRL);
-> +	/* Interrupt when the RX FIFO changes from empty to nonempty. */
-> +	writel(0, mb->regs + AMD_PL_MBOX_RECV_THRESHOLD);
-> +	writel(AMD_PL_MBOX_IRQ_RX_THRESHOLD | AMD_PL_MBOX_IRQ_ERROR,
-> +	       mb->regs + AMD_PL_MBOX_IRQ_STATUS);
-> +	irq_enable =3D readl(mb->regs + AMD_PL_MBOX_IRQ_ENABLE);
-> +	irq_enable |=3D AMD_PL_MBOX_IRQ_RX_THRESHOLD | AMD_PL_MBOX_IRQ_ERROR;
-> +	writel(irq_enable, mb->regs + AMD_PL_MBOX_IRQ_ENABLE);
-> +	enable_irq(mb->irq);
+> +	struct device_node *np =3D priv->dev->of_node;
+> +	int ret;
+> +
+> +	ret =3D of_property_read_string_index(np, "memory-region-names", i, nam=
+e);
+> +	if (ret)
+> +		return dev_err_probe(priv->dev, ret,
+> +				     "failed to read memory-region name %d\n", i);
+> +
+> +	ret =3D of_reserved_mem_region_to_resource(np, i, res);
+> +	if (ret)
+> +		return dev_err_probe(priv->dev, ret,
+> +				     "failed to parse memory-region %d\n", i);
+> +
+> +	/* The remote uses the physical address as device address. */
+> +	if (res->end > U32_MAX)
+> +		return dev_err_probe(priv->dev, -EINVAL,
+> +				     "memory-region %d %pR is above 4 GiB\n",
+> +				     i, res);
 > +
 > +	return 0;
 > +}
 
-[Severity: Medium]
-Can clearing AMD_PL_MBOX_IRQ_STATUS after resetting the RX FIFO lose an
-incoming receive interrupt and stall the RX channel?
-
-With AMD_PL_MBOX_RECV_THRESHOLD set to 0, AMD_PL_MBOX_IRQ_RX_THRESHOLD
-only latches when the RX FIFO transitions from empty to nonempty.  If the
-remote peer writes a word after AMD_PL_MBOX_CTRL_RX_RESET empties the
-FIFO and before AMD_PL_MBOX_IRQ_STATUS is cleared, that status write
-clears the latched event while the word stays unread in the FIFO.  Later
-words then see a nonempty FIFO and never latch AMD_PL_MBOX_IRQ_RX_THRESHOLD
-again.
-
-Clearing AMD_PL_MBOX_IRQ_STATUS before resetting the RX FIFO (or draining
-after enabling the interrupt) would avoid this race.
+[Severity: Low]
+Should amd_bram_rproc_get_reserved_mem() use dev_err() instead of
+dev_err_probe()?  This helper is only called from amd_bram_rproc_prepare()
+when booting the remote processor, never during probe.
 
 [ ... ]
 
-> +static irqreturn_t amd_pl_mbox_irq_thread(int irq, void *data)
+> +static int amd_bram_rproc_add_reserved_mem(struct rproc *rproc)
 > +{
-[ ... ]
-> +	/*
-> +	 * Acknowledge before draining. The receive event latches when the RX
-> +	 * FIFO goes from empty to nonempty, so a word that arrives after the
-> +	 * drain has emptied the FIFO raises a new event.
-> +	 */
-> +	writel(pending_intr, mb->regs + AMD_PL_MBOX_IRQ_STATUS);
+> +	struct amd_bram_rproc *priv =3D rproc->priv;
+> +	struct rproc_mem_entry *mem;
+> +	int count;
+> +	int ret;
+> +	int i;
 > +
-> +	if (pending_intr & AMD_PL_MBOX_IRQ_ERROR)
-> +		dev_warn_ratelimited(mb->controller.dev,
-> +				     "mailbox FIFO error: %#x\n",
-> +				     readl(mb->regs + AMD_PL_MBOX_ERROR));
+> +	count =3D amd_bram_rproc_reserved_mem_count(priv);
+> +	if (count < 0)
+> +		return count;
+> +
+> +	for (i =3D 0; i < count; i++) {
+> +		struct resource res;
+> +		const char *name;
+> +
+> +		ret =3D amd_bram_rproc_get_reserved_mem(priv, i, &name, &res);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (!strcmp(name, "vdev0buffer"))
+> +			mem =3D rproc_of_resm_mem_entry_init(priv->dev, i,
+> +							   resource_size(&res),
+> +							   res.start, name);
+> +		else
+> +			mem =3D rproc_mem_entry_init(priv->dev, NULL,
+> +						   (dma_addr_t)res.start,
+> +						   resource_size(&res), res.start,
+> +						   rproc_mem_entry_ioremap_wc,
+> +						   rproc_mem_entry_iounmap,
+> +						   "%s", name);
+> +		if (!mem)
+> +			return -ENOMEM;
+> +
+> +		rproc_add_carveout(rproc, mem);
+> +		rproc_coredump_add_segment(rproc, res.start, resource_size(&res));
 
 [Severity: Medium]
-Does passing readl(mb->regs + AMD_PL_MBOX_ERROR) directly to
-dev_warn_ratelimited() skip reading the error register when logging is
-rate-limited or CONFIG_PRINTK is disabled?
+Should the vdev0buffer region be excluded from
+rproc_coredump_add_segment()?
 
-dev_warn_ratelimited() only evaluates its variadic arguments when
-__ratelimit() succeeds, so once the burst limit is exceeded the
-clear-on-read AMD_PL_MBOX_ERROR register is not read and its sticky FIFO
-error bits remain set.  Reading AMD_PL_MBOX_ERROR into a local variable
-before calling dev_warn_ratelimited() ensures the register is always
-cleared.
+rproc_of_resm_mem_entry_init() leaves mem->va and mem->alloc NULL because
+vdev0buffer is attached to the child virtio device as a DMA pool rather
+than mapped as a carveout.  During coredump collection, rproc_copy_segment()
+calls rproc_da_to_va(), which skips carveouts with a NULL va, logs an
+invalid copy request error, and fills the vdev0buffer segment in the dump
+with 0xff.
+
+> +		dev_dbg(priv->dev, "reserved memory carveout %pR\n", &res);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static int amd_bram_rproc_prepare(struct rproc *rproc)
+>  {
+[ ... ]
+> @@ -68,6 +326,10 @@ static int amd_bram_rproc_prepare(struct rproc *rproc)
+>  		return ret;
+>  	}
+> =20
+> +	ret =3D amd_bram_rproc_check_reserved_mem(priv);
+> +	if (ret)
+> +		return ret;
+> +
+>  	mem =3D rproc_mem_entry_init(priv->dev, NULL, (dma_addr_t)res.start,
+>  				   resource_size(&res), da,
+>  				   rproc_mem_entry_ioremap_wc,
+> @@ -79,7 +341,7 @@ static int amd_bram_rproc_prepare(struct rproc *rproc)
+>  	rproc_add_carveout(rproc, mem);
+>  	rproc_coredump_add_segment(rproc, da, resource_size(&res));
+> =20
+> -	return 0;
+> +	return amd_bram_rproc_add_reserved_mem(rproc);
+>  }
+
+[Severity: Medium]
+Does an allocation failure in amd_bram_rproc_add_reserved_mem() leave the
+already-added carveouts and coredump segments on rproc->carveouts and
+rproc->dump_segments?
+
+When rproc_prepare_device() fails in rproc_fw_boot(), it jumps to
+disable_iommu without calling rproc_resource_cleanup().  Any entries linked
+before the failure remain on the lists, causing duplicate carveouts and
+dump segments on subsequent boot attempts or leaking them if the device is
+unbound while offline.  Also, the return value of
+rproc_coredump_add_segment() is not checked here or in
+amd_bram_rproc_add_reserved_mem().
+
+> @@ -116,6 +378,9 @@ static int amd_bram_rproc_stop(struct rproc *rproc)
+>  		dev_err(priv->dev, "failed to assert reset: %d\n", ret);
+>  		return ret;
+>  	}
+> +	cancel_work_sync(&priv->rx_work);
+> +	bitmap_zero(priv->pending_notify_ids,
+> +		    ARRAY_SIZE(priv->notify_msgs));
+
+[Severity: High]
+Can a late mailbox RX interrupt race with amd_bram_rproc_stop() while
+priv->rx_chan and priv->tx_chan stay active across stop?
+
+CPU0                              CPU1
+amd_bram_rproc_stop()
+  gpiod_set_value_cansleep(..., 1)
+  cancel_work_sync(&priv->rx_work)
+                                  amd_pl_mbox_irq_thread()
+                                    amd_bram_rproc_rx_callback()
+                                      set_bit(..., pending_notify_ids)
+  bitmap_zero(pending_notify_ids)
+                                      schedule_work(&priv->rx_work)
+rproc_resource_cleanup()
+  rproc_free_vring()
+                                  amd_bram_rproc_rx_work()
+                                    rproc_vq_interrupt()  <-- races teardown
+
+Because the mailbox channels are requested at probe time and only shut
+down on device unbind, RX interrupts remain enabled and any word already in
+the hardware RX FIFO when reset is asserted can still trigger
+amd_bram_rproc_rx_callback().  On the TX side, if the remote processor stops
+before draining a kick word from the hardware FIFO, the channel's active
+request never completes, leaving the mailbox core hrtimer polling while
+the processor is offline and delivering a stale notification on the next
+boot.  Requesting the mailbox channels in .start() and freeing them in
+.stop() would synchronously disable the RX IRQ and reset both hardware
+FIFOs.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119220405.2838=
-553-1-ben.levinsky@amd.com?part=3D2
+553-1-ben.levinsky@amd.com?part=3D4
