@@ -1,56 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795077702;
-	b=s6/42BeXSN1AjTblp1V2MF1U4t0nbEWvh9oBXUwmgCVEkqKiCu9r7YXnJF+ukCyEjoXl
-	 JQzZ5UTxCjUkChRuZJNeZxZExhaZWmwSkJF6tZfpYI1Ls/7MXHiZ4968SRw/vaLM6uyBr
-	 BRDgunzywfUnVUmpUcXEbgZgN9KY1QY8n/iljHRv05D6MegOmTCkmjw+xi4hF1xoM9T3K
-	 aK2AtzojZHzgvKyJtvd8RBzfe5pRrBBrQ0XijnC4BQr3k3ZABSnwikJi5lpdpDiT1apoK
-	 UhmbY0IgfgLwAMguljmKNP+yxusgCxJEBVpJJrEIK2fnQYMjaf7nqlCwnRYWcUxb1Sg==
+	t=1795078003;
+	b=pkldAe8Rb+yhkuXlrW+xQi8UNG1yW1qeGa3W6P4RdZQB+c1nEP5PJlIaYmAs3ywwGofz
+	 KjHdbCYj1+RyYZrX/aO/7BVeItbrWsL0qxlNSecItcYVGx3pcsV/7Xm2IuVLCy/LuHD3Q
+	 nU06v5zyWPmMrGFN+0/kA12MxklNA5eXdbC54SFndswlxo6QLdY7gi7Wghh3k/no2qKCe
+	 e3Q50Aw6M500wwwd5piedr0E5UQuMR29N0BmV0KbMa6Src4mlq6VNwYQNSBpnPzjUnT/+
+	 lE+H/j3B+Fa3vR49ZYSC9CEMmjj0TwJT1nWFAgvrb09oKBZkDDFCwcP05Xg3WxxbEWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795077702;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=OCKQX5Z6k67c3S0DrC1VVL7/HnMiXMQd1ciErs9wB+U=;
-	b=AOhmD9gVZnJDCB5z+9T25GIeKzLitE85YDldT9UilgkOdYl2/2aOKjwI9c7nbNwwIQUy
-	 iaAjMXsa2Csk8kWTg6KCqLiczl5PvpOfnUtu/KzvnOaEPFllTD5indC1cLA+IE3WOWjhv
-	 DD/M+rhS2rh2AFRk1PCeviepdJhYlAPtTsEkeXkAwqJLlpZiWlONYIFfcYzWKBlFeLycY
-	 H7/I58aQ514mOiDBeUj5RdhUeix1CGxymwhZjwGeOPX3a0B9QxgZrJJOu+x1sea1OmDbG
-	 BX8LXA/dgxVc8X98UcEQ4srvv3cwD/TBlLe6Qs4KKiifa0ML9BClJZ0vjFZBgnsmEpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795078003;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=WW2blqW/7siEgeA3QhLwyU83G3vWkab0u6sANyXaeO8=;
+	b=aFtnSJKEDjtIdyRYI3PqG5GIoTjlcm0SnuzuFpUnEvmPqk1NS7QvZoRlIBnbi3fr6XDF
+	 xV71v5m0Ab8d1QNORLqj1ufCnqJDRcsg60DdBgHIflUIa57bDIV4PXvmNYSAfM90IAW41
+	 pZn7T8mnlILVlWnWEb8L8296gxa7WsOIY2VY33TCKaJAm3H3OAgm+4Ix0ItL7HxGcg9wp
+	 o7wYC38y+ysVab1LjNkZumQMkvrhePJHsva6Bc491Ouu/Yo6avTQvUJWINIsi4A/aF4fk
+	 MMDo4daNQ8eU1pPM+aIK4osI1Ao9c1Ic7upOQdMQbNNADMbbP7+ka3kDbC71GnH1sJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OykBJckk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=UYFRPMY3;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=1lzFt6eB;
+	arc=none smtp.remote-ip=202.12.124.156
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1FA606AEF3;
-	Thu, 19 Nov 2026 08:41:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF527606A320
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 08:46:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF527606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OykBJckk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7698C1F000C4;
-	Thu, 19 Nov 2026 08:41:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795077701;
-	bh=OCKQX5Z6k67c3S0DrC1VVL7/HnMiXMQd1ciErs9wB+U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OykBJckk8uX6o73FMGSE2UXxrJ1QFw48Y/SEMLMrijlya1WmzYgvbhSgWzlAcsTh3
-	 IlZWiEU3PmM7Ak5ZXgLXYqh5bRg0Ae3UPUGtif/RCjsWj2Yu7LomAUSEQxkLuboJlK
-	 89Uso1+47uh+Hv2hQbW30OgA/RY2x7tSqDu8adOFuITElS6pa+p7RKoMeN4dCh8zjz
-	 RW+iazKYnZTRaXW0lpQ1hyEiHPlkdnPzOLaS4dUGkYv/CTcKNcr2KXcS2HrwiRn1SR
-	 HD9m5oBeBYMwyhe54/8mrpCScsWKcsHLygLZUEBEgARx3oGtcz5Ly22ETEXXZiu2u4
-	 ZcU4NDBxsbgFQ==
-Message-ID: <sashiko-outbox-222697@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] ASoC: codecs: Add NXP TFA9865 amplifier driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Venkat Yadlapati" <venkat.yadlapati@yahoo.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261119-vantage-tfa9865-v3-2-5257fa45df57@yahoo.com>
-References: <20261119-vantage-tfa9865-v3-0-5257fa45df57@yahoo.com>
- <20261119-vantage-tfa9865-v3-2-5257fa45df57@yahoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 08:41:41 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=UYFRPMY3;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=1lzFt6eB
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id D84737A02FD
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 03:46:41 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 19 Nov 2026 03:46:42 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1795077989;
+	 x=1795164389; bh=WW2blqW/7siEgeA3QhLwyU83G3vWkab0u6sANyXaeO8=; b=
+	UYFRPMY3/jzs0xi1mXQbVIg7KpGY0usB1jjHmn3po658+6DjKILjMz+IhDaC+cBE
+	ps3He7mIolsqRniMEqAIOzT5m15/fzra7M2klC+0HbBcMBZULlWXoN4F5ASza3yg
+	q+3NpmS01SnuxB/RGfrKCxcdAycw4LmsaiAfzcA8Q05GKNrXpJ0NOVf9VxqEOjW8
+	jVXfmZw7JQEVHOQhJpOZQQ5dyhx/8TD0oUrqbf5DcxZtvDC9UPwj4hH2APLLO246
+	bfNxn9FkVoEZ15ETvCIbxiWbWCHTHo9Y5lLPg3eXBJgVjWzzNwy9xfse9NJsCPDl
+	hMEbJoitweGY4/ou+I15Yg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795077989; x=
+	1795164389; bh=WW2blqW/7siEgeA3QhLwyU83G3vWkab0u6sANyXaeO8=; b=1
+	lzFt6eBLruf12W8oA4MHDTJYYaNKfluVXK014wD2AE5/PkKRNmvaNXs6OtZD06cP
+	qARJrNv/xRZt9AogIDvj35Req9DPilSnlIblee0aYsm2ntqn7fbUcq/xS0JTanKL
+	2Du/EiNpwKhlnRKBelx+XDAkKuI4faM7ec8LPebuct9VwwneeHVVF4dny2cKDuez
+	pdbsJ5PrEYbPOqy61dw/3MSxYA3yUoq49jgVgLjTpTwMcwOy7TKCEfG7wGIfNL9p
+	zRq+GT/zgjo8yFFfGzAuaWl3sOj1zkv3jrFwPygrNsJjyffOo10Hm4d0Q0dgCs5V
+	wd4lMLkk3SAI9joAN/o3Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795077989; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm2:rsa-sha256:H0E7gNStqKil098OikEseicbvW/KezKmnz1D/4i23SHA6Sn
+	fY+fGnDgou2mTyESyuRdENPQ1fS28+N3Xo6Um9RvJUqsbdG7//p9xDIwnLPHDEg3
+	b1evpFkC/Q8tu6W//tSIkNEq3SykQ96MnZZvNBGMVxFCKsr81xcFVoqMctLfxQc4
+	OwSrJ8BbIFzsNM7VrrK6grceBruWUr3uQRHv5CIVVwqV8vbjmIfeDX/jMyeLBVex
+	61v9ZMMktiM8TePiO27bChSV2smv8AX0anHDWrJb/nWxgiGY7PhtYJ43js8hPExe
+	TkohZgway0kgNYtHBVW8l/zt8thzVXeN0+6LJDA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:yHHEsa1F/yfYCs90xpNsERTHqBBu4lUbLy1LnnHw6Xk=:gUUvC0d3DXsIVObCQRNT9BOZ11HTUi7uu67Hd2r4Lys=;
+X-ME-Sender: <xms:Xrf-apO2eZFEucASI6Z-iV3CNj11pQgRm7s87ifIoT3yRijzcQmpRg>
+    <xme:Xrf-amyi7e9qiqX7gmNP4WTxg_MbzQiDZecDe3v_gxW7PrrnRFDcxzNqy2q0JFHoN
+    fp81TAY_BnVsc1eCXapy6fNezXHD47G7-KpFpTuHCNcd5ev0kD6g19XfQ>
+X-ME-Proxy-Cause: dmFkZTGV31TGU0zONOkJ/gBT4mhriliTNuQFY+d8+N+bTlJoW0nxIyUhLgf15xdQFnCpZF
+    9Jdi9ioVT+ArUJtExz3P/QC8IyLdAftkr1Wq16l2yCdO5JQ38cqo75FJ5tNzR0b2nUbcxk
+    GZbcqERGkx5Ta1opOW8Y57lemjWOUY2k5j74bKsnyV9KP9DtIA+lqR33B6KFt4lHZaTcDx
+    lQ2oXBNJp2LMQKvX6SkMo7pSxJyoS4jDrVgl44HQ7DI37WrXmxv7vS/8QKBcvXc0sUClTi
+    cS58SfLhGvF48w1OwGTpvIVhEIvatCY3HXo6+0Vz9gaXZ7TzA+hgU6NG1Mv3OiaUslusDi
+    3T2GvrXnApIMkjt9XqvrL6oXS5qb+9k7ziRwXOYDVHgtgNTuv6D6tvGQCN1j8lr5nqgZCN
+    MaeknzCilXGRLUxFGiJ9VCNSBaJMrIZdV0SjyNV3CqQoa0zbkih9vD3I8t0eNFAXjbpngj
+    AhAXMpl7NEOz8ey49XMybjheyeyYnBmgGy1eLkDwl498HdPtVCVizXXzvQ13k8OrDDq/y9
+    lXU4OBqi1Wj2mKykStwGX3yX+TEP4/CLLyMFQxfx0jDZiZdaRs6nonLloJTwyFBUSuKkJn
+    G98cdGW1XrPwWm//oUpWUlsaTPqzapGM3/Z8LB78Klyo9e7/liYHGbaAwUkQ
+X-ME-Proxy: <xmx:Ybf-amO7wLTg3t2P81VHzE2AxuUjkmN9b3yR1mTkfnVDq-xLyxI0BA>
+    <xmx:Ybf-ap2u_7nYAD4T1Mkv08l-ABAHYfNieXgsEMydL-YhuDcJi2PZCA>
+    <xmx:Ybf-aq13pl-t08t_dbneajYh6a3iSv704hi2unh58z0XSlYSZIdMpg>
+    <xmx:Ybf-aowyha8MxnAMV5wnHNBt5XRGuMTECRpthTTTw2e0J-4Gjm0qag>
+    <xmx:Zbf-anLwbR9PDmLBERtIf9SECCIy3j9-aMZ-xG_EavHOI2-v177KPQbr>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 6974332A0099; Thu, 19 Nov 2026 03:46:22 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,129 +114,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-ThreadId: A4QaHkHhrVgc
+Date: Thu, 19 Nov 2026 09:46:02 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Brian Masney" <bmasney@redhat.com>, "Long Zhao" <zl020895@163.com>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>
+Cc: "Brian Masney" <masneyb@kernel.org>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+ "Long Zhao" <longzhao@ambarella.com>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>, soc@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ "Michael Turquette" <mturquette@baylibre.com>,
+ "Stephen Boyd" <sboyd@kernel.org>, "Jerome Brunet" <jbrunet@baylibre.com>,
+ linux-clk@vger.kernel.org, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Linus Walleij" <linusw@kernel.org>
+Message-Id: <d2cb7e5e-9c39-4534-9ed8-a5e2b6074dc1@app.fastmail.com>
+In-Reply-To: <avslH10GRqkVT9fU@redhat.com>
+References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
+ <179427375370.1061670.4050288038934218487.b4-review@b4>
+ <20261110-interesting-hilarious-shark-2dbfc0@quoll>
+ <7eeaf54d-2d7d-420c-a34e-eebc6dd0effe@app.fastmail.com>
+ <bbc16906-45e2-4d81-ae81-ad93e87b13be@kernel.org>
+ <c67939c7-9725-459e-97dd-e104f3b14022@app.fastmail.com>
+ <avMM8z-LYncKS8ip@x1g10> <avMmKJpczepWTRdc@ashevche-desk.local>
+ <avReozTC_GEmfIxG@x1g10> <2b30e92.3c75.1a1e2828c3a.Coremail.zl020895@163.com>
+ <avslH10GRqkVT9fU@redhat.com>
+Subject: Re: [PATCH v11 0/5] arm64: add Ambarella CV75 SoC support
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] ASoC: tfa9865: tfa9865_b0_init re-asserts PWDN in
-  tfa9865_init()
---
+On Mon, Nov 16, 2026, at 16:45, Brian Masney wrote:
+> Hi Long (and Arnd/Krzysztof),
+>
+> On Mon, Nov 16, 2026 at 11:59:28AM +0800, zl020895 wrote:
+>> At 2026-11-11 20:25:07, "Brian Masney" <masneyb@kernel.org> wrote:
+>> >So how about this:
+>> >
+>> >- Have Long post a new version that splits out the creation of the new
+>> >  Kconfig symbol ARCH_AMBARELLA into it's own patch. I assume Arnd could
+>> >  provide an ACK on this?
+>> >
+>> >- I create an immutable branch that contains that the two dt-binding
+>> >  patches, plus the ARCH_AMBARELLA Kconfig patch.
+>> 
+>> Just checking in -- there hasn't been further feedback from
+>> Arnd/Krzysztof on the plan yet.
+>> 
+>> Should I go ahead and prepare that split for v12, or hold
+>> off until Arnd/Krzysztof chime in?
+>
+> I haven't heard back from Arnd/Krzysztof yet. How about wait 48 hours to
+> see if they respond, and if they don't respond within that timeframe,
+> then go ahead about post a v12 with the ARCH_AMBARELLA split out into
+> it's own patch. I think that's a good change to make anyways.
 
-commit 22126aae516e932437c57483972adbeb537cf93f
-Author: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Sorry about missing your question, this sounds fine to me.
 
-ASoC: codecs: Add NXP TFA9865 amplifier driver
-
-This commit adds an ASoC codec driver for the NXP/Goodix TFA9865 mono
-class-D speaker amplifier, supporting the B0 revision with 32-bit I2S
-slots.
-
-> diff --git a/sound/soc/codecs/tfa9865.c b/sound/soc/codecs/tfa9865.c
-> new file mode 100644
-> index 0000000000000..ca1a458e6f651
-> --- /dev/null
-> +++ b/sound/soc/codecs/tfa9865.c
-
-[ ... ]
-
-> +static const struct reg_sequence tfa9865_b0_init[] =3D {
-> +	/* "generated code" version 2 for TFA9865 B0 from the NXP driver */
-> +	{ 0x00, 0xf241 },
-> +	{ 0x02, 0x0c28 },
-> +	{ 0x08, 0x009a },
-> +	{ 0x50, 0xc000 },
-> +	{ 0x54, 0x10e0 },
-> +	{ 0x5a, 0x5f5e },
-> +	{ 0x5b, 0x74e2 },
-> +	{ 0x5c, 0xb02b },
-> +	{ 0x5f, 0x00a0 },
-> +	{ 0x62, 0x06c4 },
-> +	{ 0x63, 0x80d4 },
-> +	{ 0x65, 0x0c58 },
-> +	{ 0x67, 0x006e },
-> +	{ 0x68, 0x0820 },
-> +	{ 0x69, 0x0119 },
-> +	{ 0x74, 0x6028 },
-> +	{ 0x75, 0x1daa },
-> +	{ 0x78, 0x0001 },
-> +	{ 0x7c, 0x10f2 },
-> +	{ 0xdd, 0x01b6 },
-> +};
-> +
-> +static int tfa9865_init(struct tfa9865 *tfa9865)
-> +{
-> +	struct regmap *regmap =3D tfa9865->regmap;
-> +	unsigned int seed;
-> +	int ret;
-> +
-> +	/*
-> +	 * Start from the register defaults, also when the device stayed
-> +	 * powered (no reset GPIO, driver rebind). This clears MANSCONF, so
-> +	 * the device manager waits in WAIT_SRC below.
-> +	 */
-> +	ret =3D regmap_write(regmap, TFA9865_SYS_CTRL0, TFA9865_SYS_CTRL0_I2CR);
-> +	if (ret)
-> +		return ret;
-> +	usleep_range(1000, 2000);
-> +
-> +	/* The reset changed every register, forget what was read before */
-> +	regcache_drop_region(regmap, 0, tfa9865_regmap.max_register);
-> +
-> +	/* Leave power down to make the protected registers accessible */
-> +	regmap_clear_bits(regmap, TFA9865_SYS_CTRL0, BIT(TFA9865_SYS_CTRL0_PWDN=
-));
-> +	regmap_clear_bits(regmap, TFA9865_CLK_GATING_CTRL, TFA9865_CLK_GATING_C=
-TRL_MANAOOSC);
-> +	ret =3D tfa9865_wait_manstate(tfa9865, TFA9865_MANSTATE_WAIT_SRC);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Unlock key 1 and key 2 */
-> +	regmap_write(regmap, TFA9865_HIDE_UNHIDE_KEY, 0x5a6b);
-> +	ret =3D regmap_read(regmap, TFA9865_KEY1_SEED, &seed);
-> +	if (ret)
-> +		return ret;
-> +	regmap_write(regmap, TFA9865_KEY1, seed ^ 0x005a);
-> +	regmap_write(regmap, TFA9865_KEY2, 0x005a);
-> +
-> +	ret =3D regmap_multi_reg_write(regmap, tfa9865_b0_init, ARRAY_SIZE(tfa9=
-865_b0_init));
-> +
-> +	/* Lock the keys again */
-> +	regmap_write(regmap, TFA9865_KEY2, 0);
-> +	regmap_write(regmap, TFA9865_KEY1, 0);
-> +	regmap_write(regmap, TFA9865_HIDE_UNHIDE_KEY, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Go back to power down with the oscillator off */
-> +	regmap_set_bits(regmap, TFA9865_SYS_CTRL0, BIT(TFA9865_SYS_CTRL0_PWDN));
-> +	ret =3D tfa9865_wait_manstate(tfa9865, TFA9865_MANSTATE_POWERDOWN);
-> +	if (ret)
-> +		return ret;
-> +	regmap_set_bits(regmap, TFA9865_CLK_GATING_CTRL, TFA9865_CLK_GATING_CTR=
-L_MANAOOSC);
-> +
-> +	/* Input attenuation used by the vendor configuration */
-> +	regmap_update_bits(regmap, TFA9865_TDM_GAIN,
-> +			   TFA9865_TDM_GAIN_TDMSPKG_MAX << TFA9865_TDM_GAIN_TDMSPKG,
-> +			   5 << TFA9865_TDM_GAIN_TDMSPKG);
-
-[Severity: Medium]
-Does writing { 0x00, 0xf241 } at the start of tfa9865_b0_init[] put the
-chip back into power down before the remaining protected registers in
-tfa9865_b0_init[] are written?
-
-tfa9865_init() clears BIT(TFA9865_SYS_CTRL0_PWDN) (bit 0 of register 0x00)
-and waits for TFA9865_MANSTATE_WAIT_SRC so the protected registers are
-accessible, then sets BIT(TFA9865_SYS_CTRL0_PWDN) again after locking the
-keys.  However, 0xf241 has bit 0 set, which immediately re-asserts PWDN on
-the first write of regmap_multi_reg_write() and turns the later
-regmap_set_bits() on TFA9865_SYS_CTRL0 into a no-op.
-
-Also, tfa9865_b0_init[] already writes { 0x5f, 0x00a0 } (5 <<
-TFA9865_TDM_GAIN_TDMSPKG) to TFA9865_TDM_GAIN, so the regmap_update_bits()
-call on TFA9865_TDM_GAIN at the end of tfa9865_init() is redundant.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-vantage-tf=
-a9865-v3-0-5257fa45df57@yahoo.com?part=3D2
+      Arnd
