@@ -1,106 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795104072;
-	b=QLdopz32q2U3z7lj6Gd24Tc4fegGt1+ebgMhRb9Cj4k7ZIW36vNFUYtOQQBxtGQdBcVO
-	 +GS47bL7bDf8PPAEsnMczzc8D2kAFeZ/JTAr9NvNRGjMyHAWZ2Y/qyVeDtY7hf5i5repk
-	 yt2db9lSz52RsSVD7BnXZVulgXwmvG66KeBsw3Ygi5rcbtzyMulD8QZeypjkZxPbFGTNu
-	 8JOYGamt970fjTu4pxPohymfV0s1B12ggqJNTfzumiUowzV88AHVw59tLpsDAIZAX71yE
-	 nX0hLe0mA5TfZYE9JNkhDnRCsvdsbK5VYKbIoN0CJYiasQtTW9KlH4TviyJn37feBHg==
+	t=1795104196;
+	b=YOj5wAIGZmps8VpnsTF+9Ajv4F4Bc53tMsgT5PjudvTzIel8pOidodGIjH4wOfBZa1MC
+	 gRBH3klZUPnT5dhej93zMgJ/rdRlxulOB3UNRllcuirYjMYWBiWuOFYIa6kKXezKWSCoA
+	 8ArV6/D2hWIZFyOcopv7BpC+1P0Hbd86ga6gOcn0BV2rkzJNNTs6LP7epqiUAh2uWiGnp
+	 j1Ojgpfhc7VNFvfzKGD6pf0AzHK+8rCA28ZJtaPEC1OFsV+HCstAs3X6Qt8B8H6SkZ12o
+	 WDhGX+gbXq05TpOBjR7HqkWwDy4evaIebKfnNiKlGgqkFpwJmh1QYtkM03+XmoWkgWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795104072;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kguNqPOSlh7fe1C453DDiUzdHElyaO7Alv2xhzvgL+o=;
-	b=BTxxRbH4I9eHNfyV3ySyRUHh60OgbCyI1hs1mDLVK7Phz2gsgpvW+97tYtCN24HVZkYd
-	 Q1/xbr//9RWbsetFurywvld6gumE1DrX46nnZ/MM+l5A5AB2PX/0SzRt/a08c9y3wCv8J
-	 2M3ItL9m3iVIcJJPcFlvL4Nh7ZlbyG6iyHCFKrU/QORf+i6JQm7rh8GndHcEQlz6HvbwQ
-	 iO0iuy+LFube4+D7LMbxqliGbHYVrTjIBdYpLc1Av8maXQnWAYjXWt21dgZsOJWoMTCGd
-	 I4UFThPO3KLHcfhiBO7CCiXy06tJfmQ5rUhlQvYRdpBOVbDf43MUQ8OcA8Mdho4kJ+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795104196;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=NFLCsa/k50WU1FEHbEZWuY+iOkzJV9eWJb7Ux2CgchU=;
+	b=5YhKtoIM8hACGqwaj2AWG4MyUeEoyU9kUpZcNtoeBsqbiAIbSePRHM9fxOO8AuwxuG5I
+	 MarOou+K29tfqiM51bljB1CbuL3NZsh+vkcrJM1LjiSlAntw3jh2rlLkTtKS+MUMaxXX/
+	 c3Yxva4/aH3t7/9WGMhhbLtDZ2vU9f1U2K+3Cf4p3SUh3XYiaWUaOKFFM0hPgHYUpLeh8
+	 GoTGGfvu8GbMeABFYAYmvPly/sQTClna8qGE9byf8NJxFZDOL7UQ1utXKDmaSnlsP/y2k
+	 piRVzD8YEcuk2WQfN7F//ku3fcXpLsTwSdk5HqAcoPyclAMQ8GKJJajUVqSHapu6mhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PManqnll;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kCdMdCJu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBE760A2622
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:01:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACBE760A2622
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF3D606A325
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:03:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PManqnll
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c5127c7abd5so170958966b.3
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 08:01:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795104070; x=1795708870; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kguNqPOSlh7fe1C453DDiUzdHElyaO7Alv2xhzvgL+o=;
-        b=PManqnllVK0xOEkGqCE76wegtiJG0Z2TXIp2HESL6BcCyUP3+PVwE15QmQ9Y/w4B66
-         mnmAVr0khh3Y4Q5jsX1i0gsDukrB/45HkVSjDVCdxEDRZ3gKBGfYSF5YLZoQMUh8rkBy
-         GPtz3NJVyq1HpI4bPlG3nzCW4CcsdADA6+/EhY4SR1rYMJNXfXFK8OdSqiEl+MK6IRu1
-         y1KBLKPicnEpJaVZA3dpU9b3rH3rQ8u/7tTjzvz8biA/kFCMBw4Uv2M7GohOMSPDzRch
-         LzAaDqCdXJCl95q61S0VTpUOeI/8tCYYrxiQqU4losxa044/FCq+bgczN+rvHcliG3NZ
-         mAlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795104070; x=1795708870;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kguNqPOSlh7fe1C453DDiUzdHElyaO7Alv2xhzvgL+o=;
-        b=ZeYjI8A4BFhqxgDFAiKSOrcNoCvbmgbdKh7/0o0kXPRw6TKkZnEb9tgDI4n7rM2n3k
-         vrzFoboe4MugRVWeBEwdxQ1LedtKoC++S8vF3wseiolID/xgEa9aMah47/CQ35Uf9Isf
-         6VzWq5WKzYHq5W5zjxGxAMem/DmimciwMOgaDhBeDRvaiVRcY7i0iRN9+T6vwBeGMtxO
-         iRP4ca1I/VOEKSatRxhmf1J4MNlMK75c6WwPbeIhyxJU5fAeAOjrheoFe9b+tG+tHkA8
-         GabdfxAP3vEKbG0V5enoGf3MsRl+cnssRTjD1aXDPUDDN7qDcMuBdZgt8dQ9UDDVeaPz
-         2fLg==
-X-Forwarded-Encrypted: i=1; AL+hErH6/tUTMolnckFYZeMpH1MuenxJ3UHqVI0OedyPMiOOj97BJUwHJSCtjQUJuEFPufqMe/pJX02PJPl/@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pzgJxP3kcsUNzuDG3d6xtKt9fMaQjYCShav4c9uKpB3YN+2X5
-	DL0f54wwrBMJmZ6RSFVJI8VdsRUG4qonkZ+BbFERipWlv+dfdg0HFWZ1
-X-Gm-Gg: AYBFou2EmBbxCoSbQ9Q+sMo2CTMSm9qrIcZJySBadbSeIhV6rm7XQUwTgqISghxmOHQ
-	bhk20QBaHHu5wwJgb6Z8R2/eKNPGSRlAb/OV+JdKY5JdqvIl/AH5InayXf5xS+8/qebpVwvmkLo
-	xhWtbMjzq4iiH17aRLLQe6oCui4sPkEX6g58Ad/NiP9JD3WnVUwTAolkfCdkfiGXZc8qZpJ8ytD
-	4FGSfLLxB55b+fyS3jHUJ49gtp+YEvFx4bvw1fz3J9W5MOX+2ufniRqcwjXUw/azPm8ty3dzGIn
-	8Z+HxvVlT4kCwPe1Lwa4n1wOQ+wXRy9zJP2XZTx0jMDmb9FPH4UTIoOiE2L3elDMFUICoxfqfaT
-	6NQlqweyjQjaWZ3syjwTvWOXZec1t7FCz2djVIjAdeJU0cJNaa+C/MnsuCpREhOHjJLONkkZL90
-	elr6u0RAN5DWQ8kbOnzNqbeo/gLVlmi3oKbMCB6Wh581w6bwnqCobg74+QtXn40yChXUzhzVuhV
-	u2m8FjxRinRcSps+QG6iNnqYBbMvNmk+ahXodvs3B/gyXRLyruUH8qgRKQlrb8nQOqFidJyvgyW
-	eIfXOOg87DkC4Bh/+Mt1G4A/Tuaft9CI2oabEAYGa20TMhvdkwh8XoNbi3MYr5d7SqbXizNfxWh
-	NgafstqNwJ+BfacFtWyw7DM+efnKtqfjyNvE0gegMGsrJ8kH7J+E9lUI=
-X-Received: by 2002:a17:907:3e15:b0:c51:249f:7331 with SMTP id a640c23a62f3a-c513a3aacc8mr39598366b.1.1795104069371;
-        Thu, 19 Nov 2026 08:01:09 -0800 (PST)
-Received: from Lord-Beerus.station ([93.146.104.162])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b9add26sm323784f8f.44.2026.11.19.08.01.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 08:01:08 -0800 (PST)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>
-Subject: [PATCH v3 2/2] arm64: dts: freescale: imx93-var: Add Cortex-M33 configurations
-Date: Thu, 19 Nov 2026 17:00:54 +0100
-Message-ID: <f52268cdb748fc4fcca95f8de1384054da8d7964.1795103362.git.stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1795103362.git.stefano.r@variscite.com>
-References: <cover.1795103362.git.stefano.r@variscite.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kCdMdCJu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287A91F000C4;
+	Thu, 19 Nov 2026 16:03:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795104196;
+	bh=NFLCsa/k50WU1FEHbEZWuY+iOkzJV9eWJb7Ux2CgchU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kCdMdCJuDiUm/5uZXZKHGbSlfs+qm3fN8yBRrfFeKrwZtMP+Mz6WBWDGOtwwZM507
+	 ujymZ7uXoajRwbbUnFhrAY8D0SkjRAyiKmGXX9N63Bi+2Gp+VK1/v7pZg4wMlNj2et
+	 sqEpPYGPNfw1ZBq7fjOzbQVzy/bCRq63P1XrM2KPabyLrPMHwHRou8jLtpXxX/UCT/
+	 DZVNM+sANrCO2sCX7KfM6EsCtCDYeCifBCDdDdxcXtLLPcqDrY9sY4KylZUQ6vkRa0
+	 N1qm3+0LerPHIUPTfD7tWpQn7OJjTbfS1WEcVl4KXmRNGpSngVh0q/nCElBcX18cKz
+	 NVEd14a1SNaTg==
+Message-ID: <sashiko-outbox-223458@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 19/28] media: mali-vpu: start decoder firmware
+ through LSID scheduling
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Charvi Mehta" <charvi.mehta@arm.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261119153758.1426673-20-charvi.mehta@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+ <20261119153758.1426673-20-charvi.mehta@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 16:03:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,228 +60,206 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] media: mali-vpu: vq_lock drop in
+  mali_vpu_session_wait_pending() races
+- [Medium] media: mali-vpu: 10s hang in mali_vpu_session_cleanup() on
+  unmapped LSID
+--
 
-Add Cortex-M33 overlays and combined DTBs for DART-MX93 on Sonata and
-VAR-SOM-MX93 on Symphony. Use the common remoteproc configuration and
-identify the existing reserved memory with memory-region-names.
+commit df41ad5c55cc78aaaf50be9e6b1f9cc272e547c5
+Author: Charvi Mehta <charvi.mehta@arm.com>
 
-Include the common configuration only from the overlays, so remoteproc
-and MU1 are enabled only in the M33 variants. Use the -m33 DTB when
-remoteproc support is needed.
+media: mali-vpu: start decoder firmware through LSID scheduling
 
-Mark the peripherals used by the M33 firmware as reserved. Disable Wi-Fi,
-Bluetooth and the devices depending on GPIO4. On Sonata, also disable USB
-OTG1 because its USB-C role controller is unavailable.
+This commit connects decoder firmware execution to VB2 queue preparation and
+asynchronous firmware loading, activating the LSID and tracking requested a=
+nd
+confirmed firmware states across stream startup and shutdown.
 
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
-Changes in v3:
-- Move the common configuration extraction to patch 1.
-- Use "reserved" for peripherals assigned to the M33 firmware; keep
-  "disabled" for dependent devices.
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/dri=
+vers/media/platform/arm/mali-vpu/mali-vpu-session.c
+> index 09ec6d14f4ad0..6d22a5d479008 100644
+> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
 
-Changes in v2:
-- Enable cm33 and MU1 only through the M33 overlay on DART-MX93.
+[ ... ]
 
-This patch uses the following binding and driver commits, already in
-linux-next:
+> @@ -123,6 +211,102 @@ static int mali_vpu_session_handle_fw_msg(struct ma=
+li_vpu_session *sess,
+>  	}
+>  }
+> =20
+> +static int mali_vpu_session_wait_pending(struct mali_vpu_session *sess)
+> +{
+> +	long timeout;
+> +
+> +	lockdep_assert_held(&sess->vq_lock);
+> +
+> +	while (sess->fw_bin_state =3D=3D MALI_VPU_SESSION_FW_BIN_READY &&
+> +	       sess->fw.pending_response_count) {
+> +		mutex_unlock(&sess->vq_lock);
+> +
+> +		timeout =3D wait_event_timeout(sess->fw_waitq,
+> +					     READ_ONCE(sess->fw_bin_state) !=3D
+> +					     MALI_VPU_SESSION_FW_BIN_READY ||
+> +					     !READ_ONCE(sess->fw.pending_response_count),
+> +					     msecs_to_jiffies(mali_vpu_fw_response_timeout_ms));
+> +
+> +		mutex_lock(&sess->vq_lock);
+> +
+> +		if (!timeout && sess->fw.pending_response_count)
+> +			return -ETIMEDOUT;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int mali_vpu_session_fw_init(struct mali_vpu_session *sess)
+> +{
+> +	int ret;
+> +
+> +	lockdep_assert_held(&sess->vq_lock);
+> +
+> +	if (sess->fw_requested_state !=3D sess->fw_state) {
+> +		if (sess->fw_requested_state !=3D MALI_VPU_FW_STATE_RUNNING)
+> +			return -EBUSY;
+> +
+> +		return mali_vpu_session_sched_activate(sess);
+> +	}
+> +
+> +	if (sess->fw_state =3D=3D MALI_VPU_FW_STATE_RUNNING)
+> +		return 0;
+> +
+> +	ret =3D mali_vpu_session_fw_send_job(sess, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Map the LSID and allow the stopped firmware to process the
+> +	 * queued SET_OPTION requests before it can be RUNNING.
+> +	 */
+> +	ret =3D mali_vpu_session_sched_activate(sess);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D mali_vpu_session_fw_send_ping(sess);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D mali_vpu_apply_staged_controls(sess);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * SET_OPTION is only valid while stopped. Wait for pending option
+> +	 * responses before requesting RUNNING.
+> +	 */
+> +	ret =3D mali_vpu_session_wait_pending(sess);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Waiting drops vq_lock, so streaming may have been withdrawn. */
+> +	if (!mali_vpu_session_can_stream(sess))
+> +		return 0;
+> +
+> +	return mali_vpu_session_fw_send_state(sess, MALI_VPU_FW_STATE_RUNNING);
+> +}
 
-- ebb21cc5d1c0 ("dt-bindings: remoteproc: imx_rproc: Document
-  memory-region-names to avoid implicit ABI")
-- 8396089f91fa ("remoteproc: imx_rpoc: Use memory-region-names to avoid
-  implicit ABI")
+[Severity: High]
+Can dropping sess->vq_lock in mali_vpu_session_wait_pending() race with
+concurrent queue ioctls during vb2_core_streamon()?
 
- arch/arm64/boot/dts/freescale/Makefile        |  9 +++
- .../dts/freescale/imx93-var-common-m33.dtsi   |  2 +
- .../freescale/imx93-var-dart-sonata-m33.dtso  | 55 +++++++++++++++++++
- .../dts/freescale/imx93-var-dart-sonata.dts   |  2 +-
- .../boot/dts/freescale/imx93-var-dart.dtsi    |  1 -
- .../freescale/imx93-var-som-symphony-m33.dtso | 50 +++++++++++++++++
- 6 files changed, 117 insertions(+), 2 deletions(-)
- create mode 100644 arch/arm64/boot/dts/freescale/imx93-var-dart-sonata-m33.dtso
- create mode 100644 arch/arm64/boot/dts/freescale/imx93-var-som-symphony-m33.dtso
+sess->vq_lock is also assigned to vq->lock and m2m_ctx->q_lock, which
+videobuf2 expects to stay held across prepare_streaming() and
+start_streaming() until q->streaming is set.  When staged controls are
+applied, mali_vpu_session_prepare_streaming() sets port->stream_requested =
+=3D
+true and then drops sess->vq_lock inside mali_vpu_session_wait_pending()
+while q->streaming is still 0:
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index cfd548284358..05a7556e9de9 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -956,8 +956,17 @@ dtb-$(CONFIG_ARCH_MXC) += imx93-tqma9352-mba93xxca-lvds-tm070jvhg33.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-tqma9352-mba93xxla-lvds-tm070jvhg33.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-tqma9352-mba93xxla-mini-ezurio-wlan.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-tqma9352-mba93xxla-mini-lvds-tm070jvhg33.dtb
-+
-+imx93-var-dart-sonata-m33-dtbs := imx93-var-dart-sonata.dtb imx93-var-dart-sonata-m33.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx93-var-dart-sonata.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx93-var-dart-sonata-m33.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx93-var-dart-sonata-m33.dtbo
-+
-+imx93-var-som-symphony-m33-dtbs := imx93-var-som-symphony.dtb imx93-var-som-symphony-m33.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx93-var-som-symphony.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx93-var-som-symphony-m33.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx93-var-som-symphony-m33.dtbo
-+
- dtb-$(CONFIG_ARCH_MXC) += imx93w-evk.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93w-frdm.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx943-evk.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx93-var-common-m33.dtsi b/arch/arm64/boot/dts/freescale/imx93-var-common-m33.dtsi
-index de0e56f322a2..51b4cfe143d4 100644
---- a/arch/arm64/boot/dts/freescale/imx93-var-common-m33.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx93-var-common-m33.dtsi
-@@ -14,6 +14,8 @@ &mu1 1 1
- 		  &mu1 3 1>;
- 	memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
- 			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
-+	memory-region-names = "vdev0buffer", "vdev0vring0", "vdev0vring1",
-+			      "vdev1vring0", "vdev1vring1", "rsc-table";
- 	status = "okay";
- };
- 
-diff --git a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata-m33.dtso b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata-m33.dtso
-new file mode 100644
-index 000000000000..51ec0beea7c9
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata-m33.dtso
-@@ -0,0 +1,55 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Cortex-M33 support for Variscite DART-MX93 on Sonata-Board
-+ *
-+ * Link: https://variscite.com/carrier-boards/sonata-board/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include "imx93-var-common-m33.dtsi"
-+
-+/* Reserve the peripherals used by the Cortex-M33 firmware. */
-+&flexcan1 {
-+	status = "reserved";
-+};
-+
-+&gpio4 {
-+	status = "reserved";
-+};
-+
-+&lpspi5 {
-+	status = "reserved";
-+};
-+
-+/* Disable Bluetooth along with Wi-Fi and release the JTAG pins. */
-+&lpuart5 {
-+	status = "disabled";
-+};
-+
-+&lpuart7 {
-+	status = "reserved";
-+};
-+
-+/* The USB-C role controller uses an interrupt on GPIO4. */
-+&ptn5150 {
-+	status = "disabled";
-+};
-+
-+/* The USB-C role controller is unavailable. */
-+&usbotg1 {
-+	status = "disabled";
-+};
-+
-+/* Wi-Fi reset is connected to GPIO4. */
-+&usdhc3 {
-+	status = "disabled";
-+};
-+
-+&wifi_pwrseq {
-+	status = "disabled";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
-index 1ca3ec8330d0..e3afd0efe5c7 100644
---- a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
-+++ b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
-@@ -291,7 +291,7 @@ ft5x06_ts: touchscreen@38 {
- 	};
- 
- 	/* USB Type-C Controller */
--	typec@3d {
-+	ptn5150: typec@3d {
- 		compatible = "nxp,ptn5150";
- 		reg = <0x3d>;
- 		interrupt-parent = <&gpio4>;
-diff --git a/arch/arm64/boot/dts/freescale/imx93-var-dart.dtsi b/arch/arm64/boot/dts/freescale/imx93-var-dart.dtsi
-index 4ee4d74cadea..6c596d61bd21 100644
---- a/arch/arm64/boot/dts/freescale/imx93-var-dart.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx93-var-dart.dtsi
-@@ -12,7 +12,6 @@
- 
- #include <dt-bindings/usb/pd.h>
- #include "imx93.dtsi"
--#include "imx93-var-common-m33.dtsi"
- 
- / {
- 	model = "Variscite DART-MX93 Module";
-diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony-m33.dtso b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony-m33.dtso
-new file mode 100644
-index 000000000000..8df03ed3c004
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony-m33.dtso
-@@ -0,0 +1,50 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Cortex-M33 support for Variscite VAR-SOM-MX93 on Symphony-Board
-+ *
-+ * Link: https://variscite.com/carrier-boards/symphony-board/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include "imx93-var-common-m33.dtsi"
-+
-+/* The resistive touchscreen uses GPIO4. */
-+&ads7846 {
-+	status = "disabled";
-+};
-+
-+/* Reserve the peripherals used by the Cortex-M33 firmware. */
-+&flexcan1 {
-+	status = "reserved";
-+};
-+
-+&gpio4 {
-+	status = "reserved";
-+};
-+
-+&lpspi6 {
-+	status = "reserved";
-+};
-+
-+/* Disable Bluetooth along with Wi-Fi and release the JTAG pins. */
-+&lpuart5 {
-+	status = "disabled";
-+};
-+
-+&lpuart7 {
-+	status = "reserved";
-+};
-+
-+/* Wi-Fi reset is connected to GPIO4. */
-+&usdhc3 {
-+	status = "disabled";
-+};
-+
-+&usdhc3_pwrseq {
-+	status = "disabled";
-+};
--- 
-2.47.3
+CPU0                                  CPU1
+vb2_core_streamon(q)
+  mali_vpu_vb2_prepare_streaming(q)
+    port->stream_requested =3D true
+    mali_vpu_session_fw_init()
+      mali_vpu_apply_staged_controls()
+      mali_vpu_session_wait_pending()
+        mutex_unlock(&sess->vq_lock)
+                                      vb2_core_streamon(q)
+                                        /* q->streaming is still 0 */
+                                        mali_vpu_vb2_prepare_streaming(q)
+                                          if (port->stream_requested)
+                                            return 0;
+                                        vb2_start_streaming(q)
+        mutex_lock(&sess->vq_lock)
+  vb2_start_streaming(q)  <-- corrupts q_ctx->rdy_queue list
 
+Because both threads run vb2_start_streaming(q), the queued buffers are
+passed to mali_vpu_vb2_buffer_queue() -> v4l2_m2m_buf_queue() twice,
+corrupting q_ctx->rdy_queue via double list_add_tail() and double
+incrementing q->owned_by_drv_count.
+
+Dropping sess->vq_lock here exposes three other races while waiting:
+- sess->fw_requested_state is not set to MALI_VPU_FW_STATE_RUNNING until
+  mali_vpu_session_fw_send_state() after mali_vpu_session_wait_pending()
+  returns, so a concurrent streamon on the other port (or against the
+  asynchronous mali_vpu_session_fw_bin_ready() callback) sees
+  fw_requested_state =3D=3D fw_state =3D=3D MALI_VPU_FW_STATE_STOPPED and r=
+e-enters
+  mali_vpu_session_fw_init(), sending duplicate job and ping requests.
+- If another thread calls VIDIOC_STREAMOFF while sess->vq_lock is dropped,
+  !mali_vpu_session_can_stream(sess) returns 0 to vb2_core_streamon(),
+  which still sets q->streaming =3D 1 even though port->stream_requested was
+  cleared and the firmware remains stopped.
+- A concurrent VIDIOC_REQBUFS(0) can enter __vb2_queue_cancel() and free
+  buffers while vb2_core_streamon() is still in flight.
+
+[ ... ]
+
+> @@ -243,6 +433,21 @@ int mali_vpu_session_cleanup(struct mali_vpu_session=
+ *sess)
+>  			sess->fw_bin_state =3D MALI_VPU_SESSION_FW_BIN_FAILED;
+>  	}
+> =20
+> +	if (sess->fw_bin_state =3D=3D MALI_VPU_SESSION_FW_BIN_READY)
+> +		fw_stop_ret =3D mali_vpu_session_fw_stop(sess);
+
+[Severity: Medium]
+Can mali_vpu_session_cleanup() hang for 10 seconds in
+mali_vpu_session_fw_stop() when the firmware binary is ready but no LSID is
+mapped?
+
+Unlike mali_vpu_session_streamoff(), which returns early when
+!sess->sched_sess.lsid, mali_vpu_session_cleanup() calls
+mali_vpu_session_fw_stop() -> mali_vpu_session_wait_pending() without
+checking sess->sched_sess.lsid.  Meanwhile, mali_vpu_apply_or_stage_ctrl()
+sends MVE_REQUEST_CODE_SET_OPTION immediately whenever fw_bin_state is
+MALI_VPU_SESSION_FW_BIN_READY, even if sess->sched_sess.lsid is NULL:
+
+drivers/media/platform/arm/mali-vpu/mali-vpu-controls.c:mali_vpu_apply_or_s=
+tage_ctrl() {
+	...
+	staged =3D sess->fw_bin_state !=3D MALI_VPU_SESSION_FW_BIN_READY;
+
+	if (!staged) {
+		ret =3D desc->set(sess, state->cid, value);
+		if (ret)
+			return ret;
+	}
+	...
+}
+
+If fw_bin_state reaches MALI_VPU_SESSION_FW_BIN_READY without an active LSID
+(for example, when CAPTURE is prepared while OUTPUT is stopped, or when
+mali_vpu_sched_switch_in() fails with -EBUSY because another session holds
+LSID 0) and userspace sets a control before closing the fd,
+sess->fw.pending_response_count is incremented for an unscheduled firmware
+instance and mali_vpu_session_cleanup() blocks until the 10-second
+mali_vpu_fw_response_timeout_ms expires.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119153758.1426=
+673-1-charvi.mehta@arm.com?part=3D19
