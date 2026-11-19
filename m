@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.92.40.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795099586;
-	b=PVnYvNY3LmSsLXVpuLiLF0/cOR/BmKwQPcwNeJ05HYaXsfT3JHLX7+argWeI94nxAZTy
-	 VDAUDtPOmRCZvVY3JZd4Xz6dyteogpU87+uQK+9HsCcA6TnoboFVQH1vGEULEbrmm6FXk
-	 qsu4nm4FEc5X6MoheWiZJZJy7rCcmtNkTjpFAT8zULe67BzIFLCsjfMOhZ6PfKsOb0lHE
-	 myXSH0v1CGfifuB56ccJWbgBiYNws37Yy26yWbRii2//bxQ7PokNIsDae7ZNEbveQZMqt
-	 nPxjtGWVpE9pL1Nwo05i1qdkp49iTafbUHlobnuZ1T0SmatNKt+3m+DL7utpA4Ak39A==
+	t=1795099639;
+	b=dzG4nUkAHwS1bWtkF88STJzw2L+IHUMgGcneVUeedvVuJyBqXGHSr+RMZ224LJk7bEfl
+	 rx7mI5lVQ2rEZgnI3JVJNG1jP6fwx7/jFsW0C6JDORYgksHrVDS0nDmm8qFnSo6VAqer5
+	 K9tQGP+OPHuSBJTZ5IXuSFx9AYsYqNrpQEsuEA5diffM5wMaLDKFgaLPZICVzdRyPWr1r
+	 lG6+GOBantxG74R+KIhZGhxeq9n740Yg4bYNua926biA7sxGgHcXveQCc5LlfppPg69a+
+	 ul/FvlB5aQxNXR4fHw9gUBCrSmLe3YEeH/0FL3EWbmt4PP/ByMVuPZY32UU5qaV7Omw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795099586;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:User-Agent:
-	 X-Last-TLS-Session-Version;
-	bh=mjnwJhgivOtcVF1fvsobspXXgbNjrXo23hOqgODgs+4=;
-	b=xVoSCjpwrQTVv/Gv7CEXYC9Pfg7yU+PUX//qwILFckIUhp+abRdbtuNPCdHR+shCH8qB
-	 STGJRcs62szdO2yJUojCDbwrKR2BZdIcVWi1ttSPC5koPb00NSKfhXFU8KPKFNZIzRCqU
-	 zdbu5RKwd57eV8plovt8+aZvKh07a0fZniIs04AR2GKh+Hfc9jHj3YfB9rkgaeAoOmsw9
-	 3ngdh/xmuOh7K5lXJJi/4rjIYjiL9aw0MEZpP1v1rc2bunxrkXaMoHTlJiT1b3M687OuR
-	 cJaSAjg3cED4eGkF+7/TM0HOsZoLgZh2qChxXGULZt6Q4vE9yJkkgYr2JosbbWyLOXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795099639;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vITMaRYl8N/4FX6Ub/CtOdFIyxibL9pIfaPhRC74PEQ=;
+	b=c4s7s+uBGi5bJojLt53GLEUgIluH3eBjsMhqMJVwLsNX2YKnRD47l+RVZ6MHZ5wS7oUn
+	 Q8KZLZsqTZb7+MnHAsYCikwiHbvxC81b/KP5VVEwEiHT1yVL/zMLrqBWxGWt6+q2aYIme
+	 oFgkE6RPRq/Zn0TeMfnPql97LewaB2QHHVJeFiESZ6fzNKG6Nauy06QCXSPU7acOaaWAA
+	 M3j3WuBEqyKu35EnShEz4nLUGpsjZQf9Hqi9Tsy+DtXoW0pajF14hFPZnSxuj30uZOKye
+	 /S2qS0VxkDvY7lkS0ZrCvl+Zm7o1LMKmOpLO/vu//tzgdX6OsDBDwA659MY85ttKWHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=thorsis.com;
-	spf=pass smtp.mailfrom=thorsis.com;
-	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b="fCrb/VIV";
-	arc=none smtp.remote-ip=217.92.40.78
-Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=TrJluSdU;
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4C7606A320;
-	Thu, 19 Nov 2026 14:46:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE4C7606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071BF606A32C
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 14:47:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 071BF606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=fCrb/VIV
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4B9BE1483638;
-	Thu, 19 Nov 2026 15:46:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
-	t=1795099583; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=mjnwJhgivOtcVF1fvsobspXXgbNjrXo23hOqgODgs+4=;
-	b=fCrb/VIVTWaNGQl9fgtlyLOU+Rq2w+qEzTSqxh3/njn+IeyBA56fMqPkY0CCZgzMtECFQm
-	1OiPLwIArYkxsrYrlRHzI+aUH9wK2QQYxlCu3aKInZ8/jBSeBxX6YjwNqjUJ2OHCVW59hY
-	icri4rUwWpQUiAIupc/KOYpsK6RNnKNARTk3m/UO1pXqJVmmNMwbW50V9sOBrM2eecic6i
-	oWKIMzcjzQRuF+CW50waJWV09jBdt3uxnuCFgt9GtnRjW5pmYDisr9jKCNwvdXbk8t6toe
-	722kOloQYJSoWe/wEC5ootIzoIOp+fcg0ug5xASQiSUwa4TCxqDtPxgwe36F8A==
-Date: Thu, 19 Nov 2026 15:46:12 +0100
-From: Alexander Dahl <ada@thorsis.com>
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: Alexander Dahl <ada@thorsis.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH v4 02/16] dt-bindings: clock: at91: Split up per SoC
- partially
-Message-ID: <20261119-bruising-peroxide-4f2c3211155a@thorsis.com>
-Mail-Followup-To: Claudiu Beznea <claudiu.beznea@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
-References: <20261105110715.2486432-1-ada@thorsis.com>
- <20261105110715.2486432-3-ada@thorsis.com>
- <0f0cc1da-46dc-431e-a10d-dcbbf7419960@kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=TrJluSdU
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6ba1e22ff4dso659252a12.2
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 06:47:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1795099637; x=1795704437; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vITMaRYl8N/4FX6Ub/CtOdFIyxibL9pIfaPhRC74PEQ=;
+        b=TrJluSdUX+LCPAOrAOhA6LjHqBXkXzXdZYzjMx55+3fdDm8qXlIDbcwPLeFn5iEV8L
+         81q7PJ6vKUHawD3zzMlIVK3s0qlUxABF9nlbI1HhyjHFLneVa4qFHXHBTQ30Wd2+GFaT
+         N5U8a7+EgH75s8BGxVtnefpvkPJZTUdEf4siNc2UfCxyTzsphHLg2wBwxKJih/LDuApL
+         eWknL1aAzPN20X8Bum1bME8KDVnaD0j71ulUclw9QS9pjmPRMYD1rEO0Cg7cEQJUz7M2
+         /E2vbBN1hhBaN1oikSCwHN6vsJoji+hAK43fX4HYQaXsr2i5I4wC+SL3M+HaQAYn82fy
+         hy+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795099637; x=1795704437;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vITMaRYl8N/4FX6Ub/CtOdFIyxibL9pIfaPhRC74PEQ=;
+        b=TqM7FJcJTcbUUWnYv5tAwOOP39igVDmvze6qIXObE0rWhJ3nfpci5179EPXEVWho9t
+         w1m1XBsLIyiLO3Ajd68AX3L8Lgq7FN0W/U8cIGIUa0+zYp46axz7R0s6mguL3a4vJbWs
+         dGgVFlhmskd4lXN7UEwbZmUrelpz6twCGbI6ufbK4bWvIRS0tGsK76bM0jTynPYM4ZtW
+         8B7wUNxzfAyjrrVIud88vXDUT4E9NG8lT3vGeevHKt/2edH2hdi/se34whoBa8LX8YGp
+         TUDe1z6DfH2K74V4JWBwQ9ICtPNgQ2vrjUlrpR7K5Auhw+dmYUci1OwAGkM5LER+kE+d
+         RFsQ==
+X-Forwarded-Encrypted: i=1; AL+hErE9leeUw2rV/JXQN/gcFOFqauVO36rjr4Bqop34wIzPDfl2D66d4UMVE4pFg/sLUVGnHRiMDhiZzNXq@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sSLVS6J27/CJCULA7k+lvadhWuks9u/5v3NqNqhDN/QQBEJZb
+	JvbtUm98g9UsivJe6UFkm7e9+SXzbSsgO9SDvs7dN09WX7DsQVuyj2fqRQEifIC+tEXWmtCf2gi
+	v6/NuNtJI/g==
+X-Gm-Gg: AYBFou3imNdhAihtrkqpf6i9FlBKOfh59n6M+w9IYNhhOQrn+twiLHUBFUDzYrYF2nT
+	BG62lpgdVLOBN5V0Jey1dSFUzT6RygOHMpWmfOO9hKzQWKSC1FK/9LUAZX80UbikyeU8UuweD07
+	29+reLkMISZeHfmG2Z8e7efA+GRRmqEuITGxFw1ovEyf2IYh5k3Gk8O1Vws9O+nZUkDrvMhrsKG
+	2thMbLBY0LDSmZlbcuw1KJzIWHgc0+HVi1GSKNkYvXZCo4aOz9zU+6GFhc4FPo3mh/1QHE0fAuM
+	GVN5FpQzhcwez5V3OrItPiHCOvUMrFQtcEv6BFUjqHw6Y7xNePDfhJXhG/jaBYIT+D96OrOmYHg
+	Yb3IUTQzQKet3aOuxgHStMnEDlcDAadkl5DZ+S8omlbB/0PjIpYEAStXi20LQMp6vuI+s8oumkD
+	/DPYoOZ3tGIu2lXL1zsbIcPoQSDC1EtR6adWv28NJ81FQuT7aDagzSWXLlbtKBAoQcLVOoYl7mj
+	NH57NDYlu2ktqGfTBFLrudWXj2hebaDSiG/EQRvfbE9mhJEqRQF7KJNX0zbgCmkROm5Q8yuVaci
+	7+4yA4iRMFcIHkid3fUWgW53fIzV3qEq6QJZkI3xBPDHMv97jtR1Ykhh7Q==
+X-Received: by 2002:aa7:c7d5:0:b0:6b6:ea98:2539 with SMTP id 4fb4d7f45d1cf-6b9095b57admr2564430a12.6.1795099637250;
+        Thu, 19 Nov 2026 06:47:17 -0800 (PST)
+Received: from [192.168.1.62] (140.30.66.37.rev.sfr.net. [37.66.30.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b88993e08csm2579854a12.6.2026.11.19.06.47.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 19 Nov 2026 06:47:16 -0800 (PST)
+Message-ID: <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
+Date: Thu, 19 Nov 2026 15:47:15 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,362 +93,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0f0cc1da-46dc-431e-a10d-dcbbf7419960@kernel.org>
-User-Agent: Mutt/2.2.13 (2024-03-09)
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 00/15] R-Car X5H Ironhide CPG/MDLC SCMI remapping
+ support
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Paul Elder <paul.elder+renesas@ideasonboard.com>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>
+Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <cover.1795029012.git.geert+renesas@glider.be>
+Content-Language: en-US, fr
+From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
+Autocrypt: addr=clegoffic@baylibre.com; keydata=
+ xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
+ K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
+ BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
+ Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
+ AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
+ B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
+ 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
+ LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
+ vLfPDQ==
+In-Reply-To: <cover.1795029012.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello Claudiu,
+Hi Geert,
 
-Am Sun, Nov 15, 2026 at 04:35:23PM +0200 schrieb Claudiu Beznea:
-> Hi, Alexaner,
+On 11/18/26 8:44 PM, Geert Uytterhoeven wrote:
+> 	Hi all,
 > 
-> On 11/5/26 13:06, Alexander Dahl wrote:
-> > Before adding even more new indexes creating more holes in the
-> > clk at91 drivers pmc_data->chws arrays, split this up.
-> > 
-> > This is a partial split up only for some of the old PMC definitions.
-> > 
-> > Binding splitup was proposed for several reasons:
-> > 
-> > 1) keep the driver code simple, readable, and efficient
-> > 2) avoid accidental array index duplication
-> > 3) avoid memory waste by creating more and more unused array members.
-> > 
-> > Old values are kept to not break dts, and to maintain dt ABI.
-> > 
-> > Link: https://lore.kernel.org/linux-devicetree/20250207-jailbird-circus-bcc04ee90e05@thorsis.com/T/#u
-> > Signed-off-by: Alexander Dahl <ada@thorsis.com>
-> > ---
-> > 
-> > Notes:
-> >      v4:
-> >      - "re-added" some definitions present in hardware but not used in dt
-> >      - reword header comment (at91 -> Microchip) for newer SoCs
-> >      - PMC_UTMI was renamed where appropriate according to datasheets
-> >      v3:
-> >      - full splitup for all at91 family SoCs instead of just a few
-> >      v2:
-> >      - new patch, not present in v1
-> > 
-> >   .../reset/atmel,at91sam9260-reset.yaml        |  3 ++-
-> >   .../bindings/usb/atmel,at91sam9rl-udc.yaml    |  3 ++-
-> >   .../dt-bindings/clock/atmel,at91rm9200-pmc.h  | 16 ++++++++++++
-> >   .../dt-bindings/clock/atmel,at91sam9260-pmc.h | 16 ++++++++++++
-> >   .../dt-bindings/clock/atmel,at91sam9g45-pmc.h | 16 ++++++++++++
-> >   .../dt-bindings/clock/atmel,at91sam9n12-pmc.h | 16 ++++++++++++
-> >   .../dt-bindings/clock/atmel,at91sam9rl-pmc.h  | 16 ++++++++++++
-> >   .../dt-bindings/clock/atmel,at91sam9x5-pmc.h  | 16 ++++++++++++
-> >   include/dt-bindings/clock/atmel,sama5d2-pmc.h | 20 ++++++++++++++
-> >   include/dt-bindings/clock/atmel,sama5d3-pmc.h | 16 ++++++++++++
-> >   include/dt-bindings/clock/atmel,sama5d4-pmc.h | 17 ++++++++++++
-> >   .../dt-bindings/clock/microchip,sam9x60-pmc.h | 15 +++++++++++
-> >   .../dt-bindings/clock/microchip,sam9x7-pmc.h  | 19 ++++++++++++++
-> >   .../clock/microchip,sama7d65-pmc.h            | 26 +++++++++++++++++++
-> >   .../dt-bindings/clock/microchip,sama7g5-pmc.h | 23 ++++++++++++++++
-> >   15 files changed, 236 insertions(+), 2 deletions(-)
-> >   create mode 100644 include/dt-bindings/clock/atmel,at91rm9200-pmc.h
-> >   create mode 100644 include/dt-bindings/clock/atmel,at91sam9260-pmc.h
-> >   create mode 100644 include/dt-bindings/clock/atmel,at91sam9g45-pmc.h
-> >   create mode 100644 include/dt-bindings/clock/atmel,at91sam9n12-pmc.h
-> >   create mode 100644 include/dt-bindings/clock/atmel,at91sam9rl-pmc.h
-> >   create mode 100644 include/dt-bindings/clock/atmel,at91sam9x5-pmc.h
-> >   create mode 100644 include/dt-bindings/clock/atmel,sama5d2-pmc.h
-> >   create mode 100644 include/dt-bindings/clock/atmel,sama5d3-pmc.h
-> >   create mode 100644 include/dt-bindings/clock/atmel,sama5d4-pmc.h
-> >   create mode 100644 include/dt-bindings/clock/microchip,sam9x60-pmc.h
-> >   create mode 100644 include/dt-bindings/clock/microchip,sam9x7-pmc.h
-> >   create mode 100644 include/dt-bindings/clock/microchip,sama7d65-pmc.h
-> >   create mode 100644 include/dt-bindings/clock/microchip,sama7g5-pmc.h
-> > 
-> > diff --git a/Documentation/devicetree/bindings/reset/atmel,at91sam9260-reset.yaml b/Documentation/devicetree/bindings/reset/atmel,at91sam9260-reset.yaml
-> > index 84c4801df8d9a..8c89ccc3d6393 100644
-> > --- a/Documentation/devicetree/bindings/reset/atmel,at91sam9260-reset.yaml
-> > +++ b/Documentation/devicetree/bindings/reset/atmel,at91sam9260-reset.yaml
-> > @@ -67,9 +67,10 @@ additionalProperties: false
-> >   examples:
-> >     - |
-> >       #include <dt-bindings/clock/at91.h>
-> > +    #include <dt-bindings/clock/atmel,at91sam9260-pmc.h>
-> >       reset-controller@fffffd00 {
-> >           compatible = "atmel,at91sam9260-rstc";
-> >           reg = <0xfffffd00 0x10>;
-> > -        clocks = <&pmc PMC_TYPE_CORE PMC_SLOW>;
-> > +        clocks = <&pmc PMC_TYPE_CORE AT91SAM9260_PMC_SLOW>;
-> >       };
-> > diff --git a/Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.yaml b/Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.yaml
-> > index cdbbd17f80363..15f5bb51fd8a7 100644
-> > --- a/Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.yaml
-> > +++ b/Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.yaml
-> > @@ -61,13 +61,14 @@ examples:
-> >     - |
-> >       #include <dt-bindings/interrupt-controller/irq.h>
-> >       #include <dt-bindings/clock/at91.h>
-> > +    #include <dt-bindings/clock/atmel,at91sam9rl-pmc.h>
-> >       #include <dt-bindings/gpio/gpio.h>
-> >       gadget@fff78000 {
-> >           compatible = "atmel,at91sam9g45-udc";
-> >           reg = <0x00600000 0x80000
-> >                  0xfff78000 0x400>;
-> >           interrupts = <27 IRQ_TYPE_LEVEL_HIGH 0>;
-> > -        clocks = <&pmc PMC_TYPE_PERIPHERAL 27>, <&pmc PMC_TYPE_CORE PMC_UTMI>;
-> > +        clocks = <&pmc PMC_TYPE_PERIPHERAL 27>, <&pmc PMC_TYPE_CORE AT91SAM9RL_PMC_UTMI>;
-> >           clock-names = "pclk", "hclk";
-> >           atmel,vbus-gpio = <&pioC 15 GPIO_ACTIVE_HIGH>;
-> >       };
-> > diff --git a/include/dt-bindings/clock/atmel,at91rm9200-pmc.h b/include/dt-bindings/clock/atmel,at91rm9200-pmc.h
-> > new file mode 100644
-> > index 0000000000000..35fce34e00b82
-> > --- /dev/null
-> > +++ b/include/dt-bindings/clock/atmel,at91rm9200-pmc.h
-> > @@ -0,0 +1,16 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-> > +/*
-> > + * The constants defined in this header are being used in dts and in
-> > + * at91rm9200 clock driver.
-> > + */
-> > +
-> > +#ifndef _DT_BINDINGS_CLOCK_ATMEL_AT91RM9200_PMC_H
-> > +#define _DT_BINDINGS_CLOCK_ATMEL_AT91RM9200_PMC_H
-> > +
-> > +#define AT91RM9200_PMC_SLOW	0
+> TL;DR:
 > 
-> This is not used anywhere anywhere accross the current code base. Let's drop it.
+>     Describe hardware in DT, and perform mapping to abstractions offered
+>     by SCMI in Linux.
 
-Fine.  I added this after your feedback on v3 of the series [1],
-probably misinterpreted what you meant.  v5 will be reduced by some
-definitions again and keep the PLLs in the sama7 SoCs.
+A question on the approach
+An SCMI variant DT could mark the CPG and MDLC status = "reserved" and point the consumers at arm,scmi, while the U-Boot IPL keeps the hardware DT.
+Since v4, the series assumes the SCMI ids are stable:
 
-> > +#define AT91RM9200_PMC_MCK	1
-> > +#define AT91RM9200_PMC_MAIN	3
-> > +#define AT91RM9200_PMC_PLLACK	7
-> > +#define AT91RM9200_PMC_PLLBCK	8
-> > +
-> > +#endif
-> > diff --git a/include/dt-bindings/clock/atmel,at91sam9260-pmc.h b/include/dt-bindings/clock/atmel,at91sam9260-pmc.h
-> > new file mode 100644
-> > index 0000000000000..6a5453cf70954
-> > --- /dev/null
-> > +++ b/include/dt-bindings/clock/atmel,at91sam9260-pmc.h
-> > @@ -0,0 +1,16 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-> > +/*
-> > + * The constants defined in this header are being used in dts and in
-> > + * at91sam9260 clock driver.
-> > + */
-> > +
-> > +#ifndef _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9260_PMC_H
-> > +#define _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9260_PMC_H
-> > +
-> > +#define AT91SAM9260_PMC_SLOW	0
-> > +#define AT91SAM9260_PMC_MCK	1
-> > +#define AT91SAM9260_PMC_MAIN	3
-> > +#define AT91SAM9260_PMC_PLLACK	7
-> > +#define AT91SAM9260_PMC_PLLBCK	8
-> > +
-> > +#endif
-> > diff --git a/include/dt-bindings/clock/atmel,at91sam9g45-pmc.h b/include/dt-bindings/clock/atmel,at91sam9g45-pmc.h
-> > new file mode 100644
-> > index 0000000000000..44a804ff96fff
-> > --- /dev/null
-> > +++ b/include/dt-bindings/clock/atmel,at91sam9g45-pmc.h
-> > @@ -0,0 +1,16 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-> > +/*
-> > + * The constants defined in this header are being used in dts and in
-> > + * at91sam9g45 clock driver.
-> > + */
-> > +
-> > +#ifndef _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9G45_PMC_H
-> > +#define _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9G45_PMC_H
-> > +
-> > +#define AT91SAM9G45_PMC_SLOW	0
-> 
-> This is not used. Lets introduce it when needed
-> 
-> > +#define AT91SAM9G45_PMC_MCK	1
-> > +#define AT91SAM9G45_PMC_UPLLCK	2
-> > +#define AT91SAM9G45_PMC_MAIN	3
-> > +#define AT91SAM9G45_PMC_PLLACK	7
-> > +
-> > +#endif
-> > diff --git a/include/dt-bindings/clock/atmel,at91sam9n12-pmc.h b/include/dt-bindings/clock/atmel,at91sam9n12-pmc.h
-> > new file mode 100644
-> > index 0000000000000..6eaef69242ee8
-> > --- /dev/null
-> > +++ b/include/dt-bindings/clock/atmel,at91sam9n12-pmc.h
-> > @@ -0,0 +1,16 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-> > +/*
-> > + * The constants defined in this header are being used in dts and in
-> > + * at91sam9n12 clock driver.
-> > + */
-> > +
-> > +#ifndef _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9N12_PMC_H
-> > +#define _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9N12_PMC_H
-> > +
-> > +#define AT91SAM9N12_PMC_SLOW	0
-> 
-> Not used.
-> 
-> > +#define AT91SAM9N12_PMC_MCK	1
-> > +#define AT91SAM9N12_PMC_MAIN	3
-> > +#define AT91SAM9N12_PMC_PLLACK	7
-> > +#define AT91SAM9N12_PMC_PLLBCK	8
-> > +
-> > +#endif
-> > diff --git a/include/dt-bindings/clock/atmel,at91sam9rl-pmc.h b/include/dt-bindings/clock/atmel,at91sam9rl-pmc.h
-> > new file mode 100644
-> > index 0000000000000..0bb195712f785
-> > --- /dev/null
-> > +++ b/include/dt-bindings/clock/atmel,at91sam9rl-pmc.h
-> > @@ -0,0 +1,16 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-> > +/*
-> > + * The constants defined in this header are being used in dts and in
-> > + * at91sam9rl clock driver.
-> > + */
-> > +
-> > +#ifndef _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9RL_PMC_H
-> > +#define _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9RL_PMC_H
-> > +
-> > +#define AT91SAM9RL_PMC_SLOW	0
-> 
-> Not used.
-> 
-> > +#define AT91SAM9RL_PMC_MCK	1
-> > +#define AT91SAM9RL_PMC_UTMI	2
-> 
-> Manual also refers to this as UPLL (UTMI PLL). E.g.
-> 
-> "26.5 Main Oscillator
-> The Main Oscillator is designed for a 12 MHz fundamental crystal. The 12 MHz
-> is also used to
-> generate the 480 MHz USB High Speed Clock (HSCK) thanks to the UTMI PLL (UPLL)."
-> 
-> [1] https://ww1.microchip.com/downloads/en/DeviceDoc/doc6289.pdf
+>   - Remove dependencies by making assumptions and dropping disputed
+>     items, to move this series forward:
+>       - Assume all SCMI IDs are stable.
+If they are, why not using them in the DT directly?
 
-Well, that old datasheet is full of variants for this, we have UPLL,
-HSCK, UTMI PLL, USBHSCK, and UTMI Clock.  I rename it to
-AT91SAM9RL_PMC_UPLLCK so it is in line with the other old SoCs.
+On partitioning, the cover letter says:
 
-> 
-> > +#define AT91SAM9RL_PMC_MAIN	3
-> > +#define AT91SAM9RL_PMC_PLLACK	7
-> > +
-> > +#endif
-> > diff --git a/include/dt-bindings/clock/atmel,at91sam9x5-pmc.h b/include/dt-bindings/clock/atmel,at91sam9x5-pmc.h
-> > new file mode 100644
-> > index 0000000000000..d095dcc9b29ff
-> > --- /dev/null
-> > +++ b/include/dt-bindings/clock/atmel,at91sam9x5-pmc.h
-> > @@ -0,0 +1,16 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-> > +/*
-> > + * The constants defined in this header are being used in dts and in
-> > + * at91sam9x5 clock driver.
-> > + */
-> > +
-> > +#ifndef _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9X5_PMC_H
-> > +#define _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9X5_PMC_H
-> > +
-> > +#define AT91SAM9X5_PMC_SLOW	0
-> 
-> Not used.
-> 
-> > +#define AT91SAM9X5_PMC_MCK	1
-> > +#define AT91SAM9X5_PMC_UPLLCK	2
-> > +#define AT91SAM9X5_PMC_MAIN	3
-> > +#define AT91SAM9X5_PMC_PLLACK	7
-> > +
-> > +#endif
-> > diff --git a/include/dt-bindings/clock/atmel,sama5d2-pmc.h b/include/dt-bindings/clock/atmel,sama5d2-pmc.h
-> > new file mode 100644
-> > index 0000000000000..51bb410c699e2
-> > --- /dev/null
-> > +++ b/include/dt-bindings/clock/atmel,sama5d2-pmc.h
-> > @@ -0,0 +1,20 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-> > +/*
-> > + * The constants defined in this header are being used in dts and in
-> > + * at91 sama5d2 clock driver.
-> > + */
-> > +
-> > +#ifndef _DT_BINDINGS_CLOCK_ATMEL_SAMA5D2_PMC_H
-> > +#define _DT_BINDINGS_CLOCK_ATMEL_SAMA5D2_PMC_H
-> > +
-> > +#define SAMA5D2_PMC_MCK		1
-> > +#define SAMA5D2_PMC_UPLLCK	2
-> > +#define SAMA5D2_PMC_MAIN	3
-> > +#define SAMA5D2_PMC_MCK2	4
-> > +#define SAMA5D2_PMC_I2S0_MUX	5
-> > +#define SAMA5D2_PMC_I2S1_MUX	6
-> > +#define SAMA5D2_PMC_PLLACK	7
-> > +#define SAMA5D2_PMC_AUDIOPLLCK	9
-> > +#define SAMA5D2_PMC_AUDIOPINCK	10
-> > +
-> > +#endif
-> > diff --git a/include/dt-bindings/clock/atmel,sama5d3-pmc.h b/include/dt-bindings/clock/atmel,sama5d3-pmc.h
-> > new file mode 100644
-> > index 0000000000000..92210969104d6
-> > --- /dev/null
-> > +++ b/include/dt-bindings/clock/atmel,sama5d3-pmc.h
-> > @@ -0,0 +1,16 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-> > +/*
-> > + * The constants defined in this header are being used in dts and in
-> > + * at91 sama5d3 clock driver.
-> > + */
-> > +
-> > +#ifndef _DT_BINDINGS_CLOCK_ATMEL_SAMA5D3_PMC_H
-> > +#define _DT_BINDINGS_CLOCK_ATMEL_SAMA5D3_PMC_H
-> > +
-> > +#define SAMA5D3_PMC_SLOW	0
-> 
-> Not used.
-> 
-> > +#define SAMA5D3_PMC_MCK		1
-> > +#define SAMA5D3_PMC_UPLLCK	2
-> > +#define SAMA5D3_PMC_MAIN	3
-> 
-> Not used.
-> 
-> > +#define SAMA5D3_PMC_PLLACK	7
-> > +
-> > +#endif
-> > diff --git a/include/dt-bindings/clock/atmel,sama5d4-pmc.h b/include/dt-bindings/clock/atmel,sama5d4-pmc.h
-> > new file mode 100644
-> > index 0000000000000..53870448d6a1d
-> > --- /dev/null
-> > +++ b/include/dt-bindings/clock/atmel,sama5d4-pmc.h
-> > @@ -0,0 +1,17 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-> > +/*
-> > + * The constants defined in this header are being used in dts and in
-> > + * at91 sama5d4 clock driver.
-> > + */
-> > +
-> > +#ifndef _DT_BINDINGS_CLOCK_ATMEL_SAMA5D4_PMC_H
-> > +#define _DT_BINDINGS_CLOCK_ATMEL_SAMA5D4_PMC_H
-> > +
-> > +#define SAMA5D4_PMC_SLOW	0
-> 
-> Not used.
-> 
-> > +#define SAMA5D4_PMC_MCK		1
-> > +#define SAMA5D4_PMC_UPLLCK	2
-> > +#define SAMA5D4_PMC_MAIN	3
-> 
-> Not used.
-> 
-> Thank you,
-> Claudiu
+>   - The clock, reset, and power domain IDs are not stable by design,
+>     causing DT incompatibilities.
+>     SCMI requires that the ID space exposed to an agent (i.e. Linux)
+>     starts at zero and is contiguous.  Hence any change in system
+>     partitioning (Application CPU core vs. Realtime CPU core,
+>     virtualization, ...) may mean a renumbering of all SCMI IDs,
+>     implying a massive change to the DT.
 
-Thanks for your review.
+SCMI do not mandate that renumbering. The ids start at zero and are sequential, but nothing requires them to cover only the resources of one agent.
+The firmware can keep a single id space for all agents and restrict per agent what each one may use, the rest returning DENIED (SCMI 4.0, section 3.2.1).
+For virtualization, the spec has the hypervisor grant each VM its resources this way. A new VM then changes permissions, not ids.
 
-Greets
-Alex
+With a single id space, a software configuration only changes which nodes are enabled, so one DT per software configuration, a base DT plus an overlay, is enough.
+If managing many configurations ever becomes a nightmare, tools exist for it, such as Lopper from devicetree-org [1], which generate one DT per execution domain from a single system DT.
 
-[1] https://lore.kernel.org/linux-devicetree/1f25e668-ff04-4fa7-a7fd-3ed3286edbe6@tuxon.dev/
+That leaves the missing clock domain, which is a gap in SCMI itself.
 
+[1] https://github.com/devicetree-org/lopper
+
+Best regards,
+Clément
