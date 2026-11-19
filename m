@@ -1,104 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.1
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795110691;
-	b=L0ha2RmKyb7ccmU4u27B4bJb6hNUn/z4EC1rgpqtLNyS8OwqfawdAHRLf9Qd9SdnWZQ1
-	 vk0UhsLQgA/Vf6q8Jg89MYb53lccEq8aHKCBB1h1mxLiGprcj5hpCuIbLVaOTBdwAxZXT
-	 yuND5VuMUsRzRTo1clhXHSQAOigknxg0VLKg3RwVG5fAoBuF/vTjPRFSBfc8RZ4YS5amB
-	 qzYgOskwoieZ/HArdZLEnjadmC8WeawjXpmFkvUlriDybI7rgJfxdrWk7bi4xbQR1BeYa
-	 5w6JICCraeQ4xoqpbdy2seysSzuCFwt3N35NvT/BX0Iq0kpe9S89OAQ4UasGlShEWcw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795110691;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xo6vkw1TIPOF2FNQRgCrl71X6f2LpC7FTS5vWtns4Rs=;
-	b=Evp4ahAy0eHuutSpoF5Cd0IJXyva28zrlkDyRH3zvNixk88GA+gqJRLU2ZNQC3rE+Ynq
-	 oMoVxmAHfuxcJrHt4+cjgJpqiUqpI3gfr6YvJtrMqUepVzvjE67jFafU+YcvQbeRzf2Sd
-	 jlTxkBNdBjQx2pbHNpzDZ3lKco2r7BNq4Wf5wHMWB8QS3p1btQKDtkc5YbLmenQgh5Rr0
-	 aBnFydumekTeakM+XorRd/r5VklfBjBxO7M81C5sD7J2DBMi/7VN/rwhbi2KCONb4Vo/2
-	 yAPQuVLZE/GF1YJsGk7LTXa1a5PhDFCiw7EKTI/P+53gQ1tOYfBlbE8186J7O95Cc4w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=OV3Xophx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.1
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013001.outbound.protection.outlook.com [52.101.83.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2D8606A32A;
-	Thu, 19 Nov 2026 17:51:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B2D8606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=OV3Xophx
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wYKoQG59+kIRbgYwVA8cHj2Wg6Y+cLzEjGAg1IudhREUxWWDhhunv9iNSYWNmVHhZM/deR3v/SGl6RHijlG+Ij1warW46veoJ8uBaLbByYpaiaIG/kinSGk55da8IRj9XlLo1p/ovugd/suG7ynVQjgvDi3zxDrQXp2oM4ZxIpL+4oAm8YGwkqpqeMZEpul6T2Ari8BHlI7wsfOdsc+7xOw1rTZVsnKe6VWnyZusSeRwyQhsNCO4QQo3fFc58gCQ01nQk7vITBog54+xvBu+4qt6HUGUIDBu10tsdE9EvShN14eva9Ke2iGk55BI0VujsUax8WMa4HIwX+KSmfh8JQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xo6vkw1TIPOF2FNQRgCrl71X6f2LpC7FTS5vWtns4Rs=;
- b=H4o8ZdHYDnKW9v6Z6Kbt/ieSnLUUUW6tJJmrfEiK2pw9xhHl3lG+Q15ZmarAEqpva5iKx6zSPpw6MX5/tMiSJwrfRtGNZavYTPeiCBbu+KGMRWMxmvTeApSVAWDonwKhG00ZkFt+rHjVd/CL7vRieTmF4mGrX2v84NmchXIl1KuMwmnlpQbnzClosMSO6lu8UTeusMVeK74dqiZVWlQamoKYI0j3jPsxq0GJUShZjbsj8doduHW329qgwlN6B7gu+dlb/QLFEKg6pSMxtOL4t2Z8GUPq61rZv40QbPHFpE6iOPFEIPsDPdpxAsTmTgc0cdNuRTHefsLbuAKAWvqNNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xo6vkw1TIPOF2FNQRgCrl71X6f2LpC7FTS5vWtns4Rs=;
- b=OV3XophxYcxmiXB297npwFQ7YQnVnXsaE/3eJWD47kfUro5uOuDv9ER9fsQR060kkbniw5OetjJVcIpCGlE3wP9hlNMEFrUQl/reeOFD/4NgivowIMUs9OugZ4WH/TppcORbKzb6XRSSGwH/I/ogGi8IKq1x574Yn46Sg1zu29TE80PMdBzUYZ065f0BUmmcCebwF5FOZA/lDqcqRge13HWzWHjkx38bD7Ll/uWXq477m7oBUk419oxBFOKjcVsH/8rLFAupgZfXIlZ6DSjm9gV3jzmtvxs6yuYueP8cX83pdVP4XEbnjAhbDsWYG/2CZyQLVnPLtQR4GRrESZh2aQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM0PR04MB11968.eurprd04.prod.outlook.com (2603:10a6:20b:6fd::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.16; Thu, 19 Nov
- 2026 17:51:28 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
- 17:51:27 +0000
-From: Frank.Li@oss.nxp.com
-To: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	linux-bsp@toradex.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] arm64: dts: freescale: imx8mm-verdin: Fix I2C pinctrl group comments
-Date: Thu, 19 Nov 2026 12:51:18 -0500
-Message-ID: <179511062963.1527224.456768063376193159.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109180742.537977-1-francesco@dolcini.it>
-References: <20261109180742.537977-1-francesco@dolcini.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7PR13CA0007.namprd13.prod.outlook.com
- (2603:10b6:510:174::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795110703;
+	b=btpNFGDPn6xgpaPdbgRBT96EViyxwCV0GA4gicfFwA/eJdIG6cYWwqh8l7PhOTEFJ4Ew
+	 5OSIl6Pxcdl46WFWBzxOHWbOtIQ7VJLFvxlrBFHykEDDILhubNGmyChD3G3ycKjOri6C2
+	 eLDV/wAGMHHqw/ByW+jqQwa+DBHSrllRDwbSOpL66ZMcYCrv6xYk/+z55ewjX3hRjo08e
+	 bRBp2JARUVXopRAevKWPGussUbzl6W6MecAKdUNOHmmk0W9RAJONuViUzh1h8HFIgRbTQ
+	 91FKVKi6NhsdH6+Yxot+S6cBcWamaG/GQbvl0mFZBLq0xnX2OAkIFM0N1M6pkDs3vAw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795110703;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=OKPZQyJsCxKmvcu3evgCAn8bCU003kDuUuvj5pSvgRY=;
+	b=IUGCsQ/bsXlD98w2v4IQ8GyYdpjKfqLC4lgixKnYWoenVLNq/704zpE5u2iwmOc9mTZ1
+	 Kr8Nlk9W4T5Z/zNqAOMkACWLVMk/AEgXkzU6xTWqcXOXQMJ7CD8MrSygNH4z40LdS7MoK
+	 Kb0YDXZc4eupmLqvCyiG9Sl0RQqZaWewWkCLTrAFkQDgJWzKvOvu0ISai+/WYJAUOptoc
+	 w8zj2eY93H1fbqCvBqLFe1mFSgZyEe4vQc4FKULuiD+MC01QeXp40UmYxx3hBE+M3qyCV
+	 y8mQbxUdPp8JAfHkcmGe6k7miITKekk0bZspfV19gfTodgy6UckZcmWU7o1hKtlSAaw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=23.90.104.144
+Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 92ACE606A324;
+	Thu, 19 Nov 2026 17:51:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92ACE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1795110702; x=1826646702;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=4V18Tfg9Ly6MPWUMnLZiqruGXQUpnrBi9GEGXYzKK7I=;
+  b=TQi8rvKHeCWk7ottKTZIqJSvWBhS887/V8U3XhzavbuzJ1a4B9gxneal
+   06k9t4y2SGdjgmMKuBs0kTrEXQvQqIwW0QC6hXMakiwclP6toz0EJ2j0U
+   lGgyeMlD7776V/rgKRlvRF6TfFmcAKB7idVZkcfHE3qHHcBcn/cKJzQ5A
+   AuQN6lrlPablmZ2LojVB5QC+hTZQ0q+mkaZQyyiQs+drv0Htc9EgfdZsm
+   tb6dvvMBbPFDjXpPXlckv2DFevBwVxs4HiLfLPWD+gLD43f+xemG1XtLp
+   kRVQpeRTJyz80tehi46V7utsawhYJhXyKiqdq5u/FpttTOWg947lK1wdL
+   A==;
+X-CSE-ConnectionGUID: bck4BxQFSmuiqAdu90FOmw==
+X-CSE-MsgGUID: NuCP7ZcRRJWiXbhWt+3dyA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces02_data.me-corp.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 19:51:33 +0200
+X-CSE-ConnectionGUID: tengInJhRCa+VsqTvox6mw==
+X-CSE-MsgGUID: klkWn2aISdGzaE5U/QgFbw==
+Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.3])
+  by ces02_data.me-corp.lan with SMTP; 19 Nov 2026 19:59:49 +0200
+Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Thu, 19 Nov 2026 19:51:32 +0200
+From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Date: Thu, 19 Nov 2026 19:51:28 +0200
+Subject: [PATCH v3 2/7] MIPS: CM: add CM3 performance counter GCR
+ definitions
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,87 +66,128 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM0PR04MB11968:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12decc55-3772-4976-487c-08df4665bc80
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|7416014|23010399003|1800799024|19092799006|10067099003|11063799006|56012099006|261026121527099003|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	74+d4AVHDWKAiSk3OvXJTIY94iyQBPpOEqhjy+qkNFYFvhIF3+3hncjxTkLyRxrNcxoj1JU/efHck03embNZSGXzJIjM17LjddIhOFVZVNjOv+S59MoVW5UsPF8cHKArZvmKr3tkFUTBQfOx60GbgjCUsGq1zOod3tCtwYCdiTmQtKJxI8k19H3FA/LSHkHUJKJvisimEtCB7/FmSSsg7CbXGz3O/3X20bv2m7yxQCHtNZW72DCREp6X0iWuXKFjzCpbbWuLYMbbtnDGlQpgm2fy8Ut5NnaMiNfoMMz8ODwezInd4Xi/0k2SsQd8dQ6btW1fegF9HpCZpoXmcXMHTO9x06eUYmmVUia2T99EyjerUk8z3CkPii+I3aCNpTO54j+qoeRx7RJxHwMgYLuD6jiozY4+FHn0n/IscWvjW+R6C9P7axSsswjDA9gb0/NLQY3QMPSkoI8lMmOIoP6o9NDXE8ZMh2Te/ZinLf/Zq1MVrcTzuVJd7ctIWfs5kkW2G/WTm1Tet2h1XWj86pfgtalMse6BhjbffWLFxBlHv9p8qJeBakikJoKIJCp423acDv4ynJUJjGyrceERVCDfTXVqJf1c2HB80GtpApdKb/6zew2LpnegJVzhBO2soWfw7WnRPgA3066/lbU2LrBMZa78QWF9T21cgexKfOuclXQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(23010399003)(1800799024)(19092799006)(10067099003)(11063799006)(56012099006)(261026121527099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dmVMK3F4RzBjMUx1eGlLc0FjVXdNNnc5b0hBdWdERFBqemthQlZSUUJRTUJK?=
- =?utf-8?B?QkQ4VS9oWkh6OGdhM2pFUTZrZ2ZEckNBNnM2S2NEd2xOMTVJWWZjTkRHVmJi?=
- =?utf-8?B?bFVSMkdXM1VxaC81Qmx5SCszM3JROTNnRnhKL1pZU1d4NG5LYnN0QTlYTHBa?=
- =?utf-8?B?QVJ4RmQ1eW5sN2QyQzRkeHQ3QzVBemc2UThILzZhVnBwenVYMjdjcEhvWnB0?=
- =?utf-8?B?ZVB4MXNHVUxBMGlzdEZLcytSNjd0MUN0R1pqTzNITTZDTDM0WTNDVXBNWk9v?=
- =?utf-8?B?cXZBek10RStyMHozTlpaZjFWRUkvT1c0R1hsZmFCU0dKeHUyMWJNTldYUEIr?=
- =?utf-8?B?cHZaRFZhc2d2MFVMUk1aZTlHUmRueVhTWmJ0ZENnNVZ5ZkZIdDZGYmNONWNw?=
- =?utf-8?B?cmlaUmFkSXBCaXBuM2p1djVkTVRCbmhUa3RTcU1DdWZtcXVrbUx6YTVKTDFO?=
- =?utf-8?B?R2JGNFN0SkRKczhQVS9LYVVndUxlR0xiVEpBMEx3NU41ZzhOU3NyNit3djRI?=
- =?utf-8?B?UmFrZ0xDV2Q5OWlENHhrdS9vQWZwRkxKTDFHZVhXYzRYWEtNRU9nQ1VCMEM2?=
- =?utf-8?B?eWg3K3o4QkF0M1lnOGJjQml6b2VqOWhJTVIyLzU2RXlkNzlDdG9OSzFlZHpn?=
- =?utf-8?B?bytVeEk5dmI4eHV5Y0NXVEdDYmh5Tm5XNDNCM29OT2FTNHdJTFdBckRYYWRl?=
- =?utf-8?B?eWRDREZncDhWdkNVcVIrbkk5RU9zTzh1R2xnd0dWMEdnUjRJaHd1ZXhPTDlQ?=
- =?utf-8?B?QnVMV0hOV2owZjZWYXJWUU5rMVdKMHBNWk9iRXNMRjRndU14VFp1SWliTzVn?=
- =?utf-8?B?SzZxZk80RjJPT1dyNkp0S2xlRWlsdmFZOUxmQmp6aEQxNHA4SzM0a0JnWENu?=
- =?utf-8?B?Nng3WUFZM2Vud3JEalRsVGxuWitSdW5BeCtUdWVKT0ZINXNyMDlWNWhmREVs?=
- =?utf-8?B?M0lnbXRwaHlpNWFBYUJsSVRPTVJlZEZYTTk5WU5rS21pN0JBSEtFKzBsY3R0?=
- =?utf-8?B?ZmppcGdEZG51ZFdBSm9HTWg4R1U2a2xxVDh4UGZ5a25CZUUzODFiYnNuUFd6?=
- =?utf-8?B?ZUZoS2twS3VFYmlZYmVLaEZiazJDT0RaYU4wa0E0M3VLaDNFOFVvS1djTEtP?=
- =?utf-8?B?SEF3S3BJUy9KMFRrems4YlNiMHpEZEFmOW9meG9tZ2R5cDlKMUFCajlLMnhx?=
- =?utf-8?B?UzZZQ3RvdG84eTIvbkZBaXF3RDdldzQ0d2hrMk9aeVAweERqZnF5dlgvZ3lC?=
- =?utf-8?B?SEgzZll4akNLM0hQS0doR2R4d3ZxUVIxYmRESDNqemcvdDdzWXhCbUF3WmNT?=
- =?utf-8?B?RXA1RkdCY1V4QThrbm1KUmJjL2x2WVMrSjMxOWRrR2lYK3FDY1ZnampiaFQ4?=
- =?utf-8?B?SHZheHpIanlBajR2SEpPK0xLaEtwdWVMLzdJcEt0U21vNmpVRU9TdGVHaUY1?=
- =?utf-8?B?RGkvc2VRcS9PR2d0V3orMUxTSDB3OUgwaTN5SzkyVzBCdWVMNm9GNlNOZUVX?=
- =?utf-8?B?M3FRT291blV3MG1vdjlnbnp6N0RPYVVGRDJsem9aaVNxY3RWMjNlTzUzamJQ?=
- =?utf-8?B?dEgrWVlBU3ZSUzBxSy94L3dlR1A3V1poWk1RVElDbXcvZzZNUTZZMmdES1dh?=
- =?utf-8?B?MG90SDVFaXZCZGpxNFZybExqMjVJUStDNi9ERjUxdzM2bTFxYURwY2lyeWJB?=
- =?utf-8?B?dFRkTzJEZWtjSTBiUHZScHpaYWF2OXdrRUNzNFAwOXdwdEhmdW5QUWpHRXFY?=
- =?utf-8?B?N3MrVkFObnpDTUhyZWt5SGhocTJXWDQ3SjN3aFN3SWgzTG0wSzlLeVVuN3Ft?=
- =?utf-8?B?bDNUM1lSdzZzUU8rK2xOMitCcXY5c0NwNVV5TDZqUmNPK2w5cTB1WkZybXhV?=
- =?utf-8?B?WkFzdjRaU2Zjalh4UldhMFFCclRvZS9WZkJuYW1tY2VlQXlLa2pJeW5oQkVE?=
- =?utf-8?B?OVZpNkZLK3ZJdUJoRkFESFhSblJqYjhHM2dZV3RoYnJxeEd3N3Z3Q1BIL3RT?=
- =?utf-8?B?R0xYbVZKT2t6cFJ5TWpSanpNSTkrTzdSUXBJcjhXNllkQzZUUEFCNmQ2a25n?=
- =?utf-8?B?OFdwM094S3gwRHVpWk1RZ1NoaFQvbmlmNDJRODVGUW9oSHdPTCs3OHQzbDRL?=
- =?utf-8?B?Sis3bkdGQkNuZzdoaURmL2RST0t5MGNtTnR3YndWdjFhYlhOY1I5RjhzSzMx?=
- =?utf-8?B?SzlLaEdNV25qMnRtemVlWlNVZkRVLzBnZms5M3k4b0NoK1NrQjREUXR1VnRR?=
- =?utf-8?B?ZGRpOXIyRjNqcEcyNlo0LzlSSENicHBwSFlEeDB2bTE2TU9tNkVNUkZFcHIv?=
- =?utf-8?B?YmpDTkVUT0pVK1hBeDNuUytpTGw3REZ2WGc3SEpxRnI3a282ZEVCYTlSeEF2?=
- =?utf-8?Q?VaLVZSjW6wLncuuIXEq6CUBm/kU6wyCpq0EwI?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12decc55-3772-4976-487c-08df4665bc80
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 17:51:27.8970
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XRrVTVwZhUekRR9sIFvZxWueHeOT+DU0EWv55OcnA5PnKKtrAx8hS2sYkWHw+7AFTeJPA6fVuWffX6V/7FAUMJAURhDXfTvmS6fGDDEcXXalQJS/OJAvk+jIE8GBnY6q
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB11968
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261119-i6500-cm3-pmu-v3-2-c86410934b51@mobileye.com>
+References: <20261119-i6500-cm3-pmu-v3-0-c86410934b51@mobileye.com>
+In-Reply-To: <20261119-i6500-cm3-pmu-v3-0-c86410934b51@mobileye.com>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jiaxun Yang <jiaxun.yang@flygoat.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Fu Chao-Ying <chao-ying.fu@globalfoundries.com>
+Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-perf-users@vger.kernel.org, linux-hardening@vger.kernel.org
+X-Mailer: b4 0.16.0
 
-From: Frank Li <Frank.Li@nxp.com>
+The CM3 implements two programmable 32-bit performance counters and a
+32-bit cycle counter, controlled through registers in the GCR global
+debug block (GCR_DB_PC_*, offset 0x6100..0x61a8 from GCR_BASE).
 
+Add GCR_DB_ACCESSOR_{RO,RW} helpers for the debug block and define the
+control, overflow status, event select, cycle counter, qualifier and
+counter registers along with their fields, as described in the I6500
+register reference (MD01189).
 
-On Mon, 09 Nov 2026 19:07:41 +0100, Francesco Dolcini wrote:
-> The comments above the pinctrl_i2c2 and pinctrl_i2c3 groups are
-> swapped: SODIMM 55/53 is Verdin I2C_2_DSI (i2c2) and SODIMM 95/93 is
-> Verdin I2C_4_CSI (i2c3), as the controller nodes already state.
+Each accessor comes in two flavours, as the CPC ones do: db_<reg> for
+the local cluster and redir_db_<reg> for the debug block of another
+cluster through the redirect block. GCR_Cx_OTHER.BLOCK value 2 selects
+the debug block in the GCR, where the existing _BLOCK_USER name only
+describes its GIC meaning; add CM_GCR_Cx_OTHER_BLOCK_DEBUG for it.
 
-Applied, thanks!
+Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+---
+ arch/mips/include/asm/mips-cm.h | 51 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 50 insertions(+), 1 deletion(-)
 
-[1/1] arm64: dts: freescale: imx8mm-verdin: Fix I2C pinctrl group comments
-      commit: 57f450b70c583310777d868d7b1e0ad98557499f
+diff --git a/arch/mips/include/asm/mips-cm.h b/arch/mips/include/asm/mips-cm.h
+index 407f253bb4a1..390d06a8f1d1 100644
+--- a/arch/mips/include/asm/mips-cm.h
++++ b/arch/mips/include/asm/mips-cm.h
+@@ -161,6 +161,20 @@ static inline bool mips_cm_has_l2sync(void)
+ 	CPS_ACCESSOR_RW(gcr, sz, MIPS_CM_CLCB_OFS + off, cl_##name)	\
+ 	CPS_ACCESSOR_RW(gcr, sz, MIPS_CM_COCB_OFS + off, co_##name)
+ 
++/*
++ * Global debug block registers. The redir_db_* accessors reach the debug
++ * block of another cluster through the redirect block, which must have been
++ * pointed at it with mips_cm_lock_other(cluster, 0, 0,
++ * CM_GCR_Cx_OTHER_BLOCK_DEBUG).
++ */
++#define GCR_DB_ACCESSOR_RO(sz, off, name)				\
++	CPS_ACCESSOR_RO(gcr, sz, MIPS_CM_GDB_OFS + off, db_##name)	\
++	CPS_ACCESSOR_RO(gcr, sz, MIPS_CM_COCB_OFS + off, redir_db_##name)
++
++#define GCR_DB_ACCESSOR_RW(sz, off, name)				\
++	CPS_ACCESSOR_RW(gcr, sz, MIPS_CM_GDB_OFS + off, db_##name)	\
++	CPS_ACCESSOR_RW(gcr, sz, MIPS_CM_COCB_OFS + off, redir_db_##name)
++
+ /* GCR_CONFIG - Information about the system */
+ GCR_ACCESSOR_RO(64, 0x000, config)
+ #define CM_GCR_CONFIG_CLUSTER_COH_CAPABLE	BIT_ULL(43)
+@@ -357,7 +371,8 @@ GCR_CX_ACCESSOR_RW(32, 0x018, other)
+ #define CM_GCR_Cx_OTHER_BLOCK			GENMASK(25, 24)	/* CM >= 3.5 */
+ #define  CM_GCR_Cx_OTHER_BLOCK_LOCAL		0
+ #define  CM_GCR_Cx_OTHER_BLOCK_GLOBAL		1
+-#define  CM_GCR_Cx_OTHER_BLOCK_USER		2
++#define  CM_GCR_Cx_OTHER_BLOCK_USER		2	/* GIC */
++#define  CM_GCR_Cx_OTHER_BLOCK_DEBUG		2	/* GCR */
+ #define  CM_GCR_Cx_OTHER_BLOCK_GLOBAL_HIGH	3
+ #define CM_GCR_Cx_OTHER_CLUSTER			GENMASK(21, 16)	/* CM >= 3.5 */
+ #define CM3_GCR_Cx_OTHER_CORE			GENMASK(13, 8)	/* CM >= 3 */
+@@ -384,6 +399,40 @@ GCR_CX_ACCESSOR_RW(32, 0x030, reset_ext_base)
+ #define CM_GCR_Cx_RESET_EXT_BASE_BEVEXCPA	GENMASK(7, 1)
+ #define CM_GCR_Cx_RESET_EXT_BASE_PRESENT	BIT(0)
+ 
++/* GCR_DB_PC_CTL - Control of the CM3 performance counters */
++GCR_DB_ACCESSOR_RW(32, 0x100, pc_ctl)
++#define CM_GCR_DB_PC_CTL_PERF_INT_EN		BIT(30)
++#define CM_GCR_DB_PC_CTL_PERF_OVF_STOP		BIT(29)
++#define CM_GCR_DB_PC_CTL_P1_RESET		BIT(9)
++#define CM_GCR_DB_PC_CTL_P1_COUNTON		BIT(8)
++#define CM_GCR_DB_PC_CTL_P0_RESET		BIT(7)
++#define CM_GCR_DB_PC_CTL_P0_COUNTON		BIT(6)
++#define CM_GCR_DB_PC_CTL_CYCL_CNT_RESET		BIT(5)
++#define CM_GCR_DB_PC_CTL_CYCL_CNT_COUNTON	BIT(4)
++#define CM_GCR_DB_PC_CTL_PERF_NUM_CNT		GENMASK(3, 0)
++
++/* GCR_DB_PC_OV - CM3 performance counter overflow status (write 1 to clear) */
++GCR_DB_ACCESSOR_RW(32, 0x120, pc_ov)
++#define CM_GCR_DB_PC_OV_P1_OF			BIT(2)
++#define CM_GCR_DB_PC_OV_P0_OF			BIT(1)
++#define CM_GCR_DB_PC_OV_CYCL_CNT_OF		BIT(0)
++
++/* GCR_DB_PC_EVENT - CM3 performance counter event selection */
++GCR_DB_ACCESSOR_RW(32, 0x130, pc_event)
++#define CM_GCR_DB_PC_EVENT_P1_EVENT		GENMASK(15, 8)
++#define CM_GCR_DB_PC_EVENT_P0_EVENT		GENMASK(7, 0)
++
++/* GCR_DB_PC_CYCL - CM3 performance cycle counter */
++GCR_DB_ACCESSOR_RW(32, 0x180, pc_cycl)
++
++/* GCR_DB_PC_QUALn - CM3 performance counter n event qualifier */
++GCR_DB_ACCESSOR_RW(64, 0x190, pc_qual0)
++GCR_DB_ACCESSOR_RW(64, 0x1a0, pc_qual1)
++
++/* GCR_DB_PC_CNTn - CM3 performance counter n value */
++GCR_DB_ACCESSOR_RW(32, 0x198, pc_cnt0)
++GCR_DB_ACCESSOR_RW(32, 0x1a8, pc_cnt1)
++
+ /**
+  * mips_cm_l2sync - perform an L2-only sync operation
+  *
 
-Drop fixes tags because it is not user visiuable issue.
+-- 
+2.43.0
 
-Best regards,
---
-Frank Li <Frank.Li@nxp.com>
