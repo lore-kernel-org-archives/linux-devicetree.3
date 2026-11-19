@@ -1,96 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795067615;
-	b=wVk/2nekcXGI+BLBJ3z6xGu0LoFrFffGQ405Iypjuw4QTWD1HzDeHDnZPfI6rqCxDnDF
-	 Uq2payrThzBRFsmFDUxwiyM8/B9CcKBPo+gfauY6IUN++x4cqwikHGxiV1UzUzdtennez
-	 X7VVOwrQYVe1l4y9TmqRhpqYR3uEhZmFfWKw4mBIpcDUY0wUjWs+BwTnVZb+rzrA6xja1
-	 gmsbc0aWzJiUrSNX+fqhR131xfZpJ1Q9pFK31XpGPenV//aqe6DYyxMKHSQENjpsIQ6tK
-	 dDVy/V8dZLpgcRto0stds72zvG7CJY43XwPP4O13LJwFm0ypvHBKjHaBStQOJUXaP3g==
+	t=1795067645;
+	b=Z7kDrvH2/xvqltRlDBF9d6A1dw5Dx68jEv/Ugiq9pB6pGV2d0w2Htb3euO4RHBZp4888
+	 o35401Enu21z7IPulDbxYdy/5bWCJ6gzq6170PggwpEu8+2UrkkNWdSliynNeNPX9OcPb
+	 orC40qpRGBFoFDv9hWWCM21IsQv0xuakS0h5oTkqSUiSIa11P5xWXwsPnyS9hMt52VX8l
+	 kiVSJ9AFShqChdhED/tqY4Rt1DUEtRII8Mekiq+7sMmFSCv/CDH+guizMDywjcmgkBKq3
+	 nf5P9p5945wafIIvJvgryhw3adMkhx03o7ZMDpkq0hPpvjLUEO6amdcMsD/gK2eCFdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795067615;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=iSKDXQpYsz8DfCp+Hl6lFNxx6TqgKVLI7ynM++rZhRE=;
-	b=YasSRtlfbNdMSZSE6Jqx4a1+BDKfiYRZS1gc0V9SM6rguaLtQaF7FE7kqFxb/OFgRF3B
-	 Vmo59OA1w/lEJgOMWTOIJg/Vzgt3neDKdDB90WCnhFIYwqJ7tGrBDLiHv7Y8ESRu1jh5d
-	 S0J1yY59ufIYlutXFo6EF3f2YQN+FInGLARoZljFlLL8fWQFXiXgbn60JH8tmMIqDlq4l
-	 yf9EQG7QhjdwaJcuiD3E/QHbE3Alve/gSRYTNHlgATghDBEdd1SDbHw+2xsc/Mb89e7J4
-	 +9r/vLIkFlvQ4N8hMhx2hX7pXvTIzqWVUUTkFU7AbOdXApVyEQfjgnoBA9vzfb6LDiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795067645;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=wOlFTsWCj5IQP2ufLf/ape389szjtQ5znHXcGvL3Fk8=;
+	b=Gx3o9m0l3NZv683Oz+p2YGsin7Mq5xOp14kXkPERZofPcWLWwlQZmHMf2PxObYVgycKK
+	 dHBa//IN/sbwypLAbLP0GFpClISXe4IBX01nEgVL5jFwvYShgkYorwrzcLU+qbnXpAsUU
+	 +uRH+eOHqUY3nyhfXiytRtVIejFbWsTCQrByLfSvr314l2aSQOaIP0CAx8IHOP8NcvyV/
+	 9+2v3zdcwVCEWMC6hPcv57pzym2pODmDWmlT/Dz0K3dJQptdk9fOgBJ7iaKydpmNgdepF
+	 RbiaIey/yYhY+ua4gHMGOF6YKcOdAPevXvrGnmfXADn4Nq+ynINCKu7ZeC1vfen5pOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=d+ItCVEA;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rv56GJGa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD081606A320;
-	Thu, 19 Nov 2026 05:53:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD081606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7BA606A320;
+	Thu, 19 Nov 2026 05:54:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=d+ItCVEA
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AJ5qXaoD2067808, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1795067554; bh=iSKDXQpYsz8DfCp+Hl6lFNxx6TqgKVLI7ynM++rZhRE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=d+ItCVEAfiNqS8aOFA4+hKsvTUNsK2N1ZmoG4Nv0oZ0xwxtiZa9kig3Zjs03gvhaz
-	 fBWjmUfzlyUjdU5gS/6Pcc8+ry6wBtpht2qNrXnk+Y48qPhA+qE4TI1WorfVscNiI4
-	 dLxXyB+vM4QZGkdV0dGs3++6urlWFOzKXvh6UhTWL8pWVqdz8ugIGV/2Y5763VOpmd
-	 o2qjjoEVLoirT080izUHEO57Y2PT8D0ganWJts/RB0VPNw1fyYiLcH3EhnlQhHTZTv
-	 5zmZa6FF8M7ZPfOzQqrzQh82N14OTf+eLqxObIWSyrwlfTIoytHQQTzVJxt7w2sqAc
-	 sjUuLmQeeMk3g==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AJ5qXaoD2067808
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 19 Nov 2026 13:52:33 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 19 Nov 2026 13:52:30 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Thu, 19 Nov 2026 13:52:30 +0800
-From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-To: Brian Masney <masneyb@kernel.org>
-CC: "sboyd@kernel.org" <sboyd@kernel.org>, "bmasney+clk@redhat.com"
-	<bmasney+clk@redhat.com>, "jbrunet+clk@baylibre.com"
-	<jbrunet+clk@baylibre.com>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, =?utf-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?=
-	<cylee12@realtek.com>, "afaerber@suse.com" <afaerber@suse.com>,
-	=?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>,
-	=?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
-	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
-	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>
-Subject: RE: [PATCH v16 6/9] clk: realtek: Add support for MMC-tuned PLL
- clocks
-Thread-Topic: [PATCH v16 6/9] clk: realtek: Add support for MMC-tuned PLL
- clocks
-Thread-Index: AQHdcmZF5zcH/kJ6kk+n4kke5Xzn1LcqJ8QAgAHllPCACCHKAIAAwBIA
-Date: Thu, 19 Nov 2026 05:52:30 +0000
-Message-ID: <03f88e4e3b274aa5be2f9a415f69c73b@realtek.com>
-References: <20261112052544.555563-1-eleanor.lin@realtek.com>
- <20261112052544.555563-7-eleanor.lin@realtek.com>
- <179450369605.1227210.10143810675268582312.b4-review@b4>
- <54a7a77705674bfdac23727f5fb92cb6@realtek.com> <av5dut67EajT0zn3@x1g10>
-In-Reply-To: <av5dut67EajT0zn3@x1g10>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rv56GJGa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EADC91F000C4;
+	Thu, 19 Nov 2026 05:54:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795067644;
+	bh=wOlFTsWCj5IQP2ufLf/ape389szjtQ5znHXcGvL3Fk8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Rv56GJGaU0wL3Kb1T288rpx2AaJE1vfUPNIXMf2OalLoFtgK4gd2TVHWtPRA106VJ
+	 rtcexr3bMfJDuXxyHSPVBjvjwJV7CxMlIjwcG1pfhbzMnJIgRpuFkLLHtnT3/SvAA0
+	 kjXyMfL9/rtgOJcdb92H4wKF3FyaoDcrA2T3E/bUxFHybSj0f245XTsYWsMgJbbgbc
+	 O8FVmr26fJ71LLwFXjRMZbIx/6HPifcv5SztepuQsXn19bWsPTrVeGiVrOjM8wVVSR
+	 3vcBSczQX2w8E1G/IFyurASsYidhy1xp0hR+O701gd4/bPdcypEb9XC+b/R+9+WJDj
+	 B2VOr4Cny3M8Q==
+Subject: Re: [PATCH net-next v2 2/3] net: pse-pd: realtek-pse-mcu: ensure MCU
+ does dynamic power management
+From: netdev-bot+sashiko@kernel.org
+To: jonas@jonasjelonek.de
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ sander@svanheule.net, russell@personaltelco.net
+Date: Thu, 19 Nov 2026 05:54:03 +0000
+Message-ID: <179506764349.3136.14504567519359431973@kernel.org>
+In-Reply-To: <20261116115224.1454885-3-jonas@jonasjelonek.de>
+References: <20261116115224.1454885-3-jonas@jonasjelonek.de>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,51 +66,117 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-SGkgQnJpYW4sDQoNCj4gSGkgWXUtQ2h1biwNCj4gDQo+IE9uIEZyaSwgTm92IDEzLCAyMDI2IGF0
-IDAyOjEyOjU5UE0gKzAwMDAsIFl1LUNodW4gTGluIFvmnpfnpZDlkJtdIHdyb3RlOg0KPiA+ID4g
-PiArc3RhdGljIGNvbnN0IHN0cnVjdCBydGtfY2xrX3BsbF9tbWNfcmF0ZSAqDQo+ID4gPiA+ICty
-dGtfY2xrX3BsbF9tbWNfZmluZF9jbG9zZXN0X3JhdGUoY29uc3Qgc3RydWN0DQo+ID4gPiA+ICty
-dGtfY2xrX3BsbF9tbWNfcmF0ZSAqdGJsLA0KPiA+ID4gdTMyIG51bSwNCj4gPiA+ID4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nIHJhdGUsIHVuc2lnbmVkIGxv
-bmcNCj4gPiA+IG1pbl9yYXRlLA0KPiA+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHVuc2lnbmVkIGxvbmcgbWF4X3JhdGUpIHsNCj4gPiA+ID4gKyAgICAgY29uc3Qgc3RydWN0
-IHJ0a19jbGtfcGxsX21tY19yYXRlICpiZXN0ID0gTlVMTDsNCj4gPiA+ID4gKyAgICAgdW5zaWdu
-ZWQgbG9uZyBiZXN0X2RlbHRhID0gfjBVTDsNCj4gPiA+ID4gKw0KPiA+ID4gPiArICAgICBmb3Ig
-KHVuc2lnbmVkIGludCBpID0gMDsgaSA8IG51bTsgaSsrKSB7DQo+ID4gPiA+ICsgICAgICAgICAg
-ICAgY29uc3Qgc3RydWN0IHJ0a19jbGtfcGxsX21tY19yYXRlICplbnRyeSA9ICZ0YmxbaV07DQo+
-ID4gPiA+ICsgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBkZWx0YTsNCj4gPiA+ID4gKw0KPiA+
-ID4gPiArICAgICAgICAgICAgIGlmIChlbnRyeS0+cmF0ZSA8IG1pbl9yYXRlIHx8IGVudHJ5LT5y
-YXRlID4gbWF4X3JhdGUpDQo+ID4gPiA+ICsgICAgICAgICAgICAgICAgICAgICBjb250aW51ZTsN
-Cj4gPiA+ID4gKw0KPiA+ID4gPiArICAgICAgICAgICAgIGRlbHRhID0gZW50cnktPnJhdGUgPj0g
-cmF0ZSA/IGVudHJ5LT5yYXRlIC0gcmF0ZSA6DQo+ID4gPiA+ICsgcmF0ZSAtDQo+ID4gPiBlbnRy
-eS0+cmF0ZTsNCj4gPiA+ID4gKyAgICAgICAgICAgICBpZiAoZGVsdGEgPCBiZXN0X2RlbHRhKSB7
-DQo+ID4gPiA+ICsgICAgICAgICAgICAgICAgICAgICBiZXN0ID0gZW50cnk7DQo+ID4gPiA+ICsg
-ICAgICAgICAgICAgICAgICAgICBiZXN0X2RlbHRhID0gZGVsdGE7DQo+ID4gPiA+ICsgICAgICAg
-ICAgICAgfQ0KPiA+ID4gPiArICAgICB9DQo+ID4gPiA+ICsNCj4gPiA+ID4gKyAgICAgcmV0dXJu
-IGJlc3Q7DQo+ID4gPiA+ICt9DQo+ID4gPg0KPiA+ID4gVGhpcyBkdXBsaWNhdGVzIHRoZSBmdW5j
-dGlvbmFsaXR5IGluIGZ0YmxfZmluZF9jbG9zZXN0X2J5X3JhdGUoKSBmcm9tIHBhdGNoDQo+IDMu
-DQo+ID4gPg0KPiA+DQo+ID4gSSBjb25zaWRlcmVkIHNoYXJpbmcgdGhlIGxvZ2ljLCBidXQgdGhl
-IHR3byB0YWJsZXMgaGF2ZSBkaWZmZXJlbnQNCj4gPiBlbnRyeSBsYXlvdXRzLg0KPiA+DQo+ID4g
-VW5pZnlpbmcgdGhlbSB3b3VsZCBuZWVkIGEgbWFjcm8gb3IgKHZvaWQgKikgKGJvdGggbG9zZSB0
-eXBlDQo+ID4gY2hlY2tpbmcpLCBvciBlbWJlZGRpbmcgcnRrX2ZyZXFfdGFibGUgd2l0aCBjb250
-YWluZXJfb2YoKSAoYSBsYXJnZXINCj4gPiByZXdvcmsgZm9yIGxpdHRsZSBnYWluKS4gSSBwcmVm
-ZXIga2VlcGluZyB0aGUgdHdvIHR5cGUtc2FmZSBmdW5jdGlvbnMuIElzIHRoYXQNCj4gYWNjZXB0
-YWJsZT8NCj4gDQo+IFdoYXQgYWJvdXQgdGhpcz8gVGhpcyBpcyBjb21wbGV0ZWx5IHVudGVzdGVk
-Lg0KPiANCj4gICAjZGVmaW5lIGZ0YmxfZmluZF9jbG9zZXN0X2J5X3JhdGUoX3RibCwgX3JhdGUs
-IF9taW4sIF9tYXgpICh7ICAgICAgICAgXA0KPiAgICAgICAgIHR5cGVvZigmKF90YmwpWzBdKSBf
-X2Jlc3QgPSBOVUxMLCBfX2U7DQo+IFwNCj4gICAgICAgICB1bnNpZ25lZCBsb25nIF9fciA9IChf
-cmF0ZSksIF9fbG8gPSAoX21pbiksIF9faGkgPSAoX21heCk7ICAgICAgXA0KPiAgICAgICAgIHVu
-c2lnbmVkIGxvbmcgX19iZXN0X2RlbHRhID0gVUxPTkdfTUFYOw0KPiBcDQo+IA0KPiBcDQo+ICAg
-ICAgICAgZm9yIChfX2UgPSAoX3RibCk7IF9fZS0+cmF0ZTsgX19lKyspDQo+IHsgICAgICAgICAg
-ICAgICAgICAgICAgICAgIFwNCj4gICAgICAgICAgICAgICAgIHVuc2lnbmVkIGxvbmcgX19kOw0K
-PiBcDQo+IA0KPiBcDQo+ICAgICAgICAgICAgICAgICBpZiAoX19lLT5yYXRlIDwgX19sbyB8fCBf
-X2UtPnJhdGUgPiBfX2hpKSAgICAgICAgICAgICAgIFwNCj4gICAgICAgICAgICAgICAgICAgICAg
-ICAgY29udGludWU7DQo+IFwNCj4gDQo+IFwNCj4gICAgICAgICAgICAgICAgIF9fZCA9IGFic19k
-aWZmKF9fZS0+cmF0ZSwgX19yKTsNCj4gXA0KPiAgICAgICAgICAgICAgICAgaWYgKF9fZCA8IF9f
-YmVzdF9kZWx0YSkNCj4geyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQo+ICAgICAg
-ICAgICAgICAgICAgICAgICAgIF9fYmVzdF9kZWx0YSA9IF9fZDsNCj4gXA0KPiAgICAgICAgICAg
-ICAgICAgICAgICAgICBfX2Jlc3QgPSBfX2U7DQo+IFwNCj4gICAgICAgICAgICAgICAgIH0NCj4g
-XA0KPiAgICAgICAgIH0NCj4gXA0KPiAgICAgICAgIF9fYmVzdDsNCj4gXA0KPiAgIH0pDQo+IA0K
-DQpUaGFua3MhIEknbGwgdXNlIHRoaXMgYXBwcm9hY2ggYW5kIGFkZHJlc3MgeW91ciBvdGhlciBj
-b21tZW50cyBvbiB0aGlzIHNlcmllcw0KYXMgd2VsbC4NCg0KQmVzdCBSZWdhcmRzLA0KWXUtQ2h1
-bg0K
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] rtpse_mcu_register() (drivers/net/pse-pd/realtek-pse-mcu-
+  core.c:854-857) now fails probe on any error from the new…
+- [Low] The commit has no Fixes: tag, but it fixes a user-visible defect
+  in the original driver commit 44566e614d84 ("net: pse-pd: add Realtek…
+- [Low] In this commit, the comment above the 'disable-ports' GPIO
+  request in rtpse_mcu_register() (drivers/net/pse-pd/realtek-pse-mcu-…
+
+--
+
+net: pse-pd: realtek-pse-mcu: ensure MCU does dynamic power management
+
+This adds a command that switches the Realtek PSE MCU to dynamic power
+management with port priorities. It uses opcode 0x17 on gen1 and 0x10 on
+gen2. rtpse_mcu_register() sends the command after discovery and before
+the disable-ports gpio is released, and probe fails if the command fails.
+
+> The MCU may have any power management mode configuration by default
+> but the driver should ensure that the MCU performs dynamic power
+> management with priorities as advertised. On certain devices, the
+> default MCU configuration ships with another default, possibly
+> preventing any power delivery.
+
+[Severity: Low]
+This describes a user-visible problem in the original driver. Should the
+patch carry a Fixes: tag?
+
+Since commit 44566e614d84 ("net: pse-pd: add Realtek PSE MCU core"),
+rtpse_mcu_register() has set PSE_BUDGET_EVAL_STRAT_DYNAMIC and
+pis_prio_max. It has never put the MCU into the matching mode. That
+commit's message says "Power budgeting is left to the MCU firmware; the
+driver advertises PSE_BUDGET_EVAL_STRAT_DYNAMIC accordingly".
+
+Without the tag, the stable and backport tooling won't pick this up for
+kernels that already carry the driver. Perhaps:
+
+Fixes: 44566e614d84 ("net: pse-pd: add Realtek PSE MCU core")
+
+If the patch is meant to stay in net-next with the VMAIN budget work,
+could the commit message still name the commit it fixes?
+
+> diff --git a/drivers/net/pse-pd/realtek-pse-mcu-core.c b/drivers/net/pse-pd/realtek-pse-mcu-core.c
+> index c70b09ca20122..d8b6e05039397 100644
+> --- a/drivers/net/pse-pd/realtek-pse-mcu-core.c
+> +++ b/drivers/net/pse-pd/realtek-pse-mcu-core.c
+
+[ ... ]
+
+> @@ -826,6 +850,12 @@ int rtpse_mcu_register(struct rtpse_mcu_ctrl *pse)
+>  	if (ret)
+>  		return ret;
+>  
+> +	/* ensure the MCU does dynamic power management with priorities */
+> +	ret = rtpse_mcu_set_power_mgmt_mode(pse);
+> +	if (ret)
+> +		return dev_err_probe(pse->dev, ret,
+> +				     "failed to set power management mode\n");
+
+[Severity: Medium]
+Could this break probe on boards that worked before this patch?
+
+Both dialects now define the opcode (0x17 for gen1, 0x10 for gen2). That
+means rtpse_mcu_set_power_mgmt_mode() never takes its -EOPNOTSUPP path.
+It turns any non-zero status byte from the MCU into -EIO:
+
+	return (resp.payload[0] == 0x0) ? 0 : -EIO;
+
+A NOT_READY reply only gets the three resends inside
+rtpse_mcu_do_xfer(). It does not get the bounded boot-retry window that
+rtpse_mcu_discover() uses.
+
+Some firmware variants may reject the command, or fail it with -EAGAIN,
+-EBADMSG or -EBADE. In that case rtpse_mcu_register() returns before the
+disable-ports gpio is requested and before devm_pse_controller_register()
+runs.
+
+On boards with the disable-ports gate, that leaves no PoE at all. On
+boards without the gate, the MCU keeps its old policy but the kernel
+registers no PSE controller. Before this patch, those boards probed as
+long as the firmware default policy was usable.
+
+Is it known that every supported gen1 and gen2 firmware accepts this
+command? The changelog mentions "change error handling", so a softer
+variant seems to have been considered. If warning and continuing is not
+safe, could the commit message explain why the failure needs to be
+fatal?
+
+> +
+>  	/*
+>  	 * Some boards gate all ports through a hardware line; deassert it only
+>  	 * after the MCU is confirmed, so a discover failure never ungates the
+
+[Severity: Low]
+This isn't a bug, but this comment still names only discovery as the step
+that has to succeed before the ports are ungated. The new
+rtpse_mcu_set_power_mgmt_mode() call above is now a precondition too.
+
+The next patch in the series, "net: pse-pd: realtek-pse-mcu: configure
+global power budget", rewrites this comment to "deassert it only after
+discovery, budget setup and management-mode selection succeed". That
+fixes it by the end of the series.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261116115224.1454885-1-jonas%40jonasjelonek.de
