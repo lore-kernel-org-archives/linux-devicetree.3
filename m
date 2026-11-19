@@ -1,191 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.139.77
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795074446;
-	b=jtc5D9Xx8kK3GeM6Qjesv6Ld7XlMMrDCG9QE+OU7lKk3mxcZjRnI6jCdR284Jhmzjen5
-	 bQGKt0c4ffTPbuaZziUc0KCK40p9RfOdFJX1Rut+BFIyHY9cjLA5Q3FqhiushG79GRAHX
-	 YERvpJ3VQc/yrNwvboZvsPc3SbdkzKvtC1qJiZDeK6VnvmlF9UZkRgxpCaJjPxKZok9DP
-	 NouYQJ0gMrOcS5QTF/NlOBwge+bqukXHoHDeIc+HOB0yhLpyufj7Mmm0kZnCLeDKUWEK/
-	 Asl9MnApcWzhoNZTHV3buOvF8HNet3EfHBGxw6IkD2UOCzjEtbpRbtHaXtjxOlMNA7A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795074446;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 X-MS-Has-Attach:X-MS-TNEF-Correlator:msip_labels:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=zShpAM0ROdAanRnl15XF/LsLxLSDt5lnwVHDL/2Rc54=;
-	b=0leODbmCmpbeBmfBeFQKqV1yPHB22KF/m0dh7DYDqSaH/R7W94UwSSOgRiQowREhJStx
-	 +/eABk94waNSCV668YzbvDdJLNnT9mZEVcp+o81wqKwiAYTAkM8zeTFSCCSydJX9zORYf
-	 8+FQxpDsDL83muH5oUso1P3UxQqNEWuwy1iK0xL3jrAyEn0V9CkeNs11i4rQJdW2RC2ZF
-	 1LmPh15pwl9lrfTILnuGsYmx5EIW8TVZGQDYMvfhYjX9pQWEa6A9Qhc1VH8odG5AokadE
-	 PL/oWyOCQO/pB5yG7qRap/8BfD1A4uZF14h4hzqNlQDOYGcN7LFu/9SWw6tlpR145+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=RClSD9YE;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b="py6ht1h/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.139.77
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795074551;
+	b=dX+TRyZiMls6JOFK7Qg0n4V4he6skAaVZ4/+vrXk6On1c+4IdaEYN5NcrlKOO5qvEvnh
+	 dWlt0QsP6kFZJDyqmxIflUu7YERnU+hd9Kbd2/g1bQnQVaWEoMogjWgRu83lo1RUzRYhB
+	 cmXwn7wEqnjADUgi2xgXB0KZSWkqFZP7SQZhjCk8i0dnIZKMrnittrTHY+jt4IkpNBjEO
+	 NDAXcOaiVBKxboicCYvZv7bAXkq3zKdtNKxMq46DmJSlYCWXDBRLoeohRJDY5mFFbKg99
+	 H675uunyOi71krgRRx7WkZhnk+gCXAi7+TQ2dk3Oe2RGmqN9FZIOqqFD/9MFQDo14cw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795074551;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:Received:Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=AlwETNNCgQuoL3olEu8hotUVCo0wqZYULOda47vcNrw=;
+	b=g6BcKqumaSoCb8z6Juqp6O+iZg6qJ0LZmz7OjYVSJP/v/0QhRosQVpKzW5guxRogKRSe
+	 ICl21OZkdcex84vznMkgy3O/ITE+29+dyiG9b1mAzYqsxfUW83mjTfXHOBSuCaI8yTbxz
+	 Ad5Pdostt8dnz3qIJNt2QYp8g286spsbRtNhRBrNOfaqlq92F0GLWISDfAZf1J6hyn0be
+	 J4xldnB1QAb7Q1dhIQNASHqQVTQIH9A5udyQhCJuCIEbeu/1GOqsCrqIxU66ADlVtYH2x
+	 O1iKGTte37DFV2KVKAW9xPCUhfeyPciBF9oFLgvo069sD/BRWbop2gIuodnIDzaSzVQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.181
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F25606A320;
-	Thu, 19 Nov 2026 07:47:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0F25606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=RClSD9YE;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=py6ht1h/
-Received: from pps.filterd (m0516786.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AJ6x2pk1419827;
-	Thu, 19 Nov 2026 02:47:08 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=zShpAM0ROdAanRnl15XF/LsLxLSDt5lnwVHDL/2Rc54=; b=RClSD9Y
-	E1/JVs6ahClW1+P/WF8IFUyzJEn5I3i0LrsVH2yVR4fCnLzBxR+LNkce78DYhioK
-	rHamBiGI2TguAafJCpL+sCXpzMYkdR2fMYBNo4IUXqyghEJ9u+8P6Vu7njMjCPjo
-	TK5tU/5OWxOTICzEl5NtnNoBzIZhAiQM4Gf5Kywx5cO33zW2Ku5Ux70TpDpTNl2J
-	cRB/Z42rNMZjJsqEzzkLtDjzfbBfEaK/+B+aCNZ0fbeGSEa8laacA4LeO6LhWvOX
-	y6uZOKPS0TSnkcAUEZg3t5pi2sG6tvZil4utnksxz27NfSW2rjMUGWphk61XKtE0
-	CueGPoYtvgixYSw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=zShpA
-	M0ROdAanRnl15XF/LsLxLSDt5lnwVHDL/2Rc54=; b=py6ht1h/gypkdFsffGlMc
-	bvUD3s1b2OYGOqyTS1wK69Qmv0n1YmYPT9bF+V8s6yybyXGrVwT83TYyfjgniCKP
-	K4nWSfXMvwd3UuhgDDC3cAMp0QbqNq2rCd9jjYUPeyz4kYsRb3Ubx/0XPn7x/IFL
-	uBNgtcwA92988vyY65FseUqOXNh+MD6S2gCrq6iYXn0bzGeKuZoOEokzIGDXtAIQ
-	JtS6UiL86iKuNOUH8iE1RoyFKGI6L/lXsgv77EORZG8lB5FT1xOzBVQXUzBc/Fm8
-	MTy2wWRNkrdmJCWyIvUBAmq0ixXNNpZ3+nDkNxOZFsGncAkYGznpn1xZtFp0rn7W
-	A==
-Received: from ch5pr02cu005.outbound.protection.outlook.com (mail-northcentralusazon11012021.outbound.protection.outlook.com [40.107.200.21])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4j1kmkjuuq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 19 Nov 2026 02:47:07 -0500 (EST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rBk8YaZs+YYRyqi3qcDObpkzMWNwVlnVMC1/8v8l+UFLl/BHsBEHrFvZcjrpRCH+ddjejQyVFNq15k0vqan0BkFV6LKkfKnnsgbXEybcYxfrzjmUobmRCKnFn3Opxbvrw1E0/9ssF6YbqBesMiw5kOnjN14CCMOEs1nlozyDV0KFQdboet2v6SvdmHeizU/of87c7M8NR5am2YbbbQmJzbrHEOr8J0l6zWEu4ZEt/DgiOJl5tvGPpnyjS+X6n4ZU8clxhf8+UlKgP/Nyqx2n1uaZUYmaNTrmUoWkbRGzZnI2hjzNbcQX3y///kButqWrx4bPLleItlFd/+6Sz31mAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zShpAM0ROdAanRnl15XF/LsLxLSDt5lnwVHDL/2Rc54=;
- b=xk8BvmkjqQNEUSJZAqu2q907jCuU1jL8QLQqwzvP73o/jJEslhIZfqL9ptC1fCyx/f//xySCKufb1ACyo+f6NatXKUQ8ew2wUVjA2H9B4FXEN6vUn57d4DLiUL8kWAmbg+libQ//4V09VA7b/Xn/sJXGGFExJ0q1y+fZ4nODaedQ0aRT/5UlsvgQnJFW/H0iqRRnkFdn2DTFDKpxCtru2jfzzig9zlpkIgHpKcy8Vb/dXY5etY5y16XTM135Hka0NuMUu7xcBD7Ye9Kk2zdLZ02C0jzQTtJ7oKMN6Llz3liCWBdwDZlceG6kCpP9IzCu6vCj2+b4yvGuHEZ+/0q3+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Received: from DS2PR03MB8418.namprd03.prod.outlook.com (2603:10b6:8:32c::19)
- by DS0PR03MB7752.namprd03.prod.outlook.com (2603:10b6:8:1fc::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
- 2026 07:46:05 +0000
-Received: from DS2PR03MB8418.namprd03.prod.outlook.com
- ([fe80::4669:571:4347:1b1b]) by DS2PR03MB8418.namprd03.prod.outlook.com
- ([fe80::4669:571:4347:1b1b%6]) with mapi id 15.21.0615.015; Thu, 19 Nov 2026
- 07:46:05 +0000
-From: "Tsao, Bruce" <Bruce.Tsao@analog.com>
-To: "Sa, Nuno" <Nuno.Sa@analog.com>,
-        Andy Shevchenko
-	<andriy.shevchenko@intel.com>
-CC: Jonathan Cameron <jic23@kernel.org>,
-        "linux-iio@vger.kernel.org"
-	<linux-iio@vger.kernel.org>,
-        David Lechner <dlechner@baylibre.com>,
-        Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof
- Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "Tsao, Bruce"
-	<Bruce.Tsao@analog.com>
-Subject: Re: [PATCH 0/2] iio: dac: add support for AD5413
-Thread-Topic: [PATCH 0/2] iio: dac: add support for AD5413
-Thread-Index:
- AQHdXaP8M+1ukguSuk6GgnmGOadjObcEkV4AgAG4jzCAAULsAIATKFgAgAGEbLCAGPrP1Q==
-Date: Thu, 19 Nov 2026 07:46:04 +0000
-Message-ID:
- <DS2PR03MB8418EC84B10A45C01D848D4AFB792@DS2PR03MB8418.namprd03.prod.outlook.com>
-References: <20261017-ad5413-upstream-v1-0-61f40c8fef25@analog.com>
- <atXY4kLEXxmG-tnk@ashevche-desk.local>
- <DS2PR03MB84188FD41F8847EEB34759D9FB672@DS2PR03MB8418.namprd03.prod.outlook.com>
- <athZVjaGYmCyuNrW@ashevche-desk.local> <auhqSGR84LUTjBS7@nsa>
- <DS2PR03MB84187FC75752460484048798FB692@DS2PR03MB8418.namprd03.prod.outlook.com>
-In-Reply-To:
- <DS2PR03MB84187FC75752460484048798FB692@DS2PR03MB8418.namprd03.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=analog.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS2PR03MB8418:EE_|DS0PR03MB7752:EE_
-x-ms-office365-filtering-correlation-id: 6d70cacc-f869-493e-abf7-08df46112a6f
-x-ld-processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|22082099003|18002099003|261009223027099003|3023799007|4143699003|56012099006|11063799006|261026121527099003|261102123227099003|261028144727099003|261026140227099003|261021121427099003|261022105027099003|38070700021|10067099003;
-x-microsoft-antispam-message-info:
- 1tOm03m813knKEFfe+NrQWAYvif4TVAhGgqToA6T9ZnjCm6Ctz+rCBadp0yYQZdU2zUeblFVK85pRfKi04/sPDKTYRC9B6RMOOowcumBv5luoJZ707qWfwi1Z5PJSPVJ7UhlK7jsP8WMDHbUHYuNH/GVB8+PWuISZUUL1KMJayXPN2mxB45GvbejKTyamq65w9Ln3qE2mr7PbXVUborTwk5uU2DmzYxSgtrLkVIJxuWMIZ9MbGydQ1FKPw6SImcCxbORvc13lOlaVF/JSl8wN8pkc9ShLWHZOfV62gBNC/8VE5xRNX0Mzh37IFHZbCzwSi74x0rs2VDySVwyRvTPVBvp44SgteH3s9PWFSESo2sUev2JDPGoWuOStdfAMjrZ1TtcK+hKOqa40t87CGTOpLi+6oPXHybKCmcDqEwWlsmVehu7s4OU/RFiGxgtm2t2c41tzKdOHRxS+nDHSc1ffa5YEI7bGeOGNJs18w7jj/oBJplXPHqurOPTVKbs4CqAN3TSWSsYdHm3JCVCGtjNJ3olNOvFK8Jk7rHj7MrKnVRyBHkqybWwBEYv7k8DWIQxwGygCIi7SIO82m2kUTNUOoUO8dTHzqAlYPKj+qIVyuik1G5XRcgEyzeS4qkwXbOij2ZGny/qhFQg01zxWRk7OyXUhJWp4mL/tm8xslWfmLtiRPbZDK7HgWxScj2IYTMQOwugY5VwPVkd9sySPgH51tY4xC6MoZmjnBhLW+KoGXg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR03MB8418.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(3023799007)(4143699003)(56012099006)(11063799006)(261026121527099003)(261102123227099003)(261028144727099003)(261026140227099003)(261021121427099003)(261022105027099003)(38070700021)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?B0IA99n8dYhecZpE+qk/0MU12LP0RF7QhoM1Kgu96ZvyA/vyBj4JZSE6G0?=
- =?iso-8859-1?Q?oxaXy1wiq+zCD9QbTThTTLHuH4id6WdT2IK20LI0cId/NTt93s4Xov9amO?=
- =?iso-8859-1?Q?Tvgm1tn1S3Ns3O8DPUn5AM5y57xC85vwPSVqv1FqqcNBmz7eiX5pQH5dVb?=
- =?iso-8859-1?Q?M/H0NiFDI+olfG+ul5X57mpcRQ1YCTULCLfPdD0LNWOdL0hAOXHwjdZ8QJ?=
- =?iso-8859-1?Q?DfdOJ8NltHVW57aiI3rwwGLnF6L7z9AYAiPuc3f+sBNb9FDdzAyo9ZesDg?=
- =?iso-8859-1?Q?eWP7RvAhaLXEeMGZeCmngC5z0X1AOCNldVdY17/PZYAl5KrdhdmELMWCsq?=
- =?iso-8859-1?Q?RL2r33FtYTKFE2GZTIdYwRrvrqyaOrrxgJg/ptGFnGyUF/pflINLPQwEVz?=
- =?iso-8859-1?Q?C3l2Y04RilTPjAtwFGhzWblDKrp5nG4TYNCD/p994Tdp/QoHGTDWjckwjv?=
- =?iso-8859-1?Q?uXOMFjyqLAppHeX/t8ORkdiICo9DbtPMyxdzNGfq7H06YFFozqIlHs6XgF?=
- =?iso-8859-1?Q?EKDF/lUCvhtei7McD/3ZW7YU1yUAHmzwKUACBXpa4NO6ebV/WP4Zs5uLuf?=
- =?iso-8859-1?Q?sDoWURllt8b+EPRAhltAyRp4neY1bsJVQIvKxpeUcLH7+DK2Ub5o/XuRFS?=
- =?iso-8859-1?Q?ZzTnoBfqi1l7c4JdwAZHAkBPfABhmB9WStbVwTLQbZBQ0Gslus1tw4QQKM?=
- =?iso-8859-1?Q?N7zeE5Psu5skfFyRzAQSiNkpLdUcDYej+5f9jZyOxqqQecb1eUT95o0iD8?=
- =?iso-8859-1?Q?VP8tRDY66oETSPjj6ja2iRiWgusM68A3smWDW17f27iL5LwBB5S/NaVPIA?=
- =?iso-8859-1?Q?8z8XUmKZNa8tqjEdu/wh+n+Vr+oFAuA8FYX35Al2vNdX+opNMGsU//8WpA?=
- =?iso-8859-1?Q?NOo3EsmVWgUj09R607zsFGFYr3ml3xoLtSQQOhsKP+hUYxsuPnMp3K2Wov?=
- =?iso-8859-1?Q?XMOxU4opxF80kRKdACUHnFKNgH8C4TDDb0LQ2w7P63t8VgCq6YVxwFiVrq?=
- =?iso-8859-1?Q?XgHvOQFdQUdZMj6HlUhlVpK7fkLMueAE2W+JJJjnqgaJZ8r5ObIclcq6p6?=
- =?iso-8859-1?Q?H8Fh+StuY0RMzQJu1MrGbFWjGlfBmixiYGxtC0YVfKZ486EU7Al5FHhM7P?=
- =?iso-8859-1?Q?v4wB5maZlDz5OH511nkl2GvIOe90Zq0mzVlXZTVsW2CkObxWhPWLVvhT39?=
- =?iso-8859-1?Q?gqGTgN4lZ/R5925fq7LA8BhEMdrQuCuIPP4HaUitJeJd5Huy1jCDCVFZ6I?=
- =?iso-8859-1?Q?Ng/CY/hodV6twIyqd71ubQaCwtqj6TAERgzR4nWVsaGtE1q0I8xEBHMPlg?=
- =?iso-8859-1?Q?JYYxvlE3jS3wio8b2D+zpP+g5TimzzMvqBzCXNbs5s0q0Dlxa/QEV+blp7?=
- =?iso-8859-1?Q?+4RRzuoLokOjOLhcCK1SZ2ueJ3Rz656q1eDeXrt2by411OzKWh+kysdues?=
- =?iso-8859-1?Q?T1bmIXCVsb1WViCAEr48aOTusXI49EI0e+/0VyS/GV9Q5IPZS3zAw9M20p?=
- =?iso-8859-1?Q?ULPqQ2B9MpwX8xw+0WQSYuMxcpFl1MDzgIAM21wabypSkh8RA7H1E4idnM?=
- =?iso-8859-1?Q?mdWnEGDCxARowB+xIzepA3mnixNelIvySzkipllH05/v+7BIIOzqPhI82V?=
- =?iso-8859-1?Q?5WQLRvL/Fz947GH40W98B1C2h3E+LITp+vN9CQ4oVs5GlKA25Ej+UezGYw?=
- =?iso-8859-1?Q?Ok0zAObEWipNxfmqA9nYEOmw1y5t+GPTKuYNGLcE2P3HCgl7Z7oXjJoBfK?=
- =?iso-8859-1?Q?PgFbyfoMm9n7mIfLkPUDnqdnzuw2qDIZPRWaAYwwQ2It27s6WXsygZcRrL?=
- =?iso-8859-1?Q?7ZWoZ+lmzg=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA71B606A320
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 07:49:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA71B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eadef147ffso1270004e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 23:49:10 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795074550; x=1795679350;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AlwETNNCgQuoL3olEu8hotUVCo0wqZYULOda47vcNrw=;
+        b=AsUD+PKch7uVKMbI68J/L/+FKaGFNpz9VNX8IEpnBvHF/m+yDI3vQT95+IWiBmL8v7
+         QEJubuOaSLzc155+Ta59mPDrBCqbH1LL+3ajhNdahesyEkb3w64lRON2f7NRcr5/iZLv
+         IIPIRonxxLPIxyjtH72PZSiEQZLHxXbbJfi79s5HnP3p0Rlpk47zcScgFAhjA8d+mZOj
+         QziL5EH8Cpc8jncizDjUOYjKigHykNnGhK5ZWT5A21QoiPIFEkiAwdnyl7uxg3JEZ4mI
+         gSmjxKr7UqMencSEcNQrp5aYNHQ6Rt9gO5rpwA7k9C2cDKNbZoOM/bChVx7Jftoagdn9
+         JwWQ==
+X-Gm-Message-State: APuU4Z9PiYeFvInMezy//nR8z8EWqML2haafm+KAsMZAyHEZSfP/YjbE
+	ZYDbzgSc2zUunFyMcy5IKOcIIJP824y4OCgwtU9BcddTC5GexK9jxPIVOmF3QHzZ
+X-Gm-Gg: AYBFou0KaIIAioX9tkAm+Qacic6e0/yRAM5v/eTchGCanvrmJ65q8iEg9DPYJo/y6ey
+	h/r7le8UX+lr30yrGUNCxtbxvBA7I2F7PInrAr9Ib9RwgEth6TwbAYaNM9/flnQBxPwO58DaxS0
+	kPfKrmWPJnSgZPEOUzek3JoCzWTv6yZzt/yeA1aHNzVvyRJTEECryql9gpOfVpJE3/Ey5XmuO9S
+	M1EzJ7iV4gR33CBQsvrCrUuDemal2Q+aci+U0TLRE9AQMKD5vgk7303oiN9lqqI4t1RoKdwikQs
+	83MstGETvVP3tP01v+CRfFG1Jx6W/4Qkl86xLUWnBTgdAy59A9YqtPUyFBBArCkIfSoOY19w0GQ
+	jkbe22i14jLsGy4aqaQkk6kuB1e5zoiBRssOFwgc1NG/JM5V148ww185P8TjKEhU/Lz4GXHDjso
+	S4UngKMjbRWR1CqFmgDV31EnKd2aId/DUkmLc1WGWUHLxKzPiP/4snsGf3CzM91k+2b1Kp1aB2e
+	tpfTMHS8rxFRLRMbYlY0LQuwmSE9vVFYS+pkNkCx+ov0kL4NP7CGMj1m1s+baxLrKiQ4P5cfEXP
+	6XyY2wJnIKNIcnQ56dOgTXbegCicDnNjmI/Dt/fCAKMw/Ap7rDTl5zd4WC8UuPnh6e4=
+X-Received: by 2002:a05:6122:4307:b0:5de:ee96:75b with SMTP id 71dfb90a1353d-5ee64727ccamr2885984e0c.12.1795074549710;
+        Wed, 18 Nov 2026 23:49:09 -0800 (PST)
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com. [209.85.217.52])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee64ec2730sm3608079e0c.14.2026.11.18.23.49.09
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2026 23:49:09 -0800 (PST)
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7d2bf046ceaso1191745137.3
+        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 23:49:09 -0800 (PST)
+X-Received: by 2002:a05:6102:370c:b0:7d2:c903:515d with SMTP id
+ ada2fe7eead31-7d6ba3e8cc5mr2280659137.7.1795074549276; Wed, 18 Nov 2026
+ 23:49:09 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -195,104 +77,246 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	juJ74SiTJP3dfwmkkeTLjOXFJxKPObu5R25cpn27dG0BEUEk+S/XTqa2BzE8Q0EFHR7aXNCTLd+PDPmj2Kzf1Zj9NGigvCutdi19VZu1ggOoOLabaaOyjg0H5EvCVt5cWQzcJRsgBUX3x3EwgNvMnvLV+ySflt2spEwxfB8BWqOLQikKlJ1ec1GWGRVypKp1aQfxNDPN2/HDOmtliRendwvCDBZ0zPxharj4inXakjS1B6LNiUCe1GT+UjXg5mhHtMWLfidI/bLELMp0xfLpQTH1FPHwL7Su2YCmwDONS0Fmx5Df4209nggfcuOjwElnJYTwegC9SoCqRpm0UUHLbQ==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR03MB8418.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d70cacc-f869-493e-abf7-08df46112a6f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2026 07:46:04.9739
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: d8zRk92w8gurYWqiaKOKcIUsTBXvpFu5I/vw6F6fy73GCLx1Cxg5MZeYtjTIQm75SZhopBe2JmTPx5lRGHmO1w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR03MB7752
-X-Authority-Analysis: v=2.4 cv=MIr1C8Zl c=1 sm=1 tr=0 ts=6afea97b cx=c_pps
- a=qCFiEXCgs887QpJba4awmw==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=ZQxX5BWu6Z8IJBb2zLX7:22 a=h_cPbwIqzl5VvyxgcDcA:9 a=wPNLvfGTeEIA:10
-X-Proofpoint-ORIG-GUID: H1D9x0CkZ4YArCfelD6ABnwIpVAzfmTr
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE5MDAzMCBTYWx0ZWRfX/hB/Be+rHDe8
- Rd6yUue56mfXrULZkN+X8tw92ZzlXC/Jp630biMG13ui43wj7Pa8jO1wuWPmHeEsEA+4zgyulYW
- AfxCAOW6M/PLHgI80Ka4OBHpC2IF/QxsP6vfh0MOwX4lJ+QT4IKX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE5MDAzMCBTYWx0ZWRfX42br4/zjRhJ7
- t86gqc18RN0+My14MIGo1HiCW2QEQ6LvuH/JyW9niDAq9+dPBWD/NHZ0NBYHR5gx1+Rg3Ywtu2z
- v7/5lcwmfkq9mcwq5jsMlBT8IRQ00PQsQC9jXW6Sr+nQlrfgV7d8ulEwGnQRv7gutVeQCfLOl0j
- utN1JzcILIZFtlZlcmn+YoKgmuvNubij0IQkYxcylJg1hMhss0BhG77kHTOK6J3I4AGn1giSYaE
- 4+yqWat0RCMO7hiqDtzScj+R4j4D3qzNxhAga8/dX7jj73QMQ1MWOUNycJarzcrRkPPeMRY1i4B
- X2UUWFwanM3JGv+StWPtuh7zgUEC1cr+7YFZNQGivdJu0g7bzBa+6oc1Od2CLCHvv73d/XE/GsP
- hQvMiwql2KAxqhFCfw/xm4KgDHP681BQY9Pxnk50bf8YEsMmxvSjMyfI5DvIPR/gi0+hYpVwUu7
- c299TLTn7DxTbkmejng==
-X-Proofpoint-GUID: H1D9x0CkZ4YArCfelD6ABnwIpVAzfmTr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-19_02,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 phishscore=0 priorityscore=1501 bulkscore=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611190030
+References: <cover.1795029012.git.geert+renesas@glider.be> <e6816327da51f9fbeef67f13aac723b891e5042f.1795029012.git.geert+renesas@glider.be>
+ <sashiko-outbox-221928@kernel.org>
+In-Reply-To: <sashiko-outbox-221928@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 19 Nov 2026 08:48:57 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXgOvdAAJEEydip_-Aakf8j3ORXnZAS-=NqCMBxHwrfZA@mail.gmail.com>
+X-Gm-Features: Aa3M54qMY9KEs6Xlpwbmw0a9TWCYDcZMChPHFmIneFq8gUbTr8Q3_1H7DUbenEE
+Message-ID: <CAMuHMdXgOvdAAJEEydip_-Aakf8j3ORXnZAS-=NqCMBxHwrfZA@mail.gmail.com>
+Subject: Re: [PATCH v5 14/15] pmdomain: renesas: r8a78000: Add SCMI remapping support
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, 
+	conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 03, 2026 at 10:06:08AM +0000, Tsao, Bruce wrote:=0A=
-> David -- since you have the background here: ad5758 currently carries=0A=
-> CRC as a TODO and disables it at probe, whereas the AD5413 implements=0A=
-> per-frame CRC. For the merged driver, would you prefer (a) keeping the=0A=
-> AD5758 CRC-off via the flag (no behaviour change), or (b) also=0A=
-> enabling CRC on the AD5758 to finish that TODO?=0A=
->=0A=
-> I'll get started on the no-functional-change refactor in the meantime.=0A=
-=0A=
-Hi Jonathan, David, Nuno,=0A=
-=0A=
-A short status update on the v2 rework, plus a gentle ping on the open=0A=
-questions.=0A=
-=0A=
-Status:=0A=
-=0A=
-- ad5758 is now chip_info based: the per-device constants (name,=0A=
-  resolution, full scale and the DC-DC/CRC/reset traits) sit in a=0A=
-  chip_info selected via the OF/SPI match data. No functional change=0A=
-  for the AD5758; I checked this by comparing the generated object code=0A=
-  before and after.=0A=
-=0A=
-- The AD5413 is added on top as a second chip_info: compatible and SPI=0A=
-  ID, 14-bit data alignment, an optional reset controller (falling back=0A=
-  to the existing soft reset) and the avdd/dvdd/avss supplies. These=0A=
-  are all per variant, so the AD5758 behaves as before.=0A=
-=0A=
-The main open points are the CRC framing and the output mode, which=0A=
-is where I would like your input.=0A=
-=0A=
-David, I would appreciate your view on the CRC question quoted above.=0A=
-=0A=
-One more point, for David and Nuno: register access still goes=0A=
-through ad5758's own SPI helpers, which is also where the AD5413 CRC=0A=
-would go. Should this series move it to regmap, e.g. with a custom=0A=
-regmap_bus as in ltc2688, or keep the existing helpers?=0A=
-=0A=
-Jonathan, on the output mode (your adi,ch-func pointer on the v1=0A=
-binding): in the ad5758 binding, adi,dc-dc-mode selects voltage or=0A=
-current output and with it which of adi,range-microvolt/-microamp=0A=
-applies. The AD5413 has no DC-DC converter and only one range per mode=0A=
-(+/-10.5 V or 0-24 mA), so only the mode needs describing. Two options=0A=
-for the merged binding:=0A=
-=0A=
-  1) Reuse adi,range-microvolt / adi,range-microamp: an AD5413 node=0A=
-     carries exactly one of them, and that selects the mode. No new=0A=
-     property.=0A=
-=0A=
-  2) A top-level adi,ch-func (1 =3D voltage output, 2 =3D current output),=
-=0A=
-     as adi,ad74115.yaml does for its single channel, with the same=0A=
-     values ad5710r and max22007 use per channel.=0A=
-=0A=
-Which would you prefer? Or, if you think now is the time for the=0A=
-generic DAC binding you mentioned, I am happy to go that way instead.=0A=
-=0A=
-Jonathan, could you also confirm that you are fine with adding the=0A=
-AD5413 to the ad5758 driver and binding, rather than as a new driver?=0A=
-=0A=
-Thanks,=0A=
-Bruce=
+Hi Sashiko,
+
+On Wed, 18 Nov 2026 at 21:22, <sashiko-bot@kernel.org> wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issues to consider:
+> - [Medium] pmdomain: renesas: leak of exclusive reset controls in
+>   r8a78000_mdlc_probe()
+> - [Medium] pmdomain: renesas: leak of scmi_clk_np reference in
+>   r8a78000_mdlc_probe()
+> - [Low] pmdomain: renesas: mixed scoped_guard() and goto in
+>   r8a78000_mdlc_attach_dev()
+> --
+>
+> commit 35d53b7b58584e545d3609ea7bb1ae4726d2bdc8
+> Author: Geert Uytterhoeven <geert+renesas@glider.be>
+>
+> pmdomain: renesas: r8a78000: Add SCMI remapping support
+>
+> This commit extends the R-Car X5H Module Controller driver to remap
+> hardware power domain, module clock, and reset IDs to SCMI power domains,
+> clocks, and resets when SCMI firmware support is available.
+
+Thanks for your review!
+
+> > --- a/drivers/pmdomain/renesas/r8a78000-mdlc.c
+> > +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
+> [ ... ]
+> > @@ -178,8 +280,148 @@ static int r8a78000_mdlc_attach_dev(struct generic_pm_domain *domain,
+> >               return -ENOENT;
+> >       }
+> >
+> > -     dev_dbg(dev, "Ignoring HW module 0x%x\n", id);
+> > +     if (!priv->scmi_clk_np) {
+> > +             dev_dbg(dev, "Ignoring HW module 0x%x\n", id);
+> > +             return 0;
+> > +     }
+> > +
+> > +     entry = &priv->mod_map->entries[idx];
+> > +     dev_dbg(dev, "Mapping HW module 0x%x to SCMI clock %d fck parent %d\n",
+> > +             id, entry->fw_id, entry->fw_fck_parent);
+> > +
+> > +     clk = scmi_get_clk(dev, priv->scmi_clk_np, entry->fw_id);
+> > +     if (IS_ERR(clk))
+> > +             return PTR_ERR(clk);
+> > +
+> > +     parent = scmi_get_clk(dev, priv->scmi_clk_np, entry->fw_fck_parent);
+> > +     if (IS_ERR(parent)) {
+> > +             ret = PTR_ERR(parent);
+> > +             goto fail_put_clk;
+> > +     }
+> > +
+> > +     if (!clk && !parent) {
+> > +             /* Ignore missing SCMI clocks */
+> > +             return 0;
+> > +     }
+> > +
+> > +     ret = pm_clk_create(dev);
+> > +     if (ret)
+> > +             goto fail_put_parent;
+> > +
+> > +     if (parent) {
+> > +             ret = pm_clk_add_clk(dev, parent);
+> > +             if (ret) {
+> > +                     pm_clk_destroy(dev);
+> > +                     goto fail_put_parent;
+> > +             }
+> > +     }
+> > +     if (clk) {
+> > +             ret = pm_clk_add_clk(dev, clk);
+> > +             if (ret) {
+> > +                     pm_clk_destroy(dev);
+> > +                     goto fail_put_clk;
+> > +             }
+> > +     }
+> >       return 0;
+> > +
+> > +fail_put_parent:
+> > +     clk_put(parent);
+> > +fail_put_clk:
+> > +     clk_put(clk);
+> > +     return ret;
+> > +}
+>
+> [Severity: Low]
+> This isn't a bug, but r8a78000_mdlc_attach_dev() already uses
+> scoped_guard(mutex, &r8a78000_mdlc_lock), and adding goto-based error
+> unwinding in the same function mixes cleanup.h helpers with goto labels.
+> Factoring either the list lookup or the PM clock setup into a helper
+> would keep them separate.
+
+Not a bug, will see if I get to it...
+
+> > +static struct reset_control **get_rstcs(struct r8a78000_mdlc_priv *priv,
+> > +                                     struct fwnode_handle *scmi_reset_fwnode)
+> > +{
+> > +     const struct mod_id_map *map = priv->mod_map;
+> > +     struct fwnode_reference_args scmi_spec;
+> > +     struct reset_control **rstcs, *rstc;
+> > +     struct device *dev = priv->dev;
+> > +     s16 fw_id;
+> > +
+> > +     if (!map)
+> > +             return NULL;
+> > +
+> > +     rstcs = devm_kzalloc_objs(dev, *rstcs, map->size);
+> > +     if (!rstcs)
+> > +             return ERR_PTR(-ENOMEM);
+> > +
+> > +     for (unsigned int i = 0; i < map->size; i++) {
+> > +             fw_id = map->entries[i].fw_id;
+> > +             if (!scmi_reset_fwnode || fw_id < 0)
+> > +                     continue;
+> > +
+> > +             scmi_spec.fwnode = scmi_reset_fwnode;
+> > +             scmi_spec.nargs = 1;
+> > +             scmi_spec.args[0] = fw_id;
+> > +
+> > +             rstc = reset_control_get_from_provider_exclusive(&scmi_spec);
+> > +             if (IS_ERR(rstc)) {
+> > +                     while (i--)
+> > +                             reset_control_put(rstcs[i]);
+> > +
+> > +                     return dev_err_cast_probe(dev, rstc,
+> > +                                     "Failed to get SCMI reset %u\n", fw_id);
+> > +             }
+> > +
+> > +             rstcs[i] = rstc;
+> > +     }
+> > +
+> > +     return rstcs;
+> >  }
+>
+> [Severity: Medium]
+> Does r8a78000_mdlc_probe() leak the exclusive reset_control objects in
+> priv->rstcs if a later registration step fails?
+>
+> reset_control_get_from_provider_exclusive() returns unmanaged references,
+> and get_rstcs() only calls reset_control_put() when its own loop fails.
+> If a subsequent call in r8a78000_mdlc_probe() such as
+> of_genpd_add_provider_onecell() or devm_reset_controller_register() fails,
+> the reset controls are leaked and remain marked exclusively acquired, so a
+> later probe retry will fail with -EBUSY.  Registering a
+> devm_add_action_or_reset() callback in get_rstcs() would release them on
+> probe failure.
+
+Thanks, will do.
+
+> > @@ -249,6 +500,47 @@ static int r8a78000_mdlc_probe(struct platform_device *pdev)
+> >       priv->dev = dev;
+> >       priv->np = np;
+> >
+> > +     if (!IS_ENABLED(CONFIG_ARM_SCMI_POWER_DOMAIN) ||
+> > +         !IS_ENABLED(CONFIG_COMMON_CLK_SCMI) ||
+> > +         !IS_ENABLED(CONFIG_RESET_SCMI)) {
+> > +             dev_dbg(dev, "SCMI pmdomain/clock/reset support is disabled\n");
+> > +             goto fallback;
+> > +     }
+> > +
+> > +     scmi = of_find_compatible_node(NULL, NULL, "arm,scmi");
+> > +     if (!scmi) {
+> > +             dev_dbg(dev, "Cannot find SCMI firmware node\n");
+> > +             goto fallback;
+> > +     }
+> > +
+> > +     if (!of_device_is_available(scmi)) {
+> > +             dev_dbg(dev, "SCMI firmware node is not available\n");
+> > +             goto fallback;
+> > +     }
+> > +
+> > +     scmi_power_np = scmi_find_proto(scmi, SCMI_PROTOCOL_POWER);
+> > +     if (!scmi_power_np) {
+> > +             dev_dbg(dev,
+> > +                     "Cannot find SCMI power domain management protocol\n");
+> > +             goto fallback;
+> > +     }
+> > +
+> > +     scmi_clk_np = scmi_find_proto(scmi, SCMI_PROTOCOL_CLOCK);
+> > +     if (!scmi_clk_np) {
+> > +             dev_dbg(dev, "Cannot find SCMI clock management protocol\n");
+> > +             goto fallback;
+> > +     }
+> > +
+> > +     scmi_reset_np = scmi_find_proto(scmi, SCMI_PROTOCOL_RESET);
+> > +     if (!scmi_reset_np) {
+> > +             dev_dbg(dev, "Cannot find SCMI reset management protocol\n");
+> > +             goto fallback;
+> > +     }
+> > +
+> > +     priv->scmi_clk_np = scmi_clk_np;
+> > +     info = mdlc_data->fw_info;
+> > +
+> > +fallback:
+>
+> [ ... ]
+>
+> > @@ -295,11 +604,14 @@ static int r8a78000_mdlc_probe(struct platform_device *pdev)
+> >               return dev_err_probe(dev, ret,
+> >                                    "Failed to register reset controller\n");
+> >
+> > +     /* Retained in priv->scmi_clk_np */
+> > +     retain_and_null_ptr(scmi_clk_np);
+> > +
+> >       return 0;
+> >  }
+>
+> [Severity: Medium]
+> Does retain_and_null_ptr(scmi_clk_np) leak the scmi_clk_np device_node
+> reference when the fallback path is taken after scmi_clk_np has been
+> found?
+>
+> If scmi_find_proto(scmi, SCMI_PROTOCOL_CLOCK) succeeds but
+> scmi_find_proto(scmi, SCMI_PROTOCOL_RESET) returns NULL, probe jumps to
+> fallback before setting priv->scmi_clk_np = scmi_clk_np, and then
+> unconditionally clears scmi_clk_np via retain_and_null_ptr(scmi_clk_np)
+> at the end of r8a78000_mdlc_probe().
+
+That is correct behavior, as scmi_clk_np won't be handed to
+priv->scmi_clk_np in the fallback case.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
