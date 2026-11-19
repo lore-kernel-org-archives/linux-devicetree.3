@@ -1,64 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795119237;
-	b=IT6ZaOhPh0qzcGO5bWiVd+MYud2py/I9sLlC8Pm4oJ8q8Gd9LHHtsV96IvZ+hr8ypvY+
-	 HaFOsA7az8uKWkd8kA0vZmKpQrIFiyiT+aHKQI39e4jqsE7FxGdLWJnKyhPtDgUpwfLKy
-	 gS6wwie0HpYFBYF60m/bWTd249mDwtMaCpgFewiQmhUerSEJW2LsIPGemiJoSBVyY/Jl2
-	 N2mcWgndB0YSDJXgNqURMIjNdgTa8kcEKPzTqG0LVlQKhiVN43bYuSluJh18lE6SffWeH
-	 9VoCS7yvqdi8LesPYnIVk3gorEwq6D9o9soR1IHD+MN8w4kQdi9ab+dqVeWLVCq9uiQ==
+	t=1795119305;
+	b=L21+8MyU1i0cTDEggOwUr4J6yTTZEA0eJsBvzTwg0jHl9uxe3qZSNpHZFrcftFVNFAJm
+	 6h1NkTMiMlj6QR33XmNLHW3UbWlZSrf8GN3LmeLWfbkRV1L6bqgSld7t2glJvlaW04haM
+	 n+/qsMJ0JZMt48RVU5fbNy9waxi9zL/Rn4ueyvDo2XrCSs+yfTVwy+l+pX3YZdWT86I5Z
+	 7lKQ3CW6DYtuLPKlEQEyN8WnaBRJR2ait41gKUNRytxMCk7hN+Z+TfDw9jXVToQWx/Jgt
+	 6/QoE0hEFdWLepjntGt2lWIpOsQmmrZvduWGkOpI3YqYNhiMdaap8z8c2IKC0ZSL0Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795119237;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ohflwTIw+Y1tH/9jqyoPDqwznuFbRi/wcTKWRmCALvw=;
-	b=k6M+FwkP9olRIe5YCbvlTgjK9OaT8VeEc4ybVJseqGzpwznuuQ5ztX7r7lGnZoCCn+tc
-	 EvNhvlEwHltTIL9dPND3d3o5/wnW94OYzfsD3AWl103yRDjR7SwEPMC4UGyEEbZoHb7c2
-	 MJ0DCcrRli/ljntzvQm7fVvulJe8H6IKfoQ9il7A6pfMpxPPcrjKN9Mtzq1ogQnsM5crG
-	 0LSDAE81AL+zfBImiMtd0ZMDf2Tp43KYSsnajtHDfkwKQzN6QoVRvTDWYQaVJU9h/o3kp
-	 TAKNjIz7pYeMKMlNEnuSSzE1V5f78X/1SfOwbNZurO/EoOXhyZpFwEDRpRLf9hVkPEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795119305;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=ZFP1KdKJOpORb419ON5uvKPl/QdtChge5ZGA23yIqR4=;
+	b=D4iT5qXDBAK+kzOky4UVG2NLNyJSodoxCnCAR6Y9Uld44DiluKflYH8DUc75yegmamyV
+	 zXRWtR4HgLfJJSDpfdT/GciU2pDK9gj3cBTX0caZsPr+MWYtLj8x2tmiAgo/Js4UBhSwu
+	 GsNpLAvCPZVPYJuQVkxS4KdWxIf+r9AfmJuzIhnO42SMVxou0ZTy3QS8sz1r0jI44FI2c
+	 ZdaK19J64O0SgoGtFB/7cgNRLMa9tS7AaF8s83Wwbk2ofeDzWFH4SHPMIGrIe+KT96e+a
+	 RSfHEj/tSez9tARhDH+5hvffT2uMIt9DOuteU0RlDdm16dFKSsVD/9uIi4np+kam+Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhzhEF87;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N1y55w+u;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8183E606A320;
-	Thu, 19 Nov 2026 20:13:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501C4606A324;
+	Thu, 19 Nov 2026 20:15:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhzhEF87
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8B41F000C0;
-	Thu, 19 Nov 2026 20:13:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N1y55w+u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3961F000C0;
+	Thu, 19 Nov 2026 20:15:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795119237;
-	bh=ohflwTIw+Y1tH/9jqyoPDqwznuFbRi/wcTKWRmCALvw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dhzhEF87IGe3TrNLOmhv16gsGf5lfuG+STVwpK5CqftHhPorjQKUxxSHqAjtItPWB
-	 0abKTfoUZqNz/Cwf0DdRveogQxxuB4RIkh/GSZQWOi93Z4ot/YmpbCvxO/esCJy8FI
-	 b4hC+z09jr7OJdQm9Bez6HfjW75l3lYBnbLF23V4Q+XFWaAaow6X6Uq4T8qCCsenNc
-	 kwSIHlAt+fwq3xeFZraigJmho4grycYNxl8SZSO7p4BosbIMy1aZ1ElSvNEkNjPfxM
-	 3x0CRqORhKH9wNJ2MvEG8zfl2H/KaEiA5VRAkbTcomeOXZ7KLsdlY7RhHwva0VXqRd
-	 aGtLxIrPMjMZw==
-Date: Thu, 19 Nov 2026 14:13:54 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Hauke Mehrtens <hauke@hauke-m.de>, Mark Rutland <mark.rutland@arm.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-arm-kernel@lists.infradead.org,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
-	Besar Wicaksono <bwicaksono@nvidia.com>,
-	Ilkka Koskinen <ilkka@os.amperecomputing.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Randy Dunlap <rdunlap@infradead.org>, Will Deacon <will@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: perf: Describe the Broadcom BCM5301X
- AXI PMU
-Message-ID: <179511923403.118198.12888677660376650016.robh@kernel.org>
-References: <20261027175124.3518239-1-florian.fainelli@broadcom.com>
- <20261027175124.3518239-2-florian.fainelli@broadcom.com>
+	s=k20260515; t=1795119304;
+	bh=ZFP1KdKJOpORb419ON5uvKPl/QdtChge5ZGA23yIqR4=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=N1y55w+ukoBuAaoIpV9697PFKD+LkkgqSjniDb3jEnYmGlW1Nhh1myVpSZ54jiBzh
+	 Iqwn65mKganneME9L2Sbw3782RiZqNxud+QbippqCanl4TS6j/FYmmmGdyEbiZlZvX
+	 HUJuBBOOoKcpZGVa/5TL5PjoWwprsOONZ86FWUjYNNadAmhaQBU8FRD+dZq4JfIe3w
+	 ySOKFgCnUhU+5ioEIdHpDno1FVBcbYfn7nYUiVHmrEAXZ7VQd+iCytSEAmyMuY7eye
+	 emgkueK5KBrBi/lVNPDMPHfuhS5YHeN1+hFKClfLbO2RaJ0OCNTFwYpErjgDSJCIjy
+	 azvX+rkEu6BhA==
+Date: Thu, 19 Nov 2026 14:14:58 -0600
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,22 +51,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027175124.3518239-2-florian.fainelli@broadcom.com>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-input@vger.kernel.org, devicetree@vger.kernel.org
+To: Hefei <3066883572@qq.com>
+In-Reply-To: <tencent_C97CF8588D7C3312CE3D51FCDEA1E68DA70A@qq.com>
+References: <tencent_C97CF8588D7C3312CE3D51FCDEA1E68DA70A@qq.com>
+Message-Id: <179509880891.714790.13159454991217439265.robh@kernel.org>
+Subject: Re: [PATCH 1/6] dt-bindings: display: add VIEWE JD9365TX panel
+ binding
 
 
-On Tue, 27 Oct 2026 10:51:22 -0700, Florian Fainelli wrote:
-> Describe one APB register window per AXI Trace Module. The counters are
-> have no overflow IRQ.
+On Thu, 19 Nov 2026 10:48:01 +0800, Hefei wrote:
+> Add the device tree binding for the VIEWE 7KF82 720x1280 Jadard
+> JD9365TX MIPI-DSI panel.
 > 
-> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> Signed-off-by: Hefei <3066883572@qq.com>
 > ---
->  .../bindings/perf/brcm,bcm5301x-axi-pmu.yaml  | 43 +++++++++++++++++++
->  MAINTAINERS                                   |  1 +
->  2 files changed, 44 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/perf/brcm,bcm5301x-axi-pmu.yaml
+>  .../display/panel/viewe,jd9365tx.yaml         | 76 +++++++++++++++++++
+>  1 file changed, 76 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.yaml
 > 
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.example.dtb: panel@0 (viewe,7kf82): port:endpoint: Unevaluated properties are not allowed ('data-lanes' was unexpected)
+	from schema $id: http://devicetree.org/schemas/display/panel/viewe,jd9365tx.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/tencent_C97CF8588D7C3312CE3D51FCDEA1E68DA70A@qq.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
