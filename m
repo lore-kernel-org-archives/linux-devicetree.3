@@ -1,106 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795090243;
-	b=2ezeG9sTrXNADWb6SbXvqvBlxaB9WkXrFFl8bziL6owQl5D+iYfLPMJtnnQYToTUmD5Q
-	 wjEfLvoYdtNqm/y/N6OcQZhPS0l3PSZJVzO6OrjFnTDgRWaukNSGIZsEyf3rFr9/32Vzz
-	 PEEEn9VjYZtg6Qy3AeD4+l+dStjhgPoMhrNxxWS53tJY6huLerZYlfquE0OKZdVY3nyb7
-	 xh+qRN6h4p9KiS7tD4kasRXEp4qafllUZFBOTlkp/jfK3FtBjkYVO7ogex+Z/stIeeNyd
-	 vhCshn45lpxrs/Z8G/BL3jLfeBE2ngPlGounJp3CcHQIrL0DP6YLP2/KuqtsupO+7hg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795090243;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bETUltzFp8ju63w5h2+StYgoq2SuMVMwAED32c/bEV4=;
-	b=p1fuJfHMwXsuhHERrDUJxKlKj5lZQf5xIzU3nsNz2Ves3RdPKEuLGy5l0UeP+AB0KAnR
-	 wfKQOLAIGtExwd3BLw0CzV295tFCCJJImVo7Bbiwi1XxswtMH34ydSnovtQ/ZCdL9Kb6S
-	 w2wxxV/B0WOR15dTtsdMKh7xYup1EN+PJXRYMr1jSyXY83Bj2oI8ko+cVnCsVOgcGzA7L
-	 huoDfiRD980HvI++0fOkxuyiElUUJpqS1ATauLXSgEtHDWc+M2+dRVa70IReGmcjxgN7L
-	 Ca0SXdBne0ScGloWQxRbbibVwXkI6IiPqXzRzEJiOymowzwFuHjqvRFQ3Og9AgpxTrw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KLQ7dQyn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.41
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.40.3.216
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795090389;
+	b=QUO48o8Wxd35qFIzqGroByHlH1PsJd95YDXWgAOy6Vx3TNmbegXmDNC8kC3yN0+Y97KJ
+	 6657K8iAlt+HaPzEwDSFFSQ3DTJP+RMyvLqep9EHhjgFm1Q/GK4nHQUYoC0ofLP9VodAC
+	 iKQa6ALQc7m6pyknSiZyNCRAjq70uTdffjxSGT2IKcIjd+jAU5qKr+JWDvmtt3aY4iNW6
+	 2zzxusFlWe70Tz0hKN34y7F9/94qt7J/jxvVFmHW3LHX/8verKq2F80UD6cieFVTFp4YY
+	 Z+0oYgZ9rBa+UEDZKf1t7jbiwSQJVXepA0hCggnV3tYhE+JEHdWUf2lAb4jZlntqspg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795090389;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Virus-Scanned;
+	bh=REsnftpp5R8mVp6m2NhUleDB0j+A8D+8snw/QN9P/es=;
+	b=4uolKJLnuXWhWwvOjYBPwvKdmBaWerEG3yA/kpq+1v7TU7ebM4L9gbWHumQyK489i0CV
+	 q7sKaWTMlWIyaufBt8AuEj/NjLsnHa/LxVt3ILPX2ttr/G319m1RIRKAwPIy8WGWm8aO+
+	 5zZqGqUl5JOk0Lkm5S5IPNIUGA183dvQblpCQZTg9Vc1QlgI6mDrZ71tSCcse3eaVmLWK
+	 wvjfk6nvsBVoq0kSRhaQN8+M+7J3qMcjQ5tWaAQGmiup0dkHtZsxO6CZDBzSzjPIlqqtz
+	 tYBOyQc3Gkz6H6H3eg0JkE9lj5N1m1qaLxi6mSM+4vJSmKi8nawhSm2PiInIY49yXNA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ew.tq-group.com;
+	spf=pass smtp.mailfrom=ew.tq-group.com;
+	dkim=pass header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b="Ow1j+iK/";
+	arc=none smtp.remote-ip=188.40.3.216
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6D5606A320
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 12:10:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C6D5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E50A606A320;
+	Thu, 19 Nov 2026 12:13:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E50A606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KLQ7dQyn
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5c07c7306e1so1753127e87.1
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 04:10:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795090242; cv=none;
-        d=google.com; s=arc-20260327;
-        b=U6mdZF4bvyg8d/lS0o5PFTeqXu4JaKhUnYGA/OF49j+i+w2Xu9Xsu8oAYfAZbet4vh
-         K2kfWoOMwYHukfiF6q8lKzB55PnaLn8bpfEUBGPa00oCYTKjV6ojVvIl62eZTSrhcWMr
-         7fJMOvx0SyA4H7EdDRSiatmj+3wz1T2fdcwaoWvG+pvxuOidWOsTGv6yp23bPJQ3xMMq
-         tEyF595SslFNxnSxxbHfXnfSdTdj1pAb/ZNvYcsl4UsvAoZde1U7B6iXM8zZfzy9XKwb
-         xNnMHxLhkvlKezxBvSNxIIEML6FhmjIxM0AOtf1Pi+YmL7IEFB+eq6iH1lscq1H5Csir
-         g62g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date
-         :mime-version:references:in-reply-to:from:dkim-signature;
-        bh=bETUltzFp8ju63w5h2+StYgoq2SuMVMwAED32c/bEV4=;
-        fh=877anvfG81PL5w1tqAv3ux5PmaD/v2T8KWa1f27MsPo=;
-        b=EcAvhCGmFkBpaRXuBfAxBI38MKOOlbl1QHpIIy8PlHYzz6h1MS/EtrewG0xojZv8oP
-         AAurd3wGYMiYHyUF1kMIQ8/PxJ+0YhBuqVihV2z1yIMzVea5G+319pwIoxRSjV0DhMF0
-         5vdvO/E57J8qMz4/inpu36W5sYVPBOVMzoC/m5AuiutgObX7vJfE2ur4D/ewLz25Xp02
-         DNtinqlDv2+ii+iDcDj13r/014u1LNgFSyKKYETPs4eXPL8GPR+EBQ+wu4zZkbdReexW
-         6dc7ZImT6wOdA5t20TUZUUuM5aGG3hOWISf7pwieAA7SIybXc2dH1ERDRNAkSgqFUVhM
-         638g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795090242; x=1795695042; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:mime-version:references:in-reply-to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bETUltzFp8ju63w5h2+StYgoq2SuMVMwAED32c/bEV4=;
-        b=KLQ7dQynqqbDBKLNTf2S9ZhkFBRr1jU1T6kECC2ddaZCWxtcJ1p6slULShoWmzSaav
-         cjV87KWjorD98055ojC3bpRCmOLPpfTgiP6j6njrBJUC6DomS/qj1EOtu0HtWiC4Nesb
-         +/BgStH7M4VTNgLfRZVqN14PCCa0NAUOF5n3V7rDn0N6092vHqevbkX5V5nuMMDzQhrX
-         yYnjhQd3iV/p+B3slEGTja0rvTo4XGxl9sKE4vme0uZMLmnzWCAH82itfoRrDWzLFzv2
-         cg1A8lIJFroGrhIg/LrZQZyAbKWi6qSlEHfrlSs6svqT41eZU+5CT0fvlQU1V4h7AJ1G
-         yh+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795090242; x=1795695042;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:mime-version:references:in-reply-to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bETUltzFp8ju63w5h2+StYgoq2SuMVMwAED32c/bEV4=;
-        b=2f8SHTPJXCXQi4+lL2NH05Qku/OV8PO8RjFCRZAFVjXP7tGbf6sztnF9DDZ1j2obn+
-         qPOMPE8MnWPdlEyTjyXbDKvTbpz4i7kkEp8wo5QC2ltz7HuY/PU4MQrI0PvhznNCTiCZ
-         ZQIyrFXCugGVgqytTffIHAwicy++jhClRczMRCSqNOQzXYu97tpVWC7pWI71qb8jrOki
-         b/bdS002tnf5xcre0juu+/v6OuFfezCa1mevGddJlmt1X9UcPgDTwRu1laN/MEW4haA+
-         VNNL25YMR6O/h3WNehzPqhmFr/qQWRAsVn2fZBY3wgV+6Cer1sE6rCwL2no05dhf0xtf
-         YI6Q==
-X-Forwarded-Encrypted: i=1; AL+hErFPHJeOJt2stK15/vwnnTfkIfaikLm8XFZcf5FCQ6dWtW6RbBCjOWClgX8FLrllOhXDRpquBffnhPvB@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kw2RmvhbPhJKPDGxNZPwrNQITMafNn/X/9x5nqBvOBvT1yyaI
-	wt+Iv2xysMZPBkXRxUs0wfPQzfDcnwIJIj2PG6nSOfy5P69eT6OIfxwxowkeSj3LgOkBoQ68SEl
-	qoJqmYmOcal/J/BhDIcm4uxaFJjp7uW8=
-X-Gm-Gg: AYBFou0WSUsMTmEqLAxZKXUFeCT4kPkee3VvrcdRGaEyme4csFAoua5mAgwwgH8mg61
-	hLOXxA7vQmlj/vT7vBnUg4lYIDFywFzEA+6aGiuAx+6ju0QPNB/wnWwY1U7x/EuTeMGS9n+St/a
-	0RsS08UbeBntiwtMgNKY636a1bhKad9irnDX0a9acos8hBuHk6JdCOzA08O9MFwfxFlyrlY14xG
-	4HSeoPCTo075JDFG4DC0YWYXwGNt4fGyVsM7m06LgHv4ZEf8Vynexfm+oBcAslcebD8b5UqOzrZ
-	EYnvZHPyErD4g3DTyfUhprWCZu3N1GhwqjV5Vl79SPXOcat/fUuNl6jNbgAQh9hup01q72pHy3L
-	eIAOIOQ4fNkH7k3j4hNp/Df/Y2lm++HsxEWnAhHL3XSlYZ1baxi90p/E=
-X-Received: by 2002:a05:6512:3c9a:b0:5c0:ca1:9dcc with SMTP id
- 2adb3069b0e04-5c1aa02c2bbmr2030231e87.57.1795090241380; Thu, 19 Nov 2026
- 04:10:41 -0800 (PST)
-Received: from 138594053405 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 19 Nov 2026 04:10:40 -0800
-From: =?UTF-8?B?57Gz55Sw5oKg56KB?= <yogo.0917.sabu@gmail.com>
-In-Reply-To: <4ae5596c-281b-476c-b656-1e03ae7409b3@kernel.org>
-References: <20261117-at550-rfc-v1-v1-0-5879573cb825@gmail.com>
- <20261117-at550-rfc-v1-v1-6-5879573cb825@gmail.com> <4ae5596c-281b-476c-b656-1e03ae7409b3@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=Ow1j+iK/
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=REsnftpp5R8mVp6m2NhUleDB0j+A8D+8snw/QN9P/es=; b=Ow1j+iK/0IXr3VjEg+HVcVRwx4
+	ClZh46wm3jwoJUVDAxFIqsxoZ2Ne7kNGjkKMnV1I2iuu+4Y2/PszSHbhbhw4W1hy3L+HiNX3dHrM5
+	DP1TcGgLpSwzVCdI7sh8RlIqxLJtnk9KkHGMu2gGvJJ8YIaf8R6+QmTCmV5r1gY/cqOqvV67wD21z
+	xv2rpZcvIdV5rCaZLOTboYJmaWqrI1UxU99KchXsx3c9Y9sl+ATp4XwLSLijEOfgRMmLOQfdQONKL
+	LcmavD58kF7/4vNyS7B/Upkr7kSvvHtOybAQXD2X336TWJHk9+sERgqdHlv1s9U+mQ6FVhy5cx3GH
+	hWdIyBBw==;
+Received: from sslproxy03.your-server.de ([88.198.220.132])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <max.merchel@ew.tq-group.com>)
+	id 1xU10k-0009Qi-1O;
+	Thu, 19 Nov 2026 13:13:06 +0100
+Received: from localhost ([127.0.0.1])
+	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <max.merchel@ew.tq-group.com>)
+	id 1xU10k-000GBq-0t;
+	Thu, 19 Nov 2026 13:13:06 +0100
+Message-ID: <327196f2-9063-4164-a556-3093a649b5e0@ew.tq-group.com>
+Date: Thu, 19 Nov 2026 13:13:05 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,49 +68,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Thu, 19 Nov 2026 04:10:40 -0800
-X-Gm-Features: AclHuK9FN_lcxmvKpiBOURMVJw7FuBsEr81qRUdUW-5-lcWp0rWdYKip_S5TZBE
-Message-ID: <CAJGK9zbbEJ_E5t4tXAHmi2QH8vjAmFzLDUbykUfQv_cDwvkG6w@mail.gmail.com>
-Subject: Re: [PATCH RFC 6/6] ARM: add the SiRF AT550 platform and YPL514si board
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Radu Rendec <radu@rendec.net>, Ulf Hansson <ulfh@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Russell King <linux@armlinux.org.uk>, 
-	Arnd Bergmann <arnd@arndb.de>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-input@vger.kernel.org, linux-mmc@vger.kernel.org, 
-	linux-doc@vger.kernel.org, soc@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ARM: dts: imx6qdl-mba6: Add EEPROM nvmem cell for all
+ board information
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org,
+ conor+dt@kernel.org, Frank.Li@kernel.org, linux@ew.tq-group.com
+References: <20261119102531.2995127-1-Max.Merchel@ew.tq-group.com>
+ <sashiko-outbox-222965@kernel.org>
+Content-Language: en-US
+From: Max Merchel <max.merchel@ew.tq-group.com>
+In-Reply-To: <sashiko-outbox-222965@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.6/28188/Thu Nov 19 07:24:39 2026)
 
-You're right. I submitted the patch without properly reviewing and
-understanding the LLM-generated code. I'm sorry.
 
-I'll review it carefully before submitting another revision.
-
-2026=E5=B9=B411=E6=9C=8818=E6=97=A5(=E6=B0=B4) 17:14 Krzysztof Kozlowski <k=
-rzk@kernel.org>:
-
-> On 17/11/2026 14:06, yy-Local-LLM via B4 Relay wrote:
-> > From: yy-Local-LLM <yogo.0917.sabu@gmail.com>
-> >
-> > Add a minimal DT machine using standard IRQ, timer and simplefb paths.
-> > Describe the SoC and the firmware-configured YPL514si display. Leave
-> > usable memory and the divided counter rate for the bootloader to
-> > populate. Keep optional peripheral nodes disabled until firmware hands
-> > them over. Disable unvalidated board suspend; limit this board to SD PI=
-O
-> > at 25 MHz. Document the RAM-boot contract and the missing
-> > cold-boot/clock-tree support.
-> >
-> > Signed-off-by: yy-Local-LLM <yogo.0917.sabu@gmail.com>
+On 11/19/26 11:37, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Low] ARM: dts: imx6qdl-mba6: duplicate @20 unit-address in
+>    nvmem-layout
+> --
 >
-> Awesome, you did not want to even read what LLM told you?
+> commit b5a0ac272fe3356ca3f0ff5cbf739f7f5d760dab
+> Author: Max Merchel <Max.Merchel@ew.tq-group.com>
 >
-> Best regards,
-> Krzysztof
+> ARM: dts: imx6qdl-mba6: Add EEPROM nvmem cell for all board information
 >
+> This commit adds an EEPROM fixed-layout nvmem cell at offset 0x20 covering
+> board information on MBa6a and MBa6b carrier boards.
+>
+>> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6a.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6a.dtsi
+>> index aca320ee8f476..9b199b277c220 100644
+>> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6a.dtsi
+>> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6a.dtsi
+>> @@ -29,6 +29,10 @@ nvmem-layout {
+>>   			#address-cells = <1>;
+>>   			#size-cells = <1>;
+>>   
+>> +			board_info: board-info@20 {
+>> +				reg = <0x20 0x60>;
+>> +			};
+>> +
+>>   			mba_mac_address: mac-address@20 {
+>>   				reg = <0x20 0x6>;
+>>   			};
+>> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6b.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6b.dtsi
+>> index c7bbd6195fef1..517913abbc66d 100644
+>> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6b.dtsi
+>> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6b.dtsi
+>> @@ -39,6 +39,10 @@ nvmem-layout {
+>>   			#address-cells = <1>;
+>>   			#size-cells = <1>;
+>>   
+>> +			board_info: board-info@20 {
+>> +				reg = <0x20 0x60>;
+>> +			};
+>> +
+>>   			mba_mac_address: mac-address@20 {
+>>   				reg = <0x20 0x6>;
+>>   			};
+> [Severity: Low]
+> Does adding board-info@20 alongside mac-address@20 under the same
+> nvmem-layout parent in both dtsi files cause duplicate unit-address dtc
+> warnings?
+>
+> Because both enabled sibling nodes share the @20 unit-address and overlap
+> at offset 0x20, building the MBa6x DTBs with W=1 or W=2 triggers
+> unique_unit_address_if_enabled and unique_unit_address warnings.  Could the
+> fields be defined as non-overlapping cells at their respective offsets, or
+> exposed through a dedicated nvmem layout?
+>
+Hello,
+
+the MAC address is the first part of the TQ-EEPROM structure for 
+module/board data (MAC, serial number, type).
+
+The function “nvmem_get_mac_address” in “net/ethernet/eth.c” retrieves 
+an nvmem cell containing the MAC address and compares its length to 
+ETH_ALEN. Therefore, it is not possible to use the same nvmem layout.
+
+Consequently, two nvmem layouts are required, both starting at the same 
+offset.
+
+I have not found a way to use only the first part of an “nvmem layout” 
+or to create sub layouts for sections of an existing layout.
+
+
+-- 
+Best regards,
+Max
+
+TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht München, HRB 105018
+Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
