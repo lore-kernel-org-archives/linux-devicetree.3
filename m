@@ -1,86 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795110615;
-	b=maJsShuu4yHcUMWm36grO7war0pom4AdfZpsPrgN6YBo3kItj5Brm3mv/QHjsoNbRurK
-	 LeZ0HF1g4G+RiZhy97D4cNJD738xjbk1UHzsOCBjiJG+QMKAp7V2+hwmtincLpxAEUvHM
-	 CCGrDBXrMjWgESR35L/MSEDx4YCVYQCy/0uepR7sJDQam+QrwSeT0k23MMv62BAAaX/gv
-	 dKeWF7kK7fhPbZgkmzIcOGwvSkSrpEhnNPGPj2ttZe8mI3TL1B6/9pRzTrfX4czkVbptW
-	 CnNh5/TODd06m3Ou0HSNCyw/Unt+pgwa+mRi2tVcWjBrtpuJlgsT0lN5mcbhKJ+tRog==
+	t=1795110617;
+	b=Bnr+wSoqScaWeKRL2QlGuwAHoajk9Dd20JkrfV2ZFdkkPS9ZjgMUg1cjoSDlIQpAioPD
+	 MKhdMEsXDXFxgVkhlQ/cFxuoYov5zKIMNre88ICYfH74EyngLJbIuVBSzIN12EqfKxk82
+	 axhTw7UBWXFc348ygSsRH6+eTWsH9bnYCp93P8ney47gsNScdytYl4vE34ce/dk5YMGTH
+	 omLJQGdMqIcOHuh4Qc+HrsI57UixuGohy/g21SZOOaF2iUCt/vEgx2SEaPIYC8A7wWWpc
+	 W2v3GvrOKZXSvG8odjjzfS+/KiumcKoJbMxq2hGedwY3cGPYw39b4aALFbruMxOLSwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795110615;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795110617;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=V0vXpQ0w5/8cdfKY20evJG5SNfOITIVEXlv4OVmyRbg=;
-	b=lHqFtwWLRP8uvVu+V7N2356DbPV9fdBquG6/pzCoiFkw5zGXAwX1Vuw+0+Ja5FzuazBX
-	 aCl3gLLNBIThyQ48fLz8dno6a0AbA3vkbyS+cC2KdDugNMhCnUNE7hF5hZeOln9sVmjof
-	 rmXjhUgSLIrRXZOlw7Y07HICCPnJJ0y7RozK6lr+9iSLOZOjHkOpIFdOkKzjQj1alwd2j
-	 T0xr/3a65GRYYkeyLz+TstoN7DEhfuecBqpM/xJfhkqgiNXyZ5RGKEBw5zYpEUNKgxClC
-	 foM+9gNvR7AbMQcEWIMwm6yYosTtydy9Q90tNGfw56SmbWnb49tz4SnYUCi9V52b7UQ==
+	bh=esT354LfgWAtzd0fzH7vF+hhVEnmCcI3/TAJZroHtbo=;
+	b=speO3MKVnlhN3AXyzXo7bgpf6hpGJtK22a8xqo/unsXyfaThNDloyLv1ja4uzgQziQhG
+	 WEqlW1f+NeHG9dU2ycEz3Qu7VVMX56ZDB6Scj42manS5a2iqDujTa6VLQEvkyRtepNKBE
+	 VNa/EYkhHin/5lSFxtfcTpM9hMuAiNqxFsUwGv2lDV2nFNYxomrAhyPV2bQMVMpHnUNs0
+	 pai3nTMU+GITeQvqQXYVzn6xD2Ez6Tts4pFI5tho0x0bh420yMnbtKJxqgDMxJhTFvQ8h
+	 e078Wg2V2JPQEmxbCkVbZkepBxyjDssDTmC/YBvsxIKgL/HQD5C2sZy+ka0+ObtOnIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=aheymans.xyz;
 	spf=pass smtp.mailfrom=aheymans.xyz;
-	dkim=pass header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Er3vtfFG;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HqIwrB7x;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC5D60A262F
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 17:50:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BC5D60A262F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4A260A2611
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 17:50:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE4A260A2611
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aheymans.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aheymans.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Er3vtfFG
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-497614c95f0so1698218f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:50:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HqIwrB7x
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-491f34b4e0fso1265508f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:50:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=aheymans-xyz.20260707.gappssmtp.com; s=20260707; t=1795110613; x=1795715413; darn=vger.kernel.org;
+        d=aheymans-xyz.20260707.gappssmtp.com; s=20260707; t=1795110614; x=1795715414; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=V0vXpQ0w5/8cdfKY20evJG5SNfOITIVEXlv4OVmyRbg=;
-        b=Er3vtfFGoCzSDbL+gYHxTGR5zk9JEAhm3BZQqUoya72WEJA9eVxyNXImSfwOYUsiFK
-         2mPYEn9mbPUvUMe9eAzZ58egX6hIjz/oVmYuvzOA2zI7b7/zq0vGkZLSokrd0kDcaY3F
-         ljalrKl3DU65DnwTvq35I0g8JQwvgZWiJD9jMwJinDDhpJAc7SylFHygyPlDrI2gDKVf
-         KPctNg5kBlEuYyUeUYlDmrB644Vd8uAXs4s3fvehcO/TW7S9o0yFWRMOReAs0I/3qJXS
-         r8e7PYhQq/eKZhwHgAUypbxjlSLJFkl6ZBAf3Bhteb8Ypl0CG6xPLWOA02ZqPG9vGl2b
-         YcEg==
+        bh=esT354LfgWAtzd0fzH7vF+hhVEnmCcI3/TAJZroHtbo=;
+        b=HqIwrB7x2+DpqqIgAt1fYw2X+S0cMj8zCUqo/TtX86KaS4qJ5mPzW9HLO8eqO2WDh4
+         f+Khohjj9EDyDE4t1MOVwWqhBgN6AjH76sRgY4qojJCrR7L1gJ1A9Fdd2lpjkHyHD6lt
+         5VNSXCEizYBZRgwGV32R+VJPHlhk9toLuBUl200ttN5SIS68yC4iCUGC0blpVJmbmYxL
+         EKvoeT6aFBbexdCppiSSpaeeAcR++6QXZG3HB2r4kmmF95cLAX0hydKb9sIo3CnsQdCu
+         vsuCknPexkSExhRu5B7HWAu4hRQ4egkHYCs+QC+l9Z2clQ4LZmhyI0afLUfzzFGEUIYF
+         pdlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795110613; x=1795715413;
+        d=1e100.net; s=20260707; t=1795110614; x=1795715414;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V0vXpQ0w5/8cdfKY20evJG5SNfOITIVEXlv4OVmyRbg=;
-        b=YQLf7eayKZijVCypB63djh3Q7O6LRMvYSSkynqXOlHUccJ8cGpqvxmw14dOhuRTwYa
-         nAotCV8z2mje1ES7Jm2GPdp9GGAFlfWDb8TZFSlhdf/R/HSTE3HRKOtDdQ450C5RuWnd
-         EXmP7KB0LdlqcJmuvcUkiuVeh1WofX3eZ6GSwxh0iGDRhrNwPGYs3K81aNPMEjPZ39f9
-         5WeBBu4Wuz5avpu70xbAJ3GzobpeLA4KYPQvIrDgFVoXPf9fQaFAZ5pMhcZ2vtV0QOs/
-         FwMLI2IpI1W20FVOT1OvtufLvE1F576/U1rRFUwsZn2TtP80NBQ3F/J2v8R44bGmqCv6
-         wLLA==
-X-Forwarded-Encrypted: i=1; AL+hErFoQiFu1eU7jyMRxLv8vZG8wfD62NB7mIBuw8kp5oO5XxQhLTr5qmy7dNtXZXuhgW6SYYx++tOf/fNL@vger.kernel.org
-X-Gm-Message-State: APuU4Z8JHYL2YIHPNrWmgDlKlpT8Qf7fZ+uwc5HVrXYAFbelgu1K4W97
-	IYw8Sy6ijAjwD3dscTmguoyrxq2qQ95kxlcDyjElMpe6Hj0FFnC3qePcOBkD24HznqwAbCvR+yS
-	ZrdgPKWs=
-X-Gm-Gg: AZFdTZfvOazNVV++XVWP7KtWKk7ZwtmXeK4eDzxmdJmggww6rurT7vWiahQoo0Zq+F4
-	wRFnXkSb0eLqzxAS9pXJ2GGLaUB9x/jOwMFQU6Za+eYVoWk9SKNWKTA184CGs7gdVM0y6C3/Mx6
-	aDsEs9Sh8Y24f2viFqelI5xapyNWVIUp+VvklWLdAgqLuzkaIHY4RGsDhlvAkhsU8Pb7tVmz8vl
-	5AICZurUaJeMMFvFWznJcBQNo+aIk71aVCDExLcAn6S2kR4CfDDSrsgMWnRyClTqntS4rmBkQWv
-	DslMn2b5R3rbuSTuNL+a7FRugsqDF7KcjQB0YT98mvSpnx83aGSzUSITTecw3ivpgr4MiCxMSzq
-	GMyGRDmsMfbfipBYenrA/ix79IE20OogTVg+CHYDPr1hqbSxR76gUuSLGN0ocYUaszexc8MHO+B
-	Up0g4vTQbq2oHsuv1g6KkdWmP40cBQGOYzWZFP7UKhFBL1ZKYVpMNtOAs/V4zexdiXwq66PqiKS
-	fAf/mq3KEVVd4EqDSLeghQDYYRTkRFcpSwUEzaJ59nzq5EqFQNafLXmzqVqogGP8Z85WaT6puOU
-	m6wTBopIHsEb6541FuuWuu8DdB9hlmEU4Pu0MfWIK1Ud/ILNW4N49HnMKX0Xj49z886eGmgbQnx
-	51BnlUEsZqeMMzULpIlpYFYfiYpfS+4deF5Cse2UiJHXlXohM5SJVxOKuXX3JRY3e3gXgkwuDiY
-	by14uX3+mdHDIn7+S66+3xt60=
-X-Received: by 2002:a05:6000:29ce:b0:492:820d:1e with SMTP id ffacd0b85a97d-4abb0f3c464mr154289f8f.11.1795110612350;
-        Thu, 19 Nov 2026 09:50:12 -0800 (PST)
+        bh=esT354LfgWAtzd0fzH7vF+hhVEnmCcI3/TAJZroHtbo=;
+        b=f0jJGmTw6t4CgNCS4PV9wjjKgBAb4LyXnUfK8Uj0IYyMP5wOj9o097sUGZmVleO9eh
+         d4FZI1lYVI/fM2l3BLgsyFqoGQqqzyy5m+dxKELei2ZqVOLGOqgnar1docVwbRvE2gMX
+         iveid6WOrcCPuS4/MHWa84gDG4EwaKSsUkSFK9ZEwbbKAVSvyUvp+r/pLsCYKHu3jEH5
+         KAQ+hRTGTUjmvDZN7WQvmqTK38hi9KgMG0gAhnHrWNtFzwlhFFiLvTqHQkOmVQtOOTfH
+         AjbK//DscdMhwRHWmU9diZlR5h3NFuyHzpxDkzJu5y9LS/5dDNUllCymdmqubkdKbS61
+         gpGg==
+X-Forwarded-Encrypted: i=1; AL+hErFzX+swl/njA4C2YDzuKeAkfLzqVU+Qz0ZG0x1FSsMj6grHov7WOPFxC1zhcKJugcLLBGd7oCZQ3rlB@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Yrhyzx4iOEYcMYmDgFfGcyzAC9QDDVTyofc8mlGBDiGmXYatc
+	Zn6P2VbuEOGyfV+WpjyphNgCSBtB7lp25YWaBpL/JFf1EjX4yN7ga4FkfNYt3psDgos=
+X-Gm-Gg: AZFdTZcuvcTn3uBd6gfWzvsYUHKbNH9b6cAcWZgDedKiZQQhRzEj9jqMb8x8CuH+Kmr
+	Mv03hhrh7+qJ9wLCuHrhc4Vps7ZeyPXACxU+3LqQjSdz6bjsq/cPC1Qm2RCjADoUzLWkcsx3j9v
+	Qkn0Tbwf7raqsRZef/tlMbcfOQBE+GPo+Eu/dGkBhWknZTk2DkJaZy8HRgKtuf+gppvI7iMDuRl
+	5OGI1mv3HQ3e42Cpzcla12cNz8vo08upz4Zbgy6AoG99HWGrO0dw/kU/j2tbXIRSSiULBmjR2Vd
+	2VlcLryRsSwKuKDKRApZZcCux+PdNsul8qlUfb/bVvJ9oyIjUzlQajmbP7sLkdh1SN/O0F72K3P
+	UnWd49Nge87pB0gJcamUgweov/6hHjVO68ZaxnMbQu0aydT7jFhlj0mPduGA1KBTgADPjHzlUtb
+	JNJu+lcanYsGGTElVzu/mH0acRcMsDjuwSpa4TB+fvf9LXOWA1HGRqaQK3NCq9BtpnM11XWpfla
+	3UW9PBsDkRtZdi0cDuJXYZKwCOIq4QgJBhvppGcbAc336hemn5mDOAeVSvZVxIbQv7LlWCwF254
+	959TrSnYinuaEsZae+AJ8bGmhsdFlo7HMNFoZQSAFyI0e98OsFCu5XNF5BkUbXOMxMJW8ZN9GHu
+	0f+9Cr+vHu3Qwup5oW7tN1rb1VDfmva01CkOZUCdm1nNMvCwoChaZV6phdjNQZhe1A73Npqwt2Y
+	WCN8I=
+X-Received: by 2002:a05:6000:4a0b:b0:4a7:4efc:11d0 with SMTP id ffacd0b85a97d-4abaf740155mr279928f8f.12.1795110613914;
+        Thu, 19 Nov 2026 09:50:13 -0800 (PST)
 Received: from localhost (2a02-1810-b422-d400-611-84c9-252f-74ad.ip6.access.telenet.be. [2a02:1810:b422:d400:611:84c9:252f:74ad])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6c61f558sm894064f8f.58.2026.11.19.09.50.11
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6ae2dd55sm876032f8f.30.2026.11.19.09.50.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 09:50:12 -0800 (PST)
+        Thu, 19 Nov 2026 09:50:13 -0800 (PST)
 From: Arthur Heymans <arthur@aheymans.xyz>
 To: linux-wireless@vger.kernel.org,
 	Johannes Berg <johannes@sipsolutions.net>
@@ -93,9 +92,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	Solomon Peachy <pizza@shaftnet.org>,
 	linux-kernel@vger.kernel.org,
 	Arthur Heymans <arthur@aheymans.xyz>
-Subject: [PATCH wireless-next 05/10] wifi: cw1200: unregister from mac80211 before freeing the interrupt
-Date: Thu, 19 Nov 2026 18:49:57 +0100
-Message-ID: <20261119175002.458988-6-arthur@aheymans.xyz>
+Subject: [PATCH wireless-next 07/10] dt-bindings: net: wireless: add XRadio XR819
+Date: Thu, 19 Nov 2026 18:49:59 +0100
+Message-ID: <20261119175002.458988-8-arthur@aheymans.xyz>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261119175002.458988-1-arthur@aheymans.xyz>
 References: <20261119175002.458988-1-arthur@aheymans.xyz>
@@ -110,104 +109,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Removing the device unregisters the hardware from mac80211 only after the
-bus driver has freed the interrupt and cw1200_core_release() has disabled
-the device interrupts. Unregistering removes the interfaces, which sends
-WSM commands such as RESET and CONFIGURATION, and their confirmations
-then never arrive. Each unbind of an associated device waits for the
-command timeout and ends with:
+The XR819 exposes one SDIO function. Boards may provide a MAC address
+and wire a GPIO interrupt instead of using the SDIO interrupt.
 
-  CMD req (0x0009) stuck in firmware, killing BH
-  [BH] Fatal error, exiting.
+Prepared with OpenAI Codex.
 
-Add cw1200_core_unregister() and call it from the SDIO and SPI remove
-paths while the interrupt still works. The interrupt is still freed
-before cw1200_core_release() frees the device, as the handler uses it.
-
-Tested on an Orange Pi Zero (XR819 over SDIO) with both the SDIO and a
-GPIO interrupt: repeated unbind and bind while associated no longer
-logs the error. The SPI change is build-tested only.
-
-Prepared with Anthropic Claude.
-
-Fixes: a910e4a94f69 ("cw1200: add driver for the ST-E CW1100 & CW1200 WLAN chipsets")
 Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
 ---
- drivers/net/wireless/st/cw1200/cw1200.h      |  1 +
- drivers/net/wireless/st/cw1200/cw1200_sdio.c |  2 ++
- drivers/net/wireless/st/cw1200/cw1200_spi.c  |  2 ++
- drivers/net/wireless/st/cw1200/main.c        | 13 +++++++++++--
- 4 files changed, 16 insertions(+), 2 deletions(-)
+ .../bindings/net/wireless/xradio,xr819.yaml   | 49 +++++++++++++++++++
+ MAINTAINERS                                   |  1 +
+ 2 files changed, 50 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/wireless/xradio,xr819.yaml
 
-diff --git a/drivers/net/wireless/st/cw1200/cw1200.h b/drivers/net/wireless/st/cw1200/cw1200.h
-index 48f808cdc1cb..6dc85ef6e0fa 100644
---- a/drivers/net/wireless/st/cw1200/cw1200.h
-+++ b/drivers/net/wireless/st/cw1200/cw1200.h
-@@ -293,6 +293,7 @@ int cw1200_core_probe(const struct hwbus_ops *hwbus_ops,
- 		      struct cw1200_common **pself,
- 		      int ref_clk, const u8 *macaddr,
- 		      const char *sdd_path, bool have_5ghz);
-+void cw1200_core_unregister(struct cw1200_common *self);
- void cw1200_core_release(struct cw1200_common *self);
- 
- #define FWLOAD_BLOCK_SIZE (1024)
-diff --git a/drivers/net/wireless/st/cw1200/cw1200_sdio.c b/drivers/net/wireless/st/cw1200/cw1200_sdio.c
-index dda201e69735..4f4bd668ebd2 100644
---- a/drivers/net/wireless/st/cw1200/cw1200_sdio.c
-+++ b/drivers/net/wireless/st/cw1200/cw1200_sdio.c
-@@ -359,6 +359,8 @@ static void cw1200_sdio_disconnect(struct sdio_func *func)
- 	struct hwbus_priv *self = sdio_get_drvdata(func);
- 
- 	if (self) {
-+		if (self->core)
-+			cw1200_core_unregister(self->core);
- 		cw1200_sdio_irq_unsubscribe(self);
- 		if (self->core) {
- 			cw1200_core_release(self->core);
-diff --git a/drivers/net/wireless/st/cw1200/cw1200_spi.c b/drivers/net/wireless/st/cw1200/cw1200_spi.c
-index f71e71e06359..c08d1ce5605d 100644
---- a/drivers/net/wireless/st/cw1200/cw1200_spi.c
-+++ b/drivers/net/wireless/st/cw1200/cw1200_spi.c
-@@ -437,6 +437,8 @@ static void cw1200_spi_disconnect(struct spi_device *func)
- 	struct hwbus_priv *self = spi_get_drvdata(func);
- 
- 	if (self) {
-+		if (self->core)
-+			cw1200_core_unregister(self->core);
- 		cw1200_spi_irq_unsubscribe(self);
- 		if (self->core) {
- 			cw1200_core_release(self->core);
-diff --git a/drivers/net/wireless/st/cw1200/main.c b/drivers/net/wireless/st/cw1200/main.c
-index 5d569eeb353f..ee9fcecb0100 100644
---- a/drivers/net/wireless/st/cw1200/main.c
-+++ b/drivers/net/wireless/st/cw1200/main.c
-@@ -456,8 +456,6 @@ static void cw1200_unregister_common(struct ieee80211_hw *dev)
- 	struct cw1200_common *priv = dev->priv;
- 	int i;
- 
--	ieee80211_unregister_hw(dev);
--
- 	timer_delete_sync(&priv->mcast_timeout);
- 	cw1200_unregister_bh(priv);
- 
-@@ -594,6 +592,17 @@ int cw1200_core_probe(const struct hwbus_ops *hwbus_ops,
- }
- EXPORT_SYMBOL_GPL(cw1200_core_probe);
- 
-+/*
-+ * Removing the interfaces sends WSM commands, which need the device
-+ * interrupt for their confirmations, so the bus driver calls this before
-+ * it frees its interrupt and calls cw1200_core_release().
-+ */
-+void cw1200_core_unregister(struct cw1200_common *self)
-+{
-+	ieee80211_unregister_hw(self->hw);
-+}
-+EXPORT_SYMBOL_GPL(cw1200_core_unregister);
+diff --git a/Documentation/devicetree/bindings/net/wireless/xradio,xr819.yaml b/Documentation/devicetree/bindings/net/wireless/xradio,xr819.yaml
+new file mode 100644
+index 000000000000..4f6919b6bcbd
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/wireless/xradio,xr819.yaml
+@@ -0,0 +1,49 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/wireless/xradio,xr819.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- void cw1200_core_release(struct cw1200_common *self)
- {
- 	/* Disable device interrupts */
++title: XRadio XR819 SDIO wireless controller
++
++maintainers:
++  - Arthur Heymans <arthur@aheymans.xyz>
++
++description:
++  The XR819 is a 2.4 GHz IEEE 802.11b/g/n controller connected to the host
++  through SDIO. Its out-of-band interrupt may be connected to a host GPIO.
++
++properties:
++  compatible:
++    const: xradio,xr819
++
++  reg:
++    const: 1
++
++  interrupts:
++    maxItems: 1
++
++  local-mac-address: true
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    mmc {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        wifi@1 {
++            compatible = "xradio,xr819";
++            reg = <1>;
++            interrupt-parent = <&pio>;
++            interrupts = <10 IRQ_TYPE_EDGE_RISING>;
++            local-mac-address = [02 00 00 00 00 01];
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 0cf311e6c4be..6e7b5f6beba4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7211,6 +7211,7 @@ F:	Documentation/process/cve.rst
+ CW1200 WLAN driver
+ S:	Orphan
+ L:	linux-wireless@vger.kernel.org
++F:	Documentation/devicetree/bindings/net/wireless/xradio,xr819.yaml
+ F:	drivers/net/wireless/st/
+ F:	include/linux/platform_data/net-cw1200.h
+ 
 -- 
 2.56.0
 
