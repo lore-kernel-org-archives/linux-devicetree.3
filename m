@@ -1,56 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795124896;
-	b=yTJwj13/ztkpmdN1y/VpQCVhS0WGbPaKW2QaeHt1Mq+1C4qdOLXWLwlW9kjJsJLNOA9k
-	 1Rgzb1f/F7hEPoD+kSo5LywXSt02ltpN9v5Tl8kpRneTsjxHQgi7Toql05nkHfeCAdBK5
-	 +b8o+VvNscGRu9krCpk0+AUrOkRh0kwgMudLDWKvZh2MIWBR9jEeOKS0uX/c2q+DLhjFJ
-	 OqivK14py1IdarNL6Odz9bk3Q/bgJ2OPW3YabRIMO28y9Tj04xuwGL3ypv4AxqhP1rUnz
-	 lfdD/LOa6d3TPX4K4MRNWNWd7uaIWz9iZgfSLvIRiic8EPALjZ5JqI3/6ls9Oe/oRkQ==
+	t=1795124945;
+	b=vWU2Vs3tbOqyxCFmm8DrRafSrHg2EL5KtMoUTz5x7wR4wtPvk0i8Nx9ZBK4aHcJYa1tk
+	 ZKYbY6KEnbD77Ptfw36eKB+UtBTHyM3pSMuLutHjVY7p5dLahFdl1PR4MfggjnVL7dffe
+	 SJcnvMPdwaAfJU+Yp847/m1yRL87CY2mTxSBf95zSukf6YcADTA9TVQi3AD+TUKJH+2Ak
+	 kOLFbwNCNsmHU6ZP0QSBTUrgvdWkjKnqhZztR7DsKkBU1fJlpqJrHfrfMwAnC1nEOov3U
+	 55UChsoE4Mjv/dcVwOTy5UlVlQAKaWQa6PW2V8A/zLuT9gvGqLVAVaZWUzR1reBWWwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795124896;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795124945;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ALv/Gl1K0L3J/MW30eO15kPOplYXDnO0GyOy+uO6ClA=;
-	b=2eAz5dOUFLQpEB4/fJfnLE0GDS2WOnvXJ4cFuFow2XyaWR7uY5Wz3cZHG55q2qTfdbWq
-	 npos0M/2j3TXzpDp0Me7VU2Y4R+SDNFOyEU7bM1whZ1Oj3ol5Mj6FyQwNYUyrWH4rnNmy
-	 u9ruHksZsBUnTCt29sOirF3xTv4l/Ibz/ZH0zI42PLR83ZwcJAtdGZGAoBpw2/40Qz6YE
-	 sL51BkK11IyPA0LzFXzwlKdcZ0pmh9Qgf2sp4XBI25oTa0nJVQkfnVaPFep9F26DHkktu
-	 2X3u3ph7D3XBeSIk4hRRCEPWgEKEGGXy1AzqqbA7tam6EDVakw2NK2kk7WqC5+USxRA==
+	bh=Dci2ELC1DesZ7oTDqh8J2thAlLwSnm+SSTMRCxSUyxU=;
+	b=hvB7t91BgBpM9poxhA0cIDSDNSxRYgcVrX6mufg7JaXF0rJ6jo4HrdqqCjrw2/SZ2p1W
+	 BOXN+EVn2IBKhSljjATWfKADkf1V+Llvfgxc6a9MYSYAuX47++2hSix/BeIBEL6TIhfVH
+	 VpZAlWp74hA8vMg445RkKP3jIqxQFajnt/bQ7DBxXLKylFx4F8vPpDDJ83M2BPZtAUghU
+	 brt36Q7euvwoFjomAfAo1jvCgQaFDJZd0YiUaoR9t1yVm4OnEqnJRZDljHdD9WGbBy6cD
+	 ClqmW/mFKwqq2f8IZy5bep0QDoW+RRDPuTrftDEmFyQ3NCYJtu4jAH5Er2utCjfni5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z8AYtWgc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iskk6tVz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E589A606A320;
-	Thu, 19 Nov 2026 21:48:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7993E606A339;
+	Thu, 19 Nov 2026 21:49:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z8AYtWgc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 445281F000C4;
-	Thu, 19 Nov 2026 21:48:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iskk6tVz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D91481F000C0;
+	Thu, 19 Nov 2026 21:49:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795124895;
-	bh=ALv/Gl1K0L3J/MW30eO15kPOplYXDnO0GyOy+uO6ClA=;
+	s=k20260515; t=1795124945;
+	bh=Dci2ELC1DesZ7oTDqh8J2thAlLwSnm+SSTMRCxSUyxU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z8AYtWgcDfVk8i/Ji4EgVkjtwE7ovjDD8ketRCCxz3RXr/0bXReoo7sr4npvN5dbd
-	 jwyfuZVqnOcCUm403ULIQyQl4EtUqdMoTR0UgNPMjWbV3Gjg/ld4q5QWRpvGGLyj5h
-	 uB2yUjtlUjCNONpictcAM/Hh1aKao4VqWNW5+umGh0Dq/7qrVur9RvhWJ6pOWGE7AT
-	 OpN9thJd+iCC/fZIXH6jw5Gr5CqFmokrzYrK2p34ZrMXzQZQXh/ggZvRgyOGjiIPQk
-	 gdkOKQEdeLQc/smFs54Y+vkXsYB5iomEUEDAfs5YzGApm5+zHY07O0IkRxxrlsTHbW
-	 +F/RnvdKXWQBQ==
-Date: Thu, 19 Nov 2026 15:48:12 -0600
-From: Rob Herring <robh@kernel.org>
-To: Ajit Singh <blfizzyy@gmail.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	romain.gantois@bootlin.com, heikki.krogerus@linux.intel.com,
-	gregkh@linuxfoundation.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] dt-bindings: usb: ti,tusb1046: document HPD_IN
- override
-Message-ID: <20261119214812.GA768347-robh@kernel.org>
-References: <20261104074202.76712-1-blfizzyy@gmail.com>
- <20261104074202.76712-2-blfizzyy@gmail.com>
+	b=Iskk6tVzcfj77tkTVddt1LIM5/0OM1iG00kmjxL3iwzsfBO7koQ7OD0y2FMhO2YSA
+	 iRcp8mjK8wruj9dO04nAgcRVy+Bay48d9nyEzIuVyDVlmipcCMobhvNGKtcXigIlw7
+	 4MjmAfQJgChPSwHFtpizx5aCucJ38YMFYma3VdGf3DLw7nPpHYUhP595kcjSnQdFm0
+	 6+ZHy4g6WHq7tqdTh4tYJoddmSrQ7TwQ0vlCGZXVNPnN1qS1LvocKyiWL+7/puFTNm
+	 zViksj3rQm+wv9Yl9n5MRy6MzjQLQ50s7YBpBaeBwwCC3SER+dDCdOSX0OREAbgIpw
+	 aM7Nk0xrD3U/A==
+Date: Thu, 19 Nov 2026 15:49:02 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Sheetal <sheetal@nvidia.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Sameer Pujar <spujar@nvidia.com>, linux-tegra@vger.kernel.org,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Anupama Kunkulagunta <akunkulagunt@nvidia.com>,
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+	Frank Li <Frank.Li@kernel.org>, linux-kernel@vger.kernel.org,
+	Vinod Koul <vkoul@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mohan Kumar <mkumard@nvidia.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>
+Subject: Re: [PATCH 1/3] dt-bindings: dma: nvidia,tegra210-adma: Add Tegra268
+ support
+Message-ID: <179512494227.783763.1329720459172434228.robh@kernel.org>
+References: <20261104110932.1097294-1-sheetal@nvidia.com>
+ <20261104110932.1097294-2-sheetal@nvidia.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,37 +68,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104074202.76712-2-blfizzyy@gmail.com>
+In-Reply-To: <20261104110932.1097294-2-sheetal@nvidia.com>
 
-On Wed, Nov 04, 2026 at 01:12:01PM +0530, Ajit Singh wrote:
-> For boards where HPD_IN is not asserted by hardware, the TUSB1046
-> can force it high over I2C using the HPDIN_OVERRIDE bit in the
-> General register (0x0A).
+
+On Wed, 04 Nov 2026 11:09:30 +0000, Sheetal wrote:
+> From: Anupama Kunkulagunta <akunkulagunt@nvidia.com>
 > 
-> Document the optional ti,hpd-in-override property to force HPD_IN
-> high when DisplayPort mode is selected.
+> Add the Tegra268 ADMA compatible. Tegra268 has 10 ADMA channels,
+> so set the interrupt limit accordingly.
 > 
-> Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
+> Signed-off-by: Anupama Kunkulagunta <akunkulagunt@nvidia.com>
+> Signed-off-by: Sheetal <sheetal@nvidia.com>
 > ---
->  Documentation/devicetree/bindings/usb/ti,tusb1046.yaml | 9 +++++++++
->  1 file changed, 9 insertions(+)
+>  .../bindings/dma/nvidia,tegra210-adma.yaml          | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml b/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml
-> index e1501ea6b50b..58e9fde3ca71 100644
-> --- a/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml
-> +++ b/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml
-> @@ -20,6 +20,14 @@ properties:
->    reg:
->      maxItems: 1
->  
-> +  ti,hpd-in-override:
-> +    type: boolean
-> +    description: |
-> +      Force the HPD_IN signal high through the HPDIN_OVERRIDE bit in the
-> +      General register while DisplayPort Alt Mode is active. This is useful
-> +      on boards where HPD_IN is not driven by the downstream DisplayPort
-> +      sink.
 
-The existing no-hpd property doesn't work here?
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Rob
