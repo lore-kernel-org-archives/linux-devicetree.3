@@ -1,85 +1,85 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795078546;
-	b=inbSaM/7v9il0IgK/omIzm7im+ZXcO2MJ4212zWOcQA7opH+QGGiBIsGKZdluw1SdPWs
-	 yNvKb+gweieyo52vYfDGB/X+DMqPbrY+C/XZH66qeIDLH2AwdSBnZ+JX8FU9LwzYEcSj0
-	 v4bOMQkJapsp8uPCcm/bXiUKOIeoPTKIABVAIh5efz6sCi24iksjfEIsYd4k2u2NVgocP
-	 JjUJWRyCMKbGKkqIxBQRJVXi8O+3TDhvQdgYHXX0Af1Q/Y0S5P3EgPA8ZU2vlkLXF7Reb
-	 xC75xO6MWMXN+DCpnMxCi5r5pz9+C6R4E3QJ0YWWfGG6syIMajOqik4PcNElLSf2UwQ==
+	t=1795078548;
+	b=y4ytqE0OP4K6XuBg6TeGYPiYujtapq8HviEst/5D2uximHsj4edRIjJblm+1lbGmXeM0
+	 oSoQ3emEA+YzCifz3SsrfgnbbfcDlN5Jm7sty6pHRoiAASgtB6gEz6708Vtxzw53CeJB0
+	 Ebrg/kazWTSkfVUQcGt1C8/1BDy8oAKHuClI+AaXBwZWWd4ElEbnINmPpHYIMCfCCiHy7
+	 Z5+v83Bb1RCJxi78rU7ETZyTbbWwVHdSZi0RR+rNjtiMzdcU7xR0KPc/ucrzVo0ZO6woh
+	 3B23On0iS6OorA2cvDZ8zbq9dIkvLODj+Sl6MzvkmJ/XU+gOiCBmDs8+eLwp8rs6Sig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795078546;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795078548;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=qC04sYESKIvNrNBC6lt71Dnq5FvwTYiC8PJsJBqyNvw=;
-	b=n78hfvwe5Ps5zY2K/6GtYjJvCO0EWZBhOWMG/uGAxJME2nT/Slpi56dstknZ2MFZU/E5
-	 6E+kOQd79lOEnGDcxZfk5H5gbxqecoNpow3HyyjAWTIF3+ioMbTK7DWtTDiiTgggk0b6r
-	 W3GCpEpbC5WqZTJwD0eYBmKzcPbeu0wW84/wjuSXzRgFi9bDTBi3LApnwdoYj7FF6wZe9
-	 YGR22hvWYlwpIcv4FICw9VmXgVGeK6OKlT1UHG3gaRI8Rms2Upm36FjIBY0+tj+VE4G0d
-	 NL3intM8jnskpccnaxa/kHy/1yxMT9+69bZXRw26btNSlpGCrZJ9AMr9ndIf5kNJIlA==
+	bh=AzuxyyEyd8XipbEeyh7V3cleeTOQNEaifusfdc/CbaU=;
+	b=MWFpesNBHNP9P7XgUN5BxWJjbw3HVm++LjShTT5cMl6znKS5zZwZtBO0xeigF1mKaY4T
+	 Bv5jHjCWm1Ii5EYW+W29rkFk6Po136YNWwDQIuJHqIvfDoJ5CiFthIg00f2ksncDClZnH
+	 eBuK7A8G48RYV8xxBUv8G0nwFDj8FysgxqZFqCqVg47ChG6a+3rIr7J5KfMCCmaCnIuvH
+	 2yJ4oqnngML66vwgHr08A3I09GIBSbefoO4GOs52J1xoM9628GWHvphQY7kgUTPeexoYG
+	 8md4kdpIS31+YuMtQhJtUcRrWMBAI5PapPR1ABFZYFXT7nx6aYQHMWGepJnNNiLoeJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r76UY2f4;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VCZB4MLS;
 	arc=none smtp.remote-ip=209.85.160.169
 Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE93606A324
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 08:55:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BE93606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE07B606A320
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 08:55:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE07B606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r76UY2f4
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5363316fa0cso27538411cf.3
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 00:55:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VCZB4MLS
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-55d3563e50eso26043651cf.0
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 00:55:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795078545; x=1795683345; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795078547; x=1795683347; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qC04sYESKIvNrNBC6lt71Dnq5FvwTYiC8PJsJBqyNvw=;
-        b=r76UY2f47a9O7vuCT99ejCOP3AuERAV+MEQ4AGBtUSQaqRRq4uXJzJb8T3nRSy1nLy
-         EMhvnSccztiS/PEqIWWciW8edhQXt3RZapCaAFQczkqvD0Mu3LRpr32FleV9caV8duR6
-         bRujPor7Zo401YrAtdERzAM4v85lQGVU/u3Bz3x86Pbzqs7F3bU7liNJPtFL8ti3SqyX
-         iFng8ZyJ9ycUoPKKsBXmTH1I3fgwLBiDVYfmTu37uPZTG3yt00tSSz3ibPKm7PIZbeIK
-         vWfv385ujBnhk1Q7b0THw4LOAPPgbeHt/eglen/67ZedDFuutg7KMRu20Ka/MRIrx4jB
-         1xHQ==
+        bh=AzuxyyEyd8XipbEeyh7V3cleeTOQNEaifusfdc/CbaU=;
+        b=VCZB4MLStKFevXGFk36BcemEMUxa+9Sg/acri3fGsSlTBgPKlDkQtvI0pxi/2PfeTY
+         mpN3sqyovp2ZVX5syD+264l2EZuq6jH5v0YXL6IkznpW/TY55en0jsmGo9ggLsbIhFMM
+         67SxKfsL1dNj0eeJy8UI3OGi75Ql1YWFp5g5LB/DRATMuptOxZFxuzW5xJyQbNAqvJEd
+         ZD2WPTVJZWeRqK3pDEZrQxOYSFQhKe5cAIPWFv4zDgxQ2YwIgLlfPp1kp9k9QvV6P8iM
+         wOHOqo8VapWAN2BOkJ4pJ96ws8C4KEqrkHBh5gK6E3/gmAIQ9mq1aSkZrYcGCwZ6U/SB
+         xPvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795078545; x=1795683345;
+        d=1e100.net; s=20260707; t=1795078547; x=1795683347;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qC04sYESKIvNrNBC6lt71Dnq5FvwTYiC8PJsJBqyNvw=;
-        b=tZ0PaYtuKNlezR+iXpIhbYG5EQmHZ1sokJcZQQmtnXIdj/Vjh81WFurmZLbZu+J0K7
-         ta8vgKviDWuLmmVzZScFx7FUvMW1P9G2ErGPoeaOAcbJyzliC4FnOSeKRSckZ1pKyPo8
-         K0VVBRt77wju9jBAf3Fm0QPMok8nEvZCjs/BhVUS1Jvxev91xf1GDlBwpBeRVrAsJD4u
-         XGlTMej8nOHYUGbsozbYc2TKpWTomFw0U9DesazH1alSAIJ1V9VFWaJb8KVPxeKO9Zqo
-         oQE2YIc0h+n3ezDMv3pvoioj4fEXO0/KtqZSqUOKulTUz7uT4vrZt6SLKToyS55rVMCp
-         DdCg==
-X-Forwarded-Encrypted: i=1; AL+hErGW5Upl5HNsSeCSkMam8sE6pkKeDD+5APO3VlXD6ctrAzn6VNvVdb8Uh7m4Uf4kzQW9NBUxjPCAa5JE@vger.kernel.org
-X-Gm-Message-State: APuU4Z9MhwgQf9SbnBkKfzHMuX6GffvywgLoMatYJrjSWK7sX2CvKs7C
-	9F3JHATPDd/iIkVp3L/JCRzyTsqGCILQJ7sKD2gP/CxOTM8zSSSr80dl
-X-Gm-Gg: AYBFou24vwZ4MkX0FoEP8vXRNTXqEyBszgqzQsjq8uTJm3cB5NPhm9Cz5xkk69g2+yy
-	UolvPgvFdjJ/UoB9O7fEU0BGC846Elky0Xg7J/XBVfaDH31A5a0XZ5WXxEKg82dpyyWju7nJYHA
-	cpa1kI5Wr6vr7x4VzJ1RzVVFhe9TPcpKIpfprxOOPfKEal8wUinNX2tI3szWe0qeUifDcHzQBVy
-	x8xDPjuEbTyqGYqQNd2NJEzhh0lLdd2tX1utgSP3K3Vmm4xuWQ07emrB0fS520Hpei3VuoB0vgT
-	a3cPycs40b/qyqN+w+4NeGzaJHckT15y4ZXqOIZorM+kmKmQsMrS/t8yw4ffXqedjm9HTI+l1ET
-	nBhYIzHBI4Bty3WVcmKe28wXqbe2pxC6ZLLcYz7VW/1WWW4zK58rO6pDb4ikqKp0J3A5Sy3UeLR
-	F5V4GAHjeXSfrVRI2s+AuCcgsqAG/INCMp1lpxeRF6Rp4lUJ7ug502eFjxTMuy9cJxGJU1IAOYs
-	UlBQVuX98GykCOiDAmPoSamLhHo4WErgL4bkWx+CN/7G3DV3hMBpxvrRL/MJ2gFXrZngQ7evhK2
-	qzZgihJyKWnwPZOjCappk4KEgLwjTnXFPk+Lrk7XPrk4hbnBkPgV5Mw3b3nkySdlSLQSFoWR7sR
-	eu9SeAToOgSq7/KvKTMsbrCd5EolhLpq9a0OX4q28nuOP6yV/2+uRowORYKckFiXMCL17JgH3fv
-	Xbyos/1BaAwcbmC57Z05Kq2Rs=
-X-Received: by 2002:a05:622a:307:b0:55d:3764:8793 with SMTP id d75a77b69052e-55d5a5b773emr85562801cf.47.1795078544893;
-        Thu, 19 Nov 2026 00:55:44 -0800 (PST)
+        bh=AzuxyyEyd8XipbEeyh7V3cleeTOQNEaifusfdc/CbaU=;
+        b=tFsk2tyidjt5GvATQ1VJC9nFjQHodC/8/BvQjlVWG5Mb3SzWpzdxhzkelLQjf9zEah
+         jjUZLDaeRSF76ZZ+nkvwOwWjEToI0IZAcSLBoEcHULP6L3crgO1LnhTRGNFc5NYGV0vg
+         5K2YnqY1xEn5Qcto5BBxrXDeWTefutBclhYk+IGiRxlS7jgHTH34gSCFXgY4XExdb6Dt
+         KDZWN3Pcj9a1kURRAw8k7RJ1whi9Nr98BMNl0rgJ5sK7VekgPcTkXhoEPztfIhGdBaqb
+         GOOesqpCk5PrtpuaxM/yTX0LJPitEMlvK8KrB42JaTYSDz0L8FqgH9FQP0iIO4iNdQC9
+         nndA==
+X-Forwarded-Encrypted: i=1; AL+hErEGWJgBrM3QVpmbqR2Y67MhadAPf0gaRno2eME6/gEUgc0UApJ5Shnp/MMucqjzbUc3667cm3spV3PH@vger.kernel.org
+X-Gm-Message-State: APuU4Z9bmvFQkPaJLsHrouZm2LR6oDiF3hXPXZEsq4FuNWAlMYYY0Ve/
+	wTOu5cAS6XzZcalGdTG5aKoHXY+R1u7WoulQk0dU37nebeUg27bCeFcc
+X-Gm-Gg: AYBFou0IKCbziXYEBs7C5tbPHzO3VYz8XiESRaSdNBhBy2gcuAED67eLHdpBYw3c636
+	VaCFqant2/ojraN0lrH79I0t+QD3H7nK7cqMxrzauwt2u/Q/kOm267kAxqwO8I7DR+b97A1FTRX
+	eh4B95w5qgFyujGGhYnM991ZMkPU5RiE4zLarVDmtGCdTdR0rUxDeDQBKUUgdBha5/Zcm1M8W0F
+	p1iN8cNuRaK18RwuhXeKBpDIly9uDoTdYll/EUAH//j+Uo/rtvMOIZR76G2LPHJXtgFQ5slmBup
+	mB+97ILAfRI/9/A/E7G2uW0YMlaYGwP0GnaQ4L17BsqWYcraOnYLH7wF54ZhtFmnIE77JnhBkia
+	FQjAKVcW63gOr0SXNd9rvT2AY3/t+XB5CPixVW1RbAp6JYSJcc8VTOLyQr+5oxailC14EHkLdYv
+	FWKH+utRlLt7r3LFpJT55TeJO2d5Lcu5AvXgr79+7yHA68H84qR40rB08W6viqEb3vEwrBwxZx5
+	l336Pl2p1jqVhfm2aTQuxXisVo/GON1HFBRqIcBReCW/cdOQFN15gaCfFnfXlkezArkx71dT4mq
+	PZLw0J1j2NiJK4XwYOSO73vU96Znum+j3We72SoZNXztpwZWWc1aGewq+nHpYUj2fapN1HhRSB+
+	dts1QjifoH71qDCSp4Vm/ahzyu7icP6j3jN2PbgVNossQG9mPBMGmzh6kLyhebj/HcNpaA/f5lm
+	u1RA==
+X-Received: by 2002:a05:622a:650:b0:54f:8d78:4dae with SMTP id d75a77b69052e-55d5a6b9901mr82855101cf.61.1795078546742;
+        Thu, 19 Nov 2026 00:55:46 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d66bcbeabsm19578151cf.18.2026.11.19.00.55.42
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d66bcbeabsm19578151cf.18.2026.11.19.00.55.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 00:55:43 -0800 (PST)
+        Thu, 19 Nov 2026 00:55:46 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>,
 	Hauke Mehrtens <hauke@hauke-m.de>,
@@ -91,9 +91,9 @@ Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
 	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v2 16/22] ARM: dts: BCM5301X: WZR-1750DHP: specify switch
-Date: Thu, 19 Nov 2026 00:54:46 -0800
-Message-ID: <20261119085452.75708-17-rosenp@gmail.com>
+Subject: [PATCH v2 17/22] ARM: dts: BCM5301X: WXR-1900DHP: specify switch
+Date: Thu, 19 Nov 2026 00:54:47 -0800
+Message-ID: <20261119085452.75708-18-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261119085452.75708-1-rosenp@gmail.com>
 References: <20261119085452.75708-1-rosenp@gmail.com>
@@ -118,14 +118,14 @@ The port mapping is taken from OpenWrt.
 
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- .../broadcom/bcm4708-buffalo-wzr-1750dhp.dts  | 38 +++++++++++++++++++
+ .../broadcom/bcm4709-buffalo-wxr-1900dhp.dts  | 38 +++++++++++++++++++
  1 file changed, 38 insertions(+)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1750dhp.dts b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1750dhp.dts
-index 95ef6ca7210b..459ed246030b 100644
---- a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1750dhp.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1750dhp.dts
-@@ -149,3 +149,41 @@ &spi_nor {
+diff --git a/arch/arm/boot/dts/broadcom/bcm4709-buffalo-wxr-1900dhp.dts b/arch/arm/boot/dts/broadcom/bcm4709-buffalo-wxr-1900dhp.dts
+index b7cd2faa30ce..6543eb8aa9f5 100644
+--- a/arch/arm/boot/dts/broadcom/bcm4709-buffalo-wxr-1900dhp.dts
++++ b/arch/arm/boot/dts/broadcom/bcm4709-buffalo-wxr-1900dhp.dts
+@@ -130,3 +130,41 @@ &spi_nor {
  &usb3_phy {
  	status = "okay";
  };
