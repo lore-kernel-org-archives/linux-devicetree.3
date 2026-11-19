@@ -1,51 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795082692;
-	b=SawB+BXC3LcdJuD1UASvcoUJ3b8DHXXp7fIWwk6tMryhoMG1YY0kD0/+6U9IkxA5fkTD
-	 EkOEaVi1lUvqX1Z4taNu94/pGEOZOU5f2leewjxQKT0krlOUV4uwqxjEWxaO/knoAsdDT
-	 4Tv6JtpbFM5RRg1ctgYMmPBp5QNmsM1DFd8/PjP45GNJlmv8o+gnaNZwhHIhkjAajXzBT
-	 MLmYzjdfvRaRcqriiXglplTA4AbDlDO5TtDhNtacvhw8gLFQ2qLVLRvmw+ywwr6jq5xs2
-	 0GGgGgkhEjWOLd7rKW61gTVAJgcol+3DZmihEx9ZEogzekLoXsffB/p/8axuUez7WRw==
+	t=1795082716;
+	b=VUYHXX4iChwZb1RH6S2/3niQB5J89C8bnRpGGxJPD8ZoHsJwVYP7USN5ft3f550+FX/P
+	 82nryRf/5zqat2q51zIC4VjnJKtEaSvToRnvS0dJukkKR1e/7le1qYk4kG2mb/g4WcjaR
+	 +UlDKVnkEmPht6NNRqYxegaIJ9icTxdEzbaB/rRN7G7snDVi2mTjCHvK3tgD3NX6PmkWX
+	 1G6rlR6qEgBPfa1tAWV1Su3E0adWY2olN/FdjH7x5h5epdWJ2ojIKC7qo2C719klbZ80w
+	 kprfnaK/d7kNXE/XT6JS4Y9hKsCI6ztRFMgZO52hOQJblb+4DFsXT8ARiQsPEvL5x2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795082692;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=JvrJqMMK/RepnSmA4x1HpGIMOemt/Q5sU0cQuWjwmLk=;
-	b=nXf8vbyjXAdWnDZ/VZXEf8cG8qdG7NDpP7dHnv9qWhDa4DrGsEeEcolJiY1RarF2asj9
-	 8vv3Uyh4g53R5KpgMInyqYX460NiKvl5bxQhI3TyXFr+ke/XVme0i7OoHXWdZs3ryOZvG
-	 LwHOLRnCuWjQWgJ4wvTeE9Vo32FZSfPLzcxhPyU/gsRFPDpuTJypcLazpOo5uAu5PcAZ9
-	 KGaOk4cuFhychHjM7icXtGjCWYD+IYZ46/YHHfgbXW7g/QrmRLDI6HCEZEwck6Vc0GTjQ
-	 8wHUA4fswtvWu//ttfSJ11rwf+3GTZH7D+A5Jujhe4BFPv/Oy1Yz1jhV4wAkG9JlhYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795082716;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=fZu+jAojDyqkl6I/1YdJ6WLyMmw0Si/fnB0PEamsP+g=;
+	b=gTp+YNOEvaZZy/ArABo9DvMx/P50GJFUkODSnlDFcpZByghhBfeuu2Y2MhVv/zQ2ggSA
+	 5pia6tlRRMJL/NMCu6GDVDrZyIetpjidBycOQpTI+na7pxxctE+WJ6KaCcvc5zzTpMk+5
+	 Ry9/uuoEQAMymD5+wwFe4eKaI9s819S3ZVYxfKt7ELMdtVDWv5EeJb/nNVmF+YnfsuweI
+	 /sl5/XZKzZzdvTO3N398vOM+2E7DN/4Xk3M5Wj1WtOgnVPOVsPLS3Ym7Tp5uIQWeeUcTk
+	 KrY0ZhZ+YtYlv2NZVospoTySh+JJtrxUoNpXAKdKgQHl7TzLV0N14hQ8D2dSmG1uStA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUvvWxVP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98153606A324;
-	Thu, 19 Nov 2026 10:04:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98153606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <0f52b0ec10c89081c692ba7401d9804b4ccc8513.camel@crapouillou.net>
-Subject: Re: [PATCH v4 7/7] pinctrl: ingenic: Handle X2600 Port E pull
- configuration
-From: Paul Cercueil <paul@crapouillou.net>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>, Linus Walleij	
- <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bartosz
- Golaszewski	 <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
-	letux-kernel@openphoenux.org
-Date: Thu, 19 Nov 2026 11:04:46 +0100
-In-Reply-To: <c5923b0330b605adc5dd5c05370bad017015edb0.1795022736.git.hns@goldelico.com>
-References: <cover.1795022736.git.hns@goldelico.com>
-	 <c5923b0330b605adc5dd5c05370bad017015edb0.1795022736.git.hns@goldelico.com>
-Content-Type: text/plain; charset="UTF-8"
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4B2606A320
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 10:05:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUvvWxVP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 005E21F000C6;
+	Thu, 19 Nov 2026 10:05:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795082716;
+	bh=fZu+jAojDyqkl6I/1YdJ6WLyMmw0Si/fnB0PEamsP+g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UUvvWxVPBj+QXtiYC7MzF9Fhl/v9akCrvhCGHizRd9trEt8R8s+SGusU/aT0S/DKh
+	 0NRxmdQmcABYYuG/Ry9WNInErL/K5zwroTTutnFahq6EarXtoMw8BD36MJ/fFR6Xy2
+	 wg7zWa5YQ28QWRNbLsM9qQKN/VNiI2APhjqOVgpJBdxC4U6kQQX/ZSYBwqkjuj8MEV
+	 mc73JmyO/ueAzCFjCMD0PtFcJp4aMMk18dRnTAVpameJ3T1b9IZR4e/1LhooNkg0Zl
+	 kXDg/ajGOtn/I19uNQb8XgkL9sVeJeZLD2aJUbHyAAE2sKesBnnt81SUKqTEhA8NyL
+	 pK0mMk7EC7bCg==
+Message-ID: <sashiko-outbox-222909@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: lemans-sa8255p: add ethernet
+ nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261118-sa8255p-emac-dts-v3-2-e2c365d95a0b@oss.qualcomm.com>
+References: <20261118-sa8255p-emac-dts-v3-0-e2c365d95a0b@oss.qualcomm.com>
+ <20261118-sa8255p-emac-dts-v3-2-e2c365d95a0b@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 10:05:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,99 +60,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Hi Nikolaus,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Low] arm64: dts: qcom: lemans-sa8255p-ride: non-compliant MDIO PHY
+  nodes
+- [Low] arm64: dts: qcom: lemans-sa8255p-ride: out-of-order serdes label
+  nodes
+- [Low] arm64: dts: qcom: lemans-sa8255p-ride: invalid snps,ps-speed =3D
+  <2500>
+--
 
-Le mercredi 18 novembre 2026 =C3=A0 18:25 +0100, H. Nikolaus Schaller a =C3=
-=A9crit=C2=A0:
-> Port E uses PEPE as pull enable and PEPS as pull direction
-> selection, unlike ports A-D with independent pull registers.
-> Update both pinconf get and set while leaving other ports unchanged.
->=20
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+commit 15bc324c5c1543ac7a9409abaa0230b88cd074cf
+Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Apart for the alignment fixup in ingenic_pinconf_get() that I mentioned in =
-my
-review of [6/7], the patch looks good.
+arm64: dts: qcom: lemans-sa8255p: add ethernet nodes
 
-So with this dropped from this patch you can add to your v5:
-Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+This commit adds the ethernet and serdes PHY nodes for the gearvm variant
+of the Lemans SA8255P Ride board and enables the corresponding SCMI nodes.
 
-Cheers,
--Paul
-
-> ---
-> =C2=A0drivers/pinctrl/pinctrl-ingenic.c | 33 ++++++++++++++++++++++++++++=
----
-> =C2=A01 file changed, 30 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-
-> ingenic.c
-> index 876e8e9e00c45..5feae90c8cbb2 100644
-> --- a/drivers/pinctrl/pinctrl-ingenic.c
-> +++ b/drivers/pinctrl/pinctrl-ingenic.c
-> @@ -4632,7 +4632,16 @@ static int ingenic_pinconf_get(struct pinctrl_dev
-> *pctldev,
-> =C2=A0	unsigned int bias, reg;
-> =C2=A0	bool pull, pullup, pulldown;
-> =C2=A0
-> -	if (is_soc_or_above(jzpc, ID_X2000)) {
-> +	if (is_soc(jzpc, ID_X2600) && offt =3D=3D 4) {
-> +		pull =3D ingenic_get_pin_config(jzpc, pin, X2000_GPIO_PEPU);
-> +		pullup =3D pull &&
-> +			 ingenic_get_pin_config(jzpc, pin, X2000_GPIO_PEPD)
-> &&
-> +			 (jzpc->info->pull_ups[offt] & BIT(idx));
-> +		pulldown =3D pull &&
-> +			=C2=A0=C2=A0 !ingenic_get_pin_config(jzpc, pin,
-> X2000_GPIO_PEPD) &&
-> +			=C2=A0=C2=A0 (jzpc->info->pull_downs[offt] & BIT(idx));
+> diff --git a/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts b/arch/arm6=
+4/boot/dts/qcom/lemans-sa8255p-ride.dts
+> index 6f19064997a4b..991626589cc34 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
+> +++ b/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
+[ ... ]
+> @@ -101,6 +103,173 @@ trip1 {
+>  	};
+>  };
+> =20
+> +&ethernet0 {
+> +	phy-handle =3D <&hsgmii_phy0>;
+> +	phy-mode =3D "2500base-x";
 > +
-> +	} else if (is_soc_or_above(jzpc, ID_X2000)) {
-> =C2=A0		pullup =3D ingenic_get_pin_config(jzpc, pin, X2000_GPIO_PEPU)
-> &&
-> =C2=A0				!ingenic_get_pin_config(jzpc, pin,
-> X2000_GPIO_PEPD) &&
-> =C2=A0				(jzpc->info->pull_ups[offt] & BIT(idx));
-> @@ -4700,7 +4709,7 @@ static int ingenic_pinconf_get(struct pinctrl_dev
-> *pctldev,
-> =C2=A0		arg =3D !!ingenic_get_pin_config(jzpc, pin, reg);
-> =C2=A0		if (is_soc(jzpc, ID_X2600) && offt =3D=3D 4)
-> =C2=A0			arg |=3D !!ingenic_get_pin_config(jzpc, pin,
-> -						X2600_GPIO_SMT1);
-> +							X2600_GPIO_SMT1);
-> =C2=A0		break;
-> =C2=A0
-> =C2=A0	case PIN_CONFIG_SLEW_RATE:
-> @@ -4725,7 +4734,25 @@ static int ingenic_pinconf_get(struct pinctrl_dev
-> *pctldev,
-> =C2=A0static void ingenic_set_bias(struct ingenic_pinctrl *jzpc,
-> =C2=A0		unsigned int pin, unsigned int bias)
-> =C2=A0{
-> -	if (is_soc_or_above(jzpc, ID_X2000)) {
-> +	if (is_soc(jzpc, ID_X2600) && pin / PINS_PER_GPIO_CHIP =3D=3D 4) {
-> +		/* X2600 Port E: PEPS selects direction, PEPE enables pull */
-> +		switch (bias) {
-> +		case GPIO_PULL_UP:
-> +			ingenic_config_pin(jzpc, pin, X2000_GPIO_PEPD, true);
-> +			ingenic_config_pin(jzpc, pin, X2000_GPIO_PEPU, true);
-> +			break;
+> +	pinctrl-0 =3D <&ethernet0_default>;
+> +	pinctrl-names =3D "default";
 > +
-> +		case GPIO_PULL_DOWN:
-> +			ingenic_config_pin(jzpc, pin, X2000_GPIO_PEPD,
-> false);
-> +			ingenic_config_pin(jzpc, pin, X2000_GPIO_PEPU, true);
-> +			break;
+> +	snps,mtl-rx-config =3D <&mtl_rx_setup>;
+> +	snps,mtl-tx-config =3D <&mtl_tx_setup>;
+> +	snps,ps-speed =3D <2500>;
+
+[Severity: Low]
+Should snps,ps-speed =3D <2500> be dropped from both ethernet0 and
+ethernet1?
+
+stmmac_check_pcs_mode() only uses snps,ps-speed for MAC-to-MAC SGMII links
+and only accepts 10, 100, or 1000, whereas both nodes here use external
+PHYs with phy-mode =3D "2500base-x".
+
 > +
-> +		case GPIO_PULL_DIS:
-> +		default:
-> +			ingenic_config_pin(jzpc, pin, X2000_GPIO_PEPU,
-> false);
-> +			break;
-> +		}
-> +	} else if (is_soc_or_above(jzpc, ID_X2000)) {
-> =C2=A0		switch (bias) {
-> =C2=A0		case GPIO_PULL_UP:
-> =C2=A0			ingenic_config_pin(jzpc, pin, X2000_GPIO_PEPD,
-> false);
+> +	status =3D "okay";
+> +
+> +	mdio {
+> +		compatible =3D "snps,dwmac-mdio";
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		hsgmii_phy0: phy@8 {
+> +			compatible =3D "ethernet-phy-id31c3.1c33";
+> +			reg =3D <0x8>;
+> +			device_type =3D "ethernet-phy";
+> +			resets =3D <&scmi7_rst 0>;
+> +			reset-names =3D "phy";
+> +			reset-assert-us =3D <11000>;
+> +			reset-deassert-us =3D <70000>;
+> +		};
+> +
+> +		hsgmii_phy1: phy@0 {
+> +			compatible =3D "ethernet-phy-id31c3.1c33";
+> +			reg =3D <0x0>;
+> +			device_type =3D "ethernet-phy";
+> +			resets =3D <&scmi8_rst 0>;
+> +			reset-names =3D "phy";
+> +			reset-assert-us =3D <11000>;
+> +			reset-deassert-us =3D <70000>;
+> +		};
+> +	};
+
+[Severity: Low]
+Should these MDIO child nodes be named ethernet-phy@0 and ethernet-phy@8?
+
+Documentation/devicetree/bindings/net/ethernet-phy.yaml selects nodes
+matching ^ethernet-phy(@[a-f0-9]+)?$, while snps,dwmac.yaml references
+mdio.yaml with unevaluatedProperties: false, so naming them phy@8 and
+phy@0 leaves compatible, resets, and reset-names unevaluated during
+dtbs_check.
+
+Also, device_type =3D "ethernet-phy" is deprecated and rejected by dtschema,
+and unit address 0 should be ordered before unit address 8.
+
+[ ... ]
+
+> @@ -205,6 +398,14 @@ pcie1_ep_wake_default: pcie1-ep-wake-default-state {
+>  	};
+>  };
+> =20
+> +&serdes0 {
+> +	status =3D "okay";
+> +};
+> +
+> +&serdes1 {
+> +	status =3D "okay";
+> +};
+
+[Severity: Low]
+This isn't a bug, but &serdes0 and &serdes1 are placed after &tlmm instead
+of in alphabetical order between &scmi23 and &sleep_clk.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-sa8255p-em=
+ac-dts-v3-0-e2c365d95a0b@oss.qualcomm.com?part=3D2
