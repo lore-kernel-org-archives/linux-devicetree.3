@@ -1,85 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795110884;
-	b=nkupLZZ8CSJFxzxWN+IS8XHU7tWW41a08wpTZX449oQLr8W6PWUHXaO/YiVnwn8MTnAu
-	 QDe96/HQzCvQdwgPMq2lzSgGTDgTHVDuJqMCd3YpNqckP5CtzQGZfd4+4UvHc4cFRdqsi
-	 6ujt4NWqwVkaHBicoi15uzR4W5l9B2ClPGWnZiQJhcTiw+VPAPTfYKoY9Sk5zm/PLYXAX
-	 HBK/fSS8MAIQFLqNL4pMjGd1444HJRCGw5T+V8mnK/daPBiiVx8isNzLKrGe5GKrEH98J
-	 MUys9gMvXO12KdvPwVzsiMBtP604VESW5v1Hpe0kljdy5Lol667/2JkJVbd63bLQaGA==
+	t=1795110886;
+	b=zgNBuPflK0F2o0y/K7MhcNp1nNVJDXKC4g3/VOXWG+AdRqXNTDukxusABm/UGdU/smvE
+	 7ansOR844i+rNHWst0+6/GxVyDVxpHur3+d10hFQuJd55LN6RIblMMh29WwpZiPABqvmM
+	 +FNufllDaS8T0XiqZjZ6HxrktQhYyu3jZmuvAUHwyEwgzJY3V1OvAXikik1rjy0/ye8O2
+	 mdftDIh+OZ7c60YKVeyGUl8P6Ro8Y0Mw+MeZZgcSyJovngvcrrozd0RyxbQj8XzJIieHs
+	 EHZ6uzdl0MMw9XNeL/y+oLsRJ8nygjpWT5+yScUiREbBoe+zIx/yOmdrJ9Uc3b0yA7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795110884;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795110886;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0nkkB75c4xO0BDbMTd+oRdUsHv55miDUR/T7l+kfobY=;
-	b=en6bswaFbhHnx5vL19TatyJC1unrmC2/y19c1gCOHgb2AcW56lmuyUR9HKU4JnFE9czJ
-	 kegNI7SjMPNi3f/CjwtBASYo+crmWDbKU9h75ethOoDox0R8eNuMlFOIFwCPZ4XZj0CQ/
-	 FKWocIw1w7zW2Hj01eIEYWpSTfrDt7VsoCska0Wzorwkkjjtnob1ukkD3Y876sg1k5po4
-	 RYOWFsZd2drvh8c6BklZloYugLnXQdH81VlPd5CZWJY6qkEkQZ2gpN3fjj69wqxDRV16F
-	 zlUxq935OjmzZmnnB33qG4vm+hfSq49F4rxLX0pg+2x0rfYVTp0ZhJGzKrQ1tNtwOEA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=JZeXMm6AAi44BWshE63wgfUA4zyj+3ZnN7hXQLNUFPk=;
+	b=cIFSrGfOAIU1fV0ClWPCkO+YH8D9n4NYeWPm5jfCU6wdOKbHDYXWY8QLs98whq79DAZB
+	 3jOVecBuTX+FJMwlgwRf1rkxQJ/T5BD3ycjaUltiD26uHK7vObnmIL6gjVsetq/y2QMe+
+	 03qvd4EI3gU8Qk9FkE+Cm+wLnDj7cyunuQKFmoaFopyxZ99igBqKp4Y8ClGklZXtFic3F
+	 Y8Ah1rVm/bs/+d6CtqVATUipQ7lcWBP3tUFgbJnPqHbwTC6nxo8L4pYzkUnZaGdBdqgSw
+	 bNHLLKtBNVYM0GdTLaTZLTZPLAisnbdN5D8k9/0tbqWAnN51nhtANP0qThYcuKWH/ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rpIGG3ec;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D0bF1RMy;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF2B606A320
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 17:54:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACF2B606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7222606A33C
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 17:54:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7222606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rpIGG3ec
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so25141475e9.2
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:54:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D0bF1RMy
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so27228625e9.3
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:54:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795110882; x=1795715682; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0nkkB75c4xO0BDbMTd+oRdUsHv55miDUR/T7l+kfobY=;
-        b=rpIGG3ecMQpmdMIQsUTxbxV66zUNK/f/19dIVWVwU3/oJ4PaOoC9+KJemj7x2k4djL
-         zxeMC2V9asmii9hBL6NFC2BcFwV6NxrXUaZGj6tat8F917Xj3iQtISvnXM9aKpVUloqw
-         IcTphOGaqGWGMyljARozybHAw1f3gYNAb69LNsEVHUPMJtQHhO3jCZkDCpdQHKdGyuqG
-         6rwkX87bBw5XvbnbD5CCAOQ1371+AZuNpHp7YGk9iTEBt72lPSRRxNDofCoALHxOWFms
-         WiX/7FYWjL8g2pD247dwZzYQJFHrNBDrtwzSc8YJd3E+y4vbFwM5q3L6A47paHJrbBPz
-         uIiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795110882; x=1795715682;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795110884; x=1795715684; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0nkkB75c4xO0BDbMTd+oRdUsHv55miDUR/T7l+kfobY=;
-        b=Ux40IAh92uStzzUmPSYr5Y1dJt6yXCT2G+3xGYKsOZglIQOW9MZTYiwGtGkaRifgJz
-         lCGgxekMXdS0uI9nQckEtAlkBxNi2IwX/ow1Vy+qMnAbhnmCSV9m1q+b0bCS56Ng77tN
-         xIpLVoioiyLDo3mGZz6iky4Q1431hzTcOeT2KunL9XVEoB1jqD3fTFs2d0xj56zcRe3O
-         keaxi2+ek0FVD/Ds15JWaEmHfDu3kRCEhk7PlExVqeJ/NETI2wE+2y741QFzdYvHlE4v
-         ylAtUTUfUqPYQrRhtLw3AfBVwTGSmUU2+GLPIVtmZowxCb4PIwbyw+dnyd3XWdh+4ERH
-         vmmQ==
-X-Forwarded-Encrypted: i=1; AL+hErE5cuvMqm0MfadXev+l5GRCNu1YWKlxbHE47piia0X/Ety//Jn8moGfFWOgRDlNH3kN/oL9W0HB7BDl@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pMQ2dmyl9foJkaA2wdLJesAg2J7iIG8FGhTb7THRlK+hfwlr8
-	EI/7bHGyUdKfzwdQaTN63+jWMrV6Eam7fZMSEiDFZ7M182hfrEIdHiYM
-X-Gm-Gg: AYBFou2d2sPS2ycTrvf+V6H/fENzAmkpdJ1zflmEkoJuslZhj2/eQPGag1Glc4tSgZ3
-	uF3dTpEvRMJjt+5AtlBHxQyeW5KQQQsqNzga/BnzqHORORJetJ+ZZfdkoGVlvKaMZJp1X4Wf2mE
-	xAXi21+1/lQp2ezaBnzOSMvp5B37GmW0XhY1nedghmkMizLewbHW7ATE2qMF3Vc+Jmzy5/rPYEa
-	1Pt1aKCSiBhXz53csYoP4OkqFDYPXHMr7cz0ZDmF84Llt6ijhW65PZ2GrxpdHEjB5pP9LCZ65mB
-	QVQq8OLKQ6Lq42NomOfyCBBAUfQ4btDAMlEIlMnYbekUYpdXRWZUlVBw4wlcp7bQpEvVynIvnlp
-	r7uo/dFqxtVtm+QO+ImU1MnrhiJ9pvCI7aKx3vNQmTYsNNVNCSm0uTS8+rtIfCC2a9X7VElERTi
-	XjbdySeTd1d8yLuHo/j/98rOCvH5TysuzXExy8WeTgRjduGMO1Shwy/ishKFbCNJtEnrnPY20MJ
-	qwMUfmfqH2dYOINbEVbiHSRDwjJLMR8fhnTvAE/TPPn6EiW6R+5BhVnOkLvmvOkFiKQ7GCjLLNg
-	qVdOSWUiHjNmznjav0/qx+2iaJB2yJST+1899SpuryPR7nmVGMEzmpR8V/wE9QyZUpHgUfuqffL
-	h8UcqNfthwMKhNfL2HkGAVAoPp7pihRZwPFMbZ0rJ5bmfnSOgll6HnZDVkNipIUALhjtMw9Uxhe
-	UEWtZM9DjGyjVMOe2CUHayquAAt7+qxPpaGNr1JUjXoRA3uufkt7UfbpBiRLSn+gBjdr7TdaWHU
-	Z1R3Lyz/HIE7nssNDiuBEXyU/HIyowem7b17DANKfKb0aEsI/UuKnIS
-X-Received: by 2002:a05:600c:1548:b0:4bb:7347:d5df with SMTP id 5b1f17b1804b1-4bb88814405mr6842365e9.13.1795110881961;
-        Thu, 19 Nov 2026 09:54:41 -0800 (PST)
+        bh=JZeXMm6AAi44BWshE63wgfUA4zyj+3ZnN7hXQLNUFPk=;
+        b=D0bF1RMySG0igrY+lp6ja8i1eRHHIL3f9FkIKp/XjvghQpY2iw+7/QzA9wyhKPojBt
+         dPqm1x+vDf3Hx9rLBRMHXvTBbfMxaUT38hH1PI4NoiKlPOhU2pUWnEUl6InKsNi/MWQR
+         ejVhQbGUQ5DYl9N6BIrKlcjajZ9L2Vyqj1v2NHVvm1uFpucD6/Hyg8rPinDWxtIxMOXC
+         x4ekNVuUVsB2VqjVanzoAgonjsn14TZgE0UjagZQOhRMuaKiQJ5FMOI/OE2IGc4je8xw
+         Hvs0Qf2hQIHMGR8tSDt/jEavgMv+4jCx5ufyksIvSN+RsAAA5jEUaYHVN4BMbuEvkdX+
+         +9ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795110884; x=1795715684;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JZeXMm6AAi44BWshE63wgfUA4zyj+3ZnN7hXQLNUFPk=;
+        b=0TZ+ixE5N4B4bzc6ztJN+JSaqpv1pcrfdgVrD2C9SuAaM6ljKHpJxvNHGMqzsdMhUm
+         cGtzm+ki5ziW4qLpgceGC0leFWKLC4A2c7gstpP7vN76VDnvmjVIw05kmj0SXxOHjMtu
+         mGyhhOrriO2QOjbTULFRgOd/LptHPKp3dz8GOTXAxEgsrjjkx+3cp8IbYkjHgRQkQ8Mh
+         8Yar0pSBTSKjqVuS/ub1A9pDDlSyGmHhE+DLqIn4L0hFO8Y86wegvOGR+aloFZ1vh2Bj
+         c+t3F1pDJUKWC/HEcYDgdcuBl9TAoavS8pgp96YUHs9dwOf04bFLEQXtmusseb27EDf9
+         MjuQ==
+X-Forwarded-Encrypted: i=1; AL+hErG3Se6DXbWORmxF93o/O3J8vz2T+ZQj1a16g0lHpQY453m7sK8B56lvLFCGOUIfR1woPn2slVxUbEId@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8AHFmI8v4FDD9ZiHIA3yojLy91C7aPrrZzVl90xoa4e6Zvw1V
+	MuOROcu7RHkEXoFfAGUwGQMQgYNUY5oeKZrI+hYF8vpmRbfAOv6SxNlc
+X-Gm-Gg: AYBFou28BEAhJ8frJkOb5Y2cp23dZPezvC5LKfdOLDphgVUb7rg/DwVQBPZ5LYMlWUY
+	4fz/7vO7bY9Fcm7vpQhATrpjDLzYIKteSW2xveFeBcBkbtofXJDFrSkkasb8f7BDeWzHJCdmbiW
+	yE/xL8i4Hb0xycmpaWjspANcVmLhf+e9qFOlPl6ESqQYnaZSlZOmhpm09vb8XlDXVupibVqyVw+
+	AjQ3OPkKhSohK6JwOXI0Ld83lD7OJTmXgoWeqNqVyt2RMK66sC0u3echcv7SqPqYiAzro/XsZKz
+	DcEIyAtihvDDGTBoipBHrlXpddDTxvcPxRuMtBelIX0vSqH0bA+0X+yy8ERCFkDSXAOrA+a5hK6
+	NAZHyLMO10/JLUSGkT0t//BT5qHWqigbYDqG/7HbTs4xTGfG41UqPA0ylwO8IdHTW9ciqLXlKFx
+	QZnGdofo593OWD5Po0LLU+u46EDAWaLDIG6uz6qS5Xbjq7hnRs96FdypM9bgZI0+aEhHAvM6FHY
+	SKkdw114U1Narays8oEmlpqM7t6UMs6uj83Vty/yPUXuY5j0dSYVduDANGzljEMkwyTf0luvj5N
+	bJv7TOUx7HYRPjiVufiQYj+K0GmRovb9hbBb1s6rhMYLyQAVnChnuMBYEstqDHbPTNG4dEvrtix
+	SS1g+DmE/tP2gGDvrNmQr6d83RFBoKZ+4uJaBjs4+TxxBo5dfWK1lN25LtIVTpPyg0hQUTx86UI
+	WwqEa1xoIZzS4ZcmfLBW5zaLoyTo1YMmEfgbMyKQjth3DICgKzOXL7WRHp92m23Ut7bjyxE00ff
+	uujCqdum5LcV12ckZgWCc4mDyvJoF6FGDBL3mL8tOnwVGr1nlwMh8Hu
+X-Received: by 2002:a05:600c:a08e:b0:4bb:647d:dabe with SMTP id 5b1f17b1804b1-4bb887c3afamr8512525e9.3.1795110884056;
+        Thu, 19 Nov 2026 09:54:44 -0800 (PST)
 Received: from jernej-laptop (95-143-148-21.dynamic.telemach.net. [95.143.148.21])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb84e50512sm29390035e9.3.2026.11.19.09.54.39
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb84e50512sm29390035e9.3.2026.11.19.09.54.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 09:54:40 -0800 (PST)
+        Thu, 19 Nov 2026 09:54:42 -0800 (PST)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: Chen-Yu Tsai <wens@kernel.org>,
 	Samuel Holland <samuel@sholland.org>
@@ -97,10 +98,12 @@ Cc: mripard@kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/5] drm/sun4i: update DE33 support
-Date: Thu, 19 Nov 2026 18:54:32 +0100
-Message-ID: <20261119175437.2520400-1-jernej.skrabec@gmail.com>
+Subject: [PATCH v4 1/5] drm/sun4i: Reject fractional source coordinates without scaler
+Date: Thu, 19 Nov 2026 18:54:33 +0100
+Message-ID: <20261119175437.2520400-2-jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261119175437.2520400-1-jernej.skrabec@gmail.com>
+References: <20261119175437.2520400-1-jernej.skrabec@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,82 +115,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is second series out of three which aims at properly introducing
-support for H616 Display Engine 3.3. Previous series [1] reorganized
-driver so proper DE33 support can be easily implemented.
+The layer code programs the scaler whenever the source rectangle has a
+fractional offset, since only the scaler can apply a sub-pixel phase.
+drm_atomic_helper_check_plane_state() with DRM_PLANE_NO_SCALING doesn't
+catch that: it only compares the scaling factor, which may still be
+exactly 1.0 with fractional source coordinates.
 
-H616 DE33 support was actually introduced a while back, but it was done
-without fully understanding hardware design. Issue with existing binding
-is that it considers planes as resource which is hardwired to each mixer
-as it was done on older Display Engine generations (DE3 and lower). That
-is not the case anymore. This series introduces new driver for planes
-management, which allows doing proper plane assignments.
+Channels without a scaler would thus have the non-existent scaler
+programmed instead of an error being returned. Reject fractional source
+coordinates on such channels.
 
-Note that this series intentionally breaks existing H616 DE33 mixer
-binding, which was released in v6.17. Old binding can't describe shared
-planes, so second mixer can't be supported with it, and it never had any
-user - there is no H616 Display Engine node in upstream DT, rest of H616
-display pipeline is not upstream yet and no other known DT consumer
-implements it. Reasons are documented in patch 4 and driver prints error
-asking to update DT if old binding is detected (patch 5).
+Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+---
+ drivers/gpu/drm/sun4i/sun8i_ui_layer.c | 24 ++++++++++++++++++++----
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 24 ++++++++++++++++++++----
+ 2 files changed, 40 insertions(+), 8 deletions(-)
 
-Patches 1-4 from v3 were already applied (clk patches to sunxi
-clk-for-7.5, CSC and VI format patches to drm-misc-next). Plane driver
-depends at runtime on commit 63a29fbb4ecd ("clk: sunxi-ng: de2: Export
-register regmap for DE33") from sunxi tree, otherwise it defers probe.
-
-Remaining patches, which introduce all the missing bits to fully support
-display pipeline on H616 SoC, will be sent once this series is merged.
-WIP patches, which can be used for testing purposes, can be found at [2].
-
-Please take a look.
-
-Best regards,
-Jernej
-
-Changes since v3:
-- dropped already applied patches 1-4
-- new patch 1: reject fractional source coordinates on channels
-  without scaler (suggested by Chen-Yu)
-- patch 3: mention in commit message that driver is hooked up only in
-  last patch, update copyright year, drop unused of_graph.h include,
-  use dev_err_probe() and MAX_DISP bound, collected Chen-Yu's R-b
-- patch 4: collected Chen-Yu's and Rob's R-b
-- patch 5: fix include order, use device_is_bound() under device lock,
-  guard put_device() in error path, drop stale @map kernel-doc, rename
-  planes platform device variable, mention missing scaling in commit
-  message, collected Chen-Yu's R-b
-
-Link to v3: https://lore.kernel.org/linux-sunxi/20261115061102.229680-1-jernej.skrabec@gmail.com/
-Link to v2: https://lore.kernel.org/linux-sunxi/20260509190015.79086-1-jernej.skrabec@siol.net/
-Link to v1: https://lore.kernel.org/linux-sunxi/20251115141347.13087-1-jernej.skrabec@gmail.com/
-
-[1] https://lore.kernel.org/linux-sunxi/20251104180942.61538-1-jernej.skrabec@gmail.com/T/#t
-[2] https://github.com/jernejsk/linux-1/commits/sun4i-drm-refactor/
-
-Jernej Skrabec (5):
-  drm/sun4i: Reject fractional source coordinates without scaler
-  dt-bindings: display: allwinner: Add DE33 planes
-  drm/sun4i: Add DE33 shared plane driver
-  dt-bindings: display: allwinner: Split H616 DE33 layer reg space
-  drm/sun4i: Switch DE33 to split plane bindings
-
- .../allwinner,sun50i-h616-de33-planes.yaml    |  46 ++++
- .../allwinner,sun8i-a83t-de2-mixer.yaml       |  16 +-
- drivers/gpu/drm/sun4i/Makefile                |   3 +-
- drivers/gpu/drm/sun4i/sun50i_planes.c         | 209 ++++++++++++++++++
- drivers/gpu/drm/sun4i/sun50i_planes.h         |  43 ++++
- drivers/gpu/drm/sun4i/sun8i_mixer.c           | 191 +++++++++++-----
- drivers/gpu/drm/sun4i/sun8i_mixer.h           |  11 +-
- drivers/gpu/drm/sun4i/sun8i_ui_layer.c        |  24 +-
- drivers/gpu/drm/sun4i/sun8i_vi_layer.c        |  24 +-
- 9 files changed, 486 insertions(+), 81 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml
- create mode 100644 drivers/gpu/drm/sun4i/sun50i_planes.c
- create mode 100644 drivers/gpu/drm/sun4i/sun50i_planes.h
-
-
-base-commit: 8e2afcd2b57990465f132367fd8fdc2e55c1adad
+diff --git a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
+index cf66f676824e..f9c7f28f9fa2 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
++++ b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
+@@ -179,10 +179,26 @@ static int sun8i_ui_layer_atomic_check(struct drm_plane *plane,
+ 		max_scale = SUN8I_UI_SCALER_SCALE_MAX;
+ 	}
+ 
+-	return drm_atomic_helper_check_plane_state(new_plane_state,
+-						   crtc_state,
+-						   min_scale, max_scale,
+-						   true, true);
++	ret = drm_atomic_helper_check_plane_state(new_plane_state,
++						  crtc_state,
++						  min_scale, max_scale,
++						  true, true);
++	if (ret)
++		return ret;
++
++	/*
++	 * Fractional source coordinates can only be handled by the scaler,
++	 * so reject them on channels without one.
++	 */
++	if (new_plane_state->visible &&
++	    !(layer->cfg->scaler_mask & BIT(layer->channel)) &&
++	    ((new_plane_state->src.x1 | new_plane_state->src.y1 |
++	      new_plane_state->src.x2 | new_plane_state->src.y2) & 0xffff)) {
++		DRM_DEBUG_DRIVER("Fractional source coordinates need scaler\n");
++		return -EINVAL;
++	}
++
++	return 0;
+ }
+ 
+ 
+diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+index 09d94f7f9977..4d3fc03f9877 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
++++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+@@ -259,10 +259,26 @@ static int sun8i_vi_layer_atomic_check(struct drm_plane *plane,
+ 		max_scale = SUN8I_VI_SCALER_SCALE_MAX;
+ 	}
+ 
+-	return drm_atomic_helper_check_plane_state(new_plane_state,
+-						   crtc_state,
+-						   min_scale, max_scale,
+-						   true, true);
++	ret = drm_atomic_helper_check_plane_state(new_plane_state,
++						  crtc_state,
++						  min_scale, max_scale,
++						  true, true);
++	if (ret)
++		return ret;
++
++	/*
++	 * Fractional source coordinates can only be handled by the scaler,
++	 * so reject them on channels without one.
++	 */
++	if (new_plane_state->visible &&
++	    !(layer->cfg->scaler_mask & BIT(layer->channel)) &&
++	    ((new_plane_state->src.x1 | new_plane_state->src.y1 |
++	      new_plane_state->src.x2 | new_plane_state->src.y2) & 0xffff)) {
++		DRM_DEBUG_DRIVER("Fractional source coordinates need scaler\n");
++		return -EINVAL;
++	}
++
++	return 0;
+ }
+ 
+ static void sun8i_vi_layer_atomic_update(struct drm_plane *plane,
 -- 
 2.43.0
 
