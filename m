@@ -1,64 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795130510;
-	b=E68kc6BxK01zsOJ657xLzKsOegNCTzguI3qwJmiSpxZOzTsnsy+r5NnJXVSXRA/K1kQ7
-	 EFLsQSXAdSNuRL6QD3/e3RY6bBQY3ZTYxyIBJziTXjOZAph6Otw25ahsngvwl34ZTWeGW
-	 62W/6RbEMiV8MntbjlbW1ZOGm2oaWOwWrgZwq10dqAwnu9Q1NDaJJh6tKsgNQdUFLSfln
-	 7ZecxchZa3l0P0S5ndMfoUQYrZi+qSZV95FwbgnDzgIQjWkaxk66dFeZrnN4G2/Dta8nw
-	 A8yNyvwjkLZ8Fx9QmgtlKdlyT43KOAnGuVGMeWTzxaHwS7jEcAWcFI3mpAihr8SjktA==
+	t=1795132091;
+	b=gtL3SP9bTdGliv3Lhx37IddCAk0NY5I+EMuqnkpgekNQd8ccEqim5cHUFxo6LkMXU3Wd
+	 //AiON8IV1wc7s4NoKGvXRF8wayCshQ3/E+BJlVjbm/9Qv4KSY6Kyqxh86lLON9141+Rj
+	 t1Ra9dKJEhgNwWZw+pgs7YKoJ5c48wb6bN7EUmYoDmCStIu0NCLGBbxPJCC2tfzzZa0lQ
+	 eP6bbH0c2BP75incGWi4M9soAOSclVeeS8H87VDUOEGRsDK/Cix9BD/zRp1WPZQAYwQkU
+	 6Ehf6nVqxM0lzgek86afiP0duRhMfhPuEyuhwjycQ1UdByUPwqo/YBZpNRty2Hrs/2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795130510;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EGAR8AwNfaaNnY+c/wiFpYuTC+Sl5mX+8pWJKXAFaeA=;
-	b=SqmAl60raDSpDDnWmlfxiiOwROoZXJmsIskZpgqBiqMwg+w5yt4C4mtM8ym1PRCm8JFX
-	 aiW6QPpgOoEcjVipgkD752bWLCukuOEJfhxzmfuPL/S0/Tzq7s+jilSQ10rd6KO3Gq6Vm
-	 xGYrgO2R87r6pyjgn9uAnX8Cg1N/ieTZC6qeK4lq57hcv8WecYP0BQ/IsxFHtg3uvFSx8
-	 SSftX/6IGDPlBZx7g4GBTcWhnNoK3OZOn2XNRk1OxVs1tspheUCUB5NLhpSryvPDabZ4q
-	 s+l3tqVxavvWlA6r6SWl3xTPEV7HuGMTXaFNXhOupu9p60LxrkapwHgVja21dC89fDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795132091;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=+ijbtSK0fBZ6ownvGj02cHskN9Djna0WvtK/k37lNQ8=;
+	b=McH/PNe7u3YghfauTg1It6U4WjKSCJM61zW0zbgZy0uZ5dJQnIKZGolx01vS0EAaceXG
+	 cVf4vIta5w9aayl62r1S4DqSUo2payi7eerWfUhglCkZWIUdcukR/A8GAZOpmeoXk6EAa
+	 kpt9gpfSDkrXMqGCudPJTjQXMT5qjtAIRCJeKimDv3gAkjkRZ5WZXUqHzKuJi4c1BSOcK
+	 ZoJO/Zd2jCWjUTPY4MwuhR1x7kmMYXPZ0o9/UoXR3rJ3gIgpGWlBvKmt5jc1RBXaWWECp
+	 LIkgFei9xGXKEtYm0rVAlJdbD6jVPTzhZt1ZJ/6qXr5NSmHmd22CeNcvnjaegrbv5AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=exKS5AOW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=NcISFCtC;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEDE606A320;
-	Thu, 19 Nov 2026 23:21:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A07A606A320;
+	Thu, 19 Nov 2026 23:48:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A07A606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=exKS5AOW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1B31F000C4;
-	Thu, 19 Nov 2026 23:21:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795130510;
-	bh=EGAR8AwNfaaNnY+c/wiFpYuTC+Sl5mX+8pWJKXAFaeA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=exKS5AOWd6cAQi3uKf0M74CRJzeUBwGdpYRoTjlYR7fTPEjOcGC4rXhLCfilnGMOj
-	 GbyKnhzg6qW78qHFLa4/ixUSdp5vLI4GUzXd6MiavClaZjFKuf467oG9sF3G3l0hlY
-	 CBhaIimtghJ0QNny8wVb/xbPZmBcPbRbG+h4P5/CGhM7rZip08eVsIa5UoQLhMGQsA
-	 IKNucTsQGrmQSMTcLb0400X5qWSeKCoyoaPE0nnle+m7Y32qNkeR2QYh2lk1W1zmdF
-	 uTcWQw2gZap4gAsBB8JK9G8gOIskT8M4mEXIJUACjZRTuKrcqfH1syxTtOXv4X+0Gd
-	 UETr2tmDegMsQ==
-Date: Thu, 19 Nov 2026 17:21:46 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=NcISFCtC
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CC82A6AF;
+	Fri, 20 Nov 2026 00:45:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795131932;
+	bh=EZwvQCbn6puXRaR/jIu1ad9YLeXmu2tjVf0hS1LGbjk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NcISFCtC5Xg1GEKU99n//zV0rhPkR5PRrt6WisLdwe6SwAb9p/WCxEUiEiBfgG2fT
+	 Rnpzq+GOOlztVp88d33vyp6XUpVa/L77iC0tum6ZLf4aiWr26kd0THZmA812SHkFlO
+	 cwcwWjPeI9XKnw4+785lXybLQPrjxZjjA9AcwDVk=
+Date: Fri, 20 Nov 2026 01:47:59 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: =?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clegoffic@baylibre.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Ulf Hansson <ulfh@kernel.org>,
 	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-aspeed@lists.ozlabs.org, tbevis@amazon.com,
-	Frank Li <Frank.Li@nxp.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	devicetree@vger.kernel.org,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>
-Subject: Re: [PATCH v2 2/9] dt-bindings: i3c: Document the AST2700 I3C
- controller
-Message-ID: <179513050618.1478011.10339945188286451327.robh@kernel.org>
-References: <20261111-b4-i3c-hci-ast2700-v2-0-4d8fff5c5196@aspeedtech.com>
- <20261111-b4-i3c-hci-ast2700-v2-2-4d8fff5c5196@aspeedtech.com>
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Paul Elder <paul.elder+renesas@ideasonboard.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v5 00/15] R-Car X5H Ironhide CPG/MDLC SCMI remapping
+ support
+Message-ID: <20261119234759.GB2324725@killaraus.ideasonboard.com>
+References: <cover.1795029012.git.geert+renesas@glider.be>
+ <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,43 +81,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261111-b4-i3c-hci-ast2700-v2-2-4d8fff5c5196@aspeedtech.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
 
+On Thu, Nov 19, 2026 at 03:47:15PM +0100, Clément Le Goffic wrote:
+> On 11/18/26 8:44 PM, Geert Uytterhoeven wrote:
+> > 	Hi all,
+> > 
+> > TL;DR:
+> > 
+> >     Describe hardware in DT, and perform mapping to abstractions offered
+> >     by SCMI in Linux.
+> 
+> A question on the approach
+> An SCMI variant DT could mark the CPG and MDLC status = "reserved" and point the consumers at arm,scmi, while the U-Boot IPL keeps the hardware DT.
+> Since v4, the series assumes the SCMI ids are stable:
+> 
+> >   - Remove dependencies by making assumptions and dropping disputed
+> >     items, to move this series forward:
+> >       - Assume all SCMI IDs are stable.
+> 
+> If they are, why not using them in the DT directly?
 
-On Wed, 11 Nov 2026 11:16:30 +0800, Billy Tsai wrote:
-> The AST2700 I3C controller implements the MIPI I3C HCI programming
-> model, extended with an ASPEED in-house control block and a PHY
-> programming window advertised through an HCI vendor extended
-> capability.
-> 
-> The controller takes a core clock for PHY timing and two resets,
-> named in reset-names as the controller's own reset and its DMA engine
-> reset.
-> 
-> Boards without external I3C pull-up resistors can use the PHY's
-> built-in pull-ups instead, selected with bias-pull-up; the achievable
-> strength set depends on which pin group backs the bus, since that
-> fixes the pin voltage domain. Reuse bias-pull-up (pincfg-node.yaml)
-> for the strength in Ohms; it is declared on this node rather than a
-> pin-config node since the pull-up switch is part of the I3C PHY, not
-> the broader SoC pin control IPs.
-> 
-> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
-> 
-> ---
-> We considered expressing bias-pull-up's dependency on a pinctrl state
-> in the schema, but couldn't find a clean way to say "depends on
-> whichever pinctrl-N is active" without hard-coding pinctrl-0
-> specifically, which would be wrong in general (a node's active pin
-> state doesn't have to sit at index 0). We've added pinctrl-0 to the
-> example to illustrate the typical usage instead, without a formal
-> schema-level dependency.
-> ---
->  .../bindings/i3c/aspeed,ast2700-i3c-hci.yaml       | 89 ++++++++++++++++++++++
->  1 file changed, 89 insertions(+)
-> 
+As far as I understand, the assumption impacts the mdlc and cpg drivers
+only, not their DT bindings. If (or rather, let's face it, when) a
+firmware revision later breaks the assumption, we will be able to handle
+it in those drivers without affecting DT.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+I don't like this remapping driver much, in the sense that I wish it
+wouldn't be needed, but it seems to me to be the best possible
+compromise given the instability introduced by SCMI.
 
+> On partitioning, the cover letter says:
+> 
+> >   - The clock, reset, and power domain IDs are not stable by design,
+> >     causing DT incompatibilities.
+> >     SCMI requires that the ID space exposed to an agent (i.e. Linux)
+> >     starts at zero and is contiguous.  Hence any change in system
+> >     partitioning (Application CPU core vs. Realtime CPU core,
+> >     virtualization, ...) may mean a renumbering of all SCMI IDs,
+> >     implying a massive change to the DT.
+> 
+> SCMI do not mandate that renumbering. The ids start at zero and are sequential, but nothing requires them to cover only the resources of one agent.
+> The firmware can keep a single id space for all agents and restrict per agent what each one may use, the rest returning DENIED (SCMI 4.0, section 3.2.1).
+> For virtualization, the spec has the hypervisor grant each VM its resources this way. A new VM then changes permissions, not ids.
+> 
+> With a single id space, a software configuration only changes which nodes are enabled, so one DT per software configuration, a base DT plus an overlay, is enough.
+> If managing many configurations ever becomes a nightmare, tools exist for it, such as Lopper from devicetree-org [1], which generate one DT per execution domain from a single system DT.
+> 
+> That leaves the missing clock domain, which is a gap in SCMI itself.
+> 
+> [1] https://github.com/devicetree-org/lopper
+
+-- 
+Regards,
+
+Laurent Pinchart
