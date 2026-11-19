@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795085622;
-	b=FPEvaj8QdEzYgrqSjW5nK/PKJJSv19eI30fMTbNC5kv3J1eZwIiRY7GnRRODw6me3e6D
-	 Rd6NhBFrBU33oAs918uFTAwQIXSdhWV+m+EBh9OYlxhpSWUTdYsXnWGX/toXy29ARSN6O
-	 0iyvQSt+aUSIKz/DQkJ2Omncs+vvaB35gmxDVYcwqQOaCv5C3/e+A0UEJJ3kpeQhDlL8p
-	 fbkYR2dOp7zqClLKJXOj+uOF0Byos+GerRDluo7+Oj4WNlwBkpMl2cscywhU/AJEJJDfx
-	 cz9frm3I1e/XNeChSLIjn/Bt0wK7WPw29XBUTS4LHrZ+gtVTjt+Sn1OKKc5+mst3AZg==
+	t=1795085715;
+	b=Vz0yFWan7iGaymRCvW5oTf04rsPyRxHEzZYF0QiE076TdYksXj/Ew+TkkxSX8ddCQtLq
+	 1wRNj7q2dxNU3sJsYot5kz+kJYfntDw/xSc2gWbUu2ulHq6MhqNkcchyhz5sLKTcMDxNV
+	 +lPci035QxHwj5TU51ZxxBDj9LKarEIFZbCkibJUS60pvEUXvu2LSBndZhMG5M9QgJT0d
+	 eggrk5Ih7k+YHwmN2yETSMxcdUv0LYdGAubFng2Fbud8u0TcRSUIJj8cGZ7aYelj5PLRG
+	 jjJFTut12Oewye+maGig31jqM1dgoqeG3F0oOngjt38M/c/9LsZnVkRkBQt0noskpAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795085622;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795085715;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=f33Z8TXoFnsk2bbt98iFyYywFcMPKAXGUrS8qLhYS2c=;
-	b=uaWEqKU92fTNWrpFDM24TeCcdEYCaPxt0GpnBUsHUDWf2Ac9ZrYqueYpNBNnuV6gbNty
-	 Jya3MEyM4HkMQvelVkT4J5+u87UMoPQTw7NiyksCCEyQu2uPOyiV6su9fTYTZ+GdEIHI0
-	 qSfoaYNYwzFEXxn/yXHDi0ZBEEQuX4fYIL+q3bUg4Sa/mFdREx6qsS/zWjEIZ+zkMN1Ta
-	 guFlcIl8pWUyRKP+nFMVETnk6ao8GpJn5mj7uQlWoqmGAXWByWMA9heggpcT0P2PgzMDp
-	 VzOOp/Qw6za23MfUZa9cV05JjRl+8HRg8C5phJEYlC3TFCRD5D96RyShCavHKM7Ty+w==
+	bh=av2D7bNud7j+ZgZGHaHjgJw7DfhyRFMgkJgFPf9k60E=;
+	b=HGBP16NzHhT1HnxNQW0tm742vXcmjKqzrDM+fCXPEghdrK8VRw7/5llQcx4XoZZkL9d6
+	 3Sp4+nCpvUaKPv4YlyBTPRF+ltVPWZAOyUJk3nKC/jQQx4nXnQAEGvmriZ77TpMOxWpP/
+	 blwYX5IwC5P/EtyY6SaUVb8rrSYQGK7xBZN6TkGx50/ZLrg41EQI2fichhfjVmh2p+EMK
+	 w7j0e9BwWYnn/xsv2qLS15l9ct+SRA/0l05g2VFeX+PP3sWFsLd4vrJFFwDNNiwgCdXCC
+	 RMBARHbAJU2t58TB5pbnsjEu3TwNG0vCaTri2Ayv/meUJdZcF9Kc7rNyql0PlasFkwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UtvedPad;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jaFuonsT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65605606A324;
-	Thu, 19 Nov 2026 10:53:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B45F606A320;
+	Thu, 19 Nov 2026 10:55:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UtvedPad
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E636B1F000C4;
-	Thu, 19 Nov 2026 10:53:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jaFuonsT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9EF1F000C4;
+	Thu, 19 Nov 2026 10:55:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795085622;
-	bh=f33Z8TXoFnsk2bbt98iFyYywFcMPKAXGUrS8qLhYS2c=;
+	s=k20260515; t=1795085715;
+	bh=av2D7bNud7j+ZgZGHaHjgJw7DfhyRFMgkJgFPf9k60E=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UtvedPadHb4cKSxxgoSSU+OIEhw7T/wjQrmTAbYXZzMdMCIr4EOl/NOT7ePok+nFw
-	 FwX/Xr6W36T89lAe0eR+i7ES/GEFxXaG+V4++Jh7U+r5EeKUyMTa3lYPe0mokSksf4
-	 RHq90jM9bkzyXjEaAn+EOaikuEsbmEviksq+FieF1NQi3XySDjMR7truZAIF4kX6mZ
-	 UzEBNzD/H0QnHubpohDHjzTG5kw3HQOENawy5SfhT8gigmSf6WCDkaFrdr5IEL2J6A
-	 ED9iD5mlKbUU7+0GMqFWFlkcCi0ffoCVJ7Lm+tCdp/iC0jXWTFyIcX12HVpSSz1YWS
-	 /0LUit2sKOIQQ==
-Message-ID: <774d5d05-bf48-486c-bf3c-b8442fd624bf@kernel.org>
-Date: Thu, 19 Nov 2026 11:53:35 +0100
+	b=jaFuonsTh85f5zgyMHwIyQoXESLU6ob1QBmmVIL2y8kzrDrI+sN+EXpgrqM9cWkCL
+	 HSCsOm68R+n4apKkc9LCwn/7tD9sxnVkDbuwSQg8YAlciBJbMSxtNWNg3zqvkJIG0o
+	 /OB5gNT/VDVzKO1uCW8MyPX/qz2m4bSR8AUVLe7FWCl3/A7qLie3Xh0BQruLIqbRr0
+	 vv/GynVkiSiPGOPT6cX8azlYFsXZanaKvosH8o0+uZkwk0yi+wiFbKV+YE3jgzSGe6
+	 h0DjOeSi654NH70w39EiLmNgVquv5tZro7XiS3k4Z3fBplaGFQ3JIZItAy435S/pGp
+	 +PIg50N06FCCQ==
+Message-ID: <783b5d30-edc8-4a03-b1c3-c74c803787dd@kernel.org>
+Date: Thu, 19 Nov 2026 11:55:10 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,17 +52,19 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/15] dt-bindings: firmware: xilinx: Add Versal Gen 2
+Subject: Re: [PATCH 08/15] dt-bindings: clock: versal: add Versal Gen 2
  compatible string
-To: Gregory Williams <gregory.williams@amd.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
- kishore Manne <nava.kishore.manne@amd.com>
-Cc: Senthil Nathan Thangaraj <senthilnathan.thangaraj@amd.com>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+To: Gregory Williams <gregory.williams@amd.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>
+Cc: Naman Trivedi <naman.trivedimanojbhai@amd.com>,
+ Senthil Nathan Thangaraj <senthilnathan.thangaraj@amd.com>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20261118233211.4121361-1-gregory.williams@amd.com>
- <20261118233211.4121361-7-gregory.williams@amd.com>
+ <20261118233211.4121361-9-gregory.williams@amd.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -108,39 +110,51 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261118233211.4121361-7-gregory.williams@amd.com>
+In-Reply-To: <20261118233211.4121361-9-gregory.williams@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 19/11/2026 00:32, Gregory Williams wrote:
-> From: Senthil Nathan Thangaraj <senthilnathan.thangaraj@amd.com>
+> From: Naman Trivedi <naman.trivedimanojbhai@amd.com>
 > 
-> Add compatible string for Versal Gen 2 firmware driver.
+> Add compatible string for Versal Gen 2 clock driver and validate
+> clock-names for xlnx,versal2-clk compatible.
 > 
-> Signed-off-by: Michal Simek <michal.simek@amd.com>
+> Signed-off-by: Naman Trivedi <naman.trivedimanojbhai@amd.com>
 > Signed-off-by: Senthil Nathan Thangaraj <senthilnathan.thangaraj@amd.com>
 
-Incomplete DCO
+Still incomplete DCO. Please read submitting patches to understand what
+you must sign.
 
 > ---
->  .../bindings/firmware/xilinx/xlnx,zynqmp-firmware.yaml         | 3 +++
->  1 file changed, 3 insertions(+)
+>  Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/firmware/xilinx/xlnx,zynqmp-firmware.yaml b/Documentation/devicetree/bindings/firmware/xilinx/xlnx,zynqmp-firmware.yaml
-> index 72af37cdb103..60d1bd329d0e 100644
-> --- a/Documentation/devicetree/bindings/firmware/xilinx/xlnx,zynqmp-firmware.yaml
-> +++ b/Documentation/devicetree/bindings/firmware/xilinx/xlnx,zynqmp-firmware.yaml
-> @@ -32,6 +32,9 @@ properties:
->                - xlnx,versal-net-firmware
->            - const: xlnx,versal-firmware
+> diff --git a/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml b/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
+> index 1f36ccc4cde1..e06f1ebc192a 100644
+> --- a/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
+> +++ b/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
+> @@ -17,10 +17,13 @@ description: |
+>  properties:
+>    compatible:
+>      oneOf:
+> -      - const: xlnx,versal-clk
+> +      - enum:
+> +          - xlnx,versal-clk
+> +          - xlnx,versal2-clk
+>        - items:
+>            - enum:
+>                - xlnx,versal-net-clk
+> +              - xlnx,versal2-clk
+
+I don't understand this, it makes no sense. How exactly the same device
+is and is not compatible with older one?
+
+Please read DTS101 slides.
+
+>            - const: xlnx,versal-clk
 >  
-> +      - description: For implementations complying for Versal Gen 2.
-
-Drop description, it duplicates the compatible. Or say something useful.
-This should be rather enum with all such entries.
-
-> +        const: xlnx,versal2-firmware
-> +
+>    "#clock-cells":
 
 
 Best regards,
