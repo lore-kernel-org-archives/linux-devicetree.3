@@ -1,45 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795119104;
-	b=pmOGqgOM9jopFkWipP+64DVS8/hC7cUuQ8AKKPy8EmWvBGXwtXehGWNvTqkz7D/TVfro
-	 3T5XAjZJFOfRM/1kVyhd1exHHaD4k2RvIOf+dAXnFchEjR3Nz74OHPQhankLaXHvT512Q
-	 NDwnEG+tGde6ZUhuLLyUBM/gRnif0EYliEHBDBapJFVi4f+bR2AatVNlRgnkmRXYmvB9U
-	 KIvpVI+AbNjGBfU1mxiTeXAvz9oYr5MoTgmpZTxXs7O2/W8wwQSi9cqS/9bB3ayr3KfoB
-	 qFxUSMFwHEoJJx1+SAD9f5IOH9ygkMaGHD3n2zjZqMIvZYiRXuXJgyoXF5a8y+wuxnQ==
+	t=1795119121;
+	b=vjfcaB1hCb9wbEoZuLgqu92yGnagwX6wTytuJvEYmcqCljKm4JtPc+feIlW8tM5WHRi/
+	 h9OdjGzPOSzDteTD2jmyWb+Cbl+kzM7aKOhehjDHsJCLRgn42Ti/kVy4PbgRr0H6+ZS/4
+	 kW2lmg/XQ2EOxrX67NDe9ORVzLGiCVBkxrZgjtduVlxdcSk9TSOklgZTc1TzfxPJCcv0Z
+	 lLVbIF+MsWZHwMZ7EkM2KFvGnnX535/Gi0qAFiT61FU3nUUFouNGJvO6agVelGS7dzaBo
+	 oop55vPgfCt9twv06+EtLlZop7tqG+DQ3x94udQFMudRe3ZvwyJe6P0SCH4nS4sawfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795119104;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=pFxF6NLDn4YFi5c/gPbxY2BsnOxIFijcpkJTs3Ec5/k=;
-	b=pc+iLTH3x7sEXt9IXmqd79oEK6hDH92PsuLLT8B4xjpnOkyQSJk3yYD+pCixeUxJmYbi
-	 Gp6jnFJ8yNPWlEMfPBq/5Oc/fD9n263N1L39CxqdDwOlbsQEx5InywgRvk+BVgae/Ilbx
-	 ga2AQY/QL2pGQVq/FackO2d1HHsfaT9mznfk3MkXza5o8GAFmv5xStzhawycJBOj3S5uw
-	 3px6ytbKrOb2mMR0wsa8m+9qbWZr1Bj4Toj9Qdmhc0KZEMGqCYeU7nfHBCjt7tEX5d3dC
-	 l+SUzvXYhuQanfwapTehsUkhgfVyM3mSBIsog58K6N7q7nyE+/889qk6EI6Zhysoh/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795119121;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JRiXSzKdZEs95dB2xy83AEgzyg8HWiseFtrop6xYz5k=;
+	b=lpj1k/iqUCqmNbahZGXzFkdRfbLgQselT9AEGAZGliDDnB3fPdH1tvSlnYvpZgkxjwE3
+	 rkzJpdg1VDsDB0ul5OmdOclofNp36Mvbn9RAXjWZqgdc4TEO8WO1+y3UuRXzctOyeZsmZ
+	 0BKZSGOsX7RPKDNuWP7QD4IqvQ8PnllsMz5ssrXZjSYbCdPhHN0IYVhY3XOX2MczxrCwK
+	 k2tKweSqUUM/dJimGSTwToB+1qlvIIKxpIt+fFiTuiBOVMcP4ZWx4onyJ1Np5HkhgGFON
+	 zdZ9ItERLCIO7hN7R13b3BQo2Eco/4/FuulvsPa8EIkPwE8SxJX1Z5doFyIbkY2SAbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=at11472n;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArqVKdJd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127DB606A330;
-	Thu, 19 Nov 2026 20:11:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B7260A2610;
+	Thu, 19 Nov 2026 20:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=at11472n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0E401F000C0;
-	Thu, 19 Nov 2026 20:11:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArqVKdJd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721151F000C6;
+	Thu, 19 Nov 2026 20:12:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795119103;
-	bh=pFxF6NLDn4YFi5c/gPbxY2BsnOxIFijcpkJTs3Ec5/k=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=at11472nDaFVGNSVxIilCjfXOuWH/dtohJ9Kc3Ec/L8jTKZwInsB00Pqkf/21YcAz
-	 gTY5zWZtTGisSAdfc3KO+UDhHjDz4rBMvvcM7cEGa1RS7vUZxsNd6nu7QfkZN/q+zX
-	 g4mE18f8yMSoqEOvLJS0jheNAoKSt1e0aPlI9nzMdpxzxsEzV1H6jDg4BUn+7AJEaM
-	 mXi+juzuEtyTJRr8SCfRsifnPJAibRwzHVNg9l5n+AM7xB65dpPZrqHuT2+vDQSpGn
-	 KxaP+ZuV5Jc+7HZPOpFCBMpBYv49T+3i1KYd5S7gfyXIpacEhwPNdSxqERHBNVbgiM
-	 HIY54XFOr98XA==
+	s=k20260515; t=1795119120;
+	bh=JRiXSzKdZEs95dB2xy83AEgzyg8HWiseFtrop6xYz5k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ArqVKdJdIwlCt6LuAiYalWgoC5nt+pwnUyqBNjjzPxY2S+39KWDXBCywNORfAhBHX
+	 3qT9XSd+bwX96kE4oNk/PmUJ7/gvfz62zf4EGgtc42ZDdL9hPO3H20Oi32DVMQOKvn
+	 5C64RPe33gSpl4cJn5UK6C2xTxutPUv4XdCcAN6QhlhEVvphWRHe3V9INFELigO0jF
+	 CvgxEDH2yNtqlCIbhWQkp+VCdC9ZI+YIyp5/8jMxmMjVz8mNdCS9MBiyu0lG2Igz5o
+	 b4x3ee86/EnfpyavYlf4TzEXpNAP0oyzMduAz4MgHbjDbw2Ay6DIzLF0chWrLzWL1o
+	 FoCnpRqLg6ZeA==
+Date: Thu, 19 Nov 2026 14:11:58 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Selby Mashiki <mashikiselby@gmail.com>
+Cc: Saravana Kannan <saravanak@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH] of: overlay: fix device_node leak when attaching node to
+ changeset fails
+Message-ID: <179511865293.69428.941600845556456809.robh@kernel.org>
+References: <20261025180237.445403-1-mashikiselby@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,81 +57,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 6/6] spi: dw-g2: Add XIP support
-From: Mark Brown <broonie@kernel.org>
-To: Prakriti Sharma <Prakriti.Sharma@synopsys.com>
-Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org, 
- Siddhant Kumar <Siddhant.Kumar@synopsys.com>
-In-Reply-To: <20261119100513.433044-7-prakriti@synopsys.com>
-References: <20261119100513.433044-1-prakriti@synopsys.com>
- <20261119100513.433044-7-prakriti@synopsys.com>
-Date: Thu, 19 Nov 2026 20:11:34 +0000
-Message-Id: <179511909434.116416.7980842980021055081.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1676; i=broonie@kernel.org;
- h=from:subject:message-id; bh=wn2KQMRVwRn7IbAXni+bc58Hjan01FFaV6Wj0SDmhkg=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL+h3+vk/RM2tDz4o5WXnXnsm3zMlXZD9aUbTm7KpZjH
- qf43sl1HaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZiI33NGhmf8c6QXnNgZ8a6g
- si/29NLoOF2ntJtufyTrrkbPr5x27B7DP7sQ3Rlej8szLBNlq2Wt7pvZfBEV/ZF2S27dS6Gftya
- ocAIA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261025180237.445403-1-mashikiselby@gmail.com>
 
-> Add memory-mapped execute-in-place through the spi-mem direct-mapping
-> helpers.
 
-> +	*val = dws->xip_continuous_mode ? 1 : 0;
+On Sun, 25 Oct 2026 20:02:37 +0200, Selby Mashiki wrote:
+> In add_changeset_node(), when creating a new target child node via
+> __of_node_dup(), tchild is initialized with a reference count of 1. If
+> of_changeset_attach_node() subsequently fails, add_changeset_node()
+> returns the error without calling of_node_put(tchild), leaking the
+> allocated device_node.
+> 
+> Furthermore, because OF_OVERLAY is set on tchild before
+> of_changeset_attach_node() is called, calling of_node_put(tchild) when
+> tchild was never added to the changeset (and thus never had
+> OF_OVERLAY_FREE_CSET set by __of_changeset_entry_destroy()) would cause
+> of_node_release() to log a premature refcount zero error and skip
+> freeing the node.
+> 
+> Move of_node_set_flag(tchild, OF_OVERLAY) after
+> of_changeset_attach_node() succeeds and call of_node_put(tchild) on the
+> failure path, matching of_changeset_create_node().
+> 
+> Fixes: 7c528e457d53 ("of: overlay: add missing of_node_put() after add new node to changeset")
+> Fixes: 144552c78692 ("of: overlay: add tests to validate kfrees from overlay removal")
 
-Please write normal conditional statements for improved legibility.
+These don't look right to me, so I dropped them.
 
-> +	dws->xip_continuous_mode = !!val;
-> +	dev_info(dws->dev, "XIP continuous transfer mode: %s\n",
-> +		 dws->xip_continuous_mode ? "enabled" : "disabled");
+> Signed-off-by: Selby Mashiki <mashikiselby@gmail.com>
+> ---
+>  drivers/of/overlay.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
 
-Don't log normal operations at anything above dev_db(), and consider if
-they should be logged at all.
+Applied, thanks!
 
-> +	if (dws->xip_continuous_mode)
-> +		dev_info(dws->dev,
-> +			 "Requires flash command supporting continuous read (e.g., 0xEB Quad I/O)\n");
-
-Shouldn't this be an error then?
-
-> +/*
-> + * Module parameter: select transfer mode at load time.
-> + *   1 = XIP (memory-mapped direct access)
-> + *   0 = indirect (default, FIFO-based, uses exec_mem_op path)
-> + *
-> + * Can also be changed at runtime via sysfs:
-> + *   /sys/devices/.../xip_mode
-> + */
-> +static int xip_mode;
-> +module_param(xip_mode, int, 0644);
-> +MODULE_PARM_DESC(xip_mode, "Transfer mode: 0=indirect (default), 1=XIP");
-
-No module parameters please, I see you have other interfaces for
-configuring this anyway.
-
-> -#include <linux/spi/spi.h>
-> -#include <linux/io.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/delay.h>
->  #include <linux/device.h>
-> -#include <linux/irqreturn.h>
-> +#include <linux/io.h>
->  #include <linux/iopoll.h>
-> +#include <linux/irqreturn.h>
-> +#include <linux/slab.h>
-> +#include <linux/spi/spi.h>
->  #include <linux/spi/spi-mem.h>
-> +#include <linux/string.h>
-
-You were using a bunch of these headers earlier in the series.
-
--- 
-Mark Brown <broonie@kernel.org>
