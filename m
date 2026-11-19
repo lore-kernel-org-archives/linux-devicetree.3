@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795106030;
-	b=RMUjdFu4Mxy7pfruQOdkUN4Sbe9fi8SBW+DzxghHLAtbZxeYKBpa1RRtUvNq7qpJbJij
-	 EcPw2oXmB2qtY6HePa6kzoJfh661DnE/sY7joIV4Exks8XHBOVFOZfN95vxmmrezSnHau
-	 1a4f7PAX85DLPLYMb4MDHW0kMfrjqmP7UM0uQYtPlgIQwss5QIHBhBy4Vi5Y87F/1ddKj
-	 y2frSwbvyXKHjj0/GeLchUvXloc8U8CLCm9J/7zVWb/XVYdcZdY0b8s41hKIBZkN8VZFe
-	 bjJJ4kPw27q4FIxN3gfHh3HX+FaiL3dtWTy1OJZg4/lkaHOgnT1jxxkoiGpOfOpqaCg==
+	t=1795106253;
+	b=kTG8gD8mO5Z0FvRigCXaC6UA2SEy0pgN4Lr4T4K33AfeUUXbUkuiLSpKF3SiZ7F6l9gF
+	 HqJfK3EgXs+/atFEosjQha36msEuScBFa9Phg6srsf42IHF8T0vl4zXYDg8cgPQ/8cMR1
+	 7pj4vjtzYT58cLz0WyNZSeL7JyU8M/2QjouIQwqOxVeLH6AX0OXr5SgDYm5H9tRMxDA4S
+	 9MAJnN2td+SUwa3UsLTkpO4njB5g4GALbDXc74hJL1fiiWYokEyLjNlwpuCesFSoiFo52
+	 BJNL1PD7Vkjcvhy8zrpqrcQJM9Gk+w6r4VyLF49zf4SylL/zQr+lW/KVo+3gP3p5EIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795106030;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=RPGlBcLzs+zhPePjUUY7ODZ/rCGIIg4LARWFNOL115g=;
-	b=CMCWCFcydGvIcYFKSLJSBcAR43PW6rOqSZLmDddPS00UoZgLkmmGQzg9E/HBGUwvH1NQ
-	 R6PKp0OFNAeUB2j1OuakPe0KYeoBb7t0iNVJIISoYBhRp7lDf+t/mkMvfEM8DnycLBkVn
-	 LQSzDQrvBBNJKVbAvTRqfz2Ljig2prueUzAeQ2wR1t5bpN9s/MhWJJw9pMb5qTpHNqSvG
-	 2eWkVkwNXN63WcxXGrBizSZkcTWp8Hnf/3yC9mYXIAJnqTpANkqu4SudbaNwTgrghztQE
-	 qNKnaImz/sAzzg3la+WPzlHmGj87edn9LglOqtJe2oszhXNPI+wAm61G/B2usomOf8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795106253;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=htU/F5AEUQsk5vxQUF1U8PnMJ5Hs4GCWD3+jrbz5OR4=;
+	b=Iq/zNUmkP/3k6nP41ODQC53yTi9g+iBEntbO+koJ2TbETlCnvq8zZki660qP6zvY15Qe
+	 G71AWJCAYZzzW2fRS83mbRiFDaHHJwTUhkwowqbISBvkpmudqrHJteMHxjkypXpm1mszD
+	 VayNFYL/gy4cLiiy7wJjIHLP/2KwgCESyLY1ira+J0wN2Gw99tci8HYub3ZDv9z6k/OQb
+	 tWmeMYcSCT/C4H7AUSuE79uaF+iBOo+4aSk9E3aASbsBlKQAbj6g+dsWL6jFgyln/yS0K
+	 RzFpduC0OjELw9uVW8iSCgNjD5s4iRoq5HJ9IRIYCmBqQhmLcmowo+SnlDIvyN7Rw+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W94dZSFi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GR+uTe6K;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75366606A325
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:33:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BFA606A324;
+	Thu, 19 Nov 2026 16:37:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W94dZSFi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC8C81F000C5;
-	Thu, 19 Nov 2026 16:33:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GR+uTe6K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE781F000C7;
+	Thu, 19 Nov 2026 16:37:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795106030;
-	bh=RPGlBcLzs+zhPePjUUY7ODZ/rCGIIg4LARWFNOL115g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W94dZSFipzen+msAvlzka6tqrfux0ncuSz1MLm4jixLF4/ndMYtSX/gXdEPUKmhO+
-	 8h/Mdn10yN3c8Ed3bVihdaKhbvmrRieAPztHYAmna+dfKm1mgU8ygrI0Vn9gYeIkkH
-	 zEWpyGaGPDpwL9cIT7zvgl0LID0RWmOdOVGNyiSXmsklNDojhVDWM3EAulhGLRiETy
-	 Zzh3eG9fGs4zvemJdOQXqBUF2Ok0Z0gIkJlUBEQnKaYudr1sS2Et1tbN2OzxTWwyi4
-	 C4LUFr/UyOTE6LcLV40w19U2BoVH4rnmCjvRH7p8L4WiR78qazCmvanxbMfKJw5xxu
-	 fJAjg/rVdB/RQ==
-Message-ID: <sashiko-outbox-223530@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: shikra: Enable CDSP & Modem
- cooling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dipa Ramesh Mantre" <dipa.mantre@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261119-b4-shikra_qmi_tmd-v2-1-87089ab2acbe@oss.qualcomm.com>
-References: <20261119-b4-shikra_qmi_tmd-v2-1-87089ab2acbe@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 16:33:49 +0000
+	s=k20260515; t=1795106252;
+	bh=htU/F5AEUQsk5vxQUF1U8PnMJ5Hs4GCWD3+jrbz5OR4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GR+uTe6KH4SGq10UcCgo6kKVa9S4aRu3KfoF/zuYhh76wu1Z0KS8ywZN8K4gOaVx/
+	 PQraR5hvnKuDv8s3oBD7MSvipFe8stWNzb2xcgD8rMqv5JPDrGifZEy4MtgrAu8lpl
+	 JzyAbIh62x+C1WRYy82DJKdcOUzOSE+vtOPNxYfjDU7f5hsT+cPEsnc879Hr+nUfki
+	 kh2QKQy13S/QX4/KvWyEzz72iWviq383CUcbn1gIC38sZFmyYOEIQ/0Uag/jnrZ71v
+	 kA59cq7v0LMjl5e5QzWsWHW62+fD0rZrnzNahjrfldnbAJZ/Af1XwC8poedgaw9OCQ
+	 6u+o2MU56/XdQ==
+Date: Thu, 19 Nov 2026 16:37:28 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: rva333@protonmail.com, David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: iio: light: stk33xx: add power
+ supply support
+Message-ID: <20261119-giblet-epilogue-45f554c009ce@spud>
+References: <20261117-6768-stk3337-v2-0-92f4c7be3bc6@protonmail.com>
+ <20261117-6768-stk3337-v2-1-92f4c7be3bc6@protonmail.com>
+ <20261118-coyness-luminance-6d0c07e843b7@spud>
+ <20261119032903.4a0d3bf6@jic23-hlaptop>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,68 +63,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tnBqYVFrnwBFWXJo"
+Content-Disposition: inline
+In-Reply-To: <20261119032903.4a0d3bf6@jic23-hlaptop>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] arm64: dts: qcom: shikra: missing qcom,pas.h header and
-  QCOM_TMD_* macros
-- [Low] arm64: dts: qcom: shikra: undocumented #cooling-cells on PAS
-  remoteproc nodes
---
+--tnBqYVFrnwBFWXJo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 8571cc2f99e428cc1ffc7db9c0a71c46f4f27ba0
-Author: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
+On Thu, Nov 19, 2026 at 03:29:03AM +0000, Jonathan Cameron wrote:
+> On Wed, 18 Nov 2026 18:12:30 +0000
+> Conor Dooley <conor@kernel.org> wrote:
+>=20
+> > On Tue, Nov 17, 2026 at 08:08:35PM +0200, Roman Vivchar via B4 Relay wr=
+ote:
+> > > From: Roman Vivchar <rva333@protonmail.com>
+> > >=20
+> > > On some boards, the chip shares a power rail with other components. If
+> > > that rail is turned off, the chip can't function. =20
+> >=20
+> > With these issues in mind, probably it should be made required, even
+> > though new required properties are an ABI break.
+>=20
+> I raised the same on v1.  Seems it is used by various boards
+> in tree where we don't know which supply it is.  So whilst nice
+> to fix we might just be creating some painful build warnings.
 
-arm64: dts: qcom: shikra: Enable CDSP & Modem cooling
+Yeah I don't really want to cause more warnings, but if it is actually
+the source of issues, warning may get them resolved.
 
-This commit configures passive thermal trip points and QMI TMD cooling maps
-for the CDSP and modem remoteproc nodes on Qualcomm Shikra.
+Up to Roman really I guess.
 
-Link: https://lore.kernel.org/r/20260911-shikra_qmi_tmd-v1-2-96c1cca82f30@o=
-ss.qualcomm.com
+> Can go ahead and 'guess' I suppose or put a fixed supply on it
+> in the upstream dts.
+>=20
+> Jonathan
+>=20
+> >=20
+> > >=20
+> > > Add vdd-supply property to document the chip power supply.
+> > >=20
+> > > Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> > > ---
+> > >  Documentation/devicetree/bindings/iio/light/stk33xx.yaml | 2 ++
+> > >  1 file changed, 2 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/iio/light/stk33xx.yaml=
+ b/Documentation/devicetree/bindings/iio/light/stk33xx.yaml
+> > > index f655a570aac7..114cf87eb54d 100644
+> > > --- a/Documentation/devicetree/bindings/iio/light/stk33xx.yaml
+> > > +++ b/Documentation/devicetree/bindings/iio/light/stk33xx.yaml
+> > > @@ -37,6 +37,8 @@ properties:
+> > > =20
+> > >    proximity-near-level: true
+> > > =20
+> > > +  vdd-supply: true
+> > > +
+> > >  required:
+> > >    - compatible
+> > >    - reg
+> > >=20
+> > > --=20
+> > > 2.56.1
+> > >=20
+> > >  =20
+>=20
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
-com/shikra.dtsi
-> index c1f06f692f664..6e5b1aa376692 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> @@ -10,6 +10,7 @@
->  #include <dt-bindings/interconnect/qcom,icc.h>
->  #include <dt-bindings/interconnect/qcom,osm-l3.h>
->  #include <dt-bindings/dma/qcom-gpi.h>
-> +#include <dt-bindings/thermal/qcom,pas.h>
->  #include <dt-bindings/interconnect/qcom,rpm-icc.h>
->  #include <dt-bindings/interconnect/qcom,shikra.h>
->  #include <dt-bindings/interrupt-controller/arm-gic.h>
+--tnBqYVFrnwBFWXJo
+Content-Type: application/pgp-signature; name=signature.asc
 
-[Severity: Low]
-Does this break DTB compilation for Shikra?  include/dt-bindings/thermal/qc=
-om,pas.h
-does not exist in the tree, and QCOM_TMD_CDSP_SW, QCOM_TMD_PA, and
-QCOM_TMD_MODEM used in the cooling-maps below are undefined.
+-----BEGIN PGP SIGNATURE-----
 
-> @@ -2007,6 +2008,8 @@ remoteproc_mpss: remoteproc@6080000 {
->  			qcom,smem-states =3D <&modem_smp2p_out 0>;
->  			qcom,smem-state-names =3D "stop";
-> =20
-> +			#cooling-cells =3D <3>;
-> +
->  			status =3D "disabled";
-> =20
->  			glink-edge {
-> @@ -2047,6 +2050,8 @@ remoteproc_cdsp: remoteproc@b300000 {
->  			qcom,smem-states =3D <&cdsp_smp2p_out 0>;
->  			qcom,smem-state-names =3D "stop";
-> =20
-> +			#cooling-cells =3D <3>;
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCav8lyAAKCRB4tDGHoIJi
+0vSLAPwMj/1u8S4FlhyKo8aV3NWP1unAub+1ycMIQtKA5Y6WWgD/UPoyizUtYC+z
+yrQ4ZdtKb51d2wfXRlBkQoc0fU/x0AU=
+=9FjN
+-----END PGP SIGNATURE-----
 
-[Severity: Low]
-Does adding #cooling-cells to remoteproc_mpss and remoteproc_cdsp fail
-dtbs_check?  Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.y=
-aml
-and Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml do not
-define #cooling-cells and set unevaluatedProperties: false.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-b4-shikra_=
-qmi_tmd-v2-1-87089ab2acbe@oss.qualcomm.com?part=3D1
+--tnBqYVFrnwBFWXJo--
