@@ -1,51 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795082460;
-	b=xugKHD9N2B39whATAXk8bvLcpDfhXyCBbHpH4uSr05tKCgEh7D/J1GX7FoOt7AbvMhIW
-	 9ztzNJUbLtkoU2Uhjl4hrosr5dhfAMo9uhuebspJYiz4YwnmJgkYKmq8aed4j8YM5DBCQ
-	 9i5vw8qII4V9B5dOmxPKsn/mZsnYIhy38ySfBy3mqYoEKmqtvY6PD0TD7sGqQczGUt7kP
-	 c2xbE5IYD5g9Ev9Fir4CzB5vl+W9JSNwbVA4sPPnZpMXYQe91GqTIZURCyIB/GpG5PVZ6
-	 sCm1Xtb/p1/h3J1k2wfmQI2TjCkVLmhqSEwBQ/kP7t8QgURDb76Iang+RYpyqenOZgw==
+	t=1795082575;
+	b=XlNEwXC3n3VacJn/q0t4oMbH6nPov4QVz758wCeDLWFO0JEx3Sz3ZPevSPhQQrmA0B9G
+	 CWkE6Jmm3aoMqZaJGDQdLfihOU+ZRaHgkran8VePZfM9NBMRl6r8xeBbB3oYEhzPBPIiN
+	 MVc07XTkdJCW9Gs/72WX4Pdeqg5DkybYTfnv6e2YJ/1hzNJENCXQ7WNQZN7XL1fYHwQKb
+	 TBzEIVfRuxI1+YHsGl06DD9QHgkL5tWfYryVPCU+HElmG89b+DWuwH68nZLJWxBPXO9pv
+	 YAJZ4un89Yq18Vr+/cTK/mGo7jx+W/23Uwv3zUQgibcxqvW8sXX05f7FLLl9nAw1cmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795082460;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=ZzlQiwCkbDkJoxEZD6UE5Ynrh3k5WicPHQm3BACKPYM=;
-	b=WxaUpJwOyq60nAwMul7MjwqXrv61tdRcOgRcZNcD6BVJqRt62WUAQOK7mFX8X0b1jGyB
-	 Wn4S9BCH2n1gvWVI6tzu/aDvRwvILU2D9egLw9IXx44g5Yhtx4I1CeEtaC5RRzkdxXTTP
-	 xScS/NmzV9cSzXQXCif+h6xO2JJ+eQVRJx4iECrsjUp4F+/R23XCep+GE2VK4dSzTujjk
-	 Ql3HfzTPE66W0YUYtiIbfBuByUu5SwWnw///mCMdmWaAQNrZacZ18EDmgXPfVMB/0QqMD
-	 vMX7+JfCaHKk/W6XDHZWO6f6RL/LnDHfU6ZZL13FSJc9o90g5c6VIcfU0+oSkxv0ENQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795082575;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=h56rJTgW+mBiqUYUBZbrtrSws90RS7CiPiwYe0b16cQ=;
+	b=U1Ae6j/t9X123I1lE5m4Uh8mFmW+Br/a17agEPWPvD7Gegbzcv0HS9vv4sz/ohUyM5DX
+	 c4CnZPEk6hTbWDRyvGOhjndPSQI+V69jp0aChFIREGgQhv0yPKAyqXerHsT7MhrflIWyl
+	 ypoL7NnEcll4U96Hizvn3qsV55FaX7TjYb1cAS8aFNRaxdeqtUUREyXCEj/KQvokscBoB
+	 p/JRWnEMkF47KjGYT9T2uW0l8S8ii1sdS93WzKUWobRCJecbj5ve0YYvv9Gk6dwSpKeBd
+	 0emwuseOYu4dllXCxqzJ+6MX56XMbM87SVEHDegstcuax9T74q9OeMgO5w3bFEdxpXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rfv0oNap;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F3C606A336;
-	Thu, 19 Nov 2026 10:00:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88F3C606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <39af3ec5a953dcc1cbada1c53881f8361f63e80e.camel@crapouillou.net>
-Subject: Re: [PATCH v4 6/7] pinctrl: ingenic: Handle X2600 Port E Schmitt
- trigger
-From: Paul Cercueil <paul@crapouillou.net>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>, Linus Walleij	
- <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bartosz
- Golaszewski	 <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
-	letux-kernel@openphoenux.org
-Date: Thu, 19 Nov 2026 11:00:53 +0100
-In-Reply-To: <1932f6b68d67badeddcd1d1ec213d2918d877d71.1795022736.git.hns@goldelico.com>
-References: <cover.1795022736.git.hns@goldelico.com>
-	 <1932f6b68d67badeddcd1d1ec213d2918d877d71.1795022736.git.hns@goldelico.com>
-Content-Type: text/plain; charset="UTF-8"
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A092606A325
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 10:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rfv0oNap
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524A01F000C4;
+	Thu, 19 Nov 2026 10:02:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795082575;
+	bh=h56rJTgW+mBiqUYUBZbrtrSws90RS7CiPiwYe0b16cQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Rfv0oNapJVXcVT27QL91cM3N7qeFI35wXUW0DB8oeCuvqbRtd43b9zfpzU8DzjX7Y
+	 h6o5dYeyjUDf1A6dDT572Yiw6v+rfi1+BynMJvpnBx5AtWscR3w5D1d0BB4acC4fPf
+	 870+1BSp6n/1f/8+X+fNaqxEKHU47MuXIVG6lDwj5VUPDpQ2tCqQCqjNajk1Q7w9e9
+	 3KIwBUkXmyowQoNLWTZHudghxvHr29THzxOeMbY3EnWwyUvSA2XNWcP2qU411co+Ow
+	 Dd6KECNM+1O9kxBBzqOqo6nHNIr9+8YOU6TRI5MwIOksTUCVKVga7EScNygWtWNH1F
+	 /hbdA7vsnODTQ==
+Message-ID: <sashiko-outbox-222903@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/3] media: i2c: dw9719: Update DW9800K driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Griffin Kroah-Hartman" <griffin.kroah@fairphone.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261119-b4-dw9800k_cleanup-v4-2-df26c431595e@fairphone.com>
+References: <20261119-b4-dw9800k_cleanup-v4-0-df26c431595e@fairphone.com>
+ <20261119-b4-dw9800k_cleanup-v4-2-df26c431595e@fairphone.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 10:02:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,73 +59,49 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Hi Nikolaus,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] media: dw9719: missing model assignment for DW9800K_ID in
+  dw9719_power_up()
+--
 
-Le mercredi 18 novembre 2026 =C3=A0 18:25 +0100, H. Nikolaus Schaller a =C3=
-=A9crit=C2=A0:
-> Port E has two Schmitt trigger configuration bits per pin.
-> Select the lower-hysteresis mode when enabling and read both bits
-> to report firmware-initialized settings.
->=20
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-> ---
-> =C2=A0drivers/pinctrl/pinctrl-ingenic.c | 9 +++++++++
-> =C2=A01 file changed, 9 insertions(+)
->=20
-> diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-
-> ingenic.c
-> index 02ebfecf9563a..876e8e9e00c45 100644
-> --- a/drivers/pinctrl/pinctrl-ingenic.c
-> +++ b/drivers/pinctrl/pinctrl-ingenic.c
-> @@ -69,6 +69,7 @@
-> =C2=A0#define X2000_GPIO_PEPD				0x90
-> =C2=A0#define X2000_GPIO_SR				0xd0
-> =C2=A0#define X2000_GPIO_SMT				0xe0
-> +#define X2600_GPIO_SMT1				0x100
-> =C2=A0
-> =C2=A0#define X2600_GPIO_SHADOW_OFFSET		0x800
-> =C2=A0#define X2600_GPIO_PAGLD			(X2600_GPIO_SHADOW_OFFSET +
-> 0xf0)
-> @@ -4697,6 +4698,9 @@ static int ingenic_pinconf_get(struct pinctrl_dev
-> *pctldev,
-> =C2=A0			return -EINVAL;
-> =C2=A0
-> =C2=A0		arg =3D !!ingenic_get_pin_config(jzpc, pin, reg);
-> +		if (is_soc(jzpc, ID_X2600) && offt =3D=3D 4)
-> +			arg |=3D !!ingenic_get_pin_config(jzpc, pin,
-> +						X2600_GPIO_SMT1);
+commit 27fb69542cedffbeec27abdb7294190f101ca2f8
+Author: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 
-You mis-align it here, then fix it in patch [7/7] in a somewhat unrelated p=
-atch.
+media: i2c: dw9719: Update DW9800K driver
 
-Honestly, you can keep it on one line - the hard limit is 100 chars per lin=
-e
-now, and splitting here does not make the code more readable, on the contra=
-ry.
+This commit updates the DW9800K actuator support to detect its hardware
+device ID from the INFO register and configure SAC modes, VCM prescale,
+and SAC timing according to the datasheet.
 
-> =C2=A0		break;
-> =C2=A0
-> =C2=A0	case PIN_CONFIG_SLEW_RATE:
-> @@ -4771,6 +4775,11 @@ static void ingenic_set_bias(struct ingenic_pinctr=
-l
-> *jzpc,
-> =C2=A0static void ingenic_set_schmitt_trigger(struct ingenic_pinctrl *jzp=
-c,
-> =C2=A0		unsigned int pin, bool enable)
-> =C2=A0{
-> +	/* Port E uses two bits; select the lower-hysteresis Schmitt mode. */
-> +	if (is_soc(jzpc, ID_X2600) &&
-> +	=C2=A0=C2=A0=C2=A0 pin / PINS_PER_GPIO_CHIP =3D=3D 4)
+> diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
+> index 5d5da0439dba0..efd81a9d7c133 100644
+> --- a/drivers/media/i2c/dw9719.c
+> +++ b/drivers/media/i2c/dw9719.c
 
-Same here, no need to split.
+[ ... ]
 
-Cheers,
--Paul
+> @@ -165,6 +171,11 @@ static int dw9719_power_up(struct dw9719_device *dw9=
+719, bool detect)
+>  			dw9719->sac_mode =3D DW9761_DEFAULT_SAC;
+>  			dw9719->vcm_freq =3D DW9761_DEFAULT_VCM_FREQ;
+>  			break;
+> +		case DW9800K_ID:
+> +			dw9719->sac_mode =3D DW9800K_DEFAULT_SAC;
+> +			dw9719->vcm_freq =3D DW9800K_DEFAULT_DIV;
+> +			dw9719->sac_time =3D DW9800K_DEFAULT_SACT;
+> +			break;
 
-> +		ingenic_config_pin(jzpc, pin, X2600_GPIO_SMT1, false);
-> +
-> =C2=A0	if (is_soc_or_above(jzpc, ID_X2000))
-> =C2=A0		ingenic_config_pin(jzpc, pin, X2000_GPIO_SMT, enable);
-> =C2=A0	else
+[Severity: Medium]
+Should the DW9800K_ID case also set dw9719->model =3D DW9800K, like the
+DW9719_ID and DW9761_ID cases above it?
+
+If the device is instantiated via a generic or fallback ID where
+dw9719->model is not already DW9800K, the switch (dw9719->model) below
+will take the wrong branch and write the DW9800K defaults using another
+model's register layout.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-b4-dw9800k=
+_cleanup-v4-0-df26c431595e@fairphone.com?part=3D2
