@@ -1,57 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795124968;
-	b=mZ8kOdoPf5KwfMrbZggXEtTGc/bgjwoeKLargwqQ1GRkrPAQdTrYHkQgLXsYiqfxGsZa
-	 qiSwgzkyp7A0OaP18ylJKxE5gZihaL6tjNrq9bXzlDcAaWc8waI7oud1QK5IDvrRUP7cx
-	 EkXbDl1MzwS9R2WW+6W+DeEvJiGtiyYC5ydpN+ZZsZxdGV8LAQCuACGQP7Pr6M1evb1T3
-	 A8DH+vpooXPqDwQ0zOCcAqhgP9zPiyBDA40c7UOphN+BmJG+/soo5nV7f+d1fzOCfUKWO
-	 oTCiEPQ+NQvD/D5/vtRvc2+9Xh177509AImzFNUt4D0eaqTK6cHs0tUEF4h5n9vrbVw==
+	t=1795125026;
+	b=DWQT4hiwaBXQB7z9RmaLXZiz+DiwctJe1JWtAAKcPZ0j1mbHn3hId2dz4h8/jDXDPYX/
+	 wHJ8gUYmeSLvHhp47nbq16XeHhBSifPKGoocDdriTlgi+pNnMv1WLn5A5KuF6ZXLEgUN/
+	 EuAz2M0hIrwhp8qAvCOjEiDRNavAPFNg76Q5mUNeOzAevetQCKIIEB22CsNQAnlzHTw64
+	 IuailtdEaope/3n+WtgLEjABDPzcJi+lLQG8Zy2zIbHyQYzHNSWBaElYISvD2EoUlLIVj
+	 qgytT08/BPmv5j7dU+mypQa6NF8ZwZREeAU87g/bf8mtouWheSqTRBFJvh1kqsuSl9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795124968;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795125026;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dqFY46zm6egYH9t5KmwLXvg+tBy4Vv7ro9hejLUEyLo=;
-	b=2EWABqiFA78HwMy03C4J16UuklPpK516iYoiQ3pMlm+fZ+tBXzFOdG3Kc4fwUgfQl0Ir
-	 PRNVHaK4jADzLqmnPAmGNpmpnTz7MWuYDMLi9IBZ3FPAlCcBSXRcD5HFQNkHq6nc19OWD
-	 T/aoO6GaaFCgOEFWr1TPGdSgCys3YaZCczC5JbA12TT8jOKVUC7ZAcuEmzlYgSX3djU/q
-	 54KqaYKt+EO6+ABxZiBjHna8hAasY6hNfDm5vCpPmeMxhbO6/uF+aGl197p7P8nuTuOjM
-	 BJbvRysdG07V617UgDI5OyFLsUn4SDCPJd1oEqq8I4RfNHmBj3sI6ZG7keB9lkWWfaQ==
+	bh=9I9is493Ul2I6ePS6J+/O8EfhsF91z9iYwM6wNTdrH8=;
+	b=qyRfC6CFpbxIyoPp0Gp92YafBIAoqfieLIOOVKPiuODuOC6dm7PHQQkQD60B6cjWmI6+
+	 v39S04AQyuGp1d/AVm865vjJyv/YnijQg5gw7K5c8n1xgduoMUQxZ/dheuaBFL2ggALbM
+	 idpgLKCWWeol0g9QEY8OssKr0DGj6AhWG0eYaMj37F7jy/SMqZAA2jlcBJJ+hs5Olz9pa
+	 8La/VhhWSqbS8Jn/dmEE+wuzoc4ZwRuniN9XIw5rfbslm0BPpGh3dZKmICwFY1LmD54ld
+	 zqKEYcYXScx/far41KenBfPCvdPQig98ra5hPB3LVi2cfY+yiSNdFiWp4+xBePGqUaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eVuzqfT9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijY6gCKr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8332C606A320;
-	Thu, 19 Nov 2026 21:49:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9C4606A325;
+	Thu, 19 Nov 2026 21:50:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eVuzqfT9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258DF1F000C0;
-	Thu, 19 Nov 2026 21:49:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijY6gCKr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A671F000C0;
+	Thu, 19 Nov 2026 21:50:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795124968;
-	bh=dqFY46zm6egYH9t5KmwLXvg+tBy4Vv7ro9hejLUEyLo=;
+	s=k20260515; t=1795125026;
+	bh=9I9is493Ul2I6ePS6J+/O8EfhsF91z9iYwM6wNTdrH8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eVuzqfT97Y+6ATNIbIJnCGp00575h0keradQM49V9oQSUNMXYSelpv+8HDARiIGBa
-	 uuYzucDmkX2px2ys9ahSXOJsJZhiuGhhTmPcGW3B7/WvxdbrsorMEgUcCrf5GirfIp
-	 Agbeze0ycmbxT85EPf1I5hJcYvQWssH+y/NhyhrKkYvwumVPQvruhChuz67n26x/ZM
-	 10dVMTo+KziOzofPm9Qy/X6T6kYy9O0/bluP1RAlLtBcOw5IHzzYMxrsYczUSKaTMz
-	 whUQKNIUF4ObtcYldG6YX+AGq4xuHZ2VztnEF0sHv3ZDHMo/WjZZ7LjhRVoJ9pH9iP
-	 dDw+pLJ7ZDXeA==
-Date: Thu, 19 Nov 2026 15:49:26 -0600
+	b=ijY6gCKrw7IGislOItd1+tneA+hVCAGQbwdOD3gj/E0tISza9BPrTrcvYNmgj1MpN
+	 vJxUAjgjUfucsarIgdMx8q1et84C3QqQ/roCqutGRL3NieKR3TU150WBloTusWQB7H
+	 +a0L6l5dD/O94hsezZfBCD9Mmpy6EOrd8tJ+7nd8oFSd5iEr9C0boUUEu2N33WLxy/
+	 DkDKlb8b/o7QslZumR3jz5t7WqdlH1iQdTCMmrzcDE2RlnasAZMzuj3hJBMckAOVqY
+	 YmYqILtxHT0o0wU1d1T/qBMaCya4Sq6k2o3l3WADuFz3/f8uNVqw51sVvzb3ebkfSs
+	 8jo68458NtFyw==
+Date: Thu, 19 Nov 2026 15:50:23 -0600
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Diederik de Haas <diederik@cknow-tech.com>
-Cc: linux-kernel@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>,
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org,
+	Mark Brown <broonie@kernel.org>,
+	Animesh Agarwal <animeshagarwal28@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH RESEND 1/3] dt-bindings: arm: rockchip: Add FriendlyElec
- NanoPC-T6 Plus
-Message-ID: <179512496548.785631.3672990790869029250.robh@kernel.org>
-References: <20261104110640.1132917-1-diederik@cknow-tech.com>
- <20261104110640.1132917-2-diederik@cknow-tech.com>
+	Thierry Reding <thierry.reding@kernel.org>,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Abdulrasaq Lawani <abdulrasaqolawani@gmail.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>
+Subject: Re: [PATCH v2 2/7] ASoC: dt-bindings: realtek,alc5632: Document
+ #sound-dai-cells property
+Message-ID: <179512502324.790223.9965352097613492162.robh@kernel.org>
+References: <20261104124057.240288-1-clamor95@gmail.com>
+ <20261104124057.240288-3-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,17 +70,16 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104110640.1132917-2-diederik@cknow-tech.com>
+In-Reply-To: <20261104124057.240288-3-clamor95@gmail.com>
 
 
-On Wed, 04 Nov 2026 12:05:04 +0100, Diederik de Haas wrote:
-> The NanoPC-T6 Plus is the latest addition to the NanoPC-T6 series.
-> Add it to the NanoPC-T6 list.
+On Wed, 04 Nov 2026 14:40:52 +0200, Svyatoslav Ryhel wrote:
+> The Realtek ALC5632 codec provides a single DAI cell.
 > 
-> Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > ---
->  Documentation/devicetree/bindings/arm/rockchip.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  .../devicetree/bindings/sound/realtek,alc5632.yaml        | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
 > 
 
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
