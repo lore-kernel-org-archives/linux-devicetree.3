@@ -1,99 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795107369;
-	b=M78QEjCv3vTOahnu7Zl+LnngA6nI74sgOm5O4g4j2RwaILU9D/HMdwuTxU5UWNgQ67z2
-	 Kh3e9jhGtD7M2JS05Jeqjvi0ZB4fp74jh3ayQy71miBTKP3Sjle0r4XmHaRI3PLQvr/Wf
-	 BUoJkXFpcC1u+hQIyTPatF9T47rSAgbZUnuk9uqilqreAaw63/p52rcUXUK9rjoR3DQkF
-	 vPdUiuWRKyItdHNbnsl/4f9lCT6TKmQw2a8Pmg3PPD+IB0NPogr9RViOijb5+4SUvrKdA
-	 S4myJ4AaeFAg2GJpcnWRiq6jnTjefrKs750PmQwmOEpJ+xm/iOWS62goggovOj5S0IQ==
+	t=1795107592;
+	b=Dh45I1u56rY5JAtXXQ7YMh8nwMlhqOTnwEIwaEzGORC+y88gBc+mk+1fSKz3vvJ41CW0
+	 CmkLdfZNXEw5xtnqMJeZBf3Km9nyA/PAd/5LFB8pDhk1DL3+8JpNSp9glm0z8bT6jZllp
+	 aYezOEJTrydGbcn9Py0C9mYWupKIqdaQ+aBn97oxA2Yr4eZuUEJ5/ghKQIcbCyB33t2gM
+	 TYAfYD9cBZpTBAMGmBjVaYv/kY4wpkOomqFAAzJkBh3lc7xnO5rA3QAxiuFHf+Lp8bkrJ
+	 ZyVIi+FcYJTv+Jflr1MwhVAG1ZFSkE22WhL5zudus8nDZtmfWf9hYJ8JhPbuXMg3sjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795107369;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:User-Agent;
-	bh=kwyugsNu4/tep0lvJ/4udRwqoAJgnB/y7VsHTKO8ZMQ=;
-	b=D80XN1z0+EX8NsV6ddwgrETWuXaH4BozvZJmgJ3an7lCQtjQZki7QM4DyhTMrDbr/+0u
-	 c34lXXKsjTiGcxvJeKzs0yKbwx0OSkOormtm+K3q3BQmIZjUjKLZxvJrDgRDfMGfmSzhq
-	 D4S7YyTBhRWl5G3XqCjruJB7Cczu8YNWl0q1Nq3qTipiTZHq4zEkJC5Op/PxtGbX3No1Y
-	 KLdL3EI0exYZ0AIMjWn7LNf0vADwSt93nqX9QOo7KOPBu92QaYL08xFV2QSlXlgvj+sNQ
-	 A8kELEU/QBabzN7lZV32QDqmcCLXourPY1qUgB4VrU2Rl4YND1ad/qwjTq3JFViPSlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795107592;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=RJzTbt4b5o1R8Zwzsovu5HVY5FLB11k288WW5ys9/qo=;
+	b=CaZN1kdLlQB0B2s94Zda7wIc+URBg3tyW30GF9KolaPhi5gocyCoDL6BDoHIz13g5IYk
+	 IlVvZIG+DVxatDnGzgdF0GxbBoSVcvDzRPoD0Bs2X2Nixc0ilrEZ3V9e0gk2yQ3y0PRLX
+	 9SvJz+2IPQPCiWwaoIFirwSc4dYhpwUXc2SqU+g008lir4iqP/jv8rZe7qe3KqrMMjdee
+	 y7YQf/nYP+lKwmdk5Bpz7AYFURdLHfxchr3fhKdLsW1yqO2CvbFOVeMqiKm27uTwIAJfr
+	 woAiGEEb0mxFjwzcpP/eVa24VFZE62qeLYAO9CYXdXO6Hl+GNeXE8eZQyYXjAKQNiuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aurel32.net;
-	spf=pass smtp.mailfrom=aurel32.net;
-	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=EqPrM0py;
-	arc=none smtp.remote-ip=195.154.119.183
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=St+5EPMT;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D033B606A330;
-	Thu, 19 Nov 2026 16:56:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D033B606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7611B606A330
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:59:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7611B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=EqPrM0py
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=kwyugsNu4/tep0lvJ/4udRwqoAJgnB/y7VsHTKO8ZMQ=; b=EqPrM0pyAxa8ZlSkLqTAdR2BGd
-	eFrq7mXsxrYa77d5+uWkY17tLHY4zE5FTGbMZuMLA2FqC4R72SLau9EsUMvLasDsrMOSNRd1QNJkH
-	2OMzKnKOjsknyzp597Wu31Qz1kL4dilvFuWHYTiEy6bgBhNMVVnPFqI1qDjXCAm7Tas+lW7DR9sZV
-	d+gmO8vyTEXUV6UBx9Knaq2NXLUCGwf7hrVqfcxWJ4Zvs+IxIUnWLr6eCp7rmACI6tLrVbopgvxCf
-	HVDEVWByeAJ9RaJVicLr2vYAgH7lZvpqYBvo9mcCgZLVCKx7dgAFZnVmWMVzzmt2p58K1RnpoR6hc
-	DW78MCZA==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1xU5QI-00000001j9b-0hMX;
-	Thu, 19 Nov 2026 17:55:46 +0100
-Date: Thu, 19 Nov 2026 17:55:45 +0100
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: E Shattow <e@freeshell.de>
-Cc: Yixun Lan <dlan@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
-	Stanley Jhu <stanleyjhu@google.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Jennifer Berringer <jberring@redhat.com>,
-	Trevor Gamblin <tgamblin@baylibre.com>, linux-scsi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v8 0/2] Add UFS Host driver support for SpacemiT K3 SoC
-Message-ID: <av8qEXk68wsy7pNe@aurel32.net>
-Mail-Followup-To: E Shattow <e@freeshell.de>, Yixun Lan <dlan@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
-	Stanley Jhu <stanleyjhu@google.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Jennifer Berringer <jberring@redhat.com>,
-	Trevor Gamblin <tgamblin@baylibre.com>, linux-scsi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261116-08-k3-ufs-support-v8-0-e3b256972dd4@kernel.org>
- <8462a0d9-e9b7-467d-b2e1-7870c78e2691@freeshell.de>
- <avyusx36U534Bpu9@aurel32.net>
- <053b55fe-47d0-4cc7-ba53-c560fc9c1d1b@freeshell.de>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=St+5EPMT
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e95bd1c14cso21464985ad.2
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 08:59:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795107592; x=1795712392; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RJzTbt4b5o1R8Zwzsovu5HVY5FLB11k288WW5ys9/qo=;
+        b=St+5EPMTj9lz9zMplsRGje+/j0VqZ3/ZiCoiTrVyK6XHh5WKimiqwWqlf+RP+O7fmL
+         LH6aTfNlbbrMjY3gh7FBxnjjbyBRjevL3S/30nY3TvlbNrAtDK8IM1jsc2lBl/1dlppN
+         bIAHe9vQ+OEStwYXvf0t0JKGOysMV5R9ZPyYRG/c+yGhdMyoXyrcjQgrCg5QCt04/xx/
+         ABqOGswIM9PJLWO0XABTM5FeC0xUGt9Sg0LdmqWaoKVHay8LbTGrzzSYRimlaQKCcDOx
+         TVHJGkm5+zarjtkWXB8aL+AyTFgI/WeZUasL6jMsuJ5uQZz9k6d4iD+bzOsvbhTwo58g
+         fWvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795107592; x=1795712392;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RJzTbt4b5o1R8Zwzsovu5HVY5FLB11k288WW5ys9/qo=;
+        b=VvC6qSnzy8BZVKTwul/T4JyeENVSgfwhy2tCKMYX6cW+wTYMA2PcrKGmxPQ1t492xQ
+         leeZH9my8+Fo+i4tkYrdYagUt2rGWMsvZ0eiOVjNyCWRZbyblYA+ZnH0UCBPssgP9l1D
+         uYfDsRcLPOLBUbzyEv4egbDJTRszifBdp8v2qxSFHY5agr+0zWalWuwHagt/2bii9PVs
+         GZWfqsNNkzAYPTypYoKMn2w7OE55q1EQZd2atAQj44mUjb/ju8987XwxOCMg8FWhCIm5
+         bgrjBu+7HQ6RdjqOJIRyjfD5M7J933FdMcUzzNpy668MQAcBXOZMWIHPAkRkTFuSYleu
+         GhNg==
+X-Forwarded-Encrypted: i=1; AL+hErEy5qpn1Sl5+09d+MhbLuj8jDyF5WRlm4mWfHLf+RTGPXG31LTF45ZdgLup83jaI41XbQ+ODrAI1JP0@vger.kernel.org
+X-Gm-Message-State: APuU4Z/bh/rvNm8OAZ+8hNmpABpvEQIZ6T4Q/Ec5gbYf8A741UJ2/ZWL
+	yM1eQ2JJYHsy+XxyN49wWEXd3YS8FybQ6BaGU8hxBp1OlJ85jvDWc9weE4PJoGH9qj8=
+X-Gm-Gg: AZFdTZf4bLM7LCS1K5LedXLEkokua2i2fbNUogqqfLfyQYyihH/vat1+003G/OTXigh
+	PK8uaMhfSp0n3Zw0Nl/7IoSdlJyR+WXy8gy5r3LmXi4OAWGyyK1FO6OW486OSYQiK6WEpFbHhmp
+	ZpQmVBIwUUlQibtEvk+NlacQgKd9hP++yml1Y9pYJJqBLvD8DEEkt/NK3jZxeJNoDqW2XKegxEz
+	Fr4/Of16M2UFrg8RS0Zo2QyVRmey1lWC0tCwXFeqUbMVdCKS879fV6w0W62YDtLJ9iIUpe1OmXp
+	ka2Rps3+cqOYwUUX0qfE0cMhIJCiSahhS2Lpp3TbaPaE8NoJSDypVbOaceqZCQlx87xCNQOJY7x
+	86IwWP/sVJjtKm9KgYpHpB/T/W6a0FJOjjMfKociIGNbwkOnpZiJPy9DnmwxTBIrR7vBCIPn+g4
+	KgxvFoFgg43FfYuSiXDNSS/dFUiLf9lmbKQRjkfqGOOV5PnZPb5nXhKvXUjEh9zGHyIz6XzrYBd
+	4h6sbiJ10TOWXCT9Q6zMgXAqAtTlM+fkVIXzS53edWGrfAw9j1Qt1NLCOlm8/oTPg/yMxeHZbdJ
+	7p9q2kCLsyQLcdv43O4sWEprIbhj/J3C
+X-Received: by 2002:a17:903:4586:b0:2ed:fd82:e905 with SMTP id d9443c01a7336-2f03f207db7mr5065875ad.31.1795107591652;
+        Thu, 19 Nov 2026 08:59:51 -0800 (PST)
+Received: from p14s ([2604:3d09:148c:c800:9bd7:226d:1022:f6ef])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03ed3b3c1sm3054985ad.0.2026.11.19.08.59.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 08:59:51 -0800 (PST)
+Date: Thu, 19 Nov 2026 10:59:48 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Ben Levinsky <ben.levinsky@amd.com>
+Cc: jassisinghbrar@gmail.com, andersson@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, michal.simek@amd.com,
+	tanmay.shah@amd.com, linux-remoteproc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/6] dt-bindings: mailbox: Add AMD PL Mailbox IP
+Message-ID: <av8rBP9x0I-ikEJy@p14s>
+References: <20261105051902.1646651-1-ben.levinsky@amd.com>
+ <20261105051902.1646651-4-ben.levinsky@amd.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,95 +102,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <053b55fe-47d0-4cc7-ba53-c560fc9c1d1b@freeshell.de>
-User-Agent: Mutt/2.4.1 (2026-07-04)
+In-Reply-To: <20261105051902.1646651-4-ben.levinsky@amd.com>
 
-Hi,
-
-On 2026-11-18 23:38, E Shattow wrote:
-> I was missing this detail previously. For testing again of v8 I have now
-> inserted a sed pipe to change this as suggested for the dts application
-> step of the build procedure:
+On Wed, Nov 04, 2026 at 09:18:59PM -0800, Ben Levinsky wrote:
+> Document the AMD programmable-logic Mailbox IP used for bidirectional
+> FIFO communication between two processor-facing interfaces.
 > 
-> b4 am -v5 -P3 -o- \
->  https://lore.kernel.org/all/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org/ \
->  | sed -z 's%\(clock-names = "axi", "\)ref\(";\)%\1ref_clk\2%' \
->  | patch -p1
+> The Mailbox is a soft IP core instantiated in programmable logic, and the
+> same SoC can carry different versions of it, so it is not a SoC block.
+> Like other PL soft IP bindings, use a single compatible that names the IP
+> core and its version, amd,pl-mailbox-2.1. "pl" distinguishes it from the
+> IPI hardware that can also act as a mailbox.
+>
+> Define the transmit and receive channel indices together with the register
+> aperture, interrupt, and interface clock. Describe the FIFO depth chosen
+> for each IP instance when the design is synthesized. It cannot be read
+> from the registers, and the driver needs it to size received messages.
+
+"register aperture"?  What is that?
+
 > 
-> Additionally to the build procedure, since Debian testing now features
-> linux-config-7.3 and no longer linux-config-7.2, I now substitute
-> accordingly from linux-config-7.2 to linux-config-7.3
-
-[...]
-
-> $ journalctl --dmesg | grep ufshcd
-> ufshcd-spacemit c0e00000.ufshc: freq-table-hz property not specified
-> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
-> vdd-hba-supply regulator, assuming enabled
-> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
-> vcc-supply regulator, assuming enabled
-> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
-> vccq-supply regulator, assuming enabled
-> ufshcd-spacemit c0e00000.ufshc: ufshcd_populate_vreg: Unable to find
-> vccq2-supply regulator, assuming enabled
-> scsi host0: ufshcd
-> ufshcd-spacemit c0e00000.ufshc: ufshcd_scsi_add_wlus: BOOT WLUN not found
-
-All those are expected, so it's great that the issue you reported is 
-fixed.
-
-> I did not again see the DL error event. However, the first attempt to
-> build Linux does fail:
+> Assisted-by: Claude:claude-opus-5.5
+> Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
+> ---
+>  .../bindings/mailbox/amd,pl-mailbox-2.1.yaml  | 73 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 79 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/mailbox/amd,pl-mailbox-2.1.yaml
 > 
-> make[7]: *** [scripts/Makefile.build:572: drivers/gpu/drm] Error 2
-> make[6]: *** [scripts/Makefile.build:572: drivers/gpu] Error 2
-> ...
-> make[5]: *** [scripts/Makefile.build:572: drivers] Error 2
-> make[4]: *** [Makefile:2244: .] Error 2
-> make[3]: *** [debian/rules:80: build-arch] Error 2
-> dpkg-buildpackage: error: make -f debian/rules binary subprocess failed
-> with exit status 2
-> make[2]: *** [scripts/Makefile.package:126: bindeb-pkg] Error 2
-> make[1]: *** [/home/es/linux-7.4-rc3/Makefile:1852: bindeb-pkg] Error 2
-> make: *** [Makefile:248: __sub-make] Error 2
+> diff --git a/Documentation/devicetree/bindings/mailbox/amd,pl-mailbox-2.1.yaml b/Documentation/devicetree/bindings/mailbox/amd,pl-mailbox-2.1.yaml
+> new file mode 100644
+> index 000000000000..dc16a2e1142b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mailbox/amd,pl-mailbox-2.1.yaml
+> @@ -0,0 +1,73 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/mailbox/amd,pl-mailbox-2.1.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: AMD Programmable Logic Mailbox IP
+> +
+> +maintainers:
+> +  - Ben Levinsky <ben.levinsky@amd.com>
+> +
+> +description: |
+> +  The AMD Programmable Logic Mailbox IP provides bidirectional message passing
+> +  between two processor-facing interfaces. Each interface writes messages to
+> +  a send FIFO and reads messages from a receive FIFO. The register aperture,
+> +  interrupt, and clock described by a node belong to one processor-facing
+> +  interface. Channel 0 represents transmit and channel 1 represents receive
+> +  for that interface.
+> +
+> +  The Mailbox is a soft IP core instantiated in programmable logic, not a
+> +  SoC block, so the compatible names the IP core and its version (2.1).
+> +  The "pl" part distinguishes it from the IPI hardware that can also be
+> +  used as a mailbox.
+> +
+> +properties:
+> +  compatible:
+> +    const: amd,pl-mailbox-2.1
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  amd,pl-mailbox-depth:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 16
+> +    maximum: 8192
+> +    default: 16
+> +    description:
+> +      Depth of the send and receive FIFOs in 32-bit words. The depth is the
+> +      C_MAILBOX_DEPTH parameter chosen for each IP instance when the design
+> +      is synthesized, so instances in one design can differ, and it cannot
+> +      be read from the registers. Must match the synthesized depth.
+> +
+> +  '#mbox-cells':
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - '#mbox-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    mailbox@b2060000 {
+> +        compatible = "amd,pl-mailbox-2.1";
+> +        reg = <0xb2060000 0x10000>;
+> +        interrupts = <GIC_SPI 106 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks = <&pl_clk>;
+> +        amd,pl-mailbox-depth = <16>;
+> +        #mbox-cells = <1>;
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 1e3f9f2751fe..3722a66b9960 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1306,6 +1306,12 @@ S:	Supported
+>  T:	git https://gitlab.freedesktop.org/agd5f/linux.git
+>  F:	drivers/gpu/drm/amd/pm/
+>  
+> +AMD PROGRAMMABLE LOGIC MAILBOX DRIVER
+> +M:	Ben Levinsky <ben.levinsky@amd.com>
+> +L:	linux-kernel@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/mailbox/amd,pl-mailbox-2.1.yaml
+> +
+>  AMD PSTATE DRIVER
+>  M:	Huang Rui <ray.huang@amd.com>
+>  M:	Mario Limonciello <mario.limonciello@amd.com>
+> -- 
+> 2.34.1
 > 
-> real    188m48.844s
-> user    1415m17.363s
-> sys     66m11.932s
-
-I guess the error is some GCC ICE.
-
-> Linux is running on the K3 SoC here without clocks preparation from the
-> bootloader; it is quite slow by comparison to a Linux kernel that
-> follows clock preparations by the vendor BSP bootloader. Simply
-> re-running the same "make ..." build command is successful in the same
-> system without any changes:
-> 
->   DEPMOD  debian/linux-image-7.4.0-rc3-k3ufs/lib/modules/7.4.0-rc3-k3ufs
-> ...
-> dpkg-deb: building package 'linux-image-7.4.0-rc3-k3ufs' in
-> '../linux-image-7.4.0-rc3-k3ufs_7.4.0~rc3-2_riscv64.deb'.
-> ...
-> real    34m56.794s
-> user    241m15.511s
-> sys     18m4.532s
-> 
-> Similar build failures occasionally happen when the root filesystem is
-> on USB microSD adapter-connected microSD storage. I assume the build
-> failures with default clocks configuration are not constrained to just
-> the UFS support series here.
-
-Yes, this is a known issue, unfortunately the K3 does not run stable 
-under load. See this thread (although it seems at the end the K1 and K3 
-issues are different ones):
-https://lore.kernel.org/linux-riscv/apSYF5x1Tu7PlyL1@aurel32.net/
-
-Also see this Fedora issue:
-https://forge.fedoraproject.org/riscv/planning/issues/36
-
-Regards
-Aurelien
-
--- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
