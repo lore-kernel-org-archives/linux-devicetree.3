@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795110613;
-	b=nfOJkzNJLlAmAYt/XajLkCcrqnSG2ZWNnXk+7LvOYUbYX1lRvODi/Bw45JRBa9lugnJg
-	 9z2T6hnuQ5HfR3fOw0Cmf9HF0drZlRLLCjelB76eoJPshfacGLY9TOcxJfkYCdh5Lw5Ee
-	 2BNcM9WhmCNIpsf5OUBbnFfuzJNu8jMpQGfFWSb8E03qbIgrlu0XjCMzxcmQa8KlYWHwc
-	 BZYXw4oJtjJ4ACz3fZ9bwoYMplFIcsubx3J5HzG8dO3khpNhSb1ATq2S5cu20jtcXJ2Ok
-	 CNFf2O4GRg27+azmbJv0rvnz4x/DZCCOFm7g5WWJKZ7Ho1Y+rh5bVMQCdNSNH9JZDIA==
+	b=B2yAyrjRWq6An6SD6nrTGHiV9uwoD9UvrKMxtrXW63LNYkNwBoia82TvhbVyBeLlp63S
+	 OizYFIq9zN2VYGPFDNg0XC8uuMvEGh+f2kGPHEY5lrgSoYSWFFD5O/9rQRnlP5JhL6FTi
+	 jDjnEAqpvRkvgLbUX1twnqakhcolKyEppQXauilgvaPZXjgKbyQHo1Jlv1h3xcccBeeRh
+	 MxmbUGXil827TUYE5NH0K77znaHNFCH3WtRebMFFvC564F4lo40OqRLnODwsXjM6sOLJw
+	 PwyqEZlmuwe0CCQOiinInqDrpxSgfP0+G/5CyYtN1Z9s4h53tT8KImVC+yMO45scUug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795110613;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=5m08k+pWTgZ26W4H99NIdw305iHAopUdzj3Kg8DMx8c=;
-	b=zHkA5cGDPkReXHtwyAygIeIEnqJKp/F3ARfttJWqOs5QlyxUyubrpRVrrpQjolNVfyo1
-	 E4w/qrFL0WIVek+EtQD83qpzeE3znGJf84eKe6G3S7XC0hhx9tPT1H5cC56wu3ZBWAp2+
-	 vsFkUY/Rs+ab0gO9KTDdMU0kRJiOHLPNa10zmqETcF/9Fr++t1evE5NGtpL0IZOggtvcG
-	 z4hDtexeC/WKsq7JczwQTVAUbD/6HTEcMmnLMykvS/lNlxmnwHN+RvDSyawZjG5WfXMS+
-	 VvkPN/r162aoi54ZaN2VRai3kH6d6yn+b3Qqx0PVuVFtecqoZIpsp10Sjl+n8Omb8Kw==
+	bh=CvEm5T+elZmAIVJRuKb7mSJIVKxbHtl2NRkj0Gb2l8U=;
+	b=r0sQt79310li0k8vjbzZZGIAExDDrGAx7sUB1pfTCGYtEByZSL9K9n2NAg83kcjO2pB+
+	 anC9fpERlRuAOUNtrh1I2+Lt5hSPQEkAGRqq/OUXP4db7u2Q+r5ezN0pqD1B9SY0MOOKo
+	 ikdy17yV9IxYuKIaDqSUdZpTaoOg7PNII3oc5eCB9NzMnDQRcWGtk+gKyMge8WyfiW4Px
+	 O1MLnmSUxqLrbP2ZrS+pXDToiD7GFkTz/wEXwas+Y/ItRyc5iQ5IOmK4t7wTUGfOp13GO
+	 fWrjVQ6HTHw9HPXFWAO1NtTsd+QqbaPxM2DG27rTrr2f7rHTIUfVd64cSdW6FbgSLtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=aheymans.xyz;
 	spf=pass smtp.mailfrom=aheymans.xyz;
-	dkim=pass header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="fvJykZ/n";
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gMr5ru9l;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F53606A337
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 17:50:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6F53606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D93A60A262F
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 17:50:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D93A60A262F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aheymans.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aheymans.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=fvJykZ/n
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso16422145e9.0
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:50:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=aheymans-xyz.20260707.gappssmtp.com header.i=@aheymans-xyz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gMr5ru9l
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a00so19517855e9.3
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:50:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=aheymans-xyz.20260707.gappssmtp.com; s=20260707; t=1795110610; x=1795715410; darn=vger.kernel.org;
+        d=aheymans-xyz.20260707.gappssmtp.com; s=20260707; t=1795110612; x=1795715412; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5m08k+pWTgZ26W4H99NIdw305iHAopUdzj3Kg8DMx8c=;
-        b=fvJykZ/neLyVItFEhBuAi0WmfnkNb8Y4jIVy1xZB3JP5mhV0QHRRKZuIo/1ChInedQ
-         ozTOCjI7wfcchmNYhF669sue2/HmF0Uy6XdyhIrtktpdEYN3CyMnTTIufpcXJDebi4CY
-         eOcOpBits2EoRc6ryq8QttSom5epvDHt7vHgHeTqiMIJNN1aOJRK0GQFL1Y5FTfzhkXE
-         yyYVP4MJRF9EH1kSLVrO+m0Yi0PYAKmgSL7sGRfB1YTQtsDia+DoKocrsqZHpJoqUY59
-         n+XiF6L3WfCtONnXjhitg2wRYLsXpW8Si8BnzO+aQ5aVv6QnbUq+c4PNY+/Od58FQ+4z
-         HSow==
+        bh=CvEm5T+elZmAIVJRuKb7mSJIVKxbHtl2NRkj0Gb2l8U=;
+        b=gMr5ru9lLh5siTDux9OeJMjctF8puIy6nYysyT9y+2aXt30gBNSeo2LqIHd4LgYy3W
+         W0xYnInGeBUJFzMeXImmASrU0JOYIksebNC3t6YcmeH97eq3P36pDRT+5JJ+FyfsG7Dw
+         3QUUkbjuahCxGBtzHeZi1Dz688ZBghQ8eXw51SPAOjg32nIfMgEN6B4+iZArnmGVWKDZ
+         KMGYy00pfZsrXSuLERVR40hV3dFbwvDuSKmHfWIhL8dWSP8VOKuQoHzoTXAVcOa3rF58
+         KPgS6QBL5VPg2PT2fEw6KWl8hnNJ708LdPoON05k/vfQaV4nDvl++XI2oRl/Y5bqHDwF
+         T+1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795110610; x=1795715410;
+        d=1e100.net; s=20260707; t=1795110612; x=1795715412;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5m08k+pWTgZ26W4H99NIdw305iHAopUdzj3Kg8DMx8c=;
-        b=jzuDDYNB3LKz72lfrbP5rBObn/NYoc1cGXEUJOx3glCoWuXZ8GFYV/62EkoKsp7YAR
-         yxoxjf5dAWR3LlC9If1L8qwk6DLZ/sAYzyxwUbNWloGVNDQzJexbw01IWeDA2Hp7V4gK
-         1DeepaxuMPvZ2ITc6dX00s612H7HVDoXrUZsQtUfLKOOC+OGWr5POUEj4ry46wOg7aM+
-         z7NYw+rMDRETm4pO7bC9ilATEPY3DUNJcAPR8K4vmV9tpsm8gaCm7SCoqLEzr2t9m7Xg
-         EPYYDOZP2SWa6nCPyLTNbDwPNJhfLY7U6pn8tTzYCwyUqxXjyee++KaL0HccaYGTZaEX
-         vShQ==
-X-Forwarded-Encrypted: i=1; AL+hErHBl+4Q1K8POog8csI7TrgrwYIsi5eq1ZkvATNDEyGvhl/D+nuFV4xyBs6fXo4vbnBiJyOe3zpZqkWJ@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7yOvKLGghoTMj2Y6fp6hm1yOjZUbne6Y0ZOaAtkiVeMJmQk7+
-	jJClq2skYKX5i8/qipT17cS9Rn8yceIC3ZwIUpbfeiZytRuxQT3EgbMEEjpS1HM9dIU=
-X-Gm-Gg: AYBFou0D9g4cDCmq5975jpoIKpnUioEdlnurpCpgs0BsFwCHYTFW35ggJfvhD/KmoNv
-	IqZr7sXzhbicQmKh0uu3v7aHjf6FCSFqdSNUNRvF+q466S14SGquu3i72yizwVe6I3F2VleFJTn
-	A9KsivegovOikXjuPBrrhUHYkGhWeih9CIwQjgWlCrA7B6Be2tgIoV0YT+Lv705l0/ThaO7Lc+1
-	CNpBkzrFEzQXp7Lsq/SBZjPtXvuHdI+h5XCbXNGF0GLpRuSvSLHooc62YekSJG2v8AkpfO4MbFs
-	0k9lxJGChi0/yXHnZv8bISeq4ioA9fdtBbU1qlN6F1uzuKZ3bIkP7GKHGTBmhxa7WA0XpbbJQaX
-	vFZomgu5f1SxzKFuR6mzx6KJr7w7jTTqUB9b2EAmtVs1TqxJz5T+oOYA0v0s1XjUZeRLJP+FqMK
-	URWHS701tQXM9nybUOLk49pZhQd8VyNgONrAXNZttRFxruP20i732Xwg7m9gmQAub4WpFngVqgA
-	AOVj1CIxLcvvjk3se9GyoQcIv/Sdaoat+Gv+2sCVaBgt8othgk6Vg+VmmixAvuflJK4OFakTqaz
-	q3JAiqA3YrBij15XmMvB+WZ20vDLelTjg4WOffqKToaUMwCsGxY9+umUSUW8+ZWL8X15SGbDzoT
-	gJjS3nc5fLnDv2iefM1B9W77OK21kxwhIqkcHATWhJee34FoGwQUBFKMli7o4xfWi+RirleVw3x
-	K8yfE=
-X-Received: by 2002:a05:600c:64c7:b0:4bb:68c4:2044 with SMTP id 5b1f17b1804b1-4bb887fe725mr6329465e9.11.1795110610075;
-        Thu, 19 Nov 2026 09:50:10 -0800 (PST)
+        bh=CvEm5T+elZmAIVJRuKb7mSJIVKxbHtl2NRkj0Gb2l8U=;
+        b=UUrvA6wyyMrk/KS+I7cCQPHu6u+6H3O3bdTL9GXqJexjbAKQ3LwfBNzlJ2xCA1h4/f
+         DskRXWIK57TZaYqPTVO86icNWGNXSx8vGWXA9vWNpt64Ad3+UzADiU5XmppmQFPrI1u1
+         17xArAuE+x2VrFmOV8YC9OuPwjB0SiuvPzIppcTYejweVmykh7tyjCMM39wQEBL/WXMX
+         jPu9KnOEcgRnGqPSd5OfuFZ8gBGvgRGT6DYmhiyrqs3W4R5nF7xFM5qzj9ezpCGXXAP9
+         JprUXRLslC6cjiHU/azJZvoc8JbwYtH98LzpzACPvXUoTEe6dRsrlLZrPcLeBI22TvLH
+         cCmw==
+X-Forwarded-Encrypted: i=1; AL+hErE64aQ+koZbj4j5adZkRA1n+5wpkfH5dH6LpXdtddXn3lhnrsNHrktOYPKkxSkfpuziZmTwIpe28Q7s@vger.kernel.org
+X-Gm-Message-State: APuU4Z8g0xXNi8rNYOTO2cPTle8DiRQikzp+1U4cuWAPv5L/FNFNCxqp
+	nTv3H0K8CDwt4HN0HAn472Nmv46nO96/3XzT7Y7g6XKirYjC3lzAvEN8q5BwXTTaMU4=
+X-Gm-Gg: AYBFou26vdGDuo33ue5Xi2v2JPtb8I5Ah7UIC3JL9W5X0Rnf2ishePuzEWTAG0bSjEi
+	DKa3wfcn5pJoguToZQEs0g3OA0n51vXgWZcwXyHRygrL6I6Cx3Cji95yt4fu0oO26pzBROerZz1
+	QFORQeVK3ET3hrWW2mG61cpGgD6iypgFUTj+YMvWgOm0uKGGqvzaveBA0VG26IFb1VX/nyyETht
+	lpy/Kb8MUnH6Prv63snc4C6ITu/uYHseKYdLTjg1BknSHLd2NNUuPMzPNrAmLL5jB4ThkoawnGw
+	j34j0s23qrkuw+toLcGNSZ78Da9ffYc+kH4zvgziYLTeLhlB/Ce0Ylat9gLgGafdKusr8hRXlBD
+	w3eF156vJmTXL9gbK2oxpQNe+MsjVOFYFM6GMcsEVP9l/MCVVQHvK5ghGO0RXDFZGa4t1sqtm0f
+	TgQBd0bkWJZ2gHSoHHhpbOw8atQOX+LJiDPU7R+A0+bJeg0Bi91mblaNQ7arTJEggcJ8/bs0eYp
+	eH2ZdreBGVNuLXvXnz53Tb3TqFssU+qp1gh9zZM+PLoQLl9Fe4gOiEyovk99Ri2OPpvI/hDXES4
+	Hb7NLcgxMsQ3yTJsy4hx7Q5ubNCXC7tH/swReBZzPEcIVQY4eBtzhVoaPnawKHOlU+YoIWDVcNE
+	sUwk3slcVXU/blBxdZNU4DWbfYDsDWZvvN5HhkitCPiQB3xzQO8nJGYn9BwZ6HCSWeoZmo79B57
+	pXnA==
+X-Received: by 2002:a05:600c:820d:b0:4bb:7b4d:6396 with SMTP id 5b1f17b1804b1-4bb887e21c6mr6739265e9.3.1795110611578;
+        Thu, 19 Nov 2026 09:50:11 -0800 (PST)
 Received: from localhost (2a02-1810-b422-d400-611-84c9-252f-74ad.ip6.access.telenet.be. [2a02:1810:b422:d400:611:84c9:252f:74ad])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853b2437sm68993685e9.13.2026.11.19.09.50.09
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb84e06c73sm90733095e9.2.2026.11.19.09.50.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 09:50:09 -0800 (PST)
+        Thu, 19 Nov 2026 09:50:11 -0800 (PST)
 From: Arthur Heymans <arthur@aheymans.xyz>
 To: linux-wireless@vger.kernel.org,
 	Johannes Berg <johannes@sipsolutions.net>
@@ -92,9 +92,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	Solomon Peachy <pizza@shaftnet.org>,
 	linux-kernel@vger.kernel.org,
 	Arthur Heymans <arthur@aheymans.xyz>
-Subject: [PATCH wireless-next 02/10] wifi: cw1200: check SDD element lengths before reading them
-Date: Thu, 19 Nov 2026 18:49:54 +0100
-Message-ID: <20261119175002.458988-3-arthur@aheymans.xyz>
+Subject: [PATCH wireless-next 04/10] wifi: cw1200: unwind GPIO interrupt setup on error
+Date: Thu, 19 Nov 2026 18:49:56 +0100
+Message-ID: <20261119175002.458988-5-arthur@aheymans.xyz>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261119175002.458988-1-arthur@aheymans.xyz>
 References: <20261119175002.458988-1-arthur@aheymans.xyz>
@@ -109,85 +109,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SDD elements have byte alignment. Read the PTA and reference clock
-fields with get_unaligned_le16() and reject short elements instead of
-using incomplete board configuration data.
+If requesting the GPIO interrupt fails, the wake reference and the
+card interrupt enables remain set. Drop the wake reference and restore
+the original CCCR interrupt-enable byte on the error paths.
 
 Prepared with OpenAI Codex.
 
 Fixes: a910e4a94f69 ("cw1200: add driver for the ST-E CW1100 & CW1200 WLAN chipsets")
 Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
 ---
- drivers/net/wireless/st/cw1200/sta.c | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+ drivers/net/wireless/st/cw1200/cw1200_sdio.c | 38 ++++++++++----------
+ 1 file changed, 18 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/net/wireless/st/cw1200/sta.c b/drivers/net/wireless/st/cw1200/sta.c
-index 5d8eaa700779..db9f0c4a07aa 100644
---- a/drivers/net/wireless/st/cw1200/sta.c
-+++ b/drivers/net/wireless/st/cw1200/sta.c
-@@ -11,6 +11,7 @@
- #include <linux/firmware.h>
- #include <linux/module.h>
- #include <linux/etherdevice.h>
-+#include <linux/unaligned.h>
+diff --git a/drivers/net/wireless/st/cw1200/cw1200_sdio.c b/drivers/net/wireless/st/cw1200/cw1200_sdio.c
+index 1894359ee9b4..dda201e69735 100644
+--- a/drivers/net/wireless/st/cw1200/cw1200_sdio.c
++++ b/drivers/net/wireless/st/cw1200/cw1200_sdio.c
+@@ -143,37 +143,35 @@ static irqreturn_t cw1200_gpio_irq(int irq, void *dev_id)
+ static int cw1200_request_irq(struct hwbus_priv *self)
+ {
+ 	int ret;
+-	u8 cccr;
++	int err;
++	u8 ien;
  
- #include "cw1200.h"
- #include "sta.h"
-@@ -1072,28 +1073,34 @@ static int cw1200_parse_sdd_file(struct cw1200_common *priv)
- 	while (p + 2 <= priv->sdd->data + priv->sdd->size) {
- 		if (p + p[1] + 2 > priv->sdd->data + priv->sdd->size) {
- 			pr_warn("Malformed sdd structure\n");
--			return -1;
-+			return -EINVAL;
- 		}
- 		switch (p[0]) {
- 		case SDD_PTA_CFG_ELT_ID: {
- 			u16 v;
-+
- 			if (p[1] < 4) {
- 				pr_warn("SDD_PTA_CFG_ELT_ID malformed\n");
--				ret = -1;
--				break;
-+				return -EINVAL;
- 			}
--			v = le16_to_cpu(*((__le16 *)(p + 2)));
-+			v = get_unaligned_le16(p + 2);
- 			if (!v)  /* non-zero means this is enabled */
- 				break;
+-	cccr = sdio_f0_readb(self->func, SDIO_CCCR_IENx, &ret);
+-	if (WARN_ON(ret))
+-		goto err;
+-
+-	/* Master interrupt enable ... */
+-	cccr |= BIT(0);
+-
+-	/* ... for our function */
+-	cccr |= BIT(self->func->num);
++	ien = sdio_f0_readb(self->func, SDIO_CCCR_IENx, &ret);
++	if (ret)
++		return ret;
  
--			v = le16_to_cpu(*((__le16 *)(p + 4)));
-+			v = get_unaligned_le16(p + 4);
- 			priv->conf_listen_interval = (v >> 7) & 0x1F;
- 			pr_debug("PTA found; Listen Interval %d\n",
- 				 priv->conf_listen_interval);
- 			break;
- 		}
- 		case SDD_REFERENCE_FREQUENCY_ELT_ID: {
--			u16 clk = le16_to_cpu(*((__le16 *)(p + 2)));
-+			u16 clk;
-+
-+			if (p[1] < sizeof(clk)) {
-+				pr_warn("SDD reference frequency malformed\n");
-+				return -EINVAL;
-+			}
-+			clk = get_unaligned_le16(p + 2);
- 			if (clk != priv->hw_refclk)
- 				pr_warn("SDD file doesn't match configured refclk (%d vs %d)\n",
- 					clk, priv->hw_refclk);
-@@ -1147,7 +1154,12 @@ int cw1200_setup_mac(struct cw1200_common *priv)
- 			pr_err("Can't load sdd file %s.\n", priv->sdd_path);
- 			return ret;
- 		}
--		cw1200_parse_sdd_file(priv);
-+		ret = cw1200_parse_sdd_file(priv);
-+		if (ret) {
-+			release_firmware(priv->sdd);
-+			priv->sdd = NULL;
-+			return ret;
-+		}
- 	}
+-	sdio_f0_writeb(self->func, cccr, SDIO_CCCR_IENx, &ret);
+-	if (WARN_ON(ret))
+-		goto err;
++	sdio_f0_writeb(self->func, ien | BIT(0) | BIT(self->func->num),
++		       SDIO_CCCR_IENx, &ret);
++	if (ret)
++		return ret;
  
- 	cfg.dpdData = priv->sdd->data;
+ 	ret = enable_irq_wake(self->pdata->irq);
+-	if (WARN_ON(ret))
+-		goto err;
++	if (ret)
++		goto restore_ien;
+ 
+ 	/* Request the IRQ */
+ 	ret =  request_threaded_irq(self->pdata->irq, cw1200_gpio_hardirq,
+ 				    cw1200_gpio_irq,
+ 				    IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
+ 				    "cw1200_wlan_irq", self);
+-	if (WARN_ON(ret))
+-		goto err;
+-
+-	return 0;
++	if (!ret)
++		return 0;
+ 
+-err:
++	disable_irq_wake(self->pdata->irq);
++restore_ien:
++	sdio_f0_writeb(self->func, ien, SDIO_CCCR_IENx, &err);
++	if (err)
++		dev_warn(&self->func->dev, "cannot restore interrupt enables: %d\n", err);
+ 	return ret;
+ }
+ 
 -- 
 2.56.0
 
