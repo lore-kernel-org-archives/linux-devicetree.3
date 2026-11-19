@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795085715;
-	b=Vz0yFWan7iGaymRCvW5oTf04rsPyRxHEzZYF0QiE076TdYksXj/Ew+TkkxSX8ddCQtLq
-	 1wRNj7q2dxNU3sJsYot5kz+kJYfntDw/xSc2gWbUu2ulHq6MhqNkcchyhz5sLKTcMDxNV
-	 +lPci035QxHwj5TU51ZxxBDj9LKarEIFZbCkibJUS60pvEUXvu2LSBndZhMG5M9QgJT0d
-	 eggrk5Ih7k+YHwmN2yETSMxcdUv0LYdGAubFng2Fbud8u0TcRSUIJj8cGZ7aYelj5PLRG
-	 jjJFTut12Oewye+maGig31jqM1dgoqeG3F0oOngjt38M/c/9LsZnVkRkBQt0noskpAg==
+	t=1795085958;
+	b=W0U36rOlOOBSAkN1/JVqnrnb7DjUF2m5gs8JoBEdXqpmVukm0MEmdx6j34G4j6mb7BEk
+	 rO6QSMijcBBxA91M7Uy60K1L8h9MoyYc/nCu2hjdshKQeCnlIFRhb06tgWfx4izCzebI4
+	 gpPCIoWhwOsYyEu5M7EgmR2e1CulUYj7VR/sJi390gLqEtUX+som9L5B4ybmcVdUKJbS5
+	 /pjs+QNS0QWqnu2T8qXJindMlP6PbUW83YjIBTdcnLxrl0WqbfHnEfoLL0TYJ5Sj5iRYi
+	 zWTHfTsgXbXWIZKyvqtwvs36A/CjY6kXI074JGYFH58syNcvlu2zTfMevwjcfQCd1Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795085715;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795085958;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=av2D7bNud7j+ZgZGHaHjgJw7DfhyRFMgkJgFPf9k60E=;
-	b=HGBP16NzHhT1HnxNQW0tm742vXcmjKqzrDM+fCXPEghdrK8VRw7/5llQcx4XoZZkL9d6
-	 3Sp4+nCpvUaKPv4YlyBTPRF+ltVPWZAOyUJk3nKC/jQQx4nXnQAEGvmriZ77TpMOxWpP/
-	 blwYX5IwC5P/EtyY6SaUVb8rrSYQGK7xBZN6TkGx50/ZLrg41EQI2fichhfjVmh2p+EMK
-	 w7j0e9BwWYnn/xsv2qLS15l9ct+SRA/0l05g2VFeX+PP3sWFsLd4vrJFFwDNNiwgCdXCC
-	 RMBARHbAJU2t58TB5pbnsjEu3TwNG0vCaTri2Ayv/meUJdZcF9Kc7rNyql0PlasFkwA==
+	bh=4/jVDSwIRAmLCTKaI3UPBWY6GGyvJetwSzEPznuwmkQ=;
+	b=3T4+PquqA/iUdtrmWTv45IxvIPAswirM7FlgCUZNCrHWEa9z54Mub1fgJ22cEO3xXtUJ
+	 WPfqH2b6jGoRFNG+fVqV4+wHJRrOqYOcj+vtnEd/adIdWKWStK826I7fRKtYV756qcmO2
+	 hn0koOM1EbHDUGXAcBtPuGKSbufaQeX7z3FIxDLsGNaB6cctsbTO7Ep2a6+FCJSkYglCO
+	 JRdxkbwUakpeeLMzg82vF9oulTvEvK8Qr0NF8dw57+2wY+TmTFQILQzwLMy9rTyT8Azo2
+	 8yiJ5owqBoGU7a/+yoD1yykbi35mN9mKFoP4D7AuBWuVqSOhqoILnjyVd6O9lhr07OQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jaFuonsT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU8Vv8vz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B45F606A320;
-	Thu, 19 Nov 2026 10:55:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46241606A324;
+	Thu, 19 Nov 2026 10:59:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jaFuonsT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9EF1F000C4;
-	Thu, 19 Nov 2026 10:55:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU8Vv8vz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6927B1F000C5;
+	Thu, 19 Nov 2026 10:59:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795085715;
-	bh=av2D7bNud7j+ZgZGHaHjgJw7DfhyRFMgkJgFPf9k60E=;
+	s=k20260515; t=1795085958;
+	bh=4/jVDSwIRAmLCTKaI3UPBWY6GGyvJetwSzEPznuwmkQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jaFuonsTh85f5zgyMHwIyQoXESLU6ob1QBmmVIL2y8kzrDrI+sN+EXpgrqM9cWkCL
-	 HSCsOm68R+n4apKkc9LCwn/7tD9sxnVkDbuwSQg8YAlciBJbMSxtNWNg3zqvkJIG0o
-	 /OB5gNT/VDVzKO1uCW8MyPX/qz2m4bSR8AUVLe7FWCl3/A7qLie3Xh0BQruLIqbRr0
-	 vv/GynVkiSiPGOPT6cX8azlYFsXZanaKvosH8o0+uZkwk0yi+wiFbKV+YE3jgzSGe6
-	 h0DjOeSi654NH70w39EiLmNgVquv5tZro7XiS3k4Z3fBplaGFQ3JIZItAy435S/pGp
-	 +PIg50N06FCCQ==
-Message-ID: <783b5d30-edc8-4a03-b1c3-c74c803787dd@kernel.org>
-Date: Thu, 19 Nov 2026 11:55:10 +0100
+	b=XU8Vv8vz/FPtcTHhw/A1bX2sEY763BsoJfua7tZj4WELvbXJIBq/+hFe9JEaDvYEk
+	 wUTZBcCeeQpgYV/sdUEGEm6P1OFCyDdMAseUti4J584m7RW7/ErJ5pR9O85VWceZoj
+	 y2UzhN7pcw2rDjptvmnz8VEhKBpn0F+BTQMbcxrVs3Wjv1/VpZhfM7s7NkPIjCHs6d
+	 Ox4NQaIz2kL599bZJ6Qux4rqBElMg4C55WoouXurG1h8VNn+BeDy23quv6gbYrr9pL
+	 v1n6kUWdRO46i0u92wWIsVRTsRv7OV8EBHuUsmK6vxzucP5dEhmJgIahsZd4nwc25C
+	 d8ssnf4+xmsGw==
+Message-ID: <29fc3b0b-1ae8-4939-8d4d-4bcebe80e4cc@kernel.org>
+Date: Thu, 19 Nov 2026 11:59:13 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,19 +52,15 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/15] dt-bindings: clock: versal: add Versal Gen 2
- compatible string
-To: Gregory Williams <gregory.williams@amd.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>
-Cc: Naman Trivedi <naman.trivedimanojbhai@amd.com>,
- Senthil Nathan Thangaraj <senthilnathan.thangaraj@amd.com>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 11/15] dt-bindings: soc: xilinx: Add Versal AI Engine DT
+ binding
+To: Gregory Williams <gregory.williams@amd.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 References: <20261118233211.4121361-1-gregory.williams@amd.com>
- <20261118233211.4121361-9-gregory.williams@amd.com>
+ <20261118233211.4121361-12-gregory.williams@amd.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -110,51 +106,126 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261118233211.4121361-9-gregory.williams@amd.com>
+In-Reply-To: <20261118233211.4121361-12-gregory.williams@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 19/11/2026 00:32, Gregory Williams wrote:
-> From: Naman Trivedi <naman.trivedimanojbhai@amd.com>
+> Add documentation to describe Versal AI Engine device tree bindings. AI
+> Engine is a tile array based processor with many cores and local memory
+> cache. Data routing between the cores is done through internal switches,
+> interface tiles are used to connect to external sources such as memory
+> or PL. Configuration registers of the device are accessed through a
+> memory mapped AXI address space.
 > 
-> Add compatible string for Versal Gen 2 clock driver and validate
-> clock-names for xlnx,versal2-clk compatible.
-> 
-> Signed-off-by: Naman Trivedi <naman.trivedimanojbhai@amd.com>
-> Signed-off-by: Senthil Nathan Thangaraj <senthilnathan.thangaraj@amd.com>
-
-Still incomplete DCO. Please read submitting patches to understand what
-you must sign.
-
+> Signed-off-by: Gregory Williams <gregory.williams@amd.com>
 > ---
->  Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  .../bindings/soc/xilinx/xlnx,ai-engine.yaml   | 61 +++++++++++++++++++
+
+Soc is dumping ground of things which do not have clear function. This
+has a clear function, so place it with other DSP/accel/NPU.
+
+Subject - you almost hit the bingo. Missing only schema and YAML for the
+full one.
+
+A nit, subject: drop second/last, redundant "DT bindings". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+
+>  1 file changed, 61 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
 > 
-> diff --git a/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml b/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
-> index 1f36ccc4cde1..e06f1ebc192a 100644
-> --- a/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
-> +++ b/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
-> @@ -17,10 +17,13 @@ description: |
->  properties:
->    compatible:
->      oneOf:
-> -      - const: xlnx,versal-clk
-> +      - enum:
-> +          - xlnx,versal-clk
-> +          - xlnx,versal2-clk
->        - items:
->            - enum:
->                - xlnx,versal-net-clk
-> +              - xlnx,versal2-clk
+> diff --git a/Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml b/Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
+> new file mode 100644
+> index 000000000000..6c97b5f0fb03
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
 
-I don't understand this, it makes no sense. How exactly the same device
-is and is not compatible with older one?
+Please read writing bindings document. Filename must match compatible.
 
-Please read DTS101 slides.
+> @@ -0,0 +1,61 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
 
->            - const: xlnx,versal-clk
->  
->    "#clock-cells":
+Why not using recommended license? Why doing this differently?
+
+> +# Copyright(C) 2026 Advanced Micro Devices, Inc. All rights reserved.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/soc/xilinx/xlnx,ai-engine.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: AMD AI Engine for Versal SoCs
+> +
+> +maintainers:
+> +  - Gregory Williams <gregory.williams@amd.com>
+> +
+> +description:
+> +  The AMD AI Engine is a tile processor with many cores (up to 400) that
+> +  can run in parallel with some devices containing local cache (memory tiles).
+> +  The data routing between cores is configured through internal switches, and
+> +  shim tiles interface with external interconnect, such as memory or PL.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - xlnx,versal2-aieml
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    const: aclk0
+
+Drop clock name. If you have to use output clock name as input name,
+then it's just incorrect or incomplete, thus just drop it.
+
+> +
+> +  xlnx,firmware-device-id:
+
+You don't get device identifiers, sorry. See writing bindings.
+
+> +    description:
+> +      Device identifier as defined by Versal firmware interface. This value is
+> +      passed unchanged to firmware calls.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - xlnx,firmware-device-id
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    soc {
+> +      #address-cells = <2>;
+> +      #size-cells = <2>;
+> +
+> +      ai_engine: ai-engine@20000000000 {
+
+Don't use your own names. It is not an engine.
+
+Node names should be generic. See also an explanation and list of
+examples (not exhaustive) in DT specification:
+https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+If you cannot find a name matching your device, please check in kernel
+sources for similar cases or you can grow the spec (via pull request to
+DT spec repo).
+
+> +        compatible = "xlnx,versal2-aieml";
+> +        reg = <0x200 0x00 0x01 0x00>;
+> +        clocks = <&aclk0>;
+> +        clock-names = "aclk0";
+> +        xlnx,firmware-device-id = <0x18224072>;
+> +      };
+> +    };
 
 
 Best regards,
