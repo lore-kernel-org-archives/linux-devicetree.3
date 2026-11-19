@@ -1,45 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795080774;
-	b=Ov+ZAMFjIscX/6o7Jsc3V8rS2V3GwcclQodU/ex7utRjEgc/yQN45XmGr/RpzGxvQF2z
-	 mhZtkDQmJB2JpYHW6IWpAKtkrAw8TkQReQQ1Bduw5YRFqZbR61BE9xZvXmP9rxQhZ64aF
-	 RogRUHx/3umbme/rizuAqvOWQvJwtbL0QFYnZkxxjHWGec4IUhmSNHS13sRQHUk5bVirM
-	 Ii+yc6QfQwF4vWMR/fto1NMUVG/ji510PxLNKCFxPk9PqoQ8e/Ho1NONpxabUOrMEpK/i
-	 Nu73X2RSxFtZhEdrP8Dm6TMIEP6yALz9hqjGPH6sRSWIULjxklHShnpxbkRAglz81uw==
+	t=1795080838;
+	b=yTRtvRg7NOLShuAHGN7OHJa8eOTHdTK3557yu9+cpvtHNMxUvssK2zlfxx7fGZsoP52L
+	 DkgUR7PQbMY4lf+ao7WSICGm+RKk0oT8s2vCWR3S+NGsDau/6QvFoifxrEi8Vfp36TB9T
+	 fiobOeMHEV2L+ieMdDTP7qycnCI81h5QLlCOYevkUOmm+axunY4DzQ1KJn6FbpCKZox8j
+	 f5CNagVH1IIQ7YyXi1Tc2g4n9K6fvFtzhkAh1r10mifgyrHDTl5nRwQ1jMbq2oO6cEbrD
+	 XsoPp7Jj18fERjEoagvhR5MVowE1W0eSt+VgOlx+kmRYKqIymyQiQQqogDWxMwDLCRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795080774;
-	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
-	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=KyzM4XUQJeBYylQNLUR8mC6wxDEbAaY+m3hGjXjLxcY=;
-	b=jiP6MvWV8EFT6A4+MxEyi9mkdOFNazC+IJQZM/rB+NRyMxZid/yFJlUc0s0xD6YWWW+3
-	 D4uoO77kj8bYxBISV7WCQoqRuRmUa/ODuFfc0sGTLrSuRqpYLGFwrcYSNDJvXbL0LVMXE
-	 WQv1h7rrNTMSO7s8XGBo/5y0WF7VaYJ67e5VkVN2m8VOtqtdanpnq0ves5f/n6T/vFONe
-	 9vuQNQs9v/b9n0J8omUU8+EBikz54vouwjhROY2tu4pSCWflubDiHh5cZ5FlGW53BtYfr
-	 hBrcAjoE0bUT4r5ONW+sHgkDXNjOMut4C73bEulTFR9bH0CMdL0vACJOAAMTVpBj4Sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795080838;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=3FdYbGM4BmO4PXujten7LVhc0nlTJDBtBmP+989ACPo=;
+	b=m1TKpOsibUie+Q9GtIyDUMTuRHxOzTI9qlLgSx1DuZhsZvRZXU+eKwWh0xFXD2oskXIj
+	 TZKnew2zwas4Laol3pohHXvacq2lxYZtWeckAkZ2zhr/0Wee1SGKb70AS4L7pVIrFHMev
+	 lAjUKJcJT5JoJEmp4XbQbDEIc/tFgOROLHupZ0XO0CKeBSzC8tFlWtd4i48WI+DAAFais
+	 qibOXCgOMgAbOFO6fdCpd6nwGuFScDGV+BVcs+2qk65MwR0KGaP3Abxx9/qttxFko+kab
+	 5/wmFDZ5z8KzsPAiiDmuo2n7aS8E1l/y1muWJ11ma223Ha5pU5/6MpShwPrmQOABv3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	arc=none smtp.remote-ip=211.20.114.72
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59DA60A2633;
-	Thu, 19 Nov 2026 09:32:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A59DA60A2633
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Thu, 19 Nov
- 2026 17:32:41 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
- Transport; Thu, 19 Nov 2026 17:32:41 +0800
-From: Jacky Chou <jacky_chou@aspeedtech.com>
-Date: Thu, 19 Nov 2026 17:32:39 +0800
-Subject: [PATCH net-next v7 6/7] net: ftgmac100: Add AST2700 upper DMA
- address support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8C5606A324;
+	Thu, 19 Nov 2026 09:33:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D8C5606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <1aea100330532a23abb11dd55235970da48107e5.camel@crapouillou.net>
+Subject: Re: [PATCH v4 2/7] pinctrl: ingenic: Fix hardware dual-edge
+ interrupts on X1600
+From: Paul Cercueil <paul@crapouillou.net>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>, Linus Walleij	
+ <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bartosz
+ Golaszewski	 <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+	letux-kernel@openphoenux.org, stable@vger.kernel.org
+Date: Thu, 19 Nov 2026 10:33:53 +0100
+In-Reply-To: <12e66f571e8765b1eefeab5939c2c874b71b28af.1795022736.git.hns@goldelico.com>
+References: <cover.1795022736.git.hns@goldelico.com>
+	 <12e66f571e8765b1eefeab5939c2c874b71b28af.1795022736.git.hns@goldelico.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,232 +55,110 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261119-support_ast2700-v7-6-33c8ca2d0dd7@aspeedtech.com>
-References: <20261119-support_ast2700-v7-0-33c8ca2d0dd7@aspeedtech.com>
-In-Reply-To: <20261119-support_ast2700-v7-0-33c8ca2d0dd7@aspeedtech.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Po-Yu Chuang
-	<ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, "Heiner
- Kallweit" <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "Eric
- Dumazet" <edumazet@kernel.org>
-CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>,
-	Andrew Lunn <andrew@lunn.ch>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795080760; l=8087;
- i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
- bh=mWEkbWgALAdm/Z5h80hIIBEDWLiQsEg+634OST3FOWY=;
- b=5DCdCekXcYejBZPgkPTn4QOgveLtHfDa+EpZV/3x4qT/c7nn0sjcthg5X2dS5vDncXr0gAbs3
- IYqms6NN9BnCMk1HfnToF3qU1R+dMqT4fH8i82cN5GGSLcx4PkTQRL2
-X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
- pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
 
-Program the high RX and TX descriptor ring base registers and carry the
-upper DMA address bits in RX and TX descriptors. Rebuild full buffer DMA
-addresses in a 64-bit type before unmapping them so bits 34:32 are not
-lost to 32-bit arithmetic.
+Hi Nikolaus,
 
-The descriptor format provides three upper buffer address bits, so
-request a 35-bit DMA mask instead of advertising an address range that
-the hardware cannot encode. Gate all extended address handling with a
-match-data quirk so older register layouts remain untouched and later
-compatible controllers can opt into the same capability.
+Le mercredi 18 novembre 2026 =C3=A0 18:25 +0100, H. Nikolaus Schaller a =C3=
+=A9crit=C2=A0:
+> Use the hardware dual-edge detector on X1600 and X2000.
+>=20
+> Set PAT1 when configuring both edges and program EDG on X1600.
+> Keep software edge switching for older SoCs without EDG.
+>=20
+> Tested on X1600 and X2000 using GPIO buttons and register readback.
+>=20
+> Fixes: 4da56f9c6f14 ("pinctrl: ingenic: add x1600 support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
----
- drivers/net/ethernet/faraday/ftgmac100.c | 62 +++++++++++++++++++++++++++-----
- drivers/net/ethernet/faraday/ftgmac100.h |  6 ++++
- 2 files changed, 59 insertions(+), 9 deletions(-)
+Reviewed-by: Paul Cercueil <paul@crapouillou.net>
 
-diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-index 5a578a62df67..263594de0e07 100644
---- a/drivers/net/ethernet/faraday/ftgmac100.c
-+++ b/drivers/net/ethernet/faraday/ftgmac100.c
-@@ -8,6 +8,7 @@
- 
- #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/reset.h>
- #include <linux/dma-mapping.h>
-@@ -42,6 +43,7 @@ enum ftgmac100_mac_id {
- };
- 
- #define FTGMAC100_QUIRK_RMII_ENABLE	BIT(0)
-+#define FTGMAC100_QUIRK_DMA_35BIT	BIT(1)
- 
- struct ftgmac100_match_data {
- 	enum ftgmac100_mac_id mac_id;
-@@ -303,10 +305,16 @@ static void ftgmac100_init_hw(struct ftgmac100 *priv)
- 	iowrite32(reg, priv->base + FTGMAC100_OFFSET_ISR);
- 
- 	/* Setup RX ring buffer base */
--	iowrite32(priv->rxdes_dma, priv->base + FTGMAC100_OFFSET_RXR_BADR);
-+	iowrite32(lower_32_bits(priv->rxdes_dma), priv->base + FTGMAC100_OFFSET_RXR_BADR);
-+	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-+		iowrite32(upper_32_bits(priv->rxdes_dma),
-+			  priv->base + FTGMAC100_OFFSET_RXR_BADDR_HIGH);
- 
- 	/* Setup TX ring buffer base */
--	iowrite32(priv->txdes_dma, priv->base + FTGMAC100_OFFSET_NPTXR_BADR);
-+	iowrite32(lower_32_bits(priv->txdes_dma), priv->base + FTGMAC100_OFFSET_NPTXR_BADR);
-+	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-+		iowrite32(upper_32_bits(priv->txdes_dma),
-+			  priv->base + FTGMAC100_OFFSET_TXR_BADDR_HIGH);
- 
- 	/* Configure RX buffer size */
- 	iowrite32(FTGMAC100_RBSR_SIZE(RX_BUF_SIZE),
-@@ -474,7 +482,10 @@ static int ftgmac100_alloc_rx_buf(struct ftgmac100 *priv, unsigned int entry,
- 	priv->rx_skbs[entry] = skb;
- 
- 	/* Store DMA address into RX desc */
--	rxdes->rxdes3 = cpu_to_le32(map);
-+	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-+		rxdes->rxdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_RXDES2_RXBUF_BADR_HI,
-+						       upper_32_bits(map)));
-+	rxdes->rxdes3 = cpu_to_le32(lower_32_bits(map));
- 
- 	/* Ensure the above is ordered vs clearing the OWN bit */
- 	dma_wmb();
-@@ -601,6 +612,9 @@ static bool ftgmac100_rx_packet(struct ftgmac100 *priv, int *processed)
- 
- 	/* Tear down DMA mapping, do necessary cache management */
- 	map = le32_to_cpu(rxdes->rxdes3);
-+	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-+		map |= (u64)FIELD_GET(FTGMAC100_RXDES2_RXBUF_BADR_HI,
-+				     le32_to_cpu(rxdes->rxdes2)) << 32;
- 
- #if defined(CONFIG_ARM) && !defined(CONFIG_ARM_DMA_USE_IOMMU)
- 	/* When we don't have an iommu, we can save cycles by not
-@@ -677,9 +691,14 @@ static void ftgmac100_free_tx_packet(struct ftgmac100 *priv,
- 				     struct ftgmac100_txdes *txdes,
- 				     u32 ctl_stat)
- {
--	dma_addr_t map = le32_to_cpu(txdes->txdes3);
-+	dma_addr_t map;
- 	size_t len;
- 
-+	map = le32_to_cpu(txdes->txdes3);
-+	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-+		map |= (u64)FIELD_GET(FTGMAC100_TXDES2_TXBUF_BADR_HI,
-+				     le32_to_cpu(txdes->txdes2)) << 32;
-+
- 	if (ctl_stat & FTGMAC100_TXDES0_FTS) {
- 		len = skb_headlen(skb);
- 		dma_unmap_single(priv->dev, map, len, DMA_TO_DEVICE);
-@@ -833,7 +852,10 @@ static netdev_tx_t ftgmac100_hard_start_xmit(struct sk_buff *skb,
- 	f_ctl_stat |= FTGMAC100_TXDES0_FTS;
- 	if (nfrags == 0)
- 		f_ctl_stat |= FTGMAC100_TXDES0_LTS;
--	txdes->txdes3 = cpu_to_le32(map);
-+	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-+		txdes->txdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_TXDES2_TXBUF_BADR_HI,
-+						       upper_32_bits(map)));
-+	txdes->txdes3 = cpu_to_le32(lower_32_bits(map));
- 	txdes->txdes1 = cpu_to_le32(csum_vlan);
- 
- 	/* Next descriptor */
-@@ -861,7 +883,10 @@ static netdev_tx_t ftgmac100_hard_start_xmit(struct sk_buff *skb,
- 			ctl_stat |= FTGMAC100_TXDES0_LTS;
- 		txdes->txdes0 = cpu_to_le32(ctl_stat);
- 		txdes->txdes1 = 0;
--		txdes->txdes3 = cpu_to_le32(map);
-+		if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-+			txdes->txdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_TXDES2_TXBUF_BADR_HI,
-+							       upper_32_bits(map)));
-+		txdes->txdes3 = cpu_to_le32(lower_32_bits(map));
- 
- 		/* Next one */
- 		pointer = ftgmac100_next_tx_pointer(priv, pointer);
-@@ -936,7 +961,12 @@ static void ftgmac100_free_buffers(struct ftgmac100 *priv)
- 	for (i = 0; i < priv->rx_q_entries; i++) {
- 		struct ftgmac100_rxdes *rxdes = &priv->rxdes[i];
- 		struct sk_buff *skb = priv->rx_skbs[i];
--		dma_addr_t map = le32_to_cpu(rxdes->rxdes3);
-+		dma_addr_t map;
-+
-+		map = le32_to_cpu(rxdes->rxdes3);
-+		if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-+			map |= (u64)FIELD_GET(FTGMAC100_RXDES2_RXBUF_BADR_HI,
-+					     le32_to_cpu(rxdes->rxdes2)) << 32;
- 
- 		if (!skb)
- 			continue;
-@@ -1055,7 +1085,12 @@ static void ftgmac100_init_rings(struct ftgmac100 *priv)
- 	for (i = 0; i < priv->rx_q_entries; i++) {
- 		rxdes = &priv->rxdes[i];
- 		rxdes->rxdes0 = 0;
--		rxdes->rxdes3 = cpu_to_le32(priv->rx_scratch_dma);
-+		if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT) {
-+			u32 hi = upper_32_bits(priv->rx_scratch_dma);
-+
-+			rxdes->rxdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_RXDES2_RXBUF_BADR_HI, hi));
-+		}
-+		rxdes->rxdes3 = cpu_to_le32(lower_32_bits(priv->rx_scratch_dma));
- 	}
- 	/* Mark the end of the ring */
- 	rxdes->rxdes0 |= cpu_to_le32(priv->rxdes0_edorr_mask);
-@@ -2104,6 +2139,14 @@ static int ftgmac100_probe(struct platform_device *pdev)
- 		netdev->hw_features &= ~(NETIF_F_HW_CSUM | NETIF_F_RXCSUM);
- 	netdev->features |= netdev->hw_features;
- 
-+	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT) {
-+		err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(35));
-+		if (err) {
-+			dev_err(&pdev->dev, "35-bit DMA enable failed\n");
-+			goto err;
-+		}
-+	}
-+
- 	/* register network device */
- 	err = register_netdev(netdev);
- 	if (err) {
-@@ -2156,7 +2199,8 @@ static const struct ftgmac100_match_data ftgmac100_match_data_ast2600 = {
- 
- static const struct ftgmac100_match_data ftgmac100_match_data_ast2700 = {
- 	.mac_id = FTGMAC100_AST2700,
--	.quirks = FTGMAC100_QUIRK_RMII_ENABLE,
-+	.quirks = FTGMAC100_QUIRK_RMII_ENABLE |
-+		  FTGMAC100_QUIRK_DMA_35BIT,
- };
- 
- static const struct ftgmac100_match_data ftgmac100_match_data_faraday = {
-diff --git a/drivers/net/ethernet/faraday/ftgmac100.h b/drivers/net/ethernet/faraday/ftgmac100.h
-index 8c35c895b146..0c244b1c0a35 100644
---- a/drivers/net/ethernet/faraday/ftgmac100.h
-+++ b/drivers/net/ethernet/faraday/ftgmac100.h
-@@ -57,6 +57,9 @@
- #define FTGMAC100_OFFSET_RX_RUNT	0xc0
- #define FTGMAC100_OFFSET_RX_CRCER_FTL	0xc4
- #define FTGMAC100_OFFSET_RX_COL_LOST	0xc8
-+/* reserved 0xcc - 0x178 */
-+#define FTGMAC100_OFFSET_TXR_BADDR_HIGH	0x17c
-+#define FTGMAC100_OFFSET_RXR_BADDR_HIGH	0x18c
- 
- /*
-  * Interrupt status register & interrupt enable register
-@@ -226,6 +229,7 @@ struct ftgmac100_txdes {
- #define FTGMAC100_TXDES1_TX2FIC		(1 << 30)
- #define FTGMAC100_TXDES1_TXIC		(1 << 31)
- 
-+#define FTGMAC100_TXDES2_TXBUF_BADR_HI	GENMASK(18, 16)
- /*
-  * Receive descriptor, aligned to 16 bytes
-  */
-@@ -272,4 +276,6 @@ struct ftgmac100_rxdes {
- #define FTGMAC100_RXDES1_UDP_CHKSUM_ERR	(1 << 26)
- #define FTGMAC100_RXDES1_IP_CHKSUM_ERR	(1 << 27)
- 
-+#define FTGMAC100_RXDES2_RXBUF_BADR_HI	GENMASK(18, 16)
-+
- #endif /* __FTGMAC100_H */
+Cheers,
+-Paul
 
--- 
-2.34.1
-
+> ---
+>=20
+> Notes:
+> =C2=A0=C2=A0=C2=A0 Changes V4:
+> =C2=A0=C2=A0=C2=A0 - Fix Fixes: and stable Cc trailers.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (suggested by Paul Cercueil and Sashiko-Bo=
+t)
+> =C2=A0=C2=A0=C2=A0 - Merge the common shadow-register paths and simplify =
+EDG handling.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (suggested by Paul Cercueil)
+> =C2=A0=C2=A0=C2=A0 - Retested hardware dual-edge interrupts on X1600/X200=
+0 after the
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 shadow-register refactoring. Verified both=
+ button transitions
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 with evtest and confirmed via devmem2 that=
+ PAT1, PAT0 and EDG
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 remain unchanged across GPIO input transit=
+ions.
+>=20
+> =C2=A0drivers/pinctrl/pinctrl-ingenic.c | 17 ++++++++---------
+> =C2=A01 file changed, 8 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-
+> ingenic.c
+> index 88c5edeaaddcc..7f65f3abf05f5 100644
+> --- a/drivers/pinctrl/pinctrl-ingenic.c
+> +++ b/drivers/pinctrl/pinctrl-ingenic.c
+> @@ -3601,7 +3601,8 @@ static void irq_set_type(struct ingenic_gpio_chip *=
+jzgc,
+> =C2=A0
+> =C2=A0	switch (type) {
+> =C2=A0	case IRQ_TYPE_EDGE_BOTH:
+> -		val1 =3D val2 =3D false;
+> +		val1 =3D false;
+> +		val2 =3D is_soc_or_above(jzgc->jzpc, ID_X1600);
+> =C2=A0		val3 =3D true;
+> =C2=A0		break;
+> =C2=A0	case IRQ_TYPE_EDGE_RISING:
+> @@ -3635,15 +3636,13 @@ static void irq_set_type(struct ingenic_gpio_chip
+> *jzgc,
+> =C2=A0		return;
+> =C2=A0	}
+> =C2=A0
+> -	if (is_soc_or_above(jzgc->jzpc, ID_X2000)) {
+> -		ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
+> -		ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
+> -		ingenic_gpio_shadow_set_bit_load(jzgc);
+> -		ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset, val3);
+> -	} else if (is_soc_or_above(jzgc->jzpc, ID_X1000)) {
+> +	if (is_soc_or_above(jzgc->jzpc, ID_X1000)) {
+> =C2=A0		ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
+> =C2=A0		ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
+> =C2=A0		ingenic_gpio_shadow_set_bit_load(jzgc);
+> +
+> +		if (is_soc_or_above(jzgc->jzpc, ID_X1600))
+> +			ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset,
+> val3);
+> =C2=A0	} else {
+> =C2=A0		ingenic_gpio_set_bit(jzgc, reg2, offset, val1);
+> =C2=A0		ingenic_gpio_set_bit(jzgc, reg1, offset, val2);
+> @@ -3718,7 +3717,7 @@ static void ingenic_gpio_irq_ack(struct irq_data *i=
+rqd)
+> =C2=A0	bool high;
+> =C2=A0
+> =C2=A0	if ((irqd_get_trigger_type(irqd) =3D=3D IRQ_TYPE_EDGE_BOTH) &&
+> -	=C2=A0=C2=A0=C2=A0 !is_soc_or_above(jzgc->jzpc, ID_X2000)) {
+> +	=C2=A0=C2=A0=C2=A0 !is_soc_or_above(jzgc->jzpc, ID_X1600)) {
+> =C2=A0		/*
+> =C2=A0		 * Switch to an interrupt for the opposite edge to the one
+> that
+> =C2=A0		 * triggered the interrupt being ACKed.
+> @@ -3758,7 +3757,7 @@ static int ingenic_gpio_irq_set_type(struct irq_dat=
+a
+> *irqd, unsigned int type)
+> =C2=A0		irq_set_handler_locked(irqd, handle_bad_irq);
+> =C2=A0	}
+> =C2=A0
+> -	if ((type =3D=3D IRQ_TYPE_EDGE_BOTH) && !is_soc_or_above(jzgc->jzpc,
+> ID_X2000)) {
+> +	if (type =3D=3D IRQ_TYPE_EDGE_BOTH && !is_soc_or_above(jzgc->jzpc,
+> ID_X1600)) {
+> =C2=A0		/*
+> =C2=A0		 * The hardware does not support interrupts on both edges.
+> The
+> =C2=A0		 * best we can do is to set up a single-edge interrupt and
+> then
