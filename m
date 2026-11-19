@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795093413;
-	b=unG8rf6J1xK+lm6IC4D3gHBq9VRVNVfTgkP1o1LB7NGXd0UbHvUAmeuIUPDGJSO4aaf+
-	 Gq/cgGt5V9SgQaN7CoGmCIanwiEg53qJXv6YdIFnLGvOUF6xL9f4k4+itXQoZIkzyzAIO
-	 nv5QXp9S3CFkGkdgFCJ6KuOi+PruyTiouzDX7xnvBjG2wOgvTS1Y5+7DrcbpDGvNZNgDr
-	 uDOvs3mbbbwfmUszmGIkGeimVDsJ2NNESBYdaIVxoNSnH4s1fizHKKGifZ1WCBajKBacg
-	 +N9CFRJRn6Gc8RN1nFnp8ETejoe0XHJTBuuyOOCYXnE00nwTNtZtkPMVSkIM2qPYF5A==
+	b=v+lijRlQ/A12JKwH3ip/Y9Y1E6w23ODCSHC8i/72svqVnjCdZARKjVNrXXvxbFU7uTDy
+	 BsM6XNBKnsBNQmxyW/eaYBThA8YssknLsa4iO8o09IQdg+c+VF0FCV3icNi/EqLZvp9z9
+	 DYPYZOWkQeIsPvMhFlYbz5CdKmIoviZS2Mvn6qYiombbNti/byDHu7S1ftxymb1FeB+0h
+	 P2e67na5c/aaFNHTOJYSr/jHRvIMtKw40oID1MX2KZRC/CJ50b6EKEM5xChtGCDKO6mwn
+	 zJx20296ONcHFthi50rAAuiwK1pLal24mCPTU9v61jIBzaIE6tfSm8XgswHHlZdvuFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795093413;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=tbZYxCCGsyWc9FRNf4U1/QeBt8GFl9NvyT2yONDLHOA=;
-	b=eyLHEEm0pTFIpBn+kq9Hpw4o01FjAxNDrhxczfxi0jwH5Pl5U3p/I+ymNryAyrwRJ7b/
-	 pFFbgyFPaLD3HNl0ScSNILZckee+PVGh/MD6utQR7SgGhD6jWWOIgRrl0IvuiqXWrzJkd
-	 PlnukLYtifkuImHSxUzaMW4ubu3QFxoAtx2dUBuUmoXy1hbcbPWFLGP6RSOwo+plyyJrN
-	 R7+At3sDEwMmCVZe6geNIsE0jGVRcfDdhMDzJnHxxHkFN1iTmGBmjpTqE+94iOofMfEmb
-	 vh8Is81mH/vmkdLoxJTMIxO19aFAzvdT0xmAOEpWNmCgDFXYd+3qGuaEtsMkblD0dUQ==
+	bh=CH1mqdiplRi7By8jqv7ZewYLiYQBtFjjDxN+Pmiy7s4=;
+	b=K2xju3fAPKuLtrOzxGdeh4gwO+KG/5lH7HfeMoQ9fmt8g9mBINs/CmcLvAG+E8/+yfr7
+	 i8ECBizSxsVUe/E14oO//yQSs3DNIpUntd9v6UBY6YXXInE9mjE6ausbCYaIpIkoBh9Os
+	 OvdNAzAmxdJAGK8Lnaoy/zgYEicXtVK5wSbkWa4OOYN9Zbalf0t+S+v8mv3k2/pt+mNgY
+	 Regx7+dqNde0nGafnXoNov9SeHhYOAZZuSNxuxKQBsw7blljN0YhuUCwsS2kIuQItTEe8
+	 zMIdObOis3tgqHJWdhStSjTZCUkclCJKHRhU0iukWZZxbTqwt2mYAydEwXnwccSDoDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=JYzsWIk3;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=OfHgteXa;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDE760A263F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9AE860A380C;
 	Thu, 19 Nov 2026 13:03:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DDE760A263F
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9AE860A380C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=JYzsWIk3
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=OfHgteXa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1795093403;
-	bh=9xb7x86w5UsU5/i8QNVRXuZLWokLhdAyNQZ5CcxR0Nc=;
+	bh=+5SgEWnkoWOtJ2jdLxg0AQaYLfZljKvmJAUEogbH4b0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=JYzsWIk3sLE+nobdWcryMRdhlM+o3Knye4aEqAVtJaN7oYUxF01mV9esV7QFL/dE5
-	 Q9rw4gXPrkS3/Azf10x3bpoPXa/pdUydR8jmj0gJ7K+t8o2liYaMDERt6QtQIJcnxS
-	 Fg6nmoZ7aPgQpBbhAxo/3oF2NDhe+42yvBUvq3RqeCaIezMVFrUB8A92Gi2FfiyrH+
-	 O9UCvKVJdOpXJPqfmLc2FPSrEeDX3mEA6488Gl4gyzrAHyjbeNG99hdI/dqBA0zEVm
-	 fKfXathfk0Zp6J3Icmmrw5n7J3TTjOR1rSMAlq504uk0f1jLXuRvU7R33tqgXWyycE
-	 op9Wvm/aBaasQ==
+	b=OfHgteXaGtmCA8UW8pYSFWbxJ6guQRUeEwgGHryt5sZ6imp794H3SVzDdPFeZkGBR
+	 RQgs7mN/P+u62LJpPczBoNc1zn7O+aSoUD50YMq3o0ZDHQlWt2o/KsCK+egPzMgcvc
+	 k6OEb1nTgGoQz8tM0HKTjcEDHiG1orbJBxXT6JuQCsyBbUlzXmc7u52EXo2G4OWAew
+	 mnMYGcK4yCN0Vb7OHeyXWAl61y1zogJRZCZnbefwqHGgD9D03b8s6XWHtYr0a5jmuf
+	 Y+yME2przF3R6IOGYhoKuHwgFKsjHTSm1DTppLTcEY9RPguzXp/lY9KmcBj/zXSM/6
+	 pOt+4kU/MByPQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3CD0A17E0E37;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4682017E0E41;
 	Thu, 19 Nov 2026 14:03:23 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 9C10E480041; Thu, 19 Nov 2026 14:03:22 +0100 (CET)
+	id 9DC80480047; Thu, 19 Nov 2026 14:03:22 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 19 Nov 2026 14:01:58 +0100
-Subject: [PATCH v4 08/11] PM / devfreq: rockchip-dfi: make RK3588 use its
- clocks
+Date: Thu, 19 Nov 2026 14:01:59 +0100
+Subject: [PATCH v4 09/11] PM / devfreq: rockchip-dfi: move register offsets
+ to variant struct
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,7 +68,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261119-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v4-8-517a68c008fe@collabora.com>
+Message-Id: <20261119-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v4-9-517a68c008fe@collabora.com>
 References: <20261119-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v4-0-517a68c008fe@collabora.com>
 In-Reply-To: <20261119-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v4-0-517a68c008fe@collabora.com>
 To: Chanwoo Choi <cw00.choi@samsung.com>, 
@@ -83,114 +83,124 @@ Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  linux-kernel@vger.kernel.org, kernel@collabora.com, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3490;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3935;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=/bXhm1qi27RkQg9MNJwsVFB2erICxwcCV3nEAGWDGPg=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr+85rNqguAGXuQ9eLy92Ytuhds/GXCez4zL
- 6U9hczE4qbT5IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq/vOaAAoJENju1/PI
- O/qakCMP/1wjllhv9LkOZR2icWLpLWReO8ez/XXEXAE1dsPmS6xyBFU/EL4ZB5I/5QJ8Z+qRPtH
- /gmc0P6vQQekzCMuj03ZLnjUHR7rtUQMHnndmzLP+Ki9nENBMYtNwYIteZpdmglzh3amFutHUL2
- +bE2WexzTaT7RTP2CZsKxa8hh+HglymimT8pDO9LTc/FFV8KOcgu5c92iCgJIqWrvbOzVz4Djyg
- Fq9yeF/gEFI2SMRFhTHlsQeKMSsMjzFJEn4k19QXc4WfurAOC0r5A8tyXR5oR1xmfkyhXCuycMy
- rRo8oYSI6qo2LV7DJm5y6U87idCfGNicfoTWNx9p75rb8uKeE/2DmKA+hvUDpMlxF0XdYmM9KZn
- xEgWP5+Mefr3UmRh3vbd1hhw9fE/ZS4hUt65NKdCXYYYHObM+XvsU/KfeMsGPbx70pJkIW9uQMv
- iwz4H1huiAyiEzwM+Hv0GyoZPfDy6YuE0ipJbdhzigXjapsWNQGqNjylHcMREiXegnsRpNMVE3L
- mAJhtRs6zVi+AApYamY81zjVpjk/dlMuKgoNNL8lxPl1xYk6fZfXcdEE7CxM7XAdeQuanByiD1s
- SU2yRhJrJvZeqobH9at4/dgkPs37Y46ihs8DRYrtflM2qnuTGMEdICATjvFDzxY9A4XEoGQQNOe
- OW1QtdgvopZ3J6BaJSh8xkQ==
+ bh=+5SgEWnkoWOtJ2jdLxg0AQaYLfZljKvmJAUEogbH4b0=;
+ b=kA0DAAoB2O7X88g7+poByyZiAGr+85qiYp8matfa8pEfF8LWVaNeOzhYBgPma9R7xf6VvTup0
+ YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq/vOaAAoJENju1/PIO/qa8WYP/2DQ
+ kpo/xSLbjP3DanDGBvzC8sqwK6WPr5UXcbDEIguMnt6SDB+zx9sXmzG91vvjiLBwF8KaG7ab1CY
+ Bw+xRxUZMIzWXR7mdCO9wTRbfYi5LiPmrKR812fwmOSEsqP29OlqJDGc4JB26oNLjf+u4WXPCst
+ BmpUZqy47dW7BzxOwD9QJb7Y8l86fOfgWTHD//wPohpkqbsNa/I9hqo12HHFwVJMUdJByhTWzE1
+ ziuDn984gDuySGKIidhHRZbWqmHZwt2Nn6ivOiv65vKWY280Rd256vrhAENV9yU6klsUljZDoAk
+ dpI9S4s/eL+nxbWhEn+8T8JBRFc4hvjXzVRjRzJrX+/x7pbaUmXXJISWWcB/+P1Ll6W5UWLn2jL
+ m5M7qo0yW/BaY3IZ5LO4TWPlSU61mhhu3ZorGhEgwPAva+hLNBjfNQEtZ/2C5kUxJiyLJqWi9wU
+ wrfYkd4M38wfTpU7Gl5TaKIkoWM+mlqy4rewLhUVhoJ6dkd1ZDxxANH1cnslJyKEip2dT2XD5be
+ 9VXtX250H5u2UAwyXPYnFm4qCJgo3XWjA/sayixDVDlat0ujsnL4CLsosQWSIWYIofnAJZNhl48
+ rKLW93yLWIKiDT8rkRewzuqg03Dy7F313ABbjJh7NTr1LPzBFvabW2kiSiKR5pI8otr3sA45LO5
+ 4b4dt
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+DDRMON in version 0x40 (found in RK3576) has two control registers,
+which moves the register addresses. Move the register offsets from the
+defines to the varaint struct to ease supporting the newer version.
 
-So far, RK3588 doesn't have the pclks for DDRMON used in the driver, as
-they weren't modelled before.
-
-However, they are now correctly modelled, so the driver should use them
-when possible.
-
-Instead of unconditionally getting them for this SoC, add a new variant
-member that specifies whether the driver should let missing clocks
-slide. This is needed because we want old device trees to keep
-functioning, as otherwise we'd be introducing a breaking change for
-literally no functional difference here.
-
-Fill out a clock name list for this variant as well, and hand it to it.
-
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Acked-by: Chanwoo Choi <cw00.choi@samsung.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/devfreq/event/rockchip-dfi.c | 29 +++++++++++++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
+ drivers/devfreq/event/rockchip-dfi.c | 34 ++++++++++++++++++++++++----------
+ 1 file changed, 24 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/devfreq/event/rockchip-dfi.c b/drivers/devfreq/event/rockchip-dfi.c
-index 2b9d9b26b11a..c51d7eeec394 100644
+index c51d7eeec394..a8329af90709 100644
 --- a/drivers/devfreq/event/rockchip-dfi.c
 +++ b/drivers/devfreq/event/rockchip-dfi.c
-@@ -117,6 +117,18 @@ struct rockchip_dfi {
- 	const struct rockchip_dfi_variant *variant;
- };
+@@ -42,12 +42,6 @@
+ #define DDRMON_CTRL_TIMER_CNT_EN	BIT(0)
+ #define DDRMON_CTRL_LP5_BANK_MODE_MASK	GENMASK(8, 7)
  
-+/**
-+ * struct rockchip_dfi_variant
-+ * @init: pointer to the variant-specific initialisation function
-+ * @stride: address offset between the DDRMON per-channel instances
-+ * @ctrl_single: whether only one DDRMON instance monitors multiple channels
-+ * @max_channels: maximum number of memory channels for this SoC
-+ * @clk_names: pointer to a constant array of constant clock name strings
-+ * @num_clks: the number of elements in the @clk_names array
-+ * @clocks_optional: whether not finding the clocks is non-fatal. Set if the
-+ *                   DT binding for this variant didn't require clocks in the
-+ *                   past, so that the driver remains compatible with old DTs.
-+ */
+-#define DDRMON_CH0_WR_NUM		0x20
+-#define DDRMON_CH0_RD_NUM		0x24
+-#define DDRMON_CH0_COUNT_NUM		0x28
+-#define DDRMON_CH0_DFI_ACCESS_NUM	0x2c
+-#define DDRMON_CH1_COUNT_NUM		0x3c
+-#define DDRMON_CH1_DFI_ACCESS_NUM	0x40
+ 
+ #define PERF_EVENT_CYCLES		0x0
+ #define PERF_EVENT_READ_BYTES		0x1
+@@ -128,6 +122,10 @@ struct rockchip_dfi {
+  * @clocks_optional: whether not finding the clocks is non-fatal. Set if the
+  *                   DT binding for this variant didn't require clocks in the
+  *                   past, so that the driver remains compatible with old DTs.
++ * @reg_write_access: register offset for writes access
++ * @reg_read_access: register offset for read access
++ * @reg_access: register offset for read/write access
++ * @reg_clock_cycles: register offset for clock cycles
+  */
  struct rockchip_dfi_variant {
  	int (*init)(struct rockchip_dfi *dfi);
- 	int stride;
-@@ -124,6 +136,7 @@ struct rockchip_dfi_variant {
- 	unsigned int max_channels;
+@@ -137,6 +135,10 @@ struct rockchip_dfi_variant {
  	const char * const *clk_names;
  	unsigned int num_clks;
-+	bool clocks_optional;
+ 	bool clocks_optional;
++	u8 reg_write_access;
++	u8 reg_read_access;
++	u8 reg_access;
++	u8 reg_clock_cycles;
  };
  
  static int rockchip_dfi_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl)
-@@ -806,6 +819,11 @@ static const char * const rk3399_clk_names[] = {
- 	"pclk_ddr_mon",
+@@ -277,13 +279,13 @@ static void rockchip_dfi_read_counters(struct rockchip_dfi *dfi, struct dmc_coun
+ 		if (!(dfi->channel_mask & BIT(i)))
+ 			continue;
+ 		res->c[i].read_access = readl_relaxed(dfi_regs +
+-				DDRMON_CH0_RD_NUM + i * dfi->variant->stride);
++				dfi->variant->reg_read_access + i * dfi->variant->stride);
+ 		res->c[i].write_access = readl_relaxed(dfi_regs +
+-				DDRMON_CH0_WR_NUM + i * dfi->variant->stride);
++				dfi->variant->reg_write_access + i * dfi->variant->stride);
+ 		res->c[i].access = readl_relaxed(dfi_regs +
+-				DDRMON_CH0_DFI_ACCESS_NUM + i * dfi->variant->stride);
++				dfi->variant->reg_access + i * dfi->variant->stride);
+ 		res->c[i].clock_cycles = readl_relaxed(dfi_regs +
+-				DDRMON_CH0_COUNT_NUM + i * dfi->variant->stride);
++				dfi->variant->reg_clock_cycles + i * dfi->variant->stride);
+ 	}
+ }
+ 
+@@ -831,6 +833,10 @@ static const struct rockchip_dfi_variant rk3399_variant = {
+ 	.max_channels = 2,
+ 	.clk_names = rk3399_clk_names,
+ 	.num_clks = ARRAY_SIZE(rk3399_clk_names),
++	.reg_write_access = 0x20,
++	.reg_read_access = 0x24,
++	.reg_clock_cycles = 0x28,
++	.reg_access = 0x2c,
  };
  
-+static const char * const rk3588_clk_names[] = {
-+	"pclk_ddr_mon_ch0", "pclk_ddr_mon_ch1", "pclk_ddr_mon_ch2",
-+	"pclk_ddr_mon_ch3",
-+};
-+
- static const struct rockchip_dfi_variant rk3399_variant = {
- 	.init = rk3399_dfi_init,
- 	.stride = 0x14,
-@@ -826,6 +844,9 @@ static const struct rockchip_dfi_variant rk3588_variant = {
- 	.init = rk3588_dfi_init,
- 	.stride = 0x4000,
- 	.max_channels = 4,
-+	.clk_names = rk3588_clk_names,
-+	.num_clks = ARRAY_SIZE(rk3588_clk_names),
-+	.clocks_optional = true,
+ static const struct rockchip_dfi_variant rk3568_variant = {
+@@ -838,6 +844,10 @@ static const struct rockchip_dfi_variant rk3568_variant = {
+ 	.stride = 0x0,
+ 	.ctrl_single = true,
+ 	.max_channels = 1,
++	.reg_write_access = 0x20,
++	.reg_read_access = 0x24,
++	.reg_clock_cycles = 0x28,
++	.reg_access = 0x2c,
+ };
+ 
+ static const struct rockchip_dfi_variant rk3588_variant = {
+@@ -847,6 +857,10 @@ static const struct rockchip_dfi_variant rk3588_variant = {
+ 	.clk_names = rk3588_clk_names,
+ 	.num_clks = ARRAY_SIZE(rk3588_clk_names),
+ 	.clocks_optional = true,
++	.reg_write_access = 0x20,
++	.reg_read_access = 0x24,
++	.reg_clock_cycles = 0x28,
++	.reg_access = 0x2c,
  };
  
  static const struct of_device_id rockchip_dfi_id_match[] = {
-@@ -885,8 +906,12 @@ static int rockchip_dfi_probe(struct platform_device *pdev)
- 		for (i = 0; i < dfi->variant->num_clks; i++)
- 			dfi->clocks[i].id = dfi->variant->clk_names[i];
- 
--		ret = devm_clk_bulk_get(dev, dfi->variant->num_clks,
--					dfi->clocks);
-+		if (dfi->variant->clocks_optional)
-+			ret = devm_clk_bulk_get_optional(dev, dfi->variant->num_clks,
-+							 dfi->clocks);
-+		else
-+			ret = devm_clk_bulk_get(dev, dfi->variant->num_clks,
-+						dfi->clocks);
- 		if (ret)
- 			return dev_err_probe(dev, ret, "failed to get clocks\n");
- 	}
 
 -- 
 2.53.0
