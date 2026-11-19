@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795095738;
-	b=RvJjLTccRo3ER8Olsts+iQzCOpygmn0oveJaD48XsegEq/IN87Bcs8mx1U0LV1RKsBuE
-	 lf+/EgtB2o7nc0wlAMjjUEiSyd30zfa0ryqPOSbAaOdkKrO8yMoj69owztvVtUbIREsTi
-	 iEBaLXUN4HYNV+TullZjd9gCjGRSVZeMcwVM281SVKeORy9/jxNcciDPI28S/AtC/YqG+
-	 2kGFax/tSdGfKsCsXMF6EUy53oMcRpT+c+FurnZng44oJ2aGT7NK94KsoUMiEmIeQwdL0
-	 K7Rs/EzbEfBDj1OIACDl1+YWDH/eyVW8fzWu4sSznHW4HuCS8LM8+7vE/BEO7rDMBCA==
+	t=1795095750;
+	b=bRYWKPW8lxwSRypE8L4q5aKxqfjQft32OxuzLrdQtMaEExT1XoCDWpGmFsTmnVY5yaRo
+	 ai75XMUnK9oL2kyPtRu09xFVkhNEFyTyNnb63OLRfOPnxvZrx4pCb5StWpGR87oEZN2eJ
+	 gJiMGhD/JDid+tEMy3+LgpnjQY3rkOv68k3uGBoj1Zs2txZFJxNaqVKoskKHPiwpovG/9
+	 ynIZt7g/9TECFrUREiUrXxBP3X6O9lsDHWxFRC4BKe908Qs5q1crWLVdcvn+8lT88m1lU
+	 DIHKfuNqRRCGxuXUBGUSEvKuqzfuzpu9MkSRpzMly3X5dWrWPsxife3YBZAuVYvuTiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795095738;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Subject:
-	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=93JGExmDvLbuW+oC4tjK7kMLorNu6gupm5sqCUxSJas=;
-	b=VVzZIPsd3KZUDdzbib2wwc0xPiMl7HFR8StoipI63bWes3ib7bPHGtYOsM50ROdCqAE9
-	 HPENhwH4Be3bLzrGmePRvkFKmHatYoLk9NZ7FJ3LTxeIOxFkCBRZaG1OemfqZWYH3TqFb
-	 H4cQ9jD7vgmNl7RAb75J1Rx5XqUUFl7E80pj9vZTKzbHqJwxDTOernLPrrfEwj64riBmc
-	 Dg2BRuI/FTlUune26mHz1yLsEuJhtRIJ2ESLQH0tIno4Y0lopdRMM+DoJICow87zDxUmX
-	 ydopnseo/vszBCXYK4/pMg44qIGK3JjNDJZBX3ETuF+wdoqxp6YBSdbwYFmUlPJLdrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795095750;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JNRjmvatIytyZx5eeAPe6e2dTWDCPb6wN/GsQvJbRCo=;
+	b=1TpyMOhW3o52Jrq+MefbfqfZuibgySEHp7l+McT2sbWYhgJfKJez6Qo6XRGgIYN5NeWd
+	 iDSM6GxPomFaVH7MpJd98+ErlU7xnedw9ip6nIM4i/SG9aZtWWsGNCdTjBlSH8IsoEosp
+	 KVp4VcAg7rPT1PaBgJy0eOWCfqE2/xDZGkZIgKbyXSfcvrtx/gu9at0TdVww9ib97z2+n
+	 ivkOK4G4a2SVV8kK1J3Fd7ZbYS1fTqVscF7qEifjvpBqK0INBD9kI+Y4JoPsmGoVOuotZ
+	 MvW5uvdC317nIVia1E8rtFpS1w3pikC4uIESaxrYYmaYhtzqSVLFQLKSX42QBj6sdTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=gDtSumDQ;
-	arc=none smtp.remote-ip=54.206.34.216
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TR4vM2Ah;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B28060A262B;
-	Thu, 19 Nov 2026 13:42:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B28060A262B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9170E60A2629;
+	Thu, 19 Nov 2026 13:42:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=gDtSumDQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1795095717;
-	bh=93JGExmDvLbuW+oC4tjK7kMLorNu6gupm5sqCUxSJas=;
-	h=From:Subject:Date:Message-Id:MIME-Version:To;
-	b=gDtSumDQ8hu+B9WIeBWbQxzuQv7PXIRF8UUKXtHU6TB6B86UXq6RlT8TYdIZtoklF
-	 qEZae5DI17xmFK517BGJOQAm8kbUPsyjJRouY5NWP8SIHAnxvubfE24UQt830Xz2iu
-	 ZnhS7Ml4kSg5Rot4UyBAobwBIe3llD9o8JAFqtMI=
-X-QQ-mid: zesmtpgz7t1795095712tffd6494b
-X-QQ-Originating-IP: dLUPNlyNIbcztw6i3WSgaEvFS/vMwOSwntm0pZqPxsU=
-Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 19 Nov 2026 21:41:50 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17830256423621997771
-EX-QQ-RecipientCnt: 16
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Subject: [PATCH v6 0/5] Add SpacemiT K1 USB2.0 controllers support
-Date: Thu, 19 Nov 2026 21:41:49 +0800
-Message-Id: <20261119-b4-spacemit-k1-usb2-v6-0-4a9add848728@linux.spacemit.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TR4vM2Ah
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A98571F000C7;
+	Thu, 19 Nov 2026 13:42:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795095750;
+	bh=JNRjmvatIytyZx5eeAPe6e2dTWDCPb6wN/GsQvJbRCo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TR4vM2Ah76bWIM3RBsjqn6+l6nJ7Ld5yGU+drZxatLmMholRuWQziHoyZ6fxCWyE9
+	 vlg/EPUDAJAml67YcUzBYVOl93STL5Fu6LCOFhlY7AoR64egmswELnMN+vjWAnR/ng
+	 QmieGIvNnmWPxaseOz7hJZCMAfJrGUC4ONBHR6obi5HHlR9dYMTF5VqZyJqWS5UWyC
+	 vzgROzm2IJ4eDxxXUbd2bAnlGGDE/J9q7RsfALpBhm55MxHUrVihvGO3/C//uHnnjj
+	 lc3kFsmVNwRJzVo3fnv8Zwi+Z76CH0khgBAt7on4xLO8tSNTBib+N3mFpX4LEWy3Vr
+	 pG0GSSum9qCLw==
+Date: Thu, 19 Nov 2026 14:42:27 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Fil Dunsky <filipp.dunsky@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 0/2] gpio: Add Cortina Systems CS75xx GPIO driver
+Message-ID: <p3qjb3oncivinobxa5wvwwkql3xmjfujdwmxigyxczk5ya23ua@xayhbwbn35af>
+References: <20261119-cs75xx-gpio-v5-0-8d14f2bb614b@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,120 +58,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJ38/moC/33OwU7DMAwG4FeZciaT4yRtzIn3QBzSxGERrJ2ar
- Rqa+u6kk2AcWo6/ZX/+b6LwmLmI591NjDzlkoe+huZpJ8LB9+8sc6xZIGADTqHsjCwnH/iYz/J
- DyUvpUFLrYwrodLRO1MvTyClf7+rrW82HXM7D+HV/Mqll+r83KQkyoQsJiS1i9/KZ+8t1/7O4D
- 8NRLPCED4zArWO4YNBqgyl5sGoT038wbNcxXbHALZB11ICmTcz8YgqA1jFTMYzk2Go0kfwmZh+
- YUhvNbMUsBu2QQvDNerN5nr8Bt1ZucPMBAAA=
-X-Change-ID: 20260812-b4-spacemit-k1-usb2-97adfc283d58
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Peter Chen <peter.chen@kernel.org>, 
- Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, spacemit@lists.linux.dev, 
- Junzhong Pan <panjunzhong@linux.spacemit.com>, 
- Conor Dooley <conor.dooley@microchip.com>, Ze Huang <huang.ze@linux.dev>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795095710; l=3014;
- i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
- bh=TqluRmT/VQB7LfSLhpDGI5y1zKrDzvzJhnZexVT50xs=;
- b=bdUeE/ceXJs7e8o00nWPNNac+fn8nBAqapatdHquoFv7z/unRMxfetBfGUn5zNQEV2ylmXgvy
- TyMtGcpo1ROC+cAW/rdSS0DP90HgdbTlk+vM+m8Td9IiLVmDfC8lHaW
-X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
- pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: Mw4SyGTR9S7/ifJaahEXGtfygspmIv2nnf3mQVlIRRGrK6OjMG8UDB0V
-	0OBPp83u7Z+icFIMRR4Wf17Twhx5/XjsOx0t+PfzyKsTt9lE7Yob6sU9wNSFyHruH3KibNk
-	qBkv3OgKB+qphPwSdXUS2UA/9UxyE0qoecZsCyBvEbO29PM8IEyo3g+mUnQq7lFzmni0dNn
-	Oldiw6Ipsq9ZchriejBa4p9xPIbJ3vpqffmunGKICPQ+gyn2GPuk1GdHGxoK+ssSXAZPQGU
-	+zxP/9XdAK1vTm9EdufdgvRBkwtQrveiz4n39S7jWzL9ZbHgjKdelawXH6HvgOT6suzqGFz
-	4tSBAYiU3+mb+MB0tmFgMYcVCz33JxBa6p20DcOUgWzsP4d+IURuGVao6P3pdFw3I0Wh6j+
-	hBqJ01Un1RIyveSBwnVZjjc3KVgmT7caBIzASkqTRM3kZ/bpbh/aSwpEdDu8FcGot//94/z
-	ZqIHobwS2B0b4ukS+jqOk0UKfM2DGby0K0lOYUb+oVqnS4v7HGw/nFQzmYOEwcl2Rxf1fdR
-	5P8pue32BdYJV56iXhphaYyoNFZQcHpdC6N14MzpysTNiyokB/2HABtWyhgKwRoyQRTlNJ2
-	E3b7BuVuPYFpyPIpKP41DLR11Ros9XSj0evCQqZwPATnUb9ogBXWGBh0R8kcoawp8VFbhe+
-	fEPK8U0KnkeFsHxvdPRjjGm8+vCUo1v9rz3rxpYAro8hM8TnnF9rvoBupIJUPR96YPQruGL
-	k0s24URWFD6JZ3eIUkOvdQFkElxPqLRanctjEKUqpQYFNYKmPRQlWg8YivS+5gztxwnFPrj
-	w91rJvQn+QWgLM2PG/xbxzGAH3bHU1TXfnYnlNrv1+l5xn0U31KAj9+dRW0DEk3oXYHPIDs
-	dX6s/RgRFmkbA6mM/KrAQjVyRDGThL6XAZXXoyixJ1kq43LxTwDsoABZ84KsRQi8Yh/DaV9
-	Kp4ZnEwC6nrnT3LxWM6+FE1fJZ0fGnpd2Yf/95ooUGn89pVdoYWKw0caspNIaE6nRviK9zD
-	xSjCmdiOVxCXuHiScfkNzVGGL2xO+kBAeJa9j+1kY/tNQ7unUHSPNwlO6umurKVNCCFK6aC
-	+9Pszaw0wSy8kzZGYPNbeA=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261119-cs75xx-gpio-v5-0-8d14f2bb614b@gmail.com>
 
-The SpacemiT K1 SoC has two USB2.0 controllers, one has Dual-Role
-support, but the hardware has no internal OTG registers, the other is
-Host only. These controllers are compatible with Chipidea USB2 driver
-with some flags set and reset control support.
+On Thu, Nov 19, 2026 at 02:02:48PM +0300, Fil Dunsky wrote:
+> The Cortina Systems CS75xx ("Goldengate G2") SoCs have five banks of 32
+> GPIO lines, each bank with its own interrupt. This series adds the
+> binding and a driver based on gpio-mmio; level and edge triggers are
+> supported, both edges are emulated by flipping the polarity.
+> 
+> Each pin is either a GPIO line or belongs to a peripheral (NAND,
+> Ethernet, UART, I2C, ...). That choice is made in the global control
+> block, which is not part of the GPIO controller: as discussed on v1 [1],
+> the driver does not touch the pin mux and leaves it as the boot loader
+> set it up, until there is a pin controller driver for that block.
+> Testing the reset button on the Securifi Almond+ requires selecting
+> GPIO37 in the global pin mux before gpio-keys is probed; the current
+> boot path does not provide that setup. The tests used a separate,
+> board-specific setup step. The GPIO driver does not program the mux.
+> 
+> The driver used to be part of a series with the interrupt controller,
+> I2C and watchdog drivers and the device tree changes. That series is now
+> split per subsystem. The driver can be built with COMPILE_TEST without
+> the platform series [2], which is under review separately. The other
+> Kconfig option, ARCH_CORTINA_ACCESS, is defined by that series in
+> arch/arm/mach-goldengate/Kconfig; it is not in mainline yet. There is no
+> code dependency on the platform series. The device tree nodes will
+> follow with the other CS75xx dts changes once the platform is merged.
+> 
+> There is no public documentation; the register layout comes from the GPL
+> vendor kernels. Tested on a Securifi Almond+ (CS7542): the reset button
+> (GPIO 37) works as an active-low gpio-keys input, and the SX8650
+> touchscreen uses a level-triggered GPIO interrupt.
+> 
+> [1] https://lore.kernel.org/all/20261012-dreamlike-hazily-19bb60326f0a@spud/
+> [2] https://lore.kernel.org/all/20261114-b4-cs75xx-v7-0-8f17f38821b4@gmail.com/
+> 
 
-This series is based on 7.4-rc3 and has been tested on Banana Pi F3
-development board.
+The driver looks good but I cannot pick it up while it references a
+Kconfig symbol that's not upstream.
 
-The devicetree and defconfig patches for this controller were previously
-part of this series. They are now sent separately against the SoC tree,
-so this series only contains the binding and the driver.
-
-A self-powered USB device/hub is needed to test the host function of the
-dual-role controller on Banana Pi F3, a MINI-PCIe USB2.0 module (a
-cellular module e.g.) is needed to test the host only controller.
-
----
-Changes in v6:
-- split the devicetree and defconfig patches out into separate series
-- rebase on 7.4-rc3 to pick up the devm_kmalloc_obj() treewide, which avoids
-  a conflict in ci_hdrc_usb2.c
-- Link to v5: https://lore.kernel.org/r/20261117-b4-spacemit-k1-usb2-v5-0-52c3829cca69@linux.spacemit.com
-
-Changes in v5:
-- rebase on 7.4-rc1
-- drop the ci_hdrc_usb2_priv struct as sashiko suggested
-- Link to v4: https://lore.kernel.org/r/20261009-b4-spacemit-k1-usb2-v4-0-2d98e5324d9a@linux.spacemit.com
-
-Changes in v4:
-- drop irrelevant Tested-by tags collected by b4
-- collect Reviewd-by from Yixun
-- Link to v3: https://lore.kernel.org/r/20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com
-
-Changes in v3:
-- collect tags
-- merge the two dt-binding commits
-- use local variables when acquiring devm managed clock/reset
-- drop manual clk_disable_unprepare() from the remove path
-- enable related drivers as modules in defconfig
-- Link to v2: https://lore.kernel.org/r/20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com
-
-Changes in v2:
-- rebase on 7.3-rc1 and collect tags
-- reorder the usbphy and usb nodes in k1-bananapi-f3
-- add constraint for spacemit,k1-usb2 in dt-binding
-- add OrangePi RV2 device-tree change
-- use devm_clk_get_optional_enabled() for driver according to sashiko's advice
-- Link to v1: https://lore.kernel.org/r/20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com
-
-Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
-
----
-Junzhong Pan (5):
-      dt-bindings: usb: ci-hdrc-usb2: add spacemit,k1-usb2 compatible
-      usb: chipidea: usb2: use devm_clk_get_optional_enabled()
-      usb: chipidea: usb2: drop the ci_hdrc_usb2_priv wrapper struct
-      usb: chipidea: usb2: add optional reset support
-      usb: chipidea: usb2: add SpacemiT K1 support
-
- .../devicetree/bindings/usb/ci-hdrc-usb2.yaml      | 15 ++++++
- drivers/usb/chipidea/ci_hdrc_usb2.c                | 59 ++++++++++------------
- 2 files changed, 43 insertions(+), 31 deletions(-)
----
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-change-id: 20260812-b4-spacemit-k1-usb2-97adfc283d58
-
-Best regards,
--- 
-Junzhong Pan <panjunzhong@linux.spacemit.com>
-
+Bart
