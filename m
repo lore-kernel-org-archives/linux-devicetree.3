@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795090493;
-	b=pbkWbf44AFmsK31wuzKBh6iwTiw3ULAaJuFcOkH+LmEbV8uTeFtvKl/MhyAFKPFDTc9Q
-	 4DoA2Ylhaok8WVI+SaE4jgYDWHQXPDUI30p9n8ncXchjnrSyQpmPLk7AjICzBNQ4ZeW4g
-	 KEjoiiTwCSOvERM6+nDnESFD0b8inLRBfVi2eA/9t47QuwjCMK+qa0yPuCx6/J1jO1WX4
-	 G0VBODbFe12aSgOKXuH0znFtmzTIfGYgpWq7Ial1hPR/RcAX0bHKWzeu+kRtAl5UaUY3B
-	 ilz0eSUKclYcebTNGO2bEDnfPeQ9gLn5yCdhgCPB3ZMLECfyAxuPgNNSoZehJAUjUWQ==
+	t=1795090647;
+	b=hv8P0IRHDFc0dyRzybEz6joeHGAcLe77Xxsxz1XKW5pwTYpaIjoUkfWuhOTAeFAK3AZP
+	 uCvhYKQ5XnMZoM5Mkel/Cwg42PUE965X1b0+ZaUzmjxLVx6VGG9bVdlnln6aKF6OwQ3oY
+	 ZccXL32lXTS6pf/sZ8qdF9UB1NNs2esyJrg02Mw2aN4H5p6N3V4fEPRggaK8HDTgNyvNK
+	 wmPxkaP28dvWKa+bpH+BJwXTY57BOI7GmlbU6j6IhALAbdcZ45qoMUzj960OqSQmOvqO+
+	 qgKGKKsLRahgFoQrfH3YeY6FBOeZjPcS06GG0DS4gsfoYN4T8tmEOzTx/vtvFGnZ1rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795090493;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
-	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
-	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
-	 X-Report-Abuse:X-Report-Abuse-To:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795090647;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=enTEOHvfW4nekSyq09ifSasy3xLT4hReQ5Lq4FUBa4Q=;
-	b=r8ixtFsk9LCqSOBeWvgsKbPOJCol4Pp+Nwl8Akt6N2DONyaW0uZJwYGM0/KTI/X9GFDE
-	 VYtV/hB9Yn0CCwVTNpoyk9ux9IqHdaT9kdfyS4HIeoXLLNJTZddsAuKdv0ji3CCAWM10a
-	 gGZftrw/NhJQXgk8/r7buhLA9ZZIJnXaayvwPZjdpuz6pzOVlDfo7oxXVtVjJVSDJ2L1q
-	 cyT96TSTG3Y4Xj+IJOvOFrVeSaO/U9RaveB7scZvd7JpneK70n8rR4pJd1zdRoZuSbdoD
-	 Ku6lNYr2ZUv/6wnXkEreX8eIPqZQCzen4UwjQ57iQJhb7LgZQkh2VWfkTMmTGzvK5EA==
+	bh=UAJvdvXND8MFc/VoiTbz1OJtExB4AirxeFsvHI+V5hE=;
+	b=CqhNQefflGCVzWuypROAvGeZLIDuTJovjC8apdUyaHzO0onnfB9Loqp2V8urhKN9Ymwt
+	 1d4OYl1dj9sPy7vPvLsilDd9tVxbwDHDG4TAgNyXcwIMI8Ir/4LkBzRe0i/2UkoFcR6Zx
+	 W7QQwzg3X5ReJ0grtTXwpmiun9IiKPa3yldpcfMKXw1EHW/Q+M42YZGNEwiK3WZ3K3vDO
+	 h9jZ/VKabroJSWqZfCHSa116MwXp4kK6A94QFfb28AOwurmcRX2qy+F9V4EJV89+1dFok
+	 RomBRg+kSUCrze0Trhie3d4RjaLwyjsLgxXgd/783PHn7DKI9TJiOks2Ly5BDwKsM0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kwiboo.se;
-	spf=pass smtp.mailfrom=fe-bounces.kwiboo.se;
-	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=gj9rEn0+;
-	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b="N/wSa4CA";
-	arc=none smtp.remote-ip=149.28.215.223
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AwDuq+ea;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA13606A324
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 12:14:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FA13606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD515606A33A
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 12:17:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD515606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=gj9rEn0+;
-	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=N/wSa4CA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From: CFBL-Address: CFBL-Feedback-ID;
- q=dns/txt; s=fe-e1b5cab7be; t=1795090491;
- bh=enTEOHvfW4nekSyq09ifSasy3xLT4hReQ5Lq4FUBa4Q=;
- b=gj9rEn0+DYpHTyhOSuqLED9G0yNAULwoy9ekmDO9bQ+aFyM2CK5Sn1OWLq/cnChQoi0GoKWd4
- a2CuHGIEnvJEBT3tBFGwjf5+QD4T95ymcfRvKc2Dcf5vLjuDxJRtPP/CmYyOWM9a8bFbWULsmdO
- QPn63z/4lWpuIh+mzoVdn8RAk+qW9mk/u+oxn/RuTDHllPiIBfkakkfCqOq1ocKw9DynOi/X/W0
- NuNrguwmRSWZ6U4HsYdRhy8mta/40P1O2PyoWSzrM9QBZbBsImUZdk+4vJMeBb36mHHpbABZrm8
- 9QfsRJ+3hWhGscrK+clVgFpZG0EqFEvCjHeB7hMltNUg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From: CFBL-Address: CFBL-Feedback-ID;
- q=dns/txt; s=default; t=1795090491;
- bh=enTEOHvfW4nekSyq09ifSasy3xLT4hReQ5Lq4FUBa4Q=;
- b=N/wSa4CAntTw7I4qtTWyy/M0atxlnLYc/0FBHkBD4tVAnasvHjwoibfOCzttEy5TU7aGPTmt2
- to+pXdi5wzR71SxwvNd75C+zV9+a9O6CxyjW3FuFwnV5fs/XRSxZ/X6RGs6OM8bfJN3Fz07AbG0
- ogRfnYcVMx2lYpc+Om1oc3I=
-CFBL-Feedback-ID: 6afee839d37bc4966df1610c:2b3daeb54761424bc43b799f7a8619b6
-CFBL-Address: abuse@forwardemail.net; report=arf
-X-Forward-Email-ID: 6afee839d37bc4966df1610c
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.19.33
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-From: Jonas Karlman <jonas@kwiboo.se>
-To: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jonas Karlman <jonas@kwiboo.se>
-Subject: [PATCH 2/2] arm64: dts: rockchip: Add FriendlyElec NanoPi NEO3 Plus board
-Date: Thu, 19 Nov 2026 12:14:32 +0000
-Message-ID: <20261119121433.550704-3-jonas@kwiboo.se>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261119121433.550704-1-jonas@kwiboo.se>
-References: <20261119121433.550704-1-jonas@kwiboo.se>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AwDuq+ea
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a14so22161905e9.1
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 04:17:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795090645; x=1795695445; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UAJvdvXND8MFc/VoiTbz1OJtExB4AirxeFsvHI+V5hE=;
+        b=AwDuq+eatSrAnL+zS/UWVIpORebaGiFOmF3Zop+PBpDwoqJ6Kw3hoA3EBsdk2qdqga
+         Zfgmtfwgufs1LbJZxWIOo/QWFyIMI4APCo0FIMViYjOFfCGJ/IDW6q/Tz76fg4Vt1bFO
+         dpZKj4il2SG53Nd0xEABt68MRqHCwRVHco9TfA9GFMc2DIpQ9kzuJt7OwwHoB0x2HHs5
+         H3OoSYqZZm+vt78i3RChOTOqwDIvQ0fGLe8K5CMIQbKkqMsD0oof5PlTw/taEKbcYzMP
+         FOtFFQ2noKsPwexDxy4DgIb/fMbY5SQE8Zh0T6U0sUVN0iWU3kuQJb7mVTQugjMZouSD
+         bo+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795090645; x=1795695445;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UAJvdvXND8MFc/VoiTbz1OJtExB4AirxeFsvHI+V5hE=;
+        b=Ecd069cY8BT0C7BRnLdFqdOKQXUTw1m2xART4UnI7YjW7Lww9W3VdIbqN8LkI/pHcQ
+         zrgMCpYbeplp/6+pa+O4DRIP3P7psonP2DzjHhVjmao5D9xbcalkvg44VAxDD2XmQmob
+         23cCMEo90frepvtifJDUwl/LZUUrYMsWjLimdaICsG+tzm1oykXnTs+pX0Xd8uLSyaBR
+         obgSOtE3WcmRSMFi40N5+z+5IojfBQAIOzGhW+9f6H3o5jtkbJrmoXlYlCb+eJMZOj0F
+         IeBHYNJaCCq0qzZtXNwoJlP20YSNb8STF7CnIisanSvX+4qHY0FnE66/CpYaZhQJnCXC
+         EU+g==
+X-Forwarded-Encrypted: i=1; AL+hErETdVmpYYXFJ9dVCraJ9MsuNb0ki9RA7PQX8jZLH7n0/aSlITIZZnQvQ1x8oljoDaRu2L/T20wlQ9IK@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rqbnLCi96NW6uVyjcYGyvDMx3aVnnqBMgQsAy475jHLP1eIq2
+	5C6avG+qGMvi8t8KVDP7cn7vM5BgXK2RcBlqa7Nbxu5F6b1GRX8uhKUn2yTWJIXrZNw=
+X-Gm-Gg: AYBFou2Ag+Ak7rgIM5Ec/JBzb1mec17WdHOjbvIdIprKfgnPEUnZ6n1hdiQ6fOAuFbZ
+	M5xDZYB7D0J6uGuMyUfK1Ln2MB/Y2EIdTOlRl/dpEcde/2Qyn31VWLLoZhtjxYCMRAGLtODP7eX
+	/4qX5FiwFuTMuEw1YyH1ktil9/YZoQ7CHnxRF2ViWd9bazDeAqurjyh0+oquzALR+Lc2nnvOlv+
+	AjNPYWUAMRD8qTlWVOkp4bqnkbWOp111cd+tBBcUqbXW8LUXLkchEOUycEPFl1BvLp5H4bH4f8E
+	x1PAdH6axxFV98I0vrWPWQvThh5ivKofy6l92DK01wiEiZL4MYXr/I3j2Leq2lqHiuHI48Rg/tE
+	xJZLfV/3VDED+uTHuo/C/tiuTlD4cVLSVJ6dG92SmYS/Aqok9qXCzgj7IshoRCzOMKpT47nsUQs
+	sXxanMjIl4aUxFZ2YpIBVYWakBjulBDuG9yqbEo2KSuTTdD89ialtiRqlfcfR36Xmf/iPxKzejb
+	jkM8PiL66s46V4CaAcERO7JdBuhv+6HbPo8L6SPBGAdLze6X5aqWE2ixUUCmyJicWgObXyfaR1H
+	BuiA8BLS78SWnSHpJwAXvl/EPge+nkQvwp4Ym5mcxDgUqjcw/mPtEPivkLyDgg==
+X-Received: by 2002:a05:600d:6011:b0:4a2:1050:aff with SMTP id 5b1f17b1804b1-4bb7da12dd2mr112140475e9.6.1795090644975;
+        Thu, 19 Nov 2026 04:17:24 -0800 (PST)
+Received: from [192.168.0.252] ([79.115.63.210])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a65560882asm10866932f8f.27.2026.11.19.04.17.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 19 Nov 2026 04:17:24 -0800 (PST)
+Message-ID: <29209163-a01a-4862-9824-90616da73f49@linaro.org>
+Date: Thu, 19 Nov 2026 14:17:23 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,149 +92,307 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] thermal: samsung: acpm-tmu: refactor SoC-specific
+ operations into driver data
+To: Alexey Klimov <alexey.klimov@linaro.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Mateusz Majewski <m.majewski2@samsung.com>,
+ Thomas Turner <tturner@lineageos.org>,
+ Peter Griffin <peter.griffin@linaro.org>, linux-pm@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261118-acpm-tmu-e850-support-v2-0-19848c0d97e5@linaro.org>
+ <20261118-acpm-tmu-e850-support-v2-2-19848c0d97e5@linaro.org>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <20261118-acpm-tmu-e850-support-v2-2-19848c0d97e5@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The FriendlyElec NanoPi NEO3 Plus is a compact headless SBC based on the
-Rockchip RK3528A SoC. It shares most of its design with the NanoPi R28S
-and NanoPi Zero2 boards.
 
-Specification:
-- Rockchip RK3528A
-- 1GB/2GB LPDDR4/LPDDR4X RAM
-- eMMC module socket
-- MicroSD slot
-- Gigabit Ethernet with Realtek RTL8211F PHY
-- 1x USB 3.0 Type-A host port
-- 1x USB 2.0 Type-C device port
-- 26-pin FPC GPIO connector
-- 2x LEDs (SYS, LED1)
-- HYM8563TS RTC with battery connector
-- Fan and speaker connectors
-- Debug UART and buttons
-- 5V/2A power via USB-C (non-PD) or 2.54mm header
 
-Link: https://wiki.friendlyelec.com/wiki/index.php/NanoPi_NEO3_Plus
-Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
----
- arch/arm64/boot/dts/rockchip/Makefile         |  1 +
- .../dts/rockchip/rk3528-nanopi-neo3-plus.dts  | 96 +++++++++++++++++++
- 2 files changed, 97 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3528-nanopi-neo3-plus.dts
+On 11/18/26 3:51 PM, Alexey Klimov wrote:
+> The current ACPM TMU driver assumes that all TMU operations (init,
+> threshold updates, and interrupt clearing) are handled exclusively
+> via ACPM IPC commands, which is true for the GS101.
+> 
+> However, other Exynos platforms (like Exynos850) lack complete firmware
+> support for these operations and require direct MMIO register access
+> instead for missing ACPM TMU IPC calls.
+> 
+> Prepare the driver for multi-SoC support by moving the hardcoded GS101
+> IPC calls into SoC-specific callbacks: "tz_control", "tmu_init",
+> "tmu_update_thresholds" and "tmu_check_and_clear_irqs" within the
+> acpm_tmu_driver_data struct. Additionally, save the regmap pointer in
+> the private structure so that these callbacks can utilize it for other
+> SoCs.
+> 
+> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> ---
+>  drivers/thermal/samsung/acpm-tmu.c | 113 +++++++++++++++++++++++++++----------
+>  1 file changed, 82 insertions(+), 31 deletions(-)
+> 
+> diff --git a/drivers/thermal/samsung/acpm-tmu.c b/drivers/thermal/samsung/acpm-tmu.c
+> index 4799ef518a7a..0def0ec09084 100644
+> --- a/drivers/thermal/samsung/acpm-tmu.c
+> +++ b/drivers/thermal/samsung/acpm-tmu.c
+> @@ -74,6 +74,8 @@ struct acpm_tmu_sensor {
+>  };
+>  
+>  struct acpm_tmu_priv {
+> +	const struct acpm_tmu_driver_data *data;
+> +	struct regmap *regmap;
+>  	struct regmap_field *regmap_fields[REG_INTPEND_COUNT];
+>  	struct acpm_handle *handle;
+>  	struct device *dev;
+> @@ -86,9 +88,18 @@ struct acpm_tmu_priv {
+>  
+>  struct acpm_tmu_driver_data {
+>  	const struct reg_field *reg_fields;
+> +	const struct regmap_config *regmap_config;
+>  	const struct acpm_tmu_sensor_group *sensor_groups;
+>  	unsigned int num_sensor_groups;
+>  	unsigned int mbox_chan_id;
+> +
+> +	/* SoC-specific TMU routines and values */
+> +	int (*tz_control)(struct acpm_tmu_sensor *sensor, bool on);
 
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index 3df63c35b4bf..bfb1a232e414 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -96,6 +96,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399pro-rock-pi-n10.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-armsom-sige1.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-hinlink-h28k.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-mangopi-m28k.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-nanopi-neo3-plus.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-nanopi-r28s.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-nanopi-zero2.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-radxa-e20c.dtb
-diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-neo3-plus.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-neo3-plus.dts
-new file mode 100644
-index 000000000000..26f7aa4fe1ae
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-neo3-plus.dts
-@@ -0,0 +1,96 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+/dts-v1/;
-+
-+#include "rk3528-nanopi.dtsi"
-+
-+/ {
-+	model = "FriendlyElec NanoPi NEO3 Plus";
-+	compatible = "friendlyarm,nanopi-neo3-plus", "rockchip,rk3528";
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&gpio4_b2_usr_btn>;
-+
-+		button-user {
-+			debounce-interval = <50>;
-+			gpios = <&gpio4 RK_PB2 GPIO_ACTIVE_LOW>;
-+			label = "USER";
-+			linux,code = <BTN_1>;
-+			wakeup-source;
-+		};
-+	};
-+
-+	vcc0v6_ddr: regulator-0v6-vcc-ddr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc0v6_ddr";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <600000>;
-+		regulator-max-microvolt = <600000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	usb_host_5v: regulator-5v0-usb-host {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpios = <&gpio4 RK_PB5 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&usb_host_pwren>;
-+		regulator-name = "usb_host_5v";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+};
-+
-+&combphy {
-+	status = "okay";
-+};
-+
-+&led1 {
-+	default-state = "on";
-+	function = LED_FUNCTION_STATUS;
-+	linux,default-trigger = "default-on";
-+};
-+
-+&pinctrl {
-+	gpio-keys {
-+		gpio4_b2_usr_btn: gpio4-b2-usr-btn {
-+			rockchip,pins = <4 RK_PB2 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	usb {
-+		usb_host_pwren: usb-host-pwren {
-+			rockchip,pins = <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&usb_host0_ehci {
-+	status = "okay";
-+};
-+
-+&usb_host0_ohci {
-+	status = "okay";
-+};
-+
-+&usb_host0_xhci {
-+	extcon = <&usb2phy>;
-+	status = "okay";
-+};
-+
-+&usb2phy {
-+	status = "okay";
-+};
-+
-+&usb2phy_host {
-+	phy-supply = <&usb_host_5v>;
-+	status = "okay";
-+};
-+
-+&usb2phy_otg {
-+	status = "okay";
-+};
--- 
-2.56.1
+on e850 this sets CORE_EN, what this callback do is to enable or
+disable a sensor group
+
+what do you think about:
+
+int (*enable_sensor)(struct acpm_tmu_sensor *sensor, bool on);
+
+> +	int (*tmu_check_and_clear_irqs)(struct acpm_tmu_sensor *sensor,
+> +					bool *pending_irq);
+
+drop tmu prefixes, the struct is already acpm_tmu
+
+> +	int (*tmu_init)(struct acpm_tmu_priv *priv);
+> +	int (*tmu_update_thresholds)(struct acpm_tmu_sensor *sensor,
+> +				     u8 thresholds[2], u8 inten);
+>  };
+
+How about doing the following:
+
+struct acpm_tmu_soc_ops {
+	int (*init)(...);
+	int (*enable_sensor)(...);
+	int (*set_thresholds)(...);
+        bool (*clear_pending_irq)(...);
+};
+
+struct acpm_tmu_driver_data {
+	...
+	const struct acpm_tmu_soc_ops *ops;
+};
+
+static const struct acpm_tmu_soc_ops gs101_tmu_ops = {
+	.init			= gs101_init,
+	.enable_sensor		= gs101_enable_sensor,
+	.set_thresholds		= gs101_set_thresholds,
+	.clear_pending_irq	= gs101_clear_pending_irq,
+};
+
+>  
+>  #define ACPM_TMU_SENSOR_GROUP(_mask, _id)		\
+> @@ -131,24 +142,32 @@ static const struct regmap_config gs101_regmap_config = {
+>  	.max_register = GS101_REG_INTPEND(15),
+>  };
+>  
+> -static const struct acpm_tmu_driver_data acpm_tmu_gs101 = {
+> -	.reg_fields = gs101_reg_fields,
+> -	.sensor_groups = gs101_sensor_groups,
+> -	.num_sensor_groups = ARRAY_SIZE(gs101_sensor_groups),
+> -	.mbox_chan_id = 9,
+> -};
+> +static int gs101_tz_control(struct acpm_tmu_sensor *sensor, bool on)
+> +{
+> +	struct acpm_tmu_priv *priv = sensor->priv;
+> +	struct acpm_handle *handle = priv->handle;
+> +
+> +	return handle->ops->tmu.tz_control(handle, priv->mbox_chan_id,
+> +					   sensor->group->id, on);
+> +}
+> +
+> +static int gs101_tmu_init(struct acpm_tmu_priv *priv)
+> +{
+> +	struct acpm_handle *handle = priv->handle;
+> +
+> +	return handle->ops->tmu.init(handle, priv->mbox_chan_id);
+> +}
+>  
+>  static int acpm_tmu_op_tz_control(struct acpm_tmu_sensor *sensor, bool on)
+>  {
+>  	struct acpm_tmu_priv *priv = sensor->priv;
+> -	struct acpm_handle *handle = priv->handle;
+> -	const struct acpm_tmu_ops *ops = &handle->ops->tmu;
+>  	int ret;
+>  
+> -	ret = ops->tz_control(handle, priv->mbox_chan_id, sensor->group->id,
+> -			      on);
+> -	if (ret)
+> -		return ret;
+> +	if (priv->data->tz_control) {
+> +		ret = priv->data->tz_control(sensor, on);
+> +		if (ret)
+> +			return ret;
+> +	}
+>  
+
+Both SoCs implement all the callbacks, and tmu_check_and_clear_irqs()
+is already called unconditionally. Please make all of them mandatory
+and drop the NULL checks. As it is, a missing tz_control() would still
+flip sensor->enabled.
+
+>  	WRITE_ONCE(sensor->enabled, on);
+>  
+> @@ -227,8 +246,8 @@ static int acpm_tmu_get_temp(struct thermal_zone_device *tz, int *temp)
+>  	return 0;
+>  }
+>  
+> -static int acpm_tmu_update_thresholds(struct acpm_tmu_sensor *sensor,
+> -				      u8 thresholds[2], u8 inten)
+> +static int gs101_tmu_update_thresholds(struct acpm_tmu_sensor *sensor,
+> +				       u8 thresholds[2], u8 inten)
+
+This moves the SoC-independent part (sensor->lock, disabling the sensor
+and restoring its state) into the GS101 callback, and patch 3 then
+duplicates it for Exynos850. Please keep that part in the core and have
+the SoC callback only program the thresholds.
+
+>  {
+>  	struct acpm_tmu_priv *priv = sensor->priv;
+>  	struct acpm_handle *handle = priv->handle;
+> @@ -292,7 +311,8 @@ static int acpm_tmu_set_trips(struct thermal_zone_device *tz, int low, int high)
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = acpm_tmu_update_thresholds(sensor, thresholds, inten);
+> +	if (priv->data->tmu_update_thresholds)
+> +		ret = priv->data->tmu_update_thresholds(sensor, thresholds, inten);
+>  
+>  	pm_runtime_put_autosuspend(dev);
+>  
+> @@ -331,12 +351,12 @@ static const struct thermal_zone_device_ops acpm_tmu_sensor_ops = {
+>  	.set_trips = acpm_tmu_set_trips,
+>  };
+>  
+> -static bool acpm_tmu_clear_pending_irq(struct acpm_tmu_sensor *sensor)
+> +static int gs101_handle_irqs(struct acpm_tmu_sensor *sensor, bool *pending_irq)
+
+why not keeping the bool, the ret code is not used anyway.
+
+>  {
+>  	struct acpm_tmu_priv *priv = sensor->priv;
+>  	const struct acpm_tmu_ops *ops = &priv->handle->ops->tmu;
+>  	unsigned long mask = sensor->group->mask;
+> -	bool pending_irq = false;
+> +	bool pending = false;
+>  	int i, ret;
+>  	u32 val;
+>  
+> @@ -345,16 +365,16 @@ static bool acpm_tmu_clear_pending_irq(struct acpm_tmu_sensor *sensor)
+>  	for_each_set_bit(i, &mask, EXYNOS_TMU_SENSORS_MAX_COUNT) {
+>  		ret = regmap_field_read(priv->regmap_fields[i], &val);
+>  		if (ret)
+> -			return false;
+> +			return ret;
+>  
+>  		if (val) {
+> -			pending_irq = true;
+> +			pending = true;
+>  			break;
+>  		}
+>  	}
+>  
+> -	if (!pending_irq)
+> -		return false;
+> +	if (!pending)
+> +		return 0;
+>  
+>  	ret = ops->clear_tz_irq(priv->handle, priv->mbox_chan_id,
+>  				sensor->group->id);
+> @@ -362,10 +382,12 @@ static bool acpm_tmu_clear_pending_irq(struct acpm_tmu_sensor *sensor)
+>  		dev_err_ratelimited(priv->dev,
+>  				    "Sensor %u: failed to clear IRQ (%d)\n",
+>  				    sensor->group->id, ret);
+> -		return false;
+> +		return ret;
+>  	}
+>  
+> -	return true;
+> +	*pending_irq = true;
+> +
+> +	return ret;
+>  }
+>  
+>  static irqreturn_t acpm_tmu_thread_fn(int irq, void *id)
+> @@ -383,8 +405,13 @@ static irqreturn_t acpm_tmu_thread_fn(int irq, void *id)
+>  
+>  	for (i = 0; i < priv->num_sensors; i++) {
+>  		struct acpm_tmu_sensor *sensor = &priv->sensors[i];
+> +		bool pending_irq = false;
+>  
+> -		if (!sensor->tzd || !acpm_tmu_clear_pending_irq(sensor))
+> +		if (!sensor->tzd)
+> +			continue;
+> +
+> +		ret = priv->data->tmu_check_and_clear_irqs(sensor, &pending_irq);
+> +		if (ret || !pending_irq)
+>  			continue;
+>  
+>  		handled = true;
+> @@ -398,15 +425,30 @@ static irqreturn_t acpm_tmu_thread_fn(int irq, void *id)
+>  	return handled ? IRQ_HANDLED : IRQ_NONE;
+>  }
+>  
+> +static const struct acpm_tmu_driver_data acpm_tmu_gs101 = {
+> +	.reg_fields = gs101_reg_fields,
+> +	.regmap_config = &gs101_regmap_config,
+> +	.sensor_groups = gs101_sensor_groups,
+> +	.num_sensor_groups = ARRAY_SIZE(gs101_sensor_groups),
+> +	.mbox_chan_id = 9,
+> +	.tz_control = gs101_tz_control,
+> +	.tmu_check_and_clear_irqs = gs101_handle_irqs,
+> +	.tmu_init = gs101_tmu_init,
+> +	.tmu_update_thresholds = gs101_tmu_update_thresholds,
+> +};
+> +
+>  static const struct of_device_id acpm_tmu_match[] = {
+> -	{ .compatible = "google,gs101-tmu-top" },
+> +	{
+> +		.compatible = "google,gs101-tmu-top",
+> +		.data = &acpm_tmu_gs101
+> +	},
+>  	{ /* sentinel */ },
+>  };
+>  MODULE_DEVICE_TABLE(of, acpm_tmu_match);
+>  
+>  static int acpm_tmu_probe(struct platform_device *pdev)
+>  {
+> -	const struct acpm_tmu_driver_data *data = &acpm_tmu_gs101;
+> +	const struct acpm_tmu_driver_data *data;
+>  	struct acpm_handle *acpm_handle;
+>  	struct device *dev = &pdev->dev;
+>  	struct acpm_tmu_priv *priv;
+> @@ -414,6 +456,10 @@ static int acpm_tmu_probe(struct platform_device *pdev)
+>  	void __iomem *base;
+>  	int i, ret;
+>  
+> +	data = of_device_get_match_data(dev);
+> +	if (!data)
+> +		return dev_err_probe(dev, -ENODEV, "No matching driver data found\n");
+
+plain return -ENODEV would do too, dev_err_probe brings nothing here.
+
+Cheers,
+ta
 
